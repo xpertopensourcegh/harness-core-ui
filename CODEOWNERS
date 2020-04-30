@@ -1,0 +1,8 @@
+.github/ @wings-software/ui-platform
+.eslintrc @wings-software/ui-platform
+.prettierignore @wings-software/ui-platform
+.prettierrc.yml @wings-software/ui-platform
+package.json @wings-software/ui-platform
+tsconfig.json @wings-software/ui-platform
+tsconfig-eslint.json @wings-software/ui-platform
+webpack.config.js @wings-software/ui-platform
