@@ -8,25 +8,25 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
-const PROD = process.env.NODE_ENV === 'production';
+const DEV = process.env.NODE_ENV === 'development';
 const CONTEXT = process.cwd();
 
-console.log({ PROD, CONTEXT });
+console.log({ DEV, CONTEXT });
 
 const config = {
   context: CONTEXT,
   entry: './src/client.tsx',
   target: 'web',
-  mode: PROD ? 'production' : 'development',
+  mode: DEV ? 'development' : 'production',
   stats: {
     children: false
   },
   devServer: {
     contentBase: false,
-    port: 8082,
+    port: 8081,
     https: {
-      key: fs.readFileSync(path.resolve(__dirname, './certificates/localhost.key')),
-      cert: fs.readFileSync(path.resolve(__dirname, './certificates/localhost.crt'))
+      key: fs.readFileSync(path.resolve(__dirname, './certificates/localhost-key.pem')),
+      cert: fs.readFileSync(path.resolve(__dirname, './certificates/localhost.pem'))
     }
   },
   output: {
@@ -69,7 +69,7 @@ const config = {
               importLoaders: 1,
               modules: {
                 mode: 'local',
-                localIdentName: PROD ? '[hash:base64:6]' : '[name]_[local]_[hash:base64:6]'
+                localIdentName: DEV ? '[name]_[local]_[hash:base64:6]' : '[hash:base64:6]'
               },
               localsConvention: 'camelCaseOnly'
             }
@@ -136,7 +136,7 @@ const config = {
       }
     ]
   },
-  devtool: PROD ? 'none' : 'cheap-module-source-map',
+  devtool: DEV ? 'cheap-module-source-map' : 'none',
   resolve: {
     extensions: ['.mjs', '.js', '.ts', '.tsx'],
     plugins: [new TsconfigPathsPlugin()]
@@ -164,9 +164,7 @@ const config = {
   ]
 };
 
-if (PROD) {
-  config.plugins.concat([]);
-} else {
+if (DEV) {
   config.plugins.concat([new ForkTsCheckerWebpackPlugin({ tsconfig: 'tsconfig.json' })]);
 }
 

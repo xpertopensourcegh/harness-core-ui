@@ -17,7 +17,7 @@
   "scripts": {
     "clean": "rm -rf dist",
     "start": "webpack-dev-server",
-    "dev": "yarn clean && webpack --mode=development",
+    "dev": "NODE_ENV=development yarn clean && webpack --watch",
     "fmtc": "prettier --check 'src/**/*.{ts,tsx,scss}'"
   },
   "dependencies": {

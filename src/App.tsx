@@ -30,6 +30,12 @@ const App: React.FC = () => {
       <PrivateRoute path="/pipeline-studio">
         <PipelineStudio />
       </PrivateRoute>
+      <Route path="/login">
+        <div>
+          Oops. It seems you are not logged in. <br />
+          Login is not implemented in v2. You need to visit <a href="/#/login">v1 Login</a>.
+        </div>
+      </Route>
       <Route path="*">
         <div>404 Page Not Found</div>
       </Route>
