@@ -2,6 +2,7 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import PrivateRoute from 'modules/common/PrivateRoute';
+import RedirectRoute from 'modules/common/RedirectRoute';
 
 import CDRoutes from 'modules/cd/routes';
 import Dashboard from 'modules/common/pages/Dashboard/Dashboard';
@@ -9,7 +10,9 @@ import Dashboard from 'modules/common/pages/Dashboard/Dashboard';
 const App: React.FC = () => {
   return (
     <Switch>
-      <PrivateRoute exact path="/">
+      <PrivateRoute exact path="/" component={RedirectRoute} />
+
+      <PrivateRoute path="/account/:accountId/dashboard">
         <Dashboard />
       </PrivateRoute>
 

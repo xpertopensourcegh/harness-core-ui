@@ -1,11 +1,13 @@
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 import { getUsers } from 'modules/common/services/UserService';
 
-export default function Dashboard() {
+const Dashboard: React.FC = () => {
+  const { accountId } = useParams();
+
   useEffect(() => {
-    getUsers({ accountId: 'kmpySmUISimoRrJL6NL73w' });
+    getUsers({ accountId });
   }, []);
 
   return (
@@ -14,4 +16,6 @@ export default function Dashboard() {
       <Link to="/pipeline-studio">Pipeline Studio</Link>
     </div>
   );
-}
+};
+
+export default Dashboard;
