@@ -1,179 +1,173 @@
 /* eslint-disable @typescript-eslint/no-var-requires, no-console  */
-const path = require("path");
-const fs = require("fs");
+const path = require('path');
+const fs = require('fs');
 
-const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
-const TsconfigPathsPlugin = require("tsconfig-paths-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const HTMLWebpackPlugin = require("html-webpack-plugin");
-const CopyWebpackPlugin = require("copy-webpack-plugin");
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const HTMLWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
-const PROD = process.env.NODE_ENV === "production";
+const PROD = process.env.NODE_ENV === 'production';
 const CONTEXT = process.cwd();
+
+console.log({ PROD, CONTEXT });
 
 const config = {
   context: CONTEXT,
-  entry: "./src/client.tsx",
-  target: "web",
-  mode: PROD ? "production" : "development",
+  entry: './src/client.tsx',
+  target: 'web',
+  mode: PROD ? 'production' : 'development',
   stats: {
-    children: false,
+    children: false
   },
   devServer: {
     contentBase: false,
-    port: 8081,
-    historyApiFallback: true,
+    port: 8082,
     https: {
-      key: fs.readFileSync(
-        path.resolve(__dirname, "./certificates/localhost.key")
-      ),
-      cert: fs.readFileSync(
-        path.resolve(__dirname, "./certificates/localhost.crt")
-      ),
-    },
+      key: fs.readFileSync(path.resolve(__dirname, './certificates/localhost.key')),
+      cert: fs.readFileSync(path.resolve(__dirname, './certificates/localhost.crt'))
+    }
   },
   output: {
-    filename: "static/[name].js",
-    chunkFilename: "static/[name].[id].js",
-    path: path.join(CONTEXT, "dist"),
-    publicPath: "/",
+    filename: 'assets/[name].js',
+    chunkFilename: 'assets/[name].[id].js',
+    path: path.resolve(__dirname, 'dist')
   },
   module: {
     rules: [
       {
         test: /\.mjs$/,
         include: /node_modules/,
-        type: "javascript/auto",
+        type: 'javascript/auto'
       },
       {
         test: /\.(j|t)sx?$/,
         use: [
           {
-            loader: "ts-loader",
+            loader: 'ts-loader',
             options: {
-              transpileOnly: true,
-            },
-          },
+              transpileOnly: true
+            }
+          }
         ],
-        exclude: [/node_modules/],
+        exclude: [/node_modules/]
       },
       {
         test: /\.module\.scss$/,
         use: [
           MiniCssExtractPlugin.loader,
           {
-            loader: "@wings-software/css-types-loader",
+            loader: '@wings-software/css-types-loader',
             options: {
-              prettierConfig: CONTEXT,
-            },
+              prettierConfig: CONTEXT
+            }
           },
           {
-            loader: "css-loader",
+            loader: 'css-loader',
             options: {
               importLoaders: 1,
               modules: {
-                mode: "local",
-                localIdentName: PROD
-                  ? "[hash:base64:6]"
-                  : "[name]_[local]_[hash:base64:6]",
+                mode: 'local',
+                localIdentName: PROD ? '[hash:base64:6]' : '[name]_[local]_[hash:base64:6]'
               },
-              localsConvention: "camelCaseOnly",
-            },
+              localsConvention: 'camelCaseOnly'
+            }
           },
           {
-            loader: "sass-loader",
+            loader: 'sass-loader',
             options: {
               sassOptions: {
-                includePaths: [path.join(CONTEXT, "src", "styles")],
+                includePaths: [path.join(CONTEXT, 'src', 'styles')]
               },
               sourceMap: false,
-              implementation: require("sass"),
-            },
-          },
+              implementation: require('sass')
+            }
+          }
         ],
-        exclude: /node_modules/,
+        exclude: /node_modules/
       },
       {
         test: /(?<!\.module)\.scss$/,
         use: [
           MiniCssExtractPlugin.loader,
           {
-            loader: "css-loader",
+            loader: 'css-loader',
             options: {
               importLoaders: 1,
-              modules: false,
-            },
+              modules: false
+            }
           },
           {
-            loader: "sass-loader",
+            loader: 'sass-loader',
             options: {
               sassOptions: {
-                includePaths: [path.join(CONTEXT, "src", "styles")],
+                includePaths: [path.join(CONTEXT, 'src', 'styles')]
               },
-              implementation: require("sass"),
-            },
-          },
-        ],
+              implementation: require('sass')
+            }
+          }
+        ]
       },
       {
         test: /\.css$/,
         use: [
           MiniCssExtractPlugin.loader,
           {
-            loader: "css-loader",
+            loader: 'css-loader',
             options: {
               importLoaders: 1,
-              modules: false,
-            },
-          },
-        ],
+              modules: false
+            }
+          }
+        ]
       },
       {
         test: /\.(jpg|jpeg|png|svg)$/,
         use: [
           {
-            loader: "url-loader",
+            loader: 'url-loader',
             options: {
               limit: 2000,
-              fallback: "file-loader",
-            },
-          },
-        ],
-      },
-    ],
+              fallback: 'file-loader'
+            }
+          }
+        ]
+      }
+    ]
   },
-  devtool: PROD ? false : "cheap-module-source-map",
+  devtool: PROD ? 'none' : 'cheap-module-source-map',
   resolve: {
-    extensions: [".mjs", ".js", ".ts", ".tsx"],
-    plugins: [new TsconfigPathsPlugin()],
+    extensions: ['.mjs', '.js', '.ts', '.tsx'],
+    plugins: [new TsconfigPathsPlugin()]
   },
   optimization: {
     splitChunks: {
-      chunks: "all",
-    },
+      chunks: 'all'
+    }
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: "static/styles.css",
-      chunkFilename: "static/styles.[id].css",
+      filename: 'assets/styles.css',
+      chunkFilename: 'assets/styles.[id].css'
     }),
     new HTMLWebpackPlugin({
-      template: "src/static/index.html",
-      filename: "index.html",
-      showErrors: false,
+      template: 'src/static/index.html',
+      filename: 'index.html',
+      showErrors: false
     }),
     new CopyWebpackPlugin([
       {
-        from: "src/static",
-      },
-    ]),
-  ],
+        from: 'src/static'
+      }
+    ])
+  ]
 };
 
 if (PROD) {
   config.plugins.concat([]);
 } else {
-  config.plugins.concat([new ForkTsCheckerWebpackPlugin()]);
+  config.plugins.concat([new ForkTsCheckerWebpackPlugin({ tsconfig: 'tsconfig.json' })]);
 }
 
 module.exports = config;

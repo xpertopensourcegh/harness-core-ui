@@ -21,9 +21,11 @@
     "fmtc": "prettier --check 'src/**/*.{ts,tsx,scss}'"
   },
   "dependencies": {
+    "@wings-software/xhr-async": "^2.0.7",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-router-dom": "^5.1.2"
+    "react-router-dom": "^5.1.2",
+    "secure-web-storage": "^1.0.2"
   },
   "devDependencies": {
     "@testing-library/react": "^10.0.3",
@@ -52,12 +54,9 @@
     "html-webpack-plugin": "^4.2.1",
     "husky": "^4.2.5",
     "identity-obj-proxy": "^3.0.0",
-    "isomorphic-fetch": "^2.2.1",
     "jest": "^25.5.1",
     "lint-staged": "^10.2.0",
     "mini-css-extract-plugin": "^0.9.0",
-    "nock": "^12.0.3",
-    "node-fetch": "^2.6.0",
     "prettier": "^2.0.5",
     "react-test-renderer": "^16.13.1",
     "sass": "^1.26.5",
@@ -79,7 +78,7 @@
     "@types/testing-library__dom": "^7.0.0"
   },
   "engines": {
-    "node": ">=12.0.0"
+    "node": ">=13.8.0"
   },
   "lint-staged": {
     "*.{ts,tsx}": [
