@@ -1,11 +1,5 @@
 # Harness Next Gen UI
 
-### CLI Commands:
-
-`npx jest src` - Run all tests
-
-`docker build .` - Build docker image
-
 ### Nginx Config
 
 You need to run nginx on your local machine to run `wingsui` and `nextgenui` simultaneously. This is required because some critical functionality (login, signup etc) is still not migrated to nextgen.
