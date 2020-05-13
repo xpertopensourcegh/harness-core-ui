@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import * as SecureStorage from 'secure-web-storage';
 
 const SecureStorageConstructor = SecureStorage.default;
