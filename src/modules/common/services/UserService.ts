@@ -1,5 +1,5 @@
 import xhr from '@wings-software/xhr-async';
-import AppStorage from 'AppStorage';
+import AppStorage from 'modules/common/AppStorage';
 
 interface CustomWindow extends Window {
   apiUrl?: string;
