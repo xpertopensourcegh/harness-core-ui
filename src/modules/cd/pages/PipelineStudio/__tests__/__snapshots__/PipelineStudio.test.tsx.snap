@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PipelineStudio tests page snapshot 1`] = `
+<div>
+  <h1>
+    Pipeline Studio
+  </h1>
+</div>
+`;
