@@ -67,10 +67,6 @@ server {
     proxy_pass https://localhost:8183/;
   }
 
-  location /assets {
-    proxy_pass https://localhost:8183;     
-  }
-
   location / {
     proxy_pass https://localhost:8182;
   }

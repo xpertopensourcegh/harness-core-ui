@@ -23,16 +23,17 @@ const config = {
   },
   devServer: {
     contentBase: false,
-    port: 8081,
+    port: 8181,
     https: {
       key: fs.readFileSync(path.resolve(__dirname, './certificates/localhost-key.pem')),
       cert: fs.readFileSync(path.resolve(__dirname, './certificates/localhost.pem'))
     }
   },
   output: {
-    filename: 'assets/[name].js',
-    chunkFilename: 'assets/[name].[id].js',
-    path: path.resolve(__dirname, 'dist')
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'static/[name].js',
+    chunkFilename: 'static/[name].[id].js',
+    publicPath: '/v2'
   },
   module: {
     rules: [
@@ -148,8 +149,8 @@ const config = {
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: 'assets/styles.css',
-      chunkFilename: 'assets/styles.[id].css'
+      filename: 'static/styles.css',
+      chunkFilename: 'static/styles.[id].css'
     }),
     new HTMLWebpackPlugin({
       template: 'src/static/index.html',
