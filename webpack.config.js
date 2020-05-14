@@ -6,7 +6,6 @@ const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const DEV = process.env.NODE_ENV === 'development';
 const CONTEXT = process.cwd();
@@ -31,8 +30,8 @@ const config = {
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'static/[name].js',
-    chunkFilename: 'static/[name].[id].js',
+    filename: DEV ? 'static/[name].js' : 'static/[name].[contenthash:6].js',
+    chunkFilename: DEV ? 'static/[name].[id].js' : 'static/[name].[id].[contenthash:6].js',
     publicPath: '/v2'
   },
   module: {
@@ -149,8 +148,8 @@ const config = {
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: 'static/styles.css',
-      chunkFilename: 'static/styles.[id].css'
+      filename: DEV ? 'static/[name].css' : 'static/[name].[contenthash:6].css',
+      chunkFilename: DEV ? 'static/[name].[id].css' : 'static/[name].[id].[contenthash:6].js'
     }),
     new HTMLWebpackPlugin({
       template: 'src/index.html',
