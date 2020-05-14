@@ -153,15 +153,10 @@ const config = {
       chunkFilename: 'static/styles.[id].css'
     }),
     new HTMLWebpackPlugin({
-      template: 'src/static/index.html',
+      template: 'src/index.html',
       filename: 'index.html',
       showErrors: false
-    }),
-    new CopyWebpackPlugin([
-      {
-        from: 'src/static'
-      }
-    ])
+    })
   ]
 };
 

@@ -16,11 +16,11 @@
   "keywords": [],
   "scripts": {
     "test": "jest src --silent",
+    "lint": "eslint --ext .ts --ext .tsx src",
     "clean": "rm -rf dist",
     "start": "webpack-dev-server",
     "dev": "NODE_ENV=development yarn clean && webpack --watch",
-    "docker": "docker build .",
-    "fmtc": "prettier --check 'src/**/*.{ts,tsx,scss}'"
+    "docker": "docker build ."
   },
   "dependencies": {
     "@wings-software/xhr-async": "^2.0.7",
