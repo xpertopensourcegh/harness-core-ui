@@ -10,7 +10,7 @@ const Dashboard: React.FC = () => {
 
   useEffect(() => {
     getUsers({ accountId });
-  }, []);
+  });
 
   return (
     <div className={css.main}>

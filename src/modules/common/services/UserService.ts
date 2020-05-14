@@ -19,6 +19,6 @@ xhr.before(({ headers }) => {
 });
 /////////////////////////////////////////////////////////////////
 
-export function getUsers({ accountId }: { accountId: string }): any {
+export function getUsers({ accountId }: { accountId: string }): unknown {
   return xhr.get(`users?accountId=${accountId}`);
 }

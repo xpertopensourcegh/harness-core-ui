@@ -1,4 +1,6 @@
 // @ts-nocheck
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+// ignoring ts and eslint issues because this is a legacy file
 
 import * as SecureStorage from 'secure-web-storage';
 

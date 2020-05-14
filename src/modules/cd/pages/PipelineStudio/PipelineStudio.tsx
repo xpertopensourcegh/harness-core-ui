@@ -1,5 +1,7 @@
 import React from 'react';
 
-export default function PipelineStudio() {
+const PipelineStudio: React.FC = () => {
   return <h1>Pipeline Studio</h1>;
-}
+};
+
+export default PipelineStudio;
