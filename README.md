@@ -1,76 +1,43 @@
 # Harness Next Gen UI
 
-### Nginx Config
+### Getting Started
 
-You need to run nginx on your local machine to run `wingsui` and `nextgenui` simultaneously. This is required because some critical functionality (login, signup etc) is still not migrated to nextgen.
-
-Use this nginx config and replace <> with appropriate paths:
-
-<details>
-  <summary>Click here to expand</summary>
-  
 ```
-access_log /usr/local/var/log/nginx/access.log;
-error_log /usr/local/var/log/nginx/error.log;
+$ yarn
+$ yarn dev
+```
 
-# wingsui
-server {
-  listen      8182 ssl;
-  server_name localhost;
+This will start the local server in watch mode with hot reloading.
+
+For login, you need to run `wingsui` repo first. Once logged in, come back here and everything should work.
+<details>
+  <summary>Details</summary>
+  Login and credential management is not implemented in `nextgenui` yet. When you login in `wingsui`, your auth tokens are set against `localhost:8181`, which can be read by this server since it is running on the same port.
   
-  ssl_certificate     <certificate path>;
-  ssl_certificate_key <key path>;
-  
-  root <wingsui code path>/wingsui;
-
-  location = / {
-    try_files /static/index.html =404;
-  }
-
-  location / {
-    try_files /static/$uri /src/static/$uri =404;
-  }
-}
-
-#nextgen v2
-server {
-  listen      8183 ssl;
-  server_name localhost;
-  
-  ssl_certificate     <certificate path>;
-  ssl_certificate_key <key path>;
-  
-  root <nextgenui code path>/nextgenui;
-
-  location = / {
-    try_files /dist/index.html =404;
-  }
-
-  location / {
-    try_files /dist/$uri =404;
-  }
-}
-
-# gateway
-server {
-  listen  8181 ssl;
-  server_name localhost;
-  
-  ssl_certificate     <certificate path>;
-  ssl_certificate_key <key path>;
-
-  location /api {
-    proxy_pass https://localhost:9090;
-  }
-
-  location /v2 {
-    proxy_pass https://localhost:8183/;
-  }
-
-  location / {
-    proxy_pass https://localhost:8182;
-  }
-}
-```  
+  You can also use `nginx` on your machine to run both `wingsui` and `nextgenui` simultaneously if needed.
 </details>
 
+### Publishing
+
+```
+$ yarn build
+$ yarn docker <tagname>
+```
+
+First command will create a production build (minified, optimised).
+
+Second command will create a docker image and _publish_ it to `harness/nextgenui` Dockerhub repo.
+
+
+### Utilities
+
+Run lint checks
+```
+$ yarn lint
+```
+
+
+Run unit tests
+```
+$ yarn test
+```
