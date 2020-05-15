@@ -153,7 +153,8 @@ const config = {
     new HTMLWebpackPlugin({
       template: 'src/index.html',
       filename: 'index.html',
-      showErrors: false
+      showErrors: false,
+      minify: false
     })
   ]
 };

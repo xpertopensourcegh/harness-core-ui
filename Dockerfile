@@ -9,4 +9,5 @@ RUN ls -lh
 
 EXPOSE 80
 
-CMD nginx -c /etc/nginx/nginx.conf -g 'daemon off;'
+CMD sed -i "s|<\!-- apiurl -->|<script>window.apiUrl = '$API_URL/api'</script>|" index.html && \ 
+    nginx -c /etc/nginx/nginx.conf -g 'daemon off;'

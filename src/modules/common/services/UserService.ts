@@ -6,11 +6,16 @@ interface CustomWindow extends Window {
   apiUrl?: string;
 }
 
-const {
-  location: { protocol, hostname }
-} = window as CustomWindow;
+const getApiBaseUrl = (): string => {
+  const {
+    apiUrl,
+    location: { protocol, hostname, port }
+  } = window as CustomWindow;
 
-xhr.defaults.baseURL = `${protocol}//${hostname}:9090/api`; // getApiBaseUrl();
+  return apiUrl ? apiUrl : port === '8000' || port === '8181' ? `${protocol}//${hostname}:9090/api` : '/api';
+};
+
+xhr.defaults.baseURL = getApiBaseUrl();
 
 xhr.before(({ headers }) => {
   if (AppStorage.get('token') && headers) {
