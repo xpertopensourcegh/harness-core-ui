@@ -31,8 +31,7 @@ const config = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: DEV ? 'static/[name].js' : 'static/[name].[contenthash:6].js',
-    chunkFilename: DEV ? 'static/[name].[id].js' : 'static/[name].[id].[contenthash:6].js',
-    publicPath: '/v2'
+    chunkFilename: DEV ? 'static/[name].[id].js' : 'static/[name].[id].[contenthash:6].js'
   },
   module: {
     rules: [
