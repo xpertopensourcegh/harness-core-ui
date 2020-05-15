@@ -19,8 +19,8 @@
     "lint": "eslint --ext .ts --ext .tsx src",
     "typecheck": "tsc",
     "clean": "rm -rf dist",
-    "start": "webpack-dev-server",
-    "dev": "NODE_ENV=development yarn clean && webpack --watch",
+    "dev": "NODE_ENV=development webpack-dev-server",
+    "watch": "NODE_ENV=development yarn clean && webpack --watch",
     "build": "yarn clean && webpack",
     "docker": "sh -c 'docker build -t harness/nextgenui:\"$0\" . && docker push harness/nextgenui:\"$0\"'"
   },

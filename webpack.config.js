@@ -10,7 +10,7 @@ const HTMLWebpackPlugin = require('html-webpack-plugin');
 const DEV = process.env.NODE_ENV === 'development';
 const CONTEXT = process.cwd();
 
-console.log({ DEV, CONTEXT });
+console.log({ DEV });
 
 const config = {
   context: CONTEXT,
