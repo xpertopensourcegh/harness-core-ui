@@ -53,7 +53,7 @@ const config = {
         exclude: [/node_modules/]
       },
       {
-        test: /\.module\.scss$/,
+        test: /\.css$/,
         use: [
           MiniCssExtractPlugin.loader,
           {
@@ -85,41 +85,6 @@ const config = {
           }
         ],
         exclude: /node_modules/
-      },
-      {
-        test: /(?<!\.module)\.scss$/,
-        use: [
-          MiniCssExtractPlugin.loader,
-          {
-            loader: 'css-loader',
-            options: {
-              importLoaders: 1,
-              modules: false
-            }
-          },
-          {
-            loader: 'sass-loader',
-            options: {
-              sassOptions: {
-                includePaths: [path.join(CONTEXT, 'src', 'styles')]
-              },
-              implementation: require('sass')
-            }
-          }
-        ]
-      },
-      {
-        test: /\.css$/,
-        use: [
-          MiniCssExtractPlugin.loader,
-          {
-            loader: 'css-loader',
-            options: {
-              importLoaders: 1,
-              modules: false
-            }
-          }
-        ]
       },
       {
         test: /\.(jpg|jpeg|png|svg)$/,

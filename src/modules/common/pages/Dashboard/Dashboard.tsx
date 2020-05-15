@@ -3,7 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 
 import { getUsers } from 'modules/common/services/UserService';
 
-import css from './Dashboard.module.scss';
+import css from './Dashboard.css';
 
 const Dashboard: React.FC = () => {
   const { accountId } = useParams();
