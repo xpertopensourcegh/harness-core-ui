@@ -1,1 +1,0 @@
-This module contains shareable resouces among Harness modules.
