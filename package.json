@@ -40,7 +40,6 @@
     "react-draggable": "^4.4.2",
     "react-router-dom": "^5.1.2",
     "secure-web-storage": "^1.0.2",
-    "split-view": "^1.0.1",
     "utility-types": "^3.10.0"
   },
   "devDependencies": {

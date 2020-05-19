@@ -1,0 +1,17 @@
+@import '~normalize.css';
+@import '~@blueprintjs/core/lib/css/blueprint.css';
+// Build exception: can't import blueprint-icons.css
+// @import '~@blueprintjs/icons/lib/css/blueprint-icons.css';
+@import '~@wings-software/uikit';
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  font-family: var(--font-family);
+}

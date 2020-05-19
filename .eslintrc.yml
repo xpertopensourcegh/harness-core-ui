@@ -29,7 +29,7 @@ settings:
 rules:
   # built-in
   no-console: 2
-  semi: [2, 'always']
+  semi: 0
   no-await-in-loop: 2
   no-shadow: 2
 

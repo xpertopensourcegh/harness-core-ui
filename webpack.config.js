@@ -1,22 +1,22 @@
 /* eslint-disable @typescript-eslint/no-var-requires, no-console  */
-const webpack = require('webpack');
-const path = require('path');
-const fs = require('fs');
+const webpack = require('webpack')
+const path = require('path')
+const fs = require('fs')
 
-const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
-const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const HTMLWebpackPlugin = require('html-webpack-plugin');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const HTMLWebpackPlugin = require('html-webpack-plugin')
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
-const DEV = process.env.NODE_ENV === 'development';
-const CONTEXT = process.cwd();
+const DEV = process.env.NODE_ENV === 'development'
+const CONTEXT = process.cwd()
 
-console.log({ DEV });
+console.log({ DEV })
 
 const config = {
   context: CONTEXT,
-  entry: './src/client.tsx',
+  entry: './src/modules/framework/client.tsx',
   target: 'web',
   mode: DEV ? 'development' : 'production',
   stats: {
@@ -103,9 +103,9 @@ const config = {
           {
             loader: 'sass-loader',
             options: {
-              sassOptions: {
-                includePaths: [path.join(CONTEXT, 'src', 'styles')]
-              },
+              // sassOptions: {
+              //   includePaths: [path.join(CONTEXT, 'src', 'styles')]
+              // },
               implementation: require('sass')
             }
           }
@@ -149,10 +149,10 @@ const config = {
     new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en/)
     // new BundleAnalyzerPlugin()
   ]
-};
-
-if (DEV) {
-  config.plugins.concat([new ForkTsCheckerWebpackPlugin({ tsconfig: 'tsconfig.json' })]);
 }
 
-module.exports = config;
+if (DEV) {
+  config.plugins.concat([new ForkTsCheckerWebpackPlugin({ tsconfig: 'tsconfig.json' })])
+}
+
+module.exports = config
