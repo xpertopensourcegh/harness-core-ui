@@ -10,6 +10,7 @@ $ yarn dev
 This will start the local server in watch mode with hot reloading.
 
 For login, you need to run `wingsui` repo first. Once logged in, come back here and everything should work.
+
 <details>
   <summary>Details</summary>
   Login and credential management is not implemented in `nextgenui` yet. When you login in `wingsui`, your auth tokens are set against `localhost:8181`, which can be read by this server since it is running on the same port.
@@ -28,16 +29,16 @@ First command will create a production build (minified, optimised).
 
 Second command will create a docker image and _publish_ it to `harness/nextgenui` Dockerhub repo.
 
-
 ### Utilities
 
 Run lint checks
+
 ```
 $ yarn lint
 ```
 
-
 Run unit tests
+
 ```
 $ yarn test
 ```
