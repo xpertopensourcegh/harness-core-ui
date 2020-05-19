@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-var-requires, no-console  */
+const webpack = require('webpack');
 const path = require('path');
 const fs = require('fs');
 
@@ -6,6 +7,7 @@ const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const DEV = process.env.NODE_ENV === 'development';
 const CONTEXT = process.cwd();
@@ -42,6 +44,7 @@ const config = {
       },
       {
         test: /\.(j|t)sx?$/,
+        exclude: /node_modules/,
         use: [
           {
             loader: 'ts-loader',
@@ -49,11 +52,11 @@ const config = {
               transpileOnly: true
             }
           }
-        ],
-        exclude: [/node_modules/]
+        ]
       },
       {
-        test: /\.css$/,
+        test: /\.module\.scss$/,
+        exclude: /node_modules/,
         use: [
           MiniCssExtractPlugin.loader,
           {
@@ -83,8 +86,30 @@ const config = {
               implementation: require('sass')
             }
           }
-        ],
-        exclude: /node_modules/
+        ]
+      },
+      {
+        test: /(?<!\.module)\.scss$/,
+        exclude: /node_modules/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader',
+            options: {
+              importLoaders: 1,
+              modules: false
+            }
+          },
+          {
+            loader: 'sass-loader',
+            options: {
+              sassOptions: {
+                includePaths: [path.join(CONTEXT, 'src', 'styles')]
+              },
+              implementation: require('sass')
+            }
+          }
+        ]
       },
       {
         test: /\.(jpg|jpeg|png|svg)$/,
@@ -120,7 +145,9 @@ const config = {
       filename: 'index.html',
       showErrors: false,
       minify: false
-    })
+    }),
+    new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en/)
+    // new BundleAnalyzerPlugin()
   ]
 };
 
