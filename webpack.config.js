@@ -12,28 +12,34 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const DEV = process.env.NODE_ENV === 'development';
 const CONTEXT = process.cwd();
 
-console.log({ DEV });
-
 const config = {
   context: CONTEXT,
   entry: './src/client.tsx',
-  target: 'web',
   mode: DEV ? 'development' : 'production',
-  stats: {
-    children: false
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: DEV ? 'static/[name].js' : 'static/[name].[contenthash:6].js',
+    chunkFilename: DEV ? 'static/[name].[id].js' : 'static/[name].[id].[contenthash:6].js'
   },
+  devtool: DEV ? 'cheap-module-source-map' : 'none',
   devServer: {
     contentBase: false,
     port: 8181,
     https: {
       key: fs.readFileSync(path.resolve(__dirname, './certificates/localhost-key.pem')),
       cert: fs.readFileSync(path.resolve(__dirname, './certificates/localhost.pem'))
+    },
+    stats: {
+      children: false,
+      maxModules: 0,
+      chunks: false,
+      assets: false,
+      modules: false
     }
   },
-  output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: DEV ? 'static/[name].js' : 'static/[name].[contenthash:6].js',
-    chunkFilename: DEV ? 'static/[name].[id].js' : 'static/[name].[id].[contenthash:6].js'
+  stats: {
+    modules: false,
+    children: false
   },
   module: {
     rules: [
@@ -125,7 +131,6 @@ const config = {
       }
     ]
   },
-  devtool: DEV ? 'cheap-module-source-map' : 'none',
   resolve: {
     extensions: ['.mjs', '.js', '.ts', '.tsx'],
     plugins: [new TsconfigPathsPlugin()]
@@ -134,25 +139,32 @@ const config = {
     splitChunks: {
       chunks: 'all'
     }
-  },
-  plugins: [
-    new MiniCssExtractPlugin({
-      filename: DEV ? 'static/[name].css' : 'static/[name].[contenthash:6].css',
-      chunkFilename: DEV ? 'static/[name].[id].css' : 'static/[name].[id].[contenthash:6].js'
-    }),
-    new HTMLWebpackPlugin({
-      template: 'src/index.html',
-      filename: 'index.html',
-      showErrors: false,
-      minify: false
-    }),
-    new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en/)
-    // new BundleAnalyzerPlugin()
-  ]
+  }
 };
 
-if (DEV) {
-  config.plugins.concat([new ForkTsCheckerWebpackPlugin({ tsconfig: 'tsconfig.json' })]);
-}
+const commonPlugins = [
+  new MiniCssExtractPlugin({
+    filename: DEV ? 'static/[name].css' : 'static/[name].[contenthash:6].css',
+    chunkFilename: DEV ? 'static/[name].[id].css' : 'static/[name].[id].[contenthash:6].js'
+  }),
+  new HTMLWebpackPlugin({
+    template: 'src/index.html',
+    filename: 'index.html',
+    showErrors: false,
+    minify: false
+  }),
+  new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en/)
+];
+
+const devOnlyPlugins = [
+  new ForkTsCheckerWebpackPlugin({ tsconfig: 'tsconfig.json' })
+  // new BundleAnalyzerPlugin()
+];
+
+const prodOnlyPlugins = [];
+
+config.plugins = commonPlugins.concat(DEV ? devOnlyPlugins : prodOnlyPlugins);
+
+console.log({ DEV });
 
 module.exports = config;
