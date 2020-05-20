@@ -2,7 +2,6 @@ import React, { useEffect, useState, useRef } from 'react'
 import { useAppContext, AppContextSetter, initialAppContextInfo } from 'contexts/AppContext'
 import { AccountService, UsersService, ApplicationService } from 'services'
 import { RouteLoading } from './RouteUtils'
-import { DataStore } from 'utils'
 import xhr from '@wings-software/xhr-async'
 
 const xhrGroup = 'app-shell'
@@ -81,7 +80,7 @@ export default function AppShell({ children }) {
   const hashListener = useRef<EventListenerOrEventListenerObject>()
 
   useEffect(() => {
-    hashListener.current = function() {
+    hashListener.current = function () {
       if (!/^#\/account\//i.test(location.hash)) {
         setAppContext({ ...initialAppContextInfo, initialized: false })
       }

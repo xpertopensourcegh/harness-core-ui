@@ -1,5 +1,5 @@
 import { RouteEntry } from 'framework'
-import { RouteEntry } from 'framework/RouteEntry'
+import { RouteEntry } from 'framework/route/RouteEntry'
 import { CVHomePage } from './pages/home/CVHomePage'
 
 export const Routes: Readonly<KVO<RouteInfo>> = Object.assign({

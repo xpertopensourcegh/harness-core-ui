@@ -1,5 +1,8 @@
 import type { KVO } from 'framework'
 
+/**
+ * RouteEntry represents a route alongside with its page binding.
+ */
 export interface RouteEntry {
   /** Route path */
   path: string
@@ -7,13 +10,13 @@ export interface RouteEntry {
   /** Page title */
   title: string
 
-  /** Page id, must be unique */
+  /** Page id: a unique identifier to differentiate a page from others */
   pageId: string
 
-  /** Generate a url link from parameters and query parameters */
+  /** Page url generator: Generate a url link from parameters and query parameters */
   url: (params: KVO<string | number>, queryParams?: KVO<string | number>) => string
 
-  /** Page to be mounted under route */
+  /** Page component: Actual component to be mounted under route */
   page: React.ElementType
 
   /** Page layout */
