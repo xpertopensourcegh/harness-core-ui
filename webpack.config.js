@@ -16,7 +16,7 @@ console.log({ DEV })
 
 const config = {
   context: CONTEXT,
-  entry: './src/modules/framework/client.tsx',
+  entry: './src/framework/App.tsx',
   target: 'web',
   mode: DEV ? 'development' : 'production',
   stats: {

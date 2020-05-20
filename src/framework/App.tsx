@@ -1,38 +1,44 @@
 import React from 'react'
+import ReactDOM from 'react-dom'
+import { RecoilRoot } from 'recoil'
 import { Route, Switch, HashRouter } from 'react-router-dom'
-
-import PrivateRoute from 'common/PrivateRoute'
-import RedirectRoute from 'common/RedirectRoute'
+import { FocusStyleManager } from '@blueprintjs/core'
+import PrivateRoute from 'framework/PrivateRoute'
+import RedirectRoute from 'framework/RedirectRoute'
 
 import CDRoutes from 'modules/cd/routes'
-import Dashboard from 'common/pages/Dashboard/Dashboard'
+import Dashboard from 'modules/common/pages/Dashboard/Dashboard'
 import './App.scss'
+
+FocusStyleManager.onlyShowFocusOnTabs()
 
 const App: React.FC = () => {
   return (
-    <HashRouter>
-      <Switch>
-        <PrivateRoute exact path="/" component={RedirectRoute} />
+    <RecoilRoot>
+      <HashRouter>
+        <Switch>
+          <PrivateRoute exact path="/" component={RedirectRoute} />
 
-        <PrivateRoute path="/account/:accountId/dashboard">
-          <Dashboard />
-        </PrivateRoute>
+          <PrivateRoute path="/account/:accountId/dashboard">
+            <Dashboard />
+          </PrivateRoute>
 
-        <CDRoutes />
+          <CDRoutes />
 
-        <Route path="/login">
-          <div>
-            Oops. It seems you are not logged in. <br />
-            Login is not implemented in v2. You need to visit <a href="/#/login">v1 Login</a>.
-          </div>
-        </Route>
+          <Route path="/login">
+            <div>
+              Oops. It seems you are not logged in. <br />
+              Login is not implemented in v2. You need to visit <a href="/#/login">v1 Login</a>.
+            </div>
+          </Route>
 
-        <Route path="*">
-          <div>404 Page Not Found</div>
-        </Route>
-      </Switch>
-    </HashRouter>
+          <Route path="*">
+            <div>404 Page Not Found</div>
+          </Route>
+        </Switch>
+      </HashRouter>
+    </RecoilRoot>
   )
 }
 
-export default App
+ReactDOM.render(<App />, document.getElementById('react-root'))

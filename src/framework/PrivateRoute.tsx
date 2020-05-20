@@ -1,6 +1,6 @@
 import React from 'react'
 import { Route, RouteProps } from 'react-router-dom'
-import Authentication from 'common/Authentication'
+import Authentication from 'framework/Authentication'
 
 const PrivateRoute: React.FC<RouteProps> = ({ children, ...rest }) => {
   return (

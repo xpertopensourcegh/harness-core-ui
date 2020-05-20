@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import AppStorage from 'common/AppStorage'
+import AppStorage from 'framework/AppStorage'
 
 const RedirectRoot: React.FC = () => {
   useEffect(() => {

@@ -1,4 +1,4 @@
-import AppStorage from 'common/AppStorage'
+import AppStorage from 'framework/AppStorage'
 
 const Authentication = {
   isAuthenticated: () => AppStorage.has('token')

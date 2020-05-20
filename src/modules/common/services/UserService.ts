@@ -1,5 +1,5 @@
 import xhr from '@wings-software/xhr-async'
-import AppStorage from 'common/AppStorage'
+import AppStorage from 'framework/AppStorage'
 
 ///////////////// This section needs to move out //////////////////
 interface CustomWindow extends Window {

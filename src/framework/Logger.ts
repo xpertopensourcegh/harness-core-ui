@@ -1,4 +1,4 @@
-import type { ModuleName } from './framework.const'
+import type { ModuleName } from 'framework'
 
 declare global {
   interface Window {
@@ -22,8 +22,11 @@ const DEBUG = 'DEBUG'
 
 function log(type: string, module: ModuleName, subModule?: string) {
   return function (message: string, obj = {}) {
+    // Message format: `ModuleName/SubModuleName: Actual Message`
+    // This format will make it easier to query logs against a module
     const _message = `${module}${subModule ? `/${subModule}` : ''}: ${message}`
 
+    // Log to Bugsnag if it's available
     window.bugsnagClient?.notify?.(new Error(_message), {
       severity: type === ERROR ? 'error' : type === WARN ? 'warning' : 'info',
       user: obj

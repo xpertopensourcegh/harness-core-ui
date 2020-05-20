@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { Heading, Layout, Button } from '@wings-software/uikit'
-import { getUsers } from 'common/services/UserService'
+import { getUsers } from 'modules/common/services/UserService'
 
 import css from './Dashboard.module.scss'
 
