@@ -1,6 +1,8 @@
 import React from 'react';
 import { Text, Layout } from '@wings-software/uikit';
 
+import i18n from './AppErrorBoundary.i18n.json';
+
 interface AppErrorBoundaryState {
   error?: Error;
 }
@@ -19,10 +21,10 @@ class AppErrorBoundary extends React.Component<{}, AppErrorBoundaryState> {
     if (error) {
       return (
         <Layout.Vertical spacing="medium">
-          <Text>Something went wrong...</Text>
-          <Text>This error has been reported and we are looking into it with high priority.</Text>
+          <Text>{i18n.title}</Text>
+          <Text>{i18n.subtitle}</Text>
           <Text>
-            Please{' '}
+            {i18n.please}
             <a
               href="#"
               onClick={e => {
@@ -30,16 +32,16 @@ class AppErrorBoundary extends React.Component<{}, AppErrorBoundaryState> {
                 window.location.reload();
               }}
             >
-              refresh
-            </a>{' '}
-            your browser to continue.
+              {i18n.refresh}
+            </a>
+            {i18n.continue}
           </Text>
           {__DEV__ && (
             <React.Fragment>
               <Text font="small">{error.message}</Text>
               <Text>
                 <details>
-                  <summary>Stack trace</summary>
+                  <summary>{i18n.stackTrace}</summary>
                   <pre>{error.stack}</pre>
                 </details>
               </Text>
