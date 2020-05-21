@@ -150,10 +150,12 @@ const commonPlugins = [
   new HTMLWebpackPlugin({
     template: 'src/index.html',
     filename: 'index.html',
-    showErrors: false,
     minify: false
   }),
-  new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en/)
+  new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en/),
+  new webpack.DefinePlugin({
+    __DEV__: DEV
+  })
 ];
 
 const devOnlyPlugins = [
