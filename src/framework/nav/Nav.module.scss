@@ -1,0 +1,41 @@
+.main {
+  --module-width: 60px;
+
+  height: 100%;
+
+  .modules {
+    width: var(--module-width);
+    height: 100%;
+    background: var(--blue-800);
+    flex-direction: column;
+
+    ul {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      text-align: center;
+
+      li {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+
+        &.selected {
+          background: var(--black);
+        }
+      }
+    }
+
+    .moduleItem {
+      display: inline-block;
+      padding-top: 20px;
+      padding-bottom: 20px;
+    }
+  }
+
+  .modulesContent {
+    flex-grow: 1;
+    height: 100%;
+    background: var(--black);
+  }
+}

@@ -9,5 +9,5 @@ When a third-party library is integrated, consider:
 
 - It can be toggled on/off using build system or global variable overrides.
 - It can be turned off completely under on-prems.
-- It can be removed without business functionality impact (for example `Logger` uses Bugsnag
+- It can be removed without impacting business functionalities (for example `Logger` uses Bugsnag
   but if Bugsnag is not available, Logger still works fine).

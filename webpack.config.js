@@ -16,7 +16,7 @@ console.log({ DEV })
 
 const config = {
   context: CONTEXT,
-  entry: './src/framework/App.tsx',
+  entry: './src/framework/app/App.tsx',
   target: 'web',
   mode: DEV ? 'development' : 'production',
   stats: {
@@ -80,7 +80,7 @@ const config = {
             loader: 'sass-loader',
             options: {
               sassOptions: {
-                includePaths: [path.join(CONTEXT, 'src', 'styles')]
+                includePaths: [path.join(CONTEXT, 'src')]
               },
               sourceMap: false,
               implementation: require('sass')
@@ -103,9 +103,9 @@ const config = {
           {
             loader: 'sass-loader',
             options: {
-              // sassOptions: {
-              //   includePaths: [path.join(CONTEXT, 'src', 'styles')]
-              // },
+              sassOptions: {
+                includePaths: [path.join(CONTEXT, 'src')]
+              },
               implementation: require('sass')
             }
           }

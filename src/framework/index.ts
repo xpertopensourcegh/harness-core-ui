@@ -1,5 +1,7 @@
 /* This file contains Framework exports */
 
-export { getLogger } from './logging/Logger'
-export type { KVO } from './types/BasicTypes'
-export { ModuleName } from './types/BasicTypes'
+export { loggerFor } from './logging/logging'
+export type { KVO } from './types/KVO'
+export { ModuleName } from './types/ModuleName'
+export { Layout } from './layout/Layout'
+export type { ModuleRouteEntries, RouteEntryURLArgs } from './types/RouteTypes'

@@ -1,8 +1,8 @@
 import React from 'react'
-import { getLogger, ModuleName } from 'framework'
+import { loggerFor, ModuleName } from 'framework'
 import { Container, Heading } from '@wings-software/uikit'
 
-const logger = getLogger(ModuleName.CD, 'PipelineStudioPage')
+const logger = loggerFor(ModuleName.CD, 'PipelineStudioPage')
 
 export const PipelineStudioPage: React.FC = () => {
   logger.info('Mounting Pipeline Studio...')

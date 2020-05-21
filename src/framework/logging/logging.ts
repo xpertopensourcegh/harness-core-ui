@@ -22,7 +22,7 @@ const DEBUG = 'DEBUG'
 
 function log(type: string, module: ModuleName, subModule?: string) {
   return function (message: string, obj = {}) {
-    // Message format: `ModuleName/SubModuleName: Actual Message`
+    // Message format: `ModuleName/SubModuleName: Actual Message`, obj
     // This format will make it easier to query logs against a module
     const _message = `${module}${subModule ? `/${subModule}` : ''}: ${message}`
 
@@ -44,7 +44,7 @@ function log(type: string, module: ModuleName, subModule?: string) {
   }
 }
 
-export const getLogger = (module: ModuleName, subModule?: string): Logger => ({
+export const loggerFor = (module: ModuleName, subModule?: string): Logger => ({
   error: log(ERROR, module, subModule),
   info: log(INFO, module, subModule),
   warn: log(WARN, module, subModule),

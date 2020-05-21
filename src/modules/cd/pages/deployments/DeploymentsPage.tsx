@@ -1,11 +1,11 @@
 import React from 'react'
-import { getLogger, ModuleName } from 'framework'
+import { loggerFor, ModuleName } from 'framework'
 import { Container, Heading } from '@wings-software/uikit'
 
-const logger = getLogger(ModuleName.CD, 'Deployments')
+const logger = loggerFor(ModuleName.CD)
 
 export const DeploymentsPage: React.FC = () => {
-  logger.info('Mounting Deployments...')
+  logger.error('Mounting Deployments...', { user: 'Tom' })
 
   return (
     <Container padding="huge">
