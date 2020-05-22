@@ -33,12 +33,12 @@ export const Nav: React.FC = () => {
         <FlexExpander />
         <ul>
           <li>
-            <Link noStyling href="/" className={css.moduleItem}>
+            <Link noStyling href="/404" className={css.moduleItem}>
               <Icon name="layers" size={ICON_SIZE} />
             </Link>
           </li>
           <li>
-            <Link noStyling href="/" className={css.moduleItem}>
+            <Link noStyling href="/user" className={css.moduleItem}>
               <Icon name="person" size={ICON_SIZE} />
             </Link>
           </li>

@@ -1,5 +1,6 @@
 import React from 'react'
+import { Heading } from '@wings-software/uikit'
 
-export const CVHomePage: React.FC = () => {
-  return <div>CV HomePage</div>
+export default function ContinuousVerificationPage(): JSX.Element {
+  return <Heading>Continuous Verification</Heading>
 }

@@ -1,30 +1,11 @@
-import { RouteEntry } from 'framework'
-import { RouteEntry } from 'framework/routing/RouteTypes'
-import { CVHomePage } from './pages/home/CVHomePage'
+import type { RouteEntry } from 'framework'
+import React from 'react'
+import i18n from './routes.i18n'
 
-export const Routes: Readonly<KVO<RouteInfo>> = Object.assign({
-  CVHomePage: {
-    path: '/account/:accountId/continuous-efficiency/dashboard',
-    title: 'Continous Efficiency',
-    pageId: 'ce-dashboard',
-    page: CVHomePage,
-    nav: CVNavigator,
-    url: ({ accountId }) => `/account/${accountId}/continuous-efficiency/dashboard`
-  },
-  CVSetup: {
-    path: '/account/:accountId/continuous-efficiency/setup',
-    title: 'Continous Efficiency',
-    pageId: 'ce-dashboard',
-    page: CVHomePage,
-    nav: CVNavigator,
-    url: ({ accountId }) => `/account/${accountId}/continuous-efficiency/dashboard`
-  }
-})
-
-const CVNavigator: React.FC = () => {
-  ;<ul>
-    <li>
-      <NavItem link={CVSetup.url({ accountId })} className={'selected'}></NavItem>
-    </li>
-  </ul>
+export const CVHome: RouteEntry = {
+  path: '/continuous-verification',
+  title: i18n.continuousVerification,
+  pageId: 'continuous-verification',
+  url: () => '/continuous-verification',
+  page: React.lazy(() => import('./pages/home/CVHomePage'))
 }

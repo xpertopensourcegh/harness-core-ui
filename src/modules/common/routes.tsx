@@ -2,7 +2,7 @@ import React from 'react'
 import { RouteEntry, RouteEntryURLArgs, Layout } from 'framework'
 import i18n from './routes.i18n'
 
-export const LoginRoute: RouteEntry = {
+export const CommonLoginRoute: RouteEntry = {
   path: '/loginv2',
   title: i18n.login,
   pageId: 'login',
@@ -12,7 +12,7 @@ export const LoginRoute: RouteEntry = {
   authenticated: false
 }
 
-export const OrgRoute: RouteEntry = {
+export const CommonOrgRoute: RouteEntry = {
   path: '/org/:orgId?',
   title: i18n.org,
   pageId: 'org',
@@ -21,7 +21,7 @@ export const OrgRoute: RouteEntry = {
   layout: Layout.DefaultLayout
 }
 
-export const ProjectRoute: RouteEntry = {
+export const CommonProjectRoute: RouteEntry = {
   path: '/project/:orgId?',
   title: i18n.project,
   pageId: 'project',
@@ -30,9 +30,7 @@ export const ProjectRoute: RouteEntry = {
   layout: Layout.DefaultLayout
 }
 
-/* Note: This route must be at the end of this file */
-/* There's a TODO improvement in src/framework/routing/Routes.ts to eliminate this restriction */
-export const PageNotFoundRoute: RouteEntry = {
+export const CommonPageNotFoundRoute: RouteEntry = {
   path: '*',
   title: i18n.notFound,
   pageId: '404',
