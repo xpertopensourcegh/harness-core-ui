@@ -1,6 +1,6 @@
 /*
  * This file contains Framework exports which can be consumed by Modules.
- * Note: Never export internal Framework entities like LayoutManager, RouteMounter, etc...
+ * Note: You should never export internal Framework entities like LayoutManager, RouteMounter, etc...
  */
 export type { KVO } from './types/KVO'
 export type { RouteEntry, RouteEntryURLArgs, ModuleRoutes } from './routing/RoutingTypes'

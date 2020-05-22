@@ -4,7 +4,7 @@ import css from './Nav.module.scss'
 
 export const Nav: React.FC = () => {
   return (
-    <Container flex className={css.main}>
+    <Container flex className={css.nav}>
       <Container flex className={css.modules}>
         <ul>
           <li className={css.selected}>

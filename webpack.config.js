@@ -12,8 +12,6 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const DEV = process.env.NODE_ENV === 'development'
 const CONTEXT = process.cwd()
 
-console.log({ DEV })
-
 const config = {
   context: CONTEXT,
   entry: './src/framework/app/App.tsx',

@@ -8,5 +8,6 @@ import { Layout } from './Layout'
  */
 export const LayoutManager: React.FC<{ routeEntry?: RouteEntry }> = ({ children, routeEntry }) => {
   const PageLayout = routeEntry && (routeEntry?.layout || Layout.DefaultLayout)
+
   return <>{PageLayout ? <PageLayout>{children}</PageLayout> : children}</>
 }

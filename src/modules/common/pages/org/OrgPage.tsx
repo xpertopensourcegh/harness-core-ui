@@ -6,7 +6,7 @@ export default function OrgPage(): JSX.Element {
   return (
     <>
       <Heading>Org Page</Heading>
-      <Link href={ProjectRoute.url()}>Go to Org Page</Link>
+      <Link href={ProjectRoute.url()}>Go to Project Page</Link>
     </>
   )
 }

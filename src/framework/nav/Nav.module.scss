@@ -1,4 +1,4 @@
-.main {
+.nav {
   --module-width: 60px;
 
   height: 100%;
@@ -6,7 +6,7 @@
   .modules {
     width: var(--module-width);
     height: 100%;
-    background: var(--blue-800);
+    background: var(--blue-800) !important;
     flex-direction: column;
 
     ul {
@@ -21,7 +21,7 @@
         list-style: none;
 
         &.selected {
-          background: var(--black);
+          background: var(--black) !important;
         }
       }
     }
@@ -36,6 +36,6 @@
   .modulesContent {
     flex-grow: 1;
     height: 100%;
-    background: var(--black);
+    background: var(--black) !important;
   }
 }

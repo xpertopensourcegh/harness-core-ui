@@ -24,6 +24,13 @@ export interface RouteEntry {
 
   /** Page layout */
   layout?: Layout
+
+  /** If set to `false`, the route does not require users to be logged in (use for unauth routes
+   * like Registration, Reset Password, etc...). Default is `true` */
+  authenticated?: boolean
+
+  /** Optional verification to see if current user is allowed to access the route. TBD in the future */
+  // isAuthorized?: () => boolean
 }
 
 /** Type to declare routes in a module. Each entry is represented as { [KEY]: RouteEntry } */

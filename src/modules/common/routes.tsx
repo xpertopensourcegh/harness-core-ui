@@ -8,7 +8,8 @@ export const LoginRoute: RouteEntry = {
   pageId: 'login',
   url: () => '/login',
   page: React.lazy(() => import('./pages/login/LoginPage')),
-  layout: Layout.BlankLayout
+  layout: Layout.BlankLayout,
+  authenticated: false
 }
 
 export const OrgRoute: RouteEntry = {
@@ -37,5 +38,6 @@ export const PageNotFoundRoute: RouteEntry = {
   pageId: '404',
   url: () => '/404',
   page: React.lazy(() => import('./pages/404/NotFoundPage')),
-  layout: Layout.BlankLayout
+  layout: Layout.BlankLayout,
+  authenticated: false
 }

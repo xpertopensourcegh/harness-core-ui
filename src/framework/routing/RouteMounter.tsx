@@ -1,8 +1,10 @@
 import { Text } from '@wings-software/uikit'
 import type { RouteEntry } from 'framework'
-import React, { Suspense, useLayoutEffect } from 'react'
+import React, { Suspense, useEffect, useState } from 'react'
 import i18n from './RouteMounter.i18n'
 import css from './RouteMounter.module.scss'
+import SessionToken from 'framework/utils/SessionToken'
+import { buildLoginUrlFrom401Response } from 'framework/utils/Utils'
 
 const Loading = <Text className={css.loading}>{i18n.loading}</Text>
 
@@ -13,10 +15,11 @@ interface RouteMounterProps {
 }
 
 export const RouteMounter: React.FC<RouteMounterProps> = ({ routeEntry, onEnter, onExit }) => {
+  const [mounted, setMounted] = useState(false)
   const { title, page, pageId } = routeEntry
   const PageComponent = page as React.ElementType
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     // TODO: Add accountName into title
     // const titleFromAccount = `Harness | ${title} ${accountName ? ' - ' + accountName : ''}`
     document.title = `Harness | ${title}`
@@ -24,14 +27,18 @@ export const RouteMounter: React.FC<RouteMounterProps> = ({ routeEntry, onEnter,
 
     onEnter?.(routeEntry)
 
+    if (!mounted) {
+      if (routeEntry.authenticated !== false && !SessionToken.isAuthenticated()) {
+        window.location.href = buildLoginUrlFrom401Response()
+      } else {
+        setMounted(true)
+      }
+    }
+
     return () => {
       onExit?.(routeEntry)
     }
-  }, [pageId, title, routeEntry, onEnter, onExit])
+  }, []) // eslint-disable-line
 
-  return (
-    <Suspense fallback={Loading}>
-      <PageComponent />
-    </Suspense>
-  )
+  return <Suspense fallback={Loading}>{mounted ? <PageComponent /> : null}</Suspense>
 }
