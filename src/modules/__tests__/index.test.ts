@@ -1,4 +1,4 @@
-import { Routes } from '../RoutingTypes'
+import { Routes } from 'modules'
 
 describe('Routes Tests', () => {
   test('All routes must have unique path', () => {

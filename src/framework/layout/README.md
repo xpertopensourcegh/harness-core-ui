@@ -10,6 +10,8 @@ Currently, Framework defines three layouts:
 
 - `BasicLayout` (referred in Modules as `Layout.BasicLayout`): This layout is usually used in unauth pages like Login, Reset Password, Activate Account, etc... It has only the Harness banner on top.
 
+- `NoSubNavLayout` (referred in Modules as `Layout.NoSubNavLayout`): This layout is the same as `DefaultLayout` but only shows module and has no sub-nav.
+
 # Note
 
 `BasicLayout` is not implemented yet.

@@ -1,13 +1,13 @@
+import { FocusStyleManager } from '@blueprintjs/core'
+import type { RouteEntry } from 'framework'
+import { LayoutManager } from 'framework/layout/LayoutManager'
 import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
-import { HashRouter, Switch, Route } from 'react-router-dom'
-import { FocusStyleManager } from '@blueprintjs/core'
-// import AppShell from './AppShell'
-import { Routes } from '../routing/Routes'
+import { HashRouter, Route, Switch } from 'react-router-dom'
 import { RouteMounter } from '../routing/RouteMounter'
-import './App.scss'
-import { LayoutManager } from 'framework/layout/LayoutManager'
-import type { RouteEntry } from 'framework'
+// import AppShell from './AppShell'
+import { Routes } from 'modules'
+import './app.scss'
 
 FocusStyleManager.onlyShowFocusOnTabs()
 
