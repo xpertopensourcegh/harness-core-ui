@@ -1,6 +1,6 @@
 # Modules
 
-A module represents a Harness functional business logic. Each belongs to respective team and can be developed independently from others.
+A module represents a Harness functional business logic. Each belongs to a respective team and can be developed independently.
 
 - CD: Continuous Deployment
 - CE: Continuous Efficiency
@@ -9,6 +9,18 @@ A module represents a Harness functional business logic. Each belongs to respect
 - DX: Developer eXperience
 - COMMON: Platform
 
-`routes.tsx` must be reviewed carefully to make sure there's no routing conflict among modules.
+## Pages
 
-(TBD...)
+TBD
+
+## Components
+
+TBD
+
+## Modals
+
+TBD
+
+## Utils
+
+TBD

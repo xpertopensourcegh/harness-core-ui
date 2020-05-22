@@ -1,10 +1,10 @@
-import type { KVO } from 'framework'
+import type { KVO, Layout } from 'framework'
 
 /** Optional arguments passed into RouteEntry url() generator */
-export type RouteEntryURLArgs = KVO<string | number>
+export type RouteEntryURLArgs = KVO<string | number> | undefined
 
 /**
- * RouteEntry represents a route alongside with its page binding.
+ * RouteEntry represents a route alongside its page binding.
  */
 export interface RouteEntry {
   /** Route path */
@@ -17,13 +17,14 @@ export interface RouteEntry {
   pageId: string
 
   /** Page url generator: Generate a url link from parameters and query parameters */
-  url: (params: RouteEntryURLArgs) => string
+  url: (params?: RouteEntryURLArgs) => string
 
   /** Page component: Actual component to be mounted under route */
   page: React.ReactNode
 
   /** Page layout */
-  layout?: React.ReactNode
+  layout?: Layout
 }
 
-export type ModuleRouteEntries = KVO<RouteEntry>
+/** Type to declare routes in a module. Each entry is represented as { [KEY]: RouteEntry } */
+export type ModuleRoutes = Readonly<KVO<RouteEntry>>

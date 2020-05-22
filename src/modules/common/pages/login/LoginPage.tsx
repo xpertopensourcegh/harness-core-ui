@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function LoginPage(): React.ReactNode {
+const LoginPage: React.FC = () => {
   return (
     <div>
       Oops. It seems you are not logged in. <br />
@@ -8,3 +8,5 @@ export default function LoginPage(): React.ReactNode {
     </div>
   )
 }
+
+export default LoginPage

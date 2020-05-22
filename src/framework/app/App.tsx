@@ -1,46 +1,35 @@
-import React from 'react'
+import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
-import { Route, Switch, HashRouter } from 'react-router-dom'
+import { HashRouter, Switch, Route } from 'react-router-dom'
 import { FocusStyleManager } from '@blueprintjs/core'
-import PrivateRoute from 'framework/PrivateRoute'
-import RedirectRoute from 'framework/RedirectRoute'
-
-import CDRoutes from 'modules/cd/routes'
-import Dashboard from 'modules/common/pages/Dashboard/Dashboard'
-import { Layout } from 'framework'
+// import AppShell from './AppShell'
+import { Routes } from '../routing/Routes'
+import { RouteMounter } from '../routing/RouteMounter'
 import './App.scss'
+import { LayoutManager } from 'framework/layout/LayoutManager'
+import type { RouteEntry } from 'framework'
 
 FocusStyleManager.onlyShowFocusOnTabs()
 
-if (process.env.WEBPACK_DEV_SERVER) {
-  console.log('HEY HEY HEY')
-}
+// TODO: Move this thing out
+const AppShell: React.FC = ({ children }) => <>{children}</>
 
 const App: React.FC = () => {
+  const [activeRouteEntry, setActiveRouteEntry] = useState<RouteEntry>()
+
   return (
     <HashRouter>
-      <Switch>
-        <PrivateRoute exact path="/" component={RedirectRoute} />
-
-        <PrivateRoute path="/account/:accountId/dashboard">
-          <Layout.DefaultLayout>
-            <Dashboard />
-          </Layout.DefaultLayout>
-        </PrivateRoute>
-
-        <CDRoutes />
-
-        <Route path="/login">
-          <div>
-            Oops. It seems you are not logged in. <br />
-            Login is not implemented in v2. You need to visit <a href="/#/login">v1 Login</a>.
-          </div>
-        </Route>
-
-        <Route path="*">
-          <div>404 Page Not Found</div>
-        </Route>
-      </Switch>
+      <AppShell>
+        <LayoutManager routeEntry={activeRouteEntry}>
+          <Switch>
+            {Object.values(Routes).map(routeEntry => (
+              <Route path={routeEntry.path} key={routeEntry.path}>
+                <RouteMounter routeEntry={routeEntry} onEnter={setActiveRouteEntry} />
+              </Route>
+            ))}
+          </Switch>
+        </LayoutManager>
+      </AppShell>
     </HashRouter>
   )
 }
