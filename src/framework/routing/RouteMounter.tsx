@@ -16,12 +16,11 @@ interface RouteMounterProps {
 
 export const RouteMounter: React.FC<RouteMounterProps> = ({ routeEntry, onEnter, onExit }) => {
   const [mounted, setMounted] = useState(false)
-  const { title, page, pageId } = routeEntry
+  const { title, component: page, pageId } = routeEntry
   const PageComponent = page as React.ElementType
 
   useEffect(() => {
     // TODO: Add accountName into title
-    // const titleFromAccount = `Harness | ${title} ${accountName ? ' - ' + accountName : ''}`
     document.title = `Harness | ${title}`
     document.body.setAttribute('page-id', pageId)
 
@@ -38,7 +37,7 @@ export const RouteMounter: React.FC<RouteMounterProps> = ({ routeEntry, onEnter,
     return () => {
       onExit?.(routeEntry)
     }
-  }, []) // eslint-disable-line
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   return <Suspense fallback={Loading}>{mounted ? <PageComponent /> : null}</Suspense>
 }

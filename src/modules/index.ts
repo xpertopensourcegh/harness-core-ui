@@ -1,5 +1,5 @@
 /*
- * This file exports Modules integration points for Framework to consume.
+ * This file exports Modules integration points (Framework to consume).
  */
 import type { ModuleRoutes, RouteEntry, KVO } from 'framework'
 import * as DXRoutes from './dx/routes'
@@ -9,7 +9,7 @@ import * as CVRoutes from './cv/routes'
 export const Routes: Readonly<ModuleRoutes> = Object.assign(
   Object.entries(Object.assign({}, DXRoutes, CVRoutes, CommonRoutes)).reduce(
     (_routes: KVO<RouteEntry>, [key, value]) => {
-      if (value !== CommonRoutes.CommonPageNotFoundRoute) {
+      if (value !== CommonRoutes.CommonPageNotFound) {
         _routes[key] = value
       }
       return _routes
@@ -17,9 +17,7 @@ export const Routes: Readonly<ModuleRoutes> = Object.assign(
     {}
   ),
   // PageNotFoundRoute is the last
-  { CommonPageNotFoundRoute: CommonRoutes.CommonPageNotFoundRoute }
+  { CommonPageNotFound: CommonRoutes.CommonPageNotFound }
 )
-
-window.Routes = Routes
 
 export const Modules = [{}]

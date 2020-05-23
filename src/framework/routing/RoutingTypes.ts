@@ -1,4 +1,4 @@
-import type { KVO, Layout } from 'framework'
+import type { KVO, PageLayout, ModuleName } from 'framework'
 
 /** Optional arguments passed into RouteEntry url() generator */
 export type RouteEntryURLArgs = KVO<string | number> | undefined
@@ -10,26 +10,35 @@ export interface RouteEntry {
   /** Route path */
   path: string
 
+  /** Page component: Actual component to be mounted under route */
+  component: React.ReactNode | JSX.Element
+
+  /** Module name */
+  module: ModuleName
+
   /** Page title */
   title: string
 
   /** Page id: a unique identifier to differentiate a page from others */
   pageId: string
 
-  /** Page url generator: Generate a url link from parameters and query parameters */
+  /**
+   * Route url generator: Generate a url link to the route.
+   *
+   * TODO: Require strong type for params to eleminate wrong parameter
+   * passing (like accountId is passed as null or underfined while it
+   * must be non-nullable).
+   * */
   url: (params?: RouteEntryURLArgs) => string
 
-  /** Page component: Actual component to be mounted under route */
-  page: React.ReactNode
-
-  /** Page layout */
-  layout?: Layout
+  /** Page layout. Defaulted to Framework `PageLayout.DefaultLayout` */
+  layout?: PageLayout
 
   /** If set to `false`, the route does not require users to be logged in (use for unauth routes
    * like Registration, Reset Password, etc...). Default is `true` */
   authenticated?: boolean
 
-  /** Optional verification to see if current user is allowed to access the route. TBD in the future */
+  /** Optional validation to see if current user is allowed to access the route (TBD in the future) */
   // isAuthorized?: () => boolean
 }
 

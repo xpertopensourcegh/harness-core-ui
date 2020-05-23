@@ -11,3 +11,7 @@ export const Nav: React.FC = () => {
     </Link>
   )
 }
+
+// module: DX
+// component: the button
+// nav: DXNav

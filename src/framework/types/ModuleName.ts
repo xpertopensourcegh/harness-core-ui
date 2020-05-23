@@ -5,5 +5,6 @@ export enum ModuleName {
   CI = 'CI',
   CV = 'CV',
   DX = 'DX',
-  COMMON = 'COMMON'
+  COMMON = 'COMMON',
+  FRAMEWORK = 'FRAMEWORK'
 }
