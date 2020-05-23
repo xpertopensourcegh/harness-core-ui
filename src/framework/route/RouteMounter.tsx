@@ -1,10 +1,12 @@
 import { Text } from '@wings-software/uikit'
 import type { RouteEntry } from 'framework'
+import { buildLoginUrlFrom401Response } from 'framework/utils/framework-utils'
+import SessionToken from 'framework/utils/SessionToken'
 import React, { Suspense, useEffect, useState } from 'react'
+import { useSetRecoilState } from 'recoil'
+import { ApplicationState, applicationState } from '../models'
 import i18n from './RouteMounter.i18n'
 import css from './RouteMounter.module.scss'
-import SessionToken from 'framework/utils/SessionToken'
-import { buildLoginUrlFrom401Response } from 'framework/utils/framework-utils'
 
 const Loading = <Text className={css.loading}>{i18n.loading}</Text>
 
@@ -18,6 +20,7 @@ export const RouteMounter: React.FC<RouteMounterProps> = ({ routeEntry, onEnter,
   const [mounted, setMounted] = useState(false)
   const { title, component: page, pageId } = routeEntry
   const PageComponent = page as React.ElementType
+  const updateApplicationState = useSetRecoilState(applicationState)
 
   useEffect(() => {
     // TODO: Add accountName into title
@@ -29,12 +32,15 @@ export const RouteMounter: React.FC<RouteMounterProps> = ({ routeEntry, onEnter,
     if (!mounted) {
       if (routeEntry.authenticated !== false && !SessionToken.isAuthenticated()) {
         window.location.href = buildLoginUrlFrom401Response()
+        return
       } else {
         setMounted(true)
+        updateApplicationState((previousState: ApplicationState) => ({
+          ...previousState,
+          routeEntry: routeEntry
+        }))
       }
     }
-
-    console.log('Mouting routeEntry', routeEntry)
 
     return () => {
       onExit?.(routeEntry)

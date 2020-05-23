@@ -1,10 +1,16 @@
 import React from 'react'
 import { Container, Link, Icon, FlexExpander } from '@wings-software/uikit'
 import css from './Nav.module.scss'
+import { useRecoilValue } from 'recoil'
+import { applicationState } from '../models'
 
 const ICON_SIZE = 24
 
 export const Nav: React.FC = () => {
+  const appState = useRecoilValue(applicationState)
+
+  console.log('APP STATE', appState)
+
   return (
     <Container flex className={css.nav}>
       <Container flex className={css.modules}>

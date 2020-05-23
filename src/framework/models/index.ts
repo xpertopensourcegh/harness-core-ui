@@ -1,1 +1,1 @@
-export { activeAccount } from './activeAccount'
+export { ApplicationState, applicationState } from './ApplicationState'
