@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { useAppContext, AppContextSetter, initialAppContextInfo } from 'contexts/AppContext'
 import { AccountService, UsersService, ApplicationService } from 'services'
-import { RouteLoading } from '../routing/RouteUtils'
+import { RouteLoading } from '../route/RouteUtils'
 import xhr from '@wings-software/xhr-async'
 
 const xhrGroup = 'app-shell'

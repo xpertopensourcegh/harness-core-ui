@@ -16,7 +16,7 @@ export const Routes: Readonly<ModuleRoutes> = Object.assign(
     },
     {}
   ),
-  // PageNotFoundRoute is the last
+  // PageNotFoundRoute must be the last (its routing path is `*`)
   { CommonPageNotFound: CommonRoutes.CommonPageNotFound }
 )
 

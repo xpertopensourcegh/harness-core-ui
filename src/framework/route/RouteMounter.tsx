@@ -4,7 +4,7 @@ import React, { Suspense, useEffect, useState } from 'react'
 import i18n from './RouteMounter.i18n'
 import css from './RouteMounter.module.scss'
 import SessionToken from 'framework/utils/SessionToken'
-import { buildLoginUrlFrom401Response } from 'framework/utils/Utils'
+import { buildLoginUrlFrom401Response } from 'framework/utils/framework-utils'
 
 const Loading = <Text className={css.loading}>{i18n.loading}</Text>
 
@@ -33,6 +33,8 @@ export const RouteMounter: React.FC<RouteMounterProps> = ({ routeEntry, onEnter,
         setMounted(true)
       }
     }
+
+    console.log('Mouting routeEntry', routeEntry)
 
     return () => {
       onExit?.(routeEntry)
