@@ -39,7 +39,7 @@ For this optimization to be materialized, some extra webpack configuration needs
 
 ## Rules
 
-### No direct imports from Framework and other Modules
+### Rule #1: No direct imports from Framework and other Modules
 
 A module must not import direct resources from another module. If a module wants to introduce a component for other module to use, that component must be exported explicitly from that module `index.ts`. For example:
 
@@ -56,3 +56,9 @@ import { GCPSettingModal } from 'modules/common/modal/GCPSettingModal'
 ```
 
 This rule prevents module from using internal/private resources from another module.
+
+### Rule #2: Modules are not allowed to mutate global
+
+- Modules are not allowed to mutate `document.body` (for example doing things like `document.body.addClass` are prohibited).
+- Modules are not allowed to mutate `localStorage` and `sessionStorage`.
+- Modules are not allowed to set `ApplicationState`. Only Framework can. In fact, Framework does not export `ApplicationState` writer.

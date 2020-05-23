@@ -11,7 +11,7 @@ export interface ModuleEntry {
   module: ModuleName
   title?: string
   route: RouteEntry
-  icon: ModuleIcon | IconName
+  icon: ModuleIcon
   href: (urlParams: KVO<string | number>, urlQueries: KVO<string | number>) => string
   menu: React.ReactNode | JSX.Element
 }
