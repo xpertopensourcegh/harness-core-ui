@@ -3,7 +3,9 @@
  * Note: You should never export internal Framework entities like LayoutManager, RouteMounter, etc...
  */
 export type { KVO } from './types/KVO'
-export type { RouteEntry, RouteEntryURLArgs, ModuleRoutes } from './types/route-types'
+export type { RouteEntry, RouteEntryURLArgs } from './types/RouteEntry'
+export type { ModuleRoutes } from './types/ModuleRoutes'
+export type { ModuleEntry } from './types/ModuleEntry'
 export { loggerFor } from './logging/logging'
 export { ModuleName } from './types/ModuleName'
 export { PageLayout } from './layout/PageLayout'

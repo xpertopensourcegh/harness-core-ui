@@ -41,6 +41,3 @@ export interface RouteEntry {
   /** Optional validation to see if current user is allowed to access the route (TBD in the future) */
   // isAuthorized?: () => boolean
 }
-
-/** Type to declare routes in a module. Each entry is represented as { [KEY]: RouteEntry } */
-export type ModuleRoutes = Readonly<KVO<RouteEntry>>

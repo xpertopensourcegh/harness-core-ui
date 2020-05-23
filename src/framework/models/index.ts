@@ -1,1 +1,2 @@
-export { ApplicationState, applicationState } from './ApplicationState'
+export type { ApplicationState } from './ApplicationState'
+export { applicationState } from './ApplicationState'

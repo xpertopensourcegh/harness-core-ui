@@ -2,9 +2,9 @@
  * This file exports Modules integration points (Framework to consume).
  */
 import type { ModuleRoutes, RouteEntry, KVO } from 'framework'
-import * as DXRoutes from './dx/routes'
-import * as CommonRoutes from './common/routes'
-import * as CVRoutes from './cv/routes'
+import { DXRoutes, DXModules } from 'modules/dx'
+import { CVRoutes, CVModules } from 'modules/cv'
+import { CommonRoutes, CommonModules } from 'modules/common'
 
 export const Routes: Readonly<ModuleRoutes> = Object.assign(
   Object.entries(Object.assign({}, DXRoutes, CVRoutes, CommonRoutes)).reduce(
@@ -20,4 +20,4 @@ export const Routes: Readonly<ModuleRoutes> = Object.assign(
   { CommonPageNotFound: CommonRoutes.CommonPageNotFound }
 )
 
-export const Modules = [{}]
+export const Modules = [DXModules.DXDashboardModule, CommonModules.CommonProjectModule, CVModules.CVHomeModule]

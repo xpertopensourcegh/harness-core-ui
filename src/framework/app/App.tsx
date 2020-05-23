@@ -13,7 +13,10 @@ import './app.scss'
 FocusStyleManager.onlyShowFocusOnTabs()
 
 // TODO: Move this thing out
-const AppShell: React.FC = ({ children }) => <>{children}</>
+const AppShell: React.FC = ({ children }) => {
+  console.log('AppShell')
+  return <>{children}</>
+}
 
 const App: React.FC = () => {
   const [activeRouteEntry, setActiveRouteEntry] = useState<RouteEntry>()
