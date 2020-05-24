@@ -10,7 +10,7 @@ export const DXDashboardModule: ModuleEntry = {
     hover: 'harness',
     selected: 'harness'
   },
-  href: (_urlParams, _urlQueries) => {
+  url: (_urlParams, _urlQueries) => {
     return linkTo(DXDashboard)
   },
   menu: <div>DX Sub menu</div>

@@ -10,7 +10,7 @@ export const CVHomeModule: ModuleEntry = {
     hover: 'harness',
     selected: 'harness'
   },
-  href: (_urlParams, _urlQueries) => {
+  url: (_urlParams, _urlQueries) => {
     return linkTo(CVHome)
   },
   menu: <div>Sub menu</div>

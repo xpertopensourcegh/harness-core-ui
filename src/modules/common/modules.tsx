@@ -10,7 +10,7 @@ export const CommonProjectModule: ModuleEntry = {
     hover: 'cube',
     selected: 'cube'
   },
-  href: (_urlParams, _urlQueries) => {
+  url: (_urlParams, _urlQueries) => {
     return linkTo(CommonProject)
   },
   menu: <div>Sub menu</div>

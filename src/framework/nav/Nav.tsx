@@ -2,7 +2,6 @@ import React from 'react'
 import { Container, Link, Icon, FlexExpander, Text } from '@wings-software/uikit'
 import css from './Nav.module.scss'
 import { useApplicationStateReader } from 'framework/hooks/useApplicationState'
-import { ModuleName } from 'framework/types/ModuleName'
 
 const ICON_SIZE = 24
 
@@ -17,7 +16,7 @@ export const Nav: React.FC = () => {
   const moduleComponents = modules?.map(moduleEntry => {
     return (
       <li key={moduleEntry.module} className={moduleEntry.module === routeEntry?.module ? css.selected : undefined}>
-        <Link noStyling href={moduleEntry.href({}, {})} className={css.moduleItem}>
+        <Link noStyling href={moduleEntry.url({}, {})} className={css.moduleItem}>
           <Icon name={moduleEntry.icon.normal} size={ICON_SIZE} />
         </Link>
       </li>
