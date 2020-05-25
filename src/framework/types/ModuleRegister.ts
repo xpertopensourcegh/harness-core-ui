@@ -1,3 +1,3 @@
-import type { ModuleInfo } from './ModuleInfo'
+import type { NavEntry } from './NavEntry'
 
-export type ModuleRegistry = Readonly<ModuleInfo[]>
+export type ModuleRegistry = Readonly<NavEntry[]>

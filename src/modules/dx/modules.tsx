@@ -1,9 +1,9 @@
-import { ModuleName, linkTo, ModuleInfo } from 'framework'
+import { ModuleName, linkTo, NavEntry } from 'framework'
 import { DXDashboard } from './routes'
 import { Menu } from './menu/Menu'
 import i18n from './modules.i18n'
 
-export const DXDashboardModule: ModuleInfo = {
+export const DXDashboardModule: NavEntry = {
   module: ModuleName.DX,
   title: i18n.dashboard,
   icon: {

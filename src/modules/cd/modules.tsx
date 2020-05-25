@@ -1,9 +1,9 @@
-import { ModuleName, linkTo, ModuleInfo } from 'framework'
+import { ModuleName, linkTo, NavEntry } from 'framework'
 import { CDDeployments } from './routes'
 import { Menu } from './menu/Menu'
 import i18n from './modules.i18n'
 
-export const DeploymentsModule: ModuleInfo = {
+export const DeploymentsModule: NavEntry = {
   module: ModuleName.COMMON,
   title: i18n.deployments,
   route: CDDeployments,

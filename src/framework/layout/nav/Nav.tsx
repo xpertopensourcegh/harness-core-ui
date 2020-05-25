@@ -2,13 +2,13 @@ import React, { useMemo, ElementType } from 'react'
 import { Container, Link, Icon, FlexExpander } from '@wings-software/uikit'
 import css from './Nav.module.scss'
 import { useAppStoreReader } from 'framework/hooks/useAppStore'
-import type { RouteInfo, ModuleInfo } from 'framework'
+import type { RouteInfo, NavEntry } from 'framework'
 import cx from 'classnames'
 
 const ICON_SIZE = 24
 const BOTTOM = 'BOTTOM'
 
-const renderModule = (moduleInfo: ModuleInfo, routeInfo?: RouteInfo): JSX.Element => (
+const renderModule = (moduleInfo: NavEntry, routeInfo?: RouteInfo): JSX.Element => (
   <li key={moduleInfo.module + moduleInfo.title} className={moduleInfo.route === routeInfo ? css.selected : undefined}>
     <Link noStyling href={moduleInfo.url({}, {})} className={css.moduleItem}>
       <Icon name={moduleInfo.icon.normal} size={ICON_SIZE} />

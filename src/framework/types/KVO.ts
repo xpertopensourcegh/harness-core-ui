@@ -4,7 +4,7 @@ export interface KVO<T = any> {
 }
 
 /** Route parameters extracted from URL */
-export type URLParams = KVO<string | number>
+export type URLParams = Readonly<KVO<string | number>>
 
 /** Query parameters extracted from URL */
 export type URLQueries = URLParams

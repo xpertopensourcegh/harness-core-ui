@@ -62,3 +62,8 @@ This rule prevents module from using internal/private resources from another mod
 - Modules are not allowed to mutate `document.body` (for example doing things like `document.body.addClass` are prohibited).
 - Modules are not allowed to mutate `localStorage` and `sessionStorage`.
 - Modules are not allowed to set `ApplicationState`. Only Framework can. In fact, Framework does not export `ApplicationState` writer.
+- Modules are not allowed to manipulate `window` and `window.location`.
+
+### Rule #3: Modules are not allowed to use `react-router` directly
+
+Framewok provides utilities to a read/write URLs, route parameters, navigate, etc... The purpose of this rule is to unify accessing route parameters and make it easy to upgrade routing library (scoped inside Framework itself and not everywhere in the codebase).

@@ -35,3 +35,22 @@ export const moduleRegistry: ModuleRegistry = [
   CommonModules.CommonSettingsModule,
   CommonModules.CommonUserProfileModule
 ]
+
+export const moduleNavEntries = {
+  Dashboard: {},
+  Projects: {
+    Routes: [CommonRoutes.CommonProject, CommonRoutes.CommonOrg]
+  },
+  Deployments: {
+    Routes: CDRoutes
+  },
+  ContinuousVerification: {},
+
+  Settings: {},
+  UserProfile: {
+    Routes: [CommonRoutes.CommonUserProfile]
+  }
+}
+
+// Or predefine 6 nav entries
+// Then in each route definition, tide them into a nav entry

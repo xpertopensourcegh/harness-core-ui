@@ -1,9 +1,9 @@
-import { ModuleName, linkTo, ModuleInfo } from 'framework'
+import { ModuleName, linkTo, NavEntry } from 'framework'
 import { CommonProject, CommonUserProfile, CommonSettings } from './routes'
 import { Menu, MenuSettings } from './menu'
 import i18n from './modules.i18n'
 
-export const CommonProjectModule: ModuleInfo = {
+export const CommonProjectModule: NavEntry = {
   module: ModuleName.COMMON,
   title: i18n.project,
   route: CommonProject,
@@ -18,7 +18,7 @@ export const CommonProjectModule: ModuleInfo = {
   menu: Menu
 }
 
-export const CommonSettingsModule: ModuleInfo = {
+export const CommonSettingsModule: NavEntry = {
   module: ModuleName.COMMON,
   title: i18n.settings,
   icon: {
@@ -34,7 +34,7 @@ export const CommonSettingsModule: ModuleInfo = {
   menu: MenuSettings
 }
 
-export const CommonUserProfileModule: ModuleInfo = {
+export const CommonUserProfileModule: NavEntry = {
   module: ModuleName.COMMON,
   title: i18n.userProfile,
   icon: {
