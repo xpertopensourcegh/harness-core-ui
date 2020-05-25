@@ -1,6 +1,6 @@
-import React from 'react'
 import { ModuleName, linkTo, ModuleInfo } from 'framework'
 import { CVHome } from './routes'
+import { Menu } from './menu/Menu'
 
 export const CVHomeModule: ModuleInfo = {
   module: ModuleName.CV,
@@ -13,5 +13,5 @@ export const CVHomeModule: ModuleInfo = {
   url: (_urlParams, _urlQueries) => {
     return linkTo(CVHome)
   },
-  menu: <div>Sub menu</div>
+  menu: Menu
 }

@@ -55,7 +55,7 @@ _Not allowed:_
 import { GCPSettingModal } from 'modules/common/modal/GCPSettingModal'
 ```
 
-This rule prevents module from using internal/private resources from another module.
+This rule prevents module from using internal/private resources from another module. An export from a Module's `index.ts` denotes that the Module explicitely wants other modules to use it.
 
 ### Rule #2: Modules are not allowed to mutate global
 

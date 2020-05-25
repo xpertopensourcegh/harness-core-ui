@@ -8,4 +8,4 @@ export const PageLayout = {
   BlankLayout
 }
 
-export type PageLayout = typeof PageLayout[keyof typeof PageLayout]
+export type PageLayout = Readonly<typeof PageLayout[keyof typeof PageLayout]>

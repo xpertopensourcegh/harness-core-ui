@@ -47,7 +47,5 @@ export const RouteMounter: React.FC<RouteMounterProps> = ({ routeInfo, onEnter, 
     }
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
-  console.debug('RouteMounter')
-
   return <Suspense fallback={Loading}>{mounted ? <PageComponent /> : null}</Suspense>
 }

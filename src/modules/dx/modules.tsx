@@ -1,6 +1,6 @@
-import React from 'react'
 import { ModuleName, linkTo, ModuleInfo } from 'framework'
 import { DXDashboard } from './routes'
+import { Menu } from './menu/Menu'
 
 export const DXDashboardModule: ModuleInfo = {
   module: ModuleName.DX,
@@ -13,5 +13,5 @@ export const DXDashboardModule: ModuleInfo = {
   url: (_urlParams, _urlQueries) => {
     return linkTo(DXDashboard)
   },
-  menu: <div>DX Sub menu</div>
+  menu: Menu
 }
