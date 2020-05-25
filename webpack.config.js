@@ -152,8 +152,8 @@ const config = {
       showErrors: false,
       minify: false
     }),
-    new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en/)
-    // new BundleAnalyzerPlugin()
+    new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en/),
+    new webpack.DefinePlugin({ __DEV__: DEV	}
   ]
 }
 
