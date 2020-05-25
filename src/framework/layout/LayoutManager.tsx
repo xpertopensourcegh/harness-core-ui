@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import type { RouteInfo, AppStore } from 'framework'
 import { PageLayout } from './PageLayout'
-import { moduleRegistry } from 'modules'
+import { navRegistry } from 'modules'
 import { useAppStoreWriter } from 'framework/hooks/useAppStore'
 
 /**
@@ -17,7 +17,7 @@ export const LayoutManager: React.FC<{ routeInfo?: RouteInfo }> = ({ children, r
     if (!mounted) {
       updateApplicationStore((previousState: AppStore) => ({
         ...previousState,
-        moduleRegistry: moduleRegistry
+        navRegistry: navRegistry
       }))
       setMounted(true)
     }

@@ -18,23 +18,23 @@ const renderModule = (moduleInfo: NavEntry, routeInfo?: RouteInfo): JSX.Element 
 const renderModuleMenu = (Menu?: ElementType): JSX.Element | null => (Menu ? <Menu /> : null)
 
 export const Nav: React.FC<{ withoutMenu?: boolean }> = ({ withoutMenu = false }) => {
-  const { routeInfo, moduleRegistry } = useAppStoreReader()
+  const { routeInfo, navRegistry } = useAppStoreReader()
   const menu = useMemo(
-    () => renderModuleMenu(moduleRegistry?.find(({ route }) => route === routeInfo)?.menu as ElementType),
-    [moduleRegistry, routeInfo] // eslint-disable-line react-hooks/exhaustive-deps
+    () => renderModuleMenu(navRegistry?.find(({ route }) => route === routeInfo)?.menu as ElementType),
+    [navRegistry, routeInfo] // eslint-disable-line react-hooks/exhaustive-deps
   )
 
   return (
     <Container flex className={cx(css.nav, withoutMenu && css.withoutMenu)}>
       <Container flex className={css.modules}>
         <ul>
-          {moduleRegistry
+          {navRegistry
             ?.filter(moduleInfo => moduleInfo.position !== BOTTOM)
             .map(moduleInfo => renderModule(moduleInfo, routeInfo))}
         </ul>
         <FlexExpander />
         <ul>
-          {moduleRegistry
+          {navRegistry
             ?.filter(moduleInfo => moduleInfo.position === BOTTOM)
             .map(moduleInfo => renderModule(moduleInfo, routeInfo))}
         </ul>

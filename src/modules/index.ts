@@ -1,7 +1,7 @@
 /*
  * This file exports Modules integration points (Framework to consume).
  */
-import type { RouteRegistry, ModuleRegistry, RouteInfo, KVO } from 'framework'
+import type { RouteRegistry, NavRegistry, RouteInfo, KVO } from 'framework'
 import { CommonRoutes, CommonModules } from 'modules/common'
 import { DXRoutes, DXModules } from 'modules/dx'
 import { CVRoutes, CVModules } from 'modules/cv'
@@ -25,9 +25,10 @@ export const routeRegistry: RouteRegistry = Object.assign(
 )
 
 /**
- * moduleRegistry stores registed modules. Framework uses the registry to render global nav (modules on the left nav along with their respective menu when one is selected).
+ * navRegistry stores registed NavEntry extensions from Modules. Framework uses the registry to
+ * render global nav (modules on the left nav along with their respective menu when one is selected).
  */
-export const moduleRegistry: ModuleRegistry = [
+export const navRegistry: NavRegistry = [
   DXModules.DXDashboardModule,
   CommonModules.CommonProjectModule,
   CDModules.DeploymentsModule,
@@ -36,21 +37,21 @@ export const moduleRegistry: ModuleRegistry = [
   CommonModules.CommonUserProfileModule
 ]
 
-export const moduleNavEntries = {
-  Dashboard: {},
-  Projects: {
-    Routes: [CommonRoutes.CommonProject, CommonRoutes.CommonOrg]
-  },
-  Deployments: {
-    Routes: CDRoutes
-  },
-  ContinuousVerification: {},
+// export const moduleNavEntries = {
+//   Dashboard: {},
+//   Projects: {
+//     Routes: [CommonRoutes.CommonProject, CommonRoutes.CommonOrg]
+//   },
+//   Deployments: {
+//     Routes: CDRoutes
+//   },
+//   ContinuousVerification: {},
 
-  Settings: {},
-  UserProfile: {
-    Routes: [CommonRoutes.CommonUserProfile]
-  }
-}
+//   Settings: {},
+//   UserProfile: {
+//     Routes: [CommonRoutes.CommonUserProfile]
+//   }
+// }
 
 // Or predefine 6 nav entries
 // Then in each route definition, tide them into a nav entry
