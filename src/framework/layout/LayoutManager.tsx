@@ -10,7 +10,7 @@ import { useAppStoreWriter } from 'framework/hooks/useAppStore'
  */
 export const LayoutManager: React.FC<{ routeInfo?: RouteInfo }> = ({ children, routeInfo }) => {
   const updateApplicationStore = useAppStoreWriter()
-  const LayoutComponent = routeInfo && (routeInfo?.layout || PageLayout.DefaultLayout)
+  const LayoutComponent = routeInfo && ((routeInfo?.layout || PageLayout.DefaultLayout) as React.ElementType)
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {

@@ -1,51 +1,47 @@
-import React, { useMemo, useState } from 'react'
+import React, { useMemo, ElementType } from 'react'
 import { Container, Link, Icon, FlexExpander } from '@wings-software/uikit'
 import css from './Nav.module.scss'
 import { useAppStoreReader } from 'framework/hooks/useAppStore'
+import type { RouteInfo, ModuleInfo } from 'framework'
+import cx from 'classnames'
 
 const ICON_SIZE = 24
+const BOTTOM = 'BOTTOM'
 
-export const Nav: React.FC = () => {
+const renderModule = (moduleInfo: ModuleInfo, routeInfo?: RouteInfo): JSX.Element => (
+  <li key={moduleInfo.module + moduleInfo.title} className={moduleInfo.route === routeInfo ? css.selected : undefined}>
+    <Link noStyling href={moduleInfo.url({}, {})} className={css.moduleItem}>
+      <Icon name={moduleInfo.icon.normal} size={ICON_SIZE} />
+    </Link>
+  </li>
+)
+const renderModuleMenu = (Menu?: ElementType): JSX.Element | null => (Menu ? <Menu /> : null)
+
+export const Nav: React.FC<{ withoutMenu?: boolean }> = ({ withoutMenu = false }) => {
   const { routeInfo, moduleRegistry } = useAppStoreReader()
-  const [activeModuleMenu, setActiveModuleMenu] = useState<React.ReactNode>()
-  const modulesNav = useMemo(
-    () =>
-      moduleRegistry?.map(moduleInfo => {
-        if (moduleInfo.module === routeInfo?.module) {
-          const ActiveMenu = moduleInfo.menu as React.ElementType
-          setActiveModuleMenu(<ActiveMenu />)
-        }
-
-        return (
-          <li key={moduleInfo.module} className={moduleInfo.module === routeInfo?.module ? css.selected : undefined}>
-            <Link noStyling href={moduleInfo.url({}, {})} className={css.moduleItem}>
-              <Icon name={moduleInfo.icon.normal} size={ICON_SIZE} />
-            </Link>
-          </li>
-        )
-      }),
-    [routeInfo] // eslint-disable-line react-hooks/exhaustive-deps
+  const menu = useMemo(
+    () => renderModuleMenu(moduleRegistry?.find(({ route }) => route === routeInfo)?.menu as ElementType),
+    [moduleRegistry, routeInfo]
   )
 
   return (
-    <Container flex className={css.nav}>
+    <Container flex className={cx(css.nav, withoutMenu && css.withoutMenu)}>
       <Container flex className={css.modules}>
-        <ul>{modulesNav}</ul>
+        <ul>
+          {moduleRegistry
+            ?.filter(moduleInfo => moduleInfo.position !== BOTTOM)
+            .map(moduleInfo => renderModule(moduleInfo, routeInfo))}
+        </ul>
         <FlexExpander />
         <ul>
-          <li>
-            <Link noStyling href="/404" className={css.moduleItem}>
-              <Icon name="layers" size={ICON_SIZE} />
-            </Link>
-          </li>
-          <li>
-            <Link noStyling href="/user" className={css.moduleItem}>
-              <Icon name="person" size={ICON_SIZE} />
-            </Link>
-          </li>
+          {moduleRegistry
+            ?.filter(moduleInfo => moduleInfo.position === BOTTOM)
+            .map(moduleInfo => renderModule(moduleInfo, routeInfo))}
         </ul>
       </Container>
-      {activeModuleMenu && <Container className={css.modulesContent}>{activeModuleMenu}</Container>}
+      {!withoutMenu && <Container className={css.moduleMenu}>{menu}</Container>}
     </Container>
   )
 }
+
+export const NavWithoutMenu: React.FC = () => <Nav withoutMenu />

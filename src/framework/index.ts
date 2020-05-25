@@ -2,7 +2,7 @@
  * This file contains Framework exports which can be consumed by Modules.
  * Note: You should never export internal Framework entities like LayoutManager, RouteMounter, etc...
  */
-export type { KVO } from './types/KVO'
+export type { KVO, URLParams, URLQueries } from './types/KVO'
 export type { RouteInfo, RouteInfoURLArgs } from './types/RouteInfo'
 export type { RouteRegistry } from './types/RouteRegistry'
 export type { ModuleInfo, ModulePosition } from './types/ModuleInfo'

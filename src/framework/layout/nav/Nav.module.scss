@@ -34,9 +34,15 @@
     }
   }
 
-  .modulesContent {
+  .moduleMenu {
     flex-grow: 1;
     height: 100%;
     background: var(--blue-900) !important;
+  }
+
+  &.withoutMenu {
+    .moduleMenu {
+      display: none;
+    }
   }
 }

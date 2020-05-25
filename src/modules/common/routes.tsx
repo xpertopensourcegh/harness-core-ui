@@ -46,7 +46,7 @@ export const CommonPageNotFound: RouteInfo = {
 
 export const CommonSettings: RouteInfo = {
   module: ModuleName.COMMON,
-  layout: PageLayout.BlankLayout,
+  layout: PageLayout.DefaultLayout,
   path: '/settings',
   title: i18n.settings,
   pageId: 'settings',
@@ -56,7 +56,7 @@ export const CommonSettings: RouteInfo = {
 
 export const CommonUserProfile: RouteInfo = {
   module: ModuleName.COMMON,
-  layout: PageLayout.BlankLayout,
+  layout: PageLayout.NoMenuLayout,
   path: '/user-profile',
   title: i18n.userProfile,
   pageId: 'user-profile',

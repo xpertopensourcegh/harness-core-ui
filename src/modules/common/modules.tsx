@@ -2,7 +2,6 @@ import { ModuleName, linkTo, ModuleInfo } from 'framework'
 import { CommonProject, CommonUserProfile, CommonSettings } from './routes'
 import { Menu, MenuUserProfile } from './menu'
 import i18n from './modules.i18n'
-import { Icon } from '@wings-software/uikit'
 
 export const CommonProjectModule: ModuleInfo = {
   module: ModuleName.COMMON,
@@ -47,6 +46,6 @@ export const CommonUserProfileModule: ModuleInfo = {
   route: CommonUserProfile,
   url: (_urlParams, _urlQueries) => {
     return linkTo(CommonUserProfile)
-  },
-  menu: MenuUserProfile
+  }
+  // no menu, CommonUserProfile route also uses PageLayout.NoMenuLayout
 }

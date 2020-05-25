@@ -5,6 +5,7 @@ declare const styles: {
   readonly modules: string
   readonly selected: string
   readonly moduleItem: string
-  readonly modulesContent: string
+  readonly moduleMenu: string
+  readonly withoutMenu: string
 }
 export default styles

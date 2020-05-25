@@ -1,4 +1,4 @@
-import type { ModuleName, RouteInfo, KVO } from 'framework'
+import type { ModuleName, RouteInfo, URLParams, URLQueries } from 'framework'
 import type { IconName } from '@wings-software/uikit'
 
 /** Module icons */
@@ -25,12 +25,12 @@ export interface ModuleInfo {
   /** Module position on the top left nav (default to `ModulePosition.`) */
   position?: ModulePosition
 
-  /** Default route when module is clicked (may not be needed - to be revised) */
+  /** Default route when module is clicked */
   route: RouteInfo
 
   /** Link when module is clicked */
-  url: (urlParams: KVO<string | number>, urlQueries: KVO<string | number>) => string
+  url: (urlParams: URLParams, urlQueries: URLQueries) => string
 
   /** Module menu */
-  menu: React.ReactNode | JSX.Element
+  menu?: React.ReactNode | JSX.Element
 }

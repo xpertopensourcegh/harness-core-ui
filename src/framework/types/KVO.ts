@@ -2,3 +2,9 @@
 export interface KVO<T = any> {
   [key: string]: T
 }
+
+/** Route parameters extracted from URL */
+export type URLParams = KVO<string | number>
+
+/** Query parameters extracted from URL */
+export type URLQueries = URLParams
