@@ -26,7 +26,8 @@
     "certificates": true,
     ".*": true,
     "*.config.js": true,
-    "Dockerfile": true
+    "Dockerfile": true,
+    "src/global.d.ts": true
   },
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode"
