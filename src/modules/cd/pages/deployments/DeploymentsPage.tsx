@@ -4,11 +4,11 @@ import { Container, Heading } from '@wings-software/uikit'
 
 const logger = loggerFor(ModuleName.CD)
 
-export const DeploymentsPage: React.FC = () => {
-  logger.error('Mounting Deployments...', { user: 'Tom' })
+export default function DeploymentsPage(): JSX.Element {
+  logger.debug('Mounting Deployments...')
 
   return (
-    <Container padding="huge">
+    <Container padding="xsmall">
       <Heading>Deployments</Heading>
     </Container>
   )

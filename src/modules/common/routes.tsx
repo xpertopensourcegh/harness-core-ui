@@ -15,7 +15,6 @@ export const CommonLogin: RouteInfo = {
 
 export const CommonOrg: RouteInfo = {
   module: ModuleName.COMMON,
-  layout: PageLayout.DefaultLayout,
   path: '/org/:orgId?',
   title: i18n.org,
   pageId: 'org',
@@ -25,7 +24,6 @@ export const CommonOrg: RouteInfo = {
 
 export const CommonProject: RouteInfo = {
   module: ModuleName.COMMON,
-  layout: PageLayout.DefaultLayout,
   path: '/project/:orgId?',
   title: i18n.project,
   pageId: 'project',
@@ -46,7 +44,6 @@ export const CommonPageNotFound: RouteInfo = {
 
 export const CommonSettings: RouteInfo = {
   module: ModuleName.COMMON,
-  layout: PageLayout.DefaultLayout,
   path: '/settings',
   title: i18n.settings,
   pageId: 'settings',
