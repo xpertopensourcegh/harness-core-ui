@@ -21,7 +21,7 @@ export const Nav: React.FC<{ withoutMenu?: boolean }> = ({ withoutMenu = false }
   const { routeInfo, moduleRegistry } = useAppStoreReader()
   const menu = useMemo(
     () => renderModuleMenu(moduleRegistry?.find(({ route }) => route === routeInfo)?.menu as ElementType),
-    [moduleRegistry, routeInfo]
+    [moduleRegistry, routeInfo] // eslint-disable-line react-hooks/exhaustive-deps
   )
 
   return (
