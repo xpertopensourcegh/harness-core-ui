@@ -17,21 +17,30 @@ const config = {
   entry: './src/framework/app/app.tsx',
   target: 'web',
   mode: DEV ? 'development' : 'production',
-  stats: {
-    children: false
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: DEV ? 'static/[name].js' : 'static/[name].[contenthash:6].js',
+    chunkFilename: DEV ? 'static/[name].[id].js' : 'static/[name].[id].[contenthash:6].js'
   },
+  devtool: DEV ? 'cheap-module-source-map' : 'none',
   devServer: {
     contentBase: false,
     port: 8181,
     https: {
       key: fs.readFileSync(path.resolve(__dirname, './certificates/localhost-key.pem')),
       cert: fs.readFileSync(path.resolve(__dirname, './certificates/localhost.pem'))
+    },
+    stats: {
+      children: false,
+      maxModules: 0,
+      chunks: false,
+      assets: false,
+      modules: false
     }
   },
-  output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: DEV ? 'static/[name].js' : 'static/[name].[contenthash:6].js',
-    chunkFilename: DEV ? 'static/[name].[id].js' : 'static/[name].[id].[contenthash:6].js'
+  stats: {
+    modules: false,
+    children: false
   },
   module: {
     rules: [
@@ -123,7 +132,6 @@ const config = {
       }
     ]
   },
-  devtool: DEV ? 'cheap-module-source-map' : 'none',
   resolve: {
     extensions: ['.mjs', '.js', '.ts', '.tsx'],
     plugins: [new TsconfigPathsPlugin()]
