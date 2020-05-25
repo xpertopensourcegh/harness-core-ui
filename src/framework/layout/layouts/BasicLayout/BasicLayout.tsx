@@ -1,4 +1,4 @@
-import { Container } from '@wings-software/uikit'
+import { Container, Heading } from '@wings-software/uikit'
 import React from 'react'
 import css from './BasicLayout.module.scss'
 
@@ -9,5 +9,10 @@ import css from './BasicLayout.module.scss'
 // as an example
 //
 export const BasicLayout: React.FC = ({ children } = {}) => {
-  return <Container className={css.layout}>{children}</Container>
+  return (
+    <Container className={css.layout}>
+      <Heading>BasicLayout is not fully implemented</Heading>
+      {children}
+    </Container>
+  )
 }

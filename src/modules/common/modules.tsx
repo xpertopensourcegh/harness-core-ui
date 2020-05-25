@@ -1,6 +1,6 @@
 import { ModuleName, linkTo, ModuleInfo } from 'framework'
 import { CommonProject, CommonUserProfile, CommonSettings } from './routes'
-import { Menu, MenuUserProfile } from './menu'
+import { Menu, MenuSettings } from './menu'
 import i18n from './modules.i18n'
 
 export const CommonProjectModule: ModuleInfo = {
@@ -31,7 +31,7 @@ export const CommonSettingsModule: ModuleInfo = {
   url: (_urlParams, _urlQueries) => {
     return linkTo(CommonSettings)
   },
-  menu: MenuUserProfile
+  menu: MenuSettings
 }
 
 export const CommonUserProfileModule: ModuleInfo = {

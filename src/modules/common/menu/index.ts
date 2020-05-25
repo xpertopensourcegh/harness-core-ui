@@ -1,2 +1,2 @@
 export { Menu } from './Menu'
-export { MenuUserProfile } from './MenuUserProfile'
+export { MenuSettings } from './MenuSettings'
