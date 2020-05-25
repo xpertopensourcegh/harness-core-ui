@@ -29,5 +29,7 @@ export const routeRegistry: RouteRegistry = Object.assign(
 export const moduleRegistry: ModuleRegistry = [
   DXModules.DXDashboardModule,
   CommonModules.CommonProjectModule,
-  CVModules.CVHomeModule
+  CVModules.CVHomeModule,
+  CommonModules.CommonSettingsModule,
+  CommonModules.CommonUserProfileModule
 ]

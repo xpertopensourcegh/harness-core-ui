@@ -1,6 +1,6 @@
-import { DefaultLayout } from './DefaultLayout/DefaultLayout'
-import { BlankLayout } from './EmptyLayout/EmptyLayout'
-import { BasicLayout } from './BasicLayout/BasicLayout'
+import { DefaultLayout } from './layouts/DefaultLayout/DefaultLayout'
+import { BlankLayout } from './layouts/EmptyLayout/EmptyLayout'
+import { BasicLayout } from './layouts/BasicLayout/BasicLayout'
 
 export const PageLayout = {
   DefaultLayout,

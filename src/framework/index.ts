@@ -5,7 +5,7 @@
 export type { KVO } from './types/KVO'
 export type { RouteInfo, RouteInfoURLArgs } from './types/RouteInfo'
 export type { RouteRegistry } from './types/RouteRegistry'
-export type { ModuleInfo } from './types/ModuleInfo'
+export type { ModuleInfo, ModulePosition } from './types/ModuleInfo'
 export type { ModuleRegistry } from './types/ModuleRegister'
 export type { AppStore } from './types/AppStore'
 
