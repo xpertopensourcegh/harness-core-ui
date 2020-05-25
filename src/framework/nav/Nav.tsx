@@ -1,23 +1,23 @@
 import React from 'react'
 import { Container, Link, Icon, FlexExpander, Text } from '@wings-software/uikit'
 import css from './Nav.module.scss'
-import { useApplicationStateReader } from 'framework/hooks/useApplicationState'
+import { useAppStoreReader } from 'framework/hooks/useAppStore'
 
 const ICON_SIZE = 24
 
 export const Nav: React.FC = () => {
-  const { routeEntry, modules } = useApplicationStateReader()
+  const { routeInfo, moduleRegistry } = useAppStoreReader()
 
   // TODO: Nav is still getting called three times on fresh pageload
   // and two when navigate among pages
   // This needs to fix to make sure module nav is updated once, not two or three
   // as they might make service calls
-  console.log('APP STATE FROM NAV', modules)
-  const moduleComponents = modules?.map(moduleEntry => {
+  console.log('APP STATE FROM NAV', moduleRegistry)
+  const moduleComponents = moduleRegistry?.map(moduleInfo => {
     return (
-      <li key={moduleEntry.module} className={moduleEntry.module === routeEntry?.module ? css.selected : undefined}>
-        <Link noStyling href={moduleEntry.url({}, {})} className={css.moduleItem}>
-          <Icon name={moduleEntry.icon.normal} size={ICON_SIZE} />
+      <li key={moduleInfo.module} className={moduleInfo.module === routeInfo?.module ? css.selected : undefined}>
+        <Link noStyling href={moduleInfo.url({}, {})} className={css.moduleItem}>
+          <Icon name={moduleInfo.icon.normal} size={ICON_SIZE} />
         </Link>
       </li>
     )

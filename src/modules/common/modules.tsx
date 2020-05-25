@@ -1,8 +1,8 @@
 import React from 'react'
-import { ModuleName, linkTo, ModuleEntry } from 'framework'
+import { ModuleName, linkTo, ModuleInfo } from 'framework'
 import { CommonProject } from './routes'
 
-export const CommonProjectModule: ModuleEntry = {
+export const CommonProjectModule: ModuleInfo = {
   module: ModuleName.COMMON,
   route: CommonProject,
   icon: {

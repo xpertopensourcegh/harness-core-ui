@@ -1,4 +1,4 @@
-import type { ModuleName, RouteEntry, KVO } from 'framework'
+import type { ModuleName, RouteInfo, KVO } from 'framework'
 import type { IconName } from '@wings-software/uikit'
 
 export interface ModuleIcon {
@@ -7,10 +7,10 @@ export interface ModuleIcon {
   selected?: IconName
 }
 
-export interface ModuleEntry {
+export interface ModuleInfo {
   module: ModuleName
   title?: string
-  route: RouteEntry
+  route: RouteInfo
   icon: ModuleIcon
   url: (urlParams: KVO<string | number>, urlQueries: KVO<string | number>) => string
   menu: React.ReactNode | JSX.Element

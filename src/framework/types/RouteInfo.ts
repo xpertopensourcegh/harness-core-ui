@@ -1,12 +1,12 @@
 import type { KVO, PageLayout, ModuleName } from 'framework'
 
-/** Optional arguments passed into RouteEntry url() generator */
-export type RouteEntryURLArgs = KVO<string | number> | undefined
+/** Optional arguments passed into RouteInfo url() generator */
+export type RouteInfoURLArgs = KVO<string | number> | undefined
 
 /**
- * RouteEntry represents a route alongside its page binding.
+ * RouteInfo represents a route alongside its page binding.
  */
-export interface RouteEntry {
+export interface RouteInfo {
   /** Route path */
   path: string
 
@@ -29,7 +29,7 @@ export interface RouteEntry {
    * passing (like accountId is passed as null or underfined while it
    * must be non-nullable).
    * */
-  url: (params?: RouteEntryURLArgs) => string
+  url: (params?: RouteInfoURLArgs) => string
 
   /** Page layout. Defaulted to Framework `PageLayout.DefaultLayout` */
   layout?: PageLayout

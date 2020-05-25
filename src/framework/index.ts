@@ -3,10 +3,12 @@
  * Note: You should never export internal Framework entities like LayoutManager, RouteMounter, etc...
  */
 export type { KVO } from './types/KVO'
-export type { RouteEntry, RouteEntryURLArgs } from './types/RouteEntry'
-export type { ModuleRoutes } from './types/ModuleRoutes'
-export type { ModuleEntry } from './types/ModuleEntry'
-export type { ApplicationState } from './types/ApplicationState'
+export type { RouteInfo, RouteInfoURLArgs } from './types/RouteInfo'
+export type { RouteRegistry } from './types/RouteRegistry'
+export type { ModuleInfo } from './types/ModuleInfo'
+export type { ModuleRegistry } from './types/ModuleRegister'
+export type { AppStore } from './types/AppStore'
+
 export { loggerFor } from './logging/logging'
 export { ModuleName } from './types/ModuleName'
 export { PageLayout } from './layout/PageLayout'

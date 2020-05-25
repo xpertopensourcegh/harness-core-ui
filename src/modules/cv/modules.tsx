@@ -1,8 +1,8 @@
 import React from 'react'
-import { ModuleName, linkTo, ModuleEntry } from 'framework'
+import { ModuleName, linkTo, ModuleInfo } from 'framework'
 import { CVHome } from './routes'
 
-export const CVHomeModule: ModuleEntry = {
+export const CVHomeModule: ModuleInfo = {
   module: ModuleName.CV,
   route: CVHome,
   icon: {

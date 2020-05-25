@@ -1,8 +1,8 @@
 import React from 'react'
-import { ModuleName, linkTo, ModuleEntry } from 'framework'
+import { ModuleName, linkTo, ModuleInfo } from 'framework'
 import { DXDashboard } from './routes'
 
-export const DXDashboardModule: ModuleEntry = {
+export const DXDashboardModule: ModuleInfo = {
   module: ModuleName.DX,
   route: DXDashboard,
   icon: {
