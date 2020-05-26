@@ -52,6 +52,11 @@ export const RouteMounter: React.FC<RouteMounterProps> = ({ routeInfo, onEnter, 
   return <Suspense fallback={Loading}>{mounted ? <PageComponent /> : null}</Suspense>
 }
 
+/**
+ * Utility to test if a route is active.
+ * @param routeInfo Route to test.
+ * @returns true if the route is active.
+ */
 export function isRouteActive(routeInfo: RouteInfo): boolean {
   return routeInfo === activeRoute
 }
