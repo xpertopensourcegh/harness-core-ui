@@ -1,4 +1,4 @@
-import * as CVRoutes from './routes'
-import * as CVModules from './modules'
+import * as CVRoute from './routes'
+import * as CVNav from './nav'
 
-export { CVRoutes, CVModules }
+export { CVRoute, CVNav }

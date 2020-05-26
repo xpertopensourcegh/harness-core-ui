@@ -2,18 +2,18 @@
  * This file exports Modules integration points (Framework to consume).
  */
 import type { RouteRegistry, NavRegistry, RouteInfo, KVO } from 'framework'
-import { CommonRoutes, CommonModules } from 'modules/common'
-import { DXRoutes, DXModules } from 'modules/dx'
-import { CVRoutes, CVModules } from 'modules/cv'
-import { CDRoutes, CDModules } from 'modules/cd'
+import { CommonRoute, CommonNav } from 'modules/common'
+import { DXRoute, DXNav } from 'modules/dx'
+import { CVRoute, CVNav } from 'modules/cv'
+import { CDRoute, CDNav } from 'modules/cd'
 
 /**
  * routeRegistry stores all route info from Modules.
  */
 export const routeRegistry: RouteRegistry = Object.assign(
-  Object.entries(Object.assign({}, CDRoutes, DXRoutes, CVRoutes, CommonRoutes) as KVO<RouteInfo>).reduce(
+  Object.entries(Object.assign({}, CDRoute, DXRoute, CVRoute, CommonRoute) as KVO<RouteInfo>).reduce(
     (_routes: KVO<RouteInfo>, [key, value]) => {
-      if (value !== CommonRoutes.CommonPageNotFound) {
+      if (value !== CommonRoute.routePageNotFound) {
         _routes[key] = value
       }
       return _routes
@@ -21,7 +21,7 @@ export const routeRegistry: RouteRegistry = Object.assign(
     {}
   ),
   // PageNotFoundRoute must be the last (its routing path is `*`)
-  { CommonPageNotFound: CommonRoutes.CommonPageNotFound }
+  { CommonPageNotFound: CommonRoute.routePageNotFound }
 )
 
 /**
@@ -29,12 +29,12 @@ export const routeRegistry: RouteRegistry = Object.assign(
  * render global nav (modules on the left nav along with their respective menu when one is selected).
  */
 export const navRegistry: NavRegistry = [
-  DXModules.DXDashboardModule,
-  CommonModules.CommonProjectModule,
-  CDModules.DeploymentsModule,
-  CVModules.CVHomeModule,
-  CommonModules.CommonSettingsModule,
-  CommonModules.CommonUserProfileModule
+  DXNav.navDashboard,
+  CommonNav.navProjects,
+  CDNav.navDeployments,
+  CVNav.navContinuousVerification,
+  CommonNav.navSettings,
+  CommonNav.navUserProfile
 ]
 
 // export const moduleNavEntries = {

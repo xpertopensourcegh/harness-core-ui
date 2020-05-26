@@ -1,25 +1,24 @@
-import { ModuleName, linkTo, NavEntry } from 'framework'
-import { CommonProject, CommonUserProfile, CommonSettings } from './routes'
+import { linkTo, NavEntry, NavIdentifier } from 'framework'
+import { routeProject, routeUserProfile, routeSettings } from './routes'
 import { Menu, MenuSettings } from './menu'
-import i18n from './modules.i18n'
+import i18n from './module.i18n'
 
-export const CommonProjectModule: NavEntry = {
-  module: ModuleName.COMMON,
+export const navProjects: NavEntry = {
+  navId: NavIdentifier.PROJECTS,
   title: i18n.project,
-  route: CommonProject,
   icon: {
     normal: 'cube',
     hover: 'cube',
     selected: 'cube'
   },
   url: (_urlParams, _urlQueries) => {
-    return linkTo(CommonProject)
+    return linkTo(routeProject)
   },
   menu: Menu
 }
 
-export const CommonSettingsModule: NavEntry = {
-  module: ModuleName.COMMON,
+export const navSettings: NavEntry = {
+  navId: NavIdentifier.SETTINGS,
   title: i18n.settings,
   icon: {
     normal: 'layers',
@@ -27,15 +26,14 @@ export const CommonSettingsModule: NavEntry = {
     selected: 'layers'
   },
   position: 'BOTTOM',
-  route: CommonSettings,
   url: (_urlParams, _urlQueries) => {
-    return linkTo(CommonSettings)
+    return linkTo(routeSettings)
   },
   menu: MenuSettings
 }
 
-export const CommonUserProfileModule: NavEntry = {
-  module: ModuleName.COMMON,
+export const navUserProfile: NavEntry = {
+  navId: NavIdentifier.USER_PROFILE,
   title: i18n.userProfile,
   icon: {
     normal: 'person',
@@ -43,9 +41,8 @@ export const CommonUserProfileModule: NavEntry = {
     selected: 'person'
   },
   position: 'BOTTOM',
-  route: CommonUserProfile,
   url: (_urlParams, _urlQueries) => {
-    return linkTo(CommonUserProfile)
+    return linkTo(routeUserProfile)
   }
   // no menu, CommonUserProfile route also uses PageLayout.NoMenuLayout
 }

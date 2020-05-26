@@ -1,4 +1,4 @@
-import type { ModuleName, RouteInfo, URLParams, URLQueries } from 'framework'
+import type { URLParams, URLQueries, NavIdentifier } from 'framework'
 import type { IconName } from '@wings-software/uikit'
 
 /** NavEntry icons */
@@ -19,8 +19,8 @@ export type NavEntryPosition = 'TOP' | 'BOTTOM'
  * hacks to support the other when it's required.
  */
 export interface NavEntry {
-  /** Name of the module */
-  module: ModuleName
+  /** Unique identifier */
+  navId: NavIdentifier
 
   /** NavEntry title - use to show tooltip on hover */
   title: string
@@ -34,9 +34,6 @@ export interface NavEntry {
   // TBD
   // onClick?: () => void
   // isSelectable?: boolean
-
-  /** Default route when the nav is clicked */
-  route: RouteInfo
 
   /** Link when module is clicked. Must be related to `route` */
   url: (urlParams: URLParams, urlQueries: URLQueries) => string

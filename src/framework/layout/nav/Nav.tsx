@@ -8,19 +8,19 @@ import cx from 'classnames'
 const ICON_SIZE = 24
 const BOTTOM = 'BOTTOM'
 
-const renderModule = (moduleInfo: NavEntry, routeInfo?: RouteInfo): JSX.Element => (
-  <li key={moduleInfo.module + moduleInfo.title} className={moduleInfo.route === routeInfo ? css.selected : undefined}>
-    <Link noStyling href={moduleInfo.url({}, {})} className={css.moduleItem}>
-      <Icon name={moduleInfo.icon.normal} size={ICON_SIZE} />
+const renderNavEntry = (navEntry: NavEntry, routeInfo?: RouteInfo): JSX.Element => (
+  <li key={navEntry.navId} className={navEntry.navId === routeInfo?.navId ? css.selected : undefined}>
+    <Link noStyling href={navEntry.url({}, {})} className={css.moduleItem}>
+      <Icon name={navEntry.icon.normal} size={ICON_SIZE} />
     </Link>
   </li>
 )
-const renderModuleMenu = (Menu?: ElementType): JSX.Element | null => (Menu ? <Menu /> : null)
+const renderNavMenu = (Menu?: ElementType): JSX.Element | null => (Menu ? <Menu /> : null)
 
 export const Nav: React.FC<{ withoutMenu?: boolean }> = ({ withoutMenu = false }) => {
   const { routeInfo, navRegistry } = useAppStoreReader()
   const menu = useMemo(
-    () => renderModuleMenu(navRegistry?.find(({ route }) => route === routeInfo)?.menu as ElementType),
+    () => renderNavMenu(navRegistry?.find(({ navId }) => navId === routeInfo?.navId)?.menu as ElementType),
     [navRegistry, routeInfo] // eslint-disable-line react-hooks/exhaustive-deps
   )
 
@@ -30,13 +30,13 @@ export const Nav: React.FC<{ withoutMenu?: boolean }> = ({ withoutMenu = false }
         <ul>
           {navRegistry
             ?.filter(moduleInfo => moduleInfo.position !== BOTTOM)
-            .map(moduleInfo => renderModule(moduleInfo, routeInfo))}
+            .map(moduleInfo => renderNavEntry(moduleInfo, routeInfo))}
         </ul>
         <FlexExpander />
         <ul>
           {navRegistry
             ?.filter(moduleInfo => moduleInfo.position === BOTTOM)
-            .map(moduleInfo => renderModule(moduleInfo, routeInfo))}
+            .map(moduleInfo => renderNavEntry(moduleInfo, routeInfo))}
         </ul>
       </Container>
       {!withoutMenu && <Container className={css.moduleMenu}>{menu}</Container>}

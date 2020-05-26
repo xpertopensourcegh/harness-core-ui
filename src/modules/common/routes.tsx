@@ -1,9 +1,10 @@
 import React from 'react'
-import { RouteInfo, RouteInfoURLArgs, PageLayout, ModuleName } from 'framework'
-import i18n from './routes.i18n'
+import { RouteInfo, RouteInfoURLArgs, PageLayout, ModuleName, NavIdentifier } from 'framework'
+import i18n from './module.i18n'
 
-export const CommonLogin: RouteInfo = {
+export const routeLogin: RouteInfo = {
   module: ModuleName.COMMON,
+  navId: NavIdentifier.NONE,
   layout: PageLayout.BlankLayout,
   path: '/loginv2',
   title: i18n.login,
@@ -13,8 +14,9 @@ export const CommonLogin: RouteInfo = {
   authenticated: false
 }
 
-export const CommonOrg: RouteInfo = {
+export const routeOrg: RouteInfo = {
   module: ModuleName.COMMON,
+  navId: NavIdentifier.PROJECTS, // TODO: to be revised. Org might have their own place and not in Projects
   path: '/org/:orgId?',
   title: i18n.org,
   pageId: 'org',
@@ -22,8 +24,9 @@ export const CommonOrg: RouteInfo = {
   component: React.lazy(() => import('./pages/org/OrgPage'))
 }
 
-export const CommonProject: RouteInfo = {
+export const routeProject: RouteInfo = {
   module: ModuleName.COMMON,
+  navId: NavIdentifier.PROJECTS,
   path: '/project/:orgId?',
   title: i18n.project,
   pageId: 'project',
@@ -31,8 +34,9 @@ export const CommonProject: RouteInfo = {
   component: React.lazy(() => import('./pages/project/ProjectPage'))
 }
 
-export const CommonPageNotFound: RouteInfo = {
+export const routePageNotFound: RouteInfo = {
   module: ModuleName.COMMON,
+  navId: NavIdentifier.NONE,
   layout: PageLayout.BlankLayout,
   path: '*',
   title: i18n.notFound,
@@ -42,8 +46,9 @@ export const CommonPageNotFound: RouteInfo = {
   authenticated: false
 }
 
-export const CommonSettings: RouteInfo = {
+export const routeSettings: RouteInfo = {
   module: ModuleName.COMMON,
+  navId: NavIdentifier.SETTINGS, // TODO: To be revised - The layers icon might not Settings
   path: '/settings',
   title: i18n.settings,
   pageId: 'settings',
@@ -51,8 +56,9 @@ export const CommonSettings: RouteInfo = {
   component: React.lazy(() => import('./pages/settings/SettingsPage'))
 }
 
-export const CommonUserProfile: RouteInfo = {
+export const routeUserProfile: RouteInfo = {
   module: ModuleName.COMMON,
+  navId: NavIdentifier.USER_PROFILE,
   layout: PageLayout.NoMenuLayout,
   path: '/user-profile',
   title: i18n.userProfile,

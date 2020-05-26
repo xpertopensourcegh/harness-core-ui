@@ -1,4 +1,4 @@
-import * as DXRoutes from './routes'
-import * as DXModules from './modules'
+import * as DXRoute from './routes'
+import * as DXNav from './nav'
 
-export { DXRoutes, DXModules }
+export { DXRoute, DXNav }

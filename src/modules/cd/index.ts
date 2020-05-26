@@ -1,4 +1,4 @@
-import * as CDRoutes from './routes'
-import * as CDModules from './modules'
+import * as CDRoute from './routes'
+import * as CDNav from './nav'
 
-export { CDRoutes, CDModules }
+export { CDRoute, CDNav }

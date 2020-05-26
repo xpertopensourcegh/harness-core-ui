@@ -1,4 +1,4 @@
-import * as CommonRoutes from './routes'
-import * as CommonModules from './modules'
+import * as CommonRoute from './routes'
+import * as CommonNav from './nav'
 
-export { CommonRoutes, CommonModules }
+export { CommonRoute, CommonNav }
