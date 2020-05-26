@@ -9,6 +9,7 @@ import css from './RouteMounter.module.scss'
 import { useAppStoreWriter } from 'framework/hooks/useAppStore'
 
 const Loading = <Text className={css.loading}>{i18n.loading}</Text>
+let activeRoute: RouteInfo
 
 interface RouteMounterProps {
   routeInfo: RouteInfo
@@ -28,6 +29,7 @@ export const RouteMounter: React.FC<RouteMounterProps> = ({ routeInfo, onEnter, 
     document.body.setAttribute('page-id', pageId)
 
     onEnter?.(routeInfo)
+    activeRoute = routeInfo
 
     if (!mounted) {
       if (routeInfo.authenticated !== false && !SessionToken.isAuthenticated()) {
@@ -48,4 +50,8 @@ export const RouteMounter: React.FC<RouteMounterProps> = ({ routeInfo, onEnter, 
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   return <Suspense fallback={Loading}>{mounted ? <PageComponent /> : null}</Suspense>
+}
+
+export function isRouteActive(routeInfo: RouteInfo): boolean {
+  return routeInfo === activeRoute
 }

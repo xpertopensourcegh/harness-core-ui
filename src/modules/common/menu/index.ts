@@ -1,2 +1,2 @@
-export { MenuDeployments as Menu } from './MenuDeployments'
+export { MenuDeployments } from './MenuDeployments'
 export { MenuSettings } from './MenuSettings'

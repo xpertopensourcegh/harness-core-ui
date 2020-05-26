@@ -8,7 +8,7 @@ import { CVRoute, CVNav } from 'modules/cv'
 import { CDRoute, CDNav } from 'modules/cd'
 
 /**
- * routeRegistry stores all route info from Modules.
+ * routeRegistry stores all routes from different Modules.
  */
 export const routeRegistry: RouteRegistry = Object.assign(
   Object.entries(Object.assign({}, CDRoute, DXRoute, CVRoute, CommonRoute) as KVO<RouteInfo>).reduce(
@@ -21,7 +21,7 @@ export const routeRegistry: RouteRegistry = Object.assign(
     {}
   ),
   // PageNotFoundRoute must be the last (its routing path is `*`)
-  { CommonPageNotFound: CommonRoute.routePageNotFound }
+  { routePageNotFound: CommonRoute.routePageNotFound }
 )
 
 /**
@@ -36,22 +36,3 @@ export const navRegistry: NavRegistry = [
   CommonNav.navSettings,
   CommonNav.navUserProfile
 ]
-
-// export const moduleNavEntries = {
-//   Dashboard: {},
-//   Projects: {
-//     Routes: [CommonRoutes.CommonProject, CommonRoutes.CommonOrg]
-//   },
-//   Deployments: {
-//     Routes: CDRoutes
-//   },
-//   ContinuousVerification: {},
-
-//   Settings: {},
-//   UserProfile: {
-//     Routes: [CommonRoutes.CommonUserProfile]
-//   }
-// }
-
-// Or predefine 6 nav entries
-// Then in each route definition, tide them into a nav entry

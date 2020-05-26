@@ -16,6 +16,7 @@
   "keywords": [],
   "scripts": {
     "test": "jest src --silent",
+    "test:watch": "jest --watch",
     "lint": "eslint --ext .ts --ext .tsx src",
     "typecheck": "tsc",
     "clean": "rm -rf dist",

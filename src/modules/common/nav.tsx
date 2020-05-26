@@ -1,6 +1,6 @@
 import { linkTo, NavEntry, NavIdentifier } from 'framework'
 import { routeProject, routeUserProfile, routeSettings } from './routes'
-import { Menu, MenuSettings } from './menu'
+import { MenuDeployments, MenuSettings } from './menu'
 import i18n from './module.i18n'
 
 export const navProjects: NavEntry = {
@@ -14,7 +14,7 @@ export const navProjects: NavEntry = {
   url: (_urlParams, _urlQueries) => {
     return linkTo(routeProject)
   },
-  menu: Menu
+  menu: MenuDeployments
 }
 
 export const navSettings: NavEntry = {
