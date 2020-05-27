@@ -153,7 +153,7 @@ const config = {
       minify: false
     }),
     new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en/),
-    new webpack.DefinePlugin({ __DEV__: DEV	}
+    new webpack.DefinePlugin({ __DEV__: DEV })
   ]
 }
 

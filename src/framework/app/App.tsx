@@ -10,7 +10,7 @@ import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 import { HashRouter, Route, Switch } from 'react-router-dom'
 import { RouteMounter } from '../route/RouteMounter'
-import { routeRegistry } from 'modules'
+import { routeRegistry } from 'framework/registry'
 import './app.scss'
 
 FocusStyleManager.onlyShowFocusOnTabs()

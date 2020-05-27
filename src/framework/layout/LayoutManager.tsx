@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import type { RouteInfo, AppStore } from 'framework'
 import { PageLayout } from './PageLayout'
-import { navRegistry } from 'modules'
+import { navRegistry } from 'framework/registry'
 import { useAppStoreWriter } from 'framework/hooks/useAppStore'
 
 /**

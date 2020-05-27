@@ -1,7 +1,7 @@
-import type { KVO, PageLayout, ModuleName, NavIdentifier } from 'framework'
+import type { PageLayout, ModuleName, NavIdentifier } from 'framework'
 
 /** Optional arguments passed into RouteInfo url() generator */
-export type RouteInfoURLArgs = KVO<string | number> | undefined
+export type RouteInfoURLArgs = Record<string, string | number> | undefined
 
 /**
  * RouteInfo represents a route alongside its page binding.

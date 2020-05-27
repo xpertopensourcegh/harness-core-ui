@@ -1,18 +1,19 @@
-/*
- * This file exports Modules integration points (Framework to consume).
- */
-import type { RouteRegistry, NavRegistry, RouteInfo, KVO } from 'framework'
-import { CommonRoute, CommonNav } from 'modules/common'
-import { DXRoute, DXNav } from 'modules/dx'
-import { CVRoute, CVNav } from 'modules/cv'
-import { CDRoute, CDNav } from 'modules/cd'
+import type { RouteRegistry, NavRegistry, RouteInfo } from 'framework'
+import * as CommonRoute from 'modules/common/routes'
+import * as CommonNav from 'modules/common/nav'
+import * as DXRoute from 'modules/dx/routes'
+import * as DXNav from 'modules/dx/nav'
+import * as CVRoute from 'modules/cv/routes'
+import * as CVNav from 'modules/cv/nav'
+import * as CDRoute from 'modules/cd/routes'
+import * as CDNav from 'modules/cd/nav'
 
 /**
- * routeRegistry stores all routes from different Modules.
+ * routeRegistry stores routes from all Modules.
  */
 export const routeRegistry: RouteRegistry = Object.assign(
-  Object.entries(Object.assign({}, CDRoute, DXRoute, CVRoute, CommonRoute) as KVO<RouteInfo>).reduce(
-    (_routes: KVO<RouteInfo>, [key, value]) => {
+  Object.entries(Object.assign({}, CDRoute, DXRoute, CVRoute, CommonRoute) as Record<string, RouteInfo>).reduce(
+    (_routes: Record<string, RouteInfo>, [key, value]) => {
       if (value !== CommonRoute.routePageNotFound) {
         _routes[key] = value
       }

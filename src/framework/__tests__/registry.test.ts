@@ -1,4 +1,4 @@
-import { routeRegistry } from 'modules'
+import { routeRegistry } from 'framework/registry'
 
 describe('routeRegistry Tests', () => {
   test('All routes must have unique path', () => {
