@@ -157,8 +157,9 @@ const config = {
   ]
 }
 
-if (DEV) {
-  config.plugins.concat([new ForkTsCheckerWebpackPlugin({ tsconfig: 'tsconfig.json' })])
-}
+const devOnlyPlugins = [new ForkTsCheckerWebpackPlugin({ tsconfig: 'tsconfig.json' })]
+const prodOnlyPlugins = []
+
+config.plugins = config.plugins.concat(DEV ? devOnlyPlugins : prodOnlyPlugins)
 
 module.exports = config
