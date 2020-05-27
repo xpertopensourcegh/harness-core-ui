@@ -17,17 +17,17 @@ const AppShell: React.FC = ({ children }) => {
 }
 
 const App: React.FC = () => {
-  const [activeRouteInfo, setActiveRouteInfo] = useState<Route>()
+  const [activeRoute, setActiveRoute] = useState<Route>()
 
   return (
     <AppStoreProvider>
       <HashRouter>
         <AppShell>
-          <LayoutManager route={activeRouteInfo}>
+          <LayoutManager route={activeRoute}>
             <Switch>
               {Object.values(routeRegistry).map(route => (
                 <ReactRoute path={route.path} key={route.path}>
-                  <RouteMounter route={route} onEnter={setActiveRouteInfo} />
+                  <RouteMounter route={route} onEnter={setActiveRoute} />
                 </ReactRoute>
               ))}
             </Switch>
