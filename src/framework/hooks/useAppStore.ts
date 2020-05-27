@@ -2,7 +2,7 @@ import { useState, useCallback } from 'react'
 import type { AppStore } from 'framework'
 import constate from 'constate'
 
-function useAppState(): { store: AppStore; updateStore: (newState: Partial<AppStore>) => void } {
+function useAppStore(): { store: AppStore; updateStore: (newState: Partial<AppStore>) => void } {
   const [store, setStore] = useState({} as AppStore)
   const updateStore = useCallback(
     (newState: Partial<AppStore>) => setStore(currentState => ({ ...currentState, ...newState })),
@@ -13,7 +13,7 @@ function useAppState(): { store: AppStore; updateStore: (newState: Partial<AppSt
 }
 
 const [AppStoreProvider, useAppStoreReader, useAppStoreWriter] = constate(
-  useAppState,
+  useAppStore,
   value => value.store,
   value => value.updateStore
 )
