@@ -1,7 +1,7 @@
 import { linkTo, NavEntry, NavIdentifier } from 'framework'
 import { routeContinuousVerification } from '../routes'
 import { Menu } from './Menu'
-import i18n from '../cv.i18n'
+import i18n from './nav.i18n'
 
 export const navContinuousVerification: NavEntry = {
   navId: NavIdentifier.CONTINUOUS_VERIFICATION,

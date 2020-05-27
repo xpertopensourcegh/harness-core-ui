@@ -1,7 +1,7 @@
 import { linkTo, NavEntry, NavIdentifier } from 'framework'
 import { routeDeployments } from '../routes'
 import { Menu } from './Menu'
-import i18n from '../cd.i18n'
+import i18n from './nav.i18n'
 
 export const navDeployments: NavEntry = {
   navId: NavIdentifier.DEPLOYMENTS,

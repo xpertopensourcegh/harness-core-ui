@@ -2,7 +2,7 @@ import { linkTo, NavEntry, NavIdentifier } from 'framework'
 import { routeProject, routeUserProfile, routeSettings } from '../routes'
 import { MenuDeployments } from './MenuDeployments'
 import { MenuSettings } from './MenuSettings'
-import i18n from '../common.i18n'
+import i18n from './nav.i18n'
 
 export const navProjects: NavEntry = {
   navId: NavIdentifier.PROJECTS,

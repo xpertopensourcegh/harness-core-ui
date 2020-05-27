@@ -1,6 +1,6 @@
 import { linkTo, NavEntry, NavIdentifier } from 'framework'
 import { Menu } from './Menu'
-import i18n from '../dx.i18n'
+import i18n from './nav.i18n'
 import { routeDashboard } from '../routes'
 
 export const navDashboard: NavEntry = {
