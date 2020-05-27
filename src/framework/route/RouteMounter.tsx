@@ -7,9 +7,13 @@ import type { AppStore } from '../types/AppStore'
 import i18n from './RouteMounter.i18n'
 import css from './RouteMounter.module.scss'
 import { useAppStoreWriter } from 'framework/hooks/useAppStore'
+import { useParams } from 'react-router-dom'
+import queryString from 'query-string'
+import type { RouteParams } from 'framework/types/RouteParams'
 
 const Loading = <Text className={css.loading}>{i18n.loading}</Text>
 let activeRoute: Route
+let activeRouteParams: RouteParams
 
 interface RouteMounterProps {
   route: Route
@@ -22,6 +26,10 @@ export const RouteMounter: React.FC<RouteMounterProps> = ({ route, onEnter, onEx
   const { title, component: page, pageId } = route
   const PageComponent = page as React.ElementType
   const updateApplicationState = useAppStoreWriter()
+  const params = useParams()
+  const query = queryString.parse(window.location.href.split('?')[1])
+
+  activeRouteParams = { params, query }
 
   useEffect(() => {
     // TODO: Add accountName into title
@@ -59,4 +67,12 @@ export const RouteMounter: React.FC<RouteMounterProps> = ({ route, onEnter, onEx
  */
 export function isRouteActive(route: Route): boolean {
   return route === activeRoute
+}
+
+/**
+ * Get active route params.
+ * @returns RouteParams object of the active route.
+ */
+export function routeParams(): RouteParams {
+  return activeRouteParams
 }

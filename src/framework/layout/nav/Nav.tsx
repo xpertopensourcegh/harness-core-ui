@@ -4,13 +4,14 @@ import css from './Nav.module.scss'
 import { useAppStoreReader } from 'framework/hooks/useAppStore'
 import type { Route, NavEntry } from 'framework'
 import cx from 'classnames'
+import { routeParams } from 'framework/route/RouteMounter'
 
 const ICON_SIZE = 24
 const BOTTOM = 'BOTTOM'
 
 const renderNavEntry = (navEntry: NavEntry, route?: Route): JSX.Element => (
   <li key={navEntry.navId} className={navEntry.navId === route?.navId ? css.selected : undefined}>
-    <Link noStyling href={navEntry.url()} className={css.moduleItem}>
+    <Link noStyling href={navEntry.url(routeParams())} className={css.moduleItem}>
       <Icon name={navEntry.icon.normal} size={ICON_SIZE} />
     </Link>
   </li>

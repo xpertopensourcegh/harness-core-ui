@@ -1,4 +1,6 @@
+import type { ParsedQuery } from 'query-string'
+
 export interface RouteParams {
-  urlParams: Readonly<Record<string, string | number>>
-  queryParams: Readonly<Record<string, string | number>>
+  params: Readonly<Record<string, string | number | null | undefined>>
+  query: ParsedQuery
 }
