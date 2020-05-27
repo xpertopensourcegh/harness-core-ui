@@ -1,7 +1,7 @@
 import { linkTo, NavEntry, NavIdentifier } from 'framework'
-import { Menu } from './menu/Menu'
-import i18n from './module.i18n'
-import { routeDashboard } from './routes'
+import { Menu } from './Menu'
+import i18n from '../dx.i18n'
+import { routeDashboard } from '../routes'
 
 export const navDashboard: NavEntry = {
   navId: NavIdentifier.DASHBOARD,
@@ -11,7 +11,7 @@ export const navDashboard: NavEntry = {
     hover: 'harness',
     selected: 'harness'
   },
-  url: (_urlParams, _urlQueries) => {
+  url: _routeParams => {
     return linkTo(routeDashboard)
   },
   menu: Menu

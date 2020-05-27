@@ -1,6 +1,6 @@
 import { RouteInfo, ModuleName, NavIdentifier } from 'framework'
 import React from 'react'
-import i18n from './routes.i18n'
+import i18n from './dx.i18n'
 
 export const routeDashboard: RouteInfo = {
   navId: NavIdentifier.DASHBOARD,

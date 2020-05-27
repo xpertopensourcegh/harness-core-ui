@@ -3,7 +3,7 @@ import { Heading, Link } from '@wings-software/uikit'
 import { routeProject } from 'modules/common/routes'
 import { linkTo } from 'framework'
 
-export default function OrgPage(): JSX.Element {
+const OrgPage: React.FC = () => {
   return (
     <>
       <Heading>Org Page</Heading>
@@ -11,3 +11,5 @@ export default function OrgPage(): JSX.Element {
     </>
   )
 }
+
+export default OrgPage

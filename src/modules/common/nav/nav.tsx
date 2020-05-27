@@ -1,7 +1,8 @@
 import { linkTo, NavEntry, NavIdentifier } from 'framework'
-import { routeProject, routeUserProfile, routeSettings } from './routes'
-import { MenuDeployments, MenuSettings } from './menu'
-import i18n from './module.i18n'
+import { routeProject, routeUserProfile, routeSettings } from '../routes'
+import { MenuDeployments } from './MenuDeployments'
+import { MenuSettings } from './MenuSettings'
+import i18n from '../common.i18n'
 
 export const navProjects: NavEntry = {
   navId: NavIdentifier.PROJECTS,
@@ -11,7 +12,7 @@ export const navProjects: NavEntry = {
     hover: 'cube',
     selected: 'cube'
   },
-  url: (_urlParams, _urlQueries) => {
+  url: _routeParams => {
     return linkTo(routeProject)
   },
   menu: MenuDeployments
@@ -26,7 +27,7 @@ export const navSettings: NavEntry = {
     selected: 'layers'
   },
   position: 'BOTTOM',
-  url: (_urlParams, _urlQueries) => {
+  url: _routeParams => {
     return linkTo(routeSettings)
   },
   menu: MenuSettings
@@ -41,7 +42,7 @@ export const navUserProfile: NavEntry = {
     selected: 'person'
   },
   position: 'BOTTOM',
-  url: (_urlParams, _urlQueries) => {
+  url: _routeParams => {
     return linkTo(routeUserProfile)
   }
   // no menu, CommonUserProfile route also uses PageLayout.NoMenuLayout

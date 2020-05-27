@@ -1,6 +1,6 @@
 import React from 'react'
 import { RouteInfo, RouteInfoURLArgs, PageLayout, ModuleName, NavIdentifier } from 'framework'
-import i18n from './module.i18n'
+import i18n from './common.i18n'
 
 export const routeLogin: RouteInfo = {
   module: ModuleName.COMMON,

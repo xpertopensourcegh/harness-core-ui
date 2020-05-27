@@ -1,7 +1,7 @@
 import { linkTo, NavEntry, NavIdentifier } from 'framework'
-import { routeDeployments } from './routes'
-import { Menu } from './menu/Menu'
-import i18n from './module.i18n'
+import { routeDeployments } from '../routes'
+import { Menu } from './Menu'
+import i18n from '../cd.i18n'
 
 export const navDeployments: NavEntry = {
   navId: NavIdentifier.DEPLOYMENTS,
@@ -11,7 +11,7 @@ export const navDeployments: NavEntry = {
     hover: 'step-chart',
     selected: 'step-chart'
   },
-  url: (_urlParams, _urlQueries) => {
+  url: _routeParams => {
     return linkTo(routeDeployments)
   },
   menu: Menu

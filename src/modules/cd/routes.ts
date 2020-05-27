@@ -1,6 +1,6 @@
 import React from 'react'
 import { RouteInfo, ModuleName, PageLayout, NavIdentifier } from 'framework'
-import i18n from './module.i18n'
+import i18n from './cd.i18n'
 
 export const routeDeployments: RouteInfo = {
   module: ModuleName.CD,

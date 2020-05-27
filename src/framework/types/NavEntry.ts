@@ -1,4 +1,4 @@
-import type { URLParams, URLQueries, NavIdentifier } from 'framework'
+import type { RouteParams, NavIdentifier } from 'framework'
 import type { IconName } from '@wings-software/uikit'
 
 /** NavEntry icons */
@@ -35,8 +35,8 @@ export interface NavEntry {
   // onClick?: () => void
   // isSelectable?: boolean
 
-  /** Link when module is clicked. Must be related to `route` */
-  url: (urlParams: URLParams, urlQueries: URLQueries) => string
+  /** Link when module is clicked */
+  url: (routeParams: RouteParams) => string
 
   /** NavEntry menu (optional). Menu is rendered with a layout that supports it. If layout does not support menu, then menu is ignored. */
   menu?: React.ReactNode | JSX.Element

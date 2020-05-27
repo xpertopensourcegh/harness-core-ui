@@ -1,2 +1,2 @@
-// Module exports which are consumable from other Modules
+// Module exports which are consumable by other Modules
 export {}

@@ -1,5 +1,4 @@
-/** Route parameters extracted from URL */
-export type URLParams = Readonly<Record<string, string | number>>
-
-/** Query parameters extracted from URL */
-export type URLQueries = Readonly<Record<string, string | number>>
+export interface RouteParams {
+  urlParams: Readonly<Record<string, string | number>>
+  queryParams: Readonly<Record<string, string | number>>
+}

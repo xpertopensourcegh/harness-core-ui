@@ -2,7 +2,7 @@
  * This file contains Framework exports which can be consumed by Modules.
  * Note: You should never export internal Framework entities like LayoutManager, RouteMounter, Nav, etc...
  */
-export type { URLParams, URLQueries } from './types/RouteParams'
+export type { RouteParams } from './types/RouteParams'
 export type { RouteInfo, RouteInfoURLArgs } from './types/RouteInfo'
 export type { RouteRegistry } from './types/RouteRegistry'
 export type { NavEntry, NavEntryPosition } from './types/NavEntry'
