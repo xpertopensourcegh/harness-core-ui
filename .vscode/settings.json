@@ -5,29 +5,14 @@
     "npm-debug.log*": true,
     "dist/": true,
     "yarn-error.*": true,
-    "**/yarn.lock": true,
-    "webpack.config.js": true,
-    "tsconfig.json": true,
-    "scripts": true,
-    "certificates": true,
-    ".*": true,
-    "*.config.js": true,
-    "Dockerfile": true
+    "**/yarn.lock": true
   },
   "files.exclude": {
     "**/node_modules": true,
     "npm-debug.log*": true,
     "dist/": true,
     "yarn-error.*": true,
-    "**/yarn.lock": true,
-    "webpack.config.js": true,
-    "tsconfig*.json": true,
-    "scripts": true,
-    "certificates": true,
-    ".*": true,
-    "*.config.js": true,
-    "Dockerfile": true,
-    "src/global.d.ts": true
+    "**/yarn.lock": true
   },
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode"
