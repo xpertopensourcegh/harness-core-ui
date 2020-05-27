@@ -2,11 +2,6 @@ import { useState, useCallback } from 'react'
 import type { AppStore } from 'framework'
 import constate from 'constate'
 
-/**
- * Result type of useAppStoreWriter hook.
- */
-export type UseAppStoreWriterResult = (callback: (previousState: AppStore) => AppStore) => void
-
 function useAppState(): { store: AppStore; updateStore: (newState: Partial<AppStore>) => void } {
   const [store, setStore] = useState({} as AppStore)
   const updateStore = useCallback(
