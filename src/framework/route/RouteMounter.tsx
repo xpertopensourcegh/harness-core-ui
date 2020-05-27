@@ -3,7 +3,6 @@ import type { Route } from 'framework'
 import { buildLoginUrlFrom401Response } from 'framework/utils/framework-utils'
 import SessionToken from 'framework/utils/SessionToken'
 import React, { Suspense, useEffect, useState } from 'react'
-import type { AppStore } from '../types/AppStore'
 import i18n from './RouteMounter.i18n'
 import css from './RouteMounter.module.scss'
 import { useAppStoreWriter } from 'framework/hooks/useAppStore'
@@ -45,10 +44,7 @@ export const RouteMounter: React.FC<RouteMounterProps> = ({ route, onEnter, onEx
         return
       } else {
         setMounted(true)
-        updateApplicationState((previousState: AppStore) => ({
-          ...previousState,
-          route: route
-        }))
+        updateApplicationState({ route })
       }
     }
 

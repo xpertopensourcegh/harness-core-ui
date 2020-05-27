@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import type { Route, AppStore } from 'framework'
+import type { Route } from 'framework'
 import { PageLayout } from './PageLayout'
 import { navRegistry } from 'framework/registry'
 import { useAppStoreWriter } from 'framework/hooks/useAppStore'
@@ -15,10 +15,7 @@ export const LayoutManager: React.FC<{ route?: Route }> = ({ children, route }) 
 
   useEffect(() => {
     if (!mounted) {
-      updateApplicationStore((previousState: AppStore) => ({
-        ...previousState,
-        navRegistry: navRegistry
-      }))
+      updateApplicationStore({ navRegistry })
       setMounted(true)
     }
   }, []) // eslint-disable-line react-hooks/exhaustive-deps

@@ -1,27 +1,26 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-// @ts-ignore
-// TODO: Import type for recoil when it's merged
-// https://github.com/DefinitelyTyped/DefinitelyTyped/pull/44756
-import { useRecoilValue, useSetRecoilState, atom } from 'recoil'
+import { useState, useCallback } from 'react'
 import type { AppStore } from 'framework'
-
-const store = atom({ key: 'applicationStore', default: {} })
+import constate from 'constate'
 
 /**
  * Result type of useAppStoreWriter hook.
  */
 export type UseAppStoreWriterResult = (callback: (previousState: AppStore) => AppStore) => void
 
-/**
- * Hook to read from AppStore.
- */
-export function useAppStoreReader(): Readonly<AppStore> {
-  return useRecoilValue(store)
+function useAppState(): { store: AppStore; updateStore: (newState: Partial<AppStore>) => void } {
+  const [store, setStore] = useState({} as AppStore)
+  const updateStore = useCallback(
+    (newState: Partial<AppStore>) => setStore(currentState => ({ ...currentState, ...newState })),
+    []
+  )
+
+  return { store, updateStore }
 }
 
-/**
- * Hook to write into AppStore.
- */
-export function useAppStoreWriter(): UseAppStoreWriterResult {
-  return useSetRecoilState(store)
-}
+const [AppStoreProvider, useAppStoreReader, useAppStoreWriter] = constate(
+  useAppState,
+  value => value.store,
+  value => value.updateStore
+)
+
+export { AppStoreProvider, useAppStoreReader, useAppStoreWriter }

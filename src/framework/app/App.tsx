@@ -1,8 +1,3 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-// @ts-ignore
-// TODO: Import type for recoil when it's merged
-// https://github.com/DefinitelyTyped/DefinitelyTyped/pull/44756
-import { RecoilRoot } from 'recoil'
 import { FocusStyleManager } from '@blueprintjs/core'
 import type { Route } from 'framework'
 import { LayoutManager } from 'framework/layout/LayoutManager'
@@ -11,6 +6,7 @@ import ReactDOM from 'react-dom'
 import { HashRouter, Route as ReactRoute, Switch } from 'react-router-dom'
 import { RouteMounter } from '../route/RouteMounter'
 import { routeRegistry } from 'framework/registry'
+import { AppStoreProvider } from '../hooks/useAppStore'
 import './app.scss'
 
 FocusStyleManager.onlyShowFocusOnTabs()
@@ -24,7 +20,7 @@ const App: React.FC = () => {
   const [activeRouteInfo, setActiveRouteInfo] = useState<Route>()
 
   return (
-    <RecoilRoot>
+    <AppStoreProvider>
       <HashRouter>
         <AppShell>
           <LayoutManager route={activeRouteInfo}>
@@ -38,7 +34,7 @@ const App: React.FC = () => {
           </LayoutManager>
         </AppShell>
       </HashRouter>
-    </RecoilRoot>
+    </AppStoreProvider>
   )
 }
 

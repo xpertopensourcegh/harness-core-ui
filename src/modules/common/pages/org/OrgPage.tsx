@@ -4,6 +4,7 @@ import { routeProject } from 'modules/common/routes'
 import { linkTo } from 'framework'
 
 const OrgPage: React.FC = () => {
+  console.log('ORG PAGE')
   return (
     <>
       <Heading>Org Page</Heading>

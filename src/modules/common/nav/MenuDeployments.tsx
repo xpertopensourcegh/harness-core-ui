@@ -4,6 +4,7 @@ import { linkTo, isRouteActive } from 'framework'
 import { routeProject, routeOrg } from '../routes'
 
 export const MenuDeployments: React.FC = () => {
+  console.log('DEPLOYMENT MENU')
   return (
     <Layout.Vertical spacing="medium">
       <Text>Manage Projects</Text>
