@@ -140,26 +140,34 @@ const config = {
     splitChunks: {
       chunks: 'all'
     }
-  },
-  plugins: [
-    new MiniCssExtractPlugin({
-      filename: DEV ? 'static/[name].css' : 'static/[name].[contenthash:6].css',
-      chunkFilename: DEV ? 'static/[name].[id].css' : 'static/[name].[id].[contenthash:6].js'
-    }),
-    new HTMLWebpackPlugin({
-      template: 'src/index.html',
-      filename: 'index.html',
-      showErrors: false,
-      minify: false
-    }),
-    new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en/),
-    new webpack.DefinePlugin({ __DEV__: DEV })
-  ]
+  }
 }
 
-const devOnlyPlugins = [new ForkTsCheckerWebpackPlugin({ tsconfig: 'tsconfig.json' })]
+const commonPlugins = [
+  new MiniCssExtractPlugin({
+    filename: DEV ? 'static/[name].css' : 'static/[name].[contenthash:6].css',
+    chunkFilename: DEV ? 'static/[name].[id].css' : 'static/[name].[id].[contenthash:6].js'
+  }),
+  new HTMLWebpackPlugin({
+    template: 'src/index.html',
+    filename: 'index.html',
+    minify: false
+  }),
+  new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en/),
+  new webpack.DefinePlugin({
+    __DEV__: DEV
+  })
+]
+
+const devOnlyPlugins = [
+  new ForkTsCheckerWebpackPlugin({ tsconfig: 'tsconfig.json' })
+  // new BundleAnalyzerPlugin()
+]
+
 const prodOnlyPlugins = []
 
-config.plugins = config.plugins.concat(DEV ? devOnlyPlugins : prodOnlyPlugins)
+config.plugins = commonPlugins.concat(DEV ? devOnlyPlugins : prodOnlyPlugins)
+
+console.log({ DEV })
 
 module.exports = config
