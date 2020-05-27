@@ -1,8 +1,8 @@
 import React from 'react'
-import { RouteInfo, RouteInfoURLArgs, PageLayout, ModuleName, NavIdentifier } from 'framework'
+import { Route, RouteURLArgs, PageLayout, ModuleName, NavIdentifier } from 'framework'
 import i18n from './common.i18n'
 
-export const routeLogin: RouteInfo = {
+export const routeLogin: Route = {
   module: ModuleName.COMMON,
   navId: NavIdentifier.NONE,
   layout: PageLayout.BlankLayout,
@@ -14,27 +14,27 @@ export const routeLogin: RouteInfo = {
   authenticated: false
 }
 
-export const routeOrg: RouteInfo = {
+export const routeOrg: Route = {
   module: ModuleName.COMMON,
   navId: NavIdentifier.PROJECTS, // TODO: to be revised. Org might have their own place and not in Projects
   path: '/org/:orgId?',
   title: i18n.org,
   pageId: 'org',
-  url: (params: RouteInfoURLArgs) => `/org${params?.orgId ? `/${params.orgId}` : ''}`,
+  url: (params: RouteURLArgs) => `/org${params?.orgId ? `/${params.orgId}` : ''}`,
   component: React.lazy(() => import('./pages/org/OrgPage'))
 }
 
-export const routeProject: RouteInfo = {
+export const routeProject: Route = {
   module: ModuleName.COMMON,
   navId: NavIdentifier.PROJECTS,
   path: '/project/:orgId?',
   title: i18n.project,
   pageId: 'project',
-  url: (params: RouteInfoURLArgs) => `/project${params?.projectId ? `/${params.projectId}` : ''}`,
+  url: (params: RouteURLArgs) => `/project${params?.projectId ? `/${params.projectId}` : ''}`,
   component: React.lazy(() => import('./pages/project/ProjectPage'))
 }
 
-export const routePageNotFound: RouteInfo = {
+export const routePageNotFound: Route = {
   module: ModuleName.COMMON,
   navId: NavIdentifier.NONE,
   layout: PageLayout.BlankLayout,
@@ -46,7 +46,7 @@ export const routePageNotFound: RouteInfo = {
   authenticated: false
 }
 
-export const routeSettings: RouteInfo = {
+export const routeSettings: Route = {
   module: ModuleName.COMMON,
   navId: NavIdentifier.SETTINGS, // TODO: To be revised - The layers icon might not Settings
   path: '/settings',
@@ -56,7 +56,7 @@ export const routeSettings: RouteInfo = {
   component: React.lazy(() => import('./pages/settings/SettingsPage'))
 }
 
-export const routeUserProfile: RouteInfo = {
+export const routeUserProfile: Route = {
   module: ModuleName.COMMON,
   navId: NavIdentifier.USER_PROFILE,
   layout: PageLayout.NoMenuLayout,

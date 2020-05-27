@@ -1,4 +1,4 @@
-import type { RouteInfo, NavRegistry } from 'framework'
+import type { Route, NavRegistry } from 'framework'
 
 /**
  * Application Store - essential application-level states which are shareable
@@ -16,5 +16,5 @@ export interface AppStore {
   navRegistry?: NavRegistry
 
   /** Active route info */
-  routeInfo?: RouteInfo
+  route?: Route
 }

@@ -1,8 +1,8 @@
-import { RouteInfo, ModuleName, NavIdentifier } from 'framework'
+import { Route, ModuleName, NavIdentifier } from 'framework'
 import React from 'react'
 import i18n from './cv.i18n'
 
-export const routeContinuousVerification: RouteInfo = {
+export const routeContinuousVerification: Route = {
   navId: NavIdentifier.CONTINUOUS_VERIFICATION,
   path: '/continuous-verification',
   title: i18n.title,

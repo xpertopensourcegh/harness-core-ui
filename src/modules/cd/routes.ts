@@ -1,8 +1,8 @@
 import React from 'react'
-import { RouteInfo, ModuleName, PageLayout, NavIdentifier } from 'framework'
+import { Route, ModuleName, PageLayout, NavIdentifier } from 'framework'
 import i18n from './cd.i18n'
 
-export const routeDeployments: RouteInfo = {
+export const routeDeployments: Route = {
   module: ModuleName.CD,
   navId: NavIdentifier.DEPLOYMENTS,
   layout: PageLayout.DefaultLayout,

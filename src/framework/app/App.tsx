@@ -4,11 +4,11 @@
 // https://github.com/DefinitelyTyped/DefinitelyTyped/pull/44756
 import { RecoilRoot } from 'recoil'
 import { FocusStyleManager } from '@blueprintjs/core'
-import type { RouteInfo } from 'framework'
+import type { Route } from 'framework'
 import { LayoutManager } from 'framework/layout/LayoutManager'
 import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
-import { HashRouter, Route, Switch } from 'react-router-dom'
+import { HashRouter, Route as ReactRoute, Switch } from 'react-router-dom'
 import { RouteMounter } from '../route/RouteMounter'
 import { routeRegistry } from 'framework/registry'
 import './app.scss'
@@ -21,18 +21,18 @@ const AppShell: React.FC = ({ children }) => {
 }
 
 const App: React.FC = () => {
-  const [activeRouteInfo, setActiveRouteInfo] = useState<RouteInfo>()
+  const [activeRouteInfo, setActiveRouteInfo] = useState<Route>()
 
   return (
     <RecoilRoot>
       <HashRouter>
         <AppShell>
-          <LayoutManager routeInfo={activeRouteInfo}>
+          <LayoutManager route={activeRouteInfo}>
             <Switch>
-              {Object.values(routeRegistry).map(routeInfo => (
-                <Route path={routeInfo.path} key={routeInfo.path}>
-                  <RouteMounter routeInfo={routeInfo} onEnter={setActiveRouteInfo} />
-                </Route>
+              {Object.values(routeRegistry).map(route => (
+                <ReactRoute path={route.path} key={route.path}>
+                  <RouteMounter route={route} onEnter={setActiveRouteInfo} />
+                </ReactRoute>
               ))}
             </Switch>
           </LayoutManager>

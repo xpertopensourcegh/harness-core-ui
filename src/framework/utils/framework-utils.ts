@@ -1,4 +1,4 @@
-import type { RouteInfo, RouteInfoURLArgs } from 'framework'
+import type { Route, RouteURLArgs } from 'framework'
 import { loggerFor } from 'framework'
 import { ModuleName } from 'framework/types/ModuleName'
 
@@ -13,15 +13,15 @@ export function buildLoginUrlFrom401Response(message?: string): string {
 
 /**
  * Utility function to create a link to a route. This is an alias of
- * `RouteInfo.url()` with an extra nullable validation for params fields.
- * @param routeInfo Route entry object.
+ * `Route.url()` with an extra nullable validation for params fields.
+ * @param route Route entry object.
  * @param params Route entry's url() parameters.
  */
-export function linkTo(routeInfo: RouteInfo, params?: RouteInfoURLArgs): string {
+export function linkTo(route: Route, params?: RouteURLArgs): string {
   if (params) {
     const nullableFields = Object.keys(params).filter(key => params[key] === null || params[key] === undefined)
     if (nullableFields?.length) {
-      const { module, pageId, path, title } = routeInfo
+      const { module, pageId, path, title } = route
 
       logger.warn(`Calling linkTo() with problematic null/undefined arguments (${nullableFields.join(', ')}).`, {
         module,
@@ -31,5 +31,5 @@ export function linkTo(routeInfo: RouteInfo, params?: RouteInfoURLArgs): string 
       })
     }
   }
-  return routeInfo.url(params)
+  return route.url(params)
 }

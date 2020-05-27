@@ -1,12 +1,12 @@
 import type { PageLayout, ModuleName, NavIdentifier } from 'framework'
 
-/** Optional arguments passed into RouteInfo url() generator */
-export type RouteInfoURLArgs = Record<string, string | number> | undefined
+/** Optional arguments passed into Route url() generator */
+export type RouteURLArgs = Record<string, string | number> | undefined
 
 /**
- * RouteInfo represents a route alongside its page binding.
+ * Route represents a route alongside its page binding.
  */
-export interface RouteInfo {
+export interface Route {
   /** Nav identifier - which NaveEntry this route belongs to */
   navId: NavIdentifier
 
@@ -32,7 +32,7 @@ export interface RouteInfo {
    * passing (like accountId is passed as null or underfined while it
    * must be non-nullable).
    * */
-  url: (params?: RouteInfoURLArgs) => string
+  url: (params?: RouteURLArgs) => string
 
   /** Page layout. Defaulted to Framework `PageLayout.DefaultLayout` */
   layout?: PageLayout

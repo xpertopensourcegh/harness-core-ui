@@ -1,5 +1,5 @@
 import { Text } from '@wings-software/uikit'
-import type { RouteInfo } from 'framework'
+import type { Route } from 'framework'
 import { buildLoginUrlFrom401Response } from 'framework/utils/framework-utils'
 import SessionToken from 'framework/utils/SessionToken'
 import React, { Suspense, useEffect, useState } from 'react'
@@ -9,17 +9,17 @@ import css from './RouteMounter.module.scss'
 import { useAppStoreWriter } from 'framework/hooks/useAppStore'
 
 const Loading = <Text className={css.loading}>{i18n.loading}</Text>
-let activeRoute: RouteInfo
+let activeRoute: Route
 
 interface RouteMounterProps {
-  routeInfo: RouteInfo
-  onEnter?: (routeInfo: RouteInfo) => void
-  onExit?: (routeInfo: RouteInfo) => void
+  route: Route
+  onEnter?: (route: Route) => void
+  onExit?: (route: Route) => void
 }
 
-export const RouteMounter: React.FC<RouteMounterProps> = ({ routeInfo, onEnter, onExit }) => {
+export const RouteMounter: React.FC<RouteMounterProps> = ({ route, onEnter, onExit }) => {
   const [mounted, setMounted] = useState(false)
-  const { title, component: page, pageId } = routeInfo
+  const { title, component: page, pageId } = route
   const PageComponent = page as React.ElementType
   const updateApplicationState = useAppStoreWriter()
 
@@ -28,24 +28,24 @@ export const RouteMounter: React.FC<RouteMounterProps> = ({ routeInfo, onEnter, 
     document.title = `Harness | ${title}`
     document.body.setAttribute('page-id', pageId)
 
-    onEnter?.(routeInfo)
-    activeRoute = routeInfo
+    onEnter?.(route)
+    activeRoute = route
 
     if (!mounted) {
-      if (routeInfo.authenticated !== false && !SessionToken.isAuthenticated()) {
+      if (route.authenticated !== false && !SessionToken.isAuthenticated()) {
         window.location.href = buildLoginUrlFrom401Response()
         return
       } else {
         setMounted(true)
         updateApplicationState((previousState: AppStore) => ({
           ...previousState,
-          routeInfo: routeInfo
+          route: route
         }))
       }
     }
 
     return () => {
-      onExit?.(routeInfo)
+      onExit?.(route)
     }
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -54,9 +54,9 @@ export const RouteMounter: React.FC<RouteMounterProps> = ({ routeInfo, onEnter, 
 
 /**
  * Utility to test if a route is active.
- * @param routeInfo Route to test.
+ * @param route Route to test.
  * @returns true if the route is active.
  */
-export function isRouteActive(routeInfo: RouteInfo): boolean {
-  return routeInfo === activeRoute
+export function isRouteActive(route: Route): boolean {
+  return route === activeRoute
 }

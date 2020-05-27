@@ -1,4 +1,4 @@
-import type { RouteRegistry, NavRegistry, RouteInfo } from 'framework'
+import type { RouteRegistry, NavRegistry, Route } from 'framework'
 import * as CommonRoute from 'modules/common/routes'
 import * as CommonNav from 'modules/common/nav/nav'
 import * as DXRoute from 'modules/dx/routes'
@@ -12,8 +12,8 @@ import * as CDNav from 'modules/cd/nav/nav'
  * routeRegistry stores routes from all Modules.
  */
 export const routeRegistry: RouteRegistry = Object.assign(
-  Object.entries(Object.assign({}, CDRoute, DXRoute, CVRoute, CommonRoute) as Record<string, RouteInfo>).reduce(
-    (_routes: Record<string, RouteInfo>, [key, value]) => {
+  Object.entries(Object.assign({}, CDRoute, DXRoute, CVRoute, CommonRoute) as Record<string, Route>).reduce(
+    (_routes: Record<string, Route>, [key, value]) => {
       if (value !== CommonRoute.routePageNotFound) {
         _routes[key] = value
       }

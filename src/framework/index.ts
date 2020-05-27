@@ -3,7 +3,7 @@
  * Note: You should never export internal Framework entities like LayoutManager, RouteMounter, Nav, etc...
  */
 export type { RouteParams } from './types/RouteParams'
-export type { RouteInfo, RouteInfoURLArgs } from './types/RouteInfo'
+export type { Route, RouteURLArgs } from './types/Route'
 export type { RouteRegistry } from './types/RouteRegistry'
 export type { NavEntry, NavEntryPosition } from './types/NavEntry'
 export type { NavRegistry } from './types/NavRegistry'

@@ -1,4 +1,4 @@
-import type { RouteInfo } from './RouteInfo'
+import type { Route } from './Route'
 
-/** Type to declare routes in a module. Each entry is represented as { [KEY]: RouteInfo } */
-export type RouteRegistry = Readonly<Record<string, RouteInfo>>
+/** Type to declare routes in a module. Each entry is represented as { [KEY]: Route } */
+export type RouteRegistry = Readonly<Record<string, Route>>
