@@ -1,18 +1,10 @@
 {
   "eslint.enable": true,
   "search.exclude": {
-    "**/node_modules": true,
-    "npm-debug.log*": true,
-    "dist/": true,
-    "yarn-error.*": true,
-    "**/yarn.lock": true
+    "**/node_modules": true
   },
   "files.exclude": {
-    "**/node_modules": true,
-    "npm-debug.log*": true,
-    "dist/": true,
-    "yarn-error.*": true,
-    "**/yarn.lock": true
+    "**/node_modules": true
   },
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode"
