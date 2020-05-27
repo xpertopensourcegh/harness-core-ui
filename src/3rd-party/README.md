@@ -1,3 +1,5 @@
+# Third-party Integration
+
 This folder contains 3rd-party integrations:
 
 - Google Analytics
