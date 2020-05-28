@@ -1,0 +1,85 @@
+.nav {
+  --nav-width: 48px;
+  --border-color: var(--blue-825);
+  --background-color: var(--blue-900);
+  --nav-background-color: var(--blue-850);
+
+  background-color: var(--background-color) !important;
+
+  height: 100%;
+
+  ul.list {
+    display: flex;
+    width: var(--nav-width) !important;
+    height: 100%;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    text-align: center;
+
+    li.listItem:first-of-type {
+      .navItem {
+        height: 74px;
+      }
+    }
+
+    li.listItem {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      border-right: 1px solid var(--border-color);
+      background-color: var(--nav-background-color);
+
+      &.selected {
+        background-color: var(--background-color);
+        border-right: none;
+
+        & + .listItem,
+        & + .spacer {
+          border-radius: 0 10px 0 0;
+          border-top: 1px solid var(--border-color);
+        }
+      }
+
+      &.beforeSelected {
+        border-radius: 0 0 10px 0;
+        border-bottom: 1px solid var(--border-color);
+      }
+    }
+
+    .spacer {
+      flex-grow: 1;
+      width: 48px;
+      background-color: var(--nav-background-color);
+      border-right: 1px solid var(--border-color);
+
+      &.beforeSelected {
+        border-radius: 0 0 10px 0;
+        border-bottom: 1px solid var(--border-color);
+      }
+    }
+
+    .navItem {
+      padding: 0;
+      margin: 0;
+      width: 48px;
+      height: 48px;
+      align-items: center;
+      display: inline-flex;
+      justify-content: center;
+    }
+  }
+
+  .navMenu {
+    flex-grow: 1;
+    height: 100%;
+    background: var(--blue-900) !important;
+  }
+
+  &.withoutMenu {
+    .navMenu {
+      display: none;
+    }
+  }
+}

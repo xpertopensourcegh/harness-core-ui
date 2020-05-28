@@ -1,20 +1,21 @@
 /* eslint-disable @typescript-eslint/no-var-requires, no-console  */
-const webpack = require('webpack');
-const path = require('path');
-const fs = require('fs');
+const webpack = require('webpack')
+const path = require('path')
+const fs = require('fs')
 
-const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
-const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const HTMLWebpackPlugin = require('html-webpack-plugin');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const HTMLWebpackPlugin = require('html-webpack-plugin')
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
-const DEV = process.env.NODE_ENV === 'development';
-const CONTEXT = process.cwd();
+const DEV = process.env.NODE_ENV === 'development'
+const CONTEXT = process.cwd()
 
 const config = {
   context: CONTEXT,
-  entry: './src/client.tsx',
+  entry: './src/framework/app/app.tsx',
+  target: 'web',
   mode: DEV ? 'development' : 'production',
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -86,7 +87,7 @@ const config = {
             loader: 'sass-loader',
             options: {
               sassOptions: {
-                includePaths: [path.join(CONTEXT, 'src', 'styles')]
+                includePaths: [path.join(CONTEXT, 'src')]
               },
               sourceMap: false,
               implementation: require('sass')
@@ -110,7 +111,7 @@ const config = {
             loader: 'sass-loader',
             options: {
               sassOptions: {
-                includePaths: [path.join(CONTEXT, 'src', 'styles')]
+                includePaths: [path.join(CONTEXT, 'src')]
               },
               implementation: require('sass')
             }
@@ -140,7 +141,7 @@ const config = {
       chunks: 'all'
     }
   }
-};
+}
 
 const commonPlugins = [
   new MiniCssExtractPlugin({
@@ -156,17 +157,17 @@ const commonPlugins = [
   new webpack.DefinePlugin({
     __DEV__: DEV
   })
-];
+]
 
 const devOnlyPlugins = [
   new ForkTsCheckerWebpackPlugin({ tsconfig: 'tsconfig.json' })
   // new BundleAnalyzerPlugin()
-];
+]
 
-const prodOnlyPlugins = [];
+const prodOnlyPlugins = []
 
-config.plugins = commonPlugins.concat(DEV ? devOnlyPlugins : prodOnlyPlugins);
+config.plugins = commonPlugins.concat(DEV ? devOnlyPlugins : prodOnlyPlugins)
 
-console.log({ DEV });
+console.log({ DEV })
 
-module.exports = config;
+module.exports = config

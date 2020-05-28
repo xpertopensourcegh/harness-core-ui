@@ -522,6 +522,11 @@
   dependencies:
     any-observable "^0.3.0"
 
+"@scarf/scarf@^1.0.4":
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/@scarf/scarf/-/scarf-1.0.5.tgz#accee0bce88a9047672f7c8faf3cada59c996b81"
+  integrity sha512-9WKaGVpQH905Aqkk+BczFEeLQxS07rl04afFRPUG9IcSlOwmo5EVVuuNu0d4M9LMYucObvK0LoAe+5HfMW2QhQ==
+
 "@sinonjs/commons@^1.7.0":
   version "1.7.2"
   resolved "https://registry.yarnpkg.com/@sinonjs/commons/-/commons-1.7.2.tgz#505f55c74e0272b43f6c52d81946bed7058fc0e2"
@@ -725,6 +730,13 @@
   version "15.7.3"
   resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.7.3.tgz#2ab0d5da2e5815f94b0b9d4b95d1e5f243ab2ca7"
   integrity sha512-KfRL3PuHmqQLOG+2tGpRO26Ctg+Cq1E01D2DMriKEATHgWLfeNDmq9e29Q9WIky0dQ3NPkd1mzYH8Lm936Z9qw==
+
+"@types/query-string@^6.3.0":
+  version "6.3.0"
+  resolved "https://registry.yarnpkg.com/@types/query-string/-/query-string-6.3.0.tgz#b6fa172a01405abcaedac681118e78429d62ea39"
+  integrity sha512-yuIv/WRffRzL7cBW+sla4HwBZrEXRNf1MKQ5SklPEadth+BKbDxiVG8A3iISN5B3yC4EeSCzMZP8llHTcUhOzQ==
+  dependencies:
+    query-string "*"
 
 "@types/react-dom@*", "@types/react-dom@16.9.7", "@types/react-dom@^16.9.7":
   version "16.9.7"
@@ -1067,10 +1079,10 @@
   dependencies:
     loader-utils "^1.2.3"
 
-"@wings-software/uikit@1.0.117":
-  version "1.0.117"
-  resolved "https://npm.pkg.github.com/download/@wings-software/uikit/1.0.117/2c28616c8b285b9ea64b69fc4e234876543d9709eb92b00f7b06ee91e6cf500b#b70f8056e9804e5442c2f0fbb028fcd7e50fbb85"
-  integrity sha512-JpZwwdSYA29lyQGJ97vBAykjjTlzDG8Tu5kcNi2KRgix+UGpCI+3hERKvGNTpWhegi3k77PCH/dspQtAoEJR0A==
+"@wings-software/uikit@1.0.136":
+  version "1.0.136"
+  resolved "https://npm.pkg.github.com/download/@wings-software/uikit/1.0.136/8a537a93722653520f55eb82502341b4dc031382f2c8c7e0a9414cff908ea1b3#03da3ab1608f1e7bfa37e44b454fc7aa7f9b47e0"
+  integrity sha512-EHXILyaejVhZhGQwCzuiVLdZZhUEUIncm1Ecih4nrjPVxc9T3Uv4yWrZT0LjkUEklFhnh6ML1knOd8u6ZTAIQQ==
 
 "@wings-software/xhr-async@^2.0.7":
   version "2.0.7"
@@ -6333,6 +6345,15 @@ qs@~6.5.2:
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.5.2.tgz#cb3ae806e8740444584ef154ce8ee98d403f3e36"
   integrity sha512-N5ZAX4/LxJmF+7wN74pUD6qAh9/wnvdQcjq9TZjevvXzSUo7bfmw91saqMjzGS2xq91/odN2dW/WOl7qQHNDGA==
 
+query-string@*:
+  version "6.12.1"
+  resolved "https://registry.yarnpkg.com/query-string/-/query-string-6.12.1.tgz#2ae4d272db4fba267141665374e49a1de09e8a7c"
+  integrity sha512-OHj+zzfRMyj3rmo/6G8a5Ifvw3AleL/EbcHMD27YA31Q+cO5lfmQxECkImuNVjcskLcvBRVHNAB3w6udMs1eAA==
+  dependencies:
+    decode-uri-component "^0.2.0"
+    split-on-first "^1.0.0"
+    strict-uri-encode "^2.0.0"
+
 query-string@^4.1.0:
   version "4.3.4"
   resolved "https://registry.yarnpkg.com/query-string/-/query-string-4.3.4.tgz#bbb693b9ca915c232515b228b1a02b609043dbeb"
@@ -6467,6 +6488,13 @@ react-router@5.2.0:
     react-is "^16.6.0"
     tiny-invariant "^1.0.2"
     tiny-warning "^1.0.0"
+
+react-table@^7.1.0:
+  version "7.1.0"
+  resolved "https://registry.yarnpkg.com/react-table/-/react-table-7.1.0.tgz#c975cd67e917c54190b6c9df29f085285b0c3f4e"
+  integrity sha512-AZpgW0Xpo6Z7jxXZIBovzCGoYVkuBwATsJh7X4+JXwq9JtDaorOmxWC9gKx5Hui4d+n+I99enyyJS+LRtKydxA==
+  dependencies:
+    "@scarf/scarf" "^1.0.4"
 
 react-test-renderer@^16.13.1:
   version "16.13.1"
@@ -7259,6 +7287,11 @@ spdy@^4.0.2:
     select-hose "^2.0.0"
     spdy-transport "^3.0.0"
 
+split-on-first@^1.0.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/split-on-first/-/split-on-first-1.1.0.tgz#f610afeee3b12bce1d0c30425e76398b78249a5f"
+  integrity sha512-43ZssAJaMusuKWL8sKUBQXHWOpq8d6CfN/u1p4gUzfJkM05C8rxTmYrkIPTXapZpORA6LkkzcUulJ8FqA7Uudw==
+
 split-string@^3.0.1, split-string@^3.0.2:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/split-string/-/split-string-3.1.0.tgz#7cb09dda3a86585705c64b39a6466038682e8fe2"
@@ -7354,6 +7387,11 @@ strict-uri-encode@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/strict-uri-encode/-/strict-uri-encode-1.1.0.tgz#279b225df1d582b1f54e65addd4352e18faa0713"
   integrity sha1-J5siXfHVgrH1TmWt3UNS4Y+qBxM=
+
+strict-uri-encode@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/strict-uri-encode/-/strict-uri-encode-2.0.0.tgz#b9c7330c7042862f6b142dc274bbcc5866ce3546"
+  integrity sha1-ucczDHBChi9rFC3CdLvMWGbONUY=
 
 string-argv@0.3.1:
   version "0.3.1"
