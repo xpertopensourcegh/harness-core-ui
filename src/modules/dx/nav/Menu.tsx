@@ -14,7 +14,7 @@ export const Menu: React.FC = () => {
         <Text font={{ align: 'center', weight: 'bold' }} color={Color.WHITE}>
           {i18n.dashboard}
         </Text>
-        <Link href="javascript:void()" onClick={() => alert('Click')}>
+        <Link withoutHref onClick={() => alert('Click')}>
           {i18n.addDashboard}
         </Link>
       </Container>

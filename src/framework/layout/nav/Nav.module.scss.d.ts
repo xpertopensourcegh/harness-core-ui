@@ -4,11 +4,11 @@ declare const styles: {
   readonly nav: string
   readonly list: string
   readonly listItem: string
-  readonly moduleItem: string
+  readonly navItem: string
   readonly selected: string
   readonly spacer: string
   readonly beforeSelected: string
-  readonly moduleMenu: string
+  readonly navMenu: string
   readonly withoutMenu: string
 }
 export default styles

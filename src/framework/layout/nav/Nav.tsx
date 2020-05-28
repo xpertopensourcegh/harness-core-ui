@@ -11,7 +11,7 @@ const BOTTOM = 'BOTTOM'
 
 const renderNavEntry = (navEntry: NavEntry, route?: Route): JSX.Element => (
   <li key={navEntry.navId} className={cx(css.listItem, navEntry.navId === route?.navId && css.selected)}>
-    <Link noStyling href={navEntry.url(routeParams())} className={css.moduleItem}>
+    <Link noStyling href={navEntry.url(routeParams())} className={css.navItem}>
       <Icon name={navEntry.icon.normal} size={ICON_SIZE} />
     </Link>
   </li>
@@ -37,7 +37,7 @@ export const Nav: React.FC<{ withoutMenu?: boolean }> = ({ withoutMenu = false }
         <li className={css.spacer}></li>
         {navRegistry?.filter(navEntry => navEntry.position === BOTTOM).map(navEntry => renderNavEntry(navEntry, route))}
       </ul>
-      {!withoutMenu && <Container className={css.moduleMenu}>{menu}</Container>}
+      {!withoutMenu && <Container className={css.navMenu}>{menu}</Container>}
     </Container>
   )
 }

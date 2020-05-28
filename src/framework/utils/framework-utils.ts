@@ -1,5 +1,5 @@
 import type { Route, RouteURLArgs } from 'framework'
-import { loggerFor } from 'framework'
+import { loggerFor } from 'framework/logging/logging'
 import { ModuleName } from 'framework/types/ModuleName'
 
 const logger = loggerFor(ModuleName.FRAMEWORK)

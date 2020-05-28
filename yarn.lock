@@ -522,6 +522,11 @@
   dependencies:
     any-observable "^0.3.0"
 
+"@scarf/scarf@^1.0.4":
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/@scarf/scarf/-/scarf-1.0.5.tgz#accee0bce88a9047672f7c8faf3cada59c996b81"
+  integrity sha512-9WKaGVpQH905Aqkk+BczFEeLQxS07rl04afFRPUG9IcSlOwmo5EVVuuNu0d4M9LMYucObvK0LoAe+5HfMW2QhQ==
+
 "@sinonjs/commons@^1.7.0":
   version "1.7.2"
   resolved "https://registry.yarnpkg.com/@sinonjs/commons/-/commons-1.7.2.tgz#505f55c74e0272b43f6c52d81946bed7058fc0e2"
@@ -1074,10 +1079,10 @@
   dependencies:
     loader-utils "^1.2.3"
 
-"@wings-software/uikit@1.0.117":
-  version "1.0.117"
-  resolved "https://npm.pkg.github.com/download/@wings-software/uikit/1.0.117/2c28616c8b285b9ea64b69fc4e234876543d9709eb92b00f7b06ee91e6cf500b#b70f8056e9804e5442c2f0fbb028fcd7e50fbb85"
-  integrity sha512-JpZwwdSYA29lyQGJ97vBAykjjTlzDG8Tu5kcNi2KRgix+UGpCI+3hERKvGNTpWhegi3k77PCH/dspQtAoEJR0A==
+"@wings-software/uikit@1.0.135":
+  version "1.0.135"
+  resolved "https://npm.pkg.github.com/download/@wings-software/uikit/1.0.135/6d686b761ad77f312a4e743c0cdd10c4f9b87e8080923bcaa6857eadabf9f4ec#7973a3bc23d07808c0b587941bd699afe423f9d2"
+  integrity sha512-TXQEDOcwXVX+eVlH6qD/HCLsKfMxMb6/BffDdANxinen4BbOPh6h48D4h+0iiu8Y5crDR1XcEfajUVI1AVw8kw==
 
 "@wings-software/xhr-async@^2.0.7":
   version "2.0.7"
@@ -6483,6 +6488,13 @@ react-router@5.2.0:
     react-is "^16.6.0"
     tiny-invariant "^1.0.2"
     tiny-warning "^1.0.0"
+
+react-table@^7.1.0:
+  version "7.1.0"
+  resolved "https://registry.yarnpkg.com/react-table/-/react-table-7.1.0.tgz#c975cd67e917c54190b6c9df29f085285b0c3f4e"
+  integrity sha512-AZpgW0Xpo6Z7jxXZIBovzCGoYVkuBwATsJh7X4+JXwq9JtDaorOmxWC9gKx5Hui4d+n+I99enyyJS+LRtKydxA==
+  dependencies:
+    "@scarf/scarf" "^1.0.4"
 
 react-test-renderer@^16.13.1:
   version "16.13.1"
