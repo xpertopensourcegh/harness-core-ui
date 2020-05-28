@@ -1079,10 +1079,10 @@
   dependencies:
     loader-utils "^1.2.3"
 
-"@wings-software/uikit@1.0.135":
-  version "1.0.135"
-  resolved "https://npm.pkg.github.com/download/@wings-software/uikit/1.0.135/6d686b761ad77f312a4e743c0cdd10c4f9b87e8080923bcaa6857eadabf9f4ec#7973a3bc23d07808c0b587941bd699afe423f9d2"
-  integrity sha512-TXQEDOcwXVX+eVlH6qD/HCLsKfMxMb6/BffDdANxinen4BbOPh6h48D4h+0iiu8Y5crDR1XcEfajUVI1AVw8kw==
+"@wings-software/uikit@1.0.136":
+  version "1.0.136"
+  resolved "https://npm.pkg.github.com/download/@wings-software/uikit/1.0.136/8a537a93722653520f55eb82502341b4dc031382f2c8c7e0a9414cff908ea1b3#03da3ab1608f1e7bfa37e44b454fc7aa7f9b47e0"
+  integrity sha512-EHXILyaejVhZhGQwCzuiVLdZZhUEUIncm1Ecih4nrjPVxc9T3Uv4yWrZT0LjkUEklFhnh6ML1knOd8u6ZTAIQQ==
 
 "@wings-software/xhr-async@^2.0.7":
   version "2.0.7"

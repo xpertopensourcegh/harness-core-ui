@@ -14,9 +14,11 @@ export const Menu: React.FC = () => {
         <Text font={{ align: 'center', weight: 'bold' }} color={Color.WHITE}>
           {i18n.dashboard}
         </Text>
-        <Link withoutHref onClick={() => alert('Click')}>
-          {i18n.addDashboard}
-        </Link>
+        <Container padding="large" className={css.menuContent}>
+          <Link withoutHref onClick={() => alert('Click')}>
+            {i18n.addDashboard}
+          </Link>
+        </Container>
       </Container>
     </Layout.Vertical>
   )
