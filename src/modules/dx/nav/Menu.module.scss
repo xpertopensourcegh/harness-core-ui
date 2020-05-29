@@ -1,6 +1,22 @@
 .logo {
-  transform: translate(-36px, 25px);
-  display: none;
+  transform: translate(-81px, 12px);
+
+  svg {
+    path:last-of-type {
+      transform: translateX(15px);
+    }
+  }
+}
+
+.dashboardTitle {
+  span {
+    color: var(--grey-200);
+  }
+
+  span:last-of-type {
+    display: inline-block;
+    margin-left: var(--spacing-medium);
+  }
 }
 
 .menuContent {
