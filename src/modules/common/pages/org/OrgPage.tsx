@@ -1,7 +1,7 @@
 import React from 'react'
 import { Heading, Link } from '@wings-software/uikit'
 import { routeProject } from 'modules/common/routes'
-import { linkTo } from 'framework'
+import { linkTo } from 'framework/exports'
 
 const OrgPage: React.FC = () => {
   return (

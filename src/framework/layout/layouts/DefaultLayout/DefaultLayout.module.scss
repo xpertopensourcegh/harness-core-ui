@@ -1,19 +1,19 @@
-.main {
-  --nav-width: 270px;
+.layout {
+  --sidebar-container-width: 270px;
 
   &.withoutMenu {
-    --nav-width: 48px;
+    --sidebar-container-width: 50px;
   }
 
   display: flex;
   width: 100%;
   height: 100%;
 
-  .nav {
-    width: var(--nav-width);
+  .sidebarContainer {
+    width: var(--sidebar-container-width);
   }
 
-  .content {
+  .pageContainer {
     flex-grow: 1;
     background: var(--white);
   }

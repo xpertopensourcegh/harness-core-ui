@@ -1,4 +1,4 @@
-import type { Route, NavRegistry } from 'framework'
+import type { Route, SidebarRegistry } from 'framework/exports'
 
 /**
  * Application Store - essential application-level states which are shareable
@@ -12,8 +12,8 @@ export interface AppStore {
   /** TBD: License info */
   // licenseInfo?: LicenseInfo
 
-  /** Nav Registry */
-  navRegistry?: NavRegistry
+  /** Sidebar Registry */
+  sidebarRegistry?: SidebarRegistry
 
   /** Active route info */
   route?: Route

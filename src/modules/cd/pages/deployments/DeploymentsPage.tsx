@@ -1,5 +1,5 @@
 import React from 'react'
-import { loggerFor, ModuleName } from 'framework'
+import { loggerFor, ModuleName } from 'framework/exports'
 import { Container, Heading } from '@wings-software/uikit'
 
 const logger = loggerFor(ModuleName.CD)

@@ -1,10 +1,10 @@
 import React from 'react'
-import { Route, RouteURLArgs, PageLayout, ModuleName, NavIdentifier } from 'framework'
+import { Route, RouteURLArgs, PageLayout, ModuleName, SidebarIdentifier } from 'framework/exports'
 import i18n from './routes.i18n'
 
 export const routeLogin: Route = {
   module: ModuleName.COMMON,
-  navId: NavIdentifier.NONE,
+  sidebarId: SidebarIdentifier.NONE,
   layout: PageLayout.BlankLayout,
   path: '/loginv2',
   title: i18n.login,
@@ -16,7 +16,7 @@ export const routeLogin: Route = {
 
 export const routeOrg: Route = {
   module: ModuleName.COMMON,
-  navId: NavIdentifier.PROJECTS, // TODO: to be revised. Org might have their own place and not in Projects
+  sidebarId: SidebarIdentifier.PROJECTS, // TODO: to be revised. Org might have their own place and not in Projects
   path: '/org/:orgId?',
   title: i18n.org,
   pageId: 'org',
@@ -26,7 +26,7 @@ export const routeOrg: Route = {
 
 export const routeProject: Route = {
   module: ModuleName.COMMON,
-  navId: NavIdentifier.PROJECTS,
+  sidebarId: SidebarIdentifier.PROJECTS,
   path: '/project/:orgId?',
   title: i18n.project,
   pageId: 'project',
@@ -36,7 +36,7 @@ export const routeProject: Route = {
 
 export const routePageNotFound: Route = {
   module: ModuleName.COMMON,
-  navId: NavIdentifier.NONE,
+  sidebarId: SidebarIdentifier.NONE,
   layout: PageLayout.BlankLayout,
   path: '*',
   title: i18n.notFound,
@@ -48,7 +48,7 @@ export const routePageNotFound: Route = {
 
 export const routeSettings: Route = {
   module: ModuleName.COMMON,
-  navId: NavIdentifier.SETTINGS, // TODO: To be revised - The layers icon might not Settings
+  sidebarId: SidebarIdentifier.SETTINGS, // TODO: To be revised - The layers icon might not Settings
   path: '/settings',
   title: i18n.settings,
   pageId: 'settings',
@@ -58,8 +58,7 @@ export const routeSettings: Route = {
 
 export const routeUserProfile: Route = {
   module: ModuleName.COMMON,
-  navId: NavIdentifier.USER_PROFILE,
-  layout: PageLayout.NoMenuLayout,
+  sidebarId: SidebarIdentifier.USER_PROFILE,
   path: '/user-profile',
   title: i18n.userProfile,
   pageId: 'user-profile',

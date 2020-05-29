@@ -1,4 +1,4 @@
-import type { Route, RouteURLArgs } from 'framework'
+import type { Route, RouteURLArgs } from 'framework/exports'
 import { loggerFor } from 'framework/logging/logging'
 import { ModuleName } from 'framework/types/ModuleName'
 

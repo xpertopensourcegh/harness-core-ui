@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import type { Route } from 'framework'
+import type { Route } from 'framework/exports'
 import { PageLayout } from './PageLayout'
-import { navRegistry } from 'framework/registry'
+import { sidebarRegistry } from 'framework/registry'
 import { useAppStoreWriter } from 'framework/hooks/useAppStore'
 
 /**
@@ -15,7 +15,7 @@ export const LayoutManager: React.FC<{ route?: Route }> = ({ children, route }) 
 
   useEffect(() => {
     if (!mounted) {
-      updateApplicationStore({ navRegistry })
+      updateApplicationStore({ sidebarRegistry: sidebarRegistry })
       setMounted(true)
     }
   }, []) // eslint-disable-line react-hooks/exhaustive-deps

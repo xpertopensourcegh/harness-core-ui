@@ -1,0 +1,41 @@
+.link {
+  display: flex;
+  align-items: center;
+  padding: 10px 0 10px 30px;
+
+  &.selected {
+    border-right: 4px solid var(--blue-500);
+    > span {
+      color: var(--white);
+
+      svg path {
+        fill: var(--white);
+      }
+    }
+  }
+
+  > span > span {
+    padding-right: 10px !important;
+  }
+
+  &:hover {
+    text-decoration: none;
+
+    > span {
+      color: var(--white);
+
+      svg path {
+        fill: var(--white);
+      }
+    }
+  }
+
+  .text {
+    justify-content: flex-start;
+
+    &,
+    svg path {
+      transition: all 0.5s cubic-bezier(0.39, 0.58, 0.57, 1);
+    }
+  }
+}
