@@ -1,3 +1,5 @@
 export default {
-  title: 'Continuous Verification'
+  title: 'Continuous Verification',
+  datasources: 'Data Sources',
+  services: 'Services'
 }

@@ -1,6 +1,6 @@
 import { linkTo, SidebarEntry, SidebarIdentifier } from 'framework/exports'
-import { routeCVHome } from '../routes'
-import { MenuContinuousVerification } from './MenuContinuousVerification'
+import { routeCVDashboard } from '../routes'
+import { MenuCVDashboard } from './MenuCVDashboard'
 import i18n from './sidebar.i18n'
 
 export const CVDashboard: SidebarEntry = {
@@ -12,7 +12,7 @@ export const CVDashboard: SidebarEntry = {
     selected: 'cloud'
   },
   url: _routeParams => {
-    return linkTo(routeCVHome)
+    return linkTo(routeCVDashboard)
   },
-  sidebarMenu: MenuContinuousVerification
+  sidebarMenu: MenuCVDashboard
 }
