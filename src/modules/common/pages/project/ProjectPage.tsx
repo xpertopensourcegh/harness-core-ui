@@ -1,7 +1,7 @@
 import React from 'react'
 import { Heading, Link } from '@wings-software/uikit'
 import { routeOrg } from 'modules/common/routes'
-import { linkTo } from 'framework'
+import { linkTo } from 'framework/exports'
 
 export default function ProjectPage(): JSX.Element {
   return (

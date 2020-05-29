@@ -1,4 +1,4 @@
-import type { PageLayout, ModuleName, NavIdentifier } from 'framework'
+import type { PageLayout, ModuleName, SidebarIdentifier } from 'framework/exports'
 
 /** Optional arguments passed into Route url() generator */
 export type RouteURLArgs = Record<string, string | number> | undefined
@@ -7,8 +7,8 @@ export type RouteURLArgs = Record<string, string | number> | undefined
  * Route represents a route alongside its page binding.
  */
 export interface Route {
-  /** Nav identifier - which NaveEntry this route belongs to */
-  navId: NavIdentifier
+  /** Sidebar identifier - which SidebarEntry this route belongs to */
+  sidebarId: SidebarIdentifier
 
   /** Route path */
   path: string

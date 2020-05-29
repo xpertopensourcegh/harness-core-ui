@@ -1,11 +1,12 @@
-import { linkTo, NavEntry, NavIdentifier } from 'framework'
+import { linkTo, SidebarEntry, SidebarIdentifier } from 'framework/exports'
 import { routeProject, routeUserProfile, routeSettings } from '../routes'
-import { MenuDeployments } from './MenuDeployments'
+import { MenuProjects } from './MenuProjects'
 import { MenuSettings } from './MenuSettings'
-import i18n from './nav.i18n'
+import i18n from './sidebar.i18n'
+import { MenuUserProfile } from './MenuUserProfile'
 
-export const navProjects: NavEntry = {
-  navId: NavIdentifier.PROJECTS,
+export const Projects: SidebarEntry = {
+  sidebarId: SidebarIdentifier.PROJECTS,
   title: i18n.project,
   icon: {
     normal: 'cube',
@@ -15,11 +16,11 @@ export const navProjects: NavEntry = {
   url: _routeParams => {
     return linkTo(routeProject)
   },
-  menu: MenuDeployments
+  sidebarMenu: MenuProjects
 }
 
-export const navSettings: NavEntry = {
-  navId: NavIdentifier.SETTINGS,
+export const Settings: SidebarEntry = {
+  sidebarId: SidebarIdentifier.SETTINGS,
   title: i18n.settings,
   icon: {
     normal: 'layers',
@@ -30,11 +31,11 @@ export const navSettings: NavEntry = {
   url: _routeParams => {
     return linkTo(routeSettings)
   },
-  menu: MenuSettings
+  sidebarMenu: MenuSettings
 }
 
-export const navUserProfile: NavEntry = {
-  navId: NavIdentifier.USER_PROFILE,
+export const UserProfile: SidebarEntry = {
+  sidebarId: SidebarIdentifier.USER_PROFILE,
   title: i18n.userProfile,
   icon: {
     normal: 'person',
@@ -44,6 +45,6 @@ export const navUserProfile: NavEntry = {
   position: 'BOTTOM',
   url: _routeParams => {
     return linkTo(routeUserProfile)
-  }
-  // no menu, CommonUserProfile route also uses PageLayout.NoMenuLayout
+  },
+  sidebarMenu: MenuUserProfile
 }

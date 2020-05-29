@@ -1,14 +1,14 @@
 import { Container } from '@wings-software/uikit'
 import React from 'react'
-import { Nav } from '../../nav/Nav'
+import { SidebarMounter } from '../../sidebar/Sidebar'
 import css from './DefaultLayout.module.scss'
 import cx from 'classnames'
 
 const Layout: React.FC<{ withoutMenu?: boolean }> = ({ children, withoutMenu = false } = {}) => {
   return (
     <Container className={cx(css.layout, withoutMenu && css.withoutMenu)}>
-      <Container className={css.navContainer}>
-        <Nav withoutMenu={withoutMenu} />
+      <Container className={css.sidebarContainer}>
+        <SidebarMounter withoutMenu={withoutMenu} />
       </Container>
       <Container className={css.pageContainer}>{children}</Container>
     </Container>

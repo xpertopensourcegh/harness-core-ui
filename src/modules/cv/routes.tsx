@@ -1,9 +1,9 @@
-import { Route, ModuleName, NavIdentifier } from 'framework'
+import { Route, ModuleName, SidebarIdentifier } from 'framework/exports'
 import React from 'react'
 import i18n from './routes.i18n'
 
-export const routeContinuousVerification: Route = {
-  navId: NavIdentifier.CONTINUOUS_VERIFICATION,
+export const routeCVHome: Route = {
+  sidebarId: SidebarIdentifier.CONTINUOUS_VERIFICATION,
   path: '/continuous-verification',
   title: i18n.title,
   pageId: 'continuous-verification',

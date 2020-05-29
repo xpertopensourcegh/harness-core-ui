@@ -1,12 +1,12 @@
-import type { RouteRegistry, NavRegistry, Route } from 'framework'
+import type { RouteRegistry, SidebarRegistry, Route } from 'framework/exports'
 import * as CommonRoute from 'modules/common/routes'
-import * as CommonNav from 'modules/common/nav/nav'
+import * as CommonSidebar from 'modules/common/sidebar/sidebar'
 import * as DXRoute from 'modules/dx/routes'
-import * as DXNav from 'modules/dx/nav/nav'
+import * as DXSidebar from 'modules/dx/sidebar/sidebar'
 import * as CVRoute from 'modules/cv/routes'
-import * as CVNav from 'modules/cv/nav/nav'
+import * as CVSidebar from 'modules/cv/sidebar/sidebar'
 import * as CDRoute from 'modules/cd/routes'
-import * as CDNav from 'modules/cd/nav/nav'
+import * as CDSidebar from 'modules/cd/sidebar/sidebar'
 
 /**
  * routeRegistry stores routes from all Modules.
@@ -26,16 +26,16 @@ export const routeRegistry: RouteRegistry = Object.assign(
 )
 
 /**
- * navRegistry stores registed NavEntry extensions from Modules. Framework uses the registry to
- * render global nav (modules on the left nav along with their respective menu when one is selected).
+ * sidebarRegistry stores registed SidebarEntry from Modules. Framework uses the registry to
+ * render sidebar (modules on the left nav along with their respective menu when one is selected).
  *
- * Order of items in registry represents other of the nav icon in the global nav.
+ * Order of items in registry represents order of the sidebar module icons.
  */
-export const navRegistry: NavRegistry = [
-  DXNav.navDashboard,
-  CommonNav.navProjects,
-  CDNav.navDeployments,
-  CVNav.navContinuousVerification,
-  CommonNav.navSettings,
-  CommonNav.navUserProfile
+export const sidebarRegistry: SidebarRegistry = [
+  DXSidebar.Dashboard,
+  CommonSidebar.Projects,
+  CDSidebar.Deployments,
+  CVSidebar.CVDashboard,
+  CommonSidebar.Settings,
+  CommonSidebar.UserProfile
 ]

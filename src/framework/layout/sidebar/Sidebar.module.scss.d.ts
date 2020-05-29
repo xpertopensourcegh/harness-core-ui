@@ -1,7 +1,7 @@
 /* eslint-disable */
 // this is an auto-generated file
 declare const styles: {
-  readonly nav: string
+  readonly container: string
   readonly sidebar: string
   readonly sidebarItem: string
   readonly selected: string

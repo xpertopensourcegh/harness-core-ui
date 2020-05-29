@@ -1,5 +1,5 @@
 import { Text } from '@wings-software/uikit'
-import type { Route } from 'framework'
+import type { Route } from 'framework/exports'
 import { buildLoginUrlFrom401Response } from 'framework/utils/framework-utils'
 import SessionToken from 'framework/utils/SessionToken'
 import React, { Suspense, useEffect, useState } from 'react'

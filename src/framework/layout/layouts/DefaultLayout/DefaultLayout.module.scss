@@ -1,16 +1,16 @@
 .layout {
-  --nav-container-width: 270px;
+  --sidebar-container-width: 270px;
 
   &.withoutMenu {
-    --nav-container-width: 50px;
+    --sidebar-container-width: 50px;
   }
 
   display: flex;
   width: 100%;
   height: 100%;
 
-  .navContainer {
-    width: var(--nav-container-width);
+  .sidebarContainer {
+    width: var(--sidebar-container-width);
   }
 
   .pageContainer {

@@ -1,5 +1,5 @@
 import { FocusStyleManager } from '@blueprintjs/core'
-import type { Route } from 'framework'
+import type { Route } from 'framework/exports'
 import { LayoutManager } from 'framework/layout/LayoutManager'
 import React, { useState } from 'react'
 import ReactDOM from 'react-dom'

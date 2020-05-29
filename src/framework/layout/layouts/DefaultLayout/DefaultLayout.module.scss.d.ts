@@ -3,7 +3,7 @@
 declare const styles: {
   readonly layout: string
   readonly withoutMenu: string
-  readonly navContainer: string
+  readonly sidebarContainer: string
   readonly pageContainer: string
 }
 export default styles

@@ -10,10 +10,17 @@ body,
   width: 100%;
   height: 100%;
 
-  /* TODO: Move these to UIKit */
+  /* TODO: Move these colors to UIKit when they are standardized */
+  /* At current Design state when things keep changing, it's better */
+  /* to leave them here */
+
+  /* Sidebar backgrounds and border */
   --blue-825: #063a6d;
   --blue-850: #022655;
   --blue-900: #011027;
+
+  /* Sidebar menu header text, separator */
+  --grey-425: #7d7d7d;
 }
 
 body {
