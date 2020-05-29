@@ -6,11 +6,11 @@ import cx from 'classnames'
 
 const Layout: React.FC<{ withoutMenu?: boolean }> = ({ children, withoutMenu = false } = {}) => {
   return (
-    <Container className={cx(css.main, withoutMenu && css.withoutMenu)}>
-      <Container className={css.nav}>
+    <Container className={cx(css.layout, withoutMenu && css.withoutMenu)}>
+      <Container className={css.navContainer}>
         <Nav withoutMenu={withoutMenu} />
       </Container>
-      <Container className={css.content}>{children}</Container>
+      <Container className={css.pageContainer}>{children}</Container>
     </Container>
   )
 }

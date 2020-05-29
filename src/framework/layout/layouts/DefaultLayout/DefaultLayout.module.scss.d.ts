@@ -1,9 +1,9 @@
 /* eslint-disable */
 // this is an auto-generated file
 declare const styles: {
-  readonly main: string
+  readonly layout: string
   readonly withoutMenu: string
-  readonly nav: string
-  readonly content: string
+  readonly navContainer: string
+  readonly pageContainer: string
 }
 export default styles

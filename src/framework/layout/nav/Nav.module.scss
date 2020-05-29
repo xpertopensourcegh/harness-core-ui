@@ -1,16 +1,17 @@
 .nav {
-  --nav-width: 48px;
+  --sidebar-width: 50px;
   --border-color: var(--blue-825);
   --background-color: var(--blue-900);
   --nav-background-color: var(--blue-850);
+  --sidebar-item-height: 50px;
 
   background-color: var(--background-color) !important;
 
   height: 100%;
 
-  ul.list {
+  ul.sidebar {
     display: flex;
-    width: var(--nav-width) !important;
+    width: var(--sidebar-width) !important;
     height: 100%;
     flex-direction: column;
     margin: 0;
@@ -18,15 +19,30 @@
     width: 100%;
     text-align: center;
 
-    li.listItem:first-of-type {
-      .navItem {
-        height: 74px;
+    .sidebarItem:first-of-type {
+      height: 80px;
+
+      &.selected {
+        height: var(--sidebar-item-height);
+
+        & + .sidebarItem {
+          height: 80px;
+
+          > .sidebarLink {
+            transform: translateY(27px);
+          }
+        }
       }
     }
 
-    li.listItem {
-      margin: 0;
+    .sidebarItem {
       padding: 0;
+      margin: 0;
+      width: var(--sidebar-width);
+      height: var(--sidebar-item-height);
+      align-items: flex-start;
+      display: inline-flex;
+      justify-content: center;
       list-style: none;
       border-right: 1px solid var(--border-color);
       background-color: var(--nav-background-color);
@@ -35,7 +51,7 @@
         background-color: var(--background-color);
         border-right: none;
 
-        & + .listItem,
+        & + .sidebarItem,
         & + .spacer {
           border-radius: 0 10px 0 0;
           border-top: 1px solid var(--border-color);
@@ -46,11 +62,19 @@
         border-radius: 0 0 10px 0;
         border-bottom: 1px solid var(--border-color);
       }
+
+      .sidebarLink {
+        width: 46px;
+        height: 46px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
     }
 
     .spacer {
       flex-grow: 1;
-      width: 48px;
+      width: var(--sidebar-width);
       background-color: var(--nav-background-color);
       border-right: 1px solid var(--border-color);
 
@@ -59,27 +83,11 @@
         border-bottom: 1px solid var(--border-color);
       }
     }
-
-    .navItem {
-      padding: 0;
-      margin: 0;
-      width: 48px;
-      height: 48px;
-      align-items: center;
-      display: inline-flex;
-      justify-content: center;
-    }
   }
 
-  .navMenu {
+  .menu {
     flex-grow: 1;
     height: 100%;
     background: var(--blue-900) !important;
-  }
-
-  &.withoutMenu {
-    .navMenu {
-      display: none;
-    }
   }
 }
