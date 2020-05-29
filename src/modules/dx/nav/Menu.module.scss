@@ -4,6 +4,7 @@
   svg {
     path:last-of-type {
       transform: translateX(15px);
+      fill: var(--grey-250);
     }
   }
 }

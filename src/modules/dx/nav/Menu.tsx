@@ -11,11 +11,7 @@ export const Menu: React.FC = () => {
         <HarnessLogo height={24} width={200} />
       </Container>
       <Container>
-        <Text
-          className={css.dashboardTitle}
-          icon="grid-view" /* TODO: replace icon */
-          font={{ align: 'center', weight: 'bold' }}
-        >
+        <Text className={css.dashboardTitle} icon="grid-view" font={{ align: 'center', weight: 'bold' }}>
           <span>{i18n.dashboard}</span>
         </Text>
         <Container padding="xlarge" className={css.menuContent}>
