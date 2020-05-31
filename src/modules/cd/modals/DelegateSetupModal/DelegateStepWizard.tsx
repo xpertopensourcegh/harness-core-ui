@@ -241,11 +241,11 @@ const ThirdStep = (props: any) => {
             font="medium"
             style={{ color: 'var(--grey-700)', padding: 0, fontWeight: 700, marginBottom: 'var(--spacing-large)' }}
           >
-            Install your Delegate
+            {i18n.STEP_THREE.INSTALL.INSTALL_TEXT}
           </Text>
 
           <Layout.Vertical spacing="small">
-            <Label>Supported Formats</Label>
+            <Label>{i18n.STEP_THREE.INSTALL.SUPPORTED_FORMATS}</Label>
             <Select items={[{ label: 'YAML', value: 'YAML' }]} />
           </Layout.Vertical>
           <Button
