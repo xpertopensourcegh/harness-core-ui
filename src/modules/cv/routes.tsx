@@ -1,4 +1,4 @@
-import { Route, ModuleName, SidebarIdentifier } from 'framework/exports'
+import { Route, ModuleName, SidebarIdentifier, RouteURLArgs } from 'framework/exports'
 import React from 'react'
 import i18n from './routes.i18n'
 
@@ -29,5 +29,16 @@ export const routeCVServices: Route = {
   pageId: 'cv-services',
   url: () => '/cv-services',
   component: React.lazy(() => import('./pages/services/CVServicesPage')),
+  module: ModuleName.CV
+}
+
+/* ------------------------------------------ Product page routes ------------------------------------------ */
+export const routeCVDataSourcesAppDynamicsProductPage: Route = {
+  sidebarId: SidebarIdentifier.CONTINUOUS_VERIFICATION,
+  path: '/cv-product/:dataSourceType',
+  title: i18n.services,
+  pageId: 'cv-product',
+  url: (params: RouteURLArgs) => (params?.dataSourceType ? `/cv-product/${params?.dataSourceType}` : `cv-product/`),
+  component: React.lazy(() => import('./pages/datasourceproducts/DataSourceProductPage/DataSourceProductPage')),
   module: ModuleName.CV
 }
