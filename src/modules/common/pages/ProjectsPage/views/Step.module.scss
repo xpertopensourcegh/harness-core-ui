@@ -1,0 +1,23 @@
+.card {
+  margin-right: var(--spacing-small);
+}
+
+.radioSelect {
+  :global(.bp3-card) {
+    margin-right: var(--spacing-medium);
+  }
+}
+
+.halfWidth {
+  width: 50%;
+  margin: var(--spacing-huge) 0;
+}
+.leftCol {
+  padding-right: var(--spacing-huge);
+  vertical-align: top;
+}
+.rightCol {
+  padding-left: var(--spacing-huge);
+  border-left: 1px solid var(--grey-250);
+  vertical-align: top;
+}

@@ -7,6 +7,7 @@ import { HashRouter, Route as ReactRoute, Switch } from 'react-router-dom'
 import { RouteMounter } from '../route/RouteMounter'
 import { routeRegistry } from 'framework/registry'
 import { AppStoreProvider } from '../hooks/useAppStore'
+// import 'modules/common/services'
 import './app.scss'
 
 FocusStyleManager.onlyShowFocusOnTabs()

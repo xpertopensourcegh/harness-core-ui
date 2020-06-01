@@ -1,0 +1,73 @@
+import React, { useState } from 'react'
+import cx from 'classnames'
+
+import { Formik, FormikForm as Form, FormInput, Button, Text, Layout, StepProps } from '@wings-software/uikit'
+
+import type { SharedData } from '../ProjectsPage'
+import i18n from '../ProjectsPage.i18n'
+import EmailPreview from './EmailPreview/EmailPreview'
+
+import css from './Step.module.scss'
+
+export interface StepThreeData {
+  collaborators?: string[]
+  invitationMessage?: string
+}
+
+const StepThree: React.FC<StepProps<SharedData>> = ({ previousStep, nextStep, prevStepData }) => {
+  const [data, setData] = useState<StepThreeData>({})
+  return (
+    <>
+      <Text font="medium">{i18n.newProjectWizard.stepThree.name}</Text>
+      <table style={{ width: '100%', margin: '20px 0' }}>
+        <tbody>
+          <tr>
+            <td className={cx(css.halfWidth, css.leftCol)}>
+              <Formik
+                initialValues={{ collaborators: [], invitationMessage: '' }}
+                validate={values => {
+                  setData(values)
+                }}
+                onSubmit={() => {
+                  if (prevStepData) {
+                    nextStep?.({ ...prevStepData })
+                  }
+                }}
+              >
+                {() => (
+                  <Form>
+                    <Layout.Vertical spacing="small">
+                      <FormInput.TagInput
+                        label={i18n.newProjectWizard.stepThree.addCollab}
+                        name="collaborators"
+                        // TODO: replace with api response
+                        items={['Peter', 'Tony', 'Bruce']}
+                        labelFor={name => name as string}
+                        itemFromNewTag={newTag => newTag}
+                        tagInputProps={{}}
+                      />
+                      <FormInput.TextArea
+                        label={i18n.newProjectWizard.stepThree.invitationMsg}
+                        name="invitationMessage"
+                      />
+                      <Layout.Horizontal spacing="small">
+                        <Button onClick={() => previousStep?.(prevStepData)} text={i18n.newProjectWizard.back} />
+                        <Button type="submit" style={{ color: 'var(--blue-500)' }} text={i18n.newProjectWizard.next} />
+                      </Layout.Horizontal>
+                    </Layout.Vertical>
+                  </Form>
+                )}
+              </Formik>
+            </td>
+            <td style={{ width: '50%' }}>
+              <Text>{i18n.newProjectWizard.stepThree.preview}</Text>
+              <EmailPreview data={data} />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </>
+  )
+}
+
+export default StepThree

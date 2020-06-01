@@ -27,11 +27,11 @@ export const routeOrg: Route = {
 export const routeProject: Route = {
   module: ModuleName.COMMON,
   sidebarId: SidebarIdentifier.PROJECTS,
-  path: '/project/:orgId?',
+  path: '/projects',
   title: i18n.project,
-  pageId: 'project',
-  url: (params: RouteURLArgs) => `/project${params?.projectId ? `/${params.projectId}` : ''}`,
-  component: React.lazy(() => import('./pages/project/ProjectPage'))
+  pageId: 'projects',
+  url: () => `/projects`,
+  component: React.lazy(() => import('./pages/ProjectsPage/ProjectsPage'))
 }
 
 export const routePageNotFound: Route = {

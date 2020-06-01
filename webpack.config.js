@@ -30,6 +30,12 @@ const config = {
       key: fs.readFileSync(path.resolve(__dirname, './certificates/localhost-key.pem')),
       cert: fs.readFileSync(path.resolve(__dirname, './certificates/localhost.pem'))
     },
+    proxy: {
+      '/api': {
+        target: 'http://localhost:7457',
+        pathRewrite: { '^/api': '' }
+      }
+    },
     stats: {
       children: false,
       maxModules: 0,

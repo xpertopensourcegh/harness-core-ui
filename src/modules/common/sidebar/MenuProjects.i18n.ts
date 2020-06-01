@@ -1,4 +1,5 @@
 export default {
   manage: 'MANAGE',
-  projects: 'PROJECTS'
+  projects: 'PROJECTS',
+  projectsMenu: 'Projects'
 }
