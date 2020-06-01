@@ -1,0 +1,39 @@
+.main {
+  .heading {
+    height: 100px;
+    padding: 30px;
+  }
+
+  .contentContainer {
+    padding: 25px;
+    height: 400px;
+    .sourcesGrid {
+      display: grid;
+      grid-template-columns: repeat(2, 180px);
+      grid-template-rows: 192px;
+      justify-content: start;
+      margin-left: 25px;
+      margin-right: 100px;
+    }
+
+    .rightContainer {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      .productDescriptions {
+        align-self: center;
+        color: var(--black);
+        width: 70%;
+        text-align: center;
+      }
+      .buttonContainer {
+        position: relative;
+        top: 150px;
+        align-self: center;
+        .backButton {
+          margin-right: 10px;
+        }
+      }
+    }
+  }
+}
