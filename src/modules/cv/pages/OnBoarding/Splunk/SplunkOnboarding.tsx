@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useState, useEffect } from 'react'
 import css from './SplunkOnboarding.module.scss'
-import { FormikProps, FieldArray } from 'formik'
+import { FieldArray } from 'formik'
 import {
   Collapse,
   Button,
@@ -449,8 +449,10 @@ const SplunkOnboarding: FunctionComponent<any> = props => {
       <Formik
         validationSchema={validationSchema}
         initialValues={{ queries: queries }}
-        // onSubmit={(values) => {  }}
-        render={(parentFormikProps: FormikProps<any>) => {
+        onSubmit={() => {
+          return
+        }}
+        render={(parentFormikProps: any) => {
           return (
             <div>
               <FieldArray
