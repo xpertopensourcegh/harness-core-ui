@@ -1,4 +1,4 @@
-import React, { useMemo, ElementType, useLayoutEffect } from 'react'
+import React, { useMemo, ElementType, useLayoutEffect, useState } from 'react'
 import { Container, Link, Icon } from '@wings-software/uikit'
 import css from './Sidebar.module.scss'
 import { useAppStoreReader } from 'framework/hooks/useAppStore'
@@ -8,19 +8,31 @@ import { routeParams } from 'framework/route/RouteMounter'
 import { SidebarTitle } from './components/SidebarTitle'
 import { SidebarLink } from './components/SidebarLink'
 
-const ICON_SIZE = 24
+const ICON_SIZE = 32
 const BOTTOM = 'BOTTOM'
 
-const renderSidebarItem = (sidebarEntry: SidebarEntry, route?: Route): JSX.Element => (
-  <li
-    key={sidebarEntry.sidebarId}
-    className={cx(css.sidebarItem, sidebarEntry.sidebarId === route?.sidebarId && css.selected)}
-  >
-    <Link noStyling href={sidebarEntry.url(routeParams())} className={css.sidebarLink} title={sidebarEntry.title}>
-      <Icon name={sidebarEntry.icon.normal} size={ICON_SIZE} />
-    </Link>
-  </li>
-)
+const SidebarItem = (sidebarEntry: SidebarEntry, route?: Route): JSX.Element => {
+  const [hover, setHover] = useState(false)
+  const isSelected = sidebarEntry.sidebarId === route?.sidebarId
+
+  return (
+    <li key={sidebarEntry.sidebarId} className={cx(css.sidebarItem, isSelected && css.selected)}>
+      <Link
+        onMouseEnter={() => setHover(true)}
+        onMouseLeave={() => setHover(false)}
+        noStyling
+        href={sidebarEntry.url(routeParams())}
+        className={css.sidebarLink}
+        title={sidebarEntry.title}
+      >
+        <Icon
+          name={isSelected ? sidebarEntry.icon.selected : hover ? sidebarEntry.icon.hover : sidebarEntry.icon.normal}
+          size={ICON_SIZE}
+        />
+      </Link>
+    </li>
+  )
+}
 const renderMenu = (Menu?: ElementType): JSX.Element | null => (Menu ? <Menu /> : null)
 
 export const SidebarMounter: React.FC<{ withoutMenu?: boolean }> = ({ withoutMenu = false }) => {
@@ -41,11 +53,11 @@ export const SidebarMounter: React.FC<{ withoutMenu?: boolean }> = ({ withoutMen
       <ul className={css.sidebar}>
         {sidebarRegistry
           ?.filter(sidebarEntry => sidebarEntry.position !== BOTTOM)
-          .map(sidebarEntry => renderSidebarItem(sidebarEntry, route))}
+          .map(sidebarEntry => SidebarItem(sidebarEntry, route))}
         <li className={css.spacer}></li>
         {sidebarRegistry
           ?.filter(sidebarEntry => sidebarEntry.position === BOTTOM)
-          .map(sidebarEntry => renderSidebarItem(sidebarEntry, route))}
+          .map(sidebarEntry => SidebarItem(sidebarEntry, route))}
       </ul>
       {!withoutMenu && <Container className={css.menu}>{menu}</Container>}
     </Container>

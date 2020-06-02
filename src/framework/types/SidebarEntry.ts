@@ -4,8 +4,8 @@ import type { IconName } from '@wings-software/uikit'
 /** SidebarEntry icons */
 export interface SidebarEntryIcon {
   normal: IconName
-  hover?: IconName
-  selected?: IconName
+  hover: IconName
+  selected: IconName
 }
 
 /** Position of SidebarEntry when being rendered */

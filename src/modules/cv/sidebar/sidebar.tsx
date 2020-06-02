@@ -7,9 +7,9 @@ export const CVDashboard: SidebarEntry = {
   sidebarId: SidebarIdentifier.CONTINUOUS_VERIFICATION,
   title: i18n.title,
   icon: {
-    normal: 'cloud',
-    hover: 'cloud',
-    selected: 'cloud'
+    normal: 'nav-cv',
+    hover: 'nav-cv-hover',
+    selected: 'nav-cv-selected'
   },
   url: _routeParams => {
     return linkTo(routeCVDashboard)

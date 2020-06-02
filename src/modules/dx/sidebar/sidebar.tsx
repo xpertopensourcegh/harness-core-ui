@@ -7,9 +7,9 @@ export const Dashboard: SidebarEntry = {
   sidebarId: SidebarIdentifier.DASHBOARD,
   title: i18n.dashboard,
   icon: {
-    normal: 'harness',
-    hover: 'harness',
-    selected: 'harness'
+    normal: 'nav-harness',
+    hover: 'nav-harness-hover',
+    selected: 'nav-harness'
   },
   url: _routeParams => {
     return linkTo(routeDashboard)

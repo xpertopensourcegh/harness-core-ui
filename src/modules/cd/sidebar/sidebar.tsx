@@ -7,9 +7,9 @@ export const Deployments: SidebarEntry = {
   sidebarId: SidebarIdentifier.DEPLOYMENTS,
   title: i18n.deployments,
   icon: {
-    normal: 'step-chart',
-    hover: 'step-chart',
-    selected: 'step-chart'
+    normal: 'nav-cd',
+    hover: 'nav-cd-hover',
+    selected: 'nav-cd-selected'
   },
   url: _routeParams => {
     return linkTo(routeDeployments)

@@ -9,9 +9,9 @@ export const Projects: SidebarEntry = {
   sidebarId: SidebarIdentifier.PROJECTS,
   title: i18n.project,
   icon: {
-    normal: 'cube',
-    hover: 'cube',
-    selected: 'cube'
+    normal: 'nav-project',
+    hover: 'nav-project-hover',
+    selected: 'nav-project-selected'
   },
   url: _routeParams => {
     return linkTo(routeProject)
@@ -23,9 +23,9 @@ export const Settings: SidebarEntry = {
   sidebarId: SidebarIdentifier.SETTINGS,
   title: i18n.settings,
   icon: {
-    normal: 'layers',
-    hover: 'layers',
-    selected: 'layers'
+    normal: 'nav-settings',
+    hover: 'nav-settings-hover',
+    selected: 'nav-settings-selected'
   },
   position: 'BOTTOM',
   url: _routeParams => {
@@ -38,9 +38,9 @@ export const UserProfile: SidebarEntry = {
   sidebarId: SidebarIdentifier.USER_PROFILE,
   title: i18n.userProfile,
   icon: {
-    normal: 'person',
-    hover: 'person',
-    selected: 'person'
+    normal: 'nav-user-profile',
+    hover: 'nav-user-profile-hover',
+    selected: 'nav-user-profile-selected'
   },
   position: 'BOTTOM',
   url: _routeParams => {
