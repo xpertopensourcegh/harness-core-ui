@@ -11,7 +11,7 @@ export function getProjects(): Promise<ResponseWrapper<ProjectDTO[]>> {
 export function createProject(config: ProjectDTO): Promise<ResponseWrapper<ProjectDTO>> {
   delete config.color
   config['accountId'] = localStorage.getItem('acctId') || ''
-  config['identifier'] = (config.name as string).replace(/ /, '-')
+  config['identifier'] = (config.name as string).replace(/ /g, '-')
   config['owners'] = [config['accountId']]
   return xhr.post('api/projects', { data: config })
 }

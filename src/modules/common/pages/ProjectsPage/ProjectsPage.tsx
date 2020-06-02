@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Button, StepWizard, Icon, Text, Card, Layout } from '@wings-software/uikit'
+import { useModalHook, Button, StepWizard, Icon, Text, Card, Layout } from '@wings-software/uikit'
 import { Dialog } from '@blueprintjs/core'
 import cx from 'classnames'
 
@@ -18,26 +18,36 @@ import type { ProjectDTO } from './views/ProjectCard/ProjectCard'
 export type SharedData = StepTwoData & StepThreeData
 
 const ProjectsListPage: React.FC = () => {
-  const [modalOpen, setModalOpen] = useState(false)
   const [loading, setLoading] = useState(false)
   const [projects, setProjects] = useState<ProjectDTO[]>([])
 
   const fetchProjects = async () => {
     setLoading(true)
-    const response = await getProjects()
+    const { response } = await getProjects()
     setLoading(false)
-    if (response.response) {
-      setProjects(response.response)
+    if (response && response instanceof Array) {
+      setProjects(response)
     }
   }
 
   const wizardCompleteHandler = async (data: SharedData | undefined) => {
     const { errors } = await createProject(data as ProjectDTO)
     if (!errors) {
-      setModalOpen(false)
+      hideLightModal()
       fetchProjects()
     }
   }
+
+  const [openLightModal, hideLightModal] = useModalHook(() => (
+    <Dialog isOpen={true} style={{ borderLeft: 'none', paddingBottom: 0, width: 1000, position: 'relative' }}>
+      <StepWizard<SharedData> onCompleteWizard={wizardCompleteHandler}>
+        <StepOne name={i18n.newProjectWizard.stepOne.name} />
+        <StepTwo name={i18n.newProjectWizard.stepTwo.name} />
+        <StepThree name={i18n.newProjectWizard.stepThree.name} />
+      </StepWizard>
+      <Button minimal icon="cross" iconProps={{ size: 18 }} onClick={hideLightModal} className={css.crossIcon} />
+    </Dialog>
+  ))
 
   useEffect(() => {
     fetchProjects()
@@ -50,13 +60,7 @@ const ProjectsListPage: React.FC = () => {
         <Text>{i18n.loading}</Text>
       ) : projects.length > 0 ? (
         <div>
-          <Card
-            className={cx(css.addProjectCard, css.projectCard)}
-            interactive={true}
-            onClick={() => {
-              setModalOpen(true)
-            }}
-          >
+          <Card className={cx(css.addProjectCard, css.projectCard)} interactive={true} onClick={openLightModal}>
             <Layout.Vertical spacing="large" style={{ alignItems: 'center' }}>
               <Icon name="document" size={32} />
               <Text>{i18n.addProject}</Text>
@@ -70,23 +74,9 @@ const ProjectsListPage: React.FC = () => {
         <Layout.Vertical spacing="large" style={{ alignItems: 'center', padding: '150px 0' }}>
           <Icon name="layers" size={50} />
           <Text font="medium">{i18n.aboutProject}</Text>
-          <Button
-            intent="primary"
-            text={i18n.newProject}
-            onClick={() => {
-              setModalOpen(true)
-            }}
-          />
+          <Button intent="primary" text={i18n.newProject} onClick={openLightModal} />
         </Layout.Vertical>
       )}
-
-      <Dialog isOpen={modalOpen} style={{ borderLeft: 'none', paddingBottom: 0, width: 1000 }}>
-        <StepWizard<SharedData> onCompleteWizard={wizardCompleteHandler}>
-          <StepOne name={i18n.newProjectWizard.stepOne.name} />
-          <StepTwo name={i18n.newProjectWizard.stepTwo.name} />
-          <StepThree name={i18n.newProjectWizard.stepThree.name} />
-        </StepWizard>
-      </Dialog>
     </Layout.Vertical>
   )
 }

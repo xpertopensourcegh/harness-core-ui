@@ -1,4 +1,4 @@
-import { Text } from '@wings-software/uikit'
+import { Text, ModalProvider } from '@wings-software/uikit'
 import type { Route } from 'framework/exports'
 import { buildLoginUrlFrom401Response } from 'framework/utils/framework-utils'
 import SessionToken from 'framework/utils/SessionToken'
@@ -53,7 +53,15 @@ export const RouteMounter: React.FC<RouteMounterProps> = ({ route, onEnter, onEx
     }
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
-  return <Suspense fallback={Loading}>{mounted ? <PageComponent /> : null}</Suspense>
+  return (
+    <Suspense fallback={Loading}>
+      {mounted ? (
+        <ModalProvider>
+          <PageComponent />
+        </ModalProvider>
+      ) : null}
+    </Suspense>
+  )
 }
 
 /**
