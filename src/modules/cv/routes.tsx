@@ -54,3 +54,17 @@ export const routeCVDataSourcesAppDynamicsProductPage: Route = {
   component: React.lazy(() => import('./pages/datasourceproducts/DataSourceProductPage/DataSourceProductPage')),
   module: ModuleName.CV
 }
+
+/* ------------------------------------------ Intermediary datasource preselect routes ------------------------------------------ */
+export const routeCVDataSourcesAppDynamicsApplicationsPreSelectPage: Route = {
+  sidebarId: SidebarIdentifier.CONTINUOUS_VERIFICATION,
+  path: '/cv-setup/:dataSourceType/select-list-entities',
+  title: i18n.services,
+  pageId: 'cv-setup/:dataSourceType/select-list-entities',
+  url: (params: RouteURLArgs) =>
+    params?.dataSourceType ? `/cv-setup/${params.dataSourceType}/select-list-entities` : 'cv-setup/',
+  component: React.lazy(() => {
+    return import('./pages/listEntitySelect/DataSourceListEntitySelect/DataSourceListEntitySelect')
+  }),
+  module: ModuleName.CV
+}

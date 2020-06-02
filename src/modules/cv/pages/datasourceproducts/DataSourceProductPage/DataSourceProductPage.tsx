@@ -4,7 +4,7 @@ import CVProductCard, { TypeCard } from 'modules/cv/components/CVProductCard/CVP
 import { Link, useRouteMatch } from 'react-router-dom'
 import css from './DataSourceProductPage.module.scss'
 import i18n from './DataSourceProductPage.i18n'
-import { routeCVDataSourcesAppDynamicsProductPage, routeCVOnBoardingSplunk } from 'modules/cv/routes'
+import { routeCVDataSourcesAppDynamicsApplicationsPreSelectPage } from 'modules/cv/routes'
 
 const ProductOptions: { [datasourceType: string]: Array<{ item: TypeCard }> } = {
   'app-dynamics': [
@@ -24,11 +24,6 @@ const ProductOptions: { [datasourceType: string]: Array<{ item: TypeCard }> } = 
       }
     }
   ]
-}
-
-const RouteForNextPage: { [datasourceType: string]: string } = {
-  'app-dynamics': routeCVDataSourcesAppDynamicsProductPage.path,
-  splunk: routeCVOnBoardingSplunk.path
 }
 
 export default function AppDynamicsProductPage(): JSX.Element {
@@ -59,7 +54,7 @@ export default function AppDynamicsProductPage(): JSX.Element {
 
   const linkToParams = useMemo(
     () => ({
-      pathname: RouteForNextPage[params?.dataSourceType],
+      pathname: routeCVDataSourcesAppDynamicsApplicationsPreSelectPage.url({ dataSourceType: params.dataSourceType }),
       state: { products: selectedProducts }
     }),
     [selectedProducts, params?.dataSourceType]
@@ -73,7 +68,7 @@ export default function AppDynamicsProductPage(): JSX.Element {
       if (!selectedProducts.includes(item.title)) {
         setSelectedProducts([...selectedProducts, item.title])
       } else {
-        setSelectedProducts(selectedProducts.filter(product => product === item.title))
+        setSelectedProducts(selectedProducts.filter(product => product !== item.title))
       }
     },
     [selectedProducts]
