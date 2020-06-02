@@ -18,7 +18,7 @@ export const routeCVDataSources: Route = {
   title: i18n.datasources,
   pageId: 'cv-datasources',
   url: () => '/cv-datasources',
-  component: React.lazy(() => import('./pages/datasources/CVDataSourcesPage')),
+  component: React.lazy(() => import('./pages/DataSources/DataSources')),
   module: ModuleName.CV
 }
 
@@ -33,12 +33,24 @@ export const routeCVServices: Route = {
 }
 
 /* ------------------------------------------ Product page routes ------------------------------------------ */
+export const routeCVOnBoardingSplunk: Route = {
+  sidebarId: SidebarIdentifier.CONTINUOUS_VERIFICATION,
+  path: '/cv-product/:dataSourceType/splunk-onboarding',
+  title: i18n.services,
+  pageId: 'cv-onboarding-splunk',
+  url: (params: RouteURLArgs) =>
+    params && params.dataSourceType ? `/cv-product/${params.dataSourceType}/splunk-onboarding` : `cv-product/`,
+  component: React.lazy(() => import('./pages/OnBoarding/Splunk/SplunkOnboarding')),
+  module: ModuleName.CV
+}
+
 export const routeCVDataSourcesAppDynamicsProductPage: Route = {
   sidebarId: SidebarIdentifier.CONTINUOUS_VERIFICATION,
   path: '/cv-product/:dataSourceType',
   title: i18n.services,
   pageId: 'cv-product',
-  url: (params: RouteURLArgs) => (params?.dataSourceType ? `/cv-product/${params?.dataSourceType}` : `cv-product/`),
+  url: (params: RouteURLArgs) =>
+    params && params.dataSourceType ? `/cv-product/${params.dataSourceType}` : `cv-product/`,
   component: React.lazy(() => import('./pages/datasourceproducts/DataSourceProductPage/DataSourceProductPage')),
   module: ModuleName.CV
 }

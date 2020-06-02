@@ -1,0 +1,61 @@
+.main {
+  margin: 24px;
+  .headingText {
+    margin-top: 24px;
+  }
+
+  .mainSectionHeader {
+    margin-top: 24px;
+    margin-left: 12px;
+    display: grid;
+    grid-template-columns: 93% 7%;
+    justify-content: space-between;
+    .heading {
+      font-size: 18px;
+      color: var(--grey-900);
+      font-weight: bold;
+    }
+  }
+
+  .mainSection {
+    margin-top: 24px;
+    .queryDropDown {
+      width: 300px;
+      position: absolute;
+      right: 90px;
+    }
+    .onBoardingSection {
+      padding-top: 50px;
+      display: grid;
+      grid-template-columns: 40% 40%;
+      justify-content: space-evenly;
+      .leftSection {
+        border: 1px solid var(--grey-350);
+        padding: 24px;
+        .logo {
+          margin-bottom: 12px;
+        }
+        .stackTrace {
+          max-height: 200px;
+          margin-top: 12px;
+          overflow: scroll;
+        }
+      }
+
+      .rightSection {
+        border: 1px solid var(--grey-350);
+        padding: 24px;
+        .logo {
+          margin-bottom: 12px;
+        }
+      }
+    }
+    .actionButtons {
+      text-align: right;
+      margin-top: 24px;
+      .back {
+        margin-right: 12px;
+      }
+    }
+  }
+}

@@ -1,0 +1,9 @@
+.main {
+  .sourcesGrid {
+    display: grid;
+    grid-template-columns: repeat(4, 180px);
+    grid-template-rows: 192px;
+    justify-content: start;
+    margin-left: 25px;
+  }
+}

@@ -4,7 +4,7 @@ import CVProductCard, { TypeCard } from 'modules/cv/components/CVProductCard/CVP
 import { Link, useRouteMatch } from 'react-router-dom'
 import css from './DataSourceProductPage.module.scss'
 import i18n from './DataSourceProductPage.i18n'
-import { routeCVDataSourcesAppDynamicsProductPage } from 'modules/cv/routes'
+import { routeCVDataSourcesAppDynamicsProductPage, routeCVOnBoardingSplunk } from 'modules/cv/routes'
 
 const ProductOptions: { [datasourceType: string]: Array<{ item: TypeCard }> } = {
   'app-dynamics': [
@@ -14,11 +14,21 @@ const ProductOptions: { [datasourceType: string]: Array<{ item: TypeCard }> } = 
         icon: 'service-appdynamics'
       }
     }
+  ],
+  'splunk': [
+    {
+      item: {
+        title: 'Splunk Enterprise',
+        icon: 'service-splunk',
+        iconSize: 25
+      },
+    }
   ]
 }
 
 const RouteForNextPage: { [datasourceType: string]: string } = {
-  'app-dynamics': routeCVDataSourcesAppDynamicsProductPage.path
+  'app-dynamics': routeCVDataSourcesAppDynamicsProductPage.path,
+  'splunk': routeCVOnBoardingSplunk.path
 }
 
 export default function AppDynamicsProductPage(): JSX.Element {
@@ -33,6 +43,11 @@ export default function AppDynamicsProductPage(): JSX.Element {
         return {
           productOptions: ProductOptions['app-dynamics'],
           productDescription: i18n['app-dynamics'].productDescription
+        }
+      case 'splunk':
+        return {
+          productOptions: ProductOptions['splunk'],
+          productDescription: i18n['splunk'].productDescription
         }
       default:
         return {
