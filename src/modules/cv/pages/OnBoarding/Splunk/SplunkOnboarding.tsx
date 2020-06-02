@@ -452,6 +452,7 @@ const SplunkOnboarding: FunctionComponent<any> = props => {
         onSubmit={() => {
           return
         }}
+        enableReinitialize={true}
         render={(parentFormikProps: any) => {
           return (
             <div>
