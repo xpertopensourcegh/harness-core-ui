@@ -1,14 +1,15 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useMemo } from 'react'
 import { useLocation, useHistory, useRouteMatch } from 'react-router'
 import { Container, Heading, Color, Button, Text, SelectOption } from '@wings-software/uikit'
-import css from './DataSourceListEntitySelect.module.scss'
+import css from './DataSourceListEntityPage.module.scss'
 import { routeCVOnBoardingSetup } from '../../../routes'
 import DataSourceSelectEntityTable from 'modules/cv/components/DataSourceSelectEntityTable/DataSourceSelectEntityTable'
+import i18n from './SelectListEntityPage.i18n'
 
 export default function DataSourceListEntitySelect(): JSX.Element {
   // navigation params to get context for the page
   const { state: locationData } = useLocation<{ products: string[] }>()
-  const { params } = useRouteMatch<{ dataSourceType: string }>()
+  const { params } = useRouteMatch<{ dataSourceType: 'app-dynamics' }>()
   const history = useHistory()
 
   const [navigateWithSelectedApps, setNavigationFunction] = useState<
@@ -23,10 +24,11 @@ export default function DataSourceListEntitySelect(): JSX.Element {
     },
     [locationData, history, params?.dataSourceType]
   )
+  const verificationTypeI18N = useMemo(() => i18n[params.dataSourceType], [params.dataSourceType])
   return (
     <Container className={css.main}>
       <Heading level={2} color={Color.BLACK} className={css.heading}>
-        Select a Product
+        {i18n.selectProduct}
       </Heading>
       <Container className={css.contentContainer}>
         <Container className={css.infographic}>
@@ -34,9 +36,9 @@ export default function DataSourceListEntitySelect(): JSX.Element {
         </Container>
         <Container className={css.entityDescription}>
           <Heading level={2} color={Color.BLACK} className={css.entityTitle}>
-            Select your AppDynamics Applications
+            {verificationTypeI18N?.entityTitle}
           </Heading>
-          <Heading level={3}>Saved queries from your AppDynamics product</Heading>
+          <Heading level={3}>{verificationTypeI18N?.entityTitle}</Heading>
         </Container>
         <DataSourceSelectEntityTable
           datasourceId="kP-xxUWrRhuhuFlKYNyMrQ"
@@ -46,9 +48,9 @@ export default function DataSourceListEntitySelect(): JSX.Element {
           onSubmit={navigateWithSelectedApps}
         />
         <Container className={css.buttonContainer}>
-          <Button className={css.backButton}>Back</Button>
+          <Button className={css.backButton}>{i18n.backButton}</Button>
           <Button intent="primary" onClick={() => setNavigationFunction(onClickNextCallback)}>
-            Next
+            {i18n.nextButton}
           </Button>
         </Container>
       </Container>

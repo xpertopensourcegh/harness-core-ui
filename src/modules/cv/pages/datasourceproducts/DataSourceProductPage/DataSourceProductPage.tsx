@@ -4,7 +4,7 @@ import CVProductCard, { TypeCard } from 'modules/cv/components/CVProductCard/CVP
 import { Link, useRouteMatch } from 'react-router-dom'
 import css from './DataSourceProductPage.module.scss'
 import i18n from './DataSourceProductPage.i18n'
-import { routeCVDataSourcesAppDynamicsApplicationsPreSelectPage } from 'modules/cv/routes'
+import { routeCVDataSourcesEntityPage } from 'modules/cv/routes'
 
 const ProductOptions: { [datasourceType: string]: Array<{ item: TypeCard }> } = {
   'app-dynamics': [
@@ -54,10 +54,10 @@ export default function AppDynamicsProductPage(): JSX.Element {
 
   const linkToParams = useMemo(
     () => ({
-      pathname: routeCVDataSourcesAppDynamicsApplicationsPreSelectPage.url({ dataSourceType: params.dataSourceType }),
+      pathname: routeCVDataSourcesEntityPage.url({ dataSourceType: params.dataSourceType }),
       state: { products: selectedProducts }
     }),
-    [selectedProducts, params?.dataSourceType]
+    [selectedProducts, params.dataSourceType]
   )
 
   const onProductCardClickHandler = useCallback(

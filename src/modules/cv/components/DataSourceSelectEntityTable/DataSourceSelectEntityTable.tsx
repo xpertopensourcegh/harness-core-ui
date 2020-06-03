@@ -103,7 +103,7 @@ export default function DataSourceSelectEntityTable(props: DataSourceSelectEntit
     onSubmit?.(entityOptions.filter(({ selected }) => selected).map(({ entity }) => entity))
   }, [entityOptions, onSubmit])
   useEffect(() => {
-    const { entityFetchFunc, transformResponseFunc } = VerificationTypeEntityCall[verificationType]
+    const { entityFetchFunc, transformResponseFunc } = VerificationTypeEntityCall[verificationType] || {}
     entityFetchFunc?.({
       accountId,
       dataSourceId: datasourceId,
