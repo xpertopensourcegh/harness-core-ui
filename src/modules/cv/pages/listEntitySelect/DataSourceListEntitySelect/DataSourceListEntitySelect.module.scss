@@ -1,0 +1,42 @@
+.main {
+  height: 70vh;
+  max-width: 900px;
+  .heading {
+    height: 100px;
+    padding: 30px;
+  }
+
+  .contentContainer {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(50%, auto));
+    grid-template-rows: 100px 325px 50px;
+    grid-gap: 10px 40px;
+
+    padding: 25px;
+    height: 100%;
+    .infographic {
+      height: 100%;
+      text-align: center;
+      background-color: var(--grey-200);
+      width: 90%;
+      grid-row: 1 / 4;
+    }
+
+    .entityDescription {
+      width: 100%;
+      .entityTitle {
+        font-size: 25px;
+        margin-bottom: 10px;
+      }
+    }
+
+    .buttonContainer {
+      margin-top: 30px;
+      display: flex;
+      justify-content: flex-end;
+      .backButton {
+        margin-right: 10px;
+      }
+    }
+  }
+}
