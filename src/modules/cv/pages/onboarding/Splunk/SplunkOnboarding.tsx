@@ -162,7 +162,7 @@ const SplunkOnboarding: FunctionComponent<any> = props => {
     const url = `https://localhost:9090/api/cv-nextgen/splunk/saved-searches?accountId=${accId}${queryParams}`
     const { response, error }: any = await xhr.get(url, { group: xhrGroup })
     if (response) {
-      setSplunkQueriesOptions(SplunkOnboardingUtils.transformQueriesFromSplunk(response) as never[])
+      setSplunkQueriesOptions(SplunkOnboardingUtils.transformQueriesFromSplunk(response.resource) as never[])
     }
     if (error) {
       setInProgress(false)
