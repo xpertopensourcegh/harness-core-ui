@@ -40,7 +40,7 @@ export const routeCVOnBoardingSetup: Route = {
   pageId: 'cv-onboarding/onboarding',
   url: (params: RouteURLArgs) =>
     params && params.dataSourceType ? `/cv-onboarding/${params.dataSourceType}/setup` : `cv-onboarding/`,
-  component: React.lazy(() => import('./pages/OnBoarding/Splunk/SplunkOnboarding')),
+  component: React.lazy(() => import('./pages/onboarding/Splunk/SplunkOnboarding')),
   module: ModuleName.CV
 }
 

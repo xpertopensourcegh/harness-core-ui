@@ -52,13 +52,7 @@ function DatePickerSubview(props: DatePickerSubviewProps) {
     },
     [toggleSubview, onSelectRange, selectedDateRange]
   )
-  const minDate = useMemo(
-    () =>
-      moment()
-        .subtract(30, 'days')
-        .toDate(),
-    []
-  )
+  const minDate = useMemo(() => moment().subtract(30, 'days').toDate(), [])
   const maxDate = useMemo(() => new Date(), [])
   return (
     <Layout.Vertical style={mainStyle}>
@@ -84,7 +78,6 @@ function DatePickerSubview(props: DatePickerSubviewProps) {
 
 export default function SubViewDatePickerAndOptions(props: any) {
   return (
-   
     <SelectWithSubview
       value={props.values?.selectedDate}
       items={ExampleItems}
@@ -101,6 +94,5 @@ export default function SubViewDatePickerAndOptions(props: any) {
         />
       }
     />
-    
   )
 }

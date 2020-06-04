@@ -38,7 +38,7 @@ export default function DataSourceListEntitySelect(): JSX.Element {
           <Heading level={2} color={Color.BLACK} className={css.entityTitle}>
             {verificationTypeI18N?.entityTitle}
           </Heading>
-          <Heading level={3}>{verificationTypeI18N?.entityTitle}</Heading>
+          <Heading level={3}>{verificationTypeI18N?.entitySubTitle}</Heading>
         </Container>
         <DataSourceSelectEntityTable
           datasourceId="kP-xxUWrRhuhuFlKYNyMrQ"
@@ -47,12 +47,12 @@ export default function DataSourceListEntitySelect(): JSX.Element {
           verificationType={params.dataSourceType}
           onSubmit={navigateWithSelectedApps}
         />
-        <Container className={css.buttonContainer}>
-          <Button className={css.backButton}>{i18n.backButton}</Button>
-          <Button intent="primary" onClick={() => setNavigationFunction(onClickNextCallback)}>
-            {i18n.nextButton}
-          </Button>
-        </Container>
+      </Container>
+      <Container className={css.buttonContainer}>
+        <Button className={css.backButton}>{i18n.backButton}</Button>
+        <Button intent="primary" onClick={() => setNavigationFunction(onClickNextCallback)}>
+          {i18n.nextButton}
+        </Button>
       </Container>
     </Container>
   )
