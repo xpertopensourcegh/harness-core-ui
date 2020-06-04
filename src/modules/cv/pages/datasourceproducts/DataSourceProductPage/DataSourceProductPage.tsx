@@ -15,20 +15,20 @@ const ProductOptions: { [datasourceType: string]: Array<{ item: TypeCard }> } = 
       }
     }
   ],
-  'splunk': [
+  splunk: [
     {
       item: {
         title: 'Splunk Enterprise',
         icon: 'service-splunk',
         iconSize: 25
-      },
+      }
     }
   ]
 }
 
 const RouteForNextPage: { [datasourceType: string]: string } = {
   'app-dynamics': routeCVDataSourcesAppDynamicsProductPage.path,
-  'splunk': routeCVOnBoardingSplunk.path
+  splunk: routeCVOnBoardingSplunk.path
 }
 
 export default function AppDynamicsProductPage(): JSX.Element {
