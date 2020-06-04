@@ -22,12 +22,13 @@
     .queryDropDown {
       width: 300px;
       position: absolute;
-      right: 90px;
+      right: 45px;
+      top: -40px;
     }
     .onBoardingSection {
-      padding-top: 50px;
+      padding-top: 20px;
       display: grid;
-      grid-template-columns: 40% 40%;
+      grid-template-columns: 45% 45%;
       justify-content: space-evenly;
       .leftSection {
         border: 1px solid var(--grey-350);
@@ -50,12 +51,10 @@
         }
       }
     }
-    .actionButtons {
-      text-align: right;
-      margin-top: 24px;
-      .back {
-        margin-right: 12px;
-      }
-    }
+  }
+  .actionButtons {
+    text-align: right;
+    margin-top: 24px;
+    width: 120px;
   }
 }

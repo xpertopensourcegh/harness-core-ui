@@ -3,7 +3,6 @@ import css from './SplunkOnboarding.module.scss'
 import * as SplunkOnboardingUtils from './SplunkOnboardingUtils'
 import { FieldArray } from 'formik'
 import {
-  Collapse,
   Button,
   Formik,
   FormikForm,
@@ -15,13 +14,16 @@ import {
   StackTraceList,
   HarnessIcons,
   OverlaySpinner,
-  GraphError
+  GraphError,
+  CollapseList,
+  CollapseListPanel
 } from '@wings-software/uikit'
 import * as Yup from 'yup'
 
 import Highcharts from 'highcharts/highcharts'
 import HighchartsReact from 'highcharts-react-official'
 import xhr from '@wings-software/xhr-async'
+import DataSourcePanelStatusHeaderProps from '../../../components/DataSourcePanelStatusHeader/DataSourcePanelStatusHeader'
 // import Utils from '../Utils/Utils'`
 
 const sha = Yup.object().shape({
@@ -318,110 +320,78 @@ const SplunkOnboarding: FunctionComponent<any> = props => {
     }
   }
 
-  const renderOnboardingSection = (arrayHelpers: any, parentFormikProps: any, index: number) => {
+  const renderOnboardingSection = (parentFormikProps: any, index: number) => {
     return (
       <div className={css.mainSection} key={parentFormikProps.values.queries[index].uuid}>
-        <Collapse
-          isOpen={parentFormikProps.values.queries[index].isOpen}
-          isRemovable={true}
-          heading={<strong> Query Name: {parentFormikProps.values.queries[index].queryName} </strong>}
-          onRemove={() => {
-            if (window.confirm('Do you want to delete the item?')) {
-              if (parentFormikProps.values.queries[index].isAlreadySaved) {
-                if (removeQuery(parentFormikProps.values.queries[index], index, parentFormikProps))
-                  arrayHelpers.remove(index)
-              } else arrayHelpers.remove(index)
-              // removeQuery(formikProps.values.queries[index].uuid, parentFormikProps, index)
-            }
-          }}
-        >
-          <div>
-            <div className={css.queryDropDown}>
-              <Select
-                onChange={value => {
-                  addSplunkQuery(parentFormikProps, value, index)
-                }}
-                items={splunkQueriesOptions}
-              />
-            </div>
-            <div className={css.onBoardingSection}>
-              <div className={css.leftSection}>
-                <Icon name={'service-splunk'} className={css.logo} size={24} />
-                <FormInput.TextArea
-                  name={`queries[${index}].queryString`}
-                  onChange={e => {
-                    if (e.target.value) {
-                      fetchGraphDetails({
-                        formikProps: parentFormikProps,
-                        index: index,
-                        accId: accountId,
-                        xhrGroup: 'cv-nextgen/splunk/histogram',
-                        queryParams: '&connectorId=' + connectorId + '&query=' + e.target.value
-                      })
-                      fetchStackTrace({
-                        formikProps: parentFormikProps,
-                        index: index,
-                        accId: accountId,
-                        xhrGroup: 'cv-nextgen/splunk/samples',
-                        queryParams: '&connectorId=' + connectorId + '&query=' + e.target.value
-                      })
-                    }
-                  }}
-                  label="Query"
-                />
-                <FormInput.Select name={`queries[${index}].eventType`} label="Event type" items={eventTypesOptions} />
-                <label> Harness + Splunk validation </label>
-                {!parentFormikProps.values.queries[index].graphOptions.Error ? (
-                  <HighchartsReact
-                    highcharts={Highcharts}
-                    options={parentFormikProps.values.queries[index].graphOptions}
-                  />
-                ) : (
-                  <GraphError
-                    linkText={'View in Splunk'}
-                    onLinkClick={() => {
-                      alert('clicked')
-                    }}
-                    secondLinkText={'View call logs'}
-                    onSecondLinkClick={() => {
-                      alert('clicked')
-                    }}
-                  />
-                )}
-                <div className={css.stackTrace}>
-                  <StackTraceList stackTraceList={parentFormikProps.values.queries[index].stackTrace} />
-                </div>
-              </div>
-
-              <div className={css.rightSection}>
-                <Logo height="24" className={css.logo} />
-                <FormInput.Text name={`queries[${index}].queryName`} label="Query Name" />
-                <FormInput.Select name={`queries[${index}].service`} label="Service Name" items={serviceOptions} />
-                <FormInput.Select
-                  name={`queries[${index}].environment`}
-                  label="Environment"
-                  items={environmentOptions}
-                />
-                <FormInput.Text name={`queries[${index}].serviceInstance`} label="Service instance field name" />
-                {/* Select baseline time range */}
-                {/* <SubViewDatePickerAndOptions parentFormikProps={parentFormikProps} index={index} /> */}
-              </div>
-            </div>
-          </div>
-          <div className={css.actionButtons}>
-            <Button
-              large
-              intent="primary"
-              text="Save"
-              width={120}
-              type="button"
-              disabled={!arrayHelpers.form.isValid}
-              onClick={() => {
-                saveQuery(parentFormikProps.values.queries[index], index, parentFormikProps)
+        <div>
+          <div className={css.queryDropDown}>
+            <Select
+              onChange={value => {
+                addSplunkQuery(parentFormikProps, value, index)
               }}
+              items={splunkQueriesOptions}
             />
           </div>
-        </Collapse>
+          <div className={css.onBoardingSection}>
+            <div className={css.leftSection}>
+              <Icon name={'service-splunk'} className={css.logo} size={24} />
+              <FormInput.TextArea
+                name={`queries[${index}].queryString`}
+                onChange={e => {
+                  if (e.target.value) {
+                    fetchGraphDetails({
+                      formikProps: parentFormikProps,
+                      index: index,
+                      accId: accountId,
+                      xhrGroup: 'cv-nextgen/splunk/histogram',
+                      queryParams: '&connectorId=' + connectorId + '&query=' + e.target.value
+                    })
+                    fetchStackTrace({
+                      formikProps: parentFormikProps,
+                      index: index,
+                      accId: accountId,
+                      xhrGroup: 'cv-nextgen/splunk/samples',
+                      queryParams: '&connectorId=' + connectorId + '&query=' + e.target.value
+                    })
+                  }
+                }}
+                label="Query"
+              />
+              <FormInput.Select name={`queries[${index}].eventType`} label="Event type" items={eventTypesOptions} />
+              <label> Harness + Splunk validation </label>
+              {!parentFormikProps.values.queries[index].graphOptions.Error ? (
+                <HighchartsReact
+                  highcharts={Highcharts}
+                  options={parentFormikProps.values.queries[index].graphOptions}
+                />
+              ) : (
+                <GraphError
+                  linkText={'View in Splunk'}
+                  onLinkClick={() => {
+                    alert('clicked')
+                  }}
+                  secondLinkText={'View call logs'}
+                  onSecondLinkClick={() => {
+                    alert('clicked')
+                  }}
+                />
+              )}
+              <div className={css.stackTrace}>
+                <StackTraceList stackTraceList={parentFormikProps.values.queries[index].stackTrace} />
+              </div>
+            </div>
+
+            <div className={css.rightSection}>
+              <Logo height="24" className={css.logo} />
+              <FormInput.Text name={`queries[${index}].queryName`} label="Query Name" />
+              <FormInput.Select name={`queries[${index}].service`} label="Service Name" items={serviceOptions} />
+              <FormInput.Select name={`queries[${index}].environment`} label="Environment" items={environmentOptions} />
+              <FormInput.Text name={`queries[${index}].serviceInstance`} label="Service instance field name" />
+              {/* Select baseline time range */}
+              {/* <SubViewDatePickerAndOptions parentFormikProps={parentFormikProps} index={index} /> */}
+            </div>
+          </div>
+        </div>
       </div>
     )
   }
@@ -515,18 +485,42 @@ const SplunkOnboarding: FunctionComponent<any> = props => {
                 render={arrayHelpers => {
                   return (
                     <div>
-                      {' '}
                       {renderHeaderForMainSection(parentFormikProps)}
-                      {parentFormikProps.values.queries.map((_query: any, index: number) => {
-                        return (
-                          <FormikForm key={index}>
-                            {/* {formikProps.values.queries.map((query, index, queries) => { */}
-                            {/* return renderOnboardingSection(formikProps, index) */}
-                            {/* })} */}
-                            {renderOnboardingSection(arrayHelpers, parentFormikProps, index)}
-                          </FormikForm>
-                        )
-                      })}
+                      <CollapseList defaultOpenIndex={0}>
+                        {parentFormikProps.values.queries.map((_query: any, index: number) => {
+                          return (
+                            <CollapseListPanel
+                              onToggleOpen={() => {
+                                return
+                              }}
+                              key={index}
+                              isOpen={parentFormikProps.values.queries[index].isOpen}
+                              isRemovable={true}
+                              heading={
+                                <DataSourcePanelStatusHeaderProps
+                                  message={parentFormikProps.values.queries[index].isAlreadySaved ? 'Saved' : ''}
+                                  panelName={parentFormikProps.values.queries[index].queryName}
+                                />
+                              }
+                              onRemove={() => {
+                                if (window.confirm('Do you want to delete the item?')) {
+                                  if (parentFormikProps.values.queries[index].isAlreadySaved) {
+                                    if (removeQuery(parentFormikProps.values.queries[index], index, parentFormikProps))
+                                      arrayHelpers.remove(index)
+                                  } else arrayHelpers.remove(index)
+                                  // removeQuery(formikProps.values.queries[index].uuid, parentFormikProps, index)
+                                }
+                              }}
+                              // disabled={!arrayHelpers.form.isValid}
+                              openNext={() => {
+                                saveQuery(parentFormikProps.values.queries[index], index, parentFormikProps)
+                              }}
+                            >
+                              <FormikForm key={index}>{renderOnboardingSection(parentFormikProps, index)}</FormikForm>
+                            </CollapseListPanel>
+                          )
+                        })}
+                      </CollapseList>
                     </div>
                   )
                 }}
