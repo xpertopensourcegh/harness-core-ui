@@ -3,7 +3,7 @@ import { Container, Layout, Tabs, Tab, Text, Card, Icon, Link, Color, useModalHo
 import { Dialog, IDialogProps, Classes } from '@blueprintjs/core'
 import css from './MetricsVerificationModal.module.scss'
 import cx from 'classnames'
-import { ThirdPartyCallLogModal } from '../ThirdPartyCallLogs/ThridPartyCallLogs'
+import { ThirdPartyCallLogModal } from '../ThirdPartyCallLogs/ThirdPartyCallLogs'
 
 interface MetricsVerificationModalProps {
   onHide: () => void

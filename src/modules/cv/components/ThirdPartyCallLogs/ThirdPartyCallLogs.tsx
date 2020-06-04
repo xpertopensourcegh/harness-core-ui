@@ -5,7 +5,7 @@ import xhr from '@wings-software/xhr-async'
 import moment from 'moment'
 import css from './ThirdPartyCallLog.module.scss'
 import i18n from './ThirdPartyCallLogs.i18n'
-import Highlight from '../Highlight/highlight'
+import Highlight from '../Highlight/Highlight'
 import type { ThirdPartyApiCallLog } from '@wings-software/swagger-ts/definitions'
 import { ActivitiesService } from '../../services'
 
