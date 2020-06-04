@@ -1,5 +1,6 @@
 import React, { FunctionComponent, useState, useEffect } from 'react'
 import css from './SplunkOnboarding.module.scss'
+import * as SplunkOnboardingUtils from './SplunkOnboardingUtils'
 import { FieldArray } from 'formik'
 import {
   Collapse,
@@ -148,14 +149,7 @@ const SplunkOnboarding: FunctionComponent<any> = props => {
     const url = `cv-nextgen/splunk/saved-searches?accountId=${accId}${queryParams}`
     const { response }: any = await xhr.get(url, { group: xhrGroup })
     if (response) {
-      setSplunkQueriesOptions(
-        response.map((query: any) => {
-          return {
-            label: query.title,
-            value: query.searchQuery
-          }
-        })
-      )
+      setSplunkQueriesOptions(SplunkOnboardingUtils.transformQueriesFromSplunk(response) as never[])
     }
   }
 

@@ -1,0 +1,18 @@
+.main {
+  tbody {
+    display: block;
+    max-height: 300px;
+    overflow-y: scroll;
+  }
+  thead {
+    display: flex;
+  }
+  tr {
+    td {
+      border-bottom: 1px solid var(--grey-250);
+    }
+    td:nth-child(2) {
+      width: 300px;
+    }
+  }
+}

@@ -32,25 +32,38 @@ export const routeCVServices: Route = {
   module: ModuleName.CV
 }
 
-/* ------------------------------------------ Product page routes ------------------------------------------ */
-export const routeCVOnBoardingSplunk: Route = {
+/* ------------------------------------------ Onboarding page routes ------------------------------------------ */
+export const routeCVOnBoardingSetup: Route = {
   sidebarId: SidebarIdentifier.CONTINUOUS_VERIFICATION,
-  path: '/cv-product/:dataSourceType/splunk-onboarding',
+  path: '/cv-onboarding/:dataSourceType/setup',
   title: i18n.services,
-  pageId: 'cv-onboarding-splunk',
+  pageId: 'cv-onboarding/onboarding',
   url: (params: RouteURLArgs) =>
-    params && params.dataSourceType ? `/cv-product/${params.dataSourceType}/splunk-onboarding` : `cv-product/`,
-  component: React.lazy(() => import('./pages/OnBoarding/Splunk/SplunkOnboarding')),
+    params && params.dataSourceType ? `/cv-onboarding/${params.dataSourceType}/setup` : `cv-onboarding/`,
+  component: React.lazy(() => import('./pages/onboarding/Splunk/SplunkOnboarding')),
   module: ModuleName.CV
 }
 
-export const routeCVDataSourcesAppDynamicsProductPage: Route = {
+export const routeCVDataSourcesProductPage: Route = {
   sidebarId: SidebarIdentifier.CONTINUOUS_VERIFICATION,
-  path: '/cv-product/:dataSourceType',
+  path: '/cv-onboarding/:dataSourceType/product',
   title: i18n.services,
-  pageId: 'cv-product',
+  pageId: '/cv-onboarding/product',
   url: (params: RouteURLArgs) =>
-    params && params.dataSourceType ? `/cv-product/${params.dataSourceType}` : `cv-product/`,
+    params && params.dataSourceType ? `/cv-onboarding/${params.dataSourceType}/product` : `cv-onboarding/`,
   component: React.lazy(() => import('./pages/datasourceproducts/DataSourceProductPage/DataSourceProductPage')),
+  module: ModuleName.CV
+}
+
+export const routeCVDataSourcesEntityPage: Route = {
+  sidebarId: SidebarIdentifier.CONTINUOUS_VERIFICATION,
+  path: '/cv-onboarding/:dataSourceType/select-list-entities',
+  title: i18n.services,
+  pageId: 'cv-onboarding/:dataSourceType/select-list-entities',
+  url: (params: RouteURLArgs) =>
+    params?.dataSourceType ? `/cv-onboarding/${params.dataSourceType}/select-list-entities` : 'cv-onboarding/',
+  component: React.lazy(() => {
+    return import('./pages/listEntitySelect/DataSourceListEntityPage/DataSourceListEntityPage')
+  }),
   module: ModuleName.CV
 }

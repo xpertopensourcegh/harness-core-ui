@@ -1,0 +1,43 @@
+.main {
+  height: 70vh;
+  max-width: 950px;
+  .heading {
+    height: 100px;
+    padding: var(--spacing-xxlarge);
+  }
+
+  .contentContainer {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(50%, auto));
+    grid-template-rows: 75px;
+    grid-gap: 10px 40px;
+
+    padding: var(--spacing-xxlarge);
+    height: 100%;
+    .infographic {
+      height: 100%;
+      text-align: center;
+      background-color: var(--grey-200);
+      width: 90%;
+      grid-row: 1 / 4;
+    }
+
+    .entityDescription {
+      width: 100%;
+      .entityTitle {
+        font-size: 25px;
+        margin-bottom: var(--spacing-small);
+      }
+    }
+  }
+
+  .buttonContainer {
+    display: flex;
+    justify-content: flex-end;
+    position: relative;
+    left: 100px;
+    .backButton {
+      margin-right: var(--spacing-small);
+    }
+  }
+}
