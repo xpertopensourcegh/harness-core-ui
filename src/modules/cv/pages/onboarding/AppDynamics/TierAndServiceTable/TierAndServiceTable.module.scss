@@ -1,0 +1,42 @@
+.main {
+  width: 100%;
+
+  .tierName,
+  .validationResult,
+  .tierSelectChecBox {
+    position: relative;
+    top: 50%;
+    transform: translateY(50%);
+  }
+  .tierName {
+    min-width: 125px;
+  }
+  .serviceSelect {
+    min-width: 200px;
+  }
+  .tierSelectChecBox {
+    width: 15px;
+  }
+
+  .validationResult {
+    width: 200px;
+    .success {
+      color: var(--green-500);
+    }
+    .error {
+      color: var(--red-500);
+    }
+    .validationContainer {
+      display: flex;
+      align-items: center;
+      .divider {
+        margin-right: var(--margin-xsmall);
+      }
+      :global {
+        .bp3-popover-wrapper {
+          height: 20px;
+        }
+      }
+    }
+  }
+}
