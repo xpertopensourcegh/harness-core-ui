@@ -5,7 +5,7 @@ import type { ResponseWrapper } from 'modules/common/utils/HelperTypes'
 import type { ProjectDTO } from 'modules/common/pages/ProjectsPage/views/ProjectCard/ProjectCard'
 
 export function getProjects(): Promise<ResponseWrapper<ProjectDTO[]>> {
-  return xhr.get('api/projects')
+  return xhr.get('/cd/api/projects')
 }
 
 export function createProject(config: ProjectDTO): Promise<ResponseWrapper<ProjectDTO>> {
