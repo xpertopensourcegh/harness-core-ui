@@ -1,0 +1,88 @@
+.main {
+  :global {
+    .bp3-tab-list {
+      margin: 0 auto;
+      width: 240px;
+      [data-tab-id='tabId1'] {
+        margin-left: var(--margin-large);
+      }
+    }
+  }
+  .metricPackContainer {
+    display: flex;
+    margin: var(--margin-medium);
+
+    .metricPackName {
+      color: var(--black);
+      margin-right: var(--margin-medium);
+      position: relative;
+      top: 10px;
+      word-break: break-word;
+      width: 120px;
+    }
+  }
+
+  .cardContainer {
+    display: flex;
+    flex-wrap: wrap;
+
+    .smallFont {
+      font-size: var(--font-size-small);
+      white-space: nowrap;
+      width: 80px;
+      text-align: center;
+    }
+
+    .statusIcon {
+      float: left;
+      > svg {
+        height: 12px;
+      }
+    }
+
+    [class*='card'] {
+      width: 125px !important;
+      height: 80px !important;
+      padding: var(--padding-xsmall) !important;
+      box-shadow: none !important;
+    }
+
+    .statusCard {
+      margin: var(--margin-xsmall);
+    }
+
+    .dataContainer {
+      margin: 0 auto;
+      clear: left;
+      width: 80px;
+      position: relative;
+      bottom: 5px;
+    }
+    .successCard {
+      border: 1px solid var(--green-500);
+      background: var(--green-200);
+      .count {
+        font-size: var(--font-size-large);
+        width: 80px;
+        text-align: center;
+      }
+    }
+    .errorCard {
+      border: 1px solid var(--red-500);
+      background: var(--red-200);
+      color: var(--red-700);
+    }
+    .noDataCard {
+      border: 1px solid var(--grey-500);
+      color: var(--grey-700);
+    }
+  }
+}
+
+:global {
+  .bp3-dialog {
+    transform: unset !important;
+    top: unset !important;
+    right: inherit !important;
+  }
+}
