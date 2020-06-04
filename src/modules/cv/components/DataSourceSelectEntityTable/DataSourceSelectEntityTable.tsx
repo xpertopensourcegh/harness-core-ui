@@ -1,7 +1,8 @@
 import React, { useMemo, useEffect, useState, useCallback } from 'react'
 import { Table, SelectOption, Text } from '@wings-software/uikit'
-import { AppDynamicsService } from '../../services'
+import { AppDynamicsService, CvNextgenConfigService } from '../../services'
 import * as AppDynamicsOnBoardingUtils from '../../pages/onboarding/AppDynamics/AppDynamicsOnboardingUtils'
+import * as SplunkOnboardingUtils from '../../pages/onboarding/Splunk/SplunkOnboardingUtils'
 import xhr from '@wings-software/xhr-async'
 import css from './DataSourceSelectEntityTable.module.scss'
 import type { IHTMLTableProps } from '@blueprintjs/core'
@@ -57,6 +58,10 @@ const VerificationTypeEntityCall: {
   'app-dynamics': {
     entityFetchFunc: AppDynamicsService.fetchAppDynamicsApplications,
     transformResponseFunc: AppDynamicsOnBoardingUtils.transformAppDynamicsApplications
+  },
+  splunk: {
+    entityFetchFunc: CvNextgenConfigService.fetchQueriesFromSplunk,
+    transformResponseFunc: SplunkOnboardingUtils.transformQueriesFromSplunk
   }
 }
 
@@ -92,7 +97,7 @@ export default function DataSourceSelectEntityTable(props: DataSourceSelectEntit
         Header: entityTableColumnName,
         accessor: 'entityName',
         Cell: function EntityName(cell: Cell<TableEntityCell>) {
-          return <Text>{cell.value.entityName}</Text>
+          return <Text>{cell.value}</Text>
         }
       }
     ],

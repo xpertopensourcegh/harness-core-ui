@@ -24,6 +24,7 @@ import Highcharts from 'highcharts/highcharts'
 import HighchartsReact from 'highcharts-react-official'
 import xhr from '@wings-software/xhr-async'
 import DataSourcePanelStatusHeaderProps from '../../../components/DataSourcePanelStatusHeader/DataSourcePanelStatusHeader'
+import { ThirdPartyCallLogModal } from '../../../components/ThirdPartyCallLogs/ThirdPartyCallLogs'
 // import Utils from '../Utils/Utils'`
 
 const sha = Yup.object().shape({
@@ -99,6 +100,8 @@ const SplunkOnboarding: FunctionComponent<any> = props => {
   const [splunkQueriesOptions, setSplunkQueriesOptions] = useState([])
 
   const [inProgress, setInProgress] = useState(false)
+
+  const [showCallLogs, setShowCallLogs] = useState(false)
 
   const accountId = 'zEaak-FLS425IEO7OLzMUg'
   const connectorId = 'g8eLKgBSQ368GWA5FuS7og'
@@ -356,7 +359,7 @@ const SplunkOnboarding: FunctionComponent<any> = props => {
             />
             <FormInput.Select name={`queries[${index}].eventType`} label="Event type" items={eventTypesOptions} />
             <label> Harness + Splunk validation </label>
-            {!parentFormikProps.values.queries[index].graphOptions.Error ? (
+            {parentFormikProps.values.queries[index].graphOptions.Error ? (
               <HighchartsReact highcharts={Highcharts} options={parentFormikProps.values.queries[index].graphOptions} />
             ) : (
               <GraphError
@@ -366,7 +369,7 @@ const SplunkOnboarding: FunctionComponent<any> = props => {
                 }}
                 secondLinkText={'View call logs'}
                 onSecondLinkClick={() => {
-                  alert('clicked')
+                  setShowCallLogs(true)
                 }}
               />
             )}
@@ -533,11 +536,25 @@ const SplunkOnboarding: FunctionComponent<any> = props => {
     )
   }
 
+  function renderViewCallLogs() {
+    return showCallLogs ? (
+      <div>
+        <ThirdPartyCallLogModal
+          guid={'1'}
+          onHide={() => {
+            setShowCallLogs(false)
+          }}
+        />
+      </div>
+    ) : null
+  }
+
   return (
     <OverlaySpinner show={inProgress}>
       <div className={css.main}>
         {renderHeader()}
         {renderMainSection()}
+        {renderViewCallLogs()}
       </div>
     </OverlaySpinner>
   )
