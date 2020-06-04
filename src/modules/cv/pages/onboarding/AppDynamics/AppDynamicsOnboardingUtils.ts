@@ -5,7 +5,7 @@ export function transformAppDynamicsApplications(appdApplications: NewRelicAppli
   return (
     appdApplications
       ?.filter((app: NewRelicApplication) => app?.name && app?.id)
-      .sort((a, b) => (a.name! > b.name! ? 1 : b.name! > a.name! ? -1 : 0))
+      .sort((a, b) => (a.name && b.name && a.name > b.name ? 1 : -1))
       .map(({ name, id }) => ({ label: name || '', value: id || '' })) || []
   )
 }
