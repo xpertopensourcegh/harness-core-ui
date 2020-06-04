@@ -6,10 +6,9 @@
 
   .mainSectionHeader {
     margin-top: 24px;
-    margin-left: 12px;
     display: grid;
     grid-template-columns: 93% 7%;
-    justify-content: space-between;
+    justify-content: space-around;
     .heading {
       font-size: 18px;
       color: var(--grey-900);
@@ -19,15 +18,17 @@
 
   .mainSection {
     margin-top: 24px;
+    margin-left: 12px;
     .queryDropDown {
       width: 300px;
       position: absolute;
       right: 90px;
+      top: -24px;
     }
     .onBoardingSection {
-      padding-top: 50px;
+      padding-top: 30px;
       display: grid;
-      grid-template-columns: 40% 40%;
+      grid-template-columns: 45% 45%;
       justify-content: space-evenly;
       .leftSection {
         border: 1px solid var(--grey-350);
@@ -50,12 +51,11 @@
         }
       }
     }
-    .actionButtons {
-      text-align: right;
-      margin-top: 24px;
-      .back {
-        margin-right: 12px;
-      }
-    }
+  }
+  .actionButtons {
+    text-align: right;
+    margin-top: 24px;
+    border-top: 1px solid grey;
+    padding-top: 12px;
   }
 }

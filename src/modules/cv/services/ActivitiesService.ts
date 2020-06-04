@@ -11,6 +11,6 @@ export async function fetchApiCallLogs({
   queryParams: string
   xhrGroup: string
 }): Promise<ResponseWrapper<ThirdPartyApiCallLog[]>> {
-  const url = `activities/${encodeURI(stateExecutionId)}/api-call-logs?${queryParams}`
+  const url = `https://localhost:9090/api/activities/${encodeURI(stateExecutionId)}/api-call-logs?${queryParams}`
   return xhr.get(url, { group: xhrGroup })
 }

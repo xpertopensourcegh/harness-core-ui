@@ -1,13 +1,13 @@
 import React from 'react'
 import { loggerFor, ModuleName } from 'framework/exports'
-import { Container, Heading, Formik, FormikForm, FormInput, Button, Collapse } from '@wings-software/uikit'
+import { Container, Heading, Formik, FormikForm, FormInput, Button, Collapse, IconName } from '@wings-software/uikit'
 import css from './AboutPipelinesPage.module.scss'
 import i18n from './AboutPipelinesPage.i18n'
 
 const logger = loggerFor(ModuleName.CD)
 const collapseProps = {
-  collapsedIcon: 'small-plus',
-  expandedIcon: 'small-minus',
+  collapsedIcon: 'small-plus' as IconName,
+  expandedIcon: 'small-minus' as IconName,
   isOpen: false,
   isRemovable: false,
   className: 'collapse'

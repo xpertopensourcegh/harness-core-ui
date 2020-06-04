@@ -60,7 +60,7 @@ async function fetchCallLogs(guid: string): Promise<{ callLogs?: ThirdPartyApiCa
     return
   }
   if (error) {
-    return { error }
+    return { error: error.message }
   }
 
   return { callLogs: response }
