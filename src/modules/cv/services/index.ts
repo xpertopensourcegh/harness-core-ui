@@ -1,3 +1,3 @@
 import * as AppDynamicsService from './AppDynamicsService'
-
-export { AppDynamicsService }
+import * as ActivitiesService from './ActivitiesService'
+export { ActivitiesService, AppDynamicsService }

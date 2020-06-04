@@ -1,0 +1,106 @@
+.main {
+  .error {
+    width: 65%;
+  }
+
+  .spinner {
+    position: relative;
+    left: 27%;
+    top: 20%;
+  }
+
+  .noCalls {
+    position: relative;
+    left: 25%;
+    font-size: var(--font-size-medium);
+  }
+
+  .sideContainer {
+    box-shadow: 4px 0px 6px -8px black;
+    width: 300px;
+    height: 500px;
+    overflow-y: scroll;
+    margin-left: var(--margin-small);
+
+    .requestCard {
+      padding: var(--padding-small);
+      &:hover {
+        background-color: var(--blue-200);
+        cursor: pointer;
+      }
+      &[data-selected='true'] {
+        background-color: var(--blue-200);
+      }
+      &:not(:last-of-type) {
+        border-bottom: 1px solid var(--grey-300);
+      }
+
+      .dateContainer {
+        margin-bottom: var(--margin-xsmall);
+        .timestamp {
+          font-size: 11px;
+        }
+
+        .day {
+          font-weight: bold;
+          margin-left: var(--margin-small);
+          color: var(--black);
+          display: inline-block;
+        }
+        .statusIcon {
+          position: relative;
+          bottom: 2px;
+        }
+      }
+
+      .requestContainer {
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        .requestLabel {
+          margin-right: var(--margin-small);
+        }
+      }
+    }
+  }
+
+  .selectedCallLog {
+    max-width: 540px;
+    height: 500px;
+    overflow-y: scroll;
+    margin-left: var(--margin-medium) !important;
+    .callLogHeader {
+      color: var(--black);
+      margin-bottom: var(--margin-medium);
+    }
+
+    pre:first-child {
+      white-space: normal;
+    }
+
+    .requestContainer {
+      margin-left: var(--margin-large);
+      margin-bottom: var(--margin-medium);
+
+      .urlLabel {
+        margin-right: var(--margin-small);
+      }
+      .requestUrl {
+        color: var(--blue-500);
+        word-break: break-all;
+        margin-bottom: var(--margin-xsmall);
+      }
+    }
+
+    .responseContainer {
+      margin-left: var(--margin-large);
+    }
+  }
+}
+
+.backButtonHeading {
+  color: var(--black) !important;
+  font-size: var(--font-size-medium) !important;
+  margin-left: var(--margin-small) !important;
+  margin-left: var(--margin-xsmall) !important;
+}
