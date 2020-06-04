@@ -162,9 +162,7 @@ const SplunkOnboarding: FunctionComponent<any> = props => {
     const url = `https://localhost:9090/api/cv-nextgen/splunk/saved-searches?accountId=${accId}${queryParams}`
     const { response, error }: any = await xhr.get(url, { group: xhrGroup })
     if (response) {
-
       setSplunkQueriesOptions(SplunkOnboardingUtils.transformQueriesFromSplunk(response) as never[])
-      
     }
     if (error) {
       setInProgress(false)
@@ -322,74 +320,69 @@ const SplunkOnboarding: FunctionComponent<any> = props => {
 
   const renderOnboardingSection = (parentFormikProps: any, index: number) => {
     return (
-      <div className={css.mainSection} key={parentFormikProps.values.queries[index].uuid}>
-        <div>
-          <div className={css.queryDropDown}>
-            <Select
-              onChange={value => {
-                addSplunkQuery(parentFormikProps, value, index)
+      <div key={parentFormikProps.values.queries[index].uuid}>
+        <div className={css.queryDropDown}>
+          <Select
+            onChange={value => {
+              addSplunkQuery(parentFormikProps, value, index)
+            }}
+            items={splunkQueriesOptions}
+          />
+        </div>
+        <div className={css.onBoardingSection}>
+          <div className={css.leftSection}>
+            <Icon name={'service-splunk'} className={css.logo} size={24} />
+            <FormInput.TextArea
+              name={`queries[${index}].queryString`}
+              onChange={e => {
+                if (e.target.value) {
+                  fetchGraphDetails({
+                    formikProps: parentFormikProps,
+                    index: index,
+                    accId: accountId,
+                    xhrGroup: 'cv-nextgen/splunk/histogram',
+                    queryParams: '&connectorId=' + connectorId + '&query=' + e.target.value
+                  })
+                  fetchStackTrace({
+                    formikProps: parentFormikProps,
+                    index: index,
+                    accId: accountId,
+                    xhrGroup: 'cv-nextgen/splunk/samples',
+                    queryParams: '&connectorId=' + connectorId + '&query=' + e.target.value
+                  })
+                }
               }}
-              items={splunkQueriesOptions}
+              label="Query"
             />
-          </div>
-          <div className={css.onBoardingSection}>
-            <div className={css.leftSection}>
-              <Icon name={'service-splunk'} className={css.logo} size={24} />
-              <FormInput.TextArea
-                name={`queries[${index}].queryString`}
-                onChange={e => {
-                  if (e.target.value) {
-                    fetchGraphDetails({
-                      formikProps: parentFormikProps,
-                      index: index,
-                      accId: accountId,
-                      xhrGroup: 'cv-nextgen/splunk/histogram',
-                      queryParams: '&connectorId=' + connectorId + '&query=' + e.target.value
-                    })
-                    fetchStackTrace({
-                      formikProps: parentFormikProps,
-                      index: index,
-                      accId: accountId,
-                      xhrGroup: 'cv-nextgen/splunk/samples',
-                      queryParams: '&connectorId=' + connectorId + '&query=' + e.target.value
-                    })
-                  }
+            <FormInput.Select name={`queries[${index}].eventType`} label="Event type" items={eventTypesOptions} />
+            <label> Harness + Splunk validation </label>
+            {!parentFormikProps.values.queries[index].graphOptions.Error ? (
+              <HighchartsReact highcharts={Highcharts} options={parentFormikProps.values.queries[index].graphOptions} />
+            ) : (
+              <GraphError
+                linkText={'View in Splunk'}
+                onLinkClick={() => {
+                  alert('clicked')
                 }}
-                label="Query"
+                secondLinkText={'View call logs'}
+                onSecondLinkClick={() => {
+                  alert('clicked')
+                }}
               />
-              <FormInput.Select name={`queries[${index}].eventType`} label="Event type" items={eventTypesOptions} />
-              <label> Harness + Splunk validation </label>
-              {!parentFormikProps.values.queries[index].graphOptions.Error ? (
-                <HighchartsReact
-                  highcharts={Highcharts}
-                  options={parentFormikProps.values.queries[index].graphOptions}
-                />
-              ) : (
-                <GraphError
-                  linkText={'View in Splunk'}
-                  onLinkClick={() => {
-                    alert('clicked')
-                  }}
-                  secondLinkText={'View call logs'}
-                  onSecondLinkClick={() => {
-                    alert('clicked')
-                  }}
-                />
-              )}
-              <div className={css.stackTrace}>
-                <StackTraceList stackTraceList={parentFormikProps.values.queries[index].stackTrace} />
-              </div>
+            )}
+            <div className={css.stackTrace}>
+              <StackTraceList stackTraceList={parentFormikProps.values.queries[index].stackTrace} />
             </div>
+          </div>
 
-            <div className={css.rightSection}>
-              <Logo height="24" className={css.logo} />
-              <FormInput.Text name={`queries[${index}].queryName`} label="Query Name" />
-              <FormInput.Select name={`queries[${index}].service`} label="Service Name" items={serviceOptions} />
-              <FormInput.Select name={`queries[${index}].environment`} label="Environment" items={environmentOptions} />
-              <FormInput.Text name={`queries[${index}].serviceInstance`} label="Service instance field name" />
-              {/* Select baseline time range */}
-              {/* <SubViewDatePickerAndOptions parentFormikProps={parentFormikProps} index={index} /> */}
-            </div>
+          <div className={css.rightSection}>
+            <Logo height="24" className={css.logo} />
+            <FormInput.Text name={`queries[${index}].queryName`} label="Query Name" />
+            <FormInput.Select name={`queries[${index}].service`} label="Service Name" items={serviceOptions} />
+            <FormInput.Select name={`queries[${index}].environment`} label="Environment" items={environmentOptions} />
+            <FormInput.Text name={`queries[${index}].serviceInstance`} label="Service instance field name" />
+            {/* Select baseline time range */}
+            {/* <SubViewDatePickerAndOptions parentFormikProps={parentFormikProps} index={index} /> */}
           </div>
         </div>
       </div>
@@ -484,7 +477,7 @@ const SplunkOnboarding: FunctionComponent<any> = props => {
                 name="queries"
                 render={arrayHelpers => {
                   return (
-                    <div>
+                    <div className={css.mainSection}>
                       {renderHeaderForMainSection(parentFormikProps)}
                       <CollapseList defaultOpenIndex={0}>
                         {parentFormikProps.values.queries.map((_query: any, index: number) => {
@@ -498,8 +491,13 @@ const SplunkOnboarding: FunctionComponent<any> = props => {
                               isRemovable={true}
                               heading={
                                 <DataSourcePanelStatusHeaderProps
-                                  message={parentFormikProps.values.queries[index].isAlreadySaved ? 'Saved' : ''}
-                                  panelName={parentFormikProps.values.queries[index].queryName}
+                                  message={
+                                    parentFormikProps.values.queries[index].isAlreadySaved
+                                      ? 'Saved Query'
+                                      : 'Unsaved Query'
+                                  }
+                                  isError={!parentFormikProps.values.queries[index].isAlreadySaved}
+                                  panelName={'Query name : ' + parentFormikProps.values.queries[index].queryName}
                                 />
                               }
                               onRemove={() => {

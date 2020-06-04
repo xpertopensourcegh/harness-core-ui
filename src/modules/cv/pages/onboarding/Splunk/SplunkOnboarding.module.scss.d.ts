@@ -13,6 +13,5 @@ declare const styles: {
   readonly stackTrace: string
   readonly rightSection: string
   readonly actionButtons: string
-  readonly back: string
 }
 export default styles
