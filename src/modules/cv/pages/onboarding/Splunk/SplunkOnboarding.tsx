@@ -230,7 +230,7 @@ const SplunkOnboarding: FunctionComponent<any> = props => {
     const url = `https://localhost:9090/api/cv-nextgen/splunk/samples?accountId=${accId}${queryParams}`
     const { response }: any = await xhr.get(url, { group: xhrGroup })
     if (response) {
-      formikProps.setFieldValue(`queries[${index}].stackTrace`, [response.resource.join()])
+      formikProps.setFieldValue(`queries[${index}].stackTrace`, [response.resource.rawSampleLogs.join()])
     }
   }
 
