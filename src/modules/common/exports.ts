@@ -1,2 +1,2 @@
 // Module exports which are consumable by other Modules
-export {}
+export { Page } from './components/Page/Page'
