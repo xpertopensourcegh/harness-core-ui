@@ -1,5 +1,5 @@
 import * as AppDynamicsService from './AppDynamicsService'
 import * as ActivitiesService from './ActivitiesService'
-import * as CvNextgenConfigService from './cv-nextgencv-config'
+import * as CVNextGenCVConfigService from './CVNextGenCVConfigService'
 import * as SettingsService from './SettingsService'
-export { ActivitiesService, AppDynamicsService, CvNextgenConfigService, SettingsService }
+export { ActivitiesService, AppDynamicsService, CVNextGenCVConfigService, SettingsService }

@@ -1,6 +1,6 @@
 export const VerificationTypes = {
   APM_VERIFICATION: 'APM Verification',
-  APP_DYNAMICS: 'AppDynamics',
+  APP_DYNAMICS: 'APP_DYNAMICS',
   BUG_SNAG: 'Bugsnag',
   CLOUD_WATCH: 'CloudWatch',
   DATA_DOG: 'Datadog',

@@ -41,7 +41,7 @@ export default function DataSourceListEntitySelect(): JSX.Element {
           <Heading level={3}>{verificationTypeI18N?.entitySubTitle}</Heading>
         </Container>
         <DataSourceSelectEntityTable
-          datasourceId="kP-xxUWrRhuhuFlKYNyMrQ"
+          datasourceId="sugDKfxVSc--pkp6GcLFBA"
           accountId="kmpySmUISimoRrJL6NL73w"
           entityTableColumnName="Available Applications"
           verificationType={params.dataSourceType}

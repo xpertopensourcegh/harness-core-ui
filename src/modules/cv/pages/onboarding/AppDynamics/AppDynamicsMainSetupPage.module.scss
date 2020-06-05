@@ -1,15 +1,21 @@
 .main {
   height: 70vh;
   overflow-y: scroll;
+  padding: 25px !important;
 
-  .inputFields {
-    margin-right: var(--margin-xxxlarge);
-    width: 70%;
-  }
+  .formContainer {
+    display: grid;
+    grid-template-columns: minmax(25%, 30%) minmax(35%, 40%);
+    grid-gap: 40px;
 
-  .tableContainer {
-    width: 100%;
-    max-height: 300px;
-    overflow-y: scroll;
+    .inputFields {
+      margin-right: var(--margin-xxxlarge);
+    }
+
+    .tableContainer {
+      width: 100%;
+      max-height: 300px;
+      overflow-y: scroll;
+    }
   }
 }

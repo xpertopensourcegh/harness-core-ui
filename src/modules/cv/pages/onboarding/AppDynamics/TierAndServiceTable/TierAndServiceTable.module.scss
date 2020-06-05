@@ -12,7 +12,11 @@
     min-width: 125px;
   }
   .serviceSelect {
-    min-width: 200px;
+    input {
+      height: 25px !important;
+      border: none !important;
+      background: transparent !important;
+    }
   }
   .tierSelectChecBox {
     width: 15px;

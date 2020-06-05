@@ -3,7 +3,7 @@ import type { ResponseWrapper } from 'modules/common/utils/HelperTypes'
 import type { RestResponsePageResponseService } from '@wings-software/swagger-ts/definitions'
 
 const Endpoints = {
-  fetchServices: (appId: string) => `/services?&appId=${appId}`
+  fetchServices: (appId: string) => `https://localhost:9090/api/services?&appId=${appId}`
 }
 
 export async function fetchServices(

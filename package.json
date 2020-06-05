@@ -65,7 +65,7 @@
     "@typescript-eslint/eslint-plugin": "^2.34.0",
     "@typescript-eslint/parser": "^2.34.0",
     "@wings-software/css-types-loader": "^1.0.0",
-    "@wings-software/swagger-ts": "1.54700.1-beta.1",
+    "@wings-software/swagger-ts": "1.54804.0",
     "css-loader": "^3.5.3",
     "eslint": "^7.0.0",
     "eslint-config-prettier": "^6.11.0",

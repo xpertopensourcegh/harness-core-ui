@@ -1,6 +1,6 @@
 import React from 'react'
 import { IconName, Container, Text, Heading, Icon, Color } from '@wings-software/uikit'
-import css from './DataSourcePageHeader.module.scss'
+import css from './OnBoardingConfigSetupHeader.module.scss'
 
 interface OnBoardingConfigSetupHeaderProps {
   iconName: IconName
