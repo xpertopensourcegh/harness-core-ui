@@ -1,3 +1,4 @@
 export default {
-  deployments: 'Deployments'
+  deployments: 'Deployments',
+  resources: 'Resources'
 }

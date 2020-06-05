@@ -24,7 +24,14 @@ const DelegateModal: React.FC = () => {
 
   return (
     <React.Fragment>
-      <Button text="Delegate Setup" onClick={openLightModal} />
+      <Button
+        intent="primary"
+        text={'New Connector'}
+        icon="plus"
+        style={{ borderRadius: 8 }}
+        onClick={openLightModal}
+        padding="medium"
+      />
     </React.Fragment>
   )
 }
