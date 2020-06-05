@@ -25,7 +25,7 @@ import HighchartsReact from 'highcharts-react-official'
 import xhr from '@wings-software/xhr-async'
 import DataSourcePanelStatusHeaderProps from '../../../components/DataSourcePanelStatusHeader/DataSourcePanelStatusHeader'
 import { ThirdPartyCallLogModal } from '../../../components/ThirdPartyCallLogs/ThirdPartyCallLogs'
-// import Utils from '../Utils/Utils'`
+import { useLocation } from 'react-router'
 
 const sha = Yup.object().shape({
   queryName: Yup.string().required('Query Name is required'),
@@ -108,9 +108,18 @@ const SplunkOnboarding: FunctionComponent<any> = props => {
   const appId = 'qJ_sRGAjRTyD9oXHBRkxKQ'
 
   const Logo = HarnessIcons['harness-logo-black']
+  const params: any = useLocation()
 
   useEffect(() => {
-    if (!props.queries) {
+    if (params.state['selectedEntities']!) {
+      setQueries(
+        params.state['selectedEntities']!.map((query: any) => {
+          const q = { ...initialValues }
+          ;(q.queryName = query.label), (q.queryString = query.value)
+          return q
+        })
+      )
+    } else if (!props.queries) {
       fetchSplunkQueriesSavedinHarness({
         accId: accountId,
         xhrGroup: 'cv-nextgen/splunk/saved-searches',
@@ -359,7 +368,7 @@ const SplunkOnboarding: FunctionComponent<any> = props => {
             />
             <FormInput.Select name={`queries[${index}].eventType`} label="Event type" items={eventTypesOptions} />
             <label> Harness + Splunk validation </label>
-            {parentFormikProps.values.queries[index].graphOptions.Error ? (
+            {!parentFormikProps.values.queries[index].graphOptions.Error ? (
               <HighchartsReact highcharts={Highcharts} options={parentFormikProps.values.queries[index].graphOptions} />
             ) : (
               <GraphError
@@ -403,11 +412,11 @@ const SplunkOnboarding: FunctionComponent<any> = props => {
       envId: query.environment,
       query: query.queryString,
       type: 'SPLUNK',
-      uuid: ''
-      // baseline: {
-      //   startTime: today(new Date().getTime() - 120000) + ' ' + timeNow(new Date().getTime() - 120000),
-      //   endTime: today(new Date().getTime() - 120000) + ' ' + timeNow(new Date().getTime() - 120000)
-      // }
+      uuid: '',
+      baseline: {
+        startTime: today(new Date().getTime() - 120000) + ' ' + timeNow(new Date().getTime() - 120000),
+        endTime: today(new Date().getTime() - 120000) + ' ' + timeNow(new Date().getTime() - 120000)
+      }
     }
     if (query.isAlreadySaved) {
       payload['uuid'] = query.uuid
@@ -436,32 +445,32 @@ const SplunkOnboarding: FunctionComponent<any> = props => {
     }
   }
 
-  // function timeNow(timeStamp: any) {
-  //   const date = new Date(timeStamp)
-  //   return (
-  //     (date.getHours() < 10 ? '0' : '') +
-  //     date.getHours() +
-  //     ':' +
-  //     (date.getMinutes() < 10 ? '0' : '') +
-  //     date.getMinutes() +
-  //     ':' +
-  //     (date.getSeconds() < 10 ? '0' : '') +
-  //     date.getSeconds()
-  //   )
-  // }
+  function timeNow(timeStamp: any) {
+    const date = new Date(timeStamp)
+    return (
+      (date.getHours() < 10 ? '0' : '') +
+      date.getHours() +
+      ':' +
+      (date.getMinutes() < 10 ? '0' : '') +
+      date.getMinutes() +
+      ':' +
+      (date.getSeconds() < 10 ? '0' : '') +
+      date.getSeconds()
+    )
+  }
 
-  // function today(timeStamp: any) {
-  //   const date = new Date(timeStamp)
-  //   return (
-  //     date.getFullYear() +
-  //     '-' +
-  //     (date.getDate() < 10 ? '0' : '') +
-  //     date.getDate() +
-  //     '-' +
-  //     (date.getMonth() + 1 < 10 ? '0' : '') +
-  //     (date.getMonth() + 1)
-  //   )
-  // }
+  function today(timeStamp: any) {
+    const date = new Date(timeStamp)
+    return (
+      date.getFullYear() +
+      '-' +
+      (date.getDate() < 10 ? '0' : '') +
+      date.getDate() +
+      '-' +
+      (date.getMonth() + 1 < 10 ? '0' : '') +
+      (date.getMonth() + 1)
+    )
+  }
 
   const renderMainSection = () => {
     // const q = props.queries || queries
