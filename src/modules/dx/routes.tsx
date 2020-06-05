@@ -8,6 +8,6 @@ export const routeDashboard: Route = {
   title: i18n.dashboard,
   pageId: 'dashboard',
   url: () => '/dashboard',
-  component: React.lazy(() => import('./pages/dashboard/Dashboard')),
+  component: React.lazy(() => import('./pages/dashboard/DashboardPage')),
   module: ModuleName.DX
 }
