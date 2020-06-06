@@ -189,21 +189,27 @@ function MetricsModal(props: MetricsVerificationModalProps): JSX.Element {
             title="All"
             panel={<MetricPackValidationResult data={verificationData} viewCallLogs={displayCallLogCallback} />}
           />
-          <Tab
-            id="Error"
-            title="Error"
-            panel={<MetricPackValidationResult data={errorMetrics} viewCallLogs={displayCallLogCallback} />}
-          />
-          <Tab
-            id="NoData"
-            title="No Data"
-            panel={<MetricPackValidationResult data={noDataMetrics} viewCallLogs={displayCallLogCallback} />}
-          />
-          <Tab
-            id="Success"
-            title="Success"
-            panel={<MetricPackValidationResult data={successMetrics} viewCallLogs={displayCallLogCallback} />}
-          />
+          {errorMetrics?.length && (
+            <Tab
+              id="Error"
+              title="Error"
+              panel={<MetricPackValidationResult data={errorMetrics} viewCallLogs={displayCallLogCallback} />}
+            />
+          )}
+          {noDataMetrics?.length && (
+            <Tab
+              id="NoData"
+              title="No Data"
+              panel={<MetricPackValidationResult data={noDataMetrics} viewCallLogs={displayCallLogCallback} />}
+            />
+          )}
+          {successMetrics?.length && (
+            <Tab
+              id="Success"
+              title="Success"
+              panel={<MetricPackValidationResult data={successMetrics} viewCallLogs={displayCallLogCallback} />}
+            />
+          )}
         </Tabs>
       ) : (
         <ThirdPartyCallLogModal guid={guidWithMetricFilter} onHide={onHide} onBackButtonClick={hideCallLogCallback()} />

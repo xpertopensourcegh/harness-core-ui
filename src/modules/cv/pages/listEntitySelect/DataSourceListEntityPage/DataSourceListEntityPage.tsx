@@ -17,9 +17,12 @@ export default function DataSourceListEntitySelect(): JSX.Element {
   >()
   const onClickNextCallback = useCallback(
     () => (selectedEntities: SelectOption[]) => {
-      history.push(routeCVOnBoardingSetup.url({ dataSourceType: params?.dataSourceType }), {
-        ...locationData,
-        selectedEntities
+      history.push({
+        pathname: routeCVOnBoardingSetup.url({ dataSourceType: params?.dataSourceType }),
+        state: {
+          ...locationData,
+          selectedEntities
+        }
       })
     },
     [locationData, history, params?.dataSourceType]
@@ -41,7 +44,7 @@ export default function DataSourceListEntitySelect(): JSX.Element {
           <Heading level={3}>{verificationTypeI18N?.entitySubTitle}</Heading>
         </Container>
         <DataSourceSelectEntityTable
-          datasourceId="sugDKfxVSc--pkp6GcLFBA"
+          datasourceId="kP-xxUWrRhuhuFlKYNyMrQ"
           accountId="kmpySmUISimoRrJL6NL73w"
           entityTableColumnName="Available Applications"
           verificationType={params.dataSourceType}

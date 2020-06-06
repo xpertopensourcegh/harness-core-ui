@@ -9,33 +9,22 @@ import {
   SelectWithSubview
 } from '@wings-software/uikit'
 import TierAndServiceTable from './TierAndServiceTable/TierAndServiceTable'
-import OnBoardingConfigSetupHeader from '../../../components/OnBoardingConfigSetupHeader/OnBoardingConfigSetupHeader'
-import css from './AppDynamicsMainSetupPage.module.scss'
+import css from './AppDynamicsMainSetupView.module.scss'
 import {
   ConfigureMetricPackProvider,
   ConfigureMetricPackContext
 } from '../../../context/ConfigureMetricPackContext/ConfigureMetricPackContext'
 import xhr from '@wings-software/xhr-async'
-import {
-  transformGetConfigs,
-  saveAppDConfig,
-  CVConfigTableData,
-  transformAppDynamicsApplications,
-  AppDynamicsCVConfig
-} from './AppDynamicsOnboardingUtils'
+import { saveAppDConfig, CVConfigTableData, transformAppDynamicsApplications } from './AppDynamicsOnboardingUtils'
 import { FieldArray, FormikProps, Formik } from 'formik'
-import { SettingsService, AppDynamicsService } from '../../../services'
+import { AppDynamicsService } from '../../../services'
 import DataSourcePanelStatusHeader from '../../../components/DataSourcePanelStatusHeader/DataSourcePanelStatusHeader'
-import type { Service } from '@wings-software/swagger-ts/definitions'
-import { VerificationTypes } from '../../../constants'
-import { CVNextGenCVConfigService } from '../../../services'
+import { EnvironmentTypeSubForm } from 'modules/cv/components/EnvironmentSubForm/EnvironmentSubForm'
 
-const XHR_SERVICES_GROUP = 'XHR_SERVICES_GROUP'
-
-const connectorId = 'sugDKfxVSc--pkp6GcLFBA'
-const appId = '3ugZPVJ_SBCHb9sl5llxFQ'
+// const connectorId = 'sugDKfxVSc--pkp6GcLFBA'
+// const appId = '3ugZPVJ_SBCHb9sl5llxFQ'
 const accountId = 'kmpySmUISimoRrJL6NL73w'
-// const connectorId = 'kP-xxUWrRhuhuFlKYNyMrQ'
+const connectorId = 'kP-xxUWrRhuhuFlKYNyMrQ'
 // const appId = 'ogVkjRvETFOG4-2e_kYPQA'
 
 interface AppDynamicsDataSourceFormProps {
@@ -53,15 +42,9 @@ interface AppDynamicsConfigProps {
   formikProps: FormikProps<{ appDConfigs: CVConfigTableData[] }>
 }
 
-async function fetchServices(localAppId: string): Promise<SelectOption[] | undefined> {
-  const { status, error, response } = await SettingsService.fetchServices(localAppId, XHR_SERVICES_GROUP)
-  if (status === xhr.ABORTED || error) {
-    return
-  }
-  if (response?.resource) {
-    return response.resource.response.map((service: Service) => ({ label: service.name || '', value: service.uuid }))
-  }
-  return []
+interface AppDynamicsMainSetupViewProps {
+  serviceOptions: SelectOption[]
+  configs: CVConfigTableData[]
 }
 
 export async function fetchAppDApps(accountId: string, settingId: string): Promise<SelectOption[]> {
@@ -109,12 +92,36 @@ function AppDynamicsConfig(props: AppDynamicsConfigProps): JSX.Element {
   return (
     <Container className={css.formContainer}>
       <Container className={css.inputFields}>
-        <FormInput.Select name={`appDConfigs[${index}].environmentType`} label="Environment Type" items={[]} />
+        <FormInput.CustomRender
+          name={`appDConfigs[${index}].environmentType`}
+          label="Environment Type"
+          render={() => {
+            const val = formikProps.values?.appDConfigs?.[index]?.envId
+            return (
+              <SelectWithSubview
+                value={{ label: val, value: val }}
+                changeViewButtonLabel="Environment +"
+                items={[
+                  { value: 'Production', label: 'prod' },
+                  { value: 'Non-production', label: 'non-prod' }
+                ]}
+                subview={
+                  <EnvironmentTypeSubForm
+                    onSubmit={({ envType }) =>
+                      formikProps.setFieldValue(`appDConfigs[${index}].environmentType`, envType)
+                    }
+                  />
+                }
+              />
+            )
+          }}
+        />
         <FormInput.TagInput
           name={`appDConfigs[${index}].metricPackList`}
           label="Metric Packs"
           items={metricList}
-          itemFromNewTag={() => null}
+          key={metricList?.[0]}
+          itemFromNewTag={newTag => newTag}
           labelFor={name => name as string}
           tagInputProps={tagInputProps}
           onChange={onMetricPackChangeCallback}
@@ -141,12 +148,7 @@ function AppDynamicsDataSourceForm(props: AppDynamicsDataSourceFormProps): JSX.E
   const [panelHeaderMsg, setPanelHeaderMsg] = useState<Array<{ isError: boolean; msg: string }>>([])
   return (
     <Container className={css.main}>
-      <OnBoardingConfigSetupHeader
-        iconName="service-appdynamics"
-        iconSubText="App Dynamics"
-        pageHeading="Map your app and tiers to a Harness service and environment"
-      />
-      <ConfigureMetricPackProvider dataSourceType={VerificationTypes.APP_DYNAMICS}>
+      <ConfigureMetricPackProvider dataSourceType="APP_DYNAMICS">
         <Formik initialValues={{ appDConfigs: configList }} enableReinitialize={true} onSubmit={() => undefined}>
           {(formikProps: FormikProps<{ appDConfigs: CVConfigTableData[] }>) => (
             <FormikForm>
@@ -159,7 +161,9 @@ function AppDynamicsDataSourceForm(props: AppDynamicsDataSourceFormProps): JSX.E
                         key={configData.uuid || index}
                         heading={
                           <DataSourcePanelStatusHeader
-                            panelName={appDApplications.get(configData.applicationId)?.label || ''}
+                            panelName={
+                              appDApplications.get(configData.applicationId)?.label || configData.applicationName || ''
+                            }
                             isError={panelHeaderMsg[index]?.isError}
                             message={panelHeaderMsg[index]?.msg}
                           />
@@ -208,51 +212,44 @@ function AppDynamicsDataSourceForm(props: AppDynamicsDataSourceFormProps): JSX.E
   )
 }
 
-export default function AppDynamicsDataSourcePage(): JSX.Element {
-  const [data, setData] = useState<CVConfigTableData[]>([])
+export default function AppDynamicsMainSetupView(props: AppDynamicsMainSetupViewProps): JSX.Element {
   const [appDApplications, setAppDApplications] = useState<Map<string, SelectOption>>(new Map())
-  const [serviceOptions, setServices] = useState<SelectOption[]>([{ value: '', label: 'Loading...' }])
+  const { configs, serviceOptions } = props
 
   useEffect(() => {
-    Promise.all([
-      CVNextGenCVConfigService.fetchConfigs({
-        accountId,
-        dataSourceConnectorId: connectorId
-      }),
-      fetchAppDApps(accountId, connectorId)
-    ]).then(results => {
-      if (results[0].status === xhr.ABORTED) {
-        return
-      } else if (results[0].error) {
-        return // TODO
-      } else if (results?.[0]?.response?.resource) {
-        const transformedConfigs = transformGetConfigs(results[0].response.resource as AppDynamicsCVConfig[])
-        if (transformedConfigs) {
-          setData(transformedConfigs)
-        }
-      }
-
-      if (results[1]?.length) {
-        const appIdToAppOption = new Map<string, SelectOption>()
-        results[1].forEach(option => {
-          appIdToAppOption.set(option.value as string, option)
-        })
-        setAppDApplications(appIdToAppOption)
-        // if (!results[0]?.configs?.length) {
-        //   setData([createDefaultConfigObject(connectorId, item.value as string, params.accountId, item.label)])
-        // }
-      }
-    })
-  }, [])
-  useEffect(() => {
-    fetchServices(appId).then(services => {
-      setServices(services?.length ? services : [])
-    })
+    // Promise.all([
+    //   CVNextGenCVConfigService.fetchConfigs({
+    //     accountId,
+    //     dataSourceConnectorId: connectorId
+    //   }),
+    //   fetchAppDApps(accountId, connectorId)
+    // ]).then(results => {
+    //   if (results[0].status === xhr.ABORTED) {
+    //     return
+    //   } else if (results[0].error) {
+    //     return // TODO
+    //   } else if (results?.[0]?.response?.resource) {
+    //     const transformedConfigs = transformGetConfigs(results[0].response.resource as AppDynamicsCVConfig[])
+    //     if (transformedConfigs) {
+    //       setData(transformedConfigs)
+    //     }
+    //   }
+    //   if (results[1]?.length) {
+    //     const appIdToAppOption = new Map<string, SelectOption>()
+    //     results[1].forEach(option => {
+    //       appIdToAppOption.set(option.value as string, option)
+    //     })
+    //     setAppDApplications(appIdToAppOption)
+    //     // if (!results[0]?.configs?.length) {
+    //     //   setData([createDefaultConfigObject(connectorId, item.value as string, params.accountId, item.label)])
+    //     // }
+    //   }
+    // })
   }, [])
 
   return (
     <AppDynamicsDataSourceForm
-      configList={data}
+      configList={configs}
       serviceOptions={serviceOptions}
       dataSourceId={connectorId}
       appDApplications={appDApplications}

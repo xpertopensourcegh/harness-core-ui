@@ -20,7 +20,7 @@ export const Endpoints = {
     tierId: string,
     guid: string
   ) =>
-    `appdynamics/metric-data?accountId=${accountId}&connectorId=${connectorId}&projectId=${projectId}&appdAppId=${appId}&appdTierId=${tierId}&requestGuid=${guid}`
+    `https://localhost:9090/api/appdynamics/metric-data?accountId=${accountId}&connectorId=${connectorId}&projectId=${projectId}&appdAppId=${appId}&appdTierId=${tierId}&requestGuid=${guid}`
 }
 
 export async function fetchAppDynamicsApplications({

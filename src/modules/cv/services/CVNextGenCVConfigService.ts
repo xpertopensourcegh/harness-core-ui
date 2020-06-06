@@ -2,6 +2,15 @@ import xhr from '@wings-software/xhr-async'
 import type { ResponseWrapper } from 'modules/common/utils/HelperTypes'
 import type { CVConfig, RestResponseListCVConfig, MetricPack } from '@wings-software/swagger-ts/definitions'
 
+export const Endpoints = {
+  nextgenCVConfigBatch: (accountId: string) =>
+    `https://localhost:9090/api/cv-nextgen/cv-config/batch?accountId=${accountId}`,
+  nextgenCVConfigList: (accountId: string, dataSourceConnectorId: string) =>
+    `https://localhost:9090/api/cv-nextgen/cv-config/list?accountId=${accountId}&connectorId=${dataSourceConnectorId}`,
+  metricPack: (accountId: string, projectId: number, dataSourceType: CVConfig['type'], excludeDetails: boolean) =>
+    `https://localhost:9090/api/cv-nextgen/data-source/metric-packs?accountId=${accountId}&projectId=${projectId}&dataSourceType=${dataSourceType}&excludeDetails=${excludeDetails}`
+}
+
 export async function fetchQueriesFromSplunk({ accountId, dataSourceId = '', xhrGroup }: any) {
   const url = `https://localhost:9090/api/cv-nextgen/splunk/saved-searches?accountId=${accountId}&connectorId=${dataSourceId}`
   return await xhr.get(url, { group: xhrGroup })
@@ -14,11 +23,7 @@ export async function fetchConfigs({
   accountId: string
   dataSourceConnectorId: string
 }): Promise<ResponseWrapper<RestResponseListCVConfig>> {
-  return xhr
-    .get(
-      `https://localhost:9090/api/cv-nextgen/cv-config/list?accountId=${accountId}&connectorId=${dataSourceConnectorId}`
-    )
-    .as('configs')
+  return xhr.get(Endpoints.nextgenCVConfigList(accountId, dataSourceConnectorId))
 }
 
 export async function saveConfigs({
@@ -30,7 +35,7 @@ export async function saveConfigs({
   group: string
   configsToSave: CVConfig[]
 }): Promise<ResponseWrapper<RestResponseListCVConfig>> {
-  return xhr.post(`https://localhost:9090/api/cv-nextgen/cv-config/batch?accountId=${accountId}`, {
+  return xhr.post(Endpoints.nextgenCVConfigBatch(accountId), {
     group,
     data: configsToSave
   })
@@ -45,7 +50,7 @@ export async function updateConfigs({
   group: string
   configsToUpdate: CVConfig[]
 }): Promise<ResponseWrapper<RestResponseListCVConfig>> {
-  return xhr.put(`https://localhost:9090/api/cv-nextgen/cv-config/batch?accountId=${accountId}`, {
+  return xhr.put(Endpoints.nextgenCVConfigBatch(accountId), {
     group,
     data: configsToUpdate
   })
@@ -60,7 +65,7 @@ export async function deleteConfigs({
   group: string
   configsToDelete: string[]
 }): Promise<ResponseWrapper<RestResponseListCVConfig>> {
-  return xhr.delete(`https://localhost:9090/api/cv-nextgen/cv-config/batch?accountId=${accountId}`, {
+  return xhr.delete(Endpoints.nextgenCVConfigBatch(accountId), {
     group,
     data: configsToDelete
   })
@@ -75,12 +80,9 @@ export async function fetchMetricPacks({
 }: {
   accountId: string
   projectId: number
-  dataSourceType: string
+  dataSourceType: CVConfig['type']
   excludeDetails: boolean
   group: string
 }): Promise<ResponseWrapper<MetricPack[]>> {
-  return xhr.get(
-    `https://localhost:9090/api/cv-nextgen/data-source/metric-packs?accountId=${accountId}&projectId=${projectId}&datasourceType=${dataSourceType}&excludeDetails=${excludeDetails}`,
-    { group }
-  )
+  return xhr.get(Endpoints.metricPack(accountId, projectId, dataSourceType, excludeDetails), { group })
 }

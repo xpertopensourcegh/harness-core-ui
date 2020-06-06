@@ -2,12 +2,10 @@
 // this is an auto-generated file
 declare const styles: {
   readonly main: string
-  readonly tierName: string
-  readonly validationResult: string
-  readonly tierSelectChecBox: string
+  readonly emptyCell: string
   readonly serviceSelect: string
-  readonly success: string
-  readonly error: string
+  readonly tierSelectChecBox: string
+  readonly validationResult: string
   readonly validationContainer: string
   readonly divider: string
 }

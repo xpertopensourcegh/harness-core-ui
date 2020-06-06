@@ -1,18 +1,13 @@
 .main {
   width: 100%;
 
-  .tierName,
-  .validationResult,
-  .tierSelectChecBox {
-    position: relative;
-    top: 50%;
-    transform: translateY(50%);
-  }
-  .tierName {
-    min-width: 125px;
+  .emptyCell {
+    height: 25px;
   }
   .serviceSelect {
     input {
+      min-width: 100px;
+      max-width: 170px;
       height: 25px !important;
       border: none !important;
       background: transparent !important;
@@ -24,17 +19,11 @@
 
   .validationResult {
     width: 200px;
-    .success {
-      color: var(--green-500);
-    }
-    .error {
-      color: var(--red-500);
-    }
     .validationContainer {
       display: flex;
       align-items: center;
       .divider {
-        margin-right: var(--margin-xsmall);
+        width: 10px;
       }
       :global {
         .bp3-popover-wrapper {

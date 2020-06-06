@@ -1,10 +1,11 @@
 import React, { createContext, useEffect, useMemo, useState, useCallback } from 'react'
 import xhr from '@wings-software/xhr-async'
 import { CVNextGenCVConfigService } from 'modules/cv/services'
+import type { CVConfig } from '@wings-software/swagger-ts/definitions'
 
 const XHR_METRIC_PACK_GROUP = 'XHR_METRIC_PACK_GROUP'
 interface ConfigureMetricPackProviderProps {
-  dataSourceType: string
+  dataSourceType: CVConfig['type']
 }
 
 const metrics = [

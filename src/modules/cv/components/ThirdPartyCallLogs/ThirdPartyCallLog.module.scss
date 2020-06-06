@@ -20,10 +20,10 @@
     width: 300px;
     height: 500px;
     overflow-y: scroll;
-    margin-left: var(--margin-small);
+    margin-left: var(--spacing-small);
 
     .requestCard {
-      padding: var(--padding-small);
+      padding: var(--spacing-small);
       &:hover {
         background-color: var(--blue-200);
         cursor: pointer;
@@ -36,14 +36,14 @@
       }
 
       .dateContainer {
-        margin-bottom: var(--margin-xsmall);
+        margin-bottom: var(--spacing-xsmall);
         .timestamp {
           font-size: 11px;
         }
 
         .day {
           font-weight: bold;
-          margin-left: var(--margin-small);
+          margin-left: var(--spacing-small);
           color: var(--black);
           display: inline-block;
         }
@@ -58,7 +58,7 @@
         justify-content: flex-start;
         align-items: flex-start;
         .requestLabel {
-          margin-right: var(--margin-small);
+          margin-right: var(--spacing-small);
         }
       }
     }
@@ -68,10 +68,10 @@
     max-width: 540px;
     height: 500px;
     overflow-y: scroll;
-    margin-left: var(--margin-medium) !important;
+    margin-left: var(--spacing-medium) !important;
     .callLogHeader {
       color: var(--black);
-      margin-bottom: var(--margin-medium);
+      margin-bottom: var(--spacing-medium);
     }
 
     pre:first-child {
@@ -79,28 +79,36 @@
     }
 
     .requestContainer {
-      margin-left: var(--margin-large);
-      margin-bottom: var(--margin-medium);
+      margin-left: var(--spacing-large);
+      margin-bottom: var(--spacing-medium);
 
       .urlLabel {
-        margin-right: var(--margin-small);
+        margin-right: var(--spacing-small);
       }
       .requestUrl {
-        color: var(--blue-500);
+        margin: var(--spacing-xsmall) 0;
         word-break: break-all;
-        margin-bottom: var(--margin-xsmall);
       }
     }
 
     .responseContainer {
-      margin-left: var(--margin-large);
+      margin-left: var(--spacing-large);
+      .responseBody {
+        margin: var(--spacing-xsmall) 0;
+      }
     }
   }
 }
 
-.backButtonHeading {
-  color: var(--black) !important;
-  font-size: var(--font-size-medium) !important;
-  margin-left: var(--margin-small) !important;
-  margin-left: var(--margin-xsmall) !important;
+.headingContainer {
+  > button {
+    position: relative;
+    right: 15px;
+  }
+  .backButtonHeading {
+    color: var(--black) !important;
+    font-size: var(--font-size-medium) !important;
+    margin: 0 !important;
+    margin-bottom: var(--spacing-small) !important;
+  }
 }

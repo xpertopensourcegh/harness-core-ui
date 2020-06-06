@@ -1,21 +1,5 @@
-export const VerificationTypes = {
-  APM_VERIFICATION: 'APM Verification',
-  APP_DYNAMICS: 'APP_DYNAMICS',
-  BUG_SNAG: 'Bugsnag',
-  CLOUD_WATCH: 'CloudWatch',
-  DATA_DOG: 'Datadog',
-  DATA_DOG_LOG: 'DATA_DOG_LOG',
-  DYNA_TRACE: 'Dynatrace',
-  ELK: 'ELK',
-  INSTANA: 'INSTANA',
-  JENKINS: 'Jenkins',
-  LOG_VERIFICATION: 'LOG_VERIFICATION',
-  LOGZ: 'LOGZ',
-  NEW_RELIC: 'New Relic',
-  PROMETHEUS: 'Prometheus',
-  SPLUNK: 'Splunk',
-  SPLUNKV2: 'SplunkV2',
-  STACK_DRIVER: 'Stackdriver',
-  STACK_DRIVER_LOG: 'Stackdriver Log',
-  SUMO: 'Sumo Logic'
+import type { CVConfig } from '@wings-software/swagger-ts/definitions'
+
+export const RouteVerificationTypeToVerificationType: { [routeType: string]: CVConfig['type'] } = {
+  'app-dynamics': 'APP_DYNAMICS'
 }

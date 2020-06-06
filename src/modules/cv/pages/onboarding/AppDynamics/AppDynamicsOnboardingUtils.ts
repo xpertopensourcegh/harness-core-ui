@@ -16,6 +16,14 @@ export interface CVConfigTableData extends AppDynamicsCVConfig {
   metricPackList?: string[]
 }
 
+export function createDefaultConfigObjectBasedOnSelectedApps(
+  app: SelectOption,
+  dataSourceId: string,
+  accountId: string
+): CVConfigTableData {
+  return createDefaultConfigObject(dataSourceId, app.value as string, accountId, app.label)
+}
+
 export function createDefaultConfigObject(
   connectorId: string,
   applicationId: string,

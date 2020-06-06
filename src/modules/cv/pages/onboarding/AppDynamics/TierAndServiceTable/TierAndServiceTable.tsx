@@ -6,10 +6,11 @@ import { Spinner } from '@blueprintjs/core'
 import { AppDynamicsService } from '../../../../services'
 import MetricsVerificationModal from '../../../../components/MetricsVerificationModal/MetricsVerificationModal'
 import type { AppdynamicsTier, AppdynamicsValidationResponse, MetricPack } from '@wings-software/swagger-ts/definitions'
-import { Row, Cell } from 'react-table'
+import type { Row, Cell } from 'react-table'
+import type { TextProps } from '@wings-software/uikit/dist/components/Text/Text'
 
 export type TierAndServiceRow = {
-  tier: { id?: number; name?: string }
+  tier?: { id?: number; name?: string }
   isExisting: boolean
   selected: boolean
   serviceId?: string
@@ -49,7 +50,7 @@ interface ValidationResultProps {
 const XHR_METRIC_VALIDATION_GROUP = 'XHR_METRIC_VALIDATION_GROUP'
 const XHR_TIER_GROUP = 'XHR_TIER_GROUP'
 
-const DEFAULT_ROW_OBJ: TierAndServiceRow = { serviceId: '', selected: false, tier: {}, isExisting: false }
+const DEFAULT_ROW_OBJ: TierAndServiceRow = { serviceId: '', selected: false, tier: undefined, isExisting: false }
 const BPTableProps = { bordered: true, condensed: true, striped: true }
 const DefaultTiersAndService: TierAndServiceRow[] = [...Array(6).keys()].map(() => ({ ...DEFAULT_ROW_OBJ }))
 
@@ -78,7 +79,17 @@ function ValidationResult(props: ValidationResultProps): JSX.Element {
   const { validationResult, error, isLoading, isChecked, guid } = props
   const [shouldDisplayModal, setModalDisplay] = useState(false)
   const hideModalCallback = useCallback(() => () => setModalDisplay(false), [])
-  const validationSuccess = validationResult ? 'Success' : error
+  const validationStatus: { status: string; intent: TextProps['intent'] } = useMemo(() => {
+    for (const result of validationResult || []) {
+      if (result.overallStatus === 'FAILED') {
+        return { status: 'Fail', intent: 'danger' }
+      } else if (result.overallStatus === 'NO_DATA') {
+        return { status: 'No Data', intent: 'none' }
+      }
+    }
+    return { status: 'Success', intent: 'success' }
+  }, [validationResult])
+
   const childFields = useMemo(() => {
     if (!isChecked) {
       return <span />
@@ -87,8 +98,8 @@ function ValidationResult(props: ValidationResultProps): JSX.Element {
     } else if (validationResult || error || shouldDisplayModal) {
       return (
         <Container className={css.validationContainer}>
-          <Text className={validationResult ? css.success : css.error} width={55} lineClamp={1}>
-            {validationSuccess}
+          <Text intent={validationStatus.intent} width={55} lineClamp={1}>
+            {validationStatus.status}
           </Text>
           <Text inline className={css.divider}>
             |
@@ -103,7 +114,7 @@ function ValidationResult(props: ValidationResultProps): JSX.Element {
       )
     }
     return <span />
-  }, [error, guid, hideModalCallback, isChecked, isLoading, shouldDisplayModal, validationResult, validationSuccess])
+  }, [error, guid, hideModalCallback, isChecked, isLoading, shouldDisplayModal, validationResult, validationStatus])
   return <Container className={css.validationResult}>{childFields}</Container>
 }
 
@@ -129,6 +140,7 @@ function RowRenderer(props: RowRendererProps): JSX.Element {
     }
     const newGUID = new Date().getTime().toString()
     setValidationResult({ isLoading: true, validationResult: undefined, error: '', guid: newGUID })
+    xhr.abort(`${XHR_METRIC_VALIDATION_GROUP}-${guid}`)
     AppDynamicsService.validateMetricsApi({
       accountId,
       connectorId,
@@ -145,13 +157,18 @@ function RowRenderer(props: RowRendererProps): JSX.Element {
       setValidationResult({ error: apiError, validationResult: response?.resource, isLoading: false, guid: newGUID })
     })
   }, [accountId, appId, metricPacks, projectId, tier, selected, connectorId])
-  const serviceSelectObj: SelectOption = useMemo(
-    () => services?.find(({ value }) => value === serviceId) || { label: '', value: '' },
-    [serviceId, services?.find]
-  )
+  const serviceSelectObj: SelectOption | undefined = useMemo(() => {
+    if (!services.length) {
+      return { value: '', label: '' }
+    }
+    return !serviceId ? services[0] : services.find(({ value }) => value === serviceId)
+  }, [serviceId, services])
 
   const rowCellCallback = useCallback(
     (index: number, cell: Cell<TierAndServiceRow, any>) => {
+      if (!tier || !tier.id || !tier.name) {
+        return <Container height={25} width={index === 0 ? 30 : 100} />
+      }
       switch (index) {
         case 0:
           return (
@@ -163,7 +180,11 @@ function RowRenderer(props: RowRendererProps): JSX.Element {
             />
           )
         case 1:
-          return <Text className={css.tierName}>{tier?.name}</Text>
+          return (
+            <Text lineClamp={1} width={100}>
+              {tier?.name}
+            </Text>
+          )
         case 2:
           return (
             <Select
@@ -212,14 +233,22 @@ export default function TierAndServiceTable(props: TierAndServiceTableProps): JS
   // fetch tier and service list
   useEffect(() => {
     fetchTiers(dataSourceId, accountId, appId).then(tiers => {
-      setTierList(tiers?.length ? tiers : [])
+      if (!tiers?.length) {
+        return
+      }
+      if (tiers.length < DefaultTiersAndService.length) {
+        const newTiers = [...DefaultTiersAndService]
+        tiers.forEach((tier, index) => (newTiers[index] = tier))
+        setTierList(newTiers)
+      } else {
+        setTierList(tiers)
+      }
     })
   }, [appId, dataSourceId, accountId])
 
   // merge api call list with data list user has saved
   const mergedData = useMemo(() => {
     const existingTiers = new Map<number, TierAndServiceRow>()
-
     for (const row of data) {
       if (row?.tier?.id) {
         existingTiers.set(row.tier.id, row)
