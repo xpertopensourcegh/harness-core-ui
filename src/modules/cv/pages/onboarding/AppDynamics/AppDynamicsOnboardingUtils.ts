@@ -127,6 +127,18 @@ export function transformToSaveConfig(
   return [configIdsToDelete, configsToUpdate, configsToSave, configsToDelete]
 }
 
+export async function removeAppdConfig(accountId: string, idToDelete?: string): Promise<string | undefined> {
+  if (!idToDelete) {
+    return
+  }
+  const { error } = await CVNextGenCVConfigService.deleteConfigs({
+    accountId,
+    group: 'XHR_DELETE_CONFIG_GROUP',
+    configsToDelete: [idToDelete]
+  })
+  return error ? error : undefined
+}
+
 export async function saveAppDConfig(
   appdConfig: CVConfigTableData,
   accountId: string

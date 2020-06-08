@@ -15,7 +15,7 @@ export const Endpoints = {
   validateAppDMetrics: (
     accountId: string,
     connectorId: string,
-    projectId: number,
+    projectId: string,
     appId: string,
     tierId: string,
     guid: string
@@ -61,7 +61,7 @@ export async function validateMetricsApi({
 }: {
   accountId: string
   connectorId: string
-  projectId: number
+  projectId: string
   appId: string
   metricPacks: MetricPack[]
   tierId: string

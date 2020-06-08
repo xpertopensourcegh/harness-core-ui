@@ -6,7 +6,8 @@ import {
   CollapseList,
   CollapseListPanel,
   FormikForm,
-  SelectWithSubview
+  SelectWithSubview,
+  Select
 } from '@wings-software/uikit'
 import TierAndServiceTable from './TierAndServiceTable/TierAndServiceTable'
 import css from './AppDynamicsMainSetupView.module.scss'
@@ -15,11 +16,18 @@ import {
   ConfigureMetricPackContext
 } from '../../../context/ConfigureMetricPackContext/ConfigureMetricPackContext'
 import xhr from '@wings-software/xhr-async'
-import { saveAppDConfig, CVConfigTableData, transformAppDynamicsApplications } from './AppDynamicsOnboardingUtils'
+import {
+  saveAppDConfig,
+  CVConfigTableData,
+  transformAppDynamicsApplications,
+  createDefaultConfigObject,
+  removeAppdConfig
+} from './AppDynamicsOnboardingUtils'
 import { FieldArray, FormikProps, Formik } from 'formik'
 import { AppDynamicsService } from '../../../services'
 import DataSourcePanelStatusHeader from '../../../components/DataSourcePanelStatusHeader/DataSourcePanelStatusHeader'
 import { EnvironmentTypeSubForm } from 'modules/cv/components/EnvironmentSubForm/EnvironmentSubForm'
+import { Page } from 'modules/common/exports'
 
 // const connectorId = 'sugDKfxVSc--pkp6GcLFBA'
 // const appId = '3ugZPVJ_SBCHb9sl5llxFQ'
@@ -45,11 +53,12 @@ interface AppDynamicsConfigProps {
 interface AppDynamicsMainSetupViewProps {
   serviceOptions: SelectOption[]
   configs: CVConfigTableData[]
+  selectedEntities: SelectOption[]
 }
 
-export async function fetchAppDApps(accountId: string, settingId: string): Promise<SelectOption[]> {
+export async function fetchAppDApps(appAccountId: string, settingId: string): Promise<SelectOption[]> {
   const { status, error, response } = await AppDynamicsService.fetchAppDynamicsApplications({
-    accountId,
+    accountId: appAccountId,
     dataSourceId: settingId,
     xhrGroup: 'XHR_APPD_APPS_GROUP'
   })
@@ -58,6 +67,36 @@ export async function fetchAppDApps(accountId: string, settingId: string): Promi
   }
 
   return transformAppDynamicsApplications(response?.resource || [])
+}
+
+function updateApplicationList(application: SelectOption, appList: SelectOption[], isRemove: boolean): SelectOption[] {
+  if (!appList) {
+    return []
+  }
+
+  const newList = [...appList]
+  if (isRemove) {
+    return newList.filter(({ label }) => label !== application.label)
+  }
+  newList.push(application)
+  return newList.sort((a, b) => (a.label && b.label && a.label > b.label ? 1 : -1))
+}
+
+function generateAppDynamicsApplicationsToAdd(
+  configs: CVConfigTableData[],
+  appDApplications: Map<string, SelectOption>
+): SelectOption[] | undefined {
+  const alreadySelectedApplications = new Set<string>()
+  for (const appdApps of configs) {
+    if (appdApps.applicationName) {
+      alreadySelectedApplications.add(appdApps.applicationName)
+    } else if (appDApplications.has(appdApps.applicationId)) {
+      alreadySelectedApplications.add(appDApplications.get(appdApps.applicationId)?.label || '')
+    }
+  }
+  if (alreadySelectedApplications.size && appDApplications.size) {
+    return Array.from(appDApplications.values()).filter(({ label }) => !alreadySelectedApplications.has(label))
+  }
 }
 
 function AppDynamicsConfig(props: AppDynamicsConfigProps): JSX.Element {
@@ -145,7 +184,16 @@ function AppDynamicsConfig(props: AppDynamicsConfigProps): JSX.Element {
 
 function AppDynamicsDataSourceForm(props: AppDynamicsDataSourceFormProps): JSX.Element {
   const { configList, serviceOptions, dataSourceId, appDApplications } = props
-  const [panelHeaderMsg, setPanelHeaderMsg] = useState<Array<{ isError: boolean; msg: string }>>([])
+  const [applicationsToAdd, setApplicationsToAdd] = useState<SelectOption[]>([{ label: 'Loading...', value: '' }])
+  const [panelHeaderMsg, setPanelHeaderMsg] = useState<Map<number, { isError: boolean; msg: string }>>(new Map())
+
+  useEffect(() => {
+    const appList = generateAppDynamicsApplicationsToAdd(configList, appDApplications)
+    if (appList?.length) {
+      setApplicationsToAdd(appList)
+    }
+  }, [appDApplications, configList])
+
   return (
     <Container className={css.main}>
       <ConfigureMetricPackProvider dataSourceType="APP_DYNAMICS">
@@ -155,53 +203,99 @@ function AppDynamicsDataSourceForm(props: AppDynamicsDataSourceFormProps): JSX.E
               <FieldArray
                 name="appDConfigs"
                 render={arrayHelpers => (
-                  <CollapseList defaultOpenIndex={0}>
-                    {formikProps.values.appDConfigs?.map((configData: CVConfigTableData, index: number) => (
-                      <CollapseListPanel
-                        key={configData.uuid || index}
-                        heading={
-                          <DataSourcePanelStatusHeader
-                            panelName={
-                              appDApplications.get(configData.applicationId)?.label || configData.applicationName || ''
-                            }
-                            isError={panelHeaderMsg[index]?.isError}
-                            message={panelHeaderMsg[index]?.msg}
-                          />
-                        }
-                        onToggleOpen={() => null}
-                        isRemovable={true}
-                        openNext={async () => {
-                          const errors = await formikProps.validateForm?.(configData)
-                          if (!Object.keys(errors || {}).length) {
-                            const { error, configsToShow } = await saveAppDConfig(configData, configData.accountId)
-                            const configs = [...formikProps.values.appDConfigs]
-                            if (!configsToShow) {
-                              arrayHelpers.remove(index)
-                              return
-                            }
-                            configs[index] = configsToShow
-                            formikProps.setFieldValue('appDConfigs', configs)
-                            const panelMessages = [...panelHeaderMsg]
-                            panelMessages[index] = { msg: 'Success', isError: false }
-                            if (error) {
-                              panelMessages[index].msg = error
-                              panelMessages[index].isError = true
-                            }
-                            setPanelHeaderMsg(panelMessages)
-                          }
+                  <>
+                    <Container width={200} className={css.applicationSelect}>
+                      <Select
+                        items={applicationsToAdd}
+                        onChange={(selectedApp: SelectOption) => {
+                          setApplicationsToAdd(updateApplicationList(selectedApp, applicationsToAdd, true))
+                          arrayHelpers.unshift(
+                            createDefaultConfigObject(
+                              dataSourceId,
+                              selectedApp.value as string,
+                              accountId,
+                              selectedApp.label
+                            )
+                          )
                         }}
-                      >
-                        <AppDynamicsConfig
-                          key={configData.applicationId}
-                          config={configData}
-                          index={index}
-                          formikProps={formikProps}
-                          serviceOptions={serviceOptions}
-                          dataSourceId={dataSourceId}
-                        />
-                      </CollapseListPanel>
-                    ))}
-                  </CollapseList>
+                      />
+                    </Container>
+                    <CollapseList defaultOpenIndex={0}>
+                      {formikProps.values.appDConfigs?.map((configData: CVConfigTableData, index: number) => (
+                        <CollapseListPanel
+                          key={configData.uuid || index}
+                          className={css.listPanelBody}
+                          nextButtonText="Save"
+                          heading={
+                            <DataSourcePanelStatusHeader
+                              panelName={
+                                appDApplications.get(configData.applicationId)?.label ||
+                                configData.applicationName ||
+                                ''
+                              }
+                              isError={panelHeaderMsg.get(index)?.isError}
+                              message={panelHeaderMsg.get(index)?.msg}
+                            />
+                          }
+                          onToggleOpen={() => null}
+                          isRemovable={true}
+                          onRemove={async () => {
+                            const error = await removeAppdConfig(accountId, configData.uuid)
+                            const newPanelHeaders = new Map(panelHeaderMsg)
+                            if (!error) {
+                              arrayHelpers.remove(index)
+                              newPanelHeaders.delete(index)
+                              setPanelHeaderMsg(newPanelHeaders)
+                              setApplicationsToAdd(
+                                updateApplicationList(
+                                  {
+                                    label:
+                                      configData.applicationName ||
+                                      appDApplications.get(configData.applicationId)?.label ||
+                                      '',
+                                    value: configData.applicationId
+                                  },
+                                  applicationsToAdd,
+                                  false
+                                )
+                              )
+                            } else {
+                              newPanelHeaders.set(index, { isError: true, msg: error })
+                              setPanelHeaderMsg(newPanelHeaders)
+                            }
+                          }}
+                          openNext={async () => {
+                            const errors = await formikProps.validateForm?.(configData)
+                            if (!Object.keys(errors || {}).length) {
+                              const { error, configsToShow } = await saveAppDConfig(configData, configData.accountId)
+                              const configs = [...formikProps.values.appDConfigs]
+                              if (!configsToShow) {
+                                arrayHelpers.remove(index)
+                                return
+                              }
+                              configs[index] = configsToShow
+                              formikProps.setFieldValue('appDConfigs', configs)
+                              const newPanelHeaders = new Map(panelHeaderMsg)
+                              newPanelHeaders.set(index, { msg: 'Success', isError: false })
+                              if (error) {
+                                newPanelHeaders.set(index, { msg: error, isError: true })
+                              }
+                              setPanelHeaderMsg(newPanelHeaders)
+                            }
+                          }}
+                        >
+                          <AppDynamicsConfig
+                            key={configData.applicationId}
+                            config={configData}
+                            index={index}
+                            formikProps={formikProps}
+                            serviceOptions={serviceOptions}
+                            dataSourceId={dataSourceId}
+                          />
+                        </CollapseListPanel>
+                      ))}
+                    </CollapseList>
+                  </>
                 )}
               />
             </FormikForm>
@@ -217,42 +311,25 @@ export default function AppDynamicsMainSetupView(props: AppDynamicsMainSetupView
   const { configs, serviceOptions } = props
 
   useEffect(() => {
-    // Promise.all([
-    //   CVNextGenCVConfigService.fetchConfigs({
-    //     accountId,
-    //     dataSourceConnectorId: connectorId
-    //   }),
-    //   fetchAppDApps(accountId, connectorId)
-    // ]).then(results => {
-    //   if (results[0].status === xhr.ABORTED) {
-    //     return
-    //   } else if (results[0].error) {
-    //     return // TODO
-    //   } else if (results?.[0]?.response?.resource) {
-    //     const transformedConfigs = transformGetConfigs(results[0].response.resource as AppDynamicsCVConfig[])
-    //     if (transformedConfigs) {
-    //       setData(transformedConfigs)
-    //     }
-    //   }
-    //   if (results[1]?.length) {
-    //     const appIdToAppOption = new Map<string, SelectOption>()
-    //     results[1].forEach(option => {
-    //       appIdToAppOption.set(option.value as string, option)
-    //     })
-    //     setAppDApplications(appIdToAppOption)
-    //     // if (!results[0]?.configs?.length) {
-    //     //   setData([createDefaultConfigObject(connectorId, item.value as string, params.accountId, item.label)])
-    //     // }
-    //   }
-    // })
+    fetchAppDApps(accountId, connectorId).then((appDApplicationsOptions: SelectOption[]) => {
+      if (appDApplicationsOptions?.length) {
+        const appIdToAppOption = new Map<string, SelectOption>()
+        appDApplicationsOptions.forEach(option => {
+          appIdToAppOption.set(option.value as string, option)
+        })
+        setAppDApplications(appIdToAppOption)
+      }
+    })
   }, [])
 
   return (
-    <AppDynamicsDataSourceForm
-      configList={configs}
-      serviceOptions={serviceOptions}
-      dataSourceId={connectorId}
-      appDApplications={appDApplications}
-    />
+    <Page.Body>
+      <AppDynamicsDataSourceForm
+        configList={configs}
+        serviceOptions={serviceOptions}
+        dataSourceId={connectorId}
+        appDApplications={appDApplications}
+      />
+    </Page.Body>
   )
 }

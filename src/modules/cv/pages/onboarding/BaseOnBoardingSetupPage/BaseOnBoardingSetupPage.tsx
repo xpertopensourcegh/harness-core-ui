@@ -9,6 +9,7 @@ import xhr from '@wings-software/xhr-async'
 import OnBoardingConfigSetupHeader from 'modules/cv/components/OnBoardingConfigSetupHeader/OnBoardingConfigSetupHeader'
 import { RouteVerificationTypeToVerificationType } from 'modules/cv/constants'
 import AppDynamicsMainSetupView from '../AppDynamics/AppDynamicsMainSetupView'
+import css from './BaseOnBoardingSetupPage.module.scss'
 
 const XHR_SERVICES_GROUP = 'XHR_SERVICES_GROUP'
 
@@ -21,7 +22,6 @@ function getDefaultCVConfig(
   switch (verificationProvider) {
     case 'APP_DYNAMICS':
       return selectedEntities.map(selectedEntity => {
-        console.log('er')
         return AppDynamicsOnboardingUtils.createDefaultConfigObjectBasedOnSelectedApps(
           selectedEntity,
           dataSourceId,
@@ -39,12 +39,13 @@ async function fetchServices(localAppId: string): Promise<SelectOption[] | undef
     return
   }
   if (response?.resource) {
-    return response.resource.response?.map((service: Service) => ({ label: service.name || '', value: service.uuid }))
+    const resp: any = response.resource
+    return resp.response?.map((service: Service) => ({ label: service.name || '', value: service.uuid }))
   }
   return []
 }
 
-export default function OnBoardingSetupPage() {
+export default function OnBoardingSetupPage(): JSX.Element {
   const [serviceOptions, setServices] = useState<SelectOption[]>([{ value: '', label: 'Loading...' }])
   const [configsToRender, setConfigs] = useState<CVConfig[]>([])
   const params = useParams<{ dataSourceType: string }>()
@@ -88,7 +89,7 @@ export default function OnBoardingSetupPage() {
   }, [])
 
   return (
-    <Container>
+    <Container className={css.main}>
       <OnBoardingConfigSetupHeader
         iconName="service-appdynamics"
         iconSubText="App Dynamics"
@@ -97,7 +98,8 @@ export default function OnBoardingSetupPage() {
       {verificationType === 'APP_DYNAMICS' && (
         <AppDynamicsMainSetupView
           serviceOptions={serviceOptions}
-          configs={(configsToRender as unknown) as AppDynamicsOnboardingUtils.CVConfigTableData[]}
+          configs={configsToRender as AppDynamicsOnboardingUtils.CVConfigTableData[]}
+          selectedEntities={onboardingContext.selectedEntities}
         />
       )}
     </Container>

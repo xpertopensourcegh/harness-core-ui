@@ -62,7 +62,8 @@ async function fetchCallLogs(guid: string): Promise<{ callLogs?: ThirdPartyApiCa
     return { error: error.message }
   }
 
-  return { callLogs: response?.resource }
+  const resp: any = response
+  return { callLogs: resp?.resource }
 }
 
 function SelectedLog(props: SelectedLogProps): JSX.Element {
@@ -167,7 +168,8 @@ export function ThirdPartyCallLogModal(props: ThirdPartyCallLogsProps): JSX.Elem
       if (callLogsResponse?.error) {
         setLoadingError({ error: callLogsResponse.error, isLoading: false })
       } else {
-        setCallLogs(callLogsResponse?.callLogs?.response || [])
+        const resp: any = callLogsResponse?.callLogs
+        setCallLogs(resp?.response || [])
         setLoadingError({ error: '', isLoading: false })
       }
     })

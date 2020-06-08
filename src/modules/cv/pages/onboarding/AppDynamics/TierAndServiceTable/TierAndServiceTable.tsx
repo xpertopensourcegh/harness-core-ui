@@ -3,8 +3,8 @@ import { Table, Select, Text, ModalProvider, Link, Container, SelectOption } fro
 import xhr from '@wings-software/xhr-async'
 import css from './TierAndServiceTable.module.scss'
 import { Spinner } from '@blueprintjs/core'
-import { AppDynamicsService } from '../../../../services'
-import MetricsVerificationModal from '../../../../components/MetricsVerificationModal/MetricsVerificationModal'
+import { AppDynamicsService } from 'modules/cv/services'
+import MetricsVerificationModal from 'modules/cv/components/MetricsVerificationModal/MetricsVerificationModal'
 import type { AppdynamicsTier, AppdynamicsValidationResponse, MetricPack } from '@wings-software/swagger-ts/definitions'
 import type { Row, Cell } from 'react-table'
 import type { TextProps } from '@wings-software/uikit/dist/components/Text/Text'
@@ -15,6 +15,7 @@ export type TierAndServiceRow = {
   selected: boolean
   serviceId?: string
   configUUID?: string
+  validation?: boolean
 }
 
 interface TierAndServiceTableProps {
@@ -121,6 +122,7 @@ function ValidationResult(props: ValidationResultProps): JSX.Element {
 function RowRenderer(props: RowRendererProps): JSX.Element {
   const { row, services, accountId, projectId, appId, metricPacks, onChange, connectorId } = props
   const { cells, values, index: rowIndex, ...otherProps } = row
+  const [[mp, s, t], setDep] = useState([metricPacks, values.selected, values.tier?.id])
   const [{ error, validationResult, isLoading, guid }, setValidationResult] = useState<{
     error: string
     validationResult: AppdynamicsValidationResponse[] | undefined
@@ -138,13 +140,16 @@ function RowRenderer(props: RowRendererProps): JSX.Element {
     if (!metricPacks?.length || !tier?.id || !selected) {
       return
     }
+    if (mp === metricPacks && s === selected && t === tier?.id) {
+      return
+    }
     const newGUID = new Date().getTime().toString()
     setValidationResult({ isLoading: true, validationResult: undefined, error: '', guid: newGUID })
     xhr.abort(`${XHR_METRIC_VALIDATION_GROUP}-${guid}`)
     AppDynamicsService.validateMetricsApi({
       accountId,
       connectorId,
-      projectId,
+      projectId: projectId.toString(),
       tierId: tier.id,
       appId,
       metricPacks,
@@ -155,8 +160,10 @@ function RowRenderer(props: RowRendererProps): JSX.Element {
         return
       }
       setValidationResult({ error: apiError, validationResult: response?.resource, isLoading: false, guid: newGUID })
+      setDep([metricPacks, selected, tier.id])
+      onChange('validation', response?.resource ? true : false, rowIndex)
     })
-  }, [accountId, appId, metricPacks, projectId, tier, selected, connectorId])
+  }, [accountId, appId, metricPacks, projectId, tier, selected, onChange, connectorId])
   const serviceSelectObj: SelectOption | undefined = useMemo(() => {
     if (!services.length) {
       return { value: '', label: '' }
@@ -182,7 +189,7 @@ function RowRenderer(props: RowRendererProps): JSX.Element {
         case 1:
           return (
             <Text lineClamp={1} width={100}>
-              {tier?.name}
+              {tier && tier.name}
             </Text>
           )
         case 2:
@@ -308,7 +315,7 @@ export default function TierAndServiceTable(props: TierAndServiceTableProps): JS
   return (
     <ModalProvider>
       <Table
-        columns={tableColumns}
+        columns={tableColumns as any}
         bpTableProps={BPTableProps}
         data={mergedData}
         className={css.main}
