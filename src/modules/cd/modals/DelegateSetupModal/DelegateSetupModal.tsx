@@ -3,6 +3,7 @@ import { ModalProvider, useModalHook, Button } from '@wings-software/uikit'
 import { Dialog, IDialogProps } from '@blueprintjs/core'
 import css from './DelegateSetupModal.module.scss'
 import { DelegateStepWizard } from './DelegateStepWizard'
+import i18n from './DelegateSetup.i18n'
 
 const DelegateModal: React.FC = () => {
   const modalPropsLight: IDialogProps = {
@@ -26,7 +27,7 @@ const DelegateModal: React.FC = () => {
     <React.Fragment>
       <Button
         intent="primary"
-        text={'New Connector'}
+        text={i18n.NEW_CONNECTOR}
         icon="plus"
         style={{ borderRadius: 8 }}
         onClick={openLightModal}
