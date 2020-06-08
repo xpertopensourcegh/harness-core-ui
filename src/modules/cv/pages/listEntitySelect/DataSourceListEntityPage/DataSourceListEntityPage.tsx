@@ -5,11 +5,11 @@ import css from './DataSourceListEntityPage.module.scss'
 import { routeCVOnBoardingSetup } from '../../../routes'
 import DataSourceSelectEntityTable from 'modules/cv/components/DataSourceSelectEntityTable/DataSourceSelectEntityTable'
 import i18n from './SelectListEntityPage.i18n'
-import {  accountId, connectorId } from 'modules/cv/constants' 
+import { accountId, connectorId } from 'modules/cv/constants'
 
 export default function DataSourceListEntitySelect(): JSX.Element {
   // navigation params to get context for the page
-  const { state: locationData } = useLocation<{ products: string[] }>()
+  const { state: locationData } = useLocation<{ products: string[]; dataSourceId?: string }>()
   const { params } = useRouteMatch<{ dataSourceType: 'app-dynamics' }>()
   const history = useHistory()
 
@@ -45,9 +45,9 @@ export default function DataSourceListEntitySelect(): JSX.Element {
           <Heading level={3}>{verificationTypeI18N?.entitySubTitle}</Heading>
         </Container>
         <DataSourceSelectEntityTable
-          datasourceId= {connectorId}
-          accountId = {accountId}
-          entityTableColumnName="Available Applications"
+          datasourceId={connectorId}
+          accountId={accountId}
+          entityTableColumnName={verificationTypeI18N.columnHeaderTitle}
           verificationType={params.dataSourceType}
           onSubmit={navigateWithSelectedApps}
         />

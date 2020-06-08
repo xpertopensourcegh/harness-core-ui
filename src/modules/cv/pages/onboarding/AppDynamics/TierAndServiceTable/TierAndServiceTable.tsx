@@ -58,13 +58,14 @@ const DefaultTiersAndService: TierAndServiceRow[] = [...Array(6).keys()].map(() 
 async function fetchTiers(
   settingId: string,
   accountId: string,
-  appId: string
+  appId: string,
+  xhrGroup: string
 ): Promise<TierAndServiceRow[] | undefined> {
   const { error, status, response } = await AppDynamicsService.getAppDynamicsTiers({
     accountId,
     datasourceId: settingId,
     appDynamicsAppId: appId,
-    xhrGroup: XHR_TIER_GROUP
+    xhrGroup
   })
   if (status === xhr.ABORTED || error || !response?.resource?.length) {
     return
@@ -163,7 +164,8 @@ function RowRenderer(props: RowRendererProps): JSX.Element {
       setDep([metricPacks, selected, tier.id])
       onChange('validation', response?.resource ? true : false, rowIndex)
     })
-  }, [accountId, appId, metricPacks, projectId, tier, selected, onChange, connectorId])
+  }, [accountId, appId, metricPacks, projectId, tier, selected, onChange, connectorId, rowIndex])
+
   const serviceSelectObj: SelectOption | undefined = useMemo(() => {
     if (!services.length) {
       return { value: '', label: '' }
@@ -183,7 +185,9 @@ function RowRenderer(props: RowRendererProps): JSX.Element {
               type="checkbox"
               className={css.tierSelectChecBox}
               checked={cell.value}
-              onClick={() => onChange('selected', Boolean(!selected), rowIndex)}
+              onClick={() =>
+                onChange('selected', { serviceId: serviceSelectObj?.value, selected: Boolean(!selected) }, rowIndex)
+              }
             />
           )
         case 1:
@@ -239,7 +243,8 @@ export default function TierAndServiceTable(props: TierAndServiceTableProps): JS
 
   // fetch tier and service list
   useEffect(() => {
-    fetchTiers(dataSourceId, accountId, appId).then(tiers => {
+    const xhrGroup = `${XHR_TIER_GROUP}_${appId}`
+    fetchTiers(dataSourceId, accountId, appId, xhrGroup).then(tiers => {
       if (!tiers?.length) {
         return
       }
@@ -251,6 +256,7 @@ export default function TierAndServiceTable(props: TierAndServiceTableProps): JS
         setTierList(tiers)
       }
     })
+    return () => xhr.abort(xhrGroup)
   }, [appId, dataSourceId, accountId])
 
   // merge api call list with data list user has saved
@@ -306,7 +312,12 @@ export default function TierAndServiceTable(props: TierAndServiceTableProps): JS
   const onRowChangeCallback = useCallback(
     (fieldName: keyof TierAndServiceRow, value: any, index: number) => {
       const newData = [...mergedData]
-      newData[index][fieldName] = value as never
+      if (fieldName === 'selected') {
+        newData[index]['serviceId'] = value.serviceId
+        newData[index]['selected'] = value.selected
+      } else {
+        newData[index][fieldName] = value as never
+      }
       onChange(`appDConfigs[${appIndex}].tableData`, newData)
     },
     [appIndex, mergedData, onChange]

@@ -11,8 +11,8 @@ import OnBoardingConfigSetupHeader from 'modules/cv/components/OnBoardingConfigS
 import { RouteVerificationTypeToVerificationType } from 'modules/cv/constants'
 import AppDynamicsMainSetupView from '../AppDynamics/AppDynamicsMainSetupView'
 import css from './BaseOnBoardingSetupPage.module.scss'
-import SplunkOnboarding from '../Splunk/SplunkOnboarding';
-import { accountId, connectorId, appId } from 'modules/cv/constants' 
+import SplunkOnboarding from '../Splunk/SplunkOnboarding'
+import { accountId, connectorId, appId } from 'modules/cv/constants'
 
 const XHR_SERVICES_GROUP = 'XHR_SERVICES_GROUP'
 
@@ -30,11 +30,20 @@ function getDefaultCVConfig(
           dataSourceId,
           accId
         )
-    })
+      })
     case 'SPLUNK':
-      return SplunkOnboardingUtils.mapQueries ( selectedEntities )
+      return SplunkOnboardingUtils.mapQueries(selectedEntities)
     default:
       return []
+  }
+}
+
+function transformIncomingCVConfigs(savedConfig: CVConfig[], verificationProvider: CVConfig['type']) {
+  switch (verificationProvider) {
+    case 'APP_DYNAMICS':
+      return AppDynamicsOnboardingUtils.transformGetConfigs(
+        (savedConfig as unknown) as AppDynamicsOnboardingUtils.AppDynamicsCVConfig[]
+      )
   }
 }
 
@@ -54,7 +63,7 @@ export default function OnBoardingSetupPage(): JSX.Element {
   const [serviceOptions, setServices] = useState<SelectOption[]>([{ value: '', label: 'Loading...' }])
   const [configsToRender, setConfigs] = useState<CVConfig[]>([])
   const params = useParams<{ dataSourceType: string }>()
-  const { state: onboardingContext } = useLocation<{
+  const { state: locationContext } = useLocation<{
     dataSourceId: string
     selectedEntities: SelectOption[]
     isEdit: boolean
@@ -66,10 +75,10 @@ export default function OnBoardingSetupPage(): JSX.Element {
 
   // fetch saved data or set selected data from the previous page
   useEffect(() => {
-    const { dataSourceId = connectorId, selectedEntities = [], isEdit = false } = onboardingContext
-    if (!isEdit && onboardingContext.selectedEntities?.length) {
+    const { dataSourceId = connectorId, selectedEntities = [], isEdit = false } = locationContext
+    if (!isEdit && locationContext.selectedEntities?.length) {
       setConfigs(getDefaultCVConfig(verificationType, dataSourceId || '', selectedEntities, accountId))
-    } else if (onboardingContext.isEdit) {
+    } else if (locationContext.isEdit) {
       CVNextGenCVConfigService.fetchConfigs({
         accountId,
         dataSourceConnectorId: dataSourceId
@@ -80,11 +89,12 @@ export default function OnBoardingSetupPage(): JSX.Element {
           setServices([])
           return // TODO
         } else if (response?.resource) {
-          setConfigs(response.resource)
+          const configs = response.resource || []
+          setConfigs(transformIncomingCVConfigs(configs, verificationType) as CVConfig[])
         }
       })
     }
-  }, [onboardingContext, verificationType])
+  }, [locationContext, verificationType])
 
   // fetch services
   useEffect(() => {
@@ -104,14 +114,14 @@ export default function OnBoardingSetupPage(): JSX.Element {
         <AppDynamicsMainSetupView
           serviceOptions={serviceOptions}
           configs={configsToRender as AppDynamicsOnboardingUtils.CVConfigTableData[]}
-          selectedEntities={onboardingContext.selectedEntities}
+          selectedEntities={locationContext.selectedEntities}
         />
       )}
       {verificationType === 'SPLUNK' && (
         <SplunkOnboarding
           serviceOptions={serviceOptions}
           configs={configsToRender}
-          selectedEntities={onboardingContext.selectedEntities}
+          selectedEntities={locationContext.selectedEntities}
         />
       )}
     </Container>

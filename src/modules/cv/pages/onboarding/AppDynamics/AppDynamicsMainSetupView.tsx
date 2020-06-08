@@ -185,7 +185,7 @@ function AppDynamicsConfig(props: AppDynamicsConfigProps): JSX.Element {
 function AppDynamicsDataSourceForm(props: AppDynamicsDataSourceFormProps): JSX.Element {
   const { configList, serviceOptions, dataSourceId, appDApplications } = props
   const [applicationsToAdd, setApplicationsToAdd] = useState<SelectOption[]>([{ label: 'Loading...', value: '' }])
-  const [panelHeaderMsg, setPanelHeaderMsg] = useState<Map<number, { isError: boolean; msg: string }>>(new Map())
+  const [panelHeaderMsg, setPanelHeaderMsg] = useState<Map<string, { isError: boolean; msg: string }>>(new Map())
 
   useEffect(() => {
     const appList = generateAppDynamicsApplicationsToAdd(configList, appDApplications)
@@ -233,8 +233,8 @@ function AppDynamicsDataSourceForm(props: AppDynamicsDataSourceFormProps): JSX.E
                                 configData.applicationName ||
                                 ''
                               }
-                              isError={panelHeaderMsg.get(index)?.isError}
-                              message={panelHeaderMsg.get(index)?.msg}
+                              isError={panelHeaderMsg.get(configData.applicationId)?.isError}
+                              message={panelHeaderMsg.get(configData.applicationId)?.msg}
                             />
                           }
                           onToggleOpen={() => null}
@@ -244,7 +244,7 @@ function AppDynamicsDataSourceForm(props: AppDynamicsDataSourceFormProps): JSX.E
                             const newPanelHeaders = new Map(panelHeaderMsg)
                             if (!error) {
                               arrayHelpers.remove(index)
-                              newPanelHeaders.delete(index)
+                              newPanelHeaders.delete(configData.applicationId)
                               setPanelHeaderMsg(newPanelHeaders)
                               setApplicationsToAdd(
                                 updateApplicationList(
@@ -260,7 +260,7 @@ function AppDynamicsDataSourceForm(props: AppDynamicsDataSourceFormProps): JSX.E
                                 )
                               )
                             } else {
-                              newPanelHeaders.set(index, { isError: true, msg: error })
+                              newPanelHeaders.set(configData.applicationId, { isError: true, msg: error })
                               setPanelHeaderMsg(newPanelHeaders)
                             }
                           }}
@@ -276,9 +276,9 @@ function AppDynamicsDataSourceForm(props: AppDynamicsDataSourceFormProps): JSX.E
                               configs[index] = configsToShow
                               formikProps.setFieldValue('appDConfigs', configs)
                               const newPanelHeaders = new Map(panelHeaderMsg)
-                              newPanelHeaders.set(index, { msg: 'Success', isError: false })
+                              newPanelHeaders.set(configData.applicationId, { msg: 'Success', isError: false })
                               if (error) {
-                                newPanelHeaders.set(index, { msg: error, isError: true })
+                                newPanelHeaders.set(configData.applicationId, { msg: error, isError: true })
                               }
                               setPanelHeaderMsg(newPanelHeaders)
                             }

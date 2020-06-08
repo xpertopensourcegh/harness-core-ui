@@ -28,7 +28,9 @@ export default function DataSourcePanelStatusHeader(props: DataSourcePanelStatus
   }, [isError, message])
   return (
     <Container className={css.main}>
-      <Text font={{ weight: 'bold' }}>{panelName}</Text>
+      <Text font={{ weight: 'bold' }} width={80} lineClamp={1}>
+        {panelName}
+      </Text>
       {message && text}
     </Container>
   )

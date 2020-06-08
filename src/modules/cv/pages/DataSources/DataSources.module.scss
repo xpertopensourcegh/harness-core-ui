@@ -1,9 +1,59 @@
 .main {
+  display: grid;
+  grid-row: 100% 100vh;
+  grid-gap: 50px 10px;
   .sourcesGrid {
     display: grid;
-    grid-template-columns: repeat(4, 180px);
+    grid-template-columns: repeat(4, 165px);
     grid-template-rows: 192px;
-    justify-content: start;
-    margin-left: 25px;
+    grid-gap: var(--spacing-small);
+    margin-left: var(--spacing-large);
+  }
+
+  .contentContainer {
+    width: 90%;
+    margin: 0 auto;
+
+    .searchAndAdd {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      margin-bottom: var(--spacing-medium);
+      .dataSourceSearch {
+        width: 250px;
+      }
+    }
+
+    [class*='Collapse---header']:first-child {
+      padding: 10px !important;
+    }
+
+    .dataSourceCollapse {
+      :global {
+        .bp3-collapse-body {
+          margin-bottom: var(--spacing-large);
+        }
+      }
+
+      .headingText {
+        font-size: medium;
+      }
+
+      .dataSourceTable {
+        width: 100% !important;
+
+        .actionLinks {
+          display: flex;
+        }
+
+        tr {
+          &:not(:last-child) {
+            td {
+              border-bottom: 1px solid var(--grey-200);
+            }
+          }
+        }
+      }
+    }
   }
 }
