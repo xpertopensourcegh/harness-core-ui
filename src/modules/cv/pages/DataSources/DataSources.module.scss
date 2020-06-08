@@ -41,9 +41,15 @@
 
       .dataSourceTable {
         width: 100% !important;
+        tbody > tr:first-child > td {
+          box-shadow: none !important;
+        }
 
         .actionLinks {
           display: flex;
+          .divider {
+            margin: 0 5px;
+          }
         }
 
         tr {

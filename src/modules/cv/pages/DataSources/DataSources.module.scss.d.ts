@@ -10,5 +10,6 @@ declare const styles: {
   readonly headingText: string
   readonly dataSourceTable: string
   readonly actionLinks: string
+  readonly divider: string
 }
 export default styles

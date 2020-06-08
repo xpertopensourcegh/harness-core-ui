@@ -18,7 +18,7 @@ import type { SettingAttribute, CVConfig } from '@wings-software/swagger-ts/defi
 import type { Cell } from 'react-table'
 import { Link } from 'react-router-dom'
 import { routeCVDataSourcesProductPage } from 'modules/cv/routes'
-import { VerificationTypeToRouteVerificationType } from 'modules/cv/constants'
+import { VerificationTypeToRouteVerificationType, accountId } from 'modules/cv/constants'
 
 type DataSourceTableRow = {
   name: string
@@ -128,9 +128,9 @@ function RenderContent(props: RenderContentProps): JSX.Element {
           return (
             <Container className={css.actionLinks}>
               <Link to={toObj}>Edit</Link>
-              <Container>|</Container>
+              <Container className={css.divider}>|</Container>
               <Link to={toObj}>View</Link>
-              <Container>|</Container>
+              <Container className={css.divider}>|</Container>
               <WingsLink withoutHref>Delete</WingsLink>
             </Container>
           )
@@ -197,7 +197,7 @@ const DataSources: FunctionComponent<{}> = _ => {
   const [isLoading, setLoading] = useState(true)
   const [existingDataSources, setDataSources] = useState(new Map())
   useEffect(() => {
-    SettingsService.fetchConnectors('kmpySmUISimoRrJL6NL73w').then(({ response }) => {
+    SettingsService.fetchConnectors(accountId).then(({ response }) => {
       if (response?.resource) {
         const resp: any = response.resource
         setDataSources(createMapOfExistingDataSources(resp.response))
