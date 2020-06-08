@@ -7,9 +7,7 @@ import {
   Formik,
   FormikForm,
   FormInput,
-  Heading,
   Icon,
-  Color,
   Select,
   StackTraceList,
   HarnessIcons,
@@ -25,7 +23,7 @@ import HighchartsReact from 'highcharts-react-official'
 import xhr from '@wings-software/xhr-async'
 import DataSourcePanelStatusHeaderProps from '../../../components/DataSourcePanelStatusHeader/DataSourcePanelStatusHeader'
 import { ThirdPartyCallLogModal } from '../../../components/ThirdPartyCallLogs/ThirdPartyCallLogs'
-import { useLocation } from 'react-router'
+import { accountId, connectorId, appId } from 'modules/cv/constants' 
 
 const sha = Yup.object().shape({
   queryName: Yup.string().required('Query Name is required'),
@@ -92,8 +90,7 @@ const eventTypesOptions = [
 ]
 
 const SplunkOnboarding: FunctionComponent<any> = props => {
-  const [queries, setQueries] = useState([{ ...initialValues }])
-  const [serviceOptions, setServiceOptions] = useState([])
+  const {configs: queries, serviceOptions} = props
 
   const [environmentOptions, setEnvironmentOptions] = useState([])
 
@@ -103,71 +100,20 @@ const SplunkOnboarding: FunctionComponent<any> = props => {
 
   const [showCallLogs, setShowCallLogs] = useState(false)
 
-  const accountId = 'zEaak-FLS425IEO7OLzMUg'
-  const connectorId = 'g8eLKgBSQ368GWA5FuS7og'
-  const appId = 'qJ_sRGAjRTyD9oXHBRkxKQ'
+  // const accountId = 'zEaak-FLS425IEO7OLzMUg'
+  // const connectorId = 'g8eLKgBSQ368GWA5FuS7og'
+  // const appId = 'qJ_sRGAjRTyD9oXHBRkxKQ'
 
   const Logo = HarnessIcons['harness-logo-black']
-  const params: any = useLocation()
 
   useEffect(() => {
-    if (params.state['selectedEntities']!) {
-      setQueries(
-        params.state['selectedEntities']!.map((query: any) => {
-          const q = { ...initialValues }
-          ;(q.queryName = query.label), (q.queryString = query.value)
-          return q
-        })
-      )
-    } else if (!props.queries) {
-      fetchSplunkQueriesSavedinHarness({
-        accId: accountId,
-        xhrGroup: 'cv-nextgen/splunk/saved-searches',
-        queryParams: '&connectorId=' + connectorId
-      })
-    } else {
-      setQueries(props.queries)
-    }
     fetchQueriesFromSplunk({
       accId: accountId,
       xhrGroup: 'cv-nextgen/splunk/saved-searches',
       queryParams: '&connectorId=' + connectorId
     })
-    fetchServices({ accId: accountId, xhrGroup: 'services', queryParams: '&appId=' + appId })
     fetchEnvironments({ accId: accountId, xhrGroup: 'environments', queryParams: '&appId=' + appId })
   }, [])
-
-  async function fetchSplunkQueriesSavedinHarness({ accId, queryParams = '', xhrGroup }: any) {
-    const url = `https://localhost:9090/api/cv-nextgen/cv-config/list?accountId=${accId}${queryParams}`
-    setInProgress(true)
-    const { response, error }: any = await xhr.get(url, { group: xhrGroup })
-    if (response) {
-      setQueries(mapRespnseToUiQueries(response.resource))
-      setInProgress(false)
-    }
-    if (error) {
-      setInProgress(false)
-    }
-  }
-
-  const mapRespnseToUiQueries = (response: any) => {
-    return response.map((query: any) => {
-      return {
-        uuid: query.uuid,
-        queryName: query.name,
-        service: query.serviceId,
-        environment: query.envId,
-        serviceInstance: '',
-        queryString: query.query,
-        eventType: 'Quality',
-        graphOptions: { ...options },
-        stackTrace: [],
-        isOpen: false,
-        baselineTime: query.baseline,
-        isAlreadySaved: true
-      }
-    })
-  }
 
   async function fetchQueriesFromSplunk({ accId, queryParams = '', xhrGroup }: any) {
     setInProgress(true)
@@ -175,26 +121,6 @@ const SplunkOnboarding: FunctionComponent<any> = props => {
     const { response, error }: any = await xhr.get(url, { group: xhrGroup })
     if (response) {
       setSplunkQueriesOptions(SplunkOnboardingUtils.transformQueriesFromSplunk(response.resource) as never[])
-    }
-    if (error) {
-      setInProgress(false)
-    }
-  }
-
-  async function fetchServices({ accId, queryParams = '', xhrGroup }: any) {
-    setInProgress(true)
-    const url = `https://localhost:9090/api/services?accountId=${accId}${queryParams}`
-    const { response, error }: any = await xhr.get(url, { group: xhrGroup })
-    if (response) {
-      setInProgress(false)
-      setServiceOptions(
-        response.resource.response.map((service: any) => {
-          return {
-            label: service.name,
-            value: service.uuid
-          }
-        })
-      )
     }
     if (error) {
       setInProgress(false)
@@ -246,16 +172,16 @@ const SplunkOnboarding: FunctionComponent<any> = props => {
     }
   }
 
-  const renderHeader = () => {
-    return (
-      <div>
-        <Icon name="service-splunk" size={24} />
-        <Heading level={2} color={Color.BLACK} className={css.headingText}>
-          Map your Query to a Harness service and environment
-        </Heading>
-      </div>
-    )
-  }
+  // const renderHeader = () => {
+  //   return (
+  //     <div>
+  //       <Icon name="service-splunk" size={24} />
+  //       <Heading level={2} color={Color.BLACK} className={css.headingText}>
+  //         Map your Query to a Harness service and environment
+  //       </Heading>
+  //     </div>
+  //   )
+  // }
 
   const addQuery = (parentFormikProps: any) => {
     const iValues = { ...initialValues }
@@ -305,15 +231,6 @@ const SplunkOnboarding: FunctionComponent<any> = props => {
       </div>
     )
   }
-
-  // const removeQuery = (uuid, parentFormikProps, index) => {
-  //   console.log('all queries ', parentFormikProps.values.queries)
-  //   const filteredQueries = parentFormikProps.values.queries.filter((query, i) => {
-  //     return query.uuid !== uuid
-  //   })
-  //   console.log(filteredQueries)
-  //   parentFormikProps.setFieldValue('queries', filteredQueries)
-  // }
 
   async function removeQuery(query: any, _index: number, _parentFormikProps: any) {
     setInProgress(true)
@@ -368,7 +285,7 @@ const SplunkOnboarding: FunctionComponent<any> = props => {
             />
             <FormInput.Select name={`queries[${index}].eventType`} label="Event type" items={eventTypesOptions} />
             <label> Harness + Splunk validation </label>
-            {!parentFormikProps.values.queries[index].graphOptions.Error ? (
+            {!parentFormikProps.values.queries[index].graphOptions?.Error ? (
               <HighchartsReact highcharts={Highcharts} options={parentFormikProps.values.queries[index].graphOptions} />
             ) : (
               <GraphError
@@ -390,7 +307,7 @@ const SplunkOnboarding: FunctionComponent<any> = props => {
           <div className={css.rightSection}>
             <Logo height="24" className={css.logo} />
             <FormInput.Text name={`queries[${index}].queryName`} label="Query Name" />
-            <FormInput.Select name={`queries[${index}].service`} label="Service Name" items={serviceOptions} />
+            <FormInput.Select name={`queries[${index}].service`} key={serviceOptions?.[0].value} label="Service Name" items={serviceOptions} />
             <FormInput.Select name={`queries[${index}].environment`} label="Environment" items={environmentOptions} />
             <FormInput.Text name={`queries[${index}].serviceInstance`} label="Service instance field name" />
             {/* Select baseline time range */}
@@ -473,7 +390,6 @@ const SplunkOnboarding: FunctionComponent<any> = props => {
   }
 
   const renderMainSection = () => {
-    // const q = props.queries || queries
     return (
       <Formik
         validationSchema={validationSchema}
@@ -561,7 +477,7 @@ const SplunkOnboarding: FunctionComponent<any> = props => {
   return (
     <OverlaySpinner show={inProgress}>
       <div className={css.main}>
-        {renderHeader()}
+        {/* {renderHeader()} */}
         {renderMainSection()}
         {renderViewCallLogs()}
       </div>
