@@ -1,8 +1,8 @@
 import React from 'react'
 
-import { useTable, usePagination, useSortBy, TableInstance } from 'react-table'
+import { useTable, usePagination, useSortBy, UseTableOptions, TableState, HeaderGroup } from 'react-table'
 import { Text, Color, Button, Icon, Layout } from '@wings-software/uikit'
-import css from './ResourceTable.module.scss'
+import css from './CustomTable.module.scss'
 import * as moment from 'moment'
 import TimeAgo from 'react-timeago'
 
@@ -19,7 +19,7 @@ const status: Status = {
   ERROR: 'error'
 }
 
-function Table({ columns, data }: TableInstance) {
+const Table = ({ columns, data }: UseTableOptions<object>): JSX.Element => {
   // Use the state and functions returned from useTable to build your UI
   const {
     getTableProps,
@@ -43,22 +43,22 @@ function Table({ columns, data }: TableInstance) {
     {
       columns,
       data,
-      initialState: { pageSize: 5 }
+      initialState: { pageSize: 5 } as TableState
     },
 
     useSortBy,
     usePagination
-  )
+  ) as any
   // Render the UI for your table
   return (
     <section className={css.tableWrapper}>
       <div>
         <table {...getTableProps()}>
           <thead className={css.tableHead}>
-            {headerGroups.map((headerGroup: any) => (
-              <tr {...headerGroup.getHeaderGroupProps()} key={headerGroup?.headers}>
-                {headerGroup.headers.map((column: any) => (
-                  <th {...column.getHeaderProps(column.getSortByToggleProps())} key={column}>
+            {headerGroups.map((headerGroup: HeaderGroup) => (
+              <tr {...headerGroup.getHeaderGroupProps()} key={headerGroup.headers as any}>
+                {headerGroup.headers.map((column: any, index: number) => (
+                  <th {...column.getHeaderProps(column.getSortByToggleProps())} key={column + index}>
                     {column.render('Header')}
                     <span style={{ display: 'inline-flex', marginLeft: 5 }}>
                       {column.isSorted ? (
@@ -77,14 +77,14 @@ function Table({ columns, data }: TableInstance) {
             ))}
           </thead>
           <tbody {...getTableBodyProps()}>
-            {page.map((row: any) => {
+            {page.map((row: any, k: number) => {
               prepareRow(row)
               return (
-                <tr {...row.getRowProps()} key={row}>
+                <tr {...row.getRowProps()} key={row + k}>
                   {row.cells.map((cell: any, index: any) => {
                     return (
                       <td
-                        key={cell}
+                        key={cell + index}
                         {...cell.getCellProps()}
                         align={index === 5 ? 'right' : 'left'}
                         width={index == 3 ? 150 : 'auto'}
@@ -108,8 +108,10 @@ function Table({ columns, data }: TableInstance) {
                           <Text inline style={{ color: 'var(--grey-800)', fontWeight: 700, fontSize: 16 }}>
                             <Text inline style={{ color: 'var(--grey-800)', fontWeight: 700, fontSize: 16 }}>
                               <div style={{ display: 'grid', alignItems: 'center', gridGap: '5px' }}>
-                                <span>{cell.row.original?.details?.url}</span>
-                                <span>{cell.row.original?.details?.accessKey}</span>
+                                {cell.row.original?.details?.url && <span>URL: {cell.row.original?.details?.url}</span>}
+                                {cell.row.original?.details?.accessKey && (
+                                  <span>KEY: {cell.row.original?.details?.accessKey}</span>
+                                )}
                                 <Text inline style={{ color: 'var(--grey-400)' }}>
                                   <span>{cell.row.original?.details?.description}</span>
                                 </Text>
@@ -198,7 +200,11 @@ function Table({ columns, data }: TableInstance) {
       </div>
       <Layout.Horizontal
         flex={true}
-        style={{ borderTop: '1px solid var(--grey-200)', paddingTop: 'var(--spacing-medium)' }}
+        style={{
+          borderTop: '1px solid var(--grey-200)',
+          paddingTop: 'var(--spacing-medium)',
+          paddingBottom: 'var(--spacing-medium)'
+        }}
       >
         <Text inline style={{ color: 'var(--grey-400)', fontSize: 16 }}>
           Showing &nbsp;
@@ -259,8 +265,10 @@ function Table({ columns, data }: TableInstance) {
     </section>
   )
 }
-const ResourceTable: React.FC = (props: any) => {
-  return <Table columns={props?.columns} data={props?.data} />
+class CustomTable extends React.Component<{ data: any; columns: any }> {
+  render() {
+    return <Table columns={this.props.columns} data={this.props.data} />
+  }
 }
 
-export default ResourceTable
+export default CustomTable

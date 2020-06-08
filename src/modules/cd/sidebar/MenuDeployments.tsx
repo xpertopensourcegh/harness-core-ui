@@ -13,7 +13,7 @@ export const MenuDeployments: React.FC = () => {
           <Sidebar.Link
             href={linkTo(routeResources)}
             label={i18n.resources}
-            icon="shield"
+            icon="nav-resources"
             selected={isRouteActive(routeResources)}
           />
         </Layout.Vertical>
