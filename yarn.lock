@@ -1103,10 +1103,10 @@
   dependencies:
     loader-utils "^1.2.3"
 
-"@wings-software/swagger-ts@1.54700.1-beta.1":
-  version "1.54700.1-beta.1"
-  resolved "https://npm.pkg.github.com/download/@wings-software/swagger-ts/1.54700.1-beta.1/489d526f9396ff5aee45386af76f2fe19088454d932915cdac9cd46f339a33d2#a50b41eb2b4e0788db99eaf2483280268e65301e"
-  integrity sha512-4JEVkrL7NeAjfJp3eexrzXibLEkGczxpuHxLX5NYGB21uCDNMSsfiyLbec2M4Hv86QyELxmO5IMrsFdnIbeBxg==
+"@wings-software/swagger-ts@1.54804.0":
+  version "1.54804.0"
+  resolved "https://npm.pkg.github.com/download/@wings-software/swagger-ts/1.54804.0/142bece803c2aa98013b28c4f6a7e6f8598e62a0d80b9be5253e22512a46da1d#a5fdbaabcd20b348f4554fc23b6eb130e561cfdb"
+  integrity sha512-Gc/rw2PfKUqSl3/nkqW3tWpCCbsQl86O0VH9qwnM9zAv/bPlvLPkforQYUcp1ZMTbqKXm8jH0NOOIOnKkyQ2sA==
 
 "@wings-software/uikit@1.0.152":
   version "1.0.152"
@@ -3787,11 +3787,6 @@ highcharts@7.1.2:
   version "7.1.2"
   resolved "https://registry.yarnpkg.com/highcharts/-/highcharts-7.1.2.tgz#f337e75cf0614f58f87fb28fbab48e1096265b5d"
   integrity sha512-diSTVxWKefQzShi22gaV63pdrIFlQAsTGe3f328Ur7cqBoYFvHMtiMP+q+VOFdM2mdGVtlUR0QQSxj62LLsPpg==
-
-highlight.js@^10.0.3:
-  version "10.0.3"
-  resolved "https://registry.yarnpkg.com/highlight.js/-/highlight.js-10.0.3.tgz#5effcc58420f113f279a0badb8ac50c4be06e63b"
-  integrity sha512-9FG7SSzv9yOY5CGGxfI6NDm7xLYtMOjKtPBxw7Zff3t5UcRcUNTGEeS8lNjhceL34KeetLMoGMFTGoaa83HwyQ==
 
 history@^4.9.0:
   version "4.10.1"

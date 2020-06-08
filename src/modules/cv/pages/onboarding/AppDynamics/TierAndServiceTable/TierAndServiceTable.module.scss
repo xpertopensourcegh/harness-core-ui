@@ -1,0 +1,35 @@
+.main {
+  width: 100%;
+
+  .emptyCell {
+    height: 25px;
+  }
+  .serviceSelect {
+    input {
+      min-width: 100px;
+      max-width: 170px;
+      height: 25px !important;
+      border: none !important;
+      background: transparent !important;
+    }
+  }
+  .tierSelectChecBox {
+    width: 15px;
+  }
+
+  .validationResult {
+    width: 200px;
+    .validationContainer {
+      display: flex;
+      align-items: center;
+      .divider {
+        width: 10px;
+      }
+      :global {
+        .bp3-popover-wrapper {
+          height: 20px;
+        }
+      }
+    }
+  }
+}

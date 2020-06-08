@@ -18,6 +18,8 @@ declare const styles: {
   readonly urlLabel: string
   readonly requestUrl: string
   readonly responseContainer: string
+  readonly responseBody: string
+  readonly headingContainer: string
   readonly backButtonHeading: string
 }
 export default styles

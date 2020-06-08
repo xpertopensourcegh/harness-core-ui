@@ -2,14 +2,25 @@ import xhr from '@wings-software/xhr-async'
 import type { ResponseWrapper } from 'modules/common/utils/HelperTypes'
 import type {
   RestResponseListNewRelicApplication,
-  RestResponseSetAppdynamicsTier
+  RestResponseSetAppdynamicsTier,
+  RestResponseSetAppdynamicsValidationResponse,
+  MetricPack
 } from '@wings-software/swagger-ts/definitions'
 
 export const Endpoints = {
   appdApplications: (accountId: string, dataSourceId: string) =>
-    `/appdynamics/applications?accountId=${accountId}&settingId=${dataSourceId}`,
+    `https://localhost:9090/api/appdynamics/applications?accountId=${accountId}&settingId=${dataSourceId}`,
   appdTier: (accountId: string, dataSourceId: string, appDynamicsAppId: string) =>
-    `/appdynamics/tiers?accountId=${accountId}&settingId=${dataSourceId}&appDynamicsAppId=${appDynamicsAppId}`
+    `https://localhost:9090/api/appdynamics/tiers?accountId=${accountId}&settingId=${dataSourceId}&appdynamicsAppId=${appDynamicsAppId}`,
+  validateAppDMetrics: (
+    accountId: string,
+    connectorId: string,
+    projectId: string,
+    appId: string,
+    tierId: string,
+    guid: string
+  ) =>
+    `https://localhost:9090/api/appdynamics/metric-data?accountId=${accountId}&connectorId=${connectorId}&projectId=${projectId}&appdAppId=${appId}&appdTierId=${tierId}&requestGuid=${guid}`
 }
 
 export async function fetchAppDynamicsApplications({
@@ -36,4 +47,29 @@ export async function getAppDynamicsTiers({
   xhrGroup: string
 }): Promise<ResponseWrapper<RestResponseSetAppdynamicsTier>> {
   return await xhr.get(Endpoints.appdTier(accountId, datasourceId, appDynamicsAppId), { group: xhrGroup }).as('tiers')
+}
+
+export async function validateMetricsApi({
+  accountId,
+  connectorId,
+  projectId,
+  appId,
+  metricPacks,
+  tierId,
+  guid,
+  xhrGroup
+}: {
+  accountId: string
+  connectorId: string
+  projectId: string
+  appId: string
+  metricPacks: MetricPack[]
+  tierId: string
+  guid: string
+  xhrGroup: string
+}): Promise<ResponseWrapper<RestResponseSetAppdynamicsValidationResponse>> {
+  return xhr.post(Endpoints.validateAppDMetrics(accountId, connectorId, projectId, appId, tierId, guid), {
+    group: xhrGroup,
+    data: metricPacks
+  })
 }

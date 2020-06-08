@@ -5,7 +5,6 @@ import xhr from '@wings-software/xhr-async'
 import moment from 'moment'
 import css from './ThirdPartyCallLog.module.scss'
 import i18n from './ThirdPartyCallLogs.i18n'
-import Highlight from '../Highlight/Highlight'
 import type { ThirdPartyApiCallLog } from '@wings-software/swagger-ts/definitions'
 import { ActivitiesService } from '../../services'
 
@@ -51,8 +50,8 @@ const XHR_3RD_PARTY_CALL_LOG_GROUP = 'XHR_3RD_PARTY_CALL_LOG_GROUP'
 
 async function fetchCallLogs(guid: string): Promise<{ callLogs?: ThirdPartyApiCallLog[]; error?: string } | undefined> {
   const { error, status, response } = await ActivitiesService.fetchApiCallLogs({
-    stateExecutionId: guid,
-    queryParams: `appId=ogVkjRvETFOG4-2e_kYPQA`,
+    entityIdentifier: guid,
+    appId: 'ogVkjRvETFOG4-2e_kYPQA',
     xhrGroup: XHR_3RD_PARTY_CALL_LOG_GROUP
   })
 
@@ -63,7 +62,8 @@ async function fetchCallLogs(guid: string): Promise<{ callLogs?: ThirdPartyApiCa
     return { error: error.message }
   }
 
-  return { callLogs: response }
+  const resp: any = response
+  return { callLogs: resp?.resource }
 }
 
 function SelectedLog(props: SelectedLogProps): JSX.Element {
@@ -97,7 +97,9 @@ function SelectedLog(props: SelectedLogProps): JSX.Element {
       <Container className={css.requestContainer}>
         <Text color={Color.BLACK}>{i18n.requestMade}</Text>
         <Text className={css.urlLabel}>URL:</Text>
-        <Text className={css.requestUrl}>{requiredKeys.requestURL}</Text>
+        <Container className={css.requestUrl}>
+          <CodeBlock allowCopy format="pre" snippet={requiredKeys.requestURL} />
+        </Container>
         <Text>
           {i18n.method}: <Text inline>{requiredKeys.requestMethod}</Text>
         </Text>
@@ -111,11 +113,9 @@ function SelectedLog(props: SelectedLogProps): JSX.Element {
           {i18n.timeTaken}: <Text inline>{(responseTimeStamp || 0) - (requestTimeStamp || 0)}ms</Text>
         </Text>
         <Text>{i18n.responseBody}:</Text>
-        {requiredKeys.responseIsJSON ? (
-          <Highlight language="JSON">{requiredKeys.responseBody}</Highlight>
-        ) : (
+        <Container className={css.responseBody}>
           <CodeBlock allowCopy format="pre" snippet={requiredKeys.responseBody} />
-        )}
+        </Container>
       </Container>
     </Container>
   )
@@ -168,7 +168,8 @@ export function ThirdPartyCallLogModal(props: ThirdPartyCallLogsProps): JSX.Elem
       if (callLogsResponse?.error) {
         setLoadingError({ error: callLogsResponse.error, isLoading: false })
       } else {
-        setCallLogs(callLogsResponse?.callLogs || [])
+        const resp: any = callLogsResponse?.callLogs
+        setCallLogs(resp?.response || [])
         setLoadingError({ error: '', isLoading: false })
       }
     })
@@ -178,7 +179,7 @@ export function ThirdPartyCallLogModal(props: ThirdPartyCallLogsProps): JSX.Elem
       return {
         ...bpDialogProps,
         title: (
-          <Container>
+          <Container className={css.headingContainer}>
             <Button minimal intent="primary" icon="chevron-left" onClick={onBackButtonClick}>
               {i18n.backButtonTitle}
             </Button>

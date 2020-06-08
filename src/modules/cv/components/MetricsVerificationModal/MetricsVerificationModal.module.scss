@@ -4,17 +4,17 @@
       margin: 0 auto;
       width: 240px;
       [data-tab-id='tabId1'] {
-        margin-left: var(--margin-large);
+        margin-left: var(--spacing-large);
       }
     }
   }
   .metricPackContainer {
     display: flex;
-    margin: var(--margin-medium);
+    margin: var(--spacing-medium);
 
     .metricPackName {
       color: var(--black);
-      margin-right: var(--margin-medium);
+      margin-right: var(--spacing-medium);
       position: relative;
       top: 10px;
       word-break: break-word;
@@ -43,12 +43,12 @@
     [class*='card'] {
       width: 125px !important;
       height: 80px !important;
-      padding: var(--padding-xsmall) !important;
+      padding: var(--spacing-xsmall) !important;
       box-shadow: none !important;
     }
 
     .statusCard {
-      margin: var(--margin-xsmall);
+      margin: var(--spacing-xsmall);
     }
 
     .dataContainer {

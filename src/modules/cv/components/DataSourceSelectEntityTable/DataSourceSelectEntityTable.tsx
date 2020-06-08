@@ -1,6 +1,6 @@
 import React, { useMemo, useEffect, useState, useCallback } from 'react'
 import { Table, SelectOption, Text } from '@wings-software/uikit'
-import { AppDynamicsService, CvNextgenConfigService } from '../../services'
+import { AppDynamicsService, CVNextGenCVConfigService } from '../../services'
 import * as AppDynamicsOnBoardingUtils from '../../pages/onboarding/AppDynamics/AppDynamicsOnboardingUtils'
 import * as SplunkOnboardingUtils from '../../pages/onboarding/Splunk/SplunkOnboardingUtils'
 import xhr from '@wings-software/xhr-async'
@@ -60,7 +60,7 @@ const VerificationTypeEntityCall: {
     transformResponseFunc: AppDynamicsOnBoardingUtils.transformAppDynamicsApplications
   },
   splunk: {
-    entityFetchFunc: CvNextgenConfigService.fetchQueriesFromSplunk,
+    entityFetchFunc: CVNextGenCVConfigService.fetchQueriesFromSplunk,
     transformResponseFunc: SplunkOnboardingUtils.transformQueriesFromSplunk
   }
 }

@@ -17,9 +17,12 @@ export default function DataSourceListEntitySelect(): JSX.Element {
   >()
   const onClickNextCallback = useCallback(
     () => (selectedEntities: SelectOption[]) => {
-      history.push(routeCVOnBoardingSetup.url({ dataSourceType: params?.dataSourceType }), {
-        ...locationData,
-        selectedEntities
+      history.push({
+        pathname: routeCVOnBoardingSetup.url({ dataSourceType: params?.dataSourceType }),
+        state: {
+          ...locationData,
+          selectedEntities
+        }
       })
     },
     [locationData, history, params?.dataSourceType]
