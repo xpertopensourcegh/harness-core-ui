@@ -203,7 +203,7 @@ exports[`CustomTable Snapshot should render CustomTable with Proper Data and Col
                       datetime="2020-06-05T04:56:09.000Z"
                       title="06/04/2020 09:56 pm"
                     >
-                      5 days from now
+                      4 weeks from now
                     </time>
                   </span>
                 </div>
@@ -252,7 +252,7 @@ exports[`CustomTable Snapshot should render CustomTable with Proper Data and Col
                       datetime="2020-06-05T04:56:09.000Z"
                       title="06/04/2020 09:56 pm"
                     >
-                      5 days from now
+                      4 weeks from now
                     </time>
                   </span>
                 </div>
@@ -546,7 +546,7 @@ exports[`CustomTable Snapshot should render CustomTable with Proper Data and Col
                       datetime="2020-06-05T04:56:09.000Z"
                       title="06/04/2020 09:56 pm"
                     >
-                      5 days from now
+                      4 weeks from now
                     </time>
                   </span>
                 </div>
@@ -595,7 +595,7 @@ exports[`CustomTable Snapshot should render CustomTable with Proper Data and Col
                       datetime="2020-06-05T04:56:09.000Z"
                       title="06/04/2020 09:56 pm"
                     >
-                      5 days from now
+                      4 weeks from now
                     </time>
                   </span>
                 </div>
@@ -752,7 +752,7 @@ exports[`CustomTable Snapshot should render CustomTable with Proper Data and Col
                       datetime="2020-06-05T04:56:09.000Z"
                       title="06/04/2020 09:56 pm"
                     >
-                      5 days from now
+                      4 weeks from now
                     </time>
                   </span>
                 </div>
@@ -801,7 +801,7 @@ exports[`CustomTable Snapshot should render CustomTable with Proper Data and Col
                       datetime="2020-06-05T04:56:09.000Z"
                       title="06/04/2020 09:56 pm"
                     >
-                      5 days from now
+                      4 weeks from now
                     </time>
                   </span>
                 </div>
@@ -1095,7 +1095,7 @@ exports[`CustomTable Snapshot should render CustomTable with Proper Data and Col
                       datetime="2020-06-05T04:56:09.000Z"
                       title="06/04/2020 09:56 pm"
                     >
-                      5 days from now
+                      4 weeks from now
                     </time>
                   </span>
                 </div>
@@ -1144,7 +1144,7 @@ exports[`CustomTable Snapshot should render CustomTable with Proper Data and Col
                       datetime="2020-06-05T04:56:09.000Z"
                       title="06/04/2020 09:56 pm"
                     >
-                      5 days from now
+                      4 weeks from now
                     </time>
                   </span>
                 </div>
@@ -1301,7 +1301,7 @@ exports[`CustomTable Snapshot should render CustomTable with Proper Data and Col
                       datetime="2020-06-05T04:56:09.000Z"
                       title="06/04/2020 09:56 pm"
                     >
-                      5 days from now
+                      4 weeks from now
                     </time>
                   </span>
                 </div>
@@ -1350,7 +1350,7 @@ exports[`CustomTable Snapshot should render CustomTable with Proper Data and Col
                       datetime="2020-06-05T04:56:09.000Z"
                       title="06/04/2020 09:56 pm"
                     >
-                      5 days from now
+                      4 weeks from now
                     </time>
                   </span>
                 </div>
