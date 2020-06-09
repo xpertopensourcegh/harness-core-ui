@@ -34,3 +34,14 @@ export const routeAboutPipelines: Route = {
   url: () => '/pipelines/about',
   component: React.lazy(() => import('./pages/pipelines/AboutPipelinesPage'))
 }
+
+export const routeExecutionGraphPipelines: Route = {
+  module: ModuleName.CD,
+  sidebarId: SidebarIdentifier.DEPLOYMENTS,
+  layout: PageLayout.DefaultLayout,
+  path: '/pipelines/execution',
+  title: i18n.deployments,
+  pageId: 'pipelines-execution',
+  url: () => '/pipelines/execution',
+  component: React.lazy(() => import('./pages/pipelines/ExecutionGraph/ExecutionGraph'))
+}

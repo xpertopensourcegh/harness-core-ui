@@ -1,0 +1,12 @@
+.diamond {
+  transform: rotate(45deg);
+  & > span {
+    transform: rotate(-45deg);
+  }
+  & > div[class*='portIn'] {
+    top: calc(80% + 4px);
+  }
+  & > div[class*='portOut'] {
+    top: calc(-20% + 4px);
+  }
+}

@@ -1,0 +1,17 @@
+.nodeStart {
+  border: 3px solid var(--diagram-grey);
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  background-color: var(--grey-250);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.defaultNode {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 64px;
+}
