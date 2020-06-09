@@ -3,4 +3,4 @@ import * as Diagram from './components/Diagram/index'
 export { Page } from './components/Page/Page'
 
 // Diagram Module
-export default Diagram
+export { Diagram }

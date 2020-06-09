@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import css from './ExecutionGraph.module.scss'
-import Diagram from 'modules/common/exports'
+import { Diagram } from 'modules/common/exports'
 import { ExecutionStepModel, GraphObj, StepType, StepInterface } from './ExecutionStepModel'
 import { Drawer, Position } from '@blueprintjs/core'
 import { cloneDeep } from 'lodash'
@@ -32,10 +32,50 @@ const data: GraphObj[] = [
     }
   },
   {
+    parallel: [
+      {
+        step: {
+          type: StepType.HTTP,
+          name: 'http step 5',
+          identifier: 'http-step-5',
+          spec: {
+            socketTimeoutMillis: 1000,
+            method: 'GET',
+            url: 'http://localhost:8080/temp-4.json'
+          }
+        }
+      },
+      {
+        step: {
+          type: StepType.HTTP,
+          name: 'http step 6',
+          identifier: 'http-step-6',
+          spec: {
+            socketTimeoutMillis: 1000,
+            method: 'GET',
+            url: 'http://localhost:8080/temp-4.json'
+          }
+        }
+      }
+    ]
+  },
+  {
     step: {
       type: StepType.HTTP,
       name: 'http step 4',
       identifier: 'http-step-4',
+      spec: {
+        socketTimeoutMillis: 1000,
+        method: 'GET',
+        url: 'http://localhost:8080/temp-4.json'
+      }
+    }
+  },
+  {
+    step: {
+      type: StepType.HTTP,
+      name: 'http step 7',
+      identifier: 'http-step-7',
       spec: {
         socketTimeoutMillis: 1000,
         method: 'GET',

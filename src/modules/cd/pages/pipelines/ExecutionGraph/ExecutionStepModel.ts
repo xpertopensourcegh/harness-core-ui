@@ -1,6 +1,6 @@
 import { isEmpty } from 'lodash'
 import type { IconName } from '@wings-software/uikit'
-import Diagram from 'modules/common/exports'
+import { Diagram } from 'modules/common/exports'
 
 export enum StepType {
   HTTP = 'http',
