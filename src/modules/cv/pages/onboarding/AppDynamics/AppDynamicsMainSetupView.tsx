@@ -8,7 +8,7 @@ import {
   FormikForm,
   SelectWithSubview,
   Select,
-  ListPanelInterface
+  Link
 } from '@wings-software/uikit'
 import TierAndServiceTable from './TierAndServiceTable/TierAndServiceTable'
 import css from './AppDynamicsMainSetupView.module.scss'
@@ -29,6 +29,7 @@ import { AppDynamicsService } from '../../../services'
 import DataSourcePanelStatusHeader from '../../../components/DataSourcePanelStatusHeader/DataSourcePanelStatusHeader'
 import { EnvironmentTypeSubForm } from 'modules/cv/components/EnvironmentSubForm/EnvironmentSubForm'
 import { Page } from 'modules/common/exports'
+import { CustomizeMetricPackDrawer } from 'modules/cv/components/CustomizeMetricPackDrawer/CustomizeMetricPackDrawer'
 
 // const connectorId = 'sugDKfxVSc--pkp6GcLFBA'
 // const appId = '3ugZPVJ_SBCHb9sl5llxFQ'
@@ -104,6 +105,7 @@ function AppDynamicsConfig(props: AppDynamicsConfigProps): JSX.Element {
   const { config, serviceOptions, dataSourceId, index, formikProps } = props
   const { getMetricObject, metricList, isLoading: isLoadingMetricPacks } = useContext(ConfigureMetricPackContext)
   const [selectedMetricPacks, setSelectedPacks] = useState(config.metricPackList || [])
+  const [displayMetricPackDrawer, setDisplayMetricPackDrawer] = useState(false)
   const tagInputProps = useMemo(
     () => ({
       fill: true,
@@ -156,16 +158,21 @@ function AppDynamicsConfig(props: AppDynamicsConfigProps): JSX.Element {
             )
           }}
         />
-        <FormInput.TagInput
-          name={`appDConfigs[${index}].metricPackList`}
-          label="Metric Packs"
-          items={metricList}
-          key={metricList?.[0]}
-          itemFromNewTag={newTag => newTag}
-          labelFor={name => name as string}
-          tagInputProps={tagInputProps}
-          onChange={onMetricPackChangeCallback}
-        />
+        <Container>
+          <Link withoutHref onClick={() => setDisplayMetricPackDrawer(true)}>
+            Customize Metric Packs
+          </Link>
+          <FormInput.TagInput
+            name={`appDConfigs[${index}].metricPackList`}
+            label="Metric Packs"
+            items={metricList}
+            key={metricList?.[0]}
+            itemFromNewTag={newTag => newTag}
+            labelFor={name => name as string}
+            tagInputProps={tagInputProps}
+            onChange={onMetricPackChangeCallback}
+          />
+        </Container>
       </Container>
       <Container className={css.tableContainer}>
         <TierAndServiceTable
@@ -179,6 +186,11 @@ function AppDynamicsConfig(props: AppDynamicsConfigProps): JSX.Element {
           dataSourceId={dataSourceId}
         />
       </Container>
+      <CustomizeMetricPackDrawer
+        isOpen={displayMetricPackDrawer}
+        onClose={() => setDisplayMetricPackDrawer(false)}
+        selectedMetricPackObjects={metricPackObjs}
+      />
     </Container>
   )
 }
