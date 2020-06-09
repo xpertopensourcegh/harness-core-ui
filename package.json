@@ -39,7 +39,6 @@
     "highcharts": "7.1.2",
     "highcharts-react-official": "3.0.0",
     "moment": "^2.25.3",
-    "moment-timezone": "^0.5.31",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-draggable": "^4.4.2",
