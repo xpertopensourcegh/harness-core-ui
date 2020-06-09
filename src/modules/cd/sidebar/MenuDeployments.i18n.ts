@@ -1,4 +1,5 @@
 export default {
   continuous: 'CONTINUOUS',
-  deployments: 'DEPLOYMENTS'
+  deployments: 'DEPLOYMENTS',
+  resources: 'RESOURCES'
 }

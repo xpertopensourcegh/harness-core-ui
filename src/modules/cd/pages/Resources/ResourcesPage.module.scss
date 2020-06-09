@@ -1,0 +1,12 @@
+.tags {
+  padding: var(--spacing-small);
+  background: none;
+  color: var(--grey-700);
+  font-size: 16px;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+}
+.activeTag {
+  background: var(--grey-700);
+  color: white;
+}

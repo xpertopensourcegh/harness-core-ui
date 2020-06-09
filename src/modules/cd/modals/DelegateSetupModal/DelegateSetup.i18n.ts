@@ -1,4 +1,5 @@
 export default {
+  NEW_CONNECTOR: 'New Connector',
   DELEGATE_IN_CLUSTER: 'Connect through a harness delegate running in-cluster',
   DELEGATE_OUT_CLUSTER: 'Connect through a harnesss delegate outside your cluster',
   DELEGATE_IN_CLUSTER_INFO:

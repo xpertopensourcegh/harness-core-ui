@@ -1,3 +1,4 @@
+process.env.TZ = 'GMT'
 module.exports = {
   globals: {
     'ts-jest': {
@@ -27,4 +28,4 @@ module.exports = {
     }
   },
   transformIgnorePatterns: ['node_modules/(?!(date-fns)/)']
-};
+}
