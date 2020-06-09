@@ -66,10 +66,10 @@ function SuccessMetricCard(props: SuccessMetricCardProps): JSX.Element {
     <Card className={cx(css.successCard, css.statusCard)}>
       <Icon name="deployment-success-legacy" className={css.statusIcon} />
       <Layout.Vertical className={css.dataContainer}>
-        <Text lineClamp={1} className={css.smallFont} color={Color.GREEN_600}>
+        <Text lineClamp={1} className={css.smallFont} color={Color.GREEN_500}>
           {metricName}
         </Text>
-        <Text className={css.count} lineClamp={1} color={Color.GREEN_600}>
+        <Text className={css.count} lineClamp={1} color={Color.GREEN_500}>
           {count}
         </Text>
       </Layout.Vertical>

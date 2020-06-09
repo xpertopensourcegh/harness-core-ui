@@ -1,10 +1,10 @@
 import React, { useState, useCallback, useMemo } from 'react'
 import { Container, Button, Heading, Color, Layout, Text } from '@wings-software/uikit'
 import CVProductCard, { TypeCard } from 'modules/cv/components/CVProductCard/CVProductCard'
-import { Link, useRouteMatch } from 'react-router-dom'
+import { Link, useRouteMatch, useLocation } from 'react-router-dom'
 import css from './DataSourceProductPage.module.scss'
 import i18n from './DataSourceProductPage.i18n'
-import { routeCVDataSourcesEntityPage } from 'modules/cv/routes'
+import { routeCVDataSourcesEntityPage, routeCVOnBoardingSetup } from 'modules/cv/routes'
 
 const ProductOptions: { [datasourceType: string]: Array<{ item: TypeCard }> } = {
   'app-dynamics': [
@@ -29,6 +29,7 @@ const ProductOptions: { [datasourceType: string]: Array<{ item: TypeCard }> } = 
 export default function AppDynamicsProductPage(): JSX.Element {
   const [selectedProducts, setSelectedProducts] = useState<string[]>([])
   const { params } = useRouteMatch<{ dataSourceType: string }>()
+  const { state: locationContext = {} } = useLocation<{ isEdit?: boolean; dataSourceId?: string }>()
   const { productOptions, productDescription } = useMemo<{
     productOptions: Array<{ item: TypeCard }>
     productDescription: string
@@ -54,10 +55,12 @@ export default function AppDynamicsProductPage(): JSX.Element {
 
   const linkToParams = useMemo(
     () => ({
-      pathname: routeCVDataSourcesEntityPage.url({ dataSourceType: params.dataSourceType }),
-      state: { products: selectedProducts }
+      pathname: locationContext.isEdit
+        ? routeCVOnBoardingSetup.url({ dataSourceType: params.dataSourceType })
+        : routeCVDataSourcesEntityPage.url({ dataSourceType: params.dataSourceType }),
+      state: { products: selectedProducts, ...locationContext }
     }),
-    [selectedProducts, params.dataSourceType]
+    [selectedProducts, params.dataSourceType, locationContext]
   )
 
   const onProductCardClickHandler = useCallback(

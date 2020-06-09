@@ -60,7 +60,7 @@
     }
     .successCard {
       border: 1px solid var(--green-500);
-      background: var(--green-200);
+      background: var(--green-100);
       .count {
         font-size: var(--font-size-large);
         width: 80px;
@@ -69,12 +69,12 @@
     }
     .errorCard {
       border: 1px solid var(--red-500);
-      background: var(--red-200);
-      color: var(--red-700);
+      background: var(--red-100);
+      color: var(--red-500);
     }
     .noDataCard {
       border: 1px solid var(--grey-500);
-      color: var(--grey-700);
+      color: var(--grey-500);
     }
   }
 }
