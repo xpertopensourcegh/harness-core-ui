@@ -8,6 +8,7 @@ const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const HTMLWebpackPlugin = require('html-webpack-plugin')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
+const JSONGeneratorPlugin = require('@wings-software/jarvis/lib/webpack/json-generator-plugin').default
 
 const DEV = process.env.NODE_ENV === 'development'
 const CONTEXT = process.cwd()
@@ -178,7 +179,16 @@ const devOnlyPlugins = [
   // new BundleAnalyzerPlugin()
 ]
 
-const prodOnlyPlugins = []
+const prodOnlyPlugins = [
+  new JSONGeneratorPlugin({
+    content: {
+      version: require('./package.json').version,
+      gitCommit: process.env.GIT_COMMIT,
+      gitBranch: process.env.GIT_BRANCH
+    },
+    filename: 'static/version.json'
+  })
+]
 
 config.plugins = commonPlugins.concat(DEV ? devOnlyPlugins : prodOnlyPlugins)
 
