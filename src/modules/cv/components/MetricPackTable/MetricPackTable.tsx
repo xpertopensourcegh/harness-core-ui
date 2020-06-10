@@ -1,59 +1,48 @@
-import React, { useState, useMemo } from 'react'
-import { Table, Container, Text, Link, Checkbox } from '@wings-software/uikit'
-import type { Column, Cell } from 'react-table'
-import type { IHTMLTableProps } from '@blueprintjs/core'
-
-export type SelectedMetric = { included: boolean; metric: string }
+import React, { useState } from 'react'
+import { Container, Text, Link, Card, Color } from '@wings-software/uikit'
+import css from './MetricPackTable.module.scss'
+import type { MetricPack } from '@wings-software/swagger-ts/definitions'
 
 interface TableWithCheckColumnsProps {
-  columns: Column[]
-  metrics: SelectedMetric[]
+  metrics: MetricPack
   metricPackName: string
-  onChange?: (selectedMetrics: SelectedMetric[]) => void
-}
-
-const BPTableProps: IHTMLTableProps = {
-  interactive: false
+  onChange?: (selectedMetrics: MetricPack) => void
 }
 
 export function MetricPackTable(props: TableWithCheckColumnsProps): JSX.Element {
   const { metrics, onChange, metricPackName } = props
-  const [tableData, setTableData] = useState<SelectedMetric[]>(metrics)
-
-  const columnHeaders: Array<Column<{ included: boolean; metric: string }>> = useMemo(
-    () => [
-      {
-        Header: '',
-        accessor: 'included',
-        Cell: function checkbox(cell: Cell) {
-          return (
-            <Checkbox
-              checked={cell.value}
-              onChange={(e: React.FormEvent<HTMLInputElement>) => {
-                const newTableData = [...tableData]
-                newTableData[cell.row.index].included = e.currentTarget.checked
-                setTableData(newTableData)
-                onChange?.(newTableData)
-              }}
-            />
-          )
-        }
-      },
-      {
-        Header: '',
-        accessor: 'metric'
-      }
-    ],
-    [tableData, onChange]
-  )
+  const [metricData, setMetricData] = useState<MetricPack>(metrics)
 
   return (
-    <Container>
-      <Container>
-        <Text>{metricPackName}</Text>
-        <Link withoutHref>Edit</Link>
-      </Container>
-      <Table columns={columnHeaders} bpTableProps={BPTableProps} data={tableData} />
+    <Container className={css.main}>
+      <Card className={css.metricTableCard}>
+        <Container className={css.metricPackHeader}>
+          <Text className={css.metricPackName}>
+            {metricPackName} ({metricData?.metrics?.length})
+          </Text>
+          <Link withoutHref>Configure Thresholds</Link>
+        </Container>
+        <ul className={css.metricList}>
+          {metricData?.metrics?.map((metric, index) => (
+            <li key={metric.name} className={css.metricContent}>
+              <input
+                type="checkbox"
+                checked={metric.included || false}
+                onChange={(e: React.FormEvent<HTMLInputElement>) => {
+                  const updatedMetricPack = { ...metricData }
+                  updatedMetricPack.metrics[index].included = e.currentTarget.checked
+                  setMetricData(updatedMetricPack)
+                  onChange?.(updatedMetricPack)
+                }}
+                className={css.included}
+              />
+              <Text width={200} lineClamp={1} color={Color.BLACK}>
+                {metric.name}
+              </Text>
+            </li>
+          ))}
+        </ul>
+      </Card>
     </Container>
   )
 }

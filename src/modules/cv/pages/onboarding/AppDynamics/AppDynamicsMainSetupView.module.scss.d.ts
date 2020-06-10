@@ -6,6 +6,8 @@ declare const styles: {
   readonly listPanelBody: string
   readonly formContainer: string
   readonly inputFields: string
+  readonly metricPackContainer: string
+  readonly customizePack: string
   readonly tableContainer: string
 }
 export default styles

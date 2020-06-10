@@ -30,10 +30,21 @@
     .formContainer {
       display: grid;
       grid-template-columns: minmax(25%, 30%) minmax(35%, 50%);
-      grid-gap: 40px;
+      grid-gap: 80px;
 
       .inputFields {
         margin-right: var(--margin-xxxlarge);
+
+        .metricPackContainer {
+          .customizePack {
+            float: right;
+            position: relative;
+            top: 17px;
+          }
+          > div {
+            clear: right;
+          }
+        }
       }
 
       .tableContainer {

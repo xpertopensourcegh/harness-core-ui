@@ -1,14 +1,14 @@
 export const data = [
   {
-    icon: 'service-kubernetes',
-    infoText: 'Kubernetes Connector',
+    icon: 'service-appdynamics',
+    infoText: 'AppDynamics Connector',
     belongsTo: 'Account',
-    name: 'K8 Connector',
+    // name: 'K8 Connector',
     tags: 'sample, second',
     lastActivityText: 'activity log',
-    details: {
-      url: 'http://github.com',
-      description: 'My Kubernetes Connector'
+    name: {
+      accessKey: 'AppdConnector',
+      description: 'ads'
     },
     lastActivityTime: 1591332969000,
     status: 'ERROR',
@@ -324,8 +324,8 @@ export const columns = [
     accessor: 'name'
   },
   {
-    Header: 'Details',
-    accessor: 'details'
+    Header: 'Name',
+    name: 'name'
   },
   {
     Header: 'Last Activity',

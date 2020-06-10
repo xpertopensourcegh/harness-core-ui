@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useState, useCallback } from 'react'
 import { IDrawerProps, Position, Drawer } from '@blueprintjs/core'
-import { Heading, Container, Text } from '@wings-software/uikit'
+import { Heading, Container, Text, Color, Button } from '@wings-software/uikit'
 import i18n from './CustomizeMetricPackDrawer.i18n'
-// import { SelectedMetric, MetricPackTable } from '../MetricPackTable/MetricPackTable'
+import { MetricPackTable } from '../MetricPackTable/MetricPackTable'
 import type { MetricPack } from '@wings-software/swagger-ts/definitions'
+import css from './CustomizeMetricPackDrawer.module.scss'
 
 const DrawerProps: IDrawerProps = {
   autoFocus: true,
@@ -18,20 +19,40 @@ const DrawerProps: IDrawerProps = {
 
 interface CustomizeMetricPackDrawerProps {
   isOpen: boolean
-  onClose: () => void
+  onClose: (updatedMetricPacks?: MetricPack[]) => void
   selectedMetricPackObjects: MetricPack[]
 }
 
 export function CustomizeMetricPackDrawer(props: CustomizeMetricPackDrawerProps): JSX.Element {
   const { isOpen, onClose, selectedMetricPackObjects } = props
-  console.log(selectedMetricPackObjects)
+  const [localMetricPacks, setLocalMetricPacks] = useState(selectedMetricPackObjects)
+  const onCloseCallback = useCallback(() => onClose(), [onClose])
+
   return (
-    <Drawer {...DrawerProps} isOpen={isOpen} onClose={onClose}>
-      <Container>
-        <Heading level={3}>{i18n.title}</Heading>
-        <Text>{i18n.subTitle}</Text>
+    <Drawer {...DrawerProps} isOpen={isOpen} onClose={onCloseCallback} className={css.main}>
+      <Container className={css.headingContainer}>
+        <Heading level={3} className={css.title}>
+          {i18n.title}
+        </Heading>
+        <Text color={Color.BLACK}>{i18n.subTitle}</Text>
       </Container>
-      <Container>{/* {data.map(())} */}</Container>
+      <Container className={css.tableContainer}>
+        {localMetricPacks.map((metricPack, index) => {
+          return (
+            <MetricPackTable
+              key={metricPack.name}
+              metricPackName={metricPack.name || ''}
+              metrics={metricPack || []}
+              onChange={(updatedMetricPack: MetricPack) => {
+                const newLocalMetricPacks = [...localMetricPacks]
+                newLocalMetricPacks[index] = updatedMetricPack
+                setLocalMetricPacks(newLocalMetricPacks)
+              }}
+            />
+          )
+        })}
+      </Container>
+      <Button onClick={() => onClose(localMetricPacks)}>Submit</Button>
     </Drawer>
   )
 }
