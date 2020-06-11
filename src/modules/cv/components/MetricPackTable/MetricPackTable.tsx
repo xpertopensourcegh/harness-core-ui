@@ -30,9 +30,11 @@ export function MetricPackTable(props: TableWithCheckColumnsProps): JSX.Element 
                 checked={metric.included || false}
                 onChange={(e: React.FormEvent<HTMLInputElement>) => {
                   const updatedMetricPack = { ...metricData }
-                  updatedMetricPack.metrics[index].included = e.currentTarget.checked
-                  setMetricData(updatedMetricPack)
-                  onChange?.(updatedMetricPack)
+                  if (updatedMetricPack?.metrics?.[index]) {
+                    updatedMetricPack.metrics[index].included = e.currentTarget.checked
+                    setMetricData(updatedMetricPack)
+                    onChange?.(updatedMetricPack)
+                  }
                 }}
                 className={css.included}
               />

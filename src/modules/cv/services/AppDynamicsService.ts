@@ -9,9 +9,9 @@ import type {
 
 export const Endpoints = {
   appdApplications: (accountId: string, dataSourceId: string) =>
-    `https://localhost:9090/api/appdynamics/applications?accountId=${accountId}&settingId=${dataSourceId}`,
+    `/api/appdynamics/applications?accountId=${accountId}&settingId=${dataSourceId}`,
   appdTier: (accountId: string, dataSourceId: string, appDynamicsAppId: string) =>
-    `https://localhost:9090/api/appdynamics/tiers?accountId=${accountId}&settingId=${dataSourceId}&appdynamicsAppId=${appDynamicsAppId}`,
+    `/api/appdynamics/tiers?accountId=${accountId}&settingId=${dataSourceId}&appdynamicsAppId=${appDynamicsAppId}`,
   validateAppDMetrics: (
     accountId: string,
     connectorId: string,
@@ -20,7 +20,7 @@ export const Endpoints = {
     tierId: string,
     guid: string
   ) =>
-    `https://localhost:9090/api/appdynamics/metric-data?accountId=${accountId}&connectorId=${connectorId}&projectId=${projectId}&appdAppId=${appId}&appdTierId=${tierId}&requestGuid=${guid}`
+    `/api/appdynamics/metric-data?accountId=${accountId}&connectorId=${connectorId}&projectId=${projectId}&appdAppId=${appId}&appdTierId=${tierId}&requestGuid=${guid}`
 }
 
 export async function fetchAppDynamicsApplications({

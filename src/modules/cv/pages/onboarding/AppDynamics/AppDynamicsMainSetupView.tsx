@@ -6,7 +6,6 @@ import {
   CollapseList,
   CollapseListPanel,
   FormikForm,
-  SelectWithSubview,
   Select,
   Link
 } from '@wings-software/uikit'
@@ -21,19 +20,13 @@ import {
   removeAppdConfig
 } from './AppDynamicsOnboardingUtils'
 import { FieldArray, FormikProps, Formik } from 'formik'
-import { AppDynamicsService } from '../../../services'
-import DataSourcePanelStatusHeader from '../../../components/DataSourcePanelStatusHeader/DataSourcePanelStatusHeader'
-import { EnvironmentTypeSubForm } from 'modules/cv/components/EnvironmentSubForm/EnvironmentSubForm'
+import { AppDynamicsService } from 'modules/cv/services'
+import DataSourcePanelStatusHeader from 'modules/cv/components/DataSourcePanelStatusHeader/DataSourcePanelStatusHeader'
 import { Page } from 'modules/common/exports'
 import { CustomizeMetricPackDrawer } from 'modules/cv/components/CustomizeMetricPackDrawer/CustomizeMetricPackDrawer'
 import { useMetricPackHook, fetchMetricPacks } from 'modules/cv/hooks/ConfigureMetricPackHook/ConfigureMetricPackHook'
 import type { MetricPack } from '@wings-software/swagger-ts/definitions'
-
-// const connectorId = 'sugDKfxVSc--pkp6GcLFBA'
-// const appId = '3ugZPVJ_SBCHb9sl5llxFQ'
-const accountId = 'kmpySmUISimoRrJL6NL73w'
-const connectorId = 'kP-xxUWrRhuhuFlKYNyMrQ'
-// const appId = 'ogVkjRvETFOG4-2e_kYPQA'
+import { accountId, connectorId } from 'modules/cv/constants'
 
 const XHR_METRIC_PACK_GROUP = 'XHR_METRIC_PACK_GROUP'
 
@@ -41,6 +34,7 @@ interface AppDynamicsDataSourceFormProps {
   configList: CVConfigTableData[]
   serviceOptions: SelectOption[]
   dataSourceId: string
+  productName: string
   metricPackMap: Map<string, MetricPack>
   appDApplications: Map<string, SelectOption>
 }
@@ -57,7 +51,7 @@ interface AppDynamicsConfigProps {
 interface AppDynamicsMainSetupViewProps {
   serviceOptions: SelectOption[]
   configs: CVConfigTableData[]
-  selectedEntities: SelectOption[]
+  locationContext: { products: string[]; selectedEntities: SelectOption[]; dataSourceId: string; isEdit: boolean }
 }
 
 export async function fetchAppDApps(appAccountId: string, settingId: string): Promise<SelectOption[]> {
@@ -94,8 +88,6 @@ function generateAppDynamicsApplicationsToAdd(
   for (const appdApps of configs) {
     if (appdApps.applicationName) {
       alreadySelectedApplications.add(appdApps.applicationName)
-    } else if (appDApplications.has(appdApps.applicationId)) {
-      alreadySelectedApplications.add(appDApplications.get(appdApps.applicationId)?.label || '')
     }
   }
   if (alreadySelectedApplications.size && appDApplications.size) {
@@ -138,29 +130,13 @@ function AppDynamicsConfig(props: AppDynamicsConfigProps): JSX.Element {
   return (
     <Container className={css.formContainer}>
       <Container className={css.inputFields}>
-        <FormInput.CustomRender
-          name={`appDConfigs[${index}].environmentType`}
-          label="Environment Type"
-          render={() => {
-            const val = formikProps.values?.appDConfigs?.[index]?.envId
-            return (
-              <SelectWithSubview
-                value={{ label: val, value: val }}
-                changeViewButtonLabel="Environment +"
-                items={[
-                  { value: 'Production', label: 'prod' },
-                  { value: 'Non-production', label: 'non-prod' }
-                ]}
-                subview={
-                  <EnvironmentTypeSubForm
-                    onSubmit={({ envType }) =>
-                      formikProps.setFieldValue(`appDConfigs[${index}].environmentType`, envType)
-                    }
-                  />
-                }
-              />
-            )
-          }}
+        <FormInput.Select
+          name={`appDConfigs[${index}].envIdentifier`}
+          label="Environment"
+          items={[
+            { label: 'Production', value: 'production' },
+            { label: 'Non-Production', value: 'nonProduction' }
+          ]}
         />
         <Container className={css.metricPackContainer}>
           <Link withoutHref onClick={() => setDisplayMetricPackDrawer(true)} className={css.customizePack}>
@@ -180,7 +156,7 @@ function AppDynamicsConfig(props: AppDynamicsConfigProps): JSX.Element {
       </Container>
       <Container className={css.tableContainer}>
         <TierAndServiceTable
-          appId={config?.applicationName || ''}
+          appId={config?.applicationId || ''}
           metricPacks={formikProps.values?.appDConfigs?.[index]?.metricPacks as any}
           index={index}
           data={formikProps.values?.appDConfigs?.[index]?.tableData}
@@ -202,7 +178,7 @@ function AppDynamicsConfig(props: AppDynamicsConfigProps): JSX.Element {
 }
 
 function AppDynamicsDataSourceForm(props: AppDynamicsDataSourceFormProps): JSX.Element {
-  const { configList, serviceOptions, dataSourceId, appDApplications, metricPackMap } = props
+  const { configList, serviceOptions, dataSourceId, appDApplications, metricPackMap, productName } = props
   const [applicationsToAdd, setApplicationsToAdd] = useState<SelectOption[]>([{ label: 'Loading...', value: '' }])
   const [panelHeaderMsg, setPanelHeaderMsg] = useState<Map<string, { isError: boolean; msg: string }>>(new Map())
 
@@ -227,7 +203,15 @@ function AppDynamicsDataSourceForm(props: AppDynamicsDataSourceFormProps): JSX.E
                       items={applicationsToAdd}
                       onChange={(selectedApp: SelectOption) => {
                         setApplicationsToAdd(updateApplicationList(selectedApp, applicationsToAdd, true))
-                        arrayHelpers.unshift(createDefaultConfigObject(dataSourceId, accountId, selectedApp.label))
+                        arrayHelpers.unshift(
+                          createDefaultConfigObject(
+                            dataSourceId,
+                            accountId,
+                            selectedApp.label,
+                            selectedApp.value as number,
+                            productName
+                          )
+                        )
                       }}
                     />
                   </Container>
@@ -307,16 +291,16 @@ function AppDynamicsDataSourceForm(props: AppDynamicsDataSourceFormProps): JSX.E
 export default function AppDynamicsMainSetupView(props: AppDynamicsMainSetupViewProps): JSX.Element {
   const [appDApplications, setAppDApplications] = useState<Map<string, SelectOption>>(new Map())
   const [metricPackMap, setMetricPackMap] = useState<Map<string, MetricPack>>(new Map())
-  const { configs, serviceOptions } = props
+  const { configs, serviceOptions, locationContext } = props
 
   useEffect(() => {
     fetchAppDApps(accountId, connectorId).then((appDApplicationsOptions: SelectOption[]) => {
       if (appDApplicationsOptions?.length) {
-        const appIdToAppOption = new Map<string, SelectOption>()
+        const appNameToId = new Map<string, SelectOption>()
         appDApplicationsOptions.forEach(option => {
-          appIdToAppOption.set(option.value as string, option)
+          appNameToId.set(option.label as string, option)
         })
-        setAppDApplications(appIdToAppOption)
+        setAppDApplications(appNameToId)
       }
     })
     fetchMetricPacks({
@@ -344,6 +328,7 @@ export default function AppDynamicsMainSetupView(props: AppDynamicsMainSetupView
         serviceOptions={serviceOptions}
         dataSourceId={connectorId}
         metricPackMap={metricPackMap}
+        productName={locationContext.products?.[0]}
         appDApplications={appDApplications}
       />
     </Page.Body>

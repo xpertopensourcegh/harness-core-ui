@@ -33,7 +33,8 @@ function getDefaultCVConfig(
   verificationProvider: CVConfig['type'],
   dataSourceId: string,
   selectedEntities: SelectOption[],
-  accId: string
+  accId: string,
+  productName: string
 ): CVConfig[] {
   switch (verificationProvider) {
     case 'APP_DYNAMICS':
@@ -41,7 +42,8 @@ function getDefaultCVConfig(
         return AppDynamicsOnboardingUtils.createDefaultConfigObjectBasedOnSelectedApps(
           selectedEntity,
           dataSourceId,
-          accId
+          accId,
+          productName
         )
       })
     case 'SPLUNK':
@@ -80,17 +82,15 @@ export default function OnBoardingSetupPage(): JSX.Element {
     dataSourceId: string
     selectedEntities: SelectOption[]
     isEdit: boolean
+    products: string[]
   }>()
-  // const accountId = 'zEaak-FLS425IEO7OLzMUg'
-  // const appId = '3ugZPVJ_SBCHb9sl5llxFQ'
-  // const appId = 'zEaak-FLS425IEO7OLzMUg'
   const verificationType = RouteVerificationTypeToVerificationType[params.dataSourceType]
 
   // fetch saved data or set selected data from the previous page
   useEffect(() => {
-    const { dataSourceId = connectorId, selectedEntities = [], isEdit = false } = locationContext
+    const { dataSourceId = connectorId, selectedEntities = [], isEdit = false, products = [] } = locationContext
     if (!isEdit && locationContext.selectedEntities?.length) {
-      setConfigs(getDefaultCVConfig(verificationType, dataSourceId || '', selectedEntities, accountId))
+      setConfigs(getDefaultCVConfig(verificationType, dataSourceId || '', selectedEntities, accountId, products[0]))
     } else if (locationContext.isEdit) {
       CVNextGenCVConfigService.fetchConfigs({
         accountId,
@@ -127,16 +127,10 @@ export default function OnBoardingSetupPage(): JSX.Element {
         <AppDynamicsMainSetupView
           serviceOptions={serviceOptions}
           configs={configsToRender as AppDynamicsOnboardingUtils.CVConfigTableData[]}
-          selectedEntities={locationContext.selectedEntities}
+          locationContext={locationContext}
         />
       )}
-      {verificationType === 'SPLUNK' && (
-        <SplunkOnboarding
-          serviceOptions={serviceOptions}
-          configs={configsToRender}
-          selectedEntities={locationContext.selectedEntities}
-        />
-      )}
+      {verificationType === 'SPLUNK' && <SplunkOnboarding serviceOptions={serviceOptions} configs={configsToRender} />}
     </Container>
   )
 }

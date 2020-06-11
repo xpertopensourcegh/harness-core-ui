@@ -17,12 +17,19 @@ export interface CVConfigTableData extends AppDynamicsCVConfig {
 export function createDefaultConfigObjectBasedOnSelectedApps(
   app: SelectOption,
   dataSourceId: string,
-  accountId: string
+  accountId: string,
+  productName: string
 ): CVConfigTableData {
-  return createDefaultConfigObject(dataSourceId, accountId, app.label)
+  return createDefaultConfigObject(dataSourceId, accountId, app.label, app.value as number, productName)
 }
 
-export function createDefaultConfigObject(connectorId: string, accountId: string, appName: string): CVConfigTableData {
+export function createDefaultConfigObject(
+  connectorId: string,
+  accountId: string,
+  appName: string,
+  appId: number,
+  productName: string
+): CVConfigTableData {
   return {
     connectorId,
     type: 'APP_DYNAMICS',
@@ -34,7 +41,8 @@ export function createDefaultConfigObject(connectorId: string, accountId: string
     envIdentifier: '',
     projectIdentifier: '',
     serviceId: '',
-    productName: '',
+    productName,
+    applicationId: appId,
     applicationName: appName
   }
 }
@@ -44,7 +52,7 @@ export function transformAppDynamicsApplications(appdApplications: NewRelicAppli
     appdApplications
       ?.filter((app: NewRelicApplication) => app?.name)
       .sort((a, b) => (a.name && b.name && a.name > b.name ? 1 : -1))
-      .map(({ name }) => ({ label: name || '', value: name || '' })) || []
+      .map(({ name, id }) => ({ label: name || '', value: id || '' })) || []
   )
 }
 
@@ -74,43 +82,22 @@ export function transformGetConfigs(appDConfigs: AppDynamicsCVConfig[]): CVConfi
   return appsToAppDConfigs
 }
 
-export function transformToSaveConfig(
-  appDConfig: CVConfigTableData
-): [string[], AppDynamicsCVConfig[], AppDynamicsCVConfig[], AppDynamicsCVConfig[]] {
+export function transformToSaveConfig(appDConfig: CVConfigTableData): AppDynamicsCVConfig[] {
   const clonedConfig: CVConfigTableData = { ...appDConfig }
-  const configIdsToDelete: string[] = []
-  const configsToSave: AppDynamicsCVConfig[] = []
-  const configsToUpdate: AppDynamicsCVConfig[] = []
-  const configsToDelete: AppDynamicsCVConfig[] = []
 
   const { tableData = [] } = clonedConfig || {}
 
   // convert table data to list of configs to save
   delete clonedConfig.tableData
   delete clonedConfig.metricPackList
+  clonedConfig.serviceMappings = []
   for (const tableRow of tableData) {
-    if (tableRow.selected) {
-      if (tableRow.isExisting) {
-        configsToUpdate.push({
-          ...clonedConfig,
-          tierId: tableRow.tier?.id?.toString() || '',
-          serviceId: tableRow.serviceId || '',
-          uuid: tableRow.configUUID
-        })
-      } else {
-        configsToSave.push({
-          ...clonedConfig,
-          tierId: tableRow.tier?.id?.toString() || '',
-          serviceId: tableRow.serviceId || ''
-        })
-      }
-    } else if (tableRow.isExisting && tableRow.configUUID) {
-      configIdsToDelete.push(tableRow.configUUID)
-      configsToDelete.push({ ...clonedConfig })
+    if (tableRow.selected && tableRow.service && tableRow.tierName) {
+      clonedConfig.serviceMappings.push({ tierName: tableRow.tierName, serviceIdentifier: tableRow.service })
     }
   }
 
-  return [configIdsToDelete, configsToUpdate, configsToSave, configsToDelete]
+  return [clonedConfig]
 }
 
 export async function removeAppdConfig(accountId: string, idToDelete?: string): Promise<string | undefined> {
@@ -129,49 +116,22 @@ export async function saveAppDConfig(
   appdConfig: CVConfigTableData,
   accountId: string
 ): Promise<{ error?: string; configsToShow: CVConfigTableData }> {
-  const [deletedConfigIds, updatedConfigs, savedConfigs, deletedConfigs] = transformToSaveConfig(appdConfig)
-  const apisToCall = []
-  if (savedConfigs?.length) {
-    apisToCall.push(
-      CVNextGenCVConfigService.saveConfigs({
-        accountId,
-        group: 'XHR_SAVE_CONFIG_GROUP',
-        configsToSave: savedConfigs
-      })
-    )
-  }
-  if (updatedConfigs?.length) {
-    apisToCall.push(
-      CVNextGenCVConfigService.updateConfigs({
-        accountId,
-        group: 'XHR_UPDATE_CONFIG_GROUP',
-        configsToUpdate: updatedConfigs
-      })
-    )
-  }
-  if (deletedConfigIds?.length) {
-    apisToCall.push(
-      CVNextGenCVConfigService.deleteConfigs({
-        accountId,
-        group: 'XHR_DELETE_CONFIG_GROUP',
-        configsToDelete: deletedConfigIds
-      })
-    )
+  const configsToSave = transformToSaveConfig(appdConfig)
+  if (!configsToSave?.length) {
+    return { configsToShow: appdConfig }
   }
 
-  // update formik with proper ids (post comes back with new ids) also remove deleted configs
-  const promiseResults = await Promise.all(apisToCall)
-  let configsToShow = [...updatedConfigs]
-  if (promiseResults[0]?.response?.resource && !promiseResults[0]?.error) {
-    configsToShow = [...configsToShow, ...(promiseResults[0]?.response.resource as AppDynamicsCVConfig[])]
-  } else {
-    configsToShow = [...configsToShow, ...savedConfigs]
+  const { error, response } = await CVNextGenCVConfigService.saveConfigs({
+    accountId,
+    group: 'XHR_SAVE_CONFIG_GROUP',
+    configsToSave
+  })
+
+  if (!error) {
+    return { error, configsToShow: appdConfig }
+  } else if (response?.resource) {
+    return { configsToShow: transformGetConfigs(response.resource as AppDynamicsCVConfig[])[0] }
   }
 
-  if (promiseResults[2]?.status > 299) {
-    configsToShow = [...configsToShow, ...deletedConfigs]
-  }
-
-  const error = promiseResults.find(val => val.error?.length)?.error || undefined
-  return { error, configsToShow: transformGetConfigs(configsToShow)[0] }
+  return { configsToShow: appdConfig }
 }

@@ -40,7 +40,7 @@ interface RowRendererProps {
 
 interface ValidationResultProps {
   validationResult?: AppdynamicsValidationResponse[]
-  error?: string
+  error?: any
   isLoading: boolean
   isChecked: boolean
   guid: string
@@ -79,34 +79,49 @@ function ValidationResult(props: ValidationResultProps): JSX.Element {
   const { validationResult, error, isLoading, isChecked, guid } = props
   const [shouldDisplayModal, setModalDisplay] = useState(false)
   const hideModalCallback = useCallback(() => () => setModalDisplay(false), [])
-  const validationStatus: { status: string; intent: TextProps['intent'] } = useMemo(() => {
-    for (const result of validationResult || []) {
+  const validationStatus: { status: string; intent: TextProps['intent'] } | undefined = useMemo(() => {
+    if (error && error.message) {
+      return { intent: 'danger', status: error.message }
+    }
+
+    if (!validationResult) {
+      return
+    }
+
+    for (const result of validationResult) {
       if (result.overallStatus === 'FAILED') {
         return { status: 'Fail', intent: 'danger' }
       } else if (result.overallStatus === 'NO_DATA') {
         return { status: 'No Data', intent: 'none' }
       }
     }
-    return { status: 'Success', intent: 'success' }
-  }, [validationResult])
+
+    if (validationResult.every(result => result?.overallStatus === 'SUCCESS')) {
+      return { intent: 'success', status: 'Success' }
+    }
+  }, [validationResult, error])
 
   const childFields = useMemo(() => {
     if (!isChecked) {
       return <span />
     } else if (isLoading) {
       return <Spinner size={Spinner.SIZE_SMALL} />
-    } else if (validationResult || error || shouldDisplayModal) {
+    } else if (validationStatus || shouldDisplayModal) {
       return (
         <Container className={css.validationContainer}>
-          <Text intent={validationStatus.intent} width={55} lineClamp={1}>
-            {validationStatus.status}
+          <Text intent={validationStatus?.intent} width={error && error.message ? 180 : 55} lineClamp={1}>
+            {validationStatus?.status}
           </Text>
-          <Text inline className={css.divider}>
-            |
-          </Text>
-          <Link withoutHref onClick={() => setModalDisplay(true)}>
-            View Details
-          </Link>
+          {!error && !error.message && (
+            <Text inline className={css.divider}>
+              |
+            </Text>
+          )}
+          {!error && !error.message && (
+            <Link withoutHref onClick={() => setModalDisplay(true)}>
+              View Details
+            </Link>
+          )}
           {shouldDisplayModal && (
             <MetricsVerificationModal verificationData={validationResult} guid={guid} onHide={hideModalCallback()} />
           )}
@@ -114,7 +129,7 @@ function ValidationResult(props: ValidationResultProps): JSX.Element {
       )
     }
     return <span />
-  }, [error, guid, hideModalCallback, isChecked, isLoading, shouldDisplayModal, validationResult, validationStatus])
+  }, [guid, hideModalCallback, isChecked, isLoading, shouldDisplayModal, validationResult, validationStatus])
   return <Container className={css.validationResult}>{childFields}</Container>
 }
 
@@ -201,7 +216,7 @@ function RowRenderer(props: RowRendererProps): JSX.Element {
               className={css.serviceSelect}
               value={serviceSelectObj}
               onChange={value => {
-                onChange('service', value?.value, rowIndex)
+                onChange('service', value?.label, rowIndex)
               }}
             />
           )
