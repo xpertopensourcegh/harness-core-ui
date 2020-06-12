@@ -23,8 +23,8 @@ import HighchartsReact from 'highcharts-react-official'
 import xhr from '@wings-software/xhr-async'
 import DataSourcePanelStatusHeaderProps from '../../../components/DataSourcePanelStatusHeader/DataSourcePanelStatusHeader'
 import { ThirdPartyCallLogModal } from '../../../components/ThirdPartyCallLogs/ThirdPartyCallLogs'
-import { accountId, connectorId, appId } from 'modules/cv/constants' 
-import JsonSelectorFormInput from 'modules/cv/components/JsonSelector/JsonSelectorFormInput';
+import { accountId, connectorId, appId } from 'modules/cv/constants'
+import JsonSelectorFormInput from 'modules/cv/components/JsonSelector/JsonSelectorFormInput'
 
 const sha = Yup.object().shape({
   queryName: Yup.string().required('Query Name is required'),
@@ -91,7 +91,7 @@ const eventTypesOptions = [
 ]
 
 const SplunkOnboarding: FunctionComponent<any> = props => {
-  const {configs: queries, serviceOptions} = props
+  const { configs: queries, serviceOptions } = props
 
   const [environmentOptions, setEnvironmentOptions] = useState([])
 
@@ -105,7 +105,7 @@ const SplunkOnboarding: FunctionComponent<any> = props => {
   // const connectorId = 'g8eLKgBSQ368GWA5FuS7og'
   // const appId = 'qJ_sRGAjRTyD9oXHBRkxKQ'
 
-  const [serviceInstanceConfig, setServiceInstanceConfig] = useState(null);
+  const [serviceInstanceConfig, setServiceInstanceConfig] = useState(null)
 
   const Logo = HarnessIcons['harness-logo-black']
 
@@ -311,9 +311,18 @@ const SplunkOnboarding: FunctionComponent<any> = props => {
           <div className={css.rightSection}>
             <Logo height="24" className={css.logo} />
             <FormInput.Text name={`queries[${index}].queryName`} label="Query Name" />
-            <FormInput.Select name={`queries[${index}].service`} key={serviceOptions?.[0].value} label="Service Name" items={serviceOptions} />
+            <FormInput.Select
+              name={`queries[${index}].service`}
+              key={serviceOptions?.[0].value}
+              label="Service Name"
+              items={serviceOptions}
+            />
             <FormInput.Select name={`queries[${index}].environment`} label="Environment" items={environmentOptions} />
-            <JsonSelectorFormInput name={`queries[${index}].serviceInstance`} label="Service instance field name" json={serviceInstanceConfig} />
+            <JsonSelectorFormInput
+              name={`queries[${index}].serviceInstance`}
+              label="Service instance field name"
+              json={serviceInstanceConfig}
+            />
             {/* Select baseline time range */}
             {/* <SubViewDatePickerAndOptions parentFormikProps={parentFormikProps} index={index} /> */}
           </div>
@@ -419,26 +428,29 @@ const SplunkOnboarding: FunctionComponent<any> = props => {
                                 return
                               }}
                               key={index}
-                              isOpen={parentFormikProps.values.queries[index].isOpen}
-                              isRemovable={true}
-                              heading={
-                                <DataSourcePanelStatusHeaderProps
-                                  message={
-                                    parentFormikProps.values.queries[index].isAlreadySaved
-                                      ? 'Saved Query'
-                                      : 'Unsaved Query'
+                              collapseHeaderProps={{
+                                isRemovable: true,
+                                heading: (
+                                  <DataSourcePanelStatusHeaderProps
+                                    message={
+                                      parentFormikProps.values.queries[index].isAlreadySaved
+                                        ? 'Saved Query'
+                                        : 'Unsaved Query'
+                                    }
+                                    isError={!parentFormikProps.values.queries[index].isAlreadySaved}
+                                    panelName={'Query name : ' + parentFormikProps.values.queries[index].queryName}
+                                  />
+                                ),
+                                onRemove: () => {
+                                  if (window.confirm('Do you want to delete the item?')) {
+                                    if (parentFormikProps.values.queries[index].isAlreadySaved) {
+                                      if (
+                                        removeQuery(parentFormikProps.values.queries[index], index, parentFormikProps)
+                                      )
+                                        arrayHelpers.remove(index)
+                                    } else arrayHelpers.remove(index)
+                                    // removeQuery(formikProps.values.queries[index].uuid, parentFormikProps, index)
                                   }
-                                  isError={!parentFormikProps.values.queries[index].isAlreadySaved}
-                                  panelName={'Query name : ' + parentFormikProps.values.queries[index].queryName}
-                                />
-                              }
-                              onRemove={() => {
-                                if (window.confirm('Do you want to delete the item?')) {
-                                  if (parentFormikProps.values.queries[index].isAlreadySaved) {
-                                    if (removeQuery(parentFormikProps.values.queries[index], index, parentFormikProps))
-                                      arrayHelpers.remove(index)
-                                  } else arrayHelpers.remove(index)
-                                  // removeQuery(formikProps.values.queries[index].uuid, parentFormikProps, index)
                                 }
                               }}
                               // disabled={!arrayHelpers.form.isValid}
