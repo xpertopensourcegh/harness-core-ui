@@ -6,8 +6,7 @@ exports[`CustomTable Snapshot should render CustomTable with Proper Data and Col
     class="tableWrapper"
   >
     <div
-      class="Layout---horizontal--3rmQ Layout---layout-spacing-xlarge--3xMG StyledProps---main--1Wws StyledProps---flex--2Jz8 StyledProps---padding-medium--3Ish"
-      style="justify-content: flex-end;"
+      class="Layout---horizontal--3rmQ Layout---layout-spacing-xlarge--3xMG StyledProps---main--1Wws filterOptions StyledProps---flex--2Jz8 StyledProps---padding-medium--3Ish"
     >
       <div
         class="TextInput---main--1ytZ"
@@ -302,6 +301,7 @@ exports[`CustomTable Snapshot should render CustomTable with Proper Data and Col
                       <a
                         class="externalLink"
                         href="http://github.com"
+                        rel="noreferrer"
                         target="_blank"
                       >
                         http://github.com
@@ -1246,6 +1246,7 @@ exports[`CustomTable Snapshot should render CustomTable with Proper Data and Col
                       <a
                         class="externalLink"
                         href="http://github.com"
+                        rel="noreferrer"
                         target="_blank"
                       >
                         http://github.com

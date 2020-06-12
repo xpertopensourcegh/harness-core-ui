@@ -1,7 +1,12 @@
 .tableWrapper {
   width: 100%;
   padding: 0 var(--spacing-xlarge);
-
+  position: relative;
+  .filterOptions {
+    position: absolute;
+    top: -75px;
+    right: 15px;
+  }
   table {
     width: 100%;
     th,
@@ -86,6 +91,7 @@
 }
 .inputSearch {
   width: 32px;
+  height: 38px !important;
   svg {
     height: 16px;
     width: 16px;
