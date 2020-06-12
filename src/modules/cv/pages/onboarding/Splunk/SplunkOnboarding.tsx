@@ -26,63 +26,20 @@ import { ThirdPartyCallLogModal } from '../../../components/ThirdPartyCallLogs/T
 import { accountId, connectorId, appId } from 'modules/cv/constants'
 import JsonSelectorFormInput from 'modules/cv/components/JsonSelector/JsonSelectorFormInput'
 
-const sha = Yup.object().shape({
+const eachQuery = Yup.object().shape({
   queryName: Yup.string().required('Query Name is required'),
   service: Yup.string().required('Service is required'),
   environment: Yup.string().required('environment is required'),
   queryString: Yup.string().required('Query String is required'),
-  eventType: Yup.string().required('Event Type is required')
+  eventType: Yup.string().required('Event Type is required'),
+  serviceInstanceIdentifier: Yup.string().required('Service Instance Field is required'),
 })
 
 const validationSchema = Yup.object().shape({
-  // query: sha
-  queries: Yup.array().of(sha)
+  queries: Yup.array().of(eachQuery)
 })
 
-const options = {
-  chart: {
-    type: 'column',
-    height: 100
-  },
-  title: {
-    text: ''
-  },
-  yAxis: {
-    title: {
-      text: ''
-    }
-  },
-  xAxis: {
-    labels: {
-      enabled: false
-    }
-  },
-  series: [
-    {
-      name: '',
-      data: [],
-      showInLegend: false
-    }
-  ],
-  credits: {
-    enabled: false
-  },
-  Error: false
-}
-
-const initialValues = {
-  uuid: new Date().getTime(),
-  queryName: '',
-  service: '',
-  environment: '',
-  serviceInstance: '',
-  queryString: '',
-  eventType: 'Quality',
-  graphOptions: { ...options },
-  stackTrace: [],
-  isOpen: true,
-  isAlreadySaved: false
-}
+const initialValues = SplunkOnboardingUtils.splunkInitialQuery
 
 const eventTypesOptions = [
   { label: 'Quality', value: 'Quality' },
@@ -189,7 +146,7 @@ const SplunkOnboarding: FunctionComponent<any> = props => {
 
   const addQuery = (parentFormikProps: any) => {
     const iValues = { ...initialValues }
-    iValues.uuid = new Date().getTime()
+    // iValues.uuid = new Date().getTime()
     parentFormikProps.setFieldValue('queries', [{ ...iValues }, ...parentFormikProps.values.queries])
   }
 
@@ -318,11 +275,7 @@ const SplunkOnboarding: FunctionComponent<any> = props => {
               items={serviceOptions}
             />
             <FormInput.Select name={`queries[${index}].environment`} label="Environment" items={environmentOptions} />
-            <JsonSelectorFormInput
-              name={`queries[${index}].serviceInstance`}
-              label="Service instance field name"
-              json={serviceInstanceConfig}
-            />
+            <JsonSelectorFormInput name={`queries[${index}].serviceInstanceIdentifier`} label="Service instance field name" json={serviceInstanceConfig} />
             {/* Select baseline time range */}
             {/* <SubViewDatePickerAndOptions parentFormikProps={parentFormikProps} index={index} /> */}
           </div>
@@ -343,6 +296,7 @@ const SplunkOnboarding: FunctionComponent<any> = props => {
       query: query.queryString,
       type: 'SPLUNK',
       uuid: '',
+      serviceInstanceIdentifier: query.serviceInstanceIdentifier,
       baseline: {
         startTime: today(new Date().getTime() - 120000) + ' ' + timeNow(new Date().getTime() - 120000),
         endTime: today(new Date().getTime() - 120000) + ' ' + timeNow(new Date().getTime() - 120000)
@@ -424,6 +378,7 @@ const SplunkOnboarding: FunctionComponent<any> = props => {
                         {parentFormikProps.values.queries.map((_query: any, index: number) => {
                           return (
                             <CollapseListPanel
+                              className={css.listPanelBody}
                               onToggleOpen={() => {
                                 return
                               }}

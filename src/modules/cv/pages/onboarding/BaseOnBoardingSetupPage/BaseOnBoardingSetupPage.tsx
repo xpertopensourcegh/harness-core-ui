@@ -106,8 +106,8 @@ export default function OnBoardingSetupPage(): JSX.Element {
   return (
     <Container className={css.main}>
       <OnBoardingConfigSetupHeader
-        iconName="service-appdynamics"
-        iconSubText="App Dynamics"
+        iconName={verificationType === 'APP_DYNAMICS' ? 'service-appdynamics' : 'service-splunk'}
+        iconSubText={verificationType === 'APP_DYNAMICS' ? 'App Dynamics' : 'Splunk'}
         pageHeading="Map your app and tiers to a Harness service and environment"
       />
       {verificationType === 'APP_DYNAMICS' && (

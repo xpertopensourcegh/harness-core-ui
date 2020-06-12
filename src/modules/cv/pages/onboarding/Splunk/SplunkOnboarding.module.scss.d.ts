@@ -12,6 +12,7 @@ declare const styles: {
   readonly logo: string
   readonly stackTrace: string
   readonly rightSection: string
+  readonly listPanelBody: string
   readonly actionButtons: string
 }
 export default styles
