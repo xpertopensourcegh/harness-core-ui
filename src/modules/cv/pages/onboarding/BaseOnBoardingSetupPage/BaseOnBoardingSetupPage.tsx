@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import type { SelectOption } from '@wings-software/uikit'
 import { Container } from '@wings-software/uikit'
-import type { CVConfig, Service } from '@wings-software/swagger-ts/definitions'
+import type { DSConfig, Service } from '@wings-software/swagger-ts/definitions'
 import { useLocation, useParams } from 'react-router'
 import * as AppDynamicsOnboardingUtils from '../AppDynamics/AppDynamicsOnboardingUtils'
 import * as SplunkOnboardingUtils from '../Splunk/SplunkOnboardingUtils'
@@ -30,12 +30,12 @@ const iconAndSubtextMapper: any = {
 }
 
 function getDefaultCVConfig(
-  verificationProvider: CVConfig['type'],
+  verificationProvider: DSConfig['type'],
   dataSourceId: string,
   selectedEntities: SelectOption[],
   accId: string,
   productName: string
-): CVConfig[] {
+): DSConfig[] {
   switch (verificationProvider) {
     case 'APP_DYNAMICS':
       return selectedEntities.map(selectedEntity => {
@@ -53,11 +53,11 @@ function getDefaultCVConfig(
   }
 }
 
-function transformIncomingCVConfigs(savedConfig: CVConfig[], verificationProvider: CVConfig['type']) {
+function transformIncomingDSConfigs(savedConfig: DSConfig[], verificationProvider: DSConfig['type']) {
   switch (verificationProvider) {
     case 'APP_DYNAMICS':
       return AppDynamicsOnboardingUtils.transformGetConfigs(
-        (savedConfig as unknown) as AppDynamicsOnboardingUtils.AppDynamicsCVConfig[]
+        (savedConfig as unknown) as AppDynamicsOnboardingUtils.AppDynamicsDSConfig[]
       )
   }
 }
@@ -69,14 +69,14 @@ async function fetchServices(localAppId: string, accId: string): Promise<SelectO
   }
   if (response?.resource) {
     const resp: any = response.resource
-    return resp.response?.map((service: Service) => ({ label: service.name || '', value: service.uuid }))
+    return resp.response?.map((service: Service) => ({ label: service.name || '', value: service.name }))
   }
   return []
 }
 
 export default function OnBoardingSetupPage(): JSX.Element {
   const [serviceOptions, setServices] = useState<SelectOption[]>([{ value: '', label: 'Loading...' }])
-  const [configsToRender, setConfigs] = useState<CVConfig[]>([])
+  const [configsToRender, setConfigs] = useState<DSConfig[]>([])
   const params = useParams<{ dataSourceType: string }>()
   const { state: locationContext } = useLocation<{
     dataSourceId: string
@@ -99,11 +99,11 @@ export default function OnBoardingSetupPage(): JSX.Element {
         if (status === xhr.ABORTED) {
           return
         } else if (error) {
-          setServices([])
+          setConfigs([])
           return // TODO
         } else if (response?.resource) {
           const configs = response.resource || []
-          setConfigs(transformIncomingCVConfigs(configs, verificationType) as CVConfig[])
+          setConfigs(transformIncomingDSConfigs(configs, verificationType) as DSConfig[])
         }
       })
     }
@@ -126,7 +126,7 @@ export default function OnBoardingSetupPage(): JSX.Element {
       {verificationType === 'APP_DYNAMICS' && (
         <AppDynamicsMainSetupView
           serviceOptions={serviceOptions}
-          configs={configsToRender as AppDynamicsOnboardingUtils.CVConfigTableData[]}
+          configs={configsToRender as AppDynamicsOnboardingUtils.DSConfigTableData[]}
           locationContext={locationContext}
         />
       )}

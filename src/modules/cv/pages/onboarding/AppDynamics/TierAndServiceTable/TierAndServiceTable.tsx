@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect, useCallback } from 'react'
-import { Table, Select, Text, ModalProvider, Link, Container, SelectOption } from '@wings-software/uikit'
+import { Table, Select, Text, ModalProvider, Link, Container, SelectOption, Color } from '@wings-software/uikit'
 import xhr from '@wings-software/xhr-async'
 import css from './TierAndServiceTable.module.scss'
 import { Spinner } from '@blueprintjs/core'
@@ -8,19 +8,20 @@ import MetricsVerificationModal from 'modules/cv/components/MetricsVerificationM
 import type { AppdynamicsTier, AppdynamicsValidationResponse, MetricPack } from '@wings-software/swagger-ts/definitions'
 import type { Row, Cell } from 'react-table'
 import type { TextProps } from '@wings-software/uikit/dist/components/Text/Text'
+import { useFormikContext } from 'formik'
+import type { DSConfigTableData } from '../AppDynamicsOnboardingUtils'
 
 export type TierAndServiceRow = {
   tierName?: string
+  tierId?: number
   selected: boolean
   service?: string
   validation?: boolean
 }
 
 interface TierAndServiceTableProps {
-  data?: TierAndServiceRow[]
   metricPacks: MetricPack[]
-  onChange: (fieldName: string, value: TierAndServiceRow[]) => void
-  appId: string
+  appId: number
   index: number
   dataSourceId: string
   accountId: string
@@ -49,9 +50,9 @@ interface ValidationResultProps {
 const XHR_METRIC_VALIDATION_GROUP = 'XHR_METRIC_VALIDATION_GROUP'
 const XHR_TIER_GROUP = 'XHR_TIER_GROUP'
 
-const DEFAULT_ROW_OBJ: TierAndServiceRow = { service: '', selected: false, tierName: undefined }
+const DEFAULT_ROW_OBJ: TierAndServiceRow = { service: '', selected: false, tierName: undefined, tierId: undefined }
 const BPTableProps = { bordered: true, condensed: true, striped: true }
-const DefaultTiersAndService: TierAndServiceRow[] = [...Array(6).keys()].map(() => ({ ...DEFAULT_ROW_OBJ }))
+export const DefaultTiersAndService: TierAndServiceRow[] = [...Array(6).keys()].map(() => ({ ...DEFAULT_ROW_OBJ }))
 
 async function fetchTiers(
   settingId: string,
@@ -71,7 +72,7 @@ async function fetchTiers(
   return response?.resource
     ?.sort((a: AppdynamicsTier, b: AppdynamicsTier) => (a.name && b.name && a.name >= b.name ? 1 : -1))
     .map((tier: AppdynamicsTier) => {
-      return { ...DEFAULT_ROW_OBJ, tierName: tier.name }
+      return { ...DEFAULT_ROW_OBJ, tierName: tier.name, tierId: tier.id }
     })
 }
 
@@ -129,14 +130,15 @@ function ValidationResult(props: ValidationResultProps): JSX.Element {
       )
     }
     return <span />
-  }, [guid, hideModalCallback, isChecked, isLoading, shouldDisplayModal, validationResult, validationStatus])
+  }, [guid, hideModalCallback, error, isChecked, isLoading, shouldDisplayModal, validationResult, validationStatus])
   return <Container className={css.validationResult}>{childFields}</Container>
 }
 
 function RowRenderer(props: RowRendererProps): JSX.Element {
   const { row, services, accountId, projectId, appId, metricPacks, onChange, connectorId } = props
-  const { cells, values, index: rowIndex, ...otherProps } = row
-  const [[mp, s, t], setDep] = useState([metricPacks, values.selected, values.tierName])
+  const { cells, original, index: rowIndex, ...otherProps } = row
+  const { service, tierName, selected, tierId } = original || {}
+  const [[mp, s, t], setDep] = useState([metricPacks, selected, tierId])
   const [{ error, validationResult, isLoading, guid }, setValidationResult] = useState<{
     error: string
     validationResult: AppdynamicsValidationResponse[] | undefined
@@ -148,24 +150,23 @@ function RowRenderer(props: RowRendererProps): JSX.Element {
     isLoading: false,
     guid: new Date().getTime().toString()
   })
-  const { service, tierName, selected } = values
 
   useEffect(() => {
-    if (!metricPacks?.length || !tierName || !selected) {
+    if (!metricPacks?.length || !tierId || !selected) {
       return
     }
-    if (mp === metricPacks && s === selected && t === tierName) {
+    if (mp === metricPacks && s === selected && t === tierId) {
       return
     }
     const newGUID = new Date().getTime().toString()
     setValidationResult({ isLoading: true, validationResult: undefined, error: '', guid: newGUID })
-    setDep([metricPacks, selected, tierName])
+    setDep([metricPacks, selected, tierId])
     xhr.abort(`${XHR_METRIC_VALIDATION_GROUP}-${guid}`)
     AppDynamicsService.validateMetricsApi({
       accountId,
       connectorId,
       projectId: projectId.toString(),
-      tierId: tierName,
+      tierId,
       appId,
       metricPacks,
       xhrGroup: `${XHR_METRIC_VALIDATION_GROUP}-${newGUID}`,
@@ -177,7 +178,7 @@ function RowRenderer(props: RowRendererProps): JSX.Element {
       setValidationResult({ error: apiError, validationResult: response?.resource, isLoading: false, guid: newGUID })
       onChange('validation', response?.resource ? true : false, rowIndex)
     })
-  }, [accountId, appId, metricPacks, projectId, tierName, selected, onChange, connectorId, rowIndex])
+  }, [accountId, appId, metricPacks, projectId, tierId, selected, onChange, connectorId, rowIndex])
   const serviceSelectObj: SelectOption | undefined = useMemo(() => {
     if (!services.length) {
       return { value: '', label: '' }
@@ -188,7 +189,7 @@ function RowRenderer(props: RowRendererProps): JSX.Element {
   const rowCellCallback = useCallback(
     (index: number, cell: Cell<TierAndServiceRow, any>) => {
       if (!tierName) {
-        return <Container height={25} width={index === 0 ? 30 : 100} />
+        return <Container height={20} width={index === 0 ? 30 : 100} />
       }
       switch (index) {
         case 0:
@@ -205,7 +206,7 @@ function RowRenderer(props: RowRendererProps): JSX.Element {
           )
         case 1:
           return (
-            <Text lineClamp={1} width={100}>
+            <Text lineClamp={1} className={css.tier} width={100} color={Color.BLACK}>
               {tierName}
             </Text>
           )
@@ -251,8 +252,19 @@ function RowRenderer(props: RowRendererProps): JSX.Element {
 }
 
 export default function TierAndServiceTable(props: TierAndServiceTableProps): JSX.Element {
-  const { appId, metricPacks, data = [], onChange, dataSourceId, serviceOptions, index: appIndex, accountId } = props
+  const {
+    appId,
+    metricPacks,
+    dataSourceId,
+    setFieldTouched,
+    setFieldValue,
+    serviceOptions,
+    index: appIndex,
+    accountId
+  } = props
   const [tableData, setTableData] = useState([...DefaultTiersAndService])
+  // const { values, setFieldValue, setFieldTouched } = useFormikContext<{ dsConfigs: DSConfigTableData[] }>()
+  const data = props.data?.dsConfigs?.[appIndex]?.tableData || []
 
   // fetch tier and service list
   useEffect(() => {
@@ -281,7 +293,14 @@ export default function TierAndServiceTable(props: TierAndServiceTableProps): JS
           ? { ...(existingTiers.get(tierRow.tierName) as TierAndServiceRow), tierName: tierRow.tierName }
           : tierRow
       )
-      onChange(`appDConfigs[${appIndex}].tableData`, blah)
+      blah.forEach((b, index: number) => {
+        if (index < data.length) {
+          data[index] = b
+        } else {
+          data.push(b)
+        }
+      })
+      setFieldValue(`dsConfigs[${appIndex}].tableData`, data)
       setTableData(blah)
     })
     return () => xhr.abort(xhrGroup)
@@ -293,9 +312,10 @@ export default function TierAndServiceTable(props: TierAndServiceTableProps): JS
       data?.forEach(tierRow => {
         tierRow.selected = e.target.checked
       })
-      onChange(`appDConfigs[${appIndex}].tableData`, data)
+      setFieldValue(`dsConfigs[${appIndex}].tableData`, [...data])
+      setFieldTouched(`dsConfigs[${appIndex}].tableData`, true)
     },
-    [appIndex, onChange]
+    [appIndex, setFieldValue, data, setFieldTouched]
   )
 
   const tableColumns = useMemo(
@@ -324,19 +344,19 @@ export default function TierAndServiceTable(props: TierAndServiceTableProps): JS
     (fieldName: keyof TierAndServiceRow, value: any, index: number) => {
       const newData = [...tableData]
       if (fieldName === 'selected') {
-        data[index]['service'] = value.service
-        data[index]['selected'] = value.selected
-        newData[index]['service'] = value.service
-        newData[index]['selected'] = value.selected
+        const validation = value.selected ? newData[index]['validation'] : undefined
+        data[index] = { ...data[index], ...value, validation }
+        newData[index] = { ...newData[index], ...value, validation }
       } else {
         newData[index][fieldName] = value as never
         data[index][fieldName] = value as never
       }
 
-      onChange(`appDConfigs[${appIndex}].tableData`, data)
+      setFieldValue(`dsConfigs[${appIndex}].tableData`, [...data])
+      setFieldTouched(`dsConfigs[${appIndex}].tableData`, true)
       setTableData(newData)
     },
-    [appIndex, onChange, tableData, data]
+    [appIndex, setFieldValue, tableData, data, setFieldTouched]
   )
 
   return (
@@ -348,7 +368,7 @@ export default function TierAndServiceTable(props: TierAndServiceTableProps): JS
         className={css.main}
         renderCustomRow={row => (
           <RowRenderer
-            row={row}
+            row={row as any}
             appId={appId}
             accountId={accountId}
             onChange={onRowChangeCallback}

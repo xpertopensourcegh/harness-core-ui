@@ -11,47 +11,30 @@
     clear: right;
   }
 
-  .listPanelBody {
-    :global {
-      .bp3-collapse-body {
-        margin-bottom: var(--spacing-large);
-      }
-    }
+  .formContainer {
+    display: grid;
+    grid-template-columns: minmax(25%, 30%) minmax(35%, 50%);
+    grid-gap: 80px;
 
-    > [class*='CollapseHeader'] {
-      padding: var(--spacing-small) !important;
-    }
-    > [class*='collapse'] {
-      margin-top: 0;
-    }
+    .inputFields {
+      margin-right: var(--margin-xxxlarge);
 
-    border-top: 1px solid var(--grey-300);
-
-    .formContainer {
-      display: grid;
-      grid-template-columns: minmax(25%, 30%) minmax(35%, 50%);
-      grid-gap: 80px;
-
-      .inputFields {
-        margin-right: var(--margin-xxxlarge);
-
-        .metricPackContainer {
-          .customizePack {
-            float: right;
-            position: relative;
-            top: 17px;
-          }
-          > div {
-            clear: right;
-          }
+      .metricPackContainer {
+        .customizePack {
+          float: right;
+          position: relative;
+          top: 17px;
+        }
+        > div {
+          clear: right;
         }
       }
+    }
 
-      .tableContainer {
-        width: 100%;
-        max-height: 300px;
-        overflow-y: scroll;
-      }
+    .tableContainer {
+      width: 100%;
+      max-height: 300px;
+      overflow-y: scroll;
     }
   }
 }

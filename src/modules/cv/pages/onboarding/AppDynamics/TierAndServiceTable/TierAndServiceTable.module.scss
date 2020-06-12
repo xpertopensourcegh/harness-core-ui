@@ -1,24 +1,41 @@
 .main {
   width: 100%;
+  margin-bottom: var(--spacing-xsmall);
 
-  .emptyCell {
-    height: 25px;
+  th[role='columnheader'] {
+    color: var(--grey-400) !important;
+    font-weight: unset !important;
   }
+
   .serviceSelect {
-    input {
+    [class~='bp3-input'] {
       min-width: 100px;
       max-width: 170px;
-      height: 25px !important;
+      height: 20px !important;
+      color: var(--black);
       border: none !important;
       background: transparent !important;
+    }
+    [class~='bp3-input-action'] > span {
+      position: relative;
+      bottom: 8px;
     }
   }
   .tierSelectChecBox {
     width: 15px;
+    position: relative;
+    top: 3px;
+  }
+
+  .tier {
+    position: relative;
+    top: 2px;
   }
 
   .validationResult {
     width: 200px;
+    position: relative;
+    top: 4px;
     .validationContainer {
       display: flex;
       align-items: center;

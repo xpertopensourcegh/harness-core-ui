@@ -17,10 +17,10 @@ export const Endpoints = {
     connectorId: string,
     projectId: string,
     appId: string,
-    tierId: string,
+    tierId: number,
     guid: string
   ) =>
-    `/api/appdynamics/metric-data?accountId=${accountId}&connectorId=${connectorId}&projectId=${projectId}&appdAppId=${appId}&appdTierId=${tierId}&requestGuid=${guid}`
+    `/api/appdynamics/metric-data?accountId=${accountId}&connectorId=${connectorId}&projectIdentifier=${projectId}&appdAppId=${appId}&appdTierId=${tierId}&requestGuid=${guid}`
 }
 
 export async function fetchAppDynamicsApplications({
@@ -64,7 +64,7 @@ export async function validateMetricsApi({
   projectId: string
   appId: string
   metricPacks: MetricPack[]
-  tierId: string
+  tierId: number
   guid: string
   xhrGroup: string
 }): ServiceResponse<RestResponseSetAppdynamicsValidationResponse> {

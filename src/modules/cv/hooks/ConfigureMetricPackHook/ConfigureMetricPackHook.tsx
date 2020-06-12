@@ -23,7 +23,11 @@ export async function fetchMetricPacks(
   } else {
     const metricPackMapApi = new Map<string, MetricPack>()
     const resp: any = response
-    resp?.resource?.forEach((mp: any) => metricPackMapApi.set(mp.name, mp))
+    resp?.resource?.forEach((mp: MetricPack) => {
+      if (mp.identifier) {
+        metricPackMapApi.set(mp.identifier, mp)
+      }
+    })
     return { metricPackMap: metricPackMapApi }
   }
 }
@@ -36,8 +40,8 @@ export function useMetricPackHook(configMetricPack: MetricPack[], metricPackMap:
   useEffect(() => {
     const newMap = new Map(metricPackMap)
     metricPackMap.forEach(pack => {
-      if (pack.name) {
-        newMap.set(pack.name, { ...pack, metrics: pack.metrics?.map(metric => ({ ...metric })) || [] })
+      if (pack.identifier) {
+        newMap.set(pack.identifier, { ...pack, metrics: pack.metrics?.map(metric => ({ ...metric })) || [] })
       }
     })
     transformConfigMetricPackToMap(configMetricPack || [], newMap)

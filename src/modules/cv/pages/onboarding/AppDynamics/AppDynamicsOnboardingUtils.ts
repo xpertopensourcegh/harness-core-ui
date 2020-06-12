@@ -1,17 +1,16 @@
-import type { NewRelicApplication, CVConfig, MetricPack } from '@wings-software/swagger-ts/definitions'
+import type { NewRelicApplication, MetricPack, DSConfig } from '@wings-software/swagger-ts/definitions'
 import type { SelectOption } from '@wings-software/uikit'
-import { CVNextGenCVConfigService } from '../../../services'
 import type { TierAndServiceRow } from './TierAndServiceTable/TierAndServiceTable'
 
-export interface AppDynamicsCVConfig extends CVConfig {
+export interface AppDynamicsDSConfig extends DSConfig {
   applicationName?: string
   serviceMappings: Array<{ tierName: string; serviceIdentifier: string }>
   metricPacks: MetricPack[]
 }
 
-export interface CVConfigTableData extends AppDynamicsCVConfig {
-  tableData?: TierAndServiceRow[]
-  metricPackList?: string[]
+export interface DSConfigTableData extends AppDynamicsDSConfig {
+  tableData: TierAndServiceRow[]
+  metricPackList: string[]
 }
 
 export function createDefaultConfigObjectBasedOnSelectedApps(
@@ -19,17 +18,16 @@ export function createDefaultConfigObjectBasedOnSelectedApps(
   dataSourceId: string,
   accountId: string,
   productName: string
-): CVConfigTableData {
-  return createDefaultConfigObject(dataSourceId, accountId, app.label, app.value as number, productName)
+): DSConfigTableData {
+  return createDefaultConfigObject(dataSourceId, accountId, app.label, productName)
 }
 
 export function createDefaultConfigObject(
   connectorId: string,
   accountId: string,
   appName: string,
-  appId: number,
   productName: string
-): CVConfigTableData {
+): DSConfigTableData {
   return {
     connectorId,
     type: 'APP_DYNAMICS',
@@ -37,12 +35,10 @@ export function createDefaultConfigObject(
     metricPacks: [],
     serviceMappings: [],
     metricPackList: [],
-    name: '',
+    tableData: [],
     envIdentifier: '',
     projectIdentifier: '',
-    serviceId: '',
     productName,
-    applicationId: appId,
     applicationName: appName
   }
 }
@@ -56,34 +52,34 @@ export function transformAppDynamicsApplications(appdApplications: NewRelicAppli
   )
 }
 
-export function transformGetConfigs(appDConfigs: AppDynamicsCVConfig[]): CVConfigTableData[] {
+export function transformGetConfigs(appDConfigs: AppDynamicsDSConfig[]): DSConfigTableData[] {
   if (!appDConfigs?.length) {
     return []
   }
 
-  const appsToAppDConfigs: CVConfigTableData[] = []
+  const appsToAppDConfigs: DSConfigTableData[] = []
   for (const config of appDConfigs) {
     if (!config) {
       continue
     }
 
     const { serviceMappings = [], metricPacks = [] } = config
-    const transformedConfig: CVConfigTableData = config
+    const transformedConfig: DSConfigTableData = config as DSConfigTableData
     transformedConfig.tableData = serviceMappings?.map(serviceMapping => ({
       tierName: serviceMapping.tierName,
       service: serviceMapping.serviceIdentifier,
       selected: true
     }))
 
-    transformedConfig.metricPackList = metricPacks?.map(mp => mp.name || '').filter(mpName => mpName.length) || []
+    transformedConfig.metricPackList = metricPacks?.map(mp => mp.identifier || '').filter(mpName => mpName.length) || []
     appsToAppDConfigs.push(transformedConfig)
   }
 
   return appsToAppDConfigs
 }
 
-export function transformToSaveConfig(appDConfig: CVConfigTableData): AppDynamicsCVConfig[] {
-  const clonedConfig: CVConfigTableData = { ...appDConfig }
+export function transformToSaveConfig(appDConfig: DSConfigTableData): AppDynamicsDSConfig[] {
+  const clonedConfig: DSConfigTableData = { ...appDConfig }
 
   const { tableData = [] } = clonedConfig || {}
 
@@ -98,40 +94,4 @@ export function transformToSaveConfig(appDConfig: CVConfigTableData): AppDynamic
   }
 
   return [clonedConfig]
-}
-
-export async function removeAppdConfig(accountId: string, idToDelete?: string): Promise<string | undefined> {
-  if (!idToDelete) {
-    return
-  }
-  const { error } = await CVNextGenCVConfigService.deleteConfigs({
-    accountId,
-    group: 'XHR_DELETE_CONFIG_GROUP',
-    configsToDelete: [idToDelete]
-  })
-  return error ? error : undefined
-}
-
-export async function saveAppDConfig(
-  appdConfig: CVConfigTableData,
-  accountId: string
-): Promise<{ error?: string; configsToShow: CVConfigTableData }> {
-  const configsToSave = transformToSaveConfig(appdConfig)
-  if (!configsToSave?.length) {
-    return { configsToShow: appdConfig }
-  }
-
-  const { error, response } = await CVNextGenCVConfigService.saveConfigs({
-    accountId,
-    group: 'XHR_SAVE_CONFIG_GROUP',
-    configsToSave
-  })
-
-  if (!error) {
-    return { error, configsToShow: appdConfig }
-  } else if (response?.resource) {
-    return { configsToShow: transformGetConfigs(response.resource as AppDynamicsCVConfig[])[0] }
-  }
-
-  return { configsToShow: appdConfig }
 }
