@@ -8,6 +8,7 @@ import { Route, Switch } from 'react-router'
 import { Link, useRouteMatch, useParams } from 'react-router-dom'
 import ConnectorsList from '../../../dx/pages/connectors/ConnectorsList'
 
+// import FilterDrawer from './FilterDrawer/FilterDrawer'
 interface Categories {
   [key: string]: string
 }
@@ -28,6 +29,7 @@ function ComponentToRender() {
 const ResourcesPage: React.FC = () => {
   const [activeCategory, setActiveCategory] = React.useState(0)
   const { path, url } = useRouteMatch()
+  // const [isFilterPanelOpen, setFilterPanelState] = React.useState(false)
   return (
     <>
       <Page.Header
