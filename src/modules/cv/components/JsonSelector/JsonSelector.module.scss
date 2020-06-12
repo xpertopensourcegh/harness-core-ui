@@ -1,0 +1,47 @@
+.jsonSelector {
+  display: flex;
+  border: 1px solid var(--grey-300);
+  background-color: var(--grey-100);
+  box-shadow: 1px 1px 3px 1px var(--grey-200);
+  border-radius: 5px;
+  padding: var(--spacing-small);
+  .lineNumbersCol {
+    flex-basis: 30px;
+    margin-right: var(--spacing-small);
+    padding: var(--spacing-xsmall) var(--spacing-none);
+    font-size: var(--font-size-small);
+  }
+  .panel {
+    background-color: var(--white);
+    overflow: auto;
+    flex: 1;
+    box-shadow: 1px 1px 3px 1px var(--grey-200);
+    padding: var(--spacing-xsmall) var(--spacing-small) var(--spacing-xsmall) var(--spacing-xsmall);
+    .contentWrap {
+      display: inline-block;
+      min-width: 100%;
+    }
+  }
+}
+
+.lineNumber {
+  text-align: right;
+}
+
+.editorRow:hover {
+  background-color: var(--blue-200);
+}
+
+.lineNumber, .editorRow {
+  line-height: 22px;
+  height: 22px;
+  white-space: nowrap;
+}
+
+.selectableKey {
+  color: var(--blue-500);
+  cursor: pointer;
+  &:hover {
+    color: var(--blue-800);
+  }
+}

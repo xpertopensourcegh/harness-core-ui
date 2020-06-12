@@ -1,0 +1,26 @@
+.inputGroup {
+  cursor: pointer;
+  .input {
+    display: flex;
+    align-items: center;
+  }
+  .inputIcon {
+    top: calc(50% - 12px);
+    color: var(--blue-500);
+  }
+}
+
+.dialogContent {
+  display: flex;
+  height: 90%;
+  padding: 20px 100px 20px 40px;
+  .leftColumn {
+    font-size: 25px;
+    font-weight: 100;
+    margin-right: 10%;
+    margin-top: 50px;
+  }
+  .rightColumn {
+    flex: 1;
+  }
+}

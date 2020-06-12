@@ -24,6 +24,7 @@ import xhr from '@wings-software/xhr-async'
 import DataSourcePanelStatusHeaderProps from '../../../components/DataSourcePanelStatusHeader/DataSourcePanelStatusHeader'
 import { ThirdPartyCallLogModal } from '../../../components/ThirdPartyCallLogs/ThirdPartyCallLogs'
 import { accountId, connectorId, appId } from 'modules/cv/constants' 
+import JsonSelectorFormInput from 'modules/cv/components/JsonSelector/JsonSelectorFormInput';
 
 const sha = Yup.object().shape({
   queryName: Yup.string().required('Query Name is required'),
@@ -104,6 +105,8 @@ const SplunkOnboarding: FunctionComponent<any> = props => {
   // const connectorId = 'g8eLKgBSQ368GWA5FuS7og'
   // const appId = 'qJ_sRGAjRTyD9oXHBRkxKQ'
 
+  const [serviceInstanceConfig, setServiceInstanceConfig] = useState(null);
+
   const Logo = HarnessIcons['harness-logo-black']
 
   useEffect(() => {
@@ -169,6 +172,7 @@ const SplunkOnboarding: FunctionComponent<any> = props => {
     const { response }: any = await xhr.get(url, { group: xhrGroup })
     if (response) {
       formikProps.setFieldValue(`queries[${index}].stackTrace`, [response.resource.rawSampleLogs.join()])
+      setServiceInstanceConfig(response.resource.sample)
     }
   }
 
@@ -309,7 +313,7 @@ const SplunkOnboarding: FunctionComponent<any> = props => {
             <FormInput.Text name={`queries[${index}].queryName`} label="Query Name" />
             <FormInput.Select name={`queries[${index}].service`} key={serviceOptions?.[0].value} label="Service Name" items={serviceOptions} />
             <FormInput.Select name={`queries[${index}].environment`} label="Environment" items={environmentOptions} />
-            <FormInput.Text name={`queries[${index}].serviceInstance`} label="Service instance field name" />
+            <JsonSelectorFormInput name={`queries[${index}].serviceInstance`} label="Service instance field name" json={serviceInstanceConfig} />
             {/* Select baseline time range */}
             {/* <SubViewDatePickerAndOptions parentFormikProps={parentFormikProps} index={index} /> */}
           </div>
