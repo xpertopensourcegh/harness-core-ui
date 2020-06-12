@@ -5,5 +5,7 @@ declare const styles: {
   readonly tag: string
   readonly tagError: string
   readonly tagSuccess: string
+  readonly tagUnsavedChanges: string
+  readonly tagEditing: string
 }
 export default styles
