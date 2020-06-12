@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import cx from 'classnames'
 
 import { Formik, FormikForm as Form, FormInput, Button, Text, Layout, StepProps } from '@wings-software/uikit'
 
@@ -7,7 +6,7 @@ import type { SharedData } from '../ProjectsPage'
 import i18n from '../ProjectsPage.i18n'
 import EmailPreview from './EmailPreview/EmailPreview'
 
-import css from './Step.module.scss'
+import css from './Steps.module.scss'
 
 export interface StepThreeData {
   collaborators?: string[]
@@ -22,7 +21,7 @@ const StepThree: React.FC<StepProps<SharedData>> = ({ previousStep, nextStep, pr
       <table style={{ width: '100%', margin: '20px 0' }}>
         <tbody>
           <tr>
-            <td className={cx(css.halfWidth, css.leftCol)}>
+            <td className={css.halfWidth}>
               <Formik
                 initialValues={{ collaborators: [], invitationMessage: '' }}
                 validate={values => {
@@ -52,7 +51,11 @@ const StepThree: React.FC<StepProps<SharedData>> = ({ previousStep, nextStep, pr
                       />
                       <Layout.Horizontal spacing="small">
                         <Button onClick={() => previousStep?.(prevStepData)} text={i18n.newProjectWizard.back} />
-                        <Button type="submit" style={{ color: 'var(--blue-500)' }} text={i18n.newProjectWizard.next} />
+                        <Button
+                          type="submit"
+                          style={{ color: 'var(--blue-500)' }}
+                          text={i18n.newProjectWizard.saveAndClose}
+                        />
                       </Layout.Horizontal>
                     </Layout.Vertical>
                   </Form>

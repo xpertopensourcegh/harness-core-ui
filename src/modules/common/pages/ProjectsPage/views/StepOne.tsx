@@ -1,66 +1,82 @@
 import React, { useState } from 'react'
-import { RadioSelect, Text, Layout, Icon, StepProps, IconName } from '@wings-software/uikit'
+import { StepProps, RadioSelect, Button, Layout, Text, IconName, Icon } from '@wings-software/uikit'
+
 import type { SharedData } from '../ProjectsPage'
+
 import i18n from '../ProjectsPage.i18n'
+import css from './Steps.module.scss'
 
-import css from './Step.module.scss'
-
-interface ProjectType {
-  title: string
+interface Purpose {
   icon: IconName
+  titleOne: string
+  titleTwo: string
+  description: string
+  time: string
+  value: string
 }
 
-const StepOne: React.FC<StepProps<SharedData>> = ({ nextStep }) => {
-  const [selected, setSelected] = useState<ProjectType>()
+export interface StepOneData {
+  purpose?: string
+}
 
+const options: Purpose[] = [
+  {
+    icon: 'nav-project',
+    titleOne: i18n.newProjectWizard.stepOne.continuous.toUpperCase(),
+    titleTwo: i18n.newProjectWizard.stepOne.deployment.toUpperCase(),
+    description: i18n.newProjectWizard.stepOne.cdDescription,
+    time: i18n.newProjectWizard.stepOne.time(10),
+    value: 'CD'
+  },
+  {
+    icon: 'nav-project',
+    titleOne: i18n.newProjectWizard.stepOne.continuous.toUpperCase(),
+    titleTwo: i18n.newProjectWizard.stepOne.verification.toUpperCase(),
+    description: i18n.newProjectWizard.stepOne.cvDescription,
+    time: i18n.newProjectWizard.stepOne.time(10),
+    value: 'CV'
+  }
+]
+
+const StepOne: React.FC<StepProps<SharedData>> = ({ previousStep, nextStep, prevStepData }) => {
+  const [selected, setSelected] = useState<Purpose>(options[0])
   return (
-    <Layout.Vertical padding="small" style={{ padding: '120px 30px' }}>
-      <Text font="large" padding="small" style={{ textTransform: 'uppercase' }}>
+    <>
+      <Text font="medium" padding={{ bottom: 'xxlarge' }}>
         {i18n.newProjectWizard.stepOne.name.toUpperCase()}
       </Text>
-      <Text padding="small" style={{ textTransform: 'uppercase', color: 'var(--grey-400)' }}>
-        {i18n.newProjectWizard.stepOne.recommended}
-      </Text>
-      <br />
-      <RadioSelect<ProjectType>
+      <RadioSelect<Purpose>
         selected={selected}
         onChange={value => {
           setSelected(value)
-          nextStep?.()
         }}
-        className={css.radioSelect}
-        data={[
-          {
-            title: i18n.newProjectWizard.stepOne.newProject,
-            icon: 'document'
-          },
-          {
-            title: i18n.newProjectWizard.stepOne.cloneProject,
-            icon: 'duplicate'
-          },
-          {
-            title: i18n.newProjectWizard.stepOne.importProject,
-            icon: 'document-open'
-          }
-        ]}
+        className={css.radioSelectPurpose}
+        data={options}
         renderItem={item => (
           <>
-            <Icon name={item.icon} size={32} padding="small" />
-            <Text
-              font={{ size: 'small' }}
-              style={{
-                color: selected ? 'var(--blue-800)' : 'parent',
-                textTransform: 'uppercase',
-                width: '110px',
-                paddingTop: '7px'
-              }}
-            >
-              {item.title}
+            <Icon name={item.icon} size={20} />
+            <Text>{item.titleOne}</Text>
+            <Text font="medium" color="black">
+              {item.titleTwo}
+            </Text>
+            <Text padding={{ top: 'medium', bottom: 'large' }} height={90}>
+              {item.description}
+            </Text>
+            <Text icon="time" padding={{ top: 'medium' }} style={{ color: 'var(--grey-350)', justifyContent: 'left' }}>
+              {item.time}
             </Text>
           </>
         )}
-      ></RadioSelect>
-    </Layout.Vertical>
+      />
+      <Layout.Horizontal spacing="small" padding={{ top: 'xxlarge' }}>
+        <Button onClick={() => previousStep?.(prevStepData)} text={i18n.newProjectWizard.back} />
+        <Button
+          onClick={() => nextStep?.({ ...prevStepData, purpose: selected.value })}
+          style={{ color: 'var(--blue-500)' }}
+          text={i18n.newProjectWizard.next}
+        />
+      </Layout.Horizontal>
+    </>
   )
 }
 

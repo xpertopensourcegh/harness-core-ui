@@ -1,0 +1,46 @@
+.card {
+  margin-right: var(--spacing-small);
+}
+
+.radioSelect {
+  :global(.bp3-card) {
+    height: 140px;
+    vertical-align: top;
+    background-color: var(--white);
+    margin-right: var(--spacing-medium);
+  }
+}
+
+.radioSelectPurpose {
+  margin: 50px 50px 80px;
+
+  :global(.bp3-card) {
+    margin-right: var(--spacing-large);
+    width: 200px;
+  }
+}
+
+.halfWidth {
+  width: 50%;
+  padding-right: var(--spacing-huge);
+  padding-top: var(--spacing-xxlarge);
+  vertical-align: top;
+}
+
+.txtNameContainer {
+  position: relative;
+
+  .txtIdContainer {
+    position: absolute;
+    right: 0;
+    color: var(--blue-600);
+  }
+
+  .txtId {
+    border: none;
+    margin-left: var(--spacing-xsmall);
+    text-align: right;
+    width: 70px;
+    color: var(--blue-600);
+  }
+}

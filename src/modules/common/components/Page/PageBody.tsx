@@ -13,5 +13,9 @@ export interface PageBodyProps {
  * center alignments, etc...
  */
 export const PageBody: React.FC<PageBodyProps> = ({ children, center }) => {
-  return <Container className={cx(css.pageBody, center && css.center)}>{children}</Container>
+  return (
+    <Container className={cx(css.pageBody, center && css.center)} padding="large">
+      {children}
+    </Container>
+  )
 }

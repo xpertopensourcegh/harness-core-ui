@@ -434,7 +434,7 @@ exports[`Delegate Step Wizard should be able to install in cluster delegate 3`] 
               <div>
                 <span
                   class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
-                  style="font-weight: bold; display: inline-flex; justify-content: center;"
+                  style="font-weight: bold; display: inline-flex; align-items: center;"
                 >
                   <span
                     class="bp3-icon StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04 StyledProps---color--8PuS StyledProps---color-yellow500--1TpH"
@@ -501,7 +501,7 @@ exports[`Delegate Step Wizard should be able to install in cluster delegate 3`] 
               <div>
                 <span
                   class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
-                  style="font-weight: normal; display: inline-flex; justify-content: center;"
+                  style="font-weight: normal; display: inline-flex; align-items: center;"
                 >
                   <span
                     class="bp3-icon bp3-icon-blank StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04 StyledProps---color--8PuS StyledProps---color-yellow500--1TpH"
@@ -524,7 +524,7 @@ exports[`Delegate Step Wizard should be able to install in cluster delegate 3`] 
               <div>
                 <span
                   class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
-                  style="font-weight: normal; display: inline-flex; justify-content: center;"
+                  style="font-weight: normal; display: inline-flex; align-items: center;"
                 >
                   <span
                     class="bp3-icon bp3-icon-blank StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04 StyledProps---color--8PuS StyledProps---color-yellow500--1TpH"
@@ -547,7 +547,7 @@ exports[`Delegate Step Wizard should be able to install in cluster delegate 3`] 
               <div>
                 <span
                   class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
-                  style="font-weight: normal; display: inline-flex; justify-content: center;"
+                  style="font-weight: normal; display: inline-flex; align-items: center;"
                 >
                   <span
                     class="bp3-icon bp3-icon-blank StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04 StyledProps---color--8PuS StyledProps---color-yellow500--1TpH"

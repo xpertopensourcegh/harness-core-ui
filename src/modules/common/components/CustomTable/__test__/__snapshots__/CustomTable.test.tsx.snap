@@ -96,7 +96,7 @@ exports[`CustomTable Snapshot should render CustomTable with Proper Data and Col
             >
               <span
                 class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
-                style="font-weight: 700; font-size: 16px; display: inline-flex; justify-content: center;"
+                style="font-weight: 700; font-size: 16px; display: inline-flex; align-items: center;"
               >
                 <span
                   class="bp3-icon StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
@@ -170,7 +170,7 @@ exports[`CustomTable Snapshot should render CustomTable with Proper Data and Col
             >
               <span
                 class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
-                style="font-size: 16px; display: inline-flex; justify-content: center;"
+                style="font-size: 16px; display: inline-flex; align-items: center;"
               >
                 <span
                   class="bp3-icon bp3-icon-pulse StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
@@ -216,7 +216,7 @@ exports[`CustomTable Snapshot should render CustomTable with Proper Data and Col
             >
               <span
                 class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
-                style="font-weight: 700; font-size: 16px; display: inline-flex; justify-content: center;"
+                style="font-weight: 700; font-size: 16px; display: inline-flex; align-items: center;"
               >
                 <span
                   class="bp3-icon bp3-icon-warning-sign StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04 StyledProps---color--8PuS StyledProps---color-red500--uX9L"
@@ -314,7 +314,7 @@ exports[`CustomTable Snapshot should render CustomTable with Proper Data and Col
             >
               <span
                 class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
-                style="font-weight: 700; font-size: 16px; display: inline-flex; justify-content: center;"
+                style="font-weight: 700; font-size: 16px; display: inline-flex; align-items: center;"
               >
                 <span
                   class="bp3-icon StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
@@ -513,7 +513,7 @@ exports[`CustomTable Snapshot should render CustomTable with Proper Data and Col
             >
               <span
                 class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
-                style="font-size: 16px; display: inline-flex; justify-content: center;"
+                style="font-size: 16px; display: inline-flex; align-items: center;"
               >
                 <span
                   class="bp3-icon bp3-icon-pulse StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
@@ -559,7 +559,7 @@ exports[`CustomTable Snapshot should render CustomTable with Proper Data and Col
             >
               <span
                 class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
-                style="font-weight: 700; font-size: 16px; display: inline-flex; justify-content: center;"
+                style="font-weight: 700; font-size: 16px; display: inline-flex; align-items: center;"
               >
                 <span
                   class="bp3-icon bp3-icon-full-circle StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04 StyledProps---color--8PuS StyledProps---color-green500--2_VK"
@@ -645,7 +645,7 @@ exports[`CustomTable Snapshot should render CustomTable with Proper Data and Col
             >
               <span
                 class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
-                style="font-weight: 700; font-size: 16px; display: inline-flex; justify-content: center;"
+                style="font-weight: 700; font-size: 16px; display: inline-flex; align-items: center;"
               >
                 <span
                   class="bp3-icon StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
@@ -719,7 +719,7 @@ exports[`CustomTable Snapshot should render CustomTable with Proper Data and Col
             >
               <span
                 class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
-                style="font-size: 16px; display: inline-flex; justify-content: center;"
+                style="font-size: 16px; display: inline-flex; align-items: center;"
               >
                 <span
                   class="bp3-icon bp3-icon-pulse StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
@@ -765,7 +765,7 @@ exports[`CustomTable Snapshot should render CustomTable with Proper Data and Col
             >
               <span
                 class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
-                style="font-weight: 700; font-size: 16px; display: inline-flex; justify-content: center;"
+                style="font-weight: 700; font-size: 16px; display: inline-flex; align-items: center;"
               >
                 <span
                   class="bp3-icon bp3-icon-warning-sign StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04 StyledProps---color--8PuS StyledProps---color-red500--uX9L"
@@ -863,7 +863,7 @@ exports[`CustomTable Snapshot should render CustomTable with Proper Data and Col
             >
               <span
                 class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
-                style="font-weight: 700; font-size: 16px; display: inline-flex; justify-content: center;"
+                style="font-weight: 700; font-size: 16px; display: inline-flex; align-items: center;"
               >
                 <span
                   class="bp3-icon StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
@@ -1062,7 +1062,7 @@ exports[`CustomTable Snapshot should render CustomTable with Proper Data and Col
             >
               <span
                 class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
-                style="font-size: 16px; display: inline-flex; justify-content: center;"
+                style="font-size: 16px; display: inline-flex; align-items: center;"
               >
                 <span
                   class="bp3-icon bp3-icon-pulse StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
@@ -1108,7 +1108,7 @@ exports[`CustomTable Snapshot should render CustomTable with Proper Data and Col
             >
               <span
                 class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
-                style="font-weight: 700; font-size: 16px; display: inline-flex; justify-content: center;"
+                style="font-weight: 700; font-size: 16px; display: inline-flex; align-items: center;"
               >
                 <span
                   class="bp3-icon bp3-icon-full-circle StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04 StyledProps---color--8PuS StyledProps---color-green500--2_VK"
@@ -1194,7 +1194,7 @@ exports[`CustomTable Snapshot should render CustomTable with Proper Data and Col
             >
               <span
                 class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
-                style="font-weight: 700; font-size: 16px; display: inline-flex; justify-content: center;"
+                style="font-weight: 700; font-size: 16px; display: inline-flex; align-items: center;"
               >
                 <span
                   class="bp3-icon StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
@@ -1268,7 +1268,7 @@ exports[`CustomTable Snapshot should render CustomTable with Proper Data and Col
             >
               <span
                 class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
-                style="font-size: 16px; display: inline-flex; justify-content: center;"
+                style="font-size: 16px; display: inline-flex; align-items: center;"
               >
                 <span
                   class="bp3-icon bp3-icon-pulse StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
@@ -1314,7 +1314,7 @@ exports[`CustomTable Snapshot should render CustomTable with Proper Data and Col
             >
               <span
                 class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
-                style="font-weight: 700; font-size: 16px; display: inline-flex; justify-content: center;"
+                style="font-weight: 700; font-size: 16px; display: inline-flex; align-items: center;"
               >
                 <span
                   class="bp3-icon bp3-icon-warning-sign StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04 StyledProps---color--8PuS StyledProps---color-red500--uX9L"

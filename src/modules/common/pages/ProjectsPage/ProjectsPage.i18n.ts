@@ -1,4 +1,5 @@
 export default {
+  projects: 'Projects',
   loading: 'Loading...',
   addProject: '+ Add Project',
   newProject: 'New Project',
@@ -6,23 +7,35 @@ export default {
   newProjectWizard: {
     back: 'Back',
     next: 'Save and Continue',
-    stepOne: {
+    saveAndClose: 'Save and Close',
+    createProject: {
       name: 'Create a New Project',
       newProject: 'New Project',
-      cloneProject: 'Clone Project',
-      importProject: 'Import Project',
+      cloneProject: 'Clone An Existing Project',
+      gitSync: 'Git Sync',
       recommended: 'Recommended'
+    },
+    stepOne: {
+      name: 'Purpose',
+      continuous: 'Continuous',
+      deployment: 'Deployment',
+      verification: 'Verification',
+      cdDescription: 'Deploy your services with blazingly fast pipelines.',
+      cvDescription: 'Intelligent monitoring of your running applications',
+      time: (mins: number) => `${mins}-min setup`
     },
     stepTwo: {
       name: 'New Project',
-      projectName: 'Project Name',
+      projectName: 'Project Name*',
       color: 'Color',
       org: 'Organisation',
       desc: 'Description',
       tags: 'Tags',
       addTags: 'Add Tags',
       preview: 'Preview',
-      previewSubtitle: "This project will be created for you. To get going, you'll have to create a pipeline."
+      previewProjectCard: 'Preview your project card',
+      previewSubtitle: "This project will be created for you. To get going, you'll have to create a pipeline.",
+      addCollab: 'Add Collaborators >'
     },
     stepThree: {
       name: 'Collaborators',

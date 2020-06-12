@@ -4,6 +4,7 @@ const path = require('path')
 const fs = require('fs')
 
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
+const CircularDependencyPlugin = require('circular-dependency-plugin')
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const HTMLWebpackPlugin = require('html-webpack-plugin')
@@ -175,7 +176,11 @@ const commonPlugins = [
 ]
 
 const devOnlyPlugins = [
-  new ForkTsCheckerWebpackPlugin({ tsconfig: 'tsconfig.json' })
+  new ForkTsCheckerWebpackPlugin({ tsconfig: 'tsconfig.json' }),
+  new CircularDependencyPlugin({
+    exclude: /node_modules/,
+    failOnError: true
+  })
   // new BundleAnalyzerPlugin()
 ]
 
