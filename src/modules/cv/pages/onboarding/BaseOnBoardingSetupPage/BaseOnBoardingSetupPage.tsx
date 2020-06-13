@@ -16,6 +16,19 @@ import { accountId, connectorId, appId } from 'modules/cv/constants'
 
 const XHR_SERVICES_GROUP = 'XHR_SERVICES_GROUP'
 
+const iconAndSubtextMapper: any = {
+  'APP_DYNAMICS': {
+    iconName: 'service-appdynamics',
+    iconSubText: 'App Dynamics',
+    pageHeading: 'Map your app and tiers to a Harness service and environment'
+  },
+  'SPLUNK': {
+    iconName: 'service-splunk',
+    iconSubText: 'Splunk',
+    pageHeading: 'Map your query to a Harness service and environment'
+  },
+}
+
 function getDefaultCVConfig(
   verificationProvider: CVConfig['type'],
   dataSourceId: string,
@@ -106,9 +119,9 @@ export default function OnBoardingSetupPage(): JSX.Element {
   return (
     <Container className={css.main}>
       <OnBoardingConfigSetupHeader
-        iconName="service-appdynamics"
-        iconSubText="App Dynamics"
-        pageHeading="Map your app and tiers to a Harness service and environment"
+        iconName={iconAndSubtextMapper[verificationType!].iconName}
+        iconSubText={iconAndSubtextMapper[verificationType!].iconSubText}
+        pageHeading={iconAndSubtextMapper[verificationType!].pageHeading}
       />
       {verificationType === 'APP_DYNAMICS' && (
         <AppDynamicsMainSetupView

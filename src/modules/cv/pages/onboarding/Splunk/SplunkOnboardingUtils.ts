@@ -1,7 +1,7 @@
 import type { SplunkSavedSearch } from '@wings-software/swagger-ts/definitions'
 import type { SelectOption } from '@wings-software/uikit'
 
-const options = {
+export const options = {
   chart: {
     type: 'column',
     height: 100
