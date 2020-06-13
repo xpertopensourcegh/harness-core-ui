@@ -14,23 +14,26 @@
       color: var(--grey-900);
       font-weight: bold;
     }
+    .queryBtn {
+      font-size: 16px !important;
+    }
   }
 
   .mainSection {
     margin-top: 24px;
     margin-left: 12px;
     .queryDropDown {
-      width: 300px;
+      width: 250px;
       position: absolute;
       right: 40px;
-      top: -24px;
+      top: -36px;
     }
     .onBoardingSection {
       padding-top: 30px;
       display: grid;
       grid-template-columns: 45% 45%;
       justify-content: space-evenly;
-      .leftSection {
+      .rightSection {
         border: 1px solid var(--grey-350);
         padding: 24px;
         .logo {
@@ -43,7 +46,7 @@
         }
       }
 
-      .rightSection {
+      .leftSection {
         border: 1px solid var(--grey-350);
         padding: 24px;
         .logo {
@@ -56,6 +59,13 @@
       :global {
         .bp3-collapse-body {
           margin-bottom: var(--spacing-large);
+          > [class*='footerContent'] {
+            text-align: right;
+            margin-right: 38px;
+            > button {
+              width: 120px;
+            }
+          }
         }
       }
 
@@ -65,14 +75,13 @@
       > [class*='collapse'] {
         margin-top: 0;
       }
-
       border-top: 1px solid var(--grey-300);
     }
   }
   .actionButtons {
     text-align: right;
     margin-top: 24px;
-    border-top: 1px solid grey;
     padding-top: 12px;
+    margin-right: 36px;
   }
 }

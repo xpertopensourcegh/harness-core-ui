@@ -178,6 +178,7 @@ const SplunkOnboarding: FunctionComponent<any> = props => {
         <strong className={css.heading}>Existing Queries</strong>
         <span>
           <Button
+            className={css.queryBtn}
             large
             intent="primary"
             minimal
@@ -220,7 +221,18 @@ const SplunkOnboarding: FunctionComponent<any> = props => {
           />
         </div>
         <div className={css.onBoardingSection}>
+
           <div className={css.leftSection}>
+            <Logo height="24" className={css.logo} />
+            <FormInput.Text name={`queries[${index}].queryName`} label="Query Name" />
+            <FormInput.Select name={`queries[${index}].service`} key={serviceOptions?.[0].value} label="Service Name" items={serviceOptions} />
+            <FormInput.Select name={`queries[${index}].environment`} label="Environment" items={environmentOptions} />
+            <JsonSelectorFormInput name={`queries[${index}].serviceInstanceIdentifier`} label="Service instance field name" json={serviceInstanceConfig} />
+            {/* Select baseline time range */}
+            {/* <SubViewDatePickerAndOptions parentFormikProps={parentFormikProps} index={index} /> */}
+          </div>
+
+          <div className={css.rightSection}>
             <Icon name={'service-splunk'} className={css.logo} size={24} />
             <FormInput.TextArea
               name={`queries[${index}].queryString`}
