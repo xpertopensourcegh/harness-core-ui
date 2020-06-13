@@ -7,7 +7,8 @@ import {
   CollapseListPanel,
   FormikForm,
   SelectWithSubview,
-  Select
+  Select,
+  ListPanelInterface
 } from '@wings-software/uikit'
 import TierAndServiceTable from './TierAndServiceTable/TierAndServiceTable'
 import css from './AppDynamicsMainSetupView.module.scss'
@@ -221,79 +222,85 @@ function AppDynamicsDataSourceForm(props: AppDynamicsDataSourceFormProps): JSX.E
                       />
                     </Container>
                     <CollapseList defaultOpenIndex={0}>
-                      {formikProps.values.appDConfigs?.map((configData: CVConfigTableData, index: number) => (
-                        <CollapseListPanel
-                          key={configData.uuid || index}
-                          className={css.listPanelBody}
-                          nextButtonText="Save"
-                          heading={
-                            <DataSourcePanelStatusHeader
-                              panelName={
-                                appDApplications.get(configData.applicationId)?.label ||
-                                configData.applicationName ||
-                                ''
+                      {
+                        formikProps.values.appDConfigs?.map((configData: CVConfigTableData, index: number) => (
+                          <CollapseListPanel
+                            key={configData.uuid || index}
+                            className={css.listPanelBody}
+                            nextButtonText="Save"
+                            onToggleOpen={() => {
+                              return
+                            }}
+                            collapseHeaderProps={{
+                              heading: (
+                                <DataSourcePanelStatusHeader
+                                  panelName={
+                                    appDApplications.get(configData.applicationId)?.label ||
+                                    configData.applicationName ||
+                                    ''
+                                  }
+                                  isError={panelHeaderMsg.get(configData.applicationId)?.isError}
+                                  message={panelHeaderMsg.get(configData.applicationId)?.msg}
+                                />
+                              ),
+                              isRemovable: true,
+                              onRemove: async () => {
+                                const error = await removeAppdConfig(accountId, configData.uuid)
+                                const newPanelHeaders = new Map(panelHeaderMsg)
+                                if (!error) {
+                                  arrayHelpers.remove(index)
+                                  newPanelHeaders.delete(configData.applicationId)
+                                  setPanelHeaderMsg(newPanelHeaders)
+                                  setApplicationsToAdd(
+                                    updateApplicationList(
+                                      {
+                                        label:
+                                          configData.applicationName ||
+                                          appDApplications.get(configData.applicationId)?.label ||
+                                          '',
+                                        value: configData.applicationId
+                                      },
+                                      applicationsToAdd,
+                                      false
+                                    )
+                                  )
+                                } else {
+                                  newPanelHeaders.set(configData.applicationId, { isError: true, msg: error })
+                                  setPanelHeaderMsg(newPanelHeaders)
+                                }
                               }
-                              isError={panelHeaderMsg.get(configData.applicationId)?.isError}
-                              message={panelHeaderMsg.get(configData.applicationId)?.msg}
+                            }}
+                            openNext={async () => {
+                              const errors = await formikProps.validateForm?.(configData)
+                              if (!Object.keys(errors || {}).length) {
+                                const { error, configsToShow } = await saveAppDConfig(configData, configData.accountId)
+                                const configs = [...formikProps.values.appDConfigs]
+                                if (!configsToShow) {
+                                  arrayHelpers.remove(index)
+                                  return
+                                }
+                                configs[index] = configsToShow
+                                formikProps.setFieldValue('appDConfigs', configs)
+                                const newPanelHeaders = new Map(panelHeaderMsg)
+                                newPanelHeaders.set(configData.applicationId, { msg: 'Success', isError: false })
+                                if (error) {
+                                  newPanelHeaders.set(configData.applicationId, { msg: error, isError: true })
+                                }
+                                setPanelHeaderMsg(newPanelHeaders)
+                              }
+                            }}
+                          >
+                            <AppDynamicsConfig
+                              key={configData.applicationId}
+                              config={configData}
+                              index={index}
+                              formikProps={formikProps}
+                              serviceOptions={serviceOptions}
+                              dataSourceId={dataSourceId}
                             />
-                          }
-                          onToggleOpen={() => null}
-                          isRemovable={true}
-                          onRemove={async () => {
-                            const error = await removeAppdConfig(accountId, configData.uuid)
-                            const newPanelHeaders = new Map(panelHeaderMsg)
-                            if (!error) {
-                              arrayHelpers.remove(index)
-                              newPanelHeaders.delete(configData.applicationId)
-                              setPanelHeaderMsg(newPanelHeaders)
-                              setApplicationsToAdd(
-                                updateApplicationList(
-                                  {
-                                    label:
-                                      configData.applicationName ||
-                                      appDApplications.get(configData.applicationId)?.label ||
-                                      '',
-                                    value: configData.applicationId
-                                  },
-                                  applicationsToAdd,
-                                  false
-                                )
-                              )
-                            } else {
-                              newPanelHeaders.set(configData.applicationId, { isError: true, msg: error })
-                              setPanelHeaderMsg(newPanelHeaders)
-                            }
-                          }}
-                          openNext={async () => {
-                            const errors = await formikProps.validateForm?.(configData)
-                            if (!Object.keys(errors || {}).length) {
-                              const { error, configsToShow } = await saveAppDConfig(configData, configData.accountId)
-                              const configs = [...formikProps.values.appDConfigs]
-                              if (!configsToShow) {
-                                arrayHelpers.remove(index)
-                                return
-                              }
-                              configs[index] = configsToShow
-                              formikProps.setFieldValue('appDConfigs', configs)
-                              const newPanelHeaders = new Map(panelHeaderMsg)
-                              newPanelHeaders.set(configData.applicationId, { msg: 'Success', isError: false })
-                              if (error) {
-                                newPanelHeaders.set(configData.applicationId, { msg: error, isError: true })
-                              }
-                              setPanelHeaderMsg(newPanelHeaders)
-                            }
-                          }}
-                        >
-                          <AppDynamicsConfig
-                            key={configData.applicationId}
-                            config={configData}
-                            index={index}
-                            formikProps={formikProps}
-                            serviceOptions={serviceOptions}
-                            dataSourceId={dataSourceId}
-                          />
-                        </CollapseListPanel>
-                      ))}
+                          </CollapseListPanel>
+                        )) as ListPanelInterface[]
+                      }
                     </CollapseList>
                   </>
                 )}
