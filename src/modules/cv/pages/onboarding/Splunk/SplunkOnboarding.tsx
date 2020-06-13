@@ -277,20 +277,6 @@ const SplunkOnboarding: FunctionComponent<any> = props => {
             </div>
           </div>
 
-          <div className={css.rightSection}>
-            <Logo height="24" className={css.logo} />
-            <FormInput.Text name={`queries[${index}].queryName`} label="Query Name" />
-            <FormInput.Select
-              name={`queries[${index}].service`}
-              key={serviceOptions?.[0].value}
-              label="Service Name"
-              items={serviceOptions}
-            />
-            <FormInput.Select name={`queries[${index}].environment`} label="Environment" items={environmentOptions} />
-            <JsonSelectorFormInput name={`queries[${index}].serviceInstanceIdentifier`} label="Service instance field name" json={serviceInstanceConfig} />
-            {/* Select baseline time range */}
-            {/* <SubViewDatePickerAndOptions parentFormikProps={parentFormikProps} index={index} /> */}
-          </div>
         </div>
       </div>
     )
@@ -360,11 +346,11 @@ const SplunkOnboarding: FunctionComponent<any> = props => {
     return (
       date.getFullYear() +
       '-' +
-      (date.getDate() < 10 ? '0' : '') +
-      date.getDate() +
-      '-' +
       (date.getMonth() + 1 < 10 ? '0' : '') +
-      (date.getMonth() + 1)
+      (date.getMonth() + 1)+
+      '-' +
+      (date.getDate() < 10 ? '0' : '') +
+      date.getDate() 
     )
   }
 
@@ -405,7 +391,7 @@ const SplunkOnboarding: FunctionComponent<any> = props => {
                                         : 'Unsaved Query'
                                     }
                                     isError={!parentFormikProps.values.queries[index].isAlreadySaved}
-                                    panelName={'Query name : ' + parentFormikProps.values.queries[index].queryName}
+                                    panelName={parentFormikProps.values.queries[index].queryName}
                                   />
                                 ),
                                 onRemove: () => {
