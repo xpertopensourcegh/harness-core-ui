@@ -4,12 +4,12 @@ import i18n from './ResourcesPage.i18n'
 import css from './ResourcesPage.module.scss'
 import cx from 'classnames'
 import { Page } from 'modules/common/exports'
-// import { Route,Switch } from 'react-router';
-import { Link, Route, Switch, useRouteMatch } from 'react-router-dom'
+import { Route, Switch } from 'react-router'
+import { Link, useRouteMatch, useParams } from 'react-router-dom'
 import ConnectorsList from '../../../dx/pages/connectors/ConnectorsList'
 
 interface Categories {
-  [key: string]: any
+  [key: string]: string
 }
 
 const categories: Categories = {
@@ -18,6 +18,11 @@ const categories: Categories = {
   delegates: i18n.delegates,
   templates: i18n.templates,
   fileStore: i18n.fileStore
+}
+function ComponentToRender() {
+  const { connectorId } = useParams()
+  if (connectorId === 'connectors') return <ConnectorsList />
+  else return <div>{connectorId}</div>
 }
 
 const ResourcesPage: React.FC = () => {
@@ -48,8 +53,8 @@ const ResourcesPage: React.FC = () => {
       />
       <Page.Body>
         <Switch>
-          <Route path={`${path}/connectors`} component={ConnectorsList} />
-          {/* <Route  path={`${path}/template`} component={Template}/> */}
+          <Route exact path={`${path}/`} component={ConnectorsList} />
+          <Route path={`${path}/:connectorId`} component={ComponentToRender} />
         </Switch>
       </Page.Body>
     </>

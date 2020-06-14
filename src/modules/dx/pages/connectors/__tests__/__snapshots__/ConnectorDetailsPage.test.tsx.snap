@@ -1,0 +1,226 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ConnectorDetailsPage Snapshot should render ConnectorDetailsPage 1`] = `
+<div>
+  <div
+    class="Layout---horizontal--3rmQ StyledProps---main--1Wws container StyledProps---flex--2Jz8 StyledProps---padding-left-large--28UT StyledProps---padding-right-large--2vF9"
+    style="height: 64px;"
+  >
+    <h2
+      class="StyledProps---font--2ipy StyledProps---font-h2--3Vpc StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey800--2G2G"
+      level="2"
+    >
+      CONNECTORS
+    </h2>
+    <div
+      class="StyledProps---font--2ipy StyledProps---main--1Wws"
+    >
+      <div
+        class="Layout---horizontal--3rmQ Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+      >
+        <span
+          class="bp3-tag tags activeTag"
+        >
+          <span
+            class="bp3-text-overflow-ellipsis bp3-fill"
+          >
+            Connection
+          </span>
+        </span>
+        <span
+          class="bp3-tag tags"
+        >
+          <span
+            class="bp3-text-overflow-ellipsis bp3-fill"
+          >
+            Referenced by
+          </span>
+        </span>
+        <span
+          class="bp3-tag tags"
+        >
+          <span
+            class="bp3-text-overflow-ellipsis bp3-fill"
+          >
+            Activity History
+          </span>
+        </span>
+      </div>
+    </div>
+  </div>
+  <div
+    class="StyledProps---font--2ipy StyledProps---main--1Wws pageBody"
+  >
+    <div
+      class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+    >
+      <div
+        class="connectorDetails"
+      >
+        <div
+          class="StyledProps---font--2ipy StyledProps---main--1Wws ButtonGroup---btnGroup--1Q84"
+        >
+          <button
+            class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+            type="button"
+            value="visual"
+          >
+            <span
+              class="bp3-button-text"
+            >
+              Visual
+            </span>
+          </button>
+          <button
+            class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+            type="button"
+            value="yaml"
+          >
+            <span
+              class="bp3-button-text"
+            >
+              Yaml
+            </span>
+          </button>
+        </div>
+        <div
+          class="Layout---horizontal--3rmQ StyledProps---main--1Wws header"
+        >
+          <span
+            class="name"
+          >
+            Kubernetes Connector Details
+          </span>
+          <button
+            class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+            type="button"
+          >
+            <span
+              class="bp3-icon bp3-icon-edit StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+              icon="edit"
+            >
+              <svg
+                data-icon="edit"
+                height="16"
+                viewBox="0 0 16 16"
+                width="16"
+              >
+                <desc>
+                  edit
+                </desc>
+                <path
+                  d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
+            <span
+              class="bp3-button-text"
+            >
+              Edit Details
+            </span>
+          </button>
+        </div>
+        <div
+          class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws details"
+        >
+          <span
+            class="label"
+          >
+            Kubernetes Connector Name
+          </span>
+          <span
+            class="value"
+          >
+            Kubernetes connector
+          </span>
+        </div>
+        <div
+          class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws details"
+        >
+          <span
+            class="label"
+          >
+            Description
+          </span>
+          <span
+            class="value"
+          >
+            This is description
+          </span>
+        </div>
+        <div
+          class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws details"
+        >
+          <span
+            class="label"
+          >
+            Identifier
+          </span>
+          <span
+            class="value"
+          >
+            kubernetesidentifier
+          </span>
+        </div>
+        <div
+          class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws details"
+        >
+          <span
+            class="label"
+          >
+            Tags
+          </span>
+          <div
+            class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+          >
+            <span
+              class="Tag---main--1vng"
+            >
+              <span
+                class="bp3-tag bp3-minimal"
+              >
+                <span
+                  class="bp3-text-overflow-ellipsis bp3-fill"
+                >
+                  Tag1
+                </span>
+              </span>
+            </span>
+            <span
+              class="Tag---main--1vng"
+            >
+              <span
+                class="bp3-tag bp3-minimal"
+              >
+                <span
+                  class="bp3-text-overflow-ellipsis bp3-fill"
+                >
+                  Tag2
+                </span>
+              </span>
+            </span>
+          </div>
+        </div>
+        <div
+          class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws details"
+        >
+          <span
+            class="label"
+          >
+            Connection Mode
+          </span>
+          <span
+            class="value"
+          >
+            delegateMode
+          </span>
+        </div>
+      </div>
+      <div
+        class="connectorStats"
+      />
+    </div>
+  </div>
+</div>
+`;
