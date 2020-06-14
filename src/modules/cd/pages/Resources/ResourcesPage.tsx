@@ -20,9 +20,9 @@ const categories: Categories = {
   fileStore: i18n.fileStore
 }
 function ComponentToRender() {
-  const { connectorId } = useParams()
-  if (connectorId === 'connectors') return <ConnectorsList />
-  else return <div>{connectorId}</div>
+  const { category } = useParams()
+  if (category === 'connectors') return <ConnectorsList />
+  else return <div>{category}</div>
 }
 
 const ResourcesPage: React.FC = () => {
@@ -54,7 +54,7 @@ const ResourcesPage: React.FC = () => {
       <Page.Body>
         <Switch>
           <Route exact path={`${path}/`} component={ConnectorsList} />
-          <Route path={`${path}/:connectorId`} component={ComponentToRender} />
+          <Route path={`${path}/:category`} component={ComponentToRender} />
         </Switch>
       </Page.Body>
     </>
