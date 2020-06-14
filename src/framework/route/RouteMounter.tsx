@@ -28,7 +28,7 @@ export const RouteMounter: React.FC<RouteMounterProps> = ({ route, onEnter, onEx
   const params = useParams()
   const query = queryString.parse(window.location.href.split('?')[1])
 
-  activeRouteParams = { params, query }
+  activeRouteParams = { params: { ...params, accountId: (params as { accountId: string }).accountId || '' }, query }
 
   useEffect(() => {
     // TODO: Add accountName into title

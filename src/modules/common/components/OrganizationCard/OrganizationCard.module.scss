@@ -1,0 +1,11 @@
+.card {
+  .tagsncollabs {
+    padding-top: var(--spacing-large);
+    margin-left: -5px;
+    align-items: flex-end;
+
+    input {
+      display: none;
+    }
+  }
+}

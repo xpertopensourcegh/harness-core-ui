@@ -1,6 +1,7 @@
 import type { Route, RouteURLArgs } from 'framework/exports'
 import { loggerFor } from 'framework/logging/logging'
 import { ModuleName } from 'framework/types/ModuleName'
+import SessionToken from './SessionToken'
 
 const logger = loggerFor(ModuleName.FRAMEWORK)
 
@@ -18,6 +19,8 @@ export function buildLoginUrlFrom401Response(message?: string): string {
  * @param params Route entry's url() parameters.
  */
 export function linkTo(route: Route, params?: RouteURLArgs): string {
+  const accountId = SessionToken.accountId()
+
   if (params) {
     const nullableFields = Object.keys(params).filter(key => params[key] === null || params[key] === undefined)
     if (nullableFields?.length) {
@@ -31,5 +34,5 @@ export function linkTo(route: Route, params?: RouteURLArgs): string {
       })
     }
   }
-  return route.url(params)
+  return `/account/${accountId}` + route.url(params)
 }

@@ -14,7 +14,7 @@ export enum SidebarIdentifier {
   PROJECTS = 'PROJECTS',
   DEPLOYMENTS = 'DEPLOYMENTS',
   CONTINUOUS_VERIFICATION = 'CONTINUOUS_VERIFICATION',
-  SETTINGS = 'SETTINGS',
+  ACCOUNT = 'ACCOUNT',
   USER_PROFILE = 'USER_PROFILE',
 
   /** Special identifier to denote a route does not belong to a `SidebarEntry` */

@@ -91,7 +91,7 @@ const ProjectsListPage: React.FC = () => {
       />
 
       {loading ? (
-        <Page.Body center>
+        <Page.Body>
           <Text>{i18n.loading}</Text>
         </Page.Body>
       ) : projects.length > 0 ? (
@@ -99,7 +99,7 @@ const ProjectsListPage: React.FC = () => {
           <ProjectCards projects={projects} />
         </Page.Body>
       ) : (
-        <Page.Body center>
+        <Page.Body>
           <Page.NoDataCard
             icon="nav-project"
             message={i18n.aboutProject}

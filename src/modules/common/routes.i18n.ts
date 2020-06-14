@@ -4,5 +4,9 @@ export default {
   settings: 'Settings',
   login: 'Login',
   notFound: 'Page Not Found',
-  org: 'Organization'
+  organization: 'Organization',
+  admin: 'Admin',
+  organizations: 'Organizations',
+  governance: 'Governance',
+  resources: 'Resources'
 }

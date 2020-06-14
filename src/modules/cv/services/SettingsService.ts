@@ -1,5 +1,5 @@
 import xhr from '@wings-software/xhr-async'
-import type { ResponseWrapper } from 'modules/common/utils/HelperTypes'
+import type { ServiceResponse } from 'modules/common/services/ServiceResponse'
 import type {
   RestResponsePageResponseService,
   RestResponsePageResponseSettingAttribute
@@ -16,12 +16,10 @@ export async function fetchServices(
   appId: string,
   group = 'XHR_SERVICES_GROUP',
   accId: string
-): Promise<ResponseWrapper<RestResponsePageResponseService>> {
+): ServiceResponse<RestResponsePageResponseService> {
   return await xhr.get(Endpoints.fetchServices(appId, accId), { group }).as('services')
 }
 
-export async function fetchConnectors(
-  accountId: string
-): Promise<ResponseWrapper<RestResponsePageResponseSettingAttribute>> {
+export async function fetchConnectors(accountId: string): ServiceResponse<RestResponsePageResponseSettingAttribute> {
   return await xhr.get(Endpoints.fetchConnectors(accountId))
 }

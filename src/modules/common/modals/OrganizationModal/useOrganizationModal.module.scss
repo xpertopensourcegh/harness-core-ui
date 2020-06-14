@@ -1,0 +1,5 @@
+.modal {
+  [class*='bp3-dialog-header'] button {
+    z-index: 2;
+  }
+}

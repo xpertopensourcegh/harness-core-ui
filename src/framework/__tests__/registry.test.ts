@@ -10,4 +10,12 @@ describe('routeRegistry Tests', () => {
     const pageIds = Object.values(routeRegistry).map(({ pageId }) => pageId)
     expect(pageIds.length).toEqual(new Set(pageIds).size)
   })
+
+  test('All routes must have path start with / except 404 route', () => {
+    const invalidPaths = Object.values(routeRegistry).filter(({ path }) => !path.startsWith('/'))
+
+    // only "Page Not Found" should be in invalidPaths
+    expect(invalidPaths.length).toEqual(1)
+    expect(invalidPaths[0].path).toEqual('*')
+  })
 })

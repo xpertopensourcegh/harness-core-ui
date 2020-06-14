@@ -1,4 +1,4 @@
-import { ButtonProps, Button, Color, Heading, Icon, Layout, IconName } from '@wings-software/uikit'
+import { ButtonProps, Button, Color, Heading, Container, Icon, Layout, IconName } from '@wings-software/uikit'
 import React from 'react'
 
 export interface NoDataCardProps {
@@ -12,19 +12,19 @@ export interface NoDataCardProps {
   className?: string
 }
 
-export const NoDataCard: React.FC<NoDataCardProps> = props => {
-  return (
+export const NoDataCard: React.FC<NoDataCardProps> = props => (
+  <Container width="100%" height="100%" flex={{ align: 'center-center' }}>
     <Layout.Vertical
       spacing="medium"
       width={props?.width || 470}
-      style={{ alignItems: 'center', marginTop: '-250px' }}
+      style={{ alignItems: 'center', marginTop: '-48px' }}
       className={props.className}
     >
-      <Icon name={props.icon} size={props.iconSize || 100} color={Color.GREY_400} />
+      <Icon name={props.icon} size={props.iconSize || 48} color={Color.GREY_400} />
       <Heading level={2} font={{ align: 'center' }} color={Color.GREY_500}>
         {props.message}
       </Heading>
       <Button intent="primary" text={props.buttonText} width={props.buttonWidth} onClick={props.onClick} />
     </Layout.Vertical>
-  )
-}
+  </Container>
+)

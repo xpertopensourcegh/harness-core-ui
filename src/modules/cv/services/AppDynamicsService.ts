@@ -1,5 +1,5 @@
 import xhr from '@wings-software/xhr-async'
-import type { ResponseWrapper } from 'modules/common/utils/HelperTypes'
+import type { ServiceResponse } from 'modules/common/services/ServiceResponse'
 import type {
   RestResponseListNewRelicApplication,
   RestResponseSetAppdynamicsTier,
@@ -31,7 +31,7 @@ export async function fetchAppDynamicsApplications({
   accountId: string
   dataSourceId: string
   xhrGroup: string
-}): Promise<ResponseWrapper<RestResponseListNewRelicApplication>> {
+}): ServiceResponse<RestResponseListNewRelicApplication> {
   return await xhr.get(Endpoints.appdApplications(accountId, dataSourceId), { group: xhrGroup }).as('apps')
 }
 
@@ -45,7 +45,7 @@ export async function getAppDynamicsTiers({
   datasourceId: string
   appDynamicsAppId: string
   xhrGroup: string
-}): Promise<ResponseWrapper<RestResponseSetAppdynamicsTier>> {
+}): ServiceResponse<RestResponseSetAppdynamicsTier> {
   return await xhr.get(Endpoints.appdTier(accountId, datasourceId, appDynamicsAppId), { group: xhrGroup }).as('tiers')
 }
 
@@ -67,7 +67,7 @@ export async function validateMetricsApi({
   tierId: string
   guid: string
   xhrGroup: string
-}): Promise<ResponseWrapper<RestResponseSetAppdynamicsValidationResponse>> {
+}): ServiceResponse<RestResponseSetAppdynamicsValidationResponse> {
   return xhr.post(Endpoints.validateAppDMetrics(accountId, connectorId, projectId, appId, tierId, guid), {
     group: xhrGroup,
     data: metricPacks

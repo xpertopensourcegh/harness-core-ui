@@ -1,10 +1,5 @@
 .pageBody {
   height: calc(100% - 64px); /* 64px is PageHeader's height */
   overflow: auto;
-
-  &.center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+  position: relative;
 }

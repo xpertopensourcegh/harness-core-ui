@@ -67,7 +67,7 @@ exports[`ResourcesPage Snapshot should render ResourcesPage 1`] = `
     </div>
   </div>
   <div
-    class="StyledProps---font--2ipy StyledProps---main--1Wws pageBody StyledProps---padding-large--26zZ"
+    class="StyledProps---font--2ipy StyledProps---main--1Wws pageBody"
   >
     <div
       class="Layout---vertical--3Szv StyledProps---main--1Wws"

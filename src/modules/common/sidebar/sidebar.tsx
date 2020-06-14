@@ -1,7 +1,7 @@
 import { linkTo, SidebarEntry, SidebarIdentifier } from 'framework/exports'
-import { routeProject, routeUserProfile, routeSettings } from '../routes'
+import { routeProject, routeUserProfile, routeAdmin } from '../routes'
 import { MenuProjects } from './MenuProjects'
-import { MenuSettings } from './MenuSettings'
+import { MenuAccount } from './MenuAccount'
 import i18n from './sidebar.i18n'
 import { MenuUserProfile } from './MenuUserProfile'
 
@@ -19,8 +19,8 @@ export const Projects: SidebarEntry = {
   sidebarMenu: MenuProjects
 }
 
-export const Settings: SidebarEntry = {
-  sidebarId: SidebarIdentifier.SETTINGS,
+export const Account: SidebarEntry = {
+  sidebarId: SidebarIdentifier.ACCOUNT,
   title: i18n.settings,
   icon: {
     normal: 'nav-settings',
@@ -29,9 +29,9 @@ export const Settings: SidebarEntry = {
   },
   position: 'BOTTOM',
   url: _routeParams => {
-    return linkTo(routeSettings)
+    return linkTo(routeAdmin)
   },
-  sidebarMenu: MenuSettings
+  sidebarMenu: MenuAccount
 }
 
 export const UserProfile: SidebarEntry = {

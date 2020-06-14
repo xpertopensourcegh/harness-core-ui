@@ -1,4 +1,6 @@
 import xhr from '@wings-software/xhr-async'
+// TODO: Limit access to AppStorage by providing a better mechanism to get the token
+// AppStorage should not be exposed as it's a legacy
 import AppStorage from 'framework/utils/AppStorage'
 
 ///////////////// This section needs to move out //////////////////
@@ -21,5 +23,7 @@ xhr.before(({ headers }) => {
   if (AppStorage.get('token') && headers) {
     headers.authorization = 'Bearer ' + AppStorage.get('token')
   }
+
+  // TODO Filter out `undefined` from POST/PUT requests
 })
 /////////////////////////////////////////////////////////////////

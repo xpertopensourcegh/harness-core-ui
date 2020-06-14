@@ -1,5 +1,5 @@
 import xhr from '@wings-software/xhr-async'
-import type { ResponseWrapper } from 'modules/common/utils/HelperTypes'
+import type { ServiceResponse } from 'modules/common/services/ServiceResponse'
 import type { CVConfig, RestResponseListCVConfig, MetricPack } from '@wings-software/swagger-ts/definitions'
 
 export const Endpoints = {
@@ -22,7 +22,7 @@ export async function fetchConfigs({
 }: {
   accountId: string
   dataSourceConnectorId: string
-}): Promise<ResponseWrapper<RestResponseListCVConfig>> {
+}): ServiceResponse<RestResponseListCVConfig> {
   return xhr.get(Endpoints.nextgenCVConfigList(accountId, dataSourceConnectorId))
 }
 
@@ -34,7 +34,7 @@ export async function saveConfigs({
   accountId: string
   group: string
   configsToSave: CVConfig[]
-}): Promise<ResponseWrapper<RestResponseListCVConfig>> {
+}): ServiceResponse<RestResponseListCVConfig> {
   return xhr.post(Endpoints.nextgenCVConfigBatch(accountId), {
     group,
     data: configsToSave
@@ -49,7 +49,7 @@ export async function updateConfigs({
   accountId: string
   group: string
   configsToUpdate: CVConfig[]
-}): Promise<ResponseWrapper<RestResponseListCVConfig>> {
+}): ServiceResponse<RestResponseListCVConfig> {
   return xhr.put(Endpoints.nextgenCVConfigBatch(accountId), {
     group,
     data: configsToUpdate
@@ -64,7 +64,7 @@ export async function deleteConfigs({
   accountId: string
   group: string
   configsToDelete: string[]
-}): Promise<ResponseWrapper<RestResponseListCVConfig>> {
+}): ServiceResponse<RestResponseListCVConfig> {
   return xhr.delete(Endpoints.nextgenCVConfigBatch(accountId), {
     group,
     data: configsToDelete
@@ -83,6 +83,6 @@ export async function fetchMetricPacks({
   dataSourceType: CVConfig['type']
   excludeDetails: boolean
   group: string
-}): Promise<ResponseWrapper<MetricPack[]>> {
+}): ServiceResponse<MetricPack[]> {
   return xhr.get(Endpoints.metricPack(accountId, projectId, dataSourceType, excludeDetails), { group })
 }

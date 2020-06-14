@@ -36,6 +36,6 @@ export const sidebarRegistry: SidebarRegistry = [
   CommonSidebar.Projects,
   CDSidebar.Deployments,
   CVSidebar.CVDashboard,
-  CommonSidebar.Settings,
+  CommonSidebar.Account,
   CommonSidebar.UserProfile
 ]

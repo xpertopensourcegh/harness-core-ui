@@ -8,7 +8,7 @@ import { routeParams } from 'framework/route/RouteMounter'
 import { SidebarTitle } from './components/SidebarTitle'
 import { SidebarLink } from './components/SidebarLink'
 
-const ICON_SIZE = 32
+const ICON_SIZE = 24
 const BOTTOM = 'BOTTOM'
 
 const SidebarItem = (sidebarEntry: SidebarEntry, route?: Route): JSX.Element => {

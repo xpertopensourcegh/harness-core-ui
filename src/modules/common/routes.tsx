@@ -14,14 +14,44 @@ export const routeLogin: Route = {
   authenticated: false
 }
 
-export const routeOrg: Route = {
+export const routeOrganizations: Route = {
   module: ModuleName.COMMON,
-  sidebarId: SidebarIdentifier.PROJECTS, // TODO: to be revised. Org might have their own place and not in Projects
-  path: '/org/:orgId?',
-  title: i18n.org,
-  pageId: 'org',
-  url: (params: RouteURLArgs) => `/org${params?.orgId ? `/${params.orgId}` : ''}`,
-  component: React.lazy(() => import('./pages/org/OrgPage'))
+  sidebarId: SidebarIdentifier.ACCOUNT,
+  path: '/organizations',
+  title: i18n.organization,
+  pageId: 'organization',
+  url: () => `/organizations`,
+  component: React.lazy(() => import('./pages/organizations/OrganizationsPage'))
+}
+
+export const routeAdmin: Route = {
+  module: ModuleName.COMMON,
+  sidebarId: SidebarIdentifier.ACCOUNT,
+  path: '/admin',
+  title: i18n.admin,
+  pageId: 'admin',
+  url: (_params: RouteURLArgs) => '/admin',
+  component: React.lazy(() => import('./pages/admin/AdminPage'))
+}
+
+export const routeGovernance: Route = {
+  module: ModuleName.COMMON,
+  sidebarId: SidebarIdentifier.ACCOUNT,
+  path: '/governance',
+  title: i18n.governance,
+  pageId: 'governance',
+  url: (_params: RouteURLArgs) => '/governance',
+  component: React.lazy(() => import('./pages/governance/GovernancePage'))
+}
+
+export const routeResources: Route = {
+  module: ModuleName.COMMON,
+  sidebarId: SidebarIdentifier.ACCOUNT,
+  path: '/resources',
+  title: i18n.resources,
+  pageId: 'resources',
+  url: (_params: RouteURLArgs) => '/resources',
+  component: React.lazy(() => import('./pages/resources/ResourcesPage'))
 }
 
 export const routeProject: Route = {
@@ -48,7 +78,7 @@ export const routePageNotFound: Route = {
 
 export const routeSettings: Route = {
   module: ModuleName.COMMON,
-  sidebarId: SidebarIdentifier.SETTINGS, // TODO: To be revised - The layers icon might not Settings
+  sidebarId: SidebarIdentifier.ACCOUNT, // TODO: To be revised - The layers icon might not Settings
   path: '/settings',
   title: i18n.settings,
   pageId: 'settings',

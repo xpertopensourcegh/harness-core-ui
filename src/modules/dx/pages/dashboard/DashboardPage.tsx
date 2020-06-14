@@ -14,7 +14,7 @@ const DashboardPage: React.FC = () => {
           </Container>
         }
       />
-      <Page.Body center>
+      <Page.Body>
         <Page.NoDataCard
           icon="nav-dashboard"
           message={i18n.noData}

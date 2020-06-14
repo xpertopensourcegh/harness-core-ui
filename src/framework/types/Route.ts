@@ -1,7 +1,7 @@
 import type { PageLayout, ModuleName, SidebarIdentifier } from 'framework/exports'
 
 /** Optional arguments passed into Route url() generator */
-export type RouteURLArgs = Record<string, string | number> | undefined
+export type RouteURLArgs = Record<string, string | number | null | undefined> | undefined
 
 /**
  * Route represents a route alongside its page binding.

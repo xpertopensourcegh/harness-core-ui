@@ -7,7 +7,7 @@ import xhr from '@wings-software/xhr-async'
 import css from './DataSourceSelectEntityTable.module.scss'
 import type { IHTMLTableProps } from '@blueprintjs/core'
 import type { Cell, Column } from 'react-table'
-import type { ResponseWrapper } from 'modules/common/utils/HelperTypes'
+import type { ServiceResponse } from 'modules/common/services/ServiceResponse'
 
 type TableEntityCell = {
   selected: boolean
@@ -51,7 +51,7 @@ const VerificationTypeEntityCall: {
       accountId: string
       dataSourceId: string
       xhrGroup: string
-    }) => Promise<ResponseWrapper<any, 'response'>>
+    }) => ServiceResponse<any, 'response'>
     transformResponseFunc: (response: any) => SelectOption[]
   }
 } = {

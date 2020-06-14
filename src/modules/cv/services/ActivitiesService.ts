@@ -1,5 +1,5 @@
 import type { ThirdPartyApiCallLog } from '@wings-software/swagger-ts/definitions'
-import type { ResponseWrapper } from 'modules/common/utils/HelperTypes'
+import type { ServiceResponse } from 'modules/common/services/ServiceResponse'
 import xhr from '@wings-software/xhr-async'
 
 export const Endpoints = {
@@ -15,6 +15,6 @@ export async function fetchApiCallLogs({
   entityIdentifier: string
   appId: string
   xhrGroup: string
-}): Promise<ResponseWrapper<ThirdPartyApiCallLog[]>> {
+}): ServiceResponse<ThirdPartyApiCallLog[]> {
   return xhr.get(Endpoints.callLogs(entityIdentifier, appId), { group: xhrGroup })
 }
