@@ -22,9 +22,36 @@
       border-color: var(--diagram-selected);
     }
   }
+
+  &:hover .defaultCard {
+    border-width: 2px;
+    border-color: var(--diagram-selected);
+  }
+  &:hover .closeNode {
+    visibility: initial;
+  }
+
   .secondaryIcon {
     position: absolute;
     bottom: 2px;
     right: 2px;
+  }
+
+  .closeNode {
+    position: absolute;
+    top: 5px;
+    visibility: hidden;
+    display: flex;
+    justify-content: center;
+    left: -19px;
+    background-color: var(--grey-250) !important;
+    padding: 2px;
+    min-width: 17px !important;
+    min-height: 17px !important;
+    height: 17px !important;
+    padding: 0 !important;
+    align-items: center;
+    z-index: 1;
+    cursor: pointer;
   }
 }

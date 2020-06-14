@@ -9,18 +9,6 @@ import { Layout, Text, CardBody, IconName, Card } from '@wings-software/uikit'
 const data: GraphObj[] = [
   {
     step: {
-      type: StepType.HTTP,
-      name: 'http step 1',
-      identifier: 'http-step-1',
-      spec: {
-        socketTimeoutMillis: 1000,
-        method: 'GET',
-        url: 'http://localhost:8080/temp-1.json'
-      }
-    }
-  },
-  {
-    step: {
       type: StepType.APPROVAL,
       name: 'Jira Approval',
       identifier: 'jira-approval-1',
@@ -64,18 +52,6 @@ const data: GraphObj[] = [
       type: StepType.HTTP,
       name: 'http step 4',
       identifier: 'http-step-4',
-      spec: {
-        socketTimeoutMillis: 1000,
-        method: 'GET',
-        url: 'http://localhost:8080/temp-4.json'
-      }
-    }
-  },
-  {
-    step: {
-      type: StepType.HTTP,
-      name: 'http step 7',
-      identifier: 'http-step-7',
       spec: {
         socketTimeoutMillis: 1000,
         method: 'GET',
@@ -232,6 +208,9 @@ const ExecutionGraph = (): JSX.Element => {
         [Diagram.Event.SelectionChanged]: (event: any) => {
           const _event = event as Diagram.DefaultNodeEvent
           setState(prevState => ({ ...prevState, isDrawerOpen: _event.isSelected, entity: _event.entity }))
+        },
+        [Diagram.Event.RemoveNode]: (_event: any) => {
+          // console.log(event)
         }
       })
     }

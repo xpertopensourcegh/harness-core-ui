@@ -41,7 +41,7 @@ export class DiagramModel<G extends DiagramModelGenerics = DiagramModelGenerics>
     return isNil(nodeRendered)
   }
 
-  protected connectedParentToNode(node: DefaultNodeModel, parent: DefaultNodeModel, isParallel = false): void {
+  protected connectedParentToNode(node: DefaultNodeModel, parent: DefaultNodeModel): void {
     const inPort = node.getPort('In') || node.addInPort('In')
     const links = inPort.getLinks()
     let isConnectedToParent = false
@@ -55,7 +55,7 @@ export class DiagramModel<G extends DiagramModelGenerics = DiagramModelGenerics>
     if (!isConnectedToParent) {
       const parentPort = parent.getPort('Out') || parent.addOutPort('Out')
       if (parentPort && inPort) {
-        const link = new DefaultLinkModel({ color: isParallel ? 'orange' : 'gray' })
+        const link = new DefaultLinkModel()
         link.setSourcePort(parentPort)
         link.setTargetPort(inPort)
         this.addLink(link)

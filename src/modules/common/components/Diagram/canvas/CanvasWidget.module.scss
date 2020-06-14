@@ -1,5 +1,9 @@
 .canvas {
   --diagram-grey: #b3b3b3;
+  --diagram-light-grey: #f2f2f2;
   --diagram-selected: #25a6f7;
-  --diagram-start-node: #58a790;
+  --diagram-link: #25a6f7;
+  --diagram-start-node: #67c900;
+  --diagram-stop-node: #d55559;
+  --diagram-hover-link-color: #f78f00;
 }

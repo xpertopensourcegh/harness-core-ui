@@ -4,24 +4,38 @@ import { DefaultPortModel } from '../../port/DefaultPortModel'
 
 export interface NodeStartModelOptions extends Omit<DefaultNodeModelOptions, 'name'> {
   color?: string
+  isStart?: boolean
 }
 
 export class NodeStartModel extends DefaultNodeModel {
   color: string
+  isStart: boolean
 
   constructor(options: NodeStartModelOptions = {}) {
+    const { isStart = true } = options
     super({
       ...options,
       type: DiagramType.StartNode,
-      name: 'Start'
+      icon: isStart ? 'play' : 'stop',
+      name: isStart ? 'Start' : 'Stop'
     })
-    this.color = options.color || 'var(--diagram-start-node)'
-    this.addPort(
-      new DefaultPortModel({
-        in: false,
-        name: 'Out'
-      })
-    )
+    this.isStart = isStart
+    this.color = isStart ? 'var(--diagram-start-node)' : 'var(--diagram-stop-node)'
+    if (this.isStart) {
+      this.addPort(
+        new DefaultPortModel({
+          in: false,
+          name: 'Out'
+        })
+      )
+    } else {
+      this.addPort(
+        new DefaultPortModel({
+          in: true,
+          name: 'In'
+        })
+      )
+    }
   }
 
   serialize(): any {
