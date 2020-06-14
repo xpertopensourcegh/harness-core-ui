@@ -3,7 +3,8 @@ module.exports = {
   globals: {
     'ts-jest': {
       isolatedModules: true
-    }
+    },
+    __DEV__: false
   },
   setupFiles: [],
   collectCoverageFrom: ['src/**/*.{ts,tsx}', '!src/**/*.test.{ts,tsx}', '!src/**/__tests__/**'],
