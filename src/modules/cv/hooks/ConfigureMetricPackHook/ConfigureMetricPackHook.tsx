@@ -5,8 +5,8 @@ import type { MetricPack } from '@wings-software/swagger-ts/definitions'
 
 function transformConfigMetricPackToMap(metricPacks: MetricPack[], metricPackMapApi: Map<string, MetricPack>): void {
   metricPacks?.forEach(metricPack => {
-    if (metricPack?.name) {
-      metricPackMapApi.set(metricPack.name, metricPack)
+    if (metricPack?.identifier) {
+      metricPackMapApi.set(metricPack.identifier, metricPack)
     }
   })
 }
@@ -75,7 +75,7 @@ export function useMetricPackHook(configMetricPack: MetricPack[], metricPackMap:
   )
 
   const selectedMetricPackObjs = useMemo(
-    () => selectedMetricPacks.map(pack => configMetricPackMap.get(pack?.name || '')),
+    () => selectedMetricPacks.map(pack => configMetricPackMap.get(pack?.identifier || '')),
     [selectedMetricPacks, configMetricPackMap]
   )
 

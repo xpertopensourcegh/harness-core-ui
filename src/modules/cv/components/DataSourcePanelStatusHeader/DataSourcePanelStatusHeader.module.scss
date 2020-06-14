@@ -1,6 +1,9 @@
 .main {
   display: flex;
   align-items: center;
+  .title {
+    height: 17px;
+  }
   .tag {
     margin-left: var(--spacing-xsmall);
     font-size: 12px !important;
@@ -11,20 +14,14 @@
     background-color: var(--red-300);
   }
   .tagSuccess {
-    position: relative;
-    bottom: 2px;
     background-color: var(--green-300);
   }
 
   .tagUnsavedChanges {
-    position: relative;
-    bottom: 2px;
     background-color: var(--grey-300);
   }
 
   .tagEditing {
-    position: relative;
-    bottom: 2px;
     background-color: var(--blue-300);
   }
 }

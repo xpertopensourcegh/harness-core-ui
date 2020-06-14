@@ -35,9 +35,11 @@ export default function DataSourcePanelStatusHeader(props: DataSourcePanelStatus
   }, [intent, message])
   return (
     <Container className={css.main}>
-      <Text font={{ weight: 'bold' }} lineClamp={1}>
-        {panelName}
-      </Text>
+      <Container className={css.title}>
+        <Text font={{ weight: 'bold' }} width={80} lineClamp={1}>
+          {panelName}
+        </Text>
+      </Container>
       {message && text}
     </Container>
   )

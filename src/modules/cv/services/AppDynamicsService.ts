@@ -10,13 +10,13 @@ import type {
 export const Endpoints = {
   appdApplications: (accountId: string, dataSourceId: string) =>
     `/api/appdynamics/applications?accountId=${accountId}&settingId=${dataSourceId}`,
-  appdTier: (accountId: string, dataSourceId: string, appDynamicsAppId: string) =>
+  appdTier: (accountId: string, dataSourceId: string, appDynamicsAppId: number) =>
     `/api/appdynamics/tiers?accountId=${accountId}&settingId=${dataSourceId}&appdynamicsAppId=${appDynamicsAppId}`,
   validateAppDMetrics: (
     accountId: string,
     connectorId: string,
     projectId: string,
-    appId: string,
+    appId: number,
     tierId: number,
     guid: string
   ) =>
@@ -43,7 +43,7 @@ export async function getAppDynamicsTiers({
 }: {
   accountId: string
   datasourceId: string
-  appDynamicsAppId: string
+  appDynamicsAppId: number
   xhrGroup: string
 }): ServiceResponse<RestResponseSetAppdynamicsTier> {
   return await xhr.get(Endpoints.appdTier(accountId, datasourceId, appDynamicsAppId), { group: xhrGroup }).as('tiers')
@@ -62,7 +62,7 @@ export async function validateMetricsApi({
   accountId: string
   connectorId: string
   projectId: string
-  appId: string
+  appId: number
   metricPacks: MetricPack[]
   tierId: number
   guid: string

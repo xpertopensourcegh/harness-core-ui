@@ -21,5 +21,8 @@
       color: var(--grey-900);
       margin-top: 20px;
     }
+    &[class*='selected'] {
+      box-shadow: none;
+    }
   }
 }

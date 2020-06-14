@@ -13,20 +13,21 @@ import AppDynamicsMainSetupView from '../AppDynamics/AppDynamicsMainSetupView'
 import css from './BaseOnBoardingSetupPage.module.scss'
 import SplunkOnboarding from '../Splunk/SplunkOnboarding'
 import { accountId, connectorId, appId } from 'modules/cv/constants'
+import { Page } from 'modules/common/exports'
 
 const XHR_SERVICES_GROUP = 'XHR_SERVICES_GROUP'
 
 const iconAndSubtextMapper: any = {
-  'APP_DYNAMICS': {
+  APP_DYNAMICS: {
     iconName: 'service-appdynamics',
     iconSubText: 'App Dynamics',
     pageHeading: 'Map your app and tiers to a Harness service and environment'
   },
-  'SPLUNK': {
+  SPLUNK: {
     iconName: 'service-splunk',
     iconSubText: 'Splunk',
     pageHeading: 'Map your query to a Harness service and environment'
-  },
+  }
 }
 
 function getDefaultCVConfig(
@@ -94,7 +95,8 @@ export default function OnBoardingSetupPage(): JSX.Element {
     } else if (locationContext.isEdit) {
       CVNextGenCVConfigService.fetchConfigs({
         accountId,
-        dataSourceConnectorId: dataSourceId
+        dataSourceConnectorId: dataSourceId,
+        productName: locationContext.products[0]
       }).then(({ status, error, response }) => {
         if (status === xhr.ABORTED) {
           return
@@ -117,20 +119,24 @@ export default function OnBoardingSetupPage(): JSX.Element {
   }, [])
 
   return (
-    <Container className={css.main}>
-      <OnBoardingConfigSetupHeader
-        iconName={iconAndSubtextMapper[verificationType!].iconName}
-        iconSubText={iconAndSubtextMapper[verificationType!].iconSubText}
-        pageHeading={iconAndSubtextMapper[verificationType!].pageHeading}
-      />
-      {verificationType === 'APP_DYNAMICS' && (
-        <AppDynamicsMainSetupView
-          serviceOptions={serviceOptions}
-          configs={configsToRender as AppDynamicsOnboardingUtils.DSConfigTableData[]}
-          locationContext={locationContext}
+    <Page.Body>
+      <Container className={css.main}>
+        <OnBoardingConfigSetupHeader
+          iconName={iconAndSubtextMapper[verificationType!].iconName}
+          iconSubText={iconAndSubtextMapper[verificationType!].iconSubText}
+          pageHeading={iconAndSubtextMapper[verificationType!].pageHeading}
         />
-      )}
-      {verificationType === 'SPLUNK' && <SplunkOnboarding serviceOptions={serviceOptions} configs={configsToRender} />}
-    </Container>
+        {verificationType === 'APP_DYNAMICS' && (
+          <AppDynamicsMainSetupView
+            serviceOptions={serviceOptions}
+            configs={configsToRender as AppDynamicsOnboardingUtils.DSConfigTableData[]}
+            locationContext={locationContext}
+          />
+        )}
+        {verificationType === 'SPLUNK' && (
+          <SplunkOnboarding serviceOptions={serviceOptions} configs={configsToRender} />
+        )}
+      </Container>
+    </Page.Body>
   )
 }

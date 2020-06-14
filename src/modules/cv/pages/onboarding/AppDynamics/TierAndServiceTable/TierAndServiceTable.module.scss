@@ -9,16 +9,17 @@
 
   .serviceSelect {
     [class~='bp3-input'] {
-      min-width: 100px;
-      max-width: 170px;
+      width: 100px;
       height: 20px !important;
       color: var(--black);
       border: none !important;
       background: transparent !important;
+      position: relative;
+      top: 2px;
     }
     [class~='bp3-input-action'] > span {
       position: relative;
-      bottom: 8px;
+      bottom: 5px;
     }
   }
   .tierSelectChecBox {
@@ -33,9 +34,9 @@
   }
 
   .validationResult {
-    width: 200px;
+    width: 100px;
     position: relative;
-    top: 4px;
+    top: 2px;
     .validationContainer {
       display: flex;
       align-items: center;

@@ -1,13 +1,24 @@
 import xhr from '@wings-software/xhr-async'
 import type { ServiceResponse } from 'modules/common/services/ServiceResponse'
-import type { CVConfig, RestResponseListCVConfig, MetricPack, DSConfig } from '@wings-software/swagger-ts/definitions'
+import type {
+  MetricPack,
+  DSConfig,
+  RestResponseListDSConfig,
+  RestResponseListString
+} from '@wings-software/swagger-ts/definitions'
 
 export const Endpoints = {
-  upsertDSConfig: (accountId: string) => `https://localhost:9090/api/cv-nextgen/dsconfig?accountId=${accountId}`,
-  nextgenCVConfigList: (accountId: string, dataSourceConnectorId: string) =>
-    `https://localhost:9090/api/cv-nextgen/cv-config/list?accountId=${accountId}&connectorId=${dataSourceConnectorId}`,
-  metricPack: (accountId: string, projectId: string, dataSourceType: CVConfig['type']) =>
-    `https://localhost:9090/api/cv-nextgen/metric-pack/metric-packs?accountId=${accountId}&projectIdentifier=${projectId}&dataSourceType=${dataSourceType}`
+  upsertDSConfig: (accountId: string) => `/api/cv-nextgen/ds-config?accountId=${accountId}`,
+  deleteDSConfig: (accountId: string, identifier: string, dataSourceConnectorId: string, productName?: string) =>
+    `/api/cv-nextgen/ds-config?accountId=${accountId}&connectorId=${dataSourceConnectorId}&identifier=${identifier}${
+      productName ? `&productName=${productName}` : ''
+    }`,
+  fetchDSConfigs: (accountId: string, dataSourceConnectorId: string, productName: string) =>
+    `/api/cv-nextgen/ds-config?accountId=${accountId}&connectorId=${dataSourceConnectorId}&productName=${productName}`,
+  fetchDSProducts: (accountId: string, dataSourceConnectorId: string) =>
+    `/api/cv-nextgen/cv-config/product-names?accountId=${accountId}&connectorId=${dataSourceConnectorId}`,
+  metricPack: (accountId: string, projectId: string, dataSourceType: DSConfig['type']) =>
+    `/api/cv-nextgen/metric-pack/metric-packs?accountId=${accountId}&projectIdentifier=${projectId}&dataSourceType=${dataSourceType}`
 }
 
 export async function fetchQueriesFromSplunk({ accountId, dataSourceId = '', xhrGroup }: any) {
@@ -17,12 +28,14 @@ export async function fetchQueriesFromSplunk({ accountId, dataSourceId = '', xhr
 
 export async function fetchConfigs({
   accountId,
-  dataSourceConnectorId
+  dataSourceConnectorId,
+  productName
 }: {
   accountId: string
   dataSourceConnectorId: string
-}): ServiceResponse<RestResponseListCVConfig> {
-  return xhr.get(Endpoints.nextgenCVConfigList(accountId, dataSourceConnectorId))
+  productName: string
+}): ServiceResponse<RestResponseListDSConfig> {
+  return xhr.get(Endpoints.fetchDSConfigs(accountId, dataSourceConnectorId, productName))
 }
 
 export async function upsertDSConfig({
@@ -42,16 +55,19 @@ export async function upsertDSConfig({
 
 export async function deleteConfigs({
   accountId,
-  group,
-  configsToDelete
+  productName,
+  identifier,
+  dataSourceConnectorId,
+  group
 }: {
   accountId: string
+  productName?: string
+  identifier: string
+  dataSourceConnectorId: string
   group: string
-  configsToDelete: string[]
-}): ServiceResponse<RestResponseListCVConfig> {
-  return xhr.delete(Endpoints.saveDSConfig(accountId), {
-    group,
-    data: configsToDelete
+}): ServiceResponse<void> {
+  return xhr.delete(Endpoints.deleteDSConfig(accountId, identifier, dataSourceConnectorId, productName), {
+    group
   })
 }
 
@@ -63,8 +79,20 @@ export async function fetchMetricPacks({
 }: {
   accountId: string
   projectId: string
-  dataSourceType: CVConfig['type']
+  dataSourceType: DSConfig['type']
   group: string
 }): ServiceResponse<MetricPack[]> {
   return xhr.get(Endpoints.metricPack(accountId, projectId, dataSourceType), { group })
+}
+
+export async function fetchProducts({
+  accountId,
+  dataSourceConnectorId,
+  group
+}: {
+  group: string
+  accountId: string
+  dataSourceConnectorId: string
+}): ServiceResponse<RestResponseListString> {
+  return xhr.get(Endpoints.fetchDSProducts(accountId, dataSourceConnectorId), { group })
 }

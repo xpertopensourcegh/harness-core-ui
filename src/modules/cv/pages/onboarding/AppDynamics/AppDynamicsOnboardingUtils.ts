@@ -37,8 +37,9 @@ export function createDefaultConfigObject(
     metricPackList: [],
     tableData: [],
     envIdentifier: '',
-    projectIdentifier: '',
+    projectIdentifier: 'harness',
     productName,
+    identifier: '',
     applicationName: appName
   }
 }
@@ -78,8 +79,8 @@ export function transformGetConfigs(appDConfigs: AppDynamicsDSConfig[]): DSConfi
   return appsToAppDConfigs
 }
 
-export function transformToSaveConfig(appDConfig: DSConfigTableData): AppDynamicsDSConfig[] {
-  const clonedConfig: DSConfigTableData = { ...appDConfig }
+export function transformToSaveConfig(appDConfig: DSConfig): AppDynamicsDSConfig {
+  const clonedConfig: DSConfigTableData = { ...appDConfig } as DSConfigTableData
 
   const { tableData = [] } = clonedConfig || {}
 
@@ -87,11 +88,12 @@ export function transformToSaveConfig(appDConfig: DSConfigTableData): AppDynamic
   delete clonedConfig.tableData
   delete clonedConfig.metricPackList
   clonedConfig.serviceMappings = []
+  clonedConfig.identifier = clonedConfig.applicationName
   for (const tableRow of tableData) {
     if (tableRow.selected && tableRow.service && tableRow.tierName) {
       clonedConfig.serviceMappings.push({ tierName: tableRow.tierName, serviceIdentifier: tableRow.service })
     }
   }
 
-  return [clonedConfig]
+  return clonedConfig
 }

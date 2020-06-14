@@ -1,16 +1,25 @@
 import React, { useState, useCallback, useMemo, useEffect } from 'react'
-import { Container, FormInput, SelectOption, CollapseList, FormikForm, Text, Select, Link } from '@wings-software/uikit'
+import {
+  Container,
+  FormInput,
+  SelectOption,
+  CollapseList,
+  FormikForm,
+  Select,
+  Link,
+  ListPanelInterface
+} from '@wings-software/uikit'
 import TierAndServiceTable from './TierAndServiceTable/TierAndServiceTable'
 import css from './AppDynamicsMainSetupView.module.scss'
 import xhr from '@wings-software/xhr-async'
 import {
   DSConfigTableData,
   transformAppDynamicsApplications,
-  createDefaultConfigObject
+  createDefaultConfigObject,
+  transformToSaveConfig
 } from './AppDynamicsOnboardingUtils'
 import { FieldArray, FormikProps, Formik } from 'formik'
 import { AppDynamicsService } from 'modules/cv/services'
-import { Page } from 'modules/common/exports'
 import { CustomizeMetricPackDrawer } from 'modules/cv/components/CustomizeMetricPackDrawer/CustomizeMetricPackDrawer'
 import { useMetricPackHook, fetchMetricPacks } from 'modules/cv/hooks/ConfigureMetricPackHook/ConfigureMetricPackHook'
 import type { MetricPack, DSConfig } from '@wings-software/swagger-ts/definitions'
@@ -176,24 +185,20 @@ function AppDynamicsConfig(props: AppDynamicsConfigProps): JSX.Element {
       <Container className={css.tableContainer}>
         <FormInput.CustomRender
           name={`dsConfigs[${index}].tableData`}
-          render={formik => (
+          render={() => (
             <TierAndServiceTable
               appId={appdApplicationId}
               metricPacks={config.metricPacks}
               index={index}
-              data={formik.values}
-              setFieldTouched={formik.setFieldTouched}
-              setFieldValue={formik.setFieldValue}
+              data={config.tableData}
+              setFieldTouched={formikProps.setFieldTouched}
+              setFieldValue={formikProps.setFieldValue}
               accountId={accountId}
               serviceOptions={serviceOptions}
               dataSourceId={dataSourceId}
             />
           )}
         />
-
-        {/* {formikProps.errors?.dsConfigs?.[index]?.tableData && formikProps.touched?.dsConfigs?.[index]?.tableData ? (
-          <Text intent="danger">{formikProps.errors?.dsConfigs?.[index]?.tableData}</Text>
-        ) : undefined} */}
       </Container>
       {displayMetricPackDrawer ? (
         <CustomizeMetricPackDrawer
@@ -244,28 +249,31 @@ function AppDynamicsDataSourceForm(props: AppDynamicsDataSourceFormProps): JSX.E
                     />
                   </Container>
                   <CollapseList defaultOpenIndex={0}>
-                    {formikProps.values.dsConfigs?.map((configData: DSConfigTableData, index: number) => (
-                      <DataSourceConfigPanel
-                        key={configData.applicationName}
-                        entityName={configData.applicationName || ''}
-                        onRemove={arrayHelpers.remove}
-                        index={index}
-                        validate={validateConfig}
-                      >
-                        <AppDynamicsConfig
+                    {
+                      formikProps.values.dsConfigs?.map((configData: DSConfigTableData, index: number) => (
+                        <DataSourceConfigPanel
                           key={configData.applicationName}
-                          config={configData}
+                          entityName={configData.applicationName || ''}
+                          onRemove={arrayHelpers.remove}
                           index={index}
-                          appdApplicationId={
-                            (appDApplications.get(configData.applicationName || '')?.value as number) || -1
-                          }
-                          formikProps={formikProps}
-                          serviceOptions={serviceOptions}
-                          dataSourceId={dataSourceId}
-                          metricPackMap={metricPackMap}
-                        />
-                      </DataSourceConfigPanel>
-                    ))}
+                          transformToSavePayload={transformToSaveConfig}
+                          validate={validateConfig}
+                        >
+                          <AppDynamicsConfig
+                            key={configData.applicationName}
+                            config={configData}
+                            index={index}
+                            appdApplicationId={
+                              (appDApplications.get(configData.applicationName || '')?.value as number) || -1
+                            }
+                            formikProps={formikProps}
+                            serviceOptions={serviceOptions}
+                            dataSourceId={dataSourceId}
+                            metricPackMap={metricPackMap}
+                          />
+                        </DataSourceConfigPanel>
+                      )) as ListPanelInterface[]
+                    }
                   </CollapseList>
                 </>
               )}
@@ -287,14 +295,14 @@ export default function AppDynamicsMainSetupView(props: AppDynamicsMainSetupView
       if (appDApplicationsOptions?.length) {
         const appNameToId = new Map<string, SelectOption>()
         appDApplicationsOptions.forEach(option => {
-          appNameToId.set(option.label as string, option)
+          appNameToId.set(option.label, option)
         })
         setAppDApplications(appNameToId)
       }
     })
     fetchMetricPacks({
       accountId,
-      projectId: 12345,
+      projectId: '12345',
       dataSourceType: 'APP_DYNAMICS',
       group: XHR_METRIC_PACK_GROUP
     }).then(({ error, metricPackMap: metricPacks }) => {
@@ -310,15 +318,13 @@ export default function AppDynamicsMainSetupView(props: AppDynamicsMainSetupView
   }, [])
 
   return (
-    <Page.Body>
-      <AppDynamicsDataSourceForm
-        configList={configs}
-        serviceOptions={serviceOptions}
-        dataSourceId={connectorId}
-        metricPackMap={metricPackMap}
-        productName={locationContext.products?.[0]}
-        appDApplications={appDApplications}
-      />
-    </Page.Body>
+    <AppDynamicsDataSourceForm
+      configList={configs}
+      serviceOptions={serviceOptions}
+      dataSourceId={connectorId}
+      metricPackMap={metricPackMap}
+      productName={locationContext.products?.[0]}
+      appDApplications={appDApplications}
+    />
   )
 }

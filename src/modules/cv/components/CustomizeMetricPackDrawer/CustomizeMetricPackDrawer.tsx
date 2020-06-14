@@ -40,8 +40,8 @@ export function CustomizeMetricPackDrawer(props: CustomizeMetricPackDrawerProps)
         {localMetricPacks.map((metricPack, index) => {
           return (
             <MetricPackTable
-              key={metricPack.name}
-              metricPackName={metricPack.name || ''}
+              key={metricPack.identifier}
+              metricPackName={metricPack.identifier || ''}
               metrics={metricPack || []}
               onChange={(updatedMetricPack: MetricPack) => {
                 const newLocalMetricPacks = [...localMetricPacks]
