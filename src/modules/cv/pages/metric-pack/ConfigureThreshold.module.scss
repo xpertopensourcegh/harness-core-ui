@@ -1,16 +1,15 @@
 .main {
-  width: 800px;
-  margin: 0 36px;
-  .heading {
-    margin-top: 24px;
-    color: #000;
-  }
-
   .addBtn {
     display: flex;
     justify-content: flex-end;
     margin-top: -12px;
     margin-bottom: 12px;
+  }
+
+  :global {
+    [class~='bp3-tab'] {
+      margin-top: 0;
+    }
   }
 
   .mainSection {

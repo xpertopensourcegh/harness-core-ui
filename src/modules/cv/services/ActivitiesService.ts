@@ -4,7 +4,7 @@ import xhr from '@wings-software/xhr-async'
 
 export const Endpoints = {
   callLogs: (entityIdentifier: string, appId: string) =>
-    `https://localhost:9090/api/activities/${encodeURI(entityIdentifier)}/api-call-logs?appId=${appId}`
+    `/api/activities/${encodeURI(entityIdentifier)}/api-call-logs?appId=${appId}`
 }
 
 export async function fetchApiCallLogs({
