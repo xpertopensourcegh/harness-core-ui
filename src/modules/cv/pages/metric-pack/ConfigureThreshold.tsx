@@ -7,24 +7,19 @@ import { Formik, FormikForm, FormInput, Button } from '@wings-software/uikit'
 import * as Yup from 'yup'
 import { accountId, projectIdentifier } from 'modules/cv/constants'
 import { saveMerics, getMerics } from './ConfigureThresholdService'
-import type { MetricPack, DSConfig, TimeSeriesThresholdCriteria } from '@wings-software/swagger-ts/definitions'
-import type { SelectOption } from 'modules/common/pages/ProjectsPage/views/StepTwo'
 
-const criteriaOptions = [
-  { label: 'greater than', value: 'GREATER_THAN' },
-  { label: 'less than', value: 'LESS_THAN' }
+const criteriaOptions = [{ label: 'greater than', value: 'GREATER_THAN' }, { label: 'less than', value: 'LESS_THAN' }]
+
+const typeOptions: Array<{ label: string; value: string }> = [
+  { label: 'Absolute', value: 'absolute-value' },
+  { label: 'Delta', value: 'delta' },
+  { label: 'Ratio', value: 'ratio' }
 ]
 
-const typeOptions: Array<{ label: string; value: TimeSeriesThresholdCriteria['type'] }> = [
-  { label: 'Absolute', value: 'ABSOLUTE' },
-  { label: 'Delta', value: 'DELTA' },
-  { label: 'Ratio', value: 'RATIO' }
-]
-
-const failActionOptions: Array<{ label: string; value: TimeSeriesThresholdCriteria['action'] }> = [
-  { label: 'Fail Immediately', value: 'FAIL_IMMEDIATELY' },
-  { label: 'Fail After Occurrences', value: 'FAIL_AFTER_OCCURRENCES' },
-  { label: 'Fail After Consecutive Occurrences', value: 'FAIL_AFTER_CONSECUTIVE_OCCURRENCES' }
+const failActionOptions: Array<{ label: string; value: string }> = [
+  { label: 'Fail Immediately', value: 'fail-immediately' },
+  { label: 'Fail After Occurrences', value: 'fail-after-multiple-occurrences' },
+  { label: 'Fail After Consecutive Occurrences', value: 'fail-after-consecutive-occurrences' }
 ]
 
 const ignoreActionOptions = [{ label: 'ignore', value: 'IGNORE' }]
@@ -77,29 +72,32 @@ const validationSchema = Yup.object().shape({
 })
 
 interface ConfigureThresholdProps {
-  metricPack: MetricPack
-  dataSourceType: DSConfig['type']
+  metricPack: any
+  dataSourceType: any
   onUpdateConfigMetrics?: (values: any) => void
+  onCancel?: () => void
 }
 
 const ConfigureThreshold: FunctionComponent<any> = (props: ConfigureThresholdProps) => {
   const [failMetrics, setFailMetrics] = useState([])
   const [ignoreMetrics, setIgnoreMetrics] = useState([])
   const [metricOptions, setMetricOptions] = useState(dummyMetricOptions)
+  const [metricPackIdentifier, setMetricPackIdentifier] = useState('')
 
   useEffect(() => {
     const { metricPack, dataSourceType } = props
-    const selectedMetrics: SelectOption[] =
-      metricPack?.metrics
-        ?.filter(metric => metric.included && metric.name)
-        .map(metric => ({ label: metric.name || '', value: metric.name || '' })) || []
+    setMetricPackIdentifier(metricPack.identifier)
+    const selectedMetrics: any =
+      metricPack.metrics
+        .filter((metric: any) => metric.included && metric.name)
+        .map((metric: any) => ({ label: metric.name || '', value: metric.name || '' })) || []
     setMetricOptions(selectedMetrics)
     if (metricPack.identifier) {
       fetchExistingMetrics(dataSourceType, metricPack.identifier)
     }
   }, [])
 
-  async function fetchExistingMetrics(dataSourceType: DSConfig['type'], metricpackName: string) {
+  async function fetchExistingMetrics(dataSourceType: any, metricpackName: string) {
     const queryParams = `&dataSourceType=${dataSourceType}&projectIdentifier=${projectIdentifier}&metricPackIdentifier=${metricpackName}`
     const { response }: any = await getMerics(accountId, queryParams)
 
@@ -157,7 +155,7 @@ const ConfigureThreshold: FunctionComponent<any> = (props: ConfigureThresholdPro
         accountId,
         projectIdentifier: eachMetric.projectIdentifier || projectIdentifier,
         dataSourceType: props.dataSourceType,
-        metricPackIdentifier: eachMetric.metricPackIdentifier,
+        metricPackIdentifier: metricPackIdentifier,
         metricName: eachMetric.name,
         action: 'fail',
         criteria: {
@@ -174,7 +172,7 @@ const ConfigureThreshold: FunctionComponent<any> = (props: ConfigureThresholdPro
         accountId,
         projectIdentifier: projectIdentifier,
         dataSourceType: `${props.dataSourceType}`,
-        // metricPackIdentifier: config.resource.name,
+        metricPackIdentifier: metricPackIdentifier,
         metricName: eachMetric.name,
         action: 'ignore',
         criteria: {
@@ -413,6 +411,14 @@ const ConfigureThreshold: FunctionComponent<any> = (props: ConfigureThresholdPro
                 />
               </Tabs>
               <div className={css.actionButtons}>
+                <Button
+                  large
+                  className={css.cancel}
+                  onClick={() => props.onCancel!()}
+                  text="Cancel"
+                  width={120}
+                  type="submit"
+                />
                 <Button large intent="primary" disabled={!formikProps.isValid} text="Save" width={120} type="submit" />
               </div>
             </FormikForm>

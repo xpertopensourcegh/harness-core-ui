@@ -10,6 +10,6 @@ export const VerificationTypeToRouteVerificationType: { [type: string]: string }
 }
 
 export const connectorId = 'r3vdWFQsRHOPrdol-6URBg'
-export const accountId = 'kmpySmUISimoRrJL6NL73w'
+export const accountId = "zEaak-FLS425IEO7OLzMUg" //kmpySmUISimoRrJL6NL73w
 export const appId = 't0-jbpLoR7S2BTsNfsk4Iw'
 export const projectIdentifier = '1234'

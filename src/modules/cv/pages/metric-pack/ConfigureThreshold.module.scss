@@ -59,5 +59,8 @@
     display: flex;
     justify-content: flex-end;
     margin-top: 24px;
+    .cancel {
+      margin-right: 12px;
+    }
   }
 }

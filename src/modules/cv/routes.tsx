@@ -82,13 +82,13 @@ export const routeCVDataSourcesEntityPage: Route = {
 
 export const routeCVMetricPackConfigureThresholdPage: Route = {
   sidebarId: SidebarIdentifier.CONTINUOUS_VERIFICATION,
-  path: '/metric-pack/config/threshold',
+  path: '/metric-pack/config',
   title: i18n.services,
-  pageId: 'cv-onboarding/metric-pack/config/threshold',
+  pageId: 'cv-onboarding/metric-pack/config',
   authenticated: true,
-  url: () => '/metric-pack/config/threshold',
+  url: (params: RouteURLArgs) => `/account/${params!.accountId!}/metric-pack/config`,
   component: React.lazy(() => {
-    return import('./pages/metric-pack/ConfigureThreshold')
+    return import('./pages/metric-pack/MetricPackConfigure')
   }),
   module: ModuleName.CV
 }
