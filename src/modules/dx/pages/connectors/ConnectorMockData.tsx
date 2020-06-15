@@ -1,4 +1,5 @@
 export const connector = {
+  type: 'KUBERNETES_CLUSTER',
   name: 'Kubernetes connector',
   description: 'This is description',
   identifier: 'kubernetesidentifier',

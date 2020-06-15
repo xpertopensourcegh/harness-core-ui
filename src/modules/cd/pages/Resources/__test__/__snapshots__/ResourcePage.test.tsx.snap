@@ -18,51 +18,36 @@ exports[`ResourcesPage Snapshot should render ResourcesPage 1`] = `
       <div
         class="Layout---horizontal--3rmQ Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
       >
-        <span
-          class="bp3-tag tags activeTag"
+        <a
+          class="tags activeTag"
+          href="//connectors"
         >
-          <span
-            class="bp3-text-overflow-ellipsis bp3-fill"
-          >
-            Connectors
-          </span>
-        </span>
-        <span
-          class="bp3-tag tags"
+          Connectors
+        </a>
+        <a
+          class="tags"
+          href="//secrets"
         >
-          <span
-            class="bp3-text-overflow-ellipsis bp3-fill"
-          >
-            Secrets
-          </span>
-        </span>
-        <span
-          class="bp3-tag tags"
+          Secrets
+        </a>
+        <a
+          class="tags"
+          href="//delegates"
         >
-          <span
-            class="bp3-text-overflow-ellipsis bp3-fill"
-          >
-            Delegates
-          </span>
-        </span>
-        <span
-          class="bp3-tag tags"
+          Delegates
+        </a>
+        <a
+          class="tags"
+          href="//templates"
         >
-          <span
-            class="bp3-text-overflow-ellipsis bp3-fill"
-          >
-            Templates
-          </span>
-        </span>
-        <span
-          class="bp3-tag tags"
+          Templates
+        </a>
+        <a
+          class="tags"
+          href="//fileStore"
         >
-          <span
-            class="bp3-text-overflow-ellipsis bp3-fill"
-          >
-            File Store
-          </span>
-        </span>
+          File Store
+        </a>
       </div>
     </div>
   </div>

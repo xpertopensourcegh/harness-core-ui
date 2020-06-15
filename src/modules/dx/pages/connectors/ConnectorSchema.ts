@@ -4,4 +4,5 @@ export interface ConnectorSchema {
   identifier: string
   tags: string[]
   delegateMode: string
+  type: string
 }

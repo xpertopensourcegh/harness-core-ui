@@ -7,7 +7,7 @@ import ConnectorStats from './ConnectorStats'
 import i18n from './ConfigureConnector.i18n'
 import type { ConnectorSchema } from './ConnectorSchema'
 
-interface ConfigureConnector {
+export interface ConfigureConnectorProps {
   enableEdit: boolean
   connector: ConnectorSchema
 }
@@ -33,8 +33,8 @@ const getOptions = () => {
   ]
 }
 
-const renderConnectorForm = (state: ConfigureConnectorState) => {
-  const fieldsByType = getFormByType('KUBERNETES_CLUSTER')
+const renderConnectorForm = (state: ConfigureConnectorState, props: ConfigureConnectorProps) => {
+  const fieldsByType = getFormByType(props)
   const { connector } = state
   const validationSchema = getValidationSchemaByType('KUBERNETES_CLUSTER')
   return (
@@ -47,7 +47,7 @@ const renderConnectorForm = (state: ConfigureConnectorState) => {
       validationSchema={validationSchema}
     >
       {() => (
-        <Form>
+        <Form className={css.formField}>
           {fieldsByType}
           <Button intent="primary" type="submit" text={i18n.submit} className={css.submitBtn} />
         </Form>
@@ -73,7 +73,7 @@ const renderConnectorStats = () => {
   return <ConnectorStats />
 }
 
-const ConfigureConnector = (props: ConfigureConnector) => {
+const ConfigureConnector = (props: ConfigureConnectorProps) => {
   const [enableEdit, setEnableEdit] = useState(props.enableEdit)
   const [connector, setConnector] = useState(props.connector)
 
@@ -89,7 +89,7 @@ const ConfigureConnector = (props: ConfigureConnector) => {
         <OptionsButtonGroup options={getOptions()} onChange={value => alert('Select ' + value)} />
         {renderSubHeader(state)}
         {!enableEdit ? renderSavedDetails(state) : null}
-        {enableEdit ? renderConnectorForm(state) : null}
+        {enableEdit ? renderConnectorForm(state, props) : null}
       </div>
       {renderConnectorStats()}
     </Layout.Horizontal>

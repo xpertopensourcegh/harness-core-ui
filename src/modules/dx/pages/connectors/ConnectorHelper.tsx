@@ -2,6 +2,7 @@ import React from 'react'
 import { Connectors } from '../../constants'
 import { getKubValidationSchema } from './Forms/KubeFormHelper'
 import KubCluster from './Forms/KubCluster'
+import type { ConfigureConnectorProps } from './ConfigureConnector'
 
 export const getValidationSchemaByType = (type: string) => {
   if (!type) return null
@@ -14,10 +15,12 @@ export const getValidationSchemaByType = (type: string) => {
   }
 }
 
-export const getFormByType = (type: string) => {
+export const getFormByType = (props: ConfigureConnectorProps): JSX.Element | null => {
+  const { connector } = props
+  const type = connector?.type
   switch (type) {
     case Connectors.KUBERNETES_CLUSTER:
-      return <KubCluster />
+      return <KubCluster {...props} />
 
     default:
       return null

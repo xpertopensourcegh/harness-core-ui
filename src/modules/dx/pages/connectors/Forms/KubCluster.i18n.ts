@@ -5,5 +5,6 @@ export default {
   description: 'Description',
   identifier: 'Identifier',
   tags: 'Tags',
-  delegate: 'Selact a delegate'
+  delegate: 'Selact a delegate',
+  enterTags: 'Enter Tags'
 }
