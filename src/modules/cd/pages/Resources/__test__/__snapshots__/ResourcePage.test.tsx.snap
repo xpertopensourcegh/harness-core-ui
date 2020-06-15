@@ -61,9 +61,8 @@ exports[`ResourcesPage Snapshot should render ResourcesPage 1`] = `
         class="StyledProps---font--2ipy StyledProps---main--1Wws"
       >
         <div
-          class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---padding-xlarge--DH-e"
+          class="Layout---horizontal--3rmQ StyledProps---main--1Wws listWrapper StyledProps---padding-xlarge--DH-e"
           id="layout-horizontal-sample"
-          style="background: white;"
         >
           <div
             style="width: 200px;"
