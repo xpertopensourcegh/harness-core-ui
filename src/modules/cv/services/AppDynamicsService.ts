@@ -9,18 +9,18 @@ import type {
 
 export const Endpoints = {
   appdApplications: (accountId: string, dataSourceId: string) =>
-    `https://localhost:9090/api/appdynamics/applications?accountId=${accountId}&settingId=${dataSourceId}`,
-  appdTier: (accountId: string, dataSourceId: string, appDynamicsAppId: string) =>
-    `https://localhost:9090/api/appdynamics/tiers?accountId=${accountId}&settingId=${dataSourceId}&appdynamicsAppId=${appDynamicsAppId}`,
+    `/api/appdynamics/applications?accountId=${accountId}&settingId=${dataSourceId}`,
+  appdTier: (accountId: string, dataSourceId: string, appDynamicsAppId: number) =>
+    `/api/appdynamics/tiers?accountId=${accountId}&settingId=${dataSourceId}&appdynamicsAppId=${appDynamicsAppId}`,
   validateAppDMetrics: (
     accountId: string,
     connectorId: string,
     projectId: string,
-    appId: string,
-    tierId: string,
+    appId: number,
+    tierId: number,
     guid: string
   ) =>
-    `https://localhost:9090/api/appdynamics/metric-data?accountId=${accountId}&connectorId=${connectorId}&projectId=${projectId}&appdAppId=${appId}&appdTierId=${tierId}&requestGuid=${guid}`
+    `/api/appdynamics/metric-data?accountId=${accountId}&connectorId=${connectorId}&projectIdentifier=${projectId}&appdAppId=${appId}&appdTierId=${tierId}&requestGuid=${guid}`
 }
 
 export async function fetchAppDynamicsApplications({
@@ -43,7 +43,7 @@ export async function getAppDynamicsTiers({
 }: {
   accountId: string
   datasourceId: string
-  appDynamicsAppId: string
+  appDynamicsAppId: number
   xhrGroup: string
 }): ServiceResponse<RestResponseSetAppdynamicsTier> {
   return await xhr.get(Endpoints.appdTier(accountId, datasourceId, appDynamicsAppId), { group: xhrGroup }).as('tiers')
@@ -62,9 +62,9 @@ export async function validateMetricsApi({
   accountId: string
   connectorId: string
   projectId: string
-  appId: string
+  appId: number
   metricPacks: MetricPack[]
-  tierId: string
+  tierId: number
   guid: string
   xhrGroup: string
 }): ServiceResponse<RestResponseSetAppdynamicsValidationResponse> {

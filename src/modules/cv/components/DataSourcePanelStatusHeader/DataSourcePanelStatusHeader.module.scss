@@ -1,20 +1,27 @@
 .main {
   display: flex;
   align-items: center;
+  .title {
+    height: 17px;
+  }
   .tag {
-    margin-left: 15px;
+    margin-left: var(--spacing-xsmall);
     font-size: 12px !important;
     padding: 5px;
   }
 
   .tagError {
     background-color: var(--red-300);
-    position: relative;
-    top: 4px;
   }
   .tagSuccess {
-    position: relative;
-    bottom: 2px;
     background-color: var(--green-300);
+  }
+
+  .tagUnsavedChanges {
+    background-color: var(--grey-300);
+  }
+
+  .tagEditing {
+    background-color: var(--blue-300);
   }
 }

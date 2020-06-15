@@ -1,0 +1,21 @@
+.main {
+  padding: 50px;
+  padding-left: 80px;
+  display: grid;
+  grid-template-rows: 60px auto;
+  grid-row-gap: 20px;
+  .headingContainer {
+    .title {
+      font-weight: bold;
+      font-size: medium;
+      color: var(--black);
+      margin-bottom: 10px;
+    }
+  }
+
+  .tableContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 250px);
+    grid-gap: 25px 25px;
+  }
+}

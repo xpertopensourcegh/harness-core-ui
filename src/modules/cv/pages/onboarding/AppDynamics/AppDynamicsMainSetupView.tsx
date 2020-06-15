@@ -1,60 +1,83 @@
-import React, { useState, useCallback, useMemo, useContext, useEffect } from 'react'
+import React, { useState, useCallback, useMemo, useEffect } from 'react'
 import {
   Container,
   FormInput,
   SelectOption,
   CollapseList,
-  CollapseListPanel,
   FormikForm,
-  SelectWithSubview,
   Select,
+  Link,
   ListPanelInterface
 } from '@wings-software/uikit'
 import TierAndServiceTable from './TierAndServiceTable/TierAndServiceTable'
 import css from './AppDynamicsMainSetupView.module.scss'
-import {
-  ConfigureMetricPackProvider,
-  ConfigureMetricPackContext
-} from '../../../context/ConfigureMetricPackContext/ConfigureMetricPackContext'
 import xhr from '@wings-software/xhr-async'
 import {
-  saveAppDConfig,
-  CVConfigTableData,
+  DSConfigTableData,
   transformAppDynamicsApplications,
   createDefaultConfigObject,
-  removeAppdConfig
+  transformToSaveConfig
 } from './AppDynamicsOnboardingUtils'
 import { FieldArray, FormikProps, Formik } from 'formik'
-import { AppDynamicsService } from '../../../services'
-import DataSourcePanelStatusHeader from '../../../components/DataSourcePanelStatusHeader/DataSourcePanelStatusHeader'
-import { EnvironmentTypeSubForm } from 'modules/cv/components/EnvironmentSubForm/EnvironmentSubForm'
-import { Page } from 'modules/common/exports'
+import { AppDynamicsService } from 'modules/cv/services'
+import { CustomizeMetricPackDrawer } from 'modules/cv/components/CustomizeMetricPackDrawer/CustomizeMetricPackDrawer'
+import { useMetricPackHook, fetchMetricPacks } from 'modules/cv/hooks/ConfigureMetricPackHook/ConfigureMetricPackHook'
+import type { MetricPack, DSConfig } from '@wings-software/swagger-ts/definitions'
+import { accountId, connectorId } from 'modules/cv/constants'
+import DataSourceConfigPanel from 'modules/cv/components/DataSourceConfigPanel/DataSourceConfigPanel'
 
-// const connectorId = 'sugDKfxVSc--pkp6GcLFBA'
-// const appId = '3ugZPVJ_SBCHb9sl5llxFQ'
-const accountId = 'kmpySmUISimoRrJL6NL73w'
-const connectorId = 'kP-xxUWrRhuhuFlKYNyMrQ'
-// const appId = 'ogVkjRvETFOG4-2e_kYPQA'
+const XHR_METRIC_PACK_GROUP = 'XHR_METRIC_PACK_GROUP'
 
 interface AppDynamicsDataSourceFormProps {
-  configList: CVConfigTableData[]
+  configList: DSConfigTableData[]
   serviceOptions: SelectOption[]
   dataSourceId: string
+  productName: string
+  metricPackMap: Map<string, MetricPack>
   appDApplications: Map<string, SelectOption>
 }
 
 interface AppDynamicsConfigProps {
-  config: CVConfigTableData
+  config: DSConfigTableData
   serviceOptions: SelectOption[]
   dataSourceId: string
+  appdApplicationId: number
   index: number
-  formikProps: FormikProps<{ appDConfigs: CVConfigTableData[] }>
+  metricPackMap: Map<string, MetricPack>
+  formikProps: FormikProps<{ dsConfigs: DSConfigTableData[] }>
 }
 
 interface AppDynamicsMainSetupViewProps {
   serviceOptions: SelectOption[]
-  configs: CVConfigTableData[]
-  selectedEntities: SelectOption[]
+  configs: DSConfigTableData[]
+  locationContext: { products: string[]; selectedEntities: SelectOption[]; dataSourceId: string; isEdit: boolean }
+}
+
+function validateConfig(configData: DSConfig): { [fieldName: string]: string } | {} {
+  const castConfigData = configData as DSConfigTableData
+  const errors: { envIdentifier?: string; metricPackList?: string; tableData?: string } = {}
+  if (!castConfigData.envIdentifier) {
+    errors.envIdentifier = 'Environment is required.'
+  }
+  if (!castConfigData.metricPackList?.length) {
+    errors.metricPackList = 'At least one metric pack is required.'
+  }
+
+  const totalUnsuccessfulValidations =
+    castConfigData.tableData?.filter(({ validation }) => validation === false).length || 0
+  if (totalUnsuccessfulValidations > 0) {
+    errors.tableData = 'Some validations returned unsuccessfully.'
+  } else if (!castConfigData.tableData?.some(({ selected }) => selected)) {
+    errors.tableData = 'At least one tier to service mapping is required.'
+  }
+
+  return errors
+}
+
+function validateAppDConfigs(appdConfigs: {
+  dsConfigs: DSConfigTableData[]
+}): { dsConfigs: [{ [fieldName: string]: string }] | {} } {
+  return { dsConfigs: appdConfigs.dsConfigs?.map(config => validateConfig(config)) || [] }
 }
 
 export async function fetchAppDApps(appAccountId: string, settingId: string): Promise<SelectOption[]> {
@@ -84,15 +107,13 @@ function updateApplicationList(application: SelectOption, appList: SelectOption[
 }
 
 function generateAppDynamicsApplicationsToAdd(
-  configs: CVConfigTableData[],
+  configs: DSConfigTableData[],
   appDApplications: Map<string, SelectOption>
 ): SelectOption[] | undefined {
   const alreadySelectedApplications = new Set<string>()
   for (const appdApps of configs) {
     if (appdApps.applicationName) {
       alreadySelectedApplications.add(appdApps.applicationName)
-    } else if (appDApplications.has(appdApps.applicationId)) {
-      alreadySelectedApplications.add(appDApplications.get(appdApps.applicationId)?.label || '')
     }
   }
   if (alreadySelectedApplications.size && appDApplications.size) {
@@ -101,92 +122,98 @@ function generateAppDynamicsApplicationsToAdd(
 }
 
 function AppDynamicsConfig(props: AppDynamicsConfigProps): JSX.Element {
-  const { config, serviceOptions, dataSourceId, index, formikProps } = props
-  const { getMetricObject, metricList, isLoading: isLoadingMetricPacks } = useContext(ConfigureMetricPackContext)
-  const [selectedMetricPacks, setSelectedPacks] = useState(config.metricPackList || [])
+  const { config, serviceOptions, dataSourceId, index, formikProps, metricPackMap, appdApplicationId } = props
+  const { metricList, setSelectedPacks } = useMetricPackHook(config.metricPacks || [], metricPackMap)
+  const [displayMetricPackDrawer, setDisplayMetricPackDrawer] = useState(false)
   const tagInputProps = useMemo(
     () => ({
       fill: true,
       placeholder: 'Add a metric pack',
       allowNewTag: false,
-      selectedItems: isLoadingMetricPacks ? ['Loading...'] : selectedMetricPacks,
       showClearAllButton: true
     }),
-    [isLoadingMetricPacks, selectedMetricPacks]
+    []
   )
-  const metricPackObjs = useMemo(() => selectedMetricPacks.map(pack => getMetricObject(pack)), [
-    getMetricObject,
-    selectedMetricPacks
-  ])
+
   const onMetricPackChangeCallback = useCallback(
     selectedPacks => {
-      setSelectedPacks(selectedPacks as string[])
-      formikProps.setFieldValue(
-        `appDConfigs[${index}].metricPacks`,
-        selectedPacks?.map((pack: string) => getMetricObject(pack)) || []
-      )
+      const thing = setSelectedPacks(selectedPacks as string[])
+      formikProps.setFieldValue(`dsConfigs[${index}].metricPacks`, thing)
+      formikProps.setFieldTouched(`dsConfigs[${index}].metricPacks`, true)
     },
-    [getMetricObject, index, formikProps]
+    [index, formikProps, setSelectedPacks]
+  )
+
+  const onCloseMetricPackCallback = useCallback(
+    (updatedPacks?: MetricPack[]) => {
+      setDisplayMetricPackDrawer(false)
+      if (updatedPacks) {
+        formikProps.setFieldValue(`dsConfigs[${index}].metricPacks`, updatedPacks)
+        formikProps.setFieldTouched(`dsConfigs[${index}].metricPacks`, true)
+      }
+    },
+    [formikProps, index]
   )
 
   return (
     <Container className={css.formContainer}>
       <Container className={css.inputFields}>
-        <FormInput.CustomRender
-          name={`appDConfigs[${index}].environmentType`}
-          label="Environment Type"
-          render={() => {
-            const val = formikProps.values?.appDConfigs?.[index]?.envId
-            return (
-              <SelectWithSubview
-                value={{ label: val, value: val }}
-                changeViewButtonLabel="Environment +"
-                items={[
-                  { value: 'Production', label: 'prod' },
-                  { value: 'Non-production', label: 'non-prod' }
-                ]}
-                subview={
-                  <EnvironmentTypeSubForm
-                    onSubmit={({ envType }) =>
-                      formikProps.setFieldValue(`appDConfigs[${index}].environmentType`, envType)
-                    }
-                  />
-                }
-              />
-            )
-          }}
+        <FormInput.Select
+          name={`dsConfigs[${index}].envIdentifier`}
+          label="Environment"
+          items={[
+            { label: 'Production', value: 'production' },
+            { label: 'Non-Production', value: 'nonProduction' }
+          ]}
         />
-        <FormInput.TagInput
-          name={`appDConfigs[${index}].metricPackList`}
-          label="Metric Packs"
-          items={metricList}
-          key={metricList?.[0]}
-          itemFromNewTag={newTag => newTag}
-          labelFor={name => name as string}
-          tagInputProps={tagInputProps}
-          onChange={onMetricPackChangeCallback}
-        />
+        <Container className={css.metricPackContainer}>
+          <Link withoutHref onClick={() => setDisplayMetricPackDrawer(true)} className={css.customizePack}>
+            Customize
+          </Link>
+          <FormInput.TagInput
+            name={`dsConfigs[${index}].metricPackList`}
+            label="Metric Packs"
+            items={metricList}
+            key={JSON.stringify(metricList?.[0])}
+            itemFromNewTag={newTag => newTag}
+            labelFor={name => name as string}
+            tagInputProps={tagInputProps}
+            onChange={onMetricPackChangeCallback}
+          />
+        </Container>
       </Container>
       <Container className={css.tableContainer}>
-        <TierAndServiceTable
-          appId={config?.applicationId}
-          metricPacks={metricPackObjs}
-          index={index}
-          data={formikProps.values?.appDConfigs?.[index]?.tableData}
-          onChange={formikProps.setFieldValue}
-          accountId={accountId}
-          serviceOptions={serviceOptions}
-          dataSourceId={dataSourceId}
+        <FormInput.CustomRender
+          name={`dsConfigs[${index}].tableData`}
+          render={() => (
+            <TierAndServiceTable
+              appId={appdApplicationId}
+              metricPacks={config.metricPacks}
+              index={index}
+              data={config.tableData}
+              setFieldTouched={formikProps.setFieldTouched}
+              setFieldValue={formikProps.setFieldValue}
+              accountId={accountId}
+              serviceOptions={serviceOptions}
+              dataSourceId={dataSourceId}
+            />
+          )}
         />
       </Container>
+      {displayMetricPackDrawer ? (
+        <CustomizeMetricPackDrawer
+          isOpen={displayMetricPackDrawer}
+          onClose={onCloseMetricPackCallback}
+          selectedMetricPackObjects={config.metricPacks}
+        />
+      ) : undefined}
     </Container>
   )
 }
 
 function AppDynamicsDataSourceForm(props: AppDynamicsDataSourceFormProps): JSX.Element {
-  const { configList, serviceOptions, dataSourceId, appDApplications } = props
+  const { configList, serviceOptions, dataSourceId, appDApplications, metricPackMap, productName } = props
   const [applicationsToAdd, setApplicationsToAdd] = useState<SelectOption[]>([{ label: 'Loading...', value: '' }])
-  const [panelHeaderMsg, setPanelHeaderMsg] = useState<Map<string, { isError: boolean; msg: string }>>(new Map())
 
   useEffect(() => {
     const appList = generateAppDynamicsApplicationsToAdd(configList, appDApplications)
@@ -197,146 +224,107 @@ function AppDynamicsDataSourceForm(props: AppDynamicsDataSourceFormProps): JSX.E
 
   return (
     <Container className={css.main}>
-      <ConfigureMetricPackProvider dataSourceType="APP_DYNAMICS">
-        <Formik initialValues={{ appDConfigs: configList }} enableReinitialize={true} onSubmit={() => undefined}>
-          {(formikProps: FormikProps<{ appDConfigs: CVConfigTableData[] }>) => (
-            <FormikForm>
-              <FieldArray
-                name="appDConfigs"
-                render={arrayHelpers => (
-                  <>
-                    <Container width={200} className={css.applicationSelect}>
-                      <Select
-                        items={applicationsToAdd}
-                        onChange={(selectedApp: SelectOption) => {
-                          setApplicationsToAdd(updateApplicationList(selectedApp, applicationsToAdd, true))
-                          arrayHelpers.unshift(
-                            createDefaultConfigObject(
-                              dataSourceId,
-                              selectedApp.value as string,
-                              accountId,
-                              selectedApp.label
-                            )
-                          )
-                        }}
-                      />
-                    </Container>
-                    <CollapseList defaultOpenIndex={0}>
-                      {
-                        formikProps.values.appDConfigs?.map((configData: CVConfigTableData, index: number) => (
-                          <CollapseListPanel
-                            key={configData.uuid || index}
-                            className={css.listPanelBody}
-                            nextButtonText="Save"
-                            onToggleOpen={() => {
-                              return
-                            }}
-                            collapseHeaderProps={{
-                              heading: (
-                                <DataSourcePanelStatusHeader
-                                  panelName={
-                                    appDApplications.get(configData.applicationId)?.label ||
-                                    configData.applicationName ||
-                                    ''
-                                  }
-                                  isError={panelHeaderMsg.get(configData.applicationId)?.isError}
-                                  message={panelHeaderMsg.get(configData.applicationId)?.msg}
-                                />
-                              ),
-                              isRemovable: true,
-                              onRemove: async () => {
-                                const error = await removeAppdConfig(accountId, configData.uuid)
-                                const newPanelHeaders = new Map(panelHeaderMsg)
-                                if (!error) {
-                                  arrayHelpers.remove(index)
-                                  newPanelHeaders.delete(configData.applicationId)
-                                  setPanelHeaderMsg(newPanelHeaders)
-                                  setApplicationsToAdd(
-                                    updateApplicationList(
-                                      {
-                                        label:
-                                          configData.applicationName ||
-                                          appDApplications.get(configData.applicationId)?.label ||
-                                          '',
-                                        value: configData.applicationId
-                                      },
-                                      applicationsToAdd,
-                                      false
-                                    )
-                                  )
-                                } else {
-                                  newPanelHeaders.set(configData.applicationId, { isError: true, msg: error })
-                                  setPanelHeaderMsg(newPanelHeaders)
-                                }
-                              }
-                            }}
-                            openNext={async () => {
-                              const errors = await formikProps.validateForm?.(configData)
-                              if (!Object.keys(errors || {}).length) {
-                                const { error, configsToShow } = await saveAppDConfig(configData, configData.accountId)
-                                const configs = [...formikProps.values.appDConfigs]
-                                if (!configsToShow) {
-                                  arrayHelpers.remove(index)
-                                  return
-                                }
-                                configs[index] = configsToShow
-                                formikProps.setFieldValue('appDConfigs', configs)
-                                const newPanelHeaders = new Map(panelHeaderMsg)
-                                newPanelHeaders.set(configData.applicationId, { msg: 'Success', isError: false })
-                                if (error) {
-                                  newPanelHeaders.set(configData.applicationId, { msg: error, isError: true })
-                                }
-                                setPanelHeaderMsg(newPanelHeaders)
-                              }
-                            }}
-                          >
-                            <AppDynamicsConfig
-                              key={configData.applicationId}
-                              config={configData}
-                              index={index}
-                              formikProps={formikProps}
-                              serviceOptions={serviceOptions}
-                              dataSourceId={dataSourceId}
-                            />
-                          </CollapseListPanel>
-                        )) as ListPanelInterface[]
-                      }
-                    </CollapseList>
-                  </>
-                )}
-              />
-            </FormikForm>
-          )}
-        </Formik>
-      </ConfigureMetricPackProvider>
+      <Formik
+        initialValues={{ dsConfigs: configList }}
+        enableReinitialize={true}
+        validateOnBlur={true}
+        validate={validateAppDConfigs}
+        onSubmit={() => undefined}
+      >
+        {(formikProps: FormikProps<{ dsConfigs: DSConfigTableData[] }>) => (
+          <FormikForm>
+            <FieldArray
+              name="dsConfigs"
+              render={arrayHelpers => (
+                <>
+                  <Container width={200} className={css.applicationSelect}>
+                    <Select
+                      items={applicationsToAdd}
+                      onChange={(selectedApp: SelectOption) => {
+                        setApplicationsToAdd(updateApplicationList(selectedApp, applicationsToAdd, true))
+                        arrayHelpers.unshift(
+                          createDefaultConfigObject(dataSourceId, accountId, selectedApp.label, productName)
+                        )
+                      }}
+                    />
+                  </Container>
+                  <CollapseList defaultOpenIndex={0}>
+                    {
+                      formikProps.values.dsConfigs?.map((configData: DSConfigTableData, index: number) => (
+                        <DataSourceConfigPanel
+                          key={configData.applicationName}
+                          entityName={configData.applicationName || ''}
+                          onRemove={arrayHelpers.remove}
+                          index={index}
+                          transformToSavePayload={transformToSaveConfig}
+                          validate={validateConfig}
+                        >
+                          <AppDynamicsConfig
+                            key={configData.applicationName}
+                            config={configData}
+                            index={index}
+                            appdApplicationId={
+                              (appDApplications.get(configData.applicationName || '')?.value as number) || -1
+                            }
+                            formikProps={formikProps}
+                            serviceOptions={serviceOptions}
+                            dataSourceId={dataSourceId}
+                            metricPackMap={metricPackMap}
+                          />
+                        </DataSourceConfigPanel>
+                      )) as ListPanelInterface[]
+                    }
+                  </CollapseList>
+                </>
+              )}
+            />
+          </FormikForm>
+        )}
+      </Formik>
     </Container>
   )
 }
 
 export default function AppDynamicsMainSetupView(props: AppDynamicsMainSetupViewProps): JSX.Element {
   const [appDApplications, setAppDApplications] = useState<Map<string, SelectOption>>(new Map())
-  const { configs, serviceOptions } = props
+  const [metricPackMap, setMetricPackMap] = useState<Map<string, MetricPack>>(new Map())
+  const { configs, serviceOptions, locationContext } = props
 
   useEffect(() => {
     fetchAppDApps(accountId, connectorId).then((appDApplicationsOptions: SelectOption[]) => {
       if (appDApplicationsOptions?.length) {
-        const appIdToAppOption = new Map<string, SelectOption>()
+        const appNameToId = new Map<string, SelectOption>()
         appDApplicationsOptions.forEach(option => {
-          appIdToAppOption.set(option.value as string, option)
+          appNameToId.set(option.label, option)
         })
-        setAppDApplications(appIdToAppOption)
+        setAppDApplications(appNameToId)
       }
     })
+    fetchMetricPacks({
+      accountId,
+      projectId: '12345',
+      dataSourceType: 'APP_DYNAMICS',
+      group: XHR_METRIC_PACK_GROUP
+    }).then(({ error, metricPackMap: metricPacks }) => {
+      if (error) {
+        return
+      } else if (metricPacks) {
+        setMetricPackMap(metricPacks)
+      }
+    })
+    return () => {
+      xhr.abort(XHR_METRIC_PACK_GROUP)
+    }
   }, [])
 
   return (
-    <Page.Body>
-      <AppDynamicsDataSourceForm
-        configList={configs}
-        serviceOptions={serviceOptions}
-        dataSourceId={connectorId}
-        appDApplications={appDApplications}
-      />
-    </Page.Body>
+    <AppDynamicsDataSourceForm
+      configList={configs}
+      serviceOptions={serviceOptions}
+      dataSourceId={connectorId}
+      metricPackMap={metricPackMap}
+      productName={locationContext.products?.[0]}
+      appDApplications={appDApplications}
+    />
   )
 }

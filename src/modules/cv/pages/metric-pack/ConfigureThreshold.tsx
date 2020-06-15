@@ -5,21 +5,26 @@ import css from './ConfigureThreshold.module.scss'
 import { FieldArray } from 'formik'
 import { Formik, FormikForm, FormInput, Button } from '@wings-software/uikit'
 import * as Yup from 'yup'
-import { accountId, projectIdentifier, dataSourceType } from 'modules/cv/constants'
+import { accountId, projectIdentifier } from 'modules/cv/constants'
 import { saveMerics, getMerics } from './ConfigureThresholdService'
+import type { MetricPack, DSConfig, TimeSeriesThresholdCriteria } from '@wings-software/swagger-ts/definitions'
+import type { SelectOption } from 'modules/common/pages/ProjectsPage/views/StepTwo'
 
-const criteriaOptions = [{ label: 'greater than', value: 'GREATER_THAN' }, { label: 'less than', value: 'LESS_THAN' }]
-
-const typeOptions = [
-  { label: 'Absolute', value: 'absolute-value' },
-  { label: 'Delta', value: 'delta' },
-  { label: 'Ratio', value: 'ratio' }
+const criteriaOptions = [
+  { label: 'greater than', value: 'GREATER_THAN' },
+  { label: 'less than', value: 'LESS_THAN' }
 ]
 
-const failActionOptions = [
-  { label: 'Fail Immediately', value: 'fail-immediately' },
-  { label: 'Fail After Occurrences', value: 'fail-after-multiple-occurrences' },
-  { label: 'Fail After Consecutive Occurrences', value: 'fail-after-consecutive-occurrences' }
+const typeOptions: Array<{ label: string; value: TimeSeriesThresholdCriteria['type'] }> = [
+  { label: 'Absolute', value: 'ABSOLUTE' },
+  { label: 'Delta', value: 'DELTA' },
+  { label: 'Ratio', value: 'RATIO' }
+]
+
+const failActionOptions: Array<{ label: string; value: TimeSeriesThresholdCriteria['action'] }> = [
+  { label: 'Fail Immediately', value: 'FAIL_IMMEDIATELY' },
+  { label: 'Fail After Occurrences', value: 'FAIL_AFTER_OCCURRENCES' },
+  { label: 'Fail After Consecutive Occurrences', value: 'FAIL_AFTER_CONSECUTIVE_OCCURRENCES' }
 ]
 
 const ignoreActionOptions = [{ label: 'ignore', value: 'IGNORE' }]
@@ -71,41 +76,31 @@ const validationSchema = Yup.object().shape({
   })
 })
 
-const ConfigureThreshold: FunctionComponent<any> = (props: any) => {
-  const config = {
-    resource: {
-      id: '123',
-      name: 'Performance and Availability',
-      selectedEntries: [
-        {
-          value: 'Response Time',
-          label: 'Response Time'
-        },
-        {
-          value: 'Stalls',
-          label: 'Stalls'
-        },
-        {
-          value: 'Throughout',
-          label: 'Throughout'
-        }
-      ]
-    }
-  }
+interface ConfigureThresholdProps {
+  metricPack: MetricPack
+  dataSourceType: DSConfig['type']
+  onUpdateConfigMetrics?: (values: any) => void
+}
 
+const ConfigureThreshold: FunctionComponent<any> = (props: ConfigureThresholdProps) => {
   const [failMetrics, setFailMetrics] = useState([])
   const [ignoreMetrics, setIgnoreMetrics] = useState([])
   const [metricOptions, setMetricOptions] = useState(dummyMetricOptions)
 
   useEffect(() => {
-    if (!props.configs) {
-      constructFormValues(config.resource)
+    const { metricPack, dataSourceType } = props
+    const selectedMetrics: SelectOption[] =
+      metricPack?.metrics
+        ?.filter(metric => metric.included && metric.name)
+        .map(metric => ({ label: metric.name || '', value: metric.name || '' })) || []
+    setMetricOptions(selectedMetrics)
+    if (metricPack.identifier) {
+      fetchExistingMetrics(dataSourceType, metricPack.identifier)
     }
-    fetchExistingMetrics()
   }, [])
 
-  async function fetchExistingMetrics() {
-    const queryParams = `&dataSourceType=${dataSourceType}&projectIdentifier=${projectIdentifier}&metricPackIdentifier=Performance and Availability`
+  async function fetchExistingMetrics(dataSourceType: DSConfig['type'], metricpackName: string) {
+    const queryParams = `&dataSourceType=${dataSourceType}&projectIdentifier=${projectIdentifier}&metricPackIdentifier=${metricpackName}`
     const { response }: any = await getMerics(accountId, queryParams)
 
     setIgnoreMetrics(
@@ -140,18 +135,6 @@ const ConfigureThreshold: FunctionComponent<any> = (props: any) => {
     )
   }
 
-  function constructFormValues(resource: any) {
-    setMetricOptions([...resource.selectedEntries])
-  }
-
-  function renderHeader() {
-    return (
-      <div>
-        <h3>Add and Configure your metric threshold</h3>
-      </div>
-    )
-  }
-
   function addFailMetric(formikProps: any) {
     const iValues = { ...failInitialValues }
     formikProps.setFieldValue('metrics.failMetrics', [...formikProps.values.metrics.failMetrics, { ...iValues }])
@@ -164,7 +147,7 @@ const ConfigureThreshold: FunctionComponent<any> = (props: any) => {
 
   async function saveMetrics(values: any) {
     const payload = mapValuestoPayload(values.metrics.failMetrics, values.metrics.ignoreMetrics)
-    const queryParams = `&dataSourceType=${dataSourceType}&projectIdentifier=${projectIdentifier}`
+    const queryParams = `&dataSourceType=${props.dataSourceType}&projectIdentifier=${projectIdentifier}`
     await saveMerics(payload, accountId, queryParams)
   }
 
@@ -173,8 +156,8 @@ const ConfigureThreshold: FunctionComponent<any> = (props: any) => {
       return {
         accountId,
         projectIdentifier: eachMetric.projectIdentifier || projectIdentifier,
-        dataSourceType: eachMetric.dataSourceType || dataSourceType,
-        metricPackIdentifier: eachMetric.metricPackIdentifier || config.resource.name,
+        dataSourceType: props.dataSourceType,
+        metricPackIdentifier: eachMetric.metricPackIdentifier,
         metricName: eachMetric.name,
         action: 'fail',
         criteria: {
@@ -190,8 +173,8 @@ const ConfigureThreshold: FunctionComponent<any> = (props: any) => {
       return {
         accountId,
         projectIdentifier: projectIdentifier,
-        dataSourceType: `${dataSourceType}`,
-        metricPackIdentifier: config.resource.name,
+        dataSourceType: `${props.dataSourceType}`,
+        // metricPackIdentifier: config.resource.name,
         metricName: eachMetric.name,
         action: 'ignore',
         criteria: {
@@ -226,14 +209,16 @@ const ConfigureThreshold: FunctionComponent<any> = (props: any) => {
         validationSchema={validationSchema}
         initialValues={{ metrics: { failMetrics: failMetrics, ignoreMetrics: ignoreMetrics } }}
         onSubmit={(values: any) => {
-          saveMetrics(values)
+          if (props.onUpdateConfigMetrics) {
+            props.onUpdateConfigMetrics(values)
+          } else {
+            saveMetrics(values)
+          }
         }}
         enableReinitialize={true}
         render={(formikProps: any) => {
           return (
             <FormikForm>
-              <h3 className={css.heading}> {config.resource.name} </h3>
-
               <Tabs id="tabsId1">
                 <Tab
                   id="tabId1"
@@ -275,49 +260,47 @@ const ConfigureThreshold: FunctionComponent<any> = (props: any) => {
                                     return (
                                       <tr className={css.row} key={index}>
                                         <td className={css.nameField}>
-                                          {' '}
                                           <FormInput.Select
                                             placeholder={'Select'}
                                             name={`metrics.failMetrics[${index}].name`}
                                             items={metricOptions}
-                                          />{' '}
+                                          />
                                         </td>
                                         <td className={css.criteriaSign}>
                                           <FormInput.Select
                                             placeholder={'Select'}
                                             name={`metrics.failMetrics[${index}].criteriaOptions`}
                                             items={criteriaOptions}
-                                          />{' '}
+                                          />
                                         </td>
                                         <td className={css.criteria}>
                                           <FormInput.Text
                                             inputGroup={{ type: 'number' }}
                                             name={`metrics.failMetrics[${index}].criteria`}
-                                          />{' '}
+                                          />
                                         </td>
                                         <td className={css.type}>
                                           <FormInput.Select
                                             placeholder={'Select'}
                                             name={`metrics.failMetrics[${index}].type`}
-                                            items={typeOptions}
-                                          />{' '}
+                                            items={typeOptions as any}
+                                          />
                                         </td>
                                         <td className={css.action}>
                                           <FormInput.Select
                                             placeholder={'Select'}
                                             name={`metrics.failMetrics[${index}].action`}
-                                            items={failActionOptions}
-                                          />{' '}
+                                            items={failActionOptions as any}
+                                          />
                                         </td>
                                         <td className={css.occurrence}>
                                           <FormInput.Text
                                             disabled={setOccurrence(formikProps, index)}
                                             inputGroup={{ type: 'number' }}
                                             name={`metrics.failMetrics[${index}].occurrenceCount`}
-                                          />{' '}
+                                          />
                                         </td>
                                         <td className={css.removeBtn}>
-                                          {' '}
                                           <Button
                                             icon="main-close"
                                             minimal
@@ -325,7 +308,7 @@ const ConfigureThreshold: FunctionComponent<any> = (props: any) => {
                                               arrayHelpers.remove(index)
                                             }}
                                             iconProps={{ size: 12 }}
-                                          />{' '}
+                                          />
                                         </td>
                                       </tr>
                                     )
@@ -379,36 +362,34 @@ const ConfigureThreshold: FunctionComponent<any> = (props: any) => {
                                     return (
                                       <tr className={css.row} key={index}>
                                         <td className={css.nameField}>
-                                          {' '}
                                           <FormInput.Select
                                             placeholder={'Select'}
                                             name={`metrics.ignoreMetrics[${index}].name`}
                                             items={metricOptions}
-                                          />{' '}
+                                          />
                                         </td>
                                         <td>
                                           <FormInput.Select
                                             placeholder={'Select'}
                                             name={`metrics.ignoreMetrics[${index}].criteriaOptions`}
                                             items={criteriaOptions}
-                                          />{' '}
+                                          />
                                         </td>
                                         <td>
                                           <FormInput.Text
                                             inputGroup={{ type: 'number' }}
                                             name={`metrics.ignoreMetrics[${index}].criteria`}
-                                          />{' '}
+                                          />
                                         </td>
                                         <td>
                                           <FormInput.Select
                                             placeholder={'Select'}
                                             name={`metrics.ignoreMetrics[${index}].type`}
-                                            items={typeOptions}
-                                          />{' '}
+                                            items={typeOptions as any}
+                                          />
                                         </td>
                                         <td className={css.ignoreAction}> {_query.action} </td>
                                         <td className={css.removeBtn}>
-                                          {' '}
                                           <Button
                                             icon="main-close"
                                             minimal
@@ -416,7 +397,7 @@ const ConfigureThreshold: FunctionComponent<any> = (props: any) => {
                                               arrayHelpers.remove(index)
                                             }}
                                             iconProps={{ size: 12 }}
-                                          />{' '}
+                                          />
                                         </td>
                                       </tr>
                                     )
@@ -447,7 +428,6 @@ const ConfigureThreshold: FunctionComponent<any> = (props: any) => {
 
   return (
     <div className={css.main}>
-      {renderHeader()}
       {renderBody()}
       {renderFooter()}
     </div>

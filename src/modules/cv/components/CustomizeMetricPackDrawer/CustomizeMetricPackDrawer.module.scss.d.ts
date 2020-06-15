@@ -2,11 +2,8 @@
 // this is an auto-generated file
 declare const styles: {
   readonly main: string
+  readonly headingContainer: string
   readonly title: string
-  readonly tag: string
-  readonly tagError: string
-  readonly tagSuccess: string
-  readonly tagUnsavedChanges: string
-  readonly tagEditing: string
+  readonly tableContainer: string
 }
 export default styles

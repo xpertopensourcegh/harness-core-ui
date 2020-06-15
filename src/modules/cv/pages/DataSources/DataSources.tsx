@@ -18,7 +18,8 @@ import type { SettingAttribute, CVConfig } from '@wings-software/swagger-ts/defi
 import type { Cell } from 'react-table'
 import { Link } from 'react-router-dom'
 import { routeCVDataSourcesProductPage } from 'modules/cv/routes'
-import { VerificationTypeToRouteVerificationType, accountId } from 'modules/cv/constants'
+import { VerificationTypeToRouteVerificationType } from 'modules/cv/constants'
+import { routeParams } from 'framework/exports'
 
 type DataSourceTableRow = {
   name: string
@@ -30,6 +31,7 @@ type DataSourceTableRow = {
 
 interface RenderContentProps {
   existingDataSources: Map<string, Array<DataSourceTableRow>>
+  accountId: string
 }
 
 function createMapOfExistingDataSources(dataSources: SettingAttribute[]): RenderContentProps['existingDataSources'] {
@@ -78,7 +80,7 @@ const renderSources = () => {
 }
 
 function RenderContent(props: RenderContentProps): JSX.Element {
-  const { existingDataSources } = props
+  const { existingDataSources, accountId } = props
   const [isNewDataSourceView, setToggleView] = useState(true)
   const existingDataSourceTableColumns = useMemo(
     () => [
@@ -122,7 +124,7 @@ function RenderContent(props: RenderContentProps): JSX.Element {
           const { row } = cell
           const originalData = row.original as DataSourceTableRow
           const toObj = {
-            pathname: routeCVDataSourcesProductPage.url({ dataSourceType: originalData.dataSourceRoute }),
+            pathname: routeCVDataSourcesProductPage.url({ accountId, dataSourceType: originalData.dataSourceRoute }),
             state: { dataSourceId: originalData.uuid, isEdit: true }
           }
           return (
@@ -137,7 +139,7 @@ function RenderContent(props: RenderContentProps): JSX.Element {
         }
       }
     ],
-    []
+    [accountId]
   )
 
   if (!existingDataSources?.size || !isNewDataSourceView) {
@@ -196,6 +198,9 @@ function RenderContent(props: RenderContentProps): JSX.Element {
 const DataSources: FunctionComponent<{}> = _ => {
   const [isLoading, setLoading] = useState(true)
   const [existingDataSources, setDataSources] = useState(new Map())
+  const {
+    params: { accountId }
+  } = routeParams()
   useEffect(() => {
     SettingsService.fetchConnectors(accountId).then(({ response }) => {
       if (response?.resource) {
@@ -209,7 +214,7 @@ const DataSources: FunctionComponent<{}> = _ => {
     <Container className={css.main}>
       <Page.Header title={i18n[existingDataSources?.size ? 'editDataSourceTitle' : 'addDataSourceTitle']} />
       <OverlaySpinner show={isLoading}>
-        {isLoading ? <span /> : <RenderContent existingDataSources={existingDataSources} />}
+        {isLoading ? <span /> : <RenderContent existingDataSources={existingDataSources} accountId={accountId} />}
       </OverlaySpinner>
     </Container>
   )

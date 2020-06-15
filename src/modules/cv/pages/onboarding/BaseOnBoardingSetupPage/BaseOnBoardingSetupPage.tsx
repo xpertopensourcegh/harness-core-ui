@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import type { SelectOption } from '@wings-software/uikit'
 import { Container } from '@wings-software/uikit'
-import type { CVConfig, Service } from '@wings-software/swagger-ts/definitions'
+import type { DSConfig, Service } from '@wings-software/swagger-ts/definitions'
 import { useLocation, useParams } from 'react-router'
 import * as AppDynamicsOnboardingUtils from '../AppDynamics/AppDynamicsOnboardingUtils'
 import * as SplunkOnboardingUtils from '../Splunk/SplunkOnboardingUtils'
@@ -13,35 +13,38 @@ import AppDynamicsMainSetupView from '../AppDynamics/AppDynamicsMainSetupView'
 import css from './BaseOnBoardingSetupPage.module.scss'
 import SplunkOnboarding from '../Splunk/SplunkOnboarding'
 import { accountId, connectorId, appId } from 'modules/cv/constants'
+import { Page } from 'modules/common/exports'
 
 const XHR_SERVICES_GROUP = 'XHR_SERVICES_GROUP'
 
 const iconAndSubtextMapper: any = {
-  'APP_DYNAMICS': {
+  APP_DYNAMICS: {
     iconName: 'service-appdynamics',
     iconSubText: 'App Dynamics',
     pageHeading: 'Map your app and tiers to a Harness service and environment'
   },
-  'SPLUNK': {
+  SPLUNK: {
     iconName: 'service-splunk',
     iconSubText: 'Splunk',
     pageHeading: 'Map your query to a Harness service and environment'
-  },
+  }
 }
 
 function getDefaultCVConfig(
-  verificationProvider: CVConfig['type'],
+  verificationProvider: DSConfig['type'],
   dataSourceId: string,
   selectedEntities: SelectOption[],
-  accId: string
-): CVConfig[] {
+  accId: string,
+  productName: string
+): DSConfig[] {
   switch (verificationProvider) {
     case 'APP_DYNAMICS':
       return selectedEntities.map(selectedEntity => {
         return AppDynamicsOnboardingUtils.createDefaultConfigObjectBasedOnSelectedApps(
           selectedEntity,
           dataSourceId,
-          accId
+          accId,
+          productName
         )
       })
     case 'SPLUNK':
@@ -51,11 +54,11 @@ function getDefaultCVConfig(
   }
 }
 
-function transformIncomingCVConfigs(savedConfig: CVConfig[], verificationProvider: CVConfig['type']) {
+function transformIncomingDSConfigs(savedConfig: DSConfig[], verificationProvider: DSConfig['type']) {
   switch (verificationProvider) {
     case 'APP_DYNAMICS':
       return AppDynamicsOnboardingUtils.transformGetConfigs(
-        (savedConfig as unknown) as AppDynamicsOnboardingUtils.AppDynamicsCVConfig[]
+        (savedConfig as unknown) as AppDynamicsOnboardingUtils.AppDynamicsDSConfig[]
       )
   }
 }
@@ -67,43 +70,42 @@ async function fetchServices(localAppId: string, accId: string): Promise<SelectO
   }
   if (response?.resource) {
     const resp: any = response.resource
-    return resp.response?.map((service: Service) => ({ label: service.name || '', value: service.uuid }))
+    return resp.response?.map((service: Service) => ({ label: service.name || '', value: service.name }))
   }
   return []
 }
 
 export default function OnBoardingSetupPage(): JSX.Element {
   const [serviceOptions, setServices] = useState<SelectOption[]>([{ value: '', label: 'Loading...' }])
-  const [configsToRender, setConfigs] = useState<CVConfig[]>([])
+  const [configsToRender, setConfigs] = useState<DSConfig[]>([])
   const params = useParams<{ dataSourceType: string }>()
   const { state: locationContext } = useLocation<{
     dataSourceId: string
     selectedEntities: SelectOption[]
     isEdit: boolean
+    products: string[]
   }>()
-  // const accountId = 'zEaak-FLS425IEO7OLzMUg'
-  // const appId = '3ugZPVJ_SBCHb9sl5llxFQ'
-  // const appId = 'zEaak-FLS425IEO7OLzMUg'
   const verificationType = RouteVerificationTypeToVerificationType[params.dataSourceType]
 
   // fetch saved data or set selected data from the previous page
   useEffect(() => {
-    const { dataSourceId = connectorId, selectedEntities = [], isEdit = false } = locationContext
+    const { dataSourceId = connectorId, selectedEntities = [], isEdit = false, products = [] } = locationContext
     if (!isEdit && locationContext.selectedEntities?.length) {
-      setConfigs(getDefaultCVConfig(verificationType, dataSourceId || '', selectedEntities, accountId))
+      setConfigs(getDefaultCVConfig(verificationType, dataSourceId || '', selectedEntities, accountId, products[0]))
     } else if (locationContext.isEdit) {
       CVNextGenCVConfigService.fetchConfigs({
         accountId,
-        dataSourceConnectorId: dataSourceId
+        dataSourceConnectorId: dataSourceId,
+        productName: locationContext.products[0]
       }).then(({ status, error, response }) => {
         if (status === xhr.ABORTED) {
           return
         } else if (error) {
-          setServices([])
+          setConfigs([])
           return // TODO
         } else if (response?.resource) {
           const configs = response.resource || []
-          setConfigs(transformIncomingCVConfigs(configs, verificationType) as CVConfig[])
+          setConfigs(transformIncomingDSConfigs(configs, verificationType) as DSConfig[])
         }
       })
     }
@@ -117,26 +119,24 @@ export default function OnBoardingSetupPage(): JSX.Element {
   }, [])
 
   return (
-    <Container className={css.main}>
-      <OnBoardingConfigSetupHeader
-        iconName={iconAndSubtextMapper[verificationType!].iconName}
-        iconSubText={iconAndSubtextMapper[verificationType!].iconSubText}
-        pageHeading={iconAndSubtextMapper[verificationType!].pageHeading}
-      />
-      {verificationType === 'APP_DYNAMICS' && (
-        <AppDynamicsMainSetupView
-          serviceOptions={serviceOptions}
-          configs={configsToRender as AppDynamicsOnboardingUtils.CVConfigTableData[]}
-          selectedEntities={locationContext.selectedEntities}
+    <Page.Body>
+      <Container className={css.main}>
+        <OnBoardingConfigSetupHeader
+          iconName={iconAndSubtextMapper[verificationType!].iconName}
+          iconSubText={iconAndSubtextMapper[verificationType!].iconSubText}
+          pageHeading={iconAndSubtextMapper[verificationType!].pageHeading}
         />
-      )}
-      {verificationType === 'SPLUNK' && (
-        <SplunkOnboarding
-          serviceOptions={serviceOptions}
-          configs={configsToRender}
-          selectedEntities={locationContext.selectedEntities}
-        />
-      )}
-    </Container>
+        {verificationType === 'APP_DYNAMICS' && (
+          <AppDynamicsMainSetupView
+            serviceOptions={serviceOptions}
+            configs={configsToRender as AppDynamicsOnboardingUtils.DSConfigTableData[]}
+            locationContext={locationContext}
+          />
+        )}
+        {verificationType === 'SPLUNK' && (
+          <SplunkOnboarding serviceOptions={serviceOptions} configs={configsToRender} />
+        )}
+      </Container>
+    </Page.Body>
   )
 }

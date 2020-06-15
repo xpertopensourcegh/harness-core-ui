@@ -7,6 +7,7 @@ export const routeCVDashboard: Route = {
   path: '/continuous-verification',
   title: i18n.title,
   pageId: 'continuous-verification',
+  authenticated: true,
   url: () => '/continuous-verification',
   component: React.lazy(() => import('./pages/dashboard/CVDashboardPage')),
   module: ModuleName.CV
@@ -15,6 +16,7 @@ export const routeCVDashboard: Route = {
 export const routeCVDataSources: Route = {
   sidebarId: SidebarIdentifier.CONTINUOUS_VERIFICATION,
   path: '/cv-datasources',
+  authenticated: true,
   title: i18n.datasources,
   pageId: 'cv-datasources',
   url: () => '/cv-datasources',
@@ -27,6 +29,7 @@ export const routeCVServices: Route = {
   path: '/cv-services',
   title: i18n.services,
   pageId: 'cv-services',
+  authenticated: true,
   url: () => '/cv-services',
   component: React.lazy(() => import('./pages/services/CVServicesPage')),
   module: ModuleName.CV
@@ -37,9 +40,12 @@ export const routeCVOnBoardingSetup: Route = {
   sidebarId: SidebarIdentifier.CONTINUOUS_VERIFICATION,
   path: '/cv-onboarding/:dataSourceType/setup',
   title: i18n.services,
+  authenticated: true,
   pageId: 'cv-onboarding/onboarding',
   url: (params: RouteURLArgs) =>
-    params && params.dataSourceType ? `/cv-onboarding/${params.dataSourceType}/setup` : `cv-onboarding/`,
+    params && params.dataSourceType
+      ? `/account/${params.accountId}/cv-onboarding/${params.dataSourceType}/setup`
+      : `/cv-onboarding/`,
   component: React.lazy(() => import('./pages/onboarding/BaseOnBoardingSetupPage/BaseOnBoardingSetupPage')),
   module: ModuleName.CV
 }
@@ -49,8 +55,11 @@ export const routeCVDataSourcesProductPage: Route = {
   path: '/cv-onboarding/:dataSourceType/product',
   title: i18n.services,
   pageId: '/cv-onboarding/product',
+  authenticated: true,
   url: (params: RouteURLArgs) =>
-    params && params.dataSourceType ? `/cv-onboarding/${params.dataSourceType}/product` : `cv-onboarding/`,
+    params && params.dataSourceType
+      ? `/account/${params.accountId}/cv-onboarding/${params.dataSourceType}/product`
+      : `/cv-onboarding/`,
   component: React.lazy(() => import('./pages/datasourceproducts/DataSourceProductPage/DataSourceProductPage')),
   module: ModuleName.CV
 }
@@ -60,8 +69,11 @@ export const routeCVDataSourcesEntityPage: Route = {
   path: '/cv-onboarding/:dataSourceType/select-list-entities',
   title: i18n.services,
   pageId: 'cv-onboarding/:dataSourceType/select-list-entities',
+  authenticated: true,
   url: (params: RouteURLArgs) =>
-    params?.dataSourceType ? `/cv-onboarding/${params.dataSourceType}/select-list-entities` : 'cv-onboarding/',
+    params?.dataSourceType
+      ? `/account/${params.accountId}/cv-onboarding/${params.dataSourceType}/select-list-entities`
+      : '/cv-onboarding/',
   component: React.lazy(() => {
     return import('./pages/listEntitySelect/DataSourceListEntityPage/DataSourceListEntityPage')
   }),
@@ -73,6 +85,7 @@ export const routeCVMetricPackConfigureThresholdPage: Route = {
   path: '/metric-pack/config/threshold',
   title: i18n.services,
   pageId: 'cv-onboarding/metric-pack/config/threshold',
+  authenticated: true,
   url: () => '/metric-pack/config/threshold',
   component: React.lazy(() => {
     return import('./pages/metric-pack/ConfigureThreshold')
