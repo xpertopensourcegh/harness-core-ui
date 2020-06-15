@@ -49,7 +49,7 @@ const renderDelegateOutclusterForm = (state: KubClusterState) => {
   return (
     <div className={css.delgateOutCluster}>
       <FormInput.Text label={i18n.masterUrl} name="masterUrl" />
-      <Layout.Horizontal>
+      <Layout.Horizontal className={css.credWrapper}>
         <div className={css.heading}>Credentials</div>
         <Select
           items={authOptions}

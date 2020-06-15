@@ -7,5 +7,6 @@ declare const styles: {
   readonly delgateOutCluster: string
   readonly heading: string
   readonly selectAuth: string
+  readonly credWrapper: string
 }
 export default styles
