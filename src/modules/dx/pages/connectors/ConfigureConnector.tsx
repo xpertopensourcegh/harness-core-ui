@@ -38,7 +38,7 @@ const getOptions = (): Options[] => {
   ]
 }
 
-const renderConnectorForm = (state: ConfigureConnectorState, props: ConfigureConnectorProps) => {
+const renderConnectorForm = (state: ConfigureConnectorState, props: ConfigureConnectorProps): JSX.Element => {
   const fieldsByType = getFormByType(props)
   const { connector } = state
   const validationSchema = getValidationSchemaByType('KUBERNETES_CLUSTER')
@@ -52,7 +52,7 @@ const renderConnectorForm = (state: ConfigureConnectorState, props: ConfigureCon
       validationSchema={validationSchema}
     >
       {() => (
-        <Form className={css.formField}>
+        <Form>
           {fieldsByType}
           <Button intent="primary" type="submit" text={i18n.submit} className={css.submitBtn} />
         </Form>
@@ -61,20 +61,20 @@ const renderConnectorForm = (state: ConfigureConnectorState, props: ConfigureCon
   )
 }
 
-const renderSavedDetails = (state: ConfigureConnectorState) => {
+const renderSavedDetails = (state: ConfigureConnectorState): JSX.Element => {
   return <SavedConnectorDetails connector={state.connector} />
 }
 
-const renderSubHeader = (state: ConfigureConnectorState) => {
+const renderSubHeader = (state: ConfigureConnectorState): JSX.Element => {
   return (
-    <Layout.Horizontal className={css.header}>
+    <Layout.Horizontal className={css.header} spacing="medium">
       <span className={css.name}>Kubernetes Connector Details</span>
       {!state.enableEdit ? <Button text="Edit Details" icon="edit" onClick={() => state.setEnableEdit(true)} /> : null}
     </Layout.Horizontal>
   )
 }
 
-const renderConnectorStats = () => {
+const renderConnectorStats = (): JSX.Element => {
   return <ConnectorStats />
 }
 
