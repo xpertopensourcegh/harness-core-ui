@@ -1,8 +1,8 @@
 .connectorDetails {
-  margin: 25px;
+  margin: var(--spacing-xlarge);
   .header {
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin-top: var(--spacing-large);
+    margin-bottom: var(--spacing-large);
     width: fit-content;
     .name {
       font-size: 16px;
@@ -10,7 +10,7 @@
     }
   }
   .submitBtn {
-    margin: 20px 0;
+    margin: var(--spacing-large) 0;
   }
   .formField {
     width: 50%;
