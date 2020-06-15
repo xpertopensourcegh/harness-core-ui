@@ -5,6 +5,5 @@ declare const styles: {
   readonly header: string
   readonly name: string
   readonly submitBtn: string
-  readonly formField: string
 }
 export default styles
