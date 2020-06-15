@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Formik, FormikForm as Form, Button, Layout, OptionsButtonGroup } from '@wings-software/uikit'
 import { getValidationSchemaByType, getFormByType } from './ConnectorHelper'
 import css from './ConfigureConnector.module.scss'
@@ -18,8 +18,13 @@ interface ConfigureConnectorState {
   connector: ConnectorSchema
   setConnector: (object: ConnectorSchema) => void
 }
+interface Options {
+  text: string
+  value: string
+  selected?: boolean
+}
 
-const getOptions = () => {
+const getOptions = (): Options[] => {
   return [
     {
       text: 'Visual',
@@ -73,8 +78,8 @@ const renderConnectorStats = () => {
   return <ConnectorStats />
 }
 
-const ConfigureConnector = (props: ConfigureConnectorProps) => {
-  const [enableEdit, setEnableEdit] = useState(props.enableEdit)
+const ConfigureConnector = (props: ConfigureConnectorProps): JSX.Element => {
+  const [enableEdit, setEnableEdit] = useState(false)
   const [connector, setConnector] = useState(props.connector)
 
   const state: ConfigureConnectorState = {
@@ -83,6 +88,11 @@ const ConfigureConnector = (props: ConfigureConnectorProps) => {
     connector,
     setConnector
   }
+  useEffect(() => {
+    setEnableEdit(props.enableEdit)
+    setConnector(props.connector)
+  }, [props])
+
   return (
     <Layout.Horizontal>
       <div className={css.connectorDetails}>
