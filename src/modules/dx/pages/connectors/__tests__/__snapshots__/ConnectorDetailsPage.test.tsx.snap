@@ -84,7 +84,7 @@ exports[`ConnectorDetailsPage Snapshot should render ConnectorDetailsPage 1`] = 
           </button>
         </div>
         <div
-          class="Layout---horizontal--3rmQ StyledProps---main--1Wws header"
+          class="Layout---horizontal--3rmQ Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws header"
         >
           <span
             class="name"
