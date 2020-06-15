@@ -14,5 +14,6 @@ declare const styles: {
   readonly ignoreAction: string
   readonly removeBtn: string
   readonly actionButtons: string
+  readonly cancel: string
 }
 export default styles
