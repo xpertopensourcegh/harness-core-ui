@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import type { SelectOption } from '@wings-software/uikit'
 import { Container } from '@wings-software/uikit'
 import type { DSConfig, Service } from '@wings-software/swagger-ts/definitions'
-import { useLocation, useParams } from 'react-router'
+import { useLocation } from 'react-router'
 import * as AppDynamicsOnboardingUtils from '../AppDynamics/AppDynamicsOnboardingUtils'
 import * as SplunkOnboardingUtils from '../Splunk/SplunkOnboardingUtils'
 import { CVNextGenCVConfigService, SettingsService } from 'modules/cv/services'
@@ -12,8 +12,9 @@ import { RouteVerificationTypeToVerificationType } from 'modules/cv/constants'
 import AppDynamicsMainSetupView from '../AppDynamics/AppDynamicsMainSetupView'
 import css from './BaseOnBoardingSetupPage.module.scss'
 import SplunkOnboarding from '../Splunk/SplunkOnboarding'
-import { accountId, connectorId, appId } from 'modules/cv/constants'
+import { connectorId, appId } from 'modules/cv/constants'
 import { Page } from 'modules/common/exports'
+import { routeParams } from 'framework/exports'
 
 const XHR_SERVICES_GROUP = 'XHR_SERVICES_GROUP'
 
@@ -60,6 +61,8 @@ function transformIncomingDSConfigs(savedConfig: DSConfig[], verificationProvide
       return AppDynamicsOnboardingUtils.transformGetConfigs(
         (savedConfig as unknown) as AppDynamicsOnboardingUtils.AppDynamicsDSConfig[]
       )
+    case 'SPLUNK':
+      return savedConfig
   }
 }
 
@@ -78,14 +81,16 @@ async function fetchServices(localAppId: string, accId: string): Promise<SelectO
 export default function OnBoardingSetupPage(): JSX.Element {
   const [serviceOptions, setServices] = useState<SelectOption[]>([{ value: '', label: 'Loading...' }])
   const [configsToRender, setConfigs] = useState<DSConfig[]>([])
-  const params = useParams<{ dataSourceType: string }>()
+  const {
+    params: { accountId, dataSourceType }
+  } = routeParams()
   const { state: locationContext } = useLocation<{
     dataSourceId: string
     selectedEntities: SelectOption[]
     isEdit: boolean
     products: string[]
   }>()
-  const verificationType = RouteVerificationTypeToVerificationType[params.dataSourceType]
+  const verificationType = RouteVerificationTypeToVerificationType[(dataSourceType as DSConfig['type']) || '']
 
   // fetch saved data or set selected data from the previous page
   useEffect(() => {
@@ -109,7 +114,7 @@ export default function OnBoardingSetupPage(): JSX.Element {
         }
       })
     }
-  }, [locationContext, verificationType])
+  }, [locationContext, verificationType, accountId])
 
   // fetch services
   useEffect(() => {

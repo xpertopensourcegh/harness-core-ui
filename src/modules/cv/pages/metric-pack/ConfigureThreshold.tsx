@@ -25,7 +25,7 @@ const failActionOptions: Array<{ label: string; value: string }> = [
   { label: 'Fail After Consecutive Occurrences', value: 'fail-after-consecutive-occurrences' }
 ]
 
-const ignoreActionOptions = [{ label: 'ignore', value: 'IGNORE' }]
+const ignoreActionOptions = [{ label: 'ignore', value: 'ignore' }]
 
 const dummyMetricOptions = [
   { label: 'Response Time', value: 'Response Time' },

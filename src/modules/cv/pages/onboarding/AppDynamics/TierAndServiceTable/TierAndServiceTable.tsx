@@ -114,12 +114,12 @@ function ValidationResult(props: ValidationResultProps): JSX.Element {
           <Text intent={validationStatus?.intent} width={error && error.message ? 100 : 55} lineClamp={1}>
             {validationStatus?.status}
           </Text>
-          {!error && !error.message && (
+          {!error && !error?.message && (
             <Text inline className={css.divider}>
               |
             </Text>
           )}
-          {!error && !error.message && (
+          {!error && !error?.message && (
             <Link withoutHref onClick={() => setModalDisplay(true)}>
               View Details
             </Link>
@@ -199,15 +199,16 @@ function RowRenderer(props: RowRendererProps): JSX.Element {
       switch (index) {
         case 0:
           return (
-            <input
-              type="checkbox"
-              className={css.tierSelectChecBox}
-              checked={cell.value}
-              onChange={() => {
-                const serviceName = serviceSelectObj && serviceSelectObj.label ? serviceSelectObj.label : ''
-                onChange('selected', { service: serviceName, selected: Boolean(!selected) }, rowIndex)
-              }}
-            />
+            <Container className={css.tierSelectChecBox}>
+              <input
+                type="checkbox"
+                checked={cell.value}
+                onChange={() => {
+                  const serviceName = serviceSelectObj && serviceSelectObj.label ? serviceSelectObj.label : ''
+                  onChange('selected', { service: serviceName, selected: Boolean(!selected) }, rowIndex)
+                }}
+              />
+            </Container>
           )
         case 1:
           return (

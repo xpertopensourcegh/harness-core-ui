@@ -7,6 +7,7 @@ import type { MetricPack } from '@wings-software/swagger-ts/definitions'
 import css from './CustomizeMetricPackDrawer.module.scss'
 import ConfigureThreshold from 'modules/cv/pages/metric-pack/ConfigureThreshold'
 import { updateMetricPackHints, transformMetricPackToThresholds } from './CustomizeMetricPackDrawerUtils'
+import { cloneDeep } from 'lodash-es'
 
 const DrawerProps: IDrawerProps = {
   autoFocus: true,
@@ -27,7 +28,7 @@ interface CustomizeMetricPackDrawerProps {
 
 export function CustomizeMetricPackDrawer(props: CustomizeMetricPackDrawerProps): JSX.Element {
   const { isOpen, onClose, selectedMetricPackObjects } = props
-  const [localMetricPacks, setLocalMetricPacks] = useState(selectedMetricPackObjects)
+  const [localMetricPacks, setLocalMetricPacks] = useState(cloneDeep(selectedMetricPackObjects))
   const [{ displayThresholds, selectedThresholdMetricPack, failFastAndIgnoreHints }, setDisplayThresholds] = useState<{
     displayThresholds: boolean
     selectedThresholdMetricPack?: MetricPack
@@ -41,8 +42,8 @@ export function CustomizeMetricPackDrawer(props: CustomizeMetricPackDrawerProps)
   const onConfigureThresholdClickCallback = useCallback((metricPack: MetricPack) => {
     setDisplayThresholds({
       displayThresholds: true,
-      selectedThresholdMetricPack: metricPack,
-      failFastAndIgnoreHints: transformMetricPackToThresholds(metricPack)
+      selectedThresholdMetricPack: cloneDeep(metricPack),
+      failFastAndIgnoreHints: transformMetricPackToThresholds(cloneDeep(metricPack))
     })
   }, [])
   const onUpdateConfigMetricsCallback = useCallback(
@@ -82,22 +83,30 @@ export function CustomizeMetricPackDrawer(props: CustomizeMetricPackDrawerProps)
         <Text color={Color.BLACK}>{titleAndSubtitle.subtitle}</Text>
       </Container>
       {!displayThresholds ? (
-        <Container className={css.tableContainer}>
-          {localMetricPacks.map((metricPack, index) => {
-            return (
-              <MetricPackTable
-                key={metricPack.identifier}
-                metricPackName={metricPack.identifier || ''}
-                metrics={metricPack || []}
-                onChange={(updatedMetricPack: MetricPack) => {
-                  const newLocalMetricPacks = [...localMetricPacks]
-                  newLocalMetricPacks[index] = updatedMetricPack
-                  setLocalMetricPacks(newLocalMetricPacks)
-                }}
-                onConfigureThresholdClick={onConfigureThresholdClickCallback}
-              />
-            )
-          })}
+        <Container>
+          <Container className={css.tableContainer}>
+            {localMetricPacks.map((metricPack, index) => {
+              return (
+                <MetricPackTable
+                  key={metricPack.identifier}
+                  metricPackName={metricPack.identifier || ''}
+                  metrics={metricPack || []}
+                  onChange={(updatedMetricPack: MetricPack) => {
+                    const newLocalMetricPacks = [...localMetricPacks]
+                    newLocalMetricPacks[index] = updatedMetricPack
+                    setLocalMetricPacks(newLocalMetricPacks)
+                  }}
+                  onConfigureThresholdClick={onConfigureThresholdClickCallback}
+                />
+              )
+            })}
+          </Container>
+          <Container className={css.buttonContainer}>
+            <Button onClick={() => onClose()}>Cancel</Button>
+            <Button intent="primary" onClick={() => onClose(localMetricPacks)}>
+              Submit
+            </Button>
+          </Container>
         </Container>
       ) : (
         <ConfigureThreshold
@@ -107,7 +116,6 @@ export function CustomizeMetricPackDrawer(props: CustomizeMetricPackDrawerProps)
           hints={failFastAndIgnoreHints}
         />
       )}
-      <Button onClick={() => onClose(localMetricPacks)}>Submit</Button>
     </Drawer>
   )
 }

@@ -6,7 +6,8 @@ import moment from 'moment'
 import css from './ThirdPartyCallLog.module.scss'
 import i18n from './ThirdPartyCallLogs.i18n'
 import type { ThirdPartyApiCallLog } from '@wings-software/swagger-ts/definitions'
-import { ActivitiesService } from '../../services'
+import { ActivitiesService } from 'modules/cv/services'
+import { appId } from 'modules/cv/constants'
 
 interface ThirdPartyCallLogsProps {
   guid: string
@@ -51,7 +52,7 @@ const XHR_3RD_PARTY_CALL_LOG_GROUP = 'XHR_3RD_PARTY_CALL_LOG_GROUP'
 async function fetchCallLogs(guid: string): Promise<{ callLogs?: ThirdPartyApiCallLog[]; error?: string } | undefined> {
   const { error, status, response } = await ActivitiesService.fetchApiCallLogs({
     entityIdentifier: guid,
-    appId: 'ogVkjRvETFOG4-2e_kYPQA',
+    appId,
     xhrGroup: XHR_3RD_PARTY_CALL_LOG_GROUP
   })
 
