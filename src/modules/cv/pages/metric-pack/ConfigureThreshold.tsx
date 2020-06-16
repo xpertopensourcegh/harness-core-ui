@@ -6,8 +6,12 @@ import { Formik, FormikForm, FormInput, Button, OverlaySpinner } from '@wings-so
 import * as Yup from 'yup'
 import { accountId, projectIdentifier } from 'modules/cv/constants'
 import { saveMerics, getMerics } from './ConfigureThresholdService'
+import { mapCriteriaToRequest, mapCriteriaSignToForm } from './ConfigureThresholdUtils'
 
-const criteriaOptions = [{ label: 'greater than', value: 'GREATER_THAN' }, { label: 'less than', value: 'LESS_THAN' }]
+const criteriaOptions = [
+  { label: 'greater than', value: 'GREATER_THAN' },
+  { label: 'less than', value: 'LESS_THAN' }
+]
 
 const typeOptions: Array<{ label: string; value: string }> = [
   { label: 'Absolute', value: 'absolute-value' },
@@ -21,7 +25,7 @@ const failActionOptions: Array<{ label: string; value: string }> = [
   { label: 'Fail After Consecutive Occurrences', value: 'fail-after-consecutive-occurrences' }
 ]
 
-const ignoreActionOptions = [{ label: 'ignore', value: 'IGNORE' }]
+const ignoreActionOptions = [{ label: 'ignore', value: 'ignore' }]
 
 const dummyMetricOptions = [
   { label: 'Response Time', value: 'Response Time' },
@@ -75,6 +79,10 @@ interface ConfigureThresholdProps {
   dataSourceType: any
   onUpdateConfigMetrics?: (values: any) => void
   onCancel?: () => void
+  hints?: {
+    failFastHints: any[]
+    ignoreHints: any[]
+  }
 }
 
 const ConfigureThreshold: FunctionComponent<any> = (props: ConfigureThresholdProps) => {
@@ -85,14 +93,17 @@ const ConfigureThreshold: FunctionComponent<any> = (props: ConfigureThresholdPro
   const [inProgress, setInProgress] = useState(false)
 
   useEffect(() => {
-    const { metricPack, dataSourceType } = props
+    const { metricPack, dataSourceType, hints } = props
     setMetricPackIdentifier(metricPack.identifier)
     const selectedMetrics: any =
       metricPack.metrics
         .filter((metric: any) => metric.included && metric.name)
         .map((metric: any) => ({ label: metric.name || '', value: metric.name || '' })) || []
     setMetricOptions(selectedMetrics)
-    if (metricPack.identifier) {
+    if (hints) {
+      setFailMetrics((hints.failFastHints as never[]) || [])
+      setIgnoreMetrics((hints.ignoreHints as never[]) || [])
+    } else if (metricPack.identifier) {
       fetchExistingMetrics(dataSourceType, metricPack.identifier)
     }
   }, [])
@@ -187,14 +198,6 @@ const ConfigureThreshold: FunctionComponent<any> = (props: ConfigureThresholdPro
     })
 
     return [...fails, ...ignores]
-  }
-
-  function mapCriteriaToRequest(criteria: any, criteriaOption: any) {
-    return criteriaOption === 'GREATER_THAN' ? '> ' + criteria : '< ' + criteria
-  }
-
-  function mapCriteriaSignToForm(criteria: string) {
-    return criteria.split(' ')[0] === '>' ? 'GREATER_THAN' : 'LESS_THAN'
   }
 
   function setOccurrence(formikProps: any, index: any) {

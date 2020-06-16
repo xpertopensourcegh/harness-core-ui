@@ -84,9 +84,10 @@ export const routeCVMetricPackConfigureThresholdPage: Route = {
   sidebarId: SidebarIdentifier.CONTINUOUS_VERIFICATION,
   path: '/metric-pack/config',
   title: i18n.services,
-  pageId: 'cv-onboarding/metric-pack/config',
+  pageId: '/metric-pack/config',
   authenticated: true,
-  url: (params: RouteURLArgs) => `/account/${params!.accountId!}/metric-pack/config`,
+  url: (params: RouteURLArgs) =>
+    params?.accountId ? `/account/${params.accountId}/metric-pack/config` : '/cv-datasources',
   component: React.lazy(() => {
     return import('./pages/metric-pack/MetricPackConfigure')
   }),

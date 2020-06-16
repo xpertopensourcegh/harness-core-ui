@@ -1,16 +1,20 @@
 import React, { useState, useCallback, useMemo } from 'react'
-import { useLocation, useHistory, useRouteMatch } from 'react-router'
+import { useLocation, useHistory } from 'react-router'
 import { Container, Heading, Color, Button, Text, SelectOption } from '@wings-software/uikit'
 import css from './DataSourceListEntityPage.module.scss'
-import { routeCVOnBoardingSetup } from '../../../routes'
+import { routeCVOnBoardingSetup } from 'modules/cv/routes'
 import DataSourceSelectEntityTable from 'modules/cv/components/DataSourceSelectEntityTable/DataSourceSelectEntityTable'
 import i18n from './SelectListEntityPage.i18n'
-import { accountId, connectorId } from 'modules/cv/constants'
+import { connectorId } from 'modules/cv/constants'
+import { routeParams } from 'framework/exports'
+import { Page } from 'modules/common/exports'
 
 export default function DataSourceListEntitySelect(): JSX.Element {
   // navigation params to get context for the page
   const { state: locationData } = useLocation<{ products: string[]; dataSourceId?: string }>()
-  const { params } = useRouteMatch<{ dataSourceType: 'app-dynamics' }>()
+  const {
+    params: { accountId, dataSourceType = '' }
+  } = routeParams()
   const history = useHistory()
 
   const [navigateWithSelectedApps, setNavigationFunction] = useState<
@@ -19,21 +23,23 @@ export default function DataSourceListEntitySelect(): JSX.Element {
   const onClickNextCallback = useCallback(
     () => (selectedEntities: SelectOption[]) => {
       history.push({
-        pathname: routeCVOnBoardingSetup.url({ dataSourceType: params?.dataSourceType }),
+        pathname: routeCVOnBoardingSetup.url({ accountId, dataSourceType }),
         state: {
           ...locationData,
           selectedEntities
         }
       })
     },
-    [locationData, history, params?.dataSourceType]
+    [locationData, history, dataSourceType, accountId]
   )
-  const verificationTypeI18N = useMemo(() => i18n[params.dataSourceType], [params.dataSourceType])
+  const verificationTypeI18N = useMemo(() => {
+    if (dataSourceType === 'app-dynamics' || dataSourceType === 'splunk') {
+      return i18n[dataSourceType]
+    }
+  }, [dataSourceType])
   return (
     <Container className={css.main}>
-      <Heading level={2} color={Color.BLACK} className={css.heading}>
-        {i18n.selectProduct}
-      </Heading>
+      <Page.Header title={verificationTypeI18N?.pageTitle} />
       <Container className={css.contentContainer}>
         <Container className={css.infographic}>
           <Text>infographic</Text>
@@ -47,8 +53,8 @@ export default function DataSourceListEntitySelect(): JSX.Element {
         <DataSourceSelectEntityTable
           datasourceId={connectorId}
           accountId={accountId}
-          entityTableColumnName={verificationTypeI18N.columnHeaderTitle}
-          verificationType={params.dataSourceType}
+          entityTableColumnName={verificationTypeI18N?.columnHeaderTitle || ''}
+          verificationType={dataSourceType as string}
           onSubmit={navigateWithSelectedApps}
         />
       </Container>

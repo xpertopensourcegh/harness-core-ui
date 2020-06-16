@@ -3,9 +3,11 @@ import { IDrawerProps, Position, Drawer } from '@blueprintjs/core'
 import { Heading, Container, Text, Color, Button } from '@wings-software/uikit'
 import i18n from './CustomizeMetricPackDrawer.i18n'
 import { MetricPackTable } from '../MetricPackTable/MetricPackTable'
-import type { MetricPack, MetricDefinition } from '@wings-software/swagger-ts/definitions'
+import type { MetricPack } from '@wings-software/swagger-ts/definitions'
 import css from './CustomizeMetricPackDrawer.module.scss'
 import ConfigureThreshold from 'modules/cv/pages/metric-pack/ConfigureThreshold'
+import { updateMetricPackHints, transformMetricPackToThresholds } from './CustomizeMetricPackDrawerUtils'
+import { cloneDeep } from 'lodash-es'
 
 const DrawerProps: IDrawerProps = {
   autoFocus: true,
@@ -24,66 +26,36 @@ interface CustomizeMetricPackDrawerProps {
   selectedMetricPackObjects: MetricPack[]
 }
 
-function transformThresholdsToHints(values: any, selectedThresholdMetricPack: MetricPack) {
-  const metricThresholds = new Map<string, MetricDefinition>()
-  for (const metric of selectedThresholdMetricPack.metrics || []) {
-    if (metric.name) {
-      metric.failFastHints = []
-      metric.ignoreHints = []
-      metricThresholds.set(metric.name, metric)
-    }
-  }
-
-  for (const ignoreThreshold of values?.metrics?.ignoreMetrics || []) {
-    const metric = metricThresholds.get(ignoreThreshold.name)
-    if (ignoreThreshold && metric?.ignoreHints) {
-      metric.ignoreHints.push({
-        action: ignoreThreshold.action,
-        criteria: ignoreThreshold.criteria,
-        occurrenceCount: ignoreThreshold.occurrenceCount,
-        type: ignoreThreshold.type
-      })
-    }
-  }
-
-  for (const failFastThreshold of values?.metrics.failMetrics || []) {
-    const metric = metricThresholds.get(failFastThreshold.name)
-    if (failFastThreshold && metric?.failFastHints) {
-      metric.failFastHints.push({
-        action: failFastThreshold.action,
-        criteria: failFastThreshold.criteria,
-        occurrenceCount: failFastThreshold.occurrenceCount,
-        type: failFastThreshold.type
-      })
-    }
-  }
-
-  return { ...selectedThresholdMetricPack }
-}
-
 export function CustomizeMetricPackDrawer(props: CustomizeMetricPackDrawerProps): JSX.Element {
   const { isOpen, onClose, selectedMetricPackObjects } = props
-  const [localMetricPacks, setLocalMetricPacks] = useState(selectedMetricPackObjects)
-  const [{ displayThresholds, selectedThresholdMetricPack }, setDisplayThresholds] = useState<{
+  const [localMetricPacks, setLocalMetricPacks] = useState(cloneDeep(selectedMetricPackObjects))
+  const [{ displayThresholds, selectedThresholdMetricPack, failFastAndIgnoreHints }, setDisplayThresholds] = useState<{
     displayThresholds: boolean
     selectedThresholdMetricPack?: MetricPack
+    failFastAndIgnoreHints: { failFastHints: any[]; ignoreHints: any[] }
   }>({
     displayThresholds: false,
-    selectedThresholdMetricPack: undefined
+    selectedThresholdMetricPack: undefined,
+    failFastAndIgnoreHints: { failFastHints: [], ignoreHints: [] }
   })
   const onCloseCallback = useCallback(() => onClose(), [onClose])
   const onConfigureThresholdClickCallback = useCallback((metricPack: MetricPack) => {
-    setDisplayThresholds({ displayThresholds: true, selectedThresholdMetricPack: metricPack })
+    setDisplayThresholds({
+      displayThresholds: true,
+      selectedThresholdMetricPack: cloneDeep(metricPack),
+      failFastAndIgnoreHints: transformMetricPackToThresholds(cloneDeep(metricPack))
+    })
   }, [])
   const onUpdateConfigMetricsCallback = useCallback(
     (values: any) => {
-      const updatedMetrics = transformThresholdsToHints(
+      const updatedMetrics = updateMetricPackHints(
         values,
         selectedThresholdMetricPack || { dataSourceType: 'APP_DYNAMICS' }
       )
       setDisplayThresholds({
         displayThresholds: false,
-        selectedThresholdMetricPack: updatedMetrics
+        selectedThresholdMetricPack: updatedMetrics,
+        failFastAndIgnoreHints: { failFastHints: [], ignoreHints: [] }
       })
     },
     [selectedThresholdMetricPack]
@@ -111,31 +83,39 @@ export function CustomizeMetricPackDrawer(props: CustomizeMetricPackDrawerProps)
         <Text color={Color.BLACK}>{titleAndSubtitle.subtitle}</Text>
       </Container>
       {!displayThresholds ? (
-        <Container className={css.tableContainer}>
-          {localMetricPacks.map((metricPack, index) => {
-            return (
-              <MetricPackTable
-                key={metricPack.identifier}
-                metricPackName={metricPack.identifier || ''}
-                metrics={metricPack || []}
-                onChange={(updatedMetricPack: MetricPack) => {
-                  const newLocalMetricPacks = [...localMetricPacks]
-                  newLocalMetricPacks[index] = updatedMetricPack
-                  setLocalMetricPacks(newLocalMetricPacks)
-                }}
-                onConfigureThresholdClick={onConfigureThresholdClickCallback}
-              />
-            )
-          })}
+        <Container>
+          <Container className={css.tableContainer}>
+            {localMetricPacks.map((metricPack, index) => {
+              return (
+                <MetricPackTable
+                  key={metricPack.identifier}
+                  metricPackName={metricPack.identifier || ''}
+                  metrics={metricPack || []}
+                  onChange={(updatedMetricPack: MetricPack) => {
+                    const newLocalMetricPacks = [...localMetricPacks]
+                    newLocalMetricPacks[index] = updatedMetricPack
+                    setLocalMetricPacks(newLocalMetricPacks)
+                  }}
+                  onConfigureThresholdClick={onConfigureThresholdClickCallback}
+                />
+              )
+            })}
+          </Container>
+          <Container className={css.buttonContainer}>
+            <Button onClick={() => onClose()}>Cancel</Button>
+            <Button intent="primary" onClick={() => onClose(localMetricPacks)}>
+              Submit
+            </Button>
+          </Container>
         </Container>
       ) : (
         <ConfigureThreshold
           metricPack={selectedThresholdMetricPack}
           dataSourceType="APP_DYNAMICS"
           onUpdateConfigMetrics={onUpdateConfigMetricsCallback}
+          hints={failFastAndIgnoreHints}
         />
       )}
-      <Button onClick={() => onClose(localMetricPacks)}>Submit</Button>
     </Drawer>
   )
 }

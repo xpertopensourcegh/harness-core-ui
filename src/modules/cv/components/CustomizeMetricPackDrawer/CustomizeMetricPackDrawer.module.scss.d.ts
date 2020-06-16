@@ -5,5 +5,6 @@ declare const styles: {
   readonly headingContainer: string
   readonly title: string
   readonly tableContainer: string
+  readonly buttonContainer: string
 }
 export default styles

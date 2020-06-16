@@ -1,6 +1,5 @@
 .main {
   height: 70vh;
-  max-width: 950px;
   .heading {
     height: 100px;
     padding: var(--spacing-xxlarge);
@@ -34,8 +33,7 @@
   .buttonContainer {
     display: flex;
     justify-content: flex-end;
-    position: relative;
-    left: 100px;
+    margin-right: 50px;
     .backButton {
       margin-right: var(--spacing-small);
     }

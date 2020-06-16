@@ -23,8 +23,9 @@ import { AppDynamicsService } from 'modules/cv/services'
 import { CustomizeMetricPackDrawer } from 'modules/cv/components/CustomizeMetricPackDrawer/CustomizeMetricPackDrawer'
 import { useMetricPackHook, fetchMetricPacks } from 'modules/cv/hooks/ConfigureMetricPackHook/ConfigureMetricPackHook'
 import type { MetricPack, DSConfig } from '@wings-software/swagger-ts/definitions'
-import { accountId, connectorId } from 'modules/cv/constants'
+import { connectorId } from 'modules/cv/constants'
 import DataSourceConfigPanel from 'modules/cv/components/DataSourceConfigPanel/DataSourceConfigPanel'
+import { routeParams } from 'framework/exports'
 
 const XHR_METRIC_PACK_GROUP = 'XHR_METRIC_PACK_GROUP'
 
@@ -33,6 +34,7 @@ interface AppDynamicsDataSourceFormProps {
   serviceOptions: SelectOption[]
   dataSourceId: string
   productName: string
+  accountId: string
   metricPackMap: Map<string, MetricPack>
   appDApplications: Map<string, SelectOption>
 }
@@ -43,6 +45,7 @@ interface AppDynamicsConfigProps {
   dataSourceId: string
   appdApplicationId: number
   index: number
+  accountId: string
   metricPackMap: Map<string, MetricPack>
   formikProps: FormikProps<{ dsConfigs: DSConfigTableData[] }>
 }
@@ -122,7 +125,16 @@ function generateAppDynamicsApplicationsToAdd(
 }
 
 function AppDynamicsConfig(props: AppDynamicsConfigProps): JSX.Element {
-  const { config, serviceOptions, dataSourceId, index, formikProps, metricPackMap, appdApplicationId } = props
+  const {
+    config,
+    serviceOptions,
+    dataSourceId,
+    index,
+    formikProps,
+    metricPackMap,
+    appdApplicationId,
+    accountId
+  } = props
   const { metricList, setSelectedPacks } = useMetricPackHook(config.metricPacks || [], metricPackMap)
   const [displayMetricPackDrawer, setDisplayMetricPackDrawer] = useState(false)
   const tagInputProps = useMemo(
@@ -212,7 +224,7 @@ function AppDynamicsConfig(props: AppDynamicsConfigProps): JSX.Element {
 }
 
 function AppDynamicsDataSourceForm(props: AppDynamicsDataSourceFormProps): JSX.Element {
-  const { configList, serviceOptions, dataSourceId, appDApplications, metricPackMap, productName } = props
+  const { configList, serviceOptions, dataSourceId, appDApplications, metricPackMap, productName, accountId } = props
   const [applicationsToAdd, setApplicationsToAdd] = useState<SelectOption[]>([{ label: 'Loading...', value: '' }])
 
   useEffect(() => {
@@ -262,6 +274,7 @@ function AppDynamicsDataSourceForm(props: AppDynamicsDataSourceFormProps): JSX.E
                           <AppDynamicsConfig
                             key={configData.applicationName}
                             config={configData}
+                            accountId={accountId}
                             index={index}
                             appdApplicationId={
                               (appDApplications.get(configData.applicationName || '')?.value as number) || -1
@@ -289,6 +302,9 @@ export default function AppDynamicsMainSetupView(props: AppDynamicsMainSetupView
   const [appDApplications, setAppDApplications] = useState<Map<string, SelectOption>>(new Map())
   const [metricPackMap, setMetricPackMap] = useState<Map<string, MetricPack>>(new Map())
   const { configs, serviceOptions, locationContext } = props
+  const {
+    params: { accountId }
+  } = routeParams()
 
   useEffect(() => {
     fetchAppDApps(accountId, connectorId).then((appDApplicationsOptions: SelectOption[]) => {
@@ -322,6 +338,7 @@ export default function AppDynamicsMainSetupView(props: AppDynamicsMainSetupView
       configList={configs}
       serviceOptions={serviceOptions}
       dataSourceId={connectorId}
+      accountId={accountId}
       metricPackMap={metricPackMap}
       productName={locationContext.products?.[0]}
       appDApplications={appDApplications}
