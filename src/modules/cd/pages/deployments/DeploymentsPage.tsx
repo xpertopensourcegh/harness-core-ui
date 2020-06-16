@@ -1,15 +1,33 @@
 import React from 'react'
-import { loggerFor, ModuleName } from 'framework/exports'
-import { Container, Heading } from '@wings-software/uikit'
-
-const logger = loggerFor(ModuleName.CD)
+import { Container, Button } from '@wings-software/uikit'
+import { Page } from 'modules/common/exports'
+import i18n from './DeploymentsPage.i18n'
 
 export default function DeploymentsPage(): JSX.Element {
-  logger.debug('Mounting Deployments...')
-
   return (
-    <Container padding="xsmall">
-      <Heading>Deployments</Heading>
-    </Container>
+    <>
+      <Page.Header
+        title={i18n.title}
+        toolbar={
+          <Container>
+            <Button text={i18n.newDeployment} style={{ color: 'var(--blue-500)', borderColor: 'var(--blue-500)' }} />
+          </Container>
+        }
+      />
+      <Page.Body
+        loading={false}
+        error={undefined}
+        retryOnError={undefined}
+        noData={{
+          when: () => true,
+          icon: 'harness',
+          message: i18n.noDeployment,
+          buttonText: i18n.newDeployment,
+          onClick: () => {
+            alert('To be implemented')
+          }
+        }}
+      ></Page.Body>
+    </>
   )
 }

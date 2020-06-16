@@ -34,5 +34,7 @@ export function linkTo(route: Route, params?: RouteURLArgs): string {
       })
     }
   }
-  return `/account/${accountId}` + route.url(params)
+
+  // Authenticated route paths are always prefixed with `/account/:accountId`
+  return `${route.authenticated === false ? '' : `/account/${accountId}`}` + route.url(params)
 }

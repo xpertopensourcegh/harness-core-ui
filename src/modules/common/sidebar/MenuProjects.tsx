@@ -13,7 +13,7 @@ export const MenuProjects: React.FC = () => {
           <Sidebar.Link
             href={linkTo(routeProject)}
             label={i18n.projectsMenu}
-            icon="main-flag"
+            icon="nav-project"
             selected={isRouteActive(routeProject)}
           />
         </Layout.Vertical>
