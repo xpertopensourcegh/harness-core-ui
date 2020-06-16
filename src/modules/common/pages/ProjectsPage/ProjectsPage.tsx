@@ -1,10 +1,13 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
+import { useParams } from 'react-router-dom'
 import { useModalHook, Button, StepWizard, Text, Container, Layout } from '@wings-software/uikit'
 import { Dialog, Classes } from '@blueprintjs/core'
 import cx from 'classnames'
+import { pick } from 'lodash-es'
+import { useGetProjects, useCreateProject } from 'services/cd-ng'
+import type { ProjectDTO, CreateProjectDTO } from 'services/cd-ng'
 
 import { Page } from 'modules/common/exports'
-import { getProjects, createProject } from 'modules/common/services/ProjectsService'
 import ProjectCard from './views/ProjectCard/ProjectCard'
 import CreateProject from './views/CreateProject'
 import StepOne, { StepOneData } from './views/StepOne'
@@ -14,47 +17,36 @@ import i18n from './ProjectsPage.i18n'
 import { Views } from './Constants'
 
 import css from './ProjectsPage.module.scss'
-// import type { ProjectDTO } from '@wings-software/swagger-ts/definitions'
-// TODO replace with actual swagger type
-import type { ProjectDTO } from './views/ProjectCard/ProjectCard'
 
 export type SharedData = StepOneData & StepTwoData & StepThreeData
 
-interface ProjectCardsProps {
-  projects: ProjectDTO[]
-}
-
-const ProjectCards: React.FC<ProjectCardsProps> = ({ projects }) => {
-  return (
-    <Layout.Masonry
-      items={projects}
-      renderItem={(project: ProjectDTO) => {
-        return <ProjectCard data={project} className={css.projectCard} />
-      }}
-      keyOf={(project: ProjectDTO) => project.uuid}
-    />
-  )
-}
-
 const ProjectsListPage: React.FC = () => {
-  const [loading, setLoading] = useState(false)
-  const [projects, setProjects] = useState<ProjectDTO[]>([])
   const [view, setView] = useState(Views.NEW_PROJECT)
+  const { accountId } = useParams()
+  const { loading, data, refetch: reloadProjects } = useGetProjects({})
+  const { mutate: createProject } = useCreateProject({})
 
-  const fetchProjects = async () => {
-    setLoading(true)
-    const { response } = await getProjects()
-    setLoading(false)
-    if (response && response instanceof Array) {
-      setProjects(response)
-    }
-  }
+  const wizardCompleteHandler = async (wizardData: SharedData | undefined): Promise<void> => {
+    if (!wizardData) return
+    const dataToSubmit: CreateProjectDTO = pick<CreateProjectDTO, keyof CreateProjectDTO>(wizardData, [
+      'accountId',
+      'color',
+      'description',
+      'identifier',
+      'name',
+      'orgId',
+      'tags'
+    ])
+    dataToSubmit.accountId = accountId
+    dataToSubmit.owners = [accountId]
 
-  const wizardCompleteHandler = async (data: SharedData | undefined) => {
-    const { errors } = await createProject(data as ProjectDTO)
-    if (!errors) {
+    try {
+      await createProject(dataToSubmit)
       hideModal()
-      fetchProjects()
+      reloadProjects()
+    } catch (e) {
+      // display error using ModalErrorHandler
+      // console.log(e?.data?.responseMessages)
     }
   }
 
@@ -75,10 +67,6 @@ const ProjectsListPage: React.FC = () => {
     [view]
   )
 
-  useEffect(() => {
-    fetchProjects()
-  }, [])
-
   return (
     <>
       <Page.Header
@@ -94,9 +82,13 @@ const ProjectsListPage: React.FC = () => {
         <Page.Body>
           <Text>{i18n.loading}</Text>
         </Page.Body>
-      ) : projects.length > 0 ? (
+      ) : data && data.content && data.content.length > 0 ? (
         <Page.Body>
-          <ProjectCards projects={projects} />
+          <Layout.Masonry
+            items={data.content}
+            renderItem={(project: ProjectDTO) => <ProjectCard data={project} className={css.projectCard} />}
+            keyOf={(project: ProjectDTO) => project.id}
+          />
         </Page.Body>
       ) : (
         <Page.Body>

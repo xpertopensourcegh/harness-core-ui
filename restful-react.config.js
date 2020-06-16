@@ -5,7 +5,8 @@
 module.exports = {
   portal: {
     output: 'src/services/portal/index.tsx',
-    file: 'src/services/portal/swagger.json',
+    url: 'https://localhost:9000/api/swagger.json',
+    // file: 'src/services/portal/swagger.json',
     transformer: 'scripts/swagger-transform.js',
     customProps: {
       base: '{"/api"}'
@@ -13,7 +14,8 @@ module.exports = {
   },
   'cd-ng': {
     output: 'src/services/cd-ng/index.tsx',
-    file: 'src/services/cd-ng/swagger.json',
+    url: 'http://localhost:7457/swagger.json',
+    // file: 'src/services/cd-ng/swagger.json',
     transformer: 'scripts/swagger-transform.js',
     customProps: {
       base: '{"/cd/api"}'

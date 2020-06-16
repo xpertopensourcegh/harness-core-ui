@@ -5,6 +5,15 @@ import { Get, GetProps, useGet, UseGetProps, Mutate, MutateProps, useMutate, Use
 
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
 
+export interface CreateOrganizationDTO {
+  accountId?: string
+  identifier?: string
+  name?: string
+  color?: string
+  description: string
+  tags: string[]
+}
+
 export interface ProjectDTO {
   id?: string
   accountId?: string
@@ -16,14 +25,27 @@ export interface ProjectDTO {
   tags?: string[]
 }
 
-export interface CreateProjectRequest {
-  accountId?: string
-  orgId?: string
-  identifier?: string
-  name?: string
-  description?: string
-  owners?: string[]
-  tags?: string[]
+export interface PageOrganizationDTO {
+  totalPages?: number
+  totalElements?: number
+  first?: boolean
+  size?: number
+  content?: OrganizationDTO[]
+  number?: number
+  sort?: Sort
+  last?: boolean
+  numberOfElements?: number
+  pageable?: Pageable
+  empty?: boolean
+}
+
+export interface Pageable {
+  offset?: number
+  sort?: Sort
+  pageNumber?: number
+  pageSize?: number
+  unpaged?: boolean
+  paged?: boolean
 }
 
 export interface OptionalProjectDTO {
@@ -34,27 +56,49 @@ export interface OptionalOrganizationDTO {
   present?: boolean
 }
 
-export interface UpdateProjectRequest {
+export interface CreateProjectDTO {
+  accountId?: string
+  orgId?: string
+  identifier?: string
+  name?: string
+  color?: string
+  description?: string
+  owners?: string[]
+  tags?: string[]
+}
+
+export interface UpdateOrganizationDTO {
+  name?: string
+  color?: string
+  description: string
+  tags: string[]
+}
+
+export interface Sort {
+  sorted?: boolean
+  unsorted?: boolean
+  empty?: boolean
+}
+
+export interface UpdateProjectDTO {
   name?: string
   description?: string
   owners?: string[]
   tags?: string[]
 }
 
-export interface CreateOrganizationRequest {
-  accountId?: string
-  identifier?: string
-  name?: string
-  color?: string
-  description: string
-  tags: string[]
-}
-
-export interface UpdateOrganizationRequest {
-  name?: string
-  color?: string
-  description: string
-  tags: string[]
+export interface PageProjectDTO {
+  totalPages?: number
+  totalElements?: number
+  first?: boolean
+  size?: number
+  content?: ProjectDTO[]
+  number?: number
+  sort?: Sort
+  last?: boolean
+  numberOfElements?: number
+  pageable?: Pageable
+  empty?: boolean
 }
 
 export interface OrganizationDTO {
@@ -67,41 +111,42 @@ export interface OrganizationDTO {
   tags?: string[]
 }
 
-export interface GetOrganizationsForAccountQueryParams {
+export interface GetOrganizationsQueryParams {
   accountId?: string
+  filter?: string
+  page?: number
+  size?: number
+  sort?: string[]
 }
 
-export type GetOrganizationsForAccountProps = Omit<
-  GetProps<OrganizationDTO[], unknown, GetOrganizationsForAccountQueryParams, void>,
+export type GetOrganizationsProps = Omit<
+  GetProps<PageOrganizationDTO, unknown, GetOrganizationsQueryParams, void>,
   'path'
 >
 
-export const GetOrganizationsForAccount = (props: GetOrganizationsForAccountProps) => (
-  <Get<OrganizationDTO[], unknown, GetOrganizationsForAccountQueryParams, void>
+export const GetOrganizations = (props: GetOrganizationsProps) => (
+  <Get<PageOrganizationDTO, unknown, GetOrganizationsQueryParams, void>
     path={`/organizations`}
     base={'/cd/api'}
     {...props}
   />
 )
 
-export type UseGetOrganizationsForAccountProps = Omit<
-  UseGetProps<OrganizationDTO[], GetOrganizationsForAccountQueryParams, void>,
-  'path'
->
+export type UseGetOrganizationsProps = Omit<UseGetProps<PageOrganizationDTO, GetOrganizationsQueryParams, void>, 'path'>
 
-export const useGetOrganizationsForAccount = (props: UseGetOrganizationsForAccountProps) =>
-  useGet<OrganizationDTO[], unknown, GetOrganizationsForAccountQueryParams, void>(`/organizations`, {
+export const useGetOrganizations = (props: UseGetOrganizationsProps) =>
+  useGet<PageOrganizationDTO, unknown, GetOrganizationsQueryParams, void>(`/organizations`, {
     base: '/cd/api',
     ...props
   })
 
-export type CreateOrganizationProps = Omit<
-  MutateProps<OrganizationDTO, unknown, void, CreateOrganizationRequest, void>,
+export type CreateProps = Omit<
+  MutateProps<OrganizationDTO, unknown, void, CreateOrganizationDTO, void>,
   'path' | 'verb'
 >
 
-export const CreateOrganization = (props: CreateOrganizationProps) => (
-  <Mutate<OrganizationDTO, unknown, void, CreateOrganizationRequest, void>
+export const Create = (props: CreateProps) => (
+  <Mutate<OrganizationDTO, unknown, void, CreateOrganizationDTO, void>
     verb="POST"
     path={`/organizations`}
     base={'/cd/api'}
@@ -109,13 +154,10 @@ export const CreateOrganization = (props: CreateOrganizationProps) => (
   />
 )
 
-export type UseCreateOrganizationProps = Omit<
-  UseMutateProps<OrganizationDTO, void, CreateOrganizationRequest, void>,
-  'path' | 'verb'
->
+export type UseCreateProps = Omit<UseMutateProps<OrganizationDTO, void, CreateOrganizationDTO, void>, 'path' | 'verb'>
 
-export const useCreateOrganization = (props: UseCreateOrganizationProps) =>
-  useMutate<OrganizationDTO, unknown, void, CreateOrganizationRequest, void>('POST', `/organizations`, {
+export const useCreate = (props: UseCreateProps) =>
+  useMutate<OrganizationDTO, unknown, void, CreateOrganizationDTO, void>('POST', `/organizations`, {
     base: '/cd/api',
     ...props
   })
@@ -149,13 +191,13 @@ export interface UpdateOrganizationPathParams {
 }
 
 export type UpdateOrganizationProps = Omit<
-  MutateProps<OrganizationDTO, unknown, void, UpdateOrganizationRequest, UpdateOrganizationPathParams>,
+  MutateProps<OrganizationDTO, unknown, void, UpdateOrganizationDTO, UpdateOrganizationPathParams>,
   'path' | 'verb'
 > &
   UpdateOrganizationPathParams
 
 export const UpdateOrganization = ({ organizationId, ...props }: UpdateOrganizationProps) => (
-  <Mutate<OrganizationDTO, unknown, void, UpdateOrganizationRequest, UpdateOrganizationPathParams>
+  <Mutate<OrganizationDTO, unknown, void, UpdateOrganizationDTO, UpdateOrganizationPathParams>
     verb="PUT"
     path={`/organizations/${organizationId}`}
     base={'/cd/api'}
@@ -164,37 +206,52 @@ export const UpdateOrganization = ({ organizationId, ...props }: UpdateOrganizat
 )
 
 export type UseUpdateOrganizationProps = Omit<
-  UseMutateProps<OrganizationDTO, void, UpdateOrganizationRequest, UpdateOrganizationPathParams>,
+  UseMutateProps<OrganizationDTO, void, UpdateOrganizationDTO, UpdateOrganizationPathParams>,
   'path' | 'verb'
 > &
   UpdateOrganizationPathParams
 
 export const useUpdateOrganization = ({ organizationId, ...props }: UseUpdateOrganizationProps) =>
-  useMutate<OrganizationDTO, unknown, void, UpdateOrganizationRequest, UpdateOrganizationPathParams>(
+  useMutate<OrganizationDTO, unknown, void, UpdateOrganizationDTO, UpdateOrganizationPathParams>(
     'PUT',
     ({ organizationId }: UpdateOrganizationPathParams) => `/organizations/${organizationId}`,
     { base: '/cd/api', pathParams: { organizationId }, ...props }
   )
 
-export interface ListQueryParams {
-  organizationId?: string
-}
+export type DeleteOrganizationProps = Omit<MutateProps<boolean, unknown, void, string, void>, 'path' | 'verb'>
 
-export type ListProps = Omit<GetProps<ProjectDTO[], unknown, ListQueryParams, void>, 'path'>
-
-export const List = (props: ListProps) => (
-  <Get<ProjectDTO[], unknown, ListQueryParams, void> path={`/projects`} base={'/cd/api'} {...props} />
+export const DeleteOrganization = (props: DeleteOrganizationProps) => (
+  <Mutate<boolean, unknown, void, string, void> verb="DELETE" path={`/organizations`} base={'/cd/api'} {...props} />
 )
 
-export type UseListProps = Omit<UseGetProps<ProjectDTO[], ListQueryParams, void>, 'path'>
+export type UseDeleteOrganizationProps = Omit<UseMutateProps<boolean, void, string, void>, 'path' | 'verb'>
 
-export const useList = (props: UseListProps) =>
-  useGet<ProjectDTO[], unknown, ListQueryParams, void>(`/projects`, { base: '/cd/api', ...props })
+export const useDeleteOrganization = (props: UseDeleteOrganizationProps) =>
+  useMutate<boolean, unknown, void, string, void>('DELETE', `/organizations`, { base: '/cd/api', ...props })
 
-export type CreateProps = Omit<MutateProps<ProjectDTO, unknown, void, CreateProjectRequest, void>, 'path' | 'verb'>
+export interface GetProjectsQueryParams {
+  orgId?: string
+  filter?: string
+  page?: number
+  size?: number
+  sort?: string[]
+}
 
-export const Create = (props: CreateProps) => (
-  <Mutate<ProjectDTO, unknown, void, CreateProjectRequest, void>
+export type GetProjectsProps = Omit<GetProps<PageProjectDTO, unknown, GetProjectsQueryParams, void>, 'path'>
+
+export const GetProjects = (props: GetProjectsProps) => (
+  <Get<PageProjectDTO, unknown, GetProjectsQueryParams, void> path={`/projects`} base={'/cd/api'} {...props} />
+)
+
+export type UseGetProjectsProps = Omit<UseGetProps<PageProjectDTO, GetProjectsQueryParams, void>, 'path'>
+
+export const useGetProjects = (props: UseGetProjectsProps) =>
+  useGet<PageProjectDTO, unknown, GetProjectsQueryParams, void>(`/projects`, { base: '/cd/api', ...props })
+
+export type CreateProjectProps = Omit<MutateProps<ProjectDTO, unknown, void, CreateProjectDTO, void>, 'path' | 'verb'>
+
+export const CreateProject = (props: CreateProjectProps) => (
+  <Mutate<ProjectDTO, unknown, void, CreateProjectDTO, void>
     verb="POST"
     path={`/projects`}
     base={'/cd/api'}
@@ -202,10 +259,10 @@ export const Create = (props: CreateProps) => (
   />
 )
 
-export type UseCreateProps = Omit<UseMutateProps<ProjectDTO, void, CreateProjectRequest, void>, 'path' | 'verb'>
+export type UseCreateProjectProps = Omit<UseMutateProps<ProjectDTO, void, CreateProjectDTO, void>, 'path' | 'verb'>
 
-export const useCreate = (props: UseCreateProps) =>
-  useMutate<ProjectDTO, unknown, void, CreateProjectRequest, void>('POST', `/projects`, { base: '/cd/api', ...props })
+export const useCreateProject = (props: UseCreateProjectProps) =>
+  useMutate<ProjectDTO, unknown, void, CreateProjectDTO, void>('POST', `/projects`, { base: '/cd/api', ...props })
 
 export interface GetProjectPathParams {
   projectId: string
@@ -227,18 +284,18 @@ export const useGetProject = ({ projectId, ...props }: UseGetProjectProps) =>
     { base: '/cd/api', pathParams: { projectId }, ...props }
   )
 
-export interface UpdatePathParams {
+export interface UpdateProjectPathParams {
   projectId: string
 }
 
-export type UpdateProps = Omit<
-  MutateProps<ProjectDTO, unknown, void, UpdateProjectRequest, UpdatePathParams>,
+export type UpdateProjectProps = Omit<
+  MutateProps<ProjectDTO, unknown, void, UpdateProjectDTO, UpdateProjectPathParams>,
   'path' | 'verb'
 > &
-  UpdatePathParams
+  UpdateProjectPathParams
 
-export const Update = ({ projectId, ...props }: UpdateProps) => (
-  <Mutate<ProjectDTO, unknown, void, UpdateProjectRequest, UpdatePathParams>
+export const UpdateProject = ({ projectId, ...props }: UpdateProjectProps) => (
+  <Mutate<ProjectDTO, unknown, void, UpdateProjectDTO, UpdateProjectPathParams>
     verb="PUT"
     path={`/projects/${projectId}`}
     base={'/cd/api'}
@@ -246,15 +303,26 @@ export const Update = ({ projectId, ...props }: UpdateProps) => (
   />
 )
 
-export type UseUpdateProps = Omit<
-  UseMutateProps<ProjectDTO, void, UpdateProjectRequest, UpdatePathParams>,
+export type UseUpdateProjectProps = Omit<
+  UseMutateProps<ProjectDTO, void, UpdateProjectDTO, UpdateProjectPathParams>,
   'path' | 'verb'
 > &
-  UpdatePathParams
+  UpdateProjectPathParams
 
-export const useUpdate = ({ projectId, ...props }: UseUpdateProps) =>
-  useMutate<ProjectDTO, unknown, void, UpdateProjectRequest, UpdatePathParams>(
+export const useUpdateProject = ({ projectId, ...props }: UseUpdateProjectProps) =>
+  useMutate<ProjectDTO, unknown, void, UpdateProjectDTO, UpdateProjectPathParams>(
     'PUT',
-    ({ projectId }: UpdatePathParams) => `/projects/${projectId}`,
+    ({ projectId }: UpdateProjectPathParams) => `/projects/${projectId}`,
     { base: '/cd/api', pathParams: { projectId }, ...props }
   )
+
+export type DeleteProjectProps = Omit<MutateProps<boolean, unknown, void, string, void>, 'path' | 'verb'>
+
+export const DeleteProject = (props: DeleteProjectProps) => (
+  <Mutate<boolean, unknown, void, string, void> verb="DELETE" path={`/projects`} base={'/cd/api'} {...props} />
+)
+
+export type UseDeleteProjectProps = Omit<UseMutateProps<boolean, void, string, void>, 'path' | 'verb'>
+
+export const useDeleteProject = (props: UseDeleteProjectProps) =>
+  useMutate<boolean, unknown, void, string, void>('DELETE', `/projects`, { base: '/cd/api', ...props })

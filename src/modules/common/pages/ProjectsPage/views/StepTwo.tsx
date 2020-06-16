@@ -6,15 +6,14 @@ import slugify from 'slugify'
 import type { SharedData } from '../ProjectsPage'
 import i18n from '../ProjectsPage.i18n'
 import ProjectCard from './ProjectCard/ProjectCard'
-// import type { ProjectDTO } from '@wings-software/swagger-ts/definitions'
-// TODO replace with actual type from swagger
-import type { ProjectDTO } from './ProjectCard/ProjectCard'
+import type { ProjectDTO } from 'services/cd-ng'
 
 import css from './Steps.module.scss'
 
 export interface StepTwoData extends ProjectDTO {
   preview?: boolean
   skipCollab?: string
+  color?: string
 }
 
 export interface SelectOption {

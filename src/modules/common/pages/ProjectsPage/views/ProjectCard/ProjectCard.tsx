@@ -4,20 +4,7 @@ import { Card, Text, Tag, Layout, Icon, CardBody } from '@wings-software/uikit'
 
 import css from './ProjectCard.module.scss'
 import i18n from './ProjectCard.i18n'
-// import type { ProjectDTO } from '@wings-software/swagger-ts/definitions'
-// TODO replace with actual type from swagger
-
-export interface ProjectDTO {
-  accountId?: string
-  description?: string
-  identifier?: string
-  name?: string
-  orgId?: string
-  owners?: Array<string>
-  tags?: Array<string>
-  uuid?: string
-  color?: string
-}
+import type { ProjectDTO } from 'services/cd-ng'
 
 export interface ProjectCardProps {
   data?: ProjectDTO
