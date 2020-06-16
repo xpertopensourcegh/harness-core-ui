@@ -47,7 +47,6 @@ export const StepAboutOrganization: React.FC<StepProps<OrganizationDTO> & Organi
   } = routeParams()
   const [org, setOrg] = useState<OrganizationDTO>(
     (edit && data) || {
-      icon: 'placeholder',
       color: '',
       name: '',
       description: '',

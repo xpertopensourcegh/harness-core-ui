@@ -6,7 +6,7 @@ import { NewView } from './NewView/NewView'
 import { CloneView } from './CloneView/CloneView'
 import css from './useOrganizationModal.module.scss'
 import cx from 'classnames'
-import type { OrganizationDTO } from 'modules/common/types/dto/OrganizationDTO'
+import type { OrganizationDTO } from 'services/cd-ng'
 
 export interface UseOrganizationModalArgs {
   onSuccess: (org: OrganizationDTO) => void

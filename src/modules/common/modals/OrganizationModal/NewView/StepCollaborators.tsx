@@ -1,5 +1,5 @@
 import { Button, Color, Container, Heading, StepProps } from '@wings-software/uikit'
-import type { OrganizationDTO } from 'modules/common/types/dto/OrganizationDTO'
+import type { OrganizationDTO } from 'services/cd-ng'
 import React from 'react'
 import type { OrganizationModalInteraction } from '../OrganizationModalUtils'
 import i18n from './StepCollaborators.i18n'
