@@ -26,7 +26,7 @@ export const OrganizationCard: React.FC<OrganizationCardProps> = ({
 }) => {
   return (
     <Card
-      elevation={isPreview ? 2 : undefined}
+      elevation={2}
       interactive={!isPreview}
       className={cx(css.card, className)}
       onClick={onClick}
