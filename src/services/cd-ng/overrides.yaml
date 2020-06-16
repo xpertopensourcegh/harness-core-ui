@@ -1,0 +1,3 @@
+allowpaths: ['*']
+operationIdOverrides:
+  /projects/{projectId}.get: getProject

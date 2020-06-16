@@ -16,7 +16,7 @@ const CONTEXT = process.cwd()
 
 const config = {
   context: CONTEXT,
-  entry: './src/framework/app/app.tsx',
+  entry: './src/framework/app/App.tsx',
   target: 'web',
   mode: DEV ? 'development' : 'production',
   output: {
