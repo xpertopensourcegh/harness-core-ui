@@ -145,11 +145,19 @@ const config = {
             }
           }
         ]
+      },
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader']
+      },
+      {
+        test: /\.ttf$/,
+        loader: 'file-loader'
       }
     ]
   },
   resolve: {
-    extensions: ['.mjs', '.js', '.ts', '.tsx'],
+    extensions: ['.mjs', '.js', '.ts', '.tsx', '.json', '.ttf'],
     plugins: [new TsconfigPathsPlugin()]
   },
   optimization: {

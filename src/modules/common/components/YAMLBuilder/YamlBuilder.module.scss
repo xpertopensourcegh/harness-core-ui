@@ -1,0 +1,21 @@
+.main {
+  border-style: solid;
+  border-color: var(--grey-250);
+  border-width: 2px;
+  border-radius: 10px 0 0 10px;
+}
+
+.fileName {
+  padding: 0 var(--spacing-xxlarge);
+  height: 50px;
+  display: flex;
+  align-items: center;
+  font-weight: bolder;
+  font-size: var(--font-size-normal);
+  color: var(--black);
+}
+
+.builder {
+  padding: var(--spacing-large) 0;
+  border-top: 2px solid var(--grey-200);
+}

@@ -1,0 +1,125 @@
+{
+  "validate": true,
+  "enableSchemaRequest": true,
+  "hover": true,
+  "completion": true,
+  "schemas": [
+    {
+      "uri": "http://myserver/foo-schema.json",
+      "fileMatch": ["*"],
+      "schema": {
+        "$schema": "http://json-schema.org/draft-07/schema",
+        "$id": "http://example.com/example.json",
+        "type": "object",
+        "title": "The root schema",
+        "description": "The root schema comprises the entire JSON document.",
+        "default": {},
+        "examples": [
+          {
+            "spec": {
+              "access": "outside-cluster",
+              "masterUrl": "https://34.67.13.218",
+              "k8s-auth": null,
+              "type": "user-password",
+              "spec": null,
+              "username": "admin",
+              "password": "kube_cluster_password",
+              "cacert": "secretRef:kube_cluster_cacert"
+            }
+          }
+        ],
+        "required": ["spec"],
+        "additionalProperties": true,
+        "properties": {
+          "spec": {
+            "$id": "#/properties/spec",
+            "type": "object",
+            "title": "The spec schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": {},
+            "examples": [
+              {
+                "access": "outside-cluster",
+                "masterUrl": "https://34.67.13.218",
+                "k8s-auth": null,
+                "type": "user-password",
+                "spec": null,
+                "username": "admin",
+                "password": "kube_cluster_password",
+                "cacert": "secretRef:kube_cluster_cacert"
+              }
+            ],
+            "required": ["access", "masterUrl", "k8s-auth", "type", "spec", "username", "password", "cacert"],
+            "additionalProperties": true,
+            "properties": {
+              "access": {
+                "$id": "#/properties/spec/properties/access",
+                "type": "string",
+                "title": "The access schema",
+                "description": "An explanation about the purpose of this instance.",
+                "default": "",
+                "examples": ["outside-cluster"]
+              },
+              "masterUrl": {
+                "$id": "#/properties/spec/properties/masterUrl",
+                "type": "string",
+                "title": "The masterUrl schema",
+                "description": "An explanation about the purpose of this instance.",
+                "default": "",
+                "examples": ["https://34.67.13.218"]
+              },
+              "k8s-auth": {
+                "$id": "#/properties/spec/properties/k8s-auth",
+                "type": "null",
+                "title": "The k8s-auth schema",
+                "description": "An explanation about the purpose of this instance.",
+                "default": null,
+                "examples": [null]
+              },
+              "type": {
+                "$id": "#/properties/spec/properties/type",
+                "type": "string",
+                "title": "The type schema",
+                "description": "An explanation about the purpose of this instance.",
+                "default": "",
+                "examples": ["user-password"]
+              },
+              "spec": {
+                "$id": "#/properties/spec/properties/spec",
+                "type": "null",
+                "title": "The spec schema",
+                "description": "An explanation about the purpose of this instance.",
+                "default": null,
+                "examples": [null]
+              },
+              "username": {
+                "$id": "#/properties/spec/properties/username",
+                "type": "string",
+                "title": "The username schema",
+                "description": "An explanation about the purpose of this instance.",
+                "default": "",
+                "examples": ["admin"]
+              },
+              "password": {
+                "$id": "#/properties/spec/properties/password",
+                "type": "string",
+                "title": "The password schema",
+                "description": "An explanation about the purpose of this instance.",
+                "default": "",
+                "examples": ["kube_cluster_password"]
+              },
+              "cacert": {
+                "$id": "#/properties/spec/properties/cacert",
+                "type": "string",
+                "title": "The cacert schema",
+                "description": "An explanation about the purpose of this instance.",
+                "default": "",
+                "examples": ["secretRef:kube_cluster_cacert"]
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}
