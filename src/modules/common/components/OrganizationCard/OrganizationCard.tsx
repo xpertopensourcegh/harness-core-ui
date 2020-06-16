@@ -30,6 +30,7 @@ export const OrganizationCard: React.FC<OrganizationCardProps> = ({
       interactive={!isPreview}
       className={cx(css.card, className)}
       onClick={onClick}
+      style={{ borderLeft: `5px solid ${data?.color || 'transparent'}` }}
     >
       <Container width={width}>
         <Layout.Vertical spacing="small" padding={{ right: isPreview ? 'large' : undefined }}>
