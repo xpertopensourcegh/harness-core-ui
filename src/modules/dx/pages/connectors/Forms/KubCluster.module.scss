@@ -1,8 +1,11 @@
 .delegateSetup {
+  margin-top: 25px;
   :global {
     .bp3-card {
       padding: var(--spacing-small);
       margin-right: 20px;
+      border: 0.5px solid #EFEFEF;
+      border-radius: 8px;
     }
   }
   display: flex;
@@ -11,8 +14,10 @@
   grid-template-columns: repeat(auto-fill, 180px);
 }
 .cardCss {
-  width: 170px;
-  height: 70px;
+  width: 200px;
+  height: 80px;
+ 
+  
 }
 .selectCredentials {
   display: flex;
@@ -23,9 +28,21 @@
     margin: 10px 20px 10px 0;
   }
   .selectAuth {
-    width: 200px;
+    width: 205px;
   }
   .credWrapper {
+    margin-bottom:15px;
     justify-content: space-between;
   }
+}
+.incluster{
+ margin:20px 0;
+.radioOption{
+  cursor: pointer;
+  margin-bottom:10px;
+}
+.label{
+  margin-left:20px;
+}
+
 }

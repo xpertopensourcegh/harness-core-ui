@@ -8,5 +8,8 @@ declare const styles: {
   readonly heading: string
   readonly selectAuth: string
   readonly credWrapper: string
+  readonly incluster: string
+  readonly radioOption: string
+  readonly label: string
 }
 export default styles

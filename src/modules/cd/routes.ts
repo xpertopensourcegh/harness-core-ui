@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route, ModuleName, PageLayout, SidebarIdentifier } from 'framework/exports'
+import { Route, ModuleName, PageLayout, SidebarIdentifier,RouteURLArgs } from 'framework/exports'
 import i18n from './routes.i18n'
 
 export const routeDeployments: Route = {
@@ -20,7 +20,7 @@ export const routeResources: Route = {
   path: '/resources',
   title: i18n.resources,
   pageId: 'resources',
-  url: () => '/resources',
+  url: (params: RouteURLArgs) => params?`/account/${params.accountId}/resources`:`/resources`,
   component: React.lazy(() => import('./pages/Resources/ResourcesPage'))
 }
 

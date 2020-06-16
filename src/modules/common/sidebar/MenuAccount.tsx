@@ -28,12 +28,12 @@ export const MenuAccount: React.FC = () => {
             icon="nav-governance"
             selected={isRouteActive(routes.routeGovernance)}
           />
-          <Sidebar.Link
+          {/* <Sidebar.Link
             href={linkTo(routes.routeResources)}
             label={i18n.resources}
             icon="nav-resources"
             selected={isRouteActive(routes.routeResources)}
-          />
+          /> */}
         </Layout.Vertical>
       </Container>
     </Layout.Vertical>

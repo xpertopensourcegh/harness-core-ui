@@ -26,3 +26,22 @@ export const getFormByType = (props: ConfigureConnectorProps): JSX.Element | nul
       return null
   }
 }
+export const getKubInitialValues=()=>{
+  return{
+    type: 'KUBERNETES_CLUSTER',
+    name: 'NAME',
+    description: '',
+    identifier: '',
+    tags: [],
+    delegateMode: '',
+    credentialType: '',
+    credential: {
+      masterUrl: '',
+      manualCredentialType: '',
+      manualCredentials: {
+        userName: '',
+        encryptedPassword: ''
+      }
+    }
+  }
+}
