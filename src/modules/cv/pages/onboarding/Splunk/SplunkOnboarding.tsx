@@ -77,7 +77,7 @@ const SplunkOnboarding: FunctionComponent<any> = props => {
 
   async function fetchQueriesFromSplunk({ accId, queryParams = '', xhrGroup }: any) {
     setInProgress(true)
-    const url = `https://localhost:9090/api/cv-nextgen/splunk/saved-searches?accountId=${accId}${queryParams}`
+    const url = `api/cv-nextgen/splunk/saved-searches?accountId=${accId}${queryParams}`
     const { response, error }: any = await xhr.get(url, { group: xhrGroup })
     if (response) {
       setSplunkQueriesOptions(SplunkOnboardingUtils.transformQueriesFromSplunk(response.resource) as never[])
@@ -108,7 +108,7 @@ const SplunkOnboarding: FunctionComponent<any> = props => {
   }
 
   async function fetchGraphDetails({ formikProps, index, accId, queryParams = '', xhrGroup }: any) {
-    const url = `https://localhost:9090/api/cv-nextgen/splunk/histogram?accountId=${accId}${queryParams}`
+    const url = `api/cv-nextgen/splunk/histogram?accountId=${accId}${queryParams}`
     const { response, error }: any = await xhr.get(url, { group: xhrGroup })
     if (response) {
       formikProps.setFieldValue(`queries[${index}].graphOptions.Error`, false)
@@ -125,7 +125,7 @@ const SplunkOnboarding: FunctionComponent<any> = props => {
   }
 
   async function fetchStackTrace({ formikProps, index, accId, queryParams = '', xhrGroup }: any) {
-    const url = `https://localhost:9090/api/cv-nextgen/splunk/samples?accountId=${accId}${queryParams}`
+    const url = `api/cv-nextgen/splunk/samples?accountId=${accId}${queryParams}`
     const { response }: any = await xhr.get(url, { group: xhrGroup })
     if (response) {
       formikProps.setFieldValue(`queries[${index}].stackTrace`, [response.resource.rawSampleLogs.join()])
@@ -197,7 +197,7 @@ const SplunkOnboarding: FunctionComponent<any> = props => {
   async function removeQuery(query: any, _index: number, _parentFormikProps: any) {
     setInProgress(true)
     const xhrGroup = 'cv-nextgen/cv-config'
-    const url = `https://localhost:9090/api/cv-nextgen/cv-config/${query.uuid}?accountId=${accountId}`
+    const url = `api/cv-nextgen/cv-config/${query.uuid}?accountId=${accountId}`
     const { response, error } = await xhr.delete(url, { group: xhrGroup })
     setInProgress(false)
     if (response) {
@@ -226,7 +226,7 @@ const SplunkOnboarding: FunctionComponent<any> = props => {
             <FormInput.Text name={`queries[${index}].queryName`} label="Query Name" />
             <FormInput.Select
               name={`queries[${index}].service`}
-              key={serviceOptions?.[0].value}
+              key={serviceOptions?.[0]?.value}
               label="Service Name"
               items={serviceOptions}
             />
@@ -309,7 +309,7 @@ const SplunkOnboarding: FunctionComponent<any> = props => {
     }
     if (query.isAlreadySaved) {
       payload['uuid'] = query.uuid
-      const url = `https://localhost:9090/api/cv-nextgen/cv-config/${query.uuid}?accountId=${accountId}`
+      const url = `api/cv-nextgen/cv-config/${query.uuid}?accountId=${accountId}`
       const { response, error }: any = await xhr.put(url, { data: payload, group: xhrGroup })
       if (response) {
         setInProgress(false)
@@ -320,7 +320,7 @@ const SplunkOnboarding: FunctionComponent<any> = props => {
       }
     } else {
       delete payload.uuid
-      const url = `https://localhost:9090/api/cv-nextgen/cv-config?accountId=${accountId}`
+      const url = `api/cv-nextgen/cv-config?accountId=${accountId}`
       const { response, error }: any = await xhr.post(url, { data: payload, group: xhrGroup })
       if (response) {
         setInProgress(false)
@@ -400,7 +400,7 @@ const SplunkOnboarding: FunctionComponent<any> = props => {
                                     intent={
                                       !parentFormikProps.values.queries[index].isAlreadySaved ? 'danger' : 'success'
                                     }
-                                    panelName={'Query name : ' + parentFormikProps.values.queries[index].queryName}
+                                    panelName={parentFormikProps.values.queries[index].queryName}
                                   />
                                 ),
                                 onRemove: () => {

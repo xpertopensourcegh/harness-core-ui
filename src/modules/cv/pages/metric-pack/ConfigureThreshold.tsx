@@ -1,6 +1,5 @@
 import React, { FunctionComponent, useState, useEffect } from 'react'
-import { Tabs } from '@wings-software/uikit'
-import { Tab } from '@wings-software/uikit'
+import { Tabs, Tab } from '@wings-software/uikit'
 import css from './ConfigureThreshold.module.scss'
 import { FieldArray } from 'formik'
 import { Formik, FormikForm, FormInput, Button, OverlaySpinner } from '@wings-software/uikit'
@@ -433,15 +432,21 @@ const ConfigureThreshold: FunctionComponent<any> = (props: ConfigureThresholdPro
     )
   }
 
-  function renderFooter() {
-    return <div></div>
+  function renderHeader() {
+    return (
+      <div>
+        <div className={css.header}>
+          <h3> Configure Your Metric Threshold </h3>
+        </div>
+      </div>
+    )
   }
 
   return (
     <OverlaySpinner show={inProgress}>
       <div className={css.main}>
+        {!props.onUpdateConfigMetrics ? renderHeader() : null}
         {renderBody()}
-        {renderFooter()}
       </div>
     </OverlaySpinner>
   )

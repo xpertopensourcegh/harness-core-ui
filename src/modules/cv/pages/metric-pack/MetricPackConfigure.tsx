@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useState, useEffect } from 'react'
 import { accountId, projectIdentifier, RouteVerificationTypeToVerificationType } from 'modules/cv/constants'
-import { fetchMetricPacks } from '../../services/CVNextGenCVConfigService'
+import { fetchMetricPacks, saveGlobalMetricPacks } from '../../services/CVNextGenCVConfigService'
 import css from './MetricPackConfigure.module.scss'
 import ConfigureThreshold from './ConfigureThreshold'
 import { MetricPackTable } from '../../components/MetricPackTable/MetricPackTable'
@@ -45,12 +45,22 @@ const MetricPackConfigure: FunctionComponent<any> = () => {
     })
   }
 
+  async function onSave(payload: any) {
+    setInProgress(true)
+    await saveGlobalMetricPacks({
+      payload,
+      accountId,
+      projectId: projectIdentifier,
+      dataSourceType: RouteVerificationTypeToVerificationType['app-dynamics'],
+      group: 'metric-packs'
+    })
+    setInProgress(false)
+  }
+
   function renderBody() {
     return (
       <OverlaySpinner show={inProgress}>
         <div>
-          <h2> Metric Packs </h2>
-
           <div className={css.header}>
             <h3> Configure Metric Pack </h3>
             <Text> Add or remove metrics that make up a metric pack </Text>
@@ -59,7 +69,16 @@ const MetricPackConfigure: FunctionComponent<any> = () => {
           <div className={css.packsContainer}>{renderMetricTables(metricPacks)}</div>
 
           <div className={css.actionButtons}>
-            <Button large intent="primary" text="Save" width={120} type="submit" />
+            <Button
+              large
+              intent="primary"
+              text="Save"
+              width={120}
+              onClick={() => {
+                onSave(metricPacks)
+              }}
+              type="submit"
+            />
           </div>
         </div>
       </OverlaySpinner>
@@ -68,6 +87,7 @@ const MetricPackConfigure: FunctionComponent<any> = () => {
 
   return (
     <div className={css.main}>
+      <h2> Metric Packs </h2>
       {!isEditingThreshold ? (
         renderBody()
       ) : (

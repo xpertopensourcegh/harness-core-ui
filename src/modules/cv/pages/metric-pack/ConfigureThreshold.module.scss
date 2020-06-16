@@ -6,6 +6,11 @@
     margin-bottom: 12px;
   }
 
+  .header {
+    color: var(--black);
+    margin-top: 36px;
+  }
+
   :global {
     [class~='bp3-tab'] {
       margin-top: 0;

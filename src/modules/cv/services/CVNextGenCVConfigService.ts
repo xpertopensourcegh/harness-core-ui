@@ -22,7 +22,7 @@ export const Endpoints = {
 }
 
 export async function fetchQueriesFromSplunk({ accountId, dataSourceId = '', xhrGroup }: any) {
-  const url = `https://localhost:9090/api/cv-nextgen/splunk/saved-searches?accountId=${accountId}&connectorId=${dataSourceId}`
+  const url = `/api/cv-nextgen/splunk/saved-searches?accountId=${accountId}&connectorId=${dataSourceId}`
   return await xhr.get(url, { group: xhrGroup })
 }
 
@@ -95,4 +95,20 @@ export async function fetchProducts({
   dataSourceConnectorId: string
 }): ServiceResponse<RestResponseListString> {
   return xhr.get(Endpoints.fetchDSProducts(accountId, dataSourceConnectorId), { group })
+}
+
+export async function saveGlobalMetricPacks( {
+    payload,
+    accountId,
+    projectId,
+    dataSourceType,
+    group
+  }: {
+    accountId: string
+    projectId: string
+    dataSourceType: DSConfig['type']
+    group: string
+    payload: any
+  }) {
+  return xhr.post(Endpoints.metricPack(accountId, projectId, dataSourceType), { data: payload, group })
 }
