@@ -3,6 +3,7 @@
 declare const styles: {
   readonly main: string
   readonly addBtn: string
+  readonly header: string
   readonly mainSection: string
   readonly row: string
   readonly nameField: string

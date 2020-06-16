@@ -14,7 +14,7 @@ export default function DataSourcePanelStatusHeader(props: DataSourcePanelStatus
   const text = useMemo(() => {
     if (intent === 'danger') {
       return (
-        <Text width={170} intent="danger" lineClamp={1} className={cx(css.tag, css.tagError)}>
+        <Text intent="danger" lineClamp={1} className={cx(css.tag, css.tagError)}>
           {message}
         </Text>
       )
@@ -36,7 +36,7 @@ export default function DataSourcePanelStatusHeader(props: DataSourcePanelStatus
   return (
     <Container className={css.main}>
       <Container className={css.title}>
-        <Text font={{ weight: 'bold' }} width={80} lineClamp={1}>
+        <Text font={{ weight: 'bold' }} lineClamp={1}>
           {panelName}
         </Text>
       </Container>

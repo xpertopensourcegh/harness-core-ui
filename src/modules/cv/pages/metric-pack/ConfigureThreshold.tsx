@@ -1,9 +1,8 @@
 import React, { FunctionComponent, useState, useEffect } from 'react'
-import { Tabs } from '@wings-software/uikit'
-import { Tab } from '@wings-software/uikit'
+import { Tabs, Tab } from '@wings-software/uikit'
 import css from './ConfigureThreshold.module.scss'
 import { FieldArray } from 'formik'
-import { Formik, FormikForm, FormInput, Button } from '@wings-software/uikit'
+import { Formik, FormikForm, FormInput, Button, OverlaySpinner } from '@wings-software/uikit'
 import * as Yup from 'yup'
 import { accountId, projectIdentifier } from 'modules/cv/constants'
 import { saveMerics, getMerics } from './ConfigureThresholdService'
@@ -83,6 +82,7 @@ const ConfigureThreshold: FunctionComponent<any> = (props: ConfigureThresholdPro
   const [ignoreMetrics, setIgnoreMetrics] = useState([])
   const [metricOptions, setMetricOptions] = useState(dummyMetricOptions)
   const [metricPackIdentifier, setMetricPackIdentifier] = useState('')
+  const [inProgress, setInProgress] = useState(false)
 
   useEffect(() => {
     const { metricPack, dataSourceType } = props
@@ -98,6 +98,7 @@ const ConfigureThreshold: FunctionComponent<any> = (props: ConfigureThresholdPro
   }, [])
 
   async function fetchExistingMetrics(dataSourceType: any, metricpackName: string) {
+    setInProgress(true)
     const queryParams = `&dataSourceType=${dataSourceType}&projectIdentifier=${projectIdentifier}&metricPackIdentifier=${metricpackName}`
     const { response }: any = await getMerics(accountId, queryParams)
 
@@ -131,6 +132,7 @@ const ConfigureThreshold: FunctionComponent<any> = (props: ConfigureThresholdPro
           }
         })
     )
+    setInProgress(false)
   }
 
   function addFailMetric(formikProps: any) {
@@ -144,9 +146,11 @@ const ConfigureThreshold: FunctionComponent<any> = (props: ConfigureThresholdPro
   }
 
   async function saveMetrics(values: any) {
+    setInProgress(true)
     const payload = mapValuestoPayload(values.metrics.failMetrics, values.metrics.ignoreMetrics)
     const queryParams = `&dataSourceType=${props.dataSourceType}&projectIdentifier=${projectIdentifier}`
     await saveMerics(payload, accountId, queryParams)
+    setInProgress(false)
   }
 
   function mapValuestoPayload(failedMetrics: any, ignoredMetrics: any) {
@@ -428,15 +432,23 @@ const ConfigureThreshold: FunctionComponent<any> = (props: ConfigureThresholdPro
     )
   }
 
-  function renderFooter() {
-    return <div></div>
+  function renderHeader() {
+    return (
+      <div>
+        <div className={css.header}>
+          <h3> Configure Your Metric Threshold </h3>
+        </div>
+      </div>
+    )
   }
 
   return (
-    <div className={css.main}>
-      {renderBody()}
-      {renderFooter()}
-    </div>
+    <OverlaySpinner show={inProgress}>
+      <div className={css.main}>
+        {!props.onUpdateConfigMetrics ? renderHeader() : null}
+        {renderBody()}
+      </div>
+    </OverlaySpinner>
   )
 }
 
