@@ -23,7 +23,7 @@ import HighchartsReact from 'highcharts-react-official'
 import xhr from '@wings-software/xhr-async'
 import DataSourcePanelStatusHeaderProps from '../../../components/DataSourcePanelStatusHeader/DataSourcePanelStatusHeader'
 import { ThirdPartyCallLogModal } from '../../../components/ThirdPartyCallLogs/ThirdPartyCallLogs'
-import { accountId, connectorId, appId } from 'modules/cv/constants'
+import { accountId, connectorId, appId, projectIdentifier } from 'modules/cv/constants'
 import JsonSelectorFormInput from 'modules/cv/components/JsonSelector/JsonSelectorFormInput'
 
 const eachQuery = Yup.object().shape({
@@ -133,20 +133,8 @@ const SplunkOnboarding: FunctionComponent<any> = props => {
     }
   }
 
-  // const renderHeader = () => {
-  //   return (
-  //     <div>
-  //       <Icon name="service-splunk" size={24} />
-  //       <Heading level={2} color={Color.BLACK} className={css.headingText}>
-  //         Map your Query to a Harness service and environment
-  //       </Heading>
-  //     </div>
-  //   )
-  // }
-
   const addQuery = (parentFormikProps: any) => {
     const iValues = { ...initialValues }
-    // iValues.uuid = new Date().getTime()
     parentFormikProps.setFieldValue('queries', [{ ...iValues }, ...parentFormikProps.values.queries])
   }
 
@@ -196,13 +184,12 @@ const SplunkOnboarding: FunctionComponent<any> = props => {
 
   async function removeQuery(query: any, _index: number, _parentFormikProps: any) {
     setInProgress(true)
-    const xhrGroup = 'cv-nextgen/cv-config'
-    const url = `api/cv-nextgen/cv-config/${query.uuid}?accountId=${accountId}`
+    const xhrGroup = 'cv-nextgen/ds-config'
+    const url = `api/cv-nextgen/ds-config?accountId=${accountId}&connectorId=${connectorId}&productName=splunk&identifier=${query.queryName}`
     const { response, error } = await xhr.delete(url, { group: xhrGroup })
     setInProgress(false)
     if (response) {
       setInProgress(false)
-      return true
     }
     if (error) {
       setInProgress(false)
@@ -291,74 +278,29 @@ const SplunkOnboarding: FunctionComponent<any> = props => {
 
   async function saveQuery(query: any, index: number, parentFormikProps: any) {
     setInProgress(true)
-    const xhrGroup = 'cv-nextgen/cv-config'
+    const xhrGroup = 'cv-nextgen/ds-config'
     const payload = {
-      name: query.queryName,
+      identifier: query.queryName,
       accountId: accountId,
+      projectIdentifier: projectIdentifier,
+      productName: 'splunk',
       connectorId: connectorId,
-      serviceId: query.service,
-      envId: query.environment,
+      // serviceIdentifier: query.service,
+      envIdentifier: query.environment,
       query: query.queryString,
       type: 'SPLUNK',
-      uuid: '',
+      eventType: query.eventType,
       serviceInstanceIdentifier: query.serviceInstanceIdentifier,
-      baseline: {
-        startTime: today(new Date().getTime() - 120000) + ' ' + timeNow(new Date().getTime() - 120000),
-        endTime: today(new Date().getTime() - 120000) + ' ' + timeNow(new Date().getTime() - 120000)
-      }
     }
-    if (query.isAlreadySaved) {
-      payload['uuid'] = query.uuid
-      const url = `api/cv-nextgen/cv-config/${query.uuid}?accountId=${accountId}`
-      const { response, error }: any = await xhr.put(url, { data: payload, group: xhrGroup })
-      if (response) {
-        setInProgress(false)
-        parentFormikProps.setFieldValue(`queries[${index}].isOpen`, false)
-      }
-      if (error) {
-        setInProgress(false)
-      }
-    } else {
-      delete payload.uuid
-      const url = `api/cv-nextgen/cv-config?accountId=${accountId}`
-      const { response, error }: any = await xhr.post(url, { data: payload, group: xhrGroup })
-      if (response) {
-        setInProgress(false)
-        parentFormikProps.setFieldValue(`queries[${index}].isOpen`, false)
-        parentFormikProps.setFieldValue(`queries[${index}].uuid`, response.resource.uuid)
-        parentFormikProps.setFieldValue(`queries[${index}].isAlreadySaved`, true)
-      }
-      if (error) {
-        setInProgress(false)
-      }
-    }
-  }
-
-  function timeNow(timeStamp: any) {
-    const date = new Date(timeStamp)
-    return (
-      (date.getHours() < 10 ? '0' : '') +
-      date.getHours() +
-      ':' +
-      (date.getMinutes() < 10 ? '0' : '') +
-      date.getMinutes() +
-      ':' +
-      (date.getSeconds() < 10 ? '0' : '') +
-      date.getSeconds()
-    )
-  }
-
-  function today(timeStamp: any) {
-    const date = new Date(timeStamp)
-    return (
-      date.getFullYear() +
-      '-' +
-      (date.getMonth() + 1 < 10 ? '0' : '') +
-      (date.getMonth() + 1) +
-      '-' +
-      (date.getDate() < 10 ? '0' : '') +
-      date.getDate()
-    )
+   
+    const url = `api/cv-nextgen/ds-config?accountId=${accountId}`
+    xhr.put(url, { data: payload, group: xhrGroup }).then( ()=> {
+      setInProgress(false)
+      parentFormikProps.setFieldValue(`queries[${index}].isAlreadySaved`, true)
+    }, ()=> {
+      setInProgress(false)
+    } )
+   
   }
 
   const renderMainSection = () => {
@@ -455,7 +397,6 @@ const SplunkOnboarding: FunctionComponent<any> = props => {
   return (
     <OverlaySpinner show={inProgress}>
       <div className={css.main}>
-        {/* {renderHeader()} */}
         {renderMainSection()}
         {renderViewCallLogs()}
       </div>
