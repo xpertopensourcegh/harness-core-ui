@@ -1,19 +1,29 @@
 import React from 'react'
-import { Formik, FormikForm as Form, FormInput, Button, Text, Layout, StepProps } from '@wings-software/uikit'
+import {
+  Formik,
+  FormikForm as Form,
+  FormInput,
+  Button,
+  Text,
+  Layout,
+  StepProps,
+  ColorPicker
+} from '@wings-software/uikit'
 import * as Yup from 'yup'
-import slugify from 'slugify'
+import { getIdentifierFromName, illegalIdentifiers } from 'framework/utils/StringUtils'
 
 import type { SharedData } from '../ProjectsPage'
 import i18n from '../ProjectsPage.i18n'
 import ProjectCard from './ProjectCard/ProjectCard'
+
+import { useGetOrganizations } from 'services/cd-ng'
 import type { ProjectDTO } from 'services/cd-ng'
 
 import css from './Steps.module.scss'
 
 export interface StepTwoData extends ProjectDTO {
   preview?: boolean
-  skipCollab?: string
-  color?: string
+  skipCollab?: 'skip' | ''
 }
 
 export interface SelectOption {
@@ -21,46 +31,39 @@ export interface SelectOption {
   value: string
 }
 
-const colors: SelectOption[] = [
-  {
-    label: 'Blue',
-    value: 'blue'
-  },
-  {
-    label: 'Red',
-    value: 'red'
-  }
-]
-
-const organisations: SelectOption[] = [
-  {
-    label: 'Harness',
-    value: 'harness'
-  },
-  {
-    label: 'Wings',
-    value: 'wings'
-  }
-]
-
 const StepTwo: React.FC<StepProps<SharedData>> = ({ previousStep, nextStep, prevStepData, gotoStep }) => {
+  const { loading, data } = useGetOrganizations({})
+
+  const organisations: SelectOption[] =
+    data?.content?.map(org => {
+      return {
+        label: org.name || '',
+        value: org.id || ''
+      }
+    }) || []
+
   return (
     <>
       <Text font="medium">{i18n.newProject}</Text>
       <Formik
         initialValues={{
-          color: colors[0].value,
+          color: '',
           identifier: '',
           name: '',
           description: '',
           tags: [],
-          orgId: organisations[0].value,
+          orgId: '',
           preview: true,
           skipCollab: '',
           ...prevStepData
         }}
         validationSchema={Yup.object().shape({
           name: Yup.string().trim().required(),
+          identifier: Yup.string()
+            .trim()
+            .required()
+            .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, 'Identifier can only contain alphanumerics, _ and $')
+            .notOneOf(illegalIdentifiers),
           orgId: Yup.string().required()
         })}
         onSubmit={(values: StepTwoData) => {
@@ -97,16 +100,40 @@ const StepTwo: React.FC<StepProps<SharedData>> = ({ previousStep, nextStep, prev
                         label={i18n.newProjectWizard.stepTwo.projectName}
                         name="name"
                         onChange={e => {
-                          formikProps.setFieldValue(
-                            'identifier',
-                            slugify((e.target as HTMLInputElement).value, { strict: true, replacement: '_' })
-                          )
+                          const name = (e.target as HTMLInputElement).value
+                          if (name) {
+                            formikProps.setFieldValue('identifier', getIdentifierFromName(name))
+                          }
                         }}
                       />
+                      {formikProps.errors['identifier'] ? (
+                        <Text font="small" intent="danger" padding={{ bottom: 'medium' }}>
+                          {formikProps.errors['identifier']}
+                        </Text>
+                      ) : null}
                     </div>
                     <Layout.Horizontal spacing="small">
-                      <FormInput.Select label={i18n.newProjectWizard.stepTwo.color} name="color" items={colors} />
-                      <FormInput.Select label={i18n.newProjectWizard.stepTwo.org} name="orgId" items={organisations} />
+                      {/* <FormInput.Select label={i18n.newProjectWizard.stepTwo.color} name="color" items={colors} /> */}
+                      <div className="bp3-form-group">
+                        <label className="bp3-label">Color</label>
+                        <ColorPicker
+                          className={css.colorPicker}
+                          onChange={color => {
+                            formikProps.setFieldValue('color', color)
+                          }}
+                        />
+                        {formikProps.errors['color'] ? (
+                          <Text font="small" intent="danger" padding={{ bottom: 'medium' }}>
+                            {formikProps.errors['color']}
+                          </Text>
+                        ) : null}
+                      </div>
+                      <FormInput.Select
+                        label={i18n.newProjectWizard.stepTwo.org}
+                        name="orgId"
+                        items={organisations}
+                        disabled={loading}
+                      />
                     </Layout.Horizontal>
                     <FormInput.TextArea label={i18n.newProjectWizard.stepTwo.desc} name="description" />
                     <FormInput.TagInput

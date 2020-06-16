@@ -6,21 +6,12 @@
   padding-bottom: 0;
 }
 
-.addProjectCard {
-  width: 240px;
-  min-height: 250px;
-  border: 2px dashed var(--grey-350);
-  box-shadow: none;
-  padding-top: 80px;
-}
-
-.projectCard {
-  margin-right: var(--spacing-large);
-  margin-bottom: var(--spacing-large);
-}
-
 .crossIcon {
   position: absolute;
   right: var(--spacing-large);
   top: var(--spacing-large);
+}
+
+.centerContainer {
+  margin: 0 auto !important;
 }

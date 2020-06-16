@@ -1,91 +1,106 @@
 import React from 'react'
 import cx from 'classnames'
-import { Card, Text, Tag, Layout, Icon, CardBody } from '@wings-software/uikit'
+import { Card, Text, Tag, Layout, Icon, CardBody, Container, Button, Color } from '@wings-software/uikit'
+import { linkTo } from 'framework/exports'
+import { useHistory } from 'react-router-dom'
+import { Menu } from '@blueprintjs/core'
 
+import { routeAboutPipelines } from 'modules/cd/routes'
 import css from './ProjectCard.module.scss'
 import i18n from './ProjectCard.i18n'
+import { useDeleteProject } from 'services/cd-ng'
 import type { ProjectDTO } from 'services/cd-ng'
 
 export interface ProjectCardProps {
   data?: ProjectDTO
   isPreview?: boolean
   className?: string
+  reloadProjects?: () => Promise<unknown>
 }
 
-const ContextMenu: React.FC = () => {
+interface ContextMenuProps {
+  project?: ProjectDTO
+  reloadProjects?: () => Promise<unknown>
+}
+
+const ContextMenu: React.FC<ContextMenuProps> = ({ project, reloadProjects }) => {
+  const { mutate: deleteProject } = useDeleteProject({})
+
   return (
-    <Layout.Vertical spacing="medium" style={{ padding: 'var(--spacing-medium)' }}>
-      <Text>{i18n.edit}</Text>
-      <Text>{i18n.clone}</Text>
-      <Text>{i18n.delete}</Text>
-    </Layout.Vertical>
+    <Menu>
+      <Menu.Item icon="edit" text="Edit" />
+      <Menu.Item
+        icon="trash"
+        text="Delete"
+        onClick={async () => {
+          if (!project?.id) return
+          try {
+            const deleted = await deleteProject(project.id, { headers: { 'content-type': 'application/json' } })
+            if (!deleted) {
+              // TODO: show error
+            } else {
+              reloadProjects?.()
+            }
+          } catch (_) {
+            // TODO: handle error
+          }
+        }}
+      />
+    </Menu>
   )
 }
 
 const ProjectCard: React.FC<ProjectCardProps> = props => {
-  const { data, isPreview } = props
+  const history = useHistory()
+  const { data, isPreview, reloadProjects } = props
+
   return (
     <Card className={cx(css.projectCard, props.className)}>
-      <CardBody.Menu menuContent={<ContextMenu />} />
-      <Text font="medium">{data?.name || 'Project Name'}</Text>
-      {data?.description ? <Text>{data.description}</Text> : isPreview ? <Text>{i18n.sampleDescription}</Text> : null}
-      <Layout.Horizontal spacing="small" style={{ marginTop: 'var(--spacing-large)' }}>
-        {data?.tags && data.tags.length > 0 ? (
-          data?.tags.map((tag: string) => (
-            <Tag minimal key={tag}>
-              {tag}
-            </Tag>
-          ))
-        ) : isPreview ? (
-          <>
-            <Tag minimal>your</Tag>
-            <Tag minimal>tags</Tag>
-            <Tag minimal>here</Tag>
-          </>
-        ) : null}
-      </Layout.Horizontal>
-      <table className={css.dataTable}>
-        <tbody>
-          <tr className={css.rowOne}>
-            <td className={cx(css.linkCell)} rowSpan={2}>
-              <Icon name="link" />
-            </td>
-            <td>
-              <Text font="medium" className={css.count}>
-                {/* TODO: remove hardcoded numbers once backend is integrated */}0
-              </Text>
-            </td>
-            <td>
-              <Text>
-                <Icon name="chart" />
-              </Text>
-            </td>
-            <td>
-              <Text font="medium" className={css.count} intent="danger">
-                0
-              </Text>
-            </td>
-          </tr>
-          <tr className={css.rowTwo}>
-            <td>
-              <Text font="small" className={css.subtitle}>
-                {i18n.services}
-              </Text>
-            </td>
-            <td>
-              <Text font="small" className={css.subtitle}>
-                {i18n.activity}
-              </Text>
-            </td>
-            <td>
-              <Text font="small" className={css.subtitle}>
-                {i18n.errors}
-              </Text>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <br />
+      {!isPreview ? (
+        <CardBody.Menu menuContent={<ContextMenu project={props.data} reloadProjects={reloadProjects} />} />
+      ) : null}
+      <div className={css.colorBar} style={{ backgroundColor: data?.color || 'var(--green-500)' }}></div>
+      <Text font="medium" color={Color.BLACK}>
+        {data?.name || 'Project Name'}
+      </Text>
+      {data?.description ? (
+        <Text font="small" padding={{ top: 'xsmall' }}>
+          {data.description}
+        </Text>
+      ) : isPreview ? (
+        <Text font="small" padding={{ top: 'xsmall' }}>
+          {i18n.sampleDescription}
+        </Text>
+      ) : null}
+      {(data?.tags && data.tags.length > 0) || isPreview ? (
+        <Layout.Horizontal spacing="small" padding={{ top: 'medium' }}>
+          {data?.tags && data.tags.length > 0 ? (
+            data?.tags.map((tag: string) => (
+              <Tag minimal key={tag}>
+                {tag}
+              </Tag>
+            ))
+          ) : isPreview ? (
+            <>
+              <Tag minimal>sample</Tag>
+              <Tag minimal>tags</Tag>
+            </>
+          ) : null}
+        </Layout.Horizontal>
+      ) : null}
+      <Container
+        margin={{ top: 'medium', bottom: 'large' }}
+        padding={{ top: 'medium', bottom: 'large' }}
+        border={{ top: true, bottom: true, color: Color.GREY_250 }}
+      >
+        <Button
+          intent="primary"
+          text="Create Pipeline"
+          onClick={() => {
+            history.push(linkTo(routeAboutPipelines))
+          }}
+        />
+      </Container>
       <Icon name="main-user" />
     </Card>
   )

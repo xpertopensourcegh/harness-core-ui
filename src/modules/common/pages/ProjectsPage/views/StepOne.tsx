@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { StepProps, RadioSelect, Button, Layout, Text, IconName, Icon } from '@wings-software/uikit'
+import { StepProps, RadioSelect, Button, Layout, Text, IconName, Color } from '@wings-software/uikit'
 
 import type { SharedData } from '../ProjectsPage'
 
@@ -47,14 +47,12 @@ const StepOne: React.FC<StepProps<SharedData>> = ({ previousStep, nextStep, prev
       </Text>
       <RadioSelect<Purpose>
         selected={selected}
-        onChange={value => {
-          setSelected(value)
-        }}
+        onChange={setSelected}
         className={css.radioSelectPurpose}
         data={options}
         renderItem={item => (
           <>
-            <Icon name={item.icon} size={20} />
+            {/* <Icon name={item.icon} size={20} /> */}
             <Text>{item.titleOne}</Text>
             <Text font="medium" color="black">
               {item.titleTwo}
@@ -62,7 +60,7 @@ const StepOne: React.FC<StepProps<SharedData>> = ({ previousStep, nextStep, prev
             <Text padding={{ top: 'medium', bottom: 'large' }} height={90}>
               {item.description}
             </Text>
-            <Text icon="time" padding={{ top: 'medium' }} style={{ color: 'var(--grey-350)', justifyContent: 'left' }}>
+            <Text icon="time" padding={{ top: 'medium' }} color={Color.GREY_400} style={{ justifyContent: 'left' }}>
               {item.time}
             </Text>
           </>

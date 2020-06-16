@@ -44,6 +44,7 @@ const ProjectsListPage: React.FC = () => {
       await createProject(dataToSubmit)
       hideModal()
       reloadProjects()
+      setView(Views.NEW_PROJECT)
     } catch (e) {
       // display error using ModalErrorHandler
       // console.log(e?.data?.responseMessages)
@@ -61,7 +62,16 @@ const ProjectsListPage: React.FC = () => {
             <StepThree name={i18n.newProjectWizard.stepThree.name} />
           </StepWizard>
         ) : null}
-        <Button minimal icon="cross" iconProps={{ size: 18 }} onClick={hideModal} className={css.crossIcon} />
+        <Button
+          minimal
+          icon="cross"
+          iconProps={{ size: 18 }}
+          onClick={() => {
+            setView(Views.NEW_PROJECT)
+            hideModal()
+          }}
+          className={css.crossIcon}
+        />
       </Dialog>
     ),
     [view]
@@ -85,8 +95,11 @@ const ProjectsListPage: React.FC = () => {
       ) : data && data.content && data.content.length > 0 ? (
         <Page.Body>
           <Layout.Masonry
+            gutter={30}
+            width={900}
+            className={css.centerContainer}
             items={data.content}
-            renderItem={(project: ProjectDTO) => <ProjectCard data={project} className={css.projectCard} />}
+            renderItem={(project: ProjectDTO) => <ProjectCard data={project} reloadProjects={reloadProjects} />}
             keyOf={(project: ProjectDTO) => project.id}
           />
         </Page.Body>

@@ -20,6 +20,7 @@ export interface ProjectDTO {
   orgId?: string
   identifier?: string
   name?: string
+  color?: string
   description?: string
   owners?: string[]
   tags?: string[]
@@ -42,10 +43,10 @@ export interface PageOrganizationDTO {
 export interface Pageable {
   offset?: number
   sort?: Sort
-  pageNumber?: number
-  pageSize?: number
   unpaged?: boolean
   paged?: boolean
+  pageNumber?: number
+  pageSize?: number
 }
 
 export interface OptionalProjectDTO {

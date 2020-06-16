@@ -2,6 +2,10 @@
   margin-right: var(--spacing-small);
 }
 
+.colorPicker {
+  height: 38px;
+}
+
 .radioSelect {
   :global(.bp3-card) {
     height: 140px;
