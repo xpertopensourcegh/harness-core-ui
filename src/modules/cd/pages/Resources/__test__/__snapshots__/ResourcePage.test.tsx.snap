@@ -105,11 +105,11 @@ exports[`ResourcesPage Snapshot should render ResourcesPage 1`] = `
       </div>
       <div
         class="StyledProps---font--2ipy StyledProps---main--1Wws"
-        style="min-height: calc(100vh - 150px);"
+        style="height: 100%;"
       >
         <div
           class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
-          style="height: auto;"
+          style="height: 100%;"
         >
           <section
             class="tableWrapper"
@@ -310,13 +310,12 @@ exports[`ResourcesPage Snapshot should render ResourcesPage 1`] = `
                       role="cell"
                       width="auto"
                     >
-                      <span
-                        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
-                        style="font-weight: 700; font-size: 16px; display: inline-flex; align-items: center;"
+                      <div
+                        style="display: flex; justify-content: space-between;"
                       >
                         <span
                           class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
-                          style="font-weight: 700; font-size: 14px; display: inline-flex; justify-content: center;"
+                          style="font-weight: 700; font-size: 14px; display: inline-flex; align-items: center;"
                         >
                           <span
                             class="bp3-icon StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
@@ -432,13 +431,10 @@ exports[`ResourcesPage Snapshot should render ResourcesPage 1`] = `
                       role="cell"
                       width="auto"
                     >
-                      <span
-                        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
-                        style="font-size: 16px; display: inline-flex; align-items: center;"
-                      >
+                      <section>
                         <span
                           class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
-                          style="font-size: 16px; display: inline-flex; justify-content: center;"
+                          style="font-size: 16px; display: inline-flex; align-items: center;"
                         >
                           <span
                             class="bp3-icon bp3-icon-pulse StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
@@ -483,13 +479,12 @@ exports[`ResourcesPage Snapshot should render ResourcesPage 1`] = `
                       role="cell"
                       width="150"
                     >
-                      <span
-                        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
-                        style="font-weight: 700; font-size: 16px; display: inline-flex; align-items: center;"
+                      <section
+                        style="display: flex; justify-content: space-between;"
                       >
                         <span
                           class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
-                          style="font-weight: 700; font-size: 16px; display: inline-flex; justify-content: center;"
+                          style="font-weight: 700; font-size: 16px; display: inline-flex; align-items: center;"
                         >
                           <span
                             class="bp3-icon bp3-icon-warning-sign StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04 StyledProps---color--8PuS StyledProps---color-red500--uX9L"
@@ -586,13 +581,12 @@ exports[`ResourcesPage Snapshot should render ResourcesPage 1`] = `
                       role="cell"
                       width="auto"
                     >
-                      <span
-                        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
-                        style="font-weight: 700; font-size: 16px; display: inline-flex; align-items: center;"
+                      <div
+                        style="display: flex; justify-content: space-between;"
                       >
                         <span
                           class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
-                          style="font-weight: 700; font-size: 14px; display: inline-flex; justify-content: center;"
+                          style="font-weight: 700; font-size: 14px; display: inline-flex; align-items: center;"
                         >
                           <span
                             class="bp3-icon StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
@@ -790,13 +784,10 @@ exports[`ResourcesPage Snapshot should render ResourcesPage 1`] = `
                       role="cell"
                       width="auto"
                     >
-                      <span
-                        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
-                        style="font-size: 16px; display: inline-flex; align-items: center;"
-                      >
+                      <section>
                         <span
                           class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
-                          style="font-size: 16px; display: inline-flex; justify-content: center;"
+                          style="font-size: 16px; display: inline-flex; align-items: center;"
                         >
                           <span
                             class="bp3-icon bp3-icon-pulse StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
@@ -841,13 +832,12 @@ exports[`ResourcesPage Snapshot should render ResourcesPage 1`] = `
                       role="cell"
                       width="150"
                     >
-                      <span
-                        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
-                        style="font-weight: 700; font-size: 16px; display: inline-flex; align-items: center;"
+                      <section
+                        style="display: flex; justify-content: space-between;"
                       >
                         <span
                           class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
-                          style="font-weight: 700; font-size: 16px; display: inline-flex; justify-content: center;"
+                          style="font-weight: 700; font-size: 16px; display: inline-flex; align-items: center;"
                         >
                           <span
                             class="bp3-icon bp3-icon-full-circle StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04 StyledProps---color--8PuS StyledProps---color-green500--2_VK"
@@ -932,13 +922,12 @@ exports[`ResourcesPage Snapshot should render ResourcesPage 1`] = `
                       role="cell"
                       width="auto"
                     >
-                      <span
-                        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
-                        style="font-weight: 700; font-size: 16px; display: inline-flex; align-items: center;"
+                      <div
+                        style="display: flex; justify-content: space-between;"
                       >
                         <span
                           class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
-                          style="font-weight: 700; font-size: 14px; display: inline-flex; justify-content: center;"
+                          style="font-weight: 700; font-size: 14px; display: inline-flex; align-items: center;"
                         >
                           <span
                             class="bp3-icon StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
@@ -1046,13 +1035,10 @@ exports[`ResourcesPage Snapshot should render ResourcesPage 1`] = `
                       role="cell"
                       width="auto"
                     >
-                      <span
-                        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
-                        style="font-size: 16px; display: inline-flex; align-items: center;"
-                      >
+                      <section>
                         <span
                           class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
-                          style="font-size: 16px; display: inline-flex; justify-content: center;"
+                          style="font-size: 16px; display: inline-flex; align-items: center;"
                         >
                           <span
                             class="bp3-icon bp3-icon-pulse StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
@@ -1097,13 +1083,12 @@ exports[`ResourcesPage Snapshot should render ResourcesPage 1`] = `
                       role="cell"
                       width="150"
                     >
-                      <span
-                        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
-                        style="font-weight: 700; font-size: 16px; display: inline-flex; align-items: center;"
+                      <section
+                        style="display: flex; justify-content: space-between;"
                       >
                         <span
                           class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
-                          style="font-weight: 700; font-size: 16px; display: inline-flex; justify-content: center;"
+                          style="font-weight: 700; font-size: 16px; display: inline-flex; align-items: center;"
                         >
                           <span
                             class="bp3-icon bp3-icon-warning-sign StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04 StyledProps---color--8PuS StyledProps---color-red500--uX9L"
@@ -1200,13 +1185,12 @@ exports[`ResourcesPage Snapshot should render ResourcesPage 1`] = `
                       role="cell"
                       width="auto"
                     >
-                      <span
-                        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
-                        style="font-weight: 700; font-size: 16px; display: inline-flex; align-items: center;"
+                      <div
+                        style="display: flex; justify-content: space-between;"
                       >
                         <span
                           class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
-                          style="font-weight: 700; font-size: 14px; display: inline-flex; justify-content: center;"
+                          style="font-weight: 700; font-size: 14px; display: inline-flex; align-items: center;"
                         >
                           <span
                             class="bp3-icon StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
@@ -1412,13 +1396,10 @@ exports[`ResourcesPage Snapshot should render ResourcesPage 1`] = `
                       role="cell"
                       width="auto"
                     >
-                      <span
-                        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
-                        style="font-size: 16px; display: inline-flex; align-items: center;"
-                      >
+                      <section>
                         <span
                           class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
-                          style="font-size: 16px; display: inline-flex; justify-content: center;"
+                          style="font-size: 16px; display: inline-flex; align-items: center;"
                         >
                           <span
                             class="bp3-icon bp3-icon-pulse StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
@@ -1463,13 +1444,12 @@ exports[`ResourcesPage Snapshot should render ResourcesPage 1`] = `
                       role="cell"
                       width="150"
                     >
-                      <span
-                        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
-                        style="font-weight: 700; font-size: 16px; display: inline-flex; align-items: center;"
+                      <section
+                        style="display: flex; justify-content: space-between;"
                       >
                         <span
                           class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
-                          style="font-weight: 700; font-size: 16px; display: inline-flex; justify-content: center;"
+                          style="font-weight: 700; font-size: 16px; display: inline-flex; align-items: center;"
                         >
                           <span
                             class="bp3-icon bp3-icon-full-circle StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04 StyledProps---color--8PuS StyledProps---color-green500--2_VK"
@@ -1554,13 +1534,12 @@ exports[`ResourcesPage Snapshot should render ResourcesPage 1`] = `
                       role="cell"
                       width="auto"
                     >
-                      <span
-                        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
-                        style="font-weight: 700; font-size: 16px; display: inline-flex; align-items: center;"
+                      <div
+                        style="display: flex; justify-content: space-between;"
                       >
                         <span
                           class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
-                          style="font-weight: 700; font-size: 14px; display: inline-flex; justify-content: center;"
+                          style="font-weight: 700; font-size: 14px; display: inline-flex; align-items: center;"
                         >
                           <span
                             class="bp3-icon StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
@@ -1633,13 +1612,10 @@ exports[`ResourcesPage Snapshot should render ResourcesPage 1`] = `
                       role="cell"
                       width="auto"
                     >
-                      <span
-                        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
-                        style="font-size: 16px; display: inline-flex; align-items: center;"
-                      >
+                      <section>
                         <span
                           class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
-                          style="font-size: 16px; display: inline-flex; justify-content: center;"
+                          style="font-size: 16px; display: inline-flex; align-items: center;"
                         >
                           <span
                             class="bp3-icon bp3-icon-pulse StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
@@ -1684,13 +1660,12 @@ exports[`ResourcesPage Snapshot should render ResourcesPage 1`] = `
                       role="cell"
                       width="150"
                     >
-                      <span
-                        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
-                        style="font-weight: 700; font-size: 16px; display: inline-flex; align-items: center;"
+                      <section
+                        style="display: flex; justify-content: space-between;"
                       >
                         <span
                           class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
-                          style="font-weight: 700; font-size: 16px; display: inline-flex; justify-content: center;"
+                          style="font-weight: 700; font-size: 16px; display: inline-flex; align-items: center;"
                         >
                           <span
                             class="bp3-icon bp3-icon-warning-sign StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04 StyledProps---color--8PuS StyledProps---color-red500--uX9L"
