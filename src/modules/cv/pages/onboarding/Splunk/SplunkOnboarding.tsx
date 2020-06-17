@@ -48,7 +48,7 @@ const eventTypesOptions = [
 ]
 
 const SplunkOnboarding: FunctionComponent<any> = props => {
-  const { configs: queries, serviceOptions } = props
+  const { configs: queries, serviceOptions, locationContext } = props
 
   const [environmentOptions, setEnvironmentOptions] = useState([])
 
@@ -57,6 +57,8 @@ const SplunkOnboarding: FunctionComponent<any> = props => {
   const [inProgress, setInProgress] = useState(false)
 
   const [showCallLogs, setShowCallLogs] = useState(false)
+
+  // const connectorId = locationContext.dataSourceId
 
   // const accountId = 'zEaak-FLS425IEO7OLzMUg'
   // const connectorId = 'g8eLKgBSQ368GWA5FuS7og'
@@ -283,8 +285,8 @@ const SplunkOnboarding: FunctionComponent<any> = props => {
       identifier: query.queryName,
       accountId: accountId,
       projectIdentifier: projectIdentifier,
-      productName: 'splunk',
-      connectorId: connectorId,
+      productName: 'Splunk Enterprise',
+      connectorId: locationContext.dataSourceId,
       // serviceIdentifier: query.service,
       envIdentifier: query.environment,
       query: query.queryString,

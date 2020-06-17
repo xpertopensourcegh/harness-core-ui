@@ -37,7 +37,7 @@ export const splunkInitialQuery = {
   queryName: '',
   service: '',
   environment: '',
-  serviceInstance: '',
+  serviceInstanceIdentifier: '',
   queryString: '',
   eventType: 'Quality',
   graphOptions: { ...options },
@@ -56,6 +56,20 @@ export function transformQueriesFromSplunk(splunkSavedQueries: SplunkSavedSearch
           label: query.title || '',
           value: query.searchQuery || ''
         }))
+}
+
+export function transformSavedQueries( savedQueries: any ) {
+    return savedQueries.map((query: any) => {
+        const iQuery = {...splunkInitialQuery}
+        iQuery.queryName = query.identifier,
+        iQuery.service = query.serviceIdentifier,
+        iQuery.environment = query.envIdentifier,
+        iQuery.serviceInstanceIdentifier = query.serviceInstanceIdentifier,
+        iQuery.queryString = query.query,
+        iQuery.eventType = query.eventType,
+        iQuery.isAlreadySaved = true
+        return iQuery;
+    } )
 }
 
 export function mapQueries(queries: any) {
