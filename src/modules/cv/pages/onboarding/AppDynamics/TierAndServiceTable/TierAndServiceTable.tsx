@@ -105,13 +105,13 @@ function ValidationResult(props: ValidationResultProps): JSX.Element {
 
   const childFields = useMemo(() => {
     if (!isChecked) {
-      return <span />
+      return <Container width={170} />
     } else if (isLoading) {
       return <Spinner size={Spinner.SIZE_SMALL} />
     } else if (validationStatus || shouldDisplayModal) {
       return (
-        <Container className={css.validationContainer}>
-          <Text intent={validationStatus?.intent} width={error && error.message ? 100 : 55} lineClamp={1}>
+        <Container className={css.validationContainer} width={170}>
+          <Text intent={validationStatus?.intent} width={error && error.message ? 150 : 55} lineClamp={1}>
             {validationStatus?.status}
           </Text>
           {!error && !error?.message && (
@@ -193,12 +193,11 @@ function RowRenderer(props: RowRendererProps): JSX.Element {
 
   const rowCellCallback = useCallback(
     (index: number, cell: Cell<TierAndServiceRow, any>) => {
-      if (!tierName) {
-        return <Container height={20} width={index === 0 ? 30 : 100} />
-      }
       switch (index) {
         case 0:
-          return (
+          return !tierName ? (
+            <Container height={20} width={15} />
+          ) : (
             <Container className={css.tierSelectChecBox}>
               <input
                 type="checkbox"
@@ -206,18 +205,24 @@ function RowRenderer(props: RowRendererProps): JSX.Element {
                 onChange={() => {
                   const serviceName = serviceSelectObj && serviceSelectObj.label ? serviceSelectObj.label : ''
                   onChange('selected', { service: serviceName, selected: Boolean(!selected) }, rowIndex)
+                  xhr.abort(`${XHR_METRIC_VALIDATION_GROUP}-${guid}`)
+                  setValidationResult({ isLoading: false, validationResult: undefined, error: '', guid: '' })
                 }}
               />
             </Container>
           )
         case 1:
-          return (
-            <Text lineClamp={1} className={css.tier} width={100} color={Color.BLACK}>
+          return !tierName ? (
+            <Container height={20} width={85} />
+          ) : (
+            <Text lineClamp={1} className={css.tier} width={85} color={Color.BLACK}>
               {tierName}
             </Text>
           )
         case 2:
-          return (
+          return !tierName ? (
+            <Container height={20} width={100} />
+          ) : (
             <Select
               items={services}
               className={css.serviceSelect}
@@ -228,7 +233,9 @@ function RowRenderer(props: RowRendererProps): JSX.Element {
             />
           )
         case 3:
-          return (
+          return !tierName ? (
+            <Container height={20} width={170} />
+          ) : (
             <ValidationResult
               validationResult={validationResult}
               error={error}
@@ -351,19 +358,18 @@ export default function TierAndServiceTable(props: TierAndServiceTableProps): JS
 
   const onRowChangeCallback = useCallback(
     (fieldName: keyof TierAndServiceRow, value: any, index: number) => {
-      const newData = [...tableData]
       if (fieldName === 'selected') {
         const validation = value.selected ? data[index]['validation'] : undefined
         data[index] = { ...data[index], ...value, validation }
-        newData[index] = { ...newData[index], ...value, validation }
+        tableData[index] = { ...tableData[index], ...value, validation }
       } else {
-        newData[index][fieldName] = value as never
+        tableData[index][fieldName] = value as never
         data[index][fieldName] = value as never
       }
 
       setFieldValue(`dsConfigs[${appIndex}].tableData`, fieldName === 'validation' ? data : [...data])
       setFieldTouched(`dsConfigs[${appIndex}].tableData`, true)
-      setTableData(newData)
+      setTableData(tableData)
     },
     [appIndex, setFieldValue, tableData, data, setFieldTouched]
   )

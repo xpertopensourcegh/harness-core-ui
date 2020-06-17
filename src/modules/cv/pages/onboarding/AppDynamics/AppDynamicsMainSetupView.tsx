@@ -23,7 +23,6 @@ import { AppDynamicsService } from 'modules/cv/services'
 import { CustomizeMetricPackDrawer } from 'modules/cv/components/CustomizeMetricPackDrawer/CustomizeMetricPackDrawer'
 import { useMetricPackHook, fetchMetricPacks } from 'modules/cv/hooks/ConfigureMetricPackHook/ConfigureMetricPackHook'
 import type { MetricPack, DSConfig } from '@wings-software/swagger-ts/definitions'
-import { connectorId } from 'modules/cv/constants'
 import DataSourceConfigPanel from 'modules/cv/components/DataSourceConfigPanel/DataSourceConfigPanel'
 import { routeParams } from 'framework/exports'
 
@@ -307,7 +306,7 @@ export default function AppDynamicsMainSetupView(props: AppDynamicsMainSetupView
   } = routeParams()
 
   useEffect(() => {
-    fetchAppDApps(accountId, connectorId).then((appDApplicationsOptions: SelectOption[]) => {
+    fetchAppDApps(accountId, locationContext.dataSourceId).then((appDApplicationsOptions: SelectOption[]) => {
       if (appDApplicationsOptions?.length) {
         const appNameToId = new Map<string, SelectOption>()
         appDApplicationsOptions.forEach(option => {
@@ -331,13 +330,13 @@ export default function AppDynamicsMainSetupView(props: AppDynamicsMainSetupView
     return () => {
       xhr.abort(XHR_METRIC_PACK_GROUP)
     }
-  }, [])
+  }, [locationContext.dataSourceId, accountId])
 
   return (
     <AppDynamicsDataSourceForm
       configList={configs}
       serviceOptions={serviceOptions}
-      dataSourceId={connectorId}
+      dataSourceId={locationContext.dataSourceId}
       accountId={accountId}
       metricPackMap={metricPackMap}
       productName={locationContext.products?.[0]}

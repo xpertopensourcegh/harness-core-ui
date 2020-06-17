@@ -1,11 +1,16 @@
 .main {
   display: flex;
   align-items: center;
+
   .title {
     height: 17px;
+    margin-left: var(--spacing-large);
+    .panelName {
+      color: var(--blue-800);
+    }
   }
   .tag {
-    margin-left: var(--spacing-xsmall);
+    margin-left: var(--spacing-medium);
     font-size: 12px !important;
     padding: 5px;
   }

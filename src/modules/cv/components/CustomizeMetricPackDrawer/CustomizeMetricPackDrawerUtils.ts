@@ -24,7 +24,7 @@ export function transformMetricPackToThresholds(metricPack: MetricPack): { failF
       for (const hint of metric.ignoreHints) {
         ignoreHints.push({
           name: metric.name,
-          action: hint.action,
+          action: 'ignore',
           criteria: parseInt(hint.criteria?.split(' ')[1] || ''),
           criteriaOptions: mapCriteriaSignToForm(hint.criteria || ''),
           occurrenceCount: hint.occurrenceCount,
@@ -51,7 +51,6 @@ export function updateMetricPackHints(values: any, selectedThresholdMetricPack: 
     const metric = metricThresholds.get(ignoreThreshold.name)
     if (ignoreThreshold && metric?.ignoreHints) {
       metric.ignoreHints.push({
-        action: ignoreThreshold.action,
         criteria: mapCriteriaToRequest(ignoreThreshold.criteria, ignoreThreshold.criteriaOptions),
         occurrenceCount: ignoreThreshold.occurrenceCount,
         type: ignoreThreshold.type
