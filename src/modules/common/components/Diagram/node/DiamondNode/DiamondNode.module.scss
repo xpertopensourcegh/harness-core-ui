@@ -9,4 +9,9 @@
   & > div[class*='portOut'] {
     top: calc(-20% + 4px);
   }
+  .diamondClose {
+    transform: rotate(-45deg);
+    top: -15px;
+    left: -15px;
+  }
 }

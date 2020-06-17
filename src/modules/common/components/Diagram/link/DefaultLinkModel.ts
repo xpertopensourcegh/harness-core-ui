@@ -7,7 +7,7 @@ import {
   PortModelAlignment
 } from '@projectstorm/react-diagrams-core'
 import { DefaultLabelModel } from '../label/DefaultLabelModel'
-import { BezierCurve } from '@projectstorm/geometry'
+import { Point } from '@projectstorm/geometry'
 import type { BaseEntityEvent, BaseModelOptions, DeserializeEvent } from '@projectstorm/react-canvas-core'
 import { DiagramType, Event } from '../Constants'
 
@@ -27,6 +27,7 @@ export interface DefaultLinkModelOptions extends BaseModelOptions {
   curvyness?: number
   type?: string
   testName?: string
+  curve?: number
 }
 
 export interface DefaultLinkModelGenerics extends LinkModelGenerics {
@@ -38,9 +39,10 @@ export class DefaultLinkModel extends LinkModel<DefaultLinkModelGenerics> {
   constructor(options: DefaultLinkModelOptions = {}) {
     super({
       type: DiagramType.Default,
-      width: options.width || 3,
-      color: options.color || 'var(--diagram-grey)',
-      selectedColor: options.selectedColor || 'var(--diagram-selected)',
+      width: options.width || 2,
+      curve: options.curve || 12,
+      color: options.color || 'var(--diagram-link)',
+      selectedColor: options.selectedColor || 'var(--diagram-hover-link-color)',
       curvyness: 50,
       ...options
     })
@@ -59,20 +61,22 @@ export class DefaultLinkModel extends LinkModel<DefaultLinkModelGenerics> {
 
   getSVGPath(): string | undefined {
     if (this.points.length == 2) {
-      const curve = new BezierCurve()
-      curve.setSource(this.getFirstPoint().getPosition())
-      curve.setTarget(this.getLastPoint().getPosition())
-      curve.setSourceControl(this.getFirstPoint().getPosition().clone())
-      curve.setTargetControl(this.getLastPoint().getPosition().clone())
-
-      if (this.sourcePort) {
-        curve.getSourceControl().translate(...this.calculateControlOffset(this.getSourcePort()))
+      const firstPoint = this.getFirstPoint().getPosition()
+      const lastPoint = this.getLastPoint().getPosition()
+      if (Math.abs(firstPoint.y - lastPoint.y) > 3 && this.options.curve) {
+        const diameter = this.options.curve * 2
+        const topToBottom = lastPoint.y - firstPoint.y > 0
+        const midX = new Point((firstPoint.x + lastPoint.x) / 2, firstPoint.y)
+        const midX1 = new Point(midX.x - diameter, midX.y)
+        const midX2 = topToBottom ? new Point(midX.x, midX.y + diameter) : new Point(midX.x, midX.y - diameter)
+        const midY = new Point(midX.x, lastPoint.y)
+        const midY1 = topToBottom
+          ? new Point(midX.x, lastPoint.y - diameter)
+          : new Point(midX.x, lastPoint.y + diameter)
+        const midY2 = new Point(midX.x + diameter, lastPoint.y)
+        return `M${firstPoint.toSVG()}, L${midX1.toSVG()}, Q${midX.toSVG()}, ${midX2.toSVG()}, L${midY1.toSVG()}, Q${midY.toSVG()}, ${midY2.toSVG()}, L${lastPoint.toSVG()}`
       }
-
-      if (this.targetPort) {
-        curve.getTargetControl().translate(...this.calculateControlOffset(this.getTargetPort()))
-      }
-      return curve.getSVGCurve()
+      return `M${firstPoint.toSVG()}, L${lastPoint.toSVG()}`
     }
   }
 

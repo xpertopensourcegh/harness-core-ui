@@ -12,7 +12,7 @@
 
 .selectedLink {
   path {
-    stroke: var(--diagram-selected) !important;
+    stroke: var(--diagram-hover-link-color) !important;
   }
   circle {
     opacity: 1 !important;

@@ -152,7 +152,8 @@ export class ExecutionStepModel extends Diagram.DiagramModel {
     const tempStartX = startX
     this.addNode(startNode)
     const createNode =
-      (this.getNode('create-new') as Diagram.DefaultNodeModel) || new Diagram.CreateNewModel({ id: 'create-new' })
+      (this.getNode('stop') as Diagram.DefaultNodeModel) ||
+      new Diagram.NodeStartModel({ id: 'stop', icon: 'stop', isStart: false })
     let prevNodes: Diagram.DefaultNodeModel[] = [startNode]
     data.forEach((node: GraphObj) => {
       const resp = this.renderGraphNodes(node, startX, startY, prevNodes)

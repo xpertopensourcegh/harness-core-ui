@@ -5,6 +5,7 @@ import type { BasePositionModelOptions, DeserializeEvent } from '@projectstorm/r
 import type { IconName } from '@wings-software/uikit'
 import { DiagramType } from '../Constants'
 import i18n from '../Diagram.i18n'
+import type { IconProps } from '@wings-software/uikit/dist/icons/Icon'
 
 export interface DefaultNodeModelOptions extends BasePositionModelOptions {
   name: string
@@ -12,6 +13,8 @@ export interface DefaultNodeModelOptions extends BasePositionModelOptions {
   width?: number
   height?: number
   icon?: IconName
+  iconProps?: IconProps
+  canDelete?: boolean
   secondaryIcon?: IconName
 }
 
@@ -35,6 +38,8 @@ export class DefaultNodeModel extends NodeModel<DefaultNodeModelGenerics> {
       type: DiagramType.Default,
       name: i18n.Untitled,
       icon: 'add',
+      iconProps: {},
+      canDelete: true,
       secondaryIcon: 'command-echo',
       backgroundColor: 'var(--white)',
       width: 64,

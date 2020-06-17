@@ -5,7 +5,8 @@ import type { DiagramEngine } from '@projectstorm/react-diagrams-core'
 import type { DiamondNodeModel } from './DiamondNodeModel'
 import { DefaultPortLabel } from '../../port/DefaultPortLabelWidget'
 import type { DefaultPortModel } from '../../port/DefaultPortModel'
-import { Icon, Text } from '@wings-software/uikit'
+import { Icon, Text, Button } from '@wings-software/uikit'
+import { Event } from '../../Constants'
 import cx from 'classnames'
 
 export interface DiamondNodeProps {
@@ -15,6 +16,10 @@ export interface DiamondNodeProps {
 
 const generatePort = (port: DefaultPortModel, props: DiamondNodeProps): JSX.Element => {
   return <DefaultPortLabel engine={props.engine} port={port} key={port.getID()} />
+}
+const onClick = (e: React.MouseEvent<Element, MouseEvent>, node: DiamondNodeModel): void => {
+  e.stopPropagation()
+  node.fireEvent({}, Event.RemoveNode)
 }
 
 export const DiamondNodeWidget = (props: DiamondNodeProps): JSX.Element => {
@@ -28,6 +33,15 @@ export const DiamondNodeWidget = (props: DiamondNodeProps): JSX.Element => {
         {options.icon && <Icon size={28} name={options.icon} />}
         {props.node.getInPorts().map(port => generatePort(port, props))}
         {props.node.getOutPorts().map(port => generatePort(port, props))}
+        {options.canDelete && (
+          <Button
+            className={cx(cssDefault.closeNode, css.diamondClose)}
+            minimal
+            icon="cross"
+            iconProps={{ size: 10 }}
+            onMouseDown={e => onClick(e, props.node)}
+          />
+        )}
       </div>
       <Text
         font={{ size: 'normal', align: 'center' }}
