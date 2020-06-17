@@ -5,6 +5,7 @@ import {
   OverlaySpinner,
   Table,
   Collapse,
+  Color,
   Link as WingsLink,
   IconName,
   Text,
@@ -89,7 +90,7 @@ function RenderContent(props: RenderContentProps): JSX.Element {
         accessor: 'name',
         Cell: function DataSourceName(cell: Cell) {
           return (
-            <Text width={100} lineClamp={1}>
+            <Text width={100} lineClamp={1} color={Color.BLACK}>
               {cell.value}
             </Text>
           )
@@ -100,7 +101,7 @@ function RenderContent(props: RenderContentProps): JSX.Element {
         accessor: 'createdAt',
         Cell: function DataSourceCreatedAt(cell: Cell) {
           return (
-            <Text width={150} lineClamp={1}>
+            <Text width={150} lineClamp={1} color={Color.BLACK}>
               {cell.value}
             </Text>
           )
@@ -111,7 +112,7 @@ function RenderContent(props: RenderContentProps): JSX.Element {
         accessor: 'lastUpdatedAt',
         Cell: function DataSourceCreatedAt(cell: Cell) {
           return (
-            <Text width={150} lineClamp={1}>
+            <Text width={150} lineClamp={1} color={Color.BLACK}>
               {cell.value}
             </Text>
           )

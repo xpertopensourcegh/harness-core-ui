@@ -41,14 +41,28 @@
 
       .dataSourceTable {
         width: 100% !important;
+
+        thead th {
+          color: var(--grey-400);
+        }
+
+        tbody tr:hover td {
+          background-color: var(--blue-200);
+        }
+
         tbody > tr:first-child > td {
           box-shadow: none !important;
         }
 
         .actionLinks {
           display: flex;
+          justify-content: flex-end;
+          a {
+            color: var(--blue-500);
+            font-weight: bold;
+          }
           .divider {
-            margin: 0 5px;
+            margin: 0 var(--spacing-xsmall);
           }
         }
 

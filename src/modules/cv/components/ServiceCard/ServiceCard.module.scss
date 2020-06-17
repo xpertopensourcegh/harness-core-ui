@@ -1,0 +1,13 @@
+.card {
+  box-shadow: 2px 2px 7px var(--grey-300);
+  .impactBarWrap {
+    margin-top: 8px;
+  }
+  .row {
+    margin-top: var(--spacing-small);
+    display: flex;
+    .cell {
+      display: block;
+    }
+  }
+}
