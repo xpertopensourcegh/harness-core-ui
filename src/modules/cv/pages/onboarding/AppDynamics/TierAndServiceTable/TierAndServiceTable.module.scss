@@ -1,10 +1,23 @@
 .main {
-  width: 100%;
   margin-bottom: var(--spacing-xsmall);
 
   th[role='columnheader'] {
     color: var(--grey-400) !important;
     font-weight: unset !important;
+  }
+
+  tbody tr td {
+    box-shadow: none !important;
+    &:not(:first-child) {
+      box-shadow: inset 1px 0 0 0 var(--grey-200) !important;
+    }
+  }
+
+  thead tr th {
+    border-bottom: 1px solid var(--grey-300);
+    &:not(:first-child) {
+      box-shadow: inset 1px 0 0 0 var(--grey-200) !important;
+    }
   }
 
   .serviceSelect {
@@ -34,12 +47,12 @@
   }
 
   .validationResult {
-    width: 200px;
     position: relative;
     top: 2px;
     .validationContainer {
       display: flex;
       align-items: center;
+
       .divider {
         width: 10px;
       }

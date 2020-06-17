@@ -3,6 +3,7 @@
 declare const styles: {
   readonly main: string
   readonly title: string
+  readonly panelName: string
   readonly tag: string
   readonly tagError: string
   readonly tagSuccess: string

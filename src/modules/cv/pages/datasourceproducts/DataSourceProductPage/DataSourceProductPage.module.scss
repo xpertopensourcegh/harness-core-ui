@@ -1,5 +1,7 @@
 .main {
   .contentContainer {
+    width: 90%;
+    margin: 0 auto;
     padding: 25px;
     display: grid;
     grid-template-columns: minmax(100px, 380px) minmax(100px, 700px);

@@ -32,7 +32,7 @@ export function CustomizeMetricPackDrawer(props: CustomizeMetricPackDrawerProps)
   const [{ displayThresholds, selectedThresholdMetricPack, failFastAndIgnoreHints }, setDisplayThresholds] = useState<{
     displayThresholds: boolean
     selectedThresholdMetricPack?: MetricPack
-    failFastAndIgnoreHints: { failFastHints: any[]; ignoreHints: any[] }
+    failFastAndIgnoreHints?: { failFastHints: any[]; ignoreHints: any[] }
   }>({
     displayThresholds: false,
     selectedThresholdMetricPack: undefined,
@@ -52,13 +52,22 @@ export function CustomizeMetricPackDrawer(props: CustomizeMetricPackDrawerProps)
         values,
         selectedThresholdMetricPack || { dataSourceType: 'APP_DYNAMICS' }
       )
+
+      for (let packIndex = 0; packIndex < localMetricPacks.length; packIndex++) {
+        if (localMetricPacks[packIndex]?.identifier === updatedMetrics.identifier) {
+          localMetricPacks[packIndex] = updatedMetrics
+          break
+        }
+      }
+
+      setLocalMetricPacks([...localMetricPacks])
       setDisplayThresholds({
         displayThresholds: false,
-        selectedThresholdMetricPack: updatedMetrics,
-        failFastAndIgnoreHints: { failFastHints: [], ignoreHints: [] }
+        selectedThresholdMetricPack: undefined,
+        failFastAndIgnoreHints: undefined
       })
     },
-    [selectedThresholdMetricPack]
+    [selectedThresholdMetricPack, localMetricPacks]
   )
 
   const titleAndSubtitle = useMemo(() => {
@@ -113,6 +122,13 @@ export function CustomizeMetricPackDrawer(props: CustomizeMetricPackDrawerProps)
           metricPack={selectedThresholdMetricPack}
           dataSourceType="APP_DYNAMICS"
           onUpdateConfigMetrics={onUpdateConfigMetricsCallback}
+          onCancel={() =>
+            setDisplayThresholds({
+              displayThresholds: false,
+              selectedThresholdMetricPack: undefined,
+              failFastAndIgnoreHints: undefined
+            })
+          }
           hints={failFastAndIgnoreHints}
         />
       )}
