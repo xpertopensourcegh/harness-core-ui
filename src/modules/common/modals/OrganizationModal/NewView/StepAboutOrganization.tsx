@@ -11,19 +11,19 @@ import {
   Utils
 } from '@wings-software/uikit'
 import { OrganizationCard } from 'modules/common/components/OrganizationCard/OrganizationCard'
-import type { OrganizationDTO } from 'modules/common/types/dto/OrganizationDTO'
+import {
+  OrganizationDTO,
+  CreateOrganizationDTO,
+  UpdateOrganizationDTO,
+  useCreate,
+  useUpdateOrganization
+} from 'services/cd-ng'
 import React, { useState, useCallback } from 'react'
 import * as Yup from 'yup'
 import type { OrganizationModalInteraction } from '../OrganizationModalUtils'
 import i18n from './StepAboutOrganization.i18n'
-import { createOrganization, updateOrganization } from 'modules/common/services/OrganizationService'
 import { routeParams } from 'framework/exports'
-
-const colors = [
-  { label: 'Red', value: '#ff0000' },
-  { label: 'Green', value: '#00ff00' },
-  { label: 'Blue', value: '#0000ff' }
-]
+import { pick } from 'lodash-es'
 
 const icons = [
   { label: 'Gitlab', value: 'service-gotlab' },
@@ -34,8 +34,6 @@ const icons = [
   { label: 'Slack', value: 'service-slack' },
   { label: 'Harness', value: 'harness' }
 ]
-
-const xhrGroup = 'StepAboutOrganization'
 
 export const StepAboutOrganization: React.FC<StepProps<OrganizationDTO> & OrganizationModalInteraction> = ({
   nextStep,
@@ -49,7 +47,6 @@ export const StepAboutOrganization: React.FC<StepProps<OrganizationDTO> & Organi
   } = routeParams()
   const [org, setOrg] = useState<OrganizationDTO>(
     (edit && data) || {
-      icon: 'placeholder',
       color: '',
       name: '',
       description: '',
@@ -57,8 +54,10 @@ export const StepAboutOrganization: React.FC<StepProps<OrganizationDTO> & Organi
       identifier: ''
     }
   )
+  const { mutate: createOrganization } = useCreate({})
+  const { mutate: updateOrganization } = useUpdateOrganization({ organizationId: org.id || '' })
   const persistOrg = useCallback(async (values: OrganizationDTO) => {
-    const organization: OrganizationDTO = {
+    const organization: CreateOrganizationDTO = {
       accountId,
       identifier: values.identifier || Utils.randomId(), // TODO Use name field with auto-first-time-ediable identifier
       name: values.name,
@@ -66,14 +65,16 @@ export const StepAboutOrganization: React.FC<StepProps<OrganizationDTO> & Organi
       tags: values.tags || [],
       color: values.color || ''
     }
-    const { error } = edit
-      ? await updateOrganization({ id: org.id || '', organization, xhrGroup })
-      : await createOrganization({ organization, xhrGroup })
+    try {
+      if (edit) {
+        await updateOrganization(pick(organization, ['name', 'color', 'description', 'tags']) as UpdateOrganizationDTO)
+      } else {
+        await createOrganization(organization)
+      }
 
-    if (error) {
+      onSuccess?.(organization)
+    } catch (error) {
       alert(error) // TODO: Implement modal error handling
-    } else {
-      onSuccess?.(organization) // TODO: Use response from API (currently N/A)
     }
   }, []) // eslint-disable-line
 
@@ -99,7 +100,7 @@ export const StepAboutOrganization: React.FC<StepProps<OrganizationDTO> & Organi
             <Form>
               <FormInput.Text label={i18n.form.name} name="name" />
               <Layout.Horizontal spacing="small">
-                <FormInput.Select label={i18n.form.color} name="color" items={colors} />
+                <FormInput.ColorPicker label={i18n.form.color} name="color" color={org?.color} />
                 <FormInput.Select label={i18n.form.icon} name="icon" items={icons} />
               </Layout.Horizontal>
               <FormInput.TextArea label={i18n.form.description} name="description" />

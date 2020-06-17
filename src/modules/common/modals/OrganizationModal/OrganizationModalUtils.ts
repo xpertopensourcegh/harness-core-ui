@@ -1,4 +1,4 @@
-import type { OrganizationDTO } from 'modules/common/types/dto/OrganizationDTO'
+import type { OrganizationDTO } from 'services/cd-ng'
 
 export interface OrganizationModalInteraction {
   backToSelections: () => void
