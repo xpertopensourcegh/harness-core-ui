@@ -93,3 +93,16 @@ export const routeCVMetricPackConfigureThresholdPage: Route = {
   }),
   module: ModuleName.CV
 }
+
+export const routeCVAnomalyAnalysisPage: Route = {
+  sidebarId: SidebarIdentifier.CONTINUOUS_VERIFICATION,
+  path: '/cv/anomaly-analysis',
+  title: i18n.services,
+  pageId: '/cv/anomaly-analysis',
+  authenticated: true,
+  url: (params: RouteURLArgs) => `/account/${params?.accountId}/cv/anomaly-analysis`,
+  component: React.lazy(() => {
+    return import('./pages/anomaly-analysis/AnomalyAnalysis')
+  }),
+  module: ModuleName.CV
+}
