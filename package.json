@@ -36,7 +36,7 @@
     "@emotion/core": "^10.0.28",
     "@emotion/styled": "^10.0.27",
     "@projectstorm/react-diagrams-core": "^6.2.0",
-    "@wings-software/uikit": "1.0.162",
+    "@wings-software/uikit": "1.0.163",
     "@wings-software/xhr-async": "^2.0.7",
     "@wings-software/language-server": "0.0.6",
     "ansi-to-react": "^6.0.7",

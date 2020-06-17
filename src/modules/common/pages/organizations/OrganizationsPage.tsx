@@ -1,4 +1,4 @@
-import { Button, Container, Layout } from '@wings-software/uikit'
+import { Button, Layout } from '@wings-software/uikit'
 import { orderBy } from 'lodash-es'
 import { OrganizationCard } from 'modules/common/components/OrganizationCard/OrganizationCard'
 import { Page } from 'modules/common/exports'
@@ -18,13 +18,13 @@ const OrganizationsPage: React.FC = () => {
       <Page.Header
         title={i18n.organizations}
         toolbar={
-          <Container>
+          <Layout.Horizontal spacing="xsmall">
             <Button
               text={i18n.newOrganization}
               onClick={() => openOrganizationModal()}
               style={{ color: 'var(--blue-500)', borderColor: 'var(--blue-500)' }}
             />
-          </Container>
+          </Layout.Horizontal>
         }
       />
       <Page.Body
