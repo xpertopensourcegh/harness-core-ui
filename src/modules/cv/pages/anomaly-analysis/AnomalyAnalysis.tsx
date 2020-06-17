@@ -1,16 +1,16 @@
 import React, { FunctionComponent, useState, useEffect } from 'react'
-import css from './ServiceDashboard.module.scss'
+import css from './AnomalyAnalysis.module.scss'
 import { OverlaySpinner } from '@wings-software/uikit'
 import AnomaliesDetails from './AnomaliesDetails/AnomaliesDetails'
 import AnomaliesList from './AnomaliesList/AnomaliesList'
 import AnomaliesHeader from './AnomaliesHeader/AnomaliesHeader'
-import { anomaliesConfig } from './ServiceDashboardUtils'
+import { anomaliesConfig } from './AnomalyAnalysisUtils'
 
-interface ServiceDashboardProps {
+interface AnomalyAnalysisProps {
   anomaliesList: any
 }
 
-const ServiceDashboard: FunctionComponent<any> = (props: ServiceDashboardProps) => {
+const AnomalyAnalysis: FunctionComponent<any> = (props: AnomalyAnalysisProps) => {
   const [inProgress, setInProgress] = useState(false)
   const anomaliesList = props.anomaliesList || anomaliesConfig.anomalies
   const [currentAnomaly, setCurrentAnomaly] = useState(anomaliesList[0])
@@ -45,4 +45,4 @@ const ServiceDashboard: FunctionComponent<any> = (props: ServiceDashboardProps) 
   )
 }
 
-export default ServiceDashboard
+export default AnomalyAnalysis
