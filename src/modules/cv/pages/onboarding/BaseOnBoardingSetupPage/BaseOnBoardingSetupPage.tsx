@@ -61,8 +61,8 @@ function transformIncomingDSConfigs(savedConfig: DSConfig[], verificationProvide
       return AppDynamicsOnboardingUtils.transformGetConfigs(
         (savedConfig as unknown) as AppDynamicsOnboardingUtils.AppDynamicsDSConfig[]
       )
-    case 'SPLUNK':
-      return savedConfig
+    case 'SPLUNK': 
+      return SplunkOnboardingUtils.transformSavedQueries( savedConfig )
   }
 }
 
@@ -139,7 +139,7 @@ export default function OnBoardingSetupPage(): JSX.Element {
           />
         )}
         {verificationType === 'SPLUNK' && (
-          <SplunkOnboarding serviceOptions={serviceOptions} configs={configsToRender} />
+          <SplunkOnboarding serviceOptions={serviceOptions} configs={configsToRender} locationContext={locationContext} />
         )}
       </Container>
     </Page.Body>
