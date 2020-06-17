@@ -24,7 +24,6 @@ const OrganizationsPage: React.FC = () => {
               onClick={() => openOrganizationModal()}
               style={{ color: 'var(--blue-500)', borderColor: 'var(--blue-500)' }}
             />
-            <Button minimal onClick={() => refetch()} icon="refresh" />
           </Layout.Horizontal>
         }
       />

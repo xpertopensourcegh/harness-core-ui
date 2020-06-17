@@ -57,9 +57,6 @@ export const PageBody: React.FC<PageBodyProps> = ({ children, loading: _loading,
       if (loading) {
         timeoutId = setTimeout(() => setLoading(false), 1000)
       }
-    } else {
-      setFirstLoading(false)
-      setLoading(true)
     }
 
     return () => clearTimeout(timeoutId)
