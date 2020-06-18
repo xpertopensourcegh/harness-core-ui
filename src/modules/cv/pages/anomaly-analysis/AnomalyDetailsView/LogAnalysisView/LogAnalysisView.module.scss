@@ -1,6 +1,6 @@
 .main {
   height: 73vh;
-  padding: 20px !important;
+  padding: var(--spacing-large) !important;
 
   .heading {
     display: flex;
