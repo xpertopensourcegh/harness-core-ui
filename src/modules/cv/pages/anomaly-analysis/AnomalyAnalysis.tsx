@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useState, useEffect } from 'react'
 import css from './AnomalyAnalysis.module.scss'
 import { OverlaySpinner } from '@wings-software/uikit'
-import AnomaliesDetails from './AnomaliesDetails/AnomaliesDetails'
+import AnomaliesDetails from './AnomalyDetailsView/AnomalyDetailsView'
 import AnomaliesList from './AnomaliesList/AnomaliesList'
 import AnomaliesHeader from './AnomaliesHeader/AnomaliesHeader'
 import { anomaliesConfig } from './AnomalyAnalysisUtils'
