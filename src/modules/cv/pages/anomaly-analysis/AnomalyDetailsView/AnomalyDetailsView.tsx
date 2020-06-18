@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react'
 import { Tabs, Tab } from '@wings-software/uikit'
 import MetricsView from './MetricsView/MetricsView'
-import LogsView from './LogsView/LogsView'
+import LogAnalysisView from './LogAnalysisView/LogAnalysisView'
 
 interface AnomaliesDetailsProps {
   currentAnomaly: any
@@ -12,10 +12,10 @@ function renderMetricsTab(currentAnomaly: any) {
 }
 
 function renderLogsTab(currentAnomaly: any) {
-  return <LogsView currentAnomaly={currentAnomaly}> </LogsView>
+  return <LogAnalysisView currentAnomaly={currentAnomaly} />
 }
 
-const AnomaliesDetails: FunctionComponent<any> = (props: AnomaliesDetailsProps) => {
+const AnomalyDetailsView: FunctionComponent<any> = (props: AnomaliesDetailsProps) => {
   return (
     <div>
       <Tabs id="tabsId1">
@@ -26,4 +26,4 @@ const AnomaliesDetails: FunctionComponent<any> = (props: AnomaliesDetailsProps) 
   )
 }
 
-export default AnomaliesDetails
+export default AnomalyDetailsView

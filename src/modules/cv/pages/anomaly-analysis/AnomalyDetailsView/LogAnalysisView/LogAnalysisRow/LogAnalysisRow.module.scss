@@ -1,0 +1,20 @@
+.main {
+  .logRow {
+    display: grid;
+    grid-template-columns: 60px 95px 50px 425px 96px 90px;
+    grid-column-gap: var(--spacing-small);
+
+    .logRowColumnHeader {
+      margin-bottom: var(--spacing-medium);
+      font-size: var(--font-size-small) !important;
+    }
+  }
+
+  .dataRow {
+    grid-auto-rows: 70px;
+
+    .compareDataColumn {
+      margin: var(--spacing-small);
+    }
+  }
+}

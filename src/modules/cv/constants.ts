@@ -10,7 +10,7 @@ export const VerificationTypeToRouteVerificationType: { [type: string]: string }
   SPLUNK: 'splunk'
 }
 
-export const connectorId = 'g8eLKgBSQ368GWA5FuS7og' //'r3vdWFQsRHOPrdol-6URBg' //
-export const accountId = 'zEaak-FLS425IEO7OLzMUg' //kmpySmUISimoRrJL6NL73w
-export const appId = 'qJ_sRGAjRTyD9oXHBRkxKQ' //t0-jbpLoR7S2BTsNfsk4Iw'
+export const connectorId = '3qO35Lj9RvGHyQSL5S5uBw' //'r3vdWFQsRHOPrdol-6URBg' //
+export const accountId = 'kmpySmUISimoRrJL6NL73w'
+export const appId = 'G7YBOyWfRmyih-TsQIbguA' //t0-jbpLoR7S2BTsNfsk4Iw'
 export const projectIdentifier = '1234'
