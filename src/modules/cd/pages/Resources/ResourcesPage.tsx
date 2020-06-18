@@ -7,6 +7,7 @@ import { Page } from 'modules/common/exports'
 import { Route, Switch } from 'react-router'
 import { Link, useRouteMatch, useParams } from 'react-router-dom'
 import ConnectorsList from '../../../dx/pages/connectors/ConnectorsList'
+import ServiceSpecifications from '../../common/ServiceSpecifications/ServiceSpecifications'
 
 // import FilterDrawer from './FilterDrawer/FilterDrawer'
 interface Categories {
@@ -23,7 +24,7 @@ const categories: Categories = {
 function ComponentToRender() {
   const { category } = useParams()
   if (category === 'connectors') return <ConnectorsList />
-  else return <div>{category}</div>
+  else return <ServiceSpecifications />
 }
 
 const ResourcesPage: React.FC = () => {

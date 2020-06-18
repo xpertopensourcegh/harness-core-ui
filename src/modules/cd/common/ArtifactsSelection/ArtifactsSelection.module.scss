@@ -1,0 +1,31 @@
+.rowItem {
+  padding: var(--spacing-large) !important;
+  background: white !important;
+  box-shadow: 0px 2px 5px 0px var(--grey-250);
+  border-radius: 8px;
+  span.type,
+  span.server {
+    color: var(--grey-900) !important;
+    font-weight: 900;
+  }
+  font-size: 14px !important;
+  > p {
+    cursor: pointer;
+    color: var(--blue-500) !important;
+  }
+}
+
+.thead {
+  display: grid;
+  grid-template-rows: auto;
+  align-items: center;
+  padding: var(--spacing-large);
+  padding-bottom: 0;
+  grid-template-columns: 150px 200px 50px 300px 140px 110px;
+  color: var(--grey-500);
+  font-size: 12px;
+}
+
+.sideCarBtn {
+  width: 150px;
+}

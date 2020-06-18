@@ -51,7 +51,7 @@ export const routeResources: Route = {
   title: i18n.resources,
   pageId: 'resources',
   url: (_params: RouteURLArgs) => '/resources',
-  component: React.lazy(() => import('./pages/resources/ResourcesPage'))
+  component: React.lazy(() => import('../../modules/cd/pages/Resources/ResourcesPage'))
 }
 
 export const routeProject: Route = {
