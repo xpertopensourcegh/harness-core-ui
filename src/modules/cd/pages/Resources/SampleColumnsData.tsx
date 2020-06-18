@@ -2,9 +2,9 @@ export const data = [
   {
     icon: 'service-kubernetes',
     infoText: 'Kubernetes Connector',
+    tags: 'Kubernetes,Sample Tag,Custom Tag,Kubernetes,Sample Tag,Custom Tag',
     belongsTo: 'Account',
     name: 'K8 Connector',
-    tags: 'sample, second',
     lastActivityText: 'activity log',
     details: {
       url: 'http://github.com',
@@ -35,6 +35,7 @@ export const data = [
   {
     icon: 'service-kubernetes',
     infoText: 'Kubernetes Connector',
+    tags: 'Kubernetes,Sample Tag',
     belongsTo: 'Account',
     details: {
       accessKey: 'ASDFAEESDASDFASDFASDFASDFASDF',
@@ -99,6 +100,7 @@ export const data = [
   {
     icon: 'service-kubernetes',
     infoText: 'Kubernetes Connector',
+    tags: 'Kubernetes,Sample Tag,Custom Tag,Kubernetes',
     details: {
       accessKey: 'ASDFAEESDASDFASDFASDFASDFASDF',
       description: 'My AWS Connector'
@@ -342,5 +344,17 @@ export const columns = [
   {
     Header: '',
     accessor: 'threeDots'
+  },
+  {
+    Header: '',
+    accessor: 'tags'
+  },
+  {
+    Header: '',
+    accessor: 'details.url'
+  },
+  {
+    Header: '',
+    accessor: 'infoText'
   }
 ]
