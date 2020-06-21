@@ -4,7 +4,7 @@ import i18n from './KubCluster.i18n'
 import { RadioSelect, Select } from '@wings-software/uikit'
 import css from './KubCluster.module.scss'
 import { authOptions, getCustomFields } from './KubeFormHelper'
-
+import cx from 'classnames'
 // import type { AuthOption } from './KubeFormHelper'
 
 interface SelectedDelegate {
@@ -61,7 +61,7 @@ const delegateData = [
 const selectExistingDelegate = () => {
   return (
     <FormInput.Select
-      name="selectDelegate"
+      name="inheritConfigFromDelegate"
       label="Select Delegate"
       items={[
         { label: 'Delegate_one', value: 'Delegate_one' },
@@ -148,7 +148,7 @@ const KubCluster = (props: KubClusterProps): JSX.Element => {
   const [authentication, setAuthentication] = useState('')
   const [inclusterDelegate, setInClusterDelegate] = useState('')
   const { connector } = props
-
+  console.log(connector)
   const state: KubClusterState = {
     selectedDelegate,
     setSelectedDelegate,
@@ -161,7 +161,7 @@ const KubCluster = (props: KubClusterProps): JSX.Element => {
     data: delegateData,
     className: css.delegateSetup,
     renderItem: function renderItem(item: any) {
-      return <div className={css.cardCss}>{item.value}</div>
+      return <div className={cx(css.cardCss,{[css.selectedCard]:item===selectedDelegate})}>{item.value}</div>
     },
     onChange: (item: SelectedDelegate) => {
       state.setSelectedDelegate(item)

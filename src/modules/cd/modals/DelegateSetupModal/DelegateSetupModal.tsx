@@ -1,6 +1,6 @@
 import React from 'react'
 import { ModalProvider, useModalHook, Button, Icon } from '@wings-software/uikit'
-import { Dialog, IDialogProps } from '@blueprintjs/core'
+import { Dialog, IDialogProps, Position } from '@blueprintjs/core'
 import css from './DelegateSetupModal.module.scss'
 import { DelegateStepWizard } from './DelegateStepWizard'
 import { Menu, Popover } from '@blueprintjs/core'
@@ -11,7 +11,7 @@ import { routeConnectorDetails } from 'modules/dx/routes'
 
 
 const getIcon=(icon:any)=>{
-return <Icon name={icon} size={14}/>
+return <Icon name={icon} size={14} className={css.iconConnector}/>
 }
 const DelegateModal: React.FC = () => {
   const modalPropsLight: IDialogProps = {
@@ -42,7 +42,7 @@ const DelegateModal: React.FC = () => {
   return (
     <React.Fragment>
       {/* <Link  href={routeConnectorDetails.url({accountId:'kmpySmUISimoRrJL6NL73w',editMode:true})}> */}
-      <Popover minimal>
+      <Popover minimal position={Position.BOTTOM_RIGHT}>
         <Button
           intent="primary"
           text={i18n.NEW_CONNECTOR}
@@ -52,10 +52,10 @@ const DelegateModal: React.FC = () => {
           padding="medium"
         />
 
-        <Menu>
+        <Menu className={css.selectConnector}>
           {items.map((item, index) => {
             return (
-                <Menu.Item href={routeConnectorDetails.url({ accountId: 'kmpySmUISimoRrJL6NL73w', editMode: 'edit' })} key={index} text={item.label} icon={getIcon(item.icon)} />
+                <Menu.Item className={css.menuItem} href={routeConnectorDetails.url({ accountId: 'kmpySmUISimoRrJL6NL73w', editMode: 'edit' })} key={index} text={item.label} icon={getIcon(item.icon)} />
             )
           })}
         </Menu>

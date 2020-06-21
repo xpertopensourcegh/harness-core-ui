@@ -3,6 +3,7 @@
 declare const styles: {
   readonly delegateSetup: string
   readonly cardCss: string
+  readonly selectedCard: string
   readonly selectCredentials: string
   readonly delgateOutCluster: string
   readonly heading: string

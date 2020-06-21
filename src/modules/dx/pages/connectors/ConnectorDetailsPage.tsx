@@ -18,6 +18,7 @@ const categories: Categories = {
   refrencedBy: i18n.refrencedBy,
   activityHistory: i18n.activityHistory
 }
+
 const renderTitle = () => {
   return (
     <Layout.Vertical>
@@ -35,9 +36,21 @@ const renderTitle = () => {
   )
 }
 
+const setInitialConnector=(data:any,state:any)=>{
+  state.setConnector(data)
+}
+
 
 const ConnectorDetailsPage: React.FC = () => {
   const [activeCategory, setActiveCategory] = React.useState(0)
+  const [connectordetail,setConnector] = React.useState(connector)
+ const state:any={ 
+   activeCategory,
+   setActiveCategory,
+   connectordetail,
+   setConnector
+ }
+
   //Tempory edit mode to enable create
   const editMode = /edit=true/gi.test(location.href)
   return (
@@ -63,7 +76,7 @@ const ConnectorDetailsPage: React.FC = () => {
         }
       />
       <Page.Body>
-        <ConfigureConnector connector={connector} enableCreate={editMode}  />
+        <ConfigureConnector connector={connector} enableCreate={editMode} setInitialConnector={(data)=>setInitialConnector(data,state)} />
       </Page.Body>
     </>
   )

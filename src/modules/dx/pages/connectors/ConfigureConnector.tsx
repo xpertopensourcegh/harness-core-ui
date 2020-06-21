@@ -11,6 +11,7 @@ import { ConnectorService} from 'modules/dx/services'
 export interface ConfigureConnectorProps {
   enableCreate: boolean
   connector: any
+  setInitialConnector:(connector:any)=>void
 }
 
 interface ConfigureConnectorState {
@@ -42,18 +43,19 @@ const getOptions = (): Options[] => {
 }
 
 export const buildKubPayload = (formData: any) => {
+  console.log(formData)
   const savedData = {
     name: formData.name,
     identifier: formData.identifier,
     k8sCluster: {
-      inheritConfigFromDelegate: null,
+      inheritConfigFromDelegate: formData.inheritConfigFromDelegate,
       config: {
         masterUrl: formData.masterUrl,
         auth: {
           userPassword: {
             username: formData.username,
             password: formData.password,
-            cacer: 'okk'
+            cacert: 'okk'
           }
         }
       }
@@ -62,31 +64,25 @@ export const buildKubPayload = (formData: any) => {
   return savedData
 }
 
-// const buildFormData = (connector:any) => {
-// return {
-//   name:connector.name,
-//   description:connector.description,
-//   identifier: connector.identifier,
-//   tags:connector.tags,
-//   authType: Object.keys(connector.connectorConfig)[0],
-//   credential: {
-//     masterUrl: 'https://10.24.56.123',
-//     manualCredentialType: 'USER_PASSWORD',
-//     manualCredentials: {
-//       userName: 'deepak.patankar',
-//       encryptedPassword: 'avchjudjfaywonudahdu'
-//     }
-//   }
-
-  
-// }
-// }
+const buildFormData = (connector:any) => {
+return {
+  name:connector.name,
+  description:connector.description,
+  identifier: connector.identifier,
+  tags:connector.tags,
+  authType: Object.keys(connector.connectorConfig)[0],
+  masterUrl:connector.connectorConfig.masterUrl,
+  inheritConfigFromDelegate:connector.connectorConfig.inheritConfigFromDelegate
+}
+}
 const createConnectorByType = async (data:any, state: ConfigureConnectorState) => {
   const xhrGroup='create-connector'
   const { connector, error } = await ConnectorService.createConnector({xhrGroup,connector:data})
   if(!error){
-    state.setConnector(connector)
-    // const formData = buildFormData(connector)
+     state.setConnector(connector)
+     const formData = buildFormData(connector)
+     state.setConnector(formData )
+    //  props.setInitialConnector(formData)
   }
   else {
 
@@ -99,15 +95,17 @@ const onSubmitForm = (formData: any, state: ConfigureConnectorState) => {
  state.setConnector(formData)
   const data = buildKubPayload(formData)
   createConnectorByType(data, state)
+
 }
 
 const renderConnectorForm = (state: ConfigureConnectorState, props: ConfigureConnectorProps): JSX.Element => {
-  const fieldsByType = getFormByType(props)
   const { connector,enableCreate } = state
+  const fieldsByType = getFormByType(props)
+
   const validationSchema = getValidationSchemaByType('KUBERNETES_CLUSTER')
   return (
     <Formik
-      initialValues={enableCreate  ? {} : connector}
+      initialValues={enableCreate ? {} : connector}
       onSubmit={formData => onSubmitForm(formData, state)}
       validationSchema={validationSchema}
     >
