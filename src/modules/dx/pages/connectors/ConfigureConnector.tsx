@@ -7,7 +7,7 @@ import ConnectorStats from './ConnectorStats'
 import i18n from './ConfigureConnector.i18n'
 // import type { ConnectorSchema } from './ConnectorSchema'
 import { ConnectorService } from 'modules/dx/services'
-import { buildKubPayload } from './utils/ConnectorUtils'
+import { buildKubPayload, buildKubFormData } from './utils/ConnectorUtils'
 
 export interface ConfigureConnectorProps {
   enableCreate: boolean
@@ -43,17 +43,6 @@ const getOptions = (): Options[] => {
   ]
 }
 
-const buildKubFormData = (connector: any) => {
-  return {
-    name: connector.name,
-    description: connector.description,
-    identifier: connector.identifier,
-    tags: connector.tags,
-    authType: Object.keys(connector.connectorConfig)[0],
-    masterUrl: connector.connectorConfig.masterUrl,
-    inheritConfigFromDelegate: connector.connectorConfig.inheritConfigFromDelegate
-  }
-}
 const createConnectorByType = async (data: any, state: ConfigureConnectorState) => {
   const xhrGroup = 'create-connector'
   const { connector, error } = await ConnectorService.createConnector({ xhrGroup, connector: data })

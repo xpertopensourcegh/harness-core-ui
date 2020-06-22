@@ -3,7 +3,7 @@ import { FormInput, Layout } from '@wings-software/uikit'
 import i18n from './KubCluster.i18n'
 import { RadioSelect } from '@wings-software/uikit'
 import css from './KubCluster.module.scss'
-import { authOptions, getCustomFields } from './KubeFormHelper'
+import { authOptions, getCustomFields, DelegateTypes } from './KubeFormHelper'
 import cx from 'classnames'
 // import type { AuthOption } from './KubeFormHelper'
 
@@ -26,10 +26,6 @@ interface KubClusterState {
   setAuthentication: (val: string) => void
   inclusterDelegate: string
   setInClusterDelegate: (val: string) => void
-}
-const DelegateTypes = {
-  DELEGATE_IN_CLUSTER: i18n.DELEGATE_IN_CLUSTER,
-  DELEGATE_OUT_CLUSTER: i18n.DELEGATE_OUT_CLUSTER
 }
 
 const delegateData = [

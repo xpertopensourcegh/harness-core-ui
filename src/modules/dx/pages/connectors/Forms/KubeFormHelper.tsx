@@ -19,6 +19,28 @@ export const authOptions: AuthOption[] = [
   { value: AuthTypes.CUSTOM, label: 'Custom' }
 ]
 
+export const DelegateTypes = {
+  DELEGATE_IN_CLUSTER: 'ManualConfig',
+  DELEGATE_OUT_CLUSTER: 'InheritFromDelegate'
+}
+
+export const authTypeFields = {
+  username: 'username',
+  password: 'password',
+  serviceAccountToken: 'serviceAccountToken',
+  oidcIdentityProviderUrl: 'oidcIdentityProviderUrl',
+  oidcUsername: 'oidcUsername',
+  oidcPassword: 'oidcPassword',
+  oidcClientId: 'oidcClientId',
+  oidcSecret: 'oidcSecret',
+  oidcScopes: 'oidcScopes',
+  clientKeyAlgorithm: 'clientKeyAlgorithm',
+  clientKeyPassPhrase: 'clientKeyPassPhrase',
+  clientKey: 'clientKey',
+  clientCert: 'clientCert',
+  caCert: 'caCert'
+}
+
 export const getFieldsByAuthType = (authType: string) => {
   switch (authType) {
     case AuthTypes.USER_PASSWORD:
