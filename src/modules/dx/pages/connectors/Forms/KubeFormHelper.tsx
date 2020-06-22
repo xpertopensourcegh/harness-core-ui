@@ -2,10 +2,10 @@ import React from 'react'
 import { object, string } from 'yup'
 import { FormInput } from '@wings-software/uikit'
 export const AuthTypes = {
-  CUSTOM: 'NONE',
-  USER_PASSWORD: 'USER_PASSWORD',
-  SERVICE_ACCOUNT: 'SERVICE_ACCOUNT',
-  OIDC: 'OIDC'
+  CUSTOM: 'ManualConfig',
+  USER_PASSWORD: 'UserPassword',
+  SERVICE_ACCOUNT: 'ServiceAccount',
+  OIDC: 'OpenIdConnect'
 }
 export interface AuthOption {
   label: string
@@ -18,8 +18,6 @@ export const authOptions: AuthOption[] = [
   { value: AuthTypes.OIDC, label: 'OIDC Token' },
   { value: AuthTypes.CUSTOM, label: 'Custom' }
 ]
-
-
 
 export const getFieldsByAuthType = (authType: string) => {
   switch (authType) {
@@ -168,60 +166,62 @@ export const getCustomFields = (authType: string | number | symbol) => {
     case AuthTypes.OIDC:
       return fieldsForOIDCToken()
     case AuthTypes.CUSTOM:
-      return (<>
-       <FormInput.Text name="username" label="Username"  />
-       <FormInput.Select
-        name="password"
-        label="Select Encrypted Password*"
-        items={[
-          { label: 'password_one', value: 'password_one' },
-          { label: 'password_two', value: 'password_two' }
-        ]}
-      />
-       <FormInput.Select
-        name="caCert"
-        label="Select Encrypted CA Certificate*"
-        items={[
-          { label: 'password_one', value: 'password_one' },
-          { label: 'password_two', value: 'password_two' }
-        ]}
-      />
-       <FormInput.Select
-        name="clientCert"
-        label="Select Encrypted Client Certificate*"
-        items={[
-          { label: 'password_one', value: 'password_one' },
-          { label: 'password_two', value: 'password_two' }
-        ]}
-      />
-       <FormInput.Select
-         name="clientKey"
-        label="Select Encrypted Client Key*"
-        items={[
-          { label: 'password_one', value: 'password_one' },
-          { label: 'password_two', value: 'password_two' }
-        ]}
-      />
-       <FormInput.Select
-         name="clientKeyPassPhrase"
-        label="Select Encrypted Client Key Passphrase"
-        items={[
-          { label: 'password_one', value: 'password_one' },
-          { label: 'password_two', value: 'password_two' }
-        ]}
-      />
-       <FormInput.Text name="clientKeyAlgorithm" label="Client Key Algorithm"  />
+      return (
+        <>
+          <FormInput.Text name="username" label="Username" />
+          <FormInput.Select
+            name="password"
+            label="Select Encrypted Password*"
+            items={[
+              { label: 'password_one', value: 'password_one' },
+              { label: 'password_two', value: 'password_two' }
+            ]}
+          />
+          <FormInput.Select
+            name="caCert"
+            label="Select Encrypted CA Certificate*"
+            items={[
+              { label: 'password_one', value: 'password_one' },
+              { label: 'password_two', value: 'password_two' }
+            ]}
+          />
+          <FormInput.Select
+            name="clientCert"
+            label="Select Encrypted Client Certificate*"
+            items={[
+              { label: 'password_one', value: 'password_one' },
+              { label: 'password_two', value: 'password_two' }
+            ]}
+          />
+          <FormInput.Select
+            name="clientKey"
+            label="Select Encrypted Client Key*"
+            items={[
+              { label: 'password_one', value: 'password_one' },
+              { label: 'password_two', value: 'password_two' }
+            ]}
+          />
+          <FormInput.Select
+            name="clientKeyPassPhrase"
+            label="Select Encrypted Client Key Passphrase"
+            items={[
+              { label: 'password_one', value: 'password_one' },
+              { label: 'password_two', value: 'password_two' }
+            ]}
+          />
+          <FormInput.Text name="clientKeyAlgorithm" label="Client Key Algorithm" />
 
-       <FormInput.Select
-        name="serviceAccountToken"
-        label="Select Encrypted Service Account Token"
-        items={[
-          { label: 'password_one', value: 'password_one' },
-          { label: 'password_two', value: 'password_two' }
-        ]}
-      />
-      </>)
-        default:
-          return <></>
+          <FormInput.Select
+            name="serviceAccountToken"
+            label="Select Encrypted Service Account Token"
+            items={[
+              { label: 'password_one', value: 'password_one' },
+              { label: 'password_two', value: 'password_two' }
+            ]}
+          />
+        </>
+      )
+    default:
+      return <></>
   }
 }

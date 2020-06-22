@@ -12,7 +12,6 @@ import { routeResources } from 'modules/common/routes'
 interface Categories {
   [key: string]: string
 }
-
 const categories: Categories = {
   connection: i18n.connection,
   refrencedBy: i18n.refrencedBy,
