@@ -2,6 +2,7 @@
 // this is an auto-generated file
 declare const styles: {
   readonly container: string
-  readonly collapseDiv: string
+  readonly canvas: string
+  readonly hiddenDom: string
 }
 export default styles

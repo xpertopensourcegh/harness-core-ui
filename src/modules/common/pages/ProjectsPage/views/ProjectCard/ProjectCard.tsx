@@ -5,7 +5,7 @@ import { linkTo } from 'framework/exports'
 import { useHistory } from 'react-router-dom'
 import { Menu } from '@blueprintjs/core'
 
-import { routeAboutPipelines } from 'modules/cd/routes'
+import { routePipelineCanvas } from 'modules/cd/routes'
 import css from './ProjectCard.module.scss'
 import i18n from './ProjectCard.i18n'
 import { useDeleteProject } from 'services/cd-ng'
@@ -97,7 +97,7 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
           intent="primary"
           text="Create Pipeline"
           onClick={() => {
-            history.push(linkTo(routeAboutPipelines))
+            history.push(linkTo(routePipelineCanvas, { projectId: data?.id, pipelineId: -1 }))
           }}
         />
       </Container>

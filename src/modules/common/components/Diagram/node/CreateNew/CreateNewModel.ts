@@ -1,10 +1,9 @@
-import type { BaseModelOptions } from '@projectstorm/react-canvas-core'
-import { DefaultNodeModel } from '../DefaultNodeModel'
+import { DefaultNodeModel, DefaultNodeModelOptions } from '../DefaultNodeModel'
 import i18n from '../../Diagram.i18n'
 import { DiagramType } from '../../Constants'
 import { DefaultPortModel } from '../../port/DefaultPortModel'
 
-export interface CreateNewModelOptions extends BaseModelOptions {
+export interface CreateNewModelOptions extends Omit<DefaultNodeModelOptions, 'name'> {
   name?: string
 }
 
@@ -22,7 +21,13 @@ export class CreateNewModel extends DefaultNodeModel {
     this.addPort(
       new DefaultPortModel({
         in: true,
-        name: 'in'
+        name: 'In'
+      })
+    )
+    this.addPort(
+      new DefaultPortModel({
+        in: true,
+        name: 'Out'
       })
     )
   }

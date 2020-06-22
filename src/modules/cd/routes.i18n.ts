@@ -1,4 +1,5 @@
 export default {
   deployments: 'Deployments',
-  resources: 'Resources'
+  resources: 'Resources',
+  pipelineStudio: 'Pipeline Studio'
 }

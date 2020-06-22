@@ -1,0 +1,107 @@
+.dialog {
+  width: 870px;
+}
+
+.container {
+  --pipeline-grey-border: #c8c6c6;
+  --pipeline-light-grey: #e7e7e7;
+  --pipeline-blue-color: #25a6f7;
+  --pipeline-tag-bc: #cce3ff;
+  --pipeline-tag-color: #4bace9;
+  --pipeline-canvas-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAKAgMAAADJO5Z1AAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAMUExURf////j8/v7//8/n99rLSbMAAAAYSURBVAgdY8AFmBwYGBsYGA8wMDsw4AAANE0ByKMgSXsAAAAASUVORK5CYII=);
+
+  display: grid;
+  grid-template-columns: 50px 1fr 60px;
+  height: 100%;
+
+  .content {
+    display: grid;
+    grid-template-rows: 42px 38px 1fr;
+    height: 100%;
+
+    .top-bar {
+      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.13);
+      display: grid;
+      grid-template-columns: 1fr 125px 173px;
+      align-items: center;
+
+      .topButtons {
+        width: 56px;
+        border-radius: 14px;
+        background-color: var(--white);
+        display: inline-block;
+        font-size: 10px;
+        text-align: center;
+        color: #b1b1b1;
+        border: 1px solid var(--pipeline-grey-border);
+        margin-left: 12px;
+        padding-top: 2px;
+
+        &.selected {
+          color: var(--white);
+          cursor: not-allowed;
+          box-shadow: 0px 0px inset rgba(0, 0, 0, 0.5);
+          background-color: rgba(12, 48, 88, 0.4);
+        }
+      }
+
+      .savePublishBtn {
+        width: 153px;
+        height: 26px;
+        border: 1px solid #b8bfca !important;
+        color: var(--pipeline-blue-color) !important;
+        border-radius: 4px;
+      }
+    }
+
+    .secondary-bar {
+      border: 1px solid var(--pipeline-light-grey);
+      border-left-width: 0;
+      display: grid;
+      grid-template-columns: 70px 1fr 330px;
+      align-items: center;
+
+      .pipelineName {
+        display: inline-block;
+        padding-left: 20px;
+      }
+    }
+
+    .canvas {
+      background-image: var(--pipeline-canvas-image);
+      height: 100%;
+    }
+  }
+
+  .left-bar {
+    background-color: #021c3c;
+    display: grid;
+    grid-template-rows: 1fr 50px;
+
+    .title {
+      writing-mode: tb-rl;
+      color: #c2c3c2;
+      font-size: 16px;
+      text-transform: uppercase;
+      padding: 0 16px;
+      transform: rotate(-180deg);
+    }
+
+    .logo-image {
+      padding: 16px 10px 10px;
+    }
+  }
+
+  .right-bar {
+    background-color: #fafafa;
+    box-shadow: -1px 0 2px 0 rgba(0, 0, 0, 0.25);
+  }
+
+  .tagRender {
+    background-color: var(--pipeline-tag-bc) !important;
+    border-radius: 4px;
+    & > span {
+      color: var(--pipeline-tag-color);
+    }
+  }
+}

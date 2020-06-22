@@ -21,27 +21,31 @@ const generatePort = (port: DefaultPortModel, props: CreateNewWidgetProps): JSX.
 export const CreateNewWidget: React.FC<CreateNewWidgetProps> = (props): JSX.Element => {
   const options = props.node.getOptions()
   return (
-    <div className={cssDefault.defaultNode}>
+    <div className={cx(cssDefault.defaultNode, css.createNode)}>
       <div
         className={cx(cssDefault.defaultCard, css.createNew, { [cssDefault.selected]: props.node.isSelected() })}
-        style={{ backgroundColor: options.backgroundColor }}
+        style={{ backgroundColor: options.backgroundColor, width: options.width, height: options.height }}
       >
         <div>
-          <Icon icon="plus" color={props.node.isSelected() ? 'var(--diagram-selected)' : 'var(--diagram-grey)'} />
+          <Icon icon="plus" iconSize={10} color={'var(--diagram-grey)'} />
+
           <div>
             <div>{props.node.getInPorts().map(port => generatePort(port, props))}</div>
+            <div>{props.node.getOutPorts().map(port => generatePort(port, props))}</div>
           </div>
         </div>
+        {options.name && (
+          <Text
+            font={{ size: 'small', align: 'center' }}
+            className={css.label}
+            padding="xsmall"
+            width={props.node.width - 10}
+            lineClamp={1}
+          >
+            {options.name}
+          </Text>
+        )}
       </div>
-      <Text
-        font={{ size: 'normal', align: 'center' }}
-        style={{ cursor: 'pointer' }}
-        padding="xsmall"
-        width={125}
-        lineClamp={1}
-      >
-        {options.name}
-      </Text>
     </div>
   )
 }

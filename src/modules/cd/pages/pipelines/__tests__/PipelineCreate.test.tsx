@@ -1,14 +1,14 @@
 import React from 'react'
 
 import { queryByAttribute, render, getByPlaceholderText, fireEvent, act, waitFor } from '@testing-library/react'
-import AboutPipelinesPage from '../AboutPipelinesPage'
-import i18n from '../AboutPipelinesPage.i18n'
+import PipelineCreate from '../CreateModal/PipelineCreate'
+import i18n from '../CreateModal/PipelineCreate.i18n'
 
 const props = {}
 
-describe('AboutPipelinesPage test', () => {
+describe('PipelineCreate test', () => {
   test('initializes ok ', async () => {
-    const { container } = render(<AboutPipelinesPage {...props} />)
+    const { container } = render(<PipelineCreate {...props} />)
     expect(queryByAttribute('class', container, /container/)).not.toBeNull()
     const nameInput = getByPlaceholderText(container, i18n.pipelineName)
     expect(nameInput).not.toBeNull()

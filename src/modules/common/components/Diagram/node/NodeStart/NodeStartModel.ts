@@ -20,7 +20,7 @@ export class NodeStartModel extends DefaultNodeModel {
       name: isStart ? 'Start' : 'Stop'
     })
     this.isStart = isStart
-    this.color = isStart ? 'var(--diagram-start-node)' : 'var(--diagram-stop-node)'
+    this.color = isStart ? 'var(--diagram-start-node)' : 'var(--diagram-grey)'
     if (this.isStart) {
       this.addPort(
         new DefaultPortModel({

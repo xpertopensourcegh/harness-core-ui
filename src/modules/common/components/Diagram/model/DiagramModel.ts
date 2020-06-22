@@ -35,6 +35,19 @@ export class DiagramModel<G extends DiagramModelGenerics = DiagramModelGenerics>
     this.gap = options.gap || 200
   }
 
+  clearAllNodesAndLinks(): void {
+    const links = this.getActiveLinkLayer().getLinks()
+    for (const key in links) {
+      const link = links[key]
+      link.remove()
+    }
+    const nodes = this.getActiveNodeLayer().getNodes()
+    for (const key in nodes) {
+      const node = nodes[key]
+      node.remove()
+    }
+  }
+
   checkNodeNotAdded(node: DefaultNodeModel | undefined): boolean {
     const nodeId = node?.getID()
     const nodeRendered = this.getNode(nodeId || '')

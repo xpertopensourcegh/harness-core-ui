@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route, ModuleName, PageLayout, SidebarIdentifier } from 'framework/exports'
+import { Route, ModuleName, PageLayout, SidebarIdentifier, RouteURLArgs } from 'framework/exports'
 import i18n from './routes.i18n'
 
 export const routeDeployments: Route = {
@@ -24,24 +24,14 @@ export const routeResources: Route = {
   component: React.lazy(() => import('./pages/Resources/ResourcesPage'))
 }
 
-export const routeAboutPipelines: Route = {
+export const routePipelineCanvas: Route = {
   module: ModuleName.CD,
+  layout: PageLayout.BlankLayout,
   sidebarId: SidebarIdentifier.DEPLOYMENTS,
-  layout: PageLayout.DefaultLayout,
-  path: '/pipelines/about',
-  title: i18n.deployments,
-  pageId: 'pipelines-about',
-  url: () => '/pipelines/about',
-  component: React.lazy(() => import('./pages/pipelines/AboutPipelinesPage'))
-}
-
-export const routeExecutionGraphPipelines: Route = {
-  module: ModuleName.CD,
-  sidebarId: SidebarIdentifier.DEPLOYMENTS,
-  layout: PageLayout.DefaultLayout,
-  path: '/pipelines/execution',
-  title: i18n.deployments,
-  pageId: 'pipelines-execution',
-  url: () => '/pipelines/execution',
-  component: React.lazy(() => import('./pages/pipelines/ExecutionGraph/ExecutionGraph'))
+  path: '/projects/:projectId/pipelines/:pipelineId/',
+  title: i18n.pipelineStudio,
+  pageId: 'pipelines-canvas',
+  url: (params: RouteURLArgs) =>
+    params ? `/projects/${params.projectId}/pipelines/${params.pipelineId}/` : '/projects/-1/pipelines/-1/',
+  component: React.lazy(() => import('./pages/pipelines/PipelineStudio'))
 }
