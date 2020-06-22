@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { useModalHook, Button, StepWizard, Text, Container, Layout } from '@wings-software/uikit'
+import { useModalHook, Button, StepWizard, Container, Layout } from '@wings-software/uikit'
 import { Dialog, Classes } from '@blueprintjs/core'
 import cx from 'classnames'
 import { pick } from 'lodash-es'
@@ -23,7 +23,7 @@ export type SharedData = StepOneData & StepTwoData & StepThreeData
 const ProjectsListPage: React.FC = () => {
   const [view, setView] = useState(Views.NEW_PROJECT)
   const { accountId } = useParams()
-  const { loading, data, refetch: reloadProjects } = useGetProjects({})
+  const { loading, data, refetch: reloadProjects, error } = useGetProjects({})
   const { mutate: createProject } = useCreateProject({})
 
   const wizardCompleteHandler = async (wizardData: SharedData | undefined): Promise<void> => {
@@ -87,32 +87,27 @@ const ProjectsListPage: React.FC = () => {
           </Container>
         }
       />
-
-      {loading ? (
-        <Page.Body>
-          <Text>{i18n.loading}</Text>
-        </Page.Body>
-      ) : data && data.content && data.content.length > 0 ? (
-        <Page.Body>
-          <Layout.Masonry
-            gutter={30}
-            width={900}
-            className={css.centerContainer}
-            items={data.content}
-            renderItem={(project: ProjectDTO) => <ProjectCard data={project} reloadProjects={reloadProjects} />}
-            keyOf={(project: ProjectDTO) => project.id}
-          />
-        </Page.Body>
-      ) : (
-        <Page.Body>
-          <Page.NoDataCard
-            icon="nav-project"
-            message={i18n.aboutProject}
-            buttonText={i18n.addProject}
-            onClick={showModal}
-          />
-        </Page.Body>
-      )}
+      <Page.Body
+        loading={loading}
+        error={error?.message}
+        retryOnError={() => reloadProjects()}
+        noData={{
+          when: () => !data?.content?.length,
+          icon: 'nav-project',
+          message: i18n.aboutProject,
+          buttonText: i18n.addProject,
+          onClick: showModal
+        }}
+      >
+        <Layout.Masonry
+          gutter={30}
+          width={900}
+          className={css.centerContainer}
+          items={data?.content || []}
+          renderItem={(project: ProjectDTO) => <ProjectCard data={project} reloadProjects={reloadProjects} />}
+          keyOf={(project: ProjectDTO) => project.id}
+        />
+      </Page.Body>
     </>
   )
 }

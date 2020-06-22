@@ -3,7 +3,7 @@ import cx from 'classnames'
 import { Card, Text, Tag, Layout, Icon, CardBody, Container, Button, Color } from '@wings-software/uikit'
 import { linkTo } from 'framework/exports'
 import { useHistory } from 'react-router-dom'
-import { Menu } from '@blueprintjs/core'
+import { Menu, Classes } from '@blueprintjs/core'
 
 import { routeAboutPipelines } from 'modules/cd/routes'
 import css from './ProjectCard.module.scss'
@@ -26,26 +26,26 @@ interface ContextMenuProps {
 const ContextMenu: React.FC<ContextMenuProps> = ({ project, reloadProjects }) => {
   const { mutate: deleteProject } = useDeleteProject({})
 
+  const handleDelete = async (): Promise<void> => {
+    if (!project?.id) return
+    const sure = confirm(`Are you sure you want to delete the project '${project.name}'?`)
+    if (!sure) return
+    try {
+      const deleted = await deleteProject(project.id, { headers: { 'content-type': 'application/json' } })
+      if (!deleted) {
+        // TODO: show error
+      } else {
+        reloadProjects?.()
+      }
+    } catch (_) {
+      // TODO: handle error
+    }
+  }
+
   return (
-    <Menu>
-      <Menu.Item icon="edit" text="Edit" />
-      <Menu.Item
-        icon="trash"
-        text="Delete"
-        onClick={async () => {
-          if (!project?.id) return
-          try {
-            const deleted = await deleteProject(project.id, { headers: { 'content-type': 'application/json' } })
-            if (!deleted) {
-              // TODO: show error
-            } else {
-              reloadProjects?.()
-            }
-          } catch (_) {
-            // TODO: handle error
-          }
-        }}
-      />
+    <Menu style={{ minWidth: 'unset' }}>
+      <Menu.Item icon="edit" />
+      <Menu.Item icon="trash" onClick={handleDelete} />
     </Menu>
   )
 }
@@ -57,7 +57,12 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
   return (
     <Card className={cx(css.projectCard, props.className)}>
       {!isPreview ? (
-        <CardBody.Menu menuContent={<ContextMenu project={props.data} reloadProjects={reloadProjects} />} />
+        <CardBody.Menu
+          menuContent={<ContextMenu project={props.data} reloadProjects={reloadProjects} />}
+          menuPopoverProps={{
+            className: Classes.DARK
+          }}
+        />
       ) : null}
       <div className={css.colorBar} style={{ backgroundColor: data?.color || 'var(--green-500)' }}></div>
       <Text font="medium" color={Color.BLACK}>

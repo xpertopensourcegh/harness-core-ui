@@ -1,14 +1,5 @@
 import React from 'react'
-import {
-  Formik,
-  FormikForm as Form,
-  FormInput,
-  Button,
-  Text,
-  Layout,
-  StepProps,
-  ColorPicker
-} from '@wings-software/uikit'
+import { Formik, FormikForm as Form, FormInput, Button, Text, Layout, StepProps } from '@wings-software/uikit'
 import * as Yup from 'yup'
 import { getIdentifierFromName, illegalIdentifiers } from 'framework/utils/StringUtils'
 
@@ -113,21 +104,7 @@ const StepTwo: React.FC<StepProps<SharedData>> = ({ previousStep, nextStep, prev
                       ) : null}
                     </div>
                     <Layout.Horizontal spacing="small">
-                      {/* <FormInput.Select label={i18n.newProjectWizard.stepTwo.color} name="color" items={colors} /> */}
-                      <div className="bp3-form-group">
-                        <label className="bp3-label">Color</label>
-                        <ColorPicker
-                          className={css.colorPicker}
-                          onChange={color => {
-                            formikProps.setFieldValue('color', color)
-                          }}
-                        />
-                        {formikProps.errors['color'] ? (
-                          <Text font="small" intent="danger" padding={{ bottom: 'medium' }}>
-                            {formikProps.errors['color']}
-                          </Text>
-                        ) : null}
-                      </div>
+                      <FormInput.ColorPicker label={i18n.newProjectWizard.stepTwo.color} name="color" height={38} />
                       <FormInput.Select
                         label={i18n.newProjectWizard.stepTwo.org}
                         name="orgId"
