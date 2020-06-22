@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route, ModuleName, PageLayout, SidebarIdentifier,RouteURLArgs } from 'framework/exports'
+import { Route, ModuleName, PageLayout, SidebarIdentifier } from 'framework/exports'
 import i18n from './routes.i18n'
 
 export const routeDeployments: Route = {
@@ -13,16 +13,16 @@ export const routeDeployments: Route = {
   component: React.lazy(() => import('./pages/deployments/DeploymentsPage'))
 }
 
-export const routeResources: Route = {
-  module: ModuleName.CD,
-  sidebarId: SidebarIdentifier.DEPLOYMENTS,
-  layout: PageLayout.DefaultLayout,
-  path: '/resources',
-  title: i18n.resources,
-  pageId: 'resources',
-  url: (params: RouteURLArgs) => params?`/account/${params.accountId}/resources`:`/resources`,
-  component: React.lazy(() => import('./pages/Resources/ResourcesPage'))
-}
+// export const routeResources: Route = {
+//   module: ModuleName.CD,
+//   sidebarId: SidebarIdentifier.DEPLOYMENTS,
+//   layout: PageLayout.DefaultLayout,
+//   path: '/resources',
+//   title: i18n.resources,
+//   pageId: 'resources',
+//   url: (params: RouteURLArgs) => params?`/account/${params.accountId}/resources`:`/resources`,
+//   component: React.lazy(() => import('./pages/Resources/ResourcesPage'))
+// }
 
 export const routeAboutPipelines: Route = {
   module: ModuleName.CD,

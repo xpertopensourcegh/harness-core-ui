@@ -29,8 +29,8 @@ export const routeConnectorDetails: Route = {
   title: i18n.connectors,
   pageId: 'connector-details',
   url: (params: RouteURLArgs) =>
-  params?.editMode
-      ?( `/account/${params.accountId}/connector-details/edit=true`)
-      : (`/account/${params.accountId}/connector-details/`),
+    params?.editMode
+      ? `#/account/${params?.accountId}/connector-details/edit=true`
+      : `#/account/${params?.accountId}/connector-details/`,
   component: React.lazy(() => import('./pages/connectors/ConnectorDetailsPage'))
 }

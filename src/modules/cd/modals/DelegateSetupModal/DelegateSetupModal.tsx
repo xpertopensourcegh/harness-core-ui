@@ -8,10 +8,8 @@ import { Menu, Popover } from '@blueprintjs/core'
 import i18n from './DelegateSetup.i18n'
 import { routeConnectorDetails } from 'modules/dx/routes'
 
-
-
-const getIcon=(icon:any)=>{
-return <Icon name={icon} size={14} className={css.iconConnector}/>
+const getIcon = (icon: any) => {
+  return <Icon name={icon} size={14} className={css.iconConnector} />
 }
 const DelegateModal: React.FC = () => {
   const modalPropsLight: IDialogProps = {
@@ -32,7 +30,7 @@ const DelegateModal: React.FC = () => {
     { label: 'GCP', value: 'service-gcp', icon: 'service-gcp' }
   ]
 
-  const [,hideLightModal] = useModalHook(() => (
+  const [, hideLightModal] = useModalHook(() => (
     <Dialog {...modalPropsLight}>
       <DelegateStepWizard />
       <Button minimal icon="cross" iconProps={{ size: 18 }} onClick={hideLightModal} className={css.crossIcon} />
@@ -46,7 +44,8 @@ const DelegateModal: React.FC = () => {
         <Button
           intent="primary"
           text={i18n.NEW_CONNECTOR}
-          icon="plus"
+          rightIcon="chevron-down"
+          large
           style={{ borderRadius: 8 }}
           // onClick={openLightModal}    Disabling temporarily
           padding="medium"
@@ -55,7 +54,13 @@ const DelegateModal: React.FC = () => {
         <Menu className={css.selectConnector}>
           {items.map((item, index) => {
             return (
-                <Menu.Item className={css.menuItem} href={routeConnectorDetails.url({ accountId: 'kmpySmUISimoRrJL6NL73w', editMode: 'edit' })} key={index} text={item.label} icon={getIcon(item.icon)} />
+              <Menu.Item
+                className={css.menuItem}
+                href={routeConnectorDetails.url({ accountId: 'kmpySmUISimoRrJL6NL73w', editMode: 'edit' })}
+                key={index}
+                text={item.label}
+                icon={getIcon(item.icon)}
+              />
             )
           })}
         </Menu>
