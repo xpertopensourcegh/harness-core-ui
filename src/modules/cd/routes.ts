@@ -13,16 +13,16 @@ export const routeDeployments: Route = {
   component: React.lazy(() => import('./pages/deployments/DeploymentsPage'))
 }
 
-export const routeResources: Route = {
-  module: ModuleName.CD,
-  sidebarId: SidebarIdentifier.DEPLOYMENTS,
-  layout: PageLayout.DefaultLayout,
-  path: '/resources',
-  title: i18n.resources,
-  pageId: 'resources',
-  url: () => '/resources',
-  component: React.lazy(() => import('./pages/Resources/ResourcesPage'))
-}
+// export const routeResources: Route = {
+//   module: ModuleName.CD,
+//   sidebarId: SidebarIdentifier.DEPLOYMENTS,
+//   layout: PageLayout.DefaultLayout,
+//   path: '/resources',
+//   title: i18n.resources,
+//   pageId: 'resources',
+//   url: (params: RouteURLArgs) => params?`/account/${params.accountId}/resources`:`/resources`,
+//   component: React.lazy(() => import('./pages/Resources/ResourcesPage'))
+// }
 
 export const routeAboutPipelines: Route = {
   module: ModuleName.CD,

@@ -1,4 +1,4 @@
-import { Route, ModuleName, PageLayout, SidebarIdentifier } from 'framework/exports'
+import { Route, RouteURLArgs, ModuleName, SidebarIdentifier } from 'framework/exports'
 import React from 'react'
 import i18n from './routes.i18n'
 
@@ -25,10 +25,12 @@ export const routeYAMLBuilder: Route = {
 export const routeConnectorDetails: Route = {
   module: ModuleName.DX,
   sidebarId: SidebarIdentifier.DEPLOYMENTS,
-  layout: PageLayout.DefaultLayout,
   path: '/connector-details',
   title: i18n.connectors,
   pageId: 'connector-details',
-  url: () => '/connectors-details',
+  url: (params: RouteURLArgs) =>
+    params?.editMode
+      ? `#/account/${params?.accountId}/connector-details/edit=true`
+      : `#/account/${params?.accountId}/connector-details/`,
   component: React.lazy(() => import('./pages/connectors/ConnectorDetailsPage'))
 }

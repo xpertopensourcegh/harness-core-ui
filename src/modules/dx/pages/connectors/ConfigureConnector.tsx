@@ -1,22 +1,27 @@
 import React, { useState, useEffect } from 'react'
 import { Formik, FormikForm as Form, Button, Layout, OptionsButtonGroup } from '@wings-software/uikit'
-import { getValidationSchemaByType, getFormByType } from './ConnectorHelper'
+import { getValidationSchemaByType, getFormByType } from './utils/ConnectorHelper'
 import css from './ConfigureConnector.module.scss'
 import SavedConnectorDetails from './SavedConnectorDetails'
 import ConnectorStats from './ConnectorStats'
 import i18n from './ConfigureConnector.i18n'
-import type { ConnectorSchema } from './ConnectorSchema'
+// import type { ConnectorSchema } from './ConnectorSchema'
+import { ConnectorService } from 'modules/dx/services'
+import { buildKubPayload, buildKubFormData } from './utils/ConnectorUtils'
 
 export interface ConfigureConnectorProps {
-  enableEdit: boolean
-  connector: ConnectorSchema
+  enableCreate: boolean
+  connector: any
+  setInitialConnector: (connector: any) => void
 }
 
 interface ConfigureConnectorState {
   enableEdit: boolean
   setEnableEdit: (val: boolean) => void
-  connector: ConnectorSchema
-  setConnector: (object: ConnectorSchema) => void
+  connector: any
+  setConnector: (object: any) => void
+  enableCreate: boolean
+  setEnableCreate: (val: boolean) => void
 }
 interface Options {
   text: string
@@ -38,22 +43,39 @@ const getOptions = (): Options[] => {
   ]
 }
 
+const createConnectorByType = async (data: any, state: ConfigureConnectorState) => {
+  const xhrGroup = 'create-connector'
+  const { connector, error } = await ConnectorService.createConnector({ xhrGroup, connector: data })
+  if (!error) {
+    state.setConnector(connector)
+    const formData = buildKubFormData(connector)
+    state.setConnector(formData)
+    //  props.setInitialConnector(formData)
+  }
+  //todo else
+}
+
+const onSubmitForm = (formData: any, state: ConfigureConnectorState) => {
+  state.setEnableEdit(false)
+  state.setEnableCreate(false)
+  state.setConnector(formData)
+  const data = buildKubPayload(formData)
+  createConnectorByType(data, state)
+}
+
 const renderConnectorForm = (state: ConfigureConnectorState, props: ConfigureConnectorProps): JSX.Element => {
-  const fieldsByType = getFormByType(props)
-  const { connector } = state
+  const { connector, enableCreate } = state
+
   const validationSchema = getValidationSchemaByType('KUBERNETES_CLUSTER')
   return (
     <Formik
-      initialValues={connector}
-      onSubmit={formData => {
-        state.setEnableEdit(false)
-        state.setConnector(formData)
-      }}
+      initialValues={enableCreate ? {} : connector}
+      onSubmit={formData => onSubmitForm(formData, state)}
       validationSchema={validationSchema}
     >
-      {() => (
-        <Form>
-          {fieldsByType}
+      {formikProps => (
+        <Form className={css.formCustomCss}>
+          {getFormByType(props, formikProps)}
           <Button intent="primary" type="submit" text={i18n.submit} className={css.submitBtn} />
         </Form>
       )}
@@ -75,26 +97,39 @@ const renderSubHeader = (state: ConfigureConnectorState): JSX.Element => {
 }
 
 const renderConnectorStats = (): JSX.Element => {
-  return <ConnectorStats />
+  return (
+    <ConnectorStats
+      createdAt="24.08.2020, 11:58 PM"
+      lastTested="a minute ago"
+      lastUpdated="31.08.2020, 10:00 AM "
+      connectionSuccesful="a minute ago"
+      status="SUCCESS"
+    />
+  )
 }
 
 const ConfigureConnector = (props: ConfigureConnectorProps): JSX.Element => {
-  const [enableEdit, setEnableEdit] = useState(false)
+  const [enableEdit, setEnableEdit] = useState(props.enableCreate)
+  const [enableCreate, setEnableCreate] = useState(props.enableCreate)
   const [connector, setConnector] = useState(props.connector)
 
   const state: ConfigureConnectorState = {
     enableEdit,
     setEnableEdit,
     connector,
-    setConnector
+    setConnector,
+    enableCreate,
+    setEnableCreate
   }
   useEffect(() => {
-    setEnableEdit(props.enableEdit)
-    setConnector(props.connector)
+    //   setEnableEdit()
+    if (props.connector) {
+      setConnector(props.connector)
+    }
   }, [props])
 
   return (
-    <Layout.Horizontal>
+    <Layout.Horizontal className={css.mainDetails}>
       <div className={css.connectorDetails}>
         <OptionsButtonGroup options={getOptions()} onChange={value => alert('Select ' + value)} />
         {renderSubHeader(state)}

@@ -2,7 +2,7 @@ import { Container, Layout } from '@wings-software/uikit'
 import { linkTo, Sidebar, isRouteActive } from 'framework/exports'
 import React from 'react'
 import i18n from './MenuDeployments.i18n'
-import { routeResources } from '../routes'
+import { routeResources } from '../../common/routes'
 
 export const MenuDeployments: React.FC = () => {
   return (

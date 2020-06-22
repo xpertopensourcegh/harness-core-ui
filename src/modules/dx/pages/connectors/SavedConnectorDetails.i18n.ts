@@ -4,5 +4,6 @@ export default {
   identifier: 'Identifier',
   tags: 'Tags',
   connectionMode: 'Connection Mode',
-  delegate: 'Delegate'
+  delegate: 'Delegate',
+  delegateName: 'Delegate Name'
 }

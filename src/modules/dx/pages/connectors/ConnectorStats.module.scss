@@ -1,2 +1,20 @@
 .connectorStats {
+  width: 50% !important;
+  margin-top: 70px !important ;
+  border-left: 1px solid var(--grey-200);
+
+  .nameValueItem {
+    margin-left: 35px;
+    .name {
+      width: 40%;
+      color: var(--grey-500);
+    }
+    .value {
+      color: var(--grey-900);
+    }
+  }
+  .testBtn{
+      width:150px;
+      margin-left: 35px;
+  }
 }

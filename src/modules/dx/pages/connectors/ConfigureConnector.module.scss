@@ -1,15 +1,23 @@
-.connectorDetails {
-  margin: var(--spacing-xlarge);
-  .header {
-    margin-top: var(--spacing-large);
-    margin-bottom: var(--spacing-large);
-    width: fit-content;
-    .name {
-      font-size: 16px;
-      margin: auto;
+.mainDetails {
+  justify-content: space-between;
+  .connectorDetails {
+    margin: var(--spacing-xlarge);
+
+    .header {
+      margin-top: var(--spacing-large);
+      margin-bottom: var(--spacing-large);
+      width: fit-content;
+      .name {
+        font-size: 16px;
+        margin: auto;
+        color: var(--grey-800);
+      }
     }
-  }
-  .submitBtn {
-    margin: var(--spacing-large) 0;
+    .submitBtn {
+      margin: var(--spacing-large) 0;
+    }
+    .formCustomCss{
+      width:72%;
+    }
   }
 }

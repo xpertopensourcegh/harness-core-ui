@@ -6,12 +6,46 @@ exports[`ConnectorDetailsPage Snapshot should render ConnectorDetailsPage 1`] = 
     class="Layout---horizontal--3rmQ StyledProps---main--1Wws container StyledProps---flex--2Jz8 StyledProps---padding-left-large--28UT StyledProps---padding-right-large--2vF9"
     style="height: 64px;"
   >
-    <h2
-      class="StyledProps---font--2ipy StyledProps---font-h2--3Vpc StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey800--2G2G"
-      level="2"
+    <div
+      class="Layout---vertical--3Szv StyledProps---main--1Wws"
     >
-      CONNECTORS
-    </h2>
+      <div
+        class="Layout---horizontal--3rmQ Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
+      >
+        <a
+          class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 Button---link--3a0q StyledProps---main--1Wws breadCrumb"
+          href="/#/resources"
+          role="button"
+          tabindex="0"
+        >
+          <span
+            class="bp3-button-text"
+          >
+            Resources
+          </span>
+        </a>
+        <span>
+          /
+        </span>
+        <a
+          class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 Button---link--3a0q StyledProps---main--1Wws breadCrumb"
+          href="/#/resources"
+          role="button"
+          tabindex="0"
+        >
+          <span
+            class="bp3-button-text"
+          >
+            Connectors
+          </span>
+        </a>
+      </div>
+      <span
+        class="kubHeading"
+      >
+        Kubernetes Connector
+      </span>
+    </div>
     <div
       class="StyledProps---font--2ipy StyledProps---main--1Wws"
     >
@@ -52,7 +86,7 @@ exports[`ConnectorDetailsPage Snapshot should render ConnectorDetailsPage 1`] = 
     class="StyledProps---font--2ipy StyledProps---main--1Wws pageBody"
   >
     <div
-      class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+      class="Layout---horizontal--3rmQ StyledProps---main--1Wws mainDetails"
     >
       <div
         class="connectorDetails"
@@ -121,105 +155,102 @@ exports[`ConnectorDetailsPage Snapshot should render ConnectorDetailsPage 1`] = 
             </span>
           </button>
         </div>
-        <div
-          class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws details"
-        >
-          <span
-            class="label"
-          >
-            Kubernetes Connector Name
-          </span>
-          <span
-            class="value"
-          >
-            Kubernetes connector
-          </span>
-        </div>
-        <div
-          class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws details"
-        >
-          <span
-            class="label"
-          >
-            Description
-          </span>
-          <span
-            class="value"
-          >
-            This is description
-          </span>
-        </div>
-        <div
-          class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws details"
-        >
-          <span
-            class="label"
-          >
-            Identifier
-          </span>
-          <span
-            class="value"
-          >
-            kubernetesidentifier
-          </span>
-        </div>
-        <div
-          class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws details"
-        >
-          <span
-            class="label"
-          >
-            Tags
-          </span>
-          <div
-            class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
-          >
-            <span
-              class="Tag---main--1vng"
-            >
-              <span
-                class="bp3-tag bp3-minimal"
-              >
-                <span
-                  class="bp3-text-overflow-ellipsis bp3-fill"
-                >
-                  Tag1
-                </span>
-              </span>
-            </span>
-            <span
-              class="Tag---main--1vng"
-            >
-              <span
-                class="bp3-tag bp3-minimal"
-              >
-                <span
-                  class="bp3-text-overflow-ellipsis bp3-fill"
-                >
-                  Tag2
-                </span>
-              </span>
-            </span>
-          </div>
-        </div>
-        <div
-          class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws details"
-        >
-          <span
-            class="label"
-          >
-            Connection Mode
-          </span>
-          <span
-            class="value"
-          >
-            delegateMode
-          </span>
-        </div>
       </div>
       <div
-        class="connectorStats"
-      />
+        class="Layout---vertical--3Szv Layout---layout-spacing-large--3HvX StyledProps---main--1Wws connectorStats"
+      >
+        <div
+          class="Layout---horizontal--3rmQ Layout---layout-spacing-large--3HvX StyledProps---main--1Wws nameValueItem"
+        >
+          <span
+            class="name"
+          >
+            Connector Created
+          </span>
+          <span
+            class="value"
+          >
+            24.08.2020, 11:58 PM
+          </span>
+        </div>
+        <div
+          class="Layout---horizontal--3rmQ Layout---layout-spacing-large--3HvX StyledProps---main--1Wws nameValueItem"
+        >
+          <span
+            class="name"
+          >
+            Last tested
+          </span>
+          <span
+            class="value"
+          >
+            a minute ago
+          </span>
+          <span
+            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
+            style="display: inline-flex; align-items: center;"
+          >
+            <span
+              class="bp3-icon bp3-icon-full-circle StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04 StyledProps---color--8PuS StyledProps---color-green500--2_VK"
+              icon="full-circle"
+            >
+              <svg
+                data-icon="full-circle"
+                height="6"
+                viewBox="0 0 16 16"
+                width="6"
+              >
+                <desc>
+                  full-circle
+                </desc>
+                <path
+                  d="M8 0a8 8 0 100 16A8 8 0 108 0z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
+            Successful
+          </span>
+        </div>
+        <div
+          class="Layout---horizontal--3rmQ Layout---layout-spacing-large--3HvX StyledProps---main--1Wws nameValueItem"
+        >
+          <span
+            class="name"
+          >
+            Last Updtaed
+          </span>
+          <span
+            class="value"
+          >
+            31.08.2020, 10:00 AM 
+          </span>
+        </div>
+        <div
+          class="Layout---horizontal--3rmQ Layout---layout-spacing-large--3HvX StyledProps---main--1Wws nameValueItem"
+        >
+          <span
+            class="name"
+          >
+            Last time connection is successful
+          </span>
+          <span
+            class="value"
+          >
+            a minute ago
+          </span>
+        </div>
+        <button
+          class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws testBtn"
+          type="button"
+        >
+          <span
+            class="bp3-button-text"
+          >
+            Test Connection
+          </span>
+        </button>
+      </div>
     </div>
   </div>
 </div>

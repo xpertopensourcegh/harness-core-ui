@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { FormInput, Layout } from '@wings-software/uikit'
 import i18n from './KubCluster.i18n'
-import { RadioSelect, Select } from '@wings-software/uikit'
-import type { ConnectorSchema } from '../ConnectorSchema'
+import { RadioSelect } from '@wings-software/uikit'
 import css from './KubCluster.module.scss'
-import { authOptions, getCustomFields } from './KubeFormHelper'
+import { authOptions, getCustomFields, DelegateTypes } from './KubeFormHelper'
+import cx from 'classnames'
 // import type { AuthOption } from './KubeFormHelper'
 
 interface SelectedDelegate {
@@ -13,8 +13,10 @@ interface SelectedDelegate {
   icon: string
 }
 interface KubClusterProps {
-  enableEdit: boolean
-  connector: ConnectorSchema
+  enableEdit?: boolean
+  connector: any
+  enableCreate: boolean
+  formikProps: any
 }
 
 interface KubClusterState {
@@ -22,10 +24,8 @@ interface KubClusterState {
   setSelectedDelegate: (val: SelectedDelegate) => void
   authentication: string
   setAuthentication: (val: string) => void
-}
-const DelegateTypes = {
-  DELEGATE_IN_CLUSTER: i18n.DELEGATE_IN_CLUSTER,
-  DELEGATE_OUT_CLUSTER: i18n.DELEGATE_OUT_CLUSTER
+  inclusterDelegate: string
+  setInClusterDelegate: (val: string) => void
 }
 
 const delegateData = [
@@ -40,9 +40,76 @@ const delegateData = [
     icon: 'blank'
   }
 ]
+// const getDelegateInclusterData = () => {
+//   return [
+//     {
+//       label: 'Use an existing Delegate',
+//       value: 'useexistingDelegate'
+//       // selected:true
+//     },
+//     {
+//       label: 'Add a new Delegate to this Cluster',
+//       value: 'newDelegate'
+//       // selected:false
+//     }
+//   ]
+// }
 
-const renderDelegateInclusterForm = () => {
-  return <></>
+const selectExistingDelegate = () => {
+  return (
+    <FormInput.Select
+      name="inheritConfigFromDelegate"
+      label="Select Delegate"
+      items={[
+        { label: 'Delegate_one', value: 'Delegate_one' },
+        { label: 'Delegate_two', value: 'Delegate_two' }
+      ]}
+    />
+  )
+}
+
+const renderDelegateInclusterForm = (state: KubClusterState) => {
+  return (
+    <div className={css.incluster}>
+      {/* <FormInput.RadioGroup
+        name="selectDelegate"
+        items={getDelegateInclusterData()}
+      
+        onChange={(e:any) => {
+         state.setInClusterDelegate(e.currentTarget)
+        }}
+      /> */}
+      <div
+        className={css.radioOption}
+        onClick={() => {
+          state.setInClusterDelegate('useexistingDelegate')
+        }}
+      >
+        <input type="radio" checked={state.inclusterDelegate === 'useexistingDelegate'} />
+        <span className={css.label}>Use an existing Delegate</span>
+      </div>
+      {state.inclusterDelegate === 'useexistingDelegate' ? selectExistingDelegate() : null}
+      <div
+        onClick={() => {
+          state.setInClusterDelegate('newDelegate')
+        }}
+      >
+        <input type="radio" checked={state.inclusterDelegate === 'newDelegate'} disabled />
+        <span className={css.label}>Add a new Delegate to this Cluster</span>
+      </div>
+
+      {/*TODO <RadioGroup
+              name="existingDelegate"
+              selectedValue={state.inclusterDelegate}
+              onChange={(e: FormEvent<HTMLInputElement>) => {
+                formikProps.setFieldValue('envType', e.currentTarget.value)
+              }}
+            >
+              <Radio label="Use an existing Delegate"  value='useexistingDelegate' />
+              <Radio label="Add a new Delegate to this Cluster"  value='newDelegate'/>
+            </RadioGroup> */}
+    </div>
+  )
 }
 
 const renderDelegateOutclusterForm = (state: KubClusterState) => {
@@ -51,7 +118,8 @@ const renderDelegateOutclusterForm = (state: KubClusterState) => {
       <FormInput.Text label={i18n.masterUrl} name="masterUrl" />
       <Layout.Horizontal className={css.credWrapper}>
         <div className={css.heading}>Credentials</div>
-        <Select
+        <FormInput.Select
+          name="authType"
           items={authOptions}
           className={css.selectAuth}
           onChange={val => {
@@ -69,25 +137,31 @@ const renderDelegateOutclusterForm = (state: KubClusterState) => {
 const KubCluster = (props: KubClusterProps): JSX.Element => {
   const [selectedDelegate, setSelectedDelegate] = useState({ type: '', value: '', icon: '' })
   const [authentication, setAuthentication] = useState('')
+  const [inclusterDelegate, setInClusterDelegate] = useState('')
   const { connector } = props
-
   const state: KubClusterState = {
     selectedDelegate,
     setSelectedDelegate,
     authentication,
-    setAuthentication
+    setAuthentication,
+    inclusterDelegate,
+    setInClusterDelegate
   }
   const radioProps = {
     data: delegateData,
     className: css.delegateSetup,
     renderItem: function renderItem(item: any) {
-      return <div className={css.cardCss}>{item.value}</div>
+      return <div className={cx(css.cardCss, { [css.selectedCard]: item === selectedDelegate })}>{item.value}</div>
     },
     onChange: (item: SelectedDelegate) => {
       state.setSelectedDelegate(item)
     }
   }
-
+  useEffect(() => {
+    if (props.formikProps?.values?.authType) {
+      state.setAuthentication(props.formikProps.values.authType)
+    }
+  }, [props])
   return (
     <>
       <FormInput.Text label={i18n.displayName} name="name" />
@@ -109,7 +183,7 @@ const KubCluster = (props: KubClusterProps): JSX.Element => {
         }}
       />
       <RadioSelect {...radioProps} selected={selectedDelegate} />
-      {state.selectedDelegate?.type === DelegateTypes.DELEGATE_IN_CLUSTER ? renderDelegateInclusterForm() : null}
+      {state.selectedDelegate?.type === DelegateTypes.DELEGATE_IN_CLUSTER ? renderDelegateInclusterForm(state) : null}
       {state.selectedDelegate?.type === DelegateTypes.DELEGATE_OUT_CLUSTER ? renderDelegateOutclusterForm(state) : null}
     </>
   )

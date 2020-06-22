@@ -3,14 +3,14 @@ import { Layout, Tag } from '@wings-software/uikit'
 
 import i18n from './SavedConnectorDetails.i18n'
 import css from './SavedConnectorDetails.module.scss'
-import type { ConnectorSchema } from './ConnectorSchema'
+
 
 interface SavedConnectorDetailsProps {
-  connector: ConnectorSchema
+  connector: any
 }
 const getSchema = (props: SavedConnectorDetailsProps) => {
   const { connector } = props
-  const { name, description, identifier, tags, delegateMode } = connector
+  const { name, description, identifier, tags, delegateMode,inheritConfigFromDelegate } = connector
   return [
     {
       label: i18n.connectorName,
@@ -31,6 +31,10 @@ const getSchema = (props: SavedConnectorDetailsProps) => {
     {
       label: i18n.connectionMode,
       value: delegateMode
+    },
+    {
+      label:i18n.delegateName,
+      value:inheritConfigFromDelegate
     }
   ]
 }
@@ -51,19 +55,22 @@ const renderTags = (value: string[]) => {
 
 const SavedConnectorDetails = (props: SavedConnectorDetailsProps) => {
   const connectorDetailsSchema = getSchema(props)
+
   return (
     <>
       {connectorDetailsSchema.map((item, index) => {
-        return (
-          <Layout.Vertical spacing="small" className={css.details} key={index}>
-            <span className={css.label}>{item.label}</span>
-            {item.label === i18n.tags && typeof item.value === 'object' ? (
-              renderTags(item.value)
-            ) : (
-              <span className={css.value}>{item.value}</span>
-            )}
-          </Layout.Vertical>
-        )
+        if (item.value) {
+          return (
+            <Layout.Vertical spacing="small" className={css.details} key={index}>
+              <span className={css.label}>{item.label}</span>
+              {item.label === i18n.tags && typeof item.value === 'object' ? (
+                renderTags(item.value)
+              ) : (
+                <span className={css.value}>{item.value}</span>
+              )}
+            </Layout.Vertical>
+          )
+        }
       })}
     </>
   )

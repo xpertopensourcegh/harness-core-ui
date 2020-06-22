@@ -11,7 +11,7 @@ const ConnectorsList = () => {
       <Container>
         <Layout.Horizontal id="layout-horizontal-sample" spacing="none" padding="xlarge" className={css.listWrapper}>
           <div style={{ width: 200 }}>
-            <DelegateSetupModal />
+            <DelegateSetupModal />   
           </div>
           <div style={{ flexGrow: 1 }}></div>
         </Layout.Horizontal>
