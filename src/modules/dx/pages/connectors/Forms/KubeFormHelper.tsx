@@ -24,6 +24,11 @@ export const DelegateTypes = {
   DELEGATE_OUT_CLUSTER: 'InheritFromDelegate'
 }
 
+export const DelegateInClusterType = {
+  useExistingDelegate: 'useExistingDelegate',
+  addNewDelegate: 'addnewDelegate'
+}
+
 export const authTypeFields = {
   username: 'username',
   password: 'password',
