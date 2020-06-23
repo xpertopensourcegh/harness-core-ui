@@ -8,6 +8,9 @@ import YamlWorker from 'worker-loader!monaco-yaml/esm/yaml.worker'
 import EditorWorker from 'worker-loader!monaco-editor/esm/vs/editor/editor.worker'
 
 import { JSONSchemaService } from 'modules/dx/services'
+import { YamlBuilderProps } from 'modules/common/interfaces/YAMLBuilderProps'
+import { Tag, Intent } from '@wings-software/uikit'
+import cx from 'classnames'
 
 import css from './YamlBuilder.module.scss'
 
@@ -22,15 +25,8 @@ window.MonacoEnvironment = {
 
 const { yaml } = languages || {}
 
-interface YamlBuilderProps {
-  height?: number
-  width?: number
-  fileName?: string
-  value?: string
-}
-
 const YAMLBuilder = (props: YamlBuilderProps) => {
-  const [value, setValue] = useState()
+  const [existingYaml, setValue] = useState()
 
   function loadEntitySchemas() {
     const jsonSchemas = JSONSchemaService.fetchEntitySchemas({})
@@ -40,16 +36,25 @@ const YAMLBuilder = (props: YamlBuilderProps) => {
   useEffect(() => {
     const jsonSchemas = loadEntitySchemas()
     yaml?.yamlDefaults.setDiagnosticsOptions(jsonSchemas)
-    setValue(props.value)
-  }, [value])
+    setValue(props.existingYaml)
+  }, [existingYaml])
 
-  const { height, width, fileName } = props
+  const { height, width, fileName, entityType } = props
 
   return (
     <div className={css.main}>
-      <div className={css.fileName}>{fileName}</div>
+      <div className={css.flexCenter}>
+        <span className={cx(css.filePath, css.flexCenter)}>{fileName}</span>
+        <Tag minimal="true">{entityType}</Tag>
+      </div>
       <div className={css.builder}>
-        <MonacoEditor width={width ?? 800} height={height ?? 600} language="yaml" value={value} onChange={setValue} />
+        <MonacoEditor
+          width={width ?? 800}
+          height={height ?? 600}
+          language="yaml"
+          value={existingYaml}
+          onChange={setValue}
+        />
       </div>
     </div>
   )

@@ -5,11 +5,9 @@
   border-radius: 10px 0 0 10px;
 }
 
-.fileName {
-  padding: 0 var(--spacing-xxlarge);
+.filePath {
+  margin: 0 var(--spacing-small) 0 var(--spacing-large);
   height: 50px;
-  display: flex;
-  align-items: center;
   font-weight: bolder;
   font-size: var(--font-size-normal);
   color: var(--black);
@@ -18,4 +16,9 @@
 .builder {
   padding: var(--spacing-large) 0;
   border-top: 2px solid var(--grey-200);
+}
+
+.flexCenter {
+  display: flex;
+  align-items: center;
 }

@@ -2,7 +2,8 @@
 // this is an auto-generated file
 declare const styles: {
   readonly main: string
-  readonly fileName: string
+  readonly filePath: string
   readonly builder: string
+  readonly flexCenter: string
 }
 export default styles

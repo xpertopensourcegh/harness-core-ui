@@ -8,6 +8,8 @@ import i18n from './ConfigureConnector.i18n'
 // import type { ConnectorSchema } from './ConnectorSchema'
 import { ConnectorService } from 'modules/dx/services'
 import { buildKubPayload, buildKubFormData } from './utils/ConnectorUtils'
+import YAMLBuilderPage from 'modules/dx/pages/yamlBuilder/YamlBuilderPage'
+import { YamlEntity } from 'modules/common/constants/YamlConstants'
 
 export interface ConfigureConnectorProps {
   type: string
@@ -23,6 +25,8 @@ interface ConfigureConnectorState {
   setConnector: (object: any) => void
   enableCreate: boolean
   setEnableCreate: (val: boolean) => void
+  selectedView: string
+  setSelectedView: (selection: string) => void
 }
 interface Options {
   text: string
@@ -30,16 +34,21 @@ interface Options {
   selected?: boolean
 }
 
+const SelectedView = {
+  VISUAL: 'visual',
+  YAML: 'yaml'
+}
+
 const getOptions = (): Options[] => {
   return [
     {
       text: 'Visual',
-      value: 'visual',
+      value: SelectedView.VISUAL,
       selected: true
     },
     {
-      text: 'Yaml',
-      value: 'yaml'
+      text: 'YAML',
+      value: SelectedView.YAML
     }
   ]
 }
@@ -113,6 +122,7 @@ const ConfigureConnector = (props: ConfigureConnectorProps): JSX.Element => {
   const [enableEdit, setEnableEdit] = useState(props.enableCreate)
   const [enableCreate, setEnableCreate] = useState(props.enableCreate)
   const [connector, setConnector] = useState(props.connector)
+  const [selectedView, setSelectedView] = useState(SelectedView.VISUAL)
 
   const state: ConfigureConnectorState = {
     enableEdit,
@@ -120,7 +130,9 @@ const ConfigureConnector = (props: ConfigureConnectorProps): JSX.Element => {
     connector,
     setConnector,
     enableCreate,
-    setEnableCreate
+    setEnableCreate,
+    selectedView,
+    setSelectedView
   }
   useEffect(() => {
     //   setEnableEdit()
@@ -130,15 +142,25 @@ const ConfigureConnector = (props: ConfigureConnectorProps): JSX.Element => {
   }, [props])
 
   return (
-    <Layout.Horizontal className={css.mainDetails}>
-      <div className={css.connectorDetails}>
-        <OptionsButtonGroup options={getOptions()} onChange={value => alert('Select ' + value)} />
-        {renderSubHeader(state)}
-        {!enableEdit ? renderSavedDetails(state) : null}
-        {enableEdit ? renderConnectorForm(state, props) : null}
+    <React.Fragment>
+      <div className={css.optionBtns}>
+        <OptionsButtonGroup options={getOptions()} onChange={value => setSelectedView(value as string)} />
       </div>
-      {renderConnectorStats()}
-    </Layout.Horizontal>
+      <Layout.Horizontal className={css.mainDetails}>
+        {selectedView === SelectedView.VISUAL ? (
+          <React.Fragment>
+            <div className={css.connectorDetails}>
+              {renderSubHeader(state)}
+              {!enableEdit ? renderSavedDetails(state) : null}
+              {enableEdit ? renderConnectorForm(state, props) : null}
+            </div>
+            {renderConnectorStats()}
+          </React.Fragment>
+        ) : (
+          <YAMLBuilderPage fileName="K8sConnector.yaml" entityType={YamlEntity.CONNECTOR} />
+        )}
+      </Layout.Horizontal>
+    </React.Fragment>
   )
 }
 
