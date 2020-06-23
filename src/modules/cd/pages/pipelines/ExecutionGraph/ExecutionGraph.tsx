@@ -277,7 +277,6 @@ const ExecutionGraph = (): JSX.Element => {
         }
       }}
     >
-      Execution Graph
       <div className={css.canvas}>
         <Diagram.CanvasWidget engine={engine} />
       </div>
@@ -291,7 +290,7 @@ const ExecutionGraph = (): JSX.Element => {
         canEscapeKeyClose={true}
         canOutsideClickClose={state.entity?.getOptions().type !== 'create-new'}
         enforceFocus={true}
-        hasBackdrop={state.entity?.getOptions().type !== 'create-new'}
+        hasBackdrop={false}
         size={Drawer.SIZE_SMALL}
         isOpen={state.isDrawerOpen}
         position={Position.RIGHT}

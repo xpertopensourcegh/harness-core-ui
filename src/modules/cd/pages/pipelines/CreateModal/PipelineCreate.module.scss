@@ -1,0 +1,37 @@
+.container {
+  height: 534px;
+
+  .heading {
+    padding: 33px 0;
+  }
+
+  .helpText {
+    padding: 14px 0 31px;
+  }
+
+  .layout {
+    display: grid;
+    grid-template-columns: 322px 1fr;
+    gap: 20px;
+
+    .formInput {
+      height: 337px;
+    }
+
+    .helpImages {
+      border: 1px solid var(--grey-250);
+      height: 340px;
+      margin: 30px;
+      text-align: center;
+    }
+
+    .startBtn {
+      width: 134px;
+    }
+  }
+
+  .collapseDiv div {
+    border-top: none;
+    padding: 0;
+  }
+}

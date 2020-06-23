@@ -1,0 +1,22 @@
+.container {
+  height: 100%;
+  width: 100%;
+}
+
+.canvas {
+  height: 100%;
+  width: 100%;
+  position: relative;
+
+  > div {
+    cursor: default;
+    height: 100%;
+    width: 100%;
+  }
+
+  .hiddenDom {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+  }
+}
