@@ -40,7 +40,6 @@ const YAMLBuilder = (props: YamlBuilderProps) => {
   }, [existingYaml])
 
   const { height, width, fileName, entityType } = props
-  console.log(props, fileName, entityType)
 
   return (
     <div className={css.main}>
