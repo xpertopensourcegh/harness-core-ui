@@ -23,7 +23,11 @@
           color: var(--grey-400);
           font-size: 12px;
         }
-        .bp3-form-content {
+        .bp3-input-group {
+          border-radius: 8px;
+          border: 1px solid var(--grey-200);
+        }
+        textarea {
           border-radius: 8px;
           border: 1px solid var(--grey-200);
         }

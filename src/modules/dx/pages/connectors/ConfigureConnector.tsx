@@ -66,7 +66,7 @@ const onSubmitForm = (formData: any, state: ConfigureConnectorState) => {
 const renderConnectorForm = (state: ConfigureConnectorState, props: ConfigureConnectorProps): JSX.Element => {
   const { connector, enableCreate } = state
 
-  const validationSchema = getValidationSchemaByType('KUBERNETES_CLUSTER')
+  const validationSchema = getValidationSchemaByType('K8sCluster')
   return (
     <Formik
       initialValues={enableCreate ? {} : connector}

@@ -4,6 +4,7 @@ import i18n from './KubCluster.i18n'
 import { RadioSelect } from '@wings-software/uikit'
 import css from './KubCluster.module.scss'
 import { authOptions, getCustomFields, DelegateTypes, DelegateInClusterType } from './KubeFormHelper'
+import { getIdentifierFromName } from 'framework/utils/StringUtils'
 import cx from 'classnames'
 // import type { AuthOption } from './KubeFormHelper'
 
@@ -158,7 +159,16 @@ const KubCluster = (props: KubClusterProps): JSX.Element => {
 
   return (
     <>
-      <FormInput.Text label={i18n.displayName} name="name" />
+      <FormInput.Text
+        label={i18n.displayName}
+        name="name"
+        onChange={e => {
+          const name = (e.target as HTMLInputElement).value
+          if (name) {
+            props.formikProps.setFieldValue('identifier', getIdentifierFromName(name))
+          }
+        }}
+      />
       <FormInput.TextArea label={i18n.description} name="description" />
       <FormInput.Text label={i18n.identifier} name="identifier" />
       <FormInput.TagInput

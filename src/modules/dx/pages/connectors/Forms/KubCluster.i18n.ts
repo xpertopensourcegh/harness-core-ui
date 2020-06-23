@@ -1,7 +1,7 @@
 export default {
-  displayName: 'Give your kubernetes Connector a name*',
-  masterUrl: 'Master Url*',
-  credentials: 'Credentials*',
+  displayName: 'Give your kubernetes Connector a name',
+  masterUrl: 'Master Url',
+  credentials: 'Credentials',
   description: 'Description',
   identifier: 'Identifier',
   tags: 'Tags',
