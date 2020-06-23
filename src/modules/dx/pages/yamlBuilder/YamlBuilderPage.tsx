@@ -8,15 +8,15 @@ import type YamlBuilderProps from 'modules/common/interfaces/YAMLBuilderProps'
 
 import css from './YamlBuilderPage.module.scss'
 
-const YAMLBuilderPage = (props: YamlBuilderProps) => (
-  <div>
+const YAMLBuilderPage = (props: YamlBuilderProps) => {
+  return (
     <div className={css.builderSection}>
       <Layout.Horizontal className={css.layout}>
-        <YAMLBuilder fileName={props.filePath} entityType={props.entityType} />
+        <YAMLBuilder fileName={props.fileName} entityType={props.entityType} />
         <SnippetSection />
       </Layout.Horizontal>
     </div>
-  </div>
-)
+  )
+}
 
 export default YAMLBuilderPage

@@ -9,6 +9,7 @@ import i18n from './ConfigureConnector.i18n'
 import { ConnectorService } from 'modules/dx/services'
 import { buildKubPayload, buildKubFormData } from './utils/ConnectorUtils'
 import YAMLBuilderPage from 'modules/dx/pages/yamlBuilder/YamlBuilderPage'
+import { YamlEntity } from 'modules/common/constants/YamlConstants'
 
 export interface ConfigureConnectorProps {
   enableCreate: boolean
@@ -120,7 +121,7 @@ const ConfigureConnector = (props: ConfigureConnectorProps): JSX.Element => {
   const [enableEdit, setEnableEdit] = useState(props.enableCreate)
   const [enableCreate, setEnableCreate] = useState(props.enableCreate)
   const [connector, setConnector] = useState(props.connector)
-  const [selectedView, setSelectedView] = useState(SelectedView.VISUAL.valueOf())
+  const [selectedView, setSelectedView] = useState(SelectedView.VISUAL)
 
   const state: ConfigureConnectorState = {
     enableEdit,
@@ -155,7 +156,7 @@ const ConfigureConnector = (props: ConfigureConnectorProps): JSX.Element => {
             {renderConnectorStats()}
           </React.Fragment>
         ) : (
-          <YAMLBuilderPage filePath="placeholder.yaml" entityType={'CONNNECTOR'} />
+          <YAMLBuilderPage fileName="K8sConnector.yaml" entityType={YamlEntity.CONNECTOR} />
         )}
       </Layout.Horizontal>
     </React.Fragment>

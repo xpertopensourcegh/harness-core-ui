@@ -8,7 +8,7 @@ import YamlWorker from 'worker-loader!monaco-yaml/esm/yaml.worker'
 import EditorWorker from 'worker-loader!monaco-editor/esm/vs/editor/editor.worker'
 
 import { JSONSchemaService } from 'modules/dx/services'
-import { YamlBuilderProps } from '../../interfaces/YAMLBuilderProps'
+import { YamlBuilderProps } from 'modules/common/interfaces/YAMLBuilderProps'
 
 import css from './YamlBuilder.module.scss'
 
@@ -37,11 +37,12 @@ const YAMLBuilder = (props: YamlBuilderProps) => {
     setValue(props.existingYaml)
   }, [existingYaml])
 
-  const { height, width, filePath } = props
+  const { height, width, fileName, entityType } = props
+  console.log(props, fileName, entityType)
 
   return (
     <div className={css.main}>
-      <div className={css.filePath}>{filePath}</div>
+      <div className={css.filePath}>{fileName}</div>
       <div className={css.builder}>
         <MonacoEditor
           width={width ?? 800}
