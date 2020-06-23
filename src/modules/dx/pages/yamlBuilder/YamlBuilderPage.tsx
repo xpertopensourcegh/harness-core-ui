@@ -12,7 +12,7 @@ const YAMLBuilderPage = (props: YamlBuilderProps) => (
   <div>
     <div className={css.builderSection}>
       <Layout.Horizontal className={css.layout}>
-        <YAMLBuilder fileName={props.filePath} />
+        <YAMLBuilder fileName={props.filePath} entityType={props.entityType} />
         <SnippetSection />
       </Layout.Horizontal>
     </div>

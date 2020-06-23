@@ -1,6 +1,7 @@
 export default interface YamlBuilderProps {
   height?: number
   width?: number
-  filePath?: string
+  filePath: string
   existingYaml?: string
+  entityType: string
 }

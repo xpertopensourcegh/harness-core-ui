@@ -140,21 +140,25 @@ const ConfigureConnector = (props: ConfigureConnectorProps): JSX.Element => {
   }, [props])
 
   return (
-    <Layout.Horizontal className={css.mainDetails}>
-      <OptionsButtonGroup options={getOptions()} onChange={value => setSelectedView(value as string)} />
-      {selectedView === SelectedView.VISUAL ? (
-        <React.Fragment>
-          <div className={css.connectorDetails}>
-            {renderSubHeader(state)}
-            {!enableEdit ? renderSavedDetails(state) : null}
-            {enableEdit ? renderConnectorForm(state, props) : null}
-          </div>
-          {renderConnectorStats()}
-        </React.Fragment>
-      ) : (
-        <YAMLBuilderPage />
-      )}
-    </Layout.Horizontal>
+    <React.Fragment>
+      <div className={css.optionBtns}>
+        <OptionsButtonGroup options={getOptions()} onChange={value => setSelectedView(value as string)} />
+      </div>
+      <Layout.Horizontal className={css.mainDetails}>
+        {selectedView === SelectedView.VISUAL ? (
+          <React.Fragment>
+            <div className={css.connectorDetails}>
+              {renderSubHeader(state)}
+              {!enableEdit ? renderSavedDetails(state) : null}
+              {enableEdit ? renderConnectorForm(state, props) : null}
+            </div>
+            {renderConnectorStats()}
+          </React.Fragment>
+        ) : (
+          <YAMLBuilderPage filePath="placeholder.yaml" entityType={'CONNNECTOR'} />
+        )}
+      </Layout.Horizontal>
+    </React.Fragment>
   )
 }
 

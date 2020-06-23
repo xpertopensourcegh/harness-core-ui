@@ -16,8 +16,12 @@
     .submitBtn {
       margin: var(--spacing-large) 0;
     }
-    .formCustomCss{
-      width:72%;
+    .formCustomCss {
+      width: 72%;
     }
   }
+}
+
+.optionBtns {
+  margin: var(--spacing-xlarge);
 }
