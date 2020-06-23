@@ -1,7 +1,7 @@
 export default {
-  displayName: 'Give your kubernetes Connector a name*',
-  masterUrl: 'Master Url*',
-  credentials: 'Credentials*',
+  displayName: 'Give your kubernetes Connector a name',
+  masterUrl: 'Master Url',
+  credentials: 'Credentials',
   description: 'Description',
   identifier: 'Identifier',
   tags: 'Tags',
@@ -9,6 +9,6 @@ export default {
   enterTags: 'Enter Tags',
   DELEGATE_IN_CLUSTER: 'InheritFromDelegate',
   DELEGATE_OUT_CLUSTER: 'ManualConfig',
-  DELEGATE_IN_CLUSTER_TEXT: 'Connect through a harness delegate running in-cluster',
-  DELEGATE_OUT_CLUSTER_TEXT: 'Connect through a harnesss delegate outside your cluster'
+  DELEGATE_IN_CLUSTER_TEXT: 'HARNESS DELEGATE RUNNING IN-CLUSTER',
+  DELEGATE_OUT_CLUSTER_TEXT: 'HARNESS DELEGATE RUNNING OUTSIDE YOUR CLUSTER'
 }

@@ -10,6 +10,7 @@ import { ConnectorService } from 'modules/dx/services'
 import { buildKubPayload, buildKubFormData } from './utils/ConnectorUtils'
 
 export interface ConfigureConnectorProps {
+  type: string
   enableCreate: boolean
   connector: any
   setInitialConnector: (connector: any) => void
@@ -50,7 +51,6 @@ const createConnectorByType = async (data: any, state: ConfigureConnectorState) 
     state.setConnector(connector)
     const formData = buildKubFormData(connector)
     state.setConnector(formData)
-    //  props.setInitialConnector(formData)
   }
   //todo else
 }
@@ -64,9 +64,10 @@ const onSubmitForm = (formData: any, state: ConfigureConnectorState) => {
 }
 
 const renderConnectorForm = (state: ConfigureConnectorState, props: ConfigureConnectorProps): JSX.Element => {
-  const { connector, enableCreate } = state
+  const { enableCreate } = state
+  const { connector } = props
 
-  const validationSchema = getValidationSchemaByType('KUBERNETES_CLUSTER')
+  const validationSchema = getValidationSchemaByType(props.type)
   return (
     <Formik
       initialValues={enableCreate ? {} : connector}
