@@ -9,6 +9,8 @@ import EditorWorker from 'worker-loader!monaco-editor/esm/vs/editor/editor.worke
 
 import { JSONSchemaService } from 'modules/dx/services'
 import { YamlBuilderProps } from 'modules/common/interfaces/YAMLBuilderProps'
+import { Tag, Intent } from '@wings-software/uikit'
+import cx from 'classnames'
 
 import css from './YamlBuilder.module.scss'
 
@@ -42,7 +44,10 @@ const YAMLBuilder = (props: YamlBuilderProps) => {
 
   return (
     <div className={css.main}>
-      <div className={css.filePath}>{fileName}</div>
+      <div className={css.flexCenter}>
+        <span className={cx(css.filePath, css.flexCenter)}>{fileName}</span>
+        <Tag minimal="true">{entityType}</Tag>
+      </div>
       <div className={css.builder}>
         <MonacoEditor
           width={width ?? 800}

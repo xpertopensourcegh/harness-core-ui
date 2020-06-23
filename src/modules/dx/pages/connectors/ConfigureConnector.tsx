@@ -46,7 +46,7 @@ const getOptions = (): Options[] => {
       selected: true
     },
     {
-      text: 'Yaml',
+      text: 'YAML',
       value: SelectedView.YAML
     }
   ]
@@ -121,7 +121,7 @@ const ConfigureConnector = (props: ConfigureConnectorProps): JSX.Element => {
   const [enableEdit, setEnableEdit] = useState(props.enableCreate)
   const [enableCreate, setEnableCreate] = useState(props.enableCreate)
   const [connector, setConnector] = useState(props.connector)
-  const [selectedView, setSelectedView] = useState(SelectedView.VISUAL)
+  const [selectedView, setSelectedView] = useState(SelectedView.YAML)
 
   const state: ConfigureConnectorState = {
     enableEdit,
