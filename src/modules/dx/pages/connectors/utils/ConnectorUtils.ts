@@ -129,6 +129,7 @@ export const getInfoTextByType = (type: string) => {
 export const fomatConnectListData = (connectorList: any) => {
   const formattedList = connectorList.map((item: any) => {
     return {
+      identifier: item.identifier,
       icon: getIconByType(item.type),
       infoText: getInfoTextByType(item.type),
       tags: item.tags.toString(),

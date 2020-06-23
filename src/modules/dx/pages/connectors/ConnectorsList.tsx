@@ -5,8 +5,9 @@ import CustomTable from '../../../common/components/CustomTable/CustomTable'
 import { columns } from '../../../cd/pages/Resources/SampleColumnsData'
 import css from './ConnectorsList.module.scss'
 import { ConnectorService } from '../../services'
-
+import { useHistory, useParams } from 'react-router-dom'
 import { fomatConnectListData } from './utils/ConnectorUtils'
+import { routeConnectorDetails } from '../../routes'
 
 interface ConnectorListState {
   rowData: any
@@ -18,9 +19,14 @@ const fetchConnectors = (state: ConnectorListState) => {
   const rowData = fomatConnectListData(connectorList)
   state.setRowData(rowData)
 }
-const ConnectorsList = () => {
-  const [rowData, setRowData] = useState([])
 
+const onClickRow = (history: any, accountId: string, connectorId: string) => {
+  history.push(routeConnectorDetails.url({ accountId: accountId, connectorId: connectorId }))
+}
+const ConnectorsList: React.FC = () => {
+  const [rowData, setRowData] = useState([])
+  const { accountId } = useParams()
+  const history = useHistory()
   const state: ConnectorListState = {
     rowData,
     setRowData
@@ -41,7 +47,11 @@ const ConnectorsList = () => {
       </Container>
       <Container style={{ height: '100%' }}>
         <Layout.Horizontal style={{ height: '100%' }}>
-          <CustomTable data={rowData} columns={columns} />
+          <CustomTable
+            data={rowData}
+            columns={columns}
+            onClickRow={(connectorId: string) => onClickRow(history, accountId, connectorId)}
+          />
         </Layout.Horizontal>
       </Container>
     </Layout.Vertical>

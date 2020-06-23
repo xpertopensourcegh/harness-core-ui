@@ -4,7 +4,7 @@ import { Dialog, IDialogProps, Position } from '@blueprintjs/core'
 import css from './DelegateSetupModal.module.scss'
 import { DelegateStepWizard } from './DelegateStepWizard'
 import { Menu, Popover } from '@blueprintjs/core'
-
+import { useParams } from 'react-router-dom'
 import i18n from './DelegateSetup.i18n'
 import { routeConnectorDetails } from 'modules/dx/routes'
 
@@ -12,6 +12,8 @@ const getIcon = (icon: any) => {
   return <Icon name={icon} size={14} className={css.iconConnector} />
 }
 const DelegateModal: React.FC = () => {
+  const { accountId } = useParams()
+
   const modalPropsLight: IDialogProps = {
     isOpen: true,
     usePortal: true,
@@ -56,7 +58,7 @@ const DelegateModal: React.FC = () => {
             return (
               <Menu.Item
                 className={css.menuItem}
-                href={routeConnectorDetails.url({ accountId: 'kmpySmUISimoRrJL6NL73w', editMode: 'edit' })}
+                href={`#${routeConnectorDetails.url({ accountId: accountId, editMode: 'true' })}`}
                 key={index}
                 text={item.label}
                 icon={getIcon(item.icon)}
