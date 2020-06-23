@@ -25,7 +25,7 @@ export const routeYAMLBuilder: Route = {
 export const routeConnectorDetails: Route = {
   module: ModuleName.DX,
   sidebarId: SidebarIdentifier.ACCOUNT,
-  path: '/connectors',
+  path: '/connectors/:connectorId',
   title: i18n.connectors,
   pageId: 'connector-details',
   url: (params: RouteURLArgs) =>
