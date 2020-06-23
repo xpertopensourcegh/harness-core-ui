@@ -1353,13 +1353,14 @@
   resolved "https://npm.pkg.github.com/download/@wings-software/swagger-ts/1.55003.0/c4c669ccf39e0ed33b3ec58374bc3bd9555a73d2ef302a69af9fdb3c543374fa#1c2b233d2e01d871fad5bce771be5a52f4938354"
   integrity sha512-akXp2CIQq0Nu8GrC4i5XJdr5aBx9YyepjSESGOi6IaL+MQGlIqEpA91lG92/UZ2NNHRK43pacJbZZ33VDcZpkQ==
 
-"@wings-software/uikit@1.0.163":
-  version "1.0.163"
-  resolved "https://npm.pkg.github.com/download/@wings-software/uikit/1.0.163/bf4d584d40f347749b5216cc66a71c53de2582275fdb6bfd8c6de14394d77ee3#1a594cb015291f5905b9a23564896d4d715bd52b"
-  integrity sha512-78DbiExDeeQLIdsFFbhP/osSVgeX3uNIXcIAzX9tkiYK7odUKnfDQY4CyhWE9eRTMWq9lFOQOtGJicg2j1RRiQ==
+"@wings-software/uikit@1.0.171":
+  version "1.0.171"
+  resolved "https://npm.pkg.github.com/download/@wings-software/uikit/1.0.171/69f88f66f85b263752de66d6696c225e97dc1cc319cf79e2f441dc104a6c1531#242e15b122b160c3205941bb7232398ebe1e6716"
+  integrity sha512-lWgtBSIPKsb+GVOvFVeUmM0Sa3vL0TWw93U2TmEi7BmGcR9HNNHvKlFbXrNCamwCNurfDP/MJ/Z4GTxAyskFng==
   dependencies:
     "@types/lodash.get" "^4.4.6"
     lodash.get "^4.4.2"
+    react-contenteditable "^3.3.5"
 
 "@wings-software/xhr-async@^2.0.7":
   version "2.0.7"
@@ -3751,6 +3752,11 @@ fast-deep-equal@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/fast-deep-equal/-/fast-deep-equal-1.1.0.tgz#c053477817c86b51daa853c81e059b733d023614"
   integrity sha1-wFNHeBfIa1HaqFPIHgWbcz0CNhQ=
+
+fast-deep-equal@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/fast-deep-equal/-/fast-deep-equal-2.0.1.tgz#7b05218ddf9667bf7f370bf7fdb2cb15fdd0aa49"
+  integrity sha1-ewUhjd+WZ79/Nwv3/bLLFf3Qqkk=
 
 fast-deep-equal@^3.1.1:
   version "3.1.1"
@@ -7426,7 +7432,7 @@ prompts@^2.0.1:
     kleur "^3.0.3"
     sisteransi "^1.0.4"
 
-prop-types@^15.6.0, prop-types@^15.6.1, prop-types@^15.6.2, prop-types@^15.7.2:
+prop-types@^15.6.0, prop-types@^15.6.1, prop-types@^15.6.2, prop-types@^15.7.1, prop-types@^15.7.2:
   version "15.7.2"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.7.2.tgz#52c41e75b8c87e72b9d9360e0206b99dcbffa6c5"
   integrity sha512-8QQikdH7//R2vurIJSutZ1smHYTcLpRWEOlHnzcWHmBYrOGUysKwSsrC89BCiFj3CbrfJ/nXFdJepOVrY1GCHQ==
@@ -7601,6 +7607,14 @@ rc@^1.0.1, rc@^1.1.6:
     ini "~1.3.0"
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
+
+react-contenteditable@^3.3.5:
+  version "3.3.5"
+  resolved "https://registry.yarnpkg.com/react-contenteditable/-/react-contenteditable-3.3.5.tgz#febff7a46570fdb2f5ff199e506c512e5924e22e"
+  integrity sha512-38A7hlRQfb2KQAQT0kIJC2YlQUU7jcyYM4eh1fj6kAYb3Hmk6hHlr0snelyxVSpPXjPdFllrnSsPkzUS5AtrEA==
+  dependencies:
+    fast-deep-equal "^2.0.1"
+    prop-types "^15.7.1"
 
 react-day-picker@^7.3.2:
   version "7.4.8"

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Formik, FormikForm as Form, FormInput, Button, Text, Layout, StepProps } from '@wings-software/uikit'
 import * as Yup from 'yup'
-import { getIdentifierFromName, illegalIdentifiers } from 'framework/utils/StringUtils'
+import { illegalIdentifiers } from 'framework/utils/StringUtils'
 
 import type { SharedData } from '../ProjectsPage'
 import i18n from '../ProjectsPage.i18n'
@@ -55,6 +55,7 @@ const StepTwo: React.FC<StepProps<SharedData>> = ({ previousStep, nextStep, prev
             .required()
             .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, 'Identifier can only contain alphanumerics, _ and $')
             .notOneOf(illegalIdentifiers),
+          color: Yup.string().required('required'),
           orgId: Yup.string().required()
         })}
         onSubmit={(values: StepTwoData) => {
@@ -72,37 +73,7 @@ const StepTwo: React.FC<StepProps<SharedData>> = ({ previousStep, nextStep, prev
                 <tr>
                   <td className={css.halfWidth}>
                     <input type="hidden" name="skipCollab" />
-                    <div className={css.txtNameContainer}>
-                      {formikProps.values.identifier ? (
-                        <div className={css.txtIdContainer}>
-                          ID:
-                          <input
-                            type="text"
-                            name="identifier"
-                            value={formikProps.values.identifier}
-                            onChange={e => {
-                              formikProps.setFieldValue('identifier', e.target.value)
-                            }}
-                            className={css.txtId}
-                          />
-                        </div>
-                      ) : null}
-                      <FormInput.Text
-                        label={i18n.newProjectWizard.stepTwo.projectName}
-                        name="name"
-                        onChange={e => {
-                          const name = (e.target as HTMLInputElement).value
-                          if (name) {
-                            formikProps.setFieldValue('identifier', getIdentifierFromName(name))
-                          }
-                        }}
-                      />
-                      {formikProps.errors['identifier'] ? (
-                        <Text font="small" intent="danger" padding={{ bottom: 'medium' }}>
-                          {formikProps.errors['identifier']}
-                        </Text>
-                      ) : null}
-                    </div>
+                    <FormInput.InputWithIdentifier />
                     <Layout.Horizontal spacing="small">
                       <FormInput.ColorPicker label={i18n.newProjectWizard.stepTwo.color} name="color" height={38} />
                       <FormInput.Select

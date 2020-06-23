@@ -26,21 +26,3 @@
   padding-top: var(--spacing-xxlarge);
   vertical-align: top;
 }
-
-.txtNameContainer {
-  position: relative;
-
-  .txtIdContainer {
-    position: absolute;
-    right: 0;
-    color: var(--blue-600);
-  }
-
-  .txtId {
-    border: none;
-    margin-left: var(--spacing-xsmall);
-    text-align: right;
-    width: 70px;
-    color: var(--blue-600);
-  }
-}

@@ -5,8 +5,5 @@ declare const styles: {
   readonly radioSelect: string
   readonly radioSelectPurpose: string
   readonly halfWidth: string
-  readonly txtNameContainer: string
-  readonly txtIdContainer: string
-  readonly txtId: string
 }
 export default styles
