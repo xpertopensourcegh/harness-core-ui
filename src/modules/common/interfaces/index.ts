@@ -1,3 +1,3 @@
-import * as YamlBuilderProps from './YamlBuilderProps'
+import type YamlBuilderProps from './YamlBuilderProps'
 
 export { YamlBuilderProps }
