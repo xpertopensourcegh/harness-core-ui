@@ -1,3 +1,3 @@
 export const connector = {
-  type: 'KUBERNETES_CLUSTER'
+  type: 'K8sCluster'
 }

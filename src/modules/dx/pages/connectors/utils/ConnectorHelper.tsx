@@ -16,8 +16,7 @@ export const getValidationSchemaByType = (type: string) => {
 }
 
 export const getFormByType = (props: ConfigureConnectorProps, formikProps: any): JSX.Element | null => {
-  const { connector } = props
-  const type = connector?.type
+  const type = props?.type
   switch (type) {
     case Connectors.KUBERNETES_CLUSTER:
       return <KubCluster {...props} formikProps={formikProps} />

@@ -1,5 +1,6 @@
 import i18n from './ConnectorUtils.i18n'
 import { AuthTypes, DelegateTypes } from '../Forms/KubeFormHelper'
+import { Connectors, ConnectorInfoText } from 'modules/dx/constants'
 
 export const userPasswrdAuthField = (formData: any) => {
   return {
@@ -105,4 +106,46 @@ export const buildKubFormData = (connector: any) => {
     delegateType: connector.spec.kind,
     ...getDelegateTypeInfo(connector.spec)
   }
+}
+
+export const getIconByType = (type: string) => {
+  switch (type) {
+    case Connectors.KUBERNETES_CLUSTER:
+      return 'service-kubernetes'
+    default:
+      return ''
+  }
+}
+
+export const getInfoTextByType = (type: string) => {
+  switch (type) {
+    case Connectors.KUBERNETES_CLUSTER:
+      return ConnectorInfoText.KUBERNETES_CLUSTER
+    default:
+      return ''
+  }
+}
+
+export const fomatConnectListData = (connectorList: any) => {
+  const formattedList = connectorList.map((item: any) => {
+    return {
+      identifier: item.identifier,
+      icon: getIconByType(item.type),
+      infoText: getInfoTextByType(item.type),
+      tags: item.tags.toString(),
+      belongsTo: item.accountName,
+      name: item.name,
+      lastActivityText: 'activity log',
+      details: {
+        url: 'http://github.com',
+        description: 'My Kubernetes Connector'
+      },
+      lastActivityTime: 1591332969000,
+      status: 'ERROR',
+      statusTime: 1591332969000,
+      testConnectivity: true,
+      threeDots: true
+    }
+  })
+  return formattedList
 }

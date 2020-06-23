@@ -1,14 +1,14 @@
 .mainDetails {
   justify-content: space-between;
   .connectorDetails {
-    margin: var(--spacing-xlarge);
+    margin: var(--spacing-xlarge) var(--spacing-xxlarge);
 
     .header {
       margin-top: var(--spacing-large);
-      margin-bottom: var(--spacing-large);
+      margin-bottom: var(--spacing-xlarge);
       width: fit-content;
       .name {
-        font-size: 16px;
+        font-size: 18px;
         margin: auto;
         color: var(--grey-800);
       }
@@ -17,7 +17,24 @@
       margin: var(--spacing-large) 0;
     }
     .formCustomCss {
-      width: 72%;
+      width: 84%;
+      :global {
+        .bp3-label {
+          color: var(--grey-400);
+          font-size: 12px;
+        }
+        .bp3-input-group {
+          border-radius: 8px;
+          border: 1px solid var(--grey-200);
+        }
+        textarea {
+          border-radius: 8px;
+          border: 1px solid var(--grey-200);
+        }
+        .bp3-form-group {
+          margin-bottom: 20px;
+        }
+      }
     }
   }
 }

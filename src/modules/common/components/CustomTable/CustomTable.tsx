@@ -1,6 +1,5 @@
 import React from 'react'
 import 'regenerator-runtime/runtime'
-
 import {
   useTable,
   usePagination,
@@ -131,7 +130,7 @@ function TagsRenderer({ tags }: any) {
   )
 }
 
-const Table = ({ columns, data, openFilterPanel }: any): JSX.Element => {
+const Table = ({ columns, data, openFilterPanel, onClickRow }: any): JSX.Element => {
   // Use the state and functions returned from useTable to build your UI
   const {
     getTableProps,
@@ -201,7 +200,7 @@ const Table = ({ columns, data, openFilterPanel }: any): JSX.Element => {
               {page.map((row: any, k: number) => {
                 prepareRow(row)
                 return (
-                  <tr {...row.getRowProps()} key={row + k}>
+                  <tr {...row.getRowProps()} key={row + k} onClick={() => onClickRow(row.original?.identifier)}>
                     {row.cells.map((cell: any, index: any) => {
                       if ((index === 4 || index === 5) && viewType === viewTypes.GRID) {
                         return null
@@ -453,9 +452,16 @@ const Table = ({ columns, data, openFilterPanel }: any): JSX.Element => {
     </section>
   )
 }
-class CustomTable extends React.Component<{ data: any; columns: any; openFilterPanel?: any }> {
+class CustomTable extends React.Component<{ data: any; columns: any; openFilterPanel?: any; onClickRow?: any }> {
   render() {
-    return <Table columns={this.props.columns} data={this.props.data} openFilterPanel={this.props.openFilterPanel} />
+    return (
+      <Table
+        columns={this.props.columns}
+        data={this.props.data}
+        openFilterPanel={this.props.openFilterPanel}
+        onClickRow={this.props.onClickRow}
+      />
+    )
   }
 }
 

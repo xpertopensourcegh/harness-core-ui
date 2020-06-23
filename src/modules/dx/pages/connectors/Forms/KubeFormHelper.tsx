@@ -1,6 +1,8 @@
 import React from 'react'
-import { object, string } from 'yup'
+import { string } from 'yup'
 import { FormInput } from '@wings-software/uikit'
+import { illegalIdentifiers } from 'framework/utils/StringUtils'
+import * as Yup from 'yup'
 export const AuthTypes = {
   CUSTOM: 'ManualConfig',
   USER_PASSWORD: 'UserPassword',
@@ -22,6 +24,11 @@ export const authOptions: AuthOption[] = [
 export const DelegateTypes = {
   DELEGATE_IN_CLUSTER: 'ManualConfig',
   DELEGATE_OUT_CLUSTER: 'InheritFromDelegate'
+}
+
+export const DelegateInClusterType = {
+  useExistingDelegate: 'useExistingDelegate',
+  addNewDelegate: 'addnewDelegate'
 }
 
 export const authTypeFields = {
@@ -78,11 +85,15 @@ const isOIDCType = (useKubernetesDelegate: boolean, authType: string) => {
 }
 
 export const getKubValidationSchema = () => {
-  return object().shape({
-    name: string().trim().max(1000, 'Name is Too Long!').required('Name is required.'),
-    description: string().trim(),
-    identifier: string().trim().max(64, 'Identifier is too long').required('Identifier is required'),
-    delegateName: string().when('useKubernetesDelegate', {
+  return Yup.object().shape({
+    name: Yup.string().trim().max(1000, 'Name is Too Long!').required('Name is required.'),
+    description: Yup.string().trim(),
+    identifier: Yup.string()
+      .trim()
+      .required()
+      .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, 'Identifier can only contain alphanumerics, _ and $')
+      .notOneOf(illegalIdentifiers),
+    delegateName: Yup.string().when('useKubernetesDelegate', {
       is: true,
       then: string().trim().required('Delegate is required.')
     }),

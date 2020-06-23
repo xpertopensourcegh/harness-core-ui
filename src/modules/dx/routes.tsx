@@ -24,13 +24,13 @@ export const routeYAMLBuilder: Route = {
 
 export const routeConnectorDetails: Route = {
   module: ModuleName.DX,
-  sidebarId: SidebarIdentifier.DEPLOYMENTS,
-  path: '/connector-details',
+  sidebarId: SidebarIdentifier.ACCOUNT,
+  path: '/connectors/:connectorId',
   title: i18n.connectors,
   pageId: 'connector-details',
   url: (params: RouteURLArgs) =>
     params?.editMode
-      ? `#/account/${params?.accountId}/connector-details/edit=true`
-      : `#/account/${params?.accountId}/connector-details/`,
+      ? `/account/${params?.accountId}/connectors/edit=true`
+      : `/account/${params?.accountId}/connectors/${params?.connectorId}`,
   component: React.lazy(() => import('./pages/connectors/ConnectorDetailsPage'))
 }
