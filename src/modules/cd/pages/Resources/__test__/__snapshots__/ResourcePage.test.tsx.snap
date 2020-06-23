@@ -620,7 +620,7 @@ exports[`ResourcesPage Snapshot should render ResourcesPage 1`] = `
                             style="display: grid; align-items: center;"
                           >
                             <div>
-                              name2
+                              My k8s Cluster
                               <span
                                 class="bp3-popover-wrapper"
                               >
