@@ -9,31 +9,30 @@ interface SavedConnectorDetailsProps {
 }
 const getSchema = (props: SavedConnectorDetailsProps) => {
   const { connector } = props
-  const { name, description, identifier, tags, delegateMode, inheritConfigFromDelegate } = connector
   return [
     {
       label: i18n.connectorName,
-      value: name
+      value: connector?.name
     },
     {
       label: i18n.description,
-      value: description
+      value: connector?.description
     },
     {
       label: i18n.identifier,
-      value: identifier
+      value: connector?.identifier
     },
     {
       label: i18n.tags,
-      value: tags
+      value: connector?.tags
     },
     {
       label: i18n.connectionMode,
-      value: delegateMode
+      value: connector?.delegateMode
     },
     {
       label: i18n.delegateName,
-      value: inheritConfigFromDelegate
+      value: connector?.inheritConfigFromDelegate
     }
   ]
 }

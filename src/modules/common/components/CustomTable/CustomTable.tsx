@@ -217,7 +217,7 @@ const Table = ({ columns, data, openFilterPanel, onClickRow }: any): JSX.Element
                               <Text
                                 inline
                                 icon={cell.row.original?.icon}
-                                iconProps={{ size: 42 }}
+                                iconProps={{ size: 28 }}
                                 style={{ color: 'var(--grey-800)', fontWeight: 700, fontSize: 14 }}
                               >
                                 <div style={{ display: 'grid', alignItems: 'center', gridGap: '5px' }}>

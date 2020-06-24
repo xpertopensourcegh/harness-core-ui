@@ -174,7 +174,7 @@ const KubCluster = (props: KubClusterProps): JSX.Element => {
       <FormInput.TagInput
         name="tags"
         label={i18n.tags}
-        items={connector.tags}
+        items={connector?.tags}
         labelFor={name => (typeof name === 'string' ? name : '')}
         itemFromNewTag={newTag => newTag}
         tagInputProps={{

@@ -9,7 +9,16 @@ import i18n from './DelegateSetup.i18n'
 import { routeConnectorDetails } from 'modules/dx/routes'
 
 const getIcon = (icon: any) => {
-  return <Icon name={icon} size={14} className={css.iconConnector} />
+  return <Icon name={icon} size={24} className={css.iconConnector} />
+}
+
+const getMenuItem = (item: any) => {
+  return (
+    <div className={css.menuItemContent}>
+      <span className={css.menulabel}>{item.label}</span>
+      {getIcon(item.icon)}
+    </div>
+  )
 }
 const DelegateModal: React.FC = () => {
   const { accountId } = useParams()
@@ -27,7 +36,6 @@ const DelegateModal: React.FC = () => {
   const items = [
     { label: 'Kubernetes', value: 'service-kubernetes', icon: 'service-kubernetes' },
     { label: 'GitHub', value: 'service-github', icon: 'service-github' },
-    { label: 'ELK', value: 'service-elk', icon: 'service-elk' },
     { label: 'Jenkins', value: 'service-jenkins', icon: 'service-jenkins' },
     { label: 'GCP', value: 'service-gcp', icon: 'service-gcp' }
   ]
@@ -60,8 +68,7 @@ const DelegateModal: React.FC = () => {
                 className={css.menuItem}
                 href={`#${routeConnectorDetails.url({ accountId: accountId, editMode: 'true' })}`}
                 key={index}
-                text={item.label}
-                icon={getIcon(item.icon)}
+                text={getMenuItem(item)}
               />
             )
           })}

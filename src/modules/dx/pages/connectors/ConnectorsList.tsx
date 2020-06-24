@@ -13,11 +13,14 @@ interface ConnectorListState {
   rowData: any
   setRowData: (val: any) => void
 }
-
-const fetchConnectors = (state: ConnectorListState) => {
-  const connectorList = ConnectorService.fetchAllConnectors()
-  const rowData = fomatConnectListData(connectorList)
-  state.setRowData(rowData)
+const fetchConnectors = async (state: ConnectorListState) => {
+  const { connectorList = {}, error } = await ConnectorService.fetchAllConnectors()
+  if (!error) {
+    // const rowData = fomatConnectListData(connectorList?.content)
+    // removing temp
+    const rowData = fomatConnectListData(connectorList)
+    state.setRowData(rowData)
+  }
 }
 
 const onClickRow = (history: any, accountId: string, connectorId: string) => {
@@ -36,17 +39,17 @@ const ConnectorsList: React.FC = () => {
     fetchConnectors(state)
   }, [])
   return (
-    <Layout.Vertical style={{ background: 'var(--grey-100)' }}>
+    <Layout.Vertical style={{ background: 'var(--grey-100)', height: `100%` }}>
       <Container>
         <Layout.Horizontal id="layout-horizontal-sample" spacing="none" padding="xlarge" className={css.listWrapper}>
           <div style={{ width: 200 }}>
             <DelegateSetupModal />
           </div>
-          <div style={{ flexGrow: 1 }}></div>
+          {/* <div style={{ flexGrow: 1 }}></div> */}
         </Layout.Horizontal>
       </Container>
       <Container style={{ height: '100%' }}>
-        <Layout.Horizontal style={{ height: '100%' }}>
+        <Layout.Horizontal className={css.tableContainer}>
           <CustomTable
             data={rowData}
             columns={columns}

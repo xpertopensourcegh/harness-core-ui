@@ -6,7 +6,6 @@ import css from './ConnectorDetailsPage.module.scss'
 import ConfigureConnector from './ConfigureConnector'
 import { Page } from 'modules/common/exports'
 import cx from 'classnames'
-import { connector } from './ConnectorMockData'
 import { routeResources } from 'modules/common/routes'
 import { linkTo } from 'framework/exports'
 import { routeParams } from 'framework/exports'
@@ -15,6 +14,17 @@ import { buildKubFormData } from './utils/ConnectorUtils'
 
 interface Categories {
   [key: string]: string
+}
+
+interface ConnectorDetailsPageState {
+  activeCategory: number
+  setActiveCategory: (val: number) => void
+  connectordetail: any
+  setConnector: (val: any) => void
+  isFetching: boolean
+  setIsFetching: (val: boolean) => void
+  connectorType: string
+  setConnectorType: (type: string) => void
 }
 const categories: Categories = {
   connection: i18n.connection,
@@ -39,29 +49,29 @@ const renderTitle = () => {
   )
 }
 
-const setInitialConnector = (data: any, state: any) => {
+const setInitialConnector = (data: any, state: ConnectorDetailsPageState) => {
   state.setConnector(data)
 }
 
-const fetchConnectorDetails = (connectorId: string | ReactText, state: any) => {
+const fetchConnectorDetails = async (connectorId: ReactText | string, state: ConnectorDetailsPageState) => {
   state.setIsFetching(true)
-  const connectorDetails = ConnectorService.getConnector({ connectorId })
-  //  state.setConnectorType(connectorDetails.kind)
-  const formData = buildKubFormData(connectorDetails)
-
-  state.setConnector(formData)
+  const { connectorDetails, error } = await ConnectorService.getConnector({ connectorId })
+  if (!error) {
+    const formData = buildKubFormData(connectorDetails)
+    state.setConnector(formData)
+  }
   state.setIsFetching(false)
 }
 
 const ConnectorDetailsPage: React.FC = () => {
   const [activeCategory, setActiveCategory] = React.useState(0)
   const [connectordetail, setConnector] = React.useState()
-  const [isFetching, setIsFetching] = React.useState()
+  const [isFetching, setIsFetching] = React.useState(false)
   const [connectorType, setConnectorType] = React.useState('K8sCluster')
   const {
     params: { connectorId }
   } = routeParams()
-  const state: any = {
+  const state: ConnectorDetailsPageState = {
     activeCategory,
     setActiveCategory,
     connectordetail,
@@ -72,7 +82,7 @@ const ConnectorDetailsPage: React.FC = () => {
     setConnectorType
   }
   useEffect(() => {
-    if (connectorId) {
+    if (connectorId && connectorId !== 'edit=true') {
       fetchConnectorDetails(connectorId, state)
     }
   }, [])
@@ -105,7 +115,7 @@ const ConnectorDetailsPage: React.FC = () => {
         {!isFetching ? (
           <ConfigureConnector
             type={connectorType}
-            connector={connectordetail || connector}
+            connector={connectordetail}
             enableCreate={editMode}
             setInitialConnector={data => setInitialConnector(data, state)}
           />

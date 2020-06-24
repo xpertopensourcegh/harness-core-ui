@@ -57,40 +57,56 @@ const buildAuthTypePayload = (formData: any) => {
   }
 }
 
+export const getSpecForDelegateType = (formData: any) => {
+  const type = formData.delegateType
+  if (type === DelegateTypes.DELEGATE_IN_CLUSTER) {
+    return {
+      delegateName: formData.inheritConfigFromDelegate
+    }
+  } else if (type === DelegateTypes.DELEGATE_OUT_CLUSTER) {
+    return {
+      masterUrl: formData.masterUrl,
+      auth: {
+        type: formData.authType,
+        type1: formData.authType,
+        spec: buildAuthTypePayload(formData)
+      }
+    }
+  }
+}
+
 export const buildKubPayload = (formData: any) => {
   const savedData = {
     name: formData.name,
+    description: formData.description,
+    // projectIdentifier: 'project-1',
     identifier: formData.identifier,
-    accountIdentifier: 'Test-account',
-    orgIdentifier: 'Devops',
+    // accountIdentifier: 'Test-account',
+    // orgIdentifier: 'Devops',
     tags: formData.tags,
-    kind: i18n.K8sCluster,
+    type: i18n.K8sCluster,
+    type1: i18n.K8sCluster,
     spec: {
-      kind: 'ManualConfig',
-      spec: {
-        masterUrl: formData.masterUrl,
-        auth: {
-          kind: formData.authType,
-          spec: buildAuthTypePayload(formData)
-        }
-      }
+      type: formData.delegateType,
+      type1: formData.delegateType,
+      spec: getSpecForDelegateType(formData)
     }
   }
   return savedData
 }
 
 export const getDelegateTypeInfo = (delegateInfoSpec: any) => {
-  const delegateType = delegateInfoSpec.kind
+  const delegateType = delegateInfoSpec?.type
   let delegateTypeMetaData
   if (delegateType === DelegateTypes.DELEGATE_IN_CLUSTER) {
     delegateTypeMetaData = {
-      inheritConfigFromDelegate: delegateInfoSpec.spec.inheritConfigFromDelegate
+      inheritConfigFromDelegate: delegateInfoSpec?.spec?.inheritConfigFromDelegate
     }
   } else if (delegateType === DelegateTypes.DELEGATE_OUT_CLUSTER) {
     delegateTypeMetaData = {
-      masterUrl: delegateInfoSpec.spec.masterUrl,
-      authType: delegateInfoSpec.spec.auth.kind,
-      ...delegateInfoSpec.spec.auth.spec
+      masterUrl: delegateInfoSpec?.spec?.masterUrl,
+      authType: delegateInfoSpec?.spec?.auth.type,
+      ...delegateInfoSpec?.spec?.auth?.spec
     }
   }
 
@@ -99,12 +115,12 @@ export const getDelegateTypeInfo = (delegateInfoSpec: any) => {
 
 export const buildKubFormData = (connector: any) => {
   return {
-    name: connector.name,
-    description: connector.description,
-    identifier: connector.identifier,
-    tags: connector.tags,
-    delegateType: connector.spec.kind,
-    ...getDelegateTypeInfo(connector.spec)
+    name: connector?.name,
+    description: connector?.description,
+    identifier: connector?.identifier,
+    tags: connector?.tags,
+    delegateType: connector?.spec?.type,
+    ...getDelegateTypeInfo(connector?.spec)
   }
 }
 
@@ -137,12 +153,12 @@ export const fomatConnectListData = (connectorList: any) => {
       name: item.name,
       lastActivityText: 'activity log',
       details: {
-        url: 'http://github.com',
-        description: 'My Kubernetes Connector'
+        url: item.masterUrl,
+        description: item.description
       },
-      lastActivityTime: 1591332969000,
-      status: 'ERROR',
-      statusTime: 1591332969000,
+      lastActivityTime: item.lastModifiedAt,
+      status: 'ACTIVE',
+      statusTime: item.createdAt,
       testConnectivity: true,
       threeDots: true
     }

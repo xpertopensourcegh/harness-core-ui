@@ -5,7 +5,7 @@ import { illegalIdentifiers } from 'framework/utils/StringUtils'
 import * as Yup from 'yup'
 export const AuthTypes = {
   CUSTOM: 'ManualConfig',
-  USER_PASSWORD: 'UserPassword',
+  USER_PASSWORD: 'UsernamePassword',
   SERVICE_ACCOUNT: 'ServiceAccount',
   OIDC: 'OpenIdConnect'
 }
@@ -22,8 +22,8 @@ export const authOptions: AuthOption[] = [
 ]
 
 export const DelegateTypes = {
-  DELEGATE_IN_CLUSTER: 'ManualConfig',
-  DELEGATE_OUT_CLUSTER: 'InheritFromDelegate'
+  DELEGATE_IN_CLUSTER: 'InheritFromDelegate',
+  DELEGATE_OUT_CLUSTER: 'ManualConfig'
 }
 
 export const DelegateInClusterType = {

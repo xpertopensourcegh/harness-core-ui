@@ -68,8 +68,29 @@
   margin-right: 10px !important;
 }
 .selectConnector {
-  width: 200px;
+  padding: 0;
+  width: 240px;
+  max-height: 176px;
+  overflow: auto;
+  > li > a {
+    height: 40px;
+  }
+  > li {
+    &:hover {
+      background-color: var(--blue-500);
+      color: var(--white);
+      font-weight: 500;
+    }
+  }
 }
 .menuItem {
   font-size: 14px;
+  .menuItemContent {
+    display: flex;
+    justify-content: space-between;
+    .menulabel {
+      font-weight: 500;
+      margin: 5px;
+    }
+  }
 }

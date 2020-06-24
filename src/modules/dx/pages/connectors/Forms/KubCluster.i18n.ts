@@ -7,8 +7,6 @@ export default {
   tags: 'Tags',
   delegate: 'Selact a delegate',
   enterTags: 'Enter Tags',
-  DELEGATE_IN_CLUSTER: 'InheritFromDelegate',
-  DELEGATE_OUT_CLUSTER: 'ManualConfig',
   DELEGATE_IN_CLUSTER_TEXT: 'HARNESS DELEGATE RUNNING IN-CLUSTER',
   DELEGATE_OUT_CLUSTER_TEXT: 'HARNESS DELEGATE RUNNING OUTSIDE YOUR CLUSTER'
 }

@@ -52,7 +52,6 @@ const getOptions = (): Options[] => {
     }
   ]
 }
-
 const createConnectorByType = async (data: any, state: ConfigureConnectorState) => {
   const xhrGroup = 'create-connector'
   const { connector, error } = await ConnectorService.createConnector({ xhrGroup, connector: data })
@@ -67,14 +66,12 @@ const createConnectorByType = async (data: any, state: ConfigureConnectorState) 
 const onSubmitForm = (formData: any, state: ConfigureConnectorState) => {
   state.setEnableEdit(false)
   state.setEnableCreate(false)
-  state.setConnector(formData)
   const data = buildKubPayload(formData)
   createConnectorByType(data, state)
 }
 
 const renderConnectorForm = (state: ConfigureConnectorState, props: ConfigureConnectorProps): JSX.Element => {
-  const { enableCreate } = state
-  const { connector } = props
+  const { enableCreate, connector } = state
 
   const validationSchema = getValidationSchemaByType(props.type)
   return (
@@ -135,7 +132,6 @@ const ConfigureConnector = (props: ConfigureConnectorProps): JSX.Element => {
     setSelectedView
   }
   useEffect(() => {
-    //   setEnableEdit()
     if (props.connector) {
       setConnector(props.connector)
     }

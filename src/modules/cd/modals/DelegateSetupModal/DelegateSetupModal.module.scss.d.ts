@@ -10,5 +10,7 @@ declare const styles: {
   readonly iconConnector: string
   readonly selectConnector: string
   readonly menuItem: string
+  readonly menuItemContent: string
+  readonly menulabel: string
 }
 export default styles
