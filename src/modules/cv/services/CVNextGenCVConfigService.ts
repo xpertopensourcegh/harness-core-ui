@@ -97,18 +97,18 @@ export async function fetchProducts({
   return xhr.get(Endpoints.fetchDSProducts(accountId, dataSourceConnectorId), { group })
 }
 
-export async function saveGlobalMetricPacks( {
-    payload,
-    accountId,
-    projectId,
-    dataSourceType,
-    group
-  }: {
-    accountId: string
-    projectId: string
-    dataSourceType: DSConfig['type']
-    group: string
-    payload: any
-  }) {
+export async function saveGlobalMetricPacks({
+  payload,
+  accountId,
+  projectId,
+  dataSourceType,
+  group
+}: {
+  accountId: string
+  projectId: string
+  dataSourceType: DSConfig['type']
+  group: string
+  payload: any
+}) {
   return xhr.post(Endpoints.metricPack(accountId, projectId, dataSourceType), { data: payload, group })
 }

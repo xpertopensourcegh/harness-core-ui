@@ -46,7 +46,6 @@ export const splunkInitialQuery = {
   isAlreadySaved: false
 }
 
-
 export function transformQueriesFromSplunk(splunkSavedQueries: SplunkSavedSearch[]): SelectOption[] {
   return !splunkSavedQueries?.length
     ? []
@@ -58,18 +57,18 @@ export function transformQueriesFromSplunk(splunkSavedQueries: SplunkSavedSearch
         }))
 }
 
-export function transformSavedQueries( savedQueries: any ) {
-    return savedQueries.map((query: any) => {
-        const iQuery = {...splunkInitialQuery}
-        iQuery.queryName = query.identifier,
-        iQuery.service = query.serviceIdentifier,
-        iQuery.environment = query.envIdentifier,
-        iQuery.serviceInstanceIdentifier = query.serviceInstanceIdentifier,
-        iQuery.queryString = query.query,
-        iQuery.eventType = query.eventType,
-        iQuery.isAlreadySaved = true
-        return iQuery;
-    } )
+export function transformSavedQueries(savedQueries: any) {
+  return savedQueries.map((query: any) => {
+    const iQuery = { ...splunkInitialQuery }
+    ;(iQuery.queryName = query.identifier),
+      (iQuery.service = query.serviceIdentifier),
+      (iQuery.environment = query.envIdentifier),
+      (iQuery.serviceInstanceIdentifier = query.serviceInstanceIdentifier),
+      (iQuery.queryString = query.query),
+      (iQuery.eventType = query.eventType),
+      (iQuery.isAlreadySaved = true)
+    return iQuery
+  })
 }
 
 export function mapQueries(queries: any) {

@@ -41,10 +41,12 @@ const ConnectorStats = (props: ConnectorStatsProps) => {
                   iconProps={{
                     size: 6,
                     // style: { marginTop: cell.row.original?.status === 'ACTIVE' ? 5 : 3 },
-                    color:props.status === TestStatus.SUCCESS  ? Color.GREEN_500 : Color.RED_500
+                    color: props.status === TestStatus.SUCCESS ? Color.GREEN_500 : Color.RED_500
                   }}
                   // className={css.status}
-                >{props.status === TestStatus.SUCCESS?i18n.success:i18n.failed}</Text>
+                >
+                  {props.status === TestStatus.SUCCESS ? i18n.success : i18n.failed}
+                </Text>
               ) : null}
             </Layout.Horizontal>
           )

@@ -292,17 +292,19 @@ const SplunkOnboarding: FunctionComponent<any> = props => {
       query: query.queryString,
       type: 'SPLUNK',
       eventType: query.eventType,
-      serviceInstanceIdentifier: query.serviceInstanceIdentifier,
+      serviceInstanceIdentifier: query.serviceInstanceIdentifier
     }
-   
+
     const url = `api/cv-nextgen/ds-config?accountId=${accountId}`
-    xhr.put(url, { data: payload, group: xhrGroup }).then( ()=> {
-      setInProgress(false)
-      parentFormikProps.setFieldValue(`queries[${index}].isAlreadySaved`, true)
-    }, ()=> {
-      setInProgress(false)
-    } )
-   
+    xhr.put(url, { data: payload, group: xhrGroup }).then(
+      () => {
+        setInProgress(false)
+        parentFormikProps.setFieldValue(`queries[${index}].isAlreadySaved`, true)
+      },
+      () => {
+        setInProgress(false)
+      }
+    )
   }
 
   const renderMainSection = () => {

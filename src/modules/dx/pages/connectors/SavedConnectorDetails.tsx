@@ -4,13 +4,12 @@ import { Layout, Tag } from '@wings-software/uikit'
 import i18n from './SavedConnectorDetails.i18n'
 import css from './SavedConnectorDetails.module.scss'
 
-
 interface SavedConnectorDetailsProps {
   connector: any
 }
 const getSchema = (props: SavedConnectorDetailsProps) => {
   const { connector } = props
-  const { name, description, identifier, tags, delegateMode,inheritConfigFromDelegate } = connector
+  const { name, description, identifier, tags, delegateMode, inheritConfigFromDelegate } = connector
   return [
     {
       label: i18n.connectorName,
@@ -33,8 +32,8 @@ const getSchema = (props: SavedConnectorDetailsProps) => {
       value: delegateMode
     },
     {
-      label:i18n.delegateName,
-      value:inheritConfigFromDelegate
+      label: i18n.delegateName,
+      value: inheritConfigFromDelegate
     }
   ]
 }

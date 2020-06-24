@@ -1,22 +1,22 @@
-import React from 'react';
-import { Text, Layout } from '@wings-software/uikit';
+import React from 'react'
+import { Text, Layout } from '@wings-software/uikit'
 
-import i18n from './AppErrorBoundary.i18n.json';
+import i18n from './AppErrorBoundary.i18n.json'
 
 interface AppErrorBoundaryState {
-  error?: Error;
+  error?: Error
 }
 
 class AppErrorBoundary extends React.Component<{}, AppErrorBoundaryState> {
-  state: AppErrorBoundaryState = { error: undefined };
+  state: AppErrorBoundaryState = { error: undefined }
 
   componentDidCatch(error: Error) {
-    this.setState({ error });
-    return false;
+    this.setState({ error })
+    return false
   }
 
   render() {
-    const { error } = this.state;
+    const { error } = this.state
 
     if (error) {
       return (
@@ -28,8 +28,8 @@ class AppErrorBoundary extends React.Component<{}, AppErrorBoundaryState> {
             <a
               href="#"
               onClick={e => {
-                e.preventDefault();
-                window.location.reload();
+                e.preventDefault()
+                window.location.reload()
               }}
             >
               {i18n.refresh}
@@ -48,11 +48,11 @@ class AppErrorBoundary extends React.Component<{}, AppErrorBoundaryState> {
             </React.Fragment>
           )}
         </Layout.Vertical>
-      );
+      )
     }
 
-    return React.Children.only(this.props.children);
+    return React.Children.only(this.props.children)
   }
 }
 
-export default AppErrorBoundary;
+export default AppErrorBoundary

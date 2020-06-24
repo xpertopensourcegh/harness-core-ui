@@ -32,7 +32,8 @@
   background-color: var(--blue-200);
 }
 
-.lineNumber, .editorRow {
+.lineNumber,
+.editorRow {
   line-height: 22px;
   height: 22px;
   white-space: nowrap;

@@ -11,7 +11,7 @@ export interface TypeCard {
 interface CVProductCardProps {
   item: TypeCard
   onClick?: (item?: TypeCard) => void
-  selected?: boolean,
+  selected?: boolean
 }
 
 const CVProductCard: React.FC<CVProductCardProps> = (props: CVProductCardProps) => {
@@ -20,7 +20,7 @@ const CVProductCard: React.FC<CVProductCardProps> = (props: CVProductCardProps) 
   return (
     <Container className={css.main}>
       <Card interactive={true} className={css.cardStyles} onClick={onClickCallback} selected={selected}>
-        <CardBody.Icon icon={item.icon} iconSize={props.item.iconSize|| 30} className={css.icon} />
+        <CardBody.Icon icon={item.icon} iconSize={props.item.iconSize || 30} className={css.icon} />
         <Container className={css.sourceText}>{item.title}</Container>
       </Card>
     </Container>
