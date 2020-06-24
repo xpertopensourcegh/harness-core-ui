@@ -170,7 +170,7 @@ const config = {
 const commonPlugins = [
   new MiniCssExtractPlugin({
     filename: DEV ? 'static/[name].css' : 'static/[name].[contenthash:6].css',
-    chunkFilename: DEV ? 'static/[name].[id].css' : 'static/[name].[id].[contenthash:6].js'
+    chunkFilename: DEV ? 'static/[name].[id].css' : 'static/[name].[id].[contenthash:6].css'
   }),
   new HTMLWebpackPlugin({
     template: 'src/index.html',
