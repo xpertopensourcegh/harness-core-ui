@@ -14,9 +14,67 @@
     width: 100%;
   }
 
-  .hiddenDom {
+  .canvas-buttons {
     position: absolute;
-    width: 200px;
-    height: 200px;
+    right: 20px;
+    bottom: 20px;
+
+    .vertical-buttons {
+      & > div {
+        line-height: 0;
+
+        & > span:first-child button {
+          margin-right: 0;
+          margin-bottom: -1px;
+          border-top-right-radius: 4px !important;
+          border-bottom-right-radius: 0 !important;
+          border-bottom-left-radius: 0 !important;
+        }
+        & > span:last-child button {
+          border-top-right-radius: 0 !important;
+          border-bottom-right-radius: 4px !important;
+          border-bottom-left-radius: 4px !important;
+        }
+      }
+
+      :global(.bp3-popover-target) {
+        display: block;
+      }
+    }
+  }
+  .create-new-content {
+    max-width: 300px;
+
+    .create-new-cards {
+      display: grid;
+      grid-template-columns: 66px 66px 66px 66px;
+      gap: 10px;
+
+      .card-new {
+        width: 66px;
+        height: 62px;
+        padding: 5px;
+        cursor: pointer;
+        background-color: var(--pipeline-blue-bc);
+
+        & > div {
+          text-align: center;
+        }
+
+        & > span {
+          padding: 5px 20px 5px;
+        }
+
+        &:hover {
+          background-color: rgba($color: #000000, $alpha: 0.2);
+          color: var(--white);
+        }
+      }
+    }
+
+    .create-new-message {
+      font-size: var(--font-size-small);
+      padding-top: 20px;
+    }
   }
 }
