@@ -22,7 +22,6 @@ const App: React.FC = () => {
   const accountId = SessionToken.accountId()
   const token = SessionToken.getToken()
   const [activeRoute, setActiveRoute] = useState<Route>()
-  const basename = location.href.split('/#/')[0].replace(`${location.protocol}//${location.host}`, '')
 
   const getRequestOptions = React.useCallback((): Partial<RequestInit> => {
     const headers: RequestInit['headers'] = { 'content-type': 'application/json' }
@@ -37,7 +36,7 @@ const App: React.FC = () => {
   return (
     <AppStoreProvider>
       <RestfulProvider base="/" requestOptions={getRequestOptions} queryParams={{ accountId }}>
-        <HashRouter basename={basename}>
+        <HashRouter>
           <LayoutManager route={activeRoute}>
             <Switch>
               <Redirect exact from="/" to={`/account/${accountId}/dashboard`} />
