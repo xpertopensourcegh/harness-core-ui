@@ -14,7 +14,7 @@
   }
 
   .pageContainer {
-    flex-grow: 1;
+    width: calc(100% - var(--sidebar-container-width));
     background: var(--grey-100);
   }
 }

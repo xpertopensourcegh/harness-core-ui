@@ -41,6 +41,7 @@ const OrganizationsPage: React.FC = () => {
       >
         {(organizations as [])?.length && (
           <Layout.Masonry
+            center
             gutter={25}
             items={orderBy(organizations as [], 'name')}
             renderItem={(org: OrganizationDTO) => (
