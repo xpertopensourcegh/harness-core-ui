@@ -5,6 +5,7 @@ declare const styles: {
   readonly serviceSelect: string
   readonly tierSelectChecBox: string
   readonly tier: string
+  readonly viewDetails: string
   readonly validationResult: string
   readonly validationContainer: string
   readonly divider: string

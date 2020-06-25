@@ -26,7 +26,8 @@ export default function DataSourceListEntitySelect(): JSX.Element {
         pathname: routeCVOnBoardingSetup.url({ accountId, dataSourceType }),
         state: {
           ...locationData,
-          selectedEntities
+          selectedEntities,
+          dataSourceId: locationData?.dataSourceId || connectorId
         }
       })
     },

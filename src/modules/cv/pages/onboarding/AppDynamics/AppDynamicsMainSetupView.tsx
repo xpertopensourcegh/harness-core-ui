@@ -27,6 +27,7 @@ import DataSourceConfigPanel from 'modules/cv/components/DataSourceConfigPanel/D
 import { routeParams } from 'framework/exports'
 
 const XHR_METRIC_PACK_GROUP = 'XHR_METRIC_PACK_GROUP'
+const SelectHTMLInputProps = { placeholder: 'Select an Application' }
 
 interface AppDynamicsDataSourceFormProps {
   configList: DSConfigTableData[]
@@ -251,6 +252,7 @@ function AppDynamicsDataSourceForm(props: AppDynamicsDataSourceFormProps): JSX.E
                   <Container width={200} className={css.applicationSelect}>
                     <Select
                       items={applicationsToAdd}
+                      inputProps={SelectHTMLInputProps}
                       onChange={(selectedApp: SelectOption) => {
                         setApplicationsToAdd(updateApplicationList(selectedApp, applicationsToAdd, true))
                         arrayHelpers.unshift(
@@ -265,13 +267,20 @@ function AppDynamicsDataSourceForm(props: AppDynamicsDataSourceFormProps): JSX.E
                         <DataSourceConfigPanel
                           key={configData.applicationName}
                           entityName={configData.applicationName || ''}
-                          onRemove={arrayHelpers.remove}
+                          onRemove={(configIndex: number) => {
+                            arrayHelpers.remove(configIndex)
+                            const newOption = appDApplications.get(configData.applicationName || '')
+                            if (newOption) {
+                              const updatedAppList = [...applicationsToAdd, newOption]
+                              updatedAppList.sort((a, b) => (a?.label && b?.label && a.label > b.label ? 1 : -1))
+                              setApplicationsToAdd(updatedAppList)
+                            }
+                          }}
                           index={index}
                           transformToSavePayload={transformToSaveConfig}
                           validate={validateConfig}
                         >
                           <AppDynamicsConfig
-                            key={configData.applicationName}
                             config={configData}
                             accountId={accountId}
                             index={index}

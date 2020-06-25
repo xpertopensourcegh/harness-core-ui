@@ -59,12 +59,12 @@ const DataSourceConfigPanel: React.FC<DataSourceConfigPanelProps> = (props): JSX
     openNext
   } = props
   const [panelHeaderMsg, setPanelHeaderMsg] = useState<{ intent: Intent; msg: string } | undefined>()
-  const [hasSaved, setSaved] = useState<boolean>()
-  const { values, setFieldTouched, setFieldError } = useFormikContext<{
+  const { values, setFieldTouched, setFieldError, touched } = useFormikContext<{
     dsConfigs: DSConfig[]
   }>()
   const configData = values?.dsConfigs?.[index] || {}
   const accountId = configData.accountId
+  const touchedFields = touched?.dsConfigs?.[index] || {}
 
   const headingComp = useMemo(
     () => (
@@ -94,23 +94,13 @@ const DataSourceConfigPanel: React.FC<DataSourceConfigPanelProps> = (props): JSX
     return true
   }, [configData, setFieldError, setFieldTouched, index, validate])
 
-  const onToggleOpenCallback = useCallback(
-    (hasOpened?: boolean) => {
-      if (!hasOpened && validateCallback() && !hasSaved && panelHeaderMsg && panelHeaderMsg.intent === 'primary') {
-        setPanelHeaderMsg({ intent: 'none', msg: i18n.usavedChangesMessage })
-      }
-      onToggleOpen?.(hasOpened)
-    },
-    [hasSaved, onToggleOpen, panelHeaderMsg, validateCallback]
-  )
-
   const onRemoveCallback = useCallback(() => {
     if (!configData.identifier && !panelHeaderMsg) {
       onRemove(index)
       return
     }
 
-    if (!window.confirm('Are you sure you want to delete the item?')) {
+    if (!window.confirm(i18n.deleteConfimation)) {
       return
     }
     if (configData.identifier) {
@@ -142,13 +132,14 @@ const DataSourceConfigPanel: React.FC<DataSourceConfigPanelProps> = (props): JSX
   )
 
   const onNextCallback = useCallback(async () => {
-    // if (!validateCallback()) {
-    //   return
-    // }
+    if (!validateCallback()) {
+      return
+    }
     const config: DSConfig = transformToSavePayload?.(configData) || configData
     const error = await saveDSConfig(config, config.accountId || '')
     if (error) {
       setPanelHeaderMsg({ msg: error, intent: 'danger' })
+      return
     } else {
       setPanelHeaderMsg({ msg: i18n.successMessage, intent: 'success' })
     }
@@ -156,19 +147,28 @@ const DataSourceConfigPanel: React.FC<DataSourceConfigPanelProps> = (props): JSX
   }, [configData, transformToSavePayload, validateCallback, openNext])
 
   useEffect(() => {
-    if (!isOpen) {
+    if (isOpen || panelHeaderMsg?.intent !== 'primary' || !touchedFields || !Object.keys(touchedFields).length) {
+      return
+    }
+
+    if (validateCallback()) {
+      setPanelHeaderMsg({ intent: 'none', msg: i18n.usavedChangesMessage })
+    } else {
+      setPanelHeaderMsg({ intent: 'danger', msg: i18n.invalidMessage })
+    }
+  }, [isOpen, touchedFields, validateCallback, panelHeaderMsg?.intent])
+
+  useEffect(() => {
+    if (!isOpen || !touchedFields || !Object.keys(touchedFields).length) {
       return
     }
     setPanelHeaderMsg({ intent: 'primary', msg: i18n.editingMessage })
-    if (hasSaved) {
-      setSaved(false)
-    }
-  }, [configData, hasSaved])
+  }, [configData, touchedFields])
 
   return (
     <CollapseListPanel
       collapseHeaderProps={collapseHeaderProps}
-      onToggleOpen={onToggleOpenCallback}
+      onToggleOpen={onToggleOpen}
       isOpen={isOpen || false}
       className={css.main}
       nextButtonText={i18n.saveButtonText}

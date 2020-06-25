@@ -3,5 +3,6 @@ export default {
   successMessage: 'Saved successfully',
   usavedChangesMessage: 'Unsaved changes',
   editingMessage: 'Editing',
-  saveButtonText: 'Save'
+  saveButtonText: 'Save',
+  deleteConfimation: 'Are you sure you want to delete the item?'
 }
