@@ -153,7 +153,9 @@ const ConfigureConnector = (props: ConfigureConnectorProps): JSX.Element => {
             {renderConnectorStats()}
           </React.Fragment>
         ) : (
-          <YAMLBuilderPage fileName="K8sConnector.yaml" entityType={YamlEntity.CONNECTOR} />
+          <div>
+            <YAMLBuilderPage fileName="K8sConnector.yaml" entityType={YamlEntity.CONNECTOR} height={500} />
+          </div>
         )}
       </Layout.Horizontal>
     </React.Fragment>

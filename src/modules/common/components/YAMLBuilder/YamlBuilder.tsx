@@ -14,6 +14,16 @@ import cx from 'classnames'
 
 import css from './YamlBuilder.module.scss'
 
+monaco.editor.defineTheme('vs', {
+  base: 'vs',
+  inherit: false,
+  rules: [
+    { token: 'type', foreground: '1D76FF' },
+    { token: 'string', foreground: '22272D' }
+  ]
+})
+monaco.editor.setTheme('vs')
+
 window.MonacoEnvironment = {
   getWorker(workerId, label) {
     if (label === 'yaml') {
@@ -26,34 +36,39 @@ window.MonacoEnvironment = {
 const { yaml } = languages || {}
 
 const YAMLBuilder = (props: YamlBuilderProps) => {
-  const [existingYaml, setValue] = useState()
+  const [entityYaml, setEntityYaml] = useState()
 
   function loadEntitySchemas() {
     const jsonSchemas = JSONSchemaService.fetchEntitySchemas({})
     return jsonSchemas
   }
 
+  const onYamlChange = (updatedYaml: string): void => {
+    setEntityYaml(updatedYaml)
+  }
+
   useEffect(() => {
     const jsonSchemas = loadEntitySchemas()
     yaml?.yamlDefaults.setDiagnosticsOptions(jsonSchemas)
-    setValue(props.existingYaml)
-  }, [existingYaml])
+    setEntityYaml(props.existingYaml)
+  }, [props.existingYaml])
 
-  const { height, width, fileName, entityType } = props
+  const { height, width, fileName, entityType, existingYaml } = props
 
   return (
     <div className={css.main}>
       <div className={css.flexCenter}>
         <span className={cx(css.filePath, css.flexCenter)}>{fileName}</span>
-        <Tag minimal="true">{entityType}</Tag>
+        {fileName && entityType ? <Tag className={css.entityTag}>{entityType}</Tag> : null}
       </div>
       <div className={css.builder}>
         <MonacoEditor
+          defaultValue={existingYaml}
           width={width ?? 800}
           height={height ?? 600}
           language="yaml"
-          value={existingYaml}
-          onChange={setValue}
+          value={entityYaml}
+          onChange={onYamlChange}
         />
       </div>
     </div>

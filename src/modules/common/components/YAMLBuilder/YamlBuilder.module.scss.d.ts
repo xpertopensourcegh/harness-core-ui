@@ -5,5 +5,6 @@ declare const styles: {
   readonly filePath: string
   readonly builder: string
   readonly flexCenter: string
+  readonly entityTag: string
 }
 export default styles
