@@ -5,13 +5,14 @@ import css from './PageHeader.module.scss'
 export interface PageHeaderProps {
   title: React.ReactNode
   toolbar?: React.ReactNode
+  content?: React.ReactNode
 }
 
 /**
  * PageHeader implements a consistent header for a page header in which title is rendered on
  *  the left and a toolbar is rendered on the right. It also has a consistent box-shadow styling.
  */
-export const PageHeader: React.FC<PageHeaderProps> = ({ title, toolbar }) => {
+export const PageHeader: React.FC<PageHeaderProps> = ({ title, content, toolbar }) => {
   return (
     <Layout.Horizontal flex height={64} className={css.container} padding={{ left: 'large', right: 'large' }}>
       {typeof title === 'string' ? (
@@ -21,6 +22,7 @@ export const PageHeader: React.FC<PageHeaderProps> = ({ title, toolbar }) => {
       ) : (
         title
       )}
+      {content}
       {toolbar}
     </Layout.Horizontal>
   )

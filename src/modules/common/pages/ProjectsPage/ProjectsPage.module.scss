@@ -15,3 +15,22 @@
 .centerContainer {
   margin: 0 auto !important;
 }
+
+.filterTab {
+  text-align: center;
+  padding: 21px;
+  border-bottom: 3px solid transparent;
+
+  &.selected {
+    border-bottom-color: var(--blue-500);
+  }
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.orgSelect {
+  width: 100px !important;
+  padding-left: var(--spacing-small);
+}

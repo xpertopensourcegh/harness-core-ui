@@ -1,17 +1,18 @@
 import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { useModalHook, Button, StepWizard, Container, Layout } from '@wings-software/uikit'
+import { useModalHook, Button, StepWizard, Container, Layout, Text, Select } from '@wings-software/uikit'
+import { includes } from 'framework/utils/rsql'
 import { Dialog, Classes } from '@blueprintjs/core'
 import cx from 'classnames'
 import { pick } from 'lodash-es'
-import { useGetProjects, useCreateProject } from 'services/cd-ng'
+import { useGetProjects, useCreateProject, useGetOrganizations } from 'services/cd-ng'
 import type { ProjectDTO, CreateProjectDTO } from 'services/cd-ng'
 
 import { Page } from 'modules/common/exports'
 import ProjectCard from './views/ProjectCard/ProjectCard'
 import CreateProject from './views/CreateProject'
 import StepOne, { StepOneData } from './views/StepOne'
-import StepTwo, { StepTwoData } from './views/StepTwo'
+import StepTwo, { StepTwoData, SelectOption } from './views/StepTwo'
 import StepThree, { StepThreeData } from './views/StepThree'
 import i18n from './ProjectsPage.i18n'
 import { Views } from './Constants'
@@ -20,10 +21,23 @@ import css from './ProjectsPage.module.scss'
 
 export type SharedData = StepOneData & StepTwoData & StepThreeData
 
+const allOrgsSelectOption: SelectOption = {
+  label: 'All',
+  value: 'ALL'
+}
+
 const ProjectsListPage: React.FC = () => {
   const [view, setView] = useState(Views.NEW_PROJECT)
+  const [orgFilter, setOrgFilter] = useState<SelectOption>(allOrgsSelectOption)
+  const [ownerFilter, setOwnerFilter] = useState('ALL')
   const { accountId } = useParams()
-  const { loading, data, refetch: reloadProjects, error } = useGetProjects({})
+  const { loading, data, refetch: reloadProjects, error } = useGetProjects({
+    queryParams: {
+      orgId: orgFilter.value === 'ALL' ? '' : orgFilter.value,
+      filter: ownerFilter === 'ALL' ? '' : includes('owners', [accountId])
+    }
+  })
+  const { data: orgs } = useGetOrganizations({})
   const { mutate: createProject } = useCreateProject({})
 
   const wizardCompleteHandler = async (wizardData: SharedData | undefined): Promise<void> => {
@@ -77,10 +91,45 @@ const ProjectsListPage: React.FC = () => {
     [view]
   )
 
+  const organisations = [
+    allOrgsSelectOption,
+    ...(orgs?.content?.map(org => {
+      return {
+        label: org.name || '',
+        value: org.id || ''
+      }
+    }) || [])
+  ]
+
   return (
     <>
       <Page.Header
         title={i18n.projects.toUpperCase()}
+        content={
+          <Layout.Horizontal style={{ alignItems: 'center' }}>
+            <a
+              href="javascript:;"
+              className={cx(css.filterTab, { [css.selected]: ownerFilter === 'MY' })}
+              onClick={() => setOwnerFilter('MY')}
+            >
+              {i18n.tabMyProjects}
+            </a>
+            <a
+              href="javascript:;"
+              className={cx(css.filterTab, { [css.selected]: ownerFilter === 'ALL' })}
+              onClick={() => setOwnerFilter('ALL')}
+            >
+              {i18n.tabAllProjects}
+            </a>
+            <Text style={{ paddingLeft: '20px' }}>{i18n.tabOrgs}:</Text>
+            <Select
+              items={organisations}
+              value={orgFilter}
+              onChange={item => setOrgFilter(item as SelectOption)}
+              className={css.orgSelect}
+            />
+          </Layout.Horizontal>
+        }
         toolbar={
           <Container>
             <Button text={i18n.addProject} onClick={showModal} />

@@ -7,6 +7,7 @@ import { MenuUserProfile } from './MenuUserProfile'
 
 export const Projects: SidebarEntry = {
   sidebarId: SidebarIdentifier.PROJECTS,
+  position: 'BOTTOM',
   title: i18n.project,
   icon: {
     normal: 'nav-project',

@@ -4,6 +4,9 @@ export default {
   addProject: '+ Add Project',
   newProject: 'New Project',
   aboutProject: 'A Harness project allows you to logically group pipelines, corresponding environments and services.',
+  tabMyProjects: 'My Projects',
+  tabAllProjects: 'All Projects',
+  tabOrgs: 'Organisations',
   newProjectWizard: {
     back: 'Back',
     next: 'Save and Continue',
