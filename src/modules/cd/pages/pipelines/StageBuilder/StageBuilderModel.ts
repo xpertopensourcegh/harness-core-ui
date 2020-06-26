@@ -1,6 +1,7 @@
 import { Diagram } from 'modules/common/exports'
 import type { IconName } from '@wings-software/uikit'
 import { isEmpty } from 'lodash'
+import type { NodeModelListener } from '@projectstorm/react-diagrams-core'
 
 export enum StageType {
   DEPLOY = 'deploy',
@@ -20,7 +21,7 @@ export interface StageInterface {
   type: StageType
   name: string
   identifier: string
-  spec: { [key: string]: string | number }
+  spec?: { [key: string]: string | number }
 }
 
 export interface GraphObj {
@@ -51,11 +52,15 @@ export class StageBuilderModel extends Diagram.DiagramModel {
           ? new Diagram.DiamondNodeModel({
               id: node.stage.identifier,
               name: node.stage.name,
+              width: 90,
+              height: 40,
               icon: MapStepTypeToIcon[node.stage.type]
             })
           : new Diagram.DefaultNodeModel({
               id: node.stage.identifier,
               name: node.stage.name,
+              width: 90,
+              height: 40,
               icon: MapStepTypeToIcon[node.stage.type]
             })
 
@@ -84,7 +89,7 @@ export class StageBuilderModel extends Diagram.DiagramModel {
     return { startX, startY }
   }
 
-  addUpdateGraph(data: GraphObj[]): void {
+  addUpdateGraph(data: GraphObj[], listeners: NodeModelListener): void {
     let { startX, startY } = this
     this.clearAllNodesAndLinks()
     // Unlock Graph
@@ -120,6 +125,11 @@ export class StageBuilderModel extends Diagram.DiagramModel {
     this.addNode(stopNode)
     this.addNode(createNode)
 
+    const nodes = this.getActiveNodeLayer().getNodes()
+    for (const key in nodes) {
+      const node = nodes[key]
+      node.registerListener(listeners)
+    }
     // Lock the graph back
     this.setLocked(true)
   }

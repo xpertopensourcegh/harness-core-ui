@@ -7,6 +7,7 @@
   --pipeline-light-grey: #e7e7e7;
   --pipeline-blue-color: #25a6f7;
   --pipeline-tag-bc: #cce3ff;
+  --pipeline-blue-bc: #021c3c;
   --pipeline-tag-color: #4bace9;
   --pipeline-canvas-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAKAgMAAADJO5Z1AAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAMUExURf////j8/v7//8/n99rLSbMAAAAYSURBVAgdY8AFmBwYGBsYGA8wMDsw4AAANE0ByKMgSXsAAAAASUVORK5CYII=);
 
@@ -74,7 +75,7 @@
   }
 
   .left-bar {
-    background-color: #021c3c;
+    background-color: var(--pipeline-blue-bc);
     display: grid;
     grid-template-rows: 1fr 50px;
 

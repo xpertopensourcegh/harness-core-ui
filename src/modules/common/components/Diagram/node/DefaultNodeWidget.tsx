@@ -28,7 +28,12 @@ export const DefaultNodeWidget = (props: DefaultNodeProps): JSX.Element => {
     <div className={css.defaultNode}>
       <div
         className={cx(css.defaultCard, { [css.selected]: props.node.isSelected() })}
-        style={{ backgroundColor: options.backgroundColor, width: options.width, height: options.height }}
+        style={{
+          backgroundColor: options.backgroundColor,
+          width: options.width,
+          height: options.height,
+          marginTop: 32 - (options.height || 64) / 2
+        }}
       >
         {options.icon && <Icon size={28} name={options.icon} {...options.iconProps} />}
         <div>{props.node.getInPorts().map(port => generatePort(port, props))}</div>
