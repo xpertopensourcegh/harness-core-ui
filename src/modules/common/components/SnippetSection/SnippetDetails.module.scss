@@ -1,0 +1,92 @@
+.main {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.snippets {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+}
+
+.flexCenter {
+  display: flex;
+  align-items: center;
+}
+
+.search {
+  width: 100%;
+  height: 40px;
+  margin: var(--spacing-large) 0;
+  border: none;
+  font-size: medium;
+}
+
+.snippet {
+  margin-bottom: var(--spacing-large);
+  width: 100%;
+  .icon {
+    margin-right: var(--spacing-large);
+    padding: var(--spacing-xsmall);
+    border: 1px solid var(--grey-250);
+    border-radius: var(--spacing-xsmall);
+  }
+  .name {
+    margin: var(--spacing-xsmall) 0;
+    display: flex;
+    justify-content: space-between;
+    .snippetName {
+      font-weight: bold;
+      color: var(--grey-800);
+    }
+    .snippetVersion {
+      font-size: smaller;
+      color: var(--grey-800);
+    }
+  }
+  .description {
+    margin: var(--spacing-xsmall) 0;
+    color: var(--grey-400);
+  }
+  .copy {
+    margin: var(--spacing-xsmall) 0;
+    color: var(--blue-500);
+    cursor: pointer;
+  }
+}
+
+.fullWidth {
+  width: 100%;
+}
+
+.snippetIcon {
+  margin-right: var(--spacing-xsmall) !important;
+  svg g {
+    fill: var(--blue-500);
+    stroke: var(--blue-500);
+  }
+}
+
+.title {
+  font-weight: bold;
+  color: var(--grey-800);
+  margin-top: var(--spacing-large);
+  justify-content: start;
+  display: flex;
+  width: 100%;
+}
+
+.searchBar {
+  border: 1px solid var(--grey-250);
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 45px;
+  margin: var(--spacing-large) 0;
+}
+
+.searchIcon {
+  margin: var(--spacing-small);
+}

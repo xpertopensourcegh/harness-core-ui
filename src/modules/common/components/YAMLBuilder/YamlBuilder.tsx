@@ -1,10 +1,10 @@
 // @ts-nocheck
 import React, { useEffect, useState } from 'react'
 import MonacoEditor from 'react-monaco-editor'
-import 'monaco-yaml/esm/monaco.contribution'
+import '@wings-software/monaco-yaml/lib/esm/monaco.contribution'
 import { languages } from 'monaco-editor/esm/vs/editor/editor.api'
 import 'monaco-editor'
-import YamlWorker from 'worker-loader!monaco-yaml/esm/yaml.worker'
+import YamlWorker from 'worker-loader!@wings-software/monaco-yaml/lib/esm/yaml.worker'
 import EditorWorker from 'worker-loader!monaco-editor/esm/vs/editor/editor.worker'
 
 import { JSONSchemaService } from 'modules/dx/services'

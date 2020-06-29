@@ -19,7 +19,7 @@ const YAMLBuilderPage = (props: YamlBuilderProps) => {
           width={props.width}
           existingYaml={props.existingYaml}
         />
-        <SnippetSection />
+        <SnippetSection entityType={props.entityType} />
       </Layout.Horizontal>
     </div>
   )
