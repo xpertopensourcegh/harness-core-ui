@@ -1,0 +1,34 @@
+.heatMap {
+  .heatMapRow {
+    display: flex;
+    .nameWrapper {
+      flex-shrink: 0;
+      p {
+        line-height: 1;
+      }
+    }
+    align-items: center;
+    .rowValues {
+      flex: 1;
+      display: flex;
+      .cell {
+        flex: 1;
+        flex-basis: var(--spacing-medium);
+        min-width: var(--spacing-small);
+        max-width: var(--spacing-xxlarge);
+        margin: 3px;
+        cursor: pointer;
+        &:hover {
+          opacity: 0.6;
+        }
+        :global(.bp3-popover-wrapper) {
+          display: block;
+          :global(.bp3-popover-target) {
+            display: block;
+            padding-bottom: 100%;
+          }
+        }
+      }
+    }
+  }
+}
