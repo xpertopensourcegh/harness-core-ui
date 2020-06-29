@@ -16,14 +16,16 @@ export interface ProjectCardProps {
   isPreview?: boolean
   className?: string
   reloadProjects?: () => Promise<unknown>
+  editProject?: (project: ProjectDTO) => void
 }
 
 interface ContextMenuProps {
   project?: ProjectDTO
   reloadProjects?: () => Promise<unknown>
+  editProject?: (project: ProjectDTO) => void
 }
 
-const ContextMenu: React.FC<ContextMenuProps> = ({ project, reloadProjects }) => {
+const ContextMenu: React.FC<ContextMenuProps> = ({ project, reloadProjects, editProject }) => {
   const { mutate: deleteProject } = useDeleteProject({})
 
   const handleDelete = async (): Promise<void> => {
@@ -42,23 +44,28 @@ const ContextMenu: React.FC<ContextMenuProps> = ({ project, reloadProjects }) =>
     }
   }
 
+  const handleEdit = (): void => {
+    if (!project) return
+    editProject?.(project)
+  }
+
   return (
     <Menu style={{ minWidth: 'unset' }}>
-      <Menu.Item icon="edit" />
+      <Menu.Item icon="edit" onClick={handleEdit} />
       <Menu.Item icon="trash" onClick={handleDelete} />
     </Menu>
   )
 }
 
 const ProjectCard: React.FC<ProjectCardProps> = props => {
+  const { data, isPreview, reloadProjects, editProject } = props
   const history = useHistory()
-  const { data, isPreview, reloadProjects } = props
 
   return (
     <Card className={cx(css.projectCard, props.className)}>
       {!isPreview ? (
         <CardBody.Menu
-          menuContent={<ContextMenu project={props.data} reloadProjects={reloadProjects} />}
+          menuContent={<ContextMenu project={props.data} reloadProjects={reloadProjects} editProject={editProject} />}
           menuPopoverProps={{
             className: Classes.DARK
           }}
@@ -101,6 +108,7 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
         <Button
           intent="primary"
           text="Create Pipeline"
+          disabled={isPreview}
           onClick={() => {
             history.push(linkTo(routePipelineCanvas, { projectId: data?.id, pipelineId: -1 }))
           }}

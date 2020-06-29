@@ -28,7 +28,7 @@ export default {
       time: (mins: number) => `${mins}-min setup`
     },
     stepTwo: {
-      name: 'New Project',
+      name: 'About the project',
       projectName: 'Project Name*',
       color: 'Color',
       org: 'Organisation',

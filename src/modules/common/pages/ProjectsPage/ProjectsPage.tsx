@@ -1,25 +1,24 @@
 import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { useModalHook, Button, StepWizard, Container, Layout, Text, Select } from '@wings-software/uikit'
+import { Button, Container, Layout, Text, Select } from '@wings-software/uikit'
 import { includes } from 'framework/utils/rsql'
-import { Dialog, Classes } from '@blueprintjs/core'
+
 import cx from 'classnames'
-import { pick } from 'lodash-es'
-import { useGetProjects, useCreateProject, useGetOrganizations } from 'services/cd-ng'
-import type { ProjectDTO, CreateProjectDTO } from 'services/cd-ng'
+import { useGetProjects, useGetOrganizations } from 'services/cd-ng'
+import type { ProjectDTO } from 'services/cd-ng'
 
 import { Page } from 'modules/common/exports'
 import ProjectCard from './views/ProjectCard/ProjectCard'
-import CreateProject from './views/CreateProject'
-import StepOne, { StepOneData } from './views/StepOne'
-import StepTwo, { StepTwoData, SelectOption } from './views/StepTwo'
-import StepThree, { StepThreeData } from './views/StepThree'
+import { useProjectModal } from 'modules/common/modals/ProjectModal/useProjectModal'
+
 import i18n from './ProjectsPage.i18n'
-import { Views } from './Constants'
 
 import css from './ProjectsPage.module.scss'
 
-export type SharedData = StepOneData & StepTwoData & StepThreeData
+interface SelectOption {
+  label: string
+  value: string
+}
 
 const allOrgsSelectOption: SelectOption = {
   label: 'All',
@@ -27,10 +26,10 @@ const allOrgsSelectOption: SelectOption = {
 }
 
 const ProjectsListPage: React.FC = () => {
-  const [view, setView] = useState(Views.NEW_PROJECT)
   const [orgFilter, setOrgFilter] = useState<SelectOption>(allOrgsSelectOption)
   const [ownerFilter, setOwnerFilter] = useState('ALL')
   const { accountId } = useParams()
+
   const { loading, data, refetch: reloadProjects, error } = useGetProjects({
     queryParams: {
       orgId: orgFilter.value === 'ALL' ? '' : orgFilter.value,
@@ -38,58 +37,17 @@ const ProjectsListPage: React.FC = () => {
     }
   })
   const { data: orgs } = useGetOrganizations({})
-  const { mutate: createProject } = useCreateProject({})
 
-  const wizardCompleteHandler = async (wizardData: SharedData | undefined): Promise<void> => {
-    if (!wizardData) return
-    const dataToSubmit: CreateProjectDTO = pick<CreateProjectDTO, keyof CreateProjectDTO>(wizardData, [
-      'accountId',
-      'color',
-      'description',
-      'identifier',
-      'name',
-      'orgId',
-      'tags'
-    ])
-    dataToSubmit.accountId = accountId
-    dataToSubmit.owners = [accountId]
-
-    try {
-      await createProject(dataToSubmit)
-      hideModal()
-      reloadProjects()
-      setView(Views.NEW_PROJECT)
-    } catch (e) {
-      // display error using ModalErrorHandler
-      // console.log(e?.data?.responseMessages)
-    }
+  const projectCreateSuccessHandler = (): void => {
+    closeProjectModal()
+    reloadProjects()
   }
 
-  const [showModal, hideModal] = useModalHook(
-    () => (
-      <Dialog isOpen={true} className={cx(css.dialog, Classes.DIALOG, { [Classes.DARK]: view === Views.NEW_PROJECT })}>
-        {view === Views.NEW_PROJECT ? <CreateProject setView={setView} /> : null}
-        {view === Views.CREATE ? (
-          <StepWizard<SharedData> onCompleteWizard={wizardCompleteHandler}>
-            <StepOne name={i18n.newProjectWizard.stepOne.name} />
-            <StepTwo name={i18n.newProjectWizard.stepTwo.name} />
-            <StepThree name={i18n.newProjectWizard.stepThree.name} />
-          </StepWizard>
-        ) : null}
-        <Button
-          minimal
-          icon="cross"
-          iconProps={{ size: 18 }}
-          onClick={() => {
-            setView(Views.NEW_PROJECT)
-            hideModal()
-          }}
-          className={css.crossIcon}
-        />
-      </Dialog>
-    ),
-    [view]
-  )
+  const { openProjectModal, closeProjectModal } = useProjectModal({ onSuccess: projectCreateSuccessHandler })
+
+  const showEditProject = (project: ProjectDTO): void => {
+    openProjectModal(project)
+  }
 
   const organisations = [
     allOrgsSelectOption,
@@ -108,16 +66,20 @@ const ProjectsListPage: React.FC = () => {
         content={
           <Layout.Horizontal style={{ alignItems: 'center' }}>
             <a
-              href="javascript:;"
               className={cx(css.filterTab, { [css.selected]: ownerFilter === 'MY' })}
-              onClick={() => setOwnerFilter('MY')}
+              onClick={e => {
+                e.preventDefault()
+                setOwnerFilter('MY')
+              }}
             >
               {i18n.tabMyProjects}
             </a>
             <a
-              href="javascript:;"
               className={cx(css.filterTab, { [css.selected]: ownerFilter === 'ALL' })}
-              onClick={() => setOwnerFilter('ALL')}
+              onClick={e => {
+                e.preventDefault()
+                setOwnerFilter('ALL')
+              }}
             >
               {i18n.tabAllProjects}
             </a>
@@ -132,7 +94,7 @@ const ProjectsListPage: React.FC = () => {
         }
         toolbar={
           <Container>
-            <Button text={i18n.addProject} onClick={showModal} />
+            <Button text={i18n.addProject} onClick={() => openProjectModal()} />
           </Container>
         }
       />
@@ -145,7 +107,7 @@ const ProjectsListPage: React.FC = () => {
           icon: 'nav-project',
           message: i18n.aboutProject,
           buttonText: i18n.addProject,
-          onClick: showModal
+          onClick: () => openProjectModal()
         }}
       >
         <Layout.Masonry
@@ -153,7 +115,9 @@ const ProjectsListPage: React.FC = () => {
           width={900}
           className={css.centerContainer}
           items={data?.content || []}
-          renderItem={(project: ProjectDTO) => <ProjectCard data={project} reloadProjects={reloadProjects} />}
+          renderItem={(project: ProjectDTO) => (
+            <ProjectCard data={project} reloadProjects={reloadProjects} editProject={showEditProject} />
+          )}
           keyOf={(project: ProjectDTO) => project.id}
         />
       </Page.Body>

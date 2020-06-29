@@ -2,19 +2,25 @@ import React, { useState } from 'react'
 
 import { Formik, FormikForm as Form, FormInput, Button, Text, Layout, StepProps } from '@wings-software/uikit'
 
-import type { SharedData } from '../ProjectsPage'
-import i18n from '../ProjectsPage.i18n'
+import type { ProjectDTO } from 'services/cd-ng'
 import EmailPreview from './EmailPreview/EmailPreview'
 
+import i18n from 'modules/common/pages/ProjectsPage/ProjectsPage.i18n'
 import css from './Steps.module.scss'
+
+interface ProjectModalData {
+  data: ProjectDTO | undefined
+}
 
 export interface StepThreeData {
   collaborators?: string[]
   invitationMessage?: string
 }
 
-const StepThree: React.FC<StepProps<SharedData>> = ({ previousStep, nextStep, prevStepData }) => {
+const StepThree: React.FC<StepProps<ProjectDTO> & ProjectModalData> = props => {
+  const { previousStep, nextStep, prevStepData } = props
   const [data, setData] = useState<StepThreeData>({})
+
   return (
     <>
       <Text font="medium">{i18n.newProjectWizard.stepThree.name}</Text>

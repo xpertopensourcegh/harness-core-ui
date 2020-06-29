@@ -3,7 +3,7 @@ import { Icon, Layout, Text, Button } from '@wings-software/uikit'
 
 import type { StepThreeData } from '../StepThree'
 
-import i18n from '../../ProjectsPage.i18n'
+import i18n from '../../../../pages/ProjectsPage/ProjectsPage.i18n'
 
 import css from './EmailPreview.module.scss'
 

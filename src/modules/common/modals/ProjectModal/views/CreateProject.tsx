@@ -3,7 +3,7 @@ import { RadioSelect, Text, Layout, Icon, IconName } from '@wings-software/uikit
 
 import { Views } from '../Constants'
 
-import i18n from '../ProjectsPage.i18n'
+import i18n from '../../../pages/ProjectsPage/ProjectsPage.i18n'
 import css from './Steps.module.scss'
 
 interface ProjectType {
@@ -22,11 +22,6 @@ const options: ProjectType[] = [
     title: i18n.newProjectWizard.createProject.cloneProject,
     icon: 'duplicate',
     view: Views.CLONE
-  },
-  {
-    title: i18n.newProjectWizard.createProject.gitSync,
-    icon: 'git-merge',
-    view: Views.GITSYNC
   }
 ]
 

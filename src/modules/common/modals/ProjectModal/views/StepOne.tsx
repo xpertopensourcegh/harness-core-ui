@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { StepProps, RadioSelect, Button, Layout, Text, IconName, Color } from '@wings-software/uikit'
 
-import type { SharedData } from '../ProjectsPage'
+import type { ProjectDTO } from 'services/cd-ng'
 
-import i18n from '../ProjectsPage.i18n'
+import i18n from '../../../pages/ProjectsPage/ProjectsPage.i18n'
 import css from './Steps.module.scss'
 
 interface Purpose {
@@ -13,10 +13,6 @@ interface Purpose {
   description: string
   time: string
   value: string
-}
-
-export interface StepOneData {
-  purpose?: string
 }
 
 const options: Purpose[] = [
@@ -38,7 +34,7 @@ const options: Purpose[] = [
   }
 ]
 
-const StepOne: React.FC<StepProps<SharedData>> = ({ previousStep, nextStep, prevStepData }) => {
+const StepOne: React.FC<StepProps<ProjectDTO>> = ({ nextStep, prevStepData }) => {
   const [selected, setSelected] = useState<Purpose>(options[0])
   return (
     <>
@@ -52,7 +48,6 @@ const StepOne: React.FC<StepProps<SharedData>> = ({ previousStep, nextStep, prev
         data={options}
         renderItem={item => (
           <>
-            {/* <Icon name={item.icon} size={20} /> */}
             <Text>{item.titleOne}</Text>
             <Text font="medium" color="black">
               {item.titleTwo}
@@ -67,7 +62,6 @@ const StepOne: React.FC<StepProps<SharedData>> = ({ previousStep, nextStep, prev
         )}
       />
       <Layout.Horizontal spacing="small" padding={{ top: 'xxlarge' }}>
-        <Button onClick={() => previousStep?.(prevStepData)} text={i18n.newProjectWizard.back} />
         <Button
           onClick={() => nextStep?.({ ...prevStepData, purpose: selected.value })}
           style={{ color: 'var(--blue-500)' }}

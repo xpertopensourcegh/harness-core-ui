@@ -3,26 +3,30 @@ import { Formik, FormikForm as Form, FormInput, Button, Text, Layout, StepProps 
 import * as Yup from 'yup'
 import { illegalIdentifiers } from 'framework/utils/StringUtils'
 
-import type { SharedData } from '../ProjectsPage'
-import i18n from '../ProjectsPage.i18n'
-import ProjectCard from './ProjectCard/ProjectCard'
+import i18n from 'modules/common/pages/ProjectsPage/ProjectsPage.i18n'
+import ProjectCard from 'modules/common/pages/ProjectsPage/views/ProjectCard/ProjectCard'
 
 import { useGetOrganizations } from 'services/cd-ng'
 import type { ProjectDTO } from 'services/cd-ng'
 
 import css from './Steps.module.scss'
 
-export interface StepTwoData extends ProjectDTO {
+interface ProjectModalData {
+  data: ProjectDTO | undefined
+}
+
+interface StepTwoData extends ProjectDTO {
   preview?: boolean
   skipCollab?: 'skip' | ''
 }
 
-export interface SelectOption {
+interface SelectOption {
   label: string
   value: string
 }
 
-const StepTwo: React.FC<StepProps<SharedData>> = ({ previousStep, nextStep, prevStepData, gotoStep }) => {
+const StepTwo: React.FC<StepProps<ProjectDTO> & ProjectModalData> = props => {
+  const { previousStep, nextStep, prevStepData, gotoStep, data: projectData } = props
   const { loading, data } = useGetOrganizations({})
 
   const organisations: SelectOption[] =
@@ -35,7 +39,7 @@ const StepTwo: React.FC<StepProps<SharedData>> = ({ previousStep, nextStep, prev
 
   return (
     <>
-      <Text font="medium">{i18n.newProject}</Text>
+      <Text font="medium">{i18n.newProjectWizard.stepTwo.name}</Text>
       <Formik
         initialValues={{
           color: '',
@@ -46,6 +50,7 @@ const StepTwo: React.FC<StepProps<SharedData>> = ({ previousStep, nextStep, prev
           orgId: '',
           preview: true,
           skipCollab: '',
+          ...projectData,
           ...prevStepData
         }}
         validationSchema={Yup.object().shape({
@@ -75,7 +80,12 @@ const StepTwo: React.FC<StepProps<SharedData>> = ({ previousStep, nextStep, prev
                     <input type="hidden" name="skipCollab" />
                     <FormInput.InputWithIdentifier />
                     <Layout.Horizontal spacing="small">
-                      <FormInput.ColorPicker label={i18n.newProjectWizard.stepTwo.color} name="color" height={38} />
+                      <FormInput.ColorPicker
+                        label={i18n.newProjectWizard.stepTwo.color}
+                        name="color"
+                        height={38}
+                        color={formikProps.initialValues.color}
+                      />
                       <FormInput.Select
                         label={i18n.newProjectWizard.stepTwo.org}
                         name="orgId"
