@@ -74,7 +74,40 @@
 
     .create-new-message {
       font-size: var(--font-size-small);
-      padding-top: 20px;
+      padding-top: var(--spacing-large);
     }
   }
+}
+
+.collapseDiv div {
+  border-top: none;
+  padding: 0;
+}
+
+.label-bold label {
+  line-height: 19px;
+  font-weight: 700;
+  font-size: var(--font-size-normal);
+}
+
+.grid {
+  display: grid;
+  grid-auto-rows: auto;
+  grid-gap: var(--spacing-small);
+  padding-top: var(--spacing-small);
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+
+  :global(.bp3-card) {
+    padding: var(--spacing-small) var(--spacing-xsmall);
+    width: 80px;
+    height: 80px;
+  }
+}
+
+.stage-create {
+  width: 430px;
+}
+
+.btn-setup {
+  padding-top: var(--spacing-medium);
 }

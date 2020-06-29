@@ -9,5 +9,10 @@ declare const styles: {
   readonly createNewCards: string
   readonly cardNew: string
   readonly createNewMessage: string
+  readonly collapseDiv: string
+  readonly labelBold: string
+  readonly grid: string
+  readonly stageCreate: string
+  readonly btnSetup: string
 }
 export default styles
