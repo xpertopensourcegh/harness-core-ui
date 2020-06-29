@@ -1343,16 +1343,6 @@
   optionalDependencies:
     webpack "^4.0.0"
 
-"@wings-software/language-server@0.0.6":
-  version "0.0.6"
-  resolved "https://npm.pkg.github.com/download/@wings-software/language-server/0.0.6/19323dd867ff7bd6271816e3d96fa23b23035684032bcdb74fb3e10c071f16a4#88b46af71e3369e9c39cf85815d5fb4813d8772c"
-  integrity sha512-KKL4w4Oppj43odPUMPyGjVd+1iIJA3YJDHJY/9SQ5d1Cb0fMqjfbKMZUGRsx1ASlW1NBoRrcFv7+wKk0ooLupw==
-  dependencies:
-    js-yaml "^3.12.0"
-    vscode-json-languageservice "^3.4.11"
-    vscode-languageserver "^5.2.1"
-    vscode-uri "^2.1.1"
-
 "@wings-software/mentions@^1.2.9":
   version "1.2.9"
   resolved "https://npm.pkg.github.com/download/@wings-software/mentions/1.2.9/66b154fedb00ce429a5760d649f66e48ddb602a1b53bb6ee99704a49437468cb#33a66befe5025eab0cb3d6248dd5eb5cb1bd4688"
@@ -1360,15 +1350,27 @@
   dependencies:
     caret-xy "^2.0.3"
 
+"@wings-software/monaco-yaml@2.4.1":
+  version "2.4.1"
+  resolved "https://npm.pkg.github.com/download/@wings-software/monaco-yaml/2.4.1/d63669de366a3b46d1eeb0ade83484d34c6b673eca224cdcb7977e80b2926531#a63f68e90f2b00106a42680c981b4a06c226f89b"
+  integrity sha512-Np1/p0vFc4blxumZJw5xo81WKpMaAdDFbY3csJAlxHVe50AVyqBMMI/KYw4TNovPqeO/MGK2ALZ7a7oXGv9oYw==
+  dependencies:
+    js-yaml "^3.12.0"
+    vscode-json-languageservice "^3.4.11"
+    vscode-languageserver "^5.2.1"
+    vscode-uri "^2.1.1"
+  optionalDependencies:
+    prettier "^1.19.1"
+
 "@wings-software/swagger-ts@1.55003.0":
   version "1.55003.0"
   resolved "https://npm.pkg.github.com/download/@wings-software/swagger-ts/1.55003.0/c4c669ccf39e0ed33b3ec58374bc3bd9555a73d2ef302a69af9fdb3c543374fa#1c2b233d2e01d871fad5bce771be5a52f4938354"
   integrity sha512-akXp2CIQq0Nu8GrC4i5XJdr5aBx9YyepjSESGOi6IaL+MQGlIqEpA91lG92/UZ2NNHRK43pacJbZZ33VDcZpkQ==
 
-"@wings-software/uikit@1.0.172":
-  version "1.0.172"
-  resolved "https://npm.pkg.github.com/download/@wings-software/uikit/1.0.172/09265b1ca2c6e75756430f49e29078e1b264648ab8ca1a60d5d14cd182e14d8d#c3673cf6def0547e5c27b65c4a1e912c753cdf44"
-  integrity sha512-AcIJsy3kt7BJt0quhby3hA9aKCSWcdMdljny4ev0rrkO7p5vqsM0jMAYAH/XMpemjH7ZjXDUQsqWDQjLnnCd0w==
+"@wings-software/uikit@1.0.180":
+  version "1.0.180"
+  resolved "https://npm.pkg.github.com/download/@wings-software/uikit/1.0.180/ed23b707ef45376a7d7b14203c2653d0b5d75b4bfeef6f0b761243b8298d12e7#e04f27811f76ba69d898542b564d693e91c5fda0"
+  integrity sha512-p6krPcNhW4ZoI7ccfPVC70vyM/aY2HEw1DaUYBhqq3/XAAC3BJenfPcjiHJ+5L0wZ9jP5SNaHqHCLXCi3U/+eg==
   dependencies:
     "@types/lodash.get" "^4.4.6"
     lodash.get "^4.4.2"
@@ -2651,6 +2653,13 @@ copy-descriptor@^0.1.0:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/copy-descriptor/-/copy-descriptor-0.1.1.tgz#676f6eb3c39997c2ee1ac3a924fd6124748f578d"
   integrity sha1-Z29us8OZl8LuGsOpJP1hJHSPV40=
+
+copy-to-clipboard@^3.3.1:
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/copy-to-clipboard/-/copy-to-clipboard-3.3.1.tgz#115aa1a9998ffab6196f93076ad6da3b913662ae"
+  integrity sha512-i13qo6kIHTTpCm8/Wup+0b1mVWETvu2kIMzKoK8FpkLkFxlt0znUAHcMzox+T8sPlqtZXq3CulEjQHsYiGFJUw==
+  dependencies:
+    toggle-selection "^1.0.6"
 
 copyfiles@^2.3.0:
   version "2.3.0"
@@ -4477,10 +4486,10 @@ highcharts-react-official@3.0.0:
   resolved "https://registry.yarnpkg.com/highcharts-react-official/-/highcharts-react-official-3.0.0.tgz#f2e81ed59d299c3473a0dd5ba5df24028875226a"
   integrity sha512-VefJgDY2hkT9gfppsQGrRF2g5u8d9dtfHGcx2/xqiP+PkZXCqalw9xOeKVCRvJKTOh0coiDFwvVjOvB7KaGl4A==
 
-highcharts@7.1.2:
-  version "7.1.2"
-  resolved "https://registry.yarnpkg.com/highcharts/-/highcharts-7.1.2.tgz#f337e75cf0614f58f87fb28fbab48e1096265b5d"
-  integrity sha512-diSTVxWKefQzShi22gaV63pdrIFlQAsTGe3f328Ur7cqBoYFvHMtiMP+q+VOFdM2mdGVtlUR0QQSxj62LLsPpg==
+highcharts@8.1.2:
+  version "8.1.2"
+  resolved "https://registry.yarnpkg.com/highcharts/-/highcharts-8.1.2.tgz#a4e7d74a6140028e676a3a54f5fd0ea6ccbcc90e"
+  integrity sha512-Q124Lj+2+bVY2MKMd7d8uSVAmhZVzWgknUUzUBEC27S94dCyK6PBgahuwiMP/ET4w7qSFBBi4OC77ZUb0Vnuyg==
 
 history@^4.9.0:
   version "4.10.1"
@@ -6438,13 +6447,6 @@ monaco-plugin-helpers@^1.0.2:
   integrity sha512-6AYI3ONAy8ki74qG2JqtFrLdiJHQlgeO5l4Rwr0OMyIpGXhc94y5rZuFxOtgGkxgSrZfHSwOt/MulUNZ/mOQOw==
   dependencies:
     typescript "^2.7.2"
-
-monaco-yaml@^2.4.0:
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/monaco-yaml/-/monaco-yaml-2.4.0.tgz#027307a231d809c416babf1cf89b4c1bb940e55d"
-  integrity sha512-ElUS6uBqEjA2/o2gLuNdnqWSAAQXh8ISr1kwlFErm3t5IXO74TNfS3gnjO6Kv9TXS7LImjGfgPAZei7o8zNTHw==
-  optionalDependencies:
-    prettier "^1.19.1"
 
 move-concurrently@^1.0.1:
   version "1.0.1"
@@ -9218,6 +9220,11 @@ to-regex@^3.0.1, to-regex@^3.0.2:
     extend-shallow "^3.0.2"
     regex-not "^1.0.2"
     safe-regex "^1.1.0"
+
+toggle-selection@^1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/toggle-selection/-/toggle-selection-1.0.6.tgz#6e45b1263f2017fa0acc7d89d78b15b8bf77da32"
+  integrity sha1-bkWxJj8gF/oKzH2J14sVuL932jI=
 
 toidentifier@1.0.0:
   version "1.0.0"

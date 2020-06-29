@@ -1,20 +1,75 @@
 .main {
-  .logRow {
-    display: grid;
-    grid-template-columns: 60px 95px 50px 425px 96px 90px;
-    grid-column-gap: var(--spacing-small);
+  display: grid;
+  grid-template-columns: 40px 95px 50px 3fr 60px minmax(0, 1fr);
+  grid-column-gap: var(--spacing-medium);
 
-    .logRowColumnHeader {
-      margin-bottom: var(--spacing-medium);
-      font-size: var(--font-size-small) !important;
+  .logRowText {
+    font-size: 10px !important;
+    color: #22272d !important;
+  }
+
+  .logRowColumnHeader {
+    margin-bottom: var(--spacing-small);
+    font-size: var(--font-size-small) !important;
+    &:nth-of-type(2),
+    &:nth-last-of-type(2) {
+      padding-left: var(--spacing-small);
     }
   }
 
-  .dataRow {
-    grid-auto-rows: 70px;
+  .compareDataColumn {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
 
-    .compareDataColumn {
-      margin: var(--spacing-small);
+    input,
+    [class*='bp3-icon'] {
+      cursor: pointer;
     }
   }
+
+  .logText {
+    white-space: pre-wrap;
+    word-break: break-word;
+    cursor: pointer;
+    p {
+      font-family: monospace !important;
+      &[data-collapsed='true'] {
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        overflow: hidden;
+        -webkit-box-orient: vertical;
+      }
+    }
+    :global {
+      .bp3-popover-target {
+        width: 100% !important;
+      }
+    }
+  }
+
+  .lineChartContainer {
+    padding-top: 0 !important;
+    padding-bottom: var(--spacing-small);
+    > div {
+      height: 100%;
+      width: 100%;
+    }
+  }
+
+  .borderedColumn {
+    padding: 0 var(--spacing-small);
+  }
+
+  .dataColumn {
+    padding-top: var(--spacing-small);
+  }
+}
+
+.columnHeader {
+  border-bottom: 1px solid var(--grey-250);
+}
+
+.dataRow {
+  margin: var(--spacing-small) 0 !important;
 }

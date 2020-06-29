@@ -5,7 +5,9 @@ declare const styles: {
   readonly heading: string
   readonly clusterHeading: string
   readonly tabContainer: string
-  readonly chartContainer: string
+  readonly scatterOuterContainer: string
+  readonly columnChartContainer: string
+  readonly scatterPlotContainer: string
   readonly logContainer: string
 }
 export default styles

@@ -1,0 +1,136 @@
+.main {
+  padding: calc(var(--spacing-large) * 2);
+  .headingContainer {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: var(--spacing-small);
+  }
+
+  .iconContainer {
+    cursor: pointer;
+    &:not(:last-of-type) {
+      margin-right: var(--spacing-small);
+    }
+    .logo {
+      margin-right: var(--spacing-xsmall);
+    }
+  }
+
+  .verificationPeriod {
+    margin-bottom: var(--spacing-small);
+  }
+
+  .startAndEndTime {
+    display: inline-flex;
+    justify-content: space-between;
+    width: 400px;
+    margin-bottom: var(--spacing-large);
+
+    .timeLabel {
+      font-weight: bolder;
+      font-size: var(--font-size-small);
+      margin-right: var(--spacing-small);
+    }
+  }
+
+  .dataNameData {
+    width: 150px;
+    height: 50px;
+    margin-bottom: var(--spacing-small);
+    .dataContent {
+      margin-top: var(--spacing-small);
+      font-size: var(--font-size-small);
+    }
+  }
+
+  .trendChart {
+    height: 20px;
+    width: 250px;
+    .chartContainer {
+      height: 100%;
+      width: 100%;
+      > div {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+
+  .activityContainer {
+    display: flex;
+    margin-bottom: var(--spacing-medium);
+  }
+
+  .formContainer {
+    .formContent {
+      display: grid;
+      grid-template-columns: repeat(2, 45%);
+      grid-template-rows: 480px 35px;
+      grid-gap: var(--spacing-large) calc(2 * var(--spacing-large));
+
+      .message textarea {
+        min-height: 130px;
+        max-height: 385px;
+      }
+
+      .sampleEvent {
+        margin-bottom: var(--spacing-small);
+      }
+
+      .logMessage {
+        white-space: pre-wrap !important;
+        word-break: break-word !important;
+        font-size: var(--font-size-small) !important;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 30;
+        -webkit-box-orient: vertical;
+      }
+
+      .buttonContainer {
+        justify-self: flex-end;
+        grid-column-start: 1;
+        grid-column-end: 3;
+        button:first-child {
+          margin-right: var(--spacing-small);
+        }
+      }
+    }
+  }
+}
+
+.sharePopoverContent {
+  width: 200px;
+  padding: var(--spacing-small) !important;
+  .urlContent {
+    background-color: var(--grey-100);
+    padding: var(--spacing-small);
+    p {
+      font-size: 10px !important;
+      word-break: break-all;
+    }
+  }
+
+  .copyButton {
+    margin-top: var(--spacing-small);
+    font-size: 10px !important;
+    position: relative;
+    left: 70%;
+  }
+
+  .copySuccess {
+    margin-top: var(--spacing-small);
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    > span {
+      position: relative;
+      bottom: 1px;
+    }
+    p {
+      margin-left: var(--spacing-xsmall);
+      font-size: 10px !important;
+    }
+  }
+}
