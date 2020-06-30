@@ -37,7 +37,8 @@ const DelegateModal: React.FC = () => {
     { label: 'Kubernetes', value: 'service-kubernetes', icon: 'service-kubernetes' },
     { label: 'GitHub', value: 'service-github', icon: 'service-github' },
     { label: 'Jenkins', value: 'service-jenkins', icon: 'service-jenkins' },
-    { label: 'GCP', value: 'service-gcp', icon: 'service-gcp' }
+    { label: 'GCP', value: 'service-gcp', icon: 'service-gcp' },
+    { label: 'Create via YAML Builder', value: 'yaml-builder', icon: 'main-code-yaml' }
   ]
 
   const [, hideLightModal] = useModalHook(() => (
@@ -66,7 +67,7 @@ const DelegateModal: React.FC = () => {
             return (
               <Menu.Item
                 className={css.menuItem}
-                href={`#${routeConnectorDetails.url({ accountId: accountId, editMode: 'true' })}`}
+                href={`#${routeConnectorDetails.url({ accountId: accountId, editMode: 'true', type: item.value })}`}
                 key={index}
                 text={getMenuItem(item)}
               />

@@ -69,8 +69,9 @@ const ConnectorDetailsPage: React.FC = () => {
   const [isFetching, setIsFetching] = React.useState(false)
   const [connectorType, setConnectorType] = React.useState('K8sCluster')
   const {
-    params: { connectorId }
+    params: { urlParams }
   } = routeParams()
+  const [connectorId, type] = urlParams ? (urlParams as string).split('&') : []
   const state: ConnectorDetailsPageState = {
     activeCategory,
     setActiveCategory,
@@ -89,6 +90,7 @@ const ConnectorDetailsPage: React.FC = () => {
 
   //Tempory edit mode to enable create
   const editMode = /edit=true/gi.test(location.href)
+  const isCreationThroughYamlBuilder = type ? type.split('=')?.[1] === 'yaml-builder' : false
   return (
     <>
       <Page.Header
@@ -118,6 +120,7 @@ const ConnectorDetailsPage: React.FC = () => {
             connector={connectordetail}
             enableCreate={editMode}
             setInitialConnector={data => setInitialConnector(data, state)}
+            isCreationThroughYamlBuilder={isCreationThroughYamlBuilder}
           />
         ) : null}
       </Page.Body>

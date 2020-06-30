@@ -43,4 +43,7 @@ export interface Route {
 
   /** Optional validation to see if current user is allowed to access the route (TBD in the future) */
   // isAuthorized?: () => boolean
+
+  /* Optional arguments to convey type param when multiple options are available for same route */
+  type?: string
 }

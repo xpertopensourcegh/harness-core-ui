@@ -16,6 +16,7 @@ export interface ConfigureConnectorProps {
   enableCreate: boolean
   connector: any
   setInitialConnector: (connector: any) => void
+  isCreationThroughYamlBuilder: boolean
 }
 
 interface ConfigureConnectorState {
@@ -39,16 +40,17 @@ const SelectedView = {
   YAML: 'yaml'
 }
 
-const getOptions = (): Options[] => {
+const getOptions = (isCreationThroughYamlBuilder: boolean): Options[] => {
   return [
     {
       text: 'Visual',
       value: SelectedView.VISUAL,
-      selected: true
+      selected: !isCreationThroughYamlBuilder
     },
     {
       text: 'YAML',
-      value: SelectedView.YAML
+      value: SelectedView.YAML,
+      selected: isCreationThroughYamlBuilder
     }
   ]
 }
@@ -119,7 +121,9 @@ const ConfigureConnector = (props: ConfigureConnectorProps): JSX.Element => {
   const [enableEdit, setEnableEdit] = useState(props.enableCreate)
   const [enableCreate, setEnableCreate] = useState(props.enableCreate)
   const [connector, setConnector] = useState(props.connector)
-  const [selectedView, setSelectedView] = useState(SelectedView.VISUAL)
+  const [selectedView, setSelectedView] = useState(
+    props.isCreationThroughYamlBuilder ? SelectedView.YAML : SelectedView.VISUAL
+  )
 
   const state: ConfigureConnectorState = {
     enableEdit,
@@ -140,7 +144,10 @@ const ConfigureConnector = (props: ConfigureConnectorProps): JSX.Element => {
   return (
     <React.Fragment>
       <div className={css.optionBtns}>
-        <OptionsButtonGroup options={getOptions()} onChange={value => setSelectedView(value as string)} />
+        <OptionsButtonGroup
+          options={getOptions(props.isCreationThroughYamlBuilder)}
+          onChange={value => setSelectedView(value as string)}
+        />
       </div>
       <Layout.Horizontal className={css.mainDetails}>
         {selectedView === SelectedView.VISUAL ? (
