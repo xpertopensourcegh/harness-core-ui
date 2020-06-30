@@ -7,7 +7,7 @@ import SnippetDetails from './SnippetDetails'
 
 interface SnippetSectionProps {
   entityType: string
-  isPipelineBuilderView?: boolean
+  showIconMenu?: boolean
 }
 
 const SnippetSection = (props: SnippetSectionProps) => {
@@ -46,7 +46,7 @@ const SnippetSection = (props: SnippetSectionProps) => {
 
   return (
     <div className={css.main}>
-      {props.isPipelineBuilderView ? <div className={css.snippetIcons}>{getIconList()}</div> : null}
+      {props.showIconMenu ? <div className={css.snippetIcons}>{getIconList()}</div> : null}
       <div className={css.snippets}>
         <SnippetDetails selectedIcon={selectedIcon} entityType={props.entityType} />
       </div>

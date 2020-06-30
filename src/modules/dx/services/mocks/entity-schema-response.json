@@ -24,7 +24,7 @@
             "type": "string"
           },
           "type": {
-            "enum": ["K8s Cluster"]
+            "enum": ["K8sCluster"]
           }
         },
         "allOf": [
@@ -32,7 +32,7 @@
             "if": {
               "properties": {
                 "type": {
-                  "const": "K8s Cluster"
+                  "const": "K8sCluster"
                 }
               }
             },
@@ -42,7 +42,7 @@
                   "type": "object",
                   "properties": {
                     "type": {
-                      "enum": ["Inherit from Delegate", "Manual Config"]
+                      "enum": ["InheritFromDelegate", "ManualConfig"]
                     }
                   },
                   "allOf": [
@@ -50,7 +50,7 @@
                       "if": {
                         "properties": {
                           "type": {
-                            "const": "Inherit from Delegate"
+                            "const": "InheritFromDelegate"
                           }
                         }
                       },
@@ -72,7 +72,7 @@
                       "if": {
                         "properties": {
                           "type": {
-                            "const": "Manual Config"
+                            "const": "ManualConfig"
                           }
                         }
                       },
@@ -88,7 +88,7 @@
                                 "type": "object",
                                 "properties": {
                                   "type": {
-                                    "enum": ["User Password", "Client Key Cert", "Service Account", "Open Id Connect"]
+                                    "enum": ["UserPassword", "ClientKeyCert", "ServiceAccount", "OpenIdConnect"]
                                   }
                                 },
                                 "allOf": [
@@ -96,7 +96,7 @@
                                     "if": {
                                       "properties": {
                                         "type": {
-                                          "const": "User Password"
+                                          "const": "UserPassword"
                                         }
                                       }
                                     },
@@ -124,7 +124,7 @@
                                     "if": {
                                       "properties": {
                                         "type": {
-                                          "const": "Client Key Cert"
+                                          "const": "ClientKeyCert"
                                         }
                                       }
                                     },
@@ -133,13 +133,13 @@
                                         "spec": {
                                           "type": "object",
                                           "properties": {
-                                            "clientCert": {
+                                            "client-cert": {
                                               "type": "string"
                                             },
-                                            "clientKey": {
+                                            "client-key": {
                                               "type": "string"
                                             },
-                                            "clientKeyPassphrase": {
+                                            "client-key-passphrase": {
                                               "type": "string"
                                             },
                                             "clientKeyAlgo": {
@@ -155,7 +155,7 @@
                                     "if": {
                                       "properties": {
                                         "type": {
-                                          "const": "Service Account"
+                                          "const": "ServiceAccount"
                                         }
                                       }
                                     },
@@ -164,7 +164,7 @@
                                         "spec": {
                                           "type": "object",
                                           "properties": {
-                                            "serviceAccountToken": {
+                                            "service-acccount-token": {
                                               "type": "string"
                                             }
                                           },
@@ -177,7 +177,7 @@
                                     "if": {
                                       "properties": {
                                         "type": {
-                                          "const": "Open Id Connect"
+                                          "const": "OpenIdConnect"
                                         }
                                       }
                                     },
@@ -186,22 +186,22 @@
                                         "spec": {
                                           "type": "object",
                                           "properties": {
-                                            "oidcIssuerUrl": {
+                                            "oidc-issuer-url": {
                                               "type": "string"
                                             },
-                                            "oidcClientId": {
+                                            "oidc-client-id": {
                                               "type": "string"
                                             },
-                                            "oidcUsername": {
+                                            "oidc-username": {
                                               "type": "string"
                                             },
-                                            "oidcPassword": {
+                                            "oidc-password": {
                                               "type": "string"
                                             },
-                                            "oidcSecret": {
+                                            "oidc-secret": {
                                               "type": "string"
                                             },
-                                            "oidcScopes": {
+                                            "oidc-scopes": {
                                               "type": "string"
                                             }
                                           },

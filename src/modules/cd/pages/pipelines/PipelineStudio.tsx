@@ -7,6 +7,8 @@ import cx from 'classnames'
 import { StageBuilder } from './StageBuilder/StageBuilder'
 import CreatePipelines from './CreateModal/PipelineCreate'
 import i18n from './PipelineStudio.i18n'
+import { YamlEntity } from 'modules/common/constants/YamlConstants'
+import { YAMLBuilderPage } from 'modules/dx/pages/yamlBuilder'
 
 const PipelineStudio = (): JSX.Element => {
   const { pipelineId } = useParams()
@@ -122,7 +124,7 @@ const PipelineStudio = (): JSX.Element => {
             </Layout.Horizontal>
           </Route>
           <Route exact path={`${path}yaml/`}>
-            Yaml Editor
+            <YAMLBuilderPage fileName="DeploymentPipeline.yaml" entityType={YamlEntity.PIPELINE} height={550} />
           </Route>
         </Switch>
       </div>

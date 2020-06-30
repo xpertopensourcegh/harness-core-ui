@@ -1,26 +1,32 @@
 [
   {
-    "name": "Kubernetes Deployment",
-    "version": "1.1",
-    "description": "A Deployment Stage with Kubernetes Setup",
-    "yaml": "spec:\r\n  access: outside-cluster\r\n  masterUrl: 'https://34.67.13.218'\r\n  k8s-auth: \r\n  type: user-password\r\n  spec: \r\n  username: admin\r\n  password: kube_cluster_password\r\n  cacert: 'secretRef:kube_cluster_cacert'\r\n"
+    "name": "K8s Cluster with Username and Password",
+    "version": "0.1",
+    "description": "K8s Cluster with Username and Password",
+    "yaml": "# K8s Cluster with Username and Password\r\n# Name of the connector Required\r\nname: My k8s Cluster\r\n# Non-changeable identifier of the connector, can not contain spaces or special chars. REQUIRED\r\nidentifier: my_k8s_cluster\r\n# Org ID\r\norgIdentifier: Devops\r\n# Project ID\r\nprojectIdentifer: Harness Sample App\r\ntype: K8sCluster\r\nspec:\r\n  type: ManualConfig\r\n  spec:  \r\n    masterUrl: k8s master url\r\n    auth:      \r\n      type: UserPassword\r\n      spec:\r\n        # Username for the Kubernetes cluster. Requried\r\n        username:  admin\r\n        # Password for the Kubernetes cluster. Reference to secret (either secret name or identifier). Required\r\n        password : kube_cluster_password\r\n        # Root certificate used to validate client certificates presented to the API server. Optional\r\n        cacert: secretRef:kube_cluster_cacert"
   },
   {
-    "name": "Amazon ECS Deployment",
-    "version": "1.1",
-    "description": "A Deployment Stage with Amazon ECS Setup",
-    "yaml": "spec:\r\n  access: outside-cluster\r\n  masterUrl: 'https://34.67.13.218'\r\n  k8s-auth: \r\n  type: user-password\r\n  spec: \r\n  username: admin\r\n  password: kube_cluster_password\r\n  cacert: 'secretRef:kube_cluster_cacert'\r\n"
+    "name": "K8s Cluster with Client Key Cert",
+    "version": "0.1",
+    "description": "K8s Cluster with Client Key Cert",
+    "yaml": "# K8s Cluster with Client key Cert\r\n# Name of the connector Required\r\nname: My k8s Cluster\r\n# Non-changeable identifier of the connector, can not contain spaces or special chars. REQUIRED\r\nidentifier: my_k8s_cluster\r\n# Org ID\r\norgIdentifier: Devops\r\n# Project ID\r\nprojectIdentifer: Harness Sample App\r\ntype: K8sCluster\r\nspec:\r\n  type: ManualConfig\r\n  spec:  \r\n    masterUrl: k8s master url\r\n    auth:            \r\n      type: ClientKeyCert \r\n      spec:\r\n        # Client certificate for the cluster. Required\r\n        client-cert: secretRef:k8s_cluster_client\r\n        # Client key for the client certificate. Required\r\n        client-key : secretRef:k8s_client_key\r\n        # Client key passphrase Required\r\n        client-key-passphrase: secretRef:k8s_client_key_passphrase\r\n        # Encryption algorithm used when the certificate was created. Typically, RSA\r\n        clientKeyAlgo: RSA"
   },
   {
-    "name": "PCF Deployment",
-    "version": "1.1",
-    "description": "A Deployment Stage with PCF Setup",
-    "yaml": "spec:\r\n  access: outside-cluster\r\n  masterUrl: 'https://34.67.13.218'\r\n  k8s-auth: \r\n  type: user-password\r\n  spec: \r\n  username: admin\r\n  password: kube_cluster_password\r\n  cacert: 'secretRef:kube_cluster_cacert'\r\n"
+    "name": "K8s Cluster with Service Account",
+    "version": "0.1",
+    "description": "K8s Cluster with Service Account",
+    "yaml": "# K8s Cluster with Service Account\r\n# Name of the connector Required\r\nname: My k8s Cluster\r\n# Non-changeable identifier of the connector, can not contain spaces or special chars. REQUIRED\r\nidentifier: my_k8s_cluster\r\n# Org ID\r\norgIdentifier: Devops\r\n# Project ID\r\nprojectIdentifer: Harness Sample App\r\ntype: K8sCluster\r\nspec:\r\n  type: ManualConfig\r\n  spec:  \r\n    masterUrl: k8s master url\r\n    auth:      \r\n      type: ServiceAccount \r\n      spec:          \r\n        # Service account token for the service accoun. | Required\r\n        service-acccount-token:  secretRef:service_account_token"
   },
   {
-    "name": "AWS CodeDeploy",
-    "version": "1.1",
+    "name": "K8s Cluster with Open Id Connect",
+    "version": "0.1",
     "description": "A Deployment Stage with CodeDeploy Setup",
-    "yaml": "spec:\r\n  access: outside-cluster\r\n  masterUrl: 'https://34.67.13.218'\r\n  k8s-auth: \r\n  type: user-password\r\n  spec: \r\n  username: admin\r\n  password: kube_cluster_password\r\n  cacert: 'secretRef:kube_cluster_cacert'\r\n"
+    "yaml": "# K8s Cluster with Open Id Connect\r\n# Name of the connector Required\r\nname: My k8s Cluster\r\n# Non-changeable identifier of the connector, can not contain spaces or special chars. REQUIRED\r\nidentifier: my_k8s_cluster\r\n# Org ID\r\norgIdentifier: Devops\r\n# Project ID\r\nprojectIdentifer: Harness Sample App\r\ntype: K8sCluster\r\nspec:\r\n  type: ManualConfig\r\n  spec:  \r\n    masterUrl: k8s master url\r\n    auth:      \r\n      type: OpenIdConnect \r\n      spec:             \r\n        # URL of the provider which allows the API server to discover public signing keys. Required\r\n        oidc-issuer-url: https://dev-00000.okta.com/oauth2/default/v1\r\n        # Public identifier for the client that is required for all OAuth flows. Required\r\n        oidc-client-id: secretRef:kubernetes\r\n        # Login credentials for a user assigned to the provider app\r\n        oidc-username: admin\r\n        # Login credentials for a user assigned to the provider app\r\n        oidc-password: secretRef:k8s_oidc_password\r\n        # The client secret for the app. Optional\r\n        oidc-secret: Secret\r\n        # OIDC scopes are used by an application during authentication to authorize access to a user's details, \r\n        # like name and picture. Optional\r\n        oidc-scopes: picture"
+  },
+  {
+    "name": "K8s Cluster with In-Cluster Delegate",
+    "version": "0.1",
+    "description": "K8s Cluster with In-cluster Delegate",
+    "yaml": "# K8s cluster with in-cluster delegate\r\n# Name of the connector Required\r\nname: My k8s Cluster\r\n# Non-changeable identifier of the connector, can not contain spaces or special chars. REQUIRED\r\nidentifier: my_k8s_cluster\r\n# Org ID\r\norgIdentifier: Devops\r\n# Project ID\r\nprojectIdentifer: Harness Sample App\r\ntype: K8sCluster\r\nspec:\r\n  type: InheritFromDelegate\r\n  spec:\r\n    delegateName: K8s_in_cluster"
   }
 ]

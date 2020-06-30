@@ -90,9 +90,11 @@ const SnippetDetails = (props: SnippetDetailsProps) => {
           onChange={onSnippetSearch}
           value={searchedSnippet}
         />
-        <span className={css.closeIcon}>
-          <Icon name={'main-close'} size={10} onClick={onSearchClear} />
-        </span>
+        {searchedSnippet ? (
+          <span className={css.closeIcon}>
+            <Icon name={'main-close'} size={10} onClick={onSearchClear} />
+          </span>
+        ) : null}
       </div>
       <div className={css.snippets}>{snippets.map(snippet => getSnippetDetail(snippet))}</div>
     </div>

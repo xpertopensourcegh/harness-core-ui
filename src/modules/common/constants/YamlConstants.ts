@@ -1,3 +1,4 @@
 export const YamlEntity = {
-  CONNECTOR: 'CONNECTOR'
+  CONNECTOR: 'CONNECTOR',
+  PIPELINE: 'PIPELINE'
 }

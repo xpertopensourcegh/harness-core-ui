@@ -19,7 +19,8 @@ monaco.editor.defineTheme('vs', {
   inherit: false,
   rules: [
     { token: 'type', foreground: '1D76FF' },
-    { token: 'string', foreground: '22272D' }
+    { token: 'string', foreground: '22272D' },
+    { token: 'comment', foreground: '9aa5b5' }
   ]
 })
 monaco.editor.setTheme('vs')
