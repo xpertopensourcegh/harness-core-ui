@@ -1,23 +1,18 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import type { MouseEvent } from 'react'
 import cx from 'classnames'
 
 import i18n from './SnippetDetails.i18n'
 import { Icon } from '@wings-software/uikit'
 import copy from 'copy-to-clipboard'
+import { YAMLService } from 'modules/dx/services'
+import type { SnippetInterface } from '../../interfaces/SnippetInterface'
 
 import css from './SnippetDetails.module.scss'
 
 interface SnippetDetailsProps {
   entityType: string
   selectedIcon: string
-}
-
-interface SnippetInteface {
-  name: string
-  version: string
-  description?: string
-  yaml: string
 }
 
 const onCopy = () => {
@@ -29,7 +24,7 @@ const copyToClipboard = (event: MouseEvent, snippetYaml: string) => {
   onCopy()
 }
 
-const getSnippetDetail = (snippet: SnippetInteface) => {
+const getSnippetDetail = (snippet: SnippetInterface) => {
   return (
     <div className={cx(css.flexCenter, css.snippet)} key={snippet.name}>
       <span className={css.icon}>
@@ -51,41 +46,32 @@ const getSnippetDetail = (snippet: SnippetInteface) => {
 }
 
 const SnippetDetails = (props: SnippetDetailsProps) => {
-  const placeHolderSnippet =
-    "spec:\r\n  access: outside-cluster\r\n  masterUrl: 'https://34.67.13.218'\r\n  k8s-auth: \r\n  type: user-password\r\n  spec: \r\n  username: admin\r\n  password: kube_cluster_password\r\n  cacert: 'secretRef:kube_cluster_cacert'\r\n"
-  const [snippets, setSnippets] = useState([
-    {
-      name: 'Kubernetes Deployment',
-      version: '1.1',
-      description: 'A Deployment Stage with Kubernetes Setup',
-      yaml: placeHolderSnippet
-    },
-    {
-      name: 'Amazon ECS Deployment',
-      version: '1.1',
-      description: 'A Deployment Stage with Amazon ECS Setup',
-      yaml: placeHolderSnippet
-    },
-    {
-      name: 'PCF Deployment',
-      version: '1.1',
-      description: 'A Deployment Stage with PCF Setup',
-      yaml: placeHolderSnippet
-    },
-    {
-      name: 'AWS CodeDeploy',
-      version: '1.1',
-      description: 'A Deployment Stage with CodeDeploy Setup',
-      yaml: placeHolderSnippet
-    }
-  ])
+  const [snippets, setSnippets] = useState([] as SnippetInterface[])
+  const [searchedSnippet, setSearchedSnippet] = useState('')
+
+  const fetchSnippets = () => {
+    const snippetsFetched = YAMLService.fetchSnippets() as SnippetInterface[]
+    // Randomizing to provide update effect
+    setSnippets(snippetsFetched.sort(() => Math.random() - 0.5))
+  }
 
   const onSnippetSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSnippets(snippets.filter(snippet => snippet.name.toLowerCase() === event.target.value.toLowerCase()))
+    event.preventDefault()
+    const query = event.target.value
+    setSearchedSnippet(query)
+    setSnippets(snippets.slice().filter(snippet => snippet.name.toLowerCase().includes(query.toLowerCase())))
+  }
+
+  const onSearchClear = (event: React.MouseEvent<HTMLElement>) => {
+    event.preventDefault()
+    setSearchedSnippet('')
+    fetchSnippets()
   }
 
   //TODO Handle icon click when apis are ready
-  // useEffect(() => {}, [props.entityType])
+  useEffect(() => {
+    fetchSnippets()
+  }, [props.entityType, props.selectedIcon])
 
   return (
     <div className={css.main}>
@@ -97,7 +83,16 @@ const SnippetDetails = (props: SnippetDetailsProps) => {
         <span className={css.searchIcon}>
           <Icon name={'main-search'} size={20} />
         </span>
-        <input placeholder="Search" name="snippet-search" className={css.search} onChange={onSnippetSearch} />
+        <input
+          placeholder="Search"
+          name="snippet-search"
+          className={css.search}
+          onChange={onSnippetSearch}
+          value={searchedSnippet}
+        />
+        <span className={css.closeIcon}>
+          <Icon name={'main-close'} size={10} onClick={onSearchClear} />
+        </span>
       </div>
       <div className={css.snippets}>{snippets.map(snippet => getSnippetDetail(snippet))}</div>
     </div>

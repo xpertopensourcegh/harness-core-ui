@@ -1,0 +1,26 @@
+[
+  {
+    "name": "Kubernetes Deployment",
+    "version": "1.1",
+    "description": "A Deployment Stage with Kubernetes Setup",
+    "yaml": "spec:\r\n  access: outside-cluster\r\n  masterUrl: 'https://34.67.13.218'\r\n  k8s-auth: \r\n  type: user-password\r\n  spec: \r\n  username: admin\r\n  password: kube_cluster_password\r\n  cacert: 'secretRef:kube_cluster_cacert'\r\n"
+  },
+  {
+    "name": "Amazon ECS Deployment",
+    "version": "1.1",
+    "description": "A Deployment Stage with Amazon ECS Setup",
+    "yaml": "spec:\r\n  access: outside-cluster\r\n  masterUrl: 'https://34.67.13.218'\r\n  k8s-auth: \r\n  type: user-password\r\n  spec: \r\n  username: admin\r\n  password: kube_cluster_password\r\n  cacert: 'secretRef:kube_cluster_cacert'\r\n"
+  },
+  {
+    "name": "PCF Deployment",
+    "version": "1.1",
+    "description": "A Deployment Stage with PCF Setup",
+    "yaml": "spec:\r\n  access: outside-cluster\r\n  masterUrl: 'https://34.67.13.218'\r\n  k8s-auth: \r\n  type: user-password\r\n  spec: \r\n  username: admin\r\n  password: kube_cluster_password\r\n  cacert: 'secretRef:kube_cluster_cacert'\r\n"
+  },
+  {
+    "name": "AWS CodeDeploy",
+    "version": "1.1",
+    "description": "A Deployment Stage with CodeDeploy Setup",
+    "yaml": "spec:\r\n  access: outside-cluster\r\n  masterUrl: 'https://34.67.13.218'\r\n  k8s-auth: \r\n  type: user-password\r\n  spec: \r\n  username: admin\r\n  password: kube_cluster_password\r\n  cacert: 'secretRef:kube_cluster_cacert'\r\n"
+  }
+]

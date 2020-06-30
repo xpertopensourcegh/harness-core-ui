@@ -39,7 +39,7 @@ const YAMLBuilder = (props: YamlBuilderProps) => {
   const [entityYaml, setEntityYaml] = useState()
 
   function loadEntitySchemas() {
-    const jsonSchemas = JSONSchemaService.fetchEntitySchemas({})
+    const jsonSchemas = JSONSchemaService.fetchEntitySchemas()
     return jsonSchemas
   }
 

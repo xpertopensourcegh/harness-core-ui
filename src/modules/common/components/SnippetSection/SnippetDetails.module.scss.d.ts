@@ -17,5 +17,6 @@ declare const styles: {
   readonly title: string
   readonly searchBar: string
   readonly searchIcon: string
+  readonly closeIcon: string
 }
 export default styles
