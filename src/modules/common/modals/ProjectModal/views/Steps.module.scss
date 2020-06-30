@@ -12,10 +12,10 @@
 }
 
 .radioSelectPurpose {
-  margin: 50px 50px 80px;
+  margin: 50px 40px 80px;
 
   :global(.bp3-card) {
-    margin-right: var(--spacing-large);
+    margin-right: var(--spacing-medium);
     width: 200px;
   }
 }

@@ -23,8 +23,10 @@ export default {
       continuous: 'Continuous',
       deployment: 'Deployment',
       verification: 'Verification',
+      integration: 'Integration',
       cdDescription: 'Deploy your services with blazingly fast pipelines.',
       cvDescription: 'Intelligent monitoring of your running applications',
+      ciDescription: 'Coming Soon',
       time: (mins: number) => `${mins}-min setup`
     },
     stepTwo: {
@@ -37,7 +39,7 @@ export default {
       addTags: 'Add Tags',
       preview: 'Preview',
       previewProjectCard: 'Preview your project card',
-      previewSubtitle: "This project will be created for you. To get going, you'll have to create a pipeline.",
+      closePreview: 'Close Preview',
       addCollab: 'Add Collaborators >'
     },
     stepThree: {

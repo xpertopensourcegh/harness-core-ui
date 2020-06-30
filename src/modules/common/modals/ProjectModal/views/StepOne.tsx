@@ -31,6 +31,14 @@ const options: Purpose[] = [
     description: i18n.newProjectWizard.stepOne.cvDescription,
     time: i18n.newProjectWizard.stepOne.time(10),
     value: 'CV'
+  },
+  {
+    icon: 'nav-project',
+    titleOne: i18n.newProjectWizard.stepOne.continuous.toUpperCase(),
+    titleTwo: i18n.newProjectWizard.stepOne.integration.toUpperCase(),
+    description: i18n.newProjectWizard.stepOne.ciDescription,
+    time: i18n.newProjectWizard.stepOne.time(10),
+    value: 'CI'
   }
 ]
 
