@@ -1,14 +1,21 @@
+import React from 'react'
+import { useParams, useHistory } from 'react-router-dom'
+
 import { Button, Layout } from '@wings-software/uikit'
-import { orderBy } from 'lodash-es'
 import { OrganizationCard } from 'modules/common/components/OrganizationCard/OrganizationCard'
 import { Page } from 'modules/common/exports'
+import { linkTo } from 'framework/exports'
+import { routeOrgProjects } from 'modules/common/routes'
 import { useOrganizationModal } from 'modules/common/modals/OrganizationModal/useOrganizationModal'
-import React from 'react'
-import { useGetOrganizations, OrganizationDTO } from 'services/cd-ng'
+import { useGetOrganizationList } from 'services/cd-ng'
+import type { OrganizationDTO } from 'services/cd-ng'
+
 import i18n from './OrganizationsPage.i18n'
 
 const OrganizationsPage: React.FC = () => {
-  const { loading, data: organizations, refetch, error } = useGetOrganizations({})
+  const { accountId } = useParams()
+  const history = useHistory()
+  const { loading, data: organizations, refetch, error } = useGetOrganizationList({ accountIdentifier: accountId })
   const { openOrganizationModal } = useOrganizationModal({
     onSuccess: () => refetch()
   })
@@ -32,24 +39,27 @@ const OrganizationsPage: React.FC = () => {
         error={error?.message}
         retryOnError={() => refetch()}
         noData={{
-          when: () => !(organizations as [])?.length,
+          when: () => !organizations?.data?.content?.length,
           icon: 'nav-dashboard',
           message: i18n.noDataMessage,
           buttonText: i18n.newOrganizationButtonText,
           onClick: () => openOrganizationModal()
         }}
       >
-        {(organizations as [])?.length && (
-          <Layout.Masonry
-            center
-            gutter={25}
-            items={orderBy(organizations as [], 'name')}
-            renderItem={(org: OrganizationDTO) => (
-              <OrganizationCard data={org} onClick={() => openOrganizationModal(org)} />
-            )}
-            keyOf={(org: OrganizationDTO) => org.id}
-          />
-        )}
+        <Layout.Masonry
+          center
+          gutter={20}
+          items={organizations?.data?.content || []}
+          renderItem={(org: OrganizationDTO) => (
+            <OrganizationCard
+              data={org}
+              editOrg={() => openOrganizationModal(org)}
+              reloadOrgs={() => refetch()}
+              onClick={() => history.push(linkTo(routeOrgProjects, { orgId: org.identifier }))}
+            />
+          )}
+          keyOf={(org: OrganizationDTO) => org.identifier}
+        />
       </Page.Body>
     </>
   )

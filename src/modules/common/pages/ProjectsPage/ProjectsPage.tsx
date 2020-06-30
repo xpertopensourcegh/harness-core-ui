@@ -1,10 +1,13 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { Button, Container, Layout, Text, Select } from '@wings-software/uikit'
-import { includes } from 'framework/utils/rsql'
+import { Button, Container, Layout } from '@wings-software/uikit'
 
 import cx from 'classnames'
-import { useGetProjects, useGetOrganizations } from 'services/cd-ng'
+import {
+  useGetProjectListForOrganization,
+  useGetProjectListForAccount
+  // useGetOrganizations
+} from 'services/cd-ng'
 import type { ProjectDTO } from 'services/cd-ng'
 
 import { Page } from 'modules/common/exports'
@@ -15,28 +18,39 @@ import i18n from './ProjectsPage.i18n'
 
 import css from './ProjectsPage.module.scss'
 
-interface SelectOption {
-  label: string
-  value: string
-}
+// interface SelectOption {
+//   label: string
+//   value: string
+// }
 
-const allOrgsSelectOption: SelectOption = {
-  label: 'All',
-  value: 'ALL'
-}
+// const allOrgsSelectOption: SelectOption = {
+//   label: 'All',
+//   value: 'ALL'
+// }
 
 const ProjectsListPage: React.FC = () => {
-  const [orgFilter, setOrgFilter] = useState<SelectOption>(allOrgsSelectOption)
+  // const [orgFilter, setOrgFilter] = useState<SelectOption>(allOrgsSelectOption)
   const [ownerFilter, setOwnerFilter] = useState('ALL')
-  const { accountId } = useParams()
+  const { accountId, orgId } = useParams()
 
-  const { loading, data, refetch: reloadProjects, error } = useGetProjects({
-    queryParams: {
-      orgId: orgFilter.value === 'ALL' ? '' : orgFilter.value,
-      filter: ownerFilter === 'ALL' ? '' : includes('owners', [accountId])
-    }
-  })
-  const { data: orgs } = useGetOrganizations({})
+  const {
+    loading: loadingOrgProjects,
+    data: dataOrgProjects,
+    refetch: reloadOrgProjects
+  } = useGetProjectListForOrganization({ orgIdentifier: orgId, lazy: true })
+  const {
+    loading: loadingAllProjects,
+    data: dataAllProjects,
+    refetch: reloadAllProjects
+  } = useGetProjectListForAccount({ accountIdentifier: accountId, lazy: true })
+
+  const loading = orgId ? loadingOrgProjects : loadingAllProjects
+  const data = orgId ? dataOrgProjects : dataAllProjects
+  const reloadProjects = orgId ? reloadOrgProjects : reloadAllProjects
+
+  useEffect(() => {
+    reloadProjects()
+  }, [accountId, orgId])
 
   const projectCreateSuccessHandler = (): void => {
     closeProjectModal()
@@ -49,15 +63,15 @@ const ProjectsListPage: React.FC = () => {
     openProjectModal(project)
   }
 
-  const organisations = [
-    allOrgsSelectOption,
-    ...(orgs?.content?.map(org => {
-      return {
-        label: org.name || '',
-        value: org.id || ''
-      }
-    }) || [])
-  ]
+  // const organisations = [
+  //   allOrgsSelectOption,
+  //   ...(orgs?.content?.map(org => {
+  //     return {
+  //       label: org.name || '',
+  //       value: org.id || ''
+  //     }
+  //   }) || [])
+  // ]
 
   return (
     <>
@@ -83,13 +97,13 @@ const ProjectsListPage: React.FC = () => {
             >
               {i18n.tabAllProjects}
             </a>
-            <Text style={{ paddingLeft: '20px' }}>{i18n.tabOrgs}:</Text>
+            {/* <Text style={{ paddingLeft: '20px' }}>{i18n.tabOrgs}:</Text>
             <Select
               items={organisations}
               value={orgFilter}
               onChange={item => setOrgFilter(item as SelectOption)}
               className={css.orgSelect}
-            />
+            /> */}
           </Layout.Horizontal>
         }
         toolbar={
@@ -100,10 +114,9 @@ const ProjectsListPage: React.FC = () => {
       />
       <Page.Body
         loading={loading}
-        error={error?.message}
         retryOnError={() => reloadProjects()}
         noData={{
-          when: () => !data?.content?.length,
+          when: () => !data?.data?.content?.length,
           icon: 'nav-project',
           message: i18n.aboutProject,
           buttonText: i18n.addProject,
@@ -111,10 +124,10 @@ const ProjectsListPage: React.FC = () => {
         }}
       >
         <Layout.Masonry
-          gutter={30}
+          gutter={25}
           width={900}
           className={css.centerContainer}
-          items={data?.content || []}
+          items={data?.data?.content || []}
           renderItem={(project: ProjectDTO) => (
             <ProjectCard data={project} reloadProjects={reloadProjects} editProject={showEditProject} />
           )}

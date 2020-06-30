@@ -22,18 +22,26 @@ export const MenuAccount: React.FC = () => {
             icon="nav-organization-hover"
             selected={isRouteActive(routes.routeOrganizations)}
           />
-          <Sidebar.Link
-            href={linkTo(routes.routeGovernance)}
-            label={i18n.governance}
-            icon="nav-governance"
-            selected={isRouteActive(routes.routeGovernance)}
-          />
-          <Sidebar.Link
-            href={linkTo(routes.routeResources)}
-            label={i18n.resources}
-            icon="nav-resources"
-            selected={isRouteActive(routes.routeResources)}
-          />
+          <Layout.Vertical style={{ marginLeft: 'var(--spacing-xlarge)' }}>
+            <Sidebar.Link
+              href={linkTo(routes.routeOrgProjects)}
+              label={i18n.projects}
+              icon="nav-project"
+              selected={isRouteActive(routes.routeOrgProjects)}
+            />
+            <Sidebar.Link
+              href={linkTo(routes.routeGovernance)}
+              label={i18n.governance}
+              icon="nav-governance"
+              selected={isRouteActive(routes.routeGovernance)}
+            />
+            <Sidebar.Link
+              href={linkTo(routes.routeResources)}
+              label={i18n.resources}
+              icon="nav-resources"
+              selected={isRouteActive(routes.routeResources)}
+            />
+          </Layout.Vertical>
         </Layout.Vertical>
       </Container>
     </Layout.Vertical>

@@ -7,36 +7,581 @@ export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
 
 export interface ProjectDTO {
   id?: string
-  accountId?: string
-  orgId?: string
+  accountIdentifier?: string
+  orgIdentifier?: string
   identifier?: string
   name?: string
   color?: string
-  purpose?: string
+  purposeList?: string[]
   description?: string
   owners?: string[]
   tags?: string[]
+}
+
+export interface ResponseDTOBoolean {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: boolean
+  metaData?: { [key: string]: any }
+  correlationId?: string
 }
 
 export interface ConnectorConfigDTO {
   [key: string]: any
 }
 
-export interface CreateProjectDTO {
-  accountId?: string
-  orgId?: string
-  identifier?: string
+export interface ConnectorRequestDTO {
   name?: string
-  color?: string
-  purpose?: string
+  identifier?: string
   description?: string
-  owners?: string[]
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifer?: string
   tags?: string[]
+  type?: 'KUBERNETES_CLUSTER'
+  type1?: 'KUBERNETES_CLUSTER'
+  spec?: ConnectorConfigDTO
+}
+
+export interface ResponseDTOOptionalOrganizationDTO {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: OrganizationDTO
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
+export interface ResponseDTOPageProjectDTO {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: PageProjectDTO
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
+export interface ErrorDTO {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  code?:
+    | 'DEFAULT_ERROR_CODE'
+    | 'INVALID_ARGUMENT'
+    | 'INVALID_EMAIL'
+    | 'DOMAIN_NOT_ALLOWED_TO_REGISTER'
+    | 'USER_ALREADY_REGISTERED'
+    | 'USER_INVITATION_DOES_NOT_EXIST'
+    | 'USER_DOES_NOT_EXIST'
+    | 'USER_INVITE_OPERATION_FAILED'
+    | 'USER_DISABLED'
+    | 'ACCOUNT_DOES_NOT_EXIST'
+    | 'INACTIVE_ACCOUNT'
+    | 'ACCOUNT_MIGRATED'
+    | 'USER_DOMAIN_NOT_ALLOWED'
+    | 'MAX_FAILED_ATTEMPT_COUNT_EXCEEDED'
+    | 'RESOURCE_NOT_FOUND'
+    | 'ROLE_DOES_NOT_EXIST'
+    | 'EMAIL_NOT_VERIFIED'
+    | 'EMAIL_VERIFICATION_TOKEN_NOT_FOUND'
+    | 'INVALID_TOKEN'
+    | 'INVALID_CAPTCHA_TOKEN'
+    | 'NOT_ACCOUNT_MGR_NOR_HAS_ALL_APP_ACCESS'
+    | 'EXPIRED_TOKEN'
+    | 'TOKEN_ALREADY_REFRESHED_ONCE'
+    | 'ACCESS_DENIED'
+    | 'INVALID_CREDENTIAL'
+    | 'INVALID_KEY'
+    | 'INVALID_KEYPATH'
+    | 'INVALID_VARIABLE'
+    | 'UNKNOWN_HOST'
+    | 'UNREACHABLE_HOST'
+    | 'INVALID_PORT'
+    | 'SSH_SESSION_TIMEOUT'
+    | 'SOCKET_CONNECTION_ERROR'
+    | 'SOCKET_CONNECTION_TIMEOUT'
+    | 'CONNECTION_TIMEOUT'
+    | 'SSH_CONNECTION_ERROR'
+    | 'INVALID_EXECUTION_ID'
+    | 'ERROR_IN_GETTING_CHANNEL_STREAMS'
+    | 'UNEXPECTED'
+    | 'UNKNOWN_ERROR'
+    | 'UNKNOWN_EXECUTOR_TYPE_ERROR'
+    | 'DUPLICATE_STATE_NAMES'
+    | 'TRANSITION_NOT_LINKED'
+    | 'TRANSITION_TO_INCORRECT_STATE'
+    | 'TRANSITION_TYPE_NULL'
+    | 'STATES_WITH_DUP_TRANSITIONS'
+    | 'BARRIERS_NOT_RUNNING_CONCURRENTLY'
+    | 'NON_FORK_STATES'
+    | 'NON_REPEAT_STATES'
+    | 'INITIAL_STATE_NOT_DEFINED'
+    | 'FILE_INTEGRITY_CHECK_FAILED'
+    | 'INVALID_URL'
+    | 'FILE_DOWNLOAD_FAILED'
+    | 'PLATFORM_SOFTWARE_DELETE_ERROR'
+    | 'INVALID_CSV_FILE'
+    | 'INVALID_REQUEST'
+    | 'INVALID_INFRA_STATE'
+    | 'PIPELINE_ALREADY_TRIGGERED'
+    | 'NON_EXISTING_PIPELINE'
+    | 'DUPLICATE_COMMAND_NAMES'
+    | 'INVALID_PIPELINE'
+    | 'COMMAND_DOES_NOT_EXIST'
+    | 'DUPLICATE_ARTIFACTSTREAM_NAMES'
+    | 'DUPLICATE_HOST_NAMES'
+    | 'STATE_NOT_FOR_TYPE'
+    | 'STATE_MACHINE_ISSUE'
+    | 'STATE_DISCONTINUE_FAILED'
+    | 'STATE_PAUSE_FAILED'
+    | 'PAUSE_ALL_ALREADY'
+    | 'RESUME_ALL_ALREADY'
+    | 'ROLLBACK_ALREADY'
+    | 'ABORT_ALL_ALREADY'
+    | 'RETRY_FAILED'
+    | 'UNKNOWN_ARTIFACT_TYPE'
+    | 'INIT_TIMEOUT'
+    | 'LICENSE_EXPIRED'
+    | 'NOT_LICENSED'
+    | 'REQUEST_TIMEOUT'
+    | 'WORKFLOW_ALREADY_TRIGGERED'
+    | 'JENKINS_ERROR'
+    | 'INVALID_ARTIFACT_SOURCE'
+    | 'INVALID_ARTIFACT_SERVER'
+    | 'INVALID_CLOUD_PROVIDER'
+    | 'UPDATE_NOT_ALLOWED'
+    | 'DELETE_NOT_ALLOWED'
+    | 'APPDYNAMICS_CONFIGURATION_ERROR'
+    | 'APM_CONFIGURATION_ERROR'
+    | 'SPLUNK_CONFIGURATION_ERROR'
+    | 'ELK_CONFIGURATION_ERROR'
+    | 'LOGZ_CONFIGURATION_ERROR'
+    | 'SUMO_CONFIGURATION_ERROR'
+    | 'INSTANA_CONFIGURATION_ERROR'
+    | 'APPDYNAMICS_ERROR'
+    | 'STACKDRIVER_ERROR'
+    | 'STACKDRIVER_CONFIGURATION_ERROR'
+    | 'NEWRELIC_CONFIGURATION_ERROR'
+    | 'NEWRELIC_ERROR'
+    | 'DYNA_TRACE_CONFIGURATION_ERROR'
+    | 'DYNA_TRACE_ERROR'
+    | 'CLOUDWATCH_ERROR'
+    | 'CLOUDWATCH_CONFIGURATION_ERROR'
+    | 'PROMETHEUS_CONFIGURATION_ERROR'
+    | 'DATA_DOG_CONFIGURATION_ERROR'
+    | 'SERVICE_GUARD_CONFIGURATION_ERROR'
+    | 'ENCRYPTION_NOT_CONFIGURED'
+    | 'UNAVAILABLE_DELEGATES'
+    | 'WORKFLOW_EXECUTION_IN_PROGRESS'
+    | 'PIPELINE_EXECUTION_IN_PROGRESS'
+    | 'AWS_ACCESS_DENIED'
+    | 'AWS_CLUSTER_NOT_FOUND'
+    | 'AWS_SERVICE_NOT_FOUND'
+    | 'INVALID_YAML_PAYLOAD'
+    | 'UNRECOGNIZED_YAML_FIELDS'
+    | 'COULD_NOT_MAP_BEFORE_YAML'
+    | 'MISSING_BEFORE_YAML'
+    | 'MISSING_YAML'
+    | 'NON_EMPTY_DELETIONS'
+    | 'GENERAL_YAML_ERROR'
+    | 'GENERAL_YAML_INFO'
+    | 'YAML_GIT_SYNC_ERROR'
+    | 'GIT_CONNECTION_ERROR'
+    | 'GIT_ERROR'
+    | 'ARTIFACT_SERVER_ERROR'
+    | 'ENCRYPT_DECRYPT_ERROR'
+    | 'SECRET_MANAGEMENT_ERROR'
+    | 'KMS_OPERATION_ERROR'
+    | 'GCP_KMS_OPERATION_ERROR'
+    | 'VAULT_OPERATION_ERROR'
+    | 'AWS_SECRETS_MANAGER_OPERATION_ERROR'
+    | 'AZURE_KEY_VAULT_OPERATION_ERROR'
+    | 'CYBERARK_OPERATION_ERROR'
+    | 'UNSUPPORTED_OPERATION_EXCEPTION'
+    | 'FEATURE_UNAVAILABLE'
+    | 'GENERAL_ERROR'
+    | 'BASELINE_CONFIGURATION_ERROR'
+    | 'SAML_IDP_CONFIGURATION_NOT_AVAILABLE'
+    | 'INVALID_AUTHENTICATION_MECHANISM'
+    | 'INVALID_SAML_CONFIGURATION'
+    | 'INVALID_OAUTH_CONFIGURATION'
+    | 'INVALID_LDAP_CONFIGURATION'
+    | 'USER_GROUP_SYNC_FAILURE'
+    | 'USER_GROUP_ALREADY_EXIST'
+    | 'INVALID_TWO_FACTOR_AUTHENTICATION_CONFIGURATION'
+    | 'EXPLANATION'
+    | 'HINT'
+    | 'NOT_WHITELISTED_IP'
+    | 'INVALID_TOTP_TOKEN'
+    | 'EMAIL_FAILED'
+    | 'SSL_HANDSHAKE_FAILED'
+    | 'NO_APPS_ASSIGNED'
+    | 'INVALID_INFRA_CONFIGURATION'
+    | 'TEMPLATES_LINKED'
+    | 'USER_HAS_NO_PERMISSIONS'
+    | 'USER_NOT_AUTHORIZED'
+    | 'USER_ALREADY_PRESENT'
+    | 'INVALID_USAGE_RESTRICTION'
+    | 'USAGE_RESTRICTION_ERROR'
+    | 'STATE_EXECUTION_INSTANCE_NOT_FOUND'
+    | 'DELEGATE_TASK_RETRY'
+    | 'KUBERNETES_YAML_ERROR'
+    | 'SAVE_FILE_INTO_GCP_STORAGE_FAILED'
+    | 'READ_FILE_FROM_GCP_STORAGE_FAILED'
+    | 'USAGE_LIMITS_EXCEEDED'
+    | 'EVENT_PUBLISH_FAILED'
+    | 'JIRA_ERROR'
+    | 'EXPRESSION_EVALUATION_FAILED'
+    | 'KUBERNETES_VALUES_ERROR'
+    | 'KUBERNETES_CLUSTER_ERROR'
+    | 'INCORRECT_SIGN_IN_MECHANISM'
+    | 'OAUTH_LOGIN_FAILED'
+    | 'INVALID_TERRAFORM_TARGETS_REQUEST'
+    | 'FILE_READ_FAILED'
+    | 'FILE_SIZE_EXCEEDS_LIMIT'
+    | 'CLUSTER_NOT_FOUND'
+    | 'MARKETPLACE_TOKEN_NOT_FOUND'
+    | 'INVALID_MARKETPLACE_TOKEN'
+    | 'INVALID_TICKETING_SERVER'
+    | 'SERVICENOW_ERROR'
+    | 'PASSWORD_EXPIRED'
+    | 'USER_LOCKED'
+    | 'PASSWORD_STRENGTH_CHECK_FAILED'
+    | 'INVALID_ACCOUNT_PERMISSION'
+    | 'PAGERDUTY_ERROR'
+    | 'HEALTH_ERROR'
+    | 'SAML_TEST_SUCCESS_MECHANISM_NOT_ENABLED'
+    | 'DOMAIN_WHITELIST_FILTER_CHECK_FAILED'
+    | 'INVALID_DASHBOARD_UPDATE_REQUEST'
+    | 'DUPLICATE_FIELD'
+    | 'INVALID_AZURE_VAULT_CONFIGURATION'
+    | 'USER_NOT_AUTHORIZED_DUE_TO_USAGE_RESTRICTIONS'
+    | 'INVALID_ROLLBACK'
+    | 'SUMO_DATA_COLLECTION_ERROR'
+    | 'DEPLOYMENT_GOVERNANCE_ERROR'
+    | 'BATCH_PROCESSING_ERROR'
+    | 'GRAPHQL_ERROR'
+    | 'FILE_CREATE_ERROR'
+    | 'ILLEGAL_STATE'
+    | 'GIT_DIFF_COMMIT_NOT_IN_ORDER'
+    | 'FAILED_TO_ACQUIRE_PERSISTENT_LOCK'
+    | 'POD_NOT_FOUND_ERROR'
+    | 'COMMAND_EXECUTION_ERROR'
+    | 'ENGINE_REGISTRY_EXCEPTION'
+    | 'ENGINE_INTERRUPT_PROCESSING_EXCEPTION'
+    | 'ENGINE_IO_EXCEPTION'
+    | 'ENGINE_OUTCOME_EXCEPTION'
+    | 'ENGINE_SWEEPING_OUTPUT_EXCEPTION'
+    | 'CACHE_NOT_FOUND_EXCEPTION'
+    | 'ENGINE_ENTITY_UPDATE_EXCEPTION'
+    | 'SHELL_EXECUTION_EXCEPTION'
+  message?: string
+  correlationId?: string
+  detailedMessage?: string
+}
+
+export interface ResponseDTOProjectDTO {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: ProjectDTO
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
+export interface FailureDTO {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  code?:
+    | 'DEFAULT_ERROR_CODE'
+    | 'INVALID_ARGUMENT'
+    | 'INVALID_EMAIL'
+    | 'DOMAIN_NOT_ALLOWED_TO_REGISTER'
+    | 'USER_ALREADY_REGISTERED'
+    | 'USER_INVITATION_DOES_NOT_EXIST'
+    | 'USER_DOES_NOT_EXIST'
+    | 'USER_INVITE_OPERATION_FAILED'
+    | 'USER_DISABLED'
+    | 'ACCOUNT_DOES_NOT_EXIST'
+    | 'INACTIVE_ACCOUNT'
+    | 'ACCOUNT_MIGRATED'
+    | 'USER_DOMAIN_NOT_ALLOWED'
+    | 'MAX_FAILED_ATTEMPT_COUNT_EXCEEDED'
+    | 'RESOURCE_NOT_FOUND'
+    | 'ROLE_DOES_NOT_EXIST'
+    | 'EMAIL_NOT_VERIFIED'
+    | 'EMAIL_VERIFICATION_TOKEN_NOT_FOUND'
+    | 'INVALID_TOKEN'
+    | 'INVALID_CAPTCHA_TOKEN'
+    | 'NOT_ACCOUNT_MGR_NOR_HAS_ALL_APP_ACCESS'
+    | 'EXPIRED_TOKEN'
+    | 'TOKEN_ALREADY_REFRESHED_ONCE'
+    | 'ACCESS_DENIED'
+    | 'INVALID_CREDENTIAL'
+    | 'INVALID_KEY'
+    | 'INVALID_KEYPATH'
+    | 'INVALID_VARIABLE'
+    | 'UNKNOWN_HOST'
+    | 'UNREACHABLE_HOST'
+    | 'INVALID_PORT'
+    | 'SSH_SESSION_TIMEOUT'
+    | 'SOCKET_CONNECTION_ERROR'
+    | 'SOCKET_CONNECTION_TIMEOUT'
+    | 'CONNECTION_TIMEOUT'
+    | 'SSH_CONNECTION_ERROR'
+    | 'INVALID_EXECUTION_ID'
+    | 'ERROR_IN_GETTING_CHANNEL_STREAMS'
+    | 'UNEXPECTED'
+    | 'UNKNOWN_ERROR'
+    | 'UNKNOWN_EXECUTOR_TYPE_ERROR'
+    | 'DUPLICATE_STATE_NAMES'
+    | 'TRANSITION_NOT_LINKED'
+    | 'TRANSITION_TO_INCORRECT_STATE'
+    | 'TRANSITION_TYPE_NULL'
+    | 'STATES_WITH_DUP_TRANSITIONS'
+    | 'BARRIERS_NOT_RUNNING_CONCURRENTLY'
+    | 'NON_FORK_STATES'
+    | 'NON_REPEAT_STATES'
+    | 'INITIAL_STATE_NOT_DEFINED'
+    | 'FILE_INTEGRITY_CHECK_FAILED'
+    | 'INVALID_URL'
+    | 'FILE_DOWNLOAD_FAILED'
+    | 'PLATFORM_SOFTWARE_DELETE_ERROR'
+    | 'INVALID_CSV_FILE'
+    | 'INVALID_REQUEST'
+    | 'INVALID_INFRA_STATE'
+    | 'PIPELINE_ALREADY_TRIGGERED'
+    | 'NON_EXISTING_PIPELINE'
+    | 'DUPLICATE_COMMAND_NAMES'
+    | 'INVALID_PIPELINE'
+    | 'COMMAND_DOES_NOT_EXIST'
+    | 'DUPLICATE_ARTIFACTSTREAM_NAMES'
+    | 'DUPLICATE_HOST_NAMES'
+    | 'STATE_NOT_FOR_TYPE'
+    | 'STATE_MACHINE_ISSUE'
+    | 'STATE_DISCONTINUE_FAILED'
+    | 'STATE_PAUSE_FAILED'
+    | 'PAUSE_ALL_ALREADY'
+    | 'RESUME_ALL_ALREADY'
+    | 'ROLLBACK_ALREADY'
+    | 'ABORT_ALL_ALREADY'
+    | 'RETRY_FAILED'
+    | 'UNKNOWN_ARTIFACT_TYPE'
+    | 'INIT_TIMEOUT'
+    | 'LICENSE_EXPIRED'
+    | 'NOT_LICENSED'
+    | 'REQUEST_TIMEOUT'
+    | 'WORKFLOW_ALREADY_TRIGGERED'
+    | 'JENKINS_ERROR'
+    | 'INVALID_ARTIFACT_SOURCE'
+    | 'INVALID_ARTIFACT_SERVER'
+    | 'INVALID_CLOUD_PROVIDER'
+    | 'UPDATE_NOT_ALLOWED'
+    | 'DELETE_NOT_ALLOWED'
+    | 'APPDYNAMICS_CONFIGURATION_ERROR'
+    | 'APM_CONFIGURATION_ERROR'
+    | 'SPLUNK_CONFIGURATION_ERROR'
+    | 'ELK_CONFIGURATION_ERROR'
+    | 'LOGZ_CONFIGURATION_ERROR'
+    | 'SUMO_CONFIGURATION_ERROR'
+    | 'INSTANA_CONFIGURATION_ERROR'
+    | 'APPDYNAMICS_ERROR'
+    | 'STACKDRIVER_ERROR'
+    | 'STACKDRIVER_CONFIGURATION_ERROR'
+    | 'NEWRELIC_CONFIGURATION_ERROR'
+    | 'NEWRELIC_ERROR'
+    | 'DYNA_TRACE_CONFIGURATION_ERROR'
+    | 'DYNA_TRACE_ERROR'
+    | 'CLOUDWATCH_ERROR'
+    | 'CLOUDWATCH_CONFIGURATION_ERROR'
+    | 'PROMETHEUS_CONFIGURATION_ERROR'
+    | 'DATA_DOG_CONFIGURATION_ERROR'
+    | 'SERVICE_GUARD_CONFIGURATION_ERROR'
+    | 'ENCRYPTION_NOT_CONFIGURED'
+    | 'UNAVAILABLE_DELEGATES'
+    | 'WORKFLOW_EXECUTION_IN_PROGRESS'
+    | 'PIPELINE_EXECUTION_IN_PROGRESS'
+    | 'AWS_ACCESS_DENIED'
+    | 'AWS_CLUSTER_NOT_FOUND'
+    | 'AWS_SERVICE_NOT_FOUND'
+    | 'INVALID_YAML_PAYLOAD'
+    | 'UNRECOGNIZED_YAML_FIELDS'
+    | 'COULD_NOT_MAP_BEFORE_YAML'
+    | 'MISSING_BEFORE_YAML'
+    | 'MISSING_YAML'
+    | 'NON_EMPTY_DELETIONS'
+    | 'GENERAL_YAML_ERROR'
+    | 'GENERAL_YAML_INFO'
+    | 'YAML_GIT_SYNC_ERROR'
+    | 'GIT_CONNECTION_ERROR'
+    | 'GIT_ERROR'
+    | 'ARTIFACT_SERVER_ERROR'
+    | 'ENCRYPT_DECRYPT_ERROR'
+    | 'SECRET_MANAGEMENT_ERROR'
+    | 'KMS_OPERATION_ERROR'
+    | 'GCP_KMS_OPERATION_ERROR'
+    | 'VAULT_OPERATION_ERROR'
+    | 'AWS_SECRETS_MANAGER_OPERATION_ERROR'
+    | 'AZURE_KEY_VAULT_OPERATION_ERROR'
+    | 'CYBERARK_OPERATION_ERROR'
+    | 'UNSUPPORTED_OPERATION_EXCEPTION'
+    | 'FEATURE_UNAVAILABLE'
+    | 'GENERAL_ERROR'
+    | 'BASELINE_CONFIGURATION_ERROR'
+    | 'SAML_IDP_CONFIGURATION_NOT_AVAILABLE'
+    | 'INVALID_AUTHENTICATION_MECHANISM'
+    | 'INVALID_SAML_CONFIGURATION'
+    | 'INVALID_OAUTH_CONFIGURATION'
+    | 'INVALID_LDAP_CONFIGURATION'
+    | 'USER_GROUP_SYNC_FAILURE'
+    | 'USER_GROUP_ALREADY_EXIST'
+    | 'INVALID_TWO_FACTOR_AUTHENTICATION_CONFIGURATION'
+    | 'EXPLANATION'
+    | 'HINT'
+    | 'NOT_WHITELISTED_IP'
+    | 'INVALID_TOTP_TOKEN'
+    | 'EMAIL_FAILED'
+    | 'SSL_HANDSHAKE_FAILED'
+    | 'NO_APPS_ASSIGNED'
+    | 'INVALID_INFRA_CONFIGURATION'
+    | 'TEMPLATES_LINKED'
+    | 'USER_HAS_NO_PERMISSIONS'
+    | 'USER_NOT_AUTHORIZED'
+    | 'USER_ALREADY_PRESENT'
+    | 'INVALID_USAGE_RESTRICTION'
+    | 'USAGE_RESTRICTION_ERROR'
+    | 'STATE_EXECUTION_INSTANCE_NOT_FOUND'
+    | 'DELEGATE_TASK_RETRY'
+    | 'KUBERNETES_YAML_ERROR'
+    | 'SAVE_FILE_INTO_GCP_STORAGE_FAILED'
+    | 'READ_FILE_FROM_GCP_STORAGE_FAILED'
+    | 'USAGE_LIMITS_EXCEEDED'
+    | 'EVENT_PUBLISH_FAILED'
+    | 'JIRA_ERROR'
+    | 'EXPRESSION_EVALUATION_FAILED'
+    | 'KUBERNETES_VALUES_ERROR'
+    | 'KUBERNETES_CLUSTER_ERROR'
+    | 'INCORRECT_SIGN_IN_MECHANISM'
+    | 'OAUTH_LOGIN_FAILED'
+    | 'INVALID_TERRAFORM_TARGETS_REQUEST'
+    | 'FILE_READ_FAILED'
+    | 'FILE_SIZE_EXCEEDS_LIMIT'
+    | 'CLUSTER_NOT_FOUND'
+    | 'MARKETPLACE_TOKEN_NOT_FOUND'
+    | 'INVALID_MARKETPLACE_TOKEN'
+    | 'INVALID_TICKETING_SERVER'
+    | 'SERVICENOW_ERROR'
+    | 'PASSWORD_EXPIRED'
+    | 'USER_LOCKED'
+    | 'PASSWORD_STRENGTH_CHECK_FAILED'
+    | 'INVALID_ACCOUNT_PERMISSION'
+    | 'PAGERDUTY_ERROR'
+    | 'HEALTH_ERROR'
+    | 'SAML_TEST_SUCCESS_MECHANISM_NOT_ENABLED'
+    | 'DOMAIN_WHITELIST_FILTER_CHECK_FAILED'
+    | 'INVALID_DASHBOARD_UPDATE_REQUEST'
+    | 'DUPLICATE_FIELD'
+    | 'INVALID_AZURE_VAULT_CONFIGURATION'
+    | 'USER_NOT_AUTHORIZED_DUE_TO_USAGE_RESTRICTIONS'
+    | 'INVALID_ROLLBACK'
+    | 'SUMO_DATA_COLLECTION_ERROR'
+    | 'DEPLOYMENT_GOVERNANCE_ERROR'
+    | 'BATCH_PROCESSING_ERROR'
+    | 'GRAPHQL_ERROR'
+    | 'FILE_CREATE_ERROR'
+    | 'ILLEGAL_STATE'
+    | 'GIT_DIFF_COMMIT_NOT_IN_ORDER'
+    | 'FAILED_TO_ACQUIRE_PERSISTENT_LOCK'
+    | 'POD_NOT_FOUND_ERROR'
+    | 'COMMAND_EXECUTION_ERROR'
+    | 'ENGINE_REGISTRY_EXCEPTION'
+    | 'ENGINE_INTERRUPT_PROCESSING_EXCEPTION'
+    | 'ENGINE_IO_EXCEPTION'
+    | 'ENGINE_OUTCOME_EXCEPTION'
+    | 'ENGINE_SWEEPING_OUTPUT_EXCEPTION'
+    | 'CACHE_NOT_FOUND_EXCEPTION'
+    | 'ENGINE_ENTITY_UPDATE_EXCEPTION'
+    | 'SHELL_EXECUTION_EXCEPTION'
+  message?: string
+  correlationId?: string
+  validationErrors?: ValidationError[]
+}
+
+export interface Pageable {
+  paged?: boolean
+  pageNumber?: number
+  unpaged?: boolean
+  pageSize?: number
+  offset?: number
+  sort?: Sort
+}
+
+export interface UpdateOrganizationDTO {
+  name: string
+  color: string
+  description: string
+  tags: string[]
+}
+
+export interface Sort {
+  sorted?: boolean
+  unsorted?: boolean
+  empty?: boolean
+}
+
+export interface ResponseDTOPageOrganizationDTO {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: PageOrganizationDTO
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
+export interface PageProjectDTO {
+  totalPages?: number
+  totalElements?: number
+  first?: boolean
+  last?: boolean
+  numberOfElements?: number
+  pageable?: Pageable
+  size?: number
+  content?: ProjectDTO[]
+  number?: number
+  sort?: Sort
+  empty?: boolean
+}
+
+export interface ValidationError {
+  field?: string
+  error?: string
+}
+
+export interface ResponseDTOOrganizationDTO {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: OrganizationDTO
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
+export interface UpdateProjectDTO {
+  name: string
+  description: string
+  owners: string[]
+  tags: string[]
+  purposeList: string[]
+}
+
+export interface ConnectorConfigSummaryDTO {
+  [key: string]: any
+}
+
+export interface CreateProjectDTO {
+  accountIdentifier: string
+  identifier: string
+  name: string
+  color: string
+  purposeList: string[]
+  description?: string
+  owners: string[]
+  tags: string[]
+}
+
+export interface OptionalConnectorDTO {
+  present?: boolean
 }
 
 export interface OrganizationDTO {
   id?: string
-  accountId?: string
+  accountIdentifier?: string
   identifier?: string
   name?: string
   color?: string
@@ -45,11 +590,10 @@ export interface OrganizationDTO {
 }
 
 export interface CreateOrganizationDTO {
-  accountId?: string
-  identifier?: string
-  name?: string
-  color?: string
-  description: string
+  identifier: string
+  name: string
+  color: string
+  description?: string
   tags: string[]
 }
 
@@ -67,51 +611,53 @@ export interface PageOrganizationDTO {
   empty?: boolean
 }
 
+export interface SecretDTO {
+  name?: string
+}
+
 export interface ConnectorDTO {
   name?: string
   identifier?: string
-  kind?: 'KUBERNETES_CLUSTER'
+  description?: string
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifer?: string
+  tags?: string[]
+  type1?: 'KUBERNETES_CLUSTER'
+  type?: 'KUBERNETES_CLUSTER'
   spec?: ConnectorConfigDTO
+  createdAt?: number
+  lastModifiedAt?: number
 }
 
-export interface Pageable {
-  offset?: number
-  sort?: Sort
-  paged?: boolean
-  unpaged?: boolean
-  pageNumber?: number
-  pageSize?: number
+export interface ResponseDTOOptionalProjectDTO {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: ProjectDTO
+  metaData?: { [key: string]: any }
+  correlationId?: string
 }
 
-export interface OptionalProjectDTO {
-  present?: boolean
-}
-
-export interface OptionalOrganizationDTO {
-  present?: boolean
-}
-
-export interface UpdateOrganizationDTO {
-  name?: string
-  color?: string
-  description: string
-  tags: string[]
-}
-
-export interface Sort {
-  sorted?: boolean
-  unsorted?: boolean
-  empty?: boolean
-}
-
-export interface UpdateProjectDTO {
+export interface ConnectorSummaryDTO {
+  identifier?: string
   name?: string
   description?: string
-  owners?: string[]
+  accountId?: string
+  orgId?: string
+  projectId?: string
+  accountName?: string
+  orgName?: string
+  projectName?: string
+  scope?: 'ACCOUNT' | 'PROJECT' | 'ORGANIZATION'
+  type?: 'KUBERNETES_CLUSTER'
+  categories?: 'CLOUD_PROVIDER'[]
+  connectorDetials?: ConnectorConfigSummaryDTO
   tags?: string[]
+  createdAt?: number
+  lastModifiedAt?: number
+  version?: number
 }
 
-export interface PageProjectDTO {
+export interface PageConnectorSummaryDTO {
   totalPages?: number
   totalElements?: number
   first?: boolean
@@ -119,16 +665,353 @@ export interface PageProjectDTO {
   numberOfElements?: number
   pageable?: Pageable
   size?: number
-  content?: ProjectDTO[]
+  content?: ConnectorSummaryDTO[]
   number?: number
   sort?: Sort
   empty?: boolean
 }
 
-export type CreateProps = Omit<MutateProps<ConnectorDTO, unknown, void, ConnectorDTO, void>, 'path' | 'verb'>
+export type ConnectorRequestDTORequestBody = ConnectorRequestDTO
 
-export const Create = (props: CreateProps) => (
-  <Mutate<ConnectorDTO, unknown, void, ConnectorDTO, void>
+export interface GetOrganizationListQueryParams {
+  page?: number
+  size?: number
+  sort?: string[]
+}
+
+export interface GetOrganizationListPathParams {
+  accountIdentifier: string
+}
+
+export type GetOrganizationListProps = Omit<
+  GetProps<
+    ResponseDTOPageOrganizationDTO,
+    FailureDTO | ErrorDTO,
+    GetOrganizationListQueryParams,
+    GetOrganizationListPathParams
+  >,
+  'path'
+> &
+  GetOrganizationListPathParams
+
+/**
+ * Get Organization list
+ */
+export const GetOrganizationList = ({ accountIdentifier, ...props }: GetOrganizationListProps) => (
+  <Get<
+    ResponseDTOPageOrganizationDTO,
+    FailureDTO | ErrorDTO,
+    GetOrganizationListQueryParams,
+    GetOrganizationListPathParams
+  >
+    path={`/accounts/${accountIdentifier}/organizations`}
+    base={'/cd/api'}
+    {...props}
+  />
+)
+
+export type UseGetOrganizationListProps = Omit<
+  UseGetProps<ResponseDTOPageOrganizationDTO, GetOrganizationListQueryParams, GetOrganizationListPathParams>,
+  'path'
+> &
+  GetOrganizationListPathParams
+
+/**
+ * Get Organization list
+ */
+export const useGetOrganizationList = ({ accountIdentifier, ...props }: UseGetOrganizationListProps) =>
+  useGet<
+    ResponseDTOPageOrganizationDTO,
+    FailureDTO | ErrorDTO,
+    GetOrganizationListQueryParams,
+    GetOrganizationListPathParams
+  >(({ accountIdentifier }: GetOrganizationListPathParams) => `/accounts/${accountIdentifier}/organizations`, {
+    base: '/cd/api',
+    pathParams: { accountIdentifier },
+    ...props
+  })
+
+export interface PostOrganizationPathParams {
+  accountIdentifier: string
+}
+
+export type PostOrganizationProps = Omit<
+  MutateProps<
+    ResponseDTOOrganizationDTO,
+    FailureDTO | ErrorDTO,
+    void,
+    CreateOrganizationDTO,
+    PostOrganizationPathParams
+  >,
+  'path' | 'verb'
+> &
+  PostOrganizationPathParams
+
+/**
+ * Create an Organization
+ */
+export const PostOrganization = ({ accountIdentifier, ...props }: PostOrganizationProps) => (
+  <Mutate<ResponseDTOOrganizationDTO, FailureDTO | ErrorDTO, void, CreateOrganizationDTO, PostOrganizationPathParams>
+    verb="POST"
+    path={`/accounts/${accountIdentifier}/organizations`}
+    base={'/cd/api'}
+    {...props}
+  />
+)
+
+export type UsePostOrganizationProps = Omit<
+  UseMutateProps<ResponseDTOOrganizationDTO, void, CreateOrganizationDTO, PostOrganizationPathParams>,
+  'path' | 'verb'
+> &
+  PostOrganizationPathParams
+
+/**
+ * Create an Organization
+ */
+export const usePostOrganization = ({ accountIdentifier, ...props }: UsePostOrganizationProps) =>
+  useMutate<ResponseDTOOrganizationDTO, FailureDTO | ErrorDTO, void, CreateOrganizationDTO, PostOrganizationPathParams>(
+    'POST',
+    ({ accountIdentifier }: PostOrganizationPathParams) => `/accounts/${accountIdentifier}/organizations`,
+    { base: '/cd/api', pathParams: { accountIdentifier }, ...props }
+  )
+
+export interface GetOrganizationPathParams {
+  accountIdentifier: string
+  organizationIdentifier: string
+}
+
+export type GetOrganizationProps = Omit<
+  GetProps<ResponseDTOOptionalOrganizationDTO, FailureDTO | ErrorDTO, void, GetOrganizationPathParams>,
+  'path'
+> &
+  GetOrganizationPathParams
+
+/**
+ * Get an Organization
+ */
+export const GetOrganization = ({ accountIdentifier, organizationIdentifier, ...props }: GetOrganizationProps) => (
+  <Get<ResponseDTOOptionalOrganizationDTO, FailureDTO | ErrorDTO, void, GetOrganizationPathParams>
+    path={`/accounts/${accountIdentifier}/organizations/${organizationIdentifier}`}
+    base={'/cd/api'}
+    {...props}
+  />
+)
+
+export type UseGetOrganizationProps = Omit<
+  UseGetProps<ResponseDTOOptionalOrganizationDTO, void, GetOrganizationPathParams>,
+  'path'
+> &
+  GetOrganizationPathParams
+
+/**
+ * Get an Organization
+ */
+export const useGetOrganization = ({ accountIdentifier, organizationIdentifier, ...props }: UseGetOrganizationProps) =>
+  useGet<ResponseDTOOptionalOrganizationDTO, FailureDTO | ErrorDTO, void, GetOrganizationPathParams>(
+    ({ accountIdentifier, organizationIdentifier }: GetOrganizationPathParams) =>
+      `/accounts/${accountIdentifier}/organizations/${organizationIdentifier}`,
+    { base: '/cd/api', pathParams: { accountIdentifier, organizationIdentifier }, ...props }
+  )
+
+export interface PutOrganizationPathParams {
+  accountIdentifier: string
+  organizationIdentifier: string
+}
+
+export type PutOrganizationProps = Omit<
+  MutateProps<
+    ResponseDTOOptionalOrganizationDTO,
+    FailureDTO | ErrorDTO,
+    void,
+    UpdateOrganizationDTO,
+    PutOrganizationPathParams
+  >,
+  'path' | 'verb'
+> &
+  PutOrganizationPathParams
+
+/**
+ * Update Organization by identifier
+ */
+export const PutOrganization = ({ accountIdentifier, organizationIdentifier, ...props }: PutOrganizationProps) => (
+  <Mutate<
+    ResponseDTOOptionalOrganizationDTO,
+    FailureDTO | ErrorDTO,
+    void,
+    UpdateOrganizationDTO,
+    PutOrganizationPathParams
+  >
+    verb="PUT"
+    path={`/accounts/${accountIdentifier}/organizations/${organizationIdentifier}`}
+    base={'/cd/api'}
+    {...props}
+  />
+)
+
+export type UsePutOrganizationProps = Omit<
+  UseMutateProps<ResponseDTOOptionalOrganizationDTO, void, UpdateOrganizationDTO, PutOrganizationPathParams>,
+  'path' | 'verb'
+> &
+  PutOrganizationPathParams
+
+/**
+ * Update Organization by identifier
+ */
+export const usePutOrganization = ({ accountIdentifier, organizationIdentifier, ...props }: UsePutOrganizationProps) =>
+  useMutate<
+    ResponseDTOOptionalOrganizationDTO,
+    FailureDTO | ErrorDTO,
+    void,
+    UpdateOrganizationDTO,
+    PutOrganizationPathParams
+  >(
+    'PUT',
+    ({ accountIdentifier, organizationIdentifier }: PutOrganizationPathParams) =>
+      `/accounts/${accountIdentifier}/organizations/${organizationIdentifier}`,
+    { base: '/cd/api', pathParams: { accountIdentifier, organizationIdentifier }, ...props }
+  )
+
+export interface DeleteOrganizationPathParams {
+  accountIdentifier: string
+}
+
+export type DeleteOrganizationProps = Omit<
+  MutateProps<ResponseDTOBoolean, FailureDTO | ErrorDTO, void, string, DeleteOrganizationPathParams>,
+  'path' | 'verb'
+> &
+  DeleteOrganizationPathParams
+
+/**
+ * Delete Organization by identifier
+ */
+export const DeleteOrganization = ({ accountIdentifier, ...props }: DeleteOrganizationProps) => (
+  <Mutate<ResponseDTOBoolean, FailureDTO | ErrorDTO, void, string, DeleteOrganizationPathParams>
+    verb="DELETE"
+    path={`/accounts/${accountIdentifier}/organizations`}
+    base={'/cd/api'}
+    {...props}
+  />
+)
+
+export type UseDeleteOrganizationProps = Omit<
+  UseMutateProps<ResponseDTOBoolean, void, string, DeleteOrganizationPathParams>,
+  'path' | 'verb'
+> &
+  DeleteOrganizationPathParams
+
+/**
+ * Delete Organization by identifier
+ */
+export const useDeleteOrganization = ({ accountIdentifier, ...props }: UseDeleteOrganizationProps) =>
+  useMutate<ResponseDTOBoolean, FailureDTO | ErrorDTO, void, string, DeleteOrganizationPathParams>(
+    'DELETE',
+    ({ accountIdentifier }: DeleteOrganizationPathParams) => `/accounts/${accountIdentifier}/organizations`,
+    { base: '/cd/api', pathParams: { accountIdentifier }, ...props }
+  )
+
+export interface GetProjectListForAccountQueryParams {
+  page?: number
+  size?: number
+  sort?: string[]
+}
+
+export interface GetProjectListForAccountPathParams {
+  accountIdentifier: string
+}
+
+export type GetProjectListForAccountProps = Omit<
+  GetProps<
+    ResponseDTOPageProjectDTO,
+    FailureDTO | ErrorDTO,
+    GetProjectListForAccountQueryParams,
+    GetProjectListForAccountPathParams
+  >,
+  'path'
+> &
+  GetProjectListForAccountPathParams
+
+/**
+ * Gets Project list for an account
+ */
+export const GetProjectListForAccount = ({ accountIdentifier, ...props }: GetProjectListForAccountProps) => (
+  <Get<
+    ResponseDTOPageProjectDTO,
+    FailureDTO | ErrorDTO,
+    GetProjectListForAccountQueryParams,
+    GetProjectListForAccountPathParams
+  >
+    path={`/accounts/${accountIdentifier}/projects`}
+    base={'/cd/api'}
+    {...props}
+  />
+)
+
+export type UseGetProjectListForAccountProps = Omit<
+  UseGetProps<ResponseDTOPageProjectDTO, GetProjectListForAccountQueryParams, GetProjectListForAccountPathParams>,
+  'path'
+> &
+  GetProjectListForAccountPathParams
+
+/**
+ * Gets Project list for an account
+ */
+export const useGetProjectListForAccount = ({ accountIdentifier, ...props }: UseGetProjectListForAccountProps) =>
+  useGet<
+    ResponseDTOPageProjectDTO,
+    FailureDTO | ErrorDTO,
+    GetProjectListForAccountQueryParams,
+    GetProjectListForAccountPathParams
+  >(({ accountIdentifier }: GetProjectListForAccountPathParams) => `/accounts/${accountIdentifier}/projects`, {
+    base: '/cd/api',
+    pathParams: { accountIdentifier },
+    ...props
+  })
+
+export interface GetConnectorListQueryParams {
+  page?: number
+  size?: number
+}
+
+export type GetConnectorListProps = Omit<
+  GetProps<PageConnectorSummaryDTO, unknown, GetConnectorListQueryParams, void>,
+  'path'
+>
+
+/**
+ * Gets Connector list
+ */
+export const GetConnectorList = (props: GetConnectorListProps) => (
+  <Get<PageConnectorSummaryDTO, unknown, GetConnectorListQueryParams, void>
+    path={`/connectors`}
+    base={'/cd/api'}
+    {...props}
+  />
+)
+
+export type UseGetConnectorListProps = Omit<
+  UseGetProps<PageConnectorSummaryDTO, GetConnectorListQueryParams, void>,
+  'path'
+>
+
+/**
+ * Gets Connector list
+ */
+export const useGetConnectorList = (props: UseGetConnectorListProps) =>
+  useGet<PageConnectorSummaryDTO, unknown, GetConnectorListQueryParams, void>(`/connectors`, {
+    base: '/cd/api',
+    ...props
+  })
+
+export type CreateConnectorProps = Omit<
+  MutateProps<ConnectorDTO, unknown, void, ConnectorRequestDTORequestBody, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Creates a Connector
+ */
+export const CreateConnector = (props: CreateConnectorProps) => (
+  <Mutate<ConnectorDTO, unknown, void, ConnectorRequestDTORequestBody, void>
     verb="POST"
     path={`/connectors`}
     base={'/cd/api'}
@@ -136,286 +1019,373 @@ export const Create = (props: CreateProps) => (
   />
 )
 
-export type UseCreateProps = Omit<UseMutateProps<ConnectorDTO, void, ConnectorDTO, void>, 'path' | 'verb'>
-
-export const useCreate = (props: UseCreateProps) =>
-  useMutate<ConnectorDTO, unknown, void, ConnectorDTO, void>('POST', `/connectors`, { base: '/cd/api', ...props })
-
-export interface GetOrganizationsQueryParams {
-  accountId?: string
-  filter?: string
-  page?: number
-  size?: number
-  sort?: string[]
-}
-
-export type GetOrganizationsProps = Omit<
-  GetProps<PageOrganizationDTO, unknown, GetOrganizationsQueryParams, void>,
-  'path'
+export type UseCreateConnectorProps = Omit<
+  UseMutateProps<ConnectorDTO, void, ConnectorRequestDTORequestBody, void>,
+  'path' | 'verb'
 >
 
 /**
- * Get Organization list
+ * Creates a Connector
  */
-export const GetOrganizations = (props: GetOrganizationsProps) => (
-  <Get<PageOrganizationDTO, unknown, GetOrganizationsQueryParams, void>
-    path={`/organizations`}
-    base={'/cd/api'}
-    {...props}
-  />
-)
-
-export type UseGetOrganizationsProps = Omit<UseGetProps<PageOrganizationDTO, GetOrganizationsQueryParams, void>, 'path'>
-
-/**
- * Get Organization list
- */
-export const useGetOrganizations = (props: UseGetOrganizationsProps) =>
-  useGet<PageOrganizationDTO, unknown, GetOrganizationsQueryParams, void>(`/organizations`, {
+export const useCreateConnector = (props: UseCreateConnectorProps) =>
+  useMutate<ConnectorDTO, unknown, void, ConnectorRequestDTORequestBody, void>('POST', `/connectors`, {
     base: '/cd/api',
     ...props
   })
 
-export type PostOrganizationProps = Omit<
-  MutateProps<OrganizationDTO, unknown, void, CreateOrganizationDTO, void>,
+export type UpdateConnectorProps = Omit<
+  MutateProps<ConnectorDTO, unknown, void, ConnectorRequestDTORequestBody, void>,
   'path' | 'verb'
 >
 
 /**
- * Create an Organization
+ * Updates a Connector
  */
-export const PostOrganization = (props: PostOrganizationProps) => (
-  <Mutate<OrganizationDTO, unknown, void, CreateOrganizationDTO, void>
-    verb="POST"
-    path={`/organizations`}
-    base={'/cd/api'}
-    {...props}
-  />
-)
-
-export type UsePostOrganizationProps = Omit<
-  UseMutateProps<OrganizationDTO, void, CreateOrganizationDTO, void>,
-  'path' | 'verb'
->
-
-/**
- * Create an Organization
- */
-export const usePostOrganization = (props: UsePostOrganizationProps) =>
-  useMutate<OrganizationDTO, unknown, void, CreateOrganizationDTO, void>('POST', `/organizations`, {
-    base: '/cd/api',
-    ...props
-  })
-
-export interface GetOrganizationPathParams {
-  organizationId: string
-}
-
-export type GetOrganizationProps = Omit<GetProps<OrganizationDTO, unknown, void, GetOrganizationPathParams>, 'path'> &
-  GetOrganizationPathParams
-
-/**
- * Get an Organization
- */
-export const GetOrganization = ({ organizationId, ...props }: GetOrganizationProps) => (
-  <Get<OrganizationDTO, unknown, void, GetOrganizationPathParams>
-    path={`/organizations/${organizationId}`}
-    base={'/cd/api'}
-    {...props}
-  />
-)
-
-export type UseGetOrganizationProps = Omit<UseGetProps<OrganizationDTO, void, GetOrganizationPathParams>, 'path'> &
-  GetOrganizationPathParams
-
-/**
- * Get an Organization
- */
-export const useGetOrganization = ({ organizationId, ...props }: UseGetOrganizationProps) =>
-  useGet<OrganizationDTO, unknown, void, GetOrganizationPathParams>(
-    ({ organizationId }: GetOrganizationPathParams) => `/organizations/${organizationId}`,
-    { base: '/cd/api', pathParams: { organizationId }, ...props }
-  )
-
-export interface UpdateOrganizationPathParams {
-  organizationId: string
-}
-
-export type UpdateOrganizationProps = Omit<
-  MutateProps<OrganizationDTO, unknown, void, UpdateOrganizationDTO, UpdateOrganizationPathParams>,
-  'path' | 'verb'
-> &
-  UpdateOrganizationPathParams
-
-/**
- * Update Organization by id
- */
-export const UpdateOrganization = ({ organizationId, ...props }: UpdateOrganizationProps) => (
-  <Mutate<OrganizationDTO, unknown, void, UpdateOrganizationDTO, UpdateOrganizationPathParams>
+export const UpdateConnector = (props: UpdateConnectorProps) => (
+  <Mutate<ConnectorDTO, unknown, void, ConnectorRequestDTORequestBody, void>
     verb="PUT"
-    path={`/organizations/${organizationId}`}
+    path={`/connectors`}
     base={'/cd/api'}
     {...props}
   />
 )
 
-export type UseUpdateOrganizationProps = Omit<
-  UseMutateProps<OrganizationDTO, void, UpdateOrganizationDTO, UpdateOrganizationPathParams>,
+export type UseUpdateConnectorProps = Omit<
+  UseMutateProps<ConnectorDTO, void, ConnectorRequestDTORequestBody, void>,
   'path' | 'verb'
+>
+
+/**
+ * Updates a Connector
+ */
+export const useUpdateConnector = (props: UseUpdateConnectorProps) =>
+  useMutate<ConnectorDTO, unknown, void, ConnectorRequestDTORequestBody, void>('PUT', `/connectors`, {
+    base: '/cd/api',
+    ...props
+  })
+
+export interface GetConnectorQueryParams {
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
+
+export interface GetConnectorPathParams {
+  connectorIdentifier: string
+}
+
+export type GetConnectorProps = Omit<
+  GetProps<ConnectorDTO, unknown, GetConnectorQueryParams, GetConnectorPathParams>,
+  'path'
 > &
-  UpdateOrganizationPathParams
+  GetConnectorPathParams
 
 /**
- * Update Organization by id
+ * Get Connector
  */
-export const useUpdateOrganization = ({ organizationId, ...props }: UseUpdateOrganizationProps) =>
-  useMutate<OrganizationDTO, unknown, void, UpdateOrganizationDTO, UpdateOrganizationPathParams>(
-    'PUT',
-    ({ organizationId }: UpdateOrganizationPathParams) => `/organizations/${organizationId}`,
-    { base: '/cd/api', pathParams: { organizationId }, ...props }
-  )
-
-export type DeleteOrganizationProps = Omit<MutateProps<boolean, unknown, void, string, void>, 'path' | 'verb'>
-
-/**
- * Delete Organization by id
- */
-export const DeleteOrganization = (props: DeleteOrganizationProps) => (
-  <Mutate<boolean, unknown, void, string, void> verb="DELETE" path={`/organizations`} base={'/cd/api'} {...props} />
+export const GetConnector = ({ connectorIdentifier, ...props }: GetConnectorProps) => (
+  <Get<ConnectorDTO, unknown, GetConnectorQueryParams, GetConnectorPathParams>
+    path={`/connectors/${connectorIdentifier}`}
+    base={'/cd/api'}
+    {...props}
+  />
 )
 
-export type UseDeleteOrganizationProps = Omit<UseMutateProps<boolean, void, string, void>, 'path' | 'verb'>
+export type UseGetConnectorProps = Omit<
+  UseGetProps<ConnectorDTO, GetConnectorQueryParams, GetConnectorPathParams>,
+  'path'
+> &
+  GetConnectorPathParams
 
 /**
- * Delete Organization by id
+ * Get Connector
  */
-export const useDeleteOrganization = (props: UseDeleteOrganizationProps) =>
-  useMutate<boolean, unknown, void, string, void>('DELETE', `/organizations`, { base: '/cd/api', ...props })
+export const useGetConnector = ({ connectorIdentifier, ...props }: UseGetConnectorProps) =>
+  useGet<ConnectorDTO, unknown, GetConnectorQueryParams, GetConnectorPathParams>(
+    ({ connectorIdentifier }: GetConnectorPathParams) => `/connectors/${connectorIdentifier}`,
+    { base: '/cd/api', pathParams: { connectorIdentifier }, ...props }
+  )
 
-export interface GetProjectsQueryParams {
-  orgId?: string
-  filter?: string
+export interface DeleteConnectorQueryParams {
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
+
+export type DeleteConnectorProps = Omit<
+  MutateProps<boolean, unknown, DeleteConnectorQueryParams, string, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Delete a connector by identifier
+ */
+export const DeleteConnector = (props: DeleteConnectorProps) => (
+  <Mutate<boolean, unknown, DeleteConnectorQueryParams, string, void>
+    verb="DELETE"
+    path={`/connectors`}
+    base={'/cd/api'}
+    {...props}
+  />
+)
+
+export type UseDeleteConnectorProps = Omit<
+  UseMutateProps<boolean, DeleteConnectorQueryParams, string, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Delete a connector by identifier
+ */
+export const useDeleteConnector = (props: UseDeleteConnectorProps) =>
+  useMutate<boolean, unknown, DeleteConnectorQueryParams, string, void>('DELETE', `/connectors`, {
+    base: '/cd/api',
+    ...props
+  })
+
+export interface GetProjectListForOrganizationQueryParams {
   page?: number
   size?: number
   sort?: string[]
 }
 
-export type GetProjectsProps = Omit<GetProps<PageProjectDTO, unknown, GetProjectsQueryParams, void>, 'path'>
+export interface GetProjectListForOrganizationPathParams {
+  orgIdentifier: string
+}
+
+export type GetProjectListForOrganizationProps = Omit<
+  GetProps<
+    ResponseDTOPageProjectDTO,
+    FailureDTO | ErrorDTO,
+    GetProjectListForOrganizationQueryParams,
+    GetProjectListForOrganizationPathParams
+  >,
+  'path'
+> &
+  GetProjectListForOrganizationPathParams
 
 /**
- * Gets Project list
+ * Gets Project list for an organization
  */
-export const GetProjects = (props: GetProjectsProps) => (
-  <Get<PageProjectDTO, unknown, GetProjectsQueryParams, void> path={`/projects`} base={'/cd/api'} {...props} />
-)
-
-export type UseGetProjectsProps = Omit<UseGetProps<PageProjectDTO, GetProjectsQueryParams, void>, 'path'>
-
-/**
- * Gets Project list
- */
-export const useGetProjects = (props: UseGetProjectsProps) =>
-  useGet<PageProjectDTO, unknown, GetProjectsQueryParams, void>(`/projects`, { base: '/cd/api', ...props })
-
-export type CreateProjectProps = Omit<MutateProps<ProjectDTO, unknown, void, CreateProjectDTO, void>, 'path' | 'verb'>
-
-/**
- * Create a Project
- */
-export const CreateProject = (props: CreateProjectProps) => (
-  <Mutate<ProjectDTO, unknown, void, CreateProjectDTO, void>
-    verb="POST"
-    path={`/projects`}
+export const GetProjectListForOrganization = ({ orgIdentifier, ...props }: GetProjectListForOrganizationProps) => (
+  <Get<
+    ResponseDTOPageProjectDTO,
+    FailureDTO | ErrorDTO,
+    GetProjectListForOrganizationQueryParams,
+    GetProjectListForOrganizationPathParams
+  >
+    path={`/organizations/${orgIdentifier}/projects`}
     base={'/cd/api'}
     {...props}
   />
 )
 
-export type UseCreateProjectProps = Omit<UseMutateProps<ProjectDTO, void, CreateProjectDTO, void>, 'path' | 'verb'>
+export type UseGetProjectListForOrganizationProps = Omit<
+  UseGetProps<
+    ResponseDTOPageProjectDTO,
+    GetProjectListForOrganizationQueryParams,
+    GetProjectListForOrganizationPathParams
+  >,
+  'path'
+> &
+  GetProjectListForOrganizationPathParams
+
+/**
+ * Gets Project list for an organization
+ */
+export const useGetProjectListForOrganization = ({ orgIdentifier, ...props }: UseGetProjectListForOrganizationProps) =>
+  useGet<
+    ResponseDTOPageProjectDTO,
+    FailureDTO | ErrorDTO,
+    GetProjectListForOrganizationQueryParams,
+    GetProjectListForOrganizationPathParams
+  >(({ orgIdentifier }: GetProjectListForOrganizationPathParams) => `/organizations/${orgIdentifier}/projects`, {
+    base: '/cd/api',
+    pathParams: { orgIdentifier },
+    ...props
+  })
+
+export interface PostProjectPathParams {
+  orgIdentifier: string
+}
+
+export type PostProjectProps = Omit<
+  MutateProps<ResponseDTOProjectDTO, FailureDTO | ErrorDTO, void, CreateProjectDTO, PostProjectPathParams>,
+  'path' | 'verb'
+> &
+  PostProjectPathParams
 
 /**
  * Create a Project
  */
-export const useCreateProject = (props: UseCreateProjectProps) =>
-  useMutate<ProjectDTO, unknown, void, CreateProjectDTO, void>('POST', `/projects`, { base: '/cd/api', ...props })
+export const PostProject = ({ orgIdentifier, ...props }: PostProjectProps) => (
+  <Mutate<ResponseDTOProjectDTO, FailureDTO | ErrorDTO, void, CreateProjectDTO, PostProjectPathParams>
+    verb="POST"
+    path={`/organizations/${orgIdentifier}/projects`}
+    base={'/cd/api'}
+    {...props}
+  />
+)
+
+export type UsePostProjectProps = Omit<
+  UseMutateProps<ResponseDTOProjectDTO, void, CreateProjectDTO, PostProjectPathParams>,
+  'path' | 'verb'
+> &
+  PostProjectPathParams
+
+/**
+ * Create a Project
+ */
+export const usePostProject = ({ orgIdentifier, ...props }: UsePostProjectProps) =>
+  useMutate<ResponseDTOProjectDTO, FailureDTO | ErrorDTO, void, CreateProjectDTO, PostProjectPathParams>(
+    'POST',
+    ({ orgIdentifier }: PostProjectPathParams) => `/organizations/${orgIdentifier}/projects`,
+    { base: '/cd/api', pathParams: { orgIdentifier }, ...props }
+  )
 
 export interface GetProjectPathParams {
-  projectId: string
+  orgIdentifier: string
+  projectIdentifier: string
 }
 
-export type GetProjectProps = Omit<GetProps<ProjectDTO, unknown, void, GetProjectPathParams>, 'path'> &
-  GetProjectPathParams
-
-/**
- * Gets a Project by id
- */
-export const GetProject = ({ projectId, ...props }: GetProjectProps) => (
-  <Get<ProjectDTO, unknown, void, GetProjectPathParams> path={`/projects/${projectId}`} base={'/cd/api'} {...props} />
-)
-
-export type UseGetProjectProps = Omit<UseGetProps<ProjectDTO, void, GetProjectPathParams>, 'path'> &
-  GetProjectPathParams
-
-/**
- * Gets a Project by id
- */
-export const useGetProject = ({ projectId, ...props }: UseGetProjectProps) =>
-  useGet<ProjectDTO, unknown, void, GetProjectPathParams>(
-    ({ projectId }: GetProjectPathParams) => `/projects/${projectId}`,
-    { base: '/cd/api', pathParams: { projectId }, ...props }
-  )
-
-export interface UpdateProjectPathParams {
-  projectId: string
-}
-
-export type UpdateProjectProps = Omit<
-  MutateProps<ProjectDTO, unknown, void, UpdateProjectDTO, UpdateProjectPathParams>,
-  'path' | 'verb'
+export type GetProjectProps = Omit<
+  GetProps<ResponseDTOOptionalProjectDTO, FailureDTO | ErrorDTO, void, GetProjectPathParams>,
+  'path'
 > &
-  UpdateProjectPathParams
+  GetProjectPathParams
 
 /**
- * Update a project by id
+ * Gets a Project by identifier
  */
-export const UpdateProject = ({ projectId, ...props }: UpdateProjectProps) => (
-  <Mutate<ProjectDTO, unknown, void, UpdateProjectDTO, UpdateProjectPathParams>
-    verb="PUT"
-    path={`/projects/${projectId}`}
+export const GetProject = ({ orgIdentifier, projectIdentifier, ...props }: GetProjectProps) => (
+  <Get<ResponseDTOOptionalProjectDTO, FailureDTO | ErrorDTO, void, GetProjectPathParams>
+    path={`/organizations/${orgIdentifier}/projects/${projectIdentifier}`}
     base={'/cd/api'}
     {...props}
   />
 )
 
-export type UseUpdateProjectProps = Omit<
-  UseMutateProps<ProjectDTO, void, UpdateProjectDTO, UpdateProjectPathParams>,
-  'path' | 'verb'
-> &
-  UpdateProjectPathParams
+export type UseGetProjectProps = Omit<UseGetProps<ResponseDTOOptionalProjectDTO, void, GetProjectPathParams>, 'path'> &
+  GetProjectPathParams
 
 /**
- * Update a project by id
+ * Gets a Project by identifier
  */
-export const useUpdateProject = ({ projectId, ...props }: UseUpdateProjectProps) =>
-  useMutate<ProjectDTO, unknown, void, UpdateProjectDTO, UpdateProjectPathParams>(
-    'PUT',
-    ({ projectId }: UpdateProjectPathParams) => `/projects/${projectId}`,
-    { base: '/cd/api', pathParams: { projectId }, ...props }
+export const useGetProject = ({ orgIdentifier, projectIdentifier, ...props }: UseGetProjectProps) =>
+  useGet<ResponseDTOOptionalProjectDTO, FailureDTO | ErrorDTO, void, GetProjectPathParams>(
+    ({ orgIdentifier, projectIdentifier }: GetProjectPathParams) =>
+      `/organizations/${orgIdentifier}/projects/${projectIdentifier}`,
+    { base: '/cd/api', pathParams: { orgIdentifier, projectIdentifier }, ...props }
   )
 
-export type DeleteProjectProps = Omit<MutateProps<boolean, unknown, void, string, void>, 'path' | 'verb'>
+export interface PutProjectPathParams {
+  orgIdentifier: string
+  projectIdentifier: string
+}
+
+export type PutProjectProps = Omit<
+  MutateProps<ResponseDTOOptionalProjectDTO, FailureDTO | ErrorDTO, void, UpdateProjectDTO, PutProjectPathParams>,
+  'path' | 'verb'
+> &
+  PutProjectPathParams
 
 /**
- * Delete a project by id
+ * Update a project by identifier
  */
-export const DeleteProject = (props: DeleteProjectProps) => (
-  <Mutate<boolean, unknown, void, string, void> verb="DELETE" path={`/projects`} base={'/cd/api'} {...props} />
+export const PutProject = ({ orgIdentifier, projectIdentifier, ...props }: PutProjectProps) => (
+  <Mutate<ResponseDTOOptionalProjectDTO, FailureDTO | ErrorDTO, void, UpdateProjectDTO, PutProjectPathParams>
+    verb="PUT"
+    path={`/organizations/${orgIdentifier}/projects/${projectIdentifier}`}
+    base={'/cd/api'}
+    {...props}
+  />
 )
 
-export type UseDeleteProjectProps = Omit<UseMutateProps<boolean, void, string, void>, 'path' | 'verb'>
+export type UsePutProjectProps = Omit<
+  UseMutateProps<ResponseDTOOptionalProjectDTO, void, UpdateProjectDTO, PutProjectPathParams>,
+  'path' | 'verb'
+> &
+  PutProjectPathParams
 
 /**
- * Delete a project by id
+ * Update a project by identifier
  */
-export const useDeleteProject = (props: UseDeleteProjectProps) =>
-  useMutate<boolean, unknown, void, string, void>('DELETE', `/projects`, { base: '/cd/api', ...props })
+export const usePutProject = ({ orgIdentifier, projectIdentifier, ...props }: UsePutProjectProps) =>
+  useMutate<ResponseDTOOptionalProjectDTO, FailureDTO | ErrorDTO, void, UpdateProjectDTO, PutProjectPathParams>(
+    'PUT',
+    ({ orgIdentifier, projectIdentifier }: PutProjectPathParams) =>
+      `/organizations/${orgIdentifier}/projects/${projectIdentifier}`,
+    { base: '/cd/api', pathParams: { orgIdentifier, projectIdentifier }, ...props }
+  )
+
+export interface DeleteProjectPathParams {
+  orgIdentifier: string
+}
+
+export type DeleteProjectProps = Omit<
+  MutateProps<ResponseDTOBoolean, FailureDTO | ErrorDTO, void, string, DeleteProjectPathParams>,
+  'path' | 'verb'
+> &
+  DeleteProjectPathParams
+
+/**
+ * Delete a project by identifier
+ */
+export const DeleteProject = ({ orgIdentifier, ...props }: DeleteProjectProps) => (
+  <Mutate<ResponseDTOBoolean, FailureDTO | ErrorDTO, void, string, DeleteProjectPathParams>
+    verb="DELETE"
+    path={`/organizations/${orgIdentifier}/projects`}
+    base={'/cd/api'}
+    {...props}
+  />
+)
+
+export type UseDeleteProjectProps = Omit<
+  UseMutateProps<ResponseDTOBoolean, void, string, DeleteProjectPathParams>,
+  'path' | 'verb'
+> &
+  DeleteProjectPathParams
+
+/**
+ * Delete a project by identifier
+ */
+export const useDeleteProject = ({ orgIdentifier, ...props }: UseDeleteProjectProps) =>
+  useMutate<ResponseDTOBoolean, FailureDTO | ErrorDTO, void, string, DeleteProjectPathParams>(
+    'DELETE',
+    ({ orgIdentifier }: DeleteProjectPathParams) => `/organizations/${orgIdentifier}/projects`,
+    { base: '/cd/api', pathParams: { orgIdentifier }, ...props }
+  )
+
+export interface GetSecretQueryParams {
+  accountId?: string
+}
+
+export interface GetSecretPathParams {
+  secretId: string
+}
+
+export type GetSecretProps = Omit<GetProps<SecretDTO, unknown, GetSecretQueryParams, GetSecretPathParams>, 'path'> &
+  GetSecretPathParams
+
+/**
+ * Gets a secret by id
+ */
+export const GetSecret = ({ secretId, ...props }: GetSecretProps) => (
+  <Get<SecretDTO, unknown, GetSecretQueryParams, GetSecretPathParams>
+    path={`/secrets/${secretId}`}
+    base={'/cd/api'}
+    {...props}
+  />
+)
+
+export type UseGetSecretProps = Omit<UseGetProps<SecretDTO, GetSecretQueryParams, GetSecretPathParams>, 'path'> &
+  GetSecretPathParams
+
+/**
+ * Gets a secret by id
+ */
+export const useGetSecret = ({ secretId, ...props }: UseGetSecretProps) =>
+  useGet<SecretDTO, unknown, GetSecretQueryParams, GetSecretPathParams>(
+    ({ secretId }: GetSecretPathParams) => `/secrets/${secretId}`,
+    { base: '/cd/api', pathParams: { secretId }, ...props }
+  )

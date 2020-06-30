@@ -63,7 +63,7 @@ const StepOne: React.FC<StepProps<ProjectDTO>> = ({ nextStep, prevStepData }) =>
       />
       <Layout.Horizontal spacing="small" padding={{ top: 'xxlarge' }}>
         <Button
-          onClick={() => nextStep?.({ ...prevStepData, purpose: selected.value })}
+          onClick={() => nextStep?.({ ...prevStepData, purposeList: [selected.value] })}
           style={{ color: 'var(--blue-500)' }}
           text={i18n.newProjectWizard.next}
         />

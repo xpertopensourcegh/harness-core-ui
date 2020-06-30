@@ -55,7 +55,7 @@ export const PageBody: React.FC<PageBodyProps> = ({ children, loading: _loading,
       // Explicitly delay hiding spinner 1s after loading is done
       // to gain a little better experience
       if (loading) {
-        timeoutId = setTimeout(() => setLoading(false), 1000)
+        timeoutId = setTimeout(() => setLoading(false), 300)
       }
     }
 

@@ -12,7 +12,7 @@ import { useDeleteProject } from 'services/cd-ng'
 import type { ProjectDTO } from 'services/cd-ng'
 
 export interface ProjectCardProps {
-  data?: ProjectDTO
+  data: ProjectDTO
   isPreview?: boolean
   className?: string
   reloadProjects?: () => Promise<unknown>
@@ -20,20 +20,21 @@ export interface ProjectCardProps {
 }
 
 interface ContextMenuProps {
-  project?: ProjectDTO
+  project: ProjectDTO
   reloadProjects?: () => Promise<unknown>
   editProject?: (project: ProjectDTO) => void
 }
 
-const ContextMenu: React.FC<ContextMenuProps> = ({ project, reloadProjects, editProject }) => {
-  const { mutate: deleteProject } = useDeleteProject({})
+const ContextMenu: React.FC<ContextMenuProps> = props => {
+  const { project, reloadProjects, editProject } = props
+  const { mutate: deleteProject } = useDeleteProject({ orgIdentifier: project.orgIdentifier || '' })
 
   const handleDelete = async (): Promise<void> => {
     if (!project?.id) return
     const sure = confirm(`Are you sure you want to delete the project '${project.name}'?`)
     if (!sure) return
     try {
-      const deleted = await deleteProject(project.id, { headers: { 'content-type': 'application/json' } })
+      const deleted = await deleteProject(project.identifier || '', { headers: { 'content-type': 'application/json' } })
       if (!deleted) {
         // TODO: show error
       } else {

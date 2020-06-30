@@ -5,8 +5,8 @@ import { Dialog, Classes } from '@blueprintjs/core'
 import { pick } from 'lodash-es'
 import cx from 'classnames'
 
-import type { ProjectDTO, CreateProjectDTO } from 'services/cd-ng'
-import { useCreateProject, useUpdateProject } from 'services/cd-ng'
+import type { ProjectDTO, CreateProjectDTO, UpdateProjectDTO } from 'services/cd-ng'
+import { usePostProject, usePutProject } from 'services/cd-ng'
 import { Views } from './Constants'
 import CreateProject from './views/CreateProject'
 import StepOne from './views/StepOne'
@@ -27,32 +27,34 @@ export interface UseProjectModalReturn {
 
 export const useProjectModal = ({ onSuccess }: UseProjectModalProps): UseProjectModalReturn => {
   const [view, setView] = useState(Views.NEW_PROJECT)
-  const { accountId } = useParams()
+  const { accountId, orgId } = useParams()
   const [projectData, setProjectData] = useState<ProjectDTO>()
-  const { mutate: createProject } = useCreateProject({})
-  const { mutate: updateProject } = useUpdateProject({ projectId: projectData?.id || '' })
+  const { mutate: createProject } = usePostProject({ orgIdentifier: orgId })
+  const { mutate: updateProject } = usePutProject({
+    orgIdentifier: orgId,
+    projectIdentifier: projectData?.identifier || ''
+  })
 
   const wizardCompleteHandler = async (wizardData: ProjectDTO | undefined): Promise<void> => {
     if (!wizardData) return
-    const dataToSubmit: CreateProjectDTO = pick<CreateProjectDTO, keyof CreateProjectDTO>(wizardData, [
-      'accountId',
-      'color',
-      'description',
-      'identifier',
+    const dataToSubmit: unknown = pick<ProjectDTO, keyof CreateProjectDTO>(wizardData, [
       'name',
-      'orgId',
+      'color',
+      'purposeList',
+      'description',
       'tags'
     ])
-    dataToSubmit.accountId = accountId
-    dataToSubmit.owners = [accountId]
+    ;(dataToSubmit as CreateProjectDTO)['accountIdentifier'] = accountId
+    ;(dataToSubmit as CreateProjectDTO)['owners'] = [accountId]
 
     try {
       switch (view) {
-        case Views.NEW_PROJECT:
-          await createProject(dataToSubmit)
+        case Views.CREATE:
+          ;(dataToSubmit as CreateProjectDTO)['identifier'] = wizardData.identifier || ''
+          await createProject(dataToSubmit as CreateProjectDTO)
           break
         case Views.EDIT:
-          await updateProject(dataToSubmit)
+          await updateProject(dataToSubmit as UpdateProjectDTO)
           break
       }
       onSuccess(wizardData)

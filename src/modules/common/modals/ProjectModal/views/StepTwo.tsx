@@ -6,7 +6,7 @@ import { illegalIdentifiers } from 'framework/utils/StringUtils'
 import i18n from 'modules/common/pages/ProjectsPage/ProjectsPage.i18n'
 import ProjectCard from 'modules/common/pages/ProjectsPage/views/ProjectCard/ProjectCard'
 
-import { useGetOrganizations } from 'services/cd-ng'
+// import { useGetOrganizations } from 'services/cd-ng'
 import type { ProjectDTO } from 'services/cd-ng'
 
 import css from './Steps.module.scss'
@@ -20,22 +20,22 @@ interface StepTwoData extends ProjectDTO {
   skipCollab?: 'skip' | ''
 }
 
-interface SelectOption {
-  label: string
-  value: string
-}
+// interface SelectOption {
+//   label: string
+//   value: string
+// }
 
 const StepTwo: React.FC<StepProps<ProjectDTO> & ProjectModalData> = props => {
   const { previousStep, nextStep, prevStepData, gotoStep, data: projectData } = props
-  const { loading, data } = useGetOrganizations({})
+  // const { loading, data } = useGetOrganizations({})
 
-  const organisations: SelectOption[] =
-    data?.content?.map(org => {
-      return {
-        label: org.name || '',
-        value: org.id || ''
-      }
-    }) || []
+  // const organisations: SelectOption[] =
+  //   data?.content?.map(org => {
+  //     return {
+  //       label: org.name || '',
+  //       value: org.id || ''
+  //     }
+  //   }) || []
 
   return (
     <>
@@ -47,7 +47,6 @@ const StepTwo: React.FC<StepProps<ProjectDTO> & ProjectModalData> = props => {
           name: '',
           description: '',
           tags: [],
-          orgId: '',
           preview: true,
           skipCollab: '',
           ...projectData,
@@ -60,8 +59,8 @@ const StepTwo: React.FC<StepProps<ProjectDTO> & ProjectModalData> = props => {
             .required()
             .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, 'Identifier can only contain alphanumerics, _ and $')
             .notOneOf(illegalIdentifiers),
-          color: Yup.string().required('required'),
-          orgId: Yup.string().required()
+          color: Yup.string().required('required')
+          // orgId: Yup.string().required()
         })}
         onSubmit={(values: StepTwoData) => {
           if (values.skipCollab === 'skip') {
@@ -79,20 +78,20 @@ const StepTwo: React.FC<StepProps<ProjectDTO> & ProjectModalData> = props => {
                   <td className={css.halfWidth}>
                     <input type="hidden" name="skipCollab" />
                     <FormInput.InputWithIdentifier />
-                    <Layout.Horizontal spacing="small">
-                      <FormInput.ColorPicker
-                        label={i18n.newProjectWizard.stepTwo.color}
-                        name="color"
-                        height={38}
-                        color={formikProps.initialValues.color}
-                      />
-                      <FormInput.Select
+                    {/* <Layout.Horizontal spacing="small"> */}
+                    <FormInput.ColorPicker
+                      label={i18n.newProjectWizard.stepTwo.color}
+                      name="color"
+                      height={38}
+                      color={formikProps.initialValues.color}
+                    />
+                    {/* <FormInput.Select
                         label={i18n.newProjectWizard.stepTwo.org}
                         name="orgId"
                         items={organisations}
                         disabled={loading}
-                      />
-                    </Layout.Horizontal>
+                      /> */}
+                    {/* </Layout.Horizontal> */}
                     <FormInput.TextArea label={i18n.newProjectWizard.stepTwo.desc} name="description" />
                     <FormInput.TagInput
                       name="tags"

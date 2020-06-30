@@ -35,7 +35,7 @@ const App: React.FC = () => {
 
   return (
     <AppStoreProvider>
-      <RestfulProvider base="/" requestOptions={getRequestOptions} queryParams={{ accountId }}>
+      <RestfulProvider base="/" requestOptions={getRequestOptions}>
         <HashRouter>
           <LayoutManager route={activeRoute}>
             <Switch>

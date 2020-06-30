@@ -14,6 +14,16 @@ export const routeLogin: Route = {
   authenticated: false
 }
 
+export const routeOrgProjects: Route = {
+  module: ModuleName.COMMON,
+  sidebarId: SidebarIdentifier.ACCOUNT,
+  path: '/organizations/:orgId/projects',
+  title: i18n.project,
+  pageId: 'orgProjects',
+  url: params => `/organizations/${params?.orgId}/projects`,
+  component: React.lazy(() => import('./pages/ProjectsPage/ProjectsPage'))
+}
+
 export const routeOrganizations: Route = {
   module: ModuleName.COMMON,
   sidebarId: SidebarIdentifier.ACCOUNT,
@@ -22,6 +32,16 @@ export const routeOrganizations: Route = {
   pageId: 'organization',
   url: () => `/organizations`,
   component: React.lazy(() => import('./pages/organizations/OrganizationsPage'))
+}
+
+export const routeProjects: Route = {
+  module: ModuleName.COMMON,
+  sidebarId: SidebarIdentifier.PROJECTS,
+  path: '/projects',
+  title: i18n.project,
+  pageId: 'projects',
+  url: () => '/projects',
+  component: React.lazy(() => import('./pages/ProjectsPage/ProjectsPage'))
 }
 
 export const routeAdmin: Route = {
@@ -51,17 +71,7 @@ export const routeResources: Route = {
   title: i18n.resources,
   pageId: 'resources',
   url: (_params: RouteURLArgs) => '/resources',
-  component: React.lazy(() => import('../../modules/cd/pages/Resources/ResourcesPage'))
-}
-
-export const routeProject: Route = {
-  module: ModuleName.COMMON,
-  sidebarId: SidebarIdentifier.PROJECTS,
-  path: '/projects',
-  title: i18n.project,
-  pageId: 'projects',
-  url: () => `/projects`,
-  component: React.lazy(() => import('./pages/ProjectsPage/ProjectsPage'))
+  component: React.lazy(() => import('../cd/pages/Resources/ResourcesPage'))
 }
 
 export const routePageNotFound: Route = {

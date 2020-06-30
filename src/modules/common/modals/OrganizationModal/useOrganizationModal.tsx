@@ -9,7 +9,7 @@ import cx from 'classnames'
 import type { OrganizationDTO } from 'services/cd-ng'
 
 export interface UseOrganizationModalArgs {
-  onSuccess: (org: OrganizationDTO) => void
+  onSuccess: () => void
 }
 
 export interface UseOrganizationModalResult {
@@ -55,9 +55,9 @@ export const useOrganizationModal: (args: UseOrganizationModalArgs) => UseOrgani
             backToSelections={() => setView(ModalView.OPTIONS)}
             edit={view === ModalView.EDIT}
             data={orgData}
-            onSuccess={org => {
+            onSuccess={() => {
               hideModal()
-              args?.onSuccess(org)
+              args?.onSuccess()
             }}
           />
         )}

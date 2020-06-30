@@ -1,5 +1,5 @@
 import { linkTo, SidebarEntry, SidebarIdentifier } from 'framework/exports'
-import { routeProject, routeUserProfile, routeAdmin } from '../routes'
+import { routeProjects, routeUserProfile, routeAdmin } from '../routes'
 import { MenuProjects } from './MenuProjects'
 import { MenuAccount } from './MenuAccount'
 import i18n from './sidebar.i18n'
@@ -15,7 +15,7 @@ export const Projects: SidebarEntry = {
     selected: 'nav-project-selected'
   },
   url: _routeParams => {
-    return linkTo(routeProject)
+    return linkTo(routeProjects)
   },
   sidebarMenu: MenuProjects
 }

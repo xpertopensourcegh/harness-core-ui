@@ -1,3 +1,7 @@
+import React, { useState } from 'react'
+import * as Yup from 'yup'
+import { pick } from 'lodash-es'
+
 import {
   Button,
   Color,
@@ -7,44 +11,19 @@ import {
   FormInput,
   Heading,
   Layout,
-  StepProps,
-  Utils
+  StepProps
 } from '@wings-software/uikit'
+import { useParams } from 'react-router-dom'
 import { OrganizationCard } from 'modules/common/components/OrganizationCard/OrganizationCard'
-import {
-  OrganizationDTO,
-  CreateOrganizationDTO,
-  UpdateOrganizationDTO,
-  useCreate,
-  useUpdateOrganization
-} from 'services/cd-ng'
-import React, { useState, useCallback } from 'react'
-import * as Yup from 'yup'
+import { usePostOrganization, usePutOrganization } from 'services/cd-ng'
+import type { OrganizationDTO, CreateOrganizationDTO, UpdateOrganizationDTO } from 'services/cd-ng'
 import type { OrganizationModalInteraction } from '../OrganizationModalUtils'
+
 import i18n from './StepAboutOrganization.i18n'
-import { routeParams } from 'framework/exports'
-import { pick } from 'lodash-es'
 
-const icons = [
-  { label: 'Gitlab', value: 'service-gotlab' },
-  { label: 'Datadog', value: 'service-datadog' },
-  { label: 'Github', value: 'service-github' },
-  { label: 'GCP', value: 'service-gcp' },
-  { label: 'Jenkins', value: 'service-jenkins' },
-  { label: 'Slack', value: 'service-slack' },
-  { label: 'Harness', value: 'harness' }
-]
-
-export const StepAboutOrganization: React.FC<StepProps<OrganizationDTO> & OrganizationModalInteraction> = ({
-  nextStep,
-  backToSelections,
-  onSuccess,
-  edit,
-  data
-}) => {
-  const {
-    params: { accountId }
-  } = routeParams()
+export const StepAboutOrganization: React.FC<StepProps<OrganizationDTO> & OrganizationModalInteraction> = props => {
+  const { nextStep, backToSelections, onSuccess, edit, data } = props
+  const { accountId } = useParams()
   const [org, setOrg] = useState<OrganizationDTO>(
     (edit && data) || {
       color: '',
@@ -54,29 +33,31 @@ export const StepAboutOrganization: React.FC<StepProps<OrganizationDTO> & Organi
       identifier: ''
     }
   )
-  const { mutate: createOrganization } = useCreate({})
-  const { mutate: updateOrganization } = useUpdateOrganization({ organizationId: org.id || '' })
-  const persistOrg = useCallback(async (values: OrganizationDTO) => {
-    const organization: CreateOrganizationDTO = {
-      accountId,
-      identifier: values.identifier || Utils.randomId(), // TODO Use name field with auto-first-time-ediable identifier
-      name: values.name,
-      description: values.description || '',
-      tags: values.tags || [],
-      color: values.color || ''
-    }
+  const { mutate: createOrganization } = usePostOrganization({ accountIdentifier: accountId })
+  const { mutate: updateOrganization } = usePutOrganization({
+    accountIdentifier: accountId,
+    organizationIdentifier: org.identifier || ''
+  })
+  const persistOrg = async (values: OrganizationDTO): Promise<void> => {
+    const dataToSubmit: unknown = pick<OrganizationDTO, keyof CreateOrganizationDTO>(values, [
+      'name',
+      'color',
+      'description',
+      'tags'
+    ])
     try {
       if (edit) {
-        await updateOrganization(pick(organization, ['name', 'color', 'description', 'tags']) as UpdateOrganizationDTO)
+        await updateOrganization(dataToSubmit as UpdateOrganizationDTO)
       } else {
-        await createOrganization(organization)
+        ;(dataToSubmit as CreateOrganizationDTO)['identifier'] = values.identifier || ''
+        await createOrganization(dataToSubmit as CreateOrganizationDTO)
       }
 
-      onSuccess?.(organization)
+      onSuccess?.()
     } catch (error) {
-      alert(error) // TODO: Implement modal error handling
+      // TODO: Implement modal error handling
     }
-  }, []) // eslint-disable-line
+  }
 
   return (
     <Layout.Horizontal padding={{ top: 'large', right: 'large', left: 'large' }}>
@@ -87,22 +68,19 @@ export const StepAboutOrganization: React.FC<StepProps<OrganizationDTO> & Organi
         <Formik
           initialValues={org}
           validationSchema={Yup.object().shape({
-            name: Yup.string().trim().required()
+            name: Yup.string().trim().required(),
+            identifier: Yup.string().required(),
+            color: Yup.string().required()
           })}
-          validate={values => {
-            setOrg(values)
-          }}
+          validate={setOrg}
           onSubmit={(values: OrganizationDTO) => {
             persistOrg(values)
           }}
         >
           {() => (
             <Form>
-              <FormInput.Text label={i18n.form.name} name="name" />
-              <Layout.Horizontal spacing="small">
-                <FormInput.ColorPicker label={i18n.form.color} name="color" color={org?.color} />
-                <FormInput.Select label={i18n.form.icon} name="icon" items={icons} />
-              </Layout.Horizontal>
+              <FormInput.InputWithIdentifier inputLabel={i18n.form.name} />
+              <FormInput.ColorPicker label={i18n.form.color} name="color" color={org?.color} />
               <FormInput.TextArea label={i18n.form.description} name="description" />
               <FormInput.TagInput
                 name="tags"
