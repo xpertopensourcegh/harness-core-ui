@@ -81,7 +81,10 @@ export function useMetricPackHook(configMetricPack: MetricPack[], metricPackMap:
 
   return useMemo(
     () => ({
-      metricList: Array.from(configMetricPackMap.keys()),
+      metricList: [...configMetricPackMap.keys()].map(metricPackName => ({
+        label: metricPackName,
+        value: metricPackName
+      })),
       setMetricObject: setMetricObjectCallback,
       selectedMetricPackObjs,
       setSelectedPacks: setSelectedPackCallback

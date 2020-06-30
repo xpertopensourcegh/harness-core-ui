@@ -8,6 +8,12 @@
       }
     }
   }
+
+  .content {
+    max-height: 410px;
+    overflow-y: scroll;
+  }
+
   .metricPackContainer {
     display: flex;
     margin: var(--spacing-medium);
@@ -23,48 +29,51 @@
   }
 
   .cardContainer {
-    display: flex;
-    flex-wrap: wrap;
+    --status-card-width: 120px;
+    width: 100%;
+    display: grid;
+    grid-gap: var(--spacing-large) var(--spacing-large);
+    grid-template-columns: repeat(auto-fit, var(--status-card-width));
+    grid-template-rows: auto;
+
+    .dataTitle {
+      font-size: var(--font-size-small);
+      font-weight: 600;
+    }
 
     .smallFont {
-      font-size: var(--font-size-small);
+      font-size: 10px;
       white-space: nowrap;
-      width: 80px;
-      text-align: center;
     }
 
     .statusIcon {
-      float: left;
-      > svg {
-        height: 12px;
+      position: relative;
+      top: 2px;
+    }
+
+    .dataContainer {
+      > p:first-child {
+        margin-bottom: var(--spacing-xsmall);
       }
     }
 
     [class*='card'] {
-      width: 125px !important;
-      height: 80px !important;
-      padding: var(--spacing-xsmall) !important;
+      width: var(--status-card-width) !important;
+      height: 70px !important;
+      padding: var(--spacing-small) var(--spacing-xsmall) !important;
       box-shadow: none !important;
     }
 
     .statusCard {
-      margin: var(--spacing-xsmall);
+      display: grid;
+      grid-template-columns: var(--spacing-medium) 1fr;
     }
 
-    .dataContainer {
-      margin: 0 auto;
-      clear: left;
-      width: 80px;
-      position: relative;
-      bottom: 5px;
-    }
     .successCard {
       border: 1px solid var(--green-500);
       background: var(--green-100);
       .count {
-        font-size: var(--font-size-large);
-        width: 80px;
-        text-align: center;
+        font-size: var(--font-size-medium);
       }
     }
     .errorCard {
@@ -75,6 +84,10 @@
     .noDataCard {
       border: 1px solid var(--grey-500);
       color: var(--grey-500);
+    }
+
+    .callLogs {
+      cursor: pointer;
     }
   }
 }

@@ -65,7 +65,6 @@ const DataSourceConfigPanel: React.FC<DataSourceConfigPanelProps> = (props): JSX
   const configData = values?.dsConfigs?.[index] || {}
   const accountId = configData.accountId
   const touchedFields = touched?.dsConfigs?.[index] || {}
-
   const headingComp = useMemo(
     () => (
       <DataSourcePanelStatusHeader
@@ -126,6 +125,7 @@ const DataSourceConfigPanel: React.FC<DataSourceConfigPanelProps> = (props): JSX
     () => ({
       heading: headingComp,
       isRemovable: true,
+      className: css.header,
       onRemove: onRemoveCallback
     }),
     [headingComp, onRemoveCallback]

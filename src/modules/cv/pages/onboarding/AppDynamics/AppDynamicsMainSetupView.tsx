@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo, useEffect } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import {
   Container,
   FormInput,
@@ -7,7 +7,8 @@ import {
   FormikForm,
   Select,
   Link,
-  ListPanelInterface
+  ListPanelInterface,
+  MultiSelectOption
 } from '@wings-software/uikit'
 import TierAndServiceTable from './TierAndServiceTable/TierAndServiceTable'
 import css from './AppDynamicsMainSetupView.module.scss'
@@ -137,19 +138,10 @@ function AppDynamicsConfig(props: AppDynamicsConfigProps): JSX.Element {
   } = props
   const { metricList, setSelectedPacks } = useMetricPackHook(config.metricPacks || [], metricPackMap)
   const [displayMetricPackDrawer, setDisplayMetricPackDrawer] = useState(false)
-  const tagInputProps = useMemo(
-    () => ({
-      fill: true,
-      placeholder: 'Add a metric pack',
-      allowNewTag: false,
-      showClearAllButton: true
-    }),
-    []
-  )
 
   const onMetricPackChangeCallback = useCallback(
-    selectedPacks => {
-      const thing = setSelectedPacks(selectedPacks as string[])
+    (selectedPacks: MultiSelectOption[]) => {
+      const thing = setSelectedPacks(selectedPacks?.map(({ value }) => value) as string[])
       formikProps.setFieldValue(`dsConfigs[${index}].metricPacks`, thing)
       formikProps.setFieldTouched(`dsConfigs[${index}].metricPacks`, true)
     },
@@ -182,14 +174,12 @@ function AppDynamicsConfig(props: AppDynamicsConfigProps): JSX.Element {
           <Link withoutHref onClick={() => setDisplayMetricPackDrawer(true)} className={css.customizePack}>
             Customize
           </Link>
-          <FormInput.TagInput
+          <FormInput.MultiSelect
             name={`dsConfigs[${index}].metricPackList`}
             label="Metric Packs"
             items={metricList}
             key={JSON.stringify(metricList?.[0])}
-            itemFromNewTag={newTag => newTag}
-            labelFor={name => name as string}
-            tagInputProps={tagInputProps}
+            placeholder="Add a Metric Pack"
             onChange={onMetricPackChangeCallback}
           />
         </Container>

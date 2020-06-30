@@ -1,10 +1,10 @@
 import React, { useState, useCallback, useMemo, useEffect } from 'react'
-import { Container, Button, Text, OverlaySpinner } from '@wings-software/uikit'
+import { Container, Button, Text } from '@wings-software/uikit'
 import CVProductCard, { TypeCard } from 'modules/cv/components/CVProductCard/CVProductCard'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useHistory } from 'react-router-dom'
 import css from './DataSourceProductPage.module.scss'
 import i18n from './DataSourceProductPage.i18n'
-import { routeCVDataSourcesEntityPage, routeCVOnBoardingSetup } from 'modules/cv/routes'
+import { routeCVDataSourcesEntityPage, routeCVOnBoardingSetup, routeCVDataSources } from 'modules/cv/routes'
 import { Page } from 'modules/common/exports'
 import { CVNextGenCVConfigService } from 'modules/cv/services'
 import { connectorId } from 'modules/cv/constants'
@@ -38,6 +38,7 @@ export default function AppDynamicsProductPage(): JSX.Element {
   } = routeParams()
   const { state: locationContext = {} } = useLocation<{ isEdit?: boolean; dataSourceId?: string }>()
   const [isLoading, setLoading] = useState(locationContext?.isEdit ? true : false)
+  const history = useHistory()
   const { productOptions, productDescription } = useMemo<{
     productOptions: Array<{ item: TypeCard }>
     productDescription: string
@@ -104,33 +105,36 @@ export default function AppDynamicsProductPage(): JSX.Element {
     [selectedProducts]
   )
   return (
-    <OverlaySpinner show={isLoading}>
-      <Container className={css.main}>
-        <Page.Header title={i18n.pageTitle}></Page.Header>
-        <Page.Body>
-          <Container className={css.contentContainer}>
-            <Container className={css.sourcesGrid}>
-              {productOptions.map(option => (
-                <CVProductCard
-                  item={option.item}
-                  key={option.item.title}
-                  onClick={onProductCardClickHandler}
-                  selected={selectedProducts.includes(option.item.title)}
-                />
-              ))}
-            </Container>
-            <Text className={css.productDescriptions}>{productDescription}</Text>
-            <Container className={css.buttonContainer}>
-              <Button className={css.backButton}>Back</Button>
-              <Link to={linkToParams}>
-                <Button disabled={!selectedProducts?.length} intent="primary">
-                  Next
-                </Button>
-              </Link>
-            </Container>
+    <Container className={css.main}>
+      <Page.Header title={i18n.pageTitle}></Page.Header>
+      <Page.Body loading={isLoading}>
+        <Container className={css.contentContainer}>
+          <Container className={css.sourcesGrid}>
+            {productOptions.map(option => (
+              <CVProductCard
+                item={option.item}
+                key={option.item.title}
+                onClick={onProductCardClickHandler}
+                selected={selectedProducts.includes(option.item.title)}
+              />
+            ))}
           </Container>
-        </Page.Body>
-      </Container>
-    </OverlaySpinner>
+          <Text className={css.productDescriptions}>{productDescription}</Text>
+          <Container className={css.buttonContainer}>
+            <Button
+              className={css.backButton}
+              onClick={() => history.replace({ pathname: routeCVDataSources.url({ accountId }) })}
+            >
+              {i18n.backButton}
+            </Button>
+            <Link to={linkToParams}>
+              <Button disabled={!selectedProducts?.length} intent="primary">
+                {i18n.nextButton}
+              </Button>
+            </Link>
+          </Container>
+        </Container>
+      </Page.Body>
+    </Container>
   )
 }

@@ -14,7 +14,7 @@ export default function OnBoardingConfigSetupHeader(props: OnBoardingConfigSetup
     <Container className={css.main}>
       <Container className={css.iconContainer}>
         <Icon name={iconName} size={45} className={css.dataSourceIcon} />
-        <Text style={{ textAlign: 'center' }} color={Color.BLACK} font="small">
+        <Text style={{ textAlign: 'center', fontSize: '10px' }} color={Color.BLACK}>
           {iconSubText}
         </Text>
       </Container>

@@ -1,13 +1,21 @@
 import React, { useMemo, useState, useCallback, useEffect } from 'react'
-import { Container, Layout, Tabs, Tab, Text, Card, Icon, Link, Color, useModalHook } from '@wings-software/uikit'
+import { Container, Tabs, Tab, Text, Card, Icon, Color, useModalHook } from '@wings-software/uikit'
 import { Dialog, IDialogProps, Classes } from '@blueprintjs/core'
 import css from './MetricsVerificationModal.module.scss'
 import cx from 'classnames'
 import { ThirdPartyCallLogModal } from '../ThirdPartyCallLogs/ThirdPartyCallLogs'
+import type {
+  AppdynamicsValidationResponse,
+  AppdynamicsMetricValueValidationResponse
+} from '@wings-software/swagger-ts/definitions'
+import i18n from './MetricsVerificationModal.i18n'
+
+const MAX_TEXT_WIDTH = 90
+const ICON_SIZE = 8
 
 interface MetricsVerificationModalProps {
   onHide: () => void
-  verificationData: any
+  verificationData?: AppdynamicsValidationResponse[]
   guid: string
 }
 
@@ -29,7 +37,7 @@ interface ErrorMetricCardProps extends NoDataErrorCardProps {
 }
 
 interface MetricPackValidationResultProps {
-  data: any
+  data: AppdynamicsValidationResponse[]
   viewCallLogs: (metricPackName: string, metricName: string) => void
 }
 
@@ -45,18 +53,22 @@ const modalPropsLight: IDialogProps = {
   style: { width: 900, height: 570 }
 }
 
-function filterForMetricPacksByMetricStatus(data: any, status: string): Array<{ metricPackName: string; values: [] }> {
+function filterForMetricPacksByMetricStatus(
+  data: AppdynamicsValidationResponse[],
+  status: AppdynamicsMetricValueValidationResponse['apiResponseStatus']
+): AppdynamicsValidationResponse[] {
   if (!data?.length) {
     return []
   }
-  const filteredMetrics: Array<{ metricPackName: string; values: [] }> = []
-  data.forEach((metricPack: any) => {
-    const metrics = metricPack?.values?.filter((metric: any) => {
+  const filteredMetrics: Array<{ metricPackName: string; values: AppdynamicsMetricValueValidationResponse[] }> = []
+  data.forEach((metricPack: AppdynamicsValidationResponse) => {
+    const metrics = metricPack?.values?.filter((metric: AppdynamicsMetricValueValidationResponse) => {
       return metric.apiResponseStatus === status
     })
-    filteredMetrics.push({ metricPackName: metricPack.metricPackName, values: metrics })
+    if (metrics?.length && metricPack?.metricPackName) {
+      filteredMetrics.push({ metricPackName: metricPack.metricPackName, values: metrics })
+    }
   })
-
   return filteredMetrics
 }
 
@@ -64,15 +76,15 @@ function SuccessMetricCard(props: SuccessMetricCardProps): JSX.Element {
   const { metricName, count } = props
   return (
     <Card className={cx(css.successCard, css.statusCard)}>
-      <Icon name="deployment-success-legacy" className={css.statusIcon} />
-      <Layout.Vertical className={css.dataContainer}>
-        <Text lineClamp={1} className={css.smallFont} color={Color.GREEN_500}>
+      <Icon name="deployment-success-legacy" className={css.statusIcon} size={ICON_SIZE} />
+      <Container className={css.dataContainer}>
+        <Text lineClamp={1} color={Color.GREEN_500} width={MAX_TEXT_WIDTH} className={css.dataTitle}>
           {metricName}
         </Text>
-        <Text className={css.count} lineClamp={1} color={Color.GREEN_500}>
+        <Text className={css.count} lineClamp={1} width={MAX_TEXT_WIDTH} color={Color.GREEN_500}>
           {count}
         </Text>
-      </Layout.Vertical>
+      </Container>
     </Card>
   )
 }
@@ -81,18 +93,22 @@ function ErrorMetricCard(props: ErrorMetricCardProps): JSX.Element {
   const { metricName, errorMsg, viewCallLogs, metricPackName } = props
   return (
     <Card className={cx(css.errorCard, css.statusCard)}>
-      <Icon name="deployment-failed-legacy" className={css.statusIcon} />
-      <Layout.Vertical className={css.dataContainer}>
-        <Text intent="danger" lineClamp={1} className={css.smallFont}>
+      <Icon name="deployment-failed-legacy" className={css.statusIcon} size={ICON_SIZE} />
+      <Container className={css.dataContainer}>
+        <Text intent="danger" lineClamp={1} width={MAX_TEXT_WIDTH} className={css.dataTitle}>
           {metricName}
         </Text>
-        <Text intent="danger" lineClamp={1} className={css.smallFont}>
+        <Text intent="danger" lineClamp={1} width={MAX_TEXT_WIDTH} className={css.smallFont}>
           {errorMsg}
         </Text>
-        <Link withoutHref className={css.smallFont} onClick={() => viewCallLogs(metricPackName, metricName)}>
+        <Text
+          intent="primary"
+          className={cx(css.smallFont, css.callLogs)}
+          onClick={() => viewCallLogs(metricPackName, metricName)}
+        >
           View call logs
-        </Link>
-      </Layout.Vertical>
+        </Text>
+      </Container>
     </Card>
   )
 }
@@ -101,49 +117,55 @@ function NoDataErrorCard(props: NoDataErrorCardProps): JSX.Element {
   const { metricName, viewCallLogs, metricPackName } = props
   return (
     <Card className={cx(css.noDataCard, css.statusCard)}>
-      <Icon name="remove" className={css.statusIcon} />
-      <Layout.Vertical className={css.dataContainer}>
-        <Text intent="none" lineClamp={1} className={css.smallFont}>
+      <Icon name="remove" className={css.statusIcon} size={ICON_SIZE} />
+      <Container className={css.dataContainer}>
+        <Text intent="none" lineClamp={1} width={MAX_TEXT_WIDTH} className={css.dataTitle}>
           {metricName}
         </Text>
         <Text intent="none" className={css.smallFont}>
           No data found
         </Text>
-        <Link withoutHref className={css.smallFont} onClick={() => viewCallLogs(metricPackName, metricName)}>
+        <Text
+          intent="primary"
+          className={cx(css.smallFont, css.callLogs)}
+          onClick={() => viewCallLogs(metricPackName, metricName)}
+        >
           View call logs
-        </Link>
-      </Layout.Vertical>
+        </Text>
+      </Container>
     </Card>
   )
 }
 
 function MetricPackValidationResult(props: MetricPackValidationResultProps): JSX.Element {
-  const { data, viewCallLogs } = props
+  const { data = [], viewCallLogs } = props
   return (
-    <Container>
-      {data?.map((metricPack: any) => {
+    <Container className={css.content}>
+      {data?.map((metricPack: AppdynamicsValidationResponse) => {
+        const { metricPackName = '', values = [] } = metricPack || {}
         return (
-          <Container key={metricPack?.metricPackName} className={css.metricPackContainer}>
-            <Text className={css.metricPackName}>{metricPack?.metricPackName}</Text>
+          <Container key={metricPackName} className={css.metricPackContainer}>
+            <Text className={css.metricPackName}>{metricPackName}</Text>
             <Container className={css.cardContainer}>
-              {metricPack?.values?.map((metric: any) => {
-                switch (metric?.apiResponseStatus) {
+              {values.map((metric: AppdynamicsMetricValueValidationResponse) => {
+                const { metricName = '', value = 0, errorMessage = '', apiResponseStatus } = metric || {}
+                switch (apiResponseStatus) {
                   case 'SUCCESS':
-                    return <SuccessMetricCard metricName={metric?.metricName} count={metric?.value} />
-                  case 'ERROR':
+                    return <SuccessMetricCard metricName={metricName} count={value} />
+                  case 'FAILED':
                     return (
                       <ErrorMetricCard
-                        metricName={metric?.metricName}
-                        metricPackName={metricPack?.metricPackName}
-                        errorMsg={metric.error}
+                        metricName={metricName}
+                        metricPackName={metricPackName}
+                        errorMsg={errorMessage}
                         viewCallLogs={viewCallLogs}
                       />
                     )
                   default:
                     return (
                       <NoDataErrorCard
-                        metricName={metric?.metricName}
-                        metricPackName={metricPack?.metricPackName}
+                        metricName={metricName}
+                        metricPackName={metricPackName}
                         viewCallLogs={viewCallLogs}
                       />
                     )
@@ -158,8 +180,8 @@ function MetricPackValidationResult(props: MetricPackValidationResultProps): JSX
 }
 
 function MetricsModal(props: MetricsVerificationModalProps): JSX.Element {
-  const { onHide, verificationData, guid } = props
-  const errorMetrics = useMemo(() => filterForMetricPacksByMetricStatus(verificationData, 'ERROR'), [verificationData])
+  const { onHide, verificationData = [], guid } = props
+  const errorMetrics = useMemo(() => filterForMetricPacksByMetricStatus(verificationData, 'FAILED'), [verificationData])
   const noDataMetrics = useMemo(() => filterForMetricPacksByMetricStatus(verificationData, 'NO_DATA'), [
     verificationData
   ])
@@ -185,31 +207,25 @@ function MetricsModal(props: MetricsVerificationModalProps): JSX.Element {
       {!displayCallLog ? (
         <Tabs id="tabsId1">
           <Tab
-            id="All"
-            title="All"
+            id={i18n.tabTitles.all}
+            title={i18n.tabTitles.all}
             panel={<MetricPackValidationResult data={verificationData} viewCallLogs={displayCallLogCallback} />}
           />
-          {errorMetrics?.length && (
-            <Tab
-              id="Error"
-              title="Error"
-              panel={<MetricPackValidationResult data={errorMetrics} viewCallLogs={displayCallLogCallback} />}
-            />
-          )}
-          {noDataMetrics?.length && (
-            <Tab
-              id="NoData"
-              title="No Data"
-              panel={<MetricPackValidationResult data={noDataMetrics} viewCallLogs={displayCallLogCallback} />}
-            />
-          )}
-          {successMetrics?.length && (
-            <Tab
-              id="Success"
-              title="Success"
-              panel={<MetricPackValidationResult data={successMetrics} viewCallLogs={displayCallLogCallback} />}
-            />
-          )}
+          <Tab
+            id={i18n.tabTitles.error}
+            title={i18n.tabTitles.error}
+            panel={<MetricPackValidationResult data={errorMetrics} viewCallLogs={displayCallLogCallback} />}
+          />
+          <Tab
+            id={i18n.tabTitles.noData}
+            title={i18n.tabTitles.noData}
+            panel={<MetricPackValidationResult data={noDataMetrics} viewCallLogs={displayCallLogCallback} />}
+          />
+          <Tab
+            id={i18n.tabTitles.success}
+            title={i18n.tabTitles.success}
+            panel={<MetricPackValidationResult data={successMetrics} viewCallLogs={displayCallLogCallback} />}
+          />
         </Tabs>
       ) : (
         <ThirdPartyCallLogModal guid={guidWithMetricFilter} onHide={onHide} onBackButtonClick={hideCallLogCallback()} />
@@ -219,7 +235,7 @@ function MetricsModal(props: MetricsVerificationModalProps): JSX.Element {
 }
 
 export default function MetricsVerificationModal(props: MetricsVerificationModalProps): JSX.Element {
-  const { onHide, verificationData, guid } = props
+  const { onHide, verificationData = [], guid } = props
   const [openModal, hideModal] = useModalHook(() => {
     const hidemodalCallback = (): void => {
       hideModal()

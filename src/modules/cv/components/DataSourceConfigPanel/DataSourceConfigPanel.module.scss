@@ -5,6 +5,12 @@
     }
   }
 
+  .header {
+    > [class*='leftSection'] {
+      width: 100%;
+    }
+  }
+
   > [class*='CollapseHeader'] {
     padding: var(--spacing-small) !important;
   }

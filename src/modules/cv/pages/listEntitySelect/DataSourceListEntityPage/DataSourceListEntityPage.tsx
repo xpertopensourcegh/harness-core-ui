@@ -2,7 +2,7 @@ import React, { useState, useCallback, useMemo } from 'react'
 import { useLocation, useHistory } from 'react-router'
 import { Container, Heading, Color, Button, Text, SelectOption } from '@wings-software/uikit'
 import css from './DataSourceListEntityPage.module.scss'
-import { routeCVOnBoardingSetup } from 'modules/cv/routes'
+import { routeCVOnBoardingSetup, routeCVDataSourcesProductPage } from 'modules/cv/routes'
 import DataSourceSelectEntityTable from 'modules/cv/components/DataSourceSelectEntityTable/DataSourceSelectEntityTable'
 import i18n from './SelectListEntityPage.i18n'
 import { connectorId } from 'modules/cv/constants'
@@ -60,7 +60,17 @@ export default function DataSourceListEntitySelect(): JSX.Element {
         />
       </Container>
       <Container className={css.buttonContainer}>
-        <Button className={css.backButton}>{i18n.backButton}</Button>
+        <Button
+          className={css.backButton}
+          onClick={() =>
+            history.replace({
+              pathname: routeCVDataSourcesProductPage.url({ accountId, dataSourceType }),
+              state: { ...locationData }
+            })
+          }
+        >
+          {i18n.backButton}
+        </Button>
         <Button intent="primary" onClick={() => setNavigationFunction(onClickNextCallback)}>
           {i18n.nextButton}
         </Button>

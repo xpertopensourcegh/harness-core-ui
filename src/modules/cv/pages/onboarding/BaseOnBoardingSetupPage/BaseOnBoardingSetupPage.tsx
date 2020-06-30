@@ -81,6 +81,7 @@ async function fetchServices(localAppId: string, accId: string): Promise<SelectO
 export default function OnBoardingSetupPage(): JSX.Element {
   const [serviceOptions, setServices] = useState<SelectOption[]>([{ value: '', label: 'Loading...' }])
   const [configsToRender, setConfigs] = useState<DSConfig[]>([])
+  const [isLoadingConfigs, setLoadingConfigs] = useState<boolean>(false)
   const {
     params: { accountId, dataSourceType }
   } = routeParams()
@@ -98,6 +99,7 @@ export default function OnBoardingSetupPage(): JSX.Element {
     if (!isEdit && locationContext.selectedEntities?.length) {
       setConfigs(getDefaultCVConfig(verificationType, dataSourceId || '', selectedEntities, accountId, products[0]))
     } else if (locationContext.isEdit) {
+      setLoadingConfigs(true)
       CVNextGenCVConfigService.fetchConfigs({
         accountId,
         dataSourceConnectorId: dataSourceId,
@@ -106,9 +108,11 @@ export default function OnBoardingSetupPage(): JSX.Element {
         if (status === xhr.ABORTED) {
           return
         } else if (error) {
+          setLoadingConfigs(false)
           setConfigs([])
           return // TODO
         } else if (response?.resource) {
+          setLoadingConfigs(false)
           const configs = response.resource || []
           setConfigs(transformIncomingDSConfigs(configs, verificationType) as DSConfig[])
         }
@@ -121,10 +125,10 @@ export default function OnBoardingSetupPage(): JSX.Element {
     fetchServices(appId, accountId).then(services => {
       setServices(services?.length ? services : [])
     })
-  }, [])
+  }, [accountId])
 
   return (
-    <Page.Body>
+    <Page.Body loading={isLoadingConfigs}>
       <Container className={css.main}>
         <OnBoardingConfigSetupHeader
           iconName={iconAndSubtextMapper[verificationType!].iconName}
