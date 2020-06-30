@@ -5,7 +5,7 @@ import { Dialog, Classes } from '@blueprintjs/core'
 import css from './PipelineStudio.module.scss'
 import cx from 'classnames'
 import { StageBuilder } from './StageBuilder/StageBuilder'
-import AboutPipelinesPage from './CreateModal/PipelineCreate'
+import CreatePipelines from './CreateModal/PipelineCreate'
 import i18n from './PipelineStudio.i18n'
 
 const PipelineStudio = (): JSX.Element => {
@@ -19,17 +19,17 @@ const PipelineStudio = (): JSX.Element => {
   const [showModal, hideModal] = useModalHook(
     () => (
       <Dialog isOpen={true} className={cx(css.dialog, Classes.DIALOG)}>
-        <AboutPipelinesPage afterSave={onSubmit} />
+        <CreatePipelines afterSave={onSubmit} />
       </Dialog>
     ),
     [pipelineId]
   )
 
   const onSubmit = React.useCallback(
-    (data: { id: string; name: string }) => {
+    (data: { identifier: string; name: string }) => {
       const newPath = generatePath('/account/:accountId/projects/:projectId/pipelines/:pipelineId/', {
         ...params,
-        pipelineId: data.id
+        pipelineId: data.identifier
       })
       history.replace(newPath)
       setPipeline({ name: data.name })

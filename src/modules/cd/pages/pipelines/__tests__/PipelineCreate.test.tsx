@@ -10,7 +10,7 @@ describe('PipelineCreate test', () => {
   test('initializes ok ', async () => {
     const { container } = render(<PipelineCreate {...props} />)
     expect(queryByAttribute('class', container, /container/)).not.toBeNull()
-    const nameInput = getByPlaceholderText(container, i18n.pipelineName)
+    const nameInput = getByPlaceholderText(container, i18n.pipelineNamePlaceholder)
     expect(nameInput).not.toBeNull()
     const collpase = container.querySelector('[class*="collapseDiv"]')
     expect(collpase).not.toBeNull()

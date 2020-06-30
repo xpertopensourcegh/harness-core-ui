@@ -11,6 +11,7 @@ import {
   IconName,
   Text
 } from '@wings-software/uikit'
+import * as Yup from 'yup'
 import css from './PipelineCreate.module.scss'
 import i18n from './PipelineCreate.i18n'
 
@@ -23,16 +24,25 @@ const collapseProps = {
   className: 'collapse'
 }
 
-interface AboutPipelinesProps {
-  afterSave?: ({ id, name }: { id: string; name: string }) => void
+interface PipelineCreateForm {
+  identifier: string
+  name: string
+  description?: string
+  tags?: string[]
+}
+
+interface PipelineCreateProps {
+  afterSave?: (values: PipelineCreateForm) => void
+  initialValues?: PipelineCreateForm
 }
 
 const descriptionCollapseProps = Object.assign({}, collapseProps, { heading: i18n.description })
 const tagCollapseProps = Object.assign({}, collapseProps, { heading: i18n.tags })
 
-export default function AboutPipelinesPage({ afterSave }: AboutPipelinesProps): JSX.Element {
-  logger.debug('Mounting About Pipelibnes...')
-
+export default function CreatePipelines({
+  afterSave,
+  initialValues = { identifier: '', name: '' }
+}: PipelineCreateProps): JSX.Element {
   return (
     <Container padding="small" className={css.container}>
       <Heading className={css.heading} level={2}>
@@ -42,20 +52,21 @@ export default function AboutPipelinesPage({ afterSave }: AboutPipelinesProps): 
         <div>
           <Text className={css.helpText}>{i18n.letsStart}</Text>
           <Formik
-            initialValues={{ name: '', description: '', tags: [''] }}
-            onSubmit={values =>
-              new Promise(resolve => {
-                setTimeout(() => {
-                  logger.info(JSON.stringify(values))
-                  afterSave && afterSave({ id: '2', name: values.name })
-                  resolve(values)
-                }, 5000)
-              })
-            }
+            initialValues={initialValues}
+            validationSchema={Yup.object().shape({
+              name: Yup.string().trim().required(i18n.pipelineNameRequired)
+            })}
+            onSubmit={values => {
+              logger.info(JSON.stringify(values))
+              afterSave && afterSave(values)
+            }}
           >
             <FormikForm>
               <div className={css.formInput}>
-                <FormInput.Text name="name" label={i18n.pipelineName} placeholder={i18n.pipelineName} />
+                <FormInput.InputWithIdentifier
+                  inputLabel={i18n.pipelineNameLabel}
+                  inputGroupProps={{ placeholder: i18n.pipelineNamePlaceholder }}
+                />
                 <div className={css.collapseDiv}>
                   <Collapse {...descriptionCollapseProps}>
                     <FormInput.TextArea name="description" />

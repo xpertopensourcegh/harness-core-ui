@@ -3,9 +3,28 @@ import { Diagram } from 'modules/common/exports'
 import css from './StageBuilder.module.scss'
 import { StageBuilderModel, GraphObj, StageType } from './StageBuilderModel'
 import { DynamicPopover, DynamicPopoverHandlerBinding } from 'modules/common/components/DynamicPopover/DynamicPopover'
-import { Layout, ButtonGroup, Button, Card, Icon } from '@wings-software/uikit'
+import {
+  Layout,
+  ButtonGroup,
+  Button,
+  Card,
+  Icon,
+  Text,
+  Container,
+  Formik,
+  FormikForm,
+  FormInput,
+  Collapse,
+  Label,
+  RadioSelect,
+  CardBody
+} from '@wings-software/uikit'
 import i18n from './StageBuilder.i18n'
 import type { NodeModelListener } from '@projectstorm/react-diagrams-core'
+import { loggerFor, ModuleName } from 'framework/exports'
+import type { IconName } from '@blueprintjs/core'
+
+const logger = loggerFor(ModuleName.CD)
 
 interface PopoverData {
   data?: GraphObj
@@ -13,9 +32,97 @@ interface PopoverData {
   addStage?: (type: StageType) => void
 }
 
+const collapseProps = {
+  collapsedIcon: 'small-plus' as IconName,
+  expandedIcon: 'small-minus' as IconName,
+  isOpen: false,
+  isRemovable: false,
+  className: 'collapse',
+  heading: i18n.description
+}
+
+const newStageData = [
+  {
+    text: i18n.service,
+    value: 'service',
+    icon: 'main-service-ami'
+  },
+  {
+    text: i18n.multipleService,
+    value: 'multiple-service',
+    icon: 'main-services'
+  },
+  {
+    text: i18n.functions,
+    value: 'functions',
+    icon: 'function'
+  },
+  {
+    text: i18n.otherWorkloads,
+    value: 'other-workloads',
+    icon: 'main-workflows'
+  }
+]
+
 const renderPopover = ({ addStage, isStageView }: PopoverData): JSX.Element => {
   if (isStageView) {
-    return <div>Stage view</div>
+    return (
+      <div className={css.stageCreate}>
+        <Text icon="deployment-success-legacy" iconProps={{ size: 16 }}>
+          Stage View
+        </Text>
+        <Container padding="medium">
+          <Formik
+            initialValues={{ identifier: '', name: '', serviceType: undefined }}
+            onSubmit={values => {
+              logger.info(JSON.stringify(values))
+            }}
+          >
+            {formikProps => {
+              return (
+                <FormikForm>
+                  <FormInput.InputWithIdentifier />
+                  <div className={css.collapseDiv}>
+                    <Collapse {...collapseProps}>
+                      <FormInput.TextArea name="description" />
+                    </Collapse>
+                  </div>
+                  <div className={css.labelBold}>
+                    <Label>{i18n.whatToDeploy}</Label>
+                  </div>
+                  <div>
+                    <RadioSelect
+                      selected={formikProps.values.serviceType}
+                      onChange={item => formikProps.setFieldValue('serviceType', item)}
+                      renderItem={(item, selected) => (
+                        <CardBody.Icon icon={item.icon as IconName} iconSize={25}>
+                          <Text
+                            font={{
+                              size: 'small',
+                              align: 'center'
+                            }}
+                            style={{
+                              color: selected ? 'var(--grey-900)' : 'var(--grey-350)'
+                            }}
+                          >
+                            {item.text}
+                          </Text>
+                        </CardBody.Icon>
+                      )}
+                      data={newStageData}
+                      className={css.grid}
+                    />
+                  </div>
+                  <div className={css.btnSetup}>
+                    <Button intent="primary" text={i18n.setupStage} />
+                  </div>
+                </FormikForm>
+              )
+            }}
+          </Formik>
+        </Container>
+      </div>
+    )
   }
   return (
     <div className={css.createNewContent}>
@@ -58,7 +165,6 @@ export const StageBuilder = (): JSX.Element => {
       }
     })
     dynamicPopoverHandler?.hide()
-    // renderParallelNodes(model)
     model.addUpdateGraph(data, listener)
     engine.repaintCanvas()
     setData(data)
@@ -84,7 +190,6 @@ export const StageBuilder = (): JSX.Element => {
   //2) setup the diagram model
   const model = React.useMemo(() => new StageBuilderModel(), [])
 
-  // renderParallelNodes(model)
   model.addUpdateGraph(data, listener)
 
   // load model into engine
