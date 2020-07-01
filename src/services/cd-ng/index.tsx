@@ -498,11 +498,11 @@ export interface FailureDTO {
 }
 
 export interface Pageable {
+  offset?: number
+  unpaged?: boolean
   paged?: boolean
   pageNumber?: number
-  unpaged?: boolean
   pageSize?: number
-  offset?: number
   sort?: Sort
 }
 
@@ -529,13 +529,13 @@ export interface ResponseDTOPageOrganizationDTO {
 export interface PageProjectDTO {
   totalPages?: number
   totalElements?: number
-  first?: boolean
-  last?: boolean
-  numberOfElements?: number
-  pageable?: Pageable
   size?: number
   content?: ProjectDTO[]
   number?: number
+  last?: boolean
+  numberOfElements?: number
+  pageable?: Pageable
+  first?: boolean
   sort?: Sort
   empty?: boolean
 }
@@ -600,19 +600,15 @@ export interface CreateOrganizationDTO {
 export interface PageOrganizationDTO {
   totalPages?: number
   totalElements?: number
-  first?: boolean
-  last?: boolean
-  numberOfElements?: number
-  pageable?: Pageable
   size?: number
   content?: OrganizationDTO[]
   number?: number
+  last?: boolean
+  numberOfElements?: number
+  pageable?: Pageable
+  first?: boolean
   sort?: Sort
   empty?: boolean
-}
-
-export interface SecretDTO {
-  name?: string
 }
 
 export interface ConnectorDTO {
@@ -630,11 +626,8 @@ export interface ConnectorDTO {
   lastModifiedAt?: number
 }
 
-export interface ResponseDTOOptionalProjectDTO {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: ProjectDTO
-  metaData?: { [key: string]: any }
-  correlationId?: string
+export interface SecretDTO {
+  name?: string
 }
 
 export interface ConnectorSummaryDTO {
@@ -657,16 +650,23 @@ export interface ConnectorSummaryDTO {
   version?: number
 }
 
+export interface ResponseDTOOptionalProjectDTO {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: ProjectDTO
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
 export interface PageConnectorSummaryDTO {
   totalPages?: number
   totalElements?: number
-  first?: boolean
-  last?: boolean
-  numberOfElements?: number
-  pageable?: Pageable
   size?: number
   content?: ConnectorSummaryDTO[]
   number?: number
+  last?: boolean
+  numberOfElements?: number
+  pageable?: Pageable
+  first?: boolean
   sort?: Sort
   empty?: boolean
 }

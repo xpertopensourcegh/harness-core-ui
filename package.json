@@ -24,6 +24,7 @@
     "watch": "yarn clean && NODE_ENV=development webpack --watch",
     "services": "npm-run-all services:*",
     "services:portal": "echo 'Skipping Portal'",
+    "services:ngtemp": "restful-react import --config restful-react.config.js ng-temp",
     "services:cdng": "restful-react import --config restful-react.config.js cd-ng",
     "postservices": "prettier --write src/services/**/*.tsx",
     "build": "yarn clean && GIT_COMMIT=$(git log -1 --pretty=%h) GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD) webpack",
