@@ -1,5 +1,5 @@
 import React, { useMemo, ElementType, useLayoutEffect, useState } from 'react'
-import { Container, Link, Icon } from '@wings-software/uikit'
+import { Container, Link, Icon, ModalProvider } from '@wings-software/uikit'
 import css from './Sidebar.module.scss'
 import { useAppStoreReader } from 'framework/hooks/useAppStore'
 import type { Route, SidebarEntry } from 'framework/exports'
@@ -33,7 +33,12 @@ const SidebarItem = (sidebarEntry: SidebarEntry, route?: Route): JSX.Element => 
     </li>
   )
 }
-const renderMenu = (Menu?: ElementType): JSX.Element | null => (Menu ? <Menu /> : null)
+const renderMenu = (Menu?: ElementType): JSX.Element | null =>
+  Menu ? (
+    <ModalProvider>
+      <Menu />
+    </ModalProvider>
+  ) : null
 
 export const SidebarMounter: React.FC<{ withoutMenu?: boolean }> = ({ withoutMenu = false }) => {
   const { route, sidebarRegistry } = useAppStoreReader()
