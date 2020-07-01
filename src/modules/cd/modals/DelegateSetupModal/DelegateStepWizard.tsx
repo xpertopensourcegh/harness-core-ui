@@ -1,20 +1,32 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   StepWizard,
   Layout,
   Button,
   Text,
   RadioSelect,
-  TextInput,
-  Select,
-  Label,
   StepsProgress,
   Intent,
-  CodeBlock
+  FormInput,
+  Formik,
+  Icon
 } from '@wings-software/uikit'
 import css from './DelegateSetupModal.module.scss'
-import { Formik, Form, connect } from 'formik'
+import { Form } from 'formik'
 import i18n from './DelegateSetup.i18n'
+import ConnectorDetailFields from 'modules/dx/pages/connectors/Forms/ConnectorDetailFields'
+import { getHeadingByType } from 'modules/dx/pages/connectors/utils/ConnectorHelper'
+import {
+  authOptions,
+  getCustomFields,
+  DelegateTypes,
+  DelegateInClusterType
+} from 'modules/dx/pages/connectors/Forms/KubeFormHelper'
+import * as Yup from 'yup'
+import { illegalIdentifiers } from 'framework/utils/StringUtils'
+import cx from 'classnames'
+import { ConnectorService } from 'modules/dx/services'
+import { buildKubPayload } from 'modules/dx/pages/connectors/utils/ConnectorUtils'
 
 interface StepProps<PrevStepData> {
   name?: string
@@ -34,6 +46,9 @@ interface StepChangeData<SharedObject> {
   nextStep?: number
   prevStepData: SharedObject
 }
+interface DelegateStepWizardProps {
+  accountId: string
+}
 
 export interface StepWizardProps<SharedObject> {
   children: Array<React.ReactElement<StepProps<SharedObject>>>
@@ -44,7 +59,7 @@ export interface StepWizardProps<SharedObject> {
   initialStep?: number
 }
 
-const DelegateTypes = {
+const DelegateTypesText = {
   DELEGATE_IN_CLUSTER: i18n.DELEGATE_IN_CLUSTER,
   DELEGATE_OUT_CLUSTER: i18n.DELEGATE_OUT_CLUSTER
 }
@@ -53,8 +68,18 @@ const DelegateInfoText = {
   DELEGATE_IN_CLUSTER: i18n.DELEGATE_IN_CLUSTER_INFO,
   DELEGATE_OUT_CLUSTER: i18n.DELEGATE_OUT_CLUSTER_INFO
 }
+// export const DelegateTypes = {
+//   DELEGATE_IN_CLUSTER: 'InheritFromDelegate',
+//   DELEGATE_OUT_CLUSTER: 'ManualConfig'
+// }
+
+// export const DelegateInClusterType = {
+//   useExistingDelegate: 'useExistingDelegate',
+//   addNewDelegate: 'addnewDelegate'
+// }
 
 interface FirstData {
+  type: string
   value: string
   info: string
   icon: string
@@ -62,86 +87,246 @@ interface FirstData {
 
 const firstStepData: FirstData[] = [
   {
-    value: DelegateTypes.DELEGATE_IN_CLUSTER,
+    type: DelegateTypes.DELEGATE_IN_CLUSTER,
+    value: DelegateTypesText.DELEGATE_IN_CLUSTER,
     info: DelegateInfoText.DELEGATE_IN_CLUSTER,
     icon: 'blank'
   },
   {
-    value: DelegateTypes.DELEGATE_OUT_CLUSTER,
+    type: DelegateTypes.DELEGATE_OUT_CLUSTER,
+    value: DelegateTypesText.DELEGATE_OUT_CLUSTER,
     info: DelegateInfoText.DELEGATE_OUT_CLUSTER,
     icon: 'blank'
   }
 ]
 
-const FirstStep = (props: any) => {
-  const selected = props.prevStepData && props.prevStepData.delegateType
-
-  const radioProps = {
-    data: firstStepData,
-    className: 'customGrid',
-    renderItem: function renderItem(item: any) {
-      return (
-        <div>
-          <Layout.Vertical spacing="medium">
-            <div className={css.itemName}>{item.value}</div>
-            <div className={css.itemInfo}>{item.info}</div>
-          </Layout.Vertical>
-        </div>
-      )
-    },
-    onChange: (item: FirstData) => props.nextStep({ delegateType: item.value })
+const createConnectorByType = async (data: any, props: DelegateStepWizardProps) => {
+  const xhrGroup = 'create-connector'
+  const { accountId } = props
+  const { error } = await ConnectorService.createConnector({ xhrGroup, connector: data, accountId })
+  if (!error) {
+    // state.setConnector(connector)
+    // const formData = buildKubFormData(connector)
+    // state.setConnector(formData)
   }
-  return (
-    <Layout.Vertical padding="small">
-      <div style={{ height: '180px' }}></div>
-      <Text font="large" padding="small" style={{ textTransform: 'uppercase', color: 'var(--grey-700)' }}>
-        {props.name}
-      </Text>
-      <Text padding="medium" style={{ textTransform: 'uppercase', color: 'var(--grey-400)' }}>
-        {i18n.STEP_ONE.RECOMMENDED}
-      </Text>
-      <RadioSelect {...radioProps} selected={selected && firstStepData.filter(data => data.value === selected)[0]} />
-    </Layout.Vertical>
-  )
+  //todo else
 }
 
-interface ConnectedProps {
-  formik?: any
-  label: string
-  name: string
-  type?: string
+const validateCreds = async (data: any, state: any) => {
+  const { validateStatus, error } = await ConnectorService.validateCredentials({ data })
+  // const response  = await ConnectorService.validateCredentials({data})
+
+  if (!error) {
+    state.setCurrentStatus(4)
+  } else {
+    state.setCurrentIntent('DANGER')
+    state.setCurrentStatus('DANGER')
+    state.setValidateError(validateStatus)
+  }
 }
 
-const MyTextField = (props: ConnectedProps) => {
-  const { formik, label, ...rest } = props
-  const hasError = formik.touched[props.name] && formik.errors[props.name]
+const fetchExistingDelegates = async (state: any, props: DelegateStepWizardProps) => {
+  const { accountId } = props
+  const { delegateList, error } = await ConnectorService.fetchExistingDelegates({ accountId })
+  if (!error) {
+    state.setDelegateList(delegateList)
+  }
+}
 
+const FirstStep = (props: any) => {
   return (
-    <Layout.Vertical spacing="small">
-      <Label>{props.label}</Label>
-      <TextInput
-        {...rest}
-        value={formik.values[props.name]}
-        errorText={hasError ? formik.errors[props.name] : ''}
-        onChange={event => {
-          const target = event.target as HTMLInputElement
-          formik.setFieldValue(props.name, target.value)
+    <Layout.Vertical spacing="xxlarge" className={css.firstep}>
+      <div className={css.heading}>{getHeadingByType('K8sCluster')}</div>
+      <Formik
+        initialValues={{}}
+        validationSchema={Yup.object().shape({
+          name: Yup.string().trim().required(),
+          identifier: Yup.string()
+            .trim()
+            .required()
+            .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, 'Identifier can only contain alphanumerics, _ and $')
+            .notOneOf(illegalIdentifiers),
+          description: Yup.string()
+        })}
+        onSubmit={formData => {
+          props.nextStep({})
+          props.setFormData(formData)
         }}
-      />
+      >
+        {() => (
+          <Form className={css.connectorForm}>
+            <ConnectorDetailFields />
+            <Button type="submit" text={i18n.STEP_ONE.saveAndContinue} className={css.saveBtn} />
+          </Form>
+        )}
+      </Formik>
     </Layout.Vertical>
   )
 }
 
-const FormikField: any = connect(MyTextField)
+// interface ConnectedProps {
+//   formik?: any
+//   label: string
+//   name: string
+//   type?: string
+// }
+
+// const MyTextField = (props: ConnectedProps) => {
+//   const { formik, label, ...rest } = props
+//   const hasError = formik.touched[props.name] && formik.errors[props.name]
+
+//   return (
+//     <Layout.Vertical spacing="small">
+//       <Label>{props.label}</Label>
+//       <TextInput
+//         {...rest}
+//         value={formik.values[props.name]}
+//         errorText={hasError ? formik.errors[props.name] : ''}
+//         onChange={event => {
+//           const target = event.target as HTMLInputElement
+//           formik.setFieldValue(props.name, target.value)
+//         }}
+//       />
+//     </Layout.Vertical>
+//   )
+// }
+
+// const FormikField: any = connect(MyTextField)
+
+const selectExistingDelegate = () => {
+  return (
+    <>
+      {/* <div className={css.selectDelegateText}>Select a Delegate</div> */}
+      <FormInput.Select
+        name="inheritConfigFromDelegate"
+        label="Select Delegate"
+        className={css.selectDelegate}
+        items={[
+          { label: 'Delegate_one', value: 'Delegate_one' },
+          { label: 'Delegate_two', value: 'Delegate_two' }
+        ]}
+      />
+    </>
+  )
+}
+
+const renderDelegateInclusterForm = (state: any, props: DelegateStepWizardProps) => {
+  return (
+    <div className={css.incluster}>
+      <Text className={css.howToProceed}>{i18n.STEP_TWO.HOW_TO_PROCEED}</Text>
+      <div
+        className={css.radioOption}
+        onClick={() => {
+          fetchExistingDelegates(state, props)
+          state.setInClusterDelegate(DelegateInClusterType.useExistingDelegate)
+        }}
+      >
+        <input type="radio" checked={state.inclusterDelegate === DelegateInClusterType.useExistingDelegate} />
+        <span className={css.label}>Use an existing Delegate</span>
+      </div>
+      {state.inclusterDelegate === DelegateInClusterType.useExistingDelegate ? selectExistingDelegate() : null}
+      <div
+        className={css.radioOption}
+        onClick={() => {
+          state.setInClusterDelegate(DelegateInClusterType.addNewDelegate)
+        }}
+      >
+        <input type="radio" checked={state.inclusterDelegate === DelegateInClusterType.addNewDelegate} />
+        <span className={css.label}>Add a new Delegate to this Cluster</span>
+      </div>
+    </div>
+  )
+}
+
+const addToFormData = (state: any, newFormData: any) => {
+  const connectorData = { ...state.formData, ...newFormData }
+  if (connectorData.inheritConfigFromDelegate) {
+    delete connectorData.inheritConfigFromDelegate
+  }
+  state.setFormData(connectorData)
+}
 
 const SecondStep = (props: any) => {
   const selected = props.prevStepData && props.prevStepData.delegateType
+  // const selected = props.prevStepData && props.prevStepData.delegateType
+  const { state } = props
+  const radioProps = {
+    data: firstStepData,
+    className: css.customCss,
+    renderItem: function renderItem(item: any) {
+      return (
+        <div className={cx({ [css.selectedCard]: item.type === state.delegateType })}>
+          {/* <Layout.Vertical spacing="medium" className={cx({ [css.selectedCard]: item.type === state.delegateType })}> */}
+          <div className={cx(css.itemName, { [css.selectedText]: item.type === state.delegateType })}>
+            {item.value}
+            {/* {item.type === state.delegateType ? <Icon name="tick" size={12} /> : null} */}
+          </div>
+          <div className={css.itemInfo}>
+            {item.type === DelegateTypes.DELEGATE_IN_CLUSTER ? (
+              <div className={css.recommended}>RECOMMENDED</div>
+            ) : null}
+            <div className={css.textInfo}>{item.info}</div>
+          </div>
+        </div>
+        // </Layout.Vertical>
+      )
+    }
+  }
+
   return (
-    <Layout.Vertical padding="small">
-      <Text font="medium" padding="small" style={{ color: 'var(--grey-700)', fontWeight: 'bold', padding: 0 }}>
-        {props.name}
+    <Layout.Vertical spacing="xxlarge" className={css.secondStep}>
+      <Text font="medium" className={css.headingStepTwo}>
+        {i18n.STEP_TWO.HEADING}
       </Text>
-      {selected === DelegateTypes.DELEGATE_IN_CLUSTER && (
+      <Formik
+        initialValues={{}}
+        validationSchema={Yup.object().shape({
+          delegateType: Yup.string().trim().required(),
+          inheritConfigFromDelegate: Yup.string().trim().required()
+        })}
+        onSubmit={formData => {
+          const connectorData = { ...state.formData, ...formData }
+          state.setFormData(connectorData)
+          props.nextStep({})
+        }}
+      >
+        {formikProps => (
+          <Form>
+            <div className={css.delegateWrapper}>
+              <RadioSelect
+                onChange={(item: any) => {
+                  state?.setDelegateType(item.type)
+                  formikProps?.setFieldValue('delegateType', item.type)
+                }}
+                {...radioProps}
+                selected={selected && firstStepData.filter(data => data.value === selected)[0]}
+              />
+              {state.delegateType === DelegateTypes.DELEGATE_IN_CLUSTER
+                ? renderDelegateInclusterForm(state, props)
+                : null}
+            </div>
+
+            <Layout.Horizontal spacing="large" className={css.saveSecondStep}>
+              <Button onClick={() => props.previousStep({})} text="Back" />
+              {state.delegateType === DelegateTypes.DELEGATE_IN_CLUSTER ? (
+                <Button type="submit" style={{ color: 'var(--blue-500)' }} text="Continue" />
+              ) : (
+                <Button
+                  type="submit"
+                  style={{ color: 'var(--blue-500)' }}
+                  text="Continue"
+                  onClick={() => {
+                    addToFormData(state, { delegateType: DelegateTypes.DELEGATE_OUT_CLUSTER })
+                    props.nextStep({})
+                  }}
+                />
+              )}
+            </Layout.Horizontal>
+          </Form>
+        )}
+      </Formik>
+
+      {/* {selected === DelegateTypes.DELEGATE_IN_CLUSTER && (
         <Formik
           initialValues={{ ...props.prevStepData }}
           onSubmit={values => {
@@ -166,8 +351,8 @@ const SecondStep = (props: any) => {
             </Form>
           )}
         </Formik>
-      )}
-      {selected === DelegateTypes.DELEGATE_OUT_CLUSTER && (
+      )} */}
+      {/* {selected === DelegateTypes.DELEGATE_OUT_CLUSTER && (
         <Formik
           initialValues={{ ...props.prevStepData }}
           onSubmit={values => {
@@ -198,16 +383,108 @@ const SecondStep = (props: any) => {
             </Form>
           )}
         </Formik>
-      )}
+      )} */}
     </Layout.Vertical>
   )
 }
 
+const IntermediateStep = (props: any) => {
+  const { state, accountId } = props
+  return (
+    <div className={css.intermediateStep}>
+      <Text font="medium" className={css.headingIntermediate}>
+        {i18n.STEP_INTERMEDIATE.HEADING}
+      </Text>
+      <Formik
+        initialValues={{ ...props.prevStepData }}
+        onSubmit={formData => {
+          const connectorData = { ...state.formData, ...formData }
+
+          const data = buildKubPayload(connectorData)
+
+          createConnectorByType(data, accountId)
+          state.setFormData(connectorData)
+          props.nextStep({})
+        }}
+      >
+        {() => (
+          <div className={css.formWrapper}>
+            <Form className={css.credForm}>
+              <div className={css.formFields}>
+                <FormInput.Text label={i18n.STEP_INTERMEDIATE.masterUrl} name="masterUrl" />
+                <Layout.Horizontal className={css.credWrapper}>
+                  <div className={css.label}>
+                    <Icon name="lock" size={14} className={css.lockIcon} />
+                    Credentials
+                  </div>
+                  <FormInput.Select
+                    name="authType"
+                    items={authOptions}
+                    className={css.selectAuth}
+                    onChange={val => {
+                      if (typeof val.value === 'string') {
+                        props.state.setAuthentication(val?.value)
+                      }
+                    }}
+                  />
+                </Layout.Horizontal>
+                {getCustomFields(props.state.authentication)}
+              </div>
+              <Layout.Horizontal spacing="large" style={{ marginBottom: '30px' }}>
+                <Button onClick={() => props.previousStep(props.prevStepData)} text="Back" />
+                <Button
+                  type="submit"
+                  style={{ color: 'var(--blue-500)', borderColor: 'var(--blue-500)' }}
+                  text="Continue"
+                />
+              </Layout.Horizontal>
+            </Form>
+          </div>
+        )}
+      </Formik>
+    </div>
+  )
+}
+
+const checkingDelegate = async (state: any, accountId: string) => {
+  const { delegateStatus, error } = await ConnectorService.checkDelegates({ accountId })
+  if (!error) {
+    state.setDelegateCount(delegateStatus)
+    state.setCurrentStatus(2)
+    state.setCurrentIntent('SUCCESS')
+  }
+}
+const getStepOne = (state: any) => {
+  if (state.currentStatus > 1) {
+    return `${state.delegateCount?.resource?.delegates?.length} delegates found`
+  } else {
+    return i18n.STEP_THREE.STEPS.ONE
+  }
+}
 const ThirdStep = (props: any) => {
   const [currentStatus, setCurrentStatus] = React.useState(1)
-  const [currentIntent, setCurrentIntent] = React.useState<Intent>(Intent.WARNING)
+  const [currentIntent, setCurrentIntent] = React.useState<Intent>()
+  const [delegateCount, setDelegateCount] = React.useState()
+  const [validateError, setValidateError] = useState()
+  const state: any = {
+    delegateCount,
+    setDelegateCount,
+    currentStatus,
+    setCurrentStatus,
+    currentIntent,
+    setCurrentIntent,
+    validateError,
+    setValidateError
+  }
+
   React.useEffect(() => {
-    if (currentStatus > 1 && currentStatus < 5) {
+    if (currentStatus === 1) {
+      checkingDelegate(state, props.accountId)
+    } else if (currentStatus === 3) {
+      const data = buildKubPayload(props.state.formData)
+
+      validateCreds(data, state)
+    } else if (currentStatus > 1 && currentStatus < 5) {
       const interval = setInterval(() => setCurrentStatus(currentStatus + 1), 5000)
       return () => {
         clearInterval(interval)
@@ -215,27 +492,27 @@ const ThirdStep = (props: any) => {
     }
   }, [currentStatus])
   return (
-    <Layout.Vertical padding="small">
+    <Layout.Vertical padding="small" style={{ height: '100%' }}>
       <Text font="medium" padding="small" style={{ color: 'var(--grey-700)', padding: 0 }}>
         Verify Connection to <span style={{ fontWeight: 700 }}>{props?.prevStepData?.connectorname}</span>
       </Text>
       <StepsProgress
-        steps={[
-          i18n.STEP_THREE.STEPS.ONE,
-          i18n.STEP_THREE.STEPS.TWO,
-          i18n.STEP_THREE.STEPS.THREE,
-          i18n.STEP_THREE.STEPS.FOUR
-        ]}
+        steps={[getStepOne(state), i18n.STEP_THREE.STEPS.TWO, i18n.STEP_THREE.STEPS.THREE]}
         intent={currentIntent}
         current={currentStatus}
         currentStatus={'PROCESS'}
       />
-      {currentStatus === 4 && (
+      {currentStatus === 3 && (
         <Text font="small" style={{ color: 'var(--grey-400)', padding: 0, width: 300 }}>
           {i18n.STEP_THREE.VERIFICATION_TIME_TEXT}
         </Text>
       )}
-      <section className={css.stepsOverlay}>
+      {state.validateError?.responseMessages[0]?.message && (
+        <Text font="small" style={{ color: 'red', padding: 10, width: '95%', margin: 10 }}>
+          {state.validateError}
+        </Text>
+      )}
+      {/* <section className={css.stepsOverlay}>
         <Layout.Vertical spacing="xxlarge">
           <Text
             font="medium"
@@ -267,8 +544,8 @@ const ThirdStep = (props: any) => {
             <CodeBlock allowCopy format="pre" snippet={i18n.STEP_THREE.INSTALL.COMMAND} />
           </Layout.Vertical>
         </Layout.Vertical>
-      </section>
-      <Layout.Horizontal spacing="large">
+      </section> */}
+      <Layout.Horizontal spacing="large" style={{ marginTop: '300px' }}>
         <Button onClick={() => props.previousStep(props.prevStepData)} text="Back" />
         <Button type="submit" onClick={() => props.hideLightModal} style={{ color: 'var(--blue-500)' }} text="Close" />
       </Layout.Horizontal>
@@ -276,14 +553,38 @@ const ThirdStep = (props: any) => {
   )
 }
 
-export const DelegateStepWizard = () => {
+export const DelegateStepWizard = (props: DelegateStepWizardProps) => {
   const [, setSecondStepName] = React.useState(DelegateTypes.DELEGATE_IN_CLUSTER)
+  const [delegateType, setDelegateType] = useState()
+  const [formData, setFormData] = useState()
+  const [inclusterDelegate, setInClusterDelegate] = useState()
+  const [authentication, setAuthentication] = useState('')
+  const [delegateList, setDelegateList] = useState()
+
+  const state: any = {
+    setSecondStepName,
+    delegateType,
+    setDelegateType,
+    formData,
+    setFormData,
+    inclusterDelegate,
+    setInClusterDelegate,
+    authentication,
+    setAuthentication,
+    delegateList,
+    setDelegateList
+  }
+
   return (
     <div className={css.exampleWizard}>
       <StepWizard onStepChange={({ prevStepData }: any) => setSecondStepName(prevStepData.delegateType)}>
-        <FirstStep name={i18n.STEP_ONE.NAME} />
-        <SecondStep name={i18n.STEP_TWO.NAME} />
-        <ThirdStep name={i18n.STEP_THREE.NAME} />
+        <FirstStep name={i18n.STEP_ONE.NAME} setFormData={setFormData} />
+        <SecondStep name={i18n.STEP_TWO.NAME} state={state} />
+        {/* Disabling temporary to pass type check.. will enable once uiKit changes are merge for this type check
+         {state?.delegateType === DelegateTypes.DELEGATE_OUT_CLUSTER ? ( */}
+        <IntermediateStep {...props} name={i18n.STEP_INTERMEDIATE.NAME} state={state} />
+        {/* ) : null} */}
+        <ThirdStep name={i18n.STEP_THREE.NAME} state={state} />
       </StepWizard>
       <Button text="close" />
     </div>

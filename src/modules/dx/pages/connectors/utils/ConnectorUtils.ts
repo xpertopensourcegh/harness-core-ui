@@ -5,8 +5,8 @@ import { Connectors, ConnectorInfoText } from 'modules/dx/constants'
 export const userPasswrdAuthField = (formData: any) => {
   return {
     username: formData.username,
-    password: formData.password,
-    cacert: 'Random'
+    password: formData.password
+    // cacert: 'Random'
   }
 }
 
@@ -41,7 +41,7 @@ export const customAuthField = (formData: any) => {
 }
 
 const buildAuthTypePayload = (formData: any) => {
-  const { authType } = formData
+  const { authType = '' } = formData
 
   switch (authType) {
     case AuthTypes.USER_PASSWORD:
@@ -58,17 +58,16 @@ const buildAuthTypePayload = (formData: any) => {
 }
 
 export const getSpecForDelegateType = (formData: any) => {
-  const type = formData.delegateType
+  const type = formData?.delegateType
   if (type === DelegateTypes.DELEGATE_IN_CLUSTER) {
     return {
-      delegateName: formData.inheritConfigFromDelegate
+      delegateName: formData?.inheritConfigFromDelegate
     }
   } else if (type === DelegateTypes.DELEGATE_OUT_CLUSTER) {
     return {
-      masterUrl: formData.masterUrl,
+      masterUrl: formData?.masterUrl,
       auth: {
-        type: formData.authType,
-        type1: formData.authType,
+        type: formData?.authType,
         spec: buildAuthTypePayload(formData)
       }
     }
@@ -77,18 +76,16 @@ export const getSpecForDelegateType = (formData: any) => {
 
 export const buildKubPayload = (formData: any) => {
   const savedData = {
-    name: formData.name,
-    description: formData.description,
+    name: formData?.name,
+    description: formData?.description,
     // projectIdentifier: 'project-1',
-    identifier: formData.identifier,
+    identifier: formData?.identifier,
     // accountIdentifier: 'Test-account',
     // orgIdentifier: 'Devops',
-    tags: formData.tags,
+    tags: formData?.tags,
     type: i18n.K8sCluster,
-    type1: i18n.K8sCluster,
     spec: {
-      type: formData.delegateType,
-      type1: formData.delegateType,
+      type: formData?.delegateType,
       spec: getSpecForDelegateType(formData)
     }
   }
@@ -143,12 +140,12 @@ export const getInfoTextByType = (type: string) => {
 }
 
 export const fomatConnectListData = (connectorList: any) => {
-  const formattedList = connectorList.map((item: any) => {
+  const formattedList = connectorList?.content?.map((item: any) => {
     return {
       identifier: item.identifier,
       icon: getIconByType(item.type),
       infoText: getInfoTextByType(item.type),
-      tags: item.tags.toString(),
+      tags: item.tags?.toString(),
       belongsTo: item.accountName,
       name: item.name,
       lastActivityText: 'activity log',

@@ -440,28 +440,37 @@ exports[`CustomTable Snapshot should render CustomTable with Proper Data and Col
               role="cell"
               width="auto"
             >
-              <button
-                class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws moreIcon StyledProps---intent-primary--2Xgi"
-                type="button"
+              <span
+                class="bp3-popover-wrapper"
               >
                 <span
-                  class="bp3-icon StyledProps---main--1Wws"
+                  class="bp3-popover-target"
                 >
-                  <svg
-                    height="16"
-                    viewBox="0 0 13 3"
-                    width="16"
+                  <button
+                    class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws moreIcon StyledProps---intent-primary--2Xgi"
+                    tabindex="0"
+                    type="button"
                   >
-                    <g
-                      fill="#4d5969"
+                    <span
+                      class="bp3-icon StyledProps---main--1Wws"
                     >
-                      <path
-                        d="M1.5 0C2.3 0 3 .7 3 1.5S2.3 3 1.5 3 0 2.3 0 1.5.7 0 1.5 0M11.5 0c.8 0 1.5.7 1.5 1.5S12.3 3 11.5 3 10 2.3 10 1.5 10.7 0 11.5 0M6.5 0C7.3 0 8 .7 8 1.5S7.3 3 6.5 3C5.9 3 5.4 2.5 5 1.5 5.4.5 5.9 0 6.5 0"
-                      />
-                    </g>
-                  </svg>
+                      <svg
+                        height="16"
+                        viewBox="0 0 13 3"
+                        width="16"
+                      >
+                        <g
+                          fill="#4d5969"
+                        >
+                          <path
+                            d="M1.5 0C2.3 0 3 .7 3 1.5S2.3 3 1.5 3 0 2.3 0 1.5.7 0 1.5 0M11.5 0c.8 0 1.5.7 1.5 1.5S12.3 3 11.5 3 10 2.3 10 1.5 10.7 0 11.5 0M6.5 0C7.3 0 8 .7 8 1.5S7.3 3 6.5 3C5.9 3 5.4 2.5 5 1.5 5.4.5 5.9 0 6.5 0"
+                          />
+                        </g>
+                      </svg>
+                    </span>
+                  </button>
                 </span>
-              </button>
+              </span>
             </td>
           </tr>
           <tr
@@ -781,28 +790,37 @@ exports[`CustomTable Snapshot should render CustomTable with Proper Data and Col
               role="cell"
               width="auto"
             >
-              <button
-                class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws moreIcon StyledProps---intent-primary--2Xgi"
-                type="button"
+              <span
+                class="bp3-popover-wrapper"
               >
                 <span
-                  class="bp3-icon StyledProps---main--1Wws"
+                  class="bp3-popover-target"
                 >
-                  <svg
-                    height="16"
-                    viewBox="0 0 13 3"
-                    width="16"
+                  <button
+                    class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws moreIcon StyledProps---intent-primary--2Xgi"
+                    tabindex="0"
+                    type="button"
                   >
-                    <g
-                      fill="#4d5969"
+                    <span
+                      class="bp3-icon StyledProps---main--1Wws"
                     >
-                      <path
-                        d="M1.5 0C2.3 0 3 .7 3 1.5S2.3 3 1.5 3 0 2.3 0 1.5.7 0 1.5 0M11.5 0c.8 0 1.5.7 1.5 1.5S12.3 3 11.5 3 10 2.3 10 1.5 10.7 0 11.5 0M6.5 0C7.3 0 8 .7 8 1.5S7.3 3 6.5 3C5.9 3 5.4 2.5 5 1.5 5.4.5 5.9 0 6.5 0"
-                      />
-                    </g>
-                  </svg>
+                      <svg
+                        height="16"
+                        viewBox="0 0 13 3"
+                        width="16"
+                      >
+                        <g
+                          fill="#4d5969"
+                        >
+                          <path
+                            d="M1.5 0C2.3 0 3 .7 3 1.5S2.3 3 1.5 3 0 2.3 0 1.5.7 0 1.5 0M11.5 0c.8 0 1.5.7 1.5 1.5S12.3 3 11.5 3 10 2.3 10 1.5 10.7 0 11.5 0M6.5 0C7.3 0 8 .7 8 1.5S7.3 3 6.5 3C5.9 3 5.4 2.5 5 1.5 5.4.5 5.9 0 6.5 0"
+                          />
+                        </g>
+                      </svg>
+                    </span>
+                  </button>
                 </span>
-              </button>
+              </span>
             </td>
           </tr>
           <tr
@@ -1009,28 +1027,37 @@ exports[`CustomTable Snapshot should render CustomTable with Proper Data and Col
               role="cell"
               width="auto"
             >
-              <button
-                class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws moreIcon StyledProps---intent-primary--2Xgi"
-                type="button"
+              <span
+                class="bp3-popover-wrapper"
               >
                 <span
-                  class="bp3-icon StyledProps---main--1Wws"
+                  class="bp3-popover-target"
                 >
-                  <svg
-                    height="16"
-                    viewBox="0 0 13 3"
-                    width="16"
+                  <button
+                    class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws moreIcon StyledProps---intent-primary--2Xgi"
+                    tabindex="0"
+                    type="button"
                   >
-                    <g
-                      fill="#4d5969"
+                    <span
+                      class="bp3-icon StyledProps---main--1Wws"
                     >
-                      <path
-                        d="M1.5 0C2.3 0 3 .7 3 1.5S2.3 3 1.5 3 0 2.3 0 1.5.7 0 1.5 0M11.5 0c.8 0 1.5.7 1.5 1.5S12.3 3 11.5 3 10 2.3 10 1.5 10.7 0 11.5 0M6.5 0C7.3 0 8 .7 8 1.5S7.3 3 6.5 3C5.9 3 5.4 2.5 5 1.5 5.4.5 5.9 0 6.5 0"
-                      />
-                    </g>
-                  </svg>
+                      <svg
+                        height="16"
+                        viewBox="0 0 13 3"
+                        width="16"
+                      >
+                        <g
+                          fill="#4d5969"
+                        >
+                          <path
+                            d="M1.5 0C2.3 0 3 .7 3 1.5S2.3 3 1.5 3 0 2.3 0 1.5.7 0 1.5 0M11.5 0c.8 0 1.5.7 1.5 1.5S12.3 3 11.5 3 10 2.3 10 1.5 10.7 0 11.5 0M6.5 0C7.3 0 8 .7 8 1.5S7.3 3 6.5 3C5.9 3 5.4 2.5 5 1.5 5.4.5 5.9 0 6.5 0"
+                          />
+                        </g>
+                      </svg>
+                    </span>
+                  </button>
                 </span>
-              </button>
+              </span>
             </td>
           </tr>
           <tr
@@ -1358,28 +1385,37 @@ exports[`CustomTable Snapshot should render CustomTable with Proper Data and Col
               role="cell"
               width="auto"
             >
-              <button
-                class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws moreIcon StyledProps---intent-primary--2Xgi"
-                type="button"
+              <span
+                class="bp3-popover-wrapper"
               >
                 <span
-                  class="bp3-icon StyledProps---main--1Wws"
+                  class="bp3-popover-target"
                 >
-                  <svg
-                    height="16"
-                    viewBox="0 0 13 3"
-                    width="16"
+                  <button
+                    class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws moreIcon StyledProps---intent-primary--2Xgi"
+                    tabindex="0"
+                    type="button"
                   >
-                    <g
-                      fill="#4d5969"
+                    <span
+                      class="bp3-icon StyledProps---main--1Wws"
                     >
-                      <path
-                        d="M1.5 0C2.3 0 3 .7 3 1.5S2.3 3 1.5 3 0 2.3 0 1.5.7 0 1.5 0M11.5 0c.8 0 1.5.7 1.5 1.5S12.3 3 11.5 3 10 2.3 10 1.5 10.7 0 11.5 0M6.5 0C7.3 0 8 .7 8 1.5S7.3 3 6.5 3C5.9 3 5.4 2.5 5 1.5 5.4.5 5.9 0 6.5 0"
-                      />
-                    </g>
-                  </svg>
+                      <svg
+                        height="16"
+                        viewBox="0 0 13 3"
+                        width="16"
+                      >
+                        <g
+                          fill="#4d5969"
+                        >
+                          <path
+                            d="M1.5 0C2.3 0 3 .7 3 1.5S2.3 3 1.5 3 0 2.3 0 1.5.7 0 1.5 0M11.5 0c.8 0 1.5.7 1.5 1.5S12.3 3 11.5 3 10 2.3 10 1.5 10.7 0 11.5 0M6.5 0C7.3 0 8 .7 8 1.5S7.3 3 6.5 3C5.9 3 5.4 2.5 5 1.5 5.4.5 5.9 0 6.5 0"
+                          />
+                        </g>
+                      </svg>
+                    </span>
+                  </button>
                 </span>
-              </button>
+              </span>
             </td>
           </tr>
           <tr
@@ -1586,28 +1622,37 @@ exports[`CustomTable Snapshot should render CustomTable with Proper Data and Col
               role="cell"
               width="auto"
             >
-              <button
-                class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws moreIcon StyledProps---intent-primary--2Xgi"
-                type="button"
+              <span
+                class="bp3-popover-wrapper"
               >
                 <span
-                  class="bp3-icon StyledProps---main--1Wws"
+                  class="bp3-popover-target"
                 >
-                  <svg
-                    height="16"
-                    viewBox="0 0 13 3"
-                    width="16"
+                  <button
+                    class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws moreIcon StyledProps---intent-primary--2Xgi"
+                    tabindex="0"
+                    type="button"
                   >
-                    <g
-                      fill="#4d5969"
+                    <span
+                      class="bp3-icon StyledProps---main--1Wws"
                     >
-                      <path
-                        d="M1.5 0C2.3 0 3 .7 3 1.5S2.3 3 1.5 3 0 2.3 0 1.5.7 0 1.5 0M11.5 0c.8 0 1.5.7 1.5 1.5S12.3 3 11.5 3 10 2.3 10 1.5 10.7 0 11.5 0M6.5 0C7.3 0 8 .7 8 1.5S7.3 3 6.5 3C5.9 3 5.4 2.5 5 1.5 5.4.5 5.9 0 6.5 0"
-                      />
-                    </g>
-                  </svg>
+                      <svg
+                        height="16"
+                        viewBox="0 0 13 3"
+                        width="16"
+                      >
+                        <g
+                          fill="#4d5969"
+                        >
+                          <path
+                            d="M1.5 0C2.3 0 3 .7 3 1.5S2.3 3 1.5 3 0 2.3 0 1.5.7 0 1.5 0M11.5 0c.8 0 1.5.7 1.5 1.5S12.3 3 11.5 3 10 2.3 10 1.5 10.7 0 11.5 0M6.5 0C7.3 0 8 .7 8 1.5S7.3 3 6.5 3C5.9 3 5.4 2.5 5 1.5 5.4.5 5.9 0 6.5 0"
+                          />
+                        </g>
+                      </svg>
+                    </span>
+                  </button>
                 </span>
-              </button>
+              </span>
             </td>
           </tr>
         </tbody>

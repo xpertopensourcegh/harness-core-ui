@@ -12,5 +12,32 @@ declare const styles: {
   readonly menuItem: string
   readonly menuItemContent: string
   readonly menulabel: string
+  readonly firstep: string
+  readonly heading: string
+  readonly connectorForm: string
+  readonly saveBtn: string
+  readonly secondStep: string
+  readonly headingStepTwo: string
+  readonly customCss: string
+  readonly selectedText: string
+  readonly selectedCard: string
+  readonly recommended: string
+  readonly textInfo: string
+  readonly delegateWrapper: string
+  readonly incluster: string
+  readonly howToProceed: string
+  readonly radioOption: string
+  readonly label: string
+  readonly selectDelegate: string
+  readonly selectDelegateText: string
+  readonly saveSecondStep: string
+  readonly intermediateStep: string
+  readonly formWrapper: string
+  readonly formFields: string
+  readonly headingIntermediate: string
+  readonly credWrapper: string
+  readonly lockIcon: string
+  readonly selectAuth: string
+  readonly credForm: string
 }
 export default styles

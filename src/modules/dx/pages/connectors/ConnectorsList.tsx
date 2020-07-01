@@ -13,13 +13,20 @@ interface ConnectorListState {
   rowData: any
   setRowData: (val: any) => void
 }
-const fetchConnectors = async (state: ConnectorListState) => {
-  const { connectorList = {}, error } = await ConnectorService.fetchAllConnectors()
+const fetchConnectors = async (state: ConnectorListState, accountId: string) => {
+  const { connectorList = {}, error } = await ConnectorService.fetchAllConnectors({ accountId })
   if (!error) {
-    // const rowData = fomatConnectListData(connectorList?.content)
-    // removing temp
     const rowData = fomatConnectListData(connectorList)
+    // removing temp
+    // const rowData = fomatConnectListData(connectorList)
     state.setRowData(rowData)
+  }
+}
+
+const onDeleteRow = async (state: ConnectorListState, accountId: string, connectorId: string) => {
+  const { error } = await ConnectorService.deleteConnector({ connectorId, accountId })
+  if (!error) {
+    fetchConnectors(state, accountId)
   }
 }
 
@@ -36,7 +43,7 @@ const ConnectorsList: React.FC = () => {
   }
 
   useEffect(() => {
-    fetchConnectors(state)
+    fetchConnectors(state, accountId)
   }, [])
   return (
     <Layout.Vertical style={{ background: 'var(--grey-100)', height: `100%` }}>
@@ -54,6 +61,7 @@ const ConnectorsList: React.FC = () => {
             data={rowData}
             columns={columns}
             onClickRow={(connectorId: string) => onClickRow(history, accountId, connectorId)}
+            onDeleteRow={(connectorId: string) => onDeleteRow(state, accountId, connectorId)}
           />
         </Layout.Horizontal>
       </Container>

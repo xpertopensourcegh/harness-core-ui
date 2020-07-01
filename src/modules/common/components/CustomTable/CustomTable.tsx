@@ -14,7 +14,7 @@ import css from './CustomTable.module.scss'
 import * as moment from 'moment'
 import TimeAgo from 'react-timeago'
 import cx from 'classnames'
-import { Popover, PopoverInteractionKind, Position } from '@blueprintjs/core'
+import { Menu, Popover, PopoverInteractionKind, Position } from '@blueprintjs/core'
 import i18n from './CustomTable.i18n'
 const formatDate = (timeObj: any, format = 'MM/DD/YYYY hh:mm a') => {
   return timeObj ? moment.unix(timeObj / 1000).format(format) : ''
@@ -130,7 +130,7 @@ function TagsRenderer({ tags }: any) {
   )
 }
 
-const Table = ({ columns, data, openFilterPanel, onClickRow }: any): JSX.Element => {
+const Table = ({ columns, data, openFilterPanel, onClickRow, onDeleteRow }: any): JSX.Element => {
   // Use the state and functions returned from useTable to build your UI
   const {
     getTableProps,
@@ -362,7 +362,29 @@ const Table = ({ columns, data, openFilterPanel, onClickRow }: any): JSX.Element
                             />
                           )}
                           {index == 5 && viewType === viewTypes.LIST && (
-                            <Button icon="main-more" intent="primary" minimal className={css.moreIcon} />
+                            <Popover
+                              minimal
+                              position={Position.BOTTOM_RIGHT}
+                              interactionKind={PopoverInteractionKind.HOVER}
+                              content={
+                                <Menu className={css.crud}>
+                                  <Menu.Item
+                                    onClick={() => onClickRow(cell.row.original?.identifier)}
+                                    key={index}
+                                    text={'Edit'}
+                                    icon="edit"
+                                  />
+                                  <Menu.Item
+                                    onClick={() => onDeleteRow(cell.row.original?.identifier)}
+                                    key={index}
+                                    text={'Delete'}
+                                    icon="trash"
+                                  />{' '}
+                                </Menu>
+                              }
+                            >
+                              <Button icon="main-more" intent="primary" minimal className={css.moreIcon} />
+                            </Popover>
                           )}
                         </td>
                       )
@@ -452,7 +474,13 @@ const Table = ({ columns, data, openFilterPanel, onClickRow }: any): JSX.Element
     </section>
   )
 }
-class CustomTable extends React.Component<{ data: any; columns: any; openFilterPanel?: any; onClickRow?: any }> {
+class CustomTable extends React.Component<{
+  data: any
+  columns: any
+  openFilterPanel?: any
+  onClickRow?: any
+  onDeleteRow?: any
+}> {
   render() {
     return (
       <Table
@@ -460,6 +488,7 @@ class CustomTable extends React.Component<{ data: any; columns: any; openFilterP
         data={this.props.data}
         openFilterPanel={this.props.openFilterPanel}
         onClickRow={this.props.onClickRow}
+        onDeleteRow={this.props.onDeleteRow}
       />
     )
   }

@@ -4,8 +4,8 @@ import { Dialog, IDialogProps, Position } from '@blueprintjs/core'
 import css from './DelegateSetupModal.module.scss'
 import { DelegateStepWizard } from './DelegateStepWizard'
 import { Menu, Popover } from '@blueprintjs/core'
-import { useParams } from 'react-router-dom'
 import i18n from './DelegateSetup.i18n'
+import { useParams } from 'react-router-dom'
 import { routeConnectorDetails } from 'modules/dx/routes'
 
 const getIcon = (icon: any) => {
@@ -30,23 +30,22 @@ const DelegateModal: React.FC = () => {
     canEscapeKeyClose: true,
     canOutsideClickClose: true,
     enforceFocus: true,
-    style: { width: 1200, height: 600, borderLeft: 0, paddingBottom: 0, position: 'relative', overflow: 'hidden' }
+    style: { width: 960, height: 600, borderLeft: 0, paddingBottom: 0, position: 'relative', overflow: 'hidden' }
   }
 
+  const [openLightModal, hideLightModal] = useModalHook(() => (
+    <Dialog {...modalPropsLight}>
+      <DelegateStepWizard accountId={accountId} />
+      <Button minimal icon="cross" iconProps={{ size: 18 }} onClick={hideLightModal} className={css.crossIcon} />
+    </Dialog>
+  ))
   const items = [
-    { label: 'Kubernetes', value: 'service-kubernetes', icon: 'service-kubernetes' },
+    { label: 'Kubernetes', value: 'service-kubernetes', icon: 'service-kubernetes', onClick: openLightModal },
     { label: 'GitHub', value: 'service-github', icon: 'service-github' },
     { label: 'Jenkins', value: 'service-jenkins', icon: 'service-jenkins' },
     { label: 'GCP', value: 'service-gcp', icon: 'service-gcp' },
     { label: 'Create via YAML Builder', value: 'yaml-builder', icon: 'main-code-yaml' }
   ]
-
-  const [, hideLightModal] = useModalHook(() => (
-    <Dialog {...modalPropsLight}>
-      <DelegateStepWizard />
-      <Button minimal icon="cross" iconProps={{ size: 18 }} onClick={hideLightModal} className={css.crossIcon} />
-    </Dialog>
-  ))
 
   return (
     <React.Fragment>
@@ -68,6 +67,8 @@ const DelegateModal: React.FC = () => {
               <Menu.Item
                 className={css.menuItem}
                 href={`#${routeConnectorDetails.url({ accountId: accountId, editMode: 'true', type: item.value })}`}
+                // href={`#${routeConnectorDetails.url({ accountId: accountId, editMode: 'true' })}`}
+                onClick={item.onClick}
                 key={index}
                 text={getMenuItem(item)}
               />

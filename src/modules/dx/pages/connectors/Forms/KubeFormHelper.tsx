@@ -144,7 +144,7 @@ const renderUserNameAndPassword = () => {
         label="Select Encrypted Password*"
         items={[
           { label: 'password_one', value: 'password_one' },
-          { label: 'password_two', value: 'password_two' }
+          { label: 'password_two', value: '9WEMH2oOPphDPVDq' }
         ]}
       />
     </>

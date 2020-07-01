@@ -4,9 +4,17 @@
   color: var(--grey-700);
   cursor: pointer;
   letter-spacing: 0.5px;
+  &:hover {
+    text-decoration: none;
+    color: var(--grey-700);
+  }
 }
 .activeTag {
   background: var(--grey-800);
-  color: white;
+  color: var(--white);
   border-radius: 8px;
+  &:hover {
+    text-decoration: none;
+    color: var(--white);
+  }
 }

@@ -12,6 +12,7 @@ import YAMLBuilderPage from 'modules/dx/pages/yamlBuilder/YamlBuilderPage'
 import { YamlEntity } from 'modules/common/constants/YamlConstants'
 
 export interface ConfigureConnectorProps {
+  accountId: string
   type: string
   enableCreate: boolean
   connector: any
@@ -54,9 +55,10 @@ const getOptions = (isCreationThroughYamlBuilder: boolean): Options[] => {
     }
   ]
 }
-const createConnectorByType = async (data: any, state: ConfigureConnectorState) => {
+const createConnectorByType = async (data: any, state: ConfigureConnectorState, props: ConfigureConnectorProps) => {
   const xhrGroup = 'create-connector'
-  const { connector, error } = await ConnectorService.createConnector({ xhrGroup, connector: data })
+  const { accountId } = props
+  const { connector, error } = await ConnectorService.updateConnector({ xhrGroup, connector: data, accountId })
   if (!error) {
     state.setConnector(connector)
     const formData = buildKubFormData(connector)
@@ -65,11 +67,12 @@ const createConnectorByType = async (data: any, state: ConfigureConnectorState) 
   //todo else
 }
 
-const onSubmitForm = (formData: any, state: ConfigureConnectorState) => {
+const onSubmitForm = (formData: any, state: ConfigureConnectorState, props: ConfigureConnectorProps) => {
   state.setEnableEdit(false)
   state.setEnableCreate(false)
   const data = buildKubPayload(formData)
-  createConnectorByType(data, state)
+
+  createConnectorByType(data, state, props)
 }
 
 const renderConnectorForm = (state: ConfigureConnectorState, props: ConfigureConnectorProps): JSX.Element => {
@@ -79,7 +82,7 @@ const renderConnectorForm = (state: ConfigureConnectorState, props: ConfigureCon
   return (
     <Formik
       initialValues={enableCreate ? {} : connector}
-      onSubmit={formData => onSubmitForm(formData, state)}
+      onSubmit={formData => onSubmitForm(formData, state, props)}
       validationSchema={validationSchema}
     >
       {formikProps => (

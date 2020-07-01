@@ -11,5 +11,6 @@ declare const styles: {
   readonly openState: string
   readonly list: string
   readonly grid: string
+  readonly crud: string
 }
 export default styles

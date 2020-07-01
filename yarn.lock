@@ -1350,10 +1350,10 @@
   dependencies:
     caret-xy "^2.0.3"
 
-"@wings-software/monaco-yaml@2.4.1":
-  version "2.4.1"
-  resolved "https://npm.pkg.github.com/download/@wings-software/monaco-yaml/2.4.1/d63669de366a3b46d1eeb0ade83484d34c6b673eca224cdcb7977e80b2926531#a63f68e90f2b00106a42680c981b4a06c226f89b"
-  integrity sha512-Np1/p0vFc4blxumZJw5xo81WKpMaAdDFbY3csJAlxHVe50AVyqBMMI/KYw4TNovPqeO/MGK2ALZ7a7oXGv9oYw==
+"@wings-software/monaco-yaml@2.4.10":
+  version "2.4.10"
+  resolved "https://npm.pkg.github.com/download/@wings-software/monaco-yaml/2.4.10/0c5a1b57757a34f83554266c75aeeb15e6007e9f1aa1b85ec21d9e376862b298#742b871f913c523b36b623be2e6ebd49b228688f"
+  integrity sha512-9M6gC6mKKuudFJXFPzs57rLR9cSFfJmkUD+y4oIfi4jsO2zwN/FD4YZiJTefA2ucIBlUZ+SGifgk2eN3G+tdxA==
   dependencies:
     js-yaml "^3.12.0"
     vscode-json-languageservice "^3.4.11"
@@ -9691,11 +9691,6 @@ vscode-languageserver-textdocument@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/vscode-languageserver-textdocument/-/vscode-languageserver-textdocument-1.0.1.tgz#178168e87efad6171b372add1dea34f53e5d330f"
   integrity sha512-UIcJDjX7IFkck7cSkNNyzIz5FyvpQfY7sdzVy+wkKN/BLaD4DQ0ppXQrKePomCxTS7RrolK1I0pey0bG9eh8dA==
-
-vscode-languageserver-types@3.12.0:
-  version "3.12.0"
-  resolved "https://registry.yarnpkg.com/vscode-languageserver-types/-/vscode-languageserver-types-3.12.0.tgz#f96051381b6a050b7175b37d6cb5d2f2eb64b944"
-  integrity sha512-UxqnpzBToPO7Mi2tr/s5JeyPOSKSJtLB8lIdxCg9ZNdvP2cU8wS7iTDtwQKz91Ne4CUmTdf85ddR5SIZKXmMjQ==
 
 vscode-languageserver-types@3.14.0:
   version "3.14.0"

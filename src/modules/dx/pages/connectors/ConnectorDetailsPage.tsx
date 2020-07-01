@@ -11,6 +11,7 @@ import { linkTo } from 'framework/exports'
 import { routeParams } from 'framework/exports'
 import { ConnectorService } from 'modules/dx/services'
 import { buildKubFormData } from './utils/ConnectorUtils'
+import { useParams } from 'react-router'
 
 interface Categories {
   [key: string]: string
@@ -53,9 +54,14 @@ const setInitialConnector = (data: any, state: ConnectorDetailsPageState) => {
   state.setConnector(data)
 }
 
-const fetchConnectorDetails = async (connectorId: ReactText | string, state: ConnectorDetailsPageState) => {
+const fetchConnectorDetails = async (
+  accountId: string,
+  connectorId: ReactText | string,
+  state: ConnectorDetailsPageState
+) => {
   state.setIsFetching(true)
-  const { connectorDetails, error } = await ConnectorService.getConnector({ connectorId })
+
+  const { connectorDetails, error } = await ConnectorService.getConnector({ connectorId, accountId })
   if (!error) {
     const formData = buildKubFormData(connectorDetails)
     state.setConnector(formData)
@@ -72,6 +78,7 @@ const ConnectorDetailsPage: React.FC = () => {
     params: { urlParams }
   } = routeParams()
   const [connectorId, type] = urlParams ? (urlParams as string).split('&') : []
+  const { accountId } = useParams()
   const state: ConnectorDetailsPageState = {
     activeCategory,
     setActiveCategory,
@@ -84,7 +91,7 @@ const ConnectorDetailsPage: React.FC = () => {
   }
   useEffect(() => {
     if (connectorId && connectorId !== 'edit=true') {
-      fetchConnectorDetails(connectorId, state)
+      fetchConnectorDetails(accountId, connectorId, state)
     }
   }, [])
 
@@ -116,6 +123,7 @@ const ConnectorDetailsPage: React.FC = () => {
       <Page.Body>
         {!isFetching ? (
           <ConfigureConnector
+            accountId={accountId}
             type={connectorType}
             connector={connectordetail}
             enableCreate={editMode}

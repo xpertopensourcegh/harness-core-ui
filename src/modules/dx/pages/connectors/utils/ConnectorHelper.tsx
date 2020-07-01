@@ -3,6 +3,7 @@ import { Connectors } from 'modules/dx/constants'
 import { getKubValidationSchema } from '../Forms/KubeFormHelper'
 import KubCluster from '../Forms/KubCluster'
 import type { ConfigureConnectorProps } from '../ConfigureConnector'
+import i18n from './ConnectorHelper.i18n'
 
 export const getValidationSchemaByType = (type: string) => {
   if (!type) return null
@@ -42,5 +43,14 @@ export const getKubInitialValues = () => {
         encryptedPassword: ''
       }
     }
+  }
+}
+
+export const getHeadingByType = (type: string) => {
+  switch (type) {
+    case Connectors.KUBERNETES_CLUSTER:
+      return i18n.k8sClusterDetails
+    default:
+      return null
   }
 }
