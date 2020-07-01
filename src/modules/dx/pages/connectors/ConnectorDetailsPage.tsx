@@ -26,6 +26,8 @@ interface ConnectorDetailsPageState {
   setIsFetching: (val: boolean) => void
   connectorType: string
   setConnectorType: (type: string) => void
+  connectorJson: any
+  setConnectorJson: (connectorJson: any) => void
 }
 const categories: Categories = {
   connection: i18n.connection,
@@ -65,6 +67,7 @@ const fetchConnectorDetails = async (
   if (!error) {
     const formData = buildKubFormData(connectorDetails)
     state.setConnector(formData)
+    state.setConnectorJson(connectorDetails)
   }
   state.setIsFetching(false)
 }
@@ -74,6 +77,7 @@ const ConnectorDetailsPage: React.FC = () => {
   const [connectordetail, setConnector] = React.useState()
   const [isFetching, setIsFetching] = React.useState(false)
   const [connectorType, setConnectorType] = React.useState('K8sCluster')
+  const [connectorJson, setConnectorJson] = React.useState()
   const {
     params: { urlParams }
   } = routeParams()
@@ -87,7 +91,9 @@ const ConnectorDetailsPage: React.FC = () => {
     isFetching,
     setIsFetching,
     connectorType,
-    setConnectorType
+    setConnectorType,
+    connectorJson,
+    setConnectorJson
   }
   useEffect(() => {
     if (connectorId && connectorId !== 'edit=true') {
@@ -129,6 +135,7 @@ const ConnectorDetailsPage: React.FC = () => {
             enableCreate={editMode}
             setInitialConnector={data => setInitialConnector(data, state)}
             isCreationThroughYamlBuilder={isCreationThroughYamlBuilder}
+            connectorJson={connectorJson}
           />
         ) : null}
       </Page.Body>

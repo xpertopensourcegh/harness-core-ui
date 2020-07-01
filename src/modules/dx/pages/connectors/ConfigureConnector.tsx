@@ -10,6 +10,7 @@ import { ConnectorService } from 'modules/dx/services'
 import { buildKubPayload, buildKubFormData } from './utils/ConnectorUtils'
 import YAMLBuilderPage from 'modules/dx/pages/yamlBuilder/YamlBuilderPage'
 import { YamlEntity } from 'modules/common/constants/YamlConstants'
+import * as YAML from 'yaml'
 
 export interface ConfigureConnectorProps {
   accountId: string
@@ -18,6 +19,7 @@ export interface ConfigureConnectorProps {
   connector: any
   setInitialConnector: (connector: any) => void
   isCreationThroughYamlBuilder: boolean
+  connectorJson: any
 }
 
 interface ConfigureConnectorState {
@@ -120,6 +122,15 @@ const renderConnectorStats = (): JSX.Element => {
   )
 }
 
+const getYamlFromJson = (json: string): string | undefined => {
+  try {
+    return YAML.stringify(json)
+  } catch (error) {
+    //TODO show a popover or alert. Need to confirm the error-handling behaviour
+    // console.log(error)
+  }
+}
+
 const ConfigureConnector = (props: ConfigureConnectorProps): JSX.Element => {
   const [enableEdit, setEnableEdit] = useState(props.enableCreate)
   const [enableCreate, setEnableCreate] = useState(props.enableCreate)
@@ -163,7 +174,12 @@ const ConfigureConnector = (props: ConfigureConnectorProps): JSX.Element => {
             {renderConnectorStats()}
           </React.Fragment>
         ) : (
-          <YAMLBuilderPage fileName="K8sConnector.yaml" entityType={YamlEntity.CONNECTOR} height={550} />
+          <YAMLBuilderPage
+            fileName="K8sConnector.yaml"
+            entityType={YamlEntity.CONNECTOR}
+            height={550}
+            existingYaml={getYamlFromJson(props.connectorJson)}
+          />
         )}
       </Layout.Horizontal>
     </React.Fragment>
