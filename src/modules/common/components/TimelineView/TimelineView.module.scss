@@ -1,0 +1,33 @@
+.timelineView {
+  overflow: hidden;
+  .timelineRow {
+    height: 50px;
+    border-bottom: 1px solid var(--grey-200);
+    display: flex;
+    .nameWrapper {
+      display: flex;
+      align-items: center;
+    }
+    .rowItems {
+      flex: 1;
+      position: relative;
+      .rowItem {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+      }
+    }
+  }
+  .timelineViewBar {
+    margin-top: var(--spacing-medium);
+  }
+}
+
+.timelineBar {
+  display: flex;
+  overflow: hidden;
+  .timelineBarItem {
+    flex: 1;
+    white-space: nowrap;
+  }
+}
