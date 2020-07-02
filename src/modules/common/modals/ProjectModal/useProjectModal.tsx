@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useModalHook, StepWizard, Button } from '@wings-software/uikit'
 import { Dialog, Classes } from '@blueprintjs/core'
-import { pick } from 'lodash-es'
+import { pick } from 'lodash'
 import cx from 'classnames'
 
 import type { ProjectDTO, CreateProjectDTO, UpdateProjectDTO } from 'services/cd-ng'

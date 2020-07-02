@@ -29,10 +29,13 @@ const PipelineStudio = (): JSX.Element => {
 
   const onSubmit = React.useCallback(
     (data: { identifier: string; name: string }) => {
-      const newPath = generatePath('/account/:accountId/projects/:projectId/pipelines/:pipelineId/', {
-        ...params,
-        pipelineId: data.identifier
-      })
+      const newPath = generatePath(
+        '/account/:accountId/org/:orgIdentifier/projects/:projectIdentifier/pipelines/:pipelineIdentifier/',
+        {
+          ...params,
+          pipelineIdentifier: data.identifier
+        }
+      )
       history.replace(newPath)
       setPipeline({ name: data.name })
       hideModal()

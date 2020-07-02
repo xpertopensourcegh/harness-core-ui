@@ -6,32 +6,58 @@ export const routeDeployments: Route = {
   module: ModuleName.CD,
   sidebarId: SidebarIdentifier.DEPLOYMENTS,
   layout: PageLayout.DefaultLayout,
-  path: '/deployments',
+  path: '/org/:orgIdentifier/projects/:projectIdentifier/deployments',
   title: i18n.deployments,
   pageId: 'deployments',
-  url: () => '/deployments',
+  url: (params: RouteURLArgs) =>
+    params ? `/org/${params.orgIdentifier}/projects/${params.projectIdentifier}/deployments` : '',
   component: React.lazy(() => import('./pages/deployments/DeploymentsPage'))
 }
 
-// export const routeResources: Route = {
-//   module: ModuleName.CD,
-//   sidebarId: SidebarIdentifier.DEPLOYMENTS,
-//   layout: PageLayout.DefaultLayout,
-//   path: '/resources',
-//   title: i18n.resources,
-//   pageId: 'resources',
-//   url: (params: RouteURLArgs) => params?`/account/${params.accountId}/resources`:`/resources`,
-//   component: React.lazy(() => import('./pages/Resources/ResourcesPage'))
-// }
+export const routeProjectOverview: Route = {
+  module: ModuleName.CD,
+  sidebarId: SidebarIdentifier.DEPLOYMENTS,
+  layout: PageLayout.DefaultLayout,
+  path: '/org/:orgIdentifier/projects/:projectIdentifier/project-overview',
+  title: i18n.overview,
+  pageId: 'project-overview',
+  url: (params: RouteURLArgs) =>
+    params ? `/org/${params.orgIdentifier}/projects/${params.projectIdentifier}/project-overview` : '',
+  component: React.lazy(() => import('./pages/project-overview/ProjectOverview'))
+}
+export const routeCDProjects: Route = {
+  module: ModuleName.CD,
+  sidebarId: SidebarIdentifier.DEPLOYMENTS,
+  layout: PageLayout.DefaultLayout,
+  path: '/cd-projects',
+  title: i18n.projects,
+  pageId: 'cd-projects',
+  url: () => '/cd-projects',
+  component: React.lazy(() => import('../common/pages/ProjectsPage/ProjectsPage'))
+}
 
 export const routePipelineCanvas: Route = {
   module: ModuleName.CD,
   layout: PageLayout.BlankLayout,
   sidebarId: SidebarIdentifier.DEPLOYMENTS,
-  path: '/projects/:projectId/pipelines/:pipelineId/',
+  path: '/org/:orgIdentifier/projects/:projectIdentifier/pipelines/:pipelineIdentifier/',
   title: i18n.pipelineStudio,
-  pageId: 'pipelines-canvas',
+  pageId: 'pipelines-studio',
   url: (params: RouteURLArgs) =>
-    params ? `/projects/${params.projectId}/pipelines/${params.pipelineId}/` : '/projects/-1/pipelines/-1/',
+    params
+      ? `/org/${params.orgIdentifier}/projects/${params.projectIdentifier}/pipelines/${params.pipelineIdentifier}/`
+      : '',
   component: React.lazy(() => import('./pages/pipelines/PipelineStudio'))
+}
+
+export const routePipelines: Route = {
+  module: ModuleName.CD,
+  sidebarId: SidebarIdentifier.DEPLOYMENTS,
+  layout: PageLayout.DefaultLayout,
+  path: '/org/:orgIdentifier/projects/:projectIdentifier/pipelines',
+  title: i18n.pipelines,
+  pageId: 'pipelines',
+  url: (params: RouteURLArgs) =>
+    params ? `/org/${params.orgIdentifier}/projects/${params.projectIdentifier}/pipelines` : '',
+  component: React.lazy(() => import('./pages/pipeline-list/PipelineList'))
 }

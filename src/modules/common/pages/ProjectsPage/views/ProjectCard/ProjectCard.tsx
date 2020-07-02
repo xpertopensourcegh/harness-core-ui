@@ -5,7 +5,7 @@ import { linkTo } from 'framework/exports'
 import { useHistory } from 'react-router-dom'
 import { Menu, Classes } from '@blueprintjs/core'
 
-import { routePipelineCanvas } from 'modules/cd/routes'
+import { routePipelineCanvas, routeProjectOverview } from 'modules/cd/routes'
 import css from './ProjectCard.module.scss'
 import i18n from './ProjectCard.i18n'
 import { useDeleteProject } from 'services/cd-ng'
@@ -28,6 +28,7 @@ interface ContextMenuProps {
 const ContextMenu: React.FC<ContextMenuProps> = props => {
   const { project, reloadProjects, editProject } = props
   const { mutate: deleteProject } = useDeleteProject({ orgIdentifier: project.orgIdentifier || '' })
+  const history = useHistory()
 
   const handleDelete = async (): Promise<void> => {
     if (!project?.id) return
@@ -50,8 +51,19 @@ const ContextMenu: React.FC<ContextMenuProps> = props => {
     editProject?.(project)
   }
 
+  const viewDetail = (): void => {
+    if (!project) return
+    history.push(
+      linkTo(routeProjectOverview, {
+        projectIdentifier: project?.identifier,
+        orgIdentifier: project?.orgIdentifier
+      })
+    )
+  }
+
   return (
     <Menu style={{ minWidth: 'unset' }}>
+      <Menu.Item icon="eye-open" onClick={viewDetail} />
       <Menu.Item icon="edit" onClick={handleEdit} />
       <Menu.Item icon="trash" onClick={handleDelete} />
     </Menu>
@@ -108,10 +120,16 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
       >
         <Button
           intent="primary"
-          text="Create Pipeline"
+          text={i18n.createPipeline}
           disabled={isPreview}
           onClick={() => {
-            history.push(linkTo(routePipelineCanvas, { projectId: data?.id, pipelineId: -1 }))
+            history.push(
+              linkTo(routePipelineCanvas, {
+                projectIdentifier: data?.identifier,
+                orgIdentifier: data?.orgIdentifier,
+                pipelineIdentifier: -1
+              })
+            )
           }}
         />
       </Container>
