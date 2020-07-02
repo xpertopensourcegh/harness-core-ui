@@ -1,0 +1,1325 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "2.0",
+    "title": "Temp API Reference"
+  },
+  "host": "{{host}}",
+  "basePath": "/api",
+  "tags": [
+    {
+      "name": "ng"
+    }
+  ],
+  "schemes": ["https", "http"],
+  "paths": {
+    "/ng/pipelines": {
+      "get": {
+        "tags": ["ng"],
+        "operationId": "getListOfPipelines",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "accountIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "orgIdentifier",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "projectIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "default": 0,
+            "format": "int32"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "default": 25,
+            "format": "int32"
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/RestResponsePageCDPipelineDTO"
+            },
+            "headers": {}
+          }
+        }
+      },
+      "post": {
+        "tags": ["ng"],
+        "operationId": "createNgPipeline",
+        "consumes": ["application/json", "text/yaml", "text/html"],
+        "produces": ["application/json", "text/yaml", "text/html"],
+        "parameters": [
+          {
+            "name": "accountIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "orgIdentifier",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "projectIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/CDPipelineDTO"
+            },
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/ng/pipelines/{identifier}/run": {
+      "post": {
+        "tags": ["ng"],
+        "operationId": "runPipeline",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "accountIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "orgIdentifier",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "projectIdentifier",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "identifier",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/RestResponseString"
+            },
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/ng/pipelines/{pipelineIdentifier}": {
+      "get": {
+        "tags": ["ng"],
+        "operationId": "getNgPipelineByIdentifier",
+        "consumes": ["application/json", "text/yaml", "text/html"],
+        "produces": ["application/json", "text/yaml", "text/html"],
+        "parameters": [
+          {
+            "name": "accountIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "orgIdentifier",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "projectIdentifier",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "pipelineIdentifier",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/RestResponseCDPipelineDTO"
+            },
+            "headers": {}
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "K8sRollingRollbackStepInfo": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/StepWrapper"
+        },
+        {
+          "type": "object",
+          "required": ["identifier"],
+          "properties": {
+            "displayName": {
+              "type": "string"
+            },
+            "identifier": {
+              "type": "string"
+            },
+            "k8sRollingRollback": {
+              "$ref": "#/definitions/K8sRollingRollbackStepParameters"
+            }
+          }
+        }
+      ]
+    },
+    "UseFromStage": {
+      "type": "object",
+      "required": ["stage"],
+      "properties": {
+        "stage": {
+          "type": "string"
+        }
+      }
+    },
+    "RestResponseString": {
+      "type": "object",
+      "properties": {
+        "metaData": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          }
+        },
+        "resource": {
+          "type": "string"
+        },
+        "responseMessages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResponseMessage"
+          }
+        }
+      }
+    },
+    "ServiceSpec": {
+      "type": "object",
+      "properties": {
+        "deploymentType": {
+          "type": "string"
+        },
+        "artifacts": {
+          "$ref": "#/definitions/ArtifactListConfig"
+        },
+        "manifests": {
+          "$ref": "#/definitions/ManifestListConfig"
+        }
+      }
+    },
+    "ArtifactListConfig": {
+      "type": "object",
+      "properties": {
+        "primary": {
+          "readOnly": true,
+          "$ref": "#/definitions/ArtifactConfigWrapper"
+        },
+        "sidecars": {
+          "type": "array",
+          "readOnly": true,
+          "items": {
+            "$ref": "#/definitions/SidecarArtifactWrapper"
+          }
+        },
+        "refType": {
+          "$ref": "#/definitions/RefType"
+        }
+      }
+    },
+    "Deployment": {
+      "type": "object",
+      "properties": {
+        "runParallel": {
+          "type": "boolean",
+          "default": false
+        },
+        "skipCondition": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "infrastructure": {
+          "$ref": "#/definitions/PipelineInfrastructure"
+        },
+        "service": {
+          "$ref": "#/definitions/ServiceConfig"
+        },
+        "stageVariables": {
+          "$ref": "#/definitions/StageVariables"
+        },
+        "execution": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PhaseWrapper"
+          }
+        }
+      }
+    },
+    "ShellScriptStepInfo": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/StepWrapper"
+        },
+        {
+          "type": "object",
+          "required": ["identifier"],
+          "properties": {
+            "displayName": {
+              "type": "string"
+            },
+            "identifier": {
+              "type": "string"
+            },
+            "shellScript": {
+              "$ref": "#/definitions/ShellScriptStepParameters"
+            }
+          }
+        }
+      ]
+    },
+    "ArtifactConfigWrapper": {
+      "type": "object",
+      "required": ["identifier"],
+      "properties": {
+        "identifier": {
+          "type": "string"
+        },
+        "artifactType": {
+          "type": "string"
+        },
+        "sourceType": {
+          "type": "string"
+        },
+        "uniqueHash": {
+          "type": "string"
+        },
+        "sourceAttributes": {
+          "$ref": "#/definitions/ArtifactSourceAttributes"
+        }
+      }
+    },
+    "Parallel": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/ExecutionSection"
+        },
+        {
+          "type": "object",
+          "required": ["sections"],
+          "properties": {
+            "sections": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/StepWrapper"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "ExecutionSection": {
+      "type": "object"
+    },
+    "RefType": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        }
+      }
+    },
+    "ShellScriptStepParameters": {
+      "type": "object",
+      "properties": {
+        "executeOnDelegate": {
+          "type": "boolean",
+          "default": false
+        },
+        "host": {
+          "type": "string"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "connectionType": {
+          "type": "string",
+          "enum": ["SSH", "WINRM"]
+        },
+        "sshKeyRef": {
+          "type": "string"
+        },
+        "connectionAttributes": {
+          "type": "string"
+        },
+        "commandPath": {
+          "type": "string"
+        },
+        "scriptType": {
+          "type": "string",
+          "enum": ["BASH", "POWERSHELL"]
+        },
+        "scriptString": {
+          "type": "string"
+        },
+        "outputVars": {
+          "type": "string"
+        },
+        "sweepingOutputName": {
+          "type": "string"
+        },
+        "sweepingOutputScope": {
+          "type": "string"
+        }
+      }
+    },
+    "Pageable": {
+      "type": "object",
+      "properties": {
+        "pageSize": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "offset": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "paged": {
+          "type": "boolean",
+          "default": false
+        },
+        "sort": {
+          "$ref": "#/definitions/Sort"
+        },
+        "unpaged": {
+          "type": "boolean",
+          "default": false
+        },
+        "pageNumber": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "DeploymentStage": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/Stage"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "displayName": {
+              "type": "string"
+            },
+            "deployment": {
+              "$ref": "#/definitions/Deployment"
+            }
+          }
+        }
+      ]
+    },
+    "Stage": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/StageWrapper"
+        },
+        {
+          "type": "object",
+          "required": ["identifier"],
+          "properties": {
+            "identifier": {
+              "type": "string"
+            }
+          }
+        }
+      ]
+    },
+    "Sort": {
+      "type": "object",
+      "properties": {
+        "sorted": {
+          "type": "boolean",
+          "default": false
+        },
+        "unsorted": {
+          "type": "boolean",
+          "default": false
+        },
+        "empty": {
+          "type": "boolean",
+          "default": false
+        }
+      }
+    },
+    "SidecarArtifactWrapper": {
+      "type": "object",
+      "required": ["identifier"],
+      "properties": {
+        "artifact": {
+          "$ref": "#/definitions/ArtifactConfigWrapper"
+        },
+        "identifier": {
+          "type": "string"
+        }
+      }
+    },
+    "PipelineInfrastructure": {
+      "type": "object",
+      "properties": {
+        "infrastructureSpec": {
+          "$ref": "#/definitions/InfrastructureSpec"
+        },
+        "environment": {
+          "$ref": "#/definitions/EnvironmentYaml"
+        },
+        "steps": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Step"
+          }
+        },
+        "rollbackSteps": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Step"
+          }
+        },
+        "previousStageIdentifier": {
+          "type": "string"
+        },
+        "refType": {
+          "$ref": "#/definitions/RefType"
+        }
+      }
+    },
+    "PhaseWrapper": {
+      "type": "object"
+    },
+    "StageVariables": {
+      "type": "object",
+      "properties": {
+        "variables": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Variable"
+          }
+        },
+        "previousStageIdentifier": {
+          "type": "string"
+        },
+        "overrides": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Variable"
+          }
+        }
+      }
+    },
+    "HttpStepInfo": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/StepWrapper"
+        },
+        {
+          "type": "object",
+          "required": ["identifier"],
+          "properties": {
+            "displayName": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string"
+            },
+            "identifier": {
+              "type": "string"
+            },
+            "http": {
+              "$ref": "#/definitions/HttpSpec"
+            }
+          }
+        }
+      ]
+    },
+    "ResponseMessage": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "enum": [
+            "DEFAULT_ERROR_CODE",
+            "INVALID_ARGUMENT",
+            "INVALID_EMAIL",
+            "DOMAIN_NOT_ALLOWED_TO_REGISTER",
+            "USER_ALREADY_REGISTERED",
+            "USER_INVITATION_DOES_NOT_EXIST",
+            "USER_DOES_NOT_EXIST",
+            "USER_INVITE_OPERATION_FAILED",
+            "USER_DISABLED",
+            "ACCOUNT_DOES_NOT_EXIST",
+            "INACTIVE_ACCOUNT",
+            "ACCOUNT_MIGRATED",
+            "USER_DOMAIN_NOT_ALLOWED",
+            "MAX_FAILED_ATTEMPT_COUNT_EXCEEDED",
+            "RESOURCE_NOT_FOUND",
+            "ROLE_DOES_NOT_EXIST",
+            "EMAIL_NOT_VERIFIED",
+            "EMAIL_VERIFICATION_TOKEN_NOT_FOUND",
+            "INVALID_TOKEN",
+            "INVALID_CAPTCHA_TOKEN",
+            "NOT_ACCOUNT_MGR_NOR_HAS_ALL_APP_ACCESS",
+            "EXPIRED_TOKEN",
+            "TOKEN_ALREADY_REFRESHED_ONCE",
+            "ACCESS_DENIED",
+            "INVALID_CREDENTIAL",
+            "INVALID_KEY",
+            "INVALID_KEYPATH",
+            "INVALID_VARIABLE",
+            "UNKNOWN_HOST",
+            "UNREACHABLE_HOST",
+            "INVALID_PORT",
+            "SSH_SESSION_TIMEOUT",
+            "SOCKET_CONNECTION_ERROR",
+            "SOCKET_CONNECTION_TIMEOUT",
+            "CONNECTION_TIMEOUT",
+            "SSH_CONNECTION_ERROR",
+            "INVALID_EXECUTION_ID",
+            "ERROR_IN_GETTING_CHANNEL_STREAMS",
+            "UNEXPECTED",
+            "UNKNOWN_ERROR",
+            "UNKNOWN_EXECUTOR_TYPE_ERROR",
+            "DUPLICATE_STATE_NAMES",
+            "TRANSITION_NOT_LINKED",
+            "TRANSITION_TO_INCORRECT_STATE",
+            "TRANSITION_TYPE_NULL",
+            "STATES_WITH_DUP_TRANSITIONS",
+            "BARRIERS_NOT_RUNNING_CONCURRENTLY",
+            "NON_FORK_STATES",
+            "NON_REPEAT_STATES",
+            "INITIAL_STATE_NOT_DEFINED",
+            "FILE_INTEGRITY_CHECK_FAILED",
+            "INVALID_URL",
+            "FILE_DOWNLOAD_FAILED",
+            "PLATFORM_SOFTWARE_DELETE_ERROR",
+            "INVALID_CSV_FILE",
+            "INVALID_REQUEST",
+            "INVALID_INFRA_STATE",
+            "PIPELINE_ALREADY_TRIGGERED",
+            "NON_EXISTING_PIPELINE",
+            "DUPLICATE_COMMAND_NAMES",
+            "INVALID_PIPELINE",
+            "COMMAND_DOES_NOT_EXIST",
+            "DUPLICATE_ARTIFACTSTREAM_NAMES",
+            "DUPLICATE_HOST_NAMES",
+            "STATE_NOT_FOR_TYPE",
+            "STATE_MACHINE_ISSUE",
+            "STATE_DISCONTINUE_FAILED",
+            "STATE_PAUSE_FAILED",
+            "PAUSE_ALL_ALREADY",
+            "RESUME_ALL_ALREADY",
+            "ROLLBACK_ALREADY",
+            "ABORT_ALL_ALREADY",
+            "RETRY_FAILED",
+            "UNKNOWN_ARTIFACT_TYPE",
+            "INIT_TIMEOUT",
+            "LICENSE_EXPIRED",
+            "NOT_LICENSED",
+            "REQUEST_TIMEOUT",
+            "WORKFLOW_ALREADY_TRIGGERED",
+            "JENKINS_ERROR",
+            "INVALID_ARTIFACT_SOURCE",
+            "INVALID_ARTIFACT_SERVER",
+            "INVALID_CLOUD_PROVIDER",
+            "UPDATE_NOT_ALLOWED",
+            "DELETE_NOT_ALLOWED",
+            "APPDYNAMICS_CONFIGURATION_ERROR",
+            "APM_CONFIGURATION_ERROR",
+            "SPLUNK_CONFIGURATION_ERROR",
+            "ELK_CONFIGURATION_ERROR",
+            "LOGZ_CONFIGURATION_ERROR",
+            "SUMO_CONFIGURATION_ERROR",
+            "INSTANA_CONFIGURATION_ERROR",
+            "APPDYNAMICS_ERROR",
+            "STACKDRIVER_ERROR",
+            "STACKDRIVER_CONFIGURATION_ERROR",
+            "NEWRELIC_CONFIGURATION_ERROR",
+            "NEWRELIC_ERROR",
+            "DYNA_TRACE_CONFIGURATION_ERROR",
+            "DYNA_TRACE_ERROR",
+            "CLOUDWATCH_ERROR",
+            "CLOUDWATCH_CONFIGURATION_ERROR",
+            "PROMETHEUS_CONFIGURATION_ERROR",
+            "DATA_DOG_CONFIGURATION_ERROR",
+            "SERVICE_GUARD_CONFIGURATION_ERROR",
+            "ENCRYPTION_NOT_CONFIGURED",
+            "UNAVAILABLE_DELEGATES",
+            "WORKFLOW_EXECUTION_IN_PROGRESS",
+            "PIPELINE_EXECUTION_IN_PROGRESS",
+            "AWS_ACCESS_DENIED",
+            "AWS_CLUSTER_NOT_FOUND",
+            "AWS_SERVICE_NOT_FOUND",
+            "INVALID_YAML_PAYLOAD",
+            "UNRECOGNIZED_YAML_FIELDS",
+            "COULD_NOT_MAP_BEFORE_YAML",
+            "MISSING_BEFORE_YAML",
+            "MISSING_YAML",
+            "NON_EMPTY_DELETIONS",
+            "GENERAL_YAML_ERROR",
+            "GENERAL_YAML_INFO",
+            "YAML_GIT_SYNC_ERROR",
+            "GIT_CONNECTION_ERROR",
+            "GIT_ERROR",
+            "ARTIFACT_SERVER_ERROR",
+            "ENCRYPT_DECRYPT_ERROR",
+            "SECRET_MANAGEMENT_ERROR",
+            "KMS_OPERATION_ERROR",
+            "GCP_KMS_OPERATION_ERROR",
+            "VAULT_OPERATION_ERROR",
+            "AWS_SECRETS_MANAGER_OPERATION_ERROR",
+            "AZURE_KEY_VAULT_OPERATION_ERROR",
+            "CYBERARK_OPERATION_ERROR",
+            "UNSUPPORTED_OPERATION_EXCEPTION",
+            "FEATURE_UNAVAILABLE",
+            "GENERAL_ERROR",
+            "BASELINE_CONFIGURATION_ERROR",
+            "SAML_IDP_CONFIGURATION_NOT_AVAILABLE",
+            "INVALID_AUTHENTICATION_MECHANISM",
+            "INVALID_SAML_CONFIGURATION",
+            "INVALID_OAUTH_CONFIGURATION",
+            "INVALID_LDAP_CONFIGURATION",
+            "USER_GROUP_SYNC_FAILURE",
+            "USER_GROUP_ALREADY_EXIST",
+            "INVALID_TWO_FACTOR_AUTHENTICATION_CONFIGURATION",
+            "EXPLANATION",
+            "HINT",
+            "NOT_WHITELISTED_IP",
+            "INVALID_TOTP_TOKEN",
+            "EMAIL_FAILED",
+            "SSL_HANDSHAKE_FAILED",
+            "NO_APPS_ASSIGNED",
+            "INVALID_INFRA_CONFIGURATION",
+            "TEMPLATES_LINKED",
+            "USER_HAS_NO_PERMISSIONS",
+            "USER_NOT_AUTHORIZED",
+            "USER_ALREADY_PRESENT",
+            "INVALID_USAGE_RESTRICTION",
+            "USAGE_RESTRICTION_ERROR",
+            "STATE_EXECUTION_INSTANCE_NOT_FOUND",
+            "DELEGATE_TASK_RETRY",
+            "KUBERNETES_YAML_ERROR",
+            "SAVE_FILE_INTO_GCP_STORAGE_FAILED",
+            "READ_FILE_FROM_GCP_STORAGE_FAILED",
+            "USAGE_LIMITS_EXCEEDED",
+            "EVENT_PUBLISH_FAILED",
+            "JIRA_ERROR",
+            "EXPRESSION_EVALUATION_FAILED",
+            "KUBERNETES_VALUES_ERROR",
+            "KUBERNETES_CLUSTER_ERROR",
+            "INCORRECT_SIGN_IN_MECHANISM",
+            "OAUTH_LOGIN_FAILED",
+            "INVALID_TERRAFORM_TARGETS_REQUEST",
+            "FILE_READ_FAILED",
+            "FILE_SIZE_EXCEEDS_LIMIT",
+            "CLUSTER_NOT_FOUND",
+            "MARKETPLACE_TOKEN_NOT_FOUND",
+            "INVALID_MARKETPLACE_TOKEN",
+            "INVALID_TICKETING_SERVER",
+            "SERVICENOW_ERROR",
+            "PASSWORD_EXPIRED",
+            "USER_LOCKED",
+            "PASSWORD_STRENGTH_CHECK_FAILED",
+            "INVALID_ACCOUNT_PERMISSION",
+            "PAGERDUTY_ERROR",
+            "HEALTH_ERROR",
+            "SAML_TEST_SUCCESS_MECHANISM_NOT_ENABLED",
+            "DOMAIN_WHITELIST_FILTER_CHECK_FAILED",
+            "INVALID_DASHBOARD_UPDATE_REQUEST",
+            "DUPLICATE_FIELD",
+            "INVALID_AZURE_VAULT_CONFIGURATION",
+            "USER_NOT_AUTHORIZED_DUE_TO_USAGE_RESTRICTIONS",
+            "INVALID_ROLLBACK",
+            "SUMO_DATA_COLLECTION_ERROR",
+            "DEPLOYMENT_GOVERNANCE_ERROR",
+            "BATCH_PROCESSING_ERROR",
+            "GRAPHQL_ERROR",
+            "FILE_CREATE_ERROR",
+            "ILLEGAL_STATE",
+            "GIT_DIFF_COMMIT_NOT_IN_ORDER",
+            "FAILED_TO_ACQUIRE_PERSISTENT_LOCK",
+            "POD_NOT_FOUND_ERROR",
+            "COMMAND_EXECUTION_ERROR",
+            "ENGINE_REGISTRY_EXCEPTION",
+            "ENGINE_INTERRUPT_PROCESSING_EXCEPTION",
+            "ENGINE_IO_EXCEPTION",
+            "ENGINE_OUTCOME_EXCEPTION",
+            "ENGINE_SWEEPING_OUTPUT_EXCEPTION",
+            "CACHE_NOT_FOUND_EXCEPTION",
+            "ENGINE_ENTITY_UPDATE_EXCEPTION",
+            "SHELL_EXECUTION_EXCEPTION"
+          ]
+        },
+        "level": {
+          "type": "string",
+          "enum": ["INFO", "ERROR"]
+        },
+        "message": {
+          "type": "string"
+        },
+        "exception": {
+          "$ref": "#/definitions/Throwable"
+        }
+      }
+    },
+    "ArtifactSourceAttributes": {
+      "type": "object"
+    },
+    "K8sRollingStepInfo": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/StepWrapper"
+        },
+        {
+          "type": "object",
+          "required": ["identifier"],
+          "properties": {
+            "displayName": {
+              "type": "string"
+            },
+            "identifier": {
+              "type": "string"
+            },
+            "k8sRolling": {
+              "$ref": "#/definitions/K8sRollingStepParameters"
+            }
+          }
+        }
+      ]
+    },
+    "ManifestConfig": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/ManifestConfigWrapper"
+        },
+        {
+          "type": "object",
+          "properties": {}
+        }
+      ]
+    },
+    "InfrastructureSpec": {
+      "type": "object",
+      "properties": {
+        "infrastructure": {
+          "$ref": "#/definitions/Infrastructure"
+        }
+      }
+    },
+    "OverrideConfig": {
+      "type": "object",
+      "properties": {
+        "manifestListConfig": {
+          "$ref": "#/definitions/ManifestListConfig"
+        },
+        "artifactListConfig": {
+          "$ref": "#/definitions/ArtifactListConfig"
+        }
+      }
+    },
+    "Throwable": {
+      "type": "object",
+      "properties": {
+        "cause": {
+          "$ref": "#/definitions/Throwable"
+        },
+        "stackTrace": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/StackTraceElement"
+          }
+        },
+        "message": {
+          "type": "string"
+        },
+        "localizedMessage": {
+          "type": "string"
+        },
+        "suppressed": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Throwable"
+          }
+        }
+      }
+    },
+    "K8sRollingRollbackStepParameters": {
+      "type": "object",
+      "properties": {
+        "timeout": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "StoreConfig": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "type": "string"
+        }
+      }
+    },
+    "StepInfo": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/StepWrapper"
+        },
+        {
+          "type": "object",
+          "required": ["identifier"],
+          "properties": {
+            "identifier": {
+              "type": "string"
+            }
+          }
+        }
+      ]
+    },
+    "Variable": {
+      "type": "object",
+      "required": ["name", "type", "value"],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        }
+      }
+    },
+    "StepWrapper": {
+      "type": "object"
+    },
+    "StackTraceElement": {
+      "type": "object",
+      "properties": {
+        "methodName": {
+          "type": "string"
+        },
+        "fileName": {
+          "type": "string"
+        },
+        "lineNumber": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "className": {
+          "type": "string"
+        },
+        "nativeMethod": {
+          "type": "boolean",
+          "default": false
+        }
+      }
+    },
+    "ManifestListConfig": {
+      "type": "object",
+      "properties": {
+        "manifests": {
+          "type": "array",
+          "readOnly": true,
+          "items": {
+            "$ref": "#/definitions/ManifestConfigWrapper"
+          }
+        },
+        "refType": {
+          "$ref": "#/definitions/RefType"
+        }
+      }
+    },
+    "Step": {
+      "type": "object"
+    },
+    "ServiceConfig": {
+      "type": "object",
+      "required": ["displayName", "identifier"],
+      "properties": {
+        "identifier": {
+          "type": "string"
+        },
+        "displayName": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "serviceSpec": {
+          "$ref": "#/definitions/ServiceSpec"
+        },
+        "overrides": {
+          "$ref": "#/definitions/OverrideConfig"
+        },
+        "useFromStage": {
+          "$ref": "#/definitions/UseFromStage"
+        },
+        "refType": {
+          "$ref": "#/definitions/RefType"
+        }
+      }
+    },
+    "SidecarArtifact": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/SidecarArtifactWrapper"
+        },
+        {
+          "type": "object",
+          "properties": {}
+        }
+      ]
+    },
+    "CDPipelineDTO": {
+      "type": "object",
+      "properties": {
+        "displayName": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "stages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/StageWrapper"
+          }
+        },
+        "identifier": {
+          "type": "string"
+        },
+        "yamlPipeline": {
+          "type": "string"
+        }
+      }
+    },
+    "Infrastructure": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": ["K8S_DIRECT"]
+        },
+        "infraMapping": {
+          "$ref": "#/definitions/InfraMapping"
+        },
+        "refType": {
+          "$ref": "#/definitions/RefType"
+        }
+      }
+    },
+    "InfraMapping": {
+      "type": "object",
+      "properties": {
+        "uuid": {
+          "type": "string"
+        },
+        "refType": {
+          "$ref": "#/definitions/RefType"
+        }
+      }
+    },
+    "ManifestAttributes": {
+      "type": "object",
+      "required": ["identifier"],
+      "properties": {
+        "kind": {
+          "type": "string"
+        },
+        "storeConfig": {
+          "$ref": "#/definitions/StoreConfig"
+        },
+        "identifier": {
+          "type": "string"
+        }
+      }
+    },
+    "ManifestConfigWrapper": {
+      "type": "object",
+      "required": ["identifier"],
+      "properties": {
+        "manifestAttributes": {
+          "$ref": "#/definitions/ManifestAttributes"
+        },
+        "identifier": {
+          "type": "string"
+        }
+      }
+    },
+    "HttpSpec": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string"
+        },
+        "body": {
+          "type": "string"
+        },
+        "header": {
+          "type": "string"
+        },
+        "method": {
+          "type": "string"
+        },
+        "socketTimeoutMillis": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "StageWrapper": {
+      "type": "object"
+    },
+    "PageCDPipelineDTO": {
+      "type": "object",
+      "properties": {
+        "totalPages": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "totalElements": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "content": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CDPipelineDTO"
+          }
+        },
+        "number": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "first": {
+          "type": "boolean",
+          "default": false
+        },
+        "last": {
+          "type": "boolean",
+          "default": false
+        },
+        "pageable": {
+          "$ref": "#/definitions/Pageable"
+        },
+        "numberOfElements": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "sort": {
+          "$ref": "#/definitions/Sort"
+        },
+        "empty": {
+          "type": "boolean",
+          "default": false
+        }
+      }
+    },
+    "RestResponseCDPipelineDTO": {
+      "type": "object",
+      "properties": {
+        "metaData": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          }
+        },
+        "resource": {
+          "$ref": "#/definitions/CDPipelineDTO"
+        },
+        "responseMessages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResponseMessage"
+          }
+        }
+      }
+    },
+    "RestResponsePageCDPipelineDTO": {
+      "type": "object",
+      "properties": {
+        "metaData": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          }
+        },
+        "resource": {
+          "$ref": "#/definitions/PageCDPipelineDTO"
+        },
+        "responseMessages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResponseMessage"
+          }
+        }
+      }
+    },
+    "CDPhase": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/PhaseWrapper"
+        },
+        {
+          "type": "object",
+          "required": ["identifier"],
+          "properties": {
+            "identifier": {
+              "type": "string"
+            },
+            "displayName": {
+              "type": "string"
+            },
+            "steps": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ExecutionSection"
+              }
+            },
+            "rollbackSteps": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ExecutionSection"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "EnvironmentYaml": {
+      "type": "object",
+      "properties": {
+        "displayName": {
+          "type": "string"
+        },
+        "identifier": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["PRE_PRODUCTION", "PRODUCTION"]
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Tag"
+          }
+        },
+        "refType": {
+          "$ref": "#/definitions/RefType"
+        }
+      }
+    },
+    "K8sRollingStepParameters": {
+      "type": "object",
+      "properties": {
+        "timeout": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "skipDryRun": {
+          "type": "boolean",
+          "default": false
+        }
+      }
+    },
+    "Tag": {
+      "type": "object",
+      "required": ["key", "value"],
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

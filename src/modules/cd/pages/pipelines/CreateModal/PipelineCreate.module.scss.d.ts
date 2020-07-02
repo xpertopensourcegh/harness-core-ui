@@ -2,6 +2,7 @@
 // this is an auto-generated file
 declare const styles: {
   readonly container: string
+  readonly closeModal: string
   readonly heading: string
   readonly helpText: string
   readonly layout: string

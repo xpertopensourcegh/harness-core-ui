@@ -14,6 +14,7 @@ import {
 import * as Yup from 'yup'
 import css from './PipelineCreate.module.scss'
 import i18n from './PipelineCreate.i18n'
+import type { CDPipelineDTO } from 'services/ng-temp'
 
 const logger = loggerFor(ModuleName.CD)
 const collapseProps = {
@@ -24,16 +25,10 @@ const collapseProps = {
   className: 'collapse'
 }
 
-interface PipelineCreateForm {
-  identifier: string
-  name: string
-  description?: string
-  tags?: string[]
-}
-
 interface PipelineCreateProps {
-  afterSave?: (values: PipelineCreateForm) => void
-  initialValues?: PipelineCreateForm
+  afterSave?: (values: CDPipelineDTO) => void
+  initialValues?: CDPipelineDTO
+  closeModal?: () => void
 }
 
 const descriptionCollapseProps = Object.assign({}, collapseProps, { heading: i18n.description })
@@ -41,20 +36,23 @@ const tagCollapseProps = Object.assign({}, collapseProps, { heading: i18n.tags }
 
 export default function CreatePipelines({
   afterSave,
-  initialValues = { identifier: '', name: '' }
+  initialValues = { identifier: '', displayName: '' },
+  closeModal
 }: PipelineCreateProps): JSX.Element {
+  const isEdit = (initialValues?.identifier?.length || '') > 0
   return (
     <Container padding="small" className={css.container}>
+      {isEdit && <Button icon="cross" minimal className={css.closeModal} onClick={closeModal} />}
       <Heading className={css.heading} level={2}>
         {i18n.welcomeToPipelineStudio}
       </Heading>
       <Container padding="xsmall" className={css.layout}>
         <div>
-          <Text className={css.helpText}>{i18n.letsStart}</Text>
+          {!isEdit && <Text className={css.helpText}>{i18n.letsStart}</Text>}
           <Formik
             initialValues={initialValues}
             validationSchema={Yup.object().shape({
-              name: Yup.string().trim().required(i18n.pipelineNameRequired)
+              displayName: Yup.string().trim().required(i18n.pipelineNameRequired)
             })}
             onSubmit={values => {
               logger.info(JSON.stringify(values))
@@ -65,6 +63,7 @@ export default function CreatePipelines({
               <div className={css.formInput}>
                 <FormInput.InputWithIdentifier
                   inputLabel={i18n.pipelineNameLabel}
+                  inputName="displayName"
                   inputGroupProps={{ placeholder: i18n.pipelineNamePlaceholder }}
                 />
                 <div className={css.collapseDiv}>
@@ -96,7 +95,7 @@ export default function CreatePipelines({
                   </Collapse>
                 </div>
               </div>
-              <Button intent="primary" className={css.startBtn} type="submit" text={i18n.start} />
+              <Button intent="primary" className={css.startBtn} type="submit" text={isEdit ? i18n.save : i18n.start} />
             </FormikForm>
           </Formik>
         </div>

@@ -648,13 +648,18 @@ export interface GetNgPipelineByIdentifierPathParams {
 }
 
 export type GetNgPipelineByIdentifierProps = Omit<
-  GetProps<void, unknown, GetNgPipelineByIdentifierQueryParams, GetNgPipelineByIdentifierPathParams>,
+  GetProps<
+    RestResponseCDPipelineDTO,
+    unknown,
+    GetNgPipelineByIdentifierQueryParams,
+    GetNgPipelineByIdentifierPathParams
+  >,
   'path'
 > &
   GetNgPipelineByIdentifierPathParams
 
 export const GetNgPipelineByIdentifier = ({ pipelineIdentifier, ...props }: GetNgPipelineByIdentifierProps) => (
-  <Get<void, unknown, GetNgPipelineByIdentifierQueryParams, GetNgPipelineByIdentifierPathParams>
+  <Get<RestResponseCDPipelineDTO, unknown, GetNgPipelineByIdentifierQueryParams, GetNgPipelineByIdentifierPathParams>
     path={`/ng/pipelines/${pipelineIdentifier}`}
     base={'/api'}
     {...props}
@@ -662,13 +667,13 @@ export const GetNgPipelineByIdentifier = ({ pipelineIdentifier, ...props }: GetN
 )
 
 export type UseGetNgPipelineByIdentifierProps = Omit<
-  UseGetProps<void, GetNgPipelineByIdentifierQueryParams, GetNgPipelineByIdentifierPathParams>,
+  UseGetProps<RestResponseCDPipelineDTO, GetNgPipelineByIdentifierQueryParams, GetNgPipelineByIdentifierPathParams>,
   'path'
 > &
   GetNgPipelineByIdentifierPathParams
 
 export const useGetNgPipelineByIdentifier = ({ pipelineIdentifier, ...props }: UseGetNgPipelineByIdentifierProps) =>
-  useGet<void, unknown, GetNgPipelineByIdentifierQueryParams, GetNgPipelineByIdentifierPathParams>(
+  useGet<RestResponseCDPipelineDTO, unknown, GetNgPipelineByIdentifierQueryParams, GetNgPipelineByIdentifierPathParams>(
     ({ pipelineIdentifier }: GetNgPipelineByIdentifierPathParams) => `/ng/pipelines/${pipelineIdentifier}`,
     { base: '/api', pathParams: { pipelineIdentifier }, ...props }
   )

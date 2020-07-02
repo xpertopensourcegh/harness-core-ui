@@ -7,5 +7,6 @@ export default {
   enterTags: 'Enter tags...',
   description: 'Description',
   tags: 'Tags',
-  start: 'Start'
+  start: 'Start',
+  save: 'Save'
 }
