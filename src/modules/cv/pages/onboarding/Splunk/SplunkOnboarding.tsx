@@ -79,7 +79,7 @@ const SplunkOnboarding: FunctionComponent<any> = props => {
 
   async function fetchQueriesFromSplunk({ accId, queryParams = '', xhrGroup }: any) {
     setInProgress(true)
-    const url = `api/cv-nextgen/splunk/saved-searches?accountId=${accId}${queryParams}`
+    const url = `/cv-nextgen/splunk/saved-searches?accountId=${accId}${queryParams}`
     const { response, error }: any = await xhr.get(url, { group: xhrGroup })
     if (response) {
       setSplunkQueriesOptions(SplunkOnboardingUtils.transformQueriesFromSplunk(response.resource) as never[])
@@ -110,7 +110,7 @@ const SplunkOnboarding: FunctionComponent<any> = props => {
   }
 
   async function fetchGraphDetails({ formikProps, index, accId, queryParams = '', xhrGroup }: any) {
-    const url = `api/cv-nextgen/splunk/histogram?accountId=${accId}${queryParams}`
+    const url = `/cv-nextgen/splunk/histogram?accountId=${accId}${queryParams}`
     const { response, error }: any = await xhr.get(url, { group: xhrGroup })
     if (response) {
       formikProps.setFieldValue(`queries[${index}].graphOptions.Error`, false)
@@ -127,7 +127,7 @@ const SplunkOnboarding: FunctionComponent<any> = props => {
   }
 
   async function fetchStackTrace({ formikProps, index, accId, queryParams = '', xhrGroup }: any) {
-    const url = `api/cv-nextgen/splunk/samples?accountId=${accId}${queryParams}`
+    const url = `/cv-nextgen/splunk/samples?accountId=${accId}${queryParams}`
     const { response }: any = await xhr.get(url, { group: xhrGroup })
     if (response) {
       formikProps.setFieldValue(`queries[${index}].stackTrace`, [response.resource.rawSampleLogs.join()])
@@ -187,7 +187,7 @@ const SplunkOnboarding: FunctionComponent<any> = props => {
   async function removeQuery(query: any, _index: number, _parentFormikProps: any) {
     setInProgress(true)
     const xhrGroup = 'cv-nextgen/ds-config'
-    const url = `api/cv-nextgen/ds-config?accountId=${accountId}&connectorId=${connectorId}&productName=splunk&identifier=${query.queryName}`
+    const url = `/cv-nextgen/ds-config?accountId=${accountId}&connectorId=${connectorId}&productName=splunk&identifier=${query.queryName}`
     const { response, error } = await xhr.delete(url, { group: xhrGroup })
     setInProgress(false)
     if (response) {
@@ -295,7 +295,7 @@ const SplunkOnboarding: FunctionComponent<any> = props => {
       serviceInstanceIdentifier: query.serviceInstanceIdentifier
     }
 
-    const url = `api/cv-nextgen/ds-config?accountId=${accountId}`
+    const url = `/cv-nextgen/ds-config?accountId=${accountId}`
     xhr.put(url, { data: payload, group: xhrGroup }).then(
       () => {
         setInProgress(false)

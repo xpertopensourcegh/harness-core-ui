@@ -3,7 +3,7 @@ import { Table, Select, Text, ModalProvider, Link, Container, SelectOption, Colo
 import xhr from '@wings-software/xhr-async'
 import css from './TierAndServiceTable.module.scss'
 import { Spinner } from '@blueprintjs/core'
-import { AppDynamicsService } from 'modules/cv/services'
+import { AppDynamicsService, CVNextGenCVConfigService } from 'modules/cv/services'
 import MetricsVerificationModal from 'modules/cv/components/MetricsVerificationModal/MetricsVerificationModal'
 import type { AppdynamicsTier, AppdynamicsValidationResponse, MetricPack } from '@wings-software/swagger-ts/definitions'
 import type { Row } from 'react-table'
@@ -256,7 +256,7 @@ function RowRenderer(props: RowRendererProps): JSX.Element {
     setValidationResult({ isLoading: true, validationResult: undefined, error: '', guid: newGUID })
     setDep([metricPacks, selected, tierId])
     xhr.abort(`${XHR_METRIC_VALIDATION_GROUP}-${guid}`)
-    AppDynamicsService.validateMetricsApi({
+    CVNextGenCVConfigService.validateMetricsApi({
       accountId,
       connectorId,
       projectId: projectId.toString(),

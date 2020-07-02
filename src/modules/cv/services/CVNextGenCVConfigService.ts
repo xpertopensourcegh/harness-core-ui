@@ -4,25 +4,35 @@ import type {
   MetricPack,
   DSConfig,
   RestResponseListDSConfig,
-  RestResponseListString
+  RestResponseListString,
+  RestResponseSetAppdynamicsValidationResponse
 } from '@wings-software/swagger-ts/definitions'
 
 export const Endpoints = {
-  upsertDSConfig: (accountId: string) => `/api/cv-nextgen/ds-config?accountId=${accountId}`,
+  upsertDSConfig: (accountId: string) => `/cv-nextgen/ds-config?accountId=${accountId}`,
   deleteDSConfig: (accountId: string, identifier: string, dataSourceConnectorId: string, productName?: string) =>
-    `/api/cv-nextgen/ds-config?accountId=${accountId}&connectorId=${dataSourceConnectorId}&identifier=${identifier}${
+    `/cv-nextgen/ds-config?accountId=${accountId}&connectorId=${dataSourceConnectorId}&identifier=${identifier}${
       productName ? `&productName=${productName}` : ''
     }`,
   fetchDSConfigs: (accountId: string, dataSourceConnectorId: string, productName: string) =>
-    `/api/cv-nextgen/ds-config?accountId=${accountId}&connectorId=${dataSourceConnectorId}&productName=${productName}`,
+    `/cv-nextgen/ds-config?accountId=${accountId}&connectorId=${dataSourceConnectorId}&productName=${productName}`,
   fetchDSProducts: (accountId: string, dataSourceConnectorId: string) =>
-    `/api/cv-nextgen/cv-config/product-names?accountId=${accountId}&connectorId=${dataSourceConnectorId}`,
+    `/cv-nextgen/cv-config/product-names?accountId=${accountId}&connectorId=${dataSourceConnectorId}`,
   metricPack: (accountId: string, projectId: string, dataSourceType: DSConfig['type']) =>
-    `/api/cv-nextgen/metric-pack/metric-packs?accountId=${accountId}&projectIdentifier=${projectId}&dataSourceType=${dataSourceType}`
+    `/cv-nextgen/metric-pack?accountId=${accountId}&projectIdentifier=${projectId}&dataSourceType=${dataSourceType}`,
+  validateAppDMetrics: (
+    accountId: string,
+    connectorId: string,
+    projectId: string,
+    appId: number,
+    tierId: number,
+    guid: string
+  ) =>
+    `/cv-nextgen/appdynamics/metric-data?accountId=${accountId}&connectorId=${connectorId}&projectIdentifier=${projectId}&appdAppId=${appId}&appdTierId=${tierId}&requestGuid=${guid}`
 }
 
 export async function fetchQueriesFromSplunk({ accountId, dataSourceId = '', xhrGroup }: any) {
-  const url = `/api/cv-nextgen/splunk/saved-searches?accountId=${accountId}&connectorId=${dataSourceId}`
+  const url = `/cv-nextgen/splunk/saved-searches?accountId=${accountId}&connectorId=${dataSourceId}`
   return await xhr.get(url, { group: xhrGroup })
 }
 
@@ -109,6 +119,31 @@ export async function saveGlobalMetricPacks({
   dataSourceType: DSConfig['type']
   group: string
   payload: any
-}) {
+}): ServiceResponse<void> {
   return xhr.post(Endpoints.metricPack(accountId, projectId, dataSourceType), { data: payload, group })
+}
+
+export async function validateMetricsApi({
+  accountId,
+  connectorId,
+  projectId,
+  appId,
+  metricPacks,
+  tierId,
+  guid,
+  xhrGroup
+}: {
+  accountId: string
+  connectorId: string
+  projectId: string
+  appId: number
+  metricPacks: MetricPack[]
+  tierId: number
+  guid: string
+  xhrGroup: string
+}): ServiceResponse<RestResponseSetAppdynamicsValidationResponse> {
+  return xhr.post(Endpoints.validateAppDMetrics(accountId, connectorId, projectId, appId, tierId, guid), {
+    group: xhrGroup,
+    data: metricPacks
+  })
 }

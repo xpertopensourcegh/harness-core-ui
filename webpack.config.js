@@ -44,6 +44,11 @@ const config = {
         secure: false
         // add `changeOrigin` when pointing to anything other than local
         // changeOrigin: true
+      },
+      '/cv-nextgen': {
+        logLevel: 'info',
+        target: 'https://localhost:6060',
+        secure: false
       }
     },
     stats: {
