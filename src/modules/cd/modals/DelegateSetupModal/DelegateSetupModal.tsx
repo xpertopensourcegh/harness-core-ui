@@ -2,11 +2,12 @@ import React from 'react'
 import { ModalProvider, useModalHook, Button, Icon } from '@wings-software/uikit'
 import { Dialog, IDialogProps, Position } from '@blueprintjs/core'
 import css from './DelegateSetupModal.module.scss'
-import { DelegateStepWizard } from './DelegateStepWizard'
+import { CreateConnectorWizard } from 'modules/dx/components/CreateConnectorWizard/CreateConnectorWizard'
 import { Menu, Popover } from '@blueprintjs/core'
 import i18n from './DelegateSetup.i18n'
-import { useParams } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 import { routeConnectorDetails } from 'modules/dx/routes'
+import { linkTo } from 'framework/exports'
 
 const getIcon = (icon: any) => {
   return <Icon name={icon} size={24} className={css.iconConnector} />
@@ -20,8 +21,12 @@ const getMenuItem = (item: any) => {
     </div>
   )
 }
+const onClickYamlBuilder = (history: any, accountId: string) => {
+  return history.push(linkTo(routeConnectorDetails, { accountId: accountId, editMode: 'true', type: 'yaml-builder' }))
+}
 const DelegateModal: React.FC = () => {
   const { accountId } = useParams()
+  const history = useHistory()
 
   const modalPropsLight: IDialogProps = {
     isOpen: true,
@@ -35,16 +40,21 @@ const DelegateModal: React.FC = () => {
 
   const [openLightModal, hideLightModal] = useModalHook(() => (
     <Dialog {...modalPropsLight}>
-      <DelegateStepWizard accountId={accountId} />
+      <CreateConnectorWizard accountId={accountId} />
       <Button minimal icon="cross" iconProps={{ size: 18 }} onClick={hideLightModal} className={css.crossIcon} />
     </Dialog>
   ))
   const items = [
     { label: 'Kubernetes', value: 'service-kubernetes', icon: 'service-kubernetes', onClick: openLightModal },
-    { label: 'GitHub', value: 'service-github', icon: 'service-github' },
+    { label: 'Git', value: 'service-github', icon: 'service-github' },
     { label: 'Jenkins', value: 'service-jenkins', icon: 'service-jenkins' },
     { label: 'GCP', value: 'service-gcp', icon: 'service-gcp' },
-    { label: 'Create via YAML Builder', value: 'yaml-builder', icon: 'main-code-yaml' }
+    {
+      label: 'Create via YAML Builder',
+      value: 'yaml-builder',
+      icon: 'main-code-yaml',
+      onClick: () => onClickYamlBuilder(history, accountId)
+    }
   ]
 
   return (
@@ -66,9 +76,9 @@ const DelegateModal: React.FC = () => {
             return (
               <Menu.Item
                 className={css.menuItem}
-                href={`#${routeConnectorDetails.url({ accountId: accountId, editMode: 'true', type: item.value })}`}
+                // href={`#${routeConnectorDetails.url({ accountId: accountId, editMode: 'true', type: item.value })}`}
                 // href={`#${routeConnectorDetails.url({ accountId: accountId, editMode: 'true' })}`}
-                onClick={item.onClick}
+                onClick={item?.onClick}
                 key={index}
                 text={getMenuItem(item)}
               />
