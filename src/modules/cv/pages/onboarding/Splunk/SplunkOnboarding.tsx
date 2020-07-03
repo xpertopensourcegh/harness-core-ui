@@ -8,7 +8,6 @@ import {
   FormikForm,
   FormInput,
   Icon,
-  Select,
   StackTraceList,
   HarnessIcons,
   OverlaySpinner,
@@ -25,11 +24,12 @@ import DataSourcePanelStatusHeaderProps from '../../../components/DataSourcePane
 import { ThirdPartyCallLogModal } from '../../../components/ThirdPartyCallLogs/ThirdPartyCallLogs'
 import { accountId, connectorId, appId, projectIdentifier } from 'modules/cv/constants'
 import JsonSelectorFormInput from 'modules/cv/components/JsonSelector/JsonSelectorFormInput'
+import cloneDeep from 'lodash/cloneDeep'
 
 const eachQuery = Yup.object().shape({
   queryName: Yup.string().required('Query Name is required'),
   service: Yup.string().required('Service is required'),
-  environment: Yup.string().required('environment is required'),
+  environment: Yup.string().required('Environment is required'),
   queryString: Yup.string().required('Query String is required'),
   eventType: Yup.string().required('Event Type is required'),
   serviceInstanceIdentifier: Yup.string().required('Service Instance Field is required')
@@ -39,7 +39,7 @@ const validationSchema = Yup.object().shape({
   queries: Yup.array().of(eachQuery)
 })
 
-const initialValues = SplunkOnboardingUtils.splunkInitialQuery
+const initialValues = cloneDeep(SplunkOnboardingUtils.splunkInitialQuery)
 
 const eventTypesOptions = [
   { label: 'Quality', value: 'Quality' },
@@ -91,7 +91,7 @@ const SplunkOnboarding: FunctionComponent<any> = props => {
 
   async function fetchEnvironments({ accId, queryParams = '', xhrGroup }: any) {
     setInProgress(true)
-    const url = `https://localhost:9090/api/environments?accountId=${accId}${queryParams}`
+    const url = `api/environments?accountId=${accId}${queryParams}`
     const { response, error }: any = await xhr.get(url, { group: xhrGroup })
     if (response) {
       setInProgress(false)
@@ -202,24 +202,32 @@ const SplunkOnboarding: FunctionComponent<any> = props => {
     return (
       <div key={parentFormikProps.values.queries[index].uuid}>
         <div className={css.queryDropDown}>
-          <Select
+          <FormInput.Select
             onChange={value => {
               addSplunkQuery(parentFormikProps, value, index)
             }}
+            name={`savedQueries${index}`}
+            placeholder={'Select an existing Splunk query'}
             items={splunkQueriesOptions}
           />
         </div>
         <div className={css.onBoardingSection}>
           <div className={css.leftSection}>
-            <Logo height="24" className={css.logo} />
-            <FormInput.Text name={`queries[${index}].queryName`} label="Query Name" />
+            <Logo height="18" className={css.logo} />
+            <FormInput.Text name={`queries[${index}].queryName`} label="Query Name" placeholder="Query Name" />
             <FormInput.Select
               name={`queries[${index}].service`}
               key={serviceOptions?.[0]?.value}
               label="Service Name"
               items={serviceOptions}
+              placeholder={'Select Service'}
             />
-            <FormInput.Select name={`queries[${index}].environment`} label="Environment" items={environmentOptions} />
+            <FormInput.Select
+              name={`queries[${index}].environment`}
+              placeholder={'Select Environment'}
+              label="Environment"
+              items={environmentOptions}
+            />
             <JsonSelectorFormInput
               name={`queries[${index}].serviceInstanceIdentifier`}
               label="Service instance field name"
@@ -230,9 +238,10 @@ const SplunkOnboarding: FunctionComponent<any> = props => {
           </div>
 
           <div className={css.rightSection}>
-            <Icon name={'service-splunk'} className={css.logo} size={24} />
+            <Icon name={'service-splunk'} className={css.logo} size={18} />
             <FormInput.TextArea
               name={`queries[${index}].queryString`}
+              placeholder={'Enter Query'}
               onChange={e => {
                 if (e.target.value) {
                   fetchGraphDetails({
@@ -260,9 +269,7 @@ const SplunkOnboarding: FunctionComponent<any> = props => {
             ) : (
               <GraphError
                 linkText={'View in Splunk'}
-                onLinkClick={() => {
-                  alert('clicked')
-                }}
+                link={`https://splunk.dev.harness.io/en-GB/app/search/search?q=search%20${queries[index].queryName}%20%7C%20timechart%20count%20span%3D7h%20%7C%20table%20_time%2C%20count&display.page.search.mode=verbose&dispatch.sample_ratio=1&earliest=-7d%40h&latest=now&display.general.type=visualizations&sid=1592475949.17188&display.page.search.tab=visualizations`}
                 secondLinkText={'View call logs'}
                 onSecondLinkClick={() => {
                   setShowCallLogs(true)
@@ -270,6 +277,9 @@ const SplunkOnboarding: FunctionComponent<any> = props => {
               />
             )}
             <div className={css.stackTrace}>
+              {parentFormikProps.values.queries[index].stackTrace[0]?.length > 0 ? (
+                <label> Sample Events </label>
+              ) : null}
               <StackTraceList stackTraceList={parentFormikProps.values.queries[index].stackTrace} />
             </div>
           </div>
@@ -287,7 +297,7 @@ const SplunkOnboarding: FunctionComponent<any> = props => {
       projectIdentifier: projectIdentifier,
       productName: 'Splunk Enterprise',
       connectorId: locationContext.dataSourceId,
-      // serviceIdentifier: query.service,
+      serviceIdentifier: query.service,
       envIdentifier: query.environment,
       query: query.queryString,
       type: 'SPLUNK',
@@ -305,6 +315,20 @@ const SplunkOnboarding: FunctionComponent<any> = props => {
         setInProgress(false)
       }
     )
+  }
+
+  const validate = function (values: any) {
+    if (
+      values.environment !== '' &&
+      values.eventType !== '' &&
+      values.queryName !== '' &&
+      values.queryString !== '' &&
+      values.service !== '' &&
+      values.serviceInstanceIdentifier !== ''
+    ) {
+      return false
+    }
+    return true
   }
 
   const renderMainSection = () => {
@@ -334,20 +358,32 @@ const SplunkOnboarding: FunctionComponent<any> = props => {
                                 return
                               }}
                               key={index}
+                              nextButtonText={'Save'}
                               collapseHeaderProps={{
                                 isRemovable: true,
                                 heading: (
-                                  <DataSourcePanelStatusHeaderProps
-                                    message={
-                                      parentFormikProps.values.queries[index].isAlreadySaved
-                                        ? 'Saved Query'
-                                        : 'Unsaved Query'
-                                    }
-                                    intent={
-                                      !parentFormikProps.values.queries[index].isAlreadySaved ? 'danger' : 'success'
-                                    }
-                                    panelName={parentFormikProps.values.queries[index].queryName}
-                                  />
+                                  <span className={css.title}>
+                                    <DataSourcePanelStatusHeaderProps
+                                      message={
+                                        parentFormikProps.values.queries[index].isAlreadySaved
+                                          ? 'Saved Query'
+                                          : 'Unsaved Query'
+                                      }
+                                      intent={
+                                        !parentFormikProps.values.queries[index].isAlreadySaved ? 'danger' : 'success'
+                                      }
+                                      panelName={parentFormikProps.values.queries[index].queryName}
+                                    />
+                                    <Button
+                                      className={css.saveBtn}
+                                      intent="primary"
+                                      text="Save"
+                                      onClick={() =>
+                                        saveQuery(parentFormikProps.values.queries[index], index, parentFormikProps)
+                                      }
+                                      disabled={validate(parentFormikProps.values.queries[index])}
+                                    />
+                                  </span>
                                 ),
                                 onRemove: () => {
                                   if (window.confirm('Do you want to delete the item?')) {

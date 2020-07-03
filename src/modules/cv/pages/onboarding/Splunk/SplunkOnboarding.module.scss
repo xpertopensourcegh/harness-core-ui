@@ -1,5 +1,6 @@
 .main {
-  margin: 24px;
+  max-width: 1000px;
+
   .headingText {
     margin-top: 24px;
   }
@@ -20,35 +21,43 @@
   }
 
   .mainSection {
-    margin-top: 24px;
-    margin-left: 12px;
+    .title {
+      display: flex;
+      .saveBtn {
+        margin-left: 12px;
+      }
+    }
     .queryDropDown {
       width: 250px;
       position: absolute;
-      right: 40px;
+      right: 110px;
       top: -36px;
     }
     .onBoardingSection {
       padding-top: 30px;
       display: grid;
-      grid-template-columns: 45% 45%;
-      justify-content: space-evenly;
+      grid-template-columns: 42% 42%;
+      margin-left: 30px;
+      grid-column-gap: 40px;
       .rightSection {
-        border: 1px solid var(--grey-350);
-        padding: 24px;
+        border: 1px solid var(--grey-300);
+        border-radius: 5px;
+        padding: 18px;
         .logo {
           margin-bottom: 12px;
         }
         .stackTrace {
-          max-height: 200px;
           margin-top: 12px;
+          max-height: 160px;
           overflow: scroll;
         }
       }
 
       .leftSection {
-        border: 1px solid var(--grey-350);
-        padding: 24px;
+        border: 1px solid var(--grey-300);
+        border-radius: 5px;
+        padding: 18px;
+        max-height: 420px;
         .logo {
           margin-bottom: 12px;
         }
@@ -61,9 +70,10 @@
           margin-bottom: var(--spacing-large);
           > [class*='footerContent'] {
             text-align: right;
-            margin-right: 38px;
+            margin-right: 82px;
             > button {
-              width: 120px;
+              // width: 120px;
+              display: none;
             }
           }
         }
@@ -82,6 +92,6 @@
     text-align: right;
     margin-top: 24px;
     padding-top: 12px;
-    margin-right: 36px;
+    margin-right: 80px;
   }
 }

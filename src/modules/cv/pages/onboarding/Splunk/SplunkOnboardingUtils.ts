@@ -1,5 +1,6 @@
 import type { SplunkSavedSearch } from '@wings-software/swagger-ts/definitions'
 import type { SelectOption } from '@wings-software/uikit'
+import cloneDeep from 'lodash/cloneDeep'
 
 export const options = {
   chart: {
@@ -17,7 +18,10 @@ export const options = {
   xAxis: {
     labels: {
       enabled: false
-    }
+    },
+    tickLength: 0,
+    lineWidth: 0,
+    gridLineWidth: 0
   },
   series: [
     {
@@ -40,7 +44,7 @@ export const splunkInitialQuery = {
   serviceInstanceIdentifier: '',
   queryString: '',
   eventType: 'Quality',
-  graphOptions: { ...options },
+  graphOptions: cloneDeep(options),
   stackTrace: [],
   isOpen: true,
   isAlreadySaved: false
@@ -59,7 +63,7 @@ export function transformQueriesFromSplunk(splunkSavedQueries: SplunkSavedSearch
 
 export function transformSavedQueries(savedQueries: any) {
   return savedQueries.map((query: any) => {
-    const iQuery = { ...splunkInitialQuery }
+    const iQuery = cloneDeep(splunkInitialQuery)
     ;(iQuery.queryName = query.identifier),
       (iQuery.service = query.serviceIdentifier),
       (iQuery.environment = query.envIdentifier),
@@ -73,7 +77,7 @@ export function transformSavedQueries(savedQueries: any) {
 
 export function mapQueries(queries: any) {
   return queries.map((query: any) => {
-    const q = { ...splunkInitialQuery }
+    const q = cloneDeep(splunkInitialQuery)
     q.queryName = query.label
     q.queryString = query.value
     return q

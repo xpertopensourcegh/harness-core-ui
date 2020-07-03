@@ -7,6 +7,8 @@ declare const styles: {
   readonly heading: string
   readonly queryBtn: string
   readonly mainSection: string
+  readonly title: string
+  readonly saveBtn: string
   readonly queryDropDown: string
   readonly onBoardingSection: string
   readonly rightSection: string
