@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { FormInput, Layout } from '@wings-software/uikit'
 import i18n from './KubCluster.i18n'
-import { RadioSelect } from '@wings-software/uikit'
+import { CardSelect } from '@wings-software/uikit'
 import css from './KubCluster.module.scss'
 import { authOptions, getCustomFields, DelegateTypes, DelegateInClusterType } from './KubeFormHelper'
 import { getIdentifierFromName } from 'framework/utils/StringUtils'
@@ -186,7 +186,7 @@ const KubCluster = (props: KubClusterProps): JSX.Element => {
           placeholder: i18n.enterTags
         }}
       />
-      <RadioSelect {...radioProps} selected={selectedDelegate} />
+      <CardSelect {...radioProps} selected={selectedDelegate} />
       {state.selectedDelegate?.type === DelegateTypes.DELEGATE_IN_CLUSTER ? renderDelegateInclusterForm(state) : null}
       {state.selectedDelegate?.type === DelegateTypes.DELEGATE_OUT_CLUSTER ? renderDelegateOutclusterForm(state) : null}
     </>

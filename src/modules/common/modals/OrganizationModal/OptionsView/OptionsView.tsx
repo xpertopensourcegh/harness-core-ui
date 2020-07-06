@@ -1,4 +1,4 @@
-import { Color, Container, Heading, Icon, Layout, RadioSelect, Text } from '@wings-software/uikit'
+import { Color, Container, Heading, Icon, Layout, CardSelect, Text } from '@wings-software/uikit'
 import React from 'react'
 import i18n from '../useOrganizationModal.i18n'
 import css from './OptionsView.module.scss'
@@ -23,7 +23,7 @@ export const OptionsView: React.FC<OptionsViewProps> = ({ onSelectOption }) => {
         {i18n.recommended}
       </Heading>
       <Layout.Horizontal spacing="large">
-        <RadioSelect<OrganizationCreationType>
+        <CardSelect<OrganizationCreationType>
           onChange={value => onSelectOption(value.type)}
           selected={undefined}
           className={css.optionsViewGrid}

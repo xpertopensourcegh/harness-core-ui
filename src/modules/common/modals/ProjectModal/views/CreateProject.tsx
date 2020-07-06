@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { RadioSelect, Text, Layout, Icon, IconName } from '@wings-software/uikit'
+import { CardSelect, Text, Layout, Icon, IconName } from '@wings-software/uikit'
 
 import { Views } from '../Constants'
 
@@ -40,7 +40,7 @@ const CreateProject: React.FC<CreateProjectProps> = ({ setView }) => {
       <Text font="small" style={{ color: 'var(--white)' }}>
         {i18n.newProjectWizard.createProject.recommended.toUpperCase()}
       </Text>
-      <RadioSelect<ProjectType>
+      <CardSelect<ProjectType>
         selected={selected}
         onChange={value => {
           setSelected(value)
@@ -64,7 +64,7 @@ const CreateProject: React.FC<CreateProjectProps> = ({ setView }) => {
             </Text>
           </>
         )}
-      ></RadioSelect>
+      ></CardSelect>
     </Layout.Vertical>
   )
 }

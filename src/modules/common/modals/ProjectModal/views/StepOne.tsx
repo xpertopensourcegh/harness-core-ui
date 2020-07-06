@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { StepProps, RadioSelect, Button, Layout, Text, IconName, Color } from '@wings-software/uikit'
+import { StepProps, CardSelect, Button, Layout, Text, IconName, Color } from '@wings-software/uikit'
 
 import type { ProjectDTO } from 'services/cd-ng'
 
@@ -49,7 +49,7 @@ const StepOne: React.FC<StepProps<ProjectDTO>> = ({ nextStep, prevStepData }) =>
       <Text font="medium" padding={{ bottom: 'xxlarge' }}>
         {i18n.newProjectWizard.stepOne.name.toUpperCase()}
       </Text>
-      <RadioSelect<Purpose>
+      <CardSelect<Purpose>
         selected={selected}
         onChange={setSelected}
         className={css.radioSelectPurpose}

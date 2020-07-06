@@ -16,7 +16,7 @@ import {
   FormInput,
   Collapse,
   Label,
-  RadioSelect,
+  CardSelect,
   CardBody
 } from '@wings-software/uikit'
 import i18n from './StageBuilder.i18n'
@@ -91,7 +91,7 @@ const renderPopover = ({ addStage, isStageView }: PopoverData): JSX.Element => {
                     <Label>{i18n.whatToDeploy}</Label>
                   </div>
                   <div>
-                    <RadioSelect
+                    <CardSelect
                       selected={formikProps.values.serviceType}
                       onChange={item => formikProps.setFieldValue('serviceType', item)}
                       renderItem={(item, selected) => (

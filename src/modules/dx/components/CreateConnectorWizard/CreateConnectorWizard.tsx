@@ -4,7 +4,7 @@ import {
   Layout,
   Button,
   Text,
-  RadioSelect,
+  CardSelect,
   StepsProgress,
   Intent,
   FormInput,
@@ -256,7 +256,7 @@ const SecondStep = (props: any) => {
         {formikProps => (
           <Form>
             <div className={css.delegateWrapper}>
-              <RadioSelect
+              <CardSelect
                 onChange={(item: any) => {
                   state?.setDelegateType(item.type)
                   formikProps?.setFieldValue('delegateType', item.type)
