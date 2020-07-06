@@ -66,6 +66,7 @@
     "restful-react": "^13.0.0",
     "secure-web-storage": "^1.0.2",
     "utility-types": "^3.10.0",
+    "vscode-languageserver-types": "^3.14.0",
     "yaml": "^1.10.0",
     "yup": "^0.29.1"
   },
