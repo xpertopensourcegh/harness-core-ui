@@ -90,7 +90,8 @@ export default function getLogViewcolumnChartConfig(
         allowPointSelect: false,
         fillColor: 'var(--blue-200)',
         borderColor: 'var(--blue-500)',
-        dashStyle: 'Dash'
+        dashStyle: 'LongDash',
+        lineWidth: 1
       }
     },
     series: newSeries

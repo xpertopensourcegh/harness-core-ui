@@ -1,8 +1,27 @@
 export default function getLogAnalysisLineChartOptions(): Highcharts.Options {
+  const data = [
+    { x: 0, y: Math.random() * 5 },
+    { x: 1, y: Math.random() * 5 },
+    { x: 2, y: Math.random() * 5 },
+    { x: 3, y: Math.random() * 10 },
+    { x: 4, y: Math.random() * 5 },
+    { x: 5, y: Math.random() * 5 },
+    { x: 6, y: Math.random() * 5 },
+    { x: 7, y: Math.random() * 5 },
+    { x: 8, y: Math.random() * 5 },
+    { x: 9, y: Math.random() * 5 },
+    { x: 10, y: Math.random() * 5 },
+    { x: 11, y: Math.random() * 5 },
+    { x: 12, y: Math.random() * 5 },
+    { x: 13, y: Math.random() * 6 },
+    { x: 14, y: Math.random() * 6 },
+    { x: 15, y: Math.random() * 6 }
+  ]
   return {
     chart: {
       renderTo: 'chart',
-      margin: 0
+      margin: [0, 10, 0, 10],
+      backgroundColor: 'transparent'
     },
     credits: undefined,
     title: {
@@ -46,15 +65,18 @@ export default function getLogAnalysisLineChartOptions(): Highcharts.Options {
     series: [
       {
         type: 'line',
-        color: 'var(--red-500)',
         name: 'Installation',
-        data: [43934, 52503, 57177, 69658, 97031, 119931, 137133, 154175]
-      },
-      {
-        type: 'line',
-        color: 'var(--blue-500)',
-        name: 'Manufacturing',
-        data: [24916, 24064, 29742, 29851, 32490, 30282, 38121, 40434]
+        data,
+        zoneAxis: 'x',
+        zones: [
+          {
+            value: data[Math.floor(Math.random() * 14)].x,
+            color: 'var(--blue-500)'
+          },
+          {
+            color: 'var(--red-500)'
+          }
+        ]
       }
     ]
   }

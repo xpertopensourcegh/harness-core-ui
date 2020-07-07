@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import {
   Container,
   Heading,
@@ -26,22 +26,13 @@ import Highcharts from 'highcharts'
 import css from './LogAnalysisRiskAndJiraModal.module.scss'
 import { Formik } from 'formik'
 
-interface MetricsVerificationModalProps {
-  startTime: number
-  endTime: number
-  environment: string
-  service: string
+interface LogAnalysisRiskAndJiraModalProps {
   count: number
   activityType?: string
-  activityIdentifier?: string
   trendData?: Highcharts.Options
-  onHide: () => void
+  onHide: (data?: any) => void
   logMessage: string
-}
-
-interface StartAndEndTimeTextProps {
-  endTime: number
-  startTime: number
+  feedback?: { risk: string; message?: string }
 }
 
 interface DataNameAndDataProps {
@@ -50,8 +41,17 @@ interface DataNameAndDataProps {
 }
 
 interface RiskAndMessageFormProps {
-  logMessage: string
-  onHide: MetricsVerificationModalProps['onHide']
+  handleSubmit: () => void
+  hasSubmitted?: boolean
+}
+
+interface ActivityHeadingContentProps {
+  count: number
+  trendData?: Highcharts.Options
+}
+
+interface SampleDataProps {
+  logMessage?: string
 }
 
 const DrawerProps: IDrawerProps = {
@@ -63,7 +63,7 @@ const DrawerProps: IDrawerProps = {
   hasBackdrop: true,
   position: Position.RIGHT,
   usePortal: true,
-  size: '60%'
+  size: '70%'
 }
 
 const ShareContentPopoverProps: IPopoverProps = {
@@ -75,14 +75,14 @@ const ShareContentPopoverProps: IPopoverProps = {
 }
 
 const RiskOptions = [
-  { label: 'P1', value: 'p1' },
-  { label: 'P2', value: 'p2' },
-  { label: 'P3', value: 'p3' },
-  { label: 'P4', value: 'p4' },
-  { label: 'P5', value: 'p5' }
+  { label: 'P1', value: 'P1' },
+  { label: 'P2', value: 'P2' },
+  { label: 'P3', value: 'P3' },
+  { label: 'P4', value: 'P4' },
+  { label: 'P5', value: 'P5' }
 ]
 
-function DataNameAndData(props: DataNameAndDataProps): JSX.Element {
+export function DataNameAndData(props: DataNameAndDataProps): JSX.Element {
   const { dataName, data } = props
   return data ? (
     <Container className={css.dataNameData}>
@@ -94,55 +94,33 @@ function DataNameAndData(props: DataNameAndDataProps): JSX.Element {
   )
 }
 
-function StartAndEndTimeText(props: StartAndEndTimeTextProps): JSX.Element {
-  const { startTime, endTime } = props
+export function ActivityHeadingContent(props: ActivityHeadingContentProps): JSX.Element {
+  const { count, trendData } = props
   return (
-    <Container className={css.startAndEndTime}>
-      <Container>
-        <Text inline className={css.timeLabel}>
-          {i18n.subHeading.from}
-        </Text>
-        <Text color={Color.BLACK} inline>
-          {new Date(startTime).toLocaleString()}
-        </Text>
-      </Container>
-      <Container>
-        <Text inline className={css.timeLabel}>
-          {i18n.subHeading.to}
-        </Text>
-        <Text color={Color.BLACK} inline>
-          {new Date(endTime).toLocaleString()}
-        </Text>
+    <Container className={css.activityContainer}>
+      <DataNameAndData dataName={i18n.contentDescription.count} data={count} />
+      <Container className={css.trendChart}>
+        <Text color={Color.BLACK}>{i18n.contentDescription.trend}</Text>
+        <Container className={css.chartContainer}>
+          <HighchartsReact highchart={Highcharts} options={trendData} />
+        </Container>
       </Container>
     </Container>
   )
 }
 
 function RiskAndMessageForm(props: RiskAndMessageFormProps): JSX.Element {
-  const { logMessage, onHide } = props
+  const { hasSubmitted, handleSubmit } = props
+  useEffect(() => {
+    if (hasSubmitted) {
+      handleSubmit()
+    }
+  }, [hasSubmitted, handleSubmit])
   return (
-    <Formik initialValues={{}} onSubmit={() => undefined}>
-      <FormikForm className={css.formContainer}>
-        <Container className={css.formContent}>
-          <Container>
-            <FormInput.Select name="risk" items={RiskOptions} label="Risk" />
-            <FormInput.TextArea name="message" label="Message" className={css.message} />
-          </Container>
-          <Container>
-            <Text color={Color.BLACK} className={css.sampleEvent}>
-              {i18n.sampleEvent}
-            </Text>
-            <Text className={css.logMessage}>{logMessage}</Text>
-          </Container>
-          <Container className={css.buttonContainer}>
-            <Button onClick={() => onHide()}>{i18n.backButtonLabel}</Button>
-            <Button type="submit" intent="primary">
-              {i18n.saveButtonLabel}
-            </Button>
-          </Container>
-        </Container>
-      </FormikForm>
-    </Formik>
+    <FormikForm className={css.formContainer}>
+      <FormInput.Select name="risk" items={RiskOptions} label="Risk" />
+      <FormInput.TextArea name="message" label="Message" className={css.message} />
+    </FormikForm>
   )
 }
 
@@ -191,24 +169,37 @@ function IconHeading(): JSX.Element {
   )
 }
 
-export default function LogAnalysisRiskAndJiraModal(props: MetricsVerificationModalProps): JSX.Element {
-  const {
-    endTime = new Date().getTime(),
-    startTime = new Date().getTime() - 15000,
-    onHide,
-    service,
-    activityType,
-    activityIdentifier,
-    count,
-    trendData,
-    environment,
-    logMessage
-  } = props
+export function SampleData(props: SampleDataProps): JSX.Element {
+  const { logMessage } = props
+  return (
+    <Container className={css.logMessageContainer}>
+      <Text color={Color.BLACK} className={css.sampleEvent}>
+        {i18n.sampleEvent}
+      </Text>
+      <Text className={css.logMessage} lineClamp={30} tooltipProps={{ isOpen: false }}>
+        {logMessage}
+      </Text>
+    </Container>
+  )
+}
+
+export function LogAnalysisRiskAndJiraModal(props: LogAnalysisRiskAndJiraModalProps): JSX.Element {
+  const { onHide, activityType, count, trendData, logMessage, feedback } = props
   const [isOpen, setOpen] = useState(true)
+  const [hasSubmitted, setSubmit] = useState(false)
   const onHideCallback = useCallback(() => {
     setOpen(false)
     onHide()
   }, [onHide])
+  const onSubmitCallback = useCallback(
+    data => {
+      setSubmit(false)
+      setOpen(false)
+      onHide(data)
+    },
+    [onHide]
+  )
+
   return (
     <Drawer {...DrawerProps} isOpen={isOpen} onClose={onHideCallback} className={css.main}>
       <Container className={css.headingContainer}>
@@ -217,23 +208,21 @@ export default function LogAnalysisRiskAndJiraModal(props: MetricsVerificationMo
         </Heading>
         <IconHeading />
       </Container>
-      <Text color={Color.BLACK} className={css.verificationPeriod}>
-        {i18n.subHeading.verificationPeriod}
-      </Text>
-      <StartAndEndTimeText startTime={startTime} endTime={endTime} />
-      <Container className={css.activityContainer}>
-        <DataNameAndData dataName={i18n.contentDescription.activityIdentifier} data={activityIdentifier} />
-        <DataNameAndData dataName={i18n.contentDescription.environment} data={environment} />
-        <DataNameAndData dataName={i18n.contentDescription.services} data={service} />
-        <DataNameAndData dataName={i18n.contentDescription.count} data={count} />
-        <Container className={css.trendChart}>
-          <Text color={Color.BLACK}>{i18n.contentDescription.trend}</Text>
-          <Container className={css.chartContainer}>
-            <HighchartsReact highchart={Highcharts} options={trendData} />
-          </Container>
+      <Container className={css.formAndMessageContainer}>
+        <Formik initialValues={feedback ?? {}} onSubmit={onSubmitCallback}>
+          {formikProps => <RiskAndMessageForm handleSubmit={formikProps.handleSubmit} hasSubmitted={hasSubmitted} />}
+        </Formik>
+        <Container>
+          <ActivityHeadingContent trendData={trendData} count={count} />
+          <SampleData logMessage={logMessage} />
+        </Container>
+        <Container className={css.buttonContainer}>
+          <Button onClick={() => onHide()}>{i18n.backButtonLabel}</Button>
+          <Button type="submit" intent="primary" onClick={() => setSubmit(true)}>
+            {i18n.saveButtonLabel}
+          </Button>
         </Container>
       </Container>
-      <RiskAndMessageForm logMessage={logMessage} onHide={onHideCallback} />
     </Drawer>
   )
 }

@@ -3,7 +3,7 @@
   .headingContainer {
     display: flex;
     justify-content: space-between;
-    margin-bottom: var(--spacing-small);
+    margin-bottom: var(--spacing-large);
   }
 
   .iconContainer {
@@ -16,86 +16,27 @@
     }
   }
 
-  .verificationPeriod {
-    margin-bottom: var(--spacing-small);
-  }
-
-  .startAndEndTime {
-    display: inline-flex;
-    justify-content: space-between;
-    width: 400px;
-    margin-bottom: var(--spacing-large);
-
-    .timeLabel {
-      font-weight: bolder;
-      font-size: var(--font-size-small);
-      margin-right: var(--spacing-small);
-    }
-  }
-
-  .dataNameData {
-    width: 150px;
-    height: 50px;
-    margin-bottom: var(--spacing-small);
-    .dataContent {
-      margin-top: var(--spacing-small);
-      font-size: var(--font-size-small);
-    }
-  }
-
-  .trendChart {
-    height: 20px;
-    width: 250px;
-    .chartContainer {
-      height: 100%;
-      width: 100%;
-      > div {
-        width: 100%;
-        height: 100%;
-      }
-    }
-  }
-
-  .activityContainer {
-    display: flex;
-    margin-bottom: var(--spacing-medium);
+  .formAndMessageContainer {
+    height: 100%;
+    display: grid;
+    grid-template-columns: 30% 1fr;
+    grid-template-rows: 1fr 35px;
+    grid-gap: var(--spacing-large) calc(2 * var(--spacing-large));
   }
 
   .formContainer {
-    .formContent {
-      display: grid;
-      grid-template-columns: repeat(2, 45%);
-      grid-template-rows: 480px 35px;
-      grid-gap: var(--spacing-large) calc(2 * var(--spacing-large));
+    .message textarea {
+      min-height: 130px;
+      max-height: 385px;
+    }
+  }
 
-      .message textarea {
-        min-height: 130px;
-        max-height: 385px;
-      }
-
-      .sampleEvent {
-        margin-bottom: var(--spacing-small);
-      }
-
-      .logMessage {
-        white-space: pre-wrap !important;
-        word-break: break-word !important;
-        font-size: var(--font-size-small) !important;
-        text-overflow: ellipsis;
-        overflow: hidden;
-        display: -webkit-box;
-        -webkit-line-clamp: 30;
-        -webkit-box-orient: vertical;
-      }
-
-      .buttonContainer {
-        justify-self: flex-end;
-        grid-column-start: 1;
-        grid-column-end: 3;
-        button:first-child {
-          margin-right: var(--spacing-small);
-        }
-      }
+  .buttonContainer {
+    justify-self: flex-end;
+    grid-column-start: 1;
+    grid-column-end: 3;
+    button:first-child {
+      margin-right: var(--spacing-small);
     }
   }
 }
@@ -132,5 +73,46 @@
       margin-left: var(--spacing-xsmall);
       font-size: 10px !important;
     }
+  }
+}
+
+.activityContainer {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: var(--spacing-medium) !important;
+  .trendChart {
+    height: 20px;
+    width: 250px;
+    .chartContainer {
+      height: 100%;
+      width: 100%;
+      > div {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+}
+
+.dataNameData {
+  width: 150px;
+  height: 50px;
+  margin-bottom: var(--spacing-small) !important;
+  .dataContent {
+    margin-top: var(--spacing-small) !important;
+    font-size: var(--font-size-small);
+  }
+}
+
+.logMessageContainer {
+  .sampleEvent {
+    margin-bottom: var(--spacing-small);
+  }
+
+  .logMessage {
+    white-space: pre-wrap !important;
+    word-break: break-word !important;
+    font-size: 10px !important;
+    font-family: var(--font-family-mono) !important;
   }
 }

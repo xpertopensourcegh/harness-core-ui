@@ -1,68 +1,75 @@
 .main {
-  display: grid;
-  grid-template-columns: 40px 95px 50px 3fr 60px minmax(0, 1fr);
-  grid-column-gap: var(--spacing-medium);
-
-  .logRowText {
-    font-size: 10px !important;
-    color: #22272d !important;
+  height: 100%;
+  .dataContainer {
+    height: 100%;
+    overflow-y: scroll;
   }
+  .mainRow {
+    display: grid;
+    grid-template-columns: 50px 78px 50px 3fr 60px minmax(0, 1fr);
+    grid-column-gap: var(--spacing-medium);
 
-  .logRowColumnHeader {
-    margin-bottom: var(--spacing-small);
-    font-size: var(--font-size-small) !important;
-    &:nth-of-type(2),
-    &:nth-last-of-type(2) {
-      padding-left: var(--spacing-small);
+    .logRowText {
+      font-size: 10px !important;
+      color: #22272d !important;
     }
-  }
 
-  .compareDataColumn {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
+    .logRowColumnHeader {
+      margin-bottom: var(--spacing-small);
+      font-size: var(--font-size-small) !important;
+    }
 
-    input,
-    [class*='bp3-icon'] {
+    .compareDataColumn {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+
+      input,
+      [class*='bp3-icon'] {
+        cursor: pointer;
+        margin: 0 auto;
+      }
+    }
+
+    .openModalColumn {
       cursor: pointer;
     }
-  }
 
-  .logText {
-    white-space: pre-wrap;
-    word-break: break-word;
-    cursor: pointer;
-    p {
-      font-family: monospace !important;
-      &[data-collapsed='true'] {
+    .noFeedback {
+      margin: 0 auto;
+      position: relative;
+      right: 2px;
+    }
+
+    .logText {
+      white-space: pre-wrap;
+      word-break: break-word;
+      p {
+        font-family: var(--font-family-mono) !important;
         display: -webkit-box;
-        -webkit-line-clamp: 3;
+        -webkit-line-clamp: 4;
         overflow: hidden;
         -webkit-box-orient: vertical;
       }
-    }
-    :global {
-      .bp3-popover-target {
-        width: 100% !important;
+      :global {
+        .bp3-popover-target {
+          width: 100% !important;
+        }
       }
     }
-  }
 
-  .lineChartContainer {
-    padding-top: 0 !important;
-    padding-bottom: var(--spacing-small);
-    > div {
-      height: 100%;
-      width: 100%;
+    .lineChartContainer {
+      padding-top: 0 !important;
+      padding-bottom: var(--spacing-small);
+      > div {
+        height: 100%;
+        width: 100%;
+      }
     }
-  }
 
-  .borderedColumn {
-    padding: 0 var(--spacing-small);
-  }
-
-  .dataColumn {
-    padding-top: var(--spacing-small);
+    .dataColumn {
+      padding-top: var(--spacing-small);
+    }
   }
 }
 
@@ -71,5 +78,9 @@
 }
 
 .dataRow {
-  margin: var(--spacing-small) 0 !important;
+  padding: var(--spacing-xsmall) 0 !important;
+}
+
+.highlightRow:hover {
+  background-color: var(--blue-200);
 }

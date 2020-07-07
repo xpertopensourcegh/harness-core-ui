@@ -20,7 +20,7 @@ export const routeCVDataSources: Route = {
   title: i18n.datasources,
   pageId: 'cv-datasources',
   url: () => '/cv-datasources',
-  component: React.lazy(() => import('./pages/DataSources/DataSources')),
+  component: React.lazy(() => import('./pages/data-sources/DataSources')),
   module: ModuleName.CV
 }
 

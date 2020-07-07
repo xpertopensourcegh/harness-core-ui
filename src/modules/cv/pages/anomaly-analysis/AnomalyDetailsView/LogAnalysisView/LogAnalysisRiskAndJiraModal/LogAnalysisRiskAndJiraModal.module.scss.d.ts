@@ -5,23 +5,21 @@ declare const styles: {
   readonly headingContainer: string
   readonly iconContainer: string
   readonly logo: string
-  readonly verificationPeriod: string
-  readonly startAndEndTime: string
-  readonly timeLabel: string
-  readonly dataNameData: string
-  readonly dataContent: string
-  readonly trendChart: string
-  readonly chartContainer: string
-  readonly activityContainer: string
+  readonly formAndMessageContainer: string
   readonly formContainer: string
-  readonly formContent: string
   readonly message: string
-  readonly sampleEvent: string
-  readonly logMessage: string
   readonly buttonContainer: string
   readonly sharePopoverContent: string
   readonly urlContent: string
   readonly copyButton: string
   readonly copySuccess: string
+  readonly activityContainer: string
+  readonly trendChart: string
+  readonly chartContainer: string
+  readonly dataNameData: string
+  readonly dataContent: string
+  readonly logMessageContainer: string
+  readonly sampleEvent: string
+  readonly logMessage: string
 }
 export default styles

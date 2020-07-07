@@ -1,20 +1,16 @@
 import React, { useMemo, useCallback, useState, useRef } from 'react'
-import { Container, Text, Color, Icon, Heading, useExpandibleHook } from '@wings-software/uikit'
+import { Container, Text, Color, Icon } from '@wings-software/uikit'
 import css from './LogAnalysisRow.module.scss'
 import i18n from './LogAnalysisRow.i18n'
 import cx from 'classnames'
 import HighchartsReact from 'highcharts-react-official'
 import Highcharts from 'highcharts'
 import getLogAnalysisLineChartOptions from './LogAnalysisLineChartConfig'
-import { Dialog } from '@blueprintjs/core'
-import LogAnalysisRiskAndJiraModal from '../LogAnalysisRiskAndJiraModal/LogAnalysisRiskAndJiraModal'
+import { LogAnalysisRiskAndJiraModal } from '../LogAnalysisRiskAndJiraModal/LogAnalysisRiskAndJiraModal'
+import LogAnalysisCompareDrawer from '../LogAnalysisCompareDrawer/LogAnalysisCompareDrawer'
 
 interface LogAnalysisRowProps {
   data: Array<{ count: number; logText: string; anomalyType: string; trendData: number[] }>
-  environment: string
-  service: string
-  startTime: number
-  endTime: number
 }
 
 interface LogAnalysisDataRowProps {
@@ -22,22 +18,16 @@ interface LogAnalysisDataRowProps {
   onSelect: (isSelected: boolean, selectedData: LogAnalysisRowProps['data'][0], index: number) => void
   index: number
   isSelected: boolean
-  environment: string
-  service: string
-  startTime: number
-  endTime: number
 }
 
-interface CompareAndExpandColumnProps {
-  isSelected: boolean
-  onCheckCallback: (e: React.ChangeEvent<HTMLInputElement>) => void
-  onExpand: (isExpanded: boolean) => void
-  isExpandible: boolean
+interface FeedbackColumnProps {
+  feedback?: { risk: string; message?: string }
+  onClickColumn: () => void
 }
 
 function ColumnHeaderRow(): JSX.Element {
   return (
-    <Container className={cx(css.main, css.columnHeader)}>
+    <Container className={cx(css.mainRow, css.columnHeader)}>
       <Text color={Color.BLACK} className={css.logRowColumnHeader}>
         {i18n.logAnalaysisTableColumns.compare}
       </Text>
@@ -45,7 +35,7 @@ function ColumnHeaderRow(): JSX.Element {
         {i18n.logAnalaysisTableColumns.anomalyType}
       </Text>
       <Text color={Color.BLACK} className={css.logRowColumnHeader}>
-        {i18n.logAnalaysisTableColumns.risk}
+        {i18n.logAnalaysisTableColumns.feedback}
       </Text>
       <Text color={Color.BLACK} className={css.logRowColumnHeader}>
         {i18n.logAnalaysisTableColumns.sampleEvents}
@@ -60,62 +50,84 @@ function ColumnHeaderRow(): JSX.Element {
   )
 }
 
-function CompareAndExpandColumn(props: CompareAndExpandColumnProps): JSX.Element {
-  const { isSelected, onCheckCallback, onExpand, isExpandible } = props
-  const [isExpanded, setExpanded] = useState(false)
-  const onExpandClickCallback = useCallback(() => {
-    setExpanded(!isExpanded)
-    onExpand(!isExpanded)
-  }, [isExpanded, onExpand])
+function FeedbackColumn(props: FeedbackColumnProps): JSX.Element {
+  const { feedback, onClickColumn } = props
+
+  const riskColor = useMemo(() => {
+    if (!feedback || !feedback.risk) {
+      return
+    }
+    const { risk } = feedback
+    switch (risk) {
+      case 'P1':
+        return Color.RED_600
+      case 'P2':
+        return Color.ORANGE_500
+      case 'P3':
+        return Color.YELLOW_500
+      case 'P4':
+        return Color.GREEN_400
+      case 'P5':
+        return Color.GREEN_600
+    }
+  }, [feedback])
+  if (!feedback) {
+    return (
+      <Container className={cx(css.dataColumn, css.noFeedback, css.openModalColumn)} onClick={onClickColumn}>
+        <Icon name="no-feedback-given" size={22} style={{ position: 'relative', bottom: '4px' }} />
+      </Container>
+    )
+  }
+
   return (
-    <Container className={cx(css.compareDataColumn, css.dataColumn)}>
-      <input type="checkbox" checked={isSelected} onChange={onCheckCallback} />
-      {isExpandible ? (
-        <Icon
-          size={11}
-          name={isExpanded ? 'main-chevron-down' : 'main-chevron-right'}
-          onClick={onExpandClickCallback}
-        />
-      ) : undefined}
-    </Container>
+    <Text
+      icon="feedback-given"
+      iconProps={{ size: 20, margin: { right: 'xsmall' }, padding: { right: 0 } }}
+      tooltip={feedback.message ?? undefined}
+      className={cx(css.dataColumn, css.openModalColumn)}
+      color={riskColor}
+      onClick={onClickColumn}
+    >
+      {feedback.risk}
+    </Text>
   )
 }
 
 function DataRow(props: LogAnalysisDataRowProps): JSX.Element {
-  const { onSelect, rowData, index, isSelected, environment, service, startTime, endTime } = props
+  const { onSelect, rowData, index, isSelected } = props
   const chartOptions = useMemo(() => getLogAnalysisLineChartOptions(), [])
   const [displayRiskEditModal, setDisplayRiskEditModal] = useState(false)
-  const [expandText, setExpandText] = useState(false)
+  const [feedbackGiven, setFeedbackGiven] = useState<{ risk: string; message: string } | undefined>(undefined)
   const logTextRef = useRef<HTMLParagraphElement>(null)
-  const isExpandible = useExpandibleHook(logTextRef)
   const onCheckCallback = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       onSelect?.(e.currentTarget.checked, rowData, index)
     },
     [onSelect, index, rowData]
   )
-  const onHideRiskEditModalCallback = useCallback(() => setDisplayRiskEditModal(false), [])
+  const onHideRiskEditModalCallback = useCallback((data?: any) => {
+    if (data?.risk || data?.message) {
+      setFeedbackGiven(data)
+    }
+    setDisplayRiskEditModal(false)
+  }, [])
   const onShowRiskEditModalCallback = useCallback(() => setDisplayRiskEditModal(true), [])
-  const onExpandIconClickCallback = useCallback((shouldExpand: boolean) => setExpandText(shouldExpand), [])
 
   return (
-    <Container className={cx(css.main, css.dataRow)}>
-      <CompareAndExpandColumn
-        isSelected={isSelected}
-        onCheckCallback={onCheckCallback}
-        onExpand={onExpandIconClickCallback}
-        isExpandible={isExpandible}
-      />
-      <Text className={cx(css.logRowText, css.dataColumn, css.borderedColumn)}>{rowData?.anomalyType}</Text>
-      <Container className={css.dataColumn}>
-        <Icon name="service-jira" size={11} />
+    <Container className={cx(css.mainRow, css.dataRow, css.highlightRow)}>
+      <Container className={cx(css.compareDataColumn, css.dataColumn)}>
+        <input type="checkbox" checked={isSelected} onChange={onCheckCallback} />
       </Container>
-      <Container className={cx(css.logText, css.dataColumn)} onClick={onShowRiskEditModalCallback}>
-        <p className={css.logRowText} data-collapsed={!expandText} ref={logTextRef}>
+      <Text className={cx(css.logRowText, css.dataColumn, css.openModalColumn)} onClick={onShowRiskEditModalCallback}>
+        {rowData?.anomalyType}
+      </Text>
+      <FeedbackColumn feedback={feedbackGiven} onClickColumn={onShowRiskEditModalCallback} />
+      <Container className={cx(css.logText, css.dataColumn, css.openModalColumn)} onClick={onShowRiskEditModalCallback}>
+        <p className={css.logRowText} ref={logTextRef}>
           {rowData?.logText}
         </p>
       </Container>
-      <Text className={cx(css.borderedColumn, css.dataColumn, css.logRowText)} onClick={onShowRiskEditModalCallback}>
+      <Text className={cx(css.dataColumn, css.logRowText, css.openModalColumn)} onClick={onShowRiskEditModalCallback}>
         {rowData?.count}
       </Text>
       <Container className={cx(css.lineChartContainer, css.dataColumn)}>
@@ -127,11 +139,8 @@ function DataRow(props: LogAnalysisDataRowProps): JSX.Element {
           trendData={chartOptions}
           count={rowData.count}
           activityType={rowData.anomalyType}
-          environment={environment}
-          service={service}
           logMessage={rowData.logText}
-          endTime={endTime}
-          startTime={startTime}
+          feedback={feedbackGiven}
         />
       ) : undefined}
     </Container>
@@ -139,7 +148,7 @@ function DataRow(props: LogAnalysisDataRowProps): JSX.Element {
 }
 
 export function LogAnalysisRow(props: LogAnalysisRowProps): JSX.Element {
-  const { data = [], environment, service, startTime, endTime } = props
+  const { data = [] } = props
   const [displayCompareDataModal, setDisplayCompareDataModal] = useState(false)
   const [dataToCompare, setDataToCompare] = useState<Array<{ data: LogAnalysisRowProps['data'][0]; index: number }>>([])
   const onCompareSelectCallback = useCallback(
@@ -162,27 +171,28 @@ export function LogAnalysisRow(props: LogAnalysisRowProps): JSX.Element {
     [dataToCompare]
   )
   const selectedIndices = useMemo(() => new Set(dataToCompare.map(d => d.index)), [dataToCompare])
+  const selectedRowData = useMemo(
+    () =>
+      dataToCompare.map(({ data: selectedData }) => ({ ...selectedData, trendData: getLogAnalysisLineChartOptions() })),
+    [dataToCompare]
+  )
 
   return (
-    <Container>
+    <Container className={css.main}>
       <ColumnHeaderRow />
-      {data.map((row, index) => (
-        <DataRow
-          key={`${row.anomalyType}-${row.count}-${row.logText}`}
-          rowData={row}
-          index={index}
-          onSelect={onCompareSelectCallback}
-          isSelected={selectedIndices.has(index)}
-          environment={environment}
-          service={service}
-          startTime={startTime}
-          endTime={endTime}
-        />
-      ))}
+      <Container className={css.dataContainer}>
+        {data.map((row, index) => (
+          <DataRow
+            key={`${row.anomalyType}-${row.count}-${row.logText}`}
+            rowData={row}
+            index={index}
+            onSelect={onCompareSelectCallback}
+            isSelected={selectedIndices.has(index)}
+          />
+        ))}
+      </Container>
       {displayCompareDataModal && (
-        <Dialog onClose={() => setDisplayCompareDataModal(false)} isOpen={true}>
-          <Heading>Modal to compare two log messages</Heading>
-        </Dialog>
+        <LogAnalysisCompareDrawer rowsToCompare={selectedRowData} onHide={() => setDisplayCompareDataModal(false)} />
       )}
     </Container>
   )

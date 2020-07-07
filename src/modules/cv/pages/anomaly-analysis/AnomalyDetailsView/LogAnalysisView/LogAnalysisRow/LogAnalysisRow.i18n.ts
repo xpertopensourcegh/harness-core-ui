@@ -2,7 +2,7 @@ export default {
   logAnalaysisTableColumns: {
     compare: 'Compare',
     anomalyType: 'Anomaly Type',
-    risk: 'Risk',
+    feedback: 'Feedback',
     sampleEvents: 'Sample Events',
     count: 'Count',
     trend: 'Trend'
