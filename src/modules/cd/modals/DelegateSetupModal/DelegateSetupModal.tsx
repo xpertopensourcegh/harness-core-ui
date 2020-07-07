@@ -1,19 +1,24 @@
 import React from 'react'
-import { ModalProvider, useModalHook, Button, Icon } from '@wings-software/uikit'
+import { ModalProvider, useModalHook, Button, Icon, IconName } from '@wings-software/uikit'
 import { Dialog, IDialogProps, Position } from '@blueprintjs/core'
 import css from './DelegateSetupModal.module.scss'
 import { CreateConnectorWizard } from 'modules/dx/components/CreateConnectorWizard/CreateConnectorWizard'
 import { Menu, Popover } from '@blueprintjs/core'
 import i18n from './DelegateSetup.i18n'
-import { useParams, useHistory } from 'react-router-dom'
-import { routeConnectorDetails } from 'modules/dx/routes'
-import { linkTo } from 'framework/exports'
+import { useParams } from 'react-router-dom'
 
-const getIcon = (icon: any) => {
+interface OptionInterface {
+  label: string
+  value: string
+  icon: IconName
+  onClick?: () => void
+}
+
+const getIcon = (icon: IconName): JSX.Element => {
   return <Icon name={icon} size={24} className={css.iconConnector} />
 }
 
-const getMenuItem = (item: any) => {
+const getMenuItem = (item: OptionInterface): JSX.Element => {
   return (
     <div className={css.menuItemContent}>
       <span className={css.menulabel}>{item.label}</span>
@@ -21,12 +26,9 @@ const getMenuItem = (item: any) => {
     </div>
   )
 }
-const onClickYamlBuilder = (history: any, accountId: string) => {
-  return history.push(linkTo(routeConnectorDetails, { accountId: accountId, editMode: 'true', type: 'yaml-builder' }))
-}
+
 const DelegateModal: React.FC = () => {
   const { accountId } = useParams()
-  const history = useHistory()
 
   const modalPropsLight: IDialogProps = {
     isOpen: true,
@@ -44,17 +46,11 @@ const DelegateModal: React.FC = () => {
       <Button minimal icon="cross" iconProps={{ size: 18 }} onClick={hideLightModal} className={css.crossIcon} />
     </Dialog>
   ))
-  const items = [
+  const items: OptionInterface[] = [
     { label: 'Kubernetes', value: 'service-kubernetes', icon: 'service-kubernetes', onClick: openLightModal },
     { label: 'Git', value: 'service-github', icon: 'service-github' },
     { label: 'Jenkins', value: 'service-jenkins', icon: 'service-jenkins' },
-    { label: 'GCP', value: 'service-gcp', icon: 'service-gcp' },
-    {
-      label: 'Create via YAML Builder',
-      value: 'yaml-builder',
-      icon: 'main-code-yaml',
-      onClick: () => onClickYamlBuilder(history, accountId)
-    }
+    { label: 'GCP', value: 'service-gcp', icon: 'service-gcp' }
   ]
 
   return (
