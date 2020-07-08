@@ -3,11 +3,10 @@ import * as yamlLanguageService from '@wings-software/monaco-yaml/lib/esm/langua
 import { TextDocument, Diagnostic } from 'vscode-languageserver-types'
 
 /**
- * Validation yaml syntactically (syntax correctness)
+ * @description Validate yaml syntactically (syntax correctness)
  *
- * @param yaml
- *
- * @returns list of syntax errors, if any
+ * @param {yaml} yaml to validate
+ * @returns Promise of list of syntax errors, if any
  *
  * Example usage :
 
@@ -16,15 +15,72 @@ import { TextDocument, Diagnostic } from 'vscode-languageserver-types'
       // do something
     })
     .catch(error => {
-      show error
-    }
+      // show error
+    })
  */
 const validateYAML = (yaml: string): Thenable<Diagnostic[]> => {
   if (!yaml) {
-    return Promise.resolve(null)
+    return Promise.reject('Invalid or empty yaml')
   }
   const textDocument = TextDocument.create('', 'yaml', 0, yaml)
   return yamlLanguageService.getLanguageService().doValidation(textDocument, false)
 }
 
-export { validateYAML }
+/**
+ * @description Validate yaml semantically (adherence to a schema)
+ *
+ * @param {yaml} yaml to validate
+ * @param {schemas} array of schemas to validate yaml against
+ * @returns Promise of list of semantic errors, if any
+ *
+ * Example usage :
+
+  validateYAMLWithSchema(yaml, schemas)
+    .then(val => {
+      // do something
+    })
+    .catch(error => {
+      // show error
+    })
+ */
+
+//TODO will add type later on
+const validateYAMLWithSchema = (yaml: string, schemas): Thenable<Diagnostic[]> => {
+  if (!yaml) {
+    return Promise.reject('Invalid or empty yaml')
+  }
+  if (!schemas || (schemas && Array.isArray(schemas) && schemas.length === 0)) {
+    return Promise.reject('No schema specified')
+  }
+  const textDocument = TextDocument.create('', 'yaml', 0, yaml)
+  const languageService = setUpLanguageService(schemas)
+  return languageService.doValidation(textDocument, false)
+}
+
+//TODO will add type later on
+const setUpLanguageService = schemas => {
+  const languageService = yamlLanguageService.getLanguageService()
+  const languageSetting = getLanguageSettings(schemas)
+  languageService.configure(languageSetting)
+  return languageService
+}
+
+const getLanguageSettings = schemaSet => {
+  const languageSetting = {
+    validate: true,
+    enableSchemaRequest: true,
+    hover: true,
+    completion: true,
+    schemas: []
+  }
+  schemaSet.map(schema => {
+    languageSetting.schemas.push({
+      uri: '',
+      fileMatch: ['*'],
+      schema
+    })
+  })
+  return languageSetting
+}
+
+export { validateYAML, validateYAMLWithSchema }
