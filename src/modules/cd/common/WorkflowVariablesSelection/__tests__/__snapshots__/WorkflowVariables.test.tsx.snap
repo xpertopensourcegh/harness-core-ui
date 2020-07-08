@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`WorkflowVariables Snapshot should render WorkflowVariables component 1`] = `
+<div>
+  <div
+    class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---padding-large--26zZ"
+    style="min-height: 400px;"
+  >
+    <p
+      class="StyledProps---font--2ipy StyledProps---main--1Wws"
+      style="line-height: 24px;"
+    >
+      Specify additional overrides for any existing variables or define new variables.
+    </p>
+    <div
+      class="Layout---vertical--3Szv Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+    >
+      <div
+        class="StyledProps---font--2ipy StyledProps---main--1Wws rowItem"
+      >
+        <p
+          class="StyledProps---font--2ipy StyledProps---main--1Wws"
+        >
+          + Add Variables
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+`;

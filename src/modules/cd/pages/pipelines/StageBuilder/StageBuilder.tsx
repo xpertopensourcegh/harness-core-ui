@@ -21,8 +21,11 @@ import {
 } from '@wings-software/uikit'
 import i18n from './StageBuilder.i18n'
 import type { NodeModelListener } from '@projectstorm/react-diagrams-core'
-import { loggerFor, ModuleName } from 'framework/exports'
+
 import type { IconName } from '@blueprintjs/core'
+import StageSetupShell from '../../../common/StageSetupShell/StageSetupShell'
+import * as Yup from 'yup'
+import { loggerFor, ModuleName } from 'framework/exports'
 
 const logger = loggerFor(ModuleName.CD)
 
@@ -30,6 +33,7 @@ interface PopoverData {
   data?: GraphObj
   isStageView: boolean
   addStage?: (type: StageType) => void
+  onSubmitPrimaryData: (values: any) => void
 }
 
 const collapseProps = {
@@ -64,7 +68,7 @@ const newStageData = [
   }
 ]
 
-const renderPopover = ({ addStage, isStageView }: PopoverData): JSX.Element => {
+const renderPopover = ({ addStage, isStageView, onSubmitPrimaryData }: PopoverData): JSX.Element => {
   if (isStageView) {
     return (
       <div className={css.stageCreate}>
@@ -74,6 +78,10 @@ const renderPopover = ({ addStage, isStageView }: PopoverData): JSX.Element => {
         <Container padding="medium">
           <Formik
             initialValues={{ identifier: '', name: '', serviceType: undefined }}
+            validationSchema={Yup.object().shape({
+              name: Yup.string().required(),
+              identifier: Yup.string().required()
+            })}
             onSubmit={values => {
               logger.info(JSON.stringify(values))
             }}
@@ -114,7 +122,14 @@ const renderPopover = ({ addStage, isStageView }: PopoverData): JSX.Element => {
                     />
                   </div>
                   <div className={css.btnSetup}>
-                    <Button intent="primary" text={i18n.setupStage} />
+                    <Button
+                      type="submit"
+                      intent="primary"
+                      text={i18n.setupStage}
+                      onClick={() => {
+                        onSubmitPrimaryData(formikProps.values)
+                      }}
+                    />
                   </div>
                 </FormikForm>
               )
@@ -151,11 +166,11 @@ const renderPopover = ({ addStage, isStageView }: PopoverData): JSX.Element => {
 
 export const StageBuilder = (): JSX.Element => {
   const [data, setData] = React.useState<GraphObj[]>([])
-
+  const [isStageShellVisible, setStageShellVisible] = React.useState(false)
+  const [stageData, setStageData] = React.useState('')
   const [dynamicPopoverHandler, setDynamicPopoverHandler] = React.useState<
     DynamicPopoverHandlerBinding<PopoverData> | undefined
   >()
-
   const addStage = (type: StageType): void => {
     data.push({
       stage: {
@@ -176,9 +191,32 @@ export const StageBuilder = (): JSX.Element => {
       const nodeRender = document.querySelector(`[data-nodeid="${eventTemp.entity.getID()}"]`)
       if (nodeRender && eventTemp.isSelected) {
         if (eventTemp.entity.getType() === Diagram.DiagramType.CreateNew) {
-          dynamicPopoverHandler?.show(nodeRender, { addStage, isStageView: false }, { useArrows: true, darkMode: true })
+          dynamicPopoverHandler?.show(
+            nodeRender,
+            {
+              addStage,
+              isStageView: false,
+              onSubmitPrimaryData: () => {
+                setStageShellVisible(false)
+              }
+            },
+            { useArrows: true, darkMode: true }
+          )
         } else {
-          dynamicPopoverHandler?.show(nodeRender, { isStageView: true }, { useArrows: false, darkMode: false })
+          if (!isStageShellVisible) {
+            dynamicPopoverHandler?.show(
+              nodeRender,
+              {
+                isStageView: true,
+                onSubmitPrimaryData: values => {
+                  dynamicPopoverHandler.hide()
+                  setStageData(values)
+                  setStageShellVisible(true)
+                }
+              },
+              { useArrows: false, darkMode: false }
+            )
+          }
         }
       }
     }
@@ -207,6 +245,7 @@ export const StageBuilder = (): JSX.Element => {
     >
       <Diagram.CanvasWidget engine={engine} />
       <DynamicPopover darkMode={true} render={renderPopover} bind={setDynamicPopoverHandler} />
+      {isStageShellVisible && <StageSetupShell stageData={stageData} />}
       <span className={css.canvasButtons}>
         <Layout.Vertical spacing="medium" id="button-group">
           <ButtonGroup>

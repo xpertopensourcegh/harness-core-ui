@@ -1,42 +1,24 @@
 import React from 'react'
+import { Layout, Button, Card, CardBody, Text, Color } from '@wings-software/uikit'
+import css from './InfraSpecifications.module.scss'
+import i18n from './InfraSpecifications.i18n'
+import { Formik, FormikForm, FormInput } from '@wings-software/uikit'
 import * as Yup from 'yup'
 
-import {
-  Layout,
-  Tabs,
-  Tab,
-  Button,
-  Card,
-  CardBody,
-  Text,
-  Checkbox,
-  Formik,
-  FormikForm,
-  FormInput
-} from '@wings-software/uikit'
+const infraOptions = [
+  { label: i18n.prodLabel, value: 'PROD' },
+  { label: i18n.nonProdLabel, value: 'NON_PROD' }
+]
 
-import ArtifactsSelection from '../ArtifactsSelection/ArtifactsSelection'
-import ManifestSelection from '../ManifestSelection/ManifestSelection'
-import WorkflowVariables from '../WorkflowVariablesSelection/WorkflowVariables'
-
-import i18n from './ServiceSpecifications.i18n'
-import css from './ServiceSpecifications.module.scss'
-import cx from 'classnames'
-
-const specificationTypes = {
-  SPECIFICATION: 'SPECIFICATION',
-  OVERRIDES: 'OVERRIDES'
-}
-
-export default function ServiceSpecifications(): JSX.Element {
+export default function InfraSpecifications(): JSX.Element {
   const [isDescriptionVisible, setDescriptionVisible] = React.useState(false)
   const [isTagsVisible, setTagsVisible] = React.useState(false)
-  const [specSelected, setSelectedSpec] = React.useState(specificationTypes.SPECIFICATION)
+
   return (
     <Layout.Vertical className={css.serviceOverrides}>
       <Layout.Vertical spacing="large">
         <Formik
-          initialValues={{ serviceName: '', description: '' }}
+          initialValues={{ infraName: '', description: '' }}
           onSubmit={values =>
             new Promise(resolve => {
               setTimeout(() => {
@@ -46,7 +28,7 @@ export default function ServiceSpecifications(): JSX.Element {
             })
           }
           validationSchema={Yup.object().shape({
-            serviceName: Yup.string().trim().required(i18n.validation.serviceName)
+            infraName: Yup.string().trim().required(i18n.validation.infraName)
           })}
         >
           {() => {
@@ -54,10 +36,10 @@ export default function ServiceSpecifications(): JSX.Element {
               <FormikForm>
                 <Layout.Horizontal spacing="medium">
                   <FormInput.Text
-                    name="serviceName"
+                    name="infraName"
                     style={{ width: 300 }}
-                    label={i18n.serviceNameLabel}
-                    placeholder={i18n.serviceNamePlaceholderText}
+                    label={i18n.infraNameLabel}
+                    placeholder={i18n.infraNamePlaceholderText}
                   />
                   <div className={css.addDataLinks}>
                     <Button
@@ -112,51 +94,69 @@ export default function ServiceSpecifications(): JSX.Element {
                     />
                   </div>
                 )}
+                <FormInput.Select
+                  name="infraType"
+                  style={{ width: 300 }}
+                  label={i18n.infrastructureTypeLabel}
+                  placeholder={i18n.infrastructureTypePlaceholder}
+                  items={infraOptions}
+                />
               </FormikForm>
             )
           }}
         </Formik>
       </Layout.Vertical>
       <Layout.Horizontal flex={true} className={css.specTabs}>
-        <Button
-          minimal
-          text={i18n.serviceSpecificationLabel}
-          onClick={() => setSelectedSpec(specificationTypes.SPECIFICATION)}
-          className={cx({ [css.selected]: specSelected === specificationTypes.SPECIFICATION })}
-        />
-        <Button
-          minimal
-          text={i18n.stageOverrideLabel}
-          onClick={() => setSelectedSpec(specificationTypes.OVERRIDES)}
-          className={cx({ [css.selected]: specSelected === specificationTypes.OVERRIDES })}
-        />
+        <Button minimal text={i18n.infraSpecificationLabel} className={css.selected} />
       </Layout.Horizontal>
-      {specSelected === specificationTypes.SPECIFICATION && (
-        <Layout.Vertical spacing="medium">
-          <Text style={{ fontSize: 16, color: 'var(--grey-400)' }}>{i18n.deploymentTypeLabel}</Text>
-
-          <Card interactive={true} selected style={{ width: 120 }}>
-            <CardBody.Icon icon="service-kubernetes" iconSize={34}>
-              <Text font={{ align: 'center' }} style={{ fontSize: 14 }}>
-                {i18n.deploymentType}
-              </Text>
-            </CardBody.Icon>
-          </Card>
-        </Layout.Vertical>
-      )}
-      {specSelected === specificationTypes.OVERRIDES && (
-        <Layout.Vertical spacing="medium" padding="xxlarge">
-          <Checkbox label={i18n.overidesCondition} className={css.overideCheckbox} />
-          <Text style={{ fontSize: 14, color: 'var(-grey-300)' }}>{i18n.overideInfoText}</Text>
-        </Layout.Vertical>
-      )}
-      <Layout.Horizontal spacing="small">
-        <Tabs id="serviceSpecifications">
-          <Tab id={i18n.artifacts} title={i18n.artifacts} panel={<ArtifactsSelection />} />
-          <Tab id={i18n.manifests} title={i18n.manifests} panel={<ManifestSelection />} />
-          <Tab id={i18n.variables} title={i18n.variables} panel={<WorkflowVariables />} />
-        </Tabs>
+      <Layout.Horizontal flex={true}>
+        <Text style={{ margin: '25px 0 15px 0', color: 'black', fontSize: 16 }}> {i18n.infraSpecHelpText}</Text>
       </Layout.Horizontal>
+      <Layout.Vertical spacing="medium">
+        <Text style={{ fontSize: 16, color: 'var(--grey-400)' }}>{i18n.deploymentTypeLabel}</Text>
+        <Card interactive={true} selected style={{ width: 120 }}>
+          <CardBody.Icon icon="service-kubernetes" iconSize={34}>
+            <Text font={{ align: 'center' }} style={{ fontSize: 14 }}>
+              {i18n.deploymentType}
+            </Text>
+          </CardBody.Icon>
+        </Card>
+      </Layout.Vertical>
+      <Layout.Vertical spacing="medium">
+        <Text style={{ fontSize: 16, color: Color.BLACK, marginTop: 15 }}>{i18n.k8ConnectorLabel}</Text>
+        <Formik
+          initialValues={{ connectorId: '', namespaceId: '' }}
+          onSubmit={values =>
+            new Promise(resolve => {
+              setTimeout(() => {
+                // console.log(JSON.stringify(values))
+                resolve(values)
+              }, 5000)
+            })
+          }
+        >
+          {() => {
+            return (
+              <FormikForm>
+                <FormInput.Select
+                  name="connectorId"
+                  style={{ width: 400 }}
+                  label={i18n.k8ConnectorDropDownLabel}
+                  placeholder={i18n.k8ConnectorDropDownPlaceholder}
+                  items={[]}
+                />
+                <FormInput.Select
+                  name="namespaceId"
+                  style={{ width: 400 }}
+                  label={i18n.nameSpaceLabel}
+                  placeholder={i18n.nameSpacePlaceholder}
+                  items={[]}
+                />
+              </FormikForm>
+            )
+          }}
+        </Formik>
+      </Layout.Vertical>
     </Layout.Vertical>
   )
 }

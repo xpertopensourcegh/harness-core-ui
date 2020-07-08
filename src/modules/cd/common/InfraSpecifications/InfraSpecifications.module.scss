@@ -1,17 +1,16 @@
 .serviceOverrides {
-  width: 1024px !important;
+  max-width: 1024px;
   margin: 0 auto !important;
-
   :global {
     .bp3-tab-panel {
       margin: 0;
     }
     .bp3-tab-list {
-      background: white !important;
+      background: var(--white) !important;
     }
     .bp3-tab[aria-selected='true'] {
       font-weight: 900;
-      color: black !important;
+      color: var(--black) !important;
     }
     .bp3-tab[aria-selected='false'] {
       color: var(--grey-800);
@@ -19,15 +18,6 @@
     .bp3-tab-list {
       justify-content: center;
       border-bottom: 0;
-      position: relative !important;
-      top: auto;
-    }
-    .bp3-tab-panel {
-      position: relative !important;
-      top: auto !important;
-      height: auto !important;
-      width: auto !important;
-      overflow: visible !important;
     }
   }
   .addDataLinks {
@@ -52,7 +42,7 @@
       &:hover,
       &:active {
         background-color: transparent !important;
-        color: black;
+        color: var(--black);
         font-weight: 800;
       }
     }
@@ -63,6 +53,6 @@
   .overideCheckbox {
     color: var(--grey-900);
     font-weight: bold !important;
-    font-size: 16px !important;
+    font-size: var(--font-size-medium) !important;
   }
 }
