@@ -23,7 +23,7 @@
     "dev": "NODE_ENV=development webpack-dev-server",
     "watch": "yarn clean && NODE_ENV=development webpack --watch",
     "services": "npm-run-all services:*",
-    "services:portal": "echo 'Skipping Portal'",
+    "services:portal": "restful-react import --config restful-react.config.js portal",
     "services:ngtemp": "restful-react import --config restful-react.config.js ng-temp",
     "services:cdng": "restful-react import --config restful-react.config.js cd-ng",
     "postservices": "prettier --write src/services/**/*.tsx",

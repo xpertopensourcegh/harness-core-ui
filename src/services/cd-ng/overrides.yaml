@@ -1,11 +1,2 @@
 allowpaths: ['*']
-operationIdOverrides:
-  /projects.get: getProjects
-  /projects.post: createProject
-  /projects/{projectId}.get: getProject
-  /projects/{projectId}.put: updateProject
-  /projects/{projectId}.delete: deleteProject
-  /organizations.get: getOrganizations
-  /organizations/{organizationId}.get: getOrganization
-  /organizations/{organizationId}.put: updateOrganization
-  /organizations/{organizationId}.delete: deleteOrganization
+operationIdOverrides: {}

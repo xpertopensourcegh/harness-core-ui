@@ -1,2 +1,10 @@
-allowpaths: []
-operationIdOverrides: {}
+allowpaths:
+  - '/setup/delegates.get'
+  - '/setup/delegates/status.get'
+  - '/setup/delegates/downloadUrl.get'
+  - '/delegate-profiles.get'
+operationIdOverrides:
+  /setup/delegates.get: getDelegates
+  /setup/delegates/status.get: getDelegatesStatus
+  /setup/delegates/downloadUrl.get: getDelegatesDownloadUrl
+  /delegate-profiles.get: getDelegateProfiles
