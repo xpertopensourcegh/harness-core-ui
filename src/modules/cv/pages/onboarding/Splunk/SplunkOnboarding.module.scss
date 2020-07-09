@@ -27,6 +27,16 @@
         margin-left: 12px;
       }
     }
+
+    .title > div > div > p {
+      width: unset !important;
+      max-width: 400px !important;
+    }
+
+    .title > div > p {
+      width: unset !important;
+    }
+
     .queryDropDown {
       width: 250px;
       position: absolute;
