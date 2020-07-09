@@ -15,6 +15,7 @@ import * as Yup from 'yup'
 import css from './PipelineCreate.module.scss'
 import i18n from './PipelineCreate.i18n'
 import type { CDPipelineDTO } from 'services/ng-temp'
+import { DefaultNewPipelineId } from '../PipelineContext/PipelineActions'
 
 const logger = loggerFor(ModuleName.CD)
 const collapseProps = {
@@ -39,6 +40,10 @@ export default function CreatePipelines({
   initialValues = { identifier: '', displayName: '' },
   closeModal
 }: PipelineCreateProps): JSX.Element {
+  const identifier = initialValues?.identifier
+  if (identifier === DefaultNewPipelineId) {
+    initialValues.identifier = ''
+  }
   const isEdit = (initialValues?.identifier?.length || '') > 0
   return (
     <Container padding="small" className={css.container}>

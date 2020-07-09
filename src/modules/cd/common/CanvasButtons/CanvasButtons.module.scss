@@ -1,0 +1,27 @@
+.canvas-buttons {
+  position: absolute;
+  right: var(--spacing-large);
+  bottom: var(--spacing-large);
+
+  .vertical-buttons {
+    & > div {
+      line-height: 0 !important;
+
+      & > span:first-child button {
+        margin-right: 0;
+        margin-bottom: -1px;
+        border-top-right-radius: 4px !important;
+        border-bottom-right-radius: 0 !important;
+        border-bottom-left-radius: 0 !important;
+      }
+      & > span:last-child button {
+        border-top-right-radius: 0 !important;
+        border-bottom-right-radius: 4px !important;
+        border-bottom-left-radius: 4px !important;
+      }
+    }
+    :global(.bp3-popover-target) {
+      display: block;
+    }
+  }
+}

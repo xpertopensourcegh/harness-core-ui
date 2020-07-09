@@ -4,5 +4,6 @@ export default {
   isAuthenticated: () => AppStorage.has('token'),
   getToken: () => AppStorage.get('token'),
   username: () => AppStorage.get('username'),
-  accountId: () => AppStorage.get('acctId')
+  accountId: () => AppStorage.get('acctId'),
+  getLastTokenSetTime: () => AppStorage.get('lastTokenSetTime')
 }

@@ -1,0 +1,79 @@
+.content {
+  display: grid;
+  grid-template-rows: 42px 38px 1fr;
+  height: 100%;
+
+  .top-bar {
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.13);
+    display: grid;
+    grid-template-columns: 1fr 125px 173px;
+    align-items: center;
+
+    .topButtons {
+      width: 56px;
+      border-radius: 14px;
+      background-color: var(--white);
+      display: inline-block;
+      font-size: 10px;
+      text-align: center;
+      color: #b1b1b1;
+      border: 1px solid var(--pipeline-grey-border);
+      margin-left: 12px;
+      padding-top: 2px;
+
+      &.selected {
+        color: var(--white);
+        cursor: not-allowed;
+        box-shadow: 0px 0px inset rgba(0, 0, 0, 0.5);
+        background-color: rgba(12, 48, 88, 0.4);
+      }
+    }
+
+    .savePublishBtn {
+      width: 153px;
+      height: 26px;
+      border: 1px solid #b8bfca !important;
+      color: var(--pipeline-blue-color) !important;
+      border-radius: 4px;
+    }
+  }
+
+  .secondary-bar {
+    border: 1px solid var(--pipeline-light-grey);
+    border-left-width: 0;
+    display: grid;
+    grid-template-columns: 70px 1fr 390px;
+    align-items: center;
+
+    .pipelineName {
+      display: inline-block;
+    }
+
+    .btn-group {
+      button {
+        color: #303030;
+        font-weight: 500;
+        margin-left: var(--spacing-large);
+      }
+    }
+  }
+
+  .canvas {
+    background-image: var(--pipeline-canvas-image);
+    height: 100%;
+    &.canvas-stage-view {
+      background-image: var(--pipeline-canvas-blue-image);
+    }
+  }
+
+  .tagRender {
+    background-color: var(--pipeline-tag-bc) !important;
+    border-radius: 4px;
+    & > span {
+      color: var(--pipeline-tag-color);
+    }
+  }
+}
+.dialog {
+  width: 870px;
+}

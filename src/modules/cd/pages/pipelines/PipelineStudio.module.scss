@@ -1,7 +1,3 @@
-.dialog {
-  width: 870px;
-}
-
 .container {
   --pipeline-grey-border: #c8c6c6;
   --pipeline-light-grey: #e7e7e7;
@@ -10,6 +6,7 @@
   --pipeline-blue-bc: #021c3c;
   --pipeline-tag-color: #4bace9;
   --pipeline-canvas-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAKAgMAAADJO5Z1AAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAMUExURf////j8/v7//8/n99rLSbMAAAAYSURBVAgdY8AFmBwYGBsYGA8wMDsw4AAANE0ByKMgSXsAAAAASUVORK5CYII=);
+  --pipeline-canvas-blue-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAKBAMAAABGe2PVAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAYUExURfH5//T8//D4/t3l6ery+Ofv9eHp7+Lq72WMkdUAAAAlSURBVAjXY2AgDJhAhBKYGQzEjMEKIKYbiHAHMxnhBEQtEy6TAFp+AZ/Vsio1AAAAAElFTkSuQmCC);
 
   display: grid;
   grid-template-columns: 50px 1fr 60px;
@@ -96,13 +93,5 @@
   .right-bar {
     background-color: #fafafa;
     box-shadow: -1px 0 2px 0 rgba(0, 0, 0, 0.25);
-  }
-
-  .tagRender {
-    background-color: var(--pipeline-tag-bc) !important;
-    border-radius: 4px;
-    & > span {
-      color: var(--pipeline-tag-color);
-    }
   }
 }

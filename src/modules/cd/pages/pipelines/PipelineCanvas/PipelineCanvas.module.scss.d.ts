@@ -1,7 +1,6 @@
 /* eslint-disable */
 // this is an auto-generated file
 declare const styles: {
-  readonly container: string
   readonly content: string
   readonly topBar: string
   readonly topButtons: string
@@ -9,10 +8,10 @@ declare const styles: {
   readonly savePublishBtn: string
   readonly secondaryBar: string
   readonly pipelineName: string
+  readonly btnGroup: string
   readonly canvas: string
-  readonly leftBar: string
-  readonly title: string
-  readonly logoImage: string
-  readonly rightBar: string
+  readonly canvasStageView: string
+  readonly tagRender: string
+  readonly dialog: string
 }
 export default styles

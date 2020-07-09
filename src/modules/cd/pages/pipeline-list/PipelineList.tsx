@@ -40,7 +40,7 @@ const PipelineList: React.FC = () => {
         title={i18n.pipelines.toUpperCase()}
         toolbar={
           <Container>
-            <Button minimal intent="primary" text={i18n.addPipeline} icon="add" onClick={goToPipeline} />
+            <Button minimal intent="primary" text={i18n.addPipeline} icon="add" onClick={() => goToPipeline()} />
           </Container>
         }
       />

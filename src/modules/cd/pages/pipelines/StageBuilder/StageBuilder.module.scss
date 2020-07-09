@@ -14,34 +14,6 @@
     width: 100%;
   }
 
-  .canvas-buttons {
-    position: absolute;
-    right: 20px;
-    bottom: 20px;
-
-    .vertical-buttons {
-      & > div {
-        line-height: 0;
-
-        & > span:first-child button {
-          margin-right: 0;
-          margin-bottom: -1px;
-          border-top-right-radius: 4px !important;
-          border-bottom-right-radius: 0 !important;
-          border-bottom-left-radius: 0 !important;
-        }
-        & > span:last-child button {
-          border-top-right-radius: 0 !important;
-          border-bottom-right-radius: 4px !important;
-          border-bottom-left-radius: 4px !important;
-        }
-      }
-
-      :global(.bp3-popover-target) {
-        display: block;
-      }
-    }
-  }
   .create-new-content {
     max-width: 300px;
 
@@ -62,7 +34,7 @@
         }
 
         & > span {
-          padding: 5px 20px 5px;
+          padding: 5px 18px 5px;
         }
 
         &:hover {
@@ -95,17 +67,17 @@
   grid-auto-rows: auto;
   grid-gap: var(--spacing-small);
   padding-top: var(--spacing-small);
-  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
 
   :global(.bp3-card) {
-    padding: var(--spacing-small) var(--spacing-xsmall);
-    width: 80px;
-    height: 80px;
+    padding: var(--spacing-large);
+    width: 70px;
+    height: 70px;
   }
 }
 
 .stage-create {
-  width: 430px;
+  width: 350px;
 }
 
 .btn-setup {

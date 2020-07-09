@@ -1,14 +1,10 @@
 import React from 'react'
 import { Diagram } from 'modules/common/exports'
 import css from './StageBuilder.module.scss'
-import { StageBuilderModel, GraphObj, StageType } from './StageBuilderModel'
+import { StageBuilderModel, StageType, getStageFromPipeline, MapStepTypeToIcon } from './StageBuilderModel'
 import { DynamicPopover, DynamicPopoverHandlerBinding } from 'modules/common/components/DynamicPopover/DynamicPopover'
 import {
-  Layout,
-  ButtonGroup,
   Button,
-  Card,
-  Icon,
   Text,
   Container,
   Formik,
@@ -16,6 +12,7 @@ import {
   FormInput,
   Collapse,
   Label,
+  Card,
   CardSelect,
   CardBody
 } from '@wings-software/uikit'
@@ -25,15 +22,16 @@ import type { NodeModelListener } from '@projectstorm/react-diagrams-core'
 import type { IconName } from '@blueprintjs/core'
 import StageSetupShell from '../../../common/StageSetupShell/StageSetupShell'
 import * as Yup from 'yup'
-import { loggerFor, ModuleName } from 'framework/exports'
-
-const logger = loggerFor(ModuleName.CD)
+import type { StageWrapper } from 'services/ng-temp'
+import { PipelineContext } from '../PipelineContext/PipelineContext'
+import { CanvasButtons } from 'modules/cd/common/CanvasButtons/CanvasButtons'
+import { AddStageView } from './views/AddStageView'
 
 interface PopoverData {
-  data?: GraphObj
+  data?: StageWrapper
   isStageView: boolean
   addStage?: (type: StageType) => void
-  onSubmitPrimaryData: (values: any) => void
+  onSubmitPrimaryData?: (values: StageWrapper, identifier: string) => void
 }
 
 const collapseProps = {
@@ -49,47 +47,56 @@ const newStageData = [
   {
     text: i18n.service,
     value: 'service',
-    icon: 'main-service-ami'
+    icon: 'service'
   },
   {
     text: i18n.multipleService,
     value: 'multiple-service',
-    icon: 'main-services'
+    icon: 'multi-service'
   },
   {
     text: i18n.functions,
     value: 'functions',
-    icon: 'function'
+    icon: 'functions'
   },
   {
     text: i18n.otherWorkloads,
     value: 'other-workloads',
-    icon: 'main-workflows'
+    icon: 'other-workload'
   }
 ]
 
-const renderPopover = ({ addStage, isStageView, onSubmitPrimaryData }: PopoverData): JSX.Element => {
+const renderPopover = ({ data, addStage, isStageView, onSubmitPrimaryData }: PopoverData): JSX.Element => {
   if (isStageView) {
+    const type: StageType = data ? (Object.keys(data)[0] as StageType) : StageType.DEPLOY
     return (
       <div className={css.stageCreate}>
-        <Text icon="deployment-success-legacy" iconProps={{ size: 16 }}>
-          Stage View
+        <Text icon={MapStepTypeToIcon[type]} iconProps={{ size: 16 }}>
+          {i18n.aboutYourStage}
         </Text>
         <Container padding="medium">
           <Formik
-            initialValues={{ identifier: '', name: '', serviceType: undefined }}
-            validationSchema={Yup.object().shape({
-              name: Yup.string().required(),
-              identifier: Yup.string().required()
-            })}
-            onSubmit={values => {
-              logger.info(JSON.stringify(values))
+            initialValues={{
+              identifier: data?.[type].identifier,
+              displayName: data?.[type].displayName,
+              description: data?.[type].description,
+              serviceType: newStageData[0]
             }}
+            onSubmit={values => {
+              if (data) {
+                data[type].identifier = values.identifier
+                data[type].displayName = values.displayName
+                onSubmitPrimaryData?.(data, values.identifier)
+              }
+            }}
+            validationSchema={Yup.object().shape({
+              displayName: Yup.string().required(i18n.stageNameRequired)
+            })}
           >
             {formikProps => {
               return (
                 <FormikForm>
-                  <FormInput.InputWithIdentifier />
+                  <FormInput.InputWithIdentifier inputName="displayName" inputLabel={i18n.stageName} />
                   <div className={css.collapseDiv}>
                     <Collapse {...collapseProps}>
                       <FormInput.TextArea name="description" />
@@ -100,10 +107,14 @@ const renderPopover = ({ addStage, isStageView, onSubmitPrimaryData }: PopoverDa
                   </div>
                   <div>
                     <CardSelect
+                      type={'any' as any} // TODO: Remove this by publishing uikit with exported CardSelectType
                       selected={formikProps.values.serviceType}
                       onChange={item => formikProps.setFieldValue('serviceType', item)}
                       renderItem={(item, selected) => (
-                        <CardBody.Icon icon={item.icon as IconName} iconSize={25}>
+                        <>
+                          <Card selected={selected}>
+                            <CardBody.Icon icon={item.icon as IconName} iconSize={25} />
+                          </Card>
                           <Text
                             font={{
                               size: 'small',
@@ -115,7 +126,7 @@ const renderPopover = ({ addStage, isStageView, onSubmitPrimaryData }: PopoverDa
                           >
                             {item.text}
                           </Text>
-                        </CardBody.Icon>
+                        </>
                       )}
                       data={newStageData}
                       className={css.grid}
@@ -127,7 +138,7 @@ const renderPopover = ({ addStage, isStageView, onSubmitPrimaryData }: PopoverDa
                       intent="primary"
                       text={i18n.setupStage}
                       onClick={() => {
-                        onSubmitPrimaryData(formikProps.values)
+                        formikProps.submitForm()
                       }}
                     />
                   </div>
@@ -139,53 +150,41 @@ const renderPopover = ({ addStage, isStageView, onSubmitPrimaryData }: PopoverDa
       </div>
     )
   }
-  return (
-    <div className={css.createNewContent}>
-      <div className={css.createNewCards}>
-        <Card interactive={true} className={css.cardNew} onClick={() => addStage?.(StageType.DEPLOY)}>
-          <Icon name="command-install" size={20} />
-          <div>{i18n.deploy}</div>
-        </Card>
-        <Card interactive={true} className={css.cardNew} onClick={() => addStage?.(StageType.PIPELINE)}>
-          <Icon name="support-pipeline" size={20} />
-          <div>{i18n.pipeline}</div>
-        </Card>
-        <Card interactive={true} className={css.cardNew} onClick={() => addStage?.(StageType.APPROVAL)}>
-          <Icon name="small-tick" size={20} />
-          <div>{i18n.approval}</div>
-        </Card>
-        <Card interactive={true} className={css.cardNew} onClick={() => addStage?.(StageType.CUSTOM)}>
-          <Icon name="series-configuration" size={20} />
-          <div>{i18n.custom}</div>
-        </Card>
-      </div>
-      <div className={css.createNewMessage}>{i18n.newContentMessage}</div>
-    </div>
-  )
+  return <AddStageView callback={type => addStage?.(type)} />
 }
 
-export const StageBuilder = (): JSX.Element => {
-  const [data, setData] = React.useState<GraphObj[]>([])
-  const [isStageShellVisible, setStageShellVisible] = React.useState(false)
-  const [stageData, setStageData] = React.useState('')
+export const StageBuilder: React.FC<{}> = (): JSX.Element => {
+  const {
+    state: {
+      pipeline,
+      pipelineView: { isSetupStageOpen, selectedStageId }
+    },
+    updatePipeline,
+    updatePipelineView
+  } = React.useContext(PipelineContext)
+
   const [dynamicPopoverHandler, setDynamicPopoverHandler] = React.useState<
     DynamicPopoverHandlerBinding<PopoverData> | undefined
   >()
+
   const addStage = (type: StageType): void => {
-    data.push({
-      stage: {
-        type,
-        name: 'Untitled',
-        identifier: `Untitled-${data.length}`
+    if (!pipeline.stages) {
+      pipeline.stages = []
+    }
+    pipeline.stages.push({
+      [type]: {
+        displayName: 'Untitled',
+        identifier: `Untitled-${pipeline.stages?.length}`
       }
     })
     dynamicPopoverHandler?.hide()
-    model.addUpdateGraph(data, listener)
+    model.addUpdateGraph(pipeline, listener)
     engine.repaintCanvas()
-    setData(data)
+    updatePipeline(pipeline)
   }
 
   const listener: NodeModelListener = {
+    // Can not remove this Any because of React Diagram Issue
     [Diagram.Event.SelectionChanged]: (event: any) => {
       const eventTemp = event as Diagram.DefaultNodeEvent
       const nodeRender = document.querySelector(`[data-nodeid="${eventTemp.entity.getID()}"]`)
@@ -195,28 +194,38 @@ export const StageBuilder = (): JSX.Element => {
             nodeRender,
             {
               addStage,
-              isStageView: false,
-              onSubmitPrimaryData: () => {
-                setStageShellVisible(false)
-              }
+              isStageView: false
             },
             { useArrows: true, darkMode: true }
           )
-        } else {
-          if (!isStageShellVisible) {
+        } else if (eventTemp.entity.getType() !== Diagram.DiagramType.StartNode) {
+          if (!isSetupStageOpen) {
             dynamicPopoverHandler?.show(
               nodeRender,
               {
                 isStageView: true,
-                onSubmitPrimaryData: values => {
+                data: getStageFromPipeline(pipeline, eventTemp.entity.getID()),
+                onSubmitPrimaryData: (_values, identifier) => {
+                  updatePipeline(pipeline)
                   dynamicPopoverHandler.hide()
-                  setStageData(values)
-                  setStageShellVisible(true)
+                  updatePipelineView({ isSetupStageOpen: true, selectedStageId: identifier })
                 }
               },
               { useArrows: false, darkMode: false }
             )
           }
+        }
+      }
+    },
+    // Can not remove this Any because of React Diagram Issue
+    [Diagram.Event.RemoveNode]: (event: any) => {
+      const eventTemp = event as Diagram.DefaultNodeEvent
+      const node = getStageFromPipeline(pipeline, eventTemp.entity.getID())
+      if (node) {
+        const index = pipeline?.stages?.indexOf(node)
+        if (index && index > -1) {
+          pipeline?.stages?.splice(index, 1)
+          updatePipeline(pipeline)
         }
       }
     }
@@ -228,7 +237,7 @@ export const StageBuilder = (): JSX.Element => {
   //2) setup the diagram model
   const model = React.useMemo(() => new StageBuilderModel(), [])
 
-  model.addUpdateGraph(data, listener)
+  model.addUpdateGraph(pipeline, listener, selectedStageId)
 
   // load model into engine
   engine.setModel(model)
@@ -245,67 +254,8 @@ export const StageBuilder = (): JSX.Element => {
     >
       <Diagram.CanvasWidget engine={engine} />
       <DynamicPopover darkMode={true} render={renderPopover} bind={setDynamicPopoverHandler} />
-      {isStageShellVisible && <StageSetupShell stageData={stageData} />}
-      <span className={css.canvasButtons}>
-        <Layout.Vertical spacing="medium" id="button-group">
-          <ButtonGroup>
-            <Button
-              icon="square"
-              tooltip={i18n.zoomToFit}
-              onClick={() => {
-                engine.zoomToFit()
-                dynamicPopoverHandler?.hide()
-              }}
-            />
-          </ButtonGroup>
-          <ButtonGroup>
-            <Button
-              icon="layout-grid"
-              tooltip={i18n.reset}
-              onClick={() => {
-                engine.getModel().setZoomLevel(100)
-                engine.repaintCanvas()
-                dynamicPopoverHandler?.hide()
-              }}
-            />
-          </ButtonGroup>
-          <ButtonGroup>
-            <Button
-              icon="reset"
-              tooltip={i18n.refresh}
-              onClick={() => {
-                engine.getModel().setZoomLevel(100)
-                engine.repaintCanvas()
-                dynamicPopoverHandler?.hide()
-              }}
-            />
-          </ButtonGroup>
-          <span className={css.verticalButtons}>
-            <ButtonGroup>
-              <Button
-                icon="plus"
-                tooltip={i18n.zoomIn}
-                onClick={() => {
-                  const zoomLevel = engine.getModel().getZoomLevel()
-                  engine.getModel().setZoomLevel(zoomLevel + 20)
-                  engine.repaintCanvas()
-                  dynamicPopoverHandler?.hide()
-                }}
-              />
-              <Button
-                icon="minus"
-                tooltip={i18n.zoomOut}
-                onClick={() => {
-                  const zoomLevel = engine.getModel().getZoomLevel()
-                  engine.getModel().setZoomLevel(zoomLevel - 20)
-                  engine.repaintCanvas()
-                  dynamicPopoverHandler?.hide()
-                }}
-              />
-            </ButtonGroup>
-          </span>
-        </Layout.Vertical>
-      </span>
+      {isSetupStageOpen && <StageSetupShell />}
+      <CanvasButtons engine={engine} callback={() => dynamicPopoverHandler?.hide()} />
     </div>
   )
 }

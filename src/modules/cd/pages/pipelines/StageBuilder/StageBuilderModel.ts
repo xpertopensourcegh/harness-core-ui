@@ -2,31 +2,30 @@ import { Diagram } from 'modules/common/exports'
 import type { IconName } from '@wings-software/uikit'
 import { isEmpty } from 'lodash'
 import type { NodeModelListener } from '@projectstorm/react-diagrams-core'
+import type { CDPipelineDTO, StageWrapper } from 'services/ng-temp'
 
 export enum StageType {
-  DEPLOY = 'deploy',
+  DEPLOY = 'deployment',
   APPROVAL = 'approval',
   PIPELINE = 'pipeline',
   CUSTOM = 'custom'
 }
 
-const MapStepTypeToIcon: { [key in StageType]: IconName } = {
-  deploy: 'command-http',
-  approval: 'tick',
-  pipeline: 'service-kubernetes',
-  custom: 'service-github'
+export const MapStepTypeToIcon: { [key in StageType]: IconName } = {
+  deployment: 'pipeline-deploy',
+  approval: 'pipeline-approval',
+  pipeline: 'pipeline',
+  custom: 'pipeline-custom'
 }
 
-export interface StageInterface {
-  type: StageType
-  name: string
-  identifier: string
-  spec?: { [key: string]: string | number }
-}
-
-export interface GraphObj {
-  stage?: StageInterface
-  parallel?: Omit<GraphObj, 'graph'>[]
+export const getStageFromPipeline = (data: CDPipelineDTO, identifier: string): StageWrapper | undefined => {
+  return data.stages?.filter(
+    stage =>
+      stage?.deployment?.identifier === identifier ||
+      stage?.approval?.identifier === identifier ||
+      stage?.pipeline?.identifier === identifier ||
+      stage?.custom?.identifier === identifier
+  )[0]
 }
 
 export class StageBuilderModel extends Diagram.DiagramModel {
@@ -40,28 +39,32 @@ export class StageBuilderModel extends Diagram.DiagramModel {
   }
 
   renderGraphNodes(
-    node: GraphObj,
+    node: StageWrapper,
     startX: number,
     startY: number,
+    selectedStageId?: string,
     prevNodes?: Diagram.DefaultNodeModel[]
   ): { startX: number; startY: number; prevNodes?: Diagram.DefaultNodeModel[] } {
-    if (node.stage && node.stage.type) {
+    if (node && Object.keys(node).length === 1) {
+      const type = Object.keys(node)[0]
       startX += this.gap
       const nodeRender =
-        node.stage.type === StageType.APPROVAL
+        type === StageType.APPROVAL
           ? new Diagram.DiamondNodeModel({
-              id: node.stage.identifier,
-              name: node.stage.name,
+              id: node[type].identifier,
+              backgroundColor: selectedStageId === node[type].identifier ? '#436b98' : 'white',
+              name: node[type].displayName,
               width: 90,
               height: 40,
-              icon: MapStepTypeToIcon[node.stage.type]
+              icon: MapStepTypeToIcon[type as StageType]
             })
           : new Diagram.DefaultNodeModel({
-              id: node.stage.identifier,
-              name: node.stage.name,
+              id: node[type].identifier,
+              backgroundColor: selectedStageId === node[type].identifier ? '#436b98' : 'white',
+              name: node[type].displayName,
               width: 90,
               height: 40,
-              icon: MapStepTypeToIcon[node.stage.type]
+              icon: MapStepTypeToIcon[type as StageType]
             })
 
       this.addNode(nodeRender)
@@ -72,24 +75,25 @@ export class StageBuilderModel extends Diagram.DiagramModel {
         })
       }
       return { startX, startY, prevNodes: [nodeRender] }
-    } else if (node.parallel) {
-      const newX = startX
-      let newY = startY
-      const prevNodesAr: Diagram.DefaultNodeModel[] = []
-      node.parallel.forEach(nodeP => {
-        const resp = this.renderGraphNodes(nodeP, newX, newY, prevNodes)
-        startX = resp.startX
-        newY = resp.startY + this.gap / 2
-        if (resp.prevNodes) {
-          prevNodesAr.push(...resp.prevNodes)
-        }
-      })
-      return { startX, startY, prevNodes: prevNodesAr }
     }
+    // else if (node.parallel) {
+    //   const newX = startX
+    //   let newY = startY
+    //   const prevNodesAr: Diagram.DefaultNodeModel[] = []
+    //   node.parallel.forEach(nodeP => {
+    //     const resp = this.renderGraphNodes(nodeP, newX, newY, prevNodes)
+    //     startX = resp.startX
+    //     newY = resp.startY + this.gap / 2
+    //     if (resp.prevNodes) {
+    //       prevNodesAr.push(...resp.prevNodes)
+    //     }
+    //   })
+    //   return { startX, startY, prevNodes: prevNodesAr }
+    // }
     return { startX, startY }
   }
 
-  addUpdateGraph(data: GraphObj[], listeners: NodeModelListener): void {
+  addUpdateGraph(data: CDPipelineDTO, listeners: NodeModelListener, selectedStageId?: string): void {
     let { startX, startY } = this
     this.clearAllNodesAndLinks()
     // Unlock Graph
@@ -108,8 +112,8 @@ export class StageBuilderModel extends Diagram.DiagramModel {
 
     startX -= this.gap / 2
     let prevNodes: Diagram.DefaultNodeModel[] = [startNode]
-    data.forEach((node: GraphObj) => {
-      const resp = this.renderGraphNodes(node, startX, startY, prevNodes)
+    data.stages?.forEach((node: StageWrapper) => {
+      const resp = this.renderGraphNodes(node, startX, startY, selectedStageId, prevNodes)
       startX = resp.startX
       startY = resp.startY
       if (resp.prevNodes) {
