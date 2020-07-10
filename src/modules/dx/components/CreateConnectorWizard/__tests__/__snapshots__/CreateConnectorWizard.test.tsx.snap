@@ -53,21 +53,6 @@ exports[`Delegate Step Wizard should render Delegate Setup Wizard 1`] = `
             class="StyledProps---font--2ipy Text---multiple--3ScU StyledProps---main--1Wws StepWizard---stepName--2M52"
             style="--text-line-clamp: 2; width: 240px;"
           >
-            CREDENTIALS
-          </p>
-        </div>
-        <div
-          class="StepWizard---navStep--2trN"
-        >
-          <span
-            class="StepWizard---number--1LKy"
-          >
-            4
-          </span>
-          <p
-            class="StyledProps---font--2ipy Text---multiple--3ScU StyledProps---main--1Wws StepWizard---stepName--2M52"
-            style="--text-line-clamp: 2; width: 240px;"
-          >
             VERIFY CONNECTION
           </p>
         </div>

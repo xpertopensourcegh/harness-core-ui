@@ -1,0 +1,15 @@
+:root {
+  --delegate-info-color: #8f90a6;
+}
+
+.delegateInfo {
+  width: 44%;
+  margin: var(--spacing-large) 0;
+  > div > label {
+    margin-bottom: 10px !important;
+    color: var(--delegate-info-color);
+    font-size: var(--font-size-small);
+    letter-spacing: 0.2px;
+    line-height: 16px;
+  }
+}
