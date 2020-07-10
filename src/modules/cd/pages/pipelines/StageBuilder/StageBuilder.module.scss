@@ -1,6 +1,18 @@
+@import 'split-view/split-view';
 .container {
   height: 100%;
   width: 100%;
+}
+:global {
+  split-divider[wide] {
+    background-color: var(--grey-500);
+  }
+  split-view[horizontal] > split-divider[wide] {
+    height: 5px;
+  }
+  split-view[horizontal] > section {
+    flex: 2;
+  }
 }
 
 .canvas {

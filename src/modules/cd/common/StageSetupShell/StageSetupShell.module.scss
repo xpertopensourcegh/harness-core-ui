@@ -1,14 +1,10 @@
 .setupShell {
-  height: 78%;
-  display: flex;
-  bottom: 0;
-  left: 50px;
-  position: fixed;
   justify-content: space-between;
   flex-direction: column;
-  width: calc(100% - 110px);
+  position: relative;
   background: white;
   .tabsContainer {
+    height: 73vh;
     :global {
       .bp3-tab {
         margin: 10px 0 10px 0 !important;
@@ -17,16 +13,17 @@
       }
       .bp3-tab-list {
         background: var(--grey-900);
-        position: absolute;
-        width: 100%;
-        top: 0;
+        // position: absolute;
+        // width: 100%;
+        // top: 0;
       }
       .bp3-tab-panel {
-        position: absolute;
-        top: 80px;
-        height: calc(100% - 160px);
-        width: 100%;
+        // position: absolute;
+        // top: 80px;
+        // height: calc(100% - 160px);
+        // width: 100%;
         overflow: scroll;
+        margin-top: 60px;
       }
       .bp3-tab[aria-selected='true'] {
         color: white;

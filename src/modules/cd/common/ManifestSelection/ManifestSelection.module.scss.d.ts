@@ -6,5 +6,6 @@ declare const styles: {
   readonly server: string
   readonly thead: string
   readonly sideCarBtn: string
+  readonly crossIcon: string
 }
 export default styles

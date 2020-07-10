@@ -61,6 +61,7 @@
   .canvas {
     background-image: var(--pipeline-canvas-image);
     height: 100%;
+    padding: 0 !important;
     &.canvas-stage-view {
       background-image: var(--pipeline-canvas-blue-image);
     }

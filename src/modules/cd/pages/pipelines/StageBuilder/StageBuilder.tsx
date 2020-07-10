@@ -16,6 +16,7 @@ import {
   CardSelect,
   CardBody
 } from '@wings-software/uikit'
+import 'split-view'
 import i18n from './StageBuilder.i18n'
 import type { NodeModelListener } from '@projectstorm/react-diagrams-core'
 
@@ -26,6 +27,16 @@ import type { StageWrapper } from 'services/ng-temp'
 import { PipelineContext } from '../PipelineContext/PipelineContext'
 import { CanvasButtons } from 'modules/cd/common/CanvasButtons/CanvasButtons'
 import { AddStageView } from './views/AddStageView'
+
+declare global {
+  // eslint-disable-next-line @typescript-eslint/no-namespace
+  namespace JSX {
+    interface IntrinsicElements {
+      'split-view': any
+      'split-divider': any
+    }
+  }
+}
 
 interface PopoverData {
   data?: StageWrapper
@@ -174,7 +185,15 @@ export const StageBuilder: React.FC<{}> = (): JSX.Element => {
     pipeline.stages.push({
       [type]: {
         displayName: 'Untitled',
-        identifier: `Untitled-${pipeline.stages?.length}`
+        identifier: `Untitled-${pipeline.stages?.length}`,
+        [type]: {
+          runParallel: false,
+          skipCondition: null,
+          description: null,
+          service: {},
+          infrastructure: {},
+          execution: []
+        }
       }
     })
     dynamicPopoverHandler?.hide()
@@ -243,19 +262,24 @@ export const StageBuilder: React.FC<{}> = (): JSX.Element => {
   engine.setModel(model)
 
   return (
-    <div
-      className={css.canvas}
-      onClick={e => {
-        const div = e.target as HTMLDivElement
-        if (div.className?.indexOf?.('CanvasWidget-module_canvas') > -1) {
-          dynamicPopoverHandler?.hide()
-        }
-      }}
-    >
-      <Diagram.CanvasWidget engine={engine} />
-      <DynamicPopover darkMode={true} render={renderPopover} bind={setDynamicPopoverHandler} />
+    <split-view horizontal fill>
+      <div
+        className={css.canvas}
+        onClick={e => {
+          const div = e.target as HTMLDivElement
+          if (div.className?.indexOf?.('CanvasWidget-module_canvas') > -1) {
+            dynamicPopoverHandler?.hide()
+          }
+        }}
+      >
+        <Diagram.CanvasWidget engine={engine} />
+        <DynamicPopover darkMode={true} render={renderPopover} bind={setDynamicPopoverHandler} />
+
+        <CanvasButtons engine={engine} callback={() => dynamicPopoverHandler?.hide()} />
+      </div>
+
+      {isSetupStageOpen && <split-divider wide></split-divider>}
       {isSetupStageOpen && <StageSetupShell />}
-      <CanvasButtons engine={engine} callback={() => dynamicPopoverHandler?.hide()} />
-    </div>
+    </split-view>
   )
 }

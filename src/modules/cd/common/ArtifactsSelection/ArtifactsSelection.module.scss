@@ -3,6 +3,7 @@
   background: white !important;
   box-shadow: 0px 2px 5px 0px var(--grey-250);
   border-radius: 8px;
+  margin-bottom: var(--spacing-large);
   span.type,
   span.server {
     color: var(--grey-900) !important;
@@ -21,7 +22,7 @@
   align-items: center;
   padding: var(--spacing-large);
   padding-bottom: 0;
-  grid-template-columns: 150px 200px 50px 300px 140px 110px;
+  grid-template-columns: 150px 140px 50px 460px 120px 30px;
   color: var(--grey-500);
   font-size: 12px;
 }

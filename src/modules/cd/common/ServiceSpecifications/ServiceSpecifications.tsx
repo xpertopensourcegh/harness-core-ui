@@ -22,6 +22,12 @@ import WorkflowVariables from '../WorkflowVariablesSelection/WorkflowVariables'
 import i18n from './ServiceSpecifications.i18n'
 import css from './ServiceSpecifications.module.scss'
 import cx from 'classnames'
+import { PipelineContext } from 'modules/cd/pages/pipelines/PipelineContext/PipelineContext'
+import { get } from 'lodash-es'
+
+import { loggerFor, ModuleName } from 'framework/exports'
+
+const logger = loggerFor(ModuleName.CD)
 
 const specificationTypes = {
   SPECIFICATION: 'SPECIFICATION',
@@ -32,19 +38,48 @@ export default function ServiceSpecifications(): JSX.Element {
   const [isDescriptionVisible, setDescriptionVisible] = React.useState(false)
   const [isTagsVisible, setTagsVisible] = React.useState(false)
   const [specSelected, setSelectedSpec] = React.useState(specificationTypes.SPECIFICATION)
+
+  const {
+    state: { pipeline },
+    updatePipeline
+  } = React.useContext(PipelineContext)
+
+  const getInitialValues = (): { serviceName: string; description: string; tags: null | string[] } => {
+    const pipelineData = get(pipeline, 'stages[0].deployment.deployment.service', null)
+    const serviceName = pipelineData?.displayName
+    const description = pipelineData?.description
+    return { serviceName: serviceName, description: description, tags: null }
+  }
+
   return (
     <Layout.Vertical className={css.serviceOverrides}>
       <Layout.Vertical spacing="large">
         <Formik
-          initialValues={{ serviceName: '', description: '' }}
-          onSubmit={values =>
-            new Promise(resolve => {
-              setTimeout(() => {
-                // console.log(JSON.stringify(values))
-                resolve(values)
-              }, 5000)
-            })
-          }
+          initialValues={getInitialValues()}
+          validate={value => {
+            const pipelineData = get(pipeline, 'stages[0].deployment.deployment', {})
+            const serviceStruct = {
+              identifier: value.serviceName,
+              displayName: value.serviceName,
+              description: value.description,
+              refType: {
+                type: 'OUTCOME'
+              },
+              useFromStage: null,
+              tags: value.tags,
+              serviceSpec: {
+                deploymentType: 'kubernetes',
+                artifacts: {},
+                manifests: {}
+              },
+              overrides: {}
+            }
+            pipelineData['service'] = serviceStruct
+            updatePipeline(pipeline)
+          }}
+          onSubmit={values => {
+            logger.info(JSON.stringify(values))
+          }}
           validationSchema={Yup.object().shape({
             serviceName: Yup.string().trim().required(i18n.validation.serviceName)
           })}
@@ -84,7 +119,7 @@ export default function ServiceSpecifications(): JSX.Element {
                       {i18n.removeLabel}
                     </span>
                     <FormInput.TagInput
-                      name={i18n.tagsLabel}
+                      name={i18n.addTags}
                       label={i18n.tagsLabel}
                       items={[
                         'The Godfather',

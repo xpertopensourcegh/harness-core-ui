@@ -9,6 +9,7 @@ import { PipelineContext } from 'modules/cd/pages/pipelines/PipelineContext/Pipe
 import { getStageFromPipeline } from 'modules/cd/pages/pipelines/StageBuilder/StageBuilderModel'
 
 export default function StageSetupShell(): JSX.Element {
+  // export default function StageSetupShell({ stageData }: { stageData: { name: string } }): JSX.Element {
   const [selectedTabId, setSelectedTabId] = React.useState(i18n.serviceLabel)
   const {
     state: {
@@ -36,10 +37,10 @@ export default function StageSetupShell(): JSX.Element {
           <Tab id={stageData?.displayName} disabled title={`Stage: ${stageData?.displayName}`} />
           <Tab id={i18n.serviceLabel} title={i18n.serviceLabel} panel={<ServiceSpecifications />} />
           <Tab id={i18n.infraLabel} title={i18n.infraLabel} panel={<InfraSpecifications />} />
-          <Tab id={i18n.executionLabel} title={i18n.executionLabel} disabled panel={<ServiceSpecifications />} />
+          <Tab id={i18n.executionLabel} title={i18n.executionLabel} disabled panel={<span></span>} />
         </Tabs>
       </Layout.Horizontal>
-      <Layout.Horizontal spacing="medium" padding="xlarge">
+      <Layout.Horizontal spacing="medium" padding="xlarge" style={{ position: 'absolute', bottom: 0 }}>
         <Button
           text={i18n.previous}
           icon="chevron-left"

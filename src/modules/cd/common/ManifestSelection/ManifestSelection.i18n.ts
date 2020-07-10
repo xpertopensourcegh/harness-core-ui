@@ -6,7 +6,8 @@ export default {
     type: 'TYPE',
     server: 'SERVER',
     location: 'LOCATION',
-    id: 'ID'
+    id: 'ID',
+    branch: 'BRANCH'
   },
   info:
     'Specify the locations of the manifests for this service. Harness will fetch the manifests at the time of deployments. You can also store these manifests locally in the harness file store.'

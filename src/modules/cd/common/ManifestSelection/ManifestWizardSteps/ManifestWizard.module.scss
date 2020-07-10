@@ -1,0 +1,26 @@
+.exampleWizard {
+  height: 100%;
+  border-radius: 6px;
+  [class*='StepWizard-'] {
+    height: 100%;
+    border-radius: 4px;
+    position: relative;
+  }
+  [class*='StepWizard---navStep'] {
+    align-items: flex-start !important;
+  }
+  [class*='OverlaySpinner-'] {
+    height: 100%;
+  }
+  [class*='StepWizard---stepDetails'] {
+    padding: var(--spacing-large) 0 var(--spacing-large) var(--spacing-large) !important;
+  }
+  .formContainer {
+    width: 60%;
+    height: 100%;
+  }
+  .bottomButtons {
+    position: absolute;
+    bottom: 0;
+  }
+}
