@@ -128,20 +128,26 @@ export const dummyConfigForTimeline = {
 }
 
 export const anomaliesConfig = {
-  name: 'Activity Verification',
-  from: new Date().toLocaleDateString(),
-  to: new Date().toLocaleDateString(),
+  name: 'ACTIVITY VERIFICATION',
+  from: new Date().toDateString(),
+  to: new Date().toDateString(),
   riskScore: 0.8,
   service: 'Delegate',
   environment: 'Production',
   activityIdentifier: 'Build 77',
   activityType: 'Config Change',
+  activityDetail: ['TAG 1', 'TAG 2'],
   anomalies: [
     {
-      from: new Date().toLocaleDateString(),
-      to: new Date().toLocaleDateString(),
+      id: 123,
+      from: new Date().toDateString(),
+      to: new Date().toDateString(),
       DataSources: 'Splunk',
-      status: 'open',
+      status: 'Open',
+      engine: 'Learning Engine',
+      anomaly: 'Performance',
+      risk: 0.9,
+      duration: '10 mins',
       info: {
         metric: {
           anomalous: [
@@ -197,10 +203,15 @@ export const anomaliesConfig = {
       }
     },
     {
-      from: new Date().toLocaleDateString(),
-      to: new Date().toLocaleDateString(),
-      DataSources: 'Splunk',
-      status: 'closed',
+      id: 124,
+      from: new Date().toDateString(),
+      to: new Date().toDateString(),
+      DataSources: 'AppD',
+      engine: 'Learning Engine',
+      status: 'Closed',
+      duration: '10 mins',
+      risk: 0.3,
+      anomaly: 'Performance',
       info: {
         metric: {
           anomalous: [

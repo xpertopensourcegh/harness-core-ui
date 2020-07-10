@@ -1,0 +1,65 @@
+.main {
+  .card {
+    cursor: pointer;
+    height: 100px;
+    width: 100%;
+    border: 1px solid transparent;
+    border-bottom: 1px solid var(--grey-200);
+    border-left: 6px solid transparent;
+    border-radius: 6px;
+    &.selected {
+      border-left: 6px solid var(--blue-500);
+      box-shadow: 1px 2px 10px 1px var(--grey-200);
+    }
+    margin-bottom: 5px;
+  }
+
+  .card:hover {
+    box-shadow: 1px 2px 10px 1px var(--grey-200);
+  }
+
+  .content {
+    padding: 12px 24px;
+    .date {
+      color: var(--grey-800);
+      font-size: 12px;
+    }
+
+    .centerRow {
+      margin-top: 10px;
+      font-size: 12px;
+      .duration {
+        color: var(--grey-800);
+      }
+      .status {
+        color: var(--green-500);
+        margin-left: 12px;
+      }
+      .risk {
+        color: var(--red-500);
+        margin-left: 12px;
+      }
+    }
+
+    .bottomRow {
+      margin-top: 10px;
+      font-size: 12px;
+      .engine {
+        margin-right: 5px;
+      }
+      .anomaly {
+        margin-left: 5px;
+        margin-right: 5px;
+      }
+      .datasources {
+        margin-left: 5px;
+      }
+    }
+  }
+
+  .title {
+    font-size: 16px;
+    margin: 24px;
+    color: var(--grey-700);
+  }
+}
