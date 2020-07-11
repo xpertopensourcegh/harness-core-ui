@@ -40,6 +40,7 @@ interface PipelineContextInterface {
   fetchPipeline: (forceFetch?: boolean) => Promise<void>
   updatePipeline: (pipeline: CDPipelineDTO) => Promise<void>
   updatePipelineView: (data: PipelineViewData) => void
+  deletePipelineCache: () => void
   pipelineSaved: () => void
 }
 
@@ -49,13 +50,25 @@ interface PipelinePayload {
   isUpdated: boolean
 }
 
+const getId = (
+  accountIdentifier: string,
+  orgIdentifier: string,
+  projectIdentifier: string,
+  pipelineIdentifier: string
+): string => `${accountIdentifier}_${orgIdentifier}_${projectIdentifier}_${pipelineIdentifier}`
+
 const _fetchPipeline = async (
   dispatch: React.Dispatch<ActionReturnType>,
   queryParams: GetNgPipelineByIdentifierQueryParams,
   identifier: string,
   forceFetch = false
 ): Promise<void> => {
-  const id = `${queryParams.accountIdentifier}_${queryParams.orgIdentifier}_${queryParams.projectIdentifier}_${identifier}`
+  const id = getId(
+    queryParams.accountIdentifier,
+    queryParams.orgIdentifier || '',
+    queryParams.projectIdentifier || '',
+    identifier
+  )
   if (IdbPipeline) {
     dispatch(PipelineContextActions.fetching())
     const data: PipelinePayload = await IdbPipeline.get(IdbPipelineStoreName, id)
@@ -97,7 +110,12 @@ const _updatePipeline = async (
   identifier: string,
   pipeline: CDPipelineDTO
 ): Promise<void> => {
-  const id = `${queryParams.accountIdentifier}_${queryParams.orgIdentifier}_${queryParams.projectIdentifier}_${identifier}`
+  const id = getId(
+    queryParams.accountIdentifier,
+    queryParams.orgIdentifier || '',
+    queryParams.projectIdentifier || '',
+    identifier
+  )
   if (IdbPipeline) {
     dispatch(PipelineContextActions.updating())
 
@@ -161,12 +179,30 @@ const _initializeDb = async (dispatch: React.Dispatch<ActionReturnType>, version
   }
 }
 
+const _deletePipelineCache = async (
+  dispatch: React.Dispatch<ActionReturnType>,
+  queryParams: GetNgPipelineByIdentifierQueryParams,
+  identifier: string
+): Promise<void> => {
+  if (IdbPipeline) {
+    dispatch(PipelineContextActions.updating())
+    const id = getId(
+      queryParams.accountIdentifier,
+      queryParams.orgIdentifier || '',
+      queryParams.projectIdentifier || '',
+      identifier
+    )
+    await IdbPipeline.delete(IdbPipelineStoreName, id)
+  }
+}
+
 export const PipelineContext = React.createContext<PipelineContextInterface>({
   state: initialState,
   fetchPipeline: () => new Promise<void>(() => undefined),
   updatePipelineView: () => undefined,
   updatePipeline: () => new Promise<void>(() => undefined),
-  pipelineSaved: () => undefined
+  pipelineSaved: () => undefined,
+  deletePipelineCache: () => undefined
 })
 
 export const PipelineProvider: React.FC<{
@@ -185,6 +221,8 @@ export const PipelineProvider: React.FC<{
     dispatch(PipelineContextActions.updatePipelineView({ pipelineView: data }))
   }, [])
 
+  const deletePipelineCache = _deletePipelineCache.bind(null, dispatch, queryParams, pipelineIdentifier)
+
   React.useEffect(() => {
     if (state.isDBInitialized) {
       fetchPipeline()
@@ -195,7 +233,9 @@ export const PipelineProvider: React.FC<{
     _initializeDb(dispatch, time || +new Date())
   }, [])
   return (
-    <PipelineContext.Provider value={{ state, fetchPipeline, updatePipeline, updatePipelineView, pipelineSaved }}>
+    <PipelineContext.Provider
+      value={{ state, fetchPipeline, updatePipeline, updatePipelineView, pipelineSaved, deletePipelineCache }}
+    >
       {children}
     </PipelineContext.Provider>
   )

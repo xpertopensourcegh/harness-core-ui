@@ -12,9 +12,10 @@ import CreatePipelines from '../CreateModal/PipelineCreate'
 import type { CDPipelineDTO } from 'services/ng-temp'
 import { YamlEntity } from 'modules/common/constants/YamlConstants'
 import { DefaultNewPipelineId } from '../PipelineContext/PipelineActions'
+import { NavigationCheck } from 'modules/common/exports'
 
 export const PipelineCanvas: React.FC<{}> = (): JSX.Element => {
-  const { state, updatePipeline } = React.useContext(PipelineContext)
+  const { state, updatePipeline, deletePipelineCache } = React.useContext(PipelineContext)
   const {
     pipeline,
     isUpdated,
@@ -62,6 +63,14 @@ export const PipelineCanvas: React.FC<{}> = (): JSX.Element => {
         e.stopPropagation()
       }}
     >
+      <NavigationCheck
+        when={isUpdated}
+        shouldBlockNavigation={nextLocation => !(nextLocation.pathname.indexOf(url) > -1)}
+        navigate={newPath => {
+          deletePipelineCache()
+          history.push(newPath)
+        }}
+      />
       <div className={css.topBar}>
         <div>
           {isYaml ? (

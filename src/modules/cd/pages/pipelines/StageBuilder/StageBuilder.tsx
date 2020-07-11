@@ -14,7 +14,8 @@ import {
   Label,
   Card,
   CardSelect,
-  CardBody
+  CardBody,
+  CardSelectType
 } from '@wings-software/uikit'
 import 'split-view'
 import i18n from './StageBuilder.i18n'
@@ -118,7 +119,7 @@ const renderPopover = ({ data, addStage, isStageView, onSubmitPrimaryData }: Pop
                   </div>
                   <div>
                     <CardSelect
-                      type={'any' as any} // TODO: Remove this by publishing uikit with exported CardSelectType
+                      type={CardSelectType.Any} // TODO: Remove this by publishing uikit with exported CardSelectType
                       selected={formikProps.values.serviceType}
                       onChange={item => formikProps.setFieldValue('serviceType', item)}
                       renderItem={(item, selected) => (
