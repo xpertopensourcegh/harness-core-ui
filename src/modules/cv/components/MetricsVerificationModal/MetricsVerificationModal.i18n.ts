@@ -1,8 +1,8 @@
 export default {
   tabTitles: {
-    error: 'Error',
-    success: 'Success',
-    noData: 'No Data',
-    all: 'All'
+    error: 'ERROR',
+    success: 'SUCCESS',
+    noData: 'NO DATA',
+    all: 'ALL'
   }
 }

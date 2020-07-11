@@ -1,5 +1,5 @@
 import type { NewRelicApplication, MetricPack, DSConfig } from '@wings-software/swagger-ts/definitions'
-import type { SelectOption } from '@wings-software/uikit'
+import type { SelectOption, MultiSelectOption } from '@wings-software/uikit'
 import type { TierAndServiceRow } from './TierAndServiceTable/TierAndServiceTable'
 
 export interface AppDynamicsDSConfig extends DSConfig {
@@ -10,7 +10,7 @@ export interface AppDynamicsDSConfig extends DSConfig {
 
 export interface DSConfigTableData extends AppDynamicsDSConfig {
   tableData: TierAndServiceRow[]
-  metricPackList: string[]
+  metricPackList: MultiSelectOption[]
 }
 
 export function createDefaultConfigObjectBasedOnSelectedApps(
@@ -72,7 +72,9 @@ export function transformGetConfigs(appDConfigs: AppDynamicsDSConfig[]): DSConfi
       selected: true
     }))
 
-    transformedConfig.metricPackList = metricPacks?.map(mp => mp.identifier || '').filter(mpName => mpName.length) || []
+    transformedConfig.metricPackList = (metricPacks
+      ?.filter(mp => mp && mp.identifier)
+      .map(mp => ({ label: mp.identifier, value: mp.identifier })) || []) as MultiSelectOption[]
     appsToAppDConfigs.push(transformedConfig)
   }
 

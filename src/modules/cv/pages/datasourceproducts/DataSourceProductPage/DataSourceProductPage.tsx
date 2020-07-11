@@ -1,14 +1,14 @@
 import React, { useState, useCallback, useMemo, useEffect } from 'react'
 import { Container, Button, Text } from '@wings-software/uikit'
 import CVProductCard, { TypeCard } from 'modules/cv/components/CVProductCard/CVProductCard'
-import { Link, useLocation, useHistory } from 'react-router-dom'
+import { useLocation, useHistory } from 'react-router-dom'
 import css from './DataSourceProductPage.module.scss'
 import i18n from './DataSourceProductPage.i18n'
 import { routeCVDataSourcesEntityPage, routeCVOnBoardingSetup, routeCVDataSources } from 'modules/cv/routes'
 import { Page } from 'modules/common/exports'
 import { CVNextGenCVConfigService } from 'modules/cv/services'
 import { connectorId } from 'modules/cv/constants'
-import { routeParams } from 'framework/exports'
+import { routeParams, linkTo } from 'framework/exports'
 
 const XHR_DATA_SOURCE_PRODUCTS_GROUP = 'XHR_DATA_SOURCE_PRODUCTS_GROUP'
 const ProductOptions: { [datasourceType: string]: Array<{ item: TypeCard }> } = {
@@ -84,8 +84,8 @@ export default function AppDynamicsProductPage(): JSX.Element {
   const linkToParams = useMemo(
     () => ({
       pathname: locationContext.isEdit
-        ? routeCVOnBoardingSetup.url({ accountId, dataSourceType: dataSourceType })
-        : routeCVDataSourcesEntityPage.url({ accountId, dataSourceType: dataSourceType }),
+        ? linkTo(routeCVOnBoardingSetup, { accountId, dataSourceType: dataSourceType })
+        : linkTo(routeCVDataSourcesEntityPage, { accountId, dataSourceType: dataSourceType }),
       state: { products: selectedProducts, ...locationContext }
     }),
     [selectedProducts, dataSourceType, locationContext, accountId]
@@ -121,17 +121,12 @@ export default function AppDynamicsProductPage(): JSX.Element {
           </Container>
           <Text className={css.productDescriptions}>{productDescription}</Text>
           <Container className={css.buttonContainer}>
-            <Button
-              className={css.backButton}
-              onClick={() => history.replace({ pathname: routeCVDataSources.url({ accountId }) })}
-            >
+            <Button className={css.backButton} onClick={() => history.replace(linkTo(routeCVDataSources))}>
               {i18n.backButton}
             </Button>
-            <Link to={linkToParams}>
-              <Button disabled={!selectedProducts?.length} intent="primary">
-                {i18n.nextButton}
-              </Button>
-            </Link>
+            <Button disabled={!selectedProducts?.length} intent="primary" onClick={() => history.push(linkToParams)}>
+              {i18n.nextButton}
+            </Button>
           </Container>
         </Container>
       </Page.Body>

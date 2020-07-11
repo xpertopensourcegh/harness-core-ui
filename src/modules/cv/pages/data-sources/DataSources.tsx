@@ -20,7 +20,7 @@ import type { Cell } from 'react-table'
 import { Link } from 'react-router-dom'
 import { routeCVDataSourcesProductPage } from 'modules/cv/routes'
 import { VerificationTypeToRouteVerificationType } from 'modules/cv/constants'
-import { routeParams } from 'framework/exports'
+import { routeParams, linkTo } from 'framework/exports'
 
 type DataSourceTableRow = {
   name: string
@@ -81,7 +81,7 @@ const renderSources = () => {
 }
 
 function RenderContent(props: RenderContentProps): JSX.Element {
-  const { existingDataSources, accountId } = props
+  const { existingDataSources } = props
   const [isNewDataSourceView, setToggleView] = useState(true)
   const existingDataSourceTableColumns = useMemo(
     () => [
@@ -125,7 +125,7 @@ function RenderContent(props: RenderContentProps): JSX.Element {
           const { row } = cell
           const originalData = row.original as DataSourceTableRow
           const toObj = {
-            pathname: routeCVDataSourcesProductPage.url({ accountId, dataSourceType: originalData.dataSourceRoute }),
+            pathname: linkTo(routeCVDataSourcesProductPage, { dataSourceType: originalData.dataSourceRoute }),
             state: { dataSourceId: originalData.uuid, isEdit: true }
           }
           return (
@@ -140,7 +140,7 @@ function RenderContent(props: RenderContentProps): JSX.Element {
         }
       }
     ],
-    [accountId]
+    []
   )
 
   if (!existingDataSources?.size || !isNewDataSourceView) {

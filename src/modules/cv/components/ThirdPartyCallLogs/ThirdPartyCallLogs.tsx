@@ -131,8 +131,8 @@ function RequestMade(props: RequestMadeProps): JSX.Element {
     switch (status) {
       case 'SUCCESS':
         return <Icon name="deployment-success-legacy" className={css.statusIcon} />
-      case 'ERROR':
-        return <Icon name="main-issue" intent="danger" className={css.statusIcon} />
+      case 'FAILED':
+        return <Icon name="main-issue" color={Color.RED_500} className={css.statusIcon} />
       default:
         return <Icon name="remove" className={css.statusIcon} />
     }

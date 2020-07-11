@@ -55,7 +55,7 @@ function getDefaultCVConfig(
   }
 }
 
-function transformIncomingDSConfigs(savedConfig: DSConfig[], verificationProvider: DSConfig['type']) {
+function transformIncomingDSConfigs(savedConfig: DSConfig[], verificationProvider: DSConfig['type']): DSConfig[] {
   switch (verificationProvider) {
     case 'APP_DYNAMICS':
       return AppDynamicsOnboardingUtils.transformGetConfigs(
@@ -63,6 +63,8 @@ function transformIncomingDSConfigs(savedConfig: DSConfig[], verificationProvide
       )
     case 'SPLUNK':
       return SplunkOnboardingUtils.transformSavedQueries(savedConfig)
+    default:
+      return []
   }
 }
 
@@ -81,7 +83,7 @@ async function fetchServices(localAppId: string, accId: string): Promise<SelectO
 export default function OnBoardingSetupPage(): JSX.Element {
   const [serviceOptions, setServices] = useState<SelectOption[]>([{ value: '', label: 'Loading...' }])
   const [configsToRender, setConfigs] = useState<DSConfig[]>([])
-  const [isLoadingConfigs, setLoadingConfigs] = useState<boolean>(false)
+  const [isLoadingConfigs, setLoadingConfigs] = useState<boolean>(true)
   const {
     params: { accountId, dataSourceType }
   } = routeParams()
@@ -97,9 +99,9 @@ export default function OnBoardingSetupPage(): JSX.Element {
   useEffect(() => {
     const { dataSourceId = connectorId, selectedEntities = [], isEdit = false, products = [] } = locationContext
     if (!isEdit && locationContext.selectedEntities?.length) {
+      setLoadingConfigs(false)
       setConfigs(getDefaultCVConfig(verificationType, dataSourceId || '', selectedEntities, accountId, products[0]))
     } else if (locationContext.isEdit) {
-      setLoadingConfigs(true)
       CVNextGenCVConfigService.fetchConfigs({
         accountId,
         dataSourceConnectorId: dataSourceId,

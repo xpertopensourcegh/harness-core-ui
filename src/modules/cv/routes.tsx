@@ -43,9 +43,7 @@ export const routeCVOnBoardingSetup: Route = {
   authenticated: true,
   pageId: 'cv-onboarding/onboarding',
   url: (params: RouteURLArgs) =>
-    params && params.dataSourceType
-      ? `/account/${params.accountId}/cv-onboarding/${params.dataSourceType}/setup`
-      : `/cv-onboarding/`,
+    params && params.dataSourceType ? `/cv-onboarding/${params.dataSourceType}/setup` : `/cv-onboarding/`,
   component: React.lazy(() => import('./pages/onboarding/BaseOnBoardingSetupPage/BaseOnBoardingSetupPage')),
   module: ModuleName.CV
 }
@@ -57,9 +55,7 @@ export const routeCVDataSourcesProductPage: Route = {
   pageId: '/cv-onboarding/product',
   authenticated: true,
   url: (params: RouteURLArgs) =>
-    params && params.dataSourceType
-      ? `/account/${params.accountId}/cv-onboarding/${params.dataSourceType}/product`
-      : `/cv-onboarding/`,
+    params && params.dataSourceType ? `/cv-onboarding/${params.dataSourceType}/product` : `/cv-onboarding/`,
   component: React.lazy(() => import('./pages/datasourceproducts/DataSourceProductPage/DataSourceProductPage')),
   module: ModuleName.CV
 }
@@ -71,9 +67,7 @@ export const routeCVDataSourcesEntityPage: Route = {
   pageId: 'cv-onboarding/:dataSourceType/select-list-entities',
   authenticated: true,
   url: (params: RouteURLArgs) =>
-    params?.dataSourceType
-      ? `/account/${params.accountId}/cv-onboarding/${params.dataSourceType}/select-list-entities`
-      : '/cv-onboarding/',
+    params?.dataSourceType ? `/cv-onboarding/${params.dataSourceType}/select-list-entities` : '/cv-onboarding/',
   component: React.lazy(() => {
     return import('./pages/listEntitySelect/DataSourceListEntityPage/DataSourceListEntityPage')
   }),
@@ -86,8 +80,7 @@ export const routeCVMetricPackConfigureThresholdPage: Route = {
   title: i18n.services,
   pageId: '/metric-pack/config',
   authenticated: true,
-  url: (params: RouteURLArgs) =>
-    params?.accountId ? `/account/${params.accountId}/metric-pack/config` : '/cv-datasources',
+  url: () => `/metric-pack/config`,
   component: React.lazy(() => {
     return import('./pages/metric-pack/MetricPackConfigure')
   }),

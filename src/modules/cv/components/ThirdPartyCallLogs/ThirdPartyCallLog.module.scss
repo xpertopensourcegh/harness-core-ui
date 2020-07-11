@@ -66,7 +66,7 @@
 
   .selectedCallLog {
     max-width: 540px;
-    height: 500px;
+    height: 480px;
     overflow-y: scroll;
     margin-left: var(--spacing-medium) !important;
     .callLogHeader {
@@ -95,6 +95,13 @@
       margin-left: var(--spacing-large);
       .responseBody {
         margin: var(--spacing-xsmall) 0;
+        > div {
+          align-items: unset !important;
+        }
+        pre {
+          white-space: pre-wrap;
+          word-break: break-all;
+        }
       }
     }
   }

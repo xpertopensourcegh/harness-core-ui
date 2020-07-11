@@ -6,7 +6,7 @@ import { routeCVOnBoardingSetup, routeCVDataSourcesProductPage } from 'modules/c
 import DataSourceSelectEntityTable from 'modules/cv/components/DataSourceSelectEntityTable/DataSourceSelectEntityTable'
 import i18n from './SelectListEntityPage.i18n'
 import { connectorId } from 'modules/cv/constants'
-import { routeParams } from 'framework/exports'
+import { routeParams, linkTo } from 'framework/exports'
 import { Page } from 'modules/common/exports'
 
 export default function DataSourceListEntitySelect(): JSX.Element {
@@ -23,7 +23,7 @@ export default function DataSourceListEntitySelect(): JSX.Element {
   const onClickNextCallback = useCallback(
     () => (selectedEntities: SelectOption[]) => {
       history.push({
-        pathname: routeCVOnBoardingSetup.url({ accountId, dataSourceType }),
+        pathname: linkTo(routeCVOnBoardingSetup, { dataSourceType }),
         state: {
           ...locationData,
           selectedEntities,
@@ -31,7 +31,7 @@ export default function DataSourceListEntitySelect(): JSX.Element {
         }
       })
     },
-    [locationData, history, dataSourceType, accountId]
+    [locationData, history, dataSourceType]
   )
   const verificationTypeI18N = useMemo(() => {
     if (dataSourceType === 'app-dynamics' || dataSourceType === 'splunk') {
@@ -39,42 +39,46 @@ export default function DataSourceListEntitySelect(): JSX.Element {
     }
   }, [dataSourceType])
   return (
-    <Container className={css.main}>
-      <Page.Header title={verificationTypeI18N?.pageTitle} />
-      <Container className={css.contentContainer}>
-        <Container className={css.infographic}>
-          <Text>infographic</Text>
+    <Page.Body>
+      <Container className={css.main}>
+        <Page.Header title={verificationTypeI18N?.pageTitle} />
+        <Container className={css.contentContainer}>
+          <Container className={css.infographic}>
+            <Text>infographic</Text>
+          </Container>
+          <Container>
+            <Container className={css.entityDescription}>
+              <Heading level={2} color={Color.BLACK} className={css.entityTitle}>
+                {verificationTypeI18N?.entityTitle}
+              </Heading>
+              <Heading level={3}>{verificationTypeI18N?.entitySubTitle}</Heading>
+            </Container>
+            <DataSourceSelectEntityTable
+              datasourceId={connectorId}
+              accountId={accountId}
+              entityTableColumnName={verificationTypeI18N?.columnHeaderTitle || ''}
+              verificationType={dataSourceType as string}
+              onSubmit={navigateWithSelectedApps}
+            />
+          </Container>
         </Container>
-        <Container className={css.entityDescription}>
-          <Heading level={2} color={Color.BLACK} className={css.entityTitle}>
-            {verificationTypeI18N?.entityTitle}
-          </Heading>
-          <Heading level={3}>{verificationTypeI18N?.entitySubTitle}</Heading>
+        <Container className={css.buttonContainer}>
+          <Button
+            className={css.backButton}
+            onClick={() =>
+              history.replace({
+                pathname: linkTo(routeCVDataSourcesProductPage, { dataSourceType }),
+                state: { ...locationData }
+              })
+            }
+          >
+            {i18n.backButton}
+          </Button>
+          <Button intent="primary" onClick={() => setNavigationFunction(onClickNextCallback)}>
+            {i18n.nextButton}
+          </Button>
         </Container>
-        <DataSourceSelectEntityTable
-          datasourceId={connectorId}
-          accountId={accountId}
-          entityTableColumnName={verificationTypeI18N?.columnHeaderTitle || ''}
-          verificationType={dataSourceType as string}
-          onSubmit={navigateWithSelectedApps}
-        />
       </Container>
-      <Container className={css.buttonContainer}>
-        <Button
-          className={css.backButton}
-          onClick={() =>
-            history.replace({
-              pathname: routeCVDataSourcesProductPage.url({ accountId, dataSourceType }),
-              state: { ...locationData }
-            })
-          }
-        >
-          {i18n.backButton}
-        </Button>
-        <Button intent="primary" onClick={() => setNavigationFunction(onClickNextCallback)}>
-          {i18n.nextButton}
-        </Button>
-      </Container>
-    </Container>
+    </Page.Body>
   )
 }

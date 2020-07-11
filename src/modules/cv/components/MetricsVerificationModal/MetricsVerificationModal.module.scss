@@ -3,8 +3,12 @@
     .bp3-tab-list {
       margin: 0 auto;
       width: 240px;
+      border-bottom: none;
       [data-tab-id='tabId1'] {
         margin-left: var(--spacing-large);
+      }
+      .bp3-tab {
+        font-size: var(--font-size-small);
       }
     }
   }
@@ -80,6 +84,18 @@
       border: 1px solid var(--red-500);
       background: var(--red-100);
       color: var(--red-500);
+
+      :global {
+        .bp3-popover-wrapper {
+          display: block;
+          &:first-child {
+            height: 20px;
+          }
+          &:nth-child(2) {
+            height: 14px;
+          }
+        }
+      }
     }
     .noDataCard {
       border: 1px solid var(--grey-500);
