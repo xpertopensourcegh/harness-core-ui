@@ -1,0 +1,11 @@
+.editableText {
+  display: inline-block;
+  color: var(--blue-500);
+  padding: 0 4px;
+}
+
+.editing {
+  border: 1px solid var(--grey-300);
+  padding: 0 4px;
+  margin-left: 4px;
+}

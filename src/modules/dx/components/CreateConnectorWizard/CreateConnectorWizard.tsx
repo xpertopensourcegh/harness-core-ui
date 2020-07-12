@@ -29,6 +29,7 @@ import { ConnectorService } from 'modules/dx/services'
 import { buildKubPayload } from 'modules/dx/pages/connectors/utils/ConnectorUtils'
 import InstallDelegateForm from '../../common/InstallDelegateForm/InstallDelegateForm'
 import VerifyInstalledDelegate from 'modules/dx/common/VerifyInstalledDelegate/VerifyInstalledDelegate'
+import { useListSecretManagers } from 'services/cd-ng'
 
 interface StepProps<PrevStepData> {
   name?: string
@@ -330,7 +331,11 @@ const SecondStep = (props: any) => {
 }
 
 const IntermediateStep = (props: any) => {
-  const { state } = props
+  const { state, accountId } = props
+  const { data: secretManagersApiResponse } = useListSecretManagers({
+    queryParams: { accountIdentifier: accountId }
+  })
+
   return (
     <div className={css.intermediateStep}>
       <Text font="medium" className={css.headingIntermediate}>
@@ -340,7 +345,6 @@ const IntermediateStep = (props: any) => {
         initialValues={{ ...props.prevStepData }}
         onSubmit={formData => {
           const connectorData = { ...state.formData, ...formData }
-
           const data = buildKubPayload(connectorData)
 
           createConnectorByType(data, props)
@@ -369,7 +373,7 @@ const IntermediateStep = (props: any) => {
                     }}
                   />
                 </Layout.Horizontal>
-                {getCustomFields(props.state.authentication)}
+                {getCustomFields(props.state.authentication, secretManagersApiResponse?.data, state.formData.name)}
               </div>
               <Layout.Horizontal spacing="large" style={{ marginBottom: '30px' }}>
                 <Button onClick={() => props.previousStep(props.prevStepData)} text="Back" />

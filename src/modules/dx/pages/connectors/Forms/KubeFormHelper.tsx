@@ -1,8 +1,11 @@
 import React from 'react'
 import { string } from 'yup'
 import { FormInput } from '@wings-software/uikit'
-import { illegalIdentifiers } from 'framework/utils/StringUtils'
+import { illegalIdentifiers, getIdentifierFromName } from 'framework/utils/StringUtils'
 import * as Yup from 'yup'
+import { FormikCreateInlineSecret } from 'modules/common/components/CreateInlineSecret/CreateInlineSecret'
+import type { SecretManagerConfig } from 'services/cd-ng'
+
 export const AuthTypes = {
   CUSTOM: 'ManualConfig',
   USER_PASSWORD: 'UsernamePassword',
@@ -135,18 +138,26 @@ export const getKubValidationSchema = () => {
     })
   })
 }
-const renderUserNameAndPassword = () => {
+const renderUserNameAndPassword = (secretManagers?: SecretManagerConfig[], connectorName?: string) => {
+  const generatedId = getIdentifierFromName(connectorName || '')
   return (
     <>
       <FormInput.Text name="username" label="Username*" />
-      <FormInput.Select
+      <FormInput.Text name="password" label="Password*" />
+      <FormikCreateInlineSecret
+        name="passwordSecret"
+        secretManagers={secretManagers}
+        defaultSecretName={generatedId}
+        defaultSecretId={generatedId}
+      />
+      {/* <FormInput.Select
         name="password"
         label="Select Encrypted Password*"
         items={[
           { label: 'password_one', value: 'password_one' },
           { label: 'password_two', value: '9WEMH2oOPphDPVDq' }
         ]}
-      />
+      /> */}
     </>
   )
 }
@@ -190,10 +201,14 @@ const fieldsForOIDCToken = () => {
   )
 }
 
-export const getCustomFields = (authType: string | number | symbol) => {
+export const getCustomFields = (
+  authType: string | number | symbol,
+  secretManagers?: SecretManagerConfig[],
+  connectorName?: string
+) => {
   switch (authType) {
     case AuthTypes.USER_PASSWORD:
-      return renderUserNameAndPassword()
+      return renderUserNameAndPassword(secretManagers, connectorName)
     case AuthTypes.SERVICE_ACCOUNT:
       return customFieldsForServiceAccountToken()
     case AuthTypes.OIDC:
