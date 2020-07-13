@@ -7,12 +7,14 @@ import type { NodeModelListener, LinkModelListener } from '@projectstorm/react-d
 export enum StepType {
   HTTP = 'http',
   SHELLSCRIPT = 'shellScript',
-  APPROVAL = 'approval'
+  APPROVAL = 'approval',
+  K8sRolloutDeploy = 'K8sRolloutDeploy'
 }
 
 const MapStepTypeToIcon: { [key in StepType]: IconName } = {
   http: 'command-http',
   shellScript: 'command-shell-script',
+  K8sRolloutDeploy: 'service-kubernetes',
   approval: 'command-approval'
 }
 
@@ -22,10 +24,12 @@ interface Listeners {
 }
 
 const getStepTypeFromStep = (node: ExecutionSection): StepType => {
-  if (node.step[StepType.HTTP]) {
+  if (node.step.type === StepType.HTTP) {
     return StepType.HTTP
-  } else if (node.step[StepType.SHELLSCRIPT]) {
+  } else if (node.step.type === StepType.SHELLSCRIPT) {
     return StepType.SHELLSCRIPT
+  } else if (node.step.type === StepType.K8sRolloutDeploy) {
+    return StepType.K8sRolloutDeploy
   }
   return StepType.APPROVAL
 }
@@ -53,12 +57,12 @@ export class ExecutionStepModel extends Diagram.DiagramModel {
         type === StepType.APPROVAL
           ? new Diagram.DiamondNodeModel({
               id: node.step.identifier,
-              name: node.step.displayName,
+              name: node.step.name,
               icon: MapStepTypeToIcon[type]
             })
           : new Diagram.DefaultNodeModel({
               id: node.step.identifier,
-              name: node.step.displayName,
+              name: node.step.name,
               icon: MapStepTypeToIcon[type]
             })
 

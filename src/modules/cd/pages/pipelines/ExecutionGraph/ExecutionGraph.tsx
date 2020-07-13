@@ -5,13 +5,13 @@ import { Diagram } from 'modules/common/exports'
 import { ExecutionStepModel, StepType } from './ExecutionStepModel'
 import { Drawer, Position } from '@blueprintjs/core'
 import { cloneDeep } from 'lodash'
-import { Layout, Text } from '@wings-software/uikit'
 import { PipelineContext } from '../PipelineContext/PipelineContext'
 import { getStageFromPipeline } from '../StageBuilder/StageBuilderModel'
 import type { ExecutionSection } from 'services/ng-temp'
 import type { NodeModelListener, LinkModelListener } from '@projectstorm/react-diagrams-core'
 import { StepPalette, CommandData } from '../StepPalette/StepPalette'
 import { CanvasButtons } from 'modules/cd/common/CanvasButtons/CanvasButtons'
+import { StepCommands } from '../StepCommands/StepCommands'
 
 const getStepFromId = (stepData: ExecutionSection[] | undefined, id: string): ExecutionSection | undefined => {
   let stepResp: ExecutionSection | undefined = undefined
@@ -36,27 +36,12 @@ const renderDrawerContent = (
   entity: Diagram.DefaultNodeModel,
   onSelect: (item: CommandData) => void
 ): JSX.Element => {
-  const step = getStepFromId(data, entity.getID())
-  const content: JSX.Element[] = []
-  if (step) {
-    for (const key in step.spec) {
-      content.push(
-        <Layout.Horizontal key={key}>
-          <Text font={{ weight: 'bold' }} style={{ textTransform: 'capitalize' }} width={150} lineClamp={1}>
-            {key}
-          </Text>
-          <Text width={150} lineClamp={1}>
-            {step.spec[key]}
-          </Text>
-        </Layout.Horizontal>
-      )
-    }
+  const node = getStepFromId(data, entity.getID())
+
+  if (node) {
+    return <StepCommands step={node} />
   }
-  return (
-    <Layout.Vertical padding="large" spacing="medium">
-      {step ? content : <StepPalette onSelect={onSelect} />}
-    </Layout.Vertical>
-  )
+  return <StepPalette onSelect={onSelect} />
 }
 
 interface ExecutionGraphState {
@@ -106,8 +91,8 @@ const ExecutionGraph = (): JSX.Element => {
   useEffect(() => {
     if (selectedStageId && isSetupStageOpen) {
       const data = getStageFromPipeline(pipeline, selectedStageId)
-      if (data && data.stage && data.stage.deployment) {
-        setState(prevState => ({ ...prevState, data: get(data.stage.deployment, 'execution[0].phase.steps') }))
+      if (data?.stage?.spec?.execution) {
+        setState(prevState => ({ ...prevState, data: get(data.stage.spec.execution, 'steps', []) }))
       } else if (data?.stage) {
         data.stage = {
           execution: {}
@@ -183,7 +168,7 @@ const ExecutionGraph = (): JSX.Element => {
         canOutsideClickClose={true}
         enforceFocus={true}
         hasBackdrop={false}
-        size={Drawer.SIZE_STANDARD}
+        size={Drawer.SIZE_SMALL}
         isOpen={state.isDrawerOpen}
         position={Position.RIGHT}
       >

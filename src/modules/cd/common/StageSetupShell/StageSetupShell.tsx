@@ -5,7 +5,7 @@ import ServiceSpecifications from '../ServiceSpecifications/ServiceSpecification
 import InfraSpecifications from '../InfraSpecifications/InfraSpecifications'
 import css from './StageSetupShell.module.scss'
 import cx from 'classnames'
-import type { StageWrapper } from 'services/ng-temp'
+import type { StageElementWrapper } from 'services/cd-ng'
 import { PipelineContext } from 'modules/cd/pages/pipelines/PipelineContext/PipelineContext'
 import { getStageFromPipeline } from 'modules/cd/pages/pipelines/StageBuilder/StageBuilderModel'
 import ExecutionGraph from 'modules/cd/pages/pipelines/ExecutionGraph/ExecutionGraph'
@@ -17,10 +17,11 @@ export default function StageSetupShell(): JSX.Element {
     state: {
       pipeline,
       pipelineView: { selectedStageId, isSetupStageOpen }
-    }
+    },
+    updatePipelineView
   } = React.useContext(PipelineContext)
 
-  const [stageData, setStageData] = React.useState<StageWrapper | undefined>()
+  const [stageData, setStageData] = React.useState<StageElementWrapper | undefined>()
 
   React.useEffect(() => {
     if (selectedStageId && isSetupStageOpen) {
@@ -54,10 +55,16 @@ export default function StageSetupShell(): JSX.Element {
         />
 
         <Button
-          text={i18n.next}
+          text={selectedTabId === i18n.executionLabel ? i18n.save : i18n.next}
           intent="primary"
           rightIcon="chevron-right"
-          onClick={() => setSelectedTabId(selectedTabId === i18n.serviceLabel ? i18n.infraLabel : i18n.executionLabel)}
+          onClick={() => {
+            if (selectedTabId === i18n.executionLabel) {
+              updatePipelineView({ isSetupStageOpen: false, selectedStageId: undefined })
+            } else {
+              setSelectedTabId(selectedTabId === i18n.serviceLabel ? i18n.infraLabel : i18n.executionLabel)
+            }
+          }}
         />
       </Layout.Horizontal>
     </section>

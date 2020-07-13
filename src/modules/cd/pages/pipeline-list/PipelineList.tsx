@@ -6,7 +6,7 @@ import { useHistory, useParams } from 'react-router-dom'
 import { routePipelineCanvas } from 'modules/cd/routes'
 import { linkTo } from 'framework/exports'
 import css from './PipelineList.module.scss'
-import { useGetListOfPipelines, CDPipelineDTO } from 'services/ng-temp'
+import { useGetListOfPipelines, CDPipelineDTO } from 'services/cd-ng'
 import { PipelineCard } from './views/PipelineCard/PipelineCard'
 
 const PipelineList: React.FC = () => {
@@ -49,7 +49,7 @@ const PipelineList: React.FC = () => {
         error={error?.message}
         retryOnError={() => reloadPipelines()}
         noData={{
-          when: () => !data?.resource?.content?.length,
+          when: () => !data?.data?.content?.length,
           icon: 'nav-project',
           message: i18n.aboutPipeline,
           buttonText: i18n.addPipeline,
@@ -60,7 +60,7 @@ const PipelineList: React.FC = () => {
           gutter={30}
           width={900}
           className={css.centerContainer}
-          items={data?.resource?.content || []}
+          items={data?.data?.content || []}
           renderItem={(pipeline: CDPipelineDTO) => (
             <PipelineCard pipeline={pipeline} onClick={() => goToPipeline(pipeline.identifier)} />
           )}

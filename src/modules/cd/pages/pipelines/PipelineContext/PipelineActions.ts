@@ -1,4 +1,4 @@
-import type { CDPipelineDTO } from 'services/ng-temp'
+import type { CDPipelineDTO } from 'services/cd-ng'
 import { clone } from 'lodash'
 
 export enum PipelineActions {

@@ -5,6 +5,919 @@ import { Get, GetProps, useGet, UseGetProps, Mutate, MutateProps, useMutate, Use
 
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
 
+export interface RestResponseConnectorValidationResult {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: ConnectorValidationResult
+  responseMessages?: ResponseMessage[]
+}
+
+export interface SecretManagerConfig {
+  uuid: string
+  encryptionType?: 'LOCAL' | 'KMS' | 'GCP_KMS' | 'AWS_SECRETS_MANAGER' | 'AZURE_VAULT' | 'CYBERARK' | 'VAULT' | 'CUSTOM'
+  accountId?: string
+  numOfEncryptedValue?: number
+  encryptedBy?: string
+  createdBy?: EmbeddedUser
+  createdAt?: number
+  lastUpdatedBy?: EmbeddedUser
+  lastUpdatedAt: number
+  nextTokenRenewIteration?: number
+  templatizedFields?: string[]
+  default?: boolean
+  encryptionServiceUrl?: string
+  validationCriteria?: string
+  name?: string
+}
+
+export interface ResponseDTOOptionalOrganizationDTO {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: OrganizationDTO
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
+export interface StreamingOutput {
+  [key: string]: any
+}
+
+export interface RestResponsePlanExecution {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: PlanExecution
+  responseMessages?: ResponseMessage[]
+}
+
+export interface SecretManagerConfigDTO {
+  uuid?: string
+  encryptionType?: 'LOCAL' | 'KMS' | 'GCP_KMS' | 'AWS_SECRETS_MANAGER' | 'AZURE_VAULT' | 'CYBERARK' | 'VAULT' | 'CUSTOM'
+  accountId?: string
+  numOfEncryptedValue?: number
+  encryptedBy?: string
+  nextTokenRenewIteration?: number
+  templatizedFields?: string[]
+  default?: boolean
+}
+
+export interface FailureDTO {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  code?:
+    | 'DEFAULT_ERROR_CODE'
+    | 'INVALID_ARGUMENT'
+    | 'INVALID_EMAIL'
+    | 'DOMAIN_NOT_ALLOWED_TO_REGISTER'
+    | 'USER_ALREADY_REGISTERED'
+    | 'USER_INVITATION_DOES_NOT_EXIST'
+    | 'USER_DOES_NOT_EXIST'
+    | 'USER_INVITE_OPERATION_FAILED'
+    | 'USER_DISABLED'
+    | 'ACCOUNT_DOES_NOT_EXIST'
+    | 'INACTIVE_ACCOUNT'
+    | 'ACCOUNT_MIGRATED'
+    | 'USER_DOMAIN_NOT_ALLOWED'
+    | 'MAX_FAILED_ATTEMPT_COUNT_EXCEEDED'
+    | 'RESOURCE_NOT_FOUND'
+    | 'ROLE_DOES_NOT_EXIST'
+    | 'EMAIL_NOT_VERIFIED'
+    | 'EMAIL_VERIFICATION_TOKEN_NOT_FOUND'
+    | 'INVALID_TOKEN'
+    | 'INVALID_CAPTCHA_TOKEN'
+    | 'NOT_ACCOUNT_MGR_NOR_HAS_ALL_APP_ACCESS'
+    | 'EXPIRED_TOKEN'
+    | 'TOKEN_ALREADY_REFRESHED_ONCE'
+    | 'ACCESS_DENIED'
+    | 'INVALID_CREDENTIAL'
+    | 'INVALID_KEY'
+    | 'INVALID_KEYPATH'
+    | 'INVALID_VARIABLE'
+    | 'UNKNOWN_HOST'
+    | 'UNREACHABLE_HOST'
+    | 'INVALID_PORT'
+    | 'SSH_SESSION_TIMEOUT'
+    | 'SOCKET_CONNECTION_ERROR'
+    | 'SOCKET_CONNECTION_TIMEOUT'
+    | 'CONNECTION_TIMEOUT'
+    | 'SSH_CONNECTION_ERROR'
+    | 'USER_GROUP_ERROR'
+    | 'INVALID_EXECUTION_ID'
+    | 'ERROR_IN_GETTING_CHANNEL_STREAMS'
+    | 'UNEXPECTED'
+    | 'UNKNOWN_ERROR'
+    | 'UNKNOWN_EXECUTOR_TYPE_ERROR'
+    | 'DUPLICATE_STATE_NAMES'
+    | 'TRANSITION_NOT_LINKED'
+    | 'TRANSITION_TO_INCORRECT_STATE'
+    | 'TRANSITION_TYPE_NULL'
+    | 'STATES_WITH_DUP_TRANSITIONS'
+    | 'BARRIERS_NOT_RUNNING_CONCURRENTLY'
+    | 'NON_FORK_STATES'
+    | 'NON_REPEAT_STATES'
+    | 'INITIAL_STATE_NOT_DEFINED'
+    | 'FILE_INTEGRITY_CHECK_FAILED'
+    | 'INVALID_URL'
+    | 'FILE_DOWNLOAD_FAILED'
+    | 'PLATFORM_SOFTWARE_DELETE_ERROR'
+    | 'INVALID_CSV_FILE'
+    | 'INVALID_REQUEST'
+    | 'INVALID_INFRA_STATE'
+    | 'PIPELINE_ALREADY_TRIGGERED'
+    | 'NON_EXISTING_PIPELINE'
+    | 'DUPLICATE_COMMAND_NAMES'
+    | 'INVALID_PIPELINE'
+    | 'COMMAND_DOES_NOT_EXIST'
+    | 'DUPLICATE_ARTIFACTSTREAM_NAMES'
+    | 'DUPLICATE_HOST_NAMES'
+    | 'STATE_NOT_FOR_TYPE'
+    | 'STATE_MACHINE_ISSUE'
+    | 'STATE_DISCONTINUE_FAILED'
+    | 'STATE_PAUSE_FAILED'
+    | 'PAUSE_ALL_ALREADY'
+    | 'RESUME_ALL_ALREADY'
+    | 'ROLLBACK_ALREADY'
+    | 'ABORT_ALL_ALREADY'
+    | 'RETRY_FAILED'
+    | 'UNKNOWN_ARTIFACT_TYPE'
+    | 'INIT_TIMEOUT'
+    | 'LICENSE_EXPIRED'
+    | 'NOT_LICENSED'
+    | 'REQUEST_TIMEOUT'
+    | 'WORKFLOW_ALREADY_TRIGGERED'
+    | 'JENKINS_ERROR'
+    | 'INVALID_ARTIFACT_SOURCE'
+    | 'INVALID_ARTIFACT_SERVER'
+    | 'INVALID_CLOUD_PROVIDER'
+    | 'UPDATE_NOT_ALLOWED'
+    | 'DELETE_NOT_ALLOWED'
+    | 'APPDYNAMICS_CONFIGURATION_ERROR'
+    | 'APM_CONFIGURATION_ERROR'
+    | 'SPLUNK_CONFIGURATION_ERROR'
+    | 'ELK_CONFIGURATION_ERROR'
+    | 'LOGZ_CONFIGURATION_ERROR'
+    | 'SUMO_CONFIGURATION_ERROR'
+    | 'INSTANA_CONFIGURATION_ERROR'
+    | 'APPDYNAMICS_ERROR'
+    | 'STACKDRIVER_ERROR'
+    | 'STACKDRIVER_CONFIGURATION_ERROR'
+    | 'NEWRELIC_CONFIGURATION_ERROR'
+    | 'NEWRELIC_ERROR'
+    | 'DYNA_TRACE_CONFIGURATION_ERROR'
+    | 'DYNA_TRACE_ERROR'
+    | 'CLOUDWATCH_ERROR'
+    | 'CLOUDWATCH_CONFIGURATION_ERROR'
+    | 'PROMETHEUS_CONFIGURATION_ERROR'
+    | 'DATA_DOG_CONFIGURATION_ERROR'
+    | 'SERVICE_GUARD_CONFIGURATION_ERROR'
+    | 'ENCRYPTION_NOT_CONFIGURED'
+    | 'UNAVAILABLE_DELEGATES'
+    | 'WORKFLOW_EXECUTION_IN_PROGRESS'
+    | 'PIPELINE_EXECUTION_IN_PROGRESS'
+    | 'AWS_ACCESS_DENIED'
+    | 'AWS_CLUSTER_NOT_FOUND'
+    | 'AWS_SERVICE_NOT_FOUND'
+    | 'INVALID_YAML_PAYLOAD'
+    | 'UNRECOGNIZED_YAML_FIELDS'
+    | 'COULD_NOT_MAP_BEFORE_YAML'
+    | 'MISSING_BEFORE_YAML'
+    | 'MISSING_YAML'
+    | 'NON_EMPTY_DELETIONS'
+    | 'GENERAL_YAML_ERROR'
+    | 'GENERAL_YAML_INFO'
+    | 'YAML_GIT_SYNC_ERROR'
+    | 'GIT_CONNECTION_ERROR'
+    | 'GIT_ERROR'
+    | 'ARTIFACT_SERVER_ERROR'
+    | 'ENCRYPT_DECRYPT_ERROR'
+    | 'SECRET_MANAGEMENT_ERROR'
+    | 'KMS_OPERATION_ERROR'
+    | 'GCP_KMS_OPERATION_ERROR'
+    | 'VAULT_OPERATION_ERROR'
+    | 'AWS_SECRETS_MANAGER_OPERATION_ERROR'
+    | 'AZURE_KEY_VAULT_OPERATION_ERROR'
+    | 'CYBERARK_OPERATION_ERROR'
+    | 'UNSUPPORTED_OPERATION_EXCEPTION'
+    | 'FEATURE_UNAVAILABLE'
+    | 'GENERAL_ERROR'
+    | 'BASELINE_CONFIGURATION_ERROR'
+    | 'SAML_IDP_CONFIGURATION_NOT_AVAILABLE'
+    | 'INVALID_AUTHENTICATION_MECHANISM'
+    | 'INVALID_SAML_CONFIGURATION'
+    | 'INVALID_OAUTH_CONFIGURATION'
+    | 'INVALID_LDAP_CONFIGURATION'
+    | 'USER_GROUP_SYNC_FAILURE'
+    | 'USER_GROUP_ALREADY_EXIST'
+    | 'INVALID_TWO_FACTOR_AUTHENTICATION_CONFIGURATION'
+    | 'EXPLANATION'
+    | 'HINT'
+    | 'NOT_WHITELISTED_IP'
+    | 'INVALID_TOTP_TOKEN'
+    | 'EMAIL_FAILED'
+    | 'SSL_HANDSHAKE_FAILED'
+    | 'NO_APPS_ASSIGNED'
+    | 'INVALID_INFRA_CONFIGURATION'
+    | 'TEMPLATES_LINKED'
+    | 'USER_HAS_NO_PERMISSIONS'
+    | 'USER_NOT_AUTHORIZED'
+    | 'USER_ALREADY_PRESENT'
+    | 'INVALID_USAGE_RESTRICTION'
+    | 'USAGE_RESTRICTION_ERROR'
+    | 'STATE_EXECUTION_INSTANCE_NOT_FOUND'
+    | 'DELEGATE_TASK_RETRY'
+    | 'KUBERNETES_YAML_ERROR'
+    | 'SAVE_FILE_INTO_GCP_STORAGE_FAILED'
+    | 'READ_FILE_FROM_GCP_STORAGE_FAILED'
+    | 'USAGE_LIMITS_EXCEEDED'
+    | 'EVENT_PUBLISH_FAILED'
+    | 'JIRA_ERROR'
+    | 'EXPRESSION_EVALUATION_FAILED'
+    | 'KUBERNETES_VALUES_ERROR'
+    | 'KUBERNETES_CLUSTER_ERROR'
+    | 'INCORRECT_SIGN_IN_MECHANISM'
+    | 'OAUTH_LOGIN_FAILED'
+    | 'INVALID_TERRAFORM_TARGETS_REQUEST'
+    | 'FILE_READ_FAILED'
+    | 'FILE_SIZE_EXCEEDS_LIMIT'
+    | 'CLUSTER_NOT_FOUND'
+    | 'MARKETPLACE_TOKEN_NOT_FOUND'
+    | 'INVALID_MARKETPLACE_TOKEN'
+    | 'INVALID_TICKETING_SERVER'
+    | 'SERVICENOW_ERROR'
+    | 'PASSWORD_EXPIRED'
+    | 'USER_LOCKED'
+    | 'PASSWORD_STRENGTH_CHECK_FAILED'
+    | 'INVALID_ACCOUNT_PERMISSION'
+    | 'PAGERDUTY_ERROR'
+    | 'HEALTH_ERROR'
+    | 'SAML_TEST_SUCCESS_MECHANISM_NOT_ENABLED'
+    | 'DOMAIN_WHITELIST_FILTER_CHECK_FAILED'
+    | 'INVALID_DASHBOARD_UPDATE_REQUEST'
+    | 'DUPLICATE_FIELD'
+    | 'INVALID_AZURE_VAULT_CONFIGURATION'
+    | 'USER_NOT_AUTHORIZED_DUE_TO_USAGE_RESTRICTIONS'
+    | 'INVALID_ROLLBACK'
+    | 'SUMO_DATA_COLLECTION_ERROR'
+    | 'DEPLOYMENT_GOVERNANCE_ERROR'
+    | 'BATCH_PROCESSING_ERROR'
+    | 'GRAPHQL_ERROR'
+    | 'FILE_CREATE_ERROR'
+    | 'ILLEGAL_STATE'
+    | 'GIT_DIFF_COMMIT_NOT_IN_ORDER'
+    | 'FAILED_TO_ACQUIRE_PERSISTENT_LOCK'
+    | 'POD_NOT_FOUND_ERROR'
+    | 'COMMAND_EXECUTION_ERROR'
+    | 'ENGINE_REGISTRY_EXCEPTION'
+    | 'ENGINE_INTERRUPT_PROCESSING_EXCEPTION'
+    | 'ENGINE_IO_EXCEPTION'
+    | 'ENGINE_OUTCOME_EXCEPTION'
+    | 'ENGINE_SWEEPING_OUTPUT_EXCEPTION'
+    | 'CACHE_NOT_FOUND_EXCEPTION'
+    | 'ENGINE_ENTITY_UPDATE_EXCEPTION'
+    | 'SHELL_EXECUTION_EXCEPTION'
+    | 'TEMPLATE_NOT_FOUND'
+  message?: string
+  correlationId?: string
+  validationErrors?: ValidationError[]
+}
+
+export interface RefType {
+  type?: string
+}
+
+export interface UsageRestrictions {
+  appEnvRestrictions?: AppEnvRestriction[]
+}
+
+export interface ResponseDTOEncryptedDataDTO {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: EncryptedDataDTO
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
+export interface Pageable {
+  paged?: boolean
+  unpaged?: boolean
+  pageNumber?: number
+  offset?: number
+  pageSize?: number
+  sort?: Sort
+}
+
+export interface UpdateOrganizationDTO {
+  name: string
+  color: string
+  description: string
+  tags: string[]
+}
+
+export interface Sort {
+  unsorted?: boolean
+  sorted?: boolean
+  empty?: boolean
+}
+
+export interface EncryptedDataParams {
+  name?: string
+  value?: string
+}
+
+export interface PageProjectDTO {
+  totalPages?: number
+  totalElements?: number
+  last?: boolean
+  numberOfElements?: number
+  pageable?: Pageable
+  first?: boolean
+  size?: number
+  content?: ProjectDTO[]
+  number?: number
+  sort?: Sort
+  empty?: boolean
+}
+
+export interface ValidationError {
+  field?: string
+  error?: string
+}
+
+export interface UpdateProjectDTO {
+  name: string
+  description: string
+  owners: string[]
+  tags: string[]
+  purposeList: string[]
+}
+
+export interface Tags {
+  [key: string]: any
+}
+
+export interface EncryptedDataDTO {
+  name?: string
+  encryptionKey?: string
+  encryptedValue?: string[]
+  path?: string
+  parameters?: EncryptedDataParams[]
+  type?:
+    | 'HOST_CONNECTION_ATTRIBUTES'
+    | 'BASTION_HOST_CONNECTION_ATTRIBUTES'
+    | 'SMTP'
+    | 'SFTP'
+    | 'JENKINS'
+    | 'BAMBOO'
+    | 'STRING'
+    | 'SPLUNK'
+    | 'ELK'
+    | 'LOGZ'
+    | 'SUMO'
+    | 'DATA_DOG'
+    | 'APM_VERIFICATION'
+    | 'BUG_SNAG'
+    | 'LOG_VERIFICATION'
+    | 'APP_DYNAMICS'
+    | 'NEW_RELIC'
+    | 'DYNA_TRACE'
+    | 'INSTANA'
+    | 'DATA_DOG_LOG'
+    | 'CLOUD_WATCH'
+    | 'SCALYR'
+    | 'ELB'
+    | 'SLACK'
+    | 'AWS'
+    | 'GCS'
+    | 'GCP'
+    | 'AZURE'
+    | 'PCF'
+    | 'DIRECT'
+    | 'KUBERNETES_CLUSTER'
+    | 'DOCKER'
+    | 'ECR'
+    | 'GCR'
+    | 'ACR'
+    | 'PHYSICAL_DATA_CENTER'
+    | 'KUBERNETES'
+    | 'NEXUS'
+    | 'ARTIFACTORY'
+    | 'SMB'
+    | 'AMAZON_S3'
+    | 'GIT'
+    | 'SSH_SESSION_CONFIG'
+    | 'SERVICE_VARIABLE'
+    | 'CONFIG_FILE'
+    | 'KMS'
+    | 'GCP_KMS'
+    | 'JIRA'
+    | 'SERVICENOW'
+    | 'SECRET_TEXT'
+    | 'YAML_GIT_SYNC'
+    | 'VAULT'
+    | 'AWS_SECRETS_MANAGER'
+    | 'CYBERARK'
+    | 'WINRM_CONNECTION_ATTRIBUTES'
+    | 'WINRM_SESSION_CONFIG'
+    | 'PROMETHEUS'
+    | 'INFRASTRUCTURE_MAPPING'
+    | 'HTTP_HELM_REPO'
+    | 'AMAZON_S3_HELM_REPO'
+    | 'GCS_HELM_REPO'
+    | 'SPOT_INST'
+    | 'AZURE_ARTIFACTS_PAT'
+    | 'CUSTOM'
+    | 'CE_AWS'
+    | 'CE_GCP'
+    | 'AZURE_VAULT'
+  parents?: EncryptedDataParent[]
+  accountId?: string
+  enabled?: boolean
+  kmsId?: string
+  encryptionType?: 'LOCAL' | 'KMS' | 'GCP_KMS' | 'AWS_SECRETS_MANAGER' | 'AZURE_VAULT' | 'CYBERARK' | 'VAULT' | 'CUSTOM'
+  fileSize?: number
+  appIds?: string[]
+  serviceIds?: string[]
+  envIds?: string[]
+  backupEncryptedValue?: string[]
+  backupEncryptionKey?: string
+  backupKmsId?: string
+  backupEncryptionType?:
+    | 'LOCAL'
+    | 'KMS'
+    | 'GCP_KMS'
+    | 'AWS_SECRETS_MANAGER'
+    | 'AZURE_VAULT'
+    | 'CYBERARK'
+    | 'VAULT'
+    | 'CUSTOM'
+  serviceVariableIds?: string[]
+  searchTags?: {
+    [key: string]: AtomicInteger
+  }
+  scopedToAccount?: boolean
+  usageRestrictions?: UsageRestrictions
+  nextMigrationIteration?: number
+  nextAwsToGcpKmsMigrationIteration?: number
+  base64Encoded?: boolean
+  encryptedBy?: string
+  setupUsage?: number
+  runTimeUsage?: number
+  changeLog?: number
+  keywords?: string[]
+  uuid?: string
+  appId?: string
+  entityYamlPath?: string
+}
+
+export interface ResponseData {
+  [key: string]: any
+}
+
+export interface OptionalConnectorDTO {
+  present?: boolean
+}
+
+export interface Duration {
+  seconds?: number
+  nano?: number
+  units?: TemporalUnit[]
+  zero?: boolean
+  negative?: boolean
+}
+
+export interface ResponseMessage {
+  code?:
+    | 'DEFAULT_ERROR_CODE'
+    | 'INVALID_ARGUMENT'
+    | 'INVALID_EMAIL'
+    | 'DOMAIN_NOT_ALLOWED_TO_REGISTER'
+    | 'USER_ALREADY_REGISTERED'
+    | 'USER_INVITATION_DOES_NOT_EXIST'
+    | 'USER_DOES_NOT_EXIST'
+    | 'USER_INVITE_OPERATION_FAILED'
+    | 'USER_DISABLED'
+    | 'ACCOUNT_DOES_NOT_EXIST'
+    | 'INACTIVE_ACCOUNT'
+    | 'ACCOUNT_MIGRATED'
+    | 'USER_DOMAIN_NOT_ALLOWED'
+    | 'MAX_FAILED_ATTEMPT_COUNT_EXCEEDED'
+    | 'RESOURCE_NOT_FOUND'
+    | 'ROLE_DOES_NOT_EXIST'
+    | 'EMAIL_NOT_VERIFIED'
+    | 'EMAIL_VERIFICATION_TOKEN_NOT_FOUND'
+    | 'INVALID_TOKEN'
+    | 'INVALID_CAPTCHA_TOKEN'
+    | 'NOT_ACCOUNT_MGR_NOR_HAS_ALL_APP_ACCESS'
+    | 'EXPIRED_TOKEN'
+    | 'TOKEN_ALREADY_REFRESHED_ONCE'
+    | 'ACCESS_DENIED'
+    | 'INVALID_CREDENTIAL'
+    | 'INVALID_KEY'
+    | 'INVALID_KEYPATH'
+    | 'INVALID_VARIABLE'
+    | 'UNKNOWN_HOST'
+    | 'UNREACHABLE_HOST'
+    | 'INVALID_PORT'
+    | 'SSH_SESSION_TIMEOUT'
+    | 'SOCKET_CONNECTION_ERROR'
+    | 'SOCKET_CONNECTION_TIMEOUT'
+    | 'CONNECTION_TIMEOUT'
+    | 'SSH_CONNECTION_ERROR'
+    | 'USER_GROUP_ERROR'
+    | 'INVALID_EXECUTION_ID'
+    | 'ERROR_IN_GETTING_CHANNEL_STREAMS'
+    | 'UNEXPECTED'
+    | 'UNKNOWN_ERROR'
+    | 'UNKNOWN_EXECUTOR_TYPE_ERROR'
+    | 'DUPLICATE_STATE_NAMES'
+    | 'TRANSITION_NOT_LINKED'
+    | 'TRANSITION_TO_INCORRECT_STATE'
+    | 'TRANSITION_TYPE_NULL'
+    | 'STATES_WITH_DUP_TRANSITIONS'
+    | 'BARRIERS_NOT_RUNNING_CONCURRENTLY'
+    | 'NON_FORK_STATES'
+    | 'NON_REPEAT_STATES'
+    | 'INITIAL_STATE_NOT_DEFINED'
+    | 'FILE_INTEGRITY_CHECK_FAILED'
+    | 'INVALID_URL'
+    | 'FILE_DOWNLOAD_FAILED'
+    | 'PLATFORM_SOFTWARE_DELETE_ERROR'
+    | 'INVALID_CSV_FILE'
+    | 'INVALID_REQUEST'
+    | 'INVALID_INFRA_STATE'
+    | 'PIPELINE_ALREADY_TRIGGERED'
+    | 'NON_EXISTING_PIPELINE'
+    | 'DUPLICATE_COMMAND_NAMES'
+    | 'INVALID_PIPELINE'
+    | 'COMMAND_DOES_NOT_EXIST'
+    | 'DUPLICATE_ARTIFACTSTREAM_NAMES'
+    | 'DUPLICATE_HOST_NAMES'
+    | 'STATE_NOT_FOR_TYPE'
+    | 'STATE_MACHINE_ISSUE'
+    | 'STATE_DISCONTINUE_FAILED'
+    | 'STATE_PAUSE_FAILED'
+    | 'PAUSE_ALL_ALREADY'
+    | 'RESUME_ALL_ALREADY'
+    | 'ROLLBACK_ALREADY'
+    | 'ABORT_ALL_ALREADY'
+    | 'RETRY_FAILED'
+    | 'UNKNOWN_ARTIFACT_TYPE'
+    | 'INIT_TIMEOUT'
+    | 'LICENSE_EXPIRED'
+    | 'NOT_LICENSED'
+    | 'REQUEST_TIMEOUT'
+    | 'WORKFLOW_ALREADY_TRIGGERED'
+    | 'JENKINS_ERROR'
+    | 'INVALID_ARTIFACT_SOURCE'
+    | 'INVALID_ARTIFACT_SERVER'
+    | 'INVALID_CLOUD_PROVIDER'
+    | 'UPDATE_NOT_ALLOWED'
+    | 'DELETE_NOT_ALLOWED'
+    | 'APPDYNAMICS_CONFIGURATION_ERROR'
+    | 'APM_CONFIGURATION_ERROR'
+    | 'SPLUNK_CONFIGURATION_ERROR'
+    | 'ELK_CONFIGURATION_ERROR'
+    | 'LOGZ_CONFIGURATION_ERROR'
+    | 'SUMO_CONFIGURATION_ERROR'
+    | 'INSTANA_CONFIGURATION_ERROR'
+    | 'APPDYNAMICS_ERROR'
+    | 'STACKDRIVER_ERROR'
+    | 'STACKDRIVER_CONFIGURATION_ERROR'
+    | 'NEWRELIC_CONFIGURATION_ERROR'
+    | 'NEWRELIC_ERROR'
+    | 'DYNA_TRACE_CONFIGURATION_ERROR'
+    | 'DYNA_TRACE_ERROR'
+    | 'CLOUDWATCH_ERROR'
+    | 'CLOUDWATCH_CONFIGURATION_ERROR'
+    | 'PROMETHEUS_CONFIGURATION_ERROR'
+    | 'DATA_DOG_CONFIGURATION_ERROR'
+    | 'SERVICE_GUARD_CONFIGURATION_ERROR'
+    | 'ENCRYPTION_NOT_CONFIGURED'
+    | 'UNAVAILABLE_DELEGATES'
+    | 'WORKFLOW_EXECUTION_IN_PROGRESS'
+    | 'PIPELINE_EXECUTION_IN_PROGRESS'
+    | 'AWS_ACCESS_DENIED'
+    | 'AWS_CLUSTER_NOT_FOUND'
+    | 'AWS_SERVICE_NOT_FOUND'
+    | 'INVALID_YAML_PAYLOAD'
+    | 'UNRECOGNIZED_YAML_FIELDS'
+    | 'COULD_NOT_MAP_BEFORE_YAML'
+    | 'MISSING_BEFORE_YAML'
+    | 'MISSING_YAML'
+    | 'NON_EMPTY_DELETIONS'
+    | 'GENERAL_YAML_ERROR'
+    | 'GENERAL_YAML_INFO'
+    | 'YAML_GIT_SYNC_ERROR'
+    | 'GIT_CONNECTION_ERROR'
+    | 'GIT_ERROR'
+    | 'ARTIFACT_SERVER_ERROR'
+    | 'ENCRYPT_DECRYPT_ERROR'
+    | 'SECRET_MANAGEMENT_ERROR'
+    | 'KMS_OPERATION_ERROR'
+    | 'GCP_KMS_OPERATION_ERROR'
+    | 'VAULT_OPERATION_ERROR'
+    | 'AWS_SECRETS_MANAGER_OPERATION_ERROR'
+    | 'AZURE_KEY_VAULT_OPERATION_ERROR'
+    | 'CYBERARK_OPERATION_ERROR'
+    | 'UNSUPPORTED_OPERATION_EXCEPTION'
+    | 'FEATURE_UNAVAILABLE'
+    | 'GENERAL_ERROR'
+    | 'BASELINE_CONFIGURATION_ERROR'
+    | 'SAML_IDP_CONFIGURATION_NOT_AVAILABLE'
+    | 'INVALID_AUTHENTICATION_MECHANISM'
+    | 'INVALID_SAML_CONFIGURATION'
+    | 'INVALID_OAUTH_CONFIGURATION'
+    | 'INVALID_LDAP_CONFIGURATION'
+    | 'USER_GROUP_SYNC_FAILURE'
+    | 'USER_GROUP_ALREADY_EXIST'
+    | 'INVALID_TWO_FACTOR_AUTHENTICATION_CONFIGURATION'
+    | 'EXPLANATION'
+    | 'HINT'
+    | 'NOT_WHITELISTED_IP'
+    | 'INVALID_TOTP_TOKEN'
+    | 'EMAIL_FAILED'
+    | 'SSL_HANDSHAKE_FAILED'
+    | 'NO_APPS_ASSIGNED'
+    | 'INVALID_INFRA_CONFIGURATION'
+    | 'TEMPLATES_LINKED'
+    | 'USER_HAS_NO_PERMISSIONS'
+    | 'USER_NOT_AUTHORIZED'
+    | 'USER_ALREADY_PRESENT'
+    | 'INVALID_USAGE_RESTRICTION'
+    | 'USAGE_RESTRICTION_ERROR'
+    | 'STATE_EXECUTION_INSTANCE_NOT_FOUND'
+    | 'DELEGATE_TASK_RETRY'
+    | 'KUBERNETES_YAML_ERROR'
+    | 'SAVE_FILE_INTO_GCP_STORAGE_FAILED'
+    | 'READ_FILE_FROM_GCP_STORAGE_FAILED'
+    | 'USAGE_LIMITS_EXCEEDED'
+    | 'EVENT_PUBLISH_FAILED'
+    | 'JIRA_ERROR'
+    | 'EXPRESSION_EVALUATION_FAILED'
+    | 'KUBERNETES_VALUES_ERROR'
+    | 'KUBERNETES_CLUSTER_ERROR'
+    | 'INCORRECT_SIGN_IN_MECHANISM'
+    | 'OAUTH_LOGIN_FAILED'
+    | 'INVALID_TERRAFORM_TARGETS_REQUEST'
+    | 'FILE_READ_FAILED'
+    | 'FILE_SIZE_EXCEEDS_LIMIT'
+    | 'CLUSTER_NOT_FOUND'
+    | 'MARKETPLACE_TOKEN_NOT_FOUND'
+    | 'INVALID_MARKETPLACE_TOKEN'
+    | 'INVALID_TICKETING_SERVER'
+    | 'SERVICENOW_ERROR'
+    | 'PASSWORD_EXPIRED'
+    | 'USER_LOCKED'
+    | 'PASSWORD_STRENGTH_CHECK_FAILED'
+    | 'INVALID_ACCOUNT_PERMISSION'
+    | 'PAGERDUTY_ERROR'
+    | 'HEALTH_ERROR'
+    | 'SAML_TEST_SUCCESS_MECHANISM_NOT_ENABLED'
+    | 'DOMAIN_WHITELIST_FILTER_CHECK_FAILED'
+    | 'INVALID_DASHBOARD_UPDATE_REQUEST'
+    | 'DUPLICATE_FIELD'
+    | 'INVALID_AZURE_VAULT_CONFIGURATION'
+    | 'USER_NOT_AUTHORIZED_DUE_TO_USAGE_RESTRICTIONS'
+    | 'INVALID_ROLLBACK'
+    | 'SUMO_DATA_COLLECTION_ERROR'
+    | 'DEPLOYMENT_GOVERNANCE_ERROR'
+    | 'BATCH_PROCESSING_ERROR'
+    | 'GRAPHQL_ERROR'
+    | 'FILE_CREATE_ERROR'
+    | 'ILLEGAL_STATE'
+    | 'GIT_DIFF_COMMIT_NOT_IN_ORDER'
+    | 'FAILED_TO_ACQUIRE_PERSISTENT_LOCK'
+    | 'POD_NOT_FOUND_ERROR'
+    | 'COMMAND_EXECUTION_ERROR'
+    | 'ENGINE_REGISTRY_EXCEPTION'
+    | 'ENGINE_INTERRUPT_PROCESSING_EXCEPTION'
+    | 'ENGINE_IO_EXCEPTION'
+    | 'ENGINE_OUTCOME_EXCEPTION'
+    | 'ENGINE_SWEEPING_OUTPUT_EXCEPTION'
+    | 'CACHE_NOT_FOUND_EXCEPTION'
+    | 'ENGINE_ENTITY_UPDATE_EXCEPTION'
+    | 'SHELL_EXECUTION_EXCEPTION'
+    | 'TEMPLATE_NOT_FOUND'
+  level?: 'INFO' | 'ERROR'
+  message?: string
+  exception?: Throwable
+}
+
+export interface ResponseDTOSecretManagerConfigDTO {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: SecretManagerConfigDTO
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
+export type WorkflowFilter = EnvFilter & {}
+
+export interface OrganizationDTO {
+  id?: string
+  accountIdentifier?: string
+  identifier?: string
+  name?: string
+  color?: string
+  description?: string
+  tags?: string[]
+}
+
+export interface ResponseDTOCDPipelineDTO {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: CDPipelineDTO
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
+export interface ResponseDTOString {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: string
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
+export interface CreateOrganizationDTO {
+  identifier: string
+  name: string
+  color: string
+  description?: string
+  tags: string[]
+}
+
+export interface ConnectorDTO {
+  name?: string
+  identifier?: string
+  description?: string
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifer?: string
+  tags?: string[]
+  type?: 'KUBERNETES_CLUSTER' | 'GIT'
+  spec?: ConnectorConfigDTO
+  createdAt?: number
+  lastModifiedAt?: number
+}
+
+export interface Graph {
+  cacheContextOrder?: number
+  cacheKey?: string
+  cacheParams?: string[]
+  planExecutionId?: string
+  startTs?: number
+  endTs?: number
+  status?:
+    | 'RUNNING'
+    | 'WAITING'
+    | 'ASYNC_WAITING'
+    | 'TASK_WAITING'
+    | 'DISCONTINUING'
+    | 'PAUSING'
+    | 'QUEUED'
+    | 'SKIPPED'
+    | 'PAUSED'
+    | 'ABORTED'
+    | 'ERRORED'
+    | 'FAILED'
+    | 'EXPIRED'
+    | 'SUCCEEDED'
+  graphVertex?: GraphVertex
+  lastUpdatedAt?: number
+}
+
+export interface InterruptEffect {
+  interruptId: string
+  tookEffectAt: number
+  interruptType:
+    | 'ABORT'
+    | 'ABORT_ALL'
+    | 'PAUSE'
+    | 'PAUSE_ALL'
+    | 'RESUME'
+    | 'RESUME_ALL'
+    | 'RETRY'
+    | 'IGNORE'
+    | 'MARK_FAILED'
+    | 'MARK_SUCCESS'
+    | 'ROLLBACK'
+    | 'NEXT_STEP'
+    | 'END_EXECUTION'
+    | 'ROLLBACK_DONE'
+    | 'MARK_EXPIRED'
+}
+
+export interface ResponseDTOListSecretManagerConfigDTO {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: SecretManagerConfigDTO[]
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
+export interface AtomicInteger {
+  andIncrement?: number
+  andDecrement?: number
+}
+
+export type StageElement = StageElementWrapper & {
+  identifier: string
+  name?: string
+  description?: string
+  stageType?: StageType
+}
+
+export interface EncryptedDataParent {
+  id?: string
+  type?:
+    | 'HOST_CONNECTION_ATTRIBUTES'
+    | 'BASTION_HOST_CONNECTION_ATTRIBUTES'
+    | 'SMTP'
+    | 'SFTP'
+    | 'JENKINS'
+    | 'BAMBOO'
+    | 'STRING'
+    | 'SPLUNK'
+    | 'ELK'
+    | 'LOGZ'
+    | 'SUMO'
+    | 'DATA_DOG'
+    | 'APM_VERIFICATION'
+    | 'BUG_SNAG'
+    | 'LOG_VERIFICATION'
+    | 'APP_DYNAMICS'
+    | 'NEW_RELIC'
+    | 'DYNA_TRACE'
+    | 'INSTANA'
+    | 'DATA_DOG_LOG'
+    | 'CLOUD_WATCH'
+    | 'SCALYR'
+    | 'ELB'
+    | 'SLACK'
+    | 'AWS'
+    | 'GCS'
+    | 'GCP'
+    | 'AZURE'
+    | 'PCF'
+    | 'DIRECT'
+    | 'KUBERNETES_CLUSTER'
+    | 'DOCKER'
+    | 'ECR'
+    | 'GCR'
+    | 'ACR'
+    | 'PHYSICAL_DATA_CENTER'
+    | 'KUBERNETES'
+    | 'NEXUS'
+    | 'ARTIFACTORY'
+    | 'SMB'
+    | 'AMAZON_S3'
+    | 'GIT'
+    | 'SSH_SESSION_CONFIG'
+    | 'SERVICE_VARIABLE'
+    | 'CONFIG_FILE'
+    | 'KMS'
+    | 'GCP_KMS'
+    | 'JIRA'
+    | 'SERVICENOW'
+    | 'SECRET_TEXT'
+    | 'YAML_GIT_SYNC'
+    | 'VAULT'
+    | 'AWS_SECRETS_MANAGER'
+    | 'CYBERARK'
+    | 'WINRM_CONNECTION_ATTRIBUTES'
+    | 'WINRM_SESSION_CONFIG'
+    | 'PROMETHEUS'
+    | 'INFRASTRUCTURE_MAPPING'
+    | 'HTTP_HELM_REPO'
+    | 'AMAZON_S3_HELM_REPO'
+    | 'GCS_HELM_REPO'
+    | 'SPOT_INST'
+    | 'AZURE_ARTIFACTS_PAT'
+    | 'CUSTOM'
+    | 'CE_AWS'
+    | 'CE_GCP'
+    | 'AZURE_VAULT'
+  fieldName?: string
+}
+
+export interface Throwable {
+  cause?: Throwable
+  stackTrace?: StackTraceElement[]
+  message?: string
+  localizedMessage?: string
+  suppressed?: Throwable[]
+}
+
+export interface RestResponseGraph {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: Graph
+  responseMessages?: ResponseMessage[]
+}
+
+export interface GitSyncFolderConfigDTO {
+  rootFolder?: string
+  isDefault?: boolean
+  identifier?: string
+  enabled?: boolean
+}
+
 export interface ProjectDTO {
   id?: string
   accountIdentifier?: string
@@ -29,22 +942,8 @@ export interface ConnectorConfigDTO {
   [key: string]: any
 }
 
-export interface SecretManagerConfig {
-  uuid: string
-  encryptionType?: 'LOCAL' | 'KMS' | 'GCP_KMS' | 'AWS_SECRETS_MANAGER' | 'AZURE_VAULT' | 'CYBERARK' | 'VAULT' | 'CUSTOM'
-  accountId?: string
-  numOfEncryptedValue?: number
-  encryptedBy?: string
-  createdBy?: EmbeddedUser
-  createdAt?: number
-  lastUpdatedBy?: EmbeddedUser
-  lastUpdatedAt: number
-  nextTokenRenewIteration?: number
-  templatizedFields?: string[]
-  default?: boolean
-  encryptionServiceUrl?: string
-  validationCriteria?: string
-  name?: string
+export interface StageElementWrapper {
+  [key: string]: any
 }
 
 export interface ConnectorRequestDTO {
@@ -55,15 +954,8 @@ export interface ConnectorRequestDTO {
   orgIdentifier?: string
   projectIdentifer?: string
   tags?: string[]
-  type?: 'KUBERNETES_CLUSTER'
+  type?: 'KUBERNETES_CLUSTER' | 'GIT'
   spec?: ConnectorConfigDTO
-}
-
-export interface ResponseDTOOptionalOrganizationDTO {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: OrganizationDTO
-  metaData?: { [key: string]: any }
-  correlationId?: string
 }
 
 export interface AppEnvRestriction {
@@ -117,6 +1009,7 @@ export interface ErrorDTO {
     | 'SOCKET_CONNECTION_TIMEOUT'
     | 'CONNECTION_TIMEOUT'
     | 'SSH_CONNECTION_ERROR'
+    | 'USER_GROUP_ERROR'
     | 'INVALID_EXECUTION_ID'
     | 'ERROR_IN_GETTING_CHANNEL_STREAMS'
     | 'UNEXPECTED'
@@ -303,249 +1196,79 @@ export interface ResponseDTOProjectDTO {
   correlationId?: string
 }
 
-export interface FailureDTO {
+export interface ResponseDTOListEncryptedDataDTO {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  code?:
-    | 'DEFAULT_ERROR_CODE'
-    | 'INVALID_ARGUMENT'
-    | 'INVALID_EMAIL'
-    | 'DOMAIN_NOT_ALLOWED_TO_REGISTER'
-    | 'USER_ALREADY_REGISTERED'
-    | 'USER_INVITATION_DOES_NOT_EXIST'
-    | 'USER_DOES_NOT_EXIST'
-    | 'USER_INVITE_OPERATION_FAILED'
-    | 'USER_DISABLED'
-    | 'ACCOUNT_DOES_NOT_EXIST'
-    | 'INACTIVE_ACCOUNT'
-    | 'ACCOUNT_MIGRATED'
-    | 'USER_DOMAIN_NOT_ALLOWED'
-    | 'MAX_FAILED_ATTEMPT_COUNT_EXCEEDED'
-    | 'RESOURCE_NOT_FOUND'
-    | 'ROLE_DOES_NOT_EXIST'
-    | 'EMAIL_NOT_VERIFIED'
-    | 'EMAIL_VERIFICATION_TOKEN_NOT_FOUND'
-    | 'INVALID_TOKEN'
-    | 'INVALID_CAPTCHA_TOKEN'
-    | 'NOT_ACCOUNT_MGR_NOR_HAS_ALL_APP_ACCESS'
-    | 'EXPIRED_TOKEN'
-    | 'TOKEN_ALREADY_REFRESHED_ONCE'
-    | 'ACCESS_DENIED'
-    | 'INVALID_CREDENTIAL'
-    | 'INVALID_KEY'
-    | 'INVALID_KEYPATH'
-    | 'INVALID_VARIABLE'
-    | 'UNKNOWN_HOST'
-    | 'UNREACHABLE_HOST'
-    | 'INVALID_PORT'
-    | 'SSH_SESSION_TIMEOUT'
-    | 'SOCKET_CONNECTION_ERROR'
-    | 'SOCKET_CONNECTION_TIMEOUT'
-    | 'CONNECTION_TIMEOUT'
-    | 'SSH_CONNECTION_ERROR'
-    | 'INVALID_EXECUTION_ID'
-    | 'ERROR_IN_GETTING_CHANNEL_STREAMS'
-    | 'UNEXPECTED'
-    | 'UNKNOWN_ERROR'
-    | 'UNKNOWN_EXECUTOR_TYPE_ERROR'
-    | 'DUPLICATE_STATE_NAMES'
-    | 'TRANSITION_NOT_LINKED'
-    | 'TRANSITION_TO_INCORRECT_STATE'
-    | 'TRANSITION_TYPE_NULL'
-    | 'STATES_WITH_DUP_TRANSITIONS'
-    | 'BARRIERS_NOT_RUNNING_CONCURRENTLY'
-    | 'NON_FORK_STATES'
-    | 'NON_REPEAT_STATES'
-    | 'INITIAL_STATE_NOT_DEFINED'
-    | 'FILE_INTEGRITY_CHECK_FAILED'
-    | 'INVALID_URL'
-    | 'FILE_DOWNLOAD_FAILED'
-    | 'PLATFORM_SOFTWARE_DELETE_ERROR'
-    | 'INVALID_CSV_FILE'
-    | 'INVALID_REQUEST'
-    | 'INVALID_INFRA_STATE'
-    | 'PIPELINE_ALREADY_TRIGGERED'
-    | 'NON_EXISTING_PIPELINE'
-    | 'DUPLICATE_COMMAND_NAMES'
-    | 'INVALID_PIPELINE'
-    | 'COMMAND_DOES_NOT_EXIST'
-    | 'DUPLICATE_ARTIFACTSTREAM_NAMES'
-    | 'DUPLICATE_HOST_NAMES'
-    | 'STATE_NOT_FOR_TYPE'
-    | 'STATE_MACHINE_ISSUE'
-    | 'STATE_DISCONTINUE_FAILED'
-    | 'STATE_PAUSE_FAILED'
-    | 'PAUSE_ALL_ALREADY'
-    | 'RESUME_ALL_ALREADY'
-    | 'ROLLBACK_ALREADY'
-    | 'ABORT_ALL_ALREADY'
-    | 'RETRY_FAILED'
-    | 'UNKNOWN_ARTIFACT_TYPE'
-    | 'INIT_TIMEOUT'
-    | 'LICENSE_EXPIRED'
-    | 'NOT_LICENSED'
-    | 'REQUEST_TIMEOUT'
-    | 'WORKFLOW_ALREADY_TRIGGERED'
-    | 'JENKINS_ERROR'
-    | 'INVALID_ARTIFACT_SOURCE'
-    | 'INVALID_ARTIFACT_SERVER'
-    | 'INVALID_CLOUD_PROVIDER'
-    | 'UPDATE_NOT_ALLOWED'
-    | 'DELETE_NOT_ALLOWED'
-    | 'APPDYNAMICS_CONFIGURATION_ERROR'
-    | 'APM_CONFIGURATION_ERROR'
-    | 'SPLUNK_CONFIGURATION_ERROR'
-    | 'ELK_CONFIGURATION_ERROR'
-    | 'LOGZ_CONFIGURATION_ERROR'
-    | 'SUMO_CONFIGURATION_ERROR'
-    | 'INSTANA_CONFIGURATION_ERROR'
-    | 'APPDYNAMICS_ERROR'
-    | 'STACKDRIVER_ERROR'
-    | 'STACKDRIVER_CONFIGURATION_ERROR'
-    | 'NEWRELIC_CONFIGURATION_ERROR'
-    | 'NEWRELIC_ERROR'
-    | 'DYNA_TRACE_CONFIGURATION_ERROR'
-    | 'DYNA_TRACE_ERROR'
-    | 'CLOUDWATCH_ERROR'
-    | 'CLOUDWATCH_CONFIGURATION_ERROR'
-    | 'PROMETHEUS_CONFIGURATION_ERROR'
-    | 'DATA_DOG_CONFIGURATION_ERROR'
-    | 'SERVICE_GUARD_CONFIGURATION_ERROR'
-    | 'ENCRYPTION_NOT_CONFIGURED'
-    | 'UNAVAILABLE_DELEGATES'
-    | 'WORKFLOW_EXECUTION_IN_PROGRESS'
-    | 'PIPELINE_EXECUTION_IN_PROGRESS'
-    | 'AWS_ACCESS_DENIED'
-    | 'AWS_CLUSTER_NOT_FOUND'
-    | 'AWS_SERVICE_NOT_FOUND'
-    | 'INVALID_YAML_PAYLOAD'
-    | 'UNRECOGNIZED_YAML_FIELDS'
-    | 'COULD_NOT_MAP_BEFORE_YAML'
-    | 'MISSING_BEFORE_YAML'
-    | 'MISSING_YAML'
-    | 'NON_EMPTY_DELETIONS'
-    | 'GENERAL_YAML_ERROR'
-    | 'GENERAL_YAML_INFO'
-    | 'YAML_GIT_SYNC_ERROR'
-    | 'GIT_CONNECTION_ERROR'
-    | 'GIT_ERROR'
-    | 'ARTIFACT_SERVER_ERROR'
-    | 'ENCRYPT_DECRYPT_ERROR'
-    | 'SECRET_MANAGEMENT_ERROR'
-    | 'KMS_OPERATION_ERROR'
-    | 'GCP_KMS_OPERATION_ERROR'
-    | 'VAULT_OPERATION_ERROR'
-    | 'AWS_SECRETS_MANAGER_OPERATION_ERROR'
-    | 'AZURE_KEY_VAULT_OPERATION_ERROR'
-    | 'CYBERARK_OPERATION_ERROR'
-    | 'UNSUPPORTED_OPERATION_EXCEPTION'
-    | 'FEATURE_UNAVAILABLE'
-    | 'GENERAL_ERROR'
-    | 'BASELINE_CONFIGURATION_ERROR'
-    | 'SAML_IDP_CONFIGURATION_NOT_AVAILABLE'
-    | 'INVALID_AUTHENTICATION_MECHANISM'
-    | 'INVALID_SAML_CONFIGURATION'
-    | 'INVALID_OAUTH_CONFIGURATION'
-    | 'INVALID_LDAP_CONFIGURATION'
-    | 'USER_GROUP_SYNC_FAILURE'
-    | 'USER_GROUP_ALREADY_EXIST'
-    | 'INVALID_TWO_FACTOR_AUTHENTICATION_CONFIGURATION'
-    | 'EXPLANATION'
-    | 'HINT'
-    | 'NOT_WHITELISTED_IP'
-    | 'INVALID_TOTP_TOKEN'
-    | 'EMAIL_FAILED'
-    | 'SSL_HANDSHAKE_FAILED'
-    | 'NO_APPS_ASSIGNED'
-    | 'INVALID_INFRA_CONFIGURATION'
-    | 'TEMPLATES_LINKED'
-    | 'USER_HAS_NO_PERMISSIONS'
-    | 'USER_NOT_AUTHORIZED'
-    | 'USER_ALREADY_PRESENT'
-    | 'INVALID_USAGE_RESTRICTION'
-    | 'USAGE_RESTRICTION_ERROR'
-    | 'STATE_EXECUTION_INSTANCE_NOT_FOUND'
-    | 'DELEGATE_TASK_RETRY'
-    | 'KUBERNETES_YAML_ERROR'
-    | 'SAVE_FILE_INTO_GCP_STORAGE_FAILED'
-    | 'READ_FILE_FROM_GCP_STORAGE_FAILED'
-    | 'USAGE_LIMITS_EXCEEDED'
-    | 'EVENT_PUBLISH_FAILED'
-    | 'JIRA_ERROR'
-    | 'EXPRESSION_EVALUATION_FAILED'
-    | 'KUBERNETES_VALUES_ERROR'
-    | 'KUBERNETES_CLUSTER_ERROR'
-    | 'INCORRECT_SIGN_IN_MECHANISM'
-    | 'OAUTH_LOGIN_FAILED'
-    | 'INVALID_TERRAFORM_TARGETS_REQUEST'
-    | 'FILE_READ_FAILED'
-    | 'FILE_SIZE_EXCEEDS_LIMIT'
-    | 'CLUSTER_NOT_FOUND'
-    | 'MARKETPLACE_TOKEN_NOT_FOUND'
-    | 'INVALID_MARKETPLACE_TOKEN'
-    | 'INVALID_TICKETING_SERVER'
-    | 'SERVICENOW_ERROR'
-    | 'PASSWORD_EXPIRED'
-    | 'USER_LOCKED'
-    | 'PASSWORD_STRENGTH_CHECK_FAILED'
-    | 'INVALID_ACCOUNT_PERMISSION'
-    | 'PAGERDUTY_ERROR'
-    | 'HEALTH_ERROR'
-    | 'SAML_TEST_SUCCESS_MECHANISM_NOT_ENABLED'
-    | 'DOMAIN_WHITELIST_FILTER_CHECK_FAILED'
-    | 'INVALID_DASHBOARD_UPDATE_REQUEST'
-    | 'DUPLICATE_FIELD'
-    | 'INVALID_AZURE_VAULT_CONFIGURATION'
-    | 'USER_NOT_AUTHORIZED_DUE_TO_USAGE_RESTRICTIONS'
-    | 'INVALID_ROLLBACK'
-    | 'SUMO_DATA_COLLECTION_ERROR'
-    | 'DEPLOYMENT_GOVERNANCE_ERROR'
-    | 'BATCH_PROCESSING_ERROR'
-    | 'GRAPHQL_ERROR'
-    | 'FILE_CREATE_ERROR'
-    | 'ILLEGAL_STATE'
-    | 'GIT_DIFF_COMMIT_NOT_IN_ORDER'
-    | 'FAILED_TO_ACQUIRE_PERSISTENT_LOCK'
-    | 'POD_NOT_FOUND_ERROR'
-    | 'COMMAND_EXECUTION_ERROR'
-    | 'ENGINE_REGISTRY_EXCEPTION'
-    | 'ENGINE_INTERRUPT_PROCESSING_EXCEPTION'
-    | 'ENGINE_IO_EXCEPTION'
-    | 'ENGINE_OUTCOME_EXCEPTION'
-    | 'ENGINE_SWEEPING_OUTPUT_EXCEPTION'
-    | 'CACHE_NOT_FOUND_EXCEPTION'
-    | 'ENGINE_ENTITY_UPDATE_EXCEPTION'
-    | 'SHELL_EXECUTION_EXCEPTION'
-    | 'TEMPLATE_NOT_FOUND'
-  message?: string
-  correlationId?: string
-  validationErrors?: ValidationError[]
-}
-
-export interface ResponseDTOListSecretManagerConfig {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: SecretManagerConfig[]
+  data?: EncryptedDataDTO[]
   metaData?: { [key: string]: any }
   correlationId?: string
 }
 
-export interface UsageRestrictions {
-  appEnvRestrictions?: AppEnvRestriction[]
+export interface StackTraceElement {
+  methodName?: string
+  fileName?: string
+  lineNumber?: number
+  className?: string
+  nativeMethod?: boolean
 }
 
-export interface ResponseDTOEncryptedData {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: EncryptedData
-  metaData?: { [key: string]: any }
-  correlationId?: string
+export interface PlanExecution {
+  uuid?: string
+  createdBy?: EmbeddedUser
+  createdAt?: number
+  setupAbstractions?: {
+    [key: string]: string
+  }
+  validUntil?: string
+  status?:
+    | 'RUNNING'
+    | 'WAITING'
+    | 'ASYNC_WAITING'
+    | 'TASK_WAITING'
+    | 'DISCONTINUING'
+    | 'PAUSING'
+    | 'QUEUED'
+    | 'SKIPPED'
+    | 'PAUSED'
+    | 'ABORTED'
+    | 'ERRORED'
+    | 'FAILED'
+    | 'EXPIRED'
+    | 'SUCCEEDED'
+  startTs?: number
+  endTs?: number
+  lastUpdatedAt?: number
+  version?: number
 }
 
-export interface Pageable {
-  unpaged?: boolean
-  paged?: boolean
-  pageNumber?: number
-  pageSize?: number
-  offset?: number
-  sort?: Sort
+export interface GraphVertex {
+  uuid?: string
+  name?: string
+  startTs?: number
+  endTs?: number
+  initialWaitDuration?: Duration
+  lastUpdatedAt?: number
+  stepType?: string
+  status?:
+    | 'RUNNING'
+    | 'WAITING'
+    | 'ASYNC_WAITING'
+    | 'TASK_WAITING'
+    | 'DISCONTINUING'
+    | 'PAUSING'
+    | 'QUEUED'
+    | 'SKIPPED'
+    | 'PAUSED'
+    | 'ABORTED'
+    | 'ERRORED'
+    | 'FAILED'
+    | 'EXPIRED'
+    | 'SUCCEEDED'
+  failureInfo?: FailureInfo
+  interruptHistories?: InterruptEffect[]
+  outcomes?: Outcome[]
+  retryIds?: string[]
+  subgraph?: Subgraph
+  next?: GraphVertex
 }
 
 export interface EmbeddedUser {
@@ -554,24 +1277,41 @@ export interface EmbeddedUser {
   email?: string
 }
 
-export interface ResponseDTOSecretManagerConfig {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: SecretManagerConfig
-  metaData?: { [key: string]: any }
-  correlationId?: string
+export interface SecretText {
+  name?: string
+  value?: string
+  path?: string
+  parameters?: EncryptedDataParams[]
+  usageRestrictions?: UsageRestrictions
+  kmsId?: string
+  runtimeParameters?: {
+    [key: string]: string
+  }
+  scopedToAccount?: boolean
 }
 
-export interface UpdateOrganizationDTO {
-  name: string
-  color: string
-  description: string
-  tags: string[]
+export interface StageType {
+  [key: string]: any
 }
 
-export interface Sort {
-  sorted?: boolean
-  unsorted?: boolean
-  empty?: boolean
+export interface FailureInfo {
+  errorMessage?: string
+  failureTypes?: (
+    | 'EXPIRED'
+    | 'DELEGATE_PROVISIONING'
+    | 'CONNECTIVITY'
+    | 'AUTHENTICATION'
+    | 'VERIFICATION_FAILURE'
+    | 'APPLICATION_ERROR'
+  )[]
+}
+
+export interface CDPipelineDTO {
+  name?: string
+  description?: string
+  stages?: StageElementWrapper[]
+  identifier?: string
+  yamlPipeline?: string
 }
 
 export interface ResponseDTOPageOrganizationDTO {
@@ -581,38 +1321,6 @@ export interface ResponseDTOPageOrganizationDTO {
   correlationId?: string
 }
 
-export interface EncryptedDataParams {
-  name?: string
-  value?: string
-}
-
-export interface PageProjectDTO {
-  totalPages?: number
-  totalElements?: number
-  size?: number
-  content?: ProjectDTO[]
-  number?: number
-  first?: boolean
-  last?: boolean
-  numberOfElements?: number
-  pageable?: Pageable
-  sort?: Sort
-  empty?: boolean
-}
-
-export interface ValidationError {
-  field?: string
-  error?: string
-}
-
-export interface UpdateProjectDTO {
-  name: string
-  description: string
-  owners: string[]
-  tags: string[]
-  purposeList: string[]
-}
-
 export interface ResponseDTOOrganizationDTO {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
   data?: OrganizationDTO
@@ -620,125 +1328,40 @@ export interface ResponseDTOOrganizationDTO {
   correlationId?: string
 }
 
-export interface EncryptedData {
-  name?: string
-  encryptionKey?: string
-  encryptedValue?: string[]
-  path?: string
-  parameters?: EncryptedDataParams[]
-  type?:
-    | 'HOST_CONNECTION_ATTRIBUTES'
-    | 'BASTION_HOST_CONNECTION_ATTRIBUTES'
-    | 'SMTP'
-    | 'SFTP'
-    | 'JENKINS'
-    | 'BAMBOO'
-    | 'STRING'
-    | 'SPLUNK'
-    | 'ELK'
-    | 'LOGZ'
-    | 'SUMO'
-    | 'DATA_DOG'
-    | 'APM_VERIFICATION'
-    | 'BUG_SNAG'
-    | 'LOG_VERIFICATION'
-    | 'APP_DYNAMICS'
-    | 'NEW_RELIC'
-    | 'DYNA_TRACE'
-    | 'INSTANA'
-    | 'DATA_DOG_LOG'
-    | 'CLOUD_WATCH'
-    | 'SCALYR'
-    | 'ELB'
-    | 'SLACK'
-    | 'AWS'
-    | 'GCS'
-    | 'GCP'
-    | 'AZURE'
-    | 'PCF'
-    | 'DIRECT'
-    | 'KUBERNETES_CLUSTER'
-    | 'DOCKER'
-    | 'ECR'
-    | 'GCR'
-    | 'ACR'
-    | 'PHYSICAL_DATA_CENTER'
-    | 'KUBERNETES'
-    | 'NEXUS'
-    | 'ARTIFACTORY'
-    | 'SMB'
-    | 'AMAZON_S3'
-    | 'GIT'
-    | 'SSH_SESSION_CONFIG'
-    | 'SERVICE_VARIABLE'
-    | 'CONFIG_FILE'
-    | 'KMS'
-    | 'GCP_KMS'
-    | 'JIRA'
-    | 'SERVICENOW'
-    | 'SECRET_TEXT'
-    | 'YAML_GIT_SYNC'
-    | 'VAULT'
-    | 'AWS_SECRETS_MANAGER'
-    | 'CYBERARK'
-    | 'WINRM_CONNECTION_ATTRIBUTES'
-    | 'WINRM_SESSION_CONFIG'
-    | 'PROMETHEUS'
-    | 'INFRASTRUCTURE_MAPPING'
-    | 'HTTP_HELM_REPO'
-    | 'AMAZON_S3_HELM_REPO'
-    | 'GCS_HELM_REPO'
-    | 'SPOT_INST'
-    | 'AZURE_ARTIFACTS_PAT'
-    | 'CUSTOM'
-    | 'CE_AWS'
-    | 'CE_GCP'
-    | 'AZURE_VAULT'
-  parents?: EncryptedDataParent[]
-  accountId?: string
-  enabled?: boolean
-  kmsId?: string
-  encryptionType?: 'LOCAL' | 'KMS' | 'GCP_KMS' | 'AWS_SECRETS_MANAGER' | 'AZURE_VAULT' | 'CYBERARK' | 'VAULT' | 'CUSTOM'
-  fileSize?: number
-  appIds?: string[]
-  serviceIds?: string[]
-  envIds?: string[]
-  backupEncryptedValue?: string[]
-  backupEncryptionKey?: string
-  backupKmsId?: string
-  backupEncryptionType?:
-    | 'LOCAL'
-    | 'KMS'
-    | 'GCP_KMS'
-    | 'AWS_SECRETS_MANAGER'
-    | 'AZURE_VAULT'
-    | 'CYBERARK'
-    | 'VAULT'
-    | 'CUSTOM'
-  serviceVariableIds?: string[]
-  searchTags?: {
-    [key: string]: AtomicInteger
-  }
-  scopedToAccount?: boolean
-  usageRestrictions?: UsageRestrictions
-  nextMigrationIteration?: number
-  nextAwsToGcpKmsMigrationIteration?: number
-  base64Encoded?: boolean
-  encryptedBy?: string
-  setupUsage?: number
-  runTimeUsage?: number
-  changeLog?: number
-  keywords?: string[]
-  uuid: string
-  appId: string
-  createdBy?: EmbeddedUser
-  createdAt?: number
-  lastUpdatedBy?: EmbeddedUser
-  lastUpdatedAt: number
-}
-
 export interface ConnectorConfigSummaryDTO {
   [key: string]: any
+}
+
+export interface GitSyncConfigDTO {
+  identifier?: string
+  projectId?: string
+  organizationId?: string
+  accountId?: string
+  gitConnectorId?: string
+  repo?: string
+  branch?: string
+  gitSyncFolderConfigDTOs?: GitSyncFolderConfigDTO[]
+}
+
+export interface ResponseDTOPlanExecution {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: PlanExecution
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
+export interface ResponseDTOPageCDPipelineDTO {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: PageCDPipelineDTO
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
+export interface TemporalUnit {
+  timeBased?: boolean
+  duration?: Duration
+  dateBased?: boolean
+  durationEstimated?: boolean
 }
 
 export interface CreateProjectDTO {
@@ -757,8 +1380,18 @@ export interface EnvFilter {
   filterTypes?: string[]
 }
 
-export interface OptionalConnectorDTO {
-  present?: boolean
+export interface PageCDPipelineDTO {
+  totalPages?: number
+  totalElements?: number
+  last?: boolean
+  numberOfElements?: number
+  pageable?: Pageable
+  first?: boolean
+  size?: number
+  content?: CDPipelineDTO[]
+  number?: number
+  sort?: Sort
+  empty?: boolean
 }
 
 export interface GenericEntityFilter {
@@ -766,145 +1399,52 @@ export interface GenericEntityFilter {
   filterType?: string
 }
 
-export interface OrganizationDTO {
-  id?: string
-  accountIdentifier?: string
-  identifier?: string
-  name?: string
-  color?: string
-  description?: string
-  tags?: string[]
-}
-
-export type WorkflowFilter = EnvFilter & {}
-
-export interface ResponseDTOString {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: string
-  metaData?: { [key: string]: any }
-  correlationId?: string
-}
-
-export interface CreateOrganizationDTO {
-  identifier: string
-  name: string
-  color: string
-  description?: string
-  tags: string[]
-}
-
 export interface PageOrganizationDTO {
   totalPages?: number
   totalElements?: number
-  size?: number
-  content?: OrganizationDTO[]
-  number?: number
-  first?: boolean
   last?: boolean
   numberOfElements?: number
   pageable?: Pageable
+  first?: boolean
+  size?: number
+  content?: OrganizationDTO[]
+  number?: number
   sort?: Sort
   empty?: boolean
 }
 
-export interface ConnectorDTO {
+export interface Outcome {
+  refType?: RefType
+}
+
+export interface ConnectorFilter {
+  accountId?: string
+  projectId?: string
+  orgId?: string
+  type?: 'KUBERNETES_CLUSTER' | 'GIT'
+  tag?: Tags[]
+  lastActivity?: number
   name?: string
-  identifier?: string
-  description?: string
-  accountIdentifier?: string
-  orgIdentifier?: string
-  projectIdentifer?: string
-  tags?: string[]
-  type1?: 'KUBERNETES_CLUSTER'
-  type?: 'KUBERNETES_CLUSTER'
-  spec?: ConnectorConfigDTO
-  createdAt?: number
-  lastModifiedAt?: number
 }
 
-export interface AtomicInteger {
-  andIncrement?: number
-  andDecrement?: number
+export interface Subgraph {
+  mode?:
+    | 'SYNC'
+    | 'ASYNC'
+    | 'SKIP'
+    | 'TASK_CHAIN'
+    | 'TASK_CHAIN_V2'
+    | 'CHILDREN'
+    | 'CHILD'
+    | 'TASK'
+    | 'CHILD_CHAIN'
+    | 'TASK_V2'
+  vertices?: GraphVertex[]
 }
 
-export interface EncryptedDataParent {
-  id?: string
-  type?:
-    | 'HOST_CONNECTION_ATTRIBUTES'
-    | 'BASTION_HOST_CONNECTION_ATTRIBUTES'
-    | 'SMTP'
-    | 'SFTP'
-    | 'JENKINS'
-    | 'BAMBOO'
-    | 'STRING'
-    | 'SPLUNK'
-    | 'ELK'
-    | 'LOGZ'
-    | 'SUMO'
-    | 'DATA_DOG'
-    | 'APM_VERIFICATION'
-    | 'BUG_SNAG'
-    | 'LOG_VERIFICATION'
-    | 'APP_DYNAMICS'
-    | 'NEW_RELIC'
-    | 'DYNA_TRACE'
-    | 'INSTANA'
-    | 'DATA_DOG_LOG'
-    | 'CLOUD_WATCH'
-    | 'SCALYR'
-    | 'ELB'
-    | 'SLACK'
-    | 'AWS'
-    | 'GCS'
-    | 'GCP'
-    | 'AZURE'
-    | 'PCF'
-    | 'DIRECT'
-    | 'KUBERNETES_CLUSTER'
-    | 'DOCKER'
-    | 'ECR'
-    | 'GCR'
-    | 'ACR'
-    | 'PHYSICAL_DATA_CENTER'
-    | 'KUBERNETES'
-    | 'NEXUS'
-    | 'ARTIFACTORY'
-    | 'SMB'
-    | 'AMAZON_S3'
-    | 'GIT'
-    | 'SSH_SESSION_CONFIG'
-    | 'SERVICE_VARIABLE'
-    | 'CONFIG_FILE'
-    | 'KMS'
-    | 'GCP_KMS'
-    | 'JIRA'
-    | 'SERVICENOW'
-    | 'SECRET_TEXT'
-    | 'YAML_GIT_SYNC'
-    | 'VAULT'
-    | 'AWS_SECRETS_MANAGER'
-    | 'CYBERARK'
-    | 'WINRM_CONNECTION_ATTRIBUTES'
-    | 'WINRM_SESSION_CONFIG'
-    | 'PROMETHEUS'
-    | 'INFRASTRUCTURE_MAPPING'
-    | 'HTTP_HELM_REPO'
-    | 'AMAZON_S3_HELM_REPO'
-    | 'GCS_HELM_REPO'
-    | 'SPOT_INST'
-    | 'AZURE_ARTIFACTS_PAT'
-    | 'CUSTOM'
-    | 'CE_AWS'
-    | 'CE_GCP'
-    | 'AZURE_VAULT'
-  fieldName?: string
-}
-
-export interface ResponseDTOListEncryptedData {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: EncryptedData[]
-  metaData?: { [key: string]: any }
-  correlationId?: string
+export interface ConnectorValidationResult {
+  valid?: boolean
+  errorMessage?: string
 }
 
 export interface ConnectorSummaryDTO {
@@ -917,7 +1457,7 @@ export interface ConnectorSummaryDTO {
   accountName?: string
   orgName?: string
   projectName?: string
-  type?: 'KUBERNETES_CLUSTER'
+  type?: 'KUBERNETES_CLUSTER' | 'GIT'
   categories?: 'CLOUD_PROVIDER'[]
   connectorDetials?: ConnectorConfigSummaryDTO
   tags?: string[]
@@ -936,16 +1476,20 @@ export interface ResponseDTOOptionalProjectDTO {
 export interface PageConnectorSummaryDTO {
   totalPages?: number
   totalElements?: number
-  size?: number
-  content?: ConnectorSummaryDTO[]
-  number?: number
-  first?: boolean
   last?: boolean
   numberOfElements?: number
   pageable?: Pageable
+  first?: boolean
+  size?: number
+  content?: ConnectorSummaryDTO[]
+  number?: number
   sort?: Sort
   empty?: boolean
 }
+
+export type GitSyncConfigDTORequestBody = GitSyncConfigDTO
+
+export type SecretTextRequestBody = SecretText
 
 export type ConnectorRequestDTORequestBody = ConnectorRequestDTO
 
@@ -1340,6 +1884,61 @@ export const useUpdateConnector = (props: UseUpdateConnectorProps) =>
     ...props
   })
 
+export interface GetConnectorStatusQueryParams {
+  accountId?: string
+}
+
+export type GetConnectorStatusProps = Omit<
+  MutateProps<
+    RestResponseConnectorValidationResult,
+    unknown,
+    GetConnectorStatusQueryParams,
+    ConnectorRequestDTORequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Get the connectivity status of the Connector
+ */
+export const GetConnectorStatus = (props: GetConnectorStatusProps) => (
+  <Mutate<
+    RestResponseConnectorValidationResult,
+    unknown,
+    GetConnectorStatusQueryParams,
+    ConnectorRequestDTORequestBody,
+    void
+  >
+    verb="POST"
+    path={`/connectors/validate`}
+    base={'/cd/api'}
+    {...props}
+  />
+)
+
+export type UseGetConnectorStatusProps = Omit<
+  UseMutateProps<
+    RestResponseConnectorValidationResult,
+    GetConnectorStatusQueryParams,
+    ConnectorRequestDTORequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Get the connectivity status of the Connector
+ */
+export const useGetConnectorStatus = (props: UseGetConnectorStatusProps) =>
+  useMutate<
+    RestResponseConnectorValidationResult,
+    unknown,
+    GetConnectorStatusQueryParams,
+    ConnectorRequestDTORequestBody,
+    void
+  >('POST', `/connectors/validate`, { base: '/cd/api', ...props })
+
 export interface GetConnectorQueryParams {
   accountIdentifier?: string
   orgIdentifier?: string
@@ -1423,22 +2022,287 @@ export interface PostDelegateQueryParams {
   accountId?: string
 }
 
-export type PostDelegateProps = Omit<GetProps<string, unknown, PostDelegateQueryParams, void>, 'path'>
+export type PostDelegateProps = Omit<GetProps<ResponseData, unknown, PostDelegateQueryParams, void>, 'path'>
 
 /**
  * Create a delegate tasks
  */
 export const PostDelegate = (props: PostDelegateProps) => (
-  <Get<string, unknown, PostDelegateQueryParams, void> path={`/delegate-tasks`} base={'/cd/api'} {...props} />
+  <Get<ResponseData, unknown, PostDelegateQueryParams, void> path={`/delegate-tasks`} base={'/cd/api'} {...props} />
 )
 
-export type UsePostDelegateProps = Omit<UseGetProps<string, PostDelegateQueryParams, void>, 'path'>
+export type UsePostDelegateProps = Omit<UseGetProps<ResponseData, PostDelegateQueryParams, void>, 'path'>
 
 /**
  * Create a delegate tasks
  */
 export const usePostDelegate = (props: UsePostDelegateProps) =>
-  useGet<string, unknown, PostDelegateQueryParams, void>(`/delegate-tasks`, { base: '/cd/api', ...props })
+  useGet<ResponseData, unknown, PostDelegateQueryParams, void>(`/delegate-tasks`, { base: '/cd/api', ...props })
+
+export interface ListGitSyncQueryParams {
+  projectId?: string
+  organizationId?: string
+  accountId?: string
+}
+
+export type ListGitSyncProps = Omit<GetProps<GitSyncConfigDTO[], unknown, ListGitSyncQueryParams, void>, 'path'>
+
+/**
+ * Get Git Sync list
+ */
+export const ListGitSync = (props: ListGitSyncProps) => (
+  <Get<GitSyncConfigDTO[], unknown, ListGitSyncQueryParams, void> path={`/git-sync`} base={'/cd/api'} {...props} />
+)
+
+export type UseListGitSyncProps = Omit<UseGetProps<GitSyncConfigDTO[], ListGitSyncQueryParams, void>, 'path'>
+
+/**
+ * Get Git Sync list
+ */
+export const useListGitSync = (props: UseListGitSyncProps) =>
+  useGet<GitSyncConfigDTO[], unknown, ListGitSyncQueryParams, void>(`/git-sync`, { base: '/cd/api', ...props })
+
+export type PostGitSyncProps = Omit<
+  MutateProps<GitSyncConfigDTO, unknown, void, GitSyncConfigDTORequestBody, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Create a Git Sync
+ */
+export const PostGitSync = (props: PostGitSyncProps) => (
+  <Mutate<GitSyncConfigDTO, unknown, void, GitSyncConfigDTORequestBody, void>
+    verb="POST"
+    path={`/git-sync`}
+    base={'/cd/api'}
+    {...props}
+  />
+)
+
+export type UsePostGitSyncProps = Omit<
+  UseMutateProps<GitSyncConfigDTO, void, GitSyncConfigDTORequestBody, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Create a Git Sync
+ */
+export const usePostGitSync = (props: UsePostGitSyncProps) =>
+  useMutate<GitSyncConfigDTO, unknown, void, GitSyncConfigDTORequestBody, void>('POST', `/git-sync`, {
+    base: '/cd/api',
+    ...props
+  })
+
+export interface PutGitSyncQueryParams {
+  projectId?: string
+  organizationId?: string
+  accountId?: string
+}
+
+export interface PutGitSyncPathParams {
+  identifier: string
+}
+
+export type PutGitSyncProps = Omit<
+  MutateProps<GitSyncConfigDTO, unknown, PutGitSyncQueryParams, GitSyncConfigDTORequestBody, PutGitSyncPathParams>,
+  'path' | 'verb'
+> &
+  PutGitSyncPathParams
+
+/**
+ * Update Git Sync by id
+ */
+export const PutGitSync = ({ identifier, ...props }: PutGitSyncProps) => (
+  <Mutate<GitSyncConfigDTO, unknown, PutGitSyncQueryParams, GitSyncConfigDTORequestBody, PutGitSyncPathParams>
+    verb="PUT"
+    path={`/git-sync/${identifier}`}
+    base={'/cd/api'}
+    {...props}
+  />
+)
+
+export type UsePutGitSyncProps = Omit<
+  UseMutateProps<GitSyncConfigDTO, PutGitSyncQueryParams, GitSyncConfigDTORequestBody, PutGitSyncPathParams>,
+  'path' | 'verb'
+> &
+  PutGitSyncPathParams
+
+/**
+ * Update Git Sync by id
+ */
+export const usePutGitSync = ({ identifier, ...props }: UsePutGitSyncProps) =>
+  useMutate<GitSyncConfigDTO, unknown, PutGitSyncQueryParams, GitSyncConfigDTORequestBody, PutGitSyncPathParams>(
+    'PUT',
+    ({ identifier }: PutGitSyncPathParams) => `/git-sync/${identifier}`,
+    { base: '/cd/api', pathParams: { identifier }, ...props }
+  )
+
+export interface PutGitSyncDefaultQueryParams {
+  projectId?: string
+  organizationId?: string
+  accountId?: string
+}
+
+export interface PutGitSyncDefaultPathParams {
+  identifier: string
+  folderIdentifier: string
+}
+
+export type PutGitSyncDefaultProps = Omit<
+  MutateProps<GitSyncConfigDTO[], unknown, PutGitSyncDefaultQueryParams, void, PutGitSyncDefaultPathParams>,
+  'path' | 'verb'
+> &
+  PutGitSyncDefaultPathParams
+
+/**
+ * Update Git Sync default by id
+ */
+export const PutGitSyncDefault = ({ identifier, folderIdentifier, ...props }: PutGitSyncDefaultProps) => (
+  <Mutate<GitSyncConfigDTO[], unknown, PutGitSyncDefaultQueryParams, void, PutGitSyncDefaultPathParams>
+    verb="PUT"
+    path={`/git-sync/${identifier}/folder/${folderIdentifier}/default`}
+    base={'/cd/api'}
+    {...props}
+  />
+)
+
+export type UsePutGitSyncDefaultProps = Omit<
+  UseMutateProps<GitSyncConfigDTO[], PutGitSyncDefaultQueryParams, void, PutGitSyncDefaultPathParams>,
+  'path' | 'verb'
+> &
+  PutGitSyncDefaultPathParams
+
+/**
+ * Update Git Sync default by id
+ */
+export const usePutGitSyncDefault = ({ identifier, folderIdentifier, ...props }: UsePutGitSyncDefaultProps) =>
+  useMutate<GitSyncConfigDTO[], unknown, PutGitSyncDefaultQueryParams, void, PutGitSyncDefaultPathParams>(
+    'PUT',
+    ({ identifier, folderIdentifier }: PutGitSyncDefaultPathParams) =>
+      `/git-sync/${identifier}/folder/${folderIdentifier}/default`,
+    { base: '/cd/api', pathParams: { identifier, folderIdentifier }, ...props }
+  )
+
+export interface GetGraphQueryParams {
+  planExecutionId?: string
+}
+
+export type GetGraphProps = Omit<GetProps<RestResponseGraph, unknown, GetGraphQueryParams, void>, 'path'>
+
+/**
+ * generate graph for plan execution
+ */
+export const GetGraph = (props: GetGraphProps) => (
+  <Get<RestResponseGraph, unknown, GetGraphQueryParams, void>
+    path={`/orchestration/get-graph`}
+    base={'/cd/api'}
+    {...props}
+  />
+)
+
+export type UseGetGraphProps = Omit<UseGetProps<RestResponseGraph, GetGraphQueryParams, void>, 'path'>
+
+/**
+ * generate graph for plan execution
+ */
+export const useGetGraph = (props: UseGetGraphProps) =>
+  useGet<RestResponseGraph, unknown, GetGraphQueryParams, void>(`/orchestration/get-graph`, {
+    base: '/cd/api',
+    ...props
+  })
+
+export interface GetGraphVisualizationQueryParams {
+  planExecutionId?: string
+}
+
+export type GetGraphVisualizationProps = Omit<GetProps<void, unknown, GetGraphVisualizationQueryParams, void>, 'path'>
+
+/**
+ * generate graph execution visualization
+ */
+export const GetGraphVisualization = (props: GetGraphVisualizationProps) => (
+  <Get<void, unknown, GetGraphVisualizationQueryParams, void>
+    path={`/orchestration/get-graph-visualization`}
+    base={'/cd/api'}
+    {...props}
+  />
+)
+
+export type UseGetGraphVisualizationProps = Omit<UseGetProps<void, GetGraphVisualizationQueryParams, void>, 'path'>
+
+/**
+ * generate graph execution visualization
+ */
+export const useGetGraphVisualization = (props: UseGetGraphVisualizationProps) =>
+  useGet<void, unknown, GetGraphVisualizationQueryParams, void>(`/orchestration/get-graph-visualization`, {
+    base: '/cd/api',
+    ...props
+  })
+
+export interface HttpV2QueryParams {
+  accountId: string
+  appId: string
+}
+
+export type HttpV2Props = Omit<GetProps<RestResponsePlanExecution, unknown, HttpV2QueryParams, void>, 'path'>
+
+/**
+ * Triggers a task v2 Plan
+ */
+export const HttpV2 = (props: HttpV2Props) => (
+  <Get<RestResponsePlanExecution, unknown, HttpV2QueryParams, void>
+    path={`/orchestration/http-v2`}
+    base={'/cd/api'}
+    {...props}
+  />
+)
+
+export type UseHttpV2Props = Omit<UseGetProps<RestResponsePlanExecution, HttpV2QueryParams, void>, 'path'>
+
+/**
+ * Triggers a task v2 Plan
+ */
+export const useHttpV2 = (props: UseHttpV2Props) =>
+  useGet<RestResponsePlanExecution, unknown, HttpV2QueryParams, void>(`/orchestration/http-v2`, {
+    base: '/cd/api',
+    ...props
+  })
+
+export interface TestExecutionPlanQueryParams {
+  accountId?: string
+}
+
+export type TestExecutionPlanProps = Omit<
+  MutateProps<RestResponsePlanExecution, unknown, TestExecutionPlanQueryParams, void, void>,
+  'path' | 'verb'
+>
+
+/**
+ * create and run an execution plan
+ */
+export const TestExecutionPlan = (props: TestExecutionPlanProps) => (
+  <Mutate<RestResponsePlanExecution, unknown, TestExecutionPlanQueryParams, void, void>
+    verb="POST"
+    path={`/orchestration/test-execution-plan`}
+    base={'/cd/api'}
+    {...props}
+  />
+)
+
+export type UseTestExecutionPlanProps = Omit<
+  UseMutateProps<RestResponsePlanExecution, TestExecutionPlanQueryParams, void, void>,
+  'path' | 'verb'
+>
+
+/**
+ * create and run an execution plan
+ */
+export const useTestExecutionPlan = (props: UseTestExecutionPlanProps) =>
+  useMutate<RestResponsePlanExecution, unknown, TestExecutionPlanQueryParams, void, void>(
+    'POST',
+    `/orchestration/test-execution-plan`,
+    { base: '/cd/api', ...props }
+  )
 
 export interface GetProjectListForOrganizationQueryParams {
   page?: number
@@ -1653,12 +2517,185 @@ export const useDeleteProject = ({ orgIdentifier, ...props }: UseDeleteProjectPr
     { base: '/cd/api', pathParams: { orgIdentifier }, ...props }
   )
 
+export interface GetListOfPipelinesQueryParams {
+  accountIdentifier: string
+  orgIdentifier?: string
+  projectIdentifier: string
+  filter?: string
+  page?: number
+  size?: number
+  sort?: string[]
+}
+
+export type GetListOfPipelinesProps = Omit<
+  GetProps<ResponseDTOPageCDPipelineDTO, unknown, GetListOfPipelinesQueryParams, void>,
+  'path'
+>
+
+export const GetListOfPipelines = (props: GetListOfPipelinesProps) => (
+  <Get<ResponseDTOPageCDPipelineDTO, unknown, GetListOfPipelinesQueryParams, void>
+    path={`/pipelines`}
+    base={'/cd/api'}
+    {...props}
+  />
+)
+
+export type UseGetListOfPipelinesProps = Omit<
+  UseGetProps<ResponseDTOPageCDPipelineDTO, GetListOfPipelinesQueryParams, void>,
+  'path'
+>
+
+export const useGetListOfPipelines = (props: UseGetListOfPipelinesProps) =>
+  useGet<ResponseDTOPageCDPipelineDTO, unknown, GetListOfPipelinesQueryParams, void>(`/pipelines`, {
+    base: '/cd/api',
+    ...props
+  })
+
+export interface CreatePipelineQueryParams {
+  accountIdentifier: string
+  orgIdentifier?: string
+  projectIdentifier: string
+}
+
+export type CreatePipelineProps = Omit<
+  MutateProps<void, unknown, CreatePipelineQueryParams, void, void>,
+  'path' | 'verb'
+>
+
+export const CreatePipeline = (props: CreatePipelineProps) => (
+  <Mutate<void, unknown, CreatePipelineQueryParams, void, void>
+    verb="POST"
+    path={`/pipelines`}
+    base={'/cd/api'}
+    {...props}
+  />
+)
+
+export type UseCreatePipelineProps = Omit<UseMutateProps<void, CreatePipelineQueryParams, void, void>, 'path' | 'verb'>
+
+export const useCreatePipeline = (props: UseCreatePipelineProps) =>
+  useMutate<void, unknown, CreatePipelineQueryParams, void, void>('POST', `/pipelines`, { base: '/cd/api', ...props })
+
+export interface GetNgPipelineByIdentifierYamlQueryParams {
+  accountIdentifier: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
+
+export interface GetNgPipelineByIdentifierYamlPathParams {
+  pipelineIdentifier: string
+}
+
+export type GetNgPipelineByIdentifierYamlProps = Omit<
+  GetProps<void, unknown, GetNgPipelineByIdentifierYamlQueryParams, GetNgPipelineByIdentifierYamlPathParams>,
+  'path'
+> &
+  GetNgPipelineByIdentifierYamlPathParams
+
+export const GetNgPipelineByIdentifierYaml = ({ pipelineIdentifier, ...props }: GetNgPipelineByIdentifierYamlProps) => (
+  <Get<void, unknown, GetNgPipelineByIdentifierYamlQueryParams, GetNgPipelineByIdentifierYamlPathParams>
+    path={`/pipelines/yaml/${pipelineIdentifier}`}
+    base={'/cd/api'}
+    {...props}
+  />
+)
+
+export type UseGetNgPipelineByIdentifierYamlProps = Omit<
+  UseGetProps<void, GetNgPipelineByIdentifierYamlQueryParams, GetNgPipelineByIdentifierYamlPathParams>,
+  'path'
+> &
+  GetNgPipelineByIdentifierYamlPathParams
+
+export const useGetNgPipelineByIdentifierYaml = ({
+  pipelineIdentifier,
+  ...props
+}: UseGetNgPipelineByIdentifierYamlProps) =>
+  useGet<void, unknown, GetNgPipelineByIdentifierYamlQueryParams, GetNgPipelineByIdentifierYamlPathParams>(
+    ({ pipelineIdentifier }: GetNgPipelineByIdentifierYamlPathParams) => `/pipelines/yaml/${pipelineIdentifier}`,
+    { base: '/cd/api', pathParams: { pipelineIdentifier }, ...props }
+  )
+
+export interface RunPipelineQueryParams {
+  accountIdentifier: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  appId?: string
+}
+
+export interface RunPipelinePathParams {
+  identifier: string
+}
+
+export type RunPipelineProps = Omit<
+  MutateProps<ResponseDTOPlanExecution, unknown, RunPipelineQueryParams, void, RunPipelinePathParams>,
+  'path' | 'verb'
+> &
+  RunPipelinePathParams
+
+export const RunPipeline = ({ identifier, ...props }: RunPipelineProps) => (
+  <Mutate<ResponseDTOPlanExecution, unknown, RunPipelineQueryParams, void, RunPipelinePathParams>
+    verb="POST"
+    path={`/pipelines/${identifier}/execute`}
+    base={'/cd/api'}
+    {...props}
+  />
+)
+
+export type UseRunPipelineProps = Omit<
+  UseMutateProps<ResponseDTOPlanExecution, RunPipelineQueryParams, void, RunPipelinePathParams>,
+  'path' | 'verb'
+> &
+  RunPipelinePathParams
+
+export const useRunPipeline = ({ identifier, ...props }: UseRunPipelineProps) =>
+  useMutate<ResponseDTOPlanExecution, unknown, RunPipelineQueryParams, void, RunPipelinePathParams>(
+    'POST',
+    ({ identifier }: RunPipelinePathParams) => `/pipelines/${identifier}/execute`,
+    { base: '/cd/api', pathParams: { identifier }, ...props }
+  )
+
+export interface GetNgPipelineByIdentifierQueryParams {
+  accountIdentifier: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
+
+export interface GetNgPipelineByIdentifierPathParams {
+  pipelineIdentifier: string
+}
+
+export type GetNgPipelineByIdentifierProps = Omit<
+  GetProps<void, unknown, GetNgPipelineByIdentifierQueryParams, GetNgPipelineByIdentifierPathParams>,
+  'path'
+> &
+  GetNgPipelineByIdentifierPathParams
+
+export const GetNgPipelineByIdentifier = ({ pipelineIdentifier, ...props }: GetNgPipelineByIdentifierProps) => (
+  <Get<void, unknown, GetNgPipelineByIdentifierQueryParams, GetNgPipelineByIdentifierPathParams>
+    path={`/pipelines/${pipelineIdentifier}`}
+    base={'/cd/api'}
+    {...props}
+  />
+)
+
+export type UseGetNgPipelineByIdentifierProps = Omit<
+  UseGetProps<void, GetNgPipelineByIdentifierQueryParams, GetNgPipelineByIdentifierPathParams>,
+  'path'
+> &
+  GetNgPipelineByIdentifierPathParams
+
+export const useGetNgPipelineByIdentifier = ({ pipelineIdentifier, ...props }: UseGetNgPipelineByIdentifierProps) =>
+  useGet<void, unknown, GetNgPipelineByIdentifierQueryParams, GetNgPipelineByIdentifierPathParams>(
+    ({ pipelineIdentifier }: GetNgPipelineByIdentifierPathParams) => `/pipelines/${pipelineIdentifier}`,
+    { base: '/cd/api', pathParams: { pipelineIdentifier }, ...props }
+  )
+
 export interface ListSecretManagersQueryParams {
   accountIdentifier: string
 }
 
 export type ListSecretManagersProps = Omit<
-  GetProps<ResponseDTOListSecretManagerConfig, FailureDTO | ErrorDTO, ListSecretManagersQueryParams, void>,
+  GetProps<ResponseDTOListSecretManagerConfigDTO, FailureDTO | ErrorDTO, ListSecretManagersQueryParams, void>,
   'path'
 >
 
@@ -1666,7 +2703,7 @@ export type ListSecretManagersProps = Omit<
  * Get secret managers for an account
  */
 export const ListSecretManagers = (props: ListSecretManagersProps) => (
-  <Get<ResponseDTOListSecretManagerConfig, FailureDTO | ErrorDTO, ListSecretManagersQueryParams, void>
+  <Get<ResponseDTOListSecretManagerConfigDTO, FailureDTO | ErrorDTO, ListSecretManagersQueryParams, void>
     path={`/secret-managers`}
     base={'/cd/api'}
     {...props}
@@ -1674,7 +2711,7 @@ export const ListSecretManagers = (props: ListSecretManagersProps) => (
 )
 
 export type UseListSecretManagersProps = Omit<
-  UseGetProps<ResponseDTOListSecretManagerConfig, ListSecretManagersQueryParams, void>,
+  UseGetProps<ResponseDTOListSecretManagerConfigDTO, ListSecretManagersQueryParams, void>,
   'path'
 >
 
@@ -1682,7 +2719,7 @@ export type UseListSecretManagersProps = Omit<
  * Get secret managers for an account
  */
 export const useListSecretManagers = (props: UseListSecretManagersProps) =>
-  useGet<ResponseDTOListSecretManagerConfig, FailureDTO | ErrorDTO, ListSecretManagersQueryParams, void>(
+  useGet<ResponseDTOListSecretManagerConfigDTO, FailureDTO | ErrorDTO, ListSecretManagersQueryParams, void>(
     `/secret-managers`,
     { base: '/cd/api', ...props }
   )
@@ -1739,7 +2776,7 @@ export interface GetSecretManagerByIdPathParams {
 
 export type GetSecretManagerByIdProps = Omit<
   GetProps<
-    ResponseDTOSecretManagerConfig,
+    ResponseDTOSecretManagerConfigDTO,
     FailureDTO | ErrorDTO,
     GetSecretManagerByIdQueryParams,
     GetSecretManagerByIdPathParams
@@ -1753,7 +2790,7 @@ export type GetSecretManagerByIdProps = Omit<
  */
 export const GetSecretManagerById = ({ kmsId, ...props }: GetSecretManagerByIdProps) => (
   <Get<
-    ResponseDTOSecretManagerConfig,
+    ResponseDTOSecretManagerConfigDTO,
     FailureDTO | ErrorDTO,
     GetSecretManagerByIdQueryParams,
     GetSecretManagerByIdPathParams
@@ -1765,7 +2802,7 @@ export const GetSecretManagerById = ({ kmsId, ...props }: GetSecretManagerByIdPr
 )
 
 export type UseGetSecretManagerByIdProps = Omit<
-  UseGetProps<ResponseDTOSecretManagerConfig, GetSecretManagerByIdQueryParams, GetSecretManagerByIdPathParams>,
+  UseGetProps<ResponseDTOSecretManagerConfigDTO, GetSecretManagerByIdQueryParams, GetSecretManagerByIdPathParams>,
   'path'
 > &
   GetSecretManagerByIdPathParams
@@ -1775,7 +2812,7 @@ export type UseGetSecretManagerByIdProps = Omit<
  */
 export const useGetSecretManagerById = ({ kmsId, ...props }: UseGetSecretManagerByIdProps) =>
   useGet<
-    ResponseDTOSecretManagerConfig,
+    ResponseDTOSecretManagerConfigDTO,
     FailureDTO | ErrorDTO,
     GetSecretManagerByIdQueryParams,
     GetSecretManagerByIdPathParams
@@ -1895,7 +2932,7 @@ export interface ListSecretsForAccountQueryParams {
 }
 
 export type ListSecretsForAccountProps = Omit<
-  GetProps<ResponseDTOListEncryptedData, unknown, ListSecretsForAccountQueryParams, void>,
+  GetProps<ResponseDTOListEncryptedDataDTO, FailureDTO | ErrorDTO, ListSecretsForAccountQueryParams, void>,
   'path'
 >
 
@@ -1903,7 +2940,7 @@ export type ListSecretsForAccountProps = Omit<
  * Get secrets for an account
  */
 export const ListSecretsForAccount = (props: ListSecretsForAccountProps) => (
-  <Get<ResponseDTOListEncryptedData, unknown, ListSecretsForAccountQueryParams, void>
+  <Get<ResponseDTOListEncryptedDataDTO, FailureDTO | ErrorDTO, ListSecretsForAccountQueryParams, void>
     path={`/secrets`}
     base={'/cd/api'}
     {...props}
@@ -1911,7 +2948,7 @@ export const ListSecretsForAccount = (props: ListSecretsForAccountProps) => (
 )
 
 export type UseListSecretsForAccountProps = Omit<
-  UseGetProps<ResponseDTOListEncryptedData, ListSecretsForAccountQueryParams, void>,
+  UseGetProps<ResponseDTOListEncryptedDataDTO, ListSecretsForAccountQueryParams, void>,
   'path'
 >
 
@@ -1919,7 +2956,117 @@ export type UseListSecretsForAccountProps = Omit<
  * Get secrets for an account
  */
 export const useListSecretsForAccount = (props: UseListSecretsForAccountProps) =>
-  useGet<ResponseDTOListEncryptedData, unknown, ListSecretsForAccountQueryParams, void>(`/secrets`, {
+  useGet<ResponseDTOListEncryptedDataDTO, FailureDTO | ErrorDTO, ListSecretsForAccountQueryParams, void>(`/secrets`, {
+    base: '/cd/api',
+    ...props
+  })
+
+export interface CreateSecretTextQueryParams {
+  accountId?: string
+  local?: boolean
+}
+
+export type CreateSecretTextProps = Omit<
+  MutateProps<ResponseDTOString, FailureDTO | ErrorDTO, CreateSecretTextQueryParams, SecretTextRequestBody, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Create a secret text
+ */
+export const CreateSecretText = (props: CreateSecretTextProps) => (
+  <Mutate<ResponseDTOString, FailureDTO | ErrorDTO, CreateSecretTextQueryParams, SecretTextRequestBody, void>
+    verb="POST"
+    path={`/secrets`}
+    base={'/cd/api'}
+    {...props}
+  />
+)
+
+export type UseCreateSecretTextProps = Omit<
+  UseMutateProps<ResponseDTOString, CreateSecretTextQueryParams, SecretTextRequestBody, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Create a secret text
+ */
+export const useCreateSecretText = (props: UseCreateSecretTextProps) =>
+  useMutate<ResponseDTOString, FailureDTO | ErrorDTO, CreateSecretTextQueryParams, SecretTextRequestBody, void>(
+    'POST',
+    `/secrets`,
+    { base: '/cd/api', ...props }
+  )
+
+export interface UpdateSecretTextQueryParams {
+  accountId?: string
+  uuid?: string
+}
+
+export type UpdateSecretTextProps = Omit<
+  MutateProps<ResponseDTOBoolean, FailureDTO | ErrorDTO, UpdateSecretTextQueryParams, SecretTextRequestBody, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Update a secret text
+ */
+export const UpdateSecretText = (props: UpdateSecretTextProps) => (
+  <Mutate<ResponseDTOBoolean, FailureDTO | ErrorDTO, UpdateSecretTextQueryParams, SecretTextRequestBody, void>
+    verb="PUT"
+    path={`/secrets`}
+    base={'/cd/api'}
+    {...props}
+  />
+)
+
+export type UseUpdateSecretTextProps = Omit<
+  UseMutateProps<ResponseDTOBoolean, UpdateSecretTextQueryParams, SecretTextRequestBody, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Update a secret text
+ */
+export const useUpdateSecretText = (props: UseUpdateSecretTextProps) =>
+  useMutate<ResponseDTOBoolean, FailureDTO | ErrorDTO, UpdateSecretTextQueryParams, SecretTextRequestBody, void>(
+    'PUT',
+    `/secrets`,
+    { base: '/cd/api', ...props }
+  )
+
+export interface DeleteSecretTextQueryParams {
+  accountId?: string
+  uuid?: string
+}
+
+export type DeleteSecretTextProps = Omit<
+  MutateProps<ResponseDTOBoolean, FailureDTO | ErrorDTO, DeleteSecretTextQueryParams, void, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Delete a secret text
+ */
+export const DeleteSecretText = (props: DeleteSecretTextProps) => (
+  <Mutate<ResponseDTOBoolean, FailureDTO | ErrorDTO, DeleteSecretTextQueryParams, void, void>
+    verb="DELETE"
+    path={`/secrets`}
+    base={'/cd/api'}
+    {...props}
+  />
+)
+
+export type UseDeleteSecretTextProps = Omit<
+  UseMutateProps<ResponseDTOBoolean, DeleteSecretTextQueryParams, void, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Delete a secret text
+ */
+export const useDeleteSecretText = (props: UseDeleteSecretTextProps) =>
+  useMutate<ResponseDTOBoolean, FailureDTO | ErrorDTO, DeleteSecretTextQueryParams, void, void>('DELETE', `/secrets`, {
     base: '/cd/api',
     ...props
   })
@@ -1933,7 +3080,7 @@ export interface GetSecretByIdPathParams {
 }
 
 export type GetSecretByIdProps = Omit<
-  GetProps<ResponseDTOEncryptedData, unknown, GetSecretByIdQueryParams, GetSecretByIdPathParams>,
+  GetProps<ResponseDTOEncryptedDataDTO, FailureDTO | ErrorDTO, GetSecretByIdQueryParams, GetSecretByIdPathParams>,
   'path'
 > &
   GetSecretByIdPathParams
@@ -1942,7 +3089,7 @@ export type GetSecretByIdProps = Omit<
  * Gets a secret by id
  */
 export const GetSecretById = ({ secretId, ...props }: GetSecretByIdProps) => (
-  <Get<ResponseDTOEncryptedData, unknown, GetSecretByIdQueryParams, GetSecretByIdPathParams>
+  <Get<ResponseDTOEncryptedDataDTO, FailureDTO | ErrorDTO, GetSecretByIdQueryParams, GetSecretByIdPathParams>
     path={`/secrets/${secretId}`}
     base={'/cd/api'}
     {...props}
@@ -1950,7 +3097,7 @@ export const GetSecretById = ({ secretId, ...props }: GetSecretByIdProps) => (
 )
 
 export type UseGetSecretByIdProps = Omit<
-  UseGetProps<ResponseDTOEncryptedData, GetSecretByIdQueryParams, GetSecretByIdPathParams>,
+  UseGetProps<ResponseDTOEncryptedDataDTO, GetSecretByIdQueryParams, GetSecretByIdPathParams>,
   'path'
 > &
   GetSecretByIdPathParams
@@ -1959,7 +3106,7 @@ export type UseGetSecretByIdProps = Omit<
  * Gets a secret by id
  */
 export const useGetSecretById = ({ secretId, ...props }: UseGetSecretByIdProps) =>
-  useGet<ResponseDTOEncryptedData, unknown, GetSecretByIdQueryParams, GetSecretByIdPathParams>(
+  useGet<ResponseDTOEncryptedDataDTO, FailureDTO | ErrorDTO, GetSecretByIdQueryParams, GetSecretByIdPathParams>(
     ({ secretId }: GetSecretByIdPathParams) => `/secrets/${secretId}`,
     { base: '/cd/api', pathParams: { secretId }, ...props }
   )

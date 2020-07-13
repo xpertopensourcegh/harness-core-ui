@@ -1,5 +1,5 @@
 import React from 'react'
-import type { CDPipelineDTO, GetNgPipelineByIdentifierQueryParams } from 'services/ng-temp'
+import type { CDPipelineDTO, GetNgPipelineByIdentifierQueryParams, ResponseDTOCDPipelineDTO } from 'services/cd-ng'
 import { openDB, IDBPDatabase, deleteDB } from 'idb'
 import { ModuleName, loggerFor } from 'framework/exports'
 import xhr from '@wings-software/xhr-async'
@@ -22,12 +22,12 @@ export const getPipelineByIdentifier = (
   identifier: string
 ): Promise<CDPipelineDTO | undefined> => {
   return xhr
-    .get<CDPipelineDTO>(
-      `/api/ng/pipelines/${identifier}?accountIdentifier=${params.accountIdentifier}&projectIdentifier=${params.projectIdentifier}&orgIdentifier=${params.orgIdentifier}`
+    .get<ResponseDTOCDPipelineDTO>(
+      `/cd/api/pipelines/${identifier}?accountIdentifier=${params.accountIdentifier}&projectIdentifier=${params.projectIdentifier}&orgIdentifier=${params.orgIdentifier}`
     )
-    .then(data => {
-      if (data.response && (data.response as any).resource) {
-        return parse((data.response as any).resource.yamlPipeline).pipeline as CDPipelineDTO
+    .then(xhrResponse => {
+      if (xhrResponse.response?.data?.yamlPipeline) {
+        return parse(xhrResponse.response.data.yamlPipeline).pipeline as CDPipelineDTO
       }
       return
     })

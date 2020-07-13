@@ -9,7 +9,7 @@ import css from './PipelineCanvas.module.scss'
 import { PipelineContext } from '../PipelineContext/PipelineContext'
 import i18n from './PipelineCanvas.i18n'
 import CreatePipelines from '../CreateModal/PipelineCreate'
-import type { CDPipelineDTO } from 'services/ng-temp'
+import type { CDPipelineDTO } from 'services/cd-ng'
 import { YamlEntity } from 'modules/common/constants/YamlConstants'
 import { DefaultNewPipelineId } from '../PipelineContext/PipelineActions'
 import { NavigationCheck } from 'modules/common/exports'
@@ -41,7 +41,7 @@ export const PipelineCanvas: React.FC<{}> = (): JSX.Element => {
 
   const onSubmit = React.useCallback(
     (data: CDPipelineDTO) => {
-      pipeline.displayName = data.displayName
+      pipeline.name = data.name
       pipeline.description = data.description
       pipeline.identifier = data.identifier
 
@@ -103,7 +103,7 @@ export const PipelineCanvas: React.FC<{}> = (): JSX.Element => {
       <div className={css.secondaryBar}>
         <Icon style={{ paddingLeft: 20 }} size={38} name="pipeline" />
         <div>
-          <Text className={css.pipelineName}>{pipeline?.displayName}</Text>
+          <Text className={css.pipelineName}>{pipeline?.name}</Text>
           <Button minimal icon="Edit" iconProps={{ size: 12 }} onClick={showModal} />
         </div>
         {!isYaml && (

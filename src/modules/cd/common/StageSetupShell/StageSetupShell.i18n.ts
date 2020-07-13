@@ -3,5 +3,6 @@ export default {
   infraLabel: 'Infrastructure',
   executionLabel: 'Execution',
   previous: 'Previous',
-  next: 'Next'
+  next: 'Next',
+  save: 'Save'
 }

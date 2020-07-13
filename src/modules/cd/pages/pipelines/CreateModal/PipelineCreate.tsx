@@ -14,7 +14,7 @@ import {
 import * as Yup from 'yup'
 import css from './PipelineCreate.module.scss'
 import i18n from './PipelineCreate.i18n'
-import type { CDPipelineDTO } from 'services/ng-temp'
+import type { CDPipelineDTO } from 'services/cd-ng'
 import { DefaultNewPipelineId } from '../PipelineContext/PipelineActions'
 
 const logger = loggerFor(ModuleName.CD)
@@ -37,7 +37,7 @@ const tagCollapseProps = Object.assign({}, collapseProps, { heading: i18n.tags }
 
 export default function CreatePipelines({
   afterSave,
-  initialValues = { identifier: '', displayName: '' },
+  initialValues = { identifier: '', name: '' },
   closeModal
 }: PipelineCreateProps): JSX.Element {
   const identifier = initialValues?.identifier
@@ -57,7 +57,7 @@ export default function CreatePipelines({
           <Formik
             initialValues={initialValues}
             validationSchema={Yup.object().shape({
-              displayName: Yup.string().trim().required(i18n.pipelineNameRequired)
+              name: Yup.string().trim().required(i18n.pipelineNameRequired)
             })}
             onSubmit={values => {
               logger.info(JSON.stringify(values))
@@ -68,7 +68,6 @@ export default function CreatePipelines({
               <div className={css.formInput}>
                 <FormInput.InputWithIdentifier
                   inputLabel={i18n.pipelineNameLabel}
-                  inputName="displayName"
                   inputGroupProps={{ placeholder: i18n.pipelineNamePlaceholder }}
                 />
                 <div className={css.collapseDiv}>

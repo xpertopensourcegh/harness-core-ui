@@ -2,32 +2,33 @@ import { Diagram } from 'modules/common/exports'
 import type { IconName } from '@wings-software/uikit'
 import { isEmpty } from 'lodash'
 import type { NodeModelListener } from '@projectstorm/react-diagrams-core'
-import type { CDPipelineDTO, StageWrapper, Stage, DeploymentStage } from 'services/ng-temp'
+import type { CDPipelineDTO, StageElementWrapper } from 'services/cd-ng'
+import type { Stage, DeploymentStage } from 'services/ng-temp'
 
 export enum StageType {
-  DEPLOY = 'deployment',
-  APPROVAL = 'approval',
-  PIPELINE = 'pipeline',
-  CUSTOM = 'custom'
+  DEPLOY = 'Deployment',
+  APPROVAL = 'Approval',
+  PIPELINE = 'Pipeline',
+  CUSTOM = 'Custom'
 }
 
 export const MapStepTypeToIcon: { [key in StageType]: IconName } = {
-  deployment: 'pipeline-deploy',
-  approval: 'pipeline-approval',
-  pipeline: 'pipeline',
-  custom: 'pipeline-custom'
+  Deployment: 'pipeline-deploy',
+  Approval: 'pipeline-approval',
+  Pipeline: 'pipeline',
+  Custom: 'pipeline-custom'
 }
 
-export const getStageFromPipeline = (data: CDPipelineDTO, identifier: string): StageWrapper | undefined => {
-  return data.stages?.filter(stage => stage?.stage?.identifier === identifier)[0]
+export const getStageFromPipeline = (data: CDPipelineDTO, identifier: string): StageElementWrapper | undefined => {
+  return data.stages?.filter(node => node?.stage?.identifier === identifier)[0]
 }
 
 export const getTypeOfStage = (stage: Stage): { type: StageType; stage: DeploymentStage | Stage } => {
-  if (stage[StageType.DEPLOY]) {
+  if (stage.type === StageType.DEPLOY) {
     return { type: StageType.DEPLOY, stage: stage as DeploymentStage }
-  } else if (stage[StageType.APPROVAL]) {
+  } else if (stage.type === StageType.APPROVAL) {
     return { type: StageType.APPROVAL, stage }
-  } else if (stage[StageType.PIPELINE]) {
+  } else if (stage.type === StageType.PIPELINE) {
     return { type: StageType.PIPELINE, stage }
   }
   return { type: StageType.CUSTOM, stage }
@@ -44,7 +45,7 @@ export class StageBuilderModel extends Diagram.DiagramModel {
   }
 
   renderGraphNodes(
-    node: StageWrapper,
+    node: StageElementWrapper,
     startX: number,
     startY: number,
     selectedStageId?: string,
@@ -58,7 +59,7 @@ export class StageBuilderModel extends Diagram.DiagramModel {
           ? new Diagram.DiamondNodeModel({
               id: node.stage.identifier,
               backgroundColor: selectedStageId === node.stage.identifier ? '#436b98' : 'white',
-              name: node.stage.displayName,
+              name: node.stage.name,
               width: 90,
               height: 40,
               icon: MapStepTypeToIcon[type]
@@ -66,7 +67,7 @@ export class StageBuilderModel extends Diagram.DiagramModel {
           : new Diagram.DefaultNodeModel({
               id: node.stage.identifier,
               backgroundColor: selectedStageId === node.stage.identifier ? '#436b98' : 'white',
-              name: node.stage.displayName,
+              name: node.stage.name,
               width: 90,
               height: 40,
               icon: MapStepTypeToIcon[type]
@@ -117,7 +118,7 @@ export class StageBuilderModel extends Diagram.DiagramModel {
 
     startX -= this.gap / 2
     let prevNodes: Diagram.DefaultNodeModel[] = [startNode]
-    data.stages?.forEach((node: StageWrapper) => {
+    data.stages?.forEach((node: StageElementWrapper) => {
       const resp = this.renderGraphNodes(node, startX, startY, selectedStageId, prevNodes)
       startX = resp.startX
       startY = resp.startY

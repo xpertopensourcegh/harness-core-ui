@@ -80,7 +80,7 @@ export interface StepPaletteProps {
 }
 export const StepPalette: React.FC<StepPaletteProps> = ({ onSelect }): JSX.Element => {
   return (
-    <Layout.Vertical>
+    <Layout.Vertical padding="large">
       <div className={css.topHeader}>
         <Text className={css.selectStep} font={{ size: 'medium' }}>
           {i18n.selectStep}
@@ -113,7 +113,7 @@ export const StepPalette: React.FC<StepPaletteProps> = ({ onSelect }): JSX.Eleme
                       font="small"
                       lineClamp={2}
                       style={{
-                        width: '110px',
+                        width: '90px',
                         textAlign: 'center',
                         paddingTop: 'var(--spacing-xsmall)',
                         color: 'var(--grey-900)'

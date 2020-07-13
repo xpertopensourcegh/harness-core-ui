@@ -30,7 +30,7 @@ import type { NodeModelListener } from '@projectstorm/react-diagrams-core'
 import type { IconName } from '@blueprintjs/core'
 import StageSetupShell from '../../../common/StageSetupShell/StageSetupShell'
 import * as Yup from 'yup'
-import type { StageWrapper } from 'services/ng-temp'
+import type { StageElementWrapper } from 'services/cd-ng'
 import { PipelineContext } from '../PipelineContext/PipelineContext'
 import { CanvasButtons } from 'modules/cd/common/CanvasButtons/CanvasButtons'
 import { AddStageView } from './views/AddStageView'
@@ -46,10 +46,10 @@ declare global {
 }
 
 interface PopoverData {
-  data?: StageWrapper
+  data?: StageElementWrapper
   isStageView: boolean
   addStage?: (type: StageType) => void
-  onSubmitPrimaryData?: (values: StageWrapper, identifier: string) => void
+  onSubmitPrimaryData?: (values: StageElementWrapper, identifier: string) => void
 }
 
 const collapseProps = {
@@ -96,25 +96,25 @@ const renderPopover = ({ data, addStage, isStageView, onSubmitPrimaryData }: Pop
           <Formik
             initialValues={{
               identifier: data?.stage.identifier,
-              displayName: data?.stage.displayName,
+              name: data?.stage.name,
               description: data?.stage.description,
               serviceType: newStageData[0]
             }}
             onSubmit={values => {
               if (data) {
                 data.stage.identifier = values.identifier
-                data.stage.displayName = values.displayName
+                data.stage.name = values.name
                 onSubmitPrimaryData?.(data, values.identifier)
               }
             }}
             validationSchema={Yup.object().shape({
-              displayName: Yup.string().required(i18n.stageNameRequired)
+              name: Yup.string().required(i18n.stageNameRequired)
             })}
           >
             {formikProps => {
               return (
                 <FormikForm>
-                  <FormInput.InputWithIdentifier inputName="displayName" inputLabel={i18n.stageName} />
+                  <FormInput.InputWithIdentifier inputLabel={i18n.stageName} />
                   <div className={css.collapseDiv}>
                     <Collapse {...collapseProps}>
                       <FormInput.TextArea name="description" />
@@ -191,16 +191,10 @@ export const StageBuilder: React.FC<{}> = (): JSX.Element => {
     }
     pipeline.stages.push({
       stage: {
-        displayName: 'Untitled',
+        name: 'Untitled',
         identifier: `Untitled-${pipeline.stages?.length}`,
-        [type]: {
-          runParallel: false,
-          skipCondition: null,
-          description: null,
-          service: {},
-          infrastructure: {},
-          execution: []
-        }
+        type: type,
+        spec: {}
       }
     })
     dynamicPopoverHandler?.hide()
@@ -276,6 +270,9 @@ export const StageBuilder: React.FC<{}> = (): JSX.Element => {
           const div = e.target as HTMLDivElement
           if (div.className?.indexOf?.('CanvasWidget-module_canvas') > -1) {
             dynamicPopoverHandler?.hide()
+          }
+          if (isSetupStageOpen) {
+            updatePipelineView({ isSetupStageOpen: false, selectedStageId: undefined })
           }
         }}
       >
