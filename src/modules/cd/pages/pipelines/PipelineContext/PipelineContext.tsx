@@ -1,5 +1,5 @@
 import React from 'react'
-import type { CDPipelineDTO, GetNgPipelineByIdentifierQueryParams, RestResponseCDPipelineDTO } from 'services/ng-temp'
+import type { CDPipelineDTO, GetNgPipelineByIdentifierQueryParams } from 'services/ng-temp'
 import { openDB, IDBPDatabase, deleteDB } from 'idb'
 import { ModuleName, loggerFor } from 'framework/exports'
 import xhr from '@wings-software/xhr-async'
@@ -14,7 +14,7 @@ import {
   PipelineReducer,
   PipelineViewData
 } from './PipelineActions'
-
+import { parse } from 'yaml'
 const logger = loggerFor(ModuleName.CD)
 
 export const getPipelineByIdentifier = (
@@ -22,10 +22,15 @@ export const getPipelineByIdentifier = (
   identifier: string
 ): Promise<CDPipelineDTO | undefined> => {
   return xhr
-    .get<RestResponseCDPipelineDTO>(
+    .get<CDPipelineDTO>(
       `/api/ng/pipelines/${identifier}?accountIdentifier=${params.accountIdentifier}&projectIdentifier=${params.projectIdentifier}&orgIdentifier=${params.orgIdentifier}`
     )
-    .then(data => data.response?.resource)
+    .then(data => {
+      if (data.response && (data.response as any).resource) {
+        return parse((data.response as any).resource.yamlPipeline).pipeline as CDPipelineDTO
+      }
+      return
+    })
 }
 
 const DBInitializationFailed = 'DB Creation retry exceeded.'

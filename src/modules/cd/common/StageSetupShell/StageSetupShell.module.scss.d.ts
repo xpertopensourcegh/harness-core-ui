@@ -3,5 +3,6 @@
 declare const styles: {
   readonly setupShell: string
   readonly tabsContainer: string
+  readonly tabExecution: string
 }
 export default styles

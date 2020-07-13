@@ -29,7 +29,7 @@ export const NavigationCheck = ({ when, navigate, shouldBlockNavigation }: Props
   }
 
   const { openDialog } = useConfirmationDialog({
-    cancelButtonText: i18n.close,
+    cancelButtonText: i18n.cancel,
     contentText: i18n.navigationCheckText,
     titleText: i18n.navigationCheckTitle,
     confirmButtonText: i18n.navigationConfirm,

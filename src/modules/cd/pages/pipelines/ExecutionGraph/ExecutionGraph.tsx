@@ -1,68 +1,20 @@
 import React, { useEffect } from 'react'
 import css from './ExecutionGraph.module.scss'
+import { get } from 'lodash'
 import { Diagram } from 'modules/common/exports'
-import { ExecutionStepModel, GraphObj, StepType, StepInterface } from './ExecutionStepModel'
+import { ExecutionStepModel, StepType } from './ExecutionStepModel'
 import { Drawer, Position } from '@blueprintjs/core'
 import { cloneDeep } from 'lodash'
-import { Layout, Text, CardBody, IconName, Card } from '@wings-software/uikit'
+import { Layout, Text } from '@wings-software/uikit'
+import { PipelineContext } from '../PipelineContext/PipelineContext'
+import { getStageFromPipeline } from '../StageBuilder/StageBuilderModel'
+import type { ExecutionSection } from 'services/ng-temp'
+import type { NodeModelListener, LinkModelListener } from '@projectstorm/react-diagrams-core'
+import { StepPalette, CommandData } from '../StepPalette/StepPalette'
+import { CanvasButtons } from 'modules/cd/common/CanvasButtons/CanvasButtons'
 
-const data: GraphObj[] = [
-  {
-    step: {
-      type: StepType.APPROVAL,
-      name: 'Jira Approval',
-      identifier: 'jira-approval-1',
-      spec: {
-        approvedBy: 'Maddy',
-        ticket: 'TD-123',
-        url: 'http://localhost:8080/temp-3.json'
-      }
-    }
-  },
-  {
-    parallel: [
-      {
-        step: {
-          type: StepType.HTTP,
-          name: 'http step 5',
-          identifier: 'http-step-5',
-          spec: {
-            socketTimeoutMillis: 1000,
-            method: 'GET',
-            url: 'http://localhost:8080/temp-4.json'
-          }
-        }
-      },
-      {
-        step: {
-          type: StepType.HTTP,
-          name: 'http step 6',
-          identifier: 'http-step-6',
-          spec: {
-            socketTimeoutMillis: 1000,
-            method: 'GET',
-            url: 'http://localhost:8080/temp-4.json'
-          }
-        }
-      }
-    ]
-  },
-  {
-    step: {
-      type: StepType.HTTP,
-      name: 'http step 4',
-      identifier: 'http-step-4',
-      spec: {
-        socketTimeoutMillis: 1000,
-        method: 'GET',
-        url: 'http://localhost:8080/temp-4.json'
-      }
-    }
-  }
-]
-
-const getStepFromId = (stepData: GraphObj[] | undefined, id: string): StepInterface | undefined => {
-  let stepResp: StepInterface | undefined = undefined
+const getStepFromId = (stepData: ExecutionSection[] | undefined, id: string): ExecutionSection | undefined => {
+  let stepResp: ExecutionSection | undefined = undefined
   stepData?.every(node => {
     if (node.step && node.step.identifier === id) {
       stepResp = node.step
@@ -79,80 +31,11 @@ const getStepFromId = (stepData: GraphObj[] | undefined, id: string): StepInterf
   return stepResp
 }
 
-interface CommandData {
-  text: string
-  value: string
-  icon: IconName
-}
-
-const commandData: CommandData[] = [
-  {
-    text: 'Kubernetes',
-    value: 'service-kubernetes',
-    icon: 'service-kubernetes'
-  },
-  {
-    text: 'Github',
-    value: 'service-github',
-    icon: 'service-github'
-  },
-  {
-    text: 'GCP',
-    value: 'service-gcp',
-    icon: 'service-gcp'
-  },
-  {
-    text: 'ELK Service',
-    value: 'service-elk',
-    icon: 'service-elk'
-  },
-  {
-    text: 'Git Labs',
-    value: 'service-gotlab',
-    icon: 'service-gotlab'
-  },
-  {
-    text: 'Datadog',
-    value: 'service-datadog',
-    icon: 'service-datadog'
-  },
-  {
-    text: 'Slack',
-    value: 'service-slack',
-    icon: 'service-slack'
-  },
-  {
-    text: 'Jenkins',
-    value: 'service-jenkins',
-    icon: 'service-jenkins'
-  }
-]
-
-export const RenderCommands = ({ onSelect }: { onSelect: (item: CommandData) => void }): JSX.Element => {
-  return (
-    <div className={css.grid}>
-      {commandData.map((item: CommandData) => (
-        <Card
-          key={item.value}
-          interactive={true}
-          draggable={true}
-          onClick={() => onSelect(item)}
-          onDragStart={event => {
-            event.dataTransfer.setData('storm-diagram-node', JSON.stringify(item))
-          }}
-        >
-          <CardBody.Icon icon={item.icon} iconSize={25}>
-            <Text font="small" style={{ textAlign: 'center', color: 'var(--grey-900)' }}>
-              {item.text}
-            </Text>
-          </CardBody.Icon>
-        </Card>
-      ))}
-    </div>
-  )
-}
-
-const renderDrawerContent = (entity: Diagram.DefaultNodeModel, onSelect: (item: CommandData) => void): JSX.Element => {
+const renderDrawerContent = (
+  data: ExecutionSection[],
+  entity: Diagram.DefaultNodeModel,
+  onSelect: (item: CommandData) => void
+): JSX.Element => {
   const step = getStepFromId(data, entity.getID())
   const content: JSX.Element[] = []
   if (step) {
@@ -171,7 +54,7 @@ const renderDrawerContent = (entity: Diagram.DefaultNodeModel, onSelect: (item: 
   }
   return (
     <Layout.Vertical padding="large" spacing="medium">
-      {step ? content : <RenderCommands onSelect={onSelect} />}
+      {step ? content : <StepPalette onSelect={onSelect} />}
     </Layout.Vertical>
   )
 }
@@ -179,51 +62,60 @@ const renderDrawerContent = (entity: Diagram.DefaultNodeModel, onSelect: (item: 
 interface ExecutionGraphState {
   isDrawerOpen: boolean
   entity?: Diagram.DefaultNodeModel
-  data: GraphObj[]
+  data: ExecutionSection[]
 }
-//1) setup the diagram engine
-const engine = Diagram.createEngine()
-
-//2) setup the diagram model
-const model = new ExecutionStepModel()
-
-// renderParallelNodes(model)
-model.addUpdateGraph(data)
-
-// load model into engine
-engine.setModel(model)
 
 const ExecutionGraph = (): JSX.Element => {
-  const [state, setState] = React.useState<ExecutionGraphState>({ isDrawerOpen: false, data })
-  useEffect(() => {
-    // renderParallelNodes(model)
-    model.addUpdateGraph(state.data)
+  const [state, setState] = React.useState<ExecutionGraphState>({ isDrawerOpen: false, data: [] })
 
-    // load model into engine
-    engine.setModel(model)
-    const nodes = model.getActiveNodeLayer().getNodes()
-    for (const key in nodes) {
-      const node = nodes[key]
-      node.registerListener({
-        [Diagram.Event.SelectionChanged]: (event: any) => {
-          const _event = event as Diagram.DefaultNodeEvent
-          setState(prevState => ({ ...prevState, isDrawerOpen: _event.isSelected, entity: _event.entity }))
-        },
-        [Diagram.Event.RemoveNode]: (_event: any) => {
-          // console.log(event)
-        }
-      })
+  const {
+    state: {
+      pipeline,
+      pipelineView: { selectedStageId, isSetupStageOpen }
     }
-    const links = model.getActiveLinkLayer().getLinks()
-    for (const key in links) {
-      const link = links[key]
-      link.registerListener({
-        [Diagram.Event.AddLinkClicked]: (event: any) => {
-          setState(prevState => ({ ...prevState, isDrawerOpen: true, entity: event.entity }))
-        }
-      })
+  } = React.useContext(PipelineContext)
+
+  //1) setup the diagram engine
+  const engine = React.useMemo(() => Diagram.createEngine(), [])
+
+  //2) setup the diagram model
+  const model = React.useMemo(() => new ExecutionStepModel(), [])
+
+  const nodeListeners: NodeModelListener = {
+    [Diagram.Event.SelectionChanged]: (event: any) => {
+      const _event = event as Diagram.DefaultNodeEvent
+      setState(prevState => ({ ...prevState, isDrawerOpen: _event.isSelected, entity: _event.entity }))
+    },
+    [Diagram.Event.RemoveNode]: (_event: any) => {
+      // console.log(event)
     }
-  }, [state.data])
+  }
+
+  const linkListeners: LinkModelListener = {
+    [Diagram.Event.AddLinkClicked]: (event: any) => {
+      setState(prevState => ({ ...prevState, isDrawerOpen: true, entity: event.entity }))
+    }
+  }
+
+  // renderParallelNodes(model)
+  model.addUpdateGraph(state.data, { nodeListeners, linkListeners })
+
+  // load model into engine
+  engine.setModel(model)
+
+  useEffect(() => {
+    if (selectedStageId && isSetupStageOpen) {
+      const data = getStageFromPipeline(pipeline, selectedStageId)
+      if (data && data.stage && data.stage.deployment) {
+        setState(prevState => ({ ...prevState, data: get(data.stage.deployment, 'execution[0].phase.steps') }))
+      } else if (data?.stage) {
+        data.stage = {
+          execution: {}
+        }
+      }
+    }
+  }, [selectedStageId, pipeline, isSetupStageOpen])
+
   return (
     <div
       className={css.container}
@@ -237,7 +129,7 @@ const ExecutionGraph = (): JSX.Element => {
         const nodeLink = model.getNodeLinkAtPosition(position)
         const dropData: CommandData = JSON.parse(event.dataTransfer.getData('storm-diagram-node'))
         if (nodeLink instanceof Diagram.DefaultNodeModel) {
-          const dataClone: GraphObj[] = cloneDeep(state.data)
+          const dataClone: ExecutionSection[] = cloneDeep(state.data)
           const stepIndex = dataClone.findIndex(item => item.step?.identifier === nodeLink.getID())
           const removed = dataClone.splice(stepIndex, 1)
           removed.push({
@@ -257,7 +149,7 @@ const ExecutionGraph = (): JSX.Element => {
           })
           setState(prevState => ({ ...prevState, isDrawerOpen: false, data: dataClone }))
         } else if (nodeLink instanceof Diagram.DefaultLinkModel) {
-          const dataClone: GraphObj[] = cloneDeep(state.data)
+          const dataClone: ExecutionSection[] = cloneDeep(state.data)
           const stepIndex = dataClone.findIndex(
             item => item.step?.identifier === nodeLink.getSourcePort().getNode().getID()
           )
@@ -279,26 +171,26 @@ const ExecutionGraph = (): JSX.Element => {
     >
       <div className={css.canvas}>
         <Diagram.CanvasWidget engine={engine} />
+        <CanvasButtons engine={engine} />
       </div>
       <Drawer
         onClose={() => {
           setState(prevState => ({ ...prevState, isDrawerOpen: false }))
           model.clearSelection()
         }}
-        title={state.entity?.getOptions().name || 'Create New'}
         autoFocus={true}
         canEscapeKeyClose={true}
-        canOutsideClickClose={state.entity?.getOptions().type !== 'create-new'}
+        canOutsideClickClose={true}
         enforceFocus={true}
         hasBackdrop={false}
-        size={Drawer.SIZE_SMALL}
+        size={Drawer.SIZE_STANDARD}
         isOpen={state.isDrawerOpen}
         position={Position.RIGHT}
       >
         <div>
           {state.entity &&
-            renderDrawerContent(state.entity, (item: CommandData) => {
-              const dataClone: GraphObj[] = cloneDeep(state.data)
+            renderDrawerContent(state.data, state.entity, (item: CommandData) => {
+              const dataClone: ExecutionSection[] = cloneDeep(state.data)
               dataClone.push({
                 step: {
                   type: item.icon.split('-')[1] as StepType,

@@ -4,7 +4,7 @@ import type { CreateNewModel } from './CreateNewModel'
 import { Icon } from '@blueprintjs/core'
 import css from './CreateNew.module.scss'
 import cssDefault from '../DefaultNode.module.scss'
-
+import { isEmpty } from 'lodash'
 import cx from 'classnames'
 import { DefaultPortLabel } from '../../port/DefaultPortLabelWidget'
 import type { DefaultPortModel } from '../../port/DefaultPortModel'
@@ -27,14 +27,14 @@ export const CreateNewWidget: React.FC<CreateNewWidgetProps> = (props): JSX.Elem
         style={{ backgroundColor: options.backgroundColor, width: options.width, height: options.height }}
       >
         <div>
-          <Icon icon="plus" iconSize={10} color={'var(--diagram-grey)'} />
+          <Icon icon="plus" iconSize={isEmpty(options.name) ? 20 : 10} color={'var(--diagram-grey)'} />
 
           <div>
             <div>{props.node.getInPorts().map(port => generatePort(port, props))}</div>
             <div>{props.node.getOutPorts().map(port => generatePort(port, props))}</div>
           </div>
         </div>
-        {options.name && (
+        {!isEmpty(options.name) && (
           <Text
             font={{ size: 'small', align: 'center' }}
             className={css.label}

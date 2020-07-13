@@ -1,7 +1,13 @@
 import React from 'react'
 import { Diagram } from 'modules/common/exports'
 import css from './StageBuilder.module.scss'
-import { StageBuilderModel, StageType, getStageFromPipeline, MapStepTypeToIcon } from './StageBuilderModel'
+import {
+  StageBuilderModel,
+  StageType,
+  getStageFromPipeline,
+  MapStepTypeToIcon,
+  getTypeOfStage
+} from './StageBuilderModel'
 import { DynamicPopover, DynamicPopoverHandlerBinding } from 'modules/common/components/DynamicPopover/DynamicPopover'
 import {
   Button,
@@ -80,7 +86,7 @@ const newStageData = [
 
 const renderPopover = ({ data, addStage, isStageView, onSubmitPrimaryData }: PopoverData): JSX.Element => {
   if (isStageView) {
-    const type: StageType = data ? (Object.keys(data)[0] as StageType) : StageType.DEPLOY
+    const type = data ? getTypeOfStage(data.stage).type : StageType.DEPLOY
     return (
       <div className={css.stageCreate}>
         <Text icon={MapStepTypeToIcon[type]} iconProps={{ size: 16 }}>
@@ -89,15 +95,15 @@ const renderPopover = ({ data, addStage, isStageView, onSubmitPrimaryData }: Pop
         <Container padding="medium">
           <Formik
             initialValues={{
-              identifier: data?.[type].identifier,
-              displayName: data?.[type].displayName,
-              description: data?.[type].description,
+              identifier: data?.stage.identifier,
+              displayName: data?.stage.displayName,
+              description: data?.stage.description,
               serviceType: newStageData[0]
             }}
             onSubmit={values => {
               if (data) {
-                data[type].identifier = values.identifier
-                data[type].displayName = values.displayName
+                data.stage.identifier = values.identifier
+                data.stage.displayName = values.displayName
                 onSubmitPrimaryData?.(data, values.identifier)
               }
             }}
@@ -184,7 +190,7 @@ export const StageBuilder: React.FC<{}> = (): JSX.Element => {
       pipeline.stages = []
     }
     pipeline.stages.push({
-      [type]: {
+      stage: {
         displayName: 'Untitled',
         identifier: `Untitled-${pipeline.stages?.length}`,
         [type]: {

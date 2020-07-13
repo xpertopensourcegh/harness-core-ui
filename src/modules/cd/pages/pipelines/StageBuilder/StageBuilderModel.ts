@@ -2,7 +2,7 @@ import { Diagram } from 'modules/common/exports'
 import type { IconName } from '@wings-software/uikit'
 import { isEmpty } from 'lodash'
 import type { NodeModelListener } from '@projectstorm/react-diagrams-core'
-import type { CDPipelineDTO, StageWrapper } from 'services/ng-temp'
+import type { CDPipelineDTO, StageWrapper, Stage, DeploymentStage } from 'services/ng-temp'
 
 export enum StageType {
   DEPLOY = 'deployment',
@@ -19,13 +19,18 @@ export const MapStepTypeToIcon: { [key in StageType]: IconName } = {
 }
 
 export const getStageFromPipeline = (data: CDPipelineDTO, identifier: string): StageWrapper | undefined => {
-  return data.stages?.filter(
-    stage =>
-      stage?.deployment?.identifier === identifier ||
-      stage?.approval?.identifier === identifier ||
-      stage?.pipeline?.identifier === identifier ||
-      stage?.custom?.identifier === identifier
-  )[0]
+  return data.stages?.filter(stage => stage?.stage?.identifier === identifier)[0]
+}
+
+export const getTypeOfStage = (stage: Stage): { type: StageType; stage: DeploymentStage | Stage } => {
+  if (stage[StageType.DEPLOY]) {
+    return { type: StageType.DEPLOY, stage: stage as DeploymentStage }
+  } else if (stage[StageType.APPROVAL]) {
+    return { type: StageType.APPROVAL, stage }
+  } else if (stage[StageType.PIPELINE]) {
+    return { type: StageType.PIPELINE, stage }
+  }
+  return { type: StageType.CUSTOM, stage }
 }
 
 export class StageBuilderModel extends Diagram.DiagramModel {
@@ -45,26 +50,26 @@ export class StageBuilderModel extends Diagram.DiagramModel {
     selectedStageId?: string,
     prevNodes?: Diagram.DefaultNodeModel[]
   ): { startX: number; startY: number; prevNodes?: Diagram.DefaultNodeModel[] } {
-    if (node && Object.keys(node).length === 1) {
-      const type = Object.keys(node)[0]
+    if (node && node.stage) {
+      const { type } = getTypeOfStage(node.stage)
       startX += this.gap
       const nodeRender =
         type === StageType.APPROVAL
           ? new Diagram.DiamondNodeModel({
-              id: node[type].identifier,
-              backgroundColor: selectedStageId === node[type].identifier ? '#436b98' : 'white',
-              name: node[type].displayName,
+              id: node.stage.identifier,
+              backgroundColor: selectedStageId === node.stage.identifier ? '#436b98' : 'white',
+              name: node.stage.displayName,
               width: 90,
               height: 40,
-              icon: MapStepTypeToIcon[type as StageType]
+              icon: MapStepTypeToIcon[type]
             })
           : new Diagram.DefaultNodeModel({
-              id: node[type].identifier,
-              backgroundColor: selectedStageId === node[type].identifier ? '#436b98' : 'white',
-              name: node[type].displayName,
+              id: node.stage.identifier,
+              backgroundColor: selectedStageId === node.stage.identifier ? '#436b98' : 'white',
+              name: node.stage.displayName,
               width: 90,
               height: 40,
-              icon: MapStepTypeToIcon[type as StageType]
+              icon: MapStepTypeToIcon[type]
             })
 
       this.addNode(nodeRender)

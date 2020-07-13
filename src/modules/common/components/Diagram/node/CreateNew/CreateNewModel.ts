@@ -1,5 +1,4 @@
 import { DefaultNodeModel, DefaultNodeModelOptions } from '../DefaultNodeModel'
-import i18n from '../../Diagram.i18n'
 import { DiagramType } from '../../Constants'
 import { DefaultPortModel } from '../../port/DefaultPortModel'
 
@@ -11,7 +10,7 @@ export class CreateNewModel extends DefaultNodeModel {
   name: string
 
   constructor(options: CreateNewModelOptions = {}) {
-    const name = options.name || i18n.CreateNew
+    const name = options.name || ''
     super({
       ...options,
       type: DiagramType.CreateNew,

@@ -53,7 +53,7 @@ const PipelineList: React.FC = () => {
           icon: 'nav-project',
           message: i18n.aboutPipeline,
           buttonText: i18n.addPipeline,
-          onClick: goToPipeline
+          onClick: () => goToPipeline()
         }}
       >
         <Layout.Masonry
@@ -61,7 +61,9 @@ const PipelineList: React.FC = () => {
           width={900}
           className={css.centerContainer}
           items={data?.resource?.content || []}
-          renderItem={(pipeline: CDPipelineDTO) => <PipelineCard pipeline={pipeline} onClick={goToPipeline} />}
+          renderItem={(pipeline: CDPipelineDTO) => (
+            <PipelineCard pipeline={pipeline} onClick={() => goToPipeline(pipeline.identifier)} />
+          )}
           keyOf={(pipeline: CDPipelineDTO) => pipeline.identifier}
         />
       </Page.Body>

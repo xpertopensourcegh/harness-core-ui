@@ -4,9 +4,11 @@ import i18n from './StageSetupShell.i18n'
 import ServiceSpecifications from '../ServiceSpecifications/ServiceSpecifications'
 import InfraSpecifications from '../InfraSpecifications/InfraSpecifications'
 import css from './StageSetupShell.module.scss'
+import cx from 'classnames'
 import type { StageWrapper } from 'services/ng-temp'
 import { PipelineContext } from 'modules/cd/pages/pipelines/PipelineContext/PipelineContext'
 import { getStageFromPipeline } from 'modules/cd/pages/pipelines/StageBuilder/StageBuilderModel'
+import ExecutionGraph from 'modules/cd/pages/pipelines/ExecutionGraph/ExecutionGraph'
 
 export default function StageSetupShell(): JSX.Element {
   // export default function StageSetupShell({ stageData }: { stageData: { name: string } }): JSX.Element {
@@ -32,12 +34,15 @@ export default function StageSetupShell(): JSX.Element {
 
   return (
     <section className={css.setupShell}>
-      <Layout.Horizontal spacing="small" className={css.tabsContainer}>
+      <Layout.Horizontal
+        spacing="small"
+        className={cx(css.tabsContainer, { [css.tabExecution]: selectedTabId === i18n.executionLabel })}
+      >
         <Tabs id="stageSetupShell" selectedTabId={selectedTabId}>
           <Tab id={stageData?.displayName} disabled title={`Stage: ${stageData?.displayName}`} />
           <Tab id={i18n.serviceLabel} title={i18n.serviceLabel} panel={<ServiceSpecifications />} />
           <Tab id={i18n.infraLabel} title={i18n.infraLabel} panel={<InfraSpecifications />} />
-          <Tab id={i18n.executionLabel} title={i18n.executionLabel} disabled panel={<span></span>} />
+          <Tab id={i18n.executionLabel} title={i18n.executionLabel} panel={<ExecutionGraph />} />
         </Tabs>
       </Layout.Horizontal>
       <Layout.Horizontal spacing="medium" padding="xlarge" style={{ position: 'absolute', bottom: 0 }}>
@@ -52,7 +57,7 @@ export default function StageSetupShell(): JSX.Element {
           text={i18n.next}
           intent="primary"
           rightIcon="chevron-right"
-          onClick={() => setSelectedTabId(selectedTabId === i18n.serviceLabel ? i18n.infraLabel : i18n.serviceLabel)}
+          onClick={() => setSelectedTabId(selectedTabId === i18n.serviceLabel ? i18n.infraLabel : i18n.executionLabel)}
         />
       </Layout.Horizontal>
     </section>

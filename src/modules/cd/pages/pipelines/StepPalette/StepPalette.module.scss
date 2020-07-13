@@ -1,0 +1,42 @@
+.grid {
+  display: grid;
+  grid-auto-rows: auto;
+  grid-gap: var(--spacing-medium);
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+
+  & > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  :global(.bp3-card) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 64px;
+    height: 64px;
+    box-shadow: 0 0 3px inset var(--blue-500);
+    border: 1px solid var(--grey-300);
+  }
+}
+
+.expanded-input {
+  width: 200px;
+  height: 35px;
+  display: flex;
+  justify-content: flex-end;
+
+  input {
+    border: 0 !important;
+    &:focus {
+      border: 1px solid var(--grey-350) !important;
+    }
+  }
+}
+.top-header {
+  display: flex;
+}
+.select-step {
+  flex: 1;
+}

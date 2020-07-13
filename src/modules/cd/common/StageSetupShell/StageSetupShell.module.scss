@@ -5,6 +5,16 @@
   background: white;
   .tabsContainer {
     height: 73vh;
+
+    &.tab-execution {
+      :global(.bp3-tab-panel) {
+        background-image: var(--pipeline-canvas-image);
+        height: 100%;
+        min-height: 800px;
+        margin: 0;
+        overflow: scroll;
+      }
+    }
     :global {
       .bp3-tab {
         margin: 10px 0 10px 0 !important;
