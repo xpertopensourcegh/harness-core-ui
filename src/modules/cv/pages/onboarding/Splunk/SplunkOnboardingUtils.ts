@@ -25,11 +25,14 @@ export const options = {
   },
   series: [
     {
-      name: '',
+      name: ' ',
       data: [],
       showInLegend: false
     }
   ],
+  tooltip: {
+    headerFormat: ' '
+  },
   credits: {
     enabled: false
   },
@@ -37,11 +40,12 @@ export const options = {
 }
 
 export const splunkInitialQuery = {
-  // uuid: new Date().getTime(),
+  uuid: new Date().getTime(),
   queryName: '',
   service: '',
   environment: '',
   serviceInstanceIdentifier: '',
+  serviceInstanceOptions: {},
   queryString: '',
   eventType: 'Quality',
   graphOptions: cloneDeep(options),
@@ -64,13 +68,14 @@ export function transformQueriesFromSplunk(splunkSavedQueries: SplunkSavedSearch
 export function transformSavedQueries(savedQueries: any) {
   return savedQueries.map((query: any) => {
     const iQuery = cloneDeep(splunkInitialQuery)
-    ;(iQuery.queryName = query.identifier),
-      (iQuery.service = query.serviceIdentifier),
-      (iQuery.environment = query.envIdentifier),
-      (iQuery.serviceInstanceIdentifier = query.serviceInstanceIdentifier),
-      (iQuery.queryString = query.query),
-      (iQuery.eventType = query.eventType),
-      (iQuery.isAlreadySaved = true)
+    iQuery.uuid = new Date().getTime()
+    iQuery.queryName = query.identifier
+    iQuery.service = query.serviceIdentifier
+    iQuery.environment = query.envIdentifier
+    iQuery.serviceInstanceIdentifier = query.serviceInstanceIdentifier
+    iQuery.queryString = query.query
+    iQuery.eventType = query.eventType
+    iQuery.isAlreadySaved = true
     return iQuery
   })
 }

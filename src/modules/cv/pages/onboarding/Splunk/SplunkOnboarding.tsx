@@ -64,8 +64,6 @@ const SplunkOnboarding: FunctionComponent<any> = props => {
   // const connectorId = 'g8eLKgBSQ368GWA5FuS7og'
   // const appId = 'qJ_sRGAjRTyD9oXHBRkxKQ'
 
-  const [serviceInstanceConfig, setServiceInstanceConfig] = useState(null)
-
   const Logo = HarnessIcons['harness-logo-black']
 
   useEffect(() => {
@@ -131,12 +129,13 @@ const SplunkOnboarding: FunctionComponent<any> = props => {
     const { response }: any = await xhr.get(url, { group: xhrGroup })
     if (response) {
       formikProps.setFieldValue(`queries[${index}].stackTrace`, [response.resource.rawSampleLogs.join()])
-      setServiceInstanceConfig(response.resource.sample)
+      formikProps.setFieldValue(`queries[${index}].serviceInstanceOptions`, response.resource.sample)
     }
   }
 
   const addQuery = (parentFormikProps: any) => {
-    const iValues = { ...initialValues }
+    const iValues = cloneDeep(initialValues)
+    iValues.uuid = new Date().getTime()
     parentFormikProps.setFieldValue('queries', [{ ...iValues }, ...parentFormikProps.values.queries])
   }
 
@@ -206,7 +205,7 @@ const SplunkOnboarding: FunctionComponent<any> = props => {
             onChange={value => {
               addSplunkQuery(parentFormikProps, value, index)
             }}
-            name={`savedQueries${index}`}
+            name={`savedQueries${parentFormikProps.values.queries[index].uuid}`}
             placeholder={'Select an existing Splunk query'}
             items={splunkQueriesOptions}
           />
@@ -231,7 +230,7 @@ const SplunkOnboarding: FunctionComponent<any> = props => {
             <JsonSelectorFormInput
               name={`queries[${index}].serviceInstanceIdentifier`}
               label="Service instance field name"
-              json={serviceInstanceConfig}
+              json={parentFormikProps.values.queries[index].serviceInstanceOptions}
             />
             {/* Select baseline time range */}
             {/* <SubViewDatePickerAndOptions parentFormikProps={parentFormikProps} index={index} /> */}
