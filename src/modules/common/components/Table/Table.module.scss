@@ -1,0 +1,22 @@
+.table {
+  border: 1px;
+
+  .header {
+    font-weight: bold;
+  }
+
+  .row {
+    display: block;
+    margin: var(--spacing-medium);
+    padding: var(--spacing-medium);
+  }
+
+  .card {
+    box-shadow: 0px 1px 6px -3px rgba(0, 0, 0, 0.5);
+  }
+
+  .cell {
+    display: inline-block;
+    vertical-align: middle;
+  }
+}

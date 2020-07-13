@@ -5,9 +5,10 @@ import css from './ResourcesPage.module.scss'
 import cx from 'classnames'
 import { Page } from 'modules/common/exports'
 import { Route, Switch } from 'react-router'
-import { Link, useRouteMatch, useParams } from 'react-router-dom'
-import ConnectorsList from '../../../dx/pages/connectors/ConnectorsList'
-// import FilterDrawer from './FilterDrawer/FilterDrawer'
+import { Link, useRouteMatch, Redirect } from 'react-router-dom'
+import ConnectorsList from 'modules/dx/pages/connectors/ConnectorsList'
+import SecretsList from 'modules/dx/pages/secrets/SecretsList'
+
 interface Categories {
   [key: string]: string
 }
@@ -19,16 +20,11 @@ const categories: Categories = {
   templates: i18n.templates,
   fileStore: i18n.fileStore
 }
-function ComponentToRender() {
-  const { category } = useParams()
-  if (category === 'connectors') return <ConnectorsList />
-  else return <span></span>
-}
 
 const ResourcesPage: React.FC = () => {
   const [activeCategory, setActiveCategory] = React.useState(0)
   const { path, url } = useRouteMatch()
-  // const [isFilterPanelOpen, setFilterPanelState] = React.useState(false)
+
   return (
     <>
       <Page.Header
@@ -54,8 +50,9 @@ const ResourcesPage: React.FC = () => {
       />
       <Page.Body>
         <Switch>
-          <Route exact path={`${path}/`} component={ConnectorsList} />
-          <Route path={`${path}/:category`} component={ComponentToRender} />
+          <Redirect exact from={`${path}/`} to={`${path}/connectors`} />
+          <Route path={`${path}/connectors`} component={ConnectorsList} />
+          <Route path={`${path}/secrets`} component={SecretsList} />
         </Switch>
       </Page.Body>
     </>
