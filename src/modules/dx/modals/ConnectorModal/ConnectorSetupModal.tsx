@@ -1,9 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { ModalProvider, useModalHook, Button, Icon, IconName } from '@wings-software/uikit'
 import { Dialog, IDialogProps, Position } from '@blueprintjs/core'
-import css from './DelegateSetupModal.module.scss'
+import css from '../../components/connectors/CreateConnectorWizard/CreateConnectorWizard.module.scss'
+import { CreateConnectorWizard } from '../../components/connectors/CreateConnectorWizard/CreateConnectorWizard'
 import { Menu, Popover } from '@blueprintjs/core'
-import i18n from './DelegateSetup.i18n'
+import i18n from '../../components/connectors/CreateConnectorWizard/CreateConnectorWizard.i18n'
+import { useParams } from 'react-router-dom'
+import { Connectors, ConnectorInfoText } from 'modules/dx/constants'
 
 interface OptionInterface {
   label: string
@@ -25,7 +28,10 @@ const getMenuItem = (item: OptionInterface): JSX.Element => {
   )
 }
 
-const DelegateModal: React.FC = () => {
+const ConnectorModal: React.FC = () => {
+  const { accountId } = useParams()
+  const [connectorType, setConnectorType] = useState('')
+
   const modalPropsLight: IDialogProps = {
     isOpen: true,
     usePortal: true,
@@ -36,30 +42,35 @@ const DelegateModal: React.FC = () => {
     style: { width: 960, height: 600, borderLeft: 0, paddingBottom: 0, position: 'relative', overflow: 'hidden' }
   }
 
-  const [openLightModal, hideLightModal] = useModalHook(() => (
-    <Dialog {...modalPropsLight}>
-      {/* <CreateConnectorWizard accountId={accountId} /> */}
-      <Button minimal icon="cross" iconProps={{ size: 18 }} onClick={hideLightModal} className={css.crossIcon} />
-    </Dialog>
-  ))
+  const [openLightModal, hideLightModal] = useModalHook(
+    () => (
+      <Dialog {...modalPropsLight}>
+        <CreateConnectorWizard accountId={accountId} type={connectorType} hideLightModal={hideLightModal} />
+        <Button minimal icon="cross" iconProps={{ size: 18 }} onClick={hideLightModal} className={css.crossIcon} />
+      </Dialog>
+    ),
+    [connectorType]
+  )
   const items: OptionInterface[] = [
-    { label: 'Kubernetes', value: 'service-kubernetes', icon: 'service-kubernetes', onClick: openLightModal },
-    { label: 'Git', value: 'service-github', icon: 'service-github' },
-    { label: 'Jenkins', value: 'service-jenkins', icon: 'service-jenkins' },
-    { label: 'GCP', value: 'service-gcp', icon: 'service-gcp' }
+    {
+      label: ConnectorInfoText.KUBERNETES_CLUSTER,
+      value: Connectors.KUBERNETES_CLUSTER,
+      icon: 'service-kubernetes'
+    },
+    { label: ConnectorInfoText.GIT, value: Connectors.GIT, icon: 'service-github' },
+    { label: ConnectorInfoText.AZURE, value: Connectors.AZURE, icon: 'service-jenkins' },
+    { label: ConnectorInfoText.GCP, value: Connectors.GCP, icon: 'service-gcp' }
   ]
 
   return (
     <React.Fragment>
-      {/* <Link  href={routeConnectorDetails.url({accountId:'kmpySmUISimoRrJL6NL73w',editMode:true})}> */}
       <Popover minimal position={Position.BOTTOM_RIGHT}>
         <Button
           intent="primary"
           text={i18n.NEW_CONNECTOR}
           rightIcon="chevron-down"
           large
-          style={{ borderRadius: 8 }}
-          // onClick={openLightModal}    Disabling temporarily
+          className={css.newConnector}
           padding="medium"
         />
 
@@ -68,9 +79,10 @@ const DelegateModal: React.FC = () => {
             return (
               <Menu.Item
                 className={css.menuItem}
-                // href={`#${routeConnectorDetails.url({ accountId: accountId, editMode: 'true', type: item.value })}`}
-                // href={`#${routeConnectorDetails.url({ accountId: accountId, editMode: 'true' })}`}
-                onClick={item?.onClick}
+                onClick={() => {
+                  setConnectorType(item?.value)
+                  openLightModal()
+                }}
                 key={index}
                 text={getMenuItem(item)}
               />
@@ -78,16 +90,14 @@ const DelegateModal: React.FC = () => {
           })}
         </Menu>
       </Popover>
-
-      {/* </Link> */}
     </React.Fragment>
   )
 }
 
-export const DelegateSetupModal: React.FC = () => {
+export const ConnectorSetupModal: React.FC = () => {
   return (
     <ModalProvider>
-      <DelegateModal />
+      <ConnectorModal />
     </ModalProvider>
   )
 }

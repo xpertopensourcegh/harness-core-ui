@@ -1,22 +1,8 @@
 /* eslint-disable */
 // this is an auto-generated file
 declare const styles: {
-  readonly crossIcon: string
-  readonly exampleWizard: string
-  readonly itemName: string
-  readonly itemInfo: string
-  readonly formLayout: string
-  readonly stepsOverlay: string
-  readonly iconConnector: string
-  readonly selectConnector: string
-  readonly menuItem: string
-  readonly menuItemContent: string
-  readonly menulabel: string
-  readonly firstep: string
-  readonly heading: string
-  readonly connectorForm: string
-  readonly saveBtn: string
   readonly secondStep: string
+  readonly continueBtn: string
   readonly headingStepTwo: string
   readonly customCss: string
   readonly selectedText: string
@@ -31,6 +17,10 @@ declare const styles: {
   readonly selectDelegate: string
   readonly selectDelegateText: string
   readonly saveSecondStep: string
+  readonly itemName: string
+  readonly tickWrp: string
+  readonly tickIcon: string
+  readonly itemInfo: string
   readonly intermediateStep: string
   readonly formWrapper: string
   readonly formFields: string

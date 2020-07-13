@@ -16684,3 +16684,31 @@ export const useGetDelegateProfiles = (props: UseGetDelegateProfilesProps) =>
     base: '/api',
     ...props
   })
+
+export interface GetKubernetesDelegateNamesQueryParams {
+  accountId?: string
+}
+
+export type GetKubernetesDelegateNamesProps = Omit<
+  GetProps<RestResponseListString, unknown, GetKubernetesDelegateNamesQueryParams, void>,
+  'path'
+>
+
+export const GetKubernetesDelegateNames = (props: GetKubernetesDelegateNamesProps) => (
+  <Get<RestResponseListString, unknown, GetKubernetesDelegateNamesQueryParams, void>
+    path={`/setup/delegates/kubernetes-delegates`}
+    base={'/api'}
+    {...props}
+  />
+)
+
+export type UseGetKubernetesDelegateNamesProps = Omit<
+  UseGetProps<RestResponseListString, GetKubernetesDelegateNamesQueryParams, void>,
+  'path'
+>
+
+export const useGetKubernetesDelegateNames = (props: UseGetKubernetesDelegateNamesProps) =>
+  useGet<RestResponseListString, unknown, GetKubernetesDelegateNamesQueryParams, void>(
+    `/setup/delegates/kubernetes-delegates`,
+    { base: '/api', ...props }
+  )

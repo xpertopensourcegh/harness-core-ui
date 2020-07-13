@@ -75,8 +75,7 @@ exports[`ResourcesPage Snapshot should render ResourcesPage 1`] = `
                 class="bp3-popover-target"
               >
                 <button
-                  class="bp3-button bp3-large StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi StyledProps---padding-medium--3Ish"
-                  style="border-radius: 8px;"
+                  class="bp3-button bp3-large StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws newConnector StyledProps---intent-primary--2Xgi StyledProps---padding-medium--3Ish"
                   type="button"
                 >
                   <span

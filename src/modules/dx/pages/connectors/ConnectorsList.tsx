@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Layout, Container } from '@wings-software/uikit'
-import { DelegateSetupModal } from '../../../cd/modals/DelegateSetupModal/DelegateSetupModal'
+import { ConnectorSetupModal } from '../../modals/ConnectorModal/ConnectorSetupModal'
 import CustomTable from '../../../common/components/CustomTable/CustomTable'
 import { columns } from '../../../cd/pages/Resources/SampleColumnsData'
 import css from './ConnectorsList.module.scss'
@@ -50,7 +50,7 @@ const ConnectorsList: React.FC = () => {
       <Container>
         <Layout.Horizontal id="layout-horizontal-sample" spacing="none" padding="xlarge" className={css.listWrapper}>
           <div style={{ width: 200 }}>
-            <DelegateSetupModal />
+            <ConnectorSetupModal />
           </div>
           {/* <div style={{ flexGrow: 1 }}></div> */}
         </Layout.Horizontal>

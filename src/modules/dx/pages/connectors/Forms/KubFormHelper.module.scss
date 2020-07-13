@@ -1,0 +1,33 @@
+:root {
+  --horizontal-line: #555770;
+}
+.harnessSelectedIcon {
+  margin-top: var(--spacing-small) !important;
+  > svg > path {
+    fill: var(--white);
+  }
+}
+.harnessIcon {
+  margin-top: 10px !important;
+}
+.lineSelected {
+  width: 90px;
+  position: relative;
+  top: 14px;
+  left: 10px;
+  color: var(--white);
+  border-top-width: 0;
+}
+.line {
+  color: var(--horizontal-line);
+  width: 90px;
+  position: relative;
+  top: 14px;
+  left: 10px;
+}
+.clusterSelected {
+  margin-top: 6px !important;
+}
+.cluster {
+  margin-top: 6px !important;
+}

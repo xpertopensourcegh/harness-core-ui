@@ -3,8 +3,10 @@ allowpaths:
   - '/setup/delegates/status.get'
   - '/setup/delegates/downloadUrl.get'
   - '/delegate-profiles.get'
+  - '/setup/delegates/kubernetes-delegates'
 operationIdOverrides:
   /setup/delegates.get: getDelegates
   /setup/delegates/status.get: getDelegatesStatus
   /setup/delegates/downloadUrl.get: getDelegatesDownloadUrl
   /delegate-profiles.get: getDelegateProfiles
+  /setup/delegates/kubernetes-delegates.get: getKubernetesDelegateNames

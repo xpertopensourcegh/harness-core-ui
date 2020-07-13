@@ -1,10 +1,11 @@
 import React from 'react'
 import { string } from 'yup'
-import { FormInput } from '@wings-software/uikit'
+import { FormInput, Layout, Icon } from '@wings-software/uikit'
 import { illegalIdentifiers, getIdentifierFromName } from 'framework/utils/StringUtils'
 import * as Yup from 'yup'
 import { FormikCreateInlineSecret } from 'modules/common/components/CreateInlineSecret/CreateInlineSecret'
 import type { SecretManagerConfig } from 'services/cd-ng'
+import css from './KubFormHelper.module.scss'
 
 export const AuthTypes = {
   CUSTOM: 'ManualConfig',
@@ -271,5 +272,42 @@ export const getCustomFields = (
       )
     default:
       return <></>
+  }
+}
+
+export const getIconsForCard = (type: string, isSelected: boolean) => {
+  if (type === DelegateTypes.DELEGATE_IN_CLUSTER) {
+    if (isSelected) {
+      return (
+        <Layout.Horizontal>
+          <Icon name="harness" size={18} className={css.harnessSelectedIcon} /> <hr className={css.lineSelected} />{' '}
+          <Icon name="white-cluster" size={32} className={css.clusterSelected} />
+        </Layout.Horizontal>
+      )
+    } else {
+      return (
+        <Layout.Horizontal>
+          <Icon name="harness" size={18} className={css.harnessIcon} /> <hr className={css.line} />{' '}
+          <Icon name="blue-black-cluster" size={32} className={css.cluster} />
+        </Layout.Horizontal>
+      )
+    }
+  } else if (type === DelegateTypes.DELEGATE_OUT_CLUSTER) {
+    // Todo: The code below will have one more Icon
+    if (isSelected) {
+      return (
+        <Layout.Horizontal>
+          <Icon name="harness" size={18} className={css.harnessSelectedIcon} /> <hr className={css.lineSelected} />{' '}
+          <Icon name="white-full-cluster" size={32} className={css.clusterSelected} />
+        </Layout.Horizontal>
+      )
+    } else {
+      return (
+        <Layout.Horizontal>
+          <Icon name="harness" size={18} className={css.harnessIcon} /> <hr className={css.line} />{' '}
+          <Icon name="grey-cluster" size={32} className={css.cluster} />
+        </Layout.Horizontal>
+      )
+    }
   }
 }
