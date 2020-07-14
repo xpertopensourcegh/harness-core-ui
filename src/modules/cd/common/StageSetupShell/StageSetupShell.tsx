@@ -40,7 +40,7 @@ export default function StageSetupShell(): JSX.Element {
         className={cx(css.tabsContainer, { [css.tabExecution]: selectedTabId === i18n.executionLabel })}
       >
         <Tabs id="stageSetupShell" selectedTabId={selectedTabId}>
-          <Tab id={stageData?.displayName} disabled title={`Stage: ${stageData?.displayName}`} />
+          <Tab id={stageData?.name} disabled title={`Stage: ${stageData?.name}`} />
           <Tab id={i18n.serviceLabel} title={i18n.serviceLabel} panel={<ServiceSpecifications />} />
           <Tab id={i18n.infraLabel} title={i18n.infraLabel} panel={<InfraSpecifications />} />
           <Tab id={i18n.executionLabel} title={i18n.executionLabel} panel={<ExecutionGraph />} />

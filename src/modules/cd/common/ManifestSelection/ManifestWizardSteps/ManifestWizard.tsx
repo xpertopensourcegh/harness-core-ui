@@ -7,7 +7,8 @@ import i18n from './ManifestWizard.i18n'
 import * as Yup from 'yup'
 import { illegalIdentifiers } from 'framework/utils/StringUtils'
 
-import { get } from 'lodash-es'
+import { get } from 'lodash'
+import type { StageWrapper } from 'services/ng-temp'
 
 interface StepProps<PrevStepData> {
   name?: string
@@ -34,6 +35,11 @@ export interface StepWizardProps<SharedObject> {
   onCompleteWizard?: (data: SharedObject | undefined) => void // This will be called when all step completed
   initialStep?: number
 }
+
+const manifestTypes = [
+  { label: i18n.MANIFEST_TYPES[0].label, value: 'K8sManifest' },
+  { label: i18n.MANIFEST_TYPES[1].label, value: 'Values' }
+]
 
 const FirstStep = (props: any): JSX.Element => {
   const { setFormData } = props
@@ -62,10 +68,7 @@ const FirstStep = (props: any): JSX.Element => {
             <FormInput.Select
               name="gitServer"
               label={i18n.STEP_ONE.select}
-              items={[
-                { label: 'GIT Connector 1', value: 'myGit' },
-                { label: 'GIT Connector 2', value: 'myGit' }
-              ]}
+              items={[{ label: 'GIT Connector 1', value: 'VWjzrm4KRZOJvIJGtQ6Wbw' }]}
             />
             <Layout.Horizontal spacing="large" className={css.bottomButtons}>
               <Button type="submit" text={i18n.STEP_ONE.saveAndContinue} />
@@ -79,7 +82,7 @@ const FirstStep = (props: any): JSX.Element => {
 
 const SecondStep = (props: any): JSX.Element => {
   const prevData = props?.prevStepData
-  const manifests = get(props.pipeline, 'stages[0].deployment.deployment.service.serviceSpec.manifests', {})
+  const manifests = get(props.stage, 'stage.spec.service.serviceDef.spec.manifests', {})
 
   return (
     <Layout.Vertical spacing="xxlarge" padding="small" style={{ height: '100%' }}>
@@ -94,26 +97,24 @@ const SecondStep = (props: any): JSX.Element => {
           const manifestObj = {
             manifest: {
               identifier: prevData.identifier,
-              manifestAttributes: {
-                identifier: prevData?.identifier,
-                valuesFilePaths: [formData?.filePath],
-                storeConfig: {
-                  connectorId: prevData?.gitServer,
-                  paths: [formData?.filePath],
-                  fetchType: 'BRANCH',
-                  fetchValue: formData?.fetchValue,
-                  kind: 'git'
-                },
-                kind: 'k8s',
-                valuesPathsToFetch: [formData?.filePath]
+              type: formData?.manifestType,
+              spec: {
+                store: {
+                  type: 'Git',
+                  spec: {
+                    connectorIdentifier: prevData?.gitServer,
+                    gitFetchType: 'Branch',
+                    branch: formData?.fetchValue,
+                    paths: [formData?.filePath]
+                  }
+                }
               }
             }
           }
-          if (manifests && manifests['manifests'] && manifests['manifests'].length > 0) {
-            manifests['manifests'].push(manifestObj)
+          if (manifests && manifests.length > 0) {
+            manifests.push(manifestObj)
           } else {
-            manifests['manifests'] = []
-            manifests['manifests'].push(manifestObj)
+            manifests.push(manifestObj)
           }
 
           props.updatePipeline(props.pipeline)
@@ -122,11 +123,7 @@ const SecondStep = (props: any): JSX.Element => {
       >
         {() => (
           <Form className={css.formContainer}>
-            <FormInput.Select
-              name="manifestType"
-              label={i18n.STEP_TWO.manifestInputType}
-              items={[{ label: 'Kubernetes Resources Specs in YAML format', value: 'KUBERNETES' }]}
-            />
+            <FormInput.Select name="manifestType" label={i18n.STEP_TWO.manifestInputType} items={manifestTypes} />
             <FormInput.Text label={i18n.STEP_TWO.fetchValue} name="fetchValue" />
             <FormInput.Text label={i18n.STEP_TWO.filePath} name="filePath" />
 
@@ -146,13 +143,16 @@ export const ManifestWizard = ({
   closeModal,
   identifier,
   pipeline,
-  updatePipeline
+  updatePipeline,
+  stage
 }: {
   closeModal: () => void
   identifier: string
   pipeline: object
   updatePipeline: object
-}) => {
+
+  stage: StageWrapper | undefined
+}): JSX.Element => {
   const [formData, setFormData] = useState({})
   return (
     <div className={css.exampleWizard}>
@@ -164,6 +164,7 @@ export const ManifestWizard = ({
           setFormData={setFormData}
           identifier={identifier}
           pipeline={pipeline}
+          stage={stage}
           updatePipeline={updatePipeline}
           closeModal={closeModal}
         />

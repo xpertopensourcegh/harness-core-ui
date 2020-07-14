@@ -6,14 +6,17 @@ import { Formik, FormikForm, FormInput } from '@wings-software/uikit'
 import * as Yup from 'yup'
 
 import { PipelineContext } from 'modules/cd/pages/pipelines/PipelineContext/PipelineContext'
-import { get } from 'lodash-es'
+import { get } from 'lodash'
 import { loggerFor, ModuleName } from 'framework/exports'
+
+import { getStageFromPipeline } from 'modules/cd/pages/pipelines/StageBuilder/StageBuilderModel'
+import type { StageWrapper } from 'services/ng-temp'
 
 const logger = loggerFor(ModuleName.CD)
 
 const infraOptions = [
-  { label: i18n.prodLabel, value: 'PRODUCTION' },
-  { label: i18n.nonProdLabel, value: 'PRE_PRODUCTION' }
+  { label: i18n.prodLabel, value: 'Production' },
+  { label: i18n.nonProdLabel, value: 'PreProduction' }
 ]
 
 export default function InfraSpecifications(): JSX.Element {
@@ -21,26 +24,28 @@ export default function InfraSpecifications(): JSX.Element {
   const [isTagsVisible, setTagsVisible] = React.useState(false)
 
   const {
-    state: { pipeline },
+    state: {
+      pipeline,
+      pipelineView: { selectedStageId }
+    },
     updatePipeline
   } = React.useContext(PipelineContext)
 
+  const stage: StageWrapper | undefined = getStageFromPipeline(pipeline, selectedStageId || '')
+
   const getInitialValues = (): { infraName: string; description: string; tags: null | []; infraType: string } => {
-    const environment = get(pipeline, 'stages[0].deployment.deployment.infrastructure.environment', null)
-    const displayName = environment?.displayName
+    const environment = get(stage, 'stage.spec.infrastructure.environment', null)
+    const displayName = environment?.name
     const description = environment?.description
     return { infraName: displayName, description: description, tags: null, infraType: environment?.type }
   }
 
-  const getInitialInfraConnectorValues = (): { connectorId: string; namespaceId: string } => {
-    const infrastructure = get(
-      pipeline,
-      'stages[0].deployment.deployment.infrastructure.infrastructureSpec.infrastructure',
-      null
-    )
-    const connectorId = infrastructure?.connectorId
-    const namespaceId = infrastructure?.namespace
-    return { connectorId, namespaceId }
+  const getInitialInfraConnectorValues = (): { connectorId: string; namespaceId: string; releaseName: string } => {
+    const infrastructure = get(stage, 'stage.spec.infrastructure.infrastructureDef', null)
+    const connectorId = infrastructure?.spec?.connectorIdentifier
+    const namespaceId = infrastructure?.spec?.namespace
+    const releaseName = infrastructure?.spec?.releaseName
+    return { connectorId, namespaceId, releaseName }
   }
 
   return (
@@ -49,29 +54,17 @@ export default function InfraSpecifications(): JSX.Element {
         <Formik
           initialValues={getInitialValues()}
           validate={value => {
-            const pipelineData = get(pipeline, 'stages[0].deployment.deployment', {})
+            const pipelineData = get(stage, 'stage.spec', {})
             const infraStruct = {
-              steps: null,
-              rollbackSteps: null,
-              previousStageIdentifier: null,
-              refType: {
-                type: 'OUTCOME'
-              },
-              infrastructureSpec: {
-                infrastructure: {}
-              },
               environment: {
-                displayName: value.infraName,
+                name: value.infraName,
                 identifier: value.infraName,
                 description: value.description,
                 type: value.infraType,
-                tags: [],
-                refType: {
-                  type: 'OUTCOME'
-                }
-              }
+                tags: []
+              },
+              infrastructureDef: {}
             }
-
             pipelineData['infrastructure'] = infraStruct
             updatePipeline(pipeline)
           }}
@@ -119,16 +112,9 @@ export default function InfraSpecifications(): JSX.Element {
                     <FormInput.TagInput
                       name={i18n.addTags}
                       label={i18n.tagsLabel}
-                      items={[
-                        'The Godfather',
-                        'The Godfather: Part II',
-                        'The Dark Knight',
-                        '12 Angry Men',
-                        "Schindler's List",
-                        'Special'
-                      ]}
+                      items={['GCP', 'CDP']}
                       style={{ width: 400 }}
-                      labelFor={(name: any) => name}
+                      labelFor={name => name as string}
                       itemFromNewTag={newTag => newTag}
                       tagInputProps={{
                         noInputBorder: true,
@@ -177,29 +163,17 @@ export default function InfraSpecifications(): JSX.Element {
         <Text style={{ fontSize: 16, color: Color.BLACK, marginTop: 15 }}>{i18n.k8ConnectorLabel}</Text>
         <Formik
           initialValues={getInitialInfraConnectorValues()}
-          validate={(value: { connectorId: string; namespaceId: string }) => {
-            const infraSpec = get(pipeline, 'stages[0].deployment.deployment.infrastructure.infrastructureSpec', {})
+          validate={(value: { connectorId: string; namespaceId: string; releaseName: string }) => {
+            const infraSpec = get(stage, 'stage.spec.infrastructure', {})
             const infraStruct = {
-              connectorId: value.connectorId,
-              namespace: value.namespaceId,
-              releaseName: 'my-release',
-              kind: 'K8S_DIRECT',
-              infraMapping: {
-                type: 'K8sDirectInfraMapping',
-                uuid: null,
-                accountId: null,
-                k8sConnector: null,
+              type: 'KubernetesDirect',
+              spec: {
+                connectorIdentifier: value.connectorId,
                 namespace: value.namespaceId,
-                serviceIdentifier: null,
-                refType: {
-                  type: 'OUTCOME'
-                }
-              },
-              refType: {
-                type: 'OUTCOME'
+                releaseName: value.releaseName
               }
             }
-            infraSpec['infrastructure'] = infraStruct
+            infraSpec['infrastructureDef'] = infraStruct
             updatePipeline(pipeline)
           }}
           onSubmit={values => {
@@ -214,13 +188,19 @@ export default function InfraSpecifications(): JSX.Element {
                   style={{ width: 400 }}
                   label={i18n.k8ConnectorDropDownLabel}
                   placeholder={i18n.k8ConnectorDropDownPlaceholder}
-                  items={[]}
+                  items={[{ label: 'Kubernetes Connector', value: 'pEIkEiNPSgSUsbWDDyjNKw' }]}
                 />
                 <FormInput.Text
                   name="namespaceId"
                   style={{ width: 400 }}
                   label={i18n.nameSpaceLabel}
                   placeholder={i18n.nameSpacePlaceholder}
+                />
+                <FormInput.Text
+                  name="releaseName"
+                  style={{ width: 400 }}
+                  label={i18n.releaseName}
+                  placeholder={i18n.releaseNamePlaceholder}
                 />
               </FormikForm>
             )

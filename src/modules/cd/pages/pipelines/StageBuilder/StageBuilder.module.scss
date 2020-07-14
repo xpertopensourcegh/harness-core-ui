@@ -9,6 +9,8 @@
   }
   split-view[horizontal] > split-divider[wide] {
     height: 5px;
+    position: relative;
+    z-index: 1;
   }
   split-view[horizontal] > section {
     flex: 2;
@@ -94,4 +96,12 @@
 
 .btn-setup {
   padding-top: var(--spacing-medium);
+}
+
+.stageCloseIcon {
+  position: absolute;
+  color: var(--white) !important;
+  right: var(--spacing-large);
+  cursor: pointer;
+  top: var(--spacing-medium);
 }

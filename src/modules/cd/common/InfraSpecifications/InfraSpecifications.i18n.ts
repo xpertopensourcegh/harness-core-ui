@@ -24,5 +24,7 @@ export default {
   k8ConnectorDropDownLabel: 'Connector',
   k8ConnectorDropDownPlaceholder: 'Select a new connector',
   nameSpaceLabel: 'Namespace',
+  releaseName: 'Release Name',
+  releaseNamePlaceholder: 'Specify Release Name',
   nameSpacePlaceholder: 'Specify a namespace'
 }

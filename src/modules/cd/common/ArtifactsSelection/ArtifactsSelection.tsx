@@ -5,19 +5,14 @@ import i18n from './ArtifactsSelection.i18n'
 import cx from 'classnames'
 
 import { PipelineContext } from 'modules/cd/pages/pipelines/PipelineContext/PipelineContext'
-import { get } from 'lodash-es'
+import { get } from 'lodash'
+
+import { getStageFromPipeline } from 'modules/cd/pages/pipelines/StageBuilder/StageBuilderModel'
+import type { StageWrapper } from 'services/ng-temp'
 
 interface ArtifactTable {
   [key: string]: string
 }
-
-// interface PrimaryArtifactDataset {
-//   type: string
-//   server: { name: string; type: string }
-//   status: string
-//   source: string
-//   id: string
-// }
 
 const artifactListHeaders: ArtifactTable = {
   type: i18n.artifactTable.type,
@@ -26,136 +21,109 @@ const artifactListHeaders: ArtifactTable = {
   id: i18n.artifactTable.id
 }
 
-// const samplePrimaryArtifactData: PrimaryArtifactDataset[] = [
-//   {
-//     type: 'PRIMARY',
-//     server: {
-//       type: 'service-dockerhub',
-//       name: 'Docker connector'
-//     },
-//     status: 'ACTIVE',
-//     source: 'gcr.io/myProjectDrive/asdfasdfasdfasdfasdf/adsfadsfadsfadsfs',
-//     id: 'my_unique_identifier'
-//   }
-// ]
-
-// const samplesideCarArtifactData: PrimaryArtifactDataset[] = [
-//   {
-//     type: 'SIDECAR',
-//     server: {
-//       type: 'service-jenkins',
-//       name: 'My GCR Server 1'
-//     },
-//     status: 'ACTIVE',
-//     source: 'Registry Host / Docker Image Name',
-//     id: 'artifact'
-//   }
-// ]
-
-// function EditCloneDelete(): JSX.Element {
-//   return (
-//     <Layout.Horizontal spacing="medium">
-//       <Icon name="main-edit" size={14} />
-//       <Icon name="main-clone" size={14} />
-//       <Icon name="delete" size={14} />
-//     </Layout.Horizontal>
-//   )
-// }
-
 export default function ArtifactsSelection(): JSX.Element {
   const {
-    state: { pipeline },
+    state: {
+      pipeline,
+      pipelineView: { selectedStageId }
+    },
     updatePipeline
   } = React.useContext(PipelineContext)
-  const serviceSpec = get(pipeline, 'stages[0].deployment.deployment.service.serviceSpec.artifacts', null)
-  const primaryArtifact = get(pipeline, 'stages[0].deployment.deployment.service.serviceSpec.artifacts.primary', null)
+
+  const stage: StageWrapper | undefined = getStageFromPipeline(pipeline, selectedStageId || '')
+
+  const serviceSpec = get(stage, 'deployment.deployment.service.serviceSpec.artifacts', null)
+
+  const primaryArtifact = get(stage, 'deployment.deployment.service.serviceSpec.artifacts.primary', null)
+
   const primaryArtifactType = 'dockerhub'
-  const sideCarArtifact: [] = get(
-    pipeline,
-    'stages[0].deployment.deployment.service.serviceSpec.artifacts.sidecars',
-    null
-  )
+
+  const sideCarArtifact: [] = get(stage, 'deployment.deployment.service.serviceSpec.artifacts.sidecars', null)
+
   const addPrimaryArtifact = (): void => {
-    const primaryArtifactStruct = {
-      dockerhub: {
-        dockerhubConnector: 'https://registry.hub.docker.com/',
-        imagePath: 'library/ubuntu',
-        tag: null,
-        tagRegex: 'groo*',
-        identifier: 'primary',
-        artifactType: 'primary',
-        sourceAttributes: {
-          dockerhubConnector: 'https://registry.hub.docker.com/',
-          imagePath: 'library/ubuntu',
-          tag: null,
-          tagRegex: 'groo*',
-          delegateArtifactServiceClass: 'io.harness.cdng.artifact.delegate.DockerArtifactServiceImpl'
-        },
-        uniqueHash: 'da524bfa3ddd46f7fada043505c9d836b79b79051f4e814a70435e4ef49ff522',
-        sourceType: 'dockerhub'
-      }
-    }
-    if (serviceSpec) {
-      serviceSpec['primary'] = primaryArtifactStruct
-      updatePipeline(pipeline)
-    }
+    return
+    // const primaryArtifactStruct = {
+    //   dockerhub: {
+    //     dockerhubConnector: 'https://registry.hub.docker.com/',
+    //     imagePath: 'library/ubuntu',
+    //     tag: null,
+    //     tagRegex: 'groo*',
+    //     identifier: 'primary',
+    //     artifactType: 'primary',
+    //     sourceAttributes: {
+    //       dockerhubConnector: 'https://registry.hub.docker.com/',
+    //       imagePath: 'library/ubuntu',
+    //       tag: null,
+    //       tagRegex: 'groo*',
+    //       delegateArtifactServiceClass: 'io.harness.cdng.artifact.delegate.DockerArtifactServiceImpl'
+    //     },
+    //     uniqueHash: 'da524bfa3ddd46f7fada043505c9d836b79b79051f4e814a70435e4ef49ff522',
+    //     sourceType: 'dockerhub'
+    //   }
+    // }
+    // if (serviceSpec && stage) {
+    //   // stage['deployment']['deployment']['service']['serviceSpec']['artifacts']['primary'] = primaryArtifactStruct
+
+    //   updatePipeline(pipeline)
+    // }
   }
 
   const addSideCarArtifact = (): void => {
-    const sidecarArtifactOne = {
-      sidecar: {
-        identifier: 'sidecar1',
-        artifact: {
-          dockerhubConnector: 'https://registry.hub.docker.com/',
-          imagePath: 'library/redis',
-          tag: 'latest',
-          tagRegex: null,
-          identifier: 'sidecar1',
-          artifactType: 'sidecar',
-          sourceAttributes: {
-            dockerhubConnector: 'https://registry.hub.docker.com/',
-            imagePath: 'library/redis',
-            tag: 'latest',
-            tagRegex: null,
-            delegateArtifactServiceClass: 'io.harness.cdng.artifact.delegate.DockerArtifactServiceImpl'
-          },
-          uniqueHash: '806070eb81fd998c8b449afccc7c48b8626bedbd02aee33ed5e8159a87a94170',
-          sourceType: 'dockerhub'
-        }
-      }
-    }
+    return
+    // const sidecarArtifactOne = {
+    //   sidecar: {
+    //     identifier: 'sidecar1',
+    //     artifact: {
+    //       dockerhubConnector: 'https://registry.hub.docker.com/',
+    //       imagePath: 'library/redis',
+    //       tag: 'latest',
+    //       tagRegex: null,
+    //       identifier: 'sidecar1',
+    //       artifactType: 'sidecar',
+    //       sourceAttributes: {
+    //         dockerhubConnector: 'https://registry.hub.docker.com/',
+    //         imagePath: 'library/redis',
+    //         tag: 'latest',
+    //         tagRegex: null,
+    //         delegateArtifactServiceClass: 'io.harness.cdng.artifact.delegate.DockerArtifactServiceImpl'
+    //       },
+    //       uniqueHash: '806070eb81fd998c8b449afccc7c48b8626bedbd02aee33ed5e8159a87a94170',
+    //       sourceType: 'dockerhub'
+    //     }
+    //   }
+    // }
 
-    const sidecarArtifacTwo = {
-      sidecar: {
-        identifier: 'sidecar2',
-        artifact: {
-          dockerhubConnector: 'https://registry.hub.docker.com/',
-          imagePath: 'library/mongo',
-          tag: 'latest',
-          tagRegex: null,
-          identifier: 'sidecar2',
-          artifactType: 'sidecar',
-          sourceAttributes: {
-            dockerhubConnector: 'https://registry.hub.docker.com/',
-            imagePath: 'library/mongo',
-            tag: 'latest',
-            tagRegex: null,
-            delegateArtifactServiceClass: 'io.harness.cdng.artifact.delegate.DockerArtifactServiceImpl'
-          },
-          uniqueHash: '3ca3a056566baafd358db499fd7385584bd3563761d0824d038b7c711def81c7',
-          sourceType: 'dockerhub'
-        }
-      }
-    }
-    if (serviceSpec) {
-      if (serviceSpec['sidecars']?.length > 0) {
-        serviceSpec['sidecars'].push(sidecarArtifacTwo)
-      } else {
-        serviceSpec['sidecars'] = []
-        serviceSpec['sidecars'].push(sidecarArtifactOne)
-      }
-      updatePipeline(pipeline)
-    }
+    // const sidecarArtifacTwo = {
+    //   sidecar: {
+    //     identifier: 'sidecar2',
+    //     artifact: {
+    //       dockerhubConnector: 'https://registry.hub.docker.com/',
+    //       imagePath: 'library/mongo',
+    //       tag: 'latest',
+    //       tagRegex: null,
+    //       identifier: 'sidecar2',
+    //       artifactType: 'sidecar',
+    //       sourceAttributes: {
+    //         dockerhubConnector: 'https://registry.hub.docker.com/',
+    //         imagePath: 'library/mongo',
+    //         tag: 'latest',
+    //         tagRegex: null,
+    //         delegateArtifactServiceClass: 'io.harness.cdng.artifact.delegate.DockerArtifactServiceImpl'
+    //       },
+    //       uniqueHash: '3ca3a056566baafd358db499fd7385584bd3563761d0824d038b7c711def81c7',
+    //       sourceType: 'dockerhub'
+    //     }
+    //   }
+    // }
+    // if (serviceSpec) {
+    //   if (serviceSpec['sidecars']?.length > 0) {
+    //     serviceSpec['sidecars'].push(sidecarArtifacTwo)
+    //   } else {
+    //     serviceSpec['sidecars'] = []
+    //     serviceSpec['sidecars'].push(sidecarArtifactOne)
+    //   }
+    //   updatePipeline(pipeline)
+    // }
   }
 
   const removePrimary = (): void => {
@@ -183,16 +151,18 @@ export default function ArtifactsSelection(): JSX.Element {
         )}
       </Layout.Vertical>
       <Layout.Vertical spacing="small">
-        <Container>
-          <section className={css.thead}>
-            <span>{artifactListHeaders.type}</span>
-            <span>{artifactListHeaders.server}</span>
-            <span></span>
-            <span>{artifactListHeaders.source}</span>
-            <span>{artifactListHeaders.id}</span>
-            <span></span>
-          </section>
-        </Container>
+        {(primaryArtifact || (sideCarArtifact && sideCarArtifact.length > 0)) && (
+          <Container>
+            <section className={css.thead}>
+              <span>{artifactListHeaders.type}</span>
+              <span>{artifactListHeaders.server}</span>
+              <span></span>
+              <span>{artifactListHeaders.source}</span>
+              <span>{artifactListHeaders.id}</span>
+              <span></span>
+            </section>
+          </Container>
+        )}
         <Layout.Vertical spacing="medium">
           <section>
             {primaryArtifact && (

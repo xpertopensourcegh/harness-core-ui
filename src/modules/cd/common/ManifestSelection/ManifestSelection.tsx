@@ -6,7 +6,11 @@ import cx from 'classnames'
 import { Dialog, IDialogProps } from '@blueprintjs/core'
 import { ManifestWizard } from './ManifestWizardSteps/ManifestWizard'
 import { PipelineContext } from '../../pages/pipelines/PipelineContext/PipelineContext'
-import { get } from 'lodash-es'
+import { get } from 'lodash'
+
+import { getStageFromPipeline } from 'modules/cd/pages/pipelines/StageBuilder/StageBuilderModel'
+import type { StageWrapper } from 'services/ng-temp'
+
 interface ManifestTable {
   [key: string]: string
 }
@@ -19,14 +23,22 @@ const artifactListHeaders: ManifestTable = {
   id: i18n.manifestTable.id
 }
 
+const manifestTypeLabels: Record<string, string> = {
+  K8sManifest: 'Kubernetes Manifest',
+  Values: 'Values Overrides'
+}
+
 function AddManifestRender({
   identifier,
   pipeline,
-  updatePipeline
+  updatePipeline,
+  stage
 }: {
   identifier: string
   pipeline: object
   updatePipeline: object
+
+  stage: StageWrapper | undefined
 }): JSX.Element {
   const modalPropsLight: IDialogProps = {
     isOpen: true,
@@ -44,6 +56,7 @@ function AddManifestRender({
         closeModal={hideLightModal}
         identifier={identifier}
         pipeline={pipeline}
+        stage={stage}
         updatePipeline={updatePipeline}
       />
       <Button minimal icon="cross" iconProps={{ size: 18 }} onClick={hideLightModal} className={css.crossIcon} />
@@ -62,11 +75,14 @@ function AddManifestRender({
 function ManifestListView({
   identifier,
   pipeline,
-  updatePipeline
+  updatePipeline,
+  stage
 }: {
   identifier: string
   pipeline: object
   updatePipeline: (data: object) => void
+
+  stage: StageWrapper | undefined
 }): JSX.Element {
   const modalPropsLight: IDialogProps = {
     isOpen: true,
@@ -83,6 +99,7 @@ function ManifestListView({
       <ManifestWizard
         closeModal={hideLightModal}
         identifier={identifier}
+        stage={stage}
         pipeline={pipeline}
         updatePipeline={updatePipeline}
       />
@@ -90,9 +107,9 @@ function ManifestListView({
     </Dialog>
   ))
 
-  const listOfManifests = get(pipeline, 'stages[0].deployment.deployment.service.serviceSpec.manifests.manifests', [])
+  const listOfManifests = get(stage, 'stage.spec.service.serviceDef.spec.manifests', [])
 
-  const removeManifestConfig = (index: number) => {
+  const removeManifestConfig = (index: number): void => {
     listOfManifests.splice(index, 1)
     updatePipeline(pipeline)
   }
@@ -118,11 +135,16 @@ function ManifestListView({
               data: {
                 manifest: {
                   identifier: string
-                  manifestAttributes: {
-                    kind: string
-                    storeConfig: {
-                      fetchValue: string
-                      paths: string[]
+                  type: string
+                  spec: {
+                    store: {
+                      type: string
+                      spec: {
+                        connectorIdentifier: string
+                        gitFetchType: string
+                        branch: string
+                        paths: string[]
+                      }
                     }
                   }
                 }
@@ -132,7 +154,7 @@ function ManifestListView({
               const manifest = data['manifest']
               return (
                 <section className={cx(css.thead, css.rowItem)} key={manifest.identifier + index}>
-                  <span className={css.type}>{i18n.manifestTypeLabelPrimary}</span>
+                  <span className={css.type}>{manifestTypeLabels[manifest.type]}</span>
                   <span className={css.server}>
                     <Text
                       inline
@@ -141,18 +163,18 @@ function ManifestListView({
                       width={200}
                       style={{ color: Color.BLACK, fontWeight: 900 }}
                     >
-                      {manifest.manifestAttributes.kind}
+                      {manifest.spec.store.type}
                     </Text>
                   </span>
                   <span>
                     <Text inline icon="full-circle" iconProps={{ size: 10, color: Color.GREEN_500 }} />
                   </span>
                   <span>
-                    <Text style={{ color: Color.GREY_500 }}>{manifest.manifestAttributes.storeConfig.fetchValue}</Text>
+                    <Text style={{ color: Color.GREY_500 }}>{manifest.spec.store.spec.branch}</Text>
                   </span>
                   <span>
                     <Text width={280} lineClamp={1} style={{ color: Color.GREY_500 }}>
-                      {manifest.manifestAttributes.storeConfig.paths[0]}
+                      {manifest.spec.store.spec.paths[0]}
                     </Text>
                   </span>
                   <span>
@@ -190,17 +212,24 @@ export default function ManifestSelection(): JSX.Element {
     updatePipeline
   } = React.useContext(PipelineContext)
 
+  const stage: StageWrapper | undefined = getStageFromPipeline(pipeline, selectedStageId || '')
   const identifier = selectedStageId || 'stage-identifier'
-  const listOfManifests = get(pipeline, 'stages[0].deployment.deployment.service.serviceSpec.manifests.manifests', [])
+  const listOfManifests = get(stage, 'stage.spec.service.serviceDef.spec.manifests', [])
+
   return (
     <Layout.Vertical padding="large" style={{ background: 'var(--grey-100)' }}>
       <Text style={{ color: 'var(--grey-500)', lineHeight: '24px' }}>{i18n.info}</Text>
       {!listOfManifests ||
         (listOfManifests.length === 0 && (
-          <AddManifestRender identifier={identifier} pipeline={pipeline} updatePipeline={updatePipeline} />
+          <AddManifestRender
+            identifier={identifier}
+            pipeline={pipeline}
+            updatePipeline={updatePipeline}
+            stage={stage}
+          />
         ))}
       {listOfManifests && listOfManifests.length > 0 && (
-        <ManifestListView identifier={identifier} pipeline={pipeline} updatePipeline={updatePipeline} />
+        <ManifestListView identifier={identifier} pipeline={pipeline} updatePipeline={updatePipeline} stage={stage} />
       )}
     </Layout.Vertical>
   )

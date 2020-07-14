@@ -22,8 +22,10 @@ import WorkflowVariables from '../WorkflowVariablesSelection/WorkflowVariables'
 import i18n from './ServiceSpecifications.i18n'
 import css from './ServiceSpecifications.module.scss'
 import cx from 'classnames'
+
 import { PipelineContext } from 'modules/cd/pages/pipelines/PipelineContext/PipelineContext'
-import { get } from 'lodash-es'
+import { getStageFromPipeline } from 'modules/cd/pages/pipelines/StageBuilder/StageBuilderModel'
+import type { StageWrapper } from 'services/ng-temp'
 
 import { loggerFor, ModuleName } from 'framework/exports'
 
@@ -40,14 +42,19 @@ export default function ServiceSpecifications(): JSX.Element {
   const [specSelected, setSelectedSpec] = React.useState(specificationTypes.SPECIFICATION)
 
   const {
-    state: { pipeline },
+    state: {
+      pipeline,
+      pipelineView: { selectedStageId }
+    },
     updatePipeline
   } = React.useContext(PipelineContext)
 
+  const stage: StageWrapper | undefined = getStageFromPipeline(pipeline, selectedStageId || '')
+
   const getInitialValues = (): { serviceName: string; description: string; tags: null | string[] } => {
-    const pipelineData = get(pipeline, 'stages[0].deployment.deployment.service', null)
-    const serviceName = pipelineData?.displayName
-    const description = pipelineData?.description
+    const pipelineData = stage?.['stage']?.['spec']?.['service'] || null
+    const serviceName = pipelineData?.name || ''
+    const description = pipelineData?.description || ''
     return { serviceName: serviceName, description: description, tags: null }
   }
 
@@ -57,25 +64,20 @@ export default function ServiceSpecifications(): JSX.Element {
         <Formik
           initialValues={getInitialValues()}
           validate={value => {
-            const pipelineData = get(pipeline, 'stages[0].deployment.deployment', {})
             const serviceStruct = {
               identifier: value.serviceName,
-              displayName: value.serviceName,
+              name: value.serviceName,
               description: value.description,
-              refType: {
-                type: 'OUTCOME'
-              },
-              useFromStage: null,
               tags: value.tags,
-              serviceSpec: {
-                deploymentType: 'kubernetes',
-                artifacts: {},
-                manifests: {}
-              },
-              overrides: {}
+              serviceDef: {
+                type: 'kubernetes',
+                spec: { manifests: [] }
+              }
             }
-            pipelineData['service'] = serviceStruct
-            updatePipeline(pipeline)
+            if (stage) {
+              stage['stage']['spec']['service'] = serviceStruct
+              updatePipeline(pipeline)
+            }
           }}
           onSubmit={values => {
             logger.info(JSON.stringify(values))
@@ -121,16 +123,9 @@ export default function ServiceSpecifications(): JSX.Element {
                     <FormInput.TagInput
                       name={i18n.addTags}
                       label={i18n.tagsLabel}
-                      items={[
-                        'The Godfather',
-                        'The Godfather: Part II',
-                        'The Dark Knight',
-                        '12 Angry Men',
-                        "Schindler's List",
-                        'Special'
-                      ]}
+                      items={['GCP', 'CDP']}
                       style={{ width: 400 }}
-                      labelFor={(name: any) => name}
+                      labelFor={name => name as string}
                       itemFromNewTag={newTag => newTag}
                       tagInputProps={{
                         noInputBorder: true,

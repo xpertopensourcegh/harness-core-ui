@@ -12,5 +12,6 @@ declare const styles: {
   readonly grid: string
   readonly stageCreate: string
   readonly btnSetup: string
+  readonly stageCloseIcon: string
 }
 export default styles

@@ -21,7 +21,8 @@ import {
   Card,
   CardSelect,
   CardBody,
-  CardSelectType
+  CardSelectType,
+  Icon
 } from '@wings-software/uikit'
 import 'split-view'
 import i18n from './StageBuilder.i18n'
@@ -282,7 +283,16 @@ export const StageBuilder: React.FC<{}> = (): JSX.Element => {
         <CanvasButtons engine={engine} callback={() => dynamicPopoverHandler?.hide()} />
       </div>
 
-      {isSetupStageOpen && <split-divider wide></split-divider>}
+      {isSetupStageOpen && (
+        <split-divider wide>
+          <Icon
+            name="cross"
+            size={20}
+            className={css.stageCloseIcon}
+            onClick={() => updatePipelineView({ isSetupStageOpen: false, selectedStageId: undefined })}
+          />
+        </split-divider>
+      )}
       {isSetupStageOpen && <StageSetupShell />}
     </split-view>
   )

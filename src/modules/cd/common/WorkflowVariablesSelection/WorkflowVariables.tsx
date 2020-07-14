@@ -11,7 +11,7 @@ const variableHeaders: VariablesTable = {
   value: i18n.variableTable.value
 }
 
-function AddAWVPlaceholder(props: { addVariables: any }): JSX.Element {
+function AddAWVPlaceholder(props: { addVariables: (data: { name: string; value: string }[]) => void }): JSX.Element {
   return (
     <Layout.Vertical spacing="medium">
       <Container className={css.rowItem}>
@@ -21,7 +21,10 @@ function AddAWVPlaceholder(props: { addVariables: any }): JSX.Element {
   )
 }
 
-function VariablesListView(props: any): JSX.Element {
+function VariablesListView(props: {
+  variablesList: { name: string; value: string }[]
+  addVariables: (data: { name: string; value: string }[]) => void
+}): JSX.Element {
   return (
     <Layout.Vertical spacing="small">
       <Container>
@@ -95,7 +98,7 @@ function VariablesListView(props: any): JSX.Element {
 }
 
 export default function WorkflowVariables(): JSX.Element {
-  const [variablesList, addVariables] = React.useState([])
+  const [variablesList, addVariables] = React.useState([{ name: '', value: '' }])
   return (
     <Layout.Vertical padding="large" style={{ background: 'var(--grey-100)', minHeight: 400 }}>
       <Text style={{ color: 'var(--grey-500)', lineHeight: '24px' }}>{i18n.info}</Text>
