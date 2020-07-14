@@ -1,11 +1,12 @@
 import React from 'react'
 import { string } from 'yup'
-import { FormInput, Layout, Icon } from '@wings-software/uikit'
+import { FormInput, Layout, Icon, Button, Popover } from '@wings-software/uikit'
 import { illegalIdentifiers, getIdentifierFromName } from 'framework/utils/StringUtils'
 import * as Yup from 'yup'
 import { FormikCreateInlineSecret } from 'modules/common/components/CreateInlineSecret/CreateInlineSecret'
 import type { SecretManagerConfig } from 'services/cd-ng'
 import css from './KubFormHelper.module.scss'
+import SecretReference from 'modules/dx/components/SecretReference/SecretReference'
 
 export const AuthTypes = {
   CUSTOM: 'ManualConfig',
@@ -145,20 +146,23 @@ const renderUserNameAndPassword = (secretManagers?: SecretManagerConfig[], conne
     <>
       <FormInput.Text name="username" label="Username*" />
       <FormInput.Text name="password" label="Password*" />
+      <Popover>
+        <Button minimal rightIcon="chevron-down">
+          <Icon name="key" />
+        </Button>
+        <SecretReference
+          onSelect={secret => {
+            // eslint-disable-next-line no-console
+            console.log({ secret })
+          }}
+        />
+      </Popover>
       <FormikCreateInlineSecret
         name="passwordSecret"
         secretManagers={secretManagers}
         defaultSecretName={generatedId}
         defaultSecretId={generatedId}
       />
-      {/* <FormInput.Select
-        name="password"
-        label="Select Encrypted Password*"
-        items={[
-          { label: 'password_one', value: 'password_one' },
-          { label: 'password_two', value: '9WEMH2oOPphDPVDq' }
-        ]}
-      /> */}
     </>
   )
 }
