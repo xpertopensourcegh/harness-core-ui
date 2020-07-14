@@ -6,7 +6,7 @@ import { useHistory, useParams } from 'react-router-dom'
 import { routePipelineCanvas } from 'modules/cd/routes'
 import { linkTo } from 'framework/exports'
 import css from './PipelineList.module.scss'
-import { useGetListOfPipelines, CDPipelineDTO } from 'services/cd-ng'
+import { useGetPipelineList, CDPipelineDTO } from 'services/cd-ng'
 import { PipelineCard } from './views/PipelineCard/PipelineCard'
 
 const PipelineList: React.FC = () => {
@@ -26,7 +26,7 @@ const PipelineList: React.FC = () => {
     [projectIdentifier, orgIdentifier, history]
   )
 
-  const { loading, data, refetch: reloadPipelines, error } = useGetListOfPipelines({
+  const { loading, data, refetch: reloadPipelines, error } = useGetPipelineList({
     queryParams: {
       accountIdentifier: accountId,
       projectIdentifier,

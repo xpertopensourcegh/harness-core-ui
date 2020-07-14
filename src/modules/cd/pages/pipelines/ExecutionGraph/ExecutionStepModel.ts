@@ -5,17 +5,17 @@ import type { ExecutionSection, StepWrapper } from 'services/ng-temp'
 import type { NodeModelListener, LinkModelListener } from '@projectstorm/react-diagrams-core'
 
 export enum StepType {
-  HTTP = 'http',
-  SHELLSCRIPT = 'shellScript',
-  APPROVAL = 'approval',
+  HTTP = 'Http',
+  SHELLSCRIPT = 'ShellScript',
+  APPROVAL = 'Approval',
   K8sRolloutDeploy = 'K8sRolloutDeploy'
 }
 
 const MapStepTypeToIcon: { [key in StepType]: IconName } = {
-  http: 'command-http',
-  shellScript: 'command-shell-script',
+  Http: 'command-http',
+  ShellScript: 'command-shell-script',
   K8sRolloutDeploy: 'service-kubernetes',
-  approval: 'command-approval'
+  Approval: 'command-approval'
 }
 
 interface Listeners {

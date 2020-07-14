@@ -8,5 +8,14 @@ export default {
   output: 'Output',
   displayName: 'Display Name',
   failureStrategy: 'Failure Strategy',
+  timeout: 'Timeout',
+  socketTimeoutMillis: 'Socket Timeout',
+  url: 'Url',
+  body: 'Body',
+  method: 'Method',
+  submit: 'Submit',
+  stepNameRequired: 'Step Name is required',
+  header: 'Header',
+  skipDryRun: 'Skip dry run',
   stepLabel: (type: string) => `Step: ${type}`
 }

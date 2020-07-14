@@ -13,6 +13,7 @@ declare const styles: {
   readonly leftBar: string
   readonly title: string
   readonly logoImage: string
+  readonly closeBtn: string
   readonly rightBar: string
 }
 export default styles

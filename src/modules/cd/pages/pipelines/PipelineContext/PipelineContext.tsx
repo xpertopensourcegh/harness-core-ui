@@ -1,5 +1,10 @@
 import React from 'react'
-import type { CDPipelineDTO, GetNgPipelineByIdentifierQueryParams, ResponseDTOCDPipelineDTO } from 'services/cd-ng'
+import type {
+  CDPipelineDTO,
+  GetPipelineYamlStringQueryParams,
+  DummyCreatePipelineForSwaggerQueryParams,
+  ResponseDTOString
+} from 'services/cd-ng'
 import { openDB, IDBPDatabase, deleteDB } from 'idb'
 import { ModuleName, loggerFor } from 'framework/exports'
 import xhr from '@wings-software/xhr-async'
@@ -14,23 +19,44 @@ import {
   PipelineReducer,
   PipelineViewData
 } from './PipelineActions'
-import { parse } from 'yaml'
+import { parse, stringify } from 'yaml'
 const logger = loggerFor(ModuleName.CD)
 
 export const getPipelineByIdentifier = (
-  params: GetNgPipelineByIdentifierQueryParams,
+  params: GetPipelineYamlStringQueryParams,
   identifier: string
 ): Promise<CDPipelineDTO | undefined> => {
-  return xhr
-    .get<ResponseDTOCDPipelineDTO>(
-      `/cd/api/pipelines/${identifier}?accountIdentifier=${params.accountIdentifier}&projectIdentifier=${params.projectIdentifier}&orgIdentifier=${params.orgIdentifier}`
-    )
-    .then(xhrResponse => {
-      if (xhrResponse.response?.data?.yamlPipeline) {
-        return parse(xhrResponse.response.data.yamlPipeline).pipeline as CDPipelineDTO
+  return fetch(
+    `/cd/api/pipelines/${identifier}?accountIdentifier=${params.accountIdentifier}&projectIdentifier=${params.projectIdentifier}&orgIdentifier=${params.orgIdentifier}`,
+    { headers: { 'Content-Type': 'text/yaml' } }
+  )
+    .then(response => response.text())
+    .then(response => {
+      const obj = parse(response)
+      if (obj.status === 'SUCCESS') {
+        return parse(obj.data).pipeline as CDPipelineDTO
       }
-      return
     })
+}
+
+export const savePipeline = (
+  params: DummyCreatePipelineForSwaggerQueryParams,
+  pipeline: CDPipelineDTO,
+  isEdit = false
+): Promise<ResponseDTOString | undefined> => {
+  return isEdit
+    ? xhr
+        .put<ResponseDTOString>(
+          `/cd/api/pipelines?accountIdentifier=${params.accountIdentifier}&projectIdentifier=${params.projectIdentifier}&orgIdentifier=${params.orgIdentifier}`,
+          { data: stringify({ pipeline }), headers: { 'Content-Type': 'text/plain' } }
+        )
+        .then(data => parse(data.response as string) as ResponseDTOString)
+    : xhr
+        .post<ResponseDTOString>(
+          `/cd/api/pipelines?accountIdentifier=${params.accountIdentifier}&projectIdentifier=${params.projectIdentifier}&orgIdentifier=${params.orgIdentifier}`,
+          { data: stringify({ pipeline }), headers: { 'Content-Type': 'text/plain' } }
+        )
+        .then(data => parse(data.response as string) as ResponseDTOString)
 }
 
 const DBInitializationFailed = 'DB Creation retry exceeded.'
@@ -64,7 +90,7 @@ const getId = (
 
 const _fetchPipeline = async (
   dispatch: React.Dispatch<ActionReturnType>,
-  queryParams: GetNgPipelineByIdentifierQueryParams,
+  queryParams: GetPipelineYamlStringQueryParams,
   identifier: string,
   forceFetch = false
 ): Promise<void> => {
@@ -111,7 +137,7 @@ const _fetchPipeline = async (
 
 const _updatePipeline = async (
   dispatch: React.Dispatch<ActionReturnType>,
-  queryParams: GetNgPipelineByIdentifierQueryParams,
+  queryParams: GetPipelineYamlStringQueryParams,
   identifier: string,
   pipeline: CDPipelineDTO
 ): Promise<void> => {
@@ -186,7 +212,7 @@ const _initializeDb = async (dispatch: React.Dispatch<ActionReturnType>, version
 
 const _deletePipelineCache = async (
   dispatch: React.Dispatch<ActionReturnType>,
-  queryParams: GetNgPipelineByIdentifierQueryParams,
+  queryParams: GetPipelineYamlStringQueryParams,
   identifier: string
 ): Promise<void> => {
   if (IdbPipeline) {
@@ -211,22 +237,23 @@ export const PipelineContext = React.createContext<PipelineContextInterface>({
 })
 
 export const PipelineProvider: React.FC<{
-  queryParams: GetNgPipelineByIdentifierQueryParams
+  queryParams: GetPipelineYamlStringQueryParams
   pipelineIdentifier: string
 }> = ({ queryParams, pipelineIdentifier, children }) => {
   const [state, dispatch] = React.useReducer(PipelineReducer, initialState)
   state.pipelineIdentifier = pipelineIdentifier
   const fetchPipeline = _fetchPipeline.bind(null, dispatch, queryParams, pipelineIdentifier)
   const updatePipeline = _updatePipeline.bind(null, dispatch, queryParams, pipelineIdentifier)
+
+  const deletePipelineCache = _deletePipelineCache.bind(null, dispatch, queryParams, pipelineIdentifier)
   const pipelineSaved = React.useCallback(() => {
+    deletePipelineCache()
     dispatch(PipelineContextActions.pipelineSavedAction())
   }, [])
 
   const updatePipelineView = React.useCallback((data: PipelineViewData) => {
     dispatch(PipelineContextActions.updatePipelineView({ pipelineView: data }))
   }, [])
-
-  const deletePipelineCache = _deletePipelineCache.bind(null, dispatch, queryParams, pipelineIdentifier)
 
   React.useEffect(() => {
     if (state.isDBInitialized) {

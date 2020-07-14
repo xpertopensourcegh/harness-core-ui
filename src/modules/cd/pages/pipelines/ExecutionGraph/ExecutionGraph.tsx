@@ -2,25 +2,33 @@ import React, { useEffect } from 'react'
 import css from './ExecutionGraph.module.scss'
 import { get } from 'lodash'
 import { Diagram } from 'modules/common/exports'
-import { ExecutionStepModel, StepType } from './ExecutionStepModel'
+import { ExecutionStepModel } from './ExecutionStepModel'
 import { Drawer, Position } from '@blueprintjs/core'
 import { cloneDeep } from 'lodash'
 import { PipelineContext } from '../PipelineContext/PipelineContext'
 import { getStageFromPipeline } from '../StageBuilder/StageBuilderModel'
-import type { ExecutionSection } from 'services/ng-temp'
+import type { ExecutionSection, StepWrapper } from 'services/ng-temp'
 import type { NodeModelListener, LinkModelListener } from '@projectstorm/react-diagrams-core'
 import { StepPalette, CommandData } from '../StepPalette/StepPalette'
 import { CanvasButtons } from 'modules/cd/common/CanvasButtons/CanvasButtons'
 import { StepCommands } from '../StepCommands/StepCommands'
 
-const getStepFromId = (stepData: ExecutionSection[] | undefined, id: string): ExecutionSection | undefined => {
+const getStepFromId = (
+  stepData: ExecutionSection[] | undefined,
+  id: string,
+  isComplete = false
+): ExecutionSection | undefined => {
   let stepResp: ExecutionSection | undefined = undefined
   stepData?.every(node => {
     if (node.step && node.step.identifier === id) {
-      stepResp = node.step
+      if (isComplete) {
+        stepResp = node
+      } else {
+        stepResp = node.step
+      }
       return false
     } else if (node.parallel || node.graph) {
-      const step = getStepFromId(node.parallel || node.graph, id)
+      const step = getStepFromId(node.parallel || node.graph, id, isComplete)
       if (step) {
         stepResp = step
         return false
@@ -34,12 +42,13 @@ const getStepFromId = (stepData: ExecutionSection[] | undefined, id: string): Ex
 const renderDrawerContent = (
   data: ExecutionSection[],
   entity: Diagram.DefaultNodeModel,
-  onSelect: (item: CommandData) => void
+  onSelect: (item: CommandData) => void,
+  onChange: (stepObj: StepWrapper) => void
 ): JSX.Element => {
   const node = getStepFromId(data, entity.getID())
 
   if (node) {
-    return <StepCommands step={node} />
+    return <StepCommands step={node} onChange={onChange} />
   }
   return <StepPalette onSelect={onSelect} />
 }
@@ -69,11 +78,19 @@ const ExecutionGraph = (): JSX.Element => {
 
   const nodeListeners: NodeModelListener = {
     [Diagram.Event.SelectionChanged]: (event: any) => {
-      const _event = event as Diagram.DefaultNodeEvent
-      setState(prevState => ({ ...prevState, isDrawerOpen: _event.isSelected, entity: _event.entity }))
+      const eventTemp = event as Diagram.DefaultNodeEvent
+      setState(prevState => ({ ...prevState, isDrawerOpen: eventTemp.isSelected, entity: eventTemp.entity }))
     },
-    [Diagram.Event.RemoveNode]: (_event: any) => {
-      // console.log(event)
+    [Diagram.Event.RemoveNode]: (event: any) => {
+      const eventTemp = event as Diagram.DefaultNodeEvent
+      const node = getStepFromId(state.data, eventTemp.entity.getID(), true)
+      if (node) {
+        const index = state.data.indexOf(node)
+        if (index && index > -1) {
+          state.data.splice(index, 1)
+          updatePipeline(pipeline)
+        }
+      }
     }
   }
 
@@ -95,7 +112,11 @@ const ExecutionGraph = (): JSX.Element => {
       if (data?.stage?.spec?.execution) {
         setState(prevState => ({ ...prevState, data: get(data.stage.spec.execution, 'steps', []) }))
       } else if (data?.stage) {
+        if (!data.stage.spec) {
+          data.stage.spec = {}
+        }
         data.stage.spec = {
+          ...data.stage.spec,
           execution: {
             steps: []
           }
@@ -103,7 +124,7 @@ const ExecutionGraph = (): JSX.Element => {
         updatePipeline(pipeline)
       }
     }
-  }, [selectedStageId, pipeline, isSetupStageOpen])
+  }, [selectedStageId, pipeline, isSetupStageOpen, updatePipeline])
 
   return (
     <div
@@ -123,14 +144,10 @@ const ExecutionGraph = (): JSX.Element => {
           const removed = dataClone.splice(stepIndex, 1)
           removed.push({
             step: {
-              type: dropData.icon.split('-')[1] as StepType,
+              type: dropData.value,
               name: dropData.text,
-              identifier: `http-step-${dropData.value}`,
-              spec: {
-                socketTimeoutMillis: 1000,
-                method: 'GET',
-                url: 'http://localhost:8080/temp-1.json'
-              }
+              identifier: `${dropData.value}_${state.data.length}`,
+              spec: {}
             }
           })
           dataClone.splice(stepIndex, 0, {
@@ -144,14 +161,10 @@ const ExecutionGraph = (): JSX.Element => {
           )
           dataClone.splice(stepIndex + 1, 0, {
             step: {
-              type: dropData.icon.split('-')[1] as StepType,
+              type: dropData.value,
               name: dropData.text,
-              identifier: `http-step-${dropData.value}`,
-              spec: {
-                socketTimeoutMillis: 1000,
-                method: 'GET',
-                url: 'http://localhost:8080/temp-1.json'
-              }
+              identifier: `${dropData.value}_${state.data.length}`,
+              spec: {}
             }
           })
           setState(prevState => ({ ...prevState, isDrawerOpen: false, data: dataClone }))
@@ -178,18 +191,34 @@ const ExecutionGraph = (): JSX.Element => {
       >
         <div>
           {state.entity &&
-            renderDrawerContent(state.data, state.entity, (item: CommandData) => {
-              const dataClone: ExecutionSection[] = cloneDeep(state.data)
-              dataClone.push({
-                step: {
-                  type: item.value,
-                  name: item.text,
-                  identifier: `${item.value}_${state.data.length}`,
-                  spec: {}
+            renderDrawerContent(
+              state.data,
+              state.entity,
+              (item: CommandData) => {
+                state.data.push({
+                  step: {
+                    type: item.value,
+                    name: item.text,
+                    identifier: `${item.value}_${state.data.length}`,
+                    spec: {}
+                  }
+                })
+                updatePipeline(pipeline)
+                setState(prevState => ({ ...prevState, isDrawerOpen: false, data: state.data }))
+              },
+              (item: ExecutionSection) => {
+                if (state.entity) {
+                  const node = getStepFromId(state.data, state.entity.getID())
+                  if (node) {
+                    node.name = item.name
+                    node.identifier = item.identifier
+                    node.spec = { ...item.spec }
+                    updatePipeline(pipeline)
+                  }
+                  setState(prevState => ({ ...prevState, isDrawerOpen: false, data: state.data }))
                 }
-              })
-              setState(prevState => ({ ...prevState, isDrawerOpen: false, data: dataClone }))
-            })}
+              }
+            )}
         </div>
       </Drawer>
     </div>

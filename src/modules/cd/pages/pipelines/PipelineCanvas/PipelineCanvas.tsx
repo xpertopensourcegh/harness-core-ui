@@ -3,21 +3,21 @@ import { Classes, Dialog } from '@blueprintjs/core'
 import cx from 'classnames'
 import { stringify, parse } from 'yaml'
 import { Button, Icon, Text, Layout, useModalHook, Tag } from '@wings-software/uikit'
-import { useHistory, Switch, Route, useRouteMatch, Link as RrLink } from 'react-router-dom'
+import { useHistory, Switch, Route, useRouteMatch, Link as RrLink, useParams } from 'react-router-dom'
 import { YAMLBuilderPage } from 'modules/dx/pages/yamlBuilder'
 import { StageBuilder } from '../StageBuilder/StageBuilder'
 import css from './PipelineCanvas.module.scss'
-import { PipelineContext } from '../PipelineContext/PipelineContext'
+import { PipelineContext, savePipeline } from '../PipelineContext/PipelineContext'
 import i18n from './PipelineCanvas.i18n'
 import CreatePipelines from '../CreateModal/PipelineCreate'
-import type { CDPipelineDTO } from 'services/cd-ng'
 import { YamlEntity } from 'modules/common/constants/YamlConstants'
 import { DefaultNewPipelineId } from '../PipelineContext/PipelineActions'
 import { NavigationCheck } from 'modules/common/exports'
 import type { YamlBuilderHandlerBinding } from 'modules/common/interfaces/YAMLBuilderProps'
+import type { CDPipelineDTO, ResponseDTOString } from 'services/cd-ng'
 
 export const PipelineCanvas: React.FC<{}> = (): JSX.Element => {
-  const { state, updatePipeline, deletePipelineCache } = React.useContext(PipelineContext)
+  const { state, updatePipeline, deletePipelineCache, pipelineSaved } = React.useContext(PipelineContext)
   const {
     pipeline,
     isUpdated,
@@ -25,7 +25,48 @@ export const PipelineCanvas: React.FC<{}> = (): JSX.Element => {
     pipelineView: { isSetupStageOpen }
   } = state
 
+  const { accountId, projectIdentifier, orgIdentifier, pipelineIdentifier } = useParams()
+
   const [yamlHandler, setYamlHandler] = React.useState<YamlBuilderHandlerBinding | undefined>()
+
+  const history = useHistory()
+  const { path, url } = useRouteMatch()
+  const isYaml = history.location.pathname.endsWith('/yaml/')
+
+  const saveAndPublish = React.useCallback(async () => {
+    let response: ResponseDTOString | undefined
+    if (isYaml && yamlHandler) {
+      const pipeObj = parse(yamlHandler.getLatestYaml())
+      response = await savePipeline(
+        { accountIdentifier: accountId, projectIdentifier, orgIdentifier },
+        pipeObj.pipeline,
+        pipelineIdentifier !== DefaultNewPipelineId
+      )
+      updatePipeline(pipeObj.pipeline as CDPipelineDTO)
+    } else {
+      response = await savePipeline(
+        { accountIdentifier: accountId, projectIdentifier, orgIdentifier },
+        pipeline,
+        pipelineIdentifier !== DefaultNewPipelineId
+      )
+    }
+
+    if (response && response.status === 'SUCCESS') {
+      pipelineSaved()
+    } else {
+      alert('Error while saving')
+    }
+  }, [
+    accountId,
+    projectIdentifier,
+    orgIdentifier,
+    pipeline,
+    pipelineSaved,
+    isYaml,
+    updatePipeline,
+    yamlHandler,
+    pipelineIdentifier
+  ])
 
   const [showModal, hideModal] = useModalHook(
     () => (
@@ -54,10 +95,6 @@ export const PipelineCanvas: React.FC<{}> = (): JSX.Element => {
     },
     [hideModal, pipeline, updatePipeline]
   )
-
-  const history = useHistory()
-  const { path, url } = useRouteMatch()
-  const isYaml = history.location.pathname.endsWith('/yaml/')
 
   return (
     <div
@@ -109,7 +146,14 @@ export const PipelineCanvas: React.FC<{}> = (): JSX.Element => {
           )}
         </div>
         <div>
-          <Button minimal intent="primary" text={i18n.saveAndPublish} icon="arrow-up" className={css.savePublishBtn} />
+          <Button
+            minimal
+            intent="primary"
+            text={i18n.saveAndPublish}
+            onClick={saveAndPublish}
+            icon="arrow-up"
+            className={css.savePublishBtn}
+          />
         </div>
       </div>
       <div className={css.secondaryBar}>

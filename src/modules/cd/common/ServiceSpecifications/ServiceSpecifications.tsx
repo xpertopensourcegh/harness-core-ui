@@ -70,7 +70,7 @@ export default function ServiceSpecifications(): JSX.Element {
               description: value.description,
               tags: value.tags,
               serviceDef: {
-                type: 'kubernetes',
+                type: 'Kubernetes',
                 spec: { manifests: [] }
               }
             }

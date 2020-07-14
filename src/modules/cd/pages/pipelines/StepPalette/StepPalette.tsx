@@ -17,21 +17,28 @@ const commandData: GroupedCommandData = {
   recent: [
     {
       text: 'Shell Script',
-      value: 'shellScript',
+      value: 'ShellScript',
       icon: 'command-shell-script'
     },
     {
       text: 'HTTP',
-      value: 'http',
+      value: 'Http',
       icon: 'command-http'
     },
     {
       text: 'Approval',
-      value: 'approval',
+      value: 'Approval',
       icon: 'command-approval'
     }
   ],
   kubernetes: [
+    {
+      text: 'K8s Rollout Deploy',
+      value: 'K8sRolloutDeploy',
+      icon: 'service-kubernetes'
+    }
+  ],
+  others: [
     {
       text: 'Jira',
       value: 'jira',

@@ -13,6 +13,545 @@ export interface RestResponseConnectorValidationResult {
   responseMessages?: ResponseMessage[]
 }
 
+export interface ResponseDTOOptionalOrganizationDTO {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: OrganizationDTO
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
+export interface ArtifactListConfig {
+  primary?: ArtifactSpecWrapper
+  sidecars?: SidecarArtifactWrapper[]
+}
+
+export interface StreamingOutput {
+  [key: string]: any
+}
+
+export interface ResponseDTOEncryptedDataDTO {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: EncryptedDataDTO
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
+export interface UsageRestrictions {
+  appEnvRestrictions?: AppEnvRestriction[]
+}
+
+export interface UpdateOrganizationDTO {
+  name: string
+  color: string
+  description: string
+  tags: string[]
+}
+
+export interface ServiceOverrides {
+  name?: string
+  description?: string
+}
+
+export type K8SDirectInfrastructure = Infrastructure & {
+  connectorIdentifier?: string
+  namespace?: string
+  releaseName?: string
+}
+
+export interface EncryptedDataParams {
+  name?: string
+  value?: string
+}
+
+export interface SidecarArtifactWrapper {
+  identifier: string
+}
+
+export interface ValidationError {
+  field?: string
+  error?: string
+}
+
+export interface UpdateProjectDTO {
+  name: string
+  description: string
+  owners: string[]
+  tags: string[]
+  purposeList: string[]
+}
+
+export interface PageProjectDTO {
+  totalPages?: number
+  totalElements?: number
+  size?: number
+  content?: ProjectDTO[]
+  number?: number
+  last?: boolean
+  numberOfElements?: number
+  pageable?: Pageable
+  first?: boolean
+  sort?: Sort
+  empty?: boolean
+}
+
+export interface Tags {
+  [key: string]: any
+}
+
+export type KubernetesServiceSpec = ServiceSpec & {}
+
+export interface StageVariables {
+  variables?: Variable[]
+  previousStageIdentifier?: string
+  overrides?: Variable[]
+}
+
+export type GcrArtifactConfig = ArtifactConfig & {
+  connectorIdentifier?: string
+  registryHostname?: string
+  imagePath?: string
+}
+
+export interface ResponseData {
+  [key: string]: any
+}
+
+export interface OptionalConnectorDTO {
+  present?: boolean
+}
+
+export interface ManifestOverrideSets {
+  identifier: string
+  manifests?: ManifestConfigWrapper[]
+}
+
+export type WorkflowFilter = EnvFilter & {}
+
+export interface ResponseDTOSecretManagerConfigDTO {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: SecretManagerConfigDTO
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
+export interface OrganizationDTO {
+  id?: string
+  accountIdentifier?: string
+  identifier?: string
+  name?: string
+  color?: string
+  description?: string
+  tags?: string[]
+}
+
+export interface ResponseDTOCDPipelineDTO {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: CDPipelineDTO
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
+export interface CreateOrganizationDTO {
+  identifier: string
+  name: string
+  color: string
+  description?: string
+  tags: string[]
+}
+
+export interface Graph {
+  cacheContextOrder?: number
+  cacheKey?: string
+  cacheParams?: string[]
+  planExecutionId?: string
+  startTs?: number
+  endTs?: number
+  status?:
+    | 'RUNNING'
+    | 'WAITING'
+    | 'ASYNC_WAITING'
+    | 'TASK_WAITING'
+    | 'DISCONTINUING'
+    | 'PAUSING'
+    | 'QUEUED'
+    | 'SKIPPED'
+    | 'PAUSED'
+    | 'ABORTED'
+    | 'ERRORED'
+    | 'FAILED'
+    | 'EXPIRED'
+    | 'SUCCEEDED'
+  graphVertex?: GraphVertex
+  lastUpdatedAt?: number
+}
+
+export interface InterruptEffect {
+  interruptId: string
+  tookEffectAt: number
+  interruptType:
+    | 'ABORT'
+    | 'ABORT_ALL'
+    | 'PAUSE'
+    | 'PAUSE_ALL'
+    | 'RESUME'
+    | 'RESUME_ALL'
+    | 'RETRY'
+    | 'IGNORE'
+    | 'MARK_FAILED'
+    | 'MARK_SUCCESS'
+    | 'ROLLBACK'
+    | 'NEXT_STEP'
+    | 'END_EXECUTION'
+    | 'ROLLBACK_DONE'
+    | 'MARK_EXPIRED'
+}
+
+export interface ExecutionElement {
+  steps: ExecutionWrapper[]
+  rollbackSteps?: ExecutionWrapper[]
+}
+
+export interface AtomicInteger {
+  andIncrement?: number
+  andDecrement?: number
+}
+
+export interface EncryptedDataParent {
+  id?: string
+  type?:
+    | 'HOST_CONNECTION_ATTRIBUTES'
+    | 'BASTION_HOST_CONNECTION_ATTRIBUTES'
+    | 'SMTP'
+    | 'SFTP'
+    | 'JENKINS'
+    | 'BAMBOO'
+    | 'STRING'
+    | 'SPLUNK'
+    | 'ELK'
+    | 'LOGZ'
+    | 'SUMO'
+    | 'DATA_DOG'
+    | 'APM_VERIFICATION'
+    | 'BUG_SNAG'
+    | 'LOG_VERIFICATION'
+    | 'APP_DYNAMICS'
+    | 'NEW_RELIC'
+    | 'DYNA_TRACE'
+    | 'INSTANA'
+    | 'DATA_DOG_LOG'
+    | 'CLOUD_WATCH'
+    | 'SCALYR'
+    | 'ELB'
+    | 'SLACK'
+    | 'AWS'
+    | 'GCS'
+    | 'GCP'
+    | 'AZURE'
+    | 'PCF'
+    | 'DIRECT'
+    | 'KUBERNETES_CLUSTER'
+    | 'DOCKER'
+    | 'ECR'
+    | 'GCR'
+    | 'ACR'
+    | 'PHYSICAL_DATA_CENTER'
+    | 'KUBERNETES'
+    | 'NEXUS'
+    | 'ARTIFACTORY'
+    | 'SMB'
+    | 'AMAZON_S3'
+    | 'GIT'
+    | 'SSH_SESSION_CONFIG'
+    | 'SERVICE_VARIABLE'
+    | 'CONFIG_FILE'
+    | 'KMS'
+    | 'GCP_KMS'
+    | 'JIRA'
+    | 'SERVICENOW'
+    | 'SECRET_TEXT'
+    | 'YAML_GIT_SYNC'
+    | 'VAULT'
+    | 'AWS_SECRETS_MANAGER'
+    | 'CYBERARK'
+    | 'WINRM_CONNECTION_ATTRIBUTES'
+    | 'WINRM_SESSION_CONFIG'
+    | 'PROMETHEUS'
+    | 'INFRASTRUCTURE_MAPPING'
+    | 'HTTP_HELM_REPO'
+    | 'AMAZON_S3_HELM_REPO'
+    | 'GCS_HELM_REPO'
+    | 'SPOT_INST'
+    | 'AZURE_ARTIFACTS_PAT'
+    | 'CUSTOM'
+    | 'CE_AWS'
+    | 'CE_GCP'
+    | 'AZURE_VAULT'
+  fieldName?: string
+}
+
+export interface StoreConfigWrapper {
+  type?: string
+  spec?: StoreConfig
+}
+
+export interface ProjectDTO {
+  id?: string
+  accountIdentifier?: string
+  orgIdentifier?: string
+  identifier?: string
+  name?: string
+  color?: string
+  purposeList?: string[]
+  description?: string
+  owners?: string[]
+  tags?: string[]
+}
+
+export interface InfraUseFromStage {
+  stage: string
+  overrides?: InfraOverrides
+}
+
+export interface GitSyncFolderConfigDTO {
+  rootFolder?: string
+  isDefault?: boolean
+  identifier?: string
+  enabled?: boolean
+}
+
+export interface ConnectorConfigDTO {
+  [key: string]: any
+}
+
+export interface StageElementWrapper {
+  [key: string]: any
+}
+
+export interface AppEnvRestriction {
+  appFilter?: GenericEntityFilter
+  envFilter?: EnvFilter
+}
+
+export interface StackTraceElement {
+  methodName?: string
+  fileName?: string
+  lineNumber?: number
+  className?: string
+  nativeMethod?: boolean
+}
+
+export interface PlanExecution {
+  uuid?: string
+  createdBy?: EmbeddedUser
+  createdAt?: number
+  setupAbstractions?: {
+    [key: string]: string
+  }
+  validUntil?: string
+  status?:
+    | 'RUNNING'
+    | 'WAITING'
+    | 'ASYNC_WAITING'
+    | 'TASK_WAITING'
+    | 'DISCONTINUING'
+    | 'PAUSING'
+    | 'QUEUED'
+    | 'SKIPPED'
+    | 'PAUSED'
+    | 'ABORTED'
+    | 'ERRORED'
+    | 'FAILED'
+    | 'EXPIRED'
+    | 'SUCCEEDED'
+  startTs?: number
+  endTs?: number
+  lastUpdatedAt?: number
+  version?: number
+}
+
+export interface SecretText {
+  name?: string
+  value?: string
+  path?: string
+  parameters?: EncryptedDataParams[]
+  usageRestrictions?: UsageRestrictions
+  kmsId?: string
+  runtimeParameters?: {
+    [key: string]: string
+  }
+  scopedToAccount?: boolean
+}
+
+export interface ArtifactSpecWrapper {
+  type?: string
+  spec?: ArtifactConfig
+}
+
+export type SidecarArtifact = SidecarArtifactWrapper & {
+  type?: string
+  spec?: ArtifactConfig
+}
+
+export interface Infrastructure {
+  [key: string]: any
+}
+
+export interface ResponseDTOPageOrganizationDTO {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: PageOrganizationDTO
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
+export interface ConnectorConfigSummaryDTO {
+  [key: string]: any
+}
+
+export interface ServiceDefinition {
+  type?: string
+  spec?: ServiceSpec
+}
+
+export interface ManifestAttributes {
+  [key: string]: any
+}
+
+export interface ManifestConfigWrapper {
+  identifier: string
+}
+
+export interface ResponseDTOPlanExecution {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: PlanExecution
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
+export interface CreateProjectDTO {
+  accountIdentifier: string
+  identifier: string
+  name: string
+  color: string
+  purposeList: string[]
+  description?: string
+  owners: string[]
+  tags: string[]
+}
+
+export interface EnvFilter {
+  ids?: string[]
+  filterTypes?: string[]
+}
+
+export interface TemporalUnit {
+  timeBased?: boolean
+  duration?: Duration
+  dateBased?: boolean
+  durationEstimated?: boolean
+}
+
+export type K8sManifest = ManifestAttributes & {
+  store?: StoreConfigWrapper
+}
+
+export type ValuesManifest = ManifestAttributes & {
+  store?: StoreConfigWrapper
+}
+
+export type DockerHubArtifactConfig = ArtifactConfig & {
+  connectorIdentifier?: string
+  imagePath?: string
+  tag?: string
+  tagRegex?: string
+}
+
+export interface StepSpecType {
+  [key: string]: any
+}
+
+export interface Outcome {
+  [key: string]: any
+}
+
+export interface ConnectorFilter {
+  accountId?: string
+  projectId?: string
+  orgId?: string
+  type?: 'KUBERNETES_CLUSTER' | 'GIT'
+  tag?: Tags[]
+  lastActivity?: number
+  name?: string
+}
+
+export interface Subgraph {
+  mode?:
+    | 'SYNC'
+    | 'ASYNC'
+    | 'SKIP'
+    | 'TASK_CHAIN'
+    | 'TASK_CHAIN_V2'
+    | 'CHILDREN'
+    | 'CHILD'
+    | 'TASK'
+    | 'CHILD_CHAIN'
+    | 'TASK_V2'
+  vertices?: GraphVertex[]
+}
+
+export interface ConnectorValidationResult {
+  valid?: boolean
+  errorMessage?: string
+}
+
+export interface Tag {
+  key: string
+  value: string
+}
+
+export interface ExecutionWrapper {
+  [key: string]: any
+}
+
+export type StepElement = ExecutionWrapper & {
+  identifier: string
+  name?: string
+  type?: string
+  spec?: StepSpecType
+}
+
+export interface ResponseDTOOptionalProjectDTO {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: ProjectDTO
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
+export interface ConnectorSummaryDTO {
+  identifier?: string
+  name?: string
+  description?: string
+  accountId?: string
+  orgId?: string
+  projectId?: string
+  accountName?: string
+  orgName?: string
+  projectName?: string
+  type?: 'KUBERNETES_CLUSTER' | 'GIT'
+  categories?: 'CLOUD_PROVIDER'[]
+  connectorDetials?: ConnectorConfigSummaryDTO
+  tags?: string[]
+  createdAt?: number
+  lastModifiedAt?: number
+  version?: number
+}
+
+export type K8sRollingRollbackStepInfo = StepSpecType & {
+  timeout?: number
+  stepDependencySpecs?: {
+    [key: string]: StepDependencySpec
+  }
+}
+
 export interface SecretManagerConfig {
   uuid: string
   encryptionType?: 'LOCAL' | 'KMS' | 'GCP_KMS' | 'AWS_SECRETS_MANAGER' | 'AZURE_VAULT' | 'CYBERARK' | 'VAULT' | 'CUSTOM'
@@ -26,20 +565,31 @@ export interface SecretManagerConfig {
   nextTokenRenewIteration?: number
   templatizedFields?: string[]
   default?: boolean
+  name?: string
   encryptionServiceUrl?: string
   validationCriteria?: string
-  name?: string
 }
 
-export interface ResponseDTOOptionalOrganizationDTO {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: OrganizationDTO
-  metaData?: { [key: string]: any }
-  correlationId?: string
+export interface ServiceSpec {
+  artifacts?: ArtifactListConfig
+  manifests?: ManifestConfigWrapper[]
+  manifestOverrideSets?: ManifestOverrideSets[]
+  artifactOverrideSets?: ArtifactOverrideSets[]
 }
 
-export interface StreamingOutput {
-  [key: string]: any
+export type ShellScriptStepInfo = StepSpecType & {
+  executeOnDelegate?: boolean
+  host?: string
+  tags?: string[]
+  connectionType?: 'SSH' | 'WINRM'
+  sshKeyRef?: string
+  connectionAttributes?: string
+  commandPath?: string
+  scriptType?: 'BASH' | 'POWERSHELL'
+  scriptString?: string
+  outputVars?: string
+  sweepingOutputName?: string
+  sweepingOutputScope?: string
 }
 
 export interface RestResponsePlanExecution {
@@ -280,77 +830,49 @@ export interface FailureDTO {
   validationErrors?: ValidationError[]
 }
 
-export interface RefType {
-  type?: string
-}
-
-export interface UsageRestrictions {
-  appEnvRestrictions?: AppEnvRestriction[]
-}
-
-export interface ResponseDTOEncryptedDataDTO {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: EncryptedDataDTO
-  metaData?: { [key: string]: any }
-  correlationId?: string
+export interface ServiceUseFromStage {
+  stage: string
+  overrides?: ServiceOverrides
 }
 
 export interface Pageable {
-  paged?: boolean
-  unpaged?: boolean
-  pageNumber?: number
   offset?: number
+  paged?: boolean
+  pageNumber?: number
+  unpaged?: boolean
   pageSize?: number
   sort?: Sort
 }
 
-export interface UpdateOrganizationDTO {
-  name: string
-  color: string
-  description: string
-  tags: string[]
+export type DeploymentStage = StageType & {
+  service?: ServiceConfig
+  infrastructure?: PipelineInfrastructure
+  execution?: ExecutionElement
+  stageVariables?: StageVariables
+  skipCondition?: string
 }
 
 export interface Sort {
-  unsorted?: boolean
   sorted?: boolean
+  unsorted?: boolean
   empty?: boolean
 }
 
-export interface EncryptedDataParams {
-  name?: string
-  value?: string
+export interface PipelineInfrastructure {
+  infrastructureDef?: InfrastructureDef
+  useFromStage?: InfraUseFromStage
+  environment?: EnvironmentYaml
+  steps?: Step[]
+  rollbackSteps?: Step[]
 }
 
-export interface PageProjectDTO {
-  totalPages?: number
-  totalElements?: number
-  last?: boolean
-  numberOfElements?: number
-  pageable?: Pageable
-  first?: boolean
-  size?: number
-  content?: ProjectDTO[]
-  number?: number
-  sort?: Sort
-  empty?: boolean
-}
-
-export interface ValidationError {
-  field?: string
-  error?: string
-}
-
-export interface UpdateProjectDTO {
-  name: string
-  description: string
-  owners: string[]
-  tags: string[]
-  purposeList: string[]
-}
-
-export interface Tags {
+export interface StepDependencySpec {
   [key: string]: any
+}
+
+export interface InfrastructureDef {
+  type?: string
+  spec?: Infrastructure
 }
 
 export interface EncryptedDataDTO {
@@ -467,20 +989,21 @@ export interface EncryptedDataDTO {
   entityYamlPath?: string
 }
 
-export interface ResponseData {
-  [key: string]: any
-}
-
-export interface OptionalConnectorDTO {
-  present?: boolean
+export type HttpStepInfo = StepSpecType & {
+  url?: string
+  method?: string
+  header?: string
+  body?: string
+  assertion?: string
+  socketTimeoutMillis?: number
 }
 
 export interface Duration {
   seconds?: number
   nano?: number
-  units?: TemporalUnit[]
   zero?: boolean
   negative?: boolean
+  units?: TemporalUnit[]
 }
 
 export interface ResponseMessage {
@@ -701,30 +1224,17 @@ export interface ResponseMessage {
   exception?: Throwable
 }
 
-export interface ResponseDTOSecretManagerConfigDTO {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: SecretManagerConfigDTO
-  metaData?: { [key: string]: any }
-  correlationId?: string
+export interface ArtifactOverrideSets {
+  identifier: string
+  artifacts?: ArtifactListConfig
 }
 
-export type WorkflowFilter = EnvFilter & {}
-
-export interface OrganizationDTO {
-  id?: string
-  accountIdentifier?: string
-  identifier?: string
-  name?: string
-  color?: string
-  description?: string
-  tags?: string[]
-}
-
-export interface ResponseDTOCDPipelineDTO {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: CDPipelineDTO
-  metaData?: { [key: string]: any }
-  correlationId?: string
+export type K8sRollingStepInfo = StepSpecType & {
+  timeout?: number
+  skipDryRun?: boolean
+  stepDependencySpecs?: {
+    [key: string]: StepDependencySpec
+  }
 }
 
 export interface ResponseDTOString {
@@ -734,12 +1244,9 @@ export interface ResponseDTOString {
   correlationId?: string
 }
 
-export interface CreateOrganizationDTO {
-  identifier: string
-  name: string
-  color: string
-  description?: string
-  tags: string[]
+export type ManifestConfig = ManifestConfigWrapper & {
+  type?: string
+  spec?: ManifestAttributes
 }
 
 export interface ConnectorDTO {
@@ -756,53 +1263,6 @@ export interface ConnectorDTO {
   lastModifiedAt?: number
 }
 
-export interface Graph {
-  cacheContextOrder?: number
-  cacheKey?: string
-  cacheParams?: string[]
-  planExecutionId?: string
-  startTs?: number
-  endTs?: number
-  status?:
-    | 'RUNNING'
-    | 'WAITING'
-    | 'ASYNC_WAITING'
-    | 'TASK_WAITING'
-    | 'DISCONTINUING'
-    | 'PAUSING'
-    | 'QUEUED'
-    | 'SKIPPED'
-    | 'PAUSED'
-    | 'ABORTED'
-    | 'ERRORED'
-    | 'FAILED'
-    | 'EXPIRED'
-    | 'SUCCEEDED'
-  graphVertex?: GraphVertex
-  lastUpdatedAt?: number
-}
-
-export interface InterruptEffect {
-  interruptId: string
-  tookEffectAt: number
-  interruptType:
-    | 'ABORT'
-    | 'ABORT_ALL'
-    | 'PAUSE'
-    | 'PAUSE_ALL'
-    | 'RESUME'
-    | 'RESUME_ALL'
-    | 'RETRY'
-    | 'IGNORE'
-    | 'MARK_FAILED'
-    | 'MARK_SUCCESS'
-    | 'ROLLBACK'
-    | 'NEXT_STEP'
-    | 'END_EXECUTION'
-    | 'ROLLBACK_DONE'
-    | 'MARK_EXPIRED'
-}
-
 export interface ResponseDTOListSecretManagerConfigDTO {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
   data?: SecretManagerConfigDTO[]
@@ -810,89 +1270,12 @@ export interface ResponseDTOListSecretManagerConfigDTO {
   correlationId?: string
 }
 
-export interface AtomicInteger {
-  andIncrement?: number
-  andDecrement?: number
-}
-
 export type StageElement = StageElementWrapper & {
   identifier: string
   name?: string
   description?: string
-  stageType?: StageType
-}
-
-export interface EncryptedDataParent {
-  id?: string
-  type?:
-    | 'HOST_CONNECTION_ATTRIBUTES'
-    | 'BASTION_HOST_CONNECTION_ATTRIBUTES'
-    | 'SMTP'
-    | 'SFTP'
-    | 'JENKINS'
-    | 'BAMBOO'
-    | 'STRING'
-    | 'SPLUNK'
-    | 'ELK'
-    | 'LOGZ'
-    | 'SUMO'
-    | 'DATA_DOG'
-    | 'APM_VERIFICATION'
-    | 'BUG_SNAG'
-    | 'LOG_VERIFICATION'
-    | 'APP_DYNAMICS'
-    | 'NEW_RELIC'
-    | 'DYNA_TRACE'
-    | 'INSTANA'
-    | 'DATA_DOG_LOG'
-    | 'CLOUD_WATCH'
-    | 'SCALYR'
-    | 'ELB'
-    | 'SLACK'
-    | 'AWS'
-    | 'GCS'
-    | 'GCP'
-    | 'AZURE'
-    | 'PCF'
-    | 'DIRECT'
-    | 'KUBERNETES_CLUSTER'
-    | 'DOCKER'
-    | 'ECR'
-    | 'GCR'
-    | 'ACR'
-    | 'PHYSICAL_DATA_CENTER'
-    | 'KUBERNETES'
-    | 'NEXUS'
-    | 'ARTIFACTORY'
-    | 'SMB'
-    | 'AMAZON_S3'
-    | 'GIT'
-    | 'SSH_SESSION_CONFIG'
-    | 'SERVICE_VARIABLE'
-    | 'CONFIG_FILE'
-    | 'KMS'
-    | 'GCP_KMS'
-    | 'JIRA'
-    | 'SERVICENOW'
-    | 'SECRET_TEXT'
-    | 'YAML_GIT_SYNC'
-    | 'VAULT'
-    | 'AWS_SECRETS_MANAGER'
-    | 'CYBERARK'
-    | 'WINRM_CONNECTION_ATTRIBUTES'
-    | 'WINRM_SESSION_CONFIG'
-    | 'PROMETHEUS'
-    | 'INFRASTRUCTURE_MAPPING'
-    | 'HTTP_HELM_REPO'
-    | 'AMAZON_S3_HELM_REPO'
-    | 'GCS_HELM_REPO'
-    | 'SPOT_INST'
-    | 'AZURE_ARTIFACTS_PAT'
-    | 'CUSTOM'
-    | 'CE_AWS'
-    | 'CE_GCP'
-    | 'AZURE_VAULT'
-  fieldName?: string
+  type?: string
+  spec?: StageType
 }
 
 export interface Throwable {
@@ -903,6 +1286,10 @@ export interface Throwable {
   suppressed?: Throwable[]
 }
 
+export interface StoreConfig {
+  [key: string]: any
+}
+
 export interface RestResponseGraph {
   metaData?: {
     [key: string]: { [key: string]: any }
@@ -911,24 +1298,11 @@ export interface RestResponseGraph {
   responseMessages?: ResponseMessage[]
 }
 
-export interface GitSyncFolderConfigDTO {
-  rootFolder?: string
-  isDefault?: boolean
-  identifier?: string
-  enabled?: boolean
-}
-
-export interface ProjectDTO {
-  id?: string
-  accountIdentifier?: string
-  orgIdentifier?: string
-  identifier?: string
-  name?: string
-  color?: string
-  purposeList?: string[]
-  description?: string
-  owners?: string[]
-  tags?: string[]
+export interface StageOverridesConfig {
+  useArtifactOverrideSets?: string[]
+  artifacts?: ArtifactListConfig
+  useManifestOverrideSets?: string[]
+  manifests?: ManifestConfigWrapper[]
 }
 
 export interface ResponseDTOBoolean {
@@ -938,12 +1312,10 @@ export interface ResponseDTOBoolean {
   correlationId?: string
 }
 
-export interface ConnectorConfigDTO {
-  [key: string]: any
-}
-
-export interface StageElementWrapper {
-  [key: string]: any
+export interface Variable {
+  name: string
+  value: string
+  type: string
 }
 
 export interface ConnectorRequestDTO {
@@ -956,18 +1328,6 @@ export interface ConnectorRequestDTO {
   tags?: string[]
   type?: 'KUBERNETES_CLUSTER' | 'GIT'
   spec?: ConnectorConfigDTO
-}
-
-export interface AppEnvRestriction {
-  appFilter?: GenericEntityFilter
-  envFilter?: EnvFilter
-}
-
-export interface ResponseDTOPageProjectDTO {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: PageProjectDTO
-  metaData?: { [key: string]: any }
-  correlationId?: string
 }
 
 export interface ErrorDTO {
@@ -1189,6 +1549,13 @@ export interface ErrorDTO {
   detailedMessage?: string
 }
 
+export interface ResponseDTOPageProjectDTO {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: PageProjectDTO
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
 export interface ResponseDTOProjectDTO {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
   data?: ProjectDTO
@@ -1203,41 +1570,14 @@ export interface ResponseDTOListEncryptedDataDTO {
   correlationId?: string
 }
 
-export interface StackTraceElement {
-  methodName?: string
-  fileName?: string
-  lineNumber?: number
-  className?: string
-  nativeMethod?: boolean
+export interface Step {
+  [key: string]: any
 }
 
-export interface PlanExecution {
+export interface EmbeddedUser {
   uuid?: string
-  createdBy?: EmbeddedUser
-  createdAt?: number
-  setupAbstractions?: {
-    [key: string]: string
-  }
-  validUntil?: string
-  status?:
-    | 'RUNNING'
-    | 'WAITING'
-    | 'ASYNC_WAITING'
-    | 'TASK_WAITING'
-    | 'DISCONTINUING'
-    | 'PAUSING'
-    | 'QUEUED'
-    | 'SKIPPED'
-    | 'PAUSED'
-    | 'ABORTED'
-    | 'ERRORED'
-    | 'FAILED'
-    | 'EXPIRED'
-    | 'SUCCEEDED'
-  startTs?: number
-  endTs?: number
-  lastUpdatedAt?: number
-  version?: number
+  name?: string
+  email?: string
 }
 
 export interface GraphVertex {
@@ -1271,27 +1611,31 @@ export interface GraphVertex {
   next?: GraphVertex
 }
 
-export interface EmbeddedUser {
-  uuid?: string
-  name?: string
-  email?: string
+export type GitStore = StoreConfig & {
+  connectorIdentifier?: string
+  gitFetchType?: 'BRANCH' | 'COMMIT'
+  branch?: string
+  paths?: string[]
 }
 
-export interface SecretText {
-  name?: string
-  value?: string
-  path?: string
-  parameters?: EncryptedDataParams[]
-  usageRestrictions?: UsageRestrictions
-  kmsId?: string
-  runtimeParameters?: {
-    [key: string]: string
-  }
-  scopedToAccount?: boolean
+export interface ServiceConfig {
+  useFromStage?: ServiceUseFromStage
+  identifier: string
+  name: string
+  description?: string
+  serviceDef?: ServiceDefinition
+  stageOverrides?: StageOverridesConfig
 }
 
 export interface StageType {
   [key: string]: any
+}
+
+export interface CDPipelineDTO {
+  name?: string
+  description?: string
+  stages?: StageElementWrapper[]
+  identifier?: string
 }
 
 export interface FailureInfo {
@@ -1306,30 +1650,11 @@ export interface FailureInfo {
   )[]
 }
 
-export interface CDPipelineDTO {
-  name?: string
-  description?: string
-  stages?: StageElementWrapper[]
-  identifier?: string
-  yamlPipeline?: string
-}
-
-export interface ResponseDTOPageOrganizationDTO {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: PageOrganizationDTO
-  metaData?: { [key: string]: any }
-  correlationId?: string
-}
-
 export interface ResponseDTOOrganizationDTO {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
   data?: OrganizationDTO
   metaData?: { [key: string]: any }
   correlationId?: string
-}
-
-export interface ConnectorConfigSummaryDTO {
-  [key: string]: any
 }
 
 export interface GitSyncConfigDTO {
@@ -1343,13 +1668,6 @@ export interface GitSyncConfigDTO {
   gitSyncFolderConfigDTOs?: GitSyncFolderConfigDTO[]
 }
 
-export interface ResponseDTOPlanExecution {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: PlanExecution
-  metaData?: { [key: string]: any }
-  correlationId?: string
-}
-
 export interface ResponseDTOPageCDPipelineDTO {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
   data?: PageCDPipelineDTO
@@ -1357,41 +1675,13 @@ export interface ResponseDTOPageCDPipelineDTO {
   correlationId?: string
 }
 
-export interface TemporalUnit {
-  timeBased?: boolean
-  duration?: Duration
-  dateBased?: boolean
-  durationEstimated?: boolean
+export interface ArtifactConfig {
+  [key: string]: any
 }
 
-export interface CreateProjectDTO {
-  accountIdentifier: string
-  identifier: string
-  name: string
-  color: string
-  purposeList: string[]
-  description?: string
-  owners: string[]
-  tags: string[]
-}
-
-export interface EnvFilter {
-  ids?: string[]
-  filterTypes?: string[]
-}
-
-export interface PageCDPipelineDTO {
-  totalPages?: number
-  totalElements?: number
-  last?: boolean
-  numberOfElements?: number
-  pageable?: Pageable
-  first?: boolean
-  size?: number
-  content?: CDPipelineDTO[]
-  number?: number
-  sort?: Sort
-  empty?: boolean
+export interface InfraOverrides {
+  environment?: EnvironmentYaml
+  infrastructureDef?: InfrastructureDef
 }
 
 export interface GenericEntityFilter {
@@ -1399,90 +1689,51 @@ export interface GenericEntityFilter {
   filterType?: string
 }
 
-export interface PageOrganizationDTO {
+export interface PageCDPipelineDTO {
   totalPages?: number
   totalElements?: number
+  size?: number
+  content?: CDPipelineDTO[]
+  number?: number
   last?: boolean
   numberOfElements?: number
   pageable?: Pageable
   first?: boolean
-  size?: number
-  content?: OrganizationDTO[]
-  number?: number
   sort?: Sort
   empty?: boolean
 }
 
-export interface Outcome {
-  refType?: RefType
+export interface PageOrganizationDTO {
+  totalPages?: number
+  totalElements?: number
+  size?: number
+  content?: OrganizationDTO[]
+  number?: number
+  last?: boolean
+  numberOfElements?: number
+  pageable?: Pageable
+  first?: boolean
+  sort?: Sort
+  empty?: boolean
 }
 
-export interface ConnectorFilter {
-  accountId?: string
-  projectId?: string
-  orgId?: string
-  type?: 'KUBERNETES_CLUSTER' | 'GIT'
-  tag?: Tags[]
-  lastActivity?: number
+export interface EnvironmentYaml {
   name?: string
-}
-
-export interface Subgraph {
-  mode?:
-    | 'SYNC'
-    | 'ASYNC'
-    | 'SKIP'
-    | 'TASK_CHAIN'
-    | 'TASK_CHAIN_V2'
-    | 'CHILDREN'
-    | 'CHILD'
-    | 'TASK'
-    | 'CHILD_CHAIN'
-    | 'TASK_V2'
-  vertices?: GraphVertex[]
-}
-
-export interface ConnectorValidationResult {
-  valid?: boolean
-  errorMessage?: string
-}
-
-export interface ConnectorSummaryDTO {
   identifier?: string
-  name?: string
-  description?: string
-  accountId?: string
-  orgId?: string
-  projectId?: string
-  accountName?: string
-  orgName?: string
-  projectName?: string
-  type?: 'KUBERNETES_CLUSTER' | 'GIT'
-  categories?: 'CLOUD_PROVIDER'[]
-  connectorDetials?: ConnectorConfigSummaryDTO
-  tags?: string[]
-  createdAt?: number
-  lastModifiedAt?: number
-  version?: number
-}
-
-export interface ResponseDTOOptionalProjectDTO {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: ProjectDTO
-  metaData?: { [key: string]: any }
-  correlationId?: string
+  type?: 'PreProduction' | 'Production'
+  tags?: Tag[]
 }
 
 export interface PageConnectorSummaryDTO {
   totalPages?: number
   totalElements?: number
+  size?: number
+  content?: ConnectorSummaryDTO[]
+  number?: number
   last?: boolean
   numberOfElements?: number
   pageable?: Pageable
   first?: boolean
-  size?: number
-  content?: ConnectorSummaryDTO[]
-  number?: number
   sort?: Sort
   empty?: boolean
 }
@@ -2517,7 +2768,7 @@ export const useDeleteProject = ({ orgIdentifier, ...props }: UseDeleteProjectPr
     { base: '/cd/api', pathParams: { orgIdentifier }, ...props }
   )
 
-export interface GetListOfPipelinesQueryParams {
+export interface GetPipelineListQueryParams {
   accountIdentifier: string
   orgIdentifier?: string
   projectIdentifier: string
@@ -2527,43 +2778,49 @@ export interface GetListOfPipelinesQueryParams {
   sort?: string[]
 }
 
-export type GetListOfPipelinesProps = Omit<
-  GetProps<ResponseDTOPageCDPipelineDTO, unknown, GetListOfPipelinesQueryParams, void>,
+export type GetPipelineListProps = Omit<
+  GetProps<ResponseDTOPageCDPipelineDTO, unknown, GetPipelineListQueryParams, void>,
   'path'
 >
 
-export const GetListOfPipelines = (props: GetListOfPipelinesProps) => (
-  <Get<ResponseDTOPageCDPipelineDTO, unknown, GetListOfPipelinesQueryParams, void>
+/**
+ * Gets Pipeline list
+ */
+export const GetPipelineList = (props: GetPipelineListProps) => (
+  <Get<ResponseDTOPageCDPipelineDTO, unknown, GetPipelineListQueryParams, void>
     path={`/pipelines`}
     base={'/cd/api'}
     {...props}
   />
 )
 
-export type UseGetListOfPipelinesProps = Omit<
-  UseGetProps<ResponseDTOPageCDPipelineDTO, GetListOfPipelinesQueryParams, void>,
+export type UseGetPipelineListProps = Omit<
+  UseGetProps<ResponseDTOPageCDPipelineDTO, GetPipelineListQueryParams, void>,
   'path'
 >
 
-export const useGetListOfPipelines = (props: UseGetListOfPipelinesProps) =>
-  useGet<ResponseDTOPageCDPipelineDTO, unknown, GetListOfPipelinesQueryParams, void>(`/pipelines`, {
+/**
+ * Gets Pipeline list
+ */
+export const useGetPipelineList = (props: UseGetPipelineListProps) =>
+  useGet<ResponseDTOPageCDPipelineDTO, unknown, GetPipelineListQueryParams, void>(`/pipelines`, {
     base: '/cd/api',
     ...props
   })
 
-export interface CreatePipelineQueryParams {
+export interface DummyCreatePipelineForSwaggerQueryParams {
   accountIdentifier: string
   orgIdentifier?: string
   projectIdentifier: string
 }
 
-export type CreatePipelineProps = Omit<
-  MutateProps<void, unknown, CreatePipelineQueryParams, void, void>,
+export type DummyCreatePipelineForSwaggerProps = Omit<
+  MutateProps<ResponseDTOCDPipelineDTO, unknown, DummyCreatePipelineForSwaggerQueryParams, CDPipelineDTO, void>,
   'path' | 'verb'
 >
 
-export const CreatePipeline = (props: CreatePipelineProps) => (
-  <Mutate<void, unknown, CreatePipelineQueryParams, void, void>
+export const DummyCreatePipelineForSwagger = (props: DummyCreatePipelineForSwaggerProps) => (
+  <Mutate<ResponseDTOCDPipelineDTO, unknown, DummyCreatePipelineForSwaggerQueryParams, CDPipelineDTO, void>
     verb="POST"
     path={`/pipelines`}
     base={'/cd/api'}
@@ -2571,69 +2828,110 @@ export const CreatePipeline = (props: CreatePipelineProps) => (
   />
 )
 
-export type UseCreatePipelineProps = Omit<UseMutateProps<void, CreatePipelineQueryParams, void, void>, 'path' | 'verb'>
+export type UseDummyCreatePipelineForSwaggerProps = Omit<
+  UseMutateProps<ResponseDTOCDPipelineDTO, DummyCreatePipelineForSwaggerQueryParams, CDPipelineDTO, void>,
+  'path' | 'verb'
+>
 
-export const useCreatePipeline = (props: UseCreatePipelineProps) =>
-  useMutate<void, unknown, CreatePipelineQueryParams, void, void>('POST', `/pipelines`, { base: '/cd/api', ...props })
+export const useDummyCreatePipelineForSwagger = (props: UseDummyCreatePipelineForSwaggerProps) =>
+  useMutate<ResponseDTOCDPipelineDTO, unknown, DummyCreatePipelineForSwaggerQueryParams, CDPipelineDTO, void>(
+    'POST',
+    `/pipelines`,
+    { base: '/cd/api', ...props }
+  )
 
-export interface GetNgPipelineByIdentifierYamlQueryParams {
+export interface PutPipelineQueryParams {
+  accountIdentifier: string
+  orgIdentifier?: string
+  projectIdentifier: string
+}
+
+export type PutPipelineProps = Omit<MutateProps<void, unknown, PutPipelineQueryParams, void, void>, 'path' | 'verb'>
+
+/**
+ * Update a Pipeline
+ */
+export const PutPipeline = (props: PutPipelineProps) => (
+  <Mutate<void, unknown, PutPipelineQueryParams, void, void>
+    verb="PUT"
+    path={`/pipelines`}
+    base={'/cd/api'}
+    {...props}
+  />
+)
+
+export type UsePutPipelineProps = Omit<UseMutateProps<void, PutPipelineQueryParams, void, void>, 'path' | 'verb'>
+
+/**
+ * Update a Pipeline
+ */
+export const usePutPipeline = (props: UsePutPipelineProps) =>
+  useMutate<void, unknown, PutPipelineQueryParams, void, void>('PUT', `/pipelines`, { base: '/cd/api', ...props })
+
+export interface GetPipelineYamlStringQueryParams {
   accountIdentifier: string
   orgIdentifier?: string
   projectIdentifier?: string
 }
 
-export interface GetNgPipelineByIdentifierYamlPathParams {
+export interface GetPipelineYamlStringPathParams {
   pipelineIdentifier: string
 }
 
-export type GetNgPipelineByIdentifierYamlProps = Omit<
-  GetProps<void, unknown, GetNgPipelineByIdentifierYamlQueryParams, GetNgPipelineByIdentifierYamlPathParams>,
+export type GetPipelineYamlStringProps = Omit<
+  GetProps<void, unknown, GetPipelineYamlStringQueryParams, GetPipelineYamlStringPathParams>,
   'path'
 > &
-  GetNgPipelineByIdentifierYamlPathParams
+  GetPipelineYamlStringPathParams
 
-export const GetNgPipelineByIdentifierYaml = ({ pipelineIdentifier, ...props }: GetNgPipelineByIdentifierYamlProps) => (
-  <Get<void, unknown, GetNgPipelineByIdentifierYamlQueryParams, GetNgPipelineByIdentifierYamlPathParams>
+/**
+ * Gets a pipeline by identifier
+ */
+export const GetPipelineYamlString = ({ pipelineIdentifier, ...props }: GetPipelineYamlStringProps) => (
+  <Get<void, unknown, GetPipelineYamlStringQueryParams, GetPipelineYamlStringPathParams>
     path={`/pipelines/yaml/${pipelineIdentifier}`}
     base={'/cd/api'}
     {...props}
   />
 )
 
-export type UseGetNgPipelineByIdentifierYamlProps = Omit<
-  UseGetProps<void, GetNgPipelineByIdentifierYamlQueryParams, GetNgPipelineByIdentifierYamlPathParams>,
+export type UseGetPipelineYamlStringProps = Omit<
+  UseGetProps<void, GetPipelineYamlStringQueryParams, GetPipelineYamlStringPathParams>,
   'path'
 > &
-  GetNgPipelineByIdentifierYamlPathParams
+  GetPipelineYamlStringPathParams
 
-export const useGetNgPipelineByIdentifierYaml = ({
-  pipelineIdentifier,
-  ...props
-}: UseGetNgPipelineByIdentifierYamlProps) =>
-  useGet<void, unknown, GetNgPipelineByIdentifierYamlQueryParams, GetNgPipelineByIdentifierYamlPathParams>(
-    ({ pipelineIdentifier }: GetNgPipelineByIdentifierYamlPathParams) => `/pipelines/yaml/${pipelineIdentifier}`,
+/**
+ * Gets a pipeline by identifier
+ */
+export const useGetPipelineYamlString = ({ pipelineIdentifier, ...props }: UseGetPipelineYamlStringProps) =>
+  useGet<void, unknown, GetPipelineYamlStringQueryParams, GetPipelineYamlStringPathParams>(
+    ({ pipelineIdentifier }: GetPipelineYamlStringPathParams) => `/pipelines/yaml/${pipelineIdentifier}`,
     { base: '/cd/api', pathParams: { pipelineIdentifier }, ...props }
   )
 
-export interface RunPipelineQueryParams {
+export interface PostPipelineExecuteQueryParams {
   accountIdentifier: string
   orgIdentifier?: string
   projectIdentifier?: string
   appId?: string
 }
 
-export interface RunPipelinePathParams {
+export interface PostPipelineExecutePathParams {
   identifier: string
 }
 
-export type RunPipelineProps = Omit<
-  MutateProps<ResponseDTOPlanExecution, unknown, RunPipelineQueryParams, void, RunPipelinePathParams>,
+export type PostPipelineExecuteProps = Omit<
+  MutateProps<ResponseDTOPlanExecution, unknown, PostPipelineExecuteQueryParams, void, PostPipelineExecutePathParams>,
   'path' | 'verb'
 > &
-  RunPipelinePathParams
+  PostPipelineExecutePathParams
 
-export const RunPipeline = ({ identifier, ...props }: RunPipelineProps) => (
-  <Mutate<ResponseDTOPlanExecution, unknown, RunPipelineQueryParams, void, RunPipelinePathParams>
+/**
+ * Execute a pipeline
+ */
+export const PostPipelineExecute = ({ identifier, ...props }: PostPipelineExecuteProps) => (
+  <Mutate<ResponseDTOPlanExecution, unknown, PostPipelineExecuteQueryParams, void, PostPipelineExecutePathParams>
     verb="POST"
     path={`/pipelines/${identifier}/execute`}
     base={'/cd/api'}
@@ -2641,52 +2939,61 @@ export const RunPipeline = ({ identifier, ...props }: RunPipelineProps) => (
   />
 )
 
-export type UseRunPipelineProps = Omit<
-  UseMutateProps<ResponseDTOPlanExecution, RunPipelineQueryParams, void, RunPipelinePathParams>,
+export type UsePostPipelineExecuteProps = Omit<
+  UseMutateProps<ResponseDTOPlanExecution, PostPipelineExecuteQueryParams, void, PostPipelineExecutePathParams>,
   'path' | 'verb'
 > &
-  RunPipelinePathParams
+  PostPipelineExecutePathParams
 
-export const useRunPipeline = ({ identifier, ...props }: UseRunPipelineProps) =>
-  useMutate<ResponseDTOPlanExecution, unknown, RunPipelineQueryParams, void, RunPipelinePathParams>(
+/**
+ * Execute a pipeline
+ */
+export const usePostPipelineExecute = ({ identifier, ...props }: UsePostPipelineExecuteProps) =>
+  useMutate<ResponseDTOPlanExecution, unknown, PostPipelineExecuteQueryParams, void, PostPipelineExecutePathParams>(
     'POST',
-    ({ identifier }: RunPipelinePathParams) => `/pipelines/${identifier}/execute`,
+    ({ identifier }: PostPipelineExecutePathParams) => `/pipelines/${identifier}/execute`,
     { base: '/cd/api', pathParams: { identifier }, ...props }
   )
 
-export interface GetNgPipelineByIdentifierQueryParams {
+export interface GetPipelineYamlQueryParams {
   accountIdentifier: string
   orgIdentifier?: string
   projectIdentifier?: string
 }
 
-export interface GetNgPipelineByIdentifierPathParams {
+export interface GetPipelineYamlPathParams {
   pipelineIdentifier: string
 }
 
-export type GetNgPipelineByIdentifierProps = Omit<
-  GetProps<void, unknown, GetNgPipelineByIdentifierQueryParams, GetNgPipelineByIdentifierPathParams>,
+export type GetPipelineYamlProps = Omit<
+  GetProps<void, unknown, GetPipelineYamlQueryParams, GetPipelineYamlPathParams>,
   'path'
 > &
-  GetNgPipelineByIdentifierPathParams
+  GetPipelineYamlPathParams
 
-export const GetNgPipelineByIdentifier = ({ pipelineIdentifier, ...props }: GetNgPipelineByIdentifierProps) => (
-  <Get<void, unknown, GetNgPipelineByIdentifierQueryParams, GetNgPipelineByIdentifierPathParams>
+/**
+ * Gets a pipeline by identifier
+ */
+export const GetPipelineYaml = ({ pipelineIdentifier, ...props }: GetPipelineYamlProps) => (
+  <Get<void, unknown, GetPipelineYamlQueryParams, GetPipelineYamlPathParams>
     path={`/pipelines/${pipelineIdentifier}`}
     base={'/cd/api'}
     {...props}
   />
 )
 
-export type UseGetNgPipelineByIdentifierProps = Omit<
-  UseGetProps<void, GetNgPipelineByIdentifierQueryParams, GetNgPipelineByIdentifierPathParams>,
+export type UseGetPipelineYamlProps = Omit<
+  UseGetProps<void, GetPipelineYamlQueryParams, GetPipelineYamlPathParams>,
   'path'
 > &
-  GetNgPipelineByIdentifierPathParams
+  GetPipelineYamlPathParams
 
-export const useGetNgPipelineByIdentifier = ({ pipelineIdentifier, ...props }: UseGetNgPipelineByIdentifierProps) =>
-  useGet<void, unknown, GetNgPipelineByIdentifierQueryParams, GetNgPipelineByIdentifierPathParams>(
-    ({ pipelineIdentifier }: GetNgPipelineByIdentifierPathParams) => `/pipelines/${pipelineIdentifier}`,
+/**
+ * Gets a pipeline by identifier
+ */
+export const useGetPipelineYaml = ({ pipelineIdentifier, ...props }: UseGetPipelineYamlProps) =>
+  useGet<void, unknown, GetPipelineYamlQueryParams, GetPipelineYamlPathParams>(
+    ({ pipelineIdentifier }: GetPipelineYamlPathParams) => `/pipelines/${pipelineIdentifier}`,
     { base: '/cd/api', pathParams: { pipelineIdentifier }, ...props }
   )
 
