@@ -1,5 +1,5 @@
 import React from 'react'
-import { Layout, Tabs, Tab, Button } from '@wings-software/uikit'
+import { Layout, Tabs, Tab, Button, Icon } from '@wings-software/uikit'
 import i18n from './StageSetupShell.i18n'
 import ServiceSpecifications from '../ServiceSpecifications/ServiceSpecifications'
 import InfraSpecifications from '../InfraSpecifications/InfraSpecifications'
@@ -40,10 +40,46 @@ export default function StageSetupShell(): JSX.Element {
         className={cx(css.tabsContainer, { [css.tabExecution]: selectedTabId === i18n.executionLabel })}
       >
         <Tabs id="stageSetupShell" selectedTabId={selectedTabId}>
-          <Tab id={stageData?.name} disabled title={`Stage: ${stageData?.name}`} />
-          <Tab id={i18n.serviceLabel} title={i18n.serviceLabel} panel={<ServiceSpecifications />} />
-          <Tab id={i18n.infraLabel} title={i18n.infraLabel} panel={<InfraSpecifications />} />
-          <Tab id={i18n.executionLabel} title={i18n.executionLabel} panel={<ExecutionGraph />} />
+          <Tab
+            id={stageData?.name}
+            disabled
+            title={
+              <span className={css.tab}>
+                <Icon name="pipeline-deploy" size={20} />
+                {`Stage: ${stageData?.name}`}
+              </span>
+            }
+          />
+          <Tab
+            id={i18n.serviceLabel}
+            title={
+              <span className={css.tab}>
+                <Icon name="service" height={20} size={20} />
+                {i18n.serviceLabel}
+              </span>
+            }
+            panel={<ServiceSpecifications />}
+          />
+          <Tab
+            id={i18n.infraLabel}
+            title={
+              <span className={css.tab}>
+                <Icon name="yaml-builder-stages" height={20} size={20} />
+                {i18n.infraLabel}
+              </span>
+            }
+            panel={<InfraSpecifications />}
+          />
+          <Tab
+            id={i18n.executionLabel}
+            title={
+              <span className={css.tab}>
+                <Icon name="yaml-builder-steps" height={20} size={20} />
+                {i18n.executionLabel}
+              </span>
+            }
+            panel={<ExecutionGraph />}
+          />
         </Tabs>
       </Layout.Horizontal>
       <Layout.Horizontal spacing="medium" padding="xlarge" style={{ position: 'absolute', bottom: 0 }}>

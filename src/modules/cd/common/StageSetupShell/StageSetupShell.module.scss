@@ -18,7 +18,8 @@
     :global {
       .bp3-tab {
         margin: 10px 0 10px 0 !important;
-        width: 140px;
+        min-width: 140px;
+        padding: 0 var(--spacing-medium);
         text-align: center;
       }
       .bp3-tab-list {
@@ -43,9 +44,15 @@
       .bp3-tab[aria-selected='false'] {
         color: var(--grey-400);
       }
-      .bp3-tab-indicator-wrapper .bp3-tab-indicator {
-        height: 4px;
-        bottom: 3px;
+    }
+    .tab {
+      :global {
+        span.bp3-icon {
+          margin-right: var(--spacing-small);
+          path {
+            fill: var(--grey-400);
+          }
+        }
       }
     }
   }
