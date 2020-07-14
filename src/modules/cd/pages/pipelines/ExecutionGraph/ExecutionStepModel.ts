@@ -135,7 +135,7 @@ export class ExecutionStepModel extends Diagram.DiagramModel {
         prevNodes = resp.prevNodes
       }
     })
-    if (tempStartX !== startX) {
+    if (tempStartX !== startX || data.length === 0) {
       createNode.setPosition(startX + this.gap, startY)
     }
     prevNodes.forEach((prevNode: Diagram.DefaultNodeModel) => {

@@ -38,6 +38,19 @@ const { yaml } = languages || {}
 
 const YAMLBuilder = (props: YamlBuilderProps) => {
   const [entityYaml, setEntityYaml] = useState()
+  const { bind } = props
+
+  const handler = React.useMemo(
+    () =>
+      ({
+        getLatestYaml: () => entityYaml
+      } as YamlBuilderHandlerBinding),
+    [entityYaml]
+  )
+
+  React.useEffect(() => {
+    bind?.(handler)
+  }, [bind, handler])
 
   function loadEntitySchemas() {
     const jsonSchemas = JSONSchemaService.fetchEntitySchemas()

@@ -1,6 +1,7 @@
 import React from 'react'
 import { Classes, Dialog } from '@blueprintjs/core'
 import cx from 'classnames'
+import { stringify, parse } from 'yaml'
 import { Button, Icon, Text, Layout, useModalHook, Tag } from '@wings-software/uikit'
 import { useHistory, Switch, Route, useRouteMatch, Link as RrLink } from 'react-router-dom'
 import { YAMLBuilderPage } from 'modules/dx/pages/yamlBuilder'
@@ -13,6 +14,7 @@ import type { CDPipelineDTO } from 'services/cd-ng'
 import { YamlEntity } from 'modules/common/constants/YamlConstants'
 import { DefaultNewPipelineId } from '../PipelineContext/PipelineActions'
 import { NavigationCheck } from 'modules/common/exports'
+import type { YamlBuilderHandlerBinding } from 'modules/common/interfaces/YAMLBuilderProps'
 
 export const PipelineCanvas: React.FC<{}> = (): JSX.Element => {
   const { state, updatePipeline, deletePipelineCache } = React.useContext(PipelineContext)
@@ -22,6 +24,8 @@ export const PipelineCanvas: React.FC<{}> = (): JSX.Element => {
     isInitialized,
     pipelineView: { isSetupStageOpen }
   } = state
+
+  const [yamlHandler, setYamlHandler] = React.useState<YamlBuilderHandlerBinding | undefined>()
 
   const [showModal, hideModal] = useModalHook(
     () => (
@@ -74,7 +78,15 @@ export const PipelineCanvas: React.FC<{}> = (): JSX.Element => {
       <div className={css.topBar}>
         <div>
           {isYaml ? (
-            <RrLink to={`${url}/`}>
+            <RrLink
+              to={`${url}/`}
+              onClick={() => {
+                if (yamlHandler) {
+                  const pipeObj = parse(yamlHandler.getLatestYaml())
+                  updatePipeline(pipeObj.pipeline as CDPipelineDTO)
+                }
+              }}
+            >
               <div className={cx(css.topButtons)}>{i18n.visual}</div>
             </RrLink>
           ) : (
@@ -126,7 +138,13 @@ export const PipelineCanvas: React.FC<{}> = (): JSX.Element => {
           </Layout.Horizontal>
         </Route>
         <Route exact path={`${path}yaml/`}>
-          <YAMLBuilderPage fileName="DeploymentPipeline.yaml" entityType={YamlEntity.PIPELINE} height={550} />
+          <YAMLBuilderPage
+            fileName="DeploymentPipeline.yaml"
+            entityType={YamlEntity.PIPELINE}
+            height={800}
+            existingYaml={stringify({ pipeline })}
+            bind={setYamlHandler}
+          />
         </Route>
       </Switch>
     </div>

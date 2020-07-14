@@ -57,7 +57,8 @@ const ExecutionGraph = (): JSX.Element => {
     state: {
       pipeline,
       pipelineView: { selectedStageId, isSetupStageOpen }
-    }
+    },
+    updatePipeline
   } = React.useContext(PipelineContext)
 
   //1) setup the diagram engine
@@ -94,9 +95,12 @@ const ExecutionGraph = (): JSX.Element => {
       if (data?.stage?.spec?.execution) {
         setState(prevState => ({ ...prevState, data: get(data.stage.spec.execution, 'steps', []) }))
       } else if (data?.stage) {
-        data.stage = {
-          execution: {}
+        data.stage.spec = {
+          execution: {
+            steps: []
+          }
         }
+        updatePipeline(pipeline)
       }
     }
   }, [selectedStageId, pipeline, isSetupStageOpen])
@@ -178,14 +182,10 @@ const ExecutionGraph = (): JSX.Element => {
               const dataClone: ExecutionSection[] = cloneDeep(state.data)
               dataClone.push({
                 step: {
-                  type: item.icon.split('-')[1] as StepType,
+                  type: item.value,
                   name: item.text,
-                  identifier: `http-step-${item.value}`,
-                  spec: {
-                    socketTimeoutMillis: 1000,
-                    method: 'GET',
-                    url: 'http://localhost:8080/temp-1.json'
-                  }
+                  identifier: `${item.value}_${state.data.length}`,
+                  spec: {}
                 }
               })
               setState(prevState => ({ ...prevState, isDrawerOpen: false, data: dataClone }))
