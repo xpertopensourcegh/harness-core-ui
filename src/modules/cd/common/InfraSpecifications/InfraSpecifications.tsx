@@ -188,7 +188,7 @@ export default function InfraSpecifications(): JSX.Element {
                   style={{ width: 400 }}
                   label={i18n.k8ConnectorDropDownLabel}
                   placeholder={i18n.k8ConnectorDropDownPlaceholder}
-                  items={[{ label: 'Kubernetes Connector', value: 'pEIkEiNPSgSUsbWDDyjNKw' }]}
+                  items={[{ label: 'Kubernetes Connector', value: 'userNameAuth' }]}
                 />
                 <FormInput.Text
                   name="namespaceId"

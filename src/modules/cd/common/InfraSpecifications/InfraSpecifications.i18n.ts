@@ -2,8 +2,8 @@ export default {
   artifacts: 'Artifacts',
   manifests: 'Manifests',
   variables: 'Variables',
-  infraNameLabel: 'Name of your infrastructure',
-  infraNamePlaceholderText: 'Enter your infrastructure name',
+  infraNameLabel: 'Name your environment',
+  infraNamePlaceholderText: 'Enter your environment name',
   addDescription: 'description',
   addTags: 'tags',
   tagsLabel: 'Tags',
@@ -15,8 +15,8 @@ export default {
   validation: {
     infraName: 'Infrastructure name is required field'
   },
-  infrastructureTypeLabel: 'Type of infrastructure',
-  infrastructureTypePlaceholder: 'Select type of infrastructure',
+  infrastructureTypeLabel: 'Type of environment',
+  infrastructureTypePlaceholder: 'Select type of environment',
   prodLabel: 'Production',
   nonProdLabel: 'Non-production',
   infraSpecHelpText: 'Select the best method for Harness to reach your Kubernetes Cluster',
