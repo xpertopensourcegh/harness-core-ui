@@ -29,15 +29,15 @@ export interface StreamingOutput {
   [key: string]: any
 }
 
+export interface UsageRestrictions {
+  appEnvRestrictions?: AppEnvRestriction[]
+}
+
 export interface ResponseDTOEncryptedDataDTO {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
   data?: EncryptedDataDTO
   metaData?: { [key: string]: any }
   correlationId?: string
-}
-
-export interface UsageRestrictions {
-  appEnvRestrictions?: AppEnvRestriction[]
 }
 
 export interface UpdateOrganizationDTO {
@@ -58,18 +58,32 @@ export type K8SDirectInfrastructure = Infrastructure & {
   releaseName?: string
 }
 
+export interface SidecarArtifactWrapper {
+  identifier: string
+}
+
 export interface EncryptedDataParams {
   name?: string
   value?: string
 }
 
-export interface SidecarArtifactWrapper {
-  identifier: string
-}
-
 export interface ValidationError {
   field?: string
   error?: string
+}
+
+export interface PageProjectDTO {
+  totalPages?: number
+  totalElements?: number
+  last?: boolean
+  numberOfElements?: number
+  pageable?: Pageable
+  first?: boolean
+  size?: number
+  content?: ProjectDTO[]
+  number?: number
+  sort?: Sort
+  empty?: boolean
 }
 
 export interface UpdateProjectDTO {
@@ -78,20 +92,6 @@ export interface UpdateProjectDTO {
   owners: string[]
   tags: string[]
   purposeList: string[]
-}
-
-export interface PageProjectDTO {
-  totalPages?: number
-  totalElements?: number
-  size?: number
-  content?: ProjectDTO[]
-  number?: number
-  last?: boolean
-  numberOfElements?: number
-  pageable?: Pageable
-  first?: boolean
-  sort?: Sort
-  empty?: boolean
 }
 
 export interface Tags {
@@ -125,14 +125,14 @@ export interface ManifestOverrideSets {
   manifests?: ManifestConfigWrapper[]
 }
 
-export type WorkflowFilter = EnvFilter & {}
-
 export interface ResponseDTOSecretManagerConfigDTO {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
   data?: SecretManagerConfigDTO
   metaData?: { [key: string]: any }
   correlationId?: string
 }
+
+export type WorkflowFilter = EnvFilter & {}
 
 export interface OrganizationDTO {
   id?: string
@@ -393,7 +393,7 @@ export type SidecarArtifact = SidecarArtifactWrapper & {
 }
 
 export interface Infrastructure {
-  [key: string]: any
+  refType?: RefType
 }
 
 export interface ResponseDTOPageOrganizationDTO {
@@ -427,6 +427,13 @@ export interface ResponseDTOPlanExecution {
   correlationId?: string
 }
 
+export interface TemporalUnit {
+  timeBased?: boolean
+  duration?: Duration
+  dateBased?: boolean
+  durationEstimated?: boolean
+}
+
 export interface CreateProjectDTO {
   accountIdentifier: string
   identifier: string
@@ -441,13 +448,6 @@ export interface CreateProjectDTO {
 export interface EnvFilter {
   ids?: string[]
   filterTypes?: string[]
-}
-
-export interface TemporalUnit {
-  timeBased?: boolean
-  duration?: Duration
-  dateBased?: boolean
-  durationEstimated?: boolean
 }
 
 export type K8sManifest = ManifestAttributes & {
@@ -470,7 +470,7 @@ export interface StepSpecType {
 }
 
 export interface Outcome {
-  [key: string]: any
+  refType?: RefType
 }
 
 export interface ConnectorFilter {
@@ -519,13 +519,6 @@ export type StepElement = ExecutionWrapper & {
   spec?: StepSpecType
 }
 
-export interface ResponseDTOOptionalProjectDTO {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: ProjectDTO
-  metaData?: { [key: string]: any }
-  correlationId?: string
-}
-
 export interface ConnectorSummaryDTO {
   identifier?: string
   name?: string
@@ -545,11 +538,11 @@ export interface ConnectorSummaryDTO {
   version?: number
 }
 
-export type K8sRollingRollbackStepInfo = StepSpecType & {
-  timeout?: number
-  stepDependencySpecs?: {
-    [key: string]: StepDependencySpec
-  }
+export interface ResponseDTOOptionalProjectDTO {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: ProjectDTO
+  metaData?: { [key: string]: any }
+  correlationId?: string
 }
 
 export interface SecretManagerConfig {
@@ -568,6 +561,13 @@ export interface SecretManagerConfig {
   name?: string
   encryptionServiceUrl?: string
   validationCriteria?: string
+}
+
+export type K8sRollingRollbackStepInfo = StepSpecType & {
+  timeout?: number
+  stepDependencySpecs?: {
+    [key: string]: StepDependencySpec
+  }
 }
 
 export interface ServiceSpec {
@@ -835,13 +835,17 @@ export interface ServiceUseFromStage {
   overrides?: ServiceOverrides
 }
 
+export interface RefType {
+  type?: string
+}
+
 export interface Pageable {
   offset?: number
-  paged?: boolean
-  pageNumber?: number
-  unpaged?: boolean
   pageSize?: number
   sort?: Sort
+  paged?: boolean
+  unpaged?: boolean
+  pageNumber?: number
 }
 
 export type DeploymentStage = StageType & {
@@ -864,6 +868,7 @@ export interface PipelineInfrastructure {
   environment?: EnvironmentYaml
   steps?: Step[]
   rollbackSteps?: Step[]
+  refType?: RefType
 }
 
 export interface StepDependencySpec {
@@ -1001,9 +1006,9 @@ export type HttpStepInfo = StepSpecType & {
 export interface Duration {
   seconds?: number
   nano?: number
+  units?: TemporalUnit[]
   zero?: boolean
   negative?: boolean
-  units?: TemporalUnit[]
 }
 
 export interface ResponseMessage {
@@ -1286,16 +1291,16 @@ export interface Throwable {
   suppressed?: Throwable[]
 }
 
-export interface StoreConfig {
-  [key: string]: any
-}
-
 export interface RestResponseGraph {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
   resource?: Graph
   responseMessages?: ResponseMessage[]
+}
+
+export interface StoreConfig {
+  [key: string]: any
 }
 
 export interface StageOverridesConfig {
@@ -1312,12 +1317,6 @@ export interface ResponseDTOBoolean {
   correlationId?: string
 }
 
-export interface Variable {
-  name: string
-  value: string
-  type: string
-}
-
 export interface ConnectorRequestDTO {
   name?: string
   identifier?: string
@@ -1328,6 +1327,12 @@ export interface ConnectorRequestDTO {
   tags?: string[]
   type?: 'KUBERNETES_CLUSTER' | 'GIT'
   spec?: ConnectorConfigDTO
+}
+
+export interface Variable {
+  name: string
+  value: string
+  type: string
 }
 
 export interface ErrorDTO {
@@ -1574,12 +1579,6 @@ export interface Step {
   [key: string]: any
 }
 
-export interface EmbeddedUser {
-  uuid?: string
-  name?: string
-  email?: string
-}
-
 export interface GraphVertex {
   uuid?: string
   name?: string
@@ -1611,6 +1610,12 @@ export interface GraphVertex {
   next?: GraphVertex
 }
 
+export interface EmbeddedUser {
+  uuid?: string
+  name?: string
+  email?: string
+}
+
 export type GitStore = StoreConfig & {
   connectorIdentifier?: string
   gitFetchType?: 'BRANCH' | 'COMMIT'
@@ -1631,13 +1636,6 @@ export interface StageType {
   [key: string]: any
 }
 
-export interface CDPipelineDTO {
-  name?: string
-  description?: string
-  stages?: StageElementWrapper[]
-  identifier?: string
-}
-
 export interface FailureInfo {
   errorMessage?: string
   failureTypes?: (
@@ -1648,6 +1646,13 @@ export interface FailureInfo {
     | 'VERIFICATION_FAILURE'
     | 'APPLICATION_ERROR'
   )[]
+}
+
+export interface CDPipelineDTO {
+  name?: string
+  description?: string
+  stages?: StageElementWrapper[]
+  identifier?: string
 }
 
 export interface ResponseDTOOrganizationDTO {
@@ -1684,35 +1689,35 @@ export interface InfraOverrides {
   infrastructureDef?: InfrastructureDef
 }
 
+export interface PageCDPipelineDTO {
+  totalPages?: number
+  totalElements?: number
+  last?: boolean
+  numberOfElements?: number
+  pageable?: Pageable
+  first?: boolean
+  size?: number
+  content?: CDPipelineDTO[]
+  number?: number
+  sort?: Sort
+  empty?: boolean
+}
+
 export interface GenericEntityFilter {
   ids?: string[]
   filterType?: string
 }
 
-export interface PageCDPipelineDTO {
-  totalPages?: number
-  totalElements?: number
-  size?: number
-  content?: CDPipelineDTO[]
-  number?: number
-  last?: boolean
-  numberOfElements?: number
-  pageable?: Pageable
-  first?: boolean
-  sort?: Sort
-  empty?: boolean
-}
-
 export interface PageOrganizationDTO {
   totalPages?: number
   totalElements?: number
-  size?: number
-  content?: OrganizationDTO[]
-  number?: number
   last?: boolean
   numberOfElements?: number
   pageable?: Pageable
   first?: boolean
+  size?: number
+  content?: OrganizationDTO[]
+  number?: number
   sort?: Sort
   empty?: boolean
 }
@@ -1722,27 +1727,28 @@ export interface EnvironmentYaml {
   identifier?: string
   type?: 'PreProduction' | 'Production'
   tags?: Tag[]
+  refType?: RefType
 }
 
 export interface PageConnectorSummaryDTO {
   totalPages?: number
   totalElements?: number
-  size?: number
-  content?: ConnectorSummaryDTO[]
-  number?: number
   last?: boolean
   numberOfElements?: number
   pageable?: Pageable
   first?: boolean
+  size?: number
+  content?: ConnectorSummaryDTO[]
+  number?: number
   sort?: Sort
   empty?: boolean
 }
 
-export type GitSyncConfigDTORequestBody = GitSyncConfigDTO
-
 export type SecretTextRequestBody = SecretText
 
 export type ConnectorRequestDTORequestBody = ConnectorRequestDTO
+
+export type GitSyncConfigDTORequestBody = GitSyncConfigDTO
 
 export interface GetOrganizationListQueryParams {
   page?: number
@@ -2299,7 +2305,7 @@ export interface ListGitSyncQueryParams {
 export type ListGitSyncProps = Omit<GetProps<GitSyncConfigDTO[], unknown, ListGitSyncQueryParams, void>, 'path'>
 
 /**
- * Get Git Sync list
+ * List Git Sync
  */
 export const ListGitSync = (props: ListGitSyncProps) => (
   <Get<GitSyncConfigDTO[], unknown, ListGitSyncQueryParams, void> path={`/git-sync`} base={'/cd/api'} {...props} />
@@ -2308,13 +2314,19 @@ export const ListGitSync = (props: ListGitSyncProps) => (
 export type UseListGitSyncProps = Omit<UseGetProps<GitSyncConfigDTO[], ListGitSyncQueryParams, void>, 'path'>
 
 /**
- * Get Git Sync list
+ * List Git Sync
  */
 export const useListGitSync = (props: UseListGitSyncProps) =>
   useGet<GitSyncConfigDTO[], unknown, ListGitSyncQueryParams, void>(`/git-sync`, { base: '/cd/api', ...props })
 
+export interface PostGitSyncQueryParams {
+  projectId?: string
+  organizationId?: string
+  accountId?: string
+}
+
 export type PostGitSyncProps = Omit<
-  MutateProps<GitSyncConfigDTO, unknown, void, GitSyncConfigDTORequestBody, void>,
+  MutateProps<GitSyncConfigDTO, unknown, PostGitSyncQueryParams, GitSyncConfigDTORequestBody, void>,
   'path' | 'verb'
 >
 
@@ -2322,7 +2334,7 @@ export type PostGitSyncProps = Omit<
  * Create a Git Sync
  */
 export const PostGitSync = (props: PostGitSyncProps) => (
-  <Mutate<GitSyncConfigDTO, unknown, void, GitSyncConfigDTORequestBody, void>
+  <Mutate<GitSyncConfigDTO, unknown, PostGitSyncQueryParams, GitSyncConfigDTORequestBody, void>
     verb="POST"
     path={`/git-sync`}
     base={'/cd/api'}
@@ -2331,7 +2343,7 @@ export const PostGitSync = (props: PostGitSyncProps) => (
 )
 
 export type UsePostGitSyncProps = Omit<
-  UseMutateProps<GitSyncConfigDTO, void, GitSyncConfigDTORequestBody, void>,
+  UseMutateProps<GitSyncConfigDTO, PostGitSyncQueryParams, GitSyncConfigDTORequestBody, void>,
   'path' | 'verb'
 >
 
@@ -2339,7 +2351,7 @@ export type UsePostGitSyncProps = Omit<
  * Create a Git Sync
  */
 export const usePostGitSync = (props: UsePostGitSyncProps) =>
-  useMutate<GitSyncConfigDTO, unknown, void, GitSyncConfigDTORequestBody, void>('POST', `/git-sync`, {
+  useMutate<GitSyncConfigDTO, unknown, PostGitSyncQueryParams, GitSyncConfigDTORequestBody, void>('POST', `/git-sync`, {
     base: '/cd/api',
     ...props
   })
@@ -2808,19 +2820,22 @@ export const useGetPipelineList = (props: UseGetPipelineListProps) =>
     ...props
   })
 
-export interface DummyCreatePipelineForSwaggerQueryParams {
+export interface PostPipelineDummyQueryParams {
   accountIdentifier: string
   orgIdentifier?: string
   projectIdentifier: string
 }
 
-export type DummyCreatePipelineForSwaggerProps = Omit<
-  MutateProps<ResponseDTOCDPipelineDTO, unknown, DummyCreatePipelineForSwaggerQueryParams, CDPipelineDTO, void>,
+export type PostPipelineDummyProps = Omit<
+  MutateProps<ResponseDTOCDPipelineDTO, unknown, PostPipelineDummyQueryParams, CDPipelineDTO, void>,
   'path' | 'verb'
 >
 
-export const DummyCreatePipelineForSwagger = (props: DummyCreatePipelineForSwaggerProps) => (
-  <Mutate<ResponseDTOCDPipelineDTO, unknown, DummyCreatePipelineForSwaggerQueryParams, CDPipelineDTO, void>
+/**
+ * Create a Pipeline
+ */
+export const PostPipelineDummy = (props: PostPipelineDummyProps) => (
+  <Mutate<ResponseDTOCDPipelineDTO, unknown, PostPipelineDummyQueryParams, CDPipelineDTO, void>
     verb="POST"
     path={`/pipelines`}
     base={'/cd/api'}
@@ -2828,13 +2843,16 @@ export const DummyCreatePipelineForSwagger = (props: DummyCreatePipelineForSwagg
   />
 )
 
-export type UseDummyCreatePipelineForSwaggerProps = Omit<
-  UseMutateProps<ResponseDTOCDPipelineDTO, DummyCreatePipelineForSwaggerQueryParams, CDPipelineDTO, void>,
+export type UsePostPipelineDummyProps = Omit<
+  UseMutateProps<ResponseDTOCDPipelineDTO, PostPipelineDummyQueryParams, CDPipelineDTO, void>,
   'path' | 'verb'
 >
 
-export const useDummyCreatePipelineForSwagger = (props: UseDummyCreatePipelineForSwaggerProps) =>
-  useMutate<ResponseDTOCDPipelineDTO, unknown, DummyCreatePipelineForSwaggerQueryParams, CDPipelineDTO, void>(
+/**
+ * Create a Pipeline
+ */
+export const usePostPipelineDummy = (props: UsePostPipelineDummyProps) =>
+  useMutate<ResponseDTOCDPipelineDTO, unknown, PostPipelineDummyQueryParams, CDPipelineDTO, void>(
     'POST',
     `/pipelines`,
     { base: '/cd/api', ...props }
