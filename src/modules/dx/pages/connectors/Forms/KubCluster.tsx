@@ -4,7 +4,7 @@ import i18n from './KubCluster.i18n'
 import { CardSelect } from '@wings-software/uikit'
 import css from './KubCluster.module.scss'
 import { authOptions, getCustomFields, DelegateTypes, DelegateInClusterType } from './KubeFormHelper'
-import { getIdentifierFromName } from 'framework/utils/StringUtils'
+import { StringUtils } from 'modules/common/exports'
 import cx from 'classnames'
 // import type { AuthOption } from './KubeFormHelper'
 
@@ -165,7 +165,7 @@ const KubCluster = (props: KubClusterProps): JSX.Element => {
         onChange={e => {
           const name = (e.target as HTMLInputElement).value
           if (name) {
-            props.formikProps.setFieldValue('identifier', getIdentifierFromName(name))
+            props.formikProps.setFieldValue('identifier', StringUtils.getIdentifierFromName(name))
           }
         }}
       />

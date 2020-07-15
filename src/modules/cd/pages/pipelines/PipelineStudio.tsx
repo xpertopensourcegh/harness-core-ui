@@ -45,10 +45,14 @@ const PipelineStudioInner = (): JSX.Element => {
             title="Dashboard"
             onClick={() => {
               history.push(
-                linkTo(routePipelines, {
-                  projectIdentifier: projectIdentifier,
-                  orgIdentifier: orgIdentifier
-                })
+                linkTo(
+                  routePipelines,
+                  {
+                    projectIdentifier: projectIdentifier,
+                    orgIdentifier: orgIdentifier
+                  },
+                  true
+                )
               )
             }}
           >

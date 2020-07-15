@@ -16,11 +16,15 @@ const PipelineList: React.FC = () => {
   const goToPipeline = React.useCallback(
     (pipelineIdentifier = '-1') => {
       history.push(
-        linkTo(routePipelineCanvas, {
-          projectIdentifier,
-          orgIdentifier,
-          pipelineIdentifier
-        })
+        linkTo(
+          routePipelineCanvas,
+          {
+            projectIdentifier,
+            orgIdentifier,
+            pipelineIdentifier
+          },
+          true
+        )
       )
     },
     [projectIdentifier, orgIdentifier, history]

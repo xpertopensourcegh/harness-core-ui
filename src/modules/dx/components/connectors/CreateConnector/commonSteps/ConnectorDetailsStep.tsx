@@ -1,7 +1,7 @@
 import React from 'react'
 import { Layout, Button, Formik } from '@wings-software/uikit'
 import * as Yup from 'yup'
-import { illegalIdentifiers } from 'framework/utils/StringUtils'
+import { StringUtils } from 'modules/common/exports'
 import { getHeadingByType } from '../../../../pages/connectors/utils/ConnectorHelper'
 import ConnectorDetailFields from 'modules/dx/pages/connectors/Forms/ConnectorDetailFields'
 import { Form } from 'formik'
@@ -34,7 +34,7 @@ const ConnectorDetailsStep = (props: ConnectorDetailsStepProps) => {
             .trim()
             .required()
             .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, 'Identifier can only contain alphanumerics, _ and $')
-            .notOneOf(illegalIdentifiers),
+            .notOneOf(StringUtils.illegalIdentifiers),
           description: Yup.string()
         })}
         onSubmit={formData => {

@@ -5,7 +5,7 @@ import { Form } from 'formik'
 import i18n from './ManifestWizard.i18n'
 
 import * as Yup from 'yup'
-import { illegalIdentifiers } from 'framework/utils/StringUtils'
+import { StringUtils } from 'modules/common/exports'
 
 import { get } from 'lodash'
 import type { StageWrapper } from 'services/ng-temp'
@@ -55,7 +55,7 @@ const FirstStep = (props: any): JSX.Element => {
             .trim()
             .required()
             .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, 'Identifier can only contain alphanumerics, _ and $')
-            .notOneOf(illegalIdentifiers)
+            .notOneOf(StringUtils.illegalIdentifiers)
         })}
         onSubmit={formData => {
           props.nextStep(formData)

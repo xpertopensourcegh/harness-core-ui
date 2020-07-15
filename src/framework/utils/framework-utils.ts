@@ -17,9 +17,13 @@ export function buildLoginUrlFrom401Response(message?: string): string {
  * `Route.url()` with an extra nullable validation for params fields.
  * @param route Route entry object.
  * @param params Route entry's url() parameters.
+ * @params ignoreBaseName true to ignore basename (Used to generate link to use with
+ * React Router's history.push/replace).
  */
-export function linkTo(route: Route, params?: RouteURLArgs): string {
+export function linkTo(route: Route, params?: RouteURLArgs, ignoreBaseName?: boolean): string {
   const accountId = SessionToken.accountId()
+  const basename =
+    (!ignoreBaseName && location.href.split('/#/')[0].replace(`${location.protocol}//${location.host}`, '')) || false
 
   if (params) {
     const nullableFields = Object.keys(params).filter(key => params[key] === null || params[key] === undefined)
@@ -36,5 +40,9 @@ export function linkTo(route: Route, params?: RouteURLArgs): string {
   }
 
   // Authenticated route paths are always prefixed with `/account/:accountId`
-  return `${route.authenticated === false ? '' : `/account/${accountId}`}` + route.url(params)
+  return (
+    `${
+      route.authenticated === false ? '' : `${basename ? `${location.origin}${basename}/#` : ''}/account/${accountId}`
+    }` + route.url(params)
+  )
 }

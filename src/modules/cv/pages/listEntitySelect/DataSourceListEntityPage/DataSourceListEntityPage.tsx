@@ -23,7 +23,7 @@ export default function DataSourceListEntitySelect(): JSX.Element {
   const onClickNextCallback = useCallback(
     () => (selectedEntities: SelectOption[]) => {
       history.push({
-        pathname: linkTo(routeCVOnBoardingSetup, { dataSourceType }),
+        pathname: linkTo(routeCVOnBoardingSetup, { dataSourceType }, true),
         state: {
           ...locationData,
           selectedEntities,
@@ -67,7 +67,7 @@ export default function DataSourceListEntitySelect(): JSX.Element {
             className={css.backButton}
             onClick={() =>
               history.replace({
-                pathname: linkTo(routeCVDataSourcesProductPage, { dataSourceType }),
+                pathname: linkTo(routeCVDataSourcesProductPage, { dataSourceType }, true),
                 state: { ...locationData }
               })
             }

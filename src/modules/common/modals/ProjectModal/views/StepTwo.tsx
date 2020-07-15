@@ -10,7 +10,7 @@ import {
   Container
 } from '@wings-software/uikit'
 import * as Yup from 'yup'
-import { illegalIdentifiers } from 'framework/utils/StringUtils'
+import * as StringUtils from 'modules/common/utils/StringUtils'
 
 import i18n from 'modules/common/pages/ProjectsPage/ProjectsPage.i18n'
 import ProjectCard from 'modules/common/pages/ProjectsPage/views/ProjectCard/ProjectCard'
@@ -65,7 +65,7 @@ const StepTwo: React.FC<StepProps<ProjectDTO> & ProjectModalData> = props => {
             .trim()
             .required()
             .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, 'Identifier can only contain alphanumerics, _ and $')
-            .notOneOf(illegalIdentifiers),
+            .notOneOf(StringUtils.illegalIdentifiers),
           color: Yup.string().required('required')
           // orgId: Yup.string().required()
         })}

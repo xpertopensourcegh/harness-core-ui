@@ -58,7 +58,7 @@ export const MenuDeployments: React.FC = () => {
           className={css.dashboardLink}
           name="dashboard-selected"
           size={32}
-          onClick={() => history.push(linkTo(routeCDProjects))}
+          onClick={() => history.push(linkTo(routeCDProjects, {}, true))}
         />
       </div>
       {isProjectsPage ? (

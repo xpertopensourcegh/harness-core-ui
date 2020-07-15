@@ -84,8 +84,8 @@ export default function AppDynamicsProductPage(): JSX.Element {
   const linkToParams = useMemo(
     () => ({
       pathname: locationContext.isEdit
-        ? linkTo(routeCVOnBoardingSetup, { accountId, dataSourceType: dataSourceType })
-        : linkTo(routeCVDataSourcesEntityPage, { accountId, dataSourceType: dataSourceType }),
+        ? linkTo(routeCVOnBoardingSetup, { accountId, dataSourceType: dataSourceType }, true)
+        : linkTo(routeCVDataSourcesEntityPage, { accountId, dataSourceType: dataSourceType }, true),
       state: { products: selectedProducts, ...locationContext }
     }),
     [selectedProducts, dataSourceType, locationContext, accountId]

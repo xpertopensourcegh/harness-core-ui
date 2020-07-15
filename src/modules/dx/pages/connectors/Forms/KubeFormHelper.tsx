@@ -1,7 +1,7 @@
 import React from 'react'
 import { string } from 'yup'
+import { StringUtils } from 'modules/common/exports'
 import { FormInput, Layout, Icon, Button, Popover } from '@wings-software/uikit'
-import { illegalIdentifiers, getIdentifierFromName } from 'framework/utils/StringUtils'
 import * as Yup from 'yup'
 import { FormikCreateInlineSecret } from 'modules/common/components/CreateInlineSecret/CreateInlineSecret'
 import type { SecretManagerConfig } from 'services/cd-ng'
@@ -97,7 +97,7 @@ export const getKubValidationSchema = () => {
       .trim()
       .required()
       .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, 'Identifier can only contain alphanumerics, _ and $')
-      .notOneOf(illegalIdentifiers),
+      .notOneOf(StringUtils.illegalIdentifiers),
     delegateName: Yup.string().when('useKubernetesDelegate', {
       is: true,
       then: string().trim().required('Delegate is required.')
@@ -141,7 +141,7 @@ export const getKubValidationSchema = () => {
   })
 }
 const renderUserNameAndPassword = (secretManagers?: SecretManagerConfig[], connectorName?: string) => {
-  const generatedId = getIdentifierFromName(connectorName || '')
+  const generatedId = StringUtils.getIdentifierFromName(connectorName || '')
   return (
     <>
       <FormInput.Text name="username" label="Username*" />

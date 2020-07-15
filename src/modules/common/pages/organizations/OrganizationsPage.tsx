@@ -55,7 +55,7 @@ const OrganizationsPage: React.FC = () => {
               data={org}
               editOrg={() => openOrganizationModal(org)}
               reloadOrgs={() => refetch()}
-              onClick={() => history.push(linkTo(routeOrgProjects, { orgId: org.identifier }))}
+              onClick={() => history.push(linkTo(routeOrgProjects, { orgId: org.identifier }, true))}
             />
           )}
           keyOf={(org: OrganizationDTO) => org.identifier}

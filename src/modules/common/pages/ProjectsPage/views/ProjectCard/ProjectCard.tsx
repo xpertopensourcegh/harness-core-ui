@@ -54,10 +54,14 @@ const ContextMenu: React.FC<ContextMenuProps> = props => {
   const viewDetail = (): void => {
     if (!project) return
     history.push(
-      linkTo(routeProjectOverview, {
-        projectIdentifier: project?.identifier,
-        orgIdentifier: project?.orgIdentifier
-      })
+      linkTo(
+        routeProjectOverview,
+        {
+          projectIdentifier: project?.identifier,
+          orgIdentifier: project?.orgIdentifier
+        },
+        true
+      )
     )
   }
 
@@ -124,11 +128,15 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
           disabled={isPreview}
           onClick={() => {
             history.push(
-              linkTo(routePipelineCanvas, {
-                projectIdentifier: data?.identifier,
-                orgIdentifier: data?.orgIdentifier,
-                pipelineIdentifier: -1
-              })
+              linkTo(
+                routePipelineCanvas,
+                {
+                  projectIdentifier: data?.identifier,
+                  orgIdentifier: data?.orgIdentifier,
+                  pipelineIdentifier: -1
+                },
+                true
+              )
             )
           }}
         />
