@@ -3,6 +3,7 @@ export default {
   custom: 'Custom',
   approval: 'Approval',
   description: 'Description',
+  addStage: 'Add Stage',
   whatToDeploy: 'What would you like to deploy?',
   pipeline: 'Pipeline',
   aboutYourStage: 'About Your Stage',

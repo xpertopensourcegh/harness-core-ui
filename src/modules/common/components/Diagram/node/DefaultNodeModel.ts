@@ -9,10 +9,11 @@ import type { IconProps } from '@wings-software/uikit/dist/icons/Icon'
 
 export interface DefaultNodeModelOptions extends BasePositionModelOptions {
   name: string
-  backgroundColor?: string
+  customNodeStyle?: React.CSSProperties
   width?: number
   height?: number
   icon?: IconName
+  allowAdd?: boolean
   iconProps?: IconProps
   canDelete?: boolean
   secondaryIcon?: IconName
@@ -38,10 +39,11 @@ export class DefaultNodeModel extends NodeModel<DefaultNodeModelGenerics> {
       type: DiagramType.Default,
       name: i18n.Untitled,
       icon: 'add',
+      allowAdd: false,
       iconProps: {},
       canDelete: true,
       secondaryIcon: 'command-echo',
-      backgroundColor: 'var(--white)',
+      customNodeStyle: {},
       width: 64,
       height: 64,
       ...options
@@ -108,7 +110,7 @@ export class DefaultNodeModel extends NodeModel<DefaultNodeModelGenerics> {
   deserialize(event: DeserializeEvent<this>): void {
     super.deserialize(event)
     this.options.name = event.data.name
-    this.options.backgroundColor = event.data.backgroundColor
+    this.options.customNodeStyle = { ...event.data.customNodeStyle }
     this.options.icon = event.data.icon
     this.options.secondaryIcon = event.data.secondaryIcon
     this.portsIn = map(event.data.portsInOrder, id => {
@@ -123,7 +125,7 @@ export class DefaultNodeModel extends NodeModel<DefaultNodeModelGenerics> {
     return {
       ...super.serialize(),
       name: this.options.name,
-      backgroundColor: this.options.backgroundColor,
+      customNodeStyle: { ...this.options.customNodeStyle },
       icon: this.options.icon,
       secondaryIcon: this.options.secondaryIcon,
       portsInOrder: map(this.portsIn, port => {

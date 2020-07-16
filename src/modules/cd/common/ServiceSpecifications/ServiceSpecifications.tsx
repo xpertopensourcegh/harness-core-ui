@@ -25,7 +25,6 @@ import cx from 'classnames'
 
 import { PipelineContext } from 'modules/cd/pages/pipelines/PipelineContext/PipelineContext'
 import { getStageFromPipeline } from 'modules/cd/pages/pipelines/StageBuilder/StageBuilderModel'
-import type { StageWrapper } from 'services/ng-temp'
 
 import { loggerFor, ModuleName } from 'framework/exports'
 
@@ -49,7 +48,7 @@ export default function ServiceSpecifications(): JSX.Element {
     updatePipeline
   } = React.useContext(PipelineContext)
 
-  const stage: StageWrapper | undefined = getStageFromPipeline(pipeline, selectedStageId || '')
+  const { stage } = getStageFromPipeline(pipeline, selectedStageId || '')
 
   const getInitialValues = (): { serviceName: string; description: string; tags: null | string[] } => {
     const pipelineData = stage?.['stage']?.['spec']?.['service'] || null

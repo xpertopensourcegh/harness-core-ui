@@ -17,22 +17,55 @@ const generatePort = (port: DefaultPortModel, props: DefaultNodeProps): JSX.Elem
   return <DefaultPortLabel engine={props.engine} port={port} key={port.getID()} />
 }
 
+const onAddNodeClick = (e: React.MouseEvent<Element, MouseEvent>, node: DefaultNodeModel): void => {
+  e.stopPropagation()
+  node.fireEvent({}, Event.AddParallelNode)
+}
+
 const onClick = (e: React.MouseEvent<Element, MouseEvent>, node: DefaultNodeModel): void => {
   e.stopPropagation()
   node.fireEvent({}, Event.RemoveNode)
 }
 
+const onClickNode = (e: React.MouseEvent<Element, MouseEvent>, node: DefaultNodeModel): void => {
+  e.stopPropagation()
+  node.fireEvent({}, Event.ClickNode)
+}
+
 export const DefaultNodeWidget = (props: DefaultNodeProps): JSX.Element => {
   const options = props.node.getOptions()
+  const nodeRef = React.useRef<HTMLDivElement>(null)
+  const allowAdd = options.allowAdd ?? false
+  const [showAdd, setVisibilityOfAdd] = React.useState(false)
+
+  React.useEffect(() => {
+    const currentNode = nodeRef.current
+
+    const onMouse = (): void => {
+      setVisibilityOfAdd(prev => !prev)
+    }
+
+    if (currentNode && allowAdd) {
+      currentNode.addEventListener('mouseover', onMouse)
+      currentNode.addEventListener('mouseout', onMouse)
+    }
+    return () => {
+      if (currentNode && allowAdd) {
+        currentNode.removeEventListener('mouseover', onMouse)
+        currentNode.removeEventListener('mouseleave', onMouse)
+      }
+    }
+  }, [nodeRef, allowAdd])
+
   return (
-    <div className={css.defaultNode}>
+    <div className={css.defaultNode} ref={nodeRef} onClick={e => onClickNode(e, props.node)}>
       <div
         className={cx(css.defaultCard, { [css.selected]: props.node.isSelected() })}
         style={{
-          backgroundColor: options.backgroundColor,
           width: options.width,
           height: options.height,
-          marginTop: 32 - (options.height || 64) / 2
+          marginTop: 32 - (options.height || 64) / 2,
+          ...options.customNodeStyle
         }}
       >
         {options.icon && <Icon size={28} name={options.icon} {...options.iconProps} />}
@@ -59,6 +92,20 @@ export const DefaultNodeWidget = (props: DefaultNodeProps): JSX.Element => {
       >
         {options.name}
       </Text>
+      {allowAdd && (
+        <div
+          onClick={e => onAddNodeClick(e, props.node)}
+          className={css.addNode}
+          style={{
+            width: options.width,
+            height: options.height,
+            visibility: showAdd ? 'visible' : 'hidden',
+            marginLeft: (126 - (options.width || 64)) / 2
+          }}
+        >
+          <Icon name="plus" style={{ color: 'var(--white)' }} />
+        </div>
+      )}
     </div>
   )
 }

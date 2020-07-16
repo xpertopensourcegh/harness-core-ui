@@ -12,7 +12,6 @@ export class DiamondNodeModel extends DefaultNodeModel {
       type: DiagramType.DiamondNode,
       name: i18n.Approve,
       icon: 'add',
-      backgroundColor: 'var(--white)',
       ...options
     })
   }

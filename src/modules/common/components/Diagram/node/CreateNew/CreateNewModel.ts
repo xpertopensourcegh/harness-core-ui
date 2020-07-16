@@ -25,7 +25,7 @@ export class CreateNewModel extends DefaultNodeModel {
     )
     this.addPort(
       new DefaultPortModel({
-        in: true,
+        in: false,
         name: 'Out'
       })
     )

@@ -24,6 +24,7 @@ export const DefaultLinkSegmentWidget = (props: DefaultLinkSegmentWidgetProps): 
   )
 
   const { onSelection, link } = props
+  const allowAdd = link.getOptions().allowAdd
 
   const onMouseLeave = React.useCallback(() => {
     onSelection(false)
@@ -41,8 +42,8 @@ export const DefaultLinkSegmentWidget = (props: DefaultLinkSegmentWidgetProps): 
   }, [link])
 
   const onClick = React.useCallback(() => {
-    link.fireEvent({}, Event.AddLinkClicked)
-  }, [link])
+    allowAdd && link.fireEvent({}, Event.AddLinkClicked)
+  }, [link, allowAdd])
 
   const pathRef = React.useRef<SVGPathElement>()
 
@@ -73,35 +74,39 @@ export const DefaultLinkSegmentWidget = (props: DefaultLinkSegmentWidgetProps): 
     <g>
       {Bottom}
       {Top}
-      <circle
-        fill={props.link.getOptions().selectedColor}
-        r={10}
-        cx={point.x}
-        pointerEvents="all"
-        onMouseLeave={onMouseLeave}
-        onMouseEnter={onMouseEnter}
-        cy={point.y}
-        opacity={props.selected ? 1 : 0}
-        onClick={onClick}
-      />
-      <line
-        stroke="var(--white)"
-        x1={point.x - 5}
-        y1={point.y}
-        x2={point.x + 5}
-        y2={point.y}
-        strokeWidth="1"
-        opacity={props.selected ? 1 : 0}
-      ></line>
-      <line
-        stroke="var(--white)"
-        x1={point.x}
-        y1={point.y - 5}
-        x2={point.x}
-        y2={point.y + 5}
-        strokeWidth="1"
-        opacity={props.selected ? 1 : 0}
-      ></line>
+      {allowAdd && (
+        <>
+          <circle
+            fill={props.link.getOptions().selectedColor}
+            r={10}
+            cx={point.x}
+            pointerEvents="all"
+            onMouseLeave={onMouseLeave}
+            onMouseEnter={onMouseEnter}
+            cy={point.y}
+            opacity={props.selected ? 1 : 0}
+            onClick={onClick}
+          />
+          <line
+            stroke="var(--white)"
+            x1={point.x - 5}
+            y1={point.y}
+            x2={point.x + 5}
+            y2={point.y}
+            strokeWidth="1"
+            opacity={props.selected ? 1 : 0}
+          ></line>
+          <line
+            stroke="var(--white)"
+            x1={point.x}
+            y1={point.y - 5}
+            x2={point.x}
+            y2={point.y + 5}
+            strokeWidth="1"
+            opacity={props.selected ? 1 : 0}
+          ></line>
+        </>
+      )}
     </g>
   )
 }

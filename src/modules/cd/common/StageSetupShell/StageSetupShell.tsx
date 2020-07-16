@@ -25,7 +25,7 @@ export default function StageSetupShell(): JSX.Element {
 
   React.useEffect(() => {
     if (selectedStageId && isSetupStageOpen) {
-      const stage = getStageFromPipeline(pipeline, selectedStageId)
+      const { stage } = getStageFromPipeline(pipeline, selectedStageId)
       const key = Object.keys(stage || {})[0]
       if (key && stage) {
         setStageData(stage[key])

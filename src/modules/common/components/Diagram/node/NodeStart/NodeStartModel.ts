@@ -12,7 +12,7 @@ export class NodeStartModel extends DefaultNodeModel {
   isStart: boolean
 
   constructor(options: NodeStartModelOptions = {}) {
-    const { isStart = true } = options
+    const { isStart = true, color } = options
     super({
       ...options,
       type: DiagramType.StartNode,
@@ -20,7 +20,8 @@ export class NodeStartModel extends DefaultNodeModel {
       name: isStart ? 'Start' : 'Stop'
     })
     this.isStart = isStart
-    this.color = isStart ? 'var(--diagram-start-node)' : 'var(--diagram-grey)'
+    const defaultColor = isStart ? 'var(--diagram-start-node)' : 'var(--diagram-stop-node)'
+    this.color = color ? color : defaultColor
     if (this.isStart) {
       this.addPort(
         new DefaultPortModel({

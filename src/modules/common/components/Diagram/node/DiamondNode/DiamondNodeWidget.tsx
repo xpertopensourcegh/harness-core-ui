@@ -8,6 +8,7 @@ import type { DefaultPortModel } from '../../port/DefaultPortModel'
 import { Icon, Text, Button } from '@wings-software/uikit'
 import { Event } from '../../Constants'
 import cx from 'classnames'
+import type { DefaultNodeModel } from '../DefaultNodeModel'
 
 export interface DiamondNodeProps {
   node: DiamondNodeModel
@@ -21,14 +22,18 @@ const onClick = (e: React.MouseEvent<Element, MouseEvent>, node: DiamondNodeMode
   e.stopPropagation()
   node.fireEvent({}, Event.RemoveNode)
 }
+const onClickNode = (e: React.MouseEvent<Element, MouseEvent>, node: DefaultNodeModel): void => {
+  e.stopPropagation()
+  node.fireEvent({}, Event.ClickNode)
+}
 
 export const DiamondNodeWidget = (props: DiamondNodeProps): JSX.Element => {
   const options = props.node.getOptions()
   return (
-    <div className={cssDefault.defaultNode}>
+    <div className={cssDefault.defaultNode} onClick={e => onClickNode(e, props.node)}>
       <div
         className={cx(cssDefault.defaultCard, css.diamond, { [cssDefault.selected]: props.node.isSelected() })}
-        style={{ backgroundColor: options.backgroundColor }}
+        style={{ width: options.width, height: options.height, ...options.customNodeStyle }}
       >
         {options.icon && <Icon size={28} name={options.icon} />}
         {props.node.getInPorts().map(port => generatePort(port, props))}

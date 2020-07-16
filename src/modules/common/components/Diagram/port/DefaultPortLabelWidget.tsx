@@ -20,14 +20,7 @@ export const DefaultPortLabel = (props: DefaultPortLabelProps): JSX.Element => {
       )}
     >
       <PortWidget engine={props.engine} port={props.port}>
-        <Button
-          intent="primary"
-          className={css.portBtn}
-          minimal
-          icon="circle"
-          iconProps={{ size: 8 }}
-          tooltip={props.port.getOptions().label}
-        />
+        <Button intent="primary" className={css.portBtn} minimal icon="circle" iconProps={{ size: 8 }} />
       </PortWidget>
     </div>
   )

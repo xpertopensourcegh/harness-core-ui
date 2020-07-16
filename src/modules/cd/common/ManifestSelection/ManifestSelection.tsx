@@ -212,7 +212,7 @@ export default function ManifestSelection(): JSX.Element {
     updatePipeline
   } = React.useContext(PipelineContext)
 
-  const stage: StageWrapper | undefined = getStageFromPipeline(pipeline, selectedStageId || '')
+  const { stage } = getStageFromPipeline(pipeline, selectedStageId || '')
   const identifier = selectedStageId || 'stage-identifier'
   const listOfManifests = get(stage, 'stage.spec.service.serviceDef.spec.manifests', [])
 

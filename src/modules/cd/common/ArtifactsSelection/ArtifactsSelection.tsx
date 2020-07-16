@@ -8,7 +8,6 @@ import { PipelineContext } from 'modules/cd/pages/pipelines/PipelineContext/Pipe
 import { get } from 'lodash'
 
 import { getStageFromPipeline } from 'modules/cd/pages/pipelines/StageBuilder/StageBuilderModel'
-import type { StageWrapper } from 'services/ng-temp'
 
 interface ArtifactTable {
   [key: string]: string
@@ -30,7 +29,7 @@ export default function ArtifactsSelection(): JSX.Element {
     updatePipeline
   } = React.useContext(PipelineContext)
 
-  const stage: StageWrapper | undefined = getStageFromPipeline(pipeline, selectedStageId || '')
+  const { stage } = getStageFromPipeline(pipeline, selectedStageId || '')
 
   const serviceSpec = get(stage, 'deployment.deployment.service.serviceSpec.artifacts', null)
 

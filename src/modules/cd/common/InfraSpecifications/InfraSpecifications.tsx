@@ -10,7 +10,6 @@ import { get } from 'lodash'
 import { loggerFor, ModuleName } from 'framework/exports'
 
 import { getStageFromPipeline } from 'modules/cd/pages/pipelines/StageBuilder/StageBuilderModel'
-import type { StageWrapper } from 'services/ng-temp'
 
 const logger = loggerFor(ModuleName.CD)
 
@@ -31,7 +30,7 @@ export default function InfraSpecifications(): JSX.Element {
     updatePipeline
   } = React.useContext(PipelineContext)
 
-  const stage: StageWrapper | undefined = getStageFromPipeline(pipeline, selectedStageId || '')
+  const { stage } = getStageFromPipeline(pipeline, selectedStageId || '')
 
   const getInitialValues = (): { infraName: string; description: string; tags: null | []; infraType: string } => {
     const environment = get(stage, 'stage.spec.infrastructure.environment', null)

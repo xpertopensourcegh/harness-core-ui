@@ -26,6 +26,7 @@ export interface DefaultLinkModelOptions extends BaseModelOptions {
   selectedColor?: string
   curvyness?: number
   type?: string
+  allowAdd?: boolean
   testName?: string
   curve?: number
 }
@@ -41,6 +42,7 @@ export class DefaultLinkModel extends LinkModel<DefaultLinkModelGenerics> {
       type: DiagramType.Default,
       width: options.width || 2,
       curve: options.curve || 12,
+      allowAdd: options.allowAdd || true,
       color: options.color || 'var(--diagram-link)',
       selectedColor: options.selectedColor || 'var(--diagram-hover-link-color)',
       curvyness: 50,

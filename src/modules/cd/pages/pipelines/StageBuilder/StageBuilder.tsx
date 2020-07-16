@@ -1,40 +1,18 @@
 import React from 'react'
 import { Diagram } from 'modules/common/exports'
 import css from './StageBuilder.module.scss'
-import {
-  StageBuilderModel,
-  StageType,
-  getStageFromPipeline,
-  MapStepTypeToIcon,
-  getTypeOfStage
-} from './StageBuilderModel'
+import { StageBuilderModel, StageType, getStageFromPipeline } from './StageBuilderModel'
 import { DynamicPopover, DynamicPopoverHandlerBinding } from 'modules/common/components/DynamicPopover/DynamicPopover'
-import {
-  Button,
-  Text,
-  Container,
-  Formik,
-  FormikForm,
-  FormInput,
-  Collapse,
-  Label,
-  Card,
-  CardSelect,
-  CardBody,
-  CardSelectType,
-  Icon
-} from '@wings-software/uikit'
+import { Icon } from '@wings-software/uikit'
 import 'split-view'
-import i18n from './StageBuilder.i18n'
-import type { NodeModelListener } from '@projectstorm/react-diagrams-core'
-
-import type { IconName } from '@blueprintjs/core'
+import type { NodeModelListener, LinkModelListener } from '@projectstorm/react-diagrams-core'
 import StageSetupShell from '../../../common/StageSetupShell/StageSetupShell'
-import * as Yup from 'yup'
 import type { StageElementWrapper } from 'services/cd-ng'
 import { PipelineContext } from '../PipelineContext/PipelineContext'
 import { CanvasButtons } from 'modules/cd/common/CanvasButtons/CanvasButtons'
 import { AddStageView } from './views/AddStageView'
+import { EditStageView } from './views/EditStageView'
+import { DefaultLinkModel, DefaultNodeModel } from 'modules/common/components/Diagram'
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
@@ -49,127 +27,24 @@ declare global {
 interface PopoverData {
   data?: StageElementWrapper
   isStageView: boolean
-  addStage?: (type: StageType) => void
+  isParallel?: boolean
+  event?: Diagram.DefaultNodeEvent
+  addStage?: (type: StageType, isParallel?: boolean, event?: Diagram.DefaultNodeEvent) => void
   onSubmitPrimaryData?: (values: StageElementWrapper, identifier: string) => void
 }
 
-const collapseProps = {
-  collapsedIcon: 'small-plus' as IconName,
-  expandedIcon: 'small-minus' as IconName,
-  isOpen: false,
-  isRemovable: false,
-  className: 'collapse',
-  heading: i18n.description
-}
-
-const newStageData = [
-  {
-    text: i18n.service,
-    value: 'service',
-    icon: 'service'
-  },
-  {
-    text: i18n.multipleService,
-    value: 'multiple-service',
-    icon: 'multi-service'
-  },
-  {
-    text: i18n.functions,
-    value: 'functions',
-    icon: 'functions'
-  },
-  {
-    text: i18n.otherWorkloads,
-    value: 'other-workloads',
-    icon: 'other-workload'
-  }
-]
-
-const renderPopover = ({ data, addStage, isStageView, onSubmitPrimaryData }: PopoverData): JSX.Element => {
+const renderPopover = ({
+  data,
+  addStage,
+  isParallel,
+  event,
+  isStageView,
+  onSubmitPrimaryData
+}: PopoverData): JSX.Element => {
   if (isStageView) {
-    const type = data ? getTypeOfStage(data.stage).type : StageType.DEPLOY
-    return (
-      <div className={css.stageCreate}>
-        <Text icon={MapStepTypeToIcon[type]} iconProps={{ size: 16 }}>
-          {i18n.aboutYourStage}
-        </Text>
-        <Container padding="medium">
-          <Formik
-            initialValues={{
-              identifier: data?.stage.identifier,
-              name: data?.stage.name,
-              description: data?.stage.description,
-              serviceType: newStageData[0]
-            }}
-            onSubmit={values => {
-              if (data) {
-                data.stage.identifier = values.identifier
-                data.stage.name = values.name
-                onSubmitPrimaryData?.(data, values.identifier)
-              }
-            }}
-            validationSchema={Yup.object().shape({
-              name: Yup.string().required(i18n.stageNameRequired)
-            })}
-          >
-            {formikProps => {
-              return (
-                <FormikForm>
-                  <FormInput.InputWithIdentifier inputLabel={i18n.stageName} />
-                  <div className={css.collapseDiv}>
-                    <Collapse {...collapseProps}>
-                      <FormInput.TextArea name="description" />
-                    </Collapse>
-                  </div>
-                  <div className={css.labelBold}>
-                    <Label>{i18n.whatToDeploy}</Label>
-                  </div>
-                  <div>
-                    <CardSelect
-                      type={CardSelectType.Any} // TODO: Remove this by publishing uikit with exported CardSelectType
-                      selected={formikProps.values.serviceType}
-                      onChange={item => formikProps.setFieldValue('serviceType', item)}
-                      renderItem={(item, selected) => (
-                        <>
-                          <Card selected={selected}>
-                            <CardBody.Icon icon={item.icon as IconName} iconSize={25} />
-                          </Card>
-                          <Text
-                            font={{
-                              size: 'small',
-                              align: 'center'
-                            }}
-                            style={{
-                              color: selected ? 'var(--grey-900)' : 'var(--grey-350)'
-                            }}
-                          >
-                            {item.text}
-                          </Text>
-                        </>
-                      )}
-                      data={newStageData}
-                      className={css.grid}
-                    />
-                  </div>
-                  <div className={css.btnSetup}>
-                    <Button
-                      type="submit"
-                      intent="primary"
-                      text={i18n.setupStage}
-                      onClick={() => {
-                        formikProps.submitForm()
-                      }}
-                    />
-                  </div>
-                </FormikForm>
-              )
-            }}
-          </Formik>
-        </Container>
-      </div>
-    )
+    return <EditStageView data={data} onSubmit={onSubmitPrimaryData} />
   }
-  return <AddStageView callback={type => addStage?.(type)} />
+  return <AddStageView callback={type => addStage?.(type, isParallel, event)} />
 }
 
 export const StageBuilder: React.FC<{}> = (): JSX.Element => {
@@ -186,30 +61,79 @@ export const StageBuilder: React.FC<{}> = (): JSX.Element => {
     DynamicPopoverHandlerBinding<PopoverData> | undefined
   >()
 
-  const addStage = (type: StageType): void => {
+  const addStage = (type: StageType, isParallel = false, event?: Diagram.DefaultNodeEvent): void => {
     if (!pipeline.stages) {
       pipeline.stages = []
     }
-    pipeline.stages.push({
-      stage: {
-        name: 'Untitled',
-        identifier: `Untitled-${pipeline.stages?.length}`,
-        type: type,
-        spec: {}
+    if (event?.entity && event.entity instanceof DefaultLinkModel) {
+      const node = event.entity.getSourcePort().getNode()
+      const { stage } = getStageFromPipeline(pipeline, node.getID())
+      if (stage) {
+        const index = pipeline.stages.indexOf(stage)
+        if (index > -1) {
+          pipeline.stages.splice(index + 1, 0, {
+            stage: {
+              name: 'Untitled',
+              identifier: `Untitled-${Math.ceil(Math.random() * 1000)}`,
+              type: type,
+              spec: {}
+            }
+          })
+        }
       }
-    })
+    } else if (isParallel && event?.entity && event.entity instanceof DefaultNodeModel) {
+      const { stage, parent } = getStageFromPipeline(pipeline, event.entity.getID())
+      if (stage) {
+        if (parent && parent.parallel && parent.parallel.length > 0) {
+          parent.parallel.push({
+            stage: {
+              name: 'Untitled',
+              identifier: `${parent.parallel[0]?.stage?.identifier || 'Untitled_'}-${Math.ceil(Math.random() * 1000)}`,
+              type: type,
+              spec: {}
+            }
+          })
+        } else {
+          const index = pipeline.stages.indexOf(stage)
+          if (index > -1) {
+            pipeline.stages.splice(index, 1, {
+              parallel: [
+                stage,
+                {
+                  stage: {
+                    name: 'Untitled',
+                    identifier: `Untitled-${Math.ceil(Math.random() * 1000)}`,
+                    type: type,
+                    spec: {}
+                  }
+                }
+              ]
+            })
+          }
+        }
+      }
+    } else {
+      pipeline.stages.push({
+        stage: {
+          name: 'Untitled',
+          identifier: `Untitled-${Math.ceil(Math.random() * 1000)}`,
+          type: type,
+          spec: {}
+        }
+      })
+    }
     dynamicPopoverHandler?.hide()
-    model.addUpdateGraph(pipeline, listener)
+    model.addUpdateGraph(pipeline, { nodeListeners, linkListeners }, selectedStageId)
     engine.repaintCanvas()
     updatePipeline(pipeline)
   }
 
-  const listener: NodeModelListener = {
+  const nodeListeners: NodeModelListener = {
     // Can not remove this Any because of React Diagram Issue
-    [Diagram.Event.SelectionChanged]: (event: any) => {
+    [Diagram.Event.ClickNode]: (event: any) => {
       const eventTemp = event as Diagram.DefaultNodeEvent
       const nodeRender = document.querySelector(`[data-nodeid="${eventTemp.entity.getID()}"]`)
-      if (nodeRender && eventTemp.isSelected) {
+      if (nodeRender && eventTemp.entity) {
         if (eventTemp.entity.getType() === Diagram.DiagramType.CreateNew) {
           dynamicPopoverHandler?.show(
             nodeRender,
@@ -225,7 +149,7 @@ export const StageBuilder: React.FC<{}> = (): JSX.Element => {
               nodeRender,
               {
                 isStageView: true,
-                data: getStageFromPipeline(pipeline, eventTemp.entity.getID()),
+                data: getStageFromPipeline(pipeline, eventTemp.entity.getID()).stage,
                 onSubmitPrimaryData: (_values, identifier) => {
                   updatePipeline(pipeline)
                   dynamicPopoverHandler.hide()
@@ -241,24 +165,70 @@ export const StageBuilder: React.FC<{}> = (): JSX.Element => {
     // Can not remove this Any because of React Diagram Issue
     [Diagram.Event.RemoveNode]: (event: any) => {
       const eventTemp = event as Diagram.DefaultNodeEvent
-      const node = getStageFromPipeline(pipeline, eventTemp.entity.getID())
+      const { stage: node, parent } = getStageFromPipeline(pipeline, eventTemp.entity.getID())
       if (node) {
         const index = pipeline?.stages?.indexOf(node)
         if (index && index > -1) {
           pipeline?.stages?.splice(index, 1)
           updatePipeline(pipeline)
+        } else if (parent?.parallel) {
+          const parallelIndex = parent.parallel?.indexOf(node)
+          if (parallelIndex > -1) {
+            parent.parallel.splice(parallelIndex, 1)
+            if (parent.parallel.length === 0) {
+              const emptyParallel = pipeline?.stages?.indexOf(parent)
+              if (emptyParallel && emptyParallel > -1) {
+                pipeline?.stages?.splice(emptyParallel, 1)
+              }
+            }
+            updatePipeline(pipeline)
+          }
         }
+      }
+    },
+    [Diagram.Event.AddParallelNode]: (event: any) => {
+      const eventTemp = event as Diagram.DefaultNodeEvent
+      eventTemp.stopPropagation()
+      const addRender = document.querySelector(`[data-nodeid="${eventTemp.entity.getID()}"] div[class*="addNode"]`)
+      if (addRender) {
+        dynamicPopoverHandler?.show(
+          addRender,
+          {
+            addStage,
+            isParallel: true,
+            isStageView: false,
+            event: eventTemp
+          },
+          { useArrows: true, darkMode: true }
+        )
       }
     }
   }
 
+  const linkListeners: LinkModelListener = {
+    [Diagram.Event.AddLinkClicked]: (event: any) => {
+      const eventTemp = event as Diagram.DefaultNodeEvent
+      const linkRender = document.querySelector(`[data-linkid="${eventTemp.entity.getID()}"] circle`)
+      if (linkRender) {
+        dynamicPopoverHandler?.show(
+          linkRender,
+          {
+            addStage,
+            isStageView: false,
+            event: eventTemp
+          },
+          { useArrows: true, darkMode: true }
+        )
+      }
+    }
+  }
   //1) setup the diagram engine
   const engine = React.useMemo(() => Diagram.createEngine(), [])
 
   //2) setup the diagram model
   const model = React.useMemo(() => new StageBuilderModel(), [])
 
-  model.addUpdateGraph(pipeline, listener, selectedStageId)
+  model.addUpdateGraph(pipeline, { nodeListeners, linkListeners }, selectedStageId)
 
   // load model into engine
   engine.setModel(model)

@@ -9,6 +9,7 @@ import { SelectionBoxLayerFactory, CanvasEngineOptions } from '@projectstorm/rea
 import { DefaultLabelFactory } from './label/DefaultLabelFactory'
 import { DefaultNodeFactory } from './node/DefaultNodeFactory'
 import { CreateNewFactory } from './node/CreateNew/CreateNewFactory'
+import { EmptyNodeFactory } from './node/EmptyNode/EmptyNodeFactory'
 import { NodeStartFactory } from './node/NodeStart/NodeStartFactory'
 import { DiamondNodeFactory } from './node/DiamondNode/DiamondNodeFactory'
 import { DefaultLinkFactory } from './link/DefaultLinkFactory'
@@ -31,6 +32,10 @@ export * from './node/DefaultNodeWidget'
 export * from './node/CreateNew/CreateNewFactory'
 export * from './node/CreateNew/CreateNewModel'
 export * from './node/CreateNew/CreateNewWidget'
+
+export * from './node/EmptyNode/EmptyNodeFactory'
+export * from './node/EmptyNode/EmptyNodeModel'
+export * from './node/EmptyNode/EmptyNodeWidget'
 
 export * from './node/NodeStart/NodeStartFactory'
 export * from './node/NodeStart/NodeStartModel'
@@ -63,6 +68,7 @@ export const createEngine = (options: CanvasEngineOptions = {}): DiagramEngine =
   engine.getNodeFactories().registerFactory(new DefaultNodeFactory()) // i cant figure out why
   engine.getLinkFactories().registerFactory(new DefaultLinkFactory())
   engine.getPortFactories().registerFactory(new DefaultPortFactory())
+  engine.getNodeFactories().registerFactory(new EmptyNodeFactory())
   engine.getNodeFactories().registerFactory(new CreateNewFactory())
   engine.getNodeFactories().registerFactory(new DiamondNodeFactory())
   engine.getNodeFactories().registerFactory(new NodeStartFactory())

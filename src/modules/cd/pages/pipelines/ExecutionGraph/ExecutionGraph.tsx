@@ -108,7 +108,7 @@ const ExecutionGraph = (): JSX.Element => {
 
   useEffect(() => {
     if (selectedStageId && isSetupStageOpen) {
-      const data = getStageFromPipeline(pipeline, selectedStageId)
+      const { stage: data } = getStageFromPipeline(pipeline, selectedStageId)
       if (data?.stage?.spec?.execution) {
         setState(prevState => ({ ...prevState, data: get(data.stage.spec.execution, 'steps', []) }))
       } else if (data?.stage) {
