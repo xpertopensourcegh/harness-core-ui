@@ -12,12 +12,12 @@
   }
 
   .formContainer {
-    display: grid;
-    grid-template-columns: minmax(200px, 350px) 480px;
-    grid-gap: 80px;
+    display: flex;
+    flex-wrap: wrap;
 
     .inputFields {
-      margin-right: var(--margin-xxxlarge);
+      margin-right: 80px;
+      width: 350px;
 
       .metricPackContainer {
         .customizePack {
@@ -32,9 +32,22 @@
     }
 
     .tableContainer {
-      width: 100%;
+      width: 480px;
       max-height: 300px;
       overflow-y: scroll;
+    }
+
+    @media only screen and (max-width: 1303px) {
+      .inputFields {
+        width: 100%;
+        margin-right: 0;
+      }
+      .tableContainer {
+        width: 100%;
+        table {
+          width: 100%;
+        }
+      }
     }
   }
 }

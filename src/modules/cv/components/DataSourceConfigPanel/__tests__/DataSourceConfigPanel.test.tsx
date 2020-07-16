@@ -26,7 +26,11 @@ function MockForm(props: any): JSX.Element {
                   entityName="solo"
                   index={0}
                   onRemove={onRemoveCallback}
-                  validate={validateCallback}
+                  validateConfig={validateCallback}
+                  touched={formikProps.touched}
+                  values={formikProps.values}
+                  setFieldError={formikProps.setFieldError}
+                  setFieldTouched={formikProps.setFieldTouched}
                 >
                   <FormInput.Text
                     name="dsConfigs[0].someField"

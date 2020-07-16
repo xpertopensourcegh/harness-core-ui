@@ -171,7 +171,12 @@ function AppDynamicsConfig(props: AppDynamicsConfigProps): JSX.Element {
           ]}
         />
         <Container className={css.metricPackContainer}>
-          <Link withoutHref onClick={() => setDisplayMetricPackDrawer(true)} className={css.customizePack}>
+          <Link
+            withoutHref
+            disabled={!config?.metricPacks?.length}
+            onClick={() => setDisplayMetricPackDrawer(true)}
+            className={css.customizePack}
+          >
             Customize
           </Link>
           <FormInput.MultiSelect
@@ -268,7 +273,11 @@ function AppDynamicsDataSourceForm(props: AppDynamicsDataSourceFormProps): JSX.E
                           }}
                           index={index}
                           transformToSavePayload={transformToSaveConfig}
-                          validate={validateConfig}
+                          validateConfig={validateConfig}
+                          touched={formikProps.touched}
+                          values={formikProps.values}
+                          setFieldError={formikProps.setFieldError}
+                          setFieldTouched={formikProps.setFieldTouched}
                         >
                           <AppDynamicsConfig
                             config={configData}

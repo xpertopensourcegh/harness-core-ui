@@ -5,7 +5,7 @@ import { CVNextGenCVConfigService } from 'modules/cv/services'
 import type { DSConfig } from '@wings-software/swagger-ts/definitions'
 import css from './DataSourceConfigPanel.module.scss'
 import type { ListPanelInterface } from '@wings-software/uikit/dist/components/Collapse/CollapseListPanel'
-import { useFormikContext } from 'formik'
+import { connect, FormikContextType } from 'formik'
 import i18n from './DataSourceConfigPanel.i18n'
 
 async function removeDataSourceConfig(
@@ -38,12 +38,18 @@ async function saveDSConfig(dsConfig: DSConfig, accountId: string): Promise<stri
   return error
 }
 
-interface DataSourceConfigPanelProps extends ListPanelInterface {
+type FormValues = {
+  dsConfigs: DSConfig[]
+}
+
+type FormikProperties = 'values' | 'setFieldTouched' | 'setFieldError' | 'touched'
+
+interface DataSourceConfigPanelProps extends ListPanelInterface, Pick<FormikContextType<FormValues>, FormikProperties> {
   entityName: string
   onRemove: (index: number) => void
   transformToSavePayload?: (dsConfig: DSConfig) => DSConfig
   index: number
-  validate?: (config: DSConfig) => { [fieldName: string]: string }
+  validateConfig?: (config: DSConfig) => { [fieldName: string]: string }
 }
 
 const DataSourceConfigPanel: React.FC<DataSourceConfigPanelProps> = (props): JSX.Element => {
@@ -55,13 +61,14 @@ const DataSourceConfigPanel: React.FC<DataSourceConfigPanelProps> = (props): JSX
     index,
     isOpen,
     onToggleOpen,
-    validate,
-    openNext
+    validateConfig,
+    openNext,
+    values,
+    setFieldTouched,
+    setFieldError,
+    touched
   } = props
   const [panelHeaderMsg, setPanelHeaderMsg] = useState<{ intent: Intent; msg: string } | undefined>()
-  const { values, setFieldTouched, setFieldError, touched } = useFormikContext<{
-    dsConfigs: DSConfig[]
-  }>()
   const configData = values?.dsConfigs?.[index] || {}
   const accountId = configData.accountId
   const touchedFields = touched?.dsConfigs?.[index] || {}
@@ -77,11 +84,11 @@ const DataSourceConfigPanel: React.FC<DataSourceConfigPanelProps> = (props): JSX
   )
 
   const validateCallback = useCallback(() => {
-    if (!validate) {
+    if (!validateConfig) {
       return true
     }
 
-    const panelErrors = validate(configData) || {}
+    const panelErrors = validateConfig(configData) || {}
     Object.keys(panelErrors).forEach(field => {
       setFieldTouched(`dsConfigs[${index}].${field}`, true)
       setFieldError(`dsConfigs[${index}].${field}`, panelErrors[field])
@@ -91,7 +98,7 @@ const DataSourceConfigPanel: React.FC<DataSourceConfigPanelProps> = (props): JSX
       return false
     }
     return true
-  }, [configData, setFieldError, setFieldTouched, index, validate])
+  }, [configData, setFieldError, setFieldTouched, index, validateConfig])
 
   const onRemoveCallback = useCallback(() => {
     if (!configData.identifier && !panelHeaderMsg) {
@@ -179,4 +186,4 @@ const DataSourceConfigPanel: React.FC<DataSourceConfigPanelProps> = (props): JSX
   )
 }
 
-export default DataSourceConfigPanel
+export default connect(DataSourceConfigPanel)
