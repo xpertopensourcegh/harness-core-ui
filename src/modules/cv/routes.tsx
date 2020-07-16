@@ -13,6 +13,7 @@ export const routeCVDashboard: Route = {
   module: ModuleName.CV
 }
 
+/* ------------------------------------------ DataSource page routes ------------------------------------------ */
 export const routeCVDataSources: Route = {
   sidebarId: SidebarIdentifier.CONTINUOUS_VERIFICATION,
   path: '/cv-datasources',
@@ -74,6 +75,8 @@ export const routeCVDataSourcesEntityPage: Route = {
   module: ModuleName.CV
 }
 
+/* ------------------------------------------ Global Metric page routes ------------------------------------------ */
+
 export const routeCVMetricPackConfigureThresholdPage: Route = {
   sidebarId: SidebarIdentifier.CONTINUOUS_VERIFICATION,
   path: '/metric-pack/config',
@@ -87,6 +90,8 @@ export const routeCVMetricPackConfigureThresholdPage: Route = {
   module: ModuleName.CV
 }
 
+/* ------------------------------------------ Dashboard page routes ------------------------------------------ */
+
 export const routeCVAnomalyAnalysisPage: Route = {
   sidebarId: SidebarIdentifier.CONTINUOUS_VERIFICATION,
   path: '/cv/anomaly-analysis',
@@ -96,6 +101,34 @@ export const routeCVAnomalyAnalysisPage: Route = {
   url: (params: RouteURLArgs) => `/account/${params?.accountId}/cv/anomaly-analysis`,
   component: React.lazy(() => {
     return import('./pages/anomaly-analysis/AnomalyAnalysis')
+  }),
+  module: ModuleName.CV
+}
+
+/* ------------------------------------------ Activity page routes ------------------------------------------ */
+
+export const routeCVActivities: Route = {
+  sidebarId: SidebarIdentifier.CONTINUOUS_VERIFICATION,
+  path: '/cv-activities',
+  title: i18n.activities,
+  pageId: '/cv-activities',
+  authenticated: true,
+  url: () => `/cv-activities`,
+  component: React.lazy(() => {
+    return import('./pages/activities/ActivitiesPage')
+  }),
+  module: ModuleName.CV
+}
+
+export const routeCVActivityDetails: Route = {
+  sidebarId: SidebarIdentifier.CONTINUOUS_VERIFICATION,
+  path: '/cv-activities-setup/:activityType',
+  title: i18n.activityTypes,
+  pageId: '/cv-activities-setup',
+  authenticated: true,
+  url: (params: RouteURLArgs) => `/cv-activities-setup/${params?.activityType}`,
+  component: React.lazy(() => {
+    return import('./pages/activity-setup/ActivitySetupPage')
   }),
   module: ModuleName.CV
 }

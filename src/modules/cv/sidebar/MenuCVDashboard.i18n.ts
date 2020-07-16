@@ -3,5 +3,6 @@ export default {
   verification: 'VERIFICATION',
   home: 'HOME',
   service: 'SERVICES',
-  datasource: 'DATA SOURCES'
+  datasource: 'DATA SOURCES',
+  activites: 'ACTIVITIES'
 }

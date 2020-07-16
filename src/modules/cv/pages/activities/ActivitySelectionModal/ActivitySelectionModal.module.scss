@@ -1,0 +1,22 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: var(--spacing-large);
+
+  .modalContent {
+    position: relative;
+    bottom: 15%;
+    display: grid;
+    grid-auto-rows: 40px 1fr;
+    grid-row-gap: 50px;
+
+    .activityNameContainer {
+      display: flex;
+
+      .activityCard:not(:last-of-type) {
+        margin-right: var(--spacing-medium);
+      }
+    }
+  }
+}

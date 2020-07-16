@@ -1,0 +1,12 @@
+.main {
+  .formHeading {
+    margin-bottom: var(--spacing-large) !important;
+  }
+
+  .formContent > div {
+    width: 70%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 300px));
+    grid-column-gap: calc(var(--spacing-large) + var(--spacing-xsmall));
+  }
+}

@@ -1,5 +1,7 @@
 export default {
   title: 'Continuous Verification',
   datasources: 'Data Sources',
-  services: 'Services'
+  services: 'Services',
+  activities: 'Activities',
+  activityTypes: 'Activities Types'
 }
