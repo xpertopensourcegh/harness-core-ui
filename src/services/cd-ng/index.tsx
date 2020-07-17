@@ -20,6 +20,21 @@ export interface ResponseDTOOptionalOrganizationDTO {
   correlationId?: string
 }
 
+export interface RestResponseString {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: string
+  responseMessages?: ResponseMessage[]
+}
+
+export interface ResponseDTONGPageResponseOrganizationDTO {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: NGPageResponseOrganizationDTO
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
 export interface ArtifactListConfig {
   primary?: ArtifactSpecWrapper
   sidecars?: SidecarArtifactWrapper[]
@@ -29,13 +44,29 @@ export interface StreamingOutput {
   [key: string]: any
 }
 
-export interface UsageRestrictions {
-  appEnvRestrictions?: AppEnvRestriction[]
+export interface ResponseDTOListSecretManagerConfig {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: SecretManagerConfig[]
+  metaData?: { [key: string]: any }
+  correlationId?: string
 }
 
 export interface ResponseDTOEncryptedDataDTO {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
   data?: EncryptedDataDTO
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
+export interface EncryptedDataDetail {
+  encryptedData?: EncryptedRecordData
+  encryptionConfig?: EncryptionConfig
+  fieldName?: string
+}
+
+export interface ResponseDTOSecretManagerConfig {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: SecretManagerConfig
   metaData?: { [key: string]: any }
   correlationId?: string
 }
@@ -58,13 +89,13 @@ export type K8SDirectInfrastructure = Infrastructure & {
   releaseName?: string
 }
 
-export interface SidecarArtifactWrapper {
-  identifier: string
-}
-
 export interface EncryptedDataParams {
   name?: string
   value?: string
+}
+
+export interface SidecarArtifactWrapper {
+  identifier: string
 }
 
 export interface ValidationError {
@@ -75,13 +106,13 @@ export interface ValidationError {
 export interface PageProjectDTO {
   totalPages?: number
   totalElements?: number
+  size?: number
+  content?: ProjectDTO[]
+  number?: number
   last?: boolean
   numberOfElements?: number
   pageable?: Pageable
   first?: boolean
-  size?: number
-  content?: ProjectDTO[]
-  number?: number
   sort?: Sort
   empty?: boolean
 }
@@ -124,15 +155,6 @@ export interface ManifestOverrideSets {
   identifier: string
   manifests?: ManifestConfigWrapper[]
 }
-
-export interface ResponseDTOSecretManagerConfigDTO {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: SecretManagerConfigDTO
-  metaData?: { [key: string]: any }
-  correlationId?: string
-}
-
-export type WorkflowFilter = EnvFilter & {}
 
 export interface OrganizationDTO {
   id?: string
@@ -211,82 +233,28 @@ export interface ExecutionElement {
   rollbackSteps?: ExecutionWrapper[]
 }
 
-export interface AtomicInteger {
-  andIncrement?: number
-  andDecrement?: number
-}
-
-export interface EncryptedDataParent {
-  id?: string
-  type?:
-    | 'HOST_CONNECTION_ATTRIBUTES'
-    | 'BASTION_HOST_CONNECTION_ATTRIBUTES'
-    | 'SMTP'
-    | 'SFTP'
-    | 'JENKINS'
-    | 'BAMBOO'
-    | 'STRING'
-    | 'SPLUNK'
-    | 'ELK'
-    | 'LOGZ'
-    | 'SUMO'
-    | 'DATA_DOG'
-    | 'APM_VERIFICATION'
-    | 'BUG_SNAG'
-    | 'LOG_VERIFICATION'
-    | 'APP_DYNAMICS'
-    | 'NEW_RELIC'
-    | 'DYNA_TRACE'
-    | 'INSTANA'
-    | 'DATA_DOG_LOG'
-    | 'CLOUD_WATCH'
-    | 'SCALYR'
-    | 'ELB'
-    | 'SLACK'
-    | 'AWS'
-    | 'GCS'
-    | 'GCP'
-    | 'AZURE'
-    | 'PCF'
-    | 'DIRECT'
-    | 'KUBERNETES_CLUSTER'
-    | 'DOCKER'
-    | 'ECR'
-    | 'GCR'
-    | 'ACR'
-    | 'PHYSICAL_DATA_CENTER'
-    | 'KUBERNETES'
-    | 'NEXUS'
-    | 'ARTIFACTORY'
-    | 'SMB'
-    | 'AMAZON_S3'
-    | 'GIT'
-    | 'SSH_SESSION_CONFIG'
-    | 'SERVICE_VARIABLE'
-    | 'CONFIG_FILE'
+export interface EncryptedRecordData {
+  uuid?: string
+  name?: string
+  path?: string
+  parameters?: EncryptedDataParams[]
+  encryptionKey?: string
+  encryptedValue?: string[]
+  kmsId?: string
+  encryptionType?: 'LOCAL' | 'KMS' | 'GCP_KMS' | 'AWS_SECRETS_MANAGER' | 'AZURE_VAULT' | 'CYBERARK' | 'VAULT' | 'CUSTOM'
+  backupEncryptedValue?: string[]
+  backupEncryptionKey?: string
+  backupKmsId?: string
+  backupEncryptionType?:
+    | 'LOCAL'
     | 'KMS'
     | 'GCP_KMS'
-    | 'JIRA'
-    | 'SERVICENOW'
-    | 'SECRET_TEXT'
-    | 'YAML_GIT_SYNC'
-    | 'VAULT'
     | 'AWS_SECRETS_MANAGER'
-    | 'CYBERARK'
-    | 'WINRM_CONNECTION_ATTRIBUTES'
-    | 'WINRM_SESSION_CONFIG'
-    | 'PROMETHEUS'
-    | 'INFRASTRUCTURE_MAPPING'
-    | 'HTTP_HELM_REPO'
-    | 'AMAZON_S3_HELM_REPO'
-    | 'GCS_HELM_REPO'
-    | 'SPOT_INST'
-    | 'AZURE_ARTIFACTS_PAT'
-    | 'CUSTOM'
-    | 'CE_AWS'
-    | 'CE_GCP'
     | 'AZURE_VAULT'
-  fieldName?: string
+    | 'CYBERARK'
+    | 'VAULT'
+    | 'CUSTOM'
+  base64Encoded?: boolean
 }
 
 export interface StoreConfigWrapper {
@@ -307,16 +275,16 @@ export interface ProjectDTO {
   tags?: string[]
 }
 
-export interface InfraUseFromStage {
-  stage: string
-  overrides?: InfraOverrides
-}
-
 export interface GitSyncFolderConfigDTO {
   rootFolder?: string
   isDefault?: boolean
   identifier?: string
   enabled?: boolean
+}
+
+export interface InfraUseFromStage {
+  stage: string
+  overrides?: InfraOverrides
 }
 
 export interface ConnectorConfigDTO {
@@ -325,11 +293,6 @@ export interface ConnectorConfigDTO {
 
 export interface StageElementWrapper {
   [key: string]: any
-}
-
-export interface AppEnvRestriction {
-  appFilter?: GenericEntityFilter
-  envFilter?: EnvFilter
 }
 
 export interface StackTraceElement {
@@ -369,17 +332,12 @@ export interface PlanExecution {
   version?: number
 }
 
-export interface SecretText {
-  name?: string
-  value?: string
-  path?: string
-  parameters?: EncryptedDataParams[]
-  usageRestrictions?: UsageRestrictions
-  kmsId?: string
-  runtimeParameters?: {
-    [key: string]: string
+export interface RestResponseBoolean {
+  metaData?: {
+    [key: string]: { [key: string]: any }
   }
-  scopedToAccount?: boolean
+  resource?: boolean
+  responseMessages?: ResponseMessage[]
 }
 
 export interface ArtifactSpecWrapper {
@@ -392,24 +350,42 @@ export type SidecarArtifact = SidecarArtifactWrapper & {
   spec?: ArtifactConfig
 }
 
-export interface Infrastructure {
-  refType?: RefType
+export interface NGPageResponseProjectDTO {
+  totalPages?: number
+  totalElements?: number
+  size?: number
+  content?: ProjectDTO[]
+  pageNumber?: number
+  empty?: boolean
 }
 
-export interface ResponseDTOPageOrganizationDTO {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: PageOrganizationDTO
-  metaData?: { [key: string]: any }
-  correlationId?: string
+export interface Infrastructure {
+  refType?: RefType
 }
 
 export interface ConnectorConfigSummaryDTO {
   [key: string]: any
 }
 
+export interface ResponseDTONGPageResponseProjectDTO {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: NGPageResponseProjectDTO
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
 export interface ServiceDefinition {
   type?: string
   spec?: ServiceSpec
+}
+
+export interface NGPageResponseOrganizationDTO {
+  totalPages?: number
+  totalElements?: number
+  size?: number
+  content?: OrganizationDTO[]
+  pageNumber?: number
+  empty?: boolean
 }
 
 export interface ManifestAttributes {
@@ -427,13 +403,6 @@ export interface ResponseDTOPlanExecution {
   correlationId?: string
 }
 
-export interface TemporalUnit {
-  timeBased?: boolean
-  duration?: Duration
-  dateBased?: boolean
-  durationEstimated?: boolean
-}
-
 export interface CreateProjectDTO {
   accountIdentifier: string
   identifier: string
@@ -445,9 +414,11 @@ export interface CreateProjectDTO {
   tags: string[]
 }
 
-export interface EnvFilter {
-  ids?: string[]
-  filterTypes?: string[]
+export interface TemporalUnit {
+  timeBased?: boolean
+  duration?: Duration
+  dateBased?: boolean
+  durationEstimated?: boolean
 }
 
 export type K8sManifest = ManifestAttributes & {
@@ -469,10 +440,6 @@ export interface StepSpecType {
   [key: string]: any
 }
 
-export interface Outcome {
-  refType?: RefType
-}
-
 export interface ConnectorFilter {
   accountId?: string
   projectId?: string
@@ -481,6 +448,10 @@ export interface ConnectorFilter {
   tag?: Tags[]
   lastActivity?: number
   name?: string
+}
+
+export interface Outcome {
+  refType?: RefType
 }
 
 export interface Subgraph {
@@ -558,9 +529,9 @@ export interface SecretManagerConfig {
   nextTokenRenewIteration?: number
   templatizedFields?: string[]
   default?: boolean
-  name?: string
   encryptionServiceUrl?: string
   validationCriteria?: string
+  name?: string
 }
 
 export type K8sRollingRollbackStepInfo = StepSpecType & {
@@ -600,14 +571,15 @@ export interface RestResponsePlanExecution {
   responseMessages?: ResponseMessage[]
 }
 
-export interface SecretManagerConfigDTO {
+export interface EncryptionConfig {
   uuid?: string
-  encryptionType?: 'LOCAL' | 'KMS' | 'GCP_KMS' | 'AWS_SECRETS_MANAGER' | 'AZURE_VAULT' | 'CYBERARK' | 'VAULT' | 'CUSTOM'
   accountId?: string
+  encryptionType?: 'LOCAL' | 'KMS' | 'GCP_KMS' | 'AWS_SECRETS_MANAGER' | 'AZURE_VAULT' | 'CYBERARK' | 'VAULT' | 'CUSTOM'
   numOfEncryptedValue?: number
-  encryptedBy?: string
-  nextTokenRenewIteration?: number
-  templatizedFields?: string[]
+  encryptionServiceUrl?: string
+  validationCriteria?: string
+  globalKms?: boolean
+  name?: string
   default?: boolean
 }
 
@@ -840,12 +812,12 @@ export interface RefType {
 }
 
 export interface Pageable {
-  offset?: number
   pageSize?: number
-  sort?: Sort
-  paged?: boolean
-  unpaged?: boolean
+  offset?: number
   pageNumber?: number
+  unpaged?: boolean
+  paged?: boolean
+  sort?: Sort
 }
 
 export type DeploymentStage = StageType & {
@@ -886,6 +858,28 @@ export interface EncryptedDataDTO {
   encryptedValue?: string[]
   path?: string
   parameters?: EncryptedDataParams[]
+  accountId?: string
+  enabled?: boolean
+  kmsId?: string
+  encryptionType?: 'LOCAL' | 'KMS' | 'GCP_KMS' | 'AWS_SECRETS_MANAGER' | 'AZURE_VAULT' | 'CYBERARK' | 'VAULT' | 'CUSTOM'
+  fileSize?: number
+  backupEncryptedValue?: string[]
+  backupEncryptionKey?: string
+  backupKmsId?: string
+  backupEncryptionType?:
+    | 'LOCAL'
+    | 'KMS'
+    | 'GCP_KMS'
+    | 'AWS_SECRETS_MANAGER'
+    | 'AZURE_VAULT'
+    | 'CYBERARK'
+    | 'VAULT'
+    | 'CUSTOM'
+  scopedToAccount?: boolean
+  base64Encoded?: boolean
+  uuid?: string
+  entityYamlPath?: string
+  encryptedBy?: string
   type?:
     | 'HOST_CONNECTION_ATTRIBUTES'
     | 'BASTION_HOST_CONNECTION_ATTRIBUTES'
@@ -954,44 +948,7 @@ export interface EncryptedDataDTO {
     | 'CE_AWS'
     | 'CE_GCP'
     | 'AZURE_VAULT'
-  parents?: EncryptedDataParent[]
-  accountId?: string
-  enabled?: boolean
-  kmsId?: string
-  encryptionType?: 'LOCAL' | 'KMS' | 'GCP_KMS' | 'AWS_SECRETS_MANAGER' | 'AZURE_VAULT' | 'CYBERARK' | 'VAULT' | 'CUSTOM'
-  fileSize?: number
-  appIds?: string[]
-  serviceIds?: string[]
-  envIds?: string[]
-  backupEncryptedValue?: string[]
-  backupEncryptionKey?: string
-  backupKmsId?: string
-  backupEncryptionType?:
-    | 'LOCAL'
-    | 'KMS'
-    | 'GCP_KMS'
-    | 'AWS_SECRETS_MANAGER'
-    | 'AZURE_VAULT'
-    | 'CYBERARK'
-    | 'VAULT'
-    | 'CUSTOM'
-  serviceVariableIds?: string[]
-  searchTags?: {
-    [key: string]: AtomicInteger
-  }
-  scopedToAccount?: boolean
-  usageRestrictions?: UsageRestrictions
-  nextMigrationIteration?: number
-  nextAwsToGcpKmsMigrationIteration?: number
-  base64Encoded?: boolean
-  encryptedBy?: string
-  setupUsage?: number
-  runTimeUsage?: number
-  changeLog?: number
-  keywords?: string[]
-  uuid?: string
-  appId?: string
-  entityYamlPath?: string
+  lastUpdatedAt?: number
 }
 
 export type HttpStepInfo = StepSpecType & {
@@ -1006,9 +963,9 @@ export type HttpStepInfo = StepSpecType & {
 export interface Duration {
   seconds?: number
   nano?: number
-  units?: TemporalUnit[]
   zero?: boolean
   negative?: boolean
+  units?: TemporalUnit[]
 }
 
 export interface ResponseMessage {
@@ -1268,13 +1225,6 @@ export interface ConnectorDTO {
   lastModifiedAt?: number
 }
 
-export interface ResponseDTOListSecretManagerConfigDTO {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: SecretManagerConfigDTO[]
-  metaData?: { [key: string]: any }
-  correlationId?: string
-}
-
 export type StageElement = StageElementWrapper & {
   identifier: string
   name?: string
@@ -1291,6 +1241,10 @@ export interface Throwable {
   suppressed?: Throwable[]
 }
 
+export interface StoreConfig {
+  [key: string]: any
+}
+
 export interface RestResponseGraph {
   metaData?: {
     [key: string]: { [key: string]: any }
@@ -1299,15 +1253,18 @@ export interface RestResponseGraph {
   responseMessages?: ResponseMessage[]
 }
 
-export interface StoreConfig {
-  [key: string]: any
-}
-
 export interface StageOverridesConfig {
   useArtifactOverrideSets?: string[]
   artifacts?: ArtifactListConfig
   useManifestOverrideSets?: string[]
   manifests?: ManifestConfigWrapper[]
+}
+
+export interface ResponseDTOListEncryptedDataDetail {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: EncryptedDataDetail[]
+  metaData?: { [key: string]: any }
+  correlationId?: string
 }
 
 export interface ResponseDTOBoolean {
@@ -1321,7 +1278,6 @@ export interface ConnectorRequestDTO {
   name?: string
   identifier?: string
   description?: string
-  accountIdentifier?: string
   orgIdentifier?: string
   projectIdentifer?: string
   tags?: string[]
@@ -1579,6 +1535,12 @@ export interface Step {
   [key: string]: any
 }
 
+export interface EmbeddedUser {
+  uuid?: string
+  name?: string
+  email?: string
+}
+
 export interface GraphVertex {
   uuid?: string
   name?: string
@@ -1610,12 +1572,6 @@ export interface GraphVertex {
   next?: GraphVertex
 }
 
-export interface EmbeddedUser {
-  uuid?: string
-  name?: string
-  email?: string
-}
-
 export type GitStore = StoreConfig & {
   connectorIdentifier?: string
   gitFetchType?: 'BRANCH' | 'COMMIT'
@@ -1636,6 +1592,13 @@ export interface StageType {
   [key: string]: any
 }
 
+export interface CDPipelineDTO {
+  name?: string
+  description?: string
+  stages?: StageElementWrapper[]
+  identifier?: string
+}
+
 export interface FailureInfo {
   errorMessage?: string
   failureTypes?: (
@@ -1646,13 +1609,6 @@ export interface FailureInfo {
     | 'VERIFICATION_FAILURE'
     | 'APPLICATION_ERROR'
   )[]
-}
-
-export interface CDPipelineDTO {
-  name?: string
-  description?: string
-  stages?: StageElementWrapper[]
-  identifier?: string
 }
 
 export interface ResponseDTOOrganizationDTO {
@@ -1692,34 +1648,27 @@ export interface InfraOverrides {
 export interface PageCDPipelineDTO {
   totalPages?: number
   totalElements?: number
-  last?: boolean
-  numberOfElements?: number
-  pageable?: Pageable
-  first?: boolean
   size?: number
   content?: CDPipelineDTO[]
   number?: number
-  sort?: Sort
-  empty?: boolean
-}
-
-export interface GenericEntityFilter {
-  ids?: string[]
-  filterType?: string
-}
-
-export interface PageOrganizationDTO {
-  totalPages?: number
-  totalElements?: number
   last?: boolean
   numberOfElements?: number
   pageable?: Pageable
   first?: boolean
-  size?: number
-  content?: OrganizationDTO[]
-  number?: number
   sort?: Sort
   empty?: boolean
+}
+
+export interface SecretTextDTO {
+  name?: string
+  value?: string
+  path?: string
+  parameters?: EncryptedDataParams[]
+  kmsId?: string
+  runtimeParameters?: {
+    [key: string]: string
+  }
+  scopedToAccount?: boolean
 }
 
 export interface EnvironmentYaml {
@@ -1733,18 +1682,18 @@ export interface EnvironmentYaml {
 export interface PageConnectorSummaryDTO {
   totalPages?: number
   totalElements?: number
+  size?: number
+  content?: ConnectorSummaryDTO[]
+  number?: number
   last?: boolean
   numberOfElements?: number
   pageable?: Pageable
   first?: boolean
-  size?: number
-  content?: ConnectorSummaryDTO[]
-  number?: number
   sort?: Sort
   empty?: boolean
 }
 
-export type SecretTextRequestBody = SecretText
+export type SecretTextDTORequestBody = SecretTextDTO
 
 export type ConnectorRequestDTORequestBody = ConnectorRequestDTO
 
@@ -1762,7 +1711,7 @@ export interface GetOrganizationListPathParams {
 
 export type GetOrganizationListProps = Omit<
   GetProps<
-    ResponseDTOPageOrganizationDTO,
+    ResponseDTONGPageResponseOrganizationDTO,
     FailureDTO | ErrorDTO,
     GetOrganizationListQueryParams,
     GetOrganizationListPathParams
@@ -1776,7 +1725,7 @@ export type GetOrganizationListProps = Omit<
  */
 export const GetOrganizationList = ({ accountIdentifier, ...props }: GetOrganizationListProps) => (
   <Get<
-    ResponseDTOPageOrganizationDTO,
+    ResponseDTONGPageResponseOrganizationDTO,
     FailureDTO | ErrorDTO,
     GetOrganizationListQueryParams,
     GetOrganizationListPathParams
@@ -1788,7 +1737,7 @@ export const GetOrganizationList = ({ accountIdentifier, ...props }: GetOrganiza
 )
 
 export type UseGetOrganizationListProps = Omit<
-  UseGetProps<ResponseDTOPageOrganizationDTO, GetOrganizationListQueryParams, GetOrganizationListPathParams>,
+  UseGetProps<ResponseDTONGPageResponseOrganizationDTO, GetOrganizationListQueryParams, GetOrganizationListPathParams>,
   'path'
 > &
   GetOrganizationListPathParams
@@ -1798,7 +1747,7 @@ export type UseGetOrganizationListProps = Omit<
  */
 export const useGetOrganizationList = ({ accountIdentifier, ...props }: UseGetOrganizationListProps) =>
   useGet<
-    ResponseDTOPageOrganizationDTO,
+    ResponseDTONGPageResponseOrganizationDTO,
     FailureDTO | ErrorDTO,
     GetOrganizationListQueryParams,
     GetOrganizationListPathParams
@@ -2047,6 +1996,7 @@ export const useGetProjectListForAccount = ({ accountIdentifier, ...props }: Use
 export interface GetConnectorListQueryParams {
   page?: number
   size?: number
+  accountIdentifier?: string
 }
 
 export type GetConnectorListProps = Omit<
@@ -2079,8 +2029,12 @@ export const useGetConnectorList = (props: UseGetConnectorListProps) =>
     ...props
   })
 
+export interface CreateConnectorQueryParams {
+  accountIdentifier?: string
+}
+
 export type CreateConnectorProps = Omit<
-  MutateProps<ConnectorDTO, unknown, void, ConnectorRequestDTORequestBody, void>,
+  MutateProps<ConnectorDTO, unknown, CreateConnectorQueryParams, ConnectorRequestDTORequestBody, void>,
   'path' | 'verb'
 >
 
@@ -2088,7 +2042,7 @@ export type CreateConnectorProps = Omit<
  * Creates a Connector
  */
 export const CreateConnector = (props: CreateConnectorProps) => (
-  <Mutate<ConnectorDTO, unknown, void, ConnectorRequestDTORequestBody, void>
+  <Mutate<ConnectorDTO, unknown, CreateConnectorQueryParams, ConnectorRequestDTORequestBody, void>
     verb="POST"
     path={`/connectors`}
     base={'/cd/api'}
@@ -2097,7 +2051,7 @@ export const CreateConnector = (props: CreateConnectorProps) => (
 )
 
 export type UseCreateConnectorProps = Omit<
-  UseMutateProps<ConnectorDTO, void, ConnectorRequestDTORequestBody, void>,
+  UseMutateProps<ConnectorDTO, CreateConnectorQueryParams, ConnectorRequestDTORequestBody, void>,
   'path' | 'verb'
 >
 
@@ -2105,13 +2059,18 @@ export type UseCreateConnectorProps = Omit<
  * Creates a Connector
  */
 export const useCreateConnector = (props: UseCreateConnectorProps) =>
-  useMutate<ConnectorDTO, unknown, void, ConnectorRequestDTORequestBody, void>('POST', `/connectors`, {
-    base: '/cd/api',
-    ...props
-  })
+  useMutate<ConnectorDTO, unknown, CreateConnectorQueryParams, ConnectorRequestDTORequestBody, void>(
+    'POST',
+    `/connectors`,
+    { base: '/cd/api', ...props }
+  )
+
+export interface UpdateConnectorQueryParams {
+  accountIdentifier?: string
+}
 
 export type UpdateConnectorProps = Omit<
-  MutateProps<ConnectorDTO, unknown, void, ConnectorRequestDTORequestBody, void>,
+  MutateProps<ConnectorDTO, unknown, UpdateConnectorQueryParams, ConnectorRequestDTORequestBody, void>,
   'path' | 'verb'
 >
 
@@ -2119,7 +2078,7 @@ export type UpdateConnectorProps = Omit<
  * Updates a Connector
  */
 export const UpdateConnector = (props: UpdateConnectorProps) => (
-  <Mutate<ConnectorDTO, unknown, void, ConnectorRequestDTORequestBody, void>
+  <Mutate<ConnectorDTO, unknown, UpdateConnectorQueryParams, ConnectorRequestDTORequestBody, void>
     verb="PUT"
     path={`/connectors`}
     base={'/cd/api'}
@@ -2128,7 +2087,7 @@ export const UpdateConnector = (props: UpdateConnectorProps) => (
 )
 
 export type UseUpdateConnectorProps = Omit<
-  UseMutateProps<ConnectorDTO, void, ConnectorRequestDTORequestBody, void>,
+  UseMutateProps<ConnectorDTO, UpdateConnectorQueryParams, ConnectorRequestDTORequestBody, void>,
   'path' | 'verb'
 >
 
@@ -2136,13 +2095,14 @@ export type UseUpdateConnectorProps = Omit<
  * Updates a Connector
  */
 export const useUpdateConnector = (props: UseUpdateConnectorProps) =>
-  useMutate<ConnectorDTO, unknown, void, ConnectorRequestDTORequestBody, void>('PUT', `/connectors`, {
-    base: '/cd/api',
-    ...props
-  })
+  useMutate<ConnectorDTO, unknown, UpdateConnectorQueryParams, ConnectorRequestDTORequestBody, void>(
+    'PUT',
+    `/connectors`,
+    { base: '/cd/api', ...props }
+  )
 
 export interface GetConnectorStatusQueryParams {
-  accountId?: string
+  accountIdentifier?: string
 }
 
 export type GetConnectorStatusProps = Omit<
@@ -2295,6 +2255,124 @@ export type UsePostDelegateProps = Omit<UseGetProps<ResponseData, PostDelegateQu
  */
 export const usePostDelegate = (props: UsePostDelegateProps) =>
   useGet<ResponseData, unknown, PostDelegateQueryParams, void>(`/delegate-tasks`, { base: '/cd/api', ...props })
+
+export interface CreateSamplePTaskQueryParams {
+  accountId?: string
+  country?: string
+  population?: number
+}
+
+export type CreateSamplePTaskProps = Omit<
+  MutateProps<RestResponseString, unknown, CreateSamplePTaskQueryParams, void, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Create a sample perpetual task
+ */
+export const CreateSamplePTask = (props: CreateSamplePTaskProps) => (
+  <Mutate<RestResponseString, unknown, CreateSamplePTaskQueryParams, void, void>
+    verb="POST"
+    path={`/delegate-tasks/perpetual-tasks/sample`}
+    base={'/cd/api'}
+    {...props}
+  />
+)
+
+export type UseCreateSamplePTaskProps = Omit<
+  UseMutateProps<RestResponseString, CreateSamplePTaskQueryParams, void, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Create a sample perpetual task
+ */
+export const useCreateSamplePTask = (props: UseCreateSamplePTaskProps) =>
+  useMutate<RestResponseString, unknown, CreateSamplePTaskQueryParams, void, void>(
+    'POST',
+    `/delegate-tasks/perpetual-tasks/sample`,
+    { base: '/cd/api', ...props }
+  )
+
+export interface ResetSamplePTaskQueryParams {
+  accountId?: string
+  country?: string
+  population?: number
+}
+
+export interface ResetSamplePTaskPathParams {
+  taskId: string
+}
+
+export type ResetSamplePTaskProps = Omit<
+  MutateProps<RestResponseBoolean, unknown, ResetSamplePTaskQueryParams, void, ResetSamplePTaskPathParams>,
+  'path' | 'verb'
+> &
+  ResetSamplePTaskPathParams
+
+/**
+ * reset sample perpetual task
+ */
+export const ResetSamplePTask = ({ taskId, ...props }: ResetSamplePTaskProps) => (
+  <Mutate<RestResponseBoolean, unknown, ResetSamplePTaskQueryParams, void, ResetSamplePTaskPathParams>
+    verb="PUT"
+    path={`/delegate-tasks/perpetual-tasks/sample/${taskId}`}
+    base={'/cd/api'}
+    {...props}
+  />
+)
+
+export type UseResetSamplePTaskProps = Omit<
+  UseMutateProps<RestResponseBoolean, ResetSamplePTaskQueryParams, void, ResetSamplePTaskPathParams>,
+  'path' | 'verb'
+> &
+  ResetSamplePTaskPathParams
+
+/**
+ * reset sample perpetual task
+ */
+export const useResetSamplePTask = ({ taskId, ...props }: UseResetSamplePTaskProps) =>
+  useMutate<RestResponseBoolean, unknown, ResetSamplePTaskQueryParams, void, ResetSamplePTaskPathParams>(
+    'PUT',
+    ({ taskId }: ResetSamplePTaskPathParams) => `/delegate-tasks/perpetual-tasks/sample/${taskId}`,
+    { base: '/cd/api', pathParams: { taskId }, ...props }
+  )
+
+export interface DeleteSamplePTaskQueryParams {
+  accountId?: string
+}
+
+export type DeleteSamplePTaskProps = Omit<
+  MutateProps<RestResponseBoolean, unknown, DeleteSamplePTaskQueryParams, string, void>,
+  'path' | 'verb'
+>
+
+/**
+ * delete sample perpetual task
+ */
+export const DeleteSamplePTask = (props: DeleteSamplePTaskProps) => (
+  <Mutate<RestResponseBoolean, unknown, DeleteSamplePTaskQueryParams, string, void>
+    verb="DELETE"
+    path={`/delegate-tasks/perpetual-tasks/sample`}
+    base={'/cd/api'}
+    {...props}
+  />
+)
+
+export type UseDeleteSamplePTaskProps = Omit<
+  UseMutateProps<RestResponseBoolean, DeleteSamplePTaskQueryParams, string, void>,
+  'path' | 'verb'
+>
+
+/**
+ * delete sample perpetual task
+ */
+export const useDeleteSamplePTask = (props: UseDeleteSamplePTaskProps) =>
+  useMutate<RestResponseBoolean, unknown, DeleteSamplePTaskQueryParams, string, void>(
+    'DELETE',
+    `/delegate-tasks/perpetual-tasks/sample`,
+    { base: '/cd/api', ...props }
+  )
 
 export interface ListGitSyncQueryParams {
   projectId?: string
@@ -2579,7 +2657,7 @@ export interface GetProjectListForOrganizationPathParams {
 
 export type GetProjectListForOrganizationProps = Omit<
   GetProps<
-    ResponseDTOPageProjectDTO,
+    ResponseDTONGPageResponseProjectDTO,
     FailureDTO | ErrorDTO,
     GetProjectListForOrganizationQueryParams,
     GetProjectListForOrganizationPathParams
@@ -2593,7 +2671,7 @@ export type GetProjectListForOrganizationProps = Omit<
  */
 export const GetProjectListForOrganization = ({ orgIdentifier, ...props }: GetProjectListForOrganizationProps) => (
   <Get<
-    ResponseDTOPageProjectDTO,
+    ResponseDTONGPageResponseProjectDTO,
     FailureDTO | ErrorDTO,
     GetProjectListForOrganizationQueryParams,
     GetProjectListForOrganizationPathParams
@@ -2606,7 +2684,7 @@ export const GetProjectListForOrganization = ({ orgIdentifier, ...props }: GetPr
 
 export type UseGetProjectListForOrganizationProps = Omit<
   UseGetProps<
-    ResponseDTOPageProjectDTO,
+    ResponseDTONGPageResponseProjectDTO,
     GetProjectListForOrganizationQueryParams,
     GetProjectListForOrganizationPathParams
   >,
@@ -2619,7 +2697,7 @@ export type UseGetProjectListForOrganizationProps = Omit<
  */
 export const useGetProjectListForOrganization = ({ orgIdentifier, ...props }: UseGetProjectListForOrganizationProps) =>
   useGet<
-    ResponseDTOPageProjectDTO,
+    ResponseDTONGPageResponseProjectDTO,
     FailureDTO | ErrorDTO,
     GetProjectListForOrganizationQueryParams,
     GetProjectListForOrganizationPathParams
@@ -3020,7 +3098,7 @@ export interface ListSecretManagersQueryParams {
 }
 
 export type ListSecretManagersProps = Omit<
-  GetProps<ResponseDTOListSecretManagerConfigDTO, FailureDTO | ErrorDTO, ListSecretManagersQueryParams, void>,
+  GetProps<ResponseDTOListSecretManagerConfig, FailureDTO | ErrorDTO, ListSecretManagersQueryParams, void>,
   'path'
 >
 
@@ -3028,7 +3106,7 @@ export type ListSecretManagersProps = Omit<
  * Get secret managers for an account
  */
 export const ListSecretManagers = (props: ListSecretManagersProps) => (
-  <Get<ResponseDTOListSecretManagerConfigDTO, FailureDTO | ErrorDTO, ListSecretManagersQueryParams, void>
+  <Get<ResponseDTOListSecretManagerConfig, FailureDTO | ErrorDTO, ListSecretManagersQueryParams, void>
     path={`/secret-managers`}
     base={'/cd/api'}
     {...props}
@@ -3036,7 +3114,7 @@ export const ListSecretManagers = (props: ListSecretManagersProps) => (
 )
 
 export type UseListSecretManagersProps = Omit<
-  UseGetProps<ResponseDTOListSecretManagerConfigDTO, ListSecretManagersQueryParams, void>,
+  UseGetProps<ResponseDTOListSecretManagerConfig, ListSecretManagersQueryParams, void>,
   'path'
 >
 
@@ -3044,7 +3122,7 @@ export type UseListSecretManagersProps = Omit<
  * Get secret managers for an account
  */
 export const useListSecretManagers = (props: UseListSecretManagersProps) =>
-  useGet<ResponseDTOListSecretManagerConfigDTO, FailureDTO | ErrorDTO, ListSecretManagersQueryParams, void>(
+  useGet<ResponseDTOListSecretManagerConfig, FailureDTO | ErrorDTO, ListSecretManagersQueryParams, void>(
     `/secret-managers`,
     { base: '/cd/api', ...props }
   )
@@ -3101,7 +3179,7 @@ export interface GetSecretManagerByIdPathParams {
 
 export type GetSecretManagerByIdProps = Omit<
   GetProps<
-    ResponseDTOSecretManagerConfigDTO,
+    ResponseDTOSecretManagerConfig,
     FailureDTO | ErrorDTO,
     GetSecretManagerByIdQueryParams,
     GetSecretManagerByIdPathParams
@@ -3115,7 +3193,7 @@ export type GetSecretManagerByIdProps = Omit<
  */
 export const GetSecretManagerById = ({ kmsId, ...props }: GetSecretManagerByIdProps) => (
   <Get<
-    ResponseDTOSecretManagerConfigDTO,
+    ResponseDTOSecretManagerConfig,
     FailureDTO | ErrorDTO,
     GetSecretManagerByIdQueryParams,
     GetSecretManagerByIdPathParams
@@ -3127,7 +3205,7 @@ export const GetSecretManagerById = ({ kmsId, ...props }: GetSecretManagerByIdPr
 )
 
 export type UseGetSecretManagerByIdProps = Omit<
-  UseGetProps<ResponseDTOSecretManagerConfigDTO, GetSecretManagerByIdQueryParams, GetSecretManagerByIdPathParams>,
+  UseGetProps<ResponseDTOSecretManagerConfig, GetSecretManagerByIdQueryParams, GetSecretManagerByIdPathParams>,
   'path'
 > &
   GetSecretManagerByIdPathParams
@@ -3137,7 +3215,7 @@ export type UseGetSecretManagerByIdProps = Omit<
  */
 export const useGetSecretManagerById = ({ kmsId, ...props }: UseGetSecretManagerByIdProps) =>
   useGet<
-    ResponseDTOSecretManagerConfigDTO,
+    ResponseDTOSecretManagerConfig,
     FailureDTO | ErrorDTO,
     GetSecretManagerByIdQueryParams,
     GetSecretManagerByIdPathParams
@@ -3185,75 +3263,7 @@ export const useDeleteSecretManager = (props: UseDeleteSecretManagerProps) =>
 
 export interface ListSecretsForAccountQueryParams {
   accountIdentifier: string
-  type:
-    | 'HOST_CONNECTION_ATTRIBUTES'
-    | 'BASTION_HOST_CONNECTION_ATTRIBUTES'
-    | 'SMTP'
-    | 'SFTP'
-    | 'JENKINS'
-    | 'BAMBOO'
-    | 'STRING'
-    | 'SPLUNK'
-    | 'ELK'
-    | 'LOGZ'
-    | 'SUMO'
-    | 'DATA_DOG'
-    | 'APM_VERIFICATION'
-    | 'BUG_SNAG'
-    | 'LOG_VERIFICATION'
-    | 'APP_DYNAMICS'
-    | 'NEW_RELIC'
-    | 'DYNA_TRACE'
-    | 'INSTANA'
-    | 'DATA_DOG_LOG'
-    | 'CLOUD_WATCH'
-    | 'SCALYR'
-    | 'ELB'
-    | 'SLACK'
-    | 'AWS'
-    | 'GCS'
-    | 'GCP'
-    | 'AZURE'
-    | 'PCF'
-    | 'DIRECT'
-    | 'KUBERNETES_CLUSTER'
-    | 'DOCKER'
-    | 'ECR'
-    | 'GCR'
-    | 'ACR'
-    | 'PHYSICAL_DATA_CENTER'
-    | 'KUBERNETES'
-    | 'NEXUS'
-    | 'ARTIFACTORY'
-    | 'SMB'
-    | 'AMAZON_S3'
-    | 'GIT'
-    | 'SSH_SESSION_CONFIG'
-    | 'SERVICE_VARIABLE'
-    | 'CONFIG_FILE'
-    | 'KMS'
-    | 'GCP_KMS'
-    | 'JIRA'
-    | 'SERVICENOW'
-    | 'SECRET_TEXT'
-    | 'YAML_GIT_SYNC'
-    | 'VAULT'
-    | 'AWS_SECRETS_MANAGER'
-    | 'CYBERARK'
-    | 'WINRM_CONNECTION_ATTRIBUTES'
-    | 'WINRM_SESSION_CONFIG'
-    | 'PROMETHEUS'
-    | 'INFRASTRUCTURE_MAPPING'
-    | 'HTTP_HELM_REPO'
-    | 'AMAZON_S3_HELM_REPO'
-    | 'GCS_HELM_REPO'
-    | 'SPOT_INST'
-    | 'AZURE_ARTIFACTS_PAT'
-    | 'CUSTOM'
-    | 'CE_AWS'
-    | 'CE_GCP'
-    | 'AZURE_VAULT'
-  includeDetails?: boolean
+  type?: 'CONFIG_FILE' | 'SECRET_TEXT'
 }
 
 export type ListSecretsForAccountProps = Omit<
@@ -3292,7 +3302,7 @@ export interface CreateSecretTextQueryParams {
 }
 
 export type CreateSecretTextProps = Omit<
-  MutateProps<ResponseDTOString, FailureDTO | ErrorDTO, CreateSecretTextQueryParams, SecretTextRequestBody, void>,
+  MutateProps<ResponseDTOString, FailureDTO | ErrorDTO, CreateSecretTextQueryParams, SecretTextDTORequestBody, void>,
   'path' | 'verb'
 >
 
@@ -3300,7 +3310,7 @@ export type CreateSecretTextProps = Omit<
  * Create a secret text
  */
 export const CreateSecretText = (props: CreateSecretTextProps) => (
-  <Mutate<ResponseDTOString, FailureDTO | ErrorDTO, CreateSecretTextQueryParams, SecretTextRequestBody, void>
+  <Mutate<ResponseDTOString, FailureDTO | ErrorDTO, CreateSecretTextQueryParams, SecretTextDTORequestBody, void>
     verb="POST"
     path={`/secrets`}
     base={'/cd/api'}
@@ -3309,7 +3319,7 @@ export const CreateSecretText = (props: CreateSecretTextProps) => (
 )
 
 export type UseCreateSecretTextProps = Omit<
-  UseMutateProps<ResponseDTOString, CreateSecretTextQueryParams, SecretTextRequestBody, void>,
+  UseMutateProps<ResponseDTOString, CreateSecretTextQueryParams, SecretTextDTORequestBody, void>,
   'path' | 'verb'
 >
 
@@ -3317,7 +3327,7 @@ export type UseCreateSecretTextProps = Omit<
  * Create a secret text
  */
 export const useCreateSecretText = (props: UseCreateSecretTextProps) =>
-  useMutate<ResponseDTOString, FailureDTO | ErrorDTO, CreateSecretTextQueryParams, SecretTextRequestBody, void>(
+  useMutate<ResponseDTOString, FailureDTO | ErrorDTO, CreateSecretTextQueryParams, SecretTextDTORequestBody, void>(
     'POST',
     `/secrets`,
     { base: '/cd/api', ...props }
@@ -3329,7 +3339,7 @@ export interface UpdateSecretTextQueryParams {
 }
 
 export type UpdateSecretTextProps = Omit<
-  MutateProps<ResponseDTOBoolean, FailureDTO | ErrorDTO, UpdateSecretTextQueryParams, SecretTextRequestBody, void>,
+  MutateProps<ResponseDTOBoolean, FailureDTO | ErrorDTO, UpdateSecretTextQueryParams, SecretTextDTORequestBody, void>,
   'path' | 'verb'
 >
 
@@ -3337,7 +3347,7 @@ export type UpdateSecretTextProps = Omit<
  * Update a secret text
  */
 export const UpdateSecretText = (props: UpdateSecretTextProps) => (
-  <Mutate<ResponseDTOBoolean, FailureDTO | ErrorDTO, UpdateSecretTextQueryParams, SecretTextRequestBody, void>
+  <Mutate<ResponseDTOBoolean, FailureDTO | ErrorDTO, UpdateSecretTextQueryParams, SecretTextDTORequestBody, void>
     verb="PUT"
     path={`/secrets`}
     base={'/cd/api'}
@@ -3346,7 +3356,7 @@ export const UpdateSecretText = (props: UpdateSecretTextProps) => (
 )
 
 export type UseUpdateSecretTextProps = Omit<
-  UseMutateProps<ResponseDTOBoolean, UpdateSecretTextQueryParams, SecretTextRequestBody, void>,
+  UseMutateProps<ResponseDTOBoolean, UpdateSecretTextQueryParams, SecretTextDTORequestBody, void>,
   'path' | 'verb'
 >
 
@@ -3354,7 +3364,7 @@ export type UseUpdateSecretTextProps = Omit<
  * Update a secret text
  */
 export const useUpdateSecretText = (props: UseUpdateSecretTextProps) =>
-  useMutate<ResponseDTOBoolean, FailureDTO | ErrorDTO, UpdateSecretTextQueryParams, SecretTextRequestBody, void>(
+  useMutate<ResponseDTOBoolean, FailureDTO | ErrorDTO, UpdateSecretTextQueryParams, SecretTextDTORequestBody, void>(
     'PUT',
     `/secrets`,
     { base: '/cd/api', ...props }
@@ -3392,6 +3402,30 @@ export type UseDeleteSecretTextProps = Omit<
  */
 export const useDeleteSecretText = (props: UseDeleteSecretTextProps) =>
   useMutate<ResponseDTOBoolean, FailureDTO | ErrorDTO, DeleteSecretTextQueryParams, void, void>('DELETE', `/secrets`, {
+    base: '/cd/api',
+    ...props
+  })
+
+export type TestProps = Omit<GetProps<ResponseDTOListEncryptedDataDetail, FailureDTO | ErrorDTO, void, void>, 'path'>
+
+/**
+ * test
+ */
+export const Test = (props: TestProps) => (
+  <Get<ResponseDTOListEncryptedDataDetail, FailureDTO | ErrorDTO, void, void>
+    path={`/secrets/test`}
+    base={'/cd/api'}
+    {...props}
+  />
+)
+
+export type UseTestProps = Omit<UseGetProps<ResponseDTOListEncryptedDataDetail, void, void>, 'path'>
+
+/**
+ * test
+ */
+export const useTest = (props: UseTestProps) =>
+  useGet<ResponseDTOListEncryptedDataDetail, FailureDTO | ErrorDTO, void, void>(`/secrets/test`, {
     base: '/cd/api',
     ...props
   })

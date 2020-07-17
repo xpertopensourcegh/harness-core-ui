@@ -2,8 +2,6 @@ import React from 'react'
 import { useTable, Column } from 'react-table'
 import cx from 'classnames'
 
-import { Card } from '@wings-software/uikit'
-
 import css from './Table.module.scss'
 
 interface TableProps<Data extends object> {
@@ -27,7 +25,7 @@ const Table = <Data extends object>(props: TableProps<Data>): React.ReactElement
           // react key is not needed since it's generated/added by `react-table`
           // via the getHeaderGroupProps() function
           // eslint-disable-next-line react/jsx-key
-          <div {...headerGroup.getHeaderGroupProps()} className={cx(css.row, css.header)}>
+          <div {...headerGroup.getHeaderGroupProps()} className={cx(css.header)}>
             {headerGroup.headers.map(header => {
               return (
                 // eslint-disable-next-line react/jsx-key
@@ -44,7 +42,7 @@ const Table = <Data extends object>(props: TableProps<Data>): React.ReactElement
         prepareRow(row)
         return (
           // eslint-disable-next-line react/jsx-key
-          <Card
+          <div
             {...row.getRowProps()}
             className={cx(css.row, css.card)}
             onClick={() => {
@@ -63,7 +61,7 @@ const Table = <Data extends object>(props: TableProps<Data>): React.ReactElement
                 </div>
               )
             })}
-          </Card>
+          </div>
         )
       })}
     </div>

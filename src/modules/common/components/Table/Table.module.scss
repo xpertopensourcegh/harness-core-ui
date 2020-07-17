@@ -1,18 +1,19 @@
 .table {
-  border: 1px;
-
   .header {
     font-weight: bold;
+    display: block;
+    padding: var(--spacing-medium) var(--spacing-xlarge);
   }
 
   .row {
     display: block;
-    margin: var(--spacing-medium);
+    margin-bottom: var(--spacing-small);
     padding: var(--spacing-medium);
   }
 
   .card {
-    box-shadow: 0px 1px 6px -3px rgba(0, 0, 0, 0.5);
+    box-shadow: 0px 1px 6px -4px var(--black);
+    border-radius: 10px;
   }
 
   .cell {

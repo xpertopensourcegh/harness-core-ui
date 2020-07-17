@@ -26,7 +26,7 @@ const SecretReference: React.FC<SecretReferenceProps> = props => {
   const { defaultScope } = props
   const { accountId } = useParams()
   const { loading, data } = useListSecretsForAccount({
-    queryParams: { accountIdentifier: accountId, includeDetails: true, type: 'SECRET_TEXT' }
+    queryParams: { accountIdentifier: accountId, type: 'SECRET_TEXT' }
   })
   const [selectedScope, setSelectedScope] = useState<Scope>(defaultScope || Scope.ACCOUNT)
 
