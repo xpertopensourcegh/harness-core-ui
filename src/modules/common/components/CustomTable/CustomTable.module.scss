@@ -131,6 +131,7 @@
   }
 }
 .list {
+  height: calc(100% - 64px); /* 64px is PageHeader's height */
   display: flex;
 }
 .grid {

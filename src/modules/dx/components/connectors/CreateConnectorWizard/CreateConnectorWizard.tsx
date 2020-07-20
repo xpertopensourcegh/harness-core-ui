@@ -1,10 +1,23 @@
 import React from 'react'
 import css from './CreateConnectorWizard.module.scss'
-import { getConnectorWizardByType } from '../utils'
+import { Connectors } from 'modules/dx/constants'
+import CreateGITConnector from 'modules/dx/components/connectors/CreateConnector/GITConnector/CreateGITConnector'
+import CreateK8sConnector from 'modules/dx/components/connectors/CreateConnector/K8sConnector/CreateK8sConnector'
 interface CreateConnectorWizardProps {
   accountId: string
   type: string
   hideLightModal: () => void
+}
+
+export const getConnectorWizardByType = (type: string, accountId: string, hideLightModal: () => void) => {
+  switch (type) {
+    case Connectors.KUBERNETES_CLUSTER:
+      return <CreateK8sConnector accountId={accountId} hideLightModal={hideLightModal} />
+    case Connectors.GIT:
+      return <CreateGITConnector accountId={accountId} hideLightModal={hideLightModal} />
+    default:
+      return null
+  }
 }
 
 export const CreateConnectorWizard = (props: CreateConnectorWizardProps) => {

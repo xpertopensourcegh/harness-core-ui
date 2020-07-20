@@ -92,6 +92,48 @@ export const buildKubPayload = (formData: any) => {
   return savedData
 }
 
+export const getSpecByConnectType = (type: string, formData: any) => {
+  let referenceField
+  if (type === 'Ssh') {
+    referenceField = { sshKeyReference: formData?.sshKeyReference }
+  } else {
+    referenceField = { passwordReference: formData?.password }
+  }
+  return {
+    type: formData?.connectionType,
+    url: formData?.url,
+    username: formData?.username,
+    ...referenceField
+  }
+}
+
+export const buildGITPayload = (formData: any) => {
+  const savedData = {
+    name: formData?.name,
+    description: formData?.description,
+    // projectIdentifier: 'project-1',
+    identifier: formData?.identifier,
+    // accountIdentifier: 'Test-account',
+    // orgIdentifier: 'Devops',
+    tags: formData?.tags,
+    type: i18n.GitConnector,
+    spec: {
+      type: formData?.connectType,
+      spec: getSpecByConnectType(formData?.connectType, formData)
+      // mocked data untill UX is not provided
+      // gitSync: {
+      //   enabled: true,
+      //   customCommitAttributes: {
+      //     authorName: 'deepak',
+      //     authorEmail: 'deepak.patankar@harness.io',
+      //     commitMessage: '[GITSYNC-0]: Pushing Changes'
+      //   }
+      // }
+    }
+  }
+  return savedData
+}
+
 export const getDelegateTypeInfo = (delegateInfoSpec: any) => {
   const delegateType = delegateInfoSpec?.type
   let delegateTypeMetaData

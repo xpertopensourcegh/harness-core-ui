@@ -8,5 +8,7 @@ declare const styles: {
   readonly name: string
   readonly verificationText: string
   readonly submitWrp: string
+  readonly overlayHeading: string
+  readonly verifyWrapper: string
 }
 export default styles

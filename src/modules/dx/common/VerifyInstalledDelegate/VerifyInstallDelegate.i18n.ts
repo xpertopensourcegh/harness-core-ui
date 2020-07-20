@@ -2,6 +2,7 @@ export default {
   STEP_THREE_VERIFICATION_TIME_TEXT: 'STEP_THREE.VERIFICATION_TIME_TEXT',
   STEPS: {
     ONE: 'Install Harness Delegate',
+    TWO_HIDDEN: 'Establishing Connection',
     TWO: 'Establishing Connection between Delegate and Kubernetes Cluster',
     THREE: 'Verify Connection'
   },

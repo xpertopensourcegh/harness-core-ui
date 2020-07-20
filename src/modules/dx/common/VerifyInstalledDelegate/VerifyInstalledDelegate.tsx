@@ -76,12 +76,12 @@ const VerifyInstalledDelegate = (props: VerifyInstalledDelegateProps) => {
     }
   }, [currentStatus, loadingStatus, loading])
   return (
-    <Layout.Vertical padding="small">
+    <Layout.Vertical className={css.verifyWrapper}>
       <Text font="medium" padding="small" className={css.heading}>
         {i18n.verifyConnectionText} <span className={css.name}>Kubernetes</span>
       </Text>
       <StepsProgress
-        steps={[i18n.STEPS.ONE, i18n.STEPS.TWO, i18n.STEPS.THREE]}
+        steps={[i18n.STEPS.ONE, downloadOverLay ? i18n.STEPS.TWO_HIDDEN : i18n.STEPS.TWO, i18n.STEPS.THREE]}
         intent={currentIntent}
         current={currentStatus}
         currentStatus={'PROCESS'}
@@ -99,7 +99,7 @@ const VerifyInstalledDelegate = (props: VerifyInstalledDelegateProps) => {
       {downloadOverLay ? (
         <section className={css.stepsOverlay}>
           <Layout.Vertical spacing="xxlarge">
-            <Layout.Horizontal>
+            <Layout.Horizontal className={css.overlayHeading}>
               <Text font="medium" className={css.installText}>
                 {i18n.INSTALL.INSTALL_TEXT}
               </Text>
@@ -107,7 +107,7 @@ const VerifyInstalledDelegate = (props: VerifyInstalledDelegateProps) => {
             </Layout.Horizontal>
             <Layout.Vertical spacing="small">
               <Label>{i18n.INSTALL.SUPPORTED_FORMATS}</Label>
-              <Select items={[{ label: 'YAML', value: 'YAML' }]} />
+              <Select items={[{ label: 'YAML', value: 'YAML' }]} value={{ label: 'YAML', value: 'YAML' }} />
             </Layout.Vertical>
             <Button
               intent="primary"

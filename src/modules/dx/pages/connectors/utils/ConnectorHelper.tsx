@@ -50,6 +50,8 @@ export const getHeadingByType = (type: string) => {
   switch (type) {
     case Connectors.KUBERNETES_CLUSTER:
       return i18n.k8sClusterDetails
+    case Connectors.GIT:
+      return i18n.gitConnectorDetails
     default:
       return null
   }

@@ -145,7 +145,7 @@ const renderUserNameAndPassword = (secretManagers?: SecretManagerConfig[], conne
   return (
     <>
       <FormInput.Text name="username" label="Username*" />
-      <FormInput.Text name="password" label="Password*" />
+      <FormInput.Text name="password" label="Password*" inputGroup={{ type: 'password' }} />
       <Popover>
         <Button minimal rightIcon="chevron-down">
           <Icon name="key" />

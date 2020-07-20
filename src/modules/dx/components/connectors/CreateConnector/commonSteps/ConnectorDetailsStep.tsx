@@ -7,12 +7,13 @@ import ConnectorDetailFields from 'modules/dx/pages/connectors/Forms/ConnectorDe
 import { Form } from 'formik'
 import i18n from './ConnectorDetailsStep.i18n'
 import css from './ConnectorDetailsStep.module.scss'
-import type { KubFormData } from 'modules/dx/interfaces/ConnectorInterface'
+import type { KubFormData, GITFormData } from 'modules/dx/interfaces/ConnectorInterface'
 
 interface ConnectorDetailsStepProps {
+  type: string
   name: string
-  setFormData: (formData: KubFormData | undefined) => void
-  formData: KubFormData | undefined
+  setFormData: (formData: KubFormData | GITFormData | undefined) => void
+  formData: KubFormData | GITFormData | undefined
   // adding any As the type is StepProps and not able to use it here somehow... will add as I find a solution
   nextStep?: (data?: any) => void
 }
@@ -20,7 +21,7 @@ interface ConnectorDetailsStepProps {
 const ConnectorDetailsStep = (props: ConnectorDetailsStepProps) => {
   return (
     <Layout.Vertical spacing="xxlarge" className={css.firstep}>
-      <div className={css.heading}>{getHeadingByType('K8sCluster')}</div>
+      <div className={css.heading}>{getHeadingByType(props.type)}</div>
       <Formik
         initialValues={{
           name: props?.formData?.name || '',

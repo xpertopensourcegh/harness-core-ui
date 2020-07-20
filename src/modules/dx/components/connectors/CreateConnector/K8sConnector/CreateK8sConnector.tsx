@@ -486,16 +486,23 @@ const CreateK8sConnector = (props: CreateK8sConnectorProps) => {
   return (
     <>
       <StepWizard>
-        <ConnectorDetailsStep name={i18n.STEP_ONE.NAME} setFormData={setFormData} formData={formData} />
+        <ConnectorDetailsStep
+          type="K8sCluster"
+          name={i18n.STEP_ONE.NAME}
+          setFormData={setFormData}
+          formData={formData}
+        />
         <SecondStep name={i18n.STEP_TWO.NAME} state={state} {...props} formData={formData} />
 
         {delegateType === DelegateTypes.DELEGATE_OUT_CLUSTER ? (
           <IntermediateStep {...props} name={i18n.STEP_INTERMEDIATE.NAME} state={state} formData={formData} />
         ) : null}
-        {installDelegate ? <VerifyInstalledDelegate accountId={props.accountId} name={i18n.STEP_THREE.NAME} /> : null}
+        {/*Removing for now: {installDelegate ? <VerifyInstalledDelegate accountId={props.accountId} name={i18n.STEP_THREE.NAME} /> : null} */}
         {delegateType === DelegateTypes.DELEGATE_OUT_CLUSTER ? (
           <VerifyOutOfClusterDelegate name={i18n.STEP_THREE.NAME} {...props} connectorName={formData?.name} />
-        ) : null}
+        ) : (
+          <VerifyInstalledDelegate accountId={props.accountId} name={i18n.STEP_THREE.NAME} />
+        )}
       </StepWizard>
       <Button text="close" />
     </>

@@ -17,7 +17,6 @@
 .delegateRunInfo {
   color: var(--grey-500);
   padding: 0;
-  margin-top: var(--spacing-large);
 }
 .heading {
   color: var(--grey-700);
@@ -33,4 +32,12 @@
 }
 .submitWrp {
   margin-top: 300px;
+}
+.overlayHeading {
+  display: flex;
+  justify-content: space-between;
+}
+
+.verifyWrapper {
+  padding: 0px var(--spacing-small) !important;
 }

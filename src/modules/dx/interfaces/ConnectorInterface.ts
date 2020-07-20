@@ -10,3 +10,16 @@ export interface KubFormData {
   username?: string
   password?: string
 }
+export interface GITFormData {
+  name?: string
+  description?: string
+  identifier?: string
+  tags?: string[]
+  authType?: string
+  branchName?: string
+  connectType?: string | number | symbol
+  connectionType?: string
+  password?: string
+  username?: string
+  url?: string
+}
