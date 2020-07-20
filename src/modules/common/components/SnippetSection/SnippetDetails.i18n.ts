@@ -1,3 +1,5 @@
 export default {
-  title: 'SNIPPETS'
+  title: 'SNIPPETS',
+  copyToClipboard: 'Copy to Clipboard',
+  version: 'Version'
 }
