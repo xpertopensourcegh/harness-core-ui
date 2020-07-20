@@ -1,4 +1,5 @@
 .heatMap {
+  overflow: hidden;
   .heatMapRow {
     display: flex;
     .nameWrapper {
@@ -11,6 +12,7 @@
     .rowValues {
       flex: 1;
       display: flex;
+      justify-content: space-between;
       .cell {
         flex: 1;
         flex-basis: var(--spacing-medium);

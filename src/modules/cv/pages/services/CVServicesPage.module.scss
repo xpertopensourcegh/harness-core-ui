@@ -1,0 +1,14 @@
+.searchContainer {
+  width: 200px;
+  height: 35px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.body {
+  padding-left: var(--spacing-xxxlarge);
+  padding-top: var(--spacing-large);
+  .cardItem {
+    margin: var(--spacing-medium);
+  }
+}

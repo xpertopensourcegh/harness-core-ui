@@ -12,6 +12,7 @@ export interface ServiceCardProps {
   changeEventsPassed: number
   changeEventsFailed: number
   openAnomalies: number
+  onClick?(e: any): void
 }
 
 const colors = [
@@ -33,58 +34,62 @@ export default function ServiceCard({
   verificationFailed = 0,
   changeEventsPassed = 0,
   changeEventsFailed = 0,
-  openAnomalies = 0
+  openAnomalies = 0,
+  onClick
 }: ServiceCardProps): JSX.Element {
   const headerProps: any = {
-    width: 150,
+    width: 110,
     lineClamp: 1,
     font: 'small'
   }
 
   const cellTextProps: any = {
-    width: 150,
+    width: 110,
     lineClamp: 1,
-    font: { weight: 'bold' }
+    font: {
+      weight: 'bold',
+      size: 'small'
+    }
   }
 
   return (
-    <Card className={classnames(styles.card, className)}>
+    <Card onClick={onClick} className={classnames(styles.card, className)}>
       <Text color="black" font={{ weight: 'bold' }}>
         {label}
       </Text>
       <div>
         <div className={styles.row}>
           <div className={styles.cell}>
-            <Text {...headerProps}>Verification Impact</Text>
+            <Text className={styles.cellHeader} {...headerProps}>
+              Verification Impact
+            </Text>
             <div className={styles.impactBarWrap}>
               <StatusBar
-                width={110}
+                width={100}
                 height={5}
                 background={colors[0 + Math.round(Math.min(Math.max(impact, 0), 1) * 7)]}
               />
             </div>
           </div>
           <div className={styles.cell}>
-            <Text {...headerProps} width={130}>
+            <Text className={styles.cellHeader} {...headerProps}>
               Anomalies
             </Text>
-            <Text {...cellTextProps} width={130}>
-              {openAnomalies} Open
-            </Text>
+            <Text {...cellTextProps}>{openAnomalies} Open</Text>
           </div>
         </div>
         <div className={styles.row}>
           <div className={styles.cell}>
-            <Text {...headerProps}>Deployment Verification</Text>
+            <Text className={styles.cellHeader} {...headerProps}>
+              Deployment
+            </Text>
             <Text {...cellTextProps}>{`${verificationPassed} passed ${verificationFailed} failed`}</Text>
           </div>
           <div className={styles.cell}>
-            <Text {...headerProps} width={130}>
+            <Text className={styles.cellHeader} {...headerProps}>
               Change Events
             </Text>
-            <Text {...cellTextProps} width={130} lineClamp={1}>
-              {`${changeEventsPassed} passed ${changeEventsFailed} failed`}
-            </Text>
+            <Text {...cellTextProps}>{`${changeEventsPassed} passed ${changeEventsFailed} failed`}</Text>
           </div>
         </div>
       </div>

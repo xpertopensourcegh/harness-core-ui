@@ -1,0 +1,49 @@
+.headingToolbar {
+  > div {
+    width: unset !important;
+  }
+}
+
+.body {
+  padding: var(--spacing-small);
+  .panel {
+    margin: var(--spacing-small);
+    padding: var(--spacing-large);
+    &.shadowPanel {
+      box-shadow: 0px 0px 8px var(--gray-200);
+      border-radius: var(--spacing-small);
+    }
+    .panelHeading {
+      margin-bottom: var(--spacing-small);
+    }
+  }
+  .heatmapCell {
+    margin: 0.4% !important;
+  }
+}
+
+.heatmapTooltip {
+  padding: var(--spacing-large);
+  min-height: 100px;
+  text-align: center;
+  .tooltipData {
+    margin-top: var(--spacing-small);
+    .tooltipMissingValue {
+      font-weight: bold;
+    }
+  }
+}
+
+.timelineItem {
+  white-space: nowrap;
+  height: var(--spacing-xxlarge);
+  background-color: var(--green-350);
+  border-radius: var(--spacing-small);
+  line-height: var(--spacing-xxlarge);
+  padding-left: var(--spacing-small);
+  margin-top: var(--spacing-small);
+  cursor: pointer;
+  &:hover {
+    background-color: var(--green-400);
+  }
+}

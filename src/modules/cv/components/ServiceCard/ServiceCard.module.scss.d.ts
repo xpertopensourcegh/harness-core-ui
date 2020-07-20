@@ -5,5 +5,6 @@ declare const styles: {
   readonly impactBarWrap: string
   readonly row: string
   readonly cell: string
+  readonly cellHeader: string
 }
 export default styles

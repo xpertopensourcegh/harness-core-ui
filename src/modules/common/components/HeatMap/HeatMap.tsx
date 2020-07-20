@@ -14,14 +14,14 @@ export interface HeatMapProps {
   series: Array<SerieConfig> | SerieConfig
   minValue: number
   maxValue: number
-  mapValue(cell: any): number
+  mapValue(cell: any): number | CellStatusValues
   /**
    * This property can be used if series are not prepared yet, to render placehoders,
    * or to limit the row sizes.
    */
   rowSize?: number
   onCellClick?(cell: any): void
-  renderTooltip?(cell: any): JSX.Element
+  renderTooltip?(cell: any): JSX.Element | null
   labelsWidth?: number
   className?: string
   cellClassName?: string
@@ -45,9 +45,10 @@ const colors = [
   Color.RED_600
 ]
 
-const specialColorValues = {
-  empty: Color.GREY_200,
-  error: Color.RED_800
+const specialColorValue = {
+  MISSING: Color.GREY_200,
+  EMPTY: Color.GREY_250,
+  ERROR: Color.RED_800
 }
 
 const PopoverModifies = {
@@ -79,11 +80,11 @@ export default function HeatMap({
   const mapColor = (cell: any) => {
     let value: any = mapValue(cell)
     if (value === CellStatusValues.Empty) {
-      return specialColorValues.empty
+      return specialColorValue.EMPTY
     } else if (value === CellStatusValues.Error) {
-      return specialColorValues.error
+      return specialColorValue.ERROR
     }
-    value = Math.max(Math.min(mapValue(cell), maxValue), minValue)
+    value = Math.max(Math.min(value, maxValue), minValue)
     let colorIndex = ((value - minValue) * (colors.length - 1)) / (maxValue - minValue)
     colorIndex = Math.round(colorIndex)
     return colors[colorIndex]
@@ -110,6 +111,7 @@ export default function HeatMap({
                     popoverContent={renderTooltip && renderTooltip(cell)}
                     onClick={() => onCellClick && onCellClick(cell)}
                     color={mapColor(cell)}
+                    className={cellClassName}
                   />
                 )
             )}
@@ -119,7 +121,7 @@ export default function HeatMap({
                 .map((_, index) => (
                   <HeatMapCell
                     key={serie.data.length + index}
-                    color={specialColorValues.empty}
+                    color={specialColorValue.MISSING}
                     className={cellClassName}
                     popoverDisabled
                   />

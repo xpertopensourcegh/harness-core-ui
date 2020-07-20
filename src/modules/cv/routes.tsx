@@ -36,6 +36,17 @@ export const routeCVServices: Route = {
   module: ModuleName.CV
 }
 
+export const routeCVService: Route = {
+  sidebarId: SidebarIdentifier.CONTINUOUS_VERIFICATION,
+  path: '/cv-service/:serviceId',
+  title: i18n.services,
+  pageId: 'cv-service',
+  authenticated: true,
+  url: (params: RouteURLArgs) => `/cv-service/${params?.serviceId}`,
+  component: React.lazy(() => import('./pages/services/CVServicePage')),
+  module: ModuleName.CV
+}
+
 /* ------------------------------------------ Onboarding page routes ------------------------------------------ */
 export const routeCVOnBoardingSetup: Route = {
   sidebarId: SidebarIdentifier.CONTINUOUS_VERIFICATION,
