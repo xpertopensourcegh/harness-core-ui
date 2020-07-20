@@ -1,0 +1,57 @@
+$separator-width: 100px;
+$separator-label-height: 38px;
+$cell-width: 30px;
+$cell-height: 25px;
+
+.chart {
+  display: flex;
+  .separator {
+    width: 1px;
+    margin: var(--spacing-xxxlarge) $separator-width / 2;
+    background-color: var(--grey-350);
+    position: relative;
+    p {
+      width: $separator-width;
+      height: $separator-label-height;
+      position: absolute;
+      text-align: center;
+      left: -$separator-width/2;
+      top: calc(50% - #{$separator-label-height} / 2);
+      background-color: var(--white);
+    }
+  }
+}
+.boxWrap {
+  p {
+    text-align: center;
+    margin: var(--spacing-small) 0 !important;
+  }
+  .boxGroup {
+    display: flex;
+    > *:first-child {
+      margin-right: var(--spacing-small);
+    }
+  }
+}
+
+.box {
+  width: $cell-width * 5;
+  height: $cell-height * 4;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, #{$cell-width});
+  grid-template-rows: repeat(auto-fit, #{$cell-height});
+  align-items: center;
+  justify-items: center;
+  justify-content: center;
+  align-content: center;
+  box-sizing: content-box;
+  div {
+    width: 12px;
+    height: 12px;
+    cursor: pointer;
+    border-radius: 50%;
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+}
