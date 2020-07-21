@@ -1350,10 +1350,10 @@
   dependencies:
     caret-xy "^2.0.3"
 
-"@wings-software/monaco-yaml@2.4.10":
-  version "2.4.10"
-  resolved "https://npm.pkg.github.com/download/@wings-software/monaco-yaml/2.4.10/0c5a1b57757a34f83554266c75aeeb15e6007e9f1aa1b85ec21d9e376862b298#742b871f913c523b36b623be2e6ebd49b228688f"
-  integrity "sha1-dCuHH5E8Ujs2tiO+Lm69SbIoaI8= sha512-9M6gC6mKKuudFJXFPzs57rLR9cSFfJmkUD+y4oIfi4jsO2zwN/FD4YZiJTefA2ucIBlUZ+SGifgk2eN3G+tdxA=="
+"@wings-software/monaco-yaml@2.4.26":
+  version "2.4.26"
+  resolved "https://npm.pkg.github.com/download/@wings-software/monaco-yaml/2.4.26/716f4d43236b1fb4575c08391a4342a7a1f5762a3b493e4ca60b1cab68deb480#e9a50402f9980799c94e812f8c3b6e5c9c5756a2"
+  integrity sha512-h08NUvP9NnD1uMYZbN+3i9Zbfb53PZmhmWGSZM8I+lknAML+trp7r/XNHit+flQLkxMyKZASvOgTtG7Ks5Fg5g==
   dependencies:
     js-yaml "^3.12.0"
     vscode-json-languageservice "^3.4.11"
