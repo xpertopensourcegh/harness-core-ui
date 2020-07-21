@@ -1,13 +1,8 @@
 import React, { useMemo, useEffect, useState, useCallback } from 'react'
 import { Table, SelectOption, Text } from '@wings-software/uikit'
-import { AppDynamicsService, CVNextGenCVConfigService } from '../../services'
-import * as AppDynamicsOnBoardingUtils from '../../pages/onboarding/AppDynamics/AppDynamicsOnboardingUtils'
-import * as SplunkOnboardingUtils from '../../pages/onboarding/Splunk/SplunkOnboardingUtils'
-import xhr from '@wings-software/xhr-async'
 import css from './DataSourceSelectEntityTable.module.scss'
 import type { IHTMLTableProps } from '@blueprintjs/core'
 import type { Cell, Column } from 'react-table'
-import type { ServiceResponse } from 'modules/common/services/ServiceResponse'
 
 type TableEntityCell = {
   selected: boolean
@@ -17,10 +12,8 @@ type TableEntityCell = {
 
 interface DataSourceSelectEntityTableProps {
   entityTableColumnName: string
-  verificationType: string
-  datasourceId: string
-  accountId: string
   onSubmit?: (selectedEntities: SelectOption[]) => void
+  entityOptions: SelectOption[]
 }
 
 interface TableCheckboxProps {
@@ -28,7 +21,6 @@ interface TableCheckboxProps {
   onChange: (isChecked: boolean, index: number) => void
 }
 
-const XHR_FETCH_ENTITIES_GROUP = 'XHR_FETCH_ENTITIES_GROUP'
 const BPTableProps: IHTMLTableProps = {}
 
 function TableCheckbox(props: TableCheckboxProps): JSX.Element {
@@ -40,33 +32,8 @@ function TableCheckbox(props: TableCheckboxProps): JSX.Element {
   return <input type="checkbox" checked={cell.value} name="selected" onChange={onChangeCallback} />
 }
 
-// map to call the appropriate service depending on data source and its corresponding transform function
-const VerificationTypeEntityCall: {
-  [verificationType: string]: {
-    entityFetchFunc: ({
-      accountId,
-      dataSourceId,
-      xhrGroup
-    }: {
-      accountId: string
-      dataSourceId: string
-      xhrGroup: string
-    }) => ServiceResponse<any, 'response'>
-    transformResponseFunc: (response: any) => SelectOption[]
-  }
-} = {
-  'app-dynamics': {
-    entityFetchFunc: AppDynamicsService.fetchAppDynamicsApplications,
-    transformResponseFunc: AppDynamicsOnBoardingUtils.transformAppDynamicsApplications
-  },
-  splunk: {
-    entityFetchFunc: CVNextGenCVConfigService.fetchQueriesFromSplunk,
-    transformResponseFunc: SplunkOnboardingUtils.transformQueriesFromSplunk
-  }
-}
-
 export default function DataSourceSelectEntityTable(props: DataSourceSelectEntityTableProps): JSX.Element {
-  const { entityTableColumnName, verificationType, accountId, datasourceId, onSubmit } = props
+  const { entityTableColumnName, onSubmit, entityOptions: propsEntityOptions } = props
   const [isAllChecked, setAllChecked] = useState(false)
   const [entityOptions, setEntityOptions] = useState<TableEntityCell[]>([])
   const onColumnCheckboxCallback = useCallback(() => {
@@ -105,30 +72,18 @@ export default function DataSourceSelectEntityTable(props: DataSourceSelectEntit
   )
 
   useEffect(() => {
+    if (propsEntityOptions) {
+      setEntityOptions(
+        propsEntityOptions.map((option: SelectOption) => ({
+          selected: false,
+          entity: option,
+          entityName: option.label
+        }))
+      )
+    }
+  }, [propsEntityOptions])
+  useEffect(() => {
     onSubmit?.(entityOptions.filter(({ selected }) => selected).map(({ entity }) => entity))
   }, [entityOptions, onSubmit])
-  useEffect(() => {
-    const { entityFetchFunc, transformResponseFunc } = VerificationTypeEntityCall[verificationType] || {}
-    entityFetchFunc?.({
-      accountId,
-      dataSourceId: datasourceId,
-      xhrGroup: XHR_FETCH_ENTITIES_GROUP
-    }).then(({ status, error, response }) => {
-      if (status === xhr.ABORTED) {
-        return
-      } else if (error) {
-        return // TODO
-      } else if (response?.resource?.length) {
-        setEntityOptions(
-          transformResponseFunc?.(response.resource)?.map((option: SelectOption) => ({
-            selected: false,
-            entity: option,
-            entityName: option.label
-          }))
-        )
-      }
-    })
-  }, [accountId, datasourceId, verificationType])
-
   return <Table columns={tableColumns} bpTableProps={BPTableProps} data={entityOptions} className={css.main} />
 }

@@ -15,6 +15,7 @@ import SplunkOnboarding from '../Splunk/SplunkOnboarding'
 import { connectorId, appId } from 'modules/cv/constants'
 import { Page } from 'modules/common/exports'
 import { routeParams } from 'framework/exports'
+import i18n from './BaseOnBoardingSetupPage.i18n'
 
 const XHR_SERVICES_GROUP = 'XHR_SERVICES_GROUP'
 
@@ -81,8 +82,9 @@ async function fetchServices(localAppId: string, accId: string): Promise<SelectO
 }
 
 export default function OnBoardingSetupPage(): JSX.Element {
-  const [serviceOptions, setServices] = useState<SelectOption[]>([{ value: '', label: 'Loading...' }])
+  const [serviceOptions, setServices] = useState<SelectOption[]>([{ value: '', label: i18n.loading }])
   const [configsToRender, setConfigs] = useState<DSConfig[]>([])
+  const [serverError, setServerError] = useState<string | undefined>(undefined)
   const [isLoadingConfigs, setLoadingConfigs] = useState<boolean>(true)
   const {
     params: { accountId, dataSourceType }
@@ -109,9 +111,9 @@ export default function OnBoardingSetupPage(): JSX.Element {
       }).then(({ status, error, response }) => {
         if (status === xhr.ABORTED) {
           return
-        } else if (error) {
+        } else if (error?.message) {
           setLoadingConfigs(false)
-          setConfigs([])
+          setServerError(error.message)
           return // TODO
         } else if (response?.resource) {
           setLoadingConfigs(false)
@@ -130,7 +132,7 @@ export default function OnBoardingSetupPage(): JSX.Element {
   }, [accountId])
 
   return (
-    <Page.Body loading={isLoadingConfigs}>
+    <Page.Body loading={isLoadingConfigs} error={serverError}>
       <Container className={css.main}>
         <OnBoardingConfigSetupHeader
           iconName={iconAndSubtextMapper[verificationType!].iconName}

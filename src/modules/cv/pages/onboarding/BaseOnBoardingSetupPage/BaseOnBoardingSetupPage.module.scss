@@ -1,7 +1,6 @@
 .main {
-  width: 90% !important;
-  margin: 0 auto !important;
-  display: grid;
-  grid-template-rows: 100px 80vh;
-  margin-top: var(--spacing-large) !important;
+  max-width: 1000px;
+  margin-top: 50px !important;
+  margin-left: 75px !important;
+  margin-right: var(--spacing-large) !important;
 }

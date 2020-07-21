@@ -2,7 +2,7 @@ import React, { useState, useMemo, useEffect, useCallback } from 'react'
 import { Table, Select, Text, ModalProvider, Link, Container, SelectOption, Color } from '@wings-software/uikit'
 import xhr from '@wings-software/xhr-async'
 import css from './TierAndServiceTable.module.scss'
-import { Spinner } from '@blueprintjs/core'
+import { Spinner, Classes } from '@blueprintjs/core'
 import { AppDynamicsService, CVNextGenCVConfigService } from 'modules/cv/services'
 import MetricsVerificationModal from 'modules/cv/components/MetricsVerificationModal/MetricsVerificationModal'
 import type { AppdynamicsTier, AppdynamicsValidationResponse, MetricPack } from '@wings-software/swagger-ts/definitions'
@@ -36,6 +36,7 @@ interface RowRendererProps {
   accountId: string
   projectId: number
   appId: number
+  isLoadingTiers: boolean
   metricPacks: MetricPack[]
   onChange: (fieldName: keyof TierAndServiceRow, value: any, index: number) => void
   connectorId: string
@@ -46,12 +47,14 @@ interface ValidationResultProps {
   error?: any
   isLoading: boolean
   isChecked: boolean
+  isLoadingTiers: boolean
 }
 
 interface TierMappingCheckBoxProps {
   checked: boolean
   onChange: (checked: boolean) => void
   isLoading: boolean
+  isLoadingTiers: boolean
 }
 
 interface ServiceDropdownProps {
@@ -60,6 +63,7 @@ interface ServiceDropdownProps {
   onChange: RowRendererProps['onChange']
   isLoading: boolean
   index: number
+  isLoadingTiers: boolean
 }
 
 interface ViewDetailsProps {
@@ -67,6 +71,7 @@ interface ViewDetailsProps {
   error?: any
   guid: string
   selected: boolean
+  isLoadingTiers: boolean
 }
 
 const XHR_METRIC_VALIDATION_GROUP = 'XHR_METRIC_VALIDATION_GROUP'
@@ -132,8 +137,20 @@ function mergeTierListWithExistingData(tableData: TierAndServiceRow[], tierList:
   }
 }
 
+function LoadingCell(props: { width: number }): JSX.Element {
+  const { width } = props
+  return (
+    <Container
+      height={12}
+      width={width}
+      className={Classes.SKELETON}
+      style={{ marginTop: '4px', marginBottom: '4px' }}
+    />
+  )
+}
+
 function ValidationResult(props: ValidationResultProps): JSX.Element {
-  const { validationResult, error, isLoading, isChecked } = props
+  const { validationResult, error, isLoading, isChecked, isLoadingTiers } = props
   const validationStatus: { status: string; intent: TextProps['intent'] } | undefined = useMemo(() => {
     if (error && error.message) {
       return { intent: 'danger', status: error.message }
@@ -172,12 +189,19 @@ function ValidationResult(props: ValidationResultProps): JSX.Element {
     }
     return <span />
   }, [error, isChecked, isLoading, validationStatus])
-  return <Container className={css.validationResult}>{childFields}</Container>
+  return isLoadingTiers ? (
+    <LoadingCell width={90} />
+  ) : (
+    <Container className={css.validationResult}>{childFields}</Container>
+  )
 }
 
 function TierMappingCheckBox(props: TierMappingCheckBoxProps): JSX.Element {
-  const { checked, onChange, isLoading } = props
+  const { checked, onChange, isLoading, isLoadingTiers } = props
 
+  if (isLoadingTiers) {
+    return <LoadingCell width={15} />
+  }
   if (isLoading) {
     return <Container height={20} width={15} />
   }
@@ -189,7 +213,10 @@ function TierMappingCheckBox(props: TierMappingCheckBoxProps): JSX.Element {
   )
 }
 
-function TierName(props: { tierName?: string }): JSX.Element {
+function TierName(props: { tierName?: string; isLoadingTiers: boolean }): JSX.Element {
+  if (props.isLoadingTiers) {
+    return <LoadingCell width={85} />
+  }
   return (
     <Text lineClamp={1} className={css.tier} width={85} color={Color.BLACK}>
       {props.tierName}
@@ -198,22 +225,27 @@ function TierName(props: { tierName?: string }): JSX.Element {
 }
 
 function ServiceDropdown(props: ServiceDropdownProps): JSX.Element {
-  const { serviceOptions, value, onChange, isLoading, index } = props
+  const { serviceOptions, value, onChange, isLoading, index, isLoadingTiers } = props
   const onChangeCallback = useCallback((val: SelectOption) => onChange('service', val?.label, index), [onChange, index])
-
+  if (isLoadingTiers) {
+    return <LoadingCell width={100} />
+  }
   if (isLoading) {
-    return <Container height={20} width={100} />
+    return <Container height={20} width={100} className={isLoadingTiers ? Classes.SKELETON : undefined} />
   }
 
   return <Select items={serviceOptions} className={css.serviceSelect} value={value} onChange={onChangeCallback} />
 }
 
 function ViewDetails(props: ViewDetailsProps): JSX.Element {
-  const { error, validationResult, guid, selected } = props
+  const { error, validationResult, guid, selected, isLoadingTiers } = props
   const [displayMetricsModal, setMetricsModalDisplay] = useState(false)
   const hideModalCallback = useCallback(() => () => setMetricsModalDisplay(false), [])
   if (displayMetricsModal) {
     return <MetricsVerificationModal verificationData={validationResult} guid={guid} onHide={hideModalCallback()} />
+  }
+  if (isLoadingTiers) {
+    return <LoadingCell width={83} />
   }
   return !error && validationResult && selected ? (
     <Link withoutHref onClick={() => setMetricsModalDisplay(true)} className={css.viewDetails}>
@@ -225,7 +257,7 @@ function ViewDetails(props: ViewDetailsProps): JSX.Element {
 }
 
 function RowRenderer(props: RowRendererProps): JSX.Element {
-  const { row, services, accountId, projectId, appId, metricPacks, onChange, connectorId } = props
+  const { row, services, accountId, projectId, appId, metricPacks, onChange, connectorId, isLoadingTiers } = props
   const { cells, original, index: rowIndex } = row
   const { service, tierName, selected, tierId } = original || {}
   const [[mp, s, t], setDep] = useState<[MetricPack[] | undefined, boolean | undefined, number | undefined]>([
@@ -297,9 +329,16 @@ function RowRenderer(props: RowRendererProps): JSX.Element {
     (index: number) => {
       switch (index) {
         case 0:
-          return <TierMappingCheckBox onChange={onTierMappingSelection} isLoading={!tierName} checked={selected} />
+          return (
+            <TierMappingCheckBox
+              onChange={onTierMappingSelection}
+              isLoading={!tierName}
+              checked={selected}
+              isLoadingTiers={isLoadingTiers}
+            />
+          )
         case 1:
-          return <TierName tierName={tierName} />
+          return <TierName tierName={tierName} isLoadingTiers={isLoadingTiers} />
         case 2:
           return (
             <ServiceDropdown
@@ -308,6 +347,7 @@ function RowRenderer(props: RowRendererProps): JSX.Element {
               onChange={onChange}
               isLoading={!tierName}
               index={rowIndex}
+              isLoadingTiers={isLoadingTiers}
             />
           )
         case 3:
@@ -317,10 +357,19 @@ function RowRenderer(props: RowRendererProps): JSX.Element {
               error={error}
               isLoading={isLoading}
               isChecked={selected}
+              isLoadingTiers={isLoadingTiers}
             />
           )
         case 4:
-          return <ViewDetails error={error} validationResult={validationResult} guid={guid} selected={selected} />
+          return (
+            <ViewDetails
+              error={error}
+              validationResult={validationResult}
+              guid={guid}
+              selected={selected}
+              isLoadingTiers={isLoadingTiers}
+            />
+          )
         default:
           return <Container />
       }
@@ -333,6 +382,7 @@ function RowRenderer(props: RowRendererProps): JSX.Element {
       rowIndex,
       serviceSelectObj,
       services,
+      isLoadingTiers,
       tierName,
       selected,
       validationResult,
@@ -451,10 +501,11 @@ export default function TierAndServiceTable(props: TierAndServiceTableProps): JS
           <RowRenderer
             key={row.values?.tierName || row.index}
             row={row as any}
+            isLoadingTiers={isLoadingTiers}
             appId={appId}
             accountId={accountId}
             onChange={onRowChangeCallback}
-            projectId={1234}
+            projectId={12345}
             connectorId={dataSourceId}
             metricPacks={metricPacks}
             services={serviceOptions}

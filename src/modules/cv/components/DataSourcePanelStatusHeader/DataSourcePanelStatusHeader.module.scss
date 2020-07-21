@@ -6,13 +6,14 @@
 
   .title {
     height: 17px;
+    width: 40%;
     margin-left: var(--spacing-large);
     .panelName {
       color: var(--blue-800);
     }
   }
   .tag {
-    margin-left: var(--spacing-medium);
+    margin-right: var(--spacing-small);
     font-size: 12px !important;
     padding: 5px;
   }

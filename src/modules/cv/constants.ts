@@ -10,7 +10,7 @@ export const VerificationTypeToRouteVerificationType: { [type: string]: string }
   SPLUNK: 'splunk'
 }
 
-export const connectorId = 'S9LTTM3zRFOeVNHhSeKHmw' //'WWF95JcuQ-azSNbH4zt-XQ'
+export const connectorId = 'WWF95JcuQ-azSNbH4zt-XQ' //'WWF95JcuQ-azSNbH4zt-XQ'
 export const accountId = 'kmpySmUISimoRrJL6NL73w'
 export const appId = '_ia5NKUCSoytYrZJMM15mQ' //t0-jbpLoR7S2BTsNfsk4Iw'
-export const projectIdentifier = '1234'
+export const projectIdentifier = '12345'
