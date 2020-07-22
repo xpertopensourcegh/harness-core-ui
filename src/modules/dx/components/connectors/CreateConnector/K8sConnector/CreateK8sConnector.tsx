@@ -349,7 +349,7 @@ const IntermediateStep = (props: IntermediateStepProps) => {
           props.nextStep?.()
         }}
       >
-        {() => (
+        {formikProps => (
           <div className={css.formWrapper}>
             <Form className={css.credForm}>
               <div className={css.formFields}>
@@ -374,7 +374,8 @@ const IntermediateStep = (props: IntermediateStepProps) => {
                 {getCustomFields(
                   props.state.authentication,
                   secretManagersApiResponse?.data as SecretManagerConfig[],
-                  state.formData?.name
+                  state.formData?.name,
+                  formikProps
                 )}
               </div>
               <Layout.Horizontal spacing="large" style={{ marginBottom: '30px' }}>

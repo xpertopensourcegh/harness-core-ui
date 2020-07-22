@@ -31,3 +31,15 @@
 .cluster {
   margin-top: 6px !important;
 }
+
+.labelWrp {
+  display: flex;
+  justify-content: space-between;
+  .passwordLabel {
+    position: relative;
+    top: 14px;
+  }
+}
+.secretPop {
+  cursor: pointer;
+}

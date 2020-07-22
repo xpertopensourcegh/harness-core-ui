@@ -1,12 +1,13 @@
 import React from 'react'
 import { string } from 'yup'
 import { StringUtils } from 'modules/common/exports'
-import { FormInput, Layout, Icon, Button, Popover } from '@wings-software/uikit'
+import { FormInput, Layout, Icon, Popover } from '@wings-software/uikit'
 import * as Yup from 'yup'
 import { FormikCreateInlineSecret } from 'modules/common/components/CreateInlineSecret/CreateInlineSecret'
 import type { SecretManagerConfig } from 'services/cd-ng'
 import css from './KubFormHelper.module.scss'
 import SecretReference from 'modules/dx/components/SecretReference/SecretReference'
+import type { FormikProps } from 'formik'
 
 export const AuthTypes = {
   CUSTOM: 'ManualConfig',
@@ -140,23 +141,40 @@ export const getKubValidationSchema = () => {
     })
   })
 }
-const renderUserNameAndPassword = (secretManagers?: SecretManagerConfig[], connectorName?: string) => {
+
+const getSelectSecretPopover = (formikProps?: FormikProps<any>) => {
+  return (
+    <Popover>
+      <div className={css.secretPop}>
+        <Icon name="key" size={24} /> <Icon name="chevron-down" size={14} />
+      </div>
+      <SecretReference
+        onSelect={secret => {
+          formikProps?.setFieldValue('password', secret?.name)
+        }}
+      />
+    </Popover>
+  )
+}
+const renderUserNameAndPassword = (
+  secretManagers?: SecretManagerConfig[],
+  connectorName?: string,
+  formikProps?: FormikProps<any>
+) => {
   const generatedId = StringUtils.getIdentifierFromName(connectorName || '')
   return (
     <>
       <FormInput.Text name="username" label="Username*" />
-      <FormInput.Text name="password" label="Password*" inputGroup={{ type: 'password' }} />
-      <Popover>
-        <Button minimal rightIcon="chevron-down">
-          <Icon name="key" />
-        </Button>
-        <SecretReference
-          onSelect={secret => {
-            // eslint-disable-next-line no-console
-            console.log({ secret })
-          }}
-        />
-      </Popover>
+      <FormInput.Text
+        name="password"
+        label={
+          <div className={css.labelWrp}>
+            <div className={css.passwordLabel}>Password</div>
+            {getSelectSecretPopover(formikProps)}
+          </div>
+        }
+        inputGroup={{ type: 'password' }}
+      />
       <FormikCreateInlineSecret
         name="passwordSecret"
         secretManagers={secretManagers}
@@ -209,11 +227,12 @@ const fieldsForOIDCToken = () => {
 export const getCustomFields = (
   authType: string | number | symbol,
   secretManagers?: SecretManagerConfig[],
-  connectorName?: string
+  connectorName?: string,
+  formikProps?: FormikProps<any>
 ) => {
   switch (authType) {
     case AuthTypes.USER_PASSWORD:
-      return renderUserNameAndPassword(secretManagers, connectorName)
+      return renderUserNameAndPassword(secretManagers, connectorName, formikProps)
     case AuthTypes.SERVICE_ACCOUNT:
       return customFieldsForServiceAccountToken()
     case AuthTypes.OIDC:

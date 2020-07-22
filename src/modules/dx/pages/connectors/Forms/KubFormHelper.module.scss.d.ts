@@ -7,5 +7,8 @@ declare const styles: {
   readonly line: string
   readonly clusterSelected: string
   readonly cluster: string
+  readonly labelWrp: string
+  readonly passwordLabel: string
+  readonly secretPop: string
 }
 export default styles
