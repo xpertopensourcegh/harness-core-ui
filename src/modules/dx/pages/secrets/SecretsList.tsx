@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 import ReactTimeago from 'react-timeago'
 import { Menu, Position } from '@blueprintjs/core'
 import type { Column, Renderer, CellProps } from 'react-table'
@@ -9,10 +9,13 @@ import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
 import { useListSecretsForAccount } from 'services/cd-ng'
 import type { EncryptedDataDTO } from 'services/cd-ng'
 import useCreateSecretModal, { SecretType } from 'modules/dx/modals/CreateSecretModal/useCreateSecretModal'
-import { Text, Color, Layout, Icon, Button, TextInput, SelectV2, Popover } from '@wings-software/uikit'
+import { Text, Color, Layout, Icon, Button, TextInput, SelectV2, Popover, Container } from '@wings-software/uikit'
+import { routeSecretDetails } from '../../routes'
+import { linkTo } from 'framework/exports'
 
 import css from './SecretsList.module.scss'
 import i18n from './SecretsList.i18n'
+import { PageError } from 'modules/common/components/Page/PageError'
 
 const getStringForType = (type?: string): string => {
   if (!type) return ''
@@ -32,7 +35,7 @@ const renderColumnSecret: Renderer<CellProps<EncryptedDataDTO>> = ({ row }) => {
     <Layout.Horizontal>
       <Icon name="key" size={28} padding={{ top: 'xsmall', right: 'small' }} />
       <div>
-        <Text font={{ weight: 'bold' }}>{data.name}</Text>
+        <Text color={Color.BLACK}>{data.name}</Text>
         <Text color={Color.GREY_400}>{data.uuid}</Text>
       </div>
     </Layout.Horizontal>
@@ -43,7 +46,7 @@ const renderColumnDetails: Renderer<CellProps<EncryptedDataDTO>> = ({ row }) => 
   const data = row.original
   return (
     <>
-      <Text font={{ weight: 'bold' }}>{data.encryptedBy}</Text>
+      <Text color={Color.BLACK}>{data.encryptedBy}</Text>
       <Text color={Color.GREY_400}>{getStringForType(data.type)}</Text>
     </>
   )
@@ -61,8 +64,9 @@ const renderColumnActivity: Renderer<CellProps<EncryptedDataDTO>> = ({ row }) =>
 
 const SecretsList: React.FC = () => {
   const { accountId } = useParams()
+  const history = useHistory()
   const { openCreateSecretModal } = useCreateSecretModal()
-  const { data: secretsResponse, loading } = useListSecretsForAccount({
+  const { data: secretsResponse, loading, error, refetch } = useListSecretsForAccount({
     queryParams: { accountIdentifier: accountId, type: 'SECRET_TEXT' }
   })
 
@@ -94,6 +98,7 @@ const SecretsList: React.FC = () => {
   const data: EncryptedDataDTO[] = useMemo(() => (secretsResponse?.data as any)?.response || [], [secretsResponse])
 
   if (loading) return <PageSpinner />
+  if (error) return <PageError message={error.message} onClick={() => refetch()} />
 
   return (
     <div>
@@ -124,7 +129,24 @@ const SecretsList: React.FC = () => {
           </span>
         </Layout.Horizontal>
       </Layout.Horizontal>
-      <Table<EncryptedDataDTO> className={css.table} columns={columns} data={data} />
+      {data.length > 0 ? (
+        <Table<EncryptedDataDTO>
+          className={css.table}
+          columns={columns}
+          data={data}
+          onRowClick={secret => {
+            history.push(
+              linkTo(routeSecretDetails, {
+                secretId: secret.uuid
+              })
+            )
+          }}
+        />
+      ) : (
+        <Container width="100%" height="100%" flex={{ align: 'center-center' }} padding="xlarge">
+          There are no secrets
+        </Container>
+      )}
     </div>
   )
 }

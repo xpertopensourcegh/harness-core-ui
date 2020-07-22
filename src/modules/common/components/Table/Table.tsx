@@ -8,7 +8,7 @@ interface TableProps<Data extends object> {
   columns: Column<Data>[]
   data: Data[]
   className?: string
-  onRowClick?: (index: number, data: Data) => void
+  onRowClick?: (data: Data, index: number) => void
 }
 
 const Table = <Data extends object>(props: TableProps<Data>): React.ReactElement => {
@@ -44,9 +44,9 @@ const Table = <Data extends object>(props: TableProps<Data>): React.ReactElement
           // eslint-disable-next-line react/jsx-key
           <div
             {...row.getRowProps()}
-            className={cx(css.row, css.card)}
+            className={cx(css.row, css.card, { [css.clickable]: !!props.onRowClick })}
             onClick={() => {
-              props.onRowClick?.(row.index, row.original)
+              props.onRowClick?.(row.original, row.index)
             }}
           >
             {row.cells.map((cell, index) => {

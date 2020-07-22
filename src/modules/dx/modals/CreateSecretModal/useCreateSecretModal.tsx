@@ -49,7 +49,7 @@ const useCreateSecretModal = (): UseCreateSecretModalReturn => {
         <Button minimal icon="cross" iconProps={{ size: 18 }} onClick={hideModal} className={css.crossIcon} />
       </Dialog>
     ),
-    [type]
+    [type, secretsManagersApiResponse]
   )
 
   return {

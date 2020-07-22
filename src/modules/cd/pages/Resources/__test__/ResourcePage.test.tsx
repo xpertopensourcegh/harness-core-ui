@@ -5,6 +5,7 @@ import i18n from '../ResourcesPage.i18n'
 import ResourcesPage from '../ResourcesPage'
 
 jest.spyOn(Date, 'now').mockImplementation(() => 1588885751000)
+jest.mock('modules/dx/pages/yamlBuilder/YamlBuilderPage', () => <div>MOCK YamlBuilderPage</div>)
 
 describe('ResourcesPage Snapshot', () => {
   test('should render ResourcesPage', () => {

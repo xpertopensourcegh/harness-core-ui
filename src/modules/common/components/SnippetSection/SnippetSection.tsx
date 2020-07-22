@@ -10,7 +10,7 @@ interface SnippetSectionProps {
   showIconMenu?: boolean
 }
 
-const SnippetSection = (props: SnippetSectionProps) => {
+const SnippetSection: React.FC<SnippetSectionProps> = props => {
   const icons = [
     { name: 'yaml-builder-env', label: 'Environment' },
     { name: 'yaml-builder-input-sets', label: 'Input Set' },
@@ -22,12 +22,12 @@ const SnippetSection = (props: SnippetSectionProps) => {
 
   const [selectedIcon, setSelectedIcon] = useState(icons[0].name)
 
-  const onIconClick = (event: any, icon: string) => {
+  const onIconClick = (event: any, icon: string): void => {
     event.preventDefault()
     setSelectedIcon(icon)
   }
 
-  const getIconList = () => {
+  const getIconList = (): React.ReactElement => {
     return (
       <React.Fragment>
         {icons.map(icon => (

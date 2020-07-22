@@ -1,6 +1,8 @@
 .table {
   .header {
     font-weight: bold;
+    font-size: smaller;
+    color: var(--black);
     display: block;
     padding: var(--spacing-medium) var(--spacing-xlarge);
   }
@@ -14,6 +16,13 @@
   .card {
     box-shadow: 0px 1px 6px -4px var(--black);
     border-radius: 10px;
+  }
+
+  .card.clickable {
+    cursor: pointer;
+    &:hover {
+      box-shadow: 0px 1px 6px -3px var(--black);
+    }
   }
 
   .cell {

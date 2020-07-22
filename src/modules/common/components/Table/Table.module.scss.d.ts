@@ -5,6 +5,7 @@ declare const styles: {
   readonly header: string
   readonly row: string
   readonly card: string
+  readonly clickable: string
   readonly cell: string
 }
 export default styles

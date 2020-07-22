@@ -8,7 +8,7 @@ import type YamlBuilderProps from 'modules/common/interfaces/YAMLBuilderProps'
 
 import css from './YamlBuilderPage.module.scss'
 
-const YAMLBuilderPage = (props: YamlBuilderProps) => {
+const YAMLBuilderPage: React.FC<YamlBuilderProps> = props => {
   return (
     <div className={css.builderSection}>
       <Layout.Horizontal className={css.layout}>

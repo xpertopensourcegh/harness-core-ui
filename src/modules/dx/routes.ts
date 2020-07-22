@@ -34,3 +34,13 @@ export const routeConnectorDetails: Route = {
       : `/account/${params?.accountId}/connectors/${params?.connectorId}&type=${params?.type}`,
   component: React.lazy(() => import('./pages/connectors/ConnectorDetailsPage'))
 }
+
+export const routeSecretDetails: Route = {
+  sidebarId: SidebarIdentifier.ACCOUNT,
+  path: '/secrets/:secretId',
+  title: i18n.secrets,
+  pageId: 'secret-details',
+  url: params => `/secrets/${params?.secretId}`,
+  component: React.lazy(() => import('./pages/secretDetails/SecretDetails')),
+  module: ModuleName.DX
+}

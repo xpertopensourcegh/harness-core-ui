@@ -8,6 +8,7 @@ import { Route, Switch } from 'react-router'
 import { Link, useRouteMatch, Redirect } from 'react-router-dom'
 import ConnectorsList from 'modules/dx/pages/connectors/ConnectorsList'
 import SecretsList from 'modules/dx/pages/secrets/SecretsList'
+import SecretDetails from 'modules/dx/pages/secretDetails/SecretDetails'
 
 interface Categories {
   [key: string]: string
@@ -52,6 +53,7 @@ const ResourcesPage: React.FC = () => {
         <Switch>
           <Redirect exact from={`${path}/`} to={`${path}/connectors`} />
           <Route path={`${path}/connectors`} component={ConnectorsList} />
+          <Route path={`${path}/secrets/:secretId`} component={SecretDetails} />
           <Route path={`${path}/secrets`} component={SecretsList} />
         </Switch>
       </Page.Body>

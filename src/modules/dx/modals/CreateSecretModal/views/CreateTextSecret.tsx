@@ -27,10 +27,12 @@ const CreateTextSecret: React.FC<CreateTextSecretProps> = props => {
 
   const secretManagersOptions: SelectOption[] = props.secretsManagers.map(item => {
     return {
-      label: item.encryptedBy || '',
+      label: item.name || '',
       value: item.uuid || ''
     }
   })
+  const defaultSecretManagerId = props.secretsManagers.filter(item => item.default)[0]?.uuid
+  const defaultSecretManagerOption = secretManagersOptions.filter(item => item.value === defaultSecretManagerId)[0]
 
   return (
     <>
@@ -59,7 +61,12 @@ const CreateTextSecret: React.FC<CreateTextSecretProps> = props => {
               placeholder={i18n.placeholderSecretValue}
               inputGroup={{ type: 'password' }}
             />
-            <FormInput.Select name="kmsId" label={i18n.labelSecretsManager} items={secretManagersOptions} />
+            <FormInput.Select
+              name="kmsId"
+              label={i18n.labelSecretsManager}
+              items={secretManagersOptions}
+              selectProps={{ defaultSelectedItem: defaultSecretManagerOption }}
+            />
             <Button intent="primary" type="submit" text="Submit" margin={{ top: 'large' }} />
           </FormikForm>
         )}

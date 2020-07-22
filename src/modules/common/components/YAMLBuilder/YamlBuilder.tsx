@@ -37,6 +37,7 @@ window.MonacoEnvironment = {
 const { yaml } = languages || {}
 
 const YAMLBuilder = (props: YamlBuilderProps) => {
+  const { height, width, fileName, entityType, existingYaml } = props
   const [entityYaml, setEntityYaml] = useState()
   const { bind } = props
 
@@ -52,8 +53,8 @@ const YAMLBuilder = (props: YamlBuilderProps) => {
     bind?.(handler)
   }, [bind, handler])
 
-  function loadEntitySchemas() {
-    const jsonSchemas = JSONSchemaService.fetchEntitySchemas()
+  function loadEntitySchemas(entityType: string) {
+    const jsonSchemas = JSONSchemaService.fetchEntitySchemas(entityType)
     return jsonSchemas
   }
 
@@ -62,12 +63,10 @@ const YAMLBuilder = (props: YamlBuilderProps) => {
   }
 
   useEffect(() => {
-    const jsonSchemas = loadEntitySchemas()
+    const jsonSchemas = loadEntitySchemas(entityType)
     yaml?.yamlDefaults.setDiagnosticsOptions(jsonSchemas)
     setEntityYaml(props.existingYaml)
-  }, [props.existingYaml])
-
-  const { height, width, fileName, entityType, existingYaml } = props
+  }, [existingYaml, entityType])
 
   return (
     <div className={css.main}>

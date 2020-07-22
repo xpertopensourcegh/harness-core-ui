@@ -1,7 +1,7 @@
 export default {
   table: {
     secret: 'SECRET',
-    secretManager: 'SECRET MANAGER',
+    secretManager: 'DETAILS',
     lastActivity: 'LAST ACTIVITY'
   },
   newSecret: {

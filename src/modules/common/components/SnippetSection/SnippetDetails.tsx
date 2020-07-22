@@ -15,17 +15,16 @@ interface SnippetDetailsProps {
   selectedIcon: string
 }
 
-const onCopy = () => {
-  //Need to confirm on copy behaviour
-  alert('Snippet copied!')
+const onCopy = (): void => {
+  // alert('Snippet copied!')
 }
-const copyToClipboard = (event: MouseEvent, snippetYaml: string) => {
+const copyToClipboard = (event: MouseEvent, snippetYaml: string): void => {
   event.preventDefault()
   copy(snippetYaml)
   onCopy()
 }
 
-const getSnippetDetail = (snippet: SnippetInterface) => {
+const getSnippetDetail = (snippet: SnippetInterface): React.ReactElement => {
   return (
     <div className={cx(css.flexCenter, css.snippet)} key={snippet.name}>
       <span className={css.icon}>
@@ -48,31 +47,32 @@ const getSnippetDetail = (snippet: SnippetInterface) => {
   )
 }
 
-const SnippetDetails = (props: SnippetDetailsProps) => {
+const SnippetDetails: React.FC<SnippetDetailsProps> = props => {
   const [snippets, setSnippets] = useState([] as SnippetInterface[])
   const [searchedSnippet, setSearchedSnippet] = useState('')
 
-  const fetchSnippets = () => {
-    const snippetsFetched = YAMLService.fetchSnippets() as SnippetInterface[]
+  const fetchSnippets = (entityType: string): void => {
+    const snippetsFetched = YAMLService.fetchSnippets(entityType) as SnippetInterface[]
+    // Randomizing to provide update effect
     setSnippets(snippetsFetched)
   }
 
-  const onSnippetSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const onSnippetSearch = (event: React.ChangeEvent<HTMLInputElement>): void => {
     event.preventDefault()
     const query = event.target.value
     setSearchedSnippet(query)
     setSnippets(snippets.slice().filter(snippet => snippet.name.toLowerCase().includes(query.toLowerCase())))
   }
 
-  const onSearchClear = (event: React.MouseEvent<HTMLElement>) => {
+  const onSearchClear = (event: React.MouseEvent<HTMLElement>): void => {
     event.preventDefault()
     setSearchedSnippet('')
-    fetchSnippets()
+    fetchSnippets(props.entityType)
   }
 
   //TODO Handle icon click when apis are ready
   useEffect(() => {
-    fetchSnippets()
+    fetchSnippets(props.entityType)
   }, [props.entityType, props.selectedIcon])
 
   return (
