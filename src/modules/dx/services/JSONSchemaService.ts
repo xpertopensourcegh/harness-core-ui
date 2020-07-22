@@ -10,3 +10,9 @@ export function fetchEntitySchemas(entityType: string): object {
       return jsonSchema
   }
 }
+
+export function fetchSuggestions(yamlPath: string) {
+  return yamlPath === 'cloudProvider'
+    ? ['Azure CP1', 'GCP CP3', 'GCP CP8', 'Azure CP5', 'Azure CP1', 'AWS CP2', 'AWS CP9', 'GCP CP4']
+    : ['Git Connector', 'Kubernetes Connector', 'Azure', 'GCP']
+}
