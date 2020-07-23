@@ -12,7 +12,7 @@ interface EditVisualSecretProps {
 
 const EditVisualSecret: React.FC<EditVisualSecretProps> = ({ secret }) => {
   const { accountId } = useParams()
-  const { mutate } = useUpdateSecretText({ queryParams: { accountId, uuid: secret.uuid } })
+  const { mutate } = useUpdateSecretText({ queryParams: { accountIdentifier: accountId } })
 
   const handleSubmit = async (data: EncryptedDataDTO): Promise<void> => {
     try {

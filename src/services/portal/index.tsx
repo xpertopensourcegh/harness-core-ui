@@ -1208,7 +1208,7 @@ export interface CVConfiguration {
   workflowConfig?: boolean
 }
 
-export interface SecretManagerConfig {
+export interface NGSecretManagerConfigDTO {
   uuid: string
   encryptionType?: 'LOCAL' | 'KMS' | 'GCP_KMS' | 'AWS_SECRETS_MANAGER' | 'AZURE_VAULT' | 'CYBERARK' | 'VAULT' | 'CUSTOM'
   accountId?: string
@@ -6629,7 +6629,7 @@ export interface RestResponseSecretManagerConfig {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
-  resource?: SecretManagerConfig
+  resource?: NGSecretManagerConfigDTO
   responseMessages?: ResponseMessage[]
 }
 
@@ -13921,7 +13921,7 @@ export interface RestResponseListSecretManagerConfig {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
-  resource?: SecretManagerConfig[]
+  resource?: NGSecretManagerConfigDTO[]
   responseMessages?: ResponseMessage[]
 }
 

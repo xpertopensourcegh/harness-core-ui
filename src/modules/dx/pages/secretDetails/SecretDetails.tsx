@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import cx from 'classnames'
 
-import { useGetSecretById } from 'services/cd-ng'
+import { useGetSecretText } from 'services/cd-ng'
 import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
 import { PageError } from 'modules/common/components/Page/PageError'
 import { Layout, Text, Color, Container, Button } from '@wings-software/uikit'
@@ -26,8 +26,8 @@ const SecretDetails: React.FC = () => {
   const { accountId, secretId } = useParams()
   const [editing, setEditing] = useState(false)
   const [mode, setMode] = useState<Mode>(Mode.VISUAL)
-  const { loading, data, refetch, error } = useGetSecretById({
-    secretId,
+  const { loading, data, refetch, error } = useGetSecretText({
+    identifier: secretId,
     queryParams: { accountIdentifier: accountId }
   })
 

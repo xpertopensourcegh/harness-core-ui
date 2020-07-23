@@ -2,7 +2,7 @@ import { Container, Layout, Select, SelectOption, Icon, Button } from '@wings-so
 import { linkTo, Sidebar, isRouteActive, routeParams } from 'framework/exports'
 import React from 'react'
 import i18n from './MenuDeployments.i18n'
-import { useGetProjectListForAccount } from 'services/cd-ng'
+import { useGetProjectListBasedOnFilter } from 'services/cd-ng'
 import { routeResources } from '../../common/routes'
 import { routePipelines, routeProjectOverview, routeDeployments, routeCDProjects } from '../routes'
 import css from './MenuDeployments.module.scss'
@@ -18,7 +18,7 @@ export const MenuDeployments: React.FC = () => {
   const {
     params: { accountId, projectIdentifier }
   } = routeParams()
-  const { data, loading } = useGetProjectListForAccount({ accountIdentifier: accountId })
+  const { data, loading } = useGetProjectListBasedOnFilter({ queryParams: { accountIdentifier: accountId } })
   const history = useHistory()
   const isProjectsPage = history.location.pathname.endsWith('/cd-projects')
   const [selectedProject, setProject] = React.useState<ProjectListOptions | undefined>()

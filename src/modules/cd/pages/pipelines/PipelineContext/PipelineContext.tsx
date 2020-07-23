@@ -2,7 +2,7 @@ import React from 'react'
 import type {
   CDPipelineDTO,
   GetPipelineYamlStringQueryParams,
-  PostPipelineDummyQueryParams,
+  PostPipelineExecuteQueryParams,
   ResponseDTOString
 } from 'services/cd-ng'
 import { openDB, IDBPDatabase, deleteDB } from 'idb'
@@ -40,7 +40,7 @@ export const getPipelineByIdentifier = (
 }
 
 export const savePipeline = (
-  params: PostPipelineDummyQueryParams,
+  params: PostPipelineExecuteQueryParams,
   pipeline: CDPipelineDTO,
   isEdit = false
 ): Promise<ResponseDTOString | undefined> => {

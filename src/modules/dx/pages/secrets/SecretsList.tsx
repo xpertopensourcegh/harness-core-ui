@@ -6,7 +6,7 @@ import type { Column, Renderer, CellProps } from 'react-table'
 
 import Table from 'modules/common/components/Table/Table'
 import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
-import { useListSecretsForAccount } from 'services/cd-ng'
+import { useListSecrets } from 'services/cd-ng'
 import type { EncryptedDataDTO } from 'services/cd-ng'
 import useCreateSecretModal, { SecretType } from 'modules/dx/modals/CreateSecretModal/useCreateSecretModal'
 import { Text, Color, Layout, Icon, Button, TextInput, SelectV2, Popover, Container } from '@wings-software/uikit'
@@ -66,7 +66,7 @@ const SecretsList: React.FC = () => {
   const { accountId } = useParams()
   const history = useHistory()
   const { openCreateSecretModal } = useCreateSecretModal()
-  const { data: secretsResponse, loading, error, refetch } = useListSecretsForAccount({
+  const { data: secretsResponse, loading, error, refetch } = useListSecrets({
     queryParams: { accountIdentifier: accountId, type: 'SECRET_TEXT' }
   })
 

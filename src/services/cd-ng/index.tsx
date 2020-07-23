@@ -5,14 +5,6 @@ import { Get, GetProps, useGet, UseGetProps, Mutate, MutateProps, useMutate, Use
 
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
 
-export interface RestResponseConnectorValidationResult {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: ConnectorValidationResult
-  responseMessages?: ResponseMessage[]
-}
-
 export interface ResponseDTOOptionalOrganizationDTO {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
   data?: OrganizationDTO
@@ -44,13 +36,6 @@ export interface StreamingOutput {
   [key: string]: any
 }
 
-export interface ResponseDTOListSecretManagerConfig {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: SecretManagerConfig[]
-  metaData?: { [key: string]: any }
-  correlationId?: string
-}
-
 export interface ResponseDTOEncryptedDataDTO {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
   data?: EncryptedDataDTO
@@ -58,24 +43,11 @@ export interface ResponseDTOEncryptedDataDTO {
   correlationId?: string
 }
 
-export interface EncryptedDataDetail {
-  encryptedData?: EncryptedRecordData
-  encryptionConfig?: EncryptionConfig
-  fieldName?: string
-}
-
-export interface ResponseDTOSecretManagerConfig {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: SecretManagerConfig
-  metaData?: { [key: string]: any }
-  correlationId?: string
-}
-
 export interface UpdateOrganizationDTO {
   name: string
-  color: string
-  description: string
-  tags: string[]
+  color?: string
+  description?: string
+  tags?: string[]
 }
 
 export interface ServiceOverrides {
@@ -89,13 +61,13 @@ export type K8SDirectInfrastructure = Infrastructure & {
   releaseName?: string
 }
 
+export interface SidecarArtifactWrapper {
+  identifier: string
+}
+
 export interface EncryptedDataParams {
   name?: string
   value?: string
-}
-
-export interface SidecarArtifactWrapper {
-  identifier: string
 }
 
 export interface ValidationError {
@@ -103,26 +75,13 @@ export interface ValidationError {
   error?: string
 }
 
-export interface PageProjectDTO {
-  totalPages?: number
-  totalElements?: number
-  size?: number
-  content?: ProjectDTO[]
-  number?: number
-  last?: boolean
-  numberOfElements?: number
-  pageable?: Pageable
-  first?: boolean
-  sort?: Sort
-  empty?: boolean
-}
-
 export interface UpdateProjectDTO {
   name: string
-  description: string
-  owners: string[]
-  tags: string[]
-  purposeList: string[]
+  color?: string
+  description?: string
+  owners?: string[]
+  tags?: string[]
+  modules?: ('CD' | 'CV' | 'CI' | 'CE' | 'CF')[]
 }
 
 export interface Tags {
@@ -145,10 +104,6 @@ export type GcrArtifactConfig = ArtifactConfig & {
 
 export interface ResponseData {
   [key: string]: any
-}
-
-export interface OptionalConnectorDTO {
-  present?: boolean
 }
 
 export interface ManifestOverrideSets {
@@ -179,6 +134,13 @@ export interface CreateOrganizationDTO {
   color: string
   description?: string
   tags: string[]
+}
+
+export interface ResponseDTOListNGSecretManagerConfigDTO {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: NGSecretManagerConfigDTO[]
+  metaData?: { [key: string]: any }
+  correlationId?: string
 }
 
 export interface Graph {
@@ -233,28 +195,27 @@ export interface ExecutionElement {
   rollbackSteps?: ExecutionWrapper[]
 }
 
-export interface EncryptedRecordData {
-  uuid?: string
+export type NGVaultConfigUpdateDTO = NGSecretManagerConfigUpdateDTO & {
+  authToken?: string
+  basePath?: string
+  vaultUrl?: string
   name?: string
-  path?: string
-  parameters?: EncryptedDataParams[]
-  encryptionKey?: string
-  encryptedValue?: string[]
-  kmsId?: string
+  renewIntervalHours?: number
+  secretEngineName?: string
+  appRoleId?: string
+  secretId?: string
+  readOnly?: boolean
+}
+
+export interface NGSecretManagerConfigDTO {
+  uuid?: string
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  tags?: string[]
+  identifier?: string
   encryptionType?: 'LOCAL' | 'KMS' | 'GCP_KMS' | 'AWS_SECRETS_MANAGER' | 'AZURE_VAULT' | 'CYBERARK' | 'VAULT' | 'CUSTOM'
-  backupEncryptedValue?: string[]
-  backupEncryptionKey?: string
-  backupKmsId?: string
-  backupEncryptionType?:
-    | 'LOCAL'
-    | 'KMS'
-    | 'GCP_KMS'
-    | 'AWS_SECRETS_MANAGER'
-    | 'AZURE_VAULT'
-    | 'CYBERARK'
-    | 'VAULT'
-    | 'CUSTOM'
-  base64Encoded?: boolean
+  default?: boolean
 }
 
 export interface StoreConfigWrapper {
@@ -262,17 +223,9 @@ export interface StoreConfigWrapper {
   spec?: StoreConfig
 }
 
-export interface ProjectDTO {
-  id?: string
-  accountIdentifier?: string
-  orgIdentifier?: string
-  identifier?: string
-  name?: string
-  color?: string
-  purposeList?: string[]
-  description?: string
-  owners?: string[]
-  tags?: string[]
+export interface InfraUseFromStage {
+  stage: string
+  overrides?: InfraOverrides
 }
 
 export interface GitSyncFolderConfigDTO {
@@ -282,9 +235,17 @@ export interface GitSyncFolderConfigDTO {
   enabled?: boolean
 }
 
-export interface InfraUseFromStage {
-  stage: string
-  overrides?: InfraOverrides
+export interface ProjectDTO {
+  id?: string
+  accountIdentifier?: string
+  orgIdentifier?: string
+  identifier?: string
+  name?: string
+  color?: string
+  modules?: ('CD' | 'CV' | 'CI' | 'CE' | 'CF')[]
+  description?: string
+  owners?: string[]
+  tags?: string[]
 }
 
 export interface ConnectorConfigDTO {
@@ -295,12 +256,26 @@ export interface StageElementWrapper {
   [key: string]: any
 }
 
+export interface ResponseDTOPageConnectorSummaryDTO {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: PageConnectorSummaryDTO
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
 export interface StackTraceElement {
   methodName?: string
   fileName?: string
   lineNumber?: number
   className?: string
   nativeMethod?: boolean
+}
+
+export interface ResponseDTONGSecretManagerConfigDTO {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: NGSecretManagerConfigDTO
+  metaData?: { [key: string]: any }
+  correlationId?: string
 }
 
 export interface PlanExecution {
@@ -330,6 +305,13 @@ export interface PlanExecution {
   endTs?: number
   lastUpdatedAt?: number
   version?: number
+}
+
+export interface ResponseDTOOptionalConnectorDTO {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: ConnectorDTO
+  metaData?: { [key: string]: any }
+  correlationId?: string
 }
 
 export interface RestResponseBoolean {
@@ -367,6 +349,11 @@ export interface ConnectorConfigSummaryDTO {
   [key: string]: any
 }
 
+export interface ServiceDefinition {
+  type?: string
+  spec?: ServiceSpec
+}
+
 export interface ResponseDTONGPageResponseProjectDTO {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
   data?: NGPageResponseProjectDTO
@@ -374,9 +361,8 @@ export interface ResponseDTONGPageResponseProjectDTO {
   correlationId?: string
 }
 
-export interface ServiceDefinition {
-  type?: string
-  spec?: ServiceSpec
+export interface ManifestAttributes {
+  [key: string]: any
 }
 
 export interface NGPageResponseOrganizationDTO {
@@ -386,10 +372,6 @@ export interface NGPageResponseOrganizationDTO {
   content?: OrganizationDTO[]
   pageNumber?: number
   empty?: boolean
-}
-
-export interface ManifestAttributes {
-  [key: string]: any
 }
 
 export interface ManifestConfigWrapper {
@@ -408,17 +390,17 @@ export interface CreateProjectDTO {
   identifier: string
   name: string
   color: string
-  purposeList: string[]
+  modules: ('CD' | 'CV' | 'CI' | 'CE' | 'CF')[]
   description?: string
   owners: string[]
   tags: string[]
 }
 
 export interface TemporalUnit {
-  timeBased?: boolean
-  duration?: Duration
   dateBased?: boolean
   durationEstimated?: boolean
+  timeBased?: boolean
+  duration?: Duration
 }
 
 export type K8sManifest = ManifestAttributes & {
@@ -440,6 +422,10 @@ export interface StepSpecType {
   [key: string]: any
 }
 
+export interface Outcome {
+  refType?: RefType
+}
+
 export interface ConnectorFilter {
   accountId?: string
   projectId?: string
@@ -448,10 +434,6 @@ export interface ConnectorFilter {
   tag?: Tags[]
   lastActivity?: number
   name?: string
-}
-
-export interface Outcome {
-  refType?: RefType
 }
 
 export interface Subgraph {
@@ -490,6 +472,13 @@ export type StepElement = ExecutionWrapper & {
   spec?: StepSpecType
 }
 
+export interface ResponseDTOOptionalProjectDTO {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: ProjectDTO
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
 export interface ConnectorSummaryDTO {
   identifier?: string
   name?: string
@@ -507,31 +496,6 @@ export interface ConnectorSummaryDTO {
   createdAt?: number
   lastModifiedAt?: number
   version?: number
-}
-
-export interface ResponseDTOOptionalProjectDTO {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: ProjectDTO
-  metaData?: { [key: string]: any }
-  correlationId?: string
-}
-
-export interface SecretManagerConfig {
-  uuid: string
-  encryptionType?: 'LOCAL' | 'KMS' | 'GCP_KMS' | 'AWS_SECRETS_MANAGER' | 'AZURE_VAULT' | 'CYBERARK' | 'VAULT' | 'CUSTOM'
-  accountId?: string
-  numOfEncryptedValue?: number
-  encryptedBy?: string
-  createdBy?: EmbeddedUser
-  createdAt?: number
-  lastUpdatedBy?: EmbeddedUser
-  lastUpdatedAt: number
-  nextTokenRenewIteration?: number
-  templatizedFields?: string[]
-  default?: boolean
-  encryptionServiceUrl?: string
-  validationCriteria?: string
-  name?: string
 }
 
 export type K8sRollingRollbackStepInfo = StepSpecType & {
@@ -571,16 +535,9 @@ export interface RestResponsePlanExecution {
   responseMessages?: ResponseMessage[]
 }
 
-export interface EncryptionConfig {
-  uuid?: string
-  accountId?: string
-  encryptionType?: 'LOCAL' | 'KMS' | 'GCP_KMS' | 'AWS_SECRETS_MANAGER' | 'AZURE_VAULT' | 'CYBERARK' | 'VAULT' | 'CUSTOM'
-  numOfEncryptedValue?: number
-  encryptionServiceUrl?: string
-  validationCriteria?: string
-  globalKms?: boolean
-  name?: string
-  default?: boolean
+export interface ServiceUseFromStage {
+  stage: string
+  overrides?: ServiceOverrides
 }
 
 export interface FailureDTO {
@@ -788,7 +745,7 @@ export interface FailureDTO {
     | 'FAILED_TO_ACQUIRE_PERSISTENT_LOCK'
     | 'POD_NOT_FOUND_ERROR'
     | 'COMMAND_EXECUTION_ERROR'
-    | 'ENGINE_REGISTRY_EXCEPTION'
+    | 'REGISTRY_EXCEPTION'
     | 'ENGINE_INTERRUPT_PROCESSING_EXCEPTION'
     | 'ENGINE_IO_EXCEPTION'
     | 'ENGINE_OUTCOME_EXCEPTION'
@@ -802,22 +759,23 @@ export interface FailureDTO {
   validationErrors?: ValidationError[]
 }
 
-export interface ServiceUseFromStage {
-  stage: string
-  overrides?: ServiceOverrides
-}
-
 export interface RefType {
   type?: string
 }
 
 export interface Pageable {
-  pageSize?: number
   offset?: number
+  sort?: Sort
+  paged?: boolean
   pageNumber?: number
   unpaged?: boolean
-  paged?: boolean
-  sort?: Sort
+  pageSize?: number
+}
+
+export interface NGSecretManagerConfigUpdateDTO {
+  tags?: string[]
+  encryptionType?: 'LOCAL' | 'KMS' | 'GCP_KMS' | 'AWS_SECRETS_MANAGER' | 'AZURE_VAULT' | 'CYBERARK' | 'VAULT' | 'CUSTOM'
+  default?: boolean
 }
 
 export type DeploymentStage = StageType & {
@@ -826,6 +784,13 @@ export type DeploymentStage = StageType & {
   execution?: ExecutionElement
   stageVariables?: StageVariables
   skipCondition?: string
+}
+
+export interface ResponseDTOConnectorValidationResult {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: ConnectorValidationResult
+  metaData?: { [key: string]: any }
+  correlationId?: string
 }
 
 export interface Sort {
@@ -845,6 +810,18 @@ export interface PipelineInfrastructure {
 
 export interface StepDependencySpec {
   [key: string]: any
+}
+
+export type NGVaultConfigDTO = NGSecretManagerConfigDTO & {
+  authToken?: string
+  basePath?: string
+  vaultUrl?: string
+  name?: string
+  renewIntervalHours?: number
+  secretEngineName?: string
+  appRoleId?: string
+  secretId?: string
+  readOnly?: boolean
 }
 
 export interface InfrastructureDef {
@@ -948,6 +925,8 @@ export interface EncryptedDataDTO {
     | 'CE_AWS'
     | 'CE_GCP'
     | 'AZURE_VAULT'
+    | 'KUBERNETES_CLUSTER_NG'
+    | 'GIT_NG'
   lastUpdatedAt?: number
 }
 
@@ -1172,7 +1151,7 @@ export interface ResponseMessage {
     | 'FAILED_TO_ACQUIRE_PERSISTENT_LOCK'
     | 'POD_NOT_FOUND_ERROR'
     | 'COMMAND_EXECUTION_ERROR'
-    | 'ENGINE_REGISTRY_EXCEPTION'
+    | 'REGISTRY_EXCEPTION'
     | 'ENGINE_INTERRUPT_PROCESSING_EXCEPTION'
     | 'ENGINE_IO_EXCEPTION'
     | 'ENGINE_OUTCOME_EXCEPTION'
@@ -1260,18 +1239,17 @@ export interface StageOverridesConfig {
   manifests?: ManifestConfigWrapper[]
 }
 
-export interface ResponseDTOListEncryptedDataDetail {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: EncryptedDataDetail[]
-  metaData?: { [key: string]: any }
-  correlationId?: string
-}
-
 export interface ResponseDTOBoolean {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
   data?: boolean
   metaData?: { [key: string]: any }
   correlationId?: string
+}
+
+export interface Variable {
+  name: string
+  value: string
+  type: string
 }
 
 export interface ConnectorRequestDTO {
@@ -1283,12 +1261,6 @@ export interface ConnectorRequestDTO {
   tags?: string[]
   type?: 'KUBERNETES_CLUSTER' | 'GIT'
   spec?: ConnectorConfigDTO
-}
-
-export interface Variable {
-  name: string
-  value: string
-  type: string
 }
 
 export interface ErrorDTO {
@@ -1496,7 +1468,7 @@ export interface ErrorDTO {
     | 'FAILED_TO_ACQUIRE_PERSISTENT_LOCK'
     | 'POD_NOT_FOUND_ERROR'
     | 'COMMAND_EXECUTION_ERROR'
-    | 'ENGINE_REGISTRY_EXCEPTION'
+    | 'REGISTRY_EXCEPTION'
     | 'ENGINE_INTERRUPT_PROCESSING_EXCEPTION'
     | 'ENGINE_IO_EXCEPTION'
     | 'ENGINE_OUTCOME_EXCEPTION'
@@ -1508,13 +1480,6 @@ export interface ErrorDTO {
   message?: string
   correlationId?: string
   detailedMessage?: string
-}
-
-export interface ResponseDTOPageProjectDTO {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: PageProjectDTO
-  metaData?: { [key: string]: any }
-  correlationId?: string
 }
 
 export interface ResponseDTOProjectDTO {
@@ -1629,6 +1594,15 @@ export interface GitSyncConfigDTO {
   gitSyncFolderConfigDTOs?: GitSyncFolderConfigDTO[]
 }
 
+export interface ResponseDTOConnectorDTO {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: ConnectorDTO
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
+export type NGLocalConfigDTO = NGSecretManagerConfigDTO & {}
+
 export interface ResponseDTOPageCDPipelineDTO {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
   data?: PageCDPipelineDTO
@@ -1648,27 +1622,32 @@ export interface InfraOverrides {
 export interface PageCDPipelineDTO {
   totalPages?: number
   totalElements?: number
+  first?: boolean
   size?: number
   content?: CDPipelineDTO[]
   number?: number
-  last?: boolean
-  numberOfElements?: number
-  pageable?: Pageable
-  first?: boolean
   sort?: Sort
+  numberOfElements?: number
+  last?: boolean
+  pageable?: Pageable
   empty?: boolean
 }
 
-export interface SecretTextDTO {
+export interface SecretTextUpdateDTO {
   name?: string
   value?: string
   path?: string
-  parameters?: EncryptedDataParams[]
-  kmsId?: string
-  runtimeParameters?: {
-    [key: string]: string
-  }
-  scopedToAccount?: boolean
+}
+
+export interface SecretTextDTO {
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  identifier?: string
+  name?: string
+  value?: string
+  path?: string
+  secretManagerIdentifier?: string
 }
 
 export interface EnvironmentYaml {
@@ -1682,22 +1661,410 @@ export interface EnvironmentYaml {
 export interface PageConnectorSummaryDTO {
   totalPages?: number
   totalElements?: number
+  first?: boolean
   size?: number
   content?: ConnectorSummaryDTO[]
   number?: number
-  last?: boolean
-  numberOfElements?: number
-  pageable?: Pageable
-  first?: boolean
   sort?: Sort
+  numberOfElements?: number
+  last?: boolean
+  pageable?: Pageable
   empty?: boolean
 }
-
-export type SecretTextDTORequestBody = SecretTextDTO
 
 export type ConnectorRequestDTORequestBody = ConnectorRequestDTO
 
 export type GitSyncConfigDTORequestBody = GitSyncConfigDTO
+
+export interface GetConnectorListQueryParams {
+  page?: number
+  size?: number
+}
+
+export interface GetConnectorListPathParams {
+  accountIdentifier: string
+}
+
+export type GetConnectorListProps = Omit<
+  GetProps<ResponseDTOPageConnectorSummaryDTO, unknown, GetConnectorListQueryParams, GetConnectorListPathParams>,
+  'path'
+> &
+  GetConnectorListPathParams
+
+/**
+ * Gets Connector list
+ */
+export const GetConnectorList = ({ accountIdentifier, ...props }: GetConnectorListProps) => (
+  <Get<ResponseDTOPageConnectorSummaryDTO, unknown, GetConnectorListQueryParams, GetConnectorListPathParams>
+    path={`/accounts/${accountIdentifier}/connectors`}
+    base={'/cd/api'}
+    {...props}
+  />
+)
+
+export type UseGetConnectorListProps = Omit<
+  UseGetProps<ResponseDTOPageConnectorSummaryDTO, GetConnectorListQueryParams, GetConnectorListPathParams>,
+  'path'
+> &
+  GetConnectorListPathParams
+
+/**
+ * Gets Connector list
+ */
+export const useGetConnectorList = ({ accountIdentifier, ...props }: UseGetConnectorListProps) =>
+  useGet<ResponseDTOPageConnectorSummaryDTO, unknown, GetConnectorListQueryParams, GetConnectorListPathParams>(
+    ({ accountIdentifier }: GetConnectorListPathParams) => `/accounts/${accountIdentifier}/connectors`,
+    { base: '/cd/api', pathParams: { accountIdentifier }, ...props }
+  )
+
+export interface CreateConnectorPathParams {
+  accountIdentifier: string
+}
+
+export type CreateConnectorProps = Omit<
+  MutateProps<ResponseDTOConnectorDTO, unknown, void, ConnectorRequestDTORequestBody, CreateConnectorPathParams>,
+  'path' | 'verb'
+> &
+  CreateConnectorPathParams
+
+/**
+ * Creates a Connector
+ */
+export const CreateConnector = ({ accountIdentifier, ...props }: CreateConnectorProps) => (
+  <Mutate<ResponseDTOConnectorDTO, unknown, void, ConnectorRequestDTORequestBody, CreateConnectorPathParams>
+    verb="POST"
+    path={`/accounts/${accountIdentifier}/connectors`}
+    base={'/cd/api'}
+    {...props}
+  />
+)
+
+export type UseCreateConnectorProps = Omit<
+  UseMutateProps<ResponseDTOConnectorDTO, void, ConnectorRequestDTORequestBody, CreateConnectorPathParams>,
+  'path' | 'verb'
+> &
+  CreateConnectorPathParams
+
+/**
+ * Creates a Connector
+ */
+export const useCreateConnector = ({ accountIdentifier, ...props }: UseCreateConnectorProps) =>
+  useMutate<ResponseDTOConnectorDTO, unknown, void, ConnectorRequestDTORequestBody, CreateConnectorPathParams>(
+    'POST',
+    ({ accountIdentifier }: CreateConnectorPathParams) => `/accounts/${accountIdentifier}/connectors`,
+    { base: '/cd/api', pathParams: { accountIdentifier }, ...props }
+  )
+
+export interface UpdateConnectorPathParams {
+  accountIdentifier: string
+}
+
+export type UpdateConnectorProps = Omit<
+  MutateProps<ResponseDTOConnectorDTO, unknown, void, ConnectorRequestDTORequestBody, UpdateConnectorPathParams>,
+  'path' | 'verb'
+> &
+  UpdateConnectorPathParams
+
+/**
+ * Updates a Connector
+ */
+export const UpdateConnector = ({ accountIdentifier, ...props }: UpdateConnectorProps) => (
+  <Mutate<ResponseDTOConnectorDTO, unknown, void, ConnectorRequestDTORequestBody, UpdateConnectorPathParams>
+    verb="PUT"
+    path={`/accounts/${accountIdentifier}/connectors`}
+    base={'/cd/api'}
+    {...props}
+  />
+)
+
+export type UseUpdateConnectorProps = Omit<
+  UseMutateProps<ResponseDTOConnectorDTO, void, ConnectorRequestDTORequestBody, UpdateConnectorPathParams>,
+  'path' | 'verb'
+> &
+  UpdateConnectorPathParams
+
+/**
+ * Updates a Connector
+ */
+export const useUpdateConnector = ({ accountIdentifier, ...props }: UseUpdateConnectorProps) =>
+  useMutate<ResponseDTOConnectorDTO, unknown, void, ConnectorRequestDTORequestBody, UpdateConnectorPathParams>(
+    'PUT',
+    ({ accountIdentifier }: UpdateConnectorPathParams) => `/accounts/${accountIdentifier}/connectors`,
+    { base: '/cd/api', pathParams: { accountIdentifier }, ...props }
+  )
+
+export interface GetTestConnectionResultQueryParams {
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
+
+export interface GetTestConnectionResultPathParams {
+  accountIdentifier: string
+  connectorIdentifier: string
+}
+
+export type GetTestConnectionResultProps = Omit<
+  GetProps<
+    ResponseDTOConnectorValidationResult,
+    unknown,
+    GetTestConnectionResultQueryParams,
+    GetTestConnectionResultPathParams
+  >,
+  'path'
+> &
+  GetTestConnectionResultPathParams
+
+/**
+ * Test the connection
+ */
+export const GetTestConnectionResult = ({
+  accountIdentifier,
+  connectorIdentifier,
+  ...props
+}: GetTestConnectionResultProps) => (
+  <Get<
+    ResponseDTOConnectorValidationResult,
+    unknown,
+    GetTestConnectionResultQueryParams,
+    GetTestConnectionResultPathParams
+  >
+    path={`/accounts/${accountIdentifier}/connectors/testConnection/${connectorIdentifier}`}
+    base={'/cd/api'}
+    {...props}
+  />
+)
+
+export type UseGetTestConnectionResultProps = Omit<
+  UseGetProps<
+    ResponseDTOConnectorValidationResult,
+    GetTestConnectionResultQueryParams,
+    GetTestConnectionResultPathParams
+  >,
+  'path'
+> &
+  GetTestConnectionResultPathParams
+
+/**
+ * Test the connection
+ */
+export const useGetTestConnectionResult = ({
+  accountIdentifier,
+  connectorIdentifier,
+  ...props
+}: UseGetTestConnectionResultProps) =>
+  useGet<
+    ResponseDTOConnectorValidationResult,
+    unknown,
+    GetTestConnectionResultQueryParams,
+    GetTestConnectionResultPathParams
+  >(
+    ({ accountIdentifier, connectorIdentifier }: GetTestConnectionResultPathParams) =>
+      `/accounts/${accountIdentifier}/connectors/testConnection/${connectorIdentifier}`,
+    { base: '/cd/api', pathParams: { accountIdentifier, connectorIdentifier }, ...props }
+  )
+
+export interface GetConnectorStatusPathParams {
+  accountIdentifier: string
+}
+
+export type GetConnectorStatusProps = Omit<
+  MutateProps<
+    ResponseDTOConnectorValidationResult,
+    unknown,
+    void,
+    ConnectorRequestDTORequestBody,
+    GetConnectorStatusPathParams
+  >,
+  'path' | 'verb'
+> &
+  GetConnectorStatusPathParams
+
+/**
+ * Get the connectivity status of the Connector
+ */
+export const GetConnectorStatus = ({ accountIdentifier, ...props }: GetConnectorStatusProps) => (
+  <Mutate<
+    ResponseDTOConnectorValidationResult,
+    unknown,
+    void,
+    ConnectorRequestDTORequestBody,
+    GetConnectorStatusPathParams
+  >
+    verb="POST"
+    path={`/accounts/${accountIdentifier}/connectors/validate`}
+    base={'/cd/api'}
+    {...props}
+  />
+)
+
+export type UseGetConnectorStatusProps = Omit<
+  UseMutateProps<
+    ResponseDTOConnectorValidationResult,
+    void,
+    ConnectorRequestDTORequestBody,
+    GetConnectorStatusPathParams
+  >,
+  'path' | 'verb'
+> &
+  GetConnectorStatusPathParams
+
+/**
+ * Get the connectivity status of the Connector
+ */
+export const useGetConnectorStatus = ({ accountIdentifier, ...props }: UseGetConnectorStatusProps) =>
+  useMutate<
+    ResponseDTOConnectorValidationResult,
+    unknown,
+    void,
+    ConnectorRequestDTORequestBody,
+    GetConnectorStatusPathParams
+  >(
+    'POST',
+    ({ accountIdentifier }: GetConnectorStatusPathParams) => `/accounts/${accountIdentifier}/connectors/validate`,
+    { base: '/cd/api', pathParams: { accountIdentifier }, ...props }
+  )
+
+export interface ValidateTheIdentifierIsUniqueQueryParams {
+  orgIdentifier?: string
+  projectIdentifier?: string
+  connectorIdentifier?: string
+}
+
+export interface ValidateTheIdentifierIsUniquePathParams {
+  accountIdentifier: string
+}
+
+export type ValidateTheIdentifierIsUniqueProps = Omit<
+  GetProps<
+    ResponseDTOBoolean,
+    unknown,
+    ValidateTheIdentifierIsUniqueQueryParams,
+    ValidateTheIdentifierIsUniquePathParams
+  >,
+  'path'
+> &
+  ValidateTheIdentifierIsUniquePathParams
+
+/**
+ * Validate Identifier is unique
+ */
+export const ValidateTheIdentifierIsUnique = ({ accountIdentifier, ...props }: ValidateTheIdentifierIsUniqueProps) => (
+  <Get<ResponseDTOBoolean, unknown, ValidateTheIdentifierIsUniqueQueryParams, ValidateTheIdentifierIsUniquePathParams>
+    path={`/accounts/${accountIdentifier}/connectors/validateUniqueIdentifier`}
+    base={'/cd/api'}
+    {...props}
+  />
+)
+
+export type UseValidateTheIdentifierIsUniqueProps = Omit<
+  UseGetProps<ResponseDTOBoolean, ValidateTheIdentifierIsUniqueQueryParams, ValidateTheIdentifierIsUniquePathParams>,
+  'path'
+> &
+  ValidateTheIdentifierIsUniquePathParams
+
+/**
+ * Validate Identifier is unique
+ */
+export const useValidateTheIdentifierIsUnique = ({
+  accountIdentifier,
+  ...props
+}: UseValidateTheIdentifierIsUniqueProps) =>
+  useGet<
+    ResponseDTOBoolean,
+    unknown,
+    ValidateTheIdentifierIsUniqueQueryParams,
+    ValidateTheIdentifierIsUniquePathParams
+  >(
+    ({ accountIdentifier }: ValidateTheIdentifierIsUniquePathParams) =>
+      `/accounts/${accountIdentifier}/connectors/validateUniqueIdentifier`,
+    { base: '/cd/api', pathParams: { accountIdentifier }, ...props }
+  )
+
+export interface GetConnectorQueryParams {
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
+
+export interface GetConnectorPathParams {
+  accountIdentifier: string
+  connectorIdentifier: string
+}
+
+export type GetConnectorProps = Omit<
+  GetProps<ResponseDTOOptionalConnectorDTO, unknown, GetConnectorQueryParams, GetConnectorPathParams>,
+  'path'
+> &
+  GetConnectorPathParams
+
+/**
+ * Get Connector
+ */
+export const GetConnector = ({ accountIdentifier, connectorIdentifier, ...props }: GetConnectorProps) => (
+  <Get<ResponseDTOOptionalConnectorDTO, unknown, GetConnectorQueryParams, GetConnectorPathParams>
+    path={`/accounts/${accountIdentifier}/connectors/${connectorIdentifier}`}
+    base={'/cd/api'}
+    {...props}
+  />
+)
+
+export type UseGetConnectorProps = Omit<
+  UseGetProps<ResponseDTOOptionalConnectorDTO, GetConnectorQueryParams, GetConnectorPathParams>,
+  'path'
+> &
+  GetConnectorPathParams
+
+/**
+ * Get Connector
+ */
+export const useGetConnector = ({ accountIdentifier, connectorIdentifier, ...props }: UseGetConnectorProps) =>
+  useGet<ResponseDTOOptionalConnectorDTO, unknown, GetConnectorQueryParams, GetConnectorPathParams>(
+    ({ accountIdentifier, connectorIdentifier }: GetConnectorPathParams) =>
+      `/accounts/${accountIdentifier}/connectors/${connectorIdentifier}`,
+    { base: '/cd/api', pathParams: { accountIdentifier, connectorIdentifier }, ...props }
+  )
+
+export interface DeleteConnectorQueryParams {
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
+
+export interface DeleteConnectorPathParams {
+  accountIdentifier: string
+}
+
+export type DeleteConnectorProps = Omit<
+  MutateProps<ResponseDTOBoolean, unknown, DeleteConnectorQueryParams, string, DeleteConnectorPathParams>,
+  'path' | 'verb'
+> &
+  DeleteConnectorPathParams
+
+/**
+ * Delete a connector by identifier
+ */
+export const DeleteConnector = ({ accountIdentifier, ...props }: DeleteConnectorProps) => (
+  <Mutate<ResponseDTOBoolean, unknown, DeleteConnectorQueryParams, string, DeleteConnectorPathParams>
+    verb="DELETE"
+    path={`/accounts/${accountIdentifier}/connectors`}
+    base={'/cd/api'}
+    {...props}
+  />
+)
+
+export type UseDeleteConnectorProps = Omit<
+  UseMutateProps<ResponseDTOBoolean, DeleteConnectorQueryParams, string, DeleteConnectorPathParams>,
+  'path' | 'verb'
+> &
+  DeleteConnectorPathParams
+
+/**
+ * Delete a connector by identifier
+ */
+export const useDeleteConnector = ({ accountIdentifier, ...props }: UseDeleteConnectorProps) =>
+  useMutate<ResponseDTOBoolean, unknown, DeleteConnectorQueryParams, string, DeleteConnectorPathParams>(
+    'DELETE',
+    ({ accountIdentifier }: DeleteConnectorPathParams) => `/accounts/${accountIdentifier}/connectors`,
+    { base: '/cd/api', pathParams: { accountIdentifier }, ...props }
+  )
 
 export interface GetOrganizationListQueryParams {
   page?: number
@@ -1803,7 +2170,7 @@ export const usePostOrganization = ({ accountIdentifier, ...props }: UsePostOrga
 
 export interface GetOrganizationPathParams {
   accountIdentifier: string
-  organizationIdentifier: string
+  orgIdentifier: string
 }
 
 export type GetOrganizationProps = Omit<
@@ -1815,9 +2182,9 @@ export type GetOrganizationProps = Omit<
 /**
  * Get an Organization
  */
-export const GetOrganization = ({ accountIdentifier, organizationIdentifier, ...props }: GetOrganizationProps) => (
+export const GetOrganization = ({ accountIdentifier, orgIdentifier, ...props }: GetOrganizationProps) => (
   <Get<ResponseDTOOptionalOrganizationDTO, FailureDTO | ErrorDTO, void, GetOrganizationPathParams>
-    path={`/accounts/${accountIdentifier}/organizations/${organizationIdentifier}`}
+    path={`/accounts/${accountIdentifier}/organizations/${orgIdentifier}`}
     base={'/cd/api'}
     {...props}
   />
@@ -1832,16 +2199,16 @@ export type UseGetOrganizationProps = Omit<
 /**
  * Get an Organization
  */
-export const useGetOrganization = ({ accountIdentifier, organizationIdentifier, ...props }: UseGetOrganizationProps) =>
+export const useGetOrganization = ({ accountIdentifier, orgIdentifier, ...props }: UseGetOrganizationProps) =>
   useGet<ResponseDTOOptionalOrganizationDTO, FailureDTO | ErrorDTO, void, GetOrganizationPathParams>(
-    ({ accountIdentifier, organizationIdentifier }: GetOrganizationPathParams) =>
-      `/accounts/${accountIdentifier}/organizations/${organizationIdentifier}`,
-    { base: '/cd/api', pathParams: { accountIdentifier, organizationIdentifier }, ...props }
+    ({ accountIdentifier, orgIdentifier }: GetOrganizationPathParams) =>
+      `/accounts/${accountIdentifier}/organizations/${orgIdentifier}`,
+    { base: '/cd/api', pathParams: { accountIdentifier, orgIdentifier }, ...props }
   )
 
 export interface PutOrganizationPathParams {
   accountIdentifier: string
-  organizationIdentifier: string
+  orgIdentifier: string
 }
 
 export type PutOrganizationProps = Omit<
@@ -1859,7 +2226,7 @@ export type PutOrganizationProps = Omit<
 /**
  * Update Organization by identifier
  */
-export const PutOrganization = ({ accountIdentifier, organizationIdentifier, ...props }: PutOrganizationProps) => (
+export const PutOrganization = ({ accountIdentifier, orgIdentifier, ...props }: PutOrganizationProps) => (
   <Mutate<
     ResponseDTOOptionalOrganizationDTO,
     FailureDTO | ErrorDTO,
@@ -1868,7 +2235,7 @@ export const PutOrganization = ({ accountIdentifier, organizationIdentifier, ...
     PutOrganizationPathParams
   >
     verb="PUT"
-    path={`/accounts/${accountIdentifier}/organizations/${organizationIdentifier}`}
+    path={`/accounts/${accountIdentifier}/organizations/${orgIdentifier}`}
     base={'/cd/api'}
     {...props}
   />
@@ -1883,7 +2250,7 @@ export type UsePutOrganizationProps = Omit<
 /**
  * Update Organization by identifier
  */
-export const usePutOrganization = ({ accountIdentifier, organizationIdentifier, ...props }: UsePutOrganizationProps) =>
+export const usePutOrganization = ({ accountIdentifier, orgIdentifier, ...props }: UsePutOrganizationProps) =>
   useMutate<
     ResponseDTOOptionalOrganizationDTO,
     FailureDTO | ErrorDTO,
@@ -1892,9 +2259,9 @@ export const usePutOrganization = ({ accountIdentifier, organizationIdentifier, 
     PutOrganizationPathParams
   >(
     'PUT',
-    ({ accountIdentifier, organizationIdentifier }: PutOrganizationPathParams) =>
-      `/accounts/${accountIdentifier}/organizations/${organizationIdentifier}`,
-    { base: '/cd/api', pathParams: { accountIdentifier, organizationIdentifier }, ...props }
+    ({ accountIdentifier, orgIdentifier }: PutOrganizationPathParams) =>
+      `/accounts/${accountIdentifier}/organizations/${orgIdentifier}`,
+    { base: '/cd/api', pathParams: { accountIdentifier, orgIdentifier }, ...props }
   )
 
 export interface DeleteOrganizationPathParams {
@@ -1934,306 +2301,6 @@ export const useDeleteOrganization = ({ accountIdentifier, ...props }: UseDelete
     ({ accountIdentifier }: DeleteOrganizationPathParams) => `/accounts/${accountIdentifier}/organizations`,
     { base: '/cd/api', pathParams: { accountIdentifier }, ...props }
   )
-
-export interface GetProjectListForAccountQueryParams {
-  page?: number
-  size?: number
-  sort?: string[]
-}
-
-export interface GetProjectListForAccountPathParams {
-  accountIdentifier: string
-}
-
-export type GetProjectListForAccountProps = Omit<
-  GetProps<
-    ResponseDTOPageProjectDTO,
-    FailureDTO | ErrorDTO,
-    GetProjectListForAccountQueryParams,
-    GetProjectListForAccountPathParams
-  >,
-  'path'
-> &
-  GetProjectListForAccountPathParams
-
-/**
- * Gets Project list for an account
- */
-export const GetProjectListForAccount = ({ accountIdentifier, ...props }: GetProjectListForAccountProps) => (
-  <Get<
-    ResponseDTOPageProjectDTO,
-    FailureDTO | ErrorDTO,
-    GetProjectListForAccountQueryParams,
-    GetProjectListForAccountPathParams
-  >
-    path={`/accounts/${accountIdentifier}/projects`}
-    base={'/cd/api'}
-    {...props}
-  />
-)
-
-export type UseGetProjectListForAccountProps = Omit<
-  UseGetProps<ResponseDTOPageProjectDTO, GetProjectListForAccountQueryParams, GetProjectListForAccountPathParams>,
-  'path'
-> &
-  GetProjectListForAccountPathParams
-
-/**
- * Gets Project list for an account
- */
-export const useGetProjectListForAccount = ({ accountIdentifier, ...props }: UseGetProjectListForAccountProps) =>
-  useGet<
-    ResponseDTOPageProjectDTO,
-    FailureDTO | ErrorDTO,
-    GetProjectListForAccountQueryParams,
-    GetProjectListForAccountPathParams
-  >(({ accountIdentifier }: GetProjectListForAccountPathParams) => `/accounts/${accountIdentifier}/projects`, {
-    base: '/cd/api',
-    pathParams: { accountIdentifier },
-    ...props
-  })
-
-export interface GetConnectorListQueryParams {
-  page?: number
-  size?: number
-  accountIdentifier?: string
-}
-
-export type GetConnectorListProps = Omit<
-  GetProps<PageConnectorSummaryDTO, unknown, GetConnectorListQueryParams, void>,
-  'path'
->
-
-/**
- * Gets Connector list
- */
-export const GetConnectorList = (props: GetConnectorListProps) => (
-  <Get<PageConnectorSummaryDTO, unknown, GetConnectorListQueryParams, void>
-    path={`/connectors`}
-    base={'/cd/api'}
-    {...props}
-  />
-)
-
-export type UseGetConnectorListProps = Omit<
-  UseGetProps<PageConnectorSummaryDTO, GetConnectorListQueryParams, void>,
-  'path'
->
-
-/**
- * Gets Connector list
- */
-export const useGetConnectorList = (props: UseGetConnectorListProps) =>
-  useGet<PageConnectorSummaryDTO, unknown, GetConnectorListQueryParams, void>(`/connectors`, {
-    base: '/cd/api',
-    ...props
-  })
-
-export interface CreateConnectorQueryParams {
-  accountIdentifier?: string
-}
-
-export type CreateConnectorProps = Omit<
-  MutateProps<ConnectorDTO, unknown, CreateConnectorQueryParams, ConnectorRequestDTORequestBody, void>,
-  'path' | 'verb'
->
-
-/**
- * Creates a Connector
- */
-export const CreateConnector = (props: CreateConnectorProps) => (
-  <Mutate<ConnectorDTO, unknown, CreateConnectorQueryParams, ConnectorRequestDTORequestBody, void>
-    verb="POST"
-    path={`/connectors`}
-    base={'/cd/api'}
-    {...props}
-  />
-)
-
-export type UseCreateConnectorProps = Omit<
-  UseMutateProps<ConnectorDTO, CreateConnectorQueryParams, ConnectorRequestDTORequestBody, void>,
-  'path' | 'verb'
->
-
-/**
- * Creates a Connector
- */
-export const useCreateConnector = (props: UseCreateConnectorProps) =>
-  useMutate<ConnectorDTO, unknown, CreateConnectorQueryParams, ConnectorRequestDTORequestBody, void>(
-    'POST',
-    `/connectors`,
-    { base: '/cd/api', ...props }
-  )
-
-export interface UpdateConnectorQueryParams {
-  accountIdentifier?: string
-}
-
-export type UpdateConnectorProps = Omit<
-  MutateProps<ConnectorDTO, unknown, UpdateConnectorQueryParams, ConnectorRequestDTORequestBody, void>,
-  'path' | 'verb'
->
-
-/**
- * Updates a Connector
- */
-export const UpdateConnector = (props: UpdateConnectorProps) => (
-  <Mutate<ConnectorDTO, unknown, UpdateConnectorQueryParams, ConnectorRequestDTORequestBody, void>
-    verb="PUT"
-    path={`/connectors`}
-    base={'/cd/api'}
-    {...props}
-  />
-)
-
-export type UseUpdateConnectorProps = Omit<
-  UseMutateProps<ConnectorDTO, UpdateConnectorQueryParams, ConnectorRequestDTORequestBody, void>,
-  'path' | 'verb'
->
-
-/**
- * Updates a Connector
- */
-export const useUpdateConnector = (props: UseUpdateConnectorProps) =>
-  useMutate<ConnectorDTO, unknown, UpdateConnectorQueryParams, ConnectorRequestDTORequestBody, void>(
-    'PUT',
-    `/connectors`,
-    { base: '/cd/api', ...props }
-  )
-
-export interface GetConnectorStatusQueryParams {
-  accountIdentifier?: string
-}
-
-export type GetConnectorStatusProps = Omit<
-  MutateProps<
-    RestResponseConnectorValidationResult,
-    unknown,
-    GetConnectorStatusQueryParams,
-    ConnectorRequestDTORequestBody,
-    void
-  >,
-  'path' | 'verb'
->
-
-/**
- * Get the connectivity status of the Connector
- */
-export const GetConnectorStatus = (props: GetConnectorStatusProps) => (
-  <Mutate<
-    RestResponseConnectorValidationResult,
-    unknown,
-    GetConnectorStatusQueryParams,
-    ConnectorRequestDTORequestBody,
-    void
-  >
-    verb="POST"
-    path={`/connectors/validate`}
-    base={'/cd/api'}
-    {...props}
-  />
-)
-
-export type UseGetConnectorStatusProps = Omit<
-  UseMutateProps<
-    RestResponseConnectorValidationResult,
-    GetConnectorStatusQueryParams,
-    ConnectorRequestDTORequestBody,
-    void
-  >,
-  'path' | 'verb'
->
-
-/**
- * Get the connectivity status of the Connector
- */
-export const useGetConnectorStatus = (props: UseGetConnectorStatusProps) =>
-  useMutate<
-    RestResponseConnectorValidationResult,
-    unknown,
-    GetConnectorStatusQueryParams,
-    ConnectorRequestDTORequestBody,
-    void
-  >('POST', `/connectors/validate`, { base: '/cd/api', ...props })
-
-export interface GetConnectorQueryParams {
-  accountIdentifier?: string
-  orgIdentifier?: string
-  projectIdentifier?: string
-}
-
-export interface GetConnectorPathParams {
-  connectorIdentifier: string
-}
-
-export type GetConnectorProps = Omit<
-  GetProps<ConnectorDTO, unknown, GetConnectorQueryParams, GetConnectorPathParams>,
-  'path'
-> &
-  GetConnectorPathParams
-
-/**
- * Get Connector
- */
-export const GetConnector = ({ connectorIdentifier, ...props }: GetConnectorProps) => (
-  <Get<ConnectorDTO, unknown, GetConnectorQueryParams, GetConnectorPathParams>
-    path={`/connectors/${connectorIdentifier}`}
-    base={'/cd/api'}
-    {...props}
-  />
-)
-
-export type UseGetConnectorProps = Omit<
-  UseGetProps<ConnectorDTO, GetConnectorQueryParams, GetConnectorPathParams>,
-  'path'
-> &
-  GetConnectorPathParams
-
-/**
- * Get Connector
- */
-export const useGetConnector = ({ connectorIdentifier, ...props }: UseGetConnectorProps) =>
-  useGet<ConnectorDTO, unknown, GetConnectorQueryParams, GetConnectorPathParams>(
-    ({ connectorIdentifier }: GetConnectorPathParams) => `/connectors/${connectorIdentifier}`,
-    { base: '/cd/api', pathParams: { connectorIdentifier }, ...props }
-  )
-
-export interface DeleteConnectorQueryParams {
-  accountIdentifier?: string
-  orgIdentifier?: string
-  projectIdentifier?: string
-}
-
-export type DeleteConnectorProps = Omit<
-  MutateProps<boolean, unknown, DeleteConnectorQueryParams, string, void>,
-  'path' | 'verb'
->
-
-/**
- * Delete a connector by identifier
- */
-export const DeleteConnector = (props: DeleteConnectorProps) => (
-  <Mutate<boolean, unknown, DeleteConnectorQueryParams, string, void>
-    verb="DELETE"
-    path={`/connectors`}
-    base={'/cd/api'}
-    {...props}
-  />
-)
-
-export type UseDeleteConnectorProps = Omit<
-  UseMutateProps<boolean, DeleteConnectorQueryParams, string, void>,
-  'path' | 'verb'
->
-
-/**
- * Delete a connector by identifier
- */
-export const useDeleteConnector = (props: UseDeleteConnectorProps) =>
-  useMutate<boolean, unknown, DeleteConnectorQueryParams, string, void>('DELETE', `/connectors`, {
-    base: '/cd/api',
-    ...props
-  })
 
 export interface PostDelegateQueryParams {
   accountId?: string
@@ -3093,20 +3160,60 @@ export const useGetPipelineYaml = ({ pipelineIdentifier, ...props }: UseGetPipel
     { base: '/cd/api', pathParams: { pipelineIdentifier }, ...props }
   )
 
-export interface ListSecretManagersQueryParams {
-  accountIdentifier: string
+export interface GetProjectListBasedOnFilterQueryParams {
+  accountIdentifier?: string
+  filterQuery?: string
+  page?: number
+  size?: number
+  sort?: string[]
 }
 
-export type ListSecretManagersProps = Omit<
-  GetProps<ResponseDTOListSecretManagerConfig, FailureDTO | ErrorDTO, ListSecretManagersQueryParams, void>,
+export type GetProjectListBasedOnFilterProps = Omit<
+  GetProps<ResponseDTONGPageResponseProjectDTO, FailureDTO | ErrorDTO, GetProjectListBasedOnFilterQueryParams, void>,
   'path'
 >
 
 /**
- * Get secret managers for an account
+ * Gets Project list based on filter
+ */
+export const GetProjectListBasedOnFilter = (props: GetProjectListBasedOnFilterProps) => (
+  <Get<ResponseDTONGPageResponseProjectDTO, FailureDTO | ErrorDTO, GetProjectListBasedOnFilterQueryParams, void>
+    path={`/projects`}
+    base={'/cd/api'}
+    {...props}
+  />
+)
+
+export type UseGetProjectListBasedOnFilterProps = Omit<
+  UseGetProps<ResponseDTONGPageResponseProjectDTO, GetProjectListBasedOnFilterQueryParams, void>,
+  'path'
+>
+
+/**
+ * Gets Project list based on filter
+ */
+export const useGetProjectListBasedOnFilter = (props: UseGetProjectListBasedOnFilterProps) =>
+  useGet<ResponseDTONGPageResponseProjectDTO, FailureDTO | ErrorDTO, GetProjectListBasedOnFilterQueryParams, void>(
+    `/projects`,
+    { base: '/cd/api', ...props }
+  )
+
+export interface ListSecretManagersQueryParams {
+  accountIdentifier: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
+
+export type ListSecretManagersProps = Omit<
+  GetProps<ResponseDTOListNGSecretManagerConfigDTO, FailureDTO | ErrorDTO, ListSecretManagersQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get secret managers
  */
 export const ListSecretManagers = (props: ListSecretManagersProps) => (
-  <Get<ResponseDTOListSecretManagerConfig, FailureDTO | ErrorDTO, ListSecretManagersQueryParams, void>
+  <Get<ResponseDTOListNGSecretManagerConfigDTO, FailureDTO | ErrorDTO, ListSecretManagersQueryParams, void>
     path={`/secret-managers`}
     base={'/cd/api'}
     {...props}
@@ -3114,39 +3221,29 @@ export const ListSecretManagers = (props: ListSecretManagersProps) => (
 )
 
 export type UseListSecretManagersProps = Omit<
-  UseGetProps<ResponseDTOListSecretManagerConfig, ListSecretManagersQueryParams, void>,
+  UseGetProps<ResponseDTOListNGSecretManagerConfigDTO, ListSecretManagersQueryParams, void>,
   'path'
 >
 
 /**
- * Get secret managers for an account
+ * Get secret managers
  */
 export const useListSecretManagers = (props: UseListSecretManagersProps) =>
-  useGet<ResponseDTOListSecretManagerConfig, FailureDTO | ErrorDTO, ListSecretManagersQueryParams, void>(
+  useGet<ResponseDTOListNGSecretManagerConfigDTO, FailureDTO | ErrorDTO, ListSecretManagersQueryParams, void>(
     `/secret-managers`,
     { base: '/cd/api', ...props }
   )
 
-export interface SaveOrUpdateSecretManagerQueryParams {
-  accountIdentifier: string
-}
-
-export type SaveOrUpdateSecretManagerProps = Omit<
-  MutateProps<
-    ResponseDTOString,
-    FailureDTO | ErrorDTO,
-    SaveOrUpdateSecretManagerQueryParams,
-    SecretManagerConfig,
-    void
-  >,
+export type CreateSecretManagerProps = Omit<
+  MutateProps<ResponseDTOString, FailureDTO | ErrorDTO, void, NGSecretManagerConfigDTO, void>,
   'path' | 'verb'
 >
 
 /**
- * Create or update a secret manager
+ * Create a secret manager
  */
-export const SaveOrUpdateSecretManager = (props: SaveOrUpdateSecretManagerProps) => (
-  <Mutate<ResponseDTOString, FailureDTO | ErrorDTO, SaveOrUpdateSecretManagerQueryParams, SecretManagerConfig, void>
+export const CreateSecretManager = (props: CreateSecretManagerProps) => (
+  <Mutate<ResponseDTOString, FailureDTO | ErrorDTO, void, NGSecretManagerConfigDTO, void>
     verb="POST"
     path={`/secret-managers`}
     base={'/cd/api'}
@@ -3154,79 +3251,154 @@ export const SaveOrUpdateSecretManager = (props: SaveOrUpdateSecretManagerProps)
   />
 )
 
-export type UseSaveOrUpdateSecretManagerProps = Omit<
-  UseMutateProps<ResponseDTOString, SaveOrUpdateSecretManagerQueryParams, SecretManagerConfig, void>,
+export type UseCreateSecretManagerProps = Omit<
+  UseMutateProps<ResponseDTOString, void, NGSecretManagerConfigDTO, void>,
   'path' | 'verb'
 >
 
 /**
- * Create or update a secret manager
+ * Create a secret manager
  */
-export const useSaveOrUpdateSecretManager = (props: UseSaveOrUpdateSecretManagerProps) =>
-  useMutate<ResponseDTOString, FailureDTO | ErrorDTO, SaveOrUpdateSecretManagerQueryParams, SecretManagerConfig, void>(
+export const useCreateSecretManager = (props: UseCreateSecretManagerProps) =>
+  useMutate<ResponseDTOString, FailureDTO | ErrorDTO, void, NGSecretManagerConfigDTO, void>(
     'POST',
     `/secret-managers`,
     { base: '/cd/api', ...props }
   )
 
-export interface GetSecretManagerByIdQueryParams {
+export interface GetSecretManagerByIdentifierQueryParams {
   accountIdentifier: string
+  orgIdentifier?: string
+  projectIdentifier?: string
 }
 
-export interface GetSecretManagerByIdPathParams {
-  kmsId: string
+export interface GetSecretManagerByIdentifierPathParams {
+  identifier: string
 }
 
-export type GetSecretManagerByIdProps = Omit<
+export type GetSecretManagerByIdentifierProps = Omit<
   GetProps<
-    ResponseDTOSecretManagerConfig,
+    ResponseDTONGSecretManagerConfigDTO,
     FailureDTO | ErrorDTO,
-    GetSecretManagerByIdQueryParams,
-    GetSecretManagerByIdPathParams
+    GetSecretManagerByIdentifierQueryParams,
+    GetSecretManagerByIdentifierPathParams
   >,
   'path'
 > &
-  GetSecretManagerByIdPathParams
+  GetSecretManagerByIdentifierPathParams
 
 /**
- * Get a secret manager by kmsId
+ * Get a secret manager by identifier
  */
-export const GetSecretManagerById = ({ kmsId, ...props }: GetSecretManagerByIdProps) => (
+export const GetSecretManagerByIdentifier = ({ identifier, ...props }: GetSecretManagerByIdentifierProps) => (
   <Get<
-    ResponseDTOSecretManagerConfig,
+    ResponseDTONGSecretManagerConfigDTO,
     FailureDTO | ErrorDTO,
-    GetSecretManagerByIdQueryParams,
-    GetSecretManagerByIdPathParams
+    GetSecretManagerByIdentifierQueryParams,
+    GetSecretManagerByIdentifierPathParams
   >
-    path={`/secret-managers/${kmsId}`}
+    path={`/secret-managers/${identifier}`}
     base={'/cd/api'}
     {...props}
   />
 )
 
-export type UseGetSecretManagerByIdProps = Omit<
-  UseGetProps<ResponseDTOSecretManagerConfig, GetSecretManagerByIdQueryParams, GetSecretManagerByIdPathParams>,
+export type UseGetSecretManagerByIdentifierProps = Omit<
+  UseGetProps<
+    ResponseDTONGSecretManagerConfigDTO,
+    GetSecretManagerByIdentifierQueryParams,
+    GetSecretManagerByIdentifierPathParams
+  >,
   'path'
 > &
-  GetSecretManagerByIdPathParams
+  GetSecretManagerByIdentifierPathParams
 
 /**
- * Get a secret manager by kmsId
+ * Get a secret manager by identifier
  */
-export const useGetSecretManagerById = ({ kmsId, ...props }: UseGetSecretManagerByIdProps) =>
+export const useGetSecretManagerByIdentifier = ({ identifier, ...props }: UseGetSecretManagerByIdentifierProps) =>
   useGet<
-    ResponseDTOSecretManagerConfig,
+    ResponseDTONGSecretManagerConfigDTO,
     FailureDTO | ErrorDTO,
-    GetSecretManagerByIdQueryParams,
-    GetSecretManagerByIdPathParams
-  >(({ kmsId }: GetSecretManagerByIdPathParams) => `/secret-managers/${kmsId}`, {
+    GetSecretManagerByIdentifierQueryParams,
+    GetSecretManagerByIdentifierPathParams
+  >(({ identifier }: GetSecretManagerByIdentifierPathParams) => `/secret-managers/${identifier}`, {
     base: '/cd/api',
-    pathParams: { kmsId },
+    pathParams: { identifier },
+    ...props
+  })
+
+export interface UpdateSecretManagerQueryParams {
+  accountIdentifier: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
+
+export interface UpdateSecretManagerPathParams {
+  identifier: string
+}
+
+export type UpdateSecretManagerProps = Omit<
+  MutateProps<
+    ResponseDTOString,
+    FailureDTO | ErrorDTO,
+    UpdateSecretManagerQueryParams,
+    NGSecretManagerConfigUpdateDTO,
+    UpdateSecretManagerPathParams
+  >,
+  'path' | 'verb'
+> &
+  UpdateSecretManagerPathParams
+
+/**
+ * Update secret manager
+ */
+export const UpdateSecretManager = ({ identifier, ...props }: UpdateSecretManagerProps) => (
+  <Mutate<
+    ResponseDTOString,
+    FailureDTO | ErrorDTO,
+    UpdateSecretManagerQueryParams,
+    NGSecretManagerConfigUpdateDTO,
+    UpdateSecretManagerPathParams
+  >
+    verb="PUT"
+    path={`/secret-managers/${identifier}`}
+    base={'/cd/api'}
+    {...props}
+  />
+)
+
+export type UseUpdateSecretManagerProps = Omit<
+  UseMutateProps<
+    ResponseDTOString,
+    UpdateSecretManagerQueryParams,
+    NGSecretManagerConfigUpdateDTO,
+    UpdateSecretManagerPathParams
+  >,
+  'path' | 'verb'
+> &
+  UpdateSecretManagerPathParams
+
+/**
+ * Update secret manager
+ */
+export const useUpdateSecretManager = ({ identifier, ...props }: UseUpdateSecretManagerProps) =>
+  useMutate<
+    ResponseDTOString,
+    FailureDTO | ErrorDTO,
+    UpdateSecretManagerQueryParams,
+    NGSecretManagerConfigUpdateDTO,
+    UpdateSecretManagerPathParams
+  >('PUT', ({ identifier }: UpdateSecretManagerPathParams) => `/secret-managers/${identifier}`, {
+    base: '/cd/api',
+    pathParams: { identifier },
     ...props
   })
 
 export interface DeleteSecretManagerQueryParams {
   accountIdentifier: string
+  orgIdentifier?: string
+  projectIdentifier?: string
 }
 
 export type DeleteSecretManagerProps = Omit<
@@ -3261,48 +3433,49 @@ export const useDeleteSecretManager = (props: UseDeleteSecretManagerProps) =>
     { base: '/cd/api', ...props }
   )
 
-export interface ListSecretsForAccountQueryParams {
+export interface ListSecretsQueryParams {
   accountIdentifier: string
+  orgIdentifier?: string
+  projectIdentifier?: string
   type?: 'CONFIG_FILE' | 'SECRET_TEXT'
 }
 
-export type ListSecretsForAccountProps = Omit<
-  GetProps<ResponseDTOListEncryptedDataDTO, FailureDTO | ErrorDTO, ListSecretsForAccountQueryParams, void>,
+export type ListSecretsProps = Omit<
+  GetProps<ResponseDTOListEncryptedDataDTO, FailureDTO | ErrorDTO, ListSecretsQueryParams, void>,
   'path'
 >
 
 /**
  * Get secrets for an account
  */
-export const ListSecretsForAccount = (props: ListSecretsForAccountProps) => (
-  <Get<ResponseDTOListEncryptedDataDTO, FailureDTO | ErrorDTO, ListSecretsForAccountQueryParams, void>
+export const ListSecrets = (props: ListSecretsProps) => (
+  <Get<ResponseDTOListEncryptedDataDTO, FailureDTO | ErrorDTO, ListSecretsQueryParams, void>
     path={`/secrets`}
     base={'/cd/api'}
     {...props}
   />
 )
 
-export type UseListSecretsForAccountProps = Omit<
-  UseGetProps<ResponseDTOListEncryptedDataDTO, ListSecretsForAccountQueryParams, void>,
+export type UseListSecretsProps = Omit<
+  UseGetProps<ResponseDTOListEncryptedDataDTO, ListSecretsQueryParams, void>,
   'path'
 >
 
 /**
  * Get secrets for an account
  */
-export const useListSecretsForAccount = (props: UseListSecretsForAccountProps) =>
-  useGet<ResponseDTOListEncryptedDataDTO, FailureDTO | ErrorDTO, ListSecretsForAccountQueryParams, void>(`/secrets`, {
+export const useListSecrets = (props: UseListSecretsProps) =>
+  useGet<ResponseDTOListEncryptedDataDTO, FailureDTO | ErrorDTO, ListSecretsQueryParams, void>(`/secrets`, {
     base: '/cd/api',
     ...props
   })
 
 export interface CreateSecretTextQueryParams {
-  accountId?: string
   local?: boolean
 }
 
 export type CreateSecretTextProps = Omit<
-  MutateProps<ResponseDTOString, FailureDTO | ErrorDTO, CreateSecretTextQueryParams, SecretTextDTORequestBody, void>,
+  MutateProps<ResponseDTOString, FailureDTO | ErrorDTO, CreateSecretTextQueryParams, SecretTextDTO, void>,
   'path' | 'verb'
 >
 
@@ -3310,7 +3483,7 @@ export type CreateSecretTextProps = Omit<
  * Create a secret text
  */
 export const CreateSecretText = (props: CreateSecretTextProps) => (
-  <Mutate<ResponseDTOString, FailureDTO | ErrorDTO, CreateSecretTextQueryParams, SecretTextDTORequestBody, void>
+  <Mutate<ResponseDTOString, FailureDTO | ErrorDTO, CreateSecretTextQueryParams, SecretTextDTO, void>
     verb="POST"
     path={`/secrets`}
     base={'/cd/api'}
@@ -3319,7 +3492,7 @@ export const CreateSecretText = (props: CreateSecretTextProps) => (
 )
 
 export type UseCreateSecretTextProps = Omit<
-  UseMutateProps<ResponseDTOString, CreateSecretTextQueryParams, SecretTextDTORequestBody, void>,
+  UseMutateProps<ResponseDTOString, CreateSecretTextQueryParams, SecretTextDTO, void>,
   'path' | 'verb'
 >
 
@@ -3327,19 +3500,20 @@ export type UseCreateSecretTextProps = Omit<
  * Create a secret text
  */
 export const useCreateSecretText = (props: UseCreateSecretTextProps) =>
-  useMutate<ResponseDTOString, FailureDTO | ErrorDTO, CreateSecretTextQueryParams, SecretTextDTORequestBody, void>(
+  useMutate<ResponseDTOString, FailureDTO | ErrorDTO, CreateSecretTextQueryParams, SecretTextDTO, void>(
     'POST',
     `/secrets`,
     { base: '/cd/api', ...props }
   )
 
 export interface UpdateSecretTextQueryParams {
-  accountId?: string
-  uuid?: string
+  accountIdentifier: string
+  orgIdentifier?: string
+  projectIdentifier?: string
 }
 
 export type UpdateSecretTextProps = Omit<
-  MutateProps<ResponseDTOBoolean, FailureDTO | ErrorDTO, UpdateSecretTextQueryParams, SecretTextDTORequestBody, void>,
+  MutateProps<ResponseDTOBoolean, FailureDTO | ErrorDTO, UpdateSecretTextQueryParams, SecretTextUpdateDTO, void>,
   'path' | 'verb'
 >
 
@@ -3347,7 +3521,7 @@ export type UpdateSecretTextProps = Omit<
  * Update a secret text
  */
 export const UpdateSecretText = (props: UpdateSecretTextProps) => (
-  <Mutate<ResponseDTOBoolean, FailureDTO | ErrorDTO, UpdateSecretTextQueryParams, SecretTextDTORequestBody, void>
+  <Mutate<ResponseDTOBoolean, FailureDTO | ErrorDTO, UpdateSecretTextQueryParams, SecretTextUpdateDTO, void>
     verb="PUT"
     path={`/secrets`}
     base={'/cd/api'}
@@ -3356,7 +3530,7 @@ export const UpdateSecretText = (props: UpdateSecretTextProps) => (
 )
 
 export type UseUpdateSecretTextProps = Omit<
-  UseMutateProps<ResponseDTOBoolean, UpdateSecretTextQueryParams, SecretTextDTORequestBody, void>,
+  UseMutateProps<ResponseDTOBoolean, UpdateSecretTextQueryParams, SecretTextUpdateDTO, void>,
   'path' | 'verb'
 >
 
@@ -3364,15 +3538,16 @@ export type UseUpdateSecretTextProps = Omit<
  * Update a secret text
  */
 export const useUpdateSecretText = (props: UseUpdateSecretTextProps) =>
-  useMutate<ResponseDTOBoolean, FailureDTO | ErrorDTO, UpdateSecretTextQueryParams, SecretTextDTORequestBody, void>(
+  useMutate<ResponseDTOBoolean, FailureDTO | ErrorDTO, UpdateSecretTextQueryParams, SecretTextUpdateDTO, void>(
     'PUT',
     `/secrets`,
     { base: '/cd/api', ...props }
   )
 
 export interface DeleteSecretTextQueryParams {
-  accountId?: string
-  uuid?: string
+  accountIdentifier: string
+  orgIdentifier?: string
+  projectIdentifier?: string
 }
 
 export type DeleteSecretTextProps = Omit<
@@ -3406,66 +3581,44 @@ export const useDeleteSecretText = (props: UseDeleteSecretTextProps) =>
     ...props
   })
 
-export type TestProps = Omit<GetProps<ResponseDTOListEncryptedDataDetail, FailureDTO | ErrorDTO, void, void>, 'path'>
-
-/**
- * test
- */
-export const Test = (props: TestProps) => (
-  <Get<ResponseDTOListEncryptedDataDetail, FailureDTO | ErrorDTO, void, void>
-    path={`/secrets/test`}
-    base={'/cd/api'}
-    {...props}
-  />
-)
-
-export type UseTestProps = Omit<UseGetProps<ResponseDTOListEncryptedDataDetail, void, void>, 'path'>
-
-/**
- * test
- */
-export const useTest = (props: UseTestProps) =>
-  useGet<ResponseDTOListEncryptedDataDetail, FailureDTO | ErrorDTO, void, void>(`/secrets/test`, {
-    base: '/cd/api',
-    ...props
-  })
-
-export interface GetSecretByIdQueryParams {
+export interface GetSecretTextQueryParams {
   accountIdentifier: string
+  orgIdentifier?: string
+  projectIdentifier?: string
 }
 
-export interface GetSecretByIdPathParams {
-  secretId: string
+export interface GetSecretTextPathParams {
+  identifier: string
 }
 
-export type GetSecretByIdProps = Omit<
-  GetProps<ResponseDTOEncryptedDataDTO, FailureDTO | ErrorDTO, GetSecretByIdQueryParams, GetSecretByIdPathParams>,
+export type GetSecretTextProps = Omit<
+  GetProps<ResponseDTOEncryptedDataDTO, FailureDTO | ErrorDTO, GetSecretTextQueryParams, GetSecretTextPathParams>,
   'path'
 > &
-  GetSecretByIdPathParams
+  GetSecretTextPathParams
 
 /**
- * Gets a secret by id
+ * Gets secret
  */
-export const GetSecretById = ({ secretId, ...props }: GetSecretByIdProps) => (
-  <Get<ResponseDTOEncryptedDataDTO, FailureDTO | ErrorDTO, GetSecretByIdQueryParams, GetSecretByIdPathParams>
-    path={`/secrets/${secretId}`}
+export const GetSecretText = ({ identifier, ...props }: GetSecretTextProps) => (
+  <Get<ResponseDTOEncryptedDataDTO, FailureDTO | ErrorDTO, GetSecretTextQueryParams, GetSecretTextPathParams>
+    path={`/secrets/${identifier}`}
     base={'/cd/api'}
     {...props}
   />
 )
 
-export type UseGetSecretByIdProps = Omit<
-  UseGetProps<ResponseDTOEncryptedDataDTO, GetSecretByIdQueryParams, GetSecretByIdPathParams>,
+export type UseGetSecretTextProps = Omit<
+  UseGetProps<ResponseDTOEncryptedDataDTO, GetSecretTextQueryParams, GetSecretTextPathParams>,
   'path'
 > &
-  GetSecretByIdPathParams
+  GetSecretTextPathParams
 
 /**
- * Gets a secret by id
+ * Gets secret
  */
-export const useGetSecretById = ({ secretId, ...props }: UseGetSecretByIdProps) =>
-  useGet<ResponseDTOEncryptedDataDTO, FailureDTO | ErrorDTO, GetSecretByIdQueryParams, GetSecretByIdPathParams>(
-    ({ secretId }: GetSecretByIdPathParams) => `/secrets/${secretId}`,
-    { base: '/cd/api', pathParams: { secretId }, ...props }
+export const useGetSecretText = ({ identifier, ...props }: UseGetSecretTextProps) =>
+  useGet<ResponseDTOEncryptedDataDTO, FailureDTO | ErrorDTO, GetSecretTextQueryParams, GetSecretTextPathParams>(
+    ({ identifier }: GetSecretTextPathParams) => `/secrets/${identifier}`,
+    { base: '/cd/api', pathParams: { identifier }, ...props }
   )

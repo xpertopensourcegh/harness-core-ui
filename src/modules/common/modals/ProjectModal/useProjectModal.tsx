@@ -40,7 +40,6 @@ export const useProjectModal = ({ onSuccess }: UseProjectModalProps): UseProject
     const dataToSubmit: unknown = pick<ProjectDTO, keyof CreateProjectDTO>(wizardData, [
       'name',
       'color',
-      'purposeList',
       'description',
       'tags'
     ])

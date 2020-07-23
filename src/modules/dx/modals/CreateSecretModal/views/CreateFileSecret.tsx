@@ -1,20 +1,18 @@
 import React from 'react'
-import { useParams } from 'react-router-dom'
 import { Text, Formik, FormikForm, FormInput, Button, SelectOption } from '@wings-software/uikit'
 import * as Yup from 'yup'
 import { useCreateSecretText } from 'services/cd-ng'
-import type { SecretTextDTO, SecretManagerConfig } from 'services/cd-ng'
+import type { SecretTextDTO, NGSecretManagerConfigDTO } from 'services/cd-ng'
 
 import i18n from '../CreateSecretModal.i18n'
 
 interface CreateTextSecretProps {
-  secretsManagers: SecretManagerConfig[]
+  secretsManagers: NGSecretManagerConfigDTO[]
   onSuccess: (data: SecretTextDTO) => void
 }
 
 const CreateTextSecret: React.FC<CreateTextSecretProps> = props => {
-  const { accountId } = useParams()
-  const { mutate: createSecret } = useCreateSecretText({ queryParams: { accountId: accountId } })
+  const { mutate: createSecret } = useCreateSecretText({})
 
   const handleSubmit = async (data: SecretTextDTO): Promise<void> => {
     try {
@@ -27,7 +25,7 @@ const CreateTextSecret: React.FC<CreateTextSecretProps> = props => {
 
   const secretManagersOptions: SelectOption[] = props.secretsManagers.map(item => {
     return {
-      label: item.encryptedBy || '',
+      label: item.identifier || '',
       value: item.uuid || ''
     }
   })

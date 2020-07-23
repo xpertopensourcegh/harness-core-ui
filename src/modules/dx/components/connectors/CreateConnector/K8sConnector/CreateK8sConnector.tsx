@@ -19,7 +19,7 @@ import { useCreateConnector, ConnectorRequestDTORequestBody } from 'services/cd-
 import { buildKubPayload } from 'modules/dx/pages/connectors/utils/ConnectorUtils'
 import InstallDelegateForm from 'modules/dx/common/InstallDelegateForm/InstallDelegateForm'
 import VerifyInstalledDelegate from 'modules/dx/common/VerifyInstalledDelegate/VerifyInstalledDelegate'
-import { useListSecretManagers, SecretManagerConfig } from 'services/cd-ng'
+import { useListSecretManagers, NGSecretManagerConfigDTO } from 'services/cd-ng'
 import VerifyOutOfClusterDelegate from 'modules/dx/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 
 const DelegateTypesText = {
@@ -209,12 +209,11 @@ const renderDelegateInclusterForm = (
 
 const SecondStep = (props: SecondStepProps) => {
   const { state, accountId } = props
-  const accountIdentifier = accountId
   const { loading, data: delegateList, refetch: reloadDelegateList } = useGetKubernetesDelegateNames({
     queryParams: { accountId },
     lazy: true
   })
-  const { mutate: createConnector } = useCreateConnector({ queryParamStringifyOptions: { accountIdentifier } })
+  const { mutate: createConnector } = useCreateConnector({ accountIdentifier: accountId })
   const radioProps = {
     data: secondStepData,
     className: css.customCss,
@@ -325,7 +324,7 @@ const IntermediateStep = (props: IntermediateStepProps) => {
     queryParams: { accountIdentifier: accountId }
   })
   // const accountIdentifier = accountId
-  const { mutate: createConnector } = useCreateConnector({})
+  const { mutate: createConnector } = useCreateConnector({ accountIdentifier: accountId })
 
   return (
     <div className={css.intermediateStep}>
@@ -370,10 +369,10 @@ const IntermediateStep = (props: IntermediateStepProps) => {
                     }}
                   />
                 </Layout.Horizontal>
-                {/* Forcing  SecretManagerConfig[] type untill secrets integration is done */}
+                {/* Forcing  NGSecretManagerConfigDTO[] type untill secrets integration is done */}
                 {getCustomFields(
                   props.state.authentication,
-                  secretManagersApiResponse?.data as SecretManagerConfig[],
+                  secretManagersApiResponse?.data as NGSecretManagerConfigDTO[],
                   state.formData?.name,
                   formikProps
                 )}

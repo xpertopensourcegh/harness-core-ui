@@ -25178,7 +25178,7 @@
             "name": "body",
             "required": false,
             "schema": {
-              "$ref": "#/definitions/SecretManagerConfig"
+              "$ref": "#/definitions/NGSecretManagerConfigDTO"
             }
           }
         ],
@@ -48563,7 +48563,7 @@
         }
       }
     },
-    "SecretManagerConfig": {
+    "NGSecretManagerConfigDTO": {
       "type": "object",
       "required": ["lastUpdatedAt", "uuid"],
       "properties": {
@@ -60021,7 +60021,7 @@
           }
         },
         "resource": {
-          "$ref": "#/definitions/SecretManagerConfig"
+          "$ref": "#/definitions/NGSecretManagerConfigDTO"
         },
         "responseMessages": {
           "type": "array",
@@ -75760,7 +75760,7 @@
         "resource": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/SecretManagerConfig"
+            "$ref": "#/definitions/NGSecretManagerConfigDTO"
           }
         },
         "responseMessages": {

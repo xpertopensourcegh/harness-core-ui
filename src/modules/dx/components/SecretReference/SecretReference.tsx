@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import cx from 'classnames'
 import { Container, TextInput, Button, Layout } from '@wings-software/uikit'
 
-import { useListSecretsForAccount } from 'services/cd-ng'
+import { useListSecrets } from 'services/cd-ng'
 import type { EncryptedDataDTO } from 'services/cd-ng'
 
 import css from './SecretReference.module.scss'
@@ -25,7 +25,7 @@ interface SecretReferenceProps {
 const SecretReference: React.FC<SecretReferenceProps> = props => {
   const { defaultScope } = props
   const { accountId } = useParams()
-  const { loading, data } = useListSecretsForAccount({
+  const { loading, data } = useListSecrets({
     queryParams: { accountIdentifier: accountId, type: 'SECRET_TEXT' }
   })
   const [selectedScope, setSelectedScope] = useState<Scope>(defaultScope || Scope.ACCOUNT)

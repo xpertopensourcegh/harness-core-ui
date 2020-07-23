@@ -2,14 +2,14 @@ import React, { useState } from 'react'
 import { Text, SelectOption, Button, Color } from '@wings-software/uikit'
 import { Select } from '@blueprintjs/select'
 import { FormikProps, connect } from 'formik'
-import type { SecretManagerConfig } from 'services/cd-ng'
+import type { NGSecretManagerConfigDTO } from 'services/cd-ng'
 
 import EditableText from 'modules/common/components/EditableText/EditableText'
 import css from './CreateInlineSecret.module.scss'
 import i18n from './CreateInlineSecret.i18n'
 
 interface CreateInlineSecretProps {
-  secretManagers?: SecretManagerConfig[]
+  secretManagers?: NGSecretManagerConfigDTO[]
   defaultSecretName?: string
   defaultSecretId?: string
   onChange?: (values: { secretName: string; secretId: string; secretManager?: SelectOption }) => void
@@ -21,8 +21,8 @@ const CreateInlineSecret: React.FC<CreateInlineSecretProps> = props => {
   const { secretManagers = [], defaultSecretId, defaultSecretName } = props
   const _secretManagers: SelectOption[] = secretManagers.map(sm => {
     return {
-      label: sm.name || '',
-      value: sm.uuid
+      label: sm.identifier || '',
+      value: sm.uuid || ''
     }
   })
   const [secretManager, setSecretManager] = useState<SelectOption>()

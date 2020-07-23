@@ -5,7 +5,7 @@ import { Button, Container, Layout } from '@wings-software/uikit'
 import cx from 'classnames'
 import {
   useGetProjectListForOrganization,
-  useGetProjectListForAccount
+  useGetProjectListBasedOnFilter
   // useGetOrganizations
 } from 'services/cd-ng'
 import type { ProjectDTO } from 'services/cd-ng'
@@ -42,7 +42,7 @@ const ProjectsListPage: React.FC = () => {
     loading: loadingAllProjects,
     data: dataAllProjects,
     refetch: reloadAllProjects
-  } = useGetProjectListForAccount({ accountIdentifier: accountId, lazy: true })
+  } = useGetProjectListBasedOnFilter({ queryParams: { accountIdentifier: accountId }, lazy: true })
 
   const loading = orgId ? loadingOrgProjects : loadingAllProjects
   const data = orgId ? dataOrgProjects : dataAllProjects

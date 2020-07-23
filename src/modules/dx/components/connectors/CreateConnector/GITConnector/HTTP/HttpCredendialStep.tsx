@@ -12,8 +12,9 @@ import {
   useCreateConnector,
   ConnectorRequestDTORequestBody,
   useListSecretManagers,
-  SecretManagerConfig
+  NGSecretManagerConfigDTO
 } from 'services/cd-ng'
+import { useParams } from 'react-router-dom'
 
 interface HttpCredentialStepProps {
   name: string
@@ -46,11 +47,12 @@ const createConnectorByType = async (
 }
 
 const HttpCredentialStep: React.FC<HttpCredentialStepProps> = props => {
+  const { accountId } = useParams()
   const [authType, setAuthType] = useState({
     label: 'Username and Password',
     value: 'UsernamePassword'
   } as SelectOption)
-  const { mutate: createConnector } = useCreateConnector({})
+  const { mutate: createConnector } = useCreateConnector({ accountIdentifier: accountId })
   const { data: secretManagersApiResponse } = useListSecretManagers({
     queryParams: { accountIdentifier: props.accountId }
   })
@@ -116,11 +118,11 @@ const HttpCredentialStep: React.FC<HttpCredentialStepProps> = props => {
                     />
                   </CustomSelect>
                 </Layout.Horizontal>
-                {/* Forcing  SecretManagerConfig[] type untill secrets integration is done */}
+                {/* Forcing  NGSecretManagerConfigDTO[] type untill secrets integration is done */}
                 <div className={css.authFields}>
                   {getCustomFields(
                     authType?.value,
-                    secretManagersApiResponse?.data as SecretManagerConfig[],
+                    secretManagersApiResponse?.data as NGSecretManagerConfigDTO[],
                     props.formData?.name
                   )}
                 </div>

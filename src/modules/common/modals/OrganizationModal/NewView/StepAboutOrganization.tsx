@@ -36,7 +36,7 @@ export const StepAboutOrganization: React.FC<StepProps<OrganizationDTO> & Organi
   const { mutate: createOrganization } = usePostOrganization({ accountIdentifier: accountId })
   const { mutate: updateOrganization } = usePutOrganization({
     accountIdentifier: accountId,
-    organizationIdentifier: org.identifier || ''
+    orgIdentifier: org.identifier || ''
   })
   const persistOrg = async (values: OrganizationDTO): Promise<void> => {
     const dataToSubmit: unknown = pick<OrganizationDTO, keyof CreateOrganizationDTO>(values, [
