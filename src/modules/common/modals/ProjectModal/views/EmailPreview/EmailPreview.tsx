@@ -1,14 +1,14 @@
 import React from 'react'
 import { Icon, Layout, Text, Button } from '@wings-software/uikit'
 
-import type { StepThreeData } from '../StepThree'
+import type { CollaboratorsData } from '../Collaborators'
 
 import i18n from '../../../../pages/ProjectsPage/ProjectsPage.i18n'
 
 import css from './EmailPreview.module.scss'
 
 interface EmailPreviewProps {
-  data: StepThreeData
+  data: CollaboratorsData
 }
 
 const EmailPreview: React.FC<EmailPreviewProps> = ({ data }) => {
@@ -19,18 +19,18 @@ const EmailPreview: React.FC<EmailPreviewProps> = ({ data }) => {
       </header>
       <section>
         <Layout.Vertical spacing="large">
-          <Text>{i18n.newProjectWizard.stepThree.emailHello}</Text>
-          <Text>{i18n.newProjectWizard.stepThree.emailInvite}</Text>
+          <Text>{i18n.newProjectWizard.Collaborators.emailHello}</Text>
+          <Text>{i18n.newProjectWizard.Collaborators.emailInvite}</Text>
           {data?.invitationMessage ? <Text>{data.invitationMessage}</Text> : null}
           <Button intent="primary" text="View Project" />
           <Text>
-            {i18n.newProjectWizard.stepThree.emailThankyou}
+            {i18n.newProjectWizard.Collaborators.emailThankyou}
             {/* TODO: replace with username once API is integrated */}
             Olivia Dunham
           </Text>
         </Layout.Vertical>
       </section>
-      <footer>{i18n.newProjectWizard.stepThree.emailFooter}</footer>
+      <footer>{i18n.newProjectWizard.Collaborators.emailFooter}</footer>
     </div>
   )
 }

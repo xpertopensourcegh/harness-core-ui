@@ -4,10 +4,11 @@
 
 .radioSelect {
   :global(.bp3-card) {
-    height: 140px;
+    height: 200px;
     vertical-align: top;
     background-color: var(--white);
     margin-right: var(--spacing-medium);
+    margin-block-end: var(--spacing-medium);
   }
 }
 
@@ -27,15 +28,26 @@
   vertical-align: top;
 }
 
-.collapseDiv div {
-  border-top: none;
-  padding: 0;
+.border {
+  border-right: inset;
 }
 
-.saveandclose {
-  padding-top: 200px !important;
+.started {
+  padding-right: 65px !important;
 }
 
+.modalPage {
+  padding: 75px 40px 30px !important;
+}
+
+.text {
+  padding-top: 65px !important;
+  padding-bottom: 150px !important;
+}
+
+.textPadding {
+  padding-top: 140px !important;
+}
 .button {
-  color: var(--blue-500) !important;
+  width: 140px !important;
 }

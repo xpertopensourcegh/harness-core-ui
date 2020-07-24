@@ -12,18 +12,18 @@ interface ProjectModalData {
   data: ProjectDTO | undefined
 }
 
-export interface StepThreeData {
+export interface CollaboratorsData {
   collaborators?: string[]
   invitationMessage?: string
 }
 
-const StepThree: React.FC<StepProps<ProjectDTO> & ProjectModalData> = props => {
+const Collaborators: React.FC<StepProps<ProjectDTO> & ProjectModalData> = props => {
   const { previousStep, nextStep, prevStepData } = props
-  const [data, setData] = useState<StepThreeData>({})
+  const [data, setData] = useState<CollaboratorsData>({})
 
   return (
     <>
-      <Text font="medium">{i18n.newProjectWizard.stepThree.name}</Text>
+      <Text font="medium">{i18n.newProjectWizard.Collaborators.name}</Text>
       <table style={{ width: '100%', margin: '20px 0' }}>
         <tbody>
           <tr>
@@ -43,7 +43,7 @@ const StepThree: React.FC<StepProps<ProjectDTO> & ProjectModalData> = props => {
                   <Form>
                     <Layout.Vertical spacing="small">
                       <FormInput.TagInput
-                        label={i18n.newProjectWizard.stepThree.addCollab}
+                        label={i18n.newProjectWizard.Collaborators.addCollab}
                         name="collaborators"
                         // TODO: replace with api response
                         items={['Peter', 'Tony', 'Bruce']}
@@ -52,7 +52,7 @@ const StepThree: React.FC<StepProps<ProjectDTO> & ProjectModalData> = props => {
                         tagInputProps={{}}
                       />
                       <FormInput.TextArea
-                        label={i18n.newProjectWizard.stepThree.invitationMsg}
+                        label={i18n.newProjectWizard.Collaborators.invitationMsg}
                         name="invitationMessage"
                       />
                       <Layout.Horizontal spacing="small">
@@ -60,7 +60,7 @@ const StepThree: React.FC<StepProps<ProjectDTO> & ProjectModalData> = props => {
                         <Button
                           type="submit"
                           style={{ color: 'var(--blue-500)' }}
-                          text={i18n.newProjectWizard.saveAndClose}
+                          text={i18n.newProjectWizard.saveAndContinue}
                         />
                       </Layout.Horizontal>
                     </Layout.Vertical>
@@ -69,7 +69,7 @@ const StepThree: React.FC<StepProps<ProjectDTO> & ProjectModalData> = props => {
               </Formik>
             </td>
             <td style={{ width: '50%' }}>
-              <Text>{i18n.newProjectWizard.stepThree.preview}</Text>
+              <Text>{i18n.newProjectWizard.Collaborators.preview}</Text>
               <EmailPreview data={data} />
             </td>
           </tr>
@@ -78,5 +78,4 @@ const StepThree: React.FC<StepProps<ProjectDTO> & ProjectModalData> = props => {
     </>
   )
 }
-
-export default StepThree
+export default Collaborators

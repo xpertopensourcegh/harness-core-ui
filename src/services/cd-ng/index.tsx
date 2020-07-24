@@ -128,19 +128,19 @@ export interface ResponseDTOCDPipelineDTO {
   correlationId?: string
 }
 
+export interface ResponseDTOListNGSecretManagerConfigDTO {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: NGSecretManagerConfigDTO[]
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
 export interface CreateOrganizationDTO {
   identifier: string
   name: string
   color: string
   description?: string
   tags: string[]
-}
-
-export interface ResponseDTOListNGSecretManagerConfigDTO {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: NGSecretManagerConfigDTO[]
-  metaData?: { [key: string]: any }
-  correlationId?: string
 }
 
 export interface Graph {
@@ -228,13 +228,6 @@ export interface InfraUseFromStage {
   overrides?: InfraOverrides
 }
 
-export interface GitSyncFolderConfigDTO {
-  rootFolder?: string
-  isDefault?: boolean
-  identifier?: string
-  enabled?: boolean
-}
-
 export interface ProjectDTO {
   id?: string
   accountIdentifier?: string
@@ -246,6 +239,13 @@ export interface ProjectDTO {
   description?: string
   owners?: string[]
   tags?: string[]
+}
+
+export interface GitSyncFolderConfigDTO {
+  rootFolder?: string
+  isDefault?: boolean
+  identifier?: string
+  enabled?: boolean
 }
 
 export interface ConnectorConfigDTO {
@@ -263,19 +263,19 @@ export interface ResponseDTOPageConnectorSummaryDTO {
   correlationId?: string
 }
 
+export interface ResponseDTONGSecretManagerConfigDTO {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: NGSecretManagerConfigDTO
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
 export interface StackTraceElement {
   methodName?: string
   fileName?: string
   lineNumber?: number
   className?: string
   nativeMethod?: boolean
-}
-
-export interface ResponseDTONGSecretManagerConfigDTO {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: NGSecretManagerConfigDTO
-  metaData?: { [key: string]: any }
-  correlationId?: string
 }
 
 export interface PlanExecution {
@@ -314,14 +314,6 @@ export interface ResponseDTOOptionalConnectorDTO {
   correlationId?: string
 }
 
-export interface RestResponseBoolean {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: boolean
-  responseMessages?: ResponseMessage[]
-}
-
 export interface ArtifactSpecWrapper {
   type?: string
   spec?: ArtifactConfig
@@ -330,6 +322,14 @@ export interface ArtifactSpecWrapper {
 export type SidecarArtifact = SidecarArtifactWrapper & {
   type?: string
   spec?: ArtifactConfig
+}
+
+export interface RestResponseBoolean {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: boolean
+  responseMessages?: ResponseMessage[]
 }
 
 export interface NGPageResponseProjectDTO {
@@ -397,10 +397,10 @@ export interface CreateProjectDTO {
 }
 
 export interface TemporalUnit {
-  dateBased?: boolean
-  durationEstimated?: boolean
   timeBased?: boolean
   duration?: Duration
+  dateBased?: boolean
+  durationEstimated?: boolean
 }
 
 export type K8sManifest = ManifestAttributes & {
@@ -506,10 +506,10 @@ export type K8sRollingRollbackStepInfo = StepSpecType & {
 }
 
 export interface ServiceSpec {
-  artifacts?: ArtifactListConfig
-  manifests?: ManifestConfigWrapper[]
   manifestOverrideSets?: ManifestOverrideSets[]
   artifactOverrideSets?: ArtifactOverrideSets[]
+  artifacts?: ArtifactListConfig
+  manifests?: ManifestConfigWrapper[]
 }
 
 export type ShellScriptStepInfo = StepSpecType & {
@@ -765,11 +765,11 @@ export interface RefType {
 
 export interface Pageable {
   offset?: number
+  pageSize?: number
   sort?: Sort
   paged?: boolean
   pageNumber?: number
   unpaged?: boolean
-  pageSize?: number
 }
 
 export interface NGSecretManagerConfigUpdateDTO {
@@ -941,9 +941,9 @@ export type HttpStepInfo = StepSpecType & {
 
 export interface Duration {
   seconds?: number
-  nano?: number
   zero?: boolean
   negative?: boolean
+  nano?: number
   units?: TemporalUnit[]
 }
 
@@ -1178,16 +1178,16 @@ export type K8sRollingStepInfo = StepSpecType & {
   }
 }
 
+export type ManifestConfig = ManifestConfigWrapper & {
+  type?: string
+  spec?: ManifestAttributes
+}
+
 export interface ResponseDTOString {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
   data?: string
   metaData?: { [key: string]: any }
   correlationId?: string
-}
-
-export type ManifestConfig = ManifestConfigWrapper & {
-  type?: string
-  spec?: ManifestAttributes
 }
 
 export interface ConnectorDTO {
@@ -1622,13 +1622,13 @@ export interface InfraOverrides {
 export interface PageCDPipelineDTO {
   totalPages?: number
   totalElements?: number
-  first?: boolean
   size?: number
   content?: CDPipelineDTO[]
   number?: number
   sort?: Sort
-  numberOfElements?: number
+  first?: boolean
   last?: boolean
+  numberOfElements?: number
   pageable?: Pageable
   empty?: boolean
 }
@@ -1661,16 +1661,18 @@ export interface EnvironmentYaml {
 export interface PageConnectorSummaryDTO {
   totalPages?: number
   totalElements?: number
-  first?: boolean
   size?: number
   content?: ConnectorSummaryDTO[]
   number?: number
   sort?: Sort
-  numberOfElements?: number
+  first?: boolean
   last?: boolean
+  numberOfElements?: number
   pageable?: Pageable
   empty?: boolean
 }
+
+export type PostPipelineBodyRequestBody = void
 
 export type ConnectorRequestDTORequestBody = ConnectorRequestDTO
 
@@ -2965,22 +2967,22 @@ export const useGetPipelineList = (props: UseGetPipelineListProps) =>
     ...props
   })
 
-export interface PostPipelineDummyQueryParams {
+export interface PostPipelineQueryParams {
   accountIdentifier: string
   orgIdentifier?: string
   projectIdentifier: string
 }
 
-export type PostPipelineDummyProps = Omit<
-  MutateProps<ResponseDTOCDPipelineDTO, unknown, PostPipelineDummyQueryParams, CDPipelineDTO, void>,
+export type PostPipelineProps = Omit<
+  MutateProps<void, unknown, PostPipelineQueryParams, PostPipelineBodyRequestBody, void>,
   'path' | 'verb'
 >
 
 /**
  * Create a Pipeline
  */
-export const PostPipelineDummy = (props: PostPipelineDummyProps) => (
-  <Mutate<ResponseDTOCDPipelineDTO, unknown, PostPipelineDummyQueryParams, CDPipelineDTO, void>
+export const PostPipeline = (props: PostPipelineProps) => (
+  <Mutate<void, unknown, PostPipelineQueryParams, PostPipelineBodyRequestBody, void>
     verb="POST"
     path={`/pipelines`}
     base={'/cd/api'}
@@ -2988,20 +2990,19 @@ export const PostPipelineDummy = (props: PostPipelineDummyProps) => (
   />
 )
 
-export type UsePostPipelineDummyProps = Omit<
-  UseMutateProps<ResponseDTOCDPipelineDTO, PostPipelineDummyQueryParams, CDPipelineDTO, void>,
+export type UsePostPipelineProps = Omit<
+  UseMutateProps<void, PostPipelineQueryParams, PostPipelineBodyRequestBody, void>,
   'path' | 'verb'
 >
 
 /**
  * Create a Pipeline
  */
-export const usePostPipelineDummy = (props: UsePostPipelineDummyProps) =>
-  useMutate<ResponseDTOCDPipelineDTO, unknown, PostPipelineDummyQueryParams, CDPipelineDTO, void>(
-    'POST',
-    `/pipelines`,
-    { base: '/cd/api', ...props }
-  )
+export const usePostPipeline = (props: UsePostPipelineProps) =>
+  useMutate<void, unknown, PostPipelineQueryParams, PostPipelineBodyRequestBody, void>('POST', `/pipelines`, {
+    base: '/cd/api',
+    ...props
+  })
 
 export interface PutPipelineQueryParams {
   accountIdentifier: string
@@ -3009,13 +3010,16 @@ export interface PutPipelineQueryParams {
   projectIdentifier: string
 }
 
-export type PutPipelineProps = Omit<MutateProps<void, unknown, PutPipelineQueryParams, void, void>, 'path' | 'verb'>
+export type PutPipelineProps = Omit<
+  MutateProps<void, unknown, PutPipelineQueryParams, PostPipelineBodyRequestBody, void>,
+  'path' | 'verb'
+>
 
 /**
  * Update a Pipeline
  */
 export const PutPipeline = (props: PutPipelineProps) => (
-  <Mutate<void, unknown, PutPipelineQueryParams, void, void>
+  <Mutate<void, unknown, PutPipelineQueryParams, PostPipelineBodyRequestBody, void>
     verb="PUT"
     path={`/pipelines`}
     base={'/cd/api'}
@@ -3023,13 +3027,19 @@ export const PutPipeline = (props: PutPipelineProps) => (
   />
 )
 
-export type UsePutPipelineProps = Omit<UseMutateProps<void, PutPipelineQueryParams, void, void>, 'path' | 'verb'>
+export type UsePutPipelineProps = Omit<
+  UseMutateProps<void, PutPipelineQueryParams, PostPipelineBodyRequestBody, void>,
+  'path' | 'verb'
+>
 
 /**
  * Update a Pipeline
  */
 export const usePutPipeline = (props: UsePutPipelineProps) =>
-  useMutate<void, unknown, PutPipelineQueryParams, void, void>('PUT', `/pipelines`, { base: '/cd/api', ...props })
+  useMutate<void, unknown, PutPipelineQueryParams, PostPipelineBodyRequestBody, void>('PUT', `/pipelines`, {
+    base: '/cd/api',
+    ...props
+  })
 
 export interface GetPipelineYamlStringQueryParams {
   accountIdentifier: string

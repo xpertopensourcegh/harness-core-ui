@@ -1,11 +1,19 @@
 .dialog {
   border-radius: 11px;
-  width: 1100px;
   position: relative;
-  border-left: none !important;
   padding-bottom: 0;
+  &.create {
+    width: 1100px;
+    border-left: none !important;
+  }
+  &.edit {
+    width: 850px;
+  }
+  &.purposeList {
+    width: 1250px;
+    border-left: none !important;
+  }
 }
-
 .crossIcon {
   position: absolute;
   right: var(--spacing-large);

@@ -3,11 +3,7 @@ import { useParams } from 'react-router-dom'
 import { Button, Container, Layout } from '@wings-software/uikit'
 
 import cx from 'classnames'
-import {
-  useGetProjectListForOrganization,
-  useGetProjectListBasedOnFilter
-  // useGetOrganizations
-} from 'services/cd-ng'
+import { useGetProjectListForOrganization, useGetProjectListBasedOnFilter } from 'services/cd-ng'
 import type { ProjectDTO } from 'services/cd-ng'
 
 import { Page } from 'modules/common/exports'
@@ -53,11 +49,10 @@ const ProjectsListPage: React.FC = () => {
   }, [accountId, orgId])
 
   const projectCreateSuccessHandler = (): void => {
-    closeProjectModal()
     reloadProjects()
   }
 
-  const { openProjectModal, closeProjectModal } = useProjectModal({ onSuccess: projectCreateSuccessHandler })
+  const { openProjectModal } = useProjectModal({ onSuccess: projectCreateSuccessHandler })
 
   const showEditProject = (project: ProjectDTO): void => {
     openProjectModal(project)

@@ -5,8 +5,11 @@ declare const styles: {
   readonly radioSelect: string
   readonly radioSelectPurpose: string
   readonly halfWidth: string
-  readonly collapseDiv: string
-  readonly saveandclose: string
+  readonly border: string
+  readonly started: string
+  readonly modalPage: string
+  readonly text: string
+  readonly textPadding: string
   readonly button: string
 }
 export default styles
