@@ -558,7 +558,7 @@ export const GetListOfPipelines = (props: GetListOfPipelinesProps) => (
 )
 
 export type UseGetListOfPipelinesProps = Omit<
-  UseGetProps<RestResponsePageCDPipelineDTO, GetListOfPipelinesQueryParams, void>,
+  UseGetProps<RestResponsePageCDPipelineDTO, unknown, GetListOfPipelinesQueryParams, void>,
   'path'
 >
 
@@ -589,7 +589,7 @@ export const CreateNgPipeline = (props: CreateNgPipelineProps) => (
 )
 
 export type UseCreateNgPipelineProps = Omit<
-  UseMutateProps<CDPipelineDTO, CreateNgPipelineQueryParams, string, void>,
+  UseMutateProps<CDPipelineDTO, unknown, CreateNgPipelineQueryParams, string, void>,
   'path' | 'verb'
 >
 
@@ -625,7 +625,7 @@ export const RunPipeline = ({ identifier, ...props }: RunPipelineProps) => (
 )
 
 export type UseRunPipelineProps = Omit<
-  UseMutateProps<RestResponseString, RunPipelineQueryParams, void, RunPipelinePathParams>,
+  UseMutateProps<RestResponseString, unknown, RunPipelineQueryParams, void, RunPipelinePathParams>,
   'path' | 'verb'
 > &
   RunPipelinePathParams
@@ -633,7 +633,7 @@ export type UseRunPipelineProps = Omit<
 export const useRunPipeline = ({ identifier, ...props }: UseRunPipelineProps) =>
   useMutate<RestResponseString, unknown, RunPipelineQueryParams, void, RunPipelinePathParams>(
     'POST',
-    ({ identifier }: RunPipelinePathParams) => `/ng/pipelines/${identifier}/run`,
+    (paramsInPath: RunPipelinePathParams) => `/ng/pipelines/${paramsInPath.identifier}/run`,
     { base: '/api', pathParams: { identifier }, ...props }
   )
 
@@ -667,13 +667,18 @@ export const GetNgPipelineByIdentifier = ({ pipelineIdentifier, ...props }: GetN
 )
 
 export type UseGetNgPipelineByIdentifierProps = Omit<
-  UseGetProps<RestResponseCDPipelineDTO, GetNgPipelineByIdentifierQueryParams, GetNgPipelineByIdentifierPathParams>,
+  UseGetProps<
+    RestResponseCDPipelineDTO,
+    unknown,
+    GetNgPipelineByIdentifierQueryParams,
+    GetNgPipelineByIdentifierPathParams
+  >,
   'path'
 > &
   GetNgPipelineByIdentifierPathParams
 
 export const useGetNgPipelineByIdentifier = ({ pipelineIdentifier, ...props }: UseGetNgPipelineByIdentifierProps) =>
   useGet<RestResponseCDPipelineDTO, unknown, GetNgPipelineByIdentifierQueryParams, GetNgPipelineByIdentifierPathParams>(
-    ({ pipelineIdentifier }: GetNgPipelineByIdentifierPathParams) => `/ng/pipelines/${pipelineIdentifier}`,
+    (paramsInPath: GetNgPipelineByIdentifierPathParams) => `/ng/pipelines/${paramsInPath.pipelineIdentifier}`,
     { base: '/api', pathParams: { pipelineIdentifier }, ...props }
   )

@@ -16587,7 +16587,7 @@ export const GetDelegates = (props: GetDelegatesProps) => (
 )
 
 export type UseGetDelegatesProps = Omit<
-  UseGetProps<RestResponsePageResponseDelegate, GetDelegatesQueryParams, void>,
+  UseGetProps<RestResponsePageResponseDelegate, unknown, GetDelegatesQueryParams, void>,
   'path'
 >
 
@@ -16615,7 +16615,7 @@ export const GetDelegatesStatus = (props: GetDelegatesStatusProps) => (
 )
 
 export type UseGetDelegatesStatusProps = Omit<
-  UseGetProps<RestResponseDelegateStatus, GetDelegatesStatusQueryParams, void>,
+  UseGetProps<RestResponseDelegateStatus, unknown, GetDelegatesStatusQueryParams, void>,
   'path'
 >
 
@@ -16643,7 +16643,7 @@ export const GetDelegatesDownloadUrl = (props: GetDelegatesDownloadUrlProps) => 
 )
 
 export type UseGetDelegatesDownloadUrlProps = Omit<
-  UseGetProps<RestResponseMapStringString, GetDelegatesDownloadUrlQueryParams, void>,
+  UseGetProps<RestResponseMapStringString, unknown, GetDelegatesDownloadUrlQueryParams, void>,
   'path'
 >
 
@@ -16675,7 +16675,7 @@ export const GetDelegateProfiles = (props: GetDelegateProfilesProps) => (
 )
 
 export type UseGetDelegateProfilesProps = Omit<
-  UseGetProps<RestResponsePageResponseDelegateProfile, GetDelegateProfilesQueryParams, void>,
+  UseGetProps<RestResponsePageResponseDelegateProfile, unknown, GetDelegateProfilesQueryParams, void>,
   'path'
 >
 
@@ -16703,7 +16703,7 @@ export const GetKubernetesDelegateNames = (props: GetKubernetesDelegateNamesProp
 )
 
 export type UseGetKubernetesDelegateNamesProps = Omit<
-  UseGetProps<RestResponseListString, GetKubernetesDelegateNamesQueryParams, void>,
+  UseGetProps<RestResponseListString, unknown, GetKubernetesDelegateNamesQueryParams, void>,
   'path'
 >
 

@@ -943,6 +943,13 @@
   resolved "https://registry.yarnpkg.com/@types/parse-json/-/parse-json-4.0.0.tgz#2f8bb441434d163b35fb8ffdccd7138927ffb8c0"
   integrity "sha1-L4u0QUNNFjs1+4/9zNcTiSf/uMA= sha512-//oorEZjL6sbPcKUaCdIGlIUeH26mgzimjBB77G6XRgnDl/L5wOnpyBGRe/Mmf5CVW3PwEBE1NjiMZ/ssFh4wA=="
 
+"@types/path-to-regexp@^1.7.0":
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/@types/path-to-regexp/-/path-to-regexp-1.7.0.tgz#f1af9d9c9db5f8ad80aa75ed424db665c48d6cd4"
+  integrity sha1-8a+dnJ21+K2AqnXtQk22ZcSNbNQ=
+  dependencies:
+    path-to-regexp "*"
+
 "@types/prettier@^2.0.0":
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@types/prettier/-/prettier-2.0.0.tgz#dc85454b953178cc6043df5208b9e949b54a3bc4"
@@ -7248,6 +7255,11 @@ path-parse@^1.0.6:
   resolved "https://registry.yarnpkg.com/path-parse/-/path-parse-1.0.6.tgz#d62dbb5679405d72c4737ec58600e9ddcf06d24c"
   integrity "sha1-1i27VnlAXXLEc37FhgDp3c8G0kw= sha512-GSmOT2EbHrINBf9SR7CDELwlJ8AENk3Qn7OikK4nFYAu3Ote2+JYNVvkpAEQm3/TLNEJFD/xZJjzyxg3KBWOzw=="
 
+path-to-regexp@*, path-to-regexp@^6.1.0:
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/path-to-regexp/-/path-to-regexp-6.1.0.tgz#0b18f88b7a0ce0bfae6a25990c909ab86f512427"
+  integrity sha512-h9DqehX3zZZDCEm+xbfU0ZmwCGFCAAraPJWMXJ4+v32NjZJilVg3k1TcKsRgIb8IQ/izZSaydDc1OhJCZvs2Dw==
+
 path-to-regexp@0.1.7:
   version "0.1.7"
   resolved "https://registry.yarnpkg.com/path-to-regexp/-/path-to-regexp-0.1.7.tgz#df604178005f522f15eb4490e7247a1bfaa67f8c"
@@ -8116,16 +8128,17 @@ resolve@^1.10.0, resolve@^1.12.0, resolve@^1.15.1, resolve@^1.17.0, resolve@^1.3
   dependencies:
     path-parse "^1.0.6"
 
-restful-react@^13.0.0:
-  version "13.0.0"
-  resolved "https://registry.yarnpkg.com/restful-react/-/restful-react-13.0.0.tgz#0f7fd2c98b852c89bc3712493243383eb1bfaf0e"
-  integrity "sha1-D3/SyYuFLIm8NxJJMkM4PrG/rw4= sha512-9WbFCD1Mn9yklLLe8+FcX99xYGkMZclxkuj/dndxfMag07VIL+fV2h1CfFw6Yj2am/1vALap6i69N6PxzMKaUw=="
+restful-react@14.3:
+  version "14.3.0"
+  resolved "https://registry.yarnpkg.com/restful-react/-/restful-react-14.3.0.tgz#4914bee4f08cf21dcda0d21c30e7194c4b9d0a67"
+  integrity sha512-C14M5vjWv3zRWznZ+MarneN9VvChMKW1aM7kWn4AtK+e7WW1tTbu6PcQXD5XFUDaxNqKuKlwBgNOkn+iLCR7OA==
   dependencies:
     case "^1.6.2"
     chalk "^3.0.0"
     commander "^4.1.0"
     ibm-openapi-validator "^0.16.0"
     inquirer "^7.0.3"
+    js-yaml "^3.14.0"
     lodash "^4.17.15"
     lodash-es "^4.17.15"
     openapi3-ts "^1.3.0"
@@ -8136,7 +8149,6 @@ restful-react@^13.0.0:
     swagger2openapi "^5.3.2"
     tslib "^1.10.0"
     url "^0.11.0"
-    yamljs "^0.3.0"
 
 restore-cursor@^3.1.0:
   version "3.1.0"
@@ -10222,14 +10234,6 @@ yaml@^1.7.2:
   integrity "sha1-8M+oZfADq3B2Y+TwSzlWlX6lZO0= sha512-HPT7cGGI0DuRcsO51qC1j9O16Dh1mZ2bnXwsi0jrSpsLz0WxOLSLXfkABVl6bZO629py3CU+OMJtpNHDLB97kg=="
   dependencies:
     "@babel/runtime" "^7.9.2"
-
-yamljs@^0.3.0:
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/yamljs/-/yamljs-0.3.0.tgz#dc060bf267447b39f7304e9b2bfbe8b5a7ddb03b"
-  integrity "sha1-3AYL8mdEezn3ME6bK/votafdsDs= sha512-C/FsVVhht4iPQYXOInoxUM/1ELSf9EsgKH34FofQOp6hwCPrW4vG4w5++TED3xRUo8gD7l0P1J1dLlDYzODsTQ=="
-  dependencies:
-    argparse "^1.0.7"
-    glob "^7.0.5"
 
 yargs-parser@18.x, yargs-parser@^18.1.1:
   version "18.1.3"

@@ -6,7 +6,7 @@ import type { Column, Renderer, CellProps } from 'react-table'
 
 import Table from 'modules/common/components/Table/Table'
 import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
-import { useListSecrets } from 'services/cd-ng'
+import { useListSecrets, ResponseDTOListEncryptedDataDTO } from 'services/cd-ng'
 import type { EncryptedDataDTO } from 'services/cd-ng'
 import useCreateSecretModal, { SecretType } from 'modules/dx/modals/CreateSecretModal/useCreateSecretModal'
 import { Text, Color, Layout, Icon, Button, TextInput, SelectV2, Popover, Container } from '@wings-software/uikit'
@@ -16,6 +16,7 @@ import { linkTo } from 'framework/exports'
 import css from './SecretsList.module.scss'
 import i18n from './SecretsList.i18n'
 import { PageError } from 'modules/common/components/Page/PageError'
+import type { UseGetMockData } from 'modules/common/utils/testUtils'
 
 const getStringForType = (type?: string): string => {
   if (!type) return ''
@@ -62,12 +63,17 @@ const renderColumnActivity: Renderer<CellProps<EncryptedDataDTO>> = ({ row }) =>
   )
 }
 
-const SecretsList: React.FC = () => {
+interface SecretsListProps {
+  mockData?: UseGetMockData<ResponseDTOListEncryptedDataDTO>
+}
+
+const SecretsList: React.FC<SecretsListProps> = ({ mockData }) => {
   const { accountId } = useParams()
   const history = useHistory()
   const { openCreateSecretModal } = useCreateSecretModal()
   const { data: secretsResponse, loading, error, refetch } = useListSecrets({
-    queryParams: { accountIdentifier: accountId, type: 'SECRET_TEXT' }
+    queryParams: { accountIdentifier: accountId, type: 'SECRET_TEXT' },
+    mock: mockData
   })
 
   const columns: Column<EncryptedDataDTO>[] = useMemo(
