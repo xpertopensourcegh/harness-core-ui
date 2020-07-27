@@ -1,6 +1,7 @@
 import i18n from './ConnectorUtils.i18n'
 import { AuthTypes, DelegateTypes } from '../Forms/KubeFormHelper'
 import { Connectors, ConnectorInfoText } from 'modules/dx/constants'
+import type { ConnectorSummaryDTO } from 'services/cd-ng'
 
 export const userPasswrdAuthField = (formData: any) => {
   return {
@@ -181,8 +182,9 @@ export const getInfoTextByType = (type: string) => {
   }
 }
 
-export const fomatConnectListData = (connectorList: any) => {
-  const formattedList = connectorList?.content?.map((item: any) => {
+export const formatConnectorListData = (connectorList: ConnectorSummaryDTO[] | undefined) => {
+  // Removed any once BE fixes types
+  const formattedList = connectorList?.map((item: any) => {
     return {
       identifier: item.identifier,
       icon: getIconByType(item.type),
@@ -192,7 +194,7 @@ export const fomatConnectListData = (connectorList: any) => {
       name: item.name,
       lastActivityText: 'activity log',
       details: {
-        url: item.masterUrl,
+        url: item.connectorDetials?.masterURL,
         description: item.description
       },
       lastActivityTime: item.lastModifiedAt,

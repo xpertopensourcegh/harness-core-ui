@@ -65,14 +65,7 @@ const ConnectorModal: React.FC = () => {
   return (
     <React.Fragment>
       <Popover minimal position={Position.BOTTOM_RIGHT}>
-        <Button
-          intent="primary"
-          text={i18n.NEW_CONNECTOR}
-          rightIcon="chevron-down"
-          large
-          className={css.newConnector}
-          padding="medium"
-        />
+        <Button intent="primary" text={i18n.NEW_CONNECTOR} rightIcon="chevron-down" padding="medium" />
 
         <Menu className={css.selectConnector}>
           {items.map((item, index) => {

@@ -244,7 +244,7 @@ const Table = ({ columns, data, openFilterPanel, onClickRow, onDeleteRow }: any)
                                     )}
                                   </div>
                                   <Text inline style={{ color: 'var(--grey-400)' }}>
-                                    {cell.row.original?.infoText}
+                                    {cell.row.original?.belongsTo}
                                   </Text>
                                 </div>
                               </Text>

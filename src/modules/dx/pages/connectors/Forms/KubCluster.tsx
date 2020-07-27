@@ -16,7 +16,7 @@ interface SelectedDelegate {
 interface KubClusterProps {
   enableEdit?: boolean
   connector: any
-  enableCreate: boolean
+  enableCreate?: boolean
   formikProps: any
 }
 
@@ -152,7 +152,7 @@ const KubCluster = (props: KubClusterProps): JSX.Element => {
       const val = { type: props.formikProps?.values?.delegateType, value: '', icon: '' }
       state.setSelectedDelegate(val)
     }
-    if (props.formikProps.values.inheritConfigFromDelegate) {
+    if (props.formikProps.values?.inheritConfigFromDelegate) {
       state.setInClusterDelegate(DelegateInClusterType.useExistingDelegate)
     }
   }, [props])

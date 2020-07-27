@@ -1,70 +1,70 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { Layout, Container } from '@wings-software/uikit'
 import { ConnectorSetupModal } from '../../modals/ConnectorModal/ConnectorSetupModal'
 import CustomTable from '../../../common/components/CustomTable/CustomTable'
 import { columns } from '../../../cd/pages/Resources/SampleColumnsData'
 import css from './ConnectorsList.module.scss'
-import { ConnectorService } from '../../services'
 import { useHistory, useParams } from 'react-router-dom'
-import { fomatConnectListData } from './utils/ConnectorUtils'
+import { formatConnectorListData } from './utils/ConnectorUtils'
 import { routeConnectorDetails } from '../../routes'
+import { useGetConnectorList, useDeleteConnector, ResponseDTOPageConnectorSummaryDTO } from 'services/cd-ng'
+import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
+import type { UseGetMockData } from 'modules/common/utils/testUtils'
 
-interface ConnectorListState {
-  rowData: any
-  setRowData: (val: any) => void
+interface ConnectorsListProps {
+  mockData?: UseGetMockData<ResponseDTOPageConnectorSummaryDTO>
 }
-const fetchConnectors = async (state: ConnectorListState, accountId: string) => {
-  const { connectorList = {}, error } = await ConnectorService.fetchAllConnectors({ accountId })
-  if (!error) {
-    const rowData = fomatConnectListData(connectorList)
-    // removing temp
-    // const rowData = fomatConnectListData(connectorList)
-    state.setRowData(rowData)
-  }
-}
-
-const onDeleteRow = async (state: ConnectorListState, accountId: string, connectorId: string) => {
-  const { error } = await ConnectorService.deleteConnector({ connectorId, accountId })
-  if (!error) {
-    fetchConnectors(state, accountId)
-  }
-}
-
-const onClickRow = (history: any, accountId: string, connectorId: string) => {
-  history.push(routeConnectorDetails.url({ accountId: accountId, connectorId: connectorId }))
-}
-const ConnectorsList: React.FC = () => {
-  const [rowData, setRowData] = useState([])
+const ConnectorsList: React.FC<ConnectorsListProps> = ({ mockData }) => {
   const { accountId } = useParams()
   const history = useHistory()
-  const state: ConnectorListState = {
-    rowData,
-    setRowData
+
+  const { loading, data, refetch: reloadConnectorList } = useGetConnectorList({
+    accountIdentifier: accountId,
+    mock: mockData
+  })
+  const { mutate: deleteConnector } = useDeleteConnector({ accountIdentifier: accountId })
+
+  const formatedData = formatConnectorListData(data?.data?.content)
+
+  const onDeleteRow = async (connectorId: string) => {
+    if (!connectorId) return
+    try {
+      const deleted = await deleteConnector(connectorId, { headers: { 'content-type': 'application/json' } })
+      if (deleted?.data) {
+        reloadConnectorList()
+      } else {
+        // Handle error
+      }
+    } catch (e) {
+      // To handle error
+    }
   }
 
-  useEffect(() => {
-    fetchConnectors(state, accountId)
-  }, [])
+  const onClickRow = (connectorId: string) => {
+    history.push(routeConnectorDetails.url({ accountId: accountId, connectorId: connectorId }))
+  }
+
   return (
-    <Layout.Vertical style={{ background: 'var(--grey-100)', height: `100%` }}>
+    <Layout.Vertical className={css.listPage}>
       <Container>
-        <Layout.Horizontal id="layout-horizontal-sample" spacing="none" padding="xlarge" className={css.listWrapper}>
-          <div style={{ width: 200 }}>
-            <ConnectorSetupModal />
-          </div>
-          {/* <div style={{ flexGrow: 1 }}></div> */}
+        <Layout.Horizontal id="layout-horizontal-sample" spacing="none" className={css.listWrapper}>
+          <ConnectorSetupModal />
         </Layout.Horizontal>
       </Container>
-      <Container style={{ height: '100%' }}>
-        <Layout.Horizontal className={css.tableContainer}>
-          <CustomTable
-            data={rowData}
-            columns={columns}
-            onClickRow={(connectorId: string) => onClickRow(history, accountId, connectorId)}
-            onDeleteRow={(connectorId: string) => onDeleteRow(state, accountId, connectorId)}
-          />
-        </Layout.Horizontal>
-      </Container>
+      {!loading ? (
+        <Container className={css.listContainer}>
+          <Layout.Horizontal className={css.tableContainer}>
+            <CustomTable
+              data={formatedData || []}
+              columns={columns}
+              onClickRow={(connectorId: string) => onClickRow(connectorId)}
+              onDeleteRow={(connectorId: string) => onDeleteRow(connectorId)}
+            />
+          </Layout.Horizontal>
+        </Container>
+      ) : (
+        <PageSpinner />
+      )}
     </Layout.Vertical>
   )
 }

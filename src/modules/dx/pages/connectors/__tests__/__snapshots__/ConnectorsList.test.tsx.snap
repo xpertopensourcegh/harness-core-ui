@@ -1,0 +1,687 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Secrets List render 1`] = `
+<div>
+  <div
+    class="Layout---vertical--3Szv StyledProps---main--1Wws listPage"
+  >
+    <div
+      class="StyledProps---font--2ipy StyledProps---main--1Wws"
+    >
+      <div
+        class="Layout---horizontal--3rmQ StyledProps---main--1Wws listWrapper"
+        id="layout-horizontal-sample"
+      >
+        <span
+          class="bp3-popover-wrapper"
+        >
+          <span
+            class="bp3-popover-target"
+          >
+            <button
+              class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi StyledProps---padding-medium--3Ish"
+              type="button"
+            >
+              <span
+                class="bp3-button-text"
+              >
+                + New Connector
+              </span>
+              <span
+                class="bp3-icon bp3-icon-chevron-down StyledProps---main--1Wws"
+                icon="chevron-down"
+              >
+                <svg
+                  data-icon="chevron-down"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  width="16"
+                >
+                  <desc>
+                    chevron-down
+                  </desc>
+                  <path
+                    d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            </button>
+          </span>
+        </span>
+      </div>
+    </div>
+    <div
+      class="StyledProps---font--2ipy StyledProps---main--1Wws listContainer"
+    >
+      <div
+        class="Layout---horizontal--3rmQ StyledProps---main--1Wws tableContainer"
+      >
+        <section
+          class="tableWrapper"
+        >
+          <div
+            class="Layout---horizontal--3rmQ Layout---layout-spacing-xlarge--3xMG StyledProps---main--1Wws filterOptions StyledProps---flex--2Jz8 StyledProps---padding-medium--3Ish"
+          >
+            <div
+              class="TextInput---main--1ytZ"
+            >
+              <div
+                class="bp3-input-group inputSearch"
+              >
+                <span
+                  class="bp3-icon bp3-icon-search StyledProps---main--1Wws"
+                  icon="search"
+                >
+                  <svg
+                    data-icon="search"
+                    height="12"
+                    viewBox="0 0 16 16"
+                    width="12"
+                  >
+                    <desc>
+                      search
+                    </desc>
+                    <path
+                      d="M15.55 13.43l-2.67-2.68a6.94 6.94 0 001.11-3.76c0-3.87-3.13-7-7-7s-7 3.13-7 7 3.13 7 7 7c1.39 0 2.68-.42 3.76-1.11l2.68 2.67a1.498 1.498 0 102.12-2.12zm-8.56-1.44c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+                <input
+                  class="bp3-input"
+                  placeholder="Search..."
+                  type="text"
+                  value=""
+                />
+              </div>
+            </div>
+            <div
+              class="Layout---horizontal--3rmQ Layout---layout-spacing-large--3HvX StyledProps---main--1Wws"
+            >
+              <span
+                class="bp3-icon bp3-icon-grid-view StyledProps---main--1Wws"
+                icon="grid-view"
+                style="cursor: pointer;"
+              >
+                <svg
+                  data-icon="grid-view"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  width="16"
+                >
+                  <desc>
+                    grid-view
+                  </desc>
+                  <path
+                    d="M0 1v6h7V0H1C.45 0 0 .45 0 1zm0 14c0 .55.45 1 1 1h6V9H0v6zM15 0H9v7h7V1c0-.55-.45-1-1-1zM9 16h6c.55 0 1-.45 1-1V9H9v7z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+              <span
+                class="bp3-icon bp3-icon-list StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+                icon="list"
+                style="cursor: pointer;"
+              >
+                <svg
+                  data-icon="list"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  width="16"
+                >
+                  <desc>
+                    list
+                  </desc>
+                  <path
+                    d="M1 3h14c.55 0 1-.45 1-1s-.45-1-1-1H1c-.55 0-1 .45-1 1s.45 1 1 1zm14 10H1c-.55 0-1 .45-1 1s.45 1 1 1h14c.55 0 1-.45 1-1s-.45-1-1-1zm0-4H1c-.55 0-1 .45-1 1s.45 1 1 1h14c.55 0 1-.45 1-1s-.45-1-1-1zm0-4H1c-.55 0-1 .45-1 1s.45 1 1 1h14c.55 0 1-.45 1-1s-.45-1-1-1z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            </div>
+            <div
+              class="Layout---horizontal--3rmQ Layout---layout-spacing-large--3HvX StyledProps---main--1Wws"
+            >
+              <span
+                class="bp3-icon bp3-icon-settings StyledProps---main--1Wws"
+                icon="settings"
+                style="cursor: pointer; transform: rotate(90deg);"
+              >
+                <svg
+                  data-icon="settings"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  width="16"
+                >
+                  <desc>
+                    settings
+                  </desc>
+                  <path
+                    d="M3 1c0-.55-.45-1-1-1S1 .45 1 1v3h2V1zm0 4H1c-.55 0-1 .45-1 1v2c0 .55.45 1 1 1h2c.55 0 1-.45 1-1V6c0-.55-.45-1-1-1zm12-4c0-.55-.45-1-1-1s-1 .45-1 1v2h2V1zM9 1c0-.55-.45-1-1-1S7 .45 7 1v6h2V1zM1 15c0 .55.45 1 1 1s1-.45 1-1v-5H1v5zM15 4h-2c-.55 0-1 .45-1 1v2c0 .55.45 1 1 1h2c.55 0 1-.45 1-1V5c0-.55-.45-1-1-1zm-2 11c0 .55.45 1 1 1s1-.45 1-1V9h-2v6zM9 8H7c-.55 0-1 .45-1 1v2c0 .55.45 1 1 1h2c.55 0 1-.45 1-1V9c0-.55-.45-1-1-1zm-2 7c0 .55.45 1 1 1s1-.45 1-1v-2H7v2z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            </div>
+          </div>
+          <div
+            class="list"
+          >
+            <table
+              role="table"
+            >
+              <thead
+                class="tableHead"
+              >
+                <tr
+                  role="row"
+                >
+                  <th
+                    colspan="1"
+                    role="columnheader"
+                    style="cursor: pointer;"
+                    title="Toggle SortBy"
+                  >
+                    Connector
+                    <span
+                      style="display: inline-flex; margin-left: 5px;"
+                    />
+                  </th>
+                  <th
+                    colspan="1"
+                    role="columnheader"
+                    style="cursor: pointer;"
+                    title="Toggle SortBy"
+                  >
+                    Details
+                    <span
+                      style="display: inline-flex; margin-left: 5px;"
+                    />
+                  </th>
+                  <th
+                    colspan="1"
+                    role="columnheader"
+                    style="cursor: pointer;"
+                    title="Toggle SortBy"
+                  >
+                    Last Activity
+                    <span
+                      style="display: inline-flex; margin-left: 5px;"
+                    />
+                  </th>
+                  <th
+                    colspan="1"
+                    role="columnheader"
+                    style="cursor: pointer;"
+                    title="Toggle SortBy"
+                  >
+                    Status
+                    <span
+                      style="display: inline-flex; margin-left: 5px;"
+                    />
+                  </th>
+                  <th
+                    colspan="1"
+                    role="columnheader"
+                    style="cursor: pointer;"
+                    title="Toggle SortBy"
+                  >
+                    
+                    <span
+                      style="display: inline-flex; margin-left: 5px;"
+                    />
+                  </th>
+                  <th
+                    colspan="1"
+                    role="columnheader"
+                    style="cursor: pointer;"
+                    title="Toggle SortBy"
+                  >
+                    
+                    <span
+                      style="display: inline-flex; margin-left: 5px;"
+                    />
+                  </th>
+                </tr>
+              </thead>
+              <tbody
+                role="rowgroup"
+              >
+                <tr
+                  role="row"
+                >
+                  <td
+                    align="left"
+                    role="cell"
+                    width="auto"
+                  >
+                    <div
+                      style="display: flex; justify-content: space-between;"
+                    >
+                      <span
+                        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
+                        style="font-weight: 700; font-size: 14px; display: inline-flex; align-items: center;"
+                      >
+                        <span
+                          class="bp3-icon StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+                        >
+                          <svg
+                            height="28"
+                            viewBox="0 0 14 14"
+                            width="28"
+                          >
+                            <path
+                              d="M7 .4c-.1 0-.2 0-.3.1L2 2.7c-.2.1-.4.3-.5.6l-1.2 5c-.1.2 0 .5.1.7l.1.1 3.2 4c.2.2.4.3.7.3h5.2c.3 0 .5-.1.7-.3l3.2-4c.2-.2.2-.5.2-.7l-1.2-5c-.1-.3-.2-.5-.5-.6L7.3.6c0-.1-.2-.2-.3-.2z"
+                              fill="#326ce5"
+                            />
+                            <path
+                              d="M7 2.1c-.2 0-.3.1-.3.3v.9c0 .1-.1.1-.1.1v.1c-.2 0-.3 0-.5.1-.7.2-1.4.5-1.8 1l-.1-.1H4c-.1-.1-.2-.2-.4-.3L3.4 4h-.1c-.1 0-.1-.1-.2-.1s-.2 0-.2.1c-.1.1-.1.3.1.4h.1c.1.1.2.1.2.1.2.1.3.2.4.3 0 0 .1.1.1.2l.1.1c-.5.7-.7 1.6-.6 2.5h-.1l-.1.1c-.1 0-.3.1-.5.1h-.4c-.2 0-.3.2-.2.3 0 .1.2.2.4.2h.1c.1 0 .2-.1.3-.1.2-.1.3-.1.5-.1.1 0 .1 0 .2.1h.1c.3.9.9 1.6 1.6 2l-.1.1v.2c-.1.1-.1.3-.3.5-.1.1-.1.1-.1.2v.1c-.1.2 0 .3.1.4s.3 0 .4-.2v-.1c0-.1.1-.2.1-.3.1-.2.1-.4.2-.5 0 0 .1 0 .1-.1l.1-.1c.6.2 1.4.3 2.1.2.2 0 .3-.1.5-.1l.1.1s.1 0 .1.1c.1.1.1.3.2.5 0 .1 0 .2.1.3v.1c.1.2.2.2.4.2.1-.1.2-.2.1-.4v-.1c0-.1-.1-.1-.1-.2-.1-.2-.2-.3-.2-.4V10.4c.8-.5 1.3-1.2 1.6-2h.1s.1-.1.2-.1.3.1.5.1c.1 0 .2.1.3.1h.1c.2 0 .3-.1.4-.2 0-.1-.1-.3-.2-.3h-.4c-.2 0-.4 0-.5-.1-.1 0-.1-.1-.1-.1h-.1c.1-.4 0-.9-.1-1.3s-.3-.9-.5-1.2l.1-.1c0-.1 0-.1.1-.2s.2-.2.4-.3c.1 0 .2-.1.2-.1h.1c.1-.1.2-.3.1-.4s-.3-.1-.4 0h-.1l-.2.2c-.1.1-.3.3-.4.3H10l-.1.1c-.6-.6-1.4-1-2.3-1.1v-.1l-.1-.1V3v-.4c-.2-.3-.3-.5-.5-.5zm-.3 2.2l-.1 1.5c0 .1-.1.2-.2.2h-.1l-1.2-.9c.4-.4.8-.6 1.4-.8zm.7 0c.6.1 1.2.4 1.7.8l-1.2.8c-.1.1-.3.1-.3 0l-.1-.1zM4.6 5.7l1.1 1c.1.1.1.2 0 .3l-.1.1-1.4.4c-.1-.7 0-1.3.4-1.8zm4.9 0c.2.3.3.6.4.9s.1.6.1.9l-1.4-.4c-.1 0-.2-.2-.2-.3s0-.1.1-.1zm-2.7 1h.4l.3.3-.1.4-.4.2-.4-.2-.1-.4zm1.4 1.2c.1 0 .1 0 0 0l1.5.2c-.2.6-.6 1.1-1.2 1.5l-.6-1.4c.1-.1.1-.2.3-.3zm-2.4 0c.1 0 .2.1.2.2v.2l-.6 1.4c-.5-.3-.9-.8-1.2-1.5zm1.2.6l.2.1.7 1.3c-.1 0-.2.1-.3.1-.5.1-1.1.1-1.6-.1l.7-1.3c.2 0 .2-.1.3-.1z"
+                              fill="#fff"
+                              stroke="#fff"
+                              stroke-width="0.25"
+                            />
+                          </svg>
+                        </span>
+                        <div
+                          style="display: grid; align-items: center;"
+                        >
+                          <div>
+                            dummyName
+                            <span
+                              class="bp3-popover-wrapper"
+                            >
+                              <span
+                                class="bp3-popover-target"
+                              >
+                                <span
+                                  class=""
+                                  tabindex="0"
+                                >
+                                  <span
+                                    class="bp3-icon StyledProps---main--1Wws"
+                                    style="margin-left: 5px; padding-bottom: 3px;"
+                                  >
+                                    <svg
+                                      height="16"
+                                      viewBox="0 0 14 14"
+                                      width="16"
+                                    >
+                                      <path
+                                        d="M7 0h-.2c-.2 0-.4.1-.6.3l-6 6c-.3.3-.3.8 0 1.1L2 9.1l4.6 4.6c.3.3.8.3 1.1 0l6-6c.2-.1.3-.3.3-.5v-.7-.3-1.3-2c0-.5-.4-1-1-1h-.9V1c0-.5-.4-1-1-1H7zm0 .6h4.2c.2 0 .4.2.4.4v.9h-1.1c-.3-.3-.5-.4-.8-.4s-.4.1-.6.3h-.5c-.2.1-.4.1-.6.3l-6 6s-.1.1-.1.2L.7 6.9c-.1-.1-.1-.2 0-.3l6-6s.1-.1.2-.1c0 .1.1.1.1.1zm1.9 1.8H13c.2 0 .4.2.4.4v4.3s0 .2-.1.2l-6 6c-.1.1-.2.1-.3 0L2.5 8.8c-.1-.1-.1-.2 0-.3l6-6s.1-.1.2-.1zm2.7.9c-.2 0-.5.1-.6.3-.4.4-.4.9 0 1.3s.9.4 1.3 0 .4-.9 0-1.3c-.3-.2-.5-.3-.7-.3zm0 .7c.1 0 .2 0 .2.1.1.1.1.3 0 .4s-.3.1-.4 0-.1-.3 0-.4c0-.1.1-.1.2-.1z"
+                                        fill="#4d5969"
+                                      />
+                                    </svg>
+                                  </span>
+                                   
+                                  <span
+                                    class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
+                                    style="font-size: 14px;"
+                                  >
+                                    1
+                                  </span>
+                                </span>
+                              </span>
+                            </span>
+                          </div>
+                          <span
+                            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
+                          >
+                            Test Account
+                          </span>
+                        </div>
+                      </span>
+                    </div>
+                  </td>
+                  <td
+                    align="left"
+                    role="cell"
+                    width="auto"
+                  >
+                    <span
+                      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
+                      style="font-weight: 700; font-size: 14px;"
+                    >
+                      <span
+                        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
+                        style="font-weight: 700; font-size: 14px;"
+                      >
+                        <div
+                          style="display: grid; align-items: center;"
+                        >
+                          <span>
+                            URL:
+                             
+                            <a
+                              class="externalLink"
+                              href="djnkjkhk"
+                              rel="noreferrer"
+                              target="_blank"
+                            >
+                              djnkjkhk
+                            </a>
+                          </span>
+                          <span
+                            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
+                          >
+                            <span>
+                              djcjkfdhk
+                            </span>
+                          </span>
+                        </div>
+                      </span>
+                    </span>
+                  </td>
+                  <td
+                    align="left"
+                    role="cell"
+                    width="auto"
+                  >
+                    <section>
+                      <span
+                        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
+                        style="font-size: 16px; display: inline-flex; align-items: center;"
+                      >
+                        <span
+                          class="bp3-icon bp3-icon-pulse StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+                          icon="pulse"
+                          style="padding: 5px; border-radius: 20px; color: white; margin-right: 5px;"
+                        >
+                          <svg
+                            data-icon="pulse"
+                            height="10"
+                            viewBox="0 0 16 16"
+                            width="10"
+                          >
+                            <desc>
+                              pulse
+                            </desc>
+                            <path
+                              d="M15 8h-1.46l-1.7-2.55-.02.01A.984.984 0 0011 5c-.43 0-.79.27-.93.65h-.01l-1.69 4.51-1.38-8.32h-.02A.989.989 0 006 1c-.41 0-.77.25-.92.61L2.34 8H1c-.55 0-1 .45-1 1s.45 1 1 1h2c.41 0 .77-.25.92-.61l1.65-3.86 1.44 8.63h.02c.08.47.47.84.97.84.43 0 .79-.27.93-.65h.01l2.31-6.17.92 1.38.02-.01c.17.26.46.45.81.45h2c.55 0 1-.45 1-1s-.45-1-1-1z"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                        <div
+                          style="display: grid; align-items: center;"
+                        >
+                          <span
+                            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
+                          >
+                            <time
+                              data-value="1595498370848"
+                              datetime="2020-07-23T09:59:30.848Z"
+                              title="07/23/2020 09:59 am"
+                            >
+                              4 days ago
+                            </time>
+                          </span>
+                        </div>
+                      </span>
+                    </section>
+                  </td>
+                  <td
+                    align="left"
+                    role="cell"
+                    width="150"
+                  >
+                    <section
+                      style="display: flex; justify-content: space-between;"
+                    >
+                      <span
+                        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
+                        style="font-weight: 700; font-size: 16px; display: inline-flex; align-items: center;"
+                      >
+                        <span
+                          class="bp3-icon bp3-icon-full-circle StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04 StyledProps---color--8PuS StyledProps---color-green500--2_VK"
+                          icon="full-circle"
+                          style="margin-top: 5px;"
+                        >
+                          <svg
+                            data-icon="full-circle"
+                            height="10"
+                            viewBox="0 0 16 16"
+                            width="10"
+                          >
+                            <desc>
+                              full-circle
+                            </desc>
+                            <path
+                              d="M8 0a8 8 0 100 16A8 8 0 108 0z"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                        <div
+                          style="display: grid; align-items: center;"
+                        >
+                          <span>
+                            active
+                          </span>
+                          <span
+                            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
+                          >
+                            <time
+                              data-value="1595498370848"
+                              datetime="2020-07-23T09:59:30.848Z"
+                              title="07/23/2020 09:59 am"
+                            >
+                              4 days ago
+                            </time>
+                          </span>
+                        </div>
+                      </span>
+                    </section>
+                  </td>
+                  <td
+                    align="left"
+                    role="cell"
+                    width="auto"
+                  />
+                  <td
+                    align="right"
+                    role="cell"
+                    width="auto"
+                  >
+                    <span
+                      class="bp3-popover-wrapper"
+                    >
+                      <span
+                        class="bp3-popover-target"
+                      >
+                        <button
+                          class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws moreIcon StyledProps---intent-primary--2Xgi"
+                          tabindex="0"
+                          type="button"
+                        >
+                          <span
+                            class="bp3-icon StyledProps---main--1Wws"
+                          >
+                            <svg
+                              height="16"
+                              viewBox="0 0 13 3"
+                              width="16"
+                            >
+                              <g
+                                fill="#4d5969"
+                              >
+                                <path
+                                  d="M1.5 0C2.3 0 3 .7 3 1.5S2.3 3 1.5 3 0 2.3 0 1.5.7 0 1.5 0M11.5 0c.8 0 1.5.7 1.5 1.5S12.3 3 11.5 3 10 2.3 10 1.5 10.7 0 11.5 0M6.5 0C7.3 0 8 .7 8 1.5S7.3 3 6.5 3C5.9 3 5.4 2.5 5 1.5 5.4.5 5.9 0 6.5 0"
+                                />
+                              </g>
+                            </svg>
+                          </span>
+                        </button>
+                      </span>
+                    </span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div
+            class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---flex--2Jz8"
+          >
+            <span
+              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
+              style="font-size: 16px;"
+            >
+              Showing  
+              <span
+                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
+                style="font-size: 16px;"
+              >
+                <strong>
+                  1
+                   - 
+                  5
+                </strong>
+                 
+                of 
+                <strong>
+                  5
+                </strong>
+              </span>
+            </span>
+            <div
+              class="pagination"
+            >
+              <button
+                class="bp3-button bp3-disabled bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+                disabled=""
+                tabindex="-1"
+                type="button"
+              >
+                <span
+                  class="bp3-icon bp3-icon-double-chevron-left StyledProps---main--1Wws"
+                  icon="double-chevron-left"
+                >
+                  <svg
+                    data-icon="double-chevron-left"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    width="16"
+                  >
+                    <desc>
+                      double-chevron-left
+                    </desc>
+                    <path
+                      d="M4.41 8L7.7 4.71c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71l-4 4C2.11 7.47 2 7.72 2 8c0 .28.11.53.29.71l4 4a1.003 1.003 0 001.42-1.42L4.41 8zm5 0l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71l-4 4C7.11 7.47 7 7.72 7 8c0 .28.11.53.29.71l4 4a1.003 1.003 0 001.42-1.42L9.41 8z"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+              </button>
+              <button
+                class="bp3-button bp3-disabled bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+                disabled=""
+                tabindex="-1"
+                type="button"
+              >
+                <span
+                  class="bp3-icon bp3-icon-chevron-left StyledProps---main--1Wws"
+                  icon="chevron-left"
+                >
+                  <svg
+                    data-icon="chevron-left"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    width="16"
+                  >
+                    <desc>
+                      chevron-left
+                    </desc>
+                    <path
+                      d="M7.41 8l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71l-4 4C5.11 7.47 5 7.72 5 8c0 .28.11.53.29.71l4 4a1.003 1.003 0 001.42-1.42L7.41 8z"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+              </button>
+              <button
+                class="bp3-button bp3-disabled bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+                disabled=""
+                tabindex="-1"
+                type="button"
+              >
+                <span
+                  class="bp3-icon bp3-icon-chevron-right StyledProps---main--1Wws"
+                  icon="chevron-right"
+                >
+                  <svg
+                    data-icon="chevron-right"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    width="16"
+                  >
+                    <desc>
+                      chevron-right
+                    </desc>
+                    <path
+                      d="M10.71 7.29l-4-4a1.003 1.003 0 00-1.42 1.42L8.59 8 5.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+              </button>
+              <button
+                class="bp3-button bp3-disabled bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+                disabled=""
+                tabindex="-1"
+                type="button"
+              >
+                <span
+                  class="bp3-icon bp3-icon-double-chevron-right StyledProps---main--1Wws"
+                  icon="double-chevron-right"
+                >
+                  <svg
+                    data-icon="double-chevron-right"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    width="16"
+                  >
+                    <desc>
+                      double-chevron-right
+                    </desc>
+                    <path
+                      d="M9 8c0-.28-.11-.53-.29-.71l-4-4a1.003 1.003 0 00-1.42 1.42L6.59 8 3.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4C8.89 8.53 9 8.28 9 8zm4.71-.71l-4-4a1.003 1.003 0 00-1.42 1.42L11.59 8 8.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l4-4c.18-.18.29-.43.29-.71 0-.28-.11-.53-.29-.71z"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+              </button>
+              <select>
+                <option
+                  value="5"
+                >
+                  Show 5
+                </option>
+                <option
+                  value="10"
+                >
+                  Show 10
+                </option>
+                <option
+                  value="20"
+                >
+                  Show 20
+                </option>
+                <option
+                  value="30"
+                >
+                  Show 30
+                </option>
+                <option
+                  value="40"
+                >
+                  Show 40
+                </option>
+              </select>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>
+`;

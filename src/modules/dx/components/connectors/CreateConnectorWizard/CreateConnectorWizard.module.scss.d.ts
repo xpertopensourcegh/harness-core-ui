@@ -39,6 +39,5 @@ declare const styles: {
   readonly lockIcon: string
   readonly selectAuth: string
   readonly credForm: string
-  readonly newConnector: string
 }
 export default styles

@@ -272,7 +272,7 @@ exports[`CustomTable Snapshot should render CustomTable with Proper Data and Col
                     <span
                       class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
                     >
-                      Kubernetes Connector
+                      Account
                     </span>
                   </div>
                 </span>
@@ -642,7 +642,7 @@ exports[`CustomTable Snapshot should render CustomTable with Proper Data and Col
                     <span
                       class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
                     >
-                      Artifact Server Connector
+                      My Project X
                     </span>
                   </div>
                 </span>
@@ -867,7 +867,7 @@ exports[`CustomTable Snapshot should render CustomTable with Proper Data and Col
                     <span
                       class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
                     >
-                      Kubernetes Connector
+                      Account
                     </span>
                   </div>
                 </span>
@@ -1229,7 +1229,7 @@ exports[`CustomTable Snapshot should render CustomTable with Proper Data and Col
                     <span
                       class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
                     >
-                      Artifact Server Connector
+                      My Project X
                     </span>
                   </div>
                 </span>
@@ -1462,7 +1462,7 @@ exports[`CustomTable Snapshot should render CustomTable with Proper Data and Col
                     <span
                       class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
                     >
-                      Kubernetes Connector
+                      Account
                     </span>
                   </div>
                 </span>

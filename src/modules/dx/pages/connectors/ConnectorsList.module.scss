@@ -2,6 +2,8 @@
   border-top: 0.5px solid var(--grey-200) !important;
   border-bottom: 0.5px solid var(--grey-200) !important;
   background-color: var(--white) !important;
+  height: 72px;
+  padding: 18px 30px !important;
 }
 .tableContainer {
   height: 100%;
@@ -17,4 +19,12 @@
       padding: 10px !important;
     }
   }
+}
+.listPage {
+  height: 100%;
+}
+
+.listContainer {
+  background-color: var(--grey-100) !important;
+  height: 100%;
 }

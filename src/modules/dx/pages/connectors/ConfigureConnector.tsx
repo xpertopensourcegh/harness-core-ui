@@ -11,11 +11,9 @@ import { buildKubPayload, buildKubFormData } from './utils/ConnectorUtils'
 import YAMLBuilderPage from 'modules/dx/pages/yamlBuilder/YamlBuilderPage'
 import { YamlEntity } from 'modules/common/constants/YamlConstants'
 import * as YAML from 'yaml'
-
 export interface ConfigureConnectorProps {
   accountId: string
   type: string
-  enableCreate: boolean
   connector: any
   setInitialConnector: (connector: any) => void
   isCreationThroughYamlBuilder: boolean
@@ -27,8 +25,6 @@ interface ConfigureConnectorState {
   setEnableEdit: (val: boolean) => void
   connector: any
   setConnector: (object: any) => void
-  enableCreate: boolean
-  setEnableCreate: (val: boolean) => void
   selectedView: string
   setSelectedView: (selection: string) => void
 }
@@ -71,19 +67,18 @@ const createConnectorByType = async (data: any, state: ConfigureConnectorState, 
 
 const onSubmitForm = (formData: any, state: ConfigureConnectorState, props: ConfigureConnectorProps) => {
   state.setEnableEdit(false)
-  state.setEnableCreate(false)
   const data = buildKubPayload(formData)
 
   createConnectorByType(data, state, props)
 }
 
 const renderConnectorForm = (state: ConfigureConnectorState, props: ConfigureConnectorProps): JSX.Element => {
-  const { enableCreate, connector } = state
+  const { connector } = state
 
   const validationSchema = getValidationSchemaByType(props.type)
   return (
     <Formik
-      initialValues={enableCreate ? {} : connector}
+      initialValues={connector}
       onSubmit={formData => onSubmitForm(formData, state, props)}
       validationSchema={validationSchema}
     >
@@ -132,8 +127,7 @@ const getYamlFromJson = (json: string): string | undefined => {
 }
 
 const ConfigureConnector = (props: ConfigureConnectorProps): JSX.Element => {
-  const [enableEdit, setEnableEdit] = useState(props.enableCreate)
-  const [enableCreate, setEnableCreate] = useState(props.enableCreate)
+  const [enableEdit, setEnableEdit] = useState(false)
   const [connector, setConnector] = useState(props.connector)
   const [selectedView, setSelectedView] = useState(
     props.isCreationThroughYamlBuilder ? SelectedView.YAML : SelectedView.VISUAL
@@ -144,8 +138,6 @@ const ConfigureConnector = (props: ConfigureConnectorProps): JSX.Element => {
     setEnableEdit,
     connector,
     setConnector,
-    enableCreate,
-    setEnableCreate,
     selectedView,
     setSelectedView
   }

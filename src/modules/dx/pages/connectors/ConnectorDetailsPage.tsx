@@ -1,4 +1,4 @@
-import React, { useEffect, ReactText } from 'react'
+import React from 'react'
 import { Layout, Container, Link } from '@wings-software/uikit'
 import { Tag } from '@blueprintjs/core'
 import i18n from './ConnectorDetailsPage.i18n'
@@ -9,9 +9,10 @@ import cx from 'classnames'
 import { routeResources } from 'modules/common/routes'
 import { linkTo } from 'framework/exports'
 import { routeParams } from 'framework/exports'
-import { ConnectorService } from 'modules/dx/services'
-import { buildKubFormData } from './utils/ConnectorUtils'
 import { useParams } from 'react-router'
+import { useGetConnector } from 'services/cd-ng'
+import { buildKubFormData } from './utils/ConnectorUtils'
+import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
 
 interface Categories {
   [key: string]: string
@@ -22,8 +23,6 @@ interface ConnectorDetailsPageState {
   setActiveCategory: (val: number) => void
   connectordetail: any
   setConnector: (val: any) => void
-  isFetching: boolean
-  setIsFetching: (val: boolean) => void
   connectorType: string
   setConnectorType: (type: string) => void
   connectorJson: any
@@ -56,26 +55,9 @@ const setInitialConnector = (data: any, state: ConnectorDetailsPageState) => {
   state.setConnector(data)
 }
 
-const fetchConnectorDetails = async (
-  accountId: string,
-  connectorId: ReactText | string,
-  state: ConnectorDetailsPageState
-) => {
-  state.setIsFetching(true)
-
-  const { connectorDetails, error } = await ConnectorService.getConnector({ connectorId, accountId })
-  if (!error) {
-    const formData = buildKubFormData(connectorDetails)
-    state.setConnector(formData)
-    state.setConnectorJson(connectorDetails)
-  }
-  state.setIsFetching(false)
-}
-
 const ConnectorDetailsPage: React.FC = () => {
   const [activeCategory, setActiveCategory] = React.useState(0)
   const [connectordetail, setConnector] = React.useState()
-  const [isFetching, setIsFetching] = React.useState(false)
   const [connectorType, setConnectorType] = React.useState('K8sCluster')
   const [connectorJson, setConnectorJson] = React.useState()
   const {
@@ -87,21 +69,17 @@ const ConnectorDetailsPage: React.FC = () => {
     setActiveCategory,
     connectordetail,
     setConnector,
-    isFetching,
-    setIsFetching,
     connectorType,
     setConnectorType,
     connectorJson,
     setConnectorJson
   }
-  useEffect(() => {
-    if (connectorId && connectorId !== 'edit=true') {
-      fetchConnectorDetails(accountId, connectorId, state)
-    }
-  }, [])
 
-  //Tempory edit mode to enable create
-  const editMode = /edit=true/gi.test(location.href)
+  const { loading, data: connector } = useGetConnector({
+    accountIdentifier: accountId,
+    connectorIdentifier: connectorId as string
+  })
+
   const isCreationThroughYamlBuilder = false
   return (
     <>
@@ -126,17 +104,18 @@ const ConnectorDetailsPage: React.FC = () => {
         }
       />
       <Page.Body>
-        {!isFetching ? (
+        {!loading ? (
           <ConfigureConnector
             accountId={accountId}
             type={connectorType}
-            connector={connectordetail}
-            enableCreate={editMode}
+            connector={buildKubFormData(connector?.data)}
             setInitialConnector={data => setInitialConnector(data, state)}
             isCreationThroughYamlBuilder={isCreationThroughYamlBuilder}
-            connectorJson={connectorJson}
+            connectorJson={connector?.data}
           />
-        ) : null}
+        ) : (
+          <PageSpinner />
+        )}
       </Page.Body>
     </>
   )
