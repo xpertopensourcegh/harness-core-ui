@@ -9,18 +9,21 @@ import type YamlBuilderProps from 'modules/common/interfaces/YAMLBuilderProps'
 import css from './YamlBuilderPage.module.scss'
 
 const YAMLBuilderPage: React.FC<YamlBuilderProps> = props => {
+  const { fileName, entityType, height, width, existingYaml, bind, isReadOnlyMode, showSnippetsSection = true } = props
   return (
     <div className={css.builderSection}>
       <Layout.Horizontal className={css.layout}>
         <YAMLBuilder
-          fileName={props.fileName}
-          entityType={props.entityType}
-          height={props.height}
-          width={props.width}
-          existingYaml={props.existingYaml}
-          bind={props.bind}
+          fileName={fileName}
+          entityType={entityType}
+          height={height}
+          width={width}
+          existingYaml={existingYaml}
+          bind={bind}
+          isReadOnlyMode={isReadOnlyMode}
+          showSnippetsSection={showSnippetsSection}
         />
-        <SnippetSection entityType={props.entityType} />
+        {showSnippetsSection ? <SnippetSection entityType={props.entityType} /> : null}
       </Layout.Horizontal>
     </div>
   )

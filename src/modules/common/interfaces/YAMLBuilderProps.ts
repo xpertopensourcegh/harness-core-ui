@@ -9,4 +9,6 @@ export default interface YamlBuilderProps {
   existingYaml?: string
   entityType: string
   bind?: (dynamicPopoverHandler: YamlBuilderHandlerBinding) => void
+  isReadOnlyMode?: boolean
+  showSnippetsSection?: boolean
 }

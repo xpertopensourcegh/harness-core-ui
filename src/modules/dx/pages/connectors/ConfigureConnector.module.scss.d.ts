@@ -8,5 +8,6 @@ declare const styles: {
   readonly submitBtn: string
   readonly formCustomCss: string
   readonly optionBtns: string
+  readonly editor: string
 }
 export default styles

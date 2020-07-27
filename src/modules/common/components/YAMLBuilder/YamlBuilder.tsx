@@ -45,7 +45,7 @@ interface CompletionItemInterface {
 let yamlInEditor
 
 const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
-  const { height, width, fileName, entityType, existingYaml } = props
+  const { height, width, fileName, entityType, existingYaml, isReadOnlyMode, showSnippetsSection } = props
   const [currentYaml, setCurrentYaml] = useState()
 
   const { bind } = props
@@ -132,7 +132,9 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
 
   const editorDidMount = (editor, monaco) => {
     if (editor) {
-      editor.focus()
+      if (!props.isReadOnlyMode) {
+        editor.focus()
+      }
       editor.onKeyDown(event => {
         const { shiftKey, code } = event
         //TODO Need to check hotkey for cross browser/cross OS compatibility
@@ -153,7 +155,7 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
   }, [existingYaml, entityType])
 
   return (
-    <div className={css.main}>
+    <div className={cx(css.main, { [css.editorOnly]: !showSnippetsSection })}>
       <div className={css.flexCenter}>
         <span className={cx(css.filePath, css.flexCenter)}>{fileName}</span>
         {fileName && entityType ? <Tag className={css.entityTag}>{entityType}</Tag> : null}
@@ -167,6 +169,7 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
           value={currentYaml}
           onChange={onYamlChange}
           editorDidMount={editorDidMount}
+          options={{ readOnly: isReadOnlyMode }}
         />
       </div>
     </div>

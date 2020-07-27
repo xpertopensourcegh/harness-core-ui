@@ -6,5 +6,6 @@ declare const styles: {
   readonly builder: string
   readonly flexCenter: string
   readonly entityTag: string
+  readonly editorOnly: string
 }
 export default styles
