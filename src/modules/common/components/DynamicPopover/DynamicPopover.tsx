@@ -8,7 +8,8 @@ export interface DynamicPopoverHandlerBinding<T> {
   show: (
     ref: Element | PopperJS.VirtualElement,
     data?: T,
-    options?: { darkMode?: boolean; useArrows?: boolean }
+    options?: { darkMode?: boolean; useArrows?: boolean },
+    onHideCallBack?: () => void
   ) => void
   hide: () => void
 }
@@ -31,11 +32,12 @@ export function DynamicPopover<T>(props: DynamicPopoverProps<T>): JSX.Element {
   const [arrowElement, setArrowElement] = useState<HTMLElement | null>(null)
   const [referenceElement, setReferenceElement] = useState<Element | PopperJS.VirtualElement | null>(null)
   const [visible, setVisibility] = useState<boolean>(false)
+  const [hideCallback, setHideCallBack] = useState<() => void | undefined>()
 
   const handler = useMemo(
     () =>
       ({
-        show: (ref, dataTemp, options) => {
+        show: (ref, dataTemp, options, callback) => {
           setVisibility(true)
           setData(dataTemp)
           setReferenceElement(ref)
@@ -43,6 +45,7 @@ export function DynamicPopover<T>(props: DynamicPopoverProps<T>): JSX.Element {
             typeof options.darkMode === 'boolean' && setDarkMode(options.darkMode)
             typeof options.useArrows === 'boolean' && setArrowVisibility(options.useArrows)
           }
+          setHideCallBack(_prev => callback)
         },
         hide: () => {
           setVisibility(false)
@@ -50,6 +53,13 @@ export function DynamicPopover<T>(props: DynamicPopoverProps<T>): JSX.Element {
       } as DynamicPopoverHandlerBinding<T>),
     []
   )
+
+  React.useEffect(() => {
+    if (!visible && hideCallback) {
+      hideCallback()
+      setHideCallBack(undefined)
+    }
+  }, [hideCallback, visible])
 
   React.useEffect(() => {
     bind(handler)

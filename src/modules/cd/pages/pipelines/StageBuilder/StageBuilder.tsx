@@ -1,13 +1,13 @@
 import React from 'react'
 import { Diagram } from 'modules/common/exports'
 import css from './StageBuilder.module.scss'
-import { StageBuilderModel, StageType, getStageFromPipeline } from './StageBuilderModel'
+import { StageBuilderModel, StageType, getStageFromPipeline, EmptyNodeSeparator } from './StageBuilderModel'
 import { DynamicPopover, DynamicPopoverHandlerBinding } from 'modules/common/components/DynamicPopover/DynamicPopover'
 import { Icon } from '@wings-software/uikit'
 import 'split-view'
 import type { NodeModelListener, LinkModelListener } from '@projectstorm/react-diagrams-core'
 import StageSetupShell from '../../../common/StageSetupShell/StageSetupShell'
-import type { StageElementWrapper } from 'services/cd-ng'
+import type { StageElementWrapper, CDPipelineDTO } from 'services/cd-ng'
 import { PipelineContext } from '../PipelineContext/PipelineContext'
 import { CanvasButtons } from 'modules/cd/common/CanvasButtons/CanvasButtons'
 import { AddStageView } from './views/AddStageView'
@@ -24,6 +24,28 @@ declare global {
   }
 }
 
+export interface StageState {
+  isConfigured: boolean
+  stage: StageElementWrapper
+}
+
+export type StageStateMap = Map<string, StageState>
+
+const initializeStageStateMap = (pipeline: CDPipelineDTO, mapState: StageStateMap): void => {
+  if (pipeline.stages) {
+    pipeline.stages.forEach((node: StageElementWrapper) => {
+      if (node.stage) {
+        mapState.set(node.stage.identifier, { isConfigured: true, stage: node })
+      } else if (node.parallel) {
+        node.parallel.forEach((parallelNode: StageElementWrapper) => {
+          if (parallelNode.stage) {
+            mapState.set(parallelNode.stage.identifier, { isConfigured: true, stage: parallelNode })
+          }
+        })
+      }
+    })
+  }
+}
 interface PopoverData {
   data?: StageElementWrapper
   isStageView: boolean
@@ -51,7 +73,8 @@ export const StageBuilder: React.FC<{}> = (): JSX.Element => {
   const {
     state: {
       pipeline,
-      pipelineView: { isSetupStageOpen, selectedStageId }
+      pipelineView: { isSetupStageOpen, selectedStageId },
+      isInitialized
     },
     updatePipeline,
     updatePipelineView
@@ -61,17 +84,25 @@ export const StageBuilder: React.FC<{}> = (): JSX.Element => {
     DynamicPopoverHandlerBinding<PopoverData> | undefined
   >()
 
+  const [stageMap, setStageMap] = React.useState(new Map<string, StageState>())
+
   const addStage = (type: StageType, isParallel = false, event?: Diagram.DefaultNodeEvent): void => {
     if (!pipeline.stages) {
       pipeline.stages = []
     }
     if (event?.entity && event.entity instanceof DefaultLinkModel) {
-      const node = event.entity.getSourcePort().getNode()
-      const { stage } = getStageFromPipeline(pipeline, node.getID())
+      let node = event.entity.getSourcePort().getNode()
+      let { stage } = getStageFromPipeline(pipeline, node.getID())
+      let next = 1
+      if (!stage) {
+        node = event.entity.getTargetPort().getNode()
+        stage = getStageFromPipeline(pipeline, node.getID()).stage
+        next = 0
+      }
       if (stage) {
         const index = pipeline.stages.indexOf(stage)
         if (index > -1) {
-          pipeline.stages.splice(index + 1, 0, {
+          pipeline.stages.splice(index + next, 0, {
             stage: {
               name: 'Untitled',
               identifier: `Untitled-${Math.ceil(Math.random() * 1000)}`,
@@ -79,6 +110,29 @@ export const StageBuilder: React.FC<{}> = (): JSX.Element => {
               spec: {}
             }
           })
+        }
+      } else {
+        // parallel next parallel case
+        let nodeId = event.entity.getSourcePort().getNode().getID().split(EmptyNodeSeparator)[1]
+        stage = getStageFromPipeline(pipeline, nodeId).parent
+        next = 1
+        if (!stage) {
+          nodeId = event.entity.getTargetPort().getNode().getID().split(EmptyNodeSeparator)[2]
+          stage = getStageFromPipeline(pipeline, nodeId).parent
+          next = 0
+        }
+        if (stage) {
+          const index = pipeline.stages.indexOf(stage)
+          if (index > -1) {
+            pipeline.stages.splice(index + next, 0, {
+              stage: {
+                name: 'Untitled',
+                identifier: `Untitled-${Math.ceil(Math.random() * 1000)}`,
+                type: type,
+                spec: {}
+              }
+            })
+          }
         }
       }
     } else if (isParallel && event?.entity && event.entity instanceof DefaultNodeModel) {
@@ -128,6 +182,14 @@ export const StageBuilder: React.FC<{}> = (): JSX.Element => {
     updatePipeline(pipeline)
   }
 
+  React.useEffect(() => {
+    if (isInitialized && !isSetupStageOpen) {
+      const map = new Map<string, StageState>()
+      initializeStageStateMap(pipeline, map)
+      setStageMap(map)
+    }
+  }, [isInitialized, pipeline, isSetupStageOpen])
+
   const nodeListeners: NodeModelListener = {
     // Can not remove this Any because of React Diagram Issue
     [Diagram.Event.ClickNode]: (event: any) => {
@@ -145,19 +207,25 @@ export const StageBuilder: React.FC<{}> = (): JSX.Element => {
           )
         } else if (eventTemp.entity.getType() !== Diagram.DiagramType.StartNode) {
           if (!isSetupStageOpen) {
-            dynamicPopoverHandler?.show(
-              nodeRender,
-              {
-                isStageView: true,
-                data: getStageFromPipeline(pipeline, eventTemp.entity.getID()).stage,
-                onSubmitPrimaryData: (_values, identifier) => {
-                  updatePipeline(pipeline)
-                  dynamicPopoverHandler.hide()
-                  updatePipelineView({ isSetupStageOpen: true, selectedStageId: identifier })
-                }
-              },
-              { useArrows: false, darkMode: false }
-            )
+            const data = getStageFromPipeline(pipeline, eventTemp.entity.getID()).stage
+            if (stageMap.has(data?.stage?.identifier)) {
+              updatePipelineView({ isSetupStageOpen: true, selectedStageId: data?.stage?.identifier })
+            } else {
+              dynamicPopoverHandler?.show(
+                nodeRender,
+                {
+                  isStageView: true,
+                  data,
+                  onSubmitPrimaryData: (node, identifier) => {
+                    updatePipeline(pipeline)
+                    stageMap.set(node.stage.identifier, { isConfigured: true, stage: node })
+                    dynamicPopoverHandler.hide()
+                    updatePipelineView({ isSetupStageOpen: true, selectedStageId: identifier })
+                  }
+                },
+                { useArrows: false, darkMode: false }
+              )
+            }
           }
         }
       }
@@ -166,10 +234,11 @@ export const StageBuilder: React.FC<{}> = (): JSX.Element => {
     [Diagram.Event.RemoveNode]: (event: any) => {
       const eventTemp = event as Diagram.DefaultNodeEvent
       const { stage: node, parent } = getStageFromPipeline(pipeline, eventTemp.entity.getID())
-      if (node) {
-        const index = pipeline?.stages?.indexOf(node)
-        if (index && index > -1) {
+      if (node && pipeline.stages) {
+        const index = pipeline.stages.indexOf(node)
+        if (index > -1) {
           pipeline?.stages?.splice(index, 1)
+          stageMap.delete(node.stage.identifier)
           updatePipeline(pipeline)
         } else if (parent?.parallel) {
           const parallelIndex = parent.parallel?.indexOf(node)
@@ -181,6 +250,7 @@ export const StageBuilder: React.FC<{}> = (): JSX.Element => {
                 pipeline?.stages?.splice(emptyParallel, 1)
               }
             }
+            stageMap.delete(node.stage.identifier)
             updatePipeline(pipeline)
           }
         }
@@ -199,7 +269,8 @@ export const StageBuilder: React.FC<{}> = (): JSX.Element => {
             isStageView: false,
             event: eventTemp
           },
-          { useArrows: true, darkMode: true }
+          { useArrows: true, darkMode: true },
+          eventTemp.callback
         )
       }
     }

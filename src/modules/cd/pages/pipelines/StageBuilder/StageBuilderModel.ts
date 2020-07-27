@@ -25,6 +25,8 @@ export interface Listeners {
   linkListeners: LinkModelListener
 }
 
+export const EmptyNodeSeparator = '$node$'
+
 export const getStageFromPipeline = (
   data: CDPipelineDTO,
   identifier: string
@@ -121,15 +123,18 @@ export class StageBuilderModel extends Diagram.DiagramModel {
     } else if (node.parallel) {
       let newX = startX
       let newY = startY
-      if (prevNodes && prevNodes.length > 1) {
-        const emptyNode = new Diagram.EmptyNodeModel()
-        this.addNode(emptyNode)
-        newX += this.gap
-        emptyNode.setPosition(newX, newY)
-        prevNodes.forEach((prevNode: Diagram.DefaultNodeModel) => {
-          this.connectedParentToNode(emptyNode, prevNode, false)
+      if (!isEmpty(prevNodes) && prevNodes) {
+        const emptyNodeStart = new Diagram.EmptyNodeModel({
+          id: `${EmptyNodeSeparator}-${EmptyNodeSeparator}${node.parallel[0].stage.identifier}${EmptyNodeSeparator}`,
+          name: 'Empty'
         })
-        prevNodes = [emptyNode]
+        this.addNode(emptyNodeStart)
+        newX += this.gap
+        emptyNodeStart.setPosition(newX, newY)
+        prevNodes.forEach((prevNode: Diagram.DefaultNodeModel) => {
+          this.connectedParentToNode(emptyNodeStart, prevNode, true)
+        })
+        prevNodes = [emptyNodeStart]
         newX = newX - this.gap / 2 - 20
       }
       const prevNodesAr: Diagram.DefaultNodeModel[] = []
@@ -142,7 +147,22 @@ export class StageBuilderModel extends Diagram.DiagramModel {
           prevNodesAr.push(...resp.prevNodes)
         }
       })
-      return { startX, startY, prevNodes: prevNodesAr }
+      if (!isEmpty(prevNodesAr)) {
+        const emptyNodeEnd = new Diagram.EmptyNodeModel({
+          id: `${EmptyNodeSeparator}${node.parallel[0].stage.identifier}${EmptyNodeSeparator}`,
+          name: 'Empty'
+        })
+        this.addNode(emptyNodeEnd)
+        startX += this.gap
+        emptyNodeEnd.setPosition(startX, startY)
+        prevNodesAr.forEach((prevNode: Diagram.DefaultNodeModel) => {
+          this.connectedParentToNode(emptyNodeEnd, prevNode, false)
+        })
+        prevNodes = [emptyNodeEnd]
+        startX = startX - this.gap / 2 - 20
+      }
+
+      return { startX, startY, prevNodes }
     }
     return { startX, startY }
   }

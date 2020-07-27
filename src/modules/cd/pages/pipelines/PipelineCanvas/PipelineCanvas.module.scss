@@ -2,6 +2,7 @@
   display: grid;
   grid-template-rows: 42px 38px 1fr;
   height: 100%;
+  position: relative;
 
   .top-bar {
     box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.13);

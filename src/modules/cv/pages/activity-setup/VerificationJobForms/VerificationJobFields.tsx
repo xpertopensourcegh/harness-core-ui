@@ -1,5 +1,5 @@
 import React, { useMemo, useCallback, CSSProperties } from 'react'
-import { FormInput, SelectOption, MultiTypeInput } from '@wings-software/uikit'
+import { FormInput, SelectOption, MultiTypeInput, MultiSelectOption } from '@wings-software/uikit'
 import { useFormikContext } from 'formik'
 import i18n from './VerificationJobForms.i18n'
 
@@ -28,7 +28,7 @@ export function VerificationSensitivity(props: BaseFieldProps): JSX.Element {
   )
   const { setFieldValue } = useFormikContext()
   const onChangeCallback = useCallback(
-    (value?: string) => {
+    (value?: string | SelectOption | MultiSelectOption[]) => {
       setFieldValue('sensitivity', value)
     },
     [setFieldValue]
@@ -57,7 +57,7 @@ export function ServiceName(props: BaseFieldProps): JSX.Element {
   )
   const { setFieldValue } = useFormikContext()
   const onChangeCallback = useCallback(
-    (value?: string) => {
+    (value?: string | SelectOption | MultiSelectOption[]) => {
       setFieldValue('service', value)
     },
     [setFieldValue]
@@ -87,7 +87,7 @@ export function Duration(props: BaseFieldProps): JSX.Element {
   )
   const { setFieldValue } = useFormikContext()
   const onChangeCallback = useCallback(
-    (value?: string) => {
+    (value?: string | SelectOption | MultiSelectOption[]) => {
       setFieldValue('service', value)
     },
     [setFieldValue]
@@ -116,7 +116,7 @@ export function EnvironmentName(props: BaseFieldProps): JSX.Element {
   )
   const { setFieldValue } = useFormikContext()
   const onChangeCallback = useCallback(
-    (value?: string) => {
+    (value?: string | SelectOption | MultiSelectOption[]) => {
       setFieldValue('environment', value)
     },
     [setFieldValue]
@@ -146,7 +146,7 @@ export function TrafficSplit(props: BaseFieldProps): JSX.Element {
   )
   const { setFieldValue } = useFormikContext()
   const onChangeCallback = useCallback(
-    (value?: string) => {
+    (value?: string | SelectOption | MultiSelectOption[]) => {
       setFieldValue('dataSource', value)
     },
     [setFieldValue]
@@ -175,7 +175,7 @@ export function Baseline(props: BaseFieldProps): JSX.Element {
   )
   const { setFieldValue } = useFormikContext()
   const onChangeCallback = useCallback(
-    (value?: string) => {
+    (value?: string | SelectOption | MultiSelectOption[]) => {
       setFieldValue('baseline', value)
     },
     [setFieldValue]
@@ -204,7 +204,7 @@ export function DataSource(props: BaseFieldProps): JSX.Element {
   )
   const { setFieldValue } = useFormikContext()
   const onChangeCallback = useCallback(
-    (value?: string) => {
+    (value?: string | SelectOption | MultiSelectOption[]) => {
       setFieldValue('dataSource', value)
     },
     [setFieldValue]

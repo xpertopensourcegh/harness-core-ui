@@ -26,10 +26,19 @@
     }
 
     .helpImages {
-      border: 1px solid var(--grey-250);
       height: 340px;
-      margin: 30px;
-      text-align: center;
+      width: 458px;
+      border: 1px solid var(--grey-200);
+
+      & img {
+        width: inherit;
+
+        & + div {
+          position: absolute;
+          padding: var(--spacing-small);
+          bottom: 0;
+        }
+      }
     }
 
     .startBtn {

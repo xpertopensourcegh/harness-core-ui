@@ -25,9 +25,11 @@ const PipelineStudioInner = (): JSX.Element => {
     if (!isUpdated) {
       const response = await runPipeline()
       if (response.status === 'SUCCESS') {
+        // TODO: i18n and move to pipeline execution page
         alert('Pipeline Started SuccessFully')
       }
     } else {
+      // TODO: Change to Alert as per design (waiting)
       alert('Please save the pipeline first')
     }
   }, [runPipeline, isUpdated])

@@ -124,7 +124,7 @@ const _fetchPipeline = async (
       dispatch(
         PipelineContextActions.success({
           error: '',
-          pipeline: data?.pipeline || DefaultPipeline,
+          pipeline: data?.pipeline || { ...DefaultPipeline },
           isUpdated: data?.isUpdated || false
         })
       )
@@ -249,7 +249,7 @@ export const PipelineProvider: React.FC<{
   const pipelineSaved = React.useCallback(() => {
     deletePipelineCache()
     dispatch(PipelineContextActions.pipelineSavedAction())
-  }, [])
+  }, [deletePipelineCache])
 
   const updatePipelineView = React.useCallback((data: PipelineViewData) => {
     dispatch(PipelineContextActions.updatePipelineView({ pipelineView: data }))

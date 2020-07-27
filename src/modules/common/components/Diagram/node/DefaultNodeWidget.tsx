@@ -6,6 +6,7 @@ import { DefaultPortLabel } from '../port/DefaultPortLabelWidget'
 import type { DefaultPortModel } from '../port/DefaultPortModel'
 import { Icon, Text, Button } from '@wings-software/uikit'
 import cx from 'classnames'
+
 import { Event } from '../Constants'
 
 export interface DefaultNodeProps {
@@ -17,9 +18,20 @@ const generatePort = (port: DefaultPortModel, props: DefaultNodeProps): JSX.Elem
   return <DefaultPortLabel engine={props.engine} port={port} key={port.getID()} />
 }
 
-const onAddNodeClick = (e: React.MouseEvent<Element, MouseEvent>, node: DefaultNodeModel): void => {
+const onAddNodeClick = (
+  e: React.MouseEvent<Element, MouseEvent>,
+  node: DefaultNodeModel,
+  setAddClicked: React.Dispatch<React.SetStateAction<boolean>>
+): void => {
   e.stopPropagation()
-  node.fireEvent({}, Event.AddParallelNode)
+  node.fireEvent(
+    {
+      callback: () => {
+        setAddClicked(false)
+      }
+    },
+    Event.AddParallelNode
+  )
 }
 
 const onClick = (e: React.MouseEvent<Element, MouseEvent>, node: DefaultNodeModel): void => {
@@ -37,25 +49,33 @@ export const DefaultNodeWidget = (props: DefaultNodeProps): JSX.Element => {
   const nodeRef = React.useRef<HTMLDivElement>(null)
   const allowAdd = options.allowAdd ?? false
   const [showAdd, setVisibilityOfAdd] = React.useState(false)
+  const [addClicked, setAddClicked] = React.useState(false)
 
   React.useEffect(() => {
     const currentNode = nodeRef.current
 
-    const onMouse = (): void => {
-      setVisibilityOfAdd(prev => !prev)
+    const onMouseOver = (): void => {
+      if (!addClicked) {
+        setVisibilityOfAdd(true)
+      }
+    }
+    const onMouseLeave = (): void => {
+      if (!addClicked) {
+        setVisibilityOfAdd(false)
+      }
     }
 
     if (currentNode && allowAdd) {
-      currentNode.addEventListener('mouseover', onMouse)
-      currentNode.addEventListener('mouseout', onMouse)
+      currentNode.addEventListener('mouseover', onMouseOver)
+      currentNode.addEventListener('mouseleave', onMouseLeave)
     }
     return () => {
       if (currentNode && allowAdd) {
-        currentNode.removeEventListener('mouseover', onMouse)
-        currentNode.removeEventListener('mouseleave', onMouse)
+        currentNode.removeEventListener('mouseover', onMouseOver)
+        currentNode.removeEventListener('mouseleave', onMouseLeave)
       }
     }
-  }, [nodeRef, allowAdd])
+  }, [nodeRef, allowAdd, addClicked])
 
   return (
     <div className={css.defaultNode} ref={nodeRef} onClick={e => onClickNode(e, props.node)}>
@@ -94,7 +114,10 @@ export const DefaultNodeWidget = (props: DefaultNodeProps): JSX.Element => {
       </Text>
       {allowAdd && (
         <div
-          onClick={e => onAddNodeClick(e, props.node)}
+          onClick={e => {
+            setAddClicked(true)
+            onAddNodeClick(e, props.node, setAddClicked)
+          }}
           className={css.addNode}
           style={{
             width: options.width,

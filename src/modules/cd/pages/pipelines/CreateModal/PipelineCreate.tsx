@@ -9,13 +9,17 @@ import {
   Button,
   Collapse,
   IconName,
-  Text
+  Text,
+  Carousel
 } from '@wings-software/uikit'
 import * as Yup from 'yup'
 import css from './PipelineCreate.module.scss'
 import i18n from './PipelineCreate.i18n'
 import type { CDPipelineDTO } from 'services/cd-ng'
 import { DefaultNewPipelineId } from '../PipelineContext/PipelineActions'
+import image1 from './images/first.png'
+import image2 from './images/second.png'
+import image3 from './images/third.png'
 
 const logger = loggerFor(ModuleName.CD)
 const collapseProps = {
@@ -49,7 +53,7 @@ export default function CreatePipelines({
     <Container padding="small" className={css.container}>
       {isEdit && <Button icon="cross" minimal className={css.closeModal} onClick={closeModal} />}
       <Heading className={css.heading} level={2}>
-        {i18n.welcomeToPipelineStudio}
+        {isEdit ? i18n.pipelineEdit : i18n.welcomeToPipelineStudio}
       </Heading>
       <Container padding="xsmall" className={css.layout}>
         <div>
@@ -67,6 +71,7 @@ export default function CreatePipelines({
             <FormikForm>
               <div className={css.formInput}>
                 <FormInput.InputWithIdentifier
+                  isIdentifierEditable={!isEdit}
                   inputLabel={i18n.pipelineNameLabel}
                   inputGroupProps={{ placeholder: i18n.pipelineNamePlaceholder }}
                 />
@@ -103,7 +108,35 @@ export default function CreatePipelines({
             </FormikForm>
           </Formik>
         </div>
-        <div className={css.helpImages}>Pipeline Concepts - TBD</div>
+        <Carousel>
+          <div className={css.helpImages}>
+            <img src={image1} />
+            <div>
+              <Text font={{ weight: 'bold' }} padding={{ bottom: 'small' }}>
+                {i18n.pipelineConcepts}
+              </Text>
+              <Text>{i18n.concept1}</Text>
+            </div>
+          </div>
+          <div className={css.helpImages}>
+            <img src={image2} />
+            <div>
+              <Text font={{ weight: 'bold' }} padding={{ bottom: 'small' }}>
+                {i18n.pipelineConcepts}
+              </Text>
+              <Text>{i18n.concept1}</Text>
+            </div>
+          </div>
+          <div className={css.helpImages}>
+            <img src={image3} />
+            <div>
+              <Text font={{ weight: 'bold' }} padding={{ bottom: 'small' }}>
+                {i18n.pipelineConcepts}
+              </Text>
+              <Text>{i18n.concept1}</Text>
+            </div>
+          </div>
+        </Carousel>
       </Container>
     </Container>
   )

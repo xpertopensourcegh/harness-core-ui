@@ -149,6 +149,7 @@ export class DefaultNodeModel extends NodeModel<DefaultNodeModelGenerics> {
 export interface DefaultNodeEvent {
   entity: DefaultNodeModel
   isSelected: boolean
+  callback: () => void
   firing: boolean
   stopPropagation: () => void
 }
