@@ -6,7 +6,7 @@ import cx from 'classnames'
 interface DataSourcePanelStatusHeaderProps {
   message?: string
   intent?: Intent
-  panelName: string
+  panelName: string | JSX.Element
 }
 
 export default function DataSourcePanelStatusHeader(props: DataSourcePanelStatusHeaderProps): JSX.Element {
@@ -36,9 +36,13 @@ export default function DataSourcePanelStatusHeader(props: DataSourcePanelStatus
   return (
     <Container className={css.main}>
       <Container className={css.title}>
-        <Text font={{ weight: 'bold' }} lineClamp={1} className={css.panelName}>
-          {panelName}
-        </Text>
+        {typeof panelName === 'string' ? (
+          <Text font={{ weight: 'bold' }} lineClamp={1} className={css.panelName}>
+            {panelName}
+          </Text>
+        ) : (
+          panelName
+        )}
       </Container>
       {message && text}
     </Container>

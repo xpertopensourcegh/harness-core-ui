@@ -3,8 +3,8 @@ import { connect } from 'formik'
 import get from 'lodash/get'
 import isEmpty from 'lodash/isEmpty'
 import JsonSelector from './JsonSelector'
-import { FormGroup, Dialog, Icon } from '@blueprintjs/core'
-import { useModalHook } from '@wings-software/uikit'
+import { FormGroup, Dialog, Icon, Spinner } from '@blueprintjs/core'
+import { useModalHook, Container, Text, Color } from '@wings-software/uikit'
 import classnames from 'classnames'
 import css from './JsonSelectorFormInput.module.scss'
 
@@ -12,12 +12,23 @@ interface JsonSelectorFormInputProps {
   name: string
   label: string
   json?: object | null
+  loading?: boolean
+  placeholder?: string
 }
 
 const JsonSelectorFormInput = (props: JsonSelectorFormInputProps & { formik?: any }) => {
-  const { name, label, json, formik } = props
+  const { name, label, json, formik, loading, placeholder } = props
 
-  const value = get(formik.values, name)
+  let value = get(formik.values, name)
+  let valueColor = Color.BLACK
+  const validationError = get(formik.errors, name)
+  if (loading) {
+    value = ''
+  } else if (!value || !Object.keys(value)?.length) {
+    value = !json || !Object.keys(json)?.length ? 'No data returned' : placeholder
+    valueColor = Color.GREY_400
+  }
+
   const onPathSelect = (path: string) => {
     hideModal()
     formik.setFieldValue(name, path)
@@ -53,13 +64,22 @@ const JsonSelectorFormInput = (props: JsonSelectorFormInputProps & { formik?: an
   )
 
   return (
-    <FormGroup labelFor={name} label={label}>
-      <div className={classnames('bp3-input-group', css.inputGroup)}>
-        <div className={classnames('bp3-input', css.input)} onClick={onOpenModal}>
-          {value}
-        </div>
-        <Icon className={css.inputIcon} icon="plus" iconSize={12} />
-      </div>
+    <FormGroup
+      labelFor={name}
+      label={label}
+      helperText={validationError}
+      intent={validationError?.length ? 'danger' : undefined}
+    >
+      <Container className={classnames('bp3-input-group', css.inputGroup)}>
+        <Container className={classnames('bp3-input', css.input)} onClick={onOpenModal}>
+          <Text color={valueColor}>{value}</Text>
+        </Container>
+        {loading ? (
+          <Spinner size={8} className={css.loadingJsonIcon} />
+        ) : (
+          <Icon className={css.inputIcon} icon="plus" iconSize={12} />
+        )}
+      </Container>
     </FormGroup>
   )
 }

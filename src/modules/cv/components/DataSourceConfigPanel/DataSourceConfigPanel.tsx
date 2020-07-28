@@ -45,7 +45,7 @@ type FormValues = {
 type FormikProperties = 'values' | 'setFieldTouched' | 'setFieldError' | 'touched'
 
 interface DataSourceConfigPanelProps extends ListPanelInterface, Pick<FormikContextType<FormValues>, FormikProperties> {
-  entityName: string
+  entityName: string | JSX.Element
   onRemove: (index: number) => void
   transformToSavePayload?: (dsConfig: DSConfig) => DSConfig
   index: number

@@ -1,24 +1,23 @@
 import React from 'react'
-import { IconName, Container, Text, Heading, Icon, Color } from '@wings-software/uikit'
+import { Container, Heading, Icon, Color } from '@wings-software/uikit'
 import css from './OnBoardingConfigSetupHeader.module.scss'
+import cx from 'classnames'
+import type { IconProps } from '@wings-software/uikit/dist/icons/Icon'
 
 interface OnBoardingConfigSetupHeaderProps {
-  iconName: IconName
-  iconSubText?: string | JSX.Element
   pageHeading?: string | JSX.Element
+  iconProps: Omit<IconProps, 'className'>
+  iconClassName?: string
 }
 
 export default function OnBoardingConfigSetupHeader(props: OnBoardingConfigSetupHeaderProps): JSX.Element {
-  const { iconName, iconSubText, pageHeading } = props
+  const { iconProps, pageHeading, iconClassName } = props
   return (
     <Container className={css.main}>
-      <Container className={css.iconContainer}>
-        <Icon name={iconName} size={45} className={css.dataSourceIcon} />
-        <Text style={{ textAlign: 'center', fontSize: '10px' }} color={Color.BLACK}>
-          {iconSubText}
-        </Text>
+      <Container className={cx(css.iconContainer, iconClassName)}>
+        <Icon size={45} className={css.dataSourceIcon} {...iconProps} />
       </Container>
-      <Heading level={2} color={Color.BLACK}>
+      <Heading level={2} color={Color.BLACK} font={{ size: 'small' }}>
         {pageHeading}
       </Heading>
     </Container>

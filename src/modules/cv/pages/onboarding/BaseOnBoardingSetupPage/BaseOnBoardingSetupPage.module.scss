@@ -1,6 +1,11 @@
 .main {
   max-width: 1000px;
-  margin-top: 50px !important;
+  margin-top: 45px !important;
   margin-left: 75px !important;
   margin-right: var(--spacing-large) !important;
+}
+
+.splunkIcon svg {
+  height: 20px;
+  width: 75px;
 }

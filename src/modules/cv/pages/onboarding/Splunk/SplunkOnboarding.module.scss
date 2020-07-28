@@ -1,101 +1,105 @@
 .main {
-  max-width: 1000px;
-
   .headingText {
     margin-top: 24px;
   }
 
-  .mainSectionHeader {
-    margin-top: 24px;
-    display: grid;
-    grid-template-columns: 93% 7%;
-    justify-content: space-around;
-    .heading {
-      font-size: 18px;
-      color: var(--grey-900);
-      font-weight: bold;
-    }
-    .queryBtn {
-      font-size: 16px !important;
-    }
+  --content-height: 455px;
+
+  .queryBtn {
+    align-self: flex-end;
+    position: relative;
+    top: 5px;
   }
 
-  .mainSection {
-    .title {
-      display: flex;
-      .saveBtn {
-        margin-left: 12px;
-      }
-    }
+  .splunkIcon svg {
+    height: 20px;
+    width: 75px;
+  }
 
-    .title > div > div > p {
-      width: unset !important;
-      max-width: 400px !important;
+  .queryDropDown {
+    width: 250px;
+    position: relative;
+    bottom: 10px;
+    input {
+      border: none;
     }
+  }
+  .selectQueryNameContainer {
+    display: flex;
+    .editIcon {
+      position: relative;
+      top: 3px;
+    }
+  }
+  .onBoardingSection {
+    display: flex;
+    flex-wrap: wrap;
 
-    .title > div > p {
-      width: unset !important;
-    }
+    .rightSection {
+      width: 485px;
+      height: var(--content-height);
 
-    .queryDropDown {
-      width: 250px;
-      position: absolute;
-      right: 110px;
-      top: -36px;
-    }
-    .onBoardingSection {
-      padding-top: 30px;
-      display: grid;
-      grid-template-columns: 42% 42%;
-      margin-left: 30px;
-      grid-column-gap: 40px;
-      .rightSection {
-        border: 1px solid var(--grey-300);
-        border-radius: 5px;
-        padding: 18px;
-        .logo {
-          margin-bottom: 12px;
-        }
-        .stackTrace {
-          margin-top: 12px;
-          max-height: 160px;
-          overflow: scroll;
+      .sampleLogs {
+        max-height: 328px;
+        overflow-y: scroll;
+        [class*='textContent'] {
+          font-size: 8px !important;
         }
       }
 
-      .leftSection {
-        border: 1px solid var(--grey-300);
-        border-radius: 5px;
-        padding: 18px;
-        max-height: 420px;
-        .logo {
-          margin-bottom: 12px;
-        }
+      .smallerHeight {
+        max-height: 285px;
       }
-    }
 
-    .listPanelBody {
-      :global {
-        .bp3-collapse-body {
-          margin-bottom: var(--spacing-large);
-          > [class*='footerContent'] {
-            text-align: right;
-            margin-right: 82px;
-            > button {
-              // width: 120px;
-              display: none;
-            }
+      .sampleLog {
+        [class*='textContainer'] {
+          padding: var(--spacing-medium);
+          padding-bottom: 0;
+          pre {
+            margin-top: 0 !important;
+          }
+        }
+        button {
+          width: 80px !important;
+          svg {
+            height: 12px;
+            width: 12px;
+          }
+          [class*='bp3-button-text'] {
+            font-size: 10px;
           }
         }
       }
 
-      > [class*='CollapseHeader'] {
-        padding: var(--spacing-small) !important;
+      .graphContainer {
+        height: 75px;
+        margin-bottom: var(--spacing-medium);
+        .loadingGraph {
+          display: block;
+          margin-bottom: var(--spacing-small);
+          height: 100%;
+          > svg {
+            display: block;
+            margin: 0 auto;
+            position: relative;
+            top: 35%;
+          }
+        }
+
+        > div {
+          height: 100%;
+          width: 100%;
+        }
       }
-      > [class*='collapse'] {
-        margin-top: 0;
+    }
+
+    .leftSection {
+      width: 400px;
+      margin-right: 70px;
+
+      > [class*='bp3-form-group']:last-child {
+        margin-bottom: 0;
       }
-      border-top: 1px solid var(--grey-300);
     }
   }
   .actionButtons {

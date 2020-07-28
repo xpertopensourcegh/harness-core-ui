@@ -7,7 +7,6 @@ import * as AppDynamicsOnboardingUtils from '../AppDynamics/AppDynamicsOnboardin
 import * as SplunkOnboardingUtils from '../Splunk/SplunkOnboardingUtils'
 import { CVNextGenCVConfigService, SettingsService } from 'modules/cv/services'
 import xhr from '@wings-software/xhr-async'
-import OnBoardingConfigSetupHeader from 'modules/cv/components/OnBoardingConfigSetupHeader/OnBoardingConfigSetupHeader'
 import { RouteVerificationTypeToVerificationType } from 'modules/cv/constants'
 import AppDynamicsMainSetupView from '../AppDynamics/AppDynamicsMainSetupView'
 import css from './BaseOnBoardingSetupPage.module.scss'
@@ -18,19 +17,6 @@ import { routeParams } from 'framework/exports'
 import i18n from './BaseOnBoardingSetupPage.i18n'
 
 const XHR_SERVICES_GROUP = 'XHR_SERVICES_GROUP'
-
-const iconAndSubtextMapper: any = {
-  APP_DYNAMICS: {
-    iconName: 'service-appdynamics',
-    iconSubText: 'App Dynamics',
-    pageHeading: 'Map your app and tiers to a Harness service and environment'
-  },
-  SPLUNK: {
-    iconName: 'service-splunk',
-    iconSubText: 'Splunk',
-    pageHeading: 'Map your query to a Harness service and environment'
-  }
-}
 
 function getDefaultCVConfig(
   verificationProvider: DSConfig['type'],
@@ -50,7 +36,7 @@ function getDefaultCVConfig(
         )
       })
     case 'SPLUNK':
-      return SplunkOnboardingUtils.mapQueries(selectedEntities)
+      return SplunkOnboardingUtils.createDefaultConfigObjectBasedOnSelectedQueries(selectedEntities)
     default:
       return []
   }
@@ -134,11 +120,6 @@ export default function OnBoardingSetupPage(): JSX.Element {
   return (
     <Page.Body loading={isLoadingConfigs} error={serverError}>
       <Container className={css.main}>
-        <OnBoardingConfigSetupHeader
-          iconName={iconAndSubtextMapper[verificationType!].iconName}
-          iconSubText={iconAndSubtextMapper[verificationType!].iconSubText}
-          pageHeading={iconAndSubtextMapper[verificationType!].pageHeading}
-        />
         {verificationType === 'APP_DYNAMICS' && (
           <AppDynamicsMainSetupView
             serviceOptions={serviceOptions}

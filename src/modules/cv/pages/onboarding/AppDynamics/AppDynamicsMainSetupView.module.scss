@@ -1,13 +1,15 @@
 .main {
   overflow-y: scroll;
 
-  .applicationSelect {
-    float: right;
+  .applicationSelectContainer {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: flex-end;
     margin-bottom: var(--spacing-medium) !important;
-  }
-
-  .applicationSelect + div {
-    clear: right;
+    .applicationSelect {
+      width: 200px;
+    }
   }
 
   .formContainer {

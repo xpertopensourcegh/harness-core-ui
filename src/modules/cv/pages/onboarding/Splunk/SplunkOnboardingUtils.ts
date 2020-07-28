@@ -1,21 +1,26 @@
-import type { SplunkSavedSearch } from '@wings-software/swagger-ts/definitions'
+import type { SplunkSavedSearch, DSConfig } from '@wings-software/swagger-ts/definitions'
 import type { SelectOption } from '@wings-software/uikit'
 import cloneDeep from 'lodash/cloneDeep'
+import type { YAxisOptions, XAxisOptions } from 'highcharts'
 
-export const options = {
+export const SplunkColumnChartOptions: Highcharts.Options = {
   chart: {
-    type: 'column',
-    height: 100
+    renderTo: 'chart',
+    margin: 0
   },
   title: {
-    text: ''
+    text: undefined
   },
   yAxis: {
     title: {
-      text: ''
-    }
+      enabled: false
+    } as YAxisOptions,
+    gridLineWidth: 0
   },
   xAxis: {
+    title: {
+      enabled: false
+    } as XAxisOptions,
     labels: {
       enabled: false
     },
@@ -23,35 +28,31 @@ export const options = {
     lineWidth: 0,
     gridLineWidth: 0
   },
-  series: [
-    {
-      name: ' ',
-      data: [],
-      showInLegend: false
-    }
-  ],
+  legend: {
+    enabled: false
+  },
+  series: [],
   tooltip: {
     headerFormat: ' '
   },
   credits: {
     enabled: false
-  },
-  Error: false
+  }
 }
 
-export const splunkInitialQuery = {
-  uuid: new Date().getTime(),
-  queryName: '',
-  service: '',
-  environment: '',
+export interface SplunkDSConfig extends DSConfig {
+  query?: string
+  serviceInstanceIdentifier?: string
+  eventType?: string
+  serviceIdentifier?: string
+}
+
+export const splunkInitialQuery: SplunkDSConfig = {
+  serviceIdentifier: '',
+  envIdentifier: '',
   serviceInstanceIdentifier: '',
-  serviceInstanceOptions: {},
-  queryString: '',
-  eventType: 'Quality',
-  graphOptions: cloneDeep(options),
-  stackTrace: [],
-  isOpen: true,
-  isAlreadySaved: false
+  query: '',
+  eventType: 'Quality'
 }
 
 export function transformQueriesFromSplunk(splunkSavedQueries: SplunkSavedSearch[]): SelectOption[] {
@@ -67,24 +68,15 @@ export function transformQueriesFromSplunk(splunkSavedQueries: SplunkSavedSearch
 
 export function transformSavedQueries(savedQueries: any) {
   return savedQueries.map((query: any) => {
-    const iQuery = cloneDeep(splunkInitialQuery)
-    iQuery.uuid = new Date().getTime()
-    iQuery.queryName = query.identifier
-    iQuery.service = query.serviceIdentifier
-    iQuery.environment = query.envIdentifier
-    iQuery.serviceInstanceIdentifier = query.serviceInstanceIdentifier
-    iQuery.queryString = query.query
-    iQuery.eventType = query.eventType
-    iQuery.isAlreadySaved = true
-    return iQuery
+    return query
   })
 }
 
-export function mapQueries(queries: any) {
-  return queries.map((query: any) => {
+export function createDefaultConfigObjectBasedOnSelectedQueries(queries: SelectOption[]): SplunkDSConfig[] {
+  return queries.map(query => {
     const q = cloneDeep(splunkInitialQuery)
-    q.queryName = query.label
-    q.queryString = query.value
+    q.identifier = query.label
+    q.query = query.value as string
     return q
   })
 }

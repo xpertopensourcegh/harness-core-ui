@@ -3,10 +3,18 @@
   .input {
     display: flex;
     align-items: center;
+    padding: var(--spacing-small);
   }
   .inputIcon {
     top: calc(50% - 12px);
+    right: 4px !important;
     color: var(--blue-500);
+  }
+  .loadingJsonIcon {
+    float: right;
+    position: absolute;
+    bottom: 13px;
+    right: 12px;
   }
 }
 

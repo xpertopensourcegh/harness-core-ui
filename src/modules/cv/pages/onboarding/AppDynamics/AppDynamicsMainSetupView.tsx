@@ -26,6 +26,8 @@ import { useMetricPackHook, fetchMetricPacks } from 'modules/cv/hooks/ConfigureM
 import type { MetricPack, DSConfig } from '@wings-software/swagger-ts/definitions'
 import DataSourceConfigPanel from 'modules/cv/components/DataSourceConfigPanel/DataSourceConfigPanel'
 import { routeParams } from 'framework/exports'
+import OnBoardingConfigSetupHeader from 'modules/cv/components/OnBoardingConfigSetupHeader/OnBoardingConfigSetupHeader'
+import i18n from './AppDynamicsMainSetupView.i18n'
 
 const XHR_METRIC_PACK_GROUP = 'XHR_METRIC_PACK_GROUP'
 const SelectHTMLInputProps = { placeholder: 'Select an Application' }
@@ -244,9 +246,16 @@ function AppDynamicsDataSourceForm(props: AppDynamicsDataSourceFormProps): JSX.E
               name="dsConfigs"
               render={arrayHelpers => (
                 <>
-                  <Container width={200} className={css.applicationSelect}>
+                  <Container className={css.applicationSelectContainer}>
+                    <OnBoardingConfigSetupHeader
+                      iconProps={{
+                        name: 'service-appdynamics'
+                      }}
+                      pageHeading={i18n.pageHeading}
+                    />
                     <Select
                       items={applicationsToAdd}
+                      className={css.applicationSelect}
                       inputProps={SelectHTMLInputProps}
                       onChange={(selectedApp: SelectOption) => {
                         setApplicationsToAdd(updateApplicationList(selectedApp, applicationsToAdd, true))
