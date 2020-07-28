@@ -29,5 +29,5 @@ module.exports = {
       statements: 85
     }
   },
-  transformIgnorePatterns: ['node_modules/(?!(date-fns)/)']
+  transformIgnorePatterns: ['node_modules/(?!(date-fns|lodash-es)/)']
 }

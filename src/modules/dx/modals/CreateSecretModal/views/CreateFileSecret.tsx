@@ -2,19 +2,19 @@ import React from 'react'
 import { Text, Formik, FormikForm, FormInput, Button, SelectOption } from '@wings-software/uikit'
 import * as Yup from 'yup'
 import { useCreateSecretText } from 'services/cd-ng'
-import type { SecretTextDTO, NGSecretManagerConfigDTO } from 'services/cd-ng'
+import type { SecretTextCreateDTO, SecretManagerConfigDTO } from 'services/cd-ng'
 
 import i18n from '../CreateSecretModal.i18n'
 
 interface CreateTextSecretProps {
-  secretsManagers: NGSecretManagerConfigDTO[]
-  onSuccess: (data: SecretTextDTO) => void
+  secretsManagers: SecretManagerConfigDTO[]
+  onSuccess: (data: SecretTextCreateDTO) => void
 }
 
 const CreateTextSecret: React.FC<CreateTextSecretProps> = props => {
   const { mutate: createSecret } = useCreateSecretText({})
 
-  const handleSubmit = async (data: SecretTextDTO): Promise<void> => {
+  const handleSubmit = async (data: SecretTextCreateDTO): Promise<void> => {
     try {
       await createSecret(data)
       props.onSuccess(data)
@@ -25,8 +25,8 @@ const CreateTextSecret: React.FC<CreateTextSecretProps> = props => {
 
   const secretManagersOptions: SelectOption[] = props.secretsManagers.map(item => {
     return {
-      label: item.identifier || '',
-      value: item.uuid || ''
+      label: item.name || '',
+      value: item.identifier || ''
     }
   })
 
@@ -41,8 +41,7 @@ const CreateTextSecret: React.FC<CreateTextSecretProps> = props => {
         }}
         validationSchema={Yup.object().shape({
           name: Yup.string().trim().required(i18n.validationName),
-          // value: Yup.string().trim().required(),
-          kmsId: Yup.string().trim().required(i18n.validationKms)
+          secretManagerIdentifier: Yup.string().trim().required(i18n.validationKms)
         })}
         onSubmit={data => {
           handleSubmit(data)
@@ -50,9 +49,25 @@ const CreateTextSecret: React.FC<CreateTextSecretProps> = props => {
       >
         {() => (
           <FormikForm>
+            <FormInput.Select
+              name="secretManagerIdentifier"
+              label={i18n.labelSecretsManager}
+              items={secretManagersOptions}
+            />
             <FormInput.InputWithIdentifier inputName="name" inputLabel={i18n.labelSecretName} idName="identifier" />
-            <input type="file" name="file" style={{ marginBottom: '15px' }} />
-            <FormInput.Select name="kmsId" label={i18n.labelSecretsManager} items={secretManagersOptions} />
+            <FormInput.FileInput name="file" />
+            <FormInput.TextArea name="description" label={i18n.labelSecretDescription} />
+            <FormInput.TagInput
+              name="tags"
+              label={i18n.labelSecretTags}
+              items={[]}
+              labelFor={name => name as string}
+              itemFromNewTag={newTag => newTag}
+              tagInputProps={{
+                showClearAllButton: true,
+                allowNewTag: true
+              }}
+            />
             <Button intent="primary" type="submit" text="Submit" margin={{ top: 'large' }} />
           </FormikForm>
         )}

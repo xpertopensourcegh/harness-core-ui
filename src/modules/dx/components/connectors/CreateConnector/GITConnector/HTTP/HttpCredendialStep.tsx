@@ -3,7 +3,7 @@ import { Layout, Button, Formik, FormInput, Text, SelectOption, Icon } from '@wi
 // import * as Yup from 'yup'
 import i18n from './HttpCredentialStep.i18n'
 import css from './HttpCredentialStep.module.scss'
-import { Form } from 'formik'
+import { Form, FormikProps } from 'formik'
 import { Select } from '@blueprintjs/select'
 import type { GITFormData } from 'modules/dx/interfaces/ConnectorInterface'
 import { getCustomFields } from 'modules/dx/pages/connectors/Forms/KubeFormHelper'
@@ -12,9 +12,11 @@ import {
   useCreateConnector,
   ConnectorRequestDTORequestBody,
   useListSecretManagers,
-  NGSecretManagerConfigDTO
+  SecretManagerConfigDTO,
+  useCreateSecretText
 } from 'services/cd-ng'
 import { useParams } from 'react-router-dom'
+import type { InlineSecret } from 'modules/common/components/CreateInlineSecret/CreateInlineSecret'
 
 interface HttpCredentialStepProps {
   name: string
@@ -31,7 +33,7 @@ const CustomSelect = Select.ofType<SelectOption>()
 const createConnectorByType = async (
   createConnector: (data: ConnectorRequestDTORequestBody) => Promise<any>,
   data: any
-) => {
+): Promise<void> => {
   try {
     const { loading, data: connectordetails } = await createConnector(data as ConnectorRequestDTORequestBody)
     if (!loading && connectordetails) {
@@ -46,6 +48,10 @@ const createConnectorByType = async (
   }
 }
 
+interface CredentialFormData extends GITFormData {
+  passwordSecret?: InlineSecret
+}
+
 const HttpCredentialStep: React.FC<HttpCredentialStepProps> = props => {
   const { accountId } = useParams()
   const [authType, setAuthType] = useState({
@@ -53,6 +59,7 @@ const HttpCredentialStep: React.FC<HttpCredentialStepProps> = props => {
     value: 'UsernamePassword'
   } as SelectOption)
   const { mutate: createConnector } = useCreateConnector({ accountIdentifier: accountId })
+  const { mutate: createSecret } = useCreateSecretText({})
   const { data: secretManagersApiResponse } = useListSecretManagers({
     queryParams: { accountIdentifier: props.accountId }
   })
@@ -63,10 +70,10 @@ const HttpCredentialStep: React.FC<HttpCredentialStepProps> = props => {
       </Text>
       <Formik
         initialValues={{
-          authType: props.formData?.authType || '',
-          username: props.formData?.username || '',
-          password: props.formData?.password || '',
-          branchName: props.formData?.branchName || ''
+          authType: props.formData?.authType,
+          username: props.formData?.username,
+          password: props.formData?.password,
+          branchName: props.formData?.branchName
         }}
         //ToDo: validationSchema={Yup.object().shape({
         //     authType: Yup.string().trim().required(),
@@ -77,10 +84,17 @@ const HttpCredentialStep: React.FC<HttpCredentialStepProps> = props => {
         onSubmit={formData => {
           const connectorData = { ...formData, ...props.formData, authType: authType?.value }
           const data = buildGITPayload(connectorData)
-          createConnectorByType(createConnector, data)
+          createSecret({
+            accountIdentifier: accountId,
+            identifier: formData.passwordSecret?.secretId,
+            name: formData.passwordSecret?.secretName,
+            secretManagerIdentifier: formData.passwordSecret?.secretManager?.value as string
+          }).then(() => {
+            createConnectorByType(createConnector, data)
+          })
         }}
       >
-        {formikProps => (
+        {(formikProps: FormikProps<CredentialFormData>) => (
           <div className={css.formWrapper}>
             <Form className={css.credForm}>
               <div className={css.formFields}>
@@ -118,11 +132,11 @@ const HttpCredentialStep: React.FC<HttpCredentialStepProps> = props => {
                     />
                   </CustomSelect>
                 </Layout.Horizontal>
-                {/* Forcing  NGSecretManagerConfigDTO[] type untill secrets integration is done */}
+                {/* Forcing  SecretManagerConfigDTO[] type untill secrets integration is done */}
                 <div className={css.authFields}>
                   {getCustomFields(
                     authType?.value,
-                    secretManagersApiResponse?.data as NGSecretManagerConfigDTO[],
+                    secretManagersApiResponse?.data as SecretManagerConfigDTO[],
                     props.formData?.name
                   )}
                 </div>

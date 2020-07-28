@@ -4,6 +4,8 @@ import { TestWrapper } from 'modules/common/utils/testUtils'
 import ConnectorsList from '../ConnectorsList'
 import mockData from '../__tests__/mockData'
 
+jest.mock('react-timeago', () => () => 'dummy date')
+
 describe('Secrets List', () => {
   test('render', async () => {
     const { container } = render(

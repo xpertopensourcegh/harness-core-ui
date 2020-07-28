@@ -19,7 +19,7 @@ import { useCreateConnector, ConnectorRequestDTORequestBody } from 'services/cd-
 import { buildKubPayload } from 'modules/dx/pages/connectors/utils/ConnectorUtils'
 import InstallDelegateForm from 'modules/dx/common/InstallDelegateForm/InstallDelegateForm'
 import VerifyInstalledDelegate from 'modules/dx/common/VerifyInstalledDelegate/VerifyInstalledDelegate'
-import { useListSecretManagers, NGSecretManagerConfigDTO } from 'services/cd-ng'
+import { useListSecretManagers, SecretManagerConfigDTO } from 'services/cd-ng'
 import VerifyOutOfClusterDelegate from 'modules/dx/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 
 const DelegateTypesText = {
@@ -369,10 +369,10 @@ const IntermediateStep = (props: IntermediateStepProps) => {
                     }}
                   />
                 </Layout.Horizontal>
-                {/* Forcing  NGSecretManagerConfigDTO[] type untill secrets integration is done */}
+                {/* Forcing  SecretManagerConfigDTO[] type untill secrets integration is done */}
                 {getCustomFields(
                   props.state.authentication,
-                  secretManagersApiResponse?.data as NGSecretManagerConfigDTO[],
+                  secretManagersApiResponse?.data as SecretManagerConfigDTO[],
                   state.formData?.name,
                   formikProps
                 )}

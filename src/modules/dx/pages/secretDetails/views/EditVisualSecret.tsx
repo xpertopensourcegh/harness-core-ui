@@ -1,59 +1,58 @@
 import React from 'react'
-import { Layout, Formik, FormikForm, FormInput, Button } from '@wings-software/uikit'
-import * as Yup from 'yup'
+import { useParams } from 'react-router-dom'
+import { Layout, FormInput, SelectOption } from '@wings-software/uikit'
+
+import { useListSecretManagers } from 'services/cd-ng'
 
 import i18n from '../SecretDetails.i18n'
-import { EncryptedDataDTO, useUpdateSecretText } from 'services/cd-ng'
-import { useParams } from 'react-router-dom'
 
-interface EditVisualSecretProps {
-  secret: EncryptedDataDTO
-}
-
-const EditVisualSecret: React.FC<EditVisualSecretProps> = ({ secret }) => {
+const EditVisualSecret: React.FC = () => {
   const { accountId } = useParams()
-  const { mutate } = useUpdateSecretText({ queryParams: { accountIdentifier: accountId } })
 
-  const handleSubmit = async (data: EncryptedDataDTO): Promise<void> => {
-    try {
-      await mutate(data)
-    } catch (e) {
-      // handle error
-    }
-  }
+  const { data: secretsManagersApiResponse } = useListSecretManagers({
+    queryParams: { accountIdentifier: accountId }
+  })
+  const secretsManagers = secretsManagersApiResponse?.data
+  const secretManagersOptions: SelectOption[] =
+    secretsManagers?.map(item => {
+      return {
+        label: item.name || '',
+        value: item.identifier || ''
+      }
+    }) || []
 
   return (
-    <Layout.Vertical width={500} margin={{ top: 'large' }}>
-      <Formik
-        initialValues={{
-          name: secret.name,
-          value: secret.encryptedValue,
-          kmsId: secret.kmsId,
-          identifier: secret.uuid
+    <Layout.Vertical width={500}>
+      <FormInput.InputWithIdentifier
+        inputName="name"
+        inputLabel={i18n.labelName}
+        idName="identifier"
+        isIdentifierEditable={false}
+      />
+      <FormInput.Text
+        name="value"
+        label={i18n.labelValue}
+        inputGroup={{ type: 'password' }}
+        placeholder={i18n.valueValue}
+      />
+      <FormInput.Select
+        disabled
+        name="secretManagerIdentifier"
+        label={i18n.labelSecretManager}
+        items={secretManagersOptions}
+      />
+      <FormInput.TextArea name="description" label={i18n.labelDescription} />
+      <FormInput.TagInput
+        name="tags"
+        label={i18n.labelTags}
+        items={[]}
+        labelFor={name => name as string}
+        itemFromNewTag={newTag => newTag}
+        tagInputProps={{
+          showClearAllButton: true,
+          allowNewTag: true
         }}
-        validationSchema={Yup.object().shape({
-          name: Yup.string().trim().required(),
-          value: Yup.string().trim().required(),
-          kmsId: Yup.string().trim().required()
-        })}
-        onSubmit={data => {
-          handleSubmit(data)
-        }}
-      >
-        {() => (
-          <FormikForm>
-            <FormInput.InputWithIdentifier inputName="name" inputLabel={i18n.labelName} idName="identifier" />
-            <FormInput.Text name="value" label={i18n.labelValue} inputGroup={{ type: 'password' }} />
-            <FormInput.Select
-              name="kmsId"
-              label={i18n.labelSecretManager}
-              items={[]}
-              // selectProps={{ defaultSelectedItem: defaultSecretManagerOption }}
-            />
-            <Button intent="primary" type="submit" text={i18n.buttonSubmit} margin={{ top: 'large' }} />
-          </FormikForm>
-        )}
-      </Formik>
+      />
     </Layout.Vertical>
   )
 }

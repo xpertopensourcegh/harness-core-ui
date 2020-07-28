@@ -408,13 +408,7 @@ exports[`Secrets List render 1`] = `
                           <span
                             class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
                           >
-                            <time
-                              data-value="1595498370848"
-                              datetime="2020-07-23T09:59:30.848Z"
-                              title="07/23/2020 09:59 am"
-                            >
-                              4 days ago
-                            </time>
+                            dummy date
                           </span>
                         </div>
                       </span>
@@ -461,13 +455,7 @@ exports[`Secrets List render 1`] = `
                           <span
                             class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
                           >
-                            <time
-                              data-value="1595498370848"
-                              datetime="2020-07-23T09:59:30.848Z"
-                              title="07/23/2020 09:59 am"
-                            >
-                              4 days ago
-                            </time>
+                            dummy date
                           </span>
                         </div>
                       </span>

@@ -4,7 +4,7 @@ import { StringUtils } from 'modules/common/exports'
 import { FormInput, Layout, Icon, Popover } from '@wings-software/uikit'
 import * as Yup from 'yup'
 import { FormikCreateInlineSecret } from 'modules/common/components/CreateInlineSecret/CreateInlineSecret'
-import type { NGSecretManagerConfigDTO } from 'services/cd-ng'
+import type { SecretManagerConfigDTO } from 'services/cd-ng'
 import css from './KubFormHelper.module.scss'
 import SecretReference from 'modules/dx/components/SecretReference/SecretReference'
 import type { FormikProps } from 'formik'
@@ -157,7 +157,7 @@ const getSelectSecretPopover = (formikProps?: FormikProps<any>) => {
   )
 }
 const renderUserNameAndPassword = (
-  secretManagers?: NGSecretManagerConfigDTO[],
+  secretManagers?: SecretManagerConfigDTO[],
   connectorName?: string,
   formikProps?: FormikProps<any>
 ) => {
@@ -226,7 +226,7 @@ const fieldsForOIDCToken = () => {
 
 export const getCustomFields = (
   authType: string | number | symbol,
-  secretManagers?: NGSecretManagerConfigDTO[],
+  secretManagers?: SecretManagerConfigDTO[],
   connectorName?: string,
   formikProps?: FormikProps<any>
 ) => {

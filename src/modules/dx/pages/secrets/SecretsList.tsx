@@ -1,12 +1,12 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, useState } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 import ReactTimeago from 'react-timeago'
-import { Menu, Position } from '@blueprintjs/core'
+import { Menu, Position, Classes } from '@blueprintjs/core'
 import type { Column, Renderer, CellProps } from 'react-table'
 
 import Table from 'modules/common/components/Table/Table'
 import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
-import { useListSecrets, ResponseDTOListEncryptedDataDTO } from 'services/cd-ng'
+import { useListSecrets, ResponseDTOListEncryptedDataDTO, useDeleteSecretText } from 'services/cd-ng'
 import type { EncryptedDataDTO } from 'services/cd-ng'
 import useCreateSecretModal, { SecretType } from 'modules/dx/modals/CreateSecretModal/useCreateSecretModal'
 import { Text, Color, Layout, Icon, Button, TextInput, SelectV2, Popover, Container } from '@wings-software/uikit'
@@ -30,36 +30,84 @@ const getStringForType = (type?: string): string => {
   }
 }
 
-const renderColumnSecret: Renderer<CellProps<EncryptedDataDTO>> = ({ row }) => {
+const RenderColumnSecret: Renderer<CellProps<EncryptedDataDTO>> = ({ row }) => {
   const data = row.original
   return (
     <Layout.Horizontal>
       <Icon name="key" size={28} padding={{ top: 'xsmall', right: 'small' }} />
       <div>
         <Text color={Color.BLACK}>{data.name}</Text>
-        <Text color={Color.GREY_400}>{data.uuid}</Text>
+        <Text color={Color.GREY_400}>{data.identifier}</Text>
       </div>
     </Layout.Horizontal>
   )
 }
 
-const renderColumnDetails: Renderer<CellProps<EncryptedDataDTO>> = ({ row }) => {
+const RenderColumnDetails: Renderer<CellProps<EncryptedDataDTO>> = ({ row }) => {
   const data = row.original
   return (
     <>
-      <Text color={Color.BLACK}>{data.encryptedBy}</Text>
-      <Text color={Color.GREY_400}>{getStringForType(data.type)}</Text>
+      <Text color={Color.BLACK}>{data.secretManagerIdentifier}</Text>
+      <Text color={Color.GREY_400}>{getStringForType('SECRET_TEXT')}</Text>
     </>
   )
 }
 
-const renderColumnActivity: Renderer<CellProps<EncryptedDataDTO>> = ({ row }) => {
+const RenderColumnActivity: Renderer<CellProps<EncryptedDataDTO>> = ({ row }) => {
   const data = row.original
   return (
     <Layout.Horizontal spacing="small">
       <Icon name="activity" />
-      <ReactTimeago date={(data as any).lastUpdatedAt} />
+      {data.lastUpdatedAt ? <ReactTimeago date={data.lastUpdatedAt} /> : null}
+      {/* <Text>4 hours ago</Text> */}
     </Layout.Horizontal>
+  )
+}
+
+const RenderColumnAction: Renderer<CellProps<EncryptedDataDTO>> = ({ row, column }) => {
+  const data = row.original
+  const { accountId } = useParams()
+  const [menuOpen, setMenuOpen] = useState(false)
+  const { mutate: deleteSecret } = useDeleteSecretText({
+    queryParams: { accountIdentifier: accountId },
+    requestOptions: { headers: { 'content-type': 'application/json' } }
+  })
+
+  const handleDelete = async (e: React.MouseEvent<HTMLElement, MouseEvent>): Promise<void> => {
+    e.stopPropagation()
+    setMenuOpen(false)
+    const sure = confirm(i18n.confirmDelete(data.name || ''))
+    if (sure && data.identifier) {
+      try {
+        await deleteSecret(data.identifier)
+        ;(column as any).refreshSecrets?.()
+      } catch (err) {
+        // handle error
+      }
+    }
+  }
+
+  return (
+    <Popover
+      isOpen={menuOpen}
+      onInteraction={nextOpenState => {
+        setMenuOpen(nextOpenState)
+      }}
+      className={Classes.DARK}
+      position={Position.BOTTOM_RIGHT}
+    >
+      <Button
+        minimal
+        icon="menu"
+        onClick={e => {
+          e.stopPropagation()
+          setMenuOpen(true)
+        }}
+      />
+      <Menu>
+        <Menu.Item icon="trash" text="Delete" onClick={handleDelete} />
+      </Menu>
+    </Popover>
   )
 }
 
@@ -70,10 +118,15 @@ interface SecretsListProps {
 const SecretsList: React.FC<SecretsListProps> = ({ mockData }) => {
   const { accountId } = useParams()
   const history = useHistory()
-  const { openCreateSecretModal } = useCreateSecretModal()
+
   const { data: secretsResponse, loading, error, refetch } = useListSecrets({
     queryParams: { accountIdentifier: accountId, type: 'SECRET_TEXT' },
     mock: mockData
+  })
+  const { openCreateSecretModal } = useCreateSecretModal({
+    onSuccess: () => {
+      refetch()
+    }
   })
 
   const columns: Column<EncryptedDataDTO>[] = useMemo(
@@ -82,26 +135,35 @@ const SecretsList: React.FC<SecretsListProps> = ({ mockData }) => {
         Header: i18n.table.secret,
         accessor: 'name',
         width: '33%',
-        Cell: renderColumnSecret
+        Cell: RenderColumnSecret
       },
       {
         Header: i18n.table.secretManager,
-        accessor: 'encryptedBy',
+        accessor: 'secretManagerIdentifier',
         width: '33%',
-        Cell: renderColumnDetails
+        Cell: RenderColumnDetails
       },
       {
         Header: i18n.table.lastActivity,
-        accessor: 'lastUpdatedAt',
-        width: '33%',
-        Cell: renderColumnActivity
+        accessor: 'accountIdentifier', // temp value
+        width: '30%',
+        Cell: RenderColumnActivity
+      },
+      {
+        Header: '',
+        accessor: 'identifier',
+        width: '4%',
+        Cell: RenderColumnAction,
+        refreshSecrets: refetch
       }
     ],
-    []
+    [refetch]
   )
 
   // TODO: remove `any` once backend fixes the type
-  const data: EncryptedDataDTO[] = useMemo(() => (secretsResponse?.data as any)?.response || [], [secretsResponse])
+  const data: EncryptedDataDTO[] = useMemo(() => (secretsResponse?.data as any)?.response || [], [
+    secretsResponse?.data
+  ])
 
   if (loading) return <PageSpinner />
   if (error) return <PageError message={error.message} onClick={() => refetch()} />
@@ -143,7 +205,7 @@ const SecretsList: React.FC<SecretsListProps> = ({ mockData }) => {
           onRowClick={secret => {
             history.push(
               linkTo(routeSecretDetails, {
-                secretId: secret.uuid
+                secretId: secret.identifier
               })
             )
           }}

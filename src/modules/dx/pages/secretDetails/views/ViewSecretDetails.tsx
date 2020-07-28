@@ -1,5 +1,5 @@
 import React from 'react'
-import { Layout, Text, Color } from '@wings-software/uikit'
+import { Layout, Text, Color, Tag } from '@wings-software/uikit'
 
 import i18n from '../SecretDetails.i18n'
 import type { EncryptedDataDTO } from 'services/cd-ng'
@@ -10,27 +10,40 @@ interface ViewSecretDetailsProps {
 
 const ViewSecretDetails: React.FC<ViewSecretDetailsProps> = ({ secret }) => {
   return (
-    <Layout.Vertical spacing="medium">
+    <Layout.Vertical spacing="large">
       <div>
         <Text>{i18n.labelName}</Text>
         <Text color={Color.BLACK}>{secret.name}</Text>
       </div>
-      <div>
-        <Text>{i18n.labelId}</Text>
-        <Text color={Color.BLACK}>{secret.uuid}</Text>
-      </div>
-      <div>
-        <Text>{i18n.labelValue}</Text>
-        <Text color={Color.BLACK}>{i18n.valueValue}</Text>
-      </div>
+      {secret.path ? (
+        <div>
+          <Text>{i18n.labelPath}</Text>
+          <Text color={Color.GREY_350}>{secret.path}</Text>
+        </div>
+      ) : (
+        <div>
+          <Text>{i18n.labelValue}</Text>
+          <Text color={Color.GREY_350}>{i18n.valueValue}</Text>
+        </div>
+      )}
       <div>
         <Text>{i18n.labelSecretManager}</Text>
-        <Text color={Color.BLACK}>{secret.encryptedBy}</Text>
+        <Text color={Color.BLACK}>{secret.secretManagerName || secret.secretManagerIdentifier}</Text>
       </div>
-      {secret.lastUpdatedAt ? (
+      {secret.description ? (
         <div>
-          <Text>{i18n.labelLastUpdate}</Text>
-          <Text color={Color.BLACK}>{new Date(secret.lastUpdatedAt).toLocaleDateString()}</Text>
+          <Text>{i18n.labelDescription}</Text>
+          <Text color={Color.BLACK}>{secret.description}</Text>
+        </div>
+      ) : null}
+      {secret.tags?.length ? (
+        <div>
+          <Text>{i18n.labelTags}</Text>
+          <Layout.Horizontal>
+            {secret.tags?.map(tag => (
+              <Tag key={tag}>{tag}</Tag>
+            ))}
+          </Layout.Horizontal>
         </div>
       ) : null}
     </Layout.Vertical>

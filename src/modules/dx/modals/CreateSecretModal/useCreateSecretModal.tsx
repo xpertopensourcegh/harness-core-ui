@@ -16,7 +16,8 @@ export enum SecretType {
 }
 
 export interface UseCreateSecretModalProps {
-  type: SecretType
+  // type: SecretType
+  onSuccess?: () => void
 }
 
 export interface UseCreateSecretModalReturn {
@@ -24,13 +25,17 @@ export interface UseCreateSecretModalReturn {
   closeCreateSecretModal: () => void
 }
 
-const useCreateSecretModal = (): UseCreateSecretModalReturn => {
+const useCreateSecretModal = (props: UseCreateSecretModalProps): UseCreateSecretModalReturn => {
   const [type, setType] = useState<SecretType>(SecretType.TEXT)
   const { accountId } = useParams()
   const { data: secretsManagersApiResponse, refetch: getSecretsManagers } = useListSecretManagers({
     queryParams: { accountIdentifier: accountId },
     lazy: true
   })
+  const handleSuccess = () => {
+    hideModal()
+    props.onSuccess?.()
+  }
 
   const [showModal, hideModal] = useModalHook(
     () => (
@@ -42,9 +47,9 @@ const useCreateSecretModal = (): UseCreateSecretModalReturn => {
         className={css.dialog}
       >
         {type === SecretType.TEXT ? (
-          <CreateTextSecret secretsManagers={secretsManagersApiResponse?.data || []} onSuccess={() => hideModal()} />
+          <CreateTextSecret secretsManagers={secretsManagersApiResponse?.data || []} onSuccess={handleSuccess} />
         ) : (
-          <CreateFileSecret secretsManagers={secretsManagersApiResponse?.data || []} onSuccess={() => hideModal()} />
+          <CreateFileSecret secretsManagers={secretsManagersApiResponse?.data || []} onSuccess={handleSuccess} />
         )}
         <Button minimal icon="cross" iconProps={{ size: 18 }} onClick={hideModal} className={css.crossIcon} />
       </Dialog>

@@ -66,13 +66,13 @@ const SecretReference: React.FC<SecretReferenceProps> = props => {
             {/* TODO: remove any once API fixes type */}
             {(data?.data as any)?.response?.map((item: EncryptedDataDTO) => (
               <div
-                key={item.uuid}
+                key={item.identifier}
                 className={cx(css.listItem, Classes.POPOVER_DISMISS)}
                 onClick={() => props.onSelect(item)}
               >
                 <div>{item.name}</div>
                 <div className={css.meta}>
-                  {item.uuid} . {item.encryptedBy}
+                  {item.identifier} . {item.secretManagerIdentifier}
                 </div>
               </div>
             ))}
