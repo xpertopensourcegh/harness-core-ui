@@ -17,32 +17,40 @@ export const VerificationJobName = {
   HEALTH: i18n.verificationJobName.health
 }
 
+export const ActivitySourceName = {
+  KUBERNETES: i18n.activitySourceName.kube,
+  AWS: i18n.activitySourceName.aws,
+  GCP: i18n.activitySourceName.gcp,
+  AZURE: i18n.activitySourceName.azure
+}
+
 const ActivityTypeSubOptions: {
   [key in ActivityType]: {
     modalTitle: string
-    cards: Array<{ iconName: IconName; activityType?: string; activityName: string }>
+    cards: Array<{ iconName: IconName; activityType?: string; activityName: string; className?: string }>
   }
 } = {
   'verification-jobs': {
     modalTitle: i18n.modalTitles.verificationJob,
     cards: [
       {
-        iconName: 'service-gcp',
+        iconName: 'test-verification',
         activityType: i18n.deployment,
-        activityName: VerificationJobName.TEST
+        activityName: VerificationJobName.TEST,
+        className: css.testIcon
       },
       {
-        iconName: 'service-cloudwatch',
+        iconName: 'bluegreen',
         activityType: i18n.deployment,
         activityName: VerificationJobName.BG
       },
       {
-        iconName: 'service-gcp',
+        iconName: 'canary-outline',
         activityType: i18n.deployment,
         activityName: VerificationJobName.CANARY
       },
       {
-        iconName: 'service-gcp',
+        iconName: 'health',
         activityType: i18n.postDeploy,
         activityName: VerificationJobName.HEALTH
       }
@@ -83,8 +91,7 @@ const modalProps: IDialogProps = {
   autoFocus: true,
   canEscapeKeyClose: true,
   canOutsideClickClose: true,
-  enforceFocus: true,
-  style: { width: 900, height: 500, backgroundColor: 'var(--blue-850) !important' }
+  enforceFocus: true
 }
 
 export function ActivitySelectionModal(props: ActivitySelectionModalProps): JSX.Element {
@@ -94,18 +101,20 @@ export function ActivitySelectionModal(props: ActivitySelectionModalProps): JSX.
       <Container className={css.modalContent}>
         <Heading color={Color.WHITE}>{ActivityTypeSubOptions[activityType]?.modalTitle}</Heading>
         <Container className={css.activityNameContainer}>
-          {ActivityTypeSubOptions[activityType]?.cards.map(({ activityType: at, activityName: an, iconName: icon }) => {
-            return (
-              <ActivityTypeCard
-                key={an}
-                activityName={an}
-                activityType={at}
-                iconName={icon}
-                onClick={onClickActivity}
-                className={css.activityCard}
-              />
-            )
-          })}
+          {ActivityTypeSubOptions[activityType]?.cards.map(
+            ({ activityType: at, activityName: an, iconName: icon, className }) => {
+              return (
+                <ActivityTypeCard
+                  key={an}
+                  activityName={an}
+                  activityType={at}
+                  iconName={icon}
+                  onClick={onClickActivity}
+                  className={cx(css.activityCard, className)}
+                />
+              )
+            }
+          )}
         </Container>
       </Container>
     </Dialog>

@@ -5,5 +5,6 @@ declare const styles: {
   readonly modalContent: string
   readonly activityNameContainer: string
   readonly activityCard: string
+  readonly testIcon: string
 }
 export default styles

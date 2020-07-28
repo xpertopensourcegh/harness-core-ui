@@ -17,12 +17,12 @@ export default function ActivityTypeCard(props: ActivityTypeCardProps): JSX.Elem
   return (
     <Card className={cx(css.main, className, onClick ? css.cursor : undefined)} onClick={onCardClickCallback}>
       <Container className={css.iconTitleContainer}>
-        <Icon name={iconName} />
-        <Text className={css.activityType} color={Color.WHITE}>
+        <Icon name={iconName} size={18} />
+        <Text className={css.activityType} color={Color.GREY_250}>
           {activityType}
         </Text>
       </Container>
-      <Text className={css.activityName} color={Color.GREY_200}>
+      <Text className={css.activityName} color={Color.GREY_250}>
         {activityName}
       </Text>
     </Card>

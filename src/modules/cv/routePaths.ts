@@ -4,3 +4,10 @@ export const ActivityDetailsActivityType = {
   CANARY: 'canary-verification',
   HEALTH: 'health-verification'
 }
+
+export const ActivityDetailsActivitySource = {
+  KUBERNETES: 'kubernetes',
+  AWS: 'aws',
+  AZURE: 'azure',
+  GCP: 'gcp'
+}

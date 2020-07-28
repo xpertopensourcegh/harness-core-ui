@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react'
 import { Page } from 'modules/common/exports'
-import { ActivityDetailsActivityType } from 'modules/cv/routePaths'
+import { ActivityDetailsActivityType, ActivityDetailsActivitySource } from 'modules/cv/routePaths'
 import { routeParams } from 'framework/exports'
 import i18n from './ActivitySetupPage.i18n'
 import { Container } from '@wings-software/uikit'
@@ -9,6 +9,7 @@ import BlueGreenVerificationJobForm from './VerificationJobForms/BlueGreenVerifi
 import CanaryVerificationJobForm from './VerificationJobForms/CanaryVerificationJobForm/CanaryVerificationJobForm'
 import TestVerificationJobForm from './VerificationJobForms/TestVerificationJobForm/TestVerificationJobForm'
 import HealthVerificationJobForm from './VerificationJobForms/HealthVerificationJobForm/HealthVerificationJobForm'
+import KubernetesActivitySourceForm from './ActivitySourceForms/KubernetesActivitySourceForm/KubernetesActivitySourceForm'
 
 export default function ActivitySetupPage(): JSX.Element {
   const {
@@ -24,6 +25,8 @@ export default function ActivitySetupPage(): JSX.Element {
         return { desiredForm: <TestVerificationJobForm />, title: i18n.testTitle }
       case ActivityDetailsActivityType.HEALTH:
         return { desiredForm: <HealthVerificationJobForm />, title: i18n.healthTitle }
+      case ActivityDetailsActivitySource.KUBERNETES:
+        return { desiredForm: <KubernetesActivitySourceForm />, title: i18n.kubernetesTitle }
       default:
         return { desiredForm: <span />, title: '' }
     }

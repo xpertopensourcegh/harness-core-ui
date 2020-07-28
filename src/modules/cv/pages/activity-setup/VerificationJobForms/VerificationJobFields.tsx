@@ -1,6 +1,5 @@
-import React, { useMemo, useCallback, CSSProperties } from 'react'
-import { FormInput, SelectOption, MultiTypeInput, MultiSelectOption } from '@wings-software/uikit'
-import { useFormikContext } from 'formik'
+import React, { useMemo, CSSProperties } from 'react'
+import { FormInput, SelectOption, MultiTypeInputType } from '@wings-software/uikit'
 import i18n from './VerificationJobForms.i18n'
 
 interface BaseFieldProps {
@@ -10,7 +9,14 @@ interface BaseFieldProps {
 export const VerificationJobNameFieldNames = {}
 
 export function JobName(): JSX.Element {
-  return <FormInput.Text name="jobName" label={i18n.fieldLabels.jobName} placeholder={i18n.placeholders.jobName} />
+  return (
+    <FormInput.InputWithIdentifier
+      inputName="jobName"
+      idLabel="Identifier"
+      inputGroupProps={{ placeholder: i18n.placeholders.jobName }}
+      inputLabel={i18n.fieldLabels.jobName}
+    />
+  )
 }
 
 const VerificationSensitivityOptions: SelectOption[] = [
@@ -20,27 +26,17 @@ const VerificationSensitivityOptions: SelectOption[] = [
 ]
 
 export function VerificationSensitivity(props: BaseFieldProps): JSX.Element {
-  const selectProps = useMemo(
-    () => ({
-      items: VerificationSensitivityOptions
-    }),
-    []
-  )
-  const { setFieldValue } = useFormikContext()
-  const onChangeCallback = useCallback(
-    (value?: string | SelectOption | MultiSelectOption[]) => {
-      setFieldValue('sensitivity', value)
-    },
-    [setFieldValue]
-  )
   const { zIndex } = props
   const style: CSSProperties = useMemo(() => ({ zIndex: zIndex ?? 10 }), [zIndex]) as CSSProperties
   return (
-    <FormInput.CustomRender
+    <FormInput.MultiTypeInput
       name="sensitivity"
       style={style}
       label={i18n.fieldLabels.sensitivity}
-      render={() => <MultiTypeInput selectProps={selectProps} onChange={onChangeCallback} />}
+      selectItems={VerificationSensitivityOptions}
+      multiTypeInputProps={{
+        allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME]
+      }}
     />
   )
 }
@@ -55,21 +51,17 @@ export function ServiceName(props: BaseFieldProps): JSX.Element {
     }),
     []
   )
-  const { setFieldValue } = useFormikContext()
-  const onChangeCallback = useCallback(
-    (value?: string | SelectOption | MultiSelectOption[]) => {
-      setFieldValue('service', value)
-    },
-    [setFieldValue]
-  )
   const { zIndex } = props
   const style: CSSProperties = useMemo(() => ({ zIndex: zIndex ?? 9 }), [zIndex]) as CSSProperties
   return (
-    <FormInput.CustomRender
+    <FormInput.MultiTypeInput
       name="service"
-      label={i18n.fieldLabels.service}
       style={style}
-      render={() => <MultiTypeInput selectProps={selectProps} onChange={onChangeCallback} />}
+      label={i18n.fieldLabels.service}
+      selectItems={selectProps.items}
+      multiTypeInputProps={{
+        allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME]
+      }}
     />
   )
 }
@@ -85,21 +77,17 @@ export function Duration(props: BaseFieldProps): JSX.Element {
     }),
     []
   )
-  const { setFieldValue } = useFormikContext()
-  const onChangeCallback = useCallback(
-    (value?: string | SelectOption | MultiSelectOption[]) => {
-      setFieldValue('service', value)
-    },
-    [setFieldValue]
-  )
   const { zIndex } = props
   const style: CSSProperties = useMemo(() => ({ zIndex: zIndex ?? 8 }), [zIndex]) as CSSProperties
   return (
-    <FormInput.CustomRender
+    <FormInput.MultiTypeInput
       name="duration"
-      label={i18n.fieldLabels.duration}
       style={style}
-      render={() => <MultiTypeInput selectProps={selectProps} onChange={onChangeCallback} />}
+      label={i18n.fieldLabels.duration}
+      selectItems={selectProps.items}
+      multiTypeInputProps={{
+        allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME]
+      }}
     />
   )
 }
@@ -114,21 +102,17 @@ export function EnvironmentName(props: BaseFieldProps): JSX.Element {
     }),
     []
   )
-  const { setFieldValue } = useFormikContext()
-  const onChangeCallback = useCallback(
-    (value?: string | SelectOption | MultiSelectOption[]) => {
-      setFieldValue('environment', value)
-    },
-    [setFieldValue]
-  )
   const { zIndex } = props
   const style: CSSProperties = useMemo(() => ({ zIndex: zIndex ?? 7 }), [zIndex]) as CSSProperties
   return (
-    <FormInput.CustomRender
+    <FormInput.MultiTypeInput
       name="environment"
-      label={i18n.fieldLabels.environment}
       style={style}
-      render={() => <MultiTypeInput selectProps={selectProps} onChange={onChangeCallback} />}
+      label={i18n.fieldLabels.environment}
+      selectItems={selectProps.items}
+      multiTypeInputProps={{
+        allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME]
+      }}
     />
   )
 }
@@ -139,26 +123,22 @@ export function TrafficSplit(props: BaseFieldProps): JSX.Element {
       items: [
         { label: '5%', value: '5' },
         { label: '10%', value: '10' },
-        { label: '15', value: '15%' }
+        { label: '15%', value: '15%' }
       ]
     }),
     []
   )
-  const { setFieldValue } = useFormikContext()
-  const onChangeCallback = useCallback(
-    (value?: string | SelectOption | MultiSelectOption[]) => {
-      setFieldValue('dataSource', value)
-    },
-    [setFieldValue]
-  )
   const { zIndex } = props
   const style: CSSProperties = useMemo(() => ({ zIndex: zIndex ?? 6 }), [zIndex]) as CSSProperties
   return (
-    <FormInput.CustomRender
+    <FormInput.MultiTypeInput
       name="trafficSplit"
-      label={i18n.fieldLabels.trafficSplit}
       style={style}
-      render={() => <MultiTypeInput selectProps={selectProps} onChange={onChangeCallback} />}
+      label={i18n.fieldLabels.trafficSplit}
+      selectItems={selectProps.items}
+      multiTypeInputProps={{
+        allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME]
+      }}
     />
   )
 }
@@ -173,21 +153,17 @@ export function Baseline(props: BaseFieldProps): JSX.Element {
     }),
     []
   )
-  const { setFieldValue } = useFormikContext()
-  const onChangeCallback = useCallback(
-    (value?: string | SelectOption | MultiSelectOption[]) => {
-      setFieldValue('baseline', value)
-    },
-    [setFieldValue]
-  )
   const { zIndex } = props
   const style: CSSProperties = useMemo(() => ({ zIndex: zIndex ?? 5 }), [zIndex]) as CSSProperties
   return (
-    <FormInput.CustomRender
+    <FormInput.MultiTypeInput
       name="baseline"
-      label={i18n.fieldLabels.baseline}
       style={style}
-      render={() => <MultiTypeInput selectProps={selectProps} onChange={onChangeCallback} />}
+      label={i18n.fieldLabels.baseline}
+      selectItems={selectProps.items}
+      multiTypeInputProps={{
+        allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME]
+      }}
     />
   )
 }
@@ -202,21 +178,20 @@ export function DataSource(props: BaseFieldProps): JSX.Element {
     }),
     []
   )
-  const { setFieldValue } = useFormikContext()
-  const onChangeCallback = useCallback(
-    (value?: string | SelectOption | MultiSelectOption[]) => {
-      setFieldValue('dataSource', value)
-    },
-    [setFieldValue]
-  )
   const { zIndex } = props
   const style: CSSProperties = useMemo(() => ({ zIndex: zIndex ?? 4 }), [zIndex]) as CSSProperties
   return (
-    <FormInput.CustomRender
+    <FormInput.MultiSelectTypeInput
       name="dataSource"
-      label={i18n.fieldLabels.dataSource}
       style={style}
-      render={() => <MultiTypeInput selectProps={selectProps} onChange={onChangeCallback} />}
+      label={i18n.fieldLabels.dataSource}
+      selectItems={selectProps.items}
+      multiSelectTypeInputProps={{
+        multiSelectProps: {
+          items: selectProps.items
+        },
+        allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME]
+      }}
     />
   )
 }

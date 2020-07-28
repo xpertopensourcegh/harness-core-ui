@@ -9,17 +9,25 @@ import {
   ActivitySelectionModal,
   ActivityType,
   isActivityType,
-  VerificationJobName
+  VerificationJobName,
+  ActivitySourceName
 } from './ActivitySelectionModal/ActivitySelectionModal'
 import { useHistory } from 'react-router-dom'
 import { routeCVActivityDetails } from 'modules/cv/routes'
-import { ActivityDetailsActivityType } from 'modules/cv/routePaths'
+import { ActivityDetailsActivityType, ActivityDetailsActivitySource } from 'modules/cv/routePaths'
 
 const VerificationJobTileSelectionToRoute = {
   [VerificationJobName.TEST]: ActivityDetailsActivityType.TEST,
   [VerificationJobName.BG]: ActivityDetailsActivityType.BG,
   [VerificationJobName.CANARY]: ActivityDetailsActivityType.CANARY,
   [VerificationJobName.HEALTH]: ActivityDetailsActivityType.HEALTH
+}
+
+const VerificationActivitySourceTileSelectionToRoute = {
+  [ActivitySourceName.KUBERNETES]: ActivityDetailsActivitySource.KUBERNETES,
+  [ActivitySourceName.AWS]: ActivityDetailsActivitySource.AWS,
+  [ActivitySourceName.GCP]: ActivityDetailsActivitySource.GCP,
+  [ActivitySourceName.AZURE]: ActivityDetailsActivitySource.AZURE
 }
 
 function ActivitiesPageTitle(): JSX.Element {
@@ -55,12 +63,18 @@ function NoActivities(): JSX.Element {
   const history = useHistory()
   const onActivityTypeOptionClickCallback = useCallback(
     (activityName: string) => {
-      const routePath = VerificationJobTileSelectionToRoute[activityName]
+      let routePath
+      if (selectedActivityType === 'activity-sources') {
+        routePath = VerificationActivitySourceTileSelectionToRoute[activityName]
+      } else if (selectedActivityType === 'verification-jobs') {
+        routePath = VerificationJobTileSelectionToRoute[activityName]
+      }
+
       if (routePath) {
-        history.push(linkTo(routeCVActivityDetails, { activityType: routePath }))
+        history.push(linkTo(routeCVActivityDetails, { activityType: routePath }), true)
       }
     },
-    [history]
+    [history, selectedActivityType]
   )
   const [openModal, hideModal] = useModalHook(() => {
     return selectedActivityType ? (
