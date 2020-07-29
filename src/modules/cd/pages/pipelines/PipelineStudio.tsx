@@ -8,6 +8,7 @@ import { PipelineCanvas } from './PipelineCanvas/PipelineCanvas'
 import { routePipelines } from '../../routes'
 import { linkTo } from 'framework/exports'
 import { usePostPipelineExecute } from 'services/cd-ng'
+import { useToaster } from 'modules/common/exports'
 
 const PipelineStudioInner = (): JSX.Element => {
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
@@ -19,20 +20,20 @@ const PipelineStudioInner = (): JSX.Element => {
     queryParams: { accountIdentifier: accountId, projectIdentifier, orgIdentifier },
     identifier: pipeline.identifier || ''
   })
+
   const history = useHistory()
+  const { showSuccess, showWarning } = useToaster()
 
   const handleRunPipeline = React.useCallback(async () => {
     if (!isUpdated) {
       const response = await runPipeline()
       if (response.status === 'SUCCESS') {
-        // TODO: i18n and move to pipeline execution page
-        alert('Pipeline Started SuccessFully')
+        showSuccess(i18n.pipelineSave)
       }
     } else {
-      // TODO: Change to Alert as per design (waiting)
-      alert('Please save the pipeline first')
+      showWarning(i18n.pipelineUnSave)
     }
-  }, [runPipeline, isUpdated])
+  }, [runPipeline, isUpdated, showWarning, showSuccess])
 
   return (
     <div className={css.container}>

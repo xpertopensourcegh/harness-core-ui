@@ -12,7 +12,7 @@ import i18n from './PipelineCanvas.i18n'
 import CreatePipelines from '../CreateModal/PipelineCreate'
 import { YamlEntity } from 'modules/common/constants/YamlConstants'
 import { DefaultNewPipelineId } from '../PipelineContext/PipelineActions'
-import { NavigationCheck } from 'modules/common/exports'
+import { NavigationCheck, useToaster } from 'modules/common/exports'
 import type { YamlBuilderHandlerBinding } from 'modules/common/interfaces/YAMLBuilderProps'
 import type { CDPipelineDTO, ResponseDTOString } from 'services/cd-ng'
 
@@ -25,6 +25,7 @@ export const PipelineCanvas: React.FC<{}> = (): JSX.Element => {
     pipelineView: { isSetupStageOpen }
   } = state
 
+  const { showError } = useToaster()
   const { accountId, projectIdentifier, orgIdentifier, pipelineIdentifier } = useParams()
 
   const [yamlHandler, setYamlHandler] = React.useState<YamlBuilderHandlerBinding | undefined>()
@@ -54,7 +55,7 @@ export const PipelineCanvas: React.FC<{}> = (): JSX.Element => {
     if (response && response.status === 'SUCCESS') {
       pipelineSaved()
     } else {
-      alert('Error while saving')
+      showError(i18n.errorWhileSaving)
     }
   }, [
     accountId,
@@ -65,6 +66,7 @@ export const PipelineCanvas: React.FC<{}> = (): JSX.Element => {
     isYaml,
     updatePipeline,
     yamlHandler,
+    showError,
     pipelineIdentifier
   ])
 

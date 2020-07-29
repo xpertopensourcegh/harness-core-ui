@@ -72,7 +72,8 @@ export const initialState: PipelineReducerState = {
   pipeline: { ...DefaultPipeline },
   pipelineIdentifier: DefaultNewPipelineId,
   pipelineView: {
-    isSetupStageOpen: false
+    isSetupStageOpen: false,
+    selectedStageId: 'Login_Deploy'
   },
   isLoading: false,
   isDBInitialized: false,

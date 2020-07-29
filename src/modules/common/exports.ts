@@ -15,3 +15,4 @@ export { useProjectModal } from './modals/ProjectModal/useProjectModal'
 export { Diagram, StringUtils, rsql /*, YamlUtils */ }
 export { useConfirmationDialog } from './modals/ConfirmDialog/useConfirmationDialog'
 export { NavigationCheck } from './components/NavigationCheck/NavigationCheck'
+export { useToaster } from './components/Toaster/useToaster'

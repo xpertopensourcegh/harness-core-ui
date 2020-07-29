@@ -4,6 +4,7 @@ export default {
   unsavedChanges: 'unsaved changes',
   saveAndPublish: 'Save and Publish',
   notifications: 'Notifications',
+  errorWhileSaving: 'Error occurred saving',
   visual: 'VISUAL',
   yaml: 'YAML'
 }
