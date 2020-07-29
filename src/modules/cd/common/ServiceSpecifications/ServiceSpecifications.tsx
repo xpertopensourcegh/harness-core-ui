@@ -27,6 +27,7 @@ import { PipelineContext } from 'modules/cd/pages/pipelines/PipelineContext/Pipe
 import { getStageFromPipeline } from 'modules/cd/pages/pipelines/StageBuilder/StageBuilderModel'
 
 import { loggerFor, ModuleName } from 'framework/exports'
+import OverrideSets from '../OverrideSets/OverrideSets'
 
 const logger = loggerFor(ModuleName.CD)
 
@@ -37,6 +38,7 @@ const specificationTypes = {
 
 export default function ServiceSpecifications(): JSX.Element {
   const [isDescriptionVisible, setDescriptionVisible] = React.useState(false)
+  const [selectedTab, setSelectedTab] = React.useState(i18n.artifacts)
   const [isTagsVisible, setTagsVisible] = React.useState(false)
   const [specSelected, setSelectedSpec] = React.useState(specificationTypes.SPECIFICATION)
 
@@ -57,6 +59,10 @@ export default function ServiceSpecifications(): JSX.Element {
     return { serviceName: serviceName, description: description, tags: null }
   }
 
+  const handleTabChange = (data: string) => {
+    setSelectedTab(data)
+  }
+
   return (
     <Layout.Vertical className={css.serviceOverrides}>
       <Layout.Vertical spacing="large">
@@ -70,7 +76,14 @@ export default function ServiceSpecifications(): JSX.Element {
               tags: value.tags,
               serviceDef: {
                 type: 'Kubernetes',
-                spec: { manifests: [] }
+                spec: {
+                  artifacts: [],
+                  manifests: [],
+                  variables: [],
+                  artifactOverrideSets: [],
+                  manifestOverrideSets: [],
+                  variableOverrideSets: []
+                }
               }
             }
             if (stage) {
@@ -179,13 +192,14 @@ export default function ServiceSpecifications(): JSX.Element {
           <Text style={{ fontSize: 14, color: 'var(-grey-300)' }}>{i18n.overideInfoText}</Text>
         </Layout.Vertical>
       )}
-      <Layout.Horizontal spacing="small">
-        <Tabs id="serviceSpecifications">
-          <Tab id={i18n.artifacts} title={i18n.artifacts} panel={<ArtifactsSelection />} />
-          <Tab id={i18n.manifests} title={i18n.manifests} panel={<ManifestSelection />} />
+      <Layout.Vertical spacing="small">
+        <Tabs id="serviceSpecifications" onChange={handleTabChange}>
+          <Tab id={i18n.artifacts} title={i18n.artifacts} panel={<ArtifactsSelection isForOverrideSets={false} />} />
+          <Tab id={i18n.manifests} title={i18n.manifests} panel={<ManifestSelection isForOverrideSets={false} />} />
           <Tab id={i18n.variables} title={i18n.variables} panel={<WorkflowVariables />} />
         </Tabs>
-      </Layout.Horizontal>
+        <OverrideSets selectedTab={selectedTab} />
+      </Layout.Vertical>
     </Layout.Vertical>
   )
 }

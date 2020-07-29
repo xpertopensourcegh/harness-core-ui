@@ -1,0 +1,40 @@
+.collapseContainer {
+  :global {
+    [class*='CollapseListPanel---footerContent'] {
+      display: none;
+    }
+    [class*='CollapseListPanel---main'] {
+      margin-bottom: var(--spacing-medium);
+      background: var(--white);
+      border-radius: 6px;
+      padding: 5px 10px 0 10px;
+      box-shadow: 0px 1px 2px 1px var(--grey-200);
+      padding-bottom: 0;
+      [class*='CollapseHeader---leftSection'] {
+        svg {
+          color: var(--blue-500);
+          height: 8px;
+          width: 8px;
+        }
+      }
+
+      [class*='CollapseHeader---main'] {
+        min-height: 32px;
+        button {
+          display: none;
+        }
+        &:hover {
+          button {
+            display: flex;
+          }
+        }
+      }
+    }
+  }
+}
+.crossIcon {
+  position: absolute;
+  right: var(--spacing-small);
+  top: var(--spacing-small);
+  margin-top: 0 !important;
+}

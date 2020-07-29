@@ -30,6 +30,8 @@ const manifestTypeLabels: Record<string, string> = {
 
 function AddManifestRender({
   identifier,
+  isForOverrideSets,
+  identifierName,
   pipeline,
   updatePipeline,
   stage
@@ -37,7 +39,8 @@ function AddManifestRender({
   identifier: string
   pipeline: object
   updatePipeline: object
-
+  isForOverrideSets: boolean
+  identifierName?: string
   stage: StageWrapper | undefined
 }): JSX.Element {
   const modalPropsLight: IDialogProps = {
@@ -56,6 +59,8 @@ function AddManifestRender({
         closeModal={hideLightModal}
         identifier={identifier}
         pipeline={pipeline}
+        isForOverrideSets={isForOverrideSets}
+        identifierName={identifierName}
         stage={stage}
         updatePipeline={updatePipeline}
       />
@@ -76,12 +81,15 @@ function ManifestListView({
   identifier,
   pipeline,
   updatePipeline,
+  identifierName,
+  isForOverrideSets,
   stage
 }: {
   identifier: string
   pipeline: object
+  isForOverrideSets: boolean
   updatePipeline: (data: object) => void
-
+  identifierName?: string
   stage: StageWrapper | undefined
 }): JSX.Element {
   const modalPropsLight: IDialogProps = {
@@ -100,6 +108,8 @@ function ManifestListView({
         closeModal={hideLightModal}
         identifier={identifier}
         stage={stage}
+        isForOverrideSets={isForOverrideSets}
+        identifierName={identifierName}
         pipeline={pipeline}
         updatePipeline={updatePipeline}
       />
@@ -107,7 +117,17 @@ function ManifestListView({
     </Dialog>
   ))
 
-  const listOfManifests = get(stage, 'stage.spec.service.serviceDef.spec.manifests', [])
+  let listOfManifests = !isForOverrideSets
+    ? get(stage, 'stage.spec.service.serviceDef.spec.manifests', [])
+    : get(stage, 'stage.spec.service.serviceDef.spec.manifestOverrideSets', [])
+
+  if (isForOverrideSets) {
+    listOfManifests = listOfManifests.map((overrideSets: { overrideSet: { identifier: string; manifests: [{}] } }) => {
+      if (overrideSets?.overrideSet?.identifier === identifierName) {
+        return overrideSets.overrideSet.manifests
+      }
+    })[0]
+  }
 
   const removeManifestConfig = (index: number): void => {
     listOfManifests.splice(index, 1)
@@ -116,86 +136,96 @@ function ManifestListView({
 
   return (
     <Layout.Vertical spacing="small">
-      <Container>
-        <section className={css.thead}>
-          <span>{artifactListHeaders.type}</span>
-          <span>{artifactListHeaders.server}</span>
-          <span></span>
-          <span>{artifactListHeaders.branch}</span>
-          <span>{artifactListHeaders.location}</span>
-          <span>{artifactListHeaders.id}</span>
+      {listOfManifests && (
+        <Container>
+          <section className={cx(css.thead, isForOverrideSets && css.overrideSetRow)}>
+            <span>{artifactListHeaders.type}</span>
+            <span>{artifactListHeaders.server}</span>
+            <span></span>
+            <span>{artifactListHeaders.branch}</span>
+            <span>{artifactListHeaders.location}</span>
+            <span>{artifactListHeaders.id}</span>
 
-          <span></span>
-        </section>
-      </Container>
+            <span></span>
+          </section>
+        </Container>
+      )}
       <Layout.Vertical spacing="medium">
         <section>
-          {listOfManifests.map(
-            (
-              data: {
-                manifest: {
-                  identifier: string
-                  type: string
-                  spec: {
-                    store: {
-                      type: string
-                      spec: {
-                        connectorIdentifier: string
-                        gitFetchType: string
-                        branch: string
-                        paths: string[]
+          {listOfManifests &&
+            listOfManifests.map(
+              (
+                data: {
+                  manifest: {
+                    identifier: string
+                    type: string
+                    spec: {
+                      store: {
+                        type: string
+                        spec: {
+                          connectorIdentifier: string
+                          gitFetchType: string
+                          branch: string
+                          paths: string[]
+                        }
                       }
                     }
                   }
-                }
-              },
-              index: number
-            ) => {
-              const manifest = data['manifest']
-              return (
-                <section className={cx(css.thead, css.rowItem)} key={manifest.identifier + index}>
-                  <span className={css.type}>{manifestTypeLabels[manifest.type]}</span>
-                  <span className={css.server}>
-                    <Text
-                      inline
-                      icon={'service-github'}
-                      iconProps={{ size: 18 }}
-                      width={200}
-                      style={{ color: Color.BLACK, fontWeight: 900 }}
-                    >
-                      {manifest.spec.store.type}
-                    </Text>
-                  </span>
-                  <span>
-                    <Text inline icon="full-circle" iconProps={{ size: 10, color: Color.GREEN_500 }} />
-                  </span>
-                  <span>
-                    <Text style={{ color: Color.GREY_500 }}>{manifest.spec.store.spec.branch}</Text>
-                  </span>
-                  <span>
-                    <Text width={280} lineClamp={1} style={{ color: Color.GREY_500 }}>
-                      {manifest.spec.store.spec.paths[0]}
-                    </Text>
-                  </span>
-                  <span>
-                    <Text width={140} lineClamp={1} style={{ color: Color.GREY_500 }}>
-                      {manifest.identifier}
-                    </Text>
-                  </span>
-                  <span>
-                    <Layout.Horizontal spacing="medium">
-                      {/* <Icon name="main-edit" size={14} />
+                },
+                index: number
+              ) => {
+                const manifest = data['manifest']
+                return (
+                  <section
+                    className={cx(css.thead, css.rowItem, isForOverrideSets && css.overrideSetRow)}
+                    key={manifest.identifier + index}
+                  >
+                    <span className={css.type}>{manifestTypeLabels[manifest.type]}</span>
+                    <span className={css.server}>
+                      <Text
+                        inline
+                        icon={'service-github'}
+                        iconProps={{ size: 18 }}
+                        width={200}
+                        style={{ color: Color.BLACK, fontWeight: 900 }}
+                      >
+                        {manifest.spec.store.type}
+                      </Text>
+                    </span>
+                    <span>
+                      <Text inline icon="full-circle" iconProps={{ size: 10, color: Color.GREEN_500 }} />
+                    </span>
+                    <span>
+                      <Text style={{ color: Color.GREY_500 }}>{manifest.spec.store.spec.branch}</Text>
+                    </span>
+                    <span>
+                      <Text width={280} lineClamp={1} style={{ color: Color.GREY_500 }}>
+                        {manifest.spec.store.spec.paths[0]}
+                      </Text>
+                    </span>
+                    <span>
+                      <Text width={140} lineClamp={1} style={{ color: Color.GREY_500 }}>
+                        {manifest.identifier}
+                      </Text>
+                    </span>
+                    <span>
+                      <Layout.Horizontal spacing="medium">
+                        {/* <Icon name="main-edit" size={14} />
                     <Icon name="main-clone" size={14} /> */}
-                      <Icon name="delete" size={14} onClick={() => removeManifestConfig(index)} />
-                    </Layout.Horizontal>
-                  </span>
-                </section>
-              )
-            }
-          )}
+                        <Icon name="delete" size={14} onClick={() => removeManifestConfig(index)} />
+                      </Layout.Horizontal>
+                    </span>
+                  </section>
+                )
+              }
+            )}
         </section>
 
-        <Text intent="primary" style={{ cursor: 'pointer' }} onClick={() => openLightModal()}>
+        <Text
+          intent="primary"
+          style={{ cursor: 'pointer', marginBottom: 'var(--spacing-medium)' }}
+          onClick={() => openLightModal()}
+        >
           {i18n.addFileLabel}
         </Text>
       </Layout.Vertical>
@@ -203,7 +233,13 @@ function ManifestListView({
   )
 }
 
-export default function ManifestSelection(): JSX.Element {
+export default function ManifestSelection({
+  isForOverrideSets,
+  identifierName
+}: {
+  isForOverrideSets: boolean
+  identifierName?: string
+}): JSX.Element {
   const {
     state: {
       pipeline,
@@ -214,22 +250,42 @@ export default function ManifestSelection(): JSX.Element {
 
   const { stage } = getStageFromPipeline(pipeline, selectedStageId || '')
   const identifier = selectedStageId || 'stage-identifier'
-  const listOfManifests = get(stage, 'stage.spec.service.serviceDef.spec.manifests', [])
+  let listOfManifests = !isForOverrideSets
+    ? get(stage, 'stage.spec.service.serviceDef.spec.manifests', [])
+    : get(stage, 'stage.spec.service.serviceDef.spec.manifestOverrideSets', [])
+  if (isForOverrideSets) {
+    listOfManifests = listOfManifests.map((overrideSets: { overrideSet: { identifier: string; manifests: [{}] } }) => {
+      if (overrideSets.overrideSet.identifier === identifierName) {
+        return overrideSets.overrideSet.manifests
+      }
+    })[0]
+  }
 
   return (
-    <Layout.Vertical padding="large" style={{ background: 'var(--grey-100)' }}>
-      <Text style={{ color: 'var(--grey-500)', lineHeight: '24px' }}>{i18n.info}</Text>
-      {!listOfManifests ||
-        (listOfManifests.length === 0 && (
-          <AddManifestRender
-            identifier={identifier}
-            pipeline={pipeline}
-            updatePipeline={updatePipeline}
-            stage={stage}
-          />
-        ))}
+    <Layout.Vertical
+      padding={!isForOverrideSets ? 'large' : 'none'}
+      style={{ background: !isForOverrideSets ? 'var(--grey-100)' : '' }}
+    >
+      {!isForOverrideSets && <Text style={{ color: 'var(--grey-500)', lineHeight: '24px' }}>{i18n.info}</Text>}
+      {(!listOfManifests || listOfManifests.length === 0) && (
+        <AddManifestRender
+          identifier={identifier}
+          pipeline={pipeline}
+          isForOverrideSets={isForOverrideSets}
+          identifierName={identifierName}
+          updatePipeline={updatePipeline}
+          stage={stage}
+        />
+      )}
       {listOfManifests && listOfManifests.length > 0 && (
-        <ManifestListView identifier={identifier} pipeline={pipeline} updatePipeline={updatePipeline} stage={stage} />
+        <ManifestListView
+          identifier={identifier}
+          pipeline={pipeline}
+          updatePipeline={updatePipeline}
+          stage={stage}
+          isForOverrideSets={isForOverrideSets}
+          identifierName={identifierName}
+        />
       )}
     </Layout.Vertical>
   )

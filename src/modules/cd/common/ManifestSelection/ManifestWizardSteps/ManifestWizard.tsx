@@ -82,8 +82,9 @@ const FirstStep = (props: any): JSX.Element => {
 
 const SecondStep = (props: any): JSX.Element => {
   const prevData = props?.prevStepData
-  const manifests = get(props.stage, 'stage.spec.service.serviceDef.spec.manifests', {})
-
+  const manifests = props.isForOverrideSets
+    ? get(props.stage, 'stage.spec.service.serviceDef.spec.manifestOverrideSets', {})
+    : get(props.stage, 'stage.spec.service.serviceDef.spec.manifests', {})
   return (
     <Layout.Vertical spacing="xxlarge" padding="small" style={{ height: '100%' }}>
       <Text font="medium">{i18n.STEP_TWO.title}</Text>
@@ -111,10 +112,18 @@ const SecondStep = (props: any): JSX.Element => {
               }
             }
           }
-          if (manifests && manifests.length > 0) {
-            manifests.push(manifestObj)
+          if (!props.isForOverrideSets) {
+            if (manifests && manifests.length > 0) {
+              manifests.push(manifestObj)
+            } else {
+              manifests.push(manifestObj)
+            }
           } else {
-            manifests.push(manifestObj)
+            manifests.map((overrideSets: { overrideSet: { identifier: string; manifests: [{}] } }) => {
+              if (overrideSets.overrideSet.identifier === props?.identifierName) {
+                overrideSets.overrideSet.manifests.push(manifestObj)
+              }
+            })
           }
 
           props.updatePipeline(props.pipeline)
@@ -144,16 +153,20 @@ export const ManifestWizard = ({
   identifier,
   pipeline,
   updatePipeline,
+  isForOverrideSets,
+  identifierName,
   stage
 }: {
   closeModal: () => void
   identifier: string
   pipeline: object
   updatePipeline: object
-
+  isForOverrideSets?: boolean
+  identifierName?: string
   stage: StageWrapper | undefined
 }): JSX.Element => {
   const [formData, setFormData] = useState({})
+
   return (
     <div className={css.exampleWizard}>
       <StepWizard>
@@ -163,6 +176,8 @@ export const ManifestWizard = ({
           formData={formData}
           setFormData={setFormData}
           identifier={identifier}
+          isForOverrideSets={isForOverrideSets}
+          identifierName={identifierName}
           pipeline={pipeline}
           stage={stage}
           updatePipeline={updatePipeline}

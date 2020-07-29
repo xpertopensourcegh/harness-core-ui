@@ -20,7 +20,7 @@ const artifactListHeaders: ArtifactTable = {
   id: i18n.artifactTable.id
 }
 
-export default function ArtifactsSelection(): JSX.Element {
+export default function ArtifactsSelection({ isForOverrideSets }: { isForOverrideSets: boolean }): JSX.Element {
   const {
     state: {
       pipeline,
@@ -135,8 +135,11 @@ export default function ArtifactsSelection(): JSX.Element {
     updatePipeline(pipeline)
   }
   return (
-    <Layout.Vertical padding="large" style={{ background: 'var(--grey-100)' }}>
-      <Text style={{ color: 'var(--grey-500)', lineHeight: '24px' }}>{i18n.info}</Text>
+    <Layout.Vertical
+      padding={!isForOverrideSets ? 'large' : 'none'}
+      style={{ background: !isForOverrideSets ? 'var(--grey-100)' : '' }}
+    >
+      {!isForOverrideSets && <Text style={{ color: 'var(--grey-500)', lineHeight: '24px' }}>{i18n.info}</Text>}
       <Layout.Vertical spacing="medium">
         {!primaryArtifact && (
           <Container className={css.rowItem}>
