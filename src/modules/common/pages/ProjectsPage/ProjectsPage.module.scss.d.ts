@@ -5,5 +5,6 @@ declare const styles: {
   readonly filterTab: string
   readonly selected: string
   readonly orgSelect: string
+  readonly pageContainer: string
 }
 export default styles

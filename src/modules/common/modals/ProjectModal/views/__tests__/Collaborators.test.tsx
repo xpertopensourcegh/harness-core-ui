@@ -17,7 +17,7 @@ const project: ProjectDTO = {
   owners: ['testAcc']
 }
 
-describe('ProjectsCard test', () => {
+describe('Collaborators test', () => {
   test('initializes ok ', async () => {
     const { container } = render(<Collaborators data={project} />)
     expect(container).toMatchSnapshot()

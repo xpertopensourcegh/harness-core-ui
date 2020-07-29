@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ProjectsCard test initializes ok  1`] = `
+exports[`Collaborators test initializes ok  1`] = `
 <div>
   <p
     class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-medium--2b-0"

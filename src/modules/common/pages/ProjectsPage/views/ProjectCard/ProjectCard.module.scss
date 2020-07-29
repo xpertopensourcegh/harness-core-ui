@@ -1,6 +1,8 @@
 .projectCard {
   width: 250px;
-  box-shadow: 0 0 15px 0px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0 5px 0px rgba(0, 0, 0, 0.1);
+  padding: 0px;
+  padding-top: 25px;
 
   .colorBar {
     width: 50px;
@@ -8,4 +10,12 @@
     border-radius: 5px;
     margin-bottom: var(--spacing-medium);
   }
+}
+
+.started {
+  background: var(--grey-100) !important;
+}
+.cardTags {
+  background-color: var(--grey-200) !important;
+  color: var(--grey-400) !important;
 }

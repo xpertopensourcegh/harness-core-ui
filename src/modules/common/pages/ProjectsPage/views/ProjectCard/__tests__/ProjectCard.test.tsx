@@ -1,8 +1,7 @@
 import React from 'react'
 
-import { render, queryByText } from '@testing-library/react'
-import PurposeList from '../PurposeList'
-import i18n from '../../../../pages/ProjectsPage/ProjectsPage.i18n'
+import { render } from '@testing-library/react'
+import ProjectCard from '../ProjectCard'
 import type { ProjectDTO } from 'services/cd-ng'
 
 const project: ProjectDTO = {
@@ -18,10 +17,9 @@ const project: ProjectDTO = {
   owners: ['testAcc']
 }
 
-describe('PurposeList test', () => {
+describe('ProjectCard test', () => {
   test('initializes ok ', async () => {
-    const { container } = render(<PurposeList data={project} />)
-    expect(queryByText(container, i18n.newProjectWizard.purposeList.name)).toBeDefined()
+    const { container } = render(<ProjectCard data={project} />)
     expect(container).toMatchSnapshot()
   })
 })

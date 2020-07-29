@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ProjectsCard test initializes ok  1`] = `
+exports[`PurposeList test initializes ok  1`] = `
 <div>
   <div
     class="Layout---horizontal--3rmQ StyledProps---main--1Wws"

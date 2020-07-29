@@ -75,7 +75,6 @@ const AboutProject: React.FC<StepProps<ProjectDTO> & ProjectModalData> = props =
     ])
     ;(dataToSubmit as CreateProjectDTO)['accountIdentifier'] = accountId
     ;(dataToSubmit as CreateProjectDTO)['owners'] = [accountId]
-    ;(dataToSubmit as CreateProjectDTO)['modules'] = []
     if (isEdit) {
       await updateProject(dataToSubmit as UpdateProjectDTO, {
         pathParams: { orgIdentifier: values?.orgIdentifier || '', projectIdentifier: values?.identifier || '' }
@@ -84,6 +83,7 @@ const AboutProject: React.FC<StepProps<ProjectDTO> & ProjectModalData> = props =
       onSuccess?.(values)
     } else {
       ;(dataToSubmit as CreateProjectDTO)['identifier'] = values.identifier || ''
+      ;(dataToSubmit as CreateProjectDTO)['modules'] = []
       createProject(dataToSubmit as CreateProjectDTO, {
         pathParams: { orgIdentifier: values?.orgIdentifier || '' }
       })
