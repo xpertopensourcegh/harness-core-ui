@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import { FormInput, Layout } from '@wings-software/uikit'
+import { FormInput, Layout, Icon } from '@wings-software/uikit'
 import i18n from './KubCluster.i18n'
 import { CardSelect } from '@wings-software/uikit'
 import css from './KubCluster.module.scss'
-import { authOptions, getCustomFields, DelegateTypes, DelegateInClusterType } from './KubeFormHelper'
-import { StringUtils } from 'modules/common/exports'
+import { authOptions, getCustomFields, DelegateTypes, DelegateInClusterType, getIconsForCard } from './KubeFormHelper'
 import cx from 'classnames'
 // import type { AuthOption } from './KubeFormHelper'
 
@@ -135,7 +134,13 @@ const KubCluster = (props: KubClusterProps): JSX.Element => {
     renderItem: function renderItem(item: any) {
       return (
         <div className={cx(css.cardCss, { [css.selectedCard]: item.type === selectedDelegate?.type })}>
-          {item.value}
+          <div className={css.cardContent}>
+            {item.value}
+            {getIconsForCard(item.type, item.type === selectedDelegate?.type)}
+          </div>
+          {item.type === selectedDelegate?.type ? (
+            <Icon name="deployment-success-new" size={16} className={css.tickWrp} />
+          ) : null}
         </div>
       )
     },
@@ -159,24 +164,15 @@ const KubCluster = (props: KubClusterProps): JSX.Element => {
 
   return (
     <>
-      <FormInput.Text
-        label={i18n.displayName}
-        name="name"
-        onChange={e => {
-          const name = (e.target as HTMLInputElement).value
-          if (name) {
-            props.formikProps.setFieldValue('identifier', StringUtils.getIdentifierFromName(name))
-          }
-        }}
-      />
+      <FormInput.InputWithIdentifier />
       <FormInput.TextArea label={i18n.description} name="description" />
-      <FormInput.Text label={i18n.identifier} name="identifier" />
       <FormInput.TagInput
         name="tags"
         label={i18n.tags}
         items={connector?.tags}
         labelFor={name => (typeof name === 'string' ? name : '')}
         itemFromNewTag={newTag => newTag}
+        className={css.tags}
         tagInputProps={{
           noInputBorder: true,
           openOnKeyDown: false,

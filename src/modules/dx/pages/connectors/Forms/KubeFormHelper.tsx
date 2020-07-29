@@ -8,6 +8,7 @@ import type { SecretManagerConfigDTO } from 'services/cd-ng'
 import css from './KubFormHelper.module.scss'
 import SecretReference from 'modules/dx/components/SecretReference/SecretReference'
 import type { FormikProps } from 'formik'
+import cx from 'classnames'
 
 export const AuthTypes = {
   CUSTOM: 'ManualConfig',
@@ -300,37 +301,37 @@ export const getCustomFields = (
 
 export const getIconsForCard = (type: string, isSelected: boolean) => {
   if (type === DelegateTypes.DELEGATE_IN_CLUSTER) {
-    if (isSelected) {
-      return (
-        <Layout.Horizontal>
-          <Icon name="harness" size={18} className={css.harnessSelectedIcon} /> <hr className={css.lineSelected} />{' '}
-          <Icon name="white-cluster" size={32} className={css.clusterSelected} />
-        </Layout.Horizontal>
-      )
-    } else {
-      return (
-        <Layout.Horizontal>
-          <Icon name="harness" size={18} className={css.harnessIcon} /> <hr className={css.line} />{' '}
-          <Icon name="blue-black-cluster" size={32} className={css.cluster} />
-        </Layout.Horizontal>
-      )
-    }
+    return (
+      <Layout.Horizontal>
+        <Icon name="harness" size={18} className={isSelected ? css.harnessSelectedIcon : css.harnessIcon} />{' '}
+        <hr className={cx(css.lineWidthFull, { [css.lineSelected]: isSelected, [css.line]: !isSelected })} />
+        <Icon
+          name={isSelected ? 'white-cluster' : 'blue-black-cluster'}
+          size={32}
+          className={isSelected ? css.clusterSelected : css.cluster}
+        />
+      </Layout.Horizontal>
+    )
   } else if (type === DelegateTypes.DELEGATE_OUT_CLUSTER) {
-    // Todo: The code below will have one more Icon
-    if (isSelected) {
-      return (
-        <Layout.Horizontal>
-          <Icon name="harness" size={18} className={css.harnessSelectedIcon} /> <hr className={css.lineSelected} />{' '}
-          <Icon name="white-full-cluster" size={32} className={css.clusterSelected} />
-        </Layout.Horizontal>
-      )
-    } else {
-      return (
-        <Layout.Horizontal>
-          <Icon name="harness" size={18} className={css.harnessIcon} /> <hr className={css.line} />{' '}
-          <Icon name="grey-cluster" size={32} className={css.cluster} />
-        </Layout.Horizontal>
-      )
-    }
+    return (
+      <Layout.Horizontal>
+        <Icon name="harness" size={18} className={isSelected ? css.harnessSelectedIcon : css.harnessIcon} />
+        <hr className={cx(css.lineWidthHalf, { [css.lineSelected]: isSelected, [css.line]: !isSelected })} />
+        <Icon
+          name="polygon"
+          size={12}
+          padding={{ left: 'large' }}
+          className={cx(css.polygon, { [css.selectedPolygon]: isSelected })}
+        />
+        <hr className={cx(css.lineWidthHalf, { [css.lineSelected]: isSelected, [css.line]: !isSelected })} />
+        <Icon
+          name={isSelected ? 'white-full-cluster' : 'grey-cluster'}
+          size={32}
+          // className
+          padding={{ left: 'large' }}
+          className={isSelected ? css.clusterSelected : css.cluster}
+        />
+      </Layout.Horizontal>
+    )
   }
 }

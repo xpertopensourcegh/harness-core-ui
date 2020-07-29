@@ -12,5 +12,8 @@ declare const styles: {
   readonly incluster: string
   readonly radioOption: string
   readonly label: string
+  readonly tags: string
+  readonly tickWrp: string
+  readonly cardContent: string
 }
 export default styles

@@ -5,10 +5,14 @@ declare const styles: {
   readonly harnessIcon: string
   readonly lineSelected: string
   readonly line: string
+  readonly lineWidthFull: string
+  readonly lineWidthHalf: string
   readonly clusterSelected: string
   readonly cluster: string
   readonly labelWrp: string
   readonly passwordLabel: string
   readonly secretPop: string
+  readonly polygon: string
+  readonly selectedPolygon: string
 }
 export default styles

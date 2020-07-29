@@ -1,16 +1,19 @@
 import React, { useState, useEffect } from 'react'
-import { Formik, FormikForm as Form, Button, Layout, OptionsButtonGroup } from '@wings-software/uikit'
+import { Formik, FormikForm as Form, Button, Layout } from '@wings-software/uikit'
 import { getValidationSchemaByType, getFormByType } from './utils/ConnectorHelper'
 import css from './ConfigureConnector.module.scss'
 import SavedConnectorDetails from './SavedConnectorDetails'
 import ConnectorStats from './ConnectorStats'
 import i18n from './ConfigureConnector.i18n'
 // import type { ConnectorSchema } from './ConnectorSchema'
-import { ConnectorService } from 'modules/dx/services'
 import { buildKubPayload, buildKubFormData } from './utils/ConnectorUtils'
 import YAMLBuilderPage from 'modules/dx/pages/yamlBuilder/YamlBuilderPage'
 import { YamlEntity } from 'modules/common/constants/YamlConstants'
 import * as YAML from 'yaml'
+import { useUpdateConnector } from 'services/cd-ng'
+import cx from 'classnames'
+import { useToaster } from 'modules/common/exports'
+
 export interface ConfigureConnectorProps {
   accountId: string
   type: string
@@ -28,68 +31,10 @@ interface ConfigureConnectorState {
   selectedView: string
   setSelectedView: (selection: string) => void
 }
-interface Options {
-  text: string
-  value: string
-  selected?: boolean
-}
 
 const SelectedView = {
   VISUAL: 'visual',
   YAML: 'yaml'
-}
-
-const getOptions = (isCreationThroughYamlBuilder: boolean): Options[] => {
-  return [
-    {
-      text: 'Visual',
-      value: SelectedView.VISUAL,
-      selected: !isCreationThroughYamlBuilder
-    },
-    {
-      text: 'YAML',
-      value: SelectedView.YAML,
-      selected: isCreationThroughYamlBuilder
-    }
-  ]
-}
-const createConnectorByType = async (data: any, state: ConfigureConnectorState, props: ConfigureConnectorProps) => {
-  const xhrGroup = 'create-connector'
-  const { accountId } = props
-  const { connector, error } = await ConnectorService.updateConnector({ xhrGroup, connector: data, accountId })
-  if (!error) {
-    state.setConnector(connector)
-    const formData = buildKubFormData(connector)
-    state.setConnector(formData)
-  }
-  //todo else
-}
-
-const onSubmitForm = (formData: any, state: ConfigureConnectorState, props: ConfigureConnectorProps) => {
-  state.setEnableEdit(false)
-  const data = buildKubPayload(formData)
-
-  createConnectorByType(data, state, props)
-}
-
-const renderConnectorForm = (state: ConfigureConnectorState, props: ConfigureConnectorProps): JSX.Element => {
-  const { connector } = state
-
-  const validationSchema = getValidationSchemaByType(props.type)
-  return (
-    <Formik
-      initialValues={connector}
-      onSubmit={formData => onSubmitForm(formData, state, props)}
-      validationSchema={validationSchema}
-    >
-      {formikProps => (
-        <Form className={css.formCustomCss}>
-          {getFormByType(props, formikProps)}
-          <Button intent="primary" type="submit" text={i18n.submit} className={css.submitBtn} />
-        </Form>
-      )}
-    </Formik>
-  )
 }
 
 const renderSavedDetails = (state: ConfigureConnectorState): JSX.Element => {
@@ -141,6 +86,42 @@ const ConfigureConnector = (props: ConfigureConnectorProps): JSX.Element => {
     selectedView,
     setSelectedView
   }
+  const { showSuccess, showError } = useToaster()
+
+  const { mutate: updateConnector } = useUpdateConnector({ accountIdentifier: props.accountId })
+
+  const onSubmitForm = async (formData: any) => {
+    state.setEnableEdit(false)
+    const connectorPayload = buildKubPayload(formData)
+
+    try {
+      const data = await updateConnector(connectorPayload as any) // Incompatible BE types
+      const formatedData = buildKubFormData(data)
+      state.setConnector(formatedData)
+      showSuccess(i18n.SaveConnector.SUCCESS)
+    } catch (error) {
+      showError(error.message)
+    }
+  }
+
+  const renderConnectorForm = (): JSX.Element => {
+    const validationSchema = getValidationSchemaByType(props.type)
+    return (
+      <Formik
+        initialValues={connector}
+        onSubmit={formData => onSubmitForm(formData)}
+        validationSchema={validationSchema}
+      >
+        {formikProps => (
+          <Form className={css.formCustomCss}>
+            {getFormByType(props, formikProps)}
+            <Button intent="primary" type="submit" text={i18n.submit} className={css.submitBtn} />
+          </Form>
+        )}
+      </Formik>
+    )
+  }
+
   useEffect(() => {
     if (props.connector) {
       setConnector(props.connector)
@@ -148,12 +129,20 @@ const ConfigureConnector = (props: ConfigureConnectorProps): JSX.Element => {
   }, [props])
 
   return (
-    <React.Fragment>
+    <div className={css.connectorWrp}>
       <div className={css.optionBtns}>
-        <OptionsButtonGroup
-          options={getOptions(props.isCreationThroughYamlBuilder)}
-          onChange={value => setSelectedView(value as string)}
-        />
+        <div
+          className={cx(css.item, { [css.selected]: selectedView === SelectedView.VISUAL })}
+          onClick={() => setSelectedView(SelectedView.VISUAL)}
+        >
+          {i18n.VISUAL}
+        </div>
+        <div
+          className={cx(css.item, { [css.selected]: selectedView === SelectedView.YAML })}
+          onClick={() => setSelectedView(SelectedView.YAML)}
+        >
+          {i18n.YAML}
+        </div>
       </div>
       <Layout.Horizontal className={css.mainDetails}>
         {selectedView === SelectedView.VISUAL ? (
@@ -161,7 +150,7 @@ const ConfigureConnector = (props: ConfigureConnectorProps): JSX.Element => {
             <div className={css.connectorDetails}>
               {renderSubHeader(state)}
               {!enableEdit ? renderSavedDetails(state) : null}
-              {enableEdit ? renderConnectorForm(state, props) : null}
+              {enableEdit ? renderConnectorForm() : null}
             </div>
             {renderConnectorStats()}
           </React.Fragment>
@@ -176,7 +165,7 @@ const ConfigureConnector = (props: ConfigureConnectorProps): JSX.Element => {
           </div>
         )}
       </Layout.Horizontal>
-    </React.Fragment>
+    </div>
   )
 }
 

@@ -20,10 +20,16 @@
 }
 .line {
   color: var(--horizontal-line);
-  width: 90px;
+
   position: relative;
   top: 14px;
   left: 10px;
+}
+.lineWidthFull {
+  width: 90px;
+}
+.lineWidthHalf {
+  width: 35px;
 }
 .clusterSelected {
   margin-top: 6px !important;
@@ -42,4 +48,14 @@
 }
 .secretPop {
   cursor: pointer;
+}
+.polygon {
+  margin: auto !important;
+}
+.selectedPolygon {
+  > svg > defs > radialGradient {
+    stop:first-child {
+      stop-color: var(--white);
+    }
+  }
 }
