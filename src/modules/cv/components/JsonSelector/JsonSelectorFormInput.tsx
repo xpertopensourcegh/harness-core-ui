@@ -11,33 +11,38 @@ import css from './JsonSelectorFormInput.module.scss'
 interface JsonSelectorFormInputProps {
   name: string
   label: string
-  json?: object | null
+  json?: object
   loading?: boolean
   placeholder?: string
 }
 
-const JsonSelectorFormInput = (props: JsonSelectorFormInputProps & { formik?: any }) => {
-  const { name, label, json, formik, loading, placeholder } = props
-
-  let value = get(formik.values, name)
-  let valueColor = Color.BLACK
-  const validationError = get(formik.errors, name)
+function getPlaceholderAndTextColor(
+  loading?: boolean,
+  json?: object,
+  placeholder?: string,
+  selectedJsonVal?: string
+): { value?: string; valueColor: Color } {
   if (loading) {
-    value = ''
-  } else if (!value || !Object.keys(value)?.length) {
-    value = !json || !Object.keys(json)?.length ? 'No data returned' : placeholder
-    valueColor = Color.GREY_400
+    return { value: '', valueColor: Color.BLACK }
+  } else if (!selectedJsonVal || !Object.keys(selectedJsonVal)?.length) {
+    return { value: !json || !Object.keys(json)?.length ? 'No data' : placeholder, valueColor: Color.GREY_400 }
   }
+  return { value: selectedJsonVal, valueColor: Color.BLACK }
+}
 
-  const onPathSelect = (path: string) => {
+const JsonSelectorFormInput = (props: JsonSelectorFormInputProps & { formik?: any }): JSX.Element => {
+  const { name, label, json, formik, loading, placeholder } = props
+  const { value, valueColor } = getPlaceholderAndTextColor(loading, json, placeholder, get(formik.values, name))
+  const validationError = get(formik.touched, name) ? get(formik.errors, name) : undefined
+
+  const onPathSelect = (path: string): void => {
     hideModal()
     formik.setFieldValue(name, path)
+    formik.setFieldTouched(name, true)
   }
 
-  const onOpenModal = () => {
-    if (!isEmpty(json)) {
-      openModal()
-    }
+  const onOpenModal = (): void => {
+    if (!isEmpty(json)) openModal()
   }
 
   const [openModal, hideModal] = useModalHook(

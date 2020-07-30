@@ -1,5 +1,5 @@
 import React, { useMemo, useEffect, useState, useCallback } from 'react'
-import { Table, SelectOption, Text } from '@wings-software/uikit'
+import { Table, SelectOption, Text, Container, ExpandingSearchInput } from '@wings-software/uikit'
 import type { IHTMLTableProps } from '@blueprintjs/core'
 import type { Cell, Column } from 'react-table'
 import css from './DataSourceSelectEntityTable.module.scss'
@@ -18,17 +18,14 @@ interface DataSourceSelectEntityTableProps {
 
 interface TableCheckboxProps {
   cell: Cell<TableEntityCell>
-  onChange: (isChecked: boolean, index: number) => void
+  onChange: (rowVal: TableEntityCell) => void
 }
 
 const BPTableProps: IHTMLTableProps = {}
 
 function TableCheckbox(props: TableCheckboxProps): JSX.Element {
   const { cell, onChange } = props
-  const onChangeCallback = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => onChange(event.currentTarget?.checked, cell?.row?.index),
-    [onChange, cell?.row?.index]
-  )
+  const onChangeCallback = useCallback(() => onChange(cell.row.original), [onChange, cell.row.original])
   return <input type="checkbox" checked={cell.value} name="selected" onChange={onChangeCallback} />
 }
 
@@ -36,6 +33,7 @@ export default function DataSourceSelectEntityTable(props: DataSourceSelectEntit
   const { entityTableColumnName, onSubmit, entityOptions: propsEntityOptions } = props
   const [isAllChecked, setAllChecked] = useState(false)
   const [entityOptions, setEntityOptions] = useState<TableEntityCell[]>([])
+  const [appliedFilter, setFilter] = useState<string | undefined>()
   const onColumnCheckboxCallback = useCallback(() => {
     const checkedData = [...entityOptions]
     checkedData.forEach(entityRow => (entityRow.selected = !isAllChecked))
@@ -43,9 +41,12 @@ export default function DataSourceSelectEntityTable(props: DataSourceSelectEntit
     setAllChecked(!isAllChecked)
   }, [entityOptions, isAllChecked])
   const onRowCheckboxCallback = useCallback(
-    (isSelected: boolean, index: number) => {
+    (rowVal: TableEntityCell) => {
       const tableData = [...entityOptions]
-      tableData[index].selected = isSelected
+      const checkEntity = tableData.find(entity => entity.entityName === rowVal.entityName)
+      if (checkEntity) {
+        checkEntity.selected = !checkEntity.selected
+      }
       setEntityOptions(tableData)
     },
     [entityOptions]
@@ -61,7 +62,12 @@ export default function DataSourceSelectEntityTable(props: DataSourceSelectEntit
         }
       },
       {
-        Header: entityTableColumnName,
+        Header: (
+          <Container flex>
+            <Text>{entityTableColumnName}</Text>
+            <ExpandingSearchInput className={css.searchBox} onChange={filter => setFilter(filter)} />
+          </Container>
+        ),
         accessor: 'entityName',
         Cell: function EntityName(cell: Cell<TableEntityCell>) {
           return <Text>{cell.value}</Text>
@@ -71,6 +77,13 @@ export default function DataSourceSelectEntityTable(props: DataSourceSelectEntit
     [entityTableColumnName, onColumnCheckboxCallback, onRowCheckboxCallback]
   )
 
+  const filteredOptions: TableEntityCell[] = useMemo(() => {
+    if (!appliedFilter || !appliedFilter.length) {
+      return entityOptions
+    }
+    const regex = new RegExp(appliedFilter, 'i')
+    return entityOptions.filter(({ entityName }) => regex.test(entityName))
+  }, [appliedFilter, entityOptions])
   useEffect(() => {
     if (propsEntityOptions) {
       setEntityOptions(
@@ -85,5 +98,6 @@ export default function DataSourceSelectEntityTable(props: DataSourceSelectEntit
   useEffect(() => {
     onSubmit?.(entityOptions.filter(({ selected }) => selected).map(({ entity }) => entity))
   }, [entityOptions, onSubmit])
-  return <Table columns={tableColumns} bpTableProps={BPTableProps} data={entityOptions} className={css.main} />
+
+  return <Table columns={tableColumns} bpTableProps={BPTableProps} data={filteredOptions} className={css.main} />
 }

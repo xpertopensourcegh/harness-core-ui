@@ -1,10 +1,7 @@
 export default {
   pageHeading: 'Map your query to a Harness service and environment',
   thirdPartyCallLogText: 'View Third Party Call Logs',
-  addQueryButtonLabels: {
-    splunkQuery: 'Splunk Query',
-    customQuery: 'Custom Query'
-  },
+  addQueryButtonLabel: 'Add Query',
   fieldLabels: {
     queryName: 'Query Name',
     query: 'Query',
@@ -18,7 +15,8 @@ export default {
     eventType: 'Event Type is required.',
     query: 'Query Name is required.',
     serviceIdentifier: 'Service is required.',
-    serviceInstanceFieldName: 'Service Instance Field is required.'
+    serviceInstanceFieldName: 'Service Instance Field is required.',
+    isValidConfig: 'Splunk configuration is invalid. Please fix the query.'
   },
   placeholders: {
     queryName: 'Enter Query Name',

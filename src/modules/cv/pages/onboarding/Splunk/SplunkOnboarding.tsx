@@ -21,9 +21,9 @@ import { debounce } from 'lodash-es'
 import Highcharts, { XrangePointOptionsObject } from 'highcharts/highcharts'
 import HighchartsReact from 'highcharts-react-official'
 import xhr from '@wings-software/xhr-async'
-import cloneDeep from 'lodash/cloneDeep'
 import { Classes } from '@blueprintjs/core'
 import cx from 'classnames'
+import type { DSConfig } from '@wings-software/swagger-ts/definitions'
 import { ThirdPartyCallLogModal } from 'modules/cv/components/ThirdPartyCallLogs/ThirdPartyCallLogs'
 import JsonSelectorFormInput from 'modules/cv/components/JsonSelector/JsonSelectorFormInput'
 import DataSourceConfigPanel from 'modules/cv/components/DataSourceConfigPanel/DataSourceConfigPanel'
@@ -31,12 +31,11 @@ import { CVNextGenCVConfigService } from 'modules/cv/services'
 import { routeParams } from 'framework/exports'
 import OnBoardingConfigSetupHeader from 'modules/cv/components/OnBoardingConfigSetupHeader/OnBoardingConfigSetupHeader'
 import { NoDataCard } from 'modules/common/components/Page/NoDataCard'
-import type { SplunkDSConfig } from './SplunkOnboardingUtils'
-import { splunkInitialQuery, transformQueriesFromSplunk, SplunkColumnChartOptions } from './SplunkOnboardingUtils'
+import { SplunkDSConfig, createDefaultSplunkDSConfig } from './SplunkOnboardingUtils'
+import { transformQueriesFromSplunk, SplunkColumnChartOptions, transformToSaveConfig } from './SplunkOnboardingUtils'
 import i18n from './SplunkOnboarding.i18n'
 import css from './SplunkOnboarding.module.scss'
 
-const initialValues = cloneDeep(splunkInitialQuery)
 const XHR_GRAPH_DETAILS_GROUP = 'XHR_GRAPH_DETAILS_GROUP'
 const XHR_STACK_TRACE_GROUP = 'XHR_STACK_TRACE_GROUP'
 const XHR_SAVED_SEARCH_GROUP = 'XHR_SAVED_SEARCH_GROUP'
@@ -60,10 +59,13 @@ interface SplunkDataSourceFormProps {
   splunkQueryOptions: SelectOption[]
   dsConfigs: SplunkDSConfig[]
   dataSourceId: string
+  accountId: string
+  productName: string
 }
 
 interface SplunkQueryNameDropDownProps {
   selectedQueryName?: string
+  isSplunkQuery?: boolean
   onChange: (updatedQuery: SelectOption) => void
   splunkQueryOptions: SelectOption[]
 }
@@ -73,6 +75,7 @@ interface SplunkSampleLogProps {
   sampleLogs?: string[]
   error?: string
   query?: string
+  thirdPartyGUID?: string
   graphDetails?: GraphDetails
 }
 
@@ -82,7 +85,12 @@ interface ValidationErrorOrNoDataProps {
     icon: IconName
     message: string
   }
+  thirdPartyGUID?: string
   query?: string
+}
+
+interface SplunkPageHeadingProps {
+  onAddQuery: (isSplunkQuery?: boolean) => void
 }
 
 type GraphDetails = { error?: string; chartOptions?: Highcharts.Options; loading: boolean }
@@ -92,12 +100,14 @@ interface SplunkColumnChartProps {
   chartOptions?: Highcharts.Options
   loading: boolean
   query?: string
+  thirdPartyGUID?: string
 }
 
 async function fetchGraphDetails(
   accountId: string,
   dataSourceId: string,
   query: string,
+  guid: string,
   updateState: (g: GraphDetails) => void
 ): Promise<void> {
   xhr.abort(XHR_GRAPH_DETAILS_GROUP)
@@ -107,6 +117,7 @@ async function fetchGraphDetails(
     accountId,
     dataSourceId,
     query,
+    guid,
     xhrGroup: XHR_GRAPH_DETAILS_GROUP
   })
   if (status === xhr.ABORTED) {
@@ -132,6 +143,7 @@ async function fetchStackTrace(
   accountId: string,
   dataSourceId: string,
   query: string,
+  guid: string,
   updateState: (st: StackTraceDetials) => void
 ): Promise<void> {
   xhr.abort(XHR_STACK_TRACE_GROUP)
@@ -141,6 +153,7 @@ async function fetchStackTrace(
     accountId,
     dataSourceId,
     query,
+    guid,
     xhrGroup: XHR_STACK_TRACE_GROUP
   })
   if (status === xhr.ABORTED) {
@@ -159,11 +172,8 @@ async function fetchStackTrace(
 const debouncedGraphDetails = debounce(fetchGraphDetails, 1000)
 const debouncedStackTraceDetails = debounce(fetchStackTrace, 1000)
 
-function addQuery(formik: FormikProps<{ dsConfigs: SplunkDSConfig[] }>): void {
-  formik.setFieldValue('dsConfigs', [{ ...cloneDeep(initialValues) }, ...formik.values.dsConfigs])
-}
-
-function validate(values: SplunkDSConfig): { [fieldName: string]: string } | {} {
+function validate(values: DSConfig): { [fieldName: string]: string } | {} {
+  const splunkConfig = values as SplunkDSConfig
   const errors: {
     envIdentifier?: string
     eventType?: string
@@ -171,23 +181,28 @@ function validate(values: SplunkDSConfig): { [fieldName: string]: string } | {} 
     queryString?: string
     serviceIdentifier?: string
     serviceInstanceIdentifier?: string
+    isValid?: string
   } = {}
-  if (!values.envIdentifier) {
+  if (!splunkConfig.envIdentifier) {
     errors.envIdentifier = i18n.fieldValidations.envIdentifier
   }
-  if (!values.eventType) {
+  if (!splunkConfig.eventType) {
     errors.eventType = i18n.fieldValidations.eventType
   }
-  if (!values.query) {
+  if (!splunkConfig.query) {
     errors.query = i18n.fieldValidations.query
   }
 
-  if (!values.serviceIdentifier) {
+  if (!splunkConfig.serviceIdentifier) {
     errors.serviceIdentifier = i18n.fieldValidations.serviceIdentifier
   }
 
-  if (!values.serviceInstanceIdentifier) {
+  if (!splunkConfig.serviceInstanceIdentifier) {
     errors.serviceInstanceIdentifier = i18n.fieldValidations.serviceInstanceFieldName
+  }
+
+  if (!splunkConfig.isValid) {
+    errors.isValid = i18n.fieldValidations.isValidConfig
   }
 
   return errors
@@ -200,7 +215,7 @@ function validateSplunkConfigs(splunkConfigs: {
 }
 
 function SplunkQueryNameDropDown(props: SplunkQueryNameDropDownProps): JSX.Element {
-  const { splunkQueryOptions, onChange, selectedQueryName } = props
+  const { splunkQueryOptions, onChange, selectedQueryName, isSplunkQuery } = props
   const [isEditMode, setEditMode] = useState(false)
   const [selectedSplunkQueryName, setSplunkQueryName] = useState(selectedQueryName)
   const debouncedFunction = debounce(() => setEditMode(false), 1500)
@@ -214,7 +229,9 @@ function SplunkQueryNameDropDown(props: SplunkQueryNameDropDownProps): JSX.Eleme
     [onChange, debouncedFunction]
   )
 
-  if (!isEditMode) {
+  if (!isSplunkQuery) {
+    return <Text color={Color.BLUE_800}>{selectedQueryName}</Text>
+  } else if (!isEditMode) {
     return (
       <Container className={css.selectQueryNameContainer} onClick={e => e.stopPropagation()}>
         <Text lineClamp={1} color={Color.BLUE_800} margin={{ right: 'small' }}>
@@ -232,8 +249,11 @@ function SplunkQueryNameDropDown(props: SplunkQueryNameDropDownProps): JSX.Eleme
 }
 
 function ValidationErrorOrNoData(props: ValidationErrorOrNoDataProps): JSX.Element {
-  const { error, noData, query } = props
-  const [openModal, hideModal] = useModalHook(() => <ThirdPartyCallLogModal guid={'1'} onHide={hideModal} />)
+  const { error, noData, query, thirdPartyGUID } = props
+  const [openModal, hideModal] = useModalHook(
+    () => <ThirdPartyCallLogModal guid={thirdPartyGUID || ''} onHide={hideModal} />,
+    [thirdPartyGUID]
+  )
   if (error) {
     return (
       <Container>
@@ -264,9 +284,11 @@ function ValidationErrorOrNoData(props: ValidationErrorOrNoDataProps): JSX.Eleme
 }
 
 function SplunkColumnChart(props: SplunkColumnChartProps): JSX.Element {
-  const { loading, error, chartOptions, query } = props
+  const { loading, error, chartOptions, query, thirdPartyGUID } = props
   const chartSeries: Highcharts.SeriesColumnOptions[] = (chartOptions?.series as Highcharts.SeriesColumnOptions[]) || []
-  if (loading) {
+  if (!query?.length) {
+    return <Container />
+  } else if (loading) {
     return (
       <Container className={css.graphContainer}>
         <Icon name="steps-spinner" size={25} color={Color.GREY_600} className={css.loadingGraph} />
@@ -279,6 +301,7 @@ function SplunkColumnChart(props: SplunkColumnChartProps): JSX.Element {
       <ValidationErrorOrNoData
         noData={{ icon: 'vertical-bar-chart-desc', message: i18n.errorMessages.noQueryData }}
         query={query}
+        thirdPartyGUID={thirdPartyGUID}
       />
     )
   }
@@ -290,12 +313,14 @@ function SplunkColumnChart(props: SplunkColumnChartProps): JSX.Element {
 }
 
 function SplunkSampleLogs(props: SplunkSampleLogProps): JSX.Element {
-  const { loading, sampleLogs, error, graphDetails, query } = props
+  const { loading, sampleLogs, error, graphDetails, query, thirdPartyGUID } = props
   const chartSeries: Highcharts.SeriesColumnOptions[] =
     (graphDetails?.chartOptions?.series as Highcharts.SeriesColumnOptions[]) || []
   const noChartData = !graphDetails?.error && !graphDetails?.loading && !chartSeries[0]?.data?.length
 
-  if (loading) {
+  if (!query?.length) {
+    return <Container />
+  } else if (loading) {
     return (
       <Container height={355}>
         {[1, 2, 3].map(val => (
@@ -304,9 +329,15 @@ function SplunkSampleLogs(props: SplunkSampleLogProps): JSX.Element {
       </Container>
     )
   } else if (error) {
-    return <ValidationErrorOrNoData error={error} query={query} />
+    return <ValidationErrorOrNoData error={error} query={query} thirdPartyGUID={thirdPartyGUID} />
   } else if (!sampleLogs?.length) {
-    return <ValidationErrorOrNoData noData={{ icon: 'list', message: i18n.errorMessages.noSampleLogs }} query={query} />
+    return (
+      <ValidationErrorOrNoData
+        noData={{ icon: 'list', message: i18n.errorMessages.noSampleLogs }}
+        query={query}
+        thirdPartyGUID={thirdPartyGUID}
+      />
+    )
   }
 
   return (
@@ -320,16 +351,21 @@ function SplunkSampleLogs(props: SplunkSampleLogProps): JSX.Element {
 
 function SplunkConfig(props: SplunkConfigProps): JSX.Element {
   const { index, serviceOptions, dsConfig, dataSourceId, formikProps } = props
-  const [stackTraceContent, setStackTraceContent] = useState<StackTraceDetials>({ loading: false })
-  const [graphDetails, setGraphDetails] = useState<GraphDetails>({ loading: false })
+  const [stackTraceContent, setStackTraceContent] = useState<StackTraceDetials>({
+    loading: Boolean(dsConfig?.query?.length)
+  })
+  const [thirdPartyGUID, setThirdPartyGUID] = useState<string | undefined>()
+  const [graphDetails, setGraphDetails] = useState<GraphDetails>({ loading: Boolean(dsConfig?.query?.length) })
   const { params } = routeParams()
 
   useEffect(() => {
     if (dsConfig?.query) {
       debouncedGraphDetails.cancel()
       debouncedStackTraceDetails.cancel()
-      debouncedGraphDetails(params.accountId, dataSourceId, dsConfig.query, setGraphDetails)
-      debouncedStackTraceDetails(params.accountId, dataSourceId, dsConfig.query, setStackTraceContent)
+      const guid = new Date().getTime().toString()
+      setThirdPartyGUID(guid)
+      debouncedGraphDetails(params.accountId, dataSourceId, dsConfig.query, guid, setGraphDetails)
+      debouncedStackTraceDetails(params.accountId, dataSourceId, dsConfig.query, guid, setStackTraceContent)
     }
   }, [dsConfig?.query, dataSourceId, params.accountId])
 
@@ -337,11 +373,12 @@ function SplunkConfig(props: SplunkConfigProps): JSX.Element {
     <Container className={css.onBoardingSection}>
       <Container className={css.leftSection}>
         <FormInput.Text
-          name={`dsConfigs[${index}].identifier`}
+          name={`dsConfigs[${index}].queryName`}
           label={i18n.fieldLabels.queryName}
           placeholder={i18n.placeholders.queryName}
         />
         <FormInput.TextArea
+          key={dsConfig?.query}
           name={`dsConfigs[${index}].query`}
           placeholder={i18n.placeholders.query}
           label={i18n.fieldLabels.query}
@@ -388,21 +425,48 @@ function SplunkConfig(props: SplunkConfigProps): JSX.Element {
         <Text margin={{ bottom: 'small' }} color={Color.BLACK}>
           {i18n.validationResultTitle}
         </Text>
-        <SplunkColumnChart {...graphDetails} query={dsConfig?.query} />
+        <SplunkColumnChart {...graphDetails} query={dsConfig?.query} thirdPartyGUID={thirdPartyGUID} />
         <SplunkSampleLogs
           error={stackTraceContent?.error}
           loading={stackTraceContent?.loading}
           sampleLogs={stackTraceContent?.sampleLogs}
           graphDetails={graphDetails}
           query={dsConfig?.query}
+          thirdPartyGUID={thirdPartyGUID}
         />
       </Container>
     </Container>
   )
 }
 
+function SplunkPageHeading(props: SplunkPageHeadingProps): JSX.Element {
+  const { onAddQuery } = props
+  return (
+    <Container flex margin={{ bottom: 'medium' }}>
+      <OnBoardingConfigSetupHeader
+        iconProps={{
+          name: 'service-splunk-with-name'
+        }}
+        iconClassName={css.splunkIcon}
+        pageHeading={i18n.pageHeading}
+      />
+      <Button
+        className={css.queryBtn}
+        intent="primary"
+        minimal
+        icon="plus"
+        iconProps={{
+          size: 12
+        }}
+        text={i18n.addQueryButtonLabel}
+        onClick={() => onAddQuery(true)}
+      />
+    </Container>
+  )
+}
+
 function SplunkDataSourceForm(props: SplunkDataSourceFormProps): JSX.Element {
-  const { dsConfigs, serviceOptions, splunkQueryOptions, dataSourceId } = props
+  const { dsConfigs, serviceOptions, splunkQueryOptions, dataSourceId, accountId, productName } = props
   return (
     <Formik
       validate={validateSplunkConfigs}
@@ -419,46 +483,41 @@ function SplunkDataSourceForm(props: SplunkDataSourceFormProps): JSX.Element {
               render={arrayHelpers => {
                 return (
                   <Container>
-                    <Container flex margin={{ bottom: 'medium' }}>
-                      <OnBoardingConfigSetupHeader
-                        iconProps={{
-                          name: 'service-splunk-with-name'
-                        }}
-                        iconClassName={css.splunkIcon}
-                        pageHeading={i18n.pageHeading}
-                      />
-                      <Button
-                        className={css.queryBtn}
-                        intent="primary"
-                        minimal
-                        icon="plus"
-                        iconProps={{
-                          size: 12
-                        }}
-                        text={i18n.addQueryButtonLabels.splunkQuery}
-                        onClick={() => addQuery(formikProps)}
-                        disabled={!formikProps.isValid}
-                      />
-                    </Container>
+                    <SplunkPageHeading
+                      onAddQuery={(isSplunkQuery?: boolean) => {
+                        arrayHelpers.unshift(
+                          createDefaultSplunkDSConfig(
+                            accountId,
+                            dataSourceId,
+                            productName,
+                            undefined,
+                            undefined,
+                            isSplunkQuery
+                          )
+                        )
+                      }}
+                    />
                     <CollapseList defaultOpenIndex={0}>
                       {
                         formikProps.values?.dsConfigs?.map((dsConfig: SplunkDSConfig, index: number) => {
                           return (
                             <DataSourceConfigPanel
-                              key={index}
+                              key={dsConfig?.id}
                               entityName={
                                 <SplunkQueryNameDropDown
                                   splunkQueryOptions={splunkQueryOptions}
                                   onChange={updatedQueryName => {
-                                    formikProps.setFieldValue(`dsConfigs[${index}].identifier`, updatedQueryName?.label)
+                                    formikProps.setFieldValue(`dsConfigs[${index}].queryName`, updatedQueryName?.label)
                                     formikProps.setFieldValue(`dsConfigs[${index}].query`, updatedQueryName?.value)
                                     formikProps.setFieldValue(`dsConfigs[${index}].serviceInstanceIdentifier`, '')
                                   }}
-                                  selectedQueryName={dsConfig?.identifier}
+                                  selectedQueryName={dsConfig?.queryName}
+                                  isSplunkQuery={dsConfig?.isSplunkQuery}
                                 />
                               }
                               index={index}
                               validateConfig={validate}
+                              transformToSavePayload={transformToSaveConfig}
                               onRemove={() => arrayHelpers.remove(index)}
                               touched={formikProps.touched}
                               values={formikProps.values}
@@ -520,6 +579,8 @@ const SplunkOnboarding: FunctionComponent<any> = props => {
       <SplunkDataSourceForm
         serviceOptions={serviceOptions}
         dsConfigs={configs}
+        accountId={accountId}
+        productName={locationContext.products?.[0]}
         dataSourceId={locationContext?.dataSourceId}
         splunkQueryOptions={splunkQueryOptions}
       />

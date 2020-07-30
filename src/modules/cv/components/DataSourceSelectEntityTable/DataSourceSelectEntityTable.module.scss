@@ -7,13 +7,37 @@
   }
   thead {
     display: flex;
+    tr {
+      display: block;
+      width: 100%;
+      th {
+        position: relative;
+      }
+      th:first-child {
+        top: 13px;
+        cursor: pointer;
+      }
+      th:nth-child(2) {
+        width: 100%;
+        top: 5px;
+        p {
+          position: relative;
+          top: 2px;
+          margin-right: var(--spacing-xsmall);
+        }
+      }
+    }
   }
   tr {
     td {
       border-bottom: 1px solid var(--grey-250);
     }
     td:nth-child(2) {
-      width: 300px;
+      width: 310px;
     }
+  }
+
+  .searchBox input {
+    height: 30px;
   }
 }

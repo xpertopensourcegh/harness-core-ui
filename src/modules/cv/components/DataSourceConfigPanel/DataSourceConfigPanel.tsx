@@ -36,7 +36,7 @@ async function saveDSConfig(dsConfig: DSConfig, accountId: string): Promise<stri
     config: dsConfig
   })
 
-  return error
+  return error?.message
 }
 
 type FormValues = {

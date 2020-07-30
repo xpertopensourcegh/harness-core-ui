@@ -1,5 +1,6 @@
 import type { SplunkSavedSearch, DSConfig } from '@wings-software/swagger-ts/definitions'
 import type { SelectOption } from '@wings-software/uikit'
+import { Utils } from '@wings-software/uikit'
 import cloneDeep from 'lodash/cloneDeep'
 import type { YAxisOptions, XAxisOptions } from 'highcharts'
 
@@ -42,17 +43,13 @@ export const SplunkColumnChartOptions: Highcharts.Options = {
 
 export interface SplunkDSConfig extends DSConfig {
   query?: string
+  queryName?: string
+  isSplunkQuery?: boolean
   serviceInstanceIdentifier?: string
   eventType?: string
   serviceIdentifier?: string
-}
-
-export const splunkInitialQuery: SplunkDSConfig = {
-  serviceIdentifier: '',
-  envIdentifier: '',
-  serviceInstanceIdentifier: '',
-  query: '',
-  eventType: 'Quality'
+  id: string
+  isValid?: boolean
 }
 
 export function transformQueriesFromSplunk(splunkSavedQueries: SplunkSavedSearch[]): SelectOption[] {
@@ -66,17 +63,63 @@ export function transformQueriesFromSplunk(splunkSavedQueries: SplunkSavedSearch
         }))
 }
 
-export function transformSavedQueries(savedQueries: any) {
-  return savedQueries.map((query: any) => {
-    return query
+export function transformSavedQueries(savedQueries: DSConfig[]): SplunkDSConfig[] {
+  return savedQueries.map((query: DSConfig) => {
+    const splunkQuery = query as SplunkDSConfig
+    splunkQuery.queryName = query.identifier
+    splunkQuery.id = Utils.randomId()
+    return splunkQuery
   })
 }
 
-export function createDefaultConfigObjectBasedOnSelectedQueries(queries: SelectOption[]): SplunkDSConfig[] {
-  return queries.map(query => {
-    const q = cloneDeep(splunkInitialQuery)
-    q.identifier = query.label
-    q.query = query.value as string
-    return q
+export function transformToSaveConfig(createdConfigs: DSConfig): SplunkDSConfig {
+  const splunkConfig = cloneDeep(createdConfigs) as SplunkDSConfig
+  splunkConfig.identifier = splunkConfig.queryName
+  delete splunkConfig.queryName
+  delete splunkConfig.isSplunkQuery
+  delete splunkConfig.id
+  return splunkConfig
+}
+
+export function createDefaultSplunkDSConfig(
+  accountId: string,
+  dataSourceId: string,
+  productName: string,
+  queryName?: string,
+  query?: string,
+  isSplunkQuery?: boolean
+): SplunkDSConfig {
+  return {
+    serviceIdentifier: '',
+    envIdentifier: '',
+    serviceInstanceIdentifier: '',
+    eventType: 'Quality',
+    type: 'SPLUNK',
+    projectIdentifier: 'harness',
+    accountId,
+    connectorId: dataSourceId,
+    productName,
+    query,
+    id: Utils.randomId(),
+    queryName,
+    isValid: true,
+    isSplunkQuery: Boolean(isSplunkQuery)
+  }
+}
+
+export function createDefaultConfigObjectBasedOnSelectedQueries(
+  queries: SelectOption[],
+  dataSourceId: string,
+  accId: string,
+  productName: string
+): SplunkDSConfig[] {
+  const defaultQueries = queries?.map(query => {
+    return createDefaultSplunkDSConfig(accId, dataSourceId, productName, query.label, query.value as string, true)
   })
+
+  if (!defaultQueries?.length) {
+    defaultQueries.push(createDefaultSplunkDSConfig(accId, dataSourceId, productName, undefined, undefined, false))
+  }
+
+  return defaultQueries
 }

@@ -36,7 +36,12 @@ function getDefaultCVConfig(
         )
       })
     case 'SPLUNK':
-      return SplunkOnboardingUtils.createDefaultConfigObjectBasedOnSelectedQueries(selectedEntities)
+      return SplunkOnboardingUtils.createDefaultConfigObjectBasedOnSelectedQueries(
+        selectedEntities,
+        dataSourceId,
+        accId,
+        productName
+      )
     default:
       return []
   }
@@ -86,7 +91,7 @@ export default function OnBoardingSetupPage(): JSX.Element {
   // fetch saved data or set selected data from the previous page
   useEffect(() => {
     const { dataSourceId = connectorId, selectedEntities = [], isEdit = false, products = [] } = locationContext
-    if (!isEdit && locationContext.selectedEntities?.length) {
+    if (!isEdit) {
       setLoadingConfigs(false)
       setConfigs(getDefaultCVConfig(verificationType, dataSourceId || '', selectedEntities, accountId, products[0]))
     } else if (locationContext.isEdit) {
@@ -104,7 +109,7 @@ export default function OnBoardingSetupPage(): JSX.Element {
         } else if (response?.resource) {
           setLoadingConfigs(false)
           const configs = response.resource || []
-          setConfigs(transformIncomingDSConfigs(configs, verificationType) as DSConfig[])
+          setConfigs(transformIncomingDSConfigs(configs, verificationType))
         }
       })
     }
