@@ -1,8 +1,8 @@
 import React from 'react'
 
 import { render } from '@testing-library/react'
-import ProjectCard from '../ProjectCard'
 import type { ProjectDTO } from 'services/cd-ng'
+import ProjectCard from '../ProjectCard'
 
 const project: ProjectDTO = {
   id: 'testId',

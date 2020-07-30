@@ -1,6 +1,6 @@
 import { Container, Layout } from '@wings-software/uikit'
-import { linkTo, Sidebar, isRouteActive } from 'framework/exports'
 import React from 'react'
+import { linkTo, Sidebar, isRouteActive } from 'framework/exports'
 import {
   routeCVDashboard,
   routeCVDataSources,

@@ -1,11 +1,11 @@
 import React, { useState, useCallback, useMemo } from 'react'
 import { Container, Text, Tabs, Tab, Color } from '@wings-software/uikit'
-import i18n from './LogAnalysisView.i18n'
 import HighchartsReact from 'highcharts-react-official'
 import Highcharts, { SeriesColumnOptions } from 'highcharts'
-import css from './LogAnalysisView.module.scss'
+import i18n from './LogAnalysisView.i18n'
 import { LogAnalysisRow } from './LogAnalysisRow/LogAnalysisRow'
 import getLogViewcolumnChartConfig from './LogViewColumnChartConfig'
+import css from './LogAnalysisView.module.scss'
 
 interface LogAnalysisViewProps {
   startTime: number

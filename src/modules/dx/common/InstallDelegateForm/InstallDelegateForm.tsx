@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { FormInput, SelectOption } from '@wings-software/uikit'
+import { useGetDelegateProfiles, DelegateProfile } from 'services/portal'
 import i18n from './InstallDelegateForm.i18n'
 
 import css from './InstallDelegateForm.module.scss'
-import { useGetDelegateProfiles, DelegateProfile } from 'services/portal'
 
 interface InstallDelegateFormProps {
   accountId: string

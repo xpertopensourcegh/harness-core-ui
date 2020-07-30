@@ -3,11 +3,11 @@ import { useParams } from 'react-router-dom'
 import cx from 'classnames'
 import { Container, TextInput, Button, Layout } from '@wings-software/uikit'
 
+import { Classes } from '@blueprintjs/core'
 import { useListSecrets } from 'services/cd-ng'
 import type { EncryptedDataDTO } from 'services/cd-ng'
 
 import css from './SecretReference.module.scss'
-import { Classes } from '@blueprintjs/core'
 
 export enum Scope {
   PROJECT,

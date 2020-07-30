@@ -10,24 +10,24 @@ import {
   ListPanelInterface,
   MultiSelectOption
 } from '@wings-software/uikit'
-import TierAndServiceTable from './TierAndServiceTable/TierAndServiceTable'
-import css from './AppDynamicsMainSetupView.module.scss'
 import xhr from '@wings-software/xhr-async'
+import { FieldArray, FormikProps, Formik } from 'formik'
+import type { MetricPack, DSConfig } from '@wings-software/swagger-ts/definitions'
+import { AppDynamicsService } from 'modules/cv/services'
+import { CustomizeMetricPackDrawer } from 'modules/cv/components/CustomizeMetricPackDrawer/CustomizeMetricPackDrawer'
+import { useMetricPackHook, fetchMetricPacks } from 'modules/cv/hooks/ConfigureMetricPackHook/ConfigureMetricPackHook'
+import DataSourceConfigPanel from 'modules/cv/components/DataSourceConfigPanel/DataSourceConfigPanel'
+import { routeParams } from 'framework/exports'
+import OnBoardingConfigSetupHeader from 'modules/cv/components/OnBoardingConfigSetupHeader/OnBoardingConfigSetupHeader'
 import {
   DSConfigTableData,
   transformAppDynamicsApplications,
   createDefaultConfigObject,
   transformToSaveConfig
 } from './AppDynamicsOnboardingUtils'
-import { FieldArray, FormikProps, Formik } from 'formik'
-import { AppDynamicsService } from 'modules/cv/services'
-import { CustomizeMetricPackDrawer } from 'modules/cv/components/CustomizeMetricPackDrawer/CustomizeMetricPackDrawer'
-import { useMetricPackHook, fetchMetricPacks } from 'modules/cv/hooks/ConfigureMetricPackHook/ConfigureMetricPackHook'
-import type { MetricPack, DSConfig } from '@wings-software/swagger-ts/definitions'
-import DataSourceConfigPanel from 'modules/cv/components/DataSourceConfigPanel/DataSourceConfigPanel'
-import { routeParams } from 'framework/exports'
-import OnBoardingConfigSetupHeader from 'modules/cv/components/OnBoardingConfigSetupHeader/OnBoardingConfigSetupHeader'
+import TierAndServiceTable from './TierAndServiceTable/TierAndServiceTable'
 import i18n from './AppDynamicsMainSetupView.i18n'
+import css from './AppDynamicsMainSetupView.module.scss'
 
 const XHR_METRIC_PACK_GROUP = 'XHR_METRIC_PACK_GROUP'
 const SelectHTMLInputProps = { placeholder: 'Select an Application' }

@@ -1,9 +1,9 @@
 import xhr from '@wings-software/xhr-async'
-import type { ServiceResponse } from 'modules/common/services/ServiceResponse'
 import type {
   RestResponseListNewRelicApplication,
   RestResponseSetAppdynamicsTier
 } from '@wings-software/swagger-ts/definitions'
+import type { ServiceResponse } from 'modules/common/services/ServiceResponse'
 
 export const Endpoints = {
   appdApplications: (accountId: string, dataSourceId: string) =>

@@ -1,12 +1,13 @@
 import React, { FunctionComponent, useState, useEffect } from 'react'
 import { Tabs, Tab } from '@wings-software/uikit'
-import css from './ConfigureThreshold.module.scss'
 import { FieldArray } from 'formik'
 import { Formik, FormikForm, FormInput, Button, OverlaySpinner } from '@wings-software/uikit'
 import * as Yup from 'yup'
 import { accountId, projectIdentifier } from 'modules/cv/constants'
 import { saveMerics, getMerics } from './ConfigureThresholdService'
 import { mapCriteriaToRequest, mapCriteriaSignToForm } from './ConfigureThresholdUtils'
+
+import css from './ConfigureThreshold.module.scss'
 
 const criteriaOptions = [
   { label: 'greater than', value: 'GREATER_THAN' },

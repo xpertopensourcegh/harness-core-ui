@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react'
 import type { MouseEvent } from 'react'
 import cx from 'classnames'
 
-import i18n from './SnippetDetails.i18n'
 import { Icon } from '@wings-software/uikit'
 import copy from 'copy-to-clipboard'
 import { YAMLService } from 'modules/dx/services'
+import i18n from './SnippetDetails.i18n'
 import type { SnippetInterface } from '../../interfaces/SnippetInterface'
 
 import css from './SnippetDetails.module.scss'

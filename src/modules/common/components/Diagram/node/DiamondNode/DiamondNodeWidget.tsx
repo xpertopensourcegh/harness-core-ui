@@ -1,14 +1,14 @@
 import React from 'react'
-import cssDefault from '../DefaultNode.module.scss'
-import css from './DiamondNode.module.scss'
 import type { DiagramEngine } from '@projectstorm/react-diagrams-core'
+import { Icon, Text, Button } from '@wings-software/uikit'
+import cx from 'classnames'
 import type { DiamondNodeModel } from './DiamondNodeModel'
 import { DefaultPortLabel } from '../../port/DefaultPortLabelWidget'
 import type { DefaultPortModel } from '../../port/DefaultPortModel'
-import { Icon, Text, Button } from '@wings-software/uikit'
 import { Event } from '../../Constants'
-import cx from 'classnames'
 import type { DefaultNodeModel } from '../DefaultNodeModel'
+import css from './DiamondNode.module.scss'
+import cssDefault from '../DefaultNode.module.scss'
 
 export interface DiamondNodeProps {
   node: DiamondNodeModel

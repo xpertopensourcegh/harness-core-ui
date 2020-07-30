@@ -1,6 +1,6 @@
 import { Button, Container } from '@wings-software/uikit'
-import { Page } from 'modules/common/exports'
 import React from 'react'
+import { Page } from 'modules/common/exports'
 import i18n from './DashboardPage.i18n'
 
 const DashboardPage: React.FC = () => {

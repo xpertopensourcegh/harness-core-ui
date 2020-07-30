@@ -1,5 +1,5 @@
-import type { RouteParams, SidebarIdentifier } from 'framework/exports'
 import type { IconName } from '@wings-software/uikit'
+import type { RouteParams, SidebarIdentifier } from 'framework/exports'
 
 /** SidebarEntry icons */
 export interface SidebarEntryIcon {

@@ -1,14 +1,16 @@
 import React, { useMemo, useState, useCallback, useEffect } from 'react'
 import { Container, Tabs, Tab, Text, Card, Icon, Color, useModalHook } from '@wings-software/uikit'
 import { Dialog, IDialogProps, Classes } from '@blueprintjs/core'
-import css from './MetricsVerificationModal.module.scss'
+
 import cx from 'classnames'
-import { ThirdPartyCallLogModal } from '../ThirdPartyCallLogs/ThirdPartyCallLogs'
 import type {
   AppdynamicsValidationResponse,
   AppdynamicsMetricValueValidationResponse
 } from '@wings-software/swagger-ts/definitions'
+import { ThirdPartyCallLogModal } from '../ThirdPartyCallLogs/ThirdPartyCallLogs'
 import i18n from './MetricsVerificationModal.i18n'
+
+import css from './MetricsVerificationModal.module.scss'
 
 const MAX_TEXT_WIDTH = 90
 const ICON_SIZE = 8

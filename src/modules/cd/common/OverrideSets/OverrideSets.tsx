@@ -1,16 +1,16 @@
 import React from 'react'
 import { Layout, Text, CollapseList, CollapseListPanel, Button, TextInput, Label } from '@wings-software/uikit'
-import css from './OverrideSets.module.scss'
 import { Dialog, IDialogProps } from '@blueprintjs/core'
+import { get } from 'lodash'
+import { PipelineContext } from 'modules/cd/pages/pipelines/PipelineContext/PipelineContext'
+import { getStageFromPipeline } from 'modules/cd/pages/pipelines/StageBuilder/StageBuilderModel'
 import i18n from './OverrideSets.i18n'
 
 import ArtifactsSelection from '../ArtifactsSelection/ArtifactsSelection'
 import ManifestSelection from '../ManifestSelection/ManifestSelection'
 import WorkflowVariables from '../WorkflowVariablesSelection/WorkflowVariables'
 
-import { PipelineContext } from 'modules/cd/pages/pipelines/PipelineContext/PipelineContext'
-import { getStageFromPipeline } from 'modules/cd/pages/pipelines/StageBuilder/StageBuilderModel'
-import { get } from 'lodash'
+import css from './OverrideSets.module.scss'
 
 export default function OverrideSets({ selectedTab }: { selectedTab: string }): JSX.Element {
   const initialName = ''

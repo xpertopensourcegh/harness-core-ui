@@ -1,8 +1,8 @@
 import React from 'react'
-import { StageType } from '../StageBuilderModel'
-import css from '../StageBuilder.module.scss'
-import i18n from '../StageBuilder.i18n'
 import { Card, Icon } from '@wings-software/uikit'
+import { StageType } from '../StageBuilderModel'
+import i18n from '../StageBuilder.i18n'
+import css from '../StageBuilder.module.scss'
 
 export interface AddStageViewProps {
   callback: (type: StageType) => void

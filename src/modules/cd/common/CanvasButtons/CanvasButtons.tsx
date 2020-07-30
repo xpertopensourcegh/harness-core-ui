@@ -1,9 +1,9 @@
 import React, { useCallback } from 'react'
 import { Layout, ButtonGroup, Button } from '@wings-software/uikit'
-import css from './CanvasButtons.module.scss'
 import type { DiagramEngine } from '@projectstorm/react-diagrams-core'
-import i18n from './CanvasButtons.i18n'
 import cx from 'classnames'
+import i18n from './CanvasButtons.i18n'
+import css from './CanvasButtons.module.scss'
 
 export enum CanvasButtonsActions {
   ZoomIn,

@@ -6,9 +6,9 @@ import {
   PortModel,
   PortModelAlignment
 } from '@projectstorm/react-diagrams-core'
-import { DefaultLabelModel } from '../label/DefaultLabelModel'
 import { Point } from '@projectstorm/geometry'
 import type { BaseEntityEvent, BaseModelOptions, DeserializeEvent } from '@projectstorm/react-canvas-core'
+import { DefaultLabelModel } from '../label/DefaultLabelModel'
 import { DiagramType, Event } from '../Constants'
 
 export interface DefaultLinkModelListener extends LinkModelListener {

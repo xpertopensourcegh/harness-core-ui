@@ -1,13 +1,13 @@
 import React from 'react'
 import { Layout, Text, Container, Icon, Color } from '@wings-software/uikit'
-import css from './ArtifactsSelection.module.scss'
-import i18n from './ArtifactsSelection.i18n'
 import cx from 'classnames'
 
-import { PipelineContext } from 'modules/cd/pages/pipelines/PipelineContext/PipelineContext'
 import { get } from 'lodash'
+import { PipelineContext } from 'modules/cd/pages/pipelines/PipelineContext/PipelineContext'
 
 import { getStageFromPipeline } from 'modules/cd/pages/pipelines/StageBuilder/StageBuilderModel'
+import i18n from './ArtifactsSelection.i18n'
+import css from './ArtifactsSelection.module.scss'
 
 interface ArtifactTable {
   [key: string]: string

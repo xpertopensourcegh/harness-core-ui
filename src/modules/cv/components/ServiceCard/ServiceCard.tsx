@@ -1,7 +1,8 @@
 import React from 'react'
 import { Text, Card, StatusBar, Color } from '@wings-software/uikit'
-import styles from './ServiceCard.module.scss'
 import classnames from 'classnames'
+
+import styles from './ServiceCard.module.scss'
 
 export interface ServiceCardProps {
   className?: string

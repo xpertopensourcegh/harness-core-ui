@@ -1,17 +1,17 @@
 import React, { useEffect } from 'react'
-import css from './ExecutionGraph.module.scss'
 import { get } from 'lodash'
-import { Diagram } from 'modules/common/exports'
-import { ExecutionStepModel } from './ExecutionStepModel'
 import { Drawer, Position } from '@blueprintjs/core'
 import { cloneDeep } from 'lodash'
+import type { NodeModelListener, LinkModelListener } from '@projectstorm/react-diagrams-core'
+import { Diagram } from 'modules/common/exports'
+import type { ExecutionSection, StepWrapper } from 'services/ng-temp'
+import { CanvasButtons } from 'modules/cd/common/CanvasButtons/CanvasButtons'
+import { ExecutionStepModel } from './ExecutionStepModel'
 import { PipelineContext } from '../PipelineContext/PipelineContext'
 import { getStageFromPipeline } from '../StageBuilder/StageBuilderModel'
-import type { ExecutionSection, StepWrapper } from 'services/ng-temp'
-import type { NodeModelListener, LinkModelListener } from '@projectstorm/react-diagrams-core'
 import { StepPalette, CommandData } from '../StepPalette/StepPalette'
-import { CanvasButtons } from 'modules/cd/common/CanvasButtons/CanvasButtons'
 import { StepCommands } from '../StepCommands/StepCommands'
+import css from './ExecutionGraph.module.scss'
 
 const getStepFromId = (
   stepData: ExecutionSection[] | undefined,

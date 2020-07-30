@@ -2,10 +2,10 @@ import React, { useState } from 'react'
 
 import { CardSelect, Text, Layout, Icon, IconName, Container, Button } from '@wings-software/uikit'
 
-import i18n from '../../../pages/ProjectsPage/ProjectsPage.i18n'
-import css from './Purpose.module.scss'
 import type { ProjectDTO, UpdateProjectDTO } from 'services/cd-ng'
 import { usePutProject } from 'services/cd-ng'
+import i18n from '../../../pages/ProjectsPage/ProjectsPage.i18n'
+import css from './Purpose.module.scss'
 
 interface ProjectModalData {
   data: ProjectDTO | undefined

@@ -1,10 +1,10 @@
 import React from 'react'
 import { Dialog, IDialogProps, Classes } from '@blueprintjs/core'
+import { Heading, Container, Color, IconName } from '@wings-software/uikit'
+import cx from 'classnames'
 import i18n from './ActivitiesSelectionModal.i18n'
 import ActivityTypeCard from './ActivityTypeCard/ActivityTypeCard'
-import { Heading, Container, Color, IconName } from '@wings-software/uikit'
 import css from './ActivitySelectionModal.module.scss'
-import cx from 'classnames'
 
 export type ActivityType = 'verification-jobs' | 'activity-sources'
 export function isActivityType(possibleActivityType: string): possibleActivityType is ActivityType {

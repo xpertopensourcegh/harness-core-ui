@@ -1,14 +1,14 @@
 import React from 'react'
 import { string } from 'yup'
-import { StringUtils } from 'modules/common/exports'
 import { FormInput, Layout, Icon, Popover } from '@wings-software/uikit'
 import * as Yup from 'yup'
-import { FormikCreateInlineSecret } from 'modules/common/components/CreateInlineSecret/CreateInlineSecret'
-import type { SecretManagerConfigDTO } from 'services/cd-ng'
-import css from './KubFormHelper.module.scss'
-import SecretReference from 'modules/dx/components/SecretReference/SecretReference'
 import type { FormikProps } from 'formik'
 import cx from 'classnames'
+import { StringUtils } from 'modules/common/exports'
+import { FormikCreateInlineSecret } from 'modules/common/components/CreateInlineSecret/CreateInlineSecret'
+import type { SecretManagerConfigDTO } from 'services/cd-ng'
+import SecretReference from 'modules/dx/components/SecretReference/SecretReference'
+import css from './KubFormHelper.module.scss'
 
 export const AuthTypes = {
   CUSTOM: 'ManualConfig',

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router'
-import { Page } from 'modules/common/exports'
-import ServiceCard from '../../components/ServiceCard/ServiceCard'
 import { Container, ExpandingSearchInput } from '@wings-software/uikit'
 import isEmpty from 'lodash/isEmpty'
+import { Page } from 'modules/common/exports'
+import ServiceCard from '../../components/ServiceCard/ServiceCard'
 import styles from './CVServicesPage.module.scss'
 
 export default function CVServicesPage(): JSX.Element {

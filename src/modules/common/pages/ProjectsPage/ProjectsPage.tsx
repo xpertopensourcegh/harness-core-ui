@@ -7,13 +7,13 @@ import { useGetProjectListBasedOnFilter, ResponseDTONGPageResponseProjectDTO } f
 import type { ProjectDTO } from 'services/cd-ng'
 
 import { Page } from 'modules/common/exports'
-import ProjectCard from './views/ProjectCard/ProjectCard'
 import { useProjectModal } from 'modules/common/modals/ProjectModal/useProjectModal'
+import type { UseGetMockData } from 'modules/common/utils/testUtils'
+import ProjectCard from './views/ProjectCard/ProjectCard'
 
 import i18n from './ProjectsPage.i18n'
 
 import css from './ProjectsPage.module.scss'
-import type { UseGetMockData } from 'modules/common/utils/testUtils'
 
 // interface SelectOption {
 //   label: string

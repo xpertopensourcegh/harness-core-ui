@@ -1,9 +1,9 @@
 import React from 'react'
 import { DiagramEngine, LinkWidget, PointModel } from '@projectstorm/react-diagrams-core'
+import type { MouseEvent } from 'react'
 import type { DefaultLinkModel } from './DefaultLinkModel'
 import { DefaultLinkPointWidget } from './DefaultLinkPointWidget'
 import { DefaultLinkSegmentWidget } from './DefaultLinkSegmentWidget'
-import type { MouseEvent } from 'react'
 import css from './Default.module.scss'
 
 export interface DefaultLinkProps {

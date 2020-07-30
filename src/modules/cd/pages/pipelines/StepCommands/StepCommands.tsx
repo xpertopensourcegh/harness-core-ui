@@ -1,13 +1,13 @@
 import React from 'react'
-import type { StepWrapper } from 'services/ng-temp'
 import { Layout, Tabs, Tab, Formik, FormInput, Text, MultiTypeInput, Button } from '@wings-software/uikit'
-import i18n from './StepCommands.18n'
 import { FormGroup } from '@blueprintjs/core'
-import css from './StepCommands.module.scss'
+import * as Yup from 'yup'
+import type { StepWrapper } from 'services/ng-temp'
+import i18n from './StepCommands.18n'
 import { K8sRolloutDeploy, initialValues as K8sRolloutInitialValues } from './Commands/K8sRolloutDeploy'
 import { StepType } from '../ExecutionGraph/ExecutionStepModel'
 import { HTTP, initialValues as HTTPInitialValues } from './Commands/HTTP'
-import * as Yup from 'yup'
+import css from './StepCommands.module.scss'
 
 export interface StepCommandsProps {
   step: StepWrapper

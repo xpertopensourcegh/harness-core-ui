@@ -2,10 +2,10 @@ import React from 'react'
 import { connect } from 'formik'
 import get from 'lodash/get'
 import isEmpty from 'lodash/isEmpty'
-import JsonSelector from './JsonSelector'
 import { FormGroup, Dialog, Icon, Spinner } from '@blueprintjs/core'
 import { useModalHook, Container, Text, Color } from '@wings-software/uikit'
 import classnames from 'classnames'
+import JsonSelector from './JsonSelector'
 import css from './JsonSelectorFormInput.module.scss'
 
 interface JsonSelectorFormInputProps {

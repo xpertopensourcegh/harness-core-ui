@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { Layout, Button, Text, StepsProgress, Intent, Label, CodeBlock, Select, Icon } from '@wings-software/uikit'
+import { useGetDelegatesStatus, useGetDelegatesDownloadUrl } from 'services/portal'
 import i18n from './VerifyInstallDelegate.i18n'
 import css from './VerifyInstallDelegate.module.scss'
-import { useGetDelegatesStatus, useGetDelegatesDownloadUrl } from 'services/portal'
 
 interface VerifyInstalledDelegateProps {
   accountId: string

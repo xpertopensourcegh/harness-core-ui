@@ -1,7 +1,7 @@
 import React from 'react'
 import { Text, Container, Color } from '@wings-software/uikit'
-import styles from './BlueGreenVerificationChart.module.scss'
 import { isArray } from 'highcharts'
+import styles from './BlueGreenVerificationChart.module.scss'
 
 export const Colors = {
   Blue: Color.BLUE_500,

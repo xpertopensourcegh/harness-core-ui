@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 
 import { Icon, IconName } from '@wings-software/uikit'
 
-import css from './SnippetSection.module.scss'
 import SnippetDetails from './SnippetDetails'
+import css from './SnippetSection.module.scss'
 
 interface SnippetSectionProps {
   entityType: string

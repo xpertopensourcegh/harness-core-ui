@@ -1,6 +1,6 @@
 import { Container, Layout } from '@wings-software/uikit'
-import { linkTo, Sidebar, isRouteActive } from 'framework/exports'
 import React from 'react'
+import { linkTo, Sidebar, isRouteActive } from 'framework/exports'
 import * as routes from '../routes'
 import i18n from './MenuAccount.i18n'
 

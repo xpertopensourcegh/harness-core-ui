@@ -1,8 +1,8 @@
 import React, { useMemo, useEffect, useState, useCallback } from 'react'
 import { Table, SelectOption, Text } from '@wings-software/uikit'
-import css from './DataSourceSelectEntityTable.module.scss'
 import type { IHTMLTableProps } from '@blueprintjs/core'
 import type { Cell, Column } from 'react-table'
+import css from './DataSourceSelectEntityTable.module.scss'
 
 type TableEntityCell = {
   selected: boolean

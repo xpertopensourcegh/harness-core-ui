@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { StepWizard, Button, SelectOption } from '@wings-software/uikit'
 import ConnectorDetailsStep from 'modules/dx/components/connectors/CreateConnector/commonSteps/ConnectorDetailsStep'
-import i18n from './CreateGITConnector.i18n'
 import type { GITFormData } from 'modules/dx/interfaces/ConnectorInterface'
+import i18n from './CreateGITConnector.i18n'
 import ConnectionModeStep from './ConnectionModeStep/ConnectionModeStep'
 import HttpCredendialStep from './HTTP/HttpCredendialStep'
 

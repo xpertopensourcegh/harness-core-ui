@@ -1,5 +1,5 @@
-import type { CDPipelineDTO } from 'services/cd-ng'
 import { clone } from 'lodash'
+import type { CDPipelineDTO } from 'services/cd-ng'
 
 export enum PipelineActions {
   DBInitialize = 'DBInitialize',

@@ -1,16 +1,16 @@
 import * as React from 'react'
 import type { DiagramEngine } from '@projectstorm/react-diagrams-core'
-import type { CreateNewModel } from './CreateNewModel'
 import { Icon } from '@blueprintjs/core'
-import css from './CreateNew.module.scss'
-import cssDefault from '../DefaultNode.module.scss'
 import { isEmpty } from 'lodash'
 import cx from 'classnames'
+import { Text } from '@wings-software/uikit'
 import { DefaultPortLabel } from '../../port/DefaultPortLabelWidget'
 import type { DefaultPortModel } from '../../port/DefaultPortModel'
-import { Text } from '@wings-software/uikit'
+import type { CreateNewModel } from './CreateNewModel'
 import type { DefaultNodeModel } from '../DefaultNodeModel'
 import { Event } from '../../Constants'
+import cssDefault from '../DefaultNode.module.scss'
+import css from './CreateNew.module.scss'
 
 export interface CreateNewWidgetProps {
   node: CreateNewModel

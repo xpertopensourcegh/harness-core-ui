@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { StepWizard, Layout, Button, Text, CardSelect, FormInput, Formik, Icon } from '@wings-software/uikit'
 import { Form } from 'formik'
-import ConnectorDetailsStep from 'modules/dx/components/connectors/CreateConnector/commonSteps/ConnectorDetailsStep'
+import cx from 'classnames'
+import * as Yup from 'yup'
 import {
   authOptions,
   getCustomFields,
@@ -9,10 +10,7 @@ import {
   DelegateInClusterType,
   getIconsForCard
 } from 'modules/dx/pages/connectors/Forms/KubeFormHelper'
-import i18n from './CreateK8sConnector.i18n'
-import css from './CreateK8sConnector.module.scss'
-import cx from 'classnames'
-import * as Yup from 'yup'
+import ConnectorDetailsStep from 'modules/dx/components/connectors/CreateConnector/commonSteps/ConnectorDetailsStep'
 import type { KubFormData } from 'modules/dx/interfaces/ConnectorInterface'
 import { useGetKubernetesDelegateNames, RestResponseListString } from 'services/portal'
 import { useCreateConnector, ConnectorRequestDTORequestBody } from 'services/cd-ng'
@@ -21,6 +19,8 @@ import InstallDelegateForm from 'modules/dx/common/InstallDelegateForm/InstallDe
 import VerifyInstalledDelegate from 'modules/dx/common/VerifyInstalledDelegate/VerifyInstalledDelegate'
 import { useListSecretManagers, SecretManagerConfigDTO } from 'services/cd-ng'
 import VerifyOutOfClusterDelegate from 'modules/dx/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
+import i18n from './CreateK8sConnector.i18n'
+import css from './CreateK8sConnector.module.scss'
 
 const DelegateTypesText = {
   DELEGATE_IN_CLUSTER: i18n.DELEGATE_IN_CLUSTER,

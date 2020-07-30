@@ -1,10 +1,10 @@
 import React, { FunctionComponent, useState, useEffect } from 'react'
+import { Button, OverlaySpinner, Text } from '@wings-software/uikit'
 import { accountId, projectIdentifier, RouteVerificationTypeToVerificationType } from 'modules/cv/constants'
 import { fetchMetricPacks, saveGlobalMetricPacks } from '../../services/CVNextGenCVConfigService'
-import css from './MetricPackConfigure.module.scss'
 import ConfigureThreshold from './ConfigureThreshold'
 import { MetricPackTable } from '../../components/MetricPackTable/MetricPackTable'
-import { Button, OverlaySpinner, Text } from '@wings-software/uikit'
+import css from './MetricPackConfigure.module.scss'
 
 const MetricPackConfigure: FunctionComponent<any> = () => {
   const [isEditingThreshold, setIsEditingThreshold] = useState(false)

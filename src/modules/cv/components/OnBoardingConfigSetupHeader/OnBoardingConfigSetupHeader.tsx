@@ -1,8 +1,9 @@
 import React from 'react'
 import { Container, Heading, Icon, Color } from '@wings-software/uikit'
-import css from './OnBoardingConfigSetupHeader.module.scss'
+
 import cx from 'classnames'
 import type { IconProps } from '@wings-software/uikit/dist/icons/Icon'
+import css from './OnBoardingConfigSetupHeader.module.scss'
 
 interface OnBoardingConfigSetupHeaderProps {
   pageHeading?: string | JSX.Element

@@ -10,12 +10,12 @@ import {
   TableOptions
 } from 'react-table'
 import { Text, Color, Button, Icon, Layout, Container, Intent, Tag, TextInput } from '@wings-software/uikit'
-import css from './CustomTable.module.scss'
 import * as moment from 'moment'
 import TimeAgo from 'react-timeago'
 import cx from 'classnames'
 import { Menu, Popover, PopoverInteractionKind, Position } from '@blueprintjs/core'
 import i18n from './CustomTable.i18n'
+import css from './CustomTable.module.scss'
 const formatDate = (timeObj: any, format = 'MM/DD/YYYY hh:mm a') => {
   return timeObj ? moment.unix(timeObj / 1000).format(format) : ''
 }

@@ -1,8 +1,8 @@
 import React, { FunctionComponent } from 'react'
 import { Tabs, Tab } from '@wings-software/uikit'
+import { Container } from '@wings-software/uikit'
 import MetricsView from './MetricsView/MetricsView'
 import LogAnalysisView from './LogAnalysisView/LogAnalysisView'
-import { Container } from '@wings-software/uikit'
 import css from './AnomalyDetailsView.module.scss'
 
 interface AnomaliesDetailsProps {

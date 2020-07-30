@@ -12,6 +12,7 @@ plugins:
   - '@typescript-eslint/eslint-plugin'
   - react-hooks
   - jest
+  - import
 env:
   browser: true
   node: true
@@ -24,10 +25,15 @@ extends:
   - eslint:recommended
   - plugin:react/recommended
   - plugin:@typescript-eslint/recommended
+  - plugin:import/errors
+  - plugin:import/typescript
   - prettier
 settings:
   react:
     version: detect
+  import/resolver:
+    typescript:
+      alwaysTryTypes: true
 rules:
   # built-in
   no-console: 2
@@ -55,6 +61,22 @@ rules:
       ignoreRestSiblings: true
       argsIgnorePattern: ^_
   '@typescript-eslint/member-delimiter-style': 0
+
+  #import
+  import/order:
+    - error
+    - groups:
+        - builtin
+        - external
+        - internal
+        - - parent
+          - sibling
+      pathGroups:
+        - pattern: '*.scss'
+          group: index
+          position: after
+          patternOptions:
+            matchBase: true
 overrides:
   - files:
       - '**/*.test.ts'

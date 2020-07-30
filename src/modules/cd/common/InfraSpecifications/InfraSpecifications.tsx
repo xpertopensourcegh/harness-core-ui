@@ -1,15 +1,15 @@
 import React from 'react'
 import { Layout, Button, Card, CardBody, Text, Color } from '@wings-software/uikit'
-import css from './InfraSpecifications.module.scss'
-import i18n from './InfraSpecifications.i18n'
 import { Formik, FormikForm, FormInput } from '@wings-software/uikit'
 import * as Yup from 'yup'
 
-import { PipelineContext } from 'modules/cd/pages/pipelines/PipelineContext/PipelineContext'
 import { get } from 'lodash'
+import { PipelineContext } from 'modules/cd/pages/pipelines/PipelineContext/PipelineContext'
 import { loggerFor, ModuleName } from 'framework/exports'
 
 import { getStageFromPipeline } from 'modules/cd/pages/pipelines/StageBuilder/StageBuilderModel'
+import i18n from './InfraSpecifications.i18n'
+import css from './InfraSpecifications.module.scss'
 
 const logger = loggerFor(ModuleName.CD)
 

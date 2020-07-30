@@ -1,12 +1,12 @@
 import React, { useMemo, ElementType, useLayoutEffect, useState } from 'react'
 import { Container, Link, Icon, ModalProvider } from '@wings-software/uikit'
-import css from './Sidebar.module.scss'
+import cx from 'classnames'
 import { useAppStoreReader } from 'framework/hooks/useAppStore'
 import type { Route, SidebarEntry } from 'framework/exports'
-import cx from 'classnames'
 import { routeParams } from 'framework/route/RouteMounter'
 import { SidebarTitle } from './components/SidebarTitle'
 import { SidebarLink } from './components/SidebarLink'
+import css from './Sidebar.module.scss'
 
 const ICON_SIZE = 24
 const BOTTOM = 'BOTTOM'

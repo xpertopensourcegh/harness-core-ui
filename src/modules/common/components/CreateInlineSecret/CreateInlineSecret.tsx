@@ -5,8 +5,8 @@ import { FormikProps, connect } from 'formik'
 import type { SecretManagerConfigDTO } from 'services/cd-ng'
 
 import EditableText from 'modules/common/components/EditableText/EditableText'
-import css from './CreateInlineSecret.module.scss'
 import i18n from './CreateInlineSecret.i18n'
+import css from './CreateInlineSecret.module.scss'
 
 export interface InlineSecret {
   secretName: string

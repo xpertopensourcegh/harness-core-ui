@@ -1,9 +1,9 @@
 import React from 'react'
 import { DiagramEngine, PortWidget } from '@projectstorm/react-diagrams-core'
-import type { DefaultPortModel } from './DefaultPortModel'
-import css from './DefaultPort.module.scss'
 import { Button } from '@wings-software/uikit'
 import cx from 'classnames'
+import type { DefaultPortModel } from './DefaultPortModel'
+import css from './DefaultPort.module.scss'
 
 export interface DefaultPortLabelProps {
   port: DefaultPortModel

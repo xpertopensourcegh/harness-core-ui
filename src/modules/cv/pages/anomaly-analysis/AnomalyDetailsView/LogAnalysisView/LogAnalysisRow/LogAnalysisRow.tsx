@@ -1,13 +1,13 @@
 import React, { useMemo, useCallback, useState, useRef } from 'react'
 import { Container, Text, Color, Icon } from '@wings-software/uikit'
-import css from './LogAnalysisRow.module.scss'
-import i18n from './LogAnalysisRow.i18n'
 import cx from 'classnames'
 import HighchartsReact from 'highcharts-react-official'
 import Highcharts from 'highcharts'
+import i18n from './LogAnalysisRow.i18n'
 import getLogAnalysisLineChartOptions from './LogAnalysisLineChartConfig'
 import { LogAnalysisRiskAndJiraModal } from '../LogAnalysisRiskAndJiraModal/LogAnalysisRiskAndJiraModal'
 import LogAnalysisCompareDrawer from '../LogAnalysisCompareDrawer/LogAnalysisCompareDrawer'
+import css from './LogAnalysisRow.module.scss'
 
 interface LogAnalysisRowProps {
   data: Array<{ count: number; logText: string; anomalyType: string; trendData: number[] }>

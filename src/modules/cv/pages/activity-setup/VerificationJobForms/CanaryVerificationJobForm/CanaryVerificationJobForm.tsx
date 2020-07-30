@@ -9,8 +9,8 @@ import {
   DataSource,
   TrafficSplit
 } from '../VerificationJobFields'
-import css from './CanaryVerificationJobForm.module.scss'
 import i18n from '../VerificationJobForms.i18n'
+import css from './CanaryVerificationJobForm.module.scss'
 
 export default function CanaryVerificationJobForm(): JSX.Element {
   return (

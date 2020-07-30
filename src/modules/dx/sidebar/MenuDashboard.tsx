@@ -1,7 +1,7 @@
 import React from 'react'
 import { Text, HarnessIcons, Container, Link, Layout } from '@wings-software/uikit'
-import css from './MenuDashboard.module.scss'
 import i18n from './MenuDashboard.i18n'
+import css from './MenuDashboard.module.scss'
 
 export const MenuDashboard: React.FC = () => {
   const HarnessLogo = HarnessIcons['harness-logo-white']

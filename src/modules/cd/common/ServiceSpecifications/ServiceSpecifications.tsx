@@ -15,19 +15,17 @@ import {
   FormInput
 } from '@wings-software/uikit'
 
+import cx from 'classnames'
+import { PipelineContext } from 'modules/cd/pages/pipelines/PipelineContext/PipelineContext'
+import { getStageFromPipeline } from 'modules/cd/pages/pipelines/StageBuilder/StageBuilderModel'
+import { loggerFor, ModuleName } from 'framework/exports'
 import ArtifactsSelection from '../ArtifactsSelection/ArtifactsSelection'
 import ManifestSelection from '../ManifestSelection/ManifestSelection'
 import WorkflowVariables from '../WorkflowVariablesSelection/WorkflowVariables'
 
 import i18n from './ServiceSpecifications.i18n'
-import css from './ServiceSpecifications.module.scss'
-import cx from 'classnames'
-
-import { PipelineContext } from 'modules/cd/pages/pipelines/PipelineContext/PipelineContext'
-import { getStageFromPipeline } from 'modules/cd/pages/pipelines/StageBuilder/StageBuilderModel'
-
-import { loggerFor, ModuleName } from 'framework/exports'
 import OverrideSets from '../OverrideSets/OverrideSets'
+import css from './ServiceSpecifications.module.scss'
 
 const logger = loggerFor(ModuleName.CD)
 

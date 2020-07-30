@@ -1,5 +1,5 @@
-import { Route, RouteURLArgs, ModuleName, SidebarIdentifier } from 'framework/exports'
 import React from 'react'
+import { Route, RouteURLArgs, ModuleName, SidebarIdentifier } from 'framework/exports'
 import i18n from './routes.i18n'
 
 export const routeDashboard: Route = {

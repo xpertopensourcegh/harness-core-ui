@@ -1,11 +1,11 @@
 import * as React from 'react'
 import type { DiagramEngine } from '@projectstorm/react-diagrams-core'
-import type { NodeStartModel } from './NodeStartModel'
 import cx from 'classnames'
-import css from './NodeStart.module.scss'
+import { Icon } from '@wings-software/uikit'
+import type { NodeStartModel } from './NodeStartModel'
 import { DefaultPortLabel } from '../../port/DefaultPortLabelWidget'
 import type { DefaultPortModel } from '../../port/DefaultPortModel'
-import { Icon } from '@wings-software/uikit'
+import css from './NodeStart.module.scss'
 
 export interface NodeStartWidgetProps {
   node: NodeStartModel

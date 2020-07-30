@@ -1,13 +1,14 @@
 import React from 'react'
+import { openDB, IDBPDatabase, deleteDB } from 'idb'
+import xhr from '@wings-software/xhr-async'
+import { parse, stringify } from 'yaml'
 import type {
   CDPipelineDTO,
   GetPipelineYamlStringQueryParams,
   PostPipelineExecuteQueryParams,
   ResponseDTOString
 } from 'services/cd-ng'
-import { openDB, IDBPDatabase, deleteDB } from 'idb'
 import { ModuleName, loggerFor } from 'framework/exports'
-import xhr from '@wings-software/xhr-async'
 import SessionToken from 'framework/utils/SessionToken'
 import {
   PipelineReducerState,
@@ -19,7 +20,6 @@ import {
   PipelineReducer,
   PipelineViewData
 } from './PipelineActions'
-import { parse, stringify } from 'yaml'
 const logger = loggerFor(ModuleName.CD)
 
 export const getPipelineByIdentifier = (

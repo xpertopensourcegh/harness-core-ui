@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react'
 import { Card, Container, Icon, IconName, Text, Color } from '@wings-software/uikit'
-import css from './ActivityTypeCard.module.scss'
 import cx from 'classnames'
+import css from './ActivityTypeCard.module.scss'
 
 interface ActivityTypeCardProps {
   iconName: IconName

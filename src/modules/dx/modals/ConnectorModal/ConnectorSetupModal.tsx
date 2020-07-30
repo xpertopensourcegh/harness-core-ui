@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import { ModalProvider, useModalHook, Button, Icon, IconName } from '@wings-software/uikit'
 import { Dialog, IDialogProps, Position } from '@blueprintjs/core'
-import css from '../../components/connectors/CreateConnectorWizard/CreateConnectorWizard.module.scss'
-import { CreateConnectorWizard } from '../../components/connectors/CreateConnectorWizard/CreateConnectorWizard'
 import { Menu, Popover } from '@blueprintjs/core'
-import i18n from '../../components/connectors/CreateConnectorWizard/CreateConnectorWizard.i18n'
 import { useParams } from 'react-router-dom'
 import { Connectors, ConnectorInfoText } from 'modules/dx/constants'
+import i18n from '../../components/connectors/CreateConnectorWizard/CreateConnectorWizard.i18n'
+import { CreateConnectorWizard } from '../../components/connectors/CreateConnectorWizard/CreateConnectorWizard'
+import css from '../../components/connectors/CreateConnectorWizard/CreateConnectorWizard.module.scss'
 
 interface OptionInterface {
   label: string

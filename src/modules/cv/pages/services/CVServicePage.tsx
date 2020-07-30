@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react'
-import { routeParams } from 'framework/exports'
 import { Heading, Layout, Tabs, Tab, Select, OverlaySpinner, Container } from '@wings-software/uikit'
 import { Toaster, Intent } from '@blueprintjs/core'
-import { Page } from 'modules/common/exports'
-import HeatMap, { CellStatusValues } from 'modules/common/components/HeatMap/HeatMap'
-import TimelineView from 'modules/common/components/TimelineView/TimelineView'
 import xhr from '@wings-software/xhr-async'
-import { DashboardService } from 'modules/cv/services'
 import moment from 'moment'
-import styles from './CVServicePage.module.scss'
 import classnames from 'classnames'
 import isEmpty from 'lodash/isEmpty'
 import isUndefined from 'lodash/isUndefined'
+import { DashboardService } from 'modules/cv/services'
+import TimelineView from 'modules/common/components/TimelineView/TimelineView'
+import HeatMap, { CellStatusValues } from 'modules/common/components/HeatMap/HeatMap'
+import { Page } from 'modules/common/exports'
+import { routeParams } from 'framework/exports'
+import styles from './CVServicePage.module.scss'
 
 const toaster = Toaster.create()
 

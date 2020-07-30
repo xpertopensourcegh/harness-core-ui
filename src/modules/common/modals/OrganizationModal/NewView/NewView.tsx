@@ -1,11 +1,11 @@
 import { StepWizard } from '@wings-software/uikit'
-import type { OrganizationDTO } from 'services/cd-ng'
 import React from 'react'
+import type { OrganizationDTO } from 'services/cd-ng'
 import type { OrganizationModalInteraction } from '../OrganizationModalUtils'
 import i18n from './NewView.i18n'
-import css from './NewView.module.scss'
 import { StepAboutOrganization } from './StepAboutOrganization'
 import { StepCollaborators } from './StepCollaborators'
+import css from './NewView.module.scss'
 
 export const NewView: React.FC<OrganizationModalInteraction> = ({ backToSelections, onSuccess, edit, data }) => {
   return (

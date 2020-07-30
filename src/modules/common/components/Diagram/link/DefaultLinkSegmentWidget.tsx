@@ -1,6 +1,6 @@
 import React from 'react'
-import type { DefaultLinkFactory } from './DefaultLinkFactory'
 import type { DiagramEngine } from '@projectstorm/react-diagrams-core'
+import type { DefaultLinkFactory } from './DefaultLinkFactory'
 import type { DefaultLinkModel } from './DefaultLinkModel'
 import { Event } from '../Constants'
 

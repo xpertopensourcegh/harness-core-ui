@@ -1,8 +1,8 @@
 import { isEmpty } from 'lodash'
 import type { IconName } from '@wings-software/uikit'
+import type { NodeModelListener, LinkModelListener } from '@projectstorm/react-diagrams-core'
 import { Diagram } from 'modules/common/exports'
 import type { ExecutionSection, StepWrapper } from 'services/ng-temp'
-import type { NodeModelListener, LinkModelListener } from '@projectstorm/react-diagrams-core'
 
 export enum StepType {
   HTTP = 'Http',

@@ -3,11 +3,11 @@ import { Layout, Heading, Container, Icon, Text, Color, CodeBlock, GraphError, B
 import { Dialog, IDialogProps, Classes, Spinner } from '@blueprintjs/core'
 import xhr from '@wings-software/xhr-async'
 import moment from 'moment'
-import css from './ThirdPartyCallLog.module.scss'
-import i18n from './ThirdPartyCallLogs.i18n'
 import type { ThirdPartyApiCallLog } from '@wings-software/swagger-ts/definitions'
 import { ActivitiesService } from 'modules/cv/services'
 import { appId } from 'modules/cv/constants'
+import i18n from './ThirdPartyCallLogs.i18n'
+import css from './ThirdPartyCallLog.module.scss'
 
 interface ThirdPartyCallLogsProps {
   guid: string

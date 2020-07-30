@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react'
 import { Container, Text, Intent } from '@wings-software/uikit'
-import css from './DataSourcePanelStatusHeader.module.scss'
 import cx from 'classnames'
+import css from './DataSourcePanelStatusHeader.module.scss'
 
 interface DataSourcePanelStatusHeaderProps {
   message?: string

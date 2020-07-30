@@ -1,7 +1,8 @@
 import React, { useState, useCallback } from 'react'
 import { Container, Text, Link, Card, Color } from '@wings-software/uikit'
-import css from './MetricPackTable.module.scss'
+
 import type { MetricPack } from '@wings-software/swagger-ts/definitions'
+import css from './MetricPackTable.module.scss'
 
 interface TableWithCheckColumnsProps {
   metrics: MetricPack

@@ -1,14 +1,14 @@
 import { Container, Layout, Select, SelectOption, Icon, Button } from '@wings-software/uikit'
-import { linkTo, Sidebar, isRouteActive, routeParams } from 'framework/exports'
 import React from 'react'
-import i18n from './MenuDeployments.i18n'
+import type { IconProps } from '@wings-software/uikit/dist/icons/Icon'
+import { useHistory } from 'react-router-dom'
+import { linkTo, Sidebar, isRouteActive, routeParams } from 'framework/exports'
 import { useGetProjectListBasedOnFilter } from 'services/cd-ng'
+import { useProjectModal } from 'modules/common/exports'
+import i18n from './MenuDeployments.i18n'
 import { routeResources } from '../../common/routes'
 import { routePipelines, routeProjectOverview, routeDeployments, routeCDProjects } from '../routes'
 import css from './MenuDeployments.module.scss'
-import type { IconProps } from '@wings-software/uikit/dist/icons/Icon'
-import { useHistory } from 'react-router-dom'
-import { useProjectModal } from 'modules/common/exports'
 
 interface ProjectListOptions extends SelectOption {
   orgId?: string

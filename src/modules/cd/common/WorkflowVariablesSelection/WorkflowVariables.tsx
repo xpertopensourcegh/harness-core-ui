@@ -1,8 +1,8 @@
 import React from 'react'
 import { Layout, Text, Container, Icon, TextInput, MultiTypeInput } from '@wings-software/uikit'
-import css from './WorkflowVariables.module.scss'
-import i18n from './WorkflowVariables.i18n'
 import cx from 'classnames'
+import i18n from './WorkflowVariables.i18n'
+import css from './WorkflowVariables.module.scss'
 interface VariablesTable {
   [key: string]: string
 }

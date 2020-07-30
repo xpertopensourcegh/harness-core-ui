@@ -3,9 +3,9 @@ import React, { useState } from 'react'
 import { Formik, FormikForm as Form, FormInput, Button, Text, Layout, StepProps } from '@wings-software/uikit'
 
 import type { ProjectDTO } from 'services/cd-ng'
+import i18n from 'modules/common/pages/ProjectsPage/ProjectsPage.i18n'
 import EmailPreview from './EmailPreview/EmailPreview'
 
-import i18n from 'modules/common/pages/ProjectsPage/ProjectsPage.i18n'
 import css from './Steps.module.scss'
 
 interface ProjectModalData {

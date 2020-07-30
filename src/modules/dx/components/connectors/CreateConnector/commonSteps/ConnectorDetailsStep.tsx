@@ -1,13 +1,13 @@
 import React from 'react'
 import { Layout, Button, Formik } from '@wings-software/uikit'
 import * as Yup from 'yup'
-import { StringUtils } from 'modules/common/exports'
-import { getHeadingByType } from '../../../../pages/connectors/utils/ConnectorHelper'
-import ConnectorDetailFields from 'modules/dx/pages/connectors/Forms/ConnectorDetailFields'
 import { Form } from 'formik'
+import { StringUtils } from 'modules/common/exports'
+import ConnectorDetailFields from 'modules/dx/pages/connectors/Forms/ConnectorDetailFields'
+import type { KubFormData, GITFormData } from 'modules/dx/interfaces/ConnectorInterface'
+import { getHeadingByType } from '../../../../pages/connectors/utils/ConnectorHelper'
 import i18n from './ConnectorDetailsStep.i18n'
 import css from './ConnectorDetailsStep.module.scss'
-import type { KubFormData, GITFormData } from 'modules/dx/interfaces/ConnectorInterface'
 
 interface ConnectorDetailsStepProps {
   type: string

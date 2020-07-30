@@ -15,15 +15,15 @@ import {
 } from '@wings-software/uikit'
 import * as Yup from 'yup'
 
-import i18n from 'modules/common/pages/ProjectsPage/ProjectsPage.i18n'
-import ProjectCard from 'modules/common/pages/ProjectsPage/views/ProjectCard/ProjectCard'
-import css from './Steps.module.scss'
 import { pick } from 'lodash'
+import ProjectCard from 'modules/common/pages/ProjectsPage/views/ProjectCard/ProjectCard'
+import i18n from 'modules/common/pages/ProjectsPage/ProjectsPage.i18n'
 import { illegalIdentifiers } from 'modules/common/utils/StringUtils'
 
 import { useGetOrganizationList } from 'services/cd-ng'
 import type { ProjectDTO, UpdateProjectDTO, CreateProjectDTO } from 'services/cd-ng'
 import { usePutProject, usePostProject } from 'services/cd-ng'
+import css from './Steps.module.scss'
 
 interface ProjectModalData {
   data: ProjectDTO | undefined

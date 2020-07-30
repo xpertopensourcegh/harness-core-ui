@@ -1,9 +1,9 @@
 import React from 'react'
 
 import { render, queryByText } from '@testing-library/react'
+import type { ProjectDTO } from 'services/cd-ng'
 import PurposeList from '../PurposeList'
 import i18n from '../../../../pages/ProjectsPage/ProjectsPage.i18n'
-import type { ProjectDTO } from 'services/cd-ng'
 
 const project: ProjectDTO = {
   id: 'testId',

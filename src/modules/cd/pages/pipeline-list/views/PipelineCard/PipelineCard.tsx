@@ -1,6 +1,6 @@
 import React from 'react'
-import type { CDPipelineDTO } from 'services/cd-ng'
 import { Card, Text, Color, Container, Button } from '@wings-software/uikit'
+import type { CDPipelineDTO } from 'services/cd-ng'
 import i18n from './PipelineCard.i18n'
 
 export interface PipelineCardProps {

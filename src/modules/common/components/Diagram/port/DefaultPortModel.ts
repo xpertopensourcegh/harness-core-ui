@@ -5,8 +5,8 @@ import {
   PortModelGenerics,
   PortModelOptions
 } from '@projectstorm/react-diagrams-core'
-import { DefaultLinkModel } from '../link/DefaultLinkModel'
 import type { AbstractModelFactory, DeserializeEvent } from '@projectstorm/react-canvas-core'
+import { DefaultLinkModel } from '../link/DefaultLinkModel'
 import { DiagramType } from '../Constants'
 
 export interface DefaultPortModelOptions extends PortModelOptions {

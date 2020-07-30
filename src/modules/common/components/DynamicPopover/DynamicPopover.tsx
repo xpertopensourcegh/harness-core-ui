@@ -1,8 +1,8 @@
 import React, { useState, useMemo } from 'react'
 import { usePopper } from 'react-popper'
 import cx from 'classnames'
-import css from './DynamicPopover.module.scss'
 import type * as PopperJS from '@popperjs/core'
+import css from './DynamicPopover.module.scss'
 
 export interface DynamicPopoverHandlerBinding<T> {
   show: (

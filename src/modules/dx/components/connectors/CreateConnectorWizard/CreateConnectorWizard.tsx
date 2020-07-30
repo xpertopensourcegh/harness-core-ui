@@ -1,8 +1,8 @@
 import React from 'react'
-import css from './CreateConnectorWizard.module.scss'
 import { Connectors } from 'modules/dx/constants'
 import CreateGITConnector from 'modules/dx/components/connectors/CreateConnector/GITConnector/CreateGITConnector'
 import CreateK8sConnector from 'modules/dx/components/connectors/CreateConnector/K8sConnector/CreateK8sConnector'
+import css from './CreateConnectorWizard.module.scss'
 interface CreateConnectorWizardProps {
   accountId: string
   type: string

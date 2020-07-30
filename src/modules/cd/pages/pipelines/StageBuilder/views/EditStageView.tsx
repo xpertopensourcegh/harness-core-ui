@@ -1,6 +1,4 @@
 import React from 'react'
-import css from '../StageBuilder.module.scss'
-import i18n from '../StageBuilder.i18n'
 import {
   Text,
   Container,
@@ -15,10 +13,12 @@ import {
   CardSelect,
   Label
 } from '@wings-software/uikit'
-import { MapStepTypeToIcon, getTypeOfStage, StageType } from '../StageBuilderModel'
 import * as Yup from 'yup'
 import type { IconName } from '@blueprintjs/core'
 import type { StageElementWrapper } from 'services/cd-ng'
+import { MapStepTypeToIcon, getTypeOfStage, StageType } from '../StageBuilderModel'
+import i18n from '../StageBuilder.i18n'
+import css from '../StageBuilder.module.scss'
 
 const collapseProps = {
   collapsedIcon: 'small-plus' as IconName,

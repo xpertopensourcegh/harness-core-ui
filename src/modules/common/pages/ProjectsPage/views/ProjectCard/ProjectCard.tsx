@@ -1,16 +1,16 @@
 import React from 'react'
 import cx from 'classnames'
 import { Card, Text, Tag, Layout, Icon, CardBody, Container, Button, Color } from '@wings-software/uikit'
-import { linkTo } from 'framework/exports'
 import { useHistory, Link } from 'react-router-dom'
 import { Menu, Classes } from '@blueprintjs/core'
+import { linkTo } from 'framework/exports'
 
 import { routePipelineCanvas, routeProjectOverview } from 'modules/cd/routes'
-import css from './ProjectCard.module.scss'
-import i18n from './ProjectCard.i18n'
 import { useDeleteProject } from 'services/cd-ng'
 import type { ProjectDTO } from 'services/cd-ng'
 import { Modules } from './Constants'
+import i18n from './ProjectCard.i18n'
+import css from './ProjectCard.module.scss'
 
 export interface ProjectCardProps {
   data: ProjectDTO

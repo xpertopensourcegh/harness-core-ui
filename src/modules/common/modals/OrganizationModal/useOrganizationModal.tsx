@@ -1,12 +1,12 @@
 import { Classes, Dialog, IDialogProps } from '@blueprintjs/core'
 import { useModalHook } from '@wings-software/uikit'
 import React, { useState, useCallback } from 'react'
+import cx from 'classnames'
+import type { OrganizationDTO } from 'services/cd-ng'
 import { OptionsView } from './OptionsView/OptionsView'
 import { NewView } from './NewView/NewView'
 import { CloneView } from './CloneView/CloneView'
 import css from './useOrganizationModal.module.scss'
-import cx from 'classnames'
-import type { OrganizationDTO } from 'services/cd-ng'
 
 export interface UseOrganizationModalArgs {
   onSuccess: () => void

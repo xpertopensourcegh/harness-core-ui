@@ -1,7 +1,7 @@
 import React from 'react'
-import css from './ConnectorStats.module.scss'
 import { Layout, Button, Text, Color } from '@wings-software/uikit'
 import i18n from './ConnectorStats.i18n'
+import css from './ConnectorStats.module.scss'
 
 interface ConnectorStatsProps {
   createdAt: string

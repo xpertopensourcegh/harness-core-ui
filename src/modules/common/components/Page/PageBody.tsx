@@ -1,9 +1,9 @@
 import { Container, IconName, ButtonProps } from '@wings-software/uikit'
 import React, { useState, useEffect } from 'react'
-import css from './PageBody.module.scss'
 import { PageSpinner } from './PageSpinner'
 import { PageError } from './PageError'
 import { NoDataCard } from './NoDataCard'
+import css from './PageBody.module.scss'
 
 export interface PageBodyProps {
   /** If set to true, spinner should be shown */

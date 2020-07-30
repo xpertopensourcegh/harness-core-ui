@@ -1,14 +1,14 @@
 import React from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 import { Icon, Text } from '@wings-software/uikit'
-import css from './PipelineStudio.module.scss'
+import { linkTo } from 'framework/exports'
+import { usePostPipelineExecute } from 'services/cd-ng'
+import { useToaster } from 'modules/common/exports'
 import i18n from './PipelineStudio.i18n'
 import { PipelineProvider, PipelineContext } from './PipelineContext/PipelineContext'
 import { PipelineCanvas } from './PipelineCanvas/PipelineCanvas'
 import { routePipelines } from '../../routes'
-import { linkTo } from 'framework/exports'
-import { usePostPipelineExecute } from 'services/cd-ng'
-import { useToaster } from 'modules/common/exports'
+import css from './PipelineStudio.module.scss'
 
 const PipelineStudioInner = (): JSX.Element => {
   const { accountId, projectIdentifier, orgIdentifier } = useParams()

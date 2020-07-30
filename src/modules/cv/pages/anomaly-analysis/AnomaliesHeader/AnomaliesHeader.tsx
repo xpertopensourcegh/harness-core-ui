@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react'
-import css from './AnomaliesHeader.module.scss'
-import i18n from './AnomaliesHeader.i18n'
 import { Tag, Intent } from '@wings-software/uikit'
+import i18n from './AnomaliesHeader.i18n'
+import css from './AnomaliesHeader.module.scss'
 
 interface AnomaliesHeaderProps {
   details: any

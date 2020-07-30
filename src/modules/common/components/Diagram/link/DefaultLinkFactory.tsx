@@ -1,8 +1,8 @@
 import React from 'react'
-import { DefaultLinkModel } from './DefaultLinkModel'
-import { DefaultLinkWidget } from './DefaultLinkWidget'
 import { AbstractReactFactory } from '@projectstorm/react-canvas-core'
 import type { DiagramEngine } from '@projectstorm/react-diagrams-core'
+import { DefaultLinkModel } from './DefaultLinkModel'
+import { DefaultLinkWidget } from './DefaultLinkWidget'
 import { DiagramType } from '../Constants'
 
 export class DefaultLinkFactory<Link extends DefaultLinkModel = DefaultLinkModel> extends AbstractReactFactory<

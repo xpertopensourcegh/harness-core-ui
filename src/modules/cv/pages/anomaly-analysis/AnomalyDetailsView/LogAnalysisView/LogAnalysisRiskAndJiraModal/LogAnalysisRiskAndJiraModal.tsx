@@ -20,11 +20,11 @@ import {
   PopoverPosition,
   Popover
 } from '@blueprintjs/core'
-import i18n from './LogAnalysisRiskAndJiraModal.i18n'
 import HighchartsReact from 'highcharts-react-official'
 import Highcharts from 'highcharts'
-import css from './LogAnalysisRiskAndJiraModal.module.scss'
 import { Formik } from 'formik'
+import i18n from './LogAnalysisRiskAndJiraModal.i18n'
+import css from './LogAnalysisRiskAndJiraModal.module.scss'
 
 interface LogAnalysisRiskAndJiraModalProps {
   count: number

@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import { Layout, Button, Formik, FormInput, Text, SelectOption } from '@wings-software/uikit'
 import * as Yup from 'yup'
-import { getHeadingByType } from '../../../../../pages/connectors/utils/ConnectorHelper'
-import css from './ConnectionModeStep.module.scss'
-import i18n from './ConnectionModeStep.i18n'
 import { Form } from 'formik'
 import { Select } from '@blueprintjs/select'
 import type { GITFormData } from 'modules/dx/interfaces/ConnectorInterface'
+import i18n from './ConnectionModeStep.i18n'
+import { getHeadingByType } from '../../../../../pages/connectors/utils/ConnectorHelper'
+import css from './ConnectionModeStep.module.scss'
 
 interface ConnectionModeStepProps {
   type: string

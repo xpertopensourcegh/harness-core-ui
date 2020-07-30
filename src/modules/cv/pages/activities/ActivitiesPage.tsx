@@ -1,10 +1,11 @@
 import React, { useState, useCallback } from 'react'
-import { Page } from 'modules/common/exports'
 import { Container, Heading, Text, Color, Button, useModalHook } from '@wings-software/uikit'
-import i18n from './ActivitiesPage.i18n'
-import css from './ActivitiesPage.module.scss'
 import cx from 'classnames'
+import { useHistory } from 'react-router-dom'
 import { routeParams, linkTo } from 'framework/exports'
+import { Page } from 'modules/common/exports'
+import { routeCVActivityDetails } from 'modules/cv/routes'
+import { ActivityDetailsActivityType, ActivityDetailsActivitySource } from 'modules/cv/routePaths'
 import {
   ActivitySelectionModal,
   ActivityType,
@@ -12,9 +13,8 @@ import {
   VerificationJobName,
   ActivitySourceName
 } from './ActivitySelectionModal/ActivitySelectionModal'
-import { useHistory } from 'react-router-dom'
-import { routeCVActivityDetails } from 'modules/cv/routes'
-import { ActivityDetailsActivityType, ActivityDetailsActivitySource } from 'modules/cv/routePaths'
+import i18n from './ActivitiesPage.i18n'
+import css from './ActivitiesPage.module.scss'
 
 const VerificationJobTileSelectionToRoute = {
   [VerificationJobName.TEST]: ActivityDetailsActivityType.TEST,

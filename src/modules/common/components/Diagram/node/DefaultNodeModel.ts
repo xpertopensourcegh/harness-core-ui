@@ -1,11 +1,11 @@
 import { map } from 'lodash'
 import { NodeModel, NodeModelGenerics, PortModelAlignment } from '@projectstorm/react-diagrams-core'
-import { DefaultPortModel } from '../port/DefaultPortModel'
 import type { BasePositionModelOptions, DeserializeEvent } from '@projectstorm/react-canvas-core'
 import type { IconName } from '@wings-software/uikit'
+import type { IconProps } from '@wings-software/uikit/dist/icons/Icon'
+import { DefaultPortModel } from '../port/DefaultPortModel'
 import { DiagramType } from '../Constants'
 import i18n from '../Diagram.i18n'
-import type { IconProps } from '@wings-software/uikit/dist/icons/Icon'
 
 export interface DefaultNodeModelOptions extends BasePositionModelOptions {
   name: string

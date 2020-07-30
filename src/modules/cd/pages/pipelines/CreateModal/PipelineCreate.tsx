@@ -1,5 +1,4 @@
 import React from 'react'
-import { loggerFor, ModuleName } from 'framework/exports'
 import {
   Container,
   Heading,
@@ -13,13 +12,14 @@ import {
   Carousel
 } from '@wings-software/uikit'
 import * as Yup from 'yup'
-import css from './PipelineCreate.module.scss'
-import i18n from './PipelineCreate.i18n'
+import { loggerFor, ModuleName } from 'framework/exports'
 import type { CDPipelineDTO } from 'services/cd-ng'
+import i18n from './PipelineCreate.i18n'
 import { DefaultNewPipelineId } from '../PipelineContext/PipelineActions'
 import image1 from './images/first.png'
 import image2 from './images/second.png'
 import image3 from './images/third.png'
+import css from './PipelineCreate.module.scss'
 
 const logger = loggerFor(ModuleName.CD)
 const collapseProps = {

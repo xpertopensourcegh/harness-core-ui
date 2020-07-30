@@ -4,9 +4,9 @@ import {
   DiagramModel as DiagramModelCore,
   DiagramModelGenerics as DiagramModelGenericsCore
 } from '@projectstorm/react-diagrams-core'
+import type { Point } from '@projectstorm/geometry'
 import { DefaultLinkModel } from '../link/DefaultLinkModel'
 import { DefaultNodeModel } from '../node/DefaultNodeModel'
-import type { Point } from '@projectstorm/geometry'
 import css from './DiagramModel.module.scss'
 
 export interface DiagramModelOptions extends DiagramModelCoreOptions {

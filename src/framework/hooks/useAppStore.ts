@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react'
-import type { AppStore } from 'framework/exports'
 import constate from 'constate'
+import type { AppStore } from 'framework/exports'
 
 function useAppStore(): { store: AppStore; updateStore: (newState: Partial<AppStore>) => void } {
   const [store, setStore] = useState({} as AppStore)

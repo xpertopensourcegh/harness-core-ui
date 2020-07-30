@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import type { Route } from 'framework/exports'
-import { PageLayout } from './PageLayout'
 import { sidebarRegistry } from 'framework/registry'
 import { useAppStoreWriter } from 'framework/hooks/useAppStore'
+import { PageLayout } from './PageLayout'
 
 /**
  * LayoutManger handles page layout. It's responsible for composing

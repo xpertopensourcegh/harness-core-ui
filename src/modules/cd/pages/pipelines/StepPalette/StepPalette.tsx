@@ -1,7 +1,7 @@
 import React from 'react'
+import { IconName, Layout, ExpandingSearchInput, Card, Text, Icon } from '@wings-software/uikit'
 import i18n from './StepPalette.18n'
 import css from './StepPalette.module.scss'
-import { IconName, Layout, ExpandingSearchInput, Card, Text, Icon } from '@wings-software/uikit'
 
 export interface CommandData {
   text: string

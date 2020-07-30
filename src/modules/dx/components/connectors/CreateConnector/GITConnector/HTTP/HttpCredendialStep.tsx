@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
 import { Layout, Button, Formik, FormInput, Text, SelectOption, Icon } from '@wings-software/uikit'
 // import * as Yup from 'yup'
-import i18n from './HttpCredentialStep.i18n'
-import css from './HttpCredentialStep.module.scss'
 import { Form, FormikProps } from 'formik'
 import { Select } from '@blueprintjs/select'
+import { useParams } from 'react-router-dom'
 import type { GITFormData } from 'modules/dx/interfaces/ConnectorInterface'
 import { getCustomFields } from 'modules/dx/pages/connectors/Forms/KubeFormHelper'
 import { buildGITPayload } from 'modules/dx/pages/connectors/utils/ConnectorUtils'
@@ -15,8 +14,9 @@ import {
   SecretManagerConfigDTO,
   useCreateSecretText
 } from 'services/cd-ng'
-import { useParams } from 'react-router-dom'
 import type { InlineSecret } from 'modules/common/components/CreateInlineSecret/CreateInlineSecret'
+import i18n from './HttpCredentialStep.i18n'
+import css from './HttpCredentialStep.module.scss'
 
 interface HttpCredentialStepProps {
   name: string

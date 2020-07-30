@@ -1,8 +1,8 @@
 import React from 'react'
 import { FormInput, DurationInput, SelectOption } from '@wings-software/uikit'
 import { get } from 'lodash'
-import i18n from '../StepCommands.18n'
 import type { FormikContextType } from 'formik'
+import i18n from '../StepCommands.18n'
 import css from '../StepCommands.module.scss'
 
 const httpStepType: SelectOption[] = [

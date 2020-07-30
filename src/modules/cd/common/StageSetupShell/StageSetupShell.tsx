@@ -1,14 +1,14 @@
 import React from 'react'
 import { Layout, Tabs, Tab, Button, Icon } from '@wings-software/uikit'
-import i18n from './StageSetupShell.i18n'
-import ServiceSpecifications from '../ServiceSpecifications/ServiceSpecifications'
-import InfraSpecifications from '../InfraSpecifications/InfraSpecifications'
-import css from './StageSetupShell.module.scss'
 import cx from 'classnames'
 import type { StageElementWrapper } from 'services/cd-ng'
 import { PipelineContext } from 'modules/cd/pages/pipelines/PipelineContext/PipelineContext'
 import { getStageFromPipeline } from 'modules/cd/pages/pipelines/StageBuilder/StageBuilderModel'
 import ExecutionGraph from 'modules/cd/pages/pipelines/ExecutionGraph/ExecutionGraph'
+import InfraSpecifications from '../InfraSpecifications/InfraSpecifications'
+import ServiceSpecifications from '../ServiceSpecifications/ServiceSpecifications'
+import i18n from './StageSetupShell.i18n'
+import css from './StageSetupShell.module.scss'
 
 export default function StageSetupShell(): JSX.Element {
   // export default function StageSetupShell({ stageData }: { stageData: { name: string } }): JSX.Element {

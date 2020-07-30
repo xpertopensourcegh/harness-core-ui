@@ -1,8 +1,8 @@
 import React from 'react'
 import { FormInput, DurationInput } from '@wings-software/uikit'
 import { get } from 'lodash'
-import i18n from '../StepCommands.18n'
 import type { FormikContextType } from 'formik'
+import i18n from '../StepCommands.18n'
 import css from '../StepCommands.module.scss'
 
 export const K8sRolloutDeploy = (): JSX.Element => (

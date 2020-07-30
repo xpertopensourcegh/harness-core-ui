@@ -1,15 +1,15 @@
 import React from 'react'
 import { Layout, Text, Container, Icon, Color, useModalHook, Button } from '@wings-software/uikit'
-import css from './ManifestSelection.module.scss'
-import i18n from './ManifestSelection.i18n'
 import cx from 'classnames'
 import { Dialog, IDialogProps } from '@blueprintjs/core'
-import { ManifestWizard } from './ManifestWizardSteps/ManifestWizard'
-import { PipelineContext } from '../../pages/pipelines/PipelineContext/PipelineContext'
 import { get } from 'lodash'
 
 import { getStageFromPipeline } from 'modules/cd/pages/pipelines/StageBuilder/StageBuilderModel'
 import type { StageWrapper } from 'services/ng-temp'
+import { PipelineContext } from '../../pages/pipelines/PipelineContext/PipelineContext'
+import { ManifestWizard } from './ManifestWizardSteps/ManifestWizard'
+import i18n from './ManifestSelection.i18n'
+import css from './ManifestSelection.module.scss'
 
 interface ManifestTable {
   [key: string]: string

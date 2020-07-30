@@ -1,8 +1,8 @@
 import React from 'react'
 import { Layout, Text, Color, Tag } from '@wings-software/uikit'
 
-import i18n from '../SecretDetails.i18n'
 import type { EncryptedDataDTO } from 'services/cd-ng'
+import i18n from '../SecretDetails.i18n'
 
 interface ViewSecretDetailsProps {
   secret: EncryptedDataDTO

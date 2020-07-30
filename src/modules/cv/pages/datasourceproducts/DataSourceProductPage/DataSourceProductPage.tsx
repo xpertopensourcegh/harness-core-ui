@@ -1,14 +1,14 @@
 import React, { useState, useCallback, useMemo, useEffect } from 'react'
 import { Container, Button, Text } from '@wings-software/uikit'
-import CVProductCard, { TypeCard } from 'modules/cv/components/CVProductCard/CVProductCard'
 import { useLocation, useHistory } from 'react-router-dom'
-import css from './DataSourceProductPage.module.scss'
-import i18n from './DataSourceProductPage.i18n'
+import CVProductCard, { TypeCard } from 'modules/cv/components/CVProductCard/CVProductCard'
 import { routeCVDataSourcesEntityPage, routeCVOnBoardingSetup, routeCVDataSources } from 'modules/cv/routes'
 import { Page } from 'modules/common/exports'
 import { CVNextGenCVConfigService } from 'modules/cv/services'
 import { connectorId } from 'modules/cv/constants'
 import { routeParams, linkTo } from 'framework/exports'
+import i18n from './DataSourceProductPage.i18n'
+import css from './DataSourceProductPage.module.scss'
 
 const XHR_DATA_SOURCE_PRODUCTS_GROUP = 'XHR_DATA_SOURCE_PRODUCTS_GROUP'
 const ProductOptions: { [datasourceType: string]: Array<{ item: TypeCard }> } = {

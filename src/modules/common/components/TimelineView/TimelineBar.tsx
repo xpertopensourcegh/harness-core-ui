@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react'
 import * as Moment from 'moment'
 import { extendMoment, DateRange } from 'moment-range'
-import styles from './TimelineView.module.scss'
 import classnames from 'classnames'
+import styles from './TimelineView.module.scss'
 
 const moment = extendMoment(Moment)
 

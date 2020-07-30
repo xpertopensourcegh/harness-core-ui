@@ -1,6 +1,6 @@
 import xhr from '@wings-software/xhr-async'
-import type { ServiceResponse } from 'modules/common/services/ServiceResponse'
 import type { RestResponsePageResponseService } from '@wings-software/swagger-ts/definitions'
+import type { ServiceResponse } from 'modules/common/services/ServiceResponse'
 
 const Endpoints = {
   fetchHeatmapSummary: ({ accId, env, service, startTime, endTime }: any) =>

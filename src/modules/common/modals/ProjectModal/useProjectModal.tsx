@@ -4,12 +4,12 @@ import { Dialog, Classes } from '@blueprintjs/core'
 import cx from 'classnames'
 
 import type { ProjectDTO } from 'services/cd-ng'
+import i18n from 'modules/common/pages/ProjectsPage/ProjectsPage.i18n'
 import { Views } from './Constants'
 import Collaborators from './views/Collaborators'
 import PurposeList from './views/PurposeList'
 import AboutProject from './views/AboutProject'
 
-import i18n from 'modules/common/pages/ProjectsPage/ProjectsPage.i18n'
 import css from './useProjectModal.module.scss'
 
 export interface UseProjectModalProps {

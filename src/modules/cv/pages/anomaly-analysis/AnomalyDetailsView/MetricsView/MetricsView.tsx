@@ -1,13 +1,13 @@
 import React, { FunctionComponent, useState, useCallback, useEffect } from 'react'
-import css from './MetricsView.module.scss'
 import { Tabs, Tab, Container, Text, Color, Icon, Popover } from '@wings-software/uikit'
 import Highcharts from 'highcharts/highcharts'
 import HighchartsReact from 'highcharts-react-official'
-import i18n from './MetricAnalysisView.i18n'
 import cx from 'classnames'
 import cloneDeep from 'lodash/cloneDeep'
-import { dummyConfigForTimeline } from '../../AnomalyAnalysisUtils'
 import { Position } from '@blueprintjs/core'
+import { dummyConfigForTimeline } from '../../AnomalyAnalysisUtils'
+import i18n from './MetricAnalysisView.i18n'
+import css from './MetricsView.module.scss'
 
 interface MetricsViewProps {
   currentAnomaly: any

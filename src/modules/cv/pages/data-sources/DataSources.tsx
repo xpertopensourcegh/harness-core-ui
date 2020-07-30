@@ -1,5 +1,4 @@
 import React, { FunctionComponent, useEffect, useState, useMemo } from 'react'
-import css from './DataSources.module.scss'
 import {
   Container,
   OverlaySpinner,
@@ -11,16 +10,17 @@ import {
   Text,
   Button
 } from '@wings-software/uikit'
-import CVProductCard from 'modules/cv/components/CVProductCard/CVProductCard'
-import i18n from './DataSources.i18n'
-import { SettingsService } from 'modules/cv/services'
-import { Page } from 'modules/common/exports'
 import type { SettingAttribute, CVConfig } from '@wings-software/swagger-ts/definitions'
 import type { Cell } from 'react-table'
 import { Link } from 'react-router-dom'
+import { Page } from 'modules/common/exports'
+import { SettingsService } from 'modules/cv/services'
+import CVProductCard from 'modules/cv/components/CVProductCard/CVProductCard'
 import { routeCVDataSourcesProductPage } from 'modules/cv/routes'
 import { VerificationTypeToRouteVerificationType } from 'modules/cv/constants'
 import { routeParams, linkTo } from 'framework/exports'
+import i18n from './DataSources.i18n'
+import css from './DataSources.module.scss'
 
 type DataSourceTableRow = {
   name: string

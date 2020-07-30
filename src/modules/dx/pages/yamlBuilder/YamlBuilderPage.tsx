@@ -1,8 +1,8 @@
 import React from 'react'
 
+import { Layout } from '@wings-software/uikit'
 import YAMLBuilder from 'modules/common/components/YAMLBuilder/YamlBuilder'
 import SnippetSection from 'modules/common/components/SnippetSection/SnippetSection'
-import { Layout } from '@wings-software/uikit'
 
 import type YamlBuilderProps from 'modules/common/interfaces/YAMLBuilderProps'
 

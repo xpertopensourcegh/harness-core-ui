@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
 import { StepWizard, Layout, Button, Text, FormInput, Formik } from '@wings-software/uikit'
-import css from './ManifestWizard.module.scss'
 import { Form } from 'formik'
-import i18n from './ManifestWizard.i18n'
 
 import * as Yup from 'yup'
+import { get } from 'lodash'
 import { StringUtils } from 'modules/common/exports'
 
-import { get } from 'lodash'
 import type { StageWrapper } from 'services/ng-temp'
+import i18n from './ManifestWizard.i18n'
+import css from './ManifestWizard.module.scss'
 
 interface StepProps<PrevStepData> {
   name?: string

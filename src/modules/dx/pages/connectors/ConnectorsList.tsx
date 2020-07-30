@@ -1,15 +1,15 @@
 import React from 'react'
 import { Layout, Container } from '@wings-software/uikit'
-import { ConnectorSetupModal } from '../../modals/ConnectorModal/ConnectorSetupModal'
-import CustomTable from '../../../common/components/CustomTable/CustomTable'
-import { columns } from '../../../cd/pages/Resources/SampleColumnsData'
-import css from './ConnectorsList.module.scss'
 import { useHistory, useParams } from 'react-router-dom'
-import { formatConnectorListData } from './utils/ConnectorUtils'
-import { routeConnectorDetails } from '../../routes'
 import { useGetConnectorList, useDeleteConnector, ResponseDTOPageConnectorSummaryDTO } from 'services/cd-ng'
 import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
 import type { UseGetMockData } from 'modules/common/utils/testUtils'
+import { ConnectorSetupModal } from '../../modals/ConnectorModal/ConnectorSetupModal'
+import CustomTable from '../../../common/components/CustomTable/CustomTable'
+import { columns } from '../../../cd/pages/Resources/SampleColumnsData'
+import { formatConnectorListData } from './utils/ConnectorUtils'
+import { routeConnectorDetails } from '../../routes'
+import css from './ConnectorsList.module.scss'
 
 interface ConnectorsListProps {
   mockData?: UseGetMockData<ResponseDTOPageConnectorSummaryDTO>

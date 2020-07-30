@@ -1,6 +1,6 @@
 import type { ThirdPartyApiCallLog } from '@wings-software/swagger-ts/definitions'
-import type { ServiceResponse } from 'modules/common/services/ServiceResponse'
 import xhr from '@wings-software/xhr-async'
+import type { ServiceResponse } from 'modules/common/services/ServiceResponse'
 
 export const Endpoints = {
   callLogs: (entityIdentifier: string, appId: string) =>

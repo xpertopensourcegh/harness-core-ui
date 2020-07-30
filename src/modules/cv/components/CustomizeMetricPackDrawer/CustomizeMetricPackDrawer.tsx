@@ -1,13 +1,13 @@
 import React, { useState, useCallback, useMemo } from 'react'
 import { IDrawerProps, Position, Drawer } from '@blueprintjs/core'
 import { Heading, Container, Text, Color, Button } from '@wings-software/uikit'
+import type { MetricPack } from '@wings-software/swagger-ts/definitions'
+import { cloneDeep } from 'lodash-es'
+import ConfigureThreshold from 'modules/cv/pages/metric-pack/ConfigureThreshold'
 import i18n from './CustomizeMetricPackDrawer.i18n'
 import { MetricPackTable } from '../MetricPackTable/MetricPackTable'
-import type { MetricPack } from '@wings-software/swagger-ts/definitions'
-import css from './CustomizeMetricPackDrawer.module.scss'
-import ConfigureThreshold from 'modules/cv/pages/metric-pack/ConfigureThreshold'
 import { updateMetricPackHints, transformMetricPackToThresholds } from './CustomizeMetricPackDrawerUtils'
-import { cloneDeep } from 'lodash-es'
+import css from './CustomizeMetricPackDrawer.module.scss'
 
 const DrawerProps: IDrawerProps = {
   autoFocus: true,

@@ -1,8 +1,8 @@
 import React, { FunctionComponent, useState } from 'react'
 import { Text } from '@wings-software/uikit'
+import cx from 'classnames'
 import i18n from './AnomaliesList.i18n'
 import css from './AnomaliesList.module.scss'
-import cx from 'classnames'
 
 interface AnomaliesListProps {
   anomaliesList: any

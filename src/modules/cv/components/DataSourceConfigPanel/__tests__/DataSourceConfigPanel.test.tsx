@@ -1,8 +1,9 @@
 import React from 'react'
-import DataSourceConfigPanel from '../DataSourceConfigPanel'
-import { Formik } from 'formik'
-import { FormikForm, Button, FormInput, CollapseList, ListPanelInterface } from '@wings-software/uikit'
 import { fireEvent, render, waitFor } from '@testing-library/react'
+import { Formik } from 'formik'
+import xhr from '@wings-software/xhr-async'
+import { FormikForm, Button, FormInput, CollapseList, ListPanelInterface } from '@wings-software/uikit'
+import DataSourceConfigPanel from '../DataSourceConfigPanel'
 import i18n from '../DataSourceConfigPanel.i18n'
 
 jest.mock('@wings-software/xhr-async', () => ({
@@ -10,8 +11,6 @@ jest.mock('@wings-software/xhr-async', () => ({
 }))
 
 const onRemoveCallback = jest.fn()
-
-import xhr from '@wings-software/xhr-async'
 
 function MockForm(props: any): JSX.Element {
   const { validateCallback } = props

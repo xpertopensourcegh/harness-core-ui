@@ -5,12 +5,12 @@ import { RestfulProvider } from 'restful-react'
 import { FocusStyleManager } from '@blueprintjs/core'
 import type { Route } from 'framework/exports'
 import { LayoutManager } from 'framework/layout/LayoutManager'
-import { RouteMounter } from '../route/RouteMounter'
 import { routeRegistry } from 'framework/registry'
+import SessionToken from 'framework/utils/SessionToken'
+import { RouteMounter } from '../route/RouteMounter'
 import { AppStoreProvider } from '../hooks/useAppStore'
 import 'modules/common/services'
-import './app.scss'
-import SessionToken from 'framework/utils/SessionToken'
+import './App.scss'
 
 FocusStyleManager.onlyShowFocusOnTabs()
 

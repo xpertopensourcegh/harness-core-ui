@@ -1,8 +1,8 @@
 import { Container } from '@wings-software/uikit'
 import React from 'react'
+import cx from 'classnames'
 import { SidebarMounter } from '../../sidebar/Sidebar'
 import css from './DefaultLayout.module.scss'
-import cx from 'classnames'
 
 const Layout: React.FC<{ withoutMenu?: boolean }> = ({ children, withoutMenu = false } = {}) => {
   return (

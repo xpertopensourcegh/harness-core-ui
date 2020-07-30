@@ -1,6 +1,6 @@
 import { Layout } from '@wings-software/uikit'
-import { Sidebar } from 'framework/exports'
 import React from 'react'
+import { Sidebar } from 'framework/exports'
 import i18n from './MenuUserProfile.i18n'
 
 export const MenuUserProfile: React.FC = () => {

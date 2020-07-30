@@ -1,9 +1,9 @@
 import React from 'react'
 import { ModalProvider, useModalHook, Button, Icon, IconName } from '@wings-software/uikit'
 import { Dialog, IDialogProps, Position } from '@blueprintjs/core'
-import css from './DelegateSetupModal.module.scss'
 import { Menu, Popover } from '@blueprintjs/core'
 import i18n from './DelegateSetup.i18n'
+import css from './DelegateSetupModal.module.scss'
 
 interface OptionInterface {
   label: string

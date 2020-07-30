@@ -1,14 +1,14 @@
 import React from 'react'
 import { Layout, Container } from '@wings-software/uikit'
-import i18n from './ResourcesPage.i18n'
-import css from './ResourcesPage.module.scss'
 import cx from 'classnames'
-import { Page } from 'modules/common/exports'
 import { Route, Switch } from 'react-router'
 import { Link, useRouteMatch, Redirect } from 'react-router-dom'
+import { Page } from 'modules/common/exports'
 import ConnectorsList from 'modules/dx/pages/connectors/ConnectorsList'
 import SecretsList from 'modules/dx/pages/secrets/SecretsList'
 import SecretDetails from 'modules/dx/pages/secretDetails/SecretDetails'
+import i18n from './ResourcesPage.i18n'
+import css from './ResourcesPage.module.scss'
 
 interface Categories {
   [key: string]: string

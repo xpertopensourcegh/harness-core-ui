@@ -2,8 +2,8 @@ import React from 'react'
 import { Text } from '@wings-software/uikit'
 import isUndefined from 'lodash/isUndefined'
 import moment from 'moment'
-import TimelineBar from './TimelineBar'
 import classnames from 'classnames'
+import TimelineBar from './TimelineBar'
 import styles from './TimelineView.module.scss'
 
 interface RowConfig {

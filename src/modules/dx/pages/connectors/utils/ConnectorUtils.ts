@@ -1,7 +1,7 @@
-import i18n from './ConnectorUtils.i18n'
-import { AuthTypes, DelegateTypes } from '../Forms/KubeFormHelper'
 import { Connectors, ConnectorInfoText } from 'modules/dx/constants'
 import type { ConnectorSummaryDTO } from 'services/cd-ng'
+import i18n from './ConnectorUtils.i18n'
+import { AuthTypes, DelegateTypes } from '../Forms/KubeFormHelper'
 
 export const userPasswrdAuthField = (formData: any) => {
   return {

@@ -1,5 +1,4 @@
 import xhr from '@wings-software/xhr-async'
-import type { ServiceResponse } from 'modules/common/services/ServiceResponse'
 import type {
   MetricPack,
   DSConfig,
@@ -10,6 +9,7 @@ import type {
   RestResponseSplunkSampleResponse,
   RestResponseCVHistogram
 } from '@wings-software/swagger-ts/definitions'
+import type { ServiceResponse } from 'modules/common/services/ServiceResponse'
 
 export const Endpoints = {
   upsertDSConfig: (accountId: string) => `/cv-nextgen/ds-config?accountId=${accountId}`,

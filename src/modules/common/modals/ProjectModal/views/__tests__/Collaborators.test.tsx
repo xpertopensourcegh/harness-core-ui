@@ -1,8 +1,8 @@
 import React from 'react'
 
 import { render } from '@testing-library/react'
-import Collaborators from '../Collaborators'
 import type { ProjectDTO } from 'services/cd-ng'
+import Collaborators from '../Collaborators'
 
 const project: ProjectDTO = {
   id: 'testId',

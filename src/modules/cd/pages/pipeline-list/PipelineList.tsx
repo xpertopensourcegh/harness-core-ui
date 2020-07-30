@@ -1,13 +1,13 @@
 import React from 'react'
-import { Page } from 'modules/common/exports'
-import i18n from './PipelineList.i18n'
 import { Container, Button, Layout } from '@wings-software/uikit'
 import { useHistory, useParams } from 'react-router-dom'
+import { Page } from 'modules/common/exports'
 import { routePipelineCanvas } from 'modules/cd/routes'
 import { linkTo } from 'framework/exports'
-import css from './PipelineList.module.scss'
 import { useGetPipelineList, CDPipelineDTO } from 'services/cd-ng'
+import i18n from './PipelineList.i18n'
 import { PipelineCard } from './views/PipelineCard/PipelineCard'
+import css from './PipelineList.module.scss'
 
 const PipelineList: React.FC = () => {
   const history = useHistory()

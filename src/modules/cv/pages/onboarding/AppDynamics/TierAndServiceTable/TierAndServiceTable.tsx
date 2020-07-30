@@ -1,14 +1,14 @@
 import React, { useState, useMemo, useEffect, useCallback } from 'react'
 import { Table, Select, Text, ModalProvider, Link, Container, SelectOption, Color } from '@wings-software/uikit'
 import xhr from '@wings-software/xhr-async'
-import css from './TierAndServiceTable.module.scss'
 import { Spinner, Classes } from '@blueprintjs/core'
-import { AppDynamicsService, CVNextGenCVConfigService } from 'modules/cv/services'
-import MetricsVerificationModal from 'modules/cv/components/MetricsVerificationModal/MetricsVerificationModal'
 import type { AppdynamicsTier, AppdynamicsValidationResponse, MetricPack } from '@wings-software/swagger-ts/definitions'
 import type { Row } from 'react-table'
-import i18n from './TierAndServiceTable.i18n'
 import type { TextProps } from '@wings-software/uikit/dist/components/Text/Text'
+import { AppDynamicsService, CVNextGenCVConfigService } from 'modules/cv/services'
+import MetricsVerificationModal from 'modules/cv/components/MetricsVerificationModal/MetricsVerificationModal'
+import i18n from './TierAndServiceTable.i18n'
+import css from './TierAndServiceTable.module.scss'
 
 export type TierAndServiceRow = {
   tierName?: string

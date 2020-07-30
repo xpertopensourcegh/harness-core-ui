@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { StepsProgress, Layout, Button, Text, Intent } from '@wings-software/uikit'
-import i18n from './VerifyOutOfClusterDelegate.i18n'
 import { useGetDelegatesStatus, RestResponseDelegateStatus } from 'services/portal'
+import i18n from './VerifyOutOfClusterDelegate.i18n'
 import css from './VerifyOutOfClusterDelegate.module.scss'
 
 interface VerifyOutOfClusterDelegateProps {

@@ -1,15 +1,15 @@
 import React, { useMemo } from 'react'
-import { Page } from 'modules/common/exports'
-import { ActivityDetailsActivityType, ActivityDetailsActivitySource } from 'modules/cv/routePaths'
-import { routeParams } from 'framework/exports'
-import i18n from './ActivitySetupPage.i18n'
 import { Container } from '@wings-software/uikit'
-import css from './ActivitySetupPage.module.scss'
+import { routeParams } from 'framework/exports'
+import { ActivityDetailsActivityType, ActivityDetailsActivitySource } from 'modules/cv/routePaths'
+import { Page } from 'modules/common/exports'
+import i18n from './ActivitySetupPage.i18n'
 import BlueGreenVerificationJobForm from './VerificationJobForms/BlueGreenVerificationJobForm/BlueGreenVerificationJobForm'
 import CanaryVerificationJobForm from './VerificationJobForms/CanaryVerificationJobForm/CanaryVerificationJobForm'
 import TestVerificationJobForm from './VerificationJobForms/TestVerificationJobForm/TestVerificationJobForm'
 import HealthVerificationJobForm from './VerificationJobForms/HealthVerificationJobForm/HealthVerificationJobForm'
 import KubernetesActivitySourceForm from './ActivitySourceForms/KubernetesActivitySourceForm/KubernetesActivitySourceForm'
+import css from './ActivitySetupPage.module.scss'
 
 export default function ActivitySetupPage(): JSX.Element {
   const {

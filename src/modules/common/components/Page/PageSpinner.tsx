@@ -1,8 +1,8 @@
 import { Color, Text, Icon, Layout, Container } from '@wings-software/uikit'
 import React from 'react'
+import cx from 'classnames'
 import i18n from './PageSpinner.i18n'
 import css from './PageSpinner.module.scss'
-import cx from 'classnames'
 
 export interface PageSpinnerProps {
   message?: string
