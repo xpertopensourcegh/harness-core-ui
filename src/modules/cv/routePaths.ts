@@ -11,3 +11,8 @@ export const ActivityDetailsActivitySource = {
   AZURE: 'azure',
   GCP: 'gcp'
 }
+
+export const DataSourceRoutePaths = {
+  APP_DYNAMICS: 'app-dynamics',
+  SPLUNK: 'splunk'
+}

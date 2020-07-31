@@ -56,7 +56,7 @@ export const routeCVOnBoardingSetup: Route = {
   authenticated: true,
   pageId: 'cv-onboarding/onboarding',
   url: (params: RouteURLArgs) =>
-    params && params.dataSourceType ? `/cv-onboarding/${params.dataSourceType}/setup` : `/cv-onboarding/`,
+    params?.dataSourceType ? `/cv-onboarding/${params.dataSourceType}/setup` : `/cv-onboarding/`,
   component: React.lazy(() => import('./pages/onboarding/BaseOnBoardingSetupPage/BaseOnBoardingSetupPage')),
   module: ModuleName.CV
 }
@@ -68,8 +68,20 @@ export const routeCVDataSourcesProductPage: Route = {
   pageId: '/cv-onboarding/product',
   authenticated: true,
   url: (params: RouteURLArgs) =>
-    params && params.dataSourceType ? `/cv-onboarding/${params.dataSourceType}/product` : `/cv-onboarding/`,
+    params?.dataSourceType ? `/cv-onboarding/${params.dataSourceType}/product` : `/cv-onboarding/`,
   component: React.lazy(() => import('./pages/datasourceproducts/DataSourceProductPage/DataSourceProductPage')),
+  module: ModuleName.CV
+}
+
+export const routeCVSplunkInputTypePage: Route = {
+  sidebarId: SidebarIdentifier.CONTINUOUS_VERIFICATION,
+  path: '/cv-onboarding/:dataSourceType/input-type',
+  title: i18n.services,
+  pageId: '/cv-onboarding/input-type',
+  authenticated: true,
+  url: (params: RouteURLArgs) =>
+    params?.dataSourceType ? `/cv-onboarding/${params.dataSourceType}/input-type` : `/cv-onboarding/`,
+  component: React.lazy(() => import('./pages/splunk-input-type/SplunkInputType')),
   module: ModuleName.CV
 }
 

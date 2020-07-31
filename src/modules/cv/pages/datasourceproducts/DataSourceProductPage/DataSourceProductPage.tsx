@@ -2,17 +2,23 @@ import React, { useState, useCallback, useMemo, useEffect } from 'react'
 import { Container, Button, Text } from '@wings-software/uikit'
 import { useLocation, useHistory } from 'react-router-dom'
 import CVProductCard, { TypeCard } from 'modules/cv/components/CVProductCard/CVProductCard'
-import { routeCVDataSourcesEntityPage, routeCVOnBoardingSetup, routeCVDataSources } from 'modules/cv/routes'
+import {
+  routeCVDataSourcesEntityPage,
+  routeCVOnBoardingSetup,
+  routeCVDataSources,
+  routeCVSplunkInputTypePage
+} from 'modules/cv/routes'
 import { Page } from 'modules/common/exports'
 import { CVNextGenCVConfigService } from 'modules/cv/services'
 import { connectorId } from 'modules/cv/constants'
 import { routeParams, linkTo } from 'framework/exports'
+import { DataSourceRoutePaths } from 'modules/cv/routePaths'
 import i18n from './DataSourceProductPage.i18n'
 import css from './DataSourceProductPage.module.scss'
 
 const XHR_DATA_SOURCE_PRODUCTS_GROUP = 'XHR_DATA_SOURCE_PRODUCTS_GROUP'
 const ProductOptions: { [datasourceType: string]: Array<{ item: TypeCard }> } = {
-  'app-dynamics': [
+  [DataSourceRoutePaths.APP_DYNAMICS]: [
     {
       item: {
         title: 'Application Monitoring',
@@ -20,15 +26,24 @@ const ProductOptions: { [datasourceType: string]: Array<{ item: TypeCard }> } = 
       }
     }
   ],
-  splunk: [
+  [DataSourceRoutePaths.SPLUNK]: [
     {
       item: {
         title: 'Splunk Enterprise',
-        icon: 'service-splunk',
-        iconSize: 25
+        icon: 'service-splunk-with-name',
+        iconSize: 40
       }
     }
   ]
+}
+
+function getLinkForCreationFlow(accountId: string, dataSource: string): string {
+  switch (dataSource) {
+    case DataSourceRoutePaths.SPLUNK:
+      return linkTo(routeCVSplunkInputTypePage, { accountId, dataSourceType: dataSource }, true)
+    default:
+      return linkTo(routeCVDataSourcesEntityPage, { accountId, dataSourceType: dataSource }, true)
+  }
 }
 
 export default function AppDynamicsProductPage(): JSX.Element {
@@ -44,14 +59,14 @@ export default function AppDynamicsProductPage(): JSX.Element {
     productDescription: string
   }>(() => {
     switch (dataSourceType) {
-      case 'app-dynamics':
+      case DataSourceRoutePaths.APP_DYNAMICS:
         return {
-          productOptions: ProductOptions['app-dynamics'],
+          productOptions: ProductOptions[DataSourceRoutePaths.APP_DYNAMICS],
           productDescription: i18n['app-dynamics'].productDescription
         }
-      case 'splunk':
+      case DataSourceRoutePaths.SPLUNK:
         return {
-          productOptions: ProductOptions['splunk'],
+          productOptions: ProductOptions[DataSourceRoutePaths.SPLUNK],
           productDescription: i18n['splunk'].productDescription
         }
       default:
@@ -85,7 +100,7 @@ export default function AppDynamicsProductPage(): JSX.Element {
     () => ({
       pathname: locationContext.isEdit
         ? linkTo(routeCVOnBoardingSetup, { accountId, dataSourceType: dataSourceType }, true)
-        : linkTo(routeCVDataSourcesEntityPage, { accountId, dataSourceType: dataSourceType }, true),
+        : getLinkForCreationFlow(accountId, (dataSourceType as string) || ''),
       state: { products: selectedProducts, ...locationContext }
     }),
     [selectedProducts, dataSourceType, locationContext, accountId]

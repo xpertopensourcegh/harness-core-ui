@@ -1,0 +1,31 @@
+.main {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin: var(--spacing-small) var(--spacing-xlarge);
+
+  .iconContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: var(--spacing-xxlarge);
+  }
+
+  .description {
+    text-align: center;
+    min-width: 50px;
+    max-width: 650px;
+    margin: 0 auto;
+    margin-bottom: var(--spacing-xxlarge);
+  }
+
+  .navigationButtonContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    button:first-of-type {
+      margin-right: var(--spacing-medium);
+    }
+  }
+}

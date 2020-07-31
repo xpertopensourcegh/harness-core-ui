@@ -378,7 +378,7 @@ function SplunkConfig(props: SplunkConfigProps): JSX.Element {
           placeholder={i18n.placeholders.queryName}
         />
         <FormInput.TextArea
-          key={dsConfig?.query}
+          key={dsConfig?.id}
           name={`dsConfigs[${index}].query`}
           placeholder={i18n.placeholders.query}
           label={i18n.fieldLabels.query}

@@ -14,6 +14,7 @@ interface DataSourceSelectEntityTableProps {
   entityTableColumnName: string
   onSubmit?: (selectedEntities: SelectOption[]) => void
   entityOptions: SelectOption[]
+  onSelectEntity?: (selectedOptions: TableEntityCell[], ttlSelected: number) => void
 }
 
 interface TableCheckboxProps {
@@ -30,26 +31,35 @@ function TableCheckbox(props: TableCheckboxProps): JSX.Element {
 }
 
 export default function DataSourceSelectEntityTable(props: DataSourceSelectEntityTableProps): JSX.Element {
-  const { entityTableColumnName, onSubmit, entityOptions: propsEntityOptions } = props
+  const { entityTableColumnName, onSubmit, entityOptions: propsEntityOptions, onSelectEntity } = props
   const [isAllChecked, setAllChecked] = useState(false)
+  const [ttlChecked, setTtlChecked] = useState<number>(0)
   const [entityOptions, setEntityOptions] = useState<TableEntityCell[]>([])
   const [appliedFilter, setFilter] = useState<string | undefined>()
+
   const onColumnCheckboxCallback = useCallback(() => {
     const checkedData = [...entityOptions]
     checkedData.forEach(entityRow => (entityRow.selected = !isAllChecked))
+    const newSelectedTotal = isAllChecked ? 0 : checkedData.length
     setEntityOptions(checkedData)
     setAllChecked(!isAllChecked)
-  }, [entityOptions, isAllChecked])
+    setTtlChecked(newSelectedTotal)
+    onSelectEntity?.(checkedData, newSelectedTotal)
+  }, [entityOptions, isAllChecked, ttlChecked])
+
   const onRowCheckboxCallback = useCallback(
     (rowVal: TableEntityCell) => {
       const tableData = [...entityOptions]
       const checkEntity = tableData.find(entity => entity.entityName === rowVal.entityName)
       if (checkEntity) {
         checkEntity.selected = !checkEntity.selected
+        const newSelectedTotal = checkEntity.selected ? ttlChecked + 1 : ttlChecked - 1
+        setTtlChecked(newSelectedTotal)
+        onSelectEntity?.([checkEntity], newSelectedTotal)
       }
       setEntityOptions(tableData)
     },
-    [entityOptions]
+    [entityOptions, ttlChecked]
   )
 
   const tableColumns: Array<Column<TableEntityCell>> = useMemo(
@@ -70,7 +80,7 @@ export default function DataSourceSelectEntityTable(props: DataSourceSelectEntit
         ),
         accessor: 'entityName',
         Cell: function EntityName(cell: Cell<TableEntityCell>) {
-          return <Text>{cell.value}</Text>
+          return <Text onClick={() => onRowCheckboxCallback(cell.row.original)}>{cell.value}</Text>
         }
       }
     ],
@@ -84,6 +94,7 @@ export default function DataSourceSelectEntityTable(props: DataSourceSelectEntit
     const regex = new RegExp(appliedFilter, 'i')
     return entityOptions.filter(({ entityName }) => regex.test(entityName))
   }, [appliedFilter, entityOptions])
+
   useEffect(() => {
     if (propsEntityOptions) {
       setEntityOptions(
@@ -95,6 +106,7 @@ export default function DataSourceSelectEntityTable(props: DataSourceSelectEntit
       )
     }
   }, [propsEntityOptions])
+
   useEffect(() => {
     onSubmit?.(entityOptions.filter(({ selected }) => selected).map(({ entity }) => entity))
   }, [entityOptions, onSubmit])

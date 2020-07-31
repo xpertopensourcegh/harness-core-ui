@@ -39,6 +39,7 @@ export default function DataSourceListEntitySelect(): JSX.Element {
   const [pageError, setError] = useState(undefined)
   const [loading, setLoading] = useState(true)
   const [entityOptions, setEntityOptions] = useState<SelectOption[]>([])
+  const [enableNext, setEnableNext] = useState<boolean>(false)
   // navigation params to get context for the page
   const { state: locationData } = useLocation<{ products: string[]; dataSourceId?: string }>()
   const {
@@ -67,6 +68,18 @@ export default function DataSourceListEntitySelect(): JSX.Element {
       return i18n[dataSourceType]
     }
   }, [dataSourceType])
+
+  const onSelectEntityCallback = useCallback(
+    (_, ttlChecked: number) => {
+      if (ttlChecked && !enableNext) {
+        setEnableNext(true)
+      } else if (!ttlChecked && enableNext) {
+        setEnableNext(false)
+      }
+    },
+    [enableNext]
+  )
+
   useEffect(() => {
     const { entityFetchFunc, entityTransformFunc } = VerificationTypeEntityCall[dataSourceType || ''] || {}
     if (!entityFetchFunc || !entityTransformFunc) {
@@ -107,6 +120,7 @@ export default function DataSourceListEntitySelect(): JSX.Element {
                 entityOptions={entityOptions}
                 entityTableColumnName={verificationTypeI18N?.columnHeaderTitle || ''}
                 onSubmit={navigateWithSelectedApps}
+                onSelectEntity={onSelectEntityCallback}
               />
             </Container>
           </Container>
@@ -122,7 +136,7 @@ export default function DataSourceListEntitySelect(): JSX.Element {
             >
               {i18n.backButton}
             </Button>
-            <Button intent="primary" onClick={() => setNavigationFunction(onClickNextCallback)}>
+            <Button disabled={!enableNext} intent="primary" onClick={() => setNavigationFunction(onClickNextCallback)}>
               {i18n.nextButton}
             </Button>
           </Container>
