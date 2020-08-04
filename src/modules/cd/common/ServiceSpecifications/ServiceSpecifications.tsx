@@ -17,7 +17,7 @@ import {
 
 import cx from 'classnames'
 import { PipelineContext } from 'modules/cd/pages/pipelines/PipelineContext/PipelineContext'
-import { getStageFromPipeline } from 'modules/cd/pages/pipelines/StageBuilder/StageBuilderModel'
+import { getStageFromPipeline } from 'modules/cd/pages/pipelines/StageBuilder/StageBuilderUtil'
 import { loggerFor, ModuleName } from 'framework/exports'
 import ArtifactsSelection from '../ArtifactsSelection/ArtifactsSelection'
 import ManifestSelection from '../ManifestSelection/ManifestSelection'

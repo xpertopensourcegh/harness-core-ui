@@ -27,14 +27,13 @@ export const getPipelineByIdentifier = (
   identifier: string
 ): Promise<CDPipeline | undefined> => {
   return fetch(
-    `/cd/api/pipelines/${identifier}?accountIdentifier=${params.accountIdentifier}&projectIdentifier=${params.projectIdentifier}&orgIdentifier=${params.orgIdentifier}`,
-    { headers: { 'Content-Type': 'text/yaml' } }
+    `/cd/api/pipelines/${identifier}?accountIdentifier=${params.accountIdentifier}&projectIdentifier=${params.projectIdentifier}&orgIdentifier=${params.orgIdentifier}`
   )
     .then(response => response.text())
     .then(response => {
       const obj = parse(response)
       if (obj.status === 'SUCCESS') {
-        return parse(obj.data).pipeline as CDPipeline
+        return parse(obj.data.yamlPipeline).pipeline as CDPipeline
       }
     })
 }
@@ -47,16 +46,16 @@ export const savePipeline = (
   return isEdit
     ? xhr
         .put<ResponseDTOString>(
-          `/cd/api/pipelines?accountIdentifier=${params.accountIdentifier}&projectIdentifier=${params.projectIdentifier}&orgIdentifier=${params.orgIdentifier}`,
-          { data: stringify({ pipeline }), headers: { 'Content-Type': 'text/plain' } }
+          `/cd/api/pipelines/${pipeline.identifier}?accountIdentifier=${params.accountIdentifier}&projectIdentifier=${params.projectIdentifier}&orgIdentifier=${params.orgIdentifier}`,
+          { data: stringify({ pipeline }), headers: { 'Content-Type': 'text/yaml' } }
         )
-        .then(data => parse(data.response as string) as ResponseDTOString)
+        .then(data => data.response)
     : xhr
         .post<ResponseDTOString>(
           `/cd/api/pipelines?accountIdentifier=${params.accountIdentifier}&projectIdentifier=${params.projectIdentifier}&orgIdentifier=${params.orgIdentifier}`,
-          { data: stringify({ pipeline }), headers: { 'Content-Type': 'text/plain' } }
+          { data: stringify({ pipeline }), headers: { 'Content-Type': 'text/yaml' } }
         )
-        .then(data => parse(data.response as string) as ResponseDTOString)
+        .then(data => data.response)
 }
 
 const DBInitializationFailed = 'DB Creation retry exceeded.'
@@ -148,8 +147,6 @@ const _updatePipeline = async (
     identifier
   )
   if (IdbPipeline) {
-    dispatch(PipelineContextActions.updating())
-
     const payload: PipelinePayload = {
       [KeyPath]: id,
       pipeline,

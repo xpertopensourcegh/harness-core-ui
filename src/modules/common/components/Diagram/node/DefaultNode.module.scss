@@ -8,7 +8,7 @@
     cursor: pointer;
     margin: 0 auto;
     position: relative;
-    border: 1px solid;
+    border: 1px solid var(--pipeline-grey-border);
     background-color: var(--white);
     border-radius: 8px;
     width: 64px;
@@ -24,10 +24,6 @@
     }
   }
 
-  &:hover .defaultCard {
-    border-width: 2px;
-    border-color: var(--diagram-selected);
-  }
   &:hover .closeNode {
     visibility: initial;
   }
@@ -36,6 +32,18 @@
     position: absolute;
     bottom: 2px;
     right: 2px;
+  }
+
+  .inComplete {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+  }
+  .iconGroup {
+    display: inline;
+    :global(.bp3-icon) {
+      padding: var(--spacing-small);
+    }
   }
 
   .closeNode {

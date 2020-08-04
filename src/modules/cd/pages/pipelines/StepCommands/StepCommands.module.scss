@@ -18,3 +18,14 @@
 .checkbox {
   padding-left: var(--spacing-xlarge) !important;
 }
+
+.step-command {
+  display: grid;
+  grid-template-columns: 1fr 60px;
+  height: 100%;
+  overflow-y: hidden;
+
+  .step-tabs {
+    padding: 0 var(--spacing-large);
+  }
+}

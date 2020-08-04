@@ -14,6 +14,5 @@ declare const styles: {
   readonly title: string
   readonly logoImage: string
   readonly closeBtn: string
-  readonly rightBar: string
 }
 export default styles

@@ -9,6 +9,7 @@ import { YamlEntity } from 'modules/common/constants/YamlConstants'
 import { NavigationCheck, useToaster } from 'modules/common/exports'
 import type { YamlBuilderHandlerBinding } from 'modules/common/interfaces/YAMLBuilderProps'
 import type { CDPipeline, ResponseDTOString } from 'services/cd-ng'
+import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
 import { PipelineContext, savePipeline } from '../PipelineContext/PipelineContext'
 import i18n from './PipelineCanvas.i18n'
 import CreatePipelines from '../CreateModal/PipelineCreate'
@@ -21,6 +22,7 @@ export const PipelineCanvas: React.FC<{}> = (): JSX.Element => {
   const {
     pipeline,
     isUpdated,
+    isLoading,
     isInitialized,
     pipelineView: { isSetupStageOpen }
   } = state
@@ -97,6 +99,10 @@ export const PipelineCanvas: React.FC<{}> = (): JSX.Element => {
     },
     [hideModal, pipeline, updatePipeline]
   )
+
+  if (isLoading) {
+    return <PageSpinner />
+  }
 
   return (
     <div

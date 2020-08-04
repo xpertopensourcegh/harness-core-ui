@@ -1,5 +1,7 @@
 export default {
   stepConfiguration: 'Step Configuration',
+  stepGroupConfiguration: 'Step Group Configuration',
+  stepGroup: 'Step Group',
   advanced: 'Advanced',
   skipCondition: 'Skip Condition',
   specifyConditionToSkipThisStep: 'Specify condition to skip this step',

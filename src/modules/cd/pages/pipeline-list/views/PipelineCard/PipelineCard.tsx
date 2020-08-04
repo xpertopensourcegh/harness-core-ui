@@ -1,10 +1,10 @@
 import React from 'react'
 import { Card, Text, Color, Container, Button } from '@wings-software/uikit'
-import type { CDPipeline } from 'services/cd-ng'
+import type { CDPipelineSummaryResponseDTO } from 'services/cd-ng'
 import i18n from './PipelineCard.i18n'
 
 export interface PipelineCardProps {
-  pipeline: CDPipeline
+  pipeline: CDPipelineSummaryResponseDTO
   onClick: (pipelineIdentifier?: string) => void
 }
 

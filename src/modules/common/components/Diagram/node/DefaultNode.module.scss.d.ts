@@ -6,6 +6,8 @@ declare const styles: {
   readonly selected: string
   readonly closeNode: string
   readonly secondaryIcon: string
+  readonly inComplete: string
+  readonly iconGroup: string
   readonly addNode: string
 }
 export default styles

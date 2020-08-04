@@ -2,11 +2,15 @@ import type { DiagramModelOptions as DiagramModelCoreOptions, BaseModel } from '
 import { isNil } from 'lodash'
 import {
   DiagramModel as DiagramModelCore,
-  DiagramModelGenerics as DiagramModelGenericsCore
+  DiagramModelGenerics as DiagramModelGenericsCore,
+  NodeLayerModel
 } from '@projectstorm/react-diagrams-core'
 import type { Point } from '@projectstorm/geometry'
 import { DefaultLinkModel } from '../link/DefaultLinkModel'
 import { DefaultNodeModel } from '../node/DefaultNodeModel'
+import type { StepGroupNodeLayerModel } from '../layer/StepGroupNodeLayerModel'
+import { EmptyNodeModel } from '../node/EmptyNode/EmptyNodeModel'
+import { PortName } from '../Constants'
 import css from './DiagramModel.module.scss'
 
 export interface DiagramModelOptions extends DiagramModelCoreOptions {
@@ -25,6 +29,7 @@ export class DiagramModel<G extends DiagramModelGenerics = DiagramModelGenerics>
   startX: number
   startY: number
   gap: number
+  stepGroupLayers: StepGroupNodeLayerModel[] = []
 
   constructor(options: G['OPTIONS'] = {}) {
     super(options)
@@ -46,6 +51,24 @@ export class DiagramModel<G extends DiagramModelGenerics = DiagramModelGenerics>
       const node = nodes[key]
       node.remove()
     }
+    this.stepGroupLayers.forEach(layer => layer.remove())
+  }
+
+  useStepGroupLayer(stepGroupLayers: StepGroupNodeLayerModel): void {
+    if (this.stepGroupLayers.indexOf(stepGroupLayers) === -1) {
+      this.stepGroupLayers.push(stepGroupLayers)
+      super.addLayer(stepGroupLayers)
+    }
+    this.activeNodeLayer = stepGroupLayers
+  }
+
+  useNormalLayer(): void {
+    const layers = this.getNodeLayers()
+    layers.forEach(layer => {
+      if (layer instanceof NodeLayerModel) {
+        this.activeNodeLayer = layer
+      }
+    })
   }
 
   checkNodeNotAdded(node: DefaultNodeModel | undefined): boolean {
@@ -54,8 +77,15 @@ export class DiagramModel<G extends DiagramModelGenerics = DiagramModelGenerics>
     return isNil(nodeRendered)
   }
 
-  protected connectedParentToNode(node: DefaultNodeModel, parent: DefaultNodeModel, allowAdd = true): void {
-    const inPort = node.getPort('In') || node.addInPort('In')
+  protected connectedParentToNode(
+    node: DefaultNodeModel,
+    parent: DefaultNodeModel,
+    allowAdd = true,
+    strokeDasharray = 0,
+    color = 'var(--diagram-link)',
+    highestMidX?: number
+  ): void {
+    const inPort = node.getPort(PortName.In) || node.addInPort(PortName.In)
     const links = inPort.getLinks()
     let isConnectedToParent = false
     for (const linkId in links) {
@@ -66,15 +96,40 @@ export class DiagramModel<G extends DiagramModelGenerics = DiagramModelGenerics>
       }
     }
     if (!isConnectedToParent) {
-      const parentPort = parent.getPort('Out') || parent.addOutPort('Out')
+      const parentPort = parent.getPort(PortName.Out) || parent.addOutPort(PortName.Out)
       if (parentPort && inPort) {
-        const link = new DefaultLinkModel({ allowAdd })
+        const link = new DefaultLinkModel({ allowAdd, strokeDasharray, color, midXAngle: highestMidX })
         link.setSourcePort(parentPort)
         link.setTargetPort(inPort)
         this.addLink(link)
       }
     }
   }
+
+  protected connectMultipleParentsToNode(
+    node: DefaultNodeModel,
+    parents: DefaultNodeModel[],
+    allowAdd = true,
+    strokeDasharray = 0,
+    color = 'var(--diagram-link)'
+  ): void {
+    let highestMidX = 0
+    parents.forEach(parent => {
+      const inPort = node.getPort(PortName.In) || node.addInPort(PortName.In)
+      const parentPort = parent.getPort(PortName.Out) || parent.addOutPort(PortName.Out)
+      const midX =
+        parent instanceof EmptyNodeModel
+          ? (inPort.getPosition().x + parentPort.getPosition().x) / 2
+          : (inPort.getPosition().x + parentPort.getPosition().x + this.gap / 2) / 2
+      if (midX > highestMidX) {
+        highestMidX = midX
+      }
+    })
+    parents.forEach(parent => {
+      this.connectedParentToNode(node, parent, allowAdd, strokeDasharray, color, highestMidX)
+    })
+  }
+
   getNodeLinkAtPosition(position: Point): BaseModel | undefined {
     const nodes = this.getActiveNodeLayer().getNodes()
     const nearByNodes: DefaultNodeModel[] = []

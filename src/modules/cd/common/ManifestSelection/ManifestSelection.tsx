@@ -4,9 +4,8 @@ import cx from 'classnames'
 import { Dialog, IDialogProps } from '@blueprintjs/core'
 import { get } from 'lodash'
 
-import { getStageFromPipeline } from 'modules/cd/pages/pipelines/StageBuilder/StageBuilderModel'
-import type { StageWrapper } from 'services/ng-temp'
-import type { CDPipeline } from 'services/cd-ng'
+import type { StageElementWrapper, CDPipeline } from 'services/cd-ng'
+import { getStageFromPipeline } from 'modules/cd/pages/pipelines/StageBuilder/StageBuilderUtil'
 import { PipelineContext } from '../../pages/pipelines/PipelineContext/PipelineContext'
 import { ManifestWizard } from './ManifestWizardSteps/ManifestWizard'
 import i18n from './ManifestSelection.i18n'
@@ -42,7 +41,7 @@ function AddManifestRender({
   updatePipeline: object
   isForOverrideSets: boolean
   identifierName?: string
-  stage: StageWrapper | undefined
+  stage: StageElementWrapper | undefined
 }): JSX.Element {
   const modalPropsLight: IDialogProps = {
     isOpen: true,
@@ -91,7 +90,7 @@ function ManifestListView({
   isForOverrideSets: boolean
   updatePipeline: (pipeline: CDPipeline) => Promise<void>
   identifierName?: string
-  stage: StageWrapper | undefined
+  stage: StageElementWrapper | undefined
 }): JSX.Element {
   const modalPropsLight: IDialogProps = {
     isOpen: true,

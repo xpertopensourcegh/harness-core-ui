@@ -10,7 +10,10 @@ export const Event: { [key: string]: string } = {
   OffsetUpdated: 'offsetUpdated',
   ZoomUpdated: 'zoomUpdated',
   GridUpdated: 'gridUpdated',
+  StepGroupCollapsed: 'stepGroupCollapsed',
+  StepGroupClicked: 'stepGroupClicked',
   EntityRemoved: 'entityRemoved',
+  RollbackClicked: 'rollbackClicked',
   AddParallelNode: 'addParallelNode',
   SourcePortChanged: 'sourcePortChanged',
   TargetPortChanged: 'targetPortChanged'
@@ -21,5 +24,16 @@ export const DiagramType: { [key: string]: string } = {
   EmptyNode: 'empty-node',
   CreateNew: 'create-new',
   DiamondNode: 'default-diamond',
-  StartNode: 'node-start'
+  StartNode: 'node-start',
+  GroupNode: 'group-node'
+}
+
+export enum StepsType {
+  Normal = 'Normal',
+  Rollback = 'Rollback'
+}
+
+export const PortName: { [key: string]: string } = {
+  In: 'In',
+  Out: 'Out'
 }

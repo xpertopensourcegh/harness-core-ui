@@ -6,7 +6,7 @@ import * as Yup from 'yup'
 import { get } from 'lodash'
 import { StringUtils } from 'modules/common/exports'
 
-import type { StageWrapper } from 'services/ng-temp'
+import type { StageElementWrapper } from 'services/cd-ng'
 import i18n from './ManifestWizard.i18n'
 import css from './ManifestWizard.module.scss'
 
@@ -163,7 +163,7 @@ export const ManifestWizard = ({
   updatePipeline: object
   isForOverrideSets?: boolean
   identifierName?: string
-  stage: StageWrapper | undefined
+  stage: StageElementWrapper | undefined
 }): JSX.Element => {
   const [formData, setFormData] = useState({})
 

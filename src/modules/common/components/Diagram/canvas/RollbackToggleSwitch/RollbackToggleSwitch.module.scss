@@ -1,0 +1,19 @@
+.btn-rollback {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  pointer-events: all;
+
+  :global {
+    .bp3-button {
+      border-radius: 7px !important;
+      background-color: var(--grey-300) !important;
+      &.bp3-active {
+        background-color: var(--grey-100) !important;
+        border-color: var(--grey-350) !important;
+        border-bottom-right-radius: 7px !important;
+        border-top-right-radius: 7px !important;
+      }
+    }
+  }
+}

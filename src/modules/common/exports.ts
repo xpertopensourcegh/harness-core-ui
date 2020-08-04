@@ -4,12 +4,14 @@
 
 import * as Diagram from './components/Diagram/index'
 import * as StringUtils from './utils/StringUtils'
+import type { DynamicPopoverHandlerBinding as _DynamicPopoverHandlerBinding } from './components/DynamicPopover/DynamicPopover'
 // YamlUtils can't be imported as it's bundled as ESM
 // in which Jest will fail
 // @see https://github.com/facebook/jest/issues/4842
 // import * as YamlUtils from './utils/YamlUtils'
 import * as rsql from './utils/rsql'
-
+export type DynamicPopoverHandlerBinding<T> = _DynamicPopoverHandlerBinding<T>
+export { DynamicPopover } from './components/DynamicPopover/DynamicPopover'
 export { Page } from './components/Page/Page'
 export { useProjectModal } from './modals/ProjectModal/useProjectModal'
 export { Diagram, StringUtils, rsql /*, YamlUtils */ }

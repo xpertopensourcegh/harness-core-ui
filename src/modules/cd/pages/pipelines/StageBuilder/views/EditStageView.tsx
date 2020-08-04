@@ -16,8 +16,8 @@ import {
 import * as Yup from 'yup'
 import type { IconName } from '@blueprintjs/core'
 import type { StageElementWrapper } from 'services/cd-ng'
-import { MapStepTypeToIcon, getTypeOfStage, StageType } from '../StageBuilderModel'
 import i18n from '../StageBuilder.i18n'
+import { MapStepTypeToIcon, StageType, getTypeOfStage } from '../StageBuilderUtil'
 import css from '../StageBuilder.module.scss'
 
 const collapseProps = {

@@ -1,6 +1,6 @@
 import { DefaultNodeModel, DefaultNodeModelOptions } from '../DefaultNodeModel'
 import { DefaultPortModel } from '../../port/DefaultPortModel'
-import { DiagramType } from '../../Constants'
+import { DiagramType, PortName } from '../../Constants'
 
 export class EmptyNodeModel extends DefaultNodeModel {
   constructor(option: DefaultNodeModelOptions = { name: 'Empty' }) {
@@ -8,13 +8,13 @@ export class EmptyNodeModel extends DefaultNodeModel {
     this.addPort(
       new DefaultPortModel({
         in: false,
-        name: 'Out'
+        name: PortName.Out
       })
     )
     this.addPort(
       new DefaultPortModel({
         in: true,
-        name: 'In'
+        name: PortName.In
       })
     )
   }

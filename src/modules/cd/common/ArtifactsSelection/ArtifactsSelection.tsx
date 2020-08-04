@@ -5,8 +5,8 @@ import cx from 'classnames'
 import { get } from 'lodash'
 import { PipelineContext } from 'modules/cd/pages/pipelines/PipelineContext/PipelineContext'
 
-import { getStageFromPipeline } from 'modules/cd/pages/pipelines/StageBuilder/StageBuilderModel'
 import i18n from './ArtifactsSelection.i18n'
+import { getStageFromPipeline } from '../../pages/pipelines/StageBuilder/StageBuilderUtil'
 import css from './ArtifactsSelection.module.scss'
 
 interface ArtifactTable {

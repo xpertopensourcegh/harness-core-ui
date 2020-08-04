@@ -45,7 +45,10 @@ export function DynamicPopover<T>(props: DynamicPopoverProps<T>): JSX.Element {
             typeof options.darkMode === 'boolean' && setDarkMode(options.darkMode)
             typeof options.useArrows === 'boolean' && setArrowVisibility(options.useArrows)
           }
-          setHideCallBack(_prev => callback)
+          setHideCallBack(prev => {
+            prev?.()
+            return callback
+          })
         },
         hide: () => {
           setVisibility(false)

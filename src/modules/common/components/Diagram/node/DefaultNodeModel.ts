@@ -4,26 +4,31 @@ import type { BasePositionModelOptions, DeserializeEvent } from '@projectstorm/r
 import type { IconName } from '@wings-software/uikit'
 import type { IconProps } from '@wings-software/uikit/dist/icons/Icon'
 import { DefaultPortModel } from '../port/DefaultPortModel'
-import { DiagramType } from '../Constants'
+import { DiagramType, PortName } from '../Constants'
 import i18n from '../Diagram.i18n'
+import type { DefaultLinkModel } from '../link/DefaultLinkModel'
 
 export interface DefaultNodeModelOptions extends BasePositionModelOptions {
   name: string
   customNodeStyle?: React.CSSProperties
   width?: number
   height?: number
+  identifier?: string
   icon?: IconName
   allowAdd?: boolean
   iconProps?: IconProps
   canDelete?: boolean
+  isInComplete?: boolean
   secondaryIcon?: IconName
+  secondaryIconProps?: IconProps
+  secondaryIconStyle?: React.CSSProperties
 }
 
 export interface DefaultNodeModelGenerics extends NodeModelGenerics {
   OPTIONS: DefaultNodeModelOptions
 }
 
-export class DefaultNodeModel extends NodeModel<DefaultNodeModelGenerics> {
+export class DefaultNodeModel<G extends DefaultNodeModelGenerics = DefaultNodeModelGenerics> extends NodeModel<G> {
   protected portsIn: DefaultPortModel[]
   protected portsOut: DefaultPortModel[]
 
@@ -50,6 +55,18 @@ export class DefaultNodeModel extends NodeModel<DefaultNodeModelGenerics> {
     })
     this.portsOut = []
     this.portsIn = []
+    this.addPort(
+      new DefaultPortModel({
+        in: false,
+        name: PortName.Out
+      })
+    )
+    this.addPort(
+      new DefaultPortModel({
+        in: true,
+        name: PortName.In
+      })
+    )
   }
 
   doClone(lookupTable: {}, clone: any): void {
@@ -94,6 +111,10 @@ export class DefaultNodeModel extends NodeModel<DefaultNodeModelGenerics> {
     return this.addPort(port)
   }
 
+  getIdentifier(): string {
+    return this.options.identifier || ''
+  }
+
   addOutPort(label: string, after = true): DefaultPortModel {
     const port = new DefaultPortModel({
       in: false,
@@ -112,6 +133,7 @@ export class DefaultNodeModel extends NodeModel<DefaultNodeModelGenerics> {
     this.options.name = event.data.name
     this.options.customNodeStyle = { ...event.data.customNodeStyle }
     this.options.icon = event.data.icon
+    this.options.allowAdd = event.data.allowAdd
     this.options.secondaryIcon = event.data.secondaryIcon
     this.portsIn = map(event.data.portsInOrder, id => {
       return this.getPortFromID(id)
@@ -127,6 +149,7 @@ export class DefaultNodeModel extends NodeModel<DefaultNodeModelGenerics> {
       name: this.options.name,
       customNodeStyle: { ...this.options.customNodeStyle },
       icon: this.options.icon,
+      allowAdd: this.options.allowAdd,
       secondaryIcon: this.options.secondaryIcon,
       portsInOrder: map(this.portsIn, port => {
         return port.getID()
@@ -148,6 +171,15 @@ export class DefaultNodeModel extends NodeModel<DefaultNodeModelGenerics> {
 
 export interface DefaultNodeEvent {
   entity: DefaultNodeModel
+  isSelected: boolean
+  callback: () => void
+  target: HTMLElement
+  firing: boolean
+  stopPropagation: () => void
+}
+
+export interface DefaultLinkEvent {
+  entity: DefaultLinkModel
   isSelected: boolean
   callback: () => void
   firing: boolean

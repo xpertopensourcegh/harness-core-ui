@@ -28,7 +28,8 @@ const onAddNodeClick = (
     {
       callback: () => {
         setAddClicked(false)
-      }
+      },
+      target: e.target
     },
     Event.AddParallelNode
   )
@@ -36,12 +37,12 @@ const onAddNodeClick = (
 
 const onClick = (e: React.MouseEvent<Element, MouseEvent>, node: DefaultNodeModel): void => {
   e.stopPropagation()
-  node.fireEvent({}, Event.RemoveNode)
+  node.fireEvent({ target: e.target }, Event.RemoveNode)
 }
 
 const onClickNode = (e: React.MouseEvent<Element, MouseEvent>, node: DefaultNodeModel): void => {
   e.stopPropagation()
-  node.fireEvent({}, Event.ClickNode)
+  node.fireEvent({ target: e.target }, Event.ClickNode)
 }
 
 export const DefaultNodeWidget = (props: DefaultNodeProps): JSX.Element => {
@@ -77,6 +78,12 @@ export const DefaultNodeWidget = (props: DefaultNodeProps): JSX.Element => {
     }
   }, [nodeRef, allowAdd, addClicked])
 
+  React.useEffect(() => {
+    if (!addClicked) {
+      setVisibilityOfAdd(false)
+    }
+  }, [addClicked])
+
   return (
     <div className={css.defaultNode} ref={nodeRef} onClick={e => onClickNode(e, props.node)}>
       <div
@@ -91,7 +98,17 @@ export const DefaultNodeWidget = (props: DefaultNodeProps): JSX.Element => {
         {options.icon && <Icon size={28} name={options.icon} {...options.iconProps} />}
         <div>{props.node.getInPorts().map(port => generatePort(port, props))}</div>
         <div>{props.node.getOutPorts().map(port => generatePort(port, props))}</div>
-        {options.secondaryIcon && <Icon className={css.secondaryIcon} size={8} name={options.secondaryIcon} />}
+        {options.secondaryIcon && (
+          <Icon
+            className={css.secondaryIcon}
+            size={8}
+            name={options.secondaryIcon}
+            style={options.secondaryIconStyle}
+            {...options.secondaryIconProps}
+          />
+        )}
+
+        {options.isInComplete && <Icon className={css.inComplete} size={12} name={'warning-sign'} color="orange500" />}
 
         {options.canDelete && (
           <Button

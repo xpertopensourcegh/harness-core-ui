@@ -1,15 +1,17 @@
 import React from 'react'
 import { Card, Icon } from '@wings-software/uikit'
-import { StageType } from '../StageBuilderModel'
+import cx from 'classnames'
 import i18n from '../StageBuilder.i18n'
+import { StageType } from '../StageBuilderUtil'
 import css from '../StageBuilder.module.scss'
 
 export interface AddStageViewProps {
   callback: (type: StageType) => void
+  isParallel?: boolean
 }
 
-export const AddStageView: React.FC<AddStageViewProps> = ({ callback }) => (
-  <div className={css.createNewContent}>
+export const AddStageView: React.FC<AddStageViewProps> = ({ callback, isParallel = false }) => (
+  <div className={cx(css.createNewContent, { [css.parallel]: isParallel })}>
     <div className={css.createNewCards}>
       <Card interactive={true} className={css.cardNew} onClick={() => callback(StageType.DEPLOY)}>
         <Icon name="pipeline-deploy" size={24} />
@@ -19,10 +21,12 @@ export const AddStageView: React.FC<AddStageViewProps> = ({ callback }) => (
         <Icon name="pipeline" size={24} />
         <div>{i18n.pipeline}</div>
       </Card>
-      <Card interactive={true} className={css.cardNew} onClick={() => callback(StageType.APPROVAL)}>
-        <Icon name="pipeline-approval" size={24} />
-        <div>{i18n.approval}</div>
-      </Card>
+      {!isParallel && (
+        <Card interactive={true} className={css.cardNew} onClick={() => callback(StageType.APPROVAL)}>
+          <Icon name="pipeline-approval" size={24} />
+          <div>{i18n.approval}</div>
+        </Card>
+      )}
       <Card interactive={true} className={css.cardNew} onClick={() => callback(StageType.CUSTOM)}>
         <Icon name="pipeline-custom" size={24} />
         <div>{i18n.custom}</div>

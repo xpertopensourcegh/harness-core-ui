@@ -24,7 +24,6 @@
     "watch": "yarn clean && NODE_ENV=development webpack --watch",
     "services": "npm-run-all services:*",
     "services:portal": "restful-react import --config restful-react.config.js portal",
-    "services:ngtemp": "restful-react import --config restful-react.config.js ng-temp",
     "services:cdng": "restful-react import --config restful-react.config.js cd-ng",
     "postservices": "prettier --write src/services/**/*.tsx",
     "build": "yarn clean && GIT_COMMIT=$(git log -1 --pretty=%h) GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD) webpack",
@@ -39,6 +38,7 @@
     "@emotion/styled": "^10.0.27",
     "@popperjs/core": "^2.4.2",
     "@projectstorm/react-diagrams-core": "^6.2.0",
+    "@types/uuid": "^8.0.0",
     "@wings-software/mentions": "^1.2.9",
     "@wings-software/monaco-yaml": "2.4.32",
     "@wings-software/uikit": "1.1.10",
@@ -70,6 +70,7 @@
     "secure-web-storage": "^1.0.2",
     "split-view": "^1.0.1",
     "utility-types": "^3.10.0",
+    "uuid": "^8.3.0",
     "vscode-languageserver-types": "^3.14.0",
     "yaml": "^1.10.0",
     "yup": "^0.29.1"

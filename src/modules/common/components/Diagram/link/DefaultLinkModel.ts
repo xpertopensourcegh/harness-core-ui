@@ -25,7 +25,9 @@ export interface DefaultLinkModelOptions extends BaseModelOptions {
   color?: string
   selectedColor?: string
   curvyness?: number
+  strokeDasharray?: number
   type?: string
+  midXAngle?: number
   allowAdd?: boolean
   testName?: string
   curve?: number
@@ -42,6 +44,7 @@ export class DefaultLinkModel extends LinkModel<DefaultLinkModelGenerics> {
       type: DiagramType.Default,
       width: options.width || 2,
       curve: options.curve || 12,
+      strokeDasharray: options.strokeDasharray ?? 0,
       allowAdd: options.allowAdd || true,
       color: options.color || 'var(--diagram-link)',
       selectedColor: options.selectedColor || 'var(--diagram-hover-link-color)',
@@ -68,7 +71,8 @@ export class DefaultLinkModel extends LinkModel<DefaultLinkModelGenerics> {
       if (Math.abs(firstPoint.y - lastPoint.y) > 3 && this.options.curve) {
         const diameter = this.options.curve * 2
         const topToBottom = lastPoint.y - firstPoint.y > 0
-        const midX = new Point((firstPoint.x + lastPoint.x) / 2, firstPoint.y)
+        const middlePoint = this.options.midXAngle || (firstPoint.x + lastPoint.x) / 2
+        const midX = new Point(middlePoint, firstPoint.y)
         const midX1 = new Point(midX.x - diameter, midX.y)
         const midX2 = topToBottom ? new Point(midX.x, midX.y + diameter) : new Point(midX.x, midX.y - diameter)
         const midY = new Point(midX.x, lastPoint.y)

@@ -7,8 +7,8 @@ import { get } from 'lodash'
 import { PipelineContext } from 'modules/cd/pages/pipelines/PipelineContext/PipelineContext'
 import { loggerFor, ModuleName } from 'framework/exports'
 
-import { getStageFromPipeline } from 'modules/cd/pages/pipelines/StageBuilder/StageBuilderModel'
 import i18n from './InfraSpecifications.i18n'
+import { getStageFromPipeline } from '../../pages/pipelines/StageBuilder/StageBuilderUtil'
 import css from './InfraSpecifications.module.scss'
 
 const logger = loggerFor(ModuleName.CD)

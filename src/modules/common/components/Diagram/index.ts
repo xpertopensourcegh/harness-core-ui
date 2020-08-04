@@ -6,11 +6,13 @@ import {
 } from '@projectstorm/react-diagrams-core'
 
 import { SelectionBoxLayerFactory, CanvasEngineOptions } from '@projectstorm/react-canvas-core'
+import { StepGroupNodeLayerFactory } from './layer/StepGroupNodeLayerFactory'
 import { DefaultLabelFactory } from './label/DefaultLabelFactory'
 import { DefaultNodeFactory } from './node/DefaultNodeFactory'
 import { CreateNewFactory } from './node/CreateNew/CreateNewFactory'
 import { EmptyNodeFactory } from './node/EmptyNode/EmptyNodeFactory'
 import { NodeStartFactory } from './node/NodeStart/NodeStartFactory'
+import { GroupNodeFactory } from './node/GroupNode/GroupNodeFactory'
 import { DiamondNodeFactory } from './node/DiamondNode/DiamondNodeFactory'
 import { DefaultLinkFactory } from './link/DefaultLinkFactory'
 import { DefaultPortFactory } from './port/DefaultPortFactory'
@@ -29,6 +31,10 @@ export * from './node/DefaultNodeFactory'
 export * from './node/DefaultNodeModel'
 export * from './node/DefaultNodeWidget'
 
+export * from './layer/StepGroupNodeLayerFactory'
+export * from './layer/StepGroupNodeLayerModel'
+export * from './layer/StepGroupNodeLayerWidget'
+
 export * from './node/CreateNew/CreateNewFactory'
 export * from './node/CreateNew/CreateNewModel'
 export * from './node/CreateNew/CreateNewWidget'
@@ -36,6 +42,10 @@ export * from './node/CreateNew/CreateNewWidget'
 export * from './node/EmptyNode/EmptyNodeFactory'
 export * from './node/EmptyNode/EmptyNodeModel'
 export * from './node/EmptyNode/EmptyNodeWidget'
+
+export * from './node/GroupNode/GroupNodeFactory'
+export * from './node/GroupNode/GroupNodeModel'
+export * from './node/GroupNode/GroupNodeWidget'
 
 export * from './node/NodeStart/NodeStartFactory'
 export * from './node/NodeStart/NodeStartModel'
@@ -53,6 +63,8 @@ export * from './model/DiagramModel'
 export * from './canvas/CanvasWidget'
 export * from './Constants'
 
+export * from './canvas/RollbackToggleSwitch/RollbackToggleSwitch'
+
 /**
  * Construct an engine with the defaults installed
  */
@@ -61,6 +73,7 @@ export const createEngine = (options: CanvasEngineOptions = {}): DiagramEngine =
 
   // register model factories
   engine.getLayerFactories().registerFactory(new NodeLayerFactory())
+  engine.getLayerFactories().registerFactory(new StepGroupNodeLayerFactory())
   engine.getLayerFactories().registerFactory(new LinkLayerFactory())
   engine.getLayerFactories().registerFactory(new SelectionBoxLayerFactory())
 
@@ -70,6 +83,7 @@ export const createEngine = (options: CanvasEngineOptions = {}): DiagramEngine =
   engine.getPortFactories().registerFactory(new DefaultPortFactory())
   engine.getNodeFactories().registerFactory(new EmptyNodeFactory())
   engine.getNodeFactories().registerFactory(new CreateNewFactory())
+  engine.getNodeFactories().registerFactory(new GroupNodeFactory())
   engine.getNodeFactories().registerFactory(new DiamondNodeFactory())
   engine.getNodeFactories().registerFactory(new NodeStartFactory())
 

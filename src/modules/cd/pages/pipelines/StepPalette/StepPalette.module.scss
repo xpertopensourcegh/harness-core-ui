@@ -40,3 +40,15 @@
 .select-step {
   flex: 1;
 }
+
+.step-palette {
+  display: grid;
+  grid-template-columns: 1fr 60px;
+  height: 100%;
+  overflow-y: hidden;
+
+  .step-inside {
+    padding: var(--spacing-large);
+    overflow-x: auto;
+  }
+}

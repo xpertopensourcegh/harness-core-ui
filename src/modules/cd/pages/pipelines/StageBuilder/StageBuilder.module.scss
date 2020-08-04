@@ -28,8 +28,23 @@
     width: 100%;
   }
 
+  .render-popover {
+    min-width: 140px;
+    z-index: 2;
+    overflow-y: scroll;
+    max-height: 500px;
+  }
+
   .create-new-content {
     max-width: 300px;
+
+    &.parallel {
+      max-width: 220px;
+
+      .create-new-cards {
+        grid-template-columns: 66px 66px 66px;
+      }
+    }
 
     .create-new-cards {
       display: grid;

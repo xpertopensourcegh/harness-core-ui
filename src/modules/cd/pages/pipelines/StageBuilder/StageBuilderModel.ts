@@ -1,64 +1,17 @@
 import type { IconName } from '@wings-software/uikit'
 import { isEmpty } from 'lodash'
-import type { NodeModelListener, LinkModelListener } from '@projectstorm/react-diagrams-core'
 import { Diagram } from 'modules/common/exports'
 import type { CDPipeline, StageElementWrapper } from 'services/cd-ng'
-import type { Stage, DeploymentStage } from 'services/ng-temp'
 import i18n from './StageBuilder.i18n'
-
-export enum StageType {
-  DEPLOY = 'Deployment',
-  APPROVAL = 'Approval',
-  PIPELINE = 'Pipeline',
-  CUSTOM = 'Custom'
-}
-
-export const MapStepTypeToIcon: { [key in StageType]: IconName } = {
-  Deployment: 'pipeline-deploy',
-  Approval: 'pipeline-approval',
-  Pipeline: 'pipeline',
-  Custom: 'pipeline-custom'
-}
-
-export interface Listeners {
-  nodeListeners: NodeModelListener
-  linkListeners: LinkModelListener
-}
-
-export const EmptyNodeSeparator = '$node$'
-
-export const getStageFromPipeline = (
-  data: CDPipeline | StageElementWrapper,
-  identifier: string
-): { stage: StageElementWrapper | undefined; parent: StageElementWrapper | undefined } => {
-  let stage: StageElementWrapper | undefined = undefined
-  let parent: StageElementWrapper | undefined = undefined
-  data.stages?.forEach((node: StageElementWrapper) => {
-    if (!stage) {
-      if (node?.stage?.identifier === identifier) {
-        stage = node
-      } else if (node?.parallel) {
-        stage = getStageFromPipeline({ stages: node.parallel }, identifier).stage
-        if (stage) {
-          parent = node
-        }
-      }
-    }
-  })
-
-  return { stage, parent }
-}
-
-export const getTypeOfStage = (stage: Stage): { type: StageType; stage: DeploymentStage | Stage } => {
-  if (stage.type === StageType.DEPLOY) {
-    return { type: StageType.DEPLOY, stage: stage as DeploymentStage }
-  } else if (stage.type === StageType.APPROVAL) {
-    return { type: StageType.APPROVAL, stage }
-  } else if (stage.type === StageType.PIPELINE) {
-    return { type: StageType.PIPELINE, stage }
-  }
-  return { type: StageType.CUSTOM, stage }
-}
+import { EmptyStageName } from '../PipelineConstants'
+import {
+  StageType,
+  MapStepTypeToIcon,
+  getTypeOfStage,
+  getCommonStyles,
+  EmptyNodeSeparator,
+  Listeners
+} from './StageBuilderUtil'
 
 export class StageBuilderModel extends Diagram.DiagramModel {
   constructor() {
@@ -83,29 +36,26 @@ export class StageBuilderModel extends Diagram.DiagramModel {
       const { type } = getTypeOfStage(node.stage)
       startX += this.gap
       const isSelected = selectedStageId === node.stage.identifier
-      const customNodeStyle: React.CSSProperties = {
-        backgroundColor: isSelected ? 'var(--pipeline-selected-node)' : 'var(--white)',
-        borderColor: isSelected ? 'var(--diagram-selected)' : 'var(--pipeline-grey-border)',
-        borderWidth: isSelected ? '2px' : '1px'
-      }
       const nodeRender =
         type === StageType.APPROVAL
           ? new Diagram.DiamondNodeModel({
-              id: node.stage.identifier,
+              identifier: node.stage.identifier,
               customNodeStyle: {
                 // Without this doesn't look straight
                 marginTop: '2.5px',
-                ...customNodeStyle
+                ...getCommonStyles(isSelected)
               },
               name: node.stage.name,
               width: 57,
+              isInComplete: node.stage.name === EmptyStageName,
               height: 57,
               icon: MapStepTypeToIcon[type]
             })
           : new Diagram.DefaultNodeModel({
-              id: node.stage.identifier,
-              customNodeStyle,
+              identifier: node.stage.identifier,
+              customNodeStyle: getCommonStyles(isSelected),
               name: node.stage.name,
+              isInComplete: node.stage.name === EmptyStageName,
               width: 114,
               allowAdd: allowAdd === true,
               height: 50,
@@ -120,46 +70,82 @@ export class StageBuilderModel extends Diagram.DiagramModel {
         })
       }
       return { startX, startY, prevNodes: [nodeRender] }
-    } else if (node.parallel) {
-      let newX = startX
-      let newY = startY
-      if (!isEmpty(prevNodes) && prevNodes) {
-        const emptyNodeStart = new Diagram.EmptyNodeModel({
-          id: `${EmptyNodeSeparator}-${EmptyNodeSeparator}${node.parallel[0].stage.identifier}${EmptyNodeSeparator}`,
-          name: 'Empty'
+    } else if (node.parallel && node.parallel.length > 0) {
+      if (selectedStageId) {
+        const parallelStageNames: Array<string> = []
+        let isSelected = false
+        const icons: Array<IconName> = []
+        node.parallel.forEach((nodeP: StageElementWrapper) => {
+          if (nodeP.stage.identifier === selectedStageId) {
+            parallelStageNames.unshift(nodeP.stage.name)
+            icons.unshift(MapStepTypeToIcon[getTypeOfStage(nodeP.stage).type])
+            isSelected = true
+          } else {
+            parallelStageNames.push(nodeP.stage.name)
+            icons.push(MapStepTypeToIcon[getTypeOfStage(nodeP.stage).type])
+          }
         })
-        this.addNode(emptyNodeStart)
-        newX += this.gap
-        emptyNodeStart.setPosition(newX, newY)
-        prevNodes.forEach((prevNode: Diagram.DefaultNodeModel) => {
-          this.connectedParentToNode(emptyNodeStart, prevNode, true)
+        const groupedNode = new Diagram.GroupNodeModel({
+          customNodeStyle: getCommonStyles(isSelected),
+          identifier: isSelected ? selectedStageId : node.parallel[0].stage.identifier,
+          name:
+            parallelStageNames.length > 2
+              ? `${parallelStageNames[0]}, ${parallelStageNames[1]}, +${parallelStageNames.length - 2}`
+              : parallelStageNames.join(', '),
+          width: 114,
+
+          height: 50,
+          icons
         })
-        prevNodes = [emptyNodeStart]
-        newX = newX - this.gap / 2 - 20
-      }
-      const prevNodesAr: Diagram.DefaultNodeModel[] = []
-      node.parallel.forEach((nodeP: StageElementWrapper, index: number) => {
-        const isLastNode = node.parallel.length === index + 1
-        const resp = this.renderGraphNodes(nodeP, newX, newY, selectedStageId, prevNodes, isLastNode, true)
-        startX = resp.startX
-        newY = resp.startY + this.gap / 2
-        if (resp.prevNodes) {
-          prevNodesAr.push(...resp.prevNodes)
-        }
-      })
-      if (!isEmpty(prevNodesAr)) {
-        const emptyNodeEnd = new Diagram.EmptyNodeModel({
-          id: `${EmptyNodeSeparator}${node.parallel[0].stage.identifier}${EmptyNodeSeparator}`,
-          name: 'Empty'
-        })
-        this.addNode(emptyNodeEnd)
         startX += this.gap
-        emptyNodeEnd.setPosition(startX, startY)
-        prevNodesAr.forEach((prevNode: Diagram.DefaultNodeModel) => {
-          this.connectedParentToNode(emptyNodeEnd, prevNode, false)
+        this.addNode(groupedNode)
+        groupedNode.setPosition(startX, startY)
+        if (!isEmpty(prevNodes) && prevNodes) {
+          prevNodes.forEach((prevNode: Diagram.DefaultNodeModel) => {
+            this.connectedParentToNode(groupedNode, prevNode, !isParallelNodes)
+          })
+        }
+      } else {
+        let newX = startX
+        let newY = startY
+        if (!isEmpty(prevNodes) && prevNodes && node.parallel.length > 1) {
+          const emptyNodeStart = new Diagram.EmptyNodeModel({
+            identifier: `${EmptyNodeSeparator}-${EmptyNodeSeparator}${node.parallel[0].stage.identifier}${EmptyNodeSeparator}`,
+            name: 'Empty'
+          })
+          this.addNode(emptyNodeStart)
+          newX += this.gap
+          emptyNodeStart.setPosition(newX, newY)
+          prevNodes.forEach((prevNode: Diagram.DefaultNodeModel) => {
+            this.connectedParentToNode(emptyNodeStart, prevNode, true)
+          })
+          prevNodes = [emptyNodeStart]
+          newX = newX - this.gap / 2 - 20
+        }
+        const prevNodesAr: Diagram.DefaultNodeModel[] = []
+        node.parallel.forEach((nodeP: StageElementWrapper, index: number) => {
+          const isLastNode = node.parallel.length === index + 1
+          const resp = this.renderGraphNodes(nodeP, newX, newY, selectedStageId, prevNodes, isLastNode, true)
+          startX = resp.startX
+          newY = resp.startY + this.gap / 2
+          if (resp.prevNodes) {
+            prevNodesAr.push(...resp.prevNodes)
+          }
         })
-        prevNodes = [emptyNodeEnd]
-        startX = startX - this.gap / 2 - 20
+        if (!isEmpty(prevNodesAr) && node.parallel.length > 1) {
+          const emptyNodeEnd = new Diagram.EmptyNodeModel({
+            identifier: `${EmptyNodeSeparator}${node.parallel[0].stage.identifier}${EmptyNodeSeparator}`,
+            name: 'Empty'
+          })
+          this.addNode(emptyNodeEnd)
+          startX += this.gap
+          emptyNodeEnd.setPosition(startX, startY)
+          prevNodesAr.forEach((prevNode: Diagram.DefaultNodeModel) => {
+            this.connectedParentToNode(emptyNodeEnd, prevNode, false)
+          })
+          prevNodes = [emptyNodeEnd]
+          startX = startX - this.gap / 2 - 20
+        }
       }
 
       return { startX, startY, prevNodes }
@@ -169,7 +155,8 @@ export class StageBuilderModel extends Diagram.DiagramModel {
 
   addUpdateGraph(data: CDPipeline, listeners: Listeners, selectedStageId?: string): void {
     let { startX, startY } = this
-    this.clearAllNodesAndLinks()
+    this.clearAllNodesAndLinks() // TODO: Improve this
+
     // Unlock Graph
     this.setLocked(false)
 
@@ -179,7 +166,7 @@ export class StageBuilderModel extends Diagram.DiagramModel {
     this.addNode(startNode)
 
     // Stop Node
-    const stopNode = new Diagram.NodeStartModel({ id: 'stop', icon: 'stop', isStart: false, color: 'var(--red-800)' })
+    const stopNode = new Diagram.NodeStartModel({ id: 'stop', icon: 'stop', isStart: false })
 
     // Create Node
     const createNode = new Diagram.CreateNewModel({
@@ -191,6 +178,7 @@ export class StageBuilderModel extends Diagram.DiagramModel {
     })
 
     startX -= this.gap / 2
+
     let prevNodes: Diagram.DefaultNodeModel[] = [startNode]
     data.stages?.forEach((node: StageElementWrapper) => {
       const resp = this.renderGraphNodes(node, startX, startY, selectedStageId, prevNodes, true)

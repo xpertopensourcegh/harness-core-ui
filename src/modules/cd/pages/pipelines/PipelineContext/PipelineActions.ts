@@ -53,7 +53,7 @@ const updatePipelineView = (response: ActionResponse): ActionReturnType => ({
 })
 const updating = (): ActionReturnType => ({ type: PipelineActions.UpdatePipeline })
 const fetching = (): ActionReturnType => ({ type: PipelineActions.Fetching })
-const pipelineSavedAction = (): ActionReturnType => ({ type: PipelineActions.Fetching })
+const pipelineSavedAction = (): ActionReturnType => ({ type: PipelineActions.PipelineSaved })
 const success = (response: ActionResponse): ActionReturnType => ({ type: PipelineActions.Success, response })
 const error = (response: ActionResponse): ActionReturnType => ({ type: PipelineActions.Error, response })
 
@@ -72,8 +72,7 @@ export const initialState: PipelineReducerState = {
   pipeline: { ...DefaultPipeline },
   pipelineIdentifier: DefaultNewPipelineId,
   pipelineView: {
-    isSetupStageOpen: false,
-    selectedStageId: 'Login_Deploy'
+    isSetupStageOpen: false
   },
   isLoading: false,
   isDBInitialized: false,
@@ -104,7 +103,6 @@ export const PipelineReducer = (state = initialState, data: ActionReturnType): P
     case PipelineActions.UpdatePipeline:
       return {
         ...state,
-        isLoading: true,
         isUpdated: true,
         pipeline: response?.pipeline ? clone(response?.pipeline) : state.pipeline
       }

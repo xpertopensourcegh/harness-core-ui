@@ -22,10 +22,12 @@ export class DefaultLinkFactory<Link extends DefaultLinkModel = DefaultLinkModel
   }
 
   generateLinkSegment(model: Link, selected: boolean, path: string): JSX.Element {
+    const options = model.getOptions()
     return (
       <path
-        stroke={selected ? model.getOptions().selectedColor : model.getOptions().color}
-        strokeWidth={model.getOptions().width}
+        stroke={selected ? options.selectedColor : options.color}
+        strokeWidth={options.width}
+        strokeDasharray={options.strokeDasharray}
         d={path}
         fill="none"
         pointerEvents="all"

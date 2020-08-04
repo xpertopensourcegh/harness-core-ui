@@ -3,7 +3,9 @@
 declare const styles: {
   readonly container: string
   readonly canvas: string
+  readonly renderPopover: string
   readonly createNewContent: string
+  readonly parallel: string
   readonly createNewCards: string
   readonly cardNew: string
   readonly createNewMessage: string

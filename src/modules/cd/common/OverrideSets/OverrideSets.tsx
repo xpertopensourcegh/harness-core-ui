@@ -3,7 +3,7 @@ import { Layout, Text, CollapseList, CollapseListPanel, Button, TextInput, Label
 import { Dialog, IDialogProps } from '@blueprintjs/core'
 import { get } from 'lodash'
 import { PipelineContext } from 'modules/cd/pages/pipelines/PipelineContext/PipelineContext'
-import { getStageFromPipeline } from 'modules/cd/pages/pipelines/StageBuilder/StageBuilderModel'
+import { getStageFromPipeline } from 'modules/cd/pages/pipelines/StageBuilder/StageBuilderUtil'
 import i18n from './OverrideSets.i18n'
 
 import ArtifactsSelection from '../ArtifactsSelection/ArtifactsSelection'
