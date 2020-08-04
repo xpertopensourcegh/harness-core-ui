@@ -1,16 +1,18 @@
 // @ts-nocheck
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import MonacoEditor from 'react-monaco-editor'
 import '@wings-software/monaco-yaml/lib/esm/monaco.contribution'
 import { languages } from 'monaco-editor/esm/vs/editor/editor.api'
 import 'monaco-editor'
 import YamlWorker from 'worker-loader!@wings-software/monaco-yaml/lib/esm/yaml.worker'
 import EditorWorker from 'worker-loader!monaco-editor/esm/vs/editor/editor.worker'
+import { Toaster, Intent } from '@blueprintjs/core'
+import cx from 'classnames'
+import * as YAML from 'yaml'
 
 import { JSONSchemaService } from 'modules/dx/services'
 import { Tag } from '@wings-software/uikit'
-import { YamlBuilderProps } from 'modules/common/interfaces/YAMLBuilderProps'
-import cx from 'classnames'
+import type { YamlBuilderProps, InvocationContext } from 'modules/common/interfaces/YAMLBuilderProps'
 
 import css from './YamlBuilder.module.scss'
 
@@ -26,7 +28,7 @@ monaco.editor.defineTheme('vs', {
 monaco.editor.setTheme('vs')
 
 window.MonacoEnvironment = {
-  getWorker(workerId, label) {
+  getWorker(workerId, label: string) {
     if (label === 'yaml') {
       return new YamlWorker()
     }
@@ -34,7 +36,7 @@ window.MonacoEnvironment = {
   }
 }
 
-const { yaml } = languages || {}
+const toaster = Toaster.create()
 
 interface CompletionItemInterface {
   label: string
@@ -42,13 +44,71 @@ interface CompletionItemInterface {
   value: string
 }
 
-let yamlInEditor
+/**
+ * @description Find json path(s) of a given node in json from it's nearest parent
+ * @param obj json object
+ * @param leaf leaf node whose path(s) from the nearest parent needs to be known
+ * @param delimiter delimiter to be used in node path(s) from parent
+ * @returns matching json paths(s)
+ */
+function findLeafToParentPath(obj: Record<string, any>, leaf: string, delimiter?: string): Map<string, string> {
+  delimiter = delimiter || '.'
+  const paths = new Map<string, string>()
+
+  function findPath(currObj: Record<string, any>, currentDepth: number, previous?: string) {
+    Object.keys(currObj).forEach(function (key) {
+      const value = currObj[key]
+      const type = Object.prototype.toString.call(value)
+      const isObject = type === '[object Object]' || type === '[object Array]'
+      const newKey = previous ? previous + delimiter + key : key
+      if (isObject && Object.keys(value).length) {
+        return findPath(value, currentDepth + 1, newKey)
+      }
+      if (newKey.includes(leaf)) paths.set(leaf, newKey)
+    })
+  }
+
+  findPath(obj, 1)
+
+  return paths
+}
+
+function getJSONFromYAML(yaml: string): Record<string, any> {
+  try {
+    return YAML.parse(yaml)
+  } catch (error) {
+    toaster.show({ message: 'Error while content parsing', intent: Intent.DANGER, timeout: 5000 })
+    return {}
+  }
+}
 
 const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
-  const { height, width, fileName, entityType, existingYaml, isReadOnlyMode, showSnippetsSection } = props
-  const [currentYaml, setCurrentYaml] = useState()
+  const {
+    height,
+    width,
+    fileName,
+    entityType,
+    existingYaml,
+    isReadOnlyMode,
+    showSnippetsSection,
+    invocationMap,
+    bind
+  } = props
+  const [currentYaml, setCurrentYaml] = useState<string | undefined>('')
+  const yamlPathToRTValueMap = useRef(new Map<string, any>())
+  const yamlPathToRefetcherMap = useRef(new Map<string, InvocationContext>())
 
-  const { bind } = props
+  if (invocationMap && invocationMap.size > 0) {
+    invocationMap.forEach((key: InvocationContext, value: string) => {
+      const { serviceHook, args } = key,
+        yamlPath = value
+      if (typeof serviceHook === 'function') {
+        const { data, refetch } = serviceHook(args)
+        yamlPathToRefetcherMap.current.set(yamlPath, refetch)
+        yamlPathToRTValueMap.current.set(yamlPath, data)
+      }
+    })
+  }
 
   const handler = React.useMemo(
     () =>
@@ -58,76 +118,139 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
     [currentYaml]
   )
 
-  React.useEffect(() => {
+  useEffect(() => {
     bind?.(handler)
   }, [bind, handler])
+
+  useEffect(() => {
+    const { yaml } = languages || {}
+    const jsonSchemas = loadEntitySchemas(entityType)
+    yaml?.yamlDefaults.setDiagnosticsOptions(jsonSchemas)
+    setCurrentYaml(props.existingYaml)
+  }, [existingYaml, entityType])
 
   function loadEntitySchemas(entityType: string) {
     const jsonSchemas = JSONSchemaService.fetchEntitySchemas(entityType)
     return jsonSchemas
   }
 
-  const onYamlChange = (updatedYaml: string): void => {
-    yamlInEditor = updatedYaml
-    setCurrentYaml(updatedYaml)
-  }
-
-  function fetchAutocompleteItems(yamlPath: string): CompletionItemInterface[] {
-    const resultSet = JSONSchemaService.fetchSuggestions(yamlPath)
-    const suggestions = resultSet.map(item => {
-      return {
-        label: item,
-        kind: monaco.languages.CompletionItemKind.Value,
-        insertText: '{' + item + '}'
-      }
-    })
-    return suggestions
-  }
-
   function provideCompletionItems(suggestions: CompletionItemInterface[]) {
     return { suggestions }
   }
 
-  let deRegisterExistingCompletionProvider
-  function registerCompletionItemProvider(editor, context: string): void {
-    if (!context) {
-      return
+  const disposePreviousSuggestions = (): void => {
+    if (expressionCompletionDisposer) {
+      expressionCompletionDisposer.dispose()
     }
-    if (deRegisterExistingCompletionProvider) {
-      deRegisterExistingCompletionProvider.dispose()
+    if (runTimeCompletionDisposer) {
+      runTimeCompletionDisposer.dispose()
     }
+  }
+
+  /** For expressions */
+  function fetchAutocompleteItemsForExpressions(callBackFunc: Function): CompletionItemInterface[] {
+    const response = callBackFunc()
+    if (response?.length > 0) {
+      //TODO Add type when available
+      const suggestions = response.map((item: any) => {
+        return {
+          label: item,
+          kind: monaco.languages.CompletionItemKind.Value,
+          insertText: '{' + item + '}'
+        }
+      })
+      return suggestions
+    }
+    return []
+  }
+
+  let expressionCompletionDisposer: { dispose: () => void }
+  function registerCompletionItemProviderForExpressions(editor): void {
     if (editor) {
-      const suggestions = fetchAutocompleteItems(context)
-      deRegisterExistingCompletionProvider = editor?.languages?.registerCompletionItemProvider('yaml', {
+      const suggestions = fetchAutocompleteItemsForExpressions(JSONSchemaService.fetchExpressions)
+      expressionCompletionDisposer = editor?.languages?.registerCompletionItemProvider('yaml', {
         triggerCharacters: ['$'],
-        provideCompletionItems: (...args) => provideCompletionItems(suggestions, ...args)
+        provideCompletionItems: () => provideCompletionItems(suggestions)
       })
     }
   }
 
-  function getContextFromYamlPath(yamlInEditor: string, currentToken: string): string {
-    let currentContext = ''
-    if (!yamlInEditor || !currentToken) {
-      return currentContext
+  /** For RT Inputs */
+  async function fetchRTAutocompleteItems(
+    refetcherFunc: Function,
+    yamlPath: string
+  ): Promise<CompletionItemInterface[]> {
+    await refetcherFunc({ accountIdentifier: 'kmpySmUISimoRrJL6NL73w' })
+    const rtValueForYamlPath = yamlPathToRTValueMap.current.get(yamlPath)
+    if (rtValueForYamlPath?.data?.content?.length > 0) {
+      const items = rtValueForYamlPath?.data?.content
+      const suggestions = items.map((item: Record<string, any>) => {
+        if (item.name) {
+          const itemName = item.name.trim()
+          return {
+            label: itemName,
+            kind: monaco.languages.CompletionItemKind.Value,
+            insertText: itemName
+          }
+        }
+      })
+      return suggestions
     }
-    const currentTag = currentToken.replace(':', '')
-    const tokens = yamlInEditor.split('\n')
-    let tags = tokens.map(token => {
-      if (token) {
-        const [key, value] = token.split(':')
-        return key ? key.trim() : ''
+    return []
+  }
+
+  let runTimeCompletionDisposer: { dispose: () => void }
+  async function registerCompletionItemProviderForRTInputs(
+    editor,
+    yamlPath: string,
+    refetcherFunc: Function
+  ): Promise<void> {
+    if (editor) {
+      const suggestions = await fetchRTAutocompleteItems(refetcherFunc, yamlPath)
+      runTimeCompletionDisposer = editor?.languages?.registerCompletionItemProvider('yaml', {
+        triggerCharacters: [' '],
+        provideCompletionItems: () => provideCompletionItems(suggestions)
+      })
+    }
+  }
+
+  const invokeRefetchersWithMatchingYamlPaths = (monaco, paths: Map<string, string>): void => {
+    paths.forEach(value => {
+      if (yamlPathToRefetcherMap.current.has(value)) {
+        const refetcherFunc = yamlPathToRefetcherMap.current.get(value)
+        if (refetcherFunc && typeof refetcherFunc === 'function') {
+          registerCompletionItemProviderForRTInputs(monaco, value, refetcherFunc)
+        }
       }
     })
-    const currIndex = tags.indexOf(currentTag)
-    if (currIndex < 0) {
-      return currentContext
-    } else {
-      tags = tags.splice(0, currIndex + 1)
+  }
+
+  const handleEditorEvent = (event: KeyboardEvent, editor): void => {
+    const { shiftKey, code } = event
+    //TODO Need to check hotkey for cross browser/cross OS compatibility
+    //TODO Need to debounce this function call for performance optimization
+    if (shiftKey) {
+      disposePreviousSuggestions()
+      if (code === 'Digit4') {
+        registerCompletionItemProviderForExpressions(monaco)
+      } else if (code === 'Semicolon') {
+        const currentToken = editor.getModel().getLineContent(editor.getPosition().lineNumber)
+        const yamlInEditor = editor.getValue()
+        if (currentToken && yamlInEditor) {
+          const sanitizedToken = currentToken.replace(':', '').trim()
+          const sanitizedYaml = yamlInEditor.replace(/\n+$/, '')
+          const jsonObjForYamlInEditor = getJSONFromYAML(sanitizedYaml.concat(': placeholder'))
+          if (jsonObjForYamlInEditor && Object.keys(jsonObjForYamlInEditor).length > 0) {
+            const matchingPaths = findLeafToParentPath(jsonObjForYamlInEditor, sanitizedToken)
+            invokeRefetchersWithMatchingYamlPaths(monaco, matchingPaths)
+          }
+        }
+      }
     }
-    if (tags.length > 0) {
-      currentContext = tags.reduce((acc, curr) => acc.concat('.').concat(curr))
-    }
-    return currentContext
+  }
+
+  const onYamlChange = (updatedYaml: string): void => {
+    setCurrentYaml(updatedYaml)
   }
 
   const editorDidMount = (editor, monaco) => {
@@ -135,24 +258,9 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
       if (!props.isReadOnlyMode) {
         editor.focus()
       }
-      editor.onKeyDown(event => {
-        const { shiftKey, code } = event
-        //TODO Need to check hotkey for cross browser/cross OS compatibility
-        if (shiftKey && code === 'Digit4') {
-          const currentToken = editor.getModel().getLineContent(editor.getPosition().lineNumber)
-          const currentContext = getContextFromYamlPath(yamlInEditor, currentToken.trim())
-          //TODO Need to debounce this function call for performance optimization
-          registerCompletionItemProvider(monaco, currentContext)
-        }
-      })
+      editor.onKeyDown((event: KeyboardEvent) => handleEditorEvent(event, editor))
     }
   }
-
-  useEffect(() => {
-    const jsonSchemas = loadEntitySchemas(entityType)
-    yaml?.yamlDefaults.setDiagnosticsOptions(jsonSchemas)
-    setCurrentYaml(props.existingYaml)
-  }, [existingYaml, entityType])
 
   return (
     <div className={cx(css.main, { [css.editorOnly]: !showSnippetsSection })}>

@@ -9,6 +9,12 @@ export default interface YamlBuilderProps {
   existingYaml?: string
   entityType: string
   bind?: (dynamicPopoverHandler: YamlBuilderHandlerBinding) => void
+  invocationMap?: Map<string, InvocationContext>
   isReadOnlyMode?: boolean
   showSnippetsSection?: boolean
+}
+
+export interface InvocationContext {
+  serviceHook: Function
+  args: Record<string, any>
 }
