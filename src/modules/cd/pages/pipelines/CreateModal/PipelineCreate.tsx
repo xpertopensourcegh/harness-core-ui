@@ -13,7 +13,7 @@ import {
 } from '@wings-software/uikit'
 import * as Yup from 'yup'
 import { loggerFor, ModuleName } from 'framework/exports'
-import type { CDPipelineDTO } from 'services/cd-ng'
+import type { CDPipeline } from 'services/cd-ng'
 import i18n from './PipelineCreate.i18n'
 import { DefaultNewPipelineId } from '../PipelineContext/PipelineActions'
 import image1 from './images/first.png'
@@ -31,8 +31,8 @@ const collapseProps = {
 }
 
 interface PipelineCreateProps {
-  afterSave?: (values: CDPipelineDTO) => void
-  initialValues?: CDPipelineDTO
+  afterSave?: (values: CDPipeline) => void
+  initialValues?: CDPipeline
   closeModal?: () => void
 }
 

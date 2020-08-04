@@ -4,7 +4,7 @@ import { useHistory, useParams } from 'react-router-dom'
 import { Page } from 'modules/common/exports'
 import { routePipelineCanvas } from 'modules/cd/routes'
 import { linkTo } from 'framework/exports'
-import { useGetPipelineList, CDPipelineDTO } from 'services/cd-ng'
+import { useGetPipelineList, CDPipelineResponseDTO } from 'services/cd-ng'
 import i18n from './PipelineList.i18n'
 import { PipelineCard } from './views/PipelineCard/PipelineCard'
 import css from './PipelineList.module.scss'
@@ -65,10 +65,14 @@ const PipelineList: React.FC = () => {
           width={900}
           className={css.centerContainer}
           items={data?.data?.content || []}
-          renderItem={(pipeline: CDPipelineDTO) => (
-            <PipelineCard pipeline={pipeline} onClick={() => goToPipeline(pipeline.identifier)} />
-          )}
-          keyOf={(pipeline: CDPipelineDTO) => pipeline.identifier}
+          renderItem={(item: CDPipelineResponseDTO) =>
+            item.cdPipeline ? (
+              <PipelineCard pipeline={item.cdPipeline} onClick={() => goToPipeline(item.cdPipeline?.identifier)} />
+            ) : (
+              <span />
+            )
+          }
+          keyOf={(item: CDPipelineResponseDTO) => item?.cdPipeline?.identifier}
         />
       </Page.Body>
     </>

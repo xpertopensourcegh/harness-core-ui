@@ -8,7 +8,7 @@ import { YAMLBuilderPage } from 'modules/dx/pages/yamlBuilder'
 import { YamlEntity } from 'modules/common/constants/YamlConstants'
 import { NavigationCheck, useToaster } from 'modules/common/exports'
 import type { YamlBuilderHandlerBinding } from 'modules/common/interfaces/YAMLBuilderProps'
-import type { CDPipelineDTO, ResponseDTOString } from 'services/cd-ng'
+import type { CDPipeline, ResponseDTOString } from 'services/cd-ng'
 import { PipelineContext, savePipeline } from '../PipelineContext/PipelineContext'
 import i18n from './PipelineCanvas.i18n'
 import CreatePipelines from '../CreateModal/PipelineCreate'
@@ -43,7 +43,7 @@ export const PipelineCanvas: React.FC<{}> = (): JSX.Element => {
         pipeObj.pipeline,
         pipelineIdentifier !== DefaultNewPipelineId
       )
-      updatePipeline(pipeObj.pipeline as CDPipelineDTO)
+      updatePipeline(pipeObj.pipeline as CDPipeline)
     } else {
       response = await savePipeline(
         { accountIdentifier: accountId, projectIdentifier, orgIdentifier },
@@ -87,7 +87,7 @@ export const PipelineCanvas: React.FC<{}> = (): JSX.Element => {
   }, [pipeline.identifier, showModal, isInitialized])
 
   const onSubmit = React.useCallback(
-    (data: CDPipelineDTO) => {
+    (data: CDPipeline) => {
       pipeline.name = data.name
       pipeline.description = data.description
       pipeline.identifier = data.identifier
@@ -122,7 +122,7 @@ export const PipelineCanvas: React.FC<{}> = (): JSX.Element => {
               onClick={() => {
                 if (yamlHandler) {
                   const pipeObj = parse(yamlHandler.getLatestYaml())
-                  updatePipeline(pipeObj.pipeline as CDPipelineDTO)
+                  updatePipeline(pipeObj.pipeline as CDPipeline)
                 }
               }}
             >

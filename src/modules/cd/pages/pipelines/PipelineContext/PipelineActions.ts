@@ -1,5 +1,5 @@
 import { clone } from 'lodash'
-import type { CDPipelineDTO } from 'services/cd-ng'
+import type { CDPipeline } from 'services/cd-ng'
 
 export enum PipelineActions {
   DBInitialize = 'DBInitialize',
@@ -19,7 +19,7 @@ export interface PipelineViewData {
 }
 
 export interface PipelineReducerState {
-  pipeline: CDPipelineDTO
+  pipeline: CDPipeline
   pipelineView: PipelineViewData
   pipelineIdentifier: string
   error?: string
@@ -29,14 +29,14 @@ export interface PipelineReducerState {
   isUpdated: boolean
 }
 
-export const DefaultPipeline: CDPipelineDTO = {
+export const DefaultPipeline: CDPipeline = {
   identifier: DefaultNewPipelineId
 }
 
 export interface ActionResponse {
   error?: string
   isUpdated?: boolean
-  pipeline?: CDPipelineDTO
+  pipeline?: CDPipeline
   pipelineView?: PipelineViewData
 }
 

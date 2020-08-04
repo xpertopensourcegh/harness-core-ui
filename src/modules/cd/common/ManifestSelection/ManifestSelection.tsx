@@ -6,6 +6,7 @@ import { get } from 'lodash'
 
 import { getStageFromPipeline } from 'modules/cd/pages/pipelines/StageBuilder/StageBuilderModel'
 import type { StageWrapper } from 'services/ng-temp'
+import type { CDPipeline } from 'services/cd-ng'
 import { PipelineContext } from '../../pages/pipelines/PipelineContext/PipelineContext'
 import { ManifestWizard } from './ManifestWizardSteps/ManifestWizard'
 import i18n from './ManifestSelection.i18n'
@@ -86,9 +87,9 @@ function ManifestListView({
   stage
 }: {
   identifier: string
-  pipeline: object
+  pipeline: CDPipeline
   isForOverrideSets: boolean
-  updatePipeline: (data: object) => void
+  updatePipeline: (pipeline: CDPipeline) => Promise<void>
   identifierName?: string
   stage: StageWrapper | undefined
 }): JSX.Element {

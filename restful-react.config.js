@@ -9,8 +9,9 @@ module.exports = {
     file: 'src/services/portal/swagger.json',
     validation: false,
     transformer: 'scripts/swagger-transform.js',
+    customImport: `import { getConfig } from "../config.js";`,
     customProps: {
-      base: '{"/api"}'
+      base: `{getConfig("api")}`,
     }
   },
   'ng-temp': {
@@ -25,8 +26,9 @@ module.exports = {
     output: 'src/services/cd-ng/index.tsx',
     url: 'http://localhost:7457/swagger.json',
     transformer: 'scripts/swagger-transform.js',
+    customImport: `import { getConfig } from "../config.js";`,
     customProps: {
-      base: '{"/cd/api"}'
+      base: `{getConfig("cd/api")}`,
     }
   }
 }

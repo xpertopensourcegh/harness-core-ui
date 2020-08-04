@@ -3,8 +3,8 @@ import { openDB, IDBPDatabase, deleteDB } from 'idb'
 import xhr from '@wings-software/xhr-async'
 import { parse, stringify } from 'yaml'
 import type {
-  CDPipelineDTO,
-  GetPipelineYamlStringQueryParams,
+  CDPipeline,
+  GetPipelineListQueryParams,
   PostPipelineExecuteQueryParams,
   ResponseDTOString
 } from 'services/cd-ng'
@@ -23,9 +23,9 @@ import {
 const logger = loggerFor(ModuleName.CD)
 
 export const getPipelineByIdentifier = (
-  params: GetPipelineYamlStringQueryParams,
+  params: GetPipelineListQueryParams,
   identifier: string
-): Promise<CDPipelineDTO | undefined> => {
+): Promise<CDPipeline | undefined> => {
   return fetch(
     `/cd/api/pipelines/${identifier}?accountIdentifier=${params.accountIdentifier}&projectIdentifier=${params.projectIdentifier}&orgIdentifier=${params.orgIdentifier}`,
     { headers: { 'Content-Type': 'text/yaml' } }
@@ -34,14 +34,14 @@ export const getPipelineByIdentifier = (
     .then(response => {
       const obj = parse(response)
       if (obj.status === 'SUCCESS') {
-        return parse(obj.data).pipeline as CDPipelineDTO
+        return parse(obj.data).pipeline as CDPipeline
       }
     })
 }
 
 export const savePipeline = (
   params: PostPipelineExecuteQueryParams,
-  pipeline: CDPipelineDTO,
+  pipeline: CDPipeline,
   isEdit = false
 ): Promise<ResponseDTOString | undefined> => {
   return isEdit
@@ -69,7 +69,7 @@ const KeyPath = 'identifier'
 interface PipelineContextInterface {
   state: PipelineReducerState
   fetchPipeline: (forceFetch?: boolean) => Promise<void>
-  updatePipeline: (pipeline: CDPipelineDTO) => Promise<void>
+  updatePipeline: (pipeline: CDPipeline) => Promise<void>
   updatePipelineView: (data: PipelineViewData) => void
   deletePipelineCache: () => void
   pipelineSaved: () => void
@@ -77,7 +77,7 @@ interface PipelineContextInterface {
 
 interface PipelinePayload {
   identifier: string
-  pipeline: CDPipelineDTO | undefined
+  pipeline: CDPipeline | undefined
   isUpdated: boolean
 }
 
@@ -90,7 +90,7 @@ const getId = (
 
 const _fetchPipeline = async (
   dispatch: React.Dispatch<ActionReturnType>,
-  queryParams: GetPipelineYamlStringQueryParams,
+  queryParams: GetPipelineListQueryParams,
   identifier: string,
   forceFetch = false
 ): Promise<void> => {
@@ -137,9 +137,9 @@ const _fetchPipeline = async (
 
 const _updatePipeline = async (
   dispatch: React.Dispatch<ActionReturnType>,
-  queryParams: GetPipelineYamlStringQueryParams,
+  queryParams: GetPipelineListQueryParams,
   identifier: string,
-  pipeline: CDPipelineDTO
+  pipeline: CDPipeline
 ): Promise<void> => {
   const id = getId(
     queryParams.accountIdentifier,
@@ -212,7 +212,7 @@ const _initializeDb = async (dispatch: React.Dispatch<ActionReturnType>, version
 
 const _deletePipelineCache = async (
   dispatch: React.Dispatch<ActionReturnType>,
-  queryParams: GetPipelineYamlStringQueryParams,
+  queryParams: GetPipelineListQueryParams,
   identifier: string
 ): Promise<void> => {
   if (IdbPipeline) {
@@ -237,7 +237,7 @@ export const PipelineContext = React.createContext<PipelineContextInterface>({
 })
 
 export const PipelineProvider: React.FC<{
-  queryParams: GetPipelineYamlStringQueryParams
+  queryParams: GetPipelineListQueryParams
   pipelineIdentifier: string
 }> = ({ queryParams, pipelineIdentifier, children }) => {
   const [state, dispatch] = React.useReducer(PipelineReducer, initialState)

@@ -2,7 +2,7 @@ import type { IconName } from '@wings-software/uikit'
 import { isEmpty } from 'lodash'
 import type { NodeModelListener, LinkModelListener } from '@projectstorm/react-diagrams-core'
 import { Diagram } from 'modules/common/exports'
-import type { CDPipelineDTO, StageElementWrapper } from 'services/cd-ng'
+import type { CDPipeline, StageElementWrapper } from 'services/cd-ng'
 import type { Stage, DeploymentStage } from 'services/ng-temp'
 import i18n from './StageBuilder.i18n'
 
@@ -28,12 +28,12 @@ export interface Listeners {
 export const EmptyNodeSeparator = '$node$'
 
 export const getStageFromPipeline = (
-  data: CDPipelineDTO,
+  data: CDPipeline | StageElementWrapper,
   identifier: string
 ): { stage: StageElementWrapper | undefined; parent: StageElementWrapper | undefined } => {
   let stage: StageElementWrapper | undefined = undefined
   let parent: StageElementWrapper | undefined = undefined
-  data.stages?.forEach(node => {
+  data.stages?.forEach((node: StageElementWrapper) => {
     if (!stage) {
       if (node?.stage?.identifier === identifier) {
         stage = node
@@ -167,7 +167,7 @@ export class StageBuilderModel extends Diagram.DiagramModel {
     return { startX, startY }
   }
 
-  addUpdateGraph(data: CDPipelineDTO, listeners: Listeners, selectedStageId?: string): void {
+  addUpdateGraph(data: CDPipeline, listeners: Listeners, selectedStageId?: string): void {
     let { startX, startY } = this
     this.clearAllNodesAndLinks()
     // Unlock Graph

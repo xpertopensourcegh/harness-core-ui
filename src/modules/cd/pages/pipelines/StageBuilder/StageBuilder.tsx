@@ -5,7 +5,7 @@ import { Diagram } from 'modules/common/exports'
 import { DynamicPopover, DynamicPopoverHandlerBinding } from 'modules/common/components/DynamicPopover/DynamicPopover'
 import { CanvasButtons } from 'modules/cd/common/CanvasButtons/CanvasButtons'
 import { DefaultLinkModel, DefaultNodeModel } from 'modules/common/components/Diagram'
-import type { StageElementWrapper, CDPipelineDTO } from 'services/cd-ng'
+import type { StageElementWrapper, CDPipeline } from 'services/cd-ng'
 import { StageBuilderModel, StageType, getStageFromPipeline, EmptyNodeSeparator } from './StageBuilderModel'
 import 'split-view'
 import StageSetupShell from '../../../common/StageSetupShell/StageSetupShell'
@@ -31,7 +31,7 @@ export interface StageState {
 
 export type StageStateMap = Map<string, StageState>
 
-const initializeStageStateMap = (pipeline: CDPipelineDTO, mapState: StageStateMap): void => {
+const initializeStageStateMap = (pipeline: CDPipeline, mapState: StageStateMap): void => {
   if (pipeline.stages) {
     pipeline.stages.forEach((node: StageElementWrapper) => {
       if (node.stage) {
