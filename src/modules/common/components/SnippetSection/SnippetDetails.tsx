@@ -16,8 +16,10 @@ interface SnippetDetailsProps {
 }
 
 const onCopy = (): void => {
-  // alert('Snippet copied!')
+  //TODO confirm oncopy behaviour
+  //alert('Copied to clipboard)
 }
+
 const copyToClipboard = (event: MouseEvent, snippetYaml: string): void => {
   event.preventDefault()
   copy(snippetYaml)
@@ -33,15 +35,20 @@ const getSnippetDetail = (snippet: SnippetInterface): React.ReactElement => {
       <div className={css.fullWidth}>
         <div className={css.name}>
           <div className={css.snippetName}>{snippet.name}</div>
-          <div className={css.snippetVersion}>
-            {i18n.version} {snippet.version}
-          </div>
         </div>
-        <span className={css.description}>{snippet.description}</span>
-        <div className={cx(css.copy, css.flexCenter)} onClick={event => copyToClipboard(event, snippet.yaml)}>
-          <Icon name="copy" size={15} className={css.snippetIcon} />
-          <span title={i18n.copyToClipboard}>{i18n.copyToClipboard}</span>
+        <div className={css.description}>{snippet.description}</div>
+        <div className={css.snippetVersion}>
+          {i18n.version} {snippet.version}
         </div>
+      </div>
+      <div className={css.copy}>
+        <Icon
+          name="copy"
+          size={20}
+          className={css.snippetIcon}
+          title={'Copy'}
+          onClick={event => copyToClipboard(event, snippet.yaml)}
+        />
       </div>
     </div>
   )
@@ -53,7 +60,6 @@ const SnippetDetails: React.FC<SnippetDetailsProps> = props => {
 
   const fetchSnippets = (entityType: string): void => {
     const snippetsFetched = YAMLService.fetchSnippets(entityType) as SnippetInterface[]
-    // Randomizing to provide update effect
     setSnippets(snippetsFetched)
   }
 

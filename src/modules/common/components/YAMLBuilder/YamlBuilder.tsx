@@ -277,7 +277,7 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
           value={currentYaml}
           onChange={onYamlChange}
           editorDidMount={editorDidMount}
-          options={{ readOnly: isReadOnlyMode }}
+          options={{ readOnly: isReadOnlyMode, wordBasedSuggestions: false }}
         />
       </div>
     </div>

@@ -9,8 +9,8 @@ declare const styles: {
   readonly icon: string
   readonly name: string
   readonly snippetName: string
-  readonly snippetVersion: string
   readonly description: string
+  readonly snippetVersion: string
   readonly copy: string
   readonly fullWidth: string
   readonly snippetIcon: string
