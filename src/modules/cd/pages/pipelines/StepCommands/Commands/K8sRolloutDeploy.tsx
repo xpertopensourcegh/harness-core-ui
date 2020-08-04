@@ -1,7 +1,7 @@
 import React from 'react'
 import { FormInput, DurationInput } from '@wings-software/uikit'
 import { get } from 'lodash'
-import type { FormikContextType } from 'formik'
+import type {} from 'formik'
 import i18n from '../StepCommands.18n'
 import css from '../StepCommands.module.scss'
 
@@ -12,11 +12,10 @@ export const K8sRolloutDeploy = (): JSX.Element => (
       label={i18n.timeout}
       className={css.duration}
       render={formik => {
-        const formikTemp = formik as FormikContextType<any>
         return (
           <DurationInput
-            value={get(formikTemp.values, 'spec.timeout')}
-            onChange={time => formikTemp.setFieldValue('spec.timeout', time)}
+            value={get(formik.values, 'spec.timeout')}
+            onChange={time => formik.setFieldValue('spec.timeout', time)}
           />
         )
       }}

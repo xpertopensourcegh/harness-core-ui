@@ -1,7 +1,6 @@
 import React from 'react'
 import { FormInput, DurationInput, SelectOption } from '@wings-software/uikit'
 import { get } from 'lodash'
-import type { FormikContextType } from 'formik'
 import i18n from '../StepCommands.18n'
 import css from '../StepCommands.module.scss'
 
@@ -25,11 +24,10 @@ export const HTTP = (): JSX.Element => (
       className={css.duration}
       label={i18n.socketTimeoutMillis}
       render={formik => {
-        const formikTemp = formik as FormikContextType<any>
         return (
           <DurationInput
-            value={get(formikTemp.values, 'spec.socketTimeoutMillis')}
-            onChange={time => formikTemp.setFieldValue('spec.socketTimeoutMillis', time)}
+            value={get(formik.values, 'spec.socketTimeoutMillis')}
+            onChange={time => formik.setFieldValue('spec.socketTimeoutMillis', time)}
           />
         )
       }}

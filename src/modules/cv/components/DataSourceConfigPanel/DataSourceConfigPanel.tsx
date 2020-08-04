@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo, useCallback } from 'react'
 import { CollapseListPanel, CollapseListPanelProps, Intent } from '@wings-software/uikit'
 import type { DSConfig } from '@wings-software/swagger-ts/definitions'
 import type { ListPanelInterface } from '@wings-software/uikit/dist/components/Collapse/CollapseListPanel'
-import { connect, FormikContextType } from 'formik'
+import { connect, FormikContext } from 'formik'
 import { CVNextGenCVConfigService } from 'modules/cv/services'
 import DataSourcePanelStatusHeader from 'modules/cv/components/DataSourcePanelStatusHeader/DataSourcePanelStatusHeader'
 import i18n from './DataSourceConfigPanel.i18n'
@@ -45,7 +45,7 @@ type FormValues = {
 
 type FormikProperties = 'values' | 'setFieldTouched' | 'setFieldError' | 'touched'
 
-interface DataSourceConfigPanelProps extends ListPanelInterface, Pick<FormikContextType<FormValues>, FormikProperties> {
+interface DataSourceConfigPanelProps extends ListPanelInterface, Pick<FormikContext<FormValues>, FormikProperties> {
   entityName: string | JSX.Element
   onRemove: (index: number) => void
   transformToSavePayload?: (dsConfig: DSConfig) => DSConfig

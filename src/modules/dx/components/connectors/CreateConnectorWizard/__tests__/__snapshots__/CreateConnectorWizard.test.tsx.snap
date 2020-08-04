@@ -72,7 +72,6 @@ exports[`Delegate Step Wizard should render Delegate Setup Wizard 1`] = `
             class="OverlaySpinner---overlaySpinner--3Bs3"
           >
             <form
-              action="#"
               class="connectorForm"
             >
               <div

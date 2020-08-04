@@ -19,7 +19,6 @@ exports[`Collaborators test initializes ok  1`] = `
             class="OverlaySpinner---overlaySpinner--3Bs3"
           >
             <form
-              action="#"
               class="FormikForm---main--1N87"
             >
               <div>
