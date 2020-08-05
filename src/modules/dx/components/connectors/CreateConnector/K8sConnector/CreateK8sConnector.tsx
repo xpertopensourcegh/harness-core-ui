@@ -1,5 +1,16 @@
 import React, { useState } from 'react'
-import { StepWizard, Layout, Button, Text, CardSelect, FormInput, Formik, Icon } from '@wings-software/uikit'
+import {
+  StepWizard,
+  Layout,
+  Button,
+  Text,
+  CardSelect,
+  FormInput,
+  Formik,
+  Icon,
+  SelectV2,
+  SelectOption
+} from '@wings-software/uikit'
 import { Form } from 'formik'
 import cx from 'classnames'
 import * as Yup from 'yup'
@@ -8,16 +19,19 @@ import {
   getCustomFields,
   DelegateTypes,
   DelegateInClusterType,
-  getIconsForCard
+  getIconsForCard,
+  AuthTypes,
+  getSecretFieldsByType,
+  SceretFieldByType
 } from 'modules/dx/pages/connectors/Forms/KubeFormHelper'
 import ConnectorDetailsStep from 'modules/dx/components/connectors/CreateConnector/commonSteps/ConnectorDetailsStep'
-import type { KubFormData } from 'modules/dx/interfaces/ConnectorInterface'
 import { useGetKubernetesDelegateNames, RestResponseListString } from 'services/portal'
-import { useCreateConnector, ConnectorRequestDTORequestBody } from 'services/cd-ng'
+import { useCreateConnector, ConnectorRequestDTORequestBody, ConnectorConfigDTO } from 'services/cd-ng'
 import { buildKubPayload } from 'modules/dx/pages/connectors/utils/ConnectorUtils'
 import InstallDelegateForm from 'modules/dx/common/InstallDelegateForm/InstallDelegateForm'
 import VerifyInstalledDelegate from 'modules/dx/common/VerifyInstalledDelegate/VerifyInstalledDelegate'
-import { useListSecretManagers, SecretManagerConfigDTO } from 'services/cd-ng'
+import VerifyExistingDelegate from 'modules/dx/common/VerfiyExistingDelegate/VerifyExistingDelegate'
+import { useListSecretManagers, SecretManagerConfigDTO, useCreateSecretText } from 'services/cd-ng'
 import VerifyOutOfClusterDelegate from 'modules/dx/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 import i18n from './CreateK8sConnector.i18n'
 import css from './CreateK8sConnector.module.scss'
@@ -64,7 +78,7 @@ interface SecondStepProps {
   state: CreateK8sConnectorState
   previousStep?: () => void
   nextStep?: () => void
-  formData?: KubFormData
+  formData?: ConnectorConfigDTO
   hideLightModal?: () => void
 }
 interface IntermediateStepProps {
@@ -73,7 +87,7 @@ interface IntermediateStepProps {
   accountId: string
   previousStep?: () => void
   nextStep?: () => void
-  formData?: KubFormData
+  formData?: ConnectorConfigDTO
 }
 
 // ToDo: interface ThirdStepState {
@@ -114,12 +128,12 @@ interface CreateK8sConnectorProps {
 interface CreateK8sConnectorState {
   delegateType: string
   setDelegateType: (type: string) => void
-  formData: KubFormData | undefined
-  setFormData: (data: KubFormData | undefined) => void
+  formData: ConnectorConfigDTO | undefined
+  setFormData: (data: ConnectorConfigDTO | undefined) => void
   inclusterDelegate: string
   setInClusterDelegate: (type: string) => void
-  authentication: string
-  setAuthentication: (type: string) => void
+  authentication: SelectOption
+  setAuthentication: (type: SelectOption) => void
   delegateList: RestResponseListString | null
   setDelegateList: (list: RestResponseListString | null) => void
   installDelegate: boolean
@@ -139,7 +153,7 @@ const selectExistingDelegate = (delegateList: RestResponseListString | null) => 
   return (
     <>
       <FormInput.Select
-        name="inheritConfigFromDelegate"
+        name="delegateName"
         label="Select Delegate"
         className={css.selectDelegate}
         items={delegateListFiltered}
@@ -252,7 +266,7 @@ const SecondStep = (props: SecondStepProps) => {
         }}
         validationSchema={Yup.object().shape({
           delegateType: Yup.string().trim().required(),
-          inheritConfigFromDelegate: Yup.string().trim().required('Delegate Name is required')
+          delegateName: Yup.string().trim()
         })}
         onSubmit={formData => {
           const connectorData = { ...state.formData, ...formData }
@@ -325,6 +339,7 @@ const IntermediateStep = (props: IntermediateStepProps) => {
   })
   // const accountIdentifier = accountId
   const { mutate: createConnector } = useCreateConnector({ accountIdentifier: accountId })
+  const { mutate: createSecret } = useCreateSecretText({})
 
   return (
     <div className={css.intermediateStep}>
@@ -332,18 +347,53 @@ const IntermediateStep = (props: IntermediateStepProps) => {
         {i18n.STEP_INTERMEDIATE.HEADING}
       </Text>
       <Formik
-        initialValues={{
-          masterUrl: props.formData?.masterUrl || '',
-          authType: props.formData?.authType || '',
-          username: props.formData?.username || '',
-          password: props.formData?.password || ''
-        }}
+        initialValues={
+          {
+            masterUrl: props.formData?.masterUrl || '',
+            authType: props.formData?.authType || '',
+            username: props.formData?.username || '',
+            passwordRef: props.formData?.passwordRef || '',
+            serviceAccountTokenRef: props.formData?.serviceAccountTokenRef || '',
+            oidcIssuerUrl: props.formData?.oidcIssuerUrl || '',
+            oidcUsername: props.formData?.oidcUsername || '',
+            oidcClientIdRef: props.formData?.oidcClientIdRef || '',
+            oidcPasswordRef: props.formData?.oidcPasswordRef || '',
+            oidcSecretRef: props.formData?.oidcSecretRef || '',
+            oidcScopes: props.formData?.oidcScopes || '',
+            clientCertRef: props.formData?.clientCertRef || '',
+            clientKeyRef: props.formData?.clientKeyRef || '',
+            clientKeyPassphraseRef: props.formData?.clientKeyPassphraseRef || '',
+            clientKeyAlgo: props.formData?.clientKeyAlgo || ''
+
+            // passwordRefSecret: { secretId: '', secretName: '', secretManager: { value: '' } as SelectOption },
+            // serviceAccountTokenRefSecret: { secretId: '', secretName: '', secretManager: { value: '' } as SelectOption },
+            // oidcClientIdRefSecret: { secretId: '', secretName: '', secretManager: { value: '' } as SelectOption },
+            // oidcPasswordRefSceret: { secretId: '', secretName: '', secretManager: { value: '' } as SelectOption },
+            // oidcSecretRefSecret: { secretId: '', secretName: '', secretManager: { value: '' } as SelectOption },
+            // clientKeyRefSecret: { secretId: '', secretName: '', secretManager: { value: '' } as SelectOption },
+            // clientKeyPassphraseRefSecret: { secretId: '', secretName: '', secretManager: { value: '' } as SelectOption },
+            // clientCertRefSecret: { secretId: '', secretName: '', secretManager: { value: '' } as SelectOption }
+          } as ConnectorConfigDTO
+        }
         onSubmit={formData => {
-          const connectorData = { ...state.formData, ...formData }
-
+          const connectorData = { ...state.formData, ...formData, authType: state.authentication?.value }
           const data = buildKubPayload(connectorData)
+          const passwordFields = getSecretFieldsByType(state.authentication?.value as string) || []
 
-          createConnectorByType(createConnector, data)
+          Promise.all(
+            passwordFields.map((item: SceretFieldByType) => {
+              return createSecret({
+                accountIdentifier: accountId,
+                identifier: formData[item.secretField]?.secretId,
+                name: formData[item.secretField]?.secretName,
+                secretManagerIdentifier: formData[item.secretField]?.secretManager?.value as string,
+                value: formData[item.passwordField]
+              })
+            })
+          ).then(() => {
+            createConnectorByType(createConnector, data)
+            // to do status check
+          })
           state.setFormData(connectorData)
           props.nextStep?.()
         }}
@@ -358,20 +408,21 @@ const IntermediateStep = (props: IntermediateStepProps) => {
                     <Icon name="lock" size={14} className={css.lockIcon} />
                     Credentials
                   </div>
-                  <FormInput.Select
-                    name="authType"
+                  <SelectV2
                     items={authOptions}
-                    className={css.selectAuth}
+                    value={props.state.authentication}
+                    filterable={false}
                     onChange={val => {
-                      if (typeof val.value === 'string') {
-                        props.state.setAuthentication(val?.value)
-                      }
+                      props.state.setAuthentication(val)
                     }}
-                  />
+                    className={css.selectAuth}
+                  >
+                    <Button text={props.state.authentication?.label} rightIcon="chevron-down" minimal />
+                  </SelectV2>
                 </Layout.Horizontal>
                 {/* Forcing  SecretManagerConfigDTO[] type untill secrets integration is done */}
                 {getCustomFields(
-                  props.state.authentication,
+                  props.state.authentication?.value,
                   secretManagersApiResponse?.data as SecretManagerConfigDTO[],
                   state.formData?.name,
                   formikProps
@@ -393,79 +444,14 @@ const IntermediateStep = (props: IntermediateStepProps) => {
   )
 }
 
-// Todo: const getStepOne = (state: ThirdStepState) => {
-//   if (state.currentStatus > 1) {
-//     return `${state.delegateCount?.resource?.delegates?.length} delegates found`
-//   } else {
-//     return i18n.STEP_THREE.STEPS.ONE
-//   }
-// }
-// ToDo: Will move this to seperate module with service integrations
-// const ThirdStep = (props: ThirdStepProps) => {
-//   const [currentStatus, setCurrentStatus] = React.useState(1)
-//   const [currentIntent, setCurrentIntent] = React.useState<Intent>()
-//   const [delegateCount, setDelegateCount] = React.useState()
-//   const [validateError, setValidateError] = useState()
-//   const state: ThiirdStepState = {
-//     delegateCount,
-//     setDelegateCount,
-//     currentStatus,
-//     setCurrentStatus,
-//     currentIntent,
-//     setCurrentIntent,
-//     validateError,
-//     setValidateError
-//   }
-
-//   React.useEffect(() => {
-//     if (currentStatus === 1) {
-//       // checkingDelegate(state, props.accountId)
-//     } else if (currentStatus === 3) {
-//       // Todo: const data = buildKubPayload(props.state.formData)
-//       // validateCreds(data, state)
-//     } else if (currentStatus > 1 && currentStatus < 5) {
-//       const interval = setInterval(() => setCurrentStatus(currentStatus + 1), 5000)
-//       return () => {
-//         clearInterval(interval)
-//       }
-//     }
-//   }, [currentStatus])
-//   return (
-//     <Layout.Vertical padding="small" style={{ height: '100%' }}>
-//       <Text font="medium" padding="small" style={{ color: 'var(--grey-700)', padding: 0 }}>
-//         Verify Connection to <span style={{ fontWeight: 700 }}>{props?.prevStepData?.connectorname}</span>
-//       </Text>
-//       <StepsProgress
-//         steps={[getStepOne(state), i18n.STEP_THREE.STEPS.TWO, i18n.STEP_THREE.STEPS.THREE]}
-//         intent={currentIntent}
-//         current={currentStatus}
-//         currentStatus={'PROCESS'}
-//       />
-//       {currentStatus === 3 && (
-//         <Text font="small" style={{ color: 'var(--grey-400)', padding: 0, width: 300 }}>
-//           {i18n.STEP_THREE.VERIFICATION_TIME_TEXT}
-//         </Text>
-//       )}
-//       {state.validateError?.responseMessages[0]?.message && (
-//         <Text font="small" style={{ color: 'red', padding: 10, width: '95%', margin: 10 }}>
-//           {state.validateError}
-//         </Text>
-//       )}
-
-//       <Layout.Horizontal spacing="large" style={{ marginTop: '300px' }}>
-//         <Button onClick={() => props.previousStep(props.prevStepData)} text="Back" />
-//         <Button type="submit" onClick={() => props.hideLightModal} style={{ color: 'var(--blue-500)' }} text="Close" />
-//       </Layout.Horizontal>
-//     </Layout.Vertical>
-//   )
-// }
-
 const CreateK8sConnector = (props: CreateK8sConnectorProps) => {
-  // const [, setSecondStepName] = React.useState(DelegateTypes.DELEGATE_IN_CLUSTER)
   const [delegateType, setDelegateType] = useState('')
-  const [formData, setFormData] = useState<KubFormData | undefined>()
+  const [formData, setFormData] = useState<ConnectorConfigDTO | undefined>()
   const [inclusterDelegate, setInClusterDelegate] = useState('')
-  const [authentication, setAuthentication] = useState('')
+  const [authentication, setAuthentication] = useState({
+    label: 'Username and Password',
+    value: AuthTypes.USER_PASSWORD
+  } as SelectOption)
   const [delegateList, setDelegateList] = useState({} as RestResponseListString | null)
   const [installDelegate, setInstallDelegate] = useState(false)
 
@@ -487,6 +473,7 @@ const CreateK8sConnector = (props: CreateK8sConnectorProps) => {
     <>
       <StepWizard>
         <ConnectorDetailsStep
+          accountId={props.accountId}
           type="K8sCluster"
           name={i18n.STEP_ONE.NAME}
           setFormData={setFormData}
@@ -498,10 +485,32 @@ const CreateK8sConnector = (props: CreateK8sConnectorProps) => {
           <IntermediateStep {...props} name={i18n.STEP_INTERMEDIATE.NAME} state={state} formData={formData} />
         ) : null}
         {/*Removing for now: {installDelegate ? <VerifyInstalledDelegate accountId={props.accountId} name={i18n.STEP_THREE.NAME} /> : null} */}
-        {delegateType === DelegateTypes.DELEGATE_OUT_CLUSTER ? (
-          <VerifyOutOfClusterDelegate name={i18n.STEP_THREE.NAME} {...props} connectorName={formData?.name} />
+        {delegateType === DelegateTypes.DELEGATE_IN_CLUSTER ? (
+          state.inclusterDelegate === DelegateInClusterType.addNewDelegate ? (
+            <VerifyInstalledDelegate
+              accountId={props.accountId}
+              name={i18n.STEP_THREE.NAME}
+              connectorName={formData?.name}
+              connectorIdentifier={formData?.identifier}
+              delegateName={formData?.delegateName}
+            />
+          ) : (
+            <VerifyExistingDelegate
+              accountId={props.accountId}
+              name={i18n.STEP_THREE.NAME}
+              connectorName={formData?.name}
+              connectorIdentifier={formData?.identifier}
+              delegateName={formData?.delegateName}
+              hideLightModal={props.hideLightModal}
+            />
+          )
         ) : (
-          <VerifyInstalledDelegate accountId={props.accountId} name={i18n.STEP_THREE.NAME} />
+          <VerifyOutOfClusterDelegate
+            name={i18n.STEP_THREE.NAME}
+            {...props}
+            connectorName={formData?.name}
+            connectorIdentifier={formData?.identifier}
+          />
         )}
       </StepWizard>
       <Button text="close" />

@@ -11,7 +11,7 @@ import SecretReference from 'modules/dx/components/SecretReference/SecretReferen
 import css from './KubFormHelper.module.scss'
 
 export const AuthTypes = {
-  CUSTOM: 'ManualConfig',
+  CLIENT_KEY_CERT: 'ClientKeyCert',
   USER_PASSWORD: 'UsernamePassword',
   SERVICE_ACCOUNT: 'ServiceAccount',
   OIDC: 'OpenIdConnect'
@@ -25,8 +25,12 @@ export const authOptions: AuthOption[] = [
   { value: AuthTypes.USER_PASSWORD, label: 'Username and password' },
   { value: AuthTypes.SERVICE_ACCOUNT, label: 'Service Account Token' },
   { value: AuthTypes.OIDC, label: 'OIDC Token' },
-  { value: AuthTypes.CUSTOM, label: 'Custom' }
+  { value: AuthTypes.CLIENT_KEY_CERT, label: 'Client Key Certificate' }
 ]
+export interface SceretFieldByType {
+  passwordField: string
+  secretField: string
+}
 
 export const DelegateTypes = {
   DELEGATE_IN_CLUSTER: 'InheritFromDelegate',
@@ -38,44 +42,62 @@ export const DelegateInClusterType = {
   addNewDelegate: 'addnewDelegate'
 }
 
-export const authTypeFields = {
+export const AuthTypeFields = {
   username: 'username',
-  password: 'password',
-  serviceAccountToken: 'serviceAccountToken',
-  oidcIdentityProviderUrl: 'oidcIdentityProviderUrl',
+  passwordRef: 'passwordRef',
+  serviceAccountTokenRef: 'serviceAccountTokenRef',
+  oidcIssuerUrl: 'oidcIssuerUrl',
   oidcUsername: 'oidcUsername',
-  oidcPassword: 'oidcPassword',
-  oidcClientId: 'oidcClientId',
-  oidcSecret: 'oidcSecret',
+  oidcClientIdRef: 'oidcClientIdRef',
+  oidcPasswordRef: 'oidcPasswordRef',
+  oidcSecretRef: 'oidcSecretRef',
   oidcScopes: 'oidcScopes',
-  clientKeyAlgorithm: 'clientKeyAlgorithm',
-  clientKeyPassPhrase: 'clientKeyPassPhrase',
-  clientKey: 'clientKey',
-  clientCert: 'clientCert',
-  caCert: 'caCert'
+  clientCertRef: 'clientCertRef',
+  clientKeyRef: 'clientKeyRef',
+  clientKeyPassphraseRef: 'clientKeyPassphraseRef',
+  clientKeyAlgo: 'clientKeyAlgo',
+  caCertRef: 'caCertRef'
 }
 
-export const getFieldsByAuthType = (authType: string) => {
-  switch (authType) {
+export const getSecretFieldsByType = (type: string) => {
+  switch (type) {
     case AuthTypes.USER_PASSWORD:
-      return ['username', 'password']
+      return [{ passwordField: 'passwordRef', secretField: 'passwordRefSecret' }]
     case AuthTypes.SERVICE_ACCOUNT:
-      return ['serviceAccountToken']
+      return [{ passwordField: 'serviceAccountTokenRef', secretField: 'serviceAccountTokenRefSecret' }]
     case AuthTypes.OIDC:
-      return ['oidcIdentityProviderUrl', 'oidcUsername', 'oidcPassword', 'oidcClientId', 'oidcSecret', 'oidcScopes']
-    case AuthTypes.CUSTOM:
       return [
-        'username',
-        'password',
-        'caCert',
-        'clientCert',
-        'clientKey',
-        'clientKeyPassPhrase',
-        'clientKeyAlgorithm',
-        'serviceAccountToken'
+        { passwordField: 'oidcPasswordRef', secretField: 'oidcPasswordRefSceret' },
+        { passwordField: 'oidcSecretRef', secretField: 'oidcSecretRefSecret' },
+        { passwordField: 'oidcClientIdRef', secretField: 'oidcClientIdRefSecret' }
       ]
-    default:
-      return []
+    case AuthTypes.CLIENT_KEY_CERT:
+      return [
+        { passwordField: 'clientKeyRef', secretField: 'clientKeyRefSecret' },
+        { passwordField: 'clientCertRef', secretField: 'clientCertRefSecret' },
+        { passwordField: 'clientKeyPassphraseRef', secretField: 'clientKeyPassphraseRefSecret' }
+      ]
+  }
+}
+
+export const getSecretFieldValue = (field: string) => {
+  switch (field) {
+    case AuthTypeFields.passwordRef:
+      return 'passwordRefSecret'
+    case AuthTypeFields.serviceAccountTokenRef:
+      return 'serviceAccountTokenRefSecret'
+    case AuthTypeFields.oidcClientIdRef:
+      return 'oidcClientIdRefSecret'
+    case AuthTypeFields.oidcPasswordRef:
+      return 'oidcPasswordRefSceret'
+    case AuthTypeFields.oidcSecretRef:
+      return 'oidcSecretRefSecret'
+    case AuthTypeFields.clientKeyRef:
+      return 'clientKeyRefSecret'
+    case AuthTypeFields.clientKeyPassphraseRef:
+      return 'clientKeyPassphraseRefSecret'
+    case AuthTypeFields.clientCertRef:
+      return 'clientCertRefSecret'
   }
 }
 
@@ -147,7 +169,7 @@ const getSelectSecretPopover = (formikProps?: FormikProps<any>) => {
   return (
     <Popover>
       <div className={css.secretPop}>
-        <Icon name="key" size={24} /> <Icon name="chevron-down" size={14} />
+        <Icon name="key-main" size={24} height={12} width={24} /> <Icon name="chevron-down" size={14} />
       </div>
       <SecretReference
         onSelect={secret => {
@@ -157,27 +179,48 @@ const getSelectSecretPopover = (formikProps?: FormikProps<any>) => {
     </Popover>
   )
 }
-const renderUserNameAndPassword = (
+const getLabelForEncryptedSecret = (field: string) => {
+  switch (field) {
+    case AuthTypeFields.passwordRef:
+      return 'Password'
+    case AuthTypeFields.serviceAccountTokenRef:
+      return 'Service Account Token'
+    case AuthTypeFields.oidcPasswordRef:
+      return 'Password'
+    case AuthTypeFields.oidcClientIdRef:
+      return 'Client ID'
+    case AuthTypeFields.oidcSecretRef:
+      return 'Client Secret'
+    case AuthTypeFields.clientKeyRef:
+      return 'Client Key'
+    case AuthTypeFields.clientKeyPassphraseRef:
+      return 'Client Key Passphrase'
+    case AuthTypeFields.clientCertRef:
+      return 'Client Certificate'
+  }
+}
+
+export const getSecretComponent = (
+  passwordField: string,
   secretManagers?: SecretManagerConfigDTO[],
   connectorName?: string,
   formikProps?: FormikProps<any>
 ) => {
-  const generatedId = StringUtils.getIdentifierFromName(connectorName || '')
+  const generatedId = StringUtils.getIdentifierFromName(connectorName || '').concat(passwordField)
   return (
     <>
-      <FormInput.Text name="username" label="Username*" />
       <FormInput.Text
-        name="password"
+        name={passwordField}
         label={
           <div className={css.labelWrp}>
-            <div className={css.passwordLabel}>Password</div>
+            <div className={css.passwordLabel}>{getLabelForEncryptedSecret(passwordField)}</div>
             {getSelectSecretPopover(formikProps)}
           </div>
         }
         inputGroup={{ type: 'password' }}
       />
       <FormikCreateInlineSecret
-        name="passwordSecret"
+        name={getSecretFieldValue(passwordField) as string}
         secretManagers={secretManagers}
         defaultSecretName={generatedId}
         defaultSecretId={generatedId}
@@ -185,42 +228,47 @@ const renderUserNameAndPassword = (
     </>
   )
 }
-
-const customFieldsForServiceAccountToken = () => {
+const renderUserNameAndPassword = (
+  secretManagers?: SecretManagerConfigDTO[],
+  connectorName?: string,
+  formikProps?: FormikProps<any>
+) => {
   return (
-    <FormInput.Select
-      name="password"
-      label="Select Encrypted Client Key Passphrase*"
-      items={[
-        { label: 'password_one', value: 'password_one' },
-        { label: 'password_two', value: 'password_two' }
-      ]}
-    />
+    <>
+      <FormInput.Text name="username" label="Username" />
+      {getSecretComponent(AuthTypeFields.passwordRef, secretManagers, connectorName, formikProps)}
+    </>
   )
 }
 
-const fieldsForOIDCToken = () => {
+const fieldsForOIDCToken = (
+  secretManagers?: SecretManagerConfigDTO[],
+  connectorName?: string,
+  formikProps?: FormikProps<any>
+) => {
   return (
     <>
-      <FormInput.Text name="identityProviderUrl" label="Identity Provider Url*" />
-      {renderUserNameAndPassword()}
-      <FormInput.Select
-        name="password"
-        label="Select Encrypted Client Id*"
-        items={[
-          { label: 'password_one', value: 'password_one' },
-          { label: 'password_two', value: 'password_two' }
-        ]}
-      />
-      <FormInput.Select
-        name="password"
-        label="Select Encrypted Client Secret*"
-        items={[
-          { label: 'password_one', value: 'password_one' },
-          { label: 'password_two', value: 'password_two' }
-        ]}
-      />
-      <FormInput.Text name="identityProviderUrl" label="OIDC Scopes" />
+      <FormInput.Text name={AuthTypeFields.oidcIssuerUrl} label="Identity Provider Url" />
+      <FormInput.Text name={AuthTypeFields.oidcUsername} label="Username" />
+      {getSecretComponent(AuthTypeFields.oidcPasswordRef, secretManagers, connectorName, formikProps)}
+      {getSecretComponent(AuthTypeFields.oidcClientIdRef, secretManagers, connectorName, formikProps)}
+      {getSecretComponent(AuthTypeFields.oidcSecretRef, secretManagers, connectorName, formikProps)}
+      <FormInput.Text name={AuthTypeFields.oidcScopes} label="OIDC Scopes" />
+    </>
+  )
+}
+
+export const renderFieldsForClientKeyCert = (
+  secretManagers?: SecretManagerConfigDTO[],
+  connectorName?: string,
+  formikProps?: FormikProps<any>
+) => {
+  return (
+    <>
+      {getSecretComponent(AuthTypeFields.clientKeyRef, secretManagers, connectorName, formikProps)}
+      {getSecretComponent(AuthTypeFields.oidcClientIdRef, secretManagers, connectorName, formikProps)}
+      {getSecretComponent(AuthTypeFields.clientKeyPassphraseRef, secretManagers, connectorName, formikProps)}
+      <FormInput.Text name={AuthTypeFields.clientKeyAlgo} label={getSecretFieldValue(AuthTypeFields.clientCertRef)} />
     </>
   )
 }
@@ -235,65 +283,11 @@ export const getCustomFields = (
     case AuthTypes.USER_PASSWORD:
       return renderUserNameAndPassword(secretManagers, connectorName, formikProps)
     case AuthTypes.SERVICE_ACCOUNT:
-      return customFieldsForServiceAccountToken()
+      return getSecretComponent(AuthTypeFields.serviceAccountTokenRef, secretManagers, connectorName, formikProps)
     case AuthTypes.OIDC:
-      return fieldsForOIDCToken()
-    case AuthTypes.CUSTOM:
-      return (
-        <>
-          <FormInput.Text name="username" label="Username" />
-          <FormInput.Select
-            name="password"
-            label="Select Encrypted Password*"
-            items={[
-              { label: 'password_one', value: 'password_one' },
-              { label: 'password_two', value: 'password_two' }
-            ]}
-          />
-          <FormInput.Select
-            name="caCert"
-            label="Select Encrypted CA Certificate*"
-            items={[
-              { label: 'password_one', value: 'password_one' },
-              { label: 'password_two', value: 'password_two' }
-            ]}
-          />
-          <FormInput.Select
-            name="clientCert"
-            label="Select Encrypted Client Certificate*"
-            items={[
-              { label: 'password_one', value: 'password_one' },
-              { label: 'password_two', value: 'password_two' }
-            ]}
-          />
-          <FormInput.Select
-            name="clientKey"
-            label="Select Encrypted Client Key*"
-            items={[
-              { label: 'password_one', value: 'password_one' },
-              { label: 'password_two', value: 'password_two' }
-            ]}
-          />
-          <FormInput.Select
-            name="clientKeyPassPhrase"
-            label="Select Encrypted Client Key Passphrase"
-            items={[
-              { label: 'password_one', value: 'password_one' },
-              { label: 'password_two', value: 'password_two' }
-            ]}
-          />
-          <FormInput.Text name="clientKeyAlgorithm" label="Client Key Algorithm" />
-
-          <FormInput.Select
-            name="serviceAccountToken"
-            label="Select Encrypted Service Account Token"
-            items={[
-              { label: 'password_one', value: 'password_one' },
-              { label: 'password_two', value: 'password_two' }
-            ]}
-          />
-        </>
-      )
+      return fieldsForOIDCToken(secretManagers, connectorName, formikProps)
+    case AuthTypes.CLIENT_KEY_CERT:
+      return renderFieldsForClientKeyCert(secretManagers, connectorName, formikProps)
     default:
       return <></>
   }

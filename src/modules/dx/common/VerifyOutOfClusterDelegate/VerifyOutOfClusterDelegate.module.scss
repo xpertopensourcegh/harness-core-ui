@@ -2,7 +2,7 @@
   height: 100%;
   .heading {
     color: var(--grey-700);
-    padding: 0;
+    padding: 0 var(--spacing-small) !important;
   }
   .name {
     font-weight: 700;

@@ -5,21 +5,25 @@ export interface KubFormData {
   tags?: string[]
   delegateType?: string
   inheritConfigFromDelegate?: string
+  delegateName?: string
   masterUrl?: string
-  authType?: string
+  authType?: string | number | symbol
   username?: string
-  password?: string
+  passwordRef?: string
 }
 export interface GITFormData {
   name?: string
   description?: string
   identifier?: string
   tags?: string[]
-  authType?: string
+  authType?: string | number | symbol
   branchName?: string
   connectType?: string | number | symbol
   connectionType?: string
   password?: string
   username?: string
   url?: string
+}
+export interface FormData {
+  [key: string]: any
 }

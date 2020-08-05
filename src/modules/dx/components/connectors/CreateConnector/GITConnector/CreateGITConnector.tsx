@@ -27,6 +27,7 @@ const CreateGITConnector = (props: CreateGITConnectorProps) => {
     <>
       <StepWizard>
         <ConnectorDetailsStep
+          accountId={props.accountId}
           type={i18n.type}
           name={i18n.STEP_ONE.NAME}
           setFormData={setFormData}

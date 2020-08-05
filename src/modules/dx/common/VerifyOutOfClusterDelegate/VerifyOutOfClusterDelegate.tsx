@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import { StepsProgress, Layout, Button, Text, Intent } from '@wings-software/uikit'
 import { useGetDelegatesStatus, RestResponseDelegateStatus } from 'services/portal'
+import { useGetTestConnectionResult } from 'services/cd-ng'
 import i18n from './VerifyOutOfClusterDelegate.i18n'
 import css from './VerifyOutOfClusterDelegate.module.scss'
 
@@ -9,6 +10,7 @@ interface VerifyOutOfClusterDelegateProps {
   hideLightModal: () => void
   previousStep?: () => void
   connectorName: string | undefined
+  connectorIdentifier?: string
   name: string
 }
 
@@ -55,31 +57,60 @@ const VerifyOutOfClusterDelegate = (props: VerifyOutOfClusterDelegateProps) => {
   const { loading: loadingStatus, data: delegateStatus } = useGetDelegatesStatus({
     queryParams: { accountId: props.accountId }
   })
-
+  const {
+    loading: testingConnection,
+    data: testConnectionResponse,
+    refetch: reloadTestConnection
+  } = useGetTestConnectionResult({
+    accountIdentifier: props.accountId,
+    connectorIdentifier: props.connectorIdentifier as string,
+    lazy: true
+  })
+  const mounted = useRef(false)
   React.useEffect(() => {
-    if (currentStep === 1) {
-      if (!loadingStatus && delegateStatus) {
-        setDelegateCount(delegateStatus)
-        setCurrentStep(2)
-        setCurrentIntent(Intent.SUCCESS)
-      } else if (!loadingStatus && !delegateStatus) {
-        setCurrentIntent(Intent.DANGER)
+    if (mounted.current && !loadingStatus) {
+      if (currentStep === 1) {
+        if (delegateStatus) {
+          setDelegateCount(delegateStatus)
+          setCurrentStatus('DONE')
+          setCurrentIntent(Intent.SUCCESS)
+          setCurrentStep(2)
+          setCurrentStatus('PROCESS')
+        }
+      } else if (!delegateStatus) {
         setCurrentStatus('ERROR')
+        setCurrentIntent(Intent.DANGER)
       }
-    } else if (currentStep === 3) {
-      setCurrentStatus('ERROR')
-      // Todo: const data = buildKubPayload(props.state.formData)
-      // validateCreds(data, state)
-    } else if (currentStep > 1 && currentStep < 5) {
-      const interval = setInterval(() => setCurrentStep(currentStep + 1), 5000)
+    }
+    if (currentStep === 3) {
+      reloadTestConnection()
+      if (!testingConnection) {
+        if (testConnectionResponse) {
+          state.setCurrentIntent(Intent.SUCCESS)
+          state.setCurrentStatus('DONE')
+          setCurrentStep(4)
+        } else if (!testConnectionResponse) {
+          state.setCurrentIntent(Intent.DANGER)
+          state.setCurrentStatus('ERROR')
+        }
+      }
+    } else if (currentStep === 2) {
+      const interval = setInterval(() => {
+        setCurrentIntent(Intent.SUCCESS)
+        setCurrentStatus('DONE')
+        setCurrentStep(currentStep + 1)
+        setCurrentStatus('PROCESS')
+      }, 10000)
       return () => {
         clearInterval(interval)
       }
+    } else {
+      mounted.current = true
     }
-  }, [loadingStatus, currentStep])
+  }, [loadingStatus, currentStep, delegateStatus])
   return (
     <Layout.Vertical padding="small" className={css.outCluster}>
-      <Text font="medium" padding="small" className={css.heading}>
+      <Text font="medium" className={css.heading}>
         Verify Connection to <span className={css.name}>{props.connectorName}</span>
       </Text>
       <StepsProgress
@@ -100,8 +131,7 @@ const VerifyOutOfClusterDelegate = (props: VerifyOutOfClusterDelegateProps) => {
       )}
 
       <Layout.Horizontal spacing="large" className={css.btnWrapper}>
-        <Button onClick={() => props.previousStep?.()} text="Back" />
-        <Button type="submit" onClick={() => props.hideLightModal()} className={css.submitBtn} text="Close" />
+        <Button type="submit" onClick={() => props.hideLightModal()} className={css.submitBtn} text="Finish" />
       </Layout.Horizontal>
     </Layout.Vertical>
   )

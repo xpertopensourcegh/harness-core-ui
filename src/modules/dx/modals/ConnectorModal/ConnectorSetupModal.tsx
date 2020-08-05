@@ -39,7 +39,15 @@ const ConnectorModal: React.FC = () => {
     canEscapeKeyClose: true,
     canOutsideClickClose: true,
     enforceFocus: true,
-    style: { width: 960, height: 600, borderLeft: 0, paddingBottom: 0, position: 'relative', overflow: 'hidden' }
+    style: {
+      width: 'fit-content',
+      minWidth: 960,
+      height: 600,
+      borderLeft: 0,
+      paddingBottom: 0,
+      position: 'relative',
+      overflow: 'hidden'
+    }
   }
 
   const [openLightModal, hideLightModal] = useModalHook(

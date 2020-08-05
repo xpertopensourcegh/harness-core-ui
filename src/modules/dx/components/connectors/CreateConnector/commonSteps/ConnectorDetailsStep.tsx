@@ -1,15 +1,17 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import { Layout, Button, Formik } from '@wings-software/uikit'
 import * as Yup from 'yup'
 import { Form } from 'formik'
-import { StringUtils } from 'modules/common/exports'
+import { StringUtils, useToaster } from 'modules/common/exports'
 import ConnectorDetailFields from 'modules/dx/pages/connectors/Forms/ConnectorDetailFields'
+import { useValidateTheIdentifierIsUnique } from 'services/cd-ng'
 import type { KubFormData, GITFormData } from 'modules/dx/interfaces/ConnectorInterface'
 import { getHeadingByType } from '../../../../pages/connectors/utils/ConnectorHelper'
 import i18n from './ConnectorDetailsStep.i18n'
 import css from './ConnectorDetailsStep.module.scss'
 
 interface ConnectorDetailsStepProps {
+  accountId: string
   type: string
   name: string
   setFormData: (formData: KubFormData | GITFormData | undefined) => void
@@ -19,6 +21,23 @@ interface ConnectorDetailsStepProps {
 }
 
 const ConnectorDetailsStep = (props: ConnectorDetailsStepProps) => {
+  const { showError } = useToaster()
+  const { loading, data, refetch: revalidateUniqueIdentifier } = useValidateTheIdentifierIsUnique({
+    accountIdentifier: props.accountId,
+    lazy: true
+  })
+  const mounted = useRef(false)
+  useEffect(() => {
+    if (mounted.current && !loading) {
+      if (data?.data) {
+        props?.nextStep?.({})
+      } else {
+        showError(i18n.validateError)
+      }
+    } else {
+      mounted.current = true
+    }
+  }, [mounted, loading, data])
   return (
     <Layout.Vertical spacing="xxlarge" className={css.firstep}>
       <div className={css.heading}>{getHeadingByType(props.type)}</div>
@@ -39,7 +58,7 @@ const ConnectorDetailsStep = (props: ConnectorDetailsStepProps) => {
           description: Yup.string()
         })}
         onSubmit={formData => {
-          props?.nextStep?.({})
+          revalidateUniqueIdentifier({ queryParams: { connectorIdentifier: formData.identifier } })
           props.setFormData(formData)
         }}
       >

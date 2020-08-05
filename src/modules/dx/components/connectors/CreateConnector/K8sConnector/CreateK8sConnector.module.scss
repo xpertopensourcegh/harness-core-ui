@@ -180,22 +180,22 @@
     color: var(--grey-800);
   }
   .credWrapper {
-    margin-bottom: var(--spacing-medium);
+    width: 64%;
+    margin-top: var(--spacing-medium);
     justify-content: space-between;
     .label {
-      margin: var(--spacing-small) 0;
+      margin: 2px;
       .lockIcon {
         padding: 5px 5px 3px 0;
         color: var(--lock-icon);
       }
     }
     .selectAuth {
-      width: 205px;
+      width: unset;
     }
   }
   .credForm {
     height: 90%;
-    width: 64%;
     margin: 30px 0;
     :global {
       .bp3-label {
@@ -207,7 +207,9 @@
         border: 1px solid var(--grey-200);
       }
       .bp3-form-group {
-        margin-bottom: var(--spacing-large);
+        margin-bottom: unset;
+        margin-top: 15px;
+        width: 64%;
       }
       .bp3-input-group {
         .bp3-input {

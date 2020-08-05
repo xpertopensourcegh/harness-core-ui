@@ -1,47 +1,44 @@
 import { Connectors, ConnectorInfoText } from 'modules/dx/constants'
 import type { ConnectorSummaryDTO } from 'services/cd-ng'
+import type { FormData } from 'modules/dx/interfaces/ConnectorInterface'
 import i18n from './ConnectorUtils.i18n'
 import { AuthTypes, DelegateTypes } from '../Forms/KubeFormHelper'
 
-export const userPasswrdAuthField = (formData: any) => {
+export const userPasswrdAuthField = (formData: FormData) => {
   return {
     username: formData.username,
-    password: formData.password
+    passwordRef: formData.passwordRefSecret.secretId
     // cacert: 'Random'
   }
 }
 
-export const serviceAccAuthField = (formData: any) => {
+export const serviceAccAuthField = (formData: FormData) => {
   return {
-    serviceAccountToken: formData.serviceAccountToken
+    serviceAccountTokenRef: formData.serviceAccountTokenRef
   }
 }
 
-export const oidcAuthField = (formData: any) => {
+export const oidcAuthField = (formData: FormData) => {
   return {
-    oidcIdentityProviderUrl: formData.oidcIdentityProviderUrl,
+    oidcIssuerUrl: formData.oidcIssuerUrl,
     oidcUsername: formData.oidcUsername,
-    oidcPassword: formData.oidcPassword,
-    oidcClientId: formData.oidcClientId,
-    oidcSecret: formData.oidcSecret,
+    oidcPasswordRef: formData.oidcPasswordRef,
+    oidcClientIdRef: formData.oidcClientIdRef,
+    oidcSecretRef: formData.oidcSecretRef,
     oidcScopes: formData.oidcScopes
   }
 }
 
-export const customAuthField = (formData: any) => {
+export const clientKeyCertField = (formData: FormData) => {
   return {
-    username: formData.username,
-    password: formData.password,
-    cacert: 'Random',
-    clientCert: formData.clientCert,
-    clientKey: formData.clientKey,
-    clientKeyPassPhrase: formData.clientKeyPassPhrase,
-    clientKeyAlgorithm: formData.clientKeyAlgorithm,
-    serviceAccountToken: formData.serviceAccountToken
+    clientCertRef: formData.clientCertRef,
+    clientKeyRef: formData.clientKeyRef,
+    clientKeyPassphraseRef: formData.clientKeyPassphraseRef,
+    clientKeyAlgo: formData.clientKeyAlgo
   }
 }
 
-const buildAuthTypePayload = (formData: any) => {
+const buildAuthTypePayload = (formData: FormData) => {
   const { authType = '' } = formData
 
   switch (authType) {
@@ -51,14 +48,14 @@ const buildAuthTypePayload = (formData: any) => {
       return serviceAccAuthField(formData)
     case AuthTypes.OIDC:
       return oidcAuthField(formData)
-    case AuthTypes.CUSTOM:
-      return customAuthField(formData)
+    case AuthTypes.CLIENT_KEY_CERT:
+      return clientKeyCertField(formData)
     default:
       return []
   }
 }
 
-export const getSpecForDelegateType = (formData: any) => {
+export const getSpecForDelegateType = (formData: FormData) => {
   const type = formData?.delegateType
   if (type === DelegateTypes.DELEGATE_IN_CLUSTER) {
     return {
@@ -75,7 +72,7 @@ export const getSpecForDelegateType = (formData: any) => {
   }
 }
 
-export const buildKubPayload = (formData: any) => {
+export const buildKubPayload = (formData: FormData) => {
   const savedData = {
     name: formData?.name,
     description: formData?.description,
@@ -93,7 +90,7 @@ export const buildKubPayload = (formData: any) => {
   return savedData
 }
 
-export const getSpecByConnectType = (type: string, formData: any) => {
+export const getSpecByConnectType = (type: string, formData: FormData) => {
   let referenceField
   if (type === 'Ssh') {
     referenceField = { sshKeyReference: formData?.sshKeyReference }
@@ -108,7 +105,7 @@ export const getSpecByConnectType = (type: string, formData: any) => {
   }
 }
 
-export const buildGITPayload = (formData: any) => {
+export const buildGITPayload = (formData: FormData) => {
   const savedData = {
     name: formData?.name,
     description: formData?.description,

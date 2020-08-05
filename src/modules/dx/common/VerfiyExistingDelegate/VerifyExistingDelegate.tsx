@@ -1,18 +1,21 @@
 import React, { useState } from 'react'
-import { Layout, Button, Text, StepsProgress, Intent, Label, CodeBlock, Select, Icon } from '@wings-software/uikit'
-import { useGetDelegatesStatus, useGetDelegatesDownloadUrl } from 'services/portal'
+import { Layout, Text, StepsProgress, Intent, Icon, Button } from '@wings-software/uikit'
 import { useGetTestConnectionResult } from 'services/cd-ng'
-import i18n from './VerifyInstallDelegate.i18n'
-import css from './VerifyInstallDelegate.module.scss'
+import { useGetDelegatesStatus, RestResponseDelegateStatus, DelegateInner } from 'services/portal'
+import i18n from './VerifyExistingDelegate.i18n'
 
-interface VerifyInstalledDelegateProps {
+import css from './VerifyExistingDelegate.module.scss'
+
+interface VerifyExistingDelegateProps {
   accountId: string
   name: string
   connectorName?: string
   connectorIdentifier?: string
   delegateName?: string
+  hideLightModal: () => void
 }
-interface VerifyInstalledDelegateState {
+
+interface VerifyExistingDelegateState {
   delegateCount: number
   setDelegateCount: (val: number) => void
   currentStatus: number
@@ -25,13 +28,13 @@ interface VerifyInstalledDelegateState {
   setDownloadOverlay: (val: boolean) => void
 }
 
-const VerifyInstalledDelegate = (props: VerifyInstalledDelegateProps) => {
+const VerifyExistingDelegate = (props: VerifyExistingDelegateProps) => {
   const [currentStatus, setCurrentStatus] = React.useState(1)
   const [currentIntent, setCurrentIntent] = React.useState<Intent>(Intent.WARNING)
   const [delegateCount, setDelegateCount] = React.useState(0)
   // const [validateError, setValidateError] = useState('')
   const [downloadOverLay, setDownloadOverlay] = useState(true)
-  const state: VerifyInstalledDelegateState = {
+  const state: VerifyExistingDelegateState = {
     delegateCount,
     setDelegateCount,
     currentStatus,
@@ -43,33 +46,44 @@ const VerifyInstalledDelegate = (props: VerifyInstalledDelegateProps) => {
     downloadOverLay,
     setDownloadOverlay
   }
-  const { accountId } = props
-  const { loading, data: delegateDowloadUrl, refetch: reloadDelegateDownloadUrl } = useGetDelegatesDownloadUrl({
-    queryParams: { accountId },
-    lazy: true
-  })
+  const { accountId, connectorIdentifier } = props
 
   const { loading: loadingStatus, data: delegateStatus, refetch: reloadDelegateStatus } = useGetDelegatesStatus({
     queryParams: { accountId },
     lazy: true
   })
-
   const {
     loading: testingConnection,
     data: testConnectionResponse,
     refetch: reloadTestConnection
-  } = useGetTestConnectionResult({
-    accountIdentifier: props.accountId,
-    connectorIdentifier: props.connectorIdentifier as string
-  })
+  } = useGetTestConnectionResult({ accountIdentifier: accountId, connectorIdentifier: connectorIdentifier as string })
 
+  const isSelectedDelegateActive = (delegateStatusResponse: RestResponseDelegateStatus) => {
+    const delegateList = delegateStatusResponse?.resource?.delegates
+    return delegateList?.filter(function (item: DelegateInner) {
+      return item.delegateName === props.delegateName
+    })?.length
+  }
+
+  const getStepOne = () => {
+    if (currentStatus > 1) {
+      return `${i18n.STEPS.ONE.SUCCESS}: ${props.delegateName} `
+    } else {
+      return i18n.STEPS.ONE.PPROGRESS
+    }
+  }
   React.useEffect(() => {
     if (currentStatus === 1) {
-      if (delegateDowloadUrl) {
-        setCurrentStatus(2)
-        window.open(delegateDowloadUrl?.resource?.downloadUrl, '_blank')
-        state.setCurrentIntent(Intent.SUCCESS)
-      } else if (!loading && !delegateDowloadUrl) {
+      reloadDelegateStatus()
+      if (!loadingStatus && delegateStatus) {
+        const isDelegateActive = isSelectedDelegateActive(delegateStatus)
+        if (isDelegateActive) {
+          state.setCurrentIntent(Intent.SUCCESS)
+          state.setCurrentStatus(2)
+        } else {
+          state.setCurrentIntent(Intent.DANGER)
+        }
+      } else if (!loadingStatus && !delegateStatus) {
         state.setCurrentIntent(Intent.DANGER)
       }
     }
@@ -77,27 +91,23 @@ const VerifyInstalledDelegate = (props: VerifyInstalledDelegateProps) => {
       reloadTestConnection()
       if (!testingConnection && testConnectionResponse) {
         state.setCurrentIntent(Intent.SUCCESS)
-        setCurrentStatus(4)
+        state.setCurrentStatus(4)
       } else if (!testingConnection && !testConnectionResponse) {
         state.setCurrentIntent(Intent.DANGER)
       }
     } else if (currentStatus === 2) {
-      reloadDelegateStatus()
-      if (!loadingStatus && delegateStatus) {
-        state.setCurrentIntent(Intent.SUCCESS)
-        state.setCurrentStatus(4)
-      } else if (!loadingStatus && !delegateStatus) {
-        state.setCurrentIntent(Intent.DANGER)
-      }
+      setTimeout(() => {
+        setCurrentStatus(currentStatus + 1)
+      }, 3000)
     }
-  }, [currentStatus, loadingStatus, loading])
+  }, [currentStatus, loadingStatus])
   return (
     <Layout.Vertical className={css.verifyWrapper}>
       <Text font="medium" padding="small" className={css.heading}>
         {i18n.verifyConnectionText} <span className={css.name}>{props.connectorName}</span>
       </Text>
       <StepsProgress
-        steps={[i18n.STEPS.ONE, downloadOverLay ? i18n.STEPS.TWO_HIDDEN : i18n.STEPS.TWO, i18n.STEPS.THREE]}
+        steps={[getStepOne(), i18n.STEPS.TWO.PPROGRESS, i18n.STEPS.THREE.PPROGRESS]}
         intent={currentIntent}
         current={currentStatus}
         currentStatus={'PROCESS'}
@@ -107,48 +117,35 @@ const VerifyInstalledDelegate = (props: VerifyInstalledDelegateProps) => {
           {i18n.VERIFICATION_TIME_TEXT}
         </Text>
       )}
-      {/*Todo  {state.validateError?.responseMessages?.[0]?.message && (
-        <Text font="small" style={{ color: 'red', padding: 10, width: '95%', margin: 10 }}>
-          {state.validateError}
-        </Text>
-      )} */}
+      {/*Todo: {state.validateError?.responseMessages?.[0]?.message && (
+          <Text font="small" style={{ color: 'red', padding: 10, width: '95%', margin: 10 }}>
+            {state.validateError}
+          </Text>
+        )} */}
       {downloadOverLay ? (
         <section className={css.stepsOverlay}>
           <Layout.Vertical spacing="xxlarge">
             <Layout.Horizontal className={css.overlayHeading}>
               <Text font="medium" className={css.installText}>
-                {i18n.INSTALL.INSTALL_TEXT}
+                {i18n.DELEGATE_FOUND}
               </Text>
               <Icon name="cross" onClick={() => state.setDownloadOverlay(false)} />
             </Layout.Horizontal>
             <Layout.Vertical spacing="small">
-              <Label>{i18n.INSTALL.SUPPORTED_FORMATS}</Label>
-              <Select items={[{ label: 'YAML', value: 'YAML' }]} value={{ label: 'YAML', value: 'YAML' }} />
-            </Layout.Vertical>
-            <Button
-              intent="primary"
-              large
-              text={i18n.INSTALL.DOWNLOAD_BTN_TEXT}
-              icon="bring-data"
-              onClick={() => {
-                reloadDelegateDownloadUrl()
-                setTimeout(() => {
-                  setCurrentStatus(currentStatus + 1)
-                }, 3000)
-              }}
-            />
-            <Layout.Vertical spacing="large">
-              <Text className={css.delegateRunInfo}>{i18n.INSTALL.DELEGATE_RUN_INFO}</Text>
-              <CodeBlock allowCopy format="pre" snippet={i18n.INSTALL.COMMAND} />
+              <span>Delegate: {props.delegateName}</span>
+              {/* change it with values from api  */}
+              <span>Status: Active</span>
+              {/* Todo <span>Sync:</span> */}
             </Layout.Vertical>
           </Layout.Vertical>
         </section>
       ) : null}
-      <Layout.Horizontal spacing="large" className={css.submitWrp}>
-        {/* TODO: <Button type="submit" onClick={() => props.hideLightModal} style={{ color: 'var(--blue-500)' }} text="Close" /> */}
-      </Layout.Horizontal>
+      {currentStatus > 3 ? (
+        <Layout.Horizontal spacing="large" className={css.submitWrp}>
+          <Button type="submit" onClick={() => props.hideLightModal()} color={`var(--blue-500)`} text="Finish" />
+        </Layout.Horizontal>
+      ) : null}
     </Layout.Vertical>
   )
 }
-
-export default VerifyInstalledDelegate
+export default VerifyExistingDelegate

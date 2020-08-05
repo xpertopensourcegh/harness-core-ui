@@ -1,3 +1,4 @@
 export default {
-  saveAndContinue: 'CONTINUE'
+  saveAndContinue: 'CONTINUE',
+  validateError: 'Duplicate identifier'
 }
