@@ -190,13 +190,14 @@ export const PipelineCanvas: React.FC<{}> = (): JSX.Element => {
           </Layout.Horizontal>
         </Route>
         <Route exact path={`${path}yaml/`}>
-          <YAMLBuilderPage
-            fileName="DeploymentPipeline.yaml"
-            entityType={YamlEntity.PIPELINE}
-            height={800}
-            existingYaml={stringify({ pipeline })}
-            bind={setYamlHandler}
-          />
+          <div className={css.yamlBuilder}>
+            <YAMLBuilderPage
+              fileName="DeploymentPipeline.yaml"
+              entityType={YamlEntity.PIPELINE}
+              existingYaml={stringify({ pipeline })}
+              bind={setYamlHandler}
+            />
+          </div>
         </Route>
       </Switch>
     </div>

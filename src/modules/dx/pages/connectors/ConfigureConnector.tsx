@@ -157,9 +157,8 @@ const ConfigureConnector = (props: ConfigureConnectorProps): JSX.Element => {
         ) : (
           <div className={css.editor}>
             <YAMLBuilderPage
-              fileName="K8sConnector.yaml"
+              fileName={`${connector?.identifier ?? 'Connector'}.yaml`}
               entityType={YamlEntity.CONNECTOR}
-              height={550}
               existingYaml={getYamlFromJson(props.connectorJson)}
             />
           </div>

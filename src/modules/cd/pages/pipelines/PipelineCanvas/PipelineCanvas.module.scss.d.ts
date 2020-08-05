@@ -13,5 +13,6 @@ declare const styles: {
   readonly canvasStageView: string
   readonly tagRender: string
   readonly dialog: string
+  readonly yamlBuilder: string
 }
 export default styles
