@@ -5,7 +5,7 @@ import { Route, Switch } from 'react-router'
 import { Link, useRouteMatch, Redirect } from 'react-router-dom'
 import { Page } from 'modules/common/exports'
 import ConnectorsList from 'modules/dx/pages/connectors/ConnectorsList'
-import SecretsList from 'modules/dx/pages/secrets/SecretsList'
+import SecretsPage from 'modules/dx/pages/secrets/SecretsPage'
 import SecretDetails from 'modules/dx/pages/secretDetails/SecretDetails'
 import i18n from './ResourcesPage.i18n'
 import css from './ResourcesPage.module.scss'
@@ -23,8 +23,9 @@ const categories: Categories = {
 }
 
 const ResourcesPage: React.FC = () => {
-  const [activeCategory, setActiveCategory] = React.useState(0)
   const { path, url } = useRouteMatch()
+
+  const [activeCategory, setActiveCategory] = React.useState(1)
 
   return (
     <>
@@ -54,7 +55,7 @@ const ResourcesPage: React.FC = () => {
           <Redirect exact from={`${path}/`} to={`${path}/connectors`} />
           <Route path={`${path}/connectors`} component={ConnectorsList} />
           <Route path={`${path}/secrets/:secretId`} component={SecretDetails} />
-          <Route path={`${path}/secrets`} component={SecretsList} />
+          <Route path={`${path}/secrets`} component={SecretsPage} />
         </Switch>
       </Page.Body>
     </>

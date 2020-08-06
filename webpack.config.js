@@ -59,6 +59,9 @@ const config = {
       modules: false
     }
   },
+  watchOptions: {
+    ignored: /node_modules/
+  },
   stats: {
     modules: false,
     children: false
@@ -210,6 +213,6 @@ const prodOnlyPlugins = [
 
 config.plugins = commonPlugins.concat(DEV ? devOnlyPlugins : prodOnlyPlugins)
 
-console.log({ DEV })
+console.log({ DEV, FsEvents: process.env.TSC_WATCHFILE === 'UseFsEvents' })
 
 module.exports = config

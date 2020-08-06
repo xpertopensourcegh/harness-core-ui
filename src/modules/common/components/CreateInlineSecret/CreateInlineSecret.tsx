@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Text, SelectOption, Button, Color } from '@wings-software/uikit'
 import { Select } from '@blueprintjs/select'
 import { FormikProps, connect } from 'formik'
-import type { SecretManagerConfigDTO } from 'services/cd-ng'
+import { MenuItem } from '@blueprintjs/core'
+import { useListSecretManagers } from 'services/cd-ng'
 
 import EditableText from 'modules/common/components/EditableText/EditableText'
 import i18n from './CreateInlineSecret.i18n'
@@ -15,7 +16,9 @@ export interface InlineSecret {
 }
 
 interface CreateInlineSecretProps {
-  secretManagers?: SecretManagerConfigDTO[]
+  accountIdentifier: string
+  projectIdentifier?: string
+  orgIdentifier?: string
   defaultSecretName?: string
   defaultSecretId?: string
   onChange?: (values: InlineSecret) => void
@@ -24,19 +27,32 @@ interface CreateInlineSecretProps {
 const CustomSelect = Select.ofType<SelectOption>()
 
 const CreateInlineSecret: React.FC<CreateInlineSecretProps> = props => {
-  const { secretManagers = [], defaultSecretId, defaultSecretName } = props
-  const _secretManagers: SelectOption[] = secretManagers.map(sm => {
-    return {
-      label: sm.identifier || '',
-      value: sm.identifier || ''
-    }
+  const { defaultSecretId, defaultSecretName, accountIdentifier, projectIdentifier, orgIdentifier } = props
+  const { data: secretManagersApiResponse, error, refetch, loading } = useListSecretManagers({
+    queryParams: { accountIdentifier, projectIdentifier, orgIdentifier }
   })
-  const [secretManager, setSecretManager] = useState<SelectOption>()
+
   const [secretName, setSecretName] = useState(defaultSecretName || '')
   const [secretId, setSecretId] = useState(defaultSecretId || '')
+  const [secretManager, setSecretManager] = useState<SelectOption>()
+  const [secretManagers, setSecretManagers] = useState<SelectOption[]>([])
+
+  useEffect(() => {
+    const _secretManagers =
+      secretManagersApiResponse?.data?.map(sm => {
+        return {
+          label: sm.name || '',
+          value: sm.identifier || ''
+        }
+      }) || []
+    const defaultSecretManagerId = secretManagersApiResponse?.data?.filter(sm => sm.default)[0]?.identifier
+    const _defaultSecretManager = _secretManagers.filter(opt => opt.value === defaultSecretManagerId)[0]
+    setSecretManagers(_secretManagers)
+    setSecretManager(_defaultSecretManager)
+  }, [secretManagersApiResponse?.data])
 
   return (
-    <div>
+    <div className={css.container}>
       <Text inline color={Color.GREY_400}>
         {i18n.label1}
       </Text>
@@ -58,33 +74,30 @@ const CreateInlineSecret: React.FC<CreateInlineSecretProps> = props => {
           props.onChange?.({ secretName, secretId: val, secretManager })
         }}
       />
-      {secretManagers?.length > 0 ? (
-        <>
-          <span className={css.bullet}>&middot;</span>
-          <Text inline color={Color.GREY_400}>
-            {i18n.label3}
-          </Text>
-          <CustomSelect
-            items={_secretManagers}
-            filterable={false}
-            itemRenderer={(item, { handleClick }) => (
-              <Button
-                inline
-                minimal
-                text={item.label}
-                onClick={e => handleClick(e as React.MouseEvent<HTMLElement, MouseEvent>)}
-              />
-            )}
-            onItemSelect={item => {
-              setSecretManager(item)
-              props.onChange?.({ secretName, secretId, secretManager: item })
-            }}
-            popoverProps={{ minimal: true }}
-          >
-            <Button inline minimal rightIcon="chevron-down" text={secretManager ? secretManager.label : 'Select...'} />
-          </CustomSelect>
-        </>
-      ) : null}
+      <span className={css.bullet}>&middot;</span>
+      <Text inline color={Color.GREY_400}>
+        {i18n.label3}
+      </Text>{' '}
+      {loading ? (
+        '...'
+      ) : error ? (
+        <Button inline minimal text="Retry" onClick={() => refetch()} />
+      ) : (
+        <CustomSelect
+          items={secretManagers}
+          filterable={false}
+          itemRenderer={(item, { handleClick }) => (
+            <MenuItem text={item.label} onClick={(e: React.MouseEvent<HTMLElement, MouseEvent>) => handleClick(e)} />
+          )}
+          onItemSelect={item => {
+            setSecretManager(item)
+            props.onChange?.({ secretName, secretId, secretManager: item })
+          }}
+          popoverProps={{ minimal: true }}
+        >
+          <Button inline minimal rightIcon="chevron-down" text={secretManager ? secretManager.label : 'Select...'} />
+        </CustomSelect>
+      )}
     </div>
   )
 }

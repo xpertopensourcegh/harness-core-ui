@@ -15,7 +15,7 @@ export const PageSpinner: React.FC<PageSpinnerProps> = props => (
     <Layout.Vertical
       spacing="medium"
       width={props?.width || 500}
-      style={{ alignItems: 'center', marginTop: '-32px' }}
+      style={{ alignItems: 'center' }}
       className={cx(props.className, css.content)}
     >
       <Icon name="steps-spinner" size={32} color={Color.GREY_600} />

@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
-import { useParams } from 'react-router-dom'
 import cx from 'classnames'
-import { Container, TextInput, Button, Layout } from '@wings-software/uikit'
-
+import { Container, TextInput, Button, Layout, Text } from '@wings-software/uikit'
 import { Classes } from '@blueprintjs/core'
-import { useListSecrets } from 'services/cd-ng'
+
+import { useListSecrets, ListSecretsQueryParams } from 'services/cd-ng'
 import type { EncryptedDataDTO } from 'services/cd-ng'
+
+import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
+import { PageError } from 'modules/common/components/Page/PageError'
 
 import css from './SecretReference.module.scss'
 
@@ -17,67 +19,91 @@ export enum Scope {
 
 interface SecretReferenceProps {
   onSelect: (secret: EncryptedDataDTO) => void
-  project?: string
-  organization?: string
+  accountIdentifier: string
+  projectIdentifier?: string
+  orgIdentifier?: string
   defaultScope?: Scope
+  type?: ListSecretsQueryParams['type']
 }
 
 const SecretReference: React.FC<SecretReferenceProps> = props => {
-  const { defaultScope } = props
-  const { accountId } = useParams()
-  const { loading, data } = useListSecrets({
-    queryParams: { accountIdentifier: accountId, type: 'SECRET_TEXT' }
-  })
+  const { defaultScope, accountIdentifier, projectIdentifier, orgIdentifier, type = 'SECRET_TEXT' } = props
+  const [searchTerm, setSearchTerm] = useState('')
   const [selectedScope, setSelectedScope] = useState<Scope>(defaultScope || Scope.ACCOUNT)
+
+  const { loading, data, error, refetch } = useListSecrets({
+    queryParams: {
+      accountIdentifier,
+      type,
+      searchTerm: searchTerm.trim(),
+      projectIdentifier: selectedScope === Scope.PROJECT ? projectIdentifier : undefined,
+      orgIdentifier: selectedScope === Scope.PROJECT || selectedScope === Scope.ORG ? orgIdentifier : undefined
+    },
+    debounce: 300
+  })
 
   return (
     <Container padding="large" className={css.container}>
+      <Layout.Vertical spacing="medium">
+        <Layout.Horizontal spacing="small">
+          <Button
+            className={css.scopeButton}
+            intent={selectedScope == Scope.PROJECT ? 'primary' : 'none'}
+            text="Project"
+            icon="cube"
+            onClick={() => setSelectedScope(Scope.PROJECT)}
+            disabled={!projectIdentifier}
+          />
+          <Button
+            className={css.scopeButton}
+            intent={selectedScope == Scope.ORG ? 'primary' : 'none'}
+            text="Organization"
+            icon="diagram-tree"
+            onClick={() => setSelectedScope(Scope.ORG)}
+            disabled={!orgIdentifier}
+          />
+          <Button
+            className={css.scopeButton}
+            intent={selectedScope == Scope.ACCOUNT ? 'primary' : 'none'}
+            text="Account"
+            icon="layers"
+            onClick={() => setSelectedScope(Scope.ACCOUNT)}
+          />
+        </Layout.Horizontal>
+        <TextInput
+          placeholder="Search"
+          leftIcon="search"
+          value={searchTerm}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            setSearchTerm(e.target.value)
+          }}
+        />
+      </Layout.Vertical>
       {loading ? (
-        'Loading...'
-      ) : (
-        <Layout.Vertical spacing="medium">
-          <Layout.Horizontal spacing="small">
-            <Button
-              className={css.scopeButton}
-              intent={selectedScope == Scope.PROJECT ? 'primary' : 'none'}
-              text="Project"
-              icon="cube"
-              onClick={() => setSelectedScope(Scope.PROJECT)}
-              disabled
-            />
-            <Button
-              className={css.scopeButton}
-              intent={selectedScope == Scope.ORG ? 'primary' : 'none'}
-              text="Organization"
-              icon="diagram-tree"
-              onClick={() => setSelectedScope(Scope.ORG)}
-              disabled
-            />
-            <Button
-              className={css.scopeButton}
-              intent={selectedScope == Scope.ACCOUNT ? 'primary' : 'none'}
-              text="Account"
-              icon="layers"
-              onClick={() => setSelectedScope(Scope.ACCOUNT)}
-            />
-          </Layout.Horizontal>
-          <TextInput placeholder="Search" leftIcon="search" disabled />
-          <div className={css.secretList}>
-            {/* TODO: remove any once API fixes type */}
-            {(data?.data as any)?.response?.map((item: EncryptedDataDTO) => (
-              <div
-                key={item.identifier}
-                className={cx(css.listItem, Classes.POPOVER_DISMISS)}
-                onClick={() => props.onSelect(item)}
-              >
-                <div>{item.name}</div>
-                <div className={css.meta}>
-                  {item.identifier} . {item.secretManagerIdentifier}
-                </div>
+        <PageSpinner />
+      ) : error ? (
+        <Container padding={{ top: 'large' }}>
+          <PageError message={error.message} onClick={() => refetch()} />
+        </Container>
+      ) : data?.data?.length ? (
+        <div className={css.secretList}>
+          {data?.data?.map((item: EncryptedDataDTO) => (
+            <div
+              key={item.identifier}
+              className={cx(css.listItem, Classes.POPOVER_DISMISS)}
+              onClick={() => props.onSelect(item)}
+            >
+              <div>{item.name}</div>
+              <div className={css.meta}>
+                {item.identifier} . {item.secretManagerIdentifier}
               </div>
-            ))}
-          </div>
-        </Layout.Vertical>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <Container padding={{ top: 'xlarge' }} flex={{ align: 'center-center' }}>
+          <Text>No Secrets Found</Text>
+        </Container>
       )}
     </Container>
   )

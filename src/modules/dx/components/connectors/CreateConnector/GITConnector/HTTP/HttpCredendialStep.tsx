@@ -7,13 +7,7 @@ import { useParams } from 'react-router-dom'
 import type { GITFormData } from 'modules/dx/interfaces/ConnectorInterface'
 import { getCustomFields } from 'modules/dx/pages/connectors/Forms/KubeFormHelper'
 import { buildGITPayload } from 'modules/dx/pages/connectors/utils/ConnectorUtils'
-import {
-  useCreateConnector,
-  ConnectorRequestDTORequestBody,
-  useListSecretManagers,
-  SecretManagerConfigDTO,
-  useCreateSecretText
-} from 'services/cd-ng'
+import { useCreateConnector, ConnectorRequestDTORequestBody, useCreateSecretText } from 'services/cd-ng'
 import type { InlineSecret } from 'modules/common/components/CreateInlineSecret/CreateInlineSecret'
 import i18n from './HttpCredentialStep.i18n'
 import css from './HttpCredentialStep.module.scss'
@@ -60,9 +54,6 @@ const HttpCredentialStep: React.FC<HttpCredentialStepProps> = props => {
   } as SelectOption)
   const { mutate: createConnector } = useCreateConnector({ accountIdentifier: accountId })
   const { mutate: createSecret } = useCreateSecretText({})
-  const { data: secretManagersApiResponse } = useListSecretManagers({
-    queryParams: { accountIdentifier: props.accountId }
-  })
   return (
     <div className={css.credStep}>
       <Text font="medium" className={css.headingCred}>
@@ -132,14 +123,7 @@ const HttpCredentialStep: React.FC<HttpCredentialStepProps> = props => {
                     />
                   </CustomSelect>
                 </Layout.Horizontal>
-                {/* Forcing  SecretManagerConfigDTO[] type untill secrets integration is done */}
-                <div className={css.authFields}>
-                  {getCustomFields(
-                    authType?.value,
-                    secretManagersApiResponse?.data as SecretManagerConfigDTO[],
-                    props.formData?.name
-                  )}
-                </div>
+                <div className={css.authFields}>{getCustomFields(authType?.value, props.formData?.name)}</div>
                 <FormInput.Text name="branchName" label="Branch Name" className={css.branchName} />
               </div>
               <Layout.Horizontal spacing="large" className={css.footer}>

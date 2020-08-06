@@ -14,7 +14,7 @@ export const PageError: React.FC<PageErrorProps> = props => (
     <Layout.Vertical
       spacing="medium"
       width={props?.width || 500}
-      style={{ alignItems: 'center', marginTop: '-32px' }}
+      style={{ alignItems: 'center' }}
       className={props.className}
     >
       <Icon name="error" size={32} color={Color.RED_500} />

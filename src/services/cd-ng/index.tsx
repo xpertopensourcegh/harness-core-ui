@@ -101,12 +101,12 @@ export interface UpdateProjectDTO {
   modules?: ('CD' | 'CV' | 'CI' | 'CE' | 'CF')[]
 }
 
+export type KubernetesServiceSpec = ServiceSpec & {}
+
 export interface KubernetesAuthDTO {
   type: 'USER_PASSWORD' | 'CLIENT_KEY_CERT' | 'SERVICE_ACCOUNT' | 'OPEN_ID_CONNECT'
   spec: KubernetesAuthCredentialDTO
 }
-
-export type KubernetesServiceSpec = ServiceSpec & {}
 
 export interface StageVariables {
   variables?: Variable[]
@@ -232,8 +232,8 @@ export interface ExecutionElement {
 
 export interface GitAuthenticationDTO {
   url?: string
-  gitConnectionType?: 'ACCOUNT' | 'REPO'
   branchName?: string
+  gitConnectionType?: 'ACCOUNT' | 'REPO'
   settingType?:
     | 'HOST_CONNECTION_ATTRIBUTES'
     | 'BASTION_HOST_CONNECTION_ATTRIBUTES'
@@ -331,6 +331,11 @@ export interface ProjectDTO {
   lastModifiedAt?: number
 }
 
+export interface InfraUseFromStage {
+  stage: string
+  overrides?: InfraOverrides
+}
+
 export interface GitSyncFolderConfigDTO {
   rootFolder?: string
   isDefault?: boolean
@@ -338,12 +343,11 @@ export interface GitSyncFolderConfigDTO {
   enabled?: boolean
 }
 
-export interface InfraUseFromStage {
-  stage: string
-  overrides?: InfraOverrides
+export interface ConnectorConfigDTO {
+  [key: string]: any
 }
 
-export interface ConnectorConfigDTO {
+export interface StageElementWrapper {
   [key: string]: any
 }
 
@@ -352,10 +356,6 @@ export interface ResponseDTOPageConnectorSummaryDTO {
   data?: PageConnectorSummaryDTO
   metaData?: { [key: string]: any }
   correlationId?: string
-}
-
-export interface StageElementWrapper {
-  [key: string]: any
 }
 
 export interface KubernetesCredentialDTO {
@@ -373,13 +373,6 @@ export interface StackTraceElement {
 export interface ResponseDTOPageCDPipelineSummaryResponseDTO {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
   data?: PageCDPipelineSummaryResponseDTO
-  metaData?: { [key: string]: any }
-  correlationId?: string
-}
-
-export interface ResponseDTOOptionalConnectorDTO {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: ConnectorDTO
   metaData?: { [key: string]: any }
   correlationId?: string
 }
@@ -411,6 +404,13 @@ export interface PlanExecution {
   endTs?: number
   lastUpdatedAt?: number
   version?: number
+}
+
+export interface ResponseDTOOptionalConnectorDTO {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: ConnectorDTO
+  metaData?: { [key: string]: any }
+  correlationId?: string
 }
 
 export type LocalConfigDTO = SecretManagerConfigDTO & {}
@@ -533,10 +533,10 @@ export interface GitSyncConfig {
 }
 
 export interface TemporalUnit {
-  timeBased?: boolean
-  duration?: Duration
   dateBased?: boolean
   durationEstimated?: boolean
+  timeBased?: boolean
+  duration?: Duration
 }
 
 export interface CreateProjectDTO {
@@ -550,6 +550,13 @@ export interface CreateProjectDTO {
   tags: string[]
 }
 
+export interface ResponseDTOEnvironmentResponseDTO {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: EnvironmentResponseDTO
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
 export type VaultConfigUpdateDTO = NGSecretManagerConfigUpdateDTO & {
   authToken?: string
   basePath?: string
@@ -559,13 +566,6 @@ export type VaultConfigUpdateDTO = NGSecretManagerConfigUpdateDTO & {
   appRoleId?: string
   secretId?: string
   readOnly?: boolean
-}
-
-export interface ResponseDTOEnvironmentResponseDTO {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: EnvironmentResponseDTO
-  metaData?: { [key: string]: any }
-  correlationId?: string
 }
 
 export type K8sManifest = ManifestAttributes & {
@@ -616,6 +616,10 @@ export interface CDPipelineRequestDTO {
   cdPipeline?: CDPipeline
 }
 
+export interface Outcome {
+  refType?: RefType
+}
+
 export interface ConnectorFilter {
   accountId?: string
   projectId?: string
@@ -624,10 +628,6 @@ export interface ConnectorFilter {
   tag?: string[]
   lastActivity?: number
   name?: string
-}
-
-export interface Outcome {
-  refType?: RefType
 }
 
 export interface Subgraph {
@@ -988,6 +988,7 @@ export interface FailureDTO {
     | 'SHELL_EXECUTION_EXCEPTION'
     | 'TEMPLATE_NOT_FOUND'
     | 'GIT_UNSEEN_REMOTE_HEAD_COMMIT'
+    | 'TIMEOUT_ENGINE_EXCEPTION'
   message?: string
   correlationId?: string
   validationErrors?: ValidationError[]
@@ -1003,12 +1004,12 @@ export interface RefType {
 }
 
 export interface Pageable {
+  pageNumber?: number
   offset?: number
+  pageSize?: number
   sort?: Sort
   paged?: boolean
-  pageNumber?: number
   unpaged?: boolean
-  pageSize?: number
 }
 
 export interface NGSecretManagerConfigUpdateDTO {
@@ -1170,22 +1171,22 @@ export type HttpStepInfo = StepSpecType & {
   socketTimeoutMillis?: number
 }
 
+export type ParallelStepElement = ExecutionWrapper & {
+  sections: ExecutionWrapper[]
+}
+
 export type GitSSHAuthenticationDTO = GitAuthenticationDTO & {
   type?: 'ACCOUNT' | 'REPO'
   sshKey?: string[]
   sshKeyReference?: string
 }
 
-export type ParallelStepElement = ExecutionWrapper & {
-  sections: ExecutionWrapper[]
-}
-
 export interface Duration {
   seconds?: number
-  zero?: boolean
-  negative?: boolean
   nano?: number
   units?: TemporalUnit[]
+  zero?: boolean
+  negative?: boolean
 }
 
 export interface ResponseMessage {
@@ -1402,6 +1403,7 @@ export interface ResponseMessage {
     | 'SHELL_EXECUTION_EXCEPTION'
     | 'TEMPLATE_NOT_FOUND'
     | 'GIT_UNSEEN_REMOTE_HEAD_COMMIT'
+    | 'TIMEOUT_ENGINE_EXCEPTION'
   level?: 'INFO' | 'ERROR'
   message?: string
   exception?: Throwable
@@ -1461,10 +1463,10 @@ export interface PageCDPipelineSummaryResponseDTO {
   content?: CDPipelineSummaryResponseDTO[]
   number?: number
   first?: boolean
-  sort?: Sort
   last?: boolean
   numberOfElements?: number
   pageable?: Pageable
+  sort?: Sort
   empty?: boolean
 }
 
@@ -1510,6 +1512,12 @@ export interface ResponseDTOBoolean {
   correlationId?: string
 }
 
+export interface Variable {
+  name: string
+  value: string
+  type: string
+}
+
 export interface ConnectorRequestDTO {
   name?: string
   identifier?: string
@@ -1519,12 +1527,6 @@ export interface ConnectorRequestDTO {
   tags?: string[]
   type?: 'KUBERNETES_CLUSTER' | 'GIT' | 'APP_DYNAMICS'
   spec?: ConnectorConfigDTO
-}
-
-export interface Variable {
-  name: string
-  value: string
-  type: string
 }
 
 export interface ErrorDTO {
@@ -1742,21 +1744,22 @@ export interface ErrorDTO {
     | 'SHELL_EXECUTION_EXCEPTION'
     | 'TEMPLATE_NOT_FOUND'
     | 'GIT_UNSEEN_REMOTE_HEAD_COMMIT'
+    | 'TIMEOUT_ENGINE_EXCEPTION'
   message?: string
   correlationId?: string
   detailedMessage?: string
 }
 
-export interface ResponseDTOProjectDTO {
+export interface ResponseDTOListEncryptedDataDTO {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: ProjectDTO
+  data?: EncryptedDataDTO[]
   metaData?: { [key: string]: any }
   correlationId?: string
 }
 
-export interface ResponseDTOListEncryptedDataDTO {
+export interface ResponseDTOProjectDTO {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: EncryptedDataDTO[]
+  data?: ProjectDTO
   metaData?: { [key: string]: any }
   correlationId?: string
 }
@@ -1780,12 +1783,6 @@ export type VaultConfigDTO = SecretManagerConfigDTO & {
   appRoleId?: string
   secretId?: string
   readOnly?: boolean
-}
-
-export interface EmbeddedUser {
-  uuid?: string
-  name?: string
-  email?: string
 }
 
 export interface GraphVertex {
@@ -1818,6 +1815,12 @@ export interface GraphVertex {
   retryIds?: string[]
   subgraph?: Subgraph
   next?: GraphVertex
+}
+
+export interface EmbeddedUser {
+  uuid?: string
+  name?: string
+  email?: string
 }
 
 export type GitStore = StoreConfig & {
@@ -1981,14 +1984,20 @@ export interface ResponseDTOCDPipelineResponseDTO {
   correlationId?: string
 }
 
-export interface KubernetesAuthCredentialDTO {
-  [key: string]: any
-}
-
 export type StepGroupElement = ExecutionWrapper & {
   identifier: string
   name?: string
   steps: ExecutionWrapper[]
+}
+
+export interface KubernetesAuthCredentialDTO {
+  [key: string]: any
+}
+
+export interface SecretTextUpdateDTO {
+  value?: string
+  path?: string
+  description?: string
 }
 
 export type KubernetesClientKeyCertDTO = KubernetesAuthCredentialDTO & {
@@ -1996,12 +2005,6 @@ export type KubernetesClientKeyCertDTO = KubernetesAuthCredentialDTO & {
   clientKeyRef?: string
   clientKeyPassphraseRef?: string
   clientKeyAlgo?: string
-}
-
-export interface SecretTextUpdateDTO {
-  value?: string
-  path?: string
-  description?: string
 }
 
 export interface CustomCommitAttributes {
@@ -2023,6 +2026,15 @@ export interface EnvironmentYaml {
   refType?: RefType
 }
 
+export interface NGPageResponseEnvironmentResponseDTO {
+  totalPages?: number
+  totalElements?: number
+  size?: number
+  content?: EnvironmentResponseDTO[]
+  pageNumber?: number
+  empty?: boolean
+}
+
 export interface PageConnectorSummaryDTO {
   totalPages?: number
   totalElements?: number
@@ -2030,19 +2042,10 @@ export interface PageConnectorSummaryDTO {
   content?: ConnectorSummaryDTO[]
   number?: number
   first?: boolean
-  sort?: Sort
   last?: boolean
   numberOfElements?: number
   pageable?: Pageable
-  empty?: boolean
-}
-
-export interface NGPageResponseEnvironmentResponseDTO {
-  totalPages?: number
-  totalElements?: number
-  size?: number
-  content?: EnvironmentResponseDTO[]
-  pageNumber?: number
+  sort?: Sort
   empty?: boolean
 }
 
@@ -3981,6 +3984,75 @@ export const useGetProjectListBasedOnFilter = (props: UseGetProjectListBasedOnFi
     { base: getConfig('cd/api'), ...props }
   )
 
+export type CreateSecretFileProps = Omit<
+  MutateProps<ResponseDTOEncryptedDataDTO, FailureDTO | ErrorDTO, void, void, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Create a secret file
+ */
+export const CreateSecretFile = (props: CreateSecretFileProps) => (
+  <Mutate<ResponseDTOEncryptedDataDTO, FailureDTO | ErrorDTO, void, void, void>
+    verb="POST"
+    path={`/secret-files`}
+    base={getConfig('cd/api')}
+    {...props}
+  />
+)
+
+export type UseCreateSecretFileProps = Omit<
+  UseMutateProps<ResponseDTOEncryptedDataDTO, FailureDTO | ErrorDTO, void, void, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Create a secret file
+ */
+export const useCreateSecretFile = (props: UseCreateSecretFileProps) =>
+  useMutate<ResponseDTOEncryptedDataDTO, FailureDTO | ErrorDTO, void, void, void>('POST', `/secret-files`, {
+    base: getConfig('cd/api'),
+    ...props
+  })
+
+export interface UpdateSecretFilePathParams {
+  identifier: string
+}
+
+export type UpdateSecretFileProps = Omit<
+  MutateProps<ResponseDTOBoolean, FailureDTO | ErrorDTO, void, void, UpdateSecretFilePathParams>,
+  'path' | 'verb'
+> &
+  UpdateSecretFilePathParams
+
+/**
+ * Update a secret file
+ */
+export const UpdateSecretFile = ({ identifier, ...props }: UpdateSecretFileProps) => (
+  <Mutate<ResponseDTOBoolean, FailureDTO | ErrorDTO, void, void, UpdateSecretFilePathParams>
+    verb="PUT"
+    path={`/secret-files/${identifier}`}
+    base={getConfig('cd/api')}
+    {...props}
+  />
+)
+
+export type UseUpdateSecretFileProps = Omit<
+  UseMutateProps<ResponseDTOBoolean, FailureDTO | ErrorDTO, void, void, UpdateSecretFilePathParams>,
+  'path' | 'verb'
+> &
+  UpdateSecretFilePathParams
+
+/**
+ * Update a secret file
+ */
+export const useUpdateSecretFile = ({ identifier, ...props }: UseUpdateSecretFileProps) =>
+  useMutate<ResponseDTOBoolean, FailureDTO | ErrorDTO, void, void, UpdateSecretFilePathParams>(
+    'PUT',
+    (paramsInPath: UpdateSecretFilePathParams) => `/secret-files/${paramsInPath.identifier}`,
+    { base: getConfig('cd/api'), pathParams: { identifier }, ...props }
+  )
+
 export interface ListSecretManagersQueryParams {
   accountIdentifier: string
   orgIdentifier?: string
@@ -4223,6 +4295,7 @@ export interface ListSecretsQueryParams {
   orgIdentifier?: string
   projectIdentifier?: string
   type?: 'CONFIG_FILE' | 'SECRET_TEXT'
+  searchTerm?: string
 }
 
 export type ListSecretsProps = Omit<

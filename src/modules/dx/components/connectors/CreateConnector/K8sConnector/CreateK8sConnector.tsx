@@ -26,12 +26,16 @@ import {
 } from 'modules/dx/pages/connectors/Forms/KubeFormHelper'
 import ConnectorDetailsStep from 'modules/dx/components/connectors/CreateConnector/commonSteps/ConnectorDetailsStep'
 import { useGetKubernetesDelegateNames, RestResponseListString } from 'services/portal'
-import { useCreateConnector, ConnectorRequestDTORequestBody, ConnectorConfigDTO } from 'services/cd-ng'
+import {
+  useCreateConnector,
+  ConnectorRequestDTORequestBody,
+  ConnectorConfigDTO,
+  useCreateSecretText
+} from 'services/cd-ng'
 import { buildKubPayload } from 'modules/dx/pages/connectors/utils/ConnectorUtils'
 import InstallDelegateForm from 'modules/dx/common/InstallDelegateForm/InstallDelegateForm'
 import VerifyInstalledDelegate from 'modules/dx/common/VerifyInstalledDelegate/VerifyInstalledDelegate'
 import VerifyExistingDelegate from 'modules/dx/common/VerfiyExistingDelegate/VerifyExistingDelegate'
-import { useListSecretManagers, SecretManagerConfigDTO, useCreateSecretText } from 'services/cd-ng'
 import VerifyOutOfClusterDelegate from 'modules/dx/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 import i18n from './CreateK8sConnector.i18n'
 import css from './CreateK8sConnector.module.scss'
@@ -334,9 +338,7 @@ const createConnectorByType = async (
 
 const IntermediateStep = (props: IntermediateStepProps) => {
   const { state, accountId } = props
-  const { data: secretManagersApiResponse } = useListSecretManagers({
-    queryParams: { accountIdentifier: accountId }
-  })
+
   // const accountIdentifier = accountId
   const { mutate: createConnector } = useCreateConnector({ accountIdentifier: accountId })
   const { mutate: createSecret } = useCreateSecretText({})
@@ -420,13 +422,7 @@ const IntermediateStep = (props: IntermediateStepProps) => {
                     <Button text={props.state.authentication?.label} rightIcon="chevron-down" minimal />
                   </SelectV2>
                 </Layout.Horizontal>
-                {/* Forcing  SecretManagerConfigDTO[] type untill secrets integration is done */}
-                {getCustomFields(
-                  props.state.authentication?.value,
-                  secretManagersApiResponse?.data as SecretManagerConfigDTO[],
-                  state.formData?.name,
-                  formikProps
-                )}
+                {getCustomFields(props.state.authentication?.value, state.formData?.name, formikProps)}
               </div>
               <Layout.Horizontal spacing="large" style={{ marginBottom: '30px' }}>
                 <Button onClick={() => props.previousStep?.()} text="Back" />

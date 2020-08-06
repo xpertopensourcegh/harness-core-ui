@@ -3,11 +3,12 @@ import { string } from 'yup'
 import { FormInput, Layout, Icon, Popover } from '@wings-software/uikit'
 import * as Yup from 'yup'
 import type { FormikProps } from 'formik'
+import { Position } from '@blueprintjs/core'
 import cx from 'classnames'
 import { StringUtils } from 'modules/common/exports'
 import { FormikCreateInlineSecret } from 'modules/common/components/CreateInlineSecret/CreateInlineSecret'
-import type { SecretManagerConfigDTO } from 'services/cd-ng'
 import SecretReference from 'modules/dx/components/SecretReference/SecretReference'
+import { accountId } from 'modules/cv/constants'
 import css from './KubFormHelper.module.scss'
 
 export const AuthTypes = {
@@ -165,13 +166,14 @@ export const getKubValidationSchema = () => {
   })
 }
 
-const getSelectSecretPopover = (formikProps?: FormikProps<any>) => {
+const getSelectSecretPopover = (formikProps?: FormikProps<any>): React.ReactElement => {
   return (
-    <Popover>
+    <Popover position={Position.BOTTOM}>
       <div className={css.secretPop}>
         <Icon name="key-main" size={24} height={12} width={24} /> <Icon name="chevron-down" size={14} />
       </div>
       <SecretReference
+        accountIdentifier={accountId} // TODO: remove sample account id when integrating
         onSelect={secret => {
           formikProps?.setFieldValue('password', secret?.name)
         }}
@@ -200,12 +202,7 @@ const getLabelForEncryptedSecret = (field: string) => {
   }
 }
 
-export const getSecretComponent = (
-  passwordField: string,
-  secretManagers?: SecretManagerConfigDTO[],
-  connectorName?: string,
-  formikProps?: FormikProps<any>
-) => {
+export const getSecretComponent = (passwordField: string, connectorName?: string, formikProps?: FormikProps<any>) => {
   const generatedId = StringUtils.getIdentifierFromName(connectorName || '').concat(passwordField)
   return (
     <>
@@ -221,53 +218,41 @@ export const getSecretComponent = (
       />
       <FormikCreateInlineSecret
         name={getSecretFieldValue(passwordField) as string}
-        secretManagers={secretManagers}
         defaultSecretName={generatedId}
         defaultSecretId={generatedId}
+        accountIdentifier={accountId} // TODO: remove sample account id when integrating
       />
     </>
   )
 }
-const renderUserNameAndPassword = (
-  secretManagers?: SecretManagerConfigDTO[],
-  connectorName?: string,
-  formikProps?: FormikProps<any>
-) => {
+const renderUserNameAndPassword = (connectorName?: string, formikProps?: FormikProps<any>) => {
   return (
     <>
       <FormInput.Text name="username" label="Username" />
-      {getSecretComponent(AuthTypeFields.passwordRef, secretManagers, connectorName, formikProps)}
+      {getSecretComponent(AuthTypeFields.passwordRef, connectorName, formikProps)}
     </>
   )
 }
 
-const fieldsForOIDCToken = (
-  secretManagers?: SecretManagerConfigDTO[],
-  connectorName?: string,
-  formikProps?: FormikProps<any>
-) => {
+const fieldsForOIDCToken = (connectorName?: string, formikProps?: FormikProps<any>) => {
   return (
     <>
       <FormInput.Text name={AuthTypeFields.oidcIssuerUrl} label="Identity Provider Url" />
       <FormInput.Text name={AuthTypeFields.oidcUsername} label="Username" />
-      {getSecretComponent(AuthTypeFields.oidcPasswordRef, secretManagers, connectorName, formikProps)}
-      {getSecretComponent(AuthTypeFields.oidcClientIdRef, secretManagers, connectorName, formikProps)}
-      {getSecretComponent(AuthTypeFields.oidcSecretRef, secretManagers, connectorName, formikProps)}
+      {getSecretComponent(AuthTypeFields.oidcPasswordRef, connectorName, formikProps)}
+      {getSecretComponent(AuthTypeFields.oidcClientIdRef, connectorName, formikProps)}
+      {getSecretComponent(AuthTypeFields.oidcSecretRef, connectorName, formikProps)}
       <FormInput.Text name={AuthTypeFields.oidcScopes} label="OIDC Scopes" />
     </>
   )
 }
 
-export const renderFieldsForClientKeyCert = (
-  secretManagers?: SecretManagerConfigDTO[],
-  connectorName?: string,
-  formikProps?: FormikProps<any>
-) => {
+export const renderFieldsForClientKeyCert = (connectorName?: string, formikProps?: FormikProps<any>) => {
   return (
     <>
-      {getSecretComponent(AuthTypeFields.clientKeyRef, secretManagers, connectorName, formikProps)}
-      {getSecretComponent(AuthTypeFields.oidcClientIdRef, secretManagers, connectorName, formikProps)}
-      {getSecretComponent(AuthTypeFields.clientKeyPassphraseRef, secretManagers, connectorName, formikProps)}
+      {getSecretComponent(AuthTypeFields.clientKeyRef, connectorName, formikProps)}
+      {getSecretComponent(AuthTypeFields.oidcClientIdRef, connectorName, formikProps)}
+      {getSecretComponent(AuthTypeFields.clientKeyPassphraseRef, connectorName, formikProps)}
       <FormInput.Text name={AuthTypeFields.clientKeyAlgo} label={getSecretFieldValue(AuthTypeFields.clientCertRef)} />
     </>
   )
@@ -275,19 +260,18 @@ export const renderFieldsForClientKeyCert = (
 
 export const getCustomFields = (
   authType: string | number | symbol,
-  secretManagers?: SecretManagerConfigDTO[],
   connectorName?: string,
   formikProps?: FormikProps<any>
-) => {
+): React.ReactElement => {
   switch (authType) {
     case AuthTypes.USER_PASSWORD:
-      return renderUserNameAndPassword(secretManagers, connectorName, formikProps)
+      return renderUserNameAndPassword(connectorName, formikProps)
     case AuthTypes.SERVICE_ACCOUNT:
-      return getSecretComponent(AuthTypeFields.serviceAccountTokenRef, secretManagers, connectorName, formikProps)
+      return getSecretComponent(AuthTypeFields.serviceAccountTokenRef, connectorName, formikProps)
     case AuthTypes.OIDC:
-      return fieldsForOIDCToken(secretManagers, connectorName, formikProps)
+      return fieldsForOIDCToken(connectorName, formikProps)
     case AuthTypes.CLIENT_KEY_CERT:
-      return renderFieldsForClientKeyCert(secretManagers, connectorName, formikProps)
+      return renderFieldsForClientKeyCert(connectorName, formikProps)
     default:
       return <></>
   }

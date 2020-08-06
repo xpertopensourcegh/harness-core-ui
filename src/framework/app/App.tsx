@@ -24,7 +24,7 @@ const App: React.FC = () => {
   const [activeRoute, setActiveRoute] = useState<Route>()
 
   const getRequestOptions = React.useCallback((): Partial<RequestInit> => {
-    const headers: RequestInit['headers'] = { 'content-type': 'application/json' }
+    const headers: RequestInit['headers'] = {}
 
     if (token && token.length > 0) {
       headers.Authorization = `Bearer ${token}`

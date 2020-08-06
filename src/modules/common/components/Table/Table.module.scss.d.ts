@@ -3,9 +3,9 @@
 declare const styles: {
   readonly table: string
   readonly header: string
+  readonly cell: string
   readonly row: string
   readonly card: string
   readonly clickable: string
-  readonly cell: string
 }
 export default styles

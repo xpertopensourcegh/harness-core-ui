@@ -5,6 +5,10 @@
     color: var(--black);
     display: block;
     padding: var(--spacing-medium) var(--spacing-xlarge);
+
+    .cell {
+      cursor: pointer;
+    }
   }
 
   .row {

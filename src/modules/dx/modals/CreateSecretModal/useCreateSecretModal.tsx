@@ -5,8 +5,8 @@ import { Dialog } from '@blueprintjs/core'
 
 import { useListSecretManagers } from 'services/cd-ng'
 
-import CreateTextSecret from './views/CreateTextSecret'
-import CreateFileSecret from './views/CreateFileSecret'
+import CreateSecretText from './views/CreateSecretText'
+import CreateSecretFile from './views/CreateSecretFile'
 
 import css from './useCreateSecretModal.module.scss'
 
@@ -47,9 +47,9 @@ const useCreateSecretModal = (props: UseCreateSecretModalProps): UseCreateSecret
         className={css.dialog}
       >
         {type === SecretType.TEXT ? (
-          <CreateTextSecret secretsManagers={secretsManagersApiResponse?.data || []} onSuccess={handleSuccess} />
+          <CreateSecretText secretsManagers={secretsManagersApiResponse?.data || []} onSuccess={handleSuccess} />
         ) : (
-          <CreateFileSecret secretsManagers={secretsManagersApiResponse?.data || []} onSuccess={handleSuccess} />
+          <CreateSecretFile secretsManagers={secretsManagersApiResponse?.data || []} onSuccess={handleSuccess} />
         )}
         <Button minimal icon="cross" iconProps={{ size: 18 }} onClick={hideModal} className={css.crossIcon} />
       </Dialog>

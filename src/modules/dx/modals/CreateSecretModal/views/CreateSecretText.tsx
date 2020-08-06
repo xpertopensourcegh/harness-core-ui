@@ -6,31 +6,37 @@ import type { FormikProps } from 'formik'
 import { omit } from 'lodash-es'
 import { useCreateSecretText } from 'services/cd-ng'
 import type { SecretTextCreateDTO, SecretManagerConfigDTO } from 'services/cd-ng'
+import { useToaster } from 'modules/common/exports'
+import { illegalIdentifiers } from 'modules/common/utils/StringUtils'
 
 import i18n from '../CreateSecretModal.i18n'
 
-interface CreateTextSecretProps {
+interface CreateSecretTextProps {
   secretsManagers: SecretManagerConfigDTO[]
   onSuccess: (data: SecretTextCreateDTO) => void
 }
 
-interface CreateTextSecretForm extends SecretTextCreateDTO {
+interface CreateSecretTextForm extends SecretTextCreateDTO {
   valueOrReference: 'inline' | 'reference'
 }
 
-const CreateTextSecret: React.FC<CreateTextSecretProps> = props => {
-  const { accountId } = useParams()
+const CreateSecretText: React.FC<CreateSecretTextProps> = props => {
+  const { accountId, projectIdentifier, orgIdentifier } = useParams()
+  const { showSuccess, showError } = useToaster()
   const { mutate: createSecret, loading } = useCreateSecretText({})
 
-  const handleSubmit = async (data: CreateTextSecretForm): Promise<void> => {
+  const handleSubmit = async (data: CreateSecretTextForm): Promise<void> => {
     const dataToSubmit: SecretTextCreateDTO = omit(data, ['valueOrReference'])
     dataToSubmit.accountIdentifier = accountId
+    if (projectIdentifier) dataToSubmit.projectIdentifier = projectIdentifier
+    if (orgIdentifier) dataToSubmit.orgIdentifier = orgIdentifier
 
     try {
       await createSecret(dataToSubmit)
+      showSuccess(`Secret '${data.name}' created successfully`)
       props.onSuccess(dataToSubmit)
     } catch (e) {
-      // handle error
+      showError(e.message)
     }
   }
 
@@ -54,7 +60,17 @@ const CreateTextSecret: React.FC<CreateTextSecretProps> = props => {
         }}
         enableReinitialize={true}
         validationSchema={Yup.object().shape({
-          name: Yup.string().trim().required(i18n.validationName),
+          name: Yup.string()
+            .trim()
+            .required(i18n.validationName)
+            .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, i18n.validationIdentifierChars),
+          identifier: Yup.string().when('name', {
+            is: val => val?.length,
+            then: Yup.string()
+              .required(i18n.validationIdentifier)
+              .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, i18n.validationIdentifierChars)
+              .notOneOf(illegalIdentifiers)
+          }),
           value: Yup.string().trim().required(i18n.validationValue),
           secretManagerIdentifier: Yup.string().required(i18n.validationKms)
         })}
@@ -62,7 +78,7 @@ const CreateTextSecret: React.FC<CreateTextSecretProps> = props => {
           handleSubmit(data)
         }}
       >
-        {(formikProps: FormikProps<CreateTextSecretForm>) => (
+        {(formikProps: FormikProps<CreateSecretTextForm>) => (
           <FormikForm>
             <FormInput.Select
               name="secretManagerIdentifier"
@@ -77,6 +93,7 @@ const CreateTextSecret: React.FC<CreateTextSecretProps> = props => {
             <FormInput.InputWithIdentifier inputName="name" inputLabel={i18n.labelSecretName} idName="identifier" />
             <FormInput.RadioGroup
               name="valueOrReference"
+              radioGroup={{ inline: true }}
               items={[
                 { label: 'Inline Secret Value', value: 'inline' },
                 { label: 'Reference Secret', value: 'reference' }
@@ -123,4 +140,4 @@ const CreateTextSecret: React.FC<CreateTextSecretProps> = props => {
   )
 }
 
-export default CreateTextSecret
+export default CreateSecretText
