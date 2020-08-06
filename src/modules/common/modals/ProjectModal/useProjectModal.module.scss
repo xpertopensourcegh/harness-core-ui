@@ -7,15 +7,22 @@
     border-left: none !important;
   }
   &.edit {
-    width: 850px;
+    width: 750px;
   }
   &.purposeList {
     width: 1250px;
     border-left: none !important;
+  }
+  .stepWizard {
+    padding: 0px;
   }
 }
 .crossIcon {
   position: absolute;
   right: var(--spacing-large);
   top: var(--spacing-large);
+}
+
+.stepClass {
+  padding: 0px !important;
 }

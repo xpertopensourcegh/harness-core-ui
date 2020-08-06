@@ -21,7 +21,7 @@ export const routeOrgProjects: Route = {
   title: i18n.project,
   pageId: 'orgProjects',
   url: params => `/organizations/${params?.orgId}/projects`,
-  component: React.lazy(() => import('./pages/ProjectsPage/ProjectsPage'))
+  component: React.lazy(() => import('./pages/ProjectsPage/OrgsProjectsPage'))
 }
 
 export const routeOrganizations: Route = {

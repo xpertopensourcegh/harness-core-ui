@@ -33,9 +33,9 @@ export const routeRegistry: RouteRegistry = Object.assign(
  */
 export const sidebarRegistry: SidebarRegistry = [
   DXSidebar.Dashboard,
+  CommonSidebar.Projects,
   CDSidebar.Deployments,
   CVSidebar.CVDashboard,
-  CommonSidebar.Projects,
   CommonSidebar.Account,
   CommonSidebar.UserProfile
 ]

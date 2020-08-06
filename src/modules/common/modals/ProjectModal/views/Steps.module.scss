@@ -32,10 +32,13 @@
   padding: 0;
 }
 
-.saveandclose {
-  padding-top: 200px !important;
-}
-
 .button {
   color: var(--blue-500) !important;
+}
+.preview {
+  background: var(--grey-100) !important;
+}
+
+.collaborators {
+  padding: var(--spacing-xxlarge);
 }

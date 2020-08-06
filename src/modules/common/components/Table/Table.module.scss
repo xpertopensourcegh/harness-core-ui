@@ -4,7 +4,7 @@
     font-size: smaller;
     color: var(--black);
     display: block;
-    padding: var(--spacing-medium) var(--spacing-xlarge);
+    padding: var(--spacing-medium);
 
     .cell {
       cursor: pointer;
@@ -15,10 +15,11 @@
     display: block;
     margin-bottom: var(--spacing-small);
     padding: var(--spacing-medium);
+    background-color: white;
   }
 
   .card {
-    box-shadow: 0px 1px 6px -4px var(--black);
+    box-shadow: 0px 1px 5px -4px var(--black);
     border-radius: 10px;
   }
 

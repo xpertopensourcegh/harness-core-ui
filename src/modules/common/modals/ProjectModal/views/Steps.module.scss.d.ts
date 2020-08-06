@@ -6,7 +6,8 @@ declare const styles: {
   readonly radioSelectPurpose: string
   readonly halfWidth: string
   readonly collapseDiv: string
-  readonly saveandclose: string
   readonly button: string
+  readonly preview: string
+  readonly collaborators: string
 }
 export default styles

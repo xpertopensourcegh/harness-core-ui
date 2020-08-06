@@ -58,11 +58,6 @@ exports[`ProjectCard test initializes ok  1`] = `
         test
       </p>
       <p
-        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6 StyledProps---font-weight-bold--22XZ"
-      >
-        testOrg
-      </p>
-      <p
         class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-small--1qQz StyledProps---padding-top-medium--29t2"
       >
         test

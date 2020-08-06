@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react'
-import { useModalHook, StepWizard, Button, Container } from '@wings-software/uikit'
+import { useModalHook, StepWizard, Button } from '@wings-software/uikit'
 import { Dialog, Classes } from '@blueprintjs/core'
 import cx from 'classnames'
 
@@ -46,7 +46,7 @@ export const useProjectModal = ({ onSuccess }: UseProjectModalProps): UseProject
         })}
       >
         {view === Views.CREATE ? (
-          <StepWizard<ProjectDTO> onCompleteWizard={wizardCompleteHandler}>
+          <StepWizard<ProjectDTO> onCompleteWizard={wizardCompleteHandler} stepClassName={css.stepClass}>
             <AboutProject name={i18n.newProjectWizard.stepTwo.name} data={projectData} onSuccess={onSuccess} />
             <Collaborators name={i18n.newProjectWizard.Collaborators.name} data={projectData} />
           </StepWizard>
@@ -55,14 +55,12 @@ export const useProjectModal = ({ onSuccess }: UseProjectModalProps): UseProject
         {view === Views.PURPOSE ? <PurposeList data={projectData} /> : null}
 
         {view === Views.EDIT ? (
-          <Container padding="large">
-            <AboutProject
-              name={i18n.newProjectWizard.stepTwo.name}
-              data={projectData}
-              closeModal={hideModal}
-              onSuccess={onSuccess}
-            />
-          </Container>
+          <AboutProject
+            name={i18n.newProjectWizard.stepTwo.name}
+            data={projectData}
+            closeModal={hideModal}
+            onSuccess={onSuccess}
+          />
         ) : null}
 
         <Button

@@ -28,6 +28,7 @@ interface ContextMenuProps {
 
 interface ContinuousDeployementProps {
   data: ProjectDTO
+  isPreview?: boolean
 }
 
 const ContextMenu: React.FC<ContextMenuProps> = props => {
@@ -129,7 +130,7 @@ const ContinuousVerification: React.FC = () => {
 }
 
 const GetStarted: React.FC<ContinuousDeployementProps> = props => {
-  const { data } = props
+  const { data, isPreview } = props
   return (
     <Layout.Vertical
       padding={{ top: 'medium', left: 'xlarge', right: 'xlarge', bottom: 'large' }}
@@ -139,22 +140,30 @@ const GetStarted: React.FC<ContinuousDeployementProps> = props => {
       <Text font="small" color={Color.BLACK} padding={{ bottom: 'xsmall' }}>
         {i18n.start}
       </Text>
-      <Layout.Horizontal spacing="small">
-        <Link
-          to={linkTo(
-            routeProjectOverview,
-            {
-              projectIdentifier: data?.identifier,
-              orgIdentifier: data?.orgIdentifier
-            },
-            true
-          )}
-        >
-          <Icon name="cd-hover" size={20}></Icon>
-        </Link>
-        <Icon name="nav-cv-hover" size={20} />
-        <Icon name="ce-hover" size={20} />
-      </Layout.Horizontal>
+      {isPreview ? (
+        <Layout.Horizontal spacing="small">
+          <Icon name="cd-hover" size={20} />
+          <Icon name="nav-cv-hover" size={20} />
+          <Icon name="ce-hover" size={20} />
+        </Layout.Horizontal>
+      ) : (
+        <Layout.Horizontal spacing="small">
+          <Link
+            to={linkTo(
+              routeProjectOverview,
+              {
+                projectIdentifier: data?.identifier,
+                orgIdentifier: data?.orgIdentifier
+              },
+              true
+            )}
+          >
+            <Icon name="cd-hover" size={20} />
+          </Link>
+          <Icon name="nav-cv-hover" size={20} />
+          <Icon name="ce-hover" size={20} />
+        </Layout.Horizontal>
+      )}
     </Layout.Vertical>
   )
 }
@@ -182,7 +191,7 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
             {i18n.projectName}
           </Text>
         ) : null}
-        {data?.orgIdentifier ? <Text font={{ size: 'small', weight: 'bold' }}>{data.orgIdentifier}</Text> : null}
+        {data?.organizationName ? <Text font={{ size: 'small', weight: 'bold' }}>{data.organizationName}</Text> : null}
         {data?.description ? (
           <Text font="small" padding={{ top: 'medium' }}>
             {data.description}
@@ -209,7 +218,7 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
         </Layout.Horizontal>
       </Container>
 
-      {data?.modules?.length ? null : <GetStarted data={data} />}
+      {data?.modules?.length ? null : <GetStarted data={data} isPreview={isPreview} />}
       {data.modules?.includes(Modules.CD as Required<ProjectDTO>['modules'][number]) ? (
         <ContinuousDeployement data={data} />
       ) : null}

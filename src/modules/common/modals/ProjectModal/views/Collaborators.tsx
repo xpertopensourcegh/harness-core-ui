@@ -22,7 +22,7 @@ const Collaborators: React.FC<StepProps<ProjectDTO> & ProjectModalData> = props 
   const [data, setData] = useState<CollaboratorsData>({})
 
   return (
-    <>
+    <div className={css.collaborators}>
       <Text font="medium">{i18n.newProjectWizard.Collaborators.name}</Text>
       <table style={{ width: '100%', margin: '20px 0' }}>
         <tbody>
@@ -75,7 +75,7 @@ const Collaborators: React.FC<StepProps<ProjectDTO> & ProjectModalData> = props 
           </tr>
         </tbody>
       </table>
-    </>
+    </div>
   )
 }
 export default Collaborators

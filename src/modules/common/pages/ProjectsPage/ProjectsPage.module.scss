@@ -1,7 +1,3 @@
-.centerContainer {
-  margin: 0 auto !important;
-}
-
 .filterTab {
   text-align: center;
   padding: 21px;
@@ -17,10 +13,28 @@
 }
 
 .orgSelect {
-  width: 100px !important;
-  padding-left: var(--spacing-small);
+  padding-left: 0px !important;
+  padding-right: var(--spacing-xlarge) !important;
+  border-right: 1px solid var(--grey-300) !important;
+  margin-right: var(--spacing-xlarge) !important;
 }
 
 .pageContainer {
-  background: var(--grey-100);
+  background: var(--grey-100) !important;
+  height: calc(100vh - 128px);
+}
+.header {
+  padding: var(--spacing-large) var(--spacing-xxxlarge) !important;
+  border-bottom: 1px solid var(--grey-300);
+  height: 64px;
+}
+
+.headerLayout {
+  align-items: center;
+  justify-content: center;
+}
+
+.search {
+  width: 300px;
+  margin-right: 25px;
 }

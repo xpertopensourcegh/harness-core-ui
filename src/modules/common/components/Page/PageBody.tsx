@@ -1,5 +1,6 @@
 import { Container, IconName, ButtonProps } from '@wings-software/uikit'
 import React, { useState, useEffect } from 'react'
+import cx from 'classnames'
 import { PageSpinner } from './PageSpinner'
 import { PageError } from './PageError'
 import { NoDataCard } from './NoDataCard'
@@ -31,6 +32,9 @@ export interface PageBodyProps {
 
     /** onClick event handler to pass to <NoDataCard/> */
     onClick: ButtonProps['onClick']
+
+    /** class name to pass for no data */
+    className?: string
   }
 }
 
@@ -63,7 +67,7 @@ export const PageBody: React.FC<PageBodyProps> = ({ children, loading: _loading,
   }, [_loading]) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <Container className={css.pageBody}>
+    <Container className={cx(css.pageBody, noData?.className)}>
       {loading && <PageSpinner />}
       {!loading && error && <PageError message={error} onClick={retryOnError} />}
       {!loading && !error && noData?.when?.() && (

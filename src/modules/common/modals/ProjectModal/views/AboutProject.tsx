@@ -11,7 +11,8 @@ import {
   Collapse,
   IconName,
   SelectOption,
-  Container
+  Container,
+  Color
 } from '@wings-software/uikit'
 import * as Yup from 'yup'
 
@@ -47,7 +48,7 @@ const tagCollapseProps = Object.assign({}, collapseProps, { heading: i18n.newPro
 
 const AboutProject: React.FC<StepProps<ProjectDTO> & ProjectModalData> = props => {
   const { nextStep, data: projectData, closeModal, onSuccess } = props
-  const [showPreview, setShowPreview] = useState<boolean>(false)
+  const [showPreview, setShowPreview] = useState<boolean>(true)
   const { accountId } = useParams()
   const isEdit = !!props.data
   const { mutate: updateProject } = usePutProject({
@@ -94,9 +95,6 @@ const AboutProject: React.FC<StepProps<ProjectDTO> & ProjectModalData> = props =
 
   return (
     <>
-      <Text font="medium">
-        {isEdit ? i18n.newProjectWizard.aboutProject.edit : i18n.newProjectWizard.aboutProject.name}
-      </Text>
       <Formik
         initialValues={{
           color: '',
@@ -123,68 +121,70 @@ const AboutProject: React.FC<StepProps<ProjectDTO> & ProjectModalData> = props =
       >
         {formikProps => (
           <Form>
-            <Layout.Horizontal padding={{ top: 'xlarge' }}>
-              <Container width="50%">
-                <FormInput.InputWithIdentifier isIdentifierEditable={isEdit ? false : true} />
-                <Layout.Horizontal spacing="small">
-                  <FormInput.ColorPicker
-                    label={i18n.newProjectWizard.aboutProject.color}
-                    name="color"
-                    height={38}
-                    color={formikProps.initialValues.color}
-                  />
-                  <FormInput.Select
-                    label={i18n.newProjectWizard.aboutProject.org}
-                    name="orgIdentifier"
-                    items={organisations}
-                    disabled={isEdit ? true : loading}
-                  />
-                </Layout.Horizontal>
-                <div className={css.collapseDiv}>
-                  <Collapse {...descriptionCollapseProps}>
-                    <FormInput.TextArea name="description" />
-                  </Collapse>
-                </div>
-                <div className={css.collapseDiv}>
-                  <Collapse {...tagCollapseProps}>
-                    <FormInput.TagInput
-                      name="tags"
-                      items={[]}
-                      labelFor={name => name as string}
-                      itemFromNewTag={newTag => newTag}
-                      tagInputProps={{
-                        showClearAllButton: true,
-                        allowNewTag: true,
-                        placeholder: i18n.newProjectWizard.aboutProject.addTags
-                      }}
-                    />
-                  </Collapse>
-                </div>
-                <Button
-                  minimal
-                  onClick={() => {
-                    showPreview ? setShowPreview(false) : setShowPreview(true)
-                  }}
-                  text={
-                    showPreview
-                      ? i18n.newProjectWizard.aboutProject.closePreview
-                      : i18n.newProjectWizard.aboutProject.previewProjectCard
-                  }
-                />
-              </Container>
-              <Container width="50%">
-                {showPreview ? (
-                  <Layout.Vertical spacing="large" padding={{ top: 'large', left: 'huge' }}>
-                    <ProjectCard data={formikProps.values} isPreview={true} />
-                  </Layout.Vertical>
-                ) : null}
-              </Container>
-            </Layout.Horizontal>
             <Layout.Horizontal>
-              <Container width="50%">
-                <Layout.Horizontal spacing="small" className={css.saveandclose}>
+              <Layout.Vertical width="50%" padding="xxlarge">
+                <Container style={{ minHeight: '450px' }}>
+                  <Layout.Horizontal padding={{ bottom: 'large' }}>
+                    <Text font="medium" color={Color.BLACK}>
+                      {isEdit
+                        ? i18n.newProjectWizard.aboutProject.edit.toUpperCase()
+                        : i18n.newProjectWizard.aboutProject.name.toUpperCase()}
+                    </Text>
+                  </Layout.Horizontal>
+                  <FormInput.InputWithIdentifier isIdentifierEditable={isEdit ? false : true} />
+                  <Layout.Horizontal spacing="small">
+                    <FormInput.ColorPicker
+                      label={i18n.newProjectWizard.aboutProject.color}
+                      name="color"
+                      height={38}
+                      color={formikProps.initialValues.color}
+                    />
+                    <FormInput.Select
+                      label={i18n.newProjectWizard.aboutProject.org}
+                      name="orgIdentifier"
+                      items={organisations}
+                      disabled={isEdit ? true : loading}
+                    />
+                  </Layout.Horizontal>
+                  <div className={css.collapseDiv}>
+                    <Collapse {...descriptionCollapseProps}>
+                      <FormInput.TextArea name="description" />
+                    </Collapse>
+                  </div>
+                  <div className={css.collapseDiv}>
+                    <Collapse {...tagCollapseProps}>
+                      <FormInput.TagInput
+                        name="tags"
+                        items={[]}
+                        labelFor={name => name as string}
+                        itemFromNewTag={newTag => newTag}
+                        tagInputProps={{
+                          showClearAllButton: true,
+                          allowNewTag: true,
+                          placeholder: i18n.newProjectWizard.aboutProject.addTags
+                        }}
+                      />
+                    </Collapse>
+                  </div>
+                  <Button
+                    minimal
+                    onClick={() => {
+                      showPreview ? setShowPreview(false) : setShowPreview(true)
+                    }}
+                    text={
+                      showPreview
+                        ? i18n.newProjectWizard.aboutProject.closePreview
+                        : i18n.newProjectWizard.aboutProject.previewProjectCard
+                    }
+                    margin={{ top: 'large' }}
+                  />
+                </Container>
+                <Layout.Horizontal>
                   <Button className={css.button} text={i18n.newProjectWizard.saveAndContinue} type="submit" />
                 </Layout.Horizontal>
+              </Layout.Vertical>
+              <Container width="50%" flex={{ align: 'center-center' }} className={css.preview}>
+                {showPreview ? <ProjectCard data={formikProps.values} isPreview={true} /> : null}
               </Container>
             </Layout.Horizontal>
           </Form>

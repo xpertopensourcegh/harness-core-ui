@@ -1,46 +1,54 @@
 import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { Button, Container, Layout } from '@wings-software/uikit'
+import { Button, Text, Layout, TextInput, SelectOption } from '@wings-software/uikit'
 
-import cx from 'classnames'
-import { useGetProjectListBasedOnFilter, ResponseDTONGPageResponseProjectDTO } from 'services/cd-ng'
+import { Select } from '@blueprintjs/select'
+import { Menu } from '@blueprintjs/core'
+import {
+  useGetProjectListBasedOnFilter,
+  ResponseDTONGPageResponseProjectDTO,
+  useGetOrganizationList
+} from 'services/cd-ng'
 import type { ProjectDTO } from 'services/cd-ng'
-
+import { equals } from 'modules/common/utils/rsql'
 import { Page } from 'modules/common/exports'
 import { useProjectModal } from 'modules/common/modals/ProjectModal/useProjectModal'
 import type { UseGetMockData } from 'modules/common/utils/testUtils'
-import ProjectCard from './views/ProjectCard/ProjectCard'
-
 import i18n from './ProjectsPage.i18n'
-
+import { Views, Sort } from './Constants'
+import ProjectsListView from './views/ProjectListView/ProjectListView'
+import ProjectsGridView from './views/ProjectGridView/ProjectGridView'
 import css from './ProjectsPage.module.scss'
 
-// interface SelectOption {
-//   label: string
-//   value: string
-// }
-
-// const allOrgsSelectOption: SelectOption = {
-//   label: 'All',
-//   value: 'ALL'
-// }
+const allOrgsSelectOption: SelectOption = {
+  label: 'All',
+  value: 'ALL'
+}
 interface ProjectListProps {
   mockData?: UseGetMockData<ResponseDTONGPageResponseProjectDTO>
 }
+const CustomSelect = Select.ofType<SelectOption>()
+
 const ProjectsListPage: React.FC<ProjectListProps> = ({ mockData }) => {
-  // const [orgFilter, setOrgFilter] = useState<SelectOption>(allOrgsSelectOption)
-  const [ownerFilter, setOwnerFilter] = useState('ALL')
+  const [orgFilter, setOrgFilter] = useState<SelectOption>(allOrgsSelectOption)
   const { accountId } = useParams()
-  // const {
-  //   loading: loadingOrgProjects,
-  //   data: dataOrgProjects,
-  //   refetch: reloadOrgProjects
-  // } = useGetProjectListForOrganization({ orgIdentifier: orgId, lazy: true })
+  const [view, setView] = useState(Views.GRID)
+  const [recentFilter, setRecentFilter] = useState(Sort.ALL_PROJECTS)
+  const [searchParam, setSearchParam] = useState('')
+
   const {
     loading: loadingAllProjects,
     data: dataAllProjects,
     refetch: reloadAllProjects
-  } = useGetProjectListBasedOnFilter({ queryParams: { accountIdentifier: accountId }, mock: mockData })
+  } = useGetProjectListBasedOnFilter({
+    queryParams: {
+      accountIdentifier: accountId,
+      filterQuery: orgFilter.value == 'ALL' ? undefined : equals('orgIdentifier', orgFilter.value.toString()),
+      search: searchParam
+    },
+    mock: mockData,
+    debounce: 300
+  })
 
   const loading = loadingAllProjects
   const data = dataAllProjects
@@ -49,85 +57,127 @@ const ProjectsListPage: React.FC<ProjectListProps> = ({ mockData }) => {
     reloadAllProjects()
   }
 
-  const { openProjectModal } = useProjectModal({ onSuccess: projectCreateSuccessHandler })
+  const { openProjectModal } = useProjectModal({
+    onSuccess: projectCreateSuccessHandler
+  })
 
   const showEditProject = (project: ProjectDTO): void => {
     openProjectModal(project)
   }
+  const { data: orgsData } = useGetOrganizationList({
+    accountIdentifier: accountId
+  })
 
-  // const organisations = [
-  //   allOrgsSelectOption,
-  //   ...(orgs?.content?.map(org => {
-  //     return {
-  //       label: org.name || '',
-  //       value: org.id || ''
-  //     }
-  //   }) || [])
-  // ]
+  const organisations: SelectOption[] = [
+    allOrgsSelectOption,
+    ...(orgsData?.data?.content?.map(org => {
+      return {
+        label: org.name || '',
+        value: org.identifier || ''
+      }
+    }) || [])
+  ]
 
   return (
     <>
       <Page.Header
         title={i18n.projects.toUpperCase()}
-        content={
-          <Layout.Horizontal style={{ alignItems: 'center' }}>
-            <a
-              className={cx(css.filterTab, { [css.selected]: ownerFilter === 'MY' })}
-              onClick={e => {
-                e.preventDefault()
-                setOwnerFilter('MY')
+        toolbar={
+          <Layout.Horizontal inline>
+            <Button
+              minimal
+              text={i18n.tabRecent}
+              intent={recentFilter === Sort.RECENT ? 'primary' : 'none'}
+              onClick={() => {
+                setRecentFilter(Sort.RECENT)
               }}
-            >
-              {i18n.tabMyProjects}
-            </a>
-            <a
-              className={cx(css.filterTab, { [css.selected]: ownerFilter === 'ALL' })}
-              onClick={e => {
-                e.preventDefault()
-                setOwnerFilter('ALL')
+            />
+            <Button
+              minimal
+              text={i18n.tabAllProjects}
+              intent={recentFilter === Sort.ALL_PROJECTS ? 'primary' : 'none'}
+              onClick={() => {
+                setRecentFilter(Sort.ALL_PROJECTS)
               }}
-            >
-              {i18n.tabAllProjects}
-            </a>
-            {/* <Text style={{ paddingLeft: '20px' }}>{i18n.tabOrgs}:</Text>
-            <Select
-              items={organisations}
-              value={orgFilter}
-              onChange={item => setOrgFilter(item as SelectOption)}
-              className={css.orgSelect}
-            /> */}
+            />
           </Layout.Horizontal>
         }
-        toolbar={
-          <Container>
-            <Button text={i18n.addProject} onClick={() => openProjectModal()} />
-          </Container>
-        }
       />
-      <div className={css.pageContainer}>
-        <Page.Body
-          loading={loading}
-          retryOnError={() => reloadAllProjects()}
-          noData={{
-            when: () => !data?.data?.content?.length,
-            icon: 'nav-project',
-            message: i18n.aboutProject,
-            buttonText: i18n.addProject,
-            onClick: () => openProjectModal()
-          }}
-        >
-          <Layout.Masonry
-            gutter={25}
-            width={900}
-            className={css.centerContainer}
-            items={data?.data?.content || []}
-            renderItem={(project: ProjectDTO) => (
-              <ProjectCard data={project} reloadProjects={reloadAllProjects} editProject={showEditProject} />
-            )}
-            keyOf={(project: ProjectDTO) => project.id}
+      <Layout.Horizontal className={css.header}>
+        <Layout.Horizontal width="55%">
+          <Button text="New Project" icon="plus" onClick={() => openProjectModal()} />
+        </Layout.Horizontal>
+
+        <Layout.Horizontal spacing="small" width="45%" className={css.headerLayout}>
+          <TextInput
+            leftIcon="search"
+            placeholder="Search by project, tags, members"
+            className={css.search}
+            value={searchParam}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              setSearchParam(e.target.value.trim())
+            }}
           />
-        </Page.Body>
-      </div>
+          <Text>{i18n.tabOrgs}</Text>
+          <CustomSelect
+            items={organisations}
+            filterable={false}
+            itemRenderer={(item, { handleClick }) => (
+              <div>
+                <Menu.Item
+                  text={item.label}
+                  onClick={(e: React.MouseEvent<HTMLElement, MouseEvent>) => handleClick(e)}
+                />
+              </div>
+            )}
+            onItemSelect={item => {
+              setOrgFilter(item as SelectOption)
+            }}
+            popoverProps={{ minimal: true }}
+          >
+            <Button inline minimal rightIcon="chevron-down" text={orgFilter.label} className={css.orgSelect} />
+          </CustomSelect>
+
+          <Layout.Horizontal inline>
+            <Button
+              minimal
+              icon="grid-view"
+              intent={view === Views.GRID ? 'primary' : 'none'}
+              onClick={() => {
+                setView(Views.GRID)
+              }}
+            />
+            <Button
+              minimal
+              icon="list"
+              intent={view === Views.LIST ? 'primary' : 'none'}
+              onClick={() => {
+                setView(Views.LIST)
+              }}
+            />
+          </Layout.Horizontal>
+        </Layout.Horizontal>
+      </Layout.Horizontal>
+
+      <Page.Body
+        loading={loading}
+        retryOnError={() => reloadAllProjects()}
+        noData={{
+          when: () => !data?.data?.content?.length,
+          icon: 'nav-project',
+          message: i18n.aboutProject,
+          buttonText: i18n.addProject,
+          onClick: () => openProjectModal(),
+          className: css.pageContainer
+        }}
+      >
+        {view === Views.GRID ? (
+          <ProjectsGridView data={data?.data?.content} reload={reloadAllProjects} showEditProject={showEditProject} />
+        ) : null}
+        {view === Views.LIST ? (
+          <ProjectsListView data={data?.data?.content} reload={reloadAllProjects} editProject={showEditProject} />
+        ) : null}
+      </Page.Body>
     </>
   )
 }
