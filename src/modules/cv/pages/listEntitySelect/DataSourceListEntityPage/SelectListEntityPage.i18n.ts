@@ -11,6 +11,10 @@ export default {
     entitySubTitle: 'Saved Queries from your Splunk Enterprise Product',
     columnHeaderTitle: 'All Queries'
   },
+  noDataContent: {
+    message: 'No data was found. Please add entities from your provider to proceed.',
+    buttonText: 'Go back to datasources.'
+  },
   nextButton: 'Next',
   backButton: 'Back'
 }

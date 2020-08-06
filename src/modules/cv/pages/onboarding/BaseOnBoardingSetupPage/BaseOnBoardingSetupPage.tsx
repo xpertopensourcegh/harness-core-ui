@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react'
 import type { SelectOption } from '@wings-software/uikit'
 import { Container } from '@wings-software/uikit'
 import type { DSConfig, Service } from '@wings-software/swagger-ts/definitions'
-import { useLocation } from 'react-router'
 import xhr from '@wings-software/xhr-async'
+import { cloneDeep } from 'lodash-es'
 import { CVNextGenCVConfigService, SettingsService } from 'modules/cv/services'
 import { RouteVerificationTypeToVerificationType } from 'modules/cv/constants'
-import { connectorId, appId } from 'modules/cv/constants'
+import { appId } from 'modules/cv/constants'
 import { Page } from 'modules/common/exports'
 import { routeParams } from 'framework/exports'
+import useOnBoardingPageDataHook from 'modules/cv/hooks/OnBoardingPageDataHook/OnBoardingPageDataHook'
 import SplunkOnboarding from '../Splunk/SplunkOnboarding'
 import AppDynamicsMainSetupView from '../AppDynamics/AppDynamicsMainSetupView'
 import * as SplunkOnboardingUtils from '../Splunk/SplunkOnboardingUtils'
@@ -17,6 +18,13 @@ import i18n from './BaseOnBoardingSetupPage.i18n'
 import css from './BaseOnBoardingSetupPage.module.scss'
 
 const XHR_SERVICES_GROUP = 'XHR_SERVICES_GROUP'
+type PageContextData = {
+  isEdit?: boolean
+  dataSourceId: string
+  products: string[]
+  selectedEntities?: SelectOption[]
+  savedConfigs?: DSConfig[]
+}
 
 function getDefaultCVConfig(
   verificationProvider: DSConfig['type'],
@@ -73,32 +81,42 @@ async function fetchServices(localAppId: string, accId: string): Promise<SelectO
 }
 
 export default function OnBoardingSetupPage(): JSX.Element {
+  const {
+    params: { accountId, dataSourceType },
+    query: { dataSourceId: routeDataSourceId = '' }
+  } = routeParams()
+  const { pageData, dbInstance, isInitializingDB } = useOnBoardingPageDataHook<PageContextData>(
+    routeDataSourceId as string
+  )
   const [serviceOptions, setServices] = useState<SelectOption[]>([{ value: '', label: i18n.loading }])
   const [configsToRender, setConfigs] = useState<DSConfig[]>([])
   const [serverError, setServerError] = useState<string | undefined>(undefined)
   const [isLoadingConfigs, setLoadingConfigs] = useState<boolean>(true)
-  const {
-    params: { accountId, dataSourceType }
-  } = routeParams()
-  const { state: locationContext } = useLocation<{
-    dataSourceId: string
-    selectedEntities: SelectOption[]
-    isEdit: boolean
-    products: string[]
-  }>()
   const verificationType = RouteVerificationTypeToVerificationType[(dataSourceType as DSConfig['type']) || '']
 
   // fetch saved data or set selected data from the previous page
   useEffect(() => {
-    const { dataSourceId = connectorId, selectedEntities = [], isEdit = false, products = [] } = locationContext
-    if (!isEdit) {
+    if (!pageData || isInitializingDB) {
+      return
+    }
+    const {
+      dataSourceId = routeDataSourceId as string,
+      selectedEntities = [],
+      isEdit = false,
+      products = [],
+      savedConfigs
+    } = pageData
+    if (savedConfigs) {
+      setConfigs(cloneDeep(savedConfigs))
       setLoadingConfigs(false)
-      setConfigs(getDefaultCVConfig(verificationType, dataSourceId || '', selectedEntities, accountId, products[0]))
-    } else if (locationContext.isEdit) {
+    } else if (!isEdit) {
+      setLoadingConfigs(false)
+      setConfigs(getDefaultCVConfig(verificationType, dataSourceId, selectedEntities, accountId, products[0]))
+    } else if (isEdit) {
       CVNextGenCVConfigService.fetchConfigs({
         accountId,
         dataSourceConnectorId: dataSourceId,
-        productName: locationContext.products[0]
+        productName: products[0]
       }).then(({ status, error, response }) => {
         if (status === xhr.ABORTED) {
           return
@@ -113,7 +131,7 @@ export default function OnBoardingSetupPage(): JSX.Element {
         }
       })
     }
-  }, [locationContext, verificationType, accountId])
+  }, [pageData, verificationType, accountId, routeDataSourceId, isInitializingDB])
 
   // fetch services
   useEffect(() => {
@@ -125,19 +143,16 @@ export default function OnBoardingSetupPage(): JSX.Element {
   return (
     <Page.Body loading={isLoadingConfigs} error={serverError}>
       <Container className={css.main}>
-        {verificationType === 'APP_DYNAMICS' && (
+        {!isLoadingConfigs && pageData && verificationType === 'APP_DYNAMICS' && (
           <AppDynamicsMainSetupView
             serviceOptions={serviceOptions}
             configs={configsToRender as AppDynamicsOnboardingUtils.DSConfigTableData[]}
-            locationContext={locationContext}
+            locationContext={pageData}
+            indexedDB={dbInstance}
           />
         )}
-        {verificationType === 'SPLUNK' && (
-          <SplunkOnboarding
-            serviceOptions={serviceOptions}
-            configs={configsToRender}
-            locationContext={locationContext}
-          />
+        {!isLoadingConfigs && pageData && verificationType === 'SPLUNK' && (
+          <SplunkOnboarding serviceOptions={serviceOptions} configs={configsToRender} locationContext={pageData} />
         )}
       </Container>
     </Page.Body>

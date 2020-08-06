@@ -7,18 +7,20 @@ import {
   FormikForm,
   Select,
   Link,
-  ListPanelInterface,
   MultiSelectOption
 } from '@wings-software/uikit'
 import xhr from '@wings-software/xhr-async'
 import { FieldArray, FormikProps, Formik } from 'formik'
 import type { MetricPack, DSConfig } from '@wings-software/swagger-ts/definitions'
+import type { IDBPDatabase } from 'idb'
+import type { IconProps } from '@wings-software/uikit/dist/icons/Icon'
 import { AppDynamicsService } from 'modules/cv/services'
 import { CustomizeMetricPackDrawer } from 'modules/cv/components/CustomizeMetricPackDrawer/CustomizeMetricPackDrawer'
 import { useMetricPackHook, fetchMetricPacks } from 'modules/cv/hooks/ConfigureMetricPackHook/ConfigureMetricPackHook'
 import DataSourceConfigPanel from 'modules/cv/components/DataSourceConfigPanel/DataSourceConfigPanel'
 import { routeParams } from 'framework/exports'
 import OnBoardingConfigSetupHeader from 'modules/cv/components/OnBoardingConfigSetupHeader/OnBoardingConfigSetupHeader'
+import { CVObjectStoreNames } from 'modules/cv/hooks/IndexedDBHook/IndexedDBHook'
 import {
   DSConfigTableData,
   transformAppDynamicsApplications,
@@ -31,13 +33,17 @@ import css from './AppDynamicsMainSetupView.module.scss'
 
 const XHR_METRIC_PACK_GROUP = 'XHR_METRIC_PACK_GROUP'
 const SelectHTMLInputProps = { placeholder: 'Select an Application' }
+const OnBoardingHeaderIconProps: IconProps = {
+  name: 'service-appdynamics'
+}
+
+type PageData = { products: string[]; selectedEntities?: SelectOption[]; dataSourceId: string; isEdit?: boolean }
 
 interface AppDynamicsDataSourceFormProps {
   configList: DSConfigTableData[]
   serviceOptions: SelectOption[]
-  dataSourceId: string
-  productName: string
-  accountId: string
+  pageData: PageData
+  dbInstance?: IDBPDatabase
   metricPackMap: Map<string, MetricPack>
   appDApplications: Map<string, SelectOption>
 }
@@ -56,7 +62,14 @@ interface AppDynamicsConfigProps {
 interface AppDynamicsMainSetupViewProps {
   serviceOptions: SelectOption[]
   configs: DSConfigTableData[]
-  locationContext: { products: string[]; selectedEntities: SelectOption[]; dataSourceId: string; isEdit: boolean }
+  locationContext: PageData
+  indexedDB?: IDBPDatabase
+}
+
+interface SaveToIndexedDBProps {
+  pageData: PageData
+  dbInstance?: IDBPDatabase
+  configs: DSConfigTableData[]
 }
 
 function validateConfig(configData: DSConfig): { [fieldName: string]: string } | {} {
@@ -97,6 +110,27 @@ export async function fetchAppDApps(appAccountId: string, settingId: string): Pr
   }
 
   return transformAppDynamicsApplications(response?.resource || [])
+}
+
+async function loadAppDApplications(
+  accountId: string,
+  dataSourceId: string,
+  dbInstance?: IDBPDatabase
+): Promise<Map<string, SelectOption>> {
+  let appDApplicationsOptions: SelectOption[] = await dbInstance?.get(CVObjectStoreNames.LIST_ENTITIES, dataSourceId)
+  if (!appDApplicationsOptions?.length) {
+    appDApplicationsOptions = await fetchAppDApps(accountId, dataSourceId)
+  }
+
+  const appNameToId = new Map<string, SelectOption>()
+
+  if (appDApplicationsOptions?.length) {
+    appDApplicationsOptions.forEach(option => {
+      appNameToId.set(option.label, option)
+    })
+  }
+
+  return appNameToId
 }
 
 function updateApplicationList(application: SelectOption, appList: SelectOption[], isRemove: boolean): SelectOption[] {
@@ -220,9 +254,27 @@ function AppDynamicsConfig(props: AppDynamicsConfigProps): JSX.Element {
   )
 }
 
+function SaveToIndexedDB(props: SaveToIndexedDBProps): JSX.Element {
+  const { pageData, dbInstance, configs } = props
+  useEffect(() => {
+    window.onbeforeunload = () => {
+      dbInstance?.put(CVObjectStoreNames.ONBOARDING_JOURNEY, {
+        ...pageData,
+        savedConfigs: configs
+      })
+    }
+  }, [dbInstance?.put, configs, pageData])
+  return <span />
+}
+
 function AppDynamicsDataSourceForm(props: AppDynamicsDataSourceFormProps): JSX.Element {
-  const { configList, serviceOptions, dataSourceId, appDApplications, metricPackMap, productName, accountId } = props
+  const { configList, serviceOptions, appDApplications, metricPackMap, pageData, dbInstance } = props
+  const productName = pageData?.products?.[0]
   const [applicationsToAdd, setApplicationsToAdd] = useState<SelectOption[]>([{ label: 'Loading...', value: '' }])
+  const {
+    params: { accountId }
+  } = routeParams()
+  const dataSourceId = pageData.dataSourceId
 
   useEffect(() => {
     const appList = generateAppDynamicsApplicationsToAdd(configList, appDApplications)
@@ -247,12 +299,7 @@ function AppDynamicsDataSourceForm(props: AppDynamicsDataSourceFormProps): JSX.E
               render={arrayHelpers => (
                 <>
                   <Container className={css.applicationSelectContainer}>
-                    <OnBoardingConfigSetupHeader
-                      iconProps={{
-                        name: 'service-appdynamics'
-                      }}
-                      pageHeading={i18n.pageHeading}
-                    />
+                    <OnBoardingConfigSetupHeader iconProps={OnBoardingHeaderIconProps} pageHeading={i18n.pageHeading} />
                     <Select
                       items={applicationsToAdd}
                       className={css.applicationSelect}
@@ -265,44 +312,47 @@ function AppDynamicsDataSourceForm(props: AppDynamicsDataSourceFormProps): JSX.E
                       }}
                     />
                   </Container>
+                  <SaveToIndexedDB
+                    pageData={pageData}
+                    dbInstance={dbInstance}
+                    configs={formikProps.values?.dsConfigs}
+                  />
                   <CollapseList defaultOpenIndex={0}>
-                    {
-                      formikProps.values.dsConfigs?.map((configData: DSConfigTableData, index: number) => (
-                        <DataSourceConfigPanel
-                          key={configData.applicationName}
-                          entityName={configData.applicationName || ''}
-                          onRemove={(configIndex: number) => {
-                            arrayHelpers.remove(configIndex)
-                            const newOption = appDApplications.get(configData.applicationName || '')
-                            if (newOption) {
-                              const updatedAppList = [...applicationsToAdd, newOption]
-                              updatedAppList.sort((a, b) => (a?.label && b?.label && a.label > b.label ? 1 : -1))
-                              setApplicationsToAdd(updatedAppList)
-                            }
-                          }}
+                    {formikProps.values.dsConfigs?.map((configData: DSConfigTableData, index: number) => (
+                      <DataSourceConfigPanel
+                        key={configData.applicationName}
+                        entityName={configData.applicationName || ''}
+                        onRemove={(configIndex: number) => {
+                          arrayHelpers.remove(configIndex)
+                          const newOption = appDApplications.get(configData.applicationName || '')
+                          if (newOption) {
+                            const updatedAppList = [...applicationsToAdd, newOption]
+                            updatedAppList.sort((a, b) => (a?.label && b?.label && a.label > b.label ? 1 : -1))
+                            setApplicationsToAdd(updatedAppList)
+                          }
+                        }}
+                        index={index}
+                        transformToSavePayload={transformToSaveConfig}
+                        validateConfig={validateConfig}
+                        touched={formikProps.touched}
+                        values={formikProps.values}
+                        setFieldError={formikProps.setFieldError}
+                        setFieldTouched={formikProps.setFieldTouched}
+                      >
+                        <AppDynamicsConfig
+                          config={configData}
+                          accountId={accountId}
                           index={index}
-                          transformToSavePayload={transformToSaveConfig}
-                          validateConfig={validateConfig}
-                          touched={formikProps.touched}
-                          values={formikProps.values}
-                          setFieldError={formikProps.setFieldError}
-                          setFieldTouched={formikProps.setFieldTouched}
-                        >
-                          <AppDynamicsConfig
-                            config={configData}
-                            accountId={accountId}
-                            index={index}
-                            appdApplicationId={
-                              (appDApplications.get(configData.applicationName || '')?.value as number) || -1
-                            }
-                            formikProps={formikProps}
-                            serviceOptions={serviceOptions}
-                            dataSourceId={dataSourceId}
-                            metricPackMap={metricPackMap}
-                          />
-                        </DataSourceConfigPanel>
-                      )) as ListPanelInterface[]
-                    }
+                          appdApplicationId={
+                            (appDApplications.get(configData.applicationName || '')?.value as number) || -1
+                          }
+                          formikProps={formikProps}
+                          serviceOptions={serviceOptions}
+                          dataSourceId={dataSourceId}
+                          metricPackMap={metricPackMap}
+                        />
+                      </DataSourceConfigPanel>
+                    ))}
                   </CollapseList>
                 </>
               )}
@@ -317,21 +367,18 @@ function AppDynamicsDataSourceForm(props: AppDynamicsDataSourceFormProps): JSX.E
 export default function AppDynamicsMainSetupView(props: AppDynamicsMainSetupViewProps): JSX.Element {
   const [appDApplications, setAppDApplications] = useState<Map<string, SelectOption>>(new Map())
   const [metricPackMap, setMetricPackMap] = useState<Map<string, MetricPack>>(new Map())
-  const { configs, serviceOptions, locationContext } = props
+  const { configs, serviceOptions, locationContext, indexedDB } = props
   const {
-    params: { accountId }
+    params: { accountId },
+    query: { routeDataSourceId }
   } = routeParams()
+  const dataSourceId = (routeDataSourceId as string) || locationContext.dataSourceId
 
   useEffect(() => {
-    fetchAppDApps(accountId, locationContext.dataSourceId).then((appDApplicationsOptions: SelectOption[]) => {
-      if (appDApplicationsOptions?.length) {
-        const appNameToId = new Map<string, SelectOption>()
-        appDApplicationsOptions.forEach(option => {
-          appNameToId.set(option.label, option)
-        })
-        setAppDApplications(appNameToId)
-      }
+    loadAppDApplications(accountId, dataSourceId, indexedDB).then(appToId => {
+      setAppDApplications(appToId)
     })
+
     fetchMetricPacks({
       accountId,
       projectId: '12345',
@@ -347,16 +394,15 @@ export default function AppDynamicsMainSetupView(props: AppDynamicsMainSetupView
     return () => {
       xhr.abort(XHR_METRIC_PACK_GROUP)
     }
-  }, [locationContext.dataSourceId, accountId])
+  }, [dataSourceId, accountId, indexedDB])
 
   return (
     <AppDynamicsDataSourceForm
       configList={configs}
       serviceOptions={serviceOptions}
-      dataSourceId={locationContext.dataSourceId}
-      accountId={accountId}
       metricPackMap={metricPackMap}
-      productName={locationContext.products?.[0]}
+      dbInstance={indexedDB}
+      pageData={locationContext}
       appDApplications={appDApplications}
     />
   )

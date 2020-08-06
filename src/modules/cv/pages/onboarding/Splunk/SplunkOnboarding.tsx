@@ -10,7 +10,6 @@ import {
   CollapseList,
   Container,
   SelectOption,
-  ListPanelInterface,
   Text,
   Color,
   Select,
@@ -498,43 +497,41 @@ function SplunkDataSourceForm(props: SplunkDataSourceFormProps): JSX.Element {
                       }}
                     />
                     <CollapseList defaultOpenIndex={0}>
-                      {
-                        formikProps.values?.dsConfigs?.map((dsConfig: SplunkDSConfig, index: number) => {
-                          return (
-                            <DataSourceConfigPanel
-                              key={dsConfig?.id}
-                              entityName={
-                                <SplunkQueryNameDropDown
-                                  splunkQueryOptions={splunkQueryOptions}
-                                  onChange={updatedQueryName => {
-                                    formikProps.setFieldValue(`dsConfigs[${index}].queryName`, updatedQueryName?.label)
-                                    formikProps.setFieldValue(`dsConfigs[${index}].query`, updatedQueryName?.value)
-                                    formikProps.setFieldValue(`dsConfigs[${index}].serviceInstanceIdentifier`, '')
-                                  }}
-                                  selectedQueryName={dsConfig?.queryName}
-                                  isSplunkQuery={dsConfig?.isSplunkQuery}
-                                />
-                              }
-                              index={index}
-                              validateConfig={validate}
-                              transformToSavePayload={transformToSaveConfig}
-                              onRemove={() => arrayHelpers.remove(index)}
-                              touched={formikProps.touched}
-                              values={formikProps.values}
-                              setFieldError={formikProps.setFieldError}
-                              setFieldTouched={formikProps.setFieldTouched}
-                            >
-                              <SplunkConfig
-                                dsConfig={dsConfig}
-                                index={index}
-                                formikProps={formikProps}
-                                dataSourceId={dataSourceId}
-                                serviceOptions={serviceOptions}
+                      {formikProps.values?.dsConfigs?.map((dsConfig: SplunkDSConfig, index: number) => {
+                        return (
+                          <DataSourceConfigPanel
+                            key={dsConfig?.id}
+                            entityName={
+                              <SplunkQueryNameDropDown
+                                splunkQueryOptions={splunkQueryOptions}
+                                onChange={updatedQueryName => {
+                                  formikProps.setFieldValue(`dsConfigs[${index}].queryName`, updatedQueryName?.label)
+                                  formikProps.setFieldValue(`dsConfigs[${index}].query`, updatedQueryName?.value)
+                                  formikProps.setFieldValue(`dsConfigs[${index}].serviceInstanceIdentifier`, '')
+                                }}
+                                selectedQueryName={dsConfig?.queryName}
+                                isSplunkQuery={dsConfig?.isSplunkQuery}
                               />
-                            </DataSourceConfigPanel>
-                          )
-                        }) as ListPanelInterface[]
-                      }
+                            }
+                            index={index}
+                            validateConfig={validate}
+                            transformToSavePayload={transformToSaveConfig}
+                            onRemove={() => arrayHelpers.remove(index)}
+                            touched={formikProps.touched}
+                            values={formikProps.values}
+                            setFieldError={formikProps.setFieldError}
+                            setFieldTouched={formikProps.setFieldTouched}
+                          >
+                            <SplunkConfig
+                              dsConfig={dsConfig}
+                              index={index}
+                              formikProps={formikProps}
+                              dataSourceId={dataSourceId}
+                              serviceOptions={serviceOptions}
+                            />
+                          </DataSourceConfigPanel>
+                        )
+                      })}
                     </CollapseList>
                   </Container>
                 )

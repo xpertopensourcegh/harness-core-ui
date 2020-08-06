@@ -2,7 +2,7 @@ import React from 'react'
 import { fireEvent, render, waitFor } from '@testing-library/react'
 import { Formik } from 'formik'
 import xhr from '@wings-software/xhr-async'
-import { FormikForm, Button, FormInput, CollapseList, ListPanelInterface } from '@wings-software/uikit'
+import { FormikForm, Button, FormInput, CollapseList } from '@wings-software/uikit'
 import DataSourceConfigPanel from '../DataSourceConfigPanel'
 import i18n from '../DataSourceConfigPanel.i18n'
 
@@ -19,32 +19,28 @@ function MockForm(props: any): JSX.Element {
       {formikProps => (
         <FormikForm className="mockForm">
           <CollapseList defaultOpenIndex={0}>
-            {
-              (
-                <DataSourceConfigPanel
-                  entityName="solo"
-                  index={0}
-                  onRemove={onRemoveCallback}
-                  validateConfig={validateCallback}
-                  touched={formikProps.touched}
-                  values={formikProps.values}
-                  setFieldError={formikProps.setFieldError}
-                  setFieldTouched={formikProps.setFieldTouched}
-                >
-                  <FormInput.Text
-                    name="dsConfigs[0].someField"
-                    className="someField"
-                    onChange={() => formikProps.setFieldTouched('dsConfigs[0].somefield', true)}
-                  />
-                  <Button
-                    className="invalidButton"
-                    onClick={() => formikProps.setFieldError('dsConfigs[0].someField', 'some invalid field value')}
-                  >
-                    Invalid Button
-                  </Button>
-                </DataSourceConfigPanel>
-              ) as ListPanelInterface
-            }
+            <DataSourceConfigPanel
+              entityName="solo"
+              index={0}
+              onRemove={onRemoveCallback}
+              validateConfig={validateCallback}
+              touched={formikProps.touched}
+              values={formikProps.values}
+              setFieldError={formikProps.setFieldError}
+              setFieldTouched={formikProps.setFieldTouched}
+            >
+              <FormInput.Text
+                name="dsConfigs[0].someField"
+                className="someField"
+                onChange={() => formikProps.setFieldTouched('dsConfigs[0].somefield', true)}
+              />
+              <Button
+                className="invalidButton"
+                onClick={() => formikProps.setFieldError('dsConfigs[0].someField', 'some invalid field value')}
+              >
+                Invalid Button
+              </Button>
+            </DataSourceConfigPanel>
           </CollapseList>
         </FormikForm>
       )}

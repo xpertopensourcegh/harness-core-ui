@@ -5,8 +5,14 @@ import { Spinner, Classes } from '@blueprintjs/core'
 import type { AppdynamicsTier, AppdynamicsValidationResponse, MetricPack } from '@wings-software/swagger-ts/definitions'
 import type { Row } from 'react-table'
 import type { TextProps } from '@wings-software/uikit/dist/components/Text/Text'
+import type { IDBPDatabase } from 'idb'
 import { AppDynamicsService, CVNextGenCVConfigService } from 'modules/cv/services'
 import MetricsVerificationModal from 'modules/cv/components/MetricsVerificationModal/MetricsVerificationModal'
+import {
+  useIndexedDBHook,
+  CVObjectStoreNames,
+  CVIndexedDBPrimaryKeys
+} from 'modules/cv/hooks/IndexedDBHook/IndexedDBHook'
 import i18n from './TierAndServiceTable.i18n'
 import css from './TierAndServiceTable.module.scss'
 
@@ -104,6 +110,33 @@ async function fetchAppDTiers(
       ?.sort((a: AppdynamicsTier, b: AppdynamicsTier) => (a.name && b.name && a.name >= b.name ? 1 : -1))
       .map(({ name, id }) => ({ label: name || '', value: id || '' }))
   }
+}
+
+async function loadAppDTiers(
+  accountId: string,
+  appId: number,
+  dataSourceId: string,
+  dbInstance?: IDBPDatabase
+): Promise<{ error?: string; tierList?: SelectOption[] } | undefined> {
+  if (!appId || appId === -1 || !dataSourceId) {
+    return
+  }
+  const cachedTierOptions = await dbInstance?.get(CVObjectStoreNames.APPD_TIERS, [appId, dataSourceId])
+  if (cachedTierOptions) {
+    return { tierList: cachedTierOptions.tiers }
+  }
+
+  const xhrGroup = `${XHR_TIER_GROUP}_${appId}`
+  xhr.abort(xhrGroup)
+  const tiers = await fetchAppDTiers(dataSourceId, accountId, appId, xhrGroup)
+  if (tiers?.tierList?.length) {
+    dbInstance?.put(CVObjectStoreNames.APPD_TIERS, {
+      [CVIndexedDBPrimaryKeys.APPD_APP_ID]: appId,
+      [CVIndexedDBPrimaryKeys.DATASOURCE_ID]: dataSourceId,
+      tiers: tiers.tierList
+    })
+  }
+  return tiers
 }
 
 function mergeTierListWithExistingData(tableData: TierAndServiceRow[], tierList: SelectOption[]): void {
@@ -411,12 +444,16 @@ export default function TierAndServiceTable(props: TierAndServiceTableProps): JS
     index: appIndex,
     accountId
   } = props
+  const { dbInstance, isInitializingDB } = useIndexedDBHook()
   const [isLoadingTiers, setIsLoadingTiers] = useState(true)
 
   // fetch tier and service list
   useEffect(() => {
-    const xhrGroup = `${XHR_TIER_GROUP}_${appId}`
-    fetchAppDTiers(dataSourceId, accountId, appId, xhrGroup).then(tiers => {
+    if (isInitializingDB) {
+      return
+    }
+
+    loadAppDTiers(accountId, appId, dataSourceId, dbInstance).then(tiers => {
       if (!tiers) {
         return
       }
@@ -434,8 +471,9 @@ export default function TierAndServiceTable(props: TierAndServiceTableProps): JS
       setFieldValue(`dsConfigs[${appIndex}].tableData`, data)
       setIsLoadingTiers(false)
     })
-    return () => xhr.abort(xhrGroup)
-  }, [appId, dataSourceId, accountId, appIndex])
+    return () => xhr.abort(`${XHR_TIER_GROUP}_${appId}`)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [appId, dataSourceId, accountId, appIndex, dbInstance, isInitializingDB])
 
   // when clicking on column header checkbox toggle checked value of all checkboxes
   const onColumnCheckboxCallback = useCallback(

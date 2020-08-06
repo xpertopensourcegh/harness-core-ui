@@ -68,7 +68,9 @@ export const routeCVDataSourcesProductPage: Route = {
   pageId: '/cv-onboarding/product',
   authenticated: true,
   url: (params: RouteURLArgs) =>
-    params?.dataSourceType ? `/cv-onboarding/${params.dataSourceType}/product` : `/cv-onboarding/`,
+    params?.dataSourceType
+      ? `/cv-onboarding/${params.dataSourceType}/product?dataSourceId=${params.dataSourceId}`
+      : `/cv-datasources/`,
   component: React.lazy(() => import('./pages/datasourceproducts/DataSourceProductPage/DataSourceProductPage')),
   module: ModuleName.CV
 }
@@ -92,7 +94,7 @@ export const routeCVDataSourcesEntityPage: Route = {
   pageId: 'cv-onboarding/:dataSourceType/select-list-entities',
   authenticated: true,
   url: (params: RouteURLArgs) =>
-    params?.dataSourceType ? `/cv-onboarding/${params.dataSourceType}/select-list-entities` : '/cv-onboarding/',
+    params?.dataSourceType ? `/cv-onboarding/${params.dataSourceType}/select-list-entities` : '/cv-datasources/',
   component: React.lazy(() => {
     return import('./pages/listEntitySelect/DataSourceListEntityPage/DataSourceListEntityPage')
   }),

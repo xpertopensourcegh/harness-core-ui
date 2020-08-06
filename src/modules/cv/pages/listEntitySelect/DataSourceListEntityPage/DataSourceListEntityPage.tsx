@@ -1,16 +1,17 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react'
-import { useLocation, useHistory } from 'react-router'
+import { useHistory } from 'react-router'
 import { Container, Heading, Color, Button, Text, SelectOption } from '@wings-software/uikit'
 import xhr from '@wings-software/xhr-async'
-import { routeCVOnBoardingSetup, routeCVDataSourcesProductPage } from 'modules/cv/routes'
+import { routeCVOnBoardingSetup, routeCVDataSourcesProductPage, routeCVDataSources } from 'modules/cv/routes'
 import { AppDynamicsService, CVNextGenCVConfigService } from 'modules/cv/services'
 import { transformQueriesFromSplunk } from 'modules/cv/pages/onboarding/Splunk/SplunkOnboardingUtils'
 import { transformAppDynamicsApplications } from 'modules/cv/pages/onboarding/AppDynamics/AppDynamicsOnboardingUtils'
 import DataSourceSelectEntityTable from 'modules/cv/components/DataSourceSelectEntityTable/DataSourceSelectEntityTable'
-import { connectorId } from 'modules/cv/constants'
 import { routeParams, linkTo } from 'framework/exports'
 import { Page } from 'modules/common/exports'
 import type { ServiceResponse } from 'modules/common/services/ServiceResponse'
+import { CVObjectStoreNames, CVIndexedDBPrimaryKeys } from 'modules/cv/hooks/IndexedDBHook/IndexedDBHook'
+import useOnBoardingPageDataHook from 'modules/cv/hooks/OnBoardingPageDataHook/OnBoardingPageDataHook'
 import i18n from './SelectListEntityPage.i18n'
 import css from './DataSourceListEntityPage.module.scss'
 
@@ -35,39 +36,52 @@ const VerificationTypeEntityCall: {
   }
 }
 
+type PageContextData = { isEdit?: boolean; dataSourceId?: string; products: string[] }
+
+function createNextPageData(pageData: any): PageContextData {
+  const pageContextData: { [key: string]: any } = {}
+  for (const key of ['isEdit', 'dataSourceId', 'products']) {
+    pageContextData[key] = pageData[key]
+  }
+  return pageContextData as PageContextData
+}
+
 export default function DataSourceListEntitySelect(): JSX.Element {
-  const [pageError, setError] = useState(undefined)
+  const {
+    params: { accountId, dataSourceType = '' },
+    query: { dataSourceId: routeDataSourceId }
+  } = routeParams()
+  const { pageData, dbInstance } = useOnBoardingPageDataHook<PageContextData>(routeDataSourceId as string)
+  const [{ pageError, noEntities }, setErrorOrNoData] = useState<{ pageError?: string; noEntities?: boolean }>({})
   const [loading, setLoading] = useState(true)
   const [entityOptions, setEntityOptions] = useState<SelectOption[]>([])
   const [enableNext, setEnableNext] = useState<boolean>(false)
-  // navigation params to get context for the page
-  const { state: locationData } = useLocation<{ products: string[]; dataSourceId?: string }>()
-  const {
-    params: { accountId, dataSourceType = '' }
-  } = routeParams()
   const history = useHistory()
+  const dataSourceId: string = (routeDataSourceId as string) || pageData?.dataSourceId || ''
 
   const [navigateWithSelectedApps, setNavigationFunction] = useState<
     (selectedEntities: SelectOption[]) => void | undefined
   >()
   const onClickNextCallback = useCallback(
     () => (selectedEntities: SelectOption[]) => {
+      const newPageData = { ...createNextPageData(pageData), selectedEntities }
       history.push({
         pathname: linkTo(routeCVOnBoardingSetup, { dataSourceType }, true),
-        state: {
-          ...locationData,
-          selectedEntities,
-          dataSourceId: locationData?.dataSourceId || connectorId
-        }
+        search: `?dataSourceId=${dataSourceId}`,
+        state: newPageData
+      })
+      dbInstance?.put(CVObjectStoreNames.ONBOARDING_JOURNEY, newPageData)
+      dbInstance?.put(CVObjectStoreNames.LIST_ENTITIES, {
+        [CVIndexedDBPrimaryKeys.DATASOURCE_ID]: dataSourceId,
+        entityOptions
       })
     },
-    [locationData, history, dataSourceType]
+    [pageData, dataSourceId, history, dataSourceType, entityOptions, dbInstance?.put]
   )
-  const verificationTypeI18N = useMemo(() => {
-    if (dataSourceType === 'app-dynamics' || dataSourceType === 'splunk') {
-      return i18n[dataSourceType]
-    }
-  }, [dataSourceType])
+  const verificationTypeI18N = useMemo(
+    () => (dataSourceType === 'app-dynamics' || dataSourceType === 'splunk' ? i18n[dataSourceType] : undefined),
+    [dataSourceType]
+  )
 
   const onSelectEntityCallback = useCallback(
     (_, ttlChecked: number) => {
@@ -87,23 +101,34 @@ export default function DataSourceListEntitySelect(): JSX.Element {
     }
     entityFetchFunc({
       accountId,
-      dataSourceId: locationData && locationData.dataSourceId ? locationData.dataSourceId : connectorId,
+      dataSourceId,
       xhrGroup: XHR_FETCH_ENTITIES_GROUP
     }).then(({ status, error, response }) => {
       if (status === xhr.ABORTED) {
         return
       } else if (error?.message) {
-        setError(error.message)
+        setErrorOrNoData({ pageError: error.message })
       } else if (response?.resource?.length) {
         setEntityOptions(entityTransformFunc(response.resource))
+      } else {
+        setErrorOrNoData({ noEntities: true })
       }
       setLoading(false)
     })
-  }, [accountId, dataSourceType, locationData])
+  }, [accountId, dataSourceType, dataSourceId])
   return (
     <>
       <Page.Header title={verificationTypeI18N?.pageTitle} />
-      <Page.Body error={pageError} loading={loading}>
+      <Page.Body
+        error={pageError}
+        loading={loading}
+        noData={{
+          when: () => Boolean(noEntities),
+          icon: 'warning-sign',
+          ...i18n.noDataContent,
+          onClick: () => history.replace(linkTo(routeCVDataSources))
+        }}
+      >
         <Container className={css.main}>
           <Container className={css.contentContainer}>
             <Container className={css.infographic}>
@@ -130,7 +155,7 @@ export default function DataSourceListEntitySelect(): JSX.Element {
               onClick={() =>
                 history.replace({
                   pathname: linkTo(routeCVDataSourcesProductPage, { dataSourceType }, true),
-                  state: { ...locationData }
+                  state: { ...pageData }
                 })
               }
             >

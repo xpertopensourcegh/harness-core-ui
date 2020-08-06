@@ -1,24 +1,16 @@
-import React, { FunctionComponent, useEffect, useState, useMemo } from 'react'
-import {
-  Container,
-  OverlaySpinner,
-  Table,
-  Collapse,
-  Color,
-  Link as WingsLink,
-  IconName,
-  Text,
-  Button
-} from '@wings-software/uikit'
+import React, { FunctionComponent, useEffect, useState, useMemo, useCallback } from 'react'
+import { Container, Table, Collapse, Color, Link as WingsLink, IconName, Text, Button } from '@wings-software/uikit'
 import type { SettingAttribute, CVConfig } from '@wings-software/swagger-ts/definitions'
 import type { Cell } from 'react-table'
 import { Link } from 'react-router-dom'
+import type { IDBPDatabase } from 'idb'
 import { Page } from 'modules/common/exports'
 import { SettingsService } from 'modules/cv/services'
 import CVProductCard from 'modules/cv/components/CVProductCard/CVProductCard'
 import { routeCVDataSourcesProductPage } from 'modules/cv/routes'
 import { VerificationTypeToRouteVerificationType } from 'modules/cv/constants'
 import { routeParams, linkTo } from 'framework/exports'
+import { useIndexedDBHook, CVObjectStoreNames } from 'modules/cv/hooks/IndexedDBHook/IndexedDBHook'
 import i18n from './DataSources.i18n'
 import css from './DataSources.module.scss'
 
@@ -32,6 +24,7 @@ type DataSourceTableRow = {
 
 interface RenderContentProps {
   existingDataSources: Map<string, Array<DataSourceTableRow>>
+  dbInstance?: IDBPDatabase
   accountId: string
 }
 
@@ -61,7 +54,7 @@ function typeToIconName(type: CVConfig['type']): IconName | undefined {
     case 'APP_DYNAMICS':
       return 'service-appdynamics'
     case 'SPLUNK':
-      return 'service-splunk'
+      return 'service-splunk-with-name'
   }
 }
 
@@ -81,7 +74,7 @@ const renderSources = () => {
 }
 
 function RenderContent(props: RenderContentProps): JSX.Element {
-  const { existingDataSources } = props
+  const { existingDataSources, dbInstance } = props
   const [isNewDataSourceView, setToggleView] = useState(true)
   const existingDataSourceTableColumns = useMemo(
     () => [
@@ -125,14 +118,27 @@ function RenderContent(props: RenderContentProps): JSX.Element {
           const { row } = cell
           const originalData = row.original as DataSourceTableRow
           const toObj = {
-            pathname: linkTo(routeCVDataSourcesProductPage, { dataSourceType: originalData.dataSourceRoute }),
+            pathname: linkTo(routeCVDataSourcesProductPage, {
+              dataSourceType: originalData.dataSourceRoute,
+              dataSourceId: originalData.uuid
+            }),
             state: { dataSourceId: originalData.uuid, isEdit: true }
           }
+          const onEditCallback = useCallback(() => {
+            dbInstance?.add(CVObjectStoreNames.ONBOARDING_JOURNEY, {
+              dataSourceId: originalData.uuid,
+              isEdit: true
+            })
+          }, [originalData.uuid])
           return (
             <Container className={css.actionLinks}>
-              <Link to={toObj}>Edit</Link>
+              <Link to={toObj} onClick={onEditCallback}>
+                Edit
+              </Link>
               <Container className={css.divider}>|</Container>
-              <Link to={toObj}>View</Link>
+              <Link to={toObj} onClick={onEditCallback}>
+                View
+              </Link>
               <Container className={css.divider}>|</Container>
               <WingsLink withoutHref>Delete</WingsLink>
             </Container>
@@ -140,7 +146,7 @@ function RenderContent(props: RenderContentProps): JSX.Element {
         }
       }
     ],
-    []
+    [dbInstance?.add]
   )
 
   if (!existingDataSources?.size || !isNewDataSourceView) {
@@ -202,6 +208,7 @@ const DataSources: FunctionComponent<{}> = _ => {
   const {
     params: { accountId }
   } = routeParams()
+  const { isInitializingDB, dbInstance } = useIndexedDBHook()
   useEffect(() => {
     SettingsService.fetchConnectors(accountId).then(({ response }) => {
       if (response?.resource) {
@@ -210,14 +217,19 @@ const DataSources: FunctionComponent<{}> = _ => {
       }
       setLoading(false)
     })
-  }, [])
+  }, [accountId])
+  useEffect(() => {
+    if (dbInstance) dbInstance.clear(CVObjectStoreNames.ONBOARDING_JOURNEY)
+  }, [dbInstance])
   return (
-    <Container className={css.main}>
+    <>
       <Page.Header title={i18n[existingDataSources?.size ? 'editDataSourceTitle' : 'addDataSourceTitle']} />
-      <OverlaySpinner show={isLoading}>
-        {isLoading ? <span /> : <RenderContent existingDataSources={existingDataSources} accountId={accountId} />}
-      </OverlaySpinner>
-    </Container>
+      <Page.Body loading={isLoading || isInitializingDB}>
+        <Container className={css.main}>
+          <RenderContent existingDataSources={existingDataSources} accountId={accountId} dbInstance={dbInstance} />
+        </Container>
+      </Page.Body>
+    </>
   )
 }
 
