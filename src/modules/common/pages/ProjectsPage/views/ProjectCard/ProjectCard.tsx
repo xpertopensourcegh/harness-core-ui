@@ -31,6 +31,10 @@ interface ContinuousDeployementProps {
   isPreview?: boolean
 }
 
+interface ContinuousVerificationProps {
+  data: ProjectDTO
+}
+
 const ContextMenu: React.FC<ContextMenuProps> = props => {
   const { project, reloadProjects, editProject } = props
   const { mutate: deleteProject } = useDeleteProject({ orgIdentifier: project.orgIdentifier || '' })
@@ -100,7 +104,7 @@ const ContinuousDeployement: React.FC<ContinuousDeployementProps> = props => {
   )
 }
 
-const ContinuousVerification: React.FC = () => {
+const ContinuousVerification: React.FC<ContinuousVerificationProps> = () => {
   return (
     <Container border={{ top: true, color: Color.GREY_250 }} padding={{ top: 'medium', bottom: 'medium' }}>
       <Layout.Horizontal>
@@ -223,7 +227,7 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
         <ContinuousDeployement data={data} />
       ) : null}
       {data.modules?.includes(Modules.CV as Required<ProjectDTO>['modules'][number]) ? (
-        <ContinuousVerification />
+        <ContinuousVerification data={data} />
       ) : null}
     </Card>
   )

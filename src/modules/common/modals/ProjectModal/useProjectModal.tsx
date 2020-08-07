@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from 'react'
 import { useModalHook, StepWizard, Button } from '@wings-software/uikit'
 import { Dialog, Classes } from '@blueprintjs/core'
+import isEmpty from 'lodash/isEmpty'
 import cx from 'classnames'
 
 import type { ProjectDTO } from 'services/cd-ng'
@@ -26,8 +27,12 @@ export const useProjectModal = ({ onSuccess }: UseProjectModalProps): UseProject
   const [projectData, setProjectData] = useState<ProjectDTO>()
 
   const wizardCompleteHandler = async (wizardData: ProjectDTO | undefined): Promise<void> => {
-    setView(Views.PURPOSE)
-    setProjectData(wizardData)
+    if (!wizardData || isEmpty(wizardData.modules)) {
+      setView(Views.PURPOSE)
+      setProjectData(wizardData)
+    } else {
+      hideModal()
+    }
     onSuccess(wizardData)
   }
 
@@ -81,7 +86,8 @@ export const useProjectModal = ({ onSuccess }: UseProjectModalProps): UseProject
   const open = useCallback(
     (_project?: ProjectDTO) => {
       setProjectData(_project)
-      if (_project) {
+      const isNew = !_project || !_project.id
+      if (!isNew) {
         setView(Views.EDIT)
       } else setView(Views.CREATE)
       showModal()

@@ -3,6 +3,7 @@ export default {
   activity: 'Activity',
   errors: 'Errors',
   createPipeline: 'Create Pipeline',
+  createDataSource: 'Create DataSource',
   sampleDescription: 'Sample Description...',
   edit: 'Edit',
   clone: 'Clone',

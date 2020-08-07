@@ -50,7 +50,7 @@ const AboutProject: React.FC<StepProps<ProjectDTO> & ProjectModalData> = props =
   const { nextStep, data: projectData, closeModal, onSuccess } = props
   const [showPreview, setShowPreview] = useState<boolean>(true)
   const { accountId } = useParams()
-  const isEdit = !!props.data
+  const isEdit = !!props.data && !!props.data.id
   const { mutate: updateProject } = usePutProject({
     orgIdentifier: '',
     projectIdentifier: ''
@@ -84,7 +84,7 @@ const AboutProject: React.FC<StepProps<ProjectDTO> & ProjectModalData> = props =
       onSuccess?.(values)
     } else {
       ;(dataToSubmit as CreateProjectDTO)['identifier'] = values.identifier || ''
-      ;(dataToSubmit as CreateProjectDTO)['modules'] = []
+      ;(dataToSubmit as CreateProjectDTO)['modules'] = values.modules || []
       createProject(dataToSubmit as CreateProjectDTO, {
         pathParams: { orgIdentifier: values?.orgIdentifier || '' }
       })

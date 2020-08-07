@@ -68,10 +68,12 @@ export function excludes(field: string, value: Array<Value>): string {
   return getExpression('=out=', field, value)
 }
 
-export function and(...args: string[]): string {
-  return `(${args.join(';')})`
+export function and(...args: Array<string | undefined>): string {
+  args = args.filter(arg => arg !== undefined)
+  return args.length ? `(${args.join(';')})` : ''
 }
 
-export function or(...args: string[]): string {
-  return `(${args.join(',')})`
+export function or(...args: Array<string | undefined>): string {
+  args = args.filter(arg => arg !== undefined)
+  return args.length ? `(${args.join(',')})` : ''
 }

@@ -9,8 +9,10 @@ import {
   ResponseDTONGPageResponseProjectDTO,
   useGetOrganizationList
 } from 'services/cd-ng'
+import type { ModuleName } from 'framework/exports'
+
 import type { ProjectDTO } from 'services/cd-ng'
-import { equals } from 'modules/common/utils/rsql'
+import { equals, includes, and } from 'modules/common/utils/rsql'
 import { Page } from 'modules/common/exports'
 import { useProjectModal } from 'modules/common/modals/ProjectModal/useProjectModal'
 import type { UseGetMockData } from 'modules/common/utils/testUtils'
@@ -26,16 +28,18 @@ const allOrgsSelectOption: SelectOption = {
 }
 interface ProjectListProps {
   mockData?: UseGetMockData<ResponseDTONGPageResponseProjectDTO>
+  /** when the page is being shown inside continuous verification, value will be set to CV */
+  module?: ModuleName
+  onNewProjectCreated?(data: ProjectDTO): void
 }
 const CustomSelect = Select.ofType<SelectOption>()
 
-const ProjectsListPage: React.FC<ProjectListProps> = ({ mockData }) => {
+const ProjectsListPage: React.FC<ProjectListProps> = ({ mockData, module, onNewProjectCreated }) => {
   const [orgFilter, setOrgFilter] = useState<SelectOption>(allOrgsSelectOption)
   const { accountId } = useParams()
   const [view, setView] = useState(Views.GRID)
   const [recentFilter, setRecentFilter] = useState(Sort.ALL_PROJECTS)
   const [searchParam, setSearchParam] = useState('')
-
   const {
     loading: loadingAllProjects,
     data: dataAllProjects,
@@ -43,7 +47,10 @@ const ProjectsListPage: React.FC<ProjectListProps> = ({ mockData }) => {
   } = useGetProjectListBasedOnFilter({
     queryParams: {
       accountIdentifier: accountId,
-      filterQuery: orgFilter.value == 'ALL' ? undefined : equals('orgIdentifier', orgFilter.value.toString()),
+      filterQuery: and(
+        orgFilter.value == 'ALL' ? undefined : equals('orgIdentifier', orgFilter.value.toString()),
+        !module ? undefined : includes('modules', [module])
+      ),
       search: searchParam
     },
     mock: mockData,
@@ -53,7 +60,10 @@ const ProjectsListPage: React.FC<ProjectListProps> = ({ mockData }) => {
   const loading = loadingAllProjects
   const data = dataAllProjects
 
-  const projectCreateSuccessHandler = (): void => {
+  const projectCreateSuccessHandler = (project: ProjectDTO | undefined): void => {
+    if (project && onNewProjectCreated) {
+      onNewProjectCreated(project)
+    }
     reloadAllProjects()
   }
 
@@ -105,7 +115,11 @@ const ProjectsListPage: React.FC<ProjectListProps> = ({ mockData }) => {
       />
       <Layout.Horizontal className={css.header}>
         <Layout.Horizontal width="55%">
-          <Button text="New Project" icon="plus" onClick={() => openProjectModal()} />
+          <Button
+            text="New Project"
+            icon="plus"
+            onClick={() => openProjectModal(module ? ({ modules: [module] } as ProjectDTO) : undefined)}
+          />
         </Layout.Horizontal>
 
         <Layout.Horizontal spacing="small" width="45%" className={css.headerLayout}>
