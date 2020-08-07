@@ -1,9 +1,11 @@
-export const timeSeriesChartConfig = {
+import moment from 'moment'
+
+export const timeSeriesChartConfig = (start: number, end: number, data: any) => ({
   chart: {
     zoomType: 'x',
     height: 70,
     backgroundColor: '',
-    type: 'line',
+    type: 'spline',
     spacing: [4, 2, 4, 2]
   },
   legend: {
@@ -20,7 +22,9 @@ export const timeSeriesChartConfig = {
     text: ''
   },
   xAxis: {
-    type: '',
+    type: 'datetime',
+    min: start,
+    max: end,
     labels: {
       enabled: false
     },
@@ -39,26 +43,26 @@ export const timeSeriesChartConfig = {
     tickLength: 0,
     gridLineWidth: 0
   },
+  tooltip: {
+    formatter: function (): any {
+      return `<b>${moment((this as any)?.x).format('MMMM Do, YYYY h:mm a')}</b>: ${(this as any)?.y}`
+    }
+  },
   series: [
     {
       type: 'line',
       name: 'Average Response Time (ms)',
       zoneAxis: 'x',
       zones: [
+        // {
+        //   color: 'var(--green-500)',
+        //   value: 3
+        // },
         {
-          color: 'var(--green-500)',
-          value: 6
-        },
-        {
-          color: 'var(--red-500)'
+          color: 'var(--green-500)'
         }
       ],
-      data: [
-        [2, 0.7537],
-        [4, 0.7537],
-        [6, 0.7559],
-        [8, 0.7631]
-      ]
+      data
     }
   ],
   annotations: [
@@ -77,9 +81,9 @@ export const timeSeriesChartConfig = {
   credits: {
     enabled: false
   }
-}
+})
 
-export const dummyConfigForTimeline = {
+export const timelineConfig = (start: number, end: number) => ({
   chart: {
     zoomType: 'x',
     height: 30,
@@ -90,11 +94,15 @@ export const dummyConfigForTimeline = {
   xAxis: [
     {
       showEmpty: true,
-      min: 5,
-      max: 10,
+      type: 'datetime',
+      min: start,
+      max: end,
       tickLength: 0,
       lineWidth: 0,
-      gridLineWidth: 0
+      gridLineWidth: 0,
+      labels: {
+        formatter: ({ pos }: any) => moment(pos).format('h:mm a')
+      }
     }
   ],
   yAxis: {
@@ -125,7 +133,7 @@ export const dummyConfigForTimeline = {
   credits: {
     enabled: false
   }
-}
+})
 
 export const anomaliesConfig = {
   name: 'ACTIVITY VERIFICATION',

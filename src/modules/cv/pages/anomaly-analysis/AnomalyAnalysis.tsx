@@ -1,22 +1,68 @@
 import React, { FunctionComponent, useState, useEffect } from 'react'
 import { OverlaySpinner } from '@wings-software/uikit'
+import { Toaster, Intent } from '@blueprintjs/core'
+import xhr from '@wings-software/xhr-async'
+import { routeParams } from 'framework/route/RouteMounter'
 import AnomaliesDetails from './AnomalyDetailsView/AnomalyDetailsView'
 import AnomaliesList from './AnomaliesList/AnomaliesList'
 import AnomaliesHeader from './AnomaliesHeader/AnomaliesHeader'
 import { anomaliesConfig } from './AnomalyAnalysisUtils'
+import { fetchAnomalies } from '../../services/AnomaliesService'
 import css from './AnomalyAnalysis.module.scss'
 
-interface AnomalyAnalysisProps {
-  anomaliesList: any
+const toaster = Toaster.create()
+
+const fetchAnomaliesData = async (state: any, params: any) => {
+  state.setInProgress(true)
+  const { response, status, error } = await fetchAnomalies(params)
+  state.setInProgress(false)
+  if (status === xhr.ABORTED) {
+    return
+  }
+
+  if (status !== 200) {
+    toaster.show({ intent: Intent.DANGER, timeout: 5000, message: error + '' })
+    return
+  }
+
+  if (response?.resource) {
+    state.setAnomalies(response.resource)
+    state.setCurrentAnomaly(response.resource[0])
+  }
 }
 
-const AnomalyAnalysis: FunctionComponent<any> = (props: AnomalyAnalysisProps) => {
+const AnomalyAnalysis: FunctionComponent<any> = () => {
   const [inProgress, setInProgress] = useState(false)
-  const anomaliesList = props.anomaliesList || anomaliesConfig.anomalies
-  const [currentAnomaly, setCurrentAnomaly] = useState(anomaliesList[0])
+  const [anomalies, setAnomalies] = useState([])
+  const [currentAnomaly, setCurrentAnomaly] = useState(null)
+  const {
+    params: { accountId },
+    query: {
+      from,
+      to,
+      // service,
+      category
+    }
+  } = routeParams()
+
+  const state = {
+    inProgress,
+    setInProgress,
+    anomalies,
+    setAnomalies,
+    currentAnomaly,
+    setCurrentAnomaly
+  }
 
   useEffect(() => {
-    setInProgress(false)
+    fetchAnomaliesData(state, {
+      accountId: accountId,
+      env: 'env',
+      service: 'service', // service,
+      category: category && (category as string).toUpperCase(),
+      startTime: from,
+      endTime: to
+    })
   }, [])
 
   return (
@@ -24,15 +70,25 @@ const AnomalyAnalysis: FunctionComponent<any> = (props: AnomalyAnalysisProps) =>
       <div className={css.main}>
         <div className={css.container}>
           <header className={css.header}>
-            <AnomaliesHeader details={anomaliesConfig}> </AnomaliesHeader>
+            <AnomaliesHeader
+              details={{
+                ...anomaliesConfig,
+                from: Number.parseInt(from as string),
+                to: Number.parseInt(to as string)
+              }}
+            >
+              {' '}
+            </AnomaliesHeader>
           </header>
 
           <nav className={css.nav}>
             <AnomaliesList
-              anomaliesList={anomaliesList}
+              anomaliesList={anomalies}
+              currentAnomaly={currentAnomaly}
               onAnomalyClick={(val: any) => {
                 setCurrentAnomaly(val)
               }}
+              isLoading={inProgress}
             />
           </nav>
 

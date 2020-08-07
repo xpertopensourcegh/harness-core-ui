@@ -4,7 +4,7 @@ import type { ServiceResponse } from 'modules/common/services/ServiceResponse'
 
 const Endpoints = {
   fetchHeatmapSummary: ({ accId, env, service, startTime, endTime }: any) =>
-    `/api/ts-service-guard/cv-nextgen/heatmap` +
+    `/cv-nextgen/heatmap` +
     `?accountId=${accId}&envIdentifier=${env}&serviceIdentifier=${service}&startTimeMs=${startTime}&endTimeMs=${endTime}`
 }
 

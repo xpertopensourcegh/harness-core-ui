@@ -6,8 +6,8 @@
     grid-template-areas:
       'header header header'
       'nav main main';
-    grid-template-columns: 300px 1fr;
-    grid-template-rows: 150px 1fr;
+    grid-template-columns: 300px minmax(0, 1fr);
+    grid-template-rows: 150px minmax(0, 1fr);
     grid-gap: 12px;
     height: 100vh;
     .header {
@@ -28,6 +28,10 @@
       background: var(--white);
       padding: 12px;
       border-radius: 10px;
+      > * {
+        max-height: 100%;
+        overflow: auto;
+      }
     }
   }
 }

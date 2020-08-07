@@ -20,7 +20,7 @@ export interface HeatMapProps {
    * or to limit the row sizes.
    */
   rowSize?: number
-  onCellClick?(cell: any): void
+  onCellClick?(cell: any, serie: any): void
   renderTooltip?(cell: any): JSX.Element | null
   labelsWidth?: number
   className?: string
@@ -109,7 +109,7 @@ export default function HeatMap({
                     key={index}
                     popoverDisabled={!renderTooltip}
                     popoverContent={renderTooltip && renderTooltip(cell)}
-                    onClick={() => onCellClick && onCellClick(cell)}
+                    onClick={() => onCellClick && onCellClick(cell, serie)}
                     color={mapColor(cell)}
                     className={cellClassName}
                   />

@@ -1,5 +1,6 @@
 import React, { FunctionComponent } from 'react'
 import { Tag, Intent } from '@wings-software/uikit'
+import moment from 'moment'
 import i18n from './AnomaliesHeader.i18n'
 import css from './AnomaliesHeader.module.scss'
 
@@ -14,11 +15,13 @@ const AnomaliesHeader: FunctionComponent<any> = (props: AnomaliesHeaderProps) =>
         <strong className={css.title}> {props.details.name} </strong>
         <span className={css.small}>
           {' '}
-          {i18n.from} <strong className={css.title}> {props.details.from} </strong>{' '}
+          {i18n.from}
+          <strong className={css.title}>{moment(props.details.from).format('MMMM Do, YYYY h:mm a')}</strong>{' '}
         </span>
         <span className={css.small}>
           {' '}
-          {i18n.to} <strong className={css.title}> {props.details.to} </strong>{' '}
+          {i18n.to}
+          <strong className={css.title}>{moment(props.details.to).format('MMMM Do, YYYY h:mm a')}</strong>{' '}
         </span>
         <span className={css.danger}>
           {' '}

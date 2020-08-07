@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useHistory } from 'react-router'
 import { Heading, Layout, Tabs, Tab, Select, OverlaySpinner, Container } from '@wings-software/uikit'
 import { Toaster, Intent } from '@blueprintjs/core'
 import xhr from '@wings-software/xhr-async'
@@ -6,6 +7,8 @@ import moment from 'moment'
 import classnames from 'classnames'
 import isEmpty from 'lodash/isEmpty'
 import isUndefined from 'lodash/isUndefined'
+import { routeCVAnomalyAnalysisPage } from 'modules/cv/routes'
+import { linkTo } from 'framework/exports'
 import { DashboardService } from 'modules/cv/services'
 import TimelineView from 'modules/common/components/TimelineView/TimelineView'
 import HeatMap, { CellStatusValues } from 'modules/common/components/HeatMap/HeatMap'
@@ -36,6 +39,7 @@ export default function CVServicePage(): JSX.Element {
   const {
     params: { accountId, serviceId }
   } = routeParams()
+  const history = useHistory()
   const [range, setRange] = useState({
     selectedValue: 12,
     ...getRangeDates(12)
@@ -163,6 +167,12 @@ export default function CVServicePage(): JSX.Element {
                           mapValue={mapHeatmapValue}
                           renderTooltip={renderTooltip}
                           cellClassName={styles.heatmapCell}
+                          onCellClick={(cell, serie) => {
+                            const query =
+                              `from=${cell.startTime}&to=${cell.endTime}` +
+                              `&service=${serviceId}&category=${serie.name}`
+                            history.push(linkTo(routeCVAnomalyAnalysisPage, {}, true) + '?' + query)
+                          }}
                           rowSize={heatmapSize()}
                         />
                       </OverlaySpinner>

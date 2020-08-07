@@ -11,9 +11,11 @@ declare const styles: {
   readonly status: string
   readonly risk: string
   readonly bottomRow: string
-  readonly engine: string
-  readonly anomaly: string
+  readonly service: string
+  readonly category: string
   readonly datasources: string
   readonly title: string
+  readonly anomalies: string
+  readonly noAnomaliesMsg: string
 }
 export default styles

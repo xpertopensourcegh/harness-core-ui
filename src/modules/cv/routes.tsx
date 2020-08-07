@@ -124,7 +124,7 @@ export const routeCVAnomalyAnalysisPage: Route = {
   title: i18n.services,
   pageId: '/cv/anomaly-analysis',
   authenticated: true,
-  url: (params: RouteURLArgs) => `/account/${params?.accountId}/cv/anomaly-analysis`,
+  url: () => `/cv/anomaly-analysis`,
   component: React.lazy(() => {
     return import('./pages/anomaly-analysis/AnomalyAnalysis')
   }),
