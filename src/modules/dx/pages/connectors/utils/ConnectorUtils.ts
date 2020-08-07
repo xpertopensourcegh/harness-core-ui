@@ -7,14 +7,14 @@ import { AuthTypes, DelegateTypes } from '../Forms/KubeFormHelper'
 export const userPasswrdAuthField = (formData: FormData) => {
   return {
     username: formData.username,
-    passwordRef: formData.passwordRefSecret.secretId
+    passwordRef: `acc.${formData.passwordRefSecret?.secretId}` // Adding temp on account scope until scoping is done
     // cacert: 'Random'
   }
 }
 
 export const serviceAccAuthField = (formData: FormData) => {
   return {
-    serviceAccountTokenRef: formData.serviceAccountTokenRef
+    serviceAccountTokenRef: `acc.${formData.serviceAccountTokenRefSecret?.secretId}`
   }
 }
 
@@ -22,18 +22,18 @@ export const oidcAuthField = (formData: FormData) => {
   return {
     oidcIssuerUrl: formData.oidcIssuerUrl,
     oidcUsername: formData.oidcUsername,
-    oidcPasswordRef: formData.oidcPasswordRef,
-    oidcClientIdRef: formData.oidcClientIdRef,
-    oidcSecretRef: formData.oidcSecretRef,
+    oidcPasswordRef: `acc.${formData.oidcPasswordRefSecret?.secretId}`,
+    oidcClientIdRef: `acc.${formData.oidcClientIdRefSecret?.secretId}`,
+    oidcSecretRef: `acc.${formData.oidcSecretRefSecret?.secretId}`,
     oidcScopes: formData.oidcScopes
   }
 }
 
 export const clientKeyCertField = (formData: FormData) => {
   return {
-    clientCertRef: formData.clientCertRef,
-    clientKeyRef: formData.clientKeyRef,
-    clientKeyPassphraseRef: formData.clientKeyPassphraseRef,
+    clientCertRef: `acc.${formData.clientCertRefSecret?.secretId}`,
+    clientKeyRef: `acc.${formData.clientKeyRefSecret?.secretId}`,
+    clientKeyPassphraseRef: `acc.${formData.clientKeyPassphraseRefSecret?.secretId}`,
     clientKeyAlgo: formData.clientKeyAlgo
   }
 }
