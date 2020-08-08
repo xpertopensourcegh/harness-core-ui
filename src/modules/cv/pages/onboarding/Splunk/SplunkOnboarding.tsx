@@ -14,7 +14,8 @@ import {
   Color,
   Select,
   useModalHook,
-  IconName
+  IconName,
+  SelectWithSubview
 } from '@wings-software/uikit'
 import { debounce } from 'lodash-es'
 import Highcharts, { XrangePointOptionsObject } from 'highcharts/highcharts'
@@ -30,6 +31,7 @@ import { CVNextGenCVConfigService } from 'modules/cv/services'
 import { routeParams } from 'framework/exports'
 import OnBoardingConfigSetupHeader from 'modules/cv/components/OnBoardingConfigSetupHeader/OnBoardingConfigSetupHeader'
 import { NoDataCard } from 'modules/common/components/Page/NoDataCard'
+import CreateNewEntitySubform from '../CreateNewEntitySubform/CreateNewEntitySubform'
 import { SplunkDSConfig, createDefaultSplunkDSConfig } from './SplunkOnboardingUtils'
 import { transformQueriesFromSplunk, SplunkColumnChartOptions, transformToSaveConfig } from './SplunkOnboardingUtils'
 import i18n from './SplunkOnboarding.i18n'
@@ -48,6 +50,7 @@ const eventTypesOptions = [
 interface SplunkConfigProps {
   index: number
   serviceOptions: SelectOption[]
+  envOptions: SelectOption[]
   dsConfig: SplunkDSConfig
   dataSourceId: string
   formikProps: FormikProps<{ dsConfigs: SplunkDSConfig[] }>
@@ -55,6 +58,7 @@ interface SplunkConfigProps {
 
 interface SplunkDataSourceFormProps {
   serviceOptions: SelectOption[]
+  envOptions: SelectOption[]
   splunkQueryOptions: SelectOption[]
   dsConfigs: SplunkDSConfig[]
   dataSourceId: string
@@ -349,7 +353,7 @@ function SplunkSampleLogs(props: SplunkSampleLogProps): JSX.Element {
 }
 
 function SplunkConfig(props: SplunkConfigProps): JSX.Element {
-  const { index, serviceOptions, dsConfig, dataSourceId, formikProps } = props
+  const { index, serviceOptions, envOptions, dsConfig, dataSourceId, formikProps } = props
   const [stackTraceContent, setStackTraceContent] = useState<StackTraceDetials>({
     loading: Boolean(dsConfig?.query?.length)
   })
@@ -403,21 +407,29 @@ function SplunkConfig(props: SplunkConfigProps): JSX.Element {
           json={stackTraceContent.serviceInstanceJSON}
           loading={stackTraceContent.loading}
         />
-        <FormInput.Select
+        <FormInput.CustomRender
           name={`dsConfigs[${index}].serviceIdentifier`}
           key={serviceOptions[0]?.value as string}
           label={i18n.fieldLabels.service}
-          items={serviceOptions}
-          placeholder={i18n.placeholders.serviceIdentifier}
+          render={() => (
+            <SelectWithSubview
+              changeViewButtonLabel={i18n.createNew}
+              items={serviceOptions}
+              subview={<CreateNewEntitySubform entityType="service" />}
+            />
+          )}
         />
-        <FormInput.Select
+        <FormInput.CustomRender
           name={`dsConfigs[${index}].envIdentifier`}
-          placeholder={i18n.placeholders.environment}
+          key={envOptions[0]?.value as string}
           label={i18n.fieldLabels.environment}
-          items={[
-            { label: 'Production', value: 'production' },
-            { label: 'Non-Production', value: 'nonProduction' }
-          ]}
+          render={() => (
+            <SelectWithSubview
+              changeViewButtonLabel={i18n.createNew}
+              items={envOptions}
+              subview={<CreateNewEntitySubform entityType="environment" />}
+            />
+          )}
         />
       </Container>
       <Container className={css.rightSection}>
@@ -465,7 +477,7 @@ function SplunkPageHeading(props: SplunkPageHeadingProps): JSX.Element {
 }
 
 function SplunkDataSourceForm(props: SplunkDataSourceFormProps): JSX.Element {
-  const { dsConfigs, serviceOptions, splunkQueryOptions, dataSourceId, accountId, productName } = props
+  const { dsConfigs, serviceOptions, envOptions, splunkQueryOptions, dataSourceId, accountId, productName } = props
   return (
     <Formik
       validate={validateSplunkConfigs}
@@ -528,6 +540,7 @@ function SplunkDataSourceForm(props: SplunkDataSourceFormProps): JSX.Element {
                               formikProps={formikProps}
                               dataSourceId={dataSourceId}
                               serviceOptions={serviceOptions}
+                              envOptions={envOptions}
                             />
                           </DataSourceConfigPanel>
                         )
@@ -548,7 +561,7 @@ function SplunkDataSourceForm(props: SplunkDataSourceFormProps): JSX.Element {
 }
 
 const SplunkOnboarding: FunctionComponent<any> = props => {
-  const { configs, serviceOptions, locationContext } = props
+  const { configs, serviceOptions, envOptions, locationContext } = props
   const [splunkQueryOptions, setSplunkQueryOptions] = useState<SelectOption[]>([{ label: 'Loading...', value: '' }])
   const {
     params: { accountId }
@@ -575,6 +588,7 @@ const SplunkOnboarding: FunctionComponent<any> = props => {
     <Container className={css.main}>
       <SplunkDataSourceForm
         serviceOptions={serviceOptions}
+        envOptions={envOptions}
         dsConfigs={configs}
         accountId={accountId}
         productName={locationContext.products?.[0]}

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import type { SelectOption } from '@wings-software/uikit'
 import { Container } from '@wings-software/uikit'
-import type { DSConfig, Service } from '@wings-software/swagger-ts/definitions'
+import type { DSConfig } from '@wings-software/swagger-ts/definitions'
 import xhr from '@wings-software/xhr-async'
 import { cloneDeep } from 'lodash-es'
 import { CVNextGenCVConfigService, SettingsService } from 'modules/cv/services'
@@ -73,9 +73,21 @@ async function fetchServices(localAppId: string, accId: string): Promise<SelectO
   if (status === xhr.ABORTED || error) {
     return
   }
-  if (response?.resource) {
-    const resp: any = response.resource
-    return resp.response?.map((service: Service) => ({ label: service.name || '', value: service.name }))
+  if (response?.data) {
+    const resp: any = response.data
+    return resp.content?.map(({ identifier }: any) => ({ label: identifier, value: identifier }))
+  }
+  return []
+}
+
+async function fetchEnvironments(accId: string): Promise<SelectOption[] | undefined> {
+  const { status, error, response } = await SettingsService.fetchEnvironments(accId)
+  if (status === xhr.ABORTED || error) {
+    return
+  }
+  if (response?.data) {
+    const resp: any = response.data
+    return resp.content?.map(({ identifier }: any) => ({ label: identifier, value: identifier }))
   }
   return []
 }
@@ -89,6 +101,7 @@ export default function OnBoardingSetupPage(): JSX.Element {
     routeDataSourceId as string
   )
   const [serviceOptions, setServices] = useState<SelectOption[]>([{ value: '', label: i18n.loading }])
+  const [envOptions, setEnvOptions] = useState<SelectOption[]>([{ value: '', label: i18n.loading }])
   const [configsToRender, setConfigs] = useState<DSConfig[]>([])
   const [serverError, setServerError] = useState<string | undefined>(undefined)
   const [isLoadingConfigs, setLoadingConfigs] = useState<boolean>(true)
@@ -138,6 +151,9 @@ export default function OnBoardingSetupPage(): JSX.Element {
     fetchServices(appId, accountId).then(services => {
       setServices(services?.length ? services : [])
     })
+    fetchEnvironments(accountId).then(environments => {
+      setEnvOptions(environments?.length ? environments : [])
+    })
   }, [accountId])
 
   return (
@@ -146,13 +162,19 @@ export default function OnBoardingSetupPage(): JSX.Element {
         {!isLoadingConfigs && pageData && verificationType === 'APP_DYNAMICS' && (
           <AppDynamicsMainSetupView
             serviceOptions={serviceOptions}
+            envOptions={envOptions}
             configs={configsToRender as AppDynamicsOnboardingUtils.DSConfigTableData[]}
             locationContext={pageData}
             indexedDB={dbInstance}
           />
         )}
         {!isLoadingConfigs && pageData && verificationType === 'SPLUNK' && (
-          <SplunkOnboarding serviceOptions={serviceOptions} configs={configsToRender} locationContext={pageData} />
+          <SplunkOnboarding
+            serviceOptions={serviceOptions}
+            envOptions={envOptions}
+            configs={configsToRender}
+            locationContext={pageData}
+          />
         )}
       </Container>
     </Page.Body>

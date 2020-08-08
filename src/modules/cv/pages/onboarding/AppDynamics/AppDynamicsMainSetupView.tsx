@@ -7,7 +7,8 @@ import {
   FormikForm,
   Select,
   Link,
-  MultiSelectOption
+  MultiSelectOption,
+  SelectWithSubview
 } from '@wings-software/uikit'
 import xhr from '@wings-software/xhr-async'
 import { FieldArray, FormikProps, Formik } from 'formik'
@@ -29,6 +30,7 @@ import {
 } from './AppDynamicsOnboardingUtils'
 import TierAndServiceTable from './TierAndServiceTable/TierAndServiceTable'
 import i18n from './AppDynamicsMainSetupView.i18n'
+import CreateNewEntitySubform from '../CreateNewEntitySubform/CreateNewEntitySubform'
 import css from './AppDynamicsMainSetupView.module.scss'
 
 const XHR_METRIC_PACK_GROUP = 'XHR_METRIC_PACK_GROUP'
@@ -42,6 +44,7 @@ type PageData = { products: string[]; selectedEntities?: SelectOption[]; dataSou
 interface AppDynamicsDataSourceFormProps {
   configList: DSConfigTableData[]
   serviceOptions: SelectOption[]
+  envOptions: SelectOption[]
   pageData: PageData
   dbInstance?: IDBPDatabase
   metricPackMap: Map<string, MetricPack>
@@ -51,6 +54,7 @@ interface AppDynamicsDataSourceFormProps {
 interface AppDynamicsConfigProps {
   config: DSConfigTableData
   serviceOptions: SelectOption[]
+  envOptions: SelectOption[]
   dataSourceId: string
   appdApplicationId: number
   index: number
@@ -61,6 +65,7 @@ interface AppDynamicsConfigProps {
 
 interface AppDynamicsMainSetupViewProps {
   serviceOptions: SelectOption[]
+  envOptions: SelectOption[]
   configs: DSConfigTableData[]
   locationContext: PageData
   indexedDB?: IDBPDatabase
@@ -165,6 +170,7 @@ function AppDynamicsConfig(props: AppDynamicsConfigProps): JSX.Element {
   const {
     config,
     serviceOptions,
+    envOptions,
     dataSourceId,
     index,
     formikProps,
@@ -198,13 +204,17 @@ function AppDynamicsConfig(props: AppDynamicsConfigProps): JSX.Element {
   return (
     <Container className={css.formContainer}>
       <Container className={css.inputFields}>
-        <FormInput.Select
+        <FormInput.CustomRender
           name={`dsConfigs[${index}].envIdentifier`}
+          key={envOptions[0]?.value as string}
           label="Environment"
-          items={[
-            { label: 'Production', value: 'production' },
-            { label: 'Non-Production', value: 'nonProduction' }
-          ]}
+          render={() => (
+            <SelectWithSubview
+              changeViewButtonLabel={i18n.createNew}
+              items={envOptions}
+              subview={<CreateNewEntitySubform entityType="environment" />}
+            />
+          )}
         />
         <Container className={css.metricPackContainer}>
           <Link
@@ -268,7 +278,7 @@ function SaveToIndexedDB(props: SaveToIndexedDBProps): JSX.Element {
 }
 
 function AppDynamicsDataSourceForm(props: AppDynamicsDataSourceFormProps): JSX.Element {
-  const { configList, serviceOptions, appDApplications, metricPackMap, pageData, dbInstance } = props
+  const { configList, serviceOptions, envOptions, appDApplications, metricPackMap, pageData, dbInstance } = props
   const productName = pageData?.products?.[0]
   const [applicationsToAdd, setApplicationsToAdd] = useState<SelectOption[]>([{ label: 'Loading...', value: '' }])
   const {
@@ -348,6 +358,7 @@ function AppDynamicsDataSourceForm(props: AppDynamicsDataSourceFormProps): JSX.E
                           }
                           formikProps={formikProps}
                           serviceOptions={serviceOptions}
+                          envOptions={envOptions}
                           dataSourceId={dataSourceId}
                           metricPackMap={metricPackMap}
                         />
@@ -367,7 +378,7 @@ function AppDynamicsDataSourceForm(props: AppDynamicsDataSourceFormProps): JSX.E
 export default function AppDynamicsMainSetupView(props: AppDynamicsMainSetupViewProps): JSX.Element {
   const [appDApplications, setAppDApplications] = useState<Map<string, SelectOption>>(new Map())
   const [metricPackMap, setMetricPackMap] = useState<Map<string, MetricPack>>(new Map())
-  const { configs, serviceOptions, locationContext, indexedDB } = props
+  const { configs, serviceOptions, envOptions, locationContext, indexedDB } = props
   const {
     params: { accountId },
     query: { routeDataSourceId }
@@ -400,6 +411,7 @@ export default function AppDynamicsMainSetupView(props: AppDynamicsMainSetupView
     <AppDynamicsDataSourceForm
       configList={configs}
       serviceOptions={serviceOptions}
+      envOptions={envOptions}
       metricPackMap={metricPackMap}
       dbInstance={indexedDB}
       pageData={locationContext}

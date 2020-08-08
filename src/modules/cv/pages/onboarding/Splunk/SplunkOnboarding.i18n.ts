@@ -2,6 +2,7 @@ export default {
   pageHeading: 'Map your query to a Harness service and environment',
   thirdPartyCallLogText: 'View Third Party Call Logs',
   addQueryButtonLabel: 'Add Query',
+  createNew: 'Create New',
   fieldLabels: {
     queryName: 'Query Name',
     query: 'Query',
