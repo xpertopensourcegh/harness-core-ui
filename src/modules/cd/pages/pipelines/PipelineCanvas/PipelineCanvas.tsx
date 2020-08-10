@@ -4,7 +4,7 @@ import cx from 'classnames'
 import { stringify, parse } from 'yaml'
 import { Button, Icon, Text, Layout, useModalHook, Tag } from '@wings-software/uikit'
 import { useHistory, Switch, Route, useRouteMatch, Link as RrLink, useParams } from 'react-router-dom'
-import { YAMLBuilderPage } from 'modules/dx/pages/yamlBuilder'
+import YamlBuilder from 'modules/common/components/YAMLBuilder/YamlBuilder'
 import { YamlEntity } from 'modules/common/constants/YamlConstants'
 import { NavigationCheck, useToaster } from 'modules/common/exports'
 import type { YamlBuilderHandlerBinding } from 'modules/common/interfaces/YAMLBuilderProps'
@@ -191,7 +191,7 @@ export const PipelineCanvas: React.FC<{}> = (): JSX.Element => {
         </Route>
         <Route exact path={`${path}yaml/`}>
           <div className={css.yamlBuilder}>
-            <YAMLBuilderPage
+            <YamlBuilder
               fileName="DeploymentPipeline.yaml"
               entityType={YamlEntity.PIPELINE}
               existingYaml={stringify({ pipeline })}

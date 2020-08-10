@@ -14,7 +14,7 @@ import { PageError } from 'modules/common/components/Page/PageError'
 import { PageHeader } from 'modules/common/components/Page/PageHeader'
 import { linkTo } from 'framework/exports'
 import { routeResources } from 'modules/common/routes'
-import YAMLBuilderPage from 'modules/dx/pages/yamlBuilder/YamlBuilderPage'
+import YamlBuilder from 'modules/common/components/YAMLBuilder/YamlBuilder'
 import type { YamlBuilderHandlerBinding } from 'modules/common/interfaces/YAMLBuilderProps'
 import { YamlEntity } from 'modules/common/constants/YamlConstants'
 import ViewSecretDetails from './views/ViewSecretDetails'
@@ -140,7 +140,7 @@ const SecretDetails: React.FC = () => {
                 {mode === Mode.VISUAL ? (
                   <EditVisualSecret />
                 ) : (
-                  <YAMLBuilderPage
+                  <YamlBuilder
                     entityType={YamlEntity.SECRET}
                     fileName={`${secretData.name}.yaml`}
                     existingYaml={stringify(secretData)}
@@ -160,7 +160,7 @@ const SecretDetails: React.FC = () => {
         ) : mode === Mode.VISUAL ? (
           <ViewSecretDetails secret={secretData} />
         ) : (
-          <YAMLBuilderPage
+          <YamlBuilder
             entityType={YamlEntity.SECRET}
             fileName={`${secretData.name}.yaml`}
             existingYaml={stringify(secretData)}

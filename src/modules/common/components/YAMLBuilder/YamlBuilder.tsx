@@ -11,8 +11,9 @@ import cx from 'classnames'
 import * as YAML from 'yaml'
 
 import { JSONSchemaService } from 'modules/dx/services'
-import { Tag } from '@wings-software/uikit'
+import { Tag, Layout } from '@wings-software/uikit'
 import type { YamlBuilderProps, InvocationContext } from 'modules/common/interfaces/YAMLBuilderProps'
+import SnippetSection from 'modules/common/components/SnippetSection/SnippetSection'
 
 import css from './YamlBuilder.module.scss'
 
@@ -90,7 +91,7 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
     entityType,
     existingYaml,
     isReadOnlyMode,
-    showSnippetsSection,
+    showSnippetsSection = true,
     invocationMap,
     bind
   } = props
@@ -263,23 +264,26 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
   }
 
   return (
-    <div className={cx(css.main, { [css.editorOnly]: !showSnippetsSection })}>
-      <div className={css.flexCenter}>
-        <span className={cx(css.filePath, css.flexCenter)}>{fileName}</span>
-        {fileName && entityType ? <Tag className={css.entityTag}>{entityType}</Tag> : null}
-      </div>
-      <div className={css.builder}>
-        <MonacoEditor
-          defaultValue={existingYaml}
-          width={width ?? 800}
-          height={height ?? 600}
-          language="yaml"
-          value={currentYaml}
-          onChange={onYamlChange}
-          editorDidMount={editorDidMount}
-          options={{ readOnly: isReadOnlyMode, wordBasedSuggestions: false }}
-        />
-      </div>
+    <div className={css.main}>
+      <Layout.Horizontal className={css.layout}>
+        <div className={cx(css.builderSection, { [css.editorOnly]: !showSnippetsSection })}>
+          <div className={css.flexCenter}>
+            <span className={cx(css.filePath, css.flexCenter)}>{fileName}</span>
+            {fileName && entityType ? <Tag className={css.entityTag}>{entityType}</Tag> : null}
+          </div>
+          <MonacoEditor
+            defaultValue={existingYaml}
+            width={width ?? 800}
+            height={height ?? 600}
+            language="yaml"
+            value={currentYaml}
+            onChange={onYamlChange}
+            editorDidMount={editorDidMount}
+            options={{ readOnly: isReadOnlyMode, wordBasedSuggestions: false }}
+          />
+        </div>
+        {showSnippetsSection ? <SnippetSection entityType={entityType} /> : null}
+      </Layout.Horizontal>
     </div>
   )
 }

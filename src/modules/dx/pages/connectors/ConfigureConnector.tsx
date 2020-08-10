@@ -4,7 +4,7 @@ import * as YAML from 'yaml'
 import cx from 'classnames'
 import { useToaster } from 'modules/common/exports'
 import { useUpdateConnector } from 'services/cd-ng'
-import YAMLBuilderPage from 'modules/dx/pages/yamlBuilder/YamlBuilderPage'
+import YamlBuilder from 'modules/common/components/YAMLBuilder/YamlBuilder'
 import { YamlEntity } from 'modules/common/constants/YamlConstants'
 import { getValidationSchemaByType, getFormByType } from './utils/ConnectorHelper'
 import SavedConnectorDetails from './SavedConnectorDetails'
@@ -156,7 +156,7 @@ const ConfigureConnector = (props: ConfigureConnectorProps): JSX.Element => {
           </React.Fragment>
         ) : (
           <div className={css.editor}>
-            <YAMLBuilderPage
+            <YamlBuilder
               fileName={`${connector?.identifier ?? 'Connector'}.yaml`}
               entityType={YamlEntity.CONNECTOR}
               existingYaml={getYamlFromJson(props.connectorJson)}

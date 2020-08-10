@@ -1,4 +1,10 @@
 .main {
+  height: 100%;
+  width: 100%;
+  display: flex;
+}
+
+.builderSection {
   border-style: solid;
   border-color: var(--grey-250);
   border-width: 2px;
@@ -30,4 +36,8 @@
 
 .editorOnly {
   border-radius: 10px;
+}
+
+.layout {
+  width: 100% !important;
 }

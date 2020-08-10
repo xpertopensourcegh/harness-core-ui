@@ -12,16 +12,6 @@ export const routeDashboard: Route = {
   module: ModuleName.DX
 }
 
-export const routeYAMLBuilder: Route = {
-  sidebarId: SidebarIdentifier.DASHBOARD,
-  path: '/yaml-builder',
-  title: i18n.yamlBuilder,
-  pageId: 'yaml-builder',
-  url: () => '/yaml-builder',
-  component: React.lazy(() => import('./pages/yamlBuilder/YamlBuilderPage')),
-  module: ModuleName.DX
-}
-
 export const routeConnectorDetails: Route = {
   module: ModuleName.DX,
   sidebarId: SidebarIdentifier.ACCOUNT,
