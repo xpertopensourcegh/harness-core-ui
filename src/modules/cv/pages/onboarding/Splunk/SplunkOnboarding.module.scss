@@ -5,15 +5,27 @@
 
   --content-height: 455px;
 
-  .queryBtn {
+  .addQueryContainer {
+    max-width: 400px;
+    min-width: 100px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
     align-self: flex-end;
-    position: relative;
-    top: 8px;
+    .selectQuery {
+      width: 200px;
+      margin-left: var(--spacing-medium);
+      position: relative;
+      top: 2px;
+    }
+    .manuallyAdd {
+      align-self: flex-end;
+    }
   }
 
   .splunkIcon svg {
-    height: 20px;
-    width: 75px;
+    height: 24px;
+    width: 80px;
   }
 
   .queryDropDown {
@@ -52,18 +64,23 @@
       }
 
       .sampleLog {
+        border: none;
+        border-radius: 0;
         [class*='textContainer'] {
-          padding: var(--spacing-medium);
-          padding-bottom: 0;
+          padding: 0;
           pre {
             margin-top: 0 !important;
           }
         }
-        button {
-          width: 80px !important;
-          svg {
-            height: 12px;
-            width: 12px;
+
+        [class*='timestamp'] {
+          font-size: var(--font-size-xsmall);
+        }
+
+        a[role='button'] {
+          padding: 0 !important;
+          &:hover {
+            background-color: transparent !important;
           }
           [class*='bp3-button-text'] {
             font-size: 10px;
@@ -71,10 +88,10 @@
         }
       }
 
-      .graphContainer {
+      .validationContainer {
         height: 75px;
         margin-bottom: var(--spacing-medium);
-        .loadingGraph {
+        .loadingValidation {
           display: block;
           margin-bottom: var(--spacing-small);
           height: 100%;

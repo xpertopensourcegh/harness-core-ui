@@ -119,7 +119,7 @@ async function loadAppDTiers(
   dbInstance?: IDBPDatabase
 ): Promise<{ error?: string; tierList?: SelectOption[] } | undefined> {
   if (!appId || appId === -1 || !dataSourceId) {
-    return
+    return { tierList: [] }
   }
   const cachedTierOptions = await dbInstance?.get(CVObjectStoreNames.APPD_TIERS, [appId, dataSourceId])
   if (cachedTierOptions) {
@@ -275,7 +275,14 @@ function ViewDetails(props: ViewDetailsProps): JSX.Element {
   const [displayMetricsModal, setMetricsModalDisplay] = useState(false)
   const hideModalCallback = useCallback(() => () => setMetricsModalDisplay(false), [])
   if (displayMetricsModal) {
-    return <MetricsVerificationModal verificationData={validationResult} guid={guid} onHide={hideModalCallback()} />
+    return (
+      <MetricsVerificationModal
+        verificationData={validationResult}
+        guid={guid}
+        onHide={hideModalCallback()}
+        verificationType="AppDynamics"
+      />
+    )
   }
   if (isLoadingTiers) {
     return <LoadingCell width={83} />
@@ -311,7 +318,7 @@ function RowRenderer(props: RowRendererProps): JSX.Element {
   })
 
   useEffect(() => {
-    if (!metricPacks?.length || !tierId || !selected) {
+    if (!metricPacks?.length || !tierId || !selected || appId === -1) {
       return
     }
     if (mp === metricPacks && s === selected && t === tierId) {
@@ -449,7 +456,7 @@ export default function TierAndServiceTable(props: TierAndServiceTableProps): JS
 
   // fetch tier and service list
   useEffect(() => {
-    if (isInitializingDB) {
+    if (isInitializingDB || appId === -1) {
       return
     }
 

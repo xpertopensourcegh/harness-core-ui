@@ -174,6 +174,7 @@ export default function OnBoardingSetupPage(): JSX.Element {
             envOptions={envOptions}
             configs={configsToRender}
             locationContext={pageData}
+            indexedDB={dbInstance}
           />
         )}
       </Container>

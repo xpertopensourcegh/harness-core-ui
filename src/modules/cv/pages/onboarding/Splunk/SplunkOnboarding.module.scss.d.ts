@@ -3,7 +3,9 @@
 declare const styles: {
   readonly main: string
   readonly headingText: string
-  readonly queryBtn: string
+  readonly addQueryContainer: string
+  readonly selectQuery: string
+  readonly manuallyAdd: string
   readonly splunkIcon: string
   readonly queryDropDown: string
   readonly selectQueryNameContainer: string
@@ -13,8 +15,8 @@ declare const styles: {
   readonly sampleLogs: string
   readonly smallerHeight: string
   readonly sampleLog: string
-  readonly graphContainer: string
-  readonly loadingGraph: string
+  readonly validationContainer: string
+  readonly loadingValidation: string
   readonly leftSection: string
   readonly actionButtons: string
 }

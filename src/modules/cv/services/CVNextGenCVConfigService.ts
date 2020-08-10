@@ -5,9 +5,7 @@ import type {
   RestResponseListDSConfig,
   RestResponseListString,
   RestResponseSetAppdynamicsValidationResponse,
-  RestResponseListSplunkSavedSearch,
-  RestResponseSplunkSampleResponse,
-  RestResponseCVHistogram
+  RestResponseListSplunkSavedSearch
 } from '@wings-software/swagger-ts/definitions'
 import type { ServiceResponse } from 'modules/common/services/ServiceResponse'
 
@@ -32,10 +30,8 @@ export const Endpoints = {
     guid: string
   ) =>
     `/cv-nextgen/appdynamics/metric-data?accountId=${accountId}&connectorId=${connectorId}&projectIdentifier=${projectId}&appdAppId=${appId}&appdTierId=${tierId}&requestGuid=${guid}`,
-  fetchSplunkGraphDetails: (accountId: string, dataSourceId: string, query: string, requestGUID: string) =>
-    `/cv-nextgen/splunk/histogram?accountId=${accountId}&connectorId=${dataSourceId}&query=${query}&requestGuid=${requestGUID}`,
-  fetchSplunkSampleLogs: (accountId: string, dataSourceId: string, query: string, requestGUID: string) =>
-    `/cv-nextgen/splunk/samples?accountId=${accountId}&connectorId=${dataSourceId}&query=${query}&requestGuid=${requestGUID}`,
+  validateSplunkConfig: (accountId: string, connectorId: string, query: string, requestGUID: string) =>
+    `/cv-nextgen/splunk/validation?accountId=${accountId}&connectorId=${connectorId}&query=${query}&requestGuid=${requestGUID}`,
   fetchSplunkSavedSearches: (accountId: string, dataSourceId: string, requestGUID: string) =>
     `/cv-nextgen/splunk/saved-searches?accountId=${accountId}&connectorId=${dataSourceId}&requestGuid=${requestGUID}`
 }
@@ -166,7 +162,7 @@ export async function validateMetricsApi({
   })
 }
 
-export async function fetchSplunkSampleLogs({
+export async function validateSplunkConfig({
   accountId,
   dataSourceId,
   query,
@@ -178,22 +174,6 @@ export async function fetchSplunkSampleLogs({
   guid: string
   query: string
   xhrGroup: string
-}): ServiceResponse<RestResponseSplunkSampleResponse> {
-  return xhr.get(Endpoints.fetchSplunkSampleLogs(accountId, dataSourceId, query, guid), { group: xhrGroup })
-}
-
-export async function fetchSplunkSampleGraph({
-  accountId,
-  dataSourceId,
-  query,
-  guid,
-  xhrGroup
-}: {
-  accountId: string
-  dataSourceId: string
-  query: string
-  guid: string
-  xhrGroup: string
-}): ServiceResponse<RestResponseCVHistogram> {
-  return xhr.get(Endpoints.fetchSplunkGraphDetails(accountId, dataSourceId, query, guid), { group: xhrGroup })
+}): ServiceResponse<any> {
+  return xhr.get(Endpoints.validateSplunkConfig(accountId, dataSourceId, query, guid), { group: xhrGroup })
 }

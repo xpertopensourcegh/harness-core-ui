@@ -26,7 +26,7 @@ export function MetricPackTable(props: TableWithCheckColumnsProps): JSX.Element 
           <Text className={css.metricPackName}>
             {metricPackName} ({metricData?.metrics?.length})
           </Text>
-          <Link withoutHref onClick={onConfigureThresholdCallback}>
+          <Link withoutHref onClick={onConfigureThresholdCallback} className={css.configureThresholdLink}>
             Configure Thresholds
           </Link>
         </Container>

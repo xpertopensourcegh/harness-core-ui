@@ -3,14 +3,13 @@
   padding-left: 80px;
   display: grid;
   overflow-y: scroll;
-  grid-template-rows: 60px auto;
-  grid-row-gap: 20px;
+  grid-template-rows: 40px auto;
+  grid-row-gap: var(--spacing-large);
   .headingContainer {
     .title {
       font-weight: bold;
-      font-size: medium;
+      font-size: var(--font-size-medium);
       color: var(--black);
-      margin-bottom: 10px;
     }
   }
 
@@ -23,7 +22,7 @@
   .buttonContainer {
     display: flex;
     justify-content: flex-end;
-    margin: var(--spacing-large) 0;
+    margin: var(--spacing-small) 0;
     button:first-child {
       margin-right: var(--spacing-small);
     }

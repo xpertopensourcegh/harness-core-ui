@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useMemo } from 'react'
 import { IDrawerProps, Position, Drawer } from '@blueprintjs/core'
-import { Heading, Container, Text, Color, Button } from '@wings-software/uikit'
+import { Heading, Container, Text, Button } from '@wings-software/uikit'
 import type { MetricPack } from '@wings-software/swagger-ts/definitions'
 import { cloneDeep } from 'lodash-es'
 import ConfigureThreshold from 'modules/cv/pages/metric-pack/ConfigureThreshold'
@@ -89,10 +89,10 @@ export function CustomizeMetricPackDrawer(props: CustomizeMetricPackDrawerProps)
         <Heading level={3} className={css.title}>
           {titleAndSubtitle.title}
         </Heading>
-        <Text color={Color.BLACK}>{titleAndSubtitle.subtitle}</Text>
+        <Text>{titleAndSubtitle.subtitle}</Text>
       </Container>
       {!displayThresholds ? (
-        <Container>
+        <>
           <Container className={css.tableContainer}>
             {localMetricPacks.map((metricPack, index) => {
               return (
@@ -116,7 +116,7 @@ export function CustomizeMetricPackDrawer(props: CustomizeMetricPackDrawerProps)
               Submit
             </Button>
           </Container>
-        </Container>
+        </>
       ) : (
         <ConfigureThreshold
           metricPack={selectedThresholdMetricPack}

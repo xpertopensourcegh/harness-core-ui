@@ -8,7 +8,8 @@ import {
   Select,
   Link,
   MultiSelectOption,
-  SelectWithSubview
+  SelectWithSubview,
+  SelectProps
 } from '@wings-software/uikit'
 import xhr from '@wings-software/xhr-async'
 import { FieldArray, FormikProps, Formik } from 'formik'
@@ -34,7 +35,7 @@ import CreateNewEntitySubform from '../CreateNewEntitySubform/CreateNewEntitySub
 import css from './AppDynamicsMainSetupView.module.scss'
 
 const XHR_METRIC_PACK_GROUP = 'XHR_METRIC_PACK_GROUP'
-const SelectHTMLInputProps = { placeholder: 'Select an Application' }
+const SelectHTMLInputProps = { placeholder: i18n.addApplicationSelectPlaceholder }
 const OnBoardingHeaderIconProps: IconProps = {
   name: 'service-appdynamics'
 }
@@ -223,7 +224,7 @@ function AppDynamicsConfig(props: AppDynamicsConfigProps): JSX.Element {
             onClick={() => setDisplayMetricPackDrawer(true)}
             className={css.customizePack}
           >
-            Customize
+            {i18n.customizeMetricPacksButtonText}
           </Link>
           <FormInput.MultiSelect
             name={`dsConfigs[${index}].metricPackList`}
@@ -312,6 +313,7 @@ function AppDynamicsDataSourceForm(props: AppDynamicsDataSourceFormProps): JSX.E
                     <OnBoardingConfigSetupHeader iconProps={OnBoardingHeaderIconProps} pageHeading={i18n.pageHeading} />
                     <Select
                       items={applicationsToAdd}
+                      size={'small' as SelectProps['size']}
                       className={css.applicationSelect}
                       inputProps={SelectHTMLInputProps}
                       onChange={(selectedApp: SelectOption) => {
@@ -381,7 +383,7 @@ export default function AppDynamicsMainSetupView(props: AppDynamicsMainSetupView
   const { configs, serviceOptions, envOptions, locationContext, indexedDB } = props
   const {
     params: { accountId },
-    query: { routeDataSourceId }
+    query: { dataSourceId: routeDataSourceId }
   } = routeParams()
   const dataSourceId = (routeDataSourceId as string) || locationContext.dataSourceId
 

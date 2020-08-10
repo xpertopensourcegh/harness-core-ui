@@ -44,7 +44,6 @@ export const SplunkColumnChartOptions: Highcharts.Options = {
 export interface SplunkDSConfig extends DSConfig {
   query?: string
   queryName?: string
-  isSplunkQuery?: boolean
   serviceInstanceIdentifier?: string
   eventType?: string
   serviceIdentifier?: string
@@ -76,7 +75,6 @@ export function transformToSaveConfig(createdConfigs: DSConfig): SplunkDSConfig 
   const splunkConfig = cloneDeep(createdConfigs) as SplunkDSConfig
   splunkConfig.identifier = splunkConfig.queryName
   delete splunkConfig.queryName
-  delete splunkConfig.isSplunkQuery
   delete splunkConfig.id
   return splunkConfig
 }
@@ -86,8 +84,7 @@ export function createDefaultSplunkDSConfig(
   dataSourceId: string,
   productName: string,
   queryName?: string,
-  query?: string,
-  isSplunkQuery?: boolean
+  query?: string
 ): SplunkDSConfig {
   return {
     serviceIdentifier: '',
@@ -102,8 +99,7 @@ export function createDefaultSplunkDSConfig(
     query,
     id: Utils.randomId(),
     queryName,
-    isValid: true,
-    isSplunkQuery: Boolean(isSplunkQuery)
+    isValid: true
   }
 }
 
@@ -114,11 +110,11 @@ export function createDefaultConfigObjectBasedOnSelectedQueries(
   productName: string
 ): SplunkDSConfig[] {
   const defaultQueries = queries?.map(query => {
-    return createDefaultSplunkDSConfig(accId, dataSourceId, productName, query.label, query.value as string, true)
+    return createDefaultSplunkDSConfig(accId, dataSourceId, productName, query.label, query.value as string)
   })
 
   if (!defaultQueries?.length) {
-    defaultQueries.push(createDefaultSplunkDSConfig(accId, dataSourceId, productName, undefined, undefined, false))
+    defaultQueries.push(createDefaultSplunkDSConfig(accId, dataSourceId, productName, undefined, undefined))
   }
 
   return defaultQueries

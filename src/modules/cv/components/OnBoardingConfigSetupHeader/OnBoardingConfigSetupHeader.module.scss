@@ -1,13 +1,18 @@
 .main {
   .iconContainer {
-    display: inline-block;
-    margin-bottom: var(--spacing-xsmall);
-  }
+    display: flex;
+    align-items: center;
+    margin-bottom: 3px;
 
-  .dataSourceIcon {
-    margin: 0 auto;
-    display: table;
-    position: relative;
-    right: 4px;
+    > svg:first-child {
+      position: relative;
+      bottom: 1px;
+    }
+
+    .plusIcon {
+      margin: 0 var(--spacing-small);
+      position: relative;
+      top: 1px;
+    }
   }
 }

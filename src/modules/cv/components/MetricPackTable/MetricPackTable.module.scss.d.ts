@@ -5,6 +5,7 @@ declare const styles: {
   readonly metricTableCard: string
   readonly metricPackHeader: string
   readonly metricPackName: string
+  readonly configureThresholdLink: string
   readonly metricList: string
   readonly metricContent: string
   readonly included: string

@@ -12,7 +12,7 @@ export default function SplunkInputType(): JSX.Element {
   const HarnessLogo = HarnessIcons['harness-logo-black']
   const SplunkLogo = HarnessIcons['service-splunk-with-name']
   const history = useHistory()
-  const { params } = routeParams()
+  const { params, query } = routeParams()
   const { state: locationContext = {} } = useLocation()
 
   return (
@@ -53,6 +53,7 @@ export default function SplunkInputType(): JSX.Element {
                   { accountId: params.accountId, dataSourceType: DataSourceRoutePaths.SPLUNK },
                   true
                 ),
+                search: `?dataSourceId=${query.dataSourceId}`,
                 state: locationContext
               })
             }

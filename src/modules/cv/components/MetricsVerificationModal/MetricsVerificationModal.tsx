@@ -17,6 +17,7 @@ const ICON_SIZE = 8
 
 interface MetricsVerificationModalProps {
   onHide: () => void
+  verificationType: string
   verificationData?: AppdynamicsValidationResponse[]
   guid: string
 }
@@ -108,7 +109,7 @@ function ErrorMetricCard(props: ErrorMetricCardProps): JSX.Element {
           className={cx(css.smallFont, css.callLogs)}
           onClick={() => viewCallLogs(metricPackName, metricName)}
         >
-          View call logs
+          {i18n.viewCalls}
         </Text>
       </Container>
     </Card>
@@ -125,14 +126,14 @@ function NoDataErrorCard(props: NoDataErrorCardProps): JSX.Element {
           {metricName}
         </Text>
         <Text intent="none" className={css.smallFont}>
-          No data found
+          {i18n.noData}
         </Text>
         <Text
           intent="primary"
           className={cx(css.smallFont, css.callLogs)}
           onClick={() => viewCallLogs(metricPackName, metricName)}
         >
-          View call logs
+          {i18n.viewCalls}
         </Text>
       </Container>
     </Card>
@@ -182,7 +183,7 @@ function MetricPackValidationResult(props: MetricPackValidationResultProps): JSX
 }
 
 function MetricsModal(props: MetricsVerificationModalProps): JSX.Element {
-  const { onHide, verificationData = [], guid } = props
+  const { onHide, verificationData = [], guid, verificationType } = props
   const errorMetrics = useMemo(() => filterForMetricPacksByMetricStatus(verificationData, 'FAILED'), [verificationData])
   const noDataMetrics = useMemo(() => filterForMetricPacksByMetricStatus(verificationData, 'NO_DATA'), [
     verificationData
@@ -230,20 +231,32 @@ function MetricsModal(props: MetricsVerificationModalProps): JSX.Element {
           />
         </Tabs>
       ) : (
-        <ThirdPartyCallLogModal guid={guidWithMetricFilter} onHide={onHide} onBackButtonClick={hideCallLogCallback()} />
+        <ThirdPartyCallLogModal
+          guid={guidWithMetricFilter}
+          onHide={onHide}
+          onBackButtonClick={hideCallLogCallback()}
+          verificationType={verificationType}
+        />
       )}
     </Dialog>
   )
 }
 
 export default function MetricsVerificationModal(props: MetricsVerificationModalProps): JSX.Element {
-  const { onHide, verificationData = [], guid } = props
+  const { onHide, verificationData = [], guid, verificationType } = props
   const [openModal, hideModal] = useModalHook(() => {
     const hidemodalCallback = (): void => {
       hideModal()
       onHide()
     }
-    return <MetricsModal onHide={hidemodalCallback} verificationData={verificationData} guid={guid} />
+    return (
+      <MetricsModal
+        onHide={hidemodalCallback}
+        verificationData={verificationData}
+        guid={guid}
+        verificationType={verificationType}
+      />
+    )
   })
   useEffect(() => openModal(), [openModal])
   return <span />

@@ -7,9 +7,10 @@
     .metricPackHeader {
       margin-bottom: var(--spacing-small);
       .metricPackName {
-        font-weight: bold;
         color: var(--black);
-        margin-bottom: var(--spacing-xsmall);
+      }
+      .configureThresholdLink {
+        font-size: var(--font-size-small);
       }
     }
 
@@ -35,7 +36,7 @@
         }
 
         .included {
-          margin-right: var(--spacing-small);
+          margin-right: var(--spacing-medium);
         }
       }
     }

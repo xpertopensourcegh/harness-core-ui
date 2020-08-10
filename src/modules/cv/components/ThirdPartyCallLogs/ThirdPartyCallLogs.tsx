@@ -13,6 +13,7 @@ interface ThirdPartyCallLogsProps {
   guid: string
   onBackButtonClick?: () => void
   onHide: () => void
+  verificationType: string
 }
 
 interface RequestMadeProps {
@@ -159,7 +160,7 @@ function RequestMade(props: RequestMadeProps): JSX.Element {
 }
 
 export function ThirdPartyCallLogModal(props: ThirdPartyCallLogsProps): JSX.Element {
-  const { guid, onHide, onBackButtonClick } = props
+  const { guid, onHide, onBackButtonClick, verificationType } = props
   const [callLogs, setCallLogs] = useState<ThirdPartyApiCallLog[]>([])
   const [{ error, isLoading }, setLoadingError] = useState({ isLoading: true, error: '' })
   const [selectedIndex, setSelected] = useState(0)
@@ -185,7 +186,7 @@ export function ThirdPartyCallLogModal(props: ThirdPartyCallLogsProps): JSX.Elem
               {i18n.backButtonTitle}
             </Button>
             <Heading level={2} className={css.backButtonHeading}>
-              {i18n.modalTitle}
+              {`${i18n.modalTitle} ${verificationType}`}
             </Heading>
           </Container>
         ),

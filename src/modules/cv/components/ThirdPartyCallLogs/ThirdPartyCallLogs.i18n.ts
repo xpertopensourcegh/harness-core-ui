@@ -1,6 +1,6 @@
 export default {
   backButtonTitle: 'Back',
-  modalTitle: 'Third Party Call Logs',
+  modalTitle: 'Calls to',
   requestMade: 'Request',
   method: 'Method',
   statusCode: 'Status Code',

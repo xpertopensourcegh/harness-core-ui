@@ -3,6 +3,6 @@
 declare const styles: {
   readonly main: string
   readonly iconContainer: string
-  readonly dataSourceIcon: string
+  readonly plusIcon: string
 }
 export default styles
