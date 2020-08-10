@@ -12,7 +12,7 @@ import css from './StageSetupShell.module.scss'
 
 export default function StageSetupShell(): JSX.Element {
   // export default function StageSetupShell({ stageData }: { stageData: { name: string } }): JSX.Element {
-  const [selectedTabId, setSelectedTabId] = React.useState(i18n.executionLabel)
+  const [selectedTabId, setSelectedTabId] = React.useState(i18n.serviceLabel)
   const {
     state: {
       pipeline,
