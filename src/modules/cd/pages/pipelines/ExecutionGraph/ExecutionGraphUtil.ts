@@ -1,7 +1,23 @@
 import type { NodeModelListener, LinkModelListener } from '@projectstorm/react-diagrams-core'
-import type { BaseModelListener } from '@projectstorm/react-canvas-core'
+import type { BaseModelListener, BaseModel } from '@projectstorm/react-canvas-core'
 import type { IconName } from '@wings-software/uikit'
 import type { ExecutionWrapper } from 'services/cd-ng'
+import { Diagram } from 'modules/common/exports'
+import { EmptyNodeSeparator } from '../StageBuilder/StageBuilderUtil'
+
+export interface ExecutionGraphState {
+  isDrawerOpen: boolean
+  isRollback: boolean
+  stepStates: StepStateMap
+  isAddStepOverride: boolean
+  isParallelNodeClicked: boolean
+  entity?: Diagram.DefaultNodeModel
+  data: ExecutionWrapper[]
+}
+
+export type ExecutionParallelWrapper = ExecutionWrapper & {
+  parallel: ExecutionWrapper[]
+}
 
 export enum StepType {
   HTTP = 'Http',
@@ -27,6 +43,7 @@ export interface Listeners {
 
 export interface StepState {
   isRollback?: boolean
+  isStepGroupRollback?: boolean
   isStepGroupCollapsed?: boolean
   isStepGroup?: boolean
   isSaved: boolean
@@ -73,10 +90,11 @@ export const calculateDepthCount = (node: ExecutionWrapper, stepStates: StepStat
 export const getStepFromId = (
   stepData: ExecutionWrapper[] | undefined,
   id: string,
-  isComplete = false
+  isComplete = false,
+  isFindParallelNode = false
 ): { node: ExecutionWrapper | undefined; parent: ExecutionWrapper[] } => {
   let stepResp: ExecutionWrapper | undefined = undefined
-  let parent: ExecutionWrapper[] = []
+  let parent: ExecutionWrapper[] | ExecutionParallelWrapper = []
   stepData?.every(node => {
     if (node.step && node.step.identifier === id) {
       if (isComplete) {
@@ -87,11 +105,46 @@ export const getStepFromId = (
       parent = stepData
       return false
     } else if (node.parallel) {
-      const response = getStepFromId(node.parallel, id, isComplete)
-      if (response.node) {
-        stepResp = response.node
-        parent = response.parent
-        return false
+      if (isFindParallelNode) {
+        node.parallel?.every((nodeP: ExecutionWrapper) => {
+          if (nodeP.step && nodeP.step.identifier === id) {
+            if (isComplete) {
+              stepResp = node
+            } else {
+              stepResp = node.parallel
+            }
+            parent = stepData
+            return false
+          } else if (nodeP.stepGroup) {
+            if (nodeP.stepGroup?.identifier === id) {
+              if (isComplete) {
+                stepResp = node
+              } else {
+                stepResp = node.parallel
+              }
+              parent = stepData
+              return false
+            } else {
+              const response = getStepFromId(nodeP.stepGroup?.steps, id, isComplete, isFindParallelNode)
+              if (response.node) {
+                parent = response.parent
+                stepResp = response.node
+                return false
+              }
+            }
+          }
+          return true
+        })
+        if (stepResp) {
+          return false
+        }
+      } else {
+        const response = getStepFromId(node.parallel, id, isComplete)
+        if (response.node) {
+          stepResp = response.node
+          parent = response.parent
+          return false
+        }
       }
     } else if (node.stepGroup) {
       if (node.stepGroup?.identifier === id) {
@@ -137,6 +190,7 @@ export const getStepsState = (node: ExecutionWrapper, mapState: StepStateMap, in
     mapState.set(node.stepGroup.identifier, {
       isSaved: true,
       isStepGroupCollapsed: false,
+      isStepGroupRollback: false,
       isStepGroup: true,
       isRollback: false,
       inheritedSG
@@ -144,4 +198,95 @@ export const getStepsState = (node: ExecutionWrapper, mapState: StepStateMap, in
     inheritedSG++
   }
   return inheritedSG
+}
+
+export const addStepOrGroup = (
+  entity: BaseModel,
+  state: ExecutionGraphState,
+  step: ExecutionWrapper,
+  isParallel: boolean
+): void => {
+  if (entity instanceof Diagram.DefaultLinkModel) {
+    const sourceNode = entity.getSourcePort().getNode() as Diagram.DefaultNodeModel
+    const targetNode = entity.getTargetPort().getNode() as Diagram.DefaultNodeModel
+    let data = state.data
+    if (
+      sourceNode.getParent() instanceof Diagram.StepGroupNodeLayerModel &&
+      targetNode.getParent() instanceof Diagram.StepGroupNodeLayerModel
+    ) {
+      const layer = sourceNode.getParent()
+      if (layer instanceof Diagram.StepGroupNodeLayerModel) {
+        const node = getStepFromId(data, layer.getIdentifier() || '', false).node
+        if (node?.steps) {
+          data = node.steps
+        }
+      }
+    }
+    let response = getStepFromId(data, sourceNode.getIdentifier(), true)
+    let next = 1
+    if (!response.node) {
+      response = getStepFromId(data, targetNode.getIdentifier(), true)
+      next = 0
+    }
+    if (response.node) {
+      const index = response.parent.indexOf(response.node)
+      if (index > -1) {
+        response.parent.splice(index + next, 0, step)
+      }
+    } else {
+      // parallel next parallel case
+      let nodeId = sourceNode.getIdentifier().split(EmptyNodeSeparator)[1]
+      response = getStepFromId(data, nodeId, true, true)
+      next = 1
+      if (!response.node) {
+        nodeId = targetNode.getIdentifier().split(EmptyNodeSeparator)[2]
+        response = getStepFromId(data, nodeId, true, true)
+        next = 0
+      }
+      if (response.node) {
+        const index = response.parent.indexOf(response.node)
+        if (index > -1) {
+          response.parent.splice(index + next, 0, step)
+        }
+      }
+    }
+  } else if (entity instanceof Diagram.CreateNewModel) {
+    // Steps if you are under step group
+    const node = getStepFromId(state.data, entity.getIdentifier().split(EmptyNodeSeparator)[1]).node
+    if (node?.steps) {
+      node.steps.push(step)
+    } else {
+      state.data.push(step)
+    }
+  } else if (entity instanceof Diagram.DefaultNodeModel) {
+    if (isParallel) {
+      const response = getStepFromId(state.data, entity.getIdentifier(), true, true)
+      if (response.node) {
+        if (response.node.parallel && response.node.parallel.length > 0) {
+          response.node.parallel.push(step)
+        } else {
+          const index = response.parent.indexOf(response.node)
+          if (index > -1) {
+            response.parent.splice(index, 1, { parallel: [response.node, step] })
+          }
+        }
+      }
+    } else {
+      state.data.push(step)
+    }
+  } else if (entity instanceof Diagram.StepGroupNodeLayerModel) {
+    if (isParallel) {
+      const response = getStepFromId(state.data, entity.getIdentifier() || '', true, true)
+      if (response.node) {
+        if (response.node.parallel && response.node.parallel.length > 0) {
+          response.node.parallel.push(step)
+        } else {
+          const index = response.parent.indexOf(response.node)
+          if (index > -1) {
+            response.parent.splice(index, 1, { parallel: [response.node, step] })
+          }
+        }
+      }
+    }
+  }
 }

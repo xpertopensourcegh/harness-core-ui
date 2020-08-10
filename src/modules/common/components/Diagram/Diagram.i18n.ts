@@ -1,4 +1,5 @@
 export default {
   Approve: 'Approve',
-  Untitled: 'Untitled'
+  Untitled: 'Untitled',
+  Rollback: 'Rollback'
 }

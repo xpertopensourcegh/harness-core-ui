@@ -16,15 +16,15 @@ export interface DefaultLinkSegmentWidgetProps {
 }
 
 export const DefaultLinkSegmentWidget = (props: DefaultLinkSegmentWidgetProps): JSX.Element => {
+  const { onSelection, link } = props
+  const allowAdd = link.getOptions().allowAdd ?? true
+
   const Bottom = React.cloneElement(
-    props.factory.generateLinkSegment(props.link, props.selected || props.link.isSelected(), props.path),
+    props.factory.generateLinkSegment(props.link, props.selected || props.link.isSelected(), props.path, allowAdd),
     {
       ref: props.forwardRef
     }
   )
-
-  const { onSelection, link } = props
-  const allowAdd = link.getOptions().allowAdd
 
   const onMouseLeave = React.useCallback(() => {
     onSelection(false)

@@ -16,7 +16,14 @@ export interface DiamondNodeProps {
 }
 
 const generatePort = (port: DefaultPortModel, props: DiamondNodeProps): JSX.Element => {
-  return <DefaultPortLabel engine={props.engine} port={port} key={port.getID()} />
+  return (
+    <DefaultPortLabel
+      engine={props.engine}
+      port={port}
+      key={port.getID()}
+      className={cx({ [css.diamondPortIn]: port.getOptions().in }, { [css.diamondPortOut]: !port.getOptions().in })}
+    />
+  )
 }
 const onClick = (e: React.MouseEvent<Element, MouseEvent>, node: DiamondNodeModel): void => {
   e.stopPropagation()
@@ -36,6 +43,7 @@ export const DiamondNodeWidget = (props: DiamondNodeProps): JSX.Element => {
         style={{ width: options.width, height: options.height, ...options.customNodeStyle }}
       >
         {options.icon && <Icon size={28} name={options.icon} />}
+        {options.isInComplete && <Icon className={css.inComplete} size={12} name={'warning-sign'} color="orange500" />}
         {props.node.getInPorts().map(port => generatePort(port, props))}
         {props.node.getOutPorts().map(port => generatePort(port, props))}
         {options.canDelete && (

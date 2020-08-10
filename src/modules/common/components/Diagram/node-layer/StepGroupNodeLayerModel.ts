@@ -1,11 +1,14 @@
 import { LayerModel, LayerModelGenerics, LayerModelOptions } from '@projectstorm/react-canvas-core'
 import { DiagramEngine, NodeModel, DiagramModel } from '@projectstorm/react-diagrams-core'
 import { EmptyNodeModel } from '../node/EmptyNode/EmptyNodeModel'
+import type { RollbackToggleSwitchProps } from '../canvas/RollbackToggleSwitch/RollbackToggleSwitch'
 
 export interface StepGroupNodeLayerOptions extends LayerModelOptions {
   label?: string
   depth?: number
+  allowAdd?: boolean
   identifier?: string
+  rollBackProps?: Omit<RollbackToggleSwitchProps, 'onChange'>
 }
 
 export interface StepGroupNodeLayerModelGenerics extends LayerModelGenerics {
@@ -24,6 +27,7 @@ export class StepGroupNodeLayerModel<
     super({
       type: 'step-group-nodes',
       isSvg: false,
+      allowAdd: false,
       depth: 1,
       transformed: true,
       ...options

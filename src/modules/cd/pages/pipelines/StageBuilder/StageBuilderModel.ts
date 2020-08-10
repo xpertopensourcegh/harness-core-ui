@@ -70,84 +70,87 @@ export class StageBuilderModel extends Diagram.DiagramModel {
         })
       }
       return { startX, startY, prevNodes: [nodeRender] }
-    } else if (node.parallel && node.parallel.length > 0) {
-      if (selectedStageId) {
-        const parallelStageNames: Array<string> = []
-        let isSelected = false
-        const icons: Array<IconName> = []
-        node.parallel.forEach((nodeP: StageElementWrapper) => {
-          if (nodeP.stage.identifier === selectedStageId) {
-            parallelStageNames.unshift(nodeP.stage.name)
-            icons.unshift(MapStepTypeToIcon[getTypeOfStage(nodeP.stage).type])
-            isSelected = true
-          } else {
-            parallelStageNames.push(nodeP.stage.name)
-            icons.push(MapStepTypeToIcon[getTypeOfStage(nodeP.stage).type])
-          }
-        })
-        const groupedNode = new Diagram.GroupNodeModel({
-          customNodeStyle: getCommonStyles(isSelected),
-          identifier: isSelected ? selectedStageId : node.parallel[0].stage.identifier,
-          name:
-            parallelStageNames.length > 2
-              ? `${parallelStageNames[0]}, ${parallelStageNames[1]}, +${parallelStageNames.length - 2}`
-              : parallelStageNames.join(', '),
-          width: 114,
-
-          height: 50,
-          icons
-        })
-        startX += this.gap
-        this.addNode(groupedNode)
-        groupedNode.setPosition(startX, startY)
-        if (!isEmpty(prevNodes) && prevNodes) {
-          prevNodes.forEach((prevNode: Diagram.DefaultNodeModel) => {
-            this.connectedParentToNode(groupedNode, prevNode, !isParallelNodes)
+    } else if (node.parallel && prevNodes) {
+      if (node.parallel.length > 1) {
+        if (selectedStageId) {
+          const parallelStageNames: Array<string> = []
+          let isSelected = false
+          const icons: Array<IconName> = []
+          node.parallel.forEach((nodeP: StageElementWrapper) => {
+            if (nodeP.stage.identifier === selectedStageId) {
+              parallelStageNames.unshift(nodeP.stage.name)
+              icons.unshift(MapStepTypeToIcon[getTypeOfStage(nodeP.stage).type])
+              isSelected = true
+            } else {
+              parallelStageNames.push(nodeP.stage.name)
+              icons.push(MapStepTypeToIcon[getTypeOfStage(nodeP.stage).type])
+            }
           })
+          const groupedNode = new Diagram.GroupNodeModel({
+            customNodeStyle: getCommonStyles(isSelected),
+            identifier: isSelected ? selectedStageId : node.parallel[0].stage.identifier,
+            name:
+              parallelStageNames.length > 2
+                ? `${parallelStageNames[0]}, ${parallelStageNames[1]}, +${parallelStageNames.length - 2}`
+                : parallelStageNames.join(', '),
+            width: 114,
+            height: 50,
+            icons
+          })
+          startX += this.gap
+          this.addNode(groupedNode)
+          groupedNode.setPosition(startX, startY)
+          if (!isEmpty(prevNodes) && prevNodes) {
+            prevNodes.forEach((prevNode: Diagram.DefaultNodeModel) => {
+              this.connectedParentToNode(groupedNode, prevNode, !isParallelNodes)
+            })
+          }
+          prevNodes = [groupedNode]
+        } else {
+          let newX = startX
+          let newY = startY
+          if (!isEmpty(prevNodes)) {
+            const emptyNodeStart = new Diagram.EmptyNodeModel({
+              identifier: `${EmptyNodeSeparator}-${EmptyNodeSeparator}${node.parallel[0].stage.identifier}${EmptyNodeSeparator}`,
+              name: 'Empty'
+            })
+            this.addNode(emptyNodeStart)
+            newX += this.gap
+            emptyNodeStart.setPosition(newX, newY)
+            prevNodes.forEach((prevNode: Diagram.DefaultNodeModel) => {
+              this.connectedParentToNode(emptyNodeStart, prevNode, true)
+            })
+            prevNodes = [emptyNodeStart]
+            newX = newX - this.gap / 2 - 20
+          }
+          const prevNodesAr: Diagram.DefaultNodeModel[] = []
+          node.parallel.forEach((nodeP: StageElementWrapper, index: number) => {
+            const isLastNode = node.parallel.length === index + 1
+            const resp = this.renderGraphNodes(nodeP, newX, newY, selectedStageId, prevNodes, isLastNode, true)
+            startX = resp.startX
+            newY = resp.startY + this.gap / 2
+            if (resp.prevNodes) {
+              prevNodesAr.push(...resp.prevNodes)
+            }
+          })
+          if (!isEmpty(prevNodesAr)) {
+            const emptyNodeEnd = new Diagram.EmptyNodeModel({
+              identifier: `${EmptyNodeSeparator}${node.parallel[0].stage.identifier}${EmptyNodeSeparator}`,
+              name: 'Empty'
+            })
+            this.addNode(emptyNodeEnd)
+            startX += this.gap
+            emptyNodeEnd.setPosition(startX, startY)
+            prevNodesAr.forEach((prevNode: Diagram.DefaultNodeModel) => {
+              this.connectedParentToNode(emptyNodeEnd, prevNode, false)
+            })
+            prevNodes = [emptyNodeEnd]
+            startX = startX - this.gap / 2 - 20
+          }
         }
       } else {
-        let newX = startX
-        let newY = startY
-        if (!isEmpty(prevNodes) && prevNodes && node.parallel.length > 1) {
-          const emptyNodeStart = new Diagram.EmptyNodeModel({
-            identifier: `${EmptyNodeSeparator}-${EmptyNodeSeparator}${node.parallel[0].stage.identifier}${EmptyNodeSeparator}`,
-            name: 'Empty'
-          })
-          this.addNode(emptyNodeStart)
-          newX += this.gap
-          emptyNodeStart.setPosition(newX, newY)
-          prevNodes.forEach((prevNode: Diagram.DefaultNodeModel) => {
-            this.connectedParentToNode(emptyNodeStart, prevNode, true)
-          })
-          prevNodes = [emptyNodeStart]
-          newX = newX - this.gap / 2 - 20
-        }
-        const prevNodesAr: Diagram.DefaultNodeModel[] = []
-        node.parallel.forEach((nodeP: StageElementWrapper, index: number) => {
-          const isLastNode = node.parallel.length === index + 1
-          const resp = this.renderGraphNodes(nodeP, newX, newY, selectedStageId, prevNodes, isLastNode, true)
-          startX = resp.startX
-          newY = resp.startY + this.gap / 2
-          if (resp.prevNodes) {
-            prevNodesAr.push(...resp.prevNodes)
-          }
-        })
-        if (!isEmpty(prevNodesAr) && node.parallel.length > 1) {
-          const emptyNodeEnd = new Diagram.EmptyNodeModel({
-            identifier: `${EmptyNodeSeparator}${node.parallel[0].stage.identifier}${EmptyNodeSeparator}`,
-            name: 'Empty'
-          })
-          this.addNode(emptyNodeEnd)
-          startX += this.gap
-          emptyNodeEnd.setPosition(startX, startY)
-          prevNodesAr.forEach((prevNode: Diagram.DefaultNodeModel) => {
-            this.connectedParentToNode(emptyNodeEnd, prevNode, false)
-          })
-          prevNodes = [emptyNodeEnd]
-          startX = startX - this.gap / 2 - 20
-        }
+        return this.renderGraphNodes(node.parallel[0], startX, startY, selectedStageId, prevNodes, true, false)
       }
-
       return { startX, startY, prevNodes }
     }
     return { startX, startY }

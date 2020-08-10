@@ -12,27 +12,45 @@ import { CanvasButtons } from 'modules/cd/common/CanvasButtons/CanvasButtons'
 import { DynamicPopover, DynamicPopoverHandlerBinding } from 'modules/common/components/DynamicPopover/DynamicPopover'
 import { ExecutionStepModel } from './ExecutionStepModel'
 import { PipelineContext } from '../PipelineContext/PipelineContext'
-import { getStageFromPipeline, EmptyNodeSeparator } from '../StageBuilder/StageBuilderUtil'
+import { getStageFromPipeline } from '../StageBuilder/StageBuilderUtil'
 import { StepPalette, CommandData } from '../StepPalette/StepPalette'
 import { StepCommands } from '../StepCommands/StepCommands'
 import i18n from './ExecutionGraph.i18n'
+import {
+  addStepOrGroup,
+  ExecutionGraphState,
+  StepStateMap,
+  StepState,
+  getStepFromId,
+  getStepsState
+} from './ExecutionGraphUtil'
 import { EmptyStageName } from '../PipelineConstants'
-import { StepStateMap, StepState, getStepFromId, getStepsState } from './ExecutionGraphUtil'
 import css from './ExecutionGraph.module.scss'
 
 interface PopoverData {
   event?: Diagram.DefaultNodeEvent
-  addStep?: (isStepGroup: boolean, event?: Diagram.DefaultNodeEvent) => void
+  isParallelNodeClicked?: boolean
+  onPopoverSelection?: (isStepGroup: boolean, isParallelNodeClicked: boolean, event?: Diagram.DefaultNodeEvent) => void
 }
 
-const renderPopover = ({ addStep, event }: PopoverData): JSX.Element => {
+const renderPopover = ({ onPopoverSelection, isParallelNodeClicked = false, event }: PopoverData): JSX.Element => {
   return (
     <>
       <div>
-        <Button minimal icon="Edit" text={i18n.addStep} onClick={() => addStep?.(false, event)} />
+        <Button
+          minimal
+          icon="Edit"
+          text={i18n.addStep}
+          onClick={() => onPopoverSelection?.(false, isParallelNodeClicked, event)}
+        />
       </div>
       <div>
-        <Button minimal icon="step-group" text={i18n.addStepGroup} onClick={() => addStep?.(true, event)} />
+        <Button
+          minimal
+          icon="step-group"
+          text={i18n.addStepGroup}
+          onClick={() => onPopoverSelection?.(true, isParallelNodeClicked, event)}
+        />
       </div>
     </>
   )
@@ -42,12 +60,13 @@ const renderDrawerContent = (
   data: ExecutionWrapper[],
   entity: Diagram.DefaultNodeModel,
   stepStates: StepStateMap,
+  isAddStepOverride: boolean,
   onSelect: (item: CommandData) => void,
   onChange: (stepObj: ExecutionElement) => void
 ): JSX.Element => {
   const node = getStepFromId(data, entity.getIdentifier?.()).node
 
-  if (node) {
+  if (node && !isAddStepOverride) {
     return (
       <StepCommands
         step={node}
@@ -59,19 +78,13 @@ const renderDrawerContent = (
   return <StepPalette onSelect={onSelect} />
 }
 
-interface ExecutionGraphState {
-  isDrawerOpen: boolean
-  isRollback: boolean
-  stepStates: StepStateMap
-  entity?: Diagram.DefaultNodeModel
-  data: ExecutionWrapper[]
-}
-
 const ExecutionGraph = (): JSX.Element => {
   const [state, setState] = React.useState<ExecutionGraphState>({
     isDrawerOpen: false,
     data: [],
     isRollback: false,
+    isAddStepOverride: false,
+    isParallelNodeClicked: false,
     stepStates: new Map<string, StepState>()
   })
 
@@ -94,39 +107,32 @@ const ExecutionGraph = (): JSX.Element => {
   //2) setup the diagram model
   const model = React.useMemo(() => new ExecutionStepModel(), [])
 
-  const addStep = (isStepGroup: boolean, event?: Diagram.DefaultNodeEvent): void => {
+  const onPopoverSelection = (
+    isStepGroup: boolean,
+    isParallelNodeClicked: boolean,
+    event?: Diagram.DefaultNodeEvent
+  ): void => {
     if (!isStepGroup && event) {
-      setState(prevState => ({ ...prevState, isDrawerOpen: true, entity: event.entity }))
-    } else if (event?.entity && event.entity instanceof Diagram.DefaultLinkModel) {
-      let node = event.entity.getSourcePort().getNode() as Diagram.DefaultNodeModel
-      let response = getStepFromId(state.data, node.getIdentifier(), true)
-      let next = 1
-      if (!response.node) {
-        node = event.entity.getTargetPort().getNode() as Diagram.DefaultNodeModel
-        response = getStepFromId(state.data, node.getIdentifier(), true)
-        next = 0
-      }
-      if (response.node) {
-        const index = response.parent.indexOf(response.node)
-        if (index > -1) {
-          response.parent.splice(index + next, 0, {
-            stepGroup: {
-              name: EmptyStageName,
-              identifier: uuid(),
-              steps: []
-            }
-          })
-        }
-        updatePipeline(pipeline)
-      }
-    } else if (event?.entity && event.entity instanceof Diagram.DefaultNodeModel) {
-      state.data.push({
-        stepGroup: {
-          name: EmptyStageName,
-          identifier: uuid(),
-          steps: []
-        }
-      })
+      setState(prevState => ({
+        ...prevState,
+        isDrawerOpen: true,
+        entity: event.entity,
+        isAddStepOverride: true,
+        isParallelNodeClicked
+      }))
+    } else if (event?.entity) {
+      addStepOrGroup(
+        event.entity,
+        state,
+        {
+          stepGroup: {
+            name: EmptyStageName,
+            identifier: uuid(),
+            steps: []
+          }
+        },
+        isParallelNodeClicked
+      )
       updatePipeline(pipeline)
     }
     dynamicPopoverHandler?.hide()
@@ -143,13 +149,20 @@ const ExecutionGraph = (): JSX.Element => {
       if (eventTemp.entity.getType() === Diagram.DiagramType.CreateNew && nodeRender) {
         // if Node is in Step Group then directly show Add Steps
         if (layer instanceof Diagram.StepGroupNodeLayerModel) {
-          setState(prevState => ({ ...prevState, isDrawerOpen: true, entity: eventTemp.entity }))
+          setState(prevState => ({
+            ...prevState,
+            isDrawerOpen: true,
+            entity: eventTemp.entity,
+            isAddStepOverride: false,
+            isParallelNodeClicked: false
+          }))
         } else {
           dynamicPopoverHandler?.show(
             nodeRender,
             {
               event,
-              addStep
+              isParallelNodeClicked: false,
+              onPopoverSelection
             },
             { useArrows: true, darkMode: true }
           )
@@ -176,6 +189,33 @@ const ExecutionGraph = (): JSX.Element => {
           updatePipeline(pipeline)
         }
       }
+    },
+    [Diagram.Event.AddParallelNode]: (event: any) => {
+      const eventTemp = event as Diagram.DefaultNodeEvent
+      eventTemp.stopPropagation()
+      const layer = eventTemp.entity.getParent()
+      if (layer instanceof Diagram.StepGroupNodeLayerModel) {
+        setState(prevState => ({
+          ...prevState,
+          isDrawerOpen: true,
+          entity: eventTemp.entity,
+          isAddStepOverride: true,
+          isParallelNodeClicked: true
+        }))
+      } else {
+        if (eventTemp.target) {
+          dynamicPopoverHandler?.show(
+            eventTemp.target,
+            {
+              event,
+              isParallelNodeClicked: true,
+              onPopoverSelection
+            },
+            { useArrows: true, darkMode: true },
+            eventTemp.callback
+          )
+        }
+      }
     }
   }
 
@@ -192,13 +232,14 @@ const ExecutionGraph = (): JSX.Element => {
         sourceLayer instanceof Diagram.StepGroupNodeLayerModel &&
         targetLayer instanceof Diagram.StepGroupNodeLayerModel
       ) {
-        addStep(false, event)
+        onPopoverSelection(false, false, event)
       } else if (linkRender) {
         dynamicPopoverHandler?.show(
           linkRender,
           {
             event,
-            addStep
+            isParallelNodeClicked: false,
+            onPopoverSelection
           },
           { useArrows: true, darkMode: true }
         )
@@ -223,6 +264,34 @@ const ExecutionGraph = (): JSX.Element => {
       const eventTemp = event as Diagram.DefaultNodeEvent
       eventTemp.stopPropagation()
       setState(prevState => ({ ...prevState, isDrawerOpen: true, entity: eventTemp.entity }))
+    },
+    [Diagram.Event.RollbackClicked]: (event: any) => {
+      const stepState = state.stepStates.get(event.entity.getIdentifier())
+      const eventTemp = event as Diagram.DefaultNodeEvent
+      eventTemp.stopPropagation()
+      if (stepState) {
+        const stepStates = state.stepStates.set(event.entity.getIdentifier(), {
+          ...stepState,
+          isStepGroupRollback: !stepState.isStepGroupRollback
+        })
+        setState(prev => ({ ...prev, stepStates }))
+      }
+    },
+    [Diagram.Event.AddParallelNode]: (event: any) => {
+      const eventTemp = event as Diagram.DefaultNodeEvent
+      eventTemp.stopPropagation()
+      if (eventTemp.target) {
+        dynamicPopoverHandler?.show(
+          eventTemp.target,
+          {
+            event,
+            isParallelNodeClicked: true,
+            onPopoverSelection
+          },
+          { useArrows: true, darkMode: true },
+          eventTemp.callback
+        )
+      }
     }
   }
 
@@ -299,7 +368,13 @@ const ExecutionGraph = (): JSX.Element => {
           dataClone.splice(stepIndex, 0, {
             parallel: removed
           })
-          setState(prevState => ({ ...prevState, isDrawerOpen: false, data: dataClone }))
+          setState(prevState => ({
+            ...prevState,
+            isDrawerOpen: false,
+            data: dataClone,
+            isAddStepOverride: false,
+            isParallelNodeClicked: false
+          }))
         } else if (nodeLink instanceof Diagram.DefaultLinkModel) {
           const dataClone: ExecutionWrapper[] = cloneDeep(state.data)
           const stepIndex = dataClone.findIndex(
@@ -314,7 +389,13 @@ const ExecutionGraph = (): JSX.Element => {
               spec: {}
             }
           })
-          setState(prevState => ({ ...prevState, isDrawerOpen: false, data: dataClone }))
+          setState(prevState => ({
+            ...prevState,
+            isDrawerOpen: false,
+            data: dataClone,
+            isAddStepOverride: false,
+            isParallelNodeClicked: false
+          }))
         }
       }}
     >
@@ -337,7 +418,12 @@ const ExecutionGraph = (): JSX.Element => {
       </div>
       <Drawer
         onClose={() => {
-          setState(prevState => ({ ...prevState, isDrawerOpen: false }))
+          setState(prevState => ({
+            ...prevState,
+            isDrawerOpen: false,
+            isAddStepOverride: false,
+            isParallelNodeClicked: false
+          }))
           model.clearSelection()
         }}
         autoFocus={true}
@@ -355,41 +441,31 @@ const ExecutionGraph = (): JSX.Element => {
               state.data,
               state.entity,
               state.stepStates,
+              state.isAddStepOverride,
               (item: CommandData) => {
-                if (state.entity && state.entity.getType() === Diagram.DiagramType.CreateNew) {
-                  // Steps if you are under step group
-                  const node = getStepFromId(state.data, state.entity.getIdentifier().split(EmptyNodeSeparator)[1]).node
-                  if (node?.steps) {
-                    node.steps.push({
+                if (state.entity) {
+                  addStepOrGroup(
+                    state.entity,
+                    state,
+                    {
                       step: {
                         type: item.value,
                         name: item.text,
                         identifier: uuid(),
                         spec: {}
                       }
-                    })
-                  } else {
-                    state.data.push({
-                      step: {
-                        type: item.value,
-                        name: item.text,
-                        identifier: uuid(),
-                        spec: {}
-                      }
-                    })
-                  }
-                } else {
-                  state.data.push({
-                    step: {
-                      type: item.value,
-                      name: item.text,
-                      identifier: uuid(),
-                      spec: {}
-                    }
-                  })
+                    },
+                    state.isParallelNodeClicked
+                  )
+                  updatePipeline(pipeline)
                 }
-                updatePipeline(pipeline)
-                setState(prevState => ({ ...prevState, isDrawerOpen: false, data: state.data }))
+                setState(prevState => ({
+                  ...prevState,
+                  isDrawerOpen: false,
+                  data: state.data,
+                  isAddStepOverride: false,
+                  isParallelNodeClicked: false
+                }))
               },
               (item: ExecutionWrapper) => {
                 if (state.entity) {
@@ -400,7 +476,13 @@ const ExecutionGraph = (): JSX.Element => {
                     node.spec = { ...item.spec }
                     updatePipeline(pipeline)
                   }
-                  setState(prevState => ({ ...prevState, isDrawerOpen: false, data: state.data }))
+                  setState(prevState => ({
+                    ...prevState,
+                    isDrawerOpen: false,
+                    data: state.data,
+                    isAddStepOverride: false,
+                    isParallelNodeClicked: false
+                  }))
                 }
               }
             )}

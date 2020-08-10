@@ -35,7 +35,7 @@ const onAddNodeClick = (
   )
 }
 
-const onClick = (e: React.MouseEvent<Element, MouseEvent>, node: DefaultNodeModel): void => {
+const onRemoveClick = (e: React.MouseEvent<Element, MouseEvent>, node: DefaultNodeModel): void => {
   e.stopPropagation()
   node.fireEvent({ target: e.target }, Event.RemoveNode)
 }
@@ -116,7 +116,7 @@ export const DefaultNodeWidget = (props: DefaultNodeProps): JSX.Element => {
             minimal
             icon="cross"
             iconProps={{ size: 10 }}
-            onMouseDown={e => onClick(e, props.node)}
+            onMouseDown={e => onRemoveClick(e, props.node)}
           />
         )}
       </div>
@@ -143,7 +143,7 @@ export const DefaultNodeWidget = (props: DefaultNodeProps): JSX.Element => {
             marginLeft: (126 - (options.width || 64)) / 2
           }}
         >
-          <Icon name="plus" style={{ color: 'var(--white)' }} />
+          <Icon name="plus" style={{ color: 'var(--diagram-add-node-color)' }} />
         </div>
       )}
     </div>

@@ -1,4 +1,8 @@
-import type { DiagramModelOptions as DiagramModelCoreOptions, BaseModel } from '@projectstorm/react-canvas-core'
+import type {
+  DiagramModelOptions as DiagramModelCoreOptions,
+  BaseModel,
+  LayerModel
+} from '@projectstorm/react-canvas-core'
 import { isNil } from 'lodash'
 import {
   DiagramModel as DiagramModelCore,
@@ -8,7 +12,7 @@ import {
 import type { Point } from '@projectstorm/geometry'
 import { DefaultLinkModel } from '../link/DefaultLinkModel'
 import { DefaultNodeModel } from '../node/DefaultNodeModel'
-import type { StepGroupNodeLayerModel } from '../layer/StepGroupNodeLayerModel'
+import type { StepGroupNodeLayerModel } from '../node-layer/StepGroupNodeLayerModel'
 import { EmptyNodeModel } from '../node/EmptyNode/EmptyNodeModel'
 import { PortName } from '../Constants'
 import css from './DiagramModel.module.scss'
@@ -54,10 +58,15 @@ export class DiagramModel<G extends DiagramModelGenerics = DiagramModelGenerics>
     this.stepGroupLayers.forEach(layer => layer.remove())
   }
 
+  addLayer(layer: LayerModel): void {
+    super.addLayer(layer)
+    this.layers = this.layers.sort((lay: LayerModel) => (lay.getOptions().isSvg ? 1 : -1))
+  }
+
   useStepGroupLayer(stepGroupLayers: StepGroupNodeLayerModel): void {
     if (this.stepGroupLayers.indexOf(stepGroupLayers) === -1) {
       this.stepGroupLayers.push(stepGroupLayers)
-      super.addLayer(stepGroupLayers)
+      this.addLayer(stepGroupLayers)
     }
     this.activeNodeLayer = stepGroupLayers
   }

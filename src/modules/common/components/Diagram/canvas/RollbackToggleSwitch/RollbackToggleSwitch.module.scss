@@ -3,11 +3,16 @@
   top: 10px;
   right: 10px;
   pointer-events: all;
+  z-index: 1;
 
   :global {
     .bp3-button {
       border-radius: 7px !important;
       background-color: var(--grey-300) !important;
+      height: 25px !important;
+      min-height: 25px !important;
+      min-width: 25px !important;
+
       &.bp3-active {
         background-color: var(--grey-100) !important;
         border-color: var(--grey-350) !important;

@@ -21,7 +21,7 @@ export class DefaultLinkFactory<Link extends DefaultLinkModel = DefaultLinkModel
     return new DefaultLinkModel() as Link
   }
 
-  generateLinkSegment(model: Link, selected: boolean, path: string): JSX.Element {
+  generateLinkSegment(model: Link, selected: boolean, path: string, allowAdd: boolean): JSX.Element {
     const options = model.getOptions()
     return (
       <path
@@ -30,7 +30,7 @@ export class DefaultLinkFactory<Link extends DefaultLinkModel = DefaultLinkModel
         strokeDasharray={options.strokeDasharray}
         d={path}
         fill="none"
-        pointerEvents="all"
+        pointerEvents={allowAdd ? 'all' : 'none'}
       ></path>
     )
   }

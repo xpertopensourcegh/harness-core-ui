@@ -6,7 +6,7 @@ import {
 } from '@projectstorm/react-diagrams-core'
 
 import { SelectionBoxLayerFactory, CanvasEngineOptions } from '@projectstorm/react-canvas-core'
-import { StepGroupNodeLayerFactory } from './layer/StepGroupNodeLayerFactory'
+import { StepGroupNodeLayerFactory } from './node-layer/StepGroupNodeLayerFactory'
 import { DefaultLabelFactory } from './label/DefaultLabelFactory'
 import { DefaultNodeFactory } from './node/DefaultNodeFactory'
 import { CreateNewFactory } from './node/CreateNew/CreateNewFactory'
@@ -31,9 +31,9 @@ export * from './node/DefaultNodeFactory'
 export * from './node/DefaultNodeModel'
 export * from './node/DefaultNodeWidget'
 
-export * from './layer/StepGroupNodeLayerFactory'
-export * from './layer/StepGroupNodeLayerModel'
-export * from './layer/StepGroupNodeLayerWidget'
+export * from './node-layer/StepGroupNodeLayerFactory'
+export * from './node-layer/StepGroupNodeLayerModel'
+export * from './node-layer/StepGroupNodeLayerWidget'
 
 export * from './node/CreateNew/CreateNewFactory'
 export * from './node/CreateNew/CreateNewModel'

@@ -22,15 +22,21 @@ export const RollbackToggleSwitch: React.FC<RollbackToggleSwitchProps> = ({
           icon="command-start"
           active={active === StepsType.Normal}
           tooltip={i18n.steps}
-          iconProps={{ size: 12 }}
-          onClick={() => onChange?.(StepsType.Normal)}
+          iconProps={{ size: 10 }}
+          onClick={e => {
+            e.stopPropagation()
+            onChange?.(StepsType.Normal)
+          }}
         />
         <Button
           icon="command-rollback"
           active={active === StepsType.Rollback}
           tooltip={i18n.rollback}
-          iconProps={{ size: 12 }}
-          onClick={() => onChange?.(StepsType.Rollback)}
+          iconProps={{ size: 10 }}
+          onClick={e => {
+            e.stopPropagation()
+            onChange?.(StepsType.Rollback)
+          }}
         />
       </ButtonGroup>
     </span>

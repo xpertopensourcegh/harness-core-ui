@@ -226,8 +226,10 @@ export const StageBuilder: React.FC<{}> = (): JSX.Element => {
             )
           }
         } else if (eventTemp.entity.getType() !== Diagram.DiagramType.StartNode) {
-          if (!isSetupStageOpen) {
-            const data = getStageFromPipeline(pipeline, eventTemp.entity.getIdentifier()).stage
+          const data = getStageFromPipeline(pipeline, eventTemp.entity.getIdentifier()).stage
+          if (isSetupStageOpen && data?.stage?.identifier) {
+            updatePipelineView({ isSetupStageOpen: true, selectedStageId: data?.stage?.identifier })
+          } else if (!isSetupStageOpen) {
             if (stageMap.has(data?.stage?.identifier)) {
               updatePipelineView({ isSetupStageOpen: true, selectedStageId: data?.stage?.identifier })
             } else {

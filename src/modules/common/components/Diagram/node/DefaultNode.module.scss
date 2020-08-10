@@ -64,7 +64,7 @@
     cursor: pointer;
   }
   .addNode {
-    background-color: var(--diagram-add-node-color);
+    border: 1px dashed var(--diagram-add-node-color);
     border-radius: 8px;
     display: flex;
     justify-content: center;

@@ -8,18 +8,21 @@ import css from './DefaultPort.module.scss'
 export interface DefaultPortLabelProps {
   port: DefaultPortModel
   engine: DiagramEngine
+  className?: string
 }
 
 export const DefaultPortLabel = (props: DefaultPortLabelProps): JSX.Element => {
+  const { port, engine, className = '' } = props
   return (
     <div
       className={cx(
         css.port,
-        { [css.portIn]: props.port.getOptions().in },
-        { [css.portOut]: !props.port.getOptions().in }
+        { [css.portIn]: port.getOptions().in },
+        { [css.portOut]: !port.getOptions().in },
+        className
       )}
     >
-      <PortWidget engine={props.engine} port={props.port}>
+      <PortWidget engine={engine} port={port}>
         <Button intent="primary" className={css.portBtn} minimal icon="circle" iconProps={{ size: 8 }} />
       </PortWidget>
     </div>
