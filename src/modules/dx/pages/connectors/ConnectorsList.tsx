@@ -1,67 +1,61 @@
-import React from 'react'
-import { Layout, Container } from '@wings-software/uikit'
-import { useHistory, useParams } from 'react-router-dom'
-import { useGetConnectorList, useDeleteConnector, ResponseDTOPageConnectorSummaryDTO } from 'services/cd-ng'
+import React, { useState } from 'react'
+import { Layout, Container, Button } from '@wings-software/uikit'
+import { useParams } from 'react-router-dom'
+import { useGetConnectorList, ResponseDTOPageConnectorSummaryDTO } from 'services/cd-ng'
 import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
 import type { UseGetMockData } from 'modules/common/utils/testUtils'
 import { ConnectorSetupModal } from '../../modals/ConnectorModal/ConnectorSetupModal'
-import CustomTable from '../../../common/components/CustomTable/CustomTable'
-import { columns } from '../../../cd/pages/Resources/SampleColumnsData'
-import { formatConnectorListData } from './utils/ConnectorUtils'
-import { routeConnectorDetails } from '../../routes'
+import ConnectorsListView from './views/ConnectorsListView'
 import css from './ConnectorsList.module.scss'
 
 interface ConnectorsListProps {
   mockData?: UseGetMockData<ResponseDTOPageConnectorSummaryDTO>
 }
+
+const enum View {
+  GRID,
+  LIST
+}
 const ConnectorsList: React.FC<ConnectorsListProps> = ({ mockData }) => {
   const { accountId } = useParams()
-  const history = useHistory()
+  const [view, setView] = useState(View.LIST)
 
   const { loading, data, refetch: reloadConnectorList } = useGetConnectorList({
     accountIdentifier: accountId,
     mock: mockData
   })
-  const { mutate: deleteConnector } = useDeleteConnector({ accountIdentifier: accountId })
-
-  const formatedData = formatConnectorListData(data?.data?.content)
-
-  const onDeleteRow = async (connectorId: string) => {
-    if (!connectorId) return
-    try {
-      const deleted = await deleteConnector(connectorId, { headers: { 'content-type': 'application/json' } })
-      if (deleted?.data) {
-        reloadConnectorList()
-      } else {
-        // Handle error
-      }
-    } catch (e) {
-      // To handle error
-    }
-  }
-
-  const onClickRow = (connectorId: string) => {
-    history.push(routeConnectorDetails.url({ accountId: accountId, connectorId: connectorId }))
-  }
 
   return (
     <Layout.Vertical className={css.listPage}>
       <Container>
-        <Layout.Horizontal id="layout-horizontal-sample" spacing="none" className={css.listWrapper}>
-          <ConnectorSetupModal />
+        <Layout.Horizontal className={css.header}>
+          <Layout.Horizontal inline width="55%">
+            <ConnectorSetupModal />
+          </Layout.Horizontal>
+          <Layout.Horizontal width="45%" className={css.view}>
+            {/* <Button
+              minimal
+              icon="grid-view"
+              intent={view === View.GRID ? 'primary' : 'none'}
+              onClick={() => {
+                setView(View.GRID)
+              }}
+            /> */}
+            <Button
+              minimal
+              icon="list"
+              intent={view === View.LIST ? 'primary' : 'none'}
+              onClick={() => {
+                setView(View.LIST)
+              }}
+            />
+          </Layout.Horizontal>
         </Layout.Horizontal>
       </Container>
       {!loading ? (
-        <Container className={css.listContainer}>
-          <Layout.Horizontal className={css.tableContainer}>
-            <CustomTable
-              data={formatedData || []}
-              columns={columns}
-              onClickRow={(connectorId: string) => onClickRow(connectorId)}
-              onDeleteRow={(connectorId: string) => onDeleteRow(connectorId)}
-            />
-          </Layout.Horizontal>
-        </Container>
+        view === View.LIST && data?.data?.content?.length ? (
+          <ConnectorsListView data={data?.data?.content} reload={reloadConnectorList} />
+        ) : null
       ) : (
         <PageSpinner />
       )}

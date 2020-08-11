@@ -6,7 +6,7 @@ import mockData from '../__tests__/mockData'
 
 jest.mock('react-timeago', () => () => 'dummy date')
 
-describe('Secrets List', () => {
+describe('Connectors List', () => {
   test('render', async () => {
     const { container } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>

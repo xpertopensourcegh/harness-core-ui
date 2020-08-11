@@ -5,6 +5,14 @@
   height: 72px;
   padding: 18px 30px !important;
 }
+.header {
+  padding: var(--spacing-large) var(--spacing-xxxlarge) !important;
+  border-bottom: 1px solid var(--grey-300);
+  height: 64px;
+}
+.view {
+  justify-content: flex-end;
+}
 .tableContainer {
   height: 100%;
   > section > div > table {

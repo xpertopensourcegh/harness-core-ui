@@ -1,3 +1,4 @@
+import type { IconName } from '@blueprintjs/core'
 import { Connectors, ConnectorInfoText } from 'modules/dx/constants'
 import type { ConnectorSummaryDTO } from 'services/cd-ng'
 import type { FormData } from 'modules/dx/interfaces/ConnectorInterface'
@@ -161,12 +162,12 @@ export const buildKubFormData = (connector: any) => {
   }
 }
 
-export const getIconByType = (type: string) => {
+export const getIconByType = (type: string): IconName => {
   switch (type) {
     case Connectors.KUBERNETES_CLUSTER:
-      return 'service-kubernetes'
+      return 'service-kubernetes' as IconName
     default:
-      return ''
+      return '' as IconName
   }
 }
 
