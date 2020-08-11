@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { Formik } from 'formik'
-import { FormInput, FormikForm, SelectWithSubviewContext, Layout, Button } from '@wings-software/uikit'
+import { FormInput, SelectWithSubviewContext, Layout, Button } from '@wings-software/uikit'
 import { Toaster, Intent } from '@blueprintjs/core'
 import * as Yup from 'yup'
 import { SettingsService } from 'modules/cv/services'
@@ -8,8 +8,13 @@ import { routeParams } from 'framework/exports'
 
 const toaster = Toaster.create()
 
-const validationSchema = Yup.object().shape({
+const serviceSchema = Yup.object().shape({
   name: Yup.string().trim().required('Required')
+})
+
+const envSchema = Yup.object().shape({
+  name: Yup.string().trim().required('Required'),
+  type: Yup.string().trim().required('Required')
 })
 
 export default function CreateNewEntitySubform({ entityType }: { entityType: 'service' | 'environment' }) {
@@ -20,12 +25,12 @@ export default function CreateNewEntitySubform({ entityType }: { entityType: 'se
   const onHide = () => {
     toggleSubview()
   }
-  const onSubmit = async ({ name }: { name: string }) => {
+  const onSubmit = async ({ name, ...rest }: { name: string }) => {
     let response
     if (entityType === 'service') {
       response = await SettingsService.createService(name, accountId, 'org', 'project')
     } else {
-      response = await SettingsService.createEnvironment(name, accountId, 'org', 'project')
+      response = await SettingsService.createEnvironment(name, accountId, 'org', 'project', (rest as any).type)
     }
     const { error, status } = response
     if (status !== 200) {
@@ -37,11 +42,46 @@ export default function CreateNewEntitySubform({ entityType }: { entityType: 'se
     })
   }
 
+  let formProps: any
+  let formInputs: JSX.Element
+  if (entityType === 'service') {
+    formProps = {
+      initialValues: { name: '' },
+      validationSchema: serviceSchema
+    }
+    formInputs = <FormInput.Text name="name" label="Service Name" />
+  } else if (entityType === 'environment') {
+    formProps = {
+      initialValues: { name: '', type: 'PreProduction' },
+      validationSchema: envSchema
+    }
+    formInputs = (
+      <>
+        <FormInput.Text name="name" label="Environment" />
+        <FormInput.Select
+          name="type"
+          label="Type"
+          items={[
+            { label: 'Pre Production', value: 'PreProduction' },
+            { label: 'Production', value: 'Production' }
+          ]}
+        />
+      </>
+    )
+  }
+
   return (
-    <Formik initialValues={{ name: '' }} validationSchema={validationSchema} onSubmit={onSubmit}>
-      {() => (
-        <FormikForm style={{ padding: 'var(--spacing-small' }}>
-          <FormInput.Text name="name" label={entityType === 'service' ? 'Service Name' : 'Environment Name'} />
+    <Formik {...(formProps as any)} onSubmit={onSubmit}>
+      {formikProps => (
+        <form
+          onSubmit={e => {
+            e.preventDefault()
+            e.stopPropagation()
+            formikProps.handleSubmit(e)
+          }}
+          style={{ padding: 'var(--spacing-small' }}
+        >
+          {formInputs}
           <Layout.Horizontal spacing="medium">
             <Button data-name="Cancel" onClick={onHide}>
               Cancel
@@ -50,7 +90,7 @@ export default function CreateNewEntitySubform({ entityType }: { entityType: 'se
               Submit
             </Button>
           </Layout.Horizontal>
-        </FormikForm>
+        </form>
       )}
     </Formik>
   )
