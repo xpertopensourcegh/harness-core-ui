@@ -67,7 +67,8 @@ const ConnectorModal: React.FC = () => {
     },
     { label: ConnectorInfoText.GIT, value: Connectors.GIT, icon: 'service-github' },
     { label: ConnectorInfoText.AZURE, value: Connectors.AZURE, icon: 'service-jenkins' },
-    { label: ConnectorInfoText.GCP, value: Connectors.GCP, icon: 'service-gcp' }
+    { label: ConnectorInfoText.GCP, value: Connectors.GCP, icon: 'service-gcp' },
+    { label: ConnectorInfoText.SECRET_MANAGER, value: Connectors.SECRET_MANAGER, icon: 'lock' }
   ]
 
   return (

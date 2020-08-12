@@ -1,5 +1,5 @@
-import React, { useEffect, useRef } from 'react'
-import { Layout, Button, Formik } from '@wings-software/uikit'
+import React, { useEffect, useRef, useState } from 'react'
+import { Layout, Button, Formik, StepProps } from '@wings-software/uikit'
 import * as Yup from 'yup'
 import { Form } from 'formik'
 import { StringUtils, useToaster } from 'modules/common/exports'
@@ -10,18 +10,17 @@ import { getHeadingByType } from '../../../../pages/connectors/utils/ConnectorHe
 import i18n from './ConnectorDetailsStep.i18n'
 import css from './ConnectorDetailsStep.module.scss'
 
-interface ConnectorDetailsStepProps {
+interface ConnectorDetailsStepProps extends StepProps<unknown> {
   accountId: string
   type: string
   name: string
   setFormData: (formData: KubFormData | GITFormData | undefined) => void
   formData: KubFormData | GITFormData | undefined
-  // adding any As the type is StepProps and not able to use it here somehow... will add as I find a solution
-  nextStep?: (data?: any) => void
 }
 
-const ConnectorDetailsStep = (props: ConnectorDetailsStepProps) => {
+const ConnectorDetailsStep: React.FC<ConnectorDetailsStepProps> = props => {
   const { showError } = useToaster()
+  const [stepData, setStepData] = useState(props.formData)
   const { loading, data, refetch: revalidateUniqueIdentifier } = useValidateTheIdentifierIsUnique({
     accountIdentifier: props.accountId,
     lazy: true
@@ -30,7 +29,7 @@ const ConnectorDetailsStep = (props: ConnectorDetailsStepProps) => {
   useEffect(() => {
     if (mounted.current && !loading) {
       if (data?.data) {
-        props?.nextStep?.({})
+        props.nextStep?.(stepData)
       } else {
         showError(i18n.validateError)
       }
@@ -43,10 +42,10 @@ const ConnectorDetailsStep = (props: ConnectorDetailsStepProps) => {
       <div className={css.heading}>{getHeadingByType(props.type)}</div>
       <Formik
         initialValues={{
-          name: props?.formData?.name || '',
-          description: props?.formData?.description || '',
-          identifier: props?.formData?.identifier || '',
-          tags: props?.formData?.tags || []
+          name: props.formData?.name || '',
+          description: props.formData?.description || '',
+          identifier: props.formData?.identifier || '',
+          tags: props.formData?.tags || []
         }}
         validationSchema={Yup.object().shape({
           name: Yup.string().trim().required(),
@@ -58,6 +57,7 @@ const ConnectorDetailsStep = (props: ConnectorDetailsStepProps) => {
           description: Yup.string()
         })}
         onSubmit={formData => {
+          setStepData(formData)
           revalidateUniqueIdentifier({ queryParams: { connectorIdentifier: formData.identifier } })
           props.setFormData(formData)
         }}

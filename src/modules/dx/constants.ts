@@ -5,7 +5,8 @@ export const Connectors = {
   AZURE: 'AZURE',
   KUBERNETES_CLUSTER: 'K8sCluster',
   SPOT_INST: 'SPOT_INST',
-  GIT: 'GitConnector'
+  GIT: 'GitConnector',
+  SECRET_MANAGER: 'SECRET_MANAGER'
 }
 
 export const ConnectorInfoText = {
@@ -15,5 +16,6 @@ export const ConnectorInfoText = {
   AZURE: 'AZURE',
   KUBERNETES_CLUSTER: 'Kubernetes Connector',
   SPOT_INST: 'SPOT_INST',
-  GIT: 'GIT Connector'
+  GIT: 'GIT Connector',
+  SECRET_MANAGER: 'Secret Manager'
 }

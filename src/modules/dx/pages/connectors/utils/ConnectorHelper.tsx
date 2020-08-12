@@ -52,6 +52,8 @@ export const getHeadingByType = (type: string) => {
       return i18n.k8sClusterDetails
     case Connectors.GIT:
       return i18n.gitConnectorDetails
+    case Connectors.SECRET_MANAGER:
+      return i18n.secretManagerDetails
     default:
       return null
   }
