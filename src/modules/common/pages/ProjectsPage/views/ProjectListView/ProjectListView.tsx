@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react'
-import { Text, Layout, Color, Icon, Button, Popover } from '@wings-software/uikit'
+import { Text, Layout, Color, Icon, Button, Popover, Tag } from '@wings-software/uikit'
 import type { CellProps, Renderer, Column } from 'react-table'
-import { Menu, Classes, Position } from '@blueprintjs/core'
+import { Menu, Classes, Position, PopoverInteractionKind } from '@blueprintjs/core'
 import { ProjectDTO, useDeleteProject } from 'services/cd-ng'
 import Table from 'modules/common/components/Table/Table'
 import { useConfirmationDialog } from 'modules/common/exports'
@@ -24,10 +24,25 @@ type CustomColumn<T extends object> = Column<T> & {
 const RenderColumnProject: Renderer<CellProps<ProjectDTO>> = ({ row }) => {
   const data = row.original
   return (
-    <Layout.Horizontal spacing="medium">
+    <Layout.Horizontal spacing="small">
       <div className={css.colorbox} style={{ backgroundColor: `${data.color}` }} />
       <div>
-        <Text color={Color.BLACK}>{data.name}</Text>
+        <Layout.Horizontal spacing="small">
+          <Text color={Color.BLACK}>{data.name}</Text>
+          {data.tags?.length ? (
+            <Popover interactionKind={PopoverInteractionKind.HOVER}>
+              <Layout.Horizontal flex={{ align: 'center-center' }} spacing="xsmall">
+                <Icon name="main-tags" size={15} />
+                <Text>{data.tags.length}</Text>
+              </Layout.Horizontal>
+              <Layout.Vertical spacing="small" padding="small">
+                {data.tags?.map(tag => (
+                  <Tag key={tag}>{tag}</Tag>
+                ))}
+              </Layout.Vertical>
+            </Popover>
+          ) : null}
+        </Layout.Horizontal>
         <Text color={Color.GREY_400}>{data.description}</Text>
       </div>
     </Layout.Horizontal>
@@ -87,7 +102,7 @@ const RenderColumnMenu: Renderer<CellProps<ProjectDTO>> = ({ row, column }) => {
     }
   })
 
-  const handleDelete = async (): Promise<void> => {
+  const handleDelete = (): void => {
     if (!data?.id) return
     openDialog()
   }
@@ -108,7 +123,7 @@ const RenderColumnMenu: Renderer<CellProps<ProjectDTO>> = ({ row, column }) => {
       >
         <Button
           minimal
-          icon="menu"
+          icon="more"
           onClick={e => {
             e.stopPropagation()
             setMenuOpen(true)
@@ -138,14 +153,15 @@ const ProjectListView: React.FC<ProjectListViewProps> = props => {
       {
         Header: i18n.organisation.toUpperCase(),
         accessor: 'organizationName',
-        width: '20%',
+        width: '15%',
         Cell: RenderColumnOrganisation
       },
       {
         Header: i18n.modules.toUpperCase(),
         accessor: 'modules',
         width: '20%',
-        Cell: RenderColumnModules
+        Cell: RenderColumnModules,
+        disableSortBy: true
       },
       {
         Header: i18n.lastActivity.toUpperCase(),
@@ -156,14 +172,16 @@ const ProjectListView: React.FC<ProjectListViewProps> = props => {
       {
         Header: i18n.admin.toUpperCase(),
         accessor: 'owners',
-        width: '5%',
-        Cell: RenderColumnAdmin
+        width: '10%',
+        Cell: RenderColumnAdmin,
+        disableSortBy: true
       },
       {
         Header: i18n.collaborators.toUpperCase(),
         accessor: 'orgIdentifier',
         width: '10%',
-        Cell: RenderColumnAdmin
+        Cell: RenderColumnAdmin,
+        disableSortBy: true
       },
       {
         Header: '',
@@ -171,7 +189,8 @@ const ProjectListView: React.FC<ProjectListViewProps> = props => {
         width: '5%',
         Cell: RenderColumnMenu,
         refetchProjects: reload,
-        editProject: editProject
+        editProject: editProject,
+        disableSortBy: true
       }
     ],
     [reload, editProject]

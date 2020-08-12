@@ -14,5 +14,9 @@ export default {
   activities: 'Activities',
   alerts: 'Alerts',
   projectName: 'ProjectName',
-  start: 'Get started with'
+  start: 'Get started with',
+  confirmDelete: (name: string) => `Are you sure you want to delete the Project '${name}'?`,
+  confirmDeleteTitle: 'Delete Project',
+  deleteButton: 'Delete',
+  cancelButton: 'Cancel'
 }

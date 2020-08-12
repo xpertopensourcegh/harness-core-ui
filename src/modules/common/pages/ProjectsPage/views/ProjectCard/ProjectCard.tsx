@@ -8,6 +8,8 @@ import { linkTo } from 'framework/exports'
 import { routePipelineCanvas, routeProjectOverview } from 'modules/cd/routes'
 import { useDeleteProject } from 'services/cd-ng'
 import type { ProjectDTO } from 'services/cd-ng'
+import { useToaster } from 'modules/common/components/Toaster/useToaster'
+import { useConfirmationDialog } from 'modules/common/modals/ConfirmDialog/useConfirmationDialog'
 import { Modules } from './Constants'
 import i18n from './ProjectCard.i18n'
 import css from './ProjectCard.module.scss'
@@ -38,21 +40,32 @@ interface ContinuousVerificationProps {
 const ContextMenu: React.FC<ContextMenuProps> = props => {
   const { project, reloadProjects, editProject } = props
   const { mutate: deleteProject } = useDeleteProject({ orgIdentifier: project.orgIdentifier || '' })
+  const { showSuccess, showError } = useToaster()
 
-  const handleDelete = async (): Promise<void> => {
-    if (!project?.id) return
-    const sure = confirm(`Are you sure you want to delete the project '${project.name}'?`)
-    if (!sure) return
-    try {
-      const deleted = await deleteProject(project.identifier || '', { headers: { 'content-type': 'application/json' } })
-      if (!deleted) {
-        // TODO: show error
-      } else {
-        reloadProjects?.()
+  const { openDialog } = useConfirmationDialog({
+    contentText: i18n.confirmDelete(project.name || ''),
+    titleText: i18n.confirmDeleteTitle,
+    confirmButtonText: i18n.deleteButton,
+    cancelButtonText: i18n.cancelButton,
+    onCloseDialog: async (isConfirmed: boolean) => {
+      if (isConfirmed) {
+        try {
+          const deleted = await deleteProject(project.identifier || '', {
+            headers: { 'content-type': 'application/json' }
+          })
+          if (deleted) showSuccess(`Project ${project.name} deleted`)
+          reloadProjects?.()
+        } catch (err) {
+          showError(err)
+        }
       }
-    } catch (_) {
-      // TODO: handle error
     }
+  })
+
+  const handleDelete = (event: React.MouseEvent<HTMLElement, MouseEvent>): void => {
+    event.stopPropagation()
+    if (!project?.id) return
+    openDialog()
   }
 
   const handleEdit = (): void => {
