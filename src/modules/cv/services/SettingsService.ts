@@ -41,6 +41,7 @@ export async function createEnvironment(
   accId: string,
   orgIdentifier: string,
   projectIdentifier: string,
+  type: string,
   group = 'XHR_SERVICES_GROUP'
 ) {
   return await xhr.post(Endpoints.createEnvironment(accId), {
@@ -48,7 +49,8 @@ export async function createEnvironment(
     data: {
       identifier,
       orgIdentifier,
-      projectIdentifier
+      projectIdentifier,
+      type
     }
   })
 }
