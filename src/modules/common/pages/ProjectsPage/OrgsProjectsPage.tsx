@@ -56,7 +56,7 @@ const OrgProjectsListPage: React.FC = () => {
           className: css.pageContainer
         }}
       >
-        <ProjectsGridView data={data?.data?.content} reload={reloadProjects} showEditProject={showEditProject} />
+        <ProjectsGridView data={data?.data} reload={reloadProjects} showEditProject={showEditProject} />
       </Page.Body>
     </>
   )

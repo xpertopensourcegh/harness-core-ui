@@ -1,7 +1,7 @@
 import React from 'react'
-import { useTable, Column, useSortBy } from 'react-table'
+import { useTable, Column, useSortBy, usePagination } from 'react-table'
 import cx from 'classnames'
-import { Icon } from '@wings-software/uikit'
+import { Icon, Pagination, PaginationProps } from '@wings-software/uikit'
 
 import css from './Table.module.scss'
 
@@ -10,17 +10,22 @@ interface TableProps<Data extends object> {
   data: Data[]
   className?: string
   sortable?: boolean
+  pagination?: PaginationProps
   onRowClick?: (data: Data, index: number) => void
 }
 
 const Table = <Data extends object>(props: TableProps<Data>): React.ReactElement => {
-  const { columns, data, className, sortable = true } = props
-  const { headerGroups, rows, prepareRow } = useTable(
+  const { columns, data, className, sortable = true, pagination } = props
+  const { headerGroups, page, prepareRow } = useTable(
     {
       columns,
-      data
+      data,
+      initialState: { pageIndex: pagination?.pageIndex || 0 },
+      manualPagination: true,
+      pageCount: pagination?.pageCount || -1
     },
-    useSortBy
+    useSortBy,
+    usePagination
   )
 
   return (
@@ -56,7 +61,7 @@ const Table = <Data extends object>(props: TableProps<Data>): React.ReactElement
         )
       })}
 
-      {rows.map(row => {
+      {page.map(row => {
         prepareRow(row)
         return (
           // eslint-disable-next-line react/jsx-key
@@ -82,6 +87,8 @@ const Table = <Data extends object>(props: TableProps<Data>): React.ReactElement
           </div>
         )
       })}
+
+      {pagination ? <Pagination {...pagination} /> : null}
     </div>
   )
 }

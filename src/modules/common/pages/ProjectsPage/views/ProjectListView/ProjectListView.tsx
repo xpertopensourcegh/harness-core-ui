@@ -2,7 +2,7 @@ import React, { useState, useMemo } from 'react'
 import { Text, Layout, Color, Icon, Button, Popover, Tag } from '@wings-software/uikit'
 import type { CellProps, Renderer, Column } from 'react-table'
 import { Menu, Classes, Position, PopoverInteractionKind } from '@blueprintjs/core'
-import { ProjectDTO, useDeleteProject } from 'services/cd-ng'
+import { ProjectDTO, useDeleteProject, NGPageResponseProjectDTO } from 'services/cd-ng'
 import Table from 'modules/common/components/Table/Table'
 import { useConfirmationDialog } from 'modules/common/exports'
 import { useToaster } from 'modules/common/components/Toaster/useToaster'
@@ -11,9 +11,10 @@ import i18n from './ProjectView.i18n'
 import css from './ProjectListView.module.scss'
 
 interface ProjectListViewProps {
-  data?: ProjectDTO[]
+  data?: NGPageResponseProjectDTO
   reload?: () => Promise<void>
   editProject?: (project: ProjectDTO) => void
+  gotoPage: (pageNumber: number) => void
 }
 
 type CustomColumn<T extends object> = Column<T> & {
@@ -141,7 +142,7 @@ const RenderColumnMenu: Renderer<CellProps<ProjectDTO>> = ({ row, column }) => {
 }
 
 const ProjectListView: React.FC<ProjectListViewProps> = props => {
-  const { data, reload, editProject } = props
+  const { data, reload, editProject, gotoPage } = props
   const columns: CustomColumn<ProjectDTO>[] = useMemo(
     () => [
       {
@@ -188,14 +189,27 @@ const ProjectListView: React.FC<ProjectListViewProps> = props => {
         accessor: 'tags',
         width: '5%',
         Cell: RenderColumnMenu,
+        disableSortBy: true,
         refetchProjects: reload,
-        editProject: editProject,
-        disableSortBy: true
+        editProject: editProject
       }
     ],
     [reload, editProject]
   )
-  return <Table<ProjectDTO> className={css.table} columns={columns} data={data || []} />
+  return (
+    <Table<ProjectDTO>
+      className={css.table}
+      columns={columns}
+      data={data?.content || []}
+      pagination={{
+        itemCount: data?.totalElements || 0,
+        pageSize: data?.size || 10,
+        pageCount: data?.totalPages || -1,
+        pageIndex: data?.pageNumber || 0,
+        gotoPage
+      }}
+    />
+  )
 }
 
 export default ProjectListView

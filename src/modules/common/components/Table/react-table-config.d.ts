@@ -10,12 +10,16 @@ import {
   UseSortByColumnProps,
   UseSortByInstanceProps,
   UseSortByOptions,
-  UseSortByState
+  UseSortByState,
+  UsePaginationOptions,
+  UsePaginationInstanceProps,
+  UsePaginationState
 } from 'react-table'
 
 declare module 'react-table' {
   export interface TableOptions<D extends object>
     extends UseSortByOptions<D>,
+      UsePaginationOptions<D>,
       // note that having Record here allows you to add anything to the options, this matches the spirit of the
       // underlying js library, but might be cleaner if it's replaced by a more specific type that matches your
       // feature set, this is a safe default.
@@ -24,9 +28,13 @@ declare module 'react-table' {
   export interface TableInstance<D extends object = {}>
     extends UseColumnOrderInstanceProps<D>,
       UseExpandedInstanceProps<D>,
+      UsePaginationInstanceProps<D>,
       UseSortByInstanceProps<D> {}
 
-  export interface TableState<D extends object = {}> extends UseColumnOrderState<D>, UseSortByState<D> {}
+  export interface TableState<D extends object = {}>
+    extends UseColumnOrderState<D>,
+      UseSortByState<D>,
+      UsePaginationState<D> {}
 
   export interface ColumnInterface<D extends object = {}>
     extends UseFiltersColumnOptions<D>,

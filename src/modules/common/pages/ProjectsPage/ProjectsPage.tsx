@@ -39,7 +39,8 @@ const ProjectsListPage: React.FC<ProjectListProps> = ({ mockData, module, onNewP
   const { accountId } = useParams()
   const [view, setView] = useState(Views.GRID)
   const [recentFilter, setRecentFilter] = useState(Sort.ALL_PROJECTS)
-  const [searchParam, setSearchParam] = useState('')
+  const [searchParam, setSearchParam] = useState<string | undefined>()
+  const [page, setPage] = useState(0)
   const {
     loading: loadingAllProjects,
     data: dataAllProjects,
@@ -51,7 +52,9 @@ const ProjectsListPage: React.FC<ProjectListProps> = ({ mockData, module, onNewP
         orgFilter.value == 'ALL' ? undefined : equals('orgIdentifier', orgFilter.value.toString()),
         !module ? undefined : includes('modules', [module])
       ),
-      search: searchParam
+      search: searchParam,
+      page: page,
+      size: 2
     },
     mock: mockData,
     debounce: 300
@@ -186,10 +189,15 @@ const ProjectsListPage: React.FC<ProjectListProps> = ({ mockData, module, onNewP
         }}
       >
         {view === Views.GRID ? (
-          <ProjectsGridView data={data?.data?.content} reload={reloadAllProjects} showEditProject={showEditProject} />
+          <ProjectsGridView data={data?.data} reload={reloadAllProjects} showEditProject={showEditProject} />
         ) : null}
         {view === Views.LIST ? (
-          <ProjectsListView data={data?.data?.content} reload={reloadAllProjects} editProject={showEditProject} />
+          <ProjectsListView
+            data={data?.data}
+            reload={reloadAllProjects}
+            editProject={showEditProject}
+            gotoPage={pageNumber => setPage(pageNumber)}
+          />
         ) : null}
       </Page.Body>
     </>

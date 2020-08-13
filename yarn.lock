@@ -1377,10 +1377,10 @@
   resolved "https://npm.pkg.github.com/download/@wings-software/swagger-ts/1.55003.0/c4c669ccf39e0ed33b3ec58374bc3bd9555a73d2ef302a69af9fdb3c543374fa#1c2b233d2e01d871fad5bce771be5a52f4938354"
   integrity sha512-akXp2CIQq0Nu8GrC4i5XJdr5aBx9YyepjSESGOi6IaL+MQGlIqEpA91lG92/UZ2NNHRK43pacJbZZ33VDcZpkQ==
 
-"@wings-software/uikit@1.1.20":
-  version "1.1.20"
-  resolved "https://npm.pkg.github.com/download/@wings-software/uikit/1.1.20/8135101f56ea3c45aebf8772b234fe03436c48e167ce5e8c2673400a90ab2412#b9566b3ba8e0c4509f57af6a479d9115dd5902fb"
-  integrity sha512-/D55tEt36y1hVNPOH6/ehuL9mb56Zx2lzE8wEP1c0O3Hn8PIVx3AmQ6jYbTLnqpWMe90G0iSD9dy+8bNzlA9fg==
+"@wings-software/uikit@1.1.21":
+  version "1.1.21"
+  resolved "https://npm.pkg.github.com/download/@wings-software/uikit/1.1.21/3ba3d6c9c3d381b0a24b25704fcc56b384a00ad2ab6678e0e51032a5d799e516#c13565e6bf9ce3c5679d3382ecedfefa027905b5"
+  integrity sha512-SH9Wl7SPI0vmYEFvZDfHu1iIad2a8WVBPwCIuLVnODVDT2B/sYvJw/E25FJj0Qh8+OR+ryrIQa4eXue8sdtkAA==
   dependencies:
     "@types/lodash.get" "^4.4.6"
     lodash.get "^4.4.2"
