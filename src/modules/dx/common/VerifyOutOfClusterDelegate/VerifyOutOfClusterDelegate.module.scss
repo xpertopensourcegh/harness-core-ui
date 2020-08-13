@@ -1,27 +1,15 @@
-.outCluster {
-  height: 100%;
-  .heading {
-    color: var(--grey-700);
-    padding: 0 var(--spacing-small) !important;
-  }
-  .name {
-    font-weight: 700;
-  }
-  .verificationText {
-    color: var(--grey-400);
-    padding: 0;
-    width: 300;
-  }
-  .validateError {
-    color: var(--red-500);
-    padding: 10px;
-    width: 95%;
-    margin: var(--spacing-small);
-  }
-  .btnWrapper {
-    margin-top: 300px;
-    .submitBtn {
-      color: var(--blue-500);
-    }
+.name {
+  font-weight: 700;
+}
+.validateError {
+  color: var(--red-500);
+  padding: var(--spacing-small);
+  width: 95%;
+  margin: var(--spacing-small);
+}
+.btnWrapper {
+  margin-top: 300px;
+  .submitBtn {
+    color: var(--blue-500);
   }
 }

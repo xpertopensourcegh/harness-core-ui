@@ -71,11 +71,9 @@ exports[`Delegate Step Wizard should render Delegate Setup Wizard 1`] = `
           <div
             class="OverlaySpinner---overlaySpinner--3Bs3"
           >
-            <form
-              class="connectorForm"
-            >
+            <form>
               <div
-                class="detailWrapper"
+                class="connectorForm"
               >
                 <div
                   class="InputWithIdentifier---txtNameContainer--20iZ"
@@ -87,7 +85,7 @@ exports[`Delegate Step Wizard should render Delegate Setup Wizard 1`] = `
                       class="bp3-label"
                       for="name"
                     >
-                      Name
+                      Give your Kubernetes Connector a name 
                        
                       <span
                         class="bp3-text-muted"

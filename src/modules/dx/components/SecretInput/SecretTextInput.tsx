@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import type { FormikProps } from 'formik'
 import { Position, Classes } from '@blueprintjs/core'
 import { FormInput, Layout, Text, Button, Color, Icon, Popover } from '@wings-software/uikit'
-import cx from 'classnames'
 import { FormikCreateInlineSecret } from 'modules/common/components/CreateInlineSecret/CreateInlineSecret'
 import SecretReference from 'modules/dx/components/SecretReference/SecretReference'
 import i18n from './SecretTextInput.i18n'
@@ -29,23 +28,41 @@ export const SecretTextInput: React.FC<SecretTextInputProps> = props => {
       <FormInput.Text
         name={fieldName}
         label={
-          <div className={css.labelWrp}>
-            <div className={css.passwordLabel}>{props.label}</div>
+          <Layout.Horizontal flex={{ distribution: 'space-between' }}>
+            <Text>{props.label}</Text>
             <Popover position={Position.BOTTOM}>
               <div className={css.secretPop}>
                 <Icon name="key-main" size={24} height={12} width={24} /> <Icon name="chevron-down" size={14} />
               </div>
               <>
-                <Button
-                  minimal
-                  text={i18n.createSecretText}
-                  height="40px"
+                <Layout.Horizontal
+                  border={{ bottom: true }}
+                  padding={{ top: 'large', right: 'large', left: 'large', bottom: 'xsmall' }}
+                  flex={{ distribution: 'space-between' }}
+                >
+                  <Layout.Vertical>
+                    <Text font={{ size: 'xsmall' }} color={Color.DARK_400}>
+                      {i18n.savedSecretText}
+                    </Text>
+                    <Text font={{ size: 'small' }} color={Color.BLUE_500}>
+                      {/* Replace with real value when behaviour is decided */}
+                      Secret name
+                    </Text>
+                  </Layout.Vertical>
+                  <Button icon="edit" minimal />
+                </Layout.Horizontal>
+                <Text
+                  height={'40px'}
+                  padding={{ top: 'small', bottom: 'small', right: 'large', left: 'large' }}
+                  border={{ bottom: true }}
+                  color={Color.DARK_600}
                   onClick={() => {
                     props.onClickCreateSecret()
                   }}
-                  className={cx(Classes.POPOVER_DISMISS, css.createSecretBtn)}
-                />
-                <hr />
+                  className={Classes.POPOVER_DISMISS}
+                >
+                  {i18n.createSecretText}
+                </Text>
                 <SecretReference
                   accountIdentifier={props.accountId}
                   projectIdentifier={props.projectIdentifier}
@@ -56,7 +73,7 @@ export const SecretTextInput: React.FC<SecretTextInputProps> = props => {
                 />
               </>
             </Popover>
-          </div>
+          </Layout.Horizontal>
         }
         inputGroup={{ type: 'password' }}
       />

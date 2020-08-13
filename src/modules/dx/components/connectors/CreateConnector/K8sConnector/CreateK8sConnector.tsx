@@ -9,7 +9,8 @@ import {
   Formik,
   Icon,
   SelectV2,
-  SelectOption
+  SelectOption,
+  Color
 } from '@wings-software/uikit'
 import { Form } from 'formik'
 import cx from 'classnames'
@@ -292,14 +293,15 @@ const SecondStep = (props: SecondStepProps) => {
                 : null}
             </div>
 
-            <Layout.Horizontal spacing="large" className={css.saveSecondStep}>
+            <Layout.Horizontal spacing="large">
               <Button onClick={() => props.previousStep?.()} text="Back" />
               {state.delegateType === DelegateTypes.DELEGATE_IN_CLUSTER ? (
-                <Button type="submit" className={css.continueBtn} text="Continue" />
+                <Button type="submit" text="Continue" />
               ) : (
                 <Button
                   type="submit"
-                  className={css.continueBtn}
+                  color={Color.BLUE_500}
+                  border={{ color: Color.BLUE_500 }}
                   text="Continue"
                   onClick={() => {
                     addToFormData(state, { delegateType: DelegateTypes.DELEGATE_OUT_CLUSTER })

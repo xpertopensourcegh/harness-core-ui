@@ -54,6 +54,19 @@ export const getHeadingByType = (type: string) => {
   }
 }
 
+export const getConnectorTextByType = (type: string) => {
+  switch (type) {
+    case Connectors.KUBERNETES_CLUSTER:
+      return i18n.LABEL.k8sCluster
+    case Connectors.GIT:
+      return i18n.LABEL.gitConnector
+    case Connectors.SECRET_MANAGER:
+      return i18n.LABEL.secretManager
+    default:
+      return null
+  }
+}
+
 export const getLabelForEncryptedSecret = (field: string) => {
   switch (field) {
     case AuthTypeFields.passwordRef:

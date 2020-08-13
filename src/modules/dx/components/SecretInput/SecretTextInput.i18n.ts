@@ -1,4 +1,5 @@
 export default {
   SECRET_INFO_TEXT: 'PASSWORD WILL BE SAVED TO SECRET MANGER',
-  createSecretText: 'Create a new Secret'
+  createSecretText: 'Create a new Secret',
+  savedSecretText: 'This secret is saved as'
 }

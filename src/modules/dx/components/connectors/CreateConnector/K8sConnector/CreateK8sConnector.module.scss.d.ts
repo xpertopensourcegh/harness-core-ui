@@ -2,7 +2,6 @@
 // this is an auto-generated file
 declare const styles: {
   readonly secondStep: string
-  readonly continueBtn: string
   readonly headingStepTwo: string
   readonly customCss: string
   readonly selectedText: string
@@ -16,7 +15,6 @@ declare const styles: {
   readonly label: string
   readonly selectDelegate: string
   readonly selectDelegateText: string
-  readonly saveSecondStep: string
   readonly itemName: string
   readonly tickWrp: string
   readonly tickIcon: string

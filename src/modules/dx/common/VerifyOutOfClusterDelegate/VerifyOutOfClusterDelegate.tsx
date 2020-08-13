@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react'
-import { StepsProgress, Layout, Button, Text, Intent } from '@wings-software/uikit'
+import { StepsProgress, Layout, Button, Text, Intent, Color } from '@wings-software/uikit'
 import { useGetDelegatesStatus, RestResponseDelegateStatus } from 'services/portal'
 import { useGetTestConnectionResult } from 'services/cd-ng'
 import i18n from './VerifyOutOfClusterDelegate.i18n'
@@ -112,26 +112,28 @@ const VerifyOutOfClusterDelegate = (props: VerifyOutOfClusterDelegateProps) => {
     }
   }, [loadingStatus, currentStep, delegateStatus])
   return (
-    <Layout.Vertical padding="small" className={css.outCluster}>
-      <Text font="medium" className={css.heading}>
-        Verify Connection to <span className={css.name}>{props.connectorName}</span>
-      </Text>
-      <StepsProgress
-        steps={[getStepOne(state), i18n.STEPS.TWO, i18n.STEPS.THREE]}
-        intent={currentIntent}
-        current={currentStep}
-        currentStatus={currentStatus}
-      />
-      {currentStep === 3 && (
-        <Text font="small" className={css.verificationText}>
-          {i18n.VERIFICATION_TIME_TEXT}
+    <Layout.Vertical padding="small" height={'100%'}>
+      <Layout.Vertical height={'90%'}>
+        <Text font="medium" color={Color.GREY_700} padding={{ right: 'small', left: 'small' }}>
+          Verify Connection to <span className={css.name}>{props.connectorName}</span>
         </Text>
-      )}
-      {state.validateError?.responseMessages?.[0]?.message && (
-        <Text font="small" className={css.validateError}>
-          {state.validateError}
-        </Text>
-      )}
+        <StepsProgress
+          steps={[getStepOne(state), i18n.STEPS.TWO, i18n.STEPS.THREE]}
+          intent={currentIntent}
+          current={currentStep}
+          currentStatus={currentStatus}
+        />
+        {currentStep === 3 && (
+          <Text font="small" color={Color.GREY_400} padding="none" width={300}>
+            {i18n.VERIFICATION_TIME_TEXT}
+          </Text>
+        )}
+        {state.validateError?.responseMessages?.[0]?.message && (
+          <Text font="small" className={css.validateError}>
+            {state.validateError}
+          </Text>
+        )}
+      </Layout.Vertical>
 
       <Layout.Horizontal spacing="large" className={css.btnWrapper}>
         <Button type="submit" onClick={() => props.hideLightModal?.()} className={css.submitBtn} text="Finish" />

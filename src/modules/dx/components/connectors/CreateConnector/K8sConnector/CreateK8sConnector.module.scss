@@ -7,9 +7,6 @@
 }
 .secondStep {
   margin: var(--spacing-small) 0 var(--spacing-small) var(--spacing-small) !important;
-  .continueBtn {
-    color: var(--blue-500);
-  }
   .headingStepTwo {
     font-size: var(--font-size-medium);
     letter-spacing: 0;
@@ -127,9 +124,6 @@
     font-size: var(--font-size-small);
     letter-spacing: 0.2px;
     line-height: 16px;
-  }
-  .saveSecondStep {
-    margin-top: var(--spacing-large);
   }
 }
 .itemName {
