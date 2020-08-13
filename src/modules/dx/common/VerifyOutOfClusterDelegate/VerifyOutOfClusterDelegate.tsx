@@ -7,11 +7,13 @@ import css from './VerifyOutOfClusterDelegate.module.scss'
 
 interface VerifyOutOfClusterDelegateProps {
   accountId: string
-  hideLightModal: () => void
+  projectIdentifier: string
+  orgIdentifier: string
+  hideLightModal?: () => void
   previousStep?: () => void
   connectorName: string | undefined
   connectorIdentifier?: string
-  name: string
+  name?: string
 }
 
 interface VerifyOutOfClusterDelegateState {
@@ -64,7 +66,8 @@ const VerifyOutOfClusterDelegate = (props: VerifyOutOfClusterDelegateProps) => {
   } = useGetTestConnectionResult({
     accountIdentifier: props.accountId,
     connectorIdentifier: props.connectorIdentifier as string,
-    lazy: true
+    lazy: true,
+    queryParams: { orgIdentifier: props.orgIdentifier, projectIdentifier: props.projectIdentifier }
   })
   const mounted = useRef(false)
   React.useEffect(() => {
@@ -131,7 +134,7 @@ const VerifyOutOfClusterDelegate = (props: VerifyOutOfClusterDelegateProps) => {
       )}
 
       <Layout.Horizontal spacing="large" className={css.btnWrapper}>
-        <Button type="submit" onClick={() => props.hideLightModal()} className={css.submitBtn} text="Finish" />
+        <Button type="submit" onClick={() => props.hideLightModal?.()} className={css.submitBtn} text="Finish" />
       </Layout.Horizontal>
     </Layout.Vertical>
   )

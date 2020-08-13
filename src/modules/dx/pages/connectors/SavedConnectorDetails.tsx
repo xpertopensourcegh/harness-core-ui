@@ -1,6 +1,5 @@
 import React from 'react'
 import { Layout, Tag } from '@wings-software/uikit'
-
 import i18n from './SavedConnectorDetails.i18n'
 import css from './SavedConnectorDetails.module.scss'
 

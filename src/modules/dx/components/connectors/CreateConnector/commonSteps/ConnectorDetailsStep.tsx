@@ -12,6 +12,8 @@ import css from './ConnectorDetailsStep.module.scss'
 
 interface ConnectorDetailsStepProps extends StepProps<unknown> {
   accountId: string
+  projectIdentifier: string
+  orgIdentifier: string
   type: string
   name: string
   setFormData: (formData: KubFormData | GITFormData | undefined) => void
@@ -23,7 +25,8 @@ const ConnectorDetailsStep: React.FC<ConnectorDetailsStepProps> = props => {
   const [stepData, setStepData] = useState(props.formData)
   const { loading, data, refetch: revalidateUniqueIdentifier } = useValidateTheIdentifierIsUnique({
     accountIdentifier: props.accountId,
-    lazy: true
+    lazy: true,
+    queryParams: { orgIdentifier: props.orgIdentifier, projectIdentifier: props.projectIdentifier }
   })
   const mounted = useRef(false)
   useEffect(() => {

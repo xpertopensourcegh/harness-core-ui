@@ -1,14 +1,9 @@
 import React from 'react'
 import { string } from 'yup'
-import { FormInput, Layout, Icon, Popover } from '@wings-software/uikit'
+import { Layout, Icon } from '@wings-software/uikit'
 import * as Yup from 'yup'
-import type { FormikProps } from 'formik'
-import { Position } from '@blueprintjs/core'
 import cx from 'classnames'
 import { StringUtils } from 'modules/common/exports'
-import { FormikCreateInlineSecret } from 'modules/common/components/CreateInlineSecret/CreateInlineSecret'
-import SecretReference from 'modules/dx/components/SecretReference/SecretReference'
-import { accountId } from 'modules/cv/constants'
 import css from './KubFormHelper.module.scss'
 
 export const AuthTypes = {
@@ -28,7 +23,7 @@ export const authOptions: AuthOption[] = [
   { value: AuthTypes.OIDC, label: 'OIDC Token' },
   { value: AuthTypes.CLIENT_KEY_CERT, label: 'Client Key Certificate' }
 ]
-export interface SceretFieldByType {
+export interface SecretFieldByType {
   passwordField: string
   secretField: string
 }
@@ -78,27 +73,6 @@ export const getSecretFieldsByType = (type: string) => {
         { passwordField: 'clientCertRef', secretField: 'clientCertRefSecret' },
         { passwordField: 'clientKeyPassphraseRef', secretField: 'clientKeyPassphraseRefSecret' }
       ]
-  }
-}
-
-export const getSecretFieldValue = (field: string) => {
-  switch (field) {
-    case AuthTypeFields.passwordRef:
-      return 'passwordRefSecret'
-    case AuthTypeFields.serviceAccountTokenRef:
-      return 'serviceAccountTokenRefSecret'
-    case AuthTypeFields.oidcClientIdRef:
-      return 'oidcClientIdRefSecret'
-    case AuthTypeFields.oidcPasswordRef:
-      return 'oidcPasswordRefSceret'
-    case AuthTypeFields.oidcSecretRef:
-      return 'oidcSecretRefSecret'
-    case AuthTypeFields.clientKeyRef:
-      return 'clientKeyRefSecret'
-    case AuthTypeFields.clientKeyPassphraseRef:
-      return 'clientKeyPassphraseRefSecret'
-    case AuthTypeFields.clientCertRef:
-      return 'clientCertRefSecret'
   }
 }
 
@@ -164,117 +138,6 @@ export const getKubValidationSchema = () => {
       then: string().trim().required('Client ID is required.')
     })
   })
-}
-
-const getSelectSecretPopover = (formikProps?: FormikProps<any>): React.ReactElement => {
-  return (
-    <Popover position={Position.BOTTOM}>
-      <div className={css.secretPop}>
-        <Icon name="key-main" size={24} height={12} width={24} /> <Icon name="chevron-down" size={14} />
-      </div>
-      <SecretReference
-        accountIdentifier={accountId} // TODO: remove sample account id when integrating
-        onSelect={secret => {
-          formikProps?.setFieldValue('password', secret?.name)
-        }}
-      />
-    </Popover>
-  )
-}
-const getLabelForEncryptedSecret = (field: string) => {
-  switch (field) {
-    case AuthTypeFields.passwordRef:
-      return 'Password'
-    case AuthTypeFields.serviceAccountTokenRef:
-      return 'Service Account Token'
-    case AuthTypeFields.oidcPasswordRef:
-      return 'Password'
-    case AuthTypeFields.oidcClientIdRef:
-      return 'Client ID'
-    case AuthTypeFields.oidcSecretRef:
-      return 'Client Secret'
-    case AuthTypeFields.clientKeyRef:
-      return 'Client Key'
-    case AuthTypeFields.clientKeyPassphraseRef:
-      return 'Client Key Passphrase'
-    case AuthTypeFields.clientCertRef:
-      return 'Client Certificate'
-  }
-}
-
-export const getSecretComponent = (passwordField: string, connectorName?: string, formikProps?: FormikProps<any>) => {
-  const generatedId = StringUtils.getIdentifierFromName(connectorName || '').concat(passwordField)
-  return (
-    <>
-      <FormInput.Text
-        name={passwordField}
-        label={
-          <div className={css.labelWrp}>
-            <div className={css.passwordLabel}>{getLabelForEncryptedSecret(passwordField)}</div>
-            {getSelectSecretPopover(formikProps)}
-          </div>
-        }
-        inputGroup={{ type: 'password' }}
-      />
-      <FormikCreateInlineSecret
-        name={getSecretFieldValue(passwordField) as string}
-        defaultSecretName={generatedId}
-        defaultSecretId={generatedId}
-        accountIdentifier={accountId} // TODO: remove sample account id when integrating
-      />
-    </>
-  )
-}
-const renderUserNameAndPassword = (connectorName?: string, formikProps?: FormikProps<any>) => {
-  return (
-    <>
-      <FormInput.Text name="username" label="Username" />
-      {getSecretComponent(AuthTypeFields.passwordRef, connectorName, formikProps)}
-    </>
-  )
-}
-
-const fieldsForOIDCToken = (connectorName?: string, formikProps?: FormikProps<any>) => {
-  return (
-    <>
-      <FormInput.Text name={AuthTypeFields.oidcIssuerUrl} label="Identity Provider Url" />
-      <FormInput.Text name={AuthTypeFields.oidcUsername} label="Username" />
-      {getSecretComponent(AuthTypeFields.oidcPasswordRef, connectorName, formikProps)}
-      {getSecretComponent(AuthTypeFields.oidcClientIdRef, connectorName, formikProps)}
-      {getSecretComponent(AuthTypeFields.oidcSecretRef, connectorName, formikProps)}
-      <FormInput.Text name={AuthTypeFields.oidcScopes} label="OIDC Scopes" />
-    </>
-  )
-}
-
-export const renderFieldsForClientKeyCert = (connectorName?: string, formikProps?: FormikProps<any>) => {
-  return (
-    <>
-      {getSecretComponent(AuthTypeFields.clientKeyRef, connectorName, formikProps)}
-      {getSecretComponent(AuthTypeFields.oidcClientIdRef, connectorName, formikProps)}
-      {getSecretComponent(AuthTypeFields.clientKeyPassphraseRef, connectorName, formikProps)}
-      <FormInput.Text name={AuthTypeFields.clientKeyAlgo} label={getSecretFieldValue(AuthTypeFields.clientCertRef)} />
-    </>
-  )
-}
-
-export const getCustomFields = (
-  authType: string | number | symbol,
-  connectorName?: string,
-  formikProps?: FormikProps<any>
-): React.ReactElement => {
-  switch (authType) {
-    case AuthTypes.USER_PASSWORD:
-      return renderUserNameAndPassword(connectorName, formikProps)
-    case AuthTypes.SERVICE_ACCOUNT:
-      return getSecretComponent(AuthTypeFields.serviceAccountTokenRef, connectorName, formikProps)
-    case AuthTypes.OIDC:
-      return fieldsForOIDCToken(connectorName, formikProps)
-    case AuthTypes.CLIENT_KEY_CERT:
-      return renderFieldsForClientKeyCert(connectorName, formikProps)
-    default:
-      return <></>
-  }
 }
 
 export const getIconsForCard = (type: string, isSelected: boolean) => {

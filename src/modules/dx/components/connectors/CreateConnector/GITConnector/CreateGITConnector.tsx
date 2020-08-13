@@ -13,6 +13,8 @@ import HttpCredendialStep from './HTTP/HttpCredendialStep'
 
 interface CreateGITConnectorProps {
   accountId: string
+  projectIdentifier: string
+  orgIdentifier: string
   hideLightModal: () => void
 }
 const CreateGITConnector = (props: CreateGITConnectorProps) => {
@@ -28,6 +30,8 @@ const CreateGITConnector = (props: CreateGITConnectorProps) => {
       <StepWizard>
         <ConnectorDetailsStep
           accountId={props.accountId}
+          orgIdentifier={props.orgIdentifier}
+          projectIdentifier={props.projectIdentifier}
           type={i18n.type}
           name={i18n.STEP_ONE.NAME}
           setFormData={setFormData}

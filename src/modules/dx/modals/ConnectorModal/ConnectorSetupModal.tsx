@@ -29,7 +29,7 @@ const getMenuItem = (item: OptionInterface): JSX.Element => {
 }
 
 const ConnectorModal: React.FC = () => {
-  const { accountId } = useParams()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams()
   const [connectorType, setConnectorType] = useState('')
 
   const modalPropsLight: IDialogProps = {
@@ -53,7 +53,13 @@ const ConnectorModal: React.FC = () => {
   const [openLightModal, hideLightModal] = useModalHook(
     () => (
       <Dialog {...modalPropsLight}>
-        <CreateConnectorWizard accountId={accountId} type={connectorType} hideLightModal={hideLightModal} />
+        <CreateConnectorWizard
+          accountId={accountId}
+          orgIdentifier={orgIdentifier}
+          projectIdentifier={projectIdentifier}
+          type={connectorType}
+          hideLightModal={hideLightModal}
+        />
         <Button minimal icon="cross" iconProps={{ size: 18 }} onClick={hideLightModal} className={css.crossIcon} />
       </Dialog>
     ),

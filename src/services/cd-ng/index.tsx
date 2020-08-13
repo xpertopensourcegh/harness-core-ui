@@ -162,20 +162,20 @@ export type KubernetesUserNamePasswordDTO = KubernetesAuthCredentialDTO & {
   passwordRef: SecretRefData
 }
 
-export interface CDPipeline {
-  name?: string
-  identifier: string
-  description?: string
-  tags?: Tag[]
-  stages?: StageElementWrapper[]
-}
-
 export interface CreateOrganizationDTO {
   identifier: string
   name: string
   color: string
   description?: string
   tags: string[]
+}
+
+export interface CDPipeline {
+  name?: string
+  identifier: string
+  description?: string
+  tags?: Tag[]
+  stages?: StageElementWrapper[]
 }
 
 export interface Graph {
@@ -310,9 +310,9 @@ export type AppDynamicsConnectorDTO = ConnectorConfigDTO & {
 }
 
 export interface GitAuthenticationDTO {
-  gitConnectionType?: 'ACCOUNT' | 'REPO'
-  branchName?: string
   url?: string
+  branchName?: string
+  gitConnectionType?: 'ACCOUNT' | 'REPO'
   settingType?:
     | 'HOST_CONNECTION_ATTRIBUTES'
     | 'BASTION_HOST_CONNECTION_ATTRIBUTES'
@@ -410,16 +410,16 @@ export interface ProjectDTO {
   lastModifiedAt?: number
 }
 
-export interface InfraUseFromStage {
-  stage: string
-  overrides?: InfraOverrides
-}
-
 export interface GitSyncFolderConfigDTO {
   rootFolder?: string
   isDefault?: boolean
   identifier?: string
   enabled?: boolean
+}
+
+export interface InfraUseFromStage {
+  stage: string
+  overrides?: InfraOverrides
 }
 
 export interface ConnectorConfigDTO {
@@ -441,19 +441,19 @@ export interface KubernetesCredentialDTO {
   [key: string]: any
 }
 
-export interface ResponseDTOPageCDPipelineSummaryResponseDTO {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: PageCDPipelineSummaryResponseDTO
-  metaData?: { [key: string]: any }
-  correlationId?: string
-}
-
 export interface StackTraceElement {
   methodName?: string
   fileName?: string
   lineNumber?: number
   className?: string
   nativeMethod?: boolean
+}
+
+export interface ResponseDTOPageCDPipelineSummaryResponseDTO {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: PageCDPipelineSummaryResponseDTO
+  metaData?: { [key: string]: any }
+  correlationId?: string
 }
 
 export interface ResponseDTOOptionalConnectorDTO {
@@ -502,11 +502,12 @@ export interface EnvironmentRequestDTO {
   type: 'PreProduction' | 'Production'
 }
 
-export interface ResponseDTOOptionalServiceResponseDTO {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: ServiceResponseDTO
-  metaData?: { [key: string]: any }
-  correlationId?: string
+export interface RestResponseBoolean {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: boolean
+  responseMessages?: ResponseMessage[]
 }
 
 export interface ArtifactSpecWrapper {
@@ -519,14 +520,6 @@ export type SidecarArtifact = SidecarArtifactWrapper & {
   spec?: ArtifactConfig
 }
 
-export interface RestResponseBoolean {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: boolean
-  responseMessages?: ResponseMessage[]
-}
-
 export interface NGPageResponseProjectDTO {
   totalPages?: number
   totalElements?: number
@@ -534,13 +527,6 @@ export interface NGPageResponseProjectDTO {
   content?: ProjectDTO[]
   pageNumber?: number
   empty?: boolean
-}
-
-export interface ResponseDTOOptionalEnvironmentResponseDTO {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: EnvironmentResponseDTO
-  metaData?: { [key: string]: any }
-  correlationId?: string
 }
 
 export interface Infrastructure {
@@ -570,10 +556,6 @@ export interface ServiceDefinition {
   spec?: ServiceSpec
 }
 
-export interface ManifestAttributes {
-  [key: string]: any
-}
-
 export interface NGPageResponseOrganizationDTO {
   totalPages?: number
   totalElements?: number
@@ -583,15 +565,12 @@ export interface NGPageResponseOrganizationDTO {
   empty?: boolean
 }
 
-export interface ManifestConfigWrapper {
-  identifier: string
+export interface ManifestAttributes {
+  [key: string]: any
 }
 
-export interface ResponseDTOPlanExecution {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: PlanExecution
-  metaData?: { [key: string]: any }
-  correlationId?: string
+export interface ManifestConfigWrapper {
+  identifier: string
 }
 
 export interface StepParameters {
@@ -605,10 +584,24 @@ export interface ResponseDTONGPageResponseServiceResponseDTO {
   correlationId?: string
 }
 
+export interface ResponseDTOPlanExecution {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: PlanExecution
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
 export interface GitSyncConfig {
   enabled?: boolean
   customCommitAttributes?: CustomCommitAttributes
   syncEnabled?: boolean
+}
+
+export interface TemporalUnit {
+  dateBased?: boolean
+  durationEstimated?: boolean
+  timeBased?: boolean
+  duration?: Duration
 }
 
 export interface CreateProjectDTO {
@@ -620,13 +613,6 @@ export interface CreateProjectDTO {
   description?: string
   owners: string[]
   tags: string[]
-}
-
-export interface TemporalUnit {
-  timeBased?: boolean
-  duration?: Duration
-  dateBased?: boolean
-  durationEstimated?: boolean
 }
 
 export type VaultConfigUpdateDTO = NGSecretManagerConfigUpdateDTO & {
@@ -651,15 +637,15 @@ export type K8sManifest = ManifestAttributes & {
   store?: StoreConfigWrapper
 }
 
-export type ValuesManifest = ManifestAttributes & {
-  store?: StoreConfigWrapper
-}
-
 export interface ResponseDTOServiceResponseDTO {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
   data?: ServiceResponseDTO
   metaData?: { [key: string]: any }
   correlationId?: string
+}
+
+export type ValuesManifest = ManifestAttributes & {
+  store?: StoreConfigWrapper
 }
 
 export type KubernetesClusterDetailsDTO = KubernetesCredentialDTO & {
@@ -760,13 +746,6 @@ export type KubernetesOpenIdConnectDTO = KubernetesAuthCredentialDTO & {
   oidcScopes?: string
 }
 
-export interface ResponseDTOOptionalProjectDTO {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: ProjectDTO
-  metaData?: { [key: string]: any }
-  correlationId?: string
-}
-
 export interface ConnectorSummaryDTO {
   identifier?: string
   name?: string
@@ -787,6 +766,13 @@ export interface ConnectorSummaryDTO {
   status?: ConnectorConnectivityDetails
 }
 
+export interface ResponseDTOOptionalProjectDTO {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: ProjectDTO
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
 export type GitHTTPAuthenticationDTO = GitAuthenticationDTO & {
   type?: 'ACCOUNT' | 'REPO'
   username?: string
@@ -802,10 +788,10 @@ export type K8sRollingRollbackStepInfo = StepSpecType & {
 }
 
 export interface ServiceSpec {
-  artifacts?: ArtifactListConfig
   manifests?: ManifestConfigWrapper[]
   manifestOverrideSets?: ManifestOverrideSets[]
   artifactOverrideSets?: ArtifactOverrideSets[]
+  artifacts?: ArtifactListConfig
 }
 
 export type ShellScriptStepInfo = StepSpecType & {
@@ -837,6 +823,14 @@ export interface SecretTextCreateDTO {
   description?: string
 }
 
+export interface RestResponsePlanExecution {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: PlanExecution
+  responseMessages?: ResponseMessage[]
+}
+
 export interface SecretManagerConfigDTO {
   uuid?: string
   name?: string
@@ -848,14 +842,6 @@ export interface SecretManagerConfigDTO {
   encryptionType?: 'LOCAL' | 'KMS' | 'GCP_KMS' | 'AWS_SECRETS_MANAGER' | 'AZURE_VAULT' | 'CYBERARK' | 'VAULT' | 'CUSTOM'
   description?: string
   default?: boolean
-}
-
-export interface RestResponsePlanExecution {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: PlanExecution
-  responseMessages?: ResponseMessage[]
 }
 
 export interface FailureDTO {
@@ -1091,11 +1077,11 @@ export interface RefType {
 
 export interface Pageable {
   offset?: number
+  pageSize?: number
   sort?: Sort
-  pageNumber?: number
   unpaged?: boolean
   paged?: boolean
-  pageSize?: number
+  pageNumber?: number
 }
 
 export interface NGSecretManagerConfigUpdateDTO {
@@ -1121,8 +1107,8 @@ export interface ResponseDTOConnectorValidationResult {
 }
 
 export interface Sort {
-  unsorted?: boolean
   sorted?: boolean
+  unsorted?: boolean
   empty?: boolean
 }
 
@@ -1550,10 +1536,10 @@ export interface PageCDPipelineSummaryResponseDTO {
   content?: CDPipelineSummaryResponseDTO[]
   number?: number
   sort?: Sort
-  first?: boolean
-  last?: boolean
   numberOfElements?: number
+  last?: boolean
   pageable?: Pageable
+  first?: boolean
   empty?: boolean
 }
 
@@ -1573,16 +1559,16 @@ export interface Throwable {
   suppressed?: Throwable[]
 }
 
-export interface StoreConfig {
-  [key: string]: any
-}
-
 export interface RestResponseGraph {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
   resource?: Graph
   responseMessages?: ResponseMessage[]
+}
+
+export interface StoreConfig {
+  [key: string]: any
 }
 
 export interface StageOverridesConfig {
@@ -2081,17 +2067,17 @@ export type StepGroupElement = ExecutionWrapper & {
   steps: ExecutionWrapper[]
 }
 
-export interface SecretTextUpdateDTO {
-  value?: string
-  path?: string
-  description?: string
-}
-
 export type KubernetesClientKeyCertDTO = KubernetesAuthCredentialDTO & {
   clientCertRef: SecretRefData
   clientKeyRef: SecretRefData
   clientKeyPassphraseRef: SecretRefData
   clientKeyAlgo?: string
+}
+
+export interface SecretTextUpdateDTO {
+  value?: string
+  path?: string
+  description?: string
 }
 
 export interface CustomCommitAttributes {
@@ -2120,10 +2106,10 @@ export interface PageConnectorSummaryDTO {
   content?: ConnectorSummaryDTO[]
   number?: number
   sort?: Sort
-  first?: boolean
-  last?: boolean
   numberOfElements?: number
+  last?: boolean
   pageable?: Pageable
+  first?: boolean
   empty?: boolean
 }
 
@@ -3058,7 +3044,7 @@ export interface UpdateEnvironmentQueryParams {
 
 export type UpdateEnvironmentProps = Omit<
   MutateProps<
-    ResponseDTOOptionalEnvironmentResponseDTO,
+    ResponseDTOEnvironmentResponseDTO,
     FailureDTO | ErrorDTO,
     UpdateEnvironmentQueryParams,
     EnvironmentRequestDTORequestBody,
@@ -3072,7 +3058,7 @@ export type UpdateEnvironmentProps = Omit<
  */
 export const UpdateEnvironment = (props: UpdateEnvironmentProps) => (
   <Mutate<
-    ResponseDTOOptionalEnvironmentResponseDTO,
+    ResponseDTOEnvironmentResponseDTO,
     FailureDTO | ErrorDTO,
     UpdateEnvironmentQueryParams,
     EnvironmentRequestDTORequestBody,
@@ -3087,7 +3073,7 @@ export const UpdateEnvironment = (props: UpdateEnvironmentProps) => (
 
 export type UseUpdateEnvironmentProps = Omit<
   UseMutateProps<
-    ResponseDTOOptionalEnvironmentResponseDTO,
+    ResponseDTOEnvironmentResponseDTO,
     FailureDTO | ErrorDTO,
     UpdateEnvironmentQueryParams,
     EnvironmentRequestDTORequestBody,
@@ -3101,7 +3087,7 @@ export type UseUpdateEnvironmentProps = Omit<
  */
 export const useUpdateEnvironment = (props: UseUpdateEnvironmentProps) =>
   useMutate<
-    ResponseDTOOptionalEnvironmentResponseDTO,
+    ResponseDTOEnvironmentResponseDTO,
     FailureDTO | ErrorDTO,
     UpdateEnvironmentQueryParams,
     EnvironmentRequestDTORequestBody,
@@ -3114,7 +3100,7 @@ export interface UpsertEnvironmentQueryParams {
 
 export type UpsertEnvironmentProps = Omit<
   MutateProps<
-    ResponseDTOOptionalEnvironmentResponseDTO,
+    ResponseDTOEnvironmentResponseDTO,
     FailureDTO | ErrorDTO,
     UpsertEnvironmentQueryParams,
     EnvironmentRequestDTORequestBody,
@@ -3128,7 +3114,7 @@ export type UpsertEnvironmentProps = Omit<
  */
 export const UpsertEnvironment = (props: UpsertEnvironmentProps) => (
   <Mutate<
-    ResponseDTOOptionalEnvironmentResponseDTO,
+    ResponseDTOEnvironmentResponseDTO,
     FailureDTO | ErrorDTO,
     UpsertEnvironmentQueryParams,
     EnvironmentRequestDTORequestBody,
@@ -3143,7 +3129,7 @@ export const UpsertEnvironment = (props: UpsertEnvironmentProps) => (
 
 export type UseUpsertEnvironmentProps = Omit<
   UseMutateProps<
-    ResponseDTOOptionalEnvironmentResponseDTO,
+    ResponseDTOEnvironmentResponseDTO,
     FailureDTO | ErrorDTO,
     UpsertEnvironmentQueryParams,
     EnvironmentRequestDTORequestBody,
@@ -3157,7 +3143,7 @@ export type UseUpsertEnvironmentProps = Omit<
  */
 export const useUpsertEnvironment = (props: UseUpsertEnvironmentProps) =>
   useMutate<
-    ResponseDTOOptionalEnvironmentResponseDTO,
+    ResponseDTOEnvironmentResponseDTO,
     FailureDTO | ErrorDTO,
     UpsertEnvironmentQueryParams,
     EnvironmentRequestDTORequestBody,
@@ -3176,7 +3162,7 @@ export interface GetEnvironmentPathParams {
 
 export type GetEnvironmentProps = Omit<
   GetProps<
-    ResponseDTOOptionalEnvironmentResponseDTO,
+    ResponseDTOEnvironmentResponseDTO,
     FailureDTO | ErrorDTO,
     GetEnvironmentQueryParams,
     GetEnvironmentPathParams
@@ -3189,12 +3175,7 @@ export type GetEnvironmentProps = Omit<
  * Gets a Environment by identifier
  */
 export const GetEnvironment = ({ environmentIdentifier, ...props }: GetEnvironmentProps) => (
-  <Get<
-    ResponseDTOOptionalEnvironmentResponseDTO,
-    FailureDTO | ErrorDTO,
-    GetEnvironmentQueryParams,
-    GetEnvironmentPathParams
-  >
+  <Get<ResponseDTOEnvironmentResponseDTO, FailureDTO | ErrorDTO, GetEnvironmentQueryParams, GetEnvironmentPathParams>
     path={`/environments/${environmentIdentifier}`}
     base={getConfig('cd/api')}
     {...props}
@@ -3203,7 +3184,7 @@ export const GetEnvironment = ({ environmentIdentifier, ...props }: GetEnvironme
 
 export type UseGetEnvironmentProps = Omit<
   UseGetProps<
-    ResponseDTOOptionalEnvironmentResponseDTO,
+    ResponseDTOEnvironmentResponseDTO,
     FailureDTO | ErrorDTO,
     GetEnvironmentQueryParams,
     GetEnvironmentPathParams
@@ -3216,16 +3197,10 @@ export type UseGetEnvironmentProps = Omit<
  * Gets a Environment by identifier
  */
 export const useGetEnvironment = ({ environmentIdentifier, ...props }: UseGetEnvironmentProps) =>
-  useGet<
-    ResponseDTOOptionalEnvironmentResponseDTO,
-    FailureDTO | ErrorDTO,
-    GetEnvironmentQueryParams,
-    GetEnvironmentPathParams
-  >((paramsInPath: GetEnvironmentPathParams) => `/environments/${paramsInPath.environmentIdentifier}`, {
-    base: getConfig('cd/api'),
-    pathParams: { environmentIdentifier },
-    ...props
-  })
+  useGet<ResponseDTOEnvironmentResponseDTO, FailureDTO | ErrorDTO, GetEnvironmentQueryParams, GetEnvironmentPathParams>(
+    (paramsInPath: GetEnvironmentPathParams) => `/environments/${paramsInPath.environmentIdentifier}`,
+    { base: getConfig('cd/api'), pathParams: { environmentIdentifier }, ...props }
+  )
 
 export interface DeleteEnvironmentQueryParams {
   accountId?: string
@@ -4705,7 +4680,7 @@ export interface UpdateServiceQueryParams {
 
 export type UpdateServiceProps = Omit<
   MutateProps<
-    ResponseDTOOptionalServiceResponseDTO,
+    ResponseDTOServiceResponseDTO,
     FailureDTO | ErrorDTO,
     UpdateServiceQueryParams,
     ServiceRequestDTORequestBody,
@@ -4719,7 +4694,7 @@ export type UpdateServiceProps = Omit<
  */
 export const UpdateService = (props: UpdateServiceProps) => (
   <Mutate<
-    ResponseDTOOptionalServiceResponseDTO,
+    ResponseDTOServiceResponseDTO,
     FailureDTO | ErrorDTO,
     UpdateServiceQueryParams,
     ServiceRequestDTORequestBody,
@@ -4734,7 +4709,7 @@ export const UpdateService = (props: UpdateServiceProps) => (
 
 export type UseUpdateServiceProps = Omit<
   UseMutateProps<
-    ResponseDTOOptionalServiceResponseDTO,
+    ResponseDTOServiceResponseDTO,
     FailureDTO | ErrorDTO,
     UpdateServiceQueryParams,
     ServiceRequestDTORequestBody,
@@ -4748,7 +4723,7 @@ export type UseUpdateServiceProps = Omit<
  */
 export const useUpdateService = (props: UseUpdateServiceProps) =>
   useMutate<
-    ResponseDTOOptionalServiceResponseDTO,
+    ResponseDTOServiceResponseDTO,
     FailureDTO | ErrorDTO,
     UpdateServiceQueryParams,
     ServiceRequestDTORequestBody,
@@ -4761,7 +4736,7 @@ export interface UpsertServiceQueryParams {
 
 export type UpsertServiceProps = Omit<
   MutateProps<
-    ResponseDTOOptionalServiceResponseDTO,
+    ResponseDTOServiceResponseDTO,
     FailureDTO | ErrorDTO,
     UpsertServiceQueryParams,
     ServiceRequestDTORequestBody,
@@ -4775,7 +4750,7 @@ export type UpsertServiceProps = Omit<
  */
 export const UpsertService = (props: UpsertServiceProps) => (
   <Mutate<
-    ResponseDTOOptionalServiceResponseDTO,
+    ResponseDTOServiceResponseDTO,
     FailureDTO | ErrorDTO,
     UpsertServiceQueryParams,
     ServiceRequestDTORequestBody,
@@ -4790,7 +4765,7 @@ export const UpsertService = (props: UpsertServiceProps) => (
 
 export type UseUpsertServiceProps = Omit<
   UseMutateProps<
-    ResponseDTOOptionalServiceResponseDTO,
+    ResponseDTOServiceResponseDTO,
     FailureDTO | ErrorDTO,
     UpsertServiceQueryParams,
     ServiceRequestDTORequestBody,
@@ -4804,7 +4779,7 @@ export type UseUpsertServiceProps = Omit<
  */
 export const useUpsertService = (props: UseUpsertServiceProps) =>
   useMutate<
-    ResponseDTOOptionalServiceResponseDTO,
+    ResponseDTOServiceResponseDTO,
     FailureDTO | ErrorDTO,
     UpsertServiceQueryParams,
     ServiceRequestDTORequestBody,
@@ -4822,7 +4797,7 @@ export interface GetServicePathParams {
 }
 
 export type GetServiceProps = Omit<
-  GetProps<ResponseDTOOptionalServiceResponseDTO, FailureDTO | ErrorDTO, GetServiceQueryParams, GetServicePathParams>,
+  GetProps<ResponseDTOServiceResponseDTO, FailureDTO | ErrorDTO, GetServiceQueryParams, GetServicePathParams>,
   'path'
 > &
   GetServicePathParams
@@ -4831,7 +4806,7 @@ export type GetServiceProps = Omit<
  * Gets a Service by identifier
  */
 export const GetService = ({ serviceIdentifier, ...props }: GetServiceProps) => (
-  <Get<ResponseDTOOptionalServiceResponseDTO, FailureDTO | ErrorDTO, GetServiceQueryParams, GetServicePathParams>
+  <Get<ResponseDTOServiceResponseDTO, FailureDTO | ErrorDTO, GetServiceQueryParams, GetServicePathParams>
     path={`/services/${serviceIdentifier}`}
     base={getConfig('cd/api')}
     {...props}
@@ -4839,12 +4814,7 @@ export const GetService = ({ serviceIdentifier, ...props }: GetServiceProps) => 
 )
 
 export type UseGetServiceProps = Omit<
-  UseGetProps<
-    ResponseDTOOptionalServiceResponseDTO,
-    FailureDTO | ErrorDTO,
-    GetServiceQueryParams,
-    GetServicePathParams
-  >,
+  UseGetProps<ResponseDTOServiceResponseDTO, FailureDTO | ErrorDTO, GetServiceQueryParams, GetServicePathParams>,
   'path'
 > &
   GetServicePathParams
@@ -4853,7 +4823,7 @@ export type UseGetServiceProps = Omit<
  * Gets a Service by identifier
  */
 export const useGetService = ({ serviceIdentifier, ...props }: UseGetServiceProps) =>
-  useGet<ResponseDTOOptionalServiceResponseDTO, FailureDTO | ErrorDTO, GetServiceQueryParams, GetServicePathParams>(
+  useGet<ResponseDTOServiceResponseDTO, FailureDTO | ErrorDTO, GetServiceQueryParams, GetServicePathParams>(
     (paramsInPath: GetServicePathParams) => `/services/${paramsInPath.serviceIdentifier}`,
     { base: getConfig('cd/api'), pathParams: { serviceIdentifier }, ...props }
   )

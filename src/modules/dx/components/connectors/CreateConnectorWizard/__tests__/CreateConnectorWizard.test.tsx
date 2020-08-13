@@ -6,6 +6,8 @@ import { CreateConnectorWizard } from '../CreateConnectorWizard'
 
 const props = {
   accountId: 'accountId',
+  orgIdentifier: 'orgId',
+  projectIdentifier: 'projectId',
   type: 'K8sCluster',
   hideLightModal: jest.fn()
 }

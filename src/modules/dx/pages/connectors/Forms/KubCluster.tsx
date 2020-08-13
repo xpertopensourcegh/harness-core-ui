@@ -2,8 +2,11 @@ import React, { useState, useEffect } from 'react'
 import cx from 'classnames'
 import { FormInput, Layout } from '@wings-software/uikit'
 import { CardSelect, Icon } from '@wings-software/uikit'
+import ConnectorFormFields from 'modules/dx/components/connectors/ConnectorFormFields/ConnectorFormFields'
+import type { FormData } from 'modules/dx/interfaces/ConnectorInterface'
+import { authOptions, DelegateTypes, DelegateInClusterType, getIconsForCard } from './KubeFormHelper'
+
 import i18n from './KubCluster.i18n'
-import { authOptions, getCustomFields, DelegateTypes, DelegateInClusterType, getIconsForCard } from './KubeFormHelper'
 
 // import type { AuthOption } from './KubeFormHelper'
 import css from './KubCluster.module.scss'
@@ -14,8 +17,11 @@ interface SelectedDelegate {
   icon: string
 }
 interface KubClusterProps {
+  accountId: string
+  projectIdentifier: string
+  orgIdentifier: string
   enableEdit?: boolean
-  connector: any
+  connector: FormData
   enableCreate?: boolean
   formikProps: any
 }
@@ -27,6 +33,8 @@ interface KubClusterState {
   setAuthentication: (val: string) => void
   inclusterDelegate: string
   setInClusterDelegate: (val: string) => void
+  showCreateSecretModal: boolean
+  setShowCreateSecretModal: (val: boolean) => void
 }
 
 const delegateData = [
@@ -93,8 +101,8 @@ const renderDelegateInclusterForm = (state: KubClusterState) => {
     </div>
   )
 }
-
-const renderDelegateOutclusterForm = (state: KubClusterState) => {
+// Todo: Move this to React component
+const renderDelegateOutclusterForm = (state: KubClusterState, props: KubClusterProps) => {
   return (
     <div className={css.delgateOutCluster}>
       <FormInput.Text label={i18n.masterUrl} name="masterUrl" />
@@ -111,7 +119,15 @@ const renderDelegateOutclusterForm = (state: KubClusterState) => {
           }}
         />
       </Layout.Horizontal>
-      {getCustomFields(state.authentication)}
+      <ConnectorFormFields
+        accountId={props.accountId}
+        orgIdentifier={props.orgIdentifier}
+        projectIdentifier={props.projectIdentifier}
+        formikProps={props.formikProps}
+        authType={state.authentication}
+        name={props.formikProps?.values?.name}
+        onClickCreateSecret={() => state.setShowCreateSecretModal(true)}
+      />
     </div>
   )
 }
@@ -120,6 +136,7 @@ const KubCluster = (props: KubClusterProps): JSX.Element => {
   const [selectedDelegate, setSelectedDelegate] = useState({ type: '', value: '', icon: '' })
   const [authentication, setAuthentication] = useState('')
   const [inclusterDelegate, setInClusterDelegate] = useState('')
+  const [showCreateSecretModal, setShowCreateSecretModal] = useState<boolean>(false)
   const { connector } = props
   const state: KubClusterState = {
     selectedDelegate,
@@ -127,7 +144,9 @@ const KubCluster = (props: KubClusterProps): JSX.Element => {
     authentication,
     setAuthentication,
     inclusterDelegate,
-    setInClusterDelegate
+    setInClusterDelegate,
+    showCreateSecretModal,
+    setShowCreateSecretModal
   }
   const radioProps = {
     data: delegateData,
@@ -165,7 +184,7 @@ const KubCluster = (props: KubClusterProps): JSX.Element => {
 
   return (
     <>
-      <FormInput.InputWithIdentifier />
+      <FormInput.InputWithIdentifier isIdentifierEditable={false} />
       <FormInput.TextArea label={i18n.description} name="description" />
       <FormInput.TagInput
         name="tags"
@@ -185,7 +204,9 @@ const KubCluster = (props: KubClusterProps): JSX.Element => {
       />
       <CardSelect {...radioProps} selected={selectedDelegate} />
       {state.selectedDelegate?.type === DelegateTypes.DELEGATE_IN_CLUSTER ? renderDelegateInclusterForm(state) : null}
-      {state.selectedDelegate?.type === DelegateTypes.DELEGATE_OUT_CLUSTER ? renderDelegateOutclusterForm(state) : null}
+      {state.selectedDelegate?.type === DelegateTypes.DELEGATE_OUT_CLUSTER
+        ? renderDelegateOutclusterForm(state, props)
+        : null}
     </>
   )
 }

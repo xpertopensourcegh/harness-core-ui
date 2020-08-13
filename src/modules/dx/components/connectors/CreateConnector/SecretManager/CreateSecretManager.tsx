@@ -22,6 +22,8 @@ import i18n from './CreateSecretManager.i18n'
 
 interface CreateSecretManagerProps {
   accountId: string
+  projectIdentifier: string
+  orgIdentifier: string
   hideLightModal: () => void
 }
 
@@ -123,7 +125,12 @@ const StepSecretEngine: React.FC<StepProps<VaultConfigDTO>> = ({ nextStep, prevS
   )
 }
 
-const CreateSecretManager: React.FC<CreateSecretManagerProps> = ({ accountId, hideLightModal }) => {
+const CreateSecretManager: React.FC<CreateSecretManagerProps> = ({
+  accountId,
+  orgIdentifier,
+  projectIdentifier,
+  hideLightModal
+}) => {
   const [formData, setFormData] = useState<VaultConfigDTO>()
   const { showSuccess } = useToaster()
   const { mutate: createSecretManager } = useCreateSecretManager({})
@@ -146,6 +153,8 @@ const CreateSecretManager: React.FC<CreateSecretManagerProps> = ({ accountId, hi
       >
         <ConnectorDetailsStep
           accountId={accountId}
+          orgIdentifier={orgIdentifier}
+          projectIdentifier={projectIdentifier}
           type={Connectors.SECRET_MANAGER}
           name={i18n.titleSecretManager}
           setFormData={setFormData}

@@ -7,7 +7,14 @@ import CreateSecretManager from '../CreateSecretManager'
 
 describe('Create Secret Manager Wizard', () => {
   test('should render form', () => {
-    const dom = render(<CreateSecretManager accountId="dummy" hideLightModal={noop} />)
+    const dom = render(
+      <CreateSecretManager
+        accountId="dummy"
+        hideLightModal={noop}
+        orgIdentifier="dummyOrgId"
+        projectIdentifier="dummyProjectId"
+      />
+    )
 
     // match step 1
     expect(dom.container).toMatchSnapshot()

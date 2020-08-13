@@ -16,13 +16,12 @@ import cx from 'classnames'
 import * as Yup from 'yup'
 import {
   authOptions,
-  getCustomFields,
   DelegateTypes,
   DelegateInClusterType,
   getIconsForCard,
   AuthTypes,
   getSecretFieldsByType,
-  SceretFieldByType
+  SecretFieldByType
 } from 'modules/dx/pages/connectors/Forms/KubeFormHelper'
 import ConnectorDetailsStep from 'modules/dx/components/connectors/CreateConnector/commonSteps/ConnectorDetailsStep'
 import { useGetKubernetesDelegateNames, RestResponseListString } from 'services/portal'
@@ -37,6 +36,8 @@ import InstallDelegateForm from 'modules/dx/common/InstallDelegateForm/InstallDe
 import VerifyInstalledDelegate from 'modules/dx/common/VerifyInstalledDelegate/VerifyInstalledDelegate'
 import VerifyExistingDelegate from 'modules/dx/common/VerfiyExistingDelegate/VerifyExistingDelegate'
 import VerifyOutOfClusterDelegate from 'modules/dx/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
+import CreateSecretOverlay from 'modules/dx/common/CreateSecretOverlay/CreateSecretOverlay'
+import ConnectorFormFields from '../../ConnectorFormFields/ConnectorFormFields'
 import i18n from './CreateK8sConnector.i18n'
 import css from './CreateK8sConnector.module.scss'
 
@@ -89,23 +90,12 @@ interface IntermediateStepProps {
   name: string
   state: CreateK8sConnectorState
   accountId: string
+  projectIdentifier: string
+  orgIdentifier: string
   previousStep?: () => void
   nextStep?: () => void
   formData?: ConnectorConfigDTO
 }
-
-// ToDo: interface ThirdStepState {
-//   delegateCount: number
-//   setDelegateCount: (val: number) => void
-//   currentStatus: number
-//   setCurrentStatus: (val: number) => void
-//   currentIntent: Intent
-//   setCurrentIntent: (val: Intent) => void
-//   validateError: string
-//   setValidateError: (val: string) => void
-//   // downloadOverLay: boolean
-//   // setDownloadOverlay: (val: boolean) => void
-// }
 
 interface FirstData {
   type: string
@@ -127,6 +117,8 @@ const secondStepData: FirstData[] = [
 
 interface CreateK8sConnectorProps {
   accountId: string
+  projectIdentifier: string
+  orgIdentifier: string
   hideLightModal: () => void
 }
 interface CreateK8sConnectorState {
@@ -231,6 +223,7 @@ const SecondStep = (props: SecondStepProps) => {
     queryParams: { accountId },
     lazy: true
   })
+  //  Added scoping once BE fixes it
   const { mutate: createConnector } = useCreateConnector({ accountIdentifier: accountId })
   const radioProps = {
     data: secondStepData,
@@ -336,21 +329,20 @@ const createConnectorByType = async (
   //todo else
 }
 
-const IntermediateStep = (props: IntermediateStepProps) => {
+const IntermediateStep: React.FC<IntermediateStepProps> = props => {
+  const [showCreateSecretModal, setShowCreateSecretModal] = useState<boolean>(false)
   const { state, accountId } = props
-
-  // const accountIdentifier = accountId
   const { mutate: createConnector } = useCreateConnector({ accountIdentifier: accountId })
   const { mutate: createSecret } = useCreateSecretText({})
 
   return (
-    <div className={css.intermediateStep}>
-      <Text font="medium" className={css.headingIntermediate}>
-        {i18n.STEP_INTERMEDIATE.HEADING}
-      </Text>
-      <Formik
-        initialValues={
-          {
+    <>
+      <div className={css.intermediateStep}>
+        <Text font="medium" className={css.headingIntermediate}>
+          {i18n.STEP_INTERMEDIATE.HEADING}
+        </Text>
+        <Formik<ConnectorConfigDTO>
+          initialValues={{
             masterUrl: props.formData?.masterUrl || '',
             authType: props.formData?.authType || '',
             username: props.formData?.username || '',
@@ -375,68 +367,79 @@ const IntermediateStep = (props: IntermediateStepProps) => {
             // clientKeyRefSecret: { secretId: '', secretName: '', secretManager: { value: '' } as SelectOption },
             // clientKeyPassphraseRefSecret: { secretId: '', secretName: '', secretManager: { value: '' } as SelectOption },
             // clientCertRefSecret: { secretId: '', secretName: '', secretManager: { value: '' } as SelectOption }
-          } as ConnectorConfigDTO
-        }
-        onSubmit={formData => {
-          const connectorData = { ...state.formData, ...formData, authType: state.authentication?.value }
-          const data = buildKubPayload(connectorData)
-          const passwordFields = getSecretFieldsByType(state.authentication?.value as string) || []
+          }}
+          onSubmit={formData => {
+            const connectorData = { ...state.formData, ...formData, authType: state.authentication?.value }
+            const data = buildKubPayload(connectorData)
+            const passwordFields = getSecretFieldsByType(state.authentication?.value as string) || []
 
-          Promise.all(
-            passwordFields.map((item: SceretFieldByType) => {
-              return createSecret({
-                accountIdentifier: accountId,
-                identifier: formData[item.secretField]?.secretId,
-                name: formData[item.secretField]?.secretName,
-                secretManagerIdentifier: formData[item.secretField]?.secretManager?.value as string,
-                value: formData[item.passwordField]
+            Promise.all(
+              passwordFields.map((item: SecretFieldByType) => {
+                return createSecret({
+                  accountIdentifier: accountId,
+                  orgIdentifier: props.orgIdentifier,
+                  projectIdentifier: props.projectIdentifier,
+                  identifier: formData[item.secretField]?.secretId,
+                  name: formData[item.secretField]?.secretName,
+                  secretManagerIdentifier: formData[item.secretField]?.secretManager?.value as string,
+                  value: formData[item.passwordField]
+                })
               })
+            ).then(() => {
+              createConnectorByType(createConnector, data)
+              // to do status check
             })
-          ).then(() => {
-            createConnectorByType(createConnector, data)
-            // to do status check
-          })
-          state.setFormData(connectorData)
-          props.nextStep?.()
-        }}
-      >
-        {formikProps => (
-          <div className={css.formWrapper}>
-            <Form className={css.credForm}>
-              <div className={css.formFields}>
-                <FormInput.Text label={i18n.STEP_INTERMEDIATE.masterUrl} name="masterUrl" />
-                <Layout.Horizontal className={css.credWrapper}>
-                  <div className={css.label}>
-                    <Icon name="lock" size={14} className={css.lockIcon} />
-                    Credentials
-                  </div>
-                  <SelectV2
-                    items={authOptions}
-                    value={props.state.authentication}
-                    filterable={false}
-                    onChange={val => {
-                      props.state.setAuthentication(val)
-                    }}
-                    className={css.selectAuth}
-                  >
-                    <Button text={props.state.authentication?.label} rightIcon="chevron-down" minimal />
-                  </SelectV2>
+            state.setFormData(connectorData)
+            props.nextStep?.()
+          }}
+        >
+          {formikProps => (
+            <div className={css.formWrapper}>
+              <Form className={css.credForm}>
+                <div className={css.formFields}>
+                  <FormInput.Text label={i18n.STEP_INTERMEDIATE.masterUrl} name="masterUrl" />
+                  <Layout.Horizontal className={css.credWrapper}>
+                    <div className={css.label}>
+                      <Icon name="lock" size={14} className={css.lockIcon} />
+                      Credentials
+                    </div>
+                    <SelectV2
+                      items={authOptions}
+                      value={props.state.authentication}
+                      filterable={false}
+                      onChange={val => {
+                        props.state.setAuthentication(val)
+                      }}
+                      className={css.selectAuth}
+                    >
+                      <Button text={props.state.authentication?.label} rightIcon="chevron-down" minimal />
+                    </SelectV2>
+                  </Layout.Horizontal>
+                  <ConnectorFormFields
+                    accountId={props.accountId}
+                    orgIdentifier={props.orgIdentifier}
+                    projectIdentifier={props.projectIdentifier}
+                    formikProps={formikProps}
+                    authType={props.state.authentication?.value}
+                    name={state.formData?.name}
+                    onClickCreateSecret={() => setShowCreateSecretModal(true)}
+                  />
+                </div>
+                <Layout.Horizontal spacing="large" style={{ marginBottom: '30px' }}>
+                  <Button onClick={() => props.previousStep?.()} text="Back" />
+                  <Button
+                    type="submit"
+                    style={{ color: 'var(--blue-500)', borderColor: 'var(--blue-500)' }}
+                    text="Continue"
+                  />
                 </Layout.Horizontal>
-                {getCustomFields(props.state.authentication?.value, state.formData?.name, formikProps)}
-              </div>
-              <Layout.Horizontal spacing="large" style={{ marginBottom: '30px' }}>
-                <Button onClick={() => props.previousStep?.()} text="Back" />
-                <Button
-                  type="submit"
-                  style={{ color: 'var(--blue-500)', borderColor: 'var(--blue-500)' }}
-                  text="Continue"
-                />
-              </Layout.Horizontal>
-            </Form>
-          </div>
-        )}
-      </Formik>
-    </div>
+              </Form>
+            </div>
+          )}
+        </Formik>
+      </div>
+      {showCreateSecretModal ? <CreateSecretOverlay setShowCreateSecretModal={setShowCreateSecretModal} /> : null}
+    </>
   )
 }
 
@@ -470,6 +473,8 @@ const CreateK8sConnector = (props: CreateK8sConnectorProps) => {
       <StepWizard>
         <ConnectorDetailsStep
           accountId={props.accountId}
+          orgIdentifier={props.orgIdentifier}
+          projectIdentifier={props.projectIdentifier}
           type="K8sCluster"
           name={i18n.STEP_ONE.NAME}
           setFormData={setFormData}
@@ -485,6 +490,8 @@ const CreateK8sConnector = (props: CreateK8sConnectorProps) => {
           state.inclusterDelegate === DelegateInClusterType.addNewDelegate ? (
             <VerifyInstalledDelegate
               accountId={props.accountId}
+              orgIdentifier={props.orgIdentifier}
+              projectIdentifier={props.projectIdentifier}
               name={i18n.STEP_THREE.NAME}
               connectorName={formData?.name}
               connectorIdentifier={formData?.identifier}
@@ -493,11 +500,14 @@ const CreateK8sConnector = (props: CreateK8sConnectorProps) => {
           ) : (
             <VerifyExistingDelegate
               accountId={props.accountId}
+              orgIdentifier={props.orgIdentifier}
+              projectIdentifier={props.projectIdentifier}
               name={i18n.STEP_THREE.NAME}
               connectorName={formData?.name}
               connectorIdentifier={formData?.identifier}
               delegateName={formData?.delegateName}
               hideLightModal={props.hideLightModal}
+              renderInModal={true}
             />
           )
         ) : (

@@ -1,12 +1,14 @@
 import React from 'react'
-import { Layout, Button, Text, Color } from '@wings-software/uikit'
+import * as moment from 'moment'
+import { Layout, Text, Color } from '@wings-software/uikit'
+import { StringUtils } from 'modules/common/exports'
 import i18n from './ConnectorStats.i18n'
 import css from './ConnectorStats.module.scss'
 
 interface ConnectorStatsProps {
-  createdAt: string
+  createdAt: number
   lastTested: string
-  lastUpdated: string
+  lastUpdated: number
   connectionSuccesful: string
   status: string
 }
@@ -15,15 +17,18 @@ const TestStatus = {
   FAILED: 'FAILED'
 }
 
-const testConnection = () => {
-  return <Button className={css.testBtn} text={i18n.testConnection} onClick={() => alert('TBD: Test Connection')} />
-}
-
-const ConnectorStats = (props: ConnectorStatsProps) => {
+const ConnectorStats: React.FC<ConnectorStatsProps> = props => {
+  const { createdAt, lastUpdated } = props
   const nameValue = [
-    { name: i18n.connectorCreated, value: props.createdAt },
+    {
+      name: i18n.connectorCreated,
+      value: createdAt ? moment.unix(createdAt / 1000).format(StringUtils.DEFAULT_DATE_FORMAT) : ''
+    },
     { name: i18n.lastTested, value: props.lastTested },
-    { name: i18n.lastUpdated, value: props.lastUpdated },
+    {
+      name: i18n.lastUpdated,
+      value: lastUpdated ? moment.unix(lastUpdated / 1000).format(StringUtils.DEFAULT_DATE_FORMAT) : ''
+    },
     { name: i18n.lastConnectorSuccess, value: props.connectionSuccesful }
   ]
   return (
@@ -40,10 +45,8 @@ const ConnectorStats = (props: ConnectorStatsProps) => {
                   icon={props.status === TestStatus.SUCCESS ? 'full-circle' : 'warning-sign'}
                   iconProps={{
                     size: 6,
-                    // style: { marginTop: cell.row.original?.status === 'ACTIVE' ? 5 : 3 },
                     color: props.status === TestStatus.SUCCESS ? Color.GREEN_500 : Color.RED_500
                   }}
-                  // className={css.status}
                 >
                   {props.status === TestStatus.SUCCESS ? i18n.success : i18n.failed}
                 </Text>
@@ -51,7 +54,6 @@ const ConnectorStats = (props: ConnectorStatsProps) => {
             </Layout.Horizontal>
           )
         })}
-        {testConnection()}
       </Layout.Vertical>
     </>
   )

@@ -47,7 +47,7 @@ const useCreateSecretModal = (props: UseCreateSecretModalProps): UseCreateSecret
         className={css.dialog}
       >
         {type === SecretType.TEXT ? (
-          <CreateSecretText secretsManagers={secretsManagersApiResponse?.data || []} onSuccess={handleSuccess} />
+          <CreateSecretText onSuccess={handleSuccess} />
         ) : (
           <CreateSecretFile secretsManagers={secretsManagersApiResponse?.data || []} onSuccess={handleSuccess} />
         )}

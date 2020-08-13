@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Layout, Container, Link } from '@wings-software/uikit'
 import { Tag } from '@blueprintjs/core'
 import cx from 'classnames'
@@ -7,7 +7,7 @@ import { Page } from 'modules/common/exports'
 import { routeResources } from 'modules/common/routes'
 import { linkTo } from 'framework/exports'
 import { routeParams } from 'framework/exports'
-import { useGetConnector } from 'services/cd-ng'
+import { useGetConnector, ConnectorDTO } from 'services/cd-ng'
 import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
 import { buildKubFormData } from './utils/ConnectorUtils'
 import ConfigureConnector from './ConfigureConnector'
@@ -18,16 +18,6 @@ interface Categories {
   [key: string]: string
 }
 
-interface ConnectorDetailsPageState {
-  activeCategory: number
-  setActiveCategory: (val: number) => void
-  connectordetail: any
-  setConnector: (val: any) => void
-  connectorType: string
-  setConnectorType: (type: string) => void
-  connectorJson: any
-  setConnectorJson: (connectorJson: any) => void
-}
 const categories: Categories = {
   connection: i18n.connection,
   refrencedBy: i18n.refrencedBy,
@@ -51,34 +41,21 @@ const renderTitle = () => {
   )
 }
 
-const setInitialConnector = (data: any, state: ConnectorDetailsPageState) => {
-  state.setConnector(data)
-}
-
 const ConnectorDetailsPage: React.FC = () => {
   const [activeCategory, setActiveCategory] = React.useState(0)
-  const [connectordetail, setConnector] = React.useState()
-  const [connectorType, setConnectorType] = React.useState('K8sCluster')
-  const [connectorJson, setConnectorJson] = React.useState()
   const {
     params: { connectorId }
   } = routeParams()
-  const { accountId } = useParams()
-  const state: ConnectorDetailsPageState = {
-    activeCategory,
-    setActiveCategory,
-    connectordetail,
-    setConnector,
-    connectorType,
-    setConnectorType,
-    connectorJson,
-    setConnectorJson
-  }
-
-  const { loading, data: connector } = useGetConnector({
+  const { accountId, orgIdentifier, projectIdentifier } = useParams()
+  const { loading, data: connector, refetch } = useGetConnector({
     accountIdentifier: accountId,
     connectorIdentifier: connectorId as string
   })
+
+  const [connectordetail, setConnectorDetails] = React.useState(connector?.data)
+  useEffect(() => {
+    setConnectorDetails(connector?.data)
+  }, [connector?.data])
 
   const isCreationThroughYamlBuilder = false
   return (
@@ -107,11 +84,14 @@ const ConnectorDetailsPage: React.FC = () => {
         {!loading ? (
           <ConfigureConnector
             accountId={accountId}
-            type={connectorType}
-            connector={buildKubFormData(connector?.data)}
-            setInitialConnector={data => setInitialConnector(data, state)}
+            orgIdentifier={orgIdentifier}
+            projectIdentifier={projectIdentifier}
+            type={connectordetail?.type || ''}
+            connectorDetails={connectordetail as ConnectorDTO}
+            connector={buildKubFormData(connectordetail)}
+            refetchConnector={refetch}
             isCreationThroughYamlBuilder={isCreationThroughYamlBuilder}
-            connectorJson={connector?.data}
+            connectorJson={connectordetail}
           />
         ) : (
           <PageSpinner />

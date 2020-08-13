@@ -8,11 +8,14 @@ import css from './VerifyExistingDelegate.module.scss'
 
 interface VerifyExistingDelegateProps {
   accountId: string
-  name: string
+  projectIdentifier: string
+  orgIdentifier: string
+  name?: string
   connectorName?: string
   connectorIdentifier?: string
   delegateName?: string
-  hideLightModal: () => void
+  hideLightModal?: () => void
+  renderInModal?: boolean
 }
 
 interface VerifyExistingDelegateState {
@@ -46,7 +49,7 @@ const VerifyExistingDelegate = (props: VerifyExistingDelegateProps) => {
     downloadOverLay,
     setDownloadOverlay
   }
-  const { accountId, connectorIdentifier } = props
+  const { accountId, connectorIdentifier, renderInModal = false } = props
 
   const { loading: loadingStatus, data: delegateStatus, refetch: reloadDelegateStatus } = useGetDelegatesStatus({
     queryParams: { accountId },
@@ -56,7 +59,11 @@ const VerifyExistingDelegate = (props: VerifyExistingDelegateProps) => {
     loading: testingConnection,
     data: testConnectionResponse,
     refetch: reloadTestConnection
-  } = useGetTestConnectionResult({ accountIdentifier: accountId, connectorIdentifier: connectorIdentifier as string })
+  } = useGetTestConnectionResult({
+    accountIdentifier: accountId,
+    connectorIdentifier: connectorIdentifier as string,
+    queryParams: { orgIdentifier: props.orgIdentifier, projectIdentifier: props.projectIdentifier }
+  })
 
   const isSelectedDelegateActive = (delegateStatusResponse: RestResponseDelegateStatus) => {
     const delegateList = delegateStatusResponse?.resource?.delegates
@@ -122,7 +129,7 @@ const VerifyExistingDelegate = (props: VerifyExistingDelegateProps) => {
             {state.validateError}
           </Text>
         )} */}
-      {downloadOverLay ? (
+      {renderInModal && downloadOverLay ? (
         <section className={css.stepsOverlay}>
           <Layout.Vertical spacing="xxlarge">
             <Layout.Horizontal className={css.overlayHeading}>
@@ -142,7 +149,7 @@ const VerifyExistingDelegate = (props: VerifyExistingDelegateProps) => {
       ) : null}
       {currentStatus > 3 ? (
         <Layout.Horizontal spacing="large" className={css.submitWrp}>
-          <Button type="submit" onClick={() => props.hideLightModal()} color={`var(--blue-500)`} text="Finish" />
+          <Button type="submit" onClick={() => props.hideLightModal?.()} color={`var(--blue-500)`} text="Finish" />
         </Layout.Horizontal>
       ) : null}
     </Layout.Vertical>

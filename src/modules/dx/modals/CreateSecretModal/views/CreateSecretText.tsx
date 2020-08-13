@@ -4,7 +4,7 @@ import * as Yup from 'yup'
 import { useParams } from 'react-router-dom'
 import type { FormikProps } from 'formik'
 import { omit } from 'lodash-es'
-import { useCreateSecretText } from 'services/cd-ng'
+import { useCreateSecretText, useListSecretManagers } from 'services/cd-ng'
 import type { SecretTextCreateDTO, SecretManagerConfigDTO } from 'services/cd-ng'
 import { useToaster } from 'modules/common/exports'
 import { illegalIdentifiers } from 'modules/common/utils/StringUtils'
@@ -12,7 +12,6 @@ import { illegalIdentifiers } from 'modules/common/utils/StringUtils'
 import i18n from '../CreateSecretModal.i18n'
 
 interface CreateSecretTextProps {
-  secretsManagers: SecretManagerConfigDTO[]
   onSuccess: (data: SecretTextCreateDTO) => void
 }
 
@@ -24,6 +23,12 @@ const CreateSecretText: React.FC<CreateSecretTextProps> = props => {
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
   const { showSuccess, showError } = useToaster()
   const { mutate: createSecret, loading } = useCreateSecretText({})
+
+  const { data: secretsManagersApiResponse } = useListSecretManagers({
+    queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
+  })
+
+  const secretsManagers = secretsManagersApiResponse?.data || []
 
   const handleSubmit = async (data: CreateSecretTextForm): Promise<void> => {
     const dataToSubmit: SecretTextCreateDTO = omit(data, ['valueOrReference'])
@@ -40,13 +45,13 @@ const CreateSecretText: React.FC<CreateSecretTextProps> = props => {
     }
   }
 
-  const secretManagersOptions: SelectOption[] = props.secretsManagers.map(item => {
+  const secretManagersOptions: SelectOption[] = secretsManagers.map((item: SecretManagerConfigDTO) => {
     return {
       label: item.name || '',
       value: item.identifier || ''
     }
   })
-  const defaultSecretManagerId = props.secretsManagers.filter(item => item.default)[0]?.identifier
+  const defaultSecretManagerId = secretsManagers.filter((item: SecretManagerConfigDTO) => item.default)[0]?.identifier
 
   return (
     <>

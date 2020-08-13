@@ -24,3 +24,5 @@ export const illegalIdentifiers = [
   'var',
   'return'
 ]
+
+export const DEFAULT_DATE_FORMAT = 'MM/DD/YYYY hh:mm a'

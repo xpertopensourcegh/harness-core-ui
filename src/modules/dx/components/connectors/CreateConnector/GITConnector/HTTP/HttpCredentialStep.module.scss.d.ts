@@ -4,7 +4,6 @@ declare const styles: {
   readonly credStep: string
   readonly connectByBtn: string
   readonly saveBtn: string
-  readonly headingCred: string
   readonly formWrapper: string
   readonly credForm: string
   readonly formFields: string

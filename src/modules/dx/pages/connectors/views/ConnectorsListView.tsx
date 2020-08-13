@@ -84,9 +84,12 @@ const RenderColumnMenu: Renderer<CellProps<ConnectorSummaryDTO>> = ({ row, colum
   const data = row.original
   const [menuOpen, setMenuOpen] = useState(false)
   const { showSuccess, showError } = useToaster()
-  const { accountId } = useParams()
+  const { accountId, orgIdentifier, projectIdentifier } = useParams()
 
-  const { mutate: deleteConnector } = useDeleteConnector({ accountIdentifier: accountId })
+  const { mutate: deleteConnector } = useDeleteConnector({
+    accountIdentifier: accountId,
+    queryParams: { orgIdentifier: orgIdentifier, projectIdentifier: projectIdentifier }
+  })
 
   const { openDialog } = useConfirmationDialog({
     contentText: i18n.confirmDelete(data.name || ''),

@@ -3,22 +3,26 @@ import { Formik, FormikForm as Form, Button, Layout } from '@wings-software/uiki
 import * as YAML from 'yaml'
 import cx from 'classnames'
 import { useToaster } from 'modules/common/exports'
-import { useUpdateConnector } from 'services/cd-ng'
+import { useUpdateConnector, ConnectorDTO } from 'services/cd-ng'
 import YamlBuilder from 'modules/common/components/YAMLBuilder/YamlBuilder'
 import { YamlEntity } from 'modules/common/constants/YamlConstants'
-import { getValidationSchemaByType, getFormByType } from './utils/ConnectorHelper'
+import TestConnection from 'modules/dx/components/connectors/TestConnection/TestConnection'
+import ConnectorForm from 'modules/dx/components/connectors/ConnectorForm/ConnectorForm'
+import type { FormData } from 'modules/dx/interfaces/ConnectorInterface'
 import SavedConnectorDetails from './SavedConnectorDetails'
 import ConnectorStats from './ConnectorStats'
+import { buildKubPayload } from './utils/ConnectorUtils'
 import i18n from './ConfigureConnector.i18n'
-// import type { ConnectorSchema } from './ConnectorSchema'
-import { buildKubPayload, buildKubFormData } from './utils/ConnectorUtils'
 import css from './ConfigureConnector.module.scss'
 
 export interface ConfigureConnectorProps {
   accountId: string
+  projectIdentifier: string
+  orgIdentifier: string
   type: string
-  connector: any
-  setInitialConnector: (connector: any) => void
+  connectorDetails: ConnectorDTO
+  connector: FormData
+  refetchConnector: () => Promise<any>
   isCreationThroughYamlBuilder: boolean
   connectorJson: any
 }
@@ -26,19 +30,17 @@ export interface ConfigureConnectorProps {
 interface ConfigureConnectorState {
   enableEdit: boolean
   setEnableEdit: (val: boolean) => void
-  connector: any
-  setConnector: (object: any) => void
+  connector: FormData
+  setConnector: (object: FormData) => void
   selectedView: string
   setSelectedView: (selection: string) => void
+  connectorResponse: ConnectorDTO
+  setConnectorResponse: (data: ConnectorDTO) => void
 }
 
 const SelectedView = {
   VISUAL: 'visual',
   YAML: 'yaml'
-}
-
-const renderSavedDetails = (state: ConfigureConnectorState): JSX.Element => {
-  return <SavedConnectorDetails connector={state.connector} />
 }
 
 const renderSubHeader = (state: ConfigureConnectorState): JSX.Element => {
@@ -47,18 +49,6 @@ const renderSubHeader = (state: ConfigureConnectorState): JSX.Element => {
       <span className={css.name}>Kubernetes Connector Details</span>
       {!state.enableEdit ? <Button text="Edit Details" icon="edit" onClick={() => state.setEnableEdit(true)} /> : null}
     </Layout.Horizontal>
-  )
-}
-
-const renderConnectorStats = (): JSX.Element => {
-  return (
-    <ConnectorStats
-      createdAt="24.08.2020, 11:58 PM"
-      lastTested="a minute ago"
-      lastUpdated="31.08.2020, 10:00 AM "
-      connectionSuccesful="a minute ago"
-      status="SUCCESS"
-    />
   )
 }
 
@@ -77,6 +67,7 @@ const ConfigureConnector = (props: ConfigureConnectorProps): JSX.Element => {
   const [selectedView, setSelectedView] = useState(
     props.isCreationThroughYamlBuilder ? SelectedView.YAML : SelectedView.VISUAL
   )
+  const [connectorResponse, setConnectorResponse] = useState(props.connectorDetails)
 
   const state: ConfigureConnectorState = {
     enableEdit,
@@ -84,50 +75,35 @@ const ConfigureConnector = (props: ConfigureConnectorProps): JSX.Element => {
     connector,
     setConnector,
     selectedView,
-    setSelectedView
+    setSelectedView,
+    connectorResponse,
+    setConnectorResponse
   }
   const { showSuccess, showError } = useToaster()
 
   const { mutate: updateConnector } = useUpdateConnector({ accountIdentifier: props.accountId })
 
   const onSubmitForm = async (formData: any) => {
-    state.setEnableEdit(false)
     const connectorPayload = buildKubPayload(formData)
 
     try {
       const data = await updateConnector(connectorPayload as any) // Incompatible BE types
-      const formatedData = buildKubFormData(data)
-      state.setConnector(formatedData)
-      showSuccess(i18n.SaveConnector.SUCCESS)
+      if (data) {
+        showSuccess(i18n.SaveConnector.SUCCESS)
+        props.refetchConnector()
+        state.setEnableEdit(false)
+      }
     } catch (error) {
       showError(error.message)
     }
   }
 
-  const renderConnectorForm = (): JSX.Element => {
-    const validationSchema = getValidationSchemaByType(props.type)
-    return (
-      <Formik
-        initialValues={connector}
-        onSubmit={formData => onSubmitForm(formData)}
-        validationSchema={validationSchema}
-      >
-        {formikProps => (
-          <Form className={css.formCustomCss}>
-            {getFormByType(props, formikProps)}
-            <Button intent="primary" type="submit" text={i18n.submit} className={css.submitBtn} />
-          </Form>
-        )}
-      </Formik>
-    )
-  }
-
   useEffect(() => {
     if (props.connector) {
       setConnector(props.connector)
+      setConnectorResponse(props.connectorDetails)
     }
-  }, [props])
-
+  }, [props.connector, props.connectorDetails])
   return (
     <div className={css.connectorWrp}>
       <div className={css.optionBtns}>
@@ -149,10 +125,51 @@ const ConfigureConnector = (props: ConfigureConnectorProps): JSX.Element => {
           <React.Fragment>
             <div className={css.connectorDetails}>
               {renderSubHeader(state)}
-              {!enableEdit ? renderSavedDetails(state) : null}
-              {enableEdit ? renderConnectorForm() : null}
+              {enableEdit ? (
+                <Formik
+                  initialValues={connector}
+                  // Todo: validationSchema={validationSchema}
+                  onSubmit={formData => {
+                    onSubmitForm(formData)
+                  }}
+                >
+                  {formikProps => (
+                    <Form className={css.formCustomCss}>
+                      <ConnectorForm
+                        accountId={props.accountId}
+                        orgIdentifier={props.orgIdentifier}
+                        projectIdentifier={props.projectIdentifier}
+                        type={props.type}
+                        connector={props.connector}
+                        formikProps={formikProps}
+                      />
+                      <Button intent="primary" type="submit" text={i18n.submit} className={css.submitBtn} />
+                    </Form>
+                  )}
+                </Formik>
+              ) : (
+                <SavedConnectorDetails connector={state.connector} />
+              )}
             </div>
-            {renderConnectorStats()}
+            <Layout.Vertical width={'50%'}>
+              <ConnectorStats
+                createdAt={connector?.createdAt}
+                lastTested="a minute ago"
+                lastUpdated={connector?.lastModifiedAt}
+                connectionSuccesful="a minute ago"
+                status="SUCCESS"
+              />
+
+              <TestConnection
+                delegateType={connector.delegateType}
+                accountId={props.accountId}
+                orgIdentifier={props.orgIdentifier}
+                projectIdentifier={props.projectIdentifier}
+                connectorName={connector.name}
+                connectorIdentifier={connector.identifier}
+                delegateName={connector.delegateName}
+              />
+            </Layout.Vertical>
           </React.Fragment>
         ) : (
           <div className={css.editor}>

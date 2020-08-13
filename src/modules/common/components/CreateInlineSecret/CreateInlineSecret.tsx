@@ -53,7 +53,7 @@ const CreateInlineSecret: React.FC<CreateInlineSecretProps> = props => {
 
   return (
     <div className={css.container}>
-      <Text inline color={Color.GREY_400}>
+      <Text inline color={Color.GREY_400} font="small">
         {i18n.label1}
       </Text>
       <EditableText
@@ -64,7 +64,7 @@ const CreateInlineSecret: React.FC<CreateInlineSecretProps> = props => {
         }}
       />
       <span className={css.bullet}>&middot;</span>
-      <Text inline color={Color.GREY_400}>
+      <Text inline color={Color.GREY_400} font="small">
         {i18n.label2}
       </Text>
       <EditableText
@@ -75,13 +75,13 @@ const CreateInlineSecret: React.FC<CreateInlineSecretProps> = props => {
         }}
       />
       <span className={css.bullet}>&middot;</span>
-      <Text inline color={Color.GREY_400}>
+      <Text inline color={Color.GREY_400} font="small">
         {i18n.label3}
       </Text>{' '}
       {loading ? (
         '...'
       ) : error ? (
-        <Button inline minimal text="Retry" onClick={() => refetch()} />
+        <Button inline minimal text="Retry" onClick={() => refetch()} font="small" />
       ) : (
         <CustomSelect
           items={secretManagers}
@@ -95,7 +95,13 @@ const CreateInlineSecret: React.FC<CreateInlineSecretProps> = props => {
           }}
           popoverProps={{ minimal: true }}
         >
-          <Button inline minimal rightIcon="chevron-down" text={secretManager ? secretManager.label : 'Select...'} />
+          <Button
+            inline
+            minimal
+            rightIcon="chevron-down"
+            font="small"
+            text={secretManager ? secretManager.label : 'Select...'}
+          />
         </CustomSelect>
       )}
     </div>

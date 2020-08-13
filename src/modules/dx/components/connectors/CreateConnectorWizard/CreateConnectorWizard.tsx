@@ -7,18 +7,41 @@ import css from './CreateConnectorWizard.module.scss'
 
 interface CreateConnectorWizardProps {
   accountId: string
+  projectIdentifier: string
+  orgIdentifier: string
   type: string
   hideLightModal: () => void
 }
 
-export const ConnectorWizard: React.FC<CreateConnectorWizardProps> = ({ type, accountId, hideLightModal }) => {
-  switch (type) {
+export const ConnectorWizard: React.FC<CreateConnectorWizardProps> = props => {
+  switch (props.type) {
     case Connectors.KUBERNETES_CLUSTER:
-      return <CreateK8sConnector accountId={accountId} hideLightModal={hideLightModal} />
+      return (
+        <CreateK8sConnector
+          accountId={props.accountId}
+          orgIdentifier={props.orgIdentifier}
+          projectIdentifier={props.projectIdentifier}
+          hideLightModal={props.hideLightModal}
+        />
+      )
     case Connectors.GIT:
-      return <CreateGITConnector accountId={accountId} hideLightModal={hideLightModal} />
+      return (
+        <CreateGITConnector
+          accountId={props.accountId}
+          hideLightModal={props.hideLightModal}
+          orgIdentifier={props.orgIdentifier}
+          projectIdentifier={props.projectIdentifier}
+        />
+      )
     case Connectors.SECRET_MANAGER:
-      return <CreateSecretManager accountId={accountId} hideLightModal={hideLightModal} />
+      return (
+        <CreateSecretManager
+          accountId={props.accountId}
+          hideLightModal={props.hideLightModal}
+          orgIdentifier={props.orgIdentifier}
+          projectIdentifier={props.projectIdentifier}
+        />
+      )
     default:
       return null
   }

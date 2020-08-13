@@ -35,7 +35,7 @@ const EditableText: React.FC<EditableTextProps> = props => {
         <Icon
           name="edit"
           style={{ paddingBottom: '4px' }}
-          size={10}
+          size={8}
           onClick={() => {
             setEditing(true)
           }}

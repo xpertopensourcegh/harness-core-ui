@@ -7,6 +7,8 @@ import css from './VerifyInstallDelegate.module.scss'
 
 interface VerifyInstalledDelegateProps {
   accountId: string
+  projectIdentifier: string
+  orgIdentifier: string
   name: string
   connectorName?: string
   connectorIdentifier?: string
@@ -60,7 +62,8 @@ const VerifyInstalledDelegate = (props: VerifyInstalledDelegateProps) => {
     refetch: reloadTestConnection
   } = useGetTestConnectionResult({
     accountIdentifier: props.accountId,
-    connectorIdentifier: props.connectorIdentifier as string
+    connectorIdentifier: props.connectorIdentifier as string,
+    queryParams: { orgIdentifier: props.orgIdentifier, projectIdentifier: props.projectIdentifier }
   })
 
   React.useEffect(() => {
