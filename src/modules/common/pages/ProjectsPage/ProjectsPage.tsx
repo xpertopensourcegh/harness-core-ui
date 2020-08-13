@@ -54,7 +54,7 @@ const ProjectsListPage: React.FC<ProjectListProps> = ({ mockData, module, onNewP
       ),
       search: searchParam,
       page: page,
-      size: 2
+      size: 10
     },
     mock: mockData,
     debounce: 300
