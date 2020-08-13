@@ -200,13 +200,12 @@ export const PipelineCanvas: React.FC<{}> = (): JSX.Element => {
         </div>
         {!isYaml && (
           <div className={css.btnGroup}>
-            <Button minimal text={i18n.triggers} icon="yaml-builder-trigger" iconProps={{ color: '##303030' }} />
-            <Button minimal text={i18n.inputSets} icon="yaml-builder-input-sets" iconProps={{ color: '##303030' }} />
+            <Button minimal text={i18n.triggers} icon="yaml-builder-trigger" iconProps={{ color: 'var(--dark-500)' }} />
             <Button
               minimal
               text={i18n.notifications}
               icon="yaml-builder-notifications"
-              iconProps={{ color: '##303030' }}
+              iconProps={{ color: 'var(--dark-500)' }}
             />
           </div>
         )}

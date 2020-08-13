@@ -49,6 +49,7 @@ export class StageBuilderModel extends Diagram.DiagramModel {
               name: node.stage.name,
               width: 57,
               isInComplete: node.stage.name === EmptyStageName,
+              draggable: true,
               height: 57,
               icon: MapStepTypeToIcon[type]
             })
@@ -58,6 +59,7 @@ export class StageBuilderModel extends Diagram.DiagramModel {
               name: node.stage.name,
               isInComplete: node.stage.name === EmptyStageName,
               width: 114,
+              draggable: true,
               allowAdd: allowAdd === true,
               height: 50,
               icon: MapStepTypeToIcon[type]

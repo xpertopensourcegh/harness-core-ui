@@ -8,7 +8,7 @@ import { DefaultPortLabel } from '../../port/DefaultPortLabelWidget'
 import type { DefaultPortModel } from '../../port/DefaultPortModel'
 import type { CreateNewModel } from './CreateNewModel'
 import type { DefaultNodeModel } from '../DefaultNodeModel'
-import { Event } from '../../Constants'
+import { Event, DiagramDrag } from '../../Constants'
 import cssDefault from '../DefaultNode.module.scss'
 import css from './CreateNew.module.scss'
 
@@ -27,10 +27,34 @@ const onClickNode = (e: React.MouseEvent<Element, MouseEvent>, node: DefaultNode
 
 export const CreateNewWidget: React.FC<CreateNewWidgetProps> = (props): JSX.Element => {
   const options = props.node.getOptions()
+  const [dropable, setDropable] = React.useState(false)
   return (
-    <div className={cx(cssDefault.defaultNode, css.createNode)} onClick={e => onClickNode(e, props.node)}>
+    <div
+      className={cx(cssDefault.defaultNode, css.createNode)}
+      onClick={e => onClickNode(e, props.node)}
+      onDragOver={event => {
+        setDropable(true)
+        event.preventDefault()
+      }}
+      onDragLeave={() => {
+        setDropable(false)
+      }}
+      onDrop={event => {
+        event.stopPropagation()
+        setDropable(false)
+        const dropData: { id: string; identifier: string } = JSON.parse(
+          event.dataTransfer.getData(DiagramDrag.NodeDrag)
+        )
+        props.node.fireEvent({ node: dropData }, Event.DropLinkEvent)
+      }}
+    >
       <div
-        className={cx(cssDefault.defaultCard, css.createNew, { [cssDefault.selected]: props.node.isSelected() })}
+        className={cx(
+          cssDefault.defaultCard,
+          css.createNew,
+          { [cssDefault.selected]: props.node.isSelected() },
+          { [cssDefault.selected]: dropable }
+        )}
         style={{ width: options.width, height: options.height, ...options.customNodeStyle }}
       >
         <div>

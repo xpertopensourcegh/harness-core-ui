@@ -2,7 +2,7 @@ import React from 'react'
 import type { DiagramEngine } from '@projectstorm/react-diagrams-core'
 import type { DefaultLinkFactory } from './DefaultLinkFactory'
 import type { DefaultLinkModel } from './DefaultLinkModel'
-import { Event } from '../Constants'
+import { Event, DiagramDrag } from '../Constants'
 
 export interface DefaultLinkSegmentWidgetProps {
   path: string
@@ -67,7 +67,26 @@ export const DefaultLinkSegmentWidget = (props: DefaultLinkSegmentWidgetProps): 
     strokeOpacity: props.selected ? 0.1 : 0,
     strokeWidth: 20,
     fill: 'none',
-    onContextMenu
+    onContextMenu,
+    onDragOver: (event: React.DragEvent<HTMLDivElement>) => {
+      if (allowAdd) {
+        onSelection(true)
+        event.preventDefault()
+      }
+    },
+    onDragLeave: () => {
+      if (allowAdd) {
+        onSelection(false)
+      }
+    },
+    onDrop: (event: React.DragEvent<HTMLDivElement>) => {
+      if (allowAdd) {
+        const dropData: { id: string; identifier: string } = JSON.parse(
+          event.dataTransfer.getData(DiagramDrag.NodeDrag)
+        )
+        link.fireEvent({ node: dropData }, Event.DropLinkEvent)
+      }
+    }
   })
 
   return (

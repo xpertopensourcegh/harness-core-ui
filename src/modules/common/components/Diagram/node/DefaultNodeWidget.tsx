@@ -6,7 +6,7 @@ import type { DefaultNodeModel } from './DefaultNodeModel'
 import { DefaultPortLabel } from '../port/DefaultPortLabelWidget'
 import type { DefaultPortModel } from '../port/DefaultPortModel'
 
-import { Event } from '../Constants'
+import { Event, DiagramDrag } from '../Constants'
 import css from './DefaultNode.module.scss'
 
 export interface DefaultNodeProps {
@@ -51,6 +51,7 @@ export const DefaultNodeWidget = (props: DefaultNodeProps): JSX.Element => {
   const allowAdd = options.allowAdd ?? false
   const [showAdd, setVisibilityOfAdd] = React.useState(false)
   const [addClicked, setAddClicked] = React.useState(false)
+  const [dragging, setDragging] = React.useState(false)
 
   React.useEffect(() => {
     const currentNode = nodeRef.current
@@ -85,15 +86,46 @@ export const DefaultNodeWidget = (props: DefaultNodeProps): JSX.Element => {
   }, [addClicked])
 
   return (
-    <div className={css.defaultNode} ref={nodeRef} onClick={e => onClickNode(e, props.node)}>
+    <div
+      className={css.defaultNode}
+      ref={nodeRef}
+      onClick={e => onClickNode(e, props.node)}
+      onDragOver={event => {
+        if (allowAdd) {
+          setVisibilityOfAdd(true)
+          event.preventDefault()
+        }
+      }}
+      onDragLeave={() => {
+        if (allowAdd) {
+          setVisibilityOfAdd(false)
+        }
+      }}
+      onDrop={event => {
+        event.stopPropagation()
+        const dropData: { id: string; identifier: string } = JSON.parse(
+          event.dataTransfer.getData(DiagramDrag.NodeDrag)
+        )
+        props.node.fireEvent({ node: dropData }, Event.DropLinkEvent)
+      }}
+    >
       <div
         className={cx(css.defaultCard, { [css.selected]: props.node.isSelected() })}
+        draggable={options.draggable}
         style={{
           width: options.width,
           height: options.height,
           marginTop: 32 - (options.height || 64) / 2,
+          cursor: options.draggable ? 'move' : 'pointer',
+          opacity: dragging ? 0.4 : 1,
           ...options.customNodeStyle
         }}
+        onDragStart={event => {
+          setDragging(true)
+          event.dataTransfer.setData(DiagramDrag.NodeDrag, JSON.stringify(props.node.serialize()))
+          event.dataTransfer.dropEffect = 'move'
+        }}
+        onDragEnd={() => setDragging(false)}
       >
         {options.icon && <Icon size={28} name={options.icon} {...options.iconProps} />}
         <div>{props.node.getInPorts().map(port => generatePort(port, props))}</div>

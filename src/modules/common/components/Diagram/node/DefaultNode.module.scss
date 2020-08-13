@@ -20,7 +20,7 @@
 
     &.selected {
       border-width: 2px;
-      border-color: var(--diagram-selected);
+      border-color: var(--diagram-selected) !important;
     }
   }
 

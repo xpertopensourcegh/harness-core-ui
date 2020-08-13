@@ -16,7 +16,9 @@ export const Event: { [key: string]: string } = {
   RollbackClicked: 'rollbackClicked',
   AddParallelNode: 'addParallelNode',
   SourcePortChanged: 'sourcePortChanged',
-  TargetPortChanged: 'targetPortChanged'
+  TargetPortChanged: 'targetPortChanged',
+  DropLinkEvent: 'dropLinkEvent',
+  DropNodeEvent: 'dropNodeEvent'
 }
 
 export const DiagramType: { [key: string]: string } = {
@@ -36,4 +38,8 @@ export enum StepsType {
 export const PortName: { [key: string]: string } = {
   In: 'In',
   Out: 'Out'
+}
+
+export const DiagramDrag: { [key: string]: string } = {
+  NodeDrag: 'diagram-node-drag'
 }

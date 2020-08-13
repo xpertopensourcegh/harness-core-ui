@@ -16,6 +16,7 @@ export interface DefaultNodeModelOptions extends BasePositionModelOptions {
   identifier?: string
   icon?: IconName
   allowAdd?: boolean
+  draggable?: boolean
   iconProps?: IconProps
   canDelete?: boolean
   isInComplete?: boolean
@@ -46,6 +47,7 @@ export class DefaultNodeModel<G extends DefaultNodeModelGenerics = DefaultNodeMo
       icon: 'add',
       allowAdd: false,
       iconProps: {},
+      draggable: false,
       canDelete: true,
       secondaryIcon: 'command-echo',
       customNodeStyle: {},
@@ -131,10 +133,19 @@ export class DefaultNodeModel<G extends DefaultNodeModelGenerics = DefaultNodeMo
   deserialize(event: DeserializeEvent<this>): void {
     super.deserialize(event)
     this.options.name = event.data.name
+    this.options.width = event.data.width
+    this.options.height = event.data.height
+    this.options.identifier = event.data.identifier
     this.options.customNodeStyle = { ...event.data.customNodeStyle }
     this.options.icon = event.data.icon
     this.options.allowAdd = event.data.allowAdd
+    this.options.canDelete = event.data.canDelete
+    this.options.draggable = event.data.draggable
+    this.options.isInComplete = event.data.isInComplete
     this.options.secondaryIcon = event.data.secondaryIcon
+    this.options.iconProps = { ...event.data.iconProps }
+    this.options.secondaryIconProps = { ...event.data.secondaryIconProps }
+    this.options.secondaryIconStyle = { ...event.data.secondaryIconStyle }
     this.portsIn = map(event.data.portsInOrder, id => {
       return this.getPortFromID(id)
     }) as DefaultPortModel[]
@@ -147,10 +158,19 @@ export class DefaultNodeModel<G extends DefaultNodeModelGenerics = DefaultNodeMo
     return {
       ...super.serialize(),
       name: this.options.name,
+      width: this.options.width,
+      height: this.options.height,
+      identifier: this.options.identifier,
       customNodeStyle: { ...this.options.customNodeStyle },
       icon: this.options.icon,
       allowAdd: this.options.allowAdd,
+      canDelete: this.options.canDelete,
+      draggable: this.options.draggable,
+      isInComplete: this.options.isInComplete,
+      iconProps: { ...this.options.iconProps },
       secondaryIcon: this.options.secondaryIcon,
+      secondaryIconProps: { ...this.options.secondaryIconProps },
+      secondaryIconStyle: { ...this.options.secondaryIconStyle },
       portsInOrder: map(this.portsIn, port => {
         return port.getID()
       }),

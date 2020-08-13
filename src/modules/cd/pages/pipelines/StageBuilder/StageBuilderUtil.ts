@@ -19,6 +19,11 @@ export const MapStepTypeToIcon: { [key in StageType]: IconName } = {
   Custom: 'pipeline-custom'
 }
 
+export interface StageState {
+  isConfigured: boolean
+  stage: StageElementWrapper
+}
+
 export interface PopoverData {
   data?: StageElementWrapper
   isStageView: boolean
@@ -27,17 +32,19 @@ export interface PopoverData {
   groupSelectedStageId?: string
   isParallel?: boolean
   event?: Diagram.DefaultNodeEvent
-  addStage?: (type: StageType, isParallel?: boolean, event?: Diagram.DefaultNodeEvent) => void
+  addStage?: (newStage: StageElementWrapper, isParallel?: boolean, event?: Diagram.DefaultNodeEvent) => void
   onSubmitPrimaryData?: (values: StageElementWrapper, identifier: string) => void
   onClickGroupStage?: (stageId: string) => void
 }
 
-export const getNewStageFromType = (type: StageType): StageElement => {
+export const getNewStageFromType = (type: StageType): StageElementWrapper => {
   return {
-    name: EmptyStageName,
-    identifier: uuid(),
-    description: '',
-    type: type
+    stage: {
+      name: EmptyStageName,
+      identifier: uuid(),
+      description: '',
+      type: type
+    }
   }
 }
 
@@ -74,6 +81,37 @@ export const getStageFromPipeline = (
   })
 
   return { stage, parent }
+}
+
+export const removeNodeFromPipeline = (
+  data: CDPipeline | StageElementWrapper,
+  stageMap: Map<string, StageState>,
+  identifier: string,
+  updateStateMap = true
+): boolean => {
+  const { stage: node, parent } = getStageFromPipeline(data, identifier)
+  if (node && data.stages) {
+    const index = data.stages.indexOf(node)
+    if (index > -1) {
+      data?.stages?.splice(index, 1)
+      updateStateMap && stageMap.delete(node.stage.identifier)
+      return true
+    } else if (parent?.parallel) {
+      const parallelIndex = parent.parallel?.indexOf(node)
+      if (parallelIndex > -1) {
+        parent.parallel.splice(parallelIndex, 1)
+        if (parent.parallel.length === 0) {
+          const emptyParallel = data?.stages?.indexOf(parent)
+          if (emptyParallel && emptyParallel > -1) {
+            data?.stages?.splice(emptyParallel, 1)
+          }
+        }
+        updateStateMap && stageMap.delete(node.stage.identifier)
+        return true
+      }
+    }
+  }
+  return false
 }
 
 export const getTypeOfStage = (stage: StageElement): { type: StageType; stage: DeploymentStage | StageElement } => {

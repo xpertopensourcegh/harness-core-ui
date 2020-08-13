@@ -34,7 +34,7 @@
     .savePublishBtn {
       width: 153px;
       height: 26px;
-      border: 1px solid #b8bfca !important;
+      border: 1px solid var(--blue-300) !important;
       color: var(--pipeline-blue-color) !important;
       border-radius: 4px;
     }
@@ -44,7 +44,7 @@
     border: 1px solid var(--pipeline-light-grey);
     border-left-width: 0;
     display: grid;
-    grid-template-columns: 70px 1fr 390px;
+    grid-template-columns: 70px 1fr 260px;
     align-items: center;
 
     .pipelineName {
@@ -53,7 +53,7 @@
 
     .btn-group {
       button {
-        color: #303030;
+        color: var(--dark-500);
         font-weight: 500;
         margin-left: var(--spacing-large);
       }

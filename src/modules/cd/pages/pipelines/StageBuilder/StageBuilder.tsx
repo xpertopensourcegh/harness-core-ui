@@ -13,21 +13,17 @@ import { PipelineContext } from '../PipelineContext/PipelineContext'
 import { EmptyStageName, MinimumSplitPaneSize, DefaultSplitPaneSize } from '../PipelineConstants'
 import {
   getNewStageFromType,
-  StageType,
   PopoverData,
   getStageFromPipeline,
   EmptyNodeSeparator,
-  resetDiagram
+  StageState,
+  resetDiagram,
+  removeNodeFromPipeline
 } from './StageBuilderUtil'
 import { EditStageView } from './views/EditStageView'
 import { StageList } from './views/StageList'
 import { AddStageView } from './views/AddStageView'
 import css from './StageBuilder.module.scss'
-
-export interface StageState {
-  isConfigured: boolean
-  stage: StageElementWrapper
-}
 
 export type StageStateMap = Map<string, StageState>
 
@@ -81,7 +77,9 @@ export const renderPopover = ({
   } else if (isGroupStage) {
     return <StageList stages={groupStages || []} selectedStageId={groupSelectedStageId} onClick={onClickGroupStage} />
   }
-  return <AddStageView isParallel={isParallel} callback={type => addStage?.(type, isParallel, event)} />
+  return (
+    <AddStageView isParallel={isParallel} callback={type => addStage?.(getNewStageFromType(type), isParallel, event)} />
+  )
 }
 
 export const StageBuilder: React.FC<{}> = (): JSX.Element => {
@@ -103,7 +101,12 @@ export const StageBuilder: React.FC<{}> = (): JSX.Element => {
 
   const [stageMap, setStageMap] = React.useState(new Map<string, StageState>())
 
-  const addStage = (type: StageType, isParallel = false, event?: Diagram.DefaultNodeEvent): void => {
+  const addStage = (
+    newStage: StageElementWrapper,
+    isParallel = false,
+    event?: Diagram.DefaultNodeEvent,
+    insertAt?: number
+  ): void => {
     if (!pipeline.stages) {
       pipeline.stages = []
     }
@@ -119,9 +122,7 @@ export const StageBuilder: React.FC<{}> = (): JSX.Element => {
       if (stage) {
         const index = pipeline.stages.indexOf(stage)
         if (index > -1) {
-          pipeline.stages.splice(index + next, 0, {
-            stage: getNewStageFromType(type)
-          })
+          pipeline.stages.splice(index + next, 0, newStage)
         }
       } else {
         // parallel next parallel case
@@ -138,9 +139,7 @@ export const StageBuilder: React.FC<{}> = (): JSX.Element => {
         if (stage) {
           const index = pipeline.stages.indexOf(stage)
           if (index > -1) {
-            pipeline.stages.splice(index + next, 0, {
-              stage: getNewStageFromType(type)
-            })
+            pipeline.stages.splice(index + next, 0, newStage)
           }
         }
       }
@@ -148,27 +147,22 @@ export const StageBuilder: React.FC<{}> = (): JSX.Element => {
       const { stage, parent } = getStageFromPipeline(pipeline, event.entity.getIdentifier())
       if (stage) {
         if (parent && parent.parallel && parent.parallel.length > 0) {
-          parent.parallel.push({
-            stage: getNewStageFromType(type)
-          })
+          parent.parallel.push(newStage)
         } else {
           const index = pipeline.stages.indexOf(stage)
           if (index > -1) {
             pipeline.stages.splice(index, 1, {
-              parallel: [
-                stage,
-                {
-                  stage: getNewStageFromType(type)
-                }
-              ]
+              parallel: [stage, newStage]
             })
           }
         }
       }
     } else {
-      pipeline.stages.push({
-        stage: getNewStageFromType(type)
-      })
+      if (insertAt && insertAt > -1) {
+        pipeline.stages.splice(insertAt, 0, newStage)
+      } else {
+        pipeline.stages.push(newStage)
+      }
     }
     dynamicPopoverHandler?.hide()
     model.addUpdateGraph(pipeline, { nodeListeners, linkListeners }, selectedStageId)
@@ -251,27 +245,9 @@ export const StageBuilder: React.FC<{}> = (): JSX.Element => {
     // Can not remove this Any because of React Diagram Issue
     [Diagram.Event.RemoveNode]: (event: any) => {
       const eventTemp = event as Diagram.DefaultNodeEvent
-      const { stage: node, parent } = getStageFromPipeline(pipeline, eventTemp.entity.getIdentifier())
-      if (node && pipeline.stages) {
-        const index = pipeline.stages.indexOf(node)
-        if (index > -1) {
-          pipeline?.stages?.splice(index, 1)
-          stageMap.delete(node.stage.identifier)
-          updatePipeline(pipeline)
-        } else if (parent?.parallel) {
-          const parallelIndex = parent.parallel?.indexOf(node)
-          if (parallelIndex > -1) {
-            parent.parallel.splice(parallelIndex, 1)
-            if (parent.parallel.length === 0) {
-              const emptyParallel = pipeline?.stages?.indexOf(parent)
-              if (emptyParallel && emptyParallel > -1) {
-                pipeline?.stages?.splice(emptyParallel, 1)
-              }
-            }
-            stageMap.delete(node.stage.identifier)
-            updatePipeline(pipeline)
-          }
-        }
+      const isRemove = removeNodeFromPipeline(pipeline, stageMap, eventTemp.entity.getIdentifier())
+      if (isRemove) {
+        updatePipeline(pipeline)
       }
     },
     [Diagram.Event.AddParallelNode]: (event: any) => {
@@ -290,6 +266,38 @@ export const StageBuilder: React.FC<{}> = (): JSX.Element => {
           eventTemp.callback
         )
       }
+    },
+    [Diagram.Event.DropLinkEvent]: (event: any) => {
+      const eventTemp = event as Diagram.DefaultNodeEvent
+      eventTemp.stopPropagation()
+      if (event.node?.identifier) {
+        const dropNode = getStageFromPipeline(pipeline, event.node.identifier).stage
+        const current = getStageFromPipeline(pipeline, eventTemp.entity.getIdentifier())
+        // Check Drop Node and Current node should not be same
+        if (event.node.identifier !== eventTemp.entity.getIdentifier()) {
+          const isRemove = removeNodeFromPipeline(pipeline, stageMap, event.node.identifier, false)
+          if (isRemove && dropNode) {
+            if (!current.parent && current.stage) {
+              const index = pipeline.stages?.indexOf(current.stage) || -1
+              if (index > -1) {
+                // Remove current Stage also and make it parallel
+                pipeline?.stages?.splice(index, 1)
+                // Now make a parallel stage and update at the same place
+                addStage(
+                  {
+                    parallel: [current.stage, dropNode]
+                  },
+                  false,
+                  event,
+                  index
+                )
+              }
+            } else {
+              addStage(dropNode, current?.parent?.parallel?.length > 0, event)
+            }
+          }
+        }
+      }
     }
   }
 
@@ -307,6 +315,17 @@ export const StageBuilder: React.FC<{}> = (): JSX.Element => {
           },
           { useArrows: true, darkMode: true }
         )
+      }
+    },
+    [Diagram.Event.DropLinkEvent]: (event: any) => {
+      const eventTemp = event as Diagram.DefaultLinkEvent
+      eventTemp.stopPropagation()
+      if (event.node?.identifier) {
+        const dropNode = getStageFromPipeline(pipeline, event.node.identifier).stage
+        const isRemove = removeNodeFromPipeline(pipeline, stageMap, event.node.identifier, false)
+        if (isRemove && dropNode) {
+          addStage(dropNode, false, event)
+        }
       }
     }
   }
