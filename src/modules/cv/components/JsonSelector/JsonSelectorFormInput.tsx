@@ -12,6 +12,7 @@ interface JsonSelectorFormInputProps {
   name: string
   label: string
   json?: object
+  disabled?: boolean
   loading?: boolean
   placeholder?: string
 }
@@ -31,7 +32,7 @@ function getPlaceholderAndTextColor(
 }
 
 const JsonSelectorFormInput = (props: JsonSelectorFormInputProps & { formik?: any }): JSX.Element => {
-  const { name, label, json, formik, loading, placeholder } = props
+  const { name, label, json, formik, loading, placeholder, disabled = false } = props
   const { value, valueColor } = getPlaceholderAndTextColor(loading, json, placeholder, get(formik.values, name))
   const validationError = get(formik.touched, name) ? get(formik.errors, name) : undefined
 
@@ -72,11 +73,15 @@ const JsonSelectorFormInput = (props: JsonSelectorFormInputProps & { formik?: an
     <FormGroup
       labelFor={name}
       label={label}
+      disabled={disabled}
       helperText={validationError}
       intent={validationError?.length ? 'danger' : undefined}
     >
-      <Container className={classnames('bp3-input-group', css.inputGroup)}>
-        <Container className={classnames('bp3-input', css.input)} onClick={onOpenModal}>
+      <Container className={classnames('bp3-input-group', css.inputGroup, disabled ? 'bp3-disabled' : undefined)}>
+        <Container
+          className={classnames('bp3-input', css.input, disabled ? css.disabledLook : undefined)}
+          onClick={onOpenModal}
+        >
           <Text color={valueColor}>{value}</Text>
         </Container>
         {loading ? (

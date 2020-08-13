@@ -3,6 +3,7 @@ import type { SelectOption } from '@wings-software/uikit'
 import { Utils } from '@wings-software/uikit'
 import cloneDeep from 'lodash/cloneDeep'
 import type { YAxisOptions, XAxisOptions } from 'highcharts'
+import i18n from './SplunkOnboarding.i18n'
 
 export const SplunkColumnChartOptions: Highcharts.Options = {
   chart: {
@@ -29,13 +30,18 @@ export const SplunkColumnChartOptions: Highcharts.Options = {
     lineWidth: 0,
     gridLineWidth: 0
   },
+  tooltip: {
+    formatter: function () {
+      if (!this.point) {
+        return
+      }
+      return `Time: ${new Date(this.x).toLocaleString()}<br/>Log Count: ${this.y}`
+    }
+  },
   legend: {
     enabled: false
   },
   series: [],
-  tooltip: {
-    headerFormat: ' '
-  },
   credits: {
     enabled: false
   }
@@ -47,7 +53,7 @@ export interface SplunkDSConfig extends DSConfig {
   serviceInstanceIdentifier?: string
   eventType?: string
   serviceIdentifier?: string
-  id: string
+  id?: string
   isValid?: boolean
 }
 
@@ -76,6 +82,7 @@ export function transformToSaveConfig(createdConfigs: DSConfig): SplunkDSConfig 
   splunkConfig.identifier = splunkConfig.queryName
   delete splunkConfig.queryName
   delete splunkConfig.id
+  delete splunkConfig.isValid
   return splunkConfig
 }
 
@@ -90,7 +97,7 @@ export function createDefaultSplunkDSConfig(
     serviceIdentifier: '',
     envIdentifier: '',
     serviceInstanceIdentifier: '',
-    eventType: 'Quality',
+    eventType: i18n.splunkEntityTypeOptions.quality,
     type: 'SPLUNK',
     projectIdentifier: 'harness',
     accountId,
@@ -98,7 +105,7 @@ export function createDefaultSplunkDSConfig(
     productName,
     query,
     id: Utils.randomId(),
-    queryName,
+    queryName: queryName ?? i18n.defaultQueryName,
     isValid: true
   }
 }

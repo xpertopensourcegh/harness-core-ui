@@ -29,9 +29,10 @@ import {
   createDefaultConfigObject,
   transformToSaveConfig
 } from './AppDynamicsOnboardingUtils'
-import TierAndServiceTable from './TierAndServiceTable/TierAndServiceTable'
+import TierAndServiceTable, { TierAndServiceRow, DEFAULT_ROW_OBJ } from './TierAndServiceTable/TierAndServiceTable'
 import i18n from './AppDynamicsMainSetupView.i18n'
 import CreateNewEntitySubform from '../CreateNewEntitySubform/CreateNewEntitySubform'
+import { PageData, SaveConfigToIndexedDB } from '../SaveConfigToIndexedDB/SaveConfigToIndexedDB'
 import css from './AppDynamicsMainSetupView.module.scss'
 
 const XHR_METRIC_PACK_GROUP = 'XHR_METRIC_PACK_GROUP'
@@ -39,8 +40,6 @@ const SelectHTMLInputProps = { placeholder: i18n.addApplicationSelectPlaceholder
 const OnBoardingHeaderIconProps: IconProps = {
   name: 'service-appdynamics'
 }
-
-type PageData = { products: string[]; selectedEntities?: SelectOption[]; dataSourceId: string; isEdit?: boolean }
 
 interface AppDynamicsDataSourceFormProps {
   configList: DSConfigTableData[]
@@ -72,12 +71,6 @@ interface AppDynamicsMainSetupViewProps {
   indexedDB?: IDBPDatabase
 }
 
-interface SaveToIndexedDBProps {
-  pageData: PageData
-  dbInstance?: IDBPDatabase
-  configs: DSConfigTableData[]
-}
-
 function validateConfig(configData: DSConfig): { [fieldName: string]: string } | {} {
   const castConfigData = configData as DSConfigTableData
   const errors: { envIdentifier?: string; metricPackList?: string; tableData?: string } = {}
@@ -92,10 +85,15 @@ function validateConfig(configData: DSConfig): { [fieldName: string]: string } |
     castConfigData.tableData?.filter(({ validation }) => validation === false).length || 0
   if (totalUnsuccessfulValidations > 0) {
     errors.tableData = 'Some validations returned unsuccessfully.'
-  } else if (!castConfigData.tableData?.some(({ selected }) => selected)) {
+  } else if (!castConfigData.tableData?.some(({ tierOption }) => Boolean(tierOption))) {
     errors.tableData = 'At least one tier to service mapping is required.'
+  } else if (
+    !castConfigData.tableData?.every(({ serviceName, tierOption }) =>
+      !serviceName ? true : Boolean(tierOption?.value && tierOption?.label)
+    )
+  ) {
+    errors.tableData = 'Please match each selected service to a tier.'
   }
-
   return errors
 }
 
@@ -123,7 +121,11 @@ async function loadAppDApplications(
   dataSourceId: string,
   dbInstance?: IDBPDatabase
 ): Promise<Map<string, SelectOption>> {
-  let appDApplicationsOptions: SelectOption[] = await dbInstance?.get(CVObjectStoreNames.LIST_ENTITIES, dataSourceId)
+  const cachedEntities: { entityOptions: SelectOption[] } = await dbInstance?.get(
+    CVObjectStoreNames.LIST_ENTITIES,
+    dataSourceId
+  )
+  let appDApplicationsOptions: SelectOption[] = cachedEntities.entityOptions
   if (!appDApplicationsOptions?.length) {
     appDApplicationsOptions = await fetchAppDApps(accountId, dataSourceId)
   }
@@ -207,15 +209,39 @@ function AppDynamicsConfig(props: AppDynamicsConfigProps): JSX.Element {
       <Container className={css.inputFields}>
         <FormInput.CustomRender
           name={`dsConfigs[${index}].envIdentifier`}
-          key={envOptions[0]?.value as string}
           label="Environment"
           render={() => (
             <SelectWithSubview
               changeViewButtonLabel={i18n.createNew}
               items={envOptions}
+              value={envOptions?.find(envOption => envOption?.value === config?.envIdentifier)}
+              key={envOptions[0]?.value as string}
               subview={<CreateNewEntitySubform entityType="environment" />}
+              onChange={newEnv => {
+                formikProps.setFieldValue(`dsConfigs[${index}].envIdentifier`, newEnv.value)
+                formikProps.setFieldTouched(`dsConfigs[${index}].envIdentifier`, true)
+              }}
             />
           )}
+        />
+        <FormInput.MultiSelect
+          name={`dsConfigs[${index}].services`}
+          label="Services"
+          items={serviceOptions}
+          key={serviceOptions[0]?.value as string}
+          placeholder="Select a service"
+          onChange={(items: MultiSelectOption[]) => {
+            const newTableData: TierAndServiceRow[] = []
+            for (const item of items) {
+              const existingTableData = config?.tableData?.find(td => td.serviceName === item.label)
+              if (!existingTableData) {
+                newTableData.push({ ...DEFAULT_ROW_OBJ, serviceName: item.label })
+              } else {
+                newTableData.push(existingTableData)
+              }
+            }
+            formikProps.setFieldValue(`dsConfigs[${index}].tableData`, !items.length ? [] : newTableData)
+          }}
         />
         <Container className={css.metricPackContainer}>
           <Link
@@ -248,7 +274,7 @@ function AppDynamicsConfig(props: AppDynamicsConfigProps): JSX.Element {
               setFieldTouched={formikProps.setFieldTouched}
               setFieldValue={formikProps.setFieldValue}
               accountId={accountId}
-              serviceOptions={serviceOptions}
+              isLoadingServices={serviceOptions?.[0]?.label === i18n.loadingText}
               dataSourceId={dataSourceId}
             />
           )}
@@ -265,23 +291,10 @@ function AppDynamicsConfig(props: AppDynamicsConfigProps): JSX.Element {
   )
 }
 
-function SaveToIndexedDB(props: SaveToIndexedDBProps): JSX.Element {
-  const { pageData, dbInstance, configs } = props
-  useEffect(() => {
-    window.onbeforeunload = () => {
-      dbInstance?.put(CVObjectStoreNames.ONBOARDING_JOURNEY, {
-        ...pageData,
-        savedConfigs: configs
-      })
-    }
-  }, [dbInstance?.put, configs, pageData])
-  return <span />
-}
-
 function AppDynamicsDataSourceForm(props: AppDynamicsDataSourceFormProps): JSX.Element {
   const { configList, serviceOptions, envOptions, appDApplications, metricPackMap, pageData, dbInstance } = props
   const productName = pageData?.products?.[0]
-  const [applicationsToAdd, setApplicationsToAdd] = useState<SelectOption[]>([{ label: 'Loading...', value: '' }])
+  const [applicationsToAdd, setApplicationsToAdd] = useState<SelectOption[]>([{ label: i18n.loadingText, value: '' }])
   const {
     params: { accountId }
   } = routeParams()
@@ -324,7 +337,7 @@ function AppDynamicsDataSourceForm(props: AppDynamicsDataSourceFormProps): JSX.E
                       }}
                     />
                   </Container>
-                  <SaveToIndexedDB
+                  <SaveConfigToIndexedDB
                     pageData={pageData}
                     dbInstance={dbInstance}
                     configs={formikProps.values?.dsConfigs}
@@ -370,6 +383,9 @@ function AppDynamicsDataSourceForm(props: AppDynamicsDataSourceFormProps): JSX.E
                 </>
               )}
             />
+            {/* <Container className={css.actionButtons}>
+              <Button large intent="primary" text={i18n.nextButtonText} width={100} type="button" />
+            </Container> */}
           </FormikForm>
         )}
       </Formik>

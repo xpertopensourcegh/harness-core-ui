@@ -1,7 +1,8 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import { Container, Text, Link, Card, Color } from '@wings-software/uikit'
 
 import type { MetricPack } from '@wings-software/swagger-ts/definitions'
+import i18n from './MetricPackTable.i18n'
 import css from './MetricPackTable.module.scss'
 
 interface TableWithCheckColumnsProps {
@@ -15,6 +16,25 @@ export function MetricPackTable(props: TableWithCheckColumnsProps): JSX.Element 
   const { metrics, onChange, metricPackName, onConfigureThresholdClick } = props
   const [metricData, setMetricData] = useState<MetricPack>(metrics)
 
+  useEffect(() => {
+    // move all checked options to the top
+    metricData?.metrics?.sort((a, b) => {
+      if (!a) {
+        return 1
+      } else if (!b) {
+        return -1
+      } else if (a.included && !b.included) {
+        return -1
+      } else if (b.included && !a.included) {
+        return 1
+      }
+
+      return a.name && b.name ? a.name?.localeCompare(b.name) : 1
+    })
+    setMetricData({ ...metricData })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   const onConfigureThresholdCallback = useCallback(() => {
     onConfigureThresholdClick(metricData)
   }, [onConfigureThresholdClick, metricData])
@@ -27,7 +47,7 @@ export function MetricPackTable(props: TableWithCheckColumnsProps): JSX.Element 
             {metricPackName} ({metricData?.metrics?.length})
           </Text>
           <Link withoutHref onClick={onConfigureThresholdCallback} className={css.configureThresholdLink}>
-            Configure Thresholds
+            {i18n.configureThreholdLinkText}
           </Link>
         </Container>
         <ul className={css.metricList}>

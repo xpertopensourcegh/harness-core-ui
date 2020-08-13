@@ -19,9 +19,9 @@ export default function SplunkInputType(): JSX.Element {
     <Page.Body>
       <Container className={css.main}>
         <Container className={css.iconContainer}>
-          <SplunkLogo height={50} width={100} />
-          <Icon name="plus" style={{ margin: '0 var(--spacing-xxlarge)' }} />
           <HarnessLogo height={30} />
+          <Icon name="plus" style={{ margin: '0 var(--spacing-xxlarge)', position: 'relative', top: '3px' }} />
+          <SplunkLogo height={50} width={100} />
         </Container>
         <Text className={css.description} color={Color.BLACK}>
           {i18n.description}
@@ -38,6 +38,7 @@ export default function SplunkInputType(): JSX.Element {
                   { accountId: params.accountId, dataSourceType: DataSourceRoutePaths.SPLUNK },
                   true
                 ),
+                search: `?dataSourceId=${query.dataSourceId}`,
                 state: locationContext
               })
             }

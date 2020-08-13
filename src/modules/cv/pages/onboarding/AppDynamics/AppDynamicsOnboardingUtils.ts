@@ -11,6 +11,7 @@ export interface AppDynamicsDSConfig extends DSConfig {
 export interface DSConfigTableData extends AppDynamicsDSConfig {
   tableData: TierAndServiceRow[]
   metricPackList: MultiSelectOption[]
+  services?: MultiSelectOption[]
 }
 
 export function createDefaultConfigObjectBasedOnSelectedApps(
@@ -66,11 +67,17 @@ export function transformGetConfigs(appDConfigs: AppDynamicsDSConfig[]): DSConfi
 
     const { serviceMappings = [], metricPacks = [] } = config
     const transformedConfig: DSConfigTableData = config as DSConfigTableData
-    transformedConfig.tableData = serviceMappings?.map(serviceMapping => ({
-      tierName: serviceMapping.tierName,
-      service: serviceMapping.serviceIdentifier,
-      selected: true
-    }))
+    transformedConfig.services = []
+    transformedConfig.tableData = serviceMappings?.map(serviceMapping => {
+      transformedConfig.services?.push({
+        label: serviceMapping.serviceIdentifier,
+        value: serviceMapping.serviceIdentifier
+      })
+      return {
+        tierOption: { label: serviceMapping.tierName, value: -1 },
+        serviceName: serviceMapping.serviceIdentifier
+      }
+    })
 
     transformedConfig.metricPackList = (metricPacks
       ?.filter(mp => mp && mp.identifier)
@@ -89,11 +96,15 @@ export function transformToSaveConfig(appDConfig: DSConfig): AppDynamicsDSConfig
   // convert table data to list of configs to save
   delete clonedConfig.tableData
   delete clonedConfig.metricPackList
+  delete clonedConfig.services
   clonedConfig.serviceMappings = []
   clonedConfig.identifier = clonedConfig.applicationName
   for (const tableRow of tableData) {
-    if (tableRow.selected && tableRow.service && tableRow.tierName) {
-      clonedConfig.serviceMappings.push({ tierName: tableRow.tierName, serviceIdentifier: tableRow.service })
+    if (tableRow.serviceName && tableRow.tierOption) {
+      clonedConfig.serviceMappings.push({
+        tierName: tableRow.tierOption.label,
+        serviceIdentifier: tableRow.serviceName
+      })
     }
   }
 

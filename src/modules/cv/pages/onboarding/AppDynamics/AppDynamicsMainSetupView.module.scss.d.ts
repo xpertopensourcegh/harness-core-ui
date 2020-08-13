@@ -9,5 +9,6 @@ declare const styles: {
   readonly metricPackContainer: string
   readonly customizePack: string
   readonly tableContainer: string
+  readonly actionButtons: string
 }
 export default styles

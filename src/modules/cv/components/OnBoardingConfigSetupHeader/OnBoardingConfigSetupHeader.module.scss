@@ -2,7 +2,7 @@
   .iconContainer {
     display: flex;
     align-items: center;
-    margin-bottom: 3px;
+    margin-bottom: var(--spacing-xsmall);
 
     > svg:first-child {
       position: relative;

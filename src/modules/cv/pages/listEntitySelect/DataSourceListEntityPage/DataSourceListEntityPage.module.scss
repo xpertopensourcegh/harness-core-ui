@@ -21,10 +21,8 @@
 
     .entityDescription {
       width: 100%;
-      margin-bottom: var(--spacing-large);
       .entityTitle {
-        font-size: 25px;
-        margin-bottom: var(--spacing-small);
+        font-size: var(--font-size-medium);
       }
     }
   }

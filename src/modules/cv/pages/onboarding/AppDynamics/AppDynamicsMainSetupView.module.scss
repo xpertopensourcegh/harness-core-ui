@@ -1,5 +1,6 @@
 .main {
   overflow-y: scroll;
+  height: 100%;
 
   .applicationSelectContainer {
     display: flex;
@@ -37,6 +38,8 @@
       width: 480px;
       max-height: 300px;
       overflow-y: scroll;
+      position: relative;
+      bottom: 5px;
     }
 
     @media only screen and (max-width: 1303px) {
@@ -51,5 +54,9 @@
         }
       }
     }
+  }
+  .actionButtons {
+    text-align: right;
+    margin-top: var(--spacing-xxlarge);
   }
 }

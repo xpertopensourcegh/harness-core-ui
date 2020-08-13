@@ -68,9 +68,7 @@ export const routeCVDataSourcesProductPage: Route = {
   pageId: '/cv-onboarding/product',
   authenticated: true,
   url: (params: RouteURLArgs) =>
-    params?.dataSourceType
-      ? `/cv-onboarding/${params.dataSourceType}/product?dataSourceId=${params.dataSourceId}`
-      : `/cv-datasources/`,
+    params?.dataSourceType ? `/cv-onboarding/${params.dataSourceType}/product` : `/cv-datasources/`,
   component: React.lazy(() => import('./pages/datasourceproducts/DataSourceProductPage/DataSourceProductPage')),
   module: ModuleName.CV
 }

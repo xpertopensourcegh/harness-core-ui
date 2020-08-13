@@ -5,6 +5,7 @@ declare const styles: {
   readonly input: string
   readonly inputIcon: string
   readonly loadingJsonIcon: string
+  readonly disabledLook: string
   readonly dialogContent: string
   readonly leftColumn: string
   readonly rightColumn: string

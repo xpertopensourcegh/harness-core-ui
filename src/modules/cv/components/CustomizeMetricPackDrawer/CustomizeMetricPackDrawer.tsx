@@ -89,7 +89,7 @@ export function CustomizeMetricPackDrawer(props: CustomizeMetricPackDrawerProps)
         <Heading level={3} className={css.title}>
           {titleAndSubtitle.title}
         </Heading>
-        <Text>{titleAndSubtitle.subtitle}</Text>
+        <Text className={css.subTitle}>{titleAndSubtitle.subtitle}</Text>
       </Container>
       {!displayThresholds ? (
         <>

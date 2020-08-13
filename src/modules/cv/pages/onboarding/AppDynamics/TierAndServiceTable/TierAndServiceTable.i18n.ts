@@ -8,5 +8,6 @@ export default {
     tier: 'Tier',
     service: 'Service',
     validation: 'Validation'
-  }
+  },
+  viewDetails: 'View Details'
 }

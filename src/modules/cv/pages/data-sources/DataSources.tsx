@@ -119,9 +119,9 @@ function RenderContent(props: RenderContentProps): JSX.Element {
           const originalData = row.original as DataSourceTableRow
           const toObj = {
             pathname: linkTo(routeCVDataSourcesProductPage, {
-              dataSourceType: originalData.dataSourceRoute,
-              dataSourceId: originalData.uuid
+              dataSourceType: originalData.dataSourceRoute
             }),
+            search: `?dataSourceId=${originalData.uuid}`,
             state: { dataSourceId: originalData.uuid, isEdit: true }
           }
           const onEditCallback = useCallback(() => {

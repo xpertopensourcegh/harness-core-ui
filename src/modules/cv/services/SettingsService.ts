@@ -48,6 +48,7 @@ export async function createEnvironment(
     group,
     data: {
       identifier,
+      name: identifier,
       orgIdentifier,
       projectIdentifier,
       type

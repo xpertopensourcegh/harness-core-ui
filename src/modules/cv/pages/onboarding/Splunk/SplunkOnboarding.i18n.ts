@@ -1,12 +1,13 @@
 export default {
   pageHeading: 'Map your query to a Harness service and environment',
-  thirdPartyCallLogText: 'View Third Party Call Logs',
+  thirdPartyCallLogText: 'View calls to Splunk',
   addQueryButtonLabel: 'Add Query',
   createNew: 'Create New',
+  loadingText: 'Loading...',
   manuallyInputQueryButtonText: '+ Manually input query',
   addSavedSearchPlaceholder: 'Add Splunk Saved Search',
   fieldLabels: {
-    queryName: 'Query Name',
+    queryName: 'Name',
     query: 'Query',
     eventType: 'Event Type',
     serviceInstanceFieldName: 'Service Instance Field Name',
@@ -28,7 +29,7 @@ export default {
     environment: 'Select an Environment',
     serviceInstanceFieldName: {
       noData: 'Please provide a query',
-      default: 'Please select instance identifier'
+      default: 'Please select service instance identifier'
     },
     serviceIdentifier: 'Select a Service'
   },
@@ -41,5 +42,12 @@ export default {
   addQueryForm: {
     submitText: 'Submit',
     cancelText: 'Cancel'
-  }
+  },
+  viewInSplunkLinkText: 'View in Splunk',
+  splunkEntityTypeOptions: {
+    quality: 'Quality',
+    resources: 'Resources',
+    performance: 'Performance'
+  },
+  defaultQueryName: 'My Error Query'
 }

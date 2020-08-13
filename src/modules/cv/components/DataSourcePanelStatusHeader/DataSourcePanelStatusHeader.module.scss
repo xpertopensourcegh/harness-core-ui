@@ -16,20 +16,21 @@
     margin-right: var(--spacing-small);
     font-size: 12px !important;
     padding: 5px;
+    border-radius: 4px;
   }
 
   .tagError {
-    background-color: var(--red-300);
+    background-color: var(--red-200);
   }
   .tagSuccess {
-    background-color: var(--green-300);
+    background-color: var(--green-200);
   }
 
   .tagUnsavedChanges {
-    background-color: var(--grey-300);
+    background-color: var(--grey-200);
   }
 
   .tagEditing {
-    background-color: var(--blue-300);
+    background-color: var(--blue-200);
   }
 }

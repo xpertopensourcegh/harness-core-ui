@@ -107,7 +107,7 @@ function SelectedLog(props: SelectedLogProps): JSX.Element {
         </Text>
       </Container>
       <Container className={css.responseContainer}>
-        <Text color={Color.BLACK}>{i18n.requestMade}</Text>
+        <Text color={Color.BLACK}>{i18n.response}</Text>
         <Text>
           {i18n.statusCode}: <Text inline>{requiredKeys.statusCode}</Text>
         </Text>
@@ -193,8 +193,8 @@ export function ThirdPartyCallLogModal(props: ThirdPartyCallLogsProps): JSX.Elem
         onClose: onHide
       }
     }
-    return { ...bpDialogProps, onClose: onHide }
-  }, [onBackButtonClick, onHide])
+    return { ...bpDialogProps, title: `${i18n.modalTitle} ${verificationType}`, onClose: onHide }
+  }, [onBackButtonClick, onHide, verificationType])
 
   return (
     <Dialog {...dialogProps}>

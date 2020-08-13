@@ -17,10 +17,8 @@ import i18n from './TierAndServiceTable.i18n'
 import css from './TierAndServiceTable.module.scss'
 
 export type TierAndServiceRow = {
-  tierName?: string
-  tierId?: number
-  selected: boolean
-  service?: string
+  tierOption?: SelectOption
+  serviceName?: string
   validation?: boolean
 }
 
@@ -30,7 +28,7 @@ interface TierAndServiceTableProps {
   index: number
   dataSourceId: string
   accountId: string
-  serviceOptions: SelectOption[]
+  isLoadingServices: boolean
   setFieldTouched: (fieldName: string, touched?: boolean) => void
   setFieldValue: (fieldName: string, value: any) => void
   data?: TierAndServiceRow[]
@@ -38,11 +36,11 @@ interface TierAndServiceTableProps {
 
 interface RowRendererProps {
   row: Row<TierAndServiceRow>
-  services: SelectOption[]
+  tierOptions: SelectOption[]
   accountId: string
   projectId: number
   appId: number
-  isLoadingTiers: boolean
+  isLoadingServices: boolean
   metricPacks: MetricPack[]
   onChange: (fieldName: keyof TierAndServiceRow, value: any, index: number) => void
   connectorId: string
@@ -50,42 +48,56 @@ interface RowRendererProps {
 
 interface ValidationResultProps {
   validationResult?: AppdynamicsValidationResponse[]
-  error?: any
+  error?: string
+  tierId?: number
   isLoading: boolean
-  isChecked: boolean
-  isLoadingTiers: boolean
+  isLoadingServices: boolean
 }
 
-interface TierMappingCheckBoxProps {
-  checked: boolean
-  onChange: (checked: boolean) => void
-  isLoading: boolean
-  isLoadingTiers: boolean
-}
-
-interface ServiceDropdownProps {
-  serviceOptions: SelectOption[]
-  value?: SelectOption
+interface TierDropdownProps {
+  tierOptions: SelectOption[]
+  tierOption?: SelectOption
   onChange: RowRendererProps['onChange']
   isLoading: boolean
+  serviceName?: string
   index: number
-  isLoadingTiers: boolean
 }
 
 interface ViewDetailsProps {
   validationResult?: AppdynamicsValidationResponse[]
-  error?: any
+  error?: string
+  tierId?: number
   guid: string
-  selected: boolean
-  isLoadingTiers: boolean
+  isLoading: boolean
 }
 
 const XHR_METRIC_VALIDATION_GROUP = 'XHR_METRIC_VALIDATION_GROUP'
 const XHR_TIER_GROUP = 'XHR_TIER_GROUP'
 
-const DEFAULT_ROW_OBJ: TierAndServiceRow = { service: '', selected: false, tierName: undefined, tierId: undefined }
+export const DEFAULT_ROW_OBJ: TierAndServiceRow = {
+  serviceName: '',
+  tierOption: undefined
+}
 const BPTableProps = { bordered: true, condensed: true, striped: true }
 export const DefaultTiersAndService: TierAndServiceRow[] = [...Array(6).keys()].map(() => ({ ...DEFAULT_ROW_OBJ }))
+const TABLE_COLUMNS = [
+  {
+    Header: i18n.columnHeaders.service,
+    accessor: 'serviceName'
+  },
+  {
+    Header: i18n.columnHeaders.tier,
+    accessor: 'tierOption'
+  },
+  {
+    Header: i18n.columnHeaders.validation,
+    accessor: 'validation'
+  },
+  {
+    Header: <Container width={80} />,
+    accessor: 'viewDetails'
+  }
+]
 
 async function fetchAppDTiers(
   settingId: string,
@@ -142,8 +154,8 @@ async function loadAppDTiers(
 function mergeTierListWithExistingData(tableData: TierAndServiceRow[], tierList: SelectOption[]): void {
   const existingTiers = new Map<string, TierAndServiceRow>()
   for (const row of tableData || []) {
-    if (row?.tierName) {
-      existingTiers.set(row.tierName, row)
+    if (row?.tierOption?.label) {
+      existingTiers.set(row.tierOption.label, row)
     }
   }
 
@@ -157,11 +169,9 @@ function mergeTierListWithExistingData(tableData: TierAndServiceRow[], tierList:
     }
 
     const tableRow = existingTiers.get(tier.label)
-    if (tableRow) {
-      tableRow.tierId = tier.value as number
-      tableRow.tierName = tier.label
-    } else {
-      tableData.push({ ...DEFAULT_ROW_OBJ, tierId: tier.value as number, tierName: tier.label })
+    if (tableRow?.tierOption) {
+      tableRow.tierOption.value = tier.value as number
+      tableRow.tierOption.label = tier.label
     }
   })
 
@@ -183,10 +193,10 @@ function LoadingCell(props: { width: number }): JSX.Element {
 }
 
 function ValidationResult(props: ValidationResultProps): JSX.Element {
-  const { validationResult, error, isLoading, isChecked, isLoadingTiers } = props
+  const { validationResult, error, isLoading, isLoadingServices, tierId } = props
   const validationStatus: { status: string; intent: TextProps['intent'] } | undefined = useMemo(() => {
-    if (error && error.message) {
-      return { intent: 'danger', status: error.message }
+    if (error) {
+      return { intent: 'danger', status: error }
     }
 
     if (!validationResult) {
@@ -207,73 +217,70 @@ function ValidationResult(props: ValidationResultProps): JSX.Element {
   }, [validationResult, error])
 
   const childFields = useMemo(() => {
-    if (!isChecked) {
-      return <Container width={90} />
+    if (!tierId) {
+      return <Container width={100} />
     } else if (isLoading) {
       return <Spinner size={Spinner.SIZE_SMALL} />
     } else if (validationStatus) {
       return (
-        <Container className={css.validationContainer} width={90}>
-          <Text intent={validationStatus.intent} width={error && error.message ? 90 : 85} lineClamp={1}>
+        <Container className={css.validationContainer} width={100}>
+          <Text intent={validationStatus.intent} width={100} lineClamp={1}>
             {validationStatus.status}
           </Text>
         </Container>
       )
     }
-    return <span />
-  }, [error, isChecked, isLoading, validationStatus])
-  return isLoadingTiers ? (
-    <LoadingCell width={90} />
+    return <Container width={100} />
+  }, [isLoading, validationStatus, tierId])
+  return isLoadingServices ? (
+    <LoadingCell width={100} />
   ) : (
     <Container className={css.validationResult}>{childFields}</Container>
   )
 }
 
-function TierMappingCheckBox(props: TierMappingCheckBoxProps): JSX.Element {
-  const { checked, onChange, isLoading, isLoadingTiers } = props
-
-  if (isLoadingTiers) {
-    return <LoadingCell width={15} />
-  }
+function TierName(props: TierDropdownProps): JSX.Element {
+  const { isLoading, tierOption, tierOptions, serviceName, onChange, index } = props
   if (isLoading) {
-    return <Container height={20} width={15} />
+    return <LoadingCell width={100} />
+  } else if (!serviceName) {
+    return <Container width={100} height={19} />
   }
-
   return (
-    <Container className={css.tierSelectChecBox}>
-      <input type="checkbox" checked={checked} onChange={e => onChange(e.currentTarget?.checked)} />
-    </Container>
+    <Select
+      items={tierOptions || []}
+      className={css.tierSelect}
+      value={tierOption}
+      onChange={(item: SelectOption) => {
+        onChange('tierOption', item, index)
+      }}
+    />
   )
 }
 
-function TierName(props: { tierName?: string; isLoadingTiers: boolean }): JSX.Element {
-  if (props.isLoadingTiers) {
-    return <LoadingCell width={85} />
+function ServiceName(props: { serviceName?: string; isLoading: boolean }): JSX.Element {
+  const { serviceName, isLoading } = props
+  if (isLoading) {
+    return <LoadingCell width={100} />
   }
+
   return (
-    <Text lineClamp={1} className={css.tier} width={85} color={Color.BLACK}>
-      {props.tierName}
+    <Text lineClamp={1} className={css.serviceName} width={100} color={Color.BLACK}>
+      {serviceName}
     </Text>
   )
 }
 
-function ServiceDropdown(props: ServiceDropdownProps): JSX.Element {
-  const { serviceOptions, value, onChange, isLoading, index, isLoadingTiers } = props
-  const onChangeCallback = useCallback((val: SelectOption) => onChange('service', val?.label, index), [onChange, index])
-  if (isLoadingTiers) {
-    return <LoadingCell width={100} />
-  }
-  if (isLoading) {
-    return <Container height={20} width={100} className={isLoadingTiers ? Classes.SKELETON : undefined} />
-  }
-
-  return <Select items={serviceOptions} className={css.serviceSelect} value={value} onChange={onChangeCallback} />
-}
-
 function ViewDetails(props: ViewDetailsProps): JSX.Element {
-  const { error, validationResult, guid, selected, isLoadingTiers } = props
+  const { error, validationResult, guid, isLoading, tierId } = props
   const [displayMetricsModal, setMetricsModalDisplay] = useState(false)
   const hideModalCallback = useCallback(() => () => setMetricsModalDisplay(false), [])
+  if (isLoading) {
+    return <LoadingCell width={83} />
+  }
+  if (!tierId) {
+    return <Container width={85} />
+  }
   if (displayMetricsModal) {
     return (
       <MetricsVerificationModal
@@ -284,12 +291,9 @@ function ViewDetails(props: ViewDetailsProps): JSX.Element {
       />
     )
   }
-  if (isLoadingTiers) {
-    return <LoadingCell width={83} />
-  }
-  return !error && validationResult && selected ? (
+  return !error && validationResult ? (
     <Link withoutHref onClick={() => setMetricsModalDisplay(true)} className={css.viewDetails}>
-      View Details
+      {i18n.viewDetails}
     </Link>
   ) : (
     <Container />
@@ -297,36 +301,33 @@ function ViewDetails(props: ViewDetailsProps): JSX.Element {
 }
 
 function RowRenderer(props: RowRendererProps): JSX.Element {
-  const { row, services, accountId, projectId, appId, metricPacks, onChange, connectorId, isLoadingTiers } = props
+  const { row, tierOptions, accountId, projectId, appId, metricPacks, onChange, connectorId, isLoadingServices } = props
   const { cells, original, index: rowIndex } = row
-  const { service, tierName, selected, tierId } = original || {}
-  const [[mp, s, t], setDep] = useState<[MetricPack[] | undefined, boolean | undefined, number | undefined]>([
-    undefined,
-    undefined,
-    undefined
-  ])
-  const [{ error, validationResult, isLoading, guid }, setValidationResult] = useState<{
+  const { serviceName, tierOption } = original || {}
+  const [[mp, t], setDep] = useState<[MetricPack[] | undefined, number | undefined]>([undefined, undefined])
+  const [{ error, validationResult, isValidating, guid }, setValidationResult] = useState<{
     error: string
     validationResult: AppdynamicsValidationResponse[] | undefined
-    isLoading: boolean
+    isValidating: boolean
     guid: string
   }>({
     error: '',
     validationResult: undefined,
-    isLoading: false,
+    isValidating: false,
     guid: new Date().getTime().toString()
   })
 
+  const tierId = tierOption?.value as number
   useEffect(() => {
-    if (!metricPacks?.length || !tierId || !selected || appId === -1) {
+    if (!metricPacks?.length || !tierId || tierId === -1 || appId === -1 || isLoadingServices) {
       return
     }
-    if (mp === metricPacks && s === selected && t === tierId) {
+    if (mp === metricPacks && t === tierId) {
       return
     }
     const newGUID = new Date().getTime().toString()
-    setValidationResult({ isLoading: true, validationResult: undefined, error: '', guid: newGUID })
-    setDep([metricPacks, selected, tierId])
+    setValidationResult({ isValidating: true, validationResult: undefined, error: '', guid: newGUID })
+    setDep([metricPacks, tierId])
     xhr.abort(`${XHR_METRIC_VALIDATION_GROUP}-${guid}`)
     CVNextGenCVConfigService.validateMetricsApi({
       accountId,
@@ -341,73 +342,50 @@ function RowRenderer(props: RowRendererProps): JSX.Element {
       if (status === xhr.ABORTED) {
         return
       }
-      setValidationResult({ error: apiError, validationResult: response?.resource, isLoading: false, guid: newGUID })
+      setValidationResult({
+        error: apiError?.message,
+        validationResult: response?.resource,
+        isValidating: false,
+        guid: newGUID
+      })
       onChange('validation', response?.resource ? true : false, rowIndex)
     })
-  }, [accountId, appId, metricPacks, projectId, tierId, selected, onChange, connectorId, rowIndex])
-
-  const serviceSelectObj: SelectOption | undefined = useMemo(() => {
-    if (!services.length) {
-      return { value: '', label: '' }
-    }
-    return !service ? services[0] : services.find(({ value }) => value === service)
-  }, [service, services])
-
-  const onTierMappingSelection = useCallback(
-    (checked: boolean) => {
-      const serviceName = serviceSelectObj && serviceSelectObj.label ? serviceSelectObj.label : ''
-      xhr.abort(`${XHR_METRIC_VALIDATION_GROUP}-${guid}`)
-      if (!checked) {
-        setValidationResult({ validationResult, guid, error, isLoading: false })
-      }
-      onChange('selected', { service: serviceName, selected: checked }, rowIndex)
-    },
-    [guid, error, validationResult, onChange, rowIndex, serviceSelectObj]
-  )
+  }, [accountId, appId, metricPacks, projectId, tierOption, onChange, connectorId, rowIndex, isLoadingServices])
 
   const rowCellCallback = useCallback(
     (index: number) => {
       switch (index) {
         case 0:
-          return (
-            <TierMappingCheckBox
-              onChange={onTierMappingSelection}
-              isLoading={!tierName}
-              checked={selected}
-              isLoadingTiers={isLoadingTiers}
-            />
-          )
+          return <ServiceName serviceName={serviceName} isLoading={isLoadingServices} />
         case 1:
-          return <TierName tierName={tierName} isLoadingTiers={isLoadingTiers} />
-        case 2:
           return (
-            <ServiceDropdown
-              serviceOptions={services}
-              value={serviceSelectObj}
+            <TierName
+              tierOption={tierOption}
               onChange={onChange}
-              isLoading={!tierName}
               index={rowIndex}
-              isLoadingTiers={isLoadingTiers}
+              serviceName={serviceName}
+              isLoading={isLoadingServices}
+              tierOptions={tierOptions}
             />
           )
-        case 3:
+        case 2:
           return (
             <ValidationResult
               validationResult={validationResult}
               error={error}
-              isLoading={isLoading}
-              isChecked={selected}
-              isLoadingTiers={isLoadingTiers}
+              tierId={tierId}
+              isLoading={isValidating}
+              isLoadingServices={isLoadingServices}
             />
           )
-        case 4:
+        case 3:
           return (
             <ViewDetails
               error={error}
+              tierId={tierId}
               validationResult={validationResult}
               guid={guid}
-              selected={selected}
-              isLoadingTiers={isLoadingTiers}
+              isLoading={isLoadingServices}
             />
           )
         default:
@@ -417,16 +395,15 @@ function RowRenderer(props: RowRendererProps): JSX.Element {
     [
       error,
       guid,
-      isLoading,
+      tierId,
+      isValidating,
       onChange,
+      tierOption,
       rowIndex,
-      serviceSelectObj,
-      services,
-      isLoadingTiers,
-      tierName,
-      selected,
-      validationResult,
-      onTierMappingSelection
+      serviceName,
+      tierOptions,
+      isLoadingServices,
+      validationResult
     ]
   )
   return (
@@ -446,13 +423,13 @@ export default function TierAndServiceTable(props: TierAndServiceTableProps): JS
     dataSourceId,
     setFieldTouched,
     setFieldValue,
-    serviceOptions,
+    isLoadingServices,
     data = [],
     index: appIndex,
     accountId
   } = props
   const { dbInstance, isInitializingDB } = useIndexedDBHook()
-  const [isLoadingTiers, setIsLoadingTiers] = useState(true)
+  const [tierOptions, setTierOptions] = useState<SelectOption[]>([{ label: 'Loading...', value: '' }])
 
   // fetch tier and service list
   useEffect(() => {
@@ -463,97 +440,60 @@ export default function TierAndServiceTable(props: TierAndServiceTableProps): JS
     loadAppDTiers(accountId, appId, dataSourceId, dbInstance).then(tiers => {
       if (!tiers) {
         return
+      } else if (tiers.error) {
+        setTierOptions([])
+      } else if (!tiers.tierList?.length) {
+        setTierOptions([])
+      } else {
+        mergeTierListWithExistingData(data, tiers.tierList)
+        setFieldValue(`dsConfigs[${appIndex}].tableData`, data)
+        setTierOptions(tiers.tierList)
       }
-
-      if (tiers.error) {
-        return // todo
-      }
-
-      if (!tiers.tierList?.length) {
-        setIsLoadingTiers(false)
-        return
-      }
-
-      mergeTierListWithExistingData(data, tiers.tierList)
-      setFieldValue(`dsConfigs[${appIndex}].tableData`, data)
-      setIsLoadingTiers(false)
     })
     return () => xhr.abort(`${XHR_TIER_GROUP}_${appId}`)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [appId, dataSourceId, accountId, appIndex, dbInstance, isInitializingDB])
 
-  // when clicking on column header checkbox toggle checked value of all checkboxes
-  const onColumnCheckboxCallback = useCallback(
-    e => {
-      if (data) {
-        data.forEach(tierRow => (tierRow.selected = e.target.checked))
-        setFieldValue(`dsConfigs[${appIndex}].tableData`, [...data])
-        setFieldTouched(`dsConfigs[${appIndex}].tableData`, true)
-      }
-    },
-    [appIndex, setFieldValue, data, setFieldTouched]
-  )
-
-  const tableColumns = useMemo(
-    () => [
-      {
-        Header: <input type="checkbox" className={css.tierSelectChecBox} onClick={onColumnCheckboxCallback} />,
-        accessor: 'selected'
-      },
-      {
-        Header: i18n.columnHeaders.tier,
-        accessor: 'tierName'
-      },
-      {
-        Header: i18n.columnHeaders.service,
-        accessor: 'serviceId'
-      },
-      {
-        Header: i18n.columnHeaders.validation,
-        accessor: 'validation'
-      },
-      {
-        Header: <Container width={80} />,
-        accessor: 'viewDetails'
-      }
-    ],
-    [onColumnCheckboxCallback]
-  )
-
   const onRowChangeCallback = useCallback(
     (fieldName: keyof TierAndServiceRow, value: any, index: number) => {
-      if (fieldName === 'selected') {
-        const validation = value.selected ? data[index]['validation'] : undefined
-        data[index] = { ...data[index], ...value, validation }
-      } else {
-        data[index][fieldName] = value as never
-      }
-
+      data[index][fieldName] = value as never
       setFieldValue(`dsConfigs[${appIndex}].tableData`, fieldName === 'validation' ? data : [...data])
       setFieldTouched(`dsConfigs[${appIndex}].tableData`, true)
     },
     [appIndex, setFieldValue, data, setFieldTouched]
   )
 
+  const paddedTableData = useMemo(() => {
+    if (isLoadingServices || !data?.length) {
+      return DefaultTiersAndService
+    }
+
+    const paddedData = [...data]
+    for (let i = 6 - data.length; i > 0; i--) {
+      paddedData.push({ ...DEFAULT_ROW_OBJ })
+    }
+    return paddedData
+  }, [data, isLoadingServices])
+
   return (
     <ModalProvider>
       <Table
-        columns={tableColumns as any}
+        columns={TABLE_COLUMNS as any}
         bpTableProps={BPTableProps}
-        data={isLoadingTiers || !data?.length ? DefaultTiersAndService : data}
+        data={paddedTableData}
         className={css.main}
         renderCustomRow={row => (
           <RowRenderer
             key={row.values?.tierName || row.index}
             row={row as any}
-            isLoadingTiers={isLoadingTiers}
+            isLoadingServices={isLoadingServices || tierOptions?.[0]?.label === 'Loading...'}
             appId={appId}
             accountId={accountId}
             onChange={onRowChangeCallback}
             projectId={12345}
             connectorId={dataSourceId}
             metricPacks={metricPacks}
-            services={serviceOptions}
+            tierOptions={tierOptions}
           />
         )}
       />
