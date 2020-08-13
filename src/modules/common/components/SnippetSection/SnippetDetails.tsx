@@ -1,85 +1,41 @@
 import React, { useState, useEffect } from 'react'
-import type { MouseEvent } from 'react'
-import cx from 'classnames'
 
 import { Icon } from '@wings-software/uikit'
-import copy from 'copy-to-clipboard'
-import { YAMLService } from 'modules/dx/services'
 import i18n from './SnippetDetails.i18n'
 import type { SnippetInterface } from '../../interfaces/SnippetInterface'
+import type { YamlEntity } from '../../constants/YamlConstants'
+import Snippet from './Snippet'
 
 import css from './SnippetDetails.module.scss'
 
 interface SnippetDetailsProps {
-  entityType: string
-  selectedIcon: string
-}
-
-const onCopy = (): void => {
-  //TODO confirm oncopy behaviour
-  //alert('Copied to clipboard)
-}
-
-const copyToClipboard = (event: MouseEvent, snippetYaml: string): void => {
-  event.preventDefault()
-  copy(snippetYaml)
-  onCopy()
-}
-
-const getSnippetDetail = (snippet: SnippetInterface): React.ReactElement => {
-  return (
-    <div className={cx(css.flexCenter, css.snippet)} key={snippet.name}>
-      <span className={css.icon}>
-        <Icon name={'service-kubernetes'} size={25} />
-      </span>
-      <div className={css.fullWidth}>
-        <div className={css.name}>
-          <div className={css.snippetName}>{snippet.name}</div>
-        </div>
-        <div className={css.description}>{snippet.description}</div>
-        <div className={css.snippetVersion}>
-          {i18n.version} {snippet.version}
-        </div>
-      </div>
-      <div className={css.copy}>
-        <Icon
-          name="copy"
-          size={20}
-          className={css.snippetIcon}
-          title={'Copy'}
-          onClick={event => copyToClipboard(event, snippet.yaml)}
-        />
-      </div>
-    </div>
-  )
+  entityType: typeof YamlEntity
+  selectedIcon?: string
+  snippets: SnippetInterface[]
+  onSnippetSearch: (arg0: string) => void
 }
 
 const SnippetDetails: React.FC<SnippetDetailsProps> = props => {
-  const [snippets, setSnippets] = useState([] as SnippetInterface[])
+  const [snippets, setSnippets] = useState<SnippetInterface[]>()
   const [searchedSnippet, setSearchedSnippet] = useState('')
-
-  const fetchSnippets = (entityType: string): void => {
-    const snippetsFetched = YAMLService.fetchSnippets(entityType) as SnippetInterface[]
-    setSnippets(snippetsFetched)
-  }
 
   const onSnippetSearch = (event: React.ChangeEvent<HTMLInputElement>): void => {
     event.preventDefault()
     const query = event.target.value
     setSearchedSnippet(query)
-    setSnippets(snippets.slice().filter(snippet => snippet.name.toLowerCase().includes(query.toLowerCase())))
+    props.onSnippetSearch(query)
   }
 
   const onSearchClear = (event: React.MouseEvent<HTMLElement>): void => {
     event.preventDefault()
     setSearchedSnippet('')
-    fetchSnippets(props.entityType)
+    props.onSnippetSearch('')
   }
 
   //TODO Handle icon click when apis are ready
   useEffect(() => {
-    fetchSnippets(props.entityType)
-  }, [props.entityType, props.selectedIcon])
+    setSnippets(props.snippets)
+  }, [props.snippets])
 
   return (
     <div className={css.main}>
@@ -104,7 +60,11 @@ const SnippetDetails: React.FC<SnippetDetailsProps> = props => {
           </span>
         ) : null}
       </div>
-      <div className={css.snippets}>{snippets.map(snippet => getSnippetDetail(snippet))}</div>
+      <div className={css.snippets}>
+        {snippets?.map(snippet => (
+          <Snippet key={snippet.name} {...snippet} />
+        ))}
+      </div>
     </div>
   )
 }

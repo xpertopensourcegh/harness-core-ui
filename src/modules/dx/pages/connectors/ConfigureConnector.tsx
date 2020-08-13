@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react'
-import { Formik, FormikForm as Form, Button, Layout } from '@wings-software/uikit'
+import { Formik, FormikForm as Form, Button, Layout, IconName } from '@wings-software/uikit'
 import * as YAML from 'yaml'
 import cx from 'classnames'
 import { useToaster } from 'modules/common/exports'
 import { useUpdateConnector, ConnectorDTO } from 'services/cd-ng'
 import YamlBuilder from 'modules/common/components/YAMLBuilder/YamlBuilder'
 import { YamlEntity } from 'modules/common/constants/YamlConstants'
+import type { SnippetInterface } from 'modules/common/interfaces/SnippetInterface'
+import { YAMLService } from 'modules/dx/services'
 import TestConnection from 'modules/dx/components/connectors/TestConnection/TestConnection'
 import ConnectorForm from 'modules/dx/components/connectors/ConnectorForm/ConnectorForm'
 import type { FormData } from 'modules/dx/interfaces/ConnectorInterface'
@@ -67,6 +69,7 @@ const ConfigureConnector = (props: ConfigureConnectorProps): JSX.Element => {
   const [selectedView, setSelectedView] = useState(
     props.isCreationThroughYamlBuilder ? SelectedView.YAML : SelectedView.VISUAL
   )
+  const [snippets, setSnippets] = useState<SnippetInterface[]>()
   const [connectorResponse, setConnectorResponse] = useState(props.connectorDetails)
 
   const state: ConfigureConnectorState = {
@@ -97,6 +100,30 @@ const ConfigureConnector = (props: ConfigureConnectorProps): JSX.Element => {
       showError(error.message)
     }
   }
+
+  const addIconInfoToSnippets = (snippetsList: SnippetInterface[], iconName: IconName): void => {
+    if (!snippetsList) {
+      return
+    }
+    const snippetsClone = snippetsList.slice()
+    snippetsClone.forEach(snippet => {
+      snippet['iconName'] = iconName
+    })
+  }
+
+  const fetchSnippets = (query?: string): void => {
+    const { error, response: snippetsList } = YAMLService.fetchSnippets(YamlEntity.PIPELINE, query)
+    if (error) {
+      showError(error)
+      return
+    }
+    addIconInfoToSnippets(snippetsList, 'command-shell-script')
+    setSnippets(snippetsList)
+  }
+
+  useEffect(() => {
+    fetchSnippets()
+  })
 
   useEffect(() => {
     if (props.connector) {
@@ -177,6 +204,8 @@ const ConfigureConnector = (props: ConfigureConnectorProps): JSX.Element => {
               fileName={`${connector?.identifier ?? 'Connector'}.yaml`}
               entityType={YamlEntity.CONNECTOR}
               existingYaml={getYamlFromJson(props.connectorJson)}
+              snippets={snippets}
+              onSnippetSearch={fetchSnippets}
             />
           </div>
         )}

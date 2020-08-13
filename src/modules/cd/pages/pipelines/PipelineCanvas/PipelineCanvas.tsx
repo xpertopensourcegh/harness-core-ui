@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Classes, Dialog } from '@blueprintjs/core'
 import cx from 'classnames'
 import { stringify, parse } from 'yaml'
-import { Button, Icon, Text, Layout, useModalHook, Tag } from '@wings-software/uikit'
+import { Button, Icon, Text, Layout, useModalHook, Tag, IconName } from '@wings-software/uikit'
 import { useHistory, Switch, Route, useRouteMatch, Link as RrLink, useParams } from 'react-router-dom'
 import YamlBuilder from 'modules/common/components/YAMLBuilder/YamlBuilder'
 import { YamlEntity } from 'modules/common/constants/YamlConstants'
@@ -10,6 +10,8 @@ import { NavigationCheck, useToaster } from 'modules/common/exports'
 import type { YamlBuilderHandlerBinding } from 'modules/common/interfaces/YAMLBuilderProps'
 import type { CDPipeline, ResponseDTOString } from 'services/cd-ng'
 import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
+import { YAMLService } from 'modules/dx/services'
+import type { SnippetInterface } from 'modules/common/interfaces/SnippetInterface'
 import { PipelineContext, savePipeline } from '../PipelineContext/PipelineContext'
 import i18n from './PipelineCanvas.i18n'
 import CreatePipelines from '../CreateModal/PipelineCreate'
@@ -27,6 +29,7 @@ export const PipelineCanvas: React.FC<{}> = (): JSX.Element => {
     pipelineView: { isSetupStageOpen }
   } = state
 
+  const [snippets, setSnippets] = useState<SnippetInterface[]>()
   const { showError } = useToaster()
   const { accountId, projectIdentifier, orgIdentifier, pipelineIdentifier } = useParams()
 
@@ -80,6 +83,31 @@ export const PipelineCanvas: React.FC<{}> = (): JSX.Element => {
     ),
     [pipeline.identifier, pipeline]
   )
+
+  const addIconInfoToSnippets = (snippetsList: SnippetInterface[], iconName: IconName): void => {
+    if (!snippetsList) {
+      return
+    }
+    const snippetsClone = snippetsList.slice()
+    snippetsClone.forEach(snippet => {
+      snippet['iconName'] = iconName
+    })
+  }
+
+  const fetchSnippets = (query?: string): void => {
+    const { error, response: snippetsList } = YAMLService.fetchSnippets(YamlEntity.PIPELINE, query)
+    if (error) {
+      showError(error)
+      return
+    }
+    addIconInfoToSnippets(snippetsList, 'command-shell-script')
+    setSnippets(snippetsList)
+  }
+
+  React.useEffect(() => {
+    fetchSnippets()
+  })
+
   React.useEffect(() => {
     if (isInitialized) {
       if (pipeline.identifier === DefaultNewPipelineId) {
@@ -196,6 +224,8 @@ export const PipelineCanvas: React.FC<{}> = (): JSX.Element => {
               entityType={YamlEntity.PIPELINE}
               existingYaml={stringify({ pipeline })}
               bind={setYamlHandler}
+              snippets={snippets}
+              onSnippetSearch={fetchSnippets}
             />
           </div>
         </Route>

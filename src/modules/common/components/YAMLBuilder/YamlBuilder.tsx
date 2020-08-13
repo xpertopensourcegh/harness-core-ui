@@ -91,9 +91,12 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
     entityType,
     existingYaml,
     isReadOnlyMode,
-    showSnippetsSection = true,
+    showSnippetSection = true,
     invocationMap,
-    bind
+    bind,
+    snippets,
+    showIconMenu = false,
+    onSnippetSearch
   } = props
   const [currentYaml, setCurrentYaml] = useState<string | undefined>('')
   const yamlPathToRTValueMap = useRef(new Map<string, any>())
@@ -266,7 +269,7 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
   return (
     <div className={css.main}>
       <Layout.Horizontal className={css.layout}>
-        <div className={cx(css.builderSection, { [css.editorOnly]: !showSnippetsSection })}>
+        <div className={cx(css.builderSection, { [css.editorOnly]: !showSnippetSection })}>
           <div className={css.flexCenter}>
             <span className={cx(css.filePath, css.flexCenter)}>{fileName}</span>
             {fileName && entityType ? <Tag className={css.entityTag}>{entityType}</Tag> : null}
@@ -282,7 +285,14 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
             options={{ readOnly: isReadOnlyMode, wordBasedSuggestions: false }}
           />
         </div>
-        {showSnippetsSection ? <SnippetSection entityType={entityType} /> : null}
+        {showSnippetSection ? (
+          <SnippetSection
+            showIconMenu={showIconMenu}
+            entityType={entityType}
+            snippets={snippets}
+            onSnippetSearch={onSnippetSearch}
+          />
+        ) : null}
       </Layout.Horizontal>
     </div>
   )

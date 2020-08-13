@@ -1,28 +1,33 @@
 import React, { useState } from 'react'
 
 import { Icon, IconName } from '@wings-software/uikit'
+import { SnippetMenuIcons, YamlEntity } from '../../constants/YamlConstants'
 
 import SnippetDetails from './SnippetDetails'
+import type { SnippetInterface } from '../../interfaces/SnippetInterface'
 import css from './SnippetSection.module.scss'
 
 interface SnippetSectionProps {
-  entityType: string
+  entityType: typeof YamlEntity
   showIconMenu?: boolean
+  snippets: SnippetInterface[]
+  onSnippetSearch: (arg0: string) => void
 }
 
 const SnippetSection: React.FC<SnippetSectionProps> = props => {
+  const { showIconMenu, snippets, entityType, onSnippetSearch } = props
   const icons = [
-    { name: 'yaml-builder-env', label: 'Environment' },
-    { name: 'yaml-builder-input-sets', label: 'Input Set' },
-    { name: 'yaml-builder-notifications', label: 'Notification' },
-    { name: 'yaml-builder-stages', label: 'Stage' },
-    { name: 'yaml-builder-steps', label: 'Step' },
-    { name: 'yaml-builder-trigger', label: 'Trigger' }
+    { name: SnippetMenuIcons.get(YamlEntity.ENVIRONMENT), label: 'Environment' },
+    { name: SnippetMenuIcons.get(YamlEntity.INPUT_SET), label: 'Input Set' },
+    { name: SnippetMenuIcons.get(YamlEntity.NOTIFICATION), label: 'Notification' },
+    { name: SnippetMenuIcons.get(YamlEntity.STAGE), label: 'Stage' },
+    { name: SnippetMenuIcons.get(YamlEntity.STEP), label: 'Step' },
+    { name: SnippetMenuIcons.get(YamlEntity.TRIGGER), label: 'Trigger' }
   ]
 
   const [selectedIcon, setSelectedIcon] = useState(icons[0].name)
 
-  const onIconClick = (event: any, icon: string): void => {
+  const onIconClick = (event: any, icon?: string): void => {
     event.preventDefault()
     setSelectedIcon(icon)
   }
@@ -46,9 +51,14 @@ const SnippetSection: React.FC<SnippetSectionProps> = props => {
 
   return (
     <div className={css.main}>
-      {props.showIconMenu ? <div className={css.snippetIcons}>{getIconList()}</div> : null}
+      {showIconMenu ? <div className={css.snippetIcons}>{getIconList()}</div> : null}
       <div className={css.snippets}>
-        <SnippetDetails selectedIcon={selectedIcon} entityType={props.entityType} />
+        <SnippetDetails
+          entityType={entityType}
+          selectedIcon={selectedIcon}
+          snippets={snippets}
+          onSnippetSearch={onSnippetSearch}
+        />
       </div>
     </div>
   )

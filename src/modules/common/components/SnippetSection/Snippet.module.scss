@@ -1,0 +1,67 @@
+.flexCenter {
+  display: flex;
+  align-items: center;
+}
+
+.snippet {
+  padding: var(--spacing-small) var(--spacing-xsmall);
+  width: 100%;
+  &:hover {
+    cursor: pointer;
+    background-color: var(--grey-100);
+    border-radius: 5px;
+  }
+  .icon {
+    margin: 0 var(--spacing-large) 0 var(--spacing-small);
+    padding: var(--spacing-xsmall);
+    border: 1px solid var(--grey-250);
+    border-radius: var(--spacing-xsmall);
+  }
+  .name {
+    margin: var(--spacing-xsmall) 0;
+    display: flex;
+    justify-content: space-between;
+    .snippetName {
+      font-weight: bold;
+      color: var(--grey-800);
+    }
+  }
+  .description {
+    margin: var(--spacing-xsmall) 0;
+    color: var(--grey-400);
+  }
+}
+
+.fullWidth {
+  width: 100%;
+}
+
+.snippetVersion {
+  font-size: smaller;
+  color: var(--grey-800);
+}
+
+.copy {
+  margin: var(--spacing-small);
+  padding: var(--spacing-small) var(--spacing-xsmall) var(--spacing-small) var(--spacing-small);
+  &:hover {
+    background-color: var(--grey-250);
+    border-radius: 5px;
+  }
+}
+
+.snippetIcon {
+  cursor: pointer;
+  margin-right: var(--spacing-xsmall) !important;
+  svg g {
+    fill: var(--blue-500);
+    stroke: var(--blue-500);
+  }
+}
+
+.tooltipLabel {
+  background-color: black;
+  color: white;
+  padding: var(--spacing-xsmall) var(--spacing-small);
+  border-radius: 5px;
+}

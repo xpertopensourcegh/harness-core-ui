@@ -1,5 +1,6 @@
 import { clone } from 'lodash'
 import type { CDPipeline } from 'services/cd-ng'
+import type { SnippetInterface } from 'modules/common/interfaces/SnippetInterface'
 
 export enum PipelineActions {
   DBInitialize = 'DBInitialize',
@@ -27,6 +28,7 @@ export interface PipelineReducerState {
   isLoading: boolean
   isInitialized: boolean
   isUpdated: boolean
+  snippets?: SnippetInterface[]
 }
 
 export const DefaultPipeline: CDPipeline = {

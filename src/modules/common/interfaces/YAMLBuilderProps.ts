@@ -1,3 +1,5 @@
+import type { SnippetInterface } from './SnippetInterface'
+
 export interface YamlBuilderHandlerBinding {
   getLatestYaml: () => string
 }
@@ -11,7 +13,10 @@ export default interface YamlBuilderProps {
   bind?: (dynamicPopoverHandler: YamlBuilderHandlerBinding) => void
   invocationMap?: Map<string, InvocationContext>
   isReadOnlyMode?: boolean
-  showSnippetsSection?: boolean
+  showSnippetSection?: boolean
+  snippets?: SnippetInterface[]
+  showIconMenu?: boolean
+  onSnippetSearch?: (queryString: string) => void
 }
 
 export interface InvocationContext {

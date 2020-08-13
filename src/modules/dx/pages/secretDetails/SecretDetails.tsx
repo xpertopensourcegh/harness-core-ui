@@ -5,7 +5,7 @@ import cx from 'classnames'
 import * as Yup from 'yup'
 import { Formik, FormikProps } from 'formik'
 import { pick } from 'lodash-es'
-import { Layout, Text, Color, Container, Button, FormikForm } from '@wings-software/uikit'
+import { Layout, Text, Color, Container, Button, FormikForm, IconName } from '@wings-software/uikit'
 
 import { useGetSecretText, useUpdateSecretText } from 'services/cd-ng'
 import type { EncryptedDataDTO, SecretTextUpdateDTO } from 'services/cd-ng'
@@ -17,6 +17,9 @@ import { routeResources } from 'modules/common/routes'
 import YamlBuilder from 'modules/common/components/YAMLBuilder/YamlBuilder'
 import type { YamlBuilderHandlerBinding } from 'modules/common/interfaces/YAMLBuilderProps'
 import { YamlEntity } from 'modules/common/constants/YamlConstants'
+import { YAMLService } from 'modules/dx/services'
+import type { SnippetInterface } from 'modules/common/interfaces/SnippetInterface'
+import { useToaster } from 'modules/common/exports'
 import ViewSecretDetails from './views/ViewSecretDetails'
 import EditVisualSecret from './views/EditVisualSecret'
 
@@ -36,6 +39,7 @@ const SecretDetails: React.FC = () => {
   const { accountId, secretId } = useParams()
   const [editing, setEditing] = useState(false)
   const [mode, setMode] = useState<Mode>(Mode.VISUAL)
+  const [snippets, setSnippets] = useState<SnippetInterface[]>()
   const [yamlHandler, setYamlHandler] = React.useState<YamlBuilderHandlerBinding | undefined>()
   const { loading, data, refetch, error } = useGetSecretText({
     identifier: secretId,
@@ -46,6 +50,7 @@ const SecretDetails: React.FC = () => {
     identifier: secretId || ''
   })
   const [secretData, setSecretData] = useState(data?.data)
+  const { showError } = useToaster()
 
   const handleSubmit = async (formData: EncryptedDataDTO): Promise<void> => {
     const dataToSubmit: SecretTextUpdateDTO = pick(formData, ['value', 'path'])
@@ -57,6 +62,30 @@ const SecretDetails: React.FC = () => {
       // handle error
     }
   }
+
+  const addIconInfoToSnippets = (snippetsList: SnippetInterface[], iconName: IconName): void => {
+    if (!snippetsList) {
+      return
+    }
+    const snippetsClone = snippetsList.slice()
+    snippetsClone.forEach(snippet => {
+      snippet['iconName'] = iconName
+    })
+  }
+
+  const fetchSnippets = (query?: string): void => {
+    const { error: apiError, response: snippetsList } = YAMLService.fetchSnippets(YamlEntity.PIPELINE, query)
+    if (error) {
+      showError(apiError)
+      return
+    }
+    addIconInfoToSnippets(snippetsList, 'command-shell-script')
+    setSnippets(snippetsList)
+  }
+
+  React.useEffect(() => {
+    fetchSnippets()
+  })
 
   useEffect(() => {
     setSecretData(data?.data)
@@ -145,6 +174,8 @@ const SecretDetails: React.FC = () => {
                     fileName={`${secretData.name}.yaml`}
                     existingYaml={stringify(secretData)}
                     bind={setYamlHandler}
+                    snippets={snippets}
+                    onSnippetSearch={fetchSnippets}
                   />
                 )}
                 <Button
@@ -165,7 +196,7 @@ const SecretDetails: React.FC = () => {
             fileName={`${secretData.name}.yaml`}
             existingYaml={stringify(secretData)}
             isReadOnlyMode={true}
-            showSnippetsSection={false}
+            showSnippetSection={false}
           />
         )}
       </Container>
