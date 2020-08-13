@@ -1,5 +1,6 @@
 .right-bar {
   background-color: #fafafa;
+  z-index: 1;
   box-shadow: -1px 0 2px 0 rgba(0, 0, 0, 0.25);
   display: grid;
   grid-template-rows: 1fr 60px 60px 60px 1fr;

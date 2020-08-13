@@ -1,36 +1,28 @@
 import React from 'react'
 import { Icon } from '@wings-software/uikit'
+import { debounce } from 'lodash'
 import type { NodeModelListener, LinkModelListener } from '@projectstorm/react-diagrams-core'
+import SplitPane from 'react-split-pane'
 import { Diagram } from 'modules/common/exports'
 import { DynamicPopover, DynamicPopoverHandlerBinding } from 'modules/common/components/DynamicPopover/DynamicPopover'
 import { CanvasButtons } from 'modules/cd/common/CanvasButtons/CanvasButtons'
 import type { StageElementWrapper, CDPipeline } from 'services/cd-ng'
 import { StageBuilderModel } from './StageBuilderModel'
-import 'split-view'
 import StageSetupShell from '../../../common/StageSetupShell/StageSetupShell'
 import { PipelineContext } from '../PipelineContext/PipelineContext'
-import { EmptyStageName } from '../PipelineConstants'
+import { EmptyStageName, MinimumSplitPaneSize, DefaultSplitPaneSize } from '../PipelineConstants'
 import {
   getNewStageFromType,
   StageType,
   PopoverData,
   getStageFromPipeline,
-  EmptyNodeSeparator
+  EmptyNodeSeparator,
+  resetDiagram
 } from './StageBuilderUtil'
 import { EditStageView } from './views/EditStageView'
 import { StageList } from './views/StageList'
 import { AddStageView } from './views/AddStageView'
 import css from './StageBuilder.module.scss'
-
-declare global {
-  // eslint-disable-next-line @typescript-eslint/no-namespace
-  namespace JSX {
-    interface IntrinsicElements {
-      'split-view': any
-      'split-divider': any
-    }
-  }
-}
 
 export interface StageState {
   isConfigured: boolean
@@ -219,6 +211,7 @@ export const StageBuilder: React.FC<{}> = (): JSX.Element => {
                 groupStages: parent.parallel,
                 onClickGroupStage: (stageId: string) => {
                   dynamicPopoverHandler?.hide()
+                  resetDiagram(engine)
                   updatePipelineView({ isSetupStageOpen: true, selectedStageId: stageId })
                 }
               },
@@ -228,9 +221,11 @@ export const StageBuilder: React.FC<{}> = (): JSX.Element => {
         } else if (eventTemp.entity.getType() !== Diagram.DiagramType.StartNode) {
           const data = getStageFromPipeline(pipeline, eventTemp.entity.getIdentifier()).stage
           if (isSetupStageOpen && data?.stage?.identifier) {
+            resetDiagram(engine)
             updatePipelineView({ isSetupStageOpen: true, selectedStageId: data?.stage?.identifier })
           } else if (!isSetupStageOpen) {
             if (stageMap.has(data?.stage?.identifier)) {
+              resetDiagram(engine)
               updatePipelineView({ isSetupStageOpen: true, selectedStageId: data?.stage?.identifier })
             } else {
               dynamicPopoverHandler?.show(
@@ -242,6 +237,7 @@ export const StageBuilder: React.FC<{}> = (): JSX.Element => {
                     updatePipeline(pipeline)
                     stageMap.set(node.stage.identifier, { isConfigured: true, stage: node })
                     dynamicPopoverHandler.hide()
+                    resetDiagram(engine)
                     updatePipelineView({ isSetupStageOpen: true, selectedStageId: identifier })
                   }
                 },
@@ -319,52 +315,75 @@ export const StageBuilder: React.FC<{}> = (): JSX.Element => {
 
   //2) setup the diagram model
   const model = React.useMemo(() => new StageBuilderModel(), [])
+  const [splitPaneSize, setSplitPaneSize] = React.useState(DefaultSplitPaneSize)
 
-  model.addUpdateGraph(pipeline, { nodeListeners, linkListeners }, selectedStageId)
-
+  model.addUpdateGraph(pipeline, { nodeListeners, linkListeners }, selectedStageId, splitPaneSize)
+  const setSplitPaneSizeDeb = debounce(setSplitPaneSize, 200)
   // load model into engine
   engine.setModel(model)
 
+  const StageCanvas = (
+    <div
+      className={css.canvas}
+      ref={canvasRef}
+      onClick={e => {
+        const div = e.target as HTMLDivElement
+        if (div === canvasRef.current?.children[0]) {
+          dynamicPopoverHandler?.hide()
+        }
+        if (isSetupStageOpen) {
+          updatePipelineView({ isSetupStageOpen: false, selectedStageId: undefined })
+        }
+      }}
+    >
+      <Diagram.CanvasWidget engine={engine} />
+      <DynamicPopover
+        darkMode={true}
+        className={css.renderPopover}
+        render={renderPopover}
+        bind={setDynamicPopoverHandler}
+      />
+
+      <CanvasButtons engine={engine} callback={() => dynamicPopoverHandler?.hide()} />
+    </div>
+  )
+
   return (
-    <split-view horizontal fill>
-      <div
-        className={css.canvas}
-        ref={canvasRef}
-        onClick={e => {
-          const div = e.target as HTMLDivElement
-          if (div === canvasRef.current?.children[0]) {
-            dynamicPopoverHandler?.hide()
-          }
-          if (isSetupStageOpen) {
-            updatePipelineView({ isSetupStageOpen: false, selectedStageId: undefined })
-          }
-        }}
-      >
-        <Diagram.CanvasWidget engine={engine} />
-        <DynamicPopover
-          darkMode={true}
-          className={css.renderPopover}
-          render={renderPopover}
-          bind={setDynamicPopoverHandler}
-        />
-
-        <CanvasButtons engine={engine} callback={() => dynamicPopoverHandler?.hide()} />
-      </div>
-
-      {isSetupStageOpen && (
-        <split-divider wide>
-          <Icon
-            name="cross"
-            size={20}
-            className={css.stageCloseIcon}
-            onClick={() => {
-              updatePipelineView({ isSetupStageOpen: false, selectedStageId: undefined })
-              dynamicPopoverHandler?.hide()
-            }}
-          />
-        </split-divider>
+    <div className={css.canvas}>
+      {isSetupStageOpen ? (
+        <SplitPane
+          size={splitPaneSize}
+          split="horizontal"
+          minSize={MinimumSplitPaneSize}
+          onChange={size => setSplitPaneSizeDeb(size)}
+        >
+          {StageCanvas}
+          <div style={{ width: '100%', height: `calc(100vh - ${splitPaneSize + 70}px)`, overflow: 'scroll' }}>
+            <div className={css.splitButtons}>
+              <Icon
+                name="up"
+                size={15}
+                className={css.stageDecrease}
+                onClick={() => {
+                  setSplitPaneSize(MinimumSplitPaneSize)
+                }}
+              />
+              <span className={css.separator} />
+              <Icon
+                name="down"
+                size={15}
+                className={css.stageIncrease}
+                onClick={() => {
+                  setSplitPaneSize(prev => prev + 100)
+                }}
+              />
+            </div>
+            <StageSetupShell />
+          </div>
+        </SplitPane>
+      ) : (
+        StageCanvas
       )}
-      {isSetupStageOpen && <StageSetupShell />}
-    </split-view>
+    </div>
   )
 }

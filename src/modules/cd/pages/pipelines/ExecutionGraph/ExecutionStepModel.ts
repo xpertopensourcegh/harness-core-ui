@@ -16,7 +16,7 @@ export class ExecutionStepModel extends Diagram.DiagramModel {
     super({
       gridSize: 100,
       startX: -100,
-      startY: 100,
+      startY: 140,
       gap: 200
     })
   }

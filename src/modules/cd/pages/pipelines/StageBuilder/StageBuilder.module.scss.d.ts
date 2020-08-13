@@ -14,6 +14,9 @@ declare const styles: {
   readonly grid: string
   readonly stageCreate: string
   readonly btnSetup: string
-  readonly stageCloseIcon: string
+  readonly splitButtons: string
+  readonly stageDecrease: string
+  readonly stageIncrease: string
+  readonly separator: string
 }
 export default styles

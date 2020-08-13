@@ -28,6 +28,7 @@ export class StageBuilderModel extends Diagram.DiagramModel {
     startX: number,
     startY: number,
     selectedStageId?: string,
+    splitPaneSize?: number,
     prevNodes?: Diagram.DefaultNodeModel[],
     allowAdd?: boolean,
     isParallelNodes = false
@@ -72,7 +73,7 @@ export class StageBuilderModel extends Diagram.DiagramModel {
       return { startX, startY, prevNodes: [nodeRender] }
     } else if (node.parallel && prevNodes) {
       if (node.parallel.length > 1) {
-        if (selectedStageId) {
+        if (selectedStageId && (splitPaneSize || 0) < (this.gap * node.parallel.length) / 2 + 40) {
           const parallelStageNames: Array<string> = []
           let isSelected = false
           const icons: Array<IconName> = []
@@ -126,7 +127,16 @@ export class StageBuilderModel extends Diagram.DiagramModel {
           const prevNodesAr: Diagram.DefaultNodeModel[] = []
           node.parallel.forEach((nodeP: StageElementWrapper, index: number) => {
             const isLastNode = node.parallel.length === index + 1
-            const resp = this.renderGraphNodes(nodeP, newX, newY, selectedStageId, prevNodes, isLastNode, true)
+            const resp = this.renderGraphNodes(
+              nodeP,
+              newX,
+              newY,
+              selectedStageId,
+              splitPaneSize,
+              prevNodes,
+              isLastNode,
+              true
+            )
             startX = resp.startX
             newY = resp.startY + this.gap / 2
             if (resp.prevNodes) {
@@ -149,14 +159,23 @@ export class StageBuilderModel extends Diagram.DiagramModel {
           }
         }
       } else {
-        return this.renderGraphNodes(node.parallel[0], startX, startY, selectedStageId, prevNodes, true, false)
+        return this.renderGraphNodes(
+          node.parallel[0],
+          startX,
+          startY,
+          selectedStageId,
+          splitPaneSize,
+          prevNodes,
+          true,
+          false
+        )
       }
       return { startX, startY, prevNodes }
     }
     return { startX, startY }
   }
 
-  addUpdateGraph(data: CDPipeline, listeners: Listeners, selectedStageId?: string): void {
+  addUpdateGraph(data: CDPipeline, listeners: Listeners, selectedStageId?: string, splitPaneSize?: number): void {
     let { startX, startY } = this
     this.clearAllNodesAndLinks() // TODO: Improve this
 
@@ -184,7 +203,7 @@ export class StageBuilderModel extends Diagram.DiagramModel {
 
     let prevNodes: Diagram.DefaultNodeModel[] = [startNode]
     data.stages?.forEach((node: StageElementWrapper) => {
-      const resp = this.renderGraphNodes(node, startX, startY, selectedStageId, prevNodes, true)
+      const resp = this.renderGraphNodes(node, startX, startY, selectedStageId, splitPaneSize, prevNodes, true)
       startX = resp.startX
       startY = resp.startY
       if (resp.prevNodes) {

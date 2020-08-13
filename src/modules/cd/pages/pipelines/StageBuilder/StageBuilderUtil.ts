@@ -1,6 +1,6 @@
 import { v4 as uuid } from 'uuid'
 import type { IconName } from '@wings-software/uikit'
-import type { NodeModelListener, LinkModelListener } from '@projectstorm/react-diagrams-core'
+import type { NodeModelListener, LinkModelListener, DiagramEngine } from '@projectstorm/react-diagrams-core'
 import type { StageElement, StageElementWrapper, CDPipeline, DeploymentStage } from 'services/cd-ng'
 import type { Diagram } from 'modules/common/exports'
 import { EmptyStageName } from '../PipelineConstants'
@@ -85,4 +85,10 @@ export const getTypeOfStage = (stage: StageElement): { type: StageType; stage: D
     return { type: StageType.PIPELINE, stage }
   }
   return { type: StageType.CUSTOM, stage }
+}
+
+export const resetDiagram = (engine: DiagramEngine): void => {
+  engine.getModel().setZoomLevel(100)
+  engine.getModel().setOffset(0, 0)
+  engine.repaintCanvas()
 }

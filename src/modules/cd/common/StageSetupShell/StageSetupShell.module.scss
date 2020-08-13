@@ -2,10 +2,9 @@
   justify-content: space-between;
   flex-direction: column;
   position: relative;
-  background: white;
+  height: 100%;
+  background: var(--white);
   .tabsContainer {
-    height: 73vh;
-
     &.tab-execution {
       :global(.bp3-tab-panel) {
         background-image: var(--pipeline-canvas-image);
@@ -24,6 +23,9 @@
       }
       .bp3-tab-list {
         background: var(--grey-900);
+        position: fixed;
+        width: 100%;
+        z-index: 1;
         // position: absolute;
         // width: 100%;
         // top: 0;
@@ -34,8 +36,7 @@
         // height: calc(100% - 160px);
         // width: 100%;
         overflow: scroll;
-        height: calc(71vh - 155px);
-        margin-top: 60px;
+        margin-top: 80px;
       }
       .bp3-tab[aria-selected='true'] {
         color: white;
