@@ -5,6 +5,6 @@ export default {
     TWO: 'Establising Connection with the Delegate and Kubernetes',
     THREE: 'Verifying Connection'
   },
-  VERIFICATION_TIME_TEXT:
-    'This process may take a while. You can close your window or wait until verification is completed.'
+  FINISH: 'FINISH',
+  EDIT_CREDS: 'Edit Credentials'
 }

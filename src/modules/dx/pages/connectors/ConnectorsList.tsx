@@ -32,7 +32,7 @@ const ConnectorsList: React.FC<ConnectorsListProps> = ({ mockData }) => {
       <Container>
         <Layout.Horizontal className={css.header}>
           <Layout.Horizontal inline width="55%">
-            <ConnectorSetupModal />
+            <ConnectorSetupModal onSuccess={() => reloadConnectorList()} />
           </Layout.Horizontal>
           <Layout.Horizontal width="45%" className={css.view}>
             {/* <Button

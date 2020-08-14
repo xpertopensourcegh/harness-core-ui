@@ -9,7 +9,8 @@ const props = {
   orgIdentifier: 'orgId',
   projectIdentifier: 'projectId',
   type: 'K8sCluster',
-  hideLightModal: jest.fn()
+  hideLightModal: jest.fn(),
+  onSuccess: jest.fn()
 }
 
 describe('Delegate Step Wizard', () => {

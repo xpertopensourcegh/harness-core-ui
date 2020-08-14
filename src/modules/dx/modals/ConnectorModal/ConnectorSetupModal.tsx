@@ -15,6 +15,10 @@ interface OptionInterface {
   onClick?: () => void
 }
 
+interface ConnectorSetupModalProps {
+  onSuccess: () => void
+}
+
 const getIcon = (icon: IconName): JSX.Element => {
   return <Icon name={icon} size={24} className={css.iconConnector} />
 }
@@ -28,7 +32,7 @@ const getMenuItem = (item: OptionInterface): JSX.Element => {
   )
 }
 
-const ConnectorModal: React.FC = () => {
+const ConnectorModal: React.FC<ConnectorSetupModalProps> = props => {
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
   const [connectorType, setConnectorType] = useState('')
 
@@ -58,6 +62,7 @@ const ConnectorModal: React.FC = () => {
           orgIdentifier={orgIdentifier}
           projectIdentifier={projectIdentifier}
           type={connectorType}
+          onSuccess={props.onSuccess}
           hideLightModal={hideLightModal}
         />
         <Button minimal icon="cross" iconProps={{ size: 18 }} onClick={hideLightModal} className={css.crossIcon} />
@@ -101,10 +106,10 @@ const ConnectorModal: React.FC = () => {
   )
 }
 
-export const ConnectorSetupModal: React.FC = () => {
+export const ConnectorSetupModal: React.FC<ConnectorSetupModalProps> = props => {
   return (
     <ModalProvider>
-      <ConnectorModal />
+      <ConnectorModal {...props} />
     </ModalProvider>
   )
 }

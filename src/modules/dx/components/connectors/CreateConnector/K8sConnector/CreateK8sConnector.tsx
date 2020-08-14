@@ -30,7 +30,8 @@ import {
   useCreateConnector,
   ConnectorRequestDTORequestBody,
   ConnectorConfigDTO,
-  useCreateSecretText
+  useCreateSecretText,
+  useUpdateConnector
 } from 'services/cd-ng'
 import { buildKubPayload } from 'modules/dx/pages/connectors/utils/ConnectorUtils'
 import InstallDelegateForm from 'modules/dx/common/InstallDelegateForm/InstallDelegateForm'
@@ -38,6 +39,7 @@ import VerifyInstalledDelegate from 'modules/dx/common/VerifyInstalledDelegate/V
 import VerifyExistingDelegate from 'modules/dx/common/VerfiyExistingDelegate/VerifyExistingDelegate'
 import VerifyOutOfClusterDelegate from 'modules/dx/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 import CreateSecretOverlay from 'modules/dx/common/CreateSecretOverlay/CreateSecretOverlay'
+import { useToaster } from 'modules/common/exports'
 import ConnectorFormFields from '../../ConnectorFormFields/ConnectorFormFields'
 import i18n from './CreateK8sConnector.i18n'
 import css from './CreateK8sConnector.module.scss'
@@ -96,6 +98,7 @@ interface IntermediateStepProps {
   previousStep?: () => void
   nextStep?: () => void
   formData?: ConnectorConfigDTO
+  onSuccess: () => void
 }
 
 interface FirstData {
@@ -121,6 +124,7 @@ interface CreateK8sConnectorProps {
   projectIdentifier: string
   orgIdentifier: string
   hideLightModal: () => void
+  onSuccess: () => void
 }
 interface CreateK8sConnectorState {
   delegateType: string
@@ -135,6 +139,8 @@ interface CreateK8sConnectorState {
   setDelegateList: (list: RestResponseListString | null) => void
   installDelegate: boolean
   setInstallDelegate: (val: boolean) => void
+  isEditMode: boolean
+  setIsEditMode: (val: boolean) => void
 }
 
 const formatDelegateList = (listData: string[] | undefined) => {
@@ -210,22 +216,25 @@ const renderDelegateInclusterForm = (
     </div>
   )
 }
-// ToDO: const getCardIcons = (type: string, state: CreateK8sConnectorState) => {
-//   return (
-//     <Layout.Horizontal>
-//       <Icon name="harness" size={18} /> <hr /> <Icon name="grey-cluster" size={30} />{' '}
-//     </Layout.Horizontal>
-//   )
-// }
 
 const SecondStep = (props: SecondStepProps) => {
   const { state, accountId } = props
+  const { showError } = useToaster()
   const { loading, data: delegateList, refetch: reloadDelegateList } = useGetKubernetesDelegateNames({
     queryParams: { accountId },
     lazy: true
   })
   //  Added scoping once BE fixes it
   const { mutate: createConnector } = useCreateConnector({ accountIdentifier: accountId })
+  const handleCreate = async (data: any) => {
+    try {
+      await createConnector(data as ConnectorRequestDTORequestBody)
+      // ToDo: props.onSuccess()
+      props.nextStep?.()
+    } catch (e) {
+      showError(e.message)
+    }
+  }
   const radioProps = {
     data: secondStepData,
     className: css.customCss,
@@ -271,7 +280,7 @@ const SecondStep = (props: SecondStepProps) => {
           state.setFormData(connectorData)
           if (state.delegateType === DelegateTypes.DELEGATE_IN_CLUSTER) {
             const data = buildKubPayload(connectorData)
-            createConnectorByType(createConnector, data)
+            handleCreate(data)
           }
 
           props.nextStep?.()
@@ -316,26 +325,34 @@ const SecondStep = (props: SecondStepProps) => {
     </Layout.Vertical>
   )
 }
-// type showing as incompatible for property "type" in data
-const createConnectorByType = async (
-  createConnector: (data: ConnectorRequestDTORequestBody) => Promise<any>,
-  data: any
-) => {
-  const { loading, data: connectordetails } = await createConnector(data as ConnectorRequestDTORequestBody)
-  if (!loading && connectordetails) {
-    // todo:
-    // state.setConnector(connector)
-    // const formData = buildKubFormData(connector)
-    // state.setConnector(formData)
-  }
-  //todo else
-}
 
 const IntermediateStep: React.FC<IntermediateStepProps> = props => {
   const [showCreateSecretModal, setShowCreateSecretModal] = useState<boolean>(false)
   const { state, accountId } = props
+  const { showError } = useToaster()
   const { mutate: createConnector } = useCreateConnector({ accountIdentifier: accountId })
+  const { mutate: updateConnector } = useUpdateConnector({ accountIdentifier: props.accountId })
   const { mutate: createSecret } = useCreateSecretText({})
+
+  // BE type need to be fixed
+  const handleCreate = async (data: any) => {
+    try {
+      await createConnector(data as ConnectorRequestDTORequestBody)
+      props.onSuccess()
+      props.nextStep?.()
+    } catch (e) {
+      showError(e.message)
+    }
+  }
+
+  const handleUpdate = async (data: any) => {
+    try {
+      await updateConnector(data as ConnectorRequestDTORequestBody)
+      props.nextStep?.()
+    } catch (error) {
+      showError(error.message)
+    }
+  }
 
   return (
     <>
@@ -388,11 +405,13 @@ const IntermediateStep: React.FC<IntermediateStepProps> = props => {
                 })
               })
             ).then(() => {
-              createConnectorByType(createConnector, data)
-              // to do status check
+              if (state.isEditMode) {
+                handleUpdate(data)
+              } else {
+                handleCreate(data)
+              }
             })
             state.setFormData(connectorData)
-            props.nextStep?.()
           }}
         >
           {formikProps => (
@@ -455,6 +474,7 @@ const CreateK8sConnector = (props: CreateK8sConnectorProps) => {
   } as SelectOption)
   const [delegateList, setDelegateList] = useState({} as RestResponseListString | null)
   const [installDelegate, setInstallDelegate] = useState(false)
+  const [isEditMode, setIsEditMode] = useState<boolean>(false)
 
   const state: CreateK8sConnectorState = {
     delegateType,
@@ -468,7 +488,9 @@ const CreateK8sConnector = (props: CreateK8sConnectorProps) => {
     delegateList,
     setDelegateList,
     installDelegate,
-    setInstallDelegate
+    setInstallDelegate,
+    isEditMode,
+    setIsEditMode
   }
   return (
     <>
@@ -485,9 +507,14 @@ const CreateK8sConnector = (props: CreateK8sConnectorProps) => {
         <SecondStep name={i18n.STEP_TWO.NAME} state={state} {...props} formData={formData} />
 
         {delegateType === DelegateTypes.DELEGATE_OUT_CLUSTER ? (
-          <IntermediateStep {...props} name={i18n.STEP_INTERMEDIATE.NAME} state={state} formData={formData} />
+          <IntermediateStep
+            {...props}
+            name={i18n.STEP_INTERMEDIATE.NAME}
+            state={state}
+            formData={formData}
+            onSuccess={props.onSuccess}
+          />
         ) : null}
-        {/*Removing for now: {installDelegate ? <VerifyInstalledDelegate accountId={props.accountId} name={i18n.STEP_THREE.NAME} /> : null} */}
         {delegateType === DelegateTypes.DELEGATE_IN_CLUSTER ? (
           state.inclusterDelegate === DelegateInClusterType.addNewDelegate ? (
             <VerifyInstalledDelegate
@@ -510,11 +537,13 @@ const CreateK8sConnector = (props: CreateK8sConnectorProps) => {
               delegateName={formData?.delegateName}
               hideLightModal={props.hideLightModal}
               renderInModal={true}
+              onSuccess={props.onSuccess}
             />
           )
         ) : (
           <VerifyOutOfClusterDelegate
             name={i18n.STEP_THREE.NAME}
+            setIsEditMode={() => setIsEditMode(true)}
             {...props}
             connectorName={formData?.name}
             connectorIdentifier={formData?.identifier}

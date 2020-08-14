@@ -1,3 +1,5 @@
+import type { Intent } from '@wings-software/uikit'
+
 export interface KubFormData {
   name?: string
   description?: string
@@ -26,4 +28,9 @@ export interface GITFormData {
 }
 export interface FormData {
   [key: string]: any
+}
+export interface StepDetails {
+  step: number
+  intent: Intent
+  status: string
 }

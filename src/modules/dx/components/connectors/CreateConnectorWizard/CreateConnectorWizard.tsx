@@ -11,6 +11,7 @@ interface CreateConnectorWizardProps {
   orgIdentifier: string
   type: string
   hideLightModal: () => void
+  onSuccess: () => void
 }
 
 export const ConnectorWizard: React.FC<CreateConnectorWizardProps> = props => {
@@ -21,6 +22,7 @@ export const ConnectorWizard: React.FC<CreateConnectorWizardProps> = props => {
           accountId={props.accountId}
           orgIdentifier={props.orgIdentifier}
           projectIdentifier={props.projectIdentifier}
+          onSuccess={props.onSuccess}
           hideLightModal={props.hideLightModal}
         />
       )

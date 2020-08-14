@@ -85,7 +85,7 @@ const ConnectorDetailsStep: React.FC<ConnectorDetailsStepProps> = props => {
                 }}
               />
             </div>
-            <Button type="submit" text={i18n.saveAndContinue} className={css.saveBtn} />
+            <Button type="submit" text={i18n.saveAndContinue} className={css.saveBtn} disabled={loading} />
           </Form>
         )}
       </Formik>

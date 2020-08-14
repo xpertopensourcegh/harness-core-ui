@@ -5,5 +5,6 @@ declare const styles: {
   readonly validateError: string
   readonly btnWrapper: string
   readonly submitBtn: string
+  readonly editCreds: string
 }
 export default styles

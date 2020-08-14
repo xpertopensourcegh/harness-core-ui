@@ -1,7 +1,9 @@
-import React, { useState, useRef } from 'react'
+import React, { useState } from 'react'
 import { StepsProgress, Layout, Button, Text, Intent, Color } from '@wings-software/uikit'
 import { useGetDelegatesStatus, RestResponseDelegateStatus } from 'services/portal'
 import { useGetTestConnectionResult } from 'services/cd-ng'
+import { useToaster } from 'modules/common/exports'
+import type { StepDetails } from 'modules/dx/interfaces/ConnectorInterface'
 import i18n from './VerifyOutOfClusterDelegate.i18n'
 import css from './VerifyOutOfClusterDelegate.module.scss'
 
@@ -14,103 +16,137 @@ interface VerifyOutOfClusterDelegateProps {
   connectorName: string | undefined
   connectorIdentifier?: string
   name?: string
+  onSuccess?: () => void
+  setIsEditMode?: () => void
 }
 
 interface VerifyOutOfClusterDelegateState {
   delegateCount: RestResponseDelegateStatus | null
   setDelegateCount: (val: RestResponseDelegateStatus | null) => void
-  currentStep: number
-  setCurrentStep: (val: number) => void
-  currentIntent: Intent
-  setCurrentIntent: (val: Intent) => void
+
   validateError: RestResponseDelegateStatus | null
   setValidateError: (val: RestResponseDelegateStatus | null) => void
-  currentStatus: string
-  setCurrentStatus: (status: string) => void
+
+  stepDetails: StepDetails
+  setStepDetails: (val: StepDetails) => void
 }
+const TOTAL_STEPS = 3
+
+const STEP = {
+  CHECK_DELEGATE: 'CHECK_DELEGATE',
+  ESTABLISH_CONNECTION: 'ESTABLISH_CONNECTION',
+  VERIFY: 'VERIFY'
+}
+const StepIndex = new Map([
+  [STEP.CHECK_DELEGATE, 1],
+  [STEP.ESTABLISH_CONNECTION, 2],
+  [STEP.VERIFY, 3]
+])
 
 const getStepOne = (state: VerifyOutOfClusterDelegateState) => {
-  if (state.currentStep > 1) {
-    return `${state.delegateCount?.resource?.delegates?.length} delegates found`
+  const count = state.delegateCount?.resource?.delegates?.length
+  if (state.stepDetails.step === StepIndex.get(STEP.CHECK_DELEGATE)) {
+    return `${count ? count : 'No'} delegates found`
   } else {
     return i18n.STEPS.ONE
   }
 }
 
 const VerifyOutOfClusterDelegate = (props: VerifyOutOfClusterDelegateProps) => {
-  const [currentStep, setCurrentStep] = useState(1)
-  const [currentIntent, setCurrentIntent] = useState<Intent>(Intent.WARNING)
   const [delegateCount, setDelegateCount] = useState({} as RestResponseDelegateStatus | null)
   const [validateError, setValidateError] = useState({} as RestResponseDelegateStatus | null)
-  const [currentStatus, setCurrentStatus] = useState('PROCESS')
+  const [stepDetails, setStepDetails] = useState<StepDetails>({
+    step: 1,
+    intent: Intent.WARNING,
+    status: 'PROCESS'
+  })
+  const { showSuccess } = useToaster()
   const state: VerifyOutOfClusterDelegateState = {
     delegateCount,
     setDelegateCount,
-    currentStep,
-    setCurrentStep,
-    currentIntent,
-    setCurrentIntent,
     validateError,
     setValidateError,
-    currentStatus,
-    setCurrentStatus
+    stepDetails,
+    setStepDetails
   }
 
-  const { loading: loadingStatus, data: delegateStatus } = useGetDelegatesStatus({
+  const { data: delegateStatus, error } = useGetDelegatesStatus({
     queryParams: { accountId: props.accountId }
   })
   const {
-    loading: testingConnection,
     data: testConnectionResponse,
-    refetch: reloadTestConnection
+    refetch: reloadTestConnection,
+    error: errorTesting
   } = useGetTestConnectionResult({
     accountIdentifier: props.accountId,
     connectorIdentifier: props.connectorIdentifier as string,
     lazy: true,
     queryParams: { orgIdentifier: props.orgIdentifier, projectIdentifier: props.projectIdentifier }
   })
-  const mounted = useRef(false)
+
   React.useEffect(() => {
-    if (mounted.current && !loadingStatus) {
-      if (currentStep === 1) {
-        if (delegateStatus) {
-          setDelegateCount(delegateStatus)
-          setCurrentStatus('DONE')
-          setCurrentIntent(Intent.SUCCESS)
-          setCurrentStep(2)
-          setCurrentStatus('PROCESS')
+    if (stepDetails.step === StepIndex.get(STEP.CHECK_DELEGATE) && stepDetails.status === 'PROCESS') {
+      if (delegateStatus) {
+        setDelegateCount(delegateStatus)
+        if (delegateStatus.resource?.delegates?.length) {
+          setStepDetails({
+            step: 1,
+            intent: Intent.SUCCESS,
+            status: 'DONE'
+          })
+        } else {
+          setStepDetails({
+            step: 1,
+            intent: Intent.DANGER,
+            status: 'ERROR'
+          })
         }
-      } else if (!delegateStatus) {
-        setCurrentStatus('ERROR')
-        setCurrentIntent(Intent.DANGER)
+      } else if (!delegateStatus && error) {
+        setStepDetails({
+          step: 1,
+          intent: Intent.DANGER,
+          status: 'ERROR'
+        })
       }
     }
-    if (currentStep === 3) {
-      reloadTestConnection()
-      if (!testingConnection) {
-        if (testConnectionResponse) {
-          state.setCurrentIntent(Intent.SUCCESS)
-          state.setCurrentStatus('DONE')
-          setCurrentStep(4)
-        } else if (!testConnectionResponse) {
-          state.setCurrentIntent(Intent.DANGER)
-          state.setCurrentStatus('ERROR')
-        }
-      }
-    } else if (currentStep === 2) {
+
+    if (stepDetails.step === StepIndex.get(STEP.CHECK_DELEGATE) && stepDetails.status === 'DONE') {
+      setStepDetails({
+        step: 2,
+        intent: Intent.SUCCESS,
+        status: 'PROCESS'
+      })
+    }
+    if (stepDetails.step === StepIndex.get(STEP.ESTABLISH_CONNECTION) && stepDetails.status === 'PROCESS') {
       const interval = setInterval(() => {
-        setCurrentIntent(Intent.SUCCESS)
-        setCurrentStatus('DONE')
-        setCurrentStep(currentStep + 1)
-        setCurrentStatus('PROCESS')
-      }, 10000)
+        setStepDetails({
+          step: 3,
+          intent: Intent.SUCCESS,
+          status: 'PROCESS'
+        })
+      }, 2000)
+
       return () => {
         clearInterval(interval)
       }
-    } else {
-      mounted.current = true
     }
-  }, [loadingStatus, currentStep, delegateStatus])
+    if (stepDetails.step === StepIndex.get(STEP.VERIFY) && stepDetails.status === 'PROCESS') {
+      reloadTestConnection()
+      if (testConnectionResponse) {
+        setStepDetails({
+          step: 3,
+          intent: Intent.SUCCESS,
+          status: 'DONE'
+        })
+      } else if (!testConnectionResponse && errorTesting) {
+        setStepDetails({
+          step: 3,
+          intent: Intent.DANGER,
+          status: 'ERROR'
+        })
+      }
+    }
+  }, [stepDetails, delegateStatus, testConnectionResponse, error, errorTesting])
   return (
     <Layout.Vertical padding="small" height={'100%'}>
       <Layout.Vertical height={'90%'}>
@@ -119,25 +155,43 @@ const VerifyOutOfClusterDelegate = (props: VerifyOutOfClusterDelegateProps) => {
         </Text>
         <StepsProgress
           steps={[getStepOne(state), i18n.STEPS.TWO, i18n.STEPS.THREE]}
-          intent={currentIntent}
-          current={currentStep}
-          currentStatus={currentStatus}
+          intent={stepDetails.intent}
+          current={stepDetails.step}
+          currentStatus={stepDetails.status}
         />
-        {currentStep === 3 && (
-          <Text font="small" color={Color.GREY_400} padding="none" width={300}>
-            {i18n.VERIFICATION_TIME_TEXT}
-          </Text>
-        )}
-        {state.validateError?.responseMessages?.[0]?.message && (
+        {stepDetails.step === StepIndex.get(STEP.VERIFY) && stepDetails.status === 'ERROR' ? (
+          <Button
+            intent="primary"
+            minimal
+            className={css.editCreds}
+            text={i18n.EDIT_CREDS}
+            onClick={() => {
+              props.setIsEditMode?.()
+              props.previousStep?.()
+            }}
+          />
+        ) : null}
+
+        {/* Show same in error handler  {state.validateError?.responseMessages?.[0]?.message && (
           <Text font="small" className={css.validateError}>
             {state.validateError}
           </Text>
         )}
+         */}
       </Layout.Vertical>
-
-      <Layout.Horizontal spacing="large" className={css.btnWrapper}>
-        <Button type="submit" onClick={() => props.hideLightModal?.()} className={css.submitBtn} text="Finish" />
-      </Layout.Horizontal>
+      {stepDetails.step === TOTAL_STEPS && stepDetails.status === 'DONE' ? (
+        <Layout.Horizontal spacing="large" className={css.btnWrapper}>
+          <Button
+            type="submit"
+            onClick={() => {
+              props.hideLightModal?.()
+              props.onSuccess?.()
+              showSuccess(`Connector '${props.connectorName}' created successfully`)
+            }}
+            text={i18n.FINISH}
+          />
+        </Layout.Horizontal>
+      ) : null}
     </Layout.Vertical>
   )
 }
