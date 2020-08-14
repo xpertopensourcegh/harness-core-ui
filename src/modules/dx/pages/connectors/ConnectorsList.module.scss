@@ -8,7 +8,7 @@
 .header {
   padding: var(--spacing-large) var(--spacing-xxxlarge) !important;
   border-bottom: 1px solid var(--grey-300);
-  height: 64px;
+  height: 72px;
 }
 .view {
   justify-content: flex-end;
@@ -27,9 +27,6 @@
       padding: 10px !important;
     }
   }
-}
-.listPage {
-  height: 100%;
 }
 
 .listContainer {

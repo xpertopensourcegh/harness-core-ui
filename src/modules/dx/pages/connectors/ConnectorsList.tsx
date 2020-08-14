@@ -19,14 +19,16 @@ const enum View {
 const ConnectorsList: React.FC<ConnectorsListProps> = ({ mockData }) => {
   const { accountId } = useParams()
   const [view, setView] = useState(View.LIST)
+  const [page, setPage] = useState(0)
 
   const { loading, data, refetch: reloadConnectorList } = useGetConnectorList({
     accountIdentifier: accountId,
+    queryParams: { page: page, size: 10 },
     mock: mockData
   })
 
   return (
-    <Layout.Vertical className={css.listPage}>
+    <Layout.Vertical height={'calc(100vh - 64px'}>
       <Container>
         <Layout.Horizontal className={css.header}>
           <Layout.Horizontal inline width="55%">
@@ -54,7 +56,11 @@ const ConnectorsList: React.FC<ConnectorsListProps> = ({ mockData }) => {
       </Container>
       {!loading ? (
         view === View.LIST && data?.data?.content?.length ? (
-          <ConnectorsListView data={data?.data?.content} reload={reloadConnectorList} />
+          <ConnectorsListView
+            data={data?.data}
+            reload={reloadConnectorList}
+            gotoPage={pageNumber => setPage(pageNumber)}
+          />
         ) : null
       ) : (
         <PageSpinner />

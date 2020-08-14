@@ -4,7 +4,7 @@ import type { CellProps, Renderer, Column } from 'react-table'
 import { Menu, Classes, Position, PopoverInteractionKind } from '@blueprintjs/core'
 import { useParams, useHistory } from 'react-router-dom'
 import ReactTimeago from 'react-timeago'
-import { ConnectorSummaryDTO, useDeleteConnector } from 'services/cd-ng'
+import { ConnectorSummaryDTO, useDeleteConnector, PageConnectorSummaryDTO } from 'services/cd-ng'
 import Table from 'modules/common/components/Table/Table'
 import { useConfirmationDialog } from 'modules/common/exports'
 import { useToaster } from 'modules/common/components/Toaster/useToaster'
@@ -15,8 +15,9 @@ import i18n from './ConnectorsListView.i18n'
 import css from './ConnectorsListView.module.scss'
 
 interface ConnectorListViewProps {
-  data?: ConnectorSummaryDTO[]
+  data?: PageConnectorSummaryDTO
   reload?: () => Promise<void>
+  gotoPage: (pageNumber: number) => void
 }
 
 type CustomColumn<T extends object> = Column<T> & {
@@ -147,7 +148,7 @@ const RenderColumnMenu: Renderer<CellProps<ConnectorSummaryDTO>> = ({ row, colum
 }
 
 const ConnectorsListView: React.FC<ConnectorListViewProps> = props => {
-  const { data, reload } = props
+  const { data, reload, gotoPage } = props
   const { accountId } = useParams()
   const history = useHistory()
   const columns: CustomColumn<ConnectorSummaryDTO>[] = useMemo(
@@ -191,9 +192,16 @@ const ConnectorsListView: React.FC<ConnectorListViewProps> = props => {
     <Table<ConnectorSummaryDTO>
       className={css.table}
       columns={columns}
-      data={data || []}
+      data={data?.content || []}
       onRowClick={connector => {
         history.push(routeConnectorDetails.url({ accountId: accountId, connectorId: connector.identifier }))
+      }}
+      pagination={{
+        itemCount: data?.totalElements || 0,
+        pageSize: data?.size || 10,
+        pageCount: data?.totalPages || 1,
+        pageIndex: data?.number || 0,
+        gotoPage
       }}
     />
   )

@@ -22,10 +22,18 @@ const categories: Categories = {
   fileStore: i18n.fileStore
 }
 
+const CategoryIndex = new Map([
+  ['connectors', 0],
+  ['secrets', 1],
+  ['delegates', 2],
+  ['templates', 3],
+  ['fileStore', 4]
+])
+
 const ResourcesPage: React.FC = () => {
   const { path, url } = useRouteMatch()
-
-  const [activeCategory, setActiveCategory] = React.useState(1)
+  const pathId = window.location.href.substring(window.location.href.lastIndexOf('/') + 1)
+  const [activeCategory, setActiveCategory] = React.useState(CategoryIndex.get(pathId))
 
   return (
     <>

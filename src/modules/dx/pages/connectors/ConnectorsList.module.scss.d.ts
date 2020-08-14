@@ -5,7 +5,6 @@ declare const styles: {
   readonly header: string
   readonly view: string
   readonly tableContainer: string
-  readonly listPage: string
   readonly listContainer: string
 }
 export default styles
