@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { useParams, Link } from 'react-router-dom'
+import { useParams, Link, useLocation, useHistory } from 'react-router-dom'
+import { parse as parseQueryString } from 'query-string'
 import { stringify, parse } from 'yaml'
 import cx from 'classnames'
-import * as Yup from 'yup'
-import { Formik, FormikProps } from 'formik'
-import { pick } from 'lodash-es'
-import { Layout, Text, Color, Container, Button, FormikForm, IconName } from '@wings-software/uikit'
+import { Layout, Text, Color, Container, Button, IconName } from '@wings-software/uikit'
 
-import { useGetSecretText, useUpdateSecretText } from 'services/cd-ng'
-import type { EncryptedDataDTO, SecretTextUpdateDTO } from 'services/cd-ng'
+import { useGetSecret, usePutSecretTextViaYaml, usePutSecretFileViaYaml } from 'services/cd-ng'
 import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
 import { PageError } from 'modules/common/components/Page/PageError'
 import { PageHeader } from 'modules/common/components/Page/PageHeader'
@@ -20,8 +17,10 @@ import { YamlEntity } from 'modules/common/constants/YamlConstants'
 import { YAMLService } from 'modules/dx/services'
 import type { SnippetInterface } from 'modules/common/interfaces/SnippetInterface'
 import { useToaster } from 'modules/common/exports'
+import CreateUpdateSecret from 'modules/dx/components/CreateUpdateSecret/CreateUpdateSecret'
+import { routeSecretDetails } from 'modules/dx/routes'
+
 import ViewSecretDetails from './views/ViewSecretDetails'
-import EditVisualSecret from './views/EditVisualSecret'
 
 import i18n from './SecretDetails.i18n'
 import css from './SecretDetails.module.scss'
@@ -31,35 +30,52 @@ enum Mode {
   YAML
 }
 
-interface SecretForm extends EncryptedDataDTO {
-  value?: string
-}
-
 const SecretDetails: React.FC = () => {
-  const { accountId, secretId } = useParams()
-  const [editing, setEditing] = useState(false)
+  const { accountId, projectIdentifier, orgIdentifier, secretId } = useParams()
+  const { search: queryParams, pathname } = useLocation()
+  const { showSuccess, showError } = useToaster()
+  const history = useHistory()
+  const { edit } = parseQueryString(queryParams)
   const [mode, setMode] = useState<Mode>(Mode.VISUAL)
   const [snippets, setSnippets] = useState<SnippetInterface[]>()
   const [yamlHandler, setYamlHandler] = React.useState<YamlBuilderHandlerBinding | undefined>()
-  const { loading, data, refetch, error } = useGetSecretText({
+  const { loading, data, refetch, error } = useGetSecret({
     identifier: secretId,
-    queryParams: { accountIdentifier: accountId }
+    queryParams: { account: accountId, project: projectIdentifier, org: orgIdentifier }
   })
-  const { mutate: updateSecret, loading: updating } = useUpdateSecretText({
-    queryParams: { accountIdentifier: accountId },
-    identifier: secretId || ''
+  const { mutate: updateSecretText } = usePutSecretTextViaYaml({
+    identifier: secretId,
+    requestOptions: { headers: { 'content-type': 'application/yaml' } }
   })
-  const [secretData, setSecretData] = useState(data?.data)
-  const { showError } = useToaster()
+  const { mutate: updateSecretFile } = usePutSecretFileViaYaml({
+    identifier: secretId,
+    requestOptions: { headers: { 'content-type': 'application/yaml' } }
+  })
 
-  const handleSubmit = async (formData: EncryptedDataDTO): Promise<void> => {
-    const dataToSubmit: SecretTextUpdateDTO = pick(formData, ['value', 'path'])
+  const [secretData, setSecretData] = useState(data?.data)
+
+  const handleSaveYaml = async (): Promise<void> => {
+    const yamlData = yamlHandler?.getLatestYaml()
+    let jsonData
     try {
-      await updateSecret(dataToSubmit)
-      setEditing(false)
-      refetch()
-    } catch (e) {
-      // handle error
+      jsonData = parse(yamlData || '')
+    } catch (err) {
+      showError(err.message)
+    }
+
+    if (yamlData && jsonData) {
+      try {
+        if (jsonData['type'] === 'SecretText') {
+          await updateSecretText(yamlData as any)
+        }
+        if (jsonData['type'] === 'SecretFile') {
+          await updateSecretFile(yamlData as any)
+        }
+        showSuccess('Secret updated successfully')
+        history.push(linkTo(routeSecretDetails, { secretId }))
+      } catch (err) {
+        showError(err.message)
+      }
     }
   }
 
@@ -132,72 +148,49 @@ const SecretDetails: React.FC = () => {
           <Text font={{ size: 'medium' }} color={Color.BLACK}>
             {i18n.title}
           </Text>
-          {editing ? null : (
+          {edit ? null : (
             <Button
               text={i18n.buttonEdit}
               icon="edit"
               onClick={() => {
-                setEditing(true)
+                history.push({
+                  pathname,
+                  search: '?edit=true'
+                })
               }}
             />
           )}
         </Layout.Horizontal>
-        {editing ? (
-          <Formik
-            initialValues={{
-              name: secretData.name,
-              value: '',
-              identifier: secretData.identifier,
-              secretManagerIdentifier: secretData.secretManagerIdentifier,
-              description: secretData.description || '',
-              tags: secretData.tags
-            }}
-            enableReinitialize={true}
-            validationSchema={Yup.object().shape({
-              name: Yup.string().trim().required(i18n.validateName),
-              secretManagerIdentifier: Yup.string().required(i18n.validateSecretManager)
-            })}
-            validate={formData => {
-              setSecretData(formData)
-            }}
-            onSubmit={formData => {
-              handleSubmit(formData)
-            }}
-          >
-            {(_formikProps: FormikProps<SecretForm>) => (
-              <FormikForm>
-                {mode === Mode.VISUAL ? (
-                  <EditVisualSecret />
-                ) : (
-                  <YamlBuilder
-                    entityType={YamlEntity.SECRET}
-                    fileName={`${secretData.name}.yaml`}
-                    existingYaml={stringify(secretData)}
-                    bind={setYamlHandler}
-                    snippets={snippets}
-                    onSnippetSearch={fetchSnippets}
-                  />
-                )}
-                <Button
-                  intent="primary"
-                  type="submit"
-                  text={i18n.buttonSubmit}
-                  margin={{ top: 'large' }}
-                  disabled={updating}
-                />
-              </FormikForm>
-            )}
-          </Formik>
+        {edit ? (
+          mode === Mode.VISUAL ? (
+            <Container width="400px">
+              <CreateUpdateSecret secret={secretData} type={secretData.type} />
+            </Container>
+          ) : (
+            <Container>
+              <YamlBuilder
+                entityType={YamlEntity.SECRET}
+                fileName={`${secretData.name}.yaml`}
+                existingYaml={stringify(secretData)}
+                snippets={snippets}
+                bind={setYamlHandler}
+              />
+              <Button intent="primary" text="Save" />
+            </Container>
+          )
         ) : mode === Mode.VISUAL ? (
           <ViewSecretDetails secret={secretData} />
         ) : (
-          <YamlBuilder
-            entityType={YamlEntity.SECRET}
-            fileName={`${secretData.name}.yaml`}
-            existingYaml={stringify(secretData)}
-            isReadOnlyMode={true}
-            showSnippetSection={false}
-          />
+          <Container>
+            <YamlBuilder
+              entityType={YamlEntity.SECRET}
+              fileName={`${secretData.name}.yaml`}
+              existingYaml={stringify(secretData)}
+              isReadOnlyMode={true}
+              showSnippetsSection={false}
+            />
+            <Button intent="primary" text="Save" onClick={handleSaveYaml} />
+          </Container>
         )}
       </Container>
     </>

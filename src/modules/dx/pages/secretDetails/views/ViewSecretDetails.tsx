@@ -15,10 +15,10 @@ const ViewSecretDetails: React.FC<ViewSecretDetailsProps> = ({ secret }) => {
         <Text>{i18n.labelName}</Text>
         <Text color={Color.BLACK}>{secret.name}</Text>
       </div>
-      {secret.path ? (
+      {secret.valueType === 'Reference' ? (
         <div>
           <Text>{i18n.labelPath}</Text>
-          <Text color={Color.GREY_350}>{secret.path}</Text>
+          <Text color={Color.GREY_350}>{secret.value}</Text>
         </div>
       ) : (
         <div>
@@ -28,7 +28,7 @@ const ViewSecretDetails: React.FC<ViewSecretDetailsProps> = ({ secret }) => {
       )}
       <div>
         <Text>{i18n.labelSecretManager}</Text>
-        <Text color={Color.BLACK}>{secret.secretManagerName || secret.secretManagerIdentifier}</Text>
+        <Text color={Color.BLACK}>{secret.secretManagerName || secret.secretManager}</Text>
       </div>
       {secret.description ? (
         <div>
@@ -39,7 +39,7 @@ const ViewSecretDetails: React.FC<ViewSecretDetailsProps> = ({ secret }) => {
       {secret.tags?.length ? (
         <div>
           <Text>{i18n.labelTags}</Text>
-          <Layout.Horizontal>
+          <Layout.Horizontal spacing="small">
             {secret.tags?.map(tag => (
               <Tag key={tag}>{tag}</Tag>
             ))}

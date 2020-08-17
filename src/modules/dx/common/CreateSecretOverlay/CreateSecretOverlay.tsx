@@ -1,6 +1,6 @@
 import React from 'react'
 import { Layout, Icon } from '@wings-software/uikit'
-import CreateSecretText from 'modules/dx/modals/CreateSecretModal/views/CreateSecretText'
+import CreateUpdateSecret from 'modules/dx/components/CreateUpdateSecret/CreateUpdateSecret'
 import css from './CreateSecretOverlay.module.scss'
 
 interface CreateSecretOverlayProps {
@@ -17,7 +17,8 @@ const CreateSecretOverlay: React.FC<CreateSecretOverlayProps> = props => {
         }}
         className={css.crossIcon}
       />
-      <CreateSecretText
+      <CreateUpdateSecret
+        type="SecretText"
         onSuccess={() => {
           props.setShowCreateSecretModal(false)
         }}

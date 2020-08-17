@@ -1,12 +1,14 @@
 import React, { useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 import { Layout, Popover, Button, Icon, TextInput, Container } from '@wings-software/uikit'
 import { Menu, Position } from '@blueprintjs/core'
 
 import { useListSecrets } from 'services/cd-ng'
-import type { ResponseDTOListEncryptedDataDTO } from 'services/cd-ng'
+import type { ResponseDTONGPageResponseEncryptedDataDTO } from 'services/cd-ng'
 
-import useCreateSecretModal, { SecretType } from 'modules/dx/modals/CreateSecretModal/useCreateSecretModal'
+import { linkTo } from 'framework/exports'
+import { routeCreateSecretFromYaml } from 'modules/dx/routes'
+import useCreateSecretModal from 'modules/dx/modals/CreateSecretModal/useCreateSecretModal'
 import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
 import { PageError } from 'modules/common/components/Page/PageError'
 import type { UseGetMockData } from 'modules/common/utils/testUtils'
@@ -17,15 +19,17 @@ import i18n from './SecretsPage.i18n'
 import css from './SecretsPage.module.scss'
 
 interface SecretsPageProps {
-  mockData?: UseGetMockData<ResponseDTOListEncryptedDataDTO>
+  mockData?: UseGetMockData<ResponseDTONGPageResponseEncryptedDataDTO>
 }
 
 const SecretsPage: React.FC<SecretsPageProps> = ({ mockData }) => {
   const { accountId } = useParams()
-  const [searchTerm, setSearchTerm] = useState('')
+  const history = useHistory()
+  const [searchTerm, setSearchTerm] = useState<string | undefined>()
+  const [page, setPage] = useState(0)
 
   const { data: secretsResponse, loading, error, refetch } = useListSecrets({
-    queryParams: { accountIdentifier: accountId, searchTerm },
+    queryParams: { account: accountId, searchTerm, page, size: 10 },
     mock: mockData,
     debounce: 300
   })
@@ -44,15 +48,20 @@ const SecretsPage: React.FC<SecretsPageProps> = ({ mockData }) => {
             <Menu.Item
               text={i18n.newSecret.text}
               labelElement={<Icon name="font" />}
-              onClick={() => openCreateSecretModal(SecretType.TEXT)}
+              onClick={() => openCreateSecretModal('SecretText')}
             />
             <Menu.Item
               text={i18n.newSecret.file}
               labelElement={<Icon name="document" />}
-              onClick={() => openCreateSecretModal(SecretType.FILE)}
+              onClick={() => openCreateSecretModal('SecretFile')}
             />
             <Menu.Divider />
-            <Menu.Item text={i18n.newSecret.yaml} disabled />
+            <Menu.Item
+              text={i18n.newSecret.yaml}
+              onClick={() => {
+                history.push(linkTo(routeCreateSecretFromYaml))
+              }}
+            />
           </Menu>
         </Popover>
         <Layout.Horizontal spacing="small">
@@ -75,8 +84,8 @@ const SecretsPage: React.FC<SecretsPageProps> = ({ mockData }) => {
         <div style={{ paddingTop: '200px' }}>
           <PageError message={error.message} onClick={() => refetch()} />
         </div>
-      ) : secretsResponse?.data?.length ? (
-        <SecretsList secrets={secretsResponse?.data} refetch={refetch} />
+      ) : secretsResponse?.data?.content ? (
+        <SecretsList secrets={secretsResponse} refetch={refetch} gotoPage={pageNumber => setPage(pageNumber)} />
       ) : (
         <Container flex={{ align: 'center-center' }} padding="xxlarge">
           No Data

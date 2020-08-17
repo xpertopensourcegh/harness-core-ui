@@ -6,12 +6,14 @@ export default {
   table: {
     secret: 'SECRET',
     secretManager: 'DETAILS',
-    lastActivity: 'LAST ACTIVITY'
+    lastActivity: 'LAST ACTIVITY',
+    status: 'STATUS'
   },
   newSecret: {
     button: 'New Secret',
     text: 'Text',
     file: 'File',
     yaml: 'Create via YAML Builder'
-  }
+  },
+  incompleteSecret: 'Incomplete Secret'
 }

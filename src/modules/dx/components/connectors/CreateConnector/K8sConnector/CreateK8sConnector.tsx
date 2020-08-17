@@ -30,8 +30,8 @@ import {
   useCreateConnector,
   ConnectorRequestDTORequestBody,
   ConnectorConfigDTO,
-  useCreateSecretText,
-  useUpdateConnector
+  useUpdateConnector,
+  usePostSecretText
 } from 'services/cd-ng'
 import { buildKubPayload } from 'modules/dx/pages/connectors/utils/ConnectorUtils'
 import InstallDelegateForm from 'modules/dx/common/InstallDelegateForm/InstallDelegateForm'
@@ -332,7 +332,7 @@ const IntermediateStep: React.FC<IntermediateStepProps> = props => {
   const { showError } = useToaster()
   const { mutate: createConnector } = useCreateConnector({ accountIdentifier: accountId })
   const { mutate: updateConnector } = useUpdateConnector({ accountIdentifier: props.accountId })
-  const { mutate: createSecret } = useCreateSecretText({})
+  const { mutate: createSecret } = usePostSecretText({})
 
   // BE type need to be fixed
   const handleCreate = async (data: any) => {
@@ -395,13 +395,15 @@ const IntermediateStep: React.FC<IntermediateStepProps> = props => {
             Promise.all(
               passwordFields.map((item: SecretFieldByType) => {
                 return createSecret({
-                  accountIdentifier: accountId,
-                  orgIdentifier: props.orgIdentifier,
-                  projectIdentifier: props.projectIdentifier,
+                  account: accountId,
+                  org: props.orgIdentifier,
+                  project: props.projectIdentifier,
                   identifier: formData[item.secretField]?.secretId,
                   name: formData[item.secretField]?.secretName,
-                  secretManagerIdentifier: formData[item.secretField]?.secretManager?.value as string,
-                  value: formData[item.passwordField]
+                  secretManager: formData[item.secretField]?.secretManager?.value as string,
+                  value: formData[item.passwordField],
+                  type: 'SecretText',
+                  valueType: 'Inline'
                 })
               })
             ).then(() => {

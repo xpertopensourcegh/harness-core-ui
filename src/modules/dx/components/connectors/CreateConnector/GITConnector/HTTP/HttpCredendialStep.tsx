@@ -6,7 +6,7 @@ import { Select } from '@blueprintjs/select'
 import { useParams } from 'react-router-dom'
 import type { GITFormData } from 'modules/dx/interfaces/ConnectorInterface'
 import { buildGITPayload } from 'modules/dx/pages/connectors/utils/ConnectorUtils'
-import { useCreateConnector, ConnectorRequestDTORequestBody, useCreateSecretText } from 'services/cd-ng'
+import { useCreateConnector, ConnectorRequestDTORequestBody, usePostSecretText } from 'services/cd-ng'
 import type { InlineSecret } from 'modules/common/components/CreateInlineSecret/CreateInlineSecret'
 import CreateSecretOverlay from 'modules/dx/common/CreateSecretOverlay/CreateSecretOverlay'
 import ConnectorFormFields from '../../../ConnectorFormFields/ConnectorFormFields'
@@ -72,7 +72,7 @@ const HttpCredentialStep: React.FC<HttpCredentialStepProps> = props => {
   }
 
   const { mutate: createConnector } = useCreateConnector({ accountIdentifier: accountId })
-  const { mutate: createSecret } = useCreateSecretText({})
+  const { mutate: createSecret } = usePostSecretText({})
 
   return (
     <>
@@ -101,10 +101,12 @@ const HttpCredentialStep: React.FC<HttpCredentialStepProps> = props => {
             const connectorData = { ...formData, ...props.formData, authType: authType?.value }
             const data = buildGITPayload(connectorData)
             createSecret({
-              accountIdentifier: accountId,
+              account: accountId,
               identifier: formData.passwordSecret?.secretId,
               name: formData.passwordSecret?.secretName,
-              secretManagerIdentifier: formData.passwordSecret?.secretManager?.value as string
+              secretManager: formData.passwordSecret?.secretManager?.value as string,
+              type: 'SecretText',
+              valueType: 'Inline'
             }).then(() => {
               createConnectorByType(createConnector, data)
             })

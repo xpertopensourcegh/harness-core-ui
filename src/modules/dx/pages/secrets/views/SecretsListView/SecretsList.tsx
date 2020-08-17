@@ -8,27 +8,22 @@ import { Text, Color, Layout, Icon, Button, Popover, Tag, Container } from '@win
 import Table from 'modules/common/components/Table/Table'
 import { routeSecretDetails } from 'modules/dx/routes'
 import { useToaster, useConfirmationDialog } from 'modules/common/exports'
-import { useDeleteSecretText } from 'services/cd-ng'
+import { useDeleteSecret, ResponseDTONGPageResponseEncryptedDataDTO } from 'services/cd-ng'
 import type { EncryptedDataDTO } from 'services/cd-ng'
 import { linkTo } from 'framework/exports'
 
 import i18n from '../../SecretsPage.i18n'
 import css from './SecretsList.module.scss'
 
-const SecretType = {
-  SECRET_TEXT: 'SECRET_TEXT',
-  CONFIG_FILE: 'CONFIG_FILE'
-}
-
-const getStringForType = (type?: string): string => {
+const getStringForType = (type?: EncryptedDataDTO['type']): string => {
   if (!type) return ''
   switch (type) {
-    case SecretType.SECRET_TEXT:
+    case 'SecretText':
       return 'Text'
-    case SecretType.CONFIG_FILE:
+    case 'SecretFile':
       return 'File'
     default:
-      return 'Other'
+      return ''
   }
 }
 
@@ -64,7 +59,7 @@ const RenderColumnDetails: Renderer<CellProps<EncryptedDataDTO>> = ({ row }) => 
   const data = row.original
   return (
     <>
-      <Text color={Color.BLACK}>{data.secretManagerIdentifier}</Text>
+      <Text color={Color.BLACK}>{data.secretManagerName || data.secretManager}</Text>
       <Text color={Color.GREY_400}>{getStringForType(data.type)}</Text>
     </>
   )
@@ -80,13 +75,22 @@ const RenderColumnActivity: Renderer<CellProps<EncryptedDataDTO>> = ({ row }) =>
   )
 }
 
+const RenderColumnStatus: Renderer<CellProps<EncryptedDataDTO>> = ({ row }) => {
+  const data = row.original
+  return data.draft ? (
+    <Text icon="warning-sign" intent="warning">
+      {i18n.incompleteSecret}
+    </Text>
+  ) : null
+}
+
 const RenderColumnAction: Renderer<CellProps<EncryptedDataDTO>> = ({ row, column }) => {
   const data = row.original
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
   const { showSuccess, showError } = useToaster()
   const [menuOpen, setMenuOpen] = useState(false)
-  const { mutate: deleteSecret } = useDeleteSecretText({
-    queryParams: { accountIdentifier: accountId, projectIdentifier, orgIdentifier },
+  const { mutate: deleteSecret } = useDeleteSecret({
+    queryParams: { account: accountId, project: projectIdentifier, org: orgIdentifier },
     requestOptions: { headers: { 'content-type': 'application/json' } }
   })
 
@@ -102,7 +106,7 @@ const RenderColumnAction: Renderer<CellProps<EncryptedDataDTO>> = ({ row, column
           showSuccess(`Secret ${data.name} deleted`)
           ;(column as any).refreshSecrets?.()
         } catch (err) {
-          showError(err)
+          showError(err.message)
         }
       }
     }
@@ -115,62 +119,73 @@ const RenderColumnAction: Renderer<CellProps<EncryptedDataDTO>> = ({ row, column
   }
 
   return (
-    <Popover
-      isOpen={menuOpen}
-      onInteraction={nextOpenState => {
-        setMenuOpen(nextOpenState)
-      }}
-      className={Classes.DARK}
-      position={Position.BOTTOM_RIGHT}
-    >
-      <Button
-        minimal
-        icon="more"
-        onClick={e => {
-          e.stopPropagation()
-          setMenuOpen(true)
+    <Layout.Horizontal style={{ justifyContent: 'flex-end' }}>
+      <Popover
+        isOpen={menuOpen}
+        onInteraction={nextOpenState => {
+          setMenuOpen(nextOpenState)
         }}
-      />
-      <Menu>
-        <Menu.Item icon="trash" text="Delete" onClick={handleDelete} />
-      </Menu>
-    </Popover>
+        className={Classes.DARK}
+        position={Position.BOTTOM_RIGHT}
+      >
+        <Button
+          minimal
+          icon="more"
+          onClick={e => {
+            e.stopPropagation()
+            setMenuOpen(true)
+          }}
+        />
+        <Menu>
+          <Menu.Item icon="trash" text="Delete" onClick={handleDelete} />
+        </Menu>
+      </Popover>
+    </Layout.Horizontal>
   )
 }
 
 interface SecretsListProps {
-  secrets?: EncryptedDataDTO[]
+  secrets?: ResponseDTONGPageResponseEncryptedDataDTO
+  gotoPage: (pageNumber: number) => void
   refetch?: () => void
 }
 
-const SecretsList: React.FC<SecretsListProps> = ({ secrets, refetch }) => {
+const SecretsList: React.FC<SecretsListProps> = ({ secrets, refetch, gotoPage }) => {
   const history = useHistory()
-  const data: EncryptedDataDTO[] = useMemo(() => secrets || [], [secrets])
+  const data: EncryptedDataDTO[] = useMemo(() => secrets?.data?.content || [], [secrets?.data?.content])
 
   const columns: Column<EncryptedDataDTO>[] = useMemo(
     () => [
       {
         Header: i18n.table.secret,
         accessor: 'name',
-        width: '33%',
+        width: '30%',
         Cell: RenderColumnSecret
       },
       {
         Header: i18n.table.secretManager,
-        accessor: 'secretManagerIdentifier',
-        width: '33%',
+        accessor: 'secretManager',
+        width: '25%',
         Cell: RenderColumnDetails
       },
       {
         Header: i18n.table.lastActivity,
-        accessor: 'accountIdentifier', // temp value
-        width: '30%',
+        accessor: 'lastUpdatedAt',
+        width: '20%',
         Cell: RenderColumnActivity
+      },
+      {
+        Header: i18n.table.status,
+        accessor: 'draft',
+        width: '20%',
+        Cell: RenderColumnStatus,
+        refreshSecrets: refetch,
+        disableSortBy: true
       },
       {
         Header: '',
         accessor: 'identifier',
-        width: '4%',
+        width: '5%',
         Cell: RenderColumnAction,
         refreshSecrets: refetch,
         disableSortBy: true
@@ -190,6 +205,13 @@ const SecretsList: React.FC<SecretsListProps> = ({ secrets, refetch }) => {
             secretId: secret.identifier
           })
         )
+      }}
+      pagination={{
+        itemCount: secrets?.data?.totalElements || 0,
+        pageSize: secrets?.data?.size || 10,
+        pageCount: secrets?.data?.totalPages || -1,
+        pageIndex: (secrets?.data?.pageNumber || 0) - 1,
+        gotoPage
       }}
     />
   )

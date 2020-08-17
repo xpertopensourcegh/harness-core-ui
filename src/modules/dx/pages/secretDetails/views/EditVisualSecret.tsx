@@ -10,7 +10,7 @@ const EditVisualSecret: React.FC = () => {
   const { accountId } = useParams()
 
   const { data: secretsManagersApiResponse } = useListSecretManagers({
-    queryParams: { accountIdentifier: accountId }
+    queryParams: { account: accountId }
   })
   const secretsManagers = secretsManagersApiResponse?.data
   const secretManagersOptions: SelectOption[] =

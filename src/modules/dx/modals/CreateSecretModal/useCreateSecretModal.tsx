@@ -1,22 +1,17 @@
 import React, { useState } from 'react'
-import { useParams } from 'react-router-dom'
-import { useModalHook, Button } from '@wings-software/uikit'
+import { useModalHook, Button, Text, Color } from '@wings-software/uikit'
 import { Dialog } from '@blueprintjs/core'
 
-import { useListSecretManagers } from 'services/cd-ng'
+import type { EncryptedDataDTO } from 'services/cd-ng'
 
-import CreateSecretText from './views/CreateSecretText'
-import CreateSecretFile from './views/CreateSecretFile'
+import CreateUpdateSecret from 'modules/dx/components/CreateUpdateSecret/CreateUpdateSecret'
 
+import i18n from './CreateSecretModal.i18n'
 import css from './useCreateSecretModal.module.scss'
 
-export enum SecretType {
-  TEXT,
-  FILE
-}
+type SecretType = EncryptedDataDTO['type']
 
 export interface UseCreateSecretModalProps {
-  // type: SecretType
   onSuccess?: () => void
 }
 
@@ -26,13 +21,9 @@ export interface UseCreateSecretModalReturn {
 }
 
 const useCreateSecretModal = (props: UseCreateSecretModalProps): UseCreateSecretModalReturn => {
-  const [type, setType] = useState<SecretType>(SecretType.TEXT)
-  const { accountId } = useParams()
-  const { data: secretsManagersApiResponse, refetch: getSecretsManagers } = useListSecretManagers({
-    queryParams: { accountIdentifier: accountId },
-    lazy: true
-  })
-  const handleSuccess = () => {
+  const [type, setType] = useState<SecretType>('SecretText')
+
+  const handleSuccess = (): void => {
     hideModal()
     props.onSuccess?.()
   }
@@ -46,21 +37,19 @@ const useCreateSecretModal = (props: UseCreateSecretModalProps): UseCreateSecret
         }}
         className={css.dialog}
       >
-        {type === SecretType.TEXT ? (
-          <CreateSecretText onSuccess={handleSuccess} />
-        ) : (
-          <CreateSecretFile secretsManagers={secretsManagersApiResponse?.data || []} onSuccess={handleSuccess} />
-        )}
+        <Text font={{ size: 'medium' }} color={Color.BLACK} margin={{ bottom: 'large' }}>
+          {type === 'SecretText' ? i18n.titleCreateText : i18n.titleCreateFile}
+        </Text>
+        <CreateUpdateSecret type={type} onSuccess={handleSuccess} />
         <Button minimal icon="cross" iconProps={{ size: 18 }} onClick={hideModal} className={css.crossIcon} />
       </Dialog>
     ),
-    [type, secretsManagersApiResponse]
+    [type]
   )
 
   return {
     openCreateSecretModal: (_type: SecretType) => {
       setType(_type)
-      getSecretsManagers()
       showModal()
     },
     closeCreateSecretModal: hideModal

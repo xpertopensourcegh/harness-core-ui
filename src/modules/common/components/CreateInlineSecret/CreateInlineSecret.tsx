@@ -29,7 +29,7 @@ const CustomSelect = Select.ofType<SelectOption>()
 const CreateInlineSecret: React.FC<CreateInlineSecretProps> = props => {
   const { defaultSecretId, defaultSecretName, accountIdentifier, projectIdentifier, orgIdentifier } = props
   const { data: secretManagersApiResponse, error, refetch, loading } = useListSecretManagers({
-    queryParams: { accountIdentifier, projectIdentifier, orgIdentifier }
+    queryParams: { account: accountIdentifier, project: projectIdentifier, org: orgIdentifier }
   })
 
   const [secretName, setSecretName] = useState(defaultSecretName || '')

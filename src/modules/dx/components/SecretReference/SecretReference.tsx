@@ -27,17 +27,17 @@ interface SecretReferenceProps {
 }
 
 const SecretReference: React.FC<SecretReferenceProps> = props => {
-  const { defaultScope, accountIdentifier, projectIdentifier, orgIdentifier, type = 'SECRET_TEXT' } = props
+  const { defaultScope, accountIdentifier, projectIdentifier, orgIdentifier, type = 'SecretText' } = props
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedScope, setSelectedScope] = useState<Scope>(defaultScope || Scope.ACCOUNT)
 
   const { loading, data, error, refetch } = useListSecrets({
     queryParams: {
-      accountIdentifier,
+      account: accountIdentifier,
       type,
       searchTerm: searchTerm.trim(),
-      projectIdentifier: selectedScope === Scope.PROJECT ? projectIdentifier : undefined,
-      orgIdentifier: selectedScope === Scope.PROJECT || selectedScope === Scope.ORG ? orgIdentifier : undefined
+      project: selectedScope === Scope.PROJECT ? projectIdentifier : undefined,
+      org: selectedScope === Scope.PROJECT || selectedScope === Scope.ORG ? orgIdentifier : undefined
     },
     debounce: 300
   })
@@ -85,9 +85,9 @@ const SecretReference: React.FC<SecretReferenceProps> = props => {
         <Container padding={{ top: 'large' }}>
           <PageError message={error.message} onClick={() => refetch()} />
         </Container>
-      ) : data?.data?.length ? (
+      ) : data?.data?.content?.length ? (
         <div className={css.secretList}>
-          {data?.data?.map((item: EncryptedDataDTO) => (
+          {data.data.content.map((item: EncryptedDataDTO) => (
             <div
               key={item.identifier}
               className={cx(css.listItem, Classes.POPOVER_DISMISS)}
@@ -95,7 +95,7 @@ const SecretReference: React.FC<SecretReferenceProps> = props => {
             >
               <div>{item.name}</div>
               <div className={css.meta}>
-                {item.identifier} . {item.secretManagerIdentifier}
+                {item.identifier} . {item.secretManager}
               </div>
             </div>
           ))}
