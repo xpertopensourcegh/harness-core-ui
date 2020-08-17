@@ -18,5 +18,6 @@ export default {
   DELEGATE_FOUND: 'Delegate found',
   FINISH: 'FINISH',
   ACTIVE: 'Active',
-  NOT_ACTIVE: 'NOT_ACTIVE'
+  NOT_ACTIVE: 'NOT_ACTIVE',
+  RETEST: 'RETEST CONNECTION'
 }

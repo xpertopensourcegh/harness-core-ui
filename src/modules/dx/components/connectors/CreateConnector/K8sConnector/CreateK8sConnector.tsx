@@ -167,15 +167,12 @@ const selectExistingDelegate = (delegateList: RestResponseListString | null) => 
 
 const addToFormData = (state: CreateK8sConnectorState, newFormData: any) => {
   const connectorData = { ...state.formData, ...newFormData }
-  if (connectorData.inheritConfigFromDelegate) {
-    delete connectorData.inheritConfigFromDelegate
+  if (connectorData.delegateName) {
+    delete connectorData.delegateName
   }
   state.setFormData(connectorData)
 }
 
-const installNewDelegate = (accountId: string) => {
-  return <InstallDelegateForm accountId={accountId} />
-}
 const renderDelegateInclusterForm = (
   delegateList: RestResponseListString | null,
   reloadDelegateList: () => Promise<unknown>,
@@ -212,7 +209,9 @@ const renderDelegateInclusterForm = (
         <input type="radio" checked={state.inclusterDelegate === DelegateInClusterType.addNewDelegate} />
         <span className={css.label}>Add a new Delegate to this Cluster</span>
       </div>
-      {state.inclusterDelegate === DelegateInClusterType.addNewDelegate ? installNewDelegate(props.accountId) : null}
+      {state.inclusterDelegate === DelegateInClusterType.addNewDelegate ? (
+        <InstallDelegateForm accountId={props.accountId} />
+      ) : null}
     </div>
   )
 }
@@ -269,7 +268,7 @@ const SecondStep = (props: SecondStepProps) => {
       <Formik
         initialValues={{
           delegateType: props?.formData?.delegateType || '',
-          inheritConfigFromDelegate: props?.formData?.inheritConfigFromDelegate || ''
+          delegateName: props?.formData?.delegateName || ''
         }}
         validationSchema={Yup.object().shape({
           delegateType: Yup.string().trim().required(),
@@ -527,6 +526,7 @@ const CreateK8sConnector = (props: CreateK8sConnectorProps) => {
               connectorName={formData?.name}
               connectorIdentifier={formData?.identifier}
               delegateName={formData?.delegateName}
+              profile={formData?.profile}
             />
           ) : (
             <VerifyExistingDelegate
@@ -549,6 +549,7 @@ const CreateK8sConnector = (props: CreateK8sConnectorProps) => {
             {...props}
             connectorName={formData?.name}
             connectorIdentifier={formData?.identifier}
+            renderInModal={true}
           />
         )}
       </StepWizard>

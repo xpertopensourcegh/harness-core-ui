@@ -77,12 +77,7 @@ export const SecretTextInput: React.FC<SecretTextInputProps> = props => {
         }
         inputGroup={{ type: 'password' }}
       />
-      <Layout.Horizontal
-        flex={{ distribution: 'space-between' }}
-        width={'64%'}
-        height={'14px'}
-        margin={{ top: 'xsmall' }}
-      >
+      <Layout.Horizontal flex={{ distribution: 'space-between' }} height={'14px'} margin={{ top: 'xsmall' }}>
         <Text font={{ size: 'xsmall', weight: 'bold' }} color={Color.GREY_800}>
           {i18n.SECRET_INFO_TEXT}
         </Text>
@@ -93,7 +88,7 @@ export const SecretTextInput: React.FC<SecretTextInputProps> = props => {
           minimal
           font={'small'}
           iconProps={{ size: 12 }}
-          padding="none"
+          className={css.viewBtn}
           onClick={() => setShowCreateInlineSecret(!showCreateInlineSecret)}
         />
       </Layout.Horizontal>

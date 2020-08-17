@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import ReactTimeago from 'react-timeago'
 import { StepsProgress, Layout, Button, Text, Intent, Color } from '@wings-software/uikit'
 import { useGetDelegatesStatus, RestResponseDelegateStatus } from 'services/portal'
 import { useGetTestConnectionResult } from 'services/cd-ng'
@@ -17,7 +18,10 @@ interface VerifyOutOfClusterDelegateProps {
   connectorIdentifier?: string
   name?: string
   onSuccess?: () => void
+  renderInModal: boolean
   setIsEditMode?: () => void
+  setLastTested?: (val: number) => void
+  setLastConnected?: (val: number) => void
 }
 
 interface VerifyOutOfClusterDelegateState {
@@ -130,21 +134,29 @@ const VerifyOutOfClusterDelegate = (props: VerifyOutOfClusterDelegateProps) => {
         clearInterval(interval)
       }
     }
-    if (stepDetails.step === StepIndex.get(STEP.VERIFY) && stepDetails.status === 'PROCESS') {
-      reloadTestConnection()
-      if (testConnectionResponse) {
-        setStepDetails({
-          step: 3,
-          intent: Intent.SUCCESS,
-          status: 'DONE'
-        })
-      } else if (!testConnectionResponse && errorTesting) {
-        setStepDetails({
-          step: 3,
-          intent: Intent.DANGER,
-          status: 'ERROR'
-        })
+    if (stepDetails.step === StepIndex.get(STEP.VERIFY)) {
+      if (stepDetails.status === 'PROCESS') {
+        reloadTestConnection()
+        if (testConnectionResponse) {
+          setStepDetails({
+            step: 3,
+            intent: Intent.SUCCESS,
+            status: 'DONE'
+          })
+        } else if (!testConnectionResponse && errorTesting) {
+          setStepDetails({
+            step: 3,
+            intent: Intent.DANGER,
+            status: 'ERROR'
+          })
+        }
+      } else if (stepDetails.status === 'DONE') {
+        props.setLastTested?.(new Date().getTime())
+        props.setLastConnected?.(new Date().getTime())
       }
+    }
+    if (stepDetails.intent === Intent.DANGER) {
+      props.setLastTested?.(new Date().getTime())
     }
   }, [stepDetails, delegateStatus, testConnectionResponse, error, errorTesting])
   return (
@@ -159,7 +171,7 @@ const VerifyOutOfClusterDelegate = (props: VerifyOutOfClusterDelegateProps) => {
           current={stepDetails.step}
           currentStatus={stepDetails.status}
         />
-        {stepDetails.step === StepIndex.get(STEP.VERIFY) && stepDetails.status === 'ERROR' ? (
+        {props.renderInModal && stepDetails.step === StepIndex.get(STEP.VERIFY) && stepDetails.status === 'ERROR' ? (
           <Button
             intent="primary"
             minimal
@@ -172,6 +184,30 @@ const VerifyOutOfClusterDelegate = (props: VerifyOutOfClusterDelegateProps) => {
           />
         ) : null}
 
+        {!props.renderInModal && stepDetails.step === StepIndex.get(STEP.VERIFY) && stepDetails.status === 'DONE' ? (
+          <Text padding={{ top: 'small', left: 'large' }}>
+            {i18n.LAST_CONNECTED} {<ReactTimeago date={new Date().getTime()} />}
+          </Text>
+        ) : null}
+        {!props.renderInModal && stepDetails.intent === Intent.DANGER ? (
+          <Layout.Horizontal>
+            <Button
+              intent="primary"
+              minimal
+              text={i18n.RETEST}
+              margin={{ top: 'small' }}
+              font={{ size: 'small' }}
+              onClick={() => {
+                setStepDetails({
+                  step: 1,
+                  intent: Intent.WARNING,
+                  status: 'PROCESS'
+                })
+              }}
+            />
+          </Layout.Horizontal>
+        ) : null}
+
         {/* Show same in error handler  {state.validateError?.responseMessages?.[0]?.message && (
           <Text font="small" className={css.validateError}>
             {state.validateError}
@@ -179,7 +215,7 @@ const VerifyOutOfClusterDelegate = (props: VerifyOutOfClusterDelegateProps) => {
         )}
          */}
       </Layout.Vertical>
-      {stepDetails.step === TOTAL_STEPS && stepDetails.status === 'DONE' ? (
+      {props.renderInModal && stepDetails.step === TOTAL_STEPS && stepDetails.status === 'DONE' ? (
         <Layout.Horizontal spacing="large" className={css.btnWrapper}>
           <Button
             type="submit"

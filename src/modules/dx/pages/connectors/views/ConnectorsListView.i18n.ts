@@ -6,5 +6,7 @@ export default {
   confirmDelete: (name: string) => `Are you sure you want to delete the Connector '${name}'?`,
   confirmDeleteTitle: 'Delete Connector',
   deleteButton: 'Delete',
-  cancelButton: 'Cancel'
+  cancelButton: 'Cancel',
+  success: 'active',
+  failed: 'error'
 }

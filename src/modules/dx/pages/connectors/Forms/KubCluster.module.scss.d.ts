@@ -7,13 +7,16 @@ declare const styles: {
   readonly selectCredentials: string
   readonly delgateOutCluster: string
   readonly heading: string
-  readonly selectAuth: string
   readonly credWrapper: string
+  readonly label: string
+  readonly lockIcon: string
+  readonly selectAuth: string
   readonly incluster: string
   readonly radioOption: string
-  readonly label: string
+  readonly radioOptionInstall: string
   readonly tags: string
   readonly tickWrp: string
   readonly cardContent: string
+  readonly formCustomCss: string
 }
 export default styles

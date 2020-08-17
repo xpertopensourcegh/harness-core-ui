@@ -166,6 +166,7 @@
     overflow: auto;
     .formFields {
       min-height: 90%;
+      width: 64%;
     }
   }
   .headingIntermediate {
@@ -174,7 +175,7 @@
     color: var(--grey-800);
   }
   .credWrapper {
-    width: 64%;
+    // width: 64%;
     margin-top: var(--spacing-medium);
     justify-content: space-between;
     .label {
@@ -203,7 +204,7 @@
       .bp3-form-group {
         margin-bottom: unset;
         margin-top: 15px;
-        width: 64%;
+        // width: 64%;
       }
       .bp3-input-group {
         .bp3-input {

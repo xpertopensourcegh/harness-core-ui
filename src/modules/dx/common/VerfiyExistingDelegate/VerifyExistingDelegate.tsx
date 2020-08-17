@@ -3,7 +3,6 @@ import { Layout, Text, StepsProgress, Intent, Button, Color } from '@wings-softw
 import { useGetTestConnectionResult } from 'services/cd-ng'
 import { useGetDelegatesStatus, RestResponseDelegateStatus, DelegateInner } from 'services/portal'
 import type { StepDetails } from 'modules/dx/interfaces/ConnectorInterface'
-import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
 import { useToaster } from 'modules/common/exports'
 import i18n from './VerifyExistingDelegate.i18n'
 
@@ -20,6 +19,8 @@ interface VerifyExistingDelegateProps {
   hideLightModal?: () => void
   renderInModal?: boolean
   onSuccess?: () => void
+  setLastTested?: (val: number) => void
+  setLastConnected?: (val: number) => void
 }
 
 interface VerifyExistingDelegateState {
@@ -54,7 +55,7 @@ const VerifyExistingDelegate = (props: VerifyExistingDelegateProps) => {
   }
   const { accountId, connectorIdentifier, renderInModal = false } = props
 
-  const { data: delegateStatus, error, loading } = useGetDelegatesStatus({
+  const { data: delegateStatus, error } = useGetDelegatesStatus({
     queryParams: { accountId }
   })
   const {
@@ -130,21 +131,29 @@ const VerifyExistingDelegate = (props: VerifyExistingDelegateProps) => {
         clearInterval(interval)
       }
     }
-    if (stepDetails.step === StepIndex.get(STEP.VERIFY) && stepDetails.status === 'PROCESS') {
-      reloadTestConnection()
-      if (testConnectionResponse) {
-        setStepDetails({
-          step: 3,
-          intent: Intent.SUCCESS,
-          status: 'DONE'
-        })
-      } else if (!testConnectionResponse && errorTesting) {
-        setStepDetails({
-          step: 3,
-          intent: Intent.DANGER,
-          status: 'ERROR'
-        })
+    if (stepDetails.step === StepIndex.get(STEP.VERIFY)) {
+      if (stepDetails.status === 'PROCESS') {
+        reloadTestConnection()
+        if (testConnectionResponse) {
+          setStepDetails({
+            step: 3,
+            intent: Intent.SUCCESS,
+            status: 'DONE'
+          })
+        } else if (!testConnectionResponse && errorTesting) {
+          setStepDetails({
+            step: 3,
+            intent: Intent.DANGER,
+            status: 'ERROR'
+          })
+        }
+      } else if (stepDetails.status === 'DONE') {
+        props.setLastTested?.(new Date().getTime())
+        props.setLastConnected?.(new Date().getTime())
       }
+    }
+    if (stepDetails.intent === Intent.DANGER) {
+      props.setLastTested?.(new Date().getTime())
     }
   }, [stepDetails, delegateStatus, testConnectionResponse, error, errorTesting])
   return (
@@ -169,48 +178,62 @@ const VerifyExistingDelegate = (props: VerifyExistingDelegateProps) => {
           </Text>
         )} */}
       {renderInModal && downloadOverLay ? (
-        !loading ? (
-          <section className={css.stepsOverlay}>
-            <Layout.Vertical spacing="xxlarge">
-              <Layout.Horizontal className={css.overlayHeading}>
-                <Text
-                  font={{ size: 'medium', weight: 'bold' }}
-                  color={Color.GREY_700}
-                  margin={{ top: 6, bottom: 'large' }}
-                >
-                  {i18n.DELEGATE_FOUND}
-                </Text>
-                <Button icon="cross" minimal onClick={() => state.setDownloadOverlay(false)} />
-              </Layout.Horizontal>
-              <Layout.Vertical spacing="small">
-                <span>Delegate: {props.delegateName}</span>
-                {/* change it with values from api  */}
-                <span>
-                  Status:
-                  {isSelectedDelegateActive(delegateStatus as RestResponseDelegateStatus)
-                    ? i18n.ACTIVE
-                    : i18n.NOT_ACTIVE}
-                </span>
-                {/* Todo <span>Sync:</span> */}
-              </Layout.Vertical>
+        <section className={css.stepsOverlay}>
+          <Layout.Vertical spacing="xxlarge">
+            <Layout.Horizontal className={css.overlayHeading}>
+              <Text
+                font={{ size: 'medium', weight: 'bold' }}
+                color={Color.GREY_700}
+                margin={{ top: 6, bottom: 'large' }}
+              >
+                {i18n.DELEGATE_FOUND}
+              </Text>
+              <Button icon="cross" minimal onClick={() => state.setDownloadOverlay(false)} />
+            </Layout.Horizontal>
+            <Layout.Vertical spacing="small">
+              <span>Delegate: {props.delegateName}</span>
+              {/* change it with values from api  */}
+              <span>
+                Status:
+                {isSelectedDelegateActive(delegateStatus as RestResponseDelegateStatus) ? i18n.ACTIVE : i18n.NOT_ACTIVE}
+              </span>
+              {/* Todo <span>Sync:</span> */}
             </Layout.Vertical>
-          </section>
-        ) : (
-          <PageSpinner />
-        )
+          </Layout.Vertical>
+        </section>
       ) : null}
-      <Layout.Horizontal spacing="large">
-        <Button
-          type="submit"
-          className={css.submitWrp}
-          onClick={() => {
-            props.hideLightModal?.()
-            props.onSuccess?.()
-            showSuccess(`Connector '${props.connectorName}' created successfully`)
-          }}
-          text={i18n.FINISH}
-        />
-      </Layout.Horizontal>
+      {props.renderInModal ? (
+        <Layout.Horizontal spacing="large">
+          <Button
+            type="submit"
+            className={css.submitWrp}
+            onClick={() => {
+              props.hideLightModal?.()
+              props.onSuccess?.()
+              showSuccess(`Connector '${props.connectorName}' created successfully`)
+            }}
+            text={i18n.FINISH}
+          />
+        </Layout.Horizontal>
+      ) : stepDetails.intent === Intent.DANGER ? (
+        <Layout.Horizontal>
+          <Button
+            intent="primary"
+            minimal
+            text={i18n.RETEST}
+            margin={{ top: 'small' }}
+            font={{ size: 'small' }}
+            onClick={() => {
+              setStepDetails({
+                step: 1,
+                intent: Intent.WARNING,
+                status: 'PROCESS'
+              })
+            }}
+          />
+          :
+        </Layout.Horizontal>
+      ) : null}
     </Layout.Vertical>
   )
 }

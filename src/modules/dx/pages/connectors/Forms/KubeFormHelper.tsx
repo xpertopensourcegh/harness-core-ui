@@ -23,6 +23,7 @@ export const authOptions: AuthOption[] = [
   { value: AuthTypes.OIDC, label: 'OIDC Token' },
   { value: AuthTypes.CLIENT_KEY_CERT, label: 'Client Key Certificate' }
 ]
+
 export interface SecretFieldByType {
   passwordField: string
   secretField: string

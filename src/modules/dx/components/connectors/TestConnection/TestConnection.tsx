@@ -4,6 +4,7 @@ import VerifyOutOfClusterDelegate from 'modules/dx/common/VerifyOutOfClusterDele
 import VerifyExistingDelegate from 'modules/dx/common/VerfiyExistingDelegate/VerifyExistingDelegate'
 import { DelegateTypes } from 'modules/dx/pages/connectors/Forms/KubeFormHelper'
 import i18n from './TestConnection.i18n'
+import css from './TestConnection.module.scss'
 
 interface TestConnectionProps {
   delegateType: string
@@ -13,6 +14,8 @@ interface TestConnectionProps {
   connectorName: string
   connectorIdentifier: string
   delegateName?: string
+  setLastTested: (val: number) => void
+  setLastConnected?: (val: number) => void
 }
 const TestConnection: React.FC<TestConnectionProps> = props => {
   const [testEnabled, setTestEnabled] = useState<boolean>(false)
@@ -27,6 +30,9 @@ const TestConnection: React.FC<TestConnectionProps> = props => {
             projectIdentifier={props.projectIdentifier}
             connectorName={props.connectorName}
             connectorIdentifier={props.connectorIdentifier}
+            renderInModal={false}
+            setLastTested={props.setLastTested}
+            setLastConnected={props.setLastConnected}
           />
         ) : (
           <VerifyExistingDelegate
@@ -36,10 +42,18 @@ const TestConnection: React.FC<TestConnectionProps> = props => {
             connectorName={props.connectorName}
             connectorIdentifier={props.connectorIdentifier}
             delegateName={props.delegateName}
+            setLastTested={props.setLastTested}
+            setLastConnected={props.setLastConnected}
           />
         )
       ) : (
-        <Button intent="primary" text={i18n.TEST_CONNECTION} onClick={() => setTestEnabled(true)} />
+        <Button
+          className={css.testButton}
+          text={i18n.TEST_CONNECTION}
+          onClick={() => {
+            setTestEnabled(true)
+          }}
+        />
       )}
     </Layout.Vertical>
   )

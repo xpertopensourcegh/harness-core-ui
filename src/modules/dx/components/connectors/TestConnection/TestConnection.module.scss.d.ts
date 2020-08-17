@@ -1,7 +1,6 @@
 /* eslint-disable */
 // this is an auto-generated file
 declare const styles: {
-  readonly secretPop: string
-  readonly viewBtn: string
+  readonly testButton: string
 }
 export default styles

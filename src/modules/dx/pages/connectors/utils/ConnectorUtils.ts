@@ -60,7 +60,7 @@ export const getSpecForDelegateType = (formData: FormData) => {
   const type = formData?.delegateType
   if (type === DelegateTypes.DELEGATE_IN_CLUSTER) {
     return {
-      delegateName: formData?.inheritConfigFromDelegate
+      delegateName: formData?.delegateName
     }
   } else if (type === DelegateTypes.DELEGATE_OUT_CLUSTER) {
     return {
@@ -138,7 +138,7 @@ export const getDelegateTypeInfo = (delegateInfoSpec: any) => {
   let delegateTypeMetaData
   if (delegateType === DelegateTypes.DELEGATE_IN_CLUSTER) {
     delegateTypeMetaData = {
-      inheritConfigFromDelegate: delegateInfoSpec?.spec?.inheritConfigFromDelegate
+      delegateName: delegateInfoSpec?.spec?.delegateName
     }
   } else if (delegateType === DelegateTypes.DELEGATE_OUT_CLUSTER) {
     delegateTypeMetaData = {

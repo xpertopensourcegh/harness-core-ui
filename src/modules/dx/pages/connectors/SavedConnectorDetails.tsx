@@ -31,7 +31,7 @@ const getSchema = (props: SavedConnectorDetailsProps) => {
     },
     {
       label: i18n.delegateName,
-      value: connector?.inheritConfigFromDelegate
+      value: connector?.delegateName
     }
   ]
 }

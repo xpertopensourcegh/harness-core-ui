@@ -116,3 +116,18 @@ export const getSecretFieldValue = (field: string) => {
 export const generateDefaultSecretConfig = (name: string, type: string) => {
   return StringUtils.getIdentifierFromName(name || '').concat(type)
 }
+
+export const getLabelForAuthType = (type: string) => {
+  switch (type) {
+    case AuthTypes.USER_PASSWORD:
+      return 'Username and password'
+    case AuthTypes.SERVICE_ACCOUNT:
+      return 'Service Account Token'
+    case AuthTypes.OIDC:
+      return 'OIDC Token'
+    case AuthTypes.CLIENT_KEY_CERT:
+      return 'Client Key Certificate'
+    default:
+      return ''
+  }
+}

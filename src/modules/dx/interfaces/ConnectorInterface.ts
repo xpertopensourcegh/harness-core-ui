@@ -6,7 +6,6 @@ export interface KubFormData {
   identifier?: string
   tags?: string[]
   delegateType?: string
-  inheritConfigFromDelegate?: string
   delegateName?: string
   masterUrl?: string
   authType?: string | number | symbol

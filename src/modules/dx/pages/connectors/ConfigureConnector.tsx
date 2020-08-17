@@ -3,7 +3,7 @@ import { Formik, FormikForm as Form, Button, Layout, IconName } from '@wings-sof
 import * as YAML from 'yaml'
 import cx from 'classnames'
 import { useToaster } from 'modules/common/exports'
-import { useUpdateConnector, ConnectorDTO } from 'services/cd-ng'
+import { useUpdateConnector, ConnectorDTO, ConnectorConnectivityDetails } from 'services/cd-ng'
 import YamlBuilder from 'modules/common/components/YAMLBuilder/YamlBuilder'
 import { YamlEntity } from 'modules/common/constants/YamlConstants'
 import type { SnippetInterface } from 'modules/common/interfaces/SnippetInterface'
@@ -38,6 +38,10 @@ interface ConfigureConnectorState {
   setSelectedView: (selection: string) => void
   connectorResponse: ConnectorDTO
   setConnectorResponse: (data: ConnectorDTO) => void
+  lastTested: number
+  setLastTested: (val: number) => void
+  lastConnected: number
+  setLastConnected: (val: number) => void
 }
 
 const SelectedView = {
@@ -66,6 +70,8 @@ const getYamlFromJson = (json: string): string | undefined => {
 const ConfigureConnector = (props: ConfigureConnectorProps): JSX.Element => {
   const [enableEdit, setEnableEdit] = useState(false)
   const [connector, setConnector] = useState(props.connector)
+  const [lastTested, setLastTested] = useState(0) // props.connectorDetails?.lastTested ||
+  const [lastConnected, setLastConnected] = useState(0) // props.connectorDetails?.lastConnected ||
   const [selectedView, setSelectedView] = useState(
     props.isCreationThroughYamlBuilder ? SelectedView.YAML : SelectedView.VISUAL
   )
@@ -80,7 +86,11 @@ const ConfigureConnector = (props: ConfigureConnectorProps): JSX.Element => {
     selectedView,
     setSelectedView,
     connectorResponse,
-    setConnectorResponse
+    setConnectorResponse,
+    lastTested,
+    setLastTested,
+    lastConnected,
+    setLastConnected
   }
   const { showSuccess, showError } = useToaster()
 
@@ -128,6 +138,8 @@ const ConfigureConnector = (props: ConfigureConnectorProps): JSX.Element => {
   useEffect(() => {
     if (props.connector) {
       setConnector(props.connector)
+    }
+    if (props.connectorDetails) {
       setConnectorResponse(props.connectorDetails)
     }
   }, [props.connector, props.connectorDetails])
@@ -148,67 +160,81 @@ const ConfigureConnector = (props: ConfigureConnectorProps): JSX.Element => {
         </div>
       </div>
       <Layout.Horizontal className={css.mainDetails}>
-        {selectedView === SelectedView.VISUAL ? (
-          <React.Fragment>
-            <div className={css.connectorDetails}>
-              {renderSubHeader(state)}
-              {enableEdit ? (
-                <Formik
-                  initialValues={connector}
-                  // Todo: validationSchema={validationSchema}
-                  onSubmit={formData => {
-                    onSubmitForm(formData)
-                  }}
-                >
-                  {formikProps => (
-                    <Form className={css.formCustomCss}>
-                      <ConnectorForm
-                        accountId={props.accountId}
-                        orgIdentifier={props.orgIdentifier}
-                        projectIdentifier={props.projectIdentifier}
-                        type={props.type}
-                        connector={props.connector}
-                        formikProps={formikProps}
+        <div className={css.connectorDetails}>
+          {selectedView === SelectedView.VISUAL ? renderSubHeader(state) : null}
+          {enableEdit ? (
+            <Formik
+              initialValues={connector}
+              // Todo: validationSchema={validationSchema}
+              onSubmit={formData => {
+                onSubmitForm(formData)
+              }}
+            >
+              {formikProps => (
+                <Form>
+                  {selectedView === SelectedView.VISUAL ? (
+                    <ConnectorForm
+                      accountId={props.accountId}
+                      orgIdentifier={props.orgIdentifier}
+                      projectIdentifier={props.projectIdentifier}
+                      type={props.type}
+                      connector={props.connector}
+                      formikProps={formikProps}
+                    />
+                  ) : (
+                    <div className={css.editor}>
+                      <YamlBuilder
+                        fileName={`${connector?.identifier ?? 'Connector'}.yaml`}
+                        entityType={YamlEntity.CONNECTOR}
+                        existingYaml={getYamlFromJson(props.connectorJson)}
+                        snippets={snippets}
+                        onSnippetSearch={fetchSnippets}
                       />
-                      <Button intent="primary" type="submit" text={i18n.submit} className={css.submitBtn} />
-                    </Form>
+                    </div>
                   )}
-                </Formik>
-              ) : (
-                <SavedConnectorDetails connector={state.connector} />
+                  <Layout.Horizontal>
+                    <Button intent="primary" type="submit" text={i18n.submit} className={css.submitBtn} />
+                  </Layout.Horizontal>
+                </Form>
               )}
+            </Formik>
+          ) : selectedView === SelectedView.VISUAL ? (
+            <SavedConnectorDetails connector={props.connector} />
+          ) : (
+            <div className={css.editor}>
+              <YamlBuilder
+                fileName={`${connector?.identifier ?? 'Connector'}.yaml`}
+                entityType={YamlEntity.CONNECTOR}
+                existingYaml={getYamlFromJson(props.connectorJson)}
+                snippets={snippets}
+                onSnippetSearch={fetchSnippets}
+              />
             </div>
-            <Layout.Vertical width={'50%'}>
-              <ConnectorStats
-                createdAt={connector?.createdAt}
-                lastTested="a minute ago"
-                lastUpdated={connector?.lastModifiedAt}
-                connectionSuccesful="a minute ago"
-                status="SUCCESS"
-              />
-
-              <TestConnection
-                delegateType={connector.delegateType}
-                accountId={props.accountId}
-                orgIdentifier={props.orgIdentifier}
-                projectIdentifier={props.projectIdentifier}
-                connectorName={connector.name}
-                connectorIdentifier={connector.identifier}
-                delegateName={connector.delegateName}
-              />
-            </Layout.Vertical>
-          </React.Fragment>
-        ) : (
-          <div className={css.editor}>
-            <YamlBuilder
-              fileName={`${connector?.identifier ?? 'Connector'}.yaml`}
-              entityType={YamlEntity.CONNECTOR}
-              existingYaml={getYamlFromJson(props.connectorJson)}
-              snippets={snippets}
-              onSnippetSearch={fetchSnippets}
+          )}
+        </div>
+        {selectedView === SelectedView.VISUAL ? (
+          <Layout.Vertical width={'50%'}>
+            <ConnectorStats
+              createdAt={connectorResponse?.createdAt || 0}
+              lastTested={lastTested || 0} // Todo: add { || connectorResponse?.lastTested}
+              lastUpdated={connectorResponse?.lastModifiedAt || 0}
+              lastConnected={lastConnected || 0} // Todo: add {|| connectorResponse?.lastConnected}
+              status={connectorResponse?.status || ({} as ConnectorConnectivityDetails)}
             />
-          </div>
-        )}
+
+            <TestConnection
+              delegateType={connector.delegateType}
+              accountId={props.accountId}
+              orgIdentifier={props.orgIdentifier}
+              projectIdentifier={props.projectIdentifier}
+              connectorName={connector.name}
+              connectorIdentifier={connector.identifier}
+              delegateName={connector.delegateName}
+              setLastTested={setLastTested}
+              setLastConnected={setLastConnected}
+            />
+          </Layout.Vertical>
+        ) : null}
       </Layout.Horizontal>
     </div>
   )

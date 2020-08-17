@@ -16,5 +16,6 @@ export default {
       'Run the following commands (ensure you have kubectl installed and credentials to access your Kubernetes Cluster):',
     COMMAND: 'kubectl apply -f harness-delegate.yaml'
   },
-  verifyConnectionText: 'Verify Connection to'
+  verifyConnectionText: 'Verify Connection to',
+  RETEST: 'RETEST CONNECTION'
 }

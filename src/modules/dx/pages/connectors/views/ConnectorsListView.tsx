@@ -76,7 +76,18 @@ const RenderColumnStatus: Renderer<CellProps<ConnectorSummaryDTO>> = ({ row }) =
   const data = row.original
   return (
     <Layout.Horizontal spacing="small">
-      {data.status?.status ? <Text>{data.status?.status}</Text> : null}
+      {data.status?.status ? (
+        <Text
+          inline
+          icon={data.status.status === 'SUCCESS' ? 'full-circle' : 'warning-sign'}
+          iconProps={{
+            size: data.status.status === 'SUCCESS' ? 6 : 12,
+            color: data.status.status === 'SUCCESS' ? Color.GREEN_500 : Color.RED_500
+          }}
+        >
+          {data.status.status === 'SUCCESS' ? i18n.success : i18n.failed}
+        </Text>
+      ) : null}
     </Layout.Horizontal>
   )
 }

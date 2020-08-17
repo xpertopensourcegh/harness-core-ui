@@ -6,5 +6,7 @@ export default {
     THREE: 'Verifying Connection'
   },
   FINISH: 'FINISH',
-  EDIT_CREDS: 'Edit Credentials'
+  EDIT_CREDS: 'Edit Credentials',
+  RETEST: 'RETEST CONNECTION',
+  LAST_CONNECTED: 'Last connected successfully'
 }

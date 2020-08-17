@@ -1,9 +1,9 @@
 export default {
-  connectorCreated: 'Connector Created',
+  connectorCreated: 'Connector created',
   lastTested: 'Last tested',
-  lastUpdated: 'Last Updtaed',
+  lastUpdated: 'Last updtaed',
   lastConnectorSuccess: 'Last time connection is successful',
   testConnection: 'Test Connection',
   success: 'Successful',
-  failed: 'failed'
+  failed: 'Failed'
 }

@@ -1,7 +1,13 @@
 import React, { useState } from 'react'
-import { Layout, Button, Text, StepsProgress, Intent, Label, CodeBlock, Select, Icon } from '@wings-software/uikit'
-import { useGetDelegatesStatus, useGetDelegatesDownloadUrl } from 'services/portal'
+import { Layout, Button, Text, StepsProgress, Intent, Label, CodeBlock, Select, Color } from '@wings-software/uikit'
+import {
+  useGetDelegatesStatus,
+  useGetDelegatesDownloadUrl,
+  RestResponseDelegateStatus,
+  DelegateInner
+} from 'services/portal'
 import { useGetTestConnectionResult } from 'services/cd-ng'
+import type { StepDetails } from 'modules/dx/interfaces/ConnectorInterface'
 import i18n from './VerifyInstallDelegate.i18n'
 import css from './VerifyInstallDelegate.module.scss'
 
@@ -13,120 +19,199 @@ interface VerifyInstalledDelegateProps {
   connectorName?: string
   connectorIdentifier?: string
   delegateName?: string
-}
-interface VerifyInstalledDelegateState {
-  delegateCount: number
-  setDelegateCount: (val: number) => void
-  currentStatus: number
-  setCurrentStatus: (val: number) => void
-  currentIntent: Intent
-  setCurrentIntent: (val: Intent) => void
-  // validateError: string
-  // setValidateError: (val: string) => void
-  downloadOverLay: boolean
-  setDownloadOverlay: (val: boolean) => void
+  profile?: string
 }
 
+const STEP = {
+  DELEGATE: 'DELEGATE',
+  ESTABLISH_CONNECTION: 'ESTABLISH_CONNECTION',
+  VERIFY: 'VERIFY'
+}
+
+const StepIndex = new Map([
+  [STEP.DELEGATE, 1],
+  [STEP.ESTABLISH_CONNECTION, 2],
+  [STEP.VERIFY, 3]
+])
+
 const VerifyInstalledDelegate = (props: VerifyInstalledDelegateProps) => {
-  const [currentStatus, setCurrentStatus] = React.useState(1)
-  const [currentIntent, setCurrentIntent] = React.useState<Intent>(Intent.WARNING)
-  const [delegateCount, setDelegateCount] = React.useState(0)
-  // const [validateError, setValidateError] = useState('')
+  const [stepDetails, setStepDetails] = useState<StepDetails>({
+    step: 1,
+    intent: Intent.WARNING,
+    status: 'PROCESS'
+  })
   const [downloadOverLay, setDownloadOverlay] = useState(true)
-  const state: VerifyInstalledDelegateState = {
-    delegateCount,
-    setDelegateCount,
-    currentStatus,
-    setCurrentStatus,
-    currentIntent,
-    setCurrentIntent,
-    // validateError,
-    // setValidateError,
-    downloadOverLay,
-    setDownloadOverlay
-  }
+
   const { accountId } = props
-  const { loading, data: delegateDowloadUrl, refetch: reloadDelegateDownloadUrl } = useGetDelegatesDownloadUrl({
+  const {
+    data: delegateDowloadUrl,
+    refetch: reloadDelegateDownloadUrl,
+    error: errorDownload
+  } = useGetDelegatesDownloadUrl({
     queryParams: { accountId },
     lazy: true
   })
 
-  const { loading: loadingStatus, data: delegateStatus, refetch: reloadDelegateStatus } = useGetDelegatesStatus({
+  const { data: delegateStatus, refetch: reloadDelegateStatus, error: errorStatus } = useGetDelegatesStatus({
     queryParams: { accountId },
     lazy: true
   })
 
   const {
-    loading: testingConnection,
     data: testConnectionResponse,
-    refetch: reloadTestConnection
+    refetch: reloadTestConnection,
+    error: errorTesting
   } = useGetTestConnectionResult({
     accountIdentifier: props.accountId,
     connectorIdentifier: props.connectorIdentifier as string,
-    queryParams: { orgIdentifier: props.orgIdentifier, projectIdentifier: props.projectIdentifier }
+    queryParams: { orgIdentifier: props.orgIdentifier, projectIdentifier: props.projectIdentifier },
+    lazy: true
   })
 
+  const isSelectedDelegateActive = (delegateStatusResponse: RestResponseDelegateStatus) => {
+    const delegateList = delegateStatusResponse?.resource?.delegates
+    return delegateList?.filter(function (item: DelegateInner) {
+      return item.delegateName === props.delegateName
+    })?.length
+  }
+
   React.useEffect(() => {
-    if (currentStatus === 1) {
+    if (stepDetails.step === StepIndex.get(STEP.DELEGATE) && stepDetails.status === 'PROCESS') {
       if (delegateDowloadUrl) {
-        setCurrentStatus(2)
-        window.open(delegateDowloadUrl?.resource?.downloadUrl, '_blank')
-        state.setCurrentIntent(Intent.SUCCESS)
-      } else if (!loading && !delegateDowloadUrl) {
-        state.setCurrentIntent(Intent.DANGER)
+        const url = `${delegateDowloadUrl.resource?.downloadUrl}&delegateName=${props.delegateName}${
+          props.profile ? `&delegateProfileId=${props.profile}` : ''
+        }`
+        window.open(url, '_blank')
+        setStepDetails({
+          step: 1,
+          intent: Intent.SUCCESS,
+          status: 'DONE'
+        })
+      } else if (!delegateStatus && errorDownload) {
+        setStepDetails({
+          step: 1,
+          intent: Intent.DANGER,
+          status: 'ERROR'
+        })
       }
     }
-    if (currentStatus === 3) {
-      reloadTestConnection()
-      if (!testingConnection && testConnectionResponse) {
-        state.setCurrentIntent(Intent.SUCCESS)
-        setCurrentStatus(4)
-      } else if (!testingConnection && !testConnectionResponse) {
-        state.setCurrentIntent(Intent.DANGER)
-      }
-    } else if (currentStatus === 2) {
+
+    if (stepDetails.step === StepIndex.get(STEP.DELEGATE) && stepDetails.status === 'DONE') {
+      setStepDetails({
+        step: 2,
+        intent: Intent.SUCCESS,
+        status: 'PROCESS'
+      })
+    }
+
+    if (stepDetails.step === StepIndex.get(STEP.ESTABLISH_CONNECTION) && stepDetails.status === 'PROCESS') {
       reloadDelegateStatus()
-      if (!loadingStatus && delegateStatus) {
-        state.setCurrentIntent(Intent.SUCCESS)
-        state.setCurrentStatus(4)
-      } else if (!loadingStatus && !delegateStatus) {
-        state.setCurrentIntent(Intent.DANGER)
+      if (delegateStatus) {
+        if (isSelectedDelegateActive(delegateStatus)) {
+          setStepDetails({
+            step: 2,
+            intent: Intent.SUCCESS,
+            status: 'DONE'
+          })
+        } else {
+          setStepDetails({
+            step: 2,
+            intent: Intent.DANGER,
+            status: 'ERROR'
+          })
+        }
+      } else if (!delegateStatus && errorStatus) {
+        setStepDetails({
+          step: 2,
+          intent: Intent.DANGER,
+          status: 'ERROR'
+        })
       }
     }
-  }, [currentStatus, loadingStatus, loading])
+
+    if (stepDetails.step === StepIndex.get(STEP.ESTABLISH_CONNECTION) && stepDetails.status === 'DONE') {
+      setStepDetails({
+        step: 3,
+        intent: Intent.SUCCESS,
+        status: 'PROCESS'
+      })
+    }
+
+    if (stepDetails.step === StepIndex.get(STEP.VERIFY) && stepDetails.status === 'PROCESS') {
+      reloadTestConnection()
+      if (testConnectionResponse) {
+        setStepDetails({
+          step: 3,
+          intent: Intent.SUCCESS,
+          status: 'DONE'
+        })
+      } else if (!testConnectionResponse && errorTesting) {
+        setStepDetails({
+          step: 3,
+          intent: Intent.DANGER,
+          status: 'ERROR'
+        })
+      }
+    }
+  }, [
+    stepDetails,
+    delegateStatus,
+    testConnectionResponse,
+    errorStatus,
+    errorTesting,
+    delegateDowloadUrl,
+    errorDownload
+  ])
   return (
     <Layout.Vertical className={css.verifyWrapper}>
-      <Text font="medium" padding="small" className={css.heading}>
+      <Text font="medium" className={css.heading}>
         {i18n.verifyConnectionText} <span className={css.name}>{props.connectorName}</span>
       </Text>
       <StepsProgress
         steps={[i18n.STEPS.ONE, downloadOverLay ? i18n.STEPS.TWO_HIDDEN : i18n.STEPS.TWO, i18n.STEPS.THREE]}
-        intent={currentIntent}
-        current={currentStatus}
-        currentStatus={'PROCESS'}
+        intent={stepDetails.intent}
+        current={stepDetails.step}
+        currentStatus={stepDetails.status}
       />
-      {currentStatus === 3 && (
+      {stepDetails.step === StepIndex.get(STEP.VERIFY) && stepDetails.status !== 'DONE' ? (
         <Text font="small" className={css.verificationText}>
           {i18n.VERIFICATION_TIME_TEXT}
         </Text>
-      )}
-      {/*Todo  {state.validateError?.responseMessages?.[0]?.message && (
-        <Text font="small" style={{ color: 'red', padding: 10, width: '95%', margin: 10 }}>
-          {state.validateError}
-        </Text>
-      )} */}
+      ) : null}
+      {stepDetails.intent === Intent.DANGER ? (
+        <Layout.Horizontal>
+          <Button
+            intent="primary"
+            minimal
+            text={i18n.RETEST}
+            margin={{ top: 'small', left: 'small' }}
+            font={{ size: 'small' }}
+            onClick={() => {
+              setStepDetails({
+                step: 2,
+                intent: Intent.WARNING,
+                status: 'PROCESS'
+              })
+            }}
+          />
+        </Layout.Horizontal>
+      ) : null}
       {downloadOverLay ? (
         <section className={css.stepsOverlay}>
           <Layout.Vertical spacing="xxlarge">
             <Layout.Horizontal className={css.overlayHeading}>
-              <Text font="medium" className={css.installText}>
+              <Text
+                font={{ size: 'medium', weight: 'bold' }}
+                margin={{ top: 'xsmall', bottom: 'large' }}
+                color={Color.GREY_700}
+              >
                 {i18n.INSTALL.INSTALL_TEXT}
               </Text>
-              <Icon name="cross" onClick={() => state.setDownloadOverlay(false)} />
+              <Button icon="cross" minimal onClick={() => setDownloadOverlay(false)} />
             </Layout.Horizontal>
             <Layout.Vertical spacing="small">
               <Label>{i18n.INSTALL.SUPPORTED_FORMATS}</Label>
-              <Select items={[{ label: 'YAML', value: 'YAML' }]} value={{ label: 'YAML', value: 'YAML' }} />
+              <Select items={[{ label: 'YAML', value: 'YAML' }]} value={{ label: 'YAML', value: 'YAML' }} disabled />
             </Layout.Vertical>
             <Button
               intent="primary"
@@ -135,9 +220,6 @@ const VerifyInstalledDelegate = (props: VerifyInstalledDelegateProps) => {
               icon="bring-data"
               onClick={() => {
                 reloadDelegateDownloadUrl()
-                setTimeout(() => {
-                  setCurrentStatus(currentStatus + 1)
-                }, 3000)
               }}
             />
             <Layout.Vertical spacing="large">

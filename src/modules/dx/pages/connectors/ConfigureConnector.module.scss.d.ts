@@ -6,7 +6,6 @@ declare const styles: {
   readonly header: string
   readonly name: string
   readonly submitBtn: string
-  readonly formCustomCss: string
   readonly optionBtns: string
   readonly item: string
   readonly selected: string

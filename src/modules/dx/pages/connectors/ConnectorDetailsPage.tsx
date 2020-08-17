@@ -81,20 +81,24 @@ const ConnectorDetailsPage: React.FC = () => {
         }
       />
       <Page.Body>
-        {!loading ? (
-          <ConfigureConnector
-            accountId={accountId}
-            orgIdentifier={orgIdentifier}
-            projectIdentifier={projectIdentifier}
-            type={connectordetail?.type || ''}
-            connectorDetails={connectordetail as ConnectorDTO}
-            connector={buildKubFormData(connectordetail)}
-            refetchConnector={refetch}
-            isCreationThroughYamlBuilder={isCreationThroughYamlBuilder}
-            connectorJson={connectordetail}
-          />
+        {activeCategory === 0 ? (
+          !loading ? (
+            <ConfigureConnector
+              accountId={accountId}
+              orgIdentifier={orgIdentifier}
+              projectIdentifier={projectIdentifier}
+              type={connectordetail?.type || ''}
+              connectorDetails={connectordetail as ConnectorDTO}
+              connector={buildKubFormData(connectordetail)}
+              refetchConnector={refetch}
+              isCreationThroughYamlBuilder={isCreationThroughYamlBuilder}
+              connectorJson={connectordetail}
+            />
+          ) : (
+            <PageSpinner />
+          )
         ) : (
-          <PageSpinner />
+          <></> // TODO: Reference By
         )}
       </Page.Body>
     </>
