@@ -90,6 +90,10 @@ export const DefaultNodeWidget = (props: DefaultNodeProps): JSX.Element => {
       className={css.defaultNode}
       ref={nodeRef}
       onClick={e => onClickNode(e, props.node)}
+      onMouseDown={e => {
+        e.stopPropagation()
+        props.node.setSelected(true)
+      }}
       onDragOver={event => {
         if (allowAdd) {
           setVisibilityOfAdd(true)
@@ -106,6 +110,7 @@ export const DefaultNodeWidget = (props: DefaultNodeProps): JSX.Element => {
         const dropData: { id: string; identifier: string } = JSON.parse(
           event.dataTransfer.getData(DiagramDrag.NodeDrag)
         )
+        props.node.setSelected(false)
         props.node.fireEvent({ node: dropData }, Event.DropLinkEvent)
       }}
     >
@@ -125,7 +130,10 @@ export const DefaultNodeWidget = (props: DefaultNodeProps): JSX.Element => {
           event.dataTransfer.setData(DiagramDrag.NodeDrag, JSON.stringify(props.node.serialize()))
           event.dataTransfer.dropEffect = 'move'
         }}
-        onDragEnd={() => setDragging(false)}
+        onDragEnd={event => {
+          event.preventDefault()
+          setDragging(false)
+        }}
       >
         {options.icon && <Icon size={28} name={options.icon} {...options.iconProps} />}
         <div>{props.node.getInPorts().map(port => generatePort(port, props))}</div>

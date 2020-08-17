@@ -78,7 +78,7 @@ export const createEngine = (options: CanvasEngineOptions = {}): DiagramEngine =
   engine.getLayerFactories().registerFactory(new SelectionBoxLayerFactory())
 
   engine.getLabelFactories().registerFactory(new DefaultLabelFactory())
-  engine.getNodeFactories().registerFactory(new DefaultNodeFactory()) // i cant figure out why
+  engine.getNodeFactories().registerFactory(new DefaultNodeFactory())
   engine.getLinkFactories().registerFactory(new DefaultLinkFactory())
   engine.getPortFactories().registerFactory(new DefaultPortFactory())
   engine.getNodeFactories().registerFactory(new EmptyNodeFactory())

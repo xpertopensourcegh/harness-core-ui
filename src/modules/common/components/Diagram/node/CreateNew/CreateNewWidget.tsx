@@ -32,6 +32,10 @@ export const CreateNewWidget: React.FC<CreateNewWidgetProps> = (props): JSX.Elem
     <div
       className={cx(cssDefault.defaultNode, css.createNode)}
       onClick={e => onClickNode(e, props.node)}
+      onMouseDown={e => {
+        e.stopPropagation()
+        props.node.setSelected(true)
+      }}
       onDragOver={event => {
         setDropable(true)
         event.preventDefault()

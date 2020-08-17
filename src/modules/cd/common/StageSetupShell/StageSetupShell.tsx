@@ -82,7 +82,7 @@ export default function StageSetupShell(): JSX.Element {
           />
         </Tabs>
       </Layout.Horizontal>
-      <Layout.Horizontal spacing="medium" padding="xlarge" style={{ position: 'absolute', bottom: 0 }}>
+      <Layout.Horizontal spacing="medium" padding="medium" className={css.footer}>
         <Button
           text={i18n.previous}
           icon="chevron-left"

@@ -12,7 +12,7 @@ import {
 import type { Point } from '@projectstorm/geometry'
 import { DefaultLinkModel } from '../link/DefaultLinkModel'
 import { DefaultNodeModel } from '../node/DefaultNodeModel'
-import type { StepGroupNodeLayerModel } from '../node-layer/StepGroupNodeLayerModel'
+import { StepGroupNodeLayerModel } from '../node-layer/StepGroupNodeLayerModel'
 import { EmptyNodeModel } from '../node/EmptyNode/EmptyNodeModel'
 import { PortName } from '../Constants'
 import css from './DiagramModel.module.scss'
@@ -179,5 +179,18 @@ export class DiagramModel<G extends DiagramModelGenerics = DiagramModelGenerics>
       dom?.classList.add(css.selectedLink)
     }
     return nodeLink
+  }
+
+  getNodeFromId(id: string): DefaultNodeModel | undefined {
+    let node: DefaultNodeModel | undefined = undefined
+    this.layers.forEach(layer => {
+      if (layer instanceof NodeLayerModel || layer instanceof StepGroupNodeLayerModel) {
+        const nodes = layer.getNodes()
+        if (nodes[id]) {
+          node = nodes[id]
+        }
+      }
+    })
+    return node
   }
 }

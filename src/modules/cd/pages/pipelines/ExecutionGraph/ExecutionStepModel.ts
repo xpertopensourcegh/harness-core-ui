@@ -40,6 +40,7 @@ export class ExecutionStepModel extends Diagram.DiagramModel {
               identifier: node.step.identifier,
               name: node.step.name,
               icon: MapStepTypeToIcon[type],
+              draggable: true,
               customNodeStyle: { borderColor: 'var(--pipeline-grey-border)' }
             })
           : new Diagram.DefaultNodeModel({
@@ -47,6 +48,7 @@ export class ExecutionStepModel extends Diagram.DiagramModel {
               name: node.step.name,
               icon: MapStepTypeToIcon[type],
               allowAdd: allowAdd === true,
+              draggable: true,
               customNodeStyle: { borderColor: 'var(--pipeline-grey-border)' }
             })
 
@@ -156,6 +158,7 @@ export class ExecutionStepModel extends Diagram.DiagramModel {
           name: node.stepGroup.name,
           icon: MapStepTypeToIcon[StepType.StepGroup],
           secondaryIcon: 'plus',
+          draggable: true,
           allowAdd: allowAdd === true,
           customNodeStyle: { borderColor: 'var(--pipeline-grey-border)', backgroundColor: '#55b8ec' }
         })

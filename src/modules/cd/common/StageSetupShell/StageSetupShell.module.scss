@@ -36,7 +36,7 @@
         // height: calc(100% - 160px);
         // width: 100%;
         overflow: scroll;
-        margin-top: 80px;
+        margin: 90px 0;
       }
       .bp3-tab[aria-selected='true'] {
         color: white;
@@ -56,5 +56,14 @@
         }
       }
     }
+  }
+
+  .footer {
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+    background-color: var(--white);
+    z-index: 1;
+    box-shadow: 4px 0px 2px 0 rgba(0, 0, 0, 0.13);
   }
 }

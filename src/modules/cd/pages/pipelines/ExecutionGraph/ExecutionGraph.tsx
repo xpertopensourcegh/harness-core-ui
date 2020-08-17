@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react'
 import { get } from 'lodash'
 import { Drawer, Position } from '@blueprintjs/core'
-import { cloneDeep } from 'lodash'
+// import { cloneDeep } from 'lodash'
 import type { NodeModelListener, LinkModelListener } from '@projectstorm/react-diagrams-core'
 import type { BaseModelListener } from '@projectstorm/react-canvas-core'
 import { v4 as uuid } from 'uuid'
 import { Button } from '@wings-software/uikit'
-import { Diagram } from 'modules/common/exports'
+import { Diagram, useToaster } from 'modules/common/exports'
 import type { ExecutionWrapper, ExecutionElement } from 'services/cd-ng'
 import { CanvasButtons } from 'modules/cd/common/CanvasButtons/CanvasButtons'
 import { DynamicPopover, DynamicPopoverHandlerBinding } from 'modules/common/components/DynamicPopover/DynamicPopover'
@@ -21,8 +21,10 @@ import {
   ExecutionGraphState,
   StepStateMap,
   StepState,
-  getStepFromId,
-  getStepsState
+  getStepsState,
+  removeStepOrGroup,
+  isLinkUnderStepGroup,
+  getStepFromNode
 } from './ExecutionGraphUtil'
 import { EmptyStageName } from '../PipelineConstants'
 import css from './ExecutionGraph.module.scss'
@@ -64,7 +66,7 @@ const renderDrawerContent = (
   onSelect: (item: CommandData) => void,
   onChange: (stepObj: ExecutionElement) => void
 ): JSX.Element => {
-  const node = getStepFromId(data, entity.getIdentifier?.()).node
+  const node = getStepFromNode(data, entity).node
 
   if (node && !isAddStepOverride) {
     return (
@@ -79,6 +81,7 @@ const renderDrawerContent = (
 }
 
 const ExecutionGraph = (): JSX.Element => {
+  const canvasRef = React.useRef<HTMLDivElement | null>(null)
   const [state, setState] = React.useState<ExecutionGraphState>({
     isDrawerOpen: false,
     data: [],
@@ -91,6 +94,8 @@ const ExecutionGraph = (): JSX.Element => {
   const [dynamicPopoverHandler, setDynamicPopoverHandler] = React.useState<
     DynamicPopoverHandlerBinding<PopoverData> | undefined
   >()
+
+  const { showError } = useToaster()
 
   const {
     state: {
@@ -138,6 +143,44 @@ const ExecutionGraph = (): JSX.Element => {
     dynamicPopoverHandler?.hide()
   }
 
+  const dropNodeListener = (event: any): void => {
+    const eventTemp = event as Diagram.DefaultNodeEvent
+    eventTemp.stopPropagation()
+    if (event.node?.identifier) {
+      const dropEntity = model.getNodeFromId(event.node.id)
+      if (dropEntity) {
+        const dropNode = getStepFromNode(state.data, dropEntity, true).node
+        const current = getStepFromNode(state.data, eventTemp.entity, true, true)
+        // Check Drop Node and Current node should not be same
+        if (event.node.identifier !== eventTemp.entity.getIdentifier() && dropNode) {
+          if (dropNode?.stepGroup && eventTemp.entity.getParent() instanceof Diagram.StepGroupNodeLayerModel) {
+            showError(i18n.stepGroupInAnotherStepGroup)
+          } else {
+            const isRemove = removeStepOrGroup(state, dropEntity)
+            if (isRemove) {
+              if (current.node) {
+                if (current.parent && (current.node.step || current.node.stepGroup)) {
+                  const index = current.parent?.indexOf(current.node) ?? -1
+                  if (index > -1) {
+                    // Remove current Stage also and make it parallel
+                    current.parent?.splice(index, 1, { parallel: [current.node, dropNode] })
+                    updatePipeline(pipeline)
+                  }
+                } else if (current.node.parallel && current.node.parallel.length > 0) {
+                  current.node.parallel.push(dropNode)
+                  updatePipeline(pipeline)
+                }
+              } else {
+                addStepOrGroup(eventTemp.entity, state, dropNode, false)
+                updatePipeline(pipeline)
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
   const nodeListeners: NodeModelListener = {
     [Diagram.Event.ClickNode]: (event: any) => {
       const eventTemp = event as Diagram.DefaultNodeEvent
@@ -181,13 +224,9 @@ const ExecutionGraph = (): JSX.Element => {
       const eventTemp = event as Diagram.DefaultNodeEvent
       eventTemp.stopPropagation()
       dynamicPopoverHandler?.hide()
-      const response = getStepFromId(state.data, eventTemp.entity.getIdentifier(), true)
-      if (response.node) {
-        const index = response.parent.indexOf(response.node)
-        if (index > -1) {
-          response.parent.splice(index, 1)
-          updatePipeline(pipeline)
-        }
+      const isRemoved = removeStepOrGroup(state, eventTemp.entity)
+      if (isRemoved) {
+        updatePipeline(pipeline)
       }
     },
     [Diagram.Event.AddParallelNode]: (event: any) => {
@@ -216,7 +255,8 @@ const ExecutionGraph = (): JSX.Element => {
           )
         }
       }
-    }
+    },
+    [Diagram.Event.DropLinkEvent]: dropNodeListener
   }
 
   const linkListeners: LinkModelListener = {
@@ -243,6 +283,25 @@ const ExecutionGraph = (): JSX.Element => {
           },
           { useArrows: true, darkMode: true }
         )
+      }
+    },
+    [Diagram.Event.DropLinkEvent]: (event: any) => {
+      const eventTemp = event as Diagram.DefaultLinkEvent
+      eventTemp.stopPropagation()
+      if (event.node?.identifier && event.node?.id) {
+        const dropEntity = model.getNodeFromId(event.node.id)
+        if (dropEntity) {
+          const dropNode = getStepFromNode(state.data, dropEntity, true).node
+          if (dropNode?.stepGroup && isLinkUnderStepGroup(eventTemp.entity)) {
+            showError(i18n.stepGroupInAnotherStepGroup)
+          } else {
+            const isRemove = removeStepOrGroup(state, dropEntity)
+            if (isRemove && dropNode) {
+              addStepOrGroup(eventTemp.entity, state, dropNode, false)
+              updatePipeline(pipeline)
+            }
+          }
+        }
       }
     }
   }
@@ -292,7 +351,8 @@ const ExecutionGraph = (): JSX.Element => {
           eventTemp.callback
         )
       }
-    }
+    },
+    [Diagram.Event.DropLinkEvent]: dropNodeListener
   }
 
   useEffect(() => {
@@ -340,66 +400,66 @@ const ExecutionGraph = (): JSX.Element => {
       className={css.container}
       onClick={e => {
         const div = e.target as HTMLDivElement
-        if (div.className?.indexOf?.('CanvasWidget-module_canvas') > -1) {
+        if (div === canvasRef.current?.children[0]) {
           dynamicPopoverHandler?.hide()
         }
       }}
-      onDragOver={event => {
-        const position = engine.getRelativeMousePoint(event)
-        model.highlightNodesAndLink(position)
-        event.preventDefault()
-      }}
-      onDrop={event => {
-        const position = engine.getRelativeMousePoint(event)
-        const nodeLink = model.getNodeLinkAtPosition(position)
-        const dropData: CommandData = JSON.parse(event.dataTransfer.getData('storm-diagram-node'))
-        if (nodeLink instanceof Diagram.DefaultNodeModel) {
-          const dataClone: ExecutionWrapper[] = cloneDeep(state.data)
-          const stepIndex = dataClone.findIndex(item => item.step?.identifier === nodeLink.getIdentifier())
-          const removed = dataClone.splice(stepIndex, 1)
-          removed.push({
-            step: {
-              type: dropData.value,
-              name: dropData.text,
-              identifier: uuid(),
-              spec: {}
-            }
-          })
-          dataClone.splice(stepIndex, 0, {
-            parallel: removed
-          })
-          setState(prevState => ({
-            ...prevState,
-            isDrawerOpen: false,
-            data: dataClone,
-            isAddStepOverride: false,
-            isParallelNodeClicked: false
-          }))
-        } else if (nodeLink instanceof Diagram.DefaultLinkModel) {
-          const dataClone: ExecutionWrapper[] = cloneDeep(state.data)
-          const stepIndex = dataClone.findIndex(
-            item =>
-              item.step?.identifier === (nodeLink.getSourcePort().getNode() as Diagram.DefaultNodeModel).getIdentifier()
-          )
-          dataClone.splice(stepIndex + 1, 0, {
-            step: {
-              type: dropData.value,
-              name: dropData.text,
-              identifier: uuid(),
-              spec: {}
-            }
-          })
-          setState(prevState => ({
-            ...prevState,
-            isDrawerOpen: false,
-            data: dataClone,
-            isAddStepOverride: false,
-            isParallelNodeClicked: false
-          }))
-        }
-      }}
+      // onDragOver={event => {
+      //   const position = engine.getRelativeMousePoint(event)
+      //   model.highlightNodesAndLink(position)
+      //   event.preventDefault()
+      // }}
+      // onDrop={event => {
+      //   const position = engine.getRelativeMousePoint(event)
+      //   const nodeLink = model.getNodeLinkAtPosition(position)
+      //   const dropData: CommandData = JSON.parse(event.dataTransfer.getData('storm-diagram-node'))
+      //   if (nodeLink instanceof Diagram.DefaultNodeModel) {
+      //     const dataClone: ExecutionWrapper[] = cloneDeep(state.data)
+      //     const stepIndex = dataClone.findIndex(item => item.step?.identifier === nodeLink.getIdentifier())
+      //     const removed = dataClone.splice(stepIndex, 1)
+      //     removed.push({
+      //       step: {
+      //         type: dropData.value,
+      //         name: dropData.text,
+      //         identifier: uuid(),
+      //         spec: {}
+      //       }
+      //     })
+      //     dataClone.splice(stepIndex, 0, {
+      //       parallel: removed
+      //     })
+      //     setState(prevState => ({
+      //       ...prevState,
+      //       isDrawerOpen: false,
+      //       data: dataClone,
+      //       isAddStepOverride: false,
+      //       isParallelNodeClicked: false
+      //     }))
+      //   } else if (nodeLink instanceof Diagram.DefaultLinkModel) {
+      //     const dataClone: ExecutionWrapper[] = cloneDeep(state.data)
+      //     const stepIndex = dataClone.findIndex(
+      //       item =>
+      //         item.step?.identifier === (nodeLink.getSourcePort().getNode() as Diagram.DefaultNodeModel).getIdentifier()
+      //     )
+      //     dataClone.splice(stepIndex + 1, 0, {
+      //       step: {
+      //         type: dropData.value,
+      //         name: dropData.text,
+      //         identifier: uuid(),
+      //         spec: {}
+      //       }
+      //     })
+      //     setState(prevState => ({
+      //       ...prevState,
+      //       isDrawerOpen: false,
+      //       data: dataClone,
+      //       isAddStepOverride: false,
+      //       isParallelNodeClicked: false
+      //     }))
+      //   }
+      // }}
     >
-      <div className={css.canvas}>
+      <div className={css.canvas} ref={canvasRef}>
         <Diagram.CanvasWidget
           engine={engine}
           isRollback={true}
@@ -408,7 +468,7 @@ const ExecutionGraph = (): JSX.Element => {
             active: state.isRollback ? Diagram.StepsType.Rollback : Diagram.StepsType.Normal
           }}
         />
-        <CanvasButtons engine={engine} />
+        <CanvasButtons engine={engine} className={css.canvasBtn} />
         <DynamicPopover
           className={css.addStepPopover}
           darkMode={true}
@@ -469,7 +529,7 @@ const ExecutionGraph = (): JSX.Element => {
               },
               (item: ExecutionWrapper) => {
                 if (state.entity) {
-                  const node = getStepFromId(state.data, state.entity.getIdentifier()).node
+                  const node = getStepFromNode(state.data, state.entity).node
                   if (node) {
                     node.name = item.name
                     node.identifier = item.identifier

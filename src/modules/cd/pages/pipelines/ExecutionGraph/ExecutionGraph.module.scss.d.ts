@@ -4,5 +4,6 @@ declare const styles: {
   readonly container: string
   readonly canvas: string
   readonly addStepPopover: string
+  readonly canvasBtn: string
 }
 export default styles

@@ -3,7 +3,7 @@ import { map } from 'lodash'
 import { DiagramEngine, NodeWidget, NodeModel } from '@projectstorm/react-diagrams-core'
 import { Text, Button, Icon } from '@wings-software/uikit'
 import type { StepGroupNodeLayerModel } from './StepGroupNodeLayerModel'
-import { Event, StepsType } from '../Constants'
+import { Event, StepsType, DiagramDrag } from '../Constants'
 import { RollbackToggleSwitch } from '../canvas/RollbackToggleSwitch/RollbackToggleSwitch'
 import i18n from '../Diagram.i18n'
 import css from './StepGroupNodeLayer.module.scss'
@@ -110,6 +110,24 @@ export const StepGroupNodeLayerWidget = (props: StepGroupNodeLayerWidgetProps): 
           pointerEvents: allowAdd ? 'all' : 'none',
           position: 'absolute',
           height: height + 100
+        }}
+        onDragOver={event => {
+          if (allowAdd) {
+            setVisibilityOfAdd(true)
+            event.preventDefault()
+          }
+        }}
+        onDragLeave={() => {
+          if (allowAdd) {
+            setVisibilityOfAdd(false)
+          }
+        }}
+        onDrop={event => {
+          event.stopPropagation()
+          const dropData: { id: string; identifier: string } = JSON.parse(
+            event.dataTransfer.getData(DiagramDrag.NodeDrag)
+          )
+          props.layer.fireEvent({ node: dropData }, Event.DropLinkEvent)
         }}
       >
         <div

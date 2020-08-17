@@ -87,7 +87,24 @@ export const calculateDepthCount = (node: ExecutionWrapper, stepStates: StepStat
   return depth
 }
 
-export const getStepFromId = (
+export const getStepFromNode = (
+  stepData: ExecutionWrapper[] | undefined,
+  node: Diagram.DefaultNodeModel,
+  isComplete = false,
+  isFindParallelNode = false
+): { node: ExecutionWrapper | undefined; parent: ExecutionWrapper[] } => {
+  let data = stepData
+  const layer = node.getParent()
+  if (layer instanceof Diagram.StepGroupNodeLayerModel) {
+    const group = getStepFromId(data, layer.getIdentifier() || '', false).node
+    if (group?.steps) {
+      data = group.steps
+    }
+  }
+  return getStepFromId(data, node.getIdentifier(), isComplete, isFindParallelNode)
+}
+
+const getStepFromId = (
   stepData: ExecutionWrapper[] | undefined,
   id: string,
   isComplete = false,
@@ -155,13 +172,6 @@ export const getStepFromId = (
         }
         parent = stepData
         return false
-      } else {
-        const response = getStepFromId(node.stepGroup?.steps, id, isComplete)
-        if (response.node) {
-          parent = response.parent
-          stepResp = response.node
-          return false
-        }
       }
     }
     return true
@@ -200,6 +210,39 @@ export const getStepsState = (node: ExecutionWrapper, mapState: StepStateMap, in
   return inheritedSG
 }
 
+export const removeStepOrGroup = (state: ExecutionGraphState, entity: Diagram.DefaultNodeModel): boolean => {
+  let isRemoved = false
+  let data = state.data
+  const layer = entity.getParent()
+  if (layer instanceof Diagram.StepGroupNodeLayerModel) {
+    const node = getStepFromId(data, layer.getIdentifier() || '', false).node
+    if (node?.steps) {
+      data = node.steps
+    }
+  }
+  const response = getStepFromId(data, entity.getIdentifier(), true)
+  if (response.node) {
+    const index = response.parent.indexOf(response.node)
+    if (index > -1) {
+      response.parent.splice(index, 1)
+      isRemoved = true
+    }
+  }
+  return isRemoved
+}
+
+export const isLinkUnderStepGroup = (link: Diagram.DefaultLinkModel): boolean => {
+  const sourceNode = link.getSourcePort().getNode() as Diagram.DefaultNodeModel
+  const targetNode = link.getTargetPort().getNode() as Diagram.DefaultNodeModel
+  if (
+    sourceNode.getParent() instanceof Diagram.StepGroupNodeLayerModel &&
+    targetNode.getParent() instanceof Diagram.StepGroupNodeLayerModel
+  ) {
+    return true
+  }
+  return false
+}
+
 export const addStepOrGroup = (
   entity: BaseModel,
   state: ExecutionGraphState,
@@ -210,10 +253,7 @@ export const addStepOrGroup = (
     const sourceNode = entity.getSourcePort().getNode() as Diagram.DefaultNodeModel
     const targetNode = entity.getTargetPort().getNode() as Diagram.DefaultNodeModel
     let data = state.data
-    if (
-      sourceNode.getParent() instanceof Diagram.StepGroupNodeLayerModel &&
-      targetNode.getParent() instanceof Diagram.StepGroupNodeLayerModel
-    ) {
+    if (isLinkUnderStepGroup(entity)) {
       const layer = sourceNode.getParent()
       if (layer instanceof Diagram.StepGroupNodeLayerModel) {
         const node = getStepFromId(data, layer.getIdentifier() || '', false).node

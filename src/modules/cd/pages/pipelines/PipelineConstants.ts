@@ -1,3 +1,3 @@
 export const EmptyStageName = 'Untitled'
 export const MinimumSplitPaneSize = 200
-export const DefaultSplitPaneSize = 400
+export const DefaultSplitPaneSize = 350
