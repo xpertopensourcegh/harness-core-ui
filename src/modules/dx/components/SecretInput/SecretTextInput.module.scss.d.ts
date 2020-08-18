@@ -3,5 +3,9 @@
 declare const styles: {
   readonly secretPop: string
   readonly viewBtn: string
+  readonly secretFieldWrapper: string
+  readonly secretField: string
+  readonly dotIcon: string
+  readonly secretName: string
 }
 export default styles

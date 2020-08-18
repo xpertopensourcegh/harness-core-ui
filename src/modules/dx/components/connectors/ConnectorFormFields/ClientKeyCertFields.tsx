@@ -1,7 +1,7 @@
 import React from 'react'
 import { FormInput } from '@wings-software/uikit'
 import type { FormikProps } from 'formik'
-import SecretTextInput from 'modules/dx/components/SecretInput/SecretTextInput'
+import { FormikSecretTextInput } from 'modules/dx/components/SecretInput/SecretTextInput'
 import { AuthTypeFields } from 'modules/dx/pages/connectors/Forms/KubeFormHelper'
 import {
   getLabelForEncryptedSecret,
@@ -22,7 +22,7 @@ const ClientKeyCertFields: React.FC<ClientKeyCertFieldsProps> = props => {
   const { formikProps, accountId, name = '' } = props
   return (
     <>
-      <SecretTextInput
+      <FormikSecretTextInput
         fieldName={AuthTypeFields.clientKeyRef}
         label={getLabelForEncryptedSecret(AuthTypeFields.clientKeyRef)}
         secretFieldName={getSecretFieldValue(AuthTypeFields.clientKeyRef)}
@@ -34,7 +34,7 @@ const ClientKeyCertFields: React.FC<ClientKeyCertFieldsProps> = props => {
         defaultSecretId={generateDefaultSecretConfig(name, AuthTypeFields.clientKeyRef)}
         onClickCreateSecret={props.onClickCreateSecret}
       />
-      <SecretTextInput
+      <FormikSecretTextInput
         fieldName={AuthTypeFields.clientCertRef}
         label={getLabelForEncryptedSecret(AuthTypeFields.clientCertRef)}
         secretFieldName={getSecretFieldValue(AuthTypeFields.clientCertRef)}
@@ -46,7 +46,7 @@ const ClientKeyCertFields: React.FC<ClientKeyCertFieldsProps> = props => {
         defaultSecretId={generateDefaultSecretConfig(name, AuthTypeFields.clientCertRef)}
         onClickCreateSecret={props.onClickCreateSecret}
       />
-      <SecretTextInput
+      <FormikSecretTextInput
         fieldName={AuthTypeFields.clientKeyPassphraseRef}
         label={getLabelForEncryptedSecret(AuthTypeFields.clientKeyPassphraseRef)}
         secretFieldName={getSecretFieldValue(AuthTypeFields.clientKeyPassphraseRef)}

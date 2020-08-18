@@ -364,7 +364,7 @@ const IntermediateStep: React.FC<IntermediateStepProps> = props => {
             masterUrl: props.formData?.masterUrl || '',
             authType: props.formData?.authType || '',
             username: props.formData?.username || '',
-            passwordRef: props.formData?.passwordRef || '',
+            passwordRef: props.formData?.passwordRef || { name: '', isReference: false },
             serviceAccountTokenRef: props.formData?.serviceAccountTokenRef || '',
             oidcIssuerUrl: props.formData?.oidcIssuerUrl || '',
             oidcUsername: props.formData?.oidcUsername || '',

@@ -6,7 +6,7 @@ import {
   getLabelForEncryptedSecret,
   generateDefaultSecretConfig
 } from 'modules/dx/pages/connectors/utils/ConnectorHelper'
-import SecretTextInput from 'modules/dx/components/SecretInput/SecretTextInput'
+import FormikSecretTextInput from 'modules/dx/components/SecretInput/SecretTextInput'
 import { AuthTypeFields } from 'modules/dx/pages/connectors/Forms/KubeFormHelper'
 import UsernamePassword from './UsernamePassword'
 import OIDCTokenFields from './OIDCTokenFields'
@@ -38,7 +38,7 @@ const ConnectorFormFields: React.FC<ConnectorFormFieldsProps> = props => {
       )
     case AuthTypes.SERVICE_ACCOUNT:
       return (
-        <SecretTextInput
+        <FormikSecretTextInput
           fieldName={AuthTypeFields.serviceAccountTokenRef}
           label={getLabelForEncryptedSecret(AuthTypeFields.serviceAccountTokenRef)}
           secretFieldName={getSecretFieldValue(AuthTypeFields.serviceAccountTokenRef)}

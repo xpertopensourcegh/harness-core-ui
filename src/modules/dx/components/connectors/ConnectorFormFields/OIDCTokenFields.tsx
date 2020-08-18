@@ -2,7 +2,7 @@ import React from 'react'
 import { FormInput } from '@wings-software/uikit'
 import type { FormikProps } from 'formik'
 import { AuthTypeFields } from 'modules/dx/pages/connectors/Forms/KubeFormHelper'
-import SecretTextInput from 'modules/dx/components/SecretInput/SecretTextInput'
+import FormikSecretTextInput from 'modules/dx/components/SecretInput/SecretTextInput'
 import {
   getLabelForEncryptedSecret,
   getSecretFieldValue,
@@ -24,7 +24,7 @@ const OIDCTokenFields: React.FC<OIDCTokenFieldsProps> = props => {
     <>
       <FormInput.Text name={AuthTypeFields.oidcIssuerUrl} label={i18n.PROVIDER_URL} />
       <FormInput.Text name={AuthTypeFields.oidcUsername} label={i18n.USERNAME} />
-      <SecretTextInput
+      <FormikSecretTextInput
         fieldName={AuthTypeFields.oidcPasswordRef}
         label={getLabelForEncryptedSecret(AuthTypeFields.oidcPasswordRef)}
         secretFieldName={getSecretFieldValue(AuthTypeFields.oidcPasswordRef)}
@@ -36,7 +36,7 @@ const OIDCTokenFields: React.FC<OIDCTokenFieldsProps> = props => {
         defaultSecretName={generateDefaultSecretConfig(name, AuthTypeFields.oidcPasswordRef)}
         onClickCreateSecret={props.onClickCreateSecret}
       />
-      <SecretTextInput
+      <FormikSecretTextInput
         fieldName={AuthTypeFields.oidcClientIdRef}
         label={getLabelForEncryptedSecret(AuthTypeFields.oidcClientIdRef)}
         secretFieldName={getSecretFieldValue(AuthTypeFields.oidcClientIdRef)}
@@ -48,7 +48,7 @@ const OIDCTokenFields: React.FC<OIDCTokenFieldsProps> = props => {
         defaultSecretName={generateDefaultSecretConfig(name, AuthTypeFields.oidcClientIdRef)}
         onClickCreateSecret={props.onClickCreateSecret}
       />
-      <SecretTextInput
+      <FormikSecretTextInput
         fieldName={AuthTypeFields.oidcSecretRef}
         label={getLabelForEncryptedSecret(AuthTypeFields.oidcSecretRef)}
         secretFieldName={getSecretFieldValue(AuthTypeFields.oidcSecretRef)}

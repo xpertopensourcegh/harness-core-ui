@@ -1,7 +1,7 @@
 import React from 'react'
 import { FormInput } from '@wings-software/uikit'
 import type { FormikProps } from 'formik'
-import SecretTextInput from 'modules/dx/components/SecretInput/SecretTextInput'
+import { FormikSecretTextInput } from 'modules/dx/components/SecretInput/SecretTextInput'
 import {
   getLabelForEncryptedSecret,
   getSecretFieldValue,
@@ -24,7 +24,7 @@ const UsernamePassword: React.FC<UsernamePasswordProps> = props => {
   return (
     <>
       <FormInput.Text name="username" label="Username" />
-      <SecretTextInput
+      <FormikSecretTextInput
         fieldName={passwordField}
         label={getLabelForEncryptedSecret(passwordField)}
         secretFieldName={getSecretFieldValue(passwordField)}
