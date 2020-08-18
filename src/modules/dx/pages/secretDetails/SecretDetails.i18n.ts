@@ -11,6 +11,7 @@ export default {
   labelDescription: 'Description',
   labelTags: 'Tags',
   valueValue: 'encrypted',
+  valueValueFile: 'encrypted file',
   buttonEdit: 'Edit Details',
   validateName: 'Name is required',
   validateValue: 'Value is required',

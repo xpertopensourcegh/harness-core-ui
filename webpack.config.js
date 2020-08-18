@@ -33,10 +33,10 @@ const config = {
       cert: fs.readFileSync(path.resolve(__dirname, './certificates/localhost.pem'))
     },
     proxy: {
-      '/cd/api': {
+      '/ng/api': {
         logLevel: 'info',
         target: 'http://localhost:7457',
-        pathRewrite: { '^/cd/api': '' }
+        pathRewrite: { '^/ng/api': '' }
       },
       '/api': {
         logLevel: 'info',

@@ -52,7 +52,7 @@ const SelectedView = {
 const renderSubHeader = (state: ConfigureConnectorState): JSX.Element => {
   return (
     <Layout.Horizontal className={css.header} spacing="medium">
-      <span className={css.name}>Kubernetes Connector Details</span>
+      <span className={css.name}>{state.connectorResponse?.type + ' Connector Details'}</span>
       {!state.enableEdit ? <Button text="Edit Details" icon="edit" onClick={() => state.setEnableEdit(true)} /> : null}
     </Layout.Horizontal>
   )

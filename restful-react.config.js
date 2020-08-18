@@ -11,7 +11,7 @@ module.exports = {
     transformer: 'scripts/swagger-transform.js',
     customImport: `import { getConfig } from "../config.js";`,
     customProps: {
-      base: `{getConfig("api")}`,
+      base: `{getConfig("api")}`
     }
   },
   'cd-ng': {
@@ -20,7 +20,7 @@ module.exports = {
     transformer: 'scripts/swagger-transform.js',
     customImport: `import { getConfig } from "../config.js";`,
     customProps: {
-      base: `{getConfig("cd/api")}`,
+      base: `{getConfig("ng/api")}`
     }
   }
 }

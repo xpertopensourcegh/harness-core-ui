@@ -2,19 +2,19 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 import { Layout, FormInput, SelectOption } from '@wings-software/uikit'
 
-import { useListSecretManagers } from 'services/cd-ng'
+import { useGetConnectorList } from 'services/cd-ng'
 
 import i18n from '../SecretDetails.i18n'
 
 const EditVisualSecret: React.FC = () => {
-  const { accountId } = useParams()
+  const { accountId, orgIdentifier, projectIdentifier } = useParams()
 
-  const { data: secretsManagersApiResponse } = useListSecretManagers({
-    queryParams: { account: accountId }
+  const { data: secretsManagersApiResponse } = useGetConnectorList({
+    accountIdentifier: accountId,
+    queryParams: { orgIdentifier, projectIdentifier, type: 'Vault' }
   })
-  const secretsManagers = secretsManagersApiResponse?.data
   const secretManagersOptions: SelectOption[] =
-    secretsManagers?.map(item => {
+    secretsManagersApiResponse?.data?.content?.map(item => {
       return {
         label: item.name || '',
         value: item.identifier || ''

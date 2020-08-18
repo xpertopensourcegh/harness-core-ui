@@ -166,6 +166,8 @@ export const getIconByType = (type: string): IconName => {
   switch (type) {
     case Connectors.KUBERNETES_CLUSTER:
       return 'service-kubernetes' as IconName
+    case 'Vault': // TODO: use enum when backend fixes it
+      return 'key'
     default:
       return '' as IconName
   }

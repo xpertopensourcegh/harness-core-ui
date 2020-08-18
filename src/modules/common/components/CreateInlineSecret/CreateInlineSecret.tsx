@@ -3,7 +3,7 @@ import { Text, SelectOption, Button, Color } from '@wings-software/uikit'
 import { Select } from '@blueprintjs/select'
 import { FormikProps, connect } from 'formik'
 import { MenuItem } from '@blueprintjs/core'
-import { useListSecretManagers } from 'services/cd-ng'
+import { useGetConnectorList } from 'services/cd-ng'
 
 import EditableText from 'modules/common/components/EditableText/EditableText'
 import i18n from './CreateInlineSecret.i18n'
@@ -28,8 +28,9 @@ const CustomSelect = Select.ofType<SelectOption>()
 
 const CreateInlineSecret: React.FC<CreateInlineSecretProps> = props => {
   const { defaultSecretId, defaultSecretName, accountIdentifier, projectIdentifier, orgIdentifier } = props
-  const { data: secretManagersApiResponse, error, refetch, loading } = useListSecretManagers({
-    queryParams: { account: accountIdentifier, project: projectIdentifier, org: orgIdentifier }
+  const { data: secretManagersApiResponse, error, refetch, loading } = useGetConnectorList({
+    accountIdentifier,
+    queryParams: { orgIdentifier, projectIdentifier, type: 'Vault' }
   })
 
   const [secretName, setSecretName] = useState(defaultSecretName || '')
@@ -39,17 +40,19 @@ const CreateInlineSecret: React.FC<CreateInlineSecretProps> = props => {
 
   useEffect(() => {
     const _secretManagers =
-      secretManagersApiResponse?.data?.map(sm => {
+      secretManagersApiResponse?.data?.content?.map(sm => {
         return {
           label: sm.name || '',
           value: sm.identifier || ''
         }
       }) || []
-    const defaultSecretManagerId = secretManagersApiResponse?.data?.filter(sm => sm.default)[0]?.identifier
+    const defaultSecretManagerId = secretManagersApiResponse?.data?.content?.filter(
+      sm => sm.connectorDetails?.default
+    )[0]?.identifier
     const _defaultSecretManager = _secretManagers.filter(opt => opt.value === defaultSecretManagerId)[0]
     setSecretManagers(_secretManagers)
     setSecretManager(_defaultSecretManager)
-  }, [secretManagersApiResponse?.data])
+  }, [secretManagersApiResponse?.data?.content])
 
   return (
     <div className={css.container}>

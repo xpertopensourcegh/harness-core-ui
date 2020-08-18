@@ -9,7 +9,7 @@ import {
   usePutSecretFile,
   usePostSecretFile,
   usePostSecretText,
-  useListSecretManagers,
+  useGetConnectorList,
   SecretFileDTO
 } from 'services/cd-ng'
 import type { SecretTextDTO } from 'services/cd-ng'
@@ -26,9 +26,11 @@ interface CreateSecretTextProps {
 
 const createFormDataFromJson = (data: SecretFileDTO, accountId: string, project?: string, org?: string): FormData => {
   const dataToSubmit = new FormData()
+
   dataToSubmit.set('account', accountId)
   if (project) dataToSubmit.set('project', project)
   if (org) dataToSubmit.set('org', org)
+  delete (data as SecretTextDTO).valueType
 
   Object.entries(data).forEach(([key, value]) => {
     dataToSubmit.set(key, key === 'file' ? value[0] : value)
@@ -41,13 +43,20 @@ const CreateUpdateSecret: React.FC<CreateSecretTextProps> = props => {
   const editing = !!secret
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
   const { showSuccess, showError } = useToaster()
-  const { data: secretManagersApiResponse, loading: loadingSecretsManagers } = useListSecretManagers({
-    queryParams: { account: accountId, project: projectIdentifier, org: orgIdentifier }
+  const { data: secretManagersApiResponse, loading: loadingSecretsManagers } = useGetConnectorList({
+    accountIdentifier: accountId,
+    queryParams: { orgIdentifier, projectIdentifier, type: 'Vault' }
   })
-  const { mutate: createSecretText, loading } = usePostSecretText({})
-  const { mutate: createSecretFile } = usePostSecretFile({})
-  const { mutate: updateSecretText } = usePutSecretText({ identifier: secret?.identifier as string })
-  const { mutate: updateSecretFile } = usePutSecretFile({ identifier: secret?.identifier as string })
+  const { mutate: createSecretText, loading: loadingCreateText } = usePostSecretText({})
+  const { mutate: createSecretFile, loading: loadingCreateFile } = usePostSecretFile({})
+  const { mutate: updateSecretText, loading: loadingUpdateText } = usePutSecretText({
+    identifier: secret?.identifier as string
+  })
+  const { mutate: updateSecretFile, loading: loadingUpdateFile } = usePutSecretFile({
+    identifier: secret?.identifier as string
+  })
+
+  const loading = loadingCreateText || loadingCreateFile || loadingUpdateText || loadingUpdateFile
 
   const handleSubmit = async (data: SecretTextDTO | SecretFileDTO): Promise<void> => {
     try {
@@ -81,29 +90,28 @@ const CreateUpdateSecret: React.FC<CreateSecretTextProps> = props => {
   }
 
   const secretManagersOptions: SelectOption[] =
-    secretManagersApiResponse?.data?.map(item => {
+    secretManagersApiResponse?.data?.content?.map(item => {
       return {
         label: item.name || '',
         value: item.identifier || ''
       }
     }) || []
-  const defaultSecretManagerId = secretManagersApiResponse?.data?.filter(item => item.default)[0]?.identifier
+  const defaultSecretManagerId = secretManagersApiResponse?.data?.content?.filter(
+    item => item.connectorDetails?.default
+  )[0]?.identifier
 
   return (
     <>
-      <Formik
+      <Formik<SecretTextDTO | SecretFileDTO>
         initialValues={{
           valueType: 'Inline',
-          type: 'SecretText',
+          type: type || 'SecretText',
           secretManager: defaultSecretManagerId,
           ...secret
         }}
         enableReinitialize={true}
         validationSchema={Yup.object().shape({
-          name: Yup.string()
-            .trim()
-            .required(i18n.validationName)
-            .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, i18n.validationIdentifierChars),
+          name: Yup.string().trim().required(i18n.validationName),
           identifier: Yup.string().when('name', {
             is: val => val?.length,
             then: Yup.string()
@@ -111,15 +119,14 @@ const CreateUpdateSecret: React.FC<CreateSecretTextProps> = props => {
               .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, i18n.validationIdentifierChars)
               .notOneOf(illegalIdentifiers)
           }),
-          // TODO: only required when creating
-          value: Yup.string().trim().required(i18n.validationValue),
+          value: editing || type === 'SecretFile' ? Yup.string() : Yup.string().trim().required(i18n.validationValue),
           secretManager: Yup.string().required(i18n.validationKms)
         })}
         onSubmit={data => {
           handleSubmit(data)
         }}
       >
-        {(formikProps: FormikProps<SecretTextDTO>) => (
+        {formikProps => (
           <FormikForm>
             <FormInput.Select
               name="secretManager"
@@ -143,7 +150,7 @@ const CreateUpdateSecret: React.FC<CreateSecretTextProps> = props => {
                     { label: 'Reference Secret', value: 'Reference' }
                   ]}
                 />
-                {formikProps.values['valueType'] === 'Inline' ? (
+                {(formikProps as FormikProps<SecretTextDTO>).values['valueType'] === 'Inline' ? (
                   <FormInput.Text
                     name="value"
                     label={i18n.labelSecretValue}
@@ -151,7 +158,7 @@ const CreateUpdateSecret: React.FC<CreateSecretTextProps> = props => {
                     inputGroup={{ type: 'password' }}
                   />
                 ) : null}
-                {formikProps.values['valueType'] === 'Reference' ? (
+                {(formikProps as FormikProps<SecretTextDTO>).values['valueType'] === 'Reference' ? (
                   <FormInput.Text
                     name="value"
                     label={i18n.labelSecretReference}

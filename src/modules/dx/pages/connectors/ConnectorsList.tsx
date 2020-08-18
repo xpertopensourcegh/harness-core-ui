@@ -17,13 +17,13 @@ const enum View {
   LIST
 }
 const ConnectorsList: React.FC<ConnectorsListProps> = ({ mockData }) => {
-  const { accountId } = useParams()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams()
   const [view, setView] = useState(View.LIST)
   const [page, setPage] = useState(0)
 
   const { loading, data, refetch: reloadConnectorList } = useGetConnectorList({
     accountIdentifier: accountId,
-    queryParams: { page: page, size: 10 },
+    queryParams: { page: page, size: 10, projectIdentifier, orgIdentifier },
     mock: mockData
   })
 

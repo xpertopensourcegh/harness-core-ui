@@ -134,10 +134,6 @@ export type GcrArtifactConfig = ArtifactConfig & {
   imagePath?: string
 }
 
-export interface ResponseData {
-  [key: string]: any
-}
-
 export interface EnvironmentResponseDTO {
   accountId?: string
   orgIdentifier?: string
@@ -147,9 +143,20 @@ export interface EnvironmentResponseDTO {
   type?: 'PreProduction' | 'Production'
 }
 
+export interface ResponseData {
+  [key: string]: any
+}
+
 export interface ManifestOverrideSets {
   identifier: string
   manifests?: ManifestConfigWrapper[]
+}
+
+export interface ResponseDTOSecretManagerConfigDTO {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: SecretManagerConfigDTO
+  metaData?: { [key: string]: any }
+  correlationId?: string
 }
 
 export interface OrganizationDTO {
@@ -163,25 +170,10 @@ export interface OrganizationDTO {
   lastModifiedAt?: number
 }
 
-export interface ResponseDTOSecretManagerConfigDTO {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: SecretManagerConfigDTO
-  metaData?: { [key: string]: any }
-  correlationId?: string
-}
-
 export type KubernetesUserNamePasswordDTO = KubernetesAuthCredentialDTO & {
   username?: string
   caCertRef?: SecretRefData
   passwordRef: SecretRefData
-}
-
-export interface CDPipeline {
-  name?: string
-  identifier: string
-  description?: string
-  tags?: Tag[]
-  stages?: StageElementWrapper[]
 }
 
 export interface CreateOrganizationDTO {
@@ -190,6 +182,14 @@ export interface CreateOrganizationDTO {
   color: string
   description?: string
   tags: string[]
+}
+
+export interface CDPipeline {
+  name?: string
+  identifier: string
+  description?: string
+  tags?: Tag[]
+  stages?: StageElementWrapper[]
 }
 
 export interface Graph {
@@ -325,8 +325,8 @@ export type AppDynamicsConnectorDTO = ConnectorConfigDTO & {
 
 export interface GitAuthenticationDTO {
   url?: string
-  gitConnectionType?: 'ACCOUNT' | 'REPO'
   branchName?: string
+  gitConnectionType?: 'ACCOUNT' | 'REPO'
 }
 
 export type KubernetesDelegateDetailsDTO = KubernetesCredentialDTO & {
@@ -382,6 +382,11 @@ export interface ResponseDTOPageConnectorSummaryDTO {
 
 export interface KubernetesCredentialDTO {
   [key: string]: any
+}
+
+export interface GitSyncEntityListDTO {
+  entityType?: string
+  gitSyncEntities?: GitSyncEntityDTO[]
 }
 
 export interface StackTraceElement {
@@ -445,12 +450,15 @@ export interface EnvironmentRequestDTO {
   type: 'PreProduction' | 'Production'
 }
 
-export interface RestResponseBoolean {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: boolean
-  responseMessages?: ResponseMessage[]
+export interface GitSyncEntityDTO {
+  entityName?: string
+  entityType?: string
+  entityIdentifier?: string
+  gitConnectorId?: string
+  repo?: string
+  branch?: string
+  yamlPath?: string
+  rootPath?: string
 }
 
 export interface ArtifactSpecWrapper {
@@ -461,6 +469,14 @@ export interface ArtifactSpecWrapper {
 export type SidecarArtifact = SidecarArtifactWrapper & {
   type?: string
   spec?: ArtifactConfig
+}
+
+export interface RestResponseBoolean {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: boolean
+  responseMessages?: ResponseMessage[]
 }
 
 export interface NGPageResponseProjectDTO {
@@ -508,10 +524,6 @@ export interface ServiceDefinition {
   spec?: ServiceSpec
 }
 
-export interface ManifestAttributes {
-  [key: string]: any
-}
-
 export interface NGPageResponseOrganizationDTO {
   totalPages?: number
   totalElements?: number
@@ -521,15 +533,16 @@ export interface NGPageResponseOrganizationDTO {
   empty?: boolean
 }
 
+export interface ManifestAttributes {
+  [key: string]: any
+}
+
 export interface ManifestConfigWrapper {
   identifier: string
 }
 
-export interface ResponseDTOPlanExecution {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: PlanExecution
-  metaData?: { [key: string]: any }
-  correlationId?: string
+export interface StepParameters {
+  [key: string]: any
 }
 
 export interface ResponseDTONGPageResponseServiceResponseDTO {
@@ -539,14 +552,24 @@ export interface ResponseDTONGPageResponseServiceResponseDTO {
   correlationId?: string
 }
 
-export interface StepParameters {
-  [key: string]: any
+export interface ResponseDTOPlanExecution {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: PlanExecution
+  metaData?: { [key: string]: any }
+  correlationId?: string
 }
 
 export interface GitSyncConfig {
   enabled?: boolean
   customCommitAttributes?: CustomCommitAttributes
   syncEnabled?: boolean
+}
+
+export interface TemporalUnit {
+  timeBased?: boolean
+  duration?: Duration
+  dateBased?: boolean
+  durationEstimated?: boolean
 }
 
 export interface CreateProjectDTO {
@@ -560,20 +583,6 @@ export interface CreateProjectDTO {
   tags: string[]
 }
 
-export interface TemporalUnit {
-  dateBased?: boolean
-  durationEstimated?: boolean
-  timeBased?: boolean
-  duration?: Duration
-}
-
-export interface ResponseDTOEnvironmentResponseDTO {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: EnvironmentResponseDTO
-  metaData?: { [key: string]: any }
-  correlationId?: string
-}
-
 export type VaultConfigUpdateDTO = SecretManagerConfigUpdateDTO & {
   authToken?: string
   basePath?: string
@@ -585,11 +594,14 @@ export type VaultConfigUpdateDTO = SecretManagerConfigUpdateDTO & {
   readOnly?: boolean
 }
 
-export type K8sManifest = ManifestAttributes & {
-  store?: StoreConfigWrapper
+export interface ResponseDTOEnvironmentResponseDTO {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: EnvironmentResponseDTO
+  metaData?: { [key: string]: any }
+  correlationId?: string
 }
 
-export type ValuesManifest = ManifestAttributes & {
+export type K8sManifest = ManifestAttributes & {
   store?: StoreConfigWrapper
 }
 
@@ -598,6 +610,10 @@ export interface ResponseDTOServiceResponseDTO {
   data?: ServiceResponseDTO
   metaData?: { [key: string]: any }
   correlationId?: string
+}
+
+export type ValuesManifest = ManifestAttributes & {
+  store?: StoreConfigWrapper
 }
 
 export type KubernetesClusterDetailsDTO = KubernetesCredentialDTO & {
@@ -637,16 +653,6 @@ export interface Outcome {
   refType?: RefType
 }
 
-export interface ConnectorFilter {
-  accountId?: string
-  projectId?: string
-  orgId?: string
-  type?: 'KUBERNETES_CLUSTER' | 'GIT' | 'SPLUNK' | 'APP_DYNAMICS' | 'VAULT'
-  tag?: string[]
-  lastActivity?: number
-  name?: string
-}
-
 export interface Subgraph {
   mode?:
     | 'SYNC'
@@ -671,6 +677,7 @@ export interface SecretRefData {
 export interface ConnectorValidationResult {
   valid?: boolean
   errorMessage?: string
+  testedAt?: number
 }
 
 export interface Tag {
@@ -709,9 +716,9 @@ export interface ConnectorSummaryDTO {
   identifier?: string
   name?: string
   description?: string
-  accountId?: string
-  orgId?: string
-  projectId?: string
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
   accountName?: string
   orgName?: string
   projectName?: string
@@ -740,9 +747,9 @@ export type K8sRollingRollbackStepInfo = StepSpecType & {
 
 export interface ServiceSpec {
   manifestOverrideSets?: ManifestOverrideSets[]
-  manifests?: ManifestConfigWrapper[]
   artifactOverrideSets?: ArtifactOverrideSets[]
   artifacts?: ArtifactListConfig
+  manifests?: ManifestConfigWrapper[]
 }
 
 export type ShellScriptStepInfo = StepSpecType & {
@@ -760,14 +767,6 @@ export type ShellScriptStepInfo = StepSpecType & {
   sweepingOutputScope?: string
 }
 
-export interface RestResponsePlanExecution {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: PlanExecution
-  responseMessages?: ResponseMessage[]
-}
-
 export interface SecretManagerConfigDTO {
   name?: string
   accountIdentifier?: string
@@ -778,6 +777,14 @@ export interface SecretManagerConfigDTO {
   description?: string
   encryptionType?: 'LOCAL' | 'KMS' | 'GCP_KMS' | 'AWS_SECRETS_MANAGER' | 'AZURE_VAULT' | 'CYBERARK' | 'VAULT' | 'CUSTOM'
   default?: boolean
+}
+
+export interface RestResponsePlanExecution {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: PlanExecution
+  responseMessages?: ResponseMessage[]
 }
 
 export interface FailureDTO {
@@ -1014,9 +1021,9 @@ export interface RefType {
 
 export interface Pageable {
   pageSize?: number
-  pageNumber?: number
   offset?: number
   paged?: boolean
+  pageNumber?: number
   unpaged?: boolean
   sort?: Sort
 }
@@ -1037,8 +1044,8 @@ export interface ResponseDTOConnectorValidationResult {
 }
 
 export interface Sort {
-  sorted?: boolean
   unsorted?: boolean
+  sorted?: boolean
   empty?: boolean
 }
 
@@ -1115,10 +1122,10 @@ export type GitSSHAuthenticationDTO = GitAuthenticationDTO & {
 
 export interface Duration {
   seconds?: number
-  nano?: number
-  units?: TemporalUnit[]
   zero?: boolean
   negative?: boolean
+  nano?: number
+  units?: TemporalUnit[]
 }
 
 export interface ResponseMessage {
@@ -1376,11 +1383,11 @@ export interface ConnectorDTO {
   orgIdentifier?: string
   projectIdentifier?: string
   tags?: string[]
-  type: 'KUBERNETES_CLUSTER' | 'GIT' | 'SPLUNK' | 'APP_DYNAMICS' | 'VAULT'
-  spec?: ConnectorConfigDTO
   createdAt?: number
   lastModifiedAt?: number
   status?: ConnectorConnectivityDetails
+  type: 'KUBERNETES_CLUSTER' | 'GIT' | 'SPLUNK' | 'APP_DYNAMICS' | 'VAULT'
+  spec?: ConnectorConfigDTO
 }
 
 export interface ResponseDTOListSecretManagerConfigDTO {
@@ -1393,14 +1400,14 @@ export interface ResponseDTOListSecretManagerConfigDTO {
 export interface PageCDPipelineSummaryResponseDTO {
   totalElements?: number
   totalPages?: number
-  first?: boolean
   size?: number
   content?: CDPipelineSummaryResponseDTO[]
   number?: number
-  pageable?: Pageable
-  numberOfElements?: number
-  last?: boolean
+  first?: boolean
   sort?: Sort
+  last?: boolean
+  numberOfElements?: number
+  pageable?: Pageable
   empty?: boolean
 }
 
@@ -1420,16 +1427,16 @@ export interface Throwable {
   suppressed?: Throwable[]
 }
 
-export interface StoreConfig {
-  [key: string]: any
-}
-
 export interface RestResponseGraph {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
   resource?: Graph
   responseMessages?: ResponseMessage[]
+}
+
+export interface StoreConfig {
+  [key: string]: any
 }
 
 export interface StageOverridesConfig {
@@ -1804,6 +1811,18 @@ export type VaultConfigDTO = SecretManagerConfigDTO & {
   readOnly?: boolean
 }
 
+export interface SecretFileDTO {
+  account: string
+  org: string
+  project?: string
+  identifier: string
+  secretManager: string
+  name: string
+  tags: string[]
+  description?: string
+  type: 'SecretFile' | 'SecretText'
+}
+
 export interface EmbeddedUser {
   uuid?: string
   name?: string
@@ -1840,18 +1859,6 @@ export interface GraphVertex {
   retryIds?: string[]
   subgraph?: Subgraph
   next?: GraphVertex
-}
-
-export interface SecretFileDTO {
-  account: string
-  org: string
-  project?: string
-  identifier: string
-  secretManager: string
-  name: string
-  tags: string[]
-  description?: string
-  type: 'SecretFile' | 'SecretText'
 }
 
 export type GitStore = StoreConfig & {
@@ -1977,6 +1984,8 @@ export interface SecretTextDTO {
 export interface ConnectorConnectivityDetails {
   status?: 'SUCCESS' | 'FAILURE'
   errorMessage?: string
+  lastTestedAt?: number
+  lastConnectedAt?: number
 }
 
 export interface EnvironmentYaml {
@@ -1999,14 +2008,14 @@ export interface NGPageResponseEnvironmentResponseDTO {
 export interface PageConnectorSummaryDTO {
   totalElements?: number
   totalPages?: number
-  first?: boolean
   size?: number
   content?: ConnectorSummaryDTO[]
   number?: number
-  pageable?: Pageable
-  numberOfElements?: number
-  last?: boolean
+  first?: boolean
   sort?: Sort
+  last?: boolean
+  numberOfElements?: number
+  pageable?: Pageable
   empty?: boolean
 }
 
@@ -2031,6 +2040,10 @@ export type PostSecretFileRequestBody = void
 export interface GetConnectorListQueryParams {
   page?: number
   size?: number
+  orgIdentifier?: string
+  projectIdentifier?: string
+  searchTerm?: string
+  type?: string
 }
 
 export interface GetConnectorListPathParams {
@@ -2049,7 +2062,7 @@ export type GetConnectorListProps = Omit<
 export const GetConnectorList = ({ accountIdentifier, ...props }: GetConnectorListProps) => (
   <Get<ResponseDTOPageConnectorSummaryDTO, unknown, GetConnectorListQueryParams, GetConnectorListPathParams>
     path={`/accounts/${accountIdentifier}/connectors`}
-    base={getConfig('cd/api')}
+    base={getConfig('ng/api')}
     {...props}
   />
 )
@@ -2066,7 +2079,7 @@ export type UseGetConnectorListProps = Omit<
 export const useGetConnectorList = ({ accountIdentifier, ...props }: UseGetConnectorListProps) =>
   useGet<ResponseDTOPageConnectorSummaryDTO, unknown, GetConnectorListQueryParams, GetConnectorListPathParams>(
     (paramsInPath: GetConnectorListPathParams) => `/accounts/${paramsInPath.accountIdentifier}/connectors`,
-    { base: getConfig('cd/api'), pathParams: { accountIdentifier }, ...props }
+    { base: getConfig('ng/api'), pathParams: { accountIdentifier }, ...props }
   )
 
 export interface CreateConnectorPathParams {
@@ -2086,7 +2099,7 @@ export const CreateConnector = ({ accountIdentifier, ...props }: CreateConnector
   <Mutate<ResponseDTOConnectorDTO, unknown, void, ConnectorRequestDTORequestBody, CreateConnectorPathParams>
     verb="POST"
     path={`/accounts/${accountIdentifier}/connectors`}
-    base={getConfig('cd/api')}
+    base={getConfig('ng/api')}
     {...props}
   />
 )
@@ -2104,7 +2117,7 @@ export const useCreateConnector = ({ accountIdentifier, ...props }: UseCreateCon
   useMutate<ResponseDTOConnectorDTO, unknown, void, ConnectorRequestDTORequestBody, CreateConnectorPathParams>(
     'POST',
     (paramsInPath: CreateConnectorPathParams) => `/accounts/${paramsInPath.accountIdentifier}/connectors`,
-    { base: getConfig('cd/api'), pathParams: { accountIdentifier }, ...props }
+    { base: getConfig('ng/api'), pathParams: { accountIdentifier }, ...props }
   )
 
 export interface UpdateConnectorPathParams {
@@ -2124,7 +2137,7 @@ export const UpdateConnector = ({ accountIdentifier, ...props }: UpdateConnector
   <Mutate<ResponseDTOConnectorDTO, unknown, void, ConnectorRequestDTORequestBody, UpdateConnectorPathParams>
     verb="PUT"
     path={`/accounts/${accountIdentifier}/connectors`}
-    base={getConfig('cd/api')}
+    base={getConfig('ng/api')}
     {...props}
   />
 )
@@ -2142,7 +2155,7 @@ export const useUpdateConnector = ({ accountIdentifier, ...props }: UseUpdateCon
   useMutate<ResponseDTOConnectorDTO, unknown, void, ConnectorRequestDTORequestBody, UpdateConnectorPathParams>(
     'PUT',
     (paramsInPath: UpdateConnectorPathParams) => `/accounts/${paramsInPath.accountIdentifier}/connectors`,
-    { base: getConfig('cd/api'), pathParams: { accountIdentifier }, ...props }
+    { base: getConfig('ng/api'), pathParams: { accountIdentifier }, ...props }
   )
 
 export interface GetTestConnectionResultQueryParams {
@@ -2181,7 +2194,7 @@ export const GetTestConnectionResult = ({
     GetTestConnectionResultPathParams
   >
     path={`/accounts/${accountIdentifier}/connectors/testConnection/${connectorIdentifier}`}
-    base={getConfig('cd/api')}
+    base={getConfig('ng/api')}
     {...props}
   />
 )
@@ -2213,7 +2226,7 @@ export const useGetTestConnectionResult = ({
   >(
     (paramsInPath: GetTestConnectionResultPathParams) =>
       `/accounts/${paramsInPath.accountIdentifier}/connectors/testConnection/${paramsInPath.connectorIdentifier}`,
-    { base: getConfig('cd/api'), pathParams: { accountIdentifier, connectorIdentifier }, ...props }
+    { base: getConfig('ng/api'), pathParams: { accountIdentifier, connectorIdentifier }, ...props }
   )
 
 export interface GetConnectorStatusPathParams {
@@ -2245,7 +2258,7 @@ export const GetConnectorStatus = ({ accountIdentifier, ...props }: GetConnector
   >
     verb="POST"
     path={`/accounts/${accountIdentifier}/connectors/validate`}
-    base={getConfig('cd/api')}
+    base={getConfig('ng/api')}
     {...props}
   />
 )
@@ -2275,7 +2288,7 @@ export const useGetConnectorStatus = ({ accountIdentifier, ...props }: UseGetCon
   >(
     'POST',
     (paramsInPath: GetConnectorStatusPathParams) => `/accounts/${paramsInPath.accountIdentifier}/connectors/validate`,
-    { base: getConfig('cd/api'), pathParams: { accountIdentifier }, ...props }
+    { base: getConfig('ng/api'), pathParams: { accountIdentifier }, ...props }
   )
 
 export interface ValidateTheIdentifierIsUniqueQueryParams {
@@ -2305,7 +2318,7 @@ export type ValidateTheIdentifierIsUniqueProps = Omit<
 export const ValidateTheIdentifierIsUnique = ({ accountIdentifier, ...props }: ValidateTheIdentifierIsUniqueProps) => (
   <Get<ResponseDTOBoolean, unknown, ValidateTheIdentifierIsUniqueQueryParams, ValidateTheIdentifierIsUniquePathParams>
     path={`/accounts/${accountIdentifier}/connectors/validateUniqueIdentifier`}
-    base={getConfig('cd/api')}
+    base={getConfig('ng/api')}
     {...props}
   />
 )
@@ -2336,7 +2349,7 @@ export const useValidateTheIdentifierIsUnique = ({
   >(
     (paramsInPath: ValidateTheIdentifierIsUniquePathParams) =>
       `/accounts/${paramsInPath.accountIdentifier}/connectors/validateUniqueIdentifier`,
-    { base: getConfig('cd/api'), pathParams: { accountIdentifier }, ...props }
+    { base: getConfig('ng/api'), pathParams: { accountIdentifier }, ...props }
   )
 
 export interface GetConnectorQueryParams {
@@ -2361,7 +2374,7 @@ export type GetConnectorProps = Omit<
 export const GetConnector = ({ accountIdentifier, connectorIdentifier, ...props }: GetConnectorProps) => (
   <Get<ResponseDTOOptionalConnectorDTO, unknown, GetConnectorQueryParams, GetConnectorPathParams>
     path={`/accounts/${accountIdentifier}/connectors/${connectorIdentifier}`}
-    base={getConfig('cd/api')}
+    base={getConfig('ng/api')}
     {...props}
   />
 )
@@ -2379,7 +2392,7 @@ export const useGetConnector = ({ accountIdentifier, connectorIdentifier, ...pro
   useGet<ResponseDTOOptionalConnectorDTO, unknown, GetConnectorQueryParams, GetConnectorPathParams>(
     (paramsInPath: GetConnectorPathParams) =>
       `/accounts/${paramsInPath.accountIdentifier}/connectors/${paramsInPath.connectorIdentifier}`,
-    { base: getConfig('cd/api'), pathParams: { accountIdentifier, connectorIdentifier }, ...props }
+    { base: getConfig('ng/api'), pathParams: { accountIdentifier, connectorIdentifier }, ...props }
   )
 
 export interface DeleteConnectorQueryParams {
@@ -2404,7 +2417,7 @@ export const DeleteConnector = ({ accountIdentifier, ...props }: DeleteConnector
   <Mutate<ResponseDTOBoolean, unknown, DeleteConnectorQueryParams, string, DeleteConnectorPathParams>
     verb="DELETE"
     path={`/accounts/${accountIdentifier}/connectors`}
-    base={getConfig('cd/api')}
+    base={getConfig('ng/api')}
     {...props}
   />
 )
@@ -2422,7 +2435,7 @@ export const useDeleteConnector = ({ accountIdentifier, ...props }: UseDeleteCon
   useMutate<ResponseDTOBoolean, unknown, DeleteConnectorQueryParams, string, DeleteConnectorPathParams>(
     'DELETE',
     (paramsInPath: DeleteConnectorPathParams) => `/accounts/${paramsInPath.accountIdentifier}/connectors`,
-    { base: getConfig('cd/api'), pathParams: { accountIdentifier }, ...props }
+    { base: getConfig('ng/api'), pathParams: { accountIdentifier }, ...props }
   )
 
 export interface GetOrganizationListQueryParams {
@@ -2457,7 +2470,7 @@ export const GetOrganizationList = ({ accountIdentifier, ...props }: GetOrganiza
     GetOrganizationListPathParams
   >
     path={`/accounts/${accountIdentifier}/organizations`}
-    base={getConfig('cd/api')}
+    base={getConfig('ng/api')}
     {...props}
   />
 )
@@ -2483,7 +2496,7 @@ export const useGetOrganizationList = ({ accountIdentifier, ...props }: UseGetOr
     GetOrganizationListQueryParams,
     GetOrganizationListPathParams
   >((paramsInPath: GetOrganizationListPathParams) => `/accounts/${paramsInPath.accountIdentifier}/organizations`, {
-    base: getConfig('cd/api'),
+    base: getConfig('ng/api'),
     pathParams: { accountIdentifier },
     ...props
   })
@@ -2511,7 +2524,7 @@ export const PostOrganization = ({ accountIdentifier, ...props }: PostOrganizati
   <Mutate<ResponseDTOOrganizationDTO, FailureDTO | ErrorDTO, void, CreateOrganizationDTO, PostOrganizationPathParams>
     verb="POST"
     path={`/accounts/${accountIdentifier}/organizations`}
-    base={getConfig('cd/api')}
+    base={getConfig('ng/api')}
     {...props}
   />
 )
@@ -2535,7 +2548,7 @@ export const usePostOrganization = ({ accountIdentifier, ...props }: UsePostOrga
   useMutate<ResponseDTOOrganizationDTO, FailureDTO | ErrorDTO, void, CreateOrganizationDTO, PostOrganizationPathParams>(
     'POST',
     (paramsInPath: PostOrganizationPathParams) => `/accounts/${paramsInPath.accountIdentifier}/organizations`,
-    { base: getConfig('cd/api'), pathParams: { accountIdentifier }, ...props }
+    { base: getConfig('ng/api'), pathParams: { accountIdentifier }, ...props }
   )
 
 export interface GetOrganizationPathParams {
@@ -2555,7 +2568,7 @@ export type GetOrganizationProps = Omit<
 export const GetOrganization = ({ accountIdentifier, orgIdentifier, ...props }: GetOrganizationProps) => (
   <Get<ResponseDTOOptionalOrganizationDTO, FailureDTO | ErrorDTO, void, GetOrganizationPathParams>
     path={`/accounts/${accountIdentifier}/organizations/${orgIdentifier}`}
-    base={getConfig('cd/api')}
+    base={getConfig('ng/api')}
     {...props}
   />
 )
@@ -2573,7 +2586,7 @@ export const useGetOrganization = ({ accountIdentifier, orgIdentifier, ...props 
   useGet<ResponseDTOOptionalOrganizationDTO, FailureDTO | ErrorDTO, void, GetOrganizationPathParams>(
     (paramsInPath: GetOrganizationPathParams) =>
       `/accounts/${paramsInPath.accountIdentifier}/organizations/${paramsInPath.orgIdentifier}`,
-    { base: getConfig('cd/api'), pathParams: { accountIdentifier, orgIdentifier }, ...props }
+    { base: getConfig('ng/api'), pathParams: { accountIdentifier, orgIdentifier }, ...props }
   )
 
 export interface PutOrganizationPathParams {
@@ -2606,7 +2619,7 @@ export const PutOrganization = ({ accountIdentifier, orgIdentifier, ...props }: 
   >
     verb="PUT"
     path={`/accounts/${accountIdentifier}/organizations/${orgIdentifier}`}
-    base={getConfig('cd/api')}
+    base={getConfig('ng/api')}
     {...props}
   />
 )
@@ -2637,7 +2650,7 @@ export const usePutOrganization = ({ accountIdentifier, orgIdentifier, ...props 
     'PUT',
     (paramsInPath: PutOrganizationPathParams) =>
       `/accounts/${paramsInPath.accountIdentifier}/organizations/${paramsInPath.orgIdentifier}`,
-    { base: getConfig('cd/api'), pathParams: { accountIdentifier, orgIdentifier }, ...props }
+    { base: getConfig('ng/api'), pathParams: { accountIdentifier, orgIdentifier }, ...props }
   )
 
 export interface DeleteOrganizationPathParams {
@@ -2657,7 +2670,7 @@ export const DeleteOrganization = ({ accountIdentifier, ...props }: DeleteOrgani
   <Mutate<ResponseDTOBoolean, FailureDTO | ErrorDTO, void, string, DeleteOrganizationPathParams>
     verb="DELETE"
     path={`/accounts/${accountIdentifier}/organizations`}
-    base={getConfig('cd/api')}
+    base={getConfig('ng/api')}
     {...props}
   />
 )
@@ -2675,7 +2688,7 @@ export const useDeleteOrganization = ({ accountIdentifier, ...props }: UseDelete
   useMutate<ResponseDTOBoolean, FailureDTO | ErrorDTO, void, string, DeleteOrganizationPathParams>(
     'DELETE',
     (paramsInPath: DeleteOrganizationPathParams) => `/accounts/${paramsInPath.accountIdentifier}/organizations`,
-    { base: getConfig('cd/api'), pathParams: { accountIdentifier }, ...props }
+    { base: getConfig('ng/api'), pathParams: { accountIdentifier }, ...props }
   )
 
 export interface PostDelegateQueryParams {
@@ -2690,7 +2703,7 @@ export type PostDelegateProps = Omit<GetProps<ResponseData, unknown, PostDelegat
 export const PostDelegate = (props: PostDelegateProps) => (
   <Get<ResponseData, unknown, PostDelegateQueryParams, void>
     path={`/delegate-tasks`}
-    base={getConfig('cd/api')}
+    base={getConfig('ng/api')}
     {...props}
   />
 )
@@ -2702,7 +2715,7 @@ export type UsePostDelegateProps = Omit<UseGetProps<ResponseData, unknown, PostD
  */
 export const usePostDelegate = (props: UsePostDelegateProps) =>
   useGet<ResponseData, unknown, PostDelegateQueryParams, void>(`/delegate-tasks`, {
-    base: getConfig('cd/api'),
+    base: getConfig('ng/api'),
     ...props
   })
 
@@ -2724,7 +2737,7 @@ export const CreateSamplePTask = (props: CreateSamplePTaskProps) => (
   <Mutate<RestResponseString, unknown, CreateSamplePTaskQueryParams, void, void>
     verb="POST"
     path={`/delegate-tasks/perpetual-tasks/sample`}
-    base={getConfig('cd/api')}
+    base={getConfig('ng/api')}
     {...props}
   />
 )
@@ -2741,7 +2754,7 @@ export const useCreateSamplePTask = (props: UseCreateSamplePTaskProps) =>
   useMutate<RestResponseString, unknown, CreateSamplePTaskQueryParams, void, void>(
     'POST',
     `/delegate-tasks/perpetual-tasks/sample`,
-    { base: getConfig('cd/api'), ...props }
+    { base: getConfig('ng/api'), ...props }
   )
 
 export interface ResetSamplePTaskQueryParams {
@@ -2767,7 +2780,7 @@ export const ResetSamplePTask = ({ taskId, ...props }: ResetSamplePTaskProps) =>
   <Mutate<RestResponseBoolean, unknown, ResetSamplePTaskQueryParams, void, ResetSamplePTaskPathParams>
     verb="PUT"
     path={`/delegate-tasks/perpetual-tasks/sample/${taskId}`}
-    base={getConfig('cd/api')}
+    base={getConfig('ng/api')}
     {...props}
   />
 )
@@ -2785,7 +2798,7 @@ export const useResetSamplePTask = ({ taskId, ...props }: UseResetSamplePTaskPro
   useMutate<RestResponseBoolean, unknown, ResetSamplePTaskQueryParams, void, ResetSamplePTaskPathParams>(
     'PUT',
     (paramsInPath: ResetSamplePTaskPathParams) => `/delegate-tasks/perpetual-tasks/sample/${paramsInPath.taskId}`,
-    { base: getConfig('cd/api'), pathParams: { taskId }, ...props }
+    { base: getConfig('ng/api'), pathParams: { taskId }, ...props }
   )
 
 export interface DeleteSamplePTaskQueryParams {
@@ -2804,7 +2817,7 @@ export const DeleteSamplePTask = (props: DeleteSamplePTaskProps) => (
   <Mutate<RestResponseBoolean, unknown, DeleteSamplePTaskQueryParams, string, void>
     verb="DELETE"
     path={`/delegate-tasks/perpetual-tasks/sample`}
-    base={getConfig('cd/api')}
+    base={getConfig('ng/api')}
     {...props}
   />
 )
@@ -2821,7 +2834,7 @@ export const useDeleteSamplePTask = (props: UseDeleteSamplePTaskProps) =>
   useMutate<RestResponseBoolean, unknown, DeleteSamplePTaskQueryParams, string, void>(
     'DELETE',
     `/delegate-tasks/perpetual-tasks/sample`,
-    { base: getConfig('cd/api'), ...props }
+    { base: getConfig('ng/api'), ...props }
   )
 
 export interface AsyncTaskD2QueryParams {
@@ -2837,7 +2850,7 @@ export const AsyncTaskD2 = (props: AsyncTaskD2Props) => (
   <Mutate<string, unknown, AsyncTaskD2QueryParams, void, void>
     verb="POST"
     path={`/delegate2-tasks/async`}
-    base={getConfig('cd/api')}
+    base={getConfig('ng/api')}
     {...props}
   />
 )
@@ -2852,7 +2865,7 @@ export type UseAsyncTaskD2Props = Omit<
  */
 export const useAsyncTaskD2 = (props: UseAsyncTaskD2Props) =>
   useMutate<string, unknown, AsyncTaskD2QueryParams, void, void>('POST', `/delegate2-tasks/async`, {
-    base: getConfig('cd/api'),
+    base: getConfig('ng/api'),
     ...props
   })
 
@@ -2872,7 +2885,7 @@ export const SyncTaskD2 = (props: SyncTaskD2Props) => (
   <Mutate<ResponseData, unknown, SyncTaskD2QueryParams, void, void>
     verb="POST"
     path={`/delegate2-tasks/sync`}
-    base={getConfig('cd/api')}
+    base={getConfig('ng/api')}
     {...props}
   />
 )
@@ -2887,7 +2900,7 @@ export type UseSyncTaskD2Props = Omit<
  */
 export const useSyncTaskD2 = (props: UseSyncTaskD2Props) =>
   useMutate<ResponseData, unknown, SyncTaskD2QueryParams, void, void>('POST', `/delegate2-tasks/sync`, {
-    base: getConfig('cd/api'),
+    base: getConfig('ng/api'),
     ...props
   })
 
@@ -2921,7 +2934,7 @@ export const GetEnvironmentListForProject = (props: GetEnvironmentListForProject
     void
   >
     path={`/environments`}
-    base={getConfig('cd/api')}
+    base={getConfig('ng/api')}
     {...props}
   />
 )
@@ -2945,7 +2958,7 @@ export const useGetEnvironmentListForProject = (props: UseGetEnvironmentListForP
     FailureDTO | ErrorDTO,
     GetEnvironmentListForProjectQueryParams,
     void
-  >(`/environments`, { base: getConfig('cd/api'), ...props })
+  >(`/environments`, { base: getConfig('ng/api'), ...props })
 
 export interface CreateEnvironmentQueryParams {
   accountId?: string
@@ -2975,7 +2988,7 @@ export const CreateEnvironment = (props: CreateEnvironmentProps) => (
   >
     verb="POST"
     path={`/environments`}
-    base={getConfig('cd/api')}
+    base={getConfig('ng/api')}
     {...props}
   />
 )
@@ -3001,7 +3014,7 @@ export const useCreateEnvironment = (props: UseCreateEnvironmentProps) =>
     CreateEnvironmentQueryParams,
     EnvironmentRequestDTORequestBody,
     void
-  >('POST', `/environments`, { base: getConfig('cd/api'), ...props })
+  >('POST', `/environments`, { base: getConfig('ng/api'), ...props })
 
 export interface UpdateEnvironmentQueryParams {
   accountId?: string
@@ -3031,7 +3044,7 @@ export const UpdateEnvironment = (props: UpdateEnvironmentProps) => (
   >
     verb="PUT"
     path={`/environments`}
-    base={getConfig('cd/api')}
+    base={getConfig('ng/api')}
     {...props}
   />
 )
@@ -3057,7 +3070,7 @@ export const useUpdateEnvironment = (props: UseUpdateEnvironmentProps) =>
     UpdateEnvironmentQueryParams,
     EnvironmentRequestDTORequestBody,
     void
-  >('PUT', `/environments`, { base: getConfig('cd/api'), ...props })
+  >('PUT', `/environments`, { base: getConfig('ng/api'), ...props })
 
 export interface UpsertEnvironmentQueryParams {
   accountId?: string
@@ -3087,7 +3100,7 @@ export const UpsertEnvironment = (props: UpsertEnvironmentProps) => (
   >
     verb="PUT"
     path={`/environments/upsert`}
-    base={getConfig('cd/api')}
+    base={getConfig('ng/api')}
     {...props}
   />
 )
@@ -3113,7 +3126,7 @@ export const useUpsertEnvironment = (props: UseUpsertEnvironmentProps) =>
     UpsertEnvironmentQueryParams,
     EnvironmentRequestDTORequestBody,
     void
-  >('PUT', `/environments/upsert`, { base: getConfig('cd/api'), ...props })
+  >('PUT', `/environments/upsert`, { base: getConfig('ng/api'), ...props })
 
 export interface GetEnvironmentQueryParams {
   accountId?: string
@@ -3142,7 +3155,7 @@ export type GetEnvironmentProps = Omit<
 export const GetEnvironment = ({ environmentIdentifier, ...props }: GetEnvironmentProps) => (
   <Get<ResponseDTOEnvironmentResponseDTO, FailureDTO | ErrorDTO, GetEnvironmentQueryParams, GetEnvironmentPathParams>
     path={`/environments/${environmentIdentifier}`}
-    base={getConfig('cd/api')}
+    base={getConfig('ng/api')}
     {...props}
   />
 )
@@ -3164,7 +3177,7 @@ export type UseGetEnvironmentProps = Omit<
 export const useGetEnvironment = ({ environmentIdentifier, ...props }: UseGetEnvironmentProps) =>
   useGet<ResponseDTOEnvironmentResponseDTO, FailureDTO | ErrorDTO, GetEnvironmentQueryParams, GetEnvironmentPathParams>(
     (paramsInPath: GetEnvironmentPathParams) => `/environments/${paramsInPath.environmentIdentifier}`,
-    { base: getConfig('cd/api'), pathParams: { environmentIdentifier }, ...props }
+    { base: getConfig('ng/api'), pathParams: { environmentIdentifier }, ...props }
   )
 
 export interface DeleteEnvironmentQueryParams {
@@ -3185,7 +3198,7 @@ export const DeleteEnvironment = (props: DeleteEnvironmentProps) => (
   <Mutate<ResponseDTOBoolean, FailureDTO | ErrorDTO, DeleteEnvironmentQueryParams, string, void>
     verb="DELETE"
     path={`/environments`}
-    base={getConfig('cd/api')}
+    base={getConfig('ng/api')}
     {...props}
   />
 )
@@ -3202,7 +3215,7 @@ export const useDeleteEnvironment = (props: UseDeleteEnvironmentProps) =>
   useMutate<ResponseDTOBoolean, FailureDTO | ErrorDTO, DeleteEnvironmentQueryParams, string, void>(
     'DELETE',
     `/environments`,
-    { base: getConfig('cd/api'), ...props }
+    { base: getConfig('ng/api'), ...props }
   )
 
 export interface ListGitSyncQueryParams {
@@ -3219,7 +3232,7 @@ export type ListGitSyncProps = Omit<GetProps<GitSyncConfigDTO[], unknown, ListGi
 export const ListGitSync = (props: ListGitSyncProps) => (
   <Get<GitSyncConfigDTO[], unknown, ListGitSyncQueryParams, void>
     path={`/git-sync`}
-    base={getConfig('cd/api')}
+    base={getConfig('ng/api')}
     {...props}
   />
 )
@@ -3231,7 +3244,7 @@ export type UseListGitSyncProps = Omit<UseGetProps<GitSyncConfigDTO[], unknown, 
  */
 export const useListGitSync = (props: UseListGitSyncProps) =>
   useGet<GitSyncConfigDTO[], unknown, ListGitSyncQueryParams, void>(`/git-sync`, {
-    base: getConfig('cd/api'),
+    base: getConfig('ng/api'),
     ...props
   })
 
@@ -3253,7 +3266,7 @@ export const PostGitSync = (props: PostGitSyncProps) => (
   <Mutate<GitSyncConfigDTO, unknown, PostGitSyncQueryParams, GitSyncConfigDTORequestBody, void>
     verb="POST"
     path={`/git-sync`}
-    base={getConfig('cd/api')}
+    base={getConfig('ng/api')}
     {...props}
   />
 )
@@ -3268,7 +3281,43 @@ export type UsePostGitSyncProps = Omit<
  */
 export const usePostGitSync = (props: UsePostGitSyncProps) =>
   useMutate<GitSyncConfigDTO, unknown, PostGitSyncQueryParams, GitSyncConfigDTORequestBody, void>('POST', `/git-sync`, {
-    base: getConfig('cd/api'),
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+export interface ListGitSyncEntitiesQueryParams {
+  projectId?: string
+  organizationId?: string
+  accountId?: string
+}
+
+export type ListGitSyncEntitiesProps = Omit<
+  GetProps<GitSyncEntityListDTO[], unknown, ListGitSyncEntitiesQueryParams, void>,
+  'path'
+>
+
+/**
+ * List Git Sync Entity
+ */
+export const ListGitSyncEntities = (props: ListGitSyncEntitiesProps) => (
+  <Get<GitSyncEntityListDTO[], unknown, ListGitSyncEntitiesQueryParams, void>
+    path={`/git-sync-entities`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseListGitSyncEntitiesProps = Omit<
+  UseGetProps<GitSyncEntityListDTO[], unknown, ListGitSyncEntitiesQueryParams, void>,
+  'path'
+>
+
+/**
+ * List Git Sync Entity
+ */
+export const useListGitSyncEntities = (props: UseListGitSyncEntitiesProps) =>
+  useGet<GitSyncEntityListDTO[], unknown, ListGitSyncEntitiesQueryParams, void>(`/git-sync-entities`, {
+    base: getConfig('ng/api'),
     ...props
   })
 
@@ -3295,7 +3344,7 @@ export const PutGitSync = ({ identifier, ...props }: PutGitSyncProps) => (
   <Mutate<GitSyncConfigDTO, unknown, PutGitSyncQueryParams, GitSyncConfigDTORequestBody, PutGitSyncPathParams>
     verb="PUT"
     path={`/git-sync/${identifier}`}
-    base={getConfig('cd/api')}
+    base={getConfig('ng/api')}
     {...props}
   />
 )
@@ -3313,7 +3362,7 @@ export const usePutGitSync = ({ identifier, ...props }: UsePutGitSyncProps) =>
   useMutate<GitSyncConfigDTO, unknown, PutGitSyncQueryParams, GitSyncConfigDTORequestBody, PutGitSyncPathParams>(
     'PUT',
     (paramsInPath: PutGitSyncPathParams) => `/git-sync/${paramsInPath.identifier}`,
-    { base: getConfig('cd/api'), pathParams: { identifier }, ...props }
+    { base: getConfig('ng/api'), pathParams: { identifier }, ...props }
   )
 
 export interface PutGitSyncDefaultQueryParams {
@@ -3340,7 +3389,7 @@ export const PutGitSyncDefault = ({ identifier, folderIdentifier, ...props }: Pu
   <Mutate<GitSyncConfigDTO[], unknown, PutGitSyncDefaultQueryParams, void, PutGitSyncDefaultPathParams>
     verb="PUT"
     path={`/git-sync/${identifier}/folder/${folderIdentifier}/default`}
-    base={getConfig('cd/api')}
+    base={getConfig('ng/api')}
     {...props}
   />
 )
@@ -3359,7 +3408,7 @@ export const usePutGitSyncDefault = ({ identifier, folderIdentifier, ...props }:
     'PUT',
     (paramsInPath: PutGitSyncDefaultPathParams) =>
       `/git-sync/${paramsInPath.identifier}/folder/${paramsInPath.folderIdentifier}/default`,
-    { base: getConfig('cd/api'), pathParams: { identifier, folderIdentifier }, ...props }
+    { base: getConfig('ng/api'), pathParams: { identifier, folderIdentifier }, ...props }
   )
 
 export interface GetGraphQueryParams {
@@ -3374,7 +3423,7 @@ export type GetGraphProps = Omit<GetProps<RestResponseGraph, unknown, GetGraphQu
 export const GetGraph = (props: GetGraphProps) => (
   <Get<RestResponseGraph, unknown, GetGraphQueryParams, void>
     path={`/orchestration/get-graph`}
-    base={getConfig('cd/api')}
+    base={getConfig('ng/api')}
     {...props}
   />
 )
@@ -3386,7 +3435,7 @@ export type UseGetGraphProps = Omit<UseGetProps<RestResponseGraph, unknown, GetG
  */
 export const useGetGraph = (props: UseGetGraphProps) =>
   useGet<RestResponseGraph, unknown, GetGraphQueryParams, void>(`/orchestration/get-graph`, {
-    base: getConfig('cd/api'),
+    base: getConfig('ng/api'),
     ...props
   })
 
@@ -3402,7 +3451,7 @@ export type GetGraphVisualizationProps = Omit<GetProps<void, unknown, GetGraphVi
 export const GetGraphVisualization = (props: GetGraphVisualizationProps) => (
   <Get<void, unknown, GetGraphVisualizationQueryParams, void>
     path={`/orchestration/get-graph-visualization`}
-    base={getConfig('cd/api')}
+    base={getConfig('ng/api')}
     {...props}
   />
 )
@@ -3417,7 +3466,7 @@ export type UseGetGraphVisualizationProps = Omit<
  */
 export const useGetGraphVisualization = (props: UseGetGraphVisualizationProps) =>
   useGet<void, unknown, GetGraphVisualizationQueryParams, void>(`/orchestration/get-graph-visualization`, {
-    base: getConfig('cd/api'),
+    base: getConfig('ng/api'),
     ...props
   })
 
@@ -3434,7 +3483,7 @@ export type HttpV2Props = Omit<GetProps<RestResponsePlanExecution, unknown, Http
 export const HttpV2 = (props: HttpV2Props) => (
   <Get<RestResponsePlanExecution, unknown, HttpV2QueryParams, void>
     path={`/orchestration/http-v2`}
-    base={getConfig('cd/api')}
+    base={getConfig('ng/api')}
     {...props}
   />
 )
@@ -3446,7 +3495,7 @@ export type UseHttpV2Props = Omit<UseGetProps<RestResponsePlanExecution, unknown
  */
 export const useHttpV2 = (props: UseHttpV2Props) =>
   useGet<RestResponsePlanExecution, unknown, HttpV2QueryParams, void>(`/orchestration/http-v2`, {
-    base: getConfig('cd/api'),
+    base: getConfig('ng/api'),
     ...props
   })
 
@@ -3466,7 +3515,7 @@ export const TestExecutionPlan = (props: TestExecutionPlanProps) => (
   <Mutate<RestResponsePlanExecution, unknown, TestExecutionPlanQueryParams, void, void>
     verb="POST"
     path={`/orchestration/test-execution-plan`}
-    base={getConfig('cd/api')}
+    base={getConfig('ng/api')}
     {...props}
   />
 )
@@ -3483,7 +3532,7 @@ export const useTestExecutionPlan = (props: UseTestExecutionPlanProps) =>
   useMutate<RestResponsePlanExecution, unknown, TestExecutionPlanQueryParams, void, void>(
     'POST',
     `/orchestration/test-execution-plan`,
-    { base: getConfig('cd/api'), ...props }
+    { base: getConfig('ng/api'), ...props }
   )
 
 export interface SearchOrganizationsQueryParams {
@@ -3505,7 +3554,7 @@ export type SearchOrganizationsProps = Omit<
 export const SearchOrganizations = (props: SearchOrganizationsProps) => (
   <Get<ResponseDTONGPageResponseOrganizationDTO, FailureDTO | ErrorDTO, SearchOrganizationsQueryParams, void>
     path={`/organizations`}
-    base={getConfig('cd/api')}
+    base={getConfig('ng/api')}
     {...props}
   />
 )
@@ -3521,7 +3570,7 @@ export type UseSearchOrganizationsProps = Omit<
 export const useSearchOrganizations = (props: UseSearchOrganizationsProps) =>
   useGet<ResponseDTONGPageResponseOrganizationDTO, FailureDTO | ErrorDTO, SearchOrganizationsQueryParams, void>(
     `/organizations`,
-    { base: getConfig('cd/api'), ...props }
+    { base: getConfig('ng/api'), ...props }
   )
 
 export interface GetProjectListForOrganizationQueryParams {
@@ -3556,7 +3605,7 @@ export const GetProjectListForOrganization = ({ orgIdentifier, ...props }: GetPr
     GetProjectListForOrganizationPathParams
   >
     path={`/organizations/${orgIdentifier}/projects`}
-    base={getConfig('cd/api')}
+    base={getConfig('ng/api')}
     {...props}
   />
 )
@@ -3583,7 +3632,7 @@ export const useGetProjectListForOrganization = ({ orgIdentifier, ...props }: Us
     GetProjectListForOrganizationPathParams
   >(
     (paramsInPath: GetProjectListForOrganizationPathParams) => `/organizations/${paramsInPath.orgIdentifier}/projects`,
-    { base: getConfig('cd/api'), pathParams: { orgIdentifier }, ...props }
+    { base: getConfig('ng/api'), pathParams: { orgIdentifier }, ...props }
   )
 
 export interface PostProjectPathParams {
@@ -3603,7 +3652,7 @@ export const PostProject = ({ orgIdentifier, ...props }: PostProjectProps) => (
   <Mutate<ResponseDTOProjectDTO, FailureDTO | ErrorDTO, void, CreateProjectDTO, PostProjectPathParams>
     verb="POST"
     path={`/organizations/${orgIdentifier}/projects`}
-    base={getConfig('cd/api')}
+    base={getConfig('ng/api')}
     {...props}
   />
 )
@@ -3621,7 +3670,7 @@ export const usePostProject = ({ orgIdentifier, ...props }: UsePostProjectProps)
   useMutate<ResponseDTOProjectDTO, FailureDTO | ErrorDTO, void, CreateProjectDTO, PostProjectPathParams>(
     'POST',
     (paramsInPath: PostProjectPathParams) => `/organizations/${paramsInPath.orgIdentifier}/projects`,
-    { base: getConfig('cd/api'), pathParams: { orgIdentifier }, ...props }
+    { base: getConfig('ng/api'), pathParams: { orgIdentifier }, ...props }
   )
 
 export interface GetProjectPathParams {
@@ -3641,7 +3690,7 @@ export type GetProjectProps = Omit<
 export const GetProject = ({ orgIdentifier, projectIdentifier, ...props }: GetProjectProps) => (
   <Get<ResponseDTOOptionalProjectDTO, FailureDTO | ErrorDTO, void, GetProjectPathParams>
     path={`/organizations/${orgIdentifier}/projects/${projectIdentifier}`}
-    base={getConfig('cd/api')}
+    base={getConfig('ng/api')}
     {...props}
   />
 )
@@ -3659,7 +3708,7 @@ export const useGetProject = ({ orgIdentifier, projectIdentifier, ...props }: Us
   useGet<ResponseDTOOptionalProjectDTO, FailureDTO | ErrorDTO, void, GetProjectPathParams>(
     (paramsInPath: GetProjectPathParams) =>
       `/organizations/${paramsInPath.orgIdentifier}/projects/${paramsInPath.projectIdentifier}`,
-    { base: getConfig('cd/api'), pathParams: { orgIdentifier, projectIdentifier }, ...props }
+    { base: getConfig('ng/api'), pathParams: { orgIdentifier, projectIdentifier }, ...props }
   )
 
 export interface PutProjectPathParams {
@@ -3680,7 +3729,7 @@ export const PutProject = ({ orgIdentifier, projectIdentifier, ...props }: PutPr
   <Mutate<ResponseDTOOptionalProjectDTO, FailureDTO | ErrorDTO, void, UpdateProjectDTO, PutProjectPathParams>
     verb="PUT"
     path={`/organizations/${orgIdentifier}/projects/${projectIdentifier}`}
-    base={getConfig('cd/api')}
+    base={getConfig('ng/api')}
     {...props}
   />
 )
@@ -3699,7 +3748,7 @@ export const usePutProject = ({ orgIdentifier, projectIdentifier, ...props }: Us
     'PUT',
     (paramsInPath: PutProjectPathParams) =>
       `/organizations/${paramsInPath.orgIdentifier}/projects/${paramsInPath.projectIdentifier}`,
-    { base: getConfig('cd/api'), pathParams: { orgIdentifier, projectIdentifier }, ...props }
+    { base: getConfig('ng/api'), pathParams: { orgIdentifier, projectIdentifier }, ...props }
   )
 
 export interface DeleteProjectPathParams {
@@ -3719,7 +3768,7 @@ export const DeleteProject = ({ orgIdentifier, ...props }: DeleteProjectProps) =
   <Mutate<ResponseDTOBoolean, FailureDTO | ErrorDTO, void, string, DeleteProjectPathParams>
     verb="DELETE"
     path={`/organizations/${orgIdentifier}/projects`}
-    base={getConfig('cd/api')}
+    base={getConfig('ng/api')}
     {...props}
   />
 )
@@ -3737,7 +3786,7 @@ export const useDeleteProject = ({ orgIdentifier, ...props }: UseDeleteProjectPr
   useMutate<ResponseDTOBoolean, FailureDTO | ErrorDTO, void, string, DeleteProjectPathParams>(
     'DELETE',
     (paramsInPath: DeleteProjectPathParams) => `/organizations/${paramsInPath.orgIdentifier}/projects`,
-    { base: getConfig('cd/api'), pathParams: { orgIdentifier }, ...props }
+    { base: getConfig('ng/api'), pathParams: { orgIdentifier }, ...props }
   )
 
 export interface GetPipelineListQueryParams {
@@ -3761,7 +3810,7 @@ export type GetPipelineListProps = Omit<
 export const GetPipelineList = (props: GetPipelineListProps) => (
   <Get<ResponseDTOPageCDPipelineSummaryResponseDTO, FailureDTO | ErrorDTO, GetPipelineListQueryParams, void>
     path={`/pipelines`}
-    base={getConfig('cd/api')}
+    base={getConfig('ng/api')}
     {...props}
   />
 )
@@ -3777,7 +3826,7 @@ export type UseGetPipelineListProps = Omit<
 export const useGetPipelineList = (props: UseGetPipelineListProps) =>
   useGet<ResponseDTOPageCDPipelineSummaryResponseDTO, FailureDTO | ErrorDTO, GetPipelineListQueryParams, void>(
     `/pipelines`,
-    { base: getConfig('cd/api'), ...props }
+    { base: getConfig('ng/api'), ...props }
   )
 
 export interface PostPipelineQueryParams {
@@ -3798,7 +3847,7 @@ export const PostPipeline = (props: PostPipelineProps) => (
   <Mutate<ResponseDTOString, FailureDTO | ErrorDTO, PostPipelineQueryParams, PostPipelineBodyRequestBody, void>
     verb="POST"
     path={`/pipelines`}
-    base={getConfig('cd/api')}
+    base={getConfig('ng/api')}
     {...props}
   />
 )
@@ -3815,7 +3864,7 @@ export const usePostPipeline = (props: UsePostPipelineProps) =>
   useMutate<ResponseDTOString, FailureDTO | ErrorDTO, PostPipelineQueryParams, PostPipelineBodyRequestBody, void>(
     'POST',
     `/pipelines`,
-    { base: getConfig('cd/api'), ...props }
+    { base: getConfig('ng/api'), ...props }
   )
 
 export interface PostPipelineExecuteQueryParams {
@@ -3854,7 +3903,7 @@ export const PostPipelineExecute = ({ identifier, ...props }: PostPipelineExecut
   >
     verb="POST"
     path={`/pipelines/${identifier}/execute`}
-    base={getConfig('cd/api')}
+    base={getConfig('ng/api')}
     {...props}
   />
 )
@@ -3882,7 +3931,7 @@ export const usePostPipelineExecute = ({ identifier, ...props }: UsePostPipeline
     void,
     PostPipelineExecutePathParams
   >('POST', (paramsInPath: PostPipelineExecutePathParams) => `/pipelines/${paramsInPath.identifier}/execute`, {
-    base: getConfig('cd/api'),
+    base: getConfig('ng/api'),
     pathParams: { identifier },
     ...props
   })
@@ -3909,7 +3958,7 @@ export type GetPipelineProps = Omit<
 export const GetPipeline = ({ pipelineIdentifier, ...props }: GetPipelineProps) => (
   <Get<ResponseDTOCDPipelineResponseDTO, FailureDTO | ErrorDTO, GetPipelineQueryParams, GetPipelinePathParams>
     path={`/pipelines/${pipelineIdentifier}`}
-    base={getConfig('cd/api')}
+    base={getConfig('ng/api')}
     {...props}
   />
 )
@@ -3926,7 +3975,7 @@ export type UseGetPipelineProps = Omit<
 export const useGetPipeline = ({ pipelineIdentifier, ...props }: UseGetPipelineProps) =>
   useGet<ResponseDTOCDPipelineResponseDTO, FailureDTO | ErrorDTO, GetPipelineQueryParams, GetPipelinePathParams>(
     (paramsInPath: GetPipelinePathParams) => `/pipelines/${paramsInPath.pipelineIdentifier}`,
-    { base: getConfig('cd/api'), pathParams: { pipelineIdentifier }, ...props }
+    { base: getConfig('ng/api'), pathParams: { pipelineIdentifier }, ...props }
   )
 
 export interface PutPipelineQueryParams {
@@ -3964,7 +4013,7 @@ export const PutPipeline = ({ pipelineIdentifier, ...props }: PutPipelineProps) 
   >
     verb="PUT"
     path={`/pipelines/${pipelineIdentifier}`}
-    base={getConfig('cd/api')}
+    base={getConfig('ng/api')}
     {...props}
   />
 )
@@ -3992,7 +4041,7 @@ export const usePutPipeline = ({ pipelineIdentifier, ...props }: UsePutPipelineP
     PostPipelineBodyRequestBody,
     PutPipelinePathParams
   >('PUT', (paramsInPath: PutPipelinePathParams) => `/pipelines/${paramsInPath.pipelineIdentifier}`, {
-    base: getConfig('cd/api'),
+    base: getConfig('ng/api'),
     pathParams: { pipelineIdentifier },
     ...props
   })
@@ -4017,7 +4066,7 @@ export type GetProjectListBasedOnFilterProps = Omit<
 export const GetProjectListBasedOnFilter = (props: GetProjectListBasedOnFilterProps) => (
   <Get<ResponseDTONGPageResponseProjectDTO, FailureDTO | ErrorDTO, GetProjectListBasedOnFilterQueryParams, void>
     path={`/projects`}
-    base={getConfig('cd/api')}
+    base={getConfig('ng/api')}
     {...props}
   />
 )
@@ -4033,7 +4082,7 @@ export type UseGetProjectListBasedOnFilterProps = Omit<
 export const useGetProjectListBasedOnFilter = (props: UseGetProjectListBasedOnFilterProps) =>
   useGet<ResponseDTONGPageResponseProjectDTO, FailureDTO | ErrorDTO, GetProjectListBasedOnFilterQueryParams, void>(
     `/projects`,
-    { base: getConfig('cd/api'), ...props }
+    { base: getConfig('ng/api'), ...props }
   )
 
 export interface ListSecretManagersQueryParams {
@@ -4053,7 +4102,7 @@ export type ListSecretManagersProps = Omit<
 export const ListSecretManagers = (props: ListSecretManagersProps) => (
   <Get<ResponseDTOListSecretManagerConfigDTO, FailureDTO | ErrorDTO, ListSecretManagersQueryParams, void>
     path={`/secret-managers`}
-    base={getConfig('cd/api')}
+    base={getConfig('ng/api')}
     {...props}
   />
 )
@@ -4069,7 +4118,7 @@ export type UseListSecretManagersProps = Omit<
 export const useListSecretManagers = (props: UseListSecretManagersProps) =>
   useGet<ResponseDTOListSecretManagerConfigDTO, FailureDTO | ErrorDTO, ListSecretManagersQueryParams, void>(
     `/secret-managers`,
-    { base: getConfig('cd/api'), ...props }
+    { base: getConfig('ng/api'), ...props }
   )
 
 export type CreateSecretManagerProps = Omit<
@@ -4084,7 +4133,7 @@ export const CreateSecretManager = (props: CreateSecretManagerProps) => (
   <Mutate<ResponseDTOSecretManagerConfigDTO, FailureDTO | ErrorDTO, void, SecretManagerConfigDTO, void>
     verb="POST"
     path={`/secret-managers`}
-    base={getConfig('cd/api')}
+    base={getConfig('ng/api')}
     {...props}
   />
 )
@@ -4101,7 +4150,7 @@ export const useCreateSecretManager = (props: UseCreateSecretManagerProps) =>
   useMutate<ResponseDTOSecretManagerConfigDTO, FailureDTO | ErrorDTO, void, SecretManagerConfigDTO, void>(
     'POST',
     `/secret-managers`,
-    { base: getConfig('cd/api'), ...props }
+    { base: getConfig('ng/api'), ...props }
   )
 
 export interface GetSecretManagerByIdentifierQueryParams {
@@ -4136,7 +4185,7 @@ export const GetSecretManagerByIdentifier = ({ identifier, ...props }: GetSecret
     GetSecretManagerByIdentifierPathParams
   >
     path={`/secret-managers/${identifier}`}
-    base={getConfig('cd/api')}
+    base={getConfig('ng/api')}
     {...props}
   />
 )
@@ -4162,7 +4211,7 @@ export const useGetSecretManagerByIdentifier = ({ identifier, ...props }: UseGet
     GetSecretManagerByIdentifierQueryParams,
     GetSecretManagerByIdentifierPathParams
   >((paramsInPath: GetSecretManagerByIdentifierPathParams) => `/secret-managers/${paramsInPath.identifier}`, {
-    base: getConfig('cd/api'),
+    base: getConfig('ng/api'),
     pathParams: { identifier },
     ...props
   })
@@ -4202,7 +4251,7 @@ export const UpdateSecretManager = ({ identifier, ...props }: UpdateSecretManage
   >
     verb="PUT"
     path={`/secret-managers/${identifier}`}
-    base={getConfig('cd/api')}
+    base={getConfig('ng/api')}
     {...props}
   />
 )
@@ -4230,7 +4279,7 @@ export const useUpdateSecretManager = ({ identifier, ...props }: UseUpdateSecret
     SecretManagerConfigUpdateDTO,
     UpdateSecretManagerPathParams
   >('PUT', (paramsInPath: UpdateSecretManagerPathParams) => `/secret-managers/${paramsInPath.identifier}`, {
-    base: getConfig('cd/api'),
+    base: getConfig('ng/api'),
     pathParams: { identifier },
     ...props
   })
@@ -4253,7 +4302,7 @@ export const DeleteSecretManager = (props: DeleteSecretManagerProps) => (
   <Mutate<ResponseDTOBoolean, FailureDTO | ErrorDTO, DeleteSecretManagerQueryParams, string, void>
     verb="DELETE"
     path={`/secret-managers`}
-    base={getConfig('cd/api')}
+    base={getConfig('ng/api')}
     {...props}
   />
 )
@@ -4270,7 +4319,7 @@ export const useDeleteSecretManager = (props: UseDeleteSecretManagerProps) =>
   useMutate<ResponseDTOBoolean, FailureDTO | ErrorDTO, DeleteSecretManagerQueryParams, string, void>(
     'DELETE',
     `/secret-managers`,
-    { base: getConfig('cd/api'), ...props }
+    { base: getConfig('ng/api'), ...props }
   )
 
 export interface ListSecretsQueryParams {
@@ -4294,7 +4343,7 @@ export type ListSecretsProps = Omit<
 export const ListSecrets = (props: ListSecretsProps) => (
   <Get<ResponseDTONGPageResponseEncryptedDataDTO, FailureDTO | ErrorDTO, ListSecretsQueryParams, void>
     path={`/secrets`}
-    base={getConfig('cd/api')}
+    base={getConfig('ng/api')}
     {...props}
   />
 )
@@ -4309,7 +4358,7 @@ export type UseListSecretsProps = Omit<
  */
 export const useListSecrets = (props: UseListSecretsProps) =>
   useGet<ResponseDTONGPageResponseEncryptedDataDTO, FailureDTO | ErrorDTO, ListSecretsQueryParams, void>(`/secrets`, {
-    base: getConfig('cd/api'),
+    base: getConfig('ng/api'),
     ...props
   })
 
@@ -4325,7 +4374,7 @@ export const PostSecretText = (props: PostSecretTextProps) => (
   <Mutate<ResponseDTOEncryptedDataDTO, FailureDTO | ErrorDTO, void, SecretTextDTO2RequestBody, void>
     verb="POST"
     path={`/secrets`}
-    base={getConfig('cd/api')}
+    base={getConfig('ng/api')}
     {...props}
   />
 )
@@ -4342,7 +4391,7 @@ export const usePostSecretText = (props: UsePostSecretTextProps) =>
   useMutate<ResponseDTOEncryptedDataDTO, FailureDTO | ErrorDTO, void, SecretTextDTO2RequestBody, void>(
     'POST',
     `/secrets`,
-    { base: getConfig('cd/api'), ...props }
+    { base: getConfig('ng/api'), ...props }
   )
 
 export type PostSecretFileProps = Omit<
@@ -4357,7 +4406,7 @@ export const PostSecretFile = (props: PostSecretFileProps) => (
   <Mutate<ResponseDTOEncryptedDataDTO, FailureDTO | ErrorDTO, void, PostSecretFileRequestBody, void>
     verb="POST"
     path={`/secrets/files`}
-    base={getConfig('cd/api')}
+    base={getConfig('ng/api')}
     {...props}
   />
 )
@@ -4374,7 +4423,7 @@ export const usePostSecretFile = (props: UsePostSecretFileProps) =>
   useMutate<ResponseDTOEncryptedDataDTO, FailureDTO | ErrorDTO, void, PostSecretFileRequestBody, void>(
     'POST',
     `/secrets/files`,
-    { base: getConfig('cd/api'), ...props }
+    { base: getConfig('ng/api'), ...props }
   )
 
 export type PostSecretFileViaYamlProps = Omit<
@@ -4389,7 +4438,7 @@ export const PostSecretFileViaYaml = (props: PostSecretFileViaYamlProps) => (
   <Mutate<ResponseDTOEncryptedDataDTO, FailureDTO | ErrorDTO, void, SecretFileDTORequestBody, void>
     verb="POST"
     path={`/secrets/files/yaml`}
-    base={getConfig('cd/api')}
+    base={getConfig('ng/api')}
     {...props}
   />
 )
@@ -4406,7 +4455,7 @@ export const usePostSecretFileViaYaml = (props: UsePostSecretFileViaYamlProps) =
   useMutate<ResponseDTOEncryptedDataDTO, FailureDTO | ErrorDTO, void, SecretFileDTORequestBody, void>(
     'POST',
     `/secrets/files/yaml`,
-    { base: getConfig('cd/api'), ...props }
+    { base: getConfig('ng/api'), ...props }
   )
 
 export interface PutSecretFilePathParams {
@@ -4426,7 +4475,7 @@ export const PutSecretFile = ({ identifier, ...props }: PutSecretFileProps) => (
   <Mutate<ResponseDTOBoolean, FailureDTO | ErrorDTO, void, PostSecretFileRequestBody, PutSecretFilePathParams>
     verb="PUT"
     path={`/secrets/files/${identifier}`}
-    base={getConfig('cd/api')}
+    base={getConfig('ng/api')}
     {...props}
   />
 )
@@ -4444,7 +4493,7 @@ export const usePutSecretFile = ({ identifier, ...props }: UsePutSecretFileProps
   useMutate<ResponseDTOBoolean, FailureDTO | ErrorDTO, void, PostSecretFileRequestBody, PutSecretFilePathParams>(
     'PUT',
     (paramsInPath: PutSecretFilePathParams) => `/secrets/files/${paramsInPath.identifier}`,
-    { base: getConfig('cd/api'), pathParams: { identifier }, ...props }
+    { base: getConfig('ng/api'), pathParams: { identifier }, ...props }
   )
 
 export interface PutSecretFileViaYamlPathParams {
@@ -4470,7 +4519,7 @@ export const PutSecretFileViaYaml = ({ identifier, ...props }: PutSecretFileViaY
   <Mutate<ResponseDTOBoolean, FailureDTO | ErrorDTO, void, SecretFileDTORequestBody, PutSecretFileViaYamlPathParams>
     verb="PUT"
     path={`/secrets/files/${identifier}/yaml`}
-    base={getConfig('cd/api')}
+    base={getConfig('ng/api')}
     {...props}
   />
 )
@@ -4494,7 +4543,7 @@ export const usePutSecretFileViaYaml = ({ identifier, ...props }: UsePutSecretFi
   useMutate<ResponseDTOBoolean, FailureDTO | ErrorDTO, void, SecretFileDTORequestBody, PutSecretFileViaYamlPathParams>(
     'PUT',
     (paramsInPath: PutSecretFileViaYamlPathParams) => `/secrets/files/${paramsInPath.identifier}/yaml`,
-    { base: getConfig('cd/api'), pathParams: { identifier }, ...props }
+    { base: getConfig('ng/api'), pathParams: { identifier }, ...props }
   )
 
 export type PostSecretTextViaYamlProps = Omit<
@@ -4509,7 +4558,7 @@ export const PostSecretTextViaYaml = (props: PostSecretTextViaYamlProps) => (
   <Mutate<ResponseDTOEncryptedDataDTO, FailureDTO | ErrorDTO, void, SecretTextDTORequestBody, void>
     verb="POST"
     path={`/secrets/yaml`}
-    base={getConfig('cd/api')}
+    base={getConfig('ng/api')}
     {...props}
   />
 )
@@ -4526,7 +4575,7 @@ export const usePostSecretTextViaYaml = (props: UsePostSecretTextViaYamlProps) =
   useMutate<ResponseDTOEncryptedDataDTO, FailureDTO | ErrorDTO, void, SecretTextDTORequestBody, void>(
     'POST',
     `/secrets/yaml`,
-    { base: getConfig('cd/api'), ...props }
+    { base: getConfig('ng/api'), ...props }
   )
 
 export interface GetSecretQueryParams {
@@ -4551,7 +4600,7 @@ export type GetSecretProps = Omit<
 export const GetSecret = ({ identifier, ...props }: GetSecretProps) => (
   <Get<ResponseDTOEncryptedDataDTO, FailureDTO | ErrorDTO, GetSecretQueryParams, GetSecretPathParams>
     path={`/secrets/${identifier}`}
-    base={getConfig('cd/api')}
+    base={getConfig('ng/api')}
     {...props}
   />
 )
@@ -4568,7 +4617,7 @@ export type UseGetSecretProps = Omit<
 export const useGetSecret = ({ identifier, ...props }: UseGetSecretProps) =>
   useGet<ResponseDTOEncryptedDataDTO, FailureDTO | ErrorDTO, GetSecretQueryParams, GetSecretPathParams>(
     (paramsInPath: GetSecretPathParams) => `/secrets/${paramsInPath.identifier}`,
-    { base: getConfig('cd/api'), pathParams: { identifier }, ...props }
+    { base: getConfig('ng/api'), pathParams: { identifier }, ...props }
   )
 
 export interface PutSecretTextPathParams {
@@ -4588,7 +4637,7 @@ export const PutSecretText = ({ identifier, ...props }: PutSecretTextProps) => (
   <Mutate<ResponseDTOBoolean, FailureDTO | ErrorDTO, void, SecretTextDTO2RequestBody, PutSecretTextPathParams>
     verb="PUT"
     path={`/secrets/${identifier}`}
-    base={getConfig('cd/api')}
+    base={getConfig('ng/api')}
     {...props}
   />
 )
@@ -4606,7 +4655,7 @@ export const usePutSecretText = ({ identifier, ...props }: UsePutSecretTextProps
   useMutate<ResponseDTOBoolean, FailureDTO | ErrorDTO, void, SecretTextDTO2RequestBody, PutSecretTextPathParams>(
     'PUT',
     (paramsInPath: PutSecretTextPathParams) => `/secrets/${paramsInPath.identifier}`,
-    { base: getConfig('cd/api'), pathParams: { identifier }, ...props }
+    { base: getConfig('ng/api'), pathParams: { identifier }, ...props }
   )
 
 export interface DeleteSecretQueryParams {
@@ -4627,7 +4676,7 @@ export const DeleteSecret = (props: DeleteSecretProps) => (
   <Mutate<ResponseDTOBoolean, FailureDTO | ErrorDTO, DeleteSecretQueryParams, string, void>
     verb="DELETE"
     path={`/secrets`}
-    base={getConfig('cd/api')}
+    base={getConfig('ng/api')}
     {...props}
   />
 )
@@ -4642,7 +4691,7 @@ export type UseDeleteSecretProps = Omit<
  */
 export const useDeleteSecret = (props: UseDeleteSecretProps) =>
   useMutate<ResponseDTOBoolean, FailureDTO | ErrorDTO, DeleteSecretQueryParams, string, void>('DELETE', `/secrets`, {
-    base: getConfig('cd/api'),
+    base: getConfig('ng/api'),
     ...props
   })
 
@@ -4669,7 +4718,7 @@ export const PutSecretTextViaYaml = ({ identifier, ...props }: PutSecretTextViaY
   <Mutate<ResponseDTOBoolean, FailureDTO | ErrorDTO, void, SecretTextDTORequestBody, PutSecretTextViaYamlPathParams>
     verb="PUT"
     path={`/secrets/${identifier}/yaml`}
-    base={getConfig('cd/api')}
+    base={getConfig('ng/api')}
     {...props}
   />
 )
@@ -4693,7 +4742,7 @@ export const usePutSecretTextViaYaml = ({ identifier, ...props }: UsePutSecretTe
   useMutate<ResponseDTOBoolean, FailureDTO | ErrorDTO, void, SecretTextDTORequestBody, PutSecretTextViaYamlPathParams>(
     'PUT',
     (paramsInPath: PutSecretTextViaYamlPathParams) => `/secrets/${paramsInPath.identifier}/yaml`,
-    { base: getConfig('cd/api'), pathParams: { identifier }, ...props }
+    { base: getConfig('ng/api'), pathParams: { identifier }, ...props }
   )
 
 export interface GetServiceListForProjectQueryParams {
@@ -4721,7 +4770,7 @@ export type GetServiceListForProjectProps = Omit<
 export const GetServiceListForProject = (props: GetServiceListForProjectProps) => (
   <Get<ResponseDTONGPageResponseServiceResponseDTO, FailureDTO | ErrorDTO, GetServiceListForProjectQueryParams, void>
     path={`/services`}
-    base={getConfig('cd/api')}
+    base={getConfig('ng/api')}
     {...props}
   />
 )
@@ -4742,7 +4791,7 @@ export type UseGetServiceListForProjectProps = Omit<
 export const useGetServiceListForProject = (props: UseGetServiceListForProjectProps) =>
   useGet<ResponseDTONGPageResponseServiceResponseDTO, FailureDTO | ErrorDTO, GetServiceListForProjectQueryParams, void>(
     `/services`,
-    { base: getConfig('cd/api'), ...props }
+    { base: getConfig('ng/api'), ...props }
   )
 
 export interface CreateServiceQueryParams {
@@ -4773,7 +4822,7 @@ export const CreateService = (props: CreateServiceProps) => (
   >
     verb="POST"
     path={`/services`}
-    base={getConfig('cd/api')}
+    base={getConfig('ng/api')}
     {...props}
   />
 )
@@ -4799,7 +4848,7 @@ export const useCreateService = (props: UseCreateServiceProps) =>
     CreateServiceQueryParams,
     ServiceRequestDTORequestBody,
     void
-  >('POST', `/services`, { base: getConfig('cd/api'), ...props })
+  >('POST', `/services`, { base: getConfig('ng/api'), ...props })
 
 export interface UpdateServiceQueryParams {
   accountId?: string
@@ -4829,7 +4878,7 @@ export const UpdateService = (props: UpdateServiceProps) => (
   >
     verb="PUT"
     path={`/services`}
-    base={getConfig('cd/api')}
+    base={getConfig('ng/api')}
     {...props}
   />
 )
@@ -4855,7 +4904,7 @@ export const useUpdateService = (props: UseUpdateServiceProps) =>
     UpdateServiceQueryParams,
     ServiceRequestDTORequestBody,
     void
-  >('PUT', `/services`, { base: getConfig('cd/api'), ...props })
+  >('PUT', `/services`, { base: getConfig('ng/api'), ...props })
 
 export interface UpsertServiceQueryParams {
   accountId?: string
@@ -4885,7 +4934,7 @@ export const UpsertService = (props: UpsertServiceProps) => (
   >
     verb="PUT"
     path={`/services/upsert`}
-    base={getConfig('cd/api')}
+    base={getConfig('ng/api')}
     {...props}
   />
 )
@@ -4911,7 +4960,7 @@ export const useUpsertService = (props: UseUpsertServiceProps) =>
     UpsertServiceQueryParams,
     ServiceRequestDTORequestBody,
     void
-  >('PUT', `/services/upsert`, { base: getConfig('cd/api'), ...props })
+  >('PUT', `/services/upsert`, { base: getConfig('ng/api'), ...props })
 
 export interface GetServiceQueryParams {
   accountId?: string
@@ -4935,7 +4984,7 @@ export type GetServiceProps = Omit<
 export const GetService = ({ serviceIdentifier, ...props }: GetServiceProps) => (
   <Get<ResponseDTOServiceResponseDTO, FailureDTO | ErrorDTO, GetServiceQueryParams, GetServicePathParams>
     path={`/services/${serviceIdentifier}`}
-    base={getConfig('cd/api')}
+    base={getConfig('ng/api')}
     {...props}
   />
 )
@@ -4952,7 +5001,7 @@ export type UseGetServiceProps = Omit<
 export const useGetService = ({ serviceIdentifier, ...props }: UseGetServiceProps) =>
   useGet<ResponseDTOServiceResponseDTO, FailureDTO | ErrorDTO, GetServiceQueryParams, GetServicePathParams>(
     (paramsInPath: GetServicePathParams) => `/services/${paramsInPath.serviceIdentifier}`,
-    { base: getConfig('cd/api'), pathParams: { serviceIdentifier }, ...props }
+    { base: getConfig('ng/api'), pathParams: { serviceIdentifier }, ...props }
   )
 
 export interface DeleteServiceQueryParams {
@@ -4973,7 +5022,7 @@ export const DeleteService = (props: DeleteServiceProps) => (
   <Mutate<ResponseDTOBoolean, FailureDTO | ErrorDTO, DeleteServiceQueryParams, string, void>
     verb="DELETE"
     path={`/services`}
-    base={getConfig('cd/api')}
+    base={getConfig('ng/api')}
     {...props}
   />
 )
@@ -4988,6 +5037,6 @@ export type UseDeleteServiceProps = Omit<
  */
 export const useDeleteService = (props: UseDeleteServiceProps) =>
   useMutate<ResponseDTOBoolean, FailureDTO | ErrorDTO, DeleteServiceQueryParams, string, void>('DELETE', `/services`, {
-    base: getConfig('cd/api'),
+    base: getConfig('ng/api'),
     ...props
   })

@@ -9,6 +9,7 @@ export default {
     lastActivity: 'LAST ACTIVITY',
     status: 'STATUS'
   },
+  tags: 'TAGS',
   newSecret: {
     button: 'New Secret',
     text: 'Text',

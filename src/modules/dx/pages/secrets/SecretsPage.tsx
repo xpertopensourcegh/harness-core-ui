@@ -40,7 +40,7 @@ const SecretsPage: React.FC<SecretsPageProps> = ({ mockData }) => {
   })
 
   return (
-    <>
+    <div className={css.page}>
       <Layout.Horizontal flex className={css.header}>
         <Popover minimal position={Position.BOTTOM_LEFT}>
           <Button intent="primary" text={i18n.newSecret.button} icon="plus" rightIcon="chevron-down" />
@@ -91,7 +91,7 @@ const SecretsPage: React.FC<SecretsPageProps> = ({ mockData }) => {
           No Data
         </Container>
       )}
-    </>
+    </div>
   )
 }
 

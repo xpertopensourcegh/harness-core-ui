@@ -28,14 +28,14 @@ interface SecretReferenceProps {
 
 const SecretReference: React.FC<SecretReferenceProps> = props => {
   const { defaultScope, accountIdentifier, projectIdentifier, orgIdentifier, type = 'SecretText' } = props
-  const [searchTerm, setSearchTerm] = useState('')
+  const [searchTerm, setSearchTerm] = useState<string | undefined>()
   const [selectedScope, setSelectedScope] = useState<Scope>(defaultScope || Scope.ACCOUNT)
 
   const { loading, data, error, refetch } = useListSecrets({
     queryParams: {
       account: accountIdentifier,
       type,
-      searchTerm: searchTerm.trim(),
+      searchTerm: searchTerm?.trim(),
       project: selectedScope === Scope.PROJECT ? projectIdentifier : undefined,
       org: selectedScope === Scope.PROJECT || selectedScope === Scope.ORG ? orgIdentifier : undefined
     },

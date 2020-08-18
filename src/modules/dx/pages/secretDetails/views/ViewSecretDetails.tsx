@@ -23,7 +23,7 @@ const ViewSecretDetails: React.FC<ViewSecretDetailsProps> = ({ secret }) => {
       ) : (
         <div>
           <Text>{i18n.labelValue}</Text>
-          <Text color={Color.GREY_350}>{i18n.valueValue}</Text>
+          <Text color={Color.GREY_350}>{secret.type === 'SecretText' ? i18n.valueValue : i18n.valueValueFile}</Text>
         </div>
       )}
       <div>

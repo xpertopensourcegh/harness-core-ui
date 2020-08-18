@@ -20,7 +20,8 @@ const ConnectorForm: React.FC<ConnectorFormProps> = props => {
   switch (type) {
     case Connectors.KUBERNETES_CLUSTER:
       return <KubCluster {...props} />
-
+    case 'Vault': // TODO: use enum when backend fixes it
+      return <span>To be implemented</span>
     default:
       return null
   }

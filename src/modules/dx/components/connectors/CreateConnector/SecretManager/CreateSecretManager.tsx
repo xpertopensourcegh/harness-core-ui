@@ -11,9 +11,10 @@ import {
   Text
 } from '@wings-software/uikit'
 import * as Yup from 'yup'
-// import type { IOptionProps } from '@blueprintjs/core'
+import { pick } from 'lodash-es'
+import type { IOptionProps } from '@blueprintjs/core'
 
-import { VaultConfigDTO, useCreateSecretManager } from 'services/cd-ng'
+import { VaultConfigDTO, useCreateConnector, ConnectorRequestDTO } from 'services/cd-ng'
 import ConnectorDetailsStep from 'modules/dx/components/connectors/CreateConnector/commonSteps/ConnectorDetailsStep'
 import { useToaster } from 'modules/common/exports'
 import { Connectors } from 'modules/dx/constants'
@@ -27,6 +28,10 @@ interface CreateSecretManagerProps {
   hideLightModal: () => void
 }
 
+interface VaultConfigForm extends VaultConfigDTO {
+  authType: 'token' | 'appRoleId'
+}
+
 const StepConnect: React.FC<StepProps<VaultConfigDTO>> = ({ prevStepData, nextStep }) => {
   const encryptionTypeOptions: SelectOption[] = [
     {
@@ -34,56 +39,71 @@ const StepConnect: React.FC<StepProps<VaultConfigDTO>> = ({ prevStepData, nextSt
       value: 'VAULT'
     }
   ]
-  // TODO: enable this once backend adds support
-  // const authTypeOptions: IOptionProps[] = [
-  //   {
-  //     label: 'App Role',
-  //     value: 'app_role'
-  //   },
-  //   {
-  //     label: 'Token',
-  //     value: 'token'
-  //   }
-  // ]
+  const authTypeOptions: IOptionProps[] = [
+    {
+      label: 'App Role',
+      value: 'appRoleId'
+    },
+    {
+      label: 'Token',
+      value: 'token'
+    }
+  ]
 
   return (
     <Container padding={{ top: 'medium' }} width="64%">
       <Text font={{ size: 'medium' }} padding={{ bottom: 'xlarge' }}>
         {i18n.titleConnect}
       </Text>
-      <Formik<VaultConfigDTO>
+      <Formik<VaultConfigForm>
         initialValues={{
           encryptionType: 'VAULT',
           vaultUrl: '',
           basePath: '',
           readOnly: false,
           default: false,
-          // authType: 'token',
+          authType: 'appRoleId',
           authToken: ''
         }}
         validationSchema={Yup.object().shape({
           encryptionType: Yup.string().required(),
           vaultUrl: Yup.string().required(),
-          authToken: Yup.string().required()
+          authToken: Yup.string().when('authType', {
+            is: 'token',
+            then: Yup.string().required()
+          }),
+          appRoleId: Yup.string().when('authType', {
+            is: 'appRoleId',
+            then: Yup.string().required()
+          }),
+          secretId: Yup.string().when('authType', {
+            is: 'appRoleId',
+            then: Yup.string().required()
+          })
         })}
         onSubmit={data => {
           nextStep?.({ ...prevStepData, ...data })
         }}
       >
-        {() => (
+        {formikProps => (
           <FormikForm>
             <FormInput.Select name="encryptionType" label={i18n.labelEncType} items={encryptionTypeOptions} />
             <FormInput.Text name="vaultUrl" label={i18n.labelVaultUrl} />
             <FormInput.Text name="basePath" label={i18n.labelBaseSecretPath} />
-            {/* <FormInput.RadioGroup
+            <FormInput.RadioGroup
               name="authType"
-              label="Authentication"
+              label={i18n.labelAuth}
               radioGroup={{ inline: true }}
               items={authTypeOptions}
-            /> */}
-            {/* <FormInput.Text name="appRoleId" label="App Role ID" /> */}
-            {/* <FormInput.Text name="secretId" label="Secret ID" /> */}
-            <FormInput.Text name="authToken" label={i18n.labelToken} inputGroup={{ type: 'password' }} />
+            />
+            {formikProps.values['authType'] === 'appRoleId' ? (
+              <>
+                <FormInput.Text name="appRoleId" label={i18n.labelAppRoleId} />
+                <FormInput.Text name="secretId" label={i18n.labelSecretId} />
+              </>
+            ) : (
+              <FormInput.Text name="authToken" label={i18n.labelToken} inputGroup={{ type: 'password' }} />
+            )}
             <FormInput.CheckBox name="readOnly" label={i18n.labelReadOnly} padding={{ left: 'xxlarge' }} />
             <FormInput.CheckBox name="default" label={i18n.labelDefault} padding={{ left: 'xxlarge' }} />
             <Button type="submit" intent="primary" text={i18n.buttonNext} />
@@ -94,7 +114,11 @@ const StepConnect: React.FC<StepProps<VaultConfigDTO>> = ({ prevStepData, nextSt
   )
 }
 
-const StepSecretEngine: React.FC<StepProps<VaultConfigDTO>> = ({ nextStep, prevStepData }) => {
+const StepSecretEngine: React.FC<StepProps<VaultConfigDTO> & { loading: boolean }> = ({
+  nextStep,
+  prevStepData,
+  loading
+}) => {
   return (
     <Container padding={{ top: 'xxxlarge' }} width="64%">
       <Text font={{ size: 'medium' }} padding={{ bottom: 'xlarge' }}>
@@ -117,7 +141,7 @@ const StepSecretEngine: React.FC<StepProps<VaultConfigDTO>> = ({ nextStep, prevS
           <FormikForm>
             <FormInput.Text name="secretEngineName" label={i18n.labelSecretEngine} />
             <FormInput.Text name="renewIntervalHours" label={i18n.labelRenewal} />
-            <Button type="submit" intent="primary" text={i18n.buttonSubmit} />
+            <Button type="submit" intent="primary" text={i18n.buttonSubmit} disabled={loading} />
           </FormikForm>
         )}
       </Formik>
@@ -133,16 +157,25 @@ const CreateSecretManager: React.FC<CreateSecretManagerProps> = ({
 }) => {
   const [formData, setFormData] = useState<VaultConfigDTO>()
   const { showSuccess } = useToaster()
-  const { mutate: createSecretManager } = useCreateSecretManager({})
+  const { mutate: createSecretManager, loading } = useCreateConnector({ accountIdentifier: accountId })
 
   return (
     <Container height="100%">
       <StepWizard<VaultConfigDTO>
         onCompleteWizard={async data => {
           if (data) {
-            data['accountIdentifier'] = accountId
+            const dataToSubmit: ConnectorRequestDTO = {
+              orgIdentifier,
+              projectIdentifier,
+              ...pick(data, ['name', 'identifier', 'description', 'tags']),
+              type: 'Vault' as any, // TODO: any because of backend publishing incorrect type
+              spec: {
+                ...pick(data, ['authToken', 'basePath', 'secretEngineName', 'vaultUrl', 'readOnly', 'default'])
+              }
+            }
+
             try {
-              await createSecretManager(data)
+              await createSecretManager(dataToSubmit)
               showSuccess(i18n.messageSuccess)
               hideLightModal()
             } catch (err) {
@@ -161,7 +194,7 @@ const CreateSecretManager: React.FC<CreateSecretManagerProps> = ({
           formData={formData}
         />
         <StepConnect name={i18n.nameStepConnect} />
-        <StepSecretEngine name={i18n.nameStepSecretEngine} />
+        <StepSecretEngine name={i18n.nameStepSecretEngine} loading={loading} />
       </StepWizard>
     </Container>
   )

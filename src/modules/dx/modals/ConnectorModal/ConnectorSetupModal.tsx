@@ -46,7 +46,7 @@ const ConnectorModal: React.FC<ConnectorSetupModalProps> = props => {
     style: {
       width: 'fit-content',
       minWidth: 960,
-      height: 600,
+      height: 650,
       borderLeft: 0,
       paddingBottom: 0,
       position: 'relative',

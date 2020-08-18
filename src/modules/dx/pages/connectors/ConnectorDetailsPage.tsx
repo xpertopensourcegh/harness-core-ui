@@ -36,7 +36,7 @@ const renderTitle = () => {
           Connectors
         </Link>
       </Layout.Horizontal>
-      <span className={css.kubHeading}>Kubernetes Connector</span>
+      <span className={css.kubHeading}>Connector Details</span>
     </Layout.Vertical>
   )
 }

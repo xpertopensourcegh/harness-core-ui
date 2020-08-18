@@ -42,9 +42,14 @@ const RenderColumnSecret: Renderer<CellProps<EncryptedDataDTO>> = ({ row }) => {
                 <Text>{data.tags.length}</Text>
               </Layout.Horizontal>
               <Container padding="small">
-                {data.tags?.map(tag => (
-                  <Tag key={tag}>{tag}</Tag>
-                ))}
+                <Text font={{ size: 'small', weight: 'bold' }}>{i18n.tags}</Text>
+                <Container className={css.tagsPopover}>
+                  {data.tags?.map(tag => (
+                    <Tag key={tag} className={css.tag}>
+                      {tag}
+                    </Tag>
+                  ))}
+                </Container>
               </Container>
             </Popover>
           ) : null}
@@ -86,6 +91,7 @@ const RenderColumnStatus: Renderer<CellProps<EncryptedDataDTO>> = ({ row }) => {
 
 const RenderColumnAction: Renderer<CellProps<EncryptedDataDTO>> = ({ row, column }) => {
   const data = row.original
+  const history = useHistory()
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
   const { showSuccess, showError } = useToaster()
   const [menuOpen, setMenuOpen] = useState(false)
@@ -118,6 +124,13 @@ const RenderColumnAction: Renderer<CellProps<EncryptedDataDTO>> = ({ row, column
     openDialog()
   }
 
+  const handleEdit = (): void => {
+    history.replace({
+      pathname: linkTo(routeSecretDetails, { secretId: data.identifier }),
+      search: '?edit=true'
+    })
+  }
+
   return (
     <Layout.Horizontal style={{ justifyContent: 'flex-end' }}>
       <Popover
@@ -137,6 +150,7 @@ const RenderColumnAction: Renderer<CellProps<EncryptedDataDTO>> = ({ row, column
           }}
         />
         <Menu>
+          <Menu.Item icon="edit" text="Edit" onClick={handleEdit} />
           <Menu.Item icon="trash" text="Delete" onClick={handleDelete} />
         </Menu>
       </Popover>
@@ -175,7 +189,7 @@ const SecretsList: React.FC<SecretsListProps> = ({ secrets, refetch, gotoPage })
         Cell: RenderColumnActivity
       },
       {
-        Header: i18n.table.status,
+        Header: '',
         accessor: 'draft',
         width: '20%',
         Cell: RenderColumnStatus,
@@ -210,7 +224,7 @@ const SecretsList: React.FC<SecretsListProps> = ({ secrets, refetch, gotoPage })
         itemCount: secrets?.data?.totalElements || 0,
         pageSize: secrets?.data?.size || 10,
         pageCount: secrets?.data?.totalPages || -1,
-        pageIndex: (secrets?.data?.pageNumber || 0) - 1,
+        pageIndex: secrets?.data?.pageNumber || 0,
         gotoPage
       }}
     />

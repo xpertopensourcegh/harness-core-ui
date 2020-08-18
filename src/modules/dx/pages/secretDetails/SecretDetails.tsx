@@ -90,8 +90,8 @@ const SecretDetails: React.FC = () => {
   }
 
   const fetchSnippets = (query?: string): void => {
-    const { error: apiError, response: snippetsList } = YAMLService.fetchSnippets(YamlEntity.PIPELINE, query)
-    if (error) {
+    const { error: apiError, response: snippetsList } = YAMLService.fetchSnippets(YamlEntity.SECRET, query)
+    if (apiError) {
       showError(apiError)
       return
     }
