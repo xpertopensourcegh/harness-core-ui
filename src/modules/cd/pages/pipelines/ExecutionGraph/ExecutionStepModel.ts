@@ -1,14 +1,9 @@
 import { isEmpty } from 'lodash'
 import { Diagram } from 'modules/common/exports'
 import type { ExecutionWrapper, ExecutionElement } from 'services/cd-ng'
-import {
-  getStepTypeFromStep,
-  StepType,
-  MapStepTypeToIcon,
-  Listeners,
-  calculateDepthCount,
-  StepStateMap
-} from './ExecutionGraphUtil'
+import factory from 'modules/cd/common/PipelineSteps/PipelineStepFactory'
+import { StepType } from 'modules/cd/common/PipelineSteps/PipelineStepInterface'
+import { getStepTypeFromStep, Listeners, calculateDepthCount, StepStateMap } from './ExecutionGraphUtil'
 import { EmptyNodeSeparator } from '../StageBuilder/StageBuilderUtil'
 
 export class ExecutionStepModel extends Diagram.DiagramModel {
@@ -39,14 +34,14 @@ export class ExecutionStepModel extends Diagram.DiagramModel {
           ? new Diagram.DiamondNodeModel({
               identifier: node.step.identifier,
               name: node.step.name,
-              icon: MapStepTypeToIcon[type],
+              icon: 'command-approval',
               draggable: true,
               customNodeStyle: { borderColor: 'var(--pipeline-grey-border)' }
             })
           : new Diagram.DefaultNodeModel({
               identifier: node.step.identifier,
               name: node.step.name,
-              icon: MapStepTypeToIcon[type],
+              icon: factory.getStepIcon(type),
               allowAdd: allowAdd === true,
               draggable: true,
               customNodeStyle: { borderColor: 'var(--pipeline-grey-border)' }
@@ -156,7 +151,7 @@ export class ExecutionStepModel extends Diagram.DiagramModel {
         const nodeRender = new Diagram.DefaultNodeModel({
           identifier: node.stepGroup.identifier,
           name: node.stepGroup.name,
-          icon: MapStepTypeToIcon[StepType.StepGroup],
+          icon: factory.getStepIcon(StepType.StepGroup),
           secondaryIcon: 'plus',
           draggable: true,
           allowAdd: allowAdd === true,

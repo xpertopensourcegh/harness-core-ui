@@ -1,12 +1,11 @@
 import React from 'react'
-import { Tabs, Tab, Formik, FormInput, Text, MultiTypeInput, Button } from '@wings-software/uikit'
+import { Tabs, Tab, Formik, Text, MultiTypeInput } from '@wings-software/uikit'
 import { FormGroup } from '@blueprintjs/core'
-import * as Yup from 'yup'
 import type { ExecutionWrapper } from 'services/cd-ng'
+import { StepWidget } from 'modules/common/exports'
+import factory from 'modules/cd/common/PipelineSteps/PipelineStepFactory'
+import { StepType } from 'modules/cd/common/PipelineSteps/PipelineStepInterface'
 import i18n from './StepCommands.18n'
-import { K8sRolloutDeploy, initialValues as K8sRolloutInitialValues } from './Commands/K8sRolloutDeploy'
-import { HTTP, initialValues as HTTPInitialValues } from './Commands/HTTP'
-import { StepType } from '../ExecutionGraph/ExecutionGraphUtil'
 import { RightBar } from '../RightBar/RightBar'
 import css from './StepCommands.module.scss'
 
@@ -14,49 +13,6 @@ export interface StepCommandsProps {
   step: ExecutionWrapper
   onChange: (step: ExecutionWrapper) => void
   isStepGroup: boolean
-}
-
-const getInitialValues = (step: ExecutionWrapper): object => {
-  if (step.type === StepType.K8sRolloutDeploy) {
-    return K8sRolloutInitialValues
-  } else if (step.type === StepType.HTTP) {
-    return HTTPInitialValues
-  }
-  return {}
-}
-
-const StepConfiguration: React.FC<StepCommandsProps> = ({ step, onChange, isStepGroup }) => {
-  return (
-    <>
-      <Text className={css.boldLabel} font={{ size: 'medium' }}>
-        {isStepGroup ? i18n.stepGroup : i18n.stepLabel(step.type)}
-      </Text>
-      <Formik<ExecutionWrapper>
-        onSubmit={values => {
-          onChange(values)
-        }}
-        initialValues={{
-          name: step.name,
-          identifier: step.identifier,
-          spec: { ...getInitialValues(step), ...step.spec }
-        }}
-        validationSchema={Yup.object().shape({
-          name: Yup.string().required(i18n.stepNameRequired)
-        })}
-      >
-        {({ submitForm }) => {
-          return (
-            <>
-              <FormInput.InputWithIdentifier inputLabel={i18n.displayName} />
-              {step.type === StepType.K8sRolloutDeploy && <K8sRolloutDeploy />}
-              {step.type === StepType.HTTP && <HTTP />}
-              <Button intent="primary" text={i18n.submit} onClick={submitForm} />
-            </>
-          )
-        }}
-      </Formik>
-    </>
-  )
 }
 
 const AdvancedStep: React.FC<StepCommandsProps> = ({ step }) => {
@@ -104,7 +60,14 @@ export const StepCommands: React.FC<StepCommandsProps> = ({ step, onChange, isSt
           <Tab
             id="step-configuration"
             title={isStepGroup ? i18n.stepGroupConfiguration : i18n.stepConfiguration}
-            panel={<StepConfiguration step={step} onChange={onChange} isStepGroup={isStepGroup} />}
+            panel={
+              <StepWidget
+                factory={factory}
+                initialValues={step}
+                onSubmit={onChange}
+                type={isStepGroup ? StepType.StepGroup : step.type}
+              />
+            }
           />
           <Tab
             id="advanced"

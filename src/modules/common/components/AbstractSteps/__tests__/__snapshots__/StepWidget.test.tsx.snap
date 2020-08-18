@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`StepWidget tests shows different steps based on type 1`] = `
+<div>
+  <div>
+    {"a":"a"}
+  </div>
+</div>
+`;
+
+exports[`StepWidget tests shows different steps based on type 2`] = `
+<div>
+  <div>
+    {"b":"b"}
+  </div>
+</div>
+`;
+
+exports[`StepWidget tests shows invalid step 1`] = `
+<div>
+  <p
+    class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---intent-warning--2N1t"
+  >
+    Step not found
+  </p>
+</div>
+`;
+
+exports[`StepWidget tests shows step and merge initial values 1`] = `
+<div>
+  <div>
+    {"a":"b"}
+  </div>
+</div>
+`;

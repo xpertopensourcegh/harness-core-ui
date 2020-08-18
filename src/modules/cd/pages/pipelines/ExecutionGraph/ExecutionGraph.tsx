@@ -10,10 +10,11 @@ import { Diagram, useToaster } from 'modules/common/exports'
 import type { ExecutionWrapper, ExecutionElement } from 'services/cd-ng'
 import { CanvasButtons } from 'modules/cd/common/CanvasButtons/CanvasButtons'
 import { DynamicPopover, DynamicPopoverHandlerBinding } from 'modules/common/components/DynamicPopover/DynamicPopover'
+import type { StepData } from 'modules/common/components/AbstractSteps/AbstractStepFactory'
 import { ExecutionStepModel } from './ExecutionStepModel'
 import { PipelineContext } from '../PipelineContext/PipelineContext'
 import { getStageFromPipeline } from '../StageBuilder/StageBuilderUtil'
-import { StepPalette, CommandData } from '../StepPalette/StepPalette'
+import { StepPalette } from '../StepPalette/StepPalette'
 import { StepCommands } from '../StepCommands/StepCommands'
 import i18n from './ExecutionGraph.i18n'
 import {
@@ -63,7 +64,7 @@ const renderDrawerContent = (
   entity: Diagram.DefaultNodeModel,
   stepStates: StepStateMap,
   isAddStepOverride: boolean,
-  onSelect: (item: CommandData) => void,
+  onSelect: (item: StepData) => void,
   onChange: (stepObj: ExecutionElement) => void
 ): JSX.Element => {
   const node = getStepFromNode(data, entity).node
@@ -502,15 +503,15 @@ const ExecutionGraph = (): JSX.Element => {
               state.entity,
               state.stepStates,
               state.isAddStepOverride,
-              (item: CommandData) => {
+              (item: StepData) => {
                 if (state.entity) {
                   addStepOrGroup(
                     state.entity,
                     state,
                     {
                       step: {
-                        type: item.value,
-                        name: item.text,
+                        type: item.type,
+                        name: item.label,
                         identifier: uuid(),
                         spec: {}
                       }

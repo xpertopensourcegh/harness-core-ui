@@ -1,8 +1,8 @@
 import type { NodeModelListener, LinkModelListener } from '@projectstorm/react-diagrams-core'
 import type { BaseModelListener, BaseModel } from '@projectstorm/react-canvas-core'
-import type { IconName } from '@wings-software/uikit'
 import type { ExecutionWrapper } from 'services/cd-ng'
 import { Diagram } from 'modules/common/exports'
+import { StepType } from 'modules/cd/common/PipelineSteps/PipelineStepInterface'
 import { EmptyNodeSeparator } from '../StageBuilder/StageBuilderUtil'
 
 export interface ExecutionGraphState {
@@ -17,22 +17,6 @@ export interface ExecutionGraphState {
 
 export type ExecutionParallelWrapper = ExecutionWrapper & {
   parallel: ExecutionWrapper[]
-}
-
-export enum StepType {
-  HTTP = 'Http',
-  SHELLSCRIPT = 'ShellScript',
-  APPROVAL = 'Approval',
-  StepGroup = 'StepGroup',
-  K8sRolloutDeploy = 'K8sRolloutDeploy'
-}
-
-export const MapStepTypeToIcon: { [key in StepType]: IconName } = {
-  StepGroup: 'step-group',
-  Http: 'command-http',
-  ShellScript: 'command-shell-script',
-  K8sRolloutDeploy: 'service-kubernetes',
-  Approval: 'command-approval'
 }
 
 export interface Listeners {

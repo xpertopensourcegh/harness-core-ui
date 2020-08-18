@@ -4,21 +4,6 @@
   padding-bottom: var(--spacing-medium) !important;
 }
 
-.duration {
-  :global {
-    .bp3-form-content > div {
-      width: 100%;
-      & > div[class*='TextInput'] {
-        width: 100%;
-      }
-    }
-  }
-}
-
-.checkbox {
-  padding-left: var(--spacing-xlarge) !important;
-}
-
 .step-command {
   display: grid;
   grid-template-columns: 1fr 60px;

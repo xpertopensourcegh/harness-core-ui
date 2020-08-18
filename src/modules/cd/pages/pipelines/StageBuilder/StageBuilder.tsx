@@ -330,7 +330,7 @@ export const StageBuilder: React.FC<{}> = (): JSX.Element => {
     }
   }
   //1) setup the diagram engine
-  const engine = React.useMemo(() => Diagram.createEngine(), [])
+  const engine = React.useMemo(() => Diagram.createEngine({ repaintDebounceMs: 1000 }), [])
 
   //2) setup the diagram model
   const model = React.useMemo(() => new StageBuilderModel(), [])
