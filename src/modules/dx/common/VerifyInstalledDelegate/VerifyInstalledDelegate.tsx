@@ -78,7 +78,7 @@ const VerifyInstalledDelegate = (props: VerifyInstalledDelegateProps) => {
   React.useEffect(() => {
     if (stepDetails.step === StepIndex.get(STEP.DELEGATE) && stepDetails.status === 'PROCESS') {
       if (delegateDowloadUrl) {
-        const url = `${delegateDowloadUrl.resource?.downloadUrl}&delegateName=${props.delegateName}${
+        const url = `${delegateDowloadUrl.resource?.kubernetesUrl}&delegateName=${props.delegateName}${
           props.profile ? `&delegateProfileId=${props.profile}` : ''
         }`
         window.open(url, '_blank')

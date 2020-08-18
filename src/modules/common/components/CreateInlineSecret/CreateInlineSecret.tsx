@@ -37,7 +37,6 @@ const CreateInlineSecret: React.FC<CreateInlineSecretProps> = props => {
   const [secretId, setSecretId] = useState(defaultSecretId || '')
   const [secretManager, setSecretManager] = useState<SelectOption>()
   const [secretManagers, setSecretManagers] = useState<SelectOption[]>([])
-
   useEffect(() => {
     const _secretManagers =
       secretManagersApiResponse?.data?.content?.map(sm => {

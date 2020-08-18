@@ -13,7 +13,7 @@ const formatProfileList = (data: any) => {
   const fetchedProfileList: Array<DelegateProfile> = data?.resource?.response
 
   return fetchedProfileList?.map((items: DelegateProfile) => {
-    return { label: items.name || '', value: items.name || '' }
+    return { label: items.name || '', value: items.uuid || '' }
   })
 }
 
@@ -21,7 +21,6 @@ const InstallDelegateForm = (props: InstallDelegateFormProps) => {
   const [, setProfileData] = useState()
   const { accountId = '' } = props
   const { loading, data } = useGetDelegateProfiles({ queryParams: { accountId } })
-
   let list: SelectOption[] = [{ label: '', value: '' }]
 
   if (data) {

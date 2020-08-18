@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Layout, Container, Button } from '@wings-software/uikit'
+import { Layout, Container, Button, TextInput } from '@wings-software/uikit'
 import { useParams } from 'react-router-dom'
 import { useGetConnectorList, ResponseDTOPageConnectorSummaryDTO } from 'services/cd-ng'
 import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
@@ -19,12 +19,14 @@ const enum View {
 const ConnectorsList: React.FC<ConnectorsListProps> = ({ mockData }) => {
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
   const [view, setView] = useState(View.LIST)
+  const [searchTerm, setSearchTerm] = useState('')
   const [page, setPage] = useState(0)
 
   const { loading, data, refetch: reloadConnectorList } = useGetConnectorList({
     accountIdentifier: accountId,
-    queryParams: { page: page, size: 10, projectIdentifier, orgIdentifier },
-    mock: mockData
+    queryParams: { page: page, size: 10, projectIdentifier, orgIdentifier, searchTerm },
+    mock: mockData,
+    debounce: 300
   })
 
   return (
@@ -35,6 +37,14 @@ const ConnectorsList: React.FC<ConnectorsListProps> = ({ mockData }) => {
             <ConnectorSetupModal onSuccess={() => reloadConnectorList()} />
           </Layout.Horizontal>
           <Layout.Horizontal width="45%" className={css.view}>
+            <TextInput
+              leftIcon="search"
+              placeholder="Search"
+              value={searchTerm}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                setSearchTerm(e.target.value.trim())
+              }}
+            />
             {/* <Button
               minimal
               icon="grid-view"

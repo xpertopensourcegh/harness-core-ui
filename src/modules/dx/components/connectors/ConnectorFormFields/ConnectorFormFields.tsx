@@ -8,6 +8,7 @@ import {
 } from 'modules/dx/pages/connectors/utils/ConnectorHelper'
 import FormikSecretTextInput from 'modules/dx/components/SecretInput/SecretTextInput'
 import { AuthTypeFields } from 'modules/dx/pages/connectors/Forms/KubeFormHelper'
+import type { EncryptedDataDTO } from 'services/cd-ng'
 import UsernamePassword from './UsernamePassword'
 import OIDCTokenFields from './OIDCTokenFields'
 import ClientKeyCertFields from './ClientKeyCertFields'
@@ -20,6 +21,8 @@ interface ConnectorFormFieldsProps {
   formikProps: FormikProps<unknown>
   name?: string
   onClickCreateSecret: () => void
+  isEditMode?: boolean
+  onEditSecret?: (val: EncryptedDataDTO) => void
 }
 
 const ConnectorFormFields: React.FC<ConnectorFormFieldsProps> = props => {
@@ -28,12 +31,15 @@ const ConnectorFormFields: React.FC<ConnectorFormFieldsProps> = props => {
     case AuthTypes.USER_PASSWORD:
       return (
         <UsernamePassword
+          name={name}
+          isEditMode={props.isEditMode}
           accountId={accountId}
           orgIdentifier={props.orgIdentifier}
           projectIdentifier={props.projectIdentifier}
           formikProps={formikProps}
           passwordField={AuthTypeFields.passwordRef}
           onClickCreateSecret={props.onClickCreateSecret}
+          onEditSecret={props.onEditSecret}
         />
       )
     case AuthTypes.SERVICE_ACCOUNT:

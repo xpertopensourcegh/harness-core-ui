@@ -31,7 +31,8 @@ import {
   ConnectorRequestDTORequestBody,
   ConnectorConfigDTO,
   useUpdateConnector,
-  usePostSecretText
+  usePostSecretText,
+  EncryptedDataDTO
 } from 'services/cd-ng'
 import { buildKubPayload } from 'modules/dx/pages/connectors/utils/ConnectorUtils'
 import InstallDelegateForm from 'modules/dx/common/InstallDelegateForm/InstallDelegateForm'
@@ -327,6 +328,8 @@ const SecondStep = (props: SecondStepProps) => {
 
 const IntermediateStep: React.FC<IntermediateStepProps> = props => {
   const [showCreateSecretModal, setShowCreateSecretModal] = useState<boolean>(false)
+
+  const [editSecretData, setEditSecretData] = useState<EncryptedDataDTO>()
   const { state, accountId } = props
   const { showError } = useToaster()
   const { mutate: createConnector } = useCreateConnector({ accountIdentifier: accountId })
@@ -375,9 +378,12 @@ const IntermediateStep: React.FC<IntermediateStepProps> = props => {
             clientCertRef: props.formData?.clientCertRef || '',
             clientKeyRef: props.formData?.clientKeyRef || '',
             clientKeyPassphraseRef: props.formData?.clientKeyPassphraseRef || '',
-            clientKeyAlgo: props.formData?.clientKeyAlgo || ''
-
-            // passwordRefSecret: { secretId: '', secretName: '', secretManager: { value: '' } as SelectOption },
+            clientKeyAlgo: props.formData?.clientKeyAlgo || '',
+            passwordRefSecret: props.formData?.passwordRefSecret || {
+              secretId: '',
+              secretName: '',
+              secretManager: { value: '' } as SelectOption
+            }
             // serviceAccountTokenRefSecret: { secretId: '', secretName: '', secretManager: { value: '' } as SelectOption },
             // oidcClientIdRefSecret: { secretId: '', secretName: '', secretManager: { value: '' } as SelectOption },
             // oidcPasswordRefSceret: { secretId: '', secretName: '', secretManager: { value: '' } as SelectOption },
@@ -390,28 +396,46 @@ const IntermediateStep: React.FC<IntermediateStepProps> = props => {
             const connectorData = { ...state.formData, ...formData, authType: state.authentication?.value }
             const data = buildKubPayload(connectorData)
             const passwordFields = getSecretFieldsByType(state.authentication?.value as string) || []
-
-            Promise.all(
-              passwordFields.map((item: SecretFieldByType) => {
-                return createSecret({
-                  account: accountId,
-                  org: props.orgIdentifier,
-                  project: props.projectIdentifier,
-                  identifier: formData[item.secretField]?.secretId,
-                  name: formData[item.secretField]?.secretName,
-                  secretManager: formData[item.secretField]?.secretManager?.value as string,
-                  value: formData[item.passwordField],
-                  type: 'SecretText',
-                  valueType: 'Inline'
-                })
+            const nonRefrencedFields = passwordFields
+              .map((item: SecretFieldByType) => {
+                if (!formData[item.passwordField].isReference) {
+                  return item
+                }
               })
-            ).then(() => {
-              if (state.isEditMode) {
-                handleUpdate(data)
+              .filter(item => {
+                if (item !== undefined) {
+                  return item
+                }
+              })
+            if (state.isEditMode) {
+              handleUpdate(data)
+            } else {
+              if (nonRefrencedFields.length) {
+                Promise.all(
+                  passwordFields.map((item: SecretFieldByType) => {
+                    return createSecret({
+                      account: accountId,
+                      org: props.orgIdentifier,
+                      project: props.projectIdentifier,
+                      identifier: formData[item.secretField]?.secretId,
+                      name: formData[item.secretField]?.secretName,
+                      secretManager: formData[item.secretField]?.secretManager?.value as string,
+                      value: formData[item.passwordField].value,
+                      type: 'SecretText',
+                      valueType: 'Inline'
+                    })
+                  })
+                ).then(() => {
+                  if (state.isEditMode) {
+                    handleUpdate(data)
+                  } else {
+                    handleCreate(data)
+                  }
+                })
               } else {
                 handleCreate(data)
               }
-            })
+            }
             state.setFormData(connectorData)
           }}
         >
@@ -438,6 +462,7 @@ const IntermediateStep: React.FC<IntermediateStepProps> = props => {
                     </SelectV2>
                   </Layout.Horizontal>
                   <ConnectorFormFields
+                    isEditMode={state.isEditMode}
                     accountId={props.accountId}
                     orgIdentifier={props.orgIdentifier}
                     projectIdentifier={props.projectIdentifier}
@@ -445,6 +470,10 @@ const IntermediateStep: React.FC<IntermediateStepProps> = props => {
                     authType={props.state.authentication?.value}
                     name={state.formData?.name}
                     onClickCreateSecret={() => setShowCreateSecretModal(true)}
+                    onEditSecret={val => {
+                      setShowCreateSecretModal(true)
+                      setEditSecretData(val)
+                    }}
                   />
                 </div>
                 <Layout.Horizontal spacing="large" style={{ marginBottom: '30px' }}>
@@ -460,7 +489,9 @@ const IntermediateStep: React.FC<IntermediateStepProps> = props => {
           )}
         </Formik>
       </div>
-      {showCreateSecretModal ? <CreateSecretOverlay setShowCreateSecretModal={setShowCreateSecretModal} /> : null}
+      {showCreateSecretModal ? (
+        <CreateSecretOverlay editSecretData={editSecretData} setShowCreateSecretModal={setShowCreateSecretModal} />
+      ) : null}
     </>
   )
 }

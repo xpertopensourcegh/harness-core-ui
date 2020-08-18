@@ -76,6 +76,39 @@ exports[`Connectors List render 1`] = `
           class="Layout---horizontal--3rmQ StyledProps---main--1Wws view"
           style="width: 45%;"
         >
+          <div
+            class="TextInput---main--1ytZ"
+          >
+            <div
+              class="bp3-input-group"
+            >
+              <span
+                class="bp3-icon bp3-icon-search StyledProps---main--1Wws"
+                icon="search"
+              >
+                <svg
+                  data-icon="search"
+                  height="12"
+                  viewBox="0 0 16 16"
+                  width="12"
+                >
+                  <desc>
+                    search
+                  </desc>
+                  <path
+                    d="M15.55 13.43l-2.67-2.68a6.94 6.94 0 001.11-3.76c0-3.87-3.13-7-7-7s-7 3.13-7 7 3.13 7 7 7c1.39 0 2.68-.42 3.76-1.11l2.68 2.67a1.498 1.498 0 102.12-2.12zm-8.56-1.44c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+              <input
+                class="bp3-input"
+                placeholder="Search"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
           <button
             class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
             type="button"
