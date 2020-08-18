@@ -3,6 +3,7 @@ import { useParams, Link, useLocation, useHistory } from 'react-router-dom'
 import { parse as parseQueryString } from 'query-string'
 import { stringify, parse } from 'yaml'
 import cx from 'classnames'
+import { omit, without } from 'lodash-es'
 import { Layout, Text, Color, Container, Button, IconName } from '@wings-software/uikit'
 
 import { useGetSecret, usePutSecretTextViaYaml, usePutSecretFileViaYaml } from 'services/cd-ng'
@@ -37,6 +38,7 @@ const SecretDetails: React.FC = () => {
   const history = useHistory()
   const { edit } = parseQueryString(queryParams)
   const [mode, setMode] = useState<Mode>(Mode.VISUAL)
+  const [fieldsRemovedFromYaml, setFieldsRemovedFromYaml] = useState(['draft', 'lastUpdatedAt'])
   const [snippets, setSnippets] = useState<SnippetInterface[]>()
   const [yamlHandler, setYamlHandler] = React.useState<YamlBuilderHandlerBinding | undefined>()
   const { loading, data, refetch, error } = useGetSecret({
@@ -108,13 +110,32 @@ const SecretDetails: React.FC = () => {
   }, [data?.data])
 
   useEffect(() => {
-    if (mode === Mode.VISUAL) {
-      const yamlData = parse(yamlHandler?.getLatestYaml() || '')
-      if (yamlData) {
-        setSecretData(yamlData)
-      }
+    if (secretData?.valueType === 'Inline') {
+      setFieldsRemovedFromYaml([...fieldsRemovedFromYaml, 'value'])
     }
-  }, [mode, yamlHandler?.getLatestYaml])
+
+    // 'value' field should be persisted in visual->yaml transistion for reference type
+    if (secretData?.valueType === 'Reference') {
+      setFieldsRemovedFromYaml(without(fieldsRemovedFromYaml, 'value'))
+    }
+  }, [secretData?.valueType])
+
+  const handleModeSwitch = (targetMode: Mode): void => {
+    if (targetMode === Mode.VISUAL) {
+      const yamlString = yamlHandler?.getLatestYaml() || ''
+      try {
+        const yamlData = parse(yamlString)
+        if (yamlData) {
+          setSecretData(yamlData)
+          setMode(targetMode)
+        }
+      } catch (err) {
+        showError(`${err.name}: ${err.message}`)
+      }
+    } else {
+      setMode(targetMode)
+    }
+  }
 
   if (loading) return <PageSpinner />
   if (error) return <PageError message={error.message} onClick={() => refetch()} />
@@ -130,17 +151,23 @@ const SecretDetails: React.FC = () => {
               <Link to={linkTo(routeResources) + '/secrets'}>{i18n.linkSecrets}</Link>
             </div>
             <Text font={{ size: 'medium' }} color={Color.BLACK}>
-              {secretData.name}
+              {data?.data?.name || 'Secret Details'}
             </Text>
           </Layout.Vertical>
         }
       />
       <Container padding="large">
         <div className={css.switch}>
-          <div className={cx(css.item, { [css.selected]: mode === Mode.VISUAL })} onClick={() => setMode(Mode.VISUAL)}>
+          <div
+            className={cx(css.item, { [css.selected]: mode === Mode.VISUAL })}
+            onClick={() => handleModeSwitch(Mode.VISUAL)}
+          >
             Visual
           </div>
-          <div className={cx(css.item, { [css.selected]: mode === Mode.YAML })} onClick={() => setMode(Mode.YAML)}>
+          <div
+            className={cx(css.item, { [css.selected]: mode === Mode.YAML })}
+            onClick={() => handleModeSwitch(Mode.YAML)}
+          >
             YAML
           </div>
         </div>
@@ -162,25 +189,33 @@ const SecretDetails: React.FC = () => {
           )}
         </Layout.Horizontal>
         {edit ? (
+          // EDIT in VISUAL mode
           mode === Mode.VISUAL ? (
             <Container width="400px">
-              <CreateUpdateSecret secret={secretData} type={secretData.type} />
+              <CreateUpdateSecret
+                secret={secretData}
+                type={secretData.type}
+                onChange={formData => setSecretData(formData)}
+              />
             </Container>
           ) : (
+            // EDIT in YAML mode
             <Container>
               <YamlBuilder
                 entityType={YamlEntity.SECRET}
                 fileName={`${secretData.name}.yaml`}
-                existingYaml={stringify(secretData)}
+                existingYaml={stringify(omit(secretData, fieldsRemovedFromYaml))}
                 snippets={snippets}
                 bind={setYamlHandler}
               />
-              <Button intent="primary" text="Save" />
+              <Button intent="primary" text="Save" onClick={handleSaveYaml} margin={{ top: 'large' }} />
             </Container>
           )
         ) : mode === Mode.VISUAL ? (
+          // VIEW in VISUAL mode
           <ViewSecretDetails secret={secretData} />
         ) : (
+          // VIEW in YAML mode
           <Container>
             <YamlBuilder
               entityType={YamlEntity.SECRET}
@@ -189,7 +224,6 @@ const SecretDetails: React.FC = () => {
               isReadOnlyMode={true}
               showSnippetsSection={false}
             />
-            <Button intent="primary" text="Save" onClick={handleSaveYaml} />
           </Container>
         )}
       </Container>

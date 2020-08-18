@@ -84,8 +84,12 @@ const SecretsPage: React.FC<SecretsPageProps> = ({ mockData }) => {
         <div style={{ paddingTop: '200px' }}>
           <PageError message={error.message} onClick={() => refetch()} />
         </div>
-      ) : secretsResponse?.data?.content ? (
-        <SecretsList secrets={secretsResponse} refetch={refetch} gotoPage={pageNumber => setPage(pageNumber)} />
+      ) : !secretsResponse?.data?.empty ? (
+        <SecretsList
+          secrets={secretsResponse as ResponseDTONGPageResponseEncryptedDataDTO}
+          refetch={refetch}
+          gotoPage={pageNumber => setPage(pageNumber)}
+        />
       ) : (
         <Container flex={{ align: 'center-center' }} padding="xxlarge">
           No Data

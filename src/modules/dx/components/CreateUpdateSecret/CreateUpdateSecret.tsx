@@ -21,6 +21,7 @@ import i18n from './CreateUpdateSecret.i18n'
 interface CreateSecretTextProps {
   secret?: EncryptedDataDTO
   type: EncryptedDataDTO['type']
+  onChange?: (data: SecretTextDTO | SecretFileDTO) => void
   onSuccess?: (data: SecretTextDTO | SecretFileDTO) => void
 }
 
@@ -85,7 +86,7 @@ const CreateUpdateSecret: React.FC<CreateSecretTextProps> = props => {
 
       onSuccess?.(data)
     } catch (e) {
-      showError(e.message)
+      showError(e?.data?.message || 'Something went wrong')
     }
   }
 
@@ -122,6 +123,9 @@ const CreateUpdateSecret: React.FC<CreateSecretTextProps> = props => {
           value: editing || type === 'SecretFile' ? Yup.string() : Yup.string().trim().required(i18n.validationValue),
           secretManager: Yup.string().required(i18n.validationKms)
         })}
+        validate={data => {
+          props.onChange?.(data)
+        }}
         onSubmit={data => {
           handleSubmit(data)
         }}
