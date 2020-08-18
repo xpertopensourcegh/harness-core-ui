@@ -74,6 +74,17 @@ export const routeResources: Route = {
   component: React.lazy(() => import('../cd/pages/Resources/ResourcesPage'))
 }
 
+export const routeGitSync: Route = {
+  module: ModuleName.DX,
+  sidebarId: SidebarIdentifier.ACCOUNT,
+  path: '/git-sync',
+  title: i18n.gitSync,
+  pageId: 'git-sync',
+  url: (_params: RouteURLArgs) =>
+    _params?.category ? `/git-sync/category/${_params?.category}` : '/git-sync/category/repos',
+  component: React.lazy(() => import('../dx/pages/git-sync/GitSyncPage'))
+}
+
 export const routePageNotFound: Route = {
   module: ModuleName.COMMON,
   sidebarId: SidebarIdentifier.NONE,

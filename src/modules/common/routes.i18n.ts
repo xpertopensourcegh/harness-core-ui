@@ -8,5 +8,6 @@ export default {
   admin: 'Admin',
   organizations: 'Organizations',
   governance: 'Governance',
-  resources: 'Resources'
+  resources: 'Resources',
+  gitSync: 'Git Sync'
 }

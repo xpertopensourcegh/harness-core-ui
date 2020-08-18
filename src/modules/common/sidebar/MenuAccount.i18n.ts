@@ -5,5 +5,6 @@ export default {
   organizations: 'ORGANIZATIONS',
   projects: 'PROJECTS',
   governance: 'GOVERNANCE',
-  resources: 'RESOURCES'
+  resources: 'RESOURCES',
+  gitSync: 'GIT SYNC'
 }

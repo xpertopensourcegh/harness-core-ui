@@ -41,6 +41,12 @@ export const MenuAccount: React.FC = () => {
               icon="nav-resources"
               selected={isRouteActive(routes.routeResources)}
             />
+            <Sidebar.Link
+              href={linkTo(routes.routeGitSync)}
+              label={i18n.gitSync}
+              icon="nav-git-sync"
+              selected={isRouteActive(routes.routeGitSync)}
+            />
           </Layout.Vertical>
         </Layout.Vertical>
       </Container>
