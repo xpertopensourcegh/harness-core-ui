@@ -10,6 +10,7 @@ import type {
 } from 'services/cd-ng'
 import { ModuleName, loggerFor } from 'framework/exports'
 import SessionToken from 'framework/utils/SessionToken'
+import { getConfig } from 'services/config.js'
 import {
   PipelineReducerState,
   ActionReturnType,
@@ -27,7 +28,9 @@ export const getPipelineByIdentifier = (
   identifier: string
 ): Promise<CDPipeline | undefined> => {
   return fetch(
-    `/cd/api/pipelines/${identifier}?accountIdentifier=${params.accountIdentifier}&projectIdentifier=${params.projectIdentifier}&orgIdentifier=${params.orgIdentifier}`
+    `${getConfig('ng/api')}/pipelines/${identifier}?accountIdentifier=${params.accountIdentifier}&projectIdentifier=${
+      params.projectIdentifier
+    }&orgIdentifier=${params.orgIdentifier}`
   )
     .then(response => response.text())
     .then(response => {
@@ -46,13 +49,17 @@ export const savePipeline = (
   return isEdit
     ? xhr
         .put<ResponseDTOString>(
-          `/cd/api/pipelines/${pipeline.identifier}?accountIdentifier=${params.accountIdentifier}&projectIdentifier=${params.projectIdentifier}&orgIdentifier=${params.orgIdentifier}`,
+          `${getConfig('ng/api')}/pipelines/${pipeline.identifier}?accountIdentifier=${
+            params.accountIdentifier
+          }&projectIdentifier=${params.projectIdentifier}&orgIdentifier=${params.orgIdentifier}`,
           { data: stringify({ pipeline }), headers: { 'Content-Type': 'text/yaml' } }
         )
         .then(data => data.response)
     : xhr
         .post<ResponseDTOString>(
-          `/cd/api/pipelines?accountIdentifier=${params.accountIdentifier}&projectIdentifier=${params.projectIdentifier}&orgIdentifier=${params.orgIdentifier}`,
+          `${getConfig('ng/api')}/pipelines?accountIdentifier=${params.accountIdentifier}&projectIdentifier=${
+            params.projectIdentifier
+          }&orgIdentifier=${params.orgIdentifier}`,
           { data: stringify({ pipeline }), headers: { 'Content-Type': 'text/yaml' } }
         )
         .then(data => data.response)

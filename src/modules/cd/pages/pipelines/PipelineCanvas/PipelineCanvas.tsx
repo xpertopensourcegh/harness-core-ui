@@ -12,6 +12,8 @@ import type { CDPipeline, ResponseDTOString } from 'services/cd-ng'
 import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
 import { YAMLService } from 'modules/dx/services'
 import type { SnippetInterface } from 'modules/common/interfaces/SnippetInterface'
+import { linkTo } from 'framework/exports'
+import { routePipelineCanvas } from 'modules/cd/routes'
 import { PipelineContext, savePipeline } from '../PipelineContext/PipelineContext'
 import i18n from './PipelineCanvas.i18n'
 import CreatePipelines from '../CreateModal/PipelineCreate'
@@ -41,6 +43,7 @@ export const PipelineCanvas: React.FC<{}> = (): JSX.Element => {
 
   const saveAndPublish = React.useCallback(async () => {
     let response: ResponseDTOString | undefined
+    let newPipelineId = ''
     if (isYaml && yamlHandler) {
       const pipeObj = parse(yamlHandler.getLatestYaml())
       response = await savePipeline(
@@ -48,6 +51,7 @@ export const PipelineCanvas: React.FC<{}> = (): JSX.Element => {
         pipeObj.pipeline,
         pipelineIdentifier !== DefaultNewPipelineId
       )
+      newPipelineId = pipeObj.pipeline.identifier
       updatePipeline(pipeObj.pipeline as CDPipeline)
     } else {
       response = await savePipeline(
@@ -55,15 +59,20 @@ export const PipelineCanvas: React.FC<{}> = (): JSX.Element => {
         pipeline,
         pipelineIdentifier !== DefaultNewPipelineId
       )
+      newPipelineId = pipeline.identifier
     }
 
     if (response && response.status === 'SUCCESS') {
       pipelineSaved()
+      history.replace(
+        linkTo(routePipelineCanvas, { projectIdentifier, orgIdentifier, pipelineIdentifier: newPipelineId }, true)
+      )
     } else {
       showError(i18n.errorWhileSaving)
     }
   }, [
     accountId,
+    history,
     projectIdentifier,
     orgIdentifier,
     pipeline,
