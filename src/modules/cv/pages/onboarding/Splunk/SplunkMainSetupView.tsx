@@ -35,16 +35,24 @@ import { NoDataCard } from 'modules/common/components/Page/NoDataCard'
 import { CVObjectStoreNames } from 'modules/cv/hooks/IndexedDBHook/IndexedDBHook'
 import { useToaster } from 'modules/common/exports'
 import CreateNewEntitySubform from '../CreateNewEntitySubform/CreateNewEntitySubform'
-import { SplunkDSConfig, createDefaultSplunkDSConfig } from './SplunkOnboardingUtils'
-import { transformQueriesFromSplunk, SplunkColumnChartOptions, transformToSaveConfig } from './SplunkOnboardingUtils'
-import i18n from './SplunkOnboarding.i18n'
+import { SplunkDSConfig, createDefaultSplunkDSConfig } from './SplunkMainSetupViewUtils'
+import { transformQueriesFromSplunk, SplunkColumnChartOptions, transformToSaveConfig } from './SplunkMainSetupViewUtils'
+import i18n from './SplunkMainSetupView.i18n'
 import { PageData, SaveConfigToIndexedDB } from '../SaveConfigToIndexedDB/SaveConfigToIndexedDB'
-import css from './SplunkOnboarding.module.scss'
+import css from './SplunkMainSetupView.module.scss'
 
 const XHR_VALIDATION_GROUP = 'XHR_VALIDATION_GROUP'
 const XHR_SAVED_SEARCH_GROUP = 'XHR_SAVED_SEARCH_GROUP'
 
 const EventTypesOptions = Object.values(i18n.splunkEntityTypeOptions).map(val => ({ label: val, value: val }))
+
+interface SplunkOnBoardingProps {
+  serviceOptions: SelectOption[]
+  envOptions: SelectOption[]
+  configs: SplunkDSConfig[]
+  locationContext: PageData
+  indexedDB?: IDBPDatabase
+}
 
 interface SplunkOnBoardingProps {
   serviceOptions: SelectOption[]
@@ -306,28 +314,28 @@ function ValidationResult(props: SplunkSampleLogProps): JSX.Element {
 function SplunkConfig(props: SplunkConfigProps): JSX.Element {
   const { index, serviceOptions, dsConfig, dataSourceId, envOptions, formikProps } = props
   const [validationResult, setValidationResult] = useState<ValidationDetails>({
-    loading: Boolean(dsConfig?.query?.length)
+    loading: Boolean(dsConfig.query?.length)
   })
   const [thirdPartyGUID, setThirdPartyGUID] = useState<string | undefined>()
-  const [renderSplunkFields, setRenderSplunkFields] = useState<boolean>(Boolean(dsConfig?.query))
+  const [renderSplunkFields, setRenderSplunkFields] = useState<boolean>(Boolean(dsConfig.query))
   const { params } = routeParams()
-  const areFirstThreeFilledOut = dsConfig?.envIdentifier && dsConfig?.serviceIdentifier && dsConfig?.queryName
+  const areFirstThreeFilledOut = dsConfig.envIdentifier && dsConfig.serviceIdentifier && dsConfig.queryName
 
   useEffect(() => {
-    if (dsConfig?.query) {
+    if (dsConfig.query) {
       debouncedValidateConfig.cancel()
       const guid = `${Utils.randomId()}-${dataSourceId}-${new Date().getTime().toString()}`
       setThirdPartyGUID(guid)
       debouncedValidateConfig(params.accountId, dataSourceId, dsConfig.query, guid, setValidationResult)
     }
     return () => xhr.abort(XHR_VALIDATION_GROUP)
-  }, [dsConfig?.query, dataSourceId, params.accountId])
+  }, [dsConfig.query, dataSourceId, params.accountId])
 
   useEffect(() => {
-    if (!renderSplunkFields && dsConfig?.envIdentifier && dsConfig?.serviceIdentifier) {
+    if (!renderSplunkFields && dsConfig.envIdentifier && dsConfig.serviceIdentifier) {
       setRenderSplunkFields(true)
     }
-  }, [renderSplunkFields, dsConfig?.envIdentifier, dsConfig?.serviceIdentifier])
+  }, [renderSplunkFields, dsConfig.envIdentifier, dsConfig.serviceIdentifier])
 
   return (
     <Container className={css.onBoardingSection}>
@@ -340,7 +348,7 @@ function SplunkConfig(props: SplunkConfigProps): JSX.Element {
             <SelectWithSubview
               changeViewButtonLabel={i18n.createNew}
               items={envOptions}
-              value={envOptions?.find(serviceOp => serviceOp?.value === dsConfig?.envIdentifier)}
+              value={envOptions?.find(serviceOp => serviceOp?.value === dsConfig.envIdentifier)}
               key={envOptions[0]?.value as string}
               subview={<CreateNewEntitySubform entityType="environment" />}
               onChange={item => {
@@ -358,7 +366,7 @@ function SplunkConfig(props: SplunkConfigProps): JSX.Element {
             <SelectWithSubview
               changeViewButtonLabel={i18n.createNew}
               items={serviceOptions}
-              value={serviceOptions?.find(serviceOp => serviceOp?.value === dsConfig?.serviceIdentifier)}
+              value={serviceOptions?.find(serviceOp => serviceOp?.value === dsConfig.serviceIdentifier)}
               subview={<CreateNewEntitySubform entityType="service" />}
               onChange={item => {
                 formikProps.setFieldValue(`dsConfigs[${index}].serviceIdentifier`, item.value)
@@ -368,13 +376,13 @@ function SplunkConfig(props: SplunkConfigProps): JSX.Element {
           )}
         />
         <FormInput.TextArea
-          key={dsConfig?.id}
+          key={dsConfig.id}
           disabled={!areFirstThreeFilledOut}
           name={`dsConfigs[${index}].query`}
           placeholder={i18n.placeholders.query}
           label={i18n.fieldLabels.query}
           onChange={() => {
-            if (dsConfig?.serviceInstanceIdentifier) {
+            if (dsConfig.serviceInstanceIdentifier) {
               formikProps.setFieldValue(`dsConfigs[${index}].serviceInstanceIdentifier`, '')
             }
           }}
@@ -390,7 +398,7 @@ function SplunkConfig(props: SplunkConfigProps): JSX.Element {
           label={i18n.fieldLabels.serviceInstanceFieldName}
           disabled={!areFirstThreeFilledOut}
           placeholder={
-            !dsConfig?.query?.length
+            !dsConfig.query?.length
               ? i18n.placeholders.serviceInstanceFieldName.noData
               : i18n.placeholders.serviceInstanceFieldName.default
           }
@@ -402,7 +410,7 @@ function SplunkConfig(props: SplunkConfigProps): JSX.Element {
         <Text margin={{ bottom: 'small' }} style={{ lineHeight: '0 !important', fontSize: '13px' }} color={Color.BLACK}>
           {i18n.validationResultTitle}
         </Text>
-        <ValidationResult validationResult={validationResult} query={dsConfig?.query} thirdPartyGUID={thirdPartyGUID} />
+        <ValidationResult validationResult={validationResult} query={dsConfig.query} thirdPartyGUID={thirdPartyGUID} />
       </Container>
     </Container>
   )
@@ -490,7 +498,7 @@ function SplunkDataSourceForm(props: SplunkDataSourceFormProps): JSX.Element {
                             setFieldTouched={formikProps.setFieldTouched}
                           >
                             <SplunkConfig
-                              dsConfig={dsConfig}
+                              dsConfig={dsConfig || {}}
                               index={index}
                               formikProps={formikProps}
                               dataSourceId={dataSourceId}

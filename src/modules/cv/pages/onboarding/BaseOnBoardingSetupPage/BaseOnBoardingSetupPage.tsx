@@ -10,9 +10,9 @@ import { appId } from 'modules/cv/constants'
 import { Page } from 'modules/common/exports'
 import { routeParams } from 'framework/exports'
 import useOnBoardingPageDataHook from 'modules/cv/hooks/OnBoardingPageDataHook/OnBoardingPageDataHook'
-import SplunkOnboarding from '../Splunk/SplunkOnboarding'
+import SplunkOnboarding from '../Splunk/SplunkMainSetupView'
 import AppDynamicsMainSetupView from '../AppDynamics/AppDynamicsMainSetupView'
-import * as SplunkOnboardingUtils from '../Splunk/SplunkOnboardingUtils'
+import * as SplunkMainSetupViewUtils from '../Splunk/SplunkMainSetupViewUtils'
 import * as AppDynamicsOnboardingUtils from '../AppDynamics/AppDynamicsOnboardingUtils'
 import i18n from './BaseOnBoardingSetupPage.i18n'
 import css from './BaseOnBoardingSetupPage.module.scss'
@@ -44,7 +44,7 @@ function getDefaultCVConfig(
         )
       })
     case 'SPLUNK':
-      return SplunkOnboardingUtils.createDefaultConfigObjectBasedOnSelectedQueries(
+      return SplunkMainSetupViewUtils.createDefaultConfigObjectBasedOnSelectedQueries(
         selectedEntities,
         dataSourceId,
         accId,
@@ -62,7 +62,7 @@ function transformIncomingDSConfigs(savedConfig: DSConfig[], verificationProvide
         (savedConfig as unknown) as AppDynamicsOnboardingUtils.AppDynamicsDSConfig[]
       )
     case 'SPLUNK':
-      return SplunkOnboardingUtils.transformSavedQueries(savedConfig)
+      return SplunkMainSetupViewUtils.transformSavedQueries(savedConfig)
     default:
       return []
   }

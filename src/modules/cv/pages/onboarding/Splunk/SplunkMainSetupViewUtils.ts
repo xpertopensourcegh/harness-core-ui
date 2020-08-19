@@ -3,7 +3,7 @@ import type { SelectOption } from '@wings-software/uikit'
 import { Utils } from '@wings-software/uikit'
 import cloneDeep from 'lodash/cloneDeep'
 import type { YAxisOptions, XAxisOptions } from 'highcharts'
-import i18n from './SplunkOnboarding.i18n'
+import i18n from './SplunkMainSetupView.i18n'
 
 export const SplunkColumnChartOptions: Highcharts.Options = {
   chart: {

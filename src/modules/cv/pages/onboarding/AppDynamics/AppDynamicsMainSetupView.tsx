@@ -214,7 +214,7 @@ function AppDynamicsConfig(props: AppDynamicsConfigProps): JSX.Element {
             <SelectWithSubview
               changeViewButtonLabel={i18n.createNew}
               items={envOptions}
-              value={envOptions?.find(envOption => envOption?.value === config?.envIdentifier)}
+              value={envOptions?.find(envOption => envOption?.value === config.envIdentifier)}
               key={envOptions[0]?.value as string}
               subview={<CreateNewEntitySubform entityType="environment" />}
               onChange={newEnv => {
@@ -233,7 +233,7 @@ function AppDynamicsConfig(props: AppDynamicsConfigProps): JSX.Element {
           onChange={(items: MultiSelectOption[]) => {
             const newTableData: TierAndServiceRow[] = []
             for (const item of items) {
-              const existingTableData = config?.tableData?.find(td => td.serviceName === item.label)
+              const existingTableData = config.tableData?.find(td => td.serviceName === item.label)
               if (!existingTableData) {
                 newTableData.push({ ...DEFAULT_ROW_OBJ, serviceName: item.label })
               } else {
@@ -246,7 +246,7 @@ function AppDynamicsConfig(props: AppDynamicsConfigProps): JSX.Element {
         <Container className={css.metricPackContainer}>
           <Link
             withoutHref
-            disabled={!config?.metricPacks?.length}
+            disabled={!config.metricPacks?.length}
             onClick={() => setDisplayMetricPackDrawer(true)}
             className={css.customizePack}
           >
@@ -365,7 +365,7 @@ function AppDynamicsDataSourceForm(props: AppDynamicsDataSourceFormProps): JSX.E
                         setFieldTouched={formikProps.setFieldTouched}
                       >
                         <AppDynamicsConfig
-                          config={configData}
+                          config={configData || {}}
                           accountId={accountId}
                           index={index}
                           appdApplicationId={
