@@ -8,20 +8,27 @@ interface ProjectGridViewProps {
   data?: NGPageResponseProjectDTO
   reload?: () => Promise<void>
   showEditProject?: (project: ProjectDTO) => void
+  onDeleted?: (project: ProjectDTO) => void
 }
 
 const ProjectGridView: React.FC<ProjectGridViewProps> = props => {
-  const { data, reload, showEditProject } = props
+  const { data, reload, showEditProject, onDeleted } = props
 
   return (
     <>
       <Layout.Masonry
+        center
         gutter={25}
         width={900}
         className={css.centerContainer}
         items={data?.content || []}
         renderItem={(project: ProjectDTO) => (
-          <ProjectCard data={project} reloadProjects={reload} editProject={showEditProject} />
+          <ProjectCard
+            data={project}
+            reloadProjects={reload}
+            editProject={showEditProject}
+            onDeleted={() => onDeleted?.(project)}
+          />
         )}
         keyOf={(project: ProjectDTO) => project.id}
       />

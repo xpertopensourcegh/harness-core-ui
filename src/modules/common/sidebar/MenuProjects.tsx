@@ -1,6 +1,6 @@
 import { Container, Layout } from '@wings-software/uikit'
 import React from 'react'
-import { linkTo, Sidebar, isRouteActive } from 'framework/exports'
+import { Sidebar, isRouteActive } from 'framework/exports'
 import { routeProjects } from '../routes'
 import i18n from './MenuProjects.i18n'
 
@@ -11,7 +11,7 @@ export const MenuProjects: React.FC = () => {
       <Container style={{ marginTop: '25px' }}>
         <Layout.Vertical>
           <Sidebar.Link
-            href={linkTo(routeProjects)}
+            href={routeProjects.url()}
             label={i18n.projectsMenu}
             icon="nav-project"
             selected={isRouteActive(routeProjects)}

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route, RouteURLArgs, PageLayout, ModuleName, SidebarIdentifier } from 'framework/exports'
+import { Route, NestedRoute, PageLayout, ModuleName, SidebarIdentifier, routeURL } from 'framework/exports'
 import i18n from './routes.i18n'
 
 export const routeLogin: Route = {
@@ -14,13 +14,13 @@ export const routeLogin: Route = {
   authenticated: false
 }
 
-export const routeOrgProjects: Route = {
+export const routeOrgProjects: Route<{ orgId: string }> = {
   module: ModuleName.COMMON,
   sidebarId: SidebarIdentifier.ACCOUNT,
   path: '/organizations/:orgId/projects',
   title: i18n.project,
   pageId: 'orgProjects',
-  url: params => `/organizations/${params?.orgId}/projects`,
+  url: ({ orgId }) => routeURL(routeOrgProjects, `/organizations/${orgId}/projects`),
   component: React.lazy(() => import('./pages/ProjectsPage/OrgsProjectsPage'))
 }
 
@@ -30,7 +30,7 @@ export const routeOrganizations: Route = {
   path: '/organizations',
   title: i18n.organization,
   pageId: 'organization',
-  url: () => `/organizations`,
+  url: () => routeURL(routeOrganizations, `/organizations`),
   component: React.lazy(() => import('./pages/organizations/OrganizationsPage'))
 }
 
@@ -40,7 +40,7 @@ export const routeProjects: Route = {
   path: '/projects',
   title: i18n.project,
   pageId: 'projects',
-  url: () => '/projects',
+  url: () => routeURL(routeProjects, '/projects'),
   component: React.lazy(() => import('./pages/ProjectsPage/ProjectsPage'))
 }
 
@@ -50,7 +50,7 @@ export const routeAdmin: Route = {
   path: '/admin',
   title: i18n.admin,
   pageId: 'admin',
-  url: (_params: RouteURLArgs) => '/admin',
+  url: () => routeURL(routeAdmin, '/admin'),
   component: React.lazy(() => import('./pages/admin/AdminPage'))
 }
 
@@ -60,8 +60,30 @@ export const routeGovernance: Route = {
   path: '/governance',
   title: i18n.governance,
   pageId: 'governance',
-  url: (_params: RouteURLArgs) => '/governance',
+  url: () => routeURL(routeGovernance, '/governance'),
   component: React.lazy(() => import('./pages/governance/GovernancePage'))
+}
+
+export const routeResourcesConnectors: NestedRoute = {
+  path: '/resources/connectors',
+  title: i18n.resourcesConnectors,
+  url: () => routeURL(routeResourcesConnectors, '/resources/connectors'),
+  component: React.lazy(() => import('../dx/pages/connectors/ConnectorsList')),
+  isDefault: true
+}
+
+export const routeResourcesSecretsListing: NestedRoute = {
+  path: '/resources/secrets',
+  title: i18n.resourcesSecrets,
+  url: () => routeURL(routeResourcesSecretsListing, '/resources/secrets'),
+  component: React.lazy(() => import('../dx/pages/secrets/SecretsPage'))
+}
+
+export const routeResourcesSecretDetails: NestedRoute = {
+  path: '/resources/secrets/:secretId',
+  title: i18n.resourcesSecretDetails,
+  url: () => routeURL(routeResourcesSecretDetails, '/resources/secrets/:secretId'),
+  component: React.lazy(() => import('../dx/pages/secretDetails/SecretDetails'))
 }
 
 export const routeResources: Route = {
@@ -70,18 +92,18 @@ export const routeResources: Route = {
   path: '/resources',
   title: i18n.resources,
   pageId: 'resources',
-  url: (_params: RouteURLArgs) => '/resources',
-  component: React.lazy(() => import('../cd/pages/Resources/ResourcesPage'))
+  url: () => routeURL(routeResources, '/resources'),
+  component: React.lazy(() => import('../cd/pages/Resources/ResourcesPage')),
+  nestedRoutes: [routeResourcesConnectors, routeResourcesSecretsListing, routeResourcesSecretDetails]
 }
 
-export const routeGitSync: Route = {
+export const routeGitSync: Route<{ category?: string }> = {
   module: ModuleName.DX,
   sidebarId: SidebarIdentifier.ACCOUNT,
   path: '/git-sync',
   title: i18n.gitSync,
   pageId: 'git-sync',
-  url: (_params: RouteURLArgs) =>
-    _params?.category ? `/git-sync/category/${_params?.category}` : '/git-sync/category/repos',
+  url: ({ category } = {}) => (category ? `/git-sync/category/${category}` : '/git-sync/category/repos'),
   component: React.lazy(() => import('../dx/pages/git-sync/GitSyncPage'))
 }
 
@@ -92,7 +114,7 @@ export const routePageNotFound: Route = {
   path: '*',
   title: i18n.notFound,
   pageId: '404',
-  url: () => '/404',
+  url: () => routeURL(routePageNotFound, '/404'),
   component: React.lazy(() => import('./pages/404/NotFoundPage')),
   authenticated: false
 }
@@ -103,7 +125,7 @@ export const routeSettings: Route = {
   path: '/settings',
   title: i18n.settings,
   pageId: 'settings',
-  url: () => '/settings',
+  url: () => routeURL(routeSettings, '/settings'),
   component: React.lazy(() => import('./pages/settings/SettingsPage'))
 }
 
@@ -113,6 +135,6 @@ export const routeUserProfile: Route = {
   path: '/user-profile',
   title: i18n.userProfile,
   pageId: 'user-profile',
-  url: () => '/user-profile',
+  url: () => routeURL(routeUserProfile, '/user-profile'),
   component: React.lazy(() => import('./pages/user-profile/UserProfilePage'))
 }

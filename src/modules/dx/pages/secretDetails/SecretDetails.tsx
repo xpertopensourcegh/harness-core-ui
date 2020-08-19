@@ -10,7 +10,6 @@ import { useGetSecret, usePutSecretTextViaYaml, usePutSecretFileViaYaml } from '
 import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
 import { PageError } from 'modules/common/components/Page/PageError'
 import { PageHeader } from 'modules/common/components/Page/PageHeader'
-import { linkTo } from 'framework/exports'
 import { routeResources } from 'modules/common/routes'
 import YamlBuilder from 'modules/common/components/YAMLBuilder/YamlBuilder'
 import type { YamlBuilderHandlerBinding } from 'modules/common/interfaces/YAMLBuilderProps'
@@ -74,7 +73,7 @@ const SecretDetails: React.FC = () => {
           await updateSecretFile(yamlData as any)
         }
         showSuccess('Secret updated successfully')
-        history.push(linkTo(routeSecretDetails, { secretId }))
+        history.push(routeSecretDetails.url({ secretId }))
       } catch (err) {
         showError(err.message)
       }
@@ -147,8 +146,8 @@ const SecretDetails: React.FC = () => {
         title={
           <Layout.Vertical>
             <div>
-              <Link to={linkTo(routeResources)}>{i18n.linkResources}</Link> /{' '}
-              <Link to={linkTo(routeResources) + '/secrets'}>{i18n.linkSecrets}</Link>
+              <Link to={routeResources.url()}>{i18n.linkResources}</Link> /{' '}
+              <Link to={routeResources.url() + '/secrets'}>{i18n.linkSecrets}</Link>
             </div>
             <Text font={{ size: 'medium' }} color={Color.BLACK}>
               {data?.data?.name || 'Secret Details'}

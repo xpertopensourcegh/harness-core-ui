@@ -2,27 +2,18 @@ import React, { useState } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 import { Layout, Popover, Button, Icon, TextInput, Container } from '@wings-software/uikit'
 import { Menu, Position } from '@blueprintjs/core'
-
-import { useListSecrets } from 'services/cd-ng'
-import type { ResponseDTONGPageResponseEncryptedDataDTO } from 'services/cd-ng'
-
-import { linkTo } from 'framework/exports'
+import { useListSecrets, ResponseDTONGPageResponseEncryptedDataDTO } from 'services/cd-ng'
 import { routeCreateSecretFromYaml } from 'modules/dx/routes'
 import useCreateSecretModal from 'modules/dx/modals/CreateSecretModal/useCreateSecretModal'
 import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
 import { PageError } from 'modules/common/components/Page/PageError'
-import type { UseGetMockData } from 'modules/common/utils/testUtils'
 
 import SecretsList from './views/SecretsListView/SecretsList'
 
 import i18n from './SecretsPage.i18n'
 import css from './SecretsPage.module.scss'
 
-interface SecretsPageProps {
-  mockData?: UseGetMockData<ResponseDTONGPageResponseEncryptedDataDTO>
-}
-
-const SecretsPage: React.FC<SecretsPageProps> = ({ mockData }) => {
+const SecretsPage: React.FC = () => {
   const { accountId } = useParams()
   const history = useHistory()
   const [searchTerm, setSearchTerm] = useState<string | undefined>()
@@ -30,7 +21,6 @@ const SecretsPage: React.FC<SecretsPageProps> = ({ mockData }) => {
 
   const { data: secretsResponse, loading, error, refetch } = useListSecrets({
     queryParams: { account: accountId, searchTerm, page, size: 10 },
-    mock: mockData,
     debounce: 300
   })
   const { openCreateSecretModal } = useCreateSecretModal({
@@ -59,7 +49,7 @@ const SecretsPage: React.FC<SecretsPageProps> = ({ mockData }) => {
             <Menu.Item
               text={i18n.newSecret.yaml}
               onClick={() => {
-                history.push(linkTo(routeCreateSecretFromYaml))
+                history.push(routeCreateSecretFromYaml.url())
               }}
             />
           </Menu>

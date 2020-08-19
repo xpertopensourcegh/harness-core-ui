@@ -4,7 +4,6 @@ import { useParams, useHistory } from 'react-router-dom'
 import { Button, Layout } from '@wings-software/uikit'
 import { OrganizationCard } from 'modules/common/components/OrganizationCard/OrganizationCard'
 import { Page } from 'modules/common/exports'
-import { linkTo } from 'framework/exports'
 import { routeOrgProjects } from 'modules/common/routes'
 import { useOrganizationModal } from 'modules/common/modals/OrganizationModal/useOrganizationModal'
 import { useGetOrganizationList } from 'services/cd-ng'
@@ -55,7 +54,7 @@ const OrganizationsPage: React.FC = () => {
               data={org}
               editOrg={() => openOrganizationModal(org)}
               reloadOrgs={() => refetch()}
-              onClick={() => history.push(linkTo(routeOrgProjects, { orgId: org.identifier }, true))}
+              onClick={() => history.push(routeOrgProjects.url({ orgId: org.identifier as string }))}
             />
           )}
           keyOf={(org: OrganizationDTO) => org.identifier}

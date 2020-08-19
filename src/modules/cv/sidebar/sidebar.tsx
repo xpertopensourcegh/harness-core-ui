@@ -1,4 +1,4 @@
-import { linkTo, SidebarEntry, SidebarIdentifier } from 'framework/exports'
+import { SidebarEntry, SidebarIdentifier } from 'framework/exports'
 import { routeCVDashboard } from '../routes'
 import { MenuCVDashboard } from './MenuCVDashboard'
 import i18n from './sidebar.i18n'
@@ -11,8 +11,6 @@ export const CVDashboard: SidebarEntry = {
     hover: 'nav-cv-hover',
     selected: 'nav-cv-selected'
   },
-  url: _routeParams => {
-    return linkTo(routeCVDashboard)
-  },
+  url: routeCVDashboard.url,
   sidebarMenu: MenuCVDashboard
 }

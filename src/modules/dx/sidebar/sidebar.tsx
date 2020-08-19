@@ -1,4 +1,4 @@
-import { linkTo, SidebarEntry, SidebarIdentifier } from 'framework/exports'
+import { SidebarEntry, SidebarIdentifier } from 'framework/exports'
 import { MenuDashboard } from './MenuDashboard'
 import i18n from './sidebar.i18n'
 import { routeDashboard } from '../routes'
@@ -11,8 +11,6 @@ export const Dashboard: SidebarEntry = {
     hover: 'nav-harness-hover',
     selected: 'nav-harness'
   },
-  url: _routeParams => {
-    return linkTo(routeDashboard)
-  },
+  url: routeDashboard.url,
   sidebarMenu: MenuDashboard
 }

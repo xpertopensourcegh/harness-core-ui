@@ -9,7 +9,7 @@ import { SettingsService } from 'modules/cv/services'
 import CVProductCard from 'modules/cv/components/CVProductCard/CVProductCard'
 import { routeCVDataSourcesProductPage } from 'modules/cv/routes'
 import { VerificationTypeToRouteVerificationType } from 'modules/cv/constants'
-import { routeParams, linkTo } from 'framework/exports'
+import { routeParams } from 'framework/exports'
 import { useIndexedDBHook, CVObjectStoreNames } from 'modules/cv/hooks/IndexedDBHook/IndexedDBHook'
 import i18n from './DataSources.i18n'
 import css from './DataSources.module.scss'
@@ -118,7 +118,7 @@ function RenderContent(props: RenderContentProps): JSX.Element {
           const { row } = cell
           const originalData = row.original as DataSourceTableRow
           const toObj = {
-            pathname: linkTo(routeCVDataSourcesProductPage, {
+            pathname: routeCVDataSourcesProductPage.url({
               dataSourceType: originalData.dataSourceRoute
             }),
             search: `?dataSourceId=${originalData.uuid}`,

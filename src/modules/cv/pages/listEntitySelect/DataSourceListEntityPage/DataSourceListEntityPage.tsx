@@ -7,7 +7,7 @@ import { AppDynamicsService, CVNextGenCVConfigService } from 'modules/cv/service
 import { transformQueriesFromSplunk } from 'modules/cv/pages/onboarding/Splunk/SplunkMainSetupViewUtils'
 import { transformAppDynamicsApplications } from 'modules/cv/pages/onboarding/AppDynamics/AppDynamicsOnboardingUtils'
 import DataSourceSelectEntityTable from 'modules/cv/components/DataSourceSelectEntityTable/DataSourceSelectEntityTable'
-import { routeParams, linkTo } from 'framework/exports'
+import { routeParams } from 'framework/exports'
 import { Page } from 'modules/common/exports'
 import type { ServiceResponse } from 'modules/common/services/ServiceResponse'
 import { CVObjectStoreNames, CVIndexedDBPrimaryKeys } from 'modules/cv/hooks/IndexedDBHook/IndexedDBHook'
@@ -66,7 +66,7 @@ export default function DataSourceListEntitySelect(): JSX.Element {
     () => (selectedEntities: SelectOption[]) => {
       const newPageData = { ...createNextPageData(pageData), selectedEntities }
       history.push({
-        pathname: linkTo(routeCVOnBoardingSetup, { dataSourceType }, true),
+        pathname: routeCVOnBoardingSetup.url({ dataSourceType: dataSourceType as string }),
         search: `?dataSourceId=${dataSourceId}`,
         state: newPageData
       })
@@ -126,7 +126,7 @@ export default function DataSourceListEntitySelect(): JSX.Element {
           when: () => Boolean(noEntities),
           icon: 'warning-sign',
           ...i18n.noDataContent,
-          onClick: () => history.replace(linkTo(routeCVDataSources))
+          onClick: () => history.replace(routeCVDataSources.url())
         }}
       >
         <Container className={css.main}>
@@ -153,7 +153,7 @@ export default function DataSourceListEntitySelect(): JSX.Element {
               className={css.backButton}
               onClick={() =>
                 history.replace({
-                  pathname: linkTo(routeCVDataSourcesProductPage, { dataSourceType }, true),
+                  pathname: routeCVDataSourcesProductPage.url({ dataSourceType: dataSourceType as string }),
                   state: { ...pageData }
                 })
               }

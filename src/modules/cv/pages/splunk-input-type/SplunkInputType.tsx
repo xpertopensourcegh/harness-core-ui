@@ -2,9 +2,9 @@ import React from 'react'
 import { Container, Text, HarnessIcons, Color, Icon, Button } from '@wings-software/uikit'
 import { useHistory, useLocation } from 'react-router-dom'
 import { Page } from 'modules/common/exports'
-import { linkTo, routeParams } from 'framework/exports'
 import { routeCVOnBoardingSetup, routeCVDataSourcesEntityPage } from 'modules/cv/routes'
 import { DataSourceRoutePaths } from 'modules/cv/routePaths'
+import { routeParams } from 'framework/exports'
 import i18n from './SplunkInputType.i18n'
 import css from './SplunkInputType.module.scss'
 
@@ -12,7 +12,7 @@ export default function SplunkInputType(): JSX.Element {
   const HarnessLogo = HarnessIcons['harness-logo-black']
   const SplunkLogo = HarnessIcons['service-splunk-with-name']
   const history = useHistory()
-  const { params, query } = routeParams()
+  const { query } = routeParams()
   const { state: locationContext = {} } = useLocation()
 
   return (
@@ -33,11 +33,7 @@ export default function SplunkInputType(): JSX.Element {
             icon="plus"
             onClick={() =>
               history.push({
-                pathname: linkTo(
-                  routeCVOnBoardingSetup,
-                  { accountId: params.accountId, dataSourceType: DataSourceRoutePaths.SPLUNK },
-                  true
-                ),
+                pathname: routeCVOnBoardingSetup.url({ dataSourceType: DataSourceRoutePaths.SPLUNK }),
                 search: `?dataSourceId=${query.dataSourceId}`,
                 state: locationContext
               })
@@ -49,11 +45,7 @@ export default function SplunkInputType(): JSX.Element {
             intent="primary"
             onClick={() =>
               history.push({
-                pathname: linkTo(
-                  routeCVDataSourcesEntityPage,
-                  { accountId: params.accountId, dataSourceType: DataSourceRoutePaths.SPLUNK },
-                  true
-                ),
+                pathname: routeCVDataSourcesEntityPage.url({ dataSourceType: DataSourceRoutePaths.SPLUNK }),
                 search: `?dataSourceId=${query.dataSourceId}`,
                 state: locationContext
               })

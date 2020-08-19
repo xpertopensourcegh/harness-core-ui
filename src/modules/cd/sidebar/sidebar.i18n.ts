@@ -1,3 +1,3 @@
 export default {
-  projects: 'Projects'
+  cd: 'Continuous Deployments'
 }

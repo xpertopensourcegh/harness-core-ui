@@ -2,4 +2,8 @@
   height: calc(100% - 64px); /* 64px is PageHeader's height */
   overflow: auto;
   position: relative;
+
+  &.filled {
+    height: 100%;
+  }
 }

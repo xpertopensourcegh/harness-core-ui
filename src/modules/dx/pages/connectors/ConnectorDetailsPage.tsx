@@ -5,7 +5,7 @@ import cx from 'classnames'
 import { useParams } from 'react-router'
 import { Page } from 'modules/common/exports'
 import { routeResources } from 'modules/common/routes'
-import { linkTo } from 'framework/exports'
+
 import { routeParams } from 'framework/exports'
 import { useGetConnector, ConnectorDTO } from 'services/cd-ng'
 import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
@@ -28,11 +28,11 @@ const renderTitle = () => {
   return (
     <Layout.Vertical>
       <Layout.Horizontal spacing="xsmall">
-        <Link className={css.breadCrumb} href={linkTo(routeResources)}>
+        <Link className={css.breadCrumb} href={routeResources.url()}>
           Resources
         </Link>
         <span>/</span>
-        <Link className={css.breadCrumb} href={linkTo(routeResources)}>
+        <Link className={css.breadCrumb} href={routeResources.url()}>
           Connectors
         </Link>
       </Layout.Horizontal>

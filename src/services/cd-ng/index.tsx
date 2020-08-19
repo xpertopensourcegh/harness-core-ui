@@ -84,17 +84,17 @@ export interface ServiceOverrides {
   description?: string
 }
 
-export type K8SDirectInfrastructure = Infrastructure & {
-  connectorIdentifier?: string
-  namespace?: string
-  releaseName?: string
-}
-
 export interface ResponseDTONGPageResponseEncryptedDataDTO {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
   data?: NGPageResponseEncryptedDataDTO
   metaData?: { [key: string]: any }
   correlationId?: string
+}
+
+export type K8SDirectInfrastructure = Infrastructure & {
+  connectorIdentifier?: string
+  namespace?: string
+  releaseName?: string
 }
 
 export interface SidecarArtifactWrapper {
@@ -134,10 +134,6 @@ export type GcrArtifactConfig = ArtifactConfig & {
   imagePath?: string
 }
 
-export interface ResponseData {
-  [key: string]: any
-}
-
 export interface EnvironmentResponseDTO {
   accountId?: string
   orgIdentifier?: string
@@ -145,6 +141,10 @@ export interface EnvironmentResponseDTO {
   identifier?: string
   name?: string
   type?: 'PreProduction' | 'Production'
+}
+
+export interface ResponseData {
+  [key: string]: any
 }
 
 export interface ManifestOverrideSets {
@@ -176,20 +176,20 @@ export type KubernetesUserNamePasswordDTO = KubernetesAuthCredentialDTO & {
   passwordRef: SecretRefData
 }
 
-export interface CDPipeline {
-  name?: string
-  identifier: string
-  description?: string
-  tags?: Tag[]
-  stages?: StageElementWrapper[]
-}
-
 export interface CreateOrganizationDTO {
   identifier: string
   name: string
   color: string
   description?: string
   tags: string[]
+}
+
+export interface CDPipeline {
+  name?: string
+  identifier: string
+  description?: string
+  tags?: Tag[]
+  stages?: StageElementWrapper[]
 }
 
 export interface Graph {
@@ -325,8 +325,8 @@ export type AppDynamicsConnectorDTO = ConnectorConfigDTO & {
 
 export interface GitAuthenticationDTO {
   url?: string
-  branchName?: string
   gitConnectionType?: 'ACCOUNT' | 'REPO'
+  branchName?: string
 }
 
 export type KubernetesDelegateDetailsDTO = KubernetesCredentialDTO & {
@@ -336,18 +336,6 @@ export type KubernetesDelegateDetailsDTO = KubernetesCredentialDTO & {
 export interface StoreConfigWrapper {
   type?: string
   spec?: StoreConfig
-}
-
-export interface GitSyncFolderConfigDTO {
-  rootFolder?: string
-  isDefault?: boolean
-  identifier?: string
-  enabled?: boolean
-}
-
-export interface InfraUseFromStage {
-  stage: string
-  overrides?: InfraOverrides
 }
 
 export interface ProjectDTO {
@@ -363,6 +351,18 @@ export interface ProjectDTO {
   owners?: string[]
   tags?: string[]
   lastModifiedAt?: number
+}
+
+export interface GitSyncFolderConfigDTO {
+  rootFolder?: string
+  isDefault?: boolean
+  identifier?: string
+  enabled?: boolean
+}
+
+export interface InfraUseFromStage {
+  stage: string
+  overrides?: InfraOverrides
 }
 
 export interface ConnectorConfigDTO {
@@ -512,11 +512,6 @@ export interface ConnectorConfigSummaryDTO {
   [key: string]: any
 }
 
-export interface ServiceDefinition {
-  type?: string
-  spec?: ServiceSpec
-}
-
 export interface ResponseDTONGPageResponseProjectDTO {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
   data?: NGPageResponseProjectDTO
@@ -524,8 +519,9 @@ export interface ResponseDTONGPageResponseProjectDTO {
   correlationId?: string
 }
 
-export interface ManifestAttributes {
-  [key: string]: any
+export interface ServiceDefinition {
+  type?: string
+  spec?: ServiceSpec
 }
 
 export interface NGPageResponseOrganizationDTO {
@@ -537,6 +533,10 @@ export interface NGPageResponseOrganizationDTO {
   empty?: boolean
 }
 
+export interface ManifestAttributes {
+  [key: string]: any
+}
+
 export interface ManifestConfigWrapper {
   identifier: string
 }
@@ -545,16 +545,16 @@ export interface StepParameters {
   [key: string]: any
 }
 
-export interface ResponseDTOPlanExecution {
+export interface ResponseDTONGPageResponseServiceResponseDTO {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: PlanExecution
+  data?: NGPageResponseServiceResponseDTO
   metaData?: { [key: string]: any }
   correlationId?: string
 }
 
-export interface ResponseDTONGPageResponseServiceResponseDTO {
+export interface ResponseDTOPlanExecution {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: NGPageResponseServiceResponseDTO
+  data?: PlanExecution
   metaData?: { [key: string]: any }
   correlationId?: string
 }
@@ -566,10 +566,10 @@ export interface GitSyncConfig {
 }
 
 export interface TemporalUnit {
-  timeBased?: boolean
-  duration?: Duration
   dateBased?: boolean
   durationEstimated?: boolean
+  timeBased?: boolean
+  duration?: Duration
 }
 
 export interface CreateProjectDTO {
@@ -583,6 +583,13 @@ export interface CreateProjectDTO {
   tags: string[]
 }
 
+export interface ResponseDTOEnvironmentResponseDTO {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: EnvironmentResponseDTO
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
 export type VaultConfigUpdateDTO = SecretManagerConfigUpdateDTO & {
   authToken?: string
   basePath?: string
@@ -594,18 +601,7 @@ export type VaultConfigUpdateDTO = SecretManagerConfigUpdateDTO & {
   readOnly?: boolean
 }
 
-export interface ResponseDTOEnvironmentResponseDTO {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: EnvironmentResponseDTO
-  metaData?: { [key: string]: any }
-  correlationId?: string
-}
-
 export type K8sManifest = ManifestAttributes & {
-  store?: StoreConfigWrapper
-}
-
-export type ValuesManifest = ManifestAttributes & {
   store?: StoreConfigWrapper
 }
 
@@ -614,6 +610,10 @@ export interface ResponseDTOServiceResponseDTO {
   data?: ServiceResponseDTO
   metaData?: { [key: string]: any }
   correlationId?: string
+}
+
+export type ValuesManifest = ManifestAttributes & {
+  store?: StoreConfigWrapper
 }
 
 export type KubernetesClusterDetailsDTO = KubernetesCredentialDTO & {
@@ -747,9 +747,9 @@ export type K8sRollingRollbackStepInfo = StepSpecType & {
 
 export interface ServiceSpec {
   manifests?: ManifestConfigWrapper[]
-  artifacts?: ArtifactListConfig
-  manifestOverrideSets?: ManifestOverrideSets[]
   artifactOverrideSets?: ArtifactOverrideSets[]
+  manifestOverrideSets?: ManifestOverrideSets[]
+  artifacts?: ArtifactListConfig
 }
 
 export type ShellScriptStepInfo = StepSpecType & {
@@ -767,6 +767,14 @@ export type ShellScriptStepInfo = StepSpecType & {
   sweepingOutputScope?: string
 }
 
+export interface RestResponsePlanExecution {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: PlanExecution
+  responseMessages?: ResponseMessage[]
+}
+
 export interface SecretManagerConfigDTO {
   name?: string
   accountIdentifier?: string
@@ -777,14 +785,6 @@ export interface SecretManagerConfigDTO {
   description?: string
   encryptionType?: 'LOCAL' | 'KMS' | 'GCP_KMS' | 'AWS_SECRETS_MANAGER' | 'AZURE_VAULT' | 'CYBERARK' | 'VAULT' | 'CUSTOM'
   default?: boolean
-}
-
-export interface RestResponsePlanExecution {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: PlanExecution
-  responseMessages?: ResponseMessage[]
 }
 
 export interface FailureDTO {
@@ -972,6 +972,7 @@ export interface FailureDTO {
     | 'PASSWORD_EXPIRED'
     | 'USER_LOCKED'
     | 'PASSWORD_STRENGTH_CHECK_FAILED'
+    | 'ACCOUNT_DISABLED'
     | 'INVALID_ACCOUNT_PERMISSION'
     | 'PAGERDUTY_ERROR'
     | 'HEALTH_ERROR'
@@ -990,6 +991,7 @@ export interface FailureDTO {
     | 'ILLEGAL_STATE'
     | 'GIT_DIFF_COMMIT_NOT_IN_ORDER'
     | 'FAILED_TO_ACQUIRE_PERSISTENT_LOCK'
+    | 'FAILED_TO_ACQUIRE_NON_PERSISTENT_LOCK'
     | 'POD_NOT_FOUND_ERROR'
     | 'COMMAND_EXECUTION_ERROR'
     | 'REGISTRY_EXCEPTION'
@@ -1022,10 +1024,10 @@ export interface RefType {
 export interface Pageable {
   offset?: number
   pageSize?: number
-  paged?: boolean
   sort?: Sort
-  pageNumber?: number
+  paged?: boolean
   unpaged?: boolean
+  pageNumber?: number
 }
 
 export type DeploymentStage = StageType & {
@@ -1122,10 +1124,10 @@ export type ParallelStepElement = ExecutionWrapper & {
 
 export interface Duration {
   seconds?: number
+  units?: TemporalUnit[]
   nano?: number
   zero?: boolean
   negative?: boolean
-  units?: TemporalUnit[]
 }
 
 export interface ResponseMessage {
@@ -1312,6 +1314,7 @@ export interface ResponseMessage {
     | 'PASSWORD_EXPIRED'
     | 'USER_LOCKED'
     | 'PASSWORD_STRENGTH_CHECK_FAILED'
+    | 'ACCOUNT_DISABLED'
     | 'INVALID_ACCOUNT_PERMISSION'
     | 'PAGERDUTY_ERROR'
     | 'HEALTH_ERROR'
@@ -1330,6 +1333,7 @@ export interface ResponseMessage {
     | 'ILLEGAL_STATE'
     | 'GIT_DIFF_COMMIT_NOT_IN_ORDER'
     | 'FAILED_TO_ACQUIRE_PERSISTENT_LOCK'
+    | 'FAILED_TO_ACQUIRE_NON_PERSISTENT_LOCK'
     | 'POD_NOT_FOUND_ERROR'
     | 'COMMAND_EXECUTION_ERROR'
     | 'REGISTRY_EXCEPTION'
@@ -1404,10 +1408,10 @@ export interface PageCDPipelineSummaryResponseDTO {
   content?: CDPipelineSummaryResponseDTO[]
   number?: number
   last?: boolean
-  first?: boolean
   sort?: Sort
   numberOfElements?: number
   pageable?: Pageable
+  first?: boolean
   empty?: boolean
 }
 
@@ -1655,6 +1659,7 @@ export interface ErrorDTO {
     | 'PASSWORD_EXPIRED'
     | 'USER_LOCKED'
     | 'PASSWORD_STRENGTH_CHECK_FAILED'
+    | 'ACCOUNT_DISABLED'
     | 'INVALID_ACCOUNT_PERMISSION'
     | 'PAGERDUTY_ERROR'
     | 'HEALTH_ERROR'
@@ -1673,6 +1678,7 @@ export interface ErrorDTO {
     | 'ILLEGAL_STATE'
     | 'GIT_DIFF_COMMIT_NOT_IN_ORDER'
     | 'FAILED_TO_ACQUIRE_PERSISTENT_LOCK'
+    | 'FAILED_TO_ACQUIRE_NON_PERSISTENT_LOCK'
     | 'POD_NOT_FOUND_ERROR'
     | 'COMMAND_EXECUTION_ERROR'
     | 'REGISTRY_EXCEPTION'
@@ -1811,6 +1817,18 @@ export type VaultConfigDTO = SecretManagerConfigDTO & {
   readOnly?: boolean
 }
 
+export interface SecretFileDTO {
+  account: string
+  org: string
+  project?: string
+  identifier: string
+  secretManager: string
+  name: string
+  tags: string[]
+  description?: string
+  type: 'SecretFile' | 'SecretText'
+}
+
 export interface GraphVertex {
   uuid?: string
   name?: string
@@ -1847,18 +1865,6 @@ export interface EmbeddedUser {
   uuid?: string
   name?: string
   email?: string
-}
-
-export interface SecretFileDTO {
-  account: string
-  org: string
-  project?: string
-  identifier: string
-  secretManager: string
-  name: string
-  tags: string[]
-  description?: string
-  type: 'SecretFile' | 'SecretText'
 }
 
 export type GitStore = StoreConfig & {
@@ -1996,6 +2002,15 @@ export interface EnvironmentYaml {
   refType?: RefType
 }
 
+export interface NGPageResponseEnvironmentResponseDTO {
+  totalPages?: number
+  totalElements?: number
+  size?: number
+  content?: EnvironmentResponseDTO[]
+  pageNumber?: number
+  empty?: boolean
+}
+
 export interface PageConnectorSummaryDTO {
   totalElements?: number
   totalPages?: number
@@ -2003,19 +2018,10 @@ export interface PageConnectorSummaryDTO {
   content?: ConnectorSummaryDTO[]
   number?: number
   last?: boolean
-  first?: boolean
   sort?: Sort
   numberOfElements?: number
   pageable?: Pageable
-  empty?: boolean
-}
-
-export interface NGPageResponseEnvironmentResponseDTO {
-  totalPages?: number
-  totalElements?: number
-  size?: number
-  content?: EnvironmentResponseDTO[]
-  pageNumber?: number
+  first?: boolean
   empty?: boolean
 }
 

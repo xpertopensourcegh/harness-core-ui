@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route, RouteURLArgs, ModuleName, SidebarIdentifier } from 'framework/exports'
+import { Route, ModuleName, SidebarIdentifier, routeURL } from 'framework/exports'
 import i18n from './routes.i18n'
 
 export const routeDashboard: Route = {
@@ -7,28 +7,28 @@ export const routeDashboard: Route = {
   path: '/dashboard',
   title: i18n.dashboard,
   pageId: 'dashboard',
-  url: () => '/dashboard',
+  url: () => routeURL(routeDashboard, '/dashboard'),
   component: React.lazy(() => import('./pages/dashboard/DashboardPage')),
   module: ModuleName.DX
 }
 
-export const routeConnectorDetails: Route = {
+export const routeConnectorDetails: Route<{ connectorId: string; type?: string }> = {
   module: ModuleName.DX,
   sidebarId: SidebarIdentifier.ACCOUNT,
   path: '/connectors/:connectorId',
   title: i18n.connectors,
   pageId: 'connector-details',
-  url: (params: RouteURLArgs) =>
-    `/account/${params?.accountId}/connectors/${params?.connectorId}${params?.type ? `&type=${params?.type}` : ``}`,
+  url: ({ connectorId, type }) =>
+    routeURL(routeConnectorDetails, `/connectors/${connectorId}${type ? `&type=${type}` : ``}`),
   component: React.lazy(() => import('./pages/connectors/ConnectorDetailsPage'))
 }
 
-export const routeSecretDetails: Route = {
+export const routeSecretDetails: Route<{ secretId: string }> = {
   sidebarId: SidebarIdentifier.ACCOUNT,
   path: '/secrets/:secretId',
   title: i18n.secrets,
   pageId: 'secret-details',
-  url: params => `/secrets/${params?.secretId}`,
+  url: ({ secretId }) => routeURL(routeSecretDetails, `/secrets/${secretId}`),
   component: React.lazy(() => import('./pages/secretDetails/SecretDetails')),
   module: ModuleName.DX
 }

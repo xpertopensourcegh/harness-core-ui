@@ -1,4 +1,4 @@
-import { linkTo, SidebarEntry, SidebarIdentifier } from 'framework/exports'
+import { SidebarEntry, SidebarIdentifier } from 'framework/exports'
 import { routeProjects, routeUserProfile, routeAdmin } from '../routes'
 import { MenuProjects } from './MenuProjects'
 import { MenuAccount } from './MenuAccount'
@@ -14,9 +14,7 @@ export const Projects: SidebarEntry = {
     hover: 'nav-project-hover',
     selected: 'nav-project-selected'
   },
-  url: _routeParams => {
-    return linkTo(routeProjects)
-  },
+  url: routeProjects.url,
   sidebarMenu: MenuProjects
 }
 
@@ -29,9 +27,7 @@ export const Account: SidebarEntry = {
     selected: 'nav-settings-selected'
   },
   position: 'BOTTOM',
-  url: _routeParams => {
-    return linkTo(routeAdmin)
-  },
+  url: routeAdmin.url,
   sidebarMenu: MenuAccount
 }
 
@@ -44,8 +40,6 @@ export const UserProfile: SidebarEntry = {
     selected: 'nav-user-profile-selected'
   },
   position: 'BOTTOM',
-  url: _routeParams => {
-    return linkTo(routeUserProfile)
-  },
+  url: routeUserProfile.url,
   sidebarMenu: MenuUserProfile
 }

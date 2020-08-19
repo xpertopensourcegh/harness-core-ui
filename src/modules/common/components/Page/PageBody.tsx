@@ -36,13 +36,23 @@ export interface PageBodyProps {
     /** class name to pass for no data */
     className?: string
   }
+
+  /** True if Page does not have header */
+  filled?: boolean
 }
 
 /**
  * PageBody implements page body container with some decorations like background image,
  * alignments, etc...
  */
-export const PageBody: React.FC<PageBodyProps> = ({ children, loading: _loading, error, retryOnError, noData }) => {
+export const PageBody: React.FC<PageBodyProps> = ({
+  children,
+  loading: _loading,
+  error,
+  retryOnError,
+  noData,
+  filled
+}) => {
   const [loading, setLoading] = useState(_loading)
   const [firstLoading, setFirstLoading] = useState(_loading)
 
@@ -67,7 +77,7 @@ export const PageBody: React.FC<PageBodyProps> = ({ children, loading: _loading,
   }, [_loading]) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <Container className={cx(css.pageBody, noData?.className)}>
+    <Container className={cx(css.pageBody, noData?.className, filled && css.filled)}>
       {loading && <PageSpinner />}
       {!loading && error && <PageError message={error} onClick={retryOnError} />}
       {!loading && !error && noData?.when?.() && (

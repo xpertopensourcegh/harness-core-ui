@@ -2,7 +2,6 @@ import React from 'react'
 import { Layout, Container, Text } from '@wings-software/uikit'
 import { Route, Switch, useParams } from 'react-router'
 import { NavLink, useRouteMatch } from 'react-router-dom'
-import { linkTo } from 'framework/exports'
 import { Page } from 'modules/common/exports'
 import GitSyncRepoTab from './views/repos/GitSyncRepoTab'
 import { routeGitSync } from '../../../common/routes'
@@ -53,7 +52,7 @@ const GitSyncPage: React.FC = () => {
                     className={css.tags}
                     activeClassName={css.activeTag}
                     key={data + index}
-                    to={linkTo(routeGitSync, { category: categoriesMap[index] as string })}
+                    to={routeGitSync.url({ category: categoriesMap[index] as string })}
                   >
                     {categories[data]}
                   </NavLink>

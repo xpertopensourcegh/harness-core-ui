@@ -8,7 +8,6 @@ import classnames from 'classnames'
 import isEmpty from 'lodash/isEmpty'
 import isUndefined from 'lodash/isUndefined'
 import { routeCVAnomalyAnalysisPage } from 'modules/cv/routes'
-import { linkTo } from 'framework/exports'
 import { DashboardService } from 'modules/cv/services'
 import TimelineView from 'modules/common/components/TimelineView/TimelineView'
 import HeatMap, { CellStatusValues } from 'modules/common/components/HeatMap/HeatMap'
@@ -171,7 +170,7 @@ export default function CVServicePage(): JSX.Element {
                             const query =
                               `from=${cell.startTime}&to=${cell.endTime}` +
                               `&service=${serviceId}&category=${serie.name}`
-                            history.push(linkTo(routeCVAnomalyAnalysisPage, {}, true) + '?' + query)
+                            history.push(routeCVAnomalyAnalysisPage.url() + '?' + query)
                           }}
                           rowSize={heatmapSize()}
                         />

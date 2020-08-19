@@ -3,9 +3,8 @@ import cx from 'classnames'
 import { Card, Text, Tag, Layout, Icon, CardBody, Container, Button, Color } from '@wings-software/uikit'
 import { useHistory, Link } from 'react-router-dom'
 import { Menu, Classes } from '@blueprintjs/core'
-import { linkTo } from 'framework/exports'
 
-import { routePipelineCanvas, routeProjectOverview } from 'modules/cd/routes'
+import { routeCDPipelineStudio, routeCDDashboard } from 'modules/cd/routes'
 import { useDeleteProject } from 'services/cd-ng'
 import type { ProjectDTO } from 'services/cd-ng'
 import { useToaster } from 'modules/common/components/Toaster/useToaster'
@@ -20,12 +19,14 @@ export interface ProjectCardProps {
   className?: string
   reloadProjects?: () => Promise<unknown>
   editProject?: (project: ProjectDTO) => void
+  onDeleted?: (project: ProjectDTO) => void
 }
 
 interface ContextMenuProps {
   project: ProjectDTO
   reloadProjects?: () => Promise<unknown>
   editProject?: (project: ProjectDTO) => void
+  onDeleted?: (project: ProjectDTO) => void
 }
 
 interface ContinuousDeployementProps {
@@ -38,7 +39,7 @@ interface ContinuousVerificationProps {
 }
 
 const ContextMenu: React.FC<ContextMenuProps> = props => {
-  const { project, reloadProjects, editProject } = props
+  const { project, reloadProjects, editProject, onDeleted } = props
   const { mutate: deleteProject } = useDeleteProject({ orgIdentifier: project.orgIdentifier || '' })
   const { showSuccess, showError } = useToaster()
 
@@ -54,6 +55,7 @@ const ContextMenu: React.FC<ContextMenuProps> = props => {
             headers: { 'content-type': 'application/json' }
           })
           if (deleted) showSuccess(`Project ${project.name} deleted`)
+          onDeleted?.(project)
           reloadProjects?.()
         } catch (err) {
           showError(err)
@@ -99,15 +101,11 @@ const ContinuousDeployement: React.FC<ContinuousDeployementProps> = props => {
             text={i18n.createPipeline}
             onClick={() => {
               history.push(
-                linkTo(
-                  routePipelineCanvas,
-                  {
-                    projectIdentifier: data?.identifier,
-                    orgIdentifier: data?.orgIdentifier,
-                    pipelineIdentifier: -1
-                  },
-                  true
-                )
+                routeCDPipelineStudio.url({
+                  projectIdentifier: data?.identifier as string,
+                  orgIdentifier: data?.orgIdentifier as string,
+                  pipelineIdentifier: -1
+                })
               )
             }}
           />
@@ -166,14 +164,9 @@ const GetStarted: React.FC<ContinuousDeployementProps> = props => {
       ) : (
         <Layout.Horizontal spacing="small">
           <Link
-            to={linkTo(
-              routeProjectOverview,
-              {
-                projectIdentifier: data?.identifier,
-                orgIdentifier: data?.orgIdentifier
-              },
-              true
-            )}
+            to={routeCDDashboard.url({
+              projectIdentifier: data?.identifier as string
+            })}
           >
             <Icon name="cd-hover" size={20} />
           </Link>
@@ -185,14 +178,21 @@ const GetStarted: React.FC<ContinuousDeployementProps> = props => {
   )
 }
 const ProjectCard: React.FC<ProjectCardProps> = props => {
-  const { data, isPreview, reloadProjects, editProject } = props
+  const { data, isPreview, reloadProjects, editProject, onDeleted } = props
 
   return (
     <Card className={cx(css.projectCard, props.className)}>
       <Container padding={{ left: 'xlarge', right: 'xlarge', bottom: 'large' }}>
         {!isPreview ? (
           <CardBody.Menu
-            menuContent={<ContextMenu project={props.data} reloadProjects={reloadProjects} editProject={editProject} />}
+            menuContent={
+              <ContextMenu
+                project={props.data}
+                reloadProjects={reloadProjects}
+                editProject={editProject}
+                onDeleted={onDeleted}
+              />
+            }
             menuPopoverProps={{
               className: Classes.DARK
             }}

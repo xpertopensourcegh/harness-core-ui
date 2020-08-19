@@ -1,7 +1,14 @@
 import { Container, Layout } from '@wings-software/uikit'
 import React from 'react'
-import { linkTo, Sidebar, isRouteActive } from 'framework/exports'
-import * as routes from '../routes'
+import { Sidebar, isRouteActive } from 'framework/exports'
+import {
+  routeAdmin,
+  routeOrganizations,
+  routeOrgProjects,
+  routeGovernance,
+  routeResources,
+  routeGitSync
+} from '../routes'
 import i18n from './MenuAccount.i18n'
 
 export const MenuAccount: React.FC = () => {
@@ -11,41 +18,41 @@ export const MenuAccount: React.FC = () => {
       <Container style={{ marginTop: '25px' }}>
         <Layout.Vertical>
           <Sidebar.Link
-            href={linkTo(routes.routeAdmin)}
+            href={routeAdmin.url()}
             label={i18n.admin}
             icon="nav-account-admin"
-            selected={isRouteActive(routes.routeAdmin)}
+            selected={isRouteActive(routeAdmin)}
           />
           <Sidebar.Link
-            href={linkTo(routes.routeOrganizations)}
+            href={routeOrganizations.url()}
             label={i18n.organizations}
             icon="nav-organization-hover"
-            selected={isRouteActive(routes.routeOrganizations)}
+            selected={isRouteActive(routeOrganizations)}
           />
           <Layout.Vertical style={{ marginLeft: 'var(--spacing-xlarge)' }}>
             <Sidebar.Link
-              href={linkTo(routes.routeOrgProjects)}
+              href={routeOrgProjects.url({ orgId: 'TOBEDEFINED' })} // TODO: Fill in orgId
               label={i18n.projects}
               icon="nav-project"
-              selected={isRouteActive(routes.routeOrgProjects)}
+              selected={isRouteActive(routeOrgProjects)}
             />
             <Sidebar.Link
-              href={linkTo(routes.routeGovernance)}
+              href={routeGovernance.url()}
               label={i18n.governance}
               icon="nav-governance"
-              selected={isRouteActive(routes.routeGovernance)}
+              selected={isRouteActive(routeGovernance)}
             />
             <Sidebar.Link
-              href={linkTo(routes.routeResources)}
+              href={routeResources.url()}
               label={i18n.resources}
               icon="nav-resources"
-              selected={isRouteActive(routes.routeResources)}
+              selected={isRouteActive(routeResources, false)}
             />
             <Sidebar.Link
-              href={linkTo(routes.routeGitSync)}
+              href={routeGitSync.url({})}
               label={i18n.gitSync}
               icon="nav-git-sync"
-              selected={isRouteActive(routes.routeGitSync)}
+              selected={isRouteActive(routeGitSync)}
             />
           </Layout.Vertical>
         </Layout.Vertical>

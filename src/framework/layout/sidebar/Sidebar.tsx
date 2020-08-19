@@ -5,7 +5,7 @@ import { useAppStoreReader } from 'framework/hooks/useAppStore'
 import type { Route, SidebarEntry } from 'framework/exports'
 import { routeParams } from 'framework/route/RouteMounter'
 import { SidebarTitle } from './components/SidebarTitle'
-import { SidebarLink } from './components/SidebarLink'
+import { SidebarLink, SidebarButton } from './components/SidebarLink'
 import css from './Sidebar.module.scss'
 
 const ICON_SIZE = 24
@@ -71,5 +71,6 @@ export const SidebarMounter: React.FC<{ withoutMenu?: boolean }> = ({ withoutMen
 
 export const Sidebar = {
   Title: SidebarTitle,
-  Link: SidebarLink
+  Link: SidebarLink,
+  Button: SidebarButton
 }

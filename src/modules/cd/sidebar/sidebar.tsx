@@ -1,18 +1,16 @@
-import { linkTo, SidebarEntry, SidebarIdentifier } from 'framework/exports'
-import { routeCDProjects } from '../routes'
-import { MenuDeployments } from './MenuDeployments'
+import { SidebarEntry, SidebarIdentifier } from 'framework/exports'
+import { routeCDHome } from '../routes'
+import { MenuCD } from './MenuCD'
 import i18n from './sidebar.i18n'
 
 export const Deployments: SidebarEntry = {
-  sidebarId: SidebarIdentifier.DEPLOYMENTS,
-  title: i18n.projects,
+  sidebarId: SidebarIdentifier.CONTINUOUS_DEPLOYMENTS,
+  title: i18n.cd,
   icon: {
     normal: 'nav-cd',
     hover: 'nav-cd-hover',
     selected: 'nav-cd-selected'
   },
-  url: _routeParams => {
-    return linkTo(routeCDProjects)
-  },
-  sidebarMenu: MenuDeployments
+  url: routeCDHome.url,
+  sidebarMenu: MenuCD
 }

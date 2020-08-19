@@ -1,12 +1,9 @@
 import type { PageLayout, ModuleName, SidebarIdentifier } from 'framework/exports'
 
-/** Optional arguments passed into Route url() generator */
-export type RouteURLArgs = Record<string, string | number | null | undefined> | undefined
-
 /**
  * Route represents a route alongside its page binding.
  */
-export interface Route {
+export interface Route<T = undefined> {
   /** Sidebar identifier - which SidebarEntry this route belongs to */
   sidebarId: SidebarIdentifier
 
@@ -14,7 +11,7 @@ export interface Route {
   path: string
 
   /** Page component: Actual component to be mounted under route */
-  component: React.ReactNode | JSX.Element
+  component: React.FC
 
   /** Module name */
   module: ModuleName
@@ -32,7 +29,7 @@ export interface Route {
    * passing (like accountId is passed as null or underfined while it
    * must be non-nullable).
    * */
-  url: (params?: RouteURLArgs) => string
+  url: T extends undefined ? () => string : (params: T) => string
 
   /** Page layout. Defaulted to Framework `PageLayout.DefaultLayout` */
   layout?: PageLayout
@@ -46,4 +43,20 @@ export interface Route {
 
   /* Optional arguments to convey type param when multiple options are available for same route */
   type?: string
+
+  /** Nested routes  */
+  nestedRoutes?: NestedRoute<T>[]
+}
+
+/**
+ * NestedRoute represents a single nested route. A nested route can have its own nested routes.
+ */
+export interface NestedRoute<T = undefined>
+  extends Pick<Route<T>, 'path' | 'title' | 'url' | 'component' | 'authenticated'> {
+  /** If set to true, the nested route is mounted as the default child of the parent route.
+   */
+  isDefault?: boolean
+
+  /** Nested routes inside a nested route */
+  nestedRoutes?: NestedRoute[]
 }

@@ -10,7 +10,6 @@ import { PageHeader } from 'modules/common/components/Page/PageHeader'
 import type { YamlBuilderHandlerBinding } from 'modules/common/interfaces/YAMLBuilderProps'
 import { usePostSecretTextViaYaml, usePostSecretFileViaYaml } from 'services/cd-ng'
 import { useToaster } from 'modules/common/exports'
-import { linkTo } from 'framework/exports'
 import { routeSecretDetails } from 'modules/dx/routes'
 import { YAMLService } from 'modules/dx/services'
 import type { SnippetInterface } from 'modules/common/interfaces/SnippetInterface'
@@ -69,7 +68,7 @@ const CreateSecretFromYamlPage: React.FC = () => {
           await createSecretFile(yamlData as any)
         }
         showSuccess('Secret created successfully')
-        history.push(linkTo(routeSecretDetails, { secretId: jsonData['identifier'] }))
+        history.push(routeSecretDetails.url({ secretId: jsonData['identifier'] }))
       } catch (err) {
         showError(err.message)
       }

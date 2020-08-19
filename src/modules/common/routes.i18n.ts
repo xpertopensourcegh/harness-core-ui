@@ -9,5 +9,8 @@ export default {
   organizations: 'Organizations',
   governance: 'Governance',
   resources: 'Resources',
-  gitSync: 'Git Sync'
+  gitSync: 'Git Sync',
+  resourcesConnectors: 'Connectors',
+  resourcesSecrets: 'Secrets',
+  resourcesSecretDetails: 'Secret Details'
 }

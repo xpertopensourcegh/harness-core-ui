@@ -1,6 +1,6 @@
 import { Container, Layout } from '@wings-software/uikit'
 import React from 'react'
-import { linkTo, Sidebar, isRouteActive } from 'framework/exports'
+import { Sidebar, isRouteActive } from 'framework/exports'
 import {
   routeCVDashboard,
   routeCVDataSources,
@@ -17,25 +17,25 @@ export const MenuCVDashboard: React.FC = () => {
       <Container style={{ marginTop: '25px' }}>
         <Layout.Vertical>
           <Sidebar.Link
-            href={linkTo(routeCVDashboard)}
+            href={routeCVDashboard.url()}
             label={i18n.home}
             icon="main-flag"
             selected={isRouteActive(routeCVDashboard)}
           />
           <Sidebar.Link
-            href={linkTo(routeCVServices)}
+            href={routeCVServices.url()}
             label={i18n.service}
             icon="main-depricate"
             selected={isRouteActive(routeCVServices)}
           />
           <Sidebar.Link
-            href={linkTo(routeCVDataSources)}
+            href={routeCVDataSources.url()}
             label={i18n.datasource}
             icon="main-help"
             selected={isRouteActive(routeCVDataSources)}
           />
           <Sidebar.Link
-            href={linkTo(routeCVActivities)}
+            href={routeCVActivities.url()}
             label={i18n.activites}
             icon="main-depricate"
             selected={isRouteActive(routeCVActivities) || isRouteActive(routeCVActivityDetails)}

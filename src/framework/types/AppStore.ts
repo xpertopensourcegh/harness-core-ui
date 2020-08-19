@@ -1,4 +1,6 @@
-import type { Route, SidebarRegistry } from 'framework/exports'
+import type { ProjectDTO } from 'services/cd-ng'
+import type { Route } from './Route'
+import type { SidebarRegistry } from './SidebarRegistry'
 
 /**
  * Application Store - essential application-level states which are shareable
@@ -6,15 +8,12 @@ import type { Route, SidebarRegistry } from 'framework/exports'
  * Modules are allowed to read only.
  */
 export interface AppStore {
-  /** TBD: isAuthenticated */
-  isAuthenticated?: boolean
-
-  /** TBD: License info */
-  // licenseInfo?: LicenseInfo
-
   /** Sidebar Registry */
   sidebarRegistry?: SidebarRegistry
 
   /** Active route info */
   route?: Route
+
+  /** Projects */
+  projects: ProjectDTO[]
 }

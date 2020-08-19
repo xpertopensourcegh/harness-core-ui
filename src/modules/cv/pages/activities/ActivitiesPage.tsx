@@ -2,7 +2,7 @@ import React, { useState, useCallback } from 'react'
 import { Container, Heading, Text, Color, Button, useModalHook } from '@wings-software/uikit'
 import cx from 'classnames'
 import { useHistory } from 'react-router-dom'
-import { routeParams, linkTo } from 'framework/exports'
+import { routeParams } from 'framework/exports'
 import { Page } from 'modules/common/exports'
 import { routeCVActivityDetails } from 'modules/cv/routes'
 import { ActivityDetailsActivityType, ActivityDetailsActivitySource } from 'modules/cv/routePaths'
@@ -71,7 +71,7 @@ function NoActivities(): JSX.Element {
       }
 
       if (routePath) {
-        history.push(linkTo(routeCVActivityDetails, { activityType: routePath }), true)
+        history.push(routeCVActivityDetails.url({ activityType: routePath }))
       }
     },
     [history, selectedActivityType]

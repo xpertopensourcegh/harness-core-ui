@@ -1,7 +1,7 @@
 .link {
   display: flex;
   align-items: center;
-  padding: 10px 0 10px 30px;
+  padding: var(--spacing-small) 0 var(--spacing-small) var(--spacing-xxlarge);
 
   &.selected {
     border-right: 4px solid var(--blue-500);
@@ -17,10 +17,11 @@
   }
 
   > span > span {
-    padding-right: 10px !important;
+    padding-right: var(--spacing-small) !important;
   }
 
-  &:hover {
+  &:hover,
+  &[class*='bp3-active'] {
     text-decoration: none;
 
     > span {
@@ -43,4 +44,10 @@
       transition: all 0.5s cubic-bezier(0.39, 0.58, 0.57, 1);
     }
   }
+}
+
+.button {
+  all: unset;
+  padding: var(--spacing-small) 0 var(--spacing-small) var(--spacing-xxlarge);
+  cursor: pointer;
 }

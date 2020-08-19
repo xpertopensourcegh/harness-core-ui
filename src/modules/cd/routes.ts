@@ -1,63 +1,126 @@
 import React from 'react'
-import { Route, ModuleName, PageLayout, SidebarIdentifier, RouteURLArgs } from 'framework/exports'
+import { Route, ModuleName, PageLayout, SidebarIdentifier, routeURL } from 'framework/exports'
 import i18n from './routes.i18n'
 
-export const routeDeployments: Route = {
+export const routeCDHome: Route = {
   module: ModuleName.CD,
-  sidebarId: SidebarIdentifier.DEPLOYMENTS,
-  layout: PageLayout.DefaultLayout,
-  path: '/org/:orgIdentifier/projects/:projectIdentifier/deployments',
+  sidebarId: SidebarIdentifier.CONTINUOUS_DEPLOYMENTS,
+  path: '/cd/home',
+  title: i18n.cd,
+  pageId: 'cd-home',
+  url: () => routeURL(routeCDHome, '/cd/home'),
+  component: React.lazy(() => import('./pages/home/CDHomePage'))
+}
+
+export const routeCDDashboard: Route<{ projectIdentifier: string }> = {
+  module: ModuleName.CD,
+  sidebarId: SidebarIdentifier.CONTINUOUS_DEPLOYMENTS,
+  path: '/cd/dashboard/projects/:projectIdentifier',
+  title: i18n.cdDashboard,
+  pageId: 'cd-dashboard',
+  url: ({ projectIdentifier }) => routeURL(routeCDDashboard, `/cd/dashboard/projects/${projectIdentifier}`),
+  component: React.lazy(() => import('./pages/dashboard/CDDashboardPage'))
+}
+
+export const routeCDDeployments: Route<{ projectIdentifier: string }> = {
+  module: ModuleName.CD,
+  sidebarId: SidebarIdentifier.CONTINUOUS_DEPLOYMENTS,
+  path: '/cd/deployments/projects/:projectIdentifier',
   title: i18n.deployments,
-  pageId: 'deployments',
-  url: (params: RouteURLArgs) =>
-    params ? `/org/${params.orgIdentifier}/projects/${params.projectIdentifier}/deployments` : '',
-  component: React.lazy(() => import('./pages/deployments/DeploymentsPage'))
+  pageId: 'cd-deployments',
+  url: ({ projectIdentifier }) => routeURL(routeCDDeployments, `/cd/deployments/projects/${projectIdentifier}`),
+  component: React.lazy(() => import('./pages/deployments/CDDeploymentsPage'))
 }
 
-export const routeProjectOverview: Route = {
+export const routeCDPipelines: Route<{ orgIdentifier: string; projectIdentifier: string }> = {
   module: ModuleName.CD,
-  sidebarId: SidebarIdentifier.DEPLOYMENTS,
-  layout: PageLayout.DefaultLayout,
-  path: '/org/:orgIdentifier/projects/:projectIdentifier/project-overview',
-  title: i18n.overview,
-  pageId: 'project-overview',
-  url: (params: RouteURLArgs) =>
-    params ? `/org/${params.orgIdentifier}/projects/${params.projectIdentifier}/project-overview` : '',
-  component: React.lazy(() => import('./pages/project-overview/ProjectOverview'))
-}
-export const routeCDProjects: Route = {
-  module: ModuleName.CD,
-  sidebarId: SidebarIdentifier.DEPLOYMENTS,
-  layout: PageLayout.DefaultLayout,
-  path: '/cd-projects',
-  title: i18n.projects,
-  pageId: 'cd-projects',
-  url: () => '/cd-projects',
-  component: React.lazy(() => import('../common/pages/ProjectsPage/ProjectsPage'))
+  sidebarId: SidebarIdentifier.CONTINUOUS_DEPLOYMENTS,
+  path: '/cd/pipelines/orgs/:orgIdentifier/projects/:projectIdentifier',
+  title: i18n.pipelines,
+  pageId: 'cd-pipelines',
+  url: ({ orgIdentifier, projectIdentifier }) =>
+    routeURL(routeCDPipelines, `/cd/pipelines/orgs/${orgIdentifier}/projects/${projectIdentifier}`),
+  component: React.lazy(() => import('./pages/pipelines/CDPipelinesPage'))
 }
 
-export const routePipelineCanvas: Route = {
+export const routeCDPipelineStudio: Route<{
+  orgIdentifier: string
+  projectIdentifier: string
+  pipelineIdentifier: string | number
+}> = {
   module: ModuleName.CD,
   layout: PageLayout.BlankLayout,
-  sidebarId: SidebarIdentifier.DEPLOYMENTS,
-  path: '/org/:orgIdentifier/projects/:projectIdentifier/pipelines/:pipelineIdentifier/',
+  sidebarId: SidebarIdentifier.CONTINUOUS_DEPLOYMENTS,
+  path: '/cd/pipeline-studio/orgs/:orgIdentifier/projects/:projectIdentifier/pipelines/:pipelineIdentifier/',
   title: i18n.pipelineStudio,
-  pageId: 'pipelines-studio',
-  url: (params: RouteURLArgs) =>
-    params
-      ? `/org/${params.orgIdentifier}/projects/${params.projectIdentifier}/pipelines/${params.pipelineIdentifier}/`
-      : '',
-  component: React.lazy(() => import('./pages/pipelines/PipelineStudio'))
+  pageId: 'cd-pipeline-studio',
+  url: ({ orgIdentifier, projectIdentifier, pipelineIdentifier }) =>
+    routeURL(
+      routeCDPipelineStudio,
+      `/cd/pipeline-studio/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/`
+    ),
+  component: React.lazy(() => import('./pages/pipeline-studio/PipelineStudio'))
 }
 
-export const routePipelines: Route = {
+export const routeCDResources: Route<{ projectIdentifier: string }> = {
   module: ModuleName.CD,
-  sidebarId: SidebarIdentifier.DEPLOYMENTS,
-  layout: PageLayout.DefaultLayout,
-  path: '/org/:orgIdentifier/projects/:projectIdentifier/pipelines',
-  title: i18n.pipelines,
-  pageId: 'pipelines',
-  url: (params: RouteURLArgs) =>
-    params ? `/org/${params.orgIdentifier}/projects/${params.projectIdentifier}/pipelines` : '',
-  component: React.lazy(() => import('./pages/pipeline-list/PipelineList'))
+  sidebarId: SidebarIdentifier.CONTINUOUS_DEPLOYMENTS,
+  path: '/cd/admin/resources/projects/:projectIdentifier',
+  title: i18n.resources,
+  pageId: 'cd-admin-resources',
+  url: ({ projectIdentifier }) => routeURL(routeCDResources, `/cd/admin/resources/projects/${projectIdentifier}`),
+  component: React.lazy(() => import('./pages/admin/resources/CDResourcesPage'))
+}
+
+export const routeCDTemplateLibrary: Route<{ projectIdentifier: string }> = {
+  module: ModuleName.CD,
+  sidebarId: SidebarIdentifier.CONTINUOUS_DEPLOYMENTS,
+  path: '/cd/admin/template-library/projects/:projectIdentifier',
+  title: i18n.templateLibary,
+  pageId: 'cd-template-library',
+  url: ({ projectIdentifier }) =>
+    routeURL(routeCDTemplateLibrary, `/cd/admin/template-library/projects/${projectIdentifier}`),
+  component: React.lazy(() => import('./pages/admin/template-library/CDTemplateLibraryPage'))
+}
+
+export const routeCDGitSync: Route<{ projectIdentifier: string }> = {
+  module: ModuleName.CD,
+  sidebarId: SidebarIdentifier.CONTINUOUS_DEPLOYMENTS,
+  path: '/cd/admin/git-sync/projects/:projectIdentifier',
+  title: i18n.gitSync,
+  pageId: 'cd-git-sync',
+  url: ({ projectIdentifier }) => routeURL(routeCDGitSync, `/cd/admin/git-sync/projects/${projectIdentifier}`),
+  component: React.lazy(() => import('./pages/admin/git-sync/CDGitSyncPage'))
+}
+
+export const routeCDGovernance: Route<{ projectIdentifier: string }> = {
+  module: ModuleName.CD,
+  sidebarId: SidebarIdentifier.CONTINUOUS_DEPLOYMENTS,
+  path: '/cd/admin/governance/projects/:projectIdentifier',
+  title: i18n.governance,
+  pageId: 'cd-governance',
+  url: ({ projectIdentifier }) => routeURL(routeCDGovernance, `/cd/admin/governance/projects/${projectIdentifier}`),
+  component: React.lazy(() => import('./pages/admin/governance/CDGovernancePage'))
+}
+
+export const routeCDAccessControl: Route<{ projectIdentifier: string }> = {
+  module: ModuleName.CD,
+  sidebarId: SidebarIdentifier.CONTINUOUS_DEPLOYMENTS,
+  path: '/cd/admin/access-control/projects/:projectIdentifier',
+  title: i18n.accessControl,
+  pageId: 'cd-access-control',
+  url: ({ projectIdentifier }) =>
+    routeURL(routeCDAccessControl, `/cd/admin/access-control/projects/${projectIdentifier}`),
+  component: React.lazy(() => import('./pages/admin/access-control/CDAccessControlPage'))
+}
+
+export const routeCDGeneralSettings: Route<{ projectIdentifier: string }> = {
+  module: ModuleName.CD,
+  sidebarId: SidebarIdentifier.CONTINUOUS_DEPLOYMENTS,
+  path: '/cd/admin/general-settings/projects/:projectIdentifier',
+  title: i18n.generalSettings,
+  pageId: 'cd-general-settings',
+  url: ({ projectIdentifier }) =>
+    routeURL(routeCDGeneralSettings, `/cd/admin/general-settings/projects/${projectIdentifier}`),
+  component: React.lazy(() => import('./pages/admin/general-settings/CDGeneralSettingsPage'))
 }

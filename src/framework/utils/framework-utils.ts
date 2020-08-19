@@ -1,9 +1,11 @@
-import type { Route, RouteURLArgs } from 'framework/exports'
-import { loggerFor } from 'framework/logging/logging'
-import { ModuleName } from 'framework/types/ModuleName'
+import type { Route, NestedRoute } from '../types/Route'
+import { loggerFor } from '../logging/logging'
 import SessionToken from './SessionToken'
+import { ModuleName } from '../types/ModuleName'
 
 const logger = loggerFor(ModuleName.FRAMEWORK)
+
+export const AUTH_ROUTE_PATH_PREFIX = '/account/:accountId'
 
 export function buildLoginUrlFrom401Response(message?: string): string {
   const { href } = window.location
@@ -13,36 +15,24 @@ export function buildLoginUrlFrom401Response(message?: string): string {
 }
 
 /**
- * Utility function to create a link to a route. This is an alias of
- * `Route.url()` with an extra nullable validation for params fields.
- * @param route Route entry object.
- * @param params Route entry's url() parameters.
- * @params ignoreBaseName true to ignore basename (Used to generate link to use with
- * React Router's history.push/replace).
+ * Prefix an authenticated route's `path` with `/account/:accountId`.
  */
-export function linkTo(route: Route, params?: RouteURLArgs, ignoreBaseName?: boolean): string {
-  const accountId = SessionToken.accountId()
-  const basename =
-    (!ignoreBaseName && location.href.split('/#/')[0].replace(`${location.protocol}//${location.host}`, '')) || false
+export function routePath(route: Pick<Route, 'authenticated' | 'path'>): string {
+  return route.authenticated === false
+    ? route.path
+    : `${route.path.startsWith(AUTH_ROUTE_PATH_PREFIX) ? '' : AUTH_ROUTE_PATH_PREFIX}${route.path}`
+}
 
-  if (params) {
-    const nullableFields = Object.keys(params).filter(key => params[key] === null || params[key] === undefined)
-    if (nullableFields?.length) {
-      const { module, pageId, path, title } = route
-
-      logger.warn(`Calling linkTo() with problematic null/undefined arguments (${nullableFields.join(', ')}).`, {
-        module,
-        pageId,
-        path,
-        title
-      })
-    }
+/**
+ * Normalize route URL used when contructing route URL in a route definition's url() function.
+ * @param route Route informaiton.
+ * @param url Constructed URL.
+ */
+export function routeURL<T>(route: Route<T> | NestedRoute<T>, url: string): string {
+  if (!url || url.split('/').find(word => /null|undefined/i.test(word))) {
+    logger.warn(`Route url is constructed with problematic null/undefined argument(s) (${url}).`)
   }
 
   // Authenticated route paths are always prefixed with `/account/:accountId`
-  return (
-    `${
-      route.authenticated === false ? '' : `${basename ? `${location.origin}${basename}/#` : ''}/account/${accountId}`
-    }` + route.url(params)
-  )
+  return `${route.authenticated === false ? '' : `/account/${SessionToken.accountId()}`}${url}`
 }

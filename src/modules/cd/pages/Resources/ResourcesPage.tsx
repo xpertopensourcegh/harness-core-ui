@@ -1,12 +1,8 @@
-import React from 'react'
-import { Layout, Container } from '@wings-software/uikit'
 import cx from 'classnames'
-import { Route, Switch } from 'react-router'
-import { Link, useRouteMatch, Redirect } from 'react-router-dom'
+import React from 'react'
+import { Link, useRouteMatch } from 'react-router-dom'
+import { Container, Layout } from '@wings-software/uikit'
 import { Page } from 'modules/common/exports'
-import ConnectorsList from 'modules/dx/pages/connectors/ConnectorsList'
-import SecretsPage from 'modules/dx/pages/secrets/SecretsPage'
-import SecretDetails from 'modules/dx/pages/secretDetails/SecretDetails'
 import i18n from './ResourcesPage.i18n'
 import css from './ResourcesPage.module.scss'
 
@@ -30,8 +26,8 @@ const CategoryIndex = new Map([
   ['fileStore', 4]
 ])
 
-const ResourcesPage: React.FC = () => {
-  const { path, url } = useRouteMatch()
+const ResourcesPage: React.FC = ({ children }) => {
+  const { url } = useRouteMatch()
   const pathId = window.location.href.substring(window.location.href.lastIndexOf('/') + 1)
   const [activeCategory, setActiveCategory] = React.useState(CategoryIndex.get(pathId))
 
@@ -58,14 +54,7 @@ const ResourcesPage: React.FC = () => {
           </Container>
         }
       />
-      <Page.Body>
-        <Switch>
-          <Redirect exact from={`${path}/`} to={`${path}/connectors`} />
-          <Route path={`${path}/connectors`} component={ConnectorsList} />
-          <Route path={`${path}/secrets/:secretId`} component={SecretDetails} />
-          <Route path={`${path}/secrets`} component={SecretsPage} />
-        </Switch>
-      </Page.Body>
+      <Page.Body>{children}</Page.Body>
     </>
   )
 }

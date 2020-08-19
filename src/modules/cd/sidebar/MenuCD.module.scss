@@ -1,0 +1,40 @@
+.projectSelect {
+  padding: var(--spacing-small) 0 var(--spacing-small) var(--spacing-xxlarge);
+  background-color: #000000;
+
+  :global {
+    .bp3-input-left-container > span {
+      margin-left: 0 !important;
+      margin-right: 10px !important;
+    }
+  }
+
+  input {
+    color: #25a6f7 !important;
+    background-color: transparent !important;
+    border-width: 0 !important;
+
+    & + span span {
+      transform: translateX(-15px);
+    }
+  }
+
+  &.noSelected {
+    input::placeholder,
+    input + span span {
+      color: var(--white);
+    }
+  }
+}
+
+.top-bar {
+  position: relative;
+
+  .btnToggleSummary {
+    all: unset;
+    position: absolute;
+    cursor: pointer;
+    top: var(--spacing-medium);
+    right: var(--spacing-medium);
+  }
+}

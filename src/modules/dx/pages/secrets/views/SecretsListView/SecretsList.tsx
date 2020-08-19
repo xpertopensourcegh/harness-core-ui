@@ -10,7 +10,6 @@ import { routeSecretDetails } from 'modules/dx/routes'
 import { useToaster, useConfirmationDialog } from 'modules/common/exports'
 import { useDeleteSecret, ResponseDTONGPageResponseEncryptedDataDTO } from 'services/cd-ng'
 import type { EncryptedDataDTO } from 'services/cd-ng'
-import { linkTo } from 'framework/exports'
 
 import i18n from '../../SecretsPage.i18n'
 import css from './SecretsList.module.scss'
@@ -126,7 +125,7 @@ const RenderColumnAction: Renderer<CellProps<EncryptedDataDTO>> = ({ row, column
 
   const handleEdit = (): void => {
     history.replace({
-      pathname: linkTo(routeSecretDetails, { secretId: data.identifier }),
+      pathname: routeSecretDetails.url({ secretId: data.identifier as string }),
       search: '?edit=true'
     })
   }
@@ -215,8 +214,8 @@ const SecretsList: React.FC<SecretsListProps> = ({ secrets, refetch, gotoPage })
       data={data}
       onRowClick={secret => {
         history.push(
-          linkTo(routeSecretDetails, {
-            secretId: secret.identifier
+          routeSecretDetails.url({
+            secretId: secret.identifier as string
           })
         )
       }}

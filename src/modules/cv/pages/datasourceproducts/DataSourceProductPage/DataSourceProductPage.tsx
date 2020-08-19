@@ -11,7 +11,7 @@ import {
 } from 'modules/cv/routes'
 import { Page } from 'modules/common/exports'
 import { CVNextGenCVConfigService } from 'modules/cv/services'
-import { routeParams, linkTo } from 'framework/exports'
+import { routeParams } from 'framework/exports'
 import { DataSourceRoutePaths } from 'modules/cv/routePaths'
 import { CVObjectStoreNames } from 'modules/cv/hooks/IndexedDBHook/IndexedDBHook'
 import useOnBoardingPageDataHook from 'modules/cv/hooks/OnBoardingPageDataHook/OnBoardingPageDataHook'
@@ -41,12 +41,12 @@ const ProductOptions: { [datasourceType: string]: Array<{ item: TypeCard }> } = 
   ]
 }
 
-function getLinkForCreationFlow(accountId: string, dataSource: string): string {
+function getLinkForCreationFlow(dataSource: string): string {
   switch (dataSource) {
     case DataSourceRoutePaths.SPLUNK:
-      return linkTo(routeCVSplunkInputTypePage, { accountId, dataSourceType: dataSource }, true)
+      return routeCVSplunkInputTypePage.url({ dataSourceType: dataSource })
     default:
-      return linkTo(routeCVDataSourcesEntityPage, { accountId, dataSourceType: dataSource }, true)
+      return routeCVDataSourcesEntityPage.url({ dataSourceType: dataSource })
   }
 }
 
@@ -118,15 +118,15 @@ export default function AppDynamicsProductPage(): JSX.Element {
     return () => xhr.abort(XHR_DATA_SOURCE_PRODUCTS_GROUP)
   }, [dataSourceId, pageData.isEdit, accountId, isInitializingDB])
 
-  const linkToParams = useMemo(
+  const urlParams = useMemo(
     () => ({
       pathname: pageData.isEdit
-        ? linkTo(routeCVOnBoardingSetup, { accountId, dataSourceType }, true)
-        : getLinkForCreationFlow(accountId, (dataSourceType as string) || ''),
+        ? routeCVOnBoardingSetup.url({ dataSourceType: dataSourceType as string })
+        : getLinkForCreationFlow((dataSourceType as string) || ''),
       search: `?dataSourceId=${dataSourceId}`,
       state: { products: selectedProducts, isEdit: pageData.isEdit, dataSourceId }
     }),
-    [selectedProducts, dataSourceType, accountId, dataSourceId, pageData.isEdit]
+    [selectedProducts, dataSourceType, dataSourceId, pageData.isEdit]
   )
 
   const onProductCardClickHandler = useCallback(
@@ -152,7 +152,7 @@ export default function AppDynamicsProductPage(): JSX.Element {
           when: () => Boolean(noData?.length),
           icon: 'warning-sign',
           ...i18n.noDataContent,
-          onClick: () => history.replace(linkTo(routeCVDataSources))
+          onClick: () => history.replace(routeCVDataSources.url())
         }}
       >
         <Container className={css.main}>
@@ -169,14 +169,14 @@ export default function AppDynamicsProductPage(): JSX.Element {
             </Container>
             <Text className={css.productDescriptions}>{productDescription}</Text>
             <Container className={css.buttonContainer}>
-              <Button className={css.backButton} onClick={() => history.replace(linkTo(routeCVDataSources))}>
+              <Button className={css.backButton} onClick={() => history.replace(routeCVDataSources.url())}>
                 {i18n.backButton}
               </Button>
               <Button
                 disabled={!selectedProducts?.length}
                 intent="primary"
                 onClick={() => {
-                  history.push(linkToParams)
+                  history.push(urlParams)
                   dbInstance?.put(CVObjectStoreNames.ONBOARDING_JOURNEY, {
                     products: selectedProducts,
                     isEdit: pageData.isEdit,

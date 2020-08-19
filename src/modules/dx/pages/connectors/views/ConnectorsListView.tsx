@@ -160,7 +160,6 @@ const RenderColumnMenu: Renderer<CellProps<ConnectorSummaryDTO>> = ({ row, colum
 
 const ConnectorsListView: React.FC<ConnectorListViewProps> = props => {
   const { data, reload, gotoPage } = props
-  const { accountId } = useParams()
   const history = useHistory()
   const columns: CustomColumn<ConnectorSummaryDTO>[] = useMemo(
     () => [
@@ -205,7 +204,7 @@ const ConnectorsListView: React.FC<ConnectorListViewProps> = props => {
       columns={columns}
       data={data?.content || []}
       onRowClick={connector => {
-        history.push(routeConnectorDetails.url({ accountId: accountId, connectorId: connector.identifier }))
+        history.push(routeConnectorDetails.url({ connectorId: connector.identifier as string }))
       }}
       pagination={{
         itemCount: data?.totalElements || 0,
