@@ -29,12 +29,6 @@ const Snippet: React.FC<SnippetInterface> = props => {
     return <span className={css.tooltipLabel}>{tooltipLabel}</span>
   }
 
-  const onPopoverClose = (event?: React.SyntheticEvent<HTMLElement>): void => {
-    event?.preventDefault()
-    event?.stopPropagation()
-    setTooltipLabel(i18n.copyToClipboard)
-  }
-
   return (
     <div className={cx(css.flexCenter, css.snippet)} key={name}>
       <span className={css.icon}>
@@ -54,7 +48,7 @@ const Snippet: React.FC<SnippetInterface> = props => {
         position={Position.BOTTOM}
         interactionKind={PopoverInteractionKind.HOVER}
         content={getPopoverContent()}
-        onClose={onPopoverClose}
+        onClose={() => setTooltipLabel(i18n.copyToClipboard)}
       >
         <div className={css.copy}>
           <Icon name="copy" size={20} className={css.snippetIcon} onClick={event => copyToClipboard(event, yaml)} />
