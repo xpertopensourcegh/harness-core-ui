@@ -8,6 +8,7 @@ import { useAppStoreWriter } from 'framework/hooks/useAppStore'
 import type { Route } from 'framework/exports'
 import { buildLoginUrlFrom401Response, routePath } from 'framework/utils/framework-utils'
 import type { RouteParams } from 'framework/types/RouteParams'
+import type { NestedRoute } from 'framework/types/Route'
 import i18n from './RouteMounter.i18n'
 import css from './RouteMounter.module.scss'
 
@@ -25,7 +26,7 @@ function updateTitle(title: string): void {
 }
 
 function updateRouteParams(path: string): void {
-  const match = matchPath('/' + location.href.split('/#/')[1], {
+  const match = matchPath('/' + location.href.split('/#/')[1]?.split('?')?.[0], {
     path,
     exact: true
   })
@@ -113,7 +114,7 @@ export const RouteMounter: React.FC<RouteMounterProps> = ({ route, onEnter, onEx
  * as false when testing a route which has nested routes.
  * @returns true if the route is active.
  */
-export function isRouteActive<T>(route: Route<T>, exact = true): boolean {
+export function isRouteActive<T>(route: Route<T> | NestedRoute<T>, exact = true): boolean {
   return !!matchPath('/' + location.href.split('/#/')[1], {
     path: routePath(route),
     exact
