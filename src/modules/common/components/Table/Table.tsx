@@ -10,12 +10,13 @@ interface TableProps<Data extends object> {
   data: Data[]
   className?: string
   sortable?: boolean
+  hideHeaders?: boolean
   pagination?: PaginationProps
   onRowClick?: (data: Data, index: number) => void
 }
 
 const Table = <Data extends object>(props: TableProps<Data>): React.ReactElement => {
-  const { columns, data, className, sortable = true, pagination } = props
+  const { columns, data, className, sortable = true, hideHeaders = false, pagination } = props
   const { headerGroups, page, prepareRow } = useTable(
     {
       columns,
@@ -30,36 +31,42 @@ const Table = <Data extends object>(props: TableProps<Data>): React.ReactElement
 
   return (
     <div className={cx(css.table, className)}>
-      {headerGroups.map(headerGroup => {
-        return (
-          // react key is not needed since it's generated/added by `react-table`
-          // via the getHeaderGroupProps() function
-          // eslint-disable-next-line react/jsx-key
-          <div {...headerGroup.getHeaderGroupProps()} className={cx(css.header)}>
-            {headerGroup.headers.map(header => {
-              return (
-                // eslint-disable-next-line react/jsx-key
-                <div
-                  {...header.getHeaderProps(sortable ? header.getSortByToggleProps() : void 0)}
-                  className={css.cell}
-                  style={{ width: header.width }}
-                >
-                  {header.render('Header')}
-                  {sortable && header.canSort ? (
-                    <Icon
-                      name={
-                        header.isSorted ? (header.isSortedDesc ? 'caret-up' : 'caret-down') : 'double-caret-vertical'
-                      }
-                      size={15}
-                      padding={{ left: 'small' }}
-                    />
-                  ) : null}
-                </div>
-              )
-            })}
-          </div>
-        )
-      })}
+      {hideHeaders
+        ? null
+        : headerGroups.map(headerGroup => {
+            return (
+              // react key is not needed since it's generated/added by `react-table`
+              // via the getHeaderGroupProps() function
+              // eslint-disable-next-line react/jsx-key
+              <div {...headerGroup.getHeaderGroupProps()} className={cx(css.header)}>
+                {headerGroup.headers.map(header => {
+                  return (
+                    // eslint-disable-next-line react/jsx-key
+                    <div
+                      {...header.getHeaderProps(sortable ? header.getSortByToggleProps() : void 0)}
+                      className={css.cell}
+                      style={{ width: header.width }}
+                    >
+                      {header.render('Header')}
+                      {sortable && header.canSort ? (
+                        <Icon
+                          name={
+                            header.isSorted
+                              ? header.isSortedDesc
+                                ? 'caret-up'
+                                : 'caret-down'
+                              : 'double-caret-vertical'
+                          }
+                          size={15}
+                          padding={{ left: 'small' }}
+                        />
+                      ) : null}
+                    </div>
+                  )
+                })}
+              </div>
+            )
+          })}
 
       {page.map(row => {
         prepareRow(row)
