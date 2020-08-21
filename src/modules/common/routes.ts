@@ -97,14 +97,44 @@ export const routeResources: Route = {
   nestedRoutes: [routeResourcesConnectors, routeResourcesSecretsListing, routeResourcesSecretDetails]
 }
 
-export const routeGitSync: Route<{ category?: string }> = {
+export const routeGitSyncRepos: NestedRoute = {
+  path: '/git-sync/repos',
+  title: i18n.gitSync,
+  url: () => routeURL(routeGitSyncRepos, '/git-sync/repos'),
+  component: React.lazy(() => import('../dx/pages/git-sync/views/repos/GitSyncRepoTab')),
+  isDefault: true
+}
+
+export const routeGitSyncActivities: NestedRoute = {
+  path: '/git-sync/activities',
+  title: i18n.gitSync,
+  url: () => routeURL(routeGitSyncActivities, '/git-sync/activities'),
+  component: React.lazy(() => import('../dx/pages/git-sync/views/activities/GitSyncActivities'))
+}
+
+export const routeGitSyncEntities: NestedRoute = {
+  path: '/git-sync/entities',
+  title: i18n.gitSync,
+  url: () => routeURL(routeGitSyncEntities, '/git-sync/entities'),
+  component: React.lazy(() => import('../dx/pages/git-sync/views/entities/GitSyncEntities'))
+}
+
+export const routeGitSyncErrors: NestedRoute = {
+  path: '/git-sync/errors',
+  title: i18n.gitSync,
+  url: () => routeURL(routeGitSyncErrors, '/git-sync/errors'),
+  component: React.lazy(() => import('../dx/pages/git-sync/views/errors/GitSyncErrors'))
+}
+
+export const routeGitSync: Route = {
   module: ModuleName.DX,
   sidebarId: SidebarIdentifier.ACCOUNT,
   path: '/git-sync',
   title: i18n.gitSync,
   pageId: 'git-sync',
-  url: ({ category } = {}) => (category ? `/git-sync/category/${category}` : '/git-sync/category/repos'),
-  component: React.lazy(() => import('../dx/pages/git-sync/GitSyncPage'))
+  url: () => routeURL(routeGitSync, '/git-sync'),
+  component: React.lazy(() => import('../dx/pages/git-sync/GitSyncPage')),
+  nestedRoutes: [routeGitSyncActivities, routeGitSyncEntities, routeGitSyncErrors, routeGitSyncRepos]
 }
 
 export const routePageNotFound: Route = {

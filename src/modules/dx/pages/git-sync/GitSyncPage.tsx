@@ -1,44 +1,17 @@
 import React from 'react'
-import { Layout, Container, Text } from '@wings-software/uikit'
-import { Route, Switch, useParams } from 'react-router'
-import { NavLink, useRouteMatch } from 'react-router-dom'
+import { Layout, Container } from '@wings-software/uikit'
+import { NavLink } from 'react-router-dom'
 import { Page } from 'modules/common/exports'
-import GitSyncRepoTab from './views/repos/GitSyncRepoTab'
-import { routeGitSync } from '../../../common/routes'
+import {
+  routeGitSyncRepos,
+  routeGitSyncActivities,
+  routeGitSyncEntities,
+  routeGitSyncErrors
+} from '../../../common/routes'
 import i18n from './GitSyncPage.i18n'
 import css from './GitSyncPage.module.scss'
 
-interface Categories {
-  [key: string]: string
-}
-
-const categories: Categories = {
-  repos: i18n.repos,
-  entities: i18n.entities,
-  activities: i18n.activities,
-  errors: i18n.errors
-}
-
-const categoriesMap = Object.keys(categories)
-
-function ComponentToRender(): JSX.Element {
-  const { category } = useParams()
-
-  switch (category) {
-    case 'repos':
-      return <GitSyncRepoTab></GitSyncRepoTab>
-    case 'entities':
-    case 'activities':
-    case 'errors':
-      return <Text>{`To be implemented: ${category}`}</Text>
-    default:
-      return <GitSyncRepoTab></GitSyncRepoTab>
-  }
-}
-
-const GitSyncPage: React.FC = () => {
-  const { path } = useRouteMatch()
-
+const GitSyncPage: React.FC = ({ children }) => {
   return (
     <>
       <Page.Header
@@ -46,27 +19,26 @@ const GitSyncPage: React.FC = () => {
         toolbar={
           <Container>
             <Layout.Horizontal spacing="medium">
-              {categoriesMap.map((data, index) => {
-                return (
-                  <NavLink
-                    className={css.tags}
-                    activeClassName={css.activeTag}
-                    key={data + index}
-                    to={routeGitSync.url({ category: categoriesMap[index] as string })}
-                  >
-                    {categories[data]}
-                  </NavLink>
-                )
-              })}
+              <NavLink className={css.tags} activeClassName={css.activeTag} to={routeGitSyncRepos.url()}>
+                {i18n.repos}
+              </NavLink>
+
+              <NavLink className={css.tags} activeClassName={css.activeTag} to={routeGitSyncActivities.url()}>
+                {i18n.activities}
+              </NavLink>
+
+              <NavLink className={css.tags} activeClassName={css.activeTag} to={routeGitSyncEntities.url()}>
+                {i18n.entities}
+              </NavLink>
+
+              <NavLink className={css.tags} activeClassName={css.activeTag} to={routeGitSyncErrors.url()}>
+                {i18n.errors}
+              </NavLink>
             </Layout.Horizontal>
           </Container>
         }
       />
-      <Page.Body>
-        <Switch>
-          <Route exact path={`${path}/category/:category`} component={ComponentToRender} />
-        </Switch>
-      </Page.Body>
+      <Page.Body>{children}</Page.Body>
     </>
   )
 }

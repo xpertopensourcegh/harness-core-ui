@@ -1,6 +1,7 @@
 import { Container } from '@wings-software/uikit'
 import React from 'react'
 import cx from 'classnames'
+import AppErrorBoundary from 'framework/utils/AppErrorBoundary/AppErrorBoundary'
 import { SidebarMounter } from '../../sidebar/Sidebar'
 import css from './DefaultLayout.module.scss'
 
@@ -8,9 +9,13 @@ const Layout: React.FC<{ withoutMenu?: boolean }> = ({ children, withoutMenu = f
   return (
     <Container className={cx(css.layout, withoutMenu && css.withoutMenu)}>
       <Container className={css.sidebarContainer}>
-        <SidebarMounter withoutMenu={withoutMenu} />
+        <AppErrorBoundary>
+          <SidebarMounter withoutMenu={withoutMenu} />
+        </AppErrorBoundary>
       </Container>
-      <Container className={css.pageContainer}>{children}</Container>
+      <Container className={css.pageContainer}>
+        <AppErrorBoundary>{children}</AppErrorBoundary>
+      </Container>
     </Container>
   )
 }
