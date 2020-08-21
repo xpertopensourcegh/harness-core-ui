@@ -49,20 +49,25 @@ export interface StreamingOutput {
   [key: string]: any
 }
 
+export interface ResponseDTOListInviteOperationResponse {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: (
+    | 'ACCOUNT_INVITE_ACCEPTED_NEED_PASSWORD'
+    | 'ACCOUNT_INVITE_ACCEPTED'
+    | 'USER_INVITED_SUCCESSFULLY'
+    | 'USER_ALREADY_ADDED'
+    | 'USER_ALREADY_INVITED'
+    | 'FAIL'
+  )[]
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
 export interface ResponseDTOEncryptedDataDTO {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
   data?: EncryptedDataDTO
   metaData?: { [key: string]: any }
   correlationId?: string
-}
-
-export type KubernetesServiceAccountDTO = KubernetesAuthCredentialDTO & {
-  serviceAccountTokenRef: SecretRefData
-}
-
-export type KubernetesClusterConfigDTO = ConnectorConfigDTO & {
-  type: 'INHERIT_FROM_DELEGATE' | 'MANUAL_CREDENTIALS'
-  spec: KubernetesCredentialDTO
 }
 
 export interface SecretManagerConfigUpdateDTO {
@@ -115,9 +120,8 @@ export interface UpdateProjectDTO {
   modules?: ('CD' | 'CV' | 'CI' | 'CE' | 'CF')[]
 }
 
-export interface KubernetesAuthDTO {
-  type: 'USER_PASSWORD' | 'CLIENT_KEY_CERT' | 'SERVICE_ACCOUNT' | 'OPEN_ID_CONNECT'
-  spec: KubernetesAuthCredentialDTO
+export interface RoleDTO {
+  name: string
 }
 
 export type KubernetesServiceSpec = ServiceSpec & {}
@@ -134,6 +138,10 @@ export type GcrArtifactConfig = ArtifactConfig & {
   imagePath?: string
 }
 
+export interface ResponseData {
+  [key: string]: any
+}
+
 export interface EnvironmentResponseDTO {
   accountId?: string
   orgIdentifier?: string
@@ -143,20 +151,16 @@ export interface EnvironmentResponseDTO {
   type?: 'PreProduction' | 'Production'
 }
 
-export interface ResponseData {
-  [key: string]: any
+export interface ResponseDTOPageEntityReferenceDTO {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: PageEntityReferenceDTO
+  metaData?: { [key: string]: any }
+  correlationId?: string
 }
 
 export interface ManifestOverrideSets {
   identifier: string
   manifests?: ManifestConfigWrapper[]
-}
-
-export interface ResponseDTOSecretManagerConfigDTO {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: SecretManagerConfigDTO
-  metaData?: { [key: string]: any }
-  correlationId?: string
 }
 
 export interface OrganizationDTO {
@@ -170,10 +174,11 @@ export interface OrganizationDTO {
   lastModifiedAt?: number
 }
 
-export type KubernetesUserNamePasswordDTO = KubernetesAuthCredentialDTO & {
-  username?: string
-  caCertRef?: SecretRefData
-  passwordRef: SecretRefData
+export interface ResponseDTOSecretManagerConfigDTO {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: SecretManagerConfigDTO
+  metaData?: { [key: string]: any }
+  correlationId?: string
 }
 
 export interface CreateOrganizationDTO {
@@ -247,90 +252,18 @@ export interface ExecutionElement {
 export type AppDynamicsConnectorDTO = ConnectorConfigDTO & {
   username: string
   accountname: string
-  password?: string[]
-  passwordReference?: string
   controllerUrl: string
-  accountId?: string
-  settingType?:
-    | 'HOST_CONNECTION_ATTRIBUTES'
-    | 'BASTION_HOST_CONNECTION_ATTRIBUTES'
-    | 'SMTP'
-    | 'SFTP'
-    | 'JENKINS'
-    | 'BAMBOO'
-    | 'STRING'
-    | 'SPLUNK'
-    | 'ELK'
-    | 'LOGZ'
-    | 'SUMO'
-    | 'DATA_DOG'
-    | 'APM_VERIFICATION'
-    | 'BUG_SNAG'
-    | 'LOG_VERIFICATION'
-    | 'APP_DYNAMICS'
-    | 'NEW_RELIC'
-    | 'DYNA_TRACE'
-    | 'INSTANA'
-    | 'DATA_DOG_LOG'
-    | 'CLOUD_WATCH'
-    | 'SCALYR'
-    | 'ELB'
-    | 'SLACK'
-    | 'AWS'
-    | 'GCS'
-    | 'GCP'
-    | 'AZURE'
-    | 'PCF'
-    | 'DIRECT'
-    | 'KUBERNETES_CLUSTER'
-    | 'DOCKER'
-    | 'ECR'
-    | 'GCR'
-    | 'ACR'
-    | 'PHYSICAL_DATA_CENTER'
-    | 'KUBERNETES'
-    | 'NEXUS'
-    | 'ARTIFACTORY'
-    | 'SMB'
-    | 'AMAZON_S3'
-    | 'GIT'
-    | 'SSH_SESSION_CONFIG'
-    | 'SERVICE_VARIABLE'
-    | 'CONFIG_FILE'
-    | 'KMS'
-    | 'GCP_KMS'
-    | 'JIRA'
-    | 'SERVICENOW'
-    | 'SECRET_TEXT'
-    | 'YAML_GIT_SYNC'
-    | 'VAULT'
-    | 'AWS_SECRETS_MANAGER'
-    | 'CYBERARK'
-    | 'WINRM_CONNECTION_ATTRIBUTES'
-    | 'WINRM_SESSION_CONFIG'
-    | 'PROMETHEUS'
-    | 'INFRASTRUCTURE_MAPPING'
-    | 'HTTP_HELM_REPO'
-    | 'AMAZON_S3_HELM_REPO'
-    | 'GCS_HELM_REPO'
-    | 'SPOT_INST'
-    | 'AZURE_ARTIFACTS_PAT'
-    | 'CUSTOM'
-    | 'CE_AWS'
-    | 'CE_GCP'
-    | 'AZURE_VAULT'
-    | 'KUBERNETES_CLUSTER_NG'
-    | 'GIT_NG'
+  accountId: string
+  passwordRef: SecretRefData
 }
 
-export interface GitAuthenticationDTO {
-  url?: string
-  gitConnectionType?: 'ACCOUNT' | 'REPO'
-  branchName?: string
-}
-
-export type KubernetesDelegateDetailsDTO = KubernetesCredentialDTO & {
-  delegateName?: string
+export interface NGPageResponseInviteDTO {
+  pageCount?: number
+  itemCount?: number
+  pageSize?: number
+  content?: InviteDTO[]
+  pageIndex?: number
+  empty?: boolean
 }
 
 export interface StoreConfigWrapper {
@@ -353,6 +286,11 @@ export interface ProjectDTO {
   lastModifiedAt?: number
 }
 
+export interface InfraUseFromStage {
+  stage: string
+  overrides?: InfraOverrides
+}
+
 export interface GitSyncFolderConfigDTO {
   rootFolder?: string
   isDefault?: boolean
@@ -360,27 +298,11 @@ export interface GitSyncFolderConfigDTO {
   enabled?: boolean
 }
 
-export interface InfraUseFromStage {
-  stage: string
-  overrides?: InfraOverrides
-}
-
 export interface ConnectorConfigDTO {
   [key: string]: any
 }
 
-export interface ResponseDTOPageConnectorSummaryDTO {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: PageConnectorSummaryDTO
-  metaData?: { [key: string]: any }
-  correlationId?: string
-}
-
 export interface StageElementWrapper {
-  [key: string]: any
-}
-
-export interface KubernetesCredentialDTO {
   [key: string]: any
 }
 
@@ -400,6 +322,13 @@ export interface StackTraceElement {
 export interface ResponseDTOPageCDPipelineSummaryResponseDTO {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
   data?: PageCDPipelineSummaryResponseDTO
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
+export interface ResponseDTOOptionalConnectorDTO {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: ConnectorDTO
   metaData?: { [key: string]: any }
   correlationId?: string
 }
@@ -431,13 +360,6 @@ export interface PlanExecution {
   endTs?: number
   lastUpdatedAt?: number
   version?: number
-}
-
-export interface ResponseDTOOptionalConnectorDTO {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: ConnectorDTO
-  metaData?: { [key: string]: any }
-  correlationId?: string
 }
 
 export type LocalConfigDTO = SecretManagerConfigDTO & {}
@@ -480,11 +402,11 @@ export type SidecarArtifact = SidecarArtifactWrapper & {
 }
 
 export interface NGPageResponseProjectDTO {
-  totalPages?: number
-  totalElements?: number
-  size?: number
+  pageCount?: number
+  itemCount?: number
+  pageSize?: number
   content?: ProjectDTO[]
-  pageNumber?: number
+  pageIndex?: number
   empty?: boolean
 }
 
@@ -500,11 +422,11 @@ export interface ResponseDTOCDPipelineRequestDTO {
 }
 
 export interface NGPageResponseEncryptedDataDTO {
-  totalPages?: number
-  totalElements?: number
-  size?: number
+  pageCount?: number
+  itemCount?: number
+  pageSize?: number
   content?: EncryptedDataDTO[]
-  pageNumber?: number
+  pageIndex?: number
   empty?: boolean
 }
 
@@ -524,12 +446,19 @@ export interface ServiceDefinition {
   spec?: ServiceSpec
 }
 
+export interface ResponseDTONGPageResponseConnectorSummaryDTO {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: NGPageResponseConnectorSummaryDTO
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
 export interface NGPageResponseOrganizationDTO {
-  totalPages?: number
-  totalElements?: number
-  size?: number
+  pageCount?: number
+  itemCount?: number
+  pageSize?: number
   content?: OrganizationDTO[]
-  pageNumber?: number
+  pageIndex?: number
   empty?: boolean
 }
 
@@ -539,10 +468,6 @@ export interface ManifestAttributes {
 
 export interface ManifestConfigWrapper {
   identifier: string
-}
-
-export interface StepParameters {
-  [key: string]: any
 }
 
 export interface ResponseDTONGPageResponseServiceResponseDTO {
@@ -559,17 +484,24 @@ export interface ResponseDTOPlanExecution {
   correlationId?: string
 }
 
-export interface GitSyncConfig {
-  enabled?: boolean
-  customCommitAttributes?: CustomCommitAttributes
-  syncEnabled?: boolean
+export interface StepParameters {
+  [key: string]: any
 }
 
-export interface TemporalUnit {
-  dateBased?: boolean
-  durationEstimated?: boolean
-  timeBased?: boolean
-  duration?: Duration
+export interface NGPageResponseUserSearchDTO {
+  pageCount?: number
+  itemCount?: number
+  pageSize?: number
+  content?: UserSearchDTO[]
+  pageIndex?: number
+  empty?: boolean
+}
+
+export interface ResponseDTONGPageResponseUserSearchDTO {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: NGPageResponseUserSearchDTO
+  metaData?: { [key: string]: any }
+  correlationId?: string
 }
 
 export interface CreateProjectDTO {
@@ -583,11 +515,11 @@ export interface CreateProjectDTO {
   tags: string[]
 }
 
-export interface ResponseDTOEnvironmentResponseDTO {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: EnvironmentResponseDTO
-  metaData?: { [key: string]: any }
-  correlationId?: string
+export interface TemporalUnit {
+  timeBased?: boolean
+  duration?: Duration
+  dateBased?: boolean
+  durationEstimated?: boolean
 }
 
 export type VaultConfigUpdateDTO = SecretManagerConfigUpdateDTO & {
@@ -599,6 +531,13 @@ export type VaultConfigUpdateDTO = SecretManagerConfigUpdateDTO & {
   appRoleId?: string
   secretId?: string
   readOnly?: boolean
+}
+
+export interface ResponseDTOEnvironmentResponseDTO {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: EnvironmentResponseDTO
+  metaData?: { [key: string]: any }
+  correlationId?: string
 }
 
 export type K8sManifest = ManifestAttributes & {
@@ -614,11 +553,6 @@ export interface ResponseDTOServiceResponseDTO {
 
 export type ValuesManifest = ManifestAttributes & {
   store?: StoreConfigWrapper
-}
-
-export type KubernetesClusterDetailsDTO = KubernetesCredentialDTO & {
-  masterUrl?: string
-  auth: KubernetesAuthDTO
 }
 
 export type DockerHubArtifactConfig = ArtifactConfig & {
@@ -639,18 +573,18 @@ export interface StepSpecType {
   [key: string]: any
 }
 
-export type GitConfigDTO = ConnectorConfigDTO & {
-  type?: 'HTTP' | 'SSH'
-  spec: GitAuthenticationDTO
-  gitSync?: GitSyncConfig
-}
-
 export interface CDPipelineRequestDTO {
   cdPipeline?: CDPipeline
 }
 
 export interface Outcome {
   refType?: RefType
+}
+
+export interface SecretRefData {
+  identifier?: string
+  scope?: 'ACCOUNT' | 'ORG' | 'PROJECT'
+  decryptedValue?: string[]
 }
 
 export interface Subgraph {
@@ -666,12 +600,6 @@ export interface Subgraph {
     | 'CHILD_CHAIN'
     | 'TASK_V2'
   vertices?: GraphVertex[]
-}
-
-export interface SecretRefData {
-  identifier?: string
-  scope?: 'ACCOUNT' | 'ORG' | 'PROJECT'
-  decryptedValue?: string[]
 }
 
 export interface ConnectorValidationResult {
@@ -694,15 +622,6 @@ export type StepElement = ExecutionWrapper & {
   name?: string
   type?: string
   spec?: StepSpecType
-}
-
-export type KubernetesOpenIdConnectDTO = KubernetesAuthCredentialDTO & {
-  oidcIssuerUrl: string
-  oidcClientIdRef: SecretRefData
-  oidcUsername: string
-  oidcPasswordRef: SecretRefData
-  oidcSecretRef: SecretRefData
-  oidcScopes?: string
 }
 
 export interface ConnectorSummaryDTO {
@@ -732,12 +651,6 @@ export interface ResponseDTOOptionalProjectDTO {
   correlationId?: string
 }
 
-export type GitHTTPAuthenticationDTO = GitAuthenticationDTO & {
-  type?: 'ACCOUNT' | 'REPO'
-  username?: string
-  passwordRef: SecretRefData
-}
-
 export type K8sRollingRollbackStepInfo = StepSpecType & {
   timeout?: number
   stepDependencySpecs?: {
@@ -745,10 +658,17 @@ export type K8sRollingRollbackStepInfo = StepSpecType & {
   }
 }
 
+export interface ResponseDTOOptionalListRoleDTO {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: RoleDTO[]
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
 export interface ServiceSpec {
-  manifests?: ManifestConfigWrapper[]
-  artifactOverrideSets?: ArtifactOverrideSets[]
   manifestOverrideSets?: ManifestOverrideSets[]
+  artifactOverrideSets?: ArtifactOverrideSets[]
+  manifests?: ManifestConfigWrapper[]
   artifacts?: ArtifactListConfig
 }
 
@@ -767,14 +687,6 @@ export type ShellScriptStepInfo = StepSpecType & {
   sweepingOutputScope?: string
 }
 
-export interface RestResponsePlanExecution {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: PlanExecution
-  responseMessages?: ResponseMessage[]
-}
-
 export interface SecretManagerConfigDTO {
   name?: string
   accountIdentifier?: string
@@ -785,6 +697,14 @@ export interface SecretManagerConfigDTO {
   description?: string
   encryptionType?: 'LOCAL' | 'KMS' | 'GCP_KMS' | 'AWS_SECRETS_MANAGER' | 'AZURE_VAULT' | 'CYBERARK' | 'VAULT' | 'CUSTOM'
   default?: boolean
+}
+
+export interface RestResponsePlanExecution {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: PlanExecution
+  responseMessages?: ResponseMessage[]
 }
 
 export interface FailureDTO {
@@ -1022,12 +942,12 @@ export interface RefType {
 }
 
 export interface Pageable {
-  offset?: number
   pageSize?: number
-  sort?: Sort
+  pageNumber?: number
   paged?: boolean
   unpaged?: boolean
-  pageNumber?: number
+  sort?: Sort
+  offset?: number
 }
 
 export type DeploymentStage = StageType & {
@@ -1045,9 +965,23 @@ export interface ResponseDTOConnectorValidationResult {
   correlationId?: string
 }
 
+export interface PageEntityReferenceDTO {
+  totalPages?: number
+  totalElements?: number
+  last?: boolean
+  pageable?: Pageable
+  numberOfElements?: number
+  sort?: Sort
+  size?: number
+  content?: EntityReferenceDTO[]
+  number?: number
+  first?: boolean
+  empty?: boolean
+}
+
 export interface Sort {
-  sorted?: boolean
   unsorted?: boolean
+  sorted?: boolean
   empty?: boolean
 }
 
@@ -1058,6 +992,17 @@ export interface PipelineInfrastructure {
   steps?: Step[]
   rollbackSteps?: Step[]
   refType?: RefType
+}
+
+export interface EntityReferenceDTO {
+  accountIdentifier?: string
+  referredEntityFQN?: string
+  referredEntityName?: string
+  referredEntityType: 'CONNECTOR' | 'SECRET' | 'PIPELINE'
+  referredByEntityFQN?: string
+  referredByEntityType: 'CONNECTOR' | 'SECRET' | 'PIPELINE'
+  referredByEntityName?: string
+  createdAt?: number
 }
 
 export interface StepDependencySpec {
@@ -1083,6 +1028,13 @@ export interface ServiceResponseDTO {
   projectIdentifier?: string
   name?: string
   description?: string
+}
+
+export interface ResponseDTONGPageResponseInviteDTO {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: NGPageResponseInviteDTO
+  metaData?: { [key: string]: any }
+  correlationId?: string
 }
 
 export interface EncryptedDataDTO {
@@ -1112,22 +1064,16 @@ export type HttpStepInfo = StepSpecType & {
   socketTimeoutMillis?: number
 }
 
-export type GitSSHAuthenticationDTO = GitAuthenticationDTO & {
-  type?: 'ACCOUNT' | 'REPO'
-  sshKey?: string[]
-  sshKeyReference?: string
-}
-
 export type ParallelStepElement = ExecutionWrapper & {
   sections: ExecutionWrapper[]
 }
 
 export interface Duration {
   seconds?: number
-  units?: TemporalUnit[]
   nano?: number
   zero?: boolean
   negative?: boolean
+  units?: TemporalUnit[]
 }
 
 export interface ResponseMessage {
@@ -1402,17 +1348,23 @@ export interface ResponseDTOListSecretManagerConfigDTO {
 }
 
 export interface PageCDPipelineSummaryResponseDTO {
-  totalElements?: number
   totalPages?: number
+  totalElements?: number
+  last?: boolean
+  pageable?: Pageable
+  numberOfElements?: number
+  sort?: Sort
   size?: number
   content?: CDPipelineSummaryResponseDTO[]
   number?: number
-  last?: boolean
-  sort?: Sort
-  numberOfElements?: number
-  pageable?: Pageable
   first?: boolean
   empty?: boolean
+}
+
+export interface CreateInviteListDTO {
+  users: string[]
+  role: RoleDTO
+  inviteType: 'USER_INITIATED_INVITE' | 'ADMIN_INITIATED_INVITE'
 }
 
 export type StageElement = StageElementWrapper & {
@@ -1431,6 +1383,10 @@ export interface Throwable {
   suppressed?: Throwable[]
 }
 
+export interface StoreConfig {
+  [key: string]: any
+}
+
 export interface RestResponseGraph {
   metaData?: {
     [key: string]: { [key: string]: any }
@@ -1439,15 +1395,17 @@ export interface RestResponseGraph {
   responseMessages?: ResponseMessage[]
 }
 
-export interface StoreConfig {
-  [key: string]: any
-}
-
 export interface StageOverridesConfig {
   useArtifactOverrideSets?: string[]
   artifacts?: ArtifactListConfig
   useManifestOverrideSets?: string[]
   manifests?: ManifestConfigWrapper[]
+}
+
+export interface UserSearchDTO {
+  name: string
+  email: string
+  uuid: string
 }
 
 export interface ResponseDTOBoolean {
@@ -1706,96 +1664,6 @@ export interface ResponseDTOProjectDTO {
   correlationId?: string
 }
 
-export type SplunkConnectorDTO = ConnectorConfigDTO & {
-  splunkUrl?: string
-  username?: string
-  password?: string[]
-  passwordReference?: string
-  accountId?: string
-  settingType?:
-    | 'HOST_CONNECTION_ATTRIBUTES'
-    | 'BASTION_HOST_CONNECTION_ATTRIBUTES'
-    | 'SMTP'
-    | 'SFTP'
-    | 'JENKINS'
-    | 'BAMBOO'
-    | 'STRING'
-    | 'SPLUNK'
-    | 'ELK'
-    | 'LOGZ'
-    | 'SUMO'
-    | 'DATA_DOG'
-    | 'APM_VERIFICATION'
-    | 'BUG_SNAG'
-    | 'LOG_VERIFICATION'
-    | 'APP_DYNAMICS'
-    | 'NEW_RELIC'
-    | 'DYNA_TRACE'
-    | 'INSTANA'
-    | 'DATA_DOG_LOG'
-    | 'CLOUD_WATCH'
-    | 'SCALYR'
-    | 'ELB'
-    | 'SLACK'
-    | 'AWS'
-    | 'GCS'
-    | 'GCP'
-    | 'AZURE'
-    | 'PCF'
-    | 'DIRECT'
-    | 'KUBERNETES_CLUSTER'
-    | 'DOCKER'
-    | 'ECR'
-    | 'GCR'
-    | 'ACR'
-    | 'PHYSICAL_DATA_CENTER'
-    | 'KUBERNETES'
-    | 'NEXUS'
-    | 'ARTIFACTORY'
-    | 'SMB'
-    | 'AMAZON_S3'
-    | 'GIT'
-    | 'SSH_SESSION_CONFIG'
-    | 'SERVICE_VARIABLE'
-    | 'CONFIG_FILE'
-    | 'KMS'
-    | 'GCP_KMS'
-    | 'JIRA'
-    | 'SERVICENOW'
-    | 'SECRET_TEXT'
-    | 'YAML_GIT_SYNC'
-    | 'VAULT'
-    | 'AWS_SECRETS_MANAGER'
-    | 'CYBERARK'
-    | 'WINRM_CONNECTION_ATTRIBUTES'
-    | 'WINRM_SESSION_CONFIG'
-    | 'PROMETHEUS'
-    | 'INFRASTRUCTURE_MAPPING'
-    | 'HTTP_HELM_REPO'
-    | 'AMAZON_S3_HELM_REPO'
-    | 'GCS_HELM_REPO'
-    | 'SPOT_INST'
-    | 'AZURE_ARTIFACTS_PAT'
-    | 'CUSTOM'
-    | 'CE_AWS'
-    | 'CE_GCP'
-    | 'AZURE_VAULT'
-    | 'KUBERNETES_CLUSTER_NG'
-    | 'GIT_NG'
-}
-
-export type VaultConnectorDTO = ConnectorConfigDTO & {
-  authToken?: string
-  basePath?: string
-  vaultUrl?: string
-  renewIntervalHours?: number
-  secretEngineName?: string
-  appRoleId?: string
-  secretId?: string
-  default?: boolean
-  readOnly?: boolean
-}
-
 export interface Step {
   [key: string]: any
 }
@@ -1827,6 +1695,12 @@ export interface SecretFileDTO {
   tags: string[]
   description?: string
   type: 'SecretFile' | 'SecretText'
+}
+
+export interface EmbeddedUser {
+  uuid?: string
+  name?: string
+  email?: string
 }
 
 export interface GraphVertex {
@@ -1861,10 +1735,12 @@ export interface GraphVertex {
   next?: GraphVertex
 }
 
-export interface EmbeddedUser {
-  uuid?: string
-  name?: string
-  email?: string
+export interface InviteDTO {
+  name: string
+  email: string
+  role: RoleDTO
+  inviteType: 'USER_INITIATED_INVITE' | 'ADMIN_INITIATED_INVITE'
+  approved: boolean
 }
 
 export type GitStore = StoreConfig & {
@@ -1918,6 +1794,15 @@ export interface GitSyncConfigDTO {
   gitSyncFolderConfigDTOs?: GitSyncFolderConfigDTO[]
 }
 
+export interface NGPageResponseConnectorSummaryDTO {
+  pageCount?: number
+  itemCount?: number
+  pageSize?: number
+  content?: ConnectorSummaryDTO[]
+  pageIndex?: number
+  empty?: boolean
+}
+
 export interface ResponseDTOConnectorDTO {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
   data?: ConnectorDTO
@@ -1926,11 +1811,11 @@ export interface ResponseDTOConnectorDTO {
 }
 
 export interface NGPageResponseServiceResponseDTO {
-  totalPages?: number
-  totalElements?: number
-  size?: number
+  pageCount?: number
+  itemCount?: number
+  pageSize?: number
   content?: ServiceResponseDTO[]
-  pageNumber?: number
+  pageIndex?: number
   empty?: boolean
 }
 
@@ -1950,27 +1835,10 @@ export interface ResponseDTOCDPipelineResponseDTO {
   correlationId?: string
 }
 
-export interface KubernetesAuthCredentialDTO {
-  [key: string]: any
-}
-
 export type StepGroupElement = ExecutionWrapper & {
   identifier: string
   name?: string
   steps: ExecutionWrapper[]
-}
-
-export type KubernetesClientKeyCertDTO = KubernetesAuthCredentialDTO & {
-  clientCertRef: SecretRefData
-  clientKeyRef: SecretRefData
-  clientKeyPassphraseRef: SecretRefData
-  clientKeyAlgo?: string
-}
-
-export interface CustomCommitAttributes {
-  authorName?: string
-  authorEmail?: string
-  commitMessage?: string
 }
 
 export interface SecretTextDTO {
@@ -2003,25 +1871,11 @@ export interface EnvironmentYaml {
 }
 
 export interface NGPageResponseEnvironmentResponseDTO {
-  totalPages?: number
-  totalElements?: number
-  size?: number
+  pageCount?: number
+  itemCount?: number
+  pageSize?: number
   content?: EnvironmentResponseDTO[]
-  pageNumber?: number
-  empty?: boolean
-}
-
-export interface PageConnectorSummaryDTO {
-  totalElements?: number
-  totalPages?: number
-  size?: number
-  content?: ConnectorSummaryDTO[]
-  number?: number
-  last?: boolean
-  sort?: Sort
-  numberOfElements?: number
-  pageable?: Pageable
-  first?: boolean
+  pageIndex?: number
   empty?: boolean
 }
 
@@ -2055,7 +1909,12 @@ export interface GetConnectorListPathParams {
 }
 
 export type GetConnectorListProps = Omit<
-  GetProps<ResponseDTOPageConnectorSummaryDTO, unknown, GetConnectorListQueryParams, GetConnectorListPathParams>,
+  GetProps<
+    ResponseDTONGPageResponseConnectorSummaryDTO,
+    unknown,
+    GetConnectorListQueryParams,
+    GetConnectorListPathParams
+  >,
   'path'
 > &
   GetConnectorListPathParams
@@ -2064,7 +1923,7 @@ export type GetConnectorListProps = Omit<
  * Gets Connector list
  */
 export const GetConnectorList = ({ accountIdentifier, ...props }: GetConnectorListProps) => (
-  <Get<ResponseDTOPageConnectorSummaryDTO, unknown, GetConnectorListQueryParams, GetConnectorListPathParams>
+  <Get<ResponseDTONGPageResponseConnectorSummaryDTO, unknown, GetConnectorListQueryParams, GetConnectorListPathParams>
     path={`/accounts/${accountIdentifier}/connectors`}
     base={getConfig('ng/api')}
     {...props}
@@ -2072,7 +1931,12 @@ export const GetConnectorList = ({ accountIdentifier, ...props }: GetConnectorLi
 )
 
 export type UseGetConnectorListProps = Omit<
-  UseGetProps<ResponseDTOPageConnectorSummaryDTO, unknown, GetConnectorListQueryParams, GetConnectorListPathParams>,
+  UseGetProps<
+    ResponseDTONGPageResponseConnectorSummaryDTO,
+    unknown,
+    GetConnectorListQueryParams,
+    GetConnectorListPathParams
+  >,
   'path'
 > &
   GetConnectorListPathParams
@@ -2081,10 +1945,16 @@ export type UseGetConnectorListProps = Omit<
  * Gets Connector list
  */
 export const useGetConnectorList = ({ accountIdentifier, ...props }: UseGetConnectorListProps) =>
-  useGet<ResponseDTOPageConnectorSummaryDTO, unknown, GetConnectorListQueryParams, GetConnectorListPathParams>(
-    (paramsInPath: GetConnectorListPathParams) => `/accounts/${paramsInPath.accountIdentifier}/connectors`,
-    { base: getConfig('ng/api'), pathParams: { accountIdentifier }, ...props }
-  )
+  useGet<
+    ResponseDTONGPageResponseConnectorSummaryDTO,
+    unknown,
+    GetConnectorListQueryParams,
+    GetConnectorListPathParams
+  >((paramsInPath: GetConnectorListPathParams) => `/accounts/${paramsInPath.accountIdentifier}/connectors`, {
+    base: getConfig('ng/api'),
+    pathParams: { accountIdentifier },
+    ...props
+  })
 
 export interface CreateConnectorPathParams {
   accountIdentifier: string
@@ -2904,6 +2774,46 @@ export type UseSyncTaskD2Props = Omit<
  */
 export const useSyncTaskD2 = (props: UseSyncTaskD2Props) =>
   useMutate<ResponseData, unknown, SyncTaskD2QueryParams, void, void>('POST', `/delegate2-tasks/sync`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+export interface GetReferredByEntitiesQueryParams {
+  page?: number
+  size?: number
+  account?: string
+  org?: string
+  project?: string
+  identifier?: string
+  searchTerm?: string
+}
+
+export type GetReferredByEntitiesProps = Omit<
+  GetProps<ResponseDTOPageEntityReferenceDTO, unknown, GetReferredByEntitiesQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get Entities referring this resouce
+ */
+export const GetReferredByEntities = (props: GetReferredByEntitiesProps) => (
+  <Get<ResponseDTOPageEntityReferenceDTO, unknown, GetReferredByEntitiesQueryParams, void>
+    path={`/entityReference`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetReferredByEntitiesProps = Omit<
+  UseGetProps<ResponseDTOPageEntityReferenceDTO, unknown, GetReferredByEntitiesQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get Entities referring this resouce
+ */
+export const useGetReferredByEntities = (props: UseGetReferredByEntitiesProps) =>
+  useGet<ResponseDTOPageEntityReferenceDTO, unknown, GetReferredByEntitiesQueryParams, void>(`/entityReference`, {
     base: getConfig('ng/api'),
     ...props
   })
@@ -3791,6 +3701,161 @@ export const useDeleteProject = ({ orgIdentifier, ...props }: UseDeleteProjectPr
     'DELETE',
     (paramsInPath: DeleteProjectPathParams) => `/organizations/${paramsInPath.orgIdentifier}/projects`,
     { base: getConfig('ng/api'), pathParams: { orgIdentifier }, ...props }
+  )
+
+export interface GetInvitesQueryParams {
+  accountIdentifier?: string
+  page?: number
+  size?: number
+  sort?: string[]
+}
+
+export interface GetInvitesPathParams {
+  orgIdentifier: string
+  projectIdentifier: string
+}
+
+export type GetInvitesProps = Omit<
+  GetProps<ResponseDTONGPageResponseInviteDTO, FailureDTO | ErrorDTO, GetInvitesQueryParams, GetInvitesPathParams>,
+  'path'
+> &
+  GetInvitesPathParams
+
+/**
+ * Get all invites for the queried project
+ */
+export const GetInvites = ({ orgIdentifier, projectIdentifier, ...props }: GetInvitesProps) => (
+  <Get<ResponseDTONGPageResponseInviteDTO, FailureDTO | ErrorDTO, GetInvitesQueryParams, GetInvitesPathParams>
+    path={`/organizations/${orgIdentifier}/projects/${projectIdentifier}/invites`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetInvitesProps = Omit<
+  UseGetProps<ResponseDTONGPageResponseInviteDTO, FailureDTO | ErrorDTO, GetInvitesQueryParams, GetInvitesPathParams>,
+  'path'
+> &
+  GetInvitesPathParams
+
+/**
+ * Get all invites for the queried project
+ */
+export const useGetInvites = ({ orgIdentifier, projectIdentifier, ...props }: UseGetInvitesProps) =>
+  useGet<ResponseDTONGPageResponseInviteDTO, FailureDTO | ErrorDTO, GetInvitesQueryParams, GetInvitesPathParams>(
+    (paramsInPath: GetInvitesPathParams) =>
+      `/organizations/${paramsInPath.orgIdentifier}/projects/${paramsInPath.projectIdentifier}/invites`,
+    { base: getConfig('ng/api'), pathParams: { orgIdentifier, projectIdentifier }, ...props }
+  )
+
+export interface SendInviteQueryParams {
+  accountIdentifier: string
+}
+
+export interface SendInvitePathParams {
+  orgIdentifier: string
+  projectIdentifier: string
+}
+
+export type SendInviteProps = Omit<
+  MutateProps<
+    ResponseDTOListInviteOperationResponse,
+    FailureDTO | ErrorDTO,
+    SendInviteQueryParams,
+    CreateInviteListDTO,
+    SendInvitePathParams
+  >,
+  'path' | 'verb'
+> &
+  SendInvitePathParams
+
+/**
+ * Add a new invite for the specified project
+ */
+export const SendInvite = ({ orgIdentifier, projectIdentifier, ...props }: SendInviteProps) => (
+  <Mutate<
+    ResponseDTOListInviteOperationResponse,
+    FailureDTO | ErrorDTO,
+    SendInviteQueryParams,
+    CreateInviteListDTO,
+    SendInvitePathParams
+  >
+    verb="POST"
+    path={`/organizations/${orgIdentifier}/projects/${projectIdentifier}/invites`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseSendInviteProps = Omit<
+  UseMutateProps<
+    ResponseDTOListInviteOperationResponse,
+    FailureDTO | ErrorDTO,
+    SendInviteQueryParams,
+    CreateInviteListDTO,
+    SendInvitePathParams
+  >,
+  'path' | 'verb'
+> &
+  SendInvitePathParams
+
+/**
+ * Add a new invite for the specified project
+ */
+export const useSendInvite = ({ orgIdentifier, projectIdentifier, ...props }: UseSendInviteProps) =>
+  useMutate<
+    ResponseDTOListInviteOperationResponse,
+    FailureDTO | ErrorDTO,
+    SendInviteQueryParams,
+    CreateInviteListDTO,
+    SendInvitePathParams
+  >(
+    'POST',
+    (paramsInPath: SendInvitePathParams) =>
+      `/organizations/${paramsInPath.orgIdentifier}/projects/${paramsInPath.projectIdentifier}/invites`,
+    { base: getConfig('ng/api'), pathParams: { orgIdentifier, projectIdentifier }, ...props }
+  )
+
+export interface GetRolesQueryParams {
+  accountIdentifier: string
+}
+
+export interface GetRolesPathParams {
+  orgIdentifier: string
+  projectIdentifier: string
+}
+
+export type GetRolesProps = Omit<
+  GetProps<ResponseDTOOptionalListRoleDTO, FailureDTO | ErrorDTO, GetRolesQueryParams, GetRolesPathParams>,
+  'path'
+> &
+  GetRolesPathParams
+
+/**
+ * Get all roles for the queried project
+ */
+export const GetRoles = ({ orgIdentifier, projectIdentifier, ...props }: GetRolesProps) => (
+  <Get<ResponseDTOOptionalListRoleDTO, FailureDTO | ErrorDTO, GetRolesQueryParams, GetRolesPathParams>
+    path={`/organizations/${orgIdentifier}/projects/${projectIdentifier}/roles`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetRolesProps = Omit<
+  UseGetProps<ResponseDTOOptionalListRoleDTO, FailureDTO | ErrorDTO, GetRolesQueryParams, GetRolesPathParams>,
+  'path'
+> &
+  GetRolesPathParams
+
+/**
+ * Get all roles for the queried project
+ */
+export const useGetRoles = ({ orgIdentifier, projectIdentifier, ...props }: UseGetRolesProps) =>
+  useGet<ResponseDTOOptionalListRoleDTO, FailureDTO | ErrorDTO, GetRolesQueryParams, GetRolesPathParams>(
+    (paramsInPath: GetRolesPathParams) =>
+      `/organizations/${paramsInPath.orgIdentifier}/projects/${paramsInPath.projectIdentifier}/roles`,
+    { base: getConfig('ng/api'), pathParams: { orgIdentifier, projectIdentifier }, ...props }
   )
 
 export interface GetPipelineListQueryParams {
@@ -5016,6 +5081,44 @@ export type UseDeleteServiceProps = Omit<
  */
 export const useDeleteService = (props: UseDeleteServiceProps) =>
   useMutate<ResponseDTOBoolean, FailureDTO | ErrorDTO, DeleteServiceQueryParams, string, void>('DELETE', `/services`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+export interface GetUsersQueryParams {
+  accountIdentifier: string
+  searchString?: string
+  page?: number
+  size?: number
+  sort?: string[]
+}
+
+export type GetUsersProps = Omit<
+  GetProps<ResponseDTONGPageResponseUserSearchDTO, FailureDTO | ErrorDTO, GetUsersQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get users for an account
+ */
+export const GetUsers = (props: GetUsersProps) => (
+  <Get<ResponseDTONGPageResponseUserSearchDTO, FailureDTO | ErrorDTO, GetUsersQueryParams, void>
+    path={`/users`}
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetUsersProps = Omit<
+  UseGetProps<ResponseDTONGPageResponseUserSearchDTO, FailureDTO | ErrorDTO, GetUsersQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get users for an account
+ */
+export const useGetUsers = (props: UseGetUsersProps) =>
+  useGet<ResponseDTONGPageResponseUserSearchDTO, FailureDTO | ErrorDTO, GetUsersQueryParams, void>(`/users`, {
     base: getConfig('ng/api'),
     ...props
   })

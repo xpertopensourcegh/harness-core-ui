@@ -1,9 +1,9 @@
 import React, { useMemo, useState } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 import ReactTimeago from 'react-timeago'
-import { Menu, Position, Classes, PopoverInteractionKind } from '@blueprintjs/core'
+import { Menu, Position, Classes } from '@blueprintjs/core'
 import type { Column, Renderer, CellProps } from 'react-table'
-import { Text, Color, Layout, Icon, Button, Popover, Tag, Container } from '@wings-software/uikit'
+import { Text, Color, Layout, Icon, Button, Popover } from '@wings-software/uikit'
 
 import Table from 'modules/common/components/Table/Table'
 import { routeSecretDetails } from 'modules/dx/routes'
@@ -11,6 +11,7 @@ import { useToaster, useConfirmationDialog } from 'modules/common/exports'
 import { useDeleteSecret, ResponseDTONGPageResponseEncryptedDataDTO } from 'services/cd-ng'
 import type { EncryptedDataDTO } from 'services/cd-ng'
 
+import TagsPopover from 'modules/common/components/TagsPopover/TagsPopover'
 import i18n from '../../SecretsPage.i18n'
 import css from './SecretsList.module.scss'
 
@@ -34,24 +35,7 @@ const RenderColumnSecret: Renderer<CellProps<EncryptedDataDTO>> = ({ row }) => {
       <Layout.Vertical>
         <Layout.Horizontal spacing="small">
           <Text color={Color.BLACK}>{data.name}</Text>
-          {data.tags?.length ? (
-            <Popover interactionKind={PopoverInteractionKind.HOVER}>
-              <Layout.Horizontal flex={{ align: 'center-center' }} spacing="xsmall">
-                <Icon name="main-tags" size={15} />
-                <Text>{data.tags.length}</Text>
-              </Layout.Horizontal>
-              <Container padding="small">
-                <Text font={{ size: 'small', weight: 'bold' }}>{i18n.tags}</Text>
-                <Container className={css.tagsPopover}>
-                  {data.tags?.map(tag => (
-                    <Tag key={tag} className={css.tag}>
-                      {tag}
-                    </Tag>
-                  ))}
-                </Container>
-              </Container>
-            </Popover>
-          ) : null}
+          {data.tags?.length ? <TagsPopover tags={data.tags} /> : null}
         </Layout.Horizontal>
         <Text color={Color.GREY_400}>{data.identifier}</Text>
       </Layout.Vertical>
@@ -220,10 +204,10 @@ const SecretsList: React.FC<SecretsListProps> = ({ secrets, refetch, gotoPage })
         )
       }}
       pagination={{
-        itemCount: secrets?.data?.totalElements || 0,
-        pageSize: secrets?.data?.size || 10,
-        pageCount: secrets?.data?.totalPages || -1,
-        pageIndex: secrets?.data?.pageNumber || 0,
+        itemCount: secrets?.data?.itemCount || 0,
+        pageSize: secrets?.data?.pageSize || 10,
+        pageCount: secrets?.data?.pageCount || -1,
+        pageIndex: secrets?.data?.pageIndex || 0,
         gotoPage
       }}
     />

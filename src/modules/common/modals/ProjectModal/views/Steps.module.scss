@@ -35,10 +35,51 @@
 .button {
   color: var(--blue-500) !important;
 }
+
 .preview {
   background: var(--grey-100) !important;
 }
 
-.collaborators {
-  padding: var(--spacing-xxlarge);
+.clone {
+  padding: var(--spacing-large) !important;
+}
+
+.align {
+  align-items: center;
+}
+
+.toEnd {
+  justify-content: flex-end;
+}
+
+.invites {
+  align-items: center;
+  border-top: 1px solid var(--grey-200);
+  border-bottom: 1px solid var(--grey-200);
+}
+
+.collaboratorForm {
+  max-width: 400px;
+  min-height: 450px;
+}
+
+.pendingList {
+  max-height: 175px;
+  overflow: scroll;
+}
+
+.colorBar {
+  width: 100px;
+  height: var(--spacing-medium);
+  border-radius: var(--spacing-small);
+  background-color: var(--blue-200) !important;
+  padding: 1px 9px !important;
+}
+
+.input {
+  width: 350px;
+}
+
+.url {
+  width: 400px;
 }

@@ -12,7 +12,9 @@ import {
   IconName,
   SelectOption,
   Container,
-  Color
+  Color,
+  ModalErrorHandlerBinding,
+  ModalErrorHandler
 } from '@wings-software/uikit'
 import * as Yup from 'yup'
 
@@ -56,7 +58,7 @@ const AboutProject: React.FC<StepProps<ProjectDTO> & ProjectModalData> = props =
     projectIdentifier: ''
   })
   const { mutate: createProject } = usePostProject({ orgIdentifier: '' })
-
+  const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding>()
   const { loading, data } = useGetOrganizationList({ accountIdentifier: accountId })
 
   const organisations: SelectOption[] =
@@ -85,11 +87,15 @@ const AboutProject: React.FC<StepProps<ProjectDTO> & ProjectModalData> = props =
     } else {
       ;(dataToSubmit as CreateProjectDTO)['identifier'] = values.identifier || ''
       ;(dataToSubmit as CreateProjectDTO)['modules'] = values.modules || []
-      createProject(dataToSubmit as CreateProjectDTO, {
-        pathParams: { orgIdentifier: values?.orgIdentifier || '' }
-      })
-      nextStep?.({ ...values })
-      onSuccess?.(values)
+      try {
+        await createProject(dataToSubmit as CreateProjectDTO, {
+          pathParams: { orgIdentifier: values?.orgIdentifier || '' }
+        })
+        nextStep?.({ ...values })
+        onSuccess?.(values)
+      } catch (e) {
+        modalErrorHandler?.show(e.data)
+      }
     }
   }
 
@@ -121,6 +127,7 @@ const AboutProject: React.FC<StepProps<ProjectDTO> & ProjectModalData> = props =
       >
         {formikProps => (
           <Form>
+            <ModalErrorHandler bind={setModalErrorHandler} />
             <Layout.Horizontal>
               <Layout.Vertical width="50%" padding="xxlarge">
                 <Container style={{ minHeight: '450px' }}>

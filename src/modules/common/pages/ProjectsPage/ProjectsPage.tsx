@@ -15,6 +15,7 @@ import type { ProjectDTO } from 'services/cd-ng'
 import { equals, includes, and } from 'modules/common/utils/rsql'
 import { Page } from 'modules/common/exports'
 import { useProjectModal } from 'modules/common/modals/ProjectModal/useProjectModal'
+import { useCollaboratorModal } from 'modules/common/modals/ProjectModal/useCollaboratorModal'
 import type { UseGetMockData } from 'modules/common/utils/testUtils'
 import i18n from './ProjectsPage.i18n'
 import { Views, Sort } from './Constants'
@@ -23,8 +24,8 @@ import ProjectsGridView from './views/ProjectGridView/ProjectGridView'
 import css from './ProjectsPage.module.scss'
 
 const allOrgsSelectOption: SelectOption = {
-  label: 'All',
-  value: 'ALL'
+  label: i18n.orgLabel,
+  value: i18n.orgLabel.toUpperCase()
 }
 interface ProjectListProps {
   mockData?: UseGetMockData<ResponseDTONGPageResponseProjectDTO>
@@ -77,6 +78,13 @@ const ProjectsListPage: React.FC<ProjectListProps> = ({ mockData, module, onNewP
   const showEditProject = (project: ProjectDTO): void => {
     openProjectModal(project)
   }
+
+  const { openCollaboratorModal } = useCollaboratorModal()
+
+  const showCollaborators = (project: ProjectDTO): void => {
+    openCollaboratorModal(project)
+  }
+
   const { data: orgsData } = useGetOrganizationList({
     accountIdentifier: accountId
   })
@@ -189,13 +197,19 @@ const ProjectsListPage: React.FC<ProjectListProps> = ({ mockData, module, onNewP
         }}
       >
         {view === Views.GRID ? (
-          <ProjectsGridView data={data?.data} reload={reloadAllProjects} showEditProject={showEditProject} />
+          <ProjectsGridView
+            data={data?.data}
+            reload={reloadAllProjects}
+            showEditProject={showEditProject}
+            collaborators={showCollaborators}
+          />
         ) : null}
         {view === Views.LIST ? (
           <ProjectsListView
             data={data?.data}
             reload={reloadAllProjects}
             editProject={showEditProject}
+            collaborators={showCollaborators}
             gotoPage={pageNumber => setPage(pageNumber)}
           />
         ) : null}

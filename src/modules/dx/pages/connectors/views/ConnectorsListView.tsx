@@ -1,21 +1,22 @@
 import React, { useState, useMemo } from 'react'
-import { Text, Layout, Color, Icon, Button, Popover, Container, Tag } from '@wings-software/uikit'
+import { Text, Layout, Color, Icon, Button, Popover } from '@wings-software/uikit'
 import type { CellProps, Renderer, Column } from 'react-table'
-import { Menu, Classes, Position, PopoverInteractionKind } from '@blueprintjs/core'
+import { Menu, Classes, Position } from '@blueprintjs/core'
 import { useParams, useHistory } from 'react-router-dom'
 import ReactTimeago from 'react-timeago'
-import { ConnectorSummaryDTO, useDeleteConnector, PageConnectorSummaryDTO } from 'services/cd-ng'
+import { ConnectorSummaryDTO, useDeleteConnector, NGPageResponseConnectorSummaryDTO } from 'services/cd-ng'
 import Table from 'modules/common/components/Table/Table'
 import { useConfirmationDialog } from 'modules/common/exports'
 import { useToaster } from 'modules/common/components/Toaster/useToaster'
 import { routeConnectorDetails } from 'modules/dx/routes'
+import TagsPopover from 'modules/common/components/TagsPopover/TagsPopover'
 import { getIconByType } from '../utils/ConnectorUtils'
 
 import i18n from './ConnectorsListView.i18n'
 import css from './ConnectorsListView.module.scss'
 
 interface ConnectorListViewProps {
-  data?: PageConnectorSummaryDTO
+  data?: NGPageResponseConnectorSummaryDTO
   reload?: () => Promise<void>
   gotoPage: (pageNumber: number) => void
 }
@@ -32,21 +33,7 @@ const RenderColumnConnector: Renderer<CellProps<ConnectorSummaryDTO>> = ({ row }
       <div>
         <Layout.Horizontal spacing="small">
           <Text color={Color.BLACK}>{data.name}</Text>
-          {data.tags?.length ? (
-            <Popover interactionKind={PopoverInteractionKind.HOVER}>
-              <Layout.Horizontal flex={{ align: 'center-center' }} spacing="xsmall">
-                <Icon name="main-tags" size={15} />
-                <Text>{data.tags.length}</Text>
-              </Layout.Horizontal>
-              <Container padding="small">
-                <Layout.Vertical spacing="small">
-                  {data.tags?.map(tag => (
-                    <Tag key={tag}>{tag}</Tag>
-                  ))}
-                </Layout.Vertical>
-              </Container>
-            </Popover>
-          ) : null}
+          {data.tags?.length ? <TagsPopover tags={data.tags} /> : null}
         </Layout.Horizontal>
         <Text color={Color.GREY_400}>{data.accountName}</Text>
       </div>
@@ -207,10 +194,10 @@ const ConnectorsListView: React.FC<ConnectorListViewProps> = props => {
         history.push(routeConnectorDetails.url({ connectorId: connector.identifier as string }))
       }}
       pagination={{
-        itemCount: data?.totalElements || 0,
-        pageSize: data?.size || 10,
-        pageCount: data?.totalPages || 1,
-        pageIndex: data?.number || 0,
+        itemCount: data?.itemCount || 0,
+        pageSize: data?.pageSize || 10,
+        pageCount: data?.pageCount || -1,
+        pageIndex: data?.pageIndex || 0,
         gotoPage
       }}
     />

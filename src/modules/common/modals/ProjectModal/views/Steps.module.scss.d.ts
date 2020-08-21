@@ -8,6 +8,14 @@ declare const styles: {
   readonly collapseDiv: string
   readonly button: string
   readonly preview: string
-  readonly collaborators: string
+  readonly clone: string
+  readonly align: string
+  readonly toEnd: string
+  readonly invites: string
+  readonly collaboratorForm: string
+  readonly pendingList: string
+  readonly colorBar: string
+  readonly input: string
+  readonly url: string
 }
 export default styles

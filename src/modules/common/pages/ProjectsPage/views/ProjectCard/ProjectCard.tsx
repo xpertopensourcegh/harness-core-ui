@@ -21,6 +21,7 @@ export interface ProjectCardProps {
   reloadProjects?: () => Promise<unknown>
   editProject?: (project: ProjectDTO) => void
   onDeleted?: (project: ProjectDTO) => void
+  collaborators?: (project: ProjectDTO) => void
 }
 
 interface ContextMenuProps {
@@ -28,6 +29,7 @@ interface ContextMenuProps {
   reloadProjects?: () => Promise<unknown>
   editProject?: (project: ProjectDTO) => void
   onDeleted?: (project: ProjectDTO) => void
+  collaborators?: (project: ProjectDTO) => void
 }
 
 interface ContinuousDeployementProps {
@@ -40,7 +42,7 @@ interface ContinuousVerificationProps {
 }
 
 const ContextMenu: React.FC<ContextMenuProps> = props => {
-  const { project, reloadProjects, editProject, onDeleted } = props
+  const { project, reloadProjects, editProject, collaborators, onDeleted } = props
   const { mutate: deleteProject } = useDeleteProject({ orgIdentifier: project.orgIdentifier || '' })
   const { showSuccess, showError } = useToaster()
 
@@ -76,10 +78,15 @@ const ContextMenu: React.FC<ContextMenuProps> = props => {
     editProject?.(project)
   }
 
+  const handleCollaborate = (): void => {
+    if (!project) return
+    collaborators?.(project)
+  }
+
   return (
     <Menu style={{ minWidth: 'unset' }}>
       <Menu.Item icon="edit" text="Edit" onClick={handleEdit} />
-      <Menu.Item icon="new-person" text="Invite Collaborators" />
+      <Menu.Item icon="new-person" text="Invite Collaborators" onClick={handleCollaborate} />
       <Menu.Divider />
       <Menu.Item icon="trash" text="Delete" onClick={handleDelete} />
     </Menu>
@@ -197,7 +204,7 @@ const GetStarted: React.FC<ContinuousDeployementProps> = props => {
   )
 }
 const ProjectCard: React.FC<ProjectCardProps> = props => {
-  const { data, isPreview, reloadProjects, editProject, onDeleted } = props
+  const { data, isPreview, reloadProjects, editProject, collaborators, onDeleted } = props
 
   return (
     <Card className={cx(css.projectCard, props.className)}>
@@ -210,6 +217,7 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
                 reloadProjects={reloadProjects}
                 editProject={editProject}
                 onDeleted={onDeleted}
+                collaborators={collaborators}
               />
             }
             menuPopoverProps={{

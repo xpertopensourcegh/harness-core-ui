@@ -8,6 +8,7 @@ export default {
   tabRecent: 'Recent',
   tabAllProjects: 'All Projects',
   tabOrgs: 'Organisations:',
+  orgLabel: 'All',
   newProjectWizard: {
     back: 'Back',
     saveAndClose: 'Save and Close',
@@ -18,41 +19,6 @@ export default {
       cloneProject: 'Clone An Existing Project',
       gitSync: 'Git Sync',
       recommended: 'Recommended'
-    },
-    stepOne: {
-      name: 'Purpose',
-      continuous: 'Continuous',
-      deployment: 'Deployment',
-      verification: 'Verification',
-      integration: 'Integration',
-      cdDescription: 'Deploy your services with blazingly fast pipelines.',
-      cvDescription: 'Intelligent monitoring of your running applications',
-      ciDescription: 'Coming Soon',
-      time: (mins: number) => `${mins}-min setup`
-    },
-    stepTwo: {
-      name: 'About the project',
-      edit: 'Edit Project',
-      projectName: 'Project Name*',
-      color: 'Color',
-      org: 'Organisation',
-      desc: 'Description',
-      tags: 'Tags',
-      addTags: 'Add Tags',
-      preview: 'Preview',
-      previewProjectCard: 'Preview your project card',
-      closePreview: 'Close Preview',
-      addCollab: 'Add Collaborators >'
-    },
-    stepThree: {
-      name: 'Invite Collaborators',
-      addCollab: 'Add your Collaborators',
-      invitationMsg: 'Invitation Message',
-      preview: 'Preview',
-      emailHello: 'Hi <collaborator',
-      emailInvite: "You've been invited to collaborate on Olivia's Harness project.",
-      emailThankyou: 'Thank you,',
-      emailFooter: 'Harness'
     },
     aboutProject: {
       name: 'About the project',
@@ -105,13 +71,21 @@ export default {
     },
     Collaborators: {
       name: 'Invite Collaborators',
-      addCollab: 'Add your Collaborators',
+      label: 'Assign a role',
+      value: 'none',
+      add: 'Add',
+      inviteCollab: 'Invite People to Collaborate',
       invitationMsg: 'Invitation Message',
       preview: 'Preview',
       emailHello: 'Hi <collaborator>',
       emailInvite: "You've been invited to collaborate on Olivia's Harness project.",
       emailThankyou: 'Thank you,',
-      emailFooter: 'Harness'
+      emailFooter: 'Harness',
+      urlMessage: "Your Project is only accessible to people you've invited",
+      roleAssigned: 'Project Role Assigned:',
+      url: 'https://www.harness.io/somelongencryptedprojecturl',
+      pendingInvitation: 'Pending Invitation',
+      pendingUsers: (name: string) => `People Waiting to be Processed (${name})`
     }
   }
 }

@@ -9,5 +9,6 @@ export default {
   confirmDelete: (name: string) => `Are you sure you want to delete the Project '${name}'?`,
   confirmDeleteTitle: 'Delete Project',
   deleteButton: 'Delete',
-  cancelButton: 'Cancel'
+  cancelButton: 'Cancel',
+  tags: 'TAGS'
 }

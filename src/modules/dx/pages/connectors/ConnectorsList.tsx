@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Layout, Container, Button, TextInput } from '@wings-software/uikit'
 import { useParams } from 'react-router-dom'
-import { useGetConnectorList, ResponseDTOPageConnectorSummaryDTO } from 'services/cd-ng'
+import { useGetConnectorList, ResponseDTONGPageResponseConnectorSummaryDTO } from 'services/cd-ng'
 import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
 import type { UseGetMockData } from 'modules/common/utils/testUtils'
 import { ConnectorSetupModal } from '../../modals/ConnectorModal/ConnectorSetupModal'
@@ -9,7 +9,7 @@ import ConnectorsListView from './views/ConnectorsListView'
 import css from './ConnectorsList.module.scss'
 
 interface ConnectorsListProps {
-  mockData?: UseGetMockData<ResponseDTOPageConnectorSummaryDTO>
+  mockData?: UseGetMockData<ResponseDTONGPageResponseConnectorSummaryDTO>
 }
 
 const enum View {

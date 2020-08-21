@@ -1,13 +1,15 @@
 import React, { useState, useMemo } from 'react'
-import { Text, Layout, Color, Icon, Button, Popover, Tag } from '@wings-software/uikit'
+import ReactTimeago from 'react-timeago'
+import { Text, Layout, Color, Icon, Button, Popover } from '@wings-software/uikit'
 import type { CellProps, Renderer, Column } from 'react-table'
-import { Menu, Classes, Position, PopoverInteractionKind } from '@blueprintjs/core'
+import { Menu, Classes, Position } from '@blueprintjs/core'
 import { ProjectDTO, useDeleteProject, NGPageResponseProjectDTO } from 'services/cd-ng'
 import Table from 'modules/common/components/Table/Table'
 import { useConfirmationDialog } from 'modules/common/exports'
 import { useToaster } from 'modules/common/components/Toaster/useToaster'
 
-import i18n from './ProjectView.i18n'
+import TagsPopover from 'modules/common/components/TagsPopover/TagsPopover'
+import i18n from './ProjectListView.i18n'
 import css from './ProjectListView.module.scss'
 
 interface ProjectListViewProps {
@@ -15,11 +17,13 @@ interface ProjectListViewProps {
   reload?: () => Promise<void>
   editProject?: (project: ProjectDTO) => void
   gotoPage: (pageNumber: number) => void
+  collaborators?: (project: ProjectDTO) => void
 }
 
 type CustomColumn<T extends object> = Column<T> & {
   refetchProjects?: () => Promise<void>
   editProject?: (project: ProjectDTO) => void
+  collaborators?: (project: ProjectDTO) => void
 }
 
 const RenderColumnProject: Renderer<CellProps<ProjectDTO>> = ({ row }) => {
@@ -30,19 +34,7 @@ const RenderColumnProject: Renderer<CellProps<ProjectDTO>> = ({ row }) => {
       <div>
         <Layout.Horizontal spacing="small">
           <Text color={Color.BLACK}>{data.name}</Text>
-          {data.tags?.length ? (
-            <Popover interactionKind={PopoverInteractionKind.HOVER}>
-              <Layout.Horizontal flex={{ align: 'center-center' }} spacing="xsmall">
-                <Icon name="main-tags" size={15} />
-                <Text>{data.tags.length}</Text>
-              </Layout.Horizontal>
-              <Layout.Vertical spacing="small" padding="small">
-                {data.tags?.map(tag => (
-                  <Tag key={tag}>{tag}</Tag>
-                ))}
-              </Layout.Vertical>
-            </Popover>
-          ) : null}
+          {data.tags?.length ? <TagsPopover tags={data.tags} /> : null}
         </Layout.Horizontal>
         <Text color={Color.GREY_400}>{data.description}</Text>
       </div>
@@ -64,11 +56,12 @@ const RenderColumnModules: Renderer<CellProps<ProjectDTO>> = ({ row }) => {
   )
 }
 
-const RenderColumnActivity: Renderer<CellProps<ProjectDTO>> = () => {
+const RenderColumnActivity: Renderer<CellProps<ProjectDTO>> = ({ row }) => {
+  const data = row.original
   return (
     <Layout.Horizontal spacing="small">
       <Icon name="activity" />
-      <Text>{i18n.time}</Text>
+      {data.lastModifiedAt ? <ReactTimeago date={data.lastModifiedAt} /> : null}
     </Layout.Horizontal>
   )
 }
@@ -112,6 +105,11 @@ const RenderColumnMenu: Renderer<CellProps<ProjectDTO>> = ({ row, column }) => {
     ;(column as any).editProject?.(data)
   }
 
+  const handleCollaborate = (): void => {
+    if (!data) return
+    ;(column as any).collaborators?.(data)
+  }
+
   return (
     <Layout.Horizontal className={css.layout}>
       <Popover
@@ -132,7 +130,7 @@ const RenderColumnMenu: Renderer<CellProps<ProjectDTO>> = ({ row, column }) => {
         />
         <Menu style={{ minWidth: 'unset' }}>
           <Menu.Item icon="edit" text="Edit" onClick={handleEdit} />
-          <Menu.Item icon="new-person" text="Invite Collaborators" />
+          <Menu.Item icon="new-person" text="Invite Collaborators" onClick={handleCollaborate} />
           <Menu.Divider />
           <Menu.Item icon="trash" text="Delete" onClick={handleDelete} />
         </Menu>
@@ -142,7 +140,7 @@ const RenderColumnMenu: Renderer<CellProps<ProjectDTO>> = ({ row, column }) => {
 }
 
 const ProjectListView: React.FC<ProjectListViewProps> = props => {
-  const { data, reload, editProject, gotoPage } = props
+  const { data, reload, editProject, gotoPage, collaborators } = props
   const columns: CustomColumn<ProjectDTO>[] = useMemo(
     () => [
       {
@@ -189,12 +187,13 @@ const ProjectListView: React.FC<ProjectListViewProps> = props => {
         accessor: 'tags',
         width: '5%',
         Cell: RenderColumnMenu,
-        disableSortBy: true,
         refetchProjects: reload,
-        editProject: editProject
+        editProject: editProject,
+        collaborators: collaborators,
+        disableSortBy: true
       }
     ],
-    [reload, editProject]
+    [reload, editProject, collaborators]
   )
   return (
     <Table<ProjectDTO>
@@ -202,10 +201,10 @@ const ProjectListView: React.FC<ProjectListViewProps> = props => {
       columns={columns}
       data={data?.content || []}
       pagination={{
-        itemCount: data?.totalElements || 0,
-        pageSize: data?.size || 10,
-        pageCount: data?.totalPages || -1,
-        pageIndex: data?.pageNumber || 0,
+        itemCount: data?.itemCount || 0,
+        pageSize: data?.pageSize || 10,
+        pageCount: data?.pageCount || -1,
+        pageIndex: data?.pageIndex || 0,
         gotoPage
       }}
     />

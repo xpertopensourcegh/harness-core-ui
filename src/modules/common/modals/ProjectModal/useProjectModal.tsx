@@ -3,7 +3,6 @@ import { useModalHook, StepWizard, Button } from '@wings-software/uikit'
 import { Dialog, Classes } from '@blueprintjs/core'
 import isEmpty from 'lodash/isEmpty'
 import cx from 'classnames'
-
 import type { ProjectDTO } from 'services/cd-ng'
 import i18n from 'modules/common/pages/ProjectsPage/ProjectsPage.i18n'
 import { Views } from './Constants'
@@ -35,7 +34,6 @@ export const useProjectModal = ({ onSuccess }: UseProjectModalProps): UseProject
     }
     onSuccess(wizardData)
   }
-
   const [showModal, hideModal] = useModalHook(
     () => (
       <Dialog
@@ -52,21 +50,14 @@ export const useProjectModal = ({ onSuccess }: UseProjectModalProps): UseProject
       >
         {view === Views.CREATE ? (
           <StepWizard<ProjectDTO> onCompleteWizard={wizardCompleteHandler} stepClassName={css.stepClass}>
-            <AboutProject name={i18n.newProjectWizard.stepTwo.name} data={projectData} onSuccess={onSuccess} />
+            <AboutProject name={i18n.newProjectWizard.aboutProject.name} data={projectData} onSuccess={onSuccess} />
             <Collaborators name={i18n.newProjectWizard.Collaborators.name} data={projectData} />
           </StepWizard>
         ) : null}
 
         {view === Views.PURPOSE ? <PurposeList data={projectData} /> : null}
 
-        {view === Views.EDIT ? (
-          <AboutProject
-            name={i18n.newProjectWizard.stepTwo.name}
-            data={projectData}
-            closeModal={hideModal}
-            onSuccess={onSuccess}
-          />
-        ) : null}
+        {view === Views.EDIT ? <AboutProject data={projectData} closeModal={hideModal} onSuccess={onSuccess} /> : null}
 
         <Button
           minimal
