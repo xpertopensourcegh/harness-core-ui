@@ -1,13 +1,11 @@
 .main {
-  display: grid;
-  grid-row: 100% 100vh;
-  grid-gap: 50px 10px;
+  height: 100%;
+  margin-top: var(--spacing-xlarge) !important;
   .sourcesGrid {
     display: grid;
-    grid-template-columns: repeat(4, 165px);
-    grid-template-rows: 192px;
-    grid-gap: var(--spacing-small);
-    margin-left: var(--spacing-large);
+    max-width: 700px;
+    grid-template-columns: repeat(auto-fill, 165px);
+    grid-gap: var(--spacing-large) var(--spacing-small);
   }
 
   .contentContainer {
@@ -75,5 +73,20 @@
         }
       }
     }
+  }
+}
+
+.connectorDialog {
+  width: fit-content;
+  min-width: 960px;
+  height: 600px;
+  border-left: 0;
+  padding-bottom: 0;
+  position: relative;
+  overflow: hidden;
+  .crossButton {
+    position: absolute;
+    right: var(--spacing-small);
+    top: var(--spacing-small);
   }
 }

@@ -1464,7 +1464,7 @@ export interface ConnectorRequestDTO {
   orgIdentifier?: string
   projectIdentifier?: string
   tags?: string[]
-  type?: 'KUBERNETES_CLUSTER' | 'GIT' | 'SPLUNK' | 'APP_DYNAMICS' | 'VAULT'
+  type?: 'KUBERNETES_CLUSTER' | 'GIT' | 'Splunk' | 'AppDynamics' | 'VAULT'
   spec?: ConnectorConfigDTO
 }
 

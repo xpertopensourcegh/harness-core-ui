@@ -12,8 +12,13 @@ export default function SplunkInputType(): JSX.Element {
   const HarnessLogo = HarnessIcons['harness-logo-black']
   const SplunkLogo = HarnessIcons['service-splunk-with-name']
   const history = useHistory()
-  const { query } = routeParams()
+  const {
+    query,
+    params: { projectIdentifier: routeProjectId, orgId: routeOrgId }
+  } = routeParams()
   const { state: locationContext = {} } = useLocation()
+  const projectId: string = (routeProjectId as string) || ''
+  const orgId: string = (routeOrgId as string) || ''
 
   return (
     <Page.Body>
@@ -33,7 +38,11 @@ export default function SplunkInputType(): JSX.Element {
             icon="plus"
             onClick={() =>
               history.push({
-                pathname: routeCVOnBoardingSetup.url({ dataSourceType: DataSourceRoutePaths.SPLUNK }),
+                pathname: routeCVOnBoardingSetup.url({
+                  dataSourceType: DataSourceRoutePaths.SPLUNK,
+                  projectIdentifier: projectId,
+                  orgId
+                }),
                 search: `?dataSourceId=${query.dataSourceId}`,
                 state: locationContext
               })
@@ -45,7 +54,11 @@ export default function SplunkInputType(): JSX.Element {
             intent="primary"
             onClick={() =>
               history.push({
-                pathname: routeCVDataSourcesEntityPage.url({ dataSourceType: DataSourceRoutePaths.SPLUNK }),
+                pathname: routeCVDataSourcesEntityPage.url({
+                  dataSourceType: DataSourceRoutePaths.SPLUNK,
+                  projectIdentifier: projectId,
+                  orgId
+                }),
                 search: `?dataSourceId=${query.dataSourceId}`,
                 state: locationContext
               })

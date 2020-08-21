@@ -1,5 +1,16 @@
 import type { DSConfig } from '@wings-software/swagger-ts/definitions'
 
+export const CVProviders = {
+  APP_DYNAMICS: {
+    value: 'APP_DYNAMICS',
+    label: 'AppDynamics'
+  },
+  SPLUNK: {
+    value: 'SPLUNK',
+    label: 'Splunk'
+  }
+}
+
 export const RouteVerificationTypeToVerificationType: { [routeType: string]: DSConfig['type'] } = {
   'app-dynamics': 'APP_DYNAMICS',
   splunk: 'SPLUNK'

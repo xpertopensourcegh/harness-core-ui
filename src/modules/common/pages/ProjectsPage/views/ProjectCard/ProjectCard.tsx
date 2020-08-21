@@ -3,6 +3,7 @@ import cx from 'classnames'
 import { Card, Text, Tag, Layout, Icon, CardBody, Container, Button, Color } from '@wings-software/uikit'
 import { useHistory, Link } from 'react-router-dom'
 import { Menu, Classes } from '@blueprintjs/core'
+import { routeCVDataSources } from 'modules/cv/routes'
 
 import { routeCDPipelineStudio, routeCDDashboard } from 'modules/cd/routes'
 import { useDeleteProject } from 'services/cd-ng'
@@ -115,14 +116,32 @@ const ContinuousDeployement: React.FC<ContinuousDeployementProps> = props => {
   )
 }
 
-const ContinuousVerification: React.FC<ContinuousVerificationProps> = () => {
+const ContinuousVerification: React.FC<ContinuousVerificationProps> = props => {
+  const { data: { identifier, orgIdentifier } = { identifier: '', orgIdentifier: '' } } = props || { data: {} }
+  const history = useHistory()
   return (
     <Container border={{ top: true, color: Color.GREY_250 }} padding={{ top: 'medium', bottom: 'medium' }}>
       <Layout.Horizontal>
         <Container width="33.33%" border={{ right: true, color: Color.GREY_250 }}>
           <Icon name="nav-cv-hover" size={30} flex={{ align: 'center-center' }} />
         </Container>
-        <Container width="33.33%" border={{ right: true, color: Color.GREY_250 }} flex={{ align: 'center-center' }}>
+        <Container width="66.66%">
+          <Button
+            intent="primary"
+            text={i18n.createDataSource}
+            onClick={() => {
+              history.push({
+                pathname: routeCVDataSources.url({ projectIdentifier: identifier || '', orgId: orgIdentifier || '' }),
+                state: {
+                  projectId: identifier,
+                  orgId: orgIdentifier
+                },
+                search: `?onBoarding=true`
+              })
+            }}
+          />
+        </Container>
+        {/* <Container width="33.33%" border={{ right: true, color: Color.GREY_250 }} flex={{ align: 'center-center' }}>
           <Layout.Vertical>
             <Text font="medium" flex={{ align: 'center-center' }}>
               {i18n.number}
@@ -138,7 +157,7 @@ const ContinuousVerification: React.FC<ContinuousVerificationProps> = () => {
             </Text>
             <Text font="small">{i18n.alerts}</Text>
           </Layout.Vertical>
-        </Container>
+        </Container> */}
       </Layout.Horizontal>
     </Container>
   )

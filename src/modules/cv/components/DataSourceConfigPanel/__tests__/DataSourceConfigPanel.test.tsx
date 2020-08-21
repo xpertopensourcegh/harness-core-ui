@@ -22,6 +22,7 @@ function MockForm(props: any): JSX.Element {
             <DataSourceConfigPanel
               entityName="solo"
               index={0}
+              orgId={'123'}
               onRemove={onRemoveCallback}
               validateConfig={validateCallback}
               touched={formikProps.touched}

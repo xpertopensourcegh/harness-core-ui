@@ -48,7 +48,7 @@ function createNextPageData(pageData: any): PageContextData {
 
 export default function DataSourceListEntitySelect(): JSX.Element {
   const {
-    params: { accountId, dataSourceType = '' },
+    params: { accountId, dataSourceType = '', projectIdentifier: routeProjectId, orgId: routeOrgId },
     query: { dataSourceId: routeDataSourceId }
   } = routeParams()
   const { pageData, dbInstance } = useOnBoardingPageDataHook<PageContextData>(routeDataSourceId as string)
@@ -58,6 +58,8 @@ export default function DataSourceListEntitySelect(): JSX.Element {
   const [enableNext, setEnableNext] = useState<boolean>(false)
   const history = useHistory()
   const dataSourceId: string = (routeDataSourceId as string) || pageData?.dataSourceId || ''
+  const projectId: string = (routeProjectId as string) || ''
+  const orgId: string = (routeOrgId as string) || ''
 
   const [navigateWithSelectedApps, setNavigationFunction] = useState<
     (selectedEntities: SelectOption[]) => void | undefined
@@ -66,7 +68,11 @@ export default function DataSourceListEntitySelect(): JSX.Element {
     () => (selectedEntities: SelectOption[]) => {
       const newPageData = { ...createNextPageData(pageData), selectedEntities }
       history.push({
-        pathname: routeCVOnBoardingSetup.url({ dataSourceType: dataSourceType as string }),
+        pathname: routeCVOnBoardingSetup.url({
+          dataSourceType: dataSourceType as string,
+          projectIdentifier: projectId,
+          orgId
+        }),
         search: `?dataSourceId=${dataSourceId}`,
         state: newPageData
       })
@@ -76,7 +82,7 @@ export default function DataSourceListEntitySelect(): JSX.Element {
         entityOptions
       })
     },
-    [pageData, dataSourceId, history, dataSourceType, entityOptions, dbInstance?.put]
+    [pageData, dataSourceId, history, dataSourceType, entityOptions, dbInstance?.put, projectId, orgId]
   )
   const verificationTypeI18N = useMemo(
     () => (dataSourceType === 'app-dynamics' || dataSourceType === 'splunk' ? i18n[dataSourceType] : undefined),
@@ -102,6 +108,8 @@ export default function DataSourceListEntitySelect(): JSX.Element {
     entityFetchFunc({
       accountId,
       dataSourceId,
+      projectId: projectId,
+      orgId: orgId,
       xhrGroup: XHR_FETCH_ENTITIES_GROUP
     }).then(({ status, error, response }) => {
       if (status === xhr.ABORTED) {
@@ -115,7 +123,7 @@ export default function DataSourceListEntitySelect(): JSX.Element {
       }
       setLoading(false)
     })
-  }, [accountId, dataSourceType, dataSourceId])
+  }, [accountId, dataSourceType, dataSourceId, projectId, orgId])
   return (
     <>
       <Page.Header title={verificationTypeI18N?.pageTitle} />
@@ -126,7 +134,7 @@ export default function DataSourceListEntitySelect(): JSX.Element {
           when: () => Boolean(noEntities),
           icon: 'warning-sign',
           ...i18n.noDataContent,
-          onClick: () => history.replace(routeCVDataSources.url())
+          onClick: () => history.replace(routeCVDataSources.url({ projectIdentifier: projectId, orgId }))
         }}
       >
         <Container className={css.main}>
@@ -153,7 +161,11 @@ export default function DataSourceListEntitySelect(): JSX.Element {
               className={css.backButton}
               onClick={() =>
                 history.replace({
-                  pathname: routeCVDataSourcesProductPage.url({ dataSourceType: dataSourceType as string }),
+                  pathname: routeCVDataSourcesProductPage.url({
+                    dataSourceType: dataSourceType as string,
+                    projectIdentifier: projectId,
+                    orgId
+                  }),
                   state: { ...pageData }
                 })
               }

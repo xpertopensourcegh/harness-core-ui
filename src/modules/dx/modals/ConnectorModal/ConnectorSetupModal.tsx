@@ -79,7 +79,9 @@ const ConnectorModal: React.FC<ConnectorSetupModalProps> = props => {
     { label: ConnectorInfoText.GIT, value: Connectors.GIT, icon: 'service-github' },
     { label: ConnectorInfoText.AZURE, value: Connectors.AZURE, icon: 'service-jenkins' },
     { label: ConnectorInfoText.GCP, value: Connectors.GCP, icon: 'service-gcp' },
-    { label: ConnectorInfoText.SECRET_MANAGER, value: Connectors.SECRET_MANAGER, icon: 'lock' }
+    { label: ConnectorInfoText.SECRET_MANAGER, value: Connectors.SECRET_MANAGER, icon: 'lock' },
+    { label: ConnectorInfoText.APP_DYNAMICS, value: Connectors.APP_DYNAMICS, icon: 'service-appdynamics' },
+    { label: ConnectorInfoText.SPLUNK, value: Connectors.SPLUNK, icon: 'service-splunk' }
   ]
 
   return (

@@ -1,0 +1,18 @@
+.connectionForm {
+  height: 100%;
+  max-width: 64%;
+  .appDContainer {
+    margin-top: var(--spacing-small);
+    [class*='module_secretFieldWrapper'] {
+      margin-top: 0 !important;
+    }
+  }
+  > div {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    > div {
+      flex: 1;
+    }
+  }
+}

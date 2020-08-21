@@ -4,20 +4,24 @@ import { Container } from '@wings-software/uikit'
 import type { DSConfig } from '@wings-software/swagger-ts/definitions'
 import xhr from '@wings-software/xhr-async'
 import { cloneDeep } from 'lodash-es'
-import { CVNextGenCVConfigService, SettingsService } from 'modules/cv/services'
+import { CVNextGenCVConfigService } from 'modules/cv/services'
 import { RouteVerificationTypeToVerificationType } from 'modules/cv/constants'
-import { appId } from 'modules/cv/constants'
 import { Page } from 'modules/common/exports'
 import { routeParams } from 'framework/exports'
 import useOnBoardingPageDataHook from 'modules/cv/hooks/OnBoardingPageDataHook/OnBoardingPageDataHook'
-import SplunkOnboarding from '../Splunk/SplunkMainSetupView'
+import {
+  useGetServiceListForProject,
+  useGetEnvironmentListForProject,
+  EnvironmentResponseDTO,
+  ServiceResponseDTO
+} from 'services/cd-ng'
+import SplunkMainSetupView from '../Splunk/SplunkMainSetupView'
 import AppDynamicsMainSetupView from '../AppDynamics/AppDynamicsMainSetupView'
 import * as SplunkMainSetupViewUtils from '../Splunk/SplunkMainSetupViewUtils'
 import * as AppDynamicsOnboardingUtils from '../AppDynamics/AppDynamicsOnboardingUtils'
 import i18n from './BaseOnBoardingSetupPage.i18n'
 import css from './BaseOnBoardingSetupPage.module.scss'
 
-const XHR_SERVICES_GROUP = 'XHR_SERVICES_GROUP'
 type PageContextData = {
   isEdit?: boolean
   dataSourceId: string
@@ -26,12 +30,15 @@ type PageContextData = {
   savedConfigs?: DSConfig[]
 }
 
+const LoadingDropDownOption = [{ value: '', label: i18n.loading }]
+
 function getDefaultCVConfig(
   verificationProvider: DSConfig['type'],
   dataSourceId: string,
   selectedEntities: SelectOption[],
   accId: string,
-  productName: string
+  productName: string,
+  projectId: string
 ): DSConfig[] {
   switch (verificationProvider) {
     case 'APP_DYNAMICS':
@@ -40,7 +47,8 @@ function getDefaultCVConfig(
           selectedEntity,
           dataSourceId,
           accId,
-          productName
+          productName,
+          projectId
         )
       })
     case 'SPLUNK':
@@ -48,7 +56,8 @@ function getDefaultCVConfig(
         selectedEntities,
         dataSourceId,
         accId,
-        productName
+        productName,
+        projectId
       )
     default:
       return []
@@ -68,44 +77,41 @@ function transformIncomingDSConfigs(savedConfig: DSConfig[], verificationProvide
   }
 }
 
-async function fetchServices(localAppId: string, accId: string): Promise<SelectOption[] | undefined> {
-  const { status, error, response } = await SettingsService.fetchServices(localAppId, XHR_SERVICES_GROUP, accId)
-  if (status === xhr.ABORTED || error) {
-    return
-  }
-  if (response?.data) {
-    const resp: any = response.data
-    return resp.content?.map(({ identifier }: any) => ({ label: identifier, value: identifier }))
-  }
-  return []
-}
-
-async function fetchEnvironments(accId: string): Promise<SelectOption[] | undefined> {
-  const { status, error, response } = await SettingsService.fetchEnvironments(accId)
-  if (status === xhr.ABORTED || error) {
-    return
-  }
-  if (response?.data) {
-    const resp: any = response.data
-    return resp.content?.map(({ identifier }: any) => ({ label: identifier, value: identifier }))
-  }
-  return []
-}
-
 export default function OnBoardingSetupPage(): JSX.Element {
   const {
-    params: { accountId, dataSourceType },
+    params: { accountId, dataSourceType, projectIdentifier: routeProjectId, orgId: routeOrgId },
     query: { dataSourceId: routeDataSourceId = '' }
   } = routeParams()
   const { pageData, dbInstance, isInitializingDB } = useOnBoardingPageDataHook<PageContextData>(
     routeDataSourceId as string
   )
-  const [serviceOptions, setServices] = useState<SelectOption[]>([{ value: '', label: i18n.loading }])
-  const [envOptions, setEnvOptions] = useState<SelectOption[]>([{ value: '', label: i18n.loading }])
+  const projectId = routeProjectId as string
+  const orgId = routeOrgId as string
   const [configsToRender, setConfigs] = useState<DSConfig[]>([])
   const [serverError, setServerError] = useState<string | undefined>(undefined)
   const [isLoadingConfigs, setLoadingConfigs] = useState<boolean>(true)
   const verificationType = RouteVerificationTypeToVerificationType[(dataSourceType as DSConfig['type']) || '']
+  const { data: serviceOptions = LoadingDropDownOption, refetch: refetchServices } = useGetServiceListForProject({
+    queryParams: { accountId, projectIdentifier: projectId, orgIdentifier: orgId },
+    lazy: true,
+    resolve: serviceList =>
+      serviceList?.data?.content?.map(({ identifier }: ServiceResponseDTO) => ({
+        label: identifier,
+        value: identifier
+      }))
+  })
+  const {
+    data: environmentOptions = LoadingDropDownOption,
+    refetch: refetchEnvironments
+  } = useGetEnvironmentListForProject({
+    queryParams: { accountId, projectIdentifier: projectId, orgIdentifier: orgId },
+    lazy: true,
+    resolve: envList =>
+      envList?.data.content?.map(({ identifier }: EnvironmentResponseDTO) => ({
+        label: identifier,
+        value: identifier
+      })) || []
+  })
 
   // fetch saved data or set selected data from the previous page
   useEffect(() => {
@@ -124,19 +130,22 @@ export default function OnBoardingSetupPage(): JSX.Element {
       setLoadingConfigs(false)
     } else if (!isEdit) {
       setLoadingConfigs(false)
-      setConfigs(getDefaultCVConfig(verificationType, dataSourceId, selectedEntities, accountId, products[0]))
+      setConfigs(
+        getDefaultCVConfig(verificationType, dataSourceId, selectedEntities, accountId, products[0], projectId)
+      )
     } else if (isEdit) {
       CVNextGenCVConfigService.fetchConfigs({
         accountId,
         dataSourceConnectorId: dataSourceId,
-        productName: products[0]
+        productName: products[0],
+        orgId,
+        projectId
       }).then(({ status, error, response }) => {
         if (status === xhr.ABORTED) {
           return
         } else if (error?.message) {
           setLoadingConfigs(false)
           setServerError(error.message)
-          return // TODO
         } else if (response?.resource) {
           setLoadingConfigs(false)
           const configs = response.resource || []
@@ -144,34 +153,32 @@ export default function OnBoardingSetupPage(): JSX.Element {
         }
       })
     }
-  }, [pageData, verificationType, accountId, routeDataSourceId, isInitializingDB])
+  }, [pageData, verificationType, accountId, routeDataSourceId, isInitializingDB, orgId, projectId])
 
-  // fetch services
   useEffect(() => {
-    fetchServices(appId, accountId).then(services => {
-      setServices(services?.length ? services : [])
-    })
-    fetchEnvironments(accountId).then(environments => {
-      setEnvOptions(environments?.length ? environments : [])
-    })
-  }, [accountId])
-
+    if (accountId && orgId && projectId) {
+      const queryParams = { accountId, projectIdentifier: projectId, orgIdentifier: orgId }
+      refetchServices({ queryParams })
+      refetchEnvironments({ queryParams })
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [accountId, orgId, projectId])
   return (
     <Page.Body loading={isLoadingConfigs} error={serverError}>
       <Container className={css.main}>
         {!isLoadingConfigs && pageData && verificationType === 'APP_DYNAMICS' && (
           <AppDynamicsMainSetupView
-            serviceOptions={serviceOptions}
-            envOptions={envOptions}
+            serviceOptions={(serviceOptions as SelectOption[]) || LoadingDropDownOption}
+            envOptions={(environmentOptions as SelectOption[]) || LoadingDropDownOption}
             configs={configsToRender as AppDynamicsOnboardingUtils.DSConfigTableData[]}
             locationContext={pageData}
             indexedDB={dbInstance}
           />
         )}
         {!isLoadingConfigs && pageData && verificationType === 'SPLUNK' && (
-          <SplunkOnboarding
-            serviceOptions={serviceOptions}
-            envOptions={envOptions}
+          <SplunkMainSetupView
+            serviceOptions={(serviceOptions as SelectOption[]) || LoadingDropDownOption}
+            envOptions={(environmentOptions as SelectOption[]) || LoadingDropDownOption}
             configs={configsToRender}
             locationContext={pageData}
             indexedDB={dbInstance}

@@ -3,16 +3,23 @@ import type { RestResponsePageResponseSettingAttribute } from '@wings-software/s
 import type { ServiceResponse } from 'modules/common/services/ServiceResponse'
 
 const Endpoints = {
-  fetchServices: (appId: string, accId: string) => `cd/api/services?accountId=${accId}&appId=${appId}`,
-  createService: (accId: string) => `cd/api/services?accountId=${accId}`,
-  fetchEnvironments: (accId: string) => `cd/api/environments?accountId=${accId}`,
-  createEnvironment: (accId: string) => `cd/api/environments?accountId=${accId}`,
-  fetchConnectors: (accountId: string) =>
-    `/api/settings?&accountId=${accountId}&search[0][field]=category&search[0][op]=IN&search[0][value]=CONNECTOR`
+  fetchServices: (appId: string, accId: string, orgId: string, projectId: string) =>
+    `/ng/api/services?accountId=${accId}&appId=${appId}&orgIdentifier=${orgId}&projectIdentifier=${projectId}`,
+  createService: (accId: string) => `/ng/api/services?accountId=${accId}`,
+  fetchEnvironments: (accId: string, orgId: string, projectId: string) =>
+    `/ng/api/environments?accountId=${accId}&orgIdentifier=${orgId}&projectIdentifier=${projectId}`,
+  createEnvironment: (accId: string) => `/ng/api/environments?accountId=${accId}`,
+  fetchConnectors: (accountId: string) => `/ng/api/accounts/${accountId}/connectors`
 }
 
-export async function fetchServices(appId: string, group = 'XHR_SERVICES_GROUP', accId: string): ServiceResponse<any> {
-  return await xhr.get(Endpoints.fetchServices(appId, accId), { group }).as('services')
+export async function fetchServices(
+  appId: string,
+  group = 'XHR_SERVICES_GROUP',
+  accId: string,
+  orgId: string,
+  projectId: string
+): ServiceResponse<any> {
+  return await xhr.get(Endpoints.fetchServices(appId, accId, orgId, projectId), { group }).as('services')
 }
 
 export async function createService(
@@ -32,8 +39,13 @@ export async function createService(
   })
 }
 
-export async function fetchEnvironments(accId: string, group = 'XHR_SERVICES_GROUP'): ServiceResponse<any> {
-  return await xhr.get(Endpoints.fetchEnvironments(accId), { group }).as('environments')
+export async function fetchEnvironments(
+  accId: string,
+  orgId: string,
+  projectId: string,
+  group = 'XHR_SERVICES_GROUP'
+): ServiceResponse<any> {
+  return await xhr.get(Endpoints.fetchEnvironments(accId, orgId, projectId), { group }).as('environments')
 }
 
 export async function createEnvironment(

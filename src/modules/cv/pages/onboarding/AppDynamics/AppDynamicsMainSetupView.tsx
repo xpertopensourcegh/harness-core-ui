@@ -46,6 +46,8 @@ interface AppDynamicsDataSourceFormProps {
   serviceOptions: SelectOption[]
   envOptions: SelectOption[]
   pageData: PageData
+  projectId: string
+  orgId: string
   dbInstance?: IDBPDatabase
   metricPackMap: Map<string, MetricPack>
   appDApplications: Map<string, SelectOption>
@@ -58,6 +60,8 @@ interface AppDynamicsConfigProps {
   dataSourceId: string
   appdApplicationId: number
   index: number
+  projectId: string
+  orgId: string
   accountId: string
   metricPackMap: Map<string, MetricPack>
   formikProps: FormikProps<{ dsConfigs: DSConfigTableData[] }>
@@ -103,10 +107,17 @@ function validateAppDConfigs(appdConfigs: {
   return { dsConfigs: appdConfigs.dsConfigs?.map(config => validateConfig(config)) || [] }
 }
 
-export async function fetchAppDApps(appAccountId: string, settingId: string): Promise<SelectOption[]> {
+export async function fetchAppDApps(
+  appAccountId: string,
+  settingId: string,
+  orgId: string,
+  projectId: string
+): Promise<SelectOption[]> {
   const { status, error, response } = await AppDynamicsService.fetchAppDynamicsApplications({
     accountId: appAccountId,
     dataSourceId: settingId,
+    orgId,
+    projectId,
     xhrGroup: 'XHR_APPD_APPS_GROUP'
   })
   if (status === xhr.ABORTED || error) {
@@ -119,6 +130,8 @@ export async function fetchAppDApps(appAccountId: string, settingId: string): Pr
 async function loadAppDApplications(
   accountId: string,
   dataSourceId: string,
+  orgId: string,
+  projectId: string,
   dbInstance?: IDBPDatabase
 ): Promise<Map<string, SelectOption>> {
   const cachedEntities: { entityOptions: SelectOption[] } = await dbInstance?.get(
@@ -127,7 +140,7 @@ async function loadAppDApplications(
   )
   let appDApplicationsOptions: SelectOption[] = cachedEntities.entityOptions
   if (!appDApplicationsOptions?.length) {
-    appDApplicationsOptions = await fetchAppDApps(accountId, dataSourceId)
+    appDApplicationsOptions = await fetchAppDApps(accountId, dataSourceId, orgId, projectId)
   }
 
   const appNameToId = new Map<string, SelectOption>()
@@ -179,7 +192,9 @@ function AppDynamicsConfig(props: AppDynamicsConfigProps): JSX.Element {
     formikProps,
     metricPackMap,
     appdApplicationId,
-    accountId
+    accountId,
+    projectId,
+    orgId
   } = props
   const { metricList, setSelectedPacks } = useMetricPackHook(config.metricPacks || [], metricPackMap)
   const [displayMetricPackDrawer, setDisplayMetricPackDrawer] = useState(false)
@@ -270,6 +285,8 @@ function AppDynamicsConfig(props: AppDynamicsConfigProps): JSX.Element {
               appId={appdApplicationId}
               metricPacks={config.metricPacks}
               index={index}
+              projectId={projectId}
+              orgId={orgId}
               data={config.tableData}
               setFieldTouched={formikProps.setFieldTouched}
               setFieldValue={formikProps.setFieldValue}
@@ -292,7 +309,17 @@ function AppDynamicsConfig(props: AppDynamicsConfigProps): JSX.Element {
 }
 
 function AppDynamicsDataSourceForm(props: AppDynamicsDataSourceFormProps): JSX.Element {
-  const { configList, serviceOptions, envOptions, appDApplications, metricPackMap, pageData, dbInstance } = props
+  const {
+    configList,
+    serviceOptions,
+    envOptions,
+    appDApplications,
+    metricPackMap,
+    projectId,
+    orgId,
+    pageData,
+    dbInstance
+  } = props
   const productName = pageData?.products?.[0]
   const [applicationsToAdd, setApplicationsToAdd] = useState<SelectOption[]>([{ label: i18n.loadingText, value: '' }])
   const {
@@ -332,7 +359,7 @@ function AppDynamicsDataSourceForm(props: AppDynamicsDataSourceFormProps): JSX.E
                       onChange={(selectedApp: SelectOption) => {
                         setApplicationsToAdd(updateApplicationList(selectedApp, applicationsToAdd, true))
                         arrayHelpers.unshift(
-                          createDefaultConfigObject(dataSourceId, accountId, selectedApp.label, productName)
+                          createDefaultConfigObject(dataSourceId, accountId, selectedApp.label, productName, projectId)
                         )
                       }}
                     />
@@ -360,6 +387,7 @@ function AppDynamicsDataSourceForm(props: AppDynamicsDataSourceFormProps): JSX.E
                         transformToSavePayload={transformToSaveConfig}
                         validateConfig={validateConfig}
                         touched={formikProps.touched}
+                        orgId={orgId}
                         values={formikProps.values}
                         setFieldError={formikProps.setFieldError}
                         setFieldTouched={formikProps.setFieldTouched}
@@ -371,6 +399,8 @@ function AppDynamicsDataSourceForm(props: AppDynamicsDataSourceFormProps): JSX.E
                           appdApplicationId={
                             (appDApplications.get(configData.applicationName || '')?.value as number) || -1
                           }
+                          projectId={projectId}
+                          orgId={orgId}
                           formikProps={formikProps}
                           serviceOptions={serviceOptions}
                           envOptions={envOptions}
@@ -398,19 +428,22 @@ export default function AppDynamicsMainSetupView(props: AppDynamicsMainSetupView
   const [metricPackMap, setMetricPackMap] = useState<Map<string, MetricPack>>(new Map())
   const { configs, serviceOptions, envOptions, locationContext, indexedDB } = props
   const {
-    params: { accountId },
+    params: { accountId, projectIdentifier: routeProjectId, orgId: routeOrgId },
     query: { dataSourceId: routeDataSourceId }
   } = routeParams()
   const dataSourceId = (routeDataSourceId as string) || locationContext.dataSourceId
+  const projectId = routeProjectId as string
+  const orgId = routeOrgId as string
 
   useEffect(() => {
-    loadAppDApplications(accountId, dataSourceId, indexedDB).then(appToId => {
+    loadAppDApplications(accountId, dataSourceId, orgId, projectId, indexedDB).then(appToId => {
       setAppDApplications(appToId)
     })
 
     fetchMetricPacks({
       accountId,
-      projectId: '12345',
+      projectId,
+      orgId,
       dataSourceType: 'APP_DYNAMICS',
       group: XHR_METRIC_PACK_GROUP
     }).then(({ error, metricPackMap: metricPacks }) => {
@@ -423,7 +456,7 @@ export default function AppDynamicsMainSetupView(props: AppDynamicsMainSetupView
     return () => {
       xhr.abort(XHR_METRIC_PACK_GROUP)
     }
-  }, [dataSourceId, accountId, indexedDB])
+  }, [dataSourceId, accountId, indexedDB, projectId, orgId])
 
   return (
     <AppDynamicsDataSourceForm
@@ -433,6 +466,8 @@ export default function AppDynamicsMainSetupView(props: AppDynamicsMainSetupView
       metricPackMap={metricPackMap}
       dbInstance={indexedDB}
       pageData={locationContext}
+      projectId={projectId}
+      orgId={orgId}
       appDApplications={appDApplications}
     />
   )

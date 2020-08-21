@@ -41,12 +41,12 @@ const ProductOptions: { [datasourceType: string]: Array<{ item: TypeCard }> } = 
   ]
 }
 
-function getLinkForCreationFlow(dataSource: string): string {
+function getLinkForCreationFlow(dataSource: string, projectIdentifier: string, orgId: string): string {
   switch (dataSource) {
     case DataSourceRoutePaths.SPLUNK:
-      return routeCVSplunkInputTypePage.url({ dataSourceType: dataSource })
+      return routeCVSplunkInputTypePage.url({ dataSourceType: dataSource, orgId, projectIdentifier })
     default:
-      return routeCVDataSourcesEntityPage.url({ dataSourceType: dataSource })
+      return routeCVDataSourcesEntityPage.url({ dataSourceType: dataSource, orgId, projectIdentifier })
   }
 }
 
@@ -77,20 +77,26 @@ function getProductDetails(
 
 export default function AppDynamicsProductPage(): JSX.Element {
   const {
-    params: { accountId, dataSourceType },
+    params: {
+      accountId,
+      dataSourceType: routeDataSourceType = '',
+      projectIdentifier: routeProjectId,
+      orgId: routeOrgId
+    },
     query: { dataSourceId: routeDataSourceId = '' }
   } = routeParams()
   const { pageData = {}, isInitializingDB, dbInstance } = useOnBoardingPageDataHook<PageContextData>(
     (routeDataSourceId as string) || ''
   )
+  const dataSourceId: string = (routeDataSourceId as string) || pageData.dataSourceId || ''
+  const projectId = routeProjectId as string
+  const orgId = routeOrgId as string
+  const dataSourceType = routeDataSourceType as string
   const [isLoading, setLoading] = useState(isInitializingDB || pageData.isEdit)
   const [{ displayError, noData }, setDisplayError] = useState<{ displayError?: string; noData?: string }>({})
   const [selectedProducts, setSelectedProducts] = useState<string[]>([])
   const history = useHistory()
-  const { productOptions, productDescription } = useMemo(() => getProductDetails(dataSourceType as string), [
-    dataSourceType
-  ])
-  const dataSourceId: string = (routeDataSourceId as string) || pageData.dataSourceId || ''
+  const { productOptions, productDescription } = useMemo(() => getProductDetails(dataSourceType), [dataSourceType])
   useEffect(() => {
     if (isInitializingDB) {
       return
@@ -102,6 +108,8 @@ export default function AppDynamicsProductPage(): JSX.Element {
     CVNextGenCVConfigService.fetchProducts({
       group: XHR_DATA_SOURCE_PRODUCTS_GROUP,
       accountId,
+      projectId,
+      orgId,
       dataSourceConnectorId: dataSourceId
     }).then(({ error, response, status }) => {
       if (status === xhr.ABORTED) {
@@ -116,19 +124,18 @@ export default function AppDynamicsProductPage(): JSX.Element {
       setLoading(false)
     })
     return () => xhr.abort(XHR_DATA_SOURCE_PRODUCTS_GROUP)
-  }, [dataSourceId, pageData.isEdit, accountId, isInitializingDB])
+  }, [dataSourceId, pageData.isEdit, accountId, isInitializingDB, projectId, orgId])
 
   const urlParams = useMemo(
     () => ({
       pathname: pageData.isEdit
-        ? routeCVOnBoardingSetup.url({ dataSourceType: dataSourceType as string })
-        : getLinkForCreationFlow((dataSourceType as string) || ''),
+        ? routeCVOnBoardingSetup.url({ dataSourceType, projectIdentifier: projectId, orgId })
+        : getLinkForCreationFlow(dataSourceType, projectId, orgId),
       search: `?dataSourceId=${dataSourceId}`,
       state: { products: selectedProducts, isEdit: pageData.isEdit, dataSourceId }
     }),
-    [selectedProducts, dataSourceType, dataSourceId, pageData.isEdit]
+    [selectedProducts, dataSourceType, dataSourceId, pageData.isEdit, orgId, projectId]
   )
-
   const onProductCardClickHandler = useCallback(
     (item?: TypeCard) => {
       if (!item?.title) {
@@ -142,6 +149,7 @@ export default function AppDynamicsProductPage(): JSX.Element {
     },
     [selectedProducts]
   )
+  const routeToDataSourcePage = () => history.replace(routeCVDataSources.url({ projectIdentifier: projectId, orgId }))
   return (
     <>
       <Page.Header title={i18n.pageTitle} />
@@ -152,7 +160,7 @@ export default function AppDynamicsProductPage(): JSX.Element {
           when: () => Boolean(noData?.length),
           icon: 'warning-sign',
           ...i18n.noDataContent,
-          onClick: () => history.replace(routeCVDataSources.url())
+          onClick: routeToDataSourcePage
         }}
       >
         <Container className={css.main}>
@@ -169,7 +177,7 @@ export default function AppDynamicsProductPage(): JSX.Element {
             </Container>
             <Text className={css.productDescriptions}>{productDescription}</Text>
             <Container className={css.buttonContainer}>
-              <Button className={css.backButton} onClick={() => history.replace(routeCVDataSources.url())}>
+              <Button className={css.backButton} onClick={routeToDataSourcePage}>
                 {i18n.backButton}
               </Button>
               <Button

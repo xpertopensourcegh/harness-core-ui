@@ -22,5 +22,14 @@ module.exports = {
     customProps: {
       base: `{getConfig("ng/api")}`
     }
+  },
+  cv: {
+    output: 'src/services/cv/index.tsx',
+    file: 'src/services/cv/swagger.json',
+    transformer: 'scripts/swagger-transform.js',
+    customImport: `import { getConfig } from "../config.js";`,
+    customProps: {
+      base: `{getConfig("cv-nextgen/api")}`
+    }
   }
 }

@@ -6,7 +6,9 @@ export const Connectors = {
   KUBERNETES_CLUSTER: 'K8sCluster',
   SPOT_INST: 'SPOT_INST',
   GIT: 'GitConnector',
-  SECRET_MANAGER: 'SECRET_MANAGER'
+  SECRET_MANAGER: 'SECRET_MANAGER',
+  APP_DYNAMICS: 'AppDynamics',
+  SPLUNK: 'Splunk'
 }
 
 export const ConnectorInfoText = {
@@ -17,5 +19,7 @@ export const ConnectorInfoText = {
   KUBERNETES_CLUSTER: 'Kubernetes Connector',
   SPOT_INST: 'SPOT_INST',
   GIT: 'GIT Connector',
-  SECRET_MANAGER: 'Secret Manager'
+  SECRET_MANAGER: 'Secret Manager',
+  APP_DYNAMICS: 'AppDynamics Connector',
+  SPLUNK: 'Splunk Connector'
 }

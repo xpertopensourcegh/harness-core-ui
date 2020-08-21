@@ -18,16 +18,18 @@ export function createDefaultConfigObjectBasedOnSelectedApps(
   app: SelectOption,
   dataSourceId: string,
   accountId: string,
-  productName: string
+  productName: string,
+  projectId: string
 ): DSConfigTableData {
-  return createDefaultConfigObject(dataSourceId, accountId, app.label, productName)
+  return createDefaultConfigObject(dataSourceId, accountId, app.label, productName, projectId)
 }
 
 export function createDefaultConfigObject(
   connectorId: string,
   accountId: string,
   appName: string,
-  productName: string
+  productName: string,
+  projectId: string
 ): DSConfigTableData {
   return {
     connectorId,
@@ -38,7 +40,7 @@ export function createDefaultConfigObject(
     metricPackList: [],
     tableData: [],
     envIdentifier: '',
-    projectIdentifier: 'harness',
+    projectIdentifier: projectId,
     productName,
     identifier: '',
     applicationName: appName

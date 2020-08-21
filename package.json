@@ -25,6 +25,7 @@
     "services": "npm-run-all services:*",
     "services:portal": "restful-react import --config restful-react.config.js portal",
     "services:cdng": "restful-react import --config restful-react.config.js cd-ng",
+    "services:cv": "restful-react import --config restful-react.config.js cv",
     "postservices": "prettier --write src/services/**/*.tsx",
     "build": "yarn clean && GIT_COMMIT=$(git log -1 --pretty=%h) GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD) webpack",
     "docker": "sh -c 'docker build -t harness/nextgenui:\"$0\" . && docker push harness/nextgenui:\"$0\"'",

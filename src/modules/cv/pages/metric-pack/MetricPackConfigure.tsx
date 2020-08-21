@@ -1,6 +1,7 @@
 import React, { FunctionComponent, useState, useEffect } from 'react'
 import { Button, OverlaySpinner, Text } from '@wings-software/uikit'
-import { accountId, projectIdentifier, RouteVerificationTypeToVerificationType } from 'modules/cv/constants'
+import { accountId, RouteVerificationTypeToVerificationType } from 'modules/cv/constants'
+import { routeParams } from 'framework/exports'
 import { fetchMetricPacks, saveGlobalMetricPacks } from '../../services/CVNextGenCVConfigService'
 import ConfigureThreshold from './ConfigureThreshold'
 import { MetricPackTable } from '../../components/MetricPackTable/MetricPackTable'
@@ -11,6 +12,11 @@ const MetricPackConfigure: FunctionComponent<any> = () => {
   const [metricPacks, setMetricPacks] = useState([])
   const [metricPacksThresholdData, setMetricPacksThresholdData] = useState([])
   const [inProgress, setInProgress] = useState(false)
+  const {
+    params: { orgId: routeOrgId, projectId: routeProjectId }
+  } = routeParams()
+  const orgId = routeOrgId as string
+  const projectId = routeProjectId as string
 
   useEffect(() => {
     fetchExistingMetricPacks()
@@ -20,7 +26,8 @@ const MetricPackConfigure: FunctionComponent<any> = () => {
     setInProgress(true)
     const { response }: any = await fetchMetricPacks({
       accountId,
-      projectId: projectIdentifier,
+      projectId,
+      orgId,
       dataSourceType: RouteVerificationTypeToVerificationType['app-dynamics'],
       group: 'metric-packs'
     })
@@ -50,7 +57,8 @@ const MetricPackConfigure: FunctionComponent<any> = () => {
     await saveGlobalMetricPacks({
       payload,
       accountId,
-      projectId: projectIdentifier,
+      projectId,
+      orgId,
       dataSourceType: RouteVerificationTypeToVerificationType['app-dynamics'],
       group: 'metric-packs'
     })

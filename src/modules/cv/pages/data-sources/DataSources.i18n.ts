@@ -1,58 +1,33 @@
 export default {
   addDataSourceTitle: 'Select Data Source',
   editDataSourceTitle: 'Edit Data Source',
-  dataSources: [
-    {
-      item: {
-        title: 'App Dynamics',
-        icon: 'service-appdynamics'
-      }
+  connectors: {
+    AppDynamics: {
+      title: 'AppDynamics',
+      icon: 'service-appdynamics'
     },
-    {
-      item: {
-        title: 'New Relic',
-        icon: 'service-newrelic'
-      }
-    },
-    {
-      item: {
-        title: 'Dynatrace',
-        icon: 'service-dynatrace'
-      }
-    },
-    {
-      item: {
-        title: 'Instana',
-        icon: 'service-instana'
-      }
-    },
-    {
-      item: {
-        title: 'Splunk',
-        icon: 'service-splunk'
-      }
-    },
-    {
-      item: {
-        title: 'Elastic',
-        icon: 'service-elk'
-      }
-    },
-    {
-      item: {
-        title: 'Stack Driver',
-        icon: 'service-stackdriver'
-      }
-    },
-    {
-      item: {
-        title: 'Cloud Watch',
-        icon: 'service-cloudwatch'
-      }
+    Splunk: {
+      title: 'Splunk',
+      icon: 'service-splunk-with-name',
+      iconSize: 40
     }
-  ],
+  },
   tableColumns: {
+    name: 'Name',
     dateCreated: 'Date Created',
     dateModified: 'Date Modified'
-  }
+  },
+  tableActionButtonText: {
+    edit: 'Edit',
+    view: 'View',
+    delete: 'Delete'
+  },
+  confirmationModalText: {
+    titleText: 'Delete Data Source',
+    contentText: 'Are you sure you want to delete this Data Source?',
+    cancelButtonText: 'Cancel',
+    confirmButtonText: 'Delete Data Source'
+  },
+  editDataSourceButtonText: 'Edit Data Source',
+  createDataSourceText: 'New Data Source'
 }

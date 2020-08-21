@@ -10,68 +10,110 @@ import type {
 import type { ServiceResponse } from 'modules/common/services/ServiceResponse'
 
 export const Endpoints = {
-  upsertDSConfig: (accountId: string) => `/cv-nextgen/ds-config?accountId=${accountId}`,
-  deleteDSConfig: (accountId: string, identifier: string, dataSourceConnectorId: string, productName?: string) =>
+  upsertDSConfig: (accountId: string, orgId: string, projectId: string) =>
+    `/cv-nextgen/ds-config?accountId=${accountId}&orgIdentifier=${orgId}&projectIdentifier=${projectId}`,
+  deleteDSConfig: (
+    accountId: string,
+    identifier: string,
+    dataSourceConnectorId: string,
+    orgId: string,
+    projectId: string,
+    productName?: string
+  ) =>
     `/cv-nextgen/ds-config?accountId=${accountId}&connectorId=${dataSourceConnectorId}&identifier=${identifier}${
       productName ? `&productName=${productName}` : ''
-    }`,
-  fetchDSConfigs: (accountId: string, dataSourceConnectorId: string, productName: string) =>
-    `/cv-nextgen/ds-config?accountId=${accountId}&connectorId=${dataSourceConnectorId}&productName=${productName}`,
-  fetchDSProducts: (accountId: string, dataSourceConnectorId: string) =>
-    `/cv-nextgen/cv-config/product-names?accountId=${accountId}&connectorId=${dataSourceConnectorId}`,
-  metricPack: (accountId: string, projectId: string, dataSourceType: DSConfig['type']) =>
-    `/cv-nextgen/metric-pack?accountId=${accountId}&projectIdentifier=${projectId}&dataSourceType=${dataSourceType}`,
+    }&orgIdentifier=${orgId}&projectIdentifier=${projectId}`,
+  fetchDSConfigs: (
+    accountId: string,
+    dataSourceConnectorId: string,
+    productName: string,
+    orgId: string,
+    projectId: string
+  ) =>
+    `/cv-nextgen/ds-config?accountId=${accountId}&connectorId=${dataSourceConnectorId}&productName=${productName}&orgIdentifier=${orgId}&projectIdentifier=${projectId}`,
+  fetchDSProducts: (accountId: string, dataSourceConnectorId: string, orgId: string, projectId: string) =>
+    `/cv-nextgen/cv-config/product-names?accountId=${accountId}&connectorId=${dataSourceConnectorId}&orgIdentifier=${orgId}&projectIdentifier=${projectId}`,
+  metricPack: (accountId: string, projectId: string, dataSourceType: DSConfig['type'], orgId: string) =>
+    `/cv-nextgen/metric-pack?accountId=${accountId}&projectIdentifier=${projectId}&dataSourceType=${dataSourceType}&orgIdentifier=${orgId}`,
   validateAppDMetrics: (
     accountId: string,
     connectorId: string,
+    orgId: string,
     projectId: string,
     appId: number,
     tierId: number,
     guid: string
   ) =>
-    `/cv-nextgen/appdynamics/metric-data?accountId=${accountId}&connectorId=${connectorId}&projectIdentifier=${projectId}&appdAppId=${appId}&appdTierId=${tierId}&requestGuid=${guid}`,
-  validateSplunkConfig: (accountId: string, connectorId: string, query: string, requestGUID: string) =>
-    `/cv-nextgen/splunk/validation?accountId=${accountId}&connectorId=${connectorId}&query=${query}&requestGuid=${requestGUID}`,
-  fetchSplunkSavedSearches: (accountId: string, dataSourceId: string, requestGUID: string) =>
-    `/cv-nextgen/splunk/saved-searches?accountId=${accountId}&connectorId=${dataSourceId}&requestGuid=${requestGUID}`
+    `/cv-nextgen/appdynamics/metric-data?accountId=${accountId}&connectorId=${connectorId}&projectIdentifier=${projectId}&appdAppId=${appId}&appdTierId=${tierId}&requestGuid=${guid}&orgIdentifier=${orgId}`,
+  validateSplunkConfig: (
+    accountId: string,
+    connectorId: string,
+    query: string,
+    requestGUID: string,
+    orgId: string,
+    projectId: string
+  ) =>
+    `/cv-nextgen/splunk/validation?accountId=${accountId}&connectorId=${connectorId}&query=${query}&requestGuid=${requestGUID}&orgIdentifier=${orgId}&projectIdentifier=${projectId}`,
+  fetchSplunkSavedSearches: (
+    accountId: string,
+    dataSourceId: string,
+    requestGUID: string,
+    orgId: string,
+    projectId: string
+  ) =>
+    `/cv-nextgen/splunk/saved-searches?accountId=${accountId}&connectorId=${dataSourceId}&requestGuid=${requestGUID}&orgIdentifier=${orgId}&projectIdentifier=${projectId}`
 }
 
 export async function fetchQueriesFromSplunk({
   accountId,
   dataSourceId,
   requestGUID = new Date().getTime().toString(),
+  projectId,
+  orgId,
   xhrGroup
 }: {
   accountId: string
   dataSourceId: string
+  projectId: string
+  orgId: string
   requestGUID?: string
   xhrGroup: string
 }): ServiceResponse<RestResponseListSplunkSavedSearch> {
-  return xhr.get(Endpoints.fetchSplunkSavedSearches(accountId, dataSourceId, requestGUID), { group: xhrGroup })
+  return xhr.get(Endpoints.fetchSplunkSavedSearches(accountId, dataSourceId, requestGUID, orgId, projectId), {
+    group: xhrGroup
+  })
 }
 
 export async function fetchConfigs({
   accountId,
   dataSourceConnectorId,
-  productName
+  productName,
+  projectId,
+  orgId
 }: {
   accountId: string
   dataSourceConnectorId: string
+  projectId: string
+  orgId: string
   productName: string
 }): ServiceResponse<RestResponseListDSConfig> {
-  return xhr.get(Endpoints.fetchDSConfigs(accountId, dataSourceConnectorId, productName))
+  return xhr.get(Endpoints.fetchDSConfigs(accountId, dataSourceConnectorId, productName, orgId, projectId))
 }
 
 export async function upsertDSConfig({
   accountId,
   group,
-  config
+  config,
+  projectId,
+  orgId
 }: {
   accountId: string
   group: string
   config: DSConfig
+  projectId: string
+  orgId: string
 }): ServiceResponse<void> {
-  return xhr.put(Endpoints.upsertDSConfig(accountId), {
+  return xhr.put(Endpoints.upsertDSConfig(accountId, orgId, projectId), {
     group,
     data: config
   })
@@ -82,49 +124,63 @@ export async function deleteConfigs({
   productName,
   identifier,
   dataSourceConnectorId,
+  projectId,
+  orgId,
   group
 }: {
   accountId: string
   productName?: string
   identifier: string
   dataSourceConnectorId: string
+  projectId: string
+  orgId: string
   group: string
 }): ServiceResponse<void> {
-  return xhr.delete(Endpoints.deleteDSConfig(accountId, identifier, dataSourceConnectorId, productName), {
-    group
-  })
+  return xhr.delete(
+    Endpoints.deleteDSConfig(accountId, identifier, dataSourceConnectorId, orgId, projectId, productName),
+    {
+      group
+    }
+  )
 }
 
 export async function fetchMetricPacks({
   accountId,
   projectId,
+  orgId,
   dataSourceType,
   group
 }: {
   accountId: string
   projectId: string
+  orgId: string
   dataSourceType: DSConfig['type']
   group: string
 }): ServiceResponse<MetricPack[]> {
-  return xhr.get(Endpoints.metricPack(accountId, projectId, dataSourceType), { group })
+  return xhr.get(Endpoints.metricPack(accountId, projectId, dataSourceType, orgId), { group })
 }
 
 export async function fetchProducts({
   accountId,
   dataSourceConnectorId,
-  group
+  group,
+  orgId,
+  projectId
 }: {
   group: string
   accountId: string
+  orgId: string
+  projectId: string
   dataSourceConnectorId: string
 }): ServiceResponse<RestResponseListString> {
-  return xhr.get(Endpoints.fetchDSProducts(accountId, dataSourceConnectorId), { group })
+  return xhr.get(Endpoints.fetchDSProducts(accountId, dataSourceConnectorId, orgId, projectId), { group })
 }
 
 export async function saveGlobalMetricPacks({
   payload,
   accountId,
   projectId,
+  orgId,
   dataSourceType,
   group
 }: {
@@ -132,15 +188,17 @@ export async function saveGlobalMetricPacks({
   projectId: string
   dataSourceType: DSConfig['type']
   group: string
+  orgId: string
   payload: any
 }): ServiceResponse<void> {
-  return xhr.post(Endpoints.metricPack(accountId, projectId, dataSourceType), { data: payload, group })
+  return xhr.post(Endpoints.metricPack(accountId, projectId, dataSourceType, orgId), { data: payload, group })
 }
 
 export async function validateMetricsApi({
   accountId,
   connectorId,
   projectId,
+  orgId,
   appId,
   metricPacks,
   tierId,
@@ -149,6 +207,7 @@ export async function validateMetricsApi({
 }: {
   accountId: string
   connectorId: string
+  orgId: string
   projectId: string
   appId: number
   metricPacks: MetricPack[]
@@ -156,7 +215,7 @@ export async function validateMetricsApi({
   guid: string
   xhrGroup: string
 }): ServiceResponse<RestResponseSetAppdynamicsValidationResponse> {
-  return xhr.post(Endpoints.validateAppDMetrics(accountId, connectorId, projectId, appId, tierId, guid), {
+  return xhr.post(Endpoints.validateAppDMetrics(accountId, connectorId, orgId, projectId, appId, tierId, guid), {
     group: xhrGroup,
     data: metricPacks
   })
@@ -167,13 +226,19 @@ export async function validateSplunkConfig({
   dataSourceId,
   query,
   guid,
+  projectId,
+  orgId,
   xhrGroup
 }: {
   accountId: string
   dataSourceId: string
   guid: string
   query: string
+  projectId: string
+  orgId: string
   xhrGroup: string
 }): ServiceResponse<any> {
-  return xhr.get(Endpoints.validateSplunkConfig(accountId, dataSourceId, query, guid), { group: xhrGroup })
+  return xhr.get(Endpoints.validateSplunkConfig(accountId, dataSourceId, query, guid, orgId, projectId), {
+    group: xhrGroup
+  })
 }

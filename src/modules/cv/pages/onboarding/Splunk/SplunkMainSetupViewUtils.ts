@@ -90,6 +90,7 @@ export function createDefaultSplunkDSConfig(
   accountId: string,
   dataSourceId: string,
   productName: string,
+  projectId: string,
   queryName?: string,
   query?: string
 ): SplunkDSConfig {
@@ -99,7 +100,7 @@ export function createDefaultSplunkDSConfig(
     serviceInstanceIdentifier: '',
     eventType: i18n.splunkEntityTypeOptions.quality,
     type: 'SPLUNK',
-    projectIdentifier: 'harness',
+    projectIdentifier: projectId,
     accountId,
     connectorId: dataSourceId,
     productName,
@@ -114,14 +115,15 @@ export function createDefaultConfigObjectBasedOnSelectedQueries(
   queries: SelectOption[],
   dataSourceId: string,
   accId: string,
-  productName: string
+  productName: string,
+  projectId: string
 ): SplunkDSConfig[] {
   const defaultQueries = queries?.map(query => {
-    return createDefaultSplunkDSConfig(accId, dataSourceId, productName, query.label, query.value as string)
+    return createDefaultSplunkDSConfig(accId, dataSourceId, productName, projectId, query.label, query.value as string)
   })
 
   if (!defaultQueries?.length) {
-    defaultQueries.push(createDefaultSplunkDSConfig(accId, dataSourceId, productName, undefined, undefined))
+    defaultQueries.push(createDefaultSplunkDSConfig(accId, dataSourceId, productName, projectId, undefined, undefined))
   }
 
   return defaultQueries

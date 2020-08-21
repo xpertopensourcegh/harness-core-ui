@@ -11,5 +11,7 @@ declare const styles: {
   readonly dataSourceTable: string
   readonly actionLinks: string
   readonly divider: string
+  readonly connectorDialog: string
+  readonly crossButton: string
 }
 export default styles

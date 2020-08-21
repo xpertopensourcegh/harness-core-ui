@@ -13,19 +13,28 @@ async function removeDataSourceConfig(
   accountId: string,
   dataSourceConnectorId: string,
   identifier: string,
+  orgId: string,
+  projectId: string,
   productName?: string
 ): Promise<string | undefined> {
   const { error } = await CVNextGenCVConfigService.deleteConfigs({
     accountId,
     dataSourceConnectorId,
     identifier,
+    orgId,
+    projectId,
     productName,
     group: 'XHR_DELETE_CONFIG_GROUP'
   })
   return error ? error : undefined
 }
 
-async function saveDSConfig(dsConfig: DSConfig, accountId: string): Promise<string | undefined> {
+async function saveDSConfig(
+  dsConfig: DSConfig,
+  accountId: string,
+  orgId: string,
+  projectId: string
+): Promise<string | undefined> {
   if (!dsConfig) {
     return
   }
@@ -33,6 +42,8 @@ async function saveDSConfig(dsConfig: DSConfig, accountId: string): Promise<stri
   const { error } = await CVNextGenCVConfigService.upsertDSConfig({
     accountId,
     group: 'XHR_SAVE_CONFIG_GROUP',
+    projectId,
+    orgId,
     config: dsConfig
   })
 
@@ -50,6 +61,7 @@ interface DataSourceConfigPanelProps extends ListPanelInterface, Pick<FormikCont
   onRemove: (index: number) => void
   transformToSavePayload?: (dsConfig: DSConfig) => DSConfig
   index: number
+  orgId: string
   validateConfig?: (config: DSConfig) => { [fieldName: string]: string }
 }
 
@@ -67,7 +79,8 @@ const DataSourceConfigPanel: React.FC<DataSourceConfigPanelProps> = (props): JSX
     values,
     setFieldTouched,
     setFieldError,
-    touched
+    touched,
+    orgId
   } = props
   const [panelHeaderMsg, setPanelHeaderMsg] = useState<{ intent: Intent; msg: string } | undefined>()
   const configData = values?.dsConfigs?.[index] || {}
@@ -115,6 +128,8 @@ const DataSourceConfigPanel: React.FC<DataSourceConfigPanelProps> = (props): JSX
         accountId || '',
         configData.connectorId || '',
         configData.identifier || '',
+        orgId,
+        configData.projectIdentifier || '',
         configData.productName
       ).then(error => {
         if (!error) {
@@ -127,7 +142,7 @@ const DataSourceConfigPanel: React.FC<DataSourceConfigPanelProps> = (props): JSX
     } else {
       onRemove(index)
     }
-  }, [onRemove, accountId, index, configData, panelHeaderMsg])
+  }, [onRemove, accountId, index, configData, panelHeaderMsg, orgId])
 
   const collapseHeaderProps: CollapseListPanelProps['collapseHeaderProps'] = useMemo(
     () => ({
@@ -144,7 +159,7 @@ const DataSourceConfigPanel: React.FC<DataSourceConfigPanelProps> = (props): JSX
       return
     }
     const config: DSConfig = transformToSavePayload?.(configData) || configData
-    const error = await saveDSConfig(config, config.accountId || '')
+    const error = await saveDSConfig(config, config.accountId || '', orgId, config.projectIdentifier || '')
     if (error) {
       setPanelHeaderMsg({ msg: error, intent: 'danger' })
       return
@@ -152,7 +167,7 @@ const DataSourceConfigPanel: React.FC<DataSourceConfigPanelProps> = (props): JSX
       setPanelHeaderMsg({ msg: i18n.successMessage, intent: 'success' })
     }
     openNext?.()
-  }, [configData, transformToSavePayload, validateCallback, openNext])
+  }, [configData, transformToSavePayload, validateCallback, openNext, orgId])
 
   useEffect(() => {
     if (isOpen || panelHeaderMsg?.intent !== 'primary' || !touchedFields || !Object.keys(touchedFields).length) {

@@ -32,13 +32,16 @@ interface TierAndServiceTableProps {
   setFieldTouched: (fieldName: string, touched?: boolean) => void
   setFieldValue: (fieldName: string, value: any) => void
   data?: TierAndServiceRow[]
+  projectId: string
+  orgId: string
 }
 
 interface RowRendererProps {
   row: Row<TierAndServiceRow>
   tierOptions: SelectOption[]
   accountId: string
-  projectId: number
+  orgId: string
+  projectId: string
   appId: number
   isLoadingServices: boolean
   metricPacks: MetricPack[]
@@ -103,11 +106,15 @@ async function fetchAppDTiers(
   settingId: string,
   accountId: string,
   appId: number,
+  orgId: string,
+  projectId: string,
   xhrGroup: string
 ): Promise<{ error?: string; tierList?: SelectOption[] } | undefined> {
   const { error, status, response } = await AppDynamicsService.getAppDynamicsTiers({
     accountId,
     datasourceId: settingId,
+    orgId,
+    projectId,
     appDynamicsAppId: appId,
     xhrGroup
   })
@@ -128,6 +135,8 @@ async function loadAppDTiers(
   accountId: string,
   appId: number,
   dataSourceId: string,
+  orgId: string,
+  projectId: string,
   dbInstance?: IDBPDatabase
 ): Promise<{ error?: string; tierList?: SelectOption[] } | undefined> {
   if (!appId || appId === -1 || !dataSourceId) {
@@ -140,7 +149,7 @@ async function loadAppDTiers(
 
   const xhrGroup = `${XHR_TIER_GROUP}_${appId}`
   xhr.abort(xhrGroup)
-  const tiers = await fetchAppDTiers(dataSourceId, accountId, appId, xhrGroup)
+  const tiers = await fetchAppDTiers(dataSourceId, accountId, appId, orgId, projectId, xhrGroup)
   if (tiers?.tierList?.length) {
     dbInstance?.put(CVObjectStoreNames.APPD_TIERS, {
       [CVIndexedDBPrimaryKeys.APPD_APP_ID]: appId,
@@ -301,7 +310,18 @@ function ViewDetails(props: ViewDetailsProps): JSX.Element {
 }
 
 function RowRenderer(props: RowRendererProps): JSX.Element {
-  const { row, tierOptions, accountId, projectId, appId, metricPacks, onChange, connectorId, isLoadingServices } = props
+  const {
+    row,
+    tierOptions,
+    accountId,
+    projectId,
+    appId,
+    metricPacks,
+    orgId,
+    onChange,
+    connectorId,
+    isLoadingServices
+  } = props
   const { cells, original, index: rowIndex } = row
   const { serviceName, tierOption } = original || {}
   const [[mp, t], setDep] = useState<[MetricPack[] | undefined, number | undefined]>([undefined, undefined])
@@ -334,6 +354,7 @@ function RowRenderer(props: RowRendererProps): JSX.Element {
       connectorId,
       projectId: projectId.toString(),
       tierId,
+      orgId,
       appId,
       metricPacks,
       xhrGroup: `${XHR_METRIC_VALIDATION_GROUP}-${newGUID}`,
@@ -350,7 +371,7 @@ function RowRenderer(props: RowRendererProps): JSX.Element {
       })
       onChange('validation', response?.resource ? true : false, rowIndex)
     })
-  }, [accountId, appId, metricPacks, projectId, tierOption, onChange, connectorId, rowIndex, isLoadingServices])
+  }, [accountId, appId, metricPacks, projectId, orgId, tierOption, onChange, connectorId, rowIndex, isLoadingServices])
 
   const rowCellCallback = useCallback(
     (index: number) => {
@@ -426,7 +447,9 @@ export default function TierAndServiceTable(props: TierAndServiceTableProps): JS
     isLoadingServices,
     data = [],
     index: appIndex,
-    accountId
+    accountId,
+    projectId,
+    orgId
   } = props
   const { dbInstance, isInitializingDB } = useIndexedDBHook()
   const [tierOptions, setTierOptions] = useState<SelectOption[]>([{ label: 'Loading...', value: '' }])
@@ -437,7 +460,7 @@ export default function TierAndServiceTable(props: TierAndServiceTableProps): JS
       return
     }
 
-    loadAppDTiers(accountId, appId, dataSourceId, dbInstance).then(tiers => {
+    loadAppDTiers(accountId, appId, dataSourceId, orgId, projectId, dbInstance).then(tiers => {
       if (!tiers) {
         return
       } else if (tiers.error) {
@@ -490,7 +513,8 @@ export default function TierAndServiceTable(props: TierAndServiceTableProps): JS
             appId={appId}
             accountId={accountId}
             onChange={onRowChangeCallback}
-            projectId={12345}
+            projectId={projectId}
+            orgId={orgId}
             connectorId={dataSourceId}
             metricPacks={metricPacks}
             tierOptions={tierOptions}

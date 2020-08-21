@@ -77,6 +77,8 @@ interface SplunkDataSourceFormProps {
   splunkQueryOptions: SelectOption[]
   dsConfigs: SplunkDSConfig[]
   pageData: PageData
+  orgId: string
+  projectId: string
   dbInstance?: IDBPDatabase
 }
 
@@ -116,6 +118,8 @@ async function validateConfig(
   dataSourceId: string,
   query: string,
   guid: string,
+  orgId: string,
+  projectId: string,
   updateState: (result: ValidationDetails) => void
 ): Promise<void> {
   xhr.abort(XHR_VALIDATION_GROUP)
@@ -126,6 +130,8 @@ async function validateConfig(
     dataSourceId,
     query,
     guid,
+    orgId,
+    projectId,
     xhrGroup: XHR_VALIDATION_GROUP
   })
 
@@ -162,6 +168,8 @@ async function validateConfig(
 async function loadSplunkSavedSearches(
   accountId: string,
   dataSourceId: string,
+  orgId: string,
+  projectId: string,
   dbInstance?: IDBPDatabase
 ): Promise<{ savedSearches?: SelectOption[]; error?: string; status?: number }> {
   const splunkSavedSearches: { entityOptions: SelectOption[] } = await dbInstance?.get(
@@ -177,6 +185,8 @@ async function loadSplunkSavedSearches(
     accountId,
     xhrGroup: XHR_SAVED_SEARCH_GROUP,
     dataSourceId,
+    orgId,
+    projectId,
     requestGUID: `${Utils.randomId()}-${dataSourceId}`
   })
 
@@ -326,10 +336,18 @@ function SplunkConfig(props: SplunkConfigProps): JSX.Element {
       debouncedValidateConfig.cancel()
       const guid = `${Utils.randomId()}-${dataSourceId}-${new Date().getTime().toString()}`
       setThirdPartyGUID(guid)
-      debouncedValidateConfig(params.accountId, dataSourceId, dsConfig.query, guid, setValidationResult)
+      debouncedValidateConfig(
+        params.accountId,
+        dataSourceId,
+        dsConfig.query,
+        guid,
+        params.orgId as string,
+        params.projectIdentifier as string,
+        setValidationResult
+      )
     }
     return () => xhr.abort(XHR_VALIDATION_GROUP)
-  }, [dsConfig.query, dataSourceId, params.accountId])
+  }, [dsConfig.query, dataSourceId, params.accountId, params.orgId, params.projectId])
 
   useEffect(() => {
     if (!renderSplunkFields && dsConfig.envIdentifier && dsConfig.serviceIdentifier) {
@@ -447,7 +465,7 @@ function SplunkPageHeading(props: SplunkPageHeadingProps): JSX.Element {
 }
 
 function SplunkDataSourceForm(props: SplunkDataSourceFormProps): JSX.Element {
-  const { dsConfigs, serviceOptions, envOptions, splunkQueryOptions, pageData, dbInstance } = props
+  const { dsConfigs, serviceOptions, envOptions, splunkQueryOptions, pageData, orgId, dbInstance, projectId } = props
   const productName = pageData?.products?.[0]
   const {
     params: { accountId }
@@ -472,7 +490,7 @@ function SplunkDataSourceForm(props: SplunkDataSourceFormProps): JSX.Element {
                     <SplunkPageHeading
                       onAddQuery={(queryName?: string, query?: string) =>
                         arrayHelpers.unshift(
-                          createDefaultSplunkDSConfig(accountId, dataSourceId, productName, queryName, query)
+                          createDefaultSplunkDSConfig(accountId, dataSourceId, productName, projectId, queryName, query)
                         )
                       }
                       splunkSavedSearches={splunkQueryOptions}
@@ -489,6 +507,7 @@ function SplunkDataSourceForm(props: SplunkDataSourceFormProps): JSX.Element {
                             key={dsConfig?.id}
                             entityName={dsConfig?.queryName || ''}
                             index={index}
+                            orgId={orgId}
                             validateConfig={validate}
                             transformToSavePayload={transformToSaveConfig}
                             onRemove={() => arrayHelpers.remove(index)}
@@ -527,12 +546,14 @@ export default function SplunkOnboarding(props: SplunkOnBoardingProps): JSX.Elem
   const { configs, serviceOptions, locationContext, indexedDB, envOptions } = props
   const [splunkQueryOptions, setSplunkQueryOptions] = useState<SelectOption[]>([{ label: i18n.loadingText, value: '' }])
   const {
-    params: { accountId }
+    params: { accountId, projectIdentifier: routeProjectId, orgId: routeOrgId }
   } = routeParams()
   const toaster = useToaster()
+  const projectId = routeProjectId as string
+  const orgId = routeOrgId as string
 
   useEffect(() => {
-    loadSplunkSavedSearches(accountId, locationContext?.dataSourceId, indexedDB).then(result => {
+    loadSplunkSavedSearches(accountId, locationContext?.dataSourceId, orgId, projectId, indexedDB).then(result => {
       const { error, status, savedSearches } = result
       if (status === xhr.ABORTED) {
         return
@@ -542,7 +563,7 @@ export default function SplunkOnboarding(props: SplunkOnBoardingProps): JSX.Elem
         setSplunkQueryOptions(savedSearches ?? [])
       }
     })
-  }, [accountId, locationContext?.dataSourceId, indexedDB])
+  }, [accountId, locationContext?.dataSourceId, indexedDB, projectId, orgId])
 
   return (
     <Container className={css.main}>
@@ -551,6 +572,8 @@ export default function SplunkOnboarding(props: SplunkOnBoardingProps): JSX.Elem
         envOptions={envOptions}
         dsConfigs={configs}
         pageData={locationContext}
+        orgId={orgId}
+        projectId={projectId}
         splunkQueryOptions={splunkQueryOptions}
         dbInstance={indexedDB}
       />

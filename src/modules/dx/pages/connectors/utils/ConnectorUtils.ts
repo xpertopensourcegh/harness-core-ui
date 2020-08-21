@@ -168,6 +168,10 @@ export const getIconByType = (type: string): IconName => {
       return 'service-kubernetes' as IconName
     case 'Vault': // TODO: use enum when backend fixes it
       return 'key'
+    case Connectors.APP_DYNAMICS:
+      return 'service-appdynamics' as IconName
+    case Connectors.SPLUNK:
+      return 'service-splunk' as IconName
     default:
       return '' as IconName
   }
