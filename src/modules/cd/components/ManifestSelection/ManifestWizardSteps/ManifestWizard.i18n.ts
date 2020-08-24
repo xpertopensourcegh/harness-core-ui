@@ -1,7 +1,8 @@
 export default {
   STEP_ONE: {
     name: 'SPECIFY MANIFEST SERVER',
-    select: 'Select GIT Server',
+    select: 'GIT Server',
+    gitServerPlaceholder: 'Select GIT Server',
     title: 'Source Repository',
     saveAndContinue: 'Save and Continue'
   },

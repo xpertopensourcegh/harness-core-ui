@@ -1,9 +1,11 @@
-import React, { useState } from 'react'
-import { StepWizard, Layout, Button, Text, FormInput, Formik } from '@wings-software/uikit'
+import React, { useState, useEffect } from 'react'
+import { useParams } from 'react-router-dom'
+import { StepWizard, Layout, SelectOption, Button, Text, FormInput, Formik } from '@wings-software/uikit'
 import { Form } from 'formik'
 
 import * as Yup from 'yup'
 import { get } from 'lodash'
+import { useGetConnectorList } from 'services/cd-ng'
 import { StringUtils } from 'modules/common/exports'
 
 import type { StageElementWrapper } from 'services/cd-ng'
@@ -43,6 +45,29 @@ const manifestTypes = [
 
 const FirstStep = (props: any): JSX.Element => {
   const { setFormData } = props
+
+  const { accountId }: any = useParams()
+
+  const { data: gitConnectorListResponse, loading: loadingGitConnector } = useGetConnectorList({
+    accountIdentifier: accountId,
+    queryParams: {}
+  })
+
+  const [gitConnectorsList, setGitConnectorsList] = useState<SelectOption[]>([])
+
+  useEffect(() => {
+    const gitConnectors =
+      gitConnectorListResponse?.data?.content?.map(git => {
+        return {
+          label: git.name || '',
+          value: git.identifier || '',
+          type: git.type
+        }
+      }) || []
+
+    setGitConnectorsList(gitConnectors.filter(data => data.type === 'Git'))
+  }, [gitConnectorListResponse?.data?.content])
+
   return (
     <Layout.Vertical spacing="xxlarge" padding="small" style={{ height: '100%' }}>
       <Text font="medium">{i18n.STEP_TWO.name}</Text>
@@ -65,10 +90,13 @@ const FirstStep = (props: any): JSX.Element => {
         {() => (
           <Form className={css.formContainer}>
             <FormInput.InputWithIdentifier inputLabel={i18n.STEP_TWO.manifestId} />
-            <FormInput.Select
+            <FormInput.MultiTypeInput
               name="gitServer"
+              style={{ width: 400 }}
+              disabled={loadingGitConnector}
               label={i18n.STEP_ONE.select}
-              items={[{ label: 'GIT Connector 1', value: 'VWjzrm4KRZOJvIJGtQ6Wbw' }]}
+              placeholder={i18n.STEP_ONE.gitServerPlaceholder}
+              selectItems={gitConnectorsList}
             />
             <Layout.Horizontal spacing="large" className={css.bottomButtons}>
               <Button type="submit" text={i18n.STEP_ONE.saveAndContinue} />
