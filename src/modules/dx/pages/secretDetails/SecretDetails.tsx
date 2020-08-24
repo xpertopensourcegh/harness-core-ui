@@ -221,7 +221,7 @@ const SecretDetails: React.FC = () => {
               fileName={`${secretData.name}.yaml`}
               existingYaml={stringify(secretData)}
               isReadOnlyMode={true}
-              showSnippetsSection={false}
+              showSnippetSection={false}
             />
           </Container>
         )}

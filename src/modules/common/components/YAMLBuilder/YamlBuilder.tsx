@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState } from 'react'
 import MonacoEditor from 'react-monaco-editor'
 import '@wings-software/monaco-yaml/lib/esm/monaco.contribution'
 import { languages } from 'monaco-editor/esm/vs/editor/editor.api'
@@ -12,7 +12,11 @@ import * as YAML from 'yaml'
 
 import { JSONSchemaService } from 'modules/dx/services'
 import { Tag, Layout } from '@wings-software/uikit'
-import type { YamlBuilderProps, InvocationContext } from 'modules/common/interfaces/YAMLBuilderProps'
+import type {
+  YamlBuilderProps,
+  YamlBuilderHandlerBinding,
+  CompletionItemInterface
+} from 'modules/common/interfaces/YAMLBuilderProps'
 import SnippetSection from 'modules/common/components/SnippetSection/SnippetSection'
 
 import css from './YamlBuilder.module.scss'
@@ -39,23 +43,15 @@ window.MonacoEnvironment = {
 
 const toaster = Toaster.create()
 
-interface CompletionItemInterface {
-  label: string
-  kind: monaco.languages.CompletionItemKind
-  value: string
-}
-
 /**
  * @description Find json path(s) of a given node in json from it's nearest parent
  * @param obj json object
  * @param leaf leaf node whose path(s) from the nearest parent needs to be known
  * @param delimiter delimiter to be used in node path(s) from parent
- * @returns matching json paths(s)
+ * @returns exactly matching json path in the tree
  */
-function findLeafToParentPath(obj: Record<string, any>, leaf: string, delimiter?: string): Map<string, string> {
-  delimiter = delimiter || '.'
-  const paths = new Map<string, string>()
-
+const findLeafToParentPath = (obj: Record<string, any>, leaf: string, delimiter: string = '.'): string => {
+  let matchingPath
   function findPath(currObj: Record<string, any>, currentDepth: number, previous?: string) {
     Object.keys(currObj).forEach(function (key) {
       const value = currObj[key]
@@ -65,13 +61,13 @@ function findLeafToParentPath(obj: Record<string, any>, leaf: string, delimiter?
       if (isObject && Object.keys(value).length) {
         return findPath(value, currentDepth + 1, newKey)
       }
-      if (newKey.includes(leaf)) paths.set(leaf, newKey)
+      if (newKey.match(leaf)) {
+        matchingPath = newKey
+      }
     })
   }
-
   findPath(obj, 1)
-
-  return paths
+  return matchingPath
 }
 
 function getJSONFromYAML(yaml: string): Record<string, any> {
@@ -99,20 +95,6 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
     onSnippetSearch
   } = props
   const [currentYaml, setCurrentYaml] = useState<string | undefined>('')
-  const yamlPathToRTValueMap = useRef(new Map<string, any>())
-  const yamlPathToRefetcherMap = useRef(new Map<string, InvocationContext>())
-
-  if (invocationMap && invocationMap.size > 0) {
-    invocationMap.forEach((key: InvocationContext, value: string) => {
-      const { serviceHook, args } = key,
-        yamlPath = value
-      if (typeof serviceHook === 'function') {
-        const { data, refetch } = serviceHook(args)
-        yamlPathToRefetcherMap.current.set(yamlPath, refetch)
-        yamlPathToRTValueMap.current.set(yamlPath, data)
-      }
-    })
-  }
 
   const handler = React.useMemo(
     () =>
@@ -169,7 +151,7 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
   }
 
   let expressionCompletionDisposer: { dispose: () => void }
-  function registerCompletionItemProviderForExpressions(editor): void {
+  function registerCompletionItemProviderForExpressions(editor, matchingPath: string): void {
     if (editor) {
       const suggestions = fetchAutocompleteItemsForExpressions(JSONSchemaService.fetchExpressions)
       expressionCompletionDisposer = editor?.languages?.registerCompletionItemProvider('yaml', {
@@ -180,53 +162,45 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
   }
 
   /** For RT Inputs */
-  async function fetchRTAutocompleteItems(
-    refetcherFunc: Function,
-    yamlPath: string
-  ): Promise<CompletionItemInterface[]> {
-    await refetcherFunc({ accountIdentifier: 'kmpySmUISimoRrJL6NL73w' })
-    const rtValueForYamlPath = yamlPathToRTValueMap.current.get(yamlPath)
-    if (rtValueForYamlPath?.data?.content?.length > 0) {
-      const items = rtValueForYamlPath?.data?.content
-      const suggestions = items.map((item: Record<string, any>) => {
-        if (item.name) {
-          const itemName = item.name.trim()
-          return {
-            label: itemName,
-            kind: monaco.languages.CompletionItemKind.Value,
-            insertText: itemName
-          }
-        }
-      })
-      return suggestions
-    }
-    return []
-  }
-
   let runTimeCompletionDisposer: { dispose: () => void }
-  async function registerCompletionItemProviderForRTInputs(
+  function registerCompletionItemProviderForRTInputs(
     editor,
-    yamlPath: string,
-    refetcherFunc: Function
-  ): Promise<void> {
+    suggestionsPromise: Promise<CompletionItemInterface[]>
+  ): void {
     if (editor) {
-      const suggestions = await fetchRTAutocompleteItems(refetcherFunc, yamlPath)
-      runTimeCompletionDisposer = editor?.languages?.registerCompletionItemProvider('yaml', {
-        triggerCharacters: [' '],
-        provideCompletionItems: () => provideCompletionItems(suggestions)
+      suggestionsPromise.then(suggestions => {
+        runTimeCompletionDisposer = editor?.languages?.registerCompletionItemProvider('yaml', {
+          triggerCharacters: [' '],
+          provideCompletionItems: () => provideCompletionItems(suggestions)
+        })
       })
     }
   }
 
-  const invokeRefetchersWithMatchingYamlPaths = (monaco, paths: Map<string, string>): void => {
-    paths.forEach(value => {
-      if (yamlPathToRefetcherMap.current.has(value)) {
-        const refetcherFunc = yamlPathToRefetcherMap.current.get(value)
-        if (refetcherFunc && typeof refetcherFunc === 'function') {
-          registerCompletionItemProviderForRTInputs(monaco, value, refetcherFunc)
-        }
+  const invokeCallBackForMatchingYAMLPaths = (monaco, matchingPath: string): void => {
+    invocationMap?.forEach((callBackFunc, yamlPath) => {
+      if (matchingPath.match(yamlPath) && typeof callBackFunc === 'function') {
+        const suggestionsPromise = callBackFunc(matchingPath)
+        registerCompletionItemProviderForRTInputs(monaco, suggestionsPromise)
       }
     })
+  }
+
+  const getValidatedYAMLFromEditor = (editor): string => {
+    const currentEditorPosition = editor.getPosition(),
+      currentEditorText = editor.getValue(currentEditorPosition).trim(),
+      currentLineNumber = currentEditorPosition.lineNumber,
+      splitedText = currentEditorText.split('\n').slice(0, currentLineNumber),
+      currentLineContent = splitedText[currentLineNumber - 1],
+      textToInsert = currentEditorText[currentEditorText.length - 1] === ':' ? '' : ': ' + 'placeholder'
+    splitedText[currentLineNumber - 1] = [
+      currentLineContent.slice(0, currentEditorPosition.column - 1),
+      textToInsert,
+      currentLineContent.slice(currentEditorPosition.column - 1)
+    ].join('')
+    editor.setPosition(currentEditorPosition)
+
+    return splitedText.join('\n')
   }
 
   const handleEditorEvent = (event: KeyboardEvent, editor): void => {
@@ -235,21 +209,17 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
     //TODO Need to debounce this function call for performance optimization
     if (shiftKey) {
       disposePreviousSuggestions()
-      if (code === 'Digit4') {
-        registerCompletionItemProviderForExpressions(monaco)
-      } else if (code === 'Semicolon') {
-        const currentToken = editor.getModel().getLineContent(editor.getPosition().lineNumber)
-        const yamlInEditor = editor.getValue()
-        if (currentToken && yamlInEditor) {
-          const sanitizedToken = currentToken.replace(':', '').trim()
-          const sanitizedYaml = yamlInEditor.replace(/\n+$/, '')
-          const jsonObjForYamlInEditor = getJSONFromYAML(sanitizedYaml.concat(': placeholder'))
-          if (jsonObjForYamlInEditor && Object.keys(jsonObjForYamlInEditor).length > 0) {
-            const matchingPaths = findLeafToParentPath(jsonObjForYamlInEditor, sanitizedToken)
-            invokeRefetchersWithMatchingYamlPaths(monaco, matchingPaths)
-          }
+      const currentToken = editor.getModel().getLineContent(editor.getPosition().lineNumber)
+      const validatedYAML = getValidatedYAMLFromEditor(editor)
+      const sanitizedToken = currentToken.replace(':', '').trim()
+      const jsonObjForYamlInEditor = getJSONFromYAML(validatedYAML)
+      const parentToCurrentTokenYAMLPath = findLeafToParentPath(jsonObjForYamlInEditor, sanitizedToken)
+      if (sanitizedToken && validatedYAML)
+        if (code === 'Digit4') {
+          registerCompletionItemProviderForExpressions(monaco, parentToCurrentTokenYAMLPath)
+        } else if (code === 'Semicolon') {
+          invokeCallBackForMatchingYAMLPaths(monaco, parentToCurrentTokenYAMLPath)
         }
-      }
     }
   }
 
@@ -276,8 +246,8 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
           </div>
           <MonacoEditor
             defaultValue={existingYaml}
-            width={width ?? 800}
-            height={height ?? 600}
+            width={width ?? '800px'}
+            height={height ?? '600px'}
             language="yaml"
             value={currentYaml}
             onChange={onYamlChange}

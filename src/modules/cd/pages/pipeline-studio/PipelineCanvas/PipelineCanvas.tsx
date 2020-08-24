@@ -233,6 +233,7 @@ export const PipelineCanvas: React.FC<{}> = (): JSX.Element => {
               bind={setYamlHandler}
               snippets={snippets}
               onSnippetSearch={fetchSnippets}
+              height={'90%'}
             />
           </div>
         </Route>

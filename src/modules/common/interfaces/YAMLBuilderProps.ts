@@ -1,17 +1,18 @@
+import type { CompletionItemKind } from 'vscode-languageserver-types'
 import type { SnippetInterface } from './SnippetInterface'
 
 export interface YamlBuilderHandlerBinding {
   getLatestYaml: () => string
 }
 
-export default interface YamlBuilderProps {
-  height?: number
-  width?: number
+export interface YamlBuilderProps {
+  height?: string
+  width?: string
   fileName: string
   existingYaml?: string
   entityType: string
   bind?: (dynamicPopoverHandler: YamlBuilderHandlerBinding) => void
-  invocationMap?: Map<string, InvocationContext>
+  invocationMap?: Map<RegExp, Function>
   isReadOnlyMode?: boolean
   showSnippetSection?: boolean
   snippets?: SnippetInterface[]
@@ -19,7 +20,8 @@ export default interface YamlBuilderProps {
   onSnippetSearch?: (queryString: string) => void
 }
 
-export interface InvocationContext {
-  serviceHook: Function
-  args: Record<string, any>
+export interface CompletionItemInterface {
+  label: string
+  kind: CompletionItemKind
+  insertText: string
 }
