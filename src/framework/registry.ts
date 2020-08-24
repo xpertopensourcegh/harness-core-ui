@@ -7,12 +7,14 @@ import * as CVRoute from 'modules/cv/routes'
 import * as CVSidebar from 'modules/cv/sidebar/sidebar'
 import * as CDRoute from 'modules/cd/routes'
 import * as CDSidebar from 'modules/cd/sidebar/sidebar'
+import * as CIRoute from 'modules/ci/routes'
+import * as CISidebar from 'modules/ci/sidebar/sidebar'
 
 /**
  * routeRegistry stores routes from all Modules.
  */
 export const routeRegistry: RouteRegistry = Object.assign(
-  Object.entries(Object.assign({}, CDRoute, DXRoute, CVRoute, CommonRoute) as Record<string, Route>).reduce(
+  Object.entries(Object.assign({}, CDRoute, DXRoute, CVRoute, CIRoute, CommonRoute) as Record<string, Route>).reduce(
     (_routes: Record<string, Route>, [key, value]) => {
       if (value !== CommonRoute.routePageNotFound) {
         _routes[key] = value
@@ -35,6 +37,7 @@ export const sidebarRegistry: SidebarRegistry = [
   DXSidebar.Dashboard,
   CommonSidebar.Projects,
   CDSidebar.Deployments,
+  CISidebar.CIHome,
   CVSidebar.CVDashboard,
   CommonSidebar.Account,
   CommonSidebar.UserProfile
