@@ -37,13 +37,17 @@ export default function StageSetupShell(): JSX.Element {
     }
   }, [selectedStageId, pipeline, isSplitViewOpen])
 
+  const handleTabChange = (data: string) => {
+    setSelectedTabId(data)
+  }
+
   return (
     <section className={css.setupShell}>
       <Layout.Horizontal
         spacing="small"
         className={cx(css.tabsContainer, { [css.tabExecution]: selectedTabId === i18n.executionLabel })}
       >
-        <Tabs id="stageSetupShell" selectedTabId={selectedTabId}>
+        <Tabs id="stageSetupShell" onChange={handleTabChange} selectedTabId={selectedTabId}>
           <Tab
             id={stageData?.name}
             disabled

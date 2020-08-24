@@ -634,7 +634,7 @@ export interface ConnectorSummaryDTO {
   accountName?: string
   orgName?: string
   projectName?: string
-  type?: 'KUBERNETES_CLUSTER' | 'GIT' | 'SPLUNK' | 'APP_DYNAMICS' | 'VAULT'
+  type?: 'KUBERNETES_CLUSTER' | 'GIT' | 'SPLUNK' | 'APP_DYNAMICS' | 'VAULT' | 'K8sCluster'
   categories?: 'CLOUD_PROVIDER'[]
   connectorDetails?: ConnectorConfigSummaryDTO
   tags?: string[]

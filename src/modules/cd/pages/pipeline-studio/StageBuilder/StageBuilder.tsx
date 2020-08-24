@@ -400,7 +400,14 @@ export const StageBuilder: React.FC<{}> = (): JSX.Element => {
           onChange={size => setSplitPaneSizeDeb(size)}
         >
           {StageCanvas}
-          <div style={{ width: '100%', height: `calc(100vh - ${splitPaneSize + 70}px)`, overflow: 'scroll' }}>
+          <div
+            style={{
+              width: '100%',
+              height: `calc(100vh - ${splitPaneSize + 70}px)`,
+              overflow: 'scroll',
+              background: 'white'
+            }}
+          >
             <div className={css.splitButtons}>
               <Icon
                 name="up"

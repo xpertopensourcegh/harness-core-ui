@@ -1,9 +1,11 @@
-import React from 'react'
-import { Layout, Button, Card, CardBody, Text, Color } from '@wings-software/uikit'
+import React, { useState, useEffect } from 'react'
+import { useParams } from 'react-router-dom'
+import { Layout, Button, Card, CardBody, Text, Color, SelectOption } from '@wings-software/uikit'
 import { Formik, FormikForm, FormInput } from '@wings-software/uikit'
 import * as Yup from 'yup'
 
 import { get } from 'lodash'
+import { useGetConnectorList } from 'services/cd-ng'
 import { PipelineContext } from 'modules/cd/pages/pipeline-studio/PipelineContext/PipelineContext'
 import { loggerFor, ModuleName } from 'framework/exports'
 
@@ -48,6 +50,27 @@ export default function InfraSpecifications(): JSX.Element {
     const releaseName = infrastructure?.spec?.releaseName
     return { connectorId, namespaceId, releaseName }
   }
+  const { accountId }: any = useParams()
+
+  const { data: k8sConnectorsList, loading: loadingK8sConnector } = useGetConnectorList({
+    accountIdentifier: accountId,
+    queryParams: {}
+  })
+
+  const [k8ConnectorsList, setK8ConnectorsList] = useState<SelectOption[]>([])
+
+  useEffect(() => {
+    const k8Connectors =
+      k8sConnectorsList?.data?.content?.map(k8 => {
+        return {
+          label: k8.name || '',
+          value: k8.identifier || '',
+          type: k8.type
+        }
+      }) || []
+
+    setK8ConnectorsList(k8Connectors.filter(data => data.type === 'K8sCluster'))
+  }, [k8sConnectorsList?.data?.content])
 
   return (
     <Layout.Vertical className={css.serviceOverrides}>
@@ -184,12 +207,13 @@ export default function InfraSpecifications(): JSX.Element {
           {() => {
             return (
               <FormikForm>
-                <FormInput.Select
+                <FormInput.MultiTypeInput
                   name="connectorId"
                   style={{ width: 400 }}
+                  disabled={loadingK8sConnector}
                   label={i18n.k8ConnectorDropDownLabel}
                   placeholder={i18n.k8ConnectorDropDownPlaceholder}
-                  items={[{ label: 'Kubernetes Connector', value: 'userNameAuth' }]}
+                  selectItems={k8ConnectorsList}
                 />
                 <FormInput.Text
                   name="namespaceId"
