@@ -1,7 +1,7 @@
 import React from 'react'
 import { IconName, Text, Formik, FormInput, Button } from '@wings-software/uikit'
 import * as Yup from 'yup'
-import { Step } from 'modules/common/exports'
+import { Step, StepViewType } from 'modules/common/exports'
 import type { ShellScriptStepInfo, StepElement } from 'services/cd-ng'
 import { StepType } from '../../PipelineStepInterface'
 import i18n from './ShellScriptStep.i18n'
@@ -13,11 +13,11 @@ export interface ShellScriptData extends Omit<StepElement, 'spec'> {
 
 interface ShellScriptWidgetProps {
   initialValues: ShellScriptData
-  onSubmit?: (data: ShellScriptData) => void
-  templatedFields?: string[]
+  onUpdate?: (data: ShellScriptData) => void
+  stepViewType?: StepViewType
 }
 
-const ShellScriptWidget: React.FC<ShellScriptWidgetProps> = ({ initialValues, onSubmit }): JSX.Element => {
+const ShellScriptWidget: React.FC<ShellScriptWidgetProps> = ({ initialValues, onUpdate }): JSX.Element => {
   return (
     <>
       <Text className={stepCss.boldLabel} font={{ size: 'medium' }}>
@@ -25,7 +25,7 @@ const ShellScriptWidget: React.FC<ShellScriptWidgetProps> = ({ initialValues, on
       </Text>
       <Formik<ShellScriptData>
         onSubmit={values => {
-          onSubmit?.(values)
+          onUpdate?.(values)
         }}
         initialValues={initialValues}
         validationSchema={Yup.object().shape({
@@ -48,10 +48,10 @@ const ShellScriptWidget: React.FC<ShellScriptWidgetProps> = ({ initialValues, on
 export class ShellScriptStep extends Step<ShellScriptData> {
   renderStep(
     initialValues: ShellScriptData,
-    onSubmit?: (data: ShellScriptData) => void,
-    templatedFields?: string[]
+    onUpdate?: (data: ShellScriptData) => void,
+    stepViewType?: StepViewType
   ): JSX.Element {
-    return <ShellScriptWidget initialValues={initialValues} onSubmit={onSubmit} templatedFields={templatedFields} />
+    return <ShellScriptWidget initialValues={initialValues} onUpdate={onUpdate} stepViewType={stepViewType} />
   }
 
   protected type = StepType.SHELLSCRIPT

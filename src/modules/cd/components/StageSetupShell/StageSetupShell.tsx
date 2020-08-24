@@ -16,7 +16,11 @@ export default function StageSetupShell(): JSX.Element {
   const {
     state: {
       pipeline,
-      pipelineView: { selectedStageId, isSetupStageOpen }
+      pipelineView: {
+        splitViewData: { selectedStageId },
+        isSplitViewOpen
+      },
+      pipelineView
     },
     updatePipelineView
   } = React.useContext(PipelineContext)
@@ -24,14 +28,14 @@ export default function StageSetupShell(): JSX.Element {
   const [stageData, setStageData] = React.useState<StageElementWrapper | undefined>()
 
   React.useEffect(() => {
-    if (selectedStageId && isSetupStageOpen) {
+    if (selectedStageId && isSplitViewOpen) {
       const { stage } = getStageFromPipeline(pipeline, selectedStageId)
       const key = Object.keys(stage || {})[0]
       if (key && stage) {
         setStageData(stage[key])
       }
     }
-  }, [selectedStageId, pipeline, isSetupStageOpen])
+  }, [selectedStageId, pipeline, isSplitViewOpen])
 
   return (
     <section className={css.setupShell}>
@@ -96,7 +100,7 @@ export default function StageSetupShell(): JSX.Element {
           rightIcon="chevron-right"
           onClick={() => {
             if (selectedTabId === i18n.executionLabel) {
-              updatePipelineView({ isSetupStageOpen: false, selectedStageId: undefined })
+              updatePipelineView({ ...pipelineView, isSplitViewOpen: false, splitViewData: {} })
             } else {
               setSelectedTabId(selectedTabId === i18n.serviceLabel ? i18n.infraLabel : i18n.executionLabel)
             }

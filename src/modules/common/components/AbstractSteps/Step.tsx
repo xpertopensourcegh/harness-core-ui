@@ -1,5 +1,10 @@
 import type { IconName } from '@wings-software/uikit'
 
+export enum StepViewType {
+  InputSet = 'InputSet',
+  DeploymentForm = 'DeploymentForm',
+  Edit = 'Edit'
+}
 export abstract class Step<T extends object> {
   protected abstract type: string
   protected abstract defaultValues: T
@@ -22,5 +27,5 @@ export abstract class Step<T extends object> {
     return this.stepName
   }
 
-  abstract renderStep(initialValues: T, onSubmit?: (data: T) => void, templatedFields?: string[]): JSX.Element
+  abstract renderStep(initialValues: T, onUpdate?: (data: T) => void, stepViewType?: StepViewType): JSX.Element
 }

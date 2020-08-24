@@ -2,7 +2,7 @@ import React from 'react'
 import { SelectOption, IconName, Text, Formik, FormInput, Button, DurationInput } from '@wings-software/uikit'
 import * as Yup from 'yup'
 import get from 'lodash.get'
-import { Step } from 'modules/common/exports'
+import { Step, StepViewType } from 'modules/common/exports'
 import type { HttpStepInfo, StepElement } from 'services/cd-ng'
 import { StepType } from '../../PipelineStepInterface'
 import i18n from './HttpStep.i18n'
@@ -23,11 +23,11 @@ const httpStepType: SelectOption[] = [
 
 interface HttpStepWidgetProps {
   initialValues: HttpStepData
-  onSubmit?: (data: HttpStepData) => void
-  templatedFields?: string[]
+  onUpdate?: (data: HttpStepData) => void
+  stepViewType?: StepViewType
 }
 
-const HttpStepWidget: React.FC<HttpStepWidgetProps> = ({ initialValues, onSubmit }): JSX.Element => {
+const HttpStepWidget: React.FC<HttpStepWidgetProps> = ({ initialValues, onUpdate }): JSX.Element => {
   return (
     <>
       <Text className={stepCss.boldLabel} font={{ size: 'medium' }}>
@@ -35,7 +35,7 @@ const HttpStepWidget: React.FC<HttpStepWidgetProps> = ({ initialValues, onSubmit
       </Text>
       <Formik<HttpStepData>
         onSubmit={values => {
-          onSubmit?.(values)
+          onUpdate?.(values)
         }}
         initialValues={initialValues}
         validationSchema={Yup.object().shape({
@@ -75,10 +75,10 @@ const HttpStepWidget: React.FC<HttpStepWidgetProps> = ({ initialValues, onSubmit
 export class HttpStep extends Step<HttpStepData> {
   renderStep(
     initialValues: HttpStepData,
-    onSubmit?: (data: HttpStepData) => void,
-    templatedFields?: string[]
+    onUpdate?: (data: HttpStepData) => void,
+    stepViewType?: StepViewType
   ): JSX.Element {
-    return <HttpStepWidget initialValues={initialValues} onSubmit={onSubmit} templatedFields={templatedFields} />
+    return <HttpStepWidget initialValues={initialValues} onUpdate={onUpdate} stepViewType={stepViewType} />
   }
 
   protected type = StepType.HTTP

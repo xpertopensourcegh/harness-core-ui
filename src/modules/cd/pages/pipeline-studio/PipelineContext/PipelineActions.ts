@@ -1,6 +1,8 @@
 import { clone } from 'lodash'
-import type { CDPipeline } from 'services/cd-ng'
+import type { IDrawerProps } from '@blueprintjs/core'
+import type { CDPipeline, ExecutionWrapper } from 'services/cd-ng'
 import type { SnippetInterface } from 'modules/common/interfaces/SnippetInterface'
+import type { Diagram } from 'modules/common/exports'
 
 export enum PipelineActions {
   DBInitialize = 'DBInitialize',
@@ -14,9 +16,40 @@ export enum PipelineActions {
 }
 export const DefaultNewPipelineId = '-1'
 
+export enum DrawerTypes {
+  StepConfig = 'StepConfig',
+  AddStep = 'AddCommand',
+  PipelineVariables = 'PipelineVariables',
+  Templates = 'Templates'
+}
+
+export enum SplitViewTypes {
+  Triggers = 'Triggers',
+  Notifications = 'Notifications',
+  StageView = 'StageView'
+}
+export interface DrawerData extends Omit<IDrawerProps, 'isOpen'> {
+  type: DrawerTypes
+  data?: {
+    paletteData?: {
+      isAddStepOverride: boolean
+      isParallelNodeClicked: boolean
+      entity: Diagram.DefaultNodeModel
+    }
+    stepConfig?: {
+      node: ExecutionWrapper
+      isStepGroup: boolean
+    }
+  }
+}
 export interface PipelineViewData {
-  selectedStageId?: string
-  isSetupStageOpen?: boolean
+  isSplitViewOpen: boolean
+  splitViewData: {
+    selectedStageId?: string
+    type?: SplitViewTypes
+  }
+  isDrawerOpened: boolean
+  drawerData: DrawerData
 }
 
 export interface PipelineReducerState {
@@ -74,7 +107,12 @@ export const initialState: PipelineReducerState = {
   pipeline: { ...DefaultPipeline },
   pipelineIdentifier: DefaultNewPipelineId,
   pipelineView: {
-    isSetupStageOpen: false
+    isSplitViewOpen: false,
+    isDrawerOpened: false,
+    splitViewData: {},
+    drawerData: {
+      type: DrawerTypes.AddStep
+    }
   },
   isLoading: false,
   isDBInitialized: false,

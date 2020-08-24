@@ -43,7 +43,9 @@ export default function ServiceSpecifications(): JSX.Element {
   const {
     state: {
       pipeline,
-      pipelineView: { selectedStageId }
+      pipelineView: {
+        splitViewData: { selectedStageId }
+      }
     },
     updatePipeline
   } = React.useContext(PipelineContext)

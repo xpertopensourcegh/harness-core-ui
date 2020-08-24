@@ -2,7 +2,7 @@ import React from 'react'
 import { IconName, Text, Formik, FormInput, Button, DurationInput } from '@wings-software/uikit'
 import * as Yup from 'yup'
 import get from 'lodash.get'
-import { Step } from 'modules/common/exports'
+import { Step, StepViewType } from 'modules/common/exports'
 import type { K8sRollingStepInfo, StepElement } from 'services/cd-ng'
 import { StepType } from '../../PipelineStepInterface'
 import i18n from './K8sRolloutDeployStep.i18n'
@@ -14,11 +14,11 @@ export interface K8RolloutDeployData extends Omit<StepElement, 'spec'> {
 
 interface K8RolloutDeployProps {
   initialValues: K8RolloutDeployData
-  onSubmit?: (data: K8RolloutDeployData) => void
-  templatedFields?: string[]
+  onUpdate?: (data: K8RolloutDeployData) => void
+  stepViewType?: StepViewType
 }
 
-const K8RolloutDeployWidget: React.FC<K8RolloutDeployProps> = ({ initialValues, onSubmit }): JSX.Element => {
+const K8RolloutDeployWidget: React.FC<K8RolloutDeployProps> = ({ initialValues, onUpdate }): JSX.Element => {
   return (
     <>
       <Text className={stepCss.boldLabel} font={{ size: 'medium' }}>
@@ -26,7 +26,7 @@ const K8RolloutDeployWidget: React.FC<K8RolloutDeployProps> = ({ initialValues, 
       </Text>
       <Formik<K8RolloutDeployData>
         onSubmit={values => {
-          onSubmit?.(values)
+          onUpdate?.(values)
         }}
         initialValues={initialValues}
         validationSchema={Yup.object().shape({
@@ -63,10 +63,10 @@ const K8RolloutDeployWidget: React.FC<K8RolloutDeployProps> = ({ initialValues, 
 export class K8RolloutDeployStep extends Step<K8RolloutDeployData> {
   renderStep(
     initialValues: K8RolloutDeployData,
-    onSubmit?: (data: K8RolloutDeployData) => void,
-    templatedFields?: string[]
+    onUpdate?: (data: K8RolloutDeployData) => void,
+    stepViewType?: StepViewType
   ): JSX.Element {
-    return <K8RolloutDeployWidget initialValues={initialValues} onSubmit={onSubmit} templatedFields={templatedFields} />
+    return <K8RolloutDeployWidget initialValues={initialValues} onUpdate={onUpdate} stepViewType={stepViewType} />
   }
 
   protected type = StepType.K8sRolloutDeploy

@@ -243,7 +243,9 @@ export default function ManifestSelection({
   const {
     state: {
       pipeline,
-      pipelineView: { selectedStageId }
+      pipelineView: {
+        splitViewData: { selectedStageId }
+      }
     },
     updatePipeline
   } = React.useContext(PipelineContext)

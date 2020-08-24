@@ -6,12 +6,8 @@ import { StepType } from 'modules/cd/common/PipelineSteps/PipelineStepInterface'
 import { EmptyNodeSeparator } from '../StageBuilder/StageBuilderUtil'
 
 export interface ExecutionGraphState {
-  isDrawerOpen: boolean
   isRollback: boolean
   stepStates: StepStateMap
-  isAddStepOverride: boolean
-  isParallelNodeClicked: boolean
-  entity?: Diagram.DefaultNodeModel
   data: ExecutionWrapper[]
 }
 
@@ -229,14 +225,13 @@ export const isLinkUnderStepGroup = (link: Diagram.DefaultLinkModel): boolean =>
 
 export const addStepOrGroup = (
   entity: BaseModel,
-  state: ExecutionGraphState,
+  data: ExecutionWrapper[],
   step: ExecutionWrapper,
   isParallel: boolean
 ): void => {
   if (entity instanceof Diagram.DefaultLinkModel) {
     const sourceNode = entity.getSourcePort().getNode() as Diagram.DefaultNodeModel
     const targetNode = entity.getTargetPort().getNode() as Diagram.DefaultNodeModel
-    let data = state.data
     if (isLinkUnderStepGroup(entity)) {
       const layer = sourceNode.getParent()
       if (layer instanceof Diagram.StepGroupNodeLayerModel) {
@@ -276,15 +271,15 @@ export const addStepOrGroup = (
     }
   } else if (entity instanceof Diagram.CreateNewModel) {
     // Steps if you are under step group
-    const node = getStepFromId(state.data, entity.getIdentifier().split(EmptyNodeSeparator)[1]).node
+    const node = getStepFromId(data, entity.getIdentifier().split(EmptyNodeSeparator)[1]).node
     if (node?.steps) {
       node.steps.push(step)
     } else {
-      state.data.push(step)
+      data.push(step)
     }
   } else if (entity instanceof Diagram.DefaultNodeModel) {
     if (isParallel) {
-      const response = getStepFromId(state.data, entity.getIdentifier(), true, true)
+      const response = getStepFromId(data, entity.getIdentifier(), true, true)
       if (response.node) {
         if (response.node.parallel && response.node.parallel.length > 0) {
           response.node.parallel.push(step)
@@ -296,11 +291,11 @@ export const addStepOrGroup = (
         }
       }
     } else {
-      state.data.push(step)
+      data.push(step)
     }
   } else if (entity instanceof Diagram.StepGroupNodeLayerModel) {
     if (isParallel) {
-      const response = getStepFromId(state.data, entity.getIdentifier() || '', true, true)
+      const response = getStepFromId(data, entity.getIdentifier() || '', true, true)
       if (response.node) {
         if (response.node.parallel && response.node.parallel.length > 0) {
           response.node.parallel.push(step)

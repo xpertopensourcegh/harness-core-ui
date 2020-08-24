@@ -1,0 +1,11 @@
+.pipeline-templates {
+  display: grid;
+  grid-template-columns: 1fr 60px;
+  height: 100%;
+  overflow-y: hidden;
+
+  .templates-container {
+    padding: var(--spacing-large);
+    overflow-x: auto;
+  }
+}

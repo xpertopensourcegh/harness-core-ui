@@ -1,26 +1,20 @@
 import React, { useEffect } from 'react'
 import { get } from 'lodash'
-import { Drawer, Position } from '@blueprintjs/core'
 // import { cloneDeep } from 'lodash'
 import type { NodeModelListener, LinkModelListener } from '@projectstorm/react-diagrams-core'
 import type { BaseModelListener } from '@projectstorm/react-canvas-core'
 import { v4 as uuid } from 'uuid'
 import { Button } from '@wings-software/uikit'
 import { Diagram, useToaster } from 'modules/common/exports'
-import type { ExecutionWrapper, ExecutionElement } from 'services/cd-ng'
 import { CanvasButtons } from 'modules/cd/components/CanvasButtons/CanvasButtons'
 import { DynamicPopover, DynamicPopoverHandlerBinding } from 'modules/common/components/DynamicPopover/DynamicPopover'
-import type { StepData } from 'modules/common/components/AbstractSteps/AbstractStepFactory'
 import { ExecutionStepModel } from './ExecutionStepModel'
 import { PipelineContext } from '../PipelineContext/PipelineContext'
 import { getStageFromPipeline } from '../StageBuilder/StageBuilderUtil'
-import { StepPalette } from '../StepPalette/StepPalette'
-import { StepCommands } from '../StepCommands/StepCommands'
 import i18n from './ExecutionGraph.i18n'
 import {
   addStepOrGroup,
   ExecutionGraphState,
-  StepStateMap,
   StepState,
   getStepsState,
   removeStepOrGroup,
@@ -28,6 +22,7 @@ import {
   getStepFromNode
 } from './ExecutionGraphUtil'
 import { EmptyStageName } from '../PipelineConstants'
+import { DrawerTypes } from '../PipelineContext/PipelineActions'
 import css from './ExecutionGraph.module.scss'
 
 interface PopoverData {
@@ -59,36 +54,11 @@ const renderPopover = ({ onPopoverSelection, isParallelNodeClicked = false, even
   )
 }
 
-const renderDrawerContent = (
-  data: ExecutionWrapper[],
-  entity: Diagram.DefaultNodeModel,
-  stepStates: StepStateMap,
-  isAddStepOverride: boolean,
-  onSelect: (item: StepData) => void,
-  onChange: (stepObj: ExecutionElement) => void
-): JSX.Element => {
-  const node = getStepFromNode(data, entity).node
-
-  if (node && !isAddStepOverride) {
-    return (
-      <StepCommands
-        step={node}
-        onChange={onChange}
-        isStepGroup={stepStates.get(node.identifier)?.isStepGroup || false}
-      />
-    )
-  }
-  return <StepPalette onSelect={onSelect} />
-}
-
 const ExecutionGraph = (): JSX.Element => {
   const canvasRef = React.useRef<HTMLDivElement | null>(null)
   const [state, setState] = React.useState<ExecutionGraphState>({
-    isDrawerOpen: false,
     data: [],
     isRollback: false,
-    isAddStepOverride: false,
-    isParallelNodeClicked: false,
     stepStates: new Map<string, StepState>()
   })
 
@@ -102,8 +72,14 @@ const ExecutionGraph = (): JSX.Element => {
     state: {
       pipeline,
       isInitialized,
-      pipelineView: { selectedStageId, isSetupStageOpen }
+      pipelineView: {
+        splitViewData: { selectedStageId },
+        isSplitViewOpen,
+        isDrawerOpened
+      },
+      pipelineView
     },
+    updatePipelineView,
     updatePipeline
   } = React.useContext(PipelineContext)
 
@@ -119,17 +95,24 @@ const ExecutionGraph = (): JSX.Element => {
     event?: Diagram.DefaultNodeEvent
   ): void => {
     if (!isStepGroup && event) {
-      setState(prevState => ({
-        ...prevState,
-        isDrawerOpen: true,
-        entity: event.entity,
-        isAddStepOverride: true,
-        isParallelNodeClicked
-      }))
+      updatePipelineView({
+        ...pipelineView,
+        isDrawerOpened: true,
+        drawerData: {
+          type: DrawerTypes.AddStep,
+          data: {
+            paletteData: {
+              entity: event.entity,
+              isAddStepOverride: true,
+              isParallelNodeClicked
+            }
+          }
+        }
+      })
     } else if (event?.entity) {
       addStepOrGroup(
         event.entity,
-        state,
+        state.data,
         {
           stepGroup: {
             name: EmptyStageName,
@@ -172,7 +155,7 @@ const ExecutionGraph = (): JSX.Element => {
                   updatePipeline(pipeline)
                 }
               } else {
-                addStepOrGroup(eventTemp.entity, state, dropNode, false)
+                addStepOrGroup(eventTemp.entity, state.data, dropNode, false)
                 updatePipeline(pipeline)
               }
             }
@@ -193,13 +176,20 @@ const ExecutionGraph = (): JSX.Element => {
       if (eventTemp.entity.getType() === Diagram.DiagramType.CreateNew && nodeRender) {
         // if Node is in Step Group then directly show Add Steps
         if (layer instanceof Diagram.StepGroupNodeLayerModel) {
-          setState(prevState => ({
-            ...prevState,
-            isDrawerOpen: true,
-            entity: eventTemp.entity,
-            isAddStepOverride: false,
-            isParallelNodeClicked: false
-          }))
+          updatePipelineView({
+            ...pipelineView,
+            isDrawerOpened: true,
+            drawerData: {
+              type: DrawerTypes.AddStep,
+              data: {
+                paletteData: {
+                  isAddStepOverride: false,
+                  entity: eventTemp.entity,
+                  isParallelNodeClicked: false
+                }
+              }
+            }
+          })
         } else {
           dynamicPopoverHandler?.show(
             nodeRender,
@@ -218,7 +208,22 @@ const ExecutionGraph = (): JSX.Element => {
         })
         setState(prev => ({ ...prev, stepStates }))
       } else {
-        setState(prevState => ({ ...prevState, isDrawerOpen: true, entity: eventTemp.entity }))
+        const node = getStepFromNode(state.data, eventTemp.entity).node
+        if (node) {
+          updatePipelineView({
+            ...pipelineView,
+            isDrawerOpened: true,
+            drawerData: {
+              type: DrawerTypes.StepConfig,
+              data: {
+                stepConfig: {
+                  node: node,
+                  isStepGroup: false
+                }
+              }
+            }
+          })
+        }
       }
     },
     [Diagram.Event.RemoveNode]: (event: any) => {
@@ -235,13 +240,23 @@ const ExecutionGraph = (): JSX.Element => {
       eventTemp.stopPropagation()
       const layer = eventTemp.entity.getParent()
       if (layer instanceof Diagram.StepGroupNodeLayerModel) {
-        setState(prevState => ({
-          ...prevState,
-          isDrawerOpen: true,
-          entity: eventTemp.entity,
-          isAddStepOverride: true,
-          isParallelNodeClicked: true
-        }))
+        const node = getStepFromNode(state.data, eventTemp.entity).node
+        if (node) {
+          updatePipelineView({
+            ...pipelineView,
+            isDrawerOpened: true,
+            drawerData: {
+              type: DrawerTypes.AddStep,
+              data: {
+                paletteData: {
+                  isAddStepOverride: true,
+                  entity: eventTemp.entity,
+                  isParallelNodeClicked: true
+                }
+              }
+            }
+          })
+        }
       } else {
         if (eventTemp.target) {
           dynamicPopoverHandler?.show(
@@ -298,7 +313,7 @@ const ExecutionGraph = (): JSX.Element => {
           } else {
             const isRemove = removeStepOrGroup(state, dropEntity)
             if (isRemove && dropNode) {
-              addStepOrGroup(eventTemp.entity, state, dropNode, false)
+              addStepOrGroup(eventTemp.entity, state.data, dropNode, false)
               updatePipeline(pipeline)
             }
           }
@@ -323,7 +338,22 @@ const ExecutionGraph = (): JSX.Element => {
     [Diagram.Event.StepGroupClicked]: (event: any) => {
       const eventTemp = event as Diagram.DefaultNodeEvent
       eventTemp.stopPropagation()
-      setState(prevState => ({ ...prevState, isDrawerOpen: true, entity: eventTemp.entity }))
+      const node = getStepFromNode(state.data, eventTemp.entity).node
+      if (node) {
+        updatePipelineView({
+          ...pipelineView,
+          isDrawerOpened: true,
+          drawerData: {
+            type: DrawerTypes.StepConfig,
+            data: {
+              stepConfig: {
+                node: node,
+                isStepGroup: true
+              }
+            }
+          }
+        })
+      }
     },
     [Diagram.Event.RollbackClicked]: (event: any) => {
       const stepState = state.stepStates.get(event.entity.getIdentifier())
@@ -372,7 +402,7 @@ const ExecutionGraph = (): JSX.Element => {
   engine.setModel(model)
 
   useEffect(() => {
-    if (isInitialized && selectedStageId && isSetupStageOpen) {
+    if (isInitialized && selectedStageId && isSplitViewOpen) {
       const { stage: data } = getStageFromPipeline(pipeline, selectedStageId)
       if (data?.stage?.spec?.execution) {
         getStepsState(data.stage.spec.execution, state.stepStates)
@@ -394,7 +424,13 @@ const ExecutionGraph = (): JSX.Element => {
         updatePipeline(pipeline)
       }
     }
-  }, [selectedStageId, pipeline, isSetupStageOpen, updatePipeline, isInitialized])
+  }, [selectedStageId, pipeline, isSplitViewOpen, updatePipeline, isInitialized])
+
+  React.useEffect(() => {
+    if (!isDrawerOpened) {
+      model.clearSelection()
+    }
+  }, [isDrawerOpened, model])
 
   return (
     <div
@@ -477,78 +513,6 @@ const ExecutionGraph = (): JSX.Element => {
           bind={setDynamicPopoverHandler}
         />
       </div>
-      <Drawer
-        onClose={() => {
-          setState(prevState => ({
-            ...prevState,
-            isDrawerOpen: false,
-            isAddStepOverride: false,
-            isParallelNodeClicked: false
-          }))
-          model.clearSelection()
-        }}
-        autoFocus={true}
-        canEscapeKeyClose={true}
-        canOutsideClickClose={true}
-        enforceFocus={true}
-        hasBackdrop={false}
-        size={450}
-        isOpen={state.isDrawerOpen}
-        position={Position.RIGHT}
-      >
-        <>
-          {state.entity &&
-            renderDrawerContent(
-              state.data,
-              state.entity,
-              state.stepStates,
-              state.isAddStepOverride,
-              (item: StepData) => {
-                if (state.entity) {
-                  addStepOrGroup(
-                    state.entity,
-                    state,
-                    {
-                      step: {
-                        type: item.type,
-                        name: item.label,
-                        identifier: uuid(),
-                        spec: {}
-                      }
-                    },
-                    state.isParallelNodeClicked
-                  )
-                  updatePipeline(pipeline)
-                }
-                setState(prevState => ({
-                  ...prevState,
-                  isDrawerOpen: false,
-                  data: state.data,
-                  isAddStepOverride: false,
-                  isParallelNodeClicked: false
-                }))
-              },
-              (item: ExecutionWrapper) => {
-                if (state.entity) {
-                  const node = getStepFromNode(state.data, state.entity).node
-                  if (node) {
-                    node.name = item.name
-                    node.identifier = item.identifier
-                    node.spec = { ...item.spec }
-                    updatePipeline(pipeline)
-                  }
-                  setState(prevState => ({
-                    ...prevState,
-                    isDrawerOpen: false,
-                    data: state.data,
-                    isAddStepOverride: false,
-                    isParallelNodeClicked: false
-                  }))
-                }
-              }
-            )}
-        </>
-      </Drawer>
     </div>
   )
 }

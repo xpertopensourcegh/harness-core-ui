@@ -5,14 +5,16 @@
   display: grid;
   grid-template-rows: 1fr 60px 60px 60px 1fr;
 
-  span {
-    margin: 0 auto !important;
-    cursor: pointer;
-    padding: var(--spacing-xsmall) !important;
-    height: 26px;
+  .icon-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background-color: transparent;
 
+    &.selected,
     &:hover {
-      background-color: var(--blue-350);
+      background-color: var(--grey-200);
     }
   }
 }

@@ -16,18 +16,25 @@ import { routeCDPipelineStudio } from 'modules/cd/routes'
 import { PipelineContext, savePipeline } from '../PipelineContext/PipelineContext'
 import i18n from './PipelineCanvas.i18n'
 import CreatePipelines from '../CreateModal/PipelineCreate'
-import { DefaultNewPipelineId } from '../PipelineContext/PipelineActions'
+import { DefaultNewPipelineId, SplitViewTypes } from '../PipelineContext/PipelineActions'
 import { StageBuilder } from '../StageBuilder/StageBuilder'
+import { RightDrawer } from '../RightDrawer/RightDrawer'
 import css from './PipelineCanvas.module.scss'
 
 export const PipelineCanvas: React.FC<{}> = (): JSX.Element => {
-  const { state, updatePipeline, deletePipelineCache, pipelineSaved } = React.useContext(PipelineContext)
+  const { state, updatePipeline, deletePipelineCache, pipelineSaved, updatePipelineView } = React.useContext(
+    PipelineContext
+  )
   const {
     pipeline,
     isUpdated,
     isLoading,
     isInitialized,
-    pipelineView: { isSetupStageOpen }
+    pipelineView: {
+      isSplitViewOpen,
+      splitViewData: { type: splitViewType }
+    },
+    pipelineView
   } = state
 
   const [snippets, setSnippets] = useState<SnippetInterface[]>()
@@ -208,20 +215,44 @@ export const PipelineCanvas: React.FC<{}> = (): JSX.Element => {
         </div>
         {!isYaml && (
           <div className={css.btnGroup}>
-            <Button minimal text={i18n.triggers} icon="yaml-builder-trigger" iconProps={{ color: 'var(--dark-500)' }} />
             <Button
-              minimal
+              minimal={!(splitViewType === SplitViewTypes.Triggers)}
+              intent={splitViewType === SplitViewTypes.Triggers ? 'primary' : 'none'}
+              text={i18n.triggers}
+              tooltip={i18n.triggers}
+              icon="yaml-builder-trigger"
+              iconProps={{ color: 'var(--dark-500)' }}
+              onClick={() => {
+                updatePipelineView({
+                  ...pipelineView,
+                  isSplitViewOpen: true,
+                  splitViewData: { type: SplitViewTypes.Triggers }
+                })
+              }}
+            />
+            <Button
+              minimal={!(splitViewType === SplitViewTypes.Notifications)}
               text={i18n.notifications}
+              intent={splitViewType === SplitViewTypes.Notifications ? 'primary' : 'none'}
+              tooltip={i18n.notifications}
               icon="yaml-builder-notifications"
               iconProps={{ color: 'var(--dark-500)' }}
+              onClick={() => {
+                updatePipelineView({
+                  ...pipelineView,
+                  isSplitViewOpen: true,
+                  splitViewData: { type: SplitViewTypes.Notifications }
+                })
+              }}
             />
           </div>
         )}
       </div>
       <Switch>
         <Route exact path={`${path}`}>
-          <Layout.Horizontal className={cx(css.canvas, { [css.canvasStageView]: isSetupStageOpen })} padding="medium">
+          <Layout.Horizontal className={cx(css.canvas, { [css.canvasStageView]: isSplitViewOpen })} padding="medium">
             <StageBuilder />
+            <RightDrawer />
           </Layout.Horizontal>
         </Route>
         <Route exact path={`${path}yaml/`}>

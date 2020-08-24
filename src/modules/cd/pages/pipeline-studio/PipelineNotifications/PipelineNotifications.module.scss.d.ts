@@ -1,8 +1,8 @@
 /* eslint-disable */
 // this is an auto-generated file
 declare const styles: {
-  readonly rightBar: string
-  readonly iconButton: string
-  readonly selected: string
+  readonly pipelineNotifications: string
+  readonly header: string
+  readonly content: string
 }
 export default styles

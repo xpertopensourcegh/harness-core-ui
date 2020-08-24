@@ -56,7 +56,7 @@ describe('StepWidget tests', () => {
   test(`should call on submit of the form`, () => {
     const onSubmit = jest.fn()
     const { container } = render(
-      <StepWidget type="step-one" onSubmit={onSubmit} factory={factory} initialValues={{ a: 'b' }} />
+      <StepWidget type="step-one" onUpdate={onSubmit} factory={factory} initialValues={{ a: 'b' }} />
     )
     fireEvent.click(container.children[0])
     expect(onSubmit).toBeCalled()

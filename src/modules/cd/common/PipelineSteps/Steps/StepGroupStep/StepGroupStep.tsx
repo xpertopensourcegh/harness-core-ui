@@ -1,7 +1,7 @@
 import React from 'react'
 import { IconName, Text, Formik, FormInput, Button } from '@wings-software/uikit'
 import * as Yup from 'yup'
-import { Step } from 'modules/common/exports'
+import { Step, StepViewType } from 'modules/common/exports'
 import type { StepGroupElement } from 'services/cd-ng'
 import { StepType } from '../../PipelineStepInterface'
 import i18n from './StepGroupStep.i18n'
@@ -9,11 +9,11 @@ import stepCss from '../Steps.module.scss'
 
 interface StepGroupWidgetProps {
   initialValues: StepGroupElement
-  onSubmit?: (data: StepGroupElement) => void
-  templatedFields?: string[]
+  onUpdate?: (data: StepGroupElement) => void
+  stepViewType?: StepViewType
 }
 
-const StepGroupWidget: React.FC<StepGroupWidgetProps> = ({ initialValues, onSubmit }): JSX.Element => {
+const StepGroupWidget: React.FC<StepGroupWidgetProps> = ({ initialValues, onUpdate }): JSX.Element => {
   return (
     <>
       <Text className={stepCss.boldLabel} font={{ size: 'medium' }}>
@@ -21,7 +21,7 @@ const StepGroupWidget: React.FC<StepGroupWidgetProps> = ({ initialValues, onSubm
       </Text>
       <Formik<StepGroupElement>
         onSubmit={values => {
-          onSubmit?.(values)
+          onUpdate?.(values)
         }}
         initialValues={initialValues}
         validationSchema={Yup.object().shape({
@@ -44,10 +44,10 @@ const StepGroupWidget: React.FC<StepGroupWidgetProps> = ({ initialValues, onSubm
 export class StepGroupStep extends Step<StepGroupElement> {
   renderStep(
     initialValues: StepGroupElement,
-    onSubmit?: (data: StepGroupElement) => void,
-    templatedFields?: string[]
+    onUpdate?: (data: StepGroupElement) => void,
+    stepViewType?: StepViewType
   ): JSX.Element {
-    return <StepGroupWidget initialValues={initialValues} onSubmit={onSubmit} templatedFields={templatedFields} />
+    return <StepGroupWidget initialValues={initialValues} onUpdate={onUpdate} stepViewType={stepViewType} />
   }
 
   protected type = StepType.StepGroup

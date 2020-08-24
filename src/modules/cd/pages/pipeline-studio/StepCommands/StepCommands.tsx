@@ -64,7 +64,7 @@ export const StepCommands: React.FC<StepCommandsProps> = ({ step, onChange, isSt
               <StepWidget
                 factory={factory}
                 initialValues={step}
-                onSubmit={onChange}
+                onUpdate={onChange}
                 type={isStepGroup ? StepType.StepGroup : step.type}
               />
             }

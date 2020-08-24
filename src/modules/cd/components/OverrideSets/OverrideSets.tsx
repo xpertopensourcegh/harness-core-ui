@@ -20,7 +20,9 @@ export default function OverrideSets({ selectedTab }: { selectedTab: string }): 
   const {
     state: {
       pipeline,
-      pipelineView: { selectedStageId }
+      pipelineView: {
+        splitViewData: { selectedStageId }
+      }
     },
     updatePipeline
   } = React.useContext(PipelineContext)

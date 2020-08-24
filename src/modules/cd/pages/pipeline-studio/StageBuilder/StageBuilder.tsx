@@ -23,6 +23,9 @@ import {
 import { EditStageView } from './views/EditStageView'
 import { StageList } from './views/StageList'
 import { AddStageView } from './views/AddStageView'
+import { SplitViewTypes } from '../PipelineContext/PipelineActions'
+import { PipelineNotifications } from '../PipelineNotifications/PipelineNotifications'
+import { PipelineTriggers } from '../PipelineTriggers/PipelineTriggers'
 import css from './StageBuilder.module.scss'
 
 export type StageStateMap = Map<string, StageState>
@@ -86,7 +89,11 @@ export const StageBuilder: React.FC<{}> = (): JSX.Element => {
   const {
     state: {
       pipeline,
-      pipelineView: { isSetupStageOpen, selectedStageId },
+      pipelineView: {
+        isSplitViewOpen,
+        splitViewData: { selectedStageId, type = SplitViewTypes.StageView }
+      },
+      pipelineView,
       isInitialized
     },
     updatePipeline,
@@ -171,12 +178,12 @@ export const StageBuilder: React.FC<{}> = (): JSX.Element => {
   }
 
   React.useEffect(() => {
-    if (isInitialized && !isSetupStageOpen) {
+    if (isInitialized && !isSplitViewOpen) {
       const map = new Map<string, StageState>()
       initializeStageStateMap(pipeline, map)
       setStageMap(map)
     }
-  }, [isInitialized, pipeline, isSetupStageOpen])
+  }, [isInitialized, pipeline, isSplitViewOpen])
 
   const nodeListeners: NodeModelListener = {
     // Can not remove this Any because of React Diagram Issue
@@ -206,7 +213,11 @@ export const StageBuilder: React.FC<{}> = (): JSX.Element => {
                 onClickGroupStage: (stageId: string) => {
                   dynamicPopoverHandler?.hide()
                   resetDiagram(engine)
-                  updatePipelineView({ isSetupStageOpen: true, selectedStageId: stageId })
+                  updatePipelineView({
+                    ...pipelineView,
+                    isSplitViewOpen: true,
+                    splitViewData: { selectedStageId: stageId, type: SplitViewTypes.StageView }
+                  })
                 }
               },
               { useArrows: true, darkMode: true }
@@ -214,13 +225,21 @@ export const StageBuilder: React.FC<{}> = (): JSX.Element => {
           }
         } else if (eventTemp.entity.getType() !== Diagram.DiagramType.StartNode) {
           const data = getStageFromPipeline(pipeline, eventTemp.entity.getIdentifier()).stage
-          if (isSetupStageOpen && data?.stage?.identifier) {
+          if (isSplitViewOpen && data?.stage?.identifier) {
             resetDiagram(engine)
-            updatePipelineView({ isSetupStageOpen: true, selectedStageId: data?.stage?.identifier })
-          } else if (!isSetupStageOpen) {
+            updatePipelineView({
+              ...pipelineView,
+              isSplitViewOpen: true,
+              splitViewData: { selectedStageId: data?.stage?.identifier, type: SplitViewTypes.StageView }
+            })
+          } else if (!isSplitViewOpen) {
             if (stageMap.has(data?.stage?.identifier)) {
               resetDiagram(engine)
-              updatePipelineView({ isSetupStageOpen: true, selectedStageId: data?.stage?.identifier })
+              updatePipelineView({
+                ...pipelineView,
+                isSplitViewOpen: true,
+                splitViewData: { selectedStageId: data?.stage?.identifier, type: SplitViewTypes.StageView }
+              })
             } else {
               dynamicPopoverHandler?.show(
                 nodeRender,
@@ -232,7 +251,11 @@ export const StageBuilder: React.FC<{}> = (): JSX.Element => {
                     stageMap.set(node.stage.identifier, { isConfigured: true, stage: node })
                     dynamicPopoverHandler.hide()
                     resetDiagram(engine)
-                    updatePipelineView({ isSetupStageOpen: true, selectedStageId: identifier })
+                    updatePipelineView({
+                      ...pipelineView,
+                      isSplitViewOpen: true,
+                      splitViewData: { selectedStageId: identifier, type: SplitViewTypes.StageView }
+                    })
                   }
                 },
                 { useArrows: false, darkMode: false }
@@ -330,7 +353,7 @@ export const StageBuilder: React.FC<{}> = (): JSX.Element => {
     }
   }
   //1) setup the diagram engine
-  const engine = React.useMemo(() => Diagram.createEngine({ repaintDebounceMs: 1000 }), [])
+  const engine = React.useMemo(() => Diagram.createEngine({}), [])
 
   //2) setup the diagram model
   const model = React.useMemo(() => new StageBuilderModel(), [])
@@ -350,8 +373,8 @@ export const StageBuilder: React.FC<{}> = (): JSX.Element => {
         if (div === canvasRef.current?.children[0]) {
           dynamicPopoverHandler?.hide()
         }
-        if (isSetupStageOpen) {
-          updatePipelineView({ isSetupStageOpen: false, selectedStageId: undefined })
+        if (isSplitViewOpen) {
+          updatePipelineView({ ...pipelineView, isSplitViewOpen: false })
         }
       }}
     >
@@ -369,7 +392,7 @@ export const StageBuilder: React.FC<{}> = (): JSX.Element => {
 
   return (
     <div className={css.canvas}>
-      {isSetupStageOpen ? (
+      {isSplitViewOpen ? (
         <SplitPane
           size={splitPaneSize}
           split="horizontal"
@@ -397,7 +420,9 @@ export const StageBuilder: React.FC<{}> = (): JSX.Element => {
                 }}
               />
             </div>
-            <StageSetupShell />
+            {type === SplitViewTypes.StageView && <StageSetupShell />}
+            {type === SplitViewTypes.Notifications && <PipelineNotifications />}
+            {type === SplitViewTypes.Triggers && <PipelineTriggers />}
           </div>
         </SplitPane>
       ) : (

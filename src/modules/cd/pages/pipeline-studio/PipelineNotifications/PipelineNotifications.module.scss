@@ -1,0 +1,21 @@
+.pipeline-notifications {
+  display: grid;
+  grid-template-rows: 52px 1fr;
+  height: 100%;
+
+  .header {
+    background-color: var(--black);
+    height: 52px;
+    padding: var(--spacing-small);
+    border-bottom: 2px solid var(--grey-200);
+  }
+
+  .content {
+    overflow: hidden;
+    background-color: var(--white);
+
+    & > div {
+      overflow: auto;
+    }
+  }
+}
