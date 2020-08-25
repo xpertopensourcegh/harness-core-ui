@@ -5,5 +5,7 @@ export default {
   tags: 'Tags',
   connectionMode: 'Connection Mode',
   delegate: 'Delegate',
-  delegateName: 'Delegate Name'
+  delegateName: 'Delegate Name',
+  delegateInCluster: 'Harness Delegate running In-Cluster',
+  delegateOutCluster: 'Harness Delegate running Out-of-Cluster'
 }

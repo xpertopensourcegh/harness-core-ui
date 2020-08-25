@@ -2,6 +2,7 @@ import React from 'react'
 import { Layout, Icon, Text, Color } from '@wings-software/uikit'
 import CreateUpdateSecret from 'modules/dx/components/CreateUpdateSecret/CreateUpdateSecret'
 import type { EncryptedDataDTO } from 'services/cd-ng'
+import i18n from './CreateSecretOverlay.i18n'
 import css from './CreateSecretOverlay.module.scss'
 
 interface CreateSecretOverlayProps {
@@ -14,7 +15,7 @@ const CreateSecretOverlay: React.FC<CreateSecretOverlayProps> = props => {
     <Layout.Vertical className={css.stepsOverlay} width={'400px'} padding="large">
       <Layout.Horizontal flex={{ distribution: 'space-between' }} padding={{ top: 'small', bottom: 'large' }}>
         <Text color={Color.GREY_800} font={{ size: 'medium' }}>
-          {props.editSecretData ? ' Modify' : 'Create'} Secret
+          {props.editSecretData ? i18n.MODIFY_SECRET : i18n.CREATE_SECRET}
         </Text>
         <Icon
           name="cross"

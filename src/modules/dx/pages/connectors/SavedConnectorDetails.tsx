@@ -1,5 +1,6 @@
 import React from 'react'
 import { Layout, Tag } from '@wings-software/uikit'
+import { DelegateTypes } from './Forms/KubeFormHelper'
 import i18n from './SavedConnectorDetails.i18n'
 import css from './SavedConnectorDetails.module.scss'
 
@@ -27,7 +28,8 @@ const getSchema = (props: SavedConnectorDetailsProps) => {
     },
     {
       label: i18n.connectionMode,
-      value: connector?.delegateMode
+      value:
+        connector?.delegateType === DelegateTypes.DELEGATE_IN_CLUSTER ? i18n.delegateInCluster : i18n.delegateOutCluster
     },
     {
       label: i18n.delegateName,
@@ -56,9 +58,9 @@ const SavedConnectorDetails = (props: SavedConnectorDetailsProps) => {
   return (
     <>
       {connectorDetailsSchema.map((item, index) => {
-        if (item.value) {
+        if (item.value && (item.label === i18n.tags ? item.value?.length : true)) {
           return (
-            <Layout.Vertical spacing="small" className={css.details} key={index}>
+            <Layout.Vertical spacing="small" className={css.details} key={`${item.value}${index}`}>
               <span className={css.label}>{item.label}</span>
               {item.label === i18n.tags && typeof item.value === 'object' ? (
                 renderTags(item.value)

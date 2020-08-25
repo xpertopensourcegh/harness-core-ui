@@ -6,6 +6,7 @@ import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
 import type { UseGetMockData } from 'modules/common/utils/testUtils'
 import { ConnectorSetupModal } from '../../modals/ConnectorModal/ConnectorSetupModal'
 import ConnectorsListView from './views/ConnectorsListView'
+import i18n from './views/ConnectorsListView.i18n'
 import css from './ConnectorsList.module.scss'
 
 interface ConnectorsListProps {
@@ -39,7 +40,7 @@ const ConnectorsList: React.FC<ConnectorsListProps> = ({ mockData }) => {
           <Layout.Horizontal width="45%" className={css.view}>
             <TextInput
               leftIcon="search"
-              placeholder="Search"
+              placeholder={i18n.Search}
               value={searchTerm}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                 setSearchTerm(e.target.value.trim())
