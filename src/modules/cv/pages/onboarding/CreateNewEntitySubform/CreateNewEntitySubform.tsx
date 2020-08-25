@@ -19,20 +19,26 @@ const envSchema = Yup.object().shape({
 
 export default function CreateNewEntitySubform({ entityType }: { entityType: 'service' | 'environment' }) {
   const {
-    params: { accountId, projectId: routeProjectId, orgId: routeOrgId }
+    params: { accountId, projectIdentifier: routeProjectIdentifier, orgId: routeOrgIdentifier }
   } = routeParams()
   const { toggleSubview } = useContext(SelectWithSubviewContext)
   const onHide = () => {
     toggleSubview()
   }
-  const projectId = routeProjectId as string
-  const orgId = routeOrgId as string
+  const projectIdentifier = routeProjectIdentifier as string
+  const orgIdentifier = routeOrgIdentifier as string
   const onSubmit = async ({ name, ...rest }: { name: string }) => {
     let response
     if (entityType === 'service') {
-      response = await SettingsService.createService(name, accountId, orgId, projectId)
+      response = await SettingsService.createService(name, accountId, orgIdentifier, projectIdentifier)
     } else {
-      response = await SettingsService.createEnvironment(name, accountId, orgId, projectId, (rest as any).type)
+      response = await SettingsService.createEnvironment(
+        name,
+        accountId,
+        orgIdentifier,
+        projectIdentifier,
+        (rest as any).type
+      )
     }
     const { error, status } = response
     if (status !== 200) {

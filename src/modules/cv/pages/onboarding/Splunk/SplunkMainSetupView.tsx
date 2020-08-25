@@ -12,7 +12,6 @@ import {
   Color,
   useModalHook,
   IconName,
-  SelectWithSubview,
   Utils,
   SelectProps,
   Select,
@@ -359,39 +358,27 @@ function SplunkConfig(props: SplunkConfigProps): JSX.Element {
     <Container className={css.onBoardingSection}>
       <Container className={css.leftSection}>
         <FormInput.Text name={`dsConfigs[${index}].queryName`} label={i18n.fieldLabels.queryName} />
-        <FormInput.CustomRender
+        <FormInput.SelectWithSubview
           name={`dsConfigs[${index}].envIdentifier`}
           label={i18n.fieldLabels.environment}
-          render={() => (
-            <SelectWithSubview
-              changeViewButtonLabel={i18n.createNew}
-              items={envOptions}
-              value={envOptions?.find(serviceOp => serviceOp?.value === dsConfig.envIdentifier)}
-              key={envOptions[0]?.value as string}
-              subview={<CreateNewEntitySubform entityType="environment" />}
-              onChange={item => {
-                formikProps.setFieldValue(`dsConfigs[${index}].envIdentifier`, item.value)
-                formikProps.setFieldTouched(`dsConfigs[${index}].envIdentifier`, true)
-              }}
-            />
-          )}
+          changeViewButtonLabel={i18n.subviewCreationText.environment}
+          items={envOptions}
+          subview={<CreateNewEntitySubform entityType="environment" />}
+          onChange={item => {
+            formikProps.setFieldValue(`dsConfigs[${index}].envIdentifier`, item.value)
+            formikProps.setFieldTouched(`dsConfigs[${index}].envIdentifier`, true)
+          }}
         />
-        <FormInput.CustomRender
+        <FormInput.SelectWithSubview
           name={`dsConfigs[${index}].serviceIdentifier`}
-          key={serviceOptions[0]?.value as string}
           label={i18n.fieldLabels.service}
-          render={() => (
-            <SelectWithSubview
-              changeViewButtonLabel={i18n.createNew}
-              items={serviceOptions}
-              value={serviceOptions?.find(serviceOp => serviceOp?.value === dsConfig.serviceIdentifier)}
-              subview={<CreateNewEntitySubform entityType="service" />}
-              onChange={item => {
-                formikProps.setFieldValue(`dsConfigs[${index}].serviceIdentifier`, item.value)
-                formikProps.setFieldTouched(`dsConfigs[${index}].serviceIdentifier`, true)
-              }}
-            />
-          )}
+          changeViewButtonLabel={i18n.subviewCreationText.service}
+          items={serviceOptions}
+          subview={<CreateNewEntitySubform entityType="service" />}
+          onChange={item => {
+            formikProps.setFieldValue(`dsConfigs[${index}].serviceIdentifier`, item.value)
+            formikProps.setFieldTouched(`dsConfigs[${index}].serviceIdentifier`, true)
+          }}
         />
         <FormInput.TextArea
           key={dsConfig.id}

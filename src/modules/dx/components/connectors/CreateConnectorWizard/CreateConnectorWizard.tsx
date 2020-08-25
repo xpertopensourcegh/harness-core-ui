@@ -63,6 +63,7 @@ export const ConnectorWizard: React.FC<CreateConnectorWizardProps> = props => {
       return (
         <CreateSplunkConnector
           {...rest}
+          onConnectorCreated={props.onSuccess}
           accountId={accountId}
           hideLightModal={hideLightModal}
           orgIdentifier={orgIdentifier}

@@ -8,7 +8,6 @@ import {
   Select,
   Link,
   MultiSelectOption,
-  SelectWithSubview,
   SelectProps
 } from '@wings-software/uikit'
 import xhr from '@wings-software/xhr-async'
@@ -222,29 +221,24 @@ function AppDynamicsConfig(props: AppDynamicsConfigProps): JSX.Element {
   return (
     <Container className={css.formContainer}>
       <Container className={css.inputFields}>
-        <FormInput.CustomRender
+        <FormInput.SelectWithSubview
           name={`dsConfigs[${index}].envIdentifier`}
-          label="Environment"
-          render={() => (
-            <SelectWithSubview
-              changeViewButtonLabel={i18n.createNew}
-              items={envOptions}
-              value={envOptions?.find(envOption => envOption?.value === config.envIdentifier)}
-              key={envOptions[0]?.value as string}
-              subview={<CreateNewEntitySubform entityType="environment" />}
-              onChange={newEnv => {
-                formikProps.setFieldValue(`dsConfigs[${index}].envIdentifier`, newEnv.value)
-                formikProps.setFieldTouched(`dsConfigs[${index}].envIdentifier`, true)
-              }}
-            />
-          )}
+          label={i18n.fieldLabels.environment}
+          changeViewButtonLabel={i18n.subviewCreationText.environment}
+          items={envOptions}
+          subview={<CreateNewEntitySubform entityType="environment" />}
+          onChange={newEnv => {
+            formikProps.setFieldValue(`dsConfigs[${index}].envIdentifier`, newEnv.value)
+            formikProps.setFieldTouched(`dsConfigs[${index}].envIdentifier`, true)
+          }}
         />
-        <FormInput.MultiSelect
+        <FormInput.MultiSelectWithSubview
           name={`dsConfigs[${index}].services`}
-          label="Services"
+          label={i18n.fieldLabels.service}
           items={serviceOptions}
-          key={serviceOptions[0]?.value as string}
-          placeholder="Select a service"
+          placeholder={i18n.fieldPlaceHolderText.service}
+          changeViewButtonLabel={i18n.subviewCreationText.service}
+          subview={<CreateNewEntitySubform entityType="service" />}
           onChange={(items: MultiSelectOption[]) => {
             const newTableData: TierAndServiceRow[] = []
             for (const item of items) {

@@ -2,7 +2,10 @@ export default {
   pageHeading: 'Map your query to a Harness service and environment',
   thirdPartyCallLogText: 'View calls to Splunk',
   addQueryButtonLabel: 'Add Query',
-  createNew: 'Create New',
+  subviewCreationText: {
+    environment: '+ Add an environment',
+    service: '+ Add a service'
+  },
   loadingText: 'Loading...',
   manuallyInputQueryButtonText: '+ Manually input query',
   addSavedSearchPlaceholder: 'Add Splunk Saved Search',
