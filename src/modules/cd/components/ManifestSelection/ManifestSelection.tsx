@@ -20,6 +20,7 @@ const artifactListHeaders: ManifestTable = {
   server: i18n.manifestTable.server,
   location: i18n.manifestTable.location,
   branch: i18n.manifestTable.branch,
+  commit: i18n.manifestTable.commit,
   id: i18n.manifestTable.id
 }
 
@@ -142,7 +143,7 @@ function ManifestListView({
             <span>{artifactListHeaders.type}</span>
             <span>{artifactListHeaders.server}</span>
             <span></span>
-            <span>{artifactListHeaders.branch}</span>
+            <span>{artifactListHeaders.branch + '/' + artifactListHeaders.commit}</span>
             <span>{artifactListHeaders.location}</span>
             <span>{artifactListHeaders.id}</span>
 
@@ -166,6 +167,7 @@ function ManifestListView({
                           connectorIdentifier: string
                           gitFetchType: string
                           branch: string
+                          commitId: string
                           paths: string[]
                         }
                       }
@@ -196,7 +198,9 @@ function ManifestListView({
                       <Text inline icon="full-circle" iconProps={{ size: 10, color: Color.GREEN_500 }} />
                     </span>
                     <span>
-                      <Text style={{ color: Color.GREY_500 }}>{manifest.spec.store.spec.branch}</Text>
+                      <Text style={{ color: Color.GREY_500 }}>
+                        {manifest.spec.store.spec.branch || manifest.spec.store.spec.commitId}
+                      </Text>
                     </span>
                     <span>
                       <Text width={280} lineClamp={1} style={{ color: Color.GREY_500 }}>

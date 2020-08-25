@@ -43,34 +43,43 @@ export default function InfraSpecifications(): JSX.Element {
     return { infraName: displayName, description: description, tags: null, infraType: environment?.type }
   }
 
-  const getInitialInfraConnectorValues = (): { connectorId: string; namespaceId: string; releaseName: string } => {
-    const infrastructure = get(stage, 'stage.spec.infrastructure.infrastructureDef', null)
-    const connectorId = infrastructure?.spec?.connectorIdentifier
-    const namespaceId = infrastructure?.spec?.namespace
-    const releaseName = infrastructure?.spec?.releaseName
-    return { connectorId, namespaceId, releaseName }
-  }
+  const [k8ConnectorsList, setK8ConnectorsList] = useState<SelectOption[]>([])
+
   const { accountId }: any = useParams()
 
   const { data: k8sConnectorsList, loading: loadingK8sConnector } = useGetConnectorList({
     accountIdentifier: accountId,
-    queryParams: {}
+    queryParams: { type: 'K8sCluster' }
   })
-
-  const [k8ConnectorsList, setK8ConnectorsList] = useState<SelectOption[]>([])
 
   useEffect(() => {
     const k8Connectors =
       k8sConnectorsList?.data?.content?.map(k8 => {
         return {
           label: k8.name || '',
-          value: k8.identifier || '',
-          type: k8.type
+          value: k8.identifier || ''
         }
       }) || []
 
-    setK8ConnectorsList(k8Connectors.filter(data => data.type === 'KUBERNETES_CLUSTER'))
+    setK8ConnectorsList(k8Connectors)
   }, [k8sConnectorsList?.data?.content])
+
+  const getInitialInfraConnectorValues = (): {
+    connectorId: SelectOption | undefined
+    namespaceId: string
+    releaseName: string
+  } => {
+    const infrastructure = get(stage, 'stage.spec.infrastructure.infrastructureDef', null)
+    const connectorIdValue = infrastructure?.spec?.connectorIdentifier
+    const namespaceId = infrastructure?.spec?.namespace
+    const releaseName = infrastructure?.spec?.releaseName
+    const getConnectorDetail = k8ConnectorsList.find(v => v.value === connectorIdValue)
+    return {
+      connectorId: getConnectorDetail,
+      namespaceId,
+      releaseName
+    }
+  }
 
   return (
     <Layout.Vertical className={css.serviceOverrides}>
@@ -186,13 +195,14 @@ export default function InfraSpecifications(): JSX.Element {
       <Layout.Vertical spacing="medium">
         <Text style={{ fontSize: 16, color: Color.BLACK, marginTop: 15 }}>{i18n.k8ConnectorLabel}</Text>
         <Formik
+          enableReinitialize
           initialValues={getInitialInfraConnectorValues()}
-          validate={(value: { connectorId: string; namespaceId: string; releaseName: string }) => {
+          validate={(value: { connectorId?: SelectOption; namespaceId: string; releaseName: string }) => {
             const infraSpec = get(stage, 'stage.spec.infrastructure', {})
             const infraStruct = {
               type: 'KubernetesDirect',
               spec: {
-                connectorIdentifier: value.connectorId,
+                connectorIdentifier: value.connectorId?.value,
                 namespace: value.namespaceId,
                 releaseName: value.releaseName
               }

@@ -13,6 +13,11 @@ export default {
     filePath: 'File/Folder path',
     fetchValue: 'Branch Name',
     manifestId: 'Maniest Identifier',
+    gitFetchTypeLabel: 'Commit ID',
+    branchLabel: 'Branch',
+    branchPlaceholder: 'Enter branch name here',
+    commitLabel: 'Commit ID',
+    commitPlaceholder: 'Enter Commit ID here',
     back: 'Back',
     submit: 'Submit'
   },
@@ -22,6 +27,14 @@ export default {
     },
     {
       label: 'Values Overrides'
+    }
+  ],
+  gitFetchTypes: [
+    {
+      label: 'Latest from Branch'
+    },
+    {
+      label: 'Specific Commit ID'
     }
   ]
 }

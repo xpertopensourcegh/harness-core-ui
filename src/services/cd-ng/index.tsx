@@ -2108,6 +2108,8 @@ export interface GetConnectorListQueryParams {
     | 'AZURE_VAULT'
     | 'CYBERARK'
     | 'CUSTOM'
+    | 'Git'
+    | 'K8sCluster'
   categories?: ('CLOUD_PROVIDER' | 'SECRET_MANAGER')[]
 }
 

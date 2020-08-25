@@ -43,6 +43,11 @@ const manifestTypes = [
   { label: i18n.MANIFEST_TYPES[1].label, value: 'Values' }
 ]
 
+const gitFetchTypes = [
+  { label: i18n.gitFetchTypes[0].label, value: 'BRANCH' },
+  { label: i18n.gitFetchTypes[1].label, value: 'COMMIT' }
+]
+
 const FirstStep = (props: any): JSX.Element => {
   const { setFormData } = props
 
@@ -50,7 +55,7 @@ const FirstStep = (props: any): JSX.Element => {
 
   const { data: gitConnectorListResponse, loading: loadingGitConnector } = useGetConnectorList({
     accountIdentifier: accountId,
-    queryParams: {}
+    queryParams: { type: 'Git' }
   })
 
   const [gitConnectorsList, setGitConnectorsList] = useState<SelectOption[]>([])
@@ -60,12 +65,11 @@ const FirstStep = (props: any): JSX.Element => {
       gitConnectorListResponse?.data?.content?.map(git => {
         return {
           label: git.name || '',
-          value: git.identifier || '',
-          type: git.type
+          value: git.identifier || ''
         }
       }) || []
 
-    setGitConnectorsList(gitConnectors.filter(data => data.type === 'GIT'))
+    setGitConnectorsList(gitConnectors)
   }, [gitConnectorListResponse?.data?.content])
 
   return (
@@ -111,13 +115,13 @@ const FirstStep = (props: any): JSX.Element => {
 const SecondStep = (props: any): JSX.Element => {
   const prevData = props?.prevStepData
   const manifests = props.isForOverrideSets
-    ? get(props.stage, 'stage.spec.service.serviceDef.spec.manifestOverrideSets', {})
-    : get(props.stage, 'stage.spec.service.serviceDef.spec.manifests', {})
+    ? get(props.stage, 'stage.spec.service.serviceDef.spec.manifestOverrideSets', [])
+    : get(props.stage, 'stage.spec.service.serviceDef.spec.manifests', [])
   return (
     <Layout.Vertical spacing="xxlarge" padding="small" style={{ height: '100%' }}>
       <Text font="medium">{i18n.STEP_TWO.title}</Text>
       <Formik
-        initialValues={{}}
+        initialValues={{ gitFetchType: gitFetchTypes[0].value }}
         validationSchema={Yup.object().shape({
           manifestType: Yup.string().trim().required(),
           filePath: Yup.string().trim().required()
@@ -131,9 +135,10 @@ const SecondStep = (props: any): JSX.Element => {
                 store: {
                   type: 'Git',
                   spec: {
-                    connectorIdentifier: prevData?.gitServer,
-                    gitFetchType: 'Branch',
-                    branch: formData?.fetchValue,
+                    connectorIdentifier: prevData?.gitServer?.value,
+                    gitFetchType: formData?.gitFetchType,
+                    branch: formData?.branch,
+                    commitId: formData?.commitId,
                     paths: [formData?.filePath]
                   }
                 }
@@ -158,10 +163,27 @@ const SecondStep = (props: any): JSX.Element => {
           props.closeModal()
         }}
       >
-        {() => (
+        {(formik: { values: { gitFetchType: string } }) => (
           <Form className={css.formContainer}>
             <FormInput.Select name="manifestType" label={i18n.STEP_TWO.manifestInputType} items={manifestTypes} />
-            <FormInput.Text label={i18n.STEP_TWO.fetchValue} name="fetchValue" />
+            <FormInput.Select name="gitFetchType" label={i18n.STEP_TWO.gitFetchTypeLabel} items={gitFetchTypes} />
+
+            {formik.values?.gitFetchType === gitFetchTypes[0].value && (
+              <FormInput.Text
+                label={i18n.STEP_TWO.branchLabel}
+                placeholder={i18n.STEP_TWO.branchPlaceholder}
+                name="branch"
+              />
+            )}
+            {formik.values?.gitFetchType === gitFetchTypes[1].value && (
+              <FormInput.Text
+                label={i18n.STEP_TWO.commitLabel}
+                placeholder={i18n.STEP_TWO.commitPlaceholder}
+                name="commitId"
+              />
+            )}
+
+            {/* <FormInput.Text label={i18n.STEP_TWO.fetchValue} name="fetchValue" /> */}
             <FormInput.Text label={i18n.STEP_TWO.filePath} name="filePath" />
 
             <Layout.Horizontal spacing="large" className={css.bottomButtons}>
