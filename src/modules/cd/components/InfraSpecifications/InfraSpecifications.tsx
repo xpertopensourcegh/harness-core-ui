@@ -69,7 +69,7 @@ export default function InfraSpecifications(): JSX.Element {
         }
       }) || []
 
-    setK8ConnectorsList(k8Connectors.filter(data => data.type === 'K8sCluster'))
+    setK8ConnectorsList(k8Connectors.filter(data => data.type === 'KUBERNETES_CLUSTER'))
   }, [k8sConnectorsList?.data?.content])
 
   return (

@@ -66,19 +66,19 @@ const StepConnect: React.FC<StepProps<VaultConfigDTO>> = ({ prevStepData, nextSt
           authToken: ''
         }}
         validationSchema={Yup.object().shape({
-          encryptionType: Yup.string().required(),
-          vaultUrl: Yup.string().required(),
+          encryptionType: Yup.string().required(i18n.validationEncType),
+          vaultUrl: Yup.string().required(i18n.validationVaultUrl),
           authToken: Yup.string().when('authType', {
             is: 'token',
-            then: Yup.string().required()
+            then: Yup.string().required(i18n.validationAuthToken)
           }),
           appRoleId: Yup.string().when('authType', {
             is: 'appRoleId',
-            then: Yup.string().required()
+            then: Yup.string().required(i18n.validationAppRole)
           }),
           secretId: Yup.string().when('authType', {
             is: 'appRoleId',
-            then: Yup.string().required()
+            then: Yup.string().required(i18n.validationSecretId)
           })
         })}
         onSubmit={data => {
@@ -130,8 +130,8 @@ const StepSecretEngine: React.FC<StepProps<VaultConfigDTO> & { loading: boolean 
           renewIntervalHours: undefined
         }}
         validationSchema={Yup.object().shape({
-          secretEngineName: Yup.string().required(),
-          renewIntervalHours: Yup.number().positive().required()
+          secretEngineName: Yup.string().required(i18n.validationEngine),
+          renewIntervalHours: Yup.number().positive(i18n.validationRenewalNumber).required(i18n.validationRenewal)
         })}
         onSubmit={data => {
           nextStep?.({ ...prevStepData, ...data })
@@ -141,7 +141,12 @@ const StepSecretEngine: React.FC<StepProps<VaultConfigDTO> & { loading: boolean 
           <FormikForm>
             <FormInput.Text name="secretEngineName" label={i18n.labelSecretEngine} />
             <FormInput.Text name="renewIntervalHours" label={i18n.labelRenewal} />
-            <Button type="submit" intent="primary" text={i18n.buttonSubmit} disabled={loading} />
+            <Button
+              type="submit"
+              intent="primary"
+              text={loading ? i18n.buttonSaving : i18n.buttonSubmit}
+              disabled={loading}
+            />
           </FormikForm>
         )}
       </Formik>
@@ -168,7 +173,7 @@ const CreateSecretManager: React.FC<CreateSecretManagerProps> = ({
               orgIdentifier,
               projectIdentifier,
               ...pick(data, ['name', 'identifier', 'description', 'tags']),
-              type: 'Vault' as any, // TODO: any because of backend publishing incorrect type
+              type: data.encryptionType as ConnectorRequestDTO['type'],
               spec: {
                 ...pick(data, ['authToken', 'basePath', 'secretEngineName', 'vaultUrl', 'readOnly', 'default'])
               }

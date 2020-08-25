@@ -219,7 +219,7 @@ const SecretDetails: React.FC = () => {
             <YamlBuilder
               entityType={YamlEntity.SECRET}
               fileName={`${secretData.name}.yaml`}
-              existingYaml={stringify(secretData)}
+              existingYaml={stringify(omit(secretData, fieldsRemovedFromYaml))}
               isReadOnlyMode={true}
               showSnippetSection={false}
             />

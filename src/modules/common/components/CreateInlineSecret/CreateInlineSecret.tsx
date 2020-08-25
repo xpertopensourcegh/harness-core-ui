@@ -30,7 +30,7 @@ const CreateInlineSecret: React.FC<CreateInlineSecretProps> = props => {
   const { defaultSecretId, defaultSecretName, accountIdentifier, projectIdentifier, orgIdentifier } = props
   const { data: secretManagersApiResponse, error, refetch, loading } = useGetConnectorList({
     accountIdentifier,
-    queryParams: { orgIdentifier, projectIdentifier, type: 'Vault' }
+    queryParams: { orgIdentifier, projectIdentifier, type: 'VAULT' }
   })
 
   const [secretName, setSecretName] = useState(defaultSecretName || '')

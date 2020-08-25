@@ -65,7 +65,7 @@ const FirstStep = (props: any): JSX.Element => {
         }
       }) || []
 
-    setGitConnectorsList(gitConnectors.filter(data => data.type === 'Git'))
+    setGitConnectorsList(gitConnectors.filter(data => data.type === 'GIT'))
   }, [gitConnectorListResponse?.data?.content])
 
   return (
