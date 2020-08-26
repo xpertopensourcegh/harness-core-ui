@@ -47,11 +47,38 @@ export default function ServiceSpecifications(): JSX.Element {
         splitViewData: { selectedStageId }
       }
     },
+
     updatePipeline
   } = React.useContext(PipelineContext)
 
   const { stage } = getStageFromPipeline(pipeline, selectedStageId || '')
-
+  if (stage?.stage) {
+    if (!stage.stage.spec) {
+      stage.stage.spec = {}
+    }
+    if (!stage.stage.spec.service) {
+      stage.stage.spec = {
+        service: {
+          identifier: null,
+          name: null,
+          description: null,
+          tags: null,
+          serviceDef: {
+            type: 'Kubernetes',
+            spec: {
+              artifacts: [],
+              manifests: [],
+              variables: [],
+              artifactOverrideSets: [],
+              manifestOverrideSets: [],
+              variableOverrideSets: []
+            }
+          }
+        }
+      }
+      updatePipeline(pipeline)
+    }
+  }
   const getInitialValues = (): { serviceName: string; description: string; tags: null | string[] } => {
     const pipelineData = stage?.['stage']?.['spec']?.['service'] || null
     const serviceName = pipelineData?.name || ''
@@ -69,25 +96,12 @@ export default function ServiceSpecifications(): JSX.Element {
         <Formik
           initialValues={getInitialValues()}
           validate={value => {
-            const serviceStruct = {
-              identifier: value.serviceName,
-              name: value.serviceName,
-              description: value.description,
-              tags: value.tags,
-              serviceDef: {
-                type: 'Kubernetes',
-                spec: {
-                  artifacts: [],
-                  manifests: [],
-                  variables: [],
-                  artifactOverrideSets: [],
-                  manifestOverrideSets: [],
-                  variableOverrideSets: []
-                }
-              }
-            }
             if (stage) {
-              stage['stage']['spec']['service'] = serviceStruct
+              const serviceObj = stage['stage']['spec']['service']
+              serviceObj['identifier'] = value.serviceName
+              serviceObj['name'] = value.serviceName
+              serviceObj['description'] = value.description
+              serviceObj['tags'] = value.tags
               updatePipeline(pipeline)
             }
           }}
