@@ -33,11 +33,11 @@ const SecretReference: React.FC<SecretReferenceProps> = props => {
 
   const { loading, data, error, refetch } = useListSecrets({
     queryParams: {
-      account: accountIdentifier,
+      accountIdentifier,
       type,
       searchTerm: searchTerm?.trim(),
-      project: selectedScope === Scope.PROJECT ? projectIdentifier : undefined,
-      org: selectedScope === Scope.PROJECT || selectedScope === Scope.ORG ? orgIdentifier : undefined
+      projectIdentifier: selectedScope === Scope.PROJECT ? projectIdentifier : undefined,
+      orgIdentifier: selectedScope === Scope.PROJECT || selectedScope === Scope.ORG ? orgIdentifier : undefined
     },
     debounce: 300
   })

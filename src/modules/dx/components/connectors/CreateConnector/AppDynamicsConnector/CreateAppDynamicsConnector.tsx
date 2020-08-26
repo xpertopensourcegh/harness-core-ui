@@ -52,7 +52,7 @@ export default function CreateAppDynamicsConnector(props: CreateAppDynamicsConne
     const res = await createConnector({
       name: data.name,
       identifier: data.identifier,
-      type: 'APP_DYNAMICS',
+      type: 'AppDynamics',
       projectIdentifier: props.projectIdentifier,
       orgIdentifier: props.orgIdentifier,
       spec: {

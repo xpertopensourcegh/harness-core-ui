@@ -36,7 +36,7 @@ const StepConnect: React.FC<StepProps<VaultConfigDTO>> = ({ prevStepData, nextSt
   const encryptionTypeOptions: SelectOption[] = [
     {
       label: 'HashiCorp Vault',
-      value: 'VAULT'
+      value: 'Vault'
     }
   ]
   const authTypeOptions: IOptionProps[] = [
@@ -57,7 +57,7 @@ const StepConnect: React.FC<StepProps<VaultConfigDTO>> = ({ prevStepData, nextSt
       </Text>
       <Formik<VaultConfigForm>
         initialValues={{
-          encryptionType: 'VAULT',
+          encryptionType: 'VAULT', // TODO {Abhinav} fix type once backend send it
           vaultUrl: '',
           basePath: '',
           readOnly: false,
@@ -173,7 +173,7 @@ const CreateSecretManager: React.FC<CreateSecretManagerProps> = ({
               orgIdentifier,
               projectIdentifier,
               ...pick(data, ['name', 'identifier', 'description', 'tags']),
-              type: data.encryptionType as ConnectorRequestDTO['type'],
+              type: 'Vault',
               spec: {
                 ...pick(data, ['authToken', 'basePath', 'secretEngineName', 'vaultUrl', 'readOnly', 'default'])
               }

@@ -20,7 +20,7 @@ const SecretsPage: React.FC = () => {
   const [page, setPage] = useState(0)
 
   const { data: secretsResponse, loading, error, refetch } = useListSecrets({
-    queryParams: { account: accountId, searchTerm, page, size: 10 },
+    queryParams: { accountIdentifier: accountId, searchTerm, page, size: 10 },
     debounce: 300
   })
   const { openCreateSecretModal } = useCreateSecretModal({

@@ -79,7 +79,7 @@ const RenderColumnAction: Renderer<CellProps<EncryptedDataDTO>> = ({ row, column
   const { showSuccess, showError } = useToaster()
   const [menuOpen, setMenuOpen] = useState(false)
   const { mutate: deleteSecret } = useDeleteSecret({
-    queryParams: { account: accountId, project: projectIdentifier, org: orgIdentifier },
+    queryParams: { accountIdentifier: accountId, projectIdentifier, orgIdentifier },
     requestOptions: { headers: { 'content-type': 'application/json' } }
   })
 

@@ -42,7 +42,7 @@ const SecretDetails: React.FC = () => {
   const [yamlHandler, setYamlHandler] = React.useState<YamlBuilderHandlerBinding | undefined>()
   const { loading, data, refetch, error } = useGetSecret({
     identifier: secretId,
-    queryParams: { account: accountId, project: projectIdentifier, org: orgIdentifier }
+    queryParams: { accountIdentifier: accountId, projectIdentifier: projectIdentifier, orgIdentifier: orgIdentifier }
   })
   const { mutate: updateSecretText } = usePutSecretTextViaYaml({
     identifier: secretId,

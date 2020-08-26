@@ -45,7 +45,7 @@ export default function CreateSplunkConnector(props: CreateSplunkConnectorProps)
     const res = await createConnector({
       name: data.name,
       identifier: data.identifier,
-      type: 'SPLUNK',
+      type: 'Splunk',
       projectIdentifier: props.projectIdentifier,
       orgIdentifier: props.orgIdentifier,
       spec: {

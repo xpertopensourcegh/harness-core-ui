@@ -46,7 +46,7 @@ const CreateUpdateSecret: React.FC<CreateSecretTextProps> = props => {
   const { showSuccess, showError } = useToaster()
   const { data: secretManagersApiResponse, loading: loadingSecretsManagers } = useGetConnectorList({
     accountIdentifier: accountId,
-    queryParams: { orgIdentifier, projectIdentifier, type: 'VAULT' }
+    queryParams: { orgIdentifier, projectIdentifier, categories: ['SECRET_MANAGER'] }
   })
   const { mutate: createSecretText, loading: loadingCreateText } = usePostSecretText({})
   const { mutate: createSecretFile, loading: loadingCreateFile } = usePostSecretFile({})
