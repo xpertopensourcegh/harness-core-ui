@@ -6,5 +6,6 @@ declare const styles: {
   readonly view: string
   readonly tableContainer: string
   readonly listContainer: string
+  readonly selectConnector: string
 }
 export default styles

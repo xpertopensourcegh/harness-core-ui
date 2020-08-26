@@ -8,6 +8,5 @@ export default {
   deleteButton: 'Delete',
   cancelButton: 'Cancel',
   success: 'active',
-  failed: 'error',
-  Search: 'Search'
+  failed: 'error'
 }

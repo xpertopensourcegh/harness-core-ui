@@ -1,17 +1,12 @@
 /* eslint-disable */
 // this is an auto-generated file
 declare const styles: {
-  readonly crossIcon: string
   readonly createConnectorWizard: string
   readonly itemName: string
   readonly itemInfo: string
   readonly formLayout: string
   readonly stepsOverlay: string
   readonly iconConnector: string
-  readonly selectConnector: string
-  readonly menuItem: string
-  readonly menuItemContent: string
-  readonly menulabel: string
   readonly firstep: string
   readonly heading: string
   readonly connectorForm: string
@@ -39,5 +34,6 @@ declare const styles: {
   readonly lockIcon: string
   readonly selectAuth: string
   readonly credForm: string
+  readonly crossIcon: string
 }
 export default styles

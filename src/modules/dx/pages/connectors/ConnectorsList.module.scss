@@ -33,3 +33,19 @@
   background-color: var(--grey-100) !important;
   height: 100%;
 }
+.selectConnector {
+  padding: 0;
+  width: 240px;
+  max-height: 200px;
+  overflow: auto;
+  > li > a {
+    height: 40px;
+  }
+  > li {
+    &:hover {
+      background-color: var(--blue-500);
+      color: var(--white);
+      font-weight: 500;
+    }
+  }
+}
