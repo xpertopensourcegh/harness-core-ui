@@ -17,8 +17,8 @@ import {
   ModalErrorHandler
 } from '@wings-software/uikit'
 import * as Yup from 'yup'
-
 import { pick } from 'lodash'
+import { useAppStoreReader, useAppStoreWriter } from 'framework/exports'
 import ProjectCard from 'modules/common/pages/ProjectsPage/views/ProjectCard/ProjectCard'
 import i18n from 'modules/common/pages/ProjectsPage/ProjectsPage.i18n'
 import { illegalIdentifiers } from 'modules/common/utils/StringUtils'
@@ -60,6 +60,8 @@ const AboutProject: React.FC<StepProps<ProjectDTO> & ProjectModalData> = props =
   const { mutate: createProject } = usePostProject({ orgIdentifier: '' })
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding>()
   const { loading, data } = useGetOrganizationList({ accountIdentifier: accountId })
+  const { projects } = useAppStoreReader()
+  const updateAppStore = useAppStoreWriter()
 
   const organisations: SelectOption[] =
     data?.data?.content?.map(org => {
@@ -84,6 +86,7 @@ const AboutProject: React.FC<StepProps<ProjectDTO> & ProjectModalData> = props =
       })
       closeModal?.()
       onSuccess?.(values)
+      updateAppStore({ projects: projects.filter(p => p.identifier !== values.identifier).concat(values) })
     } else {
       ;(dataToSubmit as CreateProjectDTO)['identifier'] = values.identifier || ''
       ;(dataToSubmit as CreateProjectDTO)['modules'] = values.modules || []
@@ -93,6 +96,7 @@ const AboutProject: React.FC<StepProps<ProjectDTO> & ProjectModalData> = props =
         })
         nextStep?.({ ...values })
         onSuccess?.(values)
+        updateAppStore({ projects: projects.concat(values) })
       } catch (e) {
         modalErrorHandler?.show(e.data)
       }

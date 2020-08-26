@@ -10,6 +10,7 @@ import { useDeleteProject } from 'services/cd-ng'
 import type { ProjectDTO } from 'services/cd-ng'
 import { useToaster } from 'modules/common/components/Toaster/useToaster'
 import { useConfirmationDialog } from 'modules/common/modals/ConfirmDialog/useConfirmationDialog'
+import { useAppStoreReader, useAppStoreWriter } from 'framework/exports'
 import { Modules } from './Constants'
 import i18n from './ProjectCard.i18n'
 import css from './ProjectCard.module.scss'
@@ -20,7 +21,6 @@ export interface ProjectCardProps {
   className?: string
   reloadProjects?: () => Promise<unknown>
   editProject?: (project: ProjectDTO) => void
-  onDeleted?: (project: ProjectDTO) => void
   collaborators?: (project: ProjectDTO) => void
 }
 
@@ -28,7 +28,6 @@ interface ContextMenuProps {
   project: ProjectDTO
   reloadProjects?: () => Promise<unknown>
   editProject?: (project: ProjectDTO) => void
-  onDeleted?: (project: ProjectDTO) => void
   collaborators?: (project: ProjectDTO) => void
 }
 
@@ -42,9 +41,11 @@ interface ContinuousVerificationProps {
 }
 
 const ContextMenu: React.FC<ContextMenuProps> = props => {
-  const { project, reloadProjects, editProject, collaborators, onDeleted } = props
+  const { project, reloadProjects, editProject, collaborators } = props
   const { mutate: deleteProject } = useDeleteProject({ orgIdentifier: project.orgIdentifier || '' })
   const { showSuccess, showError } = useToaster()
+  const { projects } = useAppStoreReader()
+  const updateAppStore = useAppStoreWriter()
 
   const { openDialog } = useConfirmationDialog({
     contentText: i18n.confirmDelete(project.name || ''),
@@ -58,7 +59,14 @@ const ContextMenu: React.FC<ContextMenuProps> = props => {
             headers: { 'content-type': 'application/json' }
           })
           if (deleted) showSuccess(`Project ${project.name} deleted`)
-          onDeleted?.(project)
+
+          const index = projects.findIndex(p => p.identifier === project.identifier)
+
+          if (index >= 0) {
+            projects.splice(index, 1)
+            updateAppStore({ projects: ([] as ProjectDTO[]).concat(projects) })
+          }
+
           reloadProjects?.()
         } catch (err) {
           showError(err)
@@ -204,7 +212,7 @@ const GetStarted: React.FC<ContinuousDeployementProps> = props => {
   )
 }
 const ProjectCard: React.FC<ProjectCardProps> = props => {
-  const { data, isPreview, reloadProjects, editProject, collaborators, onDeleted } = props
+  const { data, isPreview, reloadProjects, editProject, collaborators } = props
 
   return (
     <Card className={cx(css.projectCard, props.className)}>
@@ -216,7 +224,6 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
                 project={props.data}
                 reloadProjects={reloadProjects}
                 editProject={editProject}
-                onDeleted={onDeleted}
                 collaborators={collaborators}
               />
             }

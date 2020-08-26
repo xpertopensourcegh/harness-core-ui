@@ -39,6 +39,6 @@ export const routeCreateSecretFromYaml: Route = {
   path: '/create-secret-from-yaml',
   title: 'Create Secret From Yaml',
   pageId: 'create-secret-from-yaml',
-  url: () => '/create-secret-from-yaml',
+  url: () => routeURL(routeCreateSecretFromYaml, '/create-secret-from-yaml'),
   component: React.lazy(() => import('../dx/pages/createSecretFromYaml/CreateSecretFromYamlPage'))
 }

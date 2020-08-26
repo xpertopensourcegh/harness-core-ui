@@ -24,6 +24,12 @@ export const ProjectSelector: React.FC<ProjectSelectorProps> = ({ module, onSele
     () =>
       projects
         .filter(project => project.modules?.includes?.(module))
+        .sort(({ name: name1 = '' }, { name: name2 = '' }) => {
+          // sort projects by name
+          name1 = name1.toLocaleLowerCase()
+          name2 = name2.toLocaleLowerCase()
+          return name1 < name2 ? -1 : name1.length < name2.length ? 1 : name1 < name2 ? -1 : 1
+        })
         .reduce((values, project) => {
           values.push({
             ...project,

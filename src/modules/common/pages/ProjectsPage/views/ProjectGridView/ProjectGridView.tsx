@@ -9,11 +9,10 @@ interface ProjectGridViewProps {
   reload?: () => Promise<void>
   showEditProject?: (project: ProjectDTO) => void
   collaborators?: (project: ProjectDTO) => void
-  onDeleted?: (project: ProjectDTO) => void
 }
 
 const ProjectGridView: React.FC<ProjectGridViewProps> = props => {
-  const { data, reload, showEditProject, collaborators, onDeleted } = props
+  const { data, reload, showEditProject, collaborators } = props
 
   return (
     <>
@@ -29,7 +28,6 @@ const ProjectGridView: React.FC<ProjectGridViewProps> = props => {
             reloadProjects={reload}
             editProject={showEditProject}
             collaborators={collaborators}
-            onDeleted={() => onDeleted?.(project)}
           />
         )}
         keyOf={(project: ProjectDTO) => project.id}
