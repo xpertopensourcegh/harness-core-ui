@@ -1,6 +1,7 @@
 import React, { useMemo, ElementType, useLayoutEffect, useState } from 'react'
-import { Container, Link, Icon, ModalProvider } from '@wings-software/uikit'
+import { Container, Icon, ModalProvider } from '@wings-software/uikit'
 import cx from 'classnames'
+import { Link } from 'react-router-dom'
 import { useAppStoreReader } from 'framework/hooks/useAppStore'
 import type { Route, SidebarEntry } from 'framework/exports'
 import { routeParams } from 'framework/route/RouteMounter'
@@ -20,8 +21,7 @@ const SidebarItem = (sidebarEntry: SidebarEntry, route?: Route): JSX.Element => 
       <Link
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
-        noStyling
-        href={sidebarEntry.url(routeParams())}
+        to={sidebarEntry.url(routeParams())}
         className={css.sidebarLink}
         title={sidebarEntry.title}
       >
