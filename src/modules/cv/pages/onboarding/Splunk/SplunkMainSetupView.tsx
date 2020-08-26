@@ -326,7 +326,6 @@ function SplunkConfig(props: SplunkConfigProps): JSX.Element {
     loading: Boolean(dsConfig.query?.length)
   })
   const [thirdPartyGUID, setThirdPartyGUID] = useState<string | undefined>()
-  const [renderSplunkFields, setRenderSplunkFields] = useState<boolean>(Boolean(dsConfig.query))
   const { params } = routeParams()
   const areFirstThreeFilledOut = dsConfig.envIdentifier && dsConfig.serviceIdentifier && dsConfig.queryName
 
@@ -346,13 +345,11 @@ function SplunkConfig(props: SplunkConfigProps): JSX.Element {
       )
     }
     return () => xhr.abort(XHR_VALIDATION_GROUP)
-  }, [dsConfig.query, dataSourceId, params.accountId, params.orgId, params.projectId])
+  }, [dsConfig.query, dataSourceId, params.accountId, params.orgId, params.projectIdentifier])
 
   useEffect(() => {
-    if (!renderSplunkFields && dsConfig.envIdentifier && dsConfig.serviceIdentifier) {
-      setRenderSplunkFields(true)
-    }
-  }, [renderSplunkFields, dsConfig.envIdentifier, dsConfig.serviceIdentifier])
+    formikProps.setFieldValue(`dsConfigs[${index}].isValid`, validationResult?.error ? false : true)
+  }, [validationResult?.error, index])
 
   return (
     <Container className={css.onBoardingSection}>
@@ -364,10 +361,6 @@ function SplunkConfig(props: SplunkConfigProps): JSX.Element {
           changeViewButtonLabel={i18n.subviewCreationText.environment}
           items={envOptions}
           subview={<CreateNewEntitySubform entityType="environment" />}
-          onChange={item => {
-            formikProps.setFieldValue(`dsConfigs[${index}].envIdentifier`, item.value)
-            formikProps.setFieldTouched(`dsConfigs[${index}].envIdentifier`, true)
-          }}
         />
         <FormInput.SelectWithSubview
           name={`dsConfigs[${index}].serviceIdentifier`}
@@ -375,10 +368,6 @@ function SplunkConfig(props: SplunkConfigProps): JSX.Element {
           changeViewButtonLabel={i18n.subviewCreationText.service}
           items={serviceOptions}
           subview={<CreateNewEntitySubform entityType="service" />}
-          onChange={item => {
-            formikProps.setFieldValue(`dsConfigs[${index}].serviceIdentifier`, item.value)
-            formikProps.setFieldTouched(`dsConfigs[${index}].serviceIdentifier`, true)
-          }}
         />
         <FormInput.TextArea
           key={dsConfig.id}

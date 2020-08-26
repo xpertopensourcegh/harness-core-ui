@@ -18,7 +18,7 @@ import { useHistory } from 'react-router-dom'
 import type * as H from 'history'
 import { Page, useConfirmationDialog } from 'modules/common/exports'
 import CVProductCard from 'modules/cv/components/CVProductCard/CVProductCard'
-import { routeCVDataSourcesProductPage } from 'modules/cv/routes'
+import { routeCVDataSourcesProductPage, routeCVDataSources } from 'modules/cv/routes'
 import { CVProviders, VerificationTypeToRouteVerificationType } from 'modules/cv/constants'
 import { routeParams } from 'framework/exports'
 import { useIndexedDBHook, CVObjectStoreNames } from 'modules/cv/hooks/IndexedDBHook/IndexedDBHook'
@@ -245,8 +245,8 @@ function CVConnectorListTable(props: CVConnectorListTableProps): JSX.Element {
     contentText: i18n.confirmationModalText.contentText,
     cancelButtonText: i18n.confirmationModalText.cancelButtonText,
     confirmButtonText: i18n.confirmationModalText.confirmButtonText,
-    onCloseDialog: () => {
-      if (deletedDSInfo) {
+    onCloseDialog: (isConfirmed: boolean) => {
+      if (deletedDSInfo && isConfirmed) {
         deleteConnector(deletedDSInfo?.dataSourceId, {
           headers: { 'content-type': 'application/json' }
         }).then(val => {
@@ -352,16 +352,28 @@ function RenderContent(props: RenderContentProps): JSX.Element {
     query: { onBoarding: isOnboardingFlow = false }
   } = routeParams()
   const [isNewDataSourceView, setToggleView] = useState(!isOnboardingFlow)
+  const history = useHistory()
 
   return (
     <Container className={css.contentContainer}>
       <Container className={css.searchAndAdd}>
-        {!isOnboardingFlow && existingDataSources?.size && (
+        {!isOnboardingFlow && existingDataSources?.size > 0 && (
           <Button
             icon={isNewDataSourceView ? 'plus' : undefined}
             minimal
             intent="primary"
-            onClick={() => setToggleView(!isNewDataSourceView)}
+            onClick={() => {
+              if (isNewDataSourceView) {
+                history.push({
+                  pathname: routeCVDataSources.url({
+                    projectIdentifier: projectId as string,
+                    orgId: orgId as string
+                  }),
+                  search: `?onBoarding=true`
+                })
+              }
+              setToggleView(!isNewDataSourceView)
+            }}
           >
             {isNewDataSourceView ? i18n.createDataSourceText : i18n.editDataSourceButtonText}
           </Button>

@@ -1,10 +1,11 @@
 import React, { useContext } from 'react'
 import { Formik } from 'formik'
-import { FormInput, SelectWithSubviewContext, Layout, Button } from '@wings-software/uikit'
+import { FormInput, SelectWithSubviewContext, Layout, Button, FormikForm } from '@wings-software/uikit'
 import { Toaster, Intent } from '@blueprintjs/core'
 import * as Yup from 'yup'
 import { SettingsService } from 'modules/cv/services'
 import { routeParams } from 'framework/exports'
+import i18n from './CreateNewEntitySeubform.i18n'
 
 const toaster = Toaster.create()
 
@@ -22,9 +23,6 @@ export default function CreateNewEntitySubform({ entityType }: { entityType: 'se
     params: { accountId, projectIdentifier: routeProjectIdentifier, orgId: routeOrgIdentifier }
   } = routeParams()
   const { toggleSubview } = useContext(SelectWithSubviewContext)
-  const onHide = () => {
-    toggleSubview()
-  }
   const projectIdentifier = routeProjectIdentifier as string
   const orgIdentifier = routeOrgIdentifier as string
   const onSubmit = async ({ name, ...rest }: { name: string }) => {
@@ -81,24 +79,27 @@ export default function CreateNewEntitySubform({ entityType }: { entityType: 'se
   return (
     <Formik {...(formProps as any)} onSubmit={onSubmit}>
       {formikProps => (
-        <form
-          onSubmit={e => {
-            e.preventDefault()
-            e.stopPropagation()
-            formikProps.handleSubmit(e)
-          }}
-          style={{ padding: 'var(--spacing-small' }}
-        >
+        <FormikForm style={{ padding: 'var(--spacing-small' }}>
           {formInputs}
           <Layout.Horizontal spacing="medium">
-            <Button data-name="Cancel" onClick={onHide}>
-              Cancel
+            <Button data-name={i18n.formButtonText.cancel} onClick={() => toggleSubview() as void}>
+              {i18n.formButtonText.cancel}
             </Button>
-            <Button type="submit" intent="primary">
-              Submit
+            <Button
+              type="submit"
+              intent="primary"
+              onClick={async e => {
+                e.preventDefault()
+                const error = await formikProps.validateForm()
+                if (!error || !Object.keys(error).length) {
+                  await onSubmit(formikProps.values as { name: string })
+                }
+              }}
+            >
+              {i18n.formButtonText.submit}
             </Button>
           </Layout.Horizontal>
-        </form>
+        </FormikForm>
       )}
     </Formik>
   )
