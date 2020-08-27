@@ -53,6 +53,7 @@ export class StepGroupStep extends Step<StepGroupElement> {
   protected type = StepType.StepGroup
   protected stepName = i18n.stepGroup
   protected stepIcon: IconName = 'step-group'
+  protected stepPaletteVisible = false
 
   protected defaultValues: StepGroupElement = {
     identifier: 'step-group',

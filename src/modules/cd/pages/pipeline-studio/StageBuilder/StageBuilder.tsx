@@ -374,7 +374,7 @@ export const StageBuilder: React.FC<{}> = (): JSX.Element => {
           dynamicPopoverHandler?.hide()
         }
         if (isSplitViewOpen) {
-          updatePipelineView({ ...pipelineView, isSplitViewOpen: false })
+          updatePipelineView({ ...pipelineView, isSplitViewOpen: false, splitViewData: {} })
         }
       }}
     >

@@ -4,5 +4,11 @@ export default {
   inputVariables: 'Input Variables',
   pipelineSave: 'Pipeline Started SuccessFully',
   pipelineUnSave: 'Please save the pipeline first',
-  runPipeline: 'Run Pipeline'
+  runPipeline: 'Run Pipeline',
+  pipelineVariables: 'Pipeline Variables',
+  customVariables: 'Custom Variables',
+  service: 'Service',
+  infrastructure: 'Infrastructure',
+  execution: 'Execution',
+  stages: 'Stages'
 }

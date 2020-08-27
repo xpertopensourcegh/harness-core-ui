@@ -1,7 +1,7 @@
 import React from 'react'
 import { ExpandingSearchInput, Card, Text, Icon } from '@wings-software/uikit'
-import factory from 'modules/cd/common/PipelineSteps/PipelineStepFactory'
 import type { StepData } from 'modules/common/components/AbstractSteps/AbstractStepFactory'
+import factory from '../../../components/PipelineSteps/PipelineStepFactory'
 import i18n from './StepPalette.18n'
 import { RightBar } from '../RightBar/RightBar'
 import css from './StepPalette.module.scss'

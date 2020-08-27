@@ -33,22 +33,26 @@ const newStageData = [
   {
     text: i18n.service,
     value: 'service',
-    icon: 'service'
+    icon: 'service',
+    disabled: false
   },
   {
     text: i18n.multipleService,
     value: 'multiple-service',
-    icon: 'multi-service'
+    icon: 'multi-service',
+    disabled: true
   },
   {
     text: i18n.functions,
     value: 'functions',
-    icon: 'functions'
+    icon: 'functions',
+    disabled: true
   },
   {
     text: i18n.otherWorkloads,
     value: 'other-workloads',
-    icon: 'other-workload'
+    icon: 'other-workload',
+    disabled: true
   }
 ]
 
@@ -101,8 +105,14 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit }): JSX.
                     selected={formikProps.values.serviceType}
                     onChange={item => formikProps.setFieldValue('serviceType', item)}
                     renderItem={(item, selected) => (
-                      <>
-                        <Card selected={selected}>
+                      <span
+                        onClick={e => {
+                          if (item.disabled) {
+                            e.stopPropagation()
+                          }
+                        }}
+                      >
+                        <Card selected={selected} interactive={!item.disabled} disabled={item.disabled}>
                           <CardBody.Icon icon={item.icon as IconName} iconSize={25} />
                         </Card>
                         <Text
@@ -116,7 +126,7 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit }): JSX.
                         >
                           {item.text}
                         </Text>
-                      </>
+                      </span>
                     )}
                     data={newStageData}
                     className={css.grid}

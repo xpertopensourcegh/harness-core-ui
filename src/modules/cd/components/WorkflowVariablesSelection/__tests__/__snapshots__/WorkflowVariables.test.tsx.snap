@@ -58,7 +58,7 @@ exports[`WorkflowVariables Snapshot should render WorkflowVariables component 1`
                 style="width: 300px;"
               >
                 <div
-                  class="bp3-popover-wrapper MultiTypeInput---select--379Z Select---main--1QpB bp3-fill"
+                  class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
                 >
                   <div
                     class="bp3-popover-target"

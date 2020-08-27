@@ -5,6 +5,7 @@ export interface StepData {
   label: string
   icon: IconName
   type: string
+  visible: boolean
 }
 
 export abstract class AbstractStepFactory {
@@ -27,7 +28,12 @@ export abstract class AbstractStepFactory {
 
   registerStep<T extends object>(step: Step<T>): void {
     this.stepBank.set(step.getType(), step)
-    this.stepIconMap.set(step.getType(), { label: step.getStepName(), icon: step.getIconName(), type: step.getType() })
+    this.stepIconMap.set(step.getType(), {
+      label: step.getStepName(),
+      icon: step.getIconName(),
+      type: step.getType(),
+      visible: step.getStepPaletteVisibility()
+    })
   }
 
   deregisterStep(type: string): void {
@@ -48,6 +54,6 @@ export abstract class AbstractStepFactory {
   }
 
   getAllStepsDataList(): Array<StepData> {
-    return Array.from(this.stepIconMap, ([_key, value]) => value)
+    return Array.from(this.stepIconMap, ([_key, value]) => value).filter(step => step.visible)
   }
 }

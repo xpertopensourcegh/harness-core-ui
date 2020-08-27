@@ -95,6 +95,9 @@
         cursor: pointer;
         background-color: var(--pipeline-blue-bc);
 
+        &.disabled {
+          background-color: var(--pipeline-blue-bc) !important;
+        }
         & > div {
           text-align: center;
         }

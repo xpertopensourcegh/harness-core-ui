@@ -8,6 +8,7 @@ declare const styles: {
   readonly parallel: string
   readonly createNewCards: string
   readonly cardNew: string
+  readonly disabled: string
   readonly createNewMessage: string
   readonly collapseDiv: string
   readonly labelBold: string

@@ -17,17 +17,32 @@ export const AddStageView: React.FC<AddStageViewProps> = ({ callback, isParallel
         <Icon name="pipeline-deploy" size={24} />
         <div>{i18n.deploy}</div>
       </Card>
-      <Card interactive={true} className={css.cardNew} onClick={() => callback(StageType.PIPELINE)}>
+      <Card
+        interactive={true}
+        disabled
+        className={cx(css.cardNew, css.disabled)}
+        onClick={() => callback(StageType.PIPELINE)}
+      >
         <Icon name="pipeline" size={24} />
         <div>{i18n.pipeline}</div>
       </Card>
       {!isParallel && (
-        <Card interactive={true} className={css.cardNew} onClick={() => callback(StageType.APPROVAL)}>
+        <Card
+          interactive={true}
+          disabled
+          className={cx(css.cardNew, css.disabled)}
+          onClick={() => callback(StageType.APPROVAL)}
+        >
           <Icon name="pipeline-approval" size={24} />
           <div>{i18n.approval}</div>
         </Card>
       )}
-      <Card interactive={true} className={css.cardNew} onClick={() => callback(StageType.CUSTOM)}>
+      <Card
+        interactive={true}
+        disabled
+        className={cx(css.cardNew, css.disabled)}
+        onClick={() => callback(StageType.CUSTOM)}
+      >
         <Icon name="pipeline-custom" size={24} />
         <div>{i18n.custom}</div>
       </Card>

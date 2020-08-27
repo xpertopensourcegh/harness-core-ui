@@ -4,22 +4,22 @@ import type { AbstractStepFactory } from './AbstractStepFactory'
 import i18n from './StepWidget.i18n'
 import { StepViewType } from './Step'
 
-export interface StepWidgetProps {
+export interface StepWidgetProps<T extends object = {}> {
   factory: AbstractStepFactory
   type: string
-  initialValues: object
+  initialValues: T
   stepViewType?: StepViewType
-  onUpdate?: (data: object) => void
+  onUpdate?: (data: T) => void
 }
 
-export function StepWidget({
+export function StepWidget<T extends object = {}>({
   factory,
   type,
   initialValues,
   stepViewType = StepViewType.Edit,
   onUpdate
-}: StepWidgetProps): JSX.Element {
-  const step = factory.getStep(type)
+}: StepWidgetProps<T>): JSX.Element {
+  const step = factory.getStep<T>(type)
 
   if (!step) {
     return <Text intent="warning">{i18n.invalidStep}</Text>

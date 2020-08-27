@@ -22,3 +22,4 @@ export { AbstractStepFactory } from './components/AbstractSteps/AbstractStepFact
 export { Step, StepViewType } from './components/AbstractSteps/Step'
 export { StepWidget } from './components/AbstractSteps/StepWidget'
 export { ModuleLandingViewProps, ModuleLandingView } from './components/ModuleLandingView/ModuleLandingView'
+export { ConfigureOptions } from './components/ConfigureOptions/ConfigureOptions'

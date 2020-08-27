@@ -2,7 +2,7 @@ import type { NodeModelListener, LinkModelListener } from '@projectstorm/react-d
 import type { BaseModelListener, BaseModel } from '@projectstorm/react-canvas-core'
 import type { ExecutionWrapper } from 'services/cd-ng'
 import { Diagram } from 'modules/common/exports'
-import { StepType } from 'modules/cd/common/PipelineSteps/PipelineStepInterface'
+import { StepType } from '../../../components/PipelineSteps/PipelineStepInterface'
 import { EmptyNodeSeparator } from '../StageBuilder/StageBuilderUtil'
 
 export interface ExecutionGraphState {

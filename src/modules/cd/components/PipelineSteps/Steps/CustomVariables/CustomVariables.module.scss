@@ -1,0 +1,24 @@
+.custom_variables {
+  padding: var(--spacing-large) 0 var(--spacing-large) var(--spacing-large);
+
+  .header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+
+  .value-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    & > div {
+      display: flex;
+    }
+  }
+
+  .variable-list-table {
+    display: grid;
+    grid-template-columns: 280px var(--variable-column2) var(--variable-column3);
+    align-items: baseline;
+  }
+}

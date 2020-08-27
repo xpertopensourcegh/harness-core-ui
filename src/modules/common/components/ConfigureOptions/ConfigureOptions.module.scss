@@ -1,0 +1,35 @@
+.dialog {
+  width: 535px;
+
+  :global(.bp3-heading) {
+    text-transform: capitalize;
+  }
+
+  .label {
+    :global(.bp3-label) {
+      min-width: 80px;
+    }
+    :global(.bp3-form-content p) {
+      line-height: 30px;
+    }
+  }
+  .checkbox {
+    padding-left: var(--spacing-xlarge) !important;
+  }
+
+  .split {
+    display: grid;
+    grid-template-columns: 170px 1px 1fr;
+
+    .line {
+      border-right: 1px solid var(--grey-250);
+      height: 83px;
+      margin-top: var(--spacing-large);
+    }
+
+    .second-column {
+      padding-top: var(--spacing-medium);
+      padding-left: var(--spacing-medium);
+    }
+  }
+}

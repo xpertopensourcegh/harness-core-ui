@@ -1,8 +1,8 @@
 import { isEmpty } from 'lodash'
 import { Diagram } from 'modules/common/exports'
 import type { ExecutionWrapper, ExecutionElement } from 'services/cd-ng'
-import factory from 'modules/cd/common/PipelineSteps/PipelineStepFactory'
-import { StepType } from 'modules/cd/common/PipelineSteps/PipelineStepInterface'
+import factory from '../../../components/PipelineSteps/PipelineStepFactory'
+import { StepType } from '../../../components/PipelineSteps/PipelineStepInterface'
 import { getStepTypeFromStep, Listeners, calculateDepthCount, StepStateMap } from './ExecutionGraphUtil'
 import { EmptyNodeSeparator } from '../StageBuilder/StageBuilderUtil'
 

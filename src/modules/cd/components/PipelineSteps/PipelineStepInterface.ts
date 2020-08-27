@@ -3,5 +3,6 @@ export enum StepType {
   SHELLSCRIPT = 'ShellScript',
   APPROVAL = 'Approval',
   StepGroup = 'StepGroup',
-  K8sRolloutDeploy = 'K8sRolloutDeploy'
+  K8sRolloutDeploy = 'K8sRolloutDeploy',
+  CustomVariable = 'Custom_Variable'
 }

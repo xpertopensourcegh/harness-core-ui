@@ -3,5 +3,12 @@
 declare const styles: {
   readonly pipelineVariables: string
   readonly variablesContainer: string
+  readonly header: string
+  readonly content: string
+  readonly treeContainer: string
+  readonly variableList: string
+  readonly variableListHeader: string
+  readonly variableCard: string
+  readonly variableListTable: string
 }
 export default styles
