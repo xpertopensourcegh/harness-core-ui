@@ -1,6 +1,6 @@
 import { SidebarEntry, SidebarIdentifier } from 'framework/exports'
-import { routeCVDashboard } from '../routes'
-import { MenuCVDashboard } from './MenuCVDashboard'
+import { routeCVHome } from '../routes'
+import { MenuCV } from './MenuCV'
 import i18n from './sidebar.i18n'
 
 export const CVDashboard: SidebarEntry = {
@@ -11,6 +11,6 @@ export const CVDashboard: SidebarEntry = {
     hover: 'nav-cv-hover',
     selected: 'nav-cv-selected'
   },
-  url: routeCVDashboard.url,
-  sidebarMenu: MenuCVDashboard
+  url: routeCVHome.url,
+  sidebarMenu: MenuCV
 }

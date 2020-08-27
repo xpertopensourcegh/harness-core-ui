@@ -3,5 +3,6 @@ export default {
   datasources: 'Data Sources',
   services: 'Services',
   activities: 'Activities',
-  activityTypes: 'Activities Types'
+  activityTypes: 'Activity Types',
+  adminSettings: 'Admin Settings'
 }

@@ -61,6 +61,9 @@ function ActivitiesPageTitle(): JSX.Element {
 function NoActivities(): JSX.Element {
   const [selectedActivityType, setActivityType] = useState<ActivityType | undefined>()
   const history = useHistory()
+  const {
+    params: { projectIdentifier, orgIdentifier }
+  } = routeParams()
   const onActivityTypeOptionClickCallback = useCallback(
     (activityName: string) => {
       let routePath
@@ -71,10 +74,16 @@ function NoActivities(): JSX.Element {
       }
 
       if (routePath) {
-        history.push(routeCVActivityDetails.url({ activityType: routePath }))
+        history.push(
+          routeCVActivityDetails.url({
+            activityType: routePath,
+            projectIdentifier: projectIdentifier as string,
+            orgIdentifier: orgIdentifier as string
+          })
+        )
       }
     },
-    [history, selectedActivityType]
+    [history, selectedActivityType, orgIdentifier, projectIdentifier]
   )
   const [openModal, hideModal] = useModalHook(() => {
     return selectedActivityType ? (

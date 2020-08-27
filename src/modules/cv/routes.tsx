@@ -3,14 +3,30 @@ import { Route, ModuleName, SidebarIdentifier, routeURL } from 'framework/export
 
 import i18n from './routes.i18n'
 
-export const routeCVDashboard: Route = {
+/* ------------------------------------------ Dashboard page routes ------------------------------------------ */
+
+export const routeCVMainDashBoardPage: Route<{ projectIdentifier: string; orgIdentifier: string }> = {
   sidebarId: SidebarIdentifier.CONTINUOUS_VERIFICATION,
-  path: '/continuous-verification',
-  title: i18n.title,
-  pageId: 'continuous-verification',
+  path: '/cv/dashboard/org/:orgIdentifier/project/:projectIdentifier',
+  title: i18n.services,
+  pageId: '/cv/dashboard',
   authenticated: true,
-  url: () => routeURL(routeCVDashboard, '/continuous-verification'),
+  url: ({ projectIdentifier, orgIdentifier }) =>
+    !projectIdentifier || !orgIdentifier
+      ? routeURL(routeCVHome, `/cv/home`)
+      : routeURL(routeCVMainDashBoardPage, `/cv/dashboard/org/${orgIdentifier}/project/${projectIdentifier}`),
   component: React.lazy(() => import('./pages/dashboard/CVDashboardPage')),
+  module: ModuleName.CV
+}
+
+export const routeCVHome: Route = {
+  sidebarId: SidebarIdentifier.CONTINUOUS_VERIFICATION,
+  path: '/cv/home',
+  title: i18n.title,
+  pageId: 'cv/home',
+  authenticated: true,
+  url: () => routeURL(routeCVHome, '/cv/home'),
+  component: React.lazy(() => import('./pages/cv-home/CVHomePage')),
   module: ModuleName.CV
 }
 
@@ -24,7 +40,7 @@ export const routeCVDataSources: Route<{ projectIdentifier: string; orgId: strin
   url: ({ projectIdentifier, orgId }) =>
     routeURL(
       routeCVDataSources,
-      projectIdentifier && orgId ? `/cv-datasources/org/${orgId}/project/${projectIdentifier}` : routeCVDashboard.path
+      projectIdentifier && orgId ? `/cv-datasources/org/${orgId}/project/${projectIdentifier}` : routeCVHome.path
     ),
   component: React.lazy(() => import('./pages/data-sources/DataSources')),
   module: ModuleName.CV
@@ -53,7 +69,7 @@ export const routeCVOnBoardingSetup: Route<{ dataSourceType: string; projectIden
       routeCVOnBoardingSetup,
       dataSourceType && projectIdentifier && orgId
         ? `/cv-onboarding/${dataSourceType}/setup/org/${orgId}/project/${projectIdentifier}`
-        : routeCVDashboard.path
+        : routeCVHome.path
     ),
 
   component: React.lazy(() => import('./pages/onboarding/BaseOnBoardingSetupPage/BaseOnBoardingSetupPage')),
@@ -75,7 +91,7 @@ export const routeCVDataSourcesProductPage: Route<{
       routeCVDataSourcesProductPage,
       dataSourceType && projectIdentifier && orgId
         ? `/cv-onboarding/${dataSourceType}/product/org/${orgId}/project/${projectIdentifier}`
-        : routeCVDashboard.path
+        : routeCVHome.path
     ),
   component: React.lazy(() => import('./pages/datasourceproducts/DataSourceProductPage/DataSourceProductPage')),
   module: ModuleName.CV
@@ -92,7 +108,7 @@ export const routeCVSplunkInputTypePage: Route<{ dataSourceType: string; project
       routeCVSplunkInputTypePage,
       dataSourceType && projectIdentifier && orgId
         ? `/cv-onboarding/${dataSourceType}/input-type/org/${orgId}/project/${projectIdentifier}`
-        : routeCVDashboard.path
+        : routeCVHome.path
     ),
   component: React.lazy(() => import('./pages/splunk-input-type/SplunkInputType')),
   module: ModuleName.CV
@@ -113,7 +129,7 @@ export const routeCVDataSourcesEntityPage: Route<{
       routeCVDataSourcesEntityPage,
       dataSourceType && projectIdentifier && orgId
         ? `/cv-onboarding/${dataSourceType}/select-list-entities/org/${orgId}/project/${projectIdentifier}`
-        : routeCVDashboard.path
+        : routeCVHome.path
     ),
   component: React.lazy(() => {
     return import('./pages/listEntitySelect/DataSourceListEntityPage/DataSourceListEntityPage')
@@ -136,7 +152,7 @@ export const routeCVMetricPackConfigureThresholdPage: Route = {
   module: ModuleName.CV
 }
 
-/* ------------------------------------------ Dashboard page routes ------------------------------------------ */
+/* ------------------------------------------ Analysis routes ------------------------------------------ */
 
 export const routeCVAnomalyAnalysisPage: Route = {
   sidebarId: SidebarIdentifier.CONTINUOUS_VERIFICATION,
@@ -153,28 +169,83 @@ export const routeCVAnomalyAnalysisPage: Route = {
 
 /* ------------------------------------------ Activity page routes ------------------------------------------ */
 
-export const routeCVActivities: Route = {
+export const routeCVActivities: Route<{ orgIdentifier: string; projectIdentifier: string }> = {
   sidebarId: SidebarIdentifier.CONTINUOUS_VERIFICATION,
-  path: '/cv-activities',
+  path: '/cv-activities/org/:orgIdentifier/project/:projectIdentifier',
   title: i18n.activities,
   pageId: '/cv-activities',
   authenticated: true,
-  url: () => routeURL(routeCVActivities, `/cv-activities`),
+  url: ({ orgIdentifier, projectIdentifier }) =>
+    routeURL(routeCVActivities, `/cv-activities/org/${orgIdentifier}/project/${projectIdentifier}`),
   component: React.lazy(() => {
     return import('./pages/activities/ActivitiesPage')
   }),
   module: ModuleName.CV
 }
 
-export const routeCVActivityDetails: Route<{ activityType: string }> = {
+export const routeCVActivityDetails: Route<{
+  activityType: string
+  orgIdentifier: string
+  projectIdentifier: string
+}> = {
   sidebarId: SidebarIdentifier.CONTINUOUS_VERIFICATION,
-  path: '/cv-activities-setup/:activityType',
+  path: '/cv-activities/setup/:activityType/org/:orgIdentifier/project/:projectIdentifier',
   title: i18n.activityTypes,
-  pageId: '/cv-activities-setup',
+  pageId: '/cv-activities/setup',
   authenticated: true,
-  url: ({ activityType }) => routeURL(routeCVActivityDetails, `/cv-activities-setup/${activityType}`),
+  url: ({ activityType, orgIdentifier, projectIdentifier }) =>
+    routeURL(
+      routeCVActivityDetails,
+      `/cv-activities/setup/${activityType}/org/${orgIdentifier}/project/${projectIdentifier}`
+    ),
   component: React.lazy(() => {
     return import('./pages/activity-setup/ActivitySetupPage')
   }),
   module: ModuleName.CV
+}
+
+/* ------------------------------------------ Admin page routes ------------------------------------------ */
+
+export const routeCVAdminGeneralSettings: Route<{ projectIdentifier: string; orgIdentifier: string }> = {
+  module: ModuleName.CV,
+  sidebarId: SidebarIdentifier.CONTINUOUS_VERIFICATION,
+  path: '/cv/admin/general-settings/org/:orgIdentifier/projects/:projectIdentifier',
+  title: i18n.adminSettings,
+  pageId: 'cv-admin-general-settings',
+  url: ({ projectIdentifier, orgIdentifier }) =>
+    routeURL(routeCVMainDashBoardPage, `/cv/admin/general-settings/org/${orgIdentifier}/projects/${projectIdentifier}`),
+  component: React.lazy(() => import('./pages/admin/general-settings/CVGeneralSettingsPage'))
+}
+
+export const routeCVAdminGovernance: Route<{ projectIdentifier: string; orgIdentifier: string }> = {
+  module: ModuleName.CV,
+  sidebarId: SidebarIdentifier.CONTINUOUS_VERIFICATION,
+  path: '/cv/admin/governance/org/:orgIdentifier/projects/:projectIdentifier',
+  title: i18n.adminSettings,
+  pageId: 'cv-admin-governance',
+  url: ({ projectIdentifier, orgIdentifier }) =>
+    routeURL(routeCVMainDashBoardPage, `/cv/admin/governance/org/${orgIdentifier}/projects/${projectIdentifier}`),
+  component: React.lazy(() => import('./pages/admin/governance/CVGovernancePage'))
+}
+
+export const routeCVAdminResources: Route<{ projectIdentifier: string; orgIdentifier: string }> = {
+  module: ModuleName.CV,
+  sidebarId: SidebarIdentifier.CONTINUOUS_VERIFICATION,
+  path: '/cv/admin/resources/org/:orgIdentifier/projects/:projectIdentifier',
+  title: i18n.adminSettings,
+  pageId: 'cv-admin-resources',
+  url: ({ projectIdentifier, orgIdentifier }) =>
+    routeURL(routeCVMainDashBoardPage, `/cv/admin/resources/org/${orgIdentifier}/projects/${projectIdentifier}`),
+  component: React.lazy(() => import('./pages/admin/resources/CVResourcesPage'))
+}
+
+export const routeCVAdminAccessControl: Route<{ projectIdentifier: string; orgIdentifier: string }> = {
+  module: ModuleName.CV,
+  sidebarId: SidebarIdentifier.CONTINUOUS_VERIFICATION,
+  path: '/cv/admin/access-control/org/:orgIdentifier/projects/:projectIdentifier',
+  title: i18n.adminSettings,
+  pageId: 'cv-admin-access-control',
+  url: ({ projectIdentifier, orgIdentifier }) =>
+    routeURL(routeCVMainDashBoardPage, `/cv/admin/access-control/org/${orgIdentifier}/projects/${projectIdentifier}`),
+  component: React.lazy(() => import('./pages/admin/access-control/CVAccessControlPage'))
 }
