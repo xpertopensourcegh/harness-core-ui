@@ -11,6 +11,17 @@ export function fetchEntitySchemas(entityType: string): object {
   }
 }
 
+//TODO Remove dummy data when API becomes available
 export function fetchExpressions() {
-  return ['expr1.prop1.prop2', 'expr1.prop1.prop2', 'expr1.prop2.prop1', 'expr2.prop1.prop2', 'expr3.prop1.prop2']
+  return [
+    'pipeline.stage',
+    'pipeline.env',
+    'pipeline.env.name',
+    'stage.type',
+    'stage.name',
+    'stage.env',
+    'stage.env.name',
+    'inputSet.name',
+    'inputSet.type'
+  ]
 }

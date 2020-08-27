@@ -9,8 +9,6 @@ import EditorWorker from 'worker-loader!monaco-editor/esm/vs/editor/editor.worke
 import { Toaster, Intent } from '@blueprintjs/core'
 import cx from 'classnames'
 import * as YAML from 'yaml'
-
-import { JSONSchemaService } from 'modules/dx/services'
 import { Tag, Layout } from '@wings-software/uikit'
 import type {
   YamlBuilderProps,
@@ -18,6 +16,7 @@ import type {
   CompletionItemInterface
 } from 'modules/common/interfaces/YAMLBuilderProps'
 import SnippetSection from 'modules/common/components/SnippetSection/SnippetSection'
+import { JSONSchemaService } from 'modules/dx/services'
 
 import css from './YamlBuilder.module.scss'
 
@@ -74,6 +73,7 @@ function getJSONFromYAML(yaml: string): Record<string, any> {
   try {
     return YAML.parse(yaml)
   } catch (error) {
+    // TODO decide how to handle this
     toaster.show({ message: 'Error while content parsing', intent: Intent.DANGER, timeout: 5000 })
     return {}
   }
@@ -92,9 +92,15 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
     bind,
     snippets,
     showIconMenu = false,
-    onSnippetSearch
+    onSnippetSearch,
+    onExpressionTrigger
   } = props
   const [currentYaml, setCurrentYaml] = useState<string | undefined>('')
+  const TRIGGER_CHAR_FOR_NEW_EXPR = '$'
+  const TRIGGER_CHAR_FOR_PARTIAL_EXPR = '.'
+  const KEY_CODE_FOR_DOLLAR_SIGN = 'Digit4'
+  const KEY_CODE_FOR_SEMI_COLON = 'Semicolon'
+  const KEY_CODE_FOR_PERIOD = 'Period'
 
   const handler = React.useMemo(
     () =>
@@ -110,18 +116,27 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
 
   useEffect(() => {
     const { yaml } = languages || {}
-    const jsonSchemas = loadEntitySchemas(entityType)
+    const jsonSchemas = loadJSONSchemaForEntity(entityType)
     yaml?.yamlDefaults.setDiagnosticsOptions(jsonSchemas)
     setCurrentYaml(props.existingYaml)
   }, [existingYaml, entityType])
 
-  function loadEntitySchemas(entityType: string) {
+  function loadJSONSchemaForEntity(entityType: string) {
     const jsonSchemas = JSONSchemaService.fetchEntitySchemas(entityType)
     return jsonSchemas
   }
 
-  function provideCompletionItems(suggestions: CompletionItemInterface[]) {
-    return { suggestions }
+  const onYamlChange = (updatedYaml: string): void => {
+    setCurrentYaml(updatedYaml)
+  }
+
+  const editorDidMount = (editor, monaco) => {
+    if (editor) {
+      if (!props.isReadOnlyMode) {
+        editor.focus()
+      }
+      editor.onKeyDown((event: KeyboardEvent) => handleEditorKeyDownEvent(event, editor))
+    }
   }
 
   const disposePreviousSuggestions = (): void => {
@@ -134,30 +149,31 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
   }
 
   /** For expressions */
-  function fetchAutocompleteItemsForExpressions(callBackFunc: Function): CompletionItemInterface[] {
-    const response = callBackFunc()
-    if (response?.length > 0) {
-      //TODO Add type when available
-      const suggestions = response.map((item: any) => {
-        return {
-          label: item,
-          kind: monaco.languages.CompletionItemKind.Value,
-          insertText: '{' + item + '}'
-        }
-      })
-      return suggestions
-    }
-    return []
+  const getExpressionFromCurrentLine = (editor): string => {
+    const textInCurrentEditorLine = editor.getModel().getLineContent(editor.getPosition().lineNumber)
+    const [property, expression] = textInCurrentEditorLine.split(':').map(item => item.trim())
+    return expression
   }
 
   let expressionCompletionDisposer: { dispose: () => void }
-  function registerCompletionItemProviderForExpressions(editor, matchingPath: string): void {
+  function registerCompletionItemProviderForExpressions(
+    editor,
+    triggerCharacters: string[],
+    matchingPath: string,
+    currentExpression?: string = ''
+  ): void {
     if (editor) {
-      const suggestions = fetchAutocompleteItemsForExpressions(JSONSchemaService.fetchExpressions)
-      expressionCompletionDisposer = editor?.languages?.registerCompletionItemProvider('yaml', {
-        triggerCharacters: ['$'],
-        provideCompletionItems: () => provideCompletionItems(suggestions)
-      })
+      const suggestionsPromise = onExpressionTrigger ? onExpressionTrigger(matchingPath, currentExpression) : null
+      if (suggestionsPromise) {
+        suggestionsPromise.then(suggestions => {
+          expressionCompletionDisposer = editor?.languages?.registerCompletionItemProvider('yaml', {
+            triggerCharacters,
+            provideCompletionItems: () => {
+              return { suggestions }
+            }
+          })
+        })
+      }
     }
   }
 
@@ -171,7 +187,9 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
       suggestionsPromise.then(suggestions => {
         runTimeCompletionDisposer = editor?.languages?.registerCompletionItemProvider('yaml', {
           triggerCharacters: [' '],
-          provideCompletionItems: () => provideCompletionItems(suggestions)
+          provideCompletionItems: () => {
+            return { suggestions }
+          }
         })
       })
     }
@@ -179,60 +197,76 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
 
   const invokeCallBackForMatchingYAMLPaths = (monaco, matchingPath: string): void => {
     invocationMap?.forEach((callBackFunc, yamlPath) => {
-      if (matchingPath.match(yamlPath) && typeof callBackFunc === 'function') {
+      if (matchingPath?.match(yamlPath) && typeof callBackFunc === 'function') {
         const suggestionsPromise = callBackFunc(matchingPath)
         registerCompletionItemProviderForRTInputs(monaco, suggestionsPromise)
       }
     })
   }
 
-  const getValidatedYAMLFromEditor = (editor): string => {
+  const getYAMLFromEditor = (editor, shouldAddPlaceholder: boolean): string => {
     const currentEditorPosition = editor.getPosition(),
-      currentEditorText = editor.getValue(currentEditorPosition).trim(),
+      textInCurrentEditorLine = editor.getValue(currentEditorPosition).trim(),
       currentLineNumber = currentEditorPosition.lineNumber,
-      splitedText = currentEditorText.split('\n').slice(0, currentLineNumber),
-      currentLineContent = splitedText[currentLineNumber - 1],
-      textToInsert = currentEditorText[currentEditorText.length - 1] === ':' ? '' : ': ' + 'placeholder'
+      splitedText = textInCurrentEditorLine.split('\n').slice(0, currentLineNumber),
+      currentLineContent = splitedText[currentLineNumber - 1]
+    let textToInsert = ''
+    if (shouldAddPlaceholder) {
+      textToInsert = textInCurrentEditorLine[textInCurrentEditorLine.length - 1] === ':' ? '' : ': ' + 'placeholder'
+    }
     splitedText[currentLineNumber - 1] = [
-      currentLineContent.slice(0, currentEditorPosition.column - 1),
+      currentLineContent?.slice(0, currentEditorPosition.column - 1),
       textToInsert,
-      currentLineContent.slice(currentEditorPosition.column - 1)
+      currentLineContent?.slice(currentEditorPosition.column - 1)
     ].join('')
     editor.setPosition(currentEditorPosition)
 
     return splitedText.join('\n')
   }
 
-  const handleEditorEvent = (event: KeyboardEvent, editor): void => {
+  const getMetaDataForKeyboardEventProcessing = (
+    editor,
+    shouldAddPlaceholder: boolean = false
+  ): Record<string, string> => {
+    const yamlInEditor = getYAMLFromEditor(editor, shouldAddPlaceholder)
+    const jsonEquivalentOfYAMLInEditor = getJSONFromYAML(yamlInEditor)
+    const textInCurrentEditorLine = editor.getModel().getLineContent(editor.getPosition().lineNumber)
+    const [currentProperty, value] = textInCurrentEditorLine?.split(':').map(item => item.trim())
+    const parentToCurrentPropertyPath = findLeafToParentPath(jsonEquivalentOfYAMLInEditor, currentProperty)
+    return { currentProperty, yamlInEditor, parentToCurrentPropertyPath }
+  }
+
+  const handleEditorKeyDownEvent = (event: KeyboardEvent, editor): void => {
     const { shiftKey, code } = event
     //TODO Need to check hotkey for cross browser/cross OS compatibility
     //TODO Need to debounce this function call for performance optimization
     if (shiftKey) {
-      disposePreviousSuggestions()
-      const currentToken = editor.getModel().getLineContent(editor.getPosition().lineNumber)
-      const validatedYAML = getValidatedYAMLFromEditor(editor)
-      const sanitizedToken = currentToken.replace(':', '').trim()
-      const jsonObjForYamlInEditor = getJSONFromYAML(validatedYAML)
-      const parentToCurrentTokenYAMLPath = findLeafToParentPath(jsonObjForYamlInEditor, sanitizedToken)
-      if (sanitizedToken && validatedYAML)
-        if (code === 'Digit4') {
-          registerCompletionItemProviderForExpressions(monaco, parentToCurrentTokenYAMLPath)
-        } else if (code === 'Semicolon') {
-          invokeCallBackForMatchingYAMLPaths(monaco, parentToCurrentTokenYAMLPath)
-        }
-    }
-  }
-
-  const onYamlChange = (updatedYaml: string): void => {
-    setCurrentYaml(updatedYaml)
-  }
-
-  const editorDidMount = (editor, monaco) => {
-    if (editor) {
-      if (!props.isReadOnlyMode) {
-        editor.focus()
+      if (code === KEY_CODE_FOR_DOLLAR_SIGN) {
+        const { currentProperty, yamlInEditor, parentToCurrentPropertyPath } = getMetaDataForKeyboardEventProcessing(
+          editor
+        )
+        disposePreviousSuggestions()
+        registerCompletionItemProviderForExpressions(monaco, [TRIGGER_CHAR_FOR_NEW_EXPR], parentToCurrentPropertyPath)
+      } else if (code === KEY_CODE_FOR_SEMI_COLON && invocationMap?.size > 0) {
+        const { currentProperty, yamlInEditor, parentToCurrentPropertyPath } = getMetaDataForKeyboardEventProcessing(
+          editor,
+          true
+        )
+        disposePreviousSuggestions()
+        invokeCallBackForMatchingYAMLPaths(monaco, parentToCurrentPropertyPath)
       }
-      editor.onKeyDown((event: KeyboardEvent) => handleEditorEvent(event, editor))
+    }
+    if (code === KEY_CODE_FOR_PERIOD) {
+      const { currentProperty, yamlInEditor, parentToCurrentPropertyPath } = getMetaDataForKeyboardEventProcessing(
+        editor
+      )
+      disposePreviousSuggestions()
+      registerCompletionItemProviderForExpressions(
+        monaco,
+        [TRIGGER_CHAR_FOR_PARTIAL_EXPR],
+        parentToCurrentPropertyPath,
+        getExpressionFromCurrentLine(editor)
+      )
     }
   }
 

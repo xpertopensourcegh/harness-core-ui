@@ -18,6 +18,7 @@ export interface YamlBuilderProps {
   snippets?: SnippetInterface[]
   showIconMenu?: boolean
   onSnippetSearch?: (queryString: string) => void
+  onExpressionTrigger?: (yamlPath: string, currentExpression: string) => Promise<CompletionItemInterface[]>
 }
 
 export interface CompletionItemInterface {
