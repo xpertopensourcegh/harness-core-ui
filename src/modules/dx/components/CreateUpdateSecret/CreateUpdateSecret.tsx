@@ -28,9 +28,9 @@ interface CreateSecretTextProps {
 const createFormDataFromJson = (data: SecretFileDTO, accountId: string, project?: string, org?: string): FormData => {
   const dataToSubmit = new FormData()
 
-  dataToSubmit.set('account', accountId)
-  if (project) dataToSubmit.set('project', project)
-  if (org) dataToSubmit.set('org', org)
+  dataToSubmit.set('accountIdentifier', accountId)
+  if (project) dataToSubmit.set('projectIdentifier', project)
+  if (org) dataToSubmit.set('orgIdentifier', org)
   delete (data as SecretTextDTO).valueType
 
   Object.entries(data).forEach(([key, value]) => {
