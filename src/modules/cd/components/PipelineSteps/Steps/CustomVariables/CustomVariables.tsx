@@ -8,8 +8,8 @@ import {
   Formik,
   FormikForm,
   FormInput,
-  MultiTextInput,
-  ButtonGroup
+  MultiTextInput
+  // ButtonGroup
 } from '@wings-software/uikit'
 import { cloneDeep } from 'lodash'
 import { Dialog, Classes } from '@blueprintjs/core'
@@ -36,7 +36,11 @@ const VariableTypes = {
 
 const getDefaultVariable = (): Variable => ({ name: '', type: VariableTypes.String, value: '' })
 
-const CustomVariableEditable: React.FC<CustomVariableEditableProps> = ({ initialValues, onUpdate }): JSX.Element => {
+const CustomVariableEditable: React.FC<CustomVariableEditableProps> = ({
+  initialValues,
+  onUpdate,
+  stepViewType
+}): JSX.Element => {
   const [selectedVariable, setSelectedVariable] = React.useState<Variable>(getDefaultVariable())
   const [inputVariables, setInputVariables] = React.useState<Variable[]>(initialValues.variables)
 
@@ -100,12 +104,22 @@ const CustomVariableEditable: React.FC<CustomVariableEditableProps> = ({ initial
   return (
     <div className={css.customVariables}>
       <div className={css.headerRow}>
-        <Text color={Color.BLACK}>{i18n.customVariables}</Text>
+        <Text color={Color.BLACK}>
+          {stepViewType !== StepViewType.StageVariable ? i18n.customVariables : i18n.stageVariables}
+        </Text>
         <Button minimal intent="primary" icon="plus" text={i18n.addVariable} onClick={showModal} />
       </div>
+      {stepViewType === StepViewType.StageVariable && inputVariables.length > 0 && (
+        <section className={css.subHeader}>
+          <span>{i18n.variablesTableHeaders.name}</span>
+          <span>{i18n.variablesTableHeaders.type}</span>
+          <span>{i18n.variablesTableHeaders.value}</span>
+        </section>
+      )}
       {inputVariables.map?.((variable, index) => (
         <div key={variable.name} className={css.variableListTable}>
-          <Text style={{ paddingTop: 'var(--spacing-large)' }}>{`$pipeline.${variable.name}`}</Text>
+          <Text>{stepViewType === StepViewType.StageVariable ? variable.name : `$pipeline.${variable.name}`}</Text>
+
           <Text>{variable.type}</Text>
           <div className={css.valueRow}>
             <MultiTextInput
@@ -141,7 +155,7 @@ const CustomVariableEditable: React.FC<CustomVariableEditableProps> = ({ initial
                   }}
                 />
               )}
-              <ButtonGroup>
+              <section className={css.actionButtons}>
                 <Button
                   icon="edit"
                   tooltip={i18n.editVariable}
@@ -150,8 +164,15 @@ const CustomVariableEditable: React.FC<CustomVariableEditableProps> = ({ initial
                     showModal()
                   }}
                 />
-                <Button icon="trash" intent="danger" tooltip={i18n.removeThisVariable} />
-              </ButtonGroup>
+                <Button
+                  icon="trash"
+                  tooltip={i18n.removeThisVariable}
+                  onClick={() => {
+                    inputVariables.splice(index, 1)
+                    onUpdate?.({ variables: inputVariables })
+                  }}
+                />
+              </section>
             </div>
           </div>
         </div>

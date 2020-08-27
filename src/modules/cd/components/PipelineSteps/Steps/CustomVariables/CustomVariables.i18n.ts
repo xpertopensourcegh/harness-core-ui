@@ -1,5 +1,6 @@
 export default {
   customVariables: 'Custom Variables',
+  stageVariables: 'Variables',
   addVariable: 'Add Variable',
   save: 'Save',
   validation: {
@@ -9,5 +10,10 @@ export default {
   type: 'Type',
   cancel: 'Cancel',
   removeThisVariable: 'Remove this variable',
-  editVariable: 'Edit variable'
+  editVariable: 'Edit variable',
+  variablesTableHeaders: {
+    name: 'Name',
+    type: 'Type',
+    value: 'Value'
+  }
 }

@@ -4,6 +4,7 @@ export enum StepViewType {
   InputSet = 'InputSet',
   InputVariable = 'InputVariable',
   DeploymentForm = 'DeploymentForm',
+  StageVariable = 'StageVariable',
   Edit = 'Edit'
 }
 export abstract class Step<T extends object> {
