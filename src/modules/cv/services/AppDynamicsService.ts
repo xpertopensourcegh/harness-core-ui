@@ -7,9 +7,9 @@ import type { ServiceResponse } from 'modules/common/services/ServiceResponse'
 
 export const Endpoints = {
   appdApplications: (accountId: string, dataSourceId: string, orgId: string, projectId: string) =>
-    `/cv-nextgen/appdynamics/applications?accountId=${accountId}&connectorId=${dataSourceId}&orgIdentifier=${orgId}&projectIdentifier=${projectId}`,
+    `/cv-nextgen/appdynamics/applications?accountId=${accountId}&connectorIdentifier=${dataSourceId}&orgIdentifier=${orgId}&projectIdentifier=${projectId}`,
   appdTier: (accountId: string, dataSourceId: string, appDynamicsAppId: number, orgId: string, projectId: string) =>
-    `/cv-nextgen/appdynamics/tiers?accountId=${accountId}&connectorId=${dataSourceId}&appDynamicsAppId=${appDynamicsAppId}&orgIdentifier=${orgId}&projectIdentifier=${projectId}`
+    `/cv-nextgen/appdynamics/tiers?accountId=${accountId}&connectorIdentifier=${dataSourceId}&appDynamicsAppId=${appDynamicsAppId}&orgIdentifier=${orgId}&projectIdentifier=${projectId}`
 }
 
 export async function fetchAppDynamicsApplications({

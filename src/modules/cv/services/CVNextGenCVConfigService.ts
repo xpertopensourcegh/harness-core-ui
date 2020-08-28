@@ -20,7 +20,7 @@ export const Endpoints = {
     projectId: string,
     productName?: string
   ) =>
-    `/cv-nextgen/ds-config?accountId=${accountId}&connectorId=${dataSourceConnectorId}&identifier=${identifier}${
+    `/cv-nextgen/ds-config?accountId=${accountId}&connectorIdentifier=${dataSourceConnectorId}&identifier=${identifier}${
       productName ? `&productName=${productName}` : ''
     }&orgIdentifier=${orgId}&projectIdentifier=${projectId}`,
   fetchDSConfigs: (
@@ -30,9 +30,9 @@ export const Endpoints = {
     orgId: string,
     projectId: string
   ) =>
-    `/cv-nextgen/ds-config?accountId=${accountId}&connectorId=${dataSourceConnectorId}&productName=${productName}&orgIdentifier=${orgId}&projectIdentifier=${projectId}`,
+    `/cv-nextgen/ds-config?accountId=${accountId}&connectorIdentifier=${dataSourceConnectorId}&productName=${productName}&orgIdentifier=${orgId}&projectIdentifier=${projectId}`,
   fetchDSProducts: (accountId: string, dataSourceConnectorId: string, orgId: string, projectId: string) =>
-    `/cv-nextgen/cv-config/product-names?accountId=${accountId}&connectorId=${dataSourceConnectorId}&orgIdentifier=${orgId}&projectIdentifier=${projectId}`,
+    `/cv-nextgen/cv-config/product-names?accountId=${accountId}&connectorIdentifier=${dataSourceConnectorId}&orgIdentifier=${orgId}&projectIdentifier=${projectId}`,
   metricPack: (accountId: string, projectId: string, dataSourceType: DSConfig['type'], orgId: string) =>
     `/cv-nextgen/metric-pack?accountId=${accountId}&projectIdentifier=${projectId}&dataSourceType=${dataSourceType}&orgIdentifier=${orgId}`,
   validateAppDMetrics: (
@@ -44,7 +44,7 @@ export const Endpoints = {
     tierId: number,
     guid: string
   ) =>
-    `/cv-nextgen/appdynamics/metric-data?accountId=${accountId}&connectorId=${connectorId}&projectIdentifier=${projectId}&appdAppId=${appId}&appdTierId=${tierId}&requestGuid=${guid}&orgIdentifier=${orgId}`,
+    `/cv-nextgen/appdynamics/metric-data?accountId=${accountId}&connectorIdentifier=${connectorId}&projectIdentifier=${projectId}&appdAppId=${appId}&appdTierId=${tierId}&requestGuid=${guid}&orgIdentifier=${orgId}`,
   validateSplunkConfig: (
     accountId: string,
     connectorId: string,
@@ -53,7 +53,7 @@ export const Endpoints = {
     orgId: string,
     projectId: string
   ) =>
-    `/cv-nextgen/splunk/validation?accountId=${accountId}&connectorId=${connectorId}&query=${query}&requestGuid=${requestGUID}&orgIdentifier=${orgId}&projectIdentifier=${projectId}`,
+    `/cv-nextgen/splunk/validation?accountId=${accountId}&connectorIdentifier=${connectorId}&query=${query}&requestGuid=${requestGUID}&orgIdentifier=${orgId}&projectIdentifier=${projectId}`,
   fetchSplunkSavedSearches: (
     accountId: string,
     dataSourceId: string,
@@ -61,7 +61,7 @@ export const Endpoints = {
     orgId: string,
     projectId: string
   ) =>
-    `/cv-nextgen/splunk/saved-searches?accountId=${accountId}&connectorId=${dataSourceId}&requestGuid=${requestGUID}&orgIdentifier=${orgId}&projectIdentifier=${projectId}`
+    `/cv-nextgen/splunk/saved-searches?accountId=${accountId}&connectorIdentifier=${dataSourceId}&requestGuid=${requestGUID}&orgIdentifier=${orgId}&projectIdentifier=${projectId}`
 }
 
 export async function fetchQueriesFromSplunk({
