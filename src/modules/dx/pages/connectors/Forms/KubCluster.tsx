@@ -116,6 +116,7 @@ const renderDelegateOutclusterForm = (state: KubClusterState, props: KubClusterP
         authType={state.authentication.value}
         name={props.formikProps?.values?.name}
         onClickCreateSecret={() => state.setShowCreateSecretModal(true)}
+        isEditMode={true}
       />
     </div>
   )

@@ -358,33 +358,14 @@ const IntermediateStep: React.FC<IntermediateStepProps> = props => {
         </Text>
         <Formik<ConnectorConfigDTO>
           initialValues={{
-            masterUrl: props.formData?.masterUrl || '',
-            authType: props.formData?.authType || '',
-            username: props.formData?.username || '',
-            passwordRef: props.formData?.passwordRef || { name: '', isReference: false },
-            serviceAccountTokenRef: props.formData?.serviceAccountTokenRef || '',
-            oidcIssuerUrl: props.formData?.oidcIssuerUrl || '',
-            oidcUsername: props.formData?.oidcUsername || '',
-            oidcClientIdRef: props.formData?.oidcClientIdRef || '',
-            oidcPasswordRef: props.formData?.oidcPasswordRef || '',
-            oidcSecretRef: props.formData?.oidcSecretRef || '',
-            oidcScopes: props.formData?.oidcScopes || '',
-            clientCertRef: props.formData?.clientCertRef || '',
-            clientKeyRef: props.formData?.clientKeyRef || '',
-            clientKeyPassphraseRef: props.formData?.clientKeyPassphraseRef || '',
-            clientKeyAlgo: props.formData?.clientKeyAlgo || '',
-            passwordRefSecret: props.formData?.passwordRefSecret || {
-              secretId: '',
-              secretName: '',
-              secretManager: { value: '' } as SelectOption
-            }
-            // serviceAccountTokenRefSecret: { secretId: '', secretName: '', secretManager: { value: '' } as SelectOption },
-            // oidcClientIdRefSecret: { secretId: '', secretName: '', secretManager: { value: '' } as SelectOption },
-            // oidcPasswordRefSceret: { secretId: '', secretName: '', secretManager: { value: '' } as SelectOption },
-            // oidcSecretRefSecret: { secretId: '', secretName: '', secretManager: { value: '' } as SelectOption },
-            // clientKeyRefSecret: { secretId: '', secretName: '', secretManager: { value: '' } as SelectOption },
-            // clientKeyPassphraseRefSecret: { secretId: '', secretName: '', secretManager: { value: '' } as SelectOption },
-            // clientCertRefSecret: { secretId: '', secretName: '', secretManager: { value: '' } as SelectOption }
+            masterUrl: '',
+            authType: '',
+            username: '',
+            oidcIssuerUrl: '',
+            oidcUsername: '',
+            oidcScopes: '',
+            clientKeyAlgo: '',
+            ...props.formData
           }}
           onSubmit={formData => {
             const connectorData = { ...state.formData, ...formData, authType: state.authentication?.value }
