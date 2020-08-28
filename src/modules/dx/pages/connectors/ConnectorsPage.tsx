@@ -9,7 +9,7 @@ import type { UseGetMockData } from 'modules/common/utils/testUtils'
 import useCreateConnectorModal from 'modules/dx/modals/ConnectorModal/useCreateConnectorModal'
 import ConnectorsListView from './views/ConnectorsListView'
 import i18n from '../../components/connectors/CreateConnectorWizard/CreateConnectorWizard.i18n'
-import css from './ConnectorsList.module.scss'
+import css from './ConnectorsPage.module.scss'
 
 interface ConnectorsListProps {
   mockData?: UseGetMockData<ResponseDTONGPageResponseConnectorSummaryDTO>
@@ -38,7 +38,7 @@ const getMenuItem: React.FC<OptionInterface> = item => {
   )
 }
 
-const ConnectorsList: React.FC<ConnectorsListProps> = ({ mockData }) => {
+const ConnectorsPage: React.FC<ConnectorsListProps> = ({ mockData }) => {
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
   const [view, setView] = useState(View.LIST)
   const [searchTerm, setSearchTerm] = useState('')
@@ -154,4 +154,4 @@ const ConnectorsList: React.FC<ConnectorsListProps> = ({ mockData }) => {
   )
 }
 
-export default ConnectorsList
+export default ConnectorsPage

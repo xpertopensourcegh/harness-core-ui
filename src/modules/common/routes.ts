@@ -68,7 +68,7 @@ export const routeResourcesConnectors: NestedRoute = {
   path: '/resources/connectors',
   title: i18n.resourcesConnectors,
   url: () => routeURL(routeResourcesConnectors, '/resources/connectors'),
-  component: React.lazy(() => import('../dx/pages/connectors/ConnectorsList')),
+  component: React.lazy(() => import('../dx/pages/connectors/ConnectorsPage')),
   isDefault: true
 }
 
