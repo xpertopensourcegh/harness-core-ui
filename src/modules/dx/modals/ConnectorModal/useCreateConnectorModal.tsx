@@ -63,6 +63,24 @@ const useCreateConnectorModal = (props: UseCreateConnectorModalProps): UseCreate
       setType(_type)
       if (_modalProps) {
         setModalProps(_modalProps)
+      } else {
+        setModalProps({
+          isOpen: true,
+          usePortal: true,
+          autoFocus: true,
+          canEscapeKeyClose: true,
+          canOutsideClickClose: true,
+          enforceFocus: true,
+          style: {
+            width: 'fit-content',
+            minWidth: 960,
+            height: 600,
+            borderLeft: 0,
+            paddingBottom: 0,
+            position: 'relative',
+            overflow: 'hidden'
+          }
+        })
       }
       showModal()
     },

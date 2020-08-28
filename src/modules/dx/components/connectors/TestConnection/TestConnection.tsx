@@ -3,6 +3,7 @@ import { Layout, Button } from '@wings-software/uikit'
 import VerifyOutOfClusterDelegate from 'modules/dx/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 import VerifyExistingDelegate from 'modules/dx/common/VerfiyExistingDelegate/VerifyExistingDelegate'
 import { DelegateTypes } from 'modules/dx/pages/connectors/Forms/KubeFormHelper'
+import type { ConnectorConnectivityDetails } from 'services/cd-ng'
 import i18n from './TestConnection.i18n'
 import css from './TestConnection.module.scss'
 
@@ -16,6 +17,7 @@ interface TestConnectionProps {
   delegateName?: string
   setLastTested: (val: number) => void
   setLastConnected?: (val: number) => void
+  setStatus?: (val: ConnectorConnectivityDetails) => void
 }
 const TestConnection: React.FC<TestConnectionProps> = props => {
   const [testEnabled, setTestEnabled] = useState<boolean>(false)
@@ -33,6 +35,7 @@ const TestConnection: React.FC<TestConnectionProps> = props => {
             renderInModal={false}
             setLastTested={props.setLastTested}
             setLastConnected={props.setLastConnected}
+            setStatus={props.setStatus}
           />
         ) : (
           <VerifyExistingDelegate

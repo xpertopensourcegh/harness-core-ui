@@ -148,12 +148,12 @@ const VerifyExistingDelegate = (props: VerifyExistingDelegateProps) => {
           })
         }
       } else if (stepDetails.status === 'DONE') {
-        props.setLastTested?.(new Date().getTime())
-        props.setLastConnected?.(new Date().getTime())
+        props.setLastTested?.(testConnectionResponse?.data?.testedAt || 0)
+        props.setLastConnected?.(testConnectionResponse?.data?.testedAt || 0)
       }
     }
     if (stepDetails.intent === Intent.DANGER) {
-      props.setLastTested?.(new Date().getTime())
+      props.setLastTested?.(testConnectionResponse?.data?.testedAt || 0)
     }
   }, [stepDetails, delegateStatus, testConnectionResponse, error, errorTesting])
   return (
@@ -203,10 +203,8 @@ const VerifyExistingDelegate = (props: VerifyExistingDelegateProps) => {
         </section>
       ) : null}
       {props.renderInModal ? (
-        <Layout.Horizontal spacing="large">
+        <Layout.Horizontal margin={{ top: 'xxxlarge' }}>
           <Button
-            type="submit"
-            className={css.submitWrp}
             onClick={() => {
               props.hideLightModal?.()
               props.onSuccess?.()

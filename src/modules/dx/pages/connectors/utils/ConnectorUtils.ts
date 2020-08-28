@@ -91,6 +91,26 @@ export const buildKubPayload = (formData: FormData) => {
   return savedData
 }
 
+export const buildDockerPayload = (formData: FormData) => {
+  const savedData = {
+    name: formData.name,
+    description: formData.description,
+    projectIdentifier: formData.projectidentifier,
+    identifier: formData.identifier,
+    orgIdentifier: formData.orgIdentifier,
+    tags: formData.tags,
+    type: i18n.DockerConector,
+    spec: {
+      dockerRegistryUrl: formData.dockerRegistryUrl,
+      authScheme: {
+        type: 'UsernamePassword',
+        spec: userPasswrdAuthField(formData)
+      }
+    }
+  }
+  return savedData
+}
+
 export const getSpecByConnectType = (type: string, formData: FormData) => {
   let referenceField
   if (type === 'Ssh') {

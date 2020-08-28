@@ -11,8 +11,8 @@ import css from './ConnectorDetailsStep.module.scss'
 
 interface ConnectorDetailsStepProps extends StepProps<unknown> {
   accountId: string
-  projectIdentifier: string
-  orgIdentifier: string
+  projectIdentifier?: string
+  orgIdentifier?: string
   type: string
   name: string
   setFormData: (formData: KubFormData | GITFormData | undefined) => void

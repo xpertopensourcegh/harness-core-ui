@@ -9,8 +9,7 @@ import {
   Formik,
   Icon,
   SelectV2,
-  SelectOption,
-  Color
+  SelectOption
 } from '@wings-software/uikit'
 import { Form } from 'formik'
 import cx from 'classnames'
@@ -220,7 +219,7 @@ const renderDelegateInclusterForm = (
 const SecondStep = (props: SecondStepProps) => {
   const { state, accountId } = props
   const { showError } = useToaster()
-  const { loading, data: delegateList, refetch: reloadDelegateList } = useGetKubernetesDelegateNames({
+  const { data: delegateList, refetch: reloadDelegateList } = useGetKubernetesDelegateNames({
     queryParams: { accountId },
     lazy: true
   })
@@ -229,7 +228,6 @@ const SecondStep = (props: SecondStepProps) => {
   const handleCreate = async (data: any) => {
     try {
       await createConnector(data as ConnectorRequestDTORequestBody)
-      // ToDo: props.onSuccess()
       props.nextStep?.()
     } catch (e) {
       showError(e.message)
@@ -262,7 +260,7 @@ const SecondStep = (props: SecondStepProps) => {
   }
 
   return (
-    <Layout.Vertical spacing="xxlarge" className={css.secondStep}>
+    <Layout.Vertical spacing="medium" className={css.secondStep}>
       <Text font="medium" className={css.headingStepTwo}>
         {i18n.STEP_TWO.HEADING}
       </Text>
@@ -297,20 +295,17 @@ const SecondStep = (props: SecondStepProps) => {
                 {...radioProps}
                 selected={undefined}
               />
-              {!loading && state.delegateType === DelegateTypes.DELEGATE_IN_CLUSTER
+              {state.delegateType === DelegateTypes.DELEGATE_IN_CLUSTER
                 ? renderDelegateInclusterForm(delegateList, reloadDelegateList, state, props)
                 : null}
             </div>
 
-            <Layout.Horizontal spacing="large">
+            <Layout.Horizontal spacing="large" margin={{ top: 'large' }}>
               <Button onClick={() => props.previousStep?.()} text="Back" />
               {state.delegateType === DelegateTypes.DELEGATE_IN_CLUSTER ? (
                 <Button type="submit" text="Continue" />
               ) : (
                 <Button
-                  type="submit"
-                  color={Color.BLUE_500}
-                  border={{ color: Color.BLUE_500 }}
                   text="Continue"
                   onClick={() => {
                     addToFormData(state, { delegateType: DelegateTypes.DELEGATE_OUT_CLUSTER })
@@ -340,7 +335,6 @@ const IntermediateStep: React.FC<IntermediateStepProps> = props => {
   const handleCreate = async (data: any) => {
     try {
       await createConnector(data as ConnectorRequestDTORequestBody)
-      props.onSuccess()
       props.nextStep?.()
     } catch (e) {
       showError(e.message)

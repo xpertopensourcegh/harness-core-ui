@@ -11,8 +11,8 @@ import type { EncryptedDataDTO } from 'services/cd-ng'
 
 interface UsernamePasswordProps {
   accountId: string
-  projectIdentifier: string
-  orgIdentifier: string
+  projectIdentifier?: string
+  orgIdentifier?: string
   formikProps: FormikProps<unknown>
   passwordField: string
   name?: string

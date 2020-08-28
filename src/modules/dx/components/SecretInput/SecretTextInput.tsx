@@ -21,8 +21,8 @@ interface SecretTextInputProps {
   defaultSecretId: string
   formikProps: FormikProps<any>
   accountId: string
-  projectIdentifier: string
-  orgIdentifier: string
+  projectIdentifier?: string
+  orgIdentifier?: string
   onClickCreateSecret: () => void
   onEditSecret?: (val: EncryptedDataDTO) => void
 

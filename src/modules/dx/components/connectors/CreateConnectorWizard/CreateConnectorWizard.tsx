@@ -6,6 +6,7 @@ import CreateSecretManager from 'modules/dx/components/connectors/CreateConnecto
 import type { ConnectorConfigDTO } from 'services/cd-ng'
 import CreateAppDynamicsConnector from '../CreateConnector/AppDynamicsConnector/CreateAppDynamicsConnector'
 import CreateSplunkConnector from '../CreateConnector/SplunkConnector/CreateSplunkConnector'
+import CreateDockerConnector from '../CreateConnector/DockerConnector/CreateDockerConnector'
 import css from './CreateConnectorWizard.module.scss'
 
 interface CreateConnectorWizardProps {
@@ -63,6 +64,16 @@ export const ConnectorWizard: React.FC<CreateConnectorWizardProps> = props => {
       return (
         <CreateSplunkConnector
           {...rest}
+          onConnectorCreated={props.onSuccess}
+          accountId={accountId}
+          hideLightModal={hideLightModal}
+          orgIdentifier={orgIdentifier}
+          projectIdentifier={projectIdentifier}
+        />
+      )
+    case Connectors.DOCKER:
+      return (
+        <CreateDockerConnector
           onConnectorCreated={props.onSuccess}
           accountId={accountId}
           hideLightModal={hideLightModal}
