@@ -5,6 +5,7 @@ $cell-height: 25px;
 
 .chart {
   display: flex;
+  justify-content: center;
   .separator {
     width: 1px;
     margin: var(--spacing-xxxlarge) $separator-width / 2;

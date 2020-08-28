@@ -15,6 +15,7 @@ export interface HeatMapProps {
   minValue: number
   maxValue: number
   mapValue(cell: any): number | CellStatusValues
+  cellShapeBreakpoint?: number
   /**
    * This property can be used if series are not prepared yet, to render placehoders,
    * or to limit the row sizes.
@@ -28,6 +29,7 @@ export interface HeatMapProps {
 }
 
 export enum CellStatusValues {
+  Missing = 'Missing',
   Empty = 'Empty',
   Error = 'Error'
 }
@@ -62,6 +64,7 @@ export default function HeatMap({
   minValue,
   maxValue,
   mapValue,
+  cellShapeBreakpoint,
   rowSize,
   onCellClick,
   renderTooltip,
@@ -79,7 +82,9 @@ export default function HeatMap({
 
   const mapColor = (cell: any) => {
     let value: any = mapValue(cell)
-    if (value === CellStatusValues.Empty) {
+    if (value === CellStatusValues.Missing) {
+      return specialColorValue.MISSING
+    } else if (value === CellStatusValues.Empty) {
       return specialColorValue.EMPTY
     } else if (value === CellStatusValues.Error) {
       return specialColorValue.ERROR
@@ -90,6 +95,14 @@ export default function HeatMap({
     return colors[colorIndex]
   }
 
+  const addCircleClass = (cell: any) => {
+    if (isUndefined(cellShapeBreakpoint)) {
+      return ''
+    }
+    const value: any = mapValue(cell)
+    return typeof value === 'number' && value >= cellShapeBreakpoint ? '' : styles.cellCircle
+  }
+
   const showLabels = series.some(serie => !isUndefined(serie.name))
 
   return (
@@ -98,7 +111,9 @@ export default function HeatMap({
         <div key={serieIndex} className={styles.heatMapRow}>
           {showLabels && (
             <span className={styles.nameWrapper}>
-              <Text width={labelsWidth}>{serie.name}</Text>
+              <Text font={{ weight: 'bold' }} width={labelsWidth}>
+                {serie.name}
+              </Text>
             </span>
           )}
           <div className={styles.rowValues}>
@@ -111,7 +126,7 @@ export default function HeatMap({
                     popoverContent={renderTooltip && renderTooltip(cell)}
                     onClick={() => onCellClick && onCellClick(cell, serie)}
                     color={mapColor(cell)}
-                    className={cellClassName}
+                    className={classnames(cellClassName, addCircleClass(cell))}
                   />
                 )
             )}
@@ -122,7 +137,7 @@ export default function HeatMap({
                   <HeatMapCell
                     key={serie.data.length + index}
                     color={specialColorValue.MISSING}
-                    className={cellClassName}
+                    className={classnames(cellClassName, addCircleClass(null))}
                     popoverDisabled
                   />
                 ))}
@@ -135,15 +150,16 @@ export default function HeatMap({
 
 export function HeatMapCell({ color, className, popoverDisabled = false, popoverContent, onClick }: any) {
   return (
-    <Container onClick={onClick} background={color} className={classnames(styles.cell, className)}>
+    <Container onClick={onClick} className={classnames(styles.cell, className)}>
       <Popover
+        className={styles.cellContentWrapper}
         disabled={popoverDisabled}
         content={popoverContent}
         interactionKind={PopoverInteractionKind.HOVER_TARGET_ONLY}
         modifiers={PopoverModifies}
         boundary="window"
       >
-        <div />
+        <Container className={styles.cellInner} background={color} />
       </Popover>
     </Container>
   )

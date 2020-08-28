@@ -6,5 +6,8 @@ declare const styles: {
   readonly nameWrapper: string
   readonly rowValues: string
   readonly cell: string
+  readonly cellContentWrapper: string
+  readonly cellInner: string
+  readonly cellCircle: string
 }
 export default styles

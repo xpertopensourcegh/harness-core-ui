@@ -2,6 +2,7 @@
   overflow: hidden;
   .heatMapRow {
     display: flex;
+    min-height: var(--spacing-large);
     .nameWrapper {
       flex-shrink: 0;
       p {
@@ -16,9 +17,8 @@
       .cell {
         flex: 1;
         flex-basis: var(--spacing-medium);
-        min-width: var(--spacing-small);
+        // min-width: var(--spacing-small);
         max-width: var(--spacing-xxlarge);
-        margin: 3px;
         cursor: pointer;
         &:hover {
           opacity: 0.6;
@@ -28,6 +28,25 @@
           :global(.bp3-popover-target) {
             display: block;
             padding-bottom: 100%;
+            position: relative;
+          }
+        }
+        .cellContentWrapper {
+          width: 70%;
+          margin: 15%;
+          .cellInner {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+          }
+        }
+        &.cellCircle .cellContentWrapper {
+          width: 40%;
+          margin: 30%;
+          .cellInner {
+            border-radius: 50%;
           }
         }
       }

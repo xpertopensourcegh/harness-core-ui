@@ -46,6 +46,18 @@ export const routeCVDataSources: Route<{ projectIdentifier: string; orgId: strin
   module: ModuleName.CV
 }
 
+export const routeCVServices: Route<{ projectIdentifier: string; orgIdentifier: string }> = {
+  sidebarId: SidebarIdentifier.CONTINUOUS_VERIFICATION,
+  path: '/cv-services/org/:orgId/project/:projectIdentifier',
+  title: i18n.services,
+  pageId: 'cv-services',
+  authenticated: true,
+  url: ({ orgIdentifier, projectIdentifier }) =>
+    routeURL(routeCVServices, `/cv-services/org/${orgIdentifier}/project/${projectIdentifier}`),
+  component: React.lazy(() => import('./pages/services/CVServicesPage')),
+  module: ModuleName.CV
+}
+
 export const routeCVService: Route<{ serviceId: string }> = {
   sidebarId: SidebarIdentifier.CONTINUOUS_VERIFICATION,
   path: '/cv-service/:serviceId',

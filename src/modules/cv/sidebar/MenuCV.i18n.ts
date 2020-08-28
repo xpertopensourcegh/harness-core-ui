@@ -4,7 +4,8 @@ export default {
   cvSideNavLinks: {
     dataSource: 'Data Sources',
     activites: 'Activities',
-    dashboard: 'Dashboard'
+    dashboard: 'Dashboard',
+    services: 'Services'
   },
   adminSideNavLinks: {
     resources: 'Resources',

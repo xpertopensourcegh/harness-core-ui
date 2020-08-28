@@ -3,4 +3,12 @@ import * as ActivitiesService from './ActivitiesService'
 import * as CVNextGenCVConfigService from './CVNextGenCVConfigService'
 import * as SettingsService from './SettingsService'
 import * as DashboardService from './DashboardService'
-export { ActivitiesService, AppDynamicsService, CVNextGenCVConfigService, SettingsService, DashboardService }
+import * as ServicesService from './ServicesService'
+export {
+  ActivitiesService,
+  AppDynamicsService,
+  CVNextGenCVConfigService,
+  SettingsService,
+  DashboardService,
+  ServicesService
+}

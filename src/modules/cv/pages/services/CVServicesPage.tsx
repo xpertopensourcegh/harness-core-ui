@@ -1,31 +1,108 @@
-import React, { useEffect, useState } from 'react'
-import { useHistory } from 'react-router'
-import { Container, ExpandingSearchInput } from '@wings-software/uikit'
-import isEmpty from 'lodash/isEmpty'
+import React, { useState, useEffect, useMemo } from 'react'
+import { Container, Heading, Select, OverlaySpinner } from '@wings-software/uikit'
+import { Toaster, Intent } from '@blueprintjs/core'
+import moment from 'moment'
+import xhr from '@wings-software/xhr-async'
 import { Page } from 'modules/common/exports'
-import ServiceCard from '../../components/ServiceCard/ServiceCard'
+import HeatMap, { CellStatusValues } from 'modules/common/components/HeatMap/HeatMap'
+import TimelineView from 'modules/common/components/TimelineView/TimelineView'
+import { routeParams } from 'framework/exports'
+import DeploymentVerificationDrawer from './drawers/DeploymentVerificationDrawer'
+import { fetchHeatmap } from '../../services/ServicesService'
 import styles from './CVServicesPage.module.scss'
 
-export default function CVServicesPage(): JSX.Element {
-  const history = useHistory()
-  const [services, setServices] = useState<Array<any>>([])
-  const [visibleServices, setVisibleServices] = useState<Array<any>>([])
-  const [searchValue, setSearchValue] = useState('')
-  useEffect(() => {
-    ;(async () => {
-      const response = await fetchServicesMock()
-      setServices(response)
-      setVisibleServices(response)
-    })()
-  }, [])
+const toaster = Toaster.create()
+
+const rangeOptions = [
+  { label: '4 hrs', value: 4 },
+  { label: '12 hrs', value: 12 },
+  { label: '1 day', value: 24 },
+  { label: '7 days', value: 7 * 24 },
+  { label: '30 days', value: 30 * 24 }
+]
+const defaultRange = rangeOptions[1]
+const getRangeDates = (val: number) => {
+  const now = moment()
+  return {
+    start: now.clone().subtract(val, 'hours'),
+    end: now
+  }
+}
+const defaultHeatmapData = [
+  { name: 'Performance', data: [] },
+  { name: 'Business', data: [] },
+  { name: 'Resources', data: [] },
+  { name: 'Quality', data: [] }
+]
+
+export default function CVServicesPage() {
+  const [range, setRange] = useState({
+    selectedValue: defaultRange.value,
+    dates: {
+      ...getRangeDates(defaultRange.value)
+    }
+  })
+  const [showDeploymentVerificationDrawer, setShowDeploymentVerificationDrawer] = useState(false)
+  const [heatmapData, setHeatmapData] = useState(defaultHeatmapData)
+  const [loading, setLoading] = useState(false)
+  const {
+    params: { accountId, projectIdentifier },
+    query: { serviceIdentifier }
+  } = routeParams()
 
   useEffect(() => {
-    if (!searchValue) {
-      setVisibleServices(services)
-    } else {
-      setVisibleServices(services.filter(({ label }) => label.toLowerCase().indexOf(searchValue.toLowerCase()) >= 0))
+    ;(async () => {
+      setHeatmapData(defaultHeatmapData)
+      setLoading(true)
+      try {
+        const { response, status, error } = await fetchHeatmap({
+          accountId: accountId,
+          envIdentifier: 'Prod',
+          serviceIdentifier: serviceIdentifier as string,
+          projectIdentifier: projectIdentifier as string,
+          startTimeMS: range.dates.start.valueOf(),
+          endTimeMS: range.dates.end.valueOf()
+        })
+        if (status === xhr.ABORTED) {
+          return
+        }
+        if (status !== 200) {
+          toaster.show({ intent: Intent.DANGER, timeout: 5000, message: error + '' })
+          return
+        }
+        if (response?.resource) {
+          const { resource } = response as any
+          const newData = defaultHeatmapData.map(({ name }) => ({
+            name,
+            data: resource[name] || []
+          }))
+          setHeatmapData(newData)
+        }
+      } finally {
+        setLoading(false)
+      }
+    })()
+  }, [range])
+
+  const onRangeChange = ({ value }: any) => {
+    if (range && range.selectedValue === value) {
+      return
     }
-  }, [searchValue])
+    setRange({
+      selectedValue: value,
+      dates: {
+        ...getRangeDates(value)
+      }
+    })
+  }
+
+  const mapHeatmapValue = (val: any) => {
+    return val && typeof val.riskScore === 'number' ? val.riskScore : CellStatusValues.Missing
+  }
+
+  const heatMapSize = useMemo(() => {
+    return Math.max(...heatmapData.map(({ data }) => data.length)) || 48
+  }, [heatmapData])
 
   return (
     <>
@@ -33,96 +110,45 @@ export default function CVServicesPage(): JSX.Element {
         title="Services"
         toolbar={
           <Container>
-            <div className={styles.searchContainer}>
-              <ExpandingSearchInput defaultValue={searchValue} onChange={setSearchValue} />
-            </div>
+            <Select defaultSelectedItem={defaultRange} items={rangeOptions} onChange={onRangeChange} />
           </Container>
         }
       />
-      <Page.Body loading={isEmpty(services)}>
-        <div className={styles.body}>
-          {!isEmpty(visibleServices) &&
-            visibleServices.map(service => (
-              <ServiceCard
-                key={service.id}
-                className={styles.cardItem}
-                onClick={() => history.push(`cv-service/${service.label}`)}
-                {...service}
-              />
-            ))}
-        </div>
+      <Page.Body>
+        <Container className={styles.servicesPage}>
+          <Container className={styles.sidebar}>sidebar</Container>
+          <Container className={styles.content}>
+            <Container className={styles.serviceHeader}>header</Container>
+            <Container className={styles.serviceBody}>
+              <OverlaySpinner show={loading}>
+                <Heading level={3} margin={{ bottom: 'large' }} font={{ weight: 'bold' }}>
+                  Health Analysis
+                </Heading>
+                <HeatMap
+                  series={heatmapData}
+                  minValue={0}
+                  maxValue={1}
+                  mapValue={mapHeatmapValue}
+                  renderTooltip={() => <div>tooltip</div>}
+                  cellClassName={''}
+                  cellShapeBreakpoint={0.5}
+                  onCellClick={() => setShowDeploymentVerificationDrawer(true)}
+                  rowSize={heatMapSize}
+                />
+                <TimelineView
+                  startDate={range.dates.start.valueOf()}
+                  endDate={range.dates.end.valueOf()}
+                  rows={[{ name: '', data: [] }]}
+                  renderItem={() => <div />}
+                />
+              </OverlaySpinner>
+              {showDeploymentVerificationDrawer && (
+                <DeploymentVerificationDrawer onClose={() => setShowDeploymentVerificationDrawer(false)} />
+              )}
+            </Container>
+          </Container>
+        </Container>
       </Page.Body>
     </>
   )
-}
-
-function fetchServicesMock(): Promise<Array<any>> {
-  return new Promise(res => {
-    setTimeout(
-      () =>
-        res([
-          {
-            id: 1,
-            label: 'Learning Engine',
-            impact: 1,
-            verificationPassed: 5,
-            verificationFailed: 2,
-            changeEventsPassed: 2,
-            changeEventsFailed: 0,
-            openAnomalies: 3
-          },
-          {
-            id: 2,
-            label: 'Delegate',
-            impact: 0,
-            verificationPassed: 5,
-            verificationFailed: 2,
-            changeEventsPassed: 2,
-            changeEventsFailed: 0,
-            openAnomalies: 3
-          },
-          {
-            id: 3,
-            label: 'Search',
-            impact: 0.2,
-            verificationPassed: 5,
-            verificationFailed: 2,
-            changeEventsPassed: 2,
-            changeEventsFailed: 0,
-            openAnomalies: 3
-          },
-          {
-            id: 4,
-            label: 'Manager',
-            impact: 0.5,
-            verificationPassed: 5,
-            verificationFailed: 2,
-            changeEventsPassed: 2,
-            changeEventsFailed: 0,
-            openAnomalies: 3
-          },
-          {
-            id: 5,
-            label: 'Identity',
-            impact: 0.1,
-            verificationPassed: 5,
-            verificationFailed: 2,
-            changeEventsPassed: 2,
-            changeEventsFailed: 0,
-            openAnomalies: 3
-          },
-          {
-            id: 6,
-            label: 'MongoDB',
-            impact: 0.7,
-            verificationPassed: 5,
-            verificationFailed: 2,
-            changeEventsPassed: 2,
-            changeEventsFailed: 0,
-            openAnomalies: 3
-          }
-        ]),
-      10
-    )
-  })
 }

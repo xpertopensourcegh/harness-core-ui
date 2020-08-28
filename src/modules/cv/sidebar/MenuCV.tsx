@@ -9,6 +9,7 @@ import i18n from './MenuCV.i18n'
 import {
   routeCVDataSources,
   routeCVActivities,
+  routeCVServices,
   routeCVActivityDetails,
   routeCVMainDashBoardPage,
   routeCVAdminGeneralSettings,
@@ -42,6 +43,12 @@ const ProjectNavLinks: React.FC<{ project?: ProjectDTO }> = ({ project }) => {
         label={i18n.cvSideNavLinks.activites}
         icon="main-depricate"
         selected={isRouteActive(routeCVActivities) || isRouteActive(routeCVActivityDetails)}
+      />
+      <Sidebar.Link
+        href={routeCVServices.url({ projectIdentifier, orgIdentifier })}
+        label={i18n.cvSideNavLinks.services}
+        icon="service"
+        selected={isRouteActive(routeCVServices)}
       />
       <AdminSelector
         selected={

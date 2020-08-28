@@ -10,7 +10,7 @@ interface RowConfig {
   name?: string
   data: Array<{
     startDate: string | number | Date
-    endDate: string | number | Date
+    endDate?: string | number | Date
     [x: string]: any
   }>
   className?: string
@@ -61,7 +61,7 @@ export default function TimelineView({
                 key={itemIndex}
                 style={{
                   left: `${leftPosition(moment(item.startDate))}%`,
-                  right: `${rightPosition(moment(item.endDate))}%`
+                  right: `${rightPosition(moment(item.endDate || item.startDate))}%`
                 }}
                 className={styles.rowItem}
               >
