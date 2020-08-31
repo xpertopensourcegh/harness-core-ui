@@ -30,8 +30,8 @@ import {
 } from './AppDynamicsOnboardingUtils'
 import TierAndServiceTable, { TierAndServiceRow, DEFAULT_ROW_OBJ } from './TierAndServiceTable/TierAndServiceTable'
 import i18n from './AppDynamicsMainSetupView.i18n'
-import CreateNewEntitySubform from '../CreateNewEntitySubform/CreateNewEntitySubform'
-import { PageData, SaveConfigToIndexedDB } from '../SaveConfigToIndexedDB/SaveConfigToIndexedDB'
+import CreateNewEntitySubform from '../../CreateNewEntitySubform/CreateNewEntitySubform'
+import { PageData, SaveConfigToIndexedDB } from '../../SaveConfigToIndexedDB/SaveConfigToIndexedDB'
 import css from './AppDynamicsMainSetupView.module.scss'
 
 const XHR_METRIC_PACK_GROUP = 'XHR_METRIC_PACK_GROUP'
@@ -353,7 +353,14 @@ function AppDynamicsDataSourceForm(props: AppDynamicsDataSourceFormProps): JSX.E
                       onChange={(selectedApp: SelectOption) => {
                         setApplicationsToAdd(updateApplicationList(selectedApp, applicationsToAdd, true))
                         arrayHelpers.unshift(
-                          createDefaultConfigObject(dataSourceId, accountId, selectedApp.label, productName, projectId)
+                          createDefaultConfigObject(
+                            dataSourceId,
+                            accountId,
+                            selectedApp.label,
+                            productName,
+                            projectId,
+                            orgId
+                          )
                         )
                       }}
                     />
@@ -449,6 +456,7 @@ export default function AppDynamicsMainSetupView(props: AppDynamicsMainSetupView
     })
     return () => {
       xhr.abort(XHR_METRIC_PACK_GROUP)
+      indexedDB?.clear(CVObjectStoreNames.APPD_TIERS)
     }
   }, [dataSourceId, accountId, indexedDB, projectId, orgId])
 

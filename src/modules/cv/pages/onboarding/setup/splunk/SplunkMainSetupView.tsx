@@ -33,11 +33,11 @@ import OnBoardingConfigSetupHeader from 'modules/cv/components/OnBoardingConfigS
 import { NoDataCard } from 'modules/common/components/Page/NoDataCard'
 import { CVObjectStoreNames } from 'modules/cv/hooks/IndexedDBHook/IndexedDBHook'
 import { useToaster } from 'modules/common/exports'
-import CreateNewEntitySubform from '../CreateNewEntitySubform/CreateNewEntitySubform'
+import CreateNewEntitySubform from '../../CreateNewEntitySubform/CreateNewEntitySubform'
 import { SplunkDSConfig, createDefaultSplunkDSConfig } from './SplunkMainSetupViewUtils'
 import { transformQueriesFromSplunk, SplunkColumnChartOptions, transformToSaveConfig } from './SplunkMainSetupViewUtils'
 import i18n from './SplunkMainSetupView.i18n'
-import { PageData, SaveConfigToIndexedDB } from '../SaveConfigToIndexedDB/SaveConfigToIndexedDB'
+import { PageData, SaveConfigToIndexedDB } from '../../SaveConfigToIndexedDB/SaveConfigToIndexedDB'
 import css from './SplunkMainSetupView.module.scss'
 
 const XHR_VALIDATION_GROUP = 'XHR_VALIDATION_GROUP'
@@ -466,7 +466,15 @@ function SplunkDataSourceForm(props: SplunkDataSourceFormProps): JSX.Element {
                     <SplunkPageHeading
                       onAddQuery={(queryName?: string, query?: string) =>
                         arrayHelpers.unshift(
-                          createDefaultSplunkDSConfig(accountId, dataSourceId, productName, projectId, queryName, query)
+                          createDefaultSplunkDSConfig(
+                            accountId,
+                            dataSourceId,
+                            productName,
+                            projectId,
+                            orgId,
+                            queryName,
+                            query
+                          )
                         )
                       }
                       splunkSavedSearches={splunkQueryOptions}

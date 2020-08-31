@@ -1,5 +1,6 @@
-import type { NewRelicApplication, MetricPack, DSConfig } from '@wings-software/swagger-ts/definitions'
+import type { NewRelicApplication, MetricPack } from '@wings-software/swagger-ts/definitions'
 import type { SelectOption, MultiSelectOption } from '@wings-software/uikit'
+import type { DSConfig } from 'services/cv'
 import type { TierAndServiceRow } from './TierAndServiceTable/TierAndServiceTable'
 
 export interface AppDynamicsDSConfig extends DSConfig {
@@ -19,9 +20,10 @@ export function createDefaultConfigObjectBasedOnSelectedApps(
   dataSourceId: string,
   accountId: string,
   productName: string,
-  projectId: string
+  projectIdentifier: string,
+  orgIdentifier: string
 ): DSConfigTableData {
-  return createDefaultConfigObject(dataSourceId, accountId, app.label, productName, projectId)
+  return createDefaultConfigObject(dataSourceId, accountId, app.label, productName, projectIdentifier, orgIdentifier)
 }
 
 export function createDefaultConfigObject(
@@ -29,10 +31,11 @@ export function createDefaultConfigObject(
   accountId: string,
   appName: string,
   productName: string,
-  projectId: string
+  projectIdentifier: string,
+  orgIdentifier: string
 ): DSConfigTableData {
   return {
-    connectorId,
+    connectorIdentifier: connectorId,
     type: 'APP_DYNAMICS',
     accountId,
     metricPacks: [],
@@ -40,7 +43,8 @@ export function createDefaultConfigObject(
     metricPackList: [],
     tableData: [],
     envIdentifier: '',
-    projectIdentifier: projectId,
+    projectIdentifier,
+    orgIdentifier,
     productName,
     identifier: '',
     applicationName: appName

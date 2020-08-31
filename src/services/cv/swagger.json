@@ -1,44 +1,85 @@
 {
   "swagger": "2.0",
   "info": {
-    "title": "Harness Continuous Verification",
+    "title": "CV Swagger",
     "version": "1.0"
   },
   "host": "{{host}}",
   "basePath": "/cv-nextgen",
   "tags": [
     {
-      "name": "splunk"
-    },
-    {
-      "name": "metric-pack"
-    },
-    {
-      "name": "log-record"
-    },
-    {
       "name": "appdynamics"
-    },
-    {
-      "name": "ds-config"
-    },
-    {
-      "name": "timeseries"
-    },
-    {
-      "name": "delegate-data-collection-task"
     },
     {
       "name": "cv-config"
     },
     {
-      "name": "health"
+      "name": "activity"
+    },
+    {
+      "name": "splunk"
+    },
+    {
+      "name": "delegate-data-collection-task"
     },
     {
       "name": "delegate-data-collection"
+    },
+    {
+      "name": "metric-pack"
+    },
+    {
+      "name": "webhook"
+    },
+    {
+      "name": "timeseries"
+    },
+    {
+      "name": "health"
+    },
+    {
+      "name": "log-record"
+    },
+    {
+      "name": "ds-config"
     }
   ],
+  "schemes": ["https", "http"],
   "paths": {
+    "/activity/{webHookToken}": {
+      "post": {
+        "tags": ["activity"],
+        "operationId": "registerActivity",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "webHookToken",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "accountId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/ActivityDTO"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
     "/appdynamics/applications": {
       "get": {
         "tags": ["appdynamics"],
@@ -53,6 +94,18 @@
           },
           {
             "name": "connectorId",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "orgIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "projectIdentifier",
             "in": "query",
             "required": true,
             "type": "string"
@@ -77,6 +130,12 @@
         "parameters": [
           {
             "name": "accountId",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "orgIdentifier",
             "in": "query",
             "required": true,
             "type": "string"
@@ -150,6 +209,18 @@
           },
           {
             "name": "connectorId",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "orgIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "projectIdentifier",
             "in": "query",
             "required": true,
             "type": "string"
@@ -286,7 +357,7 @@
             "type": "string"
           },
           {
-            "name": "connectorId",
+            "name": "connectorIdentifier",
             "in": "query",
             "required": false,
             "type": "string"
@@ -316,7 +387,7 @@
             "type": "string"
           },
           {
-            "name": "connectorId",
+            "name": "connectorIdentifier",
             "in": "query",
             "required": false,
             "type": "string"
@@ -537,7 +608,7 @@
             "type": "string"
           },
           {
-            "name": "connectorId",
+            "name": "connectorIdentifier",
             "in": "query",
             "required": false,
             "type": "string"
@@ -597,7 +668,7 @@
             "type": "string"
           },
           {
-            "name": "connectorId",
+            "name": "connectorIdentifier",
             "in": "query",
             "required": false,
             "type": "string"
@@ -705,7 +776,7 @@
           "200": {
             "description": "successful operation",
             "schema": {
-              "$ref": "#/definitions/RestResponseListMetricPack"
+              "$ref": "#/definitions/RestResponseListMetricPackDTO"
             },
             "headers": {}
           }
@@ -900,6 +971,18 @@
             "type": "string"
           },
           {
+            "name": "orgIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "projectIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
             "name": "requestGuid",
             "in": "query",
             "required": true,
@@ -936,6 +1019,18 @@
             "type": "string"
           },
           {
+            "name": "orgIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "projectIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
             "name": "query",
             "in": "query",
             "required": true,
@@ -962,7 +1057,7 @@
     "/timeseries/metric-group-data": {
       "get": {
         "tags": ["timeseries"],
-        "operationId": "getMetricDefinitionsAsGroup",
+        "operationId": "getMetricDefinitionsMetricGroupData",
         "produces": ["application/json"],
         "parameters": [
           {
@@ -1022,7 +1117,7 @@
     "/timeseries/metric-template": {
       "get": {
         "tags": ["timeseries"],
-        "operationId": "getMetricDefinitions",
+        "operationId": "getMetricDefinitionsMetricTemplate",
         "produces": ["application/json"],
         "parameters": [
           {
@@ -1048,34 +1143,113 @@
           }
         }
       }
-    }
-  },
-  "definitions": {
-    "MetricPackDTO": {
-      "type": "object",
-      "properties": {
-        "accountId": {
-          "type": "string"
-        },
-        "projectIdentifier": {
-          "type": "string"
-        },
-        "dataSourceType": {
-          "type": "string",
-          "enum": ["APP_DYNAMICS", "SPLUNK"]
-        },
-        "identifier": {
-          "type": "string"
-        },
-        "metrics": {
-          "type": "array",
-          "uniqueItems": true,
-          "items": {
-            "$ref": "#/definitions/MetricDefinitionDTO"
+    },
+    "/webhook/create-token": {
+      "get": {
+        "tags": ["webhook"],
+        "operationId": "createToken",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "projectIdentifier",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "orgIdentifier",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/RestResponseString"
+            },
+            "headers": {}
           }
         }
       }
     },
+    "/webhook/delete-token": {
+      "delete": {
+        "tags": ["webhook"],
+        "operationId": "deleteToken",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "projectIdentifier",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "orgIdentifier",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/webhook/recreate-token": {
+      "get": {
+        "tags": ["webhook"],
+        "operationId": "recreateToken",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "projectIdentifier",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "orgIdentifier",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/RestResponseString"
+            },
+            "headers": {}
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
     "AppdynamicsMetricValueValidationResponse": {
       "type": "object",
       "properties": {
@@ -1092,6 +1266,41 @@
         },
         "errorMessage": {
           "type": "string"
+        }
+      }
+    },
+    "MetricPackDTO": {
+      "type": "object",
+      "properties": {
+        "accountId": {
+          "type": "string"
+        },
+        "projectIdentifier": {
+          "type": "string"
+        },
+        "dataSourceType": {
+          "type": "string",
+          "enum": ["APP_DYNAMICS", "SPLUNK"]
+        },
+        "identifier": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string",
+          "enum": ["PERFORMANCE", "QUALITY", "RESOURCES"]
+        },
+        "metrics": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/definitions/MetricDefinitionDTO"
+          }
+        },
+        "thresholds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TimeSeriesThresholdDTO"
+          }
         }
       }
     },
@@ -1298,6 +1507,9 @@
         "cvConfigId": {
           "type": "string"
         },
+        "verificationTaskId": {
+          "type": "string"
+        },
         "host": {
           "type": "string"
         },
@@ -1311,6 +1523,55 @@
           "items": {
             "$ref": "#/definitions/TimeSeriesDataRecordMetricValue"
           }
+        }
+      }
+    },
+    "ActivityDTO": {
+      "type": "object",
+      "required": [
+        "accountIdentifier",
+        "activityStartTime",
+        "environmentIdentifier",
+        "name",
+        "orgIdentifier",
+        "projectIdentifier"
+      ],
+      "properties": {
+        "accountIdentifier": {
+          "type": "string"
+        },
+        "projectIdentifier": {
+          "type": "string"
+        },
+        "orgIdentifier": {
+          "type": "string"
+        },
+        "serviceIdentifier": {
+          "type": "string"
+        },
+        "environmentIdentifier": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "verificationJobsToTrigger": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "activityStartTime": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "activityEndTime": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["DEPLOYMENT", "INFRASTRUCTURE", "CUSTOM"]
         }
       }
     },
@@ -1539,13 +1800,16 @@
         "accountId": {
           "type": "string"
         },
+        "orgIdentifier": {
+          "type": "string"
+        },
         "projectIdentifier": {
           "type": "string"
         },
         "productName": {
           "type": "string"
         },
-        "connectorId": {
+        "connectorIdentifier": {
           "type": "string"
         },
         "envIdentifier": {
@@ -1802,7 +2066,9 @@
             "AZURE_SERVICE_EXCEPTION",
             "GIT_UNSEEN_REMOTE_HEAD_COMMIT",
             "TIMEOUT_ENGINE_EXCEPTION",
-            "NO_AVAILABLE_DELEGATES"
+            "NO_AVAILABLE_DELEGATES",
+            "NO_INSTALLED_DELEGATES",
+            "DUPLICATE_DELEGATE_EXCEPTION"
           ]
         },
         "level": {
@@ -1832,6 +2098,12 @@
         },
         "validationPath": {
           "type": "string"
+        },
+        "thresholds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TimeSeriesThresholdDTO"
+          }
         },
         "included": {
           "type": "boolean",
@@ -1867,9 +2139,6 @@
           "items": {
             "$ref": "#/definitions/TimeSeriesThreshold"
           }
-        },
-        "dto": {
-          "$ref": "#/definitions/MetricDefinitionDTO"
         }
       }
     },
@@ -2006,6 +2275,29 @@
         }
       }
     },
+    "RestResponseListMetricPackDTO": {
+      "type": "object",
+      "properties": {
+        "metaData": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          }
+        },
+        "resource": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MetricPackDTO"
+          }
+        },
+        "responseMessages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResponseMessage"
+          }
+        }
+      }
+    },
     "TimeSeriesThresholdCriteria": {
       "type": "object",
       "properties": {
@@ -2023,29 +2315,6 @@
         },
         "criteria": {
           "type": "string"
-        }
-      }
-    },
-    "RestResponseListMetricPack": {
-      "type": "object",
-      "properties": {
-        "metaData": {
-          "type": "object",
-          "additionalProperties": {
-            "type": "object"
-          }
-        },
-        "resource": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/MetricPack"
-          }
-        },
-        "responseMessages": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/ResponseMessage"
-          }
         }
       }
     },
@@ -2144,6 +2413,41 @@
         }
       }
     },
+    "TimeSeriesThresholdDTO": {
+      "type": "object",
+      "properties": {
+        "accountId": {
+          "type": "string"
+        },
+        "projectIdentifier": {
+          "type": "string"
+        },
+        "dataSourceType": {
+          "type": "string",
+          "enum": ["APP_DYNAMICS", "SPLUNK"]
+        },
+        "metricPackIdentifier": {
+          "type": "string"
+        },
+        "metricName": {
+          "type": "string"
+        },
+        "metricType": {
+          "type": "string",
+          "enum": ["INFRA", "RESP_TIME", "THROUGHPUT", "ERROR", "APDEX"]
+        },
+        "metricGroupName": {
+          "type": "string"
+        },
+        "action": {
+          "type": "string",
+          "enum": ["IGNORE", "FAIL"]
+        },
+        "criteria": {
+          "$ref": "#/definitions/TimeSeriesThresholdCriteria"
+        }
+      }
+    },
     "MetricPack": {
       "type": "object",
       "required": ["category", "dataSourceType"],
@@ -2182,32 +2486,6 @@
           "items": {
             "$ref": "#/definitions/MetricDefinition"
           }
-        },
-        "dto": {
-          "$ref": "#/definitions/MetricPackDTO"
-        }
-      }
-    },
-    "RestResponseListString": {
-      "type": "object",
-      "properties": {
-        "metaData": {
-          "type": "object",
-          "additionalProperties": {
-            "type": "object"
-          }
-        },
-        "resource": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "responseMessages": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/ResponseMessage"
-          }
         }
       }
     },
@@ -2225,6 +2503,29 @@
           "uniqueItems": true,
           "items": {
             "$ref": "#/definitions/AppDynamicsTier"
+          }
+        },
+        "responseMessages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResponseMessage"
+          }
+        }
+      }
+    },
+    "RestResponseListString": {
+      "type": "object",
+      "properties": {
+        "metaData": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          }
+        },
+        "resource": {
+          "type": "array",
+          "items": {
+            "type": "string"
           }
         },
         "responseMessages": {
@@ -2306,6 +2607,10 @@
         "dataCollectionDsl": {
           "type": "string"
         },
+        "collectHostData": {
+          "type": "boolean",
+          "default": false
+        },
         "verificationType": {
           "type": "string",
           "enum": ["TIME_SERIES", "LOG"]
@@ -2323,8 +2628,9 @@
       "required": [
         "accountId",
         "category",
-        "connectorId",
+        "connectorIdentifier",
         "envIdentifier",
+        "orgIdentifier",
         "projectIdentifier",
         "serviceIdentifier",
         "verificationType"
@@ -2352,7 +2658,7 @@
         "accountId": {
           "type": "string"
         },
-        "connectorId": {
+        "connectorIdentifier": {
           "type": "string"
         },
         "serviceIdentifier": {
@@ -2362,6 +2668,9 @@
           "type": "string"
         },
         "projectIdentifier": {
+          "type": "string"
+        },
+        "orgIdentifier": {
           "type": "string"
         },
         "category": {

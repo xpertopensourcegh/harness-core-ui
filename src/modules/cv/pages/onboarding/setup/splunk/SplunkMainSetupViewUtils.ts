@@ -1,8 +1,9 @@
-import type { SplunkSavedSearch, DSConfig } from '@wings-software/swagger-ts/definitions'
+import type { SplunkSavedSearch } from '@wings-software/swagger-ts/definitions'
 import type { SelectOption } from '@wings-software/uikit'
 import { Utils } from '@wings-software/uikit'
 import cloneDeep from 'lodash/cloneDeep'
 import type { YAxisOptions, XAxisOptions } from 'highcharts'
+import type { DSConfig } from 'services/cv'
 import i18n from './SplunkMainSetupView.i18n'
 
 export const SplunkColumnChartOptions: Highcharts.Options = {
@@ -90,7 +91,8 @@ export function createDefaultSplunkDSConfig(
   accountId: string,
   dataSourceId: string,
   productName: string,
-  projectId: string,
+  projectIdentifier: string,
+  orgIdentifier: string,
   queryName?: string,
   query?: string
 ): SplunkDSConfig {
@@ -100,9 +102,10 @@ export function createDefaultSplunkDSConfig(
     serviceInstanceIdentifier: '',
     eventType: i18n.splunkEntityTypeOptions.quality,
     type: 'SPLUNK',
-    projectIdentifier: projectId,
+    projectIdentifier,
+    orgIdentifier,
     accountId,
-    connectorId: dataSourceId,
+    connectorIdentifier: dataSourceId,
     productName,
     query,
     id: Utils.randomId(),
@@ -116,14 +119,22 @@ export function createDefaultConfigObjectBasedOnSelectedQueries(
   dataSourceId: string,
   accId: string,
   productName: string,
-  projectId: string
+  projectIdentifier: string,
+  orgIdentifier: string
 ): SplunkDSConfig[] {
   const defaultQueries = queries?.map(query => {
-    return createDefaultSplunkDSConfig(accId, dataSourceId, productName, projectId, query.label, query.value as string)
+    return createDefaultSplunkDSConfig(
+      accId,
+      dataSourceId,
+      productName,
+      projectIdentifier,
+      query.label,
+      query.value as string
+    )
   })
 
   if (!defaultQueries?.length) {
-    defaultQueries.push(createDefaultSplunkDSConfig(accId, dataSourceId, productName, projectId, undefined, undefined))
+    defaultQueries.push(createDefaultSplunkDSConfig(accId, dataSourceId, productName, projectIdentifier, orgIdentifier))
   }
 
   return defaultQueries

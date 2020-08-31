@@ -143,7 +143,7 @@ async function loadAppDTiers(
     return { tierList: [] }
   }
   const cachedTierOptions = await dbInstance?.get(CVObjectStoreNames.APPD_TIERS, [appId, dataSourceId])
-  if (cachedTierOptions) {
+  if (cachedTierOptions?.tiers?.length) {
     return { tierList: cachedTierOptions.tiers }
   }
 

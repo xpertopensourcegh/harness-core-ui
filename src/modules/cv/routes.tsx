@@ -84,7 +84,7 @@ export const routeCVOnBoardingSetup: Route<{ dataSourceType: string; projectIden
         : routeCVHome.path
     ),
 
-  component: React.lazy(() => import('./pages/onboarding/BaseOnBoardingSetupPage/BaseOnBoardingSetupPage')),
+  component: React.lazy(() => import('./pages/onboarding/setup/BaseOnBoardingSetupPage')),
   module: ModuleName.CV
 }
 
@@ -105,7 +105,9 @@ export const routeCVDataSourcesProductPage: Route<{
         ? `/cv-onboarding/${dataSourceType}/product/org/${orgId}/project/${projectIdentifier}`
         : routeCVHome.path
     ),
-  component: React.lazy(() => import('./pages/datasourceproducts/DataSourceProductPage/DataSourceProductPage')),
+  component: React.lazy(() =>
+    import('./pages/onboarding/data-source-products/DataSourceProductPage/DataSourceProductPage')
+  ),
   module: ModuleName.CV
 }
 
@@ -122,7 +124,7 @@ export const routeCVSplunkInputTypePage: Route<{ dataSourceType: string; project
         ? `/cv-onboarding/${dataSourceType}/input-type/org/${orgId}/project/${projectIdentifier}`
         : routeCVHome.path
     ),
-  component: React.lazy(() => import('./pages/splunk-input-type/SplunkInputType')),
+  component: React.lazy(() => import('./pages/onboarding/splunk-input-type/SplunkInputType')),
   module: ModuleName.CV
 }
 
@@ -144,7 +146,7 @@ export const routeCVDataSourcesEntityPage: Route<{
         : routeCVHome.path
     ),
   component: React.lazy(() => {
-    return import('./pages/listEntitySelect/DataSourceListEntityPage/DataSourceListEntityPage')
+    return import('./pages/onboarding/list-entity-select/DataSourceListEntityPage/DataSourceListEntityPage')
   }),
   module: ModuleName.CV
 }

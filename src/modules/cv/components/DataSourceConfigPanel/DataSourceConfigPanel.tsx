@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react'
 import { CollapseListPanel, CollapseListPanelProps, Intent } from '@wings-software/uikit'
-import type { DSConfig } from '@wings-software/swagger-ts/definitions'
 import type { ListPanelInterface } from '@wings-software/uikit/dist/components/Collapse/CollapseListPanel'
 import { connect, FormikContext } from 'formik'
 import { CVNextGenCVConfigService } from 'modules/cv/services'
 import DataSourcePanelStatusHeader from 'modules/cv/components/DataSourcePanelStatusHeader/DataSourcePanelStatusHeader'
+import type { DSConfig } from 'services/cv'
 import i18n from './DataSourceConfigPanel.i18n'
 
 import css from './DataSourceConfigPanel.module.scss'
@@ -126,7 +126,7 @@ const DataSourceConfigPanel: React.FC<DataSourceConfigPanelProps> = (props): JSX
     if (configData.identifier) {
       removeDataSourceConfig(
         accountId || '',
-        configData.connectorId || '',
+        configData.connectorIdentifier || '',
         configData.identifier || '',
         orgId,
         configData.projectIdentifier || '',

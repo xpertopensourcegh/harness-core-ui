@@ -6,19 +6,21 @@ import { getConfig } from '../config.js'
 
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
 
-export interface MetricPackDTO {
-  accountId?: string
-  projectIdentifier?: string
-  dataSourceType?: 'APP_DYNAMICS' | 'SPLUNK'
-  identifier?: string
-  metrics?: MetricDefinitionDTO[]
-}
-
 export interface AppdynamicsMetricValueValidationResponse {
   metricName?: string
   apiResponseStatus?: 'SUCCESS' | 'NO_DATA' | 'FAILED'
   value?: number
   errorMessage?: string
+}
+
+export interface MetricPackDTO {
+  accountId?: string
+  projectIdentifier?: string
+  dataSourceType?: 'APP_DYNAMICS' | 'SPLUNK'
+  identifier?: string
+  category?: 'PERFORMANCE' | 'QUALITY' | 'RESOURCES'
+  metrics?: MetricDefinitionDTO[]
+  thresholds?: TimeSeriesThresholdDTO[]
 }
 
 export interface TimeSeriesTestDataDTO {
@@ -91,9 +93,23 @@ export interface RestResponseListTimeSeriesMetricDefinition {
 export interface TimeSeriesDataCollectionRecord {
   accountId?: string
   cvConfigId?: string
+  verificationTaskId?: string
   host?: string
   timeStamp?: number
   metricValues?: TimeSeriesDataRecordMetricValue[]
+}
+
+export interface ActivityDTO {
+  accountIdentifier: string
+  projectIdentifier: string
+  orgIdentifier: string
+  serviceIdentifier?: string
+  environmentIdentifier: string
+  name: string
+  verificationJobsToTrigger?: string[]
+  activityStartTime: number
+  activityEndTime?: number
+  type?: 'DEPLOYMENT' | 'INFRASTRUCTURE' | 'CUSTOM'
 }
 
 export interface SplunkSampleResponse {
@@ -182,9 +198,10 @@ export interface SplunkValidationResponse {
 export interface DSConfig {
   identifier?: string
   accountId?: string
+  orgIdentifier?: string
   projectIdentifier?: string
   productName?: string
-  connectorId?: string
+  connectorIdentifier?: string
   envIdentifier?: string
   type?: 'APP_DYNAMICS' | 'SPLUNK'
 }
@@ -416,6 +433,8 @@ export interface ResponseMessage {
     | 'GIT_UNSEEN_REMOTE_HEAD_COMMIT'
     | 'TIMEOUT_ENGINE_EXCEPTION'
     | 'NO_AVAILABLE_DELEGATES'
+    | 'NO_INSTALLED_DELEGATES'
+    | 'DUPLICATE_DELEGATE_EXCEPTION'
   level?: 'INFO' | 'ERROR'
   message?: string
   exception?: Throwable
@@ -426,6 +445,7 @@ export interface MetricDefinitionDTO {
   type?: 'INFRA' | 'RESP_TIME' | 'THROUGHPUT' | 'ERROR' | 'APDEX'
   path?: string
   validationPath?: string
+  thresholds?: TimeSeriesThresholdDTO[]
   included?: boolean
 }
 
@@ -438,7 +458,6 @@ export interface MetricDefinition {
   name?: string
   included?: boolean
   thresholds?: TimeSeriesThreshold[]
-  dto?: MetricDefinitionDTO
 }
 
 export interface AppdynamicsValidationResponse {
@@ -489,19 +508,19 @@ export interface SampleLog {
   timestamp?: number
 }
 
+export interface RestResponseListMetricPackDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: MetricPackDTO[]
+  responseMessages?: ResponseMessage[]
+}
+
 export interface TimeSeriesThresholdCriteria {
   type?: 'RATIO' | 'DELTA' | 'ABSOLUTE'
   action?: 'FAIL_IMMEDIATELY' | 'FAIL_AFTER_OCCURRENCES' | 'FAIL_AFTER_CONSECUTIVE_OCCURRENCES'
   occurrenceCount?: number
   criteria?: string
-}
-
-export interface RestResponseListMetricPack {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: MetricPack[]
-  responseMessages?: ResponseMessage[]
 }
 
 export interface RestResponseBoolean {
@@ -537,6 +556,18 @@ export interface TimeSeriesDataRecordMetricValue {
   timeSeriesValues?: TimeSeriesDataRecordGroupValue[]
 }
 
+export interface TimeSeriesThresholdDTO {
+  accountId?: string
+  projectIdentifier?: string
+  dataSourceType?: 'APP_DYNAMICS' | 'SPLUNK'
+  metricPackIdentifier?: string
+  metricName?: string
+  metricType?: 'INFRA' | 'RESP_TIME' | 'THROUGHPUT' | 'ERROR' | 'APDEX'
+  metricGroupName?: string
+  action?: 'IGNORE' | 'FAIL'
+  criteria?: TimeSeriesThresholdCriteria
+}
+
 export interface MetricPack {
   uuid?: string
   createdAt?: number
@@ -547,15 +578,6 @@ export interface MetricPack {
   identifier?: string
   category: 'PERFORMANCE' | 'QUALITY' | 'RESOURCES'
   metrics?: MetricDefinition[]
-  dto?: MetricPackDTO
-}
-
-export interface RestResponseListString {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: string[]
-  responseMessages?: ResponseMessage[]
 }
 
 export interface RestResponseSetAppDynamicsTier {
@@ -563,6 +585,14 @@ export interface RestResponseSetAppDynamicsTier {
     [key: string]: { [key: string]: any }
   }
   resource?: AppDynamicsTier[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListString {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: string[]
   responseMessages?: ResponseMessage[]
 }
 
@@ -594,6 +624,7 @@ export interface Bar {
 
 export interface DataCollectionInfo {
   dataCollectionDsl?: string
+  collectHostData?: boolean
   verificationType?: 'TIME_SERIES' | 'LOG'
   dslEnvVariables?: {
     [key: string]: { [key: string]: any }
@@ -607,10 +638,11 @@ export interface CVConfig {
   lastUpdatedAt?: number
   verificationType: 'TIME_SERIES' | 'LOG'
   accountId: string
-  connectorId: string
+  connectorIdentifier: string
   serviceIdentifier: string
   envIdentifier: string
   projectIdentifier: string
+  orgIdentifier: string
   category: 'PERFORMANCE' | 'QUALITY' | 'RESOURCES'
   dataCollectionTaskId?: string
   productName?: string
@@ -634,6 +666,8 @@ export type CVConfigRequestBody = CVConfig
 export interface GetAppDynamicsApplicationsQueryParams {
   accountId: string
   connectorId: string
+  orgIdentifier: string
+  projectIdentifier: string
 }
 
 export type GetAppDynamicsApplicationsProps = Omit<
@@ -662,6 +696,7 @@ export const useGetAppDynamicsApplications = (props: UseGetAppDynamicsApplicatio
 
 export interface GetAppDynamicsMetricDataQueryParams {
   accountId: string
+  orgIdentifier: string
   projectIdentifier: string
   connectorId: string
   appdAppId: number
@@ -718,6 +753,8 @@ export const useGetAppDynamicsMetricData = (props: UseGetAppDynamicsMetricDataPr
 export interface GetAppDynamicsTiersQueryParams {
   accountId: string
   connectorId: string
+  orgIdentifier: string
+  projectIdentifier: string
   appDynamicsAppId: number
 }
 
@@ -747,7 +784,7 @@ export const useGetAppDynamicsTiers = (props: UseGetAppDynamicsTiersProps) =>
 
 export interface GetDataSourceCVConfigsQueryParams {
   accountId?: string
-  connectorId?: string
+  connectorIdentifier?: string
   productName?: string
 }
 
@@ -806,7 +843,7 @@ export const useSaveDataSourceCVConfig = (props: UseSaveDataSourceCVConfigProps)
 
 export interface DeleteByGroupQueryParams {
   accountId?: string
-  connectorId?: string
+  connectorIdentifier?: string
   productName?: string
   identifier?: string
 }
@@ -840,12 +877,12 @@ export interface GetMetricPacksQueryParams {
 }
 
 export type GetMetricPacksProps = Omit<
-  GetProps<RestResponseListMetricPack, unknown, GetMetricPacksQueryParams, void>,
+  GetProps<RestResponseListMetricPackDTO, unknown, GetMetricPacksQueryParams, void>,
   'path'
 >
 
 export const GetMetricPacks = (props: GetMetricPacksProps) => (
-  <Get<RestResponseListMetricPack, unknown, GetMetricPacksQueryParams, void>
+  <Get<RestResponseListMetricPackDTO, unknown, GetMetricPacksQueryParams, void>
     path={`/metric-pack`}
     base={getConfig('cv-nextgen/api')}
     {...props}
@@ -853,12 +890,12 @@ export const GetMetricPacks = (props: GetMetricPacksProps) => (
 )
 
 export type UseGetMetricPacksProps = Omit<
-  UseGetProps<RestResponseListMetricPack, unknown, GetMetricPacksQueryParams, void>,
+  UseGetProps<RestResponseListMetricPackDTO, unknown, GetMetricPacksQueryParams, void>,
   'path'
 >
 
 export const useGetMetricPacks = (props: UseGetMetricPacksProps) =>
-  useGet<RestResponseListMetricPack, unknown, GetMetricPacksQueryParams, void>(`/metric-pack`, {
+  useGet<RestResponseListMetricPackDTO, unknown, GetMetricPacksQueryParams, void>(`/metric-pack`, {
     base: getConfig('cv-nextgen/api'),
     ...props
   })
@@ -898,6 +935,8 @@ export const useSaveMetricPacks = (props: UseSaveMetricPacksProps) =>
 export interface GetSplunkValidationQueryParams {
   accountId: string
   connectorId: string
+  orgIdentifier: string
+  projectIdentifier: string
   query: string
   requestGuid: string
 }
@@ -929,6 +968,8 @@ export const useGetSplunkValidation = (props: UseGetSplunkValidationProps) =>
 export interface GetSplunkSavedSearchesQueryParams {
   accountId?: string
   connectorId?: string
+  orgIdentifier: string
+  projectIdentifier: string
   requestGuid: string
 }
 
@@ -956,7 +997,7 @@ export const useGetSplunkSavedSearches = (props: UseGetSplunkSavedSearchesProps)
     { base: getConfig('cv-nextgen/api'), ...props }
   )
 
-export interface GetMetricDefinitionsAsGroupQueryParams {
+export interface GetMetricDefinitionsMetricGroupDataQueryParams {
   accountId: string
   cvConfigId: string
   startTimeEpochMillis: number
@@ -965,55 +1006,55 @@ export interface GetMetricDefinitionsAsGroupQueryParams {
   groupNameList: string[]
 }
 
-export type GetMetricDefinitionsAsGroupProps = Omit<
-  GetProps<RestResponseTimeSeriesTestDataDTO, unknown, GetMetricDefinitionsAsGroupQueryParams, void>,
+export type GetMetricDefinitionsMetricGroupDataProps = Omit<
+  GetProps<RestResponseTimeSeriesTestDataDTO, unknown, GetMetricDefinitionsMetricGroupDataQueryParams, void>,
   'path'
 >
 
-export const GetMetricDefinitionsAsGroup = (props: GetMetricDefinitionsAsGroupProps) => (
-  <Get<RestResponseTimeSeriesTestDataDTO, unknown, GetMetricDefinitionsAsGroupQueryParams, void>
+export const GetMetricDefinitionsMetricGroupData = (props: GetMetricDefinitionsMetricGroupDataProps) => (
+  <Get<RestResponseTimeSeriesTestDataDTO, unknown, GetMetricDefinitionsMetricGroupDataQueryParams, void>
     path={`/timeseries/metric-group-data`}
     base={getConfig('cv-nextgen/api')}
     {...props}
   />
 )
 
-export type UseGetMetricDefinitionsAsGroupProps = Omit<
-  UseGetProps<RestResponseTimeSeriesTestDataDTO, unknown, GetMetricDefinitionsAsGroupQueryParams, void>,
+export type UseGetMetricDefinitionsMetricGroupDataProps = Omit<
+  UseGetProps<RestResponseTimeSeriesTestDataDTO, unknown, GetMetricDefinitionsMetricGroupDataQueryParams, void>,
   'path'
 >
 
-export const useGetMetricDefinitionsAsGroup = (props: UseGetMetricDefinitionsAsGroupProps) =>
-  useGet<RestResponseTimeSeriesTestDataDTO, unknown, GetMetricDefinitionsAsGroupQueryParams, void>(
+export const useGetMetricDefinitionsMetricGroupData = (props: UseGetMetricDefinitionsMetricGroupDataProps) =>
+  useGet<RestResponseTimeSeriesTestDataDTO, unknown, GetMetricDefinitionsMetricGroupDataQueryParams, void>(
     `/timeseries/metric-group-data`,
     { base: getConfig('cv-nextgen/api'), ...props }
   )
 
-export interface GetMetricDefinitionsQueryParams {
+export interface GetMetricDefinitionsMetricTemplateQueryParams {
   accountId: string
   cvConfigId: string
 }
 
-export type GetMetricDefinitionsProps = Omit<
-  GetProps<RestResponseListTimeSeriesMetricDefinition, unknown, GetMetricDefinitionsQueryParams, void>,
+export type GetMetricDefinitionsMetricTemplateProps = Omit<
+  GetProps<RestResponseListTimeSeriesMetricDefinition, unknown, GetMetricDefinitionsMetricTemplateQueryParams, void>,
   'path'
 >
 
-export const GetMetricDefinitions = (props: GetMetricDefinitionsProps) => (
-  <Get<RestResponseListTimeSeriesMetricDefinition, unknown, GetMetricDefinitionsQueryParams, void>
+export const GetMetricDefinitionsMetricTemplate = (props: GetMetricDefinitionsMetricTemplateProps) => (
+  <Get<RestResponseListTimeSeriesMetricDefinition, unknown, GetMetricDefinitionsMetricTemplateQueryParams, void>
     path={`/timeseries/metric-template`}
     base={getConfig('cv-nextgen/api')}
     {...props}
   />
 )
 
-export type UseGetMetricDefinitionsProps = Omit<
-  UseGetProps<RestResponseListTimeSeriesMetricDefinition, unknown, GetMetricDefinitionsQueryParams, void>,
+export type UseGetMetricDefinitionsMetricTemplateProps = Omit<
+  UseGetProps<RestResponseListTimeSeriesMetricDefinition, unknown, GetMetricDefinitionsMetricTemplateQueryParams, void>,
   'path'
 >
 
-export const useGetMetricDefinitions = (props: UseGetMetricDefinitionsProps) =>
-  useGet<RestResponseListTimeSeriesMetricDefinition, unknown, GetMetricDefinitionsQueryParams, void>(
+export const useGetMetricDefinitionsMetricTemplate = (props: UseGetMetricDefinitionsMetricTemplateProps) =>
+  useGet<RestResponseListTimeSeriesMetricDefinition, unknown, GetMetricDefinitionsMetricTemplateQueryParams, void>(
     `/timeseries/metric-template`,
     { base: getConfig('cv-nextgen/api'), ...props }
   )
