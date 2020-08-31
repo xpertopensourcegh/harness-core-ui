@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react'
 import { Text, Layout, Color, Icon, Button, Popover } from '@wings-software/uikit'
 import type { CellProps, Renderer, Column } from 'react-table'
-import { Menu, Classes, Position } from '@blueprintjs/core'
+import { Menu, Classes, Position, PopoverInteractionKind } from '@blueprintjs/core'
 import { useParams, useHistory } from 'react-router-dom'
 import ReactTimeago from 'react-timeago'
 import { ConnectorSummaryDTO, useDeleteConnector, NGPageResponseConnectorSummaryDTO } from 'services/cd-ng'
@@ -10,6 +10,8 @@ import { useConfirmationDialog } from 'modules/common/exports'
 import { useToaster } from 'modules/common/components/Toaster/useToaster'
 import { routeConnectorDetails } from 'modules/dx/routes'
 import TagsPopover from 'modules/common/components/TagsPopover/TagsPopover'
+import VerifyOutOfClusterDelegate from 'modules/dx/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
+import VerifyExistingDelegate from 'modules/dx/common/VerfiyExistingDelegate/VerifyExistingDelegate'
 import { getIconByType } from '../utils/ConnectorUtils'
 
 import i18n from './ConnectorsListView.i18n'
@@ -29,7 +31,7 @@ const RenderColumnConnector: Renderer<CellProps<ConnectorSummaryDTO>> = ({ row }
   const data = row.original
   return (
     <Layout.Horizontal spacing="small">
-      <Icon name={getIconByType(data.type as string)} size={30}></Icon>
+      <Icon name={getIconByType(data.type)} size={30}></Icon>
       <div>
         <Layout.Horizontal spacing="small">
           <Text color={Color.BLACK}>{data.name}</Text>
@@ -61,19 +63,76 @@ const RenderColumnActivity: Renderer<CellProps<ConnectorSummaryDTO>> = ({ row })
 }
 const RenderColumnStatus: Renderer<CellProps<ConnectorSummaryDTO>> = ({ row }) => {
   const data = row.original
+  const [testing, setTesting] = useState(false)
+  const [status, setStatus] = useState(data.status?.status as string)
+  const { accountId, orgIdentifier, projectIdentifier } = useParams()
   return (
-    <Layout.Horizontal spacing="small">
-      {data.status?.status ? (
-        <Text
-          inline
-          icon={data.status.status === 'SUCCESS' ? 'full-circle' : 'warning-sign'}
-          iconProps={{
-            size: data.status.status === 'SUCCESS' ? 6 : 12,
-            color: data.status.status === 'SUCCESS' ? Color.GREEN_500 : Color.RED_500
+    <Layout.Horizontal>
+      {!testing ? (
+        <Layout.Vertical width="100px">
+          <Layout.Horizontal spacing="small">
+            {data.status?.status ? (
+              <Text
+                inline
+                icon={data.status.status === 'SUCCESS' ? 'full-circle' : 'warning-sign'}
+                iconProps={{
+                  size: data.status.status === 'SUCCESS' ? 6 : 12,
+                  color: data.status.status === 'SUCCESS' ? Color.GREEN_500 : Color.RED_500
+                }}
+              >
+                {status === 'SUCCESS' ? i18n.success : i18n.failed}
+              </Text>
+            ) : null}
+          </Layout.Horizontal>
+          {data.status ? (
+            <Text font={{ size: 'small' }} color={Color.GREY_400}>
+              {<ReactTimeago date={data.status?.lastTestedAt || ''} />}
+            </Text>
+          ) : null}
+        </Layout.Vertical>
+      ) : (
+        <Layout.Horizontal>
+          <Popover interactionKind={PopoverInteractionKind.HOVER} position={Position.LEFT_TOP}>
+            <Button intent="primary" minimal loading />
+            <div className={css.testConnectionPop}>
+              {data?.connectorDetails?.delegateName ? (
+                <VerifyExistingDelegate
+                  accountId={accountId}
+                  orgIdentifier={orgIdentifier}
+                  projectIdentifier={projectIdentifier}
+                  connectorName={data.name}
+                  connectorIdentifier={data.identifier}
+                  // inPopover={true}
+                  // setStatus={setStatus}
+                  // setTesting={setTesting}
+                />
+              ) : (
+                <VerifyOutOfClusterDelegate
+                  accountId={accountId}
+                  orgIdentifier={orgIdentifier}
+                  projectIdentifier={projectIdentifier}
+                  connectorName={data.name}
+                  connectorIdentifier={data.identifier}
+                  inPopover={true}
+                  setStatus={setStatus}
+                  setTesting={setTesting}
+                />
+              )}
+            </div>
+          </Popover>
+          <Text style={{ margin: 8 }}>{i18n.TestInProgress}</Text>
+        </Layout.Horizontal>
+      )}
+      {!testing && data.status?.status === 'FAILURE' ? (
+        <Button
+          font="small"
+          className={css.testBtn}
+          text={i18n.TEST_CONNECTION}
+          onClick={e => {
+            e.stopPropagation()
+            setTesting(true)
           }}
-        >
-          {data.status.status === 'SUCCESS' ? i18n.success : i18n.failed}
-        </Text>
+        />
       ) : null}
     </Layout.Horizontal>
   )

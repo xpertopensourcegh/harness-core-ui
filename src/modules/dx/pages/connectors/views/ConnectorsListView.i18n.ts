@@ -8,5 +8,7 @@ export default {
   deleteButton: 'Delete',
   cancelButton: 'Cancel',
   success: 'active',
-  failed: 'error'
+  failed: 'error',
+  TEST_CONNECTION: 'TEST CONNECTION',
+  TestInProgress: 'Test in progress'
 }

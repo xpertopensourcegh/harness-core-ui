@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Layout, Button, TextInput, Icon, Popover, IconName, Text, Color } from '@wings-software/uikit'
 import { useParams } from 'react-router-dom'
 import { IDialogProps, Position, Menu } from '@blueprintjs/core'
-import { useGetConnectorList, ResponseDTONGPageResponseConnectorSummaryDTO } from 'services/cd-ng'
+import { useGetConnectorList, ResponseDTONGPageResponseConnectorSummaryDTO, ConnectorDTO } from 'services/cd-ng'
 import { Connectors, ConnectorInfoText } from 'modules/dx/constants'
 import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
 import type { UseGetMockData } from 'modules/common/utils/testUtils'
@@ -21,7 +21,7 @@ const enum View {
 }
 interface OptionInterface {
   label: string
-  value: string
+  value: ConnectorDTO['type']
   icon: IconName
   onClick?: () => void
   modalProps?: IDialogProps

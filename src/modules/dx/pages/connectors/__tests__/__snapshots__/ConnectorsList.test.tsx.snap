@@ -385,8 +385,17 @@ exports[`Connectors List render 1`] = `
           style="width: 25%;"
         >
           <div
-            class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
-          />
+            class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+          >
+            <div
+              class="Layout---vertical--3Szv StyledProps---main--1Wws"
+              style="width: 100px;"
+            >
+              <div
+                class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+              />
+            </div>
+          </div>
         </div>
         <div
           class="cell"

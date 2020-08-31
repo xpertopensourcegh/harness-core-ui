@@ -2,7 +2,6 @@ import React from 'react'
 import * as moment from 'moment'
 import { Layout, Text, Color } from '@wings-software/uikit'
 import { StringUtils } from 'modules/common/exports'
-import type { ConnectorConnectivityDetails } from 'services/cd-ng'
 import i18n from './ConnectorStats.i18n'
 import css from './ConnectorStats.module.scss'
 
@@ -11,7 +10,7 @@ interface ConnectorStatsProps {
   lastTested: number
   lastUpdated: number
   lastConnected: number
-  status: ConnectorConnectivityDetails
+  status: string
 }
 const TestStatus = {
   SUCCESS: 'SUCCESS',
@@ -54,13 +53,13 @@ const ConnectorStats: React.FC<ConnectorStatsProps> = props => {
                 {item.name === i18n.lastTested && lastTested ? (
                   <Text
                     inline
-                    icon={props.status?.status === TestStatus.SUCCESS ? 'full-circle' : 'warning-sign'}
+                    icon={props.status === TestStatus.SUCCESS ? 'full-circle' : 'warning-sign'}
                     iconProps={{
-                      size: props.status?.status === TestStatus.SUCCESS ? 6 : 12,
-                      color: props.status?.status === TestStatus.SUCCESS ? Color.GREEN_500 : Color.RED_500
+                      size: props.status === TestStatus.SUCCESS ? 6 : 12,
+                      color: props.status === TestStatus.SUCCESS ? Color.GREEN_500 : Color.RED_500
                     }}
                   >
-                    {props.status?.status === TestStatus.SUCCESS ? i18n.success : i18n.failed}
+                    {props.status === TestStatus.SUCCESS ? i18n.success : i18n.failed}
                   </Text>
                 ) : null}
               </Layout.Horizontal>

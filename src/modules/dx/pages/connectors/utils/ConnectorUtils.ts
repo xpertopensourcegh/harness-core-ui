@@ -1,15 +1,26 @@
 import type { IconName } from '@blueprintjs/core'
 import { Connectors, ConnectorInfoText } from 'modules/dx/constants'
-import type { ConnectorSummaryDTO } from 'services/cd-ng'
+import type { ConnectorSummaryDTO, ConnectorDTO } from 'services/cd-ng'
 import type { FormData } from 'modules/dx/interfaces/ConnectorInterface'
-import i18n from './ConnectorUtils.i18n'
 import { AuthTypes, DelegateTypes } from '../Forms/KubeFormHelper'
+import i18n from './ConnectorUtils.i18n'
 
 export const userPasswrdAuthField = (formData: FormData) => {
   return {
     username: formData.username,
     passwordRef: `acc.${formData.passwordRefSecret?.secretId}` // Adding temp on account scope until scoping is done
     // cacert: 'Random'
+  }
+}
+
+// Todo: add scoping
+export const userPasswrd = (authSpec: FormData) => {
+  return {
+    username: authSpec.username,
+    passwordRef: {
+      value: authSpec.passwordRef.split('.')[authSpec.passwordRef.split('.').length - 1],
+      isReference: true
+    }
   }
 }
 
@@ -56,6 +67,21 @@ const buildAuthTypePayload = (formData: FormData) => {
   }
 }
 
+const buildAuthFormData = (type: string, authSpec: FormData) => {
+  switch (type) {
+    case AuthTypes.USER_PASSWORD:
+      return userPasswrd(authSpec)
+    // case AuthTypes.SERVICE_ACCOUNT:
+    //   return serviceAcc(authSpec)
+    // case AuthTypes.OIDC:
+    //   return oidcAuth(authSpec)
+    // case AuthTypes.CLIENT_KEY_CERT:
+    //   return clientKey(authSpec)
+    default:
+      return []
+  }
+}
+
 export const getSpecForDelegateType = (formData: FormData) => {
   const type = formData?.delegateType
   if (type === DelegateTypes.DELEGATE_IN_CLUSTER) {
@@ -73,7 +99,7 @@ export const getSpecForDelegateType = (formData: FormData) => {
   }
 }
 
-export const buildKubPayload = (formData: FormData) => {
+export const buildKubPayload = (formData: FormData): ConnectorDTO => {
   const savedData = {
     name: formData?.name,
     description: formData?.description,
@@ -82,7 +108,7 @@ export const buildKubPayload = (formData: FormData) => {
     // accountIdentifier: 'Test-account',
     // orgIdentifier: 'Devops',
     tags: formData?.tags,
-    type: i18n.K8sCluster,
+    type: Connectors.KUBERNETES_CLUSTER,
     spec: {
       type: formData?.delegateType,
       spec: getSpecForDelegateType(formData)
@@ -164,7 +190,7 @@ export const getDelegateTypeInfo = (delegateInfoSpec: any) => {
     delegateTypeMetaData = {
       masterUrl: delegateInfoSpec?.spec?.masterUrl,
       authType: delegateInfoSpec?.spec?.auth.type,
-      ...delegateInfoSpec?.spec?.auth?.spec
+      ...buildAuthFormData(delegateInfoSpec?.spec?.auth?.type, delegateInfoSpec?.spec?.auth?.spec)
     }
   }
 
@@ -182,16 +208,20 @@ export const buildKubFormData = (connector: any) => {
   }
 }
 
-export const getIconByType = (type: string): IconName => {
+export const getIconByType = (type: ConnectorDTO['type'] | undefined): IconName => {
   switch (type) {
     case Connectors.KUBERNETES_CLUSTER:
       return 'service-kubernetes' as IconName
+    case Connectors.GIT:
+      return 'service-github' as IconName
     case 'Vault': // TODO: use enum when backend fixes it
       return 'key'
     case Connectors.APP_DYNAMICS:
       return 'service-appdynamics' as IconName
     case Connectors.SPLUNK:
       return 'service-splunk' as IconName
+    case Connectors.DOCKER:
+      return 'service-dockerhub' as IconName
     default:
       return '' as IconName
   }

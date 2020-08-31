@@ -3,7 +3,7 @@ import { Layout, Button, Formik, StepProps, FormInput } from '@wings-software/ui
 import * as Yup from 'yup'
 import { Form } from 'formik'
 import { StringUtils, useToaster } from 'modules/common/exports'
-import { useValidateTheIdentifierIsUnique } from 'services/cd-ng'
+import { useValidateTheIdentifierIsUnique, ConnectorConfigDTO } from 'services/cd-ng'
 import type { KubFormData, GITFormData } from 'modules/dx/interfaces/ConnectorInterface'
 import { getHeadingByType, getConnectorTextByType } from '../../../../pages/connectors/utils/ConnectorHelper'
 import i18n from './ConnectorDetailsStep.i18n'
@@ -13,7 +13,7 @@ interface ConnectorDetailsStepProps extends StepProps<unknown> {
   accountId: string
   projectIdentifier?: string
   orgIdentifier?: string
-  type: string
+  type: ConnectorConfigDTO['type']
   name: string
   setFormData: (formData: KubFormData | GITFormData | undefined) => void
   formData: KubFormData | GITFormData | undefined

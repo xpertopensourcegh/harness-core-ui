@@ -149,7 +149,6 @@ const formatDelegateList = (listData: string[] | undefined) => {
   })
 }
 
-// have put any as type check was failing due to unknown reason
 const selectExistingDelegate = (delegateList: RestResponseListString | null) => {
   const listData = delegateList?.resource
   const delegateListFiltered = formatDelegateList(listData) || [{ label: '', value: '' }]
@@ -223,11 +222,10 @@ const SecondStep = (props: SecondStepProps) => {
     queryParams: { accountId },
     lazy: true
   })
-  //  Added scoping once BE fixes it
   const { mutate: createConnector } = useCreateConnector({ accountIdentifier: accountId })
-  const handleCreate = async (data: any) => {
+  const handleCreate = async (data: ConnectorRequestDTORequestBody) => {
     try {
-      await createConnector(data as ConnectorRequestDTORequestBody)
+      await createConnector(data)
       props.nextStep?.()
     } catch (e) {
       showError(e.message)
@@ -332,18 +330,18 @@ const IntermediateStep: React.FC<IntermediateStepProps> = props => {
   const { mutate: createSecret } = usePostSecretText({})
 
   // BE type need to be fixed
-  const handleCreate = async (data: any) => {
+  const handleCreate = async (data: ConnectorRequestDTORequestBody) => {
     try {
-      await createConnector(data as ConnectorRequestDTORequestBody)
+      await createConnector(data)
       props.nextStep?.()
     } catch (e) {
       showError(e.message)
     }
   }
 
-  const handleUpdate = async (data: any) => {
+  const handleUpdate = async (data: ConnectorRequestDTORequestBody) => {
     try {
-      await updateConnector(data as ConnectorRequestDTORequestBody)
+      await updateConnector(data)
       props.nextStep?.()
     } catch (error) {
       showError(error.message)

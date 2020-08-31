@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import ReactTimeago from 'react-timeago'
 import { StepsProgress, Layout, Button, Text, Intent, Color } from '@wings-software/uikit'
 import { useGetDelegatesStatus, RestResponseDelegateStatus } from 'services/portal'
-import { useGetTestConnectionResult, ConnectorConnectivityDetails } from 'services/cd-ng'
+import { useGetTestConnectionResult } from 'services/cd-ng'
 import { useToaster } from 'modules/common/exports'
 import type { StepDetails } from 'modules/dx/interfaces/ConnectorInterface'
 import i18n from './VerifyOutOfClusterDelegate.i18n'
@@ -18,12 +18,12 @@ interface VerifyOutOfClusterDelegateProps {
   connectorIdentifier?: string
   name?: string
   onSuccess?: () => void
-  renderInModal: boolean
+  renderInModal?: boolean
   setIsEditMode?: () => void
   setLastTested?: (val: number) => void
   setLastConnected?: (val: number) => void
   inPopover?: boolean
-  setStatus?: (val: ConnectorConnectivityDetails) => void
+  setStatus?: (val: string) => void
   setTesting?: (val: boolean) => void
 }
 
@@ -165,16 +165,16 @@ const VerifyOutOfClusterDelegate = (props: VerifyOutOfClusterDelegateProps) => {
       } else if (stepDetails.status === 'DONE') {
         props.setLastTested?.(testConnectionResponse?.data?.testedAt || 0)
         props.setLastConnected?.(testConnectionResponse?.data?.testedAt || 0)
-        props.setStatus?.({ status: 'SUCCESS', lastTestedAt: testConnectionResponse?.data?.testedAt })
+        props.setStatus?.('SUCCESS')
         if (props.inPopover) {
           props.setTesting?.(false)
         }
       }
     }
     if (stepDetails.intent === Intent.DANGER) {
-      props.setLastTested?.(testConnectionResponse?.data?.testedAt || 0)
+      props.setLastTested?.(new Date().getTime() || 0)
       props.setTesting?.(false)
-      props.setStatus?.({ status: 'FAILURE', lastTestedAt: testConnectionResponse?.data?.testedAt })
+      props.setStatus?.('FAILURE')
     }
   }, [stepDetails, delegateStatus, testConnectionResponse, error, errorTesting])
   return (

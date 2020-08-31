@@ -23,7 +23,7 @@ import { CVProviders, VerificationTypeToRouteVerificationType } from 'modules/cv
 import { routeParams } from 'framework/exports'
 import { useIndexedDBHook, CVObjectStoreNames } from 'modules/cv/hooks/IndexedDBHook/IndexedDBHook'
 import { CreateConnectorWizard } from 'modules/dx/components/connectors/CreateConnectorWizard/CreateConnectorWizard'
-import { useDeleteConnector, useGetConnectorList, ConnectorConfigDTO } from 'services/cd-ng'
+import { useDeleteConnector, useGetConnectorList, ConnectorConfigDTO, ConnectorDTO } from 'services/cd-ng'
 import type { DSConfig } from 'services/cv'
 import i18n from './DataSources.i18n'
 import css from './DataSources.module.scss'
@@ -181,7 +181,7 @@ function moveToDataSourceProductPage(
 
 function Providers(props: ProvidersProps): JSX.Element {
   const { accountId, projectId, orgId, dbInstance } = props
-  const [connectorType, setConnectorType] = useState(CVProviders.APP_DYNAMICS.value)
+  const [connectorType, setConnectorType] = useState<ConnectorDTO['type']>('AppDynamics')
   const history = useHistory()
 
   const [showConnectorModal, hideConnectorModal] = useModalHook(
@@ -223,7 +223,7 @@ function Providers(props: ProvidersProps): JSX.Element {
           key={key}
           item={(i18n.connectors as any)[key]}
           onClick={() => {
-            setConnectorType(key)
+            setConnectorType(key as ConnectorDTO['type']) // Remove after adding proper types to connector array
             showConnectorModal()
           }}
         />

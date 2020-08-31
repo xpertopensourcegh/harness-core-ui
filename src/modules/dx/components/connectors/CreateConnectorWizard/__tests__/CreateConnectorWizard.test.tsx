@@ -1,14 +1,16 @@
 import React from 'react'
 
 import { render, queryByText } from '@testing-library/react'
-import i18n from '../CreateConnectorWizard.i18n'
+import type { ConnectorDTO } from 'services/cd-ng'
 import { CreateConnectorWizard } from '../CreateConnectorWizard'
+
+import i18n from '../CreateConnectorWizard.i18n'
 
 const props = {
   accountId: 'accountId',
   orgIdentifier: 'orgId',
   projectIdentifier: 'projectId',
-  type: 'K8sCluster',
+  type: 'K8sCluster' as ConnectorDTO['type'],
   hideLightModal: jest.fn(),
   onSuccess: jest.fn()
 }

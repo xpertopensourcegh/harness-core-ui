@@ -1,7 +1,12 @@
-export const Connectors = {
+import type { ConnectorDTO } from 'services/cd-ng'
+
+interface ConnectorType {
+  [key: string]: ConnectorDTO['type']
+}
+export const Connectors: ConnectorType = {
   KUBERNETES_CLUSTER: 'K8sCluster',
-  GIT: 'GitConnector',
-  SECRET_MANAGER: 'SECRET_MANAGER',
+  GIT: 'Git',
+  SECRET_MANAGER: 'Vault',
   APP_DYNAMICS: 'AppDynamics',
   SPLUNK: 'Splunk',
   DOCKER: 'DockerRegistry'
