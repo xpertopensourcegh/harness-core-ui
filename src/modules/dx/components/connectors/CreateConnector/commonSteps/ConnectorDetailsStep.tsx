@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { Layout, Button, Formik, StepProps, FormInput } from '@wings-software/uikit'
+import { Layout, Button, Formik, StepProps, FormInput, FormikForm as Form } from '@wings-software/uikit'
 import * as Yup from 'yup'
-import { Form } from 'formik'
 import { StringUtils, useToaster } from 'modules/common/exports'
 import { useValidateTheIdentifierIsUnique, ConnectorConfigDTO } from 'services/cd-ng'
 import type { KubFormData, GITFormData } from 'modules/dx/interfaces/ConnectorInterface'

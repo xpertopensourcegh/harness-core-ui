@@ -7,5 +7,9 @@ export default {
   SSH: 'SSH',
   CONNECT_TEXT: 'How would you like to connect?',
   SSH_ENCRYPTED_KEY: 'SSH Encrypted Key',
-  BRANCH_NAME: 'Branch Name'
+  BRANCH_NAME: 'Branch Name',
+  validation: {
+    connectionType: 'Required',
+    url: 'Url is required'
+  }
 }

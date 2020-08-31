@@ -71,21 +71,80 @@ exports[`Delegate Step Wizard should render Delegate Setup Wizard 1`] = `
           <div
             class="OverlaySpinner---overlaySpinner--3Bs3"
           >
-            <form>
-              <div
-                class="connectorForm"
-              >
+            <form
+              class="FormikForm---main--1N87"
+            >
+              <div>
                 <div
-                  class="InputWithIdentifier---txtNameContainer--20iZ"
+                  class="connectorForm"
                 >
                   <div
+                    class="InputWithIdentifier---txtNameContainer--20iZ"
+                  >
+                    <div
+                      class="bp3-form-group"
+                      data-id="name-0"
+                    >
+                      <label
+                        class="bp3-label"
+                        for="name"
+                      >
+                        Give your Kubernetes Connector a name 
+                         
+                        <span
+                          class="bp3-text-muted"
+                        />
+                      </label>
+                      <div
+                        class="bp3-form-content"
+                      >
+                        <div
+                          class="bp3-input-group"
+                        >
+                          <input
+                            autocomplete="off"
+                            class="bp3-input"
+                            name="name"
+                            type="text"
+                            value=""
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
                     class="bp3-form-group"
+                    data-id="description-1"
                   >
                     <label
                       class="bp3-label"
-                      for="name"
+                      for="description"
                     >
-                      Give your Kubernetes Connector a name 
+                      Description
+                       
+                      <span
+                        class="bp3-text-muted"
+                      />
+                    </label>
+                    <div
+                      class="bp3-form-content"
+                    >
+                      <textarea
+                        autocomplete="off"
+                        class="bp3-input bp3-fill"
+                        name="description"
+                      />
+                    </div>
+                  </div>
+                  <div
+                    class="bp3-form-group tags"
+                    data-id="tags-2"
+                  >
+                    <label
+                      class="bp3-label"
+                      for="tags"
+                    >
+                      Tags
                        
                       <span
                         class="bp3-text-muted"
@@ -95,111 +154,59 @@ exports[`Delegate Step Wizard should render Delegate Setup Wizard 1`] = `
                       class="bp3-form-content"
                     >
                       <div
-                        class="bp3-input-group"
-                      >
-                        <input
-                          autocomplete="off"
-                          class="bp3-input"
-                          name="name"
-                          type="text"
-                          value=""
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  class="bp3-form-group"
-                >
-                  <label
-                    class="bp3-label"
-                    for="description"
-                  >
-                    Description
-                     
-                    <span
-                      class="bp3-text-muted"
-                    />
-                  </label>
-                  <div
-                    class="bp3-form-content"
-                  >
-                    <textarea
-                      autocomplete="off"
-                      class="bp3-input bp3-fill"
-                      name="description"
-                    />
-                  </div>
-                </div>
-                <div
-                  class="bp3-form-group tags"
-                >
-                  <label
-                    class="bp3-label"
-                    for="tags"
-                  >
-                    Tags
-                     
-                    <span
-                      class="bp3-text-muted"
-                    />
-                  </label>
-                  <div
-                    class="bp3-form-content"
-                  >
-                    <div
-                      class="bp3-popover-wrapper TagInput---tagInput--1eAz bp3-fill"
-                    >
-                      <div
-                        class="bp3-popover-target"
+                        class="bp3-popover-wrapper TagInput---tagInput--1eAz bp3-fill"
                       >
                         <div
-                          class=""
+                          class="bp3-popover-target"
                         >
                           <div
-                            class="bp3-input bp3-tag-input bp3-fill bp3-multi-select TagInput---input--2yQS"
+                            class=""
                           >
                             <div
-                              class="bp3-tag-input-values"
+                              class="bp3-input bp3-tag-input bp3-fill bp3-multi-select TagInput---input--2yQS"
                             >
-                              <span
-                                class="bp3-tag bp3-minimal TagInput---tag--2ZBU TagInput---addTagButton--1ENX"
-                                data-tag-index="0"
+                              <div
+                                class="bp3-tag-input-values"
                               >
                                 <span
-                                  class="bp3-text-overflow-ellipsis bp3-fill"
-                                >
-                                  + tag
-                                </span>
-                                <button
-                                  class="bp3-tag-remove"
-                                  type="button"
+                                  class="bp3-tag bp3-minimal TagInput---tag--2ZBU TagInput---addTagButton--1ENX"
+                                  data-tag-index="0"
                                 >
                                   <span
-                                    class="bp3-icon bp3-icon-small-cross"
-                                    icon="small-cross"
+                                    class="bp3-text-overflow-ellipsis bp3-fill"
                                   >
-                                    <svg
-                                      data-icon="small-cross"
-                                      height="16"
-                                      viewBox="0 0 16 16"
-                                      width="16"
-                                    >
-                                      <desc>
-                                        small-cross
-                                      </desc>
-                                      <path
-                                        d="M9.41 8l2.29-2.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L8 6.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42L6.59 8 4.3 10.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71L8 9.41l2.29 2.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L9.41 8z"
-                                        fill-rule="evenodd"
-                                      />
-                                    </svg>
+                                    + tag
                                   </span>
-                                </button>
-                              </span>
-                              <input
-                                class="bp3-input-ghost bp3-multi-select-tag-input-input"
-                                value=""
-                              />
+                                  <button
+                                    class="bp3-tag-remove"
+                                    type="button"
+                                  >
+                                    <span
+                                      class="bp3-icon bp3-icon-small-cross"
+                                      icon="small-cross"
+                                    >
+                                      <svg
+                                        data-icon="small-cross"
+                                        height="16"
+                                        viewBox="0 0 16 16"
+                                        width="16"
+                                      >
+                                        <desc>
+                                          small-cross
+                                        </desc>
+                                        <path
+                                          d="M9.41 8l2.29-2.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L8 6.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42L6.59 8 4.3 10.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71L8 9.41l2.29 2.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L9.41 8z"
+                                          fill-rule="evenodd"
+                                        />
+                                      </svg>
+                                    </span>
+                                  </button>
+                                </span>
+                                <input
+                                  class="bp3-input-ghost bp3-multi-select-tag-input-input"
+                                  value=""
+                                />
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -207,17 +214,17 @@ exports[`Delegate Step Wizard should render Delegate Setup Wizard 1`] = `
                     </div>
                   </div>
                 </div>
-              </div>
-              <button
-                class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws saveBtn"
-                type="submit"
-              >
-                <span
-                  class="bp3-button-text"
+                <button
+                  class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws saveBtn"
+                  type="submit"
                 >
-                  CONTINUE
-                </span>
-              </button>
+                  <span
+                    class="bp3-button-text"
+                  >
+                    CONTINUE
+                  </span>
+                </button>
+              </div>
             </form>
           </div>
         </div>

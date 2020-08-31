@@ -8,5 +8,8 @@ export default {
   },
   STEP_THREE: {
     NAME: 'CREDENTIALS'
+  },
+  STEP_VERIFY: {
+    NAME: 'VERIFY CONNECTION'
   }
 }

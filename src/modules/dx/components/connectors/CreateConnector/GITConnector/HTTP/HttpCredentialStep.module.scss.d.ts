@@ -6,7 +6,6 @@ declare const styles: {
   readonly saveBtn: string
   readonly formWrapper: string
   readonly credForm: string
-  readonly formFields: string
   readonly credWrapper: string
   readonly label: string
   readonly lockIcon: string

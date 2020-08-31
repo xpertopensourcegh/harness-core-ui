@@ -3,7 +3,6 @@ import { Connectors, ConnectorInfoText } from 'modules/dx/constants'
 import type { ConnectorSummaryDTO, ConnectorDTO } from 'services/cd-ng'
 import type { FormData } from 'modules/dx/interfaces/ConnectorInterface'
 import { AuthTypes, DelegateTypes } from '../Forms/KubeFormHelper'
-import i18n from './ConnectorUtils.i18n'
 
 export const userPasswrdAuthField = (formData: FormData) => {
   return {
@@ -125,7 +124,7 @@ export const buildDockerPayload = (formData: FormData) => {
     identifier: formData.identifier,
     orgIdentifier: formData.orgIdentifier,
     tags: formData.tags,
-    type: i18n.DockerConector,
+    type: Connectors.DOCKER,
     spec: {
       dockerRegistryUrl: formData.dockerRegistryUrl,
       authScheme: {
@@ -140,13 +139,11 @@ export const buildDockerPayload = (formData: FormData) => {
 export const getSpecByConnectType = (type: string, formData: FormData) => {
   let referenceField
   if (type === 'Ssh') {
-    referenceField = { sshKeyReference: formData?.sshKeyReference }
+    referenceField = { sshKeyRef: formData?.sshKeyReference }
   } else {
-    referenceField = { passwordReference: formData?.password }
+    referenceField = { passwordRef: `acc.${formData.passwordRefSecret?.secretId}` }
   }
   return {
-    type: formData?.connectionType,
-    url: formData?.url,
     username: formData?.username,
     ...referenceField
   }
@@ -161,8 +158,11 @@ export const buildGITPayload = (formData: FormData) => {
     // accountIdentifier: 'Test-account',
     // orgIdentifier: 'Devops',
     tags: formData?.tags,
-    type: i18n.GitConnector,
+    type: Connectors.GIT,
     spec: {
+      connectionType: formData?.connectionType,
+      branchName: formData.branchName,
+      url: formData.url,
       type: formData?.connectType,
       spec: getSpecByConnectType(formData?.connectType, formData)
       // mocked data untill UX is not provided
