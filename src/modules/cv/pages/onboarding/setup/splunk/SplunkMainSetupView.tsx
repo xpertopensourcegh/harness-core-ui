@@ -444,9 +444,10 @@ function SplunkDataSourceForm(props: SplunkDataSourceFormProps): JSX.Element {
   const { dsConfigs, serviceOptions, envOptions, splunkQueryOptions, pageData, orgId, dbInstance, projectId } = props
   const productName = pageData?.products?.[0]
   const {
-    params: { accountId }
+    params: { accountId },
+    query: { dataSourceId: routeDataSourceId = '' }
   } = routeParams()
-  const dataSourceId = pageData.dataSourceId
+  const dataSourceId = pageData.dataSourceId || (routeDataSourceId as string)
   return (
     <Formik
       validate={validateSplunkConfigs}

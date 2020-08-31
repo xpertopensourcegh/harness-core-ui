@@ -317,9 +317,10 @@ function AppDynamicsDataSourceForm(props: AppDynamicsDataSourceFormProps): JSX.E
   const productName = pageData?.products?.[0]
   const [applicationsToAdd, setApplicationsToAdd] = useState<SelectOption[]>([{ label: i18n.loadingText, value: '' }])
   const {
-    params: { accountId }
+    params: { accountId },
+    query: { dataSourceId: routeDataSourceId = '' }
   } = routeParams()
-  const dataSourceId = pageData.dataSourceId
+  const dataSourceId = pageData.dataSourceId || (routeDataSourceId as string)
 
   useEffect(() => {
     const appList = generateAppDynamicsApplicationsToAdd(configList, appDApplications)
