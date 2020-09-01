@@ -7,8 +7,8 @@ import { Page } from 'modules/common/exports'
 import HeatMap, { CellStatusValues } from 'modules/common/components/HeatMap/HeatMap'
 import TimelineView from 'modules/common/components/TimelineView/TimelineView'
 import { routeParams } from 'framework/exports'
-import DeploymentVerificationDrawer from './drawers/DeploymentVerificationDrawer'
 import { fetchHeatmap } from '../../services/ServicesService'
+import useAnalysisDrillDownDrawer from './analysis-drilldown-view/useAnalysisDrillDownDrawer'
 import styles from './CVServicesPage.module.scss'
 
 const toaster = Toaster.create()
@@ -42,13 +42,13 @@ export default function CVServicesPage() {
       ...getRangeDates(defaultRange.value)
     }
   })
-  const [showDeploymentVerificationDrawer, setShowDeploymentVerificationDrawer] = useState(false)
   const [heatmapData, setHeatmapData] = useState(defaultHeatmapData)
   const [loading, setLoading] = useState(false)
   const {
     params: { accountId, projectIdentifier },
     query: { serviceIdentifier }
   } = routeParams()
+  const { openDrawer } = useAnalysisDrillDownDrawer()
 
   useEffect(() => {
     ;(async () => {
@@ -132,7 +132,16 @@ export default function CVServicesPage() {
                   renderTooltip={() => <div>tooltip</div>}
                   cellClassName={''}
                   cellShapeBreakpoint={0.5}
-                  onCellClick={() => setShowDeploymentVerificationDrawer(true)}
+                  onCellClick={cell =>
+                    openDrawer({
+                      category: 'Performance',
+                      riskScore: 89,
+                      startTime: cell.startTime,
+                      endTime: cell.endTime,
+                      affectedMetrics: ['Throughput', 'Response Time'],
+                      totalAnomalies: '5 logs and 20 metrics'
+                    })
+                  }
                   rowSize={heatMapSize}
                 />
                 <TimelineView
@@ -142,9 +151,6 @@ export default function CVServicesPage() {
                   renderItem={() => <div />}
                 />
               </OverlaySpinner>
-              {showDeploymentVerificationDrawer && (
-                <DeploymentVerificationDrawer onClose={() => setShowDeploymentVerificationDrawer(false)} />
-              )}
             </Container>
           </Container>
         </Container>

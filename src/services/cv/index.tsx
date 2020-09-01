@@ -4,8 +4,6 @@ import React from 'react'
 import { Get, GetProps, useGet, UseGetProps, Mutate, MutateProps, useMutate, UseMutateProps } from 'restful-react'
 import { getConfig } from '../config.js'
 
-export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
-
 export interface AppdynamicsMetricValueValidationResponse {
   metricName?: string
   apiResponseStatus?: 'SUCCESS' | 'NO_DATA' | 'FAILED'
@@ -145,19 +143,19 @@ export interface LogRecordDTO {
   log?: string
 }
 
-export interface RestResponseSetAppdynamicsValidationResponse {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: AppdynamicsValidationResponse[]
-  responseMessages?: ResponseMessage[]
-}
-
 export interface RestResponseOptionalDataCollectionTaskDTO {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
   resource?: DataCollectionTaskDTO
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseSetAppdynamicsValidationResponse {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: AppdynamicsValidationResponse[]
   responseMessages?: ResponseMessage[]
 }
 
@@ -554,6 +552,18 @@ export interface TimeSeriesMetricDefinition {
 export interface TimeSeriesDataRecordMetricValue {
   metricName?: string
   timeSeriesValues?: TimeSeriesDataRecordGroupValue[]
+}
+
+export interface TimeSeriesThresholdDTO {
+  accountId?: string
+  projectIdentifier?: string
+  dataSourceType?: 'APP_DYNAMICS' | 'SPLUNK'
+  metricPackIdentifier?: string
+  metricName?: string
+  metricType?: 'INFRA' | 'RESP_TIME' | 'THROUGHPUT' | 'ERROR' | 'APDEX'
+  metricGroupName?: string
+  action?: 'IGNORE' | 'FAIL'
+  criteria?: TimeSeriesThresholdCriteria
 }
 
 export interface TimeSeriesThresholdDTO {

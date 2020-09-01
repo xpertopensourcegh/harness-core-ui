@@ -71,7 +71,7 @@ export default function CreateSplunkConnector(props: CreateSplunkConnectorProps)
           orgIdentifier={props.orgIdentifier}
           projectIdentifier={props.projectIdentifier}
           type={Connectors.SPLUNK}
-          name={i18n.connectorDetails}
+          name={i18n.wizardStepName.connectorDetails}
           setFormData={setFormData}
           formData={formData}
         />
@@ -79,7 +79,7 @@ export default function CreateSplunkConnector(props: CreateSplunkConnectorProps)
           accountId={props.accountId}
           orgIdentifier={props.orgIdentifier}
           projectIdentifier={props.projectIdentifier}
-          name={i18n.connectionDetails}
+          name={i18n.wizardStepName.credentials}
           setFormData={setFormData}
           formData={formData}
           onSecretCreated={secretCreatedCallback}

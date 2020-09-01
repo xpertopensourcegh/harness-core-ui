@@ -56,10 +56,14 @@ async function initializeCVDB(setDBInstance: (dbInstance?: IDBPDatabase) => void
     const dbInstance = await openDB('CV-INDEXED-DB', SessionToken.getLastTokenSetTime() || new Date().getTime(), {
       upgrade(db) {
         for (const store of OBJECT_STORES) {
-          const dbStore = db.createObjectStore(store.name, store.options)
-          if (store.index) {
-            const { indexName, property, options } = store.index
-            dbStore.createIndex(indexName, property, options)
+          try {
+            const dbStore = db.createObjectStore(store.name, store.options)
+            if (store.index) {
+              const { indexName, property, options } = store.index
+              dbStore.createIndex(indexName, property, options)
+            }
+          } catch (exception) {
+            logger.error(`Exception thrown when attempting to create an object store: ${exception}`)
           }
         }
       },

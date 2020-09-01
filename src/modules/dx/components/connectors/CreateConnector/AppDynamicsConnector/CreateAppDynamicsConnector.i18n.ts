@@ -1,6 +1,8 @@
 export default {
-  connectorDetails: 'Connector Details',
-  connectionDetails: 'Connection Details',
+  wizardStepName: {
+    connectorDetails: 'Connector Details',
+    credentials: 'Credentials'
+  },
   connectionDetailsHeader: 'AppDynamics Connection Details',
   testConnection: 'Test Connection',
   continue: 'Continue',

@@ -35,7 +35,7 @@
       "name": "timeseries"
     },
     {
-      "name": "health"
+      "name": "ds-config"
     },
     {
       "name": "log-record"
@@ -1663,6 +1663,26 @@
         }
       }
     },
+    "RestResponseOptionalDataCollectionTaskDTO": {
+      "type": "object",
+      "properties": {
+        "metaData": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          }
+        },
+        "resource": {
+          "$ref": "#/definitions/DataCollectionTaskDTO"
+        },
+        "responseMessages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResponseMessage"
+          }
+        }
+      }
+    },
     "RestResponseSetAppdynamicsValidationResponse": {
       "type": "object",
       "properties": {
@@ -1678,26 +1698,6 @@
           "items": {
             "$ref": "#/definitions/AppdynamicsValidationResponse"
           }
-        },
-        "responseMessages": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/ResponseMessage"
-          }
-        }
-      }
-    },
-    "RestResponseOptionalDataCollectionTaskDTO": {
-      "type": "object",
-      "properties": {
-        "metaData": {
-          "type": "object",
-          "additionalProperties": {
-            "type": "object"
-          }
-        },
-        "resource": {
-          "$ref": "#/definitions/DataCollectionTaskDTO"
         },
         "responseMessages": {
           "type": "array",
