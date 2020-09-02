@@ -8,6 +8,7 @@ import {
   getSecretFieldValue,
   generateDefaultSecretConfig
 } from 'modules/dx/pages/connectors/utils/ConnectorHelper'
+import type { EncryptedDataDTO } from 'services/cd-ng'
 
 interface ClientKeyCertFieldsProps {
   accountId: string
@@ -16,6 +17,8 @@ interface ClientKeyCertFieldsProps {
   formikProps: FormikProps<unknown>
   name?: string
   onClickCreateSecret: () => void
+  isEditMode?: boolean
+  onEditSecret?: (val: EncryptedDataDTO) => void
 }
 
 const ClientKeyCertFields: React.FC<ClientKeyCertFieldsProps> = props => {
@@ -33,6 +36,8 @@ const ClientKeyCertFields: React.FC<ClientKeyCertFieldsProps> = props => {
         defaultSecretName={generateDefaultSecretConfig(name, AuthTypeFields.clientKeyRef)}
         defaultSecretId={generateDefaultSecretConfig(name, AuthTypeFields.clientKeyRef)}
         onClickCreateSecret={props.onClickCreateSecret}
+        isEditMode={props.isEditMode}
+        onEditSecret={props.onEditSecret}
       />
       <FormikSecretTextInput
         fieldName={AuthTypeFields.clientCertRef}
@@ -45,6 +50,8 @@ const ClientKeyCertFields: React.FC<ClientKeyCertFieldsProps> = props => {
         defaultSecretName={generateDefaultSecretConfig(name, AuthTypeFields.clientCertRef)}
         defaultSecretId={generateDefaultSecretConfig(name, AuthTypeFields.clientCertRef)}
         onClickCreateSecret={props.onClickCreateSecret}
+        isEditMode={props.isEditMode}
+        onEditSecret={props.onEditSecret}
       />
       <FormikSecretTextInput
         fieldName={AuthTypeFields.clientKeyPassphraseRef}
@@ -57,6 +64,8 @@ const ClientKeyCertFields: React.FC<ClientKeyCertFieldsProps> = props => {
         defaultSecretName={generateDefaultSecretConfig(name, AuthTypeFields.clientKeyPassphraseRef)}
         defaultSecretId={generateDefaultSecretConfig(name, AuthTypeFields.clientKeyPassphraseRef)}
         onClickCreateSecret={props.onClickCreateSecret}
+        isEditMode={props.isEditMode}
+        onEditSecret={props.onEditSecret}
       />
       <FormInput.Text
         name={AuthTypeFields.clientKeyAlgo}

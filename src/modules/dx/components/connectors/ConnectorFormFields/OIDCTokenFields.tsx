@@ -2,12 +2,13 @@ import React from 'react'
 import { FormInput } from '@wings-software/uikit'
 import type { FormikProps } from 'formik'
 import { AuthTypeFields } from 'modules/dx/pages/connectors/Forms/KubeFormHelper'
-import FormikSecretTextInput from 'modules/dx/components/SecretInput/SecretTextInput'
+import { FormikSecretTextInput } from 'modules/dx/components/SecretInput/SecretTextInput'
 import {
   getLabelForEncryptedSecret,
   getSecretFieldValue,
   generateDefaultSecretConfig
 } from 'modules/dx/pages/connectors/utils/ConnectorHelper'
+import type { EncryptedDataDTO } from 'services/cd-ng'
 import i18n from './OIDCTokenFields.i18n'
 interface OIDCTokenFieldsProps {
   accountId: string
@@ -16,6 +17,8 @@ interface OIDCTokenFieldsProps {
   formikProps: FormikProps<unknown>
   name?: string
   onClickCreateSecret: () => void
+  isEditMode?: boolean
+  onEditSecret?: (val: EncryptedDataDTO) => void
 }
 
 const OIDCTokenFields: React.FC<OIDCTokenFieldsProps> = props => {
@@ -35,6 +38,8 @@ const OIDCTokenFields: React.FC<OIDCTokenFieldsProps> = props => {
         defaultSecretId={generateDefaultSecretConfig(name, AuthTypeFields.oidcPasswordRef)}
         defaultSecretName={generateDefaultSecretConfig(name, AuthTypeFields.oidcPasswordRef)}
         onClickCreateSecret={props.onClickCreateSecret}
+        isEditMode={props.isEditMode}
+        onEditSecret={props.onEditSecret}
       />
       <FormikSecretTextInput
         fieldName={AuthTypeFields.oidcClientIdRef}
@@ -47,6 +52,8 @@ const OIDCTokenFields: React.FC<OIDCTokenFieldsProps> = props => {
         defaultSecretId={generateDefaultSecretConfig(name, AuthTypeFields.oidcClientIdRef)}
         defaultSecretName={generateDefaultSecretConfig(name, AuthTypeFields.oidcClientIdRef)}
         onClickCreateSecret={props.onClickCreateSecret}
+        isEditMode={props.isEditMode}
+        onEditSecret={props.onEditSecret}
       />
       <FormikSecretTextInput
         fieldName={AuthTypeFields.oidcSecretRef}
@@ -59,6 +66,8 @@ const OIDCTokenFields: React.FC<OIDCTokenFieldsProps> = props => {
         defaultSecretId={generateDefaultSecretConfig(name, AuthTypeFields.oidcSecretRef)}
         defaultSecretName={generateDefaultSecretConfig(name, AuthTypeFields.oidcSecretRef)}
         onClickCreateSecret={props.onClickCreateSecret}
+        isEditMode={props.isEditMode}
+        onEditSecret={props.onEditSecret}
       />
       <FormInput.Text name={AuthTypeFields.oidcScopes} label="OIDC Scopes" />
     </>

@@ -371,7 +371,7 @@ const IntermediateStep: React.FC<IntermediateStepProps> = props => {
             const passwordFields = getSecretFieldsByType(state.authentication?.value as string) || []
             const nonRefrencedFields = passwordFields
               .map((item: SecretFieldByType) => {
-                if (!formData[item.passwordField].isReference) {
+                if (!formData[item.passwordField]?.isReference) {
                   return item
                 }
               })

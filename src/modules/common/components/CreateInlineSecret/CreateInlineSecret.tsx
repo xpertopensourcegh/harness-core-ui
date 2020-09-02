@@ -3,12 +3,17 @@ import { Text, SelectOption, Button, Color } from '@wings-software/uikit'
 import { Select } from '@blueprintjs/select'
 import { FormikProps, connect } from 'formik'
 import { MenuItem } from '@blueprintjs/core'
-import { useGetConnectorList, SecretRefData } from 'services/cd-ng'
+import { useGetConnectorList } from 'services/cd-ng'
 
 import EditableText from 'modules/common/components/EditableText/EditableText'
 import i18n from './CreateInlineSecret.i18n'
 import css from './CreateInlineSecret.module.scss'
 
+// Todo: Use SecretRefData from BE
+interface SecretRefData {
+  identifier?: string
+  scope?: 'ACCOUNT' | 'ORG' | 'PROJECT'
+}
 export interface InlineSecret {
   secretName: string
   secretId: string

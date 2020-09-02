@@ -6,7 +6,7 @@ import {
   getLabelForEncryptedSecret,
   generateDefaultSecretConfig
 } from 'modules/dx/pages/connectors/utils/ConnectorHelper'
-import FormikSecretTextInput from 'modules/dx/components/SecretInput/SecretTextInput'
+import { FormikSecretTextInput } from 'modules/dx/components/SecretInput/SecretTextInput'
 import { AuthTypeFields } from 'modules/dx/pages/connectors/Forms/KubeFormHelper'
 import type { EncryptedDataDTO } from 'services/cd-ng'
 import UsernamePassword from './UsernamePassword'
@@ -55,6 +55,8 @@ const ConnectorFormFields: React.FC<ConnectorFormFieldsProps> = props => {
           defaultSecretName={generateDefaultSecretConfig(name, AuthTypeFields.serviceAccountTokenRef)}
           defaultSecretId={generateDefaultSecretConfig(name, AuthTypeFields.serviceAccountTokenRef)}
           onClickCreateSecret={props.onClickCreateSecret}
+          onEditSecret={props.onEditSecret}
+          isEditMode={props.isEditMode}
         />
       )
     case AuthTypes.OIDC:
@@ -66,6 +68,8 @@ const ConnectorFormFields: React.FC<ConnectorFormFieldsProps> = props => {
           orgIdentifier={props.orgIdentifier}
           projectIdentifier={props.projectIdentifier}
           onClickCreateSecret={props.onClickCreateSecret}
+          isEditMode={props.isEditMode}
+          onEditSecret={props.onEditSecret}
         />
       )
     case AuthTypes.CLIENT_KEY_CERT:
@@ -77,6 +81,8 @@ const ConnectorFormFields: React.FC<ConnectorFormFieldsProps> = props => {
           orgIdentifier={props.orgIdentifier}
           projectIdentifier={props.projectIdentifier}
           onClickCreateSecret={props.onClickCreateSecret}
+          isEditMode={props.isEditMode}
+          onEditSecret={props.onEditSecret}
         />
       )
     default:
