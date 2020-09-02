@@ -26,6 +26,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
     updatePipelineView
   } = React.useContext(PipelineContext)
   const { type, data, ...restDrawerProps } = drawerData
+  const { stage: selectedStage } = getStageFromPipeline(pipeline, selectedStageId || '')
   if (!isDrawerOpened) {
     return <></>
   }
@@ -39,7 +40,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
       canOutsideClickClose={true}
       enforceFocus={true}
       hasBackdrop={false}
-      size={450}
+      size={type === DrawerTypes.AddStep ? 700 : 450}
       isOpen={isDrawerOpened}
       position={Position.RIGHT}
       {...restDrawerProps}
@@ -62,6 +63,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
       )}
       {type === DrawerTypes.AddStep && selectedStageId && data?.paletteData && (
         <StepPalette
+          selectedStage={selectedStage || {}}
           onSelect={(item: StepData) => {
             const paletteData = data.paletteData
             if (paletteData?.entity) {
@@ -72,7 +74,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
                 {
                   step: {
                     type: item.type,
-                    name: item.label,
+                    name: item.name,
                     identifier: uuid(),
                     spec: {}
                   }
@@ -84,6 +86,13 @@ export const RightDrawer: React.FC = (): JSX.Element => {
             }
             updatePipelineView({ ...pipelineView, isDrawerOpened: false, drawerData: { type: DrawerTypes.AddStep } })
           }}
+          onClose={() =>
+            updatePipelineView({
+              ...pipelineView,
+              isDrawerOpened: false,
+              drawerData: { type: DrawerTypes.AddStep }
+            })
+          }
         />
       )}
       {/* TODO */}

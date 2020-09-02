@@ -2,10 +2,10 @@ import type { IconName } from '@wings-software/uikit'
 import type { Step } from './Step'
 
 export interface StepData {
-  label: string
+  name: string
   icon: IconName
   type: string
-  visible: boolean
+  visible?: boolean
 }
 
 export abstract class AbstractStepFactory {
@@ -29,7 +29,7 @@ export abstract class AbstractStepFactory {
   registerStep<T extends object>(step: Step<T>): void {
     this.stepBank.set(step.getType(), step)
     this.stepIconMap.set(step.getType(), {
-      label: step.getStepName(),
+      name: step.getStepName(),
       icon: step.getIconName(),
       type: step.getType(),
       visible: step.getStepPaletteVisibility()
