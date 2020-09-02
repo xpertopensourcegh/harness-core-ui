@@ -51,21 +51,30 @@ const StepDockerAuthentication: React.FC<StepDockerAuthenticationProps> = props 
   const { mutate: createConnector } = useCreateConnector({ accountIdentifier: props.accountId })
   const { mutate: updateConnector } = useUpdateConnector({ accountIdentifier: props.accountId })
   const { mutate: createSecret } = usePostSecretText({})
+  const [loadSecret, setLoadSecret] = useState(false)
+  const [loadConnector, setLoadConnector] = useState(false)
+
   // Todo: remove any once BE adds type of docker spec
   const handleCreate = async (data: any) => {
     try {
+      setLoadConnector(true)
       await createConnector(data as ConnectorRequestDTORequestBody)
+      setLoadConnector(false)
       props.nextStep?.()
     } catch (e) {
+      setLoadConnector(false)
       modalErrorHandler?.showDanger(e?.message)
     }
   }
 
   const handleUpdate = async (data: any) => {
     try {
+      setLoadConnector(true)
       await updateConnector(data as ConnectorRequestDTORequestBody)
+      setLoadConnector(false)
       props.nextStep?.()
     } catch (error) {
+      setLoadConnector(false)
       modalErrorHandler?.showDanger(error?.message)
     }
   }
@@ -74,6 +83,7 @@ const StepDockerAuthentication: React.FC<StepDockerAuthenticationProps> = props 
     let res
     try {
       modalErrorHandler?.hide()
+      setLoadSecret(true)
       res = await createSecret({
         account: props.accountId,
         org: props.orgIdentifier,
@@ -81,11 +91,13 @@ const StepDockerAuthentication: React.FC<StepDockerAuthenticationProps> = props 
         identifier: formData.passwordRefSecret?.secretId,
         name: formData.passwordRefSecret?.secretName,
         secretManager: formData.passwordRefSecret?.secretManager?.value as string,
-        value: formData.passwordRef.name,
+        value: formData.passwordRef.value,
         type: 'SecretText',
         valueType: 'Inline'
       })
+      setLoadSecret(false)
     } catch (e) {
+      setLoadSecret(false)
       modalErrorHandler?.showDanger(e?.message)
     }
 
@@ -173,7 +185,12 @@ const StepDockerAuthentication: React.FC<StepDockerAuthenticationProps> = props 
                 />
               </Layout.Vertical>
               <Layout.Horizontal padding={{ top: 'small' }}>
-                <Button type="submit" text={i18n.STEP_TWO.SAVE_CREDENTIALS_AND_CONTINUE} font="small" />
+                <Button
+                  type="submit"
+                  text={i18n.STEP_TWO.SAVE_CREDENTIALS_AND_CONTINUE}
+                  font="small"
+                  disabled={loadSecret || loadConnector}
+                />
               </Layout.Horizontal>
             </Form>
           )}

@@ -5,6 +5,7 @@ declare const styles: {
   readonly viewBtn: string
   readonly secretFieldWrapper: string
   readonly secretField: string
+  readonly secretFieldHide: string
   readonly dotIcon: string
   readonly secretName: string
 }

@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import type { FormikProps } from 'formik'
 import { Position, Classes } from '@blueprintjs/core'
-import { Layout, Text, Button, Color, Icon, Popover } from '@wings-software/uikit'
+import { Layout, Text, Button, Color, Icon, Popover, FormInput } from '@wings-software/uikit'
 import { connect } from 'formik'
+import cx from 'classnames'
 import { FormikCreateInlineSecret } from 'modules/common/components/CreateInlineSecret/CreateInlineSecret'
 import SecretReference from 'modules/dx/components/SecretReference/SecretReference'
 import type { EncryptedDataDTO } from 'services/cd-ng'
@@ -38,7 +39,7 @@ const SecretTextField: React.FC<SecretTextInputProps> = props => {
 
   return (
     <div className={css.secretFieldWrapper}>
-      <Layout.Horizontal flex={{ distribution: 'space-between' }}>
+      <Layout.Horizontal flex={{ distribution: 'space-between' }} margin={{ bottom: 'xsmall' }}>
         <Text color={Color.GREY_400} font={{ size: 'small' }}>
           {props.label}
         </Text>
@@ -120,24 +121,20 @@ const SecretTextField: React.FC<SecretTextInputProps> = props => {
         </Popover>
       </Layout.Horizontal>
 
-      <input
-        name="password"
-        onChange={value => {
-          props.onChange?.({ value: value.target.value, isReference: false })
+      <FormInput.Text
+        name={`pass${props.fieldName}`}
+        onChange={(event: React.FormEvent<HTMLInputElement>) => {
+          props.onChange?.({ value: event.currentTarget.value, isReference: false })
         }}
-        type={isReference || isEditMode ? 'text' : 'password'}
-        readOnly={isReference || isEditMode}
-        className={css.secretField}
+        inputGroup={{ type: isReference || isEditMode ? 'text' : 'password', readOnly: isReference || isEditMode }}
+        className={cx({
+          [css.secretFieldHide]: isReference || isEditMode,
+          [css.secretField]: !(isReference || isEditMode)
+        })}
       />
       {isReference || isEditMode ? (
         <Layout.Vertical>
-          <Layout.Horizontal
-            height={'36px'}
-            background={Color.GREY_200}
-            border={{ radius: 6 }}
-            padding={'xsmall'}
-            margin={{ top: 'xsmall' }}
-          >
+          <Layout.Horizontal height={'36px'} background={Color.GREY_200} border={{ radius: 6 }} padding={'xsmall'}>
             <Text tooltip={i18n.ENCRYPTED_TEXT} tooltipProps={{ isDark: true }} className={css.secretName}>
               {props.isEditMode ? props.formikProps.values[props.secretFieldName]?.secretName : secretRefrence.name}
             </Text>

@@ -91,7 +91,7 @@ const HttpCredentialStep: React.FC<HttpCredentialStepProps> = props => {
         identifier: formData.passwordRefSecret?.secretId,
         name: formData.passwordRefSecret?.secretName,
         secretManager: formData.passwordRefSecret?.secretManager?.value as string,
-        value: formData.passwordRef.name,
+        value: formData.passwordRef.value,
         type: 'SecretText',
         valueType: 'Inline'
       })

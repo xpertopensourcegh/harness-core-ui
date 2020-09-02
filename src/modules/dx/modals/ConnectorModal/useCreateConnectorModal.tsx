@@ -53,7 +53,16 @@ const useCreateConnectorModal = (props: UseCreateConnectorModalProps): UseCreate
           onSuccess={handleSuccess}
           hideLightModal={hideModal}
         />
-        <Button minimal icon="cross" iconProps={{ size: 18 }} onClick={hideModal} className={css.crossIcon} />
+        <Button
+          minimal
+          icon="cross"
+          iconProps={{ size: 18 }}
+          onClick={() => {
+            props.onSuccess?.()
+            hideModal()
+          }}
+          className={css.crossIcon}
+        />
       </Dialog>
     ),
     [type]

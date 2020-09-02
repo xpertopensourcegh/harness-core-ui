@@ -11,7 +11,7 @@ interface CreateDockerConnectorProps {
   orgIdentifier?: string
   projectIdentifier?: string
   hideLightModal: () => void
-  onConnectorCreated: (data: ConnectorConfigDTO) => void | Promise<void>
+  onConnectorCreated: (data?: ConnectorConfigDTO) => void | Promise<void>
 }
 const CreateDockerConnector: React.FC<CreateDockerConnectorProps> = props => {
   const [formData, setFormData] = useState<ConnectorConfigDTO | undefined>()
@@ -48,6 +48,7 @@ const CreateDockerConnector: React.FC<CreateDockerConnectorProps> = props => {
           connectorIdentifier={formData?.identifier}
           setIsEditMode={() => setIsEditMode(true)}
           renderInModal={true}
+          onSuccess={props.onConnectorCreated}
         />
       </StepWizard>
     </>
