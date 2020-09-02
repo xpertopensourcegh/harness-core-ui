@@ -1,7 +1,6 @@
 .main {
   .productionRisk {
-    margin: var(--spacing-medium) 0;
-    font-size: var(--font-size-medium) !important;
+    margin-bottom: var(--spacing-medium);
     font-weight: bold !important;
   }
 
@@ -39,10 +38,9 @@
     .riskScoreContainer {
       display: flex;
       .riskScore {
-        font-size: var(--font-size-medium) !important;
         padding: 2px 2px;
         border-radius: 4px;
-        width: 36px;
+        width: 30px;
         text-align: center;
 
         &[data-risk-level='low'] {
@@ -62,6 +60,7 @@
   }
 
   .chartContainer {
-    align-self: center;
+    position: relative;
+    top: 2px;
   }
 }

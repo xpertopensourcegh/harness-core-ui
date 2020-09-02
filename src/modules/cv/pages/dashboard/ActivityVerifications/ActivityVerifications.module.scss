@@ -1,0 +1,75 @@
+.main {
+  --max-column-with: 300px;
+  --min-column-width: 50px;
+  margin: var(--spacing-large) 0 !important;
+
+  .header {
+    display: flex;
+    margin: 30px 0;
+    justify-content: space-between;
+    .headerText {
+      font-weight: bold;
+    }
+  }
+
+  .verificationList {
+    list-style: none;
+    padding-left: 0;
+    max-width: 1130px;
+
+    .dataColumn {
+      width: var(--max-column-with);
+      min-width: var(--min-column-width);
+      align-self: center;
+      > * {
+        width: 80%;
+      }
+    }
+
+    .notStarted {
+      align-self: start;
+    }
+
+    .progressBar {
+      border-radius: 1;
+      [class~='bp3-progress-meter'] {
+        background-color: var(--grey-300);
+        border-radius: 1;
+        width: 0;
+        transition: width 1s ease-out;
+      }
+      &[class~='bp3-intent-success'] [class~='bp3-progress-meter'] {
+        background-color: var(--green-500);
+      }
+      &[class~='bp3-intent-danger'] [class~='bp3-progress-meter'] {
+        background-color: var(--red-500);
+      }
+      &[class~='bp3-intent-warning'] [class~='bp3-progress-meter'] {
+        background-color: var(--orange-500);
+      }
+      margin: 2px 0;
+    }
+
+    .headerRow {
+      display: flex;
+      margin: var(--margin-large);
+      padding: 0 var(--spacing-xsmall);
+    }
+
+    .dataRow {
+      padding: var(--spacing-xsmall);
+      margin: var(--spacing-xsmall) 0;
+      border-radius: 5px;
+      background-color: white;
+      box-shadow: 0 2px 10px 0 var(--grey-200);
+      display: flex;
+      align-self: center;
+      width: 100%;
+    }
+
+    .buildContent {
+      display: flex;
+      width: 150px;
+    }
+  }
+}

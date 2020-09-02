@@ -1,3 +1,5 @@
+import type Highcharts from 'highcharts'
+
 const PLOT_LINE_LOCATIONS = [11, 22, 33, 44, 55, 66, 77, 88].map(degree => ({
   color: 'white',
   value: degree,
@@ -5,27 +7,27 @@ const PLOT_LINE_LOCATIONS = [11, 22, 33, 44, 55, 66, 77, 88].map(degree => ({
 }))
 
 export default function getRiskGaugeChartOptions(riskScore: number): Highcharts.Options {
-  let guageColor = 'var(--green-500)'
+  let gaugeColor = 'var(--green-500)'
   if (riskScore > 30) {
-    guageColor = 'var(--yellow-300)'
+    gaugeColor = 'var(--yellow-300)'
   }
 
   if (riskScore > 40) {
-    guageColor = 'var(--yellow-500)'
+    gaugeColor = 'var(--yellow-500)'
   }
 
   if (riskScore >= 60) {
-    guageColor = 'var(--orange-500)'
+    gaugeColor = 'var(--orange-500)'
   }
 
   if (riskScore >= 80) {
-    guageColor = 'var(--red-500)'
+    gaugeColor = 'var(--red-500)'
   }
 
   return {
     chart: {
-      height: 55,
-      width: 55,
+      height: 50,
+      width: 50,
       backgroundColor: 'transparent',
       spacing: [0, 0, 0, 0]
     },
@@ -58,14 +60,15 @@ export default function getRiskGaugeChartOptions(riskScore: number): Highcharts.
           enabled: false
         },
         dial: {
-          radius: '60%',
-          backgroundColor: guageColor,
-          baseLength: '50%'
+          radius: '45%',
+          backgroundColor: gaugeColor,
+          baseLength: '40%'
         },
         pivot: {
           backgroundColor: 'white',
-          borderColor: guageColor,
-          borderWidth: 2
+          borderColor: gaugeColor,
+          borderWidth: 1,
+          radius: 3
         }
       }
     },
@@ -81,7 +84,7 @@ export default function getRiskGaugeChartOptions(riskScore: number): Highcharts.
           thickness: 5,
           from: 0,
           to: riskScore,
-          color: guageColor
+          color: gaugeColor
         },
         {
           thickness: 5,
