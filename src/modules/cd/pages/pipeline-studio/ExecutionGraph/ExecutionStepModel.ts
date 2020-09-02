@@ -21,6 +21,7 @@ export class ExecutionStepModel extends Diagram.DiagramModel {
     startX: number,
     startY: number,
     stepStates: StepStateMap,
+    isRollback = false,
     prevNodes?: Diagram.DefaultNodeModel[],
     allowAdd?: boolean,
     isParallelNode = false,
@@ -96,6 +97,7 @@ export class ExecutionStepModel extends Diagram.DiagramModel {
             newX,
             newY,
             stepStates,
+            isRollback,
             prevNodes,
             isLastNode,
             true,
@@ -138,6 +140,7 @@ export class ExecutionStepModel extends Diagram.DiagramModel {
           startX,
           startY,
           stepStates,
+          isRollback,
           prevNodes,
           true,
           true,
@@ -172,6 +175,7 @@ export class ExecutionStepModel extends Diagram.DiagramModel {
           label: node.stepGroup.name,
           depth: stepState?.inheritedSG || 1,
           allowAdd: allowAdd === true,
+          showRollback: !isRollback,
           rollBackProps: {
             active: stepState?.isStepGroupRollback ? Diagram.StepsType.Rollback : Diagram.StepsType.Normal
           }
@@ -192,10 +196,27 @@ export class ExecutionStepModel extends Diagram.DiagramModel {
           startX = startX - this.gap / 2 - 20
         }
         this.useStepGroupLayer(stepGroupLayer)
+        let steps = node.stepGroup.steps
+        if (stepState?.isStepGroupRollback) {
+          if (!node.stepGroup.rollbackSteps) {
+            node.stepGroup.rollbackSteps = []
+          }
+          steps = node.stepGroup.rollbackSteps
+        }
         // Check if step group has nodes
-        if (node.stepGroup.steps?.length > 0) {
-          node.stepGroup.steps.forEach((nodeP: ExecutionElement) => {
-            const resp = this.renderGraphNodes(nodeP, startX, startY, stepStates, prevNodes, true, false, true)
+        if (steps?.length > 0) {
+          steps.forEach((nodeP: ExecutionElement) => {
+            const resp = this.renderGraphNodes(
+              nodeP,
+              startX,
+              startY,
+              stepStates,
+              isRollback,
+              prevNodes,
+              true,
+              false,
+              true
+            )
             startX = resp.startX
             startY = resp.startY
             if (resp.prevNodes) {
@@ -239,7 +260,8 @@ export class ExecutionStepModel extends Diagram.DiagramModel {
   addUpdateGraph(
     data: ExecutionWrapper[],
     { nodeListeners, linkListeners, layerListeners }: Listeners,
-    stepStates: StepStateMap
+    stepStates: StepStateMap,
+    isRollback: boolean
   ): void {
     let { startX, startY } = this
     this.clearAllNodesAndLinks()
@@ -266,7 +288,7 @@ export class ExecutionStepModel extends Diagram.DiagramModel {
 
     let prevNodes: Diagram.DefaultNodeModel[] = [startNode]
     data.forEach((node: ExecutionWrapper) => {
-      const resp = this.renderGraphNodes(node, startX, startY, stepStates, prevNodes, true)
+      const resp = this.renderGraphNodes(node, startX, startY, stepStates, isRollback, prevNodes, true)
       startX = resp.startX
       startY = resp.startY
       if (resp.prevNodes) {

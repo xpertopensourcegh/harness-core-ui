@@ -29,6 +29,15 @@
   }
 }
 
+.rollback-banner {
+  position: absolute;
+  top: var(--spacing-huge);
+  background-color: var(--white) !important;
+  width: 100%;
+  height: 40px;
+  padding: var(--spacing-small) !important;
+}
+
 .canvas-btn {
   bottom: 85px;
 }

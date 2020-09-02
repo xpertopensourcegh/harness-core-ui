@@ -8,6 +8,7 @@ export interface StepGroupNodeLayerOptions extends LayerModelOptions {
   depth?: number
   allowAdd?: boolean
   identifier?: string
+  showRollback?: boolean
   rollBackProps?: Omit<RollbackToggleSwitchProps, 'onChange'>
 }
 
@@ -30,6 +31,7 @@ export class StepGroupNodeLayerModel<
       allowAdd: false,
       depth: 1,
       transformed: true,
+      showRollback: true,
       ...options
     })
     this.startNode = new EmptyNodeModel({ identifier: options.identifier, name: 'Empty' })

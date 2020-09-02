@@ -33,6 +33,7 @@ export interface DrawerData extends Omit<IDrawerProps, 'isOpen'> {
   data?: {
     paletteData?: {
       isAddStepOverride: boolean
+      isRollback: boolean
       isParallelNodeClicked: boolean
       entity: Diagram.DefaultNodeModel
     }

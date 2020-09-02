@@ -1,10 +1,9 @@
 import React, { useEffect } from 'react'
-import { get } from 'lodash'
 // import { cloneDeep } from 'lodash'
 import type { NodeModelListener, LinkModelListener } from '@projectstorm/react-diagrams-core'
 import type { BaseModelListener } from '@projectstorm/react-canvas-core'
 import { v4 as uuid } from 'uuid'
-import { Button } from '@wings-software/uikit'
+import { Button, Text } from '@wings-software/uikit'
 import { Diagram, useToaster } from 'modules/common/exports'
 import { CanvasButtons } from 'modules/cd/components/CanvasButtons/CanvasButtons'
 import { DynamicPopover, DynamicPopoverHandlerBinding } from 'modules/common/components/DynamicPopover/DynamicPopover'
@@ -57,7 +56,7 @@ const renderPopover = ({ onPopoverSelection, isParallelNodeClicked = false, even
 const ExecutionGraph = (): JSX.Element => {
   const canvasRef = React.useRef<HTMLDivElement | null>(null)
   const [state, setState] = React.useState<ExecutionGraphState>({
-    data: [],
+    data: { steps: [], rollbackSteps: [] },
     isRollback: false,
     stepStates: new Map<string, StepState>()
   })
@@ -104,6 +103,7 @@ const ExecutionGraph = (): JSX.Element => {
             paletteData: {
               entity: event.entity,
               isAddStepOverride: true,
+              isRollback: state.isRollback,
               isParallelNodeClicked
             }
           }
@@ -120,7 +120,8 @@ const ExecutionGraph = (): JSX.Element => {
             steps: []
           }
         },
-        isParallelNodeClicked
+        isParallelNodeClicked,
+        state.isRollback
       )
       updatePipeline(pipeline)
     }
@@ -155,7 +156,7 @@ const ExecutionGraph = (): JSX.Element => {
                   updatePipeline(pipeline)
                 }
               } else {
-                addStepOrGroup(eventTemp.entity, state.data, dropNode, false)
+                addStepOrGroup(eventTemp.entity, state.data, dropNode, false, state.isRollback)
                 updatePipeline(pipeline)
               }
             }
@@ -184,6 +185,7 @@ const ExecutionGraph = (): JSX.Element => {
               data: {
                 paletteData: {
                   isAddStepOverride: false,
+                  isRollback: state.isRollback,
                   entity: eventTemp.entity,
                   isParallelNodeClicked: false
                 }
@@ -250,6 +252,7 @@ const ExecutionGraph = (): JSX.Element => {
               data: {
                 paletteData: {
                   isAddStepOverride: true,
+                  isRollback: state.isRollback,
                   entity: eventTemp.entity,
                   isParallelNodeClicked: true
                 }
@@ -313,7 +316,7 @@ const ExecutionGraph = (): JSX.Element => {
           } else {
             const isRemove = removeStepOrGroup(state, dropEntity)
             if (isRemove && dropNode) {
-              addStepOrGroup(eventTemp.entity, state.data, dropNode, false)
+              addStepOrGroup(eventTemp.entity, state.data, dropNode, false, state.isRollback)
               updatePipeline(pipeline)
             }
           }
@@ -396,7 +399,12 @@ const ExecutionGraph = (): JSX.Element => {
   }, [engine])
 
   // renderParallelNodes(model)
-  model.addUpdateGraph(state.data, { nodeListeners, linkListeners, layerListeners }, state.stepStates)
+  model.addUpdateGraph(
+    state.isRollback ? state.data.rollbackSteps || [] : state.data.steps || [],
+    { nodeListeners, linkListeners, layerListeners },
+    state.stepStates,
+    state.isRollback
+  )
 
   // load model into engine
   engine.setModel(model)
@@ -405,10 +413,16 @@ const ExecutionGraph = (): JSX.Element => {
     if (isInitialized && selectedStageId && isSplitViewOpen) {
       const { stage: data } = getStageFromPipeline(pipeline, selectedStageId)
       if (data?.stage?.spec?.execution) {
+        if (!data.stage.spec.execution.steps) {
+          data.stage.spec.execution.steps = []
+        }
+        if (!data.stage.spec.execution.rollbackSteps) {
+          data.stage.spec.execution.rollbackSteps = []
+        }
         getStepsState(data.stage.spec.execution, state.stepStates)
         setState(prevState => ({
           ...prevState,
-          data: get(data.stage.spec.execution, 'steps', []),
+          data: data.stage.spec.execution,
           stepStates: state.stepStates
         }))
       } else if (data?.stage) {
@@ -418,7 +432,8 @@ const ExecutionGraph = (): JSX.Element => {
         data.stage.spec = {
           ...data.stage.spec,
           execution: {
-            steps: []
+            steps: [],
+            rollbackSteps: []
           }
         }
         updatePipeline(pipeline)
@@ -497,6 +512,11 @@ const ExecutionGraph = (): JSX.Element => {
       // }}
     >
       <div className={css.canvas} ref={canvasRef}>
+        {state.isRollback && (
+          <Text font={{ size: 'medium' }} className={css.rollbackBanner}>
+            {i18n.rollback}
+          </Text>
+        )}
         <Diagram.CanvasWidget
           engine={engine}
           isRollback={true}

@@ -138,11 +138,13 @@ export const StepGroupNodeLayerWidget = (props: StepGroupNodeLayerWidgetProps): 
             height
           }}
         ></div>
-        <RollbackToggleSwitch
-          style={{ left: width - 60, top: 5 }}
-          {...rollBackProps}
-          onChange={type => props.layer.fireEvent({ type }, Event.RollbackClicked)}
-        />
+        {options.showRollback && (
+          <RollbackToggleSwitch
+            style={{ left: width - 60, top: 5 }}
+            {...rollBackProps}
+            onChange={type => props.layer.fireEvent({ type }, Event.RollbackClicked)}
+          />
+        )}
         {allowAdd && (
           <div
             onClick={e => {

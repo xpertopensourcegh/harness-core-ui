@@ -1,6 +1,5 @@
 import React from 'react'
 import { Drawer, Position } from '@blueprintjs/core'
-import { get } from 'lodash'
 import { v4 as uuid } from 'uuid'
 import type { StepData } from 'modules/common/components/AbstractSteps/AbstractStepFactory'
 import { PipelineContext } from '../PipelineContext/PipelineContext'
@@ -69,7 +68,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
               const { stage: pipelineStage } = getStageFromPipeline(pipeline, selectedStageId)
               addStepOrGroup(
                 paletteData.entity,
-                get(pipelineStage?.stage.spec.execution, 'steps', []),
+                pipelineStage?.stage.spec.execution,
                 {
                   step: {
                     type: item.type,
@@ -78,7 +77,8 @@ export const RightDrawer: React.FC = (): JSX.Element => {
                     spec: {}
                   }
                 },
-                paletteData.isParallelNodeClicked
+                paletteData.isParallelNodeClicked,
+                paletteData.isRollback
               )
               updatePipeline(pipeline)
             }
