@@ -128,6 +128,7 @@ export function createDefaultConfigObjectBasedOnSelectedQueries(
       dataSourceId,
       productName,
       projectIdentifier,
+      orgIdentifier,
       query.label,
       query.value as string
     )

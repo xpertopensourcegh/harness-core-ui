@@ -19,8 +19,8 @@ import SplunkMainSetupView from './splunk/SplunkMainSetupView'
 import AppDynamicsMainSetupView from './appdynamics/AppDynamicsMainSetupView'
 import * as SplunkMainSetupViewUtils from './splunk/SplunkMainSetupViewUtils'
 import * as AppDynamicsOnboardingUtils from './appdynamics/AppDynamicsOnboardingUtils'
-import i18n from './BaseOnBoardingSetupPage.i18n'
-import css from './BaseOnBoardingSetupPage.module.scss'
+import i18n from './DataSourceSetupPage.i18n'
+import css from './DataSourceSetupPage.module.scss'
 
 type PageContextData = {
   isEdit?: boolean
@@ -80,7 +80,7 @@ function transformIncomingDSConfigs(savedConfig: DSConfig[], verificationProvide
   }
 }
 
-export default function OnBoardingSetupPage(): JSX.Element {
+export default function DataSourceSetupPage(): JSX.Element {
   const {
     params: { accountId, dataSourceType, projectIdentifier: routeProjectId, orgId: routeOrgId },
     query: { dataSourceId: routeDataSourceId = '' }

@@ -84,7 +84,7 @@ export const routeCVOnBoardingSetup: Route<{ dataSourceType: string; projectIden
         : routeCVHome.path
     ),
 
-  component: React.lazy(() => import('./pages/onboarding/setup/BaseOnBoardingSetupPage')),
+  component: React.lazy(() => import('./pages/onboarding/setup/DataSourceSetupPage')),
   module: ModuleName.CV
 }
 
@@ -105,9 +105,7 @@ export const routeCVDataSourcesProductPage: Route<{
         ? `/cv-onboarding/${dataSourceType}/product/org/${orgId}/project/${projectIdentifier}`
         : routeCVHome.path
     ),
-  component: React.lazy(() =>
-    import('./pages/onboarding/data-source-products/DataSourceProductPage/DataSourceProductPage')
-  ),
+  component: React.lazy(() => import('./pages/onboarding/data-source-products/DataSourceProductPage')),
   module: ModuleName.CV
 }
 
@@ -146,7 +144,7 @@ export const routeCVDataSourcesEntityPage: Route<{
         : routeCVHome.path
     ),
   component: React.lazy(() => {
-    return import('./pages/onboarding/list-entity-select/DataSourceListEntityPage/DataSourceListEntityPage')
+    return import('./pages/onboarding/list-entity-select/DataSourceListEntityPage')
   }),
   module: ModuleName.CV
 }
