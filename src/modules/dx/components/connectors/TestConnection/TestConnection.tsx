@@ -35,9 +35,6 @@ const TestConnection: React.FC<TestConnectionProps> = props => {
           />
         ) : (
           <VerifyOutOfClusterDelegate
-            accountId={props.accountId}
-            orgIdentifier={props.orgIdentifier}
-            projectIdentifier={props.projectIdentifier}
             connectorName={props.connectorName}
             connectorIdentifier={props.connectorIdentifier}
             renderInModal={false}

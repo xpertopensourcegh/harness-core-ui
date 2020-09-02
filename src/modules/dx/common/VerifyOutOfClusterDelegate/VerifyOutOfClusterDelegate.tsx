@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useParams } from 'react-router'
 import ReactTimeago from 'react-timeago'
 import { StepsProgress, Layout, Button, Text, Intent, Color } from '@wings-software/uikit'
 import { useGetDelegatesStatus, RestResponseDelegateStatus } from 'services/portal'
@@ -9,9 +10,6 @@ import i18n from './VerifyOutOfClusterDelegate.i18n'
 import css from './VerifyOutOfClusterDelegate.module.scss'
 
 interface VerifyOutOfClusterDelegateProps {
-  accountId: string
-  projectIdentifier?: string
-  orgIdentifier?: string
   hideLightModal?: () => void
   previousStep?: () => void
   connectorName: string | undefined
@@ -61,6 +59,7 @@ const getStepOne = (state: VerifyOutOfClusterDelegateState) => {
 }
 
 const VerifyOutOfClusterDelegate = (props: VerifyOutOfClusterDelegateProps) => {
+  const { accountId, projectIdentifier, orgIdentifier } = useParams()
   const [delegateCount, setDelegateCount] = useState({} as RestResponseDelegateStatus | null)
   const [validateError, setValidateError] = useState({} as RestResponseDelegateStatus | null)
   const [stepDetails, setStepDetails] = useState<StepDetails>({
@@ -79,17 +78,17 @@ const VerifyOutOfClusterDelegate = (props: VerifyOutOfClusterDelegateProps) => {
   }
 
   const { data: delegateStatus, error } = useGetDelegatesStatus({
-    queryParams: { accountId: props.accountId }
+    queryParams: { accountId: accountId }
   })
   const {
     data: testConnectionResponse,
     refetch: reloadTestConnection,
     error: errorTesting
   } = useGetTestConnectionResult({
-    accountIdentifier: props.accountId,
+    accountIdentifier: accountId,
     connectorIdentifier: props.connectorIdentifier as string,
     lazy: true,
-    queryParams: { orgIdentifier: props.orgIdentifier, projectIdentifier: props.projectIdentifier }
+    queryParams: { orgIdentifier: orgIdentifier, projectIdentifier: projectIdentifier }
   })
 
   React.useEffect(() => {

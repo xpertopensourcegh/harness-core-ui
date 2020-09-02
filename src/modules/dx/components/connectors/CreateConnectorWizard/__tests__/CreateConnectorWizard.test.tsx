@@ -1,4 +1,5 @@
 import React from 'react'
+import { MemoryRouter } from 'react-router'
 
 import { render, queryByText } from '@testing-library/react'
 import type { ConnectorDTO } from 'services/cd-ng'
@@ -17,7 +18,11 @@ const props = {
 
 describe('Delegate Step Wizard', () => {
   test('should render Delegate Setup Wizard', () => {
-    const { container } = render(<CreateConnectorWizard {...props} />)
+    const { container } = render(
+      <MemoryRouter>
+        <CreateConnectorWizard {...props} />
+      </MemoryRouter>
+    )
     expect(queryByText(container, i18n.DELEGATE_IN_CLUSTER)).toBeDefined()
     expect(queryByText(container, i18n.DELEGATE_OUT_CLUSTER)).toBeDefined()
     expect(container).toMatchSnapshot()

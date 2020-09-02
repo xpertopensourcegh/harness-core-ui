@@ -2,18 +2,21 @@ import React from 'react'
 import { noop } from 'lodash-es'
 import { render, fireEvent } from '@testing-library/react'
 import { act } from 'react-dom/test-utils'
+import { MemoryRouter } from 'react-router'
 
 import CreateSecretManager from '../CreateSecretManager'
 
 describe('Create Secret Manager Wizard', () => {
   test('should render form', () => {
     const dom = render(
-      <CreateSecretManager
-        accountId="dummy"
-        hideLightModal={noop}
-        orgIdentifier="dummyOrgId"
-        projectIdentifier="dummyProjectId"
-      />
+      <MemoryRouter>
+        <CreateSecretManager
+          accountId="dummy"
+          hideLightModal={noop}
+          orgIdentifier="dummyOrgId"
+          projectIdentifier="dummyProjectId"
+        />
+      </MemoryRouter>
     )
 
     // match step 1

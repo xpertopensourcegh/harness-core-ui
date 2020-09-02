@@ -190,9 +190,6 @@ const CreateSecretManager: React.FC<CreateSecretManagerProps> = ({
         }}
       >
         <ConnectorDetailsStep
-          accountId={accountId}
-          orgIdentifier={orgIdentifier}
-          projectIdentifier={projectIdentifier}
           type={Connectors.SECRET_MANAGER}
           name={i18n.titleSecretManager}
           setFormData={setFormData}

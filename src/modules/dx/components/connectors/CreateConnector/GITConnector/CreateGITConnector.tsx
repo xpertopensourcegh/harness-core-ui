@@ -23,9 +23,6 @@ const CreateGITConnector = (props: CreateGITConnectorProps) => {
     <>
       <StepWizard>
         <ConnectorDetailsStep
-          accountId={props.accountId}
-          orgIdentifier={props.orgIdentifier}
-          projectIdentifier={props.projectIdentifier}
           type={Connectors.GIT}
           name={i18n.STEP_ONE.NAME}
           setFormData={setFormData}
@@ -50,9 +47,6 @@ const CreateGITConnector = (props: CreateGITConnectorProps) => {
         ) : null}
         <VerifyOutOfClusterDelegate
           name={i18n.STEP_VERIFY.NAME}
-          accountId={props.accountId}
-          orgIdentifier={props.orgIdentifier}
-          projectIdentifier={props.projectIdentifier}
           connectorName={formData?.name}
           connectorIdentifier={formData?.identifier}
           setIsEditMode={() => setIsEditMode(true)}

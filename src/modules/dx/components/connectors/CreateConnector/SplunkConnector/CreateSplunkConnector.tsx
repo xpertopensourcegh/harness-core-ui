@@ -67,9 +67,6 @@ export default function CreateSplunkConnector(props: CreateSplunkConnectorProps)
     <>
       <StepWizard>
         <ConnectorDetailsStep
-          accountId={props.accountId}
-          orgIdentifier={props.orgIdentifier}
-          projectIdentifier={props.projectIdentifier}
           type={Connectors.SPLUNK}
           name={i18n.wizardStepName.connectorDetails}
           setFormData={setFormData}

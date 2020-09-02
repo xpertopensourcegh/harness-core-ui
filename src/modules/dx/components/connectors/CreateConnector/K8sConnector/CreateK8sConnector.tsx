@@ -501,9 +501,6 @@ const CreateK8sConnector = (props: CreateK8sConnectorProps) => {
     <>
       <StepWizard>
         <ConnectorDetailsStep
-          accountId={props.accountId}
-          orgIdentifier={props.orgIdentifier}
-          projectIdentifier={props.projectIdentifier}
           type="K8sCluster"
           name={i18n.STEP_ONE.NAME}
           setFormData={setFormData}

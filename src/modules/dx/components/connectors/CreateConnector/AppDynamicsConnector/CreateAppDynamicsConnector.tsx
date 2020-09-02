@@ -74,9 +74,6 @@ export default function CreateAppDynamicsConnector(props: CreateAppDynamicsConne
     <>
       <StepWizard>
         <ConnectorDetailsStep
-          accountId={props.accountId}
-          orgIdentifier={props.orgIdentifier}
-          projectIdentifier={props.projectIdentifier}
           type={Connectors.APP_DYNAMICS}
           name={i18n.wizardStepName.connectorDetails}
           setFormData={setFormData}

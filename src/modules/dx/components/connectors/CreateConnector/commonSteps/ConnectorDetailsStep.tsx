@@ -1,36 +1,35 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Layout, Button, Formik, StepProps, FormInput, FormikForm as Form } from '@wings-software/uikit'
+import { useParams } from 'react-router'
 import * as Yup from 'yup'
 import { StringUtils, useToaster } from 'modules/common/exports'
-import { useValidateTheIdentifierIsUnique, ConnectorConfigDTO } from 'services/cd-ng'
-import type { KubFormData, GITFormData } from 'modules/dx/interfaces/ConnectorInterface'
+import { useValidateTheIdentifierIsUnique, ConnectorConfigDTO, ConnectorRequestDTO } from 'services/cd-ng'
 import { getHeadingByType, getConnectorTextByType } from '../../../../pages/connectors/utils/ConnectorHelper'
 import i18n from './ConnectorDetailsStep.i18n'
 import css from './ConnectorDetailsStep.module.scss'
 
-interface ConnectorDetailsStepProps extends StepProps<unknown> {
-  accountId: string
-  projectIdentifier?: string
-  orgIdentifier?: string
+interface ConnectorDetailsStepProps extends StepProps<ConnectorRequestDTO> {
   type: ConnectorConfigDTO['type']
   name: string
-  setFormData: (formData: KubFormData | GITFormData | undefined) => void
-  formData: KubFormData | GITFormData | undefined
+  setFormData?: (formData: ConnectorRequestDTO) => void
+  formData?: ConnectorRequestDTO
 }
 
-const ConnectorDetailsStep: React.FC<ConnectorDetailsStepProps> = props => {
+const ConnectorDetailsStep: React.FC<StepProps<ConnectorRequestDTO> & ConnectorDetailsStepProps> = props => {
+  const { prevStepData, nextStep } = props
   const { showError } = useToaster()
-  const [stepData, setStepData] = useState(props.formData)
+  const { accountId, projectIdentifier, orgIdentifier } = useParams()
+  const [stepData, setStepData] = useState<ConnectorRequestDTO>(props.formData || {})
   const { loading, data, refetch: validateUniqueIdentifier } = useValidateTheIdentifierIsUnique({
-    accountIdentifier: props.accountId,
+    accountIdentifier: accountId,
     lazy: true,
-    queryParams: { orgIdentifier: props.orgIdentifier, projectIdentifier: props.projectIdentifier }
+    queryParams: { orgIdentifier: orgIdentifier, projectIdentifier: projectIdentifier }
   })
   const mounted = useRef(false)
   useEffect(() => {
     if (mounted.current && !loading) {
       if (data?.data) {
-        props.nextStep?.(stepData)
+        nextStep?.({ ...prevStepData, ...stepData })
       } else {
         showError(i18n.validateError)
       }
@@ -60,7 +59,7 @@ const ConnectorDetailsStep: React.FC<ConnectorDetailsStepProps> = props => {
         onSubmit={formData => {
           setStepData(formData)
           validateUniqueIdentifier({ queryParams: { connectorIdentifier: formData.identifier } })
-          props.setFormData(formData)
+          props.setFormData?.(formData)
         }}
       >
         {() => (

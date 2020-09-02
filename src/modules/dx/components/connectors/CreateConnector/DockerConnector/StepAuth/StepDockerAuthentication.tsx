@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useParams } from 'react-router'
 import {
   Layout,
   Button,
@@ -33,23 +34,21 @@ import i18n from '../CreateDockerConnector.i18n'
 
 interface StepDockerAuthenticationProps {
   name: string
-  accountId: string
-  projectIdentifier?: string
-  orgIdentifier?: string
   previousStep?: () => void
   nextStep?: () => void
   formData?: ConnectorConfigDTO
-  onConnectorCreated: (data: ConnectorConfigDTO) => void
+  onConnectorCreated?: (data: ConnectorConfigDTO) => void
   isEditMode: boolean
   setFormData: (val: ConnectorConfigDTO) => void
 }
 
 const StepDockerAuthentication: React.FC<StepDockerAuthenticationProps> = props => {
+  const { accountId, projectIdentifier, orgIdentifier } = useParams()
   const [showCreateSecretModal, setShowCreateSecretModal] = useState<boolean>(false)
   const [editSecretData, setEditSecretData] = useState<EncryptedDataDTO>()
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
-  const { mutate: createConnector } = useCreateConnector({ accountIdentifier: props.accountId })
-  const { mutate: updateConnector } = useUpdateConnector({ accountIdentifier: props.accountId })
+  const { mutate: createConnector } = useCreateConnector({ accountIdentifier: accountId })
+  const { mutate: updateConnector } = useUpdateConnector({ accountIdentifier: accountId })
   const { mutate: createSecret } = usePostSecretText({})
   const [loadSecret, setLoadSecret] = useState(false)
   const [loadConnector, setLoadConnector] = useState(false)
@@ -85,9 +84,9 @@ const StepDockerAuthentication: React.FC<StepDockerAuthenticationProps> = props 
       modalErrorHandler?.hide()
       setLoadSecret(true)
       res = await createSecret({
-        account: props.accountId,
-        org: props.orgIdentifier,
-        project: props.projectIdentifier,
+        account: accountId,
+        org: orgIdentifier,
+        project: projectIdentifier,
         identifier: formData.passwordRefSecret?.secretId,
         name: formData.passwordRefSecret?.secretName,
         secretManager: formData.passwordRefSecret?.secretManager?.value as string,
@@ -136,8 +135,8 @@ const StepDockerAuthentication: React.FC<StepDockerAuthenticationProps> = props 
             const connectorData = {
               ...props.formData,
               ...formData,
-              projectIdentifier: props.projectIdentifier,
-              orgIdentifier: props.orgIdentifier
+              projectIdentifier: projectIdentifier,
+              orgIdentifier: orgIdentifier
             }
             const data = buildDockerPayload(connectorData)
             const passwordFields = getSecretFieldsByType('UsernamePassword') || []
@@ -172,9 +171,9 @@ const StepDockerAuthentication: React.FC<StepDockerAuthenticationProps> = props 
                 <UsernamePassword
                   name={props.formData?.identifier}
                   isEditMode={props.isEditMode}
-                  accountId={props.accountId}
-                  orgIdentifier={props.orgIdentifier}
-                  projectIdentifier={props.projectIdentifier}
+                  accountId={accountId}
+                  orgIdentifier={orgIdentifier}
+                  projectIdentifier={projectIdentifier}
                   formikProps={formikProps}
                   passwordField={AuthTypeFields.passwordRef}
                   onClickCreateSecret={() => setShowCreateSecretModal(true)}

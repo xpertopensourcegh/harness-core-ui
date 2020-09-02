@@ -108,9 +108,6 @@ const RenderColumnStatus: Renderer<CellProps<ConnectorSummaryDTO>> = ({ row }) =
                 />
               ) : (
                 <VerifyOutOfClusterDelegate
-                  accountId={accountId}
-                  orgIdentifier={orgIdentifier}
-                  projectIdentifier={projectIdentifier}
                   connectorName={data.name}
                   connectorIdentifier={data.identifier}
                   inPopover={true}
