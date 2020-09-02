@@ -3,7 +3,7 @@ import { Text, SelectOption, Button, Color } from '@wings-software/uikit'
 import { Select } from '@blueprintjs/select'
 import { FormikProps, connect } from 'formik'
 import { MenuItem } from '@blueprintjs/core'
-import { useGetConnectorList } from 'services/cd-ng'
+import { useGetConnectorList, SecretRefData } from 'services/cd-ng'
 
 import EditableText from 'modules/common/components/EditableText/EditableText'
 import i18n from './CreateInlineSecret.i18n'
@@ -13,6 +13,7 @@ export interface InlineSecret {
   secretName: string
   secretId: string
   secretManager?: SelectOption
+  scope: SecretRefData['scope']
 }
 
 interface CreateInlineSecretProps {
@@ -26,13 +27,30 @@ interface CreateInlineSecretProps {
 
 const CustomSelect = Select.ofType<SelectOption>()
 
+interface GetScopeParams {
+  accountIdentifier: string
+  projectIdentifier?: string
+  orgIdentifier?: string
+}
+const getScope = ({ accountIdentifier, orgIdentifier, projectIdentifier }: GetScopeParams): SecretRefData['scope'] => {
+  if (accountIdentifier) {
+    if (orgIdentifier) {
+      if (projectIdentifier) {
+        return 'PROJECT'
+      }
+      return 'ORG'
+    }
+    return 'ACCOUNT'
+  }
+}
+
 const CreateInlineSecret: React.FC<CreateInlineSecretProps> = props => {
   const { defaultSecretId, defaultSecretName, accountIdentifier, projectIdentifier, orgIdentifier } = props
   const { data: secretManagersApiResponse, error, refetch, loading } = useGetConnectorList({
     accountIdentifier,
     queryParams: { orgIdentifier, projectIdentifier, categories: ['SECRET_MANAGER'] }
   })
-
+  const scope = getScope({ accountIdentifier, projectIdentifier, orgIdentifier })
   const [secretName, setSecretName] = useState(defaultSecretName || '')
   const [secretId, setSecretId] = useState(defaultSecretId || '')
   const [secretManager, setSecretManager] = useState<SelectOption>()
@@ -62,7 +80,7 @@ const CreateInlineSecret: React.FC<CreateInlineSecretProps> = props => {
         value={secretName}
         onChange={val => {
           setSecretName(val)
-          props.onChange?.({ secretName: val, secretId, secretManager })
+          props.onChange?.({ secretName: val, secretId, secretManager, scope })
         }}
       />
       <span className={css.bullet}>&middot;</span>
@@ -73,7 +91,7 @@ const CreateInlineSecret: React.FC<CreateInlineSecretProps> = props => {
         value={secretId}
         onChange={val => {
           setSecretId(val)
-          props.onChange?.({ secretName, secretId: val, secretManager })
+          props.onChange?.({ secretName, secretId: val, secretManager, scope })
         }}
       />
       <span className={css.bullet}>&middot;</span>
@@ -89,11 +107,11 @@ const CreateInlineSecret: React.FC<CreateInlineSecretProps> = props => {
           items={secretManagers}
           filterable={false}
           itemRenderer={(item, { handleClick }) => (
-            <MenuItem text={item.label} onClick={(e: React.MouseEvent<HTMLElement, MouseEvent>) => handleClick(e)} />
+            <MenuItem key={item.value.toString()} text={item.label} onClick={handleClick} />
           )}
           onItemSelect={item => {
             setSecretManager(item)
-            props.onChange?.({ secretName, secretId, secretManager: item })
+            props.onChange?.({ secretName, secretId, secretManager: item, scope })
           }}
           popoverProps={{ minimal: true }}
         >

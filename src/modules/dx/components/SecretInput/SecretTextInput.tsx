@@ -110,6 +110,7 @@ const SecretTextField: React.FC<SecretTextInputProps> = props => {
                 })
                 props.formikProps.setFieldValue(props.secretFieldName, {
                   secretName: secret?.name,
+                  scope: secret?.scope,
                   secretId: secret?.identifier,
                   secretManager: { value: secret?.secretManager, label: secret?.secretManagerName }
                 })

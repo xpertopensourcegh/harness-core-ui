@@ -12,13 +12,17 @@ import { PageError } from 'modules/common/components/Page/PageError'
 import css from './SecretReference.module.scss'
 
 export enum Scope {
-  PROJECT,
-  ORG,
-  ACCOUNT
+  PROJECT = 'PROJECT',
+  ORG = 'ORG',
+  ACCOUNT = 'ACCOUNT'
+}
+
+interface SecretRef extends EncryptedDataDTO {
+  scope: Scope
 }
 
 interface SecretReferenceProps {
-  onSelect: (secret: EncryptedDataDTO) => void
+  onSelect: (secret: SecretRef) => void
   accountIdentifier: string
   projectIdentifier?: string
   orgIdentifier?: string
@@ -91,7 +95,7 @@ const SecretReference: React.FC<SecretReferenceProps> = props => {
             <div
               key={item.identifier}
               className={cx(css.listItem, Classes.POPOVER_DISMISS)}
-              onClick={() => props.onSelect(item)}
+              onClick={() => props.onSelect({ ...item, scope: selectedScope })}
             >
               <div>{item.name}</div>
               <div className={css.meta}>
