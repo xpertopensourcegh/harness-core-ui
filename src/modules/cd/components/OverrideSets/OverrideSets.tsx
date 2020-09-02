@@ -28,7 +28,7 @@ export default function OverrideSets({ selectedTab }: { selectedTab: string }): 
   } = React.useContext(PipelineContext)
 
   const { stage } = getStageFromPipeline(pipeline, selectedStageId || '')
-  const serviceDefPath = 'stage.spec.service.serviceDef.spec'
+  const serviceDefPath = 'stage.spec.service.serviceDefinition.spec'
   const currentListPath =
     serviceDefPath +
     '.' +

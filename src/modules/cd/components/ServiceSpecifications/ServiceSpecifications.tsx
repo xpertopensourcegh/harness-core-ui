@@ -63,7 +63,7 @@ export default function ServiceSpecifications(): JSX.Element {
           name: null,
           description: null,
           tags: null,
-          serviceDef: {
+          serviceDefinition: {
             type: 'Kubernetes',
             spec: {
               artifacts: [],

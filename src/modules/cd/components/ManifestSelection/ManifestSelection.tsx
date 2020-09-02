@@ -119,8 +119,8 @@ function ManifestListView({
   ))
 
   let listOfManifests = !isForOverrideSets
-    ? get(stage, 'stage.spec.service.serviceDef.spec.manifests', [])
-    : get(stage, 'stage.spec.service.serviceDef.spec.manifestOverrideSets', [])
+    ? get(stage, 'stage.spec.service.serviceDefinition.spec.manifests', [])
+    : get(stage, 'stage.spec.service.serviceDefinition.spec.manifestOverrideSets', [])
 
   if (isForOverrideSets) {
     listOfManifests = listOfManifests.map((overrideSets: { overrideSet: { identifier: string; manifests: [{}] } }) => {
@@ -257,8 +257,8 @@ export default function ManifestSelection({
   const { stage } = getStageFromPipeline(pipeline, selectedStageId || '')
   const identifier = selectedStageId || 'stage-identifier'
   let listOfManifests = !isForOverrideSets
-    ? get(stage, 'stage.spec.service.serviceDef.spec.manifests', [])
-    : get(stage, 'stage.spec.service.serviceDef.spec.manifestOverrideSets', [])
+    ? get(stage, 'stage.spec.service.serviceDefinition.spec.manifests', [])
+    : get(stage, 'stage.spec.service.serviceDefinition.spec.manifestOverrideSets', [])
   if (isForOverrideSets) {
     listOfManifests = listOfManifests.map((overrideSets: { overrideSet: { identifier: string; manifests: [{}] } }) => {
       if (overrideSets.overrideSet.identifier === identifierName) {

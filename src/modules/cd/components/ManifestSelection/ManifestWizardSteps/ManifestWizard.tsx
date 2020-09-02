@@ -44,8 +44,8 @@ const manifestTypes = [
 ]
 
 const gitFetchTypes = [
-  { label: i18n.gitFetchTypes[0].label, value: 'BRANCH' },
-  { label: i18n.gitFetchTypes[1].label, value: 'COMMIT' }
+  { label: i18n.gitFetchTypes[0].label, value: 'Branch' },
+  { label: i18n.gitFetchTypes[1].label, value: 'Commit' }
 ]
 
 const FirstStep = (props: any): JSX.Element => {
@@ -115,8 +115,8 @@ const FirstStep = (props: any): JSX.Element => {
 const SecondStep = (props: any): JSX.Element => {
   const prevData = props?.prevStepData
   const manifests = props.isForOverrideSets
-    ? get(props.stage, 'stage.spec.service.serviceDef.spec.manifestOverrideSets', [])
-    : get(props.stage, 'stage.spec.service.serviceDef.spec.manifests', [])
+    ? get(props.stage, 'stage.spec.service.serviceDefinition.spec.manifestOverrideSets', [])
+    : get(props.stage, 'stage.spec.service.serviceDefinition.spec.manifests', [])
   return (
     <Layout.Vertical spacing="xxlarge" padding="small" style={{ height: '100%' }}>
       <Text font="medium">{i18n.STEP_TWO.title}</Text>

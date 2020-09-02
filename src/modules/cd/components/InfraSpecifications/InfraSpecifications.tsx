@@ -69,7 +69,7 @@ export default function InfraSpecifications(): JSX.Element {
     namespaceId: string
     releaseName: string
   } => {
-    const infrastructure = get(stage, 'stage.spec.infrastructure.infrastructureDef', null)
+    const infrastructure = get(stage, 'stage.spec.infrastructure.infrastructureDefinition', null)
     const connectorIdValue = infrastructure?.spec?.connectorIdentifier
     const namespaceId = infrastructure?.spec?.namespace
     const releaseName = infrastructure?.spec?.releaseName
@@ -96,7 +96,7 @@ export default function InfraSpecifications(): JSX.Element {
                 type: value.infraType,
                 tags: []
               },
-              infrastructureDef: {}
+              infrastructureDefinition: {}
             }
             pipelineData['infrastructure'] = infraStruct
             updatePipeline(pipeline)
@@ -207,7 +207,7 @@ export default function InfraSpecifications(): JSX.Element {
                 releaseName: value.releaseName
               }
             }
-            infraSpec['infrastructureDef'] = infraStruct
+            infraSpec['infrastructureDefinition'] = infraStruct
             updatePipeline(pipeline)
           }}
           onSubmit={values => {

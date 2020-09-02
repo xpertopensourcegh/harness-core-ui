@@ -26,7 +26,7 @@ export default function WorkflowVariables(): JSX.Element {
   } = React.useContext(PipelineContext)
 
   const { stage } = getStageFromPipeline(pipeline, selectedStageId || '')
-  let _variables = get(stage, 'stage.spec.service.serviceDef.spec.variables', [])
+  let _variables = get(stage, 'stage.spec.service.serviceDefinition.spec.variables', [])
   return (
     <Layout.Vertical padding="large" style={{ background: 'var(--grey-100)', minHeight: 150 }}>
       <Text style={{ color: 'var(--grey-500)', lineHeight: '24px' }}>{i18n.info}</Text>
