@@ -4,5 +4,6 @@ export default {
   connectorName: 'Give your Kubernetes Connector a name',
   description: 'Description',
   tags: 'Tags',
-  identifier: 'Identifier'
+  identifier: 'Identifier',
+  validIdRegex: 'Identifier can only contain alphanumerics, _ and $'
 }

@@ -551,6 +551,7 @@ const CreateK8sConnector = (props: CreateK8sConnectorProps) => {
             connectorName={formData?.name}
             connectorIdentifier={formData?.identifier}
             renderInModal={true}
+            isLastStep={true}
           />
         )}
       </StepWizard>

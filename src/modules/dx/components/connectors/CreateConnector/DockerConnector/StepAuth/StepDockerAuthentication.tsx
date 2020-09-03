@@ -6,13 +6,14 @@ import {
   Formik,
   FormInput,
   Text,
-  SelectOption,
   ModalErrorHandler,
   ModalErrorHandlerBinding,
-  FormikForm as Form
+  FormikForm as Form,
+  StepProps
 } from '@wings-software/uikit'
 import * as Yup from 'yup'
 import { buildDockerPayload } from 'modules/dx/pages/connectors/utils/ConnectorUtils'
+import { useToaster } from 'modules/common/exports'
 import {
   useCreateConnector,
   ConnectorRequestDTORequestBody,
@@ -20,7 +21,8 @@ import {
   useUpdateConnector,
   ConnectorConfigDTO,
   EncryptedDataDTO,
-  ConnectorDTO
+  ConnectorDTO,
+  ConnectorRequestDTO
 } from 'services/cd-ng'
 import CreateSecretOverlay from 'modules/dx/common/CreateSecretOverlay/CreateSecretOverlay'
 import {
@@ -32,18 +34,15 @@ import UsernamePassword from '../../../ConnectorFormFields/UsernamePassword'
 
 import i18n from '../CreateDockerConnector.i18n'
 
-interface StepDockerAuthenticationProps {
-  name: string
-  previousStep?: () => void
-  nextStep?: () => void
-  formData?: ConnectorConfigDTO
-  onConnectorCreated?: (data: ConnectorConfigDTO) => void
-  isEditMode: boolean
-  setFormData: (val: ConnectorConfigDTO) => void
+interface StepDockerAuthenticationProps extends ConnectorRequestDTO {
+  name?: string
+  isEditMode?: boolean
 }
 
-const StepDockerAuthentication: React.FC<StepDockerAuthenticationProps> = props => {
+const StepDockerAuthentication: React.FC<StepProps<StepDockerAuthenticationProps>> = props => {
+  const { prevStepData, nextStep } = props
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
+  const { showSuccess } = useToaster()
   const [showCreateSecretModal, setShowCreateSecretModal] = useState<boolean>(false)
   const [editSecretData, setEditSecretData] = useState<EncryptedDataDTO>()
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
@@ -53,32 +52,32 @@ const StepDockerAuthentication: React.FC<StepDockerAuthenticationProps> = props 
   const [loadSecret, setLoadSecret] = useState(false)
   const [loadConnector, setLoadConnector] = useState(false)
 
-  // Todo: remove any once BE adds type of docker spec
-  const handleCreate = async (data: any) => {
+  const handleCreate = async (data: ConnectorRequestDTORequestBody, stepData: ConnectorConfigDTO) => {
     try {
       setLoadConnector(true)
-      await createConnector(data as ConnectorRequestDTORequestBody)
+      await createConnector(data)
       setLoadConnector(false)
-      props.nextStep?.()
+      nextStep?.({ ...prevStepData, ...stepData })
+      showSuccess(`Connector '${prevStepData?.name}' created successfully`)
     } catch (e) {
       setLoadConnector(false)
       modalErrorHandler?.showDanger(e?.message)
     }
   }
 
-  const handleUpdate = async (data: any) => {
+  const handleUpdate = async (data: ConnectorRequestDTORequestBody, stepData: ConnectorConfigDTO) => {
     try {
       setLoadConnector(true)
-      await updateConnector(data as ConnectorRequestDTORequestBody)
+      await updateConnector(data)
       setLoadConnector(false)
-      props.nextStep?.()
+      nextStep?.({ ...prevStepData, ...stepData })
     } catch (error) {
       setLoadConnector(false)
       modalErrorHandler?.showDanger(error?.message)
     }
   }
 
-  const createSecretCallback = async (formData: ConnectorConfigDTO, data: ConnectorDTO) => {
+  const createSecretCallback = async (stepData: ConnectorConfigDTO, data: ConnectorDTO) => {
     let res
     try {
       modalErrorHandler?.hide()
@@ -87,10 +86,10 @@ const StepDockerAuthentication: React.FC<StepDockerAuthenticationProps> = props 
         account: accountId,
         org: orgIdentifier,
         project: projectIdentifier,
-        identifier: formData.passwordRefSecret?.secretId,
-        name: formData.passwordRefSecret?.secretName,
-        secretManager: formData.passwordRefSecret?.secretManager?.value as string,
-        value: formData.passwordRef.value,
+        identifier: stepData.passwordRefSecret?.secretId,
+        name: stepData.passwordRefSecret?.secretName,
+        secretManager: stepData.passwordRefSecret?.secretManager?.value as string,
+        value: stepData.passwordRef.value,
         type: 'SecretText',
         valueType: 'Inline'
       })
@@ -101,10 +100,10 @@ const StepDockerAuthentication: React.FC<StepDockerAuthenticationProps> = props 
     }
 
     if (res && res.status === 'SUCCESS' && res.data) {
-      if (props.isEditMode) {
-        handleUpdate(data)
+      if (prevStepData?.isEditMode) {
+        handleUpdate(data, stepData)
       } else {
-        handleCreate(data)
+        handleCreate(data, stepData)
       }
     }
   }
@@ -120,21 +119,16 @@ const StepDockerAuthentication: React.FC<StepDockerAuthenticationProps> = props 
             username: '',
             passwordRef: { name: '', isReference: false },
             dockerRegistryUrl: '',
-            passwordRefSecret: {
-              secretId: '',
-              secretName: '',
-              secretManager: { value: '' } as SelectOption
-            },
-            ...props.formData
+            ...prevStepData
           }}
           validationSchema={Yup.object().shape({
             dockerRegistryUrl: Yup.string().trim().required(i18n.STEP_TWO.validation.dockerUrl),
             username: Yup.string().trim().required(i18n.STEP_TWO.validation.username)
           })}
-          onSubmit={formData => {
+          onSubmit={stepData => {
             const connectorData = {
-              ...props.formData,
-              ...formData,
+              ...prevStepData,
+              ...stepData,
               projectIdentifier: projectIdentifier,
               orgIdentifier: orgIdentifier
             }
@@ -151,16 +145,15 @@ const StepDockerAuthentication: React.FC<StepDockerAuthenticationProps> = props 
                   return item
                 }
               })
-            if (props.isEditMode) {
-              handleUpdate(data)
+            if (prevStepData?.isEditMode) {
+              handleUpdate(data, stepData)
             } else {
               if (nonReferencedFields.length) {
-                createSecretCallback(formData, data)
+                createSecretCallback(stepData, data)
               } else {
-                handleCreate(data)
+                handleCreate(data, stepData)
               }
             }
-            props.setFormData(connectorData)
           }}
         >
           {formikProps => (
@@ -169,8 +162,8 @@ const StepDockerAuthentication: React.FC<StepDockerAuthenticationProps> = props 
               <Layout.Vertical padding={{ top: 'large', bottom: 'large' }} width={'64%'}>
                 <FormInput.Text name="dockerRegistryUrl" label={i18n.STEP_TWO.DockerRegistryURL} />
                 <UsernamePassword
-                  name={props.formData?.identifier}
-                  isEditMode={props.isEditMode}
+                  name={prevStepData?.identifier}
+                  isEditMode={prevStepData?.isEditMode}
                   accountId={accountId}
                   orgIdentifier={orgIdentifier}
                   projectIdentifier={projectIdentifier}

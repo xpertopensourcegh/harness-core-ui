@@ -19,7 +19,7 @@ const ConnectorDetailsStep: React.FC<StepProps<ConnectorRequestDTO> & ConnectorD
   const { prevStepData, nextStep } = props
   const { showError } = useToaster()
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
-  const [stepData, setStepData] = useState<ConnectorRequestDTO>(props.formData || {})
+  const [stepData, setStepData] = useState<ConnectorRequestDTO>(prevStepData || props.formData || {})
   const { loading, data, refetch: validateUniqueIdentifier } = useValidateTheIdentifierIsUnique({
     accountIdentifier: accountId,
     lazy: true,
@@ -42,17 +42,19 @@ const ConnectorDetailsStep: React.FC<StepProps<ConnectorRequestDTO> & ConnectorD
       <div className={css.heading}>{getHeadingByType(props.type)}</div>
       <Formik
         initialValues={{
-          name: props.formData?.name || '',
-          description: props.formData?.description || '',
-          identifier: props.formData?.identifier || '',
-          tags: props.formData?.tags || []
+          name: '',
+          description: '',
+          identifier: '',
+          tags: [],
+          ...prevStepData,
+          ...props.formData
         }}
         validationSchema={Yup.object().shape({
           name: Yup.string().trim().required(),
           identifier: Yup.string()
             .trim()
             .required()
-            .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, 'Identifier can only contain alphanumerics, _ and $')
+            .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, i18n.validIdRegex)
             .notOneOf(StringUtils.illegalIdentifiers),
           description: Yup.string()
         })}

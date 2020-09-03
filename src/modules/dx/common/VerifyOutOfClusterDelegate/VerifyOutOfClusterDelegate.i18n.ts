@@ -11,5 +11,6 @@ export default {
   RETEST: 'RETEST CONNECTION',
   LAST_CONNECTED: 'Last connected successfully',
   delegateFound: (count: number | undefined) => `${count ? count : 'No'} delegate found`,
-  STEP_TWO_POPOVER: 'Establishing connection'
+  STEP_TWO_POPOVER: 'Establishing connection',
+  CONTINUE: 'CONTINUE'
 }

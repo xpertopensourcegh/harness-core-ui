@@ -1,18 +1,16 @@
 import React, { useState } from 'react'
 import { useParams } from 'react-router'
 import ReactTimeago from 'react-timeago'
-import { StepsProgress, Layout, Button, Text, Intent, Color } from '@wings-software/uikit'
+import { StepsProgress, Layout, Button, Text, Intent, Color, StepProps } from '@wings-software/uikit'
 import { useGetDelegatesStatus, RestResponseDelegateStatus } from 'services/portal'
-import { useGetTestConnectionResult } from 'services/cd-ng'
-import { useToaster } from 'modules/common/exports'
+import { useGetTestConnectionResult, ConnectorRequestDTO } from 'services/cd-ng'
 import type { StepDetails } from 'modules/dx/interfaces/ConnectorInterface'
 import i18n from './VerifyOutOfClusterDelegate.i18n'
 import css from './VerifyOutOfClusterDelegate.module.scss'
 
 interface VerifyOutOfClusterDelegateProps {
   hideLightModal?: () => void
-  previousStep?: () => void
-  connectorName: string | undefined
+  connectorName?: string
   connectorIdentifier?: string
   name?: string
   onSuccess?: () => void
@@ -23,6 +21,10 @@ interface VerifyOutOfClusterDelegateProps {
   inPopover?: boolean
   setStatus?: (val: string) => void
   setTesting?: (val: boolean) => void
+  isLastStep?: boolean
+}
+interface VerifyOutOfClusterStepProps extends ConnectorRequestDTO {
+  isEditMode?: boolean
 }
 
 interface VerifyOutOfClusterDelegateState {
@@ -58,7 +60,10 @@ const getStepOne = (state: VerifyOutOfClusterDelegateState) => {
   }
 }
 
-const VerifyOutOfClusterDelegate = (props: VerifyOutOfClusterDelegateProps) => {
+const VerifyOutOfClusterDelegate: React.FC<
+  StepProps<VerifyOutOfClusterStepProps> & VerifyOutOfClusterDelegateProps
+> = props => {
+  const { prevStepData, nextStep, isLastStep = false, renderInModal = false, inPopover = false } = props
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
   const [delegateCount, setDelegateCount] = useState({} as RestResponseDelegateStatus | null)
   const [validateError, setValidateError] = useState({} as RestResponseDelegateStatus | null)
@@ -67,7 +72,7 @@ const VerifyOutOfClusterDelegate = (props: VerifyOutOfClusterDelegateProps) => {
     intent: Intent.WARNING,
     status: 'PROCESS'
   })
-  const { showSuccess } = useToaster()
+
   const state: VerifyOutOfClusterDelegateState = {
     delegateCount,
     setDelegateCount,
@@ -86,7 +91,7 @@ const VerifyOutOfClusterDelegate = (props: VerifyOutOfClusterDelegateProps) => {
     error: errorTesting
   } = useGetTestConnectionResult({
     accountIdentifier: accountId,
-    connectorIdentifier: props.connectorIdentifier as string,
+    connectorIdentifier: props.connectorIdentifier || prevStepData?.identifier || '',
     lazy: true,
     queryParams: { orgIdentifier: orgIdentifier, projectIdentifier: projectIdentifier }
   })
@@ -165,7 +170,7 @@ const VerifyOutOfClusterDelegate = (props: VerifyOutOfClusterDelegateProps) => {
         props.setLastTested?.(testConnectionResponse?.data?.testedAt || 0)
         props.setLastConnected?.(testConnectionResponse?.data?.testedAt || 0)
         props.setStatus?.('SUCCESS')
-        if (props.inPopover) {
+        if (inPopover) {
           props.setTesting?.(false)
         }
       }
@@ -179,39 +184,39 @@ const VerifyOutOfClusterDelegate = (props: VerifyOutOfClusterDelegateProps) => {
   return (
     <Layout.Vertical padding="small" height={'100%'}>
       <Layout.Vertical height={'90%'}>
-        {props.inPopover ? null : (
+        {inPopover ? null : (
           <Text font="medium" color={Color.GREY_700} padding={{ right: 'small', left: 'small' }}>
-            {i18n.HEADING} <span className={css.name}>{props.connectorName}</span>
+            {i18n.HEADING} <span className={css.name}>{props.connectorName || prevStepData?.name}</span>
           </Text>
         )}
         <StepsProgress
-          steps={[getStepOne(state), props.inPopover ? i18n.STEP_TWO_POPOVER : i18n.STEPS.TWO, i18n.STEPS.THREE]}
+          steps={[getStepOne(state), inPopover ? i18n.STEP_TWO_POPOVER : i18n.STEPS.TWO, i18n.STEPS.THREE]}
           intent={stepDetails.intent}
           current={stepDetails.step}
           currentStatus={stepDetails.status}
         />
-        {props.renderInModal && stepDetails.step === StepIndex.get(STEP.VERIFY) && stepDetails.status === 'ERROR' ? (
+        {renderInModal && stepDetails.step === StepIndex.get(STEP.VERIFY) && stepDetails.status === 'ERROR' ? (
           <Button
             intent="primary"
             minimal
             className={css.editCreds}
             text={i18n.EDIT_CREDS}
             onClick={() => {
-              props.setIsEditMode?.()
-              props.previousStep?.()
+              props.previousStep?.({ ...prevStepData, isEditMode: true })
+              props.setIsEditMode?.() // Remove after removing support from all parent components
             }}
           />
         ) : null}
 
-        {!props.inPopover &&
-        !props.renderInModal &&
+        {inPopover &&
+        !renderInModal &&
         stepDetails.step === StepIndex.get(STEP.VERIFY) &&
         stepDetails.status === 'DONE' ? (
           <Text padding={{ top: 'small', left: 'large' }}>
             {i18n.LAST_CONNECTED} {<ReactTimeago date={new Date().getTime()} />}
           </Text>
         ) : null}
-        {!props.inPopover && !props.renderInModal && stepDetails.intent === Intent.DANGER ? (
+        {inPopover && renderInModal && stepDetails.intent === Intent.DANGER ? (
           <Layout.Horizontal>
             <Button
               intent="primary"
@@ -230,24 +235,25 @@ const VerifyOutOfClusterDelegate = (props: VerifyOutOfClusterDelegateProps) => {
             />
           </Layout.Horizontal>
         ) : null}
-
-        {/* Show same in error handler  {state.validateError?.responseMessages?.[0]?.message && (
-          <Text font="small" className={css.validateError}>
-            {state.validateError}
-          </Text>
-        )}
-         */}
       </Layout.Vertical>
-      {!props.inPopover && props.renderInModal && stepDetails.step === TOTAL_STEPS && stepDetails.status === 'DONE' ? (
+      {isLastStep && stepDetails.step === TOTAL_STEPS && stepDetails.status === 'DONE' ? (
         <Layout.Horizontal spacing="large" className={css.btnWrapper}>
           <Button
-            type="submit"
             onClick={() => {
               props.hideLightModal?.()
               props.onSuccess?.()
-              showSuccess(`Connector '${props.connectorName}' created successfully`)
             }}
             text={i18n.FINISH}
+          />
+        </Layout.Horizontal>
+      ) : null}
+      {!isLastStep && renderInModal && !inPopover ? (
+        <Layout.Horizontal spacing="large" className={css.btnWrapper}>
+          <Button
+            onClick={() => {
+              nextStep?.({ ...prevStepData })
+            }}
+            text={i18n.CONTINUE}
           />
         </Layout.Horizontal>
       ) : null}

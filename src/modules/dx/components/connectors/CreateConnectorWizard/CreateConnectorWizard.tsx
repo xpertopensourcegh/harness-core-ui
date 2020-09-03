@@ -72,15 +72,7 @@ export const ConnectorWizard: React.FC<CreateConnectorWizardProps> = props => {
         />
       )
     case Connectors.DOCKER:
-      return (
-        <CreateDockerConnector
-          onConnectorCreated={props.onSuccess}
-          accountId={accountId}
-          hideLightModal={hideLightModal}
-          orgIdentifier={orgIdentifier}
-          projectIdentifier={projectIdentifier}
-        />
-      )
+      return <CreateDockerConnector onConnectorCreated={props.onSuccess} hideLightModal={hideLightModal} />
     default:
       return null
   }
