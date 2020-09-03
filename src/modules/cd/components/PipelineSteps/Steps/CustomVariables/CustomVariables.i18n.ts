@@ -2,6 +2,7 @@ export default {
   customVariables: 'Custom Variables',
   stageVariables: 'Variables',
   addVariable: 'Add Variable',
+  variables: 'Variables',
   save: 'Save',
   validation: {
     name: 'Name is required'

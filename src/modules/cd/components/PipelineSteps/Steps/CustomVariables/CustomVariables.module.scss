@@ -36,7 +36,7 @@
   .actionButtons {
     button {
       margin-left: var(--spacing-small);
-      border-radius: 30px !important;
+      border-radius: var(--spacing-xxlarge) !important;
       padding: 0 !important;
       :global {
         svg {
@@ -44,5 +44,18 @@
         }
       }
     }
+  }
+}
+
+.secret-container {
+  position: relative;
+  padding: var(--spacing-large) 0 0;
+  .fixed {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+  .icon {
+    cursor: pointer;
   }
 }

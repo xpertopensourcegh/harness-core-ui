@@ -22,29 +22,29 @@
 
   .Resizer.horizontal {
     height: 11px;
-    margin: -5px 0;
-    border-top: 5px solid rgba(255, 255, 255, 0);
-    border-bottom: 5px solid rgba(255, 255, 255, 0);
+    margin: -var(--spacing-xsmall) 0;
+    border-top: var(--spacing-xsmall) solid rgba(255, 255, 255, 0);
+    border-bottom: var(--spacing-xsmall) solid rgba(255, 255, 255, 0);
     cursor: row-resize;
     width: 100%;
   }
 
   .Resizer.horizontal:hover {
-    border-top: 5px solid rgba(0, 0, 0, 0.5);
-    border-bottom: 5px solid rgba(0, 0, 0, 0.5);
+    border-top: var(--spacing-xsmall) solid rgba(0, 0, 0, 0.5);
+    border-bottom: var(--spacing-xsmall) solid rgba(0, 0, 0, 0.5);
   }
 
   .Resizer.vertical {
     width: 11px;
-    margin: 0 -5px;
-    border-left: 5px solid rgba(255, 255, 255, 0);
-    border-right: 5px solid rgba(255, 255, 255, 0);
+    margin: 0 -var(--spacing-xsmall);
+    border-left: var(--spacing-xsmall) solid rgba(255, 255, 255, 0);
+    border-right: var(--spacing-xsmall) solid rgba(255, 255, 255, 0);
     cursor: col-resize;
   }
 
   .Resizer.vertical:hover {
-    border-left: 5px solid rgba(0, 0, 0, 0.5);
-    border-right: 5px solid rgba(0, 0, 0, 0.5);
+    border-left: var(--spacing-xsmall) solid rgba(0, 0, 0, 0.5);
+    border-right: var(--spacing-xsmall) solid rgba(0, 0, 0, 0.5);
   }
   .Resizer.disabled {
     cursor: not-allowed;
@@ -53,69 +53,77 @@
     border-color: transparent;
   }
 }
-
-.canvas {
+.canvas-container {
+  background-image: var(--pipeline-canvas-image);
   height: 100%;
-  width: 100%;
-  position: relative;
+  padding: 0 !important;
+  &.canvas-stage-view {
+    background-image: var(--pipeline-canvas-blue-image);
+  }
 
-  > div {
-    cursor: default;
+  .canvas {
     height: 100%;
     width: 100%;
-  }
+    position: relative;
 
-  .render-popover {
-    min-width: 140px;
-    z-index: 2;
-    overflow-y: scroll;
-    max-height: 500px;
-  }
+    > div {
+      cursor: default;
+      height: 100%;
+      width: 100%;
+    }
 
-  .create-new-content {
-    max-width: 300px;
+    .render-popover {
+      min-width: 140px;
+      z-index: 2;
+      overflow-y: scroll;
+      max-height: 500px;
+    }
 
-    &.parallel {
-      max-width: 220px;
+    .create-new-content {
+      max-width: 300px;
+
+      &.parallel {
+        max-width: 220px;
+
+        .create-new-cards {
+          grid-template-columns: 66px 66px 66px;
+        }
+      }
 
       .create-new-cards {
-        grid-template-columns: 66px 66px 66px;
-      }
-    }
+        display: grid;
+        grid-template-columns: 66px 66px 66px 66px;
+        gap: 10px;
 
-    .create-new-cards {
-      display: grid;
-      grid-template-columns: 66px 66px 66px 66px;
-      gap: 10px;
+        .card-new {
+          width: 66px;
+          height: 62px;
+          padding: var(--spacing-xsmall);
+          cursor: pointer;
+          background-color: var(--pipeline-blue-bc);
 
-      .card-new {
-        width: 66px;
-        height: 62px;
-        padding: 5px;
-        cursor: pointer;
-        background-color: var(--pipeline-blue-bc);
+          &.disabled {
+            background-color: var(--pipeline-blue-bc) !important;
+          }
+          & > div {
+            text-align: center;
+          }
 
-        &.disabled {
-          background-color: var(--pipeline-blue-bc) !important;
-        }
-        & > div {
-          text-align: center;
-        }
+          & > span {
+            padding: var(--spacing-xsmall) 18px var(--spacing-xsmall);
+          }
 
-        & > span {
-          padding: 5px 18px 5px;
-        }
-
-        &:hover {
-          background-color: rgba($color: #000000, $alpha: 0.2);
-          color: var(--white);
+          &:hover {
+            background-color: rgba($color: #000000, $alpha: 0.2);
+            color: var(--white);
+          }
         }
       }
-    }
 
-    .create-new-message {
-      font-size: var(--font-size-small);
-      padding-top: var(--spacing-large);
+      .create-new-message {
+        font-size: var(--font-size-small);
+        padding-top: var(--spacing-large);
+      }
     }
   }
 }

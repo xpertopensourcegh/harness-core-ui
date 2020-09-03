@@ -195,10 +195,10 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
     }
   }
 
-  const invokeCallBackForMatchingYAMLPaths = (monaco, matchingPath: string): void => {
+  const invokeCallBackForMatchingYAMLPaths = (monaco, matchingPath: string, editor): void => {
     invocationMap?.forEach((callBackFunc, yamlPath) => {
-      if (matchingPath?.match(yamlPath) && typeof callBackFunc === 'function') {
-        const suggestionsPromise = callBackFunc(matchingPath)
+      if (matchingPath.match(yamlPath) && typeof callBackFunc === 'function') {
+        const suggestionsPromise = callBackFunc(matchingPath, getYAMLFromEditor(editor, true))
         registerCompletionItemProviderForRTInputs(monaco, suggestionsPromise)
       }
     })
@@ -253,7 +253,7 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
           true
         )
         disposePreviousSuggestions()
-        invokeCallBackForMatchingYAMLPaths(monaco, parentToCurrentPropertyPath)
+        invokeCallBackForMatchingYAMLPaths(monaco, parentToCurrentPropertyPath, editor)
       }
     }
     if (code === KEY_CODE_FOR_PERIOD) {

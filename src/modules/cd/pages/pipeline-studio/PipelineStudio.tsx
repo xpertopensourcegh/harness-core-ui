@@ -8,7 +8,7 @@ import { routeCDPipelines } from '../../routes'
 import { RightBar } from './RightBar/RightBar'
 import css from './PipelineStudio.module.scss'
 
-const PipelineStudio = (): JSX.Element => {
+const PipelineStudio: React.FC = ({ children }): JSX.Element => {
   const { accountId, projectIdentifier, orgIdentifier, pipelineIdentifier } = useParams()
   const history = useHistory()
   return (
@@ -39,7 +39,7 @@ const PipelineStudio = (): JSX.Element => {
             </div>
           </div>
         </div>
-        <PipelineCanvas />
+        <PipelineCanvas>{children}</PipelineCanvas>
         <RightBar />
       </div>
     </PipelineProvider>

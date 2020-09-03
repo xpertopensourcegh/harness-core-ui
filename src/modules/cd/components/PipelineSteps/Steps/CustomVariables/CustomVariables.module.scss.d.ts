@@ -7,5 +7,8 @@ declare const styles: {
   readonly valueRow: string
   readonly variableListTable: string
   readonly actionButtons: string
+  readonly secretContainer: string
+  readonly fixed: string
+  readonly icon: string
 }
 export default styles

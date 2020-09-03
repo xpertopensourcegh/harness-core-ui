@@ -27,7 +27,12 @@ export const RightBar = (): JSX.Element => {
 
   const { mutate: runPipeline } = usePostPipelineExecute({
     queryParams: { accountIdentifier: accountId, projectIdentifier, orgIdentifier },
-    identifier: pipeline.identifier || ''
+    identifier: pipeline.identifier || '',
+    requestOptions: {
+      headers: {
+        'content-type': 'application/json'
+      }
+    }
   })
 
   const handleRunPipeline = React.useCallback(async () => {

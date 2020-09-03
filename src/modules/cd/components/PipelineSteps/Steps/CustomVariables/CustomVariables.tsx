@@ -8,22 +8,51 @@ import {
   Formik,
   FormikForm,
   FormInput,
-  MultiTextInput
-  // ButtonGroup
+  MultiTextInput,
+  Icon,
+  Popover,
+  MultiTypeInputType
 } from '@wings-software/uikit'
-import { cloneDeep } from 'lodash'
-import { Dialog, Classes } from '@blueprintjs/core'
+import { cloneDeep, get } from 'lodash'
+import { Dialog, Classes, Position } from '@blueprintjs/core'
 import * as Yup from 'yup'
-import type { Variable } from 'services/cd-ng'
+import xhr from '@wings-software/xhr-async'
+import { parse } from 'yaml'
+import { CompletionItemKind } from 'vscode-languageserver-types'
+import { useParams } from 'react-router-dom'
+import { loggerFor, ModuleName } from 'framework/exports'
+import type { Variable, EncryptedDataDTO, ResponseDTONGPageResponseEncryptedDataDTO } from 'services/cd-ng'
+import { getConfig } from 'services/config.js'
 import { Step, StepViewType, ConfigureOptions } from 'modules/common/exports'
+import { routeParams } from 'framework/exports'
+import type { CompletionItemInterface } from 'modules/common/interfaces/YAMLBuilderProps'
+import SecretReference from 'modules/dx/components/SecretReference/SecretReference'
 import i18n from './CustomVariables.i18n'
 import { StepType } from '../../PipelineStepInterface'
 import css from './CustomVariables.module.scss'
 
+const logger = loggerFor(ModuleName.CD)
+
 type VariableList = { variables: Variable[] }
+
+const RUNTIME_INPUT_VALUE = '{input}'
+const isValueAnExpression = (value: string): boolean => /^\${.*}$/.test(value)
+
+const valueToType = (value: string | undefined = '', allowableTypes?: MultiTypeInputType[]): MultiTypeInputType => {
+  if (typeof value === 'string') {
+    value = value.toLocaleLowerCase().trim()
+    if (value.startsWith(RUNTIME_INPUT_VALUE)) return MultiTypeInputType.RUNTIME
+    if (isValueAnExpression(value)) return MultiTypeInputType.EXPRESSION
+  }
+  if (!value && allowableTypes?.length) {
+    return allowableTypes[0]
+  }
+  return MultiTypeInputType.FIXED
+}
 
 interface CustomVariableEditableProps {
   initialValues: VariableList
+  secrets: EncryptedDataDTO[] | undefined
   onUpdate?: (data: VariableList) => void
   stepViewType?: StepViewType
 }
@@ -34,16 +63,27 @@ const VariableTypes = {
   Number: 'Number'
 }
 
+enum Scope {
+  Org = 'org',
+  Project = 'project',
+  Account = 'account'
+}
+
+const getSecretKey = (secret: EncryptedDataDTO): string =>
+  `${secret.org ? Scope.Org : secret.project ? Scope.Project : Scope.Account}.${secret.identifier}` || ''
 const getDefaultVariable = (): Variable => ({ name: '', type: VariableTypes.String, value: '' })
+
+const secretsOptions: Map<string, string> = new Map()
 
 const CustomVariableEditable: React.FC<CustomVariableEditableProps> = ({
   initialValues,
   onUpdate,
-  stepViewType
+  secrets,
+  stepViewType = StepViewType.Edit
 }): JSX.Element => {
   const [selectedVariable, setSelectedVariable] = React.useState<Variable>(getDefaultVariable())
   const [inputVariables, setInputVariables] = React.useState<Variable[]>(initialValues.variables)
-
+  const { accountId, projectIdentifier, orgIdentifier } = useParams()
   React.useEffect(() => {
     setInputVariables(initialValues.variables)
   }, [initialValues.variables])
@@ -101,12 +141,16 @@ const CustomVariableEditable: React.FC<CustomVariableEditableProps> = ({
     hideModal()
   }, [hideModal])
 
+  secrets?.forEach(secret => {
+    const key = getSecretKey(secret)
+    if (key) {
+      secretsOptions.set(key, secret.name || '')
+    }
+  })
   return (
     <div className={css.customVariables}>
       <div className={css.headerRow}>
-        <Text color={Color.BLACK}>
-          {stepViewType !== StepViewType.StageVariable ? i18n.customVariables : i18n.stageVariables}
-        </Text>
+        <Text color={Color.BLACK}>{stepViewType === StepViewType.Edit ? i18n.variables : i18n.customVariables}</Text>
         <Button minimal intent="primary" icon="plus" text={i18n.addVariable} onClick={showModal} />
       </div>
       {stepViewType === StepViewType.StageVariable && inputVariables.length > 0 && (
@@ -122,26 +166,72 @@ const CustomVariableEditable: React.FC<CustomVariableEditableProps> = ({
 
           <Text>{variable.type}</Text>
           <div className={css.valueRow}>
-            <MultiTextInput
-              width={270}
-              value={variable.value}
-              mentionsInfo={{
-                data: done =>
-                  done([
-                    'app.name',
-                    'app.description',
-                    'pipeline.name',
-                    'pipeline.description',
-                    'pipeline.identifier',
-                    'pipeline.stage.qa.displayName'
-                  ])
-              }}
-              onChange={value => {
-                inputVariables[index].value = value as string
-                setInputVariables(cloneDeep(inputVariables))
-                onUpdate?.({ variables: inputVariables })
-              }}
-            />
+            {variable.type === VariableTypes.Secret && (
+              <div className={css.secretContainer}>
+                {valueToType(variable.value) === MultiTypeInputType.FIXED && (
+                  <div className={css.fixed}>
+                    <Popover position={Position.BOTTOM}>
+                      <div className={css.icon}>
+                        <Icon name="key-main" size={24} height={12} width={24} /> <Icon name="chevron-down" size={14} />
+                      </div>
+                      <SecretReference
+                        accountIdentifier={accountId}
+                        projectIdentifier={projectIdentifier}
+                        orgIdentifier={orgIdentifier}
+                        onSelect={secret => {
+                          inputVariables[index].value = getSecretKey(secret)
+                          setInputVariables(cloneDeep(inputVariables))
+                          onUpdate?.({ variables: inputVariables })
+                        }}
+                      />
+                    </Popover>
+                  </div>
+                )}
+                <MultiTextInput
+                  width={270}
+                  textProps={{ disabled: true, value: secretsOptions.get(variable.value) || variable.value }}
+                  value={variable.value}
+                  mentionsInfo={{
+                    data: done =>
+                      done([
+                        'app.name',
+                        'app.description',
+                        'pipeline.name',
+                        'pipeline.description',
+                        'pipeline.identifier',
+                        'pipeline.stage.qa.displayName'
+                      ])
+                  }}
+                  onChange={value => {
+                    inputVariables[index].value = value as string
+                    setInputVariables(cloneDeep(inputVariables))
+                    onUpdate?.({ variables: inputVariables })
+                  }}
+                />
+              </div>
+            )}
+            {variable.type !== VariableTypes.Secret && (
+              <MultiTextInput
+                width={270}
+                value={variable.value}
+                mentionsInfo={{
+                  data: done =>
+                    done([
+                      'app.name',
+                      'app.description',
+                      'pipeline.name',
+                      'pipeline.description',
+                      'pipeline.identifier',
+                      'pipeline.stage.qa.displayName'
+                    ])
+                }}
+                onChange={value => {
+                  inputVariables[index].value = value as string
+                  setInputVariables(cloneDeep(inputVariables))
+                  onUpdate?.({ variables: inputVariables })
+                }}
+              />
+            )}
             <div>
               {variable.value?.startsWith?.('{input}') && (
                 <ConfigureOptions
@@ -182,12 +272,74 @@ const CustomVariableEditable: React.FC<CustomVariableEditableProps> = ({
 }
 
 export class CustomVariables extends Step<VariableList> {
+  lastFetched: number
+  secrets: EncryptedDataDTO[] | undefined
+  protected invocationMap: Map<RegExp, (path: string, yaml: string) => Promise<CompletionItemInterface[]>> = new Map()
+
+  constructor() {
+    super()
+    this.lastFetched = new Date().getTime()
+    this.invocationMap.set(/^.+\.variables.+\.value$/, this.getSecretValueForYaml.bind(this))
+  }
+
+  protected getSecretValueForYaml(path: string, yaml: string): Promise<CompletionItemInterface[]> {
+    let pipelineObj
+    try {
+      pipelineObj = parse(yaml)
+    } catch (err) {
+      logger.error('Error while parsing the yaml', err)
+    }
+
+    if (pipelineObj) {
+      const obj = get(pipelineObj, path.replace('.value', ''))
+      if (obj.type === 'Secret') {
+        return this.getSecrets().then(
+          secrets =>
+            secrets?.map(secret => ({
+              label: getSecretKey(secret),
+              insertText: getSecretKey(secret),
+              kind: CompletionItemKind.Field
+            })) || []
+        )
+      }
+    }
+
+    return new Promise(resolve => {
+      resolve([])
+    })
+  }
+
+  protected async getSecrets(): Promise<EncryptedDataDTO[] | undefined> {
+    const {
+      params: { accountId }
+    } = routeParams()
+    // Fetch only if the data is older then 60 Seconds
+    if (this.lastFetched + 5000 < new Date().getTime() || !this.secrets) {
+      this.lastFetched = new Date().getTime()
+      this.secrets = await xhr
+        .get<ResponseDTONGPageResponseEncryptedDataDTO>(`${getConfig('ng/api')}/secrets?accountIdentifier=${accountId}`)
+        .then(response => {
+          return response.response?.data?.content
+        })
+    }
+
+    return this.secrets
+  }
+
   renderStep(
     initialValues: VariableList,
     onUpdate?: (data: VariableList) => void,
     stepViewType?: StepViewType
   ): JSX.Element {
-    return <CustomVariableEditable initialValues={initialValues} onUpdate={onUpdate} stepViewType={stepViewType} />
+    this.getSecrets()
+    return (
+      <CustomVariableEditable
+        initialValues={initialValues}
+        onUpdate={onUpdate}
+        stepViewType={stepViewType}
+        secrets={this.secrets}
+      />
+    )
   }
 
   protected type = StepType.CustomVariable

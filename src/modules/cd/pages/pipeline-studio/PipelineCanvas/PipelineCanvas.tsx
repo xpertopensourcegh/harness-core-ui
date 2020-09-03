@@ -1,27 +1,20 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Classes, Dialog } from '@blueprintjs/core'
 import cx from 'classnames'
-import { stringify, parse } from 'yaml'
-import { Button, Icon, Text, Layout, useModalHook, Tag, IconName } from '@wings-software/uikit'
-import { useHistory, Switch, Route, useRouteMatch, Link as RrLink, useParams } from 'react-router-dom'
-import YamlBuilder from 'modules/common/components/YAMLBuilder/YamlBuilder'
-import { YamlEntity } from 'modules/common/constants/YamlConstants'
+import { Button, Icon, Text, useModalHook, Tag } from '@wings-software/uikit'
+import { useHistory, useRouteMatch, useParams, NavLink } from 'react-router-dom'
 import { NavigationCheck, useToaster } from 'modules/common/exports'
-import type { YamlBuilderHandlerBinding } from 'modules/common/interfaces/YAMLBuilderProps'
 import type { CDPipeline, ResponseDTOString } from 'services/cd-ng'
 import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
-import { YAMLService } from 'modules/dx/services'
-import type { SnippetInterface } from 'modules/common/interfaces/SnippetInterface'
-import { routeCDPipelineStudio } from 'modules/cd/routes'
+import { routeCDPipelineStudio, routeCDPipelineStudioUI, routeCDPipelineStudioYaml } from 'modules/cd/routes'
 import { PipelineContext, savePipeline } from '../PipelineContext/PipelineContext'
 import i18n from './PipelineCanvas.i18n'
 import CreatePipelines from '../CreateModal/PipelineCreate'
 import { DefaultNewPipelineId, SplitViewTypes } from '../PipelineContext/PipelineActions'
-import { StageBuilder } from '../StageBuilder/StageBuilder'
 import { RightDrawer } from '../RightDrawer/RightDrawer'
 import css from './PipelineCanvas.module.scss'
 
-export const PipelineCanvas: React.FC<{}> = (): JSX.Element => {
+export const PipelineCanvas: React.FC = ({ children }): JSX.Element => {
   const { state, updatePipeline, deletePipelineCache, pipelineSaved, updatePipelineView } = React.useContext(
     PipelineContext
   )
@@ -31,42 +24,25 @@ export const PipelineCanvas: React.FC<{}> = (): JSX.Element => {
     isLoading,
     isInitialized,
     pipelineView: {
-      isSplitViewOpen,
       splitViewData: { type: splitViewType }
     },
     pipelineView
   } = state
 
-  const [snippets, setSnippets] = useState<SnippetInterface[]>()
   const { showError } = useToaster()
   const { accountId, projectIdentifier, orgIdentifier, pipelineIdentifier } = useParams()
 
-  const [yamlHandler, setYamlHandler] = React.useState<YamlBuilderHandlerBinding | undefined>()
-
   const history = useHistory()
-  const { path, url } = useRouteMatch()
+  const { url } = useRouteMatch()
   const isYaml = history.location.pathname.endsWith('/yaml/')
 
   const saveAndPublish = React.useCallback(async () => {
-    let response: ResponseDTOString | undefined
-    let newPipelineId = ''
-    if (isYaml && yamlHandler) {
-      const pipeObj = parse(yamlHandler.getLatestYaml())
-      response = await savePipeline(
-        { accountIdentifier: accountId, projectIdentifier, orgIdentifier },
-        pipeObj.pipeline,
-        pipelineIdentifier !== DefaultNewPipelineId
-      )
-      newPipelineId = pipeObj.pipeline.identifier
-      updatePipeline(pipeObj.pipeline as CDPipeline)
-    } else {
-      response = await savePipeline(
-        { accountIdentifier: accountId, projectIdentifier, orgIdentifier },
-        pipeline,
-        pipelineIdentifier !== DefaultNewPipelineId
-      )
-      newPipelineId = pipeline.identifier
-    }
+    const response: ResponseDTOString | undefined = await savePipeline(
+      { accountIdentifier: accountId, projectIdentifier, orgIdentifier },
+      pipeline,
+      pipelineIdentifier !== DefaultNewPipelineId
+    )
+    const newPipelineId = pipeline.identifier
 
     if (response && response.status === 'SUCCESS') {
       pipelineSaved()
@@ -76,19 +52,7 @@ export const PipelineCanvas: React.FC<{}> = (): JSX.Element => {
     } else {
       showError(i18n.errorWhileSaving)
     }
-  }, [
-    accountId,
-    history,
-    projectIdentifier,
-    orgIdentifier,
-    pipeline,
-    pipelineSaved,
-    isYaml,
-    updatePipeline,
-    yamlHandler,
-    showError,
-    pipelineIdentifier
-  ])
+  }, [accountId, history, projectIdentifier, orgIdentifier, pipeline, pipelineSaved, showError, pipelineIdentifier])
 
   const [showModal, hideModal] = useModalHook(
     () => (
@@ -98,30 +62,6 @@ export const PipelineCanvas: React.FC<{}> = (): JSX.Element => {
     ),
     [pipeline.identifier, pipeline]
   )
-
-  const addIconInfoToSnippets = (snippetsList: SnippetInterface[], iconName: IconName): void => {
-    if (!snippetsList) {
-      return
-    }
-    const snippetsClone = snippetsList.slice()
-    snippetsClone.forEach(snippet => {
-      snippet['iconName'] = iconName
-    })
-  }
-
-  const fetchSnippets = (query?: string): void => {
-    const { error, response: snippetsList } = YAMLService.fetchSnippets(YamlEntity.PIPELINE, query)
-    if (error) {
-      showError(error)
-      return
-    }
-    addIconInfoToSnippets(snippetsList, 'command-shell-script')
-    setSnippets(snippetsList)
-  }
-
-  React.useEffect(() => {
-    fetchSnippets()
-  })
 
   React.useEffect(() => {
     if (isInitialized) {
@@ -165,29 +105,20 @@ export const PipelineCanvas: React.FC<{}> = (): JSX.Element => {
       />
       <div className={css.topBar}>
         <div>
-          {isYaml ? (
-            <RrLink
-              to={`${url}/`}
-              onClick={() => {
-                if (yamlHandler) {
-                  const pipeObj = parse(yamlHandler.getLatestYaml())
-                  updatePipeline(pipeObj.pipeline as CDPipeline)
-                }
-              }}
-            >
-              <div className={cx(css.topButtons)}>{i18n.visual}</div>
-            </RrLink>
-          ) : (
-            <div className={cx(css.topButtons, css.selected)}>{i18n.visual}</div>
-          )}
-          {isYaml ? (
-            <div className={cx(css.topButtons, css.selected)}>{i18n.yaml}</div>
-          ) : (
-            <RrLink to={`${url}yaml/`}>
-              <div className={css.topButtons}>{i18n.yaml}</div>
-            </RrLink>
-          )}
-          {/* <div className={css.topButtons}>SPLIT</div> */}
+          <NavLink
+            className={css.topButtons}
+            activeClassName={css.selected}
+            to={routeCDPipelineStudioUI.url({ orgIdentifier, projectIdentifier, pipelineIdentifier })}
+          >
+            {i18n.visual}
+          </NavLink>
+          <NavLink
+            className={css.topButtons}
+            activeClassName={css.selected}
+            to={routeCDPipelineStudioYaml.url({ orgIdentifier, projectIdentifier, pipelineIdentifier })}
+          >
+            {i18n.yaml}
+          </NavLink>
         </div>
         <div>
           {isUpdated && (
@@ -248,27 +179,8 @@ export const PipelineCanvas: React.FC<{}> = (): JSX.Element => {
           </div>
         )}
       </div>
-      <Switch>
-        <Route exact path={`${path}`}>
-          <Layout.Horizontal className={cx(css.canvas, { [css.canvasStageView]: isSplitViewOpen })} padding="medium">
-            <StageBuilder />
-            <RightDrawer />
-          </Layout.Horizontal>
-        </Route>
-        <Route exact path={`${path}yaml/`}>
-          <div className={css.yamlBuilder}>
-            <YamlBuilder
-              fileName="DeploymentPipeline.yaml"
-              entityType={YamlEntity.PIPELINE}
-              existingYaml={stringify({ pipeline })}
-              bind={setYamlHandler}
-              snippets={snippets}
-              onSnippetSearch={fetchSnippets}
-              height={'90%'}
-            />
-          </div>
-        </Route>
-      </Switch>
+      {children}
+      <RightDrawer />
     </div>
   )
 }

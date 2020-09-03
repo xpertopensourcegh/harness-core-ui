@@ -1,4 +1,5 @@
 import type { IconName } from '@wings-software/uikit'
+import type { CompletionItemInterface } from 'modules/common/interfaces/YAMLBuilderProps'
 import type { Step } from './Step'
 
 export interface StepData {
@@ -16,6 +17,7 @@ export abstract class AbstractStepFactory {
 
   protected stepBank: Map<string, Step<object>>
   protected stepIconMap: Map<string, StepData>
+  protected invocationMap: Map<RegExp, (path: string, yaml: string) => Promise<CompletionItemInterface[]>> = new Map()
 
   constructor() {
     this.stepBank = new Map()
@@ -34,11 +36,27 @@ export abstract class AbstractStepFactory {
       type: step.getType(),
       visible: step.getStepPaletteVisibility()
     })
+    const stepMap = step.getInvocationMap()
+    if (stepMap) {
+      this.invocationMap = new Map([...this.invocationMap, ...stepMap])
+    }
   }
 
   deregisterStep(type: string): void {
-    this.stepBank.delete(type)
-    this.stepIconMap.delete(type)
+    const deletedStep = this.stepBank.get(type)
+    if (deletedStep) {
+      this.stepBank.delete(type)
+      this.stepIconMap.delete(type)
+      if (deletedStep.getInvocationMap()) {
+        this.invocationMap = new Map()
+        this.stepBank.forEach(step => {
+          const stepMap = step.getInvocationMap()
+          if (stepMap) {
+            this.invocationMap = new Map([...this.invocationMap, ...stepMap])
+          }
+        })
+      }
+    }
   }
 
   getStep<T extends object>(type: string): Step<T> | undefined {
@@ -51,6 +69,10 @@ export abstract class AbstractStepFactory {
 
   getStepData(type: string): StepData | undefined {
     return this.stepIconMap.get(type)
+  }
+
+  getInvocationMap(): Map<RegExp, (path: string, yaml: string) => Promise<CompletionItemInterface[]>> {
+    return this.invocationMap
   }
 
   getAllStepsDataList(): Array<StepData> {

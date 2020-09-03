@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route, ModuleName, PageLayout, SidebarIdentifier, routeURL } from 'framework/exports'
+import { Route, ModuleName, PageLayout, SidebarIdentifier, routeURL, NestedRoute } from 'framework/exports'
 import i18n from './routes.i18n'
 
 export const routeCDHome: Route = {
@@ -43,6 +43,37 @@ export const routeCDPipelines: Route<{ orgIdentifier: string; projectIdentifier:
   component: React.lazy(() => import('./pages/pipelines/CDPipelinesPage'))
 }
 
+export const routeCDPipelineStudioUI: NestedRoute<{
+  orgIdentifier: string
+  projectIdentifier: string
+  pipelineIdentifier: string | number
+}> = {
+  path: '/cd/pipeline-studio/orgs/:orgIdentifier/projects/:projectIdentifier/pipelines/:pipelineIdentifier/ui/',
+  title: i18n.pipelineStudio,
+  url: ({ orgIdentifier, projectIdentifier, pipelineIdentifier }) =>
+    routeURL(
+      routeCDPipelineStudioUI,
+      `/cd/pipeline-studio/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/ui/`
+    ),
+  component: React.lazy(() => import('./pages/pipeline-studio/StageBuilder/StageBuilder')),
+  isDefault: true
+}
+
+export const routeCDPipelineStudioYaml: NestedRoute<{
+  orgIdentifier: string
+  projectIdentifier: string
+  pipelineIdentifier: string | number
+}> = {
+  path: '/cd/pipeline-studio/orgs/:orgIdentifier/projects/:projectIdentifier/pipelines/:pipelineIdentifier/yaml/',
+  title: i18n.pipelineStudio,
+  url: ({ orgIdentifier, projectIdentifier, pipelineIdentifier }) =>
+    routeURL(
+      routeCDPipelineStudioYaml,
+      `/cd/pipeline-studio/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/yaml/`
+    ),
+  component: React.lazy(() => import('./pages/pipeline-studio/PipelineYamlView/PipelineYamlView'))
+}
+
 export const routeCDPipelineStudio: Route<{
   orgIdentifier: string
   projectIdentifier: string
@@ -59,7 +90,8 @@ export const routeCDPipelineStudio: Route<{
       routeCDPipelineStudio,
       `/cd/pipeline-studio/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/`
     ),
-  component: React.lazy(() => import('./pages/pipeline-studio/PipelineStudio'))
+  component: React.lazy(() => import('./pages/pipeline-studio/PipelineStudio')),
+  nestedRoutes: [routeCDPipelineStudioYaml, routeCDPipelineStudioUI]
 }
 
 export const routeCDResources: Route<{ projectIdentifier: string }> = {

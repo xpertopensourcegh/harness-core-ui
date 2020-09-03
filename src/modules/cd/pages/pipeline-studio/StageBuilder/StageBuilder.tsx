@@ -1,5 +1,6 @@
 import React from 'react'
-import { Icon } from '@wings-software/uikit'
+import { Icon, Layout } from '@wings-software/uikit'
+import cx from 'classnames'
 import { debounce } from 'lodash'
 import type { NodeModelListener, LinkModelListener } from '@projectstorm/react-diagrams-core'
 import SplitPane from 'react-split-pane'
@@ -85,7 +86,7 @@ export const renderPopover = ({
   )
 }
 
-export const StageBuilder: React.FC<{}> = (): JSX.Element => {
+const StageBuilder: React.FC<{}> = (): JSX.Element => {
   const {
     state: {
       pipeline,
@@ -391,50 +392,54 @@ export const StageBuilder: React.FC<{}> = (): JSX.Element => {
   )
 
   return (
-    <div className={css.canvas}>
-      {isSplitViewOpen ? (
-        <SplitPane
-          size={splitPaneSize}
-          split="horizontal"
-          minSize={MinimumSplitPaneSize}
-          onChange={size => setSplitPaneSizeDeb(size)}
-        >
-          {StageCanvas}
-          <div
-            style={{
-              width: '100%',
-              height: `calc(100vh - ${splitPaneSize + 70}px)`,
-              overflow: 'scroll',
-              background: 'white'
-            }}
+    <Layout.Horizontal className={cx(css.canvasContainer, { [css.canvasStageView]: isSplitViewOpen })} padding="medium">
+      <div className={css.canvas}>
+        {isSplitViewOpen ? (
+          <SplitPane
+            size={splitPaneSize}
+            split="horizontal"
+            minSize={MinimumSplitPaneSize}
+            onChange={size => setSplitPaneSizeDeb(size)}
           >
-            <div className={css.splitButtons}>
-              <Icon
-                name="up"
-                size={15}
-                className={css.stageDecrease}
-                onClick={() => {
-                  setSplitPaneSize(MinimumSplitPaneSize)
-                }}
-              />
-              <span className={css.separator} />
-              <Icon
-                name="down"
-                size={15}
-                className={css.stageIncrease}
-                onClick={() => {
-                  setSplitPaneSize(prev => prev + 100)
-                }}
-              />
+            {StageCanvas}
+            <div
+              style={{
+                width: '100%',
+                height: `calc(100vh - ${splitPaneSize + 70}px)`,
+                overflow: 'scroll',
+                background: 'white'
+              }}
+            >
+              <div className={css.splitButtons}>
+                <Icon
+                  name="up"
+                  size={15}
+                  className={css.stageDecrease}
+                  onClick={() => {
+                    setSplitPaneSize(MinimumSplitPaneSize)
+                  }}
+                />
+                <span className={css.separator} />
+                <Icon
+                  name="down"
+                  size={15}
+                  className={css.stageIncrease}
+                  onClick={() => {
+                    setSplitPaneSize(prev => prev + 100)
+                  }}
+                />
+              </div>
+              {type === SplitViewTypes.StageView && <StageSetupShell />}
+              {type === SplitViewTypes.Notifications && <PipelineNotifications />}
+              {type === SplitViewTypes.Triggers && <PipelineTriggers />}
             </div>
-            {type === SplitViewTypes.StageView && <StageSetupShell />}
-            {type === SplitViewTypes.Notifications && <PipelineNotifications />}
-            {type === SplitViewTypes.Triggers && <PipelineTriggers />}
-          </div>
-        </SplitPane>
-      ) : (
-        StageCanvas
-      )}
-    </div>
+          </SplitPane>
+        ) : (
+          StageCanvas
+        )}
+      </div>
+    </Layout.Horizontal>
   )
 }
+
+export default StageBuilder

@@ -3,7 +3,7 @@ import { cloneDeep } from 'lodash'
 import { Text, Card, Color } from '@wings-software/uikit'
 import { Tree, ITreeNode } from '@blueprintjs/core'
 import type { StageElement, StageElementWrapper, DeploymentStage, Variable } from 'services/cd-ng'
-import { StepWidget } from 'modules/common/exports'
+import { StepWidget, StepViewType } from 'modules/common/exports'
 import { StepType } from '../../../components/PipelineSteps/PipelineStepInterface'
 import factory from '../../../components/PipelineSteps/PipelineStepFactory'
 import { RightBar } from '../RightBar/RightBar'
@@ -53,6 +53,7 @@ function renderForStage(stage: StageElement): JSX.Element {
           factory={factory}
           initialValues={{ variables: (stage.spec as DeploymentStage).stageVariables || [] }}
           type={StepType.CustomVariable}
+          stepViewType={StepViewType.InputVariable}
         />
       )}
     </Card>
@@ -148,6 +149,7 @@ export const PipelineVariables: React.FC = (): JSX.Element => {
                 factory={factory}
                 initialValues={{ variables: (pipeline as any).variables || [] }}
                 type={StepType.CustomVariable}
+                stepViewType={StepViewType.InputVariable}
                 onUpdate={({ variables }: { variables: Variable[] }) => {
                   ;(pipeline as any).variables = variables
                   updatePipeline(pipeline)
