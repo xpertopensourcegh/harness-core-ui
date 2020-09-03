@@ -1,0 +1,36 @@
+.bodyContainer {
+  background-color: var(--grey-100) !important;
+  min-width: 1080px;
+  height: 100%;
+
+  .headerSection {
+    background-color: var(--white);
+    border-bottom: thin solid var(--grey-300);
+  }
+
+  .tags {
+    padding: var(--spacing-small);
+    background: none;
+    color: var(--grey-700);
+    cursor: pointer;
+    letter-spacing: 0.5px;
+    &:hover {
+      text-decoration: none;
+      color: var(--grey-700);
+    }
+  }
+  .activeTag {
+    background: var(--grey-500);
+    color: var(--white);
+    border-radius: 8px;
+    &:hover {
+      text-decoration: none;
+      color: var(--white);
+    }
+  }
+
+  .table {
+    padding: 0 var(--spacing-xlarge);
+    background-color: var(--grey-100);
+  }
+}

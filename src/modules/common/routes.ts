@@ -116,7 +116,7 @@ export const routeGitSyncEntities: NestedRoute = {
   path: '/git-sync/entities',
   title: i18n.gitSync,
   url: () => routeURL(routeGitSyncEntities, '/git-sync/entities'),
-  component: React.lazy(() => import('../dx/pages/git-sync/views/entities/GitSyncEntities'))
+  component: React.lazy(() => import('../dx/pages/git-sync/views/entities/GitSyncEntityTab'))
 }
 
 export const routeGitSyncErrors: NestedRoute = {

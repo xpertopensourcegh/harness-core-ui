@@ -290,7 +290,7 @@ const GitSyncRepoTab: React.FC = () => {
           repo={
             {
               identifier: '',
-              gitConnectorId: dataAllGitServerListResponse?.data?.content?.[0].identifier || '',
+              gitConnectorId: dataAllGitServerListResponse?.data?.content?.[0]?.identifier || '',
               repo: '',
               branch: '',
               gitSyncFolderConfigDTOs: [getNewRootFolder()]
