@@ -960,6 +960,11 @@
   resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.7.3.tgz#2ab0d5da2e5815f94b0b9d4b95d1e5f243ab2ca7"
   integrity "sha1-KrDV2i5YFflLC51LldHl8kOrLKc= sha512-KfRL3PuHmqQLOG+2tGpRO26Ctg+Cq1E01D2DMriKEATHgWLfeNDmq9e29Q9WIky0dQ3NPkd1mzYH8Lm936Z9qw=="
 
+"@types/qs@^6.9.4":
+  version "6.9.4"
+  resolved "https://registry.yarnpkg.com/@types/qs/-/qs-6.9.4.tgz#a59e851c1ba16c0513ea123830dd639a0a15cb6a"
+  integrity sha512-+wYo+L6ZF6BMoEjtf8zB2esQsqdV6WsjRK/GP9WOgLPrq87PbNWgIxS76dS5uvl/QXtHGakZmwTznIfcPXcKlQ==
+
 "@types/query-string@^6.3.0":
   version "6.3.0"
   resolved "https://registry.yarnpkg.com/@types/query-string/-/query-string-6.3.0.tgz#b6fa172a01405abcaedac681118e78429d62ea39"
@@ -1377,10 +1382,10 @@
   resolved "https://npm.pkg.github.com/download/@wings-software/swagger-ts/1.55003.0/c4c669ccf39e0ed33b3ec58374bc3bd9555a73d2ef302a69af9fdb3c543374fa#1c2b233d2e01d871fad5bce771be5a52f4938354"
   integrity sha512-akXp2CIQq0Nu8GrC4i5XJdr5aBx9YyepjSESGOi6IaL+MQGlIqEpA91lG92/UZ2NNHRK43pacJbZZ33VDcZpkQ==
 
-"@wings-software/uikit@1.1.38":
-  version "1.1.38"
-  resolved "https://npm.pkg.github.com/download/@wings-software/uikit/1.1.38/6ba522722448d5b7a106806afe05a98df5c718581edf74a6a6c990ffe3185ea2#bc736b60a9973286fce537e683f6593bec84f115"
-  integrity sha512-WBJk13yYl4CJuHstflTSA217aGHdBQMpmbNVm3aSPYCUmv+XE7GW8EWXrpsgoYE4Ork4OFKcw3GtJYu61PT4ZA==
+"@wings-software/uikit@1.1.41":
+  version "1.1.41"
+  resolved "https://npm.pkg.github.com/download/@wings-software/uikit/1.1.41/090b5cd76b0da44fb8f09d8d324d22efea265dc6e7ae5cbc247c19c4546debe6#f2c20d6da163276365724a726ae675ac1a1e05da"
+  integrity sha512-oGOoxWo3h9oKtWWH28o8PHAjtj5rCtyjtE4X+g2+s76S8J5C2NE4PlmUN/MYTi7R9zRIC477XKqcyqMw4U2qEQ==
   dependencies:
     "@types/lodash.get" "^4.4.6"
     lodash.get "^4.4.2"
@@ -2240,7 +2245,7 @@ caret-xy@^2.0.3:
   resolved "https://registry.yarnpkg.com/caret-xy/-/caret-xy-2.0.3.tgz#8c0c5906a3966550b0af6698b5f3e6786a874271"
   integrity "sha1-jAxZBqOWZVCwr2aYtfPmeGqHQnE= sha512-iZySCshCBnQcwdYCFbfCvAorpMe/ghXqEOyDdCpOcYR6OtJu6bdnm3OTyCxlWtA7IAss4TQqcc0XO6EksKKJUw=="
 
-case@^1.6.2:
+case@^1.6.2, case@^1.6.3:
   version "1.6.3"
   resolved "https://registry.yarnpkg.com/case/-/case-1.6.3.tgz#0a4386e3e9825351ca2e6216c60467ff5f1ea1c9"
   integrity "sha1-CkOG4+mCU1HKLmIWxgRn/18eock= sha512-mzDSXIPaFwVDvZAHqZ9VlbyF4yyXRuX6IvB06WvPYkqJVO24kX1PPhv9bfpKNFZyxYFmmgo03HUiD8iklmJYRQ=="
@@ -7824,7 +7829,7 @@ qs@6.7.0:
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.7.0.tgz#41dc1a015e3d581f1621776be31afb2876a9b1bc"
   integrity "sha1-QdwaAV49WB8WIXdr4xr7KHapsbw= sha512-VCdBRNFTX1fyE7Nb6FYoURo/SPe62QCaAyzJvUjwRaIsc+NePBEniHlvxFmmX56+HZphIGtV0XeCirBtpDrTyQ=="
 
-qs@^6.9.1:
+qs@^6.9.1, qs@^6.9.4:
   version "6.9.4"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.9.4.tgz#9090b290d1f91728d3c22e54843ca44aea5ab687"
   integrity "sha1-kJCykNH5FyjTwi5UhDykSupatoc= sha512-A1kFqHekCTM7cz0udomYUoYNWjBebHm/5wzU/XqrBRBNWectVH0QIiN+NEcZ0Dte5hvzHwbr8+XQmguPhJ6WdQ=="

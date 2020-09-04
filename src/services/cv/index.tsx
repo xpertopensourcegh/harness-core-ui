@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { Get, GetProps, useGet, UseGetProps, Mutate, MutateProps, useMutate, UseMutateProps } from 'restful-react'
-import { getConfig } from '../config.js'
+import { getConfig } from '../config'
 
 export interface AppdynamicsMetricValueValidationResponse {
   metricName?: string

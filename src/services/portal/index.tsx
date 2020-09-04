@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { Get, GetProps, useGet, UseGetProps } from 'restful-react'
-import { getConfig } from '../config.js'
+import { getConfig } from '../config'
 
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
 

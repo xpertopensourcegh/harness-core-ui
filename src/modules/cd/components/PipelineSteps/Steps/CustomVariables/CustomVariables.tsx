@@ -22,7 +22,7 @@ import { CompletionItemKind } from 'vscode-languageserver-types'
 import { useParams } from 'react-router-dom'
 import { loggerFor, ModuleName } from 'framework/exports'
 import type { Variable, EncryptedDataDTO, ResponseDTONGPageResponseEncryptedDataDTO } from 'services/cd-ng'
-import { getConfig } from 'services/config.js'
+import { getConfig } from 'services/config'
 import { Step, StepViewType, ConfigureOptions } from 'modules/common/exports'
 import { routeParams } from 'framework/exports'
 import type { CompletionItemInterface } from 'modules/common/interfaces/YAMLBuilderProps'
@@ -314,7 +314,7 @@ export class CustomVariables extends Step<VariableList> {
       params: { accountId }
     } = routeParams()
     // Fetch only if the data is older then 60 Seconds
-    if (this.lastFetched + 5000 < new Date().getTime() || !this.secrets) {
+    if (this.lastFetched + 60000 < new Date().getTime() || !this.secrets) {
       this.lastFetched = new Date().getTime()
       this.secrets = await xhr
         .get<ResponseDTONGPageResponseEncryptedDataDTO>(`${getConfig('ng/api')}/secrets?accountIdentifier=${accountId}`)

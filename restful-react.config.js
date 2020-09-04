@@ -2,6 +2,8 @@
  * Please match the config key to the directory under services.
  * This is required for the transform to work
  */
+const customGenerator = require("./scripts/swagger-custom-generator.js");
+
 module.exports = {
   portal: {
     output: 'src/services/portal/index.tsx',
@@ -9,7 +11,7 @@ module.exports = {
     file: 'src/services/portal/swagger.json',
     validation: false,
     transformer: 'scripts/swagger-transform.js',
-    customImport: `import { getConfig } from "../config.js";`,
+    customImport: `import { getConfig } from "../config";`,
     customProps: {
       base: `{window.apiUrl || getConfig("api")}`
     }
@@ -18,16 +20,19 @@ module.exports = {
     output: 'src/services/cd-ng/index.tsx',
     url: 'http://localhost:7457/swagger.json',
     transformer: 'scripts/swagger-transform.js',
-    customImport: `import { getConfig } from "../config.js";`,
+    customImport: `import { getConfig, getUsingFetch, mutateUsingFetch, GetUsingFetchProps, MutateUsingFetchProps } from "../config";`,
     customProps: {
       base: `{getConfig("ng/api")}`
+    },
+    customGenerator: (arg) => {
+      return customGenerator(arg, "getConfig(\'ng/api\')")
     }
   },
   cv: {
     output: 'src/services/cv/index.tsx',
     file: 'src/services/cv/swagger.json',
     transformer: 'scripts/swagger-transform.js',
-    customImport: `import { getConfig } from "../config.js";`,
+    customImport: `import { getConfig } from "../config";`,
     customProps: {
       base: `{getConfig("cv-nextgen/api")}`
     }

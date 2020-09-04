@@ -1,16 +1,17 @@
 import React from 'react'
 import { openDB, IDBPDatabase, deleteDB } from 'idb'
-import xhr from '@wings-software/xhr-async'
 import { parse, stringify } from 'yaml'
-import type {
+import {
   CDPipeline,
   GetPipelineListQueryParams,
-  PostPipelineExecuteQueryParams,
-  ResponseDTOString
+  ResponseDTOString,
+  getPipelinePromise,
+  postPipelineDummyPromise,
+  putPipelinePromise,
+  PutPipelineQueryParams
 } from 'services/cd-ng'
 import { ModuleName, loggerFor } from 'framework/exports'
 import SessionToken from 'framework/utils/SessionToken'
-import { getConfig } from 'services/config.js'
 import {
   PipelineReducerState,
   ActionReturnType,
@@ -27,42 +28,51 @@ export const getPipelineByIdentifier = (
   params: GetPipelineListQueryParams,
   identifier: string
 ): Promise<CDPipeline | undefined> => {
-  return fetch(
-    `${getConfig('ng/api')}/pipelines/${identifier}?accountIdentifier=${params.accountIdentifier}&projectIdentifier=${
-      params.projectIdentifier
-    }&orgIdentifier=${params.orgIdentifier}`
-  )
-    .then(response => response.text())
-    .then(response => {
-      const obj = parse(response)
-      if (obj.status === 'SUCCESS') {
-        return parse(obj.data.yamlPipeline).pipeline as CDPipeline
+  return getPipelinePromise({
+    pipelineIdentifier: identifier,
+    queryParams: {
+      accountIdentifier: params.accountIdentifier,
+      orgIdentifier: params.orgIdentifier,
+      projectIdentifier: params.projectIdentifier
+    },
+    requestOptions: {
+      headers: {
+        'content-type': 'text/yaml'
       }
-    })
+    }
+  }).then(response => {
+    const obj = parse(response as string)
+    if (obj.status === 'SUCCESS') {
+      return parse(obj.data.yamlPipeline).pipeline as CDPipeline
+    }
+  })
 }
 
 export const savePipeline = (
-  params: PostPipelineExecuteQueryParams,
+  params: PutPipelineQueryParams,
   pipeline: CDPipeline,
   isEdit = false
 ): Promise<ResponseDTOString | undefined> => {
   return isEdit
-    ? xhr
-        .put<ResponseDTOString>(
-          `${getConfig('ng/api')}/pipelines/${pipeline.identifier}?accountIdentifier=${
-            params.accountIdentifier
-          }&projectIdentifier=${params.projectIdentifier}&orgIdentifier=${params.orgIdentifier}`,
-          { data: stringify({ pipeline }), headers: { 'Content-Type': 'text/yaml' } }
-        )
-        .then(data => data.response)
-    : xhr
-        .post<ResponseDTOString>(
-          `${getConfig('ng/api')}/pipelines?accountIdentifier=${params.accountIdentifier}&projectIdentifier=${
-            params.projectIdentifier
-          }&orgIdentifier=${params.orgIdentifier}`,
-          { data: stringify({ pipeline }), headers: { 'Content-Type': 'text/yaml' } }
-        )
-        .then(data => data.response)
+    ? putPipelinePromise({
+        pipelineIdentifier: pipeline.identifier,
+        queryParams: {
+          accountIdentifier: params.accountIdentifier,
+          projectIdentifier: params.projectIdentifier,
+          orgIdentifier: params.orgIdentifier
+        },
+        body: stringify({ pipeline }),
+        requestOptions: { headers: { 'Content-Type': 'text/yaml' } }
+      }).then(response => JSON.parse(response as string) as ResponseDTOString)
+    : postPipelineDummyPromise({
+        body: stringify({ pipeline }) as any,
+        queryParams: {
+          accountIdentifier: params.accountIdentifier,
+          projectIdentifier: params.projectIdentifier,
+          orgIdentifier: params.orgIdentifier
+        },
+        requestOptions: { headers: { 'Content-Type': 'text/yaml' } }
+      }).then(response => JSON.parse((response as unknown) as string) as ResponseDTOString)
 }
 
 const DBInitializationFailed = 'DB Creation retry exceeded.'
