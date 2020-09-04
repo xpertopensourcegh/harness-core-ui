@@ -3,12 +3,15 @@ import { useParams } from 'react-router'
 import ReactTimeago from 'react-timeago'
 import { StepsProgress, Layout, Button, Text, Intent, Color, StepProps } from '@wings-software/uikit'
 import { useGetDelegatesStatus, RestResponseDelegateStatus } from 'services/portal'
-import { useGetTestConnectionResult, ConnectorRequestDTO } from 'services/cd-ng'
+import { useGetTestConnectionResult, ConnectorRequestDTO, ResponseDTOConnectorValidationResult } from 'services/cd-ng'
+import type { UseGetMockData } from 'modules/common/utils/testUtils'
 import type { StepDetails } from 'modules/dx/interfaces/ConnectorInterface'
 import i18n from './VerifyOutOfClusterDelegate.i18n'
 import css from './VerifyOutOfClusterDelegate.module.scss'
 
 interface VerifyOutOfClusterDelegateProps {
+  delegateStatusMockData?: UseGetMockData<RestResponseDelegateStatus>
+  testConnectionMockData?: UseGetMockData<ResponseDTOConnectorValidationResult>
   hideLightModal?: () => void
   connectorName?: string
   connectorIdentifier?: string
@@ -83,7 +86,8 @@ const VerifyOutOfClusterDelegate: React.FC<
   }
 
   const { data: delegateStatus, error } = useGetDelegatesStatus({
-    queryParams: { accountId: accountId }
+    queryParams: { accountId: accountId },
+    mock: props.delegateStatusMockData
   })
   const {
     data: testConnectionResponse,
@@ -93,7 +97,8 @@ const VerifyOutOfClusterDelegate: React.FC<
     accountIdentifier: accountId,
     connectorIdentifier: props.connectorIdentifier || prevStepData?.identifier || '',
     lazy: true,
-    queryParams: { orgIdentifier: orgIdentifier, projectIdentifier: projectIdentifier }
+    queryParams: { orgIdentifier: orgIdentifier, projectIdentifier: projectIdentifier },
+    mock: props.testConnectionMockData
   })
 
   React.useEffect(() => {

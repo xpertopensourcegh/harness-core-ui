@@ -1,0 +1,24 @@
+{
+  "metaData": {},
+  "resource": {
+    "delegates": [
+      {
+        "connections": [],
+        "delegateName": "Sample Delegate Name",
+        "delegateProfileId": "dummyProfileId",
+        "description": "description here",
+        "hostName": "dummyHostName",
+        "implicitSelectors": {},
+        "ip": "",
+        "lastHeartBeat": 1597311467610,
+        "polllingModeEnabled": false,
+        "profileError": false,
+        "profileExecutedAt": 0,
+        "proxy": false,
+        "sampleDelegate": false,
+        "status": "ENABLED",
+        "uuid": "dummyuuid"
+      }
+    ]
+  }
+}
