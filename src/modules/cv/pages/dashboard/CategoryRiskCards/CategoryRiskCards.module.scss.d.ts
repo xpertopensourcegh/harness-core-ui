@@ -8,7 +8,6 @@ declare const styles: {
   readonly riskInfoContainer: string
   readonly categoryName: string
   readonly riskScoreContainer: string
-  readonly riskScore: string
   readonly riskScoreText: string
   readonly chartContainer: string
 }

@@ -37,19 +37,6 @@
 
     .riskScoreContainer {
       display: flex;
-      .riskScore {
-        padding: 2px 2px;
-        border-radius: 4px;
-        width: 30px;
-        text-align: center;
-
-        &[data-risk-level='low'] {
-          background-color: var(--green-500);
-        }
-        &[data-risk-level='high'] {
-          background-color: var(--red-500);
-        }
-      }
 
       .riskScoreText {
         align-self: flex-end;

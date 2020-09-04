@@ -1,0 +1,25 @@
+.main {
+  padding: 2px 2px;
+  border-radius: 4px;
+  width: 30px;
+  height: 20px;
+  position: relative;
+
+  &[data-risk-level='low'] {
+    background-color: var(--green-500);
+  }
+  &[data-risk-level='high'] {
+    background-color: var(--red-500);
+  }
+  &[data-risk-level='none'] {
+    background-color: var(--grey-250);
+  }
+
+  .riskScore {
+    text-align: center;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+}

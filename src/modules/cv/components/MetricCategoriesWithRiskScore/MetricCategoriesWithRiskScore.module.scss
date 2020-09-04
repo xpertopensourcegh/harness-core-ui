@@ -1,0 +1,14 @@
+.main {
+  display: flex;
+  flex-wrap: wrap;
+
+  .infoContainer {
+    &:not(:last-child) {
+      margin-right: 50px;
+    }
+    .riskTileSizing {
+      width: 25px;
+      height: 17px;
+    }
+  }
+}

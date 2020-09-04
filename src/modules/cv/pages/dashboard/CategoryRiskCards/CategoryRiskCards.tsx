@@ -4,6 +4,7 @@ import HighchartsReact from 'highcharts-react-official'
 import Highcharts from 'highcharts'
 import highchartsMore from 'highcharts/highcharts-more'
 import gauge from 'highcharts/modules/solid-gauge'
+import { RiskScoreTile } from 'modules/cv/components/RiskScoreTile/RiskScoreTile'
 import i18n from './CategoryRiskCards.i18n'
 import getRiskGaugeChartOptions from './RiskGauge'
 import css from './CategoryRiskCards.module.scss'
@@ -18,7 +19,6 @@ gauge(Highcharts)
 
 export function CategoryRiskCard(props: CategoryRiskCardProps): JSX.Element {
   const { riskScore = 0, categoryName = '' } = props
-  const riskLevel = riskScore > 10 ? 'high' : 'low'
   return (
     <Container className={css.categoryRiskCard}>
       <Container className={css.riskInfoContainer}>
@@ -26,9 +26,7 @@ export function CategoryRiskCard(props: CategoryRiskCardProps): JSX.Element {
           {categoryName}
         </Text>
         <Container className={css.riskScoreContainer}>
-          <Text color={Color.WHITE} className={css.riskScore} data-risk-level={riskLevel}>
-            {riskScore}
-          </Text>
+          <RiskScoreTile riskScore={riskScore} />
           <Text className={css.riskScoreText} color={Color.GREY_300}>
             {i18n.riskScoreText}
           </Text>

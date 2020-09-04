@@ -1,7 +1,6 @@
 export default {
   activityVerificationHeaderText: {
-    title: 'Recent Activity Verifications',
-    viewAllActivities: 'View All'
+    title: 'Recent Activity Verifications'
   },
   activityVerificationsColumns: {
     deployments: 'Deployments',
@@ -17,5 +16,6 @@ export default {
     passedVerification: 'passed',
     startOn: 'Started on',
     abbreviatedMinute: 'min'
-  }
+  },
+  viewAllActivities: 'View All'
 }

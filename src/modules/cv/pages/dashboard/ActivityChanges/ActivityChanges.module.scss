@@ -1,0 +1,5 @@
+@import '../_ActivityList.module.scss';
+
+.dataColumn {
+  @include dataColumnWidth();
+}
