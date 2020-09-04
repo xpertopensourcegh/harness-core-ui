@@ -18,6 +18,7 @@ import { AuthTypes, getSecretFieldsByType, SecretFieldByType } from 'modules/dx/
 import CreateSecretOverlay from 'modules/dx/common/CreateSecretOverlay/CreateSecretOverlay'
 import i18n from './CreateSplunkConnector.i18n'
 import ConnectorFormFields from '../../ConnectorFormFields/ConnectorFormFields'
+import { getScopingStringFromSecretRef } from '../CreateConnectorUtils'
 import css from '../../CreateConnector/AppDynamicsConnector/CreateAppDynamicsConnector.module.scss'
 
 interface CreateSplunkConnectorProps {
@@ -51,7 +52,7 @@ export default function CreateSplunkConnector(props: CreateSplunkConnectorProps)
       spec: {
         username: data.username,
         accountname: data.accountName,
-        passwordRef: `${data.passwordRefSecret.secretId}`,
+        passwordRef: `${getScopingStringFromSecretRef(data) ?? ''}${data.passwordRefSecret.secretId}`,
         splunkUrl: data.url,
         accountId: props.accountId
       }

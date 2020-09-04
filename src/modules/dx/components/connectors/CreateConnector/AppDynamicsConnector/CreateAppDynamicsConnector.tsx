@@ -24,6 +24,7 @@ import { Connectors } from 'modules/dx/constants'
 import CreateSecretOverlay from 'modules/dx/common/CreateSecretOverlay/CreateSecretOverlay'
 import ConnectorFormFields from '../../ConnectorFormFields/ConnectorFormFields'
 import i18n from './CreateAppDynamicsConnector.i18n'
+import { getScopingStringFromSecretRef } from '../CreateConnectorUtils'
 import styles from './CreateAppDynamicsConnector.module.scss'
 
 interface CreateAppDynamicsConnectorProps {
@@ -58,7 +59,7 @@ export default function CreateAppDynamicsConnector(props: CreateAppDynamicsConne
       spec: {
         username: data.username,
         accountname: data.accountName,
-        passwordRef: `${data.passwordRefSecret.secretId}`,
+        passwordRef: `${getScopingStringFromSecretRef(data) ?? ''}${data.passwordRefSecret.secretId}`,
         controllerUrl: data.url,
         accountId: props.accountId
       }
