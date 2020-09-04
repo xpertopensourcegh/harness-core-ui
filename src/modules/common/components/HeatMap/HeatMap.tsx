@@ -3,6 +3,7 @@ import { Color, Container, Text } from '@wings-software/uikit'
 import { Popover, PopoverInteractionKind } from '@blueprintjs/core'
 import isUndefined from 'lodash/isUndefined'
 import classnames from 'classnames'
+import { getColorStyle } from './colorUtils'
 import styles from './HeatMap.module.scss'
 
 export interface SerieConfig {
@@ -33,19 +34,6 @@ export enum CellStatusValues {
   Empty = 'Empty',
   Error = 'Error'
 }
-
-const colors = [
-  Color.GREEN_500,
-  Color.GREEN_400,
-  Color.GREEN_350,
-  Color.GREEN_300,
-  Color.YELLOW_400,
-  Color.YELLOW_450,
-  Color.YELLOW_500,
-  Color.ORANGE_500,
-  Color.RED_500,
-  Color.RED_600
-]
 
 const specialColorValue = {
   MISSING: Color.GREY_200,
@@ -81,18 +69,17 @@ export default function HeatMap({
   }
 
   const mapColor = (cell: any) => {
-    let value: any = mapValue(cell)
+    const value: number | CellStatusValues = mapValue(cell)
     if (value === CellStatusValues.Missing) {
-      return specialColorValue.MISSING
+      return { color: specialColorValue.MISSING }
     } else if (value === CellStatusValues.Empty) {
-      return specialColorValue.EMPTY
+      return { color: specialColorValue.EMPTY }
     } else if (value === CellStatusValues.Error) {
-      return specialColorValue.ERROR
+      return { color: specialColorValue.ERROR }
     }
-    value = Math.max(Math.min(value, maxValue), minValue)
-    let colorIndex = ((value - minValue) * (colors.length - 1)) / (maxValue - minValue)
-    colorIndex = Math.round(colorIndex)
-    return colors[colorIndex]
+    return {
+      colorClassName: getColorStyle(value, minValue, maxValue)
+    }
   }
 
   const addCircleClass = (cell: any) => {
@@ -125,7 +112,7 @@ export default function HeatMap({
                     popoverDisabled={!renderTooltip}
                     popoverContent={renderTooltip && renderTooltip(cell)}
                     onClick={() => onCellClick && onCellClick(cell, serie)}
-                    color={mapColor(cell)}
+                    {...mapColor(cell)}
                     className={classnames(cellClassName, addCircleClass(cell))}
                   />
                 )
@@ -148,7 +135,14 @@ export default function HeatMap({
   )
 }
 
-export function HeatMapCell({ color, className, popoverDisabled = false, popoverContent, onClick }: any) {
+export function HeatMapCell({
+  color,
+  colorClassName,
+  className,
+  popoverDisabled = false,
+  popoverContent,
+  onClick
+}: any) {
   return (
     <Container onClick={onClick} className={classnames(styles.cell, className)}>
       <Popover
@@ -159,7 +153,7 @@ export function HeatMapCell({ color, className, popoverDisabled = false, popover
         modifiers={PopoverModifies}
         boundary="window"
       >
-        <Container className={styles.cellInner} background={color} />
+        <Container className={classnames(styles.cellInner, colorClassName)} background={color} />
       </Popover>
     </Container>
   )
