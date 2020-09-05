@@ -2,4 +2,28 @@
   box-shadow: 0px 0px 3px 0px rgba(0, 0, 0, 0.3);
   position: relative;
   z-index: 2;
+
+  &.standard {
+    height: 64px;
+
+    & + div[class*='PageBody'] {
+      --page-header-height: 64px;
+    }
+  }
+
+  &.medium {
+    height: 80px;
+
+    & + div[class*='PageBody'] {
+      --page-header-height: 80px;
+    }
+  }
+
+  &.large {
+    height: 96px;
+
+    & + div[class*='PageBody'] {
+      --page-header-height: 96px;
+    }
+  }
 }

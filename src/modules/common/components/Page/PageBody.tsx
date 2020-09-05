@@ -39,6 +39,9 @@ export interface PageBodyProps {
 
   /** True if Page does not have header */
   filled?: boolean
+
+  /** Optional classname */
+  className?: string
 }
 
 /**
@@ -51,7 +54,8 @@ export const PageBody: React.FC<PageBodyProps> = ({
   error,
   retryOnError,
   noData,
-  filled
+  filled,
+  className
 }) => {
   const [loading, setLoading] = useState(_loading)
   const [firstLoading, setFirstLoading] = useState(_loading)
@@ -77,7 +81,7 @@ export const PageBody: React.FC<PageBodyProps> = ({
   }, [_loading]) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <Container className={cx(css.pageBody, noData?.className, filled && css.filled)}>
+    <Container className={cx(css.pageBody, noData?.className, filled && css.filled, className)}>
       {loading && <PageSpinner />}
       {!loading && error && <PageError message={error} onClick={retryOnError} />}
       {!loading && !error && noData?.when?.() && (

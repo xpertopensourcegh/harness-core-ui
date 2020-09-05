@@ -1,5 +1,5 @@
 .pageBody {
-  height: calc(100% - 64px); /* 64px is PageHeader's height */
+  height: calc(100% - var(--page-header-height, 64px));
   overflow: auto;
   position: relative;
 
