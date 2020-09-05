@@ -4,11 +4,11 @@ import { useIsMounted } from '@wings-software/uikit'
 import type { GetDataError } from 'restful-react'
 import { AUTH_ROUTE_PATH_PREFIX } from 'framework/utils/framework-utils'
 import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
-import { useGetProjectListBasedOnFilter, FailureDTO, ErrorDTO } from 'services/cd-ng'
+import { useGetProjectList, FailureDTO, ErrorDTO, useGetOrganizationList, Organization } from 'services/cd-ng'
 import type { AppStore } from 'framework/types/AppStore'
 
 export interface FetchingAppEssentialsProps {
-  onSuccess: (data: Partial<Pick<AppStore, 'projects'>>) => void
+  onSuccess: (data: Partial<Pick<AppStore, 'projects' | 'organisationsMap'>>) => void
   onError: (error: GetDataError<FailureDTO | ErrorDTO>) => void
 }
 
@@ -18,21 +18,39 @@ export const AppEssentials: React.FC<FetchingAppEssentialsProps> = ({ onSuccess,
   })
   const accountId = (match?.params as { accountId: string })?.accountId
   const isMounted = useIsMounted()
-  const { loading, data, error } = useGetProjectListBasedOnFilter({
+  const { loading, data, error } = useGetProjectList({
     queryParams: {
       accountIdentifier: accountId
     }
   })
 
+  const { loading: orgLoading, data: orgData, error: orgError } = useGetOrganizationList({
+    queryParams: {
+      accountIdentifier: accountId
+    }
+  })
+
+  const getOrganisationMap = (orgsData: Organization[]): Map<string, Organization> => {
+    const orgMap: Map<string, Organization> = new Map<string, Organization>()
+    orgsData.map(org => {
+      orgMap.set(org.identifier || '', org)
+    })
+    return orgMap
+  }
+
   useEffect(() => {
-    if (isMounted.current && !loading) {
-      if (!error) {
-        onSuccess({ projects: data?.data?.content || [] })
+    if (isMounted.current && !loading && !orgLoading) {
+      if (!error && !orgError) {
+        onSuccess({
+          projects: data?.data?.content || [],
+          organisationsMap: getOrganisationMap(orgData?.data?.content || [])
+        })
       } else {
-        onError(error)
+        error && onError(error)
+        orgError && onError(orgError)
       }
     }
-  }, [loading]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [loading, orgLoading]) // eslint-disable-line react-hooks/exhaustive-deps
 
-  return loading ? <PageSpinner /> : null
+  return loading || orgLoading ? <PageSpinner /> : null
 }

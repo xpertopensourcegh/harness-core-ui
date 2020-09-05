@@ -4,7 +4,7 @@ import { Layout, Text, Icon, Color } from '@wings-software/uikit'
 import type { CellProps, Renderer, Column } from 'react-table'
 import Table from 'modules/common/components/Table/Table'
 
-import { useGetReferredByEntities, EntityReferenceDTO } from 'services/cd-ng'
+import { useListReferredByEntities, EntityReferenceDTO } from 'services/cd-ng'
 import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
 
 import i18n from './ReferencedBy.i18n'
@@ -45,7 +45,7 @@ const RenderColumnActivity: Renderer<CellProps<EntityReferenceDTO>> = ({ row }) 
 
 const ReferencedBy: React.FC<ReferencedByProps> = props => {
   const [page, setPage] = useState(0)
-  const { data, loading, refetch } = useGetReferredByEntities({
+  const { data, loading, refetch } = useListReferredByEntities({
     queryParams: { account: props.accountId, identifier: props.entityIdentifier, page: page, size: 10 }
   })
 

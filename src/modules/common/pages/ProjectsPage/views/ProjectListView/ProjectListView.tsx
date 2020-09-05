@@ -3,30 +3,32 @@ import ReactTimeago from 'react-timeago'
 import { Text, Layout, Color, Icon, Button, Popover } from '@wings-software/uikit'
 import type { CellProps, Renderer, Column } from 'react-table'
 import { Menu, Classes, Position } from '@blueprintjs/core'
-import { ProjectDTO, useDeleteProject, NGPageResponseProjectDTO } from 'services/cd-ng'
+import { useParams } from 'react-router-dom'
+import { Project, useDeleteProject, NGPageResponseProject } from 'services/cd-ng'
 import Table from 'modules/common/components/Table/Table'
 import { useConfirmationDialog } from 'modules/common/exports'
 import { useToaster } from 'modules/common/components/Toaster/useToaster'
 
 import TagsPopover from 'modules/common/components/TagsPopover/TagsPopover'
+import { useAppStoreReader } from 'framework/exports'
 import i18n from './ProjectListView.i18n'
 import css from './ProjectListView.module.scss'
 
 interface ProjectListViewProps {
-  data?: NGPageResponseProjectDTO
+  data?: NGPageResponseProject
   reload?: () => Promise<void>
-  editProject?: (project: ProjectDTO) => void
+  editProject?: (project: Project) => void
   gotoPage: (pageNumber: number) => void
-  collaborators?: (project: ProjectDTO) => void
+  collaborators?: (project: Project) => void
 }
 
 type CustomColumn<T extends object> = Column<T> & {
   refetchProjects?: () => Promise<void>
-  editProject?: (project: ProjectDTO) => void
-  collaborators?: (project: ProjectDTO) => void
+  editProject?: (project: Project) => void
+  collaborators?: (project: Project) => void
 }
 
-const RenderColumnProject: Renderer<CellProps<ProjectDTO>> = ({ row }) => {
+const RenderColumnProject: Renderer<CellProps<Project>> = ({ row }) => {
   const data = row.original
   return (
     <Layout.Horizontal spacing="small">
@@ -41,12 +43,13 @@ const RenderColumnProject: Renderer<CellProps<ProjectDTO>> = ({ row }) => {
     </Layout.Horizontal>
   )
 }
-const RenderColumnOrganisation: Renderer<CellProps<ProjectDTO>> = ({ row }) => {
+const RenderColumnOrganisation: Renderer<CellProps<Project>> = ({ row }) => {
   const data = row.original
-  return <Text color={Color.BLACK}>{data.organizationName}</Text>
+  const { organisationsMap } = useAppStoreReader()
+  return <Text color={Color.BLACK}>{organisationsMap.get(data.orgIdentifier || '')?.name}</Text>
 }
 
-const RenderColumnModules: Renderer<CellProps<ProjectDTO>> = ({ row }) => {
+const RenderColumnModules: Renderer<CellProps<Project>> = ({ row }) => {
   const data = row.original
   return (
     <Layout.Horizontal spacing="medium">
@@ -56,7 +59,7 @@ const RenderColumnModules: Renderer<CellProps<ProjectDTO>> = ({ row }) => {
   )
 }
 
-const RenderColumnActivity: Renderer<CellProps<ProjectDTO>> = ({ row }) => {
+const RenderColumnActivity: Renderer<CellProps<Project>> = ({ row }) => {
   const data = row.original
   return (
     <Layout.Horizontal spacing="small">
@@ -65,16 +68,18 @@ const RenderColumnActivity: Renderer<CellProps<ProjectDTO>> = ({ row }) => {
     </Layout.Horizontal>
   )
 }
-const RenderColumnAdmin: Renderer<CellProps<ProjectDTO>> = () => {
+const RenderColumnAdmin: Renderer<CellProps<Project>> = () => {
   return <Icon name="main-user-groups" size={20} />
 }
 
-const RenderColumnMenu: Renderer<CellProps<ProjectDTO>> = ({ row, column }) => {
+const RenderColumnMenu: Renderer<CellProps<Project>> = ({ row, column }) => {
   const data = row.original
+  const { accountId } = useParams()
   const [menuOpen, setMenuOpen] = useState(false)
   const { showSuccess, showError } = useToaster()
-
-  const { mutate: deleteProject } = useDeleteProject({ orgIdentifier: data.orgIdentifier || '' })
+  const { mutate: deleteProject } = useDeleteProject({
+    queryParams: { accountIdentifier: accountId, orgIdentifier: data.orgIdentifier || '' }
+  })
 
   const { openDialog } = useConfirmationDialog({
     contentText: i18n.confirmDelete(data.name || ''),
@@ -97,7 +102,7 @@ const RenderColumnMenu: Renderer<CellProps<ProjectDTO>> = ({ row, column }) => {
   })
 
   const handleDelete = (): void => {
-    if (!data?.id) return
+    if (!data?.identifier) return
     openDialog()
   }
   const handleEdit = (): void => {
@@ -141,7 +146,7 @@ const RenderColumnMenu: Renderer<CellProps<ProjectDTO>> = ({ row, column }) => {
 
 const ProjectListView: React.FC<ProjectListViewProps> = props => {
   const { data, reload, editProject, gotoPage, collaborators } = props
-  const columns: CustomColumn<ProjectDTO>[] = useMemo(
+  const columns: CustomColumn<Project>[] = useMemo(
     () => [
       {
         Header: i18n.project.toUpperCase(),
@@ -151,7 +156,7 @@ const ProjectListView: React.FC<ProjectListViewProps> = props => {
       },
       {
         Header: i18n.organisation.toUpperCase(),
-        accessor: 'organizationName',
+        accessor: 'orgIdentifier',
         width: '15%',
         Cell: RenderColumnOrganisation
       },
@@ -177,7 +182,7 @@ const ProjectListView: React.FC<ProjectListViewProps> = props => {
       },
       {
         Header: i18n.collaborators.toUpperCase(),
-        accessor: 'orgIdentifier',
+        accessor: 'accountIdentifier',
         width: '10%',
         Cell: RenderColumnAdmin,
         disableSortBy: true
@@ -196,7 +201,7 @@ const ProjectListView: React.FC<ProjectListViewProps> = props => {
     [reload, editProject, collaborators]
   )
   return (
-    <Table<ProjectDTO>
+    <Table<Project>
       className={css.table}
       columns={columns}
       data={data?.content || []}

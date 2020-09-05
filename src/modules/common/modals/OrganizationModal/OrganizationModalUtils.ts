@@ -1,8 +1,8 @@
-import type { OrganizationDTO } from 'services/cd-ng'
+import type { Organization } from 'services/cd-ng'
 
 export interface OrganizationModalInteraction {
   backToSelections: () => void
   onSuccess?: () => void
   edit?: boolean
-  data?: OrganizationDTO
+  data?: Organization
 }

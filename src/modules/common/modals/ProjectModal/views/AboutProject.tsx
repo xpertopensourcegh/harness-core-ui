@@ -24,17 +24,17 @@ import i18n from 'modules/common/pages/ProjectsPage/ProjectsPage.i18n'
 import { illegalIdentifiers } from 'modules/common/utils/StringUtils'
 
 import { useGetOrganizationList } from 'services/cd-ng'
-import type { ProjectDTO, UpdateProjectDTO, CreateProjectDTO } from 'services/cd-ng'
+import type { Project } from 'services/cd-ng'
 import { usePutProject, usePostProject } from 'services/cd-ng'
 import css from './Steps.module.scss'
 
 interface ProjectModalData {
-  data: ProjectDTO | undefined
+  data: Project | undefined
   closeModal?: () => void
-  onSuccess: (project: ProjectDTO | undefined) => void
+  onSuccess: (project: Project | undefined) => void
 }
 
-interface AboutPageData extends ProjectDTO {
+interface AboutPageData extends Project {
   preview?: boolean
 }
 
@@ -48,18 +48,30 @@ const collapseProps = {
 const descriptionCollapseProps = Object.assign({}, collapseProps, { heading: i18n.newProjectWizard.aboutProject.desc })
 const tagCollapseProps = Object.assign({}, collapseProps, { heading: i18n.newProjectWizard.aboutProject.tags })
 
-const AboutProject: React.FC<StepProps<ProjectDTO> & ProjectModalData> = props => {
+const AboutProject: React.FC<StepProps<Project> & ProjectModalData> = props => {
   const { nextStep, data: projectData, closeModal, onSuccess } = props
   const [showPreview, setShowPreview] = useState<boolean>(true)
   const { accountId } = useParams()
-  const isEdit = !!props.data && !!props.data.id
+  const isEdit = !!props.data && !!props.data.identifier
   const { mutate: updateProject } = usePutProject({
-    orgIdentifier: '',
-    projectIdentifier: ''
+    identifier: '',
+    queryParams: {
+      accountIdentifier: accountId,
+      orgIdentifier: ''
+    }
   })
-  const { mutate: createProject } = usePostProject({ orgIdentifier: '' })
+  const { mutate: createProject } = usePostProject({
+    queryParams: {
+      accountIdentifier: accountId,
+      orgIdentifier: ''
+    }
+  })
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding>()
-  const { loading, data } = useGetOrganizationList({ accountIdentifier: accountId })
+  const { loading, data } = useGetOrganizationList({
+    queryParams: {
+      accountIdentifier: accountId
+    }
+  })
   const { projects } = useAppStoreReader()
   const updateAppStore = useAppStoreWriter()
 
@@ -71,28 +83,24 @@ const AboutProject: React.FC<StepProps<ProjectDTO> & ProjectModalData> = props =
       }
     }) || []
 
-  const onComplete = async (values: ProjectDTO): Promise<void> => {
-    const dataToSubmit: unknown = pick<ProjectDTO, keyof CreateProjectDTO>(values, [
-      'name',
-      'color',
-      'description',
-      'tags'
-    ])
-    ;(dataToSubmit as CreateProjectDTO)['accountIdentifier'] = accountId
-    ;(dataToSubmit as CreateProjectDTO)['owners'] = [accountId]
+  const onComplete = async (values: Project): Promise<void> => {
+    const dataToSubmit: unknown = pick<Project, keyof Project>(values, ['name', 'color', 'description', 'tags'])
+    ;(dataToSubmit as Project)['accountIdentifier'] = accountId
+    ;(dataToSubmit as Project)['owners'] = [accountId]
     if (isEdit) {
-      await updateProject(dataToSubmit as UpdateProjectDTO, {
-        pathParams: { orgIdentifier: values?.orgIdentifier || '', projectIdentifier: values?.identifier || '' }
+      await updateProject(dataToSubmit as Project, {
+        pathParams: { identifier: values?.identifier || '' },
+        queryParams: { accountIdentifier: accountId, orgIdentifier: values?.orgIdentifier || '' }
       })
       closeModal?.()
       onSuccess?.(values)
       updateAppStore({ projects: projects.filter(p => p.identifier !== values.identifier).concat(values) })
     } else {
-      ;(dataToSubmit as CreateProjectDTO)['identifier'] = values.identifier || ''
-      ;(dataToSubmit as CreateProjectDTO)['modules'] = values.modules || []
+      ;(dataToSubmit as Project)['identifier'] = values.identifier || ''
+      ;(dataToSubmit as Project)['modules'] = values.modules || []
       try {
-        await createProject(dataToSubmit as CreateProjectDTO, {
-          pathParams: { orgIdentifier: values?.orgIdentifier || '' }
+        await createProject(dataToSubmit as Project, {
+          queryParams: { accountIdentifier: accountId, orgIdentifier: values?.orgIdentifier || '' }
         })
         nextStep?.({ ...values })
         onSuccess?.(values)

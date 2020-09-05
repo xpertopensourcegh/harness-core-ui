@@ -1,7 +1,7 @@
 /* eslint-disable */
 // this is an auto-generated file
 declare const styles: {
-  readonly card: string
-  readonly tagsncollabs: string
+  readonly colorBar: string
+  readonly end: string
 }
 export default styles

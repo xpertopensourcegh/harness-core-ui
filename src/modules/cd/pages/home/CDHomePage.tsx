@@ -1,7 +1,7 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
 import { ModuleName } from 'framework/exports'
-import type { ProjectDTO } from 'services/cd-ng'
+import type { Project } from 'services/cd-ng'
 import { ModuleLandingView } from 'modules/common/exports'
 import { routeCDDashboard } from 'modules/cd/routes'
 import i18n from './CDHomePage.i18n'
@@ -16,7 +16,7 @@ const CDHomePage: React.FC = () => {
       heading={i18n.welcomeToCD}
       subHeading={i18n.deployYourService}
       description={i18n.addCdToExistingProject}
-      onProjectCreated={(project: ProjectDTO) => {
+      onProjectCreated={(project: Project) => {
         history.push(routeCDDashboard.url({ projectIdentifier: project.identifier as string }))
       }}
     />

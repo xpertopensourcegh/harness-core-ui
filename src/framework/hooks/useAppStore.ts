@@ -1,9 +1,11 @@
 import { useState, useCallback } from 'react'
 import constate from 'constate'
+import type { Organization } from 'services/cd-ng'
 import type { AppStore } from '../types/AppStore'
 
 const initialStoreData: AppStore = {
-  projects: []
+  projects: [],
+  organisationsMap: new Map<string, Organization>()
 }
 
 function useAppStore(): { store: AppStore; updateStore: (newState: Partial<AppStore>) => void } {

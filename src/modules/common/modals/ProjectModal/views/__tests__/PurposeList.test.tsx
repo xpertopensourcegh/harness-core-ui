@@ -1,12 +1,12 @@
 import React from 'react'
 
 import { render, queryByText } from '@testing-library/react'
-import type { ProjectDTO } from 'services/cd-ng'
+import type { Project } from 'services/cd-ng'
+import { TestWrapper } from 'modules/common/utils/testUtils'
 import PurposeList from '../PurposeList'
 import i18n from '../../../../pages/ProjectsPage/ProjectsPage.i18n'
 
-const project: ProjectDTO = {
-  id: 'testId',
+const project: Project = {
   accountIdentifier: 'testAcc',
   orgIdentifier: 'testOrg',
   identifier: 'test',
@@ -20,7 +20,11 @@ const project: ProjectDTO = {
 
 describe('PurposeList test', () => {
   test('initializes ok ', async () => {
-    const { container } = render(<PurposeList data={project} />)
+    const { container } = render(
+      <TestWrapper path="/account/:accountId" pathParams={{ accountId: 'testAcc' }}>
+        <PurposeList data={project} />
+      </TestWrapper>
+    )
     expect(queryByText(container, i18n.newProjectWizard.purposeList.name)).toBeDefined()
     expect(container).toMatchSnapshot()
   })

@@ -2,7 +2,7 @@ import { Container, Layout, Icon, Button } from '@wings-software/uikit'
 import React, { useCallback } from 'react'
 import { useHistory } from 'react-router-dom'
 import { Sidebar, isRouteActive, routeParams, useAppStoreReader, ModuleName } from 'framework/exports'
-import type { ProjectDTO } from 'services/cd-ng'
+import type { Project } from 'services/cd-ng'
 import { ProjectSelector } from 'modules/common/components/ProjectSelector/ProjectSelector'
 import { AdminSelector, AdminSelectorLink } from 'modules/common/components/AdminSelector/AdminSelector'
 import i18n from './MenuCI.i18n'
@@ -18,10 +18,10 @@ import css from './MenuCI.module.scss'
 //
 // TODO: icons are not finalized and not available in UIKit
 //
-const ProjectNavLinks: React.FC<{ project?: ProjectDTO }> = ({ project }) => {
+const ProjectNavLinks: React.FC<{ project?: Project }> = ({ project }) => {
   if (!project) return null
 
-  const { identifier: projectIdentifier } = project as Required<ProjectDTO>
+  const { identifier: projectIdentifier } = project as Required<Project>
 
   return (
     <>

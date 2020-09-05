@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom'
 import { Sidebar, isRouteActive, routeParams, useAppStoreReader, ModuleName } from 'framework/exports'
 import { AdminSelector, AdminSelectorLink } from 'modules/common/components/AdminSelector/AdminSelector'
 import { ProjectSelector } from 'modules/common/components/ProjectSelector/ProjectSelector'
-import type { ProjectDTO } from 'services/cd-ng'
+import type { Project } from 'services/cd-ng'
 import i18n from './MenuCV.i18n'
 import {
   routeCVDataSources,
@@ -19,10 +19,10 @@ import {
 } from '../routes'
 import css from './MenuCV.module.scss'
 
-const ProjectNavLinks: React.FC<{ project?: ProjectDTO }> = ({ project }) => {
+const ProjectNavLinks: React.FC<{ project?: Project }> = ({ project }) => {
   if (!project) return null
 
-  const { identifier: projectIdentifier, orgIdentifier } = project as Required<ProjectDTO>
+  const { identifier: projectIdentifier, orgIdentifier } = project as Required<Project>
 
   return (
     <>

@@ -4,12 +4,16 @@ import { useParams } from 'react-router-dom'
 import { Menu, Classes } from '@blueprintjs/core'
 
 import { useDeleteOrganization } from 'services/cd-ng'
-import type { OrganizationDTO } from 'services/cd-ng'
+import type { Organization } from 'services/cd-ng'
+import { useConfirmationDialog } from 'modules/common/modals/ConfirmDialog/useConfirmationDialog'
 
+import { useAppStoreReader, useAppStoreWriter } from 'framework/exports'
+import { useToaster } from 'modules/common/exports'
 import i18n from './OrganizationCard.i18n'
+import css from './OrganizationCard.module.scss'
 
 interface OrganizationCardProps {
-  data: OrganizationDTO
+  data: Organization
   width?: number
   isPreview?: boolean
   className?: string
@@ -21,9 +25,31 @@ interface OrganizationCardProps {
 export const OrganizationCard: React.FC<OrganizationCardProps> = props => {
   const { data = {}, width = 250, isPreview, className, onClick, editOrg, reloadOrgs } = props
   const { accountId } = useParams()
+  const { organisationsMap } = useAppStoreReader()
+  const updateAppStore = useAppStoreWriter()
+  const { showSuccess, showError } = useToaster()
 
-  const { mutate: deleteOrg } = useDeleteOrganization({ accountIdentifier: accountId })
+  const { mutate: deleteOrg } = useDeleteOrganization({ queryParams: { accountIdentifier: accountId } })
 
+  const { openDialog } = useConfirmationDialog({
+    contentText: i18n.confirmDelete(data.name || ''),
+    titleText: i18n.confirmDeleteTitle,
+    confirmButtonText: i18n.delete,
+    cancelButtonText: i18n.cancelButton,
+    onCloseDialog: async (isConfirmed: boolean) => {
+      if (isConfirmed) {
+        try {
+          const deleted = await deleteOrg(data.identifier || '', { headers: { 'content-type': 'application/json' } })
+          if (deleted) showSuccess(i18n.successMessage(data.name || ''))
+          organisationsMap.delete(data.identifier || '')
+          updateAppStore({ organisationsMap: organisationsMap })
+          reloadOrgs?.()
+        } catch (err) {
+          showError(err)
+        }
+      }
+    }
+  })
   const handleEdit = (e: React.MouseEvent): void => {
     e.stopPropagation()
     editOrg?.()
@@ -31,18 +57,8 @@ export const OrganizationCard: React.FC<OrganizationCardProps> = props => {
 
   const handleDelete = async (e: React.MouseEvent): Promise<void> => {
     e.stopPropagation()
-    const sure = confirm(`Are you sure you want to delete the organization '${data.name}'?`)
-    if (!sure) return
-    try {
-      const deleted = await deleteOrg(data.identifier || '', { headers: { 'content-type': 'application/json' } })
-      if (!deleted) {
-        // TODO: show error
-      } else {
-        reloadOrgs?.()
-      }
-    } catch (_) {
-      // TODO: handle error
-    }
+    if (!data?.identifier) return
+    openDialog()
   }
 
   return (
@@ -61,6 +77,7 @@ export const OrganizationCard: React.FC<OrganizationCardProps> = props => {
         />
       ) : null}
       <Container width={width}>
+        <div className={css.colorBar} style={{ backgroundColor: data?.color || 'var(--blue-500)' }} />
         <Layout.Vertical spacing="small" padding={{ right: isPreview ? 'large' : undefined }}>
           <Text font="medium" color={Color.BLACK}>
             {data?.name || i18n.placeholder.name}
@@ -74,23 +91,20 @@ export const OrganizationCard: React.FC<OrganizationCardProps> = props => {
               {i18n.placeholder.description}
             </Text>
           ) : null}
-          {(data?.tags && data.tags.length > 0) || isPreview ? (
-            <Layout.Horizontal width={'50%'} spacing="small">
-              {data?.tags && data.tags.length > 0 ? (
-                data?.tags.map((tag: string) => (
-                  <Tag minimal key={tag}>
-                    {tag}
-                  </Tag>
-                ))
-              ) : isPreview ? (
-                <>
-                  <Tag minimal>sample</Tag>
-                  <Tag minimal>tags</Tag>
-                </>
-              ) : null}
+          <Layout.Horizontal padding={{ top: 'xxxlarge' }}>
+            <Layout.Horizontal width={'60%'} style={{ overflow: 'auto' }} spacing="small">
+              {data?.tags?.length
+                ? data?.tags.map((tag: string) => (
+                    <Tag minimal key={tag}>
+                      {tag}
+                    </Tag>
+                  ))
+                : null}
             </Layout.Horizontal>
-          ) : null}
-          <Icon size={24} name="user" />
+            <Layout.Horizontal width={'40%'} className={css.end}>
+              <Icon size={24} name="user" />
+            </Layout.Horizontal>
+          </Layout.Horizontal>
         </Layout.Vertical>
       </Container>
     </Card>

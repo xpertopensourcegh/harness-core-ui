@@ -20,14 +20,14 @@ import { Select } from '@blueprintjs/select'
 import cx from 'classnames'
 import { Menu } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
-import { ProjectDTO, useGetUsers, useGetRoles, useGetInvites, CreateInviteListDTO, useSendInvite } from 'services/cd-ng'
+import { Project, useGetUsers, useGetRoles, useGetInvites, CreateInviteListDTO, useSendInvite } from 'services/cd-ng'
 import i18n from 'modules/common/pages/ProjectsPage/ProjectsPage.i18n'
 import { InviteType } from '../Constants'
 
 import css from './Steps.module.scss'
 
 interface ProjectModalData {
-  data: ProjectDTO | undefined
+  data: Project | undefined
 }
 
 export interface CollaboratorsData {
@@ -42,13 +42,13 @@ const defaultRole: SelectOption = {
   value: i18n.newProjectWizard.Collaborators.value
 }
 
-const Collaborators: React.FC<StepProps<ProjectDTO> & ProjectModalData> = props => {
+const Collaborators: React.FC<StepProps<Project> & ProjectModalData> = props => {
   const { nextStep, prevStepData, data } = props
   const [role, setRole] = useState<SelectOption>(defaultRole)
   const [collaborators, setCollabrators] = useState<MultiSelectOption[]>()
   const { accountId } = useParams()
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding>()
-  const isFromMenu = !!data && !!data.id
+  const isFromMenu = !!data && !!data.identifier
   const projectData = isFromMenu ? data : prevStepData
 
   const { data: userData } = useGetUsers({ queryParams: { accountIdentifier: accountId } })

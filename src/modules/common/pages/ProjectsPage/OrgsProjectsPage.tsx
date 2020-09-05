@@ -2,11 +2,12 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 import { Button, Container, Layout } from '@wings-software/uikit'
 
-import { useGetProjectListForOrganization, useGetOrganization } from 'services/cd-ng'
-import type { ProjectDTO } from 'services/cd-ng'
+import { useGetProjectList } from 'services/cd-ng'
+import type { Project } from 'services/cd-ng'
 
 import { Page } from 'modules/common/exports'
 import { useProjectModal } from 'modules/common/modals/ProjectModal/useProjectModal'
+import { useAppStoreReader } from 'framework/exports'
 import ProjectsGridView from './views/ProjectGridView/ProjectGridView'
 
 import i18n from './ProjectsPage.i18n'
@@ -14,12 +15,15 @@ import css from './OrgsProjectsPage.module.scss'
 
 const OrgProjectsListPage: React.FC = () => {
   const { accountId, orgId } = useParams()
+  const { organisationsMap } = useAppStoreReader()
 
-  const { loading: loading, data: data, refetch: reloadProjects } = useGetProjectListForOrganization({
-    orgIdentifier: orgId
+  const { loading: loading, data: data, refetch: reloadProjects } = useGetProjectList({
+    queryParams: {
+      accountIdentifier: accountId,
+      orgIdentifier: orgId
+    }
   })
 
-  const { data: orgData } = useGetOrganization({ accountIdentifier: accountId, orgIdentifier: orgId })
   const projectCreateSuccessHandler = (): void => {
     reloadProjects()
   }
@@ -28,13 +32,13 @@ const OrgProjectsListPage: React.FC = () => {
     onSuccess: projectCreateSuccessHandler
   })
 
-  const showEditProject = (project: ProjectDTO): void => {
+  const showEditProject = (project: Project): void => {
     openProjectModal(project)
   }
   return (
     <>
       <Page.Header
-        title={orgData?.data?.name?.toUpperCase() + ' / ' + i18n.projects.toUpperCase()}
+        title={organisationsMap.get(orgId)?.name + ' / ' + i18n.projects.toUpperCase()}
         toolbar={
           <Container>
             <Layout.Horizontal spacing="xlarge" padding={{ right: 'medium' }}>

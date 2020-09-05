@@ -2,13 +2,14 @@ import React, { useState } from 'react'
 
 import { CardSelect, Text, Layout, Icon, IconName, Container, Button } from '@wings-software/uikit'
 
-import type { ProjectDTO, UpdateProjectDTO } from 'services/cd-ng'
+import { useParams } from 'react-router-dom'
+import type { Project } from 'services/cd-ng'
 import { usePutProject } from 'services/cd-ng'
 import i18n from '../../../pages/ProjectsPage/ProjectsPage.i18n'
 import css from './Purpose.module.scss'
 
 interface ProjectModalData {
-  data: ProjectDTO | undefined
+  data: Project | undefined
 }
 
 interface PurposeType {
@@ -18,7 +19,7 @@ interface PurposeType {
   start: string
   text: string
   button: string
-  module: Required<ProjectDTO>['modules'][number]
+  module: Required<Project>['modules'][number]
 }
 
 interface ModuleProps {
@@ -190,19 +191,26 @@ const ContinuousFeatures: React.FC<ModuleProps> = ({ onSubmit }) => {
 
 const PurposeList: React.FC<ProjectModalData> = props => {
   const { data: projectData } = props
+  const { accountId } = useParams()
   const [selected, setSelected] = useState<PurposeType>(options[0])
   const { mutate: updateProject } = usePutProject({
-    orgIdentifier: '',
-    projectIdentifier: ''
+    identifier: '',
+    queryParams: {
+      accountIdentifier: accountId,
+      orgIdentifier: ''
+    }
   })
 
   const onSuccess = async (): Promise<boolean> => {
-    const dataToSubmit: UpdateProjectDTO = { name: projectData?.name || '', modules: [selected.module] }
+    const dataToSubmit: Project = { name: projectData?.name || '', modules: [selected.module] }
     try {
       await updateProject(dataToSubmit, {
         pathParams: {
-          orgIdentifier: projectData?.orgIdentifier || '',
-          projectIdentifier: projectData?.identifier || ''
+          identifier: projectData?.identifier || ''
+        },
+        queryParams: {
+          accountIdentifier: accountId,
+          orgIdentifier: projectData?.orgIdentifier || ''
         }
       })
       return true

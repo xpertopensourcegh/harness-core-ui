@@ -1,51 +1,54 @@
 import React from 'react'
 import cx from 'classnames'
 import { Card, Text, Tag, Layout, Icon, CardBody, Container, Button, Color } from '@wings-software/uikit'
-import { useHistory, Link } from 'react-router-dom'
+import { useHistory, Link, useParams } from 'react-router-dom'
 import { Menu, Classes } from '@blueprintjs/core'
 import { routeCVDataSources } from 'modules/cv/routes'
 
 import { routeCDPipelineStudio, routeCDDashboard } from 'modules/cd/routes'
 import { useDeleteProject } from 'services/cd-ng'
-import type { ProjectDTO } from 'services/cd-ng'
+import type { Project } from 'services/cd-ng'
 import { useToaster } from 'modules/common/components/Toaster/useToaster'
 import { useConfirmationDialog } from 'modules/common/modals/ConfirmDialog/useConfirmationDialog'
-import { useAppStoreReader, useAppStoreWriter } from 'framework/exports'
+import { useAppStoreReader } from 'framework/exports'
 import { Modules } from './Constants'
 import i18n from './ProjectCard.i18n'
 import css from './ProjectCard.module.scss'
 
 export interface ProjectCardProps {
-  data: ProjectDTO
+  data: Project
   isPreview?: boolean
   className?: string
   reloadProjects?: () => Promise<unknown>
-  editProject?: (project: ProjectDTO) => void
-  collaborators?: (project: ProjectDTO) => void
+  editProject?: (project: Project) => void
+  onDeleted?: (project: Project) => void
+  collaborators?: (project: Project) => void
 }
 
 interface ContextMenuProps {
-  project: ProjectDTO
+  project: Project
   reloadProjects?: () => Promise<unknown>
-  editProject?: (project: ProjectDTO) => void
-  collaborators?: (project: ProjectDTO) => void
+  editProject?: (project: Project) => void
+  onDeleted?: (project: Project) => void
+  collaborators?: (project: Project) => void
 }
 
 interface ContinuousDeployementProps {
-  data: ProjectDTO
+  data: Project
   isPreview?: boolean
 }
 
 interface ContinuousVerificationProps {
-  data: ProjectDTO
+  data: Project
 }
 
 const ContextMenu: React.FC<ContextMenuProps> = props => {
-  const { project, reloadProjects, editProject, collaborators } = props
-  const { mutate: deleteProject } = useDeleteProject({ orgIdentifier: project.orgIdentifier || '' })
+  const { accountId } = useParams()
+  const { project, reloadProjects, editProject, collaborators, onDeleted } = props
+  const { mutate: deleteProject } = useDeleteProject({
+    queryParams: { accountIdentifier: accountId, orgIdentifier: project.orgIdentifier || '' }
+  })
   const { showSuccess, showError } = useToaster()
-  const { projects } = useAppStoreReader()
-  const updateAppStore = useAppStoreWriter()
 
   const { openDialog } = useConfirmationDialog({
     contentText: i18n.confirmDelete(project.name || ''),
@@ -58,15 +61,8 @@ const ContextMenu: React.FC<ContextMenuProps> = props => {
           const deleted = await deleteProject(project.identifier || '', {
             headers: { 'content-type': 'application/json' }
           })
-          if (deleted) showSuccess(`Project ${project.name} deleted`)
-
-          const index = projects.findIndex(p => p.identifier === project.identifier)
-
-          if (index >= 0) {
-            projects.splice(index, 1)
-            updateAppStore({ projects: ([] as ProjectDTO[]).concat(projects) })
-          }
-
+          if (deleted) showSuccess(i18n.successMessage(project.name || ''))
+          onDeleted?.(project)
           reloadProjects?.()
         } catch (err) {
           showError(err)
@@ -77,7 +73,7 @@ const ContextMenu: React.FC<ContextMenuProps> = props => {
 
   const handleDelete = (event: React.MouseEvent<HTMLElement, MouseEvent>): void => {
     event.stopPropagation()
-    if (!project?.id) return
+    if (!project?.identifier) return
     openDialog()
   }
 
@@ -212,7 +208,8 @@ const GetStarted: React.FC<ContinuousDeployementProps> = props => {
   )
 }
 const ProjectCard: React.FC<ProjectCardProps> = props => {
-  const { data, isPreview, reloadProjects, editProject, collaborators } = props
+  const { data, isPreview, reloadProjects, editProject, collaborators, onDeleted } = props
+  const { organisationsMap } = useAppStoreReader()
 
   return (
     <Card className={cx(css.projectCard, props.className)}>
@@ -224,6 +221,7 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
                 project={props.data}
                 reloadProjects={reloadProjects}
                 editProject={editProject}
+                onDeleted={onDeleted}
                 collaborators={collaborators}
               />
             }
@@ -242,7 +240,7 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
             {i18n.projectName}
           </Text>
         ) : null}
-        {data?.organizationName ? <Text font={{ size: 'small', weight: 'bold' }}>{data.organizationName}</Text> : null}
+        <Text font={{ size: 'small', weight: 'bold' }}>{organisationsMap.get(data.orgIdentifier || '')?.name}</Text>
         {data?.description ? (
           <Text font="small" padding={{ top: 'medium' }}>
             {data.description}
@@ -270,10 +268,10 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
       </Container>
 
       {data?.modules?.length ? null : <GetStarted data={data} isPreview={isPreview} />}
-      {data.modules?.includes(Modules.CD as Required<ProjectDTO>['modules'][number]) ? (
+      {data.modules?.includes(Modules.CD as Required<Project>['modules'][number]) ? (
         <ContinuousDeployement data={data} />
       ) : null}
-      {data.modules?.includes(Modules.CV as Required<ProjectDTO>['modules'][number]) ? (
+      {data.modules?.includes(Modules.CV as Required<Project>['modules'][number]) ? (
         <ContinuousVerification data={data} />
       ) : null}
     </Card>

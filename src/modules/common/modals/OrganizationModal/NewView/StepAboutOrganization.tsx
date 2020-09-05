@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import * as Yup from 'yup'
-import { pick } from 'lodash-es'
 
 import {
   Button,
@@ -14,17 +13,20 @@ import {
   StepProps
 } from '@wings-software/uikit'
 import { useParams } from 'react-router-dom'
+import { useAppStoreReader, useAppStoreWriter } from 'framework/exports'
 import { OrganizationCard } from 'modules/common/components/OrganizationCard/OrganizationCard'
 import { usePostOrganization, usePutOrganization } from 'services/cd-ng'
-import type { OrganizationDTO, CreateOrganizationDTO, UpdateOrganizationDTO } from 'services/cd-ng'
+import type { Organization } from 'services/cd-ng'
 import type { OrganizationModalInteraction } from '../OrganizationModalUtils'
 
 import i18n from './StepAboutOrganization.i18n'
 
-export const StepAboutOrganization: React.FC<StepProps<OrganizationDTO> & OrganizationModalInteraction> = props => {
+export const StepAboutOrganization: React.FC<StepProps<Organization> & OrganizationModalInteraction> = props => {
   const { nextStep, backToSelections, onSuccess, edit, data } = props
   const { accountId } = useParams()
-  const [org, setOrg] = useState<OrganizationDTO>(
+  const { organisationsMap } = useAppStoreReader()
+  const updateAppStore = useAppStoreWriter()
+  const [org, setOrg] = useState<Organization>(
     (edit && data) || {
       color: '',
       name: '',
@@ -33,26 +35,28 @@ export const StepAboutOrganization: React.FC<StepProps<OrganizationDTO> & Organi
       identifier: ''
     }
   )
-  const { mutate: createOrganization } = usePostOrganization({ accountIdentifier: accountId })
+  const { mutate: createOrganization } = usePostOrganization({ queryParams: { accountIdentifier: accountId } })
   const { mutate: updateOrganization } = usePutOrganization({
-    accountIdentifier: accountId,
-    orgIdentifier: org.identifier || ''
+    identifier: org.identifier || '',
+    queryParams: {
+      accountIdentifier: accountId
+    }
   })
-  const persistOrg = async (values: OrganizationDTO): Promise<void> => {
-    const dataToSubmit: unknown = pick<OrganizationDTO, keyof CreateOrganizationDTO>(values, [
-      'name',
-      'color',
-      'description',
-      'tags'
-    ])
+  const persistOrg = async (values: Organization): Promise<void> => {
+    const dataToSubmit: Organization = {
+      name: values.name,
+      color: values.color,
+      description: values.description,
+      tags: values.tags
+    }
     try {
       if (edit) {
-        await updateOrganization(dataToSubmit as UpdateOrganizationDTO)
+        await updateOrganization(dataToSubmit)
       } else {
-        ;(dataToSubmit as CreateOrganizationDTO)['identifier'] = values.identifier || ''
-        await createOrganization(dataToSubmit as CreateOrganizationDTO)
+        dataToSubmit['identifier'] = values.identifier || ''
+        await createOrganization(dataToSubmit)
       }
-
+      updateAppStore({ organisationsMap: organisationsMap.set(values.identifier || '', values) })
       onSuccess?.()
     } catch (error) {
       // TODO: Implement modal error handling
@@ -73,13 +77,13 @@ export const StepAboutOrganization: React.FC<StepProps<OrganizationDTO> & Organi
             color: Yup.string().required()
           })}
           validate={setOrg}
-          onSubmit={(values: OrganizationDTO) => {
+          onSubmit={(values: Organization) => {
             persistOrg(values)
           }}
         >
           {() => (
             <Form>
-              <FormInput.InputWithIdentifier inputLabel={i18n.form.name} />
+              <FormInput.InputWithIdentifier inputLabel={i18n.form.name} isIdentifierEditable={!edit} />
               <FormInput.ColorPicker label={i18n.form.color} name="color" color={org?.color} />
               <FormInput.TextArea label={i18n.form.description} name="description" />
               <FormInput.TagInput

@@ -29,9 +29,9 @@ export const LayoutManager: React.FC<{ route?: Route }> = ({ children, route }) 
     <>
       {!mounted ? null : fetchingEssentials ? (
         <AppEssentials
-          onSuccess={({ projects }) => {
+          onSuccess={({ projects, organisationsMap }) => {
             setFetchingEssentials(false)
-            updateApplicationStore({ projects })
+            updateApplicationStore({ projects, organisationsMap })
           }}
           onError={error => {
             showError(error?.message)

@@ -2,7 +2,7 @@ import { Classes, Dialog, IDialogProps } from '@blueprintjs/core'
 import { useModalHook } from '@wings-software/uikit'
 import React, { useState, useCallback } from 'react'
 import cx from 'classnames'
-import type { OrganizationDTO } from 'services/cd-ng'
+import type { Organization } from 'services/cd-ng'
 import { OptionsView } from './OptionsView/OptionsView'
 import { NewView } from './NewView/NewView'
 import { CloneView } from './CloneView/CloneView'
@@ -13,7 +13,7 @@ export interface UseOrganizationModalArgs {
 }
 
 export interface UseOrganizationModalResult {
-  openOrganizationModal: (org?: OrganizationDTO) => void
+  openOrganizationModal: (org?: Organization) => void
   close: () => void
 }
 
@@ -32,7 +32,7 @@ const ModalProps: IDialogProps = {
 
 export const useOrganizationModal: (args: UseOrganizationModalArgs) => UseOrganizationModalResult = args => {
   const [view, setView] = useState(ModalView.OPTIONS)
-  const [orgData, setOrgData] = useState<OrganizationDTO>()
+  const [orgData, setOrgData] = useState<Organization>()
   const [openModal, hideModal] = useModalHook(
     () => (
       <Dialog
@@ -67,7 +67,7 @@ export const useOrganizationModal: (args: UseOrganizationModalArgs) => UseOrgani
     [args, view, orgData]
   )
   const open = useCallback(
-    (_org?: OrganizationDTO) => {
+    (_org?: Organization) => {
       if (_org) {
         setOrgData(_org)
         setView(ModalView.EDIT)
@@ -78,7 +78,7 @@ export const useOrganizationModal: (args: UseOrganizationModalArgs) => UseOrgani
   )
 
   return {
-    openOrganizationModal: (org?: OrganizationDTO) => {
+    openOrganizationModal: (org?: Organization) => {
       open(org)
     },
     close: hideModal

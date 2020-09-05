@@ -3,15 +3,15 @@ import { Select, SelectOption } from '@wings-software/uikit'
 import type { IconProps } from '@wings-software/uikit/dist/icons/Icon'
 import cx from 'classnames'
 import { routeParams, useAppStoreReader, ModuleName } from 'framework/exports'
-import type { ProjectDTO } from 'services/cd-ng'
+import type { Project } from 'services/cd-ng'
 import i18n from './ProjectSelector.i18n'
 import css from './ProjectSelector.module.scss'
 
-type ProjectListOptions = SelectOption & ProjectDTO
+type ProjectListOptions = SelectOption & Project
 
 export interface ProjectSelectorProps {
   module: ModuleName.CD | ModuleName.CV | ModuleName.CE | ModuleName.CI | ModuleName.CF
-  onSelect: (project: ProjectDTO) => void
+  onSelect: (project: Project) => void
 }
 
 export const ProjectSelector: React.FC<ProjectSelectorProps> = ({ module, onSelect }) => {
@@ -60,7 +60,7 @@ export const ProjectSelector: React.FC<ProjectSelectorProps> = ({ module, onSele
       }}
       onChange={item => {
         setSelectedProject(item)
-        onSelect(item as ProjectDTO)
+        onSelect(item as Project)
       }}
     />
   )

@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react'
 import { Container, Layout, Text, Heading, Icon, Button, Color, IconName, Spacing } from '@wings-software/uikit'
 import { useAppStoreReader, ModuleName } from 'framework/exports'
-import type { ProjectDTO, NGPageResponseProjectDTO } from 'services/cd-ng'
+import type { Project, NGPageResponseProject } from 'services/cd-ng'
 import { useProjectModal } from 'modules/common/modals/ProjectModal/useProjectModal'
 import { Page } from '../../components/Page/Page'
 import ProjectGridView from '../../pages/ProjectsPage/views/ProjectGridView/ProjectGridView'
@@ -15,7 +15,7 @@ export interface ModuleLandingViewProps {
   iconSize?: number
   iconPadding?: Spacing
   description: string
-  onProjectCreated: (project: ProjectDTO) => void
+  onProjectCreated: (project: Project) => void
 }
 
 export const ModuleLandingView: React.FC<ModuleLandingViewProps> = ({
@@ -30,13 +30,13 @@ export const ModuleLandingView: React.FC<ModuleLandingViewProps> = ({
 }) => {
   const { projects } = useAppStoreReader()
   const { openProjectModal } = useProjectModal({
-    onSuccess: (project?: ProjectDTO): void => {
+    onSuccess: (project?: Project): void => {
       if (project) {
         onProjectCreated(project)
       }
     }
   })
-  const showEditProject = (project: ProjectDTO): void => {
+  const showEditProject = (project: Project): void => {
     openProjectModal(project)
   }
   // listingProjects contains a collection of projects that don't include `module`
@@ -56,7 +56,7 @@ export const ModuleLandingView: React.FC<ModuleLandingViewProps> = ({
           <Button
             intent="primary"
             text={i18n.newProject}
-            onClick={() => openProjectModal(({ modules: [module] } as unknown) as ProjectDTO)}
+            onClick={() => openProjectModal(({ modules: [module] } as unknown) as Project)}
           />
           <Text color={Color.GREY_400} padding="large">
             {i18n.startYourTrial}
@@ -68,7 +68,7 @@ export const ModuleLandingView: React.FC<ModuleLandingViewProps> = ({
           {description}
         </Text>
         <ProjectGridView
-          data={{ content: listingProjects } as NGPageResponseProjectDTO}
+          data={{ content: listingProjects } as NGPageResponseProject}
           showEditProject={showEditProject}
         />
       </Container>

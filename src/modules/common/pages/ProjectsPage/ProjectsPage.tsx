@@ -4,15 +4,10 @@ import { Button, Text, Layout, TextInput, SelectOption } from '@wings-software/u
 
 import { Select } from '@blueprintjs/select'
 import { Menu } from '@blueprintjs/core'
-import {
-  useGetProjectListBasedOnFilter,
-  ResponseDTONGPageResponseProjectDTO,
-  useGetOrganizationList
-} from 'services/cd-ng'
+import { useGetProjectList, ResponseDTONGPageResponseProject, useGetOrganizationList } from 'services/cd-ng'
 import type { ModuleName } from 'framework/exports'
 
-import type { ProjectDTO } from 'services/cd-ng'
-import { equals, includes, and } from 'modules/common/utils/rsql'
+import type { Project } from 'services/cd-ng'
 import { Page } from 'modules/common/exports'
 import { useProjectModal } from 'modules/common/modals/ProjectModal/useProjectModal'
 import { useCollaboratorModal } from 'modules/common/modals/ProjectModal/useCollaboratorModal'
@@ -28,10 +23,10 @@ const allOrgsSelectOption: SelectOption = {
   value: i18n.orgLabel.toUpperCase()
 }
 interface ProjectListProps {
-  mockData?: UseGetMockData<ResponseDTONGPageResponseProjectDTO>
+  mockData?: UseGetMockData<ResponseDTONGPageResponseProject>
   /** when the page is being shown inside continuous verification, value will be set to CV */
   module?: ModuleName
-  onNewProjectCreated?(data: ProjectDTO): void
+  onNewProjectCreated?(data: Project): void
 }
 const CustomSelect = Select.ofType<SelectOption>()
 
@@ -42,18 +37,12 @@ const ProjectsListPage: React.FC<ProjectListProps> = ({ mockData, module, onNewP
   const [recentFilter, setRecentFilter] = useState(Sort.ALL_PROJECTS)
   const [searchParam, setSearchParam] = useState<string | undefined>()
   const [page, setPage] = useState(0)
-  const {
-    loading: loadingAllProjects,
-    data: dataAllProjects,
-    refetch: reloadAllProjects
-  } = useGetProjectListBasedOnFilter({
+  const { loading: loadingAllProjects, data: dataAllProjects, refetch: reloadAllProjects } = useGetProjectList({
     queryParams: {
       accountIdentifier: accountId,
-      filterQuery: and(
-        orgFilter.value == 'ALL' ? undefined : equals('orgIdentifier', orgFilter.value.toString()),
-        !module ? undefined : includes('modules', [module])
-      ),
-      search: searchParam,
+      orgIdentifier: orgFilter.value == 'ALL' ? undefined : orgFilter.value.toString(),
+      moduleType: module ? (module as Required<Project>['modules'][number]) : undefined,
+      searchTerm: searchParam,
       page: page,
       size: 10
     },
@@ -64,7 +53,7 @@ const ProjectsListPage: React.FC<ProjectListProps> = ({ mockData, module, onNewP
   const loading = loadingAllProjects
   const data = dataAllProjects
 
-  const projectCreateSuccessHandler = (project: ProjectDTO | undefined): void => {
+  const projectCreateSuccessHandler = (project: Project | undefined): void => {
     if (project && onNewProjectCreated) {
       onNewProjectCreated(project)
     }
@@ -75,18 +64,20 @@ const ProjectsListPage: React.FC<ProjectListProps> = ({ mockData, module, onNewP
     onSuccess: projectCreateSuccessHandler
   })
 
-  const showEditProject = (project: ProjectDTO): void => {
+  const showEditProject = (project: Project): void => {
     openProjectModal(project)
   }
 
   const { openCollaboratorModal } = useCollaboratorModal()
 
-  const showCollaborators = (project: ProjectDTO): void => {
+  const showCollaborators = (project: Project): void => {
     openCollaboratorModal(project)
   }
 
   const { data: orgsData } = useGetOrganizationList({
-    accountIdentifier: accountId
+    queryParams: {
+      accountIdentifier: accountId
+    }
   })
 
   const organisations: SelectOption[] = [
@@ -129,7 +120,7 @@ const ProjectsListPage: React.FC<ProjectListProps> = ({ mockData, module, onNewP
           <Button
             text="New Project"
             icon="plus"
-            onClick={() => openProjectModal(module ? ({ modules: [module] } as ProjectDTO) : undefined)}
+            onClick={() => openProjectModal(module ? ({ modules: [module] } as Project) : undefined)}
           />
         </Layout.Horizontal>
 

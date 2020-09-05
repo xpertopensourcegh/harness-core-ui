@@ -2,18 +2,18 @@ import React, { useCallback, useState } from 'react'
 import { useModalHook, Button } from '@wings-software/uikit'
 import { Dialog, Classes } from '@blueprintjs/core'
 import cx from 'classnames'
-import type { ProjectDTO } from 'services/cd-ng'
+import type { Project } from 'services/cd-ng'
 import Collaborators from './views/Collaborators'
 
 import css from './useProjectModal.module.scss'
 
 export interface UseCollaboratorModalReturn {
-  openCollaboratorModal: (project?: ProjectDTO) => void
+  openCollaboratorModal: (project?: Project) => void
   closeCollaboratorModal: () => void
 }
 
 export const useCollaboratorModal = (): UseCollaboratorModalReturn => {
-  const [projectData, setProjectData] = useState<ProjectDTO>()
+  const [projectData, setProjectData] = useState<Project>()
 
   const [showModal, hideModal] = useModalHook(
     () => (
@@ -26,7 +26,7 @@ export const useCollaboratorModal = (): UseCollaboratorModalReturn => {
   )
 
   const open = useCallback(
-    (_project?: ProjectDTO) => {
+    (_project?: Project) => {
       setProjectData(_project)
       showModal()
     },
@@ -34,7 +34,7 @@ export const useCollaboratorModal = (): UseCollaboratorModalReturn => {
   )
 
   return {
-    openCollaboratorModal: (project?: ProjectDTO) => open(project),
+    openCollaboratorModal: (project?: Project) => open(project),
     closeCollaboratorModal: hideModal
   }
 }

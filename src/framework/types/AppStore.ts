@@ -1,4 +1,4 @@
-import type { ProjectDTO } from 'services/cd-ng'
+import type { Project, Organization } from 'services/cd-ng'
 import type { Route } from './Route'
 import type { SidebarRegistry } from './SidebarRegistry'
 
@@ -15,5 +15,8 @@ export interface AppStore {
   route?: Route
 
   /** Projects */
-  projects: ProjectDTO[]
+  projects: Project[]
+
+  /**Organisation Map */
+  organisationsMap: Map<string, Organization>
 }
