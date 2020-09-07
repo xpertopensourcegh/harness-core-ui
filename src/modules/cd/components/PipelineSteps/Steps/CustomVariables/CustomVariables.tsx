@@ -16,17 +16,16 @@ import {
 import { cloneDeep, get } from 'lodash'
 import { Dialog, Classes, Position } from '@blueprintjs/core'
 import * as Yup from 'yup'
-import xhr from '@wings-software/xhr-async'
 import { parse } from 'yaml'
 import { CompletionItemKind } from 'vscode-languageserver-types'
 import { useParams } from 'react-router-dom'
 import { loggerFor, ModuleName } from 'framework/exports'
-import type { Variable, EncryptedDataDTO, ResponseDTONGPageResponseEncryptedDataDTO } from 'services/cd-ng'
-import { getConfig } from 'services/config'
+import { Variable, EncryptedDataDTO, listSecretsPromise } from 'services/cd-ng'
 import { Step, StepViewType, ConfigureOptions } from 'modules/common/exports'
 import { routeParams } from 'framework/exports'
 import type { CompletionItemInterface } from 'modules/common/interfaces/YAMLBuilderProps'
 import SecretReference from 'modules/dx/components/SecretReference/SecretReference'
+import { Scope } from 'modules/common/components/ReferenceSelector/ReferenceSelector'
 import i18n from './CustomVariables.i18n'
 import { StepType } from '../../PipelineStepInterface'
 import css from './CustomVariables.module.scss'
@@ -63,14 +62,8 @@ const VariableTypes = {
   Number: 'Number'
 }
 
-enum Scope {
-  Org = 'org',
-  Project = 'project',
-  Account = 'account'
-}
-
 const getSecretKey = (secret: EncryptedDataDTO): string =>
-  `${secret.org ? Scope.Org : secret.project ? Scope.Project : Scope.Account}.${secret.identifier}` || ''
+  `${secret.org ? Scope.ORG : secret.project ? Scope.PROJECT : Scope.ACCOUNT}.${secret.identifier}` || ''
 const getDefaultVariable = (): Variable => ({ name: '', type: VariableTypes.String, value: '' })
 
 const secretsOptions: Map<string, string> = new Map()
@@ -316,11 +309,9 @@ export class CustomVariables extends Step<VariableList> {
     // Fetch only if the data is older then 60 Seconds
     if (this.lastFetched + 60000 < new Date().getTime() || !this.secrets) {
       this.lastFetched = new Date().getTime()
-      this.secrets = await xhr
-        .get<ResponseDTONGPageResponseEncryptedDataDTO>(`${getConfig('ng/api')}/secrets?accountIdentifier=${accountId}`)
-        .then(response => {
-          return response.response?.data?.content
-        })
+      this.secrets = await listSecretsPromise({ queryParams: { accountIdentifier: accountId } }).then(response => {
+        return response?.data?.content
+      })
     }
 
     return this.secrets

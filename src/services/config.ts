@@ -44,7 +44,8 @@ export const getUsingFetch = <
     signal,
     ...(props.requestOptions || {})
   }).then(res => {
-    if (res.headers.get('content-type')?.toLowerCase() === 'application/json'.toLowerCase()) {
+    const contentType = res.headers.get('content-type') || ''
+    if (contentType.toLowerCase().indexOf('application/json') > -1) {
       return res.json()
     }
     return res.text()
@@ -121,7 +122,8 @@ export const mutateUsingFetch = <
     signal,
     ...(props.requestOptions || {})
   }).then(res => {
-    if (res.headers.get('content-type')?.toLowerCase() === 'application/json'.toLowerCase()) {
+    const contentType = res.headers.get('content-type') || ''
+    if (contentType.toLowerCase().indexOf('application/json') > -1) {
       return res.json()
     }
     return res.text()

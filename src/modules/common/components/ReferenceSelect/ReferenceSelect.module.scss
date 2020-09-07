@@ -1,0 +1,13 @@
+.container {
+  box-shadow: none !important;
+  border: 1px solid var(--bp3-intent-color, #dddddd) !important;
+  color: var(--grey-800) !important;
+  height: 36px !important;
+  background-color: var(--white) !important;
+  display: flex;
+  justify-content: space-between;
+
+  .placeholder {
+    color: var(--grey-350);
+  }
+}

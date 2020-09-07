@@ -1,21 +1,10 @@
-import React, { useState } from 'react'
-import cx from 'classnames'
-import { Container, TextInput, Button, Layout, Text } from '@wings-software/uikit'
-import { Classes } from '@blueprintjs/core'
-
-import { useListSecrets, ListSecretsQueryParams } from 'services/cd-ng'
+import React from 'react'
+import { ListSecretsQueryParams, FailureDTO, listSecretsPromise } from 'services/cd-ng'
 import type { EncryptedDataDTO } from 'services/cd-ng'
-
-import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
-import { PageError } from 'modules/common/components/Page/PageError'
-
+import { ReferenceSelector } from 'modules/common/exports'
+import { ReferenceResponse, Scope } from 'modules/common/components/ReferenceSelector/ReferenceSelector'
+import i18n from './SecretReference.i18n'
 import css from './SecretReference.module.scss'
-
-export enum Scope {
-  PROJECT = 'PROJECT',
-  ORG = 'ORG',
-  ACCOUNT = 'ACCOUNT'
-}
 
 interface SecretRef extends EncryptedDataDTO {
   scope: Scope
@@ -30,86 +19,70 @@ interface SecretReferenceProps {
   type?: ListSecretsQueryParams['type']
 }
 
-const SecretReference: React.FC<SecretReferenceProps> = props => {
-  const { defaultScope, accountIdentifier, projectIdentifier, orgIdentifier, type = 'SecretText' } = props
-  const [searchTerm, setSearchTerm] = useState<string | undefined>()
-  const [selectedScope, setSelectedScope] = useState<Scope>(defaultScope || Scope.ACCOUNT)
-
-  const { loading, data, error, refetch } = useListSecrets({
+const fetchRecords = (
+  scope: Scope,
+  search: string | undefined,
+  done: (records: ReferenceResponse<SecretRef>[]) => void,
+  type: ListSecretsQueryParams['type'],
+  accountIdentifier: string,
+  projectIdentifier?: string,
+  orgIdentifier?: string
+): void => {
+  listSecretsPromise({
     queryParams: {
       accountIdentifier,
       type,
-      searchTerm: searchTerm?.trim(),
-      projectIdentifier: selectedScope === Scope.PROJECT ? projectIdentifier : undefined,
-      orgIdentifier: selectedScope === Scope.PROJECT || selectedScope === Scope.ORG ? orgIdentifier : undefined
-    },
-    debounce: 300
+      searchTerm: search?.trim(),
+      projectIdentifier: scope === Scope.PROJECT ? projectIdentifier : undefined,
+      orgIdentifier: scope === Scope.PROJECT || scope === Scope.ORG ? orgIdentifier : undefined
+    }
   })
+    .then(responseData => {
+      if (responseData?.data?.content) {
+        const secrets = responseData.data.content
+        const response: ReferenceResponse<SecretRef>[] = []
+        secrets.forEach(secret => {
+          response.push({
+            label: secret.name || '',
+            identifier: secret.identifier || '',
+            record: { ...secret, scope }
+          })
+        })
+        done(response)
+      } else {
+        done([])
+      }
+    })
+    .catch((err: FailureDTO) => {
+      throw err.message
+    })
+}
 
+const SecretReference: React.FC<SecretReferenceProps> = props => {
+  const { defaultScope, accountIdentifier, projectIdentifier, orgIdentifier, type = 'SecretText' } = props
   return (
-    <Container padding="large" className={css.container}>
-      <Layout.Vertical spacing="medium">
-        <Layout.Horizontal spacing="small">
-          <Button
-            className={css.scopeButton}
-            intent={selectedScope == Scope.PROJECT ? 'primary' : 'none'}
-            text="Project"
-            icon="cube"
-            onClick={() => setSelectedScope(Scope.PROJECT)}
-            disabled={!projectIdentifier}
-          />
-          <Button
-            className={css.scopeButton}
-            intent={selectedScope == Scope.ORG ? 'primary' : 'none'}
-            text="Organization"
-            icon="diagram-tree"
-            onClick={() => setSelectedScope(Scope.ORG)}
-            disabled={!orgIdentifier}
-          />
-          <Button
-            className={css.scopeButton}
-            intent={selectedScope == Scope.ACCOUNT ? 'primary' : 'none'}
-            text="Account"
-            icon="layers"
-            onClick={() => setSelectedScope(Scope.ACCOUNT)}
-          />
-        </Layout.Horizontal>
-        <TextInput
-          placeholder="Search"
-          leftIcon="search"
-          value={searchTerm}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-            setSearchTerm(e.target.value)
-          }}
-        />
-      </Layout.Vertical>
-      {loading ? (
-        <PageSpinner />
-      ) : error ? (
-        <Container padding={{ top: 'large' }}>
-          <PageError message={error.message} onClick={() => refetch()} />
-        </Container>
-      ) : data?.data?.content?.length ? (
-        <div className={css.secretList}>
-          {data.data.content.map((item: EncryptedDataDTO) => (
-            <div
-              key={item.identifier}
-              className={cx(css.listItem, Classes.POPOVER_DISMISS)}
-              onClick={() => props.onSelect({ ...item, scope: selectedScope })}
-            >
-              <div>{item.name}</div>
-              <div className={css.meta}>
-                {item.identifier} . {item.secretManager}
-              </div>
-            </div>
-          ))}
-        </div>
-      ) : (
-        <Container padding={{ top: 'xlarge' }} flex={{ align: 'center-center' }}>
-          <Text>No Secrets Found</Text>
-        </Container>
+    <ReferenceSelector<SecretRef>
+      onSelect={(secret, scope) => {
+        secret.scope = scope
+        props.onSelect(secret)
+      }}
+      defaultScope={defaultScope}
+      recordClassName={css.listItem}
+      fetchRecords={(scope, search = '', done) => {
+        fetchRecords(scope, search, done, type, accountIdentifier, projectIdentifier, orgIdentifier)
+      }}
+      projectIdentifier={projectIdentifier}
+      orgIdentifier={orgIdentifier}
+      noRecordsText={i18n.noSecretsFound}
+      recordRender={item => (
+        <>
+          <div>{item.record.name}</div>
+          <div className={css.meta}>
+            {item.identifier} . {item.record.secretManager}
+          </div>
+        </>
       )}
-    </Container>
+    />
   )
 }
 

@@ -23,3 +23,10 @@ export { Step, StepViewType } from './components/AbstractSteps/Step'
 export { StepWidget } from './components/AbstractSteps/StepWidget'
 export { ModuleLandingViewProps, ModuleLandingView } from './components/ModuleLandingView/ModuleLandingView'
 export { ConfigureOptions } from './components/ConfigureOptions/ConfigureOptions'
+export { ReferenceSelector } from './components/ReferenceSelector/ReferenceSelector'
+export { ReferenceSelect, MultiTypeReferenceInput } from './components/ReferenceSelect/ReferenceSelect'
+export {
+  ConnectorReferenceField,
+  MultiTypeConnectorField,
+  FormMultiTypeConnectorField
+} from './components/ConnectorReferenceField/ConnectorReferenceField'
