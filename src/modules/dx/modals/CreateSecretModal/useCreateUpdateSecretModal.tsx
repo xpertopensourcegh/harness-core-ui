@@ -16,13 +16,13 @@ export interface UseCreateSecretModalProps {
 }
 
 export interface UseCreateSecretModalReturn {
-  openCreateSecretModal: (type: SecretType) => void
+  openCreateSecretModal: (type: SecretType, secret?: EncryptedDataDTO) => void
   closeCreateSecretModal: () => void
 }
 
-const useCreateSecretModal = (props: UseCreateSecretModalProps): UseCreateSecretModalReturn => {
+const useCreateUpdateSecretModal = (props: UseCreateSecretModalProps): UseCreateSecretModalReturn => {
   const [type, setType] = useState<SecretType>('SecretText')
-
+  const [secret, setSecret] = useState<EncryptedDataDTO>()
   const handleSuccess = (): void => {
     hideModal()
     props.onSuccess?.()
@@ -40,7 +40,7 @@ const useCreateSecretModal = (props: UseCreateSecretModalProps): UseCreateSecret
         <Text font={{ size: 'medium' }} color={Color.BLACK} margin={{ bottom: 'large' }}>
           {type === 'SecretText' ? i18n.titleCreateText : i18n.titleCreateFile}
         </Text>
-        <CreateUpdateSecret type={type} onSuccess={handleSuccess} />
+        <CreateUpdateSecret secret={secret} type={type} onSuccess={handleSuccess} />
         <Button minimal icon="cross" iconProps={{ size: 18 }} onClick={hideModal} className={css.crossIcon} />
       </Dialog>
     ),
@@ -48,12 +48,13 @@ const useCreateSecretModal = (props: UseCreateSecretModalProps): UseCreateSecret
   )
 
   return {
-    openCreateSecretModal: (_type: SecretType) => {
+    openCreateSecretModal: (_type: SecretType, _secret: EncryptedDataDTO | undefined) => {
       setType(_type)
+      setSecret(_secret)
       showModal()
     },
     closeCreateSecretModal: hideModal
   }
 }
 
-export default useCreateSecretModal
+export default useCreateUpdateSecretModal

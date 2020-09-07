@@ -4,7 +4,7 @@ import { Layout, Popover, Button, Icon, TextInput, Container } from '@wings-soft
 import { Menu, Position } from '@blueprintjs/core'
 import { useListSecrets, ResponseDTONGPageResponseEncryptedDataDTO } from 'services/cd-ng'
 import { routeCreateSecretFromYaml } from 'modules/dx/routes'
-import useCreateSecretModal from 'modules/dx/modals/CreateSecretModal/useCreateSecretModal'
+import useCreateUpdateSecretModal from 'modules/dx/modals/CreateSecretModal/useCreateUpdateSecretModal'
 import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
 import { PageError } from 'modules/common/components/Page/PageError'
 
@@ -23,7 +23,7 @@ const SecretsPage: React.FC = () => {
     queryParams: { accountIdentifier: accountId, searchTerm, page, size: 10 },
     debounce: 300
   })
-  const { openCreateSecretModal } = useCreateSecretModal({
+  const { openCreateSecretModal } = useCreateUpdateSecretModal({
     onSuccess: () => {
       refetch()
     }
