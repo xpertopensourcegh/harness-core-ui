@@ -123,14 +123,20 @@ export const StepPalette: React.FC<StepPaletteProps> = ({ onSelect, onClose, sel
             {stepCategories?.map((stepCategory: { stepsData: StepsData[]; stepCategories: []; name: string }) => {
               const categorySteps: JSX.Element[] = []
               if (stepCategory?.stepsData) {
-                stepCategory.stepsData.map((stepData: { name: string; type: string }) => {
+                stepCategory.stepsData.forEach((stepData: { name: string; type: string }) => {
                   categorySteps.push(
                     <section
                       className={css.step}
                       key={stepData.name}
-                      onClick={() =>
-                        onSelect({ name: stepData.name, type: stepData.type, icon: iconMap[stepData.type] as IconName })
-                      }
+                      onClick={() => {
+                        if (stepData.type !== 'Placeholder') {
+                          onSelect({
+                            name: stepData.name,
+                            type: stepData.type,
+                            icon: iconMap[stepData.type] as IconName
+                          })
+                        }
+                      }}
                     >
                       <Card interactive={true} elevation={0} selected={false}>
                         <Icon name={iconMap[stepData.type] as IconName} />
@@ -148,13 +154,15 @@ export const StepPalette: React.FC<StepPaletteProps> = ({ onSelect, onClose, sel
                       <section
                         className={css.step}
                         key={v.name}
-                        onClick={() =>
-                          onSelect({
-                            name: v.name,
-                            type: v.type,
-                            icon: iconMap[v.type] as IconName
-                          })
-                        }
+                        onClick={() => {
+                          if (v.type !== 'Placeholder') {
+                            onSelect({
+                              name: v.name,
+                              type: v.type,
+                              icon: iconMap[v.type] as IconName
+                            })
+                          }
+                        }}
                       >
                         <Card interactive={true} elevation={0} selected={false}>
                           <Icon name={iconMap[v.type] as IconName} />

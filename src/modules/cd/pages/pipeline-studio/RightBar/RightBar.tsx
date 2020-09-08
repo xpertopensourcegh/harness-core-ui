@@ -41,9 +41,13 @@ export const RightBar = (): JSX.Element => {
         ...pipelineView,
         isDrawerOpened: false
       })
-      const response = await runPipeline()
-      if (response.status === 'SUCCESS') {
-        showSuccess(i18n.pipelineSave)
+      try {
+        const response = await runPipeline()
+        if (response.status === 'SUCCESS') {
+          showSuccess(i18n.pipelineSave)
+        }
+      } catch (error) {
+        showWarning(error?.data?.message || i18n.runPipelineFailed)
       }
     } else {
       showWarning(i18n.pipelineUnSave)

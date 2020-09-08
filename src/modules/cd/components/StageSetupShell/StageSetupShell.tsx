@@ -38,7 +38,7 @@ export default function StageSetupShell(): JSX.Element {
         setStageData(stage[key])
       }
     }
-    setSelectedTabId(stageNames.indexOf(selectedStageId) !== -1 ? selectedStageId : i18n.defaultId)
+    setSelectedTabId(stageNames.indexOf(selectedStageId) !== -1 ? selectedStageId : i18n.serviceLabel)
   }, [selectedStageId, pipeline, isSplitViewOpen])
 
   const handleTabChange = (data: string) => {
