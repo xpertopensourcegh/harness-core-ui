@@ -7,17 +7,20 @@ import { getStageFromPipeline } from 'modules/cd/pages/pipeline-studio/StageBuil
 import ExecutionGraph from 'modules/cd/pages/pipeline-studio/ExecutionGraph/ExecutionGraph'
 import InfraSpecifications from '../InfraSpecifications/InfraSpecifications'
 import ServiceSpecifications from '../ServiceSpecifications/ServiceSpecifications'
+import StageSpecifications from '../StageSpecifications/StageSpecifications'
 import i18n from './StageSetupShell.i18n'
 import css from './StageSetupShell.module.scss'
 
 export default function StageSetupShell(): JSX.Element {
   // export default function StageSetupShell({ stageData }: { stageData: { name: string } }): JSX.Element {
-  const [selectedTabId, setSelectedTabId] = React.useState(i18n.serviceLabel)
+
+  const stageNames: string[] = [i18n.serviceLabel, i18n.infraLabel, i18n.executionLabel]
+  const [selectedTabId, setSelectedTabId] = React.useState<string>(i18n.serviceLabel)
   const {
     state: {
       pipeline,
       pipelineView: {
-        splitViewData: { selectedStageId },
+        splitViewData: { selectedStageId = '' },
         isSplitViewOpen
       },
       pipelineView
@@ -35,6 +38,7 @@ export default function StageSetupShell(): JSX.Element {
         setStageData(stage[key])
       }
     }
+    setSelectedTabId(stageNames.indexOf(selectedStageId) !== -1 ? selectedStageId : i18n.defaultId)
   }, [selectedStageId, pipeline, isSplitViewOpen])
 
   const handleTabChange = (data: string) => {
@@ -49,8 +53,8 @@ export default function StageSetupShell(): JSX.Element {
       >
         <Tabs id="stageSetupShell" onChange={handleTabChange} selectedTabId={selectedTabId}>
           <Tab
-            id={stageData?.name}
-            disabled
+            id={i18n.defaultId}
+            panel={<StageSpecifications />}
             title={
               <span className={css.tab}>
                 <Icon name="pipeline-deploy" size={20} />
@@ -94,8 +98,16 @@ export default function StageSetupShell(): JSX.Element {
         <Button
           text={i18n.previous}
           icon="chevron-left"
-          disabled={selectedTabId === i18n.serviceLabel}
-          onClick={() => setSelectedTabId(selectedTabId === i18n.infraLabel ? i18n.serviceLabel : i18n.infraLabel)}
+          disabled={selectedTabId === i18n.defaultId}
+          onClick={() =>
+            setSelectedTabId(
+              selectedTabId === i18n.executionLabel
+                ? i18n.infraLabel
+                : selectedTabId === i18n.infraLabel
+                ? i18n.serviceLabel
+                : i18n.defaultId
+            )
+          }
         />
 
         <Button
@@ -106,7 +118,13 @@ export default function StageSetupShell(): JSX.Element {
             if (selectedTabId === i18n.executionLabel) {
               updatePipelineView({ ...pipelineView, isSplitViewOpen: false, splitViewData: {} })
             } else {
-              setSelectedTabId(selectedTabId === i18n.serviceLabel ? i18n.infraLabel : i18n.executionLabel)
+              setSelectedTabId(
+                selectedTabId === i18n.defaultId
+                  ? i18n.serviceLabel
+                  : selectedTabId === i18n.serviceLabel
+                  ? i18n.infraLabel
+                  : i18n.executionLabel
+              )
             }
           }}
         />

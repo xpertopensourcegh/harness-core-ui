@@ -3,7 +3,13 @@ import { Diagram } from 'modules/common/exports'
 import type { ExecutionWrapper, ExecutionElement } from 'services/cd-ng'
 import factory from '../../../components/PipelineSteps/PipelineStepFactory'
 import { StepType } from '../../../components/PipelineSteps/PipelineStepInterface'
-import { getStepTypeFromStep, Listeners, calculateDepthCount, StepStateMap } from './ExecutionGraphUtil'
+import {
+  getStepTypeFromStep,
+  Listeners,
+  calculateDepthCount,
+  StepStateMap,
+  getStepIconByType
+} from './ExecutionGraphUtil'
 import { EmptyNodeSeparator } from '../StageBuilder/StageBuilderUtil'
 
 export class ExecutionStepModel extends Diagram.DiagramModel {
@@ -42,7 +48,7 @@ export class ExecutionStepModel extends Diagram.DiagramModel {
           : new Diagram.DefaultNodeModel({
               identifier: node.step.identifier,
               name: node.step.name,
-              icon: factory.getStepIcon(type),
+              icon: getStepIconByType(type),
               allowAdd: allowAdd === true,
               draggable: true,
               customNodeStyle: { borderColor: 'var(--pipeline-grey-border)' }

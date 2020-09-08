@@ -59,15 +59,19 @@ const newStageData = [
 export interface EditStageView {
   data?: StageElementWrapper
   onSubmit?: (values: StageElementWrapper, identifier: string) => void
+  onChange?: (values: StageElementWrapper) => void
+  context?: string
 }
 
-export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit }): JSX.Element => {
+export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, context, onChange }): JSX.Element => {
   const type = data ? getTypeOfStage(data.stage).type : StageType.DEPLOY
   return (
     <div className={css.stageCreate}>
-      <Text icon={MapStepTypeToIcon[type]} iconProps={{ size: 16 }}>
-        {i18n.aboutYourStage}
-      </Text>
+      {!context && (
+        <Text icon={MapStepTypeToIcon[type]} iconProps={{ size: 16 }}>
+          {i18n.aboutYourStage}
+        </Text>
+      )}
       <Container padding="medium">
         <Formik
           initialValues={{
@@ -81,6 +85,11 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit }): JSX.
               data.stage.identifier = values.identifier
               data.stage.name = values.name
               onSubmit?.(data, values.identifier)
+            }
+          }}
+          validate={values => {
+            if (context && data) {
+              onChange?.(values)
             }
           }}
           validationSchema={Yup.object().shape({
@@ -132,16 +141,18 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit }): JSX.
                     className={css.grid}
                   />
                 </div>
-                <div className={css.btnSetup}>
-                  <Button
-                    type="submit"
-                    intent="primary"
-                    text={i18n.setupStage}
-                    onClick={() => {
-                      formikProps.submitForm()
-                    }}
-                  />
-                </div>
+                {!context && (
+                  <div className={css.btnSetup}>
+                    <Button
+                      type="submit"
+                      intent="primary"
+                      text={i18n.setupStage}
+                      onClick={() => {
+                        formikProps.submitForm()
+                      }}
+                    />
+                  </div>
+                )}
               </FormikForm>
             )
           }}

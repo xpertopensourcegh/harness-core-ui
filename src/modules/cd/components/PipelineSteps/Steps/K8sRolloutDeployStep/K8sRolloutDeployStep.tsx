@@ -69,7 +69,7 @@ export class K8RolloutDeployStep extends Step<K8RolloutDeployData> {
     return <K8RolloutDeployWidget initialValues={initialValues} onUpdate={onUpdate} stepViewType={stepViewType} />
   }
 
-  protected type = StepType.K8sRolloutDeploy
+  protected type = StepType.ROLLOUT_DEPLOYMENT
   protected stepName = i18n.k8sRolloutDeploy
   protected stepIcon: IconName = 'service-kubernetes'
 

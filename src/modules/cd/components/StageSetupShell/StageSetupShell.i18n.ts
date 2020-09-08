@@ -1,4 +1,5 @@
 export default {
+  defaultId: 'default',
   serviceLabel: 'Service',
   infraLabel: 'Infrastructure',
   executionLabel: 'Execution',
