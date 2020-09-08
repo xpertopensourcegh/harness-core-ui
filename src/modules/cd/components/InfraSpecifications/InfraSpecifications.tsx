@@ -1,14 +1,14 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { Layout, Button, Card, CardBody, Text, Color, SelectOption } from '@wings-software/uikit'
 import { Formik, FormikForm, FormInput } from '@wings-software/uikit'
 import * as Yup from 'yup'
 
 import { get } from 'lodash'
+import { useGetConnectorList } from 'services/cd-ng'
 import { PipelineContext } from 'modules/cd/pages/pipeline-studio/PipelineContext/PipelineContext'
 import { loggerFor, ModuleName } from 'framework/exports'
 
-import { FormMultiTypeConnectorField } from 'modules/common/exports'
 import i18n from './InfraSpecifications.i18n'
 import { getStageFromPipeline } from '../../pages/pipeline-studio/StageBuilder/StageBuilderUtil'
 import css from './InfraSpecifications.module.scss'
@@ -43,9 +43,26 @@ export default function InfraSpecifications(): JSX.Element {
     return { infraName: displayName, description: description, tags: null, infraType: environment?.type }
   }
 
-  const [k8ConnectorsList] = useState<SelectOption[]>([])
+  const [k8ConnectorsList, setK8ConnectorsList] = useState<SelectOption[]>([])
 
-  const { accountId, projectIdentifier, orgIdentifier } = useParams()
+  const { accountId, projectIdentifier, orgIdentifier }: any = useParams()
+
+  const { data: k8sConnectorsList, loading: loadingK8sConnector } = useGetConnectorList({
+    accountIdentifier: accountId,
+    queryParams: { type: 'K8sCluster', projectIdentifier: projectIdentifier, orgIdentifier: orgIdentifier }
+  })
+
+  useEffect(() => {
+    const k8Connectors =
+      k8sConnectorsList?.data?.content?.map(k8 => {
+        return {
+          label: k8.name || '',
+          value: k8.identifier || ''
+        }
+      }) || []
+
+    setK8ConnectorsList(k8Connectors)
+  }, [k8sConnectorsList?.data?.content])
 
   const getInitialInfraConnectorValues = (): {
     connectorId: SelectOption | undefined
@@ -95,7 +112,7 @@ export default function InfraSpecifications(): JSX.Element {
             return (
               <FormikForm>
                 <Layout.Horizontal spacing="medium">
-                  <FormInput.MultiTextInput
+                  <FormInput.Text
                     name="infraName"
                     style={{ width: 300 }}
                     label={i18n.infraNameLabel}
@@ -200,22 +217,21 @@ export default function InfraSpecifications(): JSX.Element {
           {() => {
             return (
               <FormikForm>
-                <FormMultiTypeConnectorField
+                <FormInput.MultiTypeInput
                   name="connectorId"
+                  style={{ width: 400 }}
+                  disabled={loadingK8sConnector}
                   label={i18n.k8ConnectorDropDownLabel}
                   placeholder={i18n.k8ConnectorDropDownPlaceholder}
-                  accountIdentifier={accountId}
-                  projectIdentifier={projectIdentifier}
-                  orgIdentifier={orgIdentifier}
-                  width={400}
+                  selectItems={k8ConnectorsList}
                 />
-                <FormInput.MultiTextInput
+                <FormInput.Text
                   name="namespaceId"
                   style={{ width: 400 }}
                   label={i18n.nameSpaceLabel}
                   placeholder={i18n.nameSpacePlaceholder}
                 />
-                <FormInput.MultiTextInput
+                <FormInput.Text
                   name="releaseName"
                   style={{ width: 400 }}
                   label={i18n.releaseName}
