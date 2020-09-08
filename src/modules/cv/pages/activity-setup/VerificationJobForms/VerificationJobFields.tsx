@@ -172,8 +172,8 @@ export function DataSource(props: BaseFieldProps): JSX.Element {
   const selectProps = useMemo(
     () => ({
       items: [
-        { label: 'App Dynamics', value: '12314234' },
-        { label: 'Splunk', value: '456546546' }
+        { label: 'App Dynamics', value: 'APP_DYNAMICS' },
+        { label: 'Splunk', value: 'SPLUNK' }
       ]
     }),
     []

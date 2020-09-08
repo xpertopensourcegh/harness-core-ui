@@ -187,6 +187,7 @@ export interface VerificationJobDTO {
   dataSources?: ('APP_DYNAMICS' | 'SPLUNK')[]
   duration?: string
   type?: 'TEST' | 'CANARY' | 'BLUE_GREEN' | 'HEALTH'
+  sensitivity?: 'LOW' | 'MEDIUM' | 'HIGH'
   verificationJob?: VerificationJob
 }
 
@@ -1495,6 +1496,94 @@ export type UseGetHeatmapProps = Omit<
 
 export const useGetHeatmap = (props: UseGetHeatmapProps) =>
   useGet<RestResponseMapCVMonitoringCategorySortedSetHeatMapDTO, unknown, GetHeatmapQueryParams, void>(`/heatmap`, {
+    base: getConfig('cv-nextgen'),
+    ...props
+  })
+
+export interface GetVerificationJobQueryParams {
+  accountId?: string
+  identifier?: string
+}
+
+export type GetVerificationJobProps = Omit<
+  GetProps<RestResponseVerificationJobDTO, unknown, GetVerificationJobQueryParams, void>,
+  'path'
+>
+
+export const GetVerificationJob = (props: GetVerificationJobProps) => (
+  <Get<RestResponseVerificationJobDTO, unknown, GetVerificationJobQueryParams, void>
+    path={`/verification-job`}
+    base={getConfig('cv-nextgen')}
+    {...props}
+  />
+)
+
+export type UseGetVerificationJobProps = Omit<
+  UseGetProps<RestResponseVerificationJobDTO, unknown, GetVerificationJobQueryParams, void>,
+  'path'
+>
+
+export const useGetVerificationJob = (props: UseGetVerificationJobProps) =>
+  useGet<RestResponseVerificationJobDTO, unknown, GetVerificationJobQueryParams, void>(`/verification-job`, {
+    base: getConfig('cv-nextgen'),
+    ...props
+  })
+
+export interface SaveVerificationJobQueryParams {
+  accountId?: string
+}
+
+export type SaveVerificationJobProps = Omit<
+  MutateProps<void, void, SaveVerificationJobQueryParams, VerificationJobDTO, void>,
+  'path' | 'verb'
+>
+
+export const SaveVerificationJob = (props: SaveVerificationJobProps) => (
+  <Mutate<void, void, SaveVerificationJobQueryParams, VerificationJobDTO, void>
+    verb="PUT"
+    path={`/verification-job`}
+    base={getConfig('cv-nextgen')}
+    {...props}
+  />
+)
+
+export type UseSaveVerificationJobProps = Omit<
+  UseMutateProps<void, void, SaveVerificationJobQueryParams, VerificationJobDTO, void>,
+  'path' | 'verb'
+>
+
+export const useSaveVerificationJob = (props: UseSaveVerificationJobProps) =>
+  useMutate<void, void, SaveVerificationJobQueryParams, VerificationJobDTO, void>('PUT', `/verification-job`, {
+    base: getConfig('cv-nextgen'),
+    ...props
+  })
+
+export interface DeleteJobByGroupQueryParams {
+  accountId?: string
+  identifier?: string
+}
+
+export type DeleteJobByGroupProps = Omit<
+  MutateProps<void, void, DeleteJobByGroupQueryParams, void, void>,
+  'path' | 'verb'
+>
+
+export const DeleteJobByGroup = (props: DeleteJobByGroupProps) => (
+  <Mutate<void, void, DeleteJobByGroupQueryParams, void, void>
+    verb="DELETE"
+    path={`/verification-job`}
+    base={getConfig('cv-nextgen')}
+    {...props}
+  />
+)
+
+export type UseDeleteJobByGroupProps = Omit<
+  UseMutateProps<void, void, DeleteJobByGroupQueryParams, void, void>,
+  'path' | 'verb'
+>
+
+export const useDeleteJobByGroup = (props: UseDeleteJobByGroupProps) =>
+  useMutate<void, void, DeleteJobByGroupQueryParams, void, void>('DELETE', `/verification-job`, {
     base: getConfig('cv-nextgen'),
     ...props
   })

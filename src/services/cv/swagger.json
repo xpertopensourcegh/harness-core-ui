@@ -1923,7 +1923,7 @@
     "/verification-job": {
       "get": {
         "tags": ["verification-job"],
-        "operationId": "get",
+        "operationId": "getVerificationJob",
         "produces": ["application/json"],
         "parameters": [
           {
@@ -1977,7 +1977,7 @@
       },
       "delete": {
         "tags": ["verification-job"],
-        "operationId": "deleteByGroup",
+        "operationId": "deleteJobByGroup",
         "produces": ["application/json"],
         "parameters": [
           {

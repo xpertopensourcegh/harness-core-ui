@@ -10,6 +10,7 @@ allowpaths:
   - /timeseries/metric-template
   - /ds-config/env-to-services
   - /heatmap
+  - /verification-job
 operationIdOverrides:
   /appdynamics/applications.get: getAppDynamicsApplications
   /appdynamics/metric-data.post: getAppDynamicsMetricData
@@ -18,3 +19,4 @@ operationIdOverrides:
   /splunk/saved-searches.get: getSplunkSavedSearches
   /ds-config/env-to-services.get: getServices
   /heatmap.get: getHeatmap
+  /verification-job.put: saveVerificationJob
