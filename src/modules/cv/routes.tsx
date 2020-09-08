@@ -48,7 +48,7 @@ export const routeCVDataSources: Route<{ projectIdentifier: string; orgId: strin
 
 export const routeCVServices: Route<{ projectIdentifier: string; orgIdentifier: string }> = {
   sidebarId: SidebarIdentifier.CONTINUOUS_VERIFICATION,
-  path: '/cv-services/org/:orgId/project/:projectIdentifier',
+  path: '/cv-services/org/:orgIdentifier/project/:projectIdentifier',
   title: i18n.services,
   pageId: 'cv-services',
   authenticated: true,

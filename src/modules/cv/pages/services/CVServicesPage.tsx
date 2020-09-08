@@ -1,17 +1,17 @@
 import React, { useState, useEffect, useMemo } from 'react'
 import { Container, Heading, Select, OverlaySpinner } from '@wings-software/uikit'
-import { Toaster, Intent } from '@blueprintjs/core'
 import moment from 'moment'
-import xhr from '@wings-software/xhr-async'
+import { flatten } from 'lodash-es'
 import { Page } from 'modules/common/exports'
 import HeatMap, { CellStatusValues } from 'modules/common/components/HeatMap/HeatMap'
 import TimelineView from 'modules/common/components/TimelineView/TimelineView'
 import { routeParams } from 'framework/exports'
-import { fetchHeatmap } from '../../services/ServicesService'
+import { useGetServices, HeatMapDTO, useGetHeatmap } from 'services/cv'
+import { useToaster } from 'modules/common/exports'
+import ServiceSelector from './ServiceSelector'
 import useAnalysisDrillDownDrawer from './analysis-drilldown-view/useAnalysisDrillDownDrawer'
+import i18n from './CVServicesPage.i18n'
 import styles from './CVServicesPage.module.scss'
-
-const toaster = Toaster.create()
 
 const rangeOptions = [
   { label: '4 hrs', value: 4 },
@@ -20,7 +20,7 @@ const rangeOptions = [
   { label: '7 days', value: 7 * 24 },
   { label: '30 days', value: 30 * 24 }
 ]
-const defaultRange = rangeOptions[1]
+const defaultRange = rangeOptions[0]
 const getRangeDates = (val: number) => {
   const now = moment()
   return {
@@ -28,12 +28,12 @@ const getRangeDates = (val: number) => {
     end: now
   }
 }
-const defaultHeatmapData = [
-  { name: 'Performance', data: [] },
-  { name: 'Business', data: [] },
-  { name: 'Resources', data: [] },
-  { name: 'Quality', data: [] }
-]
+
+interface ServiceData {
+  identifier: string
+  name: string
+  environment: string
+}
 
 export default function CVServicesPage() {
   const [range, setRange] = useState({
@@ -42,47 +42,84 @@ export default function CVServicesPage() {
       ...getRangeDates(defaultRange.value)
     }
   })
-  const [heatmapData, setHeatmapData] = useState(defaultHeatmapData)
-  const [loading, setLoading] = useState(false)
+  const [heatmapData, setHeatmapData] = useState<Array<{ name: string; data: Array<any> }>>([])
+  const [services, setServices] = useState<Array<ServiceData>>([])
+  const [selectedService, setSelectedService] = useState<ServiceData | undefined>()
   const {
-    params: { accountId, projectIdentifier },
-    query: { serviceIdentifier }
+    params: { accountId, projectIdentifier, orgIdentifier }
   } = routeParams()
   const { openDrawer } = useAnalysisDrillDownDrawer()
+  const { showError } = useToaster()
+
+  const onSelectService = (id: string) => {
+    const service = services.find(s => s.identifier === id)
+    if (service) {
+      setSelectedService(service)
+    }
+  }
+
+  const { data: servicesResponse, loading, error: servicesError } = useGetServices({
+    queryParams: {
+      accountId,
+      projectIdentifier: projectIdentifier as string,
+      orgIdentifier: orgIdentifier as string
+    }
+  })
 
   useEffect(() => {
-    ;(async () => {
-      setHeatmapData(defaultHeatmapData)
-      setLoading(true)
-      try {
-        const { response, status, error } = await fetchHeatmap({
-          accountId: accountId,
-          envIdentifier: 'Prod',
-          serviceIdentifier: serviceIdentifier as string,
-          projectIdentifier: projectIdentifier as string,
-          startTimeMS: range.dates.start.valueOf(),
-          endTimeMS: range.dates.end.valueOf()
-        })
-        if (status === xhr.ABORTED) {
-          return
-        }
-        if (status !== 200) {
-          toaster.show({ intent: Intent.DANGER, timeout: 5000, message: error + '' })
-          return
-        }
-        if (response?.resource) {
-          const { resource } = response as any
-          const newData = defaultHeatmapData.map(({ name }) => ({
-            name,
-            data: resource[name] || []
-          }))
-          setHeatmapData(newData)
-        }
-      } finally {
-        setLoading(false)
+    if (!loading) {
+      if (servicesError) {
+        showError(servicesError.message)
+        return
       }
-    })()
-  }, [range])
+      let serviceItems = servicesResponse?.resource?.map((item: any) => {
+        return item.services.map((service: any) => ({
+          ...service,
+          environment: item.environment.name
+        }))
+      })
+      serviceItems = flatten(serviceItems)
+      setServices(serviceItems)
+      setSelectedService(serviceItems[0])
+    }
+  }, [servicesResponse])
+
+  const { data: heatmapResponse, loading: loadingHeatmap, error: heatmapError, refetch: getHeatmap } = useGetHeatmap({
+    queryParams: {
+      accountId: accountId,
+      envIdentifier: selectedService?.environment,
+      serviceIdentifier: selectedService?.identifier,
+      projectIdentifier: projectIdentifier as string,
+      startTimeMs: range.dates.start.valueOf(),
+      endTimeMs: range.dates.end.valueOf()
+    },
+    lazy: true
+  })
+
+  useEffect(() => {
+    if (selectedService) {
+      setHeatmapData([])
+      getHeatmap()
+    }
+  }, [range, selectedService])
+
+  useEffect(() => {
+    if (!loadingHeatmap) {
+      if (heatmapError) {
+        showError(heatmapError.message)
+        return
+      }
+      const resource = heatmapResponse?.resource as any
+      setHeatmapData(
+        !resource
+          ? []
+          : Object.keys(resource).map((key: string) => ({
+              name: key,
+              data: resource[key]
+            }))
+      )
+    }
+  }, [heatmapResponse])
 
   const onRangeChange = ({ value }: any) => {
     if (range && range.selectedValue === value) {
@@ -114,30 +151,36 @@ export default function CVServicesPage() {
           </Container>
         }
       />
-      <Page.Body>
+      <Page.Body loading={loading}>
         <Container className={styles.servicesPage}>
-          <Container className={styles.sidebar}>sidebar</Container>
+          <Container className={styles.sidebar}>
+            <ServiceSelector
+              services={services}
+              selectedServiceId={selectedService && selectedService!.identifier}
+              onSelect={onSelectService}
+            />
+          </Container>
           <Container className={styles.content}>
-            <Container className={styles.serviceHeader}>header</Container>
+            <Container className={styles.serviceHeader}>Header</Container>
             <Container className={styles.serviceBody}>
-              <OverlaySpinner show={loading}>
+              <OverlaySpinner show={loadingHeatmap}>
                 <Heading level={3} margin={{ bottom: 'large' }} font={{ weight: 'bold' }}>
-                  Health Analysis
+                  {i18n.healthAnalysis}
                 </Heading>
                 <HeatMap
                   series={heatmapData}
                   minValue={0}
                   maxValue={1}
                   mapValue={mapHeatmapValue}
-                  renderTooltip={() => <div>tooltip</div>}
+                  renderTooltip={(cell: HeatMapDTO) => <div>{cell && cell.riskScore}</div>}
                   cellClassName={''}
                   cellShapeBreakpoint={0.5}
-                  onCellClick={cell =>
+                  onCellClick={(cell: HeatMapDTO) =>
                     openDrawer({
                       category: 'Performance',
                       riskScore: 89,
-                      startTime: cell.startTime,
-                      endTime: cell.endTime,
+                      startTime: cell.startTime as number,
+                      endTime: cell.endTime as number,
                       affectedMetrics: ['Throughput', 'Response Time'],
                       totalAnomalies: '5 logs and 20 metrics'
                     })
