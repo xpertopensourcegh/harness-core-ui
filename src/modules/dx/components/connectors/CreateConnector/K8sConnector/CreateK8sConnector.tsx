@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useParams } from 'react-router'
 import {
   StepWizard,
   Layout,
@@ -218,6 +219,7 @@ const renderDelegateInclusterForm = (
 const SecondStep = (props: SecondStepProps) => {
   const { state, accountId } = props
   const { showError } = useToaster()
+  const { projectIdentifier, orgIdentifier } = useParams()
   const { data: delegateList, refetch: reloadDelegateList } = useGetKubernetesDelegateNames({
     queryParams: { accountId },
     lazy: true
@@ -275,7 +277,11 @@ const SecondStep = (props: SecondStepProps) => {
           const connectorData = { ...state.formData, ...formData }
           state.setFormData(connectorData)
           if (state.delegateType === DelegateTypes.DELEGATE_IN_CLUSTER) {
-            const data = buildKubPayload(connectorData)
+            const data = {
+              ...buildKubPayload(connectorData),
+              projectIdentifier: projectIdentifier,
+              orgIdentifier: orgIdentifier
+            }
             handleCreate(data)
           }
 
@@ -325,6 +331,7 @@ const IntermediateStep: React.FC<IntermediateStepProps> = props => {
   const [editSecretData, setEditSecretData] = useState<EncryptedDataDTO>()
   const { state, accountId } = props
   const { showError } = useToaster()
+  const { projectIdentifier, orgIdentifier } = useParams()
   const { mutate: createConnector } = useCreateConnector({ accountIdentifier: accountId })
   const { mutate: updateConnector } = useUpdateConnector({ accountIdentifier: props.accountId })
   const { mutate: createSecret } = usePostSecretText({})
@@ -367,7 +374,11 @@ const IntermediateStep: React.FC<IntermediateStepProps> = props => {
           }}
           onSubmit={formData => {
             const connectorData = { ...state.formData, ...formData, authType: state.authentication?.value }
-            const data = buildKubPayload(connectorData)
+            const data = {
+              ...buildKubPayload(connectorData),
+              projectIdentifier: projectIdentifier,
+              orgIdentifier: orgIdentifier
+            }
             const passwordFields = getSecretFieldsByType(state.authentication?.value as string) || []
             const nonRefrencedFields = passwordFields
               .map((item: SecretFieldByType) => {

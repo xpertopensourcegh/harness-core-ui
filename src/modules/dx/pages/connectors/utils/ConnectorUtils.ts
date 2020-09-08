@@ -153,10 +153,9 @@ export const buildGITPayload = (formData: FormData) => {
   const savedData = {
     name: formData?.name,
     description: formData?.description,
-    // projectIdentifier: 'project-1',
+    projectIdentifier: formData.projectIdentifier,
     identifier: formData?.identifier,
-    // accountIdentifier: 'Test-account',
-    // orgIdentifier: 'Devops',
+    orgIdentifier: formData.orgIdentifier,
     tags: formData?.tags,
     type: Connectors.GIT,
     spec: {
