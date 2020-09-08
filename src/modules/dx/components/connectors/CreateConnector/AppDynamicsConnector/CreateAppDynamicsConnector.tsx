@@ -12,6 +12,7 @@ import {
 import { Formik } from 'formik'
 import * as Yup from 'yup'
 import ConnectorDetailsStep from 'modules/dx/components/connectors/CreateConnector/commonSteps/ConnectorDetailsStep'
+import VerifyOutOfClusterDelegate from 'modules/dx/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 import {
   useCreateConnector,
   usePostSecretText,
@@ -19,10 +20,15 @@ import {
   ConnectorDTO,
   EncryptedDataDTO
 } from 'services/cd-ng'
-import { AuthTypes, getSecretFieldsByType, SecretFieldByType } from 'modules/dx/pages/connectors/Forms/KubeFormHelper'
+import {
+  AuthTypes,
+  AuthTypeFields,
+  getSecretFieldsByType,
+  SecretFieldByType
+} from 'modules/dx/pages/connectors/Forms/KubeFormHelper'
 import { Connectors } from 'modules/dx/constants'
 import CreateSecretOverlay from 'modules/dx/common/CreateSecretOverlay/CreateSecretOverlay'
-import ConnectorFormFields from '../../ConnectorFormFields/ConnectorFormFields'
+import UsernamePassword from '../../ConnectorFormFields/UsernamePassword'
 import i18n from './CreateAppDynamicsConnector.i18n'
 import { getScopingStringFromSecretRef } from '../CreateConnectorUtils'
 import styles from './CreateAppDynamicsConnector.module.scss'
@@ -43,12 +49,14 @@ export interface ConnectionConfigProps {
   setFormData: (data: ConnectorConfigDTO | undefined) => void
   name: string
   previousStep?: () => void
+  nextStep?: () => void
   onSecretCreated: (data: ConnectorConfigDTO) => Promise<void>
 }
 
 export default function CreateAppDynamicsConnector(props: CreateAppDynamicsConnectorProps): JSX.Element {
   const [formData, setFormData] = useState<ConnectorConfigDTO | undefined>({})
   const { mutate: createConnector } = useCreateConnector({ accountIdentifier: props.accountId })
+  const [connectorResponse, setConnectorResponse] = useState<ConnectorDTO | undefined>()
   const secretCreatedCallback = async (data: ConnectorConfigDTO): Promise<void> => {
     const res = await createConnector({
       name: data.name,
@@ -64,10 +72,10 @@ export default function CreateAppDynamicsConnector(props: CreateAppDynamicsConne
         accountId: props.accountId
       }
     })
-
-    props.hideLightModal()
-    if (res && res.status === 'SUCCESS' && props.onConnectorCreated && res.data) {
-      await props.onConnectorCreated(res.data)
+    if (res && res.status === 'SUCCESS') {
+      setConnectorResponse(res.data)
+    } else {
+      throw new Error('Unable to create connector')
     }
   }
 
@@ -88,6 +96,15 @@ export default function CreateAppDynamicsConnector(props: CreateAppDynamicsConne
           setFormData={setFormData}
           formData={formData}
           onSecretCreated={secretCreatedCallback}
+        />
+        <VerifyOutOfClusterDelegate
+          name={i18n.verifyConnection}
+          connectorName={formData?.name}
+          connectorIdentifier={formData?.identifier}
+          onSuccess={() => props.onConnectorCreated?.(connectorResponse as ConnectorDTO)}
+          renderInModal
+          isLastStep
+          type={Connectors.APP_DYNAMICS}
         />
       </StepWizard>
       <Button text={i18n.close} />
@@ -120,6 +137,7 @@ function ConnectionConfigStep(props: ConnectionConfigProps): JSX.Element {
       }
       const update = { ...props.formData, ...values }
       await props.onSecretCreated(update)
+      props.nextStep?.()
     } catch (error) {
       modalErrorHandler?.showDanger(error?.data?.message)
     }
@@ -149,13 +167,13 @@ function ConnectionConfigStep(props: ConnectionConfigProps): JSX.Element {
             <Text font="medium">{i18n.connectionDetailsHeader}</Text>
             <FormInput.Text label="Url" name="url" />
             <FormInput.Text label="Account Name" name="accountName" />
-            <ConnectorFormFields
+            <UsernamePassword
               accountId={props.accountId}
               isEditMode={isEdit}
               orgIdentifier={props.orgIdentifier || ''}
               projectIdentifier={props.projectIdentifier || ''}
               formikProps={formikProps}
-              authType={AuthTypes.USER_PASSWORD}
+              passwordField={AuthTypeFields.passwordRef}
               name={props.formData?.name}
               onEditSecret={val => {
                 setEditSecretData(val)

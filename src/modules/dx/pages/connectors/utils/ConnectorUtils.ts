@@ -268,6 +268,10 @@ export const getConnectorDisplayName = (type: string) => {
       return 'Git'
     case Connectors.DOCKER:
       return 'Docker'
+    case Connectors.APP_DYNAMICS:
+      return 'AppDynamics server'
+    case Connectors.SPLUNK:
+      return 'Splunk server'
     default:
       return ''
   }

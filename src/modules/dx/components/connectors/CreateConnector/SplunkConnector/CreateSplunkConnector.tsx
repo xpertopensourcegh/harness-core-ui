@@ -11,8 +11,15 @@ import {
 } from '@wings-software/uikit'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
+import VerifyOutOfClusterDelegate from 'modules/dx/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 import ConnectorDetailsStep from 'modules/dx/components/connectors/CreateConnector/commonSteps/ConnectorDetailsStep'
-import { useCreateConnector, ConnectorConfigDTO, usePostSecretText, EncryptedDataDTO } from 'services/cd-ng'
+import {
+  useCreateConnector,
+  ConnectorConfigDTO,
+  ConnectorDTO,
+  usePostSecretText,
+  EncryptedDataDTO
+} from 'services/cd-ng'
 import { Connectors } from 'modules/dx/constants'
 import { AuthTypes, getSecretFieldsByType, SecretFieldByType } from 'modules/dx/pages/connectors/Forms/KubeFormHelper'
 import CreateSecretOverlay from 'modules/dx/common/CreateSecretOverlay/CreateSecretOverlay'
@@ -41,6 +48,7 @@ interface ConnectionConfigProps {
 
 export default function CreateSplunkConnector(props: CreateSplunkConnectorProps): JSX.Element {
   const [formData, setFormData] = useState<ConnectorConfigDTO | undefined>()
+  const [connectorResponse, setConnectorResponse] = useState<ConnectorDTO | undefined>()
   const { mutate: createConnector } = useCreateConnector({ accountIdentifier: props.accountId })
   const secretCreatedCallback = async (data: ConnectorConfigDTO): Promise<void> => {
     const res = await createConnector({
@@ -58,9 +66,10 @@ export default function CreateSplunkConnector(props: CreateSplunkConnectorProps)
       }
     })
 
-    props.hideLightModal()
-    if (res && res.status === 'SUCCESS' && props.onConnectorCreated && res.data) {
-      props.onConnectorCreated(res.data)
+    if (res && res.status === 'SUCCESS') {
+      setConnectorResponse(res.data)
+    } else {
+      throw new Error('Unable to create connector')
     }
   }
 
@@ -81,6 +90,15 @@ export default function CreateSplunkConnector(props: CreateSplunkConnectorProps)
           setFormData={setFormData}
           formData={formData}
           onSecretCreated={secretCreatedCallback}
+        />
+        <VerifyOutOfClusterDelegate
+          name={i18n.verifyConnection}
+          connectorName={formData?.name}
+          connectorIdentifier={formData?.identifier}
+          onSuccess={() => props.onConnectorCreated?.(connectorResponse as ConnectorDTO)}
+          renderInModal
+          isLastStep
+          type={Connectors.SPLUNK}
         />
       </StepWizard>
       <Button text={i18n.close} />

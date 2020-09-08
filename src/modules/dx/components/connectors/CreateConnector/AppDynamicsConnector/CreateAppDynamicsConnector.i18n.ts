@@ -8,5 +8,6 @@ export default {
   continue: 'Continue',
   close: 'Close',
   back: 'Back',
-  connectAndSave: 'Connect and Save'
+  connectAndSave: 'Connect and Save',
+  verifyConnection: 'Verify connection'
 }
