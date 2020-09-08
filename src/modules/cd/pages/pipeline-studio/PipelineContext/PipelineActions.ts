@@ -55,12 +55,14 @@ export interface PipelineViewData {
 
 export interface PipelineReducerState {
   pipeline: CDPipeline
+  originalPipeline: CDPipeline
   pipelineView: PipelineViewData
   pipelineIdentifier: string
   error?: string
   isDBInitialized: boolean
   isLoading: boolean
   isInitialized: boolean
+  isBEPipelineUpdated: boolean
   isUpdated: boolean
   snippets?: SnippetInterface[]
 }
@@ -73,6 +75,8 @@ export interface ActionResponse {
   error?: string
   isUpdated?: boolean
   pipeline?: CDPipeline
+  originalPipeline?: CDPipeline
+  isBEPipelineUpdated?: boolean
   pipelineView?: PipelineViewData
 }
 
@@ -89,7 +93,10 @@ const updatePipelineView = (response: ActionResponse): ActionReturnType => ({
 })
 const updating = (): ActionReturnType => ({ type: PipelineActions.UpdatePipeline })
 const fetching = (): ActionReturnType => ({ type: PipelineActions.Fetching })
-const pipelineSavedAction = (): ActionReturnType => ({ type: PipelineActions.PipelineSaved })
+const pipelineSavedAction = (response: ActionResponse): ActionReturnType => ({
+  type: PipelineActions.PipelineSaved,
+  response
+})
 const success = (response: ActionResponse): ActionReturnType => ({ type: PipelineActions.Success, response })
 const error = (response: ActionResponse): ActionReturnType => ({ type: PipelineActions.Error, response })
 
@@ -106,6 +113,7 @@ export const PipelineContextActions = {
 
 export const initialState: PipelineReducerState = {
   pipeline: { ...DefaultPipeline },
+  originalPipeline: { ...DefaultPipeline },
   pipelineIdentifier: DefaultNewPipelineId,
   pipelineView: {
     isSplitViewOpen: false,
@@ -116,6 +124,7 @@ export const initialState: PipelineReducerState = {
     }
   },
   isLoading: false,
+  isBEPipelineUpdated: false,
   isDBInitialized: false,
   isUpdated: false,
   isInitialized: false
@@ -144,12 +153,13 @@ export const PipelineReducer = (state = initialState, data: ActionReturnType): P
     case PipelineActions.UpdatePipeline:
       return {
         ...state,
-        isUpdated: true,
+        isUpdated: response?.isUpdated ?? true,
         pipeline: response?.pipeline ? clone(response?.pipeline) : state.pipeline
       }
     case PipelineActions.PipelineSaved:
       return {
         ...state,
+        ...response,
         isLoading: false,
         isUpdated: false
       }
@@ -157,6 +167,7 @@ export const PipelineReducer = (state = initialState, data: ActionReturnType): P
       return {
         ...state,
         isLoading: true,
+        isBEPipelineUpdated: false,
         isUpdated: false
       }
     case PipelineActions.Success:
