@@ -3,8 +3,8 @@ import { Classes, Dialog } from '@blueprintjs/core'
 import cx from 'classnames'
 import { Button, Icon, Text, useModalHook, Tag } from '@wings-software/uikit'
 import { useHistory, useRouteMatch, useParams, NavLink } from 'react-router-dom'
-import { NavigationCheck, useToaster } from 'modules/common/exports'
-import type { CDPipeline, ResponseDTOString } from 'services/cd-ng'
+import { NavigationCheck, useToaster, useConfirmationDialog } from 'modules/common/exports'
+import type { CDPipeline, FailureDTO } from 'services/cd-ng'
 import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
 import { routeCDPipelineStudio, routeCDPipelineStudioUI, routeCDPipelineStudioYaml } from 'modules/cd/routes'
 import { PipelineContext, savePipeline } from '../PipelineContext/PipelineContext'
@@ -15,14 +15,20 @@ import { RightDrawer } from '../RightDrawer/RightDrawer'
 import css from './PipelineCanvas.module.scss'
 
 export const PipelineCanvas: React.FC = ({ children }): JSX.Element => {
-  const { state, updatePipeline, deletePipelineCache, pipelineSaved, updatePipelineView } = React.useContext(
-    PipelineContext
-  )
+  const {
+    state,
+    updatePipeline,
+    deletePipelineCache,
+    pipelineSaved,
+    updatePipelineView,
+    fetchPipeline
+  } = React.useContext(PipelineContext)
   const {
     pipeline,
     isUpdated,
     isLoading,
     isInitialized,
+    isBEPipelineUpdated,
     pipelineView: {
       splitViewData: { type: splitViewType }
     },
@@ -32,12 +38,27 @@ export const PipelineCanvas: React.FC = ({ children }): JSX.Element => {
   const { showError } = useToaster()
   const { accountId, projectIdentifier, orgIdentifier, pipelineIdentifier } = useParams()
 
+  const [discardBEUpdateDialog, setDiscardBEUpdate] = React.useState(false)
+  const { openDialog: openConfirmBEUpdateError } = useConfirmationDialog({
+    cancelButtonText: i18n.cancel,
+    contentText: i18n.pipelineUpdatedError,
+    titleText: i18n.pipelineUpdated,
+    confirmButtonText: i18n.update,
+    onCloseDialog: isConfirmed => {
+      if (isConfirmed) {
+        fetchPipeline(true, true)
+      } else {
+        setDiscardBEUpdate(true)
+      }
+    }
+  })
+
   const history = useHistory()
   const { url } = useRouteMatch()
   const isYaml = history.location.pathname.endsWith('/yaml/')
 
   const saveAndPublish = React.useCallback(async () => {
-    const response: ResponseDTOString | undefined = await savePipeline(
+    const response: FailureDTO | undefined = await savePipeline(
       { accountIdentifier: accountId, projectIdentifier, orgIdentifier },
       pipeline,
       pipelineIdentifier !== DefaultNewPipelineId
@@ -45,12 +66,12 @@ export const PipelineCanvas: React.FC = ({ children }): JSX.Element => {
     const newPipelineId = pipeline.identifier
 
     if (response && response.status === 'SUCCESS') {
-      pipelineSaved()
+      pipelineSaved(pipeline)
       history.replace(
         routeCDPipelineStudio.url({ projectIdentifier, orgIdentifier, pipelineIdentifier: newPipelineId })
       )
     } else {
-      showError(i18n.errorWhileSaving)
+      showError(response?.message || i18n.errorWhileSaving)
     }
   }, [accountId, history, projectIdentifier, orgIdentifier, pipeline, pipelineSaved, showError, pipelineIdentifier])
 
@@ -68,8 +89,18 @@ export const PipelineCanvas: React.FC = ({ children }): JSX.Element => {
       if (pipeline.identifier === DefaultNewPipelineId) {
         showModal()
       }
+      if (isBEPipelineUpdated && !discardBEUpdateDialog) {
+        openConfirmBEUpdateError()
+      }
     }
-  }, [pipeline.identifier, showModal, isInitialized])
+  }, [
+    pipeline.identifier,
+    showModal,
+    isInitialized,
+    isBEPipelineUpdated,
+    openConfirmBEUpdateError,
+    discardBEUpdateDialog
+  ])
 
   const onSubmit = React.useCallback(
     (data: CDPipeline) => {

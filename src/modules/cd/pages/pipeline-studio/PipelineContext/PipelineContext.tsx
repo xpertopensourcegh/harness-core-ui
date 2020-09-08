@@ -1,14 +1,16 @@
 import React from 'react'
 import { openDB, IDBPDatabase, deleteDB } from 'idb'
+import { isEqual, cloneDeep } from 'lodash'
 import { parse, stringify } from 'yaml'
 import {
   CDPipeline,
   GetPipelineListQueryParams,
-  ResponseDTOString,
   getPipelinePromise,
   postPipelineDummyPromise,
   putPipelinePromise,
-  PutPipelineQueryParams
+  PutPipelineQueryParams,
+  ResponseDTOCDPipelineResponseDTO,
+  FailureDTO
 } from 'services/cd-ng'
 import { ModuleName, loggerFor } from 'framework/exports'
 import SessionToken from 'framework/utils/SessionToken'
@@ -41,9 +43,14 @@ export const getPipelineByIdentifier = (
       }
     }
   }).then(response => {
-    const obj = parse(response as string)
-    if (obj.status === 'SUCCESS') {
-      return parse(obj.data.yamlPipeline).pipeline as CDPipeline
+    let obj = {} as ResponseDTOCDPipelineResponseDTO
+    if (typeof response === 'string') {
+      obj = parse(response as string).data.yamlPipeline
+    } else if (response.data?.yamlPipeline) {
+      obj = response
+    }
+    if (obj.status === 'SUCCESS' && obj.data?.yamlPipeline) {
+      return parse(obj.data.yamlPipeline as string).pipeline as CDPipeline
     }
   })
 }
@@ -52,7 +59,7 @@ export const savePipeline = (
   params: PutPipelineQueryParams,
   pipeline: CDPipeline,
   isEdit = false
-): Promise<ResponseDTOString | undefined> => {
+): Promise<FailureDTO | undefined> => {
   return isEdit
     ? putPipelinePromise({
         pipelineIdentifier: pipeline.identifier,
@@ -63,7 +70,13 @@ export const savePipeline = (
         },
         body: stringify({ pipeline }),
         requestOptions: { headers: { 'Content-Type': 'text/yaml' } }
-      }).then(response => JSON.parse(response as string) as ResponseDTOString)
+      }).then(response => {
+        if (typeof response === 'string') {
+          return JSON.parse(response as string) as FailureDTO
+        } else {
+          return response
+        }
+      })
     : postPipelineDummyPromise({
         body: stringify({ pipeline }) as any,
         queryParams: {
@@ -72,7 +85,13 @@ export const savePipeline = (
           orgIdentifier: params.orgIdentifier
         },
         requestOptions: { headers: { 'Content-Type': 'text/yaml' } }
-      }).then(response => JSON.parse((response as unknown) as string) as ResponseDTOString)
+      }).then(response => {
+        if (typeof response === 'string') {
+          return JSON.parse((response as unknown) as string) as FailureDTO
+        } else {
+          return (response as unknown) as FailureDTO
+        }
+      })
 }
 
 const DBInitializationFailed = 'DB Creation retry exceeded.'
@@ -84,16 +103,17 @@ const KeyPath = 'identifier'
 
 interface PipelineContextInterface {
   state: PipelineReducerState
-  fetchPipeline: (forceFetch?: boolean) => Promise<void>
+  fetchPipeline: (forceFetch?: boolean, forceUpdate?: boolean) => Promise<void>
   updatePipeline: (pipeline: CDPipeline) => Promise<void>
   updatePipelineView: (data: PipelineViewData) => void
   deletePipelineCache: () => void
-  pipelineSaved: () => void
+  pipelineSaved: (pipeline: CDPipeline) => void
 }
 
 interface PipelinePayload {
   identifier: string
   pipeline: CDPipeline | undefined
+  originalPipeline?: CDPipeline
   isUpdated: boolean
 }
 
@@ -108,7 +128,8 @@ const _fetchPipeline = async (
   dispatch: React.Dispatch<ActionReturnType>,
   queryParams: GetPipelineListQueryParams,
   identifier: string,
-  forceFetch = false
+  forceFetch = false,
+  forceUpdate = false
 ): Promise<void> => {
   const id = getId(
     queryParams.accountIdentifier,
@@ -124,15 +145,30 @@ const _fetchPipeline = async (
       const payload: PipelinePayload = {
         [KeyPath]: id,
         pipeline,
+        originalPipeline: cloneDeep(pipeline),
         isUpdated: false
       }
-      if (pipeline) {
-        await IdbPipeline.put(IdbPipelineStoreName, payload)
-        dispatch(PipelineContextActions.success({ error: '', pipeline, isUpdated: false }))
-        dispatch(PipelineContextActions.initialized())
-      } else if (data) {
+      if (data && !forceUpdate) {
         dispatch(
-          PipelineContextActions.success({ error: '', pipeline: data?.pipeline, isUpdated: data?.isUpdated || true })
+          PipelineContextActions.success({
+            error: '',
+            pipeline: data.pipeline,
+            originalPipeline: cloneDeep(pipeline),
+            isBEPipelineUpdated: !isEqual(pipeline, data.originalPipeline),
+            isUpdated: !isEqual(pipeline, data.pipeline)
+          })
+        )
+        dispatch(PipelineContextActions.initialized())
+      } else {
+        await IdbPipeline.put(IdbPipelineStoreName, payload)
+        dispatch(
+          PipelineContextActions.success({
+            error: '',
+            pipeline,
+            originalPipeline: cloneDeep(pipeline),
+            isBEPipelineUpdated: false,
+            isUpdated: false
+          })
         )
         dispatch(PipelineContextActions.initialized())
       }
@@ -141,7 +177,9 @@ const _fetchPipeline = async (
         PipelineContextActions.success({
           error: '',
           pipeline: data?.pipeline || { ...DefaultPipeline },
-          isUpdated: data?.isUpdated || false
+          originalPipeline: cloneDeep(data?.pipeline) || cloneDeep(DefaultPipeline),
+          isUpdated: true,
+          isBEPipelineUpdated: false
         })
       )
       dispatch(PipelineContextActions.initialized())
@@ -155,6 +193,7 @@ const _updatePipeline = async (
   dispatch: React.Dispatch<ActionReturnType>,
   queryParams: GetPipelineListQueryParams,
   identifier: string,
+  originalPipeline: CDPipeline,
   pipeline: CDPipeline
 ): Promise<void> => {
   const id = getId(
@@ -164,13 +203,15 @@ const _updatePipeline = async (
     identifier
   )
   if (IdbPipeline) {
+    const isUpdated = !isEqual(originalPipeline, pipeline)
     const payload: PipelinePayload = {
       [KeyPath]: id,
       pipeline,
-      isUpdated: true
+      originalPipeline,
+      isUpdated
     }
     await IdbPipeline.put(IdbPipelineStoreName, payload)
-    dispatch(PipelineContextActions.success({ error: '', pipeline, isUpdated: true }))
+    dispatch(PipelineContextActions.success({ error: '', pipeline, isUpdated }))
   }
 }
 
@@ -257,13 +298,15 @@ export const PipelineProvider: React.FC<{
   const [state, dispatch] = React.useReducer(PipelineReducer, initialState)
   state.pipelineIdentifier = pipelineIdentifier
   const fetchPipeline = _fetchPipeline.bind(null, dispatch, queryParams, pipelineIdentifier)
-  const updatePipeline = _updatePipeline.bind(null, dispatch, queryParams, pipelineIdentifier)
-
+  const updatePipeline = _updatePipeline.bind(null, dispatch, queryParams, pipelineIdentifier, state.originalPipeline)
   const deletePipelineCache = _deletePipelineCache.bind(null, dispatch, queryParams, pipelineIdentifier)
-  const pipelineSaved = React.useCallback(() => {
-    deletePipelineCache()
-    dispatch(PipelineContextActions.pipelineSavedAction())
-  }, [deletePipelineCache])
+  const pipelineSaved = React.useCallback(
+    (pipeline: CDPipeline) => {
+      deletePipelineCache()
+      dispatch(PipelineContextActions.pipelineSavedAction({ pipeline, originalPipeline: cloneDeep(pipeline) }))
+    },
+    [deletePipelineCache]
+  )
 
   const updatePipelineView = React.useCallback((data: PipelineViewData) => {
     dispatch(PipelineContextActions.updatePipelineView({ pipelineView: data }))
@@ -271,7 +314,7 @@ export const PipelineProvider: React.FC<{
 
   React.useEffect(() => {
     if (state.isDBInitialized) {
-      fetchPipeline()
+      fetchPipeline(true)
     }
   }, [state.isDBInitialized])
   React.useEffect(() => {
