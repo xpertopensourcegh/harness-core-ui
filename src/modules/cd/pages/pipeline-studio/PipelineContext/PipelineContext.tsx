@@ -279,6 +279,13 @@ const _deletePipelineCache = async (
       identifier
     )
     await IdbPipeline.delete(IdbPipelineStoreName, id)
+    const defaultId = getId(
+      queryParams.accountIdentifier,
+      queryParams.orgIdentifier || '',
+      queryParams.projectIdentifier || '',
+      DefaultNewPipelineId
+    )
+    await IdbPipeline.delete(IdbPipelineStoreName, defaultId)
   }
 }
 

@@ -1,26 +1,52 @@
-import { Button, Container } from '@wings-software/uikit'
+import { Container, Layout } from '@wings-software/uikit'
 import React from 'react'
+import { NavLink, useParams } from 'react-router-dom'
+import { routeCDResourcesConnectors, routeCDResourcesSecretsListing } from 'modules/cd/routes'
 import { Page } from 'modules/common/exports'
 import i18n from './CDResourcesPage.i18n'
+import css from './CDResourcesPage.module.scss'
 
-const CDResourcesPage: React.FC = () => {
-  const tbd: () => void = () => {
-    alert('TBD')
-  }
-
+const CDResourcesPage: React.FC = ({ children }) => {
+  const { orgIdentifier, projectIdentifier } = useParams()
   return (
     <>
       <Page.Header
         title={i18n.title}
         toolbar={
           <Container>
-            <Button text={i18n.newItem} onClick={tbd} />
+            <Layout.Horizontal spacing="medium">
+              <NavLink
+                className={css.tags}
+                activeClassName={css.activeTag}
+                to={routeCDResourcesConnectors.url({ orgIdentifier, projectIdentifier })}
+              >
+                {i18n.connectors}
+              </NavLink>
+
+              <NavLink
+                className={css.tags}
+                activeClassName={css.activeTag}
+                to={routeCDResourcesSecretsListing.url({ orgIdentifier, projectIdentifier })}
+              >
+                {i18n.secrets}
+              </NavLink>
+
+              <NavLink className={css.tags} to="#TBD">
+                {i18n.delegates}
+              </NavLink>
+
+              <NavLink className={css.tags} to="#TBD">
+                {i18n.templates}
+              </NavLink>
+
+              <NavLink className={css.tags} to="#TBD">
+                {i18n.fileStore}
+              </NavLink>
+            </Layout.Horizontal>
           </Container>
         }
       />
-      <Page.Body>
-        <Page.NoDataCard icon="nav-dashboard" message={i18n.noData} buttonText={i18n.newItem} onClick={tbd} />
-      </Page.Body>
+      <Page.Body>{children}</Page.Body>
     </>
   )
 }

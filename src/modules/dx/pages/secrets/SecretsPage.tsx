@@ -14,13 +14,13 @@ import i18n from './SecretsPage.i18n'
 import css from './SecretsPage.module.scss'
 
 const SecretsPage: React.FC = () => {
-  const { accountId } = useParams()
+  const { accountId, orgIdentifier, projectIdentifier } = useParams()
   const history = useHistory()
   const [searchTerm, setSearchTerm] = useState<string | undefined>()
   const [page, setPage] = useState(0)
 
   const { data: secretsResponse, loading, error, refetch } = useListSecrets({
-    queryParams: { accountIdentifier: accountId, searchTerm, page, size: 10 },
+    queryParams: { accountIdentifier: accountId, searchTerm, page, size: 10, orgIdentifier, projectIdentifier },
     debounce: 300
   })
   const { openCreateSecretModal } = useCreateUpdateSecretModal({

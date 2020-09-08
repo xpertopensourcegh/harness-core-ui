@@ -65,7 +65,10 @@ const ProjectNavLinks: React.FC<{ project?: Project }> = ({ project }) => {
         }
       >
         <AdminSelectorLink
-          href={routeCDResources.url({ projectIdentifier: project.identifier as string })}
+          href={routeCDResources.url({
+            projectIdentifier: project.identifier as string,
+            orgIdentifier: project.orgIdentifier as string
+          })}
           label={i18n.resources}
           iconName="main-scope"
           selected={isRouteActive(routeCDResources)}

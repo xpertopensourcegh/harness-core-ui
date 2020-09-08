@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react'
-import { useParams, useHistory } from 'react-router-dom'
+import { useParams, useHistory, useLocation } from 'react-router-dom'
 import ReactTimeago from 'react-timeago'
 import { Menu, Position, Classes } from '@blueprintjs/core'
 import type { Column, Renderer, CellProps } from 'react-table'
@@ -150,7 +150,7 @@ interface SecretsListProps {
 const SecretsList: React.FC<SecretsListProps> = ({ secrets, refetch, gotoPage }) => {
   const history = useHistory()
   const data: EncryptedDataDTO[] = useMemo(() => secrets?.data?.content || [], [secrets?.data?.content])
-
+  const { pathname } = useLocation()
   const columns: Column<EncryptedDataDTO>[] = useMemo(
     () => [
       {
@@ -197,11 +197,7 @@ const SecretsList: React.FC<SecretsListProps> = ({ secrets, refetch, gotoPage })
       columns={columns}
       data={data}
       onRowClick={secret => {
-        history.push(
-          routeSecretDetails.url({
-            secretId: secret.identifier as string
-          })
-        )
+        history.push(`${pathname}/${secret.identifier}`)
       }}
       pagination={{
         itemCount: secrets?.data?.itemCount || 0,
