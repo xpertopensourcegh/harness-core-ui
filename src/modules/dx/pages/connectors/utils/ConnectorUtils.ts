@@ -259,3 +259,16 @@ export const formatConnectorListData = (connectorList: ConnectorSummaryDTO[] | u
   })
   return formattedList
 }
+
+export const getConnectorDisplayName = (type: string) => {
+  switch (type) {
+    case Connectors.KUBERNETES_CLUSTER:
+      return 'Kubernetes cluster'
+    case Connectors.GIT:
+      return 'Git'
+    case Connectors.DOCKER:
+      return 'Docker'
+    default:
+      return ''
+  }
+}

@@ -129,7 +129,7 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
                   </g>
                 </svg>
               </span>
-              Establishing Connection between Delegate and Kubernetes cluster
+              Establishing Connection between Delegate and Connector
             </span>
           </div>
           <div>
@@ -291,7 +291,7 @@ exports[`Verification step for out of cluster delegate render in modal 1`] = `
                   </g>
                 </svg>
               </span>
-              Establishing Connection between Delegate and Kubernetes cluster
+              Establishing Connection between Delegate and Connector
             </span>
           </div>
           <div>

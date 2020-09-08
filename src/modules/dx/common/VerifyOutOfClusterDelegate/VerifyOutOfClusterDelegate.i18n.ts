@@ -3,7 +3,7 @@ export default {
   HEADING: 'Verify Connection to ',
   STEPS: {
     ONE: 'Checking for delegates ',
-    TWO: 'Establishing Connection between Delegate and Kubernetes cluster',
+    TWO: (connector: string) => `Establishing Connection between Delegate and ${connector || 'Connector'}`,
     THREE: 'Verifying Connection'
   },
   FINISH: 'FINISH',

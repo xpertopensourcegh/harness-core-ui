@@ -22,6 +22,7 @@ const CreateDockerConnector: React.FC<CreateDockerConnectorProps> = props => {
           renderInModal={true}
           onSuccess={props.onConnectorCreated}
           isLastStep={true}
+          type={Connectors.DOCKER}
         />
       </StepWizard>
     </>

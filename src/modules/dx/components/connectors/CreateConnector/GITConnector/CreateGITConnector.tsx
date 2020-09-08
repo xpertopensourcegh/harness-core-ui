@@ -52,6 +52,7 @@ const CreateGITConnector = (props: CreateGITConnectorProps) => {
           setIsEditMode={() => setIsEditMode(true)}
           renderInModal={true}
           isLastStep={true}
+          type={Connectors.GIT}
         />
       </StepWizard>
     </>

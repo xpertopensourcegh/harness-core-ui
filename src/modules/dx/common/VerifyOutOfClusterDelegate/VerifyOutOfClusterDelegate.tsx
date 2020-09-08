@@ -4,6 +4,7 @@ import ReactTimeago from 'react-timeago'
 import { StepsProgress, Layout, Button, Text, Intent, Color, StepProps } from '@wings-software/uikit'
 import { useGetDelegatesStatus, RestResponseDelegateStatus } from 'services/portal'
 import { useGetTestConnectionResult, ConnectorRequestDTO, ResponseDTOConnectorValidationResult } from 'services/cd-ng'
+import { getConnectorDisplayName } from 'modules/dx/pages/connectors/utils/ConnectorUtils'
 import type { UseGetMockData } from 'modules/common/utils/testUtils'
 import type { StepDetails } from 'modules/dx/interfaces/ConnectorInterface'
 import i18n from './VerifyOutOfClusterDelegate.i18n'
@@ -25,6 +26,7 @@ interface VerifyOutOfClusterDelegateProps {
   setStatus?: (val: string) => void
   setTesting?: (val: boolean) => void
   isLastStep?: boolean
+  type?: string
 }
 interface VerifyOutOfClusterStepProps extends ConnectorRequestDTO {
   isEditMode?: boolean
@@ -195,7 +197,11 @@ const VerifyOutOfClusterDelegate: React.FC<
           </Text>
         )}
         <StepsProgress
-          steps={[getStepOne(state), inPopover ? i18n.STEP_TWO_POPOVER : i18n.STEPS.TWO, i18n.STEPS.THREE]}
+          steps={[
+            getStepOne(state),
+            inPopover ? i18n.STEP_TWO_POPOVER : i18n.STEPS.TWO(getConnectorDisplayName(props.type || '')),
+            i18n.STEPS.THREE
+          ]}
           intent={stepDetails.intent}
           current={stepDetails.step}
           currentStatus={stepDetails.status}

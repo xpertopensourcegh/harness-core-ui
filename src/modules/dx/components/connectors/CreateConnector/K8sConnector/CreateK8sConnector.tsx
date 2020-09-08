@@ -41,6 +41,7 @@ import VerifyExistingDelegate from 'modules/dx/common/VerfiyExistingDelegate/Ver
 import VerifyOutOfClusterDelegate from 'modules/dx/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 import CreateSecretOverlay from 'modules/dx/common/CreateSecretOverlay/CreateSecretOverlay'
 import { useToaster } from 'modules/common/exports'
+import { Connectors } from 'modules/dx/constants'
 import ConnectorFormFields from '../../ConnectorFormFields/ConnectorFormFields'
 import i18n from './CreateK8sConnector.i18n'
 import css from './CreateK8sConnector.module.scss'
@@ -563,6 +564,7 @@ const CreateK8sConnector = (props: CreateK8sConnectorProps) => {
             connectorIdentifier={formData?.identifier}
             renderInModal={true}
             isLastStep={true}
+            type={Connectors.KUBERNETES_CLUSTER}
           />
         )}
       </StepWizard>
