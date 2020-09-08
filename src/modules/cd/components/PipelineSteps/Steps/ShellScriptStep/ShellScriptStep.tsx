@@ -54,7 +54,7 @@ export class ShellScriptStep extends Step<ShellScriptData> {
     return <ShellScriptWidget initialValues={initialValues} onUpdate={onUpdate} stepViewType={stepViewType} />
   }
 
-  protected type = StepType.SHELLSCRIPT
+  protected type = StepType.SHELL_SCRIPT
   protected stepName = i18n.shellScriptStep
   protected stepIcon: IconName = 'command-shell-script'
 

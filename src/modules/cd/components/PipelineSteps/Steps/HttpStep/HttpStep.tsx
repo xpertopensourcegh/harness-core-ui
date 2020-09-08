@@ -81,7 +81,7 @@ export class HttpStep extends Step<HttpStepData> {
     return <HttpStepWidget initialValues={initialValues} onUpdate={onUpdate} stepViewType={stepViewType} />
   }
 
-  protected type = StepType.HTTP
+  protected type = StepType.HTTP_CHECK
   protected stepName = i18n.httpStep
   protected stepIcon: IconName = 'command-http'
 
