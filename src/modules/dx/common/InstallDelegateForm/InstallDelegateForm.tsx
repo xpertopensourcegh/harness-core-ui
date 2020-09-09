@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { FormInput, SelectOption } from '@wings-software/uikit'
 import { useGetDelegateProfiles, DelegateProfile } from 'services/portal'
+import type { UseGetMockData } from 'modules/common/utils/testUtils'
 import i18n from './InstallDelegateForm.i18n'
 
 import css from './InstallDelegateForm.module.scss'
 
 interface InstallDelegateFormProps {
   accountId: string
+  mockData?: UseGetMockData<any>
 }
 // Adding any because of type issue
 const formatProfileList = (data: any) => {
@@ -20,7 +22,7 @@ const formatProfileList = (data: any) => {
 const InstallDelegateForm = (props: InstallDelegateFormProps) => {
   const [, setProfileData] = useState()
   const { accountId = '' } = props
-  const { loading, data } = useGetDelegateProfiles({ queryParams: { accountId } })
+  const { loading, data } = useGetDelegateProfiles({ queryParams: { accountId }, mock: props.mockData })
   let list: SelectOption[] = [{ label: '', value: '' }]
 
   if (data) {

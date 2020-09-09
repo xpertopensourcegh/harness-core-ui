@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
+import { useParams } from 'react-router'
 import { Layout, Text, StepsProgress, Intent, Button, Color } from '@wings-software/uikit'
-import { useGetTestConnectionResult } from 'services/cd-ng'
+import { useGetTestConnectionResult, ResponseDTOConnectorValidationResult } from 'services/cd-ng'
 import { useGetDelegatesStatus, RestResponseDelegateStatus, DelegateInner } from 'services/portal'
+import type { UseGetMockData } from 'modules/common/utils/testUtils'
 import type { StepDetails } from 'modules/dx/interfaces/ConnectorInterface'
 import { useToaster } from 'modules/common/exports'
 import i18n from './VerifyExistingDelegate.i18n'
@@ -9,9 +11,8 @@ import i18n from './VerifyExistingDelegate.i18n'
 import css from './VerifyExistingDelegate.module.scss'
 
 interface VerifyExistingDelegateProps {
-  accountId: string
-  projectIdentifier: string
-  orgIdentifier: string
+  delegateStatusMockData?: UseGetMockData<RestResponseDelegateStatus>
+  testConnectionMockData?: UseGetMockData<ResponseDTOConnectorValidationResult>
   name?: string
   connectorName?: string
   connectorIdentifier?: string
@@ -47,16 +48,18 @@ const VerifyExistingDelegate = (props: VerifyExistingDelegateProps) => {
     status: 'PROCESS'
   })
   const { showSuccess } = useToaster()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams()
 
   const [downloadOverLay, setDownloadOverlay] = useState(true)
   const state: VerifyExistingDelegateState = {
     downloadOverLay,
     setDownloadOverlay
   }
-  const { accountId, connectorIdentifier, renderInModal = false } = props
+  const { connectorIdentifier, renderInModal = false } = props
 
   const { data: delegateStatus, error } = useGetDelegatesStatus({
-    queryParams: { accountId }
+    queryParams: { accountId },
+    mock: props.delegateStatusMockData
   })
   const {
     data: testConnectionResponse,
@@ -65,8 +68,9 @@ const VerifyExistingDelegate = (props: VerifyExistingDelegateProps) => {
   } = useGetTestConnectionResult({
     accountIdentifier: accountId,
     connectorIdentifier: connectorIdentifier as string,
-    queryParams: { orgIdentifier: props.orgIdentifier, projectIdentifier: props.projectIdentifier },
-    lazy: true
+    queryParams: { orgIdentifier: orgIdentifier, projectIdentifier: projectIdentifier },
+    lazy: true,
+    mock: props.testConnectionMockData
   })
 
   const isSelectedDelegateActive = (delegateStatusResponse: RestResponseDelegateStatus) => {

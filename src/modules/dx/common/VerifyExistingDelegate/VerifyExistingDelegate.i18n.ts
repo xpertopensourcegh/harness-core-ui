@@ -1,7 +1,7 @@
 export default {
   STEPS: {
     ONE: {
-      PPROGRESS: 'Checking Delegate: ',
+      PPROGRESS: 'Checking Delegate',
       FAILED: 'Delegate not found',
       SUCCESS: 'Delegate found'
     },

@@ -37,7 +37,7 @@ import {
 import { buildKubPayload } from 'modules/dx/pages/connectors/utils/ConnectorUtils'
 import InstallDelegateForm from 'modules/dx/common/InstallDelegateForm/InstallDelegateForm'
 import VerifyInstalledDelegate from 'modules/dx/common/VerifyInstalledDelegate/VerifyInstalledDelegate'
-import VerifyExistingDelegate from 'modules/dx/common/VerfiyExistingDelegate/VerifyExistingDelegate'
+import VerifyExistingDelegate from 'modules/dx/common/VerifyExistingDelegate/VerifyExistingDelegate'
 import VerifyOutOfClusterDelegate from 'modules/dx/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 import CreateSecretOverlay from 'modules/dx/common/CreateSecretOverlay/CreateSecretOverlay'
 import { useToaster } from 'modules/common/exports'
@@ -543,9 +543,6 @@ const CreateK8sConnector = (props: CreateK8sConnectorProps) => {
             />
           ) : (
             <VerifyExistingDelegate
-              accountId={props.accountId}
-              orgIdentifier={props.orgIdentifier}
-              projectIdentifier={props.projectIdentifier}
               name={i18n.STEP_THREE.NAME}
               connectorName={formData?.name}
               connectorIdentifier={formData?.identifier}

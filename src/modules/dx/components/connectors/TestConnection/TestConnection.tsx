@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Layout, Button } from '@wings-software/uikit'
 import VerifyOutOfClusterDelegate from 'modules/dx/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
-import VerifyExistingDelegate from 'modules/dx/common/VerfiyExistingDelegate/VerifyExistingDelegate'
+import VerifyExistingDelegate from 'modules/dx/common/VerifyExistingDelegate/VerifyExistingDelegate'
 import i18n from './TestConnection.i18n'
 import css from './TestConnection.module.scss'
 
@@ -24,9 +24,6 @@ const TestConnection: React.FC<TestConnectionProps> = props => {
       {testEnabled ? (
         props.delegateName ? (
           <VerifyExistingDelegate
-            accountId={props.accountId}
-            orgIdentifier={props.orgIdentifier}
-            projectIdentifier={props.projectIdentifier}
             connectorName={props.connectorName}
             connectorIdentifier={props.connectorIdentifier}
             delegateName={props.delegateName}

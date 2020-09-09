@@ -11,7 +11,7 @@ import { useToaster } from 'modules/common/components/Toaster/useToaster'
 import { routeConnectorDetails } from 'modules/dx/routes'
 import TagsPopover from 'modules/common/components/TagsPopover/TagsPopover'
 import VerifyOutOfClusterDelegate from 'modules/dx/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
-import VerifyExistingDelegate from 'modules/dx/common/VerfiyExistingDelegate/VerifyExistingDelegate'
+import VerifyExistingDelegate from 'modules/dx/common/VerifyExistingDelegate/VerifyExistingDelegate'
 import { getIconByType } from '../utils/ConnectorUtils'
 
 import i18n from './ConnectorsListView.i18n'
@@ -65,7 +65,6 @@ const RenderColumnStatus: Renderer<CellProps<ConnectorSummaryDTO>> = ({ row }) =
   const data = row.original
   const [testing, setTesting] = useState(false)
   const [status, setStatus] = useState(data.status?.status as string)
-  const { accountId, orgIdentifier, projectIdentifier } = useParams()
   return (
     <Layout.Horizontal>
       {!testing ? (
@@ -97,9 +96,6 @@ const RenderColumnStatus: Renderer<CellProps<ConnectorSummaryDTO>> = ({ row }) =
             <div className={css.testConnectionPop}>
               {data?.connectorDetails?.delegateName ? (
                 <VerifyExistingDelegate
-                  accountId={accountId}
-                  orgIdentifier={orgIdentifier}
-                  projectIdentifier={projectIdentifier}
                   connectorName={data.name}
                   connectorIdentifier={data.identifier}
                   // inPopover={true}
