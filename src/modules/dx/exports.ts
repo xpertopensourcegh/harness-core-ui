@@ -1,2 +1,2 @@
 // Module exports which are consumable by other Modules
-export {}
+export { getIconByType } from './pages/connectors/utils/ConnectorUtils'

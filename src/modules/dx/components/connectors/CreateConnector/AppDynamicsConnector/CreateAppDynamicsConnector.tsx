@@ -21,13 +21,13 @@ import {
   EncryptedDataDTO
 } from 'services/cd-ng'
 import {
-  AuthTypes,
   AuthTypeFields,
   getSecretFieldsByType,
   SecretFieldByType
 } from 'modules/dx/pages/connectors/Forms/KubeFormHelper'
 import { Connectors } from 'modules/dx/constants'
 import CreateSecretOverlay from 'modules/dx/common/CreateSecretOverlay/CreateSecretOverlay'
+import { AuthTypes } from 'modules/dx/pages/connectors/Forms/KubeFormInterfaces'
 import UsernamePassword from '../../ConnectorFormFields/UsernamePassword'
 import i18n from './CreateAppDynamicsConnector.i18n'
 import { getScopingStringFromSecretRef } from '../CreateConnectorUtils'

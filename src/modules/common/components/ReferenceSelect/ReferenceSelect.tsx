@@ -4,10 +4,13 @@ import {
   Button,
   ExpressionAndRuntimeTypeProps,
   ExpressionAndRuntimeType,
-  MultiTypeInputValue
+  MultiTypeInputValue,
+  Layout,
+  Text,
+  Color
 } from '@wings-software/uikit'
-import { Position } from '@blueprintjs/core'
-import { ReferenceProps, Scope, ReferenceSelector } from '../ReferenceSelector/ReferenceSelector'
+import { Position, Classes } from '@blueprintjs/core'
+import { EntityReferenceProps, Scope, EntityReference } from '../EntityReference/EntityReference'
 import css from './ReferenceSelect.module.scss'
 
 interface MinimalObject {
@@ -15,7 +18,7 @@ interface MinimalObject {
   name?: string
 }
 
-export interface ReferenceSelectProps<T extends MinimalObject> extends Omit<ReferenceProps<T>, 'onSelect'> {
+export interface ReferenceSelectProps<T extends MinimalObject> extends Omit<EntityReferenceProps<T>, 'onSelect'> {
   name: string
   placeholder: string
   selected?: {
@@ -23,18 +26,64 @@ export interface ReferenceSelectProps<T extends MinimalObject> extends Omit<Refe
     value: string
     scope: Scope
   }
+  createNewLabel?: string
+  createNewHandler?: () => void
+  selectedRenderer?: JSX.Element
+  editRenderer?: JSX.Element
   width?: number
   onChange: (record: T, scope: Scope) => void
 }
 
 export function ReferenceSelect<T extends MinimalObject>(props: ReferenceSelectProps<T>): JSX.Element {
-  const { name, placeholder, selected, onChange, width = 300, ...referenceProps } = props
+  const {
+    name,
+    placeholder,
+    selected,
+    onChange,
+    width = 300,
+    createNewLabel,
+    createNewHandler,
+    editRenderer,
+    selectedRenderer,
+    ...referenceProps
+  } = props
   return (
     <Popover position={Position.BOTTOM} minimal={true}>
       <Button minimal className={css.container} style={{ width }} rightIcon="caret-down">
-        {selected ? selected.label : <span className={css.placeholder}>{placeholder}</span>}
+        {selected ? selectedRenderer || selected.label : <span className={css.placeholder}>{placeholder}</span>}
       </Button>
-      <ReferenceSelector<T> {...referenceProps} onSelect={(record, scope) => onChange(record, scope)} />
+      <div>
+        {editRenderer && selected && selected.value && (
+          <Layout.Horizontal
+            padding="medium"
+            style={{
+              borderBottom: '1px solid var(--grey-250)'
+            }}
+          >
+            {editRenderer}
+          </Layout.Horizontal>
+        )}
+        {createNewLabel && createNewHandler && (
+          <Layout.Horizontal
+            padding="small"
+            style={{
+              borderBottom: '1px solid var(--grey-250)'
+            }}
+            className={Classes.POPOVER_DISMISS}
+          >
+            <Button
+              minimal
+              onClick={() => {
+                createNewHandler?.()
+              }}
+              style={{ width: '100%', justifyContent: 'flex-start' }}
+            >
+              <Text color={Color.BLUE_500}>+ {createNewLabel}</Text>
+            </Button>
+          </Layout.Horizontal>
+        )}
+        <EntityReference<T> {...referenceProps} onSelect={(record, scope) => onChange(record, scope)} />
+      </div>
     </Popover>
   )
 }
@@ -42,11 +91,10 @@ export function ReferenceSelect<T extends MinimalObject>(props: ReferenceSelectP
 interface MultiTypeReferenceInputProps<T extends MinimalObject>
   extends Omit<ExpressionAndRuntimeTypeProps, 'fixedTypeComponent'> {
   referenceSelectProps: Omit<ReferenceSelectProps<T>, 'onChange'>
-  convertRecordAndScopeToString: (record: T, scope: Scope) => void
 }
 
 export function MultiTypeReferenceInput<T extends MinimalObject>(props: MultiTypeReferenceInputProps<T>): JSX.Element {
-  const { referenceSelectProps, convertRecordAndScopeToString, ...rest } = props
+  const { referenceSelectProps, ...rest } = props
   const { selected, width = 300, ...restProps } = referenceSelectProps || {}
   const fixedTypeComponent = useCallback(
     fixedProps => {
@@ -60,7 +108,8 @@ export function MultiTypeReferenceInput<T extends MinimalObject>(props: MultiTyp
             onChange?.(
               {
                 label: record.name,
-                value: convertRecordAndScopeToString(record, scope),
+                value:
+                  scope === Scope.ORG || scope === Scope.ACCOUNT ? `${scope}.${record.identifier}` : record.identifier,
                 scope: scope
               },
               MultiTypeInputValue.SELECT_OPTION

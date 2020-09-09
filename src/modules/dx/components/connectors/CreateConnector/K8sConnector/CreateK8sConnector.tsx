@@ -17,10 +17,8 @@ import cx from 'classnames'
 import * as Yup from 'yup'
 import {
   authOptions,
-  DelegateTypes,
   DelegateInClusterType,
   getIconsForCard,
-  AuthTypes,
   getSecretFieldsByType,
   SecretFieldByType
 } from 'modules/dx/pages/connectors/Forms/KubeFormHelper'
@@ -42,6 +40,7 @@ import VerifyOutOfClusterDelegate from 'modules/dx/common/VerifyOutOfClusterDele
 import CreateSecretOverlay from 'modules/dx/common/CreateSecretOverlay/CreateSecretOverlay'
 import { useToaster } from 'modules/common/exports'
 import { Connectors } from 'modules/dx/constants'
+import { DelegateTypes, AuthTypes } from 'modules/dx/pages/connectors/Forms/KubeFormInterfaces'
 import ConnectorFormFields from '../../ConnectorFormFields/ConnectorFormFields'
 import i18n from './CreateK8sConnector.i18n'
 import css from './CreateK8sConnector.module.scss'

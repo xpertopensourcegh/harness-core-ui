@@ -3,6 +3,11 @@
 
   .scopeButton {
     border-radius: 20px !important;
+
+    &.selected {
+      color: var(--white) !important;
+      background-color: var(--grey-400) !important;
+    }
   }
 
   .referenceList {
@@ -16,8 +21,7 @@
       cursor: pointer;
 
       &:hover {
-        background-color: var(--blue-500);
-        color: var(--white);
+        background-color: var(--blue-350);
       }
     }
   }

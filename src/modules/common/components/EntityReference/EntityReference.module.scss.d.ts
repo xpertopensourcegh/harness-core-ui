@@ -3,6 +3,7 @@
 declare const styles: {
   readonly container: string
   readonly scopeButton: string
+  readonly selected: string
   readonly referenceList: string
   readonly listItem: string
 }

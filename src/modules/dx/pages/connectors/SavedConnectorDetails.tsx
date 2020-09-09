@@ -1,7 +1,7 @@
 import React from 'react'
 import { Layout, Tag } from '@wings-software/uikit'
-import { DelegateTypes } from './Forms/KubeFormHelper'
 import i18n from './SavedConnectorDetails.i18n'
+import { DelegateTypes } from './Forms/KubeFormInterfaces'
 import css from './SavedConnectorDetails.module.scss'
 
 interface SavedConnectorDetailsProps {

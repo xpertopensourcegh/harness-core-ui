@@ -5,8 +5,8 @@ import { Classes } from '@blueprintjs/core'
 import { debounce } from 'lodash'
 import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
 import { PageError } from 'modules/common/components/Page/PageError'
-import i18n from './ReferenceSelector.i18n'
-import css from './ReferenceSelector.module.scss'
+import i18n from './EntityReference.i18n'
+import css from './EntityReference.module.scss'
 
 export enum Scope {
   PROJECT = 'project',
@@ -14,12 +14,40 @@ export enum Scope {
   ACCOUNT = 'acc'
 }
 
-export type ReferenceResponse<T> = { label: string; identifier: string; record: T }
+export interface ScopedObjectDTO {
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
 
-export interface ReferenceProps<T> {
+export function getScopeFromDTO<T extends ScopedObjectDTO>(obj: T): Scope {
+  if (obj.projectIdentifier) {
+    return Scope.PROJECT
+  } else if (obj.orgIdentifier) {
+    return Scope.ORG
+  }
+  return Scope.ACCOUNT
+}
+
+export function getScopeFromValue(value: string): Scope {
+  if (value.startsWith(`${Scope.ACCOUNT}.`)) {
+    return Scope.ACCOUNT
+  } else if (value.startsWith(`${Scope.ORG}.`)) {
+    return Scope.ORG
+  }
+  return Scope.PROJECT
+}
+
+export type EntityReferenceResponse<T> = { name: string; identifier: string; record: T }
+
+export interface EntityReferenceProps<T> {
   onSelect: (reference: T, scope: Scope) => void
-  fetchRecords: (scope: Scope, searchTerm: string | undefined, done: (records: ReferenceResponse<T>[]) => void) => void
-  recordRender?: (item: ReferenceResponse<T>) => JSX.Element
+  fetchRecords: (
+    scope: Scope,
+    searchTerm: string | undefined,
+    done: (records: EntityReferenceResponse<T>[]) => void
+  ) => void
+  recordRender: (item: EntityReferenceResponse<T>) => JSX.Element
   recordClassName?: string
   className?: string
   projectIdentifier?: string
@@ -28,24 +56,20 @@ export interface ReferenceProps<T> {
   defaultScope?: Scope
 }
 
-function itemRender<T>(item: ReferenceResponse<T>): JSX.Element {
-  return <div>{item.label}</div>
-}
-
-export function ReferenceSelector<T>(props: ReferenceProps<T>): JSX.Element {
+export function EntityReference<T>(props: EntityReferenceProps<T>): JSX.Element {
   const {
     defaultScope,
     projectIdentifier,
     orgIdentifier,
     fetchRecords,
     className = '',
-    recordRender = itemRender,
+    recordRender,
     recordClassName = '',
     noRecordsText = i18n.noRecordFound
   } = props
   const [searchTerm, setSearchTerm] = useState<string | undefined>()
   const [selectedScope, setSelectedScope] = useState<Scope>(defaultScope || Scope.ACCOUNT)
-  const [data, setData] = useState<ReferenceResponse<T>[]>([])
+  const [data, setData] = useState<EntityReferenceResponse<T>[]>([])
   const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<string | null>()
 
@@ -72,24 +96,21 @@ export function ReferenceSelector<T>(props: ReferenceProps<T>): JSX.Element {
       <Layout.Vertical spacing="medium">
         <Layout.Horizontal spacing="small">
           <Button
-            className={css.scopeButton}
-            intent={selectedScope == Scope.PROJECT ? 'primary' : 'none'}
+            className={cx(css.scopeButton, { [css.selected]: selectedScope == Scope.PROJECT })}
             text={i18n.project}
             icon="cube"
             onClick={() => setSelectedScope(Scope.PROJECT)}
             disabled={!projectIdentifier}
           />
           <Button
-            className={css.scopeButton}
-            intent={selectedScope == Scope.ORG ? 'primary' : 'none'}
+            className={cx(css.scopeButton, { [css.selected]: selectedScope == Scope.ORG })}
             text={i18n.organization}
             icon="diagram-tree"
             onClick={() => setSelectedScope(Scope.ORG)}
             disabled={!orgIdentifier}
           />
           <Button
-            className={css.scopeButton}
-            intent={selectedScope == Scope.ACCOUNT ? 'primary' : 'none'}
+            className={cx(css.scopeButton, { [css.selected]: selectedScope == Scope.ACCOUNT })}
             text={i18n.account}
             icon="layers"
             onClick={() => setSelectedScope(Scope.ACCOUNT)}
@@ -117,7 +138,7 @@ export function ReferenceSelector<T>(props: ReferenceProps<T>): JSX.Element {
         </Container>
       ) : data.length ? (
         <div className={css.referenceList}>
-          {data.map((item: ReferenceResponse<T>) => (
+          {data.map((item: EntityReferenceResponse<T>) => (
             <div
               key={item.identifier}
               className={cx(css.listItem, Classes.POPOVER_DISMISS, recordClassName)}
@@ -136,4 +157,4 @@ export function ReferenceSelector<T>(props: ReferenceProps<T>): JSX.Element {
   )
 }
 
-export default ReferenceSelector
+export default EntityReference

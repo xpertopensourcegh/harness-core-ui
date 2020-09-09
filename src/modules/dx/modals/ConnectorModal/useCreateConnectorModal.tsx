@@ -4,11 +4,11 @@ import { Dialog, IDialogProps } from '@blueprintjs/core'
 import { useParams } from 'react-router'
 import { CreateConnectorWizard } from 'modules/dx/components/connectors/CreateConnectorWizard/CreateConnectorWizard'
 import { Connectors } from 'modules/dx/constants'
-import type { ConnectorDTO } from 'services/cd-ng'
+import type { ConnectorDTO, ConnectorConfigDTO } from 'services/cd-ng'
 import css from '../../components/connectors/CreateConnectorWizard/CreateConnectorWizard.module.scss'
 
 export interface UseCreateConnectorModalProps {
-  onSuccess?: () => void
+  onSuccess?: (data?: ConnectorConfigDTO) => void
 }
 
 export interface UseCreateConnectorModalReturn {
@@ -37,9 +37,9 @@ const useCreateConnectorModal = (props: UseCreateConnectorModalProps): UseCreate
   })
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
 
-  const handleSuccess = (): void => {
+  const handleSuccess = (data?: ConnectorConfigDTO): void => {
     hideModal()
-    props.onSuccess?.()
+    props.onSuccess?.(data)
   }
 
   const [showModal, hideModal] = useModalHook(

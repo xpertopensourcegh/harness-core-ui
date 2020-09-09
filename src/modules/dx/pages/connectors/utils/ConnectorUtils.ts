@@ -1,8 +1,8 @@
-import type { IconName } from '@blueprintjs/core'
+import type { IconName } from '@wings-software/uikit'
 import { Connectors, ConnectorInfoText } from 'modules/dx/constants'
 import type { ConnectorSummaryDTO, ConnectorDTO } from 'services/cd-ng'
 import type { FormData } from 'modules/dx/interfaces/ConnectorInterface'
-import { AuthTypes, DelegateTypes } from '../Forms/KubeFormHelper'
+import { AuthTypes, DelegateTypes } from '../Forms/KubeFormInterfaces'
 
 export const getScope = (scope: string) => {
   switch (scope) {
@@ -227,19 +227,19 @@ export const buildKubFormData = (connector: any) => {
 export const getIconByType = (type: ConnectorDTO['type'] | undefined): IconName => {
   switch (type) {
     case Connectors.KUBERNETES_CLUSTER:
-      return 'service-kubernetes' as IconName
+      return 'service-kubernetes'
     case Connectors.GIT:
-      return 'service-github' as IconName
+      return 'service-github'
     case 'Vault': // TODO: use enum when backend fixes it
       return 'key'
     case Connectors.APP_DYNAMICS:
-      return 'service-appdynamics' as IconName
+      return 'service-appdynamics'
     case Connectors.SPLUNK:
-      return 'service-splunk' as IconName
+      return 'service-splunk'
     case Connectors.DOCKER:
-      return 'service-dockerhub' as IconName
+      return 'service-dockerhub'
     default:
-      return '' as IconName
+      return 'cog'
   }
 }
 

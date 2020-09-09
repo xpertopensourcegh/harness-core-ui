@@ -5,11 +5,12 @@ import { CardSelect, Icon } from '@wings-software/uikit'
 import ConnectorFormFields from 'modules/dx/components/connectors/ConnectorFormFields/ConnectorFormFields'
 import type { FormData } from 'modules/dx/interfaces/ConnectorInterface'
 import { useGetKubernetesDelegateNames, RestResponseListString } from 'services/portal'
-import { authOptions, DelegateTypes, DelegateInClusterType, getIconsForCard } from './KubeFormHelper'
+import { authOptions, DelegateInClusterType, getIconsForCard } from './KubeFormHelper'
 import { AuthTypes, getLabelForAuthType } from '../utils/ConnectorHelper'
 import i18n from './KubCluster.i18n'
 
 // import type { AuthOption } from './KubeFormHelper'
+import { DelegateTypes } from './KubeFormInterfaces'
 import css from './KubCluster.module.scss'
 
 interface SelectedDelegate {

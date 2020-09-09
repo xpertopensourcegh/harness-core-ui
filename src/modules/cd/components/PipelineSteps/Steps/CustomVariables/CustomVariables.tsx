@@ -25,7 +25,7 @@ import { Step, StepViewType, ConfigureOptions } from 'modules/common/exports'
 import { routeParams } from 'framework/exports'
 import type { CompletionItemInterface } from 'modules/common/interfaces/YAMLBuilderProps'
 import SecretReference from 'modules/dx/components/SecretReference/SecretReference'
-import { Scope } from 'modules/common/components/ReferenceSelector/ReferenceSelector'
+import { Scope } from 'modules/common/components/EntityReference/EntityReference'
 import i18n from './CustomVariables.i18n'
 import { StepType } from '../../PipelineStepInterface'
 import css from './CustomVariables.module.scss'
@@ -289,7 +289,7 @@ export class CustomVariables extends Step<VariableList> {
         return this.getSecrets().then(
           secrets =>
             secrets?.map(secret => ({
-              label: getSecretKey(secret),
+              label: secret.name || '',
               insertText: getSecretKey(secret),
               kind: CompletionItemKind.Field
             })) || []

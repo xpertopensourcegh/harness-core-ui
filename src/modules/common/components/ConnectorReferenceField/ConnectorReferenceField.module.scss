@@ -1,15 +1,21 @@
 .listItem {
-  .meta {
-    color: var(--grey-400);
-    font-size: smaller;
+  .edit-btn {
+    display: none !important;
   }
 
   &:hover {
-    background-color: var(--blue-500);
-    color: var(--white);
-
-    .meta {
-      color: var(--grey-250);
+    .edit-btn {
+      display: flex !important;
     }
   }
+}
+
+.status {
+  align-items: center;
+  display: flex;
+  align-content: center;
+}
+
+.tag {
+  text-transform: uppercase;
 }

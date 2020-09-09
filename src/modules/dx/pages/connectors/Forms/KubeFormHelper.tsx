@@ -4,14 +4,9 @@ import { Layout, Icon } from '@wings-software/uikit'
 import * as Yup from 'yup'
 import cx from 'classnames'
 import { StringUtils } from 'modules/common/exports'
+import { AuthTypes, DelegateTypes } from './KubeFormInterfaces'
 import css from './KubFormHelper.module.scss'
 
-export const AuthTypes = {
-  CLIENT_KEY_CERT: 'ClientKeyCert',
-  USER_PASSWORD: 'UsernamePassword',
-  SERVICE_ACCOUNT: 'ServiceAccount',
-  OIDC: 'OpenIdConnect'
-}
 export interface AuthOption {
   label: string
   value: string
@@ -27,11 +22,6 @@ export const authOptions: AuthOption[] = [
 export interface SecretFieldByType {
   passwordField: string
   secretField: string
-}
-
-export const DelegateTypes = {
-  DELEGATE_IN_CLUSTER: 'InheritFromDelegate',
-  DELEGATE_OUT_CLUSTER: 'ManualConfig'
 }
 
 export const DelegateInClusterType = {
