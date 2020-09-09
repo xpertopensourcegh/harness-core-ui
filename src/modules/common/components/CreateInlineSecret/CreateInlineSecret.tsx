@@ -53,7 +53,7 @@ const CreateInlineSecret: React.FC<CreateInlineSecretProps> = props => {
   const { defaultSecretId, defaultSecretName, accountIdentifier, projectIdentifier, orgIdentifier } = props
   const { data: secretManagersApiResponse, error, refetch, loading } = useGetConnectorList({
     accountIdentifier,
-    queryParams: { orgIdentifier, projectIdentifier, categories: ['SECRET_MANAGER'] }
+    queryParams: { orgIdentifier, projectIdentifier, category: 'SECRET_MANAGER' }
   })
   const scope = getScope({ accountIdentifier, projectIdentifier, orgIdentifier })
   const [secretName, setSecretName] = useState(defaultSecretName || '')

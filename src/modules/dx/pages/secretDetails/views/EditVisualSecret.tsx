@@ -11,7 +11,7 @@ const EditVisualSecret: React.FC = () => {
 
   const { data: secretsManagersApiResponse } = useGetConnectorList({
     accountIdentifier: accountId,
-    queryParams: { orgIdentifier, projectIdentifier, categories: ['SECRET_MANAGER'] }
+    queryParams: { orgIdentifier, projectIdentifier, category: 'SECRET_MANAGER' }
   })
   const secretManagersOptions: SelectOption[] =
     secretsManagersApiResponse?.data?.content?.map(item => {
