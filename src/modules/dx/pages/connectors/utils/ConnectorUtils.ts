@@ -4,10 +4,21 @@ import type { ConnectorSummaryDTO, ConnectorDTO } from 'services/cd-ng'
 import type { FormData } from 'modules/dx/interfaces/ConnectorInterface'
 import { AuthTypes, DelegateTypes } from '../Forms/KubeFormHelper'
 
+export const getScope = (scope: string) => {
+  switch (scope) {
+    case 'PROJECT':
+      return ''
+    case 'ACCOUNT':
+      return 'acc.'
+    case 'ORG':
+      return 'org.'
+  }
+}
+
 export const userPasswrdAuthField = (formData: FormData) => {
   return {
     username: formData.username,
-    passwordRef: `acc.${formData.passwordRefSecret?.secretId}` // Adding temp on account scope until scoping is done
+    passwordRef: `${getScope(formData.passwordRefSecret?.scope)}${formData.passwordRefSecret?.secretId}`
     // cacert: 'Random'
   }
 }
@@ -25,7 +36,9 @@ export const userPasswrd = (authSpec: FormData) => {
 
 export const serviceAccAuthField = (formData: FormData) => {
   return {
-    serviceAccountTokenRef: `acc.${formData.serviceAccountTokenRefSecret?.secretId}`
+    serviceAccountTokenRef: `${getScope(formData.serviceAccountTokenRefSecret?.scope)}${
+      formData.serviceAccountTokenRefSecret?.secretId
+    }`
   }
 }
 
@@ -33,18 +46,20 @@ export const oidcAuthField = (formData: FormData) => {
   return {
     oidcIssuerUrl: formData.oidcIssuerUrl,
     oidcUsername: formData.oidcUsername,
-    oidcPasswordRef: `acc.${formData.oidcPasswordRefSecret?.secretId}`,
-    oidcClientIdRef: `acc.${formData.oidcClientIdRefSecret?.secretId}`,
-    oidcSecretRef: `acc.${formData.oidcSecretRefSecret?.secretId}`,
+    oidcPasswordRef: `${getScope(formData.oidcPasswordRefSecret?.scope)}${formData.oidcPasswordRefSecret?.secretId}`,
+    oidcClientIdRef: `${getScope(formData.ooidcClientIdRefSecret?.scope)}${formData.oidcClientIdRefSecret?.secretId}`,
+    oidcSecretRef: `${getScope(formData.oidcSecretRefSecret?.scope)}${formData.oidcSecretRefSecret?.secretId}`,
     oidcScopes: formData.oidcScopes
   }
 }
 
 export const clientKeyCertField = (formData: FormData) => {
   return {
-    clientCertRef: `acc.${formData.clientCertRefSecret?.secretId}`,
-    clientKeyRef: `acc.${formData.clientKeyRefSecret?.secretId}`,
-    clientKeyPassphraseRef: `acc.${formData.clientKeyPassphraseRefSecret?.secretId}`,
+    clientCertRef: `${getScope(formData.clientCertRefSecret?.scope)}${formData.clientCertRefSecret?.secretId}`,
+    clientKeyRef: `${getScope(formData.clientKeyRefSecret?.scope)}${formData.clientKeyRefSecret?.secretId}`,
+    clientKeyPassphraseRef: `${getScope(formData.clientKeyPassphraseRefSecret?.scope)}${
+      formData.clientKeyPassphraseRefSecret?.secretId
+    }`,
     clientKeyAlgo: formData.clientKeyAlgo
   }
 }
@@ -120,7 +135,7 @@ export const buildDockerPayload = (formData: FormData) => {
   const savedData = {
     name: formData.name,
     description: formData.description,
-    projectIdentifier: formData.projectidentifier,
+    projectIdentifier: formData.projectIdentifier,
     identifier: formData.identifier,
     orgIdentifier: formData.orgIdentifier,
     tags: formData.tags,
@@ -141,7 +156,9 @@ export const getSpecByConnectType = (type: string, formData: FormData) => {
   if (type === 'Ssh') {
     referenceField = { sshKeyRef: formData?.sshKeyReference }
   } else {
-    referenceField = { passwordRef: `acc.${formData.passwordRefSecret?.secretId}` }
+    referenceField = {
+      passwordRef: `${getScope(formData.passwordRefSecret?.scope)}${formData.passwordRefSecret?.secretId}`
+    }
   }
   return {
     username: formData?.username,
