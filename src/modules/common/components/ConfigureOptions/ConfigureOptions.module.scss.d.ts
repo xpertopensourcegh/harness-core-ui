@@ -7,5 +7,7 @@ declare const styles: {
   readonly split: string
   readonly line: string
   readonly secondColumn: string
+  readonly allowedOptions: string
+  readonly advancedBtn: string
 }
 export default styles

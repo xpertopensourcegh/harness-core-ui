@@ -38,6 +38,14 @@ export function getScopeFromValue(value: string): Scope {
   return Scope.PROJECT
 }
 
+export function getIdentifierFromValue(value: string): string {
+  const scope = getScopeFromValue(value)
+  if (scope === Scope.ACCOUNT || scope === Scope.PROJECT) {
+    return value.replace(`${scope}.`, '')
+  }
+  return value
+}
+
 export type EntityReferenceResponse<T> = { name: string; identifier: string; record: T }
 
 export interface EntityReferenceProps<T> {

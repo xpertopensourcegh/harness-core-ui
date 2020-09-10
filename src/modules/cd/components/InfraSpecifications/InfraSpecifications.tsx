@@ -1,6 +1,5 @@
-import React, { useState } from 'react'
-import { useParams } from 'react-router-dom'
-import { Layout, Button, Card, CardBody, Text, Color, SelectOption } from '@wings-software/uikit'
+import React from 'react'
+import { Layout, Button, Card, CardBody, Text } from '@wings-software/uikit'
 import { Formik, FormikForm, FormInput } from '@wings-software/uikit'
 import * as Yup from 'yup'
 
@@ -8,9 +7,12 @@ import { get } from 'lodash'
 import { PipelineContext } from 'modules/cd/pages/pipeline-studio/PipelineContext/PipelineContext'
 import { loggerFor, ModuleName } from 'framework/exports'
 
-import { FormMultiTypeConnectorField } from 'modules/common/components/ConnectorReferenceField/ConnectorReferenceField'
+import { StepWidget, StepViewType } from 'modules/common/exports'
+import type { K8SDirectInfrastructure } from 'services/cd-ng'
 import i18n from './InfraSpecifications.i18n'
 import { getStageFromPipeline } from '../../pages/pipeline-studio/StageBuilder/StageBuilderUtil'
+import factory from '../PipelineSteps/PipelineStepFactory'
+import { StepType } from '../PipelineSteps/PipelineStepInterface'
 import css from './InfraSpecifications.module.scss'
 
 const logger = loggerFor(ModuleName.CD)
@@ -43,23 +45,14 @@ export default function InfraSpecifications(): JSX.Element {
     return { infraName: displayName, description: description, tags: null, infraType: environment?.type }
   }
 
-  const [k8ConnectorsList] = useState<SelectOption[]>([])
-
-  const { accountId, projectIdentifier, orgIdentifier } = useParams()
-
-  const getInitialInfraConnectorValues = (): {
-    connectorId: SelectOption | undefined
-    namespaceId: string
-    releaseName: string
-  } => {
+  const getInitialInfraConnectorValues = (): K8SDirectInfrastructure => {
     const infrastructure = get(stage, 'stage.spec.infrastructure.infrastructureDefinition', null)
-    const connectorIdValue = infrastructure?.spec?.connectorIdentifier
-    const namespaceId = infrastructure?.spec?.namespace
+    const connectorIdentifier = infrastructure?.spec?.connectorIdentifier
+    const namespace = infrastructure?.spec?.namespace
     const releaseName = infrastructure?.spec?.releaseName
-    const getConnectorDetail = k8ConnectorsList.find(v => v.value === connectorIdValue)
     return {
-      connectorId: getConnectorDetail,
-      namespaceId,
+      connectorIdentifier,
+      namespace,
       releaseName
     }
   }
@@ -175,57 +168,25 @@ export default function InfraSpecifications(): JSX.Element {
           </CardBody.Icon>
         </Card>
       </Layout.Vertical>
-      <Layout.Vertical spacing="medium">
-        <Text style={{ fontSize: 16, color: Color.BLACK, marginTop: 15 }}>{i18n.k8ConnectorLabel}</Text>
-        <Formik
-          enableReinitialize
-          initialValues={getInitialInfraConnectorValues()}
-          validate={(value: { connectorId?: SelectOption; namespaceId: string; releaseName: string }) => {
-            const infraSpec = get(stage, 'stage.spec.infrastructure', {})
-            const infraStruct = {
-              type: 'KubernetesDirect',
-              spec: {
-                connectorIdentifier: value.connectorId?.value,
-                namespace: value.namespaceId,
-                releaseName: value.releaseName
-              }
+      <StepWidget<K8SDirectInfrastructure>
+        factory={factory}
+        initialValues={getInitialInfraConnectorValues()}
+        type={StepType.KubernetesInfraSpec}
+        stepViewType={StepViewType.Edit}
+        onUpdate={value => {
+          const infraSpec = get(stage, 'stage.spec.infrastructure', {})
+          const infraStruct = {
+            type: 'KubernetesDirect',
+            spec: {
+              connectorIdentifier: value.connectorIdentifier,
+              namespace: value.namespace,
+              releaseName: value.releaseName
             }
-            infraSpec['infrastructureDefinition'] = infraStruct
-            updatePipeline(pipeline)
-          }}
-          onSubmit={values => {
-            logger.info(JSON.stringify(values))
-          }}
-        >
-          {() => {
-            return (
-              <FormikForm>
-                <FormMultiTypeConnectorField
-                  name="connectorId"
-                  label={i18n.k8ConnectorDropDownLabel}
-                  placeholder={i18n.k8ConnectorDropDownPlaceholder}
-                  accountIdentifier={accountId}
-                  projectIdentifier={projectIdentifier}
-                  orgIdentifier={orgIdentifier}
-                  width={400}
-                />
-                <FormInput.MultiTextInput
-                  name="namespaceId"
-                  style={{ width: 400 }}
-                  label={i18n.nameSpaceLabel}
-                  placeholder={i18n.nameSpacePlaceholder}
-                />
-                <FormInput.MultiTextInput
-                  name="releaseName"
-                  style={{ width: 400 }}
-                  label={i18n.releaseName}
-                  placeholder={i18n.releaseNamePlaceholder}
-                />
-              </FormikForm>
-            )
-          }}
-        </Formik>
-      </Layout.Vertical>
+          }
+          infraSpec['infrastructureDefinition'] = infraStruct
+          updatePipeline(pipeline)
+        }}
+      />
     </Layout.Vertical>
   )
 }

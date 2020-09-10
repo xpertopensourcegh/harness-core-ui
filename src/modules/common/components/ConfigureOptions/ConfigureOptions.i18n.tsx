@@ -10,9 +10,13 @@ export default {
   none: 'None',
   allowedValues: 'Allowed values',
   regex: 'Regex',
-  allowedValuesHelp: 'Allowed values (comma separated list)',
+  allowedValuesHelp: 'Allowed values',
   advanced: 'advanced',
+  returnToBasic: 'return to basic',
+  jexlLabel: 'Values (JEXL Expression)',
+  jexlPlaceholder: 'Expression',
   values: 'Values',
+  enterTags: 'Enter values',
   notValidExpression: 'Not a valid input Expression',
   advancedHelp: `With the advanced option, you can type in JEXL expressions to return a list of values. ${(
     <a target="_blank">More information</a>

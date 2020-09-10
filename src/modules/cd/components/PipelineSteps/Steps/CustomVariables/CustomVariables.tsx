@@ -11,7 +11,8 @@ import {
   MultiTextInput,
   Icon,
   Popover,
-  MultiTypeInputType
+  MultiTypeInputType,
+  getMultiTypeFromValue
 } from '@wings-software/uikit'
 import { cloneDeep, get } from 'lodash'
 import { Dialog, Classes, Position } from '@blueprintjs/core'
@@ -226,7 +227,7 @@ const CustomVariableEditable: React.FC<CustomVariableEditableProps> = ({
               />
             )}
             <div>
-              {variable.value?.startsWith?.('{input}') && (
+              {getMultiTypeFromValue(variable.value) === MultiTypeInputType.RUNTIME && (
                 <ConfigureOptions
                   value={variable.value}
                   type={variable.type}

@@ -19,12 +19,5 @@ export default {
   infrastructureTypePlaceholder: 'Select type of environment',
   prodLabel: 'Production',
   nonProdLabel: 'Non-production',
-  infraSpecHelpText: 'Select the best method for Harness to reach your Kubernetes Cluster',
-  k8ConnectorLabel: 'Specify your Kubernetes Connector',
-  k8ConnectorDropDownLabel: 'Connector',
-  k8ConnectorDropDownPlaceholder: 'Select a new connector',
-  nameSpaceLabel: 'Namespace',
-  releaseName: 'Release Name',
-  releaseNamePlaceholder: 'Specify Release Name',
-  nameSpacePlaceholder: 'Specify a namespace'
+  infraSpecHelpText: 'Select the best method for Harness to reach your Kubernetes Cluster'
 }

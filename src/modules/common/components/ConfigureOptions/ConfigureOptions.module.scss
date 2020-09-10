@@ -32,4 +32,14 @@
       padding-left: var(--spacing-medium);
     }
   }
+
+  .allowed-options {
+    position: relative;
+
+    .advanced-btn {
+      position: absolute;
+      right: -8px;
+      top: var(--spacing-xsmall);
+    }
+  }
 }

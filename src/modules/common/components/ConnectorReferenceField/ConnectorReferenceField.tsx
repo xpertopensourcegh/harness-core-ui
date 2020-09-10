@@ -1,31 +1,19 @@
 import React from 'react'
-import { FormGroup, IFormGroupProps, Intent } from '@blueprintjs/core'
-import { FormikContext, connect } from 'formik'
-import {
-  ExpressionAndRuntimeTypeProps,
-  Layout,
-  Icon,
-  Color,
-  Button,
-  MultiTypeInputValue,
-  Tag,
-  Text
-} from '@wings-software/uikit'
-import { get, isObject } from 'lodash'
+import { FormGroup, IFormGroupProps } from '@blueprintjs/core'
+import { Layout, Icon, Color, Button, Tag, Text } from '@wings-software/uikit'
 import { FailureDTO, ConnectorSummaryDTO, getConnectorListPromise, ConnectorConfigDTO } from 'services/cd-ng'
 import {
   EntityReferenceResponse,
   Scope,
-  getScopeFromDTO,
   getScopeFromValue
 } from 'modules/common/components/EntityReference/EntityReference'
 import { getIconByType } from 'modules/dx/exports'
 import useCreateConnectorModal from 'modules/dx/modals/ConnectorModal/useCreateConnectorModal'
 import i18n from './ConnectorReferenceField.i18n'
-import { ReferenceSelect, MultiTypeReferenceInput, ReferenceSelectProps } from '../ReferenceSelect/ReferenceSelect'
+import { ReferenceSelect, ReferenceSelectProps } from '../ReferenceSelect/ReferenceSelect'
 import css from './ConnectorReferenceField.module.scss'
 
-interface ConnectorReferenceFieldProps extends Omit<IFormGroupProps, 'label'> {
+export interface ConnectorReferenceFieldProps extends Omit<IFormGroupProps, 'label'> {
   accountIdentifier: string
   name: string
   placeholder: string
@@ -42,7 +30,7 @@ interface ConnectorReferenceFieldProps extends Omit<IFormGroupProps, 'label'> {
   width?: number
   type?: ConnectorSummaryDTO['type']
 }
-function getEditRenderer(selected: ConnectorReferenceFieldProps['selected']): JSX.Element {
+export function getEditRenderer(selected: ConnectorReferenceFieldProps['selected']): JSX.Element {
   return (
     <Layout.Horizontal spacing="small" style={{ justifyContent: 'space-between', width: '100%' }}>
       <div>
@@ -62,7 +50,7 @@ function getEditRenderer(selected: ConnectorReferenceFieldProps['selected']): JS
     </Layout.Horizontal>
   )
 }
-function getSelectedRenderer(selected: ConnectorReferenceFieldProps['selected']): JSX.Element {
+export function getSelectedRenderer(selected: ConnectorReferenceFieldProps['selected']): JSX.Element {
   return (
     <Layout.Horizontal spacing="small" style={{ justifyContent: 'space-between', width: '100%' }}>
       <Text>{selected?.label}</Text>
@@ -72,7 +60,7 @@ function getSelectedRenderer(selected: ConnectorReferenceFieldProps['selected'])
     </Layout.Horizontal>
   )
 }
-function getReferenceFieldProps({
+export function getReferenceFieldProps({
   defaultScope,
   accountIdentifier,
   projectIdentifier,
@@ -210,83 +198,3 @@ export const ConnectorReferenceField: React.FC<ConnectorReferenceFieldProps> = p
     </FormGroup>
   )
 }
-
-export interface MultiTypeConnectorFieldProps extends Omit<ConnectorReferenceFieldProps, 'onChange'> {
-  onChange?: ExpressionAndRuntimeTypeProps['onChange']
-  formik?: any // TODO: Remove this but not sure why FormikContext<any> was not working
-}
-
-const errorCheck = (name: string, formik?: FormikContext<any>): boolean | '' | 0 | undefined =>
-  (get(formik?.touched, name) || (formik?.submitCount && formik?.submitCount > 0)) &&
-  get(formik?.errors, name) &&
-  !isObject(get(formik?.errors, name))
-
-export const MultiTypeConnectorField: React.FC<MultiTypeConnectorFieldProps> = props => {
-  const {
-    defaultScope,
-    accountIdentifier,
-    projectIdentifier,
-    orgIdentifier,
-    type = 'K8sCluster',
-    name,
-    label,
-    onChange,
-    width = 400,
-    formik,
-    placeholder,
-    ...restProps
-  } = props
-  const hasError = errorCheck(name, formik)
-  const {
-    intent = hasError ? Intent.DANGER : Intent.NONE,
-    helperText = hasError ? get(formik?.errors, name) : null,
-    disabled,
-    ...rest
-  } = restProps
-
-  const selected = get(formik?.values, name, '')
-  const { openConnectorModal } = useCreateConnectorModal({
-    onSuccess: (data?: ConnectorConfigDTO) => {
-      if (data) {
-        const scope = getScopeFromDTO<ConnectorConfigDTO>(data)
-        const val = {
-          label: data.name,
-          value: scope === Scope.ORG || scope === Scope.ACCOUNT ? `${scope}.${data.identifier}` : data.identifier
-        }
-        props.onChange?.(val, MultiTypeInputValue.SELECT_OPTION)
-        formik?.setFieldValue(name, val)
-      }
-    }
-  })
-  return (
-    <FormGroup {...rest} labelFor={name} helperText={helperText} intent={intent} disabled={disabled} label={label}>
-      <MultiTypeReferenceInput<ConnectorSummaryDTO>
-        referenceSelectProps={{
-          ...getReferenceFieldProps({
-            defaultScope,
-            accountIdentifier,
-            projectIdentifier,
-            orgIdentifier,
-            type,
-            name,
-            selected,
-            width,
-            placeholder,
-            label
-          }),
-          createNewHandler: () => {
-            openConnectorModal(type)
-          },
-          editRenderer: getEditRenderer(selected),
-          selectedRenderer: getSelectedRenderer(selected)
-        }}
-        onChange={(val, valueType) => {
-          formik?.setFieldValue(name, val)
-          onChange?.(val, valueType)
-        }}
-      />
-    </FormGroup>
-  )
-}
-
-export const FormMultiTypeConnectorField = connect(MultiTypeConnectorField)
