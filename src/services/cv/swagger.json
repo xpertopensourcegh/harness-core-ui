@@ -1,74 +1,74 @@
 {
   "swagger": "2.0",
-  "info": {
-    "title": "CV Swagger",
-    "version": "1.0"
-  },
+  "info": { "title": "Continuous Verification Swagger", "version": "1.0" },
   "host": "{{host}}",
   "basePath": "/cv-nextgen",
   "tags": [
     {
-      "name": "splunk"
-    },
-    {
-      "name": "heatmap"
-    },
-    {
-      "name": "verification-job"
-    },
-    {
-      "name": "metric-pack"
-    },
-    {
-      "name": "cv-config"
-    },
-    {
-      "name": "deployment-verification-task"
-    },
-    {
-      "name": "delegate-data-collection"
-    },
-    {
-      "name": "ds-config"
-    },
-    {
-      "name": "webhook"
-    },
-    {
-      "name": "learning"
-    },
-    {
       "name": "appdynamics"
-    },
-    {
-      "name": "delegate-data-collection-task"
-    },
-    {
-      "name": "timeseries-analysis"
-    },
-    {
-      "name": "log-record"
-    },
-    {
-      "name": "timeseries"
-    },
-    {
-      "name": "health"
     },
     {
       "name": "log-cluster"
     },
     {
-      "name": "log-analysis"
+      "name": "cv-config"
     },
     {
       "name": "host-record"
     },
     {
+      "name": "metric-pack"
+    },
+    {
+      "name": "log-record"
+    },
+    {
+      "name": "delegate-data-collection"
+    },
+    {
+      "name": "timeseries-analysis"
+    },
+    {
+      "name": "log-analysis"
+    },
+    {
+      "name": "ds-config"
+    },
+    {
+      "name": "splunk"
+    },
+    {
       "name": "activity"
     },
     {
+      "name": "delegate-data-collection-task"
+    },
+    {
+      "name": "heatmap"
+    },
+    {
       "name": "anomaly"
+    },
+    {
+      "name": "deployment-verification-task"
+    },
+    {
+      "name": "webhook"
+    },
+    {
+      "name": "health"
+    },
+    {
+      "name": "timeseries-dashboard"
+    },
+    {
+      "name": "timeseries"
+    },
+    {
+      "name": "verification-job"
+    },
+    {
+      "name": "learning"
     }
   ],
   "schemes": ["https", "http"],
@@ -862,7 +862,7 @@
     "/heatmap": {
       "get": {
         "tags": ["heatmap"],
-        "operationId": "getCVConfig",
+        "operationId": "getHeatMap",
         "produces": ["application/json"],
         "parameters": [
           {
@@ -909,6 +909,54 @@
             "description": "successful operation",
             "schema": {
               "$ref": "#/definitions/RestResponseMapCVMonitoringCategorySortedSetHeatMapDTO"
+            },
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/heatmap/category-risks": {
+      "get": {
+        "tags": ["heatmap"],
+        "operationId": "getCategoryRiskMap",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "orgIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "projectIdentifier",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "serviceIdentifier",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "envIdentifier",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/RestResponseMapCVMonitoringCategoryInteger"
             },
             "headers": {}
           }
@@ -989,7 +1037,7 @@
               "type": "string",
               "enum": [
                 "SERVICE_GUARD_TIME_SERIES",
-                "SERVICE_GUARD_LOG_CLUSTER",
+                "LOG_CLUSTER",
                 "SERVICE_GUARD_LOG_ANALYSIS",
                 "TIME_SERIES_CANARY",
                 "SERVICE_GUARD_FEEDBACK_ANALYSIS"
@@ -1131,7 +1179,7 @@
         }
       }
     },
-    "/log-cluster/serviceguard-save-clustered-logs": {
+    "/log-cluster/save-clustered-logs": {
       "post": {
         "tags": ["log-cluster"],
         "operationId": "saveClusteredData",
@@ -1144,7 +1192,7 @@
             "type": "string"
           },
           {
-            "name": "cvConfigId",
+            "name": "verificationTaskId",
             "in": "query",
             "required": false,
             "type": "string"
@@ -1185,14 +1233,14 @@
         }
       }
     },
-    "/log-cluster/serviceguard-test-data": {
+    "/log-cluster/test-data": {
       "get": {
         "tags": ["log-cluster"],
         "operationId": "getTestData",
         "produces": ["application/json"],
         "parameters": [
           {
-            "name": "cvConfigId",
+            "name": "verificationTaskId",
             "in": "query",
             "required": false,
             "type": "string"
@@ -1205,10 +1253,18 @@
             "enum": ["L1", "L2"]
           },
           {
-            "name": "timestamp",
+            "name": "startTime",
             "in": "query",
             "required": false,
-            "type": "string"
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "endTime",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
           },
           {
             "name": "host",
@@ -1830,10 +1886,222 @@
         }
       }
     },
+    "/timeseries-dashboard/anomalous-metric-data": {
+      "get": {
+        "tags": ["timeseries-dashboard"],
+        "operationId": "getAnomalousMetricData",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "projectIdentifier",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "orgIdentifier",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "environmentIdentifier",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "serviceIdentifier",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "monitoringCategory",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "startTime",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "endTime",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "default": 0,
+            "format": "int32"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "default": 10,
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/RestResponseNGPageResponseTimeSeriesMetricDataDTO"
+            },
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/timeseries-dashboard/metric-data": {
+      "get": {
+        "tags": ["timeseries-dashboard"],
+        "operationId": "getMetricData",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "projectIdentifier",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "orgIdentifier",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "environmentIdentifier",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "serviceIdentifier",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "monitoringCategory",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "startTime",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "endTime",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "default": 0,
+            "format": "int32"
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "default": 10,
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/RestResponseNGPageResponseTimeSeriesMetricDataDTO"
+            },
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/timeseries/anomalous-metric-data": {
+      "get": {
+        "tags": ["timeseries"],
+        "operationId": "getAnomalousMetricData",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "cvConfigId",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "startTime",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "endTime",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/RestResponseTimeSeriesTestDataDTO"
+            },
+            "headers": {}
+          }
+        }
+      }
+    },
     "/timeseries/metric-group-data": {
       "get": {
         "tags": ["timeseries"],
-        "operationId": "getMetricDefinitions",
+        "operationId": "getTimeSeriesData",
         "produces": ["application/json"],
         "parameters": [
           {
@@ -1893,7 +2161,7 @@
     "/timeseries/metric-template": {
       "get": {
         "tags": ["timeseries"],
-        "operationId": "getMetricDefinitionsTemplate",
+        "operationId": "getMetricDefinitions",
         "produces": ["application/json"],
         "parameters": [
           {
@@ -2126,6 +2394,25 @@
         }
       }
     },
+    "AppdynamicsMetricValueValidationResponse": {
+      "type": "object",
+      "properties": {
+        "metricName": {
+          "type": "string"
+        },
+        "apiResponseStatus": {
+          "type": "string",
+          "enum": ["SUCCESS", "NO_DATA", "FAILED"]
+        },
+        "value": {
+          "type": "number",
+          "format": "double"
+        },
+        "errorMessage": {
+          "type": "string"
+        }
+      }
+    },
     "MetricPackDTO": {
       "type": "object",
       "properties": {
@@ -2158,25 +2445,6 @@
           "items": {
             "$ref": "#/definitions/TimeSeriesThresholdDTO"
           }
-        }
-      }
-    },
-    "AppdynamicsMetricValueValidationResponse": {
-      "type": "object",
-      "properties": {
-        "metricName": {
-          "type": "string"
-        },
-        "apiResponseStatus": {
-          "type": "string",
-          "enum": ["SUCCESS", "NO_DATA", "FAILED"]
-        },
-        "value": {
-          "type": "number",
-          "format": "double"
-        },
-        "errorMessage": {
-          "type": "string"
         }
       }
     },
@@ -2254,6 +2522,30 @@
           "type": "array",
           "items": {
             "$ref": "#/definitions/CVConfig"
+          }
+        },
+        "responseMessages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResponseMessage"
+          }
+        }
+      }
+    },
+    "RestResponseMapCVMonitoringCategoryInteger": {
+      "type": "object",
+      "properties": {
+        "metaData": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          }
+        },
+        "resource": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "integer",
+            "format": "int32"
           }
         },
         "responseMessages": {
@@ -2351,6 +2643,44 @@
         }
       }
     },
+    "RestResponseListTimeSeriesMetricDefinition": {
+      "type": "object",
+      "properties": {
+        "metaData": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          }
+        },
+        "resource": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TimeSeriesMetricDefinition"
+          }
+        },
+        "responseMessages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResponseMessage"
+          }
+        }
+      }
+    },
+    "EnvToServicesDTO": {
+      "type": "object",
+      "properties": {
+        "environment": {
+          "$ref": "#/definitions/EnvironmentResponseDTO"
+        },
+        "services": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/definitions/ServiceResponseDTO"
+          }
+        }
+      }
+    },
     "DeploymentVerificationTaskDTO": {
       "type": "object",
       "required": ["verificationJobIdentifier"],
@@ -2375,44 +2705,6 @@
         "newHostsTrafficSplitPercentage": {
           "type": "integer",
           "format": "int32"
-        }
-      }
-    },
-    "EnvToServicesDTO": {
-      "type": "object",
-      "properties": {
-        "environment": {
-          "$ref": "#/definitions/EnvironmentResponseDTO"
-        },
-        "services": {
-          "type": "array",
-          "uniqueItems": true,
-          "items": {
-            "$ref": "#/definitions/ServiceResponseDTO"
-          }
-        }
-      }
-    },
-    "RestResponseListTimeSeriesMetricDefinition": {
-      "type": "object",
-      "properties": {
-        "metaData": {
-          "type": "object",
-          "additionalProperties": {
-            "type": "object"
-          }
-        },
-        "resource": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/TimeSeriesMetricDefinition"
-          }
-        },
-        "responseMessages": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/ResponseMessage"
-          }
         }
       }
     },
@@ -2543,7 +2835,7 @@
           "type": "string",
           "enum": [
             "SERVICE_GUARD_TIME_SERIES",
-            "SERVICE_GUARD_LOG_CLUSTER",
+            "LOG_CLUSTER",
             "SERVICE_GUARD_LOG_ANALYSIS",
             "TIME_SERIES_CANARY",
             "SERVICE_GUARD_FEEDBACK_ANALYSIS"
@@ -2579,7 +2871,7 @@
           "type": "string",
           "enum": [
             "SERVICE_GUARD_TIME_SERIES",
-            "SERVICE_GUARD_LOG_CLUSTER",
+            "LOG_CLUSTER",
             "SERVICE_GUARD_LOG_ANALYSIS",
             "TIME_SERIES_CANARY",
             "SERVICE_GUARD_FEEDBACK_ANALYSIS"
@@ -2607,46 +2899,6 @@
           "items": {
             "$ref": "#/definitions/ResponseMessage"
           }
-        }
-      }
-    },
-    "VerificationJobDTO": {
-      "type": "object",
-      "properties": {
-        "identifier": {
-          "type": "string"
-        },
-        "jobName": {
-          "type": "string"
-        },
-        "serviceIdentifier": {
-          "type": "string"
-        },
-        "envIdentifier": {
-          "type": "string"
-        },
-        "projectIdentifier": {
-          "type": "string"
-        },
-        "orgIdentifier": {
-          "type": "string"
-        },
-        "dataSources": {
-          "type": "array",
-          "items": {
-            "type": "string",
-            "enum": ["APP_DYNAMICS", "SPLUNK"]
-          }
-        },
-        "duration": {
-          "type": "string"
-        },
-        "type": {
-          "type": "string",
-          "enum": ["TEST", "CANARY", "BLUE_GREEN", "HEALTH"]
-        },
-        "verificationJob": {
-          "$ref": "#/definitions/VerificationJob"
         }
       }
     },
@@ -2688,6 +2940,43 @@
         },
         "stacktrace": {
           "type": "string"
+        }
+      }
+    },
+    "VerificationJobDTO": {
+      "type": "object",
+      "properties": {
+        "identifier": {
+          "type": "string"
+        },
+        "jobName": {
+          "type": "string"
+        },
+        "serviceIdentifier": {
+          "type": "string"
+        },
+        "envIdentifier": {
+          "type": "string"
+        },
+        "projectIdentifier": {
+          "type": "string"
+        },
+        "orgIdentifier": {
+          "type": "string"
+        },
+        "dataSources": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["APP_DYNAMICS", "SPLUNK"]
+          }
+        },
+        "duration": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["TEST", "CANARY", "BLUE_GREEN", "HEALTH"]
         }
       }
     },
@@ -2950,6 +3239,18 @@
         }
       }
     },
+    "AppDynamicsTier": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
     "EnvironmentResponseDTO": {
       "type": "object",
       "properties": {
@@ -2978,33 +3279,22 @@
         }
       }
     },
-    "AppDynamicsTier": {
+    "Trend": {
       "type": "object",
       "properties": {
-        "id": {
-          "type": "integer",
-          "format": "int64"
+        "count": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          }
         },
-        "name": {
-          "type": "string"
-        }
-      }
-    },
-    "SplunkValidationResponse": {
-      "type": "object",
-      "properties": {
-        "histogram": {
-          "$ref": "#/definitions/Histogram"
-        },
-        "samples": {
-          "$ref": "#/definitions/SplunkSampleResponse"
-        },
-        "errorMessage": {
-          "type": "string"
-        },
-        "queryDurationMillis": {
-          "type": "integer",
-          "format": "int64"
+        "timestamp": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
         }
       }
     },
@@ -3038,22 +3328,21 @@
         }
       }
     },
-    "Trend": {
+    "SplunkValidationResponse": {
       "type": "object",
       "properties": {
-        "count": {
-          "type": "array",
-          "items": {
-            "type": "integer",
-            "format": "int32"
-          }
+        "histogram": {
+          "$ref": "#/definitions/Histogram"
         },
-        "timestamp": {
-          "type": "array",
-          "items": {
-            "type": "integer",
-            "format": "int64"
-          }
+        "samples": {
+          "$ref": "#/definitions/SplunkSampleResponse"
+        },
+        "errorMessage": {
+          "type": "string"
+        },
+        "queryDurationMillis": {
+          "type": "integer",
+          "format": "int64"
         }
       }
     },
@@ -3077,33 +3366,6 @@
           "items": {
             "$ref": "#/definitions/ResponseMessage"
           }
-        }
-      }
-    },
-    "Duration": {
-      "type": "object",
-      "properties": {
-        "seconds": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "units": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/TemporalUnit"
-          }
-        },
-        "zero": {
-          "type": "boolean",
-          "default": false
-        },
-        "negative": {
-          "type": "boolean",
-          "default": false
-        },
-        "nano": {
-          "type": "integer",
-          "format": "int32"
         }
       }
     },
@@ -3389,23 +3651,6 @@
         }
       }
     },
-    "HeatMapDTO": {
-      "type": "object",
-      "properties": {
-        "startTime": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "endTime": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "riskScore": {
-          "type": "number",
-          "format": "double"
-        }
-      }
-    },
     "MetricDefinitionDTO": {
       "type": "object",
       "properties": {
@@ -3431,6 +3676,23 @@
         "included": {
           "type": "boolean",
           "default": false
+        }
+      }
+    },
+    "HeatMapDTO": {
+      "type": "object",
+      "properties": {
+        "startTime": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "endTime": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "riskScore": {
+          "type": "number",
+          "format": "double"
         }
       }
     },
@@ -3629,61 +3891,6 @@
         }
       }
     },
-    "VerificationJob": {
-      "type": "object",
-      "required": ["accountId", "envIdentifier", "serviceIdentifier"],
-      "properties": {
-        "uuid": {
-          "type": "string"
-        },
-        "identifier": {
-          "type": "string"
-        },
-        "jobName": {
-          "type": "string"
-        },
-        "createdAt": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "lastUpdatedAt": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "projectIdentifier": {
-          "type": "string"
-        },
-        "orgIdentifier": {
-          "type": "string"
-        },
-        "accountId": {
-          "type": "string"
-        },
-        "serviceIdentifier": {
-          "type": "string"
-        },
-        "envIdentifier": {
-          "type": "string"
-        },
-        "dataSources": {
-          "type": "array",
-          "items": {
-            "type": "string",
-            "enum": ["APP_DYNAMICS", "SPLUNK"]
-          }
-        },
-        "duration": {
-          "$ref": "#/definitions/Duration"
-        },
-        "type": {
-          "type": "string",
-          "enum": ["TEST", "CANARY", "BLUE_GREEN", "HEALTH"]
-        },
-        "verificationJobDTO": {
-          "$ref": "#/definitions/VerificationJobDTO"
-        }
-      }
-    },
     "RestResponseListSplunkSavedSearch": {
       "type": "object",
       "properties": {
@@ -3698,6 +3905,26 @@
           "items": {
             "$ref": "#/definitions/SplunkSavedSearch"
           }
+        },
+        "responseMessages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResponseMessage"
+          }
+        }
+      }
+    },
+    "RestResponseNGPageResponseTimeSeriesMetricDataDTO": {
+      "type": "object",
+      "properties": {
+        "metaData": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          }
+        },
+        "resource": {
+          "$ref": "#/definitions/NGPageResponseTimeSeriesMetricDataDTO"
         },
         "responseMessages": {
           "type": "array",
@@ -3908,18 +4135,6 @@
         }
       }
     },
-    "SampleLog": {
-      "type": "object",
-      "properties": {
-        "raw": {
-          "type": "string"
-        },
-        "timestamp": {
-          "type": "integer",
-          "format": "int64"
-        }
-      }
-    },
     "RestResponseListMetricPackDTO": {
       "type": "object",
       "properties": {
@@ -3940,6 +4155,18 @@
           "items": {
             "$ref": "#/definitions/ResponseMessage"
           }
+        }
+      }
+    },
+    "SampleLog": {
+      "type": "object",
+      "properties": {
+        "raw": {
+          "type": "string"
+        },
+        "timestamp": {
+          "type": "integer",
+          "format": "int64"
         }
       }
     },
@@ -4026,6 +4253,37 @@
           "items": {
             "$ref": "#/definitions/ResponseMessage"
           }
+        }
+      }
+    },
+    "NGPageResponseTimeSeriesMetricDataDTO": {
+      "type": "object",
+      "properties": {
+        "pageCount": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "itemCount": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "content": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TimeSeriesMetricDataDTO"
+          }
+        },
+        "pageIndex": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "empty": {
+          "type": "boolean",
+          "default": false
         }
       }
     },
@@ -4227,26 +4485,6 @@
         }
       }
     },
-    "TemporalUnit": {
-      "type": "object",
-      "properties": {
-        "timeBased": {
-          "type": "boolean",
-          "default": false
-        },
-        "duration": {
-          "$ref": "#/definitions/Duration"
-        },
-        "dateBased": {
-          "type": "boolean",
-          "default": false
-        },
-        "durationEstimated": {
-          "type": "boolean",
-          "default": false
-        }
-      }
-    },
     "MetricSum": {
       "type": "object",
       "properties": {
@@ -4260,29 +4498,6 @@
         "sum": {
           "type": "number",
           "format": "double"
-        }
-      }
-    },
-    "RestResponseListString": {
-      "type": "object",
-      "properties": {
-        "metaData": {
-          "type": "object",
-          "additionalProperties": {
-            "type": "object"
-          }
-        },
-        "resource": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "responseMessages": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/ResponseMessage"
-          }
         }
       }
     },
@@ -4310,21 +4525,25 @@
         }
       }
     },
-    "ResultSummary": {
+    "RestResponseListString": {
       "type": "object",
       "properties": {
-        "risk": {
-          "type": "integer",
-          "format": "int32"
+        "metaData": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          }
         },
-        "score": {
-          "type": "number",
-          "format": "double"
-        },
-        "transactionSummaries": {
+        "resource": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/TransactionSummary"
+            "type": "string"
+          }
+        },
+        "responseMessages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResponseMessage"
           }
         }
       }
@@ -4352,6 +4571,58 @@
         "endTime": {
           "type": "integer",
           "format": "int64"
+        }
+      }
+    },
+    "ResultSummary": {
+      "type": "object",
+      "properties": {
+        "risk": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "score": {
+          "type": "number",
+          "format": "double"
+        },
+        "transactionSummaries": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TransactionSummary"
+          }
+        }
+      }
+    },
+    "TimeSeriesMetricDataDTO": {
+      "type": "object",
+      "properties": {
+        "projectIdentifier": {
+          "type": "string"
+        },
+        "orgIdentifier": {
+          "type": "string"
+        },
+        "environmentIdentifier": {
+          "type": "string"
+        },
+        "serviceIdentifier": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string",
+          "enum": ["PERFORMANCE", "QUALITY", "RESOURCES"]
+        },
+        "groupName": {
+          "type": "string"
+        },
+        "metricName": {
+          "type": "string"
+        },
+        "metricDataList": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MetricData"
+          }
         }
       }
     },
@@ -4590,7 +4861,7 @@
           "type": "string",
           "enum": ["PERFORMANCE", "QUALITY", "RESOURCES"]
         },
-        "dataCollectionTaskId": {
+        "perpetualTaskId": {
           "type": "string"
         },
         "productName": {
@@ -4667,6 +4938,10 @@
         "value": {
           "type": "number",
           "format": "double"
+        },
+        "risk": {
+          "type": "integer",
+          "format": "int32"
         }
       }
     }

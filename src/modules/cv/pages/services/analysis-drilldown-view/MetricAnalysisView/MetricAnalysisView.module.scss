@@ -1,0 +1,22 @@
+.main {
+  margin-top: var(--spacing-small) !important;
+  animation: fadeIn;
+  animation-duration: 250ms;
+  position: relative;
+}
+
+.errorOrLoading {
+  display: block;
+  text-align: center;
+  position: relative;
+  top: 20%;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

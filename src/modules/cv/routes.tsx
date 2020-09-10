@@ -31,16 +31,18 @@ export const routeCVHome: Route = {
 }
 
 /* ------------------------------------------ DataSource page routes ------------------------------------------ */
-export const routeCVDataSources: Route<{ projectIdentifier: string; orgId: string }> = {
+export const routeCVDataSources: Route<{ projectIdentifier: string; orgIdentifier: string }> = {
   sidebarId: SidebarIdentifier.CONTINUOUS_VERIFICATION,
-  path: '/cv-datasources/org/:orgId/project/:projectIdentifier',
+  path: '/cv-datasources/org/:orgIdentifier/project/:projectIdentifier',
   authenticated: true,
   title: i18n.datasources,
   pageId: 'cv-datasources',
-  url: ({ projectIdentifier, orgId }) =>
+  url: ({ projectIdentifier, orgIdentifier }) =>
     routeURL(
       routeCVDataSources,
-      projectIdentifier && orgId ? `/cv-datasources/org/${orgId}/project/${projectIdentifier}` : routeCVHome.path
+      projectIdentifier && orgIdentifier
+        ? `/cv-datasources/org/${orgIdentifier}/project/${projectIdentifier}`
+        : routeCVHome.path
     ),
   component: React.lazy(() => import('./pages/data-sources/DataSources')),
   module: ModuleName.CV
@@ -55,17 +57,6 @@ export const routeCVServices: Route<{ projectIdentifier: string; orgIdentifier: 
   url: ({ orgIdentifier, projectIdentifier }) =>
     routeURL(routeCVServices, `/cv-services/org/${orgIdentifier}/project/${projectIdentifier}`),
   component: React.lazy(() => import('./pages/services/CVServicesPage')),
-  module: ModuleName.CV
-}
-
-export const routeCVService: Route<{ serviceId: string }> = {
-  sidebarId: SidebarIdentifier.CONTINUOUS_VERIFICATION,
-  path: '/cv-service/:serviceId',
-  title: i18n.services,
-  pageId: 'cv-service',
-  authenticated: true,
-  url: ({ serviceId }) => routeURL(routeCVService, `/cv-service/${serviceId}`),
-  component: React.lazy(() => import('./pages/services/CVServicePage')),
   module: ModuleName.CV
 }
 
@@ -160,21 +151,6 @@ export const routeCVMetricPackConfigureThresholdPage: Route = {
   url: () => routeURL(routeCVMetricPackConfigureThresholdPage, `/metric-pack/config`),
   component: React.lazy(() => {
     return import('./pages/metric-pack/MetricPackConfigure')
-  }),
-  module: ModuleName.CV
-}
-
-/* ------------------------------------------ Analysis routes ------------------------------------------ */
-
-export const routeCVAnomalyAnalysisPage: Route = {
-  sidebarId: SidebarIdentifier.CONTINUOUS_VERIFICATION,
-  path: '/cv/anomaly-analysis',
-  title: i18n.services,
-  pageId: '/cv/anomaly-analysis',
-  authenticated: true,
-  url: () => routeURL(routeCVAnomalyAnalysisPage, `/cv/anomaly-analysis`),
-  component: React.lazy(() => {
-    return import('./pages/anomaly-analysis/AnomalyAnalysis')
   }),
   module: ModuleName.CV
 }

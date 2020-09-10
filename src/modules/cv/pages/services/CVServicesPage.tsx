@@ -1,16 +1,17 @@
 import React, { useState, useEffect, useMemo } from 'react'
-import { Container, Heading, Select, OverlaySpinner } from '@wings-software/uikit'
+import { Container, Text, Select, OverlaySpinner, Color } from '@wings-software/uikit'
 import moment from 'moment'
 import { flatten } from 'lodash-es'
 import { Page } from 'modules/common/exports'
 import HeatMap, { CellStatusValues } from 'modules/common/components/HeatMap/HeatMap'
-import TimelineView from 'modules/common/components/TimelineView/TimelineView'
+// import TimelineView from 'modules/common/components/TimelineView/TimelineView'
 import { routeParams } from 'framework/exports'
 import { useGetServices, HeatMapDTO, useGetHeatmap } from 'services/cv'
 import { useToaster } from 'modules/common/exports'
 import ServiceSelector from './ServiceSelector'
-import useAnalysisDrillDownDrawer from './analysis-drilldown-view/useAnalysisDrillDownDrawer'
 import i18n from './CVServicesPage.i18n'
+import { CategoryRiskCards } from '../dashboard/CategoryRiskCards/CategoryRiskCards'
+import { AnalysisDrillDownView, AnalysisDrillDownViewProps } from './analysis-drilldown-view/AnalysisDrillDownView'
 import styles from './CVServicesPage.module.scss'
 
 const rangeOptions = [
@@ -48,7 +49,6 @@ export default function CVServicesPage() {
   const {
     params: { accountId, projectIdentifier, orgIdentifier }
   } = routeParams()
-  const { openDrawer } = useAnalysisDrillDownDrawer()
   const { showError } = useToaster()
 
   const onSelectService = (id: string) => {
@@ -65,6 +65,9 @@ export default function CVServicesPage() {
       orgIdentifier: orgIdentifier as string
     }
   })
+  const [displayCategoryAnalysis, setDisplayCategoryAnalysis] = useState<AnalysisDrillDownViewProps | undefined>(
+    undefined
+  )
 
   useEffect(() => {
     if (!loading) {
@@ -161,12 +164,20 @@ export default function CVServicesPage() {
             />
           </Container>
           <Container className={styles.content}>
-            <Container className={styles.serviceHeader}>Header</Container>
+            <CategoryRiskCards
+              categoriesAndRisk={[
+                { categoryName: 'Performance', riskScore: 75 }
+                // { categoryName: 'Errors', riskScore: 45 },
+                // { categoryName: 'Quality', riskScore: 8 },
+                // { categoryName: 'Infrastructure', riskScore: 89 }
+              ]}
+              categoryRiskCardClassName={styles.categoryRiskCard}
+            />
             <Container className={styles.serviceBody}>
               <OverlaySpinner show={loadingHeatmap}>
-                <Heading level={3} margin={{ bottom: 'large' }} font={{ weight: 'bold' }}>
-                  {i18n.healthAnalysis}
-                </Heading>
+                <Text margin={{ bottom: 'xsmall' }} font={{ size: 'small' }} color={Color.BLACK}>
+                  {i18n.heatmapSectionTitleText}
+                </Text>
                 <HeatMap
                   series={heatmapData}
                   minValue={0}
@@ -175,24 +186,28 @@ export default function CVServicesPage() {
                   renderTooltip={(cell: HeatMapDTO) => <div>{cell && cell.riskScore}</div>}
                   cellClassName={''}
                   cellShapeBreakpoint={0.5}
-                  onCellClick={(cell: HeatMapDTO) =>
-                    openDrawer({
-                      category: 'Performance',
-                      riskScore: 89,
-                      startTime: cell.startTime as number,
-                      endTime: cell.endTime as number,
-                      affectedMetrics: ['Throughput', 'Response Time'],
-                      totalAnomalies: '5 logs and 20 metrics'
-                    })
-                  }
+                  onCellClick={(cell: HeatMapDTO, rowData) => {
+                    if (cell.startTime && cell.endTime) {
+                      setDisplayCategoryAnalysis({
+                        startTime: cell.startTime,
+                        endTime: cell.endTime,
+                        categoryName: rowData?.name,
+                        environmentIdentifier: 'Dev',
+                        serviceIdentifier: 'Delegate'
+                      })
+                    }
+                  }}
                   rowSize={heatMapSize}
                 />
-                <TimelineView
+                {/* <TimelineView
                   startDate={range.dates.start.valueOf()}
                   endDate={range.dates.end.valueOf()}
                   rows={[{ name: '', data: [] }]}
                   renderItem={() => <div />}
-                />
+                /> */}
+                {displayCategoryAnalysis && (
+                  <AnalysisDrillDownView className={styles.analysisView} {...displayCategoryAnalysis} />
+                )}
               </OverlaySpinner>
             </Container>
           </Container>

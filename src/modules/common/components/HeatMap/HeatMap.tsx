@@ -3,7 +3,7 @@ import { Color, Container, Text } from '@wings-software/uikit'
 import { Popover, PopoverInteractionKind } from '@blueprintjs/core'
 import isUndefined from 'lodash/isUndefined'
 import classnames from 'classnames'
-import { getColorStyle } from './colorUtils'
+import { getColorStyle } from './ColorUtils'
 import styles from './HeatMap.module.scss'
 
 export interface SerieConfig {
@@ -98,7 +98,7 @@ export default function HeatMap({
         <div key={serieIndex} className={styles.heatMapRow}>
           {showLabels && (
             <span className={styles.nameWrapper}>
-              <Text font={{ weight: 'bold' }} width={labelsWidth}>
+              <Text font={{ weight: 'bold', size: 'small' }} width={labelsWidth}>
                 {serie.name}
               </Text>
             </span>

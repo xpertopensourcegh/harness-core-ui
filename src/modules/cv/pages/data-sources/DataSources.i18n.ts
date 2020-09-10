@@ -1,6 +1,6 @@
 export default {
   addDataSourceTitle: 'Select Data Source',
-  editDataSourceTitle: 'Edit Data Source',
+  editDataSourceTitle: 'Data Sources',
   connectors: {
     AppDynamics: {
       title: 'AppDynamics',
@@ -28,6 +28,6 @@ export default {
     cancelButtonText: 'Cancel',
     confirmButtonText: 'Delete Data Source'
   },
-  editDataSourceButtonText: 'Edit Data Source',
+  editDataSourceButtonText: 'View Data Sources',
   createDataSourceText: 'New Data Source'
 }

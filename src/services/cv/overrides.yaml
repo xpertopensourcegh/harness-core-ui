@@ -10,7 +10,10 @@ allowpaths:
   - /timeseries/metric-template
   - /ds-config/env-to-services
   - /heatmap
+  - /heatmap/category-risks
   - /verification-job
+  - /timeseries-dashboard/anomalous-metric-data
+  - /timeseries-dashboard/metric-data
 operationIdOverrides:
   /appdynamics/applications.get: getAppDynamicsApplications
   /appdynamics/metric-data.post: getAppDynamicsMetricData

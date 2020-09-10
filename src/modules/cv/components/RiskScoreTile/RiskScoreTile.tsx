@@ -2,6 +2,8 @@ import React from 'react'
 import { Text, Color, Container } from '@wings-software/uikit'
 import cx from 'classnames'
 import type { TextProps } from '@wings-software/uikit/dist/components/Text/Text'
+import { isNumber } from 'highcharts'
+import { getColorStyle } from 'modules/common/components/HeatMap/ColorUtils'
 import css from './RiskScoreTile.module.scss'
 
 export interface RiskScoreTileProps {
@@ -10,23 +12,14 @@ export interface RiskScoreTileProps {
   textProps?: TextProps
 }
 
-const RiskLevel = {
-  HIGH: 'high',
-  LOW: 'low',
-  NONE: 'none'
-}
-
 export function RiskScoreTile(props: RiskScoreTileProps): JSX.Element {
   const { riskScore, className, textProps } = props
-  const isRiskScoreDefined = riskScore && riskScore > -1
-
-  let riskLevel = RiskLevel.NONE
-  if (isRiskScoreDefined) {
-    riskLevel = riskScore > 10 ? RiskLevel.HIGH : RiskLevel.LOW
-  }
+  const isRiskScoreDefined = isNumber(riskScore) && riskScore > -1
 
   return (
-    <Container className={cx(css.main, className)} data-risk-level={riskLevel}>
+    <Container
+      className={cx(css.main, className, isRiskScoreDefined ? getColorStyle(riskScore, 0, 100) : css.noRiskScore)}
+    >
       <Text color={Color.WHITE} className={css.riskScore} {...textProps}>
         {isRiskScoreDefined ? riskScore : ''}
       </Text>

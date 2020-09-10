@@ -2,7 +2,7 @@
  * Please match the config key to the directory under services.
  * This is required for the transform to work
  */
-const customGenerator = require("./scripts/swagger-custom-generator.js");
+const customGenerator = require('./scripts/swagger-custom-generator.js')
 
 module.exports = {
   portal: {
@@ -24,9 +24,7 @@ module.exports = {
     customProps: {
       base: `{getConfig("ng/api")}`
     },
-    customGenerator: (arg) => {
-      return customGenerator(arg, "getConfig(\'ng/api\')")
-    }
+    customGenerator: arg => customGenerator(arg, "getConfig('ng/api')")
   },
   cv: {
     output: 'src/services/cv/index.tsx',

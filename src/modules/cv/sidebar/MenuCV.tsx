@@ -33,7 +33,7 @@ const ProjectNavLinks: React.FC<{ project?: Project }> = ({ project }) => {
         selected={isRouteActive(routeCVMainDashBoardPage)}
       />
       <Sidebar.Link
-        href={routeCVDataSources.url({ projectIdentifier, orgId: orgIdentifier })}
+        href={routeCVDataSources.url({ projectIdentifier, orgIdentifier })}
         label={i18n.cvSideNavLinks.dataSource}
         icon="main-help"
         selected={isRouteActive(routeCVDataSources)}

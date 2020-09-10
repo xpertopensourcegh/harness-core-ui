@@ -14,6 +14,13 @@ export interface RestResponseVerificationJobDTO {
   responseMessages?: ResponseMessage[]
 }
 
+export interface AppdynamicsMetricValueValidationResponse {
+  metricName?: string
+  apiResponseStatus?: 'SUCCESS' | 'NO_DATA' | 'FAILED'
+  value?: number
+  errorMessage?: string
+}
+
 export interface MetricPackDTO {
   accountId?: string
   projectIdentifier?: string
@@ -22,13 +29,6 @@ export interface MetricPackDTO {
   category?: 'PERFORMANCE' | 'QUALITY' | 'RESOURCES'
   metrics?: MetricDefinitionDTO[]
   thresholds?: TimeSeriesThresholdDTO[]
-}
-
-export interface AppdynamicsMetricValueValidationResponse {
-  metricName?: string
-  apiResponseStatus?: 'SUCCESS' | 'NO_DATA' | 'FAILED'
-  value?: number
-  errorMessage?: string
 }
 
 export interface TimeSeriesTestDataDTO {
@@ -62,6 +62,16 @@ export interface RestResponseListCVConfig {
   responseMessages?: ResponseMessage[]
 }
 
+export interface RestResponseMapCVMonitoringCategoryInteger {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: {
+    [key: string]: number
+  }
+  responseMessages?: ResponseMessage[]
+}
+
 export interface TimeSeriesThreshold {
   uuid?: string
   createdAt?: number
@@ -90,11 +100,12 @@ export interface RestResponseString {
   responseMessages?: ResponseMessage[]
 }
 
-export interface DeploymentVerificationTaskDTO {
-  verificationJobIdentifier: string
-  oldVersionHosts?: string[]
-  newVersionHosts?: string[]
-  newHostsTrafficSplitPercentage?: number
+export interface RestResponseListTimeSeriesMetricDefinition {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: TimeSeriesMetricDefinition[]
+  responseMessages?: ResponseMessage[]
 }
 
 export interface EnvToServicesDTO {
@@ -102,12 +113,11 @@ export interface EnvToServicesDTO {
   services?: ServiceResponseDTO[]
 }
 
-export interface RestResponseListTimeSeriesMetricDefinition {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: TimeSeriesMetricDefinition[]
-  responseMessages?: ResponseMessage[]
+export interface DeploymentVerificationTaskDTO {
+  verificationJobIdentifier: string
+  oldVersionHosts?: string[]
+  newVersionHosts?: string[]
+  newHostsTrafficSplitPercentage?: number
 }
 
 export interface TimeSeriesDataCollectionRecord {
@@ -150,7 +160,7 @@ export interface LearningEngineTask {
   accountId?: string
   analysisType?:
     | 'SERVICE_GUARD_TIME_SERIES'
-    | 'SERVICE_GUARD_LOG_CLUSTER'
+    | 'LOG_CLUSTER'
     | 'SERVICE_GUARD_LOG_ANALYSIS'
     | 'TIME_SERIES_CANARY'
     | 'SERVICE_GUARD_FEEDBACK_ANALYSIS'
@@ -163,7 +173,7 @@ export interface LearningEngineTask {
   taskStatus?: 'QUEUED' | 'RUNNING' | 'FAILED' | 'SUCCESS' | 'TIMEOUT'
   type?:
     | 'SERVICE_GUARD_TIME_SERIES'
-    | 'SERVICE_GUARD_LOG_CLUSTER'
+    | 'LOG_CLUSTER'
     | 'SERVICE_GUARD_LOG_ANALYSIS'
     | 'TIME_SERIES_CANARY'
     | 'SERVICE_GUARD_FEEDBACK_ANALYSIS'
@@ -175,20 +185,6 @@ export interface RestResponseListAppDynamicsApplication {
   }
   resource?: AppDynamicsApplication[]
   responseMessages?: ResponseMessage[]
-}
-
-export interface VerificationJobDTO {
-  identifier?: string
-  jobName?: string
-  serviceIdentifier?: string
-  envIdentifier?: string
-  projectIdentifier?: string
-  orgIdentifier?: string
-  dataSources?: ('APP_DYNAMICS' | 'SPLUNK')[]
-  duration?: string
-  type?: 'TEST' | 'CANARY' | 'BLUE_GREEN' | 'HEALTH'
-  sensitivity?: 'LOW' | 'MEDIUM' | 'HIGH'
-  verificationJob?: VerificationJob
 }
 
 export interface RestResponseListEnvToServicesDTO {
@@ -204,6 +200,18 @@ export interface DataCollectionTaskResult {
   status?: 'FAILED' | 'QUEUED' | 'RUNNING' | 'WAITING' | 'EXPIRED' | 'SUCCESS'
   exception?: string
   stacktrace?: string
+}
+
+export interface VerificationJobDTO {
+  identifier?: string
+  jobName?: string
+  serviceIdentifier?: string
+  envIdentifier?: string
+  projectIdentifier?: string
+  orgIdentifier?: string
+  dataSources?: ('APP_DYNAMICS' | 'SPLUNK')[]
+  duration?: string
+  type?: 'TEST' | 'CANARY' | 'BLUE_GREEN' | 'HEALTH'
 }
 
 export interface LogRecordDTO {
@@ -298,6 +306,11 @@ export interface LogAnalysisDTO {
   logAnalysisResults?: AnalysisResult[]
 }
 
+export interface AppDynamicsTier {
+  id?: number
+  name?: string
+}
+
 export interface EnvironmentResponseDTO {
   accountId?: string
   orgIdentifier?: string
@@ -308,16 +321,9 @@ export interface EnvironmentResponseDTO {
   deleted?: boolean
 }
 
-export interface AppDynamicsTier {
-  id?: number
-  name?: string
-}
-
-export interface SplunkValidationResponse {
-  histogram?: Histogram
-  samples?: SplunkSampleResponse
-  errorMessage?: string
-  queryDurationMillis?: number
+export interface Trend {
+  count?: number[]
+  timestamp?: number[]
 }
 
 export interface DSConfig {
@@ -331,9 +337,11 @@ export interface DSConfig {
   type?: 'APP_DYNAMICS' | 'SPLUNK'
 }
 
-export interface Trend {
-  count?: number[]
-  timestamp?: number[]
+export interface SplunkValidationResponse {
+  histogram?: Histogram
+  samples?: SplunkSampleResponse
+  errorMessage?: string
+  queryDurationMillis?: number
 }
 
 export interface RestResponseListTimeSeriesThreshold {
@@ -342,14 +350,6 @@ export interface RestResponseListTimeSeriesThreshold {
   }
   resource?: TimeSeriesThreshold[]
   responseMessages?: ResponseMessage[]
-}
-
-export interface Duration {
-  seconds?: number
-  units?: TemporalUnit[]
-  zero?: boolean
-  negative?: boolean
-  nano?: number
 }
 
 export interface RestResponseMapStringMapStringListTimeSeriesAnomalies {
@@ -595,12 +595,6 @@ export interface DeploymentVerificationTaskTimeSeriesAnalysisDTO {
   hostSummaries?: HostSummary[]
 }
 
-export interface HeatMapDTO {
-  startTime?: number
-  endTime?: number
-  riskScore?: number
-}
-
 export interface MetricDefinitionDTO {
   name?: string
   type?: 'INFRA' | 'RESP_TIME' | 'THROUGHPUT' | 'ERROR' | 'APDEX'
@@ -608,6 +602,12 @@ export interface MetricDefinitionDTO {
   validationPath?: string
   thresholds?: TimeSeriesThresholdDTO[]
   included?: boolean
+}
+
+export interface HeatMapDTO {
+  startTime?: number
+  endTime?: number
+  riskScore?: number
 }
 
 export interface TimeSeriesRecordDTO {
@@ -678,28 +678,19 @@ export interface TransactionSummary {
   metricSummaries?: MetricSummary[]
 }
 
-export interface VerificationJob {
-  uuid?: string
-  identifier?: string
-  jobName?: string
-  createdAt?: number
-  lastUpdatedAt?: number
-  projectIdentifier?: string
-  orgIdentifier?: string
-  accountId: string
-  serviceIdentifier: string
-  envIdentifier: string
-  dataSources?: ('APP_DYNAMICS' | 'SPLUNK')[]
-  duration?: Duration
-  type?: 'TEST' | 'CANARY' | 'BLUE_GREEN' | 'HEALTH'
-  verificationJobDTO?: VerificationJobDTO
-}
-
 export interface RestResponseListSplunkSavedSearch {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
   resource?: SplunkSavedSearch[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseNGPageResponseTimeSeriesMetricDataDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: NGPageResponseTimeSeriesMetricDataDTO
   responseMessages?: ResponseMessage[]
 }
 
@@ -779,17 +770,17 @@ export interface HostSummary {
   resultSummary?: ResultSummary
 }
 
-export interface SampleLog {
-  raw?: string
-  timestamp?: number
-}
-
 export interface RestResponseListMetricPackDTO {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
   resource?: MetricPackDTO[]
   responseMessages?: ResponseMessage[]
+}
+
+export interface SampleLog {
+  raw?: string
+  timestamp?: number
 }
 
 export interface TimeSeriesAnomalies {
@@ -820,6 +811,15 @@ export interface RestResponseVoid {
   }
   resource?: Void
   responseMessages?: ResponseMessage[]
+}
+
+export interface NGPageResponseTimeSeriesMetricDataDTO {
+  pageCount?: number
+  itemCount?: number
+  pageSize?: number
+  content?: TimeSeriesMetricDataDTO[]
+  pageIndex?: number
+  empty?: boolean
 }
 
 export interface TimeSeriesMetricDefinition {
@@ -888,25 +888,10 @@ export interface RestResponseListTimeSeriesRecordDTO {
   responseMessages?: ResponseMessage[]
 }
 
-export interface TemporalUnit {
-  timeBased?: boolean
-  duration?: Duration
-  dateBased?: boolean
-  durationEstimated?: boolean
-}
-
 export interface MetricSum {
   metricName?: string
   risk?: number
   sum?: number
-}
-
-export interface RestResponseListString {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: string[]
-  responseMessages?: ResponseMessage[]
 }
 
 export interface RestResponseSetAppDynamicsTier {
@@ -917,10 +902,12 @@ export interface RestResponseSetAppDynamicsTier {
   responseMessages?: ResponseMessage[]
 }
 
-export interface ResultSummary {
-  risk?: number
-  score?: number
-  transactionSummaries?: TransactionSummary[]
+export interface RestResponseListString {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: string[]
+  responseMessages?: ResponseMessage[]
 }
 
 export interface HostRecordDTO {
@@ -929,6 +916,23 @@ export interface HostRecordDTO {
   hosts?: string[]
   startTime?: number
   endTime?: number
+}
+
+export interface ResultSummary {
+  risk?: number
+  score?: number
+  transactionSummaries?: TransactionSummary[]
+}
+
+export interface TimeSeriesMetricDataDTO {
+  projectIdentifier?: string
+  orgIdentifier?: string
+  environmentIdentifier?: string
+  serviceIdentifier?: string
+  category?: 'PERFORMANCE' | 'QUALITY' | 'RESOURCES'
+  groupName?: string
+  metricName?: string
+  metricDataList?: MetricData[]
 }
 
 export interface RestResponseCVConfig {
@@ -1010,7 +1014,7 @@ export interface CVConfig {
   projectIdentifier: string
   orgIdentifier: string
   category: 'PERFORMANCE' | 'QUALITY' | 'RESOURCES'
-  dataCollectionTaskId?: string
+  perpetualTaskId?: string
   productName?: string
   groupId?: string
   analysisOrchestrationIteration?: number
@@ -1033,6 +1037,7 @@ export interface ServiceGuardTxnMetricAnalysisDataDTO {
 export interface MetricData {
   timestamp?: number
   value?: number
+  risk?: number
 }
 
 export type CVConfigArrayRequestBody = CVConfig[]
@@ -1375,7 +1380,7 @@ export const useGetSplunkSavedSearches = (props: UseGetSplunkSavedSearchesProps)
     { base: getConfig('cv-nextgen'), ...props }
   )
 
-export interface GetMetricDefinitionsQueryParams {
+export interface GetTimeSeriesDataQueryParams {
   accountId: string
   cvConfigId: string
   startTimeEpochMillis: number
@@ -1384,55 +1389,55 @@ export interface GetMetricDefinitionsQueryParams {
   groupNameList: string[]
 }
 
-export type GetMetricDefinitionsProps = Omit<
-  GetProps<RestResponseTimeSeriesTestDataDTO, unknown, GetMetricDefinitionsQueryParams, void>,
+export type GetTimeSeriesDataProps = Omit<
+  GetProps<RestResponseTimeSeriesTestDataDTO, unknown, GetTimeSeriesDataQueryParams, void>,
   'path'
 >
 
-export const GetMetricDefinitions = (props: GetMetricDefinitionsProps) => (
-  <Get<RestResponseTimeSeriesTestDataDTO, unknown, GetMetricDefinitionsQueryParams, void>
+export const GetTimeSeriesData = (props: GetTimeSeriesDataProps) => (
+  <Get<RestResponseTimeSeriesTestDataDTO, unknown, GetTimeSeriesDataQueryParams, void>
     path={`/timeseries/metric-group-data`}
     base={getConfig('cv-nextgen')}
     {...props}
   />
 )
 
-export type UseGetMetricDefinitionsProps = Omit<
-  UseGetProps<RestResponseTimeSeriesTestDataDTO, unknown, GetMetricDefinitionsQueryParams, void>,
+export type UseGetTimeSeriesDataProps = Omit<
+  UseGetProps<RestResponseTimeSeriesTestDataDTO, unknown, GetTimeSeriesDataQueryParams, void>,
   'path'
 >
 
-export const useGetMetricDefinitions = (props: UseGetMetricDefinitionsProps) =>
-  useGet<RestResponseTimeSeriesTestDataDTO, unknown, GetMetricDefinitionsQueryParams, void>(
+export const useGetTimeSeriesData = (props: UseGetTimeSeriesDataProps) =>
+  useGet<RestResponseTimeSeriesTestDataDTO, unknown, GetTimeSeriesDataQueryParams, void>(
     `/timeseries/metric-group-data`,
     { base: getConfig('cv-nextgen'), ...props }
   )
 
-export interface GetMetricDefinitionsTemplateQueryParams {
+export interface GetMetricDefinitionsQueryParams {
   accountId: string
   cvConfigId: string
 }
 
-export type GetMetricDefinitionsTemplateProps = Omit<
-  GetProps<RestResponseListTimeSeriesMetricDefinition, unknown, GetMetricDefinitionsTemplateQueryParams, void>,
+export type GetMetricDefinitionsProps = Omit<
+  GetProps<RestResponseListTimeSeriesMetricDefinition, unknown, GetMetricDefinitionsQueryParams, void>,
   'path'
 >
 
-export const GetMetricDefinitionsTemplate = (props: GetMetricDefinitionsTemplateProps) => (
-  <Get<RestResponseListTimeSeriesMetricDefinition, unknown, GetMetricDefinitionsTemplateQueryParams, void>
+export const GetMetricDefinitions = (props: GetMetricDefinitionsProps) => (
+  <Get<RestResponseListTimeSeriesMetricDefinition, unknown, GetMetricDefinitionsQueryParams, void>
     path={`/timeseries/metric-template`}
     base={getConfig('cv-nextgen')}
     {...props}
   />
 )
 
-export type UseGetMetricDefinitionsTemplateProps = Omit<
-  UseGetProps<RestResponseListTimeSeriesMetricDefinition, unknown, GetMetricDefinitionsTemplateQueryParams, void>,
+export type UseGetMetricDefinitionsProps = Omit<
+  UseGetProps<RestResponseListTimeSeriesMetricDefinition, unknown, GetMetricDefinitionsQueryParams, void>,
   'path'
 >
 
-export const useGetMetricDefinitionsTemplate = (props: UseGetMetricDefinitionsTemplateProps) =>
-  useGet<RestResponseListTimeSeriesMetricDefinition, unknown, GetMetricDefinitionsTemplateQueryParams, void>(
+export const useGetMetricDefinitions = (props: UseGetMetricDefinitionsProps) =>
+  useGet<RestResponseListTimeSeriesMetricDefinition, unknown, GetMetricDefinitionsQueryParams, void>(
     `/timeseries/metric-template`,
     { base: getConfig('cv-nextgen'), ...props }
   )
@@ -1499,6 +1504,38 @@ export const useGetHeatmap = (props: UseGetHeatmapProps) =>
     base: getConfig('cv-nextgen'),
     ...props
   })
+
+export interface GetCategoryRiskMapQueryParams {
+  accountId: string
+  orgIdentifier: string
+  projectIdentifier: string
+  serviceIdentifier?: string
+  envIdentifier?: string
+}
+
+export type GetCategoryRiskMapProps = Omit<
+  GetProps<RestResponseMapCVMonitoringCategoryInteger, unknown, GetCategoryRiskMapQueryParams, void>,
+  'path'
+>
+
+export const GetCategoryRiskMap = (props: GetCategoryRiskMapProps) => (
+  <Get<RestResponseMapCVMonitoringCategoryInteger, unknown, GetCategoryRiskMapQueryParams, void>
+    path={`/heatmap/category-risks`}
+    base={getConfig('cv-nextgen')}
+    {...props}
+  />
+)
+
+export type UseGetCategoryRiskMapProps = Omit<
+  UseGetProps<RestResponseMapCVMonitoringCategoryInteger, unknown, GetCategoryRiskMapQueryParams, void>,
+  'path'
+>
+
+export const useGetCategoryRiskMap = (props: UseGetCategoryRiskMapProps) =>
+  useGet<RestResponseMapCVMonitoringCategoryInteger, unknown, GetCategoryRiskMapQueryParams, void>(
+    `/heatmap/category-risks`,
+    { base: getConfig('cv-nextgen'), ...props }
+  )
 
 export interface GetVerificationJobQueryParams {
   accountId?: string
@@ -1587,3 +1624,77 @@ export const useDeleteJobByGroup = (props: UseDeleteJobByGroupProps) =>
     base: getConfig('cv-nextgen'),
     ...props
   })
+
+export interface GetAnomalousMetricDataQueryParams {
+  accountId?: string
+  projectIdentifier?: string
+  orgIdentifier?: string
+  environmentIdentifier?: string
+  serviceIdentifier?: string
+  monitoringCategory?: string
+  startTime?: number
+  endTime?: number
+  page?: number
+  size?: number
+}
+
+export type GetAnomalousMetricDataProps = Omit<
+  GetProps<RestResponseNGPageResponseTimeSeriesMetricDataDTO, unknown, GetAnomalousMetricDataQueryParams, void>,
+  'path'
+>
+
+export const GetAnomalousMetricData = (props: GetAnomalousMetricDataProps) => (
+  <Get<RestResponseNGPageResponseTimeSeriesMetricDataDTO, unknown, GetAnomalousMetricDataQueryParams, void>
+    path={`/timeseries-dashboard/anomalous-metric-data`}
+    base={getConfig('cv-nextgen')}
+    {...props}
+  />
+)
+
+export type UseGetAnomalousMetricDataProps = Omit<
+  UseGetProps<RestResponseNGPageResponseTimeSeriesMetricDataDTO, unknown, GetAnomalousMetricDataQueryParams, void>,
+  'path'
+>
+
+export const useGetAnomalousMetricData = (props: UseGetAnomalousMetricDataProps) =>
+  useGet<RestResponseNGPageResponseTimeSeriesMetricDataDTO, unknown, GetAnomalousMetricDataQueryParams, void>(
+    `/timeseries-dashboard/anomalous-metric-data`,
+    { base: getConfig('cv-nextgen'), ...props }
+  )
+
+export interface GetMetricDataQueryParams {
+  accountId?: string
+  projectIdentifier?: string
+  orgIdentifier?: string
+  environmentIdentifier?: string
+  serviceIdentifier?: string
+  monitoringCategory?: string
+  startTime?: number
+  endTime?: number
+  page?: number
+  size?: number
+}
+
+export type GetMetricDataProps = Omit<
+  GetProps<RestResponseNGPageResponseTimeSeriesMetricDataDTO, unknown, GetMetricDataQueryParams, void>,
+  'path'
+>
+
+export const GetMetricData = (props: GetMetricDataProps) => (
+  <Get<RestResponseNGPageResponseTimeSeriesMetricDataDTO, unknown, GetMetricDataQueryParams, void>
+    path={`/timeseries-dashboard/metric-data`}
+    base={getConfig('cv-nextgen')}
+    {...props}
+  />
+)
+
+export type UseGetMetricDataProps = Omit<
+  UseGetProps<RestResponseNGPageResponseTimeSeriesMetricDataDTO, unknown, GetMetricDataQueryParams, void>,
+  'path'
+>
+
+export const useGetMetricData = (props: UseGetMetricDataProps) =>
+  useGet<RestResponseNGPageResponseTimeSeriesMetricDataDTO, unknown, GetMetricDataQueryParams, void>(
+    `/timeseries-dashboard/metric-data`,
+    { base: getConfig('cv-nextgen'), ...props }
+  )

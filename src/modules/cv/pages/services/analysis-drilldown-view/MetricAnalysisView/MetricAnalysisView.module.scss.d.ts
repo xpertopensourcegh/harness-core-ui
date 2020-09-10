@@ -2,7 +2,7 @@
 // this is an auto-generated file
 declare const styles: {
   readonly main: string
-  readonly riskScore: string
-  readonly noRiskScore: string
+  readonly fadeIn: string
+  readonly errorOrLoading: string
 }
 export default styles

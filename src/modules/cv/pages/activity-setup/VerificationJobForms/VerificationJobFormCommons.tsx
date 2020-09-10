@@ -56,7 +56,7 @@ export const useFormSubmit = (props?: UseFormSubmitProps) => {
   const { showError } = useToaster()
   const { mutate, error, loading } = useSaveVerificationJob({ queryParams: { accountId } })
   const onSubmit = (values: any) => {
-    const payload: VerificationJobDTO = {
+    const payload = {
       identifier: values.identifier,
       jobName: values.jobName,
       serviceIdentifier: values.service && values.service.value,
@@ -68,7 +68,7 @@ export const useFormSubmit = (props?: UseFormSubmitProps) => {
       duration: values.duration && values.duration.value,
       type: mapType(activityType as string)
     }
-    mutate(payload)
+    mutate(payload as VerificationJobDTO)
       .catch(e => showError(e.message))
       .then(() => {
         if (props?.onSuccess) {

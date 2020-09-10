@@ -13,7 +13,14 @@ export const CDDashboardPage: React.FC = () => {
       <Page.Header title={i18n.pageTitleText} />
       <Page.Body>
         <Container className={css.main}>
-          <CategoryRiskCards />
+          <CategoryRiskCards
+            categoriesAndRisk={[
+              { categoryName: 'Performance', riskScore: 75 }
+              // { categoryName: 'Errors', riskScore: 45 },
+              // { categoryName: 'Quality', riskScore: 8 },
+              // { categoryName: 'Infrastructure', riskScore: 89 }
+            ]}
+          />
           <ActivityVerifications />
           <ActivityChanges />
         </Container>

@@ -1,4 +1,4 @@
 export default {
-  healthAnalysis: 'Health Analysis',
+  heatmapSectionTitleText: 'Risk Timeline',
   affectedMetrics: 'Affected Metrics'
 }

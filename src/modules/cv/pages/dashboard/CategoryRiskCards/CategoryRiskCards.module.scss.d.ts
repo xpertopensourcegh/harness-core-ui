@@ -4,6 +4,7 @@ declare const styles: {
   readonly main: string
   readonly productionRisk: string
   readonly cardContainer: string
+  readonly errorOrLoading: string
   readonly categoryRiskCard: string
   readonly riskInfoContainer: string
   readonly categoryName: string

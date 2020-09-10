@@ -2,6 +2,8 @@
 // this is an auto-generated file
 declare const styles: {
   readonly main: string
-  readonly metricsLogsTabs: string
+  readonly filterOptionContainer: string
+  readonly filterByOptions: string
+  readonly filterInput: string
 }
 export default styles

@@ -1,4 +1,5 @@
 import type Highcharts from 'highcharts'
+import { getColorValue } from 'modules/common/components/HeatMap/ColorUtils'
 
 const PLOT_LINE_LOCATIONS = [11, 22, 33, 44, 55, 66, 77, 88].map(degree => ({
   color: 'white',
@@ -7,22 +8,7 @@ const PLOT_LINE_LOCATIONS = [11, 22, 33, 44, 55, 66, 77, 88].map(degree => ({
 }))
 
 export default function getRiskGaugeChartOptions(riskScore: number): Highcharts.Options {
-  let gaugeColor = 'var(--green-500)'
-  if (riskScore > 30) {
-    gaugeColor = 'var(--yellow-300)'
-  }
-
-  if (riskScore > 40) {
-    gaugeColor = 'var(--yellow-500)'
-  }
-
-  if (riskScore >= 60) {
-    gaugeColor = 'var(--orange-500)'
-  }
-
-  if (riskScore >= 80) {
-    gaugeColor = 'var(--red-500)'
-  }
+  const gaugeColor = getColorValue(riskScore, 0, 100)
 
   return {
     chart: {

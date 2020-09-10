@@ -10,14 +10,15 @@ import css from './LogAnalysisView.module.scss'
 interface LogAnalysisViewProps {
   startTime: number
   endTime: number
-  environment: string
-  service: string
+  environmentIdentifier: string
+  serviceIdentifier: string
+  categoryName: string
 }
 
 const mockData = [
   {
     count: 1,
-    logText: `nothing to see here, there is no risk`,
+    logText: `No risk`,
     anomalyType: `Low Risk`,
     trendData: []
   },

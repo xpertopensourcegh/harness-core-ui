@@ -142,7 +142,10 @@ const ContinuousVerification: React.FC<ContinuousVerificationProps> = props => {
             text={i18n.createDataSource}
             onClick={() => {
               history.push({
-                pathname: routeCVDataSources.url({ projectIdentifier: identifier || '', orgId: orgIdentifier || '' }),
+                pathname: routeCVDataSources.url({
+                  projectIdentifier: identifier || '',
+                  orgIdentifier: orgIdentifier || ''
+                }),
                 state: {
                   projectId: identifier,
                   orgId: orgIdentifier

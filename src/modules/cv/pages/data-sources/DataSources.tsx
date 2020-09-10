@@ -348,7 +348,7 @@ function CVConnectorListTable(props: CVConnectorListTableProps): JSX.Element {
 function RenderContent(props: RenderContentProps): JSX.Element {
   const { existingDataSources, dbInstance, fetchConnectors } = props
   const {
-    params: { projectIdentifier: projectId, orgId, accountId },
+    params: { projectIdentifier: projectId, orgIdentifier: orgId, accountId },
     query: { onBoarding: isOnboardingFlow = false }
   } = routeParams()
   const [isNewDataSourceView, setToggleView] = useState(!isOnboardingFlow)
@@ -367,7 +367,7 @@ function RenderContent(props: RenderContentProps): JSX.Element {
                 history.push({
                   pathname: routeCVDataSources.url({
                     projectIdentifier: projectId as string,
-                    orgId: orgId as string
+                    orgIdentifier: orgId as string
                   }),
                   search: `?onBoarding=true`
                 })

@@ -1,8 +1,10 @@
 .servicesPage {
   display: flex;
   height: 100%;
+  padding: var(--spacing-large) !important;
   .sidebar {
     flex-basis: 230px;
+    margin-right: var(--spacing-large) !important;
   }
   .content {
     flex: 1;
@@ -14,17 +16,14 @@
     }
     .serviceBody {
       flex: 1;
-      padding: var(--spacing-large);
+      margin-top: var(--spacing-xlarge);
+
+      .analysisView {
+        margin-top: var(--spacing-xlarge);
+      }
     }
-  }
-  .sidebar,
-  .content {
-    margin: var(--spacing-medium);
-  }
-  .sidebar,
-  .serviceHeader,
-  .serviceBody {
-    box-shadow: 2px 2px 12px var(--grey-300);
-    border-radius: var(--spacing-small);
+    .categoryRiskCard {
+      width: 180px;
+    }
   }
 }

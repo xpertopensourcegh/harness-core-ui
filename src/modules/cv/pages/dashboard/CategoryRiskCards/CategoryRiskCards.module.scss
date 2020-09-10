@@ -13,12 +13,18 @@
   }
 }
 
+.errorOrLoading {
+  display: block;
+  text-align: center;
+}
+
 .categoryRiskCard {
   background-color: var(--white);
   min-width: 50px;
   width: 250px;
   max-height: 150px;
   min-height: 50px;
+  margin-bottom: var(--spacing-xsmall) !important;
   border-radius: 6px;
 
   box-shadow: 0 0 20px 6px var(--grey-200);

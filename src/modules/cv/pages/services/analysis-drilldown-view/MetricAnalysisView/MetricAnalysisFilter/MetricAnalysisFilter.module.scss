@@ -1,0 +1,28 @@
+.main {
+  width: 200px;
+  padding: var(--spacing-small) !important;
+  margin-bottom: var(--spacing-xsmall) !important;
+
+  .filterOptionContainer {
+    display: flex;
+    align-items: center;
+
+    .filterByOptions {
+      border: none;
+      position: relative;
+      left: 10px;
+
+      input {
+        border: none !important;
+        background: transparent !important;
+      }
+    }
+  }
+
+  .filterInput {
+    padding: var(--spacing-small);
+    width: 100%;
+    border: none;
+    border-radius: 2px;
+  }
+}

@@ -134,7 +134,7 @@ export default function DataSourceListEntitySelect(): JSX.Element {
           when: () => Boolean(noEntities),
           icon: 'warning-sign',
           ...i18n.noDataContent,
-          onClick: () => history.replace(routeCVDataSources.url({ projectIdentifier: projectId, orgId }))
+          onClick: () => history.replace(routeCVDataSources.url({ projectIdentifier: projectId, orgIdentifier: orgId }))
         }}
       >
         <Container className={css.main}>

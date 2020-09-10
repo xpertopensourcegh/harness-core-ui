@@ -149,7 +149,8 @@ export default function AppDynamicsProductPage(): JSX.Element {
     },
     [selectedProducts]
   )
-  const routeToDataSourcePage = () => history.replace(routeCVDataSources.url({ projectIdentifier: projectId, orgId }))
+  const routeToDataSourcePage = () =>
+    history.replace(routeCVDataSources.url({ projectIdentifier: projectId, orgIdentifier: orgId }))
   return (
     <>
       <Page.Header title={i18n.pageTitle} />

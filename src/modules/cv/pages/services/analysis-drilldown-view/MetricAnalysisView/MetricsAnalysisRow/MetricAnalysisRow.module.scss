@@ -1,0 +1,28 @@
+.main {
+  display: flex;
+  margin-bottom: var(--spacing-xsmall) !important;
+  height: 60px;
+
+  .metricInfoContainer {
+    width: 200px;
+    padding: var(--spacing-medium);
+
+    display: flex;
+    justify-content: space-between;
+
+    .keyTransaction,
+    .metricAndCategoryNameContainer {
+      align-self: center;
+    }
+  }
+
+  .highChartContainer {
+    margin-left: var(--spacing-xsmall);
+    height: 100%;
+    flex-grow: 1;
+    > div {
+      height: 100%;
+      width: 100%;
+    }
+  }
+}
