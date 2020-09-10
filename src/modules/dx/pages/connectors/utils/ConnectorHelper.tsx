@@ -97,6 +97,8 @@ export const getLabelForEncryptedSecret = (field: string) => {
       return 'Client Key Passphrase'
     case AuthTypeFields.clientCertRef:
       return 'Client Certificate'
+    case AuthTypeFields.clientKeyAlgo:
+      return 'Client Key Algorithm'
     default:
       return ''
   }
@@ -111,7 +113,7 @@ export const getSecretFieldValue = (field: string) => {
     case AuthTypeFields.oidcClientIdRef:
       return 'oidcClientIdRefSecret'
     case AuthTypeFields.oidcPasswordRef:
-      return 'oidcPasswordRefSceret'
+      return 'oidcPasswordRefSecret'
     case AuthTypeFields.oidcSecretRef:
       return 'oidcSecretRefSecret'
     case AuthTypeFields.clientKeyRef:

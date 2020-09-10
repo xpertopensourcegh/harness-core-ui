@@ -47,7 +47,7 @@ export const oidcAuthField = (formData: FormData) => {
     oidcIssuerUrl: formData.oidcIssuerUrl,
     oidcUsername: formData.oidcUsername,
     oidcPasswordRef: `${getScope(formData.oidcPasswordRefSecret?.scope)}${formData.oidcPasswordRefSecret?.secretId}`,
-    oidcClientIdRef: `${getScope(formData.ooidcClientIdRefSecret?.scope)}${formData.oidcClientIdRefSecret?.secretId}`,
+    oidcClientIdRef: `${getScope(formData.oidcClientIdRefSecret?.scope)}${formData.oidcClientIdRefSecret?.secretId}`,
     oidcSecretRef: `${getScope(formData.oidcSecretRefSecret?.scope)}${formData.oidcSecretRefSecret?.secretId}`,
     oidcScopes: formData.oidcScopes
   }

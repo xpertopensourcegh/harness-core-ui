@@ -1,8 +1,17 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { Layout, Button, Formik, StepProps, FormInput, FormikForm as Form } from '@wings-software/uikit'
+import {
+  Layout,
+  Button,
+  Formik,
+  StepProps,
+  FormInput,
+  FormikForm as Form,
+  ModalErrorHandlerBinding,
+  ModalErrorHandler
+} from '@wings-software/uikit'
 import { useParams } from 'react-router'
 import * as Yup from 'yup'
-import { StringUtils, useToaster } from 'modules/common/exports'
+import { StringUtils } from 'modules/common/exports'
 import { useValidateTheIdentifierIsUnique, ConnectorConfigDTO, ConnectorRequestDTO } from 'services/cd-ng'
 import { getHeadingByType, getConnectorTextByType } from '../../../../pages/connectors/utils/ConnectorHelper'
 import i18n from './ConnectorDetailsStep.i18n'
@@ -17,21 +26,25 @@ interface ConnectorDetailsStepProps extends StepProps<ConnectorRequestDTO> {
 
 const ConnectorDetailsStep: React.FC<StepProps<ConnectorRequestDTO> & ConnectorDetailsStepProps> = props => {
   const { prevStepData, nextStep } = props
-  const { showError } = useToaster()
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
   const [stepData, setStepData] = useState<ConnectorRequestDTO>(prevStepData || props.formData || {})
-  const { loading, data, refetch: validateUniqueIdentifier } = useValidateTheIdentifierIsUnique({
+  const { loading, data, refetch: validateUniqueIdentifier, error } = useValidateTheIdentifierIsUnique({
     accountIdentifier: accountId,
     lazy: true,
     queryParams: { orgIdentifier: orgIdentifier, projectIdentifier: projectIdentifier }
   })
   const mounted = useRef(false)
+  const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
   useEffect(() => {
     if (mounted.current && !loading) {
       if (data?.data) {
         nextStep?.({ ...prevStepData, ...stepData })
       } else {
-        showError(i18n.validateError)
+        if (error) {
+          modalErrorHandler?.showDanger(error.message)
+        } else {
+          modalErrorHandler?.showDanger(i18n.validateError)
+        }
       }
     } else {
       mounted.current = true
@@ -40,6 +53,7 @@ const ConnectorDetailsStep: React.FC<StepProps<ConnectorRequestDTO> & ConnectorD
   return (
     <Layout.Vertical spacing="xxlarge" className={css.firstep}>
       <div className={css.heading}>{getHeadingByType(props.type)}</div>
+      <ModalErrorHandler bind={setModalErrorHandler} />
       <Formik
         initialValues={{
           name: '',

@@ -10,7 +10,9 @@ import {
   Formik,
   Icon,
   SelectV2,
-  SelectOption
+  SelectOption,
+  ModalErrorHandler,
+  ModalErrorHandlerBinding
 } from '@wings-software/uikit'
 import { Form } from 'formik'
 import cx from 'classnames'
@@ -327,7 +329,6 @@ const SecondStep = (props: SecondStepProps) => {
 
 const IntermediateStep: React.FC<IntermediateStepProps> = props => {
   const [showCreateSecretModal, setShowCreateSecretModal] = useState<boolean>(false)
-
   const [editSecretData, setEditSecretData] = useState<EncryptedDataDTO>()
   const { state, accountId } = props
   const { showError } = useToaster()
@@ -335,23 +336,32 @@ const IntermediateStep: React.FC<IntermediateStepProps> = props => {
   const { mutate: createConnector } = useCreateConnector({ accountIdentifier: accountId })
   const { mutate: updateConnector } = useUpdateConnector({ accountIdentifier: props.accountId })
   const { mutate: createSecret } = usePostSecretText({})
-
-  // BE type need to be fixed
+  const [loadSecret, setLoadSecret] = useState(false)
+  const [loadConnector, setLoadConnector] = useState(false)
+  const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
   const handleCreate = async (data: ConnectorRequestDTORequestBody) => {
     try {
+      setLoadConnector(true)
       await createConnector(data)
+      setLoadConnector(false)
       props.nextStep?.()
     } catch (e) {
+      setLoadConnector(false)
       showError(e.message)
+      modalErrorHandler?.showDanger(e?.message)
     }
   }
 
   const handleUpdate = async (data: ConnectorRequestDTORequestBody) => {
     try {
+      setLoadConnector(true)
       await updateConnector(data)
+      setLoadConnector(false)
       props.nextStep?.()
     } catch (error) {
+      setLoadConnector(false)
       showError(error.message)
+      modalErrorHandler?.showDanger(error?.message)
     }
   }
 
@@ -373,6 +383,7 @@ const IntermediateStep: React.FC<IntermediateStepProps> = props => {
             ...props.formData
           }}
           onSubmit={formData => {
+            modalErrorHandler?.hide()
             const connectorData = { ...state.formData, ...formData, authType: state.authentication?.value }
             const data = {
               ...buildKubPayload(connectorData),
@@ -395,6 +406,7 @@ const IntermediateStep: React.FC<IntermediateStepProps> = props => {
               handleUpdate(data)
             } else {
               if (nonRefrencedFields.length) {
+                setLoadSecret(true)
                 Promise.all(
                   passwordFields.map((item: SecretFieldByType) => {
                     return createSecret({
@@ -409,13 +421,19 @@ const IntermediateStep: React.FC<IntermediateStepProps> = props => {
                       valueType: 'Inline'
                     })
                   })
-                ).then(() => {
-                  if (state.isEditMode) {
-                    handleUpdate(data)
-                  } else {
-                    handleCreate(data)
-                  }
-                })
+                )
+                  .then(() => {
+                    setLoadSecret(false)
+                    if (state.isEditMode) {
+                      handleUpdate(data)
+                    } else {
+                      handleCreate(data)
+                    }
+                  })
+                  .catch(error => {
+                    setLoadSecret(false)
+                    modalErrorHandler?.showDanger(error?.message)
+                  })
               } else {
                 handleCreate(data)
               }
@@ -426,6 +444,7 @@ const IntermediateStep: React.FC<IntermediateStepProps> = props => {
           {formikProps => (
             <div className={css.formWrapper}>
               <Form className={css.credForm}>
+                <ModalErrorHandler bind={setModalErrorHandler} />
                 <div className={css.formFields}>
                   <FormInput.Text label={i18n.STEP_INTERMEDIATE.masterUrl} name="masterUrl" />
                   <Layout.Horizontal className={css.credWrapper}>
@@ -466,6 +485,7 @@ const IntermediateStep: React.FC<IntermediateStepProps> = props => {
                     type="submit"
                     style={{ color: 'var(--blue-500)', borderColor: 'var(--blue-500)' }}
                     text="Continue"
+                    disabled={loadConnector || loadSecret}
                   />
                 </Layout.Horizontal>
               </Form>

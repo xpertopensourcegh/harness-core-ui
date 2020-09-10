@@ -54,7 +54,7 @@ export const getSecretFieldsByType = (type: string) => {
       return [{ passwordField: 'serviceAccountTokenRef', secretField: 'serviceAccountTokenRefSecret' }]
     case AuthTypes.OIDC:
       return [
-        { passwordField: 'oidcPasswordRef', secretField: 'oidcPasswordRefSceret' },
+        { passwordField: 'oidcPasswordRef', secretField: 'oidcPasswordRefSecret' },
         { passwordField: 'oidcSecretRef', secretField: 'oidcSecretRefSecret' },
         { passwordField: 'oidcClientIdRef', secretField: 'oidcClientIdRefSecret' }
       ]
