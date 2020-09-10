@@ -1,13 +1,7 @@
-type iconMapOptions = {
-  [key: string]: string
-}
+import type { IconName } from '@wings-software/uikit'
 
-export const iconMap: iconMapOptions = {
-  Placeholder: 'disable',
-  K8sRollingRollback: 'main-rollback',
-  K8sRollingDeploy: 'rolling',
-  ShellScript: 'command-shell-script',
-  Http: 'command-http'
+type iconMapOptions = {
+  [key: string]: IconName
 }
 
 // This is temporary, need to get types as above for icons

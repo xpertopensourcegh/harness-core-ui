@@ -1,11 +1,8 @@
-import type { IconName } from '@wings-software/uikit'
 import type { NodeModelListener, LinkModelListener } from '@projectstorm/react-diagrams-core'
 import type { BaseModelListener, BaseModel } from '@projectstorm/react-canvas-core'
 import type { ExecutionWrapper, ExecutionElement } from 'services/cd-ng'
 import { Diagram } from 'modules/common/exports'
-import { StepType } from '../../../components/PipelineSteps/PipelineStepInterface'
 import { EmptyNodeSeparator } from '../StageBuilder/StageBuilderUtil'
-import { iconMap } from './ExecutionStepIconMap'
 
 export interface ExecutionGraphState {
   isRollback: boolean
@@ -33,20 +30,6 @@ export interface StepState {
 }
 
 export type StepStateMap = Map<string, StepState>
-
-export const getStepTypeFromStep = (node: ExecutionWrapper): StepType => {
-  if (Object.values(StepType).includes(node.step.type)) {
-    return node.step.type
-  }
-  return StepType.APPROVAL
-}
-
-export const getStepIconByType = (type: string): IconName => {
-  if (Object.values(iconMap).includes(type)) {
-    return iconMap[type] as IconName
-  }
-  return iconMap[type] as IconName
-}
 
 export const calculateDepthCount = (node: ExecutionWrapper, stepStates: StepStateMap): number => {
   let depth = 0.7 // half of gap

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { ExpandingSearchInput, Card, Text, Icon, Layout, Button, IconName } from '@wings-software/uikit'
+import { ExpandingSearchInput, Card, Text, Icon, Layout, Button } from '@wings-software/uikit'
 
 import { get, cloneDeep, uniqBy } from 'lodash'
 import { useGet } from 'restful-react'
@@ -7,8 +7,9 @@ import { useGet } from 'restful-react'
 import cx from 'classnames'
 import type { StepData } from 'modules/common/components/AbstractSteps/AbstractStepFactory'
 
+import factory from 'modules/cd/components/PipelineSteps/PipelineStepFactory'
 import i18n from './StepPalette.18n'
-import { iconMap, iconMapByName } from './iconMap'
+import { iconMapByName } from './iconMap'
 import { RightBar } from '../RightBar/RightBar'
 import { getConfig } from '../../../../../services/config'
 import css from './StepPalette.module.scss'
@@ -133,13 +134,13 @@ export const StepPalette: React.FC<StepPaletteProps> = ({ onSelect, onClose, sel
                           onSelect({
                             name: stepData.name,
                             type: stepData.type,
-                            icon: iconMap[stepData.type] as IconName
+                            icon: factory.getStepIcon(stepData.type)
                           })
                         }
                       }}
                     >
                       <Card interactive={true} elevation={0} selected={false}>
-                        <Icon name={iconMap[stepData.type] as IconName} />
+                        <Icon name={factory.getStepIcon(stepData.type)} />
                       </Card>
                       <section className={css.stepName}>{stepData.name}</section>
                     </section>
@@ -149,25 +150,25 @@ export const StepPalette: React.FC<StepPaletteProps> = ({ onSelect, onClose, sel
 
               if (stepCategory?.stepCategories?.length > 0) {
                 stepCategory.stepCategories.map((subStepData: { stepsData: [] }) => {
-                  subStepData?.stepsData?.map((v: { name: string; type: string }) => {
+                  subStepData?.stepsData?.map((step: { name: string; type: string }) => {
                     categorySteps.push(
                       <section
                         className={css.step}
-                        key={v.name}
+                        key={step.name}
                         onClick={() => {
-                          if (v.type !== 'Placeholder') {
+                          if (step.type !== 'Placeholder') {
                             onSelect({
-                              name: v.name,
-                              type: v.type,
-                              icon: iconMap[v.type] as IconName
+                              name: step.name,
+                              type: step.type,
+                              icon: factory.getStepIcon(step.type)
                             })
                           }
                         }}
                       >
                         <Card interactive={true} elevation={0} selected={false}>
-                          <Icon name={iconMap[v.type] as IconName} />
+                          <Icon name={factory.getStepIcon(step.type)} />
                         </Card>
-                        <section className={css.stepName}>{v.name}</section>
+                        <section className={css.stepName}>{step.name}</section>
                       </section>
                     )
                   })
@@ -213,7 +214,7 @@ export const StepPalette: React.FC<StepPaletteProps> = ({ onSelect, onClose, sel
                       }}
                       key={category.name}
                     >
-                      <Icon size={14} name={iconMapByName[category.name] as IconName} /> {category.name} (
+                      <Icon size={14} name={iconMapByName[category.name]} /> {category.name} (
                       {category.stepsData.length})
                     </section>
                   )
@@ -228,7 +229,7 @@ export const StepPalette: React.FC<StepPaletteProps> = ({ onSelect, onClose, sel
                       }}
                       key={category.name}
                     >
-                      <Icon size={14} name={iconMapByName[category.name] as IconName} /> {category.name}
+                      <Icon size={14} name={iconMapByName[category.name]} /> {category.name}
                     </section>
                   )
                   subCategory.map((subCat: { stepsData: StepsData[]; name: string; type: string }) =>
