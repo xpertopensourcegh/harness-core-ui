@@ -11,6 +11,7 @@ allowpaths:
   - /ds-config/env-to-services
   - /heatmap
   - /heatmap/category-risks
+  - /heatmap/env-service-risks
   - /verification-job
   - /timeseries-dashboard/anomalous-metric-data
   - /timeseries-dashboard/metric-data

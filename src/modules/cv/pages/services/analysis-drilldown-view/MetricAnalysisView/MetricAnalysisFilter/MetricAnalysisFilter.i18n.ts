@@ -1,7 +1,7 @@
 export default {
   filterText: 'FILTER',
   filterByDropdownOptionLabels: {
-    anomalous: 'Anomalous Metrics',
-    allMetrics: 'All Metrics'
+    anomalous: 'Anomalous metrics',
+    allMetrics: 'All metrics'
   }
 }

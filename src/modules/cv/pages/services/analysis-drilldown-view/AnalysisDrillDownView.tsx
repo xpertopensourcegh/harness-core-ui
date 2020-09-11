@@ -11,8 +11,8 @@ export interface AnalysisDrillDownViewProps {
   startTime: number
   endTime: number
   categoryName: string
-  environmentIdentifier: string
-  serviceIdentifier: string
+  environmentIdentifier?: string
+  serviceIdentifier?: string
 }
 
 export function AnalysisDrillDownView(props: AnalysisDrillDownViewProps): JSX.Element {

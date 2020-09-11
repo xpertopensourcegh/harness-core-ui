@@ -10,8 +10,8 @@ import css from './LogAnalysisView.module.scss'
 interface LogAnalysisViewProps {
   startTime: number
   endTime: number
-  environmentIdentifier: string
-  serviceIdentifier: string
+  environmentIdentifier?: string
+  serviceIdentifier?: string
   categoryName: string
 }
 

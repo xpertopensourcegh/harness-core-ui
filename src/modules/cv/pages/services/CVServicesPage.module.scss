@@ -2,9 +2,8 @@
   display: flex;
   height: 100%;
   padding: var(--spacing-large) !important;
-  .sidebar {
-    flex-basis: 230px;
-    margin-right: var(--spacing-large) !important;
+  .fixedServices {
+    margin-right: var(--spacing-large);
   }
   .content {
     flex: 1;

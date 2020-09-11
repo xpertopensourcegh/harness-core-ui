@@ -1,0 +1,53 @@
+.main {
+  height: 100%;
+  padding: var(--spacing-large) !important;
+  width: 250px;
+
+  .filterService {
+    border: none;
+    padding: var(--spacing-small);
+    display: block;
+    border-radius: 4px;
+    width: 100%;
+    font-size: var(--font-size-small);
+    margin-bottom: var(--spacing-medium);
+  }
+
+  .allServiceSelector {
+    margin-bottom: var(--spacing-small) !important;
+    > p {
+      font-weight: 700 !important;
+      color: var(--black) !important;
+    }
+  }
+
+  .entityRow {
+    padding: var(--spacing-xsmall);
+    cursor: pointer;
+
+    .smallRiskTile {
+      width: 20px;
+      [class*='riskScore'] {
+        font-size: var(--font-size-small);
+      }
+    }
+
+    &[data-selected='true'] {
+      background-color: var(--white) !important;
+      border: 1px solid var(--blue-500);
+      border-radius: 3px;
+    }
+    > p {
+      font-size: var(--font-size-small) !important;
+    }
+  }
+
+  .serviceRow {
+    width: 80%;
+    float: right;
+  }
+
+  .environmentRow {
+    clear: right;
+  }
+}

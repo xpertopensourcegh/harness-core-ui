@@ -1,27 +1,35 @@
 import React, { useState, useEffect, useMemo } from 'react'
-import { Container, Text, Select, OverlaySpinner, Color } from '@wings-software/uikit'
+import { Container, Text, Select, OverlaySpinner, Color, SelectOption } from '@wings-software/uikit'
 import moment from 'moment'
-import { flatten } from 'lodash-es'
+import { useHistory } from 'react-router-dom'
 import { Page } from 'modules/common/exports'
 import HeatMap, { CellStatusValues } from 'modules/common/components/HeatMap/HeatMap'
 // import TimelineView from 'modules/common/components/TimelineView/TimelineView'
 import { routeParams } from 'framework/exports'
-import { useGetServices, HeatMapDTO, useGetHeatmap } from 'services/cv'
+import {
+  HeatMapDTO,
+  useGetHeatmap,
+  useGetEnvServiceRisks,
+  RestResponseListEnvServiceRiskDTO,
+  EnvServiceRiskDTO
+} from 'services/cv'
 import { useToaster } from 'modules/common/exports'
-import ServiceSelector from './ServiceSelector'
+import { routeCVDataSources } from 'modules/cv/routes'
+import ServiceSelector from './ServiceSelector/ServiceSelector'
 import i18n from './CVServicesPage.i18n'
 import { CategoryRiskCards } from '../dashboard/CategoryRiskCards/CategoryRiskCards'
 import { AnalysisDrillDownView, AnalysisDrillDownViewProps } from './analysis-drilldown-view/AnalysisDrillDownView'
+import useAnalysisDrillDownView from './analysis-drilldown-view/useAnalysisDrillDownView'
 import styles from './CVServicesPage.module.scss'
 
-const rangeOptions = [
+const RangeOptions = [
   { label: '4 hrs', value: 4 },
   { label: '12 hrs', value: 12 },
   { label: '1 day', value: 24 },
   { label: '7 days', value: 7 * 24 },
   { label: '30 days', value: 30 * 24 }
 ]
-const defaultRange = rangeOptions[0]
+const DEFAULT_RANGE = RangeOptions[0]
 const getRangeDates = (val: number) => {
   const now = moment()
   return {
@@ -30,115 +38,79 @@ const getRangeDates = (val: number) => {
   }
 }
 
-interface ServiceData {
-  identifier: string
-  name: string
-  environment: string
+function mapHeatmapValue(val: any): number | CellStatusValues {
+  return val && typeof val.riskScore === 'number' ? val.riskScore : CellStatusValues.Missing
 }
 
-export default function CVServicesPage() {
-  const [range, setRange] = useState({
-    selectedValue: defaultRange.value,
-    dates: {
-      ...getRangeDates(defaultRange.value)
-    }
-  })
-  const [heatmapData, setHeatmapData] = useState<Array<{ name: string; data: Array<any> }>>([])
-  const [services, setServices] = useState<Array<ServiceData>>([])
-  const [selectedService, setSelectedService] = useState<ServiceData | undefined>()
+export default function CVServicesPage(): JSX.Element {
   const {
     params: { accountId, projectIdentifier, orgIdentifier }
   } = routeParams()
-  const { showError } = useToaster()
-
-  const onSelectService = (id: string) => {
-    const service = services.find(s => s.identifier === id)
-    if (service) {
-      setSelectedService(service)
-    }
-  }
-
-  const { data: servicesResponse, loading, error: servicesError } = useGetServices({
-    queryParams: {
-      accountId,
-      projectIdentifier: projectIdentifier as string,
-      orgIdentifier: orgIdentifier as string
+  const [range, setRange] = useState({
+    selectedValue: DEFAULT_RANGE.value,
+    dates: {
+      ...getRangeDates(DEFAULT_RANGE.value)
     }
   })
-  const [displayCategoryAnalysis, setDisplayCategoryAnalysis] = useState<AnalysisDrillDownViewProps | undefined>(
-    undefined
-  )
-
-  useEffect(() => {
-    if (!loading) {
-      if (servicesError) {
-        showError(servicesError.message)
-        return
-      }
-      let serviceItems = servicesResponse?.resource?.map((item: any) => {
-        return item.services.map((service: any) => ({
-          ...service,
-          environment: item.environment.name
-        }))
-      })
-      serviceItems = flatten(serviceItems)
-      setServices(serviceItems)
-      setSelectedService(serviceItems[0])
-    }
-  }, [servicesResponse])
+  const [heatmapData, setHeatmapData] = useState<Array<{ name: string; data: Array<any> }>>([])
+  const [services, setServices] = useState<EnvServiceRiskDTO[]>([])
+  const [selectedService, setSelectedService] = useState<{
+    serviceIdentifier?: string
+    environmentIdentifier?: string
+  }>({})
+  const history = useHistory()
+  const [displayCategoryAnalysis] = useState<AnalysisDrillDownViewProps | undefined>(undefined)
+  const { showError } = useToaster()
+  const { openDrillDown } = useAnalysisDrillDownView()
 
   const { data: heatmapResponse, loading: loadingHeatmap, error: heatmapError, refetch: getHeatmap } = useGetHeatmap({
     queryParams: {
       accountId: accountId,
-      envIdentifier: selectedService?.environment,
-      serviceIdentifier: selectedService?.identifier,
+      envIdentifier: selectedService?.environmentIdentifier,
+      serviceIdentifier: selectedService?.serviceIdentifier,
       projectIdentifier: projectIdentifier as string,
       startTimeMs: range.dates.start.valueOf(),
       endTimeMs: range.dates.end.valueOf()
     },
-    lazy: true
+    lazy: true,
+    resolve: response => {
+      setHeatmapData(
+        !response?.resource
+          ? []
+          : Object.keys(response.resource).map((key: string) => ({
+              name: key,
+              data: response?.resource[key]
+            }))
+      )
+      return response
+    }
+  })
+
+  const { loading: loadingServices, error: servicesError, refetch: refetchServices } = useGetEnvServiceRisks({
+    queryParams: {
+      accountId,
+      projectIdentifier: projectIdentifier as string,
+      orgIdentifier: orgIdentifier as string
+    },
+    resolve: (response: RestResponseListEnvServiceRiskDTO) => {
+      if (response?.resource?.length) {
+        setServices(response.resource)
+        getHeatmap({
+          queryParams: {
+            accountId: accountId,
+            projectIdentifier: projectIdentifier as string,
+            startTimeMs: range.dates.start.valueOf(),
+            endTimeMs: range.dates.end.valueOf()
+          }
+        })
+      }
+      return response
+    }
   })
 
   useEffect(() => {
-    if (selectedService) {
-      setHeatmapData([])
-      getHeatmap()
-    }
-  }, [range, selectedService])
-
-  useEffect(() => {
-    if (!loadingHeatmap) {
-      if (heatmapError) {
-        showError(heatmapError.message)
-        return
-      }
-      const resource = heatmapResponse?.resource as any
-      setHeatmapData(
-        !resource
-          ? []
-          : Object.keys(resource).map((key: string) => ({
-              name: key,
-              data: resource[key]
-            }))
-      )
-    }
+    if (heatmapError) showError(heatmapError.message)
   }, [heatmapResponse])
-
-  const onRangeChange = ({ value }: any) => {
-    if (range && range.selectedValue === value) {
-      return
-    }
-    setRange({
-      selectedValue: value,
-      dates: {
-        ...getRangeDates(value)
-      }
-    })
-  }
-
-  const mapHeatmapValue = (val: any) => {
-    return val && typeof val.riskScore === 'number' ? val.riskScore : CellStatusValues.Missing
-  }
 
   const heatMapSize = useMemo(() => {
     return Math.max(...heatmapData.map(({ data }) => data.length)) || 48
@@ -150,29 +122,70 @@ export default function CVServicesPage() {
         title="Services"
         toolbar={
           <Container>
-            <Select defaultSelectedItem={defaultRange} items={rangeOptions} onChange={onRangeChange} />
+            <Select
+              defaultSelectedItem={DEFAULT_RANGE}
+              items={RangeOptions}
+              onChange={({ value }: SelectOption) => {
+                if (range?.selectedValue === value) return
+                const selectedValue = value as number
+                setRange({ selectedValue, dates: getRangeDates(selectedValue) })
+                setHeatmapData([])
+                const { start, end } = getRangeDates(value as number)
+                getHeatmap({
+                  queryParams: {
+                    accountId: accountId,
+                    projectIdentifier: projectIdentifier as string,
+                    startTimeMs: start.valueOf(),
+                    endTimeMs: end.valueOf()
+                  }
+                })
+              }}
+            />
           </Container>
         }
       />
-      <Page.Body loading={loading}>
+      <Page.Body
+        loading={loadingServices}
+        noData={{
+          when: () => services?.length === 0 && !servicesError?.message?.length,
+          message: i18n.noDataText.noServicesConfigured,
+          buttonText: i18n.noDataText.goBackToDataSourcePage,
+          onClick: () => {
+            history.push({
+              pathname: routeCVDataSources.url({
+                projectIdentifier: projectIdentifier as string,
+                orgIdentifier: orgIdentifier as string
+              })
+            })
+          },
+          icon: 'error'
+        }}
+        error={servicesError?.message}
+        retryOnError={() => {
+          refetchServices()
+        }}
+      >
         <Container className={styles.servicesPage}>
-          <Container className={styles.sidebar}>
-            <ServiceSelector
-              services={services}
-              selectedServiceId={selectedService && selectedService!.identifier}
-              onSelect={onSelectService}
-            />
-          </Container>
+          <ServiceSelector
+            className={styles.fixedServices}
+            serviceData={services}
+            onSelect={(serviceIdentifier: string, envIdentifier: string) => {
+              setSelectedService({ serviceIdentifier, environmentIdentifier: envIdentifier })
+              setHeatmapData([])
+              getHeatmap({
+                queryParams: {
+                  accountId: accountId,
+                  projectIdentifier: projectIdentifier as string,
+                  startTimeMs: range.dates.start.valueOf(),
+                  endTimeMs: range.dates.end.valueOf(),
+                  serviceIdentifier,
+                  envIdentifier
+                }
+              })
+            }}
+          />
           <Container className={styles.content}>
-            <CategoryRiskCards
-              categoriesAndRisk={[
-                { categoryName: 'Performance', riskScore: 75 }
-                // { categoryName: 'Errors', riskScore: 45 },
-                // { categoryName: 'Quality', riskScore: 8 },
-                // { categoryName: 'Infrastructure', riskScore: 89 }
-              ]}
-              categoryRiskCardClassName={styles.categoryRiskCard}
-            />
+            <CategoryRiskCards categoryRiskCardClassName={styles.categoryRiskCard} />
             <Container className={styles.serviceBody}>
               <OverlaySpinner show={loadingHeatmap}>
                 <Text margin={{ bottom: 'xsmall' }} font={{ size: 'small' }} color={Color.BLACK}>
@@ -184,16 +197,15 @@ export default function CVServicesPage() {
                   maxValue={1}
                   mapValue={mapHeatmapValue}
                   renderTooltip={(cell: HeatMapDTO) => <div>{cell && cell.riskScore}</div>}
-                  cellClassName={''}
                   cellShapeBreakpoint={0.5}
                   onCellClick={(cell: HeatMapDTO, rowData) => {
                     if (cell.startTime && cell.endTime) {
-                      setDisplayCategoryAnalysis({
+                      openDrillDown({
                         startTime: cell.startTime,
                         endTime: cell.endTime,
                         categoryName: rowData?.name,
-                        environmentIdentifier: 'Dev',
-                        serviceIdentifier: 'Delegate'
+                        environmentIdentifier: selectedService?.environmentIdentifier,
+                        serviceIdentifier: selectedService?.serviceIdentifier
                       })
                     }
                   }}
@@ -206,7 +218,12 @@ export default function CVServicesPage() {
                   renderItem={() => <div />}
                 /> */}
                 {displayCategoryAnalysis && (
-                  <AnalysisDrillDownView className={styles.analysisView} {...displayCategoryAnalysis} />
+                  <AnalysisDrillDownView
+                    className={styles.analysisView}
+                    {...displayCategoryAnalysis}
+                    serviceIdentifier={selectedService?.serviceIdentifier}
+                    environmentIdentifier={selectedService?.environmentIdentifier}
+                  />
                 )}
               </OverlaySpinner>
             </Container>

@@ -2,7 +2,7 @@
 // this is an auto-generated file
 declare const styles: {
   readonly servicesPage: string
-  readonly sidebar: string
+  readonly fixedServices: string
   readonly content: string
   readonly serviceHeader: string
   readonly serviceBody: string

@@ -1,18 +1,20 @@
 import React, { useState, useEffect, useMemo } from 'react'
-import { Container, Icon, Color, Pagination } from '@wings-software/uikit'
+import { Container, Icon, Color, Pagination, Button } from '@wings-software/uikit'
 import cx from 'classnames'
 import { routeParams } from 'framework/exports'
 import { useGetAnomalousMetricData, TimeSeriesMetricDataDTO, useGetMetricData } from 'services/cv'
+import { NoDataCard } from 'modules/common/components/Page/NoDataCard'
 import MetricAnalysisRow from './MetricsAnalysisRow/MetricAnalysisRow'
 import { MetricAnalysisFilter } from './MetricAnalysisFilter/MetricAnalysisFilter'
+import i18n from './MetricAnalysisView.i18n'
 import css from './MetricAnalysisView.module.scss'
 
 interface MetricAnalysisViewProps {
   startTime: number
   endTime: number
   categoryName: string
-  environmentIdentifier: string
-  serviceIdentifier: string
+  environmentIdentifier?: string
+  serviceIdentifier?: string
   className?: string
 }
 
@@ -79,6 +81,7 @@ export default function MetricAnalysisView(props: MetricAnalysisViewProps): JSX.
     return (
       <Container className={css.errorOrLoading} margin="medium">
         <Icon name="error" size={25} color={Color.RED_500} />
+        <Button intent="primary">{i18n.retryButtonText}</Button>
       </Container>
     )
   }
@@ -92,15 +95,16 @@ export default function MetricAnalysisView(props: MetricAnalysisViewProps): JSX.
         onChangeFilter={() => {
           cancelAllMetricDataCall()
           cancelAnomalousCall()
-          setMetricDataView(isAllMetricView => {
-            if (!isAllMetricView && (!anomalousMetricData?.resource?.content?.length || needsRefetch)) {
+          setMetricDataView(prevView => {
+            const isAnomalousView = !prevView
+            if (isAnomalousView && (!anomalousMetricData?.resource?.content?.length || needsRefetch)) {
               refetchAnomalousData()
               setNeedsRefetch(false)
             } else if (!allMetricData?.resource?.content?.length || needsRefetch) {
               refetchAllMetricData()
               setNeedsRefetch(false)
             }
-            return isAllMetricView
+            return isAnomalousView
           })
         }}
       />
@@ -109,7 +113,16 @@ export default function MetricAnalysisView(props: MetricAnalysisViewProps): JSX.
           <Icon name="steps-spinner" size={25} color={Color.GREY_600} />
         </Container>
       )}
-      {(!loadingAllMetricData || loadingAnomalousData) &&
+      {!loadingAllMetricData && !loadingAnomalousData && !itemCount && (
+        <NoDataCard
+          message={isViewingAnomalousData ? i18n.noDataText.anomalous : i18n.noDataText.allMetricData}
+          icon="deployment-success-legacy"
+          buttonText={i18n.retryButtonText}
+          onClick={isViewingAnomalousData ? () => refetchAnomalousData() : () => refetchAllMetricData()}
+        />
+      )}
+      {!loadingAllMetricData &&
+        !loadingAnomalousData &&
         content?.map((d: TimeSeriesMetricDataDTO) => {
           const { category, groupName, metricDataList, metricName } = d
           return metricName && category && groupName && metricDataList?.length ? (
