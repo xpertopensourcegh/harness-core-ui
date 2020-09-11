@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react'
+import React, { useState, useMemo, useEffect } from 'react'
 import ReactDOM from 'react-dom'
 import { HashRouter, Route as ReactRoute, Switch, Redirect } from 'react-router-dom'
 import { RestfulProvider } from 'restful-react'
@@ -16,7 +16,6 @@ import './App.scss'
 FocusStyleManager.onlyShowFocusOnTabs()
 
 const App: React.FC = () => {
-  const accountId = SessionToken.accountId()
   const token = SessionToken.getToken()
   const [activeRoute, setActiveRoute] = useState<Route>()
   const getRequestOptions = React.useCallback((): Partial<RequestInit> => {
@@ -42,7 +41,7 @@ const App: React.FC = () => {
         <HashRouter>
           <LayoutManager route={activeRoute}>
             <Switch>
-              <Redirect exact from="/" to={`/account/${accountId}/dashboard`} />
+              <ReactRoute exact path="/" component={RedirectRoot} />
               {sortedRoutes.map(route => (
                 <ReactRoute path={routePath(route)} key={route.path}>
                   <RouteMounter route={route} onEnter={setActiveRoute} />
@@ -54,6 +53,16 @@ const App: React.FC = () => {
       </RestfulProvider>
     </AppStoreProvider>
   )
+}
+
+const RedirectRoot: React.FC = () => {
+  const accountId = SessionToken.accountId()
+
+  useEffect(() => {
+    return () => window.location.reload()
+  }, [accountId])
+
+  return <Redirect exact from="/" to={`/account/${accountId}/dashboard`} />
 }
 
 ReactDOM.render(<App />, document.getElementById('react-root'))

@@ -16713,3 +16713,18 @@ export const useGetKubernetesDelegateNames = (props: UseGetKubernetesDelegateNam
     `/setup/delegates/kubernetes-delegates`,
     { base: window.apiUrl || getConfig('api'), ...props }
   )
+
+export type GetUserProps = Omit<GetProps<RestResponseUser, unknown, void, void>, 'path'>
+
+export const GetUser = (props: GetUserProps) => (
+  <Get<RestResponseUser, unknown, void, void>
+    path={`/users/user`}
+    base={window.apiUrl || getConfig('api')}
+    {...props}
+  />
+)
+
+export type UseGetUserProps = Omit<UseGetProps<RestResponseUser, unknown, void, void>, 'path'>
+
+export const useGetUser = (props: UseGetUserProps) =>
+  useGet<RestResponseUser, unknown, void, void>(`/users/user`, { base: window.apiUrl || getConfig('api'), ...props })

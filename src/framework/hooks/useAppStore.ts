@@ -5,6 +5,7 @@ import type { AppStore } from '../types/AppStore'
 
 const initialStoreData: AppStore = {
   projects: [],
+  user: {},
   organisationsMap: new Map<string, Organization>()
 }
 

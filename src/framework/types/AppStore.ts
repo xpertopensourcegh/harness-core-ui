@@ -1,4 +1,5 @@
 import type { Project, Organization } from 'services/cd-ng'
+import type { User } from 'services/portal'
 import type { Route } from './Route'
 import type { SidebarRegistry } from './SidebarRegistry'
 
@@ -17,6 +18,9 @@ export interface AppStore {
   /** Projects */
   projects: Project[]
 
-  /**Organisation Map */
+  /** Organisation Map */
   organisationsMap: Map<string, Organization>
+
+  /** Current user info */
+  user: Partial<User>
 }

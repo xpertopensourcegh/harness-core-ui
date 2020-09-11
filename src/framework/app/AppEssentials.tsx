@@ -5,11 +5,12 @@ import type { GetDataError } from 'restful-react'
 import { AUTH_ROUTE_PATH_PREFIX } from 'framework/utils/framework-utils'
 import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
 import { useGetProjectList, FailureDTO, ErrorDTO, useGetOrganizationList, Organization } from 'services/cd-ng'
+import { useGetUser } from 'services/portal'
 import type { AppStore } from 'framework/types/AppStore'
 
 export interface FetchingAppEssentialsProps {
-  onSuccess: (data: Partial<Pick<AppStore, 'projects' | 'organisationsMap'>>) => void
-  onError: (error: GetDataError<FailureDTO | ErrorDTO>) => void
+  onSuccess: (data: Partial<Pick<AppStore, 'projects' | 'organisationsMap' | 'user'>>) => void
+  onError: (error: GetDataError<FailureDTO | ErrorDTO | unknown>) => void
 }
 
 export const AppEssentials: React.FC<FetchingAppEssentialsProps> = ({ onSuccess, onError }) => {
@@ -18,13 +19,13 @@ export const AppEssentials: React.FC<FetchingAppEssentialsProps> = ({ onSuccess,
   })
   const accountId = (match?.params as { accountId: string })?.accountId
   const isMounted = useIsMounted()
-  const { loading, data, error } = useGetProjectList({
+  const { loading, data: projects, error: projectError } = useGetProjectList({
     queryParams: {
       accountIdentifier: accountId
     }
   })
 
-  const { loading: orgLoading, data: orgData, error: orgError } = useGetOrganizationList({
+  const { loading: orgLoading, data: orgs, error: orgError } = useGetOrganizationList({
     queryParams: {
       accountIdentifier: accountId
     }
@@ -38,19 +39,27 @@ export const AppEssentials: React.FC<FetchingAppEssentialsProps> = ({ onSuccess,
     return orgMap
   }
 
+  const { loading: userLoading, data: user, error: userError } = useGetUser({})
+
   useEffect(() => {
     if (isMounted.current && !loading && !orgLoading) {
-      if (!error && !orgError) {
+      if ((!projectError && !orgError) || !userError) {
         onSuccess({
-          projects: data?.data?.content || [],
-          organisationsMap: getOrganisationMap(orgData?.data?.content || [])
+          projects: projects?.data?.content || [],
+          organisationsMap: getOrganisationMap(orgs?.data?.content || []),
+          user: user?.resource
         })
       } else {
-        error && onError(error)
-        orgError && onError(orgError)
+        if (projectError) {
+          onError(projectError)
+        } else if (orgError) {
+          onError(orgError)
+        } else if (userError) {
+          onError(userError)
+        }
       }
     }
-  }, [loading, orgLoading]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [loading, orgLoading, userLoading]) // eslint-disable-line react-hooks/exhaustive-deps
 
-  return loading || orgLoading ? <PageSpinner /> : null
+  return loading || orgLoading || userLoading ? <PageSpinner /> : null
 }
