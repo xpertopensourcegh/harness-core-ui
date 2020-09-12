@@ -1,0 +1,55 @@
+.search {
+  width: 300px;
+  margin-right: 25px;
+}
+
+.separator {
+  border-left: 1px solid var(--grey-400);
+  height: 25px;
+}
+.table {
+  margin: var(--spacing-xlarge);
+}
+
+.pipelineCard {
+  width: 250px;
+  box-shadow: 0 0 5px 0px rgba(0, 0, 0, 0.1);
+  padding: 0px;
+  padding-top: var(--spacing-xxxlarge);
+}
+.cardTags {
+  background-color: var(--grey-200) !important;
+  color: var(--grey-400) !important;
+}
+
+.runPipeline {
+  background: var(--grey-100) !important;
+}
+
+.activityChart {
+  max-width: 60px;
+  display: block;
+  :global(.progress-bar) {
+    height: var(--spacing-xxlarge) !important;
+  }
+}
+.tags {
+  position: absolute;
+  top: 10px;
+
+  :global(.bp3-tag) {
+    border-radius: 10px;
+    padding: 0 15px;
+    font-size: var(--font-size-xsmall);
+  }
+}
+
+.menu {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.clickable {
+  cursor: pointer;
+}

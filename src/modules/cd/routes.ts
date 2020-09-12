@@ -35,11 +35,11 @@ export const routeCDDeployments: Route<{ projectIdentifier: string }> = {
 export const routeCDPipelines: Route<{ orgIdentifier: string; projectIdentifier: string }> = {
   module: ModuleName.CD,
   sidebarId: SidebarIdentifier.CONTINUOUS_DEPLOYMENTS,
-  path: '/cd/pipelines/orgs/:orgIdentifier/projects/:projectIdentifier',
+  path: '/cd/pipelines/org/:orgIdentifier/projects/:projectIdentifier',
   title: i18n.pipelines,
   pageId: 'cd-pipelines',
   url: ({ orgIdentifier, projectIdentifier }) =>
-    routeURL(routeCDPipelines, `/cd/pipelines/orgs/${orgIdentifier}/projects/${projectIdentifier}`),
+    routeURL(routeCDPipelines, `/cd/pipelines/org/${orgIdentifier}/projects/${projectIdentifier}`),
   component: React.lazy(() => import('./pages/pipelines/CDPipelinesPage'))
 }
 
@@ -138,6 +138,56 @@ export const routeCDResources: Route<{ projectIdentifier: string; orgIdentifier:
     routeURL(routeCDResources, `/cd/admin/resources/org/${orgIdentifier}/projects/${projectIdentifier}`),
   component: React.lazy(() => import('./pages/admin/resources/CDResourcesPage')),
   nestedRoutes: [routeCDResourcesConnectors, routeCDResourcesSecretsListing, routeCDResourcesSecretDetails]
+}
+
+export const routeInputSetList: NestedRoute<{
+  projectIdentifier: string
+  orgIdentifier: string
+  pipelineIdentifier: string
+}> = {
+  path: '/cd/pipelines/org/:orgIdentifier/projects/:projectIdentifier/pipeline/:pipelineIdentifier/input-sets',
+  title: i18n.inputSets,
+  url: ({ projectIdentifier, orgIdentifier, pipelineIdentifier }) =>
+    routeURL(
+      routeCDResourcesConnectors,
+      `/cd/pipelines/org/${orgIdentifier}/projects/${projectIdentifier}/pipeline/${pipelineIdentifier}/input-sets`
+    ),
+  component: React.lazy(() => import('./pages/inputSet-list/InputSetList'))
+}
+
+export const routePipelineDeploymentList: NestedRoute<{
+  projectIdentifier: string
+  orgIdentifier: string
+  pipelineIdentifier: string
+}> = {
+  path: '/cd/pipelines/org/:orgIdentifier/projects/:projectIdentifier/pipeline/:pipelineIdentifier/executions',
+  title: i18n.pipelineExecution,
+  url: ({ projectIdentifier, orgIdentifier, pipelineIdentifier }) =>
+    routeURL(
+      routeCDResourcesConnectors,
+      `/cd/pipelines/org/${orgIdentifier}/projects/${projectIdentifier}/pipeline/${pipelineIdentifier}/executions`
+    ),
+  component: React.lazy(() => import('./pages/pipeline-deployment-list/PipelineDeploymentList')),
+  isDefault: true
+}
+
+export const routePipelineDetail: Route<{
+  projectIdentifier: string
+  orgIdentifier: string
+  pipelineIdentifier: string
+}> = {
+  module: ModuleName.CD,
+  sidebarId: SidebarIdentifier.CONTINUOUS_DEPLOYMENTS,
+  path: '/cd/pipelines/org/:orgIdentifier/projects/:projectIdentifier/pipeline/:pipelineIdentifier',
+  title: i18n.pipelineDetails,
+  pageId: 'cd-pipeline-detail',
+  url: ({ projectIdentifier, orgIdentifier, pipelineIdentifier }) =>
+    routeURL(
+      routeCDResources,
+      `/cd/pipelines/org/${orgIdentifier}/projects/${projectIdentifier}/pipeline/${pipelineIdentifier}/executions`
+    ),
+  component: React.lazy(() => import('./pages/pipeline-details/PipelineDetails')),
+  nestedRoutes: [routeInputSetList, routePipelineDeploymentList]
 }
 
 export const routeCDTemplateLibrary: Route<{ projectIdentifier: string }> = {

@@ -15,7 +15,10 @@ import {
   routeCDTemplateLibrary,
   routeCDGitSync,
   routeCDGovernance,
-  routeCDGeneralSettings
+  routeCDGeneralSettings,
+  routePipelineDetail,
+  routeInputSetList,
+  routePipelineDeploymentList
 } from '../routes'
 import css from './MenuCD.module.scss'
 
@@ -52,7 +55,12 @@ const ProjectNavLinks: React.FC<{ project?: Project }> = ({ project }) => {
         })}
         label={i18n.pipelines}
         icon="nav-pipelines"
-        selected={isRouteActive(routeCDPipelines)}
+        selected={
+          isRouteActive(routeCDPipelines) ||
+          isRouteActive(routePipelineDetail) ||
+          isRouteActive(routeInputSetList) ||
+          isRouteActive(routePipelineDeploymentList)
+        }
       />
       <AdminSelector
         selected={

@@ -13,5 +13,8 @@ export default {
   resourcesSecretDetails: 'Secret Details',
   accessControl: 'Access Control',
   governance: 'Governance',
-  gitSync: 'Git Sync'
+  gitSync: 'Git Sync',
+  inputSets: 'Input Sets',
+  pipelineExecution: 'Pipeline Executions',
+  pipelineDetails: 'Pipeline Details'
 }

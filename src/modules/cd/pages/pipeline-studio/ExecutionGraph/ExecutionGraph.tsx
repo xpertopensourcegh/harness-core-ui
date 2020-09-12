@@ -56,7 +56,7 @@ const renderPopover = ({ onPopoverSelection, isParallelNodeClicked = false, even
 const ExecutionGraph = (): JSX.Element => {
   const canvasRef = React.useRef<HTMLDivElement | null>(null)
   const [state, setState] = React.useState<ExecutionGraphState>({
-    data: { steps: [], rollbackSteps: [], childrenToWalk: [{}] },
+    data: { steps: [], rollbackSteps: [] },
     isRollback: false,
     stepStates: new Map<string, StepState>()
   })
