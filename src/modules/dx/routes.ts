@@ -12,7 +12,7 @@ export const routeDashboard: Route = {
   module: ModuleName.DX
 }
 
-export const routeConnectorDetails: Route<{ connectorId: string; type?: string }> = {
+export const routeConnectorDetails: Route<{ connectorId?: string; type?: string }> = {
   module: ModuleName.DX,
   sidebarId: SidebarIdentifier.ACCOUNT,
   path: '/connectors/:connectorId',

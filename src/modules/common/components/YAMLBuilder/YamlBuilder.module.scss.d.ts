@@ -9,5 +9,6 @@ declare const styles: {
   readonly entityTag: string
   readonly editorOnly: string
   readonly layout: string
+  readonly editor: string
 }
 export default styles

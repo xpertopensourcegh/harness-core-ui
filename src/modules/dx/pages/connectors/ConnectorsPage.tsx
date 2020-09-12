@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
 import { Layout, Button, TextInput, Icon, Popover, IconName, Text, Color } from '@wings-software/uikit'
-import { useParams } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 import { IDialogProps, Position, Menu } from '@blueprintjs/core'
 import { useGetConnectorList, ResponseDTONGPageResponseConnectorSummaryDTO, ConnectorDTO } from 'services/cd-ng'
 import { Connectors, ConnectorInfoText } from 'modules/dx/constants'
 import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
 import type { UseGetMockData } from 'modules/common/utils/testUtils'
 import useCreateConnectorModal from 'modules/dx/modals/ConnectorModal/useCreateConnectorModal'
+import { routeConnectorDetails } from 'modules/dx/routes'
 import ConnectorsListView from './views/ConnectorsListView'
 import i18n from '../../components/connectors/CreateConnectorWizard/CreateConnectorWizard.i18n'
 import css from './ConnectorsPage.module.scss'
@@ -43,6 +44,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ mockData }) => {
   const [view, setView] = useState(View.LIST)
   const [searchTerm, setSearchTerm] = useState('')
   const [page, setPage] = useState(0)
+  const history = useHistory()
 
   const { loading, data, refetch: reloadConnectorList } = useGetConnectorList({
     accountIdentifier: accountId,
@@ -56,6 +58,29 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ mockData }) => {
       reloadConnectorList()
     }
   })
+
+  const getDropdownItems = (items: OptionInterface[]): JSX.Element[] => {
+    const renderList = items.map((item, index) => {
+      return (
+        <Menu.Item
+          onClick={() => {
+            openConnectorModal(item?.value, item?.modalProps)
+          }}
+          key={index}
+          text={getMenuItem(item)}
+        />
+      )
+    })
+    renderList.push(
+      <Menu.Item
+        text={getMenuItem({ label: ConnectorInfoText.YAML, value: Connectors.YAML, icon: 'main-code-yaml' })}
+        onClick={() => {
+          history.push(routeConnectorDetails.url({}))
+        }}
+      />
+    )
+    return renderList
+  }
 
   const items: OptionInterface[] = [
     {
@@ -97,19 +122,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ mockData }) => {
         <Layout.Horizontal inline width="55%">
           <Popover minimal position={Position.BOTTOM_RIGHT}>
             <Button intent="primary" text={i18n.NEW_CONNECTOR} icon="plus" rightIcon="chevron-down" />
-            <Menu className={css.selectConnector}>
-              {items.map((item, index) => {
-                return (
-                  <Menu.Item
-                    onClick={() => {
-                      openConnectorModal(item?.value, item?.modalProps)
-                    }}
-                    key={index}
-                    text={getMenuItem(item)}
-                  />
-                )
-              })}
-            </Menu>
+            <Menu className={css.selectConnector}>{getDropdownItems(items)}</Menu>
           </Popover>
         </Layout.Horizontal>
         <Layout.Horizontal width="45%" className={css.view}>

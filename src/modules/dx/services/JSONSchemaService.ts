@@ -1,13 +1,15 @@
 import { YamlEntity } from 'modules/common/constants/YamlConstants'
-import jsonSchema from './mocks/entity-schema-response.json'
+import connectorSchema from './mocks/connector-schema.json'
 import secretsSchema from './mocks/secrets-schema.json'
 
 export function fetchEntitySchemas(entityType: string): object {
   switch (entityType) {
+    case YamlEntity.CONNECTOR:
+      return connectorSchema
     case YamlEntity.SECRET:
       return secretsSchema
     default:
-      return jsonSchema
+      return {}
   }
 }
 

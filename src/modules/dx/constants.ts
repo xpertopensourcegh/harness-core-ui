@@ -18,5 +18,6 @@ export const ConnectorInfoText = {
   SECRET_MANAGER: 'Secret Manager',
   APP_DYNAMICS: 'AppDynamics',
   SPLUNK: 'Splunk',
-  DOCKER: 'Docker'
+  DOCKER: 'Docker',
+  YAML: 'Create via YAML Builder'
 }

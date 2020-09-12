@@ -278,16 +278,18 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
             <span className={cx(css.filePath, css.flexCenter)}>{fileName}</span>
             {fileName && entityType ? <Tag className={css.entityTag}>{entityType}</Tag> : null}
           </div>
-          <MonacoEditor
-            defaultValue={existingYaml}
-            width={width ?? '800px'}
-            height={height ?? '600px'}
-            language="yaml"
-            value={currentYaml}
-            onChange={onYamlChange}
-            editorDidMount={editorDidMount}
-            options={{ readOnly: isReadOnlyMode, wordBasedSuggestions: false }}
-          />
+          <div className={css.editor}>
+            <MonacoEditor
+              defaultValue={existingYaml}
+              width={width ?? '800px'}
+              height={height ?? '600px'}
+              language="yaml"
+              value={currentYaml}
+              onChange={onYamlChange}
+              editorDidMount={editorDidMount}
+              options={{ readOnly: isReadOnlyMode, wordBasedSuggestions: false }}
+            />
+          </div>
         </div>
         {showSnippetSection ? (
           <SnippetSection

@@ -10,6 +10,7 @@ import type { SnippetInterface } from 'modules/common/interfaces/SnippetInterfac
 import { YAMLService } from 'modules/dx/services'
 import TestConnection from 'modules/dx/components/connectors/TestConnection/TestConnection'
 import ConnectorForm from 'modules/dx/components/connectors/ConnectorForm/ConnectorForm'
+import type { YamlBuilderHandlerBinding } from 'modules/common/interfaces/YAMLBuilderProps'
 import SavedConnectorDetails from './SavedConnectorDetails'
 import ConnectorStats from './ConnectorStats'
 import { buildKubPayload, buildKubFormData } from './utils/ConnectorUtils'
@@ -26,7 +27,6 @@ export interface ConfigureConnectorProps {
   updateConnector: (data: ConnectorDTO) => Promise<unknown>
   refetchConnector: () => Promise<any>
   isCreationThroughYamlBuilder: boolean
-  connectorJson: any
 }
 
 interface ConfigureConnectorState {
@@ -43,29 +43,23 @@ interface ConfigureConnectorState {
 }
 
 const SelectedView = {
-  VISUAL: 'visual',
-  YAML: 'yaml'
-}
-
-const getYamlFromJson = (json: string): string | undefined => {
-  try {
-    return YAML.stringify(json)
-  } catch (error) {
-    //TODO show a popover or alert. Need to confirm the error-handling behaviour
-    // console.log(error)
-  }
+  VISUAL: 'VISUAL',
+  YAML: 'YAML'
 }
 
 const ConfigureConnector = (props: ConfigureConnectorProps): JSX.Element => {
+  const { isCreationThroughYamlBuilder } = props
   const [enableEdit, setEnableEdit] = useState(false)
   const [lastTested, setLastTested] = useState(props.connector.status?.lastTestedAt || 0)
   const [lastConnected, setLastConnected] = useState(props.connector.status?.lastTestedAt || 0)
   const [selectedView, setSelectedView] = useState(
-    props.isCreationThroughYamlBuilder ? SelectedView.YAML : SelectedView.VISUAL
+    isCreationThroughYamlBuilder ? SelectedView.YAML : SelectedView.VISUAL
   )
+
   const [snippets, setSnippets] = useState<SnippetInterface[]>()
   const [connector, setConnector] = useState(props.connector)
   const [status, setStatus] = useState(props.connector.status?.status || '')
+  const [yamlHandler, setYamlHandler] = React.useState<YamlBuilderHandlerBinding | undefined>()
 
   const state: ConfigureConnectorState = {
     enableEdit,
@@ -80,6 +74,37 @@ const ConfigureConnector = (props: ConfigureConnectorProps): JSX.Element => {
     setLastConnected
   }
   const { showSuccess, showError } = useToaster()
+
+  const handleModeSwitch = (targetMode: string): void => {
+    if (targetMode === SelectedView.VISUAL) {
+      const yamlString = yamlHandler?.getLatestYaml() || ''
+      try {
+        const yamlData = YAML.parse(yamlString)
+        if (yamlData) {
+          setConnector(yamlData)
+          setSelectedView(targetMode)
+        }
+      } catch (err) {
+        showError(`${err.name}: ${err.message}`)
+      }
+    } else {
+      setSelectedView(targetMode)
+    }
+  }
+
+  const saveConnector = (event: React.MouseEvent<Element, MouseEvent>): void => {
+    event.preventDefault()
+    const yamlString = yamlHandler?.getLatestYaml() || ''
+    try {
+      const yamlData = YAML.parse(yamlString)
+      if (yamlData) {
+        onSubmitForm(yamlData)
+        setConnector(yamlData)
+      }
+    } catch (err) {
+      showError(`${err.name}: ${err.message}`)
+    }
+  }
 
   const onSubmitForm = async (connectorPayload: ConnectorDTO) => {
     try {
@@ -114,6 +139,15 @@ const ConfigureConnector = (props: ConfigureConnectorProps): JSX.Element => {
     setSnippets(snippetsList)
   }
 
+  const yamlBuilderReadOnlyModeProps = {
+    fileName: `${connector?.identifier ?? 'Connector'}.yaml`,
+    entityType: YamlEntity.CONNECTOR,
+    existingYaml: isCreationThroughYamlBuilder ? '' : YAML.stringify(connector),
+    snippets: snippets,
+    onSnippetSearch: fetchSnippets,
+    bind: setYamlHandler
+  }
+
   useEffect(() => {
     fetchSnippets()
   })
@@ -128,93 +162,92 @@ const ConfigureConnector = (props: ConfigureConnectorProps): JSX.Element => {
       <div className={css.optionBtns}>
         <div
           className={cx(css.item, { [css.selected]: selectedView === SelectedView.VISUAL })}
-          onClick={() => setSelectedView(SelectedView.VISUAL)}
+          onClick={() => handleModeSwitch(SelectedView.VISUAL)}
         >
           {i18n.VISUAL}
         </div>
         <div
           className={cx(css.item, { [css.selected]: selectedView === SelectedView.YAML })}
-          onClick={() => setSelectedView(SelectedView.YAML)}
+          onClick={() => handleModeSwitch(SelectedView.YAML)}
         >
           {i18n.YAML}
         </div>
       </div>
       <Layout.Horizontal className={css.mainDetails}>
         <div className={css.connectorDetails}>
-          {selectedView === SelectedView.VISUAL ? (
-            <Layout.Horizontal className={css.header} spacing="medium">
-              <span className={css.name}>{getHeadingByType(props.connector?.type)}</span>
-              {!state.enableEdit ? (
-                <Button text="Edit Details" icon="edit" onClick={() => state.setEnableEdit(true)} />
-              ) : null}
-            </Layout.Horizontal>
-          ) : null}
+          <Layout.Horizontal className={css.header}>
+            {connector?.type ? <span className={css.name}>{getHeadingByType(connector?.type)}</span> : null}
+            {state.enableEdit ? null : (
+              <Button
+                text={isCreationThroughYamlBuilder ? 'Create Connector' : 'Edit Details'}
+                icon="edit"
+                onClick={() => state.setEnableEdit(true)}
+              />
+            )}
+          </Layout.Horizontal>
           {enableEdit ? (
-            <Formik
-              initialValues={buildKubFormData(props.connector)}
-              // Todo: validationSchema={validationSchema}
-              onSubmit={formData => {
-                onSubmitForm(buildKubPayload(formData))
-              }}
-            >
-              {formikProps => (
-                <Form>
-                  {selectedView === SelectedView.VISUAL ? (
+            selectedView === SelectedView.VISUAL ? (
+              <Formik
+                initialValues={buildKubFormData(connector)}
+                // Todo: validationSchema={validationSchema}
+                enableReinitialize={true}
+                onSubmit={formData => {
+                  onSubmitForm(buildKubPayload(formData))
+                }}
+                validate={data => setConnector(buildKubPayload(data))}
+              >
+                {formikProps => (
+                  <Form>
                     <ConnectorForm
                       accountId={props.accountId}
                       orgIdentifier={props.orgIdentifier}
                       projectIdentifier={props.projectIdentifier}
                       type={props.type}
-                      connector={buildKubFormData(props.connector)}
+                      connector={buildKubFormData(connector)}
                       formikProps={formikProps}
                     />
-                  ) : (
-                    <div className={css.editor}>
-                      <YamlBuilder
-                        fileName={`${connector?.identifier ?? 'Connector'}.yaml`}
-                        entityType={YamlEntity.CONNECTOR}
-                        existingYaml={getYamlFromJson(props.connectorJson)}
-                        snippets={snippets}
-                        onSnippetSearch={fetchSnippets}
-                      />
-                    </div>
-                  )}
-                  <Layout.Horizontal>
-                    <Button intent="primary" type="submit" text={i18n.submit} className={css.submitBtn} />
-                  </Layout.Horizontal>
-                </Form>
-              )}
-            </Formik>
+
+                    <Layout.Horizontal>
+                      <Button intent="primary" type="submit" text={i18n.submit} className={css.submitBtn} />
+                    </Layout.Horizontal>
+                  </Form>
+                )}
+              </Formik>
+            ) : (
+              <div className={css.editor}>
+                <YamlBuilder {...yamlBuilderReadOnlyModeProps} />
+                <Button
+                  intent="primary"
+                  type="submit"
+                  text={i18n.submit}
+                  className={css.submitBtn}
+                  onClick={saveConnector}
+                />
+              </div>
+            )
           ) : selectedView === SelectedView.VISUAL ? (
-            <SavedConnectorDetails connector={props.connector} />
+            <SavedConnectorDetails connector={connector} />
           ) : (
             <div className={css.editor}>
-              <YamlBuilder
-                fileName={`${connector?.identifier ?? 'Connector'}.yaml`}
-                entityType={YamlEntity.CONNECTOR}
-                existingYaml={getYamlFromJson(props.connectorJson)}
-                snippets={snippets}
-                onSnippetSearch={fetchSnippets}
-              />
+              <YamlBuilder {...yamlBuilderReadOnlyModeProps} isReadOnlyMode={true} showSnippetSection={false} />
             </div>
           )}
         </div>
-        {selectedView === SelectedView.VISUAL && props.connector ? (
+        {selectedView === SelectedView.VISUAL && connector ? (
           <Layout.Vertical width={'50%'}>
             <ConnectorStats
-              createdAt={props.connector.createdAt || 0}
+              createdAt={connector.createdAt || 0}
               lastTested={lastTested || 0}
-              lastUpdated={props.connector.lastModifiedAt as number}
+              lastUpdated={connector.lastModifiedAt as number}
               lastConnected={lastConnected || 0}
               status={status || ''}
             />
-
             <TestConnection
               accountId={props.accountId}
               orgIdentifier={props.orgIdentifier}
               projectIdentifier={props.projectIdentifier}
-              connectorName={props.connector?.name || ''}
-              connectorIdentifier={props.connector?.identifier || ''}
+              connectorName={connector?.name || ''}
+              connectorIdentifier={connector?.identifier || ''}
               delegateName={connector.spec?.spec?.delegateName || ''}
               setLastTested={setLastTested}
               setLastConnected={setLastConnected}

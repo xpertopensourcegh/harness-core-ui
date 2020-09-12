@@ -51,7 +51,6 @@ const ConnectorDetailsPage: React.FC = () => {
       </Layout.Vertical>
     )
   }
-  const isCreationThroughYamlBuilder = false
   return (
     <>
       <Page.Header
@@ -85,8 +84,7 @@ const ConnectorDetailsPage: React.FC = () => {
               updateConnector={updateConnector}
               connector={connector.data || ({} as ConnectorDTO)}
               refetchConnector={refetch}
-              isCreationThroughYamlBuilder={isCreationThroughYamlBuilder}
-              connectorJson={connector.data}
+              isCreationThroughYamlBuilder={connectorId === 'undefined'}
             />
           ) : (
             <PageSpinner />
