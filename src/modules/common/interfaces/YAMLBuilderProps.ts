@@ -3,6 +3,7 @@ import type { SnippetInterface } from './SnippetInterface'
 
 export interface YamlBuilderHandlerBinding {
   getLatestYaml: () => string
+  getYAMLValidationErrorMap: () => Map<string, string>
 }
 
 export interface YamlBuilderProps {

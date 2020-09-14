@@ -60,6 +60,7 @@ const ConfigureConnector = (props: ConfigureConnectorProps): JSX.Element => {
   const [connector, setConnector] = useState(props.connector)
   const [status, setStatus] = useState(props.connector.status?.status || '')
   const [yamlHandler, setYamlHandler] = React.useState<YamlBuilderHandlerBinding | undefined>()
+  const [confirmButtonIsEnabled, setConfirmButtonIsEnabled] = React.useState<boolean>(true)
 
   const state: ConfigureConnectorState = {
     enableEdit,
@@ -157,11 +158,24 @@ const ConfigureConnector = (props: ConfigureConnectorProps): JSX.Element => {
       setConnector(props.connector)
     }
   }, [props.connector])
+
+  useEffect(() => {
+    const enableBtn =
+      yamlHandler && yamlHandler.getYAMLValidationErrorMap()
+        ? yamlHandler?.getYAMLValidationErrorMap()?.size === 0
+        : true
+    setConfirmButtonIsEnabled(enableBtn)
+  }, [yamlHandler?.getYAMLValidationErrorMap])
+
   return (
     <div className={css.connectorWrp}>
       <div className={css.optionBtns}>
         <div
-          className={cx(css.item, { [css.selected]: selectedView === SelectedView.VISUAL })}
+          className={cx(
+            css.item,
+            { [css.selected]: selectedView === SelectedView.VISUAL },
+            { [css.disabled]: !confirmButtonIsEnabled }
+          )}
           onClick={() => handleModeSwitch(SelectedView.VISUAL)}
         >
           {i18n.VISUAL}
@@ -222,6 +236,8 @@ const ConfigureConnector = (props: ConfigureConnectorProps): JSX.Element => {
                   text={i18n.submit}
                   className={css.submitBtn}
                   onClick={saveConnector}
+                  disabled={!confirmButtonIsEnabled}
+                  title={!confirmButtonIsEnabled ? 'YAML is invalid. Please fix the issues to proceed.' : ''}
                 />
               </div>
             )

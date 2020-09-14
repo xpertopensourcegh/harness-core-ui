@@ -11,5 +11,6 @@ declare const styles: {
   readonly selected: string
   readonly editor: string
   readonly connectorWrp: string
+  readonly disabled: string
 }
 export default styles

@@ -9,6 +9,10 @@ declare const styles: {
   readonly entityTag: string
   readonly editorOnly: string
   readonly layout: string
+  readonly validationStatus: string
+  readonly invalidYaml: string
+  readonly header: string
+  readonly validationIcon: string
   readonly editor: string
 }
 export default styles

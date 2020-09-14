@@ -60,12 +60,12 @@ const validateYAMLWithSchema = (yaml: string, schemas): Thenable<Diagnostic[]> =
 //TODO will add type later on
 const setUpLanguageService = schemas => {
   const languageService = yamlLanguageService.getLanguageService()
-  const languageSetting = getLanguageSettings(schemas)
+  const languageSetting = addYAMLLanguageSettingsToSchema(schemas)
   languageService.configure(languageSetting)
   return languageService
 }
 
-const getLanguageSettings = schemaSet => {
+const addYAMLLanguageSettingsToSchema = schemaSet => {
   const languageSetting = {
     validate: true,
     enableSchemaRequest: true,
@@ -83,4 +83,4 @@ const getLanguageSettings = schemaSet => {
   return languageSetting
 }
 
-export { validateYAML, validateYAMLWithSchema }
+export { validateYAML, validateYAMLWithSchema, addYAMLLanguageSettingsToSchema }

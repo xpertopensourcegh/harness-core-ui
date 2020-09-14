@@ -62,7 +62,6 @@ const PipelineYamlView: React.FC = () => {
         bind={setYamlHandler}
         snippets={snippets}
         onSnippetSearch={fetchSnippets}
-        height={'90%'}
         invocationMap={factory.getInvocationMap()}
       />
     </div>

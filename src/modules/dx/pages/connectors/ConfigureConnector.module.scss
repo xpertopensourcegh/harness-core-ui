@@ -50,3 +50,7 @@
 .connectorWrp {
   padding: var(--spacing-xlarge);
 }
+
+.disabled {
+  pointer-events: none;
+}

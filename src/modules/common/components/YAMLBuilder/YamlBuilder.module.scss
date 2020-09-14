@@ -42,6 +42,27 @@
   width: 100% !important;
 }
 
+.validationStatus {
+  padding-right: var(--spacing-large);
+}
+
+.invalidYaml {
+  padding-left: var(--spacing-xsmall);
+  color: var(--red-600);
+  font-weight: bold;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.validationIcon {
+  svg path {
+    fill: var(--red-600);
+  }
+}
+
 .editor {
   padding-bottom: var(--spacing-small);
 }
