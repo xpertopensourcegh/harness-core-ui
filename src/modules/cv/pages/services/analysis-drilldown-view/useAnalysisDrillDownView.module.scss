@@ -1,4 +1,27 @@
 .main {
   padding: var(--spacing-large);
   overflow-y: scroll;
+  border-left: none !important;
+  :global {
+    .bp3-dialog-header {
+      padding-left: 0;
+      margin-bottom: var(--spacing-large);
+    }
+  }
+
+  .categoryAndRiskScore {
+    display: flex;
+    width: 100px;
+    .riskInfo {
+      justify-content: center;
+    }
+    .riskScore {
+      border-radius: 0;
+      margin-right: var(--spacing-xsmall);
+      padding: var(--spacing-large);
+      > p {
+        font-size: var(--font-size-medium);
+      }
+    }
+  }
 }

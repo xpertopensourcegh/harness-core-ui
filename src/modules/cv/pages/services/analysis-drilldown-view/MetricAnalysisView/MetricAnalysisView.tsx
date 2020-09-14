@@ -2,8 +2,15 @@ import React, { useState, useEffect, useMemo } from 'react'
 import { Container, Icon, Color, Pagination, Button } from '@wings-software/uikit'
 import cx from 'classnames'
 import { routeParams } from 'framework/exports'
-import { useGetAnomalousMetricData, TimeSeriesMetricDataDTO, useGetMetricData } from 'services/cv'
+import {
+  useGetAnomalousMetricData,
+  TimeSeriesMetricDataDTO,
+  useGetMetricData,
+  RestResponseNGPageResponseTimeSeriesMetricDataDTO,
+  MetricData
+} from 'services/cv'
 import { NoDataCard } from 'modules/common/components/Page/NoDataCard'
+import TimelineBar from 'modules/common/components/TimelineView/TimelineBar'
 import MetricAnalysisRow from './MetricsAnalysisRow/MetricAnalysisRow'
 import { MetricAnalysisFilter } from './MetricAnalysisFilter/MetricAnalysisFilter'
 import i18n from './MetricAnalysisView.i18n'
@@ -27,6 +34,44 @@ function categoryNameToEnum(categoryName: string): TimeSeriesMetricDataDTO['cate
     case 'Resources':
       return 'RESOURCES'
   }
+}
+
+function generatePointsForTimeSeries(
+  data: RestResponseNGPageResponseTimeSeriesMetricDataDTO,
+  startTime: number,
+  endTime: number
+): RestResponseNGPageResponseTimeSeriesMetricDataDTO {
+  if (!data?.resource?.content?.length) {
+    return data
+  }
+
+  const content = data.resource.content
+  const timeRange = Math.floor((endTime - startTime) / 60000)
+
+  for (const analysis of content) {
+    if (!analysis?.metricDataList?.length) {
+      continue
+    }
+
+    const filledMetricData: MetricData[] = []
+    let metricDataIndex = 0
+
+    for (let i = 0; i < timeRange; i++) {
+      const currTime = startTime + 60000 * i
+      const instantData = analysis.metricDataList[metricDataIndex]
+      if (instantData?.timestamp && instantData.timestamp <= currTime) {
+        filledMetricData.push(analysis.metricDataList[metricDataIndex])
+        metricDataIndex++
+      } else {
+        filledMetricData.push({ timestamp: currTime, value: undefined })
+        // i++
+      }
+    }
+
+    analysis.metricDataList = filledMetricData
+  }
+
+  return data
 }
 
 export default function MetricAnalysisView(props: MetricAnalysisViewProps): JSX.Element {
@@ -58,7 +103,8 @@ export default function MetricAnalysisView(props: MetricAnalysisViewProps): JSX.
     refetch: refetchAnomalousData
   } = useGetAnomalousMetricData({
     queryParams,
-    lazy: true
+    lazy: true,
+    resolve: response => generatePointsForTimeSeries(response, startTime, endTime)
   })
   const {
     data: allMetricData,
@@ -66,7 +112,11 @@ export default function MetricAnalysisView(props: MetricAnalysisViewProps): JSX.
     loading: loadingAllMetricData,
     cancel: cancelAllMetricDataCall,
     refetch: refetchAllMetricData
-  } = useGetMetricData({ queryParams, lazy: true })
+  } = useGetMetricData({
+    queryParams,
+    lazy: true,
+    resolve: response => generatePointsForTimeSeries(response, startTime, endTime)
+  })
 
   useEffect(() => {
     if (isViewingAnomalousData) {
@@ -91,23 +141,26 @@ export default function MetricAnalysisView(props: MetricAnalysisViewProps): JSX.
 
   return (
     <Container className={cx(css.main, className)}>
-      <MetricAnalysisFilter
-        onChangeFilter={() => {
-          cancelAllMetricDataCall()
-          cancelAnomalousCall()
-          setMetricDataView(prevView => {
-            const isAnomalousView = !prevView
-            if (isAnomalousView && (!anomalousMetricData?.resource?.content?.length || needsRefetch)) {
-              refetchAnomalousData()
-              setNeedsRefetch(false)
-            } else if (!allMetricData?.resource?.content?.length || needsRefetch) {
-              refetchAllMetricData()
-              setNeedsRefetch(false)
-            }
-            return isAnomalousView
-          })
-        }}
-      />
+      <Container className={css.header}>
+        <MetricAnalysisFilter
+          onChangeFilter={() => {
+            cancelAllMetricDataCall()
+            cancelAnomalousCall()
+            setMetricDataView(prevView => {
+              const isAnomalousView = !prevView
+              if (isAnomalousView && (!anomalousMetricData?.resource?.content?.length || needsRefetch)) {
+                refetchAnomalousData()
+                setNeedsRefetch(false)
+              } else if (!allMetricData?.resource?.content?.length || needsRefetch) {
+                refetchAllMetricData()
+                setNeedsRefetch(false)
+              }
+              return isAnomalousView
+            })
+          }}
+        />
+        <TimelineBar startDate={startTime} endDate={endTime} className={css.timeline} />
+      </Container>
       {(loadingAllMetricData || loadingAnomalousData) && (
         <Container className={css.errorOrLoading} margin="medium">
           <Icon name="steps-spinner" size={25} color={Color.GREY_600} />
@@ -130,6 +183,8 @@ export default function MetricAnalysisView(props: MetricAnalysisViewProps): JSX.
               key={`${categoryName}-${groupName}-${metricName}`}
               metricName={metricName}
               categoryName={category}
+              startTime={startTime}
+              endTime={endTime}
               transactionName={groupName}
               analysisData={metricDataList}
             />

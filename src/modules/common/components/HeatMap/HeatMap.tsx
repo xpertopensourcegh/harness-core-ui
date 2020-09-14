@@ -52,7 +52,6 @@ export default function HeatMap({
   minValue,
   maxValue,
   mapValue,
-  cellShapeBreakpoint,
   rowSize,
   onCellClick,
   renderTooltip,
@@ -82,14 +81,6 @@ export default function HeatMap({
     }
   }
 
-  const addCircleClass = (cell: any) => {
-    if (isUndefined(cellShapeBreakpoint)) {
-      return ''
-    }
-    const value: any = mapValue(cell)
-    return typeof value === 'number' && value >= cellShapeBreakpoint ? '' : styles.cellCircle
-  }
-
   const showLabels = series.some(serie => !isUndefined(serie.name))
 
   return (
@@ -113,7 +104,7 @@ export default function HeatMap({
                     popoverContent={renderTooltip && renderTooltip(cell)}
                     onClick={() => onCellClick && onCellClick(cell, serie)}
                     {...mapColor(cell)}
-                    className={classnames(cellClassName, addCircleClass(cell))}
+                    className={cellClassName}
                   />
                 )
             )}
@@ -124,7 +115,7 @@ export default function HeatMap({
                   <HeatMapCell
                     key={serie.data.length + index}
                     color={specialColorValue.MISSING}
-                    className={classnames(cellClassName, addCircleClass(null))}
+                    className={cellClassName}
                     popoverDisabled
                   />
                 ))}

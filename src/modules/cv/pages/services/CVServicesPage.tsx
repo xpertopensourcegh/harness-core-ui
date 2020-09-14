@@ -11,7 +11,8 @@ import {
   useGetHeatmap,
   useGetEnvServiceRisks,
   RestResponseListEnvServiceRiskDTO,
-  EnvServiceRiskDTO
+  EnvServiceRiskDTO,
+  RestResponseMapCVMonitoringCategoryInteger
 } from 'services/cv'
 import { useToaster } from 'modules/common/exports'
 import { routeCVDataSources } from 'modules/cv/routes'
@@ -54,6 +55,7 @@ export default function CVServicesPage(): JSX.Element {
   })
   const [heatmapData, setHeatmapData] = useState<Array<{ name: string; data: Array<any> }>>([])
   const [services, setServices] = useState<EnvServiceRiskDTO[]>([])
+  const [categoryRiskScores, setCategoryRiskScores] = useState<RestResponseMapCVMonitoringCategoryInteger['resource']>()
   const [selectedService, setSelectedService] = useState<{
     serviceIdentifier?: string
     environmentIdentifier?: string
@@ -185,7 +187,12 @@ export default function CVServicesPage(): JSX.Element {
             }}
           />
           <Container className={styles.content}>
-            <CategoryRiskCards categoryRiskCardClassName={styles.categoryRiskCard} />
+            <CategoryRiskCards
+              categoryRiskCardClassName={styles.categoryRiskCard}
+              environmentIdentifier={selectedService?.environmentIdentifier}
+              serviceIdentifier={selectedService?.serviceIdentifier}
+              categoryRiskScores={setCategoryRiskScores}
+            />
             <Container className={styles.serviceBody}>
               <OverlaySpinner show={loadingHeatmap}>
                 <Text margin={{ bottom: 'xsmall' }} font={{ size: 'small' }} color={Color.BLACK}>
@@ -201,11 +208,14 @@ export default function CVServicesPage(): JSX.Element {
                   onCellClick={(cell: HeatMapDTO, rowData) => {
                     if (cell.startTime && cell.endTime) {
                       openDrillDown({
-                        startTime: cell.startTime,
-                        endTime: cell.endTime,
-                        categoryName: rowData?.name,
-                        environmentIdentifier: selectedService?.environmentIdentifier,
-                        serviceIdentifier: selectedService?.serviceIdentifier
+                        categoryRiskScore: categoryRiskScores?.[rowData?.name] || 0,
+                        analysisProps: {
+                          startTime: cell.startTime,
+                          endTime: cell.endTime,
+                          categoryName: rowData?.name,
+                          environmentIdentifier: selectedService?.environmentIdentifier,
+                          serviceIdentifier: selectedService?.serviceIdentifier
+                        }
                       })
                     }
                   }}

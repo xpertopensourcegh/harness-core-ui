@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent } from 'react'
+import React, { useState, ChangeEvent, useMemo } from 'react'
 import { Container, Text, Color } from '@wings-software/uikit'
 import cx from 'classnames'
 import { RiskScoreTile } from 'modules/cv/components/RiskScoreTile/RiskScoreTile'
@@ -20,6 +20,29 @@ interface EnvironmentRowProps {
 interface ServiceRowProps extends EnvironmentRowProps {
   selected?: boolean
   onSelect: (entityName: string) => void
+}
+
+function generateOverallRiskScores(serviceData: ServiceSelectorProps['serviceData']): Map<string, number> {
+  const riskScoreMap = new Map<string, number>()
+  if (!serviceData) {
+    return riskScoreMap
+  }
+
+  let maxOverallRiskScore = 0
+  for (const serviceInfo of serviceData) {
+    if (!serviceInfo?.serviceRisks?.length || !serviceInfo?.envIdentifier) continue
+
+    let envScore = 0
+    for (const serviceScore of serviceInfo.serviceRisks) {
+      if (serviceScore?.risk && serviceScore.risk > envScore) envScore = serviceScore.risk
+    }
+
+    if (envScore > maxOverallRiskScore) maxOverallRiskScore = envScore
+    riskScoreMap.set(serviceInfo.envIdentifier, envScore)
+  }
+
+  riskScoreMap.set(i18n.allServiceOptionText, maxOverallRiskScore)
+  return riskScoreMap
 }
 
 function EnvironmentRow(props: EnvironmentRowProps): JSX.Element {
@@ -58,6 +81,7 @@ export default function ServiceSelector(props: ServiceSelectorProps): JSX.Elemen
     envIdentifier: ''
   })
   const [filterText, setFilterText] = useState<string | undefined>()
+  const overallRiskScoresMap = useMemo(() => generateOverallRiskScores(serviceData), [serviceData])
   const onSelectService = (serviceIdentifier: string, envIdentifier: string): void => {
     setSelectedEntity({ serviceIdentifier, envIdentifier })
     onSelect?.(serviceIdentifier === i18n.allServiceOptionText ? '' : serviceIdentifier, envIdentifier)
@@ -83,12 +107,12 @@ export default function ServiceSelector(props: ServiceSelectorProps): JSX.Elemen
             {index === 0 && (
               <ServiceRow
                 entityName={i18n.allServiceOptionText}
-                riskScore={0}
+                riskScore={overallRiskScoresMap.get(i18n.allServiceOptionText) || 0}
                 selected={i18n.allServiceOptionText === selectedEntity.serviceIdentifier}
                 onSelect={() => onSelectService(i18n.allServiceOptionText, '')}
               />
             )}
-            <EnvironmentRow entityName={envIdentifier} riskScore={0} />
+            <EnvironmentRow entityName={envIdentifier} riskScore={overallRiskScoresMap.get(envIdentifier) || 0} />
             {filteredServiceRisks.map(serviceRisk => {
               const { serviceIdentifier = '', risk = 0 } = serviceRisk || {}
               return (

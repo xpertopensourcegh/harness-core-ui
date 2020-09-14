@@ -26,3 +26,7 @@
     }
   }
 }
+
+[class*='highcharts-tooltip-container'] {
+  z-index: 500 !important;
+}

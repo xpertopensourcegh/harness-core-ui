@@ -11,6 +11,8 @@ declare const styles: {
   readonly riskScoreContainer: string
   readonly riskScoreText: string
   readonly chartContainer: string
+  readonly overallRiskScoreCard: string
+  readonly overallRiskScoreValue: string
   readonly noData: string
 }
 export default styles

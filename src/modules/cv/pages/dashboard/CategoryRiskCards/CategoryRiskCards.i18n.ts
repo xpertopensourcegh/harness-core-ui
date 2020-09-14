@@ -1,6 +1,7 @@
 export default {
   productionRisk: 'Current Production Risk',
-  riskScoreText: 'Risk score',
+  riskScoreText: 'Risk Score',
   noDataText: 'No category based risk assessment',
-  retryButtonText: 'Retry'
+  retryButtonText: 'Retry',
+  overallText: 'Overall'
 }

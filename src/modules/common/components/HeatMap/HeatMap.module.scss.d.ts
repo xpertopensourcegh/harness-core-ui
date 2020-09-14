@@ -8,6 +8,5 @@ declare const styles: {
   readonly cell: string
   readonly cellContentWrapper: string
   readonly cellInner: string
-  readonly cellCircle: string
 }
 export default styles

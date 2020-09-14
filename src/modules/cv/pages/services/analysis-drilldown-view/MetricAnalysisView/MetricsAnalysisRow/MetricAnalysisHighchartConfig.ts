@@ -1,4 +1,8 @@
-export function configureMetricTimeSeries(series: Highcharts.SeriesLineOptions[]): Highcharts.Options {
+export function configureMetricTimeSeries(
+  series: Highcharts.SeriesLineOptions[],
+  startTime: number,
+  endTime: number
+): Highcharts.Options {
   return {
     chart: {
       backgroundColor: '#FCFCFC',
@@ -19,7 +23,9 @@ export function configureMetricTimeSeries(series: Highcharts.SeriesLineOptions[]
       gridLineWidth: 0,
       title: {
         text: ''
-      }
+      },
+      min: startTime,
+      max: endTime
     },
     yAxis: {
       labels: { enabled: false },
@@ -42,9 +48,7 @@ export function configureMetricTimeSeries(series: Highcharts.SeriesLineOptions[]
     },
     tooltip: {
       formatter: function tooltipFormatter(this: any): string {
-        return `<section class="serviceGuardTimeSeriesTooltip"><p>${new Date(this.x)}</p><br/><p>Value: ${
-          this.y
-        }</p></section>`
+        return `<p>${new Date(this.x).toLocaleString()}</p>`
       },
       outside: true
     },

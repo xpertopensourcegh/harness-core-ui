@@ -3,6 +3,14 @@
   animation: fadeIn;
   animation-duration: 250ms;
   position: relative;
+
+  .header {
+    display: flex;
+    .timeline {
+      flex: 1;
+      margin-left: var(--spacing-small);
+    }
+  }
 }
 
 .errorOrLoading {

@@ -53,7 +53,7 @@ const findOptimalStartingIndex = (range: DateRange): number => {
   return start
 }
 
-const MIN_COL_SIZE = 100
+const MIN_COL_SIZE = 50
 
 export default function TimelineBar({ startDate, endDate, className, style }: TimelineBarProps) {
   const ref = useRef<HTMLDivElement>(null)

@@ -1,5 +1,5 @@
 import type { Options } from 'highcharts'
-export default function configureHighCharts(points: Array<{ x: number; y: number }>): Options {
+export default function configureTimelineOptions(points: Array<{ x: number; y: number }>): Options {
   const data = points //points && points.length ? points.map(({ x, y }) => ({ x, y: null })) : [{ x: 0, y: null }]
   const series: Highcharts.SeriesLineOptions[] = [{ type: 'line', data }]
   return {

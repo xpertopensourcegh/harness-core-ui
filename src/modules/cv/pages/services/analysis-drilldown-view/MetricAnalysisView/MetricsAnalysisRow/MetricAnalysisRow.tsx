@@ -13,6 +13,8 @@ interface MetricAnalysisRowProps {
   categoryName: string
   transactionName: string
   analysisData: MetricData[]
+  startTime: number
+  endTime: number
 }
 
 const FONT_SIZE_SMALL: FontProps = {
@@ -32,7 +34,11 @@ function riskScoreToColor(riskScore: string): string {
   }
 }
 
-function transformAnalysisDataToChartSeries(analysisData: any[]): Highcharts.Options {
+function transformAnalysisDataToChartSeries(
+  analysisData: any[],
+  startTime: number,
+  endTime: number
+): Highcharts.Options {
   const highchartsLineData = []
   analysisData.sort((a, b) => a.timestamp - b.timestamp)
   let currentRiskColor: string | null = riskScoreToColor(analysisData?.[0].risk)
@@ -57,14 +63,18 @@ function transformAnalysisDataToChartSeries(analysisData: any[]): Highcharts.Opt
     }
   }
 
-  return configureMetricTimeSeries([
-    { type: 'line', data: highchartsLineData, zones, zoneAxis: 'x', clip: false, lineWidth: 1 }
-  ])
+  return configureMetricTimeSeries(
+    [{ type: 'line', data: highchartsLineData, zones, zoneAxis: 'x', clip: false, lineWidth: 1 }],
+    startTime,
+    endTime
+  )
 }
 
 export default function MetricAnalysisRow(props: MetricAnalysisRowProps): JSX.Element {
-  const { metricName, categoryName, analysisData = [], transactionName } = props || {}
-  const timeseriesOptions = useMemo(() => transformAnalysisDataToChartSeries(analysisData), [analysisData])
+  const { metricName, categoryName, analysisData = [], transactionName, startTime, endTime } = props || {}
+  const timeseriesOptions = useMemo(() => transformAnalysisDataToChartSeries(analysisData, startTime, endTime), [
+    analysisData
+  ])
   return (
     <Container className={css.main}>
       <Container background={Color.GREY_100} className={css.metricInfoContainer}>
