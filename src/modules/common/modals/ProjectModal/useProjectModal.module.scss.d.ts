@@ -5,6 +5,7 @@ declare const styles: {
   readonly create: string
   readonly edit: string
   readonly purposeList: string
+  readonly collaborators: string
   readonly stepWizard: string
   readonly crossIcon: string
   readonly stepClass: string

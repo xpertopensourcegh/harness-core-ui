@@ -15,6 +15,8 @@ declare const styles: {
   readonly collaboratorForm: string
   readonly pendingList: string
   readonly colorBar: string
+  readonly pending: string
+  readonly request: string
   readonly input: string
   readonly url: string
 }

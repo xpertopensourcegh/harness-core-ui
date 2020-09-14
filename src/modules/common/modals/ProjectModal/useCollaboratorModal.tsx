@@ -17,7 +17,7 @@ export const useCollaboratorModal = (): UseCollaboratorModalReturn => {
 
   const [showModal, hideModal] = useModalHook(
     () => (
-      <Dialog isOpen={true} onClose={hideModal} className={cx(css.dialog, Classes.DIALOG)}>
+      <Dialog isOpen={true} onClose={hideModal} className={cx(css.dialog, Classes.DIALOG, css.collaborators)}>
         <Collaborators data={projectData} />
         <Button minimal icon="cross" iconProps={{ size: 18 }} onClick={hideModal} className={css.crossIcon} />
       </Dialog>

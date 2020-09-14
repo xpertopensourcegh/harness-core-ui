@@ -59,27 +59,34 @@
 }
 
 .collaboratorForm {
-  max-width: 400px;
+  max-width: 470px;
   min-height: 450px;
 }
 
 .pendingList {
-  max-height: 175px;
+  max-height: 250px;
   overflow: scroll;
 }
 
 .colorBar {
-  width: 100px;
+  width: 105px;
   height: var(--spacing-medium);
   border-radius: var(--spacing-small);
-  background-color: var(--blue-200) !important;
   padding: 1px 9px !important;
+
+  &.pending {
+    background-color: var(--blue-200) !important;
+  }
+
+  &.request {
+    background-color: var(--yellow-200) !important;
+  }
 }
 
 .input {
-  width: 350px;
+  width: 400px;
 }
 
 .url {
-  width: 400px;
+  width: 450px;
 }

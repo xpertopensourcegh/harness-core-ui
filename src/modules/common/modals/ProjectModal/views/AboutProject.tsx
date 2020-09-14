@@ -49,10 +49,11 @@ const descriptionCollapseProps = Object.assign({}, collapseProps, { heading: i18
 const tagCollapseProps = Object.assign({}, collapseProps, { heading: i18n.newProjectWizard.aboutProject.tags })
 
 const AboutProject: React.FC<StepProps<Project> & ProjectModalData> = props => {
-  const { nextStep, data: projectData, closeModal, onSuccess } = props
+  const { prevStepData, nextStep, data: projectData, closeModal, onSuccess } = props
   const [showPreview, setShowPreview] = useState<boolean>(true)
   const { accountId } = useParams()
-  const isEdit = !!props.data && !!props.data.identifier
+  const isEdit = (!!projectData && !!projectData.identifier) || prevStepData?.identifier
+  const isStep = prevStepData?.identifier
   const { mutate: updateProject } = usePutProject({
     identifier: '',
     queryParams: {
@@ -92,7 +93,7 @@ const AboutProject: React.FC<StepProps<Project> & ProjectModalData> = props => {
         pathParams: { identifier: values?.identifier || '' },
         queryParams: { accountIdentifier: accountId, orgIdentifier: values?.orgIdentifier || '' }
       })
-      closeModal?.()
+      isStep ? nextStep?.({ ...values }) : closeModal?.()
       onSuccess?.(values)
       updateAppStore({ projects: projects.filter(p => p.identifier !== values.identifier).concat(values) })
     } else {
@@ -110,7 +111,6 @@ const AboutProject: React.FC<StepProps<Project> & ProjectModalData> = props => {
       }
     }
   }
-
   return (
     <>
       <Formik
@@ -121,7 +121,8 @@ const AboutProject: React.FC<StepProps<Project> & ProjectModalData> = props => {
           orgIdentifier: '',
           description: '',
           tags: [],
-          ...projectData
+          ...projectData,
+          ...prevStepData
         }}
         validationSchema={Yup.object().shape({
           name: Yup.string().trim().required(i18n.newProjectWizard.aboutProject.errorName),

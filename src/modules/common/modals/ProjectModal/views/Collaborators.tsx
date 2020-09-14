@@ -18,9 +18,20 @@ import {
 } from '@wings-software/uikit'
 import { Select } from '@blueprintjs/select'
 import cx from 'classnames'
+import * as Yup from 'yup'
 import { Menu } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
-import { Project, useGetUsers, useGetRoles, useGetInvites, CreateInviteListDTO, useSendInvite } from 'services/cd-ng'
+import {
+  Project,
+  useGetUsers,
+  useGetRoles,
+  useGetInvites,
+  CreateInviteListDTO,
+  useSendInvite,
+  InviteDTO,
+  useDeleteInvite,
+  useUpdateInvite
+} from 'services/cd-ng'
 import i18n from 'modules/common/pages/ProjectsPage/ProjectsPage.i18n'
 import { InviteType } from '../Constants'
 
@@ -29,10 +40,15 @@ import css from './Steps.module.scss'
 interface ProjectModalData {
   data: Project | undefined
 }
+interface CollaboratorsData {
+  collaborators: MultiSelectOption[]
+}
 
-export interface CollaboratorsData {
-  collaborators?: string[]
-  invitationMessage?: string
+interface InviteListProps {
+  user: InviteDTO
+  roles: SelectOption[]
+  reload: () => void
+  modalErrorHandler: ModalErrorHandlerBinding | undefined
 }
 
 const CustomSelect = Select.ofType<SelectOption>()
@@ -42,38 +58,183 @@ const defaultRole: SelectOption = {
   value: i18n.newProjectWizard.Collaborators.value
 }
 
-const Collaborators: React.FC<StepProps<Project> & ProjectModalData> = props => {
-  const { nextStep, prevStepData, data } = props
+const InviteListRenderer: React.FC<InviteListProps> = props => {
+  const { user, reload, roles, modalErrorHandler } = props
+  const { accountId } = useParams()
+  const [approved, setApproved] = useState<boolean>(false)
+  const { mutate: deleteInvite } = useDeleteInvite({ queryParams: { accountIdentifier: accountId } })
   const [role, setRole] = useState<SelectOption>(defaultRole)
-  const [collaborators, setCollabrators] = useState<MultiSelectOption[]>()
+  const { mutate: updateInvite } = useUpdateInvite({ inviteId: '', queryParams: { accountIdentifier: accountId } })
+
+  const handleUpdate = async (type: InviteType): Promise<void> => {
+    const dataToSubmit: InviteDTO = {
+      name: user.name,
+      email: user.email,
+      role: user.role,
+      inviteType: type,
+      approved: type === InviteType.USER_INITIATED ? true : false
+    }
+    try {
+      const updated = await updateInvite(dataToSubmit, { pathParams: { inviteId: user.id || '' } })
+      if (updated) reload()
+    } catch (err) {
+      modalErrorHandler?.show(err.data)
+    }
+  }
+
+  const handleDelete = async (): Promise<void> => {
+    try {
+      const deleted = await deleteInvite(user.id || '')
+      if (deleted) reload()
+    } catch (err) {
+      modalErrorHandler?.show(err.data)
+    }
+  }
+  return (
+    <Container className={css.invites} padding={{ top: 'medium', bottom: 'medium' }}>
+      {user?.inviteType == InviteType.ADMIN_INITIATED ? (
+        <Layout.Horizontal>
+          <Layout.Horizontal spacing="medium" className={css.align} width="75%">
+            <Icon name="main-user" size={30} />
+            <Layout.Vertical padding={{ left: 'small' }}>
+              <Layout.Horizontal spacing="small">
+                <Text font={{ weight: 'bold' }} color={Color.BLACK}>
+                  {user.name}
+                </Text>
+                <Text
+                  font={{ size: 'xsmall', weight: 'bold' }}
+                  className={cx(css.colorBar, css.pending)}
+                  color={Color.BLUE_500}
+                >
+                  {i18n.newProjectWizard.Collaborators.pendingInvitation}
+                </Text>
+              </Layout.Horizontal>
+              <Text>{user.email}</Text>
+              <Layout.Horizontal>
+                <Text font={{ size: 'xsmall', weight: 'bold' }} color={Color.BLACK}>
+                  {i18n.newProjectWizard.Collaborators.roleAssigned}
+                </Text>
+                <Text font="xsmall" color={Color.BLUE_600} padding={{ left: 'xsmall' }}>
+                  {user.role.name}
+                </Text>
+              </Layout.Horizontal>
+            </Layout.Vertical>
+          </Layout.Horizontal>
+          <Layout.Horizontal width="25%" padding={{ right: 'medium' }} className={cx(css.align, css.toEnd)}>
+            <Button
+              inline
+              minimal
+              icon="refresh"
+              onClick={() => {
+                handleUpdate(InviteType.ADMIN_INITIATED)
+              }}
+            />
+            <Button inline minimal icon="remove" iconProps={{ size: 20 }} onClick={handleDelete} />
+          </Layout.Horizontal>
+        </Layout.Horizontal>
+      ) : (
+        <Layout.Horizontal>
+          <Layout.Horizontal spacing="medium" className={css.align} width="75%">
+            <Icon name="main-user" size={30} />
+            <Layout.Vertical padding={{ left: 'small' }}>
+              <Layout.Horizontal spacing="small">
+                <Text font={{ weight: 'bold' }} color={Color.BLACK}>
+                  {user.name}
+                </Text>
+                <Text
+                  font={{ size: 'xsmall', weight: 'bold' }}
+                  className={cx(css.colorBar, css.request)}
+                  color={Color.YELLOW_500}
+                >
+                  {i18n.newProjectWizard.Collaborators.requestAccess}
+                </Text>
+              </Layout.Horizontal>
+              <Text>{user.email}</Text>
+              <Text font={{ size: 'xsmall', weight: 'bold' }} color={Color.BLACK}>
+                {i18n.newProjectWizard.Collaborators.noRole}
+              </Text>
+            </Layout.Vertical>
+          </Layout.Horizontal>
+          <Layout.Horizontal width="25%" padding={{ right: 'medium' }} className={cx(css.align, css.toEnd)}>
+            {!approved ? (
+              <Button
+                inline
+                minimal
+                icon="command-approval"
+                onClick={() => {
+                  setApproved(true)
+                }}
+              />
+            ) : (
+              <Layout.Horizontal>
+                <CustomSelect
+                  items={roles}
+                  filterable={false}
+                  itemRenderer={(item, { handleClick }) => (
+                    <div>
+                      <Menu.Item
+                        text={item.label}
+                        onClick={(e: React.MouseEvent<HTMLElement, MouseEvent>) => handleClick(e)}
+                      />
+                    </div>
+                  )}
+                  onItemSelect={item => {
+                    setRole(item)
+                  }}
+                  popoverProps={{ minimal: true }}
+                >
+                  <Button inline minimal rightIcon="chevron-down" text={role.label} />
+                </CustomSelect>
+                <Button
+                  inline
+                  minimal
+                  icon="command-approval"
+                  disabled={role === defaultRole}
+                  onClick={() => {
+                    handleUpdate(InviteType.USER_INITIATED)
+                  }}
+                />
+              </Layout.Horizontal>
+            )}
+            <Button inline minimal icon="remove" onClick={handleDelete} />
+          </Layout.Horizontal>
+        </Layout.Horizontal>
+      )}
+    </Container>
+  )
+}
+
+const Collaborators: React.FC<StepProps<Project> & ProjectModalData> = props => {
+  const { previousStep, nextStep, prevStepData, data } = props
+  const [role, setRole] = useState<SelectOption>(defaultRole)
   const { accountId } = useParams()
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding>()
   const isFromMenu = !!data && !!data.identifier
   const projectData = isFromMenu ? data : prevStepData
-
+  const initialValues: CollaboratorsData = { collaborators: [] }
   const { data: userData } = useGetUsers({ queryParams: { accountIdentifier: accountId } })
 
   const { data: inviteData, refetch: reloadInvites } = useGetInvites({
-    orgIdentifier: projectData?.orgIdentifier || '',
-    projectIdentifier: projectData?.identifier || '',
     queryParams: {
-      accountIdentifier: accountId
+      accountIdentifier: accountId,
+      orgIdentifier: projectData?.orgIdentifier || '',
+      projectIdentifier: projectData?.identifier || ''
     }
   })
 
-  const { mutate: sendInvite } = useSendInvite({
-    orgIdentifier: projectData?.orgIdentifier || '',
-    projectIdentifier: projectData?.identifier || '',
+  const { mutate: sendInvite, loading } = useSendInvite({
     queryParams: {
-      accountIdentifier: accountId
+      accountIdentifier: accountId,
+      orgIdentifier: projectData?.orgIdentifier || '',
+      projectIdentifier: projectData?.identifier || ''
     }
   })
 
   const { data: roleData } = useGetRoles({
-    orgIdentifier: projectData?.orgIdentifier || '',
-    projectIdentifier: projectData?.identifier || '',
     queryParams: {
-      accountIdentifier: accountId
+      accountIdentifier: accountId,
+      orgIdentifier: projectData?.orgIdentifier || '',
+      projectIdentifier: projectData?.identifier || ''
     }
   })
 
@@ -93,8 +254,12 @@ const Collaborators: React.FC<StepProps<Project> & ProjectModalData> = props => 
       }
     }) || []
 
-  const SendInvitation = async (): Promise<void> => {
-    const usersToSubmit = collaborators?.map(collaborator => {
+  const getIndex = (value: string): number => {
+    return Number(value.charAt(value.indexOf('[') + 1))
+  }
+
+  const SendInvitation = async (values: MultiSelectOption[]): Promise<void> => {
+    const usersToSubmit = values?.map(collaborator => {
       return collaborator.value
     })
 
@@ -103,7 +268,7 @@ const Collaborators: React.FC<StepProps<Project> & ProjectModalData> = props => 
       role: {
         name: role.label
       },
-      inviteType: InviteType.ADMIN_INITIATED as Required<CreateInviteListDTO>['inviteType']
+      inviteType: InviteType.ADMIN_INITIATED
     }
 
     try {
@@ -113,19 +278,25 @@ const Collaborators: React.FC<StepProps<Project> & ProjectModalData> = props => 
       modalErrorHandler?.show(e.data)
     }
   }
-
   return (
-    <>
-      <Formik
-        initialValues={{ collaborators: [], invitationMessage: '' }}
-        onSubmit={() => {
-          if (prevStepData) {
-            nextStep?.({ ...prevStepData })
-          }
-        }}
-        enableReinitialize={true}
-      >
-        {formik => (
+    <Formik<CollaboratorsData>
+      initialValues={initialValues}
+      validationSchema={Yup.object().shape({
+        collaborators: Yup.array().of(
+          Yup.object().shape({
+            value: Yup.string().email().required('Required')
+          })
+        )
+      })}
+      onSubmit={(values, { resetForm }) => {
+        SendInvitation(values.collaborators)
+        setRole(defaultRole)
+        resetForm({ collaborators: [] })
+      }}
+      enableReinitialize={true}
+    >
+      {formik => {
+        return (
           <Form>
             <ModalErrorHandler bind={setModalErrorHandler} />
             <Layout.Vertical padding="xxxlarge">
@@ -142,7 +313,7 @@ const Collaborators: React.FC<StepProps<Project> & ProjectModalData> = props => 
                     className={css.url}
                   />
                 </Layout.Horizontal>
-                <Layout.Horizontal padding={{ top: 'medium' }} spacing="xlarge" className={css.align}>
+                <Layout.Horizontal padding={{ top: 'medium' }} spacing="xlarge" className={cx(css.align, css.input)}>
                   <Text>{i18n.newProjectWizard.Collaborators.inviteCollab}</Text>
                   <CustomSelect
                     items={roles}
@@ -161,34 +332,43 @@ const Collaborators: React.FC<StepProps<Project> & ProjectModalData> = props => 
                     popoverProps={{ minimal: true }}
                   >
                     <Layout.Horizontal padding={{ left: 'xlarge' }}>
-                      <Button inline minimal rightIcon="chevron-down" text={role.label} />
+                      <Button
+                        inline
+                        minimal
+                        rightIcon="chevron-down"
+                        text={role.label}
+                        width={180}
+                        className={css.toEnd}
+                      />
                     </Layout.Horizontal>
                   </CustomSelect>
                 </Layout.Horizontal>
                 <Layout.Horizontal spacing="small">
                   <FormInput.MultiSelect
-                    name="collaborators"
+                    name={i18n.newProjectWizard.Collaborators.collaborator}
                     items={users}
                     multiSelectProps={{
                       allowCreatingNewItems: true
                     }}
                     className={css.input}
-                    onChange={opts => {
-                      setCollabrators(opts)
-                    }}
                   />
                   <Button
                     text={i18n.newProjectWizard.Collaborators.add}
                     intent="primary"
                     inline
                     disabled={role.value == 'none' ? true : false}
-                    onClick={() => {
-                      SendInvitation()
-                      formik.setFieldValue('collaborators', [])
-                      setRole(defaultRole)
-                    }}
+                    type="submit"
+                    loading={loading}
                   />
                 </Layout.Horizontal>
+                {formik.errors.collaborators
+                  ? formik.errors.collaborators.map(val => (
+                      <Text intent="danger" key={val?.value}>
+                        {formik.values.collaborators[getIndex(val?.value || '')]?.label +
+                          i18n.newProjectWizard.Collaborators.notValid}
+                      </Text>
+                    ))
+                  : null}
                 {inviteData?.data?.content?.length ? (
                   <Layout.Vertical padding={{ top: 'medium', bottom: 'xxxlarge' }}>
                     <Text padding={{ bottom: 'small' }}>
@@ -196,75 +376,47 @@ const Collaborators: React.FC<StepProps<Project> & ProjectModalData> = props => 
                     </Text>
                     <Container className={css.pendingList}>
                       {inviteData?.data?.content.slice(0, 15).map(user => (
-                        <Container
+                        <InviteListRenderer
                           key={user.name}
-                          className={css.invites}
-                          padding={{ top: 'medium', bottom: 'medium' }}
-                        >
-                          <Layout.Horizontal>
-                            <Layout.Horizontal spacing="medium" className={css.align} width="75%">
-                              <Icon name="main-user" size={30} />
-                              <Layout.Vertical padding={{ left: 'small' }}>
-                                <Layout.Horizontal spacing="small">
-                                  <Text font={{ weight: 'bold' }} color={Color.BLACK}>
-                                    {user.name}
-                                  </Text>
-                                  <Text
-                                    font={{ size: 'xsmall', weight: 'bold' }}
-                                    className={css.colorBar}
-                                    color={Color.BLUE_500}
-                                  >
-                                    {i18n.newProjectWizard.Collaborators.pendingInvitation}
-                                  </Text>
-                                </Layout.Horizontal>
-                                <Text>{user.email}</Text>
-                                <Layout.Horizontal>
-                                  <Text font={{ size: 'xsmall', weight: 'bold' }} color={Color.BLACK}>
-                                    {i18n.newProjectWizard.Collaborators.roleAssigned}
-                                  </Text>
-                                  <Text font="xsmall" color={Color.BLUE_600}>
-                                    {user.role.name}
-                                  </Text>
-                                </Layout.Horizontal>
-                              </Layout.Vertical>
-                            </Layout.Horizontal>
-                            {user?.inviteType ==
-                            (InviteType.ADMIN_INITIATED as Required<CreateInviteListDTO>['inviteType']) ? (
-                              <Layout.Horizontal
-                                width="25%"
-                                padding={{ right: 'medium' }}
-                                className={cx(css.align, css.toEnd)}
-                              >
-                                <Button inline minimal icon="refresh" />
-                                <Button inline minimal icon="trash" />
-                              </Layout.Horizontal>
-                            ) : (
-                              <Layout.Horizontal
-                                width="25%"
-                                padding={{ right: 'medium' }}
-                                className={cx(css.align, css.toEnd)}
-                              >
-                                <Button inline minimal icon="command-approval" />
-                                <Button inline minimal icon="trash" />
-                              </Layout.Horizontal>
-                            )}
-                          </Layout.Horizontal>
-                        </Container>
+                          user={user}
+                          reload={reloadInvites}
+                          roles={roles}
+                          modalErrorHandler={modalErrorHandler}
+                        />
                       ))}
                     </Container>
                   </Layout.Vertical>
                 ) : null}
               </Container>
               {!isFromMenu ? (
-                <Layout.Horizontal>
-                  <Button className={css.button} text={i18n.newProjectWizard.saveAndContinue} type="submit" />
+                <Layout.Horizontal spacing="small">
+                  <Button
+                    className={css.button}
+                    onClick={() => previousStep?.(prevStepData)}
+                    text={i18n.newProjectWizard.back}
+                  />
+                  <Button
+                    className={css.button}
+                    text={i18n.newProjectWizard.saveAndContinue}
+                    onClick={() => {
+                      if (prevStepData) {
+                        nextStep?.({ ...prevStepData })
+                      }
+                    }}
+                  />
                 </Layout.Horizontal>
-              ) : null}
+              ) : (
+                <Layout.Horizontal>
+                  <Button inline minimal>
+                    {i18n.newProjectWizard.Collaborators.manage}
+                  </Button>
+                </Layout.Horizontal>
+              )}
             </Layout.Vertical>
           </Form>
-        )}
-      </Formik>
-    </>
+        )
+      }}
+    </Formik>
   )
 }
 export default Collaborators

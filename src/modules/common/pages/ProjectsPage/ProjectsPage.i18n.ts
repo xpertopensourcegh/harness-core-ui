@@ -85,7 +85,12 @@ export default {
       roleAssigned: 'Project Role Assigned:',
       url: 'https://www.harness.io/somelongencryptedprojecturl',
       pendingInvitation: 'Pending Invitation',
-      pendingUsers: (name: string) => `People Waiting to be Processed (${name})`
+      requestAccess: 'Requesting Access',
+      pendingUsers: (name: string) => `People Waiting to be Processed (${name})`,
+      noRole: 'No project role assigned',
+      collaborator: 'collaborators',
+      manage: 'Manage all the users in the project',
+      notValid: ' is not a valid email '
     }
   }
 }
