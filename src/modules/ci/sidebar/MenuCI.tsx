@@ -11,7 +11,8 @@ import {
   routeCIBuilds,
   routeCIAdminBuildSettings,
   routeCIAdminGovernance,
-  routeCIAdminResources
+  routeCIAdminResources,
+  routeCIBuild
 } from '../routes'
 import css from './MenuCI.module.scss'
 
@@ -39,7 +40,7 @@ const ProjectNavLinks: React.FC<{ project?: Project }> = ({ project }) => {
         })}
         label={i18n.builds}
         icon="nav-pipelines"
-        selected={isRouteActive(routeCIBuilds)}
+        selected={isRouteActive(routeCIBuilds) || isRouteActive(routeCIBuild)}
       />
       <AdminSelector
         selected={

@@ -1,0 +1,127 @@
+{
+  "status": "SUCCESS",
+  "data": {
+    "content": [
+      {
+        "id": 5,
+        "startTime": 1599483295719,
+        "endTime": 1599483305719,
+        "pipeline": {
+          "id": "pipeline",
+          "name": "Integration Pipeline 1"
+        },
+        "triggerType": "webhook",
+        "event": "branch",
+        "author": {
+          "id": "test",
+          "avatar": "https://..."
+        },
+        "branch": {
+          "name": "master",
+          "link": "https://...",
+          "commits": [
+            {
+              "id": "1234567890",
+              "link": "https://github.com/wings-software/....",
+              "message": "Updated ...",
+              "description": "description",
+              "ownerName": "Test",
+              "ownerId": "test",
+              "ownerEmail": "test@harness.io"
+            },
+            {
+              "id": "1234567890",
+              "link": "https://github.com/wings-software/....",
+              "message": "Updated ...",
+              "description": "description",
+              "ownerName": "Test",
+              "ownerId": "test",
+              "ownerEmail": "test@harness.io"
+            }
+          ]
+        }
+      },
+      {
+        "id": 6,
+        "startTime": 1599483622379,
+        "endTime": 1599483654379,
+        "pipeline": {
+          "id": "pipeline",
+          "name": "Integration Pipeline 2"
+        },
+        "triggerType": "webhook",
+        "event": "branch",
+        "author": {
+          "id": "test",
+          "avatar": "https://..."
+        },
+        "branch": {
+          "name": "master",
+          "link": "https://...",
+          "commits": [
+            {
+              "id": "1234567890",
+              "link": "https://github.com/wings-software/...",
+              "message": "Updated ...",
+              "ownerName": "Test",
+              "description": "description",
+              "ownerId": "test",
+              "ownerEmail": "test@harness.io"
+            }
+          ]
+        }
+      },
+      {
+        "id": 7,
+        "startTime": 1599550852464,
+        "endTime": 1599551862464,
+        "pipeline": {
+          "id": "pipeline",
+          "name": "Integration Pipeline 3"
+        },
+        "triggerType": "webhook",
+        "event": "pull_request",
+        "author": {
+          "id": "test",
+          "avatar": "https://..."
+        },
+        "pullRequest": {
+          "id": 2,
+          "link": "https://github.com/wings-software/...",
+          "title": "PR Update ...",
+          "body": "PR Request",
+          "sourceBranch": "source-branch",
+          "targetBranch": "master",
+          "state": "open"
+        }
+      }
+    ],
+    "pageable": {
+      "sort": {
+        "unsorted": false,
+        "sorted": true,
+        "empty": false
+      },
+      "offset": 0,
+      "pageNumber": 0,
+      "pageSize": 10,
+      "paged": true,
+      "unpaged": false
+    },
+    "totalPages": 34,
+    "totalElements": 335,
+    "last": false,
+    "size": 10,
+    "number": 3,
+    "first": false,
+    "sort": {
+      "unsorted": false,
+      "sorted": true,
+      "empty": false
+    },
+    "numberOfElements": 335,
+    "empty": false
+  },
+  "metaData": null,
+  "correlationId": null
+}

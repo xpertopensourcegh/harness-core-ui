@@ -1,0 +1,116 @@
+$pipeline-card-border-color: rgba(0, 0, 0, 0.02);
+$build-id-background-color: rgba(227, 233, 240, 0.3);
+$build-id-text-color: #84869a;
+
+$tags-background: #e3e9f0;
+
+$commits-scroll-bar-background: rgba(196, 196, 196, 0.3);
+$commits-scroll-bar-background-hover: gray;
+
+.buildCard {
+  background: white !important;
+  border-radius: 5px;
+  border: 1px solid $pipeline-card-border-color;
+  box-shadow: 0px 0px 1px rgba(40, 41, 61, 0.08), 0px 0.5px 2px rgba(96, 97, 112, 0.16);
+  border-left: 4px solid;
+  margin: 15px 0 !important;
+
+  .topper {
+    padding: 10px;
+    height: 110px;
+    display: flex;
+
+    .leftSide {
+      width: 55%;
+      .links {
+        margin: 0px 5px;
+      }
+      .buildId {
+        background: $build-id-background-color;
+        border-radius: 5px;
+        width: max-content;
+        padding: 5px;
+        margin: 5px 0;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 13px;
+        line-height: 16px;
+        color: $build-id-text-color;
+      }
+    }
+    .rightSide {
+      width: 500px;
+      img {
+        width: 500px;
+      }
+    }
+  }
+  .lower {
+    border-top: 1px solid lightgrey;
+    height: 35px;
+    padding: 5px 10px;
+    font-size: 12px;
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    .buildCardStatus {
+      display: flex;
+      align-items: center;
+    }
+    .buildTags {
+      display: flex;
+      align-items: center;
+      .buildTag {
+        margin-left: 5px;
+        border-radius: 4px;
+        padding: 3px 5px;
+        background: $tags-background;
+        width: max-content;
+        display: flex;
+        align-items: center;
+        .deleteIcon {
+          margin-left: 5px;
+        }
+      }
+    }
+  }
+  .extendedPart {
+    border-top: 1px solid lightgray;
+    padding: 0 10px;
+    overflow-y: scroll;
+    max-height: 140px;
+    .commitItem {
+      border-top: 1px solid lightgray;
+      padding: 6px;
+      align-items: center;
+      display: flex;
+      justify-content: space-between;
+      .commitHash {
+        background: $tags-background;
+        margin: 0 3px;
+        border-radius: 5px;
+        padding: 3px 5px;
+        display: inline-flex;
+        align-items: center;
+        cursor: pointer;
+      }
+    }
+  }
+  ::-webkit-scrollbar {
+    width: 5px;
+    padding-right: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: $commits-scroll-bar-background;
+    border-radius: 100px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: $commits-scroll-bar-background-hover;
+  }
+}

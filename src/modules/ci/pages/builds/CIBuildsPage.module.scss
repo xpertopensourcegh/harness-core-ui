@@ -1,0 +1,85 @@
+.main {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+
+  // main
+  > *:first-child {
+    flex-grow: 1;
+  }
+
+  // right
+  > *:last-child {
+    flex-grow: 0;
+    width: 60px;
+    background: var(--grey-100);
+    border-left: 1px solid #ebebeb;
+  }
+
+  // todo: should be global scss mixin
+  :global {
+    // BUTTON
+    button {
+      border-radius: 100px !important;
+    }
+
+    // SCROLLBAR
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      border-radius: 5px;
+      background: #dddddf;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      opacity: 0.6;
+    }
+  }
+}
+
+.builds {
+  display: flex;
+  flex-direction: column;
+  background: var(--grey-100);
+  padding: 0 var(--spacing-xxlarge) !important;
+}
+
+.buildsHeader {
+  flex-grow: 0;
+  display: flex;
+  padding: var(--spacing-large) 0 var(--spacing-small) 0 !important;
+  justify-content: space-between;
+}
+
+.buildsFooter {
+  flex-grow: 0;
+  display: flex;
+  padding: var(--spacing-small) 0 !important;
+  justify-content: space-between;
+  align-items: center;
+
+  > div {
+    width: 100% !important;
+  }
+}
+
+.buildsBody {
+  flex-grow: 1;
+  overflow: auto;
+  position: relative;
+}
+
+.buildsBodyInner {
+  padding-right: var(--spacing-small) !important;
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  right: 0px;
+  left: 0px;
+}

@@ -1,0 +1,45 @@
+$status-success-bg: green;
+$status-success-fg: white;
+$status-failed-bg: red;
+$status-failed-fg: white;
+$status-pending-bg: orange;
+$status-pending-fg: white;
+$status-in-progress-bg: #e6ffff;
+$status-in-progress-fg: #00b7c4;
+$status-padding-top: 4px;
+$status-padding-bottom: 4px;
+$status-padding-left: 12px;
+$status-padding-right: 12px;
+$status-corner-radius: 8px;
+
+.status {
+  border-radius: $status-corner-radius;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: bold;
+  letter-spacing: 0.4px;
+  line-height: 12px;
+  padding: $status-padding-top $status-padding-right $status-padding-bottom $status-padding-left;
+  text-align: center;
+  width: max-content;
+}
+
+.status-success {
+  background-color: $status-success-bg;
+  color: $status-success-fg;
+}
+
+.status-in-progress {
+  background-color: $status-in-progress-bg;
+  color: $status-in-progress-fg;
+}
+
+.status-failed {
+  background-color: $status-failed-bg;
+  color: $status-failed-fg;
+}
+
+.status-pending {
+  background-color: $status-pending-bg;
+  color: $status-pending-fg;
+}

@@ -1,0 +1,26 @@
+.container {
+  box-shadow: -2px 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: var(--spacing-small) !important;
+}
+
+.row {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  min-height: 30px;
+
+  &.row.row > * + * {
+    margin-left: 24px !important;
+  }
+}
+
+.toolbar {
+  &.toolbar.toolbar {
+    // hack to increase specificity
+    margin-left: auto !important;
+  }
+}

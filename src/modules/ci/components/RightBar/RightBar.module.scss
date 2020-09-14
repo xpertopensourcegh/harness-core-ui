@@ -1,0 +1,12 @@
+.main {
+  border-left: 1px solid #f0f0f0; // ~var(--light-400);
+
+  float: right;
+  display: flex;
+  flex-direction: column;
+  padding: var(--spacing-small) 0;
+
+  > * {
+    margin: var(--spacing-xsmall) 0 !important;
+  }
+}
