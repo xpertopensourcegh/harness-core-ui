@@ -2,6 +2,7 @@
 
 exports[`PurposeList test initializes ok  1`] = `
 <div>
+   
   <div
     class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
   >
@@ -329,5 +330,6 @@ exports[`PurposeList test initializes ok  1`] = `
       </div>
     </div>
   </div>
+   
 </div>
 `;

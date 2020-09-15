@@ -1,0 +1,22 @@
+{
+  "status": "SUCCESS",
+  "data": {
+    "pageCount": 1,
+    "itemCount": 1,
+    "pageSize": 50,
+    "content": [
+      {
+        "accountIdentifier": "testAcc",
+        "Identifier": "testOrg",
+        "name": "Org Name",
+        "color": "#004fc4",
+        "description": "Description",
+        "tags": ["tag1", "tag2"]
+      }
+    ],
+    "pageIndex": 0,
+    "empty": false
+  },
+  "metaData": null,
+  "correlationId": "f932d48d-e486-4481-9348-c8ded750d2c3"
+}

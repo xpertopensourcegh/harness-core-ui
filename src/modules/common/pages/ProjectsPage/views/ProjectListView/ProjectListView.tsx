@@ -4,17 +4,19 @@ import { Text, Layout, Color, Icon, Button, Popover } from '@wings-software/uiki
 import type { CellProps, Renderer, Column } from 'react-table'
 import { Classes, Position } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
-import { Project, useGetProjectList } from 'services/cd-ng'
+import { Project, useGetProjectList, ResponseDTONGPageResponseProject } from 'services/cd-ng'
 import Table from 'modules/common/components/Table/Table'
 
 import TagsPopover from 'modules/common/components/TagsPopover/TagsPopover'
 import { useAppStoreReader } from 'framework/exports'
 import { Page } from 'modules/common/components/Page/Page'
+import type { UseGetMockData } from 'modules/common/utils/testUtils'
 import i18n from './ProjectListView.i18n'
 import ContextMenu from '../Menu/ContextMenu'
 import css from './ProjectListView.module.scss'
 
 interface ProjectListViewProps {
+  mockData?: UseGetMockData<ResponseDTONGPageResponseProject>
   showEditProject?: (project: Project) => void
   collaborators?: (project: Project) => void
   searchParameter?: string
@@ -110,6 +112,7 @@ const RenderColumnMenu: Renderer<CellProps<Project>> = ({ row, column }) => {
 
 const ProjectListView: React.FC<ProjectListViewProps> = props => {
   const {
+    mockData,
     showEditProject,
     collaborators,
     searchParameter,
@@ -131,6 +134,7 @@ const ProjectListView: React.FC<ProjectListViewProps> = props => {
       page: page,
       size: 10
     },
+    mock: mockData,
     debounce: 300
   })
 

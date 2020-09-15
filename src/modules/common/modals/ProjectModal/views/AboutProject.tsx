@@ -22,12 +22,14 @@ import { useAppStoreReader, useAppStoreWriter } from 'framework/exports'
 import ProjectCard from 'modules/common/pages/ProjectsPage/views/ProjectCard/ProjectCard'
 import i18n from 'modules/common/pages/ProjectsPage/ProjectsPage.i18n'
 import { illegalIdentifiers } from 'modules/common/utils/StringUtils'
-import { useGetOrganizationList } from 'services/cd-ng'
+import { useGetOrganizationList, ResponseDTONGPageResponseOrganization } from 'services/cd-ng'
 import type { Project } from 'services/cd-ng'
 import { usePutProject, usePostProject } from 'services/cd-ng'
+import type { UseGetMockData } from 'modules/common/utils/testUtils'
 import css from './Steps.module.scss'
 
 interface ProjectModalData {
+  orgmockData?: UseGetMockData<ResponseDTONGPageResponseOrganization>
   data: Project | undefined
   closeModal?: () => void
   onSuccess?: (project: Project | undefined) => void
@@ -48,7 +50,7 @@ const descriptionCollapseProps = Object.assign({}, collapseProps, { heading: i18
 const tagCollapseProps = Object.assign({}, collapseProps, { heading: i18n.newProjectWizard.aboutProject.tags })
 
 const AboutProject: React.FC<StepProps<Project> & ProjectModalData> = props => {
-  const { prevStepData, nextStep, data: projectData, closeModal, onSuccess } = props
+  const { prevStepData, nextStep, data: projectData, closeModal, onSuccess, orgmockData } = props
   const [showPreview, setShowPreview] = useState<boolean>(true)
   const { accountId, orgId } = useParams()
   const isEdit = (!!projectData && !!projectData.identifier) || prevStepData?.identifier
@@ -70,7 +72,8 @@ const AboutProject: React.FC<StepProps<Project> & ProjectModalData> = props => {
   const { loading, data } = useGetOrganizationList({
     queryParams: {
       accountIdentifier: accountId
-    }
+    },
+    mock: orgmockData
   })
   const { projects } = useAppStoreReader()
   const updateAppStore = useAppStoreWriter()

@@ -1,13 +1,15 @@
 import React from 'react'
 import { Layout } from '@wings-software/uikit'
 import { useParams } from 'react-router-dom'
-import { Project, useGetProjectList } from 'services/cd-ng'
+import { Project, useGetProjectList, ResponseDTONGPageResponseProject } from 'services/cd-ng'
 import { Page } from 'modules/common/components/Page/Page'
+import type { UseGetMockData } from 'modules/common/utils/testUtils'
 import i18n from './ProjectGridView.i18n'
 import ProjectCard from '../ProjectCard/ProjectCard'
 import css from './ProjectGridView.module.scss'
 
 interface ProjectGridViewProps {
+  mockData?: UseGetMockData<ResponseDTONGPageResponseProject>
   showEditProject?: (project: Project) => void
   collaborators?: (project: Project) => void
   searchParameter?: string
@@ -21,6 +23,7 @@ interface ProjectGridViewProps {
 
 const ProjectGridView: React.FC<ProjectGridViewProps> = props => {
   const {
+    mockData,
     showEditProject,
     collaborators,
     searchParameter,
@@ -40,6 +43,7 @@ const ProjectGridView: React.FC<ProjectGridViewProps> = props => {
       searchTerm: searchParameter,
       hasModule: deSelectModule ? false : true
     },
+    mock: mockData,
     debounce: 300
   })
 
