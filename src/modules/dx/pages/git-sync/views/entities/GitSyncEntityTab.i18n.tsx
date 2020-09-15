@@ -5,7 +5,8 @@ export default {
     yamlFilePath: 'YAML FILE PATH',
     cd: 'CONTINUOUS DEPLOYMENT',
     ci: 'CONTINUOUS INTEGRATION',
-    core: 'CORE ENTITIES'
+    core: 'CORE ENTITIES',
+    productMenu: 'ENTITIES BY PRODUCTS'
   },
   viewAll: 'VIEW ALL',
   back: 'back',

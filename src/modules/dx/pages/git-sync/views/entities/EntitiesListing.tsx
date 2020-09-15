@@ -70,7 +70,7 @@ const EntitiesListing: React.FC<EntitiesListingProps> = props => {
   }
 
   return (
-    <Container padding="small">
+    <Container padding="small" className={css.productListing}>
       <Text padding="xlarge" color={Color.BLUE_500} background={Color.WHITE} onClick={() => props.backToSummary()}>
         <Icon name="chevron-left" margin={{ right: 'small' }} size={20} />
         {i18n.back}

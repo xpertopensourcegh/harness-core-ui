@@ -122,14 +122,14 @@ export const getTableColumns = (sortingDisabled: boolean): Column<GitSyncEntityD
     {
       Header: i18n.heading.entity,
       accessor: 'entityName',
-      width: '20%',
+      width: '25%',
       Cell: RenderEntity,
       disableSortBy: sortingDisabled
     },
     {
       Header: i18n.heading.details,
       accessor: 'repositoryName',
-      width: '25%',
+      width: '30%',
       Cell: RenderRootfolder,
       disableSortBy: sortingDisabled
     },

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { Container, Color, Layout, Text } from '@wings-software/uikit'
 import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
@@ -22,7 +22,6 @@ interface EntityListViewProps {
 
 interface EntitiesPreviewProps {
   selectedProduct: GitSyncProductDTO['productName']
-  setShowingSummary: Function
 }
 
 const EntityListView: React.FC<EntityListViewProps> = props => {
@@ -49,6 +48,10 @@ const EntitiesPreview: React.FC<EntitiesPreviewProps> = props => {
     queryParams: { accountId, product: props.selectedProduct, size: previewListSize }
   })
 
+  useEffect(() => {
+    setSelectedEntity('')
+  }, [props.selectedProduct])
+
   if (loadingEntityList) {
     return <PageSpinner />
   }
@@ -59,11 +62,10 @@ const EntitiesPreview: React.FC<EntitiesPreviewProps> = props => {
       selectedProduct={props.selectedProduct}
       backToSummary={() => {
         setSelectedEntity('')
-        props.setShowingSummary(true)
       }}
     ></EntitiesListing>
   ) : (
-    <Container padding={{ top: 'small', right: 'large', bottom: 'small', left: 'large' }}>
+    <Container className={css.productListing} padding="small">
       <Layout.Vertical spacing="small">
         {dataAllEntities?.data?.gitSyncEntityListDTOList?.length ? (
           <EntityListView data={{} as GitSyncEntityListDTO} hideHeaders={false}></EntityListView>
@@ -80,7 +82,6 @@ const EntitiesPreview: React.FC<EntitiesPreviewProps> = props => {
                   style={{ cursor: 'pointer' }}
                   onClick={() => {
                     setSelectedEntity(entityList?.entityType || '')
-                    props.setShowingSummary(false)
                   }}
                 >{`${i18n.viewAll} ${entityList.entityType?.toUpperCase()}`}</Text>
               ) : null}
