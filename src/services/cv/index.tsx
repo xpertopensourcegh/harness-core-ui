@@ -448,13 +448,6 @@ export interface ServiceGuardTxnMetricAnalysisDataDTO {
   keyTransaction?: boolean
 }
 
-export interface AppdynamicsMetricValueValidationResponse {
-  metricName?: string
-  apiResponseStatus?: 'SUCCESS' | 'NO_DATA' | 'FAILED'
-  value?: number
-  errorMessage?: string
-}
-
 export interface RestResponseListCVConfig {
   metaData?: {
     [key: string]: { [key: string]: any }
@@ -473,12 +466,11 @@ export interface RestResponseMapCVMonitoringCategoryInteger {
   responseMessages?: ResponseMessage[]
 }
 
-export interface RestResponseListTimeSeriesMetricDefinition {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: TimeSeriesMetricDefinition[]
-  responseMessages?: ResponseMessage[]
+export interface DeploymentVerificationTaskDTO {
+  verificationJobIdentifier: string
+  oldVersionHosts?: string[]
+  newVersionHosts?: string[]
+  newHostsTrafficSplitPercentage?: number
 }
 
 export interface TimeSeriesDataCollectionRecord {
@@ -922,14 +914,6 @@ export interface RestResponseNGPageResponseTimeSeriesMetricDataDTO {
   responseMessages?: ResponseMessage[]
 }
 
-export interface RestResponseNGPageResponseTimeSeriesMetricDataDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: NGPageResponseTimeSeriesMetricDataDTO
-  responseMessages?: ResponseMessage[]
-}
-
 export interface RestResponseSplunkValidationResponse {
   metaData?: {
     [key: string]: { [key: string]: any }
@@ -1020,15 +1004,6 @@ export interface NGPageResponseTimeSeriesMetricDataDTO {
   empty?: boolean
 }
 
-export interface NGPageResponseTimeSeriesMetricDataDTO {
-  pageCount?: number
-  itemCount?: number
-  pageSize?: number
-  content?: TimeSeriesMetricDataDTO[]
-  pageIndex?: number
-  empty?: boolean
-}
-
 export interface TimeSeriesMetricDefinition {
   metricName?: string
   metricType?: 'INFRA' | 'RESP_TIME' | 'THROUGHPUT' | 'ERROR' | 'APDEX'
@@ -1066,7 +1041,7 @@ export interface RestResponseListString {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
-  resource?: AppDynamicsTier[]
+  resource?: MetricData[]
   responseMessages?: ResponseMessage[]
 }
 

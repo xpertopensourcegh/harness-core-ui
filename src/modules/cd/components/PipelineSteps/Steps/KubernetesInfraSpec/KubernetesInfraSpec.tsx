@@ -45,8 +45,8 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
 }): JSX.Element => {
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
   const delayedOnUpdate = React.useRef(debounce(onUpdate || noop, 300)).current
-  const connectorIdentifier = getIdentifierFromValue(initialValues.connectorIdentifier || '')
-  const initialScope = getScopeFromValue(initialValues.connectorIdentifier || '')
+  const connectorIdentifier = getIdentifierFromValue(initialValues.connectorIdentifier?.value || '')
+  const initialScope = getScopeFromValue(initialValues.connectorIdentifier?.value || '')
   const { data: connector, loading, refetch } = useGetConnector({
     accountIdentifier: accountId,
     connectorIdentifier,
@@ -61,13 +61,16 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
   React.useEffect(() => {
     if (
       !isEmpty(initialValues.connectorIdentifier) &&
-      getMultiTypeFromValue(initialValues.connectorIdentifier || '') === MultiTypeInputType.FIXED
+      getMultiTypeFromValue(initialValues.connectorIdentifier?.value || '') === MultiTypeInputType.FIXED
     ) {
       refetch()
     }
-  }, [initialValues.connectorIdentifier])
+  }, [initialValues.connectorIdentifier?.value])
   const values: FormValues = { ...initialValues, connectorIdentifier: undefined }
-  if (connector?.data && getMultiTypeFromValue(initialValues.connectorIdentifier || '') === MultiTypeInputType.FIXED) {
+  if (
+    connector?.data &&
+    getMultiTypeFromValue(initialValues.connectorIdentifier?.value || '') === MultiTypeInputType.FIXED
+  ) {
     const scope = getScopeFromDTO<ConnectorDTO>(connector?.data)
     values.connectorIdentifier = {
       label: connector.data.name || '',
@@ -75,7 +78,7 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
       scope: scope
     }
   } else {
-    values.connectorIdentifier = initialValues.connectorIdentifier
+    values.connectorIdentifier = initialValues.connectorIdentifier?.value
   }
 
   return (
@@ -137,7 +140,7 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
                   label={i18n.nameSpaceLabel}
                   placeholder={i18n.nameSpacePlaceholder}
                 />
-                {getMultiTypeFromValue(formik.values.namespace) === MultiTypeInputType.RUNTIME && (
+                {getMultiTypeFromValue(formik.values.namespace?.value) === MultiTypeInputType.RUNTIME && (
                   <ConfigureOptions
                     value={formik.values.namespace as string}
                     type={
@@ -163,7 +166,7 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
                   label={i18n.releaseName}
                   placeholder={i18n.releaseNamePlaceholder}
                 />
-                {getMultiTypeFromValue(formik.values.releaseName) === MultiTypeInputType.RUNTIME && (
+                {getMultiTypeFromValue(formik.values.releaseName?.value) === MultiTypeInputType.RUNTIME && (
                   <ConfigureOptions
                     value={formik.values.releaseName as string}
                     type={

@@ -28,10 +28,10 @@ export interface PageBodyProps {
     message: string
 
     /** button text to pass to <NoDataCard/> */
-    buttonText: string
+    buttonText?: string
 
     /** onClick event handler to pass to <NoDataCard/> */
-    onClick: ButtonProps['onClick']
+    onClick?: ButtonProps['onClick']
 
     /** class name to pass for no data */
     className?: string
@@ -81,7 +81,7 @@ export const PageBody: React.FC<PageBodyProps> = ({
   }, [_loading]) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <Container className={cx(css.pageBody, noData?.className, filled && css.filled, className)}>
+    <Container className={cx(css.pageBody, filled && css.filled, className)}>
       {loading && <PageSpinner />}
       {!loading && error && <PageError message={error} onClick={retryOnError} />}
       {!loading && !error && noData?.when?.() && (
@@ -90,6 +90,7 @@ export const PageBody: React.FC<PageBodyProps> = ({
           message={noData?.message || ''}
           buttonText={noData?.buttonText || ''}
           onClick={noData?.onClick}
+          className={noData?.className}
         />
       )}
       {!firstLoading && !error && !noData?.when?.() && children}

@@ -2,24 +2,27 @@ import React, { useState, useMemo } from 'react'
 import ReactTimeago from 'react-timeago'
 import { Text, Layout, Color, Icon, Button, Popover } from '@wings-software/uikit'
 import type { CellProps, Renderer, Column } from 'react-table'
-import { Menu, Classes, Position } from '@blueprintjs/core'
+import { Classes, Position } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
-import { Project, useDeleteProject, NGPageResponseProject } from 'services/cd-ng'
+import { Project, useGetProjectList } from 'services/cd-ng'
 import Table from 'modules/common/components/Table/Table'
-import { useConfirmationDialog } from 'modules/common/exports'
-import { useToaster } from 'modules/common/components/Toaster/useToaster'
 
 import TagsPopover from 'modules/common/components/TagsPopover/TagsPopover'
 import { useAppStoreReader } from 'framework/exports'
+import { Page } from 'modules/common/components/Page/Page'
 import i18n from './ProjectListView.i18n'
+import ContextMenu from '../Menu/ContextMenu'
 import css from './ProjectListView.module.scss'
 
 interface ProjectListViewProps {
-  data?: NGPageResponseProject
-  reload?: () => Promise<void>
-  editProject?: (project: Project) => void
-  gotoPage: (pageNumber: number) => void
+  showEditProject?: (project: Project) => void
   collaborators?: (project: Project) => void
+  searchParameter?: string
+  orgFilterId?: string
+  module?: Required<Project>['modules'][number]
+  reloadPage?: ((value: React.SetStateAction<boolean>) => void) | undefined
+  onRowClick?: ((data: Project) => void) | undefined
+  openProjectModal?: (project?: Project | undefined) => void
 }
 
 type CustomColumn<T extends object> = Column<T> & {
@@ -74,46 +77,7 @@ const RenderColumnAdmin: Renderer<CellProps<Project>> = () => {
 
 const RenderColumnMenu: Renderer<CellProps<Project>> = ({ row, column }) => {
   const data = row.original
-  const { accountId } = useParams()
   const [menuOpen, setMenuOpen] = useState(false)
-  const { showSuccess, showError } = useToaster()
-  const { mutate: deleteProject } = useDeleteProject({
-    queryParams: { accountIdentifier: accountId, orgIdentifier: data.orgIdentifier || '' }
-  })
-
-  const { openDialog } = useConfirmationDialog({
-    contentText: i18n.confirmDelete(data.name || ''),
-    titleText: i18n.confirmDeleteTitle,
-    confirmButtonText: i18n.deleteButton,
-    cancelButtonText: i18n.cancelButton,
-    onCloseDialog: async (isConfirmed: boolean) => {
-      if (isConfirmed) {
-        try {
-          const deleted = await deleteProject(data.identifier || '', {
-            headers: { 'content-type': 'application/json' }
-          })
-          if (deleted) showSuccess(`Project ${data.name} deleted`)
-          ;(column as any).refetchProjects?.()
-        } catch (err) {
-          showError(err)
-        }
-      }
-    }
-  })
-
-  const handleDelete = (): void => {
-    if (!data?.identifier) return
-    openDialog()
-  }
-  const handleEdit = (): void => {
-    if (!data) return
-    ;(column as any).editProject?.(data)
-  }
-
-  const handleCollaborate = (): void => {
-    if (!data) return
-    ;(column as any).collaborators?.(data)
-  }
 
   return (
     <Layout.Horizontal className={css.layout}>
@@ -133,19 +97,48 @@ const RenderColumnMenu: Renderer<CellProps<Project>> = ({ row, column }) => {
             setMenuOpen(true)
           }}
         />
-        <Menu style={{ minWidth: 'unset' }}>
-          <Menu.Item icon="edit" text="Edit" onClick={handleEdit} />
-          <Menu.Item icon="new-person" text="Invite Collaborators" onClick={handleCollaborate} />
-          <Menu.Divider />
-          <Menu.Item icon="trash" text="Delete" onClick={handleDelete} />
-        </Menu>
+        <ContextMenu
+          project={data}
+          reloadProjects={(column as any).refetchProjects}
+          editProject={(column as any).editProject}
+          collaborators={(column as any).collaborators}
+        />
       </Popover>
     </Layout.Horizontal>
   )
 }
 
 const ProjectListView: React.FC<ProjectListViewProps> = props => {
-  const { data, reload, editProject, gotoPage, collaborators } = props
+  const {
+    showEditProject,
+    collaborators,
+    searchParameter,
+    orgFilterId,
+    module,
+    reloadPage,
+    onRowClick,
+    openProjectModal
+  } = props
+  const { accountId } = useParams()
+  const [page, setPage] = useState(0)
+
+  const { data, loading, refetch } = useGetProjectList({
+    queryParams: {
+      accountIdentifier: accountId,
+      orgIdentifier: orgFilterId == 'ALL' ? undefined : orgFilterId,
+      moduleType: module,
+      searchTerm: searchParameter,
+      page: page,
+      size: 10
+    },
+    debounce: 300
+  })
+
+  if (reloadPage) {
+    refetch()
+    reloadPage(false)
+  }
+
   const columns: CustomColumn<Project>[] = useMemo(
     () => [
       {
@@ -192,27 +185,49 @@ const ProjectListView: React.FC<ProjectListViewProps> = props => {
         accessor: 'tags',
         width: '5%',
         Cell: RenderColumnMenu,
-        refetchProjects: reload,
-        editProject: editProject,
+        refetchProjects: refetch,
+        editProject: showEditProject,
         collaborators: collaborators,
         disableSortBy: true
       }
     ],
-    [reload, editProject, collaborators]
+    [refetch, showEditProject, collaborators]
   )
   return (
-    <Table<Project>
-      className={css.table}
-      columns={columns}
-      data={data?.content || []}
-      pagination={{
-        itemCount: data?.itemCount || 0,
-        pageSize: data?.pageSize || 10,
-        pageCount: data?.pageCount || -1,
-        pageIndex: data?.pageIndex || 0,
-        gotoPage
-      }}
-    />
+    <Page.Body
+      loading={loading}
+      retryOnError={() => refetch()}
+      noData={
+        !searchParameter && openProjectModal
+          ? {
+              when: () => !data?.data?.content?.length,
+              icon: 'nav-project',
+              message: i18n.aboutProject,
+              buttonText: i18n.addProject,
+              onClick: () => openProjectModal?.(),
+              className: css.pageContainer
+            }
+          : {
+              when: () => !data?.data?.content?.length,
+              icon: 'nav-project',
+              message: i18n.noProject
+            }
+      }
+    >
+      <Table<Project>
+        className={css.table}
+        columns={columns}
+        data={data?.data?.content || []}
+        onRowClick={onRowClick}
+        pagination={{
+          itemCount: data?.data?.itemCount || 0,
+          pageSize: data?.data?.pageSize || 10,
+          pageCount: data?.data?.pageCount || 0,
+          pageIndex: data?.data?.pageIndex || 0,
+          gotoPage: (pageNumber: number) => setPage(pageNumber)
+        }}
+      />
+    </Page.Body>
   )
 }
 

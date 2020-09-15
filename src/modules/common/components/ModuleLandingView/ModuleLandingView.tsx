@@ -1,7 +1,7 @@
-import React, { useMemo } from 'react'
+import React from 'react'
 import { Container, Layout, Text, Heading, Icon, Button, Color, IconName, Spacing } from '@wings-software/uikit'
-import { useAppStoreReader, ModuleName } from 'framework/exports'
-import type { Project, NGPageResponseProject } from 'services/cd-ng'
+import type { ModuleName } from 'framework/exports'
+import type { Project } from 'services/cd-ng'
 import { useProjectModal } from 'modules/common/modals/ProjectModal/useProjectModal'
 import { Page } from '../../components/Page/Page'
 import ProjectGridView from '../../pages/ProjectsPage/views/ProjectGridView/ProjectGridView'
@@ -28,7 +28,6 @@ export const ModuleLandingView: React.FC<ModuleLandingViewProps> = ({
   subHeading,
   description
 }) => {
-  const { projects } = useAppStoreReader()
   const { openProjectModal } = useProjectModal({
     onSuccess: (project?: Project): void => {
       if (project) {
@@ -39,8 +38,6 @@ export const ModuleLandingView: React.FC<ModuleLandingViewProps> = ({
   const showEditProject = (project: Project): void => {
     openProjectModal(project)
   }
-  // listingProjects contains a collection of projects that don't include `module`
-  const listingProjects = useMemo(() => projects.filter(p => !p.modules?.includes(module)), [projects, module])
 
   return (
     <Page.Body filled>
@@ -67,10 +64,7 @@ export const ModuleLandingView: React.FC<ModuleLandingViewProps> = ({
         <Text padding="xlarge" font={{ align: 'center' }} color={Color.BLACK} style={{ paddingBottom: 0 }}>
           {description}
         </Text>
-        <ProjectGridView
-          data={{ content: listingProjects } as NGPageResponseProject}
-          showEditProject={showEditProject}
-        />
+        <ProjectGridView module={module} showEditProject={showEditProject} deSelectModule={true} />
       </Container>
     </Page.Body>
   )

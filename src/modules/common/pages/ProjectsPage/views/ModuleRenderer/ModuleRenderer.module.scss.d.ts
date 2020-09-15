@@ -1,7 +1,6 @@
 /* eslint-disable */
 // this is an auto-generated file
 declare const styles: {
-  readonly centerContainer: string
-  readonly pageContainer: string
+  readonly started: string
 }
 export default styles

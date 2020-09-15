@@ -4,14 +4,13 @@ import { Button, Text, Layout, TextInput, SelectOption } from '@wings-software/u
 
 import { Select } from '@blueprintjs/select'
 import { Menu } from '@blueprintjs/core'
-import { useGetProjectList, ResponseDTONGPageResponseProject, useGetOrganizationList } from 'services/cd-ng'
+import { useGetOrganizationList } from 'services/cd-ng'
 import type { ModuleName } from 'framework/exports'
 
 import type { Project } from 'services/cd-ng'
 import { Page } from 'modules/common/exports'
 import { useProjectModal } from 'modules/common/modals/ProjectModal/useProjectModal'
 import { useCollaboratorModal } from 'modules/common/modals/ProjectModal/useCollaboratorModal'
-import type { UseGetMockData } from 'modules/common/utils/testUtils'
 import i18n from './ProjectsPage.i18n'
 import { Views, Sort } from './Constants'
 import ProjectsListView from './views/ProjectListView/ProjectListView'
@@ -23,41 +22,24 @@ const allOrgsSelectOption: SelectOption = {
   value: i18n.orgLabel.toUpperCase()
 }
 interface ProjectListProps {
-  mockData?: UseGetMockData<ResponseDTONGPageResponseProject>
   /** when the page is being shown inside continuous verification, value will be set to CV */
   module?: ModuleName
   onNewProjectCreated?(data: Project): void
 }
 const CustomSelect = Select.ofType<SelectOption>()
 
-const ProjectsListPage: React.FC<ProjectListProps> = ({ mockData, module, onNewProjectCreated }) => {
+const ProjectsListPage: React.FC<ProjectListProps> = ({ module, onNewProjectCreated }) => {
   const [orgFilter, setOrgFilter] = useState<SelectOption>(allOrgsSelectOption)
   const { accountId } = useParams()
   const [view, setView] = useState(Views.GRID)
   const [recentFilter, setRecentFilter] = useState(Sort.ALL_PROJECTS)
   const [searchParam, setSearchParam] = useState<string | undefined>()
-  const [page, setPage] = useState(0)
-  const { loading: loadingAllProjects, data: dataAllProjects, refetch: reloadAllProjects } = useGetProjectList({
-    queryParams: {
-      accountIdentifier: accountId,
-      orgIdentifier: orgFilter.value == 'ALL' ? undefined : orgFilter.value.toString(),
-      moduleType: module ? (module as Required<Project>['modules'][number]) : undefined,
-      searchTerm: searchParam,
-      page: page,
-      size: 10
-    },
-    mock: mockData,
-    debounce: 300
-  })
-
-  const loading = loadingAllProjects
-  const data = dataAllProjects
-
+  const [reloadProjectPage, setReloadProjectPage] = useState(false)
   const projectCreateSuccessHandler = (project: Project | undefined): void => {
     if (project && onNewProjectCreated) {
       onNewProjectCreated(project)
     }
-    reloadAllProjects()
+    setReloadProjectPage(true)
   }
 
   const { openProjectModal } = useProjectModal({
@@ -175,33 +157,27 @@ const ProjectsListPage: React.FC<ProjectListProps> = ({ mockData, module, onNewP
         </Layout.Horizontal>
       </Layout.Horizontal>
 
-      <Page.Body
-        loading={loading}
-        retryOnError={() => reloadAllProjects()}
-        noData={{
-          when: () => !data?.data?.content?.length,
-          icon: 'nav-project',
-          message: i18n.aboutProject,
-          buttonText: i18n.addProject,
-          onClick: () => openProjectModal(),
-          className: css.pageContainer
-        }}
-      >
+      <Page.Body className={css.pageContainer}>
         {view === Views.GRID ? (
           <ProjectsGridView
-            data={data?.data}
-            reload={reloadAllProjects}
             showEditProject={showEditProject}
             collaborators={showCollaborators}
+            orgFilterId={orgFilter.value as string}
+            searchParameter={searchParam}
+            module={module as Required<Project>['modules'][number]}
+            reloadPage={reloadProjectPage ? setReloadProjectPage : undefined}
+            openProjectModal={openProjectModal}
           />
         ) : null}
         {view === Views.LIST ? (
           <ProjectsListView
-            data={data?.data}
-            reload={reloadAllProjects}
-            editProject={showEditProject}
+            showEditProject={showEditProject}
             collaborators={showCollaborators}
-            gotoPage={pageNumber => setPage(pageNumber)}
+            orgFilterId={orgFilter.value as string}
+            searchParameter={searchParam}
+            module={module as Required<Project>['modules'][number]}
+            reloadPage={reloadProjectPage ? setReloadProjectPage : undefined}
+            openProjectModal={openProjectModal}
           />
         ) : null}
       </Page.Body>

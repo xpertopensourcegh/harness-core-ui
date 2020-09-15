@@ -6,9 +6,9 @@ export interface NoDataCardProps {
   iconSize?: number
   message: string
   width?: number
-  buttonText: string
+  buttonText?: string
   buttonWidth?: number
-  onClick: ButtonProps['onClick']
+  onClick?: ButtonProps['onClick']
   className?: string
 }
 
@@ -24,7 +24,9 @@ export const NoDataCard: React.FC<NoDataCardProps> = props => (
       <Heading level={2} font={{ align: 'center' }} color={Color.GREY_500}>
         {props.message}
       </Heading>
-      <Button intent="primary" text={props.buttonText} width={props.buttonWidth} onClick={props.onClick} />
+      {props.buttonText ? (
+        <Button intent="primary" text={props.buttonText} width={props.buttonWidth} onClick={props.onClick} />
+      ) : null}
     </Layout.Vertical>
   </Container>
 )

@@ -22,7 +22,6 @@ import { useAppStoreReader, useAppStoreWriter } from 'framework/exports'
 import ProjectCard from 'modules/common/pages/ProjectsPage/views/ProjectCard/ProjectCard'
 import i18n from 'modules/common/pages/ProjectsPage/ProjectsPage.i18n'
 import { illegalIdentifiers } from 'modules/common/utils/StringUtils'
-
 import { useGetOrganizationList } from 'services/cd-ng'
 import type { Project } from 'services/cd-ng'
 import { usePutProject, usePostProject } from 'services/cd-ng'
@@ -31,7 +30,7 @@ import css from './Steps.module.scss'
 interface ProjectModalData {
   data: Project | undefined
   closeModal?: () => void
-  onSuccess: (project: Project | undefined) => void
+  onSuccess?: (project: Project | undefined) => void
 }
 
 interface AboutPageData extends Project {
@@ -51,7 +50,7 @@ const tagCollapseProps = Object.assign({}, collapseProps, { heading: i18n.newPro
 const AboutProject: React.FC<StepProps<Project> & ProjectModalData> = props => {
   const { prevStepData, nextStep, data: projectData, closeModal, onSuccess } = props
   const [showPreview, setShowPreview] = useState<boolean>(true)
-  const { accountId } = useParams()
+  const { accountId, orgId } = useParams()
   const isEdit = (!!projectData && !!projectData.identifier) || prevStepData?.identifier
   const isStep = prevStepData?.identifier
   const { mutate: updateProject } = usePutProject({
@@ -118,7 +117,7 @@ const AboutProject: React.FC<StepProps<Project> & ProjectModalData> = props => {
           color: '',
           identifier: '',
           name: '',
-          orgIdentifier: '',
+          orgIdentifier: orgId,
           description: '',
           tags: [],
           ...projectData,
@@ -163,7 +162,7 @@ const AboutProject: React.FC<StepProps<Project> & ProjectModalData> = props => {
                       label={i18n.newProjectWizard.aboutProject.org}
                       name="orgIdentifier"
                       items={organisations}
-                      disabled={isEdit ? true : loading}
+                      disabled={isEdit || orgId ? true : loading}
                     />
                   </Layout.Horizontal>
                   <div className={css.collapseDiv}>
