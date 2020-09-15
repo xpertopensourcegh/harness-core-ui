@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react'
+import React, { useState, useMemo, useEffect } from 'react'
 import { Text, Layout, Color, Icon, Button, Popover } from '@wings-software/uikit'
 import type { CellProps, Renderer, Column } from 'react-table'
 import { Menu, Classes, Position, PopoverInteractionKind } from '@blueprintjs/core'
@@ -65,6 +65,11 @@ const RenderColumnStatus: Renderer<CellProps<ConnectorSummaryDTO>> = ({ row }) =
   const data = row.original
   const [testing, setTesting] = useState(false)
   const [status, setStatus] = useState(data.status?.status as string)
+  useEffect(() => {
+    if (data.status?.status) {
+      setStatus(data.status?.status)
+    }
+  }, [data.status?.status])
   return (
     <Layout.Horizontal>
       {!testing ? (

@@ -176,7 +176,8 @@ const StepDockerAuthentication: React.FC<StepProps<StepDockerAuthenticationProps
                   }}
                 />
               </Layout.Vertical>
-              <Layout.Horizontal padding={{ top: 'small' }}>
+              <Layout.Horizontal padding={{ top: 'small' }} spacing="medium">
+                <Button onClick={() => props.previousStep?.({ ...prevStepData })} text={i18n.STEP_TWO.BACK} />
                 <Button
                   type="submit"
                   text={i18n.STEP_TWO.SAVE_CREDENTIALS_AND_CONTINUE}

@@ -42,6 +42,7 @@ interface HttpCredentialStepProps {
   projectIdentifier: string
   orgIdentifier: string
   nextStep?: () => void
+  previousStep?: (data?: ConnectorConfigDTO) => void
   accountId: string
   hideLightModal: () => void
   isEditMode: boolean
@@ -220,6 +221,11 @@ const HttpCredentialStep: React.FC<HttpCredentialStepProps> = props => {
                 />
                 <FormInput.Text name="branchName" label={i18n.BranchName} className={css.branchName} />
                 <Layout.Horizontal spacing="large" className={css.footer}>
+                  <Button
+                    onClick={() => props.previousStep?.({ ...props.formData })}
+                    text={i18n.BACK}
+                    font={{ size: 'small' }}
+                  />
                   <Button
                     type="submit"
                     className={css.saveBtn}

@@ -7,6 +7,7 @@ export default {
     NAME: 'AUTHENTICATION',
     Heading: 'Authentication',
     SAVE_CREDENTIALS_AND_CONTINUE: 'SAVE CREDENTIALS AND CONTINUE',
+    BACK: 'BACK',
     DockerRegistryURL: 'Docker Registry URL',
     validation: {
       dockerUrl: 'Docker Registry URL is required',

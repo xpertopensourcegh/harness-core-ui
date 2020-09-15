@@ -7,6 +7,7 @@ import i18n from './ConnectionModeStep.i18n'
 import { getHeadingByType } from '../../../../../pages/connectors/utils/ConnectorHelper'
 import css from './ConnectionModeStep.module.scss'
 
+// Move this to StepProps
 interface ConnectionModeStepProps {
   type: string
   name: string
@@ -15,6 +16,7 @@ interface ConnectionModeStepProps {
   setFormData: (formData: GITFormData | undefined) => void
   formData: GITFormData | undefined
   nextStep?: () => void
+  previousStep?: (data?: GITFormData | undefined) => void
 }
 const ConnectionModeStep = (props: ConnectionModeStepProps) => {
   return (
@@ -79,7 +81,14 @@ const ConnectionModeStep = (props: ConnectionModeStepProps) => {
                 </div>
               ) : null}
             </div>
-            <Button type="submit" text={i18n.continue} className={css.saveBtn} />
+            <Layout.Horizontal spacing="medium">
+              <Button
+                onClick={() => props.previousStep?.({ ...props.formData })}
+                text={i18n.BACK}
+                font={{ size: 'small' }}
+              />
+              <Button type="submit" text={i18n.continue} className={css.saveBtn} />
+            </Layout.Horizontal>
           </Form>
         )}
       </Formik>

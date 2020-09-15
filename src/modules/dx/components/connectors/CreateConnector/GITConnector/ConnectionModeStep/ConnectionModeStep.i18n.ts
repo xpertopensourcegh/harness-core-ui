@@ -1,5 +1,6 @@
 export default {
   continue: 'CONTINUE',
+  BACK: 'BACK',
   CONFIGURE_TEXT: 'What would you like to configure?',
   gitAccount: 'GIT Account',
   gitRepo: 'GIT Repo',
