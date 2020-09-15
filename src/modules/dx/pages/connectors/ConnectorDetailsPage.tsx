@@ -31,7 +31,11 @@ const ConnectorDetailsPage: React.FC = () => {
   const { accountId, orgIdentifier, projectIdentifier } = useParams()
   const { loading, data: connector, refetch } = useGetConnector({
     accountIdentifier: accountId,
-    connectorIdentifier: connectorId as string
+    connectorIdentifier: connectorId as string,
+    queryParams: {
+      orgIdentifier: orgIdentifier,
+      projectIdentifier: projectIdentifier
+    }
   })
   const { mutate: updateConnector } = useUpdateConnector({ accountIdentifier: accountId })
 
@@ -77,9 +81,6 @@ const ConnectorDetailsPage: React.FC = () => {
         {activeCategory === 0 ? (
           !loading && connector ? (
             <ConfigureConnector
-              accountId={accountId}
-              orgIdentifier={orgIdentifier}
-              projectIdentifier={projectIdentifier}
               type={connector.data?.type || ''}
               updateConnector={updateConnector}
               connector={connector.data || ({} as ConnectorDTO)}

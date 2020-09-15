@@ -134,7 +134,7 @@ export const generateDefaultSecretConfig = (name: string, type: string) => {
 export const getLabelForAuthType = (type: string) => {
   switch (type) {
     case AuthTypes.USER_PASSWORD:
-      return 'Username and password'
+      return 'Username and Password'
     case AuthTypes.SERVICE_ACCOUNT:
       return 'Service Account Token'
     case AuthTypes.OIDC:

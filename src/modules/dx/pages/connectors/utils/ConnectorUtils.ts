@@ -19,7 +19,6 @@ export const userPasswrdAuthField = (formData: FormData) => {
   return {
     username: formData.username,
     passwordRef: `${getScope(formData.passwordRefSecret?.scope)}${formData.passwordRefSecret?.secretId}`
-    // cacert: 'Random'
   }
 }
 
@@ -195,6 +194,20 @@ export const buildGITPayload = (formData: FormData) => {
   return savedData
 }
 
+export const buildGITFormData = (connector: ConnectorDTO) => {
+  return {
+    name: connector?.name,
+    description: connector?.description,
+    identifier: connector?.identifier,
+    tags: connector?.tags,
+    connectionType: connector?.spec?.connectionType,
+    branchName: connector?.spec?.branchName,
+    url: connector?.spec?.url,
+    connectType: connector?.spec?.type,
+    username: connector?.spec?.spec?.username
+    // Todo: passwordRefSecret: will be done as part of secret api integration with SecretTextInput
+  }
+}
 export const getDelegateTypeInfo = (delegateInfoSpec: any) => {
   const delegateType = delegateInfoSpec?.type
   let delegateTypeMetaData

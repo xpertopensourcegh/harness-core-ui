@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { Formik, FormikForm as Form, Button, Layout, IconName } from '@wings-software/uikit'
+import { useParams } from 'react-router'
+import { Button, Layout, IconName } from '@wings-software/uikit'
 import * as YAML from 'yaml'
 import cx from 'classnames'
 import { useToaster } from 'modules/common/exports'
@@ -9,19 +10,15 @@ import { YamlEntity } from 'modules/common/constants/YamlConstants'
 import type { SnippetInterface } from 'modules/common/interfaces/SnippetInterface'
 import { YAMLService } from 'modules/dx/services'
 import TestConnection from 'modules/dx/components/connectors/TestConnection/TestConnection'
-import ConnectorForm from 'modules/dx/components/connectors/ConnectorForm/ConnectorForm'
 import type { YamlBuilderHandlerBinding } from 'modules/common/interfaces/YAMLBuilderProps'
+import ConnectorForm from 'modules/dx/components/connectors/ConnectorForm/ConnectorForm'
 import SavedConnectorDetails from './SavedConnectorDetails'
 import ConnectorStats from './ConnectorStats'
-import { buildKubPayload, buildKubFormData } from './utils/ConnectorUtils'
 import { getHeadingByType } from './utils/ConnectorHelper'
 import i18n from './ConfigureConnector.i18n'
 import css from './ConfigureConnector.module.scss'
 
 export interface ConfigureConnectorProps {
-  accountId: string
-  projectIdentifier: string
-  orgIdentifier: string
   type: string
   connector: ConnectorDTO
   updateConnector: (data: ConnectorDTO) => Promise<unknown>
@@ -47,7 +44,8 @@ const SelectedView = {
   YAML: 'YAML'
 }
 
-const ConfigureConnector = (props: ConfigureConnectorProps): JSX.Element => {
+const ConfigureConnector: React.FC<ConfigureConnectorProps> = props => {
+  const { accountId, orgIdentifier, projectIdentifier } = useParams()
   const { isCreationThroughYamlBuilder } = props
   const [enableEdit, setEnableEdit] = useState(false)
   const [lastTested, setLastTested] = useState(props.connector.status?.lastTestedAt || 0)
@@ -76,6 +74,19 @@ const ConfigureConnector = (props: ConfigureConnectorProps): JSX.Element => {
   }
   const { showSuccess, showError } = useToaster()
 
+  const onSubmit = async (connectorPayload: ConnectorDTO) => {
+    try {
+      const data = await props.updateConnector(connectorPayload)
+      if (data) {
+        showSuccess(i18n.SaveConnector.SUCCESS)
+        props.refetchConnector()
+        state.setEnableEdit(false)
+      }
+    } catch (error) {
+      showError(error.message)
+    }
+  }
+
   const handleModeSwitch = (targetMode: string): void => {
     if (targetMode === SelectedView.VISUAL) {
       const yamlString = yamlHandler?.getLatestYaml() || ''
@@ -93,30 +104,17 @@ const ConfigureConnector = (props: ConfigureConnectorProps): JSX.Element => {
     }
   }
 
-  const saveConnector = (event: React.MouseEvent<Element, MouseEvent>): void => {
+  const handleSaveYaml = (event: React.MouseEvent<Element, MouseEvent>): void => {
     event.preventDefault()
     const yamlString = yamlHandler?.getLatestYaml() || ''
     try {
       const yamlData = YAML.parse(yamlString)
       if (yamlData) {
-        onSubmitForm(yamlData)
+        onSubmit(yamlData)
         setConnector(yamlData)
       }
     } catch (err) {
       showError(`${err.name}: ${err.message}`)
-    }
-  }
-
-  const onSubmitForm = async (connectorPayload: ConnectorDTO) => {
-    try {
-      const data = await props.updateConnector(connectorPayload)
-      if (data) {
-        showSuccess(i18n.SaveConnector.SUCCESS)
-        props.refetchConnector()
-        state.setEnableEdit(false)
-      }
-    } catch (error) {
-      showError(error.message)
     }
   }
 
@@ -201,41 +199,15 @@ const ConfigureConnector = (props: ConfigureConnectorProps): JSX.Element => {
           </Layout.Horizontal>
           {enableEdit ? (
             selectedView === SelectedView.VISUAL ? (
-              <Formik
-                initialValues={buildKubFormData(connector)}
-                // Todo: validationSchema={validationSchema}
-                enableReinitialize={true}
-                onSubmit={formData => {
-                  onSubmitForm(buildKubPayload(formData))
-                }}
-                validate={data => setConnector(buildKubPayload(data))}
-              >
-                {formikProps => (
-                  <Form>
-                    <ConnectorForm
-                      accountId={props.accountId}
-                      orgIdentifier={props.orgIdentifier}
-                      projectIdentifier={props.projectIdentifier}
-                      type={props.type}
-                      connector={buildKubFormData(connector)}
-                      formikProps={formikProps}
-                    />
-
-                    <Layout.Horizontal>
-                      <Button intent="primary" type="submit" text={i18n.submit} className={css.submitBtn} />
-                    </Layout.Horizontal>
-                  </Form>
-                )}
-              </Formik>
+              <ConnectorForm type={props.type} connector={connector} setConnector={setConnector} onSubmit={onSubmit} />
             ) : (
               <div className={css.editor}>
                 <YamlBuilder {...yamlBuilderReadOnlyModeProps} />
                 <Button
                   intent="primary"
-                  type="submit"
                   text={i18n.submit}
-                  className={css.submitBtn}
-                  onClick={saveConnector}
+                  onClick={handleSaveYaml}
+                  margin={{ top: 'large' }}
                   disabled={!confirmButtonIsEnabled}
                   title={!confirmButtonIsEnabled ? 'YAML is invalid. Please fix the issues to proceed.' : ''}
                 />
@@ -259,9 +231,9 @@ const ConfigureConnector = (props: ConfigureConnectorProps): JSX.Element => {
               status={status || ''}
             />
             <TestConnection
-              accountId={props.accountId}
-              orgIdentifier={props.orgIdentifier}
-              projectIdentifier={props.projectIdentifier}
+              accountId={accountId}
+              orgIdentifier={orgIdentifier}
+              projectIdentifier={projectIdentifier}
               connectorName={connector?.name || ''}
               connectorIdentifier={connector?.identifier || ''}
               delegateName={connector.spec?.spec?.delegateName || ''}

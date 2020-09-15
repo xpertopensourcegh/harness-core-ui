@@ -1,16 +1,29 @@
 import React, { useState, useEffect } from 'react'
+import { useParams } from 'react-router'
 import cx from 'classnames'
-import { FormInput, Layout, SelectV2, Button, SelectOption } from '@wings-software/uikit'
+import * as Yup from 'yup'
+import {
+  Formik,
+  FormikForm as Form,
+  FormInput,
+  Layout,
+  SelectV2,
+  Button,
+  SelectOption,
+  Text
+} from '@wings-software/uikit'
 import { CardSelect, Icon } from '@wings-software/uikit'
 import ConnectorFormFields from 'modules/dx/components/connectors/ConnectorFormFields/ConnectorFormFields'
-import type { FormData } from 'modules/dx/interfaces/ConnectorInterface'
-import { useGetKubernetesDelegateNames, RestResponseListString } from 'services/portal'
+import { useGetKubernetesDelegateNames } from 'services/portal'
+import type { ConnectorDTO } from 'services/cd-ng'
 import { authOptions, DelegateInClusterType, getIconsForCard } from './KubeFormHelper'
 import { AuthTypes, getLabelForAuthType } from '../utils/ConnectorHelper'
+import { buildKubFormData, buildKubPayload } from '../utils/ConnectorUtils'
+
+import { DelegateTypes } from './KubeFormInterfaces'
+
 import i18n from './KubCluster.i18n'
 
-// import type { AuthOption } from './KubeFormHelper'
-import { DelegateTypes } from './KubeFormInterfaces'
 import css from './KubCluster.module.scss'
 
 interface SelectedDelegate {
@@ -19,24 +32,11 @@ interface SelectedDelegate {
   icon: string
 }
 interface KubClusterProps {
-  accountId: string
-  projectIdentifier: string
-  orgIdentifier: string
   enableEdit?: boolean
-  connector: FormData
+  connector: ConnectorDTO
+  setConnector: (data: ConnectorDTO) => void
   enableCreate?: boolean
-  formikProps: any
-}
-
-interface KubClusterState {
-  selectedDelegate: SelectedDelegate
-  setSelectedDelegate: (val: SelectedDelegate) => void
-  authentication: SelectOption
-  setAuthentication: (type: SelectOption) => void
-  inclusterDelegate: string
-  setInClusterDelegate: (val: string) => void
-  showCreateSecretModal: boolean
-  setShowCreateSecretModal: (val: boolean) => void
+  onSubmit: (data: ConnectorDTO) => void
 }
 
 const delegateData = [
@@ -57,71 +57,6 @@ const formatDelegateList = (listData: string[] | undefined) => {
     return { label: item || '', value: item || '' }
   })
 }
-// Todo: Move this to React component
-const renderDelegateInclusterForm = (state: KubClusterState, delegateList: RestResponseListString) => {
-  const delegateListFiltered = formatDelegateList(delegateList?.resource) || [{ label: '', value: '' }]
-  return (
-    <div className={css.incluster}>
-      <div
-        className={css.radioOption}
-        onClick={() => {
-          state.setInClusterDelegate(DelegateInClusterType.useExistingDelegate)
-        }}
-      >
-        <input type="radio" checked={state.inclusterDelegate === DelegateInClusterType.useExistingDelegate} />
-        <span className={css.label}>Use an existing Delegate</span>
-      </div>
-      {state.inclusterDelegate === DelegateInClusterType.useExistingDelegate ? (
-        <FormInput.Select name="delegateName" label="Select Delegate" items={delegateListFiltered} />
-      ) : null}
-      <div
-        className={css.radioOptionInstall}
-        onClick={() => {
-          state.setInClusterDelegate(DelegateInClusterType.addNewDelegate)
-        }}
-      >
-        <input type="radio" checked={state.inclusterDelegate === DelegateInClusterType.addNewDelegate} />
-        <span className={css.label}>Add a new Delegate to this Cluster</span>
-      </div>
-    </div>
-  )
-}
-// Todo: Move this to React component
-const renderDelegateOutclusterForm = (state: KubClusterState, props: KubClusterProps) => {
-  return (
-    <div className={css.delgateOutCluster}>
-      <FormInput.Text label={i18n.masterUrl} name="masterUrl" />
-      <Layout.Horizontal className={css.credWrapper}>
-        <div className={css.label}>
-          <Icon name="lock" size={14} className={css.lockIcon} />
-          Credentials
-        </div>
-        <SelectV2
-          items={authOptions}
-          value={state.authentication}
-          filterable={false}
-          onChange={val => {
-            state.setAuthentication(val)
-            props.formikProps.setFieldValue('authType', val.value)
-          }}
-          className={css.selectAuth}
-        >
-          <Button text={state.authentication?.label} rightIcon="chevron-down" minimal />
-        </SelectV2>
-      </Layout.Horizontal>
-      <ConnectorFormFields
-        accountId={props.accountId}
-        orgIdentifier={props.orgIdentifier}
-        projectIdentifier={props.projectIdentifier}
-        formikProps={props.formikProps}
-        authType={state.authentication.value}
-        name={props.formikProps?.values?.name}
-        onClickCreateSecret={() => state.setShowCreateSecretModal(true)}
-        isEditMode={true}
-      />
-    </div>
-  )
-}
 
 const KubCluster: React.FC<KubClusterProps> = props => {
   const [selectedDelegate, setSelectedDelegate] = useState({ type: '', value: '', icon: '' })
@@ -129,25 +64,15 @@ const KubCluster: React.FC<KubClusterProps> = props => {
     label: 'Username and Password',
     value: AuthTypes.USER_PASSWORD
   } as SelectOption)
-  const { accountId } = props
-
+  const { accountId, orgIdentifier, projectIdentifier } = useParams()
   const { loading, data: delegateList } = useGetKubernetesDelegateNames({
     queryParams: { accountId }
   })
 
   const [inclusterDelegate, setInClusterDelegate] = useState('')
-  const [showCreateSecretModal, setShowCreateSecretModal] = useState<boolean>(false)
+  const [, setShowCreateSecretModal] = useState<boolean>(false)
   const { connector } = props
-  const state: KubClusterState = {
-    selectedDelegate,
-    setSelectedDelegate,
-    authentication,
-    setAuthentication,
-    inclusterDelegate,
-    setInClusterDelegate,
-    showCreateSecretModal,
-    setShowCreateSecretModal
-  }
+
   const radioProps = {
     data: delegateData,
     className: css.delegateSetup,
@@ -163,56 +88,137 @@ const KubCluster: React.FC<KubClusterProps> = props => {
           ) : null}
         </div>
       )
-    },
-    onChange: (item: SelectedDelegate) => {
-      state.setSelectedDelegate(item)
-      props.formikProps.setFieldValue('delegateType', item.type)
     }
   }
   useEffect(() => {
-    if (props.formikProps?.values?.authType) {
-      state.setAuthentication({
-        label: getLabelForAuthType(props.formikProps.values.authType),
-        value: props.formikProps.values.authType
-      })
-    }
-    if (props.formikProps?.values?.delegateType) {
-      const val = { type: props.formikProps?.values?.delegateType, value: '', icon: '' }
-      state.setSelectedDelegate(val)
-    }
-    if (props.formikProps.values?.delegateType) {
-      state.setInClusterDelegate(DelegateInClusterType.useExistingDelegate)
+    if (connector) {
+      if (connector?.spec?.type === DelegateTypes.DELEGATE_OUT_CLUSTER) {
+        setAuthentication({
+          label: getLabelForAuthType(connector?.spec?.spec?.auth?.type),
+          value: connector?.spec?.spec?.auth?.type
+        })
+      } else if (connector?.spec?.type === DelegateTypes.DELEGATE_IN_CLUSTER) {
+        setInClusterDelegate(DelegateInClusterType.useExistingDelegate)
+      }
+      if (connector?.spec?.type) {
+        const val = { type: connector?.spec?.type, value: '', icon: '' }
+        setSelectedDelegate(val)
+      }
     }
   }, [props])
-
+  const delegateListFiltered = formatDelegateList(delegateList?.resource) || [{ label: '', value: '' }]
   return (
-    <div className={css.formCustomCss}>
-      <FormInput.InputWithIdentifier isIdentifierEditable={false} />
-      <FormInput.TextArea label={i18n.description} name="description" />
-      <FormInput.TagInput
-        name="tags"
-        label={i18n.tags}
-        items={connector?.tags}
-        labelFor={name => (typeof name === 'string' ? name : '')}
-        itemFromNewTag={newTag => newTag}
-        className={css.tags}
-        tagInputProps={{
-          noInputBorder: true,
-          openOnKeyDown: false,
-          showAddTagButton: true,
-          showClearAllButton: true,
-          allowNewTag: true,
-          placeholder: i18n.enterTags
-        }}
-      />
-      <CardSelect {...radioProps} selected={selectedDelegate} />
-      {state.selectedDelegate?.type === DelegateTypes.DELEGATE_IN_CLUSTER && !loading
-        ? renderDelegateInclusterForm(state, delegateList as RestResponseListString)
-        : null}
-      {state.selectedDelegate?.type === DelegateTypes.DELEGATE_OUT_CLUSTER
-        ? renderDelegateOutclusterForm(state, props)
-        : null}
-    </div>
+    <Formik
+      initialValues={{
+        ...buildKubFormData(connector)
+      }}
+      validationSchema={Yup.object().shape({
+        name: Yup.string().trim().required(),
+        description: Yup.string(),
+        delegateType: Yup.string().trim().required(),
+        delegateName: Yup.string().trim()
+      })}
+      enableReinitialize={true}
+      onSubmit={formData => {
+        props.onSubmit(buildKubPayload(formData))
+      }}
+      validate={data => props.setConnector(buildKubPayload(data))}
+    >
+      {formikProps => (
+        <Form>
+          <div className={css.formCustomCss}>
+            <FormInput.InputWithIdentifier isIdentifierEditable={false} />
+            <FormInput.TextArea label={i18n.description} name="description" />
+            <FormInput.TagInput
+              name="tags"
+              label={i18n.tags}
+              items={connector?.tags || []}
+              labelFor={name => (typeof name === 'string' ? name : '')}
+              itemFromNewTag={newTag => newTag}
+              className={css.tags}
+              tagInputProps={{
+                noInputBorder: true,
+                openOnKeyDown: false,
+                showAddTagButton: true,
+                showClearAllButton: true,
+                allowNewTag: true,
+                placeholder: i18n.enterTags
+              }}
+            />
+            <CardSelect
+              {...radioProps}
+              onChange={(item: SelectedDelegate) => {
+                setSelectedDelegate(item)
+                formikProps.setFieldValue('delegateType', item.type)
+              }}
+              selected={selectedDelegate}
+            />
+            {selectedDelegate?.type === DelegateTypes.DELEGATE_IN_CLUSTER && !loading ? (
+              <div className={css.incluster}>
+                <div
+                  className={css.radioOption}
+                  onClick={() => {
+                    setInClusterDelegate(DelegateInClusterType.useExistingDelegate)
+                  }}
+                >
+                  <input type="radio" checked={inclusterDelegate === DelegateInClusterType.useExistingDelegate} />
+                  <Text margin={{ left: 'large' }}>{i18n.useExistingDelegate}</Text>
+                </div>
+                {inclusterDelegate === DelegateInClusterType.useExistingDelegate ? (
+                  <FormInput.Select name="delegateName" label={i18n.selectDelegate} items={delegateListFiltered} />
+                ) : null}
+                <div
+                  className={css.radioOptionInstall}
+                  onClick={() => {
+                    setInClusterDelegate(DelegateInClusterType.addNewDelegate)
+                  }}
+                >
+                  <input type="radio" checked={inclusterDelegate === DelegateInClusterType.addNewDelegate} />
+                  <Text margin={{ left: 'large' }}>{i18n.addNewDelegate}</Text>
+                </div>
+              </div>
+            ) : null}
+            {selectedDelegate?.type === DelegateTypes.DELEGATE_OUT_CLUSTER ? (
+              <div className={css.delgateOutCluster}>
+                <FormInput.Text label={i18n.masterUrl} name="masterUrl" />
+                <Layout.Horizontal className={css.credWrapper}>
+                  <div className={css.label}>
+                    <Icon name="lock" size={14} className={css.lockIcon} />
+                    {i18n.credentials}
+                  </div>
+                  <SelectV2
+                    items={authOptions}
+                    value={authentication}
+                    filterable={false}
+                    onChange={val => {
+                      setAuthentication(val)
+                      formikProps.setFieldValue('authType', val.value)
+                    }}
+                    className={css.selectAuth}
+                  >
+                    <Button text={authentication?.label} rightIcon="chevron-down" minimal />
+                  </SelectV2>
+                </Layout.Horizontal>
+                <ConnectorFormFields
+                  accountId={accountId}
+                  orgIdentifier={orgIdentifier}
+                  projectIdentifier={projectIdentifier}
+                  formikProps={formikProps}
+                  authType={authentication.value}
+                  name={connector?.name || ''}
+                  onClickCreateSecret={() => setShowCreateSecretModal(true)}
+                  isEditMode={true}
+                />
+              </div>
+            ) : null}
+          </div>
+
+          <Layout.Horizontal>
+            <Button intent="primary" type="submit" text={i18n.submit} />
+          </Layout.Horizontal>
+        </Form>
+      )}
+    </Formik>
   )
 }
 
