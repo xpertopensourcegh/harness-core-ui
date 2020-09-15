@@ -198,7 +198,7 @@ const VerifyExistingDelegate = (props: VerifyExistingDelegateProps) => {
               <span>Delegate: {props.delegateName}</span>
               {/* change it with values from api  */}
               <span>
-                Status:
+                Status:&nbsp;
                 {isSelectedDelegateActive(delegateStatus as RestResponseDelegateStatus) ? i18n.ACTIVE : i18n.NOT_ACTIVE}
               </span>
               {/* Todo <span>Sync:</span> */}
@@ -207,7 +207,7 @@ const VerifyExistingDelegate = (props: VerifyExistingDelegateProps) => {
         </section>
       ) : null}
       {props.renderInModal ? (
-        <Layout.Horizontal margin={{ top: 'xxxlarge' }}>
+        <Layout.Horizontal padding={{ top: 'xxxlarge' }}>
           <Button
             onClick={() => {
               props.hideLightModal?.()

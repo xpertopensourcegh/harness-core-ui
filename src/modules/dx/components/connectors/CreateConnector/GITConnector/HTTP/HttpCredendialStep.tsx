@@ -61,21 +61,29 @@ const HttpCredentialStep: React.FC<HttpCredentialStepProps> = props => {
   const { mutate: createConnector } = useCreateConnector({ accountIdentifier: accountId })
   const { mutate: updateConnector } = useUpdateConnector({ accountIdentifier: props.accountId })
   const { mutate: createSecret } = usePostSecretText({})
+  const [loadSecret, setLoadSecret] = useState(false)
+  const [loadConnector, setLoadConnector] = useState(false)
 
   const handleCreate = async (data: ConnectorRequestDTORequestBody) => {
     try {
+      setLoadConnector(true)
       await createConnector(data)
+      setLoadConnector(false)
       props.nextStep?.()
     } catch (e) {
+      setLoadConnector(false)
       modalErrorHandler?.showDanger(e?.message)
     }
   }
 
   const handleUpdate = async (data: ConnectorRequestDTORequestBody) => {
     try {
+      setLoadConnector(true)
       await updateConnector(data)
+      setLoadConnector(false)
       props.nextStep?.()
     } catch (error) {
+      setLoadConnector(false)
       modalErrorHandler?.showDanger(error?.message)
     }
   }
@@ -84,6 +92,7 @@ const HttpCredentialStep: React.FC<HttpCredentialStepProps> = props => {
     let res
     try {
       modalErrorHandler?.hide()
+      setLoadSecret(true)
       res = await createSecret({
         account: props.accountId,
         org: props.orgIdentifier,
@@ -95,7 +104,9 @@ const HttpCredentialStep: React.FC<HttpCredentialStepProps> = props => {
         type: 'SecretText',
         valueType: 'Inline'
       })
+      setLoadSecret(false)
     } catch (e) {
+      setLoadSecret(false)
       modalErrorHandler?.showDanger(e?.message)
     }
 
@@ -209,7 +220,12 @@ const HttpCredentialStep: React.FC<HttpCredentialStepProps> = props => {
                 />
                 <FormInput.Text name="branchName" label={i18n.BranchName} className={css.branchName} />
                 <Layout.Horizontal spacing="large" className={css.footer}>
-                  <Button type="submit" className={css.saveBtn} text={i18n.SAVE_CREDENTIALS_AND_CONTINUE} />
+                  <Button
+                    type="submit"
+                    className={css.saveBtn}
+                    text={i18n.SAVE_CREDENTIALS_AND_CONTINUE}
+                    disabled={loadSecret || loadConnector}
+                  />
                 </Layout.Horizontal>
               </Form>
             </div>

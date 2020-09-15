@@ -5,5 +5,9 @@ export default {
   description: 'Description',
   tags: 'Tags',
   identifier: 'Identifier',
-  validIdRegex: 'Identifier can only contain alphanumerics, _ and $'
+  validIdRegex: 'Identifier can only contain alphanumerics, _ and $',
+  validation: {
+    name: 'Name is a required field',
+    identifier: 'Identifier is required'
+  }
 }

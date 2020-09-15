@@ -64,13 +64,15 @@ const ConnectorDetailsStep: React.FC<StepProps<ConnectorRequestDTO> & ConnectorD
           ...props.formData
         }}
         validationSchema={Yup.object().shape({
-          name: Yup.string().trim().required(),
-          identifier: Yup.string()
-            .trim()
-            .required()
-            .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, i18n.validIdRegex)
-            .notOneOf(StringUtils.illegalIdentifiers),
-          description: Yup.string()
+          name: Yup.string().trim().required(i18n.validation.name),
+          identifier: Yup.string().when('name', {
+            is: val => val?.length,
+            then: Yup.string()
+              .trim()
+              .required(i18n.validation.identifier)
+              .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, i18n.validIdRegex)
+              .notOneOf(StringUtils.illegalIdentifiers)
+          })
         })}
         onSubmit={formData => {
           setStepData(formData)
