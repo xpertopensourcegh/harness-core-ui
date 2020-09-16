@@ -69,7 +69,7 @@ const OIDCTokenFields: React.FC<OIDCTokenFieldsProps> = props => {
         isEditMode={props.isEditMode}
         onEditSecret={props.onEditSecret}
       />
-      <FormInput.Text name={AuthTypeFields.oidcScopes} label="OIDC Scopes" />
+      <FormInput.Text name={AuthTypeFields.oidcScopes} label={i18n.OIDC_SCOPE} />
     </>
   )
 }

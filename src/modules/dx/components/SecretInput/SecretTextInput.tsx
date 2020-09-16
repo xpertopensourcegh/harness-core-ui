@@ -33,7 +33,7 @@ interface SecretTextInputProps {
 
 const SecretTextField: React.FC<SecretTextInputProps> = props => {
   const { accountId, isEditMode = false } = props
-  const [showCreateInlineSecret, setShowCreateInlineSecret] = useState<boolean>(false)
+  const [showCreateInlineSecret, setShowCreateInlineSecret] = useState<boolean>(true)
   const [isReference, setIsReference] = useState<boolean>()
   const [secretRefrence, setSecretRefrence] = useState({ name: '', identifier: '', secretManager: '' })
 
@@ -101,8 +101,8 @@ const SecretTextField: React.FC<SecretTextInputProps> = props => {
               projectIdentifier={props.projectIdentifier}
               orgIdentifier={props.orgIdentifier}
               onSelect={secret => {
+                setShowCreateInlineSecret(false)
                 props.onChange?.({ value: secret.name as string, isReference: true })
-
                 setIsReference(true)
                 setSecretRefrence({
                   name: secret?.name as string,
@@ -164,7 +164,7 @@ const SecretTextField: React.FC<SecretTextInputProps> = props => {
       {isReference || isEditMode ? null : (
         <Layout.Horizontal flex={{ distribution: 'space-between' }} height={'14px'} margin={{ top: 'xsmall' }}>
           <Text font={{ size: 'xsmall', weight: 'bold' }} color={Color.GREY_800}>
-            {i18n.SECRET_INFO_TEXT}
+            {i18n.SECRET_INFO_TEXT(props.label)}
           </Text>
           <Button
             text="View"
@@ -178,7 +178,7 @@ const SecretTextField: React.FC<SecretTextInputProps> = props => {
           />
         </Layout.Horizontal>
       )}
-      {showCreateInlineSecret ? (
+      {showCreateInlineSecret && !isEditMode ? (
         <FormikCreateInlineSecret
           name={props.secretFieldName as string}
           defaultSecretName={props.defaultSecretName}

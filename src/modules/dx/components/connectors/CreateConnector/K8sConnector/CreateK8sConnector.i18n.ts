@@ -23,7 +23,13 @@ export default {
   STEP_INTERMEDIATE: {
     NAME: 'CREDENTIALS',
     HEADING: 'Credentials',
-    masterUrl: 'Master URL'
+    masterUrl: 'Master URL',
+    validation: {
+      masterUrl: 'Master URL is required',
+      username: 'Username is required',
+      passwordRef: 'Password is required',
+      oidcIssueUrl: 'Identity Provider URL is required'
+    }
   },
   STEP_THREE: {
     NAME: 'VERIFY CONNECTION',

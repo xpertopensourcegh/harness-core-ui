@@ -374,7 +374,7 @@ const IntermediateStep: React.FC<IntermediateStepProps> = props => {
         <Formik<ConnectorConfigDTO>
           initialValues={{
             masterUrl: '',
-            authType: '',
+            authType: state.authentication?.value,
             username: '',
             oidcIssuerUrl: '',
             oidcUsername: '',
@@ -382,6 +382,21 @@ const IntermediateStep: React.FC<IntermediateStepProps> = props => {
             clientKeyAlgo: '',
             ...props.formData
           }}
+          validationSchema={Yup.object().shape({
+            masterUrl: Yup.string().required(i18n.STEP_INTERMEDIATE.validation.masterUrl),
+            // Todo: passwordRef: Yup.string().when('authType', {
+            //   is: 'UsernamePassword',
+            //   then: Yup.string().trim().required(i18n.STEP_INTERMEDIATE.validation.passwordRef)
+            // }),
+            username: Yup.string().when('authType', {
+              is: AuthTypes.USER_PASSWORD || AuthTypes.OIDC,
+              then: Yup.string().trim().required(i18n.STEP_INTERMEDIATE.validation.username)
+            }),
+            oidcIssuerUrl: Yup.string().when('authType', {
+              is: AuthTypes.OIDC,
+              then: Yup.string().trim().required(i18n.STEP_INTERMEDIATE.validation.oidcIssueUrl)
+            })
+          })}
           onSubmit={formData => {
             modalErrorHandler?.hide()
             const connectorData = { ...state.formData, ...formData, authType: state.authentication?.value }
@@ -458,6 +473,7 @@ const IntermediateStep: React.FC<IntermediateStepProps> = props => {
                       filterable={false}
                       onChange={val => {
                         props.state.setAuthentication(val)
+                        formikProps.setFieldValue('authType', val.value)
                       }}
                       className={css.selectAuth}
                     >

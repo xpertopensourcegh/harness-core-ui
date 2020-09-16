@@ -139,11 +139,19 @@ const VerifyExistingDelegate = (props: VerifyExistingDelegateProps) => {
       if (stepDetails.status === 'PROCESS') {
         reloadTestConnection()
         if (testConnectionResponse) {
-          setStepDetails({
-            step: 3,
-            intent: Intent.SUCCESS,
-            status: 'DONE'
-          })
+          if (testConnectionResponse?.data?.valid) {
+            setStepDetails({
+              step: 3,
+              intent: Intent.SUCCESS,
+              status: 'DONE'
+            })
+          } else {
+            setStepDetails({
+              step: 3,
+              intent: Intent.DANGER,
+              status: 'ERROR'
+            })
+          }
         } else if (!testConnectionResponse && errorTesting) {
           setStepDetails({
             step: 3,
@@ -171,16 +179,11 @@ const VerifyExistingDelegate = (props: VerifyExistingDelegateProps) => {
         current={stepDetails.step}
         currentStatus={stepDetails.status}
       />
-      {stepDetails.step === StepIndex.get(STEP.VERIFY) && stepDetails.status !== 'DONE' ? (
+      {stepDetails.step === StepIndex.get(STEP.VERIFY) && stepDetails.status === 'PROCESS' ? (
         <Text font="small" className={css.verificationText}>
           {i18n.VERIFICATION_TIME_TEXT}
         </Text>
       ) : null}
-      {/*Todo: {state.validateError?.responseMessages?.[0]?.message && (
-          <Text font="small" style={{ color: 'red', padding: 10, width: '95%', margin: 10 }}>
-            {state.validateError}
-          </Text>
-        )} */}
       {renderInModal && downloadOverLay ? (
         <section className={css.stepsOverlay}>
           <Layout.Vertical spacing="xxlarge">

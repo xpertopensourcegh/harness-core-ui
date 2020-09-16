@@ -2,23 +2,24 @@ import type { IconName } from '@wings-software/uikit'
 import { Connectors, ConnectorInfoText } from 'modules/dx/constants'
 import type { ConnectorSummaryDTO, ConnectorDTO } from 'services/cd-ng'
 import type { FormData } from 'modules/dx/interfaces/ConnectorInterface'
+import { Scope } from 'modules/common/interfaces/SecretsInterface'
 import { AuthTypes, DelegateTypes } from '../Forms/KubeFormInterfaces'
 
-export const getScope = (scope: string) => {
+export const getScopedSecretString = (scope: string, identifier: string) => {
   switch (scope) {
-    case 'PROJECT':
-      return ''
-    case 'ACCOUNT':
-      return 'acc.'
-    case 'ORG':
-      return 'org.'
+    case Scope.PROJECT:
+      return identifier
+    case Scope.ACCOUNT:
+      return `acc.${identifier}`
+    case Scope.ORG:
+      return `org.${identifier}`
   }
 }
 
 export const userPasswrdAuthField = (formData: FormData) => {
   return {
     username: formData.username,
-    passwordRef: `${getScope(formData.passwordRefSecret?.scope)}${formData.passwordRefSecret?.secretId}`
+    passwordRef: getScopedSecretString(formData.passwordRefSecret?.scope, formData.passwordRefSecret?.secretId)
   }
 }
 
@@ -35,9 +36,10 @@ export const userPasswrd = (authSpec: FormData) => {
 
 export const serviceAccAuthField = (formData: FormData) => {
   return {
-    serviceAccountTokenRef: `${getScope(formData.serviceAccountTokenRefSecret?.scope)}${
+    serviceAccountTokenRef: getScopedSecretString(
+      formData.serviceAccountTokenRefSecret?.scope,
       formData.serviceAccountTokenRefSecret?.secretId
-    }`
+    )
   }
 }
 
@@ -45,20 +47,27 @@ export const oidcAuthField = (formData: FormData) => {
   return {
     oidcIssuerUrl: formData.oidcIssuerUrl,
     oidcUsername: formData.oidcUsername,
-    oidcPasswordRef: `${getScope(formData.oidcPasswordRefSecret?.scope)}${formData.oidcPasswordRefSecret?.secretId}`,
-    oidcClientIdRef: `${getScope(formData.oidcClientIdRefSecret?.scope)}${formData.oidcClientIdRefSecret?.secretId}`,
-    oidcSecretRef: `${getScope(formData.oidcSecretRefSecret?.scope)}${formData.oidcSecretRefSecret?.secretId}`,
+    oidcPasswordRef: getScopedSecretString(
+      formData.oidcPasswordRefSecret?.scope,
+      formData.oidcPasswordRefSecret?.secretId
+    ),
+    oidcClientIdRef: getScopedSecretString(
+      formData.oidcClientIdRefSecret?.scope,
+      formData.oidcClientIdRefSecret?.secretId
+    ),
+    oidcSecretRef: getScopedSecretString(formData.oidcSecretRefSecret?.scope, formData.oidcSecretRefSecret?.secretId),
     oidcScopes: formData.oidcScopes
   }
 }
 
 export const clientKeyCertField = (formData: FormData) => {
   return {
-    clientCertRef: `${getScope(formData.clientCertRefSecret?.scope)}${formData.clientCertRefSecret?.secretId}`,
-    clientKeyRef: `${getScope(formData.clientKeyRefSecret?.scope)}${formData.clientKeyRefSecret?.secretId}`,
-    clientKeyPassphraseRef: `${getScope(formData.clientKeyPassphraseRefSecret?.scope)}${
+    clientCertRef: getScopedSecretString(formData.clientCertRefSecret?.scope, formData.clientCertRefSecret?.secretId),
+    clientKeyRef: getScopedSecretString(formData.clientKeyRefSecret?.scope, formData.clientKeyRefSecret?.secretId),
+    clientKeyPassphraseRef: getScopedSecretString(
+      formData.clientKeyPassphraseRefSecret?.scope,
       formData.clientKeyPassphraseRefSecret?.secretId
-    }`,
+    ),
     clientKeyAlgo: formData.clientKeyAlgo
   }
 }
@@ -156,7 +165,7 @@ export const getSpecByConnectType = (type: string, formData: FormData) => {
     referenceField = { sshKeyRef: formData?.sshKeyReference }
   } else {
     referenceField = {
-      passwordRef: `${getScope(formData.passwordRefSecret?.scope)}${formData.passwordRefSecret?.secretId}`
+      passwordRef: getScopedSecretString(formData.passwordRefSecret?.scope, formData.passwordRefSecret?.secretId)
     }
   }
   return {
