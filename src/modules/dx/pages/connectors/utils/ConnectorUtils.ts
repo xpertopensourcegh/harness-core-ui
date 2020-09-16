@@ -1,3 +1,4 @@
+import { pick } from 'lodash-es'
 import type { IconName } from '@wings-software/uikit'
 import { Connectors, ConnectorInfoText } from 'modules/dx/constants'
 import type { ConnectorSummaryDTO, ConnectorDTO } from 'services/cd-ng'
@@ -157,6 +158,14 @@ export const buildDockerPayload = (formData: FormData) => {
     }
   }
   return savedData
+}
+
+export const buildDockerFormData = (connector: ConnectorDTO) => {
+  return {
+    ...pick(connector, ['name', 'identifier', 'description', 'tags']),
+    dockerRegistryUrl: connector?.spec?.dockerRegistryUrl,
+    ...pick(connector?.spec?.authScheme?.spec, ['username', 'passwordRef'])
+  }
 }
 
 export const getSpecByConnectType = (type: string, formData: FormData) => {

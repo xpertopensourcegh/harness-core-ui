@@ -1,17 +1,38 @@
 import React from 'react'
 import { Layout, Tag } from '@wings-software/uikit'
-import i18n from './SavedConnectorDetails.i18n'
+import { Connectors } from 'modules/dx/constants'
+import type { ConnectorConfigDTO } from 'services/cd-ng'
 import { DelegateTypes } from './Forms/KubeFormInterfaces'
+import i18n from './SavedConnectorDetails.i18n'
 import css from './SavedConnectorDetails.module.scss'
 
 interface SavedConnectorDetailsProps {
-  connector: any
+  connector: ConnectorConfigDTO
 }
+const getLabelByType = (type: string) => {
+  switch (type) {
+    case Connectors.KUBERNETES_CLUSTER:
+      return i18n.NAME_LABEL.Kubernetes
+    case Connectors.GIT:
+      return i18n.NAME_LABEL.GIT
+    case Connectors.DOCKER:
+      return i18n.NAME_LABEL.Docker
+    case Connectors.APP_DYNAMICS:
+      return i18n.NAME_LABEL.AppDynamics
+    case Connectors.SPLUNK:
+      return i18n.NAME_LABEL.Splunk
+    case Connectors.SECRET_MANAGER:
+      return i18n.NAME_LABEL.SecretManager
+    default:
+      return ''
+  }
+}
+
 const getSchema = (props: SavedConnectorDetailsProps) => {
   const { connector } = props
   return [
     {
-      label: i18n.connectorName,
+      label: getLabelByType(connector?.type),
       value: connector?.name
     },
     {
