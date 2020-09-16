@@ -6,7 +6,7 @@ import { connect } from 'formik'
 import cx from 'classnames'
 import { FormikCreateInlineSecret } from 'modules/common/components/CreateInlineSecret/CreateInlineSecret'
 import SecretReference from 'modules/dx/components/SecretReference/SecretReference'
-import type { EncryptedDataDTO } from 'services/cd-ng'
+import type { EncryptedDataDTO, SecretTextSpecDTO } from 'services/cd-ng'
 import i18n from './SecretTextInput.i18n'
 import css from './SecretTextInput.module.scss'
 
@@ -107,13 +107,16 @@ const SecretTextField: React.FC<SecretTextInputProps> = props => {
                 setSecretRefrence({
                   name: secret?.name as string,
                   identifier: secret?.identifier as string,
-                  secretManager: secret?.secretManager as string
+                  secretManager: (secret?.spec as SecretTextSpecDTO).secretManagerIdentifier as string
                 })
                 props.formikProps.setFieldValue(props.secretFieldName, {
                   secretName: secret?.name,
                   scope: secret?.scope,
                   secretId: secret?.identifier,
-                  secretManager: { value: secret?.secretManager, label: secret?.secretManagerName }
+                  secretManager: {
+                    value: (secret?.spec as SecretTextSpecDTO).secretManagerIdentifier,
+                    label: (secret?.spec as SecretTextSpecDTO).secretManagerIdentifier
+                  }
                 })
               }}
             />

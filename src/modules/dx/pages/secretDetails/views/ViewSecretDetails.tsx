@@ -1,11 +1,11 @@
 import React from 'react'
-import { Layout, Text, Color, Tag } from '@wings-software/uikit'
+import { Layout, Text, Color } from '@wings-software/uikit'
 
-import type { EncryptedDataDTO } from 'services/cd-ng'
+import type { SecretDTOV2, SecretTextSpecDTO } from 'services/cd-ng'
 import i18n from '../SecretDetails.i18n'
 
 interface ViewSecretDetailsProps {
-  secret: EncryptedDataDTO
+  secret: SecretDTOV2
 }
 
 const ViewSecretDetails: React.FC<ViewSecretDetailsProps> = ({ secret }) => {
@@ -15,28 +15,50 @@ const ViewSecretDetails: React.FC<ViewSecretDetailsProps> = ({ secret }) => {
         <Text>{i18n.labelName}</Text>
         <Text color={Color.BLACK}>{secret.name}</Text>
       </div>
-      {secret.valueType === 'Reference' ? (
+      {(() => {
+        if (secret.type === 'SecretText') {
+          const secretTextSpec = secret.spec as SecretTextSpecDTO
+          switch (secretTextSpec.valueType) {
+            case 'Reference':
+              return (
+                <div>
+                  <Text>{i18n.labelPath}</Text>
+                  <Text color={Color.GREY_350}>{secretTextSpec.value}</Text>
+                </div>
+              )
+            case 'Inline':
+              return (
+                <div>
+                  <Text>{i18n.labelValue}</Text>
+                  <Text color={Color.GREY_350}>{i18n.valueValue}</Text>
+                </div>
+              )
+            default:
+              return null
+          }
+        }
+        if (secret.type === 'SecretFile') {
+          return (
+            <div>
+              <Text>{i18n.labelValue}</Text>
+              <Text color={Color.GREY_350}>{i18n.valueValueFile}</Text>
+            </div>
+          )
+        }
+      })()}
+      {secret.type === 'SecretText' || secret.type === 'SecretFile' ? (
         <div>
-          <Text>{i18n.labelPath}</Text>
-          <Text color={Color.GREY_350}>{secret.value}</Text>
+          <Text>{i18n.labelSecretManager}</Text>
+          <Text color={Color.BLACK}>{(secret.spec as SecretTextSpecDTO).secretManagerIdentifier}</Text>
         </div>
-      ) : (
-        <div>
-          <Text>{i18n.labelValue}</Text>
-          <Text color={Color.GREY_350}>{secret.type === 'SecretText' ? i18n.valueValue : i18n.valueValueFile}</Text>
-        </div>
-      )}
-      <div>
-        <Text>{i18n.labelSecretManager}</Text>
-        <Text color={Color.BLACK}>{secret.secretManagerName || secret.secretManager}</Text>
-      </div>
+      ) : null}
       {secret.description ? (
         <div>
           <Text>{i18n.labelDescription}</Text>
           <Text color={Color.BLACK}>{secret.description}</Text>
         </div>
       ) : null}
-      {secret.tags?.length ? (
+      {/* {secret.tags?.length ? (
         <div>
           <Text>{i18n.labelTags}</Text>
           <Layout.Horizontal spacing="small">
@@ -45,7 +67,7 @@ const ViewSecretDetails: React.FC<ViewSecretDetailsProps> = ({ secret }) => {
             ))}
           </Layout.Horizontal>
         </div>
-      ) : null}
+      ) : null} */}
     </Layout.Vertical>
   )
 }

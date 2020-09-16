@@ -5,7 +5,8 @@ import { FormGroup, Intent } from '@blueprintjs/core'
 import { get } from 'lodash-es'
 import useCreateConnectorModal from 'modules/dx/modals/ConnectorModal/useCreateConnectorModal'
 import type { ConnectorConfigDTO, ConnectorSummaryDTO } from 'services/cd-ng'
-import { Scope, getScopeFromDTO } from '../EntityReference/EntityReference'
+import { Scope } from 'modules/common/interfaces/SecretsInterface'
+import { getScopeFromDTO } from '../EntityReference/EntityReference'
 import {
   ConnectorReferenceFieldProps,
   getReferenceFieldProps,

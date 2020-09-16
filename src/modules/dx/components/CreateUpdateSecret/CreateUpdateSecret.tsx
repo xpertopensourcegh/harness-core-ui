@@ -2,84 +2,102 @@ import React from 'react'
 import { Formik, FormikForm, FormInput, Button, SelectOption } from '@wings-software/uikit'
 import * as Yup from 'yup'
 import { useParams } from 'react-router-dom'
-import type { FormikProps } from 'formik'
+import { pick } from 'lodash-es'
 import {
-  EncryptedDataDTO,
-  usePutSecretText,
-  usePutSecretFile,
-  usePostSecretFile,
-  usePostSecretText,
+  usePutSecret,
+  usePutSecretFileV2,
+  usePostSecretFileV2,
+  usePostSecret,
   useGetConnectorList,
-  SecretFileDTO
+  SecretDTOV2
 } from 'services/cd-ng'
-import type { SecretTextDTO } from 'services/cd-ng'
+import type { SecretTextSpecDTO, SecretFileSpecDTO } from 'services/cd-ng'
 import { useToaster } from 'modules/common/exports'
 import { illegalIdentifiers } from 'modules/common/utils/StringUtils'
 
 import i18n from './CreateUpdateSecret.i18n'
 
+export type SecretFormData = Omit<SecretDTOV2, 'spec'> & SecretTextSpecDTO & SecretFileSpecDTO
+
 interface CreateSecretTextProps {
-  secret?: EncryptedDataDTO
-  type: EncryptedDataDTO['type']
-  onChange?: (data: SecretTextDTO | SecretFileDTO) => void
-  onSuccess?: (data: SecretTextDTO | SecretFileDTO) => void
-}
-
-const createFormDataFromJson = (data: SecretFileDTO, accountId: string, project?: string, org?: string): FormData => {
-  const dataToSubmit = new FormData()
-
-  dataToSubmit.set('accountIdentifier', accountId)
-  if (project) dataToSubmit.set('projectIdentifier', project)
-  if (org) dataToSubmit.set('orgIdentifier', org)
-  delete (data as SecretTextDTO).valueType
-
-  Object.entries(data).forEach(([key, value]) => {
-    dataToSubmit.set(key, key === 'file' ? value[0] : value)
-  })
-  return dataToSubmit
+  secret?: SecretDTOV2
+  type: SecretDTOV2['type']
+  onChange?: (data: SecretFormData) => void
+  onSuccess?: (data: SecretFormData) => void
 }
 
 const CreateUpdateSecret: React.FC<CreateSecretTextProps> = props => {
   const { secret, onSuccess, type } = props
-  const editing = !!secret
+  const editing = !!secret?.identifier
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
   const { showSuccess, showError } = useToaster()
   const { data: secretManagersApiResponse, loading: loadingSecretsManagers } = useGetConnectorList({
     accountIdentifier: accountId,
     queryParams: { orgIdentifier, projectIdentifier, category: 'SECRET_MANAGER' }
   })
-  const { mutate: createSecretText, loading: loadingCreateText } = usePostSecretText({})
-  const { mutate: createSecretFile, loading: loadingCreateFile } = usePostSecretFile({})
-  const { mutate: updateSecretText, loading: loadingUpdateText } = usePutSecretText({
-    identifier: secret?.identifier as string
+  const { mutate: createSecretText, loading: loadingCreateText } = usePostSecret({
+    queryParams: { accountIdentifier: accountId }
   })
-  const { mutate: updateSecretFile, loading: loadingUpdateFile } = usePutSecretFile({
-    identifier: secret?.identifier as string
+  const { mutate: createSecretFile, loading: loadingCreateFile } = usePostSecretFileV2({
+    queryParams: { accountIdentifier: accountId }
+  })
+  const { mutate: updateSecretText, loading: loadingUpdateText } = usePutSecret({
+    identifier: secret?.identifier as string,
+    queryParams: { accountIdentifier: accountId }
+  })
+  const { mutate: updateSecretFile, loading: loadingUpdateFile } = usePutSecretFileV2({
+    identifier: secret?.identifier as string,
+    queryParams: { accountIdentifier: accountId }
   })
 
-  const loading = loadingCreateText || loadingCreateFile || loadingUpdateText || loadingUpdateFile
+  const loading = loadingCreateText || loadingUpdateText || loadingCreateFile || loadingUpdateFile
 
-  const handleSubmit = async (data: SecretTextDTO | SecretFileDTO): Promise<void> => {
+  const createFormData = (data: SecretFormData): FormData => {
+    const formData = new FormData()
+    formData.set(
+      'spec',
+      JSON.stringify({
+        type,
+        ...pick(data, ['name', 'identifier', 'description', 'tags']),
+        orgIdentifier,
+        projectIdentifier,
+        spec: {
+          ...pick(data, ['secretManagerIdentifier'])
+        } as SecretFileSpecDTO
+      } as SecretDTOV2)
+    )
+    formData.set('file', (data as any)?.['file']?.[0])
+    return formData
+  }
+
+  const createSecretTextData = (data: SecretFormData): SecretDTOV2 => {
+    return {
+      type,
+      ...pick(data, ['name', 'identifier', 'description', 'tags']),
+      orgIdentifier,
+      projectIdentifier,
+      spec: {
+        ...pick(data, ['secretManagerIdentifier', 'value', 'valueType'])
+      } as SecretTextSpecDTO
+    }
+  }
+
+  const handleSubmit = async (data: SecretFormData): Promise<void> => {
     try {
       if (editing) {
         if (type === 'SecretText') {
-          await updateSecretText(data as SecretTextDTO)
+          await updateSecretText(createSecretTextData(data))
         }
         if (type === 'SecretFile') {
-          const formData = createFormDataFromJson(data as SecretFileDTO, accountId, projectIdentifier, orgIdentifier)
-          await updateSecretFile(formData as any)
+          await updateSecretFile(createFormData(data) as any)
         }
+        showSuccess(`Secret '${data.name}' updated successfully`)
       } else {
-        data.account = accountId
-        if (projectIdentifier) data.project = projectIdentifier
-        if (orgIdentifier) data.org = orgIdentifier
-
         if (type === 'SecretText') {
-          await createSecretText(data as SecretTextDTO)
+          await createSecretText(createSecretTextData(data))
         }
         if (type === 'SecretFile') {
-          const formData = createFormDataFromJson(data as SecretFileDTO, accountId, projectIdentifier, orgIdentifier)
-          await createSecretFile(formData as any)
+          await createSecretFile(createFormData(data) as any)
         }
         showSuccess(`Secret '${data.name}' created successfully`)
       }
@@ -103,12 +121,17 @@ const CreateUpdateSecret: React.FC<CreateSecretTextProps> = props => {
 
   return (
     <>
-      <Formik<SecretTextDTO | SecretFileDTO>
+      <Formik<SecretFormData>
         initialValues={{
+          name: '',
+          description: '',
+          identifier: '',
+          tags: {},
           valueType: 'Inline',
           type: type || 'SecretText',
-          secretManager: defaultSecretManagerId,
-          ...secret
+          secretManagerIdentifier: defaultSecretManagerId || '',
+          ...pick(secret, ['name', 'identifier', 'description', 'tags']),
+          ...pick(secret?.spec, ['valueType', 'secretManagerIdentifier'])
         }}
         enableReinitialize={true}
         validationSchema={Yup.object().shape({
@@ -121,7 +144,7 @@ const CreateUpdateSecret: React.FC<CreateSecretTextProps> = props => {
               .notOneOf(illegalIdentifiers)
           }),
           value: editing || type === 'SecretFile' ? Yup.string() : Yup.string().trim().required(i18n.validationValue),
-          secretManager: Yup.string().required(i18n.validationKms)
+          secretManagerIdentifier: Yup.string().required(i18n.validationKms)
         })}
         validate={data => {
           props.onChange?.(data)
@@ -133,7 +156,7 @@ const CreateUpdateSecret: React.FC<CreateSecretTextProps> = props => {
         {formikProps => (
           <FormikForm>
             <FormInput.Select
-              name="secretManager"
+              name="secretManagerIdentifier"
               label={i18n.labelSecretsManager}
               items={secretManagersOptions}
               disabled={editing || loadingSecretsManagers}
@@ -154,7 +177,7 @@ const CreateUpdateSecret: React.FC<CreateSecretTextProps> = props => {
                     { label: 'Reference Secret', value: 'Reference' }
                   ]}
                 />
-                {(formikProps as FormikProps<SecretTextDTO>).values['valueType'] === 'Inline' ? (
+                {formikProps.values['valueType'] === 'Inline' ? (
                   <FormInput.Text
                     name="value"
                     label={i18n.labelSecretValue}
@@ -162,7 +185,7 @@ const CreateUpdateSecret: React.FC<CreateSecretTextProps> = props => {
                     inputGroup={{ type: 'password' }}
                   />
                 ) : null}
-                {(formikProps as FormikProps<SecretTextDTO>).values['valueType'] === 'Reference' ? (
+                {formikProps.values['valueType'] === 'Reference' ? (
                   <FormInput.Text
                     name="value"
                     label={i18n.labelSecretReference}
@@ -173,7 +196,7 @@ const CreateUpdateSecret: React.FC<CreateSecretTextProps> = props => {
             ) : null}
             {type === 'SecretFile' ? <FormInput.FileInput name="file" multiple /> : null}
             <FormInput.TextArea name="description" label={i18n.labelSecretDescription} />
-            <FormInput.TagInput
+            {/* <FormInput.TagInput
               name="tags"
               label={i18n.labelSecretTags}
               items={[]}
@@ -183,7 +206,7 @@ const CreateUpdateSecret: React.FC<CreateSecretTextProps> = props => {
                 showClearAllButton: true,
                 allowNewTag: true
               }}
-            />
+            /> */}
             <Button
               intent="primary"
               type="submit"

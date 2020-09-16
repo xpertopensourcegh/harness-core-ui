@@ -2,13 +2,10 @@ import React from 'react'
 import { FormGroup, IFormGroupProps } from '@blueprintjs/core'
 import { Layout, Icon, Color, Button, Tag, Text } from '@wings-software/uikit'
 import { FailureDTO, ConnectorSummaryDTO, getConnectorListPromise, ConnectorConfigDTO } from 'services/cd-ng'
-import {
-  EntityReferenceResponse,
-  Scope,
-  getScopeFromValue
-} from 'modules/common/components/EntityReference/EntityReference'
+import { EntityReferenceResponse, getScopeFromValue } from 'modules/common/components/EntityReference/EntityReference'
 import { getIconByType } from 'modules/dx/exports'
 import useCreateConnectorModal from 'modules/dx/modals/ConnectorModal/useCreateConnectorModal'
+import { Scope } from 'modules/common/interfaces/SecretsInterface'
 import i18n from './ConnectorReferenceField.i18n'
 import { ReferenceSelect, ReferenceSelectProps } from '../ReferenceSelect/ReferenceSelect'
 import css from './ConnectorReferenceField.module.scss'

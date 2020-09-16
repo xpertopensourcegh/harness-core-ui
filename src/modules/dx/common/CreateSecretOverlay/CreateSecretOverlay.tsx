@@ -1,38 +1,52 @@
 import React from 'react'
-import { Layout, Icon, Text, Color } from '@wings-software/uikit'
-import CreateUpdateSecret from 'modules/dx/components/CreateUpdateSecret/CreateUpdateSecret'
-import type { EncryptedDataDTO } from 'services/cd-ng'
+import { Layout, Text, Color, Container, Button } from '@wings-software/uikit'
+import { pick } from 'lodash-es'
+import CreateUpdateSecret, { SecretFormData } from 'modules/dx/components/CreateUpdateSecret/CreateUpdateSecret'
+import type { EncryptedDataDTO, SecretDTOV2 } from 'services/cd-ng'
 import i18n from './CreateSecretOverlay.i18n'
 import css from './CreateSecretOverlay.module.scss'
 
 interface CreateSecretOverlayProps {
   setShowCreateSecretModal: (val: boolean) => void
   editSecretData?: EncryptedDataDTO
+  type?: EncryptedDataDTO['type']
+  onSuccess?: (data: SecretFormData) => void
 }
 
 const CreateSecretOverlay: React.FC<CreateSecretOverlayProps> = props => {
+  const { setShowCreateSecretModal, editSecretData } = props
   return (
-    <Layout.Vertical className={css.stepsOverlay} width={'400px'} padding="large">
+    <Container className={css.stepsOverlay} width={'400px'} padding="large">
       <Layout.Horizontal flex={{ distribution: 'space-between' }} padding={{ top: 'small', bottom: 'large' }}>
         <Text color={Color.GREY_800} font={{ size: 'medium' }}>
-          {props.editSecretData ? i18n.MODIFY_SECRET : i18n.CREATE_SECRET}
+          {editSecretData ? i18n.MODIFY_SECRET : i18n.CREATE_SECRET}
         </Text>
-        <Icon
-          name="cross"
+        <Button
+          minimal
+          icon="cross"
           onClick={() => {
-            props.setShowCreateSecretModal(false)
+            setShowCreateSecretModal(false)
           }}
-          className={css.crossIcon}
         />
       </Layout.Horizontal>
       <CreateUpdateSecret
-        secret={props.editSecretData}
-        type="SecretText"
-        onSuccess={() => {
+        secret={
+          {
+            ...pick(editSecretData, ['name', 'description', 'identifier', 'type']),
+            tags: {}, // TODO: tags need to be refactored to a map
+            spec: {
+              ...pick(editSecretData, ['value', 'valueType']),
+              secretManagerIdentifier: editSecretData?.secretManager
+            }
+          } as SecretDTOV2 // TODO: editSecretData should be passed directly
+        }
+        type={props.type || props.editSecretData?.type || 'SecretText'}
+        onSuccess={data => {
           props.setShowCreateSecretModal(false)
+          props.onSuccess?.(data)
         }}
       />
-    </Layout.Vertical>
+    </Container>
   )
 }
 

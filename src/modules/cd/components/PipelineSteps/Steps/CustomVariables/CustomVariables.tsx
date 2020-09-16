@@ -21,12 +21,12 @@ import { parse } from 'yaml'
 import { CompletionItemKind } from 'vscode-languageserver-types'
 import { useParams } from 'react-router-dom'
 import { loggerFor, ModuleName } from 'framework/exports'
-import { Variable, EncryptedDataDTO, listSecretsPromise } from 'services/cd-ng'
+import { Variable, SecretDTOV2, listSecretsV2Promise } from 'services/cd-ng'
 import { Step, StepViewType, ConfigureOptions } from 'modules/common/exports'
 import { routeParams } from 'framework/exports'
 import type { CompletionItemInterface } from 'modules/common/interfaces/YAMLBuilderProps'
 import SecretReference from 'modules/dx/components/SecretReference/SecretReference'
-import { Scope } from 'modules/common/components/EntityReference/EntityReference'
+import { Scope } from 'modules/common/interfaces/SecretsInterface'
 import i18n from './CustomVariables.i18n'
 import { StepType } from '../../PipelineStepInterface'
 import css from './CustomVariables.module.scss'
@@ -52,7 +52,7 @@ const valueToType = (value: string | undefined = '', allowableTypes?: MultiTypeI
 
 interface CustomVariableEditableProps {
   initialValues: VariableList
-  secrets: EncryptedDataDTO[] | undefined
+  secrets: SecretDTOV2[] | undefined
   onUpdate?: (data: VariableList) => void
   stepViewType?: StepViewType
 }
@@ -63,8 +63,11 @@ const VariableTypes = {
   Number: 'Number'
 }
 
-const getSecretKey = (secret: EncryptedDataDTO): string =>
-  `${secret.org ? Scope.ORG : secret.project ? Scope.PROJECT : Scope.ACCOUNT}.${secret.identifier}` || ''
+const getSecretKey = (secret: SecretDTOV2): string =>
+  `${secret.orgIdentifier ? Scope.ORG : secret.projectIdentifier ? Scope.PROJECT : Scope.ACCOUNT}.${
+    secret.identifier
+  }` || ''
+
 const getDefaultVariable = (): Variable => ({ name: '', type: VariableTypes.String, value: '' })
 
 const secretsOptions: Map<string, string> = new Map()
@@ -267,7 +270,7 @@ const CustomVariableEditable: React.FC<CustomVariableEditableProps> = ({
 
 export class CustomVariables extends Step<VariableList> {
   lastFetched: number
-  secrets: EncryptedDataDTO[] | undefined
+  secrets: SecretDTOV2[] | undefined
   protected invocationMap: Map<RegExp, (path: string, yaml: string) => Promise<CompletionItemInterface[]>> = new Map()
 
   constructor() {
@@ -303,14 +306,14 @@ export class CustomVariables extends Step<VariableList> {
     })
   }
 
-  protected async getSecrets(): Promise<EncryptedDataDTO[] | undefined> {
+  protected async getSecrets(): Promise<SecretDTOV2[] | undefined> {
     const {
       params: { accountId }
     } = routeParams()
     // Fetch only if the data is older then 60 Seconds
     if (this.lastFetched + 60000 < new Date().getTime() || !this.secrets) {
       this.lastFetched = new Date().getTime()
-      this.secrets = await listSecretsPromise({ queryParams: { accountIdentifier: accountId } }).then(response => {
+      this.secrets = await listSecretsV2Promise({ queryParams: { accountIdentifier: accountId } }).then(response => {
         return response?.data?.content
       })
     }

@@ -6,19 +6,15 @@ import { MenuItem } from '@blueprintjs/core'
 import { useGetConnectorList } from 'services/cd-ng'
 
 import EditableText from 'modules/common/components/EditableText/EditableText'
+import { Scope } from 'modules/common/interfaces/SecretsInterface'
 import i18n from './CreateInlineSecret.i18n'
 import css from './CreateInlineSecret.module.scss'
 
-// Todo: Use SecretRefData from BE
-interface SecretRefData {
-  identifier?: string
-  scope?: 'ACCOUNT' | 'ORG' | 'PROJECT'
-}
 export interface InlineSecret {
   secretName: string
   secretId: string
   secretManager?: SelectOption
-  scope: SecretRefData['scope']
+  scope: Scope
 }
 
 interface CreateInlineSecretProps {
@@ -33,20 +29,18 @@ interface CreateInlineSecretProps {
 const CustomSelect = Select.ofType<SelectOption>()
 
 interface GetScopeParams {
-  accountIdentifier: string
+  accountIdentifier?: string
   projectIdentifier?: string
   orgIdentifier?: string
 }
-const getScope = ({ accountIdentifier, orgIdentifier, projectIdentifier }: GetScopeParams): SecretRefData['scope'] => {
-  if (accountIdentifier) {
-    if (orgIdentifier) {
-      if (projectIdentifier) {
-        return 'PROJECT'
-      }
-      return 'ORG'
+const getScope = ({ orgIdentifier, projectIdentifier }: GetScopeParams): Scope => {
+  if (orgIdentifier) {
+    if (projectIdentifier) {
+      return Scope.PROJECT
     }
-    return 'ACCOUNT'
+    return Scope.ORG
   }
+  return Scope.ACCOUNT
 }
 
 const CreateInlineSecret: React.FC<CreateInlineSecretProps> = props => {

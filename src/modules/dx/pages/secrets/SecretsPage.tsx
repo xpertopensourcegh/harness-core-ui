@@ -2,9 +2,10 @@ import React, { useState } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 import { Layout, Popover, Button, Icon, TextInput, Container } from '@wings-software/uikit'
 import { Menu, Position } from '@blueprintjs/core'
-import { useListSecrets, ResponseDTONGPageResponseEncryptedDataDTO } from 'services/cd-ng'
+import { useListSecretsV2 } from 'services/cd-ng'
 import { routeCreateSecretFromYaml } from 'modules/dx/routes'
 import useCreateUpdateSecretModal from 'modules/dx/modals/CreateSecretModal/useCreateUpdateSecretModal'
+import useCreateSSHCredModal from 'modules/dx/modals/CreateSSHCredModal/useCreateSSHCredModal'
 import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
 import { PageError } from 'modules/common/components/Page/PageError'
 
@@ -19,11 +20,16 @@ const SecretsPage: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState<string | undefined>()
   const [page, setPage] = useState(0)
 
-  const { data: secretsResponse, loading, error, refetch } = useListSecrets({
+  const { data: secretsResponse, loading, error, refetch } = useListSecretsV2({
     queryParams: { accountIdentifier: accountId, searchTerm, page, size: 10, orgIdentifier, projectIdentifier },
     debounce: 300
   })
   const { openCreateSecretModal } = useCreateUpdateSecretModal({
+    onSuccess: () => {
+      refetch()
+    }
+  })
+  const { openCreateSSHCredModal } = useCreateSSHCredModal({
     onSuccess: () => {
       refetch()
     }
@@ -44,6 +50,11 @@ const SecretsPage: React.FC = () => {
               text={i18n.newSecret.file}
               labelElement={<Icon name="document" />}
               onClick={() => openCreateSecretModal('SecretFile')}
+            />
+            <Menu.Item
+              text={i18n.newSecret.ssh}
+              labelElement={<Icon name="secret-ssh" />}
+              onClick={() => openCreateSSHCredModal()}
             />
             <Menu.Divider />
             <Menu.Item
@@ -75,11 +86,7 @@ const SecretsPage: React.FC = () => {
           <PageError message={error.message} onClick={() => refetch()} />
         </div>
       ) : !secretsResponse?.data?.empty ? (
-        <SecretsList
-          secrets={secretsResponse as ResponseDTONGPageResponseEncryptedDataDTO}
-          refetch={refetch}
-          gotoPage={pageNumber => setPage(pageNumber)}
-        />
+        <SecretsList secrets={secretsResponse?.data} refetch={refetch} gotoPage={pageNumber => setPage(pageNumber)} />
       ) : (
         <Container flex={{ align: 'center-center' }} padding="xxlarge">
           No Data

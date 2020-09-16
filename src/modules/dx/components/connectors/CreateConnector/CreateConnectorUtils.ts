@@ -1,5 +1,5 @@
+import { Scope } from 'modules/common/interfaces/SecretsInterface'
 import type { ConnectorConfigDTO } from 'services/cd-ng'
-import { Scope } from 'modules/common/components/EntityReference/EntityReference'
 
 export const ConnectorSecretScope: { [scope: string]: string } = {
   [Scope.ORG]: 'org.',

@@ -5,14 +5,9 @@ import { Classes } from '@blueprintjs/core'
 import { debounce } from 'lodash'
 import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
 import { PageError } from 'modules/common/components/Page/PageError'
+import { Scope } from 'modules/common/interfaces/SecretsInterface'
 import i18n from './EntityReference.i18n'
 import css from './EntityReference.module.scss'
-
-export enum Scope {
-  PROJECT = 'project',
-  ORG = 'org',
-  ACCOUNT = 'acc'
-}
 
 export interface ScopedObjectDTO {
   accountIdentifier?: string

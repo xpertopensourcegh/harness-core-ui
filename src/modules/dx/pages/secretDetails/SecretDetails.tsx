@@ -3,10 +3,10 @@ import { useParams, Link, useLocation, useHistory } from 'react-router-dom'
 import { parse as parseQueryString } from 'query-string'
 import { stringify, parse } from 'yaml'
 import cx from 'classnames'
-import { omit, without } from 'lodash-es'
+import { omit, without, pick, omitBy, isNull } from 'lodash-es'
 import { Layout, Text, Color, Container, Button, IconName } from '@wings-software/uikit'
 
-import { useGetSecret, usePutSecretTextViaYaml, usePutSecretFileViaYaml } from 'services/cd-ng'
+import { useGetSecretV2, SecretTextSpecDTO, usePutSecretViaYaml, SecretDTOV2 } from 'services/cd-ng'
 import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
 import { PageError } from 'modules/common/components/Page/PageError'
 import { PageHeader } from 'modules/common/components/Page/PageHeader'
@@ -37,19 +37,16 @@ const SecretDetails: React.FC = () => {
   const history = useHistory()
   const { edit } = parseQueryString(queryParams)
   const [mode, setMode] = useState<Mode>(Mode.VISUAL)
-  const [fieldsRemovedFromYaml, setFieldsRemovedFromYaml] = useState(['draft', 'lastUpdatedAt'])
+  const [fieldsRemovedFromYaml, setFieldsRemovedFromYaml] = useState(['spec.draft'])
   const [snippets, setSnippets] = useState<SnippetInterface[]>()
   const [yamlHandler, setYamlHandler] = React.useState<YamlBuilderHandlerBinding | undefined>()
-  const { loading, data, refetch, error } = useGetSecret({
+  const { loading, data, refetch, error } = useGetSecretV2({
     identifier: secretId,
     queryParams: { accountIdentifier: accountId, projectIdentifier: projectIdentifier, orgIdentifier: orgIdentifier }
   })
-  const { mutate: updateSecretText } = usePutSecretTextViaYaml({
+  const { mutate: updateSecretYaml } = usePutSecretViaYaml({
     identifier: secretId,
-    requestOptions: { headers: { 'content-type': 'application/yaml' } }
-  })
-  const { mutate: updateSecretFile } = usePutSecretFileViaYaml({
-    identifier: secretId,
+    queryParams: { accountIdentifier: accountId },
     requestOptions: { headers: { 'content-type': 'application/yaml' } }
   })
 
@@ -66,12 +63,7 @@ const SecretDetails: React.FC = () => {
 
     if (yamlData && jsonData) {
       try {
-        if (jsonData['type'] === 'SecretText') {
-          await updateSecretText(yamlData as any)
-        }
-        if (jsonData['type'] === 'SecretFile') {
-          await updateSecretFile(yamlData as any)
-        }
+        await updateSecretYaml(yamlData as any)
         showSuccess('Secret updated successfully')
         history.push(routeSecretDetails.url({ secretId }))
       } catch (err) {
@@ -109,15 +101,18 @@ const SecretDetails: React.FC = () => {
   }, [data?.data])
 
   useEffect(() => {
-    if (secretData?.valueType === 'Inline') {
-      setFieldsRemovedFromYaml([...fieldsRemovedFromYaml, 'value'])
+    if (secretData?.type === 'SecretText') {
+      switch ((secretData?.spec as SecretTextSpecDTO)?.valueType) {
+        case 'Inline':
+          setFieldsRemovedFromYaml([...fieldsRemovedFromYaml, 'spec.value'])
+          break
+        case 'Reference':
+          // 'value' field should be persisted in visual->yaml transistion for reference type
+          setFieldsRemovedFromYaml(without(fieldsRemovedFromYaml, 'spec.value'))
+          break
+      }
     }
-
-    // 'value' field should be persisted in visual->yaml transistion for reference type
-    if (secretData?.valueType === 'Reference') {
-      setFieldsRemovedFromYaml(without(fieldsRemovedFromYaml, 'value'))
-    }
-  }, [secretData?.valueType])
+  }, [secretData])
 
   const handleModeSwitch = (targetMode: Mode): void => {
     if (targetMode === Mode.VISUAL) {
@@ -127,6 +122,8 @@ const SecretDetails: React.FC = () => {
         if (yamlData) {
           setSecretData(yamlData)
           setMode(targetMode)
+        } else {
+          showError(i18n.noYaml)
         }
       } catch (err) {
         showError(`${err.name}: ${err.message}`)
@@ -194,7 +191,13 @@ const SecretDetails: React.FC = () => {
               <CreateUpdateSecret
                 secret={secretData}
                 type={secretData.type}
-                onChange={formData => setSecretData(formData)}
+                onChange={formData =>
+                  setSecretData({
+                    ...secretData,
+                    ...pick(formData, ['name', 'description', 'identifier']),
+                    spec: pick(formData, ['value', 'valueType', 'secretManagerIdentifier']) as SecretTextSpecDTO
+                  } as SecretDTOV2)
+                }
               />
             </Container>
           ) : (
@@ -203,7 +206,9 @@ const SecretDetails: React.FC = () => {
               <YamlBuilder
                 entityType={YamlEntity.SECRET}
                 fileName={`${secretData.name}.yaml`}
-                existingYaml={stringify(omit(secretData, fieldsRemovedFromYaml))}
+                // existingJson={}
+                // fieldRemovedFromYaml={[]}
+                existingYaml={stringify(omit(omitBy(secretData, isNull), fieldsRemovedFromYaml))}
                 snippets={snippets}
                 bind={setYamlHandler}
               />
@@ -219,9 +224,10 @@ const SecretDetails: React.FC = () => {
             <YamlBuilder
               entityType={YamlEntity.SECRET}
               fileName={`${secretData.name}.yaml`}
-              existingYaml={stringify(omit(secretData, fieldsRemovedFromYaml))}
+              existingYaml={stringify(omit(omitBy(secretData, isNull), fieldsRemovedFromYaml))}
               isReadOnlyMode={true}
               showSnippetSection={false}
+              bind={setYamlHandler}
             />
           </Container>
         )}

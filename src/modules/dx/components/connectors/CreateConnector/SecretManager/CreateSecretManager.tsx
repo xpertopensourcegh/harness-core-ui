@@ -28,10 +28,6 @@ interface CreateSecretManagerProps {
   hideLightModal: () => void
 }
 
-interface VaultConfigForm extends VaultConfigDTO {
-  authType: 'token' | 'appRoleId'
-}
-
 const StepConnect: React.FC<StepProps<VaultConfigDTO>> = ({ prevStepData, nextStep }) => {
   const encryptionTypeOptions: SelectOption[] = [
     {
@@ -55,7 +51,7 @@ const StepConnect: React.FC<StepProps<VaultConfigDTO>> = ({ prevStepData, nextSt
       <Text font={{ size: 'medium' }} padding={{ bottom: 'xlarge' }}>
         {i18n.titleConnect}
       </Text>
-      <Formik<VaultConfigForm>
+      <Formik
         initialValues={{
           encryptionType: 'VAULT', // TODO {Abhinav} fix type once backend send it
           vaultUrl: '',
@@ -82,7 +78,7 @@ const StepConnect: React.FC<StepProps<VaultConfigDTO>> = ({ prevStepData, nextSt
           })
         })}
         onSubmit={data => {
-          nextStep?.({ ...prevStepData, ...data })
+          nextStep?.({ ...prevStepData, ...data } as any) // TODO {Abhinav} remove any once vault refactored
         }}
       >
         {formikProps => (
@@ -124,7 +120,7 @@ const StepSecretEngine: React.FC<StepProps<VaultConfigDTO> & { loading: boolean 
       <Text font={{ size: 'medium' }} padding={{ bottom: 'xlarge' }}>
         {i18n.titleSecretEngine}
       </Text>
-      <Formik<VaultConfigDTO>
+      <Formik
         initialValues={{
           secretEngineName: '',
           renewIntervalHours: undefined
@@ -134,7 +130,7 @@ const StepSecretEngine: React.FC<StepProps<VaultConfigDTO> & { loading: boolean 
           renewIntervalHours: Yup.number().positive(i18n.validationRenewalNumber).required(i18n.validationRenewal)
         })}
         onSubmit={data => {
-          nextStep?.({ ...prevStepData, ...data })
+          nextStep?.({ ...prevStepData, ...data } as any)
         }}
       >
         {() => (
@@ -160,7 +156,7 @@ const CreateSecretManager: React.FC<CreateSecretManagerProps> = ({
   projectIdentifier,
   hideLightModal
 }) => {
-  const [formData, setFormData] = useState<VaultConfigDTO>()
+  const [formData, setFormData] = useState<VaultConfigDTO | undefined>()
   const { showSuccess } = useToaster()
   const { mutate: createSecretManager, loading } = useCreateConnector({ accountIdentifier: accountId })
 
@@ -192,7 +188,7 @@ const CreateSecretManager: React.FC<CreateSecretManagerProps> = ({
         <ConnectorDetailsStep
           type={Connectors.SECRET_MANAGER}
           name={i18n.titleSecretManager}
-          setFormData={setFormData}
+          setFormData={data => setFormData(data as VaultConfigDTO)}
           formData={formData}
         />
         <StepConnect name={i18n.nameStepConnect} />

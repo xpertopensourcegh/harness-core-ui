@@ -1,12 +1,18 @@
 import React from 'react'
-import { ListSecretsQueryParams, FailureDTO, listSecretsPromise } from 'services/cd-ng'
-import type { EncryptedDataDTO } from 'services/cd-ng'
+import {
+  ListSecretsQueryParams,
+  FailureDTO,
+  listSecretsV2Promise,
+  SecretDTOV2,
+  SecretTextSpecDTO
+} from 'services/cd-ng'
 import { EntityReference } from 'modules/common/exports'
-import { EntityReferenceResponse, Scope } from 'modules/common/components/EntityReference/EntityReference'
+import type { EntityReferenceResponse } from 'modules/common/components/EntityReference/EntityReference'
+import { Scope } from 'modules/common/interfaces/SecretsInterface'
 import i18n from './SecretReference.i18n'
 import css from './SecretReference.module.scss'
 
-interface SecretRef extends EncryptedDataDTO {
+export interface SecretRef extends SecretDTOV2 {
   scope: Scope
 }
 
@@ -28,7 +34,7 @@ const fetchRecords = (
   projectIdentifier?: string,
   orgIdentifier?: string
 ): void => {
-  listSecretsPromise({
+  listSecretsV2Promise({
     queryParams: {
       accountIdentifier,
       type,
@@ -77,9 +83,12 @@ const SecretReference: React.FC<SecretReferenceProps> = props => {
       recordRender={item => (
         <>
           <div>{item.record.name}</div>
-          <div className={css.meta}>
-            {item.identifier} . {item.record.secretManager}
-          </div>
+          {item.record.type === 'SecretText' || item.record.type === 'SecretFile' ? (
+            <div className={css.meta}>
+              {item.identifier} . {(item.record.spec as SecretTextSpecDTO).secretManagerIdentifier}
+            </div>
+          ) : null}
+          {item.record.type === 'SSHKey' ? <div className={css.meta}>{item.identifier}</div> : null}
         </>
       )}
     />

@@ -244,7 +244,8 @@ export const getIconByType = (type: ConnectorDTO['type'] | undefined): IconName 
     case Connectors.GIT:
       return 'service-github'
     case 'Vault': // TODO: use enum when backend fixes it
-      return 'key'
+    case 'Local': // TODO: use enum when backend fixes it
+      return 'secret-manager'
     case Connectors.APP_DYNAMICS:
       return 'service-appdynamics'
     case Connectors.SPLUNK:

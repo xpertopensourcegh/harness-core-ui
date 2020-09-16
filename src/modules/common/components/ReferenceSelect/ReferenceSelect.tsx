@@ -10,7 +10,8 @@ import {
   Color
 } from '@wings-software/uikit'
 import { Position, Classes } from '@blueprintjs/core'
-import { EntityReferenceProps, Scope, EntityReference } from '../EntityReference/EntityReference'
+import { Scope } from 'modules/common/interfaces/SecretsInterface'
+import { EntityReferenceProps, EntityReference } from '../EntityReference/EntityReference'
 import css from './ReferenceSelect.module.scss'
 
 interface MinimalObject {

@@ -21,11 +21,11 @@ import {
 } from 'modules/common/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import {
   getScopeFromDTO,
-  Scope,
   getIdentifierFromValue,
   getScopeFromValue
 } from 'modules/common/components/EntityReference/EntityReference'
 import { getIconByType } from 'modules/dx/exports'
+import { Scope } from 'modules/common/interfaces/SecretsInterface'
 import { StepType } from '../../PipelineStepInterface'
 import i18n from './KubernetesInfraSpec.18n'
 

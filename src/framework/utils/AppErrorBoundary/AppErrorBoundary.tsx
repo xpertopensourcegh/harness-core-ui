@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, Layout } from '@wings-software/uikit'
+import { Text, Layout, Container } from '@wings-software/uikit'
 
 import i18n from './AppErrorBoundary.i18n.json'
 
@@ -20,7 +20,7 @@ class AppErrorBoundary extends React.Component<{}, AppErrorBoundaryState> {
 
     if (error) {
       return (
-        <Layout.Vertical spacing="medium">
+        <Layout.Vertical spacing="medium" padding="large">
           <Text>{i18n.title}</Text>
           <Text>{i18n.subtitle}</Text>
           <Text>
@@ -39,12 +39,12 @@ class AppErrorBoundary extends React.Component<{}, AppErrorBoundaryState> {
           {__DEV__ && (
             <React.Fragment>
               <Text font="small">{error.message}</Text>
-              <Text>
+              <Container>
                 <details>
                   <summary>{i18n.stackTrace}</summary>
                   <pre>{error.stack}</pre>
                 </details>
-              </Text>
+              </Container>
             </React.Fragment>
           )}
         </Layout.Vertical>

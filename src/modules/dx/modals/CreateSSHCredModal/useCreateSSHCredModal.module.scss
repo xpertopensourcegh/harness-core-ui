@@ -1,0 +1,32 @@
+:root {
+  --form-input-shadow: var(--bp3-intent-color, #dddddd);
+}
+.dialog {
+  position: relative;
+  border-left: 0 !important;
+  padding-bottom: 0 !important;
+  min-width: 900px;
+
+  .customSelect {
+    :global {
+      .bp3-popover-target {
+        width: 100%;
+
+        .bp3-button {
+          width: 100%;
+          border: 1px solid var(--form-input-shadow) !important;
+
+          .bp3-button-text {
+            flex: 1 1 auto;
+          }
+        }
+      }
+    }
+  }
+}
+
+.crossIcon {
+  position: absolute;
+  right: var(--spacing-large);
+  top: var(--spacing-large);
+}

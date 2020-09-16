@@ -14,7 +14,11 @@ export default {
     button: 'New Secret',
     text: 'Text',
     file: 'File',
+    ssh: 'SSH Credential',
     yaml: 'Create via YAML Builder'
   },
-  incompleteSecret: 'Incomplete Secret'
+  incompleteSecret: 'Incomplete Secret',
+  typeText: 'Text',
+  typeFile: 'File',
+  typeSSH: 'Execution Credential'
 }
