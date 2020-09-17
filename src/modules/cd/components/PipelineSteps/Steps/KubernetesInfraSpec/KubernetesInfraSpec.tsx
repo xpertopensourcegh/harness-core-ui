@@ -45,8 +45,8 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
 }): JSX.Element => {
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
   const delayedOnUpdate = React.useRef(debounce(onUpdate || noop, 300)).current
-  const connectorIdentifier = getIdentifierFromValue(initialValues.connectorIdentifier?.value || '')
-  const initialScope = getScopeFromValue(initialValues.connectorIdentifier?.value || '')
+  const connectorIdentifier = getIdentifierFromValue(initialValues.connectorIdentifier || '')
+  const initialScope = getScopeFromValue(initialValues.connectorIdentifier || '')
   const { data: connector, loading, refetch } = useGetConnector({
     accountIdentifier: accountId,
     connectorIdentifier,
@@ -61,24 +61,24 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
   React.useEffect(() => {
     if (
       !isEmpty(initialValues.connectorIdentifier) &&
-      getMultiTypeFromValue(initialValues.connectorIdentifier?.value || '') === MultiTypeInputType.FIXED
+      getMultiTypeFromValue(initialValues.connectorIdentifier || '') === MultiTypeInputType.FIXED
     ) {
       refetch()
     }
-  }, [initialValues.connectorIdentifier?.value])
+  }, [initialValues.connectorIdentifier])
   const values: FormValues = { ...initialValues, connectorIdentifier: undefined }
   if (
-    connector?.data &&
-    getMultiTypeFromValue(initialValues.connectorIdentifier?.value || '') === MultiTypeInputType.FIXED
+    connector?.data?.connector &&
+    getMultiTypeFromValue(initialValues.connectorIdentifier || '') === MultiTypeInputType.FIXED
   ) {
-    const scope = getScopeFromDTO<ConnectorDTO>(connector?.data)
+    const scope = getScopeFromDTO<ConnectorDTO>(connector?.data?.connector)
     values.connectorIdentifier = {
-      label: connector.data.name || '',
-      value: `${scope !== Scope.PROJECT ? `${scope}.` : ''}${connector.data.identifier}`,
+      label: connector?.data?.connector.name || '',
+      value: `${scope !== Scope.PROJECT ? `${scope}.` : ''}${connector?.data?.connector.identifier}`,
       scope: scope
     }
   } else {
-    values.connectorIdentifier = initialValues.connectorIdentifier?.value
+    values.connectorIdentifier = initialValues.connectorIdentifier
   }
 
   return (
@@ -140,7 +140,7 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
                   label={i18n.nameSpaceLabel}
                   placeholder={i18n.nameSpacePlaceholder}
                 />
-                {getMultiTypeFromValue(formik.values.namespace?.value) === MultiTypeInputType.RUNTIME && (
+                {getMultiTypeFromValue(formik.values.namespace) === MultiTypeInputType.RUNTIME && (
                   <ConfigureOptions
                     value={formik.values.namespace as string}
                     type={
@@ -166,7 +166,7 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
                   label={i18n.releaseName}
                   placeholder={i18n.releaseNamePlaceholder}
                 />
-                {getMultiTypeFromValue(formik.values.releaseName?.value) === MultiTypeInputType.RUNTIME && (
+                {getMultiTypeFromValue(formik.values.releaseName) === MultiTypeInputType.RUNTIME && (
                   <ConfigureOptions
                     value={formik.values.releaseName as string}
                     type={

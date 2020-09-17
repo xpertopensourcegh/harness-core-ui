@@ -15,7 +15,7 @@ import {
 import { CardSelect, Icon } from '@wings-software/uikit'
 import ConnectorFormFields from 'modules/dx/components/connectors/ConnectorFormFields/ConnectorFormFields'
 import { useGetKubernetesDelegateNames } from 'services/portal'
-import type { ConnectorDTO } from 'services/cd-ng'
+import type { ConnectorDTO, ConnectorRequestWrapper } from 'services/cd-ng'
 import { authOptions, DelegateInClusterType, getIconsForCard } from './KubeFormHelper'
 import { AuthTypes, getLabelForAuthType } from '../utils/ConnectorHelper'
 import { buildKubFormData, buildKubPayload } from '../utils/ConnectorUtils'
@@ -23,7 +23,6 @@ import { buildKubFormData, buildKubPayload } from '../utils/ConnectorUtils'
 import { DelegateTypes } from './KubeFormInterfaces'
 
 import i18n from './KubCluster.i18n'
-
 import css from './KubCluster.module.scss'
 
 interface SelectedDelegate {
@@ -36,7 +35,7 @@ interface KubClusterProps {
   connector: ConnectorDTO
   setConnector: (data: ConnectorDTO) => void
   enableCreate?: boolean
-  onSubmit: (data: ConnectorDTO) => void
+  onSubmit: (data: ConnectorRequestWrapper) => void
 }
 
 const delegateData = [
@@ -122,7 +121,7 @@ const KubCluster: React.FC<KubClusterProps> = props => {
       onSubmit={formData => {
         props.onSubmit(buildKubPayload(formData))
       }}
-      validate={data => props.setConnector(buildKubPayload(data))}
+      validate={data => props.setConnector(buildKubPayload(data).connector)}
     >
       {formikProps => (
         <Form>

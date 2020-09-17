@@ -16,13 +16,11 @@ import { buildDockerPayload } from 'modules/dx/pages/connectors/utils/ConnectorU
 import { useToaster } from 'modules/common/exports'
 import {
   useCreateConnector,
-  ConnectorRequestDTORequestBody,
   usePostSecretText,
   useUpdateConnector,
   ConnectorConfigDTO,
   EncryptedDataDTO,
-  ConnectorDTO,
-  ConnectorRequestDTO
+  ConnectorRequestWrapper
 } from 'services/cd-ng'
 import CreateSecretOverlay from 'modules/dx/common/CreateSecretOverlay/CreateSecretOverlay'
 import {
@@ -34,7 +32,7 @@ import UsernamePassword from '../../../ConnectorFormFields/UsernamePassword'
 
 import i18n from '../CreateDockerConnector.i18n'
 
-interface StepDockerAuthenticationProps extends ConnectorRequestDTO {
+interface StepDockerAuthenticationProps extends ConnectorConfigDTO {
   name?: string
   isEditMode?: boolean
 }
@@ -52,7 +50,7 @@ const StepDockerAuthentication: React.FC<StepProps<StepDockerAuthenticationProps
   const [loadSecret, setLoadSecret] = useState(false)
   const [loadConnector, setLoadConnector] = useState(false)
 
-  const handleCreate = async (data: ConnectorRequestDTORequestBody, stepData: ConnectorConfigDTO) => {
+  const handleCreate = async (data: ConnectorRequestWrapper, stepData: ConnectorConfigDTO) => {
     try {
       setLoadConnector(true)
       await createConnector(data)
@@ -65,7 +63,7 @@ const StepDockerAuthentication: React.FC<StepProps<StepDockerAuthenticationProps
     }
   }
 
-  const handleUpdate = async (data: ConnectorRequestDTORequestBody, stepData: ConnectorConfigDTO) => {
+  const handleUpdate = async (data: ConnectorRequestWrapper, stepData: ConnectorConfigDTO) => {
     try {
       setLoadConnector(true)
       await updateConnector(data)
@@ -77,7 +75,7 @@ const StepDockerAuthentication: React.FC<StepProps<StepDockerAuthenticationProps
     }
   }
 
-  const createSecretCallback = async (stepData: ConnectorConfigDTO, data: ConnectorDTO) => {
+  const createSecretCallback = async (stepData: ConnectorConfigDTO, data: ConnectorRequestWrapper) => {
     let res
     try {
       modalErrorHandler?.hide()

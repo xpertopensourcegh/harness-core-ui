@@ -12,7 +12,7 @@ import {
   Text,
   Icon
 } from '@wings-software/uikit'
-import type { ConnectorDTO } from 'services/cd-ng'
+import type { ConnectorDTO, ConnectorRequestWrapper } from 'services/cd-ng'
 import UsernamePassword from 'modules/dx/components/connectors/ConnectorFormFields/UsernamePassword'
 import { buildGITFormData, buildGITPayload } from '../../utils/ConnectorUtils'
 import { getLabelForAuthType, AuthTypes } from '../../utils/ConnectorHelper'
@@ -26,7 +26,7 @@ interface GITConnectorFormProps {
   connector: ConnectorDTO
   setConnector: (data: ConnectorDTO) => void
   enableCreate?: boolean
-  onSubmit: (data: ConnectorDTO) => void
+  onSubmit: (data: ConnectorRequestWrapper) => void
 }
 
 const GITConnectorForm: React.FC<GITConnectorFormProps> = props => {
@@ -51,7 +51,7 @@ const GITConnectorForm: React.FC<GITConnectorFormProps> = props => {
       onSubmit={formData => {
         props.onSubmit(buildGITPayload(formData))
       }}
-      validate={data => props.setConnector(buildGITPayload(data))}
+      validate={data => props.setConnector(buildGITPayload(data).connector)}
     >
       {formikProps => (
         <Form>

@@ -122,14 +122,13 @@ export const getSpecForDelegateType = (formData: FormData) => {
   }
 }
 
-export const buildKubPayload = (formData: FormData): ConnectorDTO => {
+export const buildKubPayload = (formData: FormData) => {
   const savedData = {
     name: formData?.name,
     description: formData?.description,
-    // projectIdentifier: 'project-1',
+    projectIdentifier: formData?.projectIdentifier,
+    orgIdentifier: formData?.orgIdentifier,
     identifier: formData?.identifier,
-    // accountIdentifier: 'Test-account',
-    // orgIdentifier: 'Devops',
     tags: formData?.tags,
     type: Connectors.KUBERNETES_CLUSTER,
     spec: {
@@ -137,7 +136,7 @@ export const buildKubPayload = (formData: FormData): ConnectorDTO => {
       spec: getSpecForDelegateType(formData)
     }
   }
-  return savedData
+  return { connector: savedData }
 }
 
 export const buildDockerPayload = (formData: FormData) => {
@@ -151,13 +150,13 @@ export const buildDockerPayload = (formData: FormData) => {
     type: Connectors.DOCKER,
     spec: {
       dockerRegistryUrl: formData.dockerRegistryUrl,
-      authScheme: {
+      auth: {
         type: 'UsernamePassword',
         spec: userPasswrdAuthField(formData)
       }
     }
   }
-  return savedData
+  return { connector: savedData }
 }
 
 export const buildDockerFormData = (connector: ConnectorDTO) => {
@@ -209,7 +208,7 @@ export const buildGITPayload = (formData: FormData) => {
       // }
     }
   }
-  return savedData
+  return { connector: savedData }
 }
 
 export const buildGITFormData = (connector: ConnectorDTO) => {

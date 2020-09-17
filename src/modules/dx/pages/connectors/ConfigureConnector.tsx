@@ -4,7 +4,7 @@ import { Button, Layout, IconName } from '@wings-software/uikit'
 import * as YAML from 'yaml'
 import cx from 'classnames'
 import { useToaster } from 'modules/common/exports'
-import type { ConnectorDTO } from 'services/cd-ng'
+import type { ConnectorDTO, ConnectorRequestWrapper } from 'services/cd-ng'
 import YamlBuilder from 'modules/common/components/YAMLBuilder/YamlBuilder'
 import { YamlEntity } from 'modules/common/constants/YamlConstants'
 import type { SnippetInterface } from 'modules/common/interfaces/SnippetInterface'
@@ -21,7 +21,7 @@ import css from './ConfigureConnector.module.scss'
 export interface ConfigureConnectorProps {
   type: string
   connector: ConnectorDTO
-  updateConnector: (data: ConnectorDTO) => Promise<unknown>
+  updateConnector: (data: ConnectorRequestWrapper) => Promise<unknown>
   refetchConnector: () => Promise<any>
   isCreationThroughYamlBuilder: boolean
 }
@@ -74,7 +74,7 @@ const ConfigureConnector: React.FC<ConfigureConnectorProps> = props => {
   }
   const { showSuccess, showError } = useToaster()
 
-  const onSubmit = async (connectorPayload: ConnectorDTO) => {
+  const onSubmit = async (connectorPayload: ConnectorRequestWrapper) => {
     try {
       const data = await props.updateConnector(connectorPayload)
       if (data) {

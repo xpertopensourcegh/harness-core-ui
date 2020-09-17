@@ -14,7 +14,7 @@ import * as Yup from 'yup'
 import { pick } from 'lodash-es'
 import type { IOptionProps } from '@blueprintjs/core'
 
-import { VaultConfigDTO, useCreateConnector, ConnectorRequestDTO } from 'services/cd-ng'
+import { VaultConfigDTO, useCreateConnector } from 'services/cd-ng'
 import ConnectorDetailsStep from 'modules/dx/components/connectors/CreateConnector/commonSteps/ConnectorDetailsStep'
 import { useToaster } from 'modules/common/exports'
 import { Connectors } from 'modules/dx/constants'
@@ -165,13 +165,15 @@ const CreateSecretManager: React.FC<CreateSecretManagerProps> = ({
       <StepWizard<VaultConfigDTO>
         onCompleteWizard={async data => {
           if (data) {
-            const dataToSubmit: ConnectorRequestDTO = {
-              orgIdentifier,
-              projectIdentifier,
-              ...pick(data, ['name', 'identifier', 'description', 'tags']),
-              type: 'Vault',
-              spec: {
-                ...pick(data, ['authToken', 'basePath', 'secretEngineName', 'vaultUrl', 'readOnly', 'default'])
+            const dataToSubmit = {
+              connector: {
+                orgIdentifier,
+                projectIdentifier,
+                ...pick(data, ['name', 'identifier', 'description', 'tags']),
+                type: Connectors.SECRET_MANAGER,
+                spec: {
+                  ...pick(data, ['authToken', 'basePath', 'secretEngineName', 'vaultUrl', 'readOnly', 'default'])
+                }
               }
             }
 

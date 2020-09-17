@@ -18,7 +18,8 @@ import {
   ConnectorConfigDTO,
   ConnectorDTO,
   usePostSecretText,
-  EncryptedDataDTO
+  EncryptedDataDTO,
+  ConnectorRequestWrapper
 } from 'services/cd-ng'
 import { Connectors } from 'modules/dx/constants'
 import { getSecretFieldsByType, SecretFieldByType } from 'modules/dx/pages/connectors/Forms/KubeFormHelper'
@@ -49,21 +50,23 @@ interface ConnectionConfigProps {
 
 export default function CreateSplunkConnector(props: CreateSplunkConnectorProps): JSX.Element {
   const [formData, setFormData] = useState<ConnectorConfigDTO | undefined>()
-  const [connectorResponse, setConnectorResponse] = useState<ConnectorDTO | undefined>()
+  const [connectorResponse, setConnectorResponse] = useState<ConnectorRequestWrapper | undefined>()
   const { mutate: createConnector } = useCreateConnector({ accountIdentifier: props.accountId })
   const secretCreatedCallback = async (data: ConnectorConfigDTO): Promise<void> => {
     const res = await createConnector({
-      name: data.name,
-      identifier: data.identifier,
-      type: 'Splunk',
-      projectIdentifier: props.projectIdentifier,
-      orgIdentifier: props.orgIdentifier,
-      spec: {
-        username: data.username,
-        accountname: data.accountName,
-        passwordRef: `${getScopingStringFromSecretRef(data) ?? ''}${data.passwordRefSecret.secretId}`,
-        splunkUrl: data.url,
-        accountId: props.accountId
+      connector: {
+        name: data.name,
+        identifier: data.identifier,
+        type: 'Splunk',
+        projectIdentifier: props.projectIdentifier,
+        orgIdentifier: props.orgIdentifier,
+        spec: {
+          username: data.username,
+          accountname: data.accountName,
+          passwordRef: `${getScopingStringFromSecretRef(data) ?? ''}${data.passwordRefSecret.secretId}`,
+          splunkUrl: data.url,
+          accountId: props.accountId
+        }
       }
     })
 

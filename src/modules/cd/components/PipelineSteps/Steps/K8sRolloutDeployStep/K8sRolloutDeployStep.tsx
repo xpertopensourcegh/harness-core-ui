@@ -75,8 +75,8 @@ export class K8RolloutDeployStep extends Step<K8RolloutDeployData> {
 
   protected defaultValues: K8RolloutDeployData = {
     spec: {
-      skipDryRun: { value: false },
-      timeout: { value: 60000 }
+      skipDryRun: false,
+      timeout: 60000
     }
   }
 }

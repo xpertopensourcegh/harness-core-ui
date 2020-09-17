@@ -28,11 +28,11 @@ import ConnectorDetailsStep from 'modules/dx/components/connectors/CreateConnect
 import { useGetKubernetesDelegateNames, RestResponseListString } from 'services/portal'
 import {
   useCreateConnector,
-  ConnectorRequestDTORequestBody,
   ConnectorConfigDTO,
   useUpdateConnector,
   usePostSecretText,
-  EncryptedDataDTO
+  EncryptedDataDTO,
+  ConnectorRequestWrapper
 } from 'services/cd-ng'
 import { buildKubPayload } from 'modules/dx/pages/connectors/utils/ConnectorUtils'
 import InstallDelegateForm from 'modules/dx/common/InstallDelegateForm/InstallDelegateForm'
@@ -227,7 +227,7 @@ const SecondStep = (props: SecondStepProps) => {
     lazy: true
   })
   const { mutate: createConnector } = useCreateConnector({ accountIdentifier: accountId })
-  const handleCreate = async (data: ConnectorRequestDTORequestBody) => {
+  const handleCreate = async (data: ConnectorRequestWrapper) => {
     try {
       await createConnector(data)
       props.nextStep?.()
@@ -339,7 +339,7 @@ const IntermediateStep: React.FC<IntermediateStepProps> = props => {
   const [loadSecret, setLoadSecret] = useState(false)
   const [loadConnector, setLoadConnector] = useState(false)
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
-  const handleCreate = async (data: ConnectorRequestDTORequestBody) => {
+  const handleCreate = async (data: ConnectorRequestWrapper) => {
     try {
       setLoadConnector(true)
       await createConnector(data)
@@ -352,7 +352,7 @@ const IntermediateStep: React.FC<IntermediateStepProps> = props => {
     }
   }
 
-  const handleUpdate = async (data: ConnectorRequestDTORequestBody) => {
+  const handleUpdate = async (data: ConnectorRequestWrapper) => {
     try {
       setLoadConnector(true)
       await updateConnector(data)
@@ -399,11 +399,15 @@ const IntermediateStep: React.FC<IntermediateStepProps> = props => {
           })}
           onSubmit={formData => {
             modalErrorHandler?.hide()
-            const connectorData = { ...state.formData, ...formData, authType: state.authentication?.value }
-            const data = {
-              ...buildKubPayload(connectorData),
+            const connectorData = {
+              ...state.formData,
+              ...formData,
+              authType: state.authentication?.value,
               projectIdentifier: projectIdentifier,
               orgIdentifier: orgIdentifier
+            }
+            const data = {
+              ...buildKubPayload(connectorData)
             }
             const passwordFields = getSecretFieldsByType(state.authentication?.value as string) || []
             const nonRefrencedFields = passwordFields

@@ -29,7 +29,7 @@ const ConnectorDetailsPage: React.FC = () => {
     params: { connectorId }
   } = routeParams()
   const { accountId, orgIdentifier, projectIdentifier } = useParams()
-  const { loading, data: connector, refetch } = useGetConnector({
+  const { loading, data, refetch } = useGetConnector({
     accountIdentifier: accountId,
     connectorIdentifier: connectorId as string,
     queryParams: {
@@ -51,7 +51,7 @@ const ConnectorDetailsPage: React.FC = () => {
             {i18n.Connectors}
           </Link>
         </Layout.Horizontal>
-        <span className={css.kubHeading}>{connector?.data?.name}</span>
+        <span className={css.kubHeading}>{data?.data?.connector?.name}</span>
       </Layout.Vertical>
     )
   }
@@ -62,14 +62,14 @@ const ConnectorDetailsPage: React.FC = () => {
         toolbar={
           <Container>
             <Layout.Horizontal spacing="medium">
-              {Object.keys(categories).map((data, index) => {
+              {Object.keys(categories).map((item, index) => {
                 return (
                   <Tag
                     className={cx(css.tags, { [css.activeTag]: activeCategory === index })}
                     onClick={() => setActiveCategory(index)}
-                    key={data + index}
+                    key={item + index}
                   >
-                    {categories[data]}
+                    {categories[item]}
                   </Tag>
                 )
               })}
@@ -79,11 +79,11 @@ const ConnectorDetailsPage: React.FC = () => {
       />
       <Page.Body>
         {activeCategory === 0 ? (
-          !loading && connector ? (
+          !loading && data ? (
             <ConfigureConnector
-              type={connector.data?.type || ''}
+              type={data.data?.connector?.type || ''}
               updateConnector={updateConnector}
-              connector={connector.data || ({} as ConnectorDTO)}
+              connector={data.data?.connector || ({} as ConnectorDTO)}
               refetchConnector={refetch}
               isCreationThroughYamlBuilder={connectorId === 'undefined'}
             />
@@ -92,8 +92,8 @@ const ConnectorDetailsPage: React.FC = () => {
           )
         ) : null}
         {activeCategory === 1 ? (
-          !loading && connector ? (
-            <ReferencedBy accountId={accountId} entityIdentifier={connector.data?.identifier} />
+          !loading && data ? (
+            <ReferencedBy accountId={accountId} entityIdentifier={data.data?.connector?.identifier} />
           ) : (
             <PageSpinner />
           )

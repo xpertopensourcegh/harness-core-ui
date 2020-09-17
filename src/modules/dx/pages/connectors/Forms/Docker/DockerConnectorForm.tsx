@@ -2,7 +2,7 @@ import React from 'react'
 import { useParams } from 'react-router'
 import * as Yup from 'yup'
 import { Formik, FormikForm as Form, FormInput, Layout, Button } from '@wings-software/uikit'
-import type { ConnectorDTO } from 'services/cd-ng'
+import type { ConnectorDTO, ConnectorRequestWrapper } from 'services/cd-ng'
 import UsernamePassword from 'modules/dx/components/connectors/ConnectorFormFields/UsernamePassword'
 import { StringUtils } from 'modules/common/exports'
 import { buildDockerFormData, buildDockerPayload } from '../../utils/ConnectorUtils'
@@ -14,7 +14,7 @@ interface DockerConnectorFormProps {
   connector: ConnectorDTO
   setConnector: (data: ConnectorDTO) => void
   enableCreate?: boolean
-  onSubmit: (data: ConnectorDTO) => void
+  onSubmit: (data: ConnectorRequestWrapper) => void
 }
 
 const DockerConnectorForm: React.FC<DockerConnectorFormProps> = props => {
@@ -43,7 +43,7 @@ const DockerConnectorForm: React.FC<DockerConnectorFormProps> = props => {
       onSubmit={formData => {
         props.onSubmit(buildDockerPayload(formData))
       }}
-      validate={data => props.setConnector(buildDockerPayload(data))}
+      validate={data => props.setConnector(buildDockerPayload(data).connector)}
     >
       {formikProps => (
         <Form>

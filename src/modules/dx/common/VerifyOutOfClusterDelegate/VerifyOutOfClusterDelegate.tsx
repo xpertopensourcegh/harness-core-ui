@@ -3,7 +3,7 @@ import { useParams } from 'react-router'
 import ReactTimeago from 'react-timeago'
 import { StepsProgress, Layout, Button, Text, Intent, Color, StepProps } from '@wings-software/uikit'
 import { useGetDelegatesStatus, RestResponseDelegateStatus } from 'services/portal'
-import { useGetTestConnectionResult, ConnectorRequestDTO, ResponseDTOConnectorValidationResult } from 'services/cd-ng'
+import { useGetTestConnectionResult, ResponseDTOConnectorValidationResult, ConnectorConfigDTO } from 'services/cd-ng'
 import { getConnectorDisplayName } from 'modules/dx/pages/connectors/utils/ConnectorUtils'
 import type { UseGetMockData } from 'modules/common/utils/testUtils'
 import type { StepDetails } from 'modules/dx/interfaces/ConnectorInterface'
@@ -28,7 +28,7 @@ interface VerifyOutOfClusterDelegateProps {
   isLastStep?: boolean
   type?: string
 }
-interface VerifyOutOfClusterStepProps extends ConnectorRequestDTO {
+interface VerifyOutOfClusterStepProps extends ConnectorConfigDTO {
   isEditMode?: boolean
 }
 

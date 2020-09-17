@@ -12,22 +12,22 @@ import {
 import { useParams } from 'react-router'
 import * as Yup from 'yup'
 import { StringUtils } from 'modules/common/exports'
-import { useValidateTheIdentifierIsUnique, ConnectorConfigDTO, ConnectorRequestDTO } from 'services/cd-ng'
+import { useValidateTheIdentifierIsUnique, ConnectorConfigDTO } from 'services/cd-ng'
 import { getHeadingByType, getConnectorTextByType } from '../../../../pages/connectors/utils/ConnectorHelper'
 import i18n from './ConnectorDetailsStep.i18n'
 import css from './ConnectorDetailsStep.module.scss'
 
-interface ConnectorDetailsStepProps extends StepProps<ConnectorRequestDTO> {
+interface ConnectorDetailsStepProps extends StepProps<ConnectorConfigDTO> {
   type: ConnectorConfigDTO['type']
   name: string
-  setFormData?: (formData: ConnectorRequestDTO) => void
-  formData?: ConnectorRequestDTO
+  setFormData?: (formData: ConnectorConfigDTO) => void
+  formData?: ConnectorConfigDTO
 }
 
-const ConnectorDetailsStep: React.FC<StepProps<ConnectorRequestDTO> & ConnectorDetailsStepProps> = props => {
+const ConnectorDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDetailsStepProps> = props => {
   const { prevStepData, nextStep } = props
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
-  const [stepData, setStepData] = useState<ConnectorRequestDTO>(prevStepData || props.formData || {})
+  const [stepData, setStepData] = useState<ConnectorConfigDTO>(prevStepData || props.formData || {})
   const { loading, data, refetch: validateUniqueIdentifier, error } = useValidateTheIdentifierIsUnique({
     accountIdentifier: accountId,
     lazy: true,

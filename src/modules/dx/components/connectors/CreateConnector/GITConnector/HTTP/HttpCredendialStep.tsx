@@ -17,12 +17,11 @@ import { useParams } from 'react-router-dom'
 import { buildGITPayload } from 'modules/dx/pages/connectors/utils/ConnectorUtils'
 import {
   useCreateConnector,
-  ConnectorRequestDTORequestBody,
   usePostSecretText,
   EncryptedDataDTO,
   useUpdateConnector,
   ConnectorConfigDTO,
-  ConnectorDTO
+  ConnectorRequestWrapper
 } from 'services/cd-ng'
 import CreateSecretOverlay from 'modules/dx/common/CreateSecretOverlay/CreateSecretOverlay'
 import {
@@ -65,7 +64,7 @@ const HttpCredentialStep: React.FC<HttpCredentialStepProps> = props => {
   const [loadSecret, setLoadSecret] = useState(false)
   const [loadConnector, setLoadConnector] = useState(false)
 
-  const handleCreate = async (data: ConnectorRequestDTORequestBody) => {
+  const handleCreate = async (data: ConnectorRequestWrapper) => {
     try {
       setLoadConnector(true)
       await createConnector(data)
@@ -77,7 +76,7 @@ const HttpCredentialStep: React.FC<HttpCredentialStepProps> = props => {
     }
   }
 
-  const handleUpdate = async (data: ConnectorRequestDTORequestBody) => {
+  const handleUpdate = async (data: ConnectorRequestWrapper) => {
     try {
       setLoadConnector(true)
       await updateConnector(data)
@@ -89,7 +88,7 @@ const HttpCredentialStep: React.FC<HttpCredentialStepProps> = props => {
     }
   }
 
-  const createSecretCallback = async (formData: ConnectorConfigDTO, data: ConnectorDTO) => {
+  const createSecretCallback = async (formData: ConnectorConfigDTO, data: ConnectorRequestWrapper) => {
     let res
     try {
       modalErrorHandler?.hide()

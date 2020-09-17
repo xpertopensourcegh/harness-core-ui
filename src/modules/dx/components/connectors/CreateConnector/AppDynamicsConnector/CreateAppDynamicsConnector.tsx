@@ -17,8 +17,9 @@ import {
   useCreateConnector,
   usePostSecretText,
   ConnectorConfigDTO,
-  ConnectorDTO,
-  EncryptedDataDTO
+  EncryptedDataDTO,
+  ConnectorRequestWrapper,
+  ConnectorWrapper
 } from 'services/cd-ng'
 import {
   AuthTypeFields,
@@ -38,7 +39,7 @@ interface CreateAppDynamicsConnectorProps {
   orgIdentifier: string
   projectIdentifier: string
   hideLightModal: () => void
-  onConnectorCreated?: (data: ConnectorDTO) => void | Promise<void>
+  onConnectorCreated?: (data: ConnectorRequestWrapper) => void | Promise<void>
 }
 
 export interface ConnectionConfigProps {
@@ -56,20 +57,22 @@ export interface ConnectionConfigProps {
 export default function CreateAppDynamicsConnector(props: CreateAppDynamicsConnectorProps): JSX.Element {
   const [formData, setFormData] = useState<ConnectorConfigDTO | undefined>({})
   const { mutate: createConnector } = useCreateConnector({ accountIdentifier: props.accountId })
-  const [connectorResponse, setConnectorResponse] = useState<ConnectorDTO | undefined>()
+  const [connectorResponse, setConnectorResponse] = useState<ConnectorWrapper | undefined>()
   const secretCreatedCallback = async (data: ConnectorConfigDTO): Promise<void> => {
     const res = await createConnector({
-      name: data.name,
-      identifier: data.identifier,
-      type: 'AppDynamics',
-      projectIdentifier: props.projectIdentifier,
-      orgIdentifier: props.orgIdentifier,
-      spec: {
-        username: data.username,
-        accountname: data.accountName,
-        passwordRef: `${getScopingStringFromSecretRef(data) ?? ''}${data.passwordRefSecret.secretId}`,
-        controllerUrl: data.url,
-        accountId: props.accountId
+      connector: {
+        name: data.name,
+        identifier: data.identifier,
+        type: 'AppDynamics',
+        projectIdentifier: props.projectIdentifier,
+        orgIdentifier: props.orgIdentifier,
+        spec: {
+          username: data.username,
+          accountname: data.accountName,
+          passwordRef: `${getScopingStringFromSecretRef(data) ?? ''}${data.passwordRefSecret.secretId}`,
+          controllerUrl: data.url,
+          accountId: props.accountId
+        }
       }
     })
     if (res && res.status === 'SUCCESS') {
@@ -101,7 +104,7 @@ export default function CreateAppDynamicsConnector(props: CreateAppDynamicsConne
           name={i18n.verifyConnection}
           connectorName={formData?.name}
           connectorIdentifier={formData?.identifier}
-          onSuccess={() => props.onConnectorCreated?.(connectorResponse as ConnectorDTO)}
+          onSuccess={() => props.onConnectorCreated?.((connectorResponse as unknown) as ConnectorRequestWrapper)}
           renderInModal
           isLastStep
           type={Connectors.APP_DYNAMICS}

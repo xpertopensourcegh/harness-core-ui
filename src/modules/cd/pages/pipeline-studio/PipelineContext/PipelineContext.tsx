@@ -10,7 +10,7 @@ import {
   PutPipelineQueryParams,
   ResponseDTOCDPipelineResponseDTO,
   FailureDTO,
-  postPipelinePromise
+  postPipelineDummyPromise
 } from 'services/cd-ng'
 import { ModuleName, loggerFor } from 'framework/exports'
 import SessionToken from 'framework/utils/SessionToken'
@@ -77,7 +77,7 @@ export const savePipeline = (
           return response
         }
       })
-    : postPipelinePromise({
+    : postPipelineDummyPromise({
         body: stringify({ pipeline }) as any,
         queryParams: {
           accountIdentifier: params.accountIdentifier,
