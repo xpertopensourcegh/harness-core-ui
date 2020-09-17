@@ -28,7 +28,13 @@ export default {
       masterUrl: 'Master URL is required',
       username: 'Username is required',
       passwordRef: 'Password is required',
-      oidcIssueUrl: 'Identity Provider URL is required'
+      oidcIssueUrl: 'Identity Provider URL is required',
+      serviceAccountTokenRef: 'Service Account Token is required',
+      oidcPasswordRef: 'Password is required',
+      oidcClientIdRef: 'Client ID is required',
+      clientCertRef: 'Client Certificate is required',
+      clientKeyRef: 'Client Key is required',
+      clientKeyPassphraseRef: 'Client Key Passphrase is required'
     }
   },
   STEP_THREE: {

@@ -414,7 +414,6 @@ const StepAuthentication: React.FC<StepProps<SSHCredSharedObj> & StepAuthenticat
                           fieldName="encryptedPassphraseText"
                           label={i18n.labelPassphrase}
                           secretFieldName="encryptedPassphraseSecret"
-                          formikProps={formik}
                           accountId={accountId}
                           orgIdentifier={orgIdentifier}
                           projectIdentifier={projectIdentifier}
@@ -432,7 +431,6 @@ const StepAuthentication: React.FC<StepProps<SSHCredSharedObj> & StepAuthenticat
                           fieldName="encryptedPassphraseText"
                           label={i18n.labelPassphrase}
                           secretFieldName="encryptedPassphraseSecret"
-                          formikProps={formik}
                           accountId={accountId}
                           orgIdentifier={orgIdentifier}
                           projectIdentifier={projectIdentifier}
@@ -448,7 +446,6 @@ const StepAuthentication: React.FC<StepProps<SSHCredSharedObj> & StepAuthenticat
                         fieldName="passwordText"
                         label={i18n.labelPassword}
                         secretFieldName="passwordSecret"
-                        formikProps={formik}
                         accountId={accountId}
                         orgIdentifier={orgIdentifier}
                         projectIdentifier={projectIdentifier}
@@ -480,7 +477,6 @@ const StepAuthentication: React.FC<StepProps<SSHCredSharedObj> & StepAuthenticat
                         fieldName="passwordText"
                         label={i18n.labelPassword}
                         secretFieldName="passwordSecret"
-                        formikProps={formik}
                         accountId={accountId}
                         orgIdentifier={orgIdentifier}
                         projectIdentifier={projectIdentifier}

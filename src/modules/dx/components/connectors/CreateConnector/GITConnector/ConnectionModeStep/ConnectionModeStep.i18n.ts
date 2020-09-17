@@ -11,6 +11,6 @@ export default {
   BRANCH_NAME: 'Branch Name',
   validation: {
     connectionType: 'Required',
-    url: 'Url is required'
+    url: 'URL is required'
   }
 }

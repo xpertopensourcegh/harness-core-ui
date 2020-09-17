@@ -1,5 +1,5 @@
 export default {
-  SECRET_INFO_TEXT: (val: string) => `${val.toUpperCase()} WILL BE SAVED TO SECRET MANGER`,
+  SECRET_INFO_TEXT: `VALUE WILL BE SAVED TO SECRET MANGER`,
   createSecretText: 'Create a new Secret',
   savedSecretText: 'This secret is saved as',
   ENCRYPTED_TEXT: 'encrypted secret',

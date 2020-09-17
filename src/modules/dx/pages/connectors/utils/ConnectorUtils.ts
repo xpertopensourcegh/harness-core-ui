@@ -69,6 +69,7 @@ export const clientKeyCertField = (formData: FormData) => {
       formData.clientKeyPassphraseRefSecret?.scope,
       formData.clientKeyPassphraseRefSecret?.secretId
     ),
+    caCertRef: getScopedSecretString(formData.caCertRefSecret?.scope, formData.caCertRefSecret?.secretId),
     clientKeyAlgo: formData.clientKeyAlgo
   }
 }

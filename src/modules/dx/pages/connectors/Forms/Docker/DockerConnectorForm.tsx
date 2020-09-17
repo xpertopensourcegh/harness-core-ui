@@ -45,7 +45,7 @@ const DockerConnectorForm: React.FC<DockerConnectorFormProps> = props => {
       }}
       validate={data => props.setConnector(buildDockerPayload(data).connector)}
     >
-      {formikProps => (
+      {() => (
         <Form>
           <Layout.Vertical width={370} spacing="small">
             <FormInput.InputWithIdentifier isIdentifierEditable={false} />
@@ -72,7 +72,6 @@ const DockerConnectorForm: React.FC<DockerConnectorFormProps> = props => {
               accountId={accountId}
               orgIdentifier={orgIdentifier}
               projectIdentifier={projectIdentifier}
-              formikProps={formikProps}
               passwordField={AuthTypeFields.passwordRef}
               onClickCreateSecret={() => undefined}
             />

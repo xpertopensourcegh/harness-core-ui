@@ -1,5 +1,4 @@
 import React from 'react'
-import type { FormikProps } from 'formik'
 import {
   AuthTypes,
   getSecretFieldValue,
@@ -18,7 +17,6 @@ interface ConnectorFormFieldsProps {
   projectIdentifier: string
   orgIdentifier: string
   authType: string | number | symbol
-  formikProps: FormikProps<unknown>
   name?: string
   onClickCreateSecret: () => void
   isEditMode?: boolean
@@ -26,7 +24,7 @@ interface ConnectorFormFieldsProps {
 }
 
 const ConnectorFormFields: React.FC<ConnectorFormFieldsProps> = props => {
-  const { accountId, authType, formikProps, name = '' } = props
+  const { accountId, authType, name = '' } = props
   switch (authType) {
     case AuthTypes.USER_PASSWORD:
       return (
@@ -36,7 +34,6 @@ const ConnectorFormFields: React.FC<ConnectorFormFieldsProps> = props => {
           accountId={accountId}
           orgIdentifier={props.orgIdentifier}
           projectIdentifier={props.projectIdentifier}
-          formikProps={formikProps}
           passwordField={AuthTypeFields.passwordRef}
           onClickCreateSecret={props.onClickCreateSecret}
           onEditSecret={props.onEditSecret}
@@ -48,7 +45,6 @@ const ConnectorFormFields: React.FC<ConnectorFormFieldsProps> = props => {
           fieldName={AuthTypeFields.serviceAccountTokenRef}
           label={getLabelForEncryptedSecret(AuthTypeFields.serviceAccountTokenRef)}
           secretFieldName={getSecretFieldValue(AuthTypeFields.serviceAccountTokenRef)}
-          formikProps={formikProps}
           accountId={accountId}
           orgIdentifier={props.orgIdentifier}
           projectIdentifier={props.projectIdentifier}
@@ -63,7 +59,6 @@ const ConnectorFormFields: React.FC<ConnectorFormFieldsProps> = props => {
       return (
         <OIDCTokenFields
           name={name}
-          formikProps={formikProps}
           accountId={accountId}
           orgIdentifier={props.orgIdentifier}
           projectIdentifier={props.projectIdentifier}
@@ -76,7 +71,6 @@ const ConnectorFormFields: React.FC<ConnectorFormFieldsProps> = props => {
       return (
         <ClientKeyCertFields
           name={name}
-          formikProps={formikProps}
           accountId={accountId}
           orgIdentifier={props.orgIdentifier}
           projectIdentifier={props.projectIdentifier}

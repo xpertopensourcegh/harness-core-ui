@@ -1,6 +1,5 @@
 import React from 'react'
 import { FormInput } from '@wings-software/uikit'
-import type { FormikProps } from 'formik'
 import { FormikSecretTextInput } from 'modules/dx/components/SecretInput/SecretTextInput'
 import {
   getLabelForEncryptedSecret,
@@ -13,7 +12,6 @@ interface UsernamePasswordProps {
   accountId: string
   projectIdentifier?: string
   orgIdentifier?: string
-  formikProps: FormikProps<unknown>
   passwordField: string
   name?: string
   onClickCreateSecret: () => void
@@ -22,7 +20,7 @@ interface UsernamePasswordProps {
 }
 
 const UsernamePassword: React.FC<UsernamePasswordProps> = props => {
-  const { accountId, formikProps, passwordField, name = '' } = props
+  const { accountId, passwordField, name = '' } = props
 
   return (
     <>
@@ -31,7 +29,6 @@ const UsernamePassword: React.FC<UsernamePasswordProps> = props => {
         fieldName={passwordField}
         label={getLabelForEncryptedSecret(passwordField)}
         secretFieldName={getSecretFieldValue(passwordField)}
-        formikProps={formikProps}
         accountId={accountId}
         projectIdentifier={props.projectIdentifier}
         orgIdentifier={props.orgIdentifier}

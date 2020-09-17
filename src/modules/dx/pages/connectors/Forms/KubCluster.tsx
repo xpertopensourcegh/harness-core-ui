@@ -202,7 +202,6 @@ const KubCluster: React.FC<KubClusterProps> = props => {
                   accountId={accountId}
                   orgIdentifier={orgIdentifier}
                   projectIdentifier={projectIdentifier}
-                  formikProps={formikProps}
                   authType={authentication.value}
                   name={connector?.name || ''}
                   onClickCreateSecret={() => setShowCreateSecretModal(true)}

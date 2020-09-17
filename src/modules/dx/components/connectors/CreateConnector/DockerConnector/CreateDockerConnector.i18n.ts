@@ -11,7 +11,8 @@ export default {
     DockerRegistryURL: 'Docker Registry URL',
     validation: {
       dockerUrl: 'Docker Registry URL is required',
-      username: 'Username is required'
+      username: 'Username is required',
+      passwordRef: 'Password is required'
     }
   },
   STEP_THREE: {

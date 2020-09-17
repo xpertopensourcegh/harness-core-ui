@@ -166,7 +166,7 @@
     overflow: auto;
     .formFields {
       min-height: 70%;
-      margin-bottom: 15px;
+      margin-bottom: var(--spacing-xxlarge);
       width: 64%;
     }
   }

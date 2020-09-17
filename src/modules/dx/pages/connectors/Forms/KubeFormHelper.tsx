@@ -62,7 +62,8 @@ export const getSecretFieldsByType = (type: string) => {
       return [
         { passwordField: 'clientKeyRef', secretField: 'clientKeyRefSecret' },
         { passwordField: 'clientCertRef', secretField: 'clientCertRefSecret' },
-        { passwordField: 'clientKeyPassphraseRef', secretField: 'clientKeyPassphraseRefSecret' }
+        { passwordField: 'clientKeyPassphraseRef', secretField: 'clientKeyPassphraseRefSecret' },
+        { passwordField: 'caCertRef', secretField: 'caCertRefSecret' }
       ]
   }
 }

@@ -140,7 +140,6 @@ const GITConnectorForm: React.FC<GITConnectorFormProps> = props => {
                     accountId={accountId}
                     orgIdentifier={orgIdentifier}
                     projectIdentifier={projectIdentifier}
-                    formikProps={formikProps}
                     passwordField={AuthTypeFields.passwordRef}
                     onClickCreateSecret={() => undefined}
                   />

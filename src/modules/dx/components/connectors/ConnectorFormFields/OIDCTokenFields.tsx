@@ -1,6 +1,5 @@
 import React from 'react'
 import { FormInput } from '@wings-software/uikit'
-import type { FormikProps } from 'formik'
 import { AuthTypeFields } from 'modules/dx/pages/connectors/Forms/KubeFormHelper'
 import { FormikSecretTextInput } from 'modules/dx/components/SecretInput/SecretTextInput'
 import {
@@ -14,7 +13,6 @@ interface OIDCTokenFieldsProps {
   accountId: string
   projectIdentifier: string
   orgIdentifier: string
-  formikProps: FormikProps<unknown>
   name?: string
   onClickCreateSecret: () => void
   isEditMode?: boolean
@@ -22,7 +20,7 @@ interface OIDCTokenFieldsProps {
 }
 
 const OIDCTokenFields: React.FC<OIDCTokenFieldsProps> = props => {
-  const { accountId, formikProps, name = '' } = props
+  const { accountId, name = '' } = props
   return (
     <>
       <FormInput.Text name={AuthTypeFields.oidcIssuerUrl} label={i18n.PROVIDER_URL} />
@@ -31,7 +29,6 @@ const OIDCTokenFields: React.FC<OIDCTokenFieldsProps> = props => {
         fieldName={AuthTypeFields.oidcPasswordRef}
         label={getLabelForEncryptedSecret(AuthTypeFields.oidcPasswordRef)}
         secretFieldName={getSecretFieldValue(AuthTypeFields.oidcPasswordRef)}
-        formikProps={formikProps}
         accountId={accountId}
         orgIdentifier={props.orgIdentifier}
         projectIdentifier={props.projectIdentifier}
@@ -45,7 +42,6 @@ const OIDCTokenFields: React.FC<OIDCTokenFieldsProps> = props => {
         fieldName={AuthTypeFields.oidcClientIdRef}
         label={getLabelForEncryptedSecret(AuthTypeFields.oidcClientIdRef)}
         secretFieldName={getSecretFieldValue(AuthTypeFields.oidcClientIdRef)}
-        formikProps={formikProps}
         accountId={accountId}
         orgIdentifier={props.orgIdentifier}
         projectIdentifier={props.projectIdentifier}
@@ -59,7 +55,6 @@ const OIDCTokenFields: React.FC<OIDCTokenFieldsProps> = props => {
         fieldName={AuthTypeFields.oidcSecretRef}
         label={getLabelForEncryptedSecret(AuthTypeFields.oidcSecretRef)}
         secretFieldName={getSecretFieldValue(AuthTypeFields.oidcSecretRef)}
-        formikProps={formikProps}
         accountId={accountId}
         orgIdentifier={props.orgIdentifier}
         projectIdentifier={props.projectIdentifier}

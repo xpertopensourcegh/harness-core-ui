@@ -1,6 +1,5 @@
 import React from 'react'
 import { FormInput } from '@wings-software/uikit'
-import type { FormikProps } from 'formik'
 import { FormikSecretTextInput } from 'modules/dx/components/SecretInput/SecretTextInput'
 import { AuthTypeFields } from 'modules/dx/pages/connectors/Forms/KubeFormHelper'
 import {
@@ -14,7 +13,6 @@ interface ClientKeyCertFieldsProps {
   accountId: string
   projectIdentifier: string
   orgIdentifier: string
-  formikProps: FormikProps<unknown>
   name?: string
   onClickCreateSecret: () => void
   isEditMode?: boolean
@@ -22,14 +20,13 @@ interface ClientKeyCertFieldsProps {
 }
 
 const ClientKeyCertFields: React.FC<ClientKeyCertFieldsProps> = props => {
-  const { formikProps, accountId, name = '' } = props
+  const { accountId, name = '' } = props
   return (
     <>
       <FormikSecretTextInput
         fieldName={AuthTypeFields.clientKeyRef}
         label={getLabelForEncryptedSecret(AuthTypeFields.clientKeyRef)}
         secretFieldName={getSecretFieldValue(AuthTypeFields.clientKeyRef)}
-        formikProps={formikProps}
         accountId={accountId}
         orgIdentifier={props.orgIdentifier}
         projectIdentifier={props.projectIdentifier}
@@ -43,7 +40,6 @@ const ClientKeyCertFields: React.FC<ClientKeyCertFieldsProps> = props => {
         fieldName={AuthTypeFields.clientCertRef}
         label={getLabelForEncryptedSecret(AuthTypeFields.clientCertRef)}
         secretFieldName={getSecretFieldValue(AuthTypeFields.clientCertRef)}
-        formikProps={formikProps}
         accountId={accountId}
         orgIdentifier={props.orgIdentifier}
         projectIdentifier={props.projectIdentifier}
@@ -57,7 +53,6 @@ const ClientKeyCertFields: React.FC<ClientKeyCertFieldsProps> = props => {
         fieldName={AuthTypeFields.clientKeyPassphraseRef}
         label={getLabelForEncryptedSecret(AuthTypeFields.clientKeyPassphraseRef)}
         secretFieldName={getSecretFieldValue(AuthTypeFields.clientKeyPassphraseRef)}
-        formikProps={formikProps}
         accountId={accountId}
         orgIdentifier={props.orgIdentifier}
         projectIdentifier={props.projectIdentifier}
@@ -67,6 +62,20 @@ const ClientKeyCertFields: React.FC<ClientKeyCertFieldsProps> = props => {
         isEditMode={props.isEditMode}
         onEditSecret={props.onEditSecret}
       />
+      <FormikSecretTextInput
+        fieldName={AuthTypeFields.caCertRef}
+        label={getLabelForEncryptedSecret(AuthTypeFields.caCertRef)}
+        secretFieldName={getSecretFieldValue(AuthTypeFields.caCertRef)}
+        accountId={accountId}
+        orgIdentifier={props.orgIdentifier}
+        projectIdentifier={props.projectIdentifier}
+        defaultSecretName={generateDefaultSecretConfig(name, AuthTypeFields.caCertRef)}
+        defaultSecretId={generateDefaultSecretConfig(name, AuthTypeFields.caCertRef)}
+        onClickCreateSecret={props.onClickCreateSecret}
+        isEditMode={props.isEditMode}
+        onEditSecret={props.onEditSecret}
+      />
+
       <FormInput.Text
         name={AuthTypeFields.clientKeyAlgo}
         label={getLabelForEncryptedSecret(AuthTypeFields.clientKeyAlgo)}

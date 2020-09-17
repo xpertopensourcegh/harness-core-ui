@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import type { FormikProps } from 'formik'
-import { Position, Classes } from '@blueprintjs/core'
+import { get, isPlainObject } from 'lodash-es'
+import { Position, Classes, FormGroup, Intent, IFormGroupProps } from '@blueprintjs/core'
 import { Layout, Text, Button, Color, Icon, Popover, FormInput } from '@wings-software/uikit'
-import { connect } from 'formik'
+import { connect, FormikContext } from 'formik'
 import cx from 'classnames'
 import { FormikCreateInlineSecret } from 'modules/common/components/CreateInlineSecret/CreateInlineSecret'
 import SecretReference from 'modules/dx/components/SecretReference/SecretReference'
@@ -14,24 +14,32 @@ export interface SecretInfo {
   value: string
   isReference: boolean
 }
-interface SecretTextInputProps {
+
+interface FormikSecretTextInput extends SecretTextInputProps {
+  formik: FormikContext<any>
+}
+
+interface SecretTextInputProps extends IFormGroupProps {
   fieldName: string
   secretFieldName: string
   label: string
   defaultSecretName: string
   defaultSecretId: string
-  formikProps: FormikProps<any>
   accountId: string
   projectIdentifier?: string
   orgIdentifier?: string
   onClickCreateSecret: () => void
   onEditSecret?: (val: EncryptedDataDTO) => void
-
   isEditMode?: boolean
   onChange?: (values: SecretInfo) => void
 }
 
-const SecretTextField: React.FC<SecretTextInputProps> = props => {
+const errorCheck = (name: string, formik?: FormikContext<any>) =>
+  (get(formik?.touched, name) || (formik?.submitCount && formik?.submitCount > 0)) &&
+  get(formik?.errors, name) &&
+  !isPlainObject(get(formik?.errors, name))
+
+const SecretTextField: React.FC<FormikSecretTextInput> = props => {
   const { accountId, isEditMode = false } = props
   const [showCreateInlineSecret, setShowCreateInlineSecret] = useState<boolean>(true)
   const [isReference, setIsReference] = useState<boolean>()
@@ -60,8 +68,8 @@ const SecretTextField: React.FC<SecretTextInputProps> = props => {
                   </Text>
                   <Text font={{ size: 'small' }} color={Color.BLUE_500}>
                     {isEditMode
-                      ? props.formikProps.values[props.secretFieldName]?.secretName
-                      : props.formikProps.values[props.fieldName]?.value}
+                      ? props.formik?.values[props.secretFieldName]?.secretName
+                      : props.formik?.values[props.fieldName]?.value}
                   </Text>
                 </Layout.Vertical>
                 <Button
@@ -69,11 +77,11 @@ const SecretTextField: React.FC<SecretTextInputProps> = props => {
                   minimal
                   onClick={() =>
                     props.onEditSecret?.({
-                      value: props.formikProps.values[props.fieldName]?.value,
-                      identifier: props.formikProps.values[props.secretFieldName]?.secretId,
-                      name: props.formikProps.values[props.secretFieldName]?.secretName,
-                      secretManager: props.formikProps.values[props.secretFieldName]?.secretManager?.value,
-                      secretManagerName: props.formikProps.values[props.secretFieldName]?.secretManager?.label,
+                      value: props.formik?.values[props.fieldName]?.value,
+                      identifier: props.formik?.values[props.secretFieldName]?.secretId,
+                      name: props.formik?.values[props.secretFieldName]?.secretName,
+                      secretManager: props.formik?.values[props.secretFieldName]?.secretManager?.value,
+                      secretManagerName: props.formik?.values[props.secretFieldName]?.secretManager?.label,
                       account: props.accountId,
                       org: props.orgIdentifier,
                       project: props.projectIdentifier
@@ -109,7 +117,7 @@ const SecretTextField: React.FC<SecretTextInputProps> = props => {
                   identifier: secret?.identifier as string,
                   secretManager: (secret?.spec as SecretTextSpecDTO).secretManagerIdentifier as string
                 })
-                props.formikProps.setFieldValue(props.secretFieldName, {
+                props.formik?.setFieldValue(props.secretFieldName, {
                   secretName: secret?.name,
                   scope: secret?.scope,
                   secretId: secret?.identifier,
@@ -127,7 +135,7 @@ const SecretTextField: React.FC<SecretTextInputProps> = props => {
       <FormInput.Text
         name={`pass${props.fieldName}`}
         onChange={(event: React.FormEvent<HTMLInputElement>) => {
-          props.onChange?.({ value: event.currentTarget.value, isReference: false })
+          props.onChange?.({ value: event.currentTarget?.value, isReference: false })
         }}
         inputGroup={{ type: isReference || isEditMode ? 'text' : 'password', readOnly: isReference || isEditMode }}
         className={cx({
@@ -139,7 +147,7 @@ const SecretTextField: React.FC<SecretTextInputProps> = props => {
         <Layout.Vertical>
           <Layout.Horizontal height={'36px'} background={Color.GREY_200} border={{ radius: 6 }} padding={'xsmall'}>
             <Text tooltip={i18n.ENCRYPTED_TEXT} tooltipProps={{ isDark: true }} className={css.secretName}>
-              {props.isEditMode ? props.formikProps.values[props.secretFieldName]?.secretName : secretRefrence.name}
+              {props.isEditMode ? props.formik?.values[props.secretFieldName]?.secretName : secretRefrence.name}
             </Text>
           </Layout.Horizontal>
           <Layout.Horizontal padding={{ top: 'xsmall' }} font={'small'}>
@@ -147,7 +155,7 @@ const SecretTextField: React.FC<SecretTextInputProps> = props => {
               {i18n.ID}
             </Text>
             <Text font={'small'} margin={{ right: 'xsmall' }}>
-              {props.isEditMode ? props.formikProps.values[props.secretFieldName]?.secretId : secretRefrence.identifier}
+              {props.isEditMode ? props.formik?.values[props.secretFieldName]?.secretId : secretRefrence.identifier}
             </Text>
             <Icon name={'full-circle'} size={2} className={css.dotIcon} />
             <Text margin={{ right: 'xsmall' }} color={Color.GREY_400} font={'small'}>
@@ -155,7 +163,7 @@ const SecretTextField: React.FC<SecretTextInputProps> = props => {
             </Text>
             <Text font={'small'}>
               {props.isEditMode
-                ? props.formikProps.values[props.secretFieldName]?.secretManager?.label
+                ? props.formik?.values[props.secretFieldName]?.secretManager?.label
                 : secretRefrence.secretManager}
             </Text>
           </Layout.Horizontal>
@@ -164,7 +172,7 @@ const SecretTextField: React.FC<SecretTextInputProps> = props => {
       {isReference || isEditMode ? null : (
         <Layout.Horizontal flex={{ distribution: 'space-between' }} height={'14px'} margin={{ top: 'xsmall' }}>
           <Text font={{ size: 'xsmall', weight: 'bold' }} color={Color.GREY_800}>
-            {i18n.SECRET_INFO_TEXT(props.label)}
+            {i18n.SECRET_INFO_TEXT}
           </Text>
           <Button
             text="View"
@@ -192,20 +200,31 @@ const SecretTextField: React.FC<SecretTextInputProps> = props => {
   )
 }
 
-const FormikSecretTextInputInternal: React.FC<SecretTextInputProps> = props => {
-  const { formikProps, fieldName, ...rest } = props
+const FormikSecretTextInputInternal: React.FC<FormikSecretTextInput> = props => {
+  const { formik, fieldName, ...rest } = props
+  const hasError = errorCheck(fieldName, formik)
+  const {
+    intent = hasError ? Intent.DANGER : Intent.NONE,
+    helperText = hasError ? get(formik?.errors, fieldName) : null
+  } = rest
   return (
-    <SecretTextField
-      {...rest}
-      formikProps={formikProps}
-      fieldName={fieldName}
-      onChange={values => {
-        formikProps.setFieldValue(fieldName, values)
-      }}
-    />
+    <FormGroup helperText={helperText} intent={intent}>
+      <SecretTextField
+        {...rest}
+        formik={formik}
+        fieldName={fieldName}
+        onChange={values => {
+          if (values?.value === '') {
+            formik.setFieldValue(fieldName, undefined)
+          } else {
+            formik?.setFieldValue(fieldName, values)
+          }
+        }}
+      />
+    </FormGroup>
   )
 }
 
-export const FormikSecretTextInput = connect<Omit<SecretTextInputProps, 'formik'>>(FormikSecretTextInputInternal)
+export const FormikSecretTextInput = connect<Omit<FormikSecretTextInput, 'formik'>>(FormikSecretTextInputInternal)
 
 export default SecretTextField

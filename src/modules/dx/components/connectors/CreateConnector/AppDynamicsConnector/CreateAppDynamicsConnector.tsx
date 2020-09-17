@@ -175,7 +175,6 @@ function ConnectionConfigStep(props: ConnectionConfigProps): JSX.Element {
               isEditMode={isEdit}
               orgIdentifier={props.orgIdentifier || ''}
               projectIdentifier={props.projectIdentifier || ''}
-              formikProps={formikProps}
               passwordField={AuthTypeFields.passwordRef}
               name={props.formData?.name}
               onEditSecret={val => {

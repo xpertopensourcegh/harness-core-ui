@@ -28,6 +28,7 @@ import {
   getSecretFieldsByType,
   SecretFieldByType
 } from 'modules/dx/pages/connectors/Forms/KubeFormHelper'
+import type { SecretInfo } from 'modules/dx/components/SecretInput/SecretTextInput'
 import UsernamePassword from '../../../ConnectorFormFields/UsernamePassword'
 
 import i18n from '../CreateDockerConnector.i18n'
@@ -115,13 +116,14 @@ const StepDockerAuthentication: React.FC<StepProps<StepDockerAuthenticationProps
         <Formik
           initialValues={{
             username: '',
-            passwordRef: { name: '', isReference: false },
+            passwordRef: undefined,
             dockerRegistryUrl: '',
             ...prevStepData
           }}
           validationSchema={Yup.object().shape({
             dockerRegistryUrl: Yup.string().trim().required(i18n.STEP_TWO.validation.dockerUrl),
-            username: Yup.string().trim().required(i18n.STEP_TWO.validation.username)
+            username: Yup.string().trim().required(i18n.STEP_TWO.validation.username),
+            passwordRef: Yup.string().trim().required(i18n.STEP_TWO.validation.passwordRef)
           })}
           onSubmit={stepData => {
             const connectorData = {
@@ -134,7 +136,7 @@ const StepDockerAuthentication: React.FC<StepProps<StepDockerAuthenticationProps
             const passwordFields = getSecretFieldsByType('UsernamePassword') || []
             const nonReferencedFields = passwordFields
               .map((item: SecretFieldByType) => {
-                if (!connectorData.passwordRef.isReference) {
+                if (!((connectorData.passwordRef as unknown) as SecretInfo)?.isReference) {
                   return item
                 }
               })
@@ -154,7 +156,7 @@ const StepDockerAuthentication: React.FC<StepProps<StepDockerAuthenticationProps
             }
           }}
         >
-          {formikProps => (
+          {() => (
             <Form>
               <ModalErrorHandler bind={setModalErrorHandler} />
               <Layout.Vertical padding={{ top: 'large', bottom: 'large' }} width={'64%'}>
@@ -165,7 +167,6 @@ const StepDockerAuthentication: React.FC<StepProps<StepDockerAuthenticationProps
                   accountId={accountId}
                   orgIdentifier={orgIdentifier}
                   projectIdentifier={projectIdentifier}
-                  formikProps={formikProps}
                   passwordField={AuthTypeFields.passwordRef}
                   onClickCreateSecret={() => setShowCreateSecretModal(true)}
                   onEditSecret={val => {

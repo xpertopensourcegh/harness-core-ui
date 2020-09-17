@@ -30,6 +30,7 @@ import {
   SecretFieldByType
 } from 'modules/dx/pages/connectors/Forms/KubeFormHelper'
 import { AuthTypes, getLabelForAuthType } from 'modules/dx/pages/connectors/utils/ConnectorHelper'
+import type { SecretInfo } from 'modules/dx/components/SecretInput/SecretTextInput'
 import UsernamePassword from '../../../ConnectorFormFields/UsernamePassword'
 import i18n from './HttpCredentialStep.i18n'
 import css from './HttpCredentialStep.module.scss'
@@ -130,19 +131,18 @@ const HttpCredentialStep: React.FC<HttpCredentialStepProps> = props => {
         </Text>
         <Formik
           initialValues={{
-            authType: props.formData?.authType || '',
+            authType: props.formData?.authType || authType.value,
             username: props.formData?.username || '',
             branchName: props.formData?.branchName || '',
             ...props.formData,
-            passwordRef: { name: '', isReference: false },
-            passwordRefSecret: {
-              secretId: '',
-              secretName: '',
-              secretManager: { value: '' } as SelectOption
-            }
+            passwordRef: undefined
           }}
           validationSchema={Yup.object().shape({
-            username: Yup.string().trim().required('Username is required')
+            username: Yup.string().trim().required(i18n.validation.username),
+            passwordRef: Yup.string().when('authType', {
+              is: AuthTypes.USER_PASSWORD,
+              then: Yup.string().trim().required(i18n.validation.passwordRef)
+            })
           })}
           onSubmit={formData => {
             const connectorData = {
@@ -157,7 +157,7 @@ const HttpCredentialStep: React.FC<HttpCredentialStepProps> = props => {
             const passwordFields = getSecretFieldsByType('UsernamePassword') || []
             const nonReferencedFields = passwordFields
               .map((item: SecretFieldByType) => {
-                if (!connectorData.passwordRef?.isReference) {
+                if (!((connectorData.passwordRef as unknown) as SecretInfo)?.isReference) {
                   return item
                 }
               })
@@ -210,7 +210,6 @@ const HttpCredentialStep: React.FC<HttpCredentialStepProps> = props => {
                   accountId={props.accountId}
                   orgIdentifier={props.orgIdentifier}
                   projectIdentifier={props.projectIdentifier}
-                  formikProps={formikProps}
                   passwordField={AuthTypeFields.passwordRef}
                   onClickCreateSecret={() => setShowCreateSecretModal(true)}
                   onEditSecret={val => {

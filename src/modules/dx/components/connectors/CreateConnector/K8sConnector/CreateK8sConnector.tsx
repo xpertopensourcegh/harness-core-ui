@@ -384,17 +384,45 @@ const IntermediateStep: React.FC<IntermediateStepProps> = props => {
           }}
           validationSchema={Yup.object().shape({
             masterUrl: Yup.string().required(i18n.STEP_INTERMEDIATE.validation.masterUrl),
-            // Todo: passwordRef: Yup.string().when('authType', {
-            //   is: 'UsernamePassword',
-            //   then: Yup.string().trim().required(i18n.STEP_INTERMEDIATE.validation.passwordRef)
-            // }),
+            passwordRef: Yup.string().when('authType', {
+              is: AuthTypes.USER_PASSWORD,
+              then: Yup.string().trim().required(i18n.STEP_INTERMEDIATE.validation.passwordRef)
+            }),
             username: Yup.string().when('authType', {
-              is: AuthTypes.USER_PASSWORD || AuthTypes.OIDC,
+              is: AuthTypes.USER_PASSWORD,
               then: Yup.string().trim().required(i18n.STEP_INTERMEDIATE.validation.username)
+            }),
+            serviceAccountTokenRef: Yup.string().when('authType', {
+              is: AuthTypes.SERVICE_ACCOUNT,
+              then: Yup.string().trim().required(i18n.STEP_INTERMEDIATE.validation.serviceAccountTokenRef)
             }),
             oidcIssuerUrl: Yup.string().when('authType', {
               is: AuthTypes.OIDC,
               then: Yup.string().trim().required(i18n.STEP_INTERMEDIATE.validation.oidcIssueUrl)
+            }),
+            oidcUsername: Yup.string().when('authType', {
+              is: AuthTypes.OIDC,
+              then: Yup.string().trim().required(i18n.STEP_INTERMEDIATE.validation.username)
+            }),
+            oidcPasswordRef: Yup.string().when('authType', {
+              is: AuthTypes.OIDC,
+              then: Yup.string().trim().required(i18n.STEP_INTERMEDIATE.validation.oidcPasswordRef)
+            }),
+            oidcClientIdRef: Yup.string().when('authType', {
+              is: AuthTypes.OIDC,
+              then: Yup.string().trim().required(i18n.STEP_INTERMEDIATE.validation.oidcClientIdRef)
+            }),
+            clientCertRef: Yup.string().when('authType', {
+              is: AuthTypes.CLIENT_KEY_CERT,
+              then: Yup.string().trim().required(i18n.STEP_INTERMEDIATE.validation.clientCertRef)
+            }),
+            clientKeyRef: Yup.string().when('authType', {
+              is: AuthTypes.CLIENT_KEY_CERT,
+              then: Yup.string().trim().required(i18n.STEP_INTERMEDIATE.validation.clientKeyRef)
+            }),
+            clientKeyPassphraseRef: Yup.string().when('authType', {
+              is: AuthTypes.CLIENT_KEY_CERT,
+              then: Yup.string().trim().required(i18n.STEP_INTERMEDIATE.validation.clientKeyPassphraseRef)
             })
           })}
           onSubmit={formData => {
@@ -489,7 +517,6 @@ const IntermediateStep: React.FC<IntermediateStepProps> = props => {
                     accountId={props.accountId}
                     orgIdentifier={props.orgIdentifier}
                     projectIdentifier={props.projectIdentifier}
-                    formikProps={formikProps}
                     authType={props.state.authentication?.value}
                     name={state.formData?.name}
                     onClickCreateSecret={() => setShowCreateSecretModal(true)}
