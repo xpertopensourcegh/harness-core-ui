@@ -27,28 +27,11 @@
       }
     }
   }
-
-  .scatterOuterContainer,
-  .columnChartContainer {
-    height: 38%;
-    width: 85%;
-    margin: 0 auto;
-    margin-bottom: 25px;
-  }
-
-  .scatterPlotContainer {
-    height: 100%;
-  }
-
-  .scatterPlotContainer,
-  .columnChartContainer {
-    > div {
-      width: 100%;
-      height: 100%;
-    }
-  }
-
   .logContainer {
     height: 52%;
   }
+}
+
+.noDataCard {
+  margin-top: 0 !important;
 }

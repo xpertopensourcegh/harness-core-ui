@@ -1,14 +1,16 @@
 .servicesPage {
   display: flex;
   height: 100%;
-  padding: var(--spacing-large) !important;
   .fixedServices {
-    margin-right: var(--spacing-large);
+    position: fixed;
   }
   .content {
     flex: 1;
     display: flex;
     flex-direction: column;
+    padding: var(--spacing-large) !important;
+    margin-left: 260px;
+
     .serviceHeader {
       flex-basis: var(--spacing-huge);
       margin-bottom: var(--spacing-medium);

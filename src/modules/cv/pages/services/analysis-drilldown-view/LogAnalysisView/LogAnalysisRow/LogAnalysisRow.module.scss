@@ -6,7 +6,7 @@
   }
   .mainRow {
     display: grid;
-    grid-template-columns: 50px 78px 50px 3fr 60px minmax(0, 1fr);
+    grid-template-columns: 100px 3fr 60px minmax(0, 1fr) 50px;
     grid-column-gap: var(--spacing-medium);
 
     .logRowText {
@@ -21,13 +21,14 @@
 
     .compareDataColumn {
       display: flex;
-      justify-content: space-between;
       align-items: baseline;
+      input {
+        margin-right: var(--spacing-small);
+      }
 
       input,
       [class*='bp3-icon'] {
         cursor: pointer;
-        margin: 0 auto;
       }
     }
 
@@ -69,6 +70,10 @@
 
     .dataColumn {
       padding-top: var(--spacing-small);
+    }
+
+    .actions {
+      display: flex;
     }
   }
 }

@@ -10,15 +10,23 @@ export interface RiskScoreTileProps {
   riskScore: number
   className?: string
   textProps?: TextProps
+  isLarge?: boolean
+  isSmall?: boolean
 }
 
 export function RiskScoreTile(props: RiskScoreTileProps): JSX.Element {
-  const { riskScore, className, textProps } = props
+  const { riskScore, className, textProps, isSmall, isLarge } = props
   const isRiskScoreDefined = isNumber(riskScore) && riskScore > -1
 
   return (
     <Container
-      className={cx(css.main, className, isRiskScoreDefined ? getColorStyle(riskScore, 0, 100) : css.noRiskScore)}
+      className={cx(
+        css.main,
+        isSmall ? css.smallTile : undefined,
+        isLarge ? css.largeTile : undefined,
+        className,
+        isRiskScoreDefined ? getColorStyle(riskScore, 0, 100) : css.noRiskScore
+      )}
     >
       <Text color={Color.WHITE} className={css.riskScore} {...textProps}>
         {isRiskScoreDefined ? riskScore : ''}

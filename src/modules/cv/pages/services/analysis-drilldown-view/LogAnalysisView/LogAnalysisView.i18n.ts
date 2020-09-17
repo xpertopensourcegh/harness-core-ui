@@ -6,5 +6,7 @@ export default {
   analysisTabs: {
     anomalous: 'ANOMALOUS LOGS',
     all: 'ALL LOGS'
-  }
+  },
+  noDataText: 'No analysis was retrieved.',
+  retryButtonText: 'Retry'
 }

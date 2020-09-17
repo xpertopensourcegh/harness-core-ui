@@ -5,7 +5,7 @@ import { SampleData, ActivityHeadingContent } from '../LogAnalysisRiskAndJiraMod
 import css from './LogAnalysisCompareDrawer.module.scss'
 
 interface LogAnalysisCompareModalProps {
-  rowsToCompare: Array<{ count: number; logText: string; anomalyType: string; trendData: Highcharts.Options }>
+  rowsToCompare: Array<{ count: number; logText: string; anomalyType: string; trendLineOptions: Highcharts.Options }>
   onHide: () => void
 }
 
@@ -31,13 +31,13 @@ export default function LogAnalysisCompareDrawer(props: LogAnalysisCompareModalP
   return (
     <Drawer {...DrawerProps} onClose={onHideCallback} isOpen={isOpen} className={css.main}>
       {rowsToCompare.map((row, index) => {
-        const { anomalyType, count, trendData, logText } = row
+        const { anomalyType, count, trendLineOptions, logText } = row
         return (
-          <Container className={css.rowContent} key={`${count}-${trendData}-${anomalyType}-${index}`}>
+          <Container className={css.rowContent} key={`${count}-${anomalyType}-${index}`}>
             <Heading level={2} color={Color.BLACK} className={css.anomalyType}>
               {anomalyType}
             </Heading>
-            <ActivityHeadingContent count={count} trendData={trendData} />
+            <ActivityHeadingContent count={count} trendData={trendLineOptions} />
             <SampleData logMessage={logText} />
           </Container>
         )

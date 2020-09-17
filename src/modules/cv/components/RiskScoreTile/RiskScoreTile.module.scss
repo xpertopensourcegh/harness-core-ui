@@ -14,6 +14,22 @@
   }
 }
 
+.smallTile {
+  width: 25px;
+  height: 17px;
+  .riskScore {
+    font: var(--font-size-xsmall) !important;
+  }
+}
+
+.largeTile {
+  border-radius: 0;
+  padding: var(--spacing-large) !important;
+  .riskScore {
+    font-size: var(--font-size-medium) !important;
+  }
+}
+
 .noRiskScore {
   background-color: var(--grey-250) !important;
 }

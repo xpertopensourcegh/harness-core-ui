@@ -12,6 +12,7 @@ declare const styles: {
   readonly logText: string
   readonly lineChartContainer: string
   readonly dataColumn: string
+  readonly actions: string
   readonly columnHeader: string
   readonly dataRow: string
   readonly highlightRow: string

@@ -6,7 +6,10 @@ export default function configureTimelineOptions(points: Array<{ x: number; y: n
     chart: {
       height: 35,
       type: 'line',
-      backgroundColor: ''
+      backgroundColor: '',
+      style: {
+        fontFamily: 'var(--font-family)'
+      }
     },
     credits: { enabled: false },
     title: {

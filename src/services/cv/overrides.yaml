@@ -15,6 +15,9 @@ allowpaths:
   - /verification-job
   - /timeseries-dashboard/anomalous-metric-data
   - /timeseries-dashboard/metric-data
+  - /log-dashboard/all-logs
+  - /log-dashboard/anomalous-logs
+  - /log-dashboard/log-count-by-tags
 operationIdOverrides:
   /appdynamics/applications.get: getAppDynamicsApplications
   /appdynamics/metric-data.post: getAppDynamicsMetricData

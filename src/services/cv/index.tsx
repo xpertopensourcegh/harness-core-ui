@@ -14,23 +14,6 @@ export interface RestResponseVerificationJobDTO {
   responseMessages?: ResponseMessage[]
 }
 
-export interface AppdynamicsMetricValueValidationResponse {
-  metricName?: string
-  apiResponseStatus?: 'SUCCESS' | 'NO_DATA' | 'FAILED'
-  value?: number
-  errorMessage?: string
-}
-
-export interface MetricPackDTO {
-  accountId?: string
-  projectIdentifier?: string
-  dataSourceType?: 'APP_DYNAMICS' | 'SPLUNK'
-  identifier?: string
-  category?: 'PERFORMANCE' | 'QUALITY' | 'RESOURCES'
-  metrics?: MetricDefinitionDTO[]
-  thresholds?: TimeSeriesThresholdDTO[]
-}
-
 export interface TimeSeriesTestDataDTO {
   cvConfigId?: string
   transactionMetricValues?: {
@@ -43,6 +26,16 @@ export interface TimeSeriesTestDataDTO {
       [key: string]: MetricData[]
     }
   }
+}
+
+export interface MetricPackDTO {
+  accountId?: string
+  projectIdentifier?: string
+  dataSourceType?: 'APP_DYNAMICS' | 'SPLUNK'
+  identifier?: string
+  category?: 'PERFORMANCE' | 'QUALITY' | 'RESOURCES'
+  metrics?: MetricDefinitionDTO[]
+  thresholds?: TimeSeriesThresholdDTO[]
 }
 
 export interface Histogram {
@@ -82,6 +75,11 @@ export interface RestResponseString {
   responseMessages?: ResponseMessage[]
 }
 
+export interface EnvToServicesDTO {
+  environment?: EnvironmentResponseDTO
+  services?: ServiceResponseDTO[]
+}
+
 export interface RestResponseListTimeSeriesMetricDefinition {
   metaData?: {
     [key: string]: { [key: string]: any }
@@ -90,9 +88,12 @@ export interface RestResponseListTimeSeriesMetricDefinition {
   responseMessages?: ResponseMessage[]
 }
 
-export interface EnvToServicesDTO {
-  environment?: EnvironmentResponseDTO
-  services?: ServiceResponseDTO[]
+export interface RestResponseNGPageResponseAnalyzedLogDataDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: NGPageResponseAnalyzedLogDataDTO
+  responseMessages?: ResponseMessage[]
 }
 
 export interface RestResponseListEnvToServicesDTO {
@@ -101,6 +102,13 @@ export interface RestResponseListEnvToServicesDTO {
   }
   resource?: EnvToServicesDTO[]
   responseMessages?: ResponseMessage[]
+}
+
+export interface DataCollectionTaskResult {
+  dataCollectionTaskId?: string
+  status?: 'FAILED' | 'QUEUED' | 'RUNNING' | 'WAITING' | 'EXPIRED' | 'SUCCESS'
+  exception?: string
+  stacktrace?: string
 }
 
 export interface VerificationJobDTO {
@@ -115,11 +123,12 @@ export interface VerificationJobDTO {
   type?: 'TEST' | 'CANARY' | 'BLUE_GREEN' | 'HEALTH'
 }
 
-export interface DataCollectionTaskResult {
-  dataCollectionTaskId?: string
-  status?: 'FAILED' | 'QUEUED' | 'RUNNING' | 'WAITING' | 'EXPIRED' | 'SUCCESS'
-  exception?: string
-  stacktrace?: string
+export interface AnalyzedLogDataDTO {
+  projectIdentifier?: string
+  orgIdentifier?: string
+  environmentIdentifier?: string
+  serviceIdentifier?: string
+  logData?: LogData
 }
 
 export interface LogRecordDTO {
@@ -131,19 +140,19 @@ export interface LogRecordDTO {
   log?: string
 }
 
-export interface RestResponseSetAppdynamicsValidationResponse {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: AppdynamicsValidationResponse[]
-  responseMessages?: ResponseMessage[]
-}
-
 export interface RestResponseOptionalDataCollectionTaskDTO {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
   resource?: DataCollectionTaskDTO
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseSetAppdynamicsValidationResponse {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: AppdynamicsValidationResponse[]
   responseMessages?: ResponseMessage[]
 }
 
@@ -176,16 +185,6 @@ export interface LogAnalysisDTO {
   logAnalysisResults?: AnalysisResult[]
 }
 
-export interface AppDynamicsTier {
-  id?: number
-  name?: string
-}
-
-export interface DeploymentTimeSeriesAnalysisDTO {
-  resultSummary?: ResultSummary
-  hostSummaries?: HostSummary[]
-}
-
 export interface EnvironmentResponseDTO {
   accountId?: string
   orgIdentifier?: string
@@ -194,6 +193,26 @@ export interface EnvironmentResponseDTO {
   name?: string
   type?: 'PreProduction' | 'Production'
   deleted?: boolean
+}
+
+export interface DeploymentTimeSeriesAnalysisDTO {
+  resultSummary?: ResultSummary
+  hostSummaries?: HostSummary[]
+}
+
+export interface AppDynamicsTier {
+  id?: number
+  name?: string
+}
+
+export interface ClusterSummary {
+  label?: number
+  clusterType?: 'KNOWN_EVENT' | 'UNKNOWN_EVENT' | 'UNEXPECTED_FREQUENCY'
+  risk?: number
+  score?: number
+  count?: number
+  controlFrequencyData?: number[]
+  testFrequencyData?: number[]
 }
 
 export interface HeatMapDTO {
@@ -221,19 +240,19 @@ export interface RestResponseMapCVMonitoringCategorySortedSetHeatMapDTO {
   responseMessages?: ResponseMessage[]
 }
 
-export interface RestResponseListEnvServiceRiskDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: EnvServiceRiskDTO[]
-  responseMessages?: ResponseMessage[]
-}
-
 export interface RestResponseListLogClusterDTO {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
   resource?: LogClusterDTO[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListEnvServiceRiskDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: EnvServiceRiskDTO[]
   responseMessages?: ResponseMessage[]
 }
 
@@ -315,6 +334,14 @@ export interface RestResponseLearningEngineTask {
   responseMessages?: ResponseMessage[]
 }
 
+export interface LogData {
+  text?: string
+  label?: number
+  count?: number
+  trend?: Frequency[]
+  tag?: 'KNOWN' | 'UNEXPECTED' | 'UNKNOWN'
+}
+
 export interface MetricPack {
   uuid?: string
   createdAt?: number
@@ -341,18 +368,12 @@ export interface MetricSum {
   sum?: number
 }
 
-export interface RestResponseSetAppDynamicsTier {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: AppDynamicsTier[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface ResultSummary {
-  risk?: number
-  score?: number
-  transactionSummaries?: TransactionSummary[]
+export interface HostRecordDTO {
+  accountId?: string
+  verificationTaskId?: string
+  hosts?: string[]
+  startTime?: number
+  endTime?: number
 }
 
 export interface TimeSeriesMetricDataDTO {
@@ -366,12 +387,25 @@ export interface TimeSeriesMetricDataDTO {
   metricDataList?: MetricData[]
 }
 
-export interface HostRecordDTO {
-  accountId?: string
-  verificationTaskId?: string
-  hosts?: string[]
-  startTime?: number
-  endTime?: number
+export interface ResultSummary {
+  risk?: number
+  score?: number
+  controlClusterLabels?: number[]
+  testClusterSummaries?: ClusterSummary[]
+}
+
+export interface RestResponseSetAppDynamicsTier {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: AppDynamicsTier[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface DeploymentLogAnalysisDTO {
+  clusters?: Cluster[]
+  resultSummary?: ResultSummary
+  hostSummaries?: HostSummary[]
 }
 
 export interface TimeSeriesDataRecordGroupValue {
@@ -381,7 +415,7 @@ export interface TimeSeriesDataRecordGroupValue {
 
 export interface AnalysisResult {
   label?: number
-  tag?: string
+  tag?: 'KNOWN' | 'UNEXPECTED' | 'UNKNOWN'
   count?: number
 }
 
@@ -396,6 +430,11 @@ export interface RestResponseListLogAnalysisCluster {
   }
   resource?: LogAnalysisCluster[]
   responseMessages?: ResponseMessage[]
+}
+
+export interface Frequency {
+  timestamp?: number
+  count?: number
 }
 
 export interface LogAnalysisCluster {
@@ -448,6 +487,13 @@ export interface ServiceGuardTxnMetricAnalysisDataDTO {
   keyTransaction?: boolean
 }
 
+export interface AppdynamicsMetricValueValidationResponse {
+  metricName?: string
+  apiResponseStatus?: 'SUCCESS' | 'NO_DATA' | 'FAILED'
+  value?: number
+  errorMessage?: string
+}
+
 export interface RestResponseListCVConfig {
   metaData?: {
     [key: string]: { [key: string]: any }
@@ -464,13 +510,6 @@ export interface RestResponseMapCVMonitoringCategoryInteger {
     [key: string]: number
   }
   responseMessages?: ResponseMessage[]
-}
-
-export interface DeploymentVerificationTaskDTO {
-  verificationJobIdentifier: string
-  oldVersionHosts?: string[]
-  newVersionHosts?: string[]
-  newHostsTrafficSplitPercentage?: number
 }
 
 export interface TimeSeriesDataCollectionRecord {
@@ -515,6 +554,7 @@ export interface LearningEngineTask {
     | 'SERVICE_GUARD_TIME_SERIES'
     | 'LOG_CLUSTER'
     | 'SERVICE_GUARD_LOG_ANALYSIS'
+    | 'CANARY_LOG_ANALYSIS'
     | 'TIME_SERIES_CANARY'
     | 'SERVICE_GUARD_FEEDBACK_ANALYSIS'
   taskPriority?: number
@@ -528,6 +568,7 @@ export interface LearningEngineTask {
     | 'SERVICE_GUARD_TIME_SERIES'
     | 'LOG_CLUSTER'
     | 'SERVICE_GUARD_LOG_ANALYSIS'
+    | 'CANARY_LOG_ANALYSIS'
     | 'TIME_SERIES_CANARY'
     | 'SERVICE_GUARD_FEEDBACK_ANALYSIS'
 }
@@ -563,6 +604,11 @@ export interface DataCollectionTaskDTO {
   dataCollectionInfo?: DataCollectionInfo
   startTime?: number
   endTime?: number
+}
+
+export interface CountByTag {
+  tag?: 'KNOWN' | 'UNEXPECTED' | 'UNKNOWN'
+  count?: number
 }
 
 export interface RestResponseListDSConfig {
@@ -848,6 +894,8 @@ export interface ResponseMessage {
     | 'NO_INSTALLED_DELEGATES'
     | 'DUPLICATE_DELEGATE_EXCEPTION'
     | 'GCP_MARKETPLACE_EXCEPTION'
+    | 'MISSING_DEFAULT_GOOGLE_CREDENTIALS'
+    | 'INCORRECT_DEFAULT_GOOGLE_CREDENTIALS'
   level?: 'INFO' | 'ERROR'
   message?: string
   exception?: Throwable
@@ -877,6 +925,13 @@ export interface AppdynamicsValidationResponse {
   metricPackName?: string
   overallStatus?: 'SUCCESS' | 'NO_DATA' | 'FAILED'
   values?: AppdynamicsMetricValueValidationResponse[]
+}
+
+export interface VerificationJobInstanceDTO {
+  verificationJobIdentifier: string
+  oldVersionHosts?: string[]
+  newVersionHosts?: string[]
+  newHostsTrafficSplitPercentage?: number
 }
 
 export interface AnomalyDetailDTO {
@@ -977,9 +1032,13 @@ export interface RestResponseMapStringMapStringMetricSum {
   responseMessages?: ResponseMessage[]
 }
 
+export interface LogDataByTag {
+  timestamp?: number
+  countByTags?: CountByTag[]
+}
+
 export interface HostSummary {
-  hostName?: string
-  isNewHost?: string
+  host?: string
   resultSummary?: ResultSummary
 }
 
@@ -1041,7 +1100,7 @@ export interface RestResponseListString {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
-  resource?: MetricData[]
+  resource?: string[]
   responseMessages?: ResponseMessage[]
 }
 
@@ -1050,6 +1109,21 @@ export interface RestResponseCVConfig {
     [key: string]: { [key: string]: any }
   }
   resource?: CVConfig
+  responseMessages?: ResponseMessage[]
+}
+
+export interface Cluster {
+  text?: string
+  label?: number
+  x?: number
+  y?: number
+}
+
+export interface RestResponseListLogDataByTag {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: LogDataByTag[]
   responseMessages?: ResponseMessage[]
 }
 
@@ -1075,10 +1149,19 @@ export interface DataCollectionInfo {
   }
 }
 
+export interface NGPageResponseAnalyzedLogDataDTO {
+  pageCount?: number
+  itemCount?: number
+  pageSize?: number
+  content?: AnalyzedLogDataDTO[]
+  pageIndex?: number
+  empty?: boolean
+}
+
 export interface MetricData {
   timestamp?: number
   value?: number
-  risk?: number
+  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW_RISK' | 'MEDIUM_RISK' | 'HIGH_RISK'
 }
 
 export type CVConfigArrayRequestBody = CVConfig[]
@@ -1666,18 +1749,18 @@ export const useSaveVerificationJob = (props: UseSaveVerificationJobProps) =>
     ...props
   })
 
-export interface DeleteJobByGroupQueryParams {
+export interface DeleteVerificationJobQueryParams {
   accountId?: string
   identifier?: string
 }
 
-export type DeleteJobByGroupProps = Omit<
-  MutateProps<void, void, DeleteJobByGroupQueryParams, void, void>,
+export type DeleteVerificationJobProps = Omit<
+  MutateProps<void, void, DeleteVerificationJobQueryParams, void, void>,
   'path' | 'verb'
 >
 
-export const DeleteJobByGroup = (props: DeleteJobByGroupProps) => (
-  <Mutate<void, void, DeleteJobByGroupQueryParams, void, void>
+export const DeleteVerificationJob = (props: DeleteVerificationJobProps) => (
+  <Mutate<void, void, DeleteVerificationJobQueryParams, void, void>
     verb="DELETE"
     path={`/verification-job`}
     base={getConfig('cv-nextgen')}
@@ -1685,26 +1768,26 @@ export const DeleteJobByGroup = (props: DeleteJobByGroupProps) => (
   />
 )
 
-export type UseDeleteJobByGroupProps = Omit<
-  UseMutateProps<void, void, DeleteJobByGroupQueryParams, void, void>,
+export type UseDeleteVerificationJobProps = Omit<
+  UseMutateProps<void, void, DeleteVerificationJobQueryParams, void, void>,
   'path' | 'verb'
 >
 
-export const useDeleteJobByGroup = (props: UseDeleteJobByGroupProps) =>
-  useMutate<void, void, DeleteJobByGroupQueryParams, void, void>('DELETE', `/verification-job`, {
+export const useDeleteVerificationJob = (props: UseDeleteVerificationJobProps) =>
+  useMutate<void, void, DeleteVerificationJobQueryParams, void, void>('DELETE', `/verification-job`, {
     base: getConfig('cv-nextgen'),
     ...props
   })
 
 export interface GetAnomalousMetricDataQueryParams {
-  accountId?: string
-  projectIdentifier?: string
-  orgIdentifier?: string
+  accountId: string
+  projectIdentifier: string
+  orgIdentifier: string
   environmentIdentifier?: string
   serviceIdentifier?: string
-  monitoringCategory?: string
-  startTime?: number
-  endTime?: number
+  monitoringCategory: string
+  startTime: number
+  endTime: number
   page?: number
   size?: number
 }
@@ -1734,14 +1817,14 @@ export const useGetAnomalousMetricData = (props: UseGetAnomalousMetricDataProps)
   )
 
 export interface GetMetricDataQueryParams {
-  accountId?: string
-  projectIdentifier?: string
-  orgIdentifier?: string
+  accountId: string
+  projectIdentifier: string
+  orgIdentifier: string
   environmentIdentifier?: string
   serviceIdentifier?: string
   monitoringCategory?: string
-  startTime?: number
-  endTime?: number
+  startTime: number
+  endTime: number
   page?: number
   size?: number
 }
@@ -1769,3 +1852,112 @@ export const useGetMetricData = (props: UseGetMetricDataProps) =>
     `/timeseries-dashboard/metric-data`,
     { base: getConfig('cv-nextgen'), ...props }
   )
+
+export interface GetAllLogsQueryParams {
+  accountId?: string
+  projectIdentifier: string
+  orgIdentifier: string
+  environmentIdentifier?: string
+  serviceIdentifier?: string
+  monitoringCategory: string
+  startTime: number
+  endTime: number
+  page?: number
+  size?: number
+}
+
+export type GetAllLogsProps = Omit<
+  GetProps<RestResponseNGPageResponseAnalyzedLogDataDTO, unknown, GetAllLogsQueryParams, void>,
+  'path'
+>
+
+export const GetAllLogs = (props: GetAllLogsProps) => (
+  <Get<RestResponseNGPageResponseAnalyzedLogDataDTO, unknown, GetAllLogsQueryParams, void>
+    path={`/log-dashboard/all-logs`}
+    base={getConfig('cv-nextgen')}
+    {...props}
+  />
+)
+
+export type UseGetAllLogsProps = Omit<
+  UseGetProps<RestResponseNGPageResponseAnalyzedLogDataDTO, unknown, GetAllLogsQueryParams, void>,
+  'path'
+>
+
+export const useGetAllLogs = (props: UseGetAllLogsProps) =>
+  useGet<RestResponseNGPageResponseAnalyzedLogDataDTO, unknown, GetAllLogsQueryParams, void>(
+    `/log-dashboard/all-logs`,
+    { base: getConfig('cv-nextgen'), ...props }
+  )
+
+export interface GetAnomalousLogsQueryParams {
+  accountId?: string
+  projectIdentifier: string
+  orgIdentifier: string
+  environmentIdentifier?: string
+  serviceIdentifier?: string
+  monitoringCategory: string
+  startTime: number
+  endTime: number
+  page?: number
+  size?: number
+}
+
+export type GetAnomalousLogsProps = Omit<
+  GetProps<RestResponseNGPageResponseAnalyzedLogDataDTO, unknown, GetAnomalousLogsQueryParams, void>,
+  'path'
+>
+
+export const GetAnomalousLogs = (props: GetAnomalousLogsProps) => (
+  <Get<RestResponseNGPageResponseAnalyzedLogDataDTO, unknown, GetAnomalousLogsQueryParams, void>
+    path={`/log-dashboard/anomalous-logs`}
+    base={getConfig('cv-nextgen')}
+    {...props}
+  />
+)
+
+export type UseGetAnomalousLogsProps = Omit<
+  UseGetProps<RestResponseNGPageResponseAnalyzedLogDataDTO, unknown, GetAnomalousLogsQueryParams, void>,
+  'path'
+>
+
+export const useGetAnomalousLogs = (props: UseGetAnomalousLogsProps) =>
+  useGet<RestResponseNGPageResponseAnalyzedLogDataDTO, unknown, GetAnomalousLogsQueryParams, void>(
+    `/log-dashboard/anomalous-logs`,
+    { base: getConfig('cv-nextgen'), ...props }
+  )
+
+export interface GetTagCountQueryParams {
+  accountId?: string
+  projectIdentifier: string
+  orgIdentifier: string
+  environmentIdentifier?: string
+  serviceIdentifier?: string
+  monitoringCategory: string
+  startTime: number
+  endTime: number
+}
+
+export type GetTagCountProps = Omit<
+  GetProps<RestResponseListLogDataByTag, unknown, GetTagCountQueryParams, void>,
+  'path'
+>
+
+export const GetTagCount = (props: GetTagCountProps) => (
+  <Get<RestResponseListLogDataByTag, unknown, GetTagCountQueryParams, void>
+    path={`/log-dashboard/log-count-by-tags`}
+    base={getConfig('cv-nextgen')}
+    {...props}
+  />
+)
+
+export type UseGetTagCountProps = Omit<
+  UseGetProps<RestResponseListLogDataByTag, unknown, GetTagCountQueryParams, void>,
+  'path'
+>
+
+export const useGetTagCount = (props: UseGetTagCountProps) =>
+  useGet<RestResponseListLogDataByTag, unknown, GetTagCountQueryParams, void>(`/log-dashboard/log-count-by-tags`, {
+    base: getConfig('cv-nextgen'),
+    ...props
+  })

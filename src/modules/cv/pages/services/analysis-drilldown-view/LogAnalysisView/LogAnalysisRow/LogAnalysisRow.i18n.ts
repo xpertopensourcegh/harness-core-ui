@@ -1,13 +1,18 @@
 export default {
   logAnalaysisTableColumns: {
-    compare: 'Compare',
-    anomalyType: 'Anomaly Type',
-    feedback: 'Feedback',
-    sampleEvents: 'Sample Events',
+    clusterType: 'Cluster Type',
+    risk: 'Risk',
+    sampleMessage: 'Sample Message',
     count: 'Count',
-    trend: 'Trend'
+    messageFrequency: 'Message Frequency',
+    actions: 'Actions'
   },
   riskTypes: {
     unexpectedFrequency: 'Unexpected Frequency'
+  },
+  eventType: {
+    known: 'Known',
+    unknown: 'Unknown',
+    unexpected: 'Unexpected'
   }
 }

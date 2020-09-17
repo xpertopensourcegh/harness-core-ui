@@ -2,6 +2,7 @@ import { Dialog, IDialogProps } from '@blueprintjs/core'
 import { Color, Layout, useModalHook, Text, Container } from '@wings-software/uikit'
 import React, { useState } from 'react'
 import { isNumber } from 'lodash-es'
+import moment from 'moment'
 import { RiskScoreTile } from 'modules/cv/components/RiskScoreTile/RiskScoreTile'
 import { AnalysisDrillDownView, AnalysisDrillDownViewProps } from './AnalysisDrillDownView'
 import i18n from './AnalysisDrillDownView.i18n'
@@ -40,7 +41,7 @@ function CategoryAndRiskScore(props: CategoryAndRiskScoreProps): JSX.Element {
   return (
     <Container>
       <Container className={css.categoryAndRiskScore}>
-        <RiskScoreTile riskScore={riskScore} className={css.riskScore} />
+        <RiskScoreTile riskScore={riskScore} className={css.riskScore} isLarge />
         <Layout.Vertical className={css.riskInfo}>
           <Text color={Color.BLACK} font={{ weight: 'bold' }}>
             {categoryName}
@@ -49,9 +50,9 @@ function CategoryAndRiskScore(props: CategoryAndRiskScoreProps): JSX.Element {
         </Layout.Vertical>
       </Container>
       {isNumber(endTime) && isNumber(startTime) && (
-        <Text>{`${i18n.selectedTimeIntervalText} ${new Date(startTime).toLocaleString()} - ${new Date(
-          startTime
-        ).toLocaleTimeString()}`}</Text>
+        <Text className={css.timeRange}>{`${i18n.selectedTimeIntervalText} ${moment(startTime).format(
+          'MMM D, h:mm a'
+        )} - ${moment(endTime).format('MMM D, h:mm a')}`}</Text>
       )}
     </Container>
   )

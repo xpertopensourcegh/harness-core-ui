@@ -4,7 +4,6 @@ import moment from 'moment'
 import { useHistory } from 'react-router-dom'
 import { Page } from 'modules/common/exports'
 import HeatMap, { CellStatusValues } from 'modules/common/components/HeatMap/HeatMap'
-// import TimelineView from 'modules/common/components/TimelineView/TimelineView'
 import { routeParams } from 'framework/exports'
 import {
   HeatMapDTO,
@@ -221,12 +220,6 @@ export default function CVServicesPage(): JSX.Element {
                   }}
                   rowSize={heatMapSize}
                 />
-                {/* <TimelineView
-                  startDate={range.dates.start.valueOf()}
-                  endDate={range.dates.end.valueOf()}
-                  rows={[{ name: '', data: [] }]}
-                  renderItem={() => <div />}
-                /> */}
                 {displayCategoryAnalysis && (
                   <AnalysisDrillDownView
                     className={styles.analysisView}

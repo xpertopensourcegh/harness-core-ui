@@ -15,9 +15,9 @@
       display: flex;
       justify-content: space-between;
       .cell {
-        flex: 1;
-        flex-basis: 10px;
-        max-width: 25px;
+        width: 15px;
+        max-width: 20px;
+        margin-right: 0 var(--spacing-small);
         cursor: pointer;
         &:hover {
           opacity: 0.6;
@@ -31,8 +31,7 @@
           }
         }
         .cellContentWrapper {
-          width: 70%;
-          margin: 20%;
+          margin-right: var(--spacing-xsmall);
           .cellInner {
             border-radius: 1px;
             position: absolute;

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react'
-import { Container, Icon, Color, Pagination, Button } from '@wings-software/uikit'
+import { Container, Icon, Color, Pagination } from '@wings-software/uikit'
 import cx from 'classnames'
 import { routeParams } from 'framework/exports'
 import {
@@ -11,9 +11,11 @@ import {
 } from 'services/cv'
 import { NoDataCard } from 'modules/common/components/Page/NoDataCard'
 import TimelineBar from 'modules/common/components/TimelineView/TimelineBar'
+import { PageError } from 'modules/common/components/Page/PageError'
 import MetricAnalysisRow from './MetricsAnalysisRow/MetricAnalysisRow'
 import { MetricAnalysisFilter } from './MetricAnalysisFilter/MetricAnalysisFilter'
 import i18n from './MetricAnalysisView.i18n'
+import { categoryNameToCategoryType } from '../../CVServicePageUtils'
 import css from './MetricAnalysisView.module.scss'
 
 interface MetricAnalysisViewProps {
@@ -23,17 +25,6 @@ interface MetricAnalysisViewProps {
   environmentIdentifier?: string
   serviceIdentifier?: string
   className?: string
-}
-
-function categoryNameToEnum(categoryName: string): TimeSeriesMetricDataDTO['category'] {
-  switch (categoryName) {
-    case 'Performance':
-      return 'PERFORMANCE'
-    case 'Quality':
-      return 'QUALITY'
-    case 'Resources':
-      return 'RESOURCES'
-  }
 }
 
 function generatePointsForTimeSeries(
@@ -59,12 +50,11 @@ function generatePointsForTimeSeries(
     for (let i = 0; i < timeRange; i++) {
       const currTime = startTime + 60000 * i
       const instantData = analysis.metricDataList[metricDataIndex]
-      if (instantData?.timestamp && instantData.timestamp <= currTime) {
+      if (instantData?.timestamp && instantData.timestamp === currTime) {
         filledMetricData.push(analysis.metricDataList[metricDataIndex])
         metricDataIndex++
       } else {
         filledMetricData.push({ timestamp: currTime, value: undefined })
-        // i++
       }
     }
 
@@ -86,7 +76,7 @@ export default function MetricAnalysisView(props: MetricAnalysisViewProps): JSX.
       projectIdentifier: projectIdentifier as string,
       environmentIdentifier,
       serviceIdentifier,
-      monitoringCategory: categoryNameToEnum(categoryName),
+      monitoringCategory: categoryNameToCategoryType(categoryName) || '',
       startTime,
       endTime
     }),
@@ -129,10 +119,16 @@ export default function MetricAnalysisView(props: MetricAnalysisViewProps): JSX.
 
   if (allMetricDataError || anomalousError) {
     return (
-      <Container className={css.errorOrLoading} margin="medium">
-        <Icon name="error" size={25} color={Color.RED_500} />
-        <Button intent="primary">{i18n.retryButtonText}</Button>
-      </Container>
+      <PageError
+        message={allMetricDataError?.message ?? anomalousError?.message}
+        onClick={() => {
+          if (isViewingAnomalousData) {
+            refetchAnomalousData({ queryParams })
+          } else {
+            refetchAllMetricData({ queryParams })
+          }
+        }}
+      />
     )
   }
 
@@ -169,7 +165,7 @@ export default function MetricAnalysisView(props: MetricAnalysisViewProps): JSX.
       {!loadingAllMetricData && !loadingAnomalousData && !itemCount && (
         <NoDataCard
           message={isViewingAnomalousData ? i18n.noDataText.anomalous : i18n.noDataText.allMetricData}
-          icon="deployment-success-legacy"
+          icon="warning-sign"
           buttonText={i18n.retryButtonText}
           onClick={isViewingAnomalousData ? () => refetchAnomalousData() : () => refetchAllMetricData()}
         />
