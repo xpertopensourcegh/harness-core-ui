@@ -4,7 +4,7 @@ import type { Organization } from 'services/cd-ng'
 import type { OrganizationModalInteraction } from '../OrganizationModalUtils'
 import i18n from './NewView.i18n'
 import { StepAboutOrganization } from './StepAboutOrganization'
-import { StepCollaborators } from './StepCollaborators'
+// import { StepCollaborators } from './StepCollaborators'
 import css from './NewView.module.scss'
 
 export const NewView: React.FC<OrganizationModalInteraction> = ({ backToSelections, onSuccess, edit, data }) => {
@@ -17,13 +17,13 @@ export const NewView: React.FC<OrganizationModalInteraction> = ({ backToSelectio
         edit={edit}
         data={data}
       />
-      <StepCollaborators
+      {/* <StepCollaborators
         name={i18n.collaborators}
         backToSelections={backToSelections}
         onSuccess={onSuccess}
         edit={edit}
         data={data}
-      />
+      /> */}
     </StepWizard>
   )
 }

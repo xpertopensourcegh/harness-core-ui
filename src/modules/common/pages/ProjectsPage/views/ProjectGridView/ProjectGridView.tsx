@@ -18,7 +18,7 @@ interface ProjectGridViewProps {
   reloadPage?: ((value: React.SetStateAction<boolean>) => void) | undefined
   onCardClick?: ((e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void) | undefined
   openProjectModal?: (project?: Project | undefined) => void
-  deSelectModule?: boolean
+  deselectModule?: boolean
 }
 
 const ProjectGridView: React.FC<ProjectGridViewProps> = props => {
@@ -32,7 +32,7 @@ const ProjectGridView: React.FC<ProjectGridViewProps> = props => {
     reloadPage,
     onCardClick,
     openProjectModal,
-    deSelectModule
+    deselectModule
   } = props
   const { accountId } = useParams()
   const { data, loading, refetch } = useGetProjectList({
@@ -41,7 +41,7 @@ const ProjectGridView: React.FC<ProjectGridViewProps> = props => {
       orgIdentifier: orgFilterId == 'ALL' ? undefined : orgFilterId,
       moduleType: module,
       searchTerm: searchParameter,
-      hasModule: deSelectModule ? false : true
+      hasModule: deselectModule ? false : true
     },
     mock: mockData,
     debounce: 300
@@ -63,8 +63,7 @@ const ProjectGridView: React.FC<ProjectGridViewProps> = props => {
               icon: 'nav-project',
               message: i18n.aboutProject,
               buttonText: i18n.addProject,
-              onClick: () => openProjectModal?.(),
-              className: css.pageContainer
+              onClick: () => openProjectModal?.()
             }
           : {
               when: () => !data?.data?.content?.length,

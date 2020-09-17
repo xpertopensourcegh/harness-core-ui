@@ -64,7 +64,7 @@ export const ModuleLandingView: React.FC<ModuleLandingViewProps> = ({
         <Text padding="xlarge" font={{ align: 'center' }} color={Color.BLACK} style={{ paddingBottom: 0 }}>
           {description}
         </Text>
-        <ProjectGridView module={module} showEditProject={showEditProject} deSelectModule={true} />
+        <ProjectGridView module={module} showEditProject={showEditProject} deselectModule={true} />
       </Container>
     </Page.Body>
   )

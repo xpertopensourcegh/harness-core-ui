@@ -22,7 +22,7 @@ import type { OrganizationModalInteraction } from '../OrganizationModalUtils'
 import i18n from './StepAboutOrganization.i18n'
 
 export const StepAboutOrganization: React.FC<StepProps<Organization> & OrganizationModalInteraction> = props => {
-  const { nextStep, backToSelections, onSuccess, edit, data } = props
+  const { backToSelections, onSuccess, edit, data } = props
   const { accountId } = useParams()
   const { organisationsMap } = useAppStoreReader()
   const updateAppStore = useAppStoreWriter()
@@ -117,13 +117,13 @@ export const StepAboutOrganization: React.FC<StepProps<Organization> & Organizat
           {i18n.preview}
         </Heading>
         <OrganizationCard data={org} isPreview />
-        <Button
+        {/* <Button
           minimal
           text={i18n.form.addCollaborators}
           rightIcon="chevron-right"
           onClick={() => nextStep?.(org)}
           style={{ position: 'absolute', left: '20px', bottom: 0 }}
-        />
+        /> */}
       </Layout.Vertical>
     </Layout.Horizontal>
   )

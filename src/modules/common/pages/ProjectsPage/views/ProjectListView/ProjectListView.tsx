@@ -25,6 +25,7 @@ interface ProjectListViewProps {
   reloadPage?: ((value: React.SetStateAction<boolean>) => void) | undefined
   onRowClick?: ((data: Project) => void) | undefined
   openProjectModal?: (project?: Project | undefined) => void
+  deselectModule?: boolean
 }
 
 type CustomColumn<T extends object> = Column<T> & {
@@ -120,7 +121,8 @@ const ProjectListView: React.FC<ProjectListViewProps> = props => {
     module,
     reloadPage,
     onRowClick,
-    openProjectModal
+    openProjectModal,
+    deselectModule
   } = props
   const { accountId } = useParams()
   const [page, setPage] = useState(0)
@@ -131,6 +133,7 @@ const ProjectListView: React.FC<ProjectListViewProps> = props => {
       orgIdentifier: orgFilterId == 'ALL' ? undefined : orgFilterId,
       moduleType: module,
       searchTerm: searchParameter,
+      hasModule: deselectModule ? false : true,
       page: page,
       size: 10
     },
@@ -208,8 +211,7 @@ const ProjectListView: React.FC<ProjectListViewProps> = props => {
               icon: 'nav-project',
               message: i18n.aboutProject,
               buttonText: i18n.addProject,
-              onClick: () => openProjectModal?.(),
-              className: css.pageContainer
+              onClick: () => openProjectModal?.()
             }
           : {
               when: () => !data?.data?.content?.length,

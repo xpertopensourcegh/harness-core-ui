@@ -5,7 +5,7 @@ import cx from 'classnames'
 import type { Organization } from 'services/cd-ng'
 import { OptionsView } from './OptionsView/OptionsView'
 import { NewView } from './NewView/NewView'
-import { CloneView } from './CloneView/CloneView'
+// import { CloneView } from './CloneView/CloneView'
 import css from './useOrganizationModal.module.scss'
 
 export interface UseOrganizationModalArgs {
@@ -61,7 +61,7 @@ export const useOrganizationModal: (args: UseOrganizationModalArgs) => UseOrgani
             }}
           />
         )}
-        {view === ModalView.CLONE && <CloneView />}
+        {/* {view === ModalView.CLONE && <CloneView />} */}
       </Dialog>
     ),
     [args, view, orgData]

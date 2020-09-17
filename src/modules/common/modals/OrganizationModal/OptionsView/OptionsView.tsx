@@ -27,7 +27,7 @@ export const OptionsView: React.FC<OptionsViewProps> = ({ onSelectOption }) => {
           onChange={value => onSelectOption(value.type)}
           selected={undefined}
           className={css.optionsViewGrid}
-          data={[{ type: 'NEW' }, { type: 'CLONE' }]}
+          data={[{ type: 'NEW' }]}
           renderItem={(item: OrganizationCreationType) => (
             <Container width={116} height={80}>
               <Layout.Horizontal spacing="xsmall" flex style={{ alignItems: 'center', justifyContent: 'flex-start' }}>
