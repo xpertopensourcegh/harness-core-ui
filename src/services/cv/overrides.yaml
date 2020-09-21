@@ -18,6 +18,7 @@ allowpaths:
   - /log-dashboard/all-logs
   - /log-dashboard/anomalous-logs
   - /log-dashboard/log-count-by-tags
+  - /deployment-time-series-analysis/{verificationJobInstanceId}
 operationIdOverrides:
   /appdynamics/applications.get: getAppDynamicsApplications
   /appdynamics/metric-data.post: getAppDynamicsMetricData
@@ -27,3 +28,4 @@ operationIdOverrides:
   /ds-config/env-to-services.get: getServices
   /heatmap.get: getHeatmap
   /verification-job.put: saveVerificationJob
+  /deployment-time-series-analysis/{verificationJobInstanceId}.get: getDeploymentTimeSeries

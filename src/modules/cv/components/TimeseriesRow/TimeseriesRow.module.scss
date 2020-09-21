@@ -1,0 +1,27 @@
+.timeseriesRow {
+  display: flex;
+  .labels {
+    background-color: var(--grey-200);
+    padding: var(--spacing-medium);
+    width: 200px;
+    > div {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+  .charts {
+    flex: 1;
+    min-width: 0;
+    margin-left: var(--spacing-small);
+    .chartRow {
+      display: flex;
+      align-items: center;
+      .chartContainer {
+        position: relative;
+        min-width: 0;
+        flex: 1;
+      }
+    }
+  }
+}

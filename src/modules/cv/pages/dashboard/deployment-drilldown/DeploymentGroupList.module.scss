@@ -1,0 +1,19 @@
+.main {
+  border-top: none;
+  width: 230px;
+}
+
+.item {
+  cursor: pointer;
+  &:hover {
+    background-color: var(--blue-200);
+  }
+  .itemHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    :global(.bp3-icon) {
+      padding: 2px;
+    }
+  }
+}

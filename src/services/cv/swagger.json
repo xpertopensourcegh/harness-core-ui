@@ -5,34 +5,40 @@
   "basePath": "/cv-nextgen",
   "tags": [
     {
-      "name": "anomaly"
-    },
-    {
-      "name": "log-cluster"
-    },
-    {
-      "name": "host-record"
+      "name": "verification-job-instance"
     },
     {
       "name": "deployment-time-series-analysis"
     },
     {
-      "name": "ds-config"
+      "name": "timeseries-analysis"
     },
     {
       "name": "timeseries"
     },
     {
+      "name": "anomaly"
+    },
+    {
+      "name": "webhook"
+    },
+    {
       "name": "cv-config"
     },
     {
-      "name": "heatmap"
+      "name": "host-record"
     },
     {
-      "name": "splunk"
+      "name": "learning"
     },
     {
       "name": "metric-pack"
+    },
+    {
+      "name": "ds-config"
+    },
+    {
+      "name": "splunk"
     },
     {
       "name": "activity"
@@ -41,40 +47,34 @@
       "name": "delegate-data-collection-task"
     },
     {
+      "name": "log-dashboard"
+    },
+    {
       "name": "timeseries-dashboard"
+    },
+    {
+      "name": "heatmap"
+    },
+    {
+      "name": "verification-job"
     },
     {
       "name": "delegate-data-collection"
     },
     {
-      "name": "verification-job-instance"
-    },
-    {
       "name": "health"
     },
     {
-      "name": "timeseries-analysis"
+      "name": "log-cluster"
     },
     {
       "name": "log-record"
     },
     {
-      "name": "webhook"
-    },
-    {
       "name": "appdynamics"
     },
     {
-      "name": "log-dashboard"
-    },
-    {
-      "name": "learning"
-    },
-    {
       "name": "log-analysis"
-    },
-    {
-      "name": "verification-job"
     }
   ],
   "schemes": ["https", "http"],
@@ -727,7 +727,7 @@
           "200": {
             "description": "successful operation",
             "schema": {
-              "$ref": "#/definitions/RestResponseTransactionSummaryPageDTO"
+              "$ref": "#/definitions/RestResponseTransactionMetricInfoSummaryPageDTO"
             },
             "headers": {}
           }
@@ -2579,7 +2579,7 @@
       },
       "delete": {
         "tags": ["verification-job"],
-        "operationId": "deleteVerificationJob",
+        "operationId": "deleteJobByGroup",
         "produces": ["application/json"],
         "parameters": [
           {
@@ -2824,6 +2824,21 @@
         }
       }
     },
+    "TransactionMetricInfo": {
+      "type": "object",
+      "properties": {
+        "transactionMetric": {
+          "$ref": "#/definitions/TransactionMetric"
+        },
+        "nodes": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/definitions/HostData"
+          }
+        }
+      }
+    },
     "Histogram": {
       "type": "object",
       "properties": {
@@ -2939,21 +2954,6 @@
         }
       }
     },
-    "EnvToServicesDTO": {
-      "type": "object",
-      "properties": {
-        "environment": {
-          "$ref": "#/definitions/EnvironmentResponseDTO"
-        },
-        "services": {
-          "type": "array",
-          "uniqueItems": true,
-          "items": {
-            "$ref": "#/definitions/ServiceResponseDTO"
-          }
-        }
-      }
-    },
     "RestResponseListTimeSeriesMetricDefinition": {
       "type": "object",
       "properties": {
@@ -2974,6 +2974,32 @@
           "items": {
             "$ref": "#/definitions/ResponseMessage"
           }
+        }
+      }
+    },
+    "EnvToServicesDTO": {
+      "type": "object",
+      "properties": {
+        "environment": {
+          "$ref": "#/definitions/EnvironmentResponseDTO"
+        },
+        "services": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/definitions/ServiceResponseDTO"
+          }
+        }
+      }
+    },
+    "TransactionMetricInfoSummaryPageDTO": {
+      "type": "object",
+      "properties": {
+        "pageResponse": {
+          "$ref": "#/definitions/NGPageResponseTransactionMetricInfo"
+        },
+        "deploymentTimeRange": {
+          "$ref": "#/definitions/TimeRange"
         }
       }
     },
@@ -3163,19 +3189,6 @@
         }
       }
     },
-    "ElementRange": {
-      "type": "object",
-      "properties": {
-        "fromIndex": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "toIndex": {
-          "type": "integer",
-          "format": "int32"
-        }
-      }
-    },
     "RestResponseMapStringMapStringListDouble": {
       "type": "object",
       "properties": {
@@ -3248,6 +3261,20 @@
         }
       }
     },
+    "DeploymentTimeSeriesAnalysisDTO": {
+      "type": "object",
+      "properties": {
+        "resultSummary": {
+          "$ref": "#/definitions/ResultSummary"
+        },
+        "hostSummaries": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/HostSummary"
+          }
+        }
+      }
+    },
     "EnvironmentResponseDTO": {
       "type": "object",
       "properties": {
@@ -3266,6 +3293,9 @@
         "name": {
           "type": "string"
         },
+        "description": {
+          "type": "string"
+        },
         "type": {
           "type": "string",
           "enum": ["PreProduction", "Production"]
@@ -3273,20 +3303,6 @@
         "deleted": {
           "type": "boolean",
           "default": false
-        }
-      }
-    },
-    "DeploymentTimeSeriesAnalysisDTO": {
-      "type": "object",
-      "properties": {
-        "resultSummary": {
-          "$ref": "#/definitions/ResultSummary"
-        },
-        "hostSummaries": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/HostSummary"
-          }
         }
       }
     },
@@ -3410,29 +3426,6 @@
         }
       }
     },
-    "RestResponseListLogClusterDTO": {
-      "type": "object",
-      "properties": {
-        "metaData": {
-          "type": "object",
-          "additionalProperties": {
-            "type": "object"
-          }
-        },
-        "resource": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/LogClusterDTO"
-          }
-        },
-        "responseMessages": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/ResponseMessage"
-          }
-        }
-      }
-    },
     "RestResponseListEnvServiceRiskDTO": {
       "type": "object",
       "properties": {
@@ -3446,6 +3439,29 @@
           "type": "array",
           "items": {
             "$ref": "#/definitions/EnvServiceRiskDTO"
+          }
+        },
+        "responseMessages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResponseMessage"
+          }
+        }
+      }
+    },
+    "RestResponseListLogClusterDTO": {
+      "type": "object",
+      "properties": {
+        "metaData": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          }
+        },
+        "resource": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/LogClusterDTO"
           }
         },
         "responseMessages": {
@@ -3510,28 +3526,6 @@
         "nativeMethod": {
           "type": "boolean",
           "default": false
-        }
-      }
-    },
-    "TransactionSummaryPageDTO": {
-      "type": "object",
-      "properties": {
-        "transactionSummaries": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/TransactionSummary"
-          }
-        },
-        "numberOfPages": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "pageNumber": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "elementRange": {
-          "$ref": "#/definitions/ElementRange"
         }
       }
     },
@@ -3655,6 +3649,37 @@
           "items": {
             "$ref": "#/definitions/TimeSeriesDataRecordGroupValue"
           }
+        }
+      }
+    },
+    "NGPageResponseTransactionMetricInfo": {
+      "type": "object",
+      "properties": {
+        "pageCount": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "itemCount": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "content": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TransactionMetricInfo"
+          }
+        },
+        "pageIndex": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "empty": {
+          "type": "boolean",
+          "default": false
         }
       }
     },
@@ -3784,6 +3809,32 @@
         }
       }
     },
+    "ResultSummary": {
+      "type": "object",
+      "properties": {
+        "risk": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "score": {
+          "type": "number",
+          "format": "double"
+        },
+        "controlClusterLabels": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "testClusterSummaries": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ClusterSummary"
+          }
+        }
+      }
+    },
     "HostRecordDTO": {
       "type": "object",
       "properties": {
@@ -3839,32 +3890,6 @@
           "type": "array",
           "items": {
             "$ref": "#/definitions/MetricData"
-          }
-        }
-      }
-    },
-    "ResultSummary": {
-      "type": "object",
-      "properties": {
-        "risk": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "score": {
-          "type": "number",
-          "format": "double"
-        },
-        "controlClusterLabels": {
-          "type": "array",
-          "items": {
-            "type": "integer",
-            "format": "int32"
-          }
-        },
-        "testClusterSummaries": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/ClusterSummary"
           }
         }
       }
@@ -4045,6 +4070,32 @@
         }
       }
     },
+    "HostData": {
+      "type": "object",
+      "properties": {
+        "hostName": {
+          "type": "string"
+        },
+        "riskScore": {
+          "type": "number",
+          "format": "double"
+        },
+        "controlData": {
+          "type": "array",
+          "items": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "testData": {
+          "type": "array",
+          "items": {
+            "type": "number",
+            "format": "double"
+          }
+        }
+      }
+    },
     "CVConfig": {
       "type": "object",
       "required": [
@@ -4112,12 +4163,12 @@
           "type": "integer",
           "format": "int64"
         },
+        "firstTimeDataCollectionTimeRange": {
+          "$ref": "#/definitions/TimeRange"
+        },
         "type": {
           "type": "string",
           "enum": ["APP_DYNAMICS", "SPLUNK"]
-        },
-        "firstTimeDataCollectionTimeRange": {
-          "$ref": "#/definitions/TimeRange"
         }
       }
     },
@@ -5084,26 +5135,6 @@
         }
       }
     },
-    "RestResponseTransactionSummaryPageDTO": {
-      "type": "object",
-      "properties": {
-        "metaData": {
-          "type": "object",
-          "additionalProperties": {
-            "type": "object"
-          }
-        },
-        "resource": {
-          "$ref": "#/definitions/TransactionSummaryPageDTO"
-        },
-        "responseMessages": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/ResponseMessage"
-          }
-        }
-      }
-    },
     "RestResponseNGPageResponseTimeSeriesMetricDataDTO": {
       "type": "object",
       "properties": {
@@ -5244,27 +5275,6 @@
         }
       }
     },
-    "EnvServiceRiskDTO": {
-      "type": "object",
-      "properties": {
-        "orgIdentifier": {
-          "type": "string"
-        },
-        "projectIdentifier": {
-          "type": "string"
-        },
-        "envIdentifier": {
-          "type": "string"
-        },
-        "serviceRisks": {
-          "type": "array",
-          "uniqueItems": true,
-          "items": {
-            "$ref": "#/definitions/ServiceRisk"
-          }
-        }
-      }
-    },
     "RestResponseMapStringMapStringMetricSum": {
       "type": "object",
       "properties": {
@@ -5302,6 +5312,27 @@
           "type": "array",
           "items": {
             "$ref": "#/definitions/CountByTag"
+          }
+        }
+      }
+    },
+    "EnvServiceRiskDTO": {
+      "type": "object",
+      "properties": {
+        "orgIdentifier": {
+          "type": "string"
+        },
+        "projectIdentifier": {
+          "type": "string"
+        },
+        "envIdentifier": {
+          "type": "string"
+        },
+        "serviceRisks": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/definitions/ServiceRisk"
           }
         }
       }
@@ -5479,6 +5510,21 @@
         }
       }
     },
+    "TransactionMetric": {
+      "type": "object",
+      "properties": {
+        "transactionName": {
+          "type": "string"
+        },
+        "metricName": {
+          "type": "string"
+        },
+        "riskScore": {
+          "type": "number",
+          "format": "double"
+        }
+      }
+    },
     "RestResponseListString": {
       "type": "object",
       "properties": {
@@ -5576,6 +5622,26 @@
         },
         "resource": {
           "$ref": "#/definitions/TimeSeriesTestDataDTO"
+        },
+        "responseMessages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResponseMessage"
+          }
+        }
+      }
+    },
+    "RestResponseTransactionMetricInfoSummaryPageDTO": {
+      "type": "object",
+      "properties": {
+        "metaData": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          }
+        },
+        "resource": {
+          "$ref": "#/definitions/TransactionMetricInfoSummaryPageDTO"
         },
         "responseMessages": {
           "type": "array",

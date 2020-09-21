@@ -38,6 +38,11 @@ export interface MetricPackDTO {
   thresholds?: TimeSeriesThresholdDTO[]
 }
 
+export interface TransactionMetricInfo {
+  transactionMetric?: TransactionMetric
+  nodes?: HostData[]
+}
+
 export interface Histogram {
   query?: string
   intervalMs?: number
@@ -75,17 +80,22 @@ export interface RestResponseString {
   responseMessages?: ResponseMessage[]
 }
 
-export interface EnvToServicesDTO {
-  environment?: EnvironmentResponseDTO
-  services?: ServiceResponseDTO[]
-}
-
 export interface RestResponseListTimeSeriesMetricDefinition {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
   resource?: TimeSeriesMetricDefinition[]
   responseMessages?: ResponseMessage[]
+}
+
+export interface EnvToServicesDTO {
+  environment?: EnvironmentResponseDTO
+  services?: ServiceResponseDTO[]
+}
+
+export interface TransactionMetricInfoSummaryPageDTO {
+  pageResponse?: NGPageResponseTransactionMetricInfo
+  deploymentTimeRange?: TimeRange
 }
 
 export interface RestResponseNGPageResponseAnalyzedLogDataDTO {
@@ -156,11 +166,6 @@ export interface RestResponseSetAppdynamicsValidationResponse {
   responseMessages?: ResponseMessage[]
 }
 
-export interface ElementRange {
-  fromIndex?: number
-  toIndex?: number
-}
-
 export interface RestResponseMapStringMapStringListDouble {
   metaData?: {
     [key: string]: { [key: string]: any }
@@ -185,19 +190,20 @@ export interface LogAnalysisDTO {
   logAnalysisResults?: AnalysisResult[]
 }
 
+export interface DeploymentTimeSeriesAnalysisDTO {
+  resultSummary?: ResultSummary
+  hostSummaries?: HostSummary[]
+}
+
 export interface EnvironmentResponseDTO {
   accountId?: string
   orgIdentifier?: string
   projectIdentifier?: string
   identifier?: string
   name?: string
+  description?: string
   type?: 'PreProduction' | 'Production'
   deleted?: boolean
-}
-
-export interface DeploymentTimeSeriesAnalysisDTO {
-  resultSummary?: ResultSummary
-  hostSummaries?: HostSummary[]
 }
 
 export interface AppDynamicsTier {
@@ -240,19 +246,19 @@ export interface RestResponseMapCVMonitoringCategorySortedSetHeatMapDTO {
   responseMessages?: ResponseMessage[]
 }
 
-export interface RestResponseListLogClusterDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: LogClusterDTO[]
-  responseMessages?: ResponseMessage[]
-}
-
 export interface RestResponseListEnvServiceRiskDTO {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
   resource?: EnvServiceRiskDTO[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListLogClusterDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: LogClusterDTO[]
   responseMessages?: ResponseMessage[]
 }
 
@@ -275,13 +281,6 @@ export interface StackTraceElement {
   lineNumber?: number
   className?: string
   nativeMethod?: boolean
-}
-
-export interface TransactionSummaryPageDTO {
-  transactionSummaries?: TransactionSummary[]
-  numberOfPages?: number
-  pageNumber?: number
-  elementRange?: ElementRange
 }
 
 export interface AnomalyMetricDetail {
@@ -326,6 +325,15 @@ export interface TimeSeriesDataRecordMetricValue {
   timeSeriesValues?: TimeSeriesDataRecordGroupValue[]
 }
 
+export interface NGPageResponseTransactionMetricInfo {
+  pageCount?: number
+  itemCount?: number
+  pageSize?: number
+  content?: TransactionMetricInfo[]
+  pageIndex?: number
+  empty?: boolean
+}
+
 export interface RestResponseLearningEngineTask {
   metaData?: {
     [key: string]: { [key: string]: any }
@@ -368,6 +376,13 @@ export interface MetricSum {
   sum?: number
 }
 
+export interface ResultSummary {
+  risk?: number
+  score?: number
+  controlClusterLabels?: number[]
+  testClusterSummaries?: ClusterSummary[]
+}
+
 export interface HostRecordDTO {
   accountId?: string
   verificationTaskId?: string
@@ -385,13 +400,6 @@ export interface TimeSeriesMetricDataDTO {
   groupName?: string
   metricName?: string
   metricDataList?: MetricData[]
-}
-
-export interface ResultSummary {
-  risk?: number
-  score?: number
-  controlClusterLabels?: number[]
-  testClusterSummaries?: ClusterSummary[]
 }
 
 export interface RestResponseSetAppDynamicsTier {
@@ -454,6 +462,13 @@ export interface LogAnalysisCluster {
   evicted?: boolean
 }
 
+export interface HostData {
+  hostName?: string
+  riskScore?: number
+  controlData?: number[]
+  testData?: number[]
+}
+
 export interface CVConfig {
   uuid?: string
   dataCollectionTaskIteration?: number
@@ -471,8 +486,8 @@ export interface CVConfig {
   productName?: string
   groupId?: string
   analysisOrchestrationIteration?: number
-  type?: 'APP_DYNAMICS' | 'SPLUNK'
   firstTimeDataCollectionTimeRange?: TimeRange
+  type?: 'APP_DYNAMICS' | 'SPLUNK'
 }
 
 export interface ServiceGuardTxnMetricAnalysisDataDTO {
@@ -953,14 +968,6 @@ export interface TransactionSummary {
   metricSummaries?: MetricSummary[]
 }
 
-export interface RestResponseTransactionSummaryPageDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: TransactionSummaryPageDTO
-  responseMessages?: ResponseMessage[]
-}
-
 export interface RestResponseNGPageResponseTimeSeriesMetricDataDTO {
   metaData?: {
     [key: string]: { [key: string]: any }
@@ -1013,13 +1020,6 @@ export interface MetricSummary {
   testData?: number[]
 }
 
-export interface EnvServiceRiskDTO {
-  orgIdentifier?: string
-  projectIdentifier?: string
-  envIdentifier?: string
-  serviceRisks?: ServiceRisk[]
-}
-
 export interface RestResponseMapStringMapStringMetricSum {
   metaData?: {
     [key: string]: { [key: string]: any }
@@ -1035,6 +1035,13 @@ export interface RestResponseMapStringMapStringMetricSum {
 export interface LogDataByTag {
   timestamp?: number
   countByTags?: CountByTag[]
+}
+
+export interface EnvServiceRiskDTO {
+  orgIdentifier?: string
+  projectIdentifier?: string
+  envIdentifier?: string
+  serviceRisks?: ServiceRisk[]
 }
 
 export interface HostSummary {
@@ -1096,6 +1103,12 @@ export interface LogClusterDTO {
   clusterCount?: number
 }
 
+export interface TransactionMetric {
+  transactionName?: string
+  metricName?: string
+  riskScore?: number
+}
+
 export interface RestResponseListString {
   metaData?: {
     [key: string]: { [key: string]: any }
@@ -1132,6 +1145,14 @@ export interface RestResponseTimeSeriesTestDataDTO {
     [key: string]: { [key: string]: any }
   }
   resource?: TimeSeriesTestDataDTO
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseTransactionMetricInfoSummaryPageDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: TransactionMetricInfoSummaryPageDTO
   responseMessages?: ResponseMessage[]
 }
 
@@ -1749,18 +1770,18 @@ export const useSaveVerificationJob = (props: UseSaveVerificationJobProps) =>
     ...props
   })
 
-export interface DeleteVerificationJobQueryParams {
+export interface DeleteJobByGroupQueryParams {
   accountId?: string
   identifier?: string
 }
 
-export type DeleteVerificationJobProps = Omit<
-  MutateProps<void, void, DeleteVerificationJobQueryParams, void, void>,
+export type DeleteJobByGroupProps = Omit<
+  MutateProps<void, void, DeleteJobByGroupQueryParams, void, void>,
   'path' | 'verb'
 >
 
-export const DeleteVerificationJob = (props: DeleteVerificationJobProps) => (
-  <Mutate<void, void, DeleteVerificationJobQueryParams, void, void>
+export const DeleteJobByGroup = (props: DeleteJobByGroupProps) => (
+  <Mutate<void, void, DeleteJobByGroupQueryParams, void, void>
     verb="DELETE"
     path={`/verification-job`}
     base={getConfig('cv-nextgen')}
@@ -1768,13 +1789,13 @@ export const DeleteVerificationJob = (props: DeleteVerificationJobProps) => (
   />
 )
 
-export type UseDeleteVerificationJobProps = Omit<
-  UseMutateProps<void, void, DeleteVerificationJobQueryParams, void, void>,
+export type UseDeleteJobByGroupProps = Omit<
+  UseMutateProps<void, void, DeleteJobByGroupQueryParams, void, void>,
   'path' | 'verb'
 >
 
-export const useDeleteVerificationJob = (props: UseDeleteVerificationJobProps) =>
-  useMutate<void, void, DeleteVerificationJobQueryParams, void, void>('DELETE', `/verification-job`, {
+export const useDeleteJobByGroup = (props: UseDeleteJobByGroupProps) =>
+  useMutate<void, void, DeleteJobByGroupQueryParams, void, void>('DELETE', `/verification-job`, {
     base: getConfig('cv-nextgen'),
     ...props
   })
@@ -1961,3 +1982,61 @@ export const useGetTagCount = (props: UseGetTagCountProps) =>
     base: getConfig('cv-nextgen'),
     ...props
   })
+
+export interface GetDeploymentTimeSeriesQueryParams {
+  accountId?: string
+  anomalousMetricsOnly?: boolean
+  hostName?: string
+  pageNumber?: number
+}
+
+export interface GetDeploymentTimeSeriesPathParams {
+  verificationJobInstanceId: string
+}
+
+export type GetDeploymentTimeSeriesProps = Omit<
+  GetProps<
+    RestResponseTransactionMetricInfoSummaryPageDTO,
+    unknown,
+    GetDeploymentTimeSeriesQueryParams,
+    GetDeploymentTimeSeriesPathParams
+  >,
+  'path'
+> &
+  GetDeploymentTimeSeriesPathParams
+
+export const GetDeploymentTimeSeries = ({ verificationJobInstanceId, ...props }: GetDeploymentTimeSeriesProps) => (
+  <Get<
+    RestResponseTransactionMetricInfoSummaryPageDTO,
+    unknown,
+    GetDeploymentTimeSeriesQueryParams,
+    GetDeploymentTimeSeriesPathParams
+  >
+    path={`/deployment-time-series-analysis/${verificationJobInstanceId}`}
+    base={getConfig('cv-nextgen')}
+    {...props}
+  />
+)
+
+export type UseGetDeploymentTimeSeriesProps = Omit<
+  UseGetProps<
+    RestResponseTransactionMetricInfoSummaryPageDTO,
+    unknown,
+    GetDeploymentTimeSeriesQueryParams,
+    GetDeploymentTimeSeriesPathParams
+  >,
+  'path'
+> &
+  GetDeploymentTimeSeriesPathParams
+
+export const useGetDeploymentTimeSeries = ({ verificationJobInstanceId, ...props }: UseGetDeploymentTimeSeriesProps) =>
+  useGet<
+    RestResponseTransactionMetricInfoSummaryPageDTO,
+    unknown,
+    GetDeploymentTimeSeriesQueryParams,
+    GetDeploymentTimeSeriesPathParams
+  >(
+    (paramsInPath: GetDeploymentTimeSeriesPathParams) =>
+      `/deployment-time-series-analysis/${paramsInPath.verificationJobInstanceId}`,
+    { base: getConfig('cv-nextgen'), pathParams: { verificationJobInstanceId }, ...props }
+  )
