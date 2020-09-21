@@ -2,7 +2,7 @@ import React from 'react'
 import { Layout, Text, Container, Icon, Color, useModalHook, Button } from '@wings-software/uikit'
 import cx from 'classnames'
 import { Dialog, IDialogProps } from '@blueprintjs/core'
-import { get } from 'lodash'
+import { get } from 'lodash-es'
 
 import type { StageElementWrapper, CDPipeline } from 'services/cd-ng'
 import { getStageFromPipeline } from 'modules/cd/pages/pipeline-studio/StageBuilder/StageBuilderUtil'

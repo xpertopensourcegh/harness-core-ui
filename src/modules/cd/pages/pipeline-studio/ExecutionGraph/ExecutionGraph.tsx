@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-// import { cloneDeep } from 'lodash'
+// import { cloneDeep } from 'lodash-es'
 import type { NodeModelListener, LinkModelListener } from '@projectstorm/react-diagrams-core'
 import type { BaseModelListener } from '@projectstorm/react-canvas-core'
 import { v4 as uuid } from 'uuid'

@@ -1,7 +1,7 @@
 import React from 'react'
 import { SelectOption, IconName, Text, Formik, FormInput, Button, DurationInput } from '@wings-software/uikit'
 import * as Yup from 'yup'
-import get from 'lodash.get'
+import { get } from 'lodash-es'
 import { Step, StepViewType } from 'modules/common/exports'
 import type { HttpStepInfo, StepElement } from 'services/cd-ng'
 import { StepType } from '../../PipelineStepInterface'

@@ -1,5 +1,5 @@
 import React from 'react'
-import { cloneDeep } from 'lodash'
+import { cloneDeep } from 'lodash-es'
 import { Text, Card, Color } from '@wings-software/uikit'
 import { Tree, ITreeNode } from '@blueprintjs/core'
 import type { StageElement, StageElementWrapper, DeploymentStage, Variable } from 'services/cd-ng'

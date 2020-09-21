@@ -1,7 +1,7 @@
 import React from 'react'
 import { Layout, Text } from '@wings-software/uikit'
 
-import { get } from 'lodash'
+import { get } from 'lodash-es'
 import { StepWidget, StepViewType } from 'modules/common/exports'
 import type { Variable } from 'services/cd-ng'
 

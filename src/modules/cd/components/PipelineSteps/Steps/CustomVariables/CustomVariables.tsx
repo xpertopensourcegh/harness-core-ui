@@ -14,7 +14,7 @@ import {
   MultiTypeInputType,
   getMultiTypeFromValue
 } from '@wings-software/uikit'
-import { cloneDeep, get } from 'lodash'
+import { cloneDeep, get } from 'lodash-es'
 import { Dialog, Classes, Position } from '@blueprintjs/core'
 import * as Yup from 'yup'
 import { parse } from 'yaml'

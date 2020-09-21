@@ -2,7 +2,7 @@ import React from 'react'
 import { Layout, Text, Container, Icon, Color } from '@wings-software/uikit'
 import cx from 'classnames'
 
-import { get } from 'lodash'
+import { get } from 'lodash-es'
 import { PipelineContext } from 'modules/cd/pages/pipeline-studio/PipelineContext/PipelineContext'
 
 import i18n from './ArtifactsSelection.i18n'

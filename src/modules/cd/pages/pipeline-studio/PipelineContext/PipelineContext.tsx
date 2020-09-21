@@ -1,6 +1,6 @@
 import React from 'react'
 import { openDB, IDBPDatabase, deleteDB } from 'idb'
-import { isEqual, cloneDeep } from 'lodash'
+import { isEqual, cloneDeep } from 'lodash-es'
 import { parse, stringify } from 'yaml'
 import {
   CDPipeline,

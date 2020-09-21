@@ -1,4 +1,4 @@
-import { map } from 'lodash'
+import { map } from 'lodash-es'
 import { NodeModel, NodeModelGenerics, PortModelAlignment } from '@projectstorm/react-diagrams-core'
 import type { BasePositionModelOptions, DeserializeEvent } from '@projectstorm/react-canvas-core'
 import type { IconName } from '@wings-software/uikit'

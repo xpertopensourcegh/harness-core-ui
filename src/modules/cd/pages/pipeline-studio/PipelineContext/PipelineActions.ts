@@ -1,4 +1,4 @@
-import { clone } from 'lodash'
+import { clone } from 'lodash-es'
 import type { IDrawerProps } from '@blueprintjs/core'
 import type { CDPipeline, ExecutionWrapper } from 'services/cd-ng'
 import type { SnippetInterface } from 'modules/common/interfaces/SnippetInterface'

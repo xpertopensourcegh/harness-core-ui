@@ -17,7 +17,7 @@ import {
   ModalErrorHandler
 } from '@wings-software/uikit'
 import * as Yup from 'yup'
-import { pick } from 'lodash'
+import { pick } from 'lodash-es'
 import { useAppStoreReader, useAppStoreWriter } from 'framework/exports'
 import ProjectCard from 'modules/common/pages/ProjectsPage/views/ProjectCard/ProjectCard'
 import i18n from 'modules/common/pages/ProjectsPage/ProjectsPage.i18n'

@@ -3,7 +3,7 @@ import type {
   BaseModel,
   LayerModel
 } from '@projectstorm/react-canvas-core'
-import { isNil } from 'lodash'
+import { isNil } from 'lodash-es'
 import {
   DiagramModel as DiagramModelCore,
   DiagramModelGenerics as DiagramModelGenericsCore,

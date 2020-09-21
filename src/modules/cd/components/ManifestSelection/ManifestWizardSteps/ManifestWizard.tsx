@@ -4,7 +4,7 @@ import { StepWizard, Layout, SelectOption, Button, Text, FormInput, Formik } fro
 import { Form } from 'formik'
 
 import * as Yup from 'yup'
-import { get } from 'lodash'
+import { get } from 'lodash-es'
 import { useGetConnectorList } from 'services/cd-ng'
 import { StringUtils } from 'modules/common/exports'
 

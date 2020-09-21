@@ -1,7 +1,7 @@
 import * as React from 'react'
 import type { DiagramEngine } from '@projectstorm/react-diagrams-core'
 import { Icon } from '@blueprintjs/core'
-import { isEmpty } from 'lodash'
+import { isEmpty } from 'lodash-es'
 import cx from 'classnames'
 import { Text } from '@wings-software/uikit'
 import { DefaultPortLabel } from '../../port/DefaultPortLabelWidget'

@@ -77,6 +77,14 @@ rules:
           position: after
           patternOptions:
             matchBase: true
+
+  no-restricted-imports:
+    - error
+    - patterns:
+        - lodash.*
+      paths:
+        - lodash
+
 overrides:
   - files:
       - '**/*.test.ts'

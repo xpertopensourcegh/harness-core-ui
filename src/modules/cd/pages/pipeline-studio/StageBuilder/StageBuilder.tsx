@@ -1,7 +1,7 @@
 import React from 'react'
 import { Icon, Layout } from '@wings-software/uikit'
 import cx from 'classnames'
-import { debounce } from 'lodash'
+import { debounce } from 'lodash-es'
 import type { NodeModelListener, LinkModelListener } from '@projectstorm/react-diagrams-core'
 import SplitPane from 'react-split-pane'
 import { Diagram } from 'modules/common/exports'

@@ -3,7 +3,7 @@ import { Layout, Button, Card, CardBody, Text } from '@wings-software/uikit'
 import { Formik, FormikForm, FormInput } from '@wings-software/uikit'
 import * as Yup from 'yup'
 
-import { get } from 'lodash'
+import { get } from 'lodash-es'
 import { PipelineContext } from 'modules/cd/pages/pipeline-studio/PipelineContext/PipelineContext'
 import { loggerFor, ModuleName } from 'framework/exports'
 

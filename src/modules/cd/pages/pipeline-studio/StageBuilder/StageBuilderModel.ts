@@ -1,5 +1,5 @@
 import type { IconName } from '@wings-software/uikit'
-import { isEmpty } from 'lodash'
+import { isEmpty } from 'lodash-es'
 import { Diagram } from 'modules/common/exports'
 import type { CDPipeline, StageElementWrapper } from 'services/cd-ng'
 import i18n from './StageBuilder.i18n'

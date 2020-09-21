@@ -2,7 +2,7 @@ import React from 'react'
 
 import { Layout } from '@wings-software/uikit'
 
-import { cloneDeep } from 'lodash'
+import { cloneDeep } from 'lodash-es'
 
 import { PipelineContext } from 'modules/cd/pages/pipeline-studio/PipelineContext/PipelineContext'
 import { getStageFromPipeline } from 'modules/cd/pages/pipeline-studio/StageBuilder/StageBuilderUtil'
