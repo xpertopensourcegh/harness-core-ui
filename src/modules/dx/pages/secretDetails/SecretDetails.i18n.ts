@@ -3,6 +3,7 @@ export default {
   linkResources: 'Resources',
   linkSecrets: 'Secrets',
   labelName: 'Secret Name',
+  labelType: 'Secret Type',
   labelId: 'ID',
   labelValue: 'Secret Value',
   labelPath: 'Path',

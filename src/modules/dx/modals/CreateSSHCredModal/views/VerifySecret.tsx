@@ -75,6 +75,7 @@ const VerifySecret: React.FC<VerifySecretProps> = ({ identifier, validationMetad
     } else if (delegateStatusError) {
       setCurrentStatus(Status.ERROR)
       setCurrentIntent(Intent.DANGER)
+      onFinish?.(currentStatus)
     } else if (delegateStatus) {
       setCurrentStatus(Status.DONE)
       setCurrentIntent(Intent.SUCCESS)

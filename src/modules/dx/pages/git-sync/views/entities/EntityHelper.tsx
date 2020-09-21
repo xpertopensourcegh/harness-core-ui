@@ -7,9 +7,9 @@ import { useToaster } from 'modules/common/components/Toaster/useToaster'
 import i18n from './GitSyncEntityTab.i18n'
 
 export enum Products {
-  CD = 'cd',
-  CI = 'ci',
-  CORE = 'core'
+  CD = 'CD',
+  CI = 'CI',
+  CORE = 'CORE'
 }
 
 export enum Entity {
@@ -26,7 +26,7 @@ export enum repoProvider {
 }
 
 interface SupportedProductsInterface {
-  id: GitSyncProductDTO['productName']
+  id: GitSyncProductDTO['moduleType']
   title: string
 }
 

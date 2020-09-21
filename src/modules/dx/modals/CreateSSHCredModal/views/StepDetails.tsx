@@ -1,10 +1,11 @@
 import React from 'react'
-import { Button, Text, Color, StepProps, FormikForm, FormInput, Formik, Container, Layout } from '@wings-software/uikit'
+import { Button, Text, Color, StepProps, FormikForm, Formik, Container, Layout } from '@wings-software/uikit'
 import * as Yup from 'yup'
 import type { SecretDTOV2 } from 'services/cd-ng'
 
 import { illegalIdentifiers } from 'modules/common/utils/StringUtils'
 
+import SSHDetailsFormFields from 'modules/dx/components/secrets/SSHDetailsFormFields/SSHDetailsFormFields'
 import i18n from '../CreateSSHCredModal.i18n'
 import type { SSHCredSharedObj } from '../useCreateSSHCredModal'
 
@@ -39,19 +40,7 @@ const StepSSHDetails: React.FC<StepProps<SSHCredSharedObj>> = ({ prevStepData, n
         {() => {
           return (
             <FormikForm>
-              <FormInput.InputWithIdentifier inputLabel={i18n.labelName} />
-              <FormInput.TextArea name="description" label={i18n.labelDescription} />
-              {/* <FormInput.TagInput
-                name="tags"
-                label={i18n.labelTags}
-                items={[]}
-                labelFor={name => name as string}
-                itemFromNewTag={newTag => newTag}
-                tagInputProps={{
-                  showClearAllButton: true,
-                  allowNewTag: true
-                }}
-              /> */}
+              <SSHDetailsFormFields />
               <Layout.Horizontal>
                 <Button type="submit" text={i18n.btnContinue} />
               </Layout.Horizontal>

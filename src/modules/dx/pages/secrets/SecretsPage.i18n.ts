@@ -20,5 +20,7 @@ export default {
   incompleteSecret: 'Incomplete Secret',
   typeText: 'Text',
   typeFile: 'File',
-  typeSSH: 'Execution Credential'
+  typeSSH: 'Execution Credential',
+  testconnection: 'TEST CONNECTION',
+  stepTitleVerify: 'Verify Connection'
 }

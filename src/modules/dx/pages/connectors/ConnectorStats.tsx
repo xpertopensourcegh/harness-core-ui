@@ -11,6 +11,7 @@ interface ConnectorStatsProps {
   lastUpdated: number
   lastConnected: number
   status: string
+  className?: string
 }
 const TestStatus = {
   SUCCESS: 'SUCCESS',
@@ -22,7 +23,7 @@ const getValue = (value: number) => {
 }
 
 const ConnectorStats: React.FC<ConnectorStatsProps> = props => {
-  const { createdAt, lastUpdated, lastTested, lastConnected } = props
+  const { createdAt, lastUpdated, lastTested, lastConnected, className } = props
   const nameValue = [
     {
       name: i18n.connectorCreated,
@@ -43,7 +44,7 @@ const ConnectorStats: React.FC<ConnectorStatsProps> = props => {
   ]
   return (
     <>
-      <Layout.Vertical className={css.connectorStats} spacing="large">
+      <Layout.Vertical className={className || css.connectorStats} spacing="large">
         {nameValue.map((item, index) => {
           if (item.value) {
             return (

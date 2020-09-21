@@ -4,12 +4,12 @@ import { Button, StepWizard, useModalHook } from '@wings-software/uikit'
 
 import StepSSHDetails from './views/StepDetails'
 import StepAuthentication from './views/StepAuthentication'
-import StepVerify from './views/StepVerify'
 
 import type { DetailsForm } from './views/StepDetails'
 import type { SSHConfigFormData } from './views/StepAuthentication'
 
 import i18n from './CreateSSHCredModal.i18n'
+import StepVerify from './views/StepVerify'
 import css from './useCreateSSHCredModal.module.scss'
 
 export interface UseCreateSSHCredModalProps {

@@ -21,7 +21,7 @@ interface EntityListViewProps {
 }
 
 interface EntitiesPreviewProps {
-  selectedProduct: GitSyncProductDTO['productName']
+  selectedProduct: GitSyncProductDTO['moduleType']
 }
 
 const EntityListView: React.FC<EntityListViewProps> = props => {
@@ -45,7 +45,7 @@ const EntitiesPreview: React.FC<EntitiesPreviewProps> = props => {
   const previewListSize = 5
   const [selectedEntity, setSelectedEntity] = useState('')
   const { loading: loadingEntityList, data: dataAllEntities } = useListGitSyncEntitiesByProduct({
-    queryParams: { accountId, product: props.selectedProduct, size: previewListSize }
+    queryParams: { accountId, moduleType: props.selectedProduct, size: previewListSize }
   })
 
   useEffect(() => {

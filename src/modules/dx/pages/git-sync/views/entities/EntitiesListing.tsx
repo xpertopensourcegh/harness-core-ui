@@ -17,7 +17,7 @@ import i18n from './GitSyncEntityTab.i18n'
 import css from './GitSyncEntity.module.scss'
 
 interface EntitiesListingProps {
-  selectedProduct: GitSyncProductDTO['productName']
+  selectedProduct: GitSyncProductDTO['moduleType']
   entityType: GitSyncEntityListDTO['entityType']
   backToSummary: Function
 }

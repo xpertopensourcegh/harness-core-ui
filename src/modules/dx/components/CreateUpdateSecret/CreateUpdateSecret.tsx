@@ -21,14 +21,14 @@ export type SecretFormData = Omit<SecretDTOV2, 'spec'> & SecretTextSpecDTO & Sec
 
 interface CreateSecretTextProps {
   secret?: SecretDTOV2
-  type: SecretDTOV2['type']
+  type?: SecretDTOV2['type']
   onChange?: (data: SecretFormData) => void
   onSuccess?: (data: SecretFormData) => void
 }
 
 const CreateUpdateSecret: React.FC<CreateSecretTextProps> = props => {
-  const { secret, onSuccess, type } = props
-  const editing = !!secret?.identifier
+  const { secret, onSuccess } = props
+  let { type = 'SecretText' } = props
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
   const { showSuccess, showError } = useToaster()
   const { data: secretManagersApiResponse, loading: loadingSecretsManagers } = useGetConnectorList({
@@ -51,6 +51,8 @@ const CreateUpdateSecret: React.FC<CreateSecretTextProps> = props => {
   })
 
   const loading = loadingCreateText || loadingUpdateText || loadingCreateFile || loadingUpdateFile
+  const editing = !!secret?.identifier
+  if (secret && secret.type) type = secret?.type
 
   const createFormData = (data: SecretFormData): FormData => {
     const formData = new FormData()

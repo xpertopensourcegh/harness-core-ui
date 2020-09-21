@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from 'react'
 import { useParams, useHistory, useLocation } from 'react-router-dom'
-// import ReactTimeago from 'react-timeago'
+import ReactTimeago from 'react-timeago'
 import { Menu, Position, Classes } from '@blueprintjs/core'
 import type { Column, Renderer, CellProps } from 'react-table'
 import { Text, Color, Layout, Icon, Button, Popover } from '@wings-software/uikit'
@@ -10,8 +10,9 @@ import { routeSecretDetails } from 'modules/dx/routes'
 import { useToaster, useConfirmationDialog } from 'modules/common/exports'
 import { useDeleteSecretV2 } from 'services/cd-ng'
 import type { NGPageResponseSecretDTOV2, SecretDTOV2, SecretTextSpecDTO } from 'services/cd-ng'
-
+import { getStringForType } from 'modules/dx/components/secrets/SSHAuthUtils'
 // import TagsPopover from 'modules/common/components/TagsPopover/TagsPopover'
+import { useVerifyModal } from 'modules/dx/modals/CreateSSHCredModal/useVerifyModal'
 import i18n from '../../SecretsPage.i18n'
 import css from './SecretsList.module.scss'
 
@@ -19,20 +20,6 @@ interface SecretsListProps {
   secrets?: NGPageResponseSecretDTOV2
   gotoPage: (pageNumber: number) => void
   refetch?: () => void
-}
-
-const getStringForType = (type?: SecretDTOV2['type']): string => {
-  if (!type) return ''
-  switch (type) {
-    case 'SecretText':
-      return i18n.typeText
-    case 'SecretFile':
-      return i18n.typeFile
-    case 'SSHKey':
-      return i18n.typeSSH
-    default:
-      return ''
-  }
 }
 
 const RenderColumnSecret: Renderer<CellProps<SecretDTOV2>> = ({ row }) => {
@@ -68,20 +55,19 @@ const RenderColumnDetails: Renderer<CellProps<SecretDTOV2>> = ({ row }) => {
   )
 }
 
-const RenderColumnActivity: Renderer<CellProps<SecretDTOV2>> = () => {
-  // const data = row.original
-  return (
+const RenderColumnActivity: Renderer<CellProps<SecretDTOV2>> = ({ row }) => {
+  const data = row.original
+  return data.lastModifiedAt ? (
     <Layout.Horizontal spacing="small">
       <Icon name="activity" />
-      {/* {data.lastUpdatedAt ? <ReactTimeago date={data.lastUpdatedAt} /> : null} */}
-      {/* Temporary, until spec for 'lastUpdateAt' is finalized */}
-      <Text>4 minutes ago</Text>
+      <ReactTimeago date={data.lastModifiedAt} />
     </Layout.Horizontal>
-  )
+  ) : null
 }
 
 const RenderColumnStatus: Renderer<CellProps<SecretDTOV2>> = ({ row }) => {
   const data = row.original
+  const { openVerifyModal } = useVerifyModal()
   if (data.type === 'SecretText' || data.type === 'SecretFile') {
     return (data.spec as SecretTextSpecDTO).draft ? (
       <Text icon="warning-sign" intent="warning">
@@ -89,6 +75,19 @@ const RenderColumnStatus: Renderer<CellProps<SecretDTOV2>> = ({ row }) => {
       </Text>
     ) : null
   }
+  if (data.type === 'SSHKey')
+    return (
+      <Button
+        font="small"
+        text={i18n.testconnection}
+        onClick={e => {
+          e.stopPropagation()
+          openVerifyModal(data)
+          return
+        }}
+      />
+    )
+
   return null
 }
 

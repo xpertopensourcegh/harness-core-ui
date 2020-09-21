@@ -20,6 +20,7 @@ import { useToaster } from 'modules/common/exports'
 import CreateUpdateSecret from 'modules/dx/components/CreateUpdateSecret/CreateUpdateSecret'
 import { routeSecretDetails } from 'modules/dx/routes'
 
+import EditSSHSecret from './views/EditSSHSecret'
 import ViewSecretDetails from './views/ViewSecretDetails'
 
 import i18n from './SecretDetails.i18n'
@@ -37,7 +38,7 @@ const SecretDetails: React.FC = () => {
   const history = useHistory()
   const { edit } = parseQueryString(queryParams)
   const [mode, setMode] = useState<Mode>(Mode.VISUAL)
-  const [fieldsRemovedFromYaml, setFieldsRemovedFromYaml] = useState(['spec.draft'])
+  const [fieldsRemovedFromYaml, setFieldsRemovedFromYaml] = useState(['spec.draft', 'lastModifiedAt'])
   const [snippets, setSnippets] = useState<SnippetInterface[]>()
   const [yamlHandler, setYamlHandler] = React.useState<YamlBuilderHandlerBinding | undefined>()
   const { loading, data, refetch, error } = useGetSecretV2({
@@ -187,18 +188,22 @@ const SecretDetails: React.FC = () => {
         {edit ? (
           // EDIT in VISUAL mode
           mode === Mode.VISUAL ? (
-            <Container width="400px">
-              <CreateUpdateSecret
-                secret={secretData}
-                type={secretData.type}
-                onChange={formData =>
-                  setSecretData({
-                    ...secretData,
-                    ...pick(formData, ['name', 'description', 'identifier']),
-                    spec: pick(formData, ['value', 'valueType', 'secretManagerIdentifier']) as SecretTextSpecDTO
-                  } as SecretDTOV2)
-                }
-              />
+            <Container>
+              {secretData.type === 'SSHKey' ? <EditSSHSecret secret={secretData} /> : null}
+              {secretData.type === 'SecretFile' || secretData.type === 'SecretText' ? (
+                <Container width="400px">
+                  <CreateUpdateSecret
+                    secret={secretData}
+                    onChange={formData =>
+                      setSecretData({
+                        ...secretData,
+                        ...pick(formData, ['name', 'description', 'identifier']),
+                        spec: pick(formData, ['value', 'valueType', 'secretManagerIdentifier']) as SecretTextSpecDTO
+                      } as SecretDTOV2)
+                    }
+                  />
+                </Container>
+              ) : null}
             </Container>
           ) : (
             // EDIT in YAML mode

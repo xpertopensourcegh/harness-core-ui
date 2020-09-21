@@ -14,7 +14,7 @@ import * as Yup from 'yup'
 import { pick } from 'lodash-es'
 import type { IOptionProps } from '@blueprintjs/core'
 
-import { VaultConfigDTO, useCreateConnector } from 'services/cd-ng'
+import { VaultConfigDTO, useCreateConnector, ConnectorRequestWrapper } from 'services/cd-ng'
 import ConnectorDetailsStep from 'modules/dx/components/connectors/CreateConnector/commonSteps/ConnectorDetailsStep'
 import { useToaster } from 'modules/common/exports'
 import { Connectors } from 'modules/dx/constants'
@@ -123,10 +123,12 @@ const StepSecretEngine: React.FC<StepProps<VaultConfigDTO> & { loading: boolean 
       <Formik
         initialValues={{
           secretEngineName: '',
+          secretEngineVersion: '',
           renewIntervalHours: undefined
         }}
         validationSchema={Yup.object().shape({
           secretEngineName: Yup.string().required(i18n.validationEngine),
+          secretEngineVersion: Yup.number().positive(i18n.validationVersionNumber).required(i18n.validationVersion),
           renewIntervalHours: Yup.number().positive(i18n.validationRenewalNumber).required(i18n.validationRenewal)
         })}
         onSubmit={data => {
@@ -135,7 +137,8 @@ const StepSecretEngine: React.FC<StepProps<VaultConfigDTO> & { loading: boolean 
       >
         {() => (
           <FormikForm>
-            <FormInput.Text name="secretEngineName" label={i18n.labelSecretEngine} />
+            <FormInput.Text name="secretEngineName" label={i18n.labelSecretEngineName} />
+            <FormInput.Text name="secretEngineVersion" label={i18n.labelSecretEngineVersion} />
             <FormInput.Text name="renewIntervalHours" label={i18n.labelRenewal} />
             <Button
               type="submit"
@@ -165,14 +168,22 @@ const CreateSecretManager: React.FC<CreateSecretManagerProps> = ({
       <StepWizard<VaultConfigDTO>
         onCompleteWizard={async data => {
           if (data) {
-            const dataToSubmit = {
+            const dataToSubmit: ConnectorRequestWrapper = {
               connector: {
                 orgIdentifier,
                 projectIdentifier,
                 ...pick(data, ['name', 'identifier', 'description', 'tags']),
                 type: Connectors.SECRET_MANAGER,
                 spec: {
-                  ...pick(data, ['authToken', 'basePath', 'secretEngineName', 'vaultUrl', 'readOnly', 'default'])
+                  ...pick(data, [
+                    'authToken',
+                    'basePath',
+                    'secretEngineName',
+                    'secretEngineVersion',
+                    'vaultUrl',
+                    'readOnly',
+                    'default'
+                  ])
                 }
               }
             }
