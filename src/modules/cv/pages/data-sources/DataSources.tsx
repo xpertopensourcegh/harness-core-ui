@@ -20,8 +20,12 @@ import { Page, useConfirmationDialog } from 'modules/common/exports'
 import CVProductCard from 'modules/cv/components/CVProductCard/CVProductCard'
 import { routeCVDataSourcesProductPage, routeCVDataSources } from 'modules/cv/routes'
 import { CVProviders, VerificationTypeToRouteVerificationType } from 'modules/cv/constants'
-import { routeParams } from 'framework/exports'
-import { useIndexedDBHook, CVObjectStoreNames } from 'modules/cv/hooks/IndexedDBHook/IndexedDBHook'
+import { loggerFor, ModuleName, routeParams } from 'framework/exports'
+import {
+  useIndexedDBHook,
+  CVObjectStoreNames,
+  CVIndexedDBPrimaryKeys
+} from 'modules/cv/hooks/IndexedDBHook/IndexedDBHook'
 import { CreateConnectorWizard } from 'modules/dx/components/connectors/CreateConnectorWizard/CreateConnectorWizard'
 import { useDeleteConnector, useGetConnectorList, ConnectorConfigDTO, ConnectorDTO } from 'services/cd-ng'
 import type { DSConfig } from 'services/cv'
@@ -98,6 +102,8 @@ const SimpleTableColumns = [
     }
   }
 ]
+
+const logger = loggerFor(ModuleName.CV)
 
 const DIALOG_PROPS = {
   isOpen: true,
@@ -193,12 +199,15 @@ function Providers(props: ProvidersProps): JSX.Element {
           projectIdentifier={projectId}
           type={connectorType}
           onSuccess={async (conn?: ConnectorConfigDTO) => {
-            if (conn) {
+            const { identifier, type } = conn?.connector || {}
+            if (identifier && type) {
               await dbInstance?.put(CVObjectStoreNames.ONBOARDING_JOURNEY, {
-                dataSourceId: conn.identifier,
+                [CVIndexedDBPrimaryKeys.DATASOURCE_ID]: identifier,
                 isEdit: false
               })
-              moveToDataSourceProductPage(history, projectId, orgId, conn.identifier, conn.type)
+              moveToDataSourceProductPage(history, projectId, orgId, identifier, type)
+            } else {
+              logger.error('No identifier or type present on connector creation!', conn)
             }
             hideConnectorModal()
           }}
@@ -278,7 +287,7 @@ function CVConnectorListTable(props: CVConnectorListTableProps): JSX.Element {
           }
           const onEditCallback = useCallback(() => {
             dbInstance?.add(CVObjectStoreNames.ONBOARDING_JOURNEY, {
-              dataSourceId: originalData.identifier,
+              [CVIndexedDBPrimaryKeys.DATASOURCE_ID]: originalData.identifier,
               isEdit: true
             })
           }, [originalData.identifier])
@@ -403,14 +412,14 @@ function RenderContent(props: RenderContentProps): JSX.Element {
 const DataSources: FunctionComponent<{}> = _ => {
   const [existingDataSources, setDataSources] = useState(new Map())
   const {
-    params: { accountId, projectIdentifier: projectId, orgId }
+    params: { accountId, projectIdentifier, orgIdentifier }
   } = routeParams()
   const { isInitializingDB, dbInstance } = useIndexedDBHook()
   const { data: secretManagersApiResponse, loading, error, refetch } = useGetConnectorList({
     accountIdentifier: accountId,
     queryParams: {
-      orgIdentifier: orgId as string,
-      projectIdentifier: projectId as string
+      orgIdentifier: orgIdentifier as string,
+      projectIdentifier: projectIdentifier as string
     }
   })
 
