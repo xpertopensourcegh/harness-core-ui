@@ -4,7 +4,7 @@ import css from './TitledInfo.module.scss'
 
 export interface TitledInfoProps {
   title: string
-  value: string | number
+  value: string | number | undefined
   href?: string
   className?: string
   maxWidth?: string
@@ -17,7 +17,7 @@ export const TitledInfo: React.FC<TitledInfoProps> = (props: TitledInfoProps) =>
 
   return (
     <div className={css.container} {...restProps}>
-      <Text>{title}</Text>
+      <Text>{title || ''}</Text>
       {!href && <Text style={style}>{value && value.toString()}</Text>}
       {href && (
         <Link style={style} href={href}>

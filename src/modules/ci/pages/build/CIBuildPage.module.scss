@@ -8,3 +8,8 @@
     margin-left: var(--spacing-medium) !important;
   }
 }
+
+.page-body {
+  display: flex;
+  flex-direction: column;
+}

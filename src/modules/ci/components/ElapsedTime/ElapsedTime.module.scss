@@ -1,5 +1,10 @@
 .elapsed-time {
-  color: #0eab7d;
-  font-size: 12px;
-  line-height: 16px;
+  color: var(--green-800);
+  font-size: var(--font-size-small);
+
+  :global {
+    .bp3-icon {
+      margin-right: var(--spacing-xsmall);
+    }
+  }
 }

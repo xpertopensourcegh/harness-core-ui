@@ -1,0 +1,23 @@
+.main {
+  --execution-pipeline-status-failed-bg: var(--red-400);
+  --execution-pipeline-status-success-bg: var(--green-400);
+  --execution-pipeline-status-running-bg: var(--yellow-400);
+
+  width: 100%;
+  height: 100%;
+
+  // dotted background
+  $bg-color: var(--blue-100);
+  $dot-color: var(--dark-200);
+  $dot-size: 0.5px;
+  $dot-space: 10px;
+
+  background: linear-gradient(90deg, $bg-color ($dot-space - $dot-size), transparent 1%) center,
+    linear-gradient($bg-color ($dot-space - $dot-size), transparent 1%) center, $dot-color;
+  background-size: $dot-space $dot-space;
+
+  .canvas {
+    width: 100%;
+    height: 100%;
+  }
+}

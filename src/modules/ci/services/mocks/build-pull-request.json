@@ -1,0 +1,23 @@
+{
+  "status": "SUCCESS",
+  "data": {
+    "id": 25,
+    "startTime": 1599828048044,
+    "endTime": 0,
+    "pipeline": { "id": "cipipelinetrigger11111111111", "name": "Integration Pipeline" },
+    "triggerType": "webhook",
+    "event": "pullRequest",
+    "author": { "id": "aradisavljevic", "avatar": "https://avatars3.githubusercontent.com/u/64142986?v=4" },
+    "pullRequest": {
+      "id": 16588,
+      "link": "https://github.com/wings-software/portal/pull/16588",
+      "title": "[CI-173]: Delegate task for step status ",
+      "body": "\n\n<!-- Reviewable:start -->\nThis change is [<img src=\"https://reviewable.io/review_button.svg\" height=\"34\" align=\"absmiddle\" alt=\"Reviewable\"/>](https://reviewable.io/reviews/wings-software/portal/16588)\n<!-- Reviewable:end -->\n",
+      "sourceBranch": "aleksandar/CI-173",
+      "targetBranch": "master",
+      "state": "open"
+    }
+  },
+  "metaData": null,
+  "correlationId": null
+}

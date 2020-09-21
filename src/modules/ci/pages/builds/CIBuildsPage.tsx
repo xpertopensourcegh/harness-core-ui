@@ -22,7 +22,12 @@ const CDHomePage: React.FC = () => {
       pageNumber: 1,
       pageSize: 10,
       paged: false,
-      unpaged: false
+      unpaged: false,
+      sort: {
+        unsorted: false,
+        sorted: true,
+        empty: false
+      }
     },
     totalPages: 0,
     totalElements: 0,
@@ -31,7 +36,12 @@ const CDHomePage: React.FC = () => {
     number: 0,
     first: true,
     numberOfElements: 0,
-    empty: true
+    empty: true,
+    sort: {
+      unsorted: false,
+      sorted: true,
+      empty: false
+    }
   })
 
   useEffect(() => {

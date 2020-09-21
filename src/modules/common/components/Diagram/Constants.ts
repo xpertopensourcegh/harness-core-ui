@@ -18,7 +18,10 @@ export const Event: { [key: string]: string } = {
   SourcePortChanged: 'sourcePortChanged',
   TargetPortChanged: 'targetPortChanged',
   DropLinkEvent: 'dropLinkEvent',
-  DropNodeEvent: 'dropNodeEvent'
+  DropNodeEvent: 'dropNodeEvent',
+  MouseEnterNode: 'mouseEnterNode',
+  MouseOverNode: 'mouseOverNode',
+  MouseLeaveNode: 'mouseLeaveNode'
 }
 
 export const DiagramType: { [key: string]: string } = {

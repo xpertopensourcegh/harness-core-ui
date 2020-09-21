@@ -45,6 +45,21 @@ const onClickNode = (e: React.MouseEvent<Element, MouseEvent>, node: DefaultNode
   node.fireEvent({ target: e.target }, Event.ClickNode)
 }
 
+const onMouseOverNode = (e: MouseEvent, node: DefaultNodeModel): void => {
+  e.stopPropagation()
+  node.fireEvent({ target: e.target }, Event.MouseOverNode)
+}
+
+const onMouseEnterNode = (e: MouseEvent, node: DefaultNodeModel): void => {
+  e.stopPropagation()
+  node.fireEvent({ target: e.target }, Event.MouseEnterNode)
+}
+
+const onMouseLeaveNode = (e: MouseEvent, node: DefaultNodeModel): void => {
+  e.stopPropagation()
+  node.fireEvent({ target: e.target }, Event.MouseLeaveNode)
+}
+
 export const DefaultNodeWidget = (props: DefaultNodeProps): JSX.Element => {
   const options = props.node.getOptions()
   const nodeRef = React.useRef<HTMLDivElement>(null)
@@ -56,28 +71,37 @@ export const DefaultNodeWidget = (props: DefaultNodeProps): JSX.Element => {
   React.useEffect(() => {
     const currentNode = nodeRef.current
 
-    const onMouseOver = (): void => {
-      if (!addClicked) {
+    const onMouseOver = (e: MouseEvent): void => {
+      if (!addClicked && allowAdd) {
         setVisibilityOfAdd(true)
       }
-    }
-    const onMouseLeave = (): void => {
-      if (!addClicked) {
-        setVisibilityOfAdd(false)
-      }
+      onMouseOverNode(e, props.node)
     }
 
-    if (currentNode && allowAdd) {
+    const onMouseEnter = (e: MouseEvent): void => {
+      onMouseEnterNode(e, props.node)
+    }
+
+    const onMouseLeave = (e: MouseEvent): void => {
+      if (!addClicked && allowAdd) {
+        setVisibilityOfAdd(false)
+      }
+      onMouseLeaveNode(e, props.node)
+    }
+
+    if (currentNode) {
+      currentNode.addEventListener('mouseenter', onMouseEnter)
       currentNode.addEventListener('mouseover', onMouseOver)
       currentNode.addEventListener('mouseleave', onMouseLeave)
     }
     return () => {
-      if (currentNode && allowAdd) {
+      if (currentNode) {
+        currentNode.removeEventListener('mouseenter', onMouseEnter)
         currentNode.removeEventListener('mouseover', onMouseOver)
         currentNode.removeEventListener('mouseleave', onMouseLeave)
       }
     }
-  }, [nodeRef, allowAdd, addClicked])
+  }, [nodeRef, allowAdd, addClicked, props.node])
 
   React.useEffect(() => {
     if (!addClicked) {

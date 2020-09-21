@@ -6,7 +6,7 @@ import type { NodeModelListener, LinkModelListener } from '@projectstorm/react-d
 import SplitPane from 'react-split-pane'
 import { Diagram } from 'modules/common/exports'
 import { DynamicPopover, DynamicPopoverHandlerBinding } from 'modules/common/components/DynamicPopover/DynamicPopover'
-import { CanvasButtons } from 'modules/cd/components/CanvasButtons/CanvasButtons'
+import { CanvasButtons } from 'modules/common/components/CanvasButtons/CanvasButtons'
 import type { StageElementWrapper, CDPipeline } from 'services/cd-ng'
 import { StageBuilderModel } from './StageBuilderModel'
 import StageSetupShell from '../../../components/StageSetupShell/StageSetupShell'

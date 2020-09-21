@@ -1,7 +1,7 @@
 /* eslint-disable */
 // this is an auto-generated file
 declare const styles: {
-  readonly extendedTabContent: string
-  readonly pageBody: string
+  readonly main: string
+  readonly canvas: string
 }
 export default styles

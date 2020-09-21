@@ -11,16 +11,26 @@
   display: flex;
   justify-content: left;
   align-items: center;
-  min-height: 30px;
 
+  padding-left: var(--spacing-xxlarge) !important;
+  padding-right: var(--spacing-xxlarge) !important;
+
+  // .row.row - hack to increase specificity
+  // TODO - change if there is a better approach
   &.row.row > * + * {
     margin-left: 24px !important;
+  }
+
+  &:nth-child(3) {
+    padding-top: var(--spacing-small);
+    border-top: 2px solid var(--grey-200);
   }
 }
 
 .toolbar {
+  // .toolbar.toolbar - hack to increase specificity
+  // TODO - change if there is a better approach
   &.toolbar.toolbar {
-    // hack to increase specificity
     margin-left: auto !important;
   }
 }

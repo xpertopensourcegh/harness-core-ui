@@ -1,0 +1,107 @@
+{
+  "status": "SUCCESS",
+  "data": {
+    "id": 53,
+    "status": "SUCCESS",
+    "startTime": 1600263203,
+    "endTime": 0,
+    "pipeline": {
+      "id": "cipipelinesetup",
+      "name": "Integration Pipeline123456"
+    },
+    "triggerType": "webhook ABC",
+    "event": "branchABC",
+    "author": {
+      "id": "archit-harnessABC",
+      "avatar": "https://avatars2.githubusercontent.com/u/64410186?v=4"
+    },
+    "branch": {
+      "name": "developments",
+      "link": "https://github.com/wings-software/portal",
+      "commits": [
+        {
+          "id": "eeb10e33feb7b646f25b362710f1881c11cce6ef",
+          "link": "https://github.com/wings-software/portal/commit/eeb10e33feb7b646f25b362710f1881c11cce6ef",
+          "message": "[BT-61]: Do not terminate on test failure (#16777)\n\n* changed bazel_script\r\n\r\n* small change\r\n\r\n* [BT-61]: Do not terminate on test failure",
+          "ownerName": "Brijesh Dhakar",
+          "ownerId": "brijeshdhakar",
+          "ownerEmail": "brijesh.dhakar@harness.io"
+        },
+        {
+          "id": "9e2e7b3e0faaa388a06aa44ea79d047d9e93ae64",
+          "link": "https://github.com/wings-software/portal/commit/9e2e7b3e0faaa388a06aa44ea79d047d9e93ae64",
+          "message": "[CDC-9342]: Delegate task management and params passing (#16701)\n\n* [CDC-9342]: Delegate task management and params passing\r\n\r\n* [CDC-9342]: Feature flag checks and owned by annotations\r\n\r\n* [CDC-9342]: Minor comment changes and ensuring app manifest passed to perpetual task manager has perpetualtaskId\r\n\r\n* [CDC-9342]: removed accidental line used for testing\r\n\r\n* [CDC-9342]: Added new classes to coverage list\r\n\r\n* [CDC-9342]: Moved 2 classes out of rest\r\n\r\n* [CDC-9342]: Added repo name to params too",
+          "ownerName": "Prabu Rajendran",
+          "ownerId": "prabu-kr",
+          "ownerEmail": "prabu.rajendran@harness.io"
+        },
+        {
+          "id": "79b9ff99d6b193bc20d8a82f3a06d6de725015f6",
+          "link": "https://github.com/wings-software/portal/commit/79b9ff99d6b193bc20d8a82f3a06d6de725015f6",
+          "message": "[CDP-14734]: Remove Feature Flag INFRA_MAPPING_REFACTOR from backend (PCF) (#16738)\n\n* [CDP-14734]: Remove Feature Flag INFRA_MAPPING_REFACTOR from backend (PCF)\r\n\r\n* [CDP-14734]: Fix Test\r\n\r\n* [CDP-14734]: remove unused boolean\r\n\r\n* [CDP-14734]: remove iml file",
+          "ownerName": "Yogesh Chauhan",
+          "ownerId": "yogesh-chauhan",
+          "ownerEmail": "yogesh.chauhan@harness.io"
+        },
+        {
+          "id": "95c64fe1cbd9e77d1e2cfab3897a717ded112ed8",
+          "link": "https://github.com/wings-software/portal/commit/95c64fe1cbd9e77d1e2cfab3897a717ded112ed8",
+          "message": "[CI-186]: added CiStepOutcome (#16762)",
+          "ownerName": "Aleksandar Radisavljevic",
+          "ownerId": "aradisavljevic",
+          "ownerEmail": "aleksandar.radisavljevic@harness.io"
+        },
+        {
+          "id": "1dec1d892dfd0e234ca2f62e45e02676c99a95a9",
+          "link": "https://github.com/wings-software/portal/commit/1dec1d892dfd0e234ca2f62e45e02676c99a95a9",
+          "message": "[BT-43]: Move bazel-cache-java bucket to Platform project (#16787)",
+          "ownerName": "Brijesh Dhakar",
+          "ownerId": "brijeshdhakar",
+          "ownerEmail": "brijesh.dhakar@harness.io"
+        },
+        {
+          "id": "42c0e52cc833e3582e9f104688d32dcd845cfde9",
+          "link": "https://github.com/wings-software/portal/commit/42c0e52cc833e3582e9f104688d32dcd845cfde9",
+          "message": "[CDNG-1179]: validation in secret manager as connector (#16636)\n\n* [CDNG-1179]: dummy commit\r\n\r\n* [CDNG-1159]: engine\r\n\r\n* [CDNG-589]: Schema change for SSH connectors\r\n\r\n* [CDNG-1179]: compile fix\r\n\r\n* [CDNG-1179]: retrofit undo\r\n\r\n* [CDNG-1179]: test fix\r\n\r\n* [CDNG-1179]: retrofit fix\r\n\r\n* [CDNG-1179]: addressed comment\r\n\r\n* [CDNG-1179]: addressed comment\r\n\r\n* [CDNG-1179]: addressed comment\r\n\r\n* [CDNG-1179]: gcp kms user check fix\r\n\r\n* [CDNG-1179]: fix\r\n\r\n* [CDNG-1179]: name fix\r\n\r\n* [CDNG-1179]: refactor\r\n\r\nCo-authored-by: Nikhil Ranjan <nikhil.ranjan@harness.io>",
+          "ownerName": "Karan Siwach",
+          "ownerId": "karansiwach",
+          "ownerEmail": "karan.siwach@harness.io"
+        },
+        {
+          "id": "b8f7b23cbbe2366d2da7cd3f338a6cb0dcdf3aed",
+          "link": "https://github.com/wings-software/portal/commit/b8f7b23cbbe2366d2da7cd3f338a6cb0dcdf3aed",
+          "message": "[CE-2831]: node pool labels to db (#16752)\n\n* [CE-2831]: add nodePoolName and labels to instanceData mongo\r\n\r\n* [CE-2831]: add aks node pool support\r\n\r\n* [CE-2831]: EKS node pool support",
+          "ownerName": "Utsav Krishnan",
+          "ownerId": "ketankr9",
+          "ownerEmail": "utsav.krishnan@harness.io"
+        },
+        {
+          "id": "e83448b9c23b05fbf1f0c099135a2d7fe03ff226",
+          "link": "https://github.com/wings-software/portal/commit/e83448b9c23b05fbf1f0c099135a2d7fe03ff226",
+          "message": "[CE-2919]: add nodePoolName to nodeAndPodData points (#16750)",
+          "ownerName": "Utsav Krishnan",
+          "ownerId": "ketankr9",
+          "ownerEmail": "utsav.krishnan@harness.io"
+        },
+        {
+          "id": "a233cad5245e9e44317750f4c0bd307706f52e93",
+          "link": "https://github.com/wings-software/portal/commit/a233cad5245e9e44317750f4c0bd307706f52e93",
+          "message": "Merge branch 'master' into CDNG-1202",
+          "ownerName": "Archit Singla",
+          "ownerId": "archit-harness",
+          "ownerEmail": "archit.singla@harness.io"
+        },
+        {
+          "id": "c608c14eed18a93050a62eb63f8355fb30ca689a",
+          "link": "https://github.com/wings-software/portal/commit/c608c14eed18a93050a62eb63f8355fb30ca689a",
+          "message": "[CDNG-1202]: Test fixes",
+          "ownerName": "Archit Singla",
+          "ownerId": "archit-harness",
+          "ownerEmail": "archit.singla@harness.io"
+        }
+      ]
+    }
+  },
+  "metaData": null,
+  "correlationId": null
+}

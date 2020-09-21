@@ -1,6 +1,16 @@
-import buildsJSON from './mocks/builds.json'
-import type { BuildsResponse } from './Types'
+// TODO: Load data from API
 
-export async function fetchBuilds(/*props: { pageNumber: number; pageSize: number }*/): Promise<BuildsResponse> {
+import buildsJSON from './mocks/builds.json'
+import buildJSON from './mocks/build.json'
+
+import type { BuildResponse, BuildsResponse } from './Types'
+
+export async function fetchBuilds(): Promise<BuildsResponse> {
   return Promise.resolve(buildsJSON as BuildsResponse)
+}
+
+export async function fetchBuild(): Promise<BuildResponse> {
+  return new Promise(resolve => {
+    setTimeout(() => resolve(buildJSON as BuildResponse), 1000)
+  })
 }

@@ -1,3 +1,9 @@
+// TODO: replace all with DTO
+
+export enum BuildExecutionStatus {
+  IN_PROGRESS = 'in_progress'
+}
+
 export interface Pipeline {
   id: string
   name: string
@@ -36,6 +42,7 @@ export interface PullRequest {
 
 export interface Build {
   id: number
+  status: BuildExecutionStatus
   startTime: number
   endTime: number
   pipeline: Pipeline
@@ -53,7 +60,7 @@ export interface Sort {
 }
 
 export interface Pageable {
-  sort?: Sort
+  sort: Sort
   offset: number
   pageNumber: number
   pageSize: number
@@ -70,7 +77,7 @@ export interface BuildsData {
   size: number
   number: number
   first: boolean
-  sort?: Sort
+  sort: Sort
   numberOfElements: number
   empty: boolean
 }
@@ -78,6 +85,13 @@ export interface BuildsData {
 export interface BuildsResponse {
   status: string
   data: BuildsData
+  metaData?: any
+  correlationId?: any
+}
+
+export interface BuildResponse {
+  status: string
+  data: Build
   metaData?: any
   correlationId?: any
 }

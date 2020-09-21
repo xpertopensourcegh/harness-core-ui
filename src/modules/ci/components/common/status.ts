@@ -1,3 +1,6 @@
+import i18n from './status.i18n'
+
+// TODO: should be replaced with DTO
 export enum ExecutionStatus {
   SUCCESS = 'SUCCESS',
   FAILED = 'FAILED',
@@ -15,13 +18,13 @@ export enum ExecutionStatus {
 export function status2Message(status: ExecutionStatus): string {
   switch (status) {
     case ExecutionStatus.SUCCESS:
-      return 'SUCCESS'
+      return i18n.success
     case ExecutionStatus.FAILED:
-      return 'FAILED'
+      return i18n.failed
     case ExecutionStatus.IN_PROGRESS:
-      return 'IN PROGRESS'
+      return i18n.inProgress
     case ExecutionStatus.PENDING:
-      return 'PENDING'
+      return i18n.pending
     default:
       return ''
   }
