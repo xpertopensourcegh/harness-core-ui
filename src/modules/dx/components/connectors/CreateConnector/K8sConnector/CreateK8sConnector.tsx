@@ -40,7 +40,6 @@ import VerifyInstalledDelegate from 'modules/dx/common/VerifyInstalledDelegate/V
 import VerifyExistingDelegate from 'modules/dx/common/VerifyExistingDelegate/VerifyExistingDelegate'
 import VerifyOutOfClusterDelegate from 'modules/dx/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 import CreateSecretOverlay from 'modules/dx/common/CreateSecretOverlay/CreateSecretOverlay'
-import { useToaster } from 'modules/common/exports'
 import { Connectors } from 'modules/dx/constants'
 import { DelegateTypes, AuthTypes } from 'modules/dx/pages/connectors/Forms/KubeFormInterfaces'
 import ConnectorFormFields from '../../ConnectorFormFields/ConnectorFormFields'
@@ -220,21 +219,23 @@ const renderDelegateInclusterForm = (
 
 const SecondStep = (props: SecondStepProps) => {
   const { state, accountId } = props
-  const { showError } = useToaster()
   const { projectIdentifier, orgIdentifier } = useParams()
   const { data: delegateList, refetch: reloadDelegateList } = useGetKubernetesDelegateNames({
     queryParams: { accountId },
     lazy: true
   })
+  const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
   const { mutate: createConnector } = useCreateConnector({ accountIdentifier: accountId })
   const handleCreate = async (data: ConnectorRequestWrapper) => {
     try {
+      modalErrorHandler?.hide()
       await createConnector(data)
       props.nextStep?.()
     } catch (e) {
-      showError(e.message)
+      modalErrorHandler?.showDanger(e.data?.message || e.message)
     }
   }
+
   const radioProps = {
     data: secondStepData,
     className: css.customCss,
@@ -268,8 +269,9 @@ const SecondStep = (props: SecondStepProps) => {
       </Text>
       <Formik
         initialValues={{
-          delegateType: props?.formData?.delegateType || '',
-          delegateName: props?.formData?.delegateName || ''
+          delegateType: props?.formData?.delegateType || DelegateTypes.DELEGATE_IN_CLUSTER,
+          delegateName: props?.formData?.delegateName || '',
+          profile: props?.formData?.profile || ''
         }}
         validationSchema={Yup.object().shape({
           delegateType: Yup.string().trim().required(),
@@ -286,13 +288,12 @@ const SecondStep = (props: SecondStepProps) => {
             }
             handleCreate(data)
           }
-
-          props.nextStep?.()
         }}
       >
         {formikProps => (
           <Form>
             <div className={css.delegateWrapper}>
+              <ModalErrorHandler bind={setModalErrorHandler} style={{ marginBottom: 'var(--spacing-medium)' }} />
               <CardSelect
                 onChange={(item: FirstData) => {
                   state?.setDelegateType(item.type)
@@ -331,7 +332,6 @@ const IntermediateStep: React.FC<IntermediateStepProps> = props => {
   const [showCreateSecretModal, setShowCreateSecretModal] = useState<boolean>(false)
   const [editSecretData, setEditSecretData] = useState<EncryptedDataDTO>()
   const { state, accountId } = props
-  const { showError } = useToaster()
   const { projectIdentifier, orgIdentifier } = useParams()
   const { mutate: createConnector } = useCreateConnector({ accountIdentifier: accountId })
   const { mutate: updateConnector } = useUpdateConnector({ accountIdentifier: props.accountId })
@@ -347,8 +347,7 @@ const IntermediateStep: React.FC<IntermediateStepProps> = props => {
       props.nextStep?.()
     } catch (e) {
       setLoadConnector(false)
-      showError(e.message)
-      modalErrorHandler?.showDanger(e?.message)
+      modalErrorHandler?.showDanger(e.data?.message || e.message)
     }
   }
 
@@ -360,8 +359,7 @@ const IntermediateStep: React.FC<IntermediateStepProps> = props => {
       props.nextStep?.()
     } catch (error) {
       setLoadConnector(false)
-      showError(error.message)
-      modalErrorHandler?.showDanger(error?.message)
+      modalErrorHandler?.showDanger(error.data?.message || error.message)
     }
   }
 
@@ -479,7 +477,7 @@ const IntermediateStep: React.FC<IntermediateStepProps> = props => {
                   })
                   .catch(error => {
                     setLoadSecret(false)
-                    modalErrorHandler?.showDanger(error?.message)
+                    modalErrorHandler?.showDanger(error?.data?.message || error?.message)
                   })
               } else {
                 handleCreate(data)
@@ -548,7 +546,7 @@ const IntermediateStep: React.FC<IntermediateStepProps> = props => {
 }
 
 const CreateK8sConnector = (props: CreateK8sConnectorProps) => {
-  const [delegateType, setDelegateType] = useState('')
+  const [delegateType, setDelegateType] = useState(DelegateTypes.DELEGATE_IN_CLUSTER)
   const [formData, setFormData] = useState<ConnectorConfigDTO | undefined>()
   const [inclusterDelegate, setInClusterDelegate] = useState('')
   const [authentication, setAuthentication] = useState({

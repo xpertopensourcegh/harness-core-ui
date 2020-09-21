@@ -293,15 +293,18 @@ exports[`Connectors List render 1`] = `
                 />
               </svg>
             </span>
-            <div>
+            <div
+              class="wrapper"
+            >
               <div
                 class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
               >
-                <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+                <div
+                  class="name"
+                  title="dummyName"
                 >
                   dummyName
-                </p>
+                </div>
                 <span
                   class="bp3-popover-wrapper"
                 >
@@ -335,11 +338,12 @@ exports[`Connectors List render 1`] = `
                   </span>
                 </span>
               </div>
-              <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+              <div
+                class="identifier"
+                title="dummyid"
               >
-                Test Account
-              </p>
+                dummyid
+              </div>
             </div>
           </div>
         </div>

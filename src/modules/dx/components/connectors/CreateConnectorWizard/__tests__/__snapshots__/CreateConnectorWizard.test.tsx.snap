@@ -113,7 +113,7 @@ exports[`Delegate Step Wizard should render Delegate Setup Wizard 1`] = `
                     </div>
                   </div>
                   <div
-                    class="bp3-form-group"
+                    class="bp3-form-group description"
                     data-id="description-1"
                   >
                     <label

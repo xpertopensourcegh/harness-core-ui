@@ -110,7 +110,7 @@ exports[`Create Secret Manager Wizard should render form 1`] = `
                   </div>
                 </div>
                 <div
-                  class="bp3-form-group"
+                  class="bp3-form-group description"
                   data-id="description-1"
                 >
                   <label
@@ -372,7 +372,7 @@ exports[`Create Secret Manager Wizard should render form 2`] = `
                   </div>
                 </div>
                 <div
-                  class="bp3-form-group"
+                  class="bp3-form-group description"
                   data-id="description-1"
                 >
                   <label

@@ -84,7 +84,7 @@ const ConnectorDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDe
           <Form>
             <div className={css.connectorForm}>
               <FormInput.InputWithIdentifier inputLabel={`Give your ${getConnectorTextByType(props.type)} a name `} />
-              <FormInput.TextArea label={i18n.description} name="description" />
+              <FormInput.TextArea className={css.description} label={i18n.description} name="description" />
               <FormInput.TagInput
                 label={i18n.tags}
                 name="tags"

@@ -73,7 +73,7 @@ const HttpCredentialStep: React.FC<HttpCredentialStepProps> = props => {
       props.nextStep?.()
     } catch (e) {
       setLoadConnector(false)
-      modalErrorHandler?.showDanger(e?.message)
+      modalErrorHandler?.showDanger(e.data?.message || e.message)
     }
   }
 
@@ -108,7 +108,7 @@ const HttpCredentialStep: React.FC<HttpCredentialStepProps> = props => {
       setLoadSecret(false)
     } catch (e) {
       setLoadSecret(false)
-      modalErrorHandler?.showDanger(e?.message)
+      modalErrorHandler?.showDanger(e?.data?.message || e?.message)
     }
 
     if (res && res.status === 'SUCCESS' && res.data) {

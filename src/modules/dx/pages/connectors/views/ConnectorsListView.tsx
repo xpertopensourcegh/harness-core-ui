@@ -32,12 +32,16 @@ const RenderColumnConnector: Renderer<CellProps<ConnectorSummaryDTO>> = ({ row }
   return (
     <Layout.Horizontal spacing="small">
       <Icon name={getIconByType(data.type)} size={30}></Icon>
-      <div>
+      <div className={css.wrapper}>
         <Layout.Horizontal spacing="small">
-          <Text color={Color.BLACK}>{data.name}</Text>
+          <div className={css.name} title={data.name}>
+            {data.name}
+          </div>
           {data.tags?.length ? <TagsPopover tags={data.tags} /> : null}
         </Layout.Horizontal>
-        <Text color={Color.GREY_400}>{data.accountName}</Text>
+        <div className={css.identifier} title={data.identifier}>
+          {data.identifier}
+        </div>
       </div>
     </Layout.Horizontal>
   )

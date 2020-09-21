@@ -60,7 +60,7 @@ const StepDockerAuthentication: React.FC<StepProps<StepDockerAuthenticationProps
       showSuccess(`Connector '${prevStepData?.name}' created successfully`)
     } catch (e) {
       setLoadConnector(false)
-      modalErrorHandler?.showDanger(e?.message)
+      modalErrorHandler?.showDanger(e.data?.message || e.message)
     }
   }
 
@@ -72,7 +72,7 @@ const StepDockerAuthentication: React.FC<StepProps<StepDockerAuthenticationProps
       nextStep?.({ ...prevStepData, ...stepData })
     } catch (error) {
       setLoadConnector(false)
-      modalErrorHandler?.showDanger(error?.message)
+      modalErrorHandler?.showDanger(error.data?.message || error.message)
     }
   }
 
@@ -95,7 +95,7 @@ const StepDockerAuthentication: React.FC<StepProps<StepDockerAuthenticationProps
       setLoadSecret(false)
     } catch (e) {
       setLoadSecret(false)
-      modalErrorHandler?.showDanger(e?.message)
+      modalErrorHandler?.showDanger(e?.data?.message || e?.message)
     }
 
     if (res && res.status === 'SUCCESS' && res.data) {

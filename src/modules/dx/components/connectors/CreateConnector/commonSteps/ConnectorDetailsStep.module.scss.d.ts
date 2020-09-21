@@ -5,6 +5,7 @@ declare const styles: {
   readonly heading: string
   readonly connectorForm: string
   readonly saveBtn: string
+  readonly description: string
   readonly tags: string
 }
 export default styles

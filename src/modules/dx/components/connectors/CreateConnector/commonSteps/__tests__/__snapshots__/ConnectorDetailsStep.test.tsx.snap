@@ -55,7 +55,7 @@ exports[`Connector detail step render for GIT connector 1`] = `
               </div>
             </div>
             <div
-              class="bp3-form-group"
+              class="bp3-form-group description"
               data-id="description-1"
             >
               <label
@@ -228,7 +228,7 @@ exports[`Connector detail step render for kubernetes connector 1`] = `
               </div>
             </div>
             <div
-              class="bp3-form-group"
+              class="bp3-form-group description"
               data-id="description-1"
             >
               <label

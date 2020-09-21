@@ -5,5 +5,8 @@ declare const styles: {
   readonly layout: string
   readonly testBtn: string
   readonly testConnectionPop: string
+  readonly identifier: string
+  readonly wrapper: string
+  readonly name: string
 }
 export default styles

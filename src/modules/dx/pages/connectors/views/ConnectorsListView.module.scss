@@ -16,3 +16,18 @@
   }
   margin: 0 var(--spacing-xsmall) var(--spacing-xsmall) var(--spacing-xsmall);
 }
+.identifier {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--grey-400);
+}
+.wrapper {
+  width: 80%;
+  .name {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--black);
+  }
+}
