@@ -39,20 +39,28 @@ const RenderColumnProject: Renderer<CellProps<Project>> = ({ row }) => {
   return (
     <Layout.Horizontal spacing="small">
       <div className={css.colorbox} style={{ backgroundColor: `${data.color}` }} />
-      <div>
+      <Layout.Vertical padding={{ left: 'small' }}>
         <Layout.Horizontal spacing="small">
-          <Text color={Color.BLACK}>{data.name}</Text>
+          <Text color={Color.BLACK} lineClamp={1} className={css.project}>
+            {data.name}
+          </Text>
           {data.tags?.length ? <TagsPopover tags={data.tags} /> : null}
         </Layout.Horizontal>
-        <Text color={Color.GREY_400}>{data.description}</Text>
-      </div>
+        <Text color={Color.GREY_400} lineClamp={1} className={css.project}>
+          {data.description}
+        </Text>
+      </Layout.Vertical>
     </Layout.Horizontal>
   )
 }
 const RenderColumnOrganisation: Renderer<CellProps<Project>> = ({ row }) => {
   const data = row.original
   const { organisationsMap } = useAppStoreReader()
-  return <Text color={Color.BLACK}>{organisationsMap.get(data.orgIdentifier || '')?.name}</Text>
+  return (
+    <Text color={Color.BLACK} lineClamp={1} className={css.org}>
+      {organisationsMap.get(data.orgIdentifier || '')?.name}
+    </Text>
+  )
 }
 
 const RenderColumnModules: Renderer<CellProps<Project>> = ({ row }) => {

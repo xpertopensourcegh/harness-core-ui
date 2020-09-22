@@ -338,7 +338,7 @@ exports[`About Project test create project  1`] = `
               class="bp3-card bp3-elevation-0 Card---card--2BXa projectCard"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---padding-left-xlarge--3m2O StyledProps---padding-right-xlarge--xu-3 StyledProps---padding-bottom-large--1zGv"
+                class="StyledProps---font--2ipy StyledProps---main--1Wws overflow StyledProps---padding-left-xlarge--3m2O StyledProps---padding-right-xlarge--xu-3 StyledProps---padding-bottom-large--1zGv"
               >
                 <div
                   class="colorBar"
@@ -346,7 +346,7 @@ exports[`About Project test create project  1`] = `
                 <p
                   class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-medium--2b-0 StyledProps---color--8PuS StyledProps---color-black--2kJn"
                 >
-                  ProjectName
+                  Project Name
                 </p>
                 <p
                   class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6 StyledProps---font-weight-bold--22XZ"
@@ -749,20 +749,20 @@ exports[`About Project test edit project  1`] = `
                       class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---leftSection--YiEo"
                     >
                       <span
-                        class="bp3-icon bp3-icon-small-plus StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
-                        icon="small-plus"
+                        class="bp3-icon bp3-icon-small-minus StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+                        icon="small-minus"
                       >
                         <svg
-                          data-icon="small-plus"
+                          data-icon="small-minus"
                           height="10"
                           viewBox="0 0 16 16"
                           width="10"
                         >
                           <desc>
-                            small-plus
+                            small-minus
                           </desc>
                           <path
-                            d="M11 7H9V5c0-.55-.45-1-1-1s-1 .45-1 1v2H5c-.55 0-1 .45-1 1s.45 1 1 1h2v2c0 .55.45 1 1 1s1-.45 1-1V9h2c.55 0 1-.45 1-1s-.45-1-1-1z"
+                            d="M11 7H5c-.55 0-1 .45-1 1s.45 1 1 1h6c.55 0 1-.45 1-1s-.45-1-1-1z"
                             fill-rule="evenodd"
                           />
                         </svg>
@@ -782,12 +782,30 @@ exports[`About Project test edit project  1`] = `
                   >
                     <div
                       class="bp3-collapse collapse"
+                      style="height: auto; overflow-y: visible; transition: none;"
                     >
                       <div
                         aria-hidden="false"
                         class="bp3-collapse-body"
-                        style="transform: translateY(-undefinedpx);"
-                      />
+                        style="transform: translateY(0); transition: none;"
+                      >
+                        <div
+                          class="bp3-form-group desc"
+                          data-id="description-3"
+                        >
+                          <div
+                            class="bp3-form-content"
+                          >
+                            <textarea
+                              autocomplete="off"
+                              class="bp3-input bp3-fill"
+                              name="description"
+                            >
+                              test
+                            </textarea>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -805,20 +823,20 @@ exports[`About Project test edit project  1`] = `
                       class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---leftSection--YiEo"
                     >
                       <span
-                        class="bp3-icon bp3-icon-small-plus StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
-                        icon="small-plus"
+                        class="bp3-icon bp3-icon-small-minus StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+                        icon="small-minus"
                       >
                         <svg
-                          data-icon="small-plus"
+                          data-icon="small-minus"
                           height="10"
                           viewBox="0 0 16 16"
                           width="10"
                         >
                           <desc>
-                            small-plus
+                            small-minus
                           </desc>
                           <path
-                            d="M11 7H9V5c0-.55-.45-1-1-1s-1 .45-1 1v2H5c-.55 0-1 .45-1 1s.45 1 1 1h2v2c0 .55.45 1 1 1s1-.45 1-1V9h2c.55 0 1-.45 1-1s-.45-1-1-1z"
+                            d="M11 7H5c-.55 0-1 .45-1 1s.45 1 1 1h6c.55 0 1-.45 1-1s-.45-1-1-1z"
                             fill-rule="evenodd"
                           />
                         </svg>
@@ -838,12 +856,139 @@ exports[`About Project test edit project  1`] = `
                   >
                     <div
                       class="bp3-collapse collapse"
+                      style="height: auto; overflow-y: visible; transition: none;"
                     >
                       <div
                         aria-hidden="false"
                         class="bp3-collapse-body"
-                        style="transform: translateY(-undefinedpx);"
-                      />
+                        style="transform: translateY(0); transition: none;"
+                      >
+                        <div
+                          class="bp3-form-group"
+                          data-id="undefined-4"
+                        >
+                          <div
+                            class="bp3-form-content"
+                          >
+                            <div
+                              class="bp3-popover-wrapper TagInput---tagInput--1eAz bp3-fill"
+                            >
+                              <div
+                                class="bp3-popover-target"
+                              >
+                                <div
+                                  class=""
+                                >
+                                  <div
+                                    class="bp3-input bp3-tag-input bp3-fill bp3-multi-select"
+                                  >
+                                    <div
+                                      class="bp3-tag-input-values"
+                                    >
+                                      <span
+                                        class="bp3-tag bp3-minimal TagInput---tag--2ZBU"
+                                        data-tag-index="0"
+                                      >
+                                        <span
+                                          class="bp3-text-overflow-ellipsis bp3-fill"
+                                        >
+                                          tag1
+                                        </span>
+                                        <button
+                                          class="bp3-tag-remove"
+                                          type="button"
+                                        >
+                                          <span
+                                            class="bp3-icon bp3-icon-small-cross"
+                                            icon="small-cross"
+                                          >
+                                            <svg
+                                              data-icon="small-cross"
+                                              height="16"
+                                              viewBox="0 0 16 16"
+                                              width="16"
+                                            >
+                                              <desc>
+                                                small-cross
+                                              </desc>
+                                              <path
+                                                d="M9.41 8l2.29-2.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L8 6.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42L6.59 8 4.3 10.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71L8 9.41l2.29 2.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L9.41 8z"
+                                                fill-rule="evenodd"
+                                              />
+                                            </svg>
+                                          </span>
+                                        </button>
+                                      </span>
+                                      <span
+                                        class="bp3-tag bp3-minimal TagInput---tag--2ZBU"
+                                        data-tag-index="1"
+                                      >
+                                        <span
+                                          class="bp3-text-overflow-ellipsis bp3-fill"
+                                        >
+                                          tag2
+                                        </span>
+                                        <button
+                                          class="bp3-tag-remove"
+                                          type="button"
+                                        >
+                                          <span
+                                            class="bp3-icon bp3-icon-small-cross"
+                                            icon="small-cross"
+                                          >
+                                            <svg
+                                              data-icon="small-cross"
+                                              height="16"
+                                              viewBox="0 0 16 16"
+                                              width="16"
+                                            >
+                                              <desc>
+                                                small-cross
+                                              </desc>
+                                              <path
+                                                d="M9.41 8l2.29-2.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L8 6.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42L6.59 8 4.3 10.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71L8 9.41l2.29 2.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L9.41 8z"
+                                                fill-rule="evenodd"
+                                              />
+                                            </svg>
+                                          </span>
+                                        </button>
+                                      </span>
+                                      <input
+                                        class="bp3-input-ghost bp3-multi-select-tag-input-input"
+                                        value=""
+                                      />
+                                    </div>
+                                    <button
+                                      class="bp3-button bp3-minimal"
+                                      type="button"
+                                    >
+                                      <span
+                                        class="bp3-icon bp3-icon-cross"
+                                        icon="cross"
+                                      >
+                                        <svg
+                                          data-icon="cross"
+                                          height="16"
+                                          viewBox="0 0 16 16"
+                                          width="16"
+                                        >
+                                          <desc>
+                                            cross
+                                          </desc>
+                                          <path
+                                            d="M9.41 8l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L8 6.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42L6.59 8 3.3 11.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71L8 9.41l3.29 3.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L9.41 8z"
+                                            fill-rule="evenodd"
+                                          />
+                                        </svg>
+                                      </span>
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -882,7 +1027,7 @@ exports[`About Project test edit project  1`] = `
               class="bp3-card bp3-elevation-0 Card---card--2BXa projectCard"
             >
               <div
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---padding-left-xlarge--3m2O StyledProps---padding-right-xlarge--xu-3 StyledProps---padding-bottom-large--1zGv"
+                class="StyledProps---font--2ipy StyledProps---main--1Wws overflow StyledProps---padding-left-xlarge--3m2O StyledProps---padding-right-xlarge--xu-3 StyledProps---padding-bottom-large--1zGv"
               >
                 <div
                   class="colorBar"
@@ -897,12 +1042,13 @@ exports[`About Project test edit project  1`] = `
                   class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6 StyledProps---font-weight-bold--22XZ"
                 />
                 <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-small--1qQz StyledProps---padding-top-medium--29t2"
+                  class="StyledProps---font--2ipy Text---multiple--3ScU StyledProps---main--1Wws StyledProps---font-small--1qQz StyledProps---padding-top-medium--29t2"
+                  style="--text-line-clamp: 3;"
                 >
                   test
                 </p>
                 <div
-                  class="Layout---horizontal--3rmQ Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---padding-top-small--1-XA"
+                  class="Layout---horizontal--3rmQ StyledProps---main--1Wws wrap StyledProps---padding-top-small--1-XA"
                 >
                   <span
                     class="Tag---main--1vng"

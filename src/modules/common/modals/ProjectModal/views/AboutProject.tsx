@@ -42,7 +42,7 @@ interface AboutPageData extends Project {
 const collapseProps = {
   collapsedIcon: 'small-plus' as IconName,
   expandedIcon: 'small-minus' as IconName,
-  isOpen: false,
+  // isOpen: true,
   isRemovable: false,
   className: 'collapse'
 }
@@ -86,6 +86,13 @@ const AboutProject: React.FC<StepProps<Project> & ProjectModalData> = props => {
       }
     }) || []
 
+  const getErrorMessage = (errors: any): string => {
+    const message: string[] = errors.map((error: any) => {
+      return error.error
+    })
+    return message.toString()
+  }
+
   const onComplete = async (values: Project): Promise<void> => {
     const dataToSubmit: unknown = pick<Project, keyof Project>(values, ['name', 'color', 'description', 'tags'])
     ;(dataToSubmit as Project)['accountIdentifier'] = accountId
@@ -109,38 +116,38 @@ const AboutProject: React.FC<StepProps<Project> & ProjectModalData> = props => {
         onSuccess?.(values)
         updateAppStore({ projects: projects.concat(values) })
       } catch (e) {
-        modalErrorHandler?.show(e.data)
+        modalErrorHandler?.showDanger(e.data.message || getErrorMessage(e.data.errors))
       }
     }
   }
   return (
-    <>
-      <Formik
-        initialValues={{
-          color: '',
-          identifier: '',
-          name: '',
-          orgIdentifier: orgId,
-          description: '',
-          tags: [],
-          ...projectData,
-          ...prevStepData
-        }}
-        validationSchema={Yup.object().shape({
-          name: Yup.string().trim().required(i18n.newProjectWizard.aboutProject.errorName),
-          identifier: Yup.string()
-            .trim()
-            .required(i18n.newProjectWizard.aboutProject.errorIdentifier)
-            .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, 'Identifier can only contain alphanumerics, _ and $')
-            .notOneOf(illegalIdentifiers),
-          color: Yup.string().required(i18n.newProjectWizard.aboutProject.errorColor),
-          orgIdentifier: Yup.string().required(i18n.newProjectWizard.aboutProject.errorOrganisation)
-        })}
-        onSubmit={(values: AboutPageData) => {
-          onComplete(values)
-        }}
-      >
-        {formikProps => (
+    <Formik
+      initialValues={{
+        color: '',
+        identifier: '',
+        name: '',
+        orgIdentifier: orgId,
+        description: '',
+        tags: [],
+        ...projectData,
+        ...prevStepData
+      }}
+      validationSchema={Yup.object().shape({
+        name: Yup.string().trim().required(i18n.newProjectWizard.aboutProject.errorName),
+        identifier: Yup.string()
+          .trim()
+          .required(i18n.newProjectWizard.aboutProject.errorIdentifier)
+          .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, 'Identifier can only contain alphanumerics, _ and $')
+          .notOneOf(illegalIdentifiers),
+        color: Yup.string().required(i18n.newProjectWizard.aboutProject.errorColor),
+        orgIdentifier: Yup.string().required(i18n.newProjectWizard.aboutProject.errorOrganisation)
+      })}
+      onSubmit={(values: AboutPageData) => {
+        onComplete(values)
+      }}
+    >
+      {formikProps => {
+        return (
           <Form>
             <ModalErrorHandler bind={setModalErrorHandler} />
             <Layout.Horizontal>
@@ -169,12 +176,15 @@ const AboutProject: React.FC<StepProps<Project> & ProjectModalData> = props => {
                     />
                   </Layout.Horizontal>
                   <div className={css.collapseDiv}>
-                    <Collapse {...descriptionCollapseProps}>
-                      <FormInput.TextArea name="description" />
+                    <Collapse
+                      isOpen={formikProps.values.description === '' ? false : true}
+                      {...descriptionCollapseProps}
+                    >
+                      <FormInput.TextArea name="description" className={css.desc} />
                     </Collapse>
                   </div>
                   <div className={css.collapseDiv}>
-                    <Collapse {...tagCollapseProps}>
+                    <Collapse isOpen={formikProps.values.tags?.length ? true : false} {...tagCollapseProps}>
                       <FormInput.TagInput
                         name="tags"
                         items={[]}
@@ -210,9 +220,9 @@ const AboutProject: React.FC<StepProps<Project> & ProjectModalData> = props => {
               </Container>
             </Layout.Horizontal>
           </Form>
-        )}
-      </Formik>
-    </>
+        )
+      }}
+    </Formik>
   )
 }
 

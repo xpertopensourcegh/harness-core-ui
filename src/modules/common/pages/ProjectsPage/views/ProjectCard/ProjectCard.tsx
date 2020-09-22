@@ -28,7 +28,7 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
 
   return (
     <Card className={cx(css.projectCard, props.className)} onClick={onClick ? onClick : undefined}>
-      <Container padding={{ left: 'xlarge', right: 'xlarge', bottom: 'large' }}>
+      <Container padding={{ left: 'xlarge', right: 'xlarge', bottom: 'large' }} className={css.overflow}>
         {!isPreview ? (
           <CardBody.Menu
             menuContent={
@@ -44,7 +44,7 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
             }}
           />
         ) : null}
-        <div className={css.colorBar} style={{ backgroundColor: data?.color || 'var(--green-500)' }}></div>
+        <div className={css.colorBar} style={{ backgroundColor: data?.color || 'var(--blue-500)' }}></div>
         {data?.name ? (
           <Text font="medium" color={Color.BLACK}>
             {data.name}
@@ -56,12 +56,12 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
         ) : null}
         <Text font={{ size: 'small', weight: 'bold' }}>{organisationsMap.get(data.orgIdentifier || '')?.name}</Text>
         {data?.description ? (
-          <Text font="small" padding={{ top: 'medium' }}>
+          <Text font="small" lineClamp={3} padding={{ top: 'medium' }}>
             {data.description}
           </Text>
         ) : null}
         {data?.tags?.length ? (
-          <Layout.Horizontal spacing="xsmall" padding={{ top: 'small' }}>
+          <Layout.Horizontal padding={{ top: 'small' }} className={css.wrap}>
             {data.tags.map((tag: string) => (
               <Tag className={css.cardTags} key={tag}>
                 {tag}

@@ -13,7 +13,7 @@ export default {
   number: '1',
   activities: 'Activities',
   alerts: 'Alerts',
-  projectName: 'ProjectName',
+  projectName: 'Project Name',
   start: 'Get started with',
   confirmDelete: (name: string) => `Are you sure you want to delete the Project '${name}'?`,
   confirmDeleteTitle: 'Delete Project',

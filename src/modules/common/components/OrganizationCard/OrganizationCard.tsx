@@ -76,32 +76,32 @@ export const OrganizationCard: React.FC<OrganizationCardProps> = props => {
           }}
         />
       ) : null}
-      <Container width={width}>
+      <Container width={width} className={css.overflow}>
         <div className={css.colorBar} style={{ backgroundColor: data?.color || 'var(--blue-500)' }} />
         <Layout.Vertical spacing="small" padding={{ right: isPreview ? 'large' : undefined }}>
           <Text font="medium" color={Color.BLACK}>
             {data?.name || i18n.placeholder.name}
           </Text>
           {data?.description ? (
-            <Text style={{ color: 'var(--grey-350)' }} lineClamp={isPreview ? 5 : undefined}>
+            <Text color={Color.GREY_350} lineClamp={5}>
               {data.description}
             </Text>
           ) : isPreview ? (
-            <Text style={{ color: 'var(--grey-350)' }} lineClamp={isPreview ? 5 : undefined}>
+            <Text color={Color.GREY_350} lineClamp={5}>
               {i18n.placeholder.description}
             </Text>
           ) : null}
           <Layout.Horizontal padding={{ top: 'xxxlarge' }}>
-            <Layout.Horizontal width={'60%'} style={{ overflow: 'auto' }} spacing="small">
+            <Layout.Horizontal width={'80%'} className={css.wrap}>
               {data?.tags?.length
                 ? data?.tags.map((tag: string) => (
-                    <Tag minimal key={tag}>
+                    <Tag minimal key={tag} className={css.cardTags}>
                       {tag}
                     </Tag>
                   ))
                 : null}
             </Layout.Horizontal>
-            <Layout.Horizontal width={'40%'} className={css.end}>
+            <Layout.Horizontal width={'20%'} className={css.user}>
               <Icon size={24} name="user" />
             </Layout.Horizontal>
           </Layout.Horizontal>

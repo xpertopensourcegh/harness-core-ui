@@ -5,5 +5,7 @@ declare const styles: {
   readonly colorbox: string
   readonly layout: string
   readonly pageContainer: string
+  readonly project: string
+  readonly org: string
 }
 export default styles

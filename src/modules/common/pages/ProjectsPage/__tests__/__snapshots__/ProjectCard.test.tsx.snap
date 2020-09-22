@@ -7,7 +7,7 @@ exports[`Project Card test initializes ok  1`] = `
     class="bp3-card bp3-elevation-0 Card---card--2BXa projectCard"
   >
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---padding-left-xlarge--3m2O StyledProps---padding-right-xlarge--xu-3 StyledProps---padding-bottom-large--1zGv"
+      class="StyledProps---font--2ipy StyledProps---main--1Wws overflow StyledProps---padding-left-xlarge--3m2O StyledProps---padding-right-xlarge--xu-3 StyledProps---padding-bottom-large--1zGv"
     >
       <div
         class="Card---cardMenu--JLDc"
@@ -64,12 +64,13 @@ exports[`Project Card test initializes ok  1`] = `
         Org Name
       </p>
       <p
-        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-small--1qQz StyledProps---padding-top-medium--29t2"
+        class="StyledProps---font--2ipy Text---multiple--3ScU StyledProps---main--1Wws StyledProps---font-small--1qQz StyledProps---padding-top-medium--29t2"
+        style="--text-line-clamp: 3;"
       >
         test
       </p>
       <div
-        class="Layout---horizontal--3rmQ Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---padding-top-small--1-XA"
+        class="Layout---horizontal--3rmQ StyledProps---main--1Wws wrap StyledProps---padding-top-small--1-XA"
       >
         <span
           class="Tag---main--1vng"

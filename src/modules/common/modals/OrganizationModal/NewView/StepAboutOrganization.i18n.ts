@@ -7,11 +7,15 @@ export default {
     icon: 'Icon',
     description: 'Description',
     tags: 'Tags',
-    addTag: '+ tag',
+    addTag: 'Add Tags',
     preview: 'Preview your organization card',
     back: 'Back',
     save: 'Save and Close',
-    addCollaborators: 'ADD COLLABORATORS'
+    addCollaborators: 'ADD COLLABORATORS',
+    closePreview: 'Close Preview',
+    errorColor: 'required',
+    errorName: 'Name is required',
+    errorIdentifier: 'Identifier is required'
   },
   preview: 'Preview'
 }

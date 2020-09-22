@@ -5,11 +5,11 @@ import type { OrganizationModalInteraction } from '../OrganizationModalUtils'
 import i18n from './NewView.i18n'
 import { StepAboutOrganization } from './StepAboutOrganization'
 // import { StepCollaborators } from './StepCollaborators'
-import css from './NewView.module.scss'
+import css from './Steps.module.scss'
 
 export const NewView: React.FC<OrganizationModalInteraction> = ({ backToSelections, onSuccess, edit, data }) => {
   return (
-    <StepWizard<Organization> className={css.steps}>
+    <StepWizard<Organization> className={css.steps} stepClassName={css.stepClass}>
       <StepAboutOrganization
         name={i18n.aboutTitle}
         backToSelections={backToSelections}

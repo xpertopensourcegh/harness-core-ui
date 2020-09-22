@@ -5,6 +5,23 @@
   margin-bottom: var(--spacing-medium);
 }
 
-.end {
+.user {
   justify-content: flex-end;
+  align-items: center;
+}
+
+.cardTags {
+  background-color: var(--grey-200) !important;
+  color: var(--grey-400) !important;
+  max-width: 200px;
+  margin-right: var(--spacing-xsmall);
+  margin-top: var(--spacing-xsmall);
+}
+
+.wrap {
+  flex-wrap: wrap;
+}
+
+.overflow {
+  overflow-wrap: anywhere;
 }
