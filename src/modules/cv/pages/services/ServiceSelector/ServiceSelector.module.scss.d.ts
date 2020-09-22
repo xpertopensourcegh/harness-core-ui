@@ -3,9 +3,9 @@
 declare const styles: {
   readonly main: string
   readonly filterService: string
-  readonly allServiceSelector: string
   readonly entityRow: string
   readonly smallRiskTile: string
+  readonly allServiceSelector: string
   readonly serviceRow: string
   readonly environmentRow: string
 }

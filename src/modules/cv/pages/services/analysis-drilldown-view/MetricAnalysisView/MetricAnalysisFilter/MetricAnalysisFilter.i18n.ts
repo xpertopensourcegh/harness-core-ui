@@ -3,5 +3,6 @@ export default {
   filterByDropdownOptionLabels: {
     anomalous: 'Anomalous metrics',
     allMetrics: 'All metrics'
-  }
+  },
+  searchInputPlaceholderText: 'Search'
 }

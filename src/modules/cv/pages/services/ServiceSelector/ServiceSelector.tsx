@@ -50,7 +50,7 @@ function EnvironmentRow(props: EnvironmentRowProps): JSX.Element {
   return (
     <Container flex className={cx(css.entityRow, css.environmentRow)}>
       <Text color={Color.BLACK} font={{ weight: 'bold' }}>
-        {entityName}
+        {`${i18n.environmentLabelText} ${entityName}`}
       </Text>
       <RiskScoreTile riskScore={riskScore} className={css.smallRiskTile} />
     </Container>
@@ -68,7 +68,7 @@ function ServiceRow(props: ServiceRowProps): JSX.Element {
         onSelect(entityName)
       }}
     >
-      <Text>{entityName}</Text>
+      <Text color={Color.BLACK}>{entityName}</Text>
       <RiskScoreTile riskScore={riskScore} className={css.smallRiskTile} />
     </Container>
   )

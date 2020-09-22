@@ -1,7 +1,7 @@
 .timeseriesRow {
   display: flex;
   .labels {
-    background-color: var(--grey-200);
+    background-color: #fcfcfc !important;
     padding: var(--spacing-medium);
     width: 200px;
     > div {
@@ -9,11 +9,17 @@
       justify-content: space-between;
       align-items: center;
     }
+    :global {
+      .bp3-popover-wrapper {
+        height: var(--font-size);
+        display: block;
+      }
+    }
   }
   .charts {
     flex: 1;
     min-width: 0;
-    margin-left: var(--spacing-small);
+    margin-left: var(--spacing-xsmall);
     .chartRow {
       display: flex;
       align-items: center;

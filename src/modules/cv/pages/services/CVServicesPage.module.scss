@@ -1,12 +1,14 @@
 .servicesPage {
   display: flex;
   height: 100%;
+  overflow-x: scroll;
+
   .fixedServices {
     position: fixed;
   }
   .content {
-    flex: 1;
     display: flex;
+    width: 100%;
     flex-direction: column;
     padding: var(--spacing-large) !important;
     margin-left: 260px;
@@ -19,8 +21,25 @@
       flex: 1;
       margin-top: var(--spacing-xlarge);
 
+      .serviceHeatMap {
+        background-color: var(--white);
+        padding: var(--spacing-small);
+        border-radius: 3px;
+        box-shadow: 0px 0px 1px rgba(40, 41, 61, 0.04), 0px 2px 4px rgba(96, 97, 112, 0.16);
+      }
+
       .analysisView {
         margin-top: var(--spacing-xlarge);
+        :global {
+          .bp3-tab-panel {
+            margin-top: var(--spacing-small);
+            background-color: var(--white);
+            padding: var(--spacing-small);
+            min-height: 250px;
+            max-height: 780px;
+            box-shadow: 0px 0px 1px rgba(40, 41, 61, 0.04), 0px 2px 4px rgba(96, 97, 112, 0.16);
+          }
+        }
       }
     }
     .categoryRiskCard {

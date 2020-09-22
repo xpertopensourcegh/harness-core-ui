@@ -1,24 +1,17 @@
 import React, { useMemo } from 'react'
-import { Container, Text, Icon, Color } from '@wings-software/uikit'
-import HighchartsReact from 'highcharts-react-official'
-import Highcharts from 'highcharts'
-import type { FontProps } from '@wings-software/uikit/dist/styled-props/font/FontProps'
+import { Container } from '@wings-software/uikit'
 import { isNumber } from 'lodash-es'
 import type { MetricData } from 'services/cv'
-import { configureMetricTimeSeries } from './MetricAnalysisHighchartConfig'
+import TimeseriesRow, { SeriesConfig } from 'modules/cv/components/TimeseriesRow/TimeseriesRow'
 import css from './MetricAnalysisRow.module.scss'
 
 interface MetricAnalysisRowProps {
   metricName: string
-  categoryName: string
+  categoryName?: string
   transactionName: string
   analysisData: MetricData[]
   startTime: number
   endTime: number
-}
-
-const FONT_SIZE_SMALL: FontProps = {
-  size: 'small'
 }
 
 function riskScoreToColor(riskScore: string): string {
@@ -34,11 +27,7 @@ function riskScoreToColor(riskScore: string): string {
   }
 }
 
-function transformAnalysisDataToChartSeries(
-  analysisData: any[],
-  startTime: number,
-  endTime: number
-): Highcharts.Options {
+function transformAnalysisDataToChartSeries(analysisData: any[]): SeriesConfig[] {
   const highchartsLineData = []
   analysisData.sort((a, b) => a.timestamp - b.timestamp)
   let currentRiskColor: string | null = riskScoreToColor(analysisData?.[0].risk)
@@ -63,32 +52,15 @@ function transformAnalysisDataToChartSeries(
     }
   }
 
-  return configureMetricTimeSeries(
-    [{ type: 'line', data: highchartsLineData, zones, zoneAxis: 'x', clip: false, lineWidth: 1 }],
-    startTime,
-    endTime
-  )
+  return [{ series: [{ type: 'line', data: highchartsLineData, zones, zoneAxis: 'x', clip: false, lineWidth: 1 }] }]
 }
 
 export default function MetricAnalysisRow(props: MetricAnalysisRowProps): JSX.Element {
-  const { metricName, categoryName, analysisData = [], transactionName, startTime, endTime } = props || {}
-  const timeseriesOptions = useMemo(() => transformAnalysisDataToChartSeries(analysisData, startTime, endTime), [
-    analysisData
-  ])
+  const { metricName, analysisData = [], transactionName } = props || {}
+  const timeseriesOptions = useMemo(() => transformAnalysisDataToChartSeries(analysisData), [analysisData])
   return (
-    <Container className={css.main}>
-      <Container background={Color.GREY_100} className={css.metricInfoContainer}>
-        <Container className={css.metricAndCategoryNameContainer}>
-          <Text color={Color.BLACK} font={FONT_SIZE_SMALL} width={130} lineClamp={1}>
-            {`${transactionName} - ${metricName}`}
-          </Text>
-          <Text font={FONT_SIZE_SMALL}>{categoryName}</Text>
-        </Container>
-        <Icon name="star-empty" className={css.keyTransaction} color={Color.GREY_250} />
-      </Container>
-      <Container className={css.highChartContainer}>
-        <HighchartsReact highcharts={Highcharts} options={timeseriesOptions} />
-      </Container>
+    <Container className={css.main} height={60}>
+      <TimeseriesRow transactionName={transactionName} metricName={metricName} seriesData={timeseriesOptions} />
     </Container>
   )
 }

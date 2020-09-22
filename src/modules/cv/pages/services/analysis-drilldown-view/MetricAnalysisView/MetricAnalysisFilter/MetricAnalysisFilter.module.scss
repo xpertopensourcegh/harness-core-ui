@@ -1,6 +1,6 @@
 .main {
   width: 200px;
-  padding: var(--spacing-small) !important;
+  padding: var(--spacing-xsmall) !important;
   margin-bottom: var(--spacing-xsmall) !important;
 
   .filterOptionContainer {
@@ -22,7 +22,7 @@
   .filterInput {
     padding: var(--spacing-small);
     width: 100%;
-    border: none;
-    border-radius: 2px;
+    border: 1px solid var(--grey-250);
+    border-radius: 4px;
   }
 }

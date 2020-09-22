@@ -101,7 +101,7 @@ export default function LogAnalysisFrequencyChart(props: LogAnalysisFrequencyCha
         accountId,
         orgIdentifier: orgIdentifier as string,
         projectIdentifier: projectIdentifier as string,
-        monitoringCategory: categoryNameToCategoryType(categoryName) || '',
+        monitoringCategory: (categoryName ? categoryNameToCategoryType(categoryName) : undefined) as string,
         startTime,
         endTime,
         environmentIdentifier,

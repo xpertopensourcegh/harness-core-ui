@@ -15,7 +15,7 @@ interface LogAnalysisViewProps {
   endTime: number
   environmentIdentifier?: string
   serviceIdentifier?: string
-  categoryName: string
+  categoryName?: string
 }
 
 export default function LogAnalysisView(props: LogAnalysisViewProps): JSX.Element {
@@ -24,28 +24,30 @@ export default function LogAnalysisView(props: LogAnalysisViewProps): JSX.Elemen
   } = routeParams()
   const { environmentIdentifier, serviceIdentifier, startTime, endTime, categoryName } = props
   const { error, data: logAnalysisResponse, refetch: refetchLogAnalysis } = useGetAllLogs({ lazy: true })
-  useEffect(() => {
-    refetchLogAnalysis({
-      queryParams: {
-        accountId,
-        projectIdentifier: projectIdentifier as string,
-        orgIdentifier: orgIdentifier as string,
-        environmentIdentifier,
-        serviceIdentifier,
-        monitoringCategory: categoryNameToCategoryType(categoryName) as string,
-        startTime,
-        endTime
-      }
-    })
-  }, [startTime, endTime, categoryName, serviceIdentifier, environmentIdentifier])
-
   const logAnalysisData = logAnalysisResponse?.resource?.content
   const logDataDTOs: LogData[] = useMemo(() => {
     return (logAnalysisData?.map(d => d.logData).filter(l => !!l) as LogData[]) || []
   }, [logAnalysisData])
 
+  const queryParams = useMemo(
+    () => ({
+      accountId,
+      projectIdentifier: projectIdentifier as string,
+      orgIdentifier: orgIdentifier as string,
+      environmentIdentifier,
+      serviceIdentifier,
+      monitoringCategory: (categoryName ? categoryNameToCategoryType(categoryName) : undefined) as string,
+      startTime,
+      endTime
+    }),
+    [endTime, startTime, categoryName, serviceIdentifier, environmentIdentifier]
+  )
+  useEffect(() => {
+    refetchLogAnalysis({ queryParams })
+  }, [queryParams])
+
   if (error) {
-    return <PageError message={error?.message} />
+    return <PageError message={error?.message} onClick={() => refetchLogAnalysis({ queryParams })} />
   }
 
   if (!logAnalysisResponse?.resource?.content?.length) {
@@ -55,7 +57,7 @@ export default function LogAnalysisView(props: LogAnalysisViewProps): JSX.Elemen
           message={i18n.noDataText}
           buttonText={i18n.retryButtonText}
           icon="warning-sign"
-          onClick={() => refetchLogAnalysis()}
+          onClick={() => refetchLogAnalysis({ queryParams })}
           className={css.noDataCard}
         />
       </Container>
@@ -75,7 +77,7 @@ export default function LogAnalysisView(props: LogAnalysisViewProps): JSX.Elemen
         endTime={endTime}
         environmentIdentifier={environmentIdentifier}
         serviceIdentifier={serviceIdentifier}
-        categoryName={categoryName}
+        categoryName={categoryName || ''}
       />
       <Container className={css.logContainer}>
         <LogAnalysisRow data={logDataDTOs} startTime={startTime} endTime={endTime} />

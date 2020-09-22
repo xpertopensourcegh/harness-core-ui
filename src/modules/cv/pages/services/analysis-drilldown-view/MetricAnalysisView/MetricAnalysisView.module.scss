@@ -1,11 +1,13 @@
+@import '../DrillDownViewPartial.module';
+
 .main {
-  margin-top: var(--spacing-small) !important;
   animation: fadeIn;
   animation-duration: 250ms;
   position: relative;
 
   .header {
     display: flex;
+    align-items: baseline;
     .timeline {
       flex: 1;
       margin-left: var(--spacing-small);

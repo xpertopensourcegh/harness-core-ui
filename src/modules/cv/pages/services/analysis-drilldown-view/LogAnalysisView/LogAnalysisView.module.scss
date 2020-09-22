@@ -1,3 +1,5 @@
+@import '../DrillDownViewPartial.module';
+
 .main {
   height: 67vh;
   padding: var(--spacing-large) !important;
@@ -30,8 +32,4 @@
   .logContainer {
     height: 52%;
   }
-}
-
-.noDataCard {
-  margin-top: 0 !important;
 }

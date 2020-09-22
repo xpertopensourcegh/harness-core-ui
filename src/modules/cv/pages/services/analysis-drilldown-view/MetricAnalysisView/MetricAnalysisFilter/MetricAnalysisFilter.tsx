@@ -27,7 +27,7 @@ export function MetricAnalysisFilter(props: MetricAnalysisFilterProps): JSX.Elem
   const { onChangeFilter } = props
   const [selectedOption, setSelectedOption] = useState(FILTER_OPTIONS[0])
   return (
-    <Container background={Color.GREY_100} className={css.main}>
+    <Container className={css.main}>
       <Container className={css.filterOptionContainer}>
         <Text color={Color.BLACK} font={{ size: 'small' }}>
           {i18n.filterText}
@@ -45,7 +45,7 @@ export function MetricAnalysisFilter(props: MetricAnalysisFilterProps): JSX.Elem
           size={'small' as SelectProps['size']}
         />
       </Container>
-      <input className={css.filterInput} />
+      <input className={css.filterInput} placeholder={i18n.searchInputPlaceholderText} />
     </Container>
   )
 }

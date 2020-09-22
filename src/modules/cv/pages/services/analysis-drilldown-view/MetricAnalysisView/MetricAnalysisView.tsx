@@ -21,7 +21,7 @@ import css from './MetricAnalysisView.module.scss'
 interface MetricAnalysisViewProps {
   startTime: number
   endTime: number
-  categoryName: string
+  categoryName?: string
   environmentIdentifier?: string
   serviceIdentifier?: string
   className?: string
@@ -38,12 +38,20 @@ function generatePointsForTimeSeries(
 
   const content = data.resource.content
   const timeRange = Math.floor((endTime - startTime) / 60000)
-
   for (const analysis of content) {
     if (!analysis?.metricDataList?.length) {
       continue
     }
 
+    analysis.metricDataList.sort((a: MetricData, b: MetricData) => {
+      if (!a?.timestamp) {
+        return b?.timestamp ? -1 : 0
+      }
+      if (!b?.timestamp) {
+        return 1
+      }
+      return a.timestamp - b.timestamp
+    })
     const filledMetricData: MetricData[] = []
     let metricDataIndex = 0
 
@@ -76,7 +84,7 @@ export default function MetricAnalysisView(props: MetricAnalysisViewProps): JSX.
       projectIdentifier: projectIdentifier as string,
       environmentIdentifier,
       serviceIdentifier,
-      monitoringCategory: categoryNameToCategoryType(categoryName) || '',
+      monitoringCategory: (categoryName ? categoryNameToCategoryType(categoryName) : undefined) as string,
       startTime,
       endTime
     }),
@@ -167,6 +175,7 @@ export default function MetricAnalysisView(props: MetricAnalysisViewProps): JSX.
           message={isViewingAnomalousData ? i18n.noDataText.anomalous : i18n.noDataText.allMetricData}
           icon="warning-sign"
           buttonText={i18n.retryButtonText}
+          className={css.noDataCard}
           onClick={isViewingAnomalousData ? () => refetchAnomalousData() : () => refetchAllMetricData()}
         />
       )}
@@ -174,7 +183,7 @@ export default function MetricAnalysisView(props: MetricAnalysisViewProps): JSX.
         !loadingAnomalousData &&
         content?.map((d: TimeSeriesMetricDataDTO) => {
           const { category, groupName, metricDataList, metricName } = d
-          return metricName && category && groupName && metricDataList?.length ? (
+          return metricName && groupName && metricDataList?.length ? (
             <MetricAnalysisRow
               key={`${categoryName}-${groupName}-${metricName}`}
               metricName={metricName}

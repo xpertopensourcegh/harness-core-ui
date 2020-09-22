@@ -18,7 +18,7 @@ import { routeCVDataSources } from 'modules/cv/routes'
 import ServiceSelector from './ServiceSelector/ServiceSelector'
 import i18n from './CVServicesPage.i18n'
 import { CategoryRiskCards } from '../dashboard/CategoryRiskCards/CategoryRiskCards'
-import { AnalysisDrillDownView, AnalysisDrillDownViewProps } from './analysis-drilldown-view/AnalysisDrillDownView'
+import { AnalysisDrillDownView } from './analysis-drilldown-view/AnalysisDrillDownView'
 import useAnalysisDrillDownView from './analysis-drilldown-view/useAnalysisDrillDownView'
 import styles from './CVServicesPage.module.scss'
 
@@ -32,6 +32,8 @@ const RangeOptions = [
 const DEFAULT_RANGE = RangeOptions[0]
 const getRangeDates = (val: number) => {
   const now = moment()
+  now.subtract(now.seconds() % 60, 'seconds') // floor to the nearest minute
+  now.subtract(now.milliseconds() % 1000, 'milliseconds')
   return {
     start: now.clone().subtract(val, 'hours'),
     end: now
@@ -60,7 +62,6 @@ export default function CVServicesPage(): JSX.Element {
     environmentIdentifier?: string
   }>({})
   const history = useHistory()
-  const [displayCategoryAnalysis] = useState<AnalysisDrillDownViewProps | undefined>(undefined)
   const { showError } = useToaster()
   const { openDrillDown } = useAnalysisDrillDownView()
 
@@ -166,7 +167,7 @@ export default function CVServicesPage(): JSX.Element {
           refetchServices()
         }}
       >
-        <Container className={styles.servicesPage}>
+        <Container className={styles.servicesPage} background={Color.GREY_100}>
           <ServiceSelector
             className={styles.fixedServices}
             serviceData={services}
@@ -201,6 +202,8 @@ export default function CVServicesPage(): JSX.Element {
                   series={heatmapData}
                   minValue={0}
                   maxValue={1}
+                  labelsWidth={80}
+                  className={styles.serviceHeatMap}
                   mapValue={mapHeatmapValue}
                   renderTooltip={(cell: HeatMapDTO) => <div>{cell && cell.riskScore}</div>}
                   cellShapeBreakpoint={0.5}
@@ -220,14 +223,13 @@ export default function CVServicesPage(): JSX.Element {
                   }}
                   rowSize={heatMapSize}
                 />
-                {displayCategoryAnalysis && (
-                  <AnalysisDrillDownView
-                    className={styles.analysisView}
-                    {...displayCategoryAnalysis}
-                    serviceIdentifier={selectedService?.serviceIdentifier}
-                    environmentIdentifier={selectedService?.environmentIdentifier}
-                  />
-                )}
+                <AnalysisDrillDownView
+                  className={styles.analysisView}
+                  startTime={range.dates.start.valueOf()}
+                  endTime={range.dates.end.valueOf()}
+                  serviceIdentifier={selectedService?.serviceIdentifier}
+                  environmentIdentifier={selectedService?.environmentIdentifier}
+                />
               </OverlaySpinner>
             </Container>
           </Container>

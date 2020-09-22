@@ -1,28 +1,20 @@
 .main {
   height: 100%;
-  padding: var(--spacing-large) !important;
   width: 250px;
+  box-shadow: 0px 0px 1px rgba(40, 41, 61, 0.04), 0px 2px 4px rgba(96, 97, 112, 0.16);
 
   .filterService {
-    border: none;
     padding: var(--spacing-small);
     display: block;
     border-radius: 4px;
-    width: 100%;
+    width: 85%;
+    border: 1px solid var(--grey-250);
     font-size: var(--font-size-small);
-    margin-bottom: var(--spacing-medium);
-  }
-
-  .allServiceSelector {
-    margin-bottom: var(--spacing-small) !important;
-    > p {
-      font-weight: 700 !important;
-      color: var(--black) !important;
-    }
+    margin: var(--spacing-medium) auto;
   }
 
   .entityRow {
-    padding: var(--spacing-xsmall);
+    padding: var(--spacing-xsmall) var(--spacing-large);
     cursor: pointer;
 
     .smallRiskTile {
@@ -33,18 +25,26 @@
     }
 
     &[data-selected='true'] {
-      background-color: var(--white) !important;
-      border: 1px solid var(--blue-500);
-      border-radius: 3px;
+      background-color: var(--blue-300) !important;
     }
     > p {
       font-size: var(--font-size-small) !important;
     }
   }
 
+  .allServiceSelector {
+    padding: var(--spacing-small) var(--spacing-large);
+    > p {
+      font-weight: 700 !important;
+      color: var(--black) !important;
+    }
+  }
+
   .serviceRow {
-    width: 80%;
-    float: right;
+    justify-content: flex-end !important;
+    > p {
+      flex: 0.9;
+    }
   }
 
   .environmentRow {

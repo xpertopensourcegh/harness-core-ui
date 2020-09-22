@@ -25,13 +25,15 @@ const FONT_SIZE_SMALL: FontProps = {
 export default function TimeseriesRow({ transactionName, metricName, seriesData, className }: TimeseriesRowProps) {
   return (
     <Container className={classnames(styles.timeseriesRow, className)}>
-      <Container background={Color.GREY_100} className={styles.labels}>
+      <Container className={styles.labels}>
         <div>
           <div>
             <Text color={Color.BLACK} font={FONT_SIZE_SMALL} width={130} lineClamp={1}>
               {transactionName}
             </Text>
-            <Text font={FONT_SIZE_SMALL}>{metricName}</Text>
+            <Text font={FONT_SIZE_SMALL} width={130} lineClamp={1}>
+              {metricName}
+            </Text>
           </div>
           <Icon name="star-empty" color={Color.GREY_250} />
         </div>
@@ -57,7 +59,7 @@ function chartsConfig(series: Highcharts.SeriesLineOptions[]): Highcharts.Option
   return {
     chart: {
       backgroundColor: '#FCFCFC',
-      height: 40,
+      height: 60,
       type: 'line',
       spacing: [5, 5, 5, 5]
     },
@@ -89,7 +91,8 @@ function chartsConfig(series: Highcharts.SeriesLineOptions[]): Highcharts.Option
     plotOptions: {
       series: {
         stickyTracking: false,
-        lineWidth: 1
+        lineWidth: 1,
+        turboThreshold: 50000
       },
       line: {
         marker: {

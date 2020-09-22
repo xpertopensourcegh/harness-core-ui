@@ -6,6 +6,7 @@ import highchartsMore from 'highcharts/highcharts-more'
 import gauge from 'highcharts/modules/solid-gauge'
 import cx from 'classnames'
 import { isNumber } from 'lodash-es'
+import moment from 'moment'
 import { RiskScoreTile } from 'modules/cv/components/RiskScoreTile/RiskScoreTile'
 import { routeParams } from 'framework/exports'
 import { RestResponseMapCVMonitoringCategoryInteger, useGetCategoryRiskMap } from 'services/cv'
@@ -62,14 +63,14 @@ export function OverallRiskScoreCard(props: OverallRiskScoreCard): JSX.Element {
   const { className, overallRiskScore } = props
   return (
     <Container className={cx(css.overallRiskScoreCard, className, getColorStyle(overallRiskScore, 0, 100))}>
-      <Text color={Color.WHITE} className={css.overallRiskScoreValue}>
+      <Text color={Color.BLACK} className={css.overallRiskScoreValue}>
         {overallRiskScore}
       </Text>
       <Layout.Vertical>
-        <Text font={{ weight: 'bold' }} color={Color.WHITE}>
+        <Text font={{ weight: 'bold' }} color={Color.BLACK}>
           {i18n.overallText}
         </Text>
-        <Text color={Color.WHITE} font={{ size: 'small' }}>
+        <Text font={{ size: 'xsmall' }} color={Color.GREY_250}>
           {i18n.riskScoreText}
         </Text>
       </Layout.Vertical>
@@ -133,9 +134,14 @@ export function CategoryRiskCards(props: CategoryRiskCardsProps): JSX.Element {
 
   return (
     <Container className={css.main}>
-      <Text className={css.productionRisk} font={{ size: 'small' }}>
-        {i18n.productionRisk}
-      </Text>
+      <Container className={css.timeRange}>
+        <Text color={Color.BLACK} font={{ weight: 'bold' }}>
+          {i18n.productionRisk}
+        </Text>
+        <Text font={{ size: 'xsmall' }} color={Color.GREY_350}>{`${i18n.evaluationPeriodText} ${moment(
+          new Date().getTime() - 60000 * 5
+        ).format('MMM D, YYYY h:mma')} - ${moment().format('h:mma ')}`}</Text>
+      </Container>
       <Container className={css.cardContainer}>
         {isNumber(overallRiskScore) && <OverallRiskScoreCard overallRiskScore={overallRiskScore} />}
         {categories.map(categoryName => (

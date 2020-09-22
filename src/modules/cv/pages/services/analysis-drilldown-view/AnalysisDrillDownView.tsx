@@ -10,7 +10,7 @@ export interface AnalysisDrillDownViewProps {
   className?: string
   startTime: number
   endTime: number
-  categoryName: string
+  categoryName?: string
   environmentIdentifier?: string
   serviceIdentifier?: string
 }

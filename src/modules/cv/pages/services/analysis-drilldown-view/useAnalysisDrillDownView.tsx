@@ -72,7 +72,7 @@ export default function useAnalysisDrillDownView(
           title={
             <CategoryAndRiskScore
               riskScore={drillDownInfo?.categoryRiskScore || 0}
-              categoryName={drillDownProps.categoryName}
+              categoryName={drillDownProps.categoryName as string}
               startTime={drillDownProps.startTime}
               endTime={drillDownProps.endTime}
             />
