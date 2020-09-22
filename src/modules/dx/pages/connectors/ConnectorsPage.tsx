@@ -7,7 +7,7 @@ import { Connectors, ConnectorInfoText } from 'modules/dx/constants'
 import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
 import type { UseGetMockData } from 'modules/common/utils/testUtils'
 import useCreateConnectorModal from 'modules/dx/modals/ConnectorModal/useCreateConnectorModal'
-import { routeConnectorDetails } from 'modules/dx/routes'
+import { routeCreateConnectorFromYaml } from 'modules/dx/routes'
 import ConnectorsListView from './views/ConnectorsListView'
 import i18n from '../../components/connectors/CreateConnectorWizard/CreateConnectorWizard.i18n'
 import css from './ConnectorsPage.module.scss'
@@ -75,7 +75,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ mockData }) => {
       <Menu.Item
         text={getMenuItem({ label: ConnectorInfoText.YAML, value: Connectors.YAML, icon: 'main-code-yaml' })}
         onClick={() => {
-          history.push(routeConnectorDetails.url({}))
+          history.push(routeCreateConnectorFromYaml.url())
         }}
       />
     )

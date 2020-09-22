@@ -18,9 +18,18 @@ export const routeConnectorDetails: Route<{ connectorId?: string; type?: string 
   path: '/connectors/:connectorId',
   title: i18n.connectors,
   pageId: 'connector-details',
-  url: ({ connectorId, type }) =>
-    routeURL(routeConnectorDetails, `/connectors/${connectorId}${type ? `&type=${type}` : ``}`),
+  url: ({ connectorId }) => routeURL(routeConnectorDetails, `/connectors/${connectorId}`),
   component: React.lazy(() => import('./pages/connectors/ConnectorDetailsPage'))
+}
+
+export const routeCreateConnectorFromYaml: Route = {
+  module: ModuleName.COMMON,
+  sidebarId: SidebarIdentifier.ACCOUNT,
+  path: '/create-connector-from-yaml',
+  title: 'Create Connector From Yaml',
+  pageId: 'create-connector-from-yaml',
+  url: () => routeURL(routeCreateSecretFromYaml, '/create-connector-from-yaml'),
+  component: React.lazy(() => import('../dx/pages/createConnectorFromYaml/CreateConnectorFromYamlPage'))
 }
 
 export const routeSecretDetails: Route<{ secretId: string }> = {
