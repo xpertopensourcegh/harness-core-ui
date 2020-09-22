@@ -15,11 +15,11 @@ import ConnectorDetailsStep from 'modules/dx/components/connectors/CreateConnect
 import VerifyOutOfClusterDelegate from 'modules/dx/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 import {
   useCreateConnector,
-  usePostSecretText,
+  usePostSecret,
   ConnectorConfigDTO,
-  EncryptedDataDTO,
   ConnectorRequestWrapper,
-  ConnectorWrapper
+  ConnectorWrapper,
+  SecretDTOV2
 } from 'services/cd-ng'
 import {
   AuthTypeFields,
@@ -116,10 +116,10 @@ export default function CreateAppDynamicsConnector(props: CreateAppDynamicsConne
 }
 
 function ConnectionConfigStep(props: ConnectionConfigProps): JSX.Element {
-  const { mutate: createSecret } = usePostSecretText({})
+  const { mutate: createSecret } = usePostSecret({ queryParams: { accountIdentifier: props.accountId } })
   const [showCreateSecretModal, setShowCreateSecretModal] = useState<boolean>(false)
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
-  const [editSecretData, setEditSecretData] = useState<EncryptedDataDTO>()
+  const [editSecretData, setEditSecretData] = useState<SecretDTOV2>()
   const isEdit = Boolean(props.formData?.passwordField)
 
   const handleFormSubmission = async (values: ConnectorConfigDTO, passwordField: SecretFieldByType): Promise<void> => {
@@ -127,16 +127,18 @@ function ConnectionConfigStep(props: ConnectionConfigProps): JSX.Element {
       modalErrorHandler?.hide()
       if (!values[passwordField.passwordField]?.isReference) {
         await createSecret({
-          account: props.accountId,
-          org: props.orgIdentifier,
-          project: props.projectIdentifier,
+          type: 'SecretText',
+          orgIdentifier: props.orgIdentifier,
+          projectIdentifier: props.projectIdentifier,
           identifier: values[passwordField.secretField]?.secretId,
           name: values[passwordField.secretField]?.secretName,
-          secretManager: values[passwordField.secretField]?.secretManager?.value as string,
-          value: values[passwordField.passwordField]?.value,
-          valueType: 'Inline',
-          type: 'SecretText'
-        })
+          tags: {},
+          spec: {
+            value: values[passwordField.passwordField]?.value,
+            valueType: 'Inline',
+            secretManagerIdentifier: values[passwordField.secretField]?.secretManager?.value as string
+          }
+        } as SecretDTOV2)
       }
       const update = { ...props.formData, ...values }
       await props.onSecretCreated(update)

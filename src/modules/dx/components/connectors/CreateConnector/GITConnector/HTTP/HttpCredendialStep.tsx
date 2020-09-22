@@ -17,11 +17,11 @@ import { useParams } from 'react-router-dom'
 import { buildGITPayload } from 'modules/dx/pages/connectors/utils/ConnectorUtils'
 import {
   useCreateConnector,
-  usePostSecretText,
-  EncryptedDataDTO,
+  usePostSecret,
   useUpdateConnector,
   ConnectorConfigDTO,
-  ConnectorRequestWrapper
+  ConnectorRequestWrapper,
+  SecretDTOV2
 } from 'services/cd-ng'
 import CreateSecretOverlay from 'modules/dx/common/CreateSecretOverlay/CreateSecretOverlay'
 import {
@@ -56,12 +56,12 @@ const HttpCredentialStep: React.FC<HttpCredentialStepProps> = props => {
   } as SelectOption)
 
   const [showCreateSecretModal, setShowCreateSecretModal] = useState<boolean>(false)
-  const [editSecretData, setEditSecretData] = useState<EncryptedDataDTO>()
+  const [editSecretData, setEditSecretData] = useState<SecretDTOV2>()
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
 
   const { mutate: createConnector } = useCreateConnector({ accountIdentifier: accountId })
   const { mutate: updateConnector } = useUpdateConnector({ accountIdentifier: props.accountId })
-  const { mutate: createSecret } = usePostSecretText({})
+  const { mutate: createSecret } = usePostSecret({ queryParams: { accountIdentifier: accountId } })
   const [loadSecret, setLoadSecret] = useState(false)
   const [loadConnector, setLoadConnector] = useState(false)
 
@@ -95,16 +95,19 @@ const HttpCredentialStep: React.FC<HttpCredentialStepProps> = props => {
       modalErrorHandler?.hide()
       setLoadSecret(true)
       res = await createSecret({
-        account: props.accountId,
-        org: props.orgIdentifier,
-        project: props.projectIdentifier,
+        type: 'SecretText',
+        orgIdentifier: props.orgIdentifier,
+        projectIdentifier: props.projectIdentifier,
         identifier: formData.passwordRefSecret?.secretId,
         name: formData.passwordRefSecret?.secretName,
-        secretManager: formData.passwordRefSecret?.secretManager?.value as string,
-        value: formData.passwordRef.value,
-        type: 'SecretText',
-        valueType: 'Inline'
-      })
+        tags: {},
+        spec: {
+          value: formData.passwordRef.value,
+          valueType: 'Inline',
+          secretManagerIdentifier: formData.passwordRefSecret?.secretManager?.value as string
+        }
+      } as SecretDTOV2)
+
       setLoadSecret(false)
     } catch (e) {
       setLoadSecret(false)

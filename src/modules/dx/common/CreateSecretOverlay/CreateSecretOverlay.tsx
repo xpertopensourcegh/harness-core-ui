@@ -1,15 +1,14 @@
 import React from 'react'
 import { Layout, Text, Color, Container, Button } from '@wings-software/uikit'
-import { pick } from 'lodash-es'
 import CreateUpdateSecret, { SecretFormData } from 'modules/dx/components/CreateUpdateSecret/CreateUpdateSecret'
-import type { EncryptedDataDTO, SecretDTOV2 } from 'services/cd-ng'
+import type { SecretDTOV2 } from 'services/cd-ng'
 import i18n from './CreateSecretOverlay.i18n'
 import css from './CreateSecretOverlay.module.scss'
 
 interface CreateSecretOverlayProps {
   setShowCreateSecretModal: (val: boolean) => void
-  editSecretData?: EncryptedDataDTO
-  type?: EncryptedDataDTO['type']
+  editSecretData?: SecretDTOV2
+  type?: SecretDTOV2['type']
   onSuccess?: (data: SecretFormData) => void
 }
 
@@ -30,16 +29,7 @@ const CreateSecretOverlay: React.FC<CreateSecretOverlayProps> = props => {
         />
       </Layout.Horizontal>
       <CreateUpdateSecret
-        secret={
-          {
-            ...pick(editSecretData, ['name', 'description', 'identifier', 'type']),
-            tags: {}, // TODO: tags need to be refactored to a map
-            spec: {
-              ...pick(editSecretData, ['value', 'valueType']),
-              secretManagerIdentifier: editSecretData?.secretManager
-            }
-          } as SecretDTOV2 // TODO: editSecretData should be passed directly
-        }
+        secret={editSecretData as SecretDTOV2}
         type={props.type || props.editSecretData?.type || 'SecretText'}
         onSuccess={data => {
           props.setShowCreateSecretModal(false)

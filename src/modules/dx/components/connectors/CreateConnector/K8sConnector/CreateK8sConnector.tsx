@@ -30,9 +30,9 @@ import {
   useCreateConnector,
   ConnectorConfigDTO,
   useUpdateConnector,
-  usePostSecretText,
-  EncryptedDataDTO,
-  ConnectorRequestWrapper
+  ConnectorRequestWrapper,
+  SecretDTOV2,
+  usePostSecret
 } from 'services/cd-ng'
 import { buildKubPayload } from 'modules/dx/pages/connectors/utils/ConnectorUtils'
 import InstallDelegateForm from 'modules/dx/common/InstallDelegateForm/InstallDelegateForm'
@@ -330,12 +330,12 @@ const SecondStep = (props: SecondStepProps) => {
 
 const IntermediateStep: React.FC<IntermediateStepProps> = props => {
   const [showCreateSecretModal, setShowCreateSecretModal] = useState<boolean>(false)
-  const [editSecretData, setEditSecretData] = useState<EncryptedDataDTO>()
+  const [editSecretData, setEditSecretData] = useState<SecretDTOV2>()
   const { state, accountId } = props
   const { projectIdentifier, orgIdentifier } = useParams()
   const { mutate: createConnector } = useCreateConnector({ accountIdentifier: accountId })
   const { mutate: updateConnector } = useUpdateConnector({ accountIdentifier: props.accountId })
-  const { mutate: createSecret } = usePostSecretText({})
+  const { mutate: createSecret } = usePostSecret({ queryParams: { accountIdentifier: props.accountId } })
   const [loadSecret, setLoadSecret] = useState(false)
   const [loadConnector, setLoadConnector] = useState(false)
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
@@ -455,16 +455,18 @@ const IntermediateStep: React.FC<IntermediateStepProps> = props => {
                 Promise.all(
                   passwordFields.map((item: SecretFieldByType) => {
                     return createSecret({
-                      account: accountId,
-                      org: props.orgIdentifier,
-                      project: props.projectIdentifier,
+                      type: 'SecretText',
+                      orgIdentifier: props.orgIdentifier,
+                      projectIdentifier: props.projectIdentifier,
                       identifier: formData[item.secretField]?.secretId,
                       name: formData[item.secretField]?.secretName,
-                      secretManager: formData[item.secretField]?.secretManager?.value as string,
-                      value: formData[item.passwordField].value,
-                      type: 'SecretText',
-                      valueType: 'Inline'
-                    })
+                      tags: {},
+                      spec: {
+                        value: formData[item.passwordField].value,
+                        valueType: 'Inline',
+                        secretManagerIdentifier: formData[item.secretField]?.secretManager?.value as string
+                      }
+                    } as SecretDTOV2)
                   })
                 )
                   .then(() => {

@@ -6,7 +6,7 @@ import {
   getSecretFieldValue,
   generateDefaultSecretConfig
 } from 'modules/dx/pages/connectors/utils/ConnectorHelper'
-import type { EncryptedDataDTO } from 'services/cd-ng'
+import type { SecretDTOV2 } from 'services/cd-ng'
 
 interface UsernamePasswordProps {
   accountId: string
@@ -16,7 +16,7 @@ interface UsernamePasswordProps {
   name?: string
   onClickCreateSecret: () => void
   isEditMode?: boolean
-  onEditSecret?: (val: EncryptedDataDTO) => void
+  onEditSecret?: (val: SecretDTOV2) => void
 }
 
 const UsernamePassword: React.FC<UsernamePasswordProps> = props => {

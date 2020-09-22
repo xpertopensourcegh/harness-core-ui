@@ -7,7 +7,7 @@ import {
   getSecretFieldValue,
   generateDefaultSecretConfig
 } from 'modules/dx/pages/connectors/utils/ConnectorHelper'
-import type { EncryptedDataDTO } from 'services/cd-ng'
+import type { SecretDTOV2 } from 'services/cd-ng'
 import i18n from './OIDCTokenFields.i18n'
 interface OIDCTokenFieldsProps {
   accountId: string
@@ -16,7 +16,7 @@ interface OIDCTokenFieldsProps {
   name?: string
   onClickCreateSecret: () => void
   isEditMode?: boolean
-  onEditSecret?: (val: EncryptedDataDTO) => void
+  onEditSecret?: (val: SecretDTOV2) => void
 }
 
 const OIDCTokenFields: React.FC<OIDCTokenFieldsProps> = props => {

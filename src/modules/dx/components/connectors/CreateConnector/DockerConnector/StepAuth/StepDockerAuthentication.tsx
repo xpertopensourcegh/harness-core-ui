@@ -16,11 +16,11 @@ import { buildDockerPayload } from 'modules/dx/pages/connectors/utils/ConnectorU
 import { useToaster } from 'modules/common/exports'
 import {
   useCreateConnector,
-  usePostSecretText,
   useUpdateConnector,
   ConnectorConfigDTO,
-  EncryptedDataDTO,
-  ConnectorRequestWrapper
+  ConnectorRequestWrapper,
+  usePostSecret,
+  SecretDTOV2
 } from 'services/cd-ng'
 import CreateSecretOverlay from 'modules/dx/common/CreateSecretOverlay/CreateSecretOverlay'
 import {
@@ -43,11 +43,11 @@ const StepDockerAuthentication: React.FC<StepProps<StepDockerAuthenticationProps
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
   const { showSuccess } = useToaster()
   const [showCreateSecretModal, setShowCreateSecretModal] = useState<boolean>(false)
-  const [editSecretData, setEditSecretData] = useState<EncryptedDataDTO>()
+  const [editSecretData, setEditSecretData] = useState<SecretDTOV2>()
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
   const { mutate: createConnector } = useCreateConnector({ accountIdentifier: accountId })
   const { mutate: updateConnector } = useUpdateConnector({ accountIdentifier: accountId })
-  const { mutate: createSecret } = usePostSecretText({})
+  const { mutate: createSecret } = usePostSecret({ queryParams: { accountIdentifier: accountId } })
   const [loadSecret, setLoadSecret] = useState(false)
   const [loadConnector, setLoadConnector] = useState(false)
 
@@ -82,16 +82,19 @@ const StepDockerAuthentication: React.FC<StepProps<StepDockerAuthenticationProps
       modalErrorHandler?.hide()
       setLoadSecret(true)
       res = await createSecret({
-        account: accountId,
-        org: orgIdentifier,
-        project: projectIdentifier,
+        type: 'SecretText',
+        orgIdentifier: orgIdentifier,
+        projectIdentifier: projectIdentifier,
         identifier: stepData.passwordRefSecret?.secretId,
         name: stepData.passwordRefSecret?.secretName,
-        secretManager: stepData.passwordRefSecret?.secretManager?.value as string,
-        value: stepData.passwordRef.value,
-        type: 'SecretText',
-        valueType: 'Inline'
-      })
+        tags: {},
+        spec: {
+          value: stepData.passwordRef.value,
+          valueType: 'Inline',
+          secretManagerIdentifier: stepData.passwordRefSecret?.secretManager?.value as string
+        }
+      } as SecretDTOV2)
+
       setLoadSecret(false)
     } catch (e) {
       setLoadSecret(false)

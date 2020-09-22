@@ -6,7 +6,7 @@ import { connect, FormikContext } from 'formik'
 import cx from 'classnames'
 import { FormikCreateInlineSecret } from 'modules/common/components/CreateInlineSecret/CreateInlineSecret'
 import SecretReference from 'modules/dx/components/SecretReference/SecretReference'
-import type { EncryptedDataDTO, SecretTextSpecDTO } from 'services/cd-ng'
+import type { SecretTextSpecDTO, SecretDTOV2 } from 'services/cd-ng'
 import i18n from './SecretTextInput.i18n'
 import css from './SecretTextInput.module.scss'
 
@@ -29,7 +29,7 @@ interface SecretTextInputProps extends IFormGroupProps {
   projectIdentifier?: string
   orgIdentifier?: string
   onClickCreateSecret: () => void
-  onEditSecret?: (val: EncryptedDataDTO) => void
+  onEditSecret?: (val: SecretDTOV2) => void
   isEditMode?: boolean
   onChange?: (values: SecretInfo) => void
 }
@@ -77,15 +77,18 @@ const SecretTextField: React.FC<FormikSecretTextInput> = props => {
                   minimal
                   onClick={() =>
                     props.onEditSecret?.({
-                      value: props.formik?.values[props.fieldName]?.value,
+                      type: 'SecretText',
+                      orgIdentifier: props.orgIdentifier,
+                      projectIdentifier: props.projectIdentifier,
                       identifier: props.formik?.values[props.secretFieldName]?.secretId,
                       name: props.formik?.values[props.secretFieldName]?.secretName,
-                      secretManager: props.formik?.values[props.secretFieldName]?.secretManager?.value,
-                      secretManagerName: props.formik?.values[props.secretFieldName]?.secretManager?.label,
-                      account: props.accountId,
-                      org: props.orgIdentifier,
-                      project: props.projectIdentifier
-                    })
+                      tags: {},
+                      spec: {
+                        value: props.formik?.values[props.fieldName]?.value,
+                        valueType: 'Inline',
+                        secretManagerIdentifier: props.formik?.values[props.secretFieldName]?.secretManager?.value
+                      }
+                    } as SecretDTOV2)
                   }
                   className={Classes.POPOVER_DISMISS}
                 />
