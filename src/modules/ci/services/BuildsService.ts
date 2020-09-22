@@ -1,16 +1,44 @@
-// TODO: Load data from API
-
-import buildsJSON from './mocks/builds.json'
-import buildJSON from './mocks/build.json'
-
+import { useGet, UseGetProps } from 'restful-react'
 import type { BuildResponse, BuildsResponse } from './Types'
 
-export async function fetchBuilds(): Promise<BuildsResponse> {
-  return Promise.resolve(buildsJSON as BuildsResponse)
+export interface PageableParams {
+  page?: string
 }
 
-export async function fetchBuild(): Promise<BuildResponse> {
-  return new Promise(resolve => {
-    setTimeout(() => resolve(buildJSON as BuildResponse), 1000)
-  })
+export interface GetBuildsQueryParams extends PageableParams {
+  accountIdentifier: string
+  orgIdentifier: string
+  projectIdentifier: string
 }
+
+export interface GetBuildQueryParams {
+  accountIdentifier: string
+  orgIdentifier: string
+  projectIdentifier: string
+}
+
+export interface ErrorResponse {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  code?: 'DEFAULT_ERROR_CODE'
+  message?: string
+}
+
+export type UseGetBuildsProps = Omit<UseGetProps<BuildsResponse, ErrorResponse, GetBuildsQueryParams, void>, 'path'>
+
+export type UseGetBuildProps = Omit<UseGetProps<BuildResponse, ErrorResponse, GetBuildQueryParams, void>, 'path'>
+
+/**
+ * Get builds
+ */
+export const useGetBuilds = (props: UseGetBuildsProps) =>
+  useGet<BuildsResponse, ErrorResponse, GetBuildsQueryParams, void>(`/ng/api/builds`, {
+    ...props
+  })
+
+/**
+ * Get build
+ */
+export const useGetBuild = (buildId: string, props: UseGetBuildProps) =>
+  useGet<BuildResponse, ErrorResponse, GetBuildQueryParams, void>(`/ng/api/build/${buildId}`, {
+    ...props
+  })

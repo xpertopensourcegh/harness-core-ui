@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { noop } from 'lodash-es'
 import { Button, Icon, Link, Container } from '@wings-software/uikit'
 import pipelines from './pipelines.png'
 import Status from '../Status/Status'
@@ -45,10 +46,13 @@ export interface BuildCardProps {
   PRSourceBranch?: string
   PRTargetBranch?: string
   PRState?: string
+  onClick?: (id: number) => void
 }
 
 // TO DO add BuildCardProps
 export const BuildCard: React.FC<BuildCardProps> = props => {
+  const { onClick = noop } = props
+
   const copyFunction = (input: string): void => {
     navigator.clipboard.writeText(String(input))
     alert('copied')
@@ -108,7 +112,7 @@ export const BuildCard: React.FC<BuildCardProps> = props => {
     <Container className={css.buildCard}>
       <div className={css.topper}>
         <div className={css.leftSide}>
-          <div className={css.buildId}>
+          <div className={css.buildId} onClick={() => onClick(props.id)}>
             <Icon name="git-branch" />
             {i18n.buildId}
             {props.id}

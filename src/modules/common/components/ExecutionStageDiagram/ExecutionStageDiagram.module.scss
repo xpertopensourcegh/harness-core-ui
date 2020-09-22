@@ -7,9 +7,10 @@
   height: 100%;
 
   // dotted background
-  $bg-color: var(--blue-100);
-  $dot-color: var(--dark-200);
-  $dot-size: 0.5px;
+  $bg-color: #f6fcff;
+  $dot-color: #bbc1c4;
+
+  $dot-size: 1px;
   $dot-space: 10px;
 
   background: linear-gradient(90deg, $bg-color ($dot-space - $dot-size), transparent 1%) center,

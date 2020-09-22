@@ -22,12 +22,13 @@ import css from './MenuCI.module.scss'
 const ProjectNavLinks: React.FC<{ project?: Project }> = ({ project }) => {
   if (!project) return null
 
-  const { identifier: projectIdentifier } = project as Required<Project>
+  const { orgIdentifier, identifier: projectIdentifier } = project as Required<Project>
 
   return (
     <>
       <Sidebar.Link
         href={routeCIOverview.url({
+          orgIdentifier,
           projectIdentifier
         })}
         label={i18n.overview}
@@ -36,6 +37,7 @@ const ProjectNavLinks: React.FC<{ project?: Project }> = ({ project }) => {
       />
       <Sidebar.Link
         href={routeCIBuilds.url({
+          orgIdentifier,
           projectIdentifier
         })}
         label={i18n.builds}
@@ -72,7 +74,7 @@ const ProjectNavLinks: React.FC<{ project?: Project }> = ({ project }) => {
   )
 }
 
-export const MenuCD: React.FC = () => {
+export const MenuCI: React.FC = () => {
   const {
     params: { projectIdentifier }
   } = routeParams()
@@ -98,7 +100,12 @@ export const MenuCD: React.FC = () => {
             <ProjectSelector
               module={ModuleName.CI}
               onSelect={project => {
-                history.push(routeCIOverview.url({ projectIdentifier: project.identifier as string }))
+                history.push(
+                  routeCIOverview.url({
+                    orgIdentifier: project.orgIdentifier as string,
+                    projectIdentifier: project.identifier as string
+                  })
+                )
               }}
             />
             <ProjectNavLinks project={selectedProjectDTO} />

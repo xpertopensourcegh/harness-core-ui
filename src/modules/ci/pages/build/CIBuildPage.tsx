@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Container, Button, Icon, Intent } from '@wings-software/uikit'
 import { Tabs as BPTabs } from '@blueprintjs/core'
 import { Link, useParams, useHistory } from 'react-router-dom'
@@ -13,7 +13,6 @@ import { ExecutionStatus, status2Message } from 'modules/ci/components/common/st
 import ElapsedTime from 'modules/ci/components/ElapsedTime/ElapsedTime'
 import ExtendedPage from 'modules/ci/components/ExtendedPage/ExtendedPage'
 import ExtendedPageBody from 'modules/ci/components/ExtendedPage/ExtendedPageBody'
-import { fetchBuild } from 'modules/ci/services/BuildsService'
 import { getShortCommitId } from 'modules/ci/services/CIUtils'
 import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
 import {
@@ -29,25 +28,19 @@ import { BuildPageContext } from './context/BuildPageContext'
 import i18n from './CIBuildPage.i18n'
 import css from './CIBuildPage.module.scss'
 
+export interface BuildPageUrlParams {
+  accountId: string
+  orgIdentifier: string
+  projectIdentifier: string
+  buildIdentifier: string
+}
+
 const CIBuildPage: React.FC = props => {
   const { children } = props
-  const { projectIdentifier, buildIdentifier } = useParams()
+  const { orgIdentifier, projectIdentifier, buildIdentifier } = useParams<BuildPageUrlParams>()
   const [detailsVisible, setDetailsVisible] = useState<boolean>(false)
   const history = useHistory()
-  const {
-    state: { buildData },
-    setBuildData
-  } = React.useContext(BuildPageContext)
-
-  useEffect(() => {
-    const fetchData = async (): Promise<void> => {
-      // TODO: fetchBuild should accept more args
-      const result = await fetchBuild()
-      setBuildData(result)
-    }
-
-    fetchData()
-  }, [])
+  const { buildData } = React.useContext(BuildPageContext)
 
   let selectedTabId = ''
   if (isRouteActive(routeCIBuildPipelineGraph)) selectedTabId = 'ciPipelineTab'
@@ -57,12 +50,12 @@ const CIBuildPage: React.FC = props => {
   else if (isRouteActive(routeCIBuildTests)) selectedTabId = 'ciTestsTab'
   else if (isRouteActive(routeCIBuildArtifacts)) selectedTabId = 'ciArtifactsTab'
 
-  const pipelineGraphUrl = routeCIBuildPipelineGraph.url({ projectIdentifier, buildIdentifier })
-  const pipelineLogUrl = routeCIBuildPipelineLog.url({ projectIdentifier, buildIdentifier })
-  const inputsUrl = routeCIBuildInputs.url({ projectIdentifier, buildIdentifier })
-  const commitsUrl = routeCIBuildCommits.url({ projectIdentifier, buildIdentifier })
-  const testsUrl = routeCIBuildTests.url({ projectIdentifier, buildIdentifier })
-  const artifactsUrl = routeCIBuildArtifacts.url({ projectIdentifier, buildIdentifier })
+  const pipelineGraphUrl = routeCIBuildPipelineGraph.url({ orgIdentifier, projectIdentifier, buildIdentifier })
+  const pipelineLogUrl = routeCIBuildPipelineLog.url({ orgIdentifier, projectIdentifier, buildIdentifier })
+  const inputsUrl = routeCIBuildInputs.url({ orgIdentifier, projectIdentifier, buildIdentifier })
+  const commitsUrl = routeCIBuildCommits.url({ orgIdentifier, projectIdentifier, buildIdentifier })
+  const testsUrl = routeCIBuildTests.url({ orgIdentifier, projectIdentifier, buildIdentifier })
+  const artifactsUrl = routeCIBuildArtifacts.url({ orgIdentifier, projectIdentifier, buildIdentifier })
 
   return (
     <ExtendedPage>

@@ -1,5 +1,7 @@
 // TODO: replace all with DTO
 
+import type { Graph } from './GraphTypes'
+
 export enum BuildExecutionStatus {
   IN_PROGRESS = 'in_progress'
 }
@@ -53,32 +55,13 @@ export interface Build {
   pullRequest?: PullRequest
 }
 
-export interface Sort {
-  unsorted: boolean
-  sorted: boolean
-  empty: boolean
-}
-
-export interface Pageable {
-  sort: Sort
-  offset: number
-  pageNumber: number
-  pageSize: number
-  paged: boolean
-  unpaged: boolean
-}
-
 export interface BuildsData {
   content: Build[]
-  pageable: Pageable
-  totalPages: number
-  totalElements: number
-  last: boolean
-  size: number
-  number: number
-  first: boolean
-  sort: Sort
-  numberOfElements: number
+  graph: Graph
+  pageCount: number
+  itemCount: number
+  pageSize: number
+  pageIndex: number
   empty: boolean
 }
 

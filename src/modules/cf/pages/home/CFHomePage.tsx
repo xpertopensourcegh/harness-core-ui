@@ -19,7 +19,13 @@ const CFHomePage: React.FC = () => {
       subHeading={i18n.description}
       description={i18n.addToExistingProject}
       onProjectCreated={(project: Project) => {
-        history.push(routeCIOverview.url({ projectIdentifier: project.identifier as string }))
+        history.push(
+          // TODO: should be used route from CF module?
+          routeCIOverview.url({
+            projectIdentifier: project.identifier as string,
+            orgIdentifier: project.orgIdentifier as string
+          })
+        )
       }}
     />
   )

@@ -1,6 +1,6 @@
 import { SidebarEntry, SidebarIdentifier } from 'framework/exports'
 import { routeCIHome } from '../routes'
-import { MenuCD } from './MenuCI'
+import { MenuCI } from './MenuCI'
 import i18n from './sidebar.i18n'
 
 export const CIHome: SidebarEntry = {
@@ -12,5 +12,5 @@ export const CIHome: SidebarEntry = {
     selected: 'placeholder-selected'
   },
   url: routeCIHome.url,
-  sidebarMenu: MenuCD
+  sidebarMenu: MenuCI
 }

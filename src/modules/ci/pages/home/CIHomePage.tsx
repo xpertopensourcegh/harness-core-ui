@@ -19,7 +19,12 @@ const CIHomePage: React.FC = () => {
       subHeading={i18n.buildFastPipelines}
       description={i18n.addCIToExistingProject}
       onProjectCreated={(project: Project) => {
-        history.push(routeCIOverview.url({ projectIdentifier: project.identifier as string }))
+        history.push(
+          routeCIOverview.url({
+            orgIdentifier: project.orgIdentifier as string,
+            projectIdentifier: project.identifier as string
+          })
+        )
       }}
     />
   )

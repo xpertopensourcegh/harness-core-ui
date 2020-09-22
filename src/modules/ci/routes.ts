@@ -12,83 +12,127 @@ export const routeCIHome: Route = {
   component: React.lazy(() => import('./pages/home/CIHomePage'))
 }
 
-export const routeCIOverview: Route<{ projectIdentifier: string }> = {
+export const routeCIOverview: Route<{ orgIdentifier: string; projectIdentifier: string }> = {
   module: ModuleName.CI,
   sidebarId: SidebarIdentifier.CONTINUOUS_INTEGRATION,
-  path: '/ci/overview/projects/:projectIdentifier',
+  path: '/ci/overview/orgs/:orgIdentifier/projects/:projectIdentifier',
   title: i18n.ci,
   pageId: 'ci-overview',
-  url: ({ projectIdentifier }) => routeURL(routeCIOverview, `/ci/overview/projects/${projectIdentifier}`),
+  url: ({ orgIdentifier, projectIdentifier }) =>
+    routeURL(routeCIOverview, `/ci/overview/orgs/${orgIdentifier}/projects/${projectIdentifier}`),
   component: React.lazy(() => import('./pages/overview/CIOverviewPage'))
 }
 
-export const routeCIBuilds: Route<{ projectIdentifier: string }> = {
+export const routeCIBuilds: Route<{ orgIdentifier: string; projectIdentifier: string }> = {
   module: ModuleName.CI,
   sidebarId: SidebarIdentifier.CONTINUOUS_INTEGRATION,
-  path: '/ci/projects/:projectIdentifier/builds',
+  path: '/ci/orgs/:orgIdentifier/projects/:projectIdentifier/builds',
   title: i18n.ci,
   pageId: 'ci-builds',
-  url: ({ projectIdentifier }) => routeURL(routeCIBuilds, `/ci/projects/${projectIdentifier}/builds`),
+  url: ({ orgIdentifier, projectIdentifier }) =>
+    routeURL(routeCIBuilds, `/ci/orgs/${orgIdentifier}/projects/${projectIdentifier}/builds`),
   component: React.lazy(() => import('./pages/builds/CIBuildsPage'))
 }
 
-export const routeCIBuildPipelineGraph: NestedRoute<{ projectIdentifier: string; buildIdentifier: string }> = {
-  path: '/ci/projects/:projectIdentifier/builds/:buildIdentifier/pipeline/graph',
+export const routeCIBuildPipelineGraph: NestedRoute<{
+  orgIdentifier: string
+  projectIdentifier: string
+  buildIdentifier: string
+}> = {
+  path: '/ci/orgs/:orgIdentifier/projects/:projectIdentifier/builds/:buildIdentifier/pipeline/graph',
   title: i18n.buildPipelineGraph,
-  url: ({ projectIdentifier, buildIdentifier }) =>
-    routeURL(routeCIBuildPipelineGraph, `/ci/projects/${projectIdentifier}/builds/${buildIdentifier}/pipeline/graph`),
+  url: ({ orgIdentifier, projectIdentifier, buildIdentifier }) =>
+    routeURL(
+      routeCIBuildPipelineGraph,
+      `/ci/orgs/${orgIdentifier}/projects/${projectIdentifier}/builds/${buildIdentifier}/pipeline/graph`
+    ),
   component: React.lazy(() => import('./pages/build/sections/pipeline-graph/BuildPipelineGraph')),
   isDefault: true
 }
 
-export const routeCIBuildPipelineLog: NestedRoute<{ projectIdentifier: string; buildIdentifier: string }> = {
-  path: '/ci/projects/:projectIdentifier/builds/:buildIdentifier/pipeline/log',
+export const routeCIBuildPipelineLog: NestedRoute<{
+  orgIdentifier: string
+  projectIdentifier: string
+  buildIdentifier: string
+}> = {
+  path: '/ci/orgs/:orgIdentifier/projects/:projectIdentifier/builds/:buildIdentifier/pipeline/log',
   title: i18n.buildPipelineLog,
-  url: ({ projectIdentifier, buildIdentifier }) =>
-    routeURL(routeCIBuildPipelineLog, `/ci/projects/${projectIdentifier}/builds/${buildIdentifier}/pipeline/log`),
+  url: ({ orgIdentifier, projectIdentifier, buildIdentifier }) =>
+    routeURL(
+      routeCIBuildPipelineLog,
+      `/ci/orgs/${orgIdentifier}/projects/${projectIdentifier}/builds/${buildIdentifier}/pipeline/log`
+    ),
   component: React.lazy(() => import('./pages/build/sections/pipeline-log/BuildPipelineLog'))
 }
 
-export const routeCIBuildInputs: NestedRoute<{ projectIdentifier: string; buildIdentifier: string }> = {
-  path: '/ci/projects/:projectIdentifier/builds/:buildIdentifier/inputs',
+export const routeCIBuildInputs: NestedRoute<{
+  orgIdentifier: string
+  projectIdentifier: string
+  buildIdentifier: string
+}> = {
+  path: '/ci/orgs/:orgIdentifier/projects/:projectIdentifier/builds/:buildIdentifier/inputs',
   title: i18n.buildInputs,
-  url: ({ projectIdentifier, buildIdentifier }) =>
-    routeURL(routeCIBuildInputs, `/ci/projects/${projectIdentifier}/builds/${buildIdentifier}/inputs`),
+  url: ({ orgIdentifier, projectIdentifier, buildIdentifier }) =>
+    routeURL(
+      routeCIBuildInputs,
+      `/ci/orgs/${orgIdentifier}/projects/${projectIdentifier}/builds/${buildIdentifier}/inputs`
+    ),
   component: React.lazy(() => import('./pages/build/sections/inputs/BuildInputs'))
 }
 
-export const routeCIBuildCommits: NestedRoute<{ projectIdentifier: string; buildIdentifier: string }> = {
-  path: '/ci/projects/:projectIdentifier/builds/:buildIdentifier/commits',
+export const routeCIBuildCommits: NestedRoute<{
+  orgIdentifier: string
+  projectIdentifier: string
+  buildIdentifier: string
+}> = {
+  path: '/ci/orgs/:orgIdentifier/projects/:projectIdentifier/builds/:buildIdentifier/commits',
   title: i18n.buildCommits,
-  url: ({ projectIdentifier, buildIdentifier }) =>
-    routeURL(routeCIBuildCommits, `/ci/projects/${projectIdentifier}/builds/${buildIdentifier}/commits`),
+  url: ({ orgIdentifier, projectIdentifier, buildIdentifier }) =>
+    routeURL(
+      routeCIBuildCommits,
+      `/ci/orgs/${orgIdentifier}/projects/${projectIdentifier}/builds/${buildIdentifier}/commits`
+    ),
   component: React.lazy(() => import('./pages/build/sections/commits/BuildCommits'))
 }
 
-export const routeCIBuildTests: NestedRoute<{ projectIdentifier: string; buildIdentifier: string }> = {
-  path: '/ci/projects/:projectIdentifier/builds/:buildIdentifier/tests',
+export const routeCIBuildTests: NestedRoute<{
+  orgIdentifier: string
+  projectIdentifier: string
+  buildIdentifier: string
+}> = {
+  path: '/ci/orgs/:orgIdentifier/projects/:projectIdentifier/builds/:buildIdentifier/tests',
   title: i18n.buildTests,
-  url: ({ projectIdentifier, buildIdentifier }) =>
-    routeURL(routeCIBuildTests, `/ci/projects/${projectIdentifier}/builds/${buildIdentifier}/tests`),
+  url: ({ orgIdentifier, projectIdentifier, buildIdentifier }) =>
+    routeURL(
+      routeCIBuildTests,
+      `/ci/orgs/${orgIdentifier}/projects/${projectIdentifier}/builds/${buildIdentifier}/tests`
+    ),
   component: React.lazy(() => import('./pages/build/sections/tests/BuildTests'))
 }
 
-export const routeCIBuildArtifacts: NestedRoute<{ projectIdentifier: string; buildIdentifier: string }> = {
-  path: '/ci/projects/:projectIdentifier/builds/:buildIdentifier/artifacts',
+export const routeCIBuildArtifacts: NestedRoute<{
+  orgIdentifier: string
+  projectIdentifier: string
+  buildIdentifier: string
+}> = {
+  path: '/ci/orgs/:orgIdentifier/projects/:projectIdentifier/builds/:buildIdentifier/artifacts',
   title: i18n.buildArtifacts,
-  url: ({ projectIdentifier, buildIdentifier }) =>
-    routeURL(routeCIBuildArtifacts, `/ci/projects/${projectIdentifier}/builds/${buildIdentifier}/artifacts`),
+  url: ({ orgIdentifier, projectIdentifier, buildIdentifier }) =>
+    routeURL(
+      routeCIBuildArtifacts,
+      `/ci/orgs/${orgIdentifier}/projects/${projectIdentifier}/builds/${buildIdentifier}/artifacts`
+    ),
   component: React.lazy(() => import('./pages/build/sections/artifacts/BuildArtifacts'))
 }
 
-export const routeCIBuild: Route<{ projectIdentifier: string; buildIdentifier: string }> = {
+export const routeCIBuild: Route<{ orgIdentifier: string; projectIdentifier: string; buildIdentifier: string }> = {
   module: ModuleName.CI,
   sidebarId: SidebarIdentifier.CONTINUOUS_INTEGRATION,
-  path: '/ci/projects/:projectIdentifier/builds/:buildIdentifier',
+  path: '/ci/orgs/:orgIdentifier/projects/:projectIdentifier/builds/:buildIdentifier',
   title: i18n.ci,
   pageId: 'ci-build',
-  url: ({ projectIdentifier, buildIdentifier }) =>
-    routeURL(routeCIBuild, `/ci/projects/${projectIdentifier}/builds/${buildIdentifier}`),
+  url: ({ orgIdentifier, projectIdentifier, buildIdentifier }) =>
+    routeURL(routeCIBuild, `/ci/orgs/${orgIdentifier}/projects/${projectIdentifier}/builds/${buildIdentifier}`),
   component: React.lazy(() => import('./pages/build/CIBuildPage')),
   nestedRoutes: [
     routeCIBuildPipelineGraph,

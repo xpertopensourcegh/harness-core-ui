@@ -1,13 +1,17 @@
 import React from 'react'
-import type { BuildResponse } from 'modules/ci/services/Types'
+import { useParams } from 'react-router-dom'
+import { useGetBuild } from 'modules/ci/services/BuildsService'
+import type { BuildPageUrlParams } from '../CIBuildPage'
 import { BuildPageContext, BuildPageStateInterface } from './BuildPageContext'
 
 export const BuildPageContextProvider: React.FC = props => {
   const { children } = props
+  const { accountId: accountIdentifier, orgIdentifier, projectIdentifier, buildIdentifier } = useParams<
+    BuildPageUrlParams
+  >()
   const [state, setState] = React.useState<BuildPageStateInterface>({
     selectedStageIdentifier: '-1',
-    selectedStepIdentifier: '-1',
-    buildData: undefined
+    selectedStepIdentifier: '-1'
   })
 
   const setSelectedStageIdentifier = (selectedStageIdentifier: string): void => {
@@ -20,12 +24,18 @@ export const BuildPageContextProvider: React.FC = props => {
     setState({ ...state, selectedStepIdentifier })
   }
 
-  const setBuildData = (buildData: BuildResponse | undefined): void => {
-    setState({ ...state, buildData })
-  }
+  const { data: buildData, loading, error } = useGetBuild(buildIdentifier, {
+    queryParams: {
+      accountIdentifier,
+      orgIdentifier,
+      projectIdentifier
+    }
+  })
 
   return (
-    <BuildPageContext.Provider value={{ state, setSelectedStageIdentifier, setSelectedStepIdentifier, setBuildData }}>
+    <BuildPageContext.Provider
+      value={{ state, buildData, loading, error, setSelectedStageIdentifier, setSelectedStepIdentifier }}
+    >
       {children}
     </BuildPageContext.Provider>
   )
