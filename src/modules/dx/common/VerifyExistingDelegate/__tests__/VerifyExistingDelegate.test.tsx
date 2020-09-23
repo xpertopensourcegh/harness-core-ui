@@ -23,6 +23,7 @@ describe('Verification step for existing delegate', () => {
             data: testConnectionSuccess as ResponseDTOConnectorValidationResult,
             loading: false
           }}
+          type="K8sCluster"
         />
       </MemoryRouter>
     )
@@ -47,6 +48,7 @@ describe('Verification step for existing delegate', () => {
             data: testConnectionSuccess as ResponseDTOConnectorValidationResult,
             loading: false
           }}
+          type="K8sCluster"
         />
       </MemoryRouter>
     )

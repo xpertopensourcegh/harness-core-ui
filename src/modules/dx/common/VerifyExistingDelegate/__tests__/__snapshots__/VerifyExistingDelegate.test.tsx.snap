@@ -82,7 +82,7 @@ exports[`Verification step for existing delegate render VerifyExistingDelegate w
                 </desc>
               </svg>
             </span>
-            Establishing connection between delegate and kubernetes cluster
+            Establishing Connection between Delegate and Kubernetes cluster
           </span>
         </div>
         <div>
@@ -255,7 +255,7 @@ exports[`Verification step for existing delegate render VerifyExistingDelegate w
                 </g>
               </svg>
             </span>
-            Establishing connection between delegate and kubernetes cluster
+            Establishing Connection between Delegate and Kubernetes cluster
           </span>
         </div>
         <div>

@@ -10,7 +10,8 @@ export default {
   EDIT_CREDS: 'Edit Credentials',
   RETEST: 'RETEST CONNECTION',
   LAST_CONNECTED: 'Last connected successfully',
-  delegateFound: (count: number | undefined) => `${count ? count : 'No'} delegate found`,
+  delegateFound: (count: number | undefined) =>
+    `${count ? count : 'No'} delegate${count && count > 1 ? 's' : ''} found`,
   STEP_TWO_POPOVER: 'Establishing connection',
   CONTINUE: 'CONTINUE'
 }

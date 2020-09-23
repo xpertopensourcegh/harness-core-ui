@@ -68,6 +68,7 @@ export interface PipelineReducerState {
 }
 
 export const DefaultPipeline: CDPipeline = {
+  name: '',
   identifier: DefaultNewPipelineId
 }
 

@@ -85,7 +85,7 @@ export const savePipeline = (
           orgIdentifier: params.orgIdentifier
         },
         requestOptions: { headers: { 'Content-Type': 'text/yaml' } }
-      }).then(response => {
+      }).then((response: unknown) => {
         if (typeof response === 'string') {
           return JSON.parse((response as unknown) as string) as FailureDTO
         } else {

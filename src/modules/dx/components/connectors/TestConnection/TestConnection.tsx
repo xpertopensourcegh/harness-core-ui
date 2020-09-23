@@ -6,6 +6,7 @@ import i18n from './TestConnection.i18n'
 import css from './TestConnection.module.scss'
 
 interface TestConnectionProps {
+  connectorType: string
   accountId: string
   projectIdentifier: string
   orgIdentifier: string
@@ -29,6 +30,8 @@ const TestConnection: React.FC<TestConnectionProps> = props => {
             delegateName={props.delegateName}
             setLastTested={props.setLastTested}
             setLastConnected={props.setLastConnected}
+            setStatus={props.setStatus}
+            type={props.connectorType}
           />
         ) : (
           <VerifyOutOfClusterDelegate
@@ -38,6 +41,7 @@ const TestConnection: React.FC<TestConnectionProps> = props => {
             setLastTested={props.setLastTested}
             setLastConnected={props.setLastConnected}
             setStatus={props.setStatus}
+            type={props.connectorType}
           />
         )
       ) : (

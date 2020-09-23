@@ -6,7 +6,7 @@ import {
   RestResponseDelegateStatus,
   DelegateInner
 } from 'services/portal'
-import { useGetTestConnectionResult } from 'services/cd-ng'
+import { useGetTestConnectionResult, ResponseDTOConnectorValidationResult } from 'services/cd-ng'
 import type { StepDetails } from 'modules/dx/interfaces/ConnectorInterface'
 import i18n from './VerifyInstallDelegate.i18n'
 import css from './VerifyInstallDelegate.module.scss'
@@ -57,22 +57,51 @@ const VerifyInstalledDelegate = (props: VerifyInstalledDelegateProps) => {
     lazy: true
   })
 
-  const {
-    data: testConnectionResponse,
-    refetch: reloadTestConnection,
-    error: errorTesting
-  } = useGetTestConnectionResult({
-    accountIdentifier: props.accountId,
+  const { mutate: reloadTestConnection } = useGetTestConnectionResult({
+    accountIdentifier: accountId,
     connectorIdentifier: props.connectorIdentifier as string,
     queryParams: { orgIdentifier: props.orgIdentifier, projectIdentifier: props.projectIdentifier },
-    lazy: true
+    requestOptions: {
+      headers: {
+        'content-type': 'application/json'
+      }
+    }
   })
-
   const isSelectedDelegateActive = (delegateStatusResponse: RestResponseDelegateStatus) => {
     const delegateList = delegateStatusResponse?.resource?.delegates
     return delegateList?.filter(function (item: DelegateInner) {
       return item.delegateName === props.delegateName
     })?.length
+  }
+
+  const executeStepVerify = async (): Promise<void> => {
+    if (stepDetails.step === StepIndex.get(STEP.VERIFY)) {
+      let testConnectionResponse: ResponseDTOConnectorValidationResult
+      if (stepDetails.status === 'PROCESS') {
+        try {
+          testConnectionResponse = await reloadTestConnection()
+          if (testConnectionResponse?.data?.valid) {
+            setStepDetails({
+              step: 3,
+              intent: Intent.SUCCESS,
+              status: 'DONE'
+            })
+          } else {
+            setStepDetails({
+              step: 3,
+              intent: Intent.DANGER,
+              status: 'ERROR'
+            })
+          }
+        } catch (err) {
+          setStepDetails({
+            step: 3,
+            intent: Intent.DANGER,
+            status: 'ERROR'
+          })
+        }
+      }
+    }
   }
 
   React.useEffect(() => {
@@ -136,32 +165,8 @@ const VerifyInstalledDelegate = (props: VerifyInstalledDelegateProps) => {
         status: 'PROCESS'
       })
     }
-
-    if (stepDetails.step === StepIndex.get(STEP.VERIFY) && stepDetails.status === 'PROCESS') {
-      reloadTestConnection()
-      if (testConnectionResponse) {
-        setStepDetails({
-          step: 3,
-          intent: Intent.SUCCESS,
-          status: 'DONE'
-        })
-      } else if (!testConnectionResponse && errorTesting) {
-        setStepDetails({
-          step: 3,
-          intent: Intent.DANGER,
-          status: 'ERROR'
-        })
-      }
-    }
-  }, [
-    stepDetails,
-    delegateStatus,
-    testConnectionResponse,
-    errorStatus,
-    errorTesting,
-    delegateDowloadUrl,
-    errorDownload
-  ])
+    executeStepVerify()
+  }, [stepDetails, delegateStatus, errorStatus, delegateDowloadUrl, errorDownload])
   return (
     <Layout.Vertical className={css.verifyWrapper}>
       <Text font="medium" className={css.heading}>

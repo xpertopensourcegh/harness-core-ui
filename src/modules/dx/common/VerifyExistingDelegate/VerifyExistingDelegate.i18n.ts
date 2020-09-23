@@ -1,15 +1,15 @@
 export default {
   STEPS: {
     ONE: {
-      PPROGRESS: 'Checking Delegate',
+      PROGRESS: 'Checking Delegate',
       FAILED: 'Delegate not found',
       SUCCESS: 'Delegate found'
     },
     TWO: {
-      PPROGRESS: 'Establishing connection between delegate and kubernetes cluster'
+      PROGRESS: (connector: string) => `Establishing Connection between Delegate and ${connector || 'Connector'}`
     },
     THREE: {
-      PPROGRESS: 'Verifying connection'
+      PROGRESS: 'Verifying connection'
     }
   },
   verifyConnectionText: 'Verify Connection to',

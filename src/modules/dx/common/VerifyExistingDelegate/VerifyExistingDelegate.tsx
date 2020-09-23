@@ -5,6 +5,7 @@ import { useGetTestConnectionResult, ResponseDTOConnectorValidationResult } from
 import { useGetDelegatesStatus, RestResponseDelegateStatus, DelegateInner } from 'services/portal'
 import type { UseGetMockData } from 'modules/common/utils/testUtils'
 import type { StepDetails } from 'modules/dx/interfaces/ConnectorInterface'
+import { getConnectorDisplayName } from 'modules/dx/pages/connectors/utils/ConnectorUtils'
 import { useToaster } from 'modules/common/exports'
 import i18n from './VerifyExistingDelegate.i18n'
 
@@ -22,6 +23,9 @@ interface VerifyExistingDelegateProps {
   onSuccess?: () => void
   setLastTested?: (val: number) => void
   setLastConnected?: (val: number) => void
+  setStatus?: (val: string) => void
+  setTesting?: (val: boolean) => void
+  type?: string
 }
 
 interface VerifyExistingDelegateState {
@@ -61,16 +65,16 @@ const VerifyExistingDelegate = (props: VerifyExistingDelegateProps) => {
     queryParams: { accountId },
     mock: props.delegateStatusMockData
   })
-  const {
-    data: testConnectionResponse,
-    refetch: reloadTestConnection,
-    error: errorTesting
-  } = useGetTestConnectionResult({
+  const { mutate: reloadTestConnection } = useGetTestConnectionResult({
     accountIdentifier: accountId,
     connectorIdentifier: connectorIdentifier as string,
     queryParams: { orgIdentifier: orgIdentifier, projectIdentifier: projectIdentifier },
-    lazy: true,
-    mock: props.testConnectionMockData
+    mock: props.testConnectionMockData,
+    requestOptions: {
+      headers: {
+        'content-type': 'application/json'
+      }
+    }
   })
 
   const isSelectedDelegateActive = (delegateStatusResponse: RestResponseDelegateStatus) => {
@@ -81,15 +85,47 @@ const VerifyExistingDelegate = (props: VerifyExistingDelegateProps) => {
   }
 
   const getStepOne = () => {
-    // if (stepDetails.step === StepIndex.get(STEP.DELEGATE)) {
     if (stepDetails.status === 'PROCESS') {
-      return `${i18n.STEPS.ONE.PPROGRESS}: ${props.delegateName} `
+      return `${i18n.STEPS.ONE.PROGRESS}: ${props.delegateName} `
     } else if (stepDetails.status === 'DONE') {
       return `${i18n.STEPS.ONE.SUCCESS}: ${props.delegateName} `
     } else {
       return `${i18n.STEPS.ONE.FAILED}`
     }
-    // }
+  }
+
+  const executeStepVerify = async (): Promise<void> => {
+    if (stepDetails.step === StepIndex.get(STEP.VERIFY)) {
+      let testConnectionResponse: ResponseDTOConnectorValidationResult
+      if (stepDetails.status === 'PROCESS') {
+        try {
+          testConnectionResponse = await reloadTestConnection()
+          if (testConnectionResponse?.data?.valid) {
+            setStepDetails({
+              step: 3,
+              intent: Intent.SUCCESS,
+              status: 'DONE'
+            })
+
+            props.setLastTested?.(testConnectionResponse?.data?.testedAt || 0)
+            props.setLastConnected?.(testConnectionResponse?.data?.testedAt || 0)
+            props.setStatus?.('SUCCESS')
+          } else {
+            setStepDetails({
+              step: 3,
+              intent: Intent.DANGER,
+              status: 'ERROR'
+            })
+          }
+        } catch (err) {
+          setStepDetails({
+            step: 3,
+            intent: Intent.DANGER,
+            status: 'ERROR'
+          })
+        }
+      }
+    }
   }
   React.useEffect(() => {
     if (stepDetails.step === StepIndex.get(STEP.DELEGATE) && stepDetails.status === 'PROCESS') {
@@ -135,46 +171,24 @@ const VerifyExistingDelegate = (props: VerifyExistingDelegateProps) => {
         clearInterval(interval)
       }
     }
-    if (stepDetails.step === StepIndex.get(STEP.VERIFY)) {
-      if (stepDetails.status === 'PROCESS') {
-        reloadTestConnection()
-        if (testConnectionResponse) {
-          if (testConnectionResponse?.data?.valid) {
-            setStepDetails({
-              step: 3,
-              intent: Intent.SUCCESS,
-              status: 'DONE'
-            })
-          } else {
-            setStepDetails({
-              step: 3,
-              intent: Intent.DANGER,
-              status: 'ERROR'
-            })
-          }
-        } else if (!testConnectionResponse && errorTesting) {
-          setStepDetails({
-            step: 3,
-            intent: Intent.DANGER,
-            status: 'ERROR'
-          })
-        }
-      } else if (stepDetails.status === 'DONE') {
-        props.setLastTested?.(testConnectionResponse?.data?.testedAt || 0)
-        props.setLastConnected?.(testConnectionResponse?.data?.testedAt || 0)
-      }
-    }
+    executeStepVerify()
     if (stepDetails.intent === Intent.DANGER) {
-      props.setLastTested?.(testConnectionResponse?.data?.testedAt || 0)
+      props.setLastTested?.(new Date().getTime() || 0)
+      props.setTesting?.(false)
+      props.setStatus?.('FAILURE')
     }
-  }, [stepDetails, delegateStatus, testConnectionResponse, error, errorTesting])
+  }, [stepDetails, delegateStatus, error])
   return (
     <Layout.Vertical padding={{ right: 'small', left: 'small' }}>
       <Text font="medium" className={css.heading}>
         {i18n.verifyConnectionText} <span className={css.name}>{props.connectorName}</span>
       </Text>
       <StepsProgress
-        steps={[getStepOne(), i18n.STEPS.TWO.PPROGRESS, i18n.STEPS.THREE.PPROGRESS]}
+        steps={[
+          getStepOne(),
+          i18n.STEPS.TWO.PROGRESS(getConnectorDisplayName(props.type || '')),
+          i18n.STEPS.THREE.PROGRESS
+        ]}
         intent={stepDetails.intent}
         current={stepDetails.step}
         currentStatus={stepDetails.status}

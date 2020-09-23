@@ -91,17 +91,54 @@ const VerifyOutOfClusterDelegate: React.FC<
     queryParams: { accountId: accountId },
     mock: props.delegateStatusMockData
   })
-  const {
-    data: testConnectionResponse,
-    refetch: reloadTestConnection,
-    error: errorTesting
-  } = useGetTestConnectionResult({
+  const { mutate: reloadTestConnection } = useGetTestConnectionResult({
     accountIdentifier: accountId,
     connectorIdentifier: props.connectorIdentifier || prevStepData?.identifier || '',
-    lazy: true,
     queryParams: { orgIdentifier: orgIdentifier, projectIdentifier: projectIdentifier },
-    mock: props.testConnectionMockData
+    mock: props.testConnectionMockData,
+    requestOptions: {
+      headers: {
+        'content-type': 'application/json'
+      }
+    }
   })
+
+  const executeStepVerify = async (): Promise<void> => {
+    if (stepDetails.step === StepIndex.get(STEP.VERIFY)) {
+      let testConnectionResponse: ResponseDTOConnectorValidationResult
+      if (stepDetails.status === 'PROCESS') {
+        try {
+          testConnectionResponse = await reloadTestConnection()
+          if (testConnectionResponse?.data?.valid) {
+            setStepDetails({
+              step: 3,
+              intent: Intent.SUCCESS,
+              status: 'DONE'
+            })
+
+            props.setLastTested?.(testConnectionResponse?.data?.testedAt || 0)
+            props.setLastConnected?.(testConnectionResponse?.data?.testedAt || 0)
+            props.setStatus?.('SUCCESS')
+            if (inPopover) {
+              props.setTesting?.(false)
+            }
+          } else {
+            setStepDetails({
+              step: 3,
+              intent: Intent.DANGER,
+              status: 'ERROR'
+            })
+          }
+        } catch (err) {
+          setStepDetails({
+            step: 3,
+            intent: Intent.DANGER,
+            status: 'ERROR'
+          })
+        }
+      }
+    }
+  }
 
   React.useEffect(() => {
     if (stepDetails.step === StepIndex.get(STEP.CHECK_DELEGATE) && stepDetails.status === 'PROCESS') {
@@ -149,45 +186,15 @@ const VerifyOutOfClusterDelegate: React.FC<
         clearInterval(interval)
       }
     }
-    if (stepDetails.step === StepIndex.get(STEP.VERIFY)) {
-      if (stepDetails.status === 'PROCESS') {
-        reloadTestConnection()
-        if (testConnectionResponse) {
-          if (testConnectionResponse?.data?.valid) {
-            setStepDetails({
-              step: 3,
-              intent: Intent.SUCCESS,
-              status: 'DONE'
-            })
-          } else {
-            setStepDetails({
-              step: 3,
-              intent: Intent.DANGER,
-              status: 'ERROR'
-            })
-          }
-        } else if (!testConnectionResponse && errorTesting) {
-          setStepDetails({
-            step: 3,
-            intent: Intent.DANGER,
-            status: 'ERROR'
-          })
-        }
-      } else if (stepDetails.status === 'DONE') {
-        props.setLastTested?.(testConnectionResponse?.data?.testedAt || 0)
-        props.setLastConnected?.(testConnectionResponse?.data?.testedAt || 0)
-        props.setStatus?.('SUCCESS')
-        if (inPopover) {
-          props.setTesting?.(false)
-        }
-      }
-    }
+
+    executeStepVerify()
+
     if (stepDetails.intent === Intent.DANGER) {
       props.setLastTested?.(new Date().getTime() || 0)
       props.setTesting?.(false)
       props.setStatus?.('FAILURE')
     }
-  }, [stepDetails, delegateStatus, testConnectionResponse, error, errorTesting])
+  }, [stepDetails, delegateStatus, error])
   return (
     <Layout.Vertical padding="small" height={'100%'}>
       <Layout.Vertical height={'90%'}>

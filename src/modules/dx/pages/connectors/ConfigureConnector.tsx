@@ -240,6 +240,7 @@ const ConfigureConnector: React.FC<ConfigureConnectorProps> = props => {
               setLastTested={setLastTested}
               setLastConnected={setLastConnected}
               setStatus={setStatus}
+              connectorType={connector?.type || ''}
             />
           </Layout.Vertical>
         ) : null}
