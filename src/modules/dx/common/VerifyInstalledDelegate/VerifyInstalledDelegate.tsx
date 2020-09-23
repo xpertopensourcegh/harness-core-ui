@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Layout, Button, Text, StepsProgress, Intent, Label, CodeBlock, Select, Color } from '@wings-software/uikit'
 import {
   useGetDelegatesStatus,
@@ -67,6 +67,7 @@ const VerifyInstalledDelegate = (props: VerifyInstalledDelegateProps) => {
       }
     }
   })
+
   const isSelectedDelegateActive = (delegateStatusResponse: RestResponseDelegateStatus) => {
     const delegateList = delegateStatusResponse?.resource?.delegates
     return delegateList?.filter(function (item: DelegateInner) {
@@ -103,7 +104,7 @@ const VerifyInstalledDelegate = (props: VerifyInstalledDelegateProps) => {
       }
     }
   }
-
+  let intevalOne: any // Remove
   React.useEffect(() => {
     if (stepDetails.step === StepIndex.get(STEP.DELEGATE) && stepDetails.status === 'PROCESS') {
       if (delegateDowloadUrl) {
@@ -111,17 +112,9 @@ const VerifyInstalledDelegate = (props: VerifyInstalledDelegateProps) => {
           props.profile ? `&delegateProfileId=${props.profile}` : ''
         }`
         window.open(url, '_blank')
-        setStepDetails({
-          step: 1,
-          intent: Intent.SUCCESS,
-          status: 'DONE'
-        })
-      } else if (!delegateStatus && errorDownload) {
-        setStepDetails({
-          step: 1,
-          intent: Intent.DANGER,
-          status: 'ERROR'
-        })
+        intevalOne = setInterval(() => {
+          reloadDelegateStatus()
+        }, 10000)
       }
     }
 
@@ -134,28 +127,22 @@ const VerifyInstalledDelegate = (props: VerifyInstalledDelegateProps) => {
     }
 
     if (stepDetails.step === StepIndex.get(STEP.ESTABLISH_CONNECTION) && stepDetails.status === 'PROCESS') {
-      reloadDelegateStatus()
-      if (delegateStatus) {
-        if (isSelectedDelegateActive(delegateStatus)) {
-          setStepDetails({
-            step: 2,
-            intent: Intent.SUCCESS,
-            status: 'DONE'
-          })
-        } else {
-          setStepDetails({
-            step: 2,
-            intent: Intent.DANGER,
-            status: 'ERROR'
-          })
-        }
-      } else if (!delegateStatus && errorStatus) {
+      const interval = setInterval(() => {
         setStepDetails({
           step: 2,
-          intent: Intent.DANGER,
-          status: 'ERROR'
+          intent: Intent.SUCCESS,
+          status: 'DONE'
         })
-      }
+      }, 2000)
+      clearInterval(interval)
+    }
+
+    if (stepDetails.step === StepIndex.get(STEP.ESTABLISH_CONNECTION) && stepDetails.status === 'DONE') {
+      setStepDetails({
+        step: 3,
+        intent: Intent.SUCCESS,
+        status: 'PROCESS'
+      })
     }
 
     if (stepDetails.step === StepIndex.get(STEP.ESTABLISH_CONNECTION) && stepDetails.status === 'DONE') {
@@ -166,7 +153,26 @@ const VerifyInstalledDelegate = (props: VerifyInstalledDelegateProps) => {
       })
     }
     executeStepVerify()
-  }, [stepDetails, delegateStatus, errorStatus, delegateDowloadUrl, errorDownload])
+    return () => {
+      clearInterval(intevalOne)
+    }
+  }, [stepDetails, delegateDowloadUrl, errorDownload])
+
+  useEffect(() => {
+    if (delegateStatus) {
+      if (isSelectedDelegateActive(delegateStatus)) {
+        setStepDetails({
+          step: 2,
+          intent: Intent.SUCCESS,
+          status: 'DONE'
+        })
+        clearInterval(intevalOne)
+      }
+    }
+    return () => {
+      clearInterval(intevalOne)
+    }
+  }, [delegateStatus, errorStatus])
   return (
     <Layout.Vertical className={css.verifyWrapper}>
       <Text font="medium" className={css.heading}>
@@ -178,7 +184,7 @@ const VerifyInstalledDelegate = (props: VerifyInstalledDelegateProps) => {
         current={stepDetails.step}
         currentStatus={stepDetails.status}
       />
-      {stepDetails.step === StepIndex.get(STEP.VERIFY) && stepDetails.status !== 'DONE' ? (
+      {stepDetails.step === StepIndex.get(STEP.VERIFY) && stepDetails.status === 'PROCESS' ? (
         <Text font="small" className={css.verificationText}>
           {i18n.VERIFICATION_TIME_TEXT}
         </Text>
