@@ -8,7 +8,7 @@ import YamlWorker from 'worker-loader!@wings-software/monaco-yaml/lib/esm/yaml.w
 import EditorWorker from 'worker-loader!monaco-editor/esm/vs/editor/editor.worker'
 import { Toaster, Intent } from '@blueprintjs/core'
 import cx from 'classnames'
-import * as YAML from 'yaml'
+import { stringify, parse } from 'yaml'
 import { Tag, Layout, Icon } from '@wings-software/uikit'
 import type {
   YamlBuilderProps,
@@ -21,7 +21,7 @@ import { validateYAML, validateYAMLWithSchema, addYAMLLanguageSettingsToSchema }
 import { findLeafToParentPath, getYAMLFromEditor, getMetaDataForKeyboardEventProcessing } from './YAMLBuilderUtils'
 
 import css from './YamlBuilder.module.scss'
-import { debounce } from 'lodash-es'
+import { debounce, omitBy, isNull } from 'lodash-es'
 
 monaco.editor.defineTheme('vs', {
   base: 'vs',
@@ -51,7 +51,7 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
     width,
     fileName,
     entityType,
-    existingYaml,
+    existingJSON,
     isReadOnlyMode,
     showSnippetSection = true,
     invocationMap,
@@ -82,9 +82,9 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
 
   function getJSONFromYAML(yaml: string): Record<string, any> {
     try {
-      return YAML.parse(yaml)
+      return parse(yaml)
     } catch (error) {
-      toaster.show({ message: 'Error while content parsing', intent: Intent.DANGER, timeout: 5000 })
+      // toaster.show({ message: 'Error while content parsing', intent: Intent.DANGER, timeout: 5000 })
       throw error
     }
   }
@@ -97,9 +97,17 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
     const { yaml } = languages || {}
     const languageSettings = getYAMLLanguageSettings(entityType)
     yaml?.yamlDefaults.setDiagnosticsOptions(languageSettings)
-    setCurrentYaml(props.existingYaml)
-    verifyYAMLValidity(props.existingYaml)
-  }, [existingYaml, entityType])
+    verifyIncomingJSON(props.existingJSON)
+  }, [existingJSON, entityType])
+
+  const verifyIncomingJSON = (json: Record<string, any>): void => {
+    const sanitizedJSON = omitBy(json, isNull)
+    if (sanitizedJSON && Object.keys(sanitizedJSON).length > 0) {
+      const sanitizedYAML = stringify(sanitizedJSON)
+      setCurrentYaml(sanitizedYAML)
+      verifyYAMLValidity(sanitizedYAML)
+    }
+  }
 
   const getYAMLLanguageSettings = (entityType: string): Record<string, string> => {
     const jsonSchemas = JSONSchemaService.fetchEntitySchemas(entityType)
@@ -278,7 +286,7 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
           </div>
           <div className={css.editor}>
             <MonacoEditor
-              defaultValue={existingYaml}
+              defaultValue={stringify(existingJSON)}
               width={width ?? '800px'}
               height={height ?? '600px'}
               language="yaml"

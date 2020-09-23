@@ -11,7 +11,7 @@ export interface YamlBuilderProps {
   height?: string
   width?: string
   fileName: string
-  existingYaml?: string
+  existingJSON?: Record<string, any>
   entityType: YamlEntity
   bind?: (dynamicPopoverHandler: YamlBuilderHandlerBinding) => void
   invocationMap?: Map<RegExp, Function>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router'
 import { Button, Layout, IconName } from '@wings-software/uikit'
-import * as YAML from 'yaml'
+import { parse } from 'yaml'
 import cx from 'classnames'
 import { useToaster } from 'modules/common/exports'
 import type { ConnectorDTO, ConnectorRequestWrapper } from 'services/cd-ng'
@@ -10,7 +10,7 @@ import { YamlEntity } from 'modules/common/constants/YamlConstants'
 import type { SnippetInterface } from 'modules/common/interfaces/SnippetInterface'
 import { YAMLService } from 'modules/dx/services'
 import TestConnection from 'modules/dx/components/connectors/TestConnection/TestConnection'
-import type { YamlBuilderHandlerBinding } from 'modules/common/interfaces/YAMLBuilderProps'
+import type { YamlBuilderHandlerBinding, YamlBuilderProps } from 'modules/common/interfaces/YAMLBuilderProps'
 import ConnectorForm from 'modules/dx/components/connectors/ConnectorForm/ConnectorForm'
 import SavedConnectorDetails from './SavedConnectorDetails'
 import ConnectorStats from './ConnectorStats'
@@ -91,7 +91,7 @@ const ConfigureConnector: React.FC<ConfigureConnectorProps> = props => {
     if (targetMode === SelectedView.VISUAL) {
       const yamlString = yamlHandler?.getLatestYaml() || ''
       try {
-        const yamlData = YAML.parse(yamlString)
+        const yamlData = parse(yamlString)
         if (yamlData) {
           setConnector(yamlData)
           setSelectedView(targetMode)
@@ -108,7 +108,7 @@ const ConfigureConnector: React.FC<ConfigureConnectorProps> = props => {
     event.preventDefault()
     const yamlString = yamlHandler?.getLatestYaml() || ''
     try {
-      const yamlData = YAML.parse(yamlString)
+      const yamlData = parse(yamlString)
       if (yamlData) {
         onSubmit(yamlData)
         setConnector(yamlData)
@@ -138,10 +138,10 @@ const ConfigureConnector: React.FC<ConfigureConnectorProps> = props => {
     setSnippets(snippetsList)
   }
 
-  const yamlBuilderReadOnlyModeProps = {
+  const yamlBuilderReadOnlyModeProps: YamlBuilderProps = {
     fileName: `${connector?.identifier ?? 'Connector'}.yaml`,
     entityType: YamlEntity.CONNECTOR,
-    existingYaml: isCreationThroughYamlBuilder ? '' : YAML.stringify(connector),
+    existingJSON: isCreationThroughYamlBuilder ? {} : connector,
     snippets: snippets,
     onSnippetSearch: fetchSnippets,
     bind: setYamlHandler

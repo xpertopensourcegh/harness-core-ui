@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { useParams, Link, useLocation, useHistory } from 'react-router-dom'
 import { parse as parseQueryString } from 'query-string'
-import { stringify, parse } from 'yaml'
+import { parse } from 'yaml'
 import cx from 'classnames'
-import { omit, without, omitBy, isNull, pick } from 'lodash-es'
+import { omit, without, pick } from 'lodash-es'
 import { Layout, Text, Color, Container, Button, IconName } from '@wings-software/uikit'
 
 import { useGetSecretV2, SecretTextSpecDTO, usePutSecretViaYaml } from 'services/cd-ng'
@@ -212,7 +212,7 @@ const SecretDetails: React.FC = () => {
                 fileName={`${secretData.secret.name}.yaml`}
                 // existingJson={}
                 // fieldRemovedFromYaml={[]}
-                existingYaml={stringify(omit(omitBy(secretData, isNull), fieldsRemovedFromYaml))}
+                existingJSON={omit(secretData, fieldsRemovedFromYaml)}
                 snippets={snippets}
                 bind={setYamlHandler}
               />
@@ -227,8 +227,8 @@ const SecretDetails: React.FC = () => {
           <Container>
             <YamlBuilder
               entityType={YamlEntity.SECRET}
+              existingJSON={omit(secretData, fieldsRemovedFromYaml)}
               fileName={`${secretData.secret.name}.yaml`}
-              existingYaml={stringify(omit(omitBy(secretData, isNull), fieldsRemovedFromYaml))}
               isReadOnlyMode={true}
               showSnippetSection={false}
               bind={setYamlHandler}

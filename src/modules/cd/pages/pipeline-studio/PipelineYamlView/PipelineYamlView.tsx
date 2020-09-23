@@ -1,5 +1,5 @@
 import React from 'react'
-import { stringify, parse } from 'yaml'
+import { parse } from 'yaml'
 import type { IconName } from '@wings-software/uikit'
 import { Prompt } from 'react-router-dom'
 import { YamlEntity } from 'modules/common/constants/YamlConstants'
@@ -58,7 +58,7 @@ const PipelineYamlView: React.FC = () => {
       <YAMLBuilder
         fileName="DeploymentPipeline.yaml"
         entityType={YamlEntity.PIPELINE}
-        existingYaml={stringify({ pipeline })}
+        existingJSON={pipeline}
         bind={setYamlHandler}
         snippets={snippets}
         onSnippetSearch={fetchSnippets}
