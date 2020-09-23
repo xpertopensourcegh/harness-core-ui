@@ -3,7 +3,7 @@ export default {
   DELEGATE_IN_CLUSTER: 'HARNESS DELEGATE RUNNING IN-CLUSTER',
   DELEGATE_OUT_CLUSTER: 'HARNESS DELEGATE RUNNING OUTSIDE YOUR CLUSTER',
   DELEGATE_IN_CLUSTER_INFO:
-    'In this method, you would not have to provide the cluster credentials or master URL. You will be required to install a delegate onto your cluster in next step.',
+    'In this method, you would not have to provide the cluster credentials or master URL. You will be required to use an existing delegate in the cluster or install a new delegate onto your cluster in next step.',
   DELEGATE_OUT_CLUSTER_INFO:
     'In this method, a harness delegate will use the cluster master URL and credentials to connect to your cluster.',
   STEP_ONE: {

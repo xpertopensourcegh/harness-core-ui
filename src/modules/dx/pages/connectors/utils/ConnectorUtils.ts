@@ -151,10 +151,13 @@ export const buildDockerPayload = (formData: FormData) => {
     type: Connectors.DOCKER,
     spec: {
       dockerRegistryUrl: formData.dockerRegistryUrl,
-      auth: {
-        type: 'UsernamePassword',
-        spec: userPasswrdAuthField(formData)
-      }
+      auth:
+        !formData.username && !formData.passwordRef
+          ? null
+          : {
+              type: 'UsernamePassword',
+              spec: userPasswrdAuthField(formData)
+            }
     }
   }
   return { connector: savedData }

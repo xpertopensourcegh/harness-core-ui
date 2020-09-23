@@ -17,17 +17,18 @@ interface UsernamePasswordProps {
   onClickCreateSecret: () => void
   isEditMode?: boolean
   onEditSecret?: (val: SecretDTOV2) => void
+  isOptional?: boolean
 }
 
 const UsernamePassword: React.FC<UsernamePasswordProps> = props => {
-  const { accountId, passwordField, name = '' } = props
+  const { accountId, passwordField, name = '', isOptional = false } = props
 
   return (
     <>
-      <FormInput.Text name="username" label="Username" />
+      <FormInput.Text name="username" label={`Username ${isOptional ? '(Optional)' : ''}`} />
       <FormikSecretTextInput
         fieldName={passwordField}
-        label={getLabelForEncryptedSecret(passwordField)}
+        label={`${getLabelForEncryptedSecret(passwordField)} ${isOptional ? '(Optional)' : ''}`}
         secretFieldName={getSecretFieldValue(passwordField)}
         accountId={accountId}
         projectIdentifier={props.projectIdentifier}

@@ -126,9 +126,7 @@ const StepDockerAuthentication: React.FC<StepProps<StepDockerAuthenticationProps
             ...prevStepData
           }}
           validationSchema={Yup.object().shape({
-            dockerRegistryUrl: Yup.string().trim().required(i18n.STEP_TWO.validation.dockerUrl),
-            username: Yup.string().trim().required(i18n.STEP_TWO.validation.username),
-            passwordRef: Yup.string().trim().required(i18n.STEP_TWO.validation.passwordRef)
+            dockerRegistryUrl: Yup.string().trim().required(i18n.STEP_TWO.validation.dockerUrl)
           })}
           onSubmit={stepData => {
             const connectorData = {
@@ -153,7 +151,7 @@ const StepDockerAuthentication: React.FC<StepProps<StepDockerAuthenticationProps
             if (prevStepData?.isEditMode) {
               handleUpdate(data, stepData)
             } else {
-              if (nonReferencedFields.length) {
+              if (nonReferencedFields.length && stepData.passwordRef) {
                 createSecretCallback(stepData, data)
               } else {
                 handleCreate(data, stepData)
@@ -178,6 +176,7 @@ const StepDockerAuthentication: React.FC<StepProps<StepDockerAuthenticationProps
                     setShowCreateSecretModal(true)
                     setEditSecretData(val)
                   }}
+                  isOptional={true}
                 />
               </Layout.Vertical>
               <Layout.Horizontal padding={{ top: 'small' }} spacing="medium">
