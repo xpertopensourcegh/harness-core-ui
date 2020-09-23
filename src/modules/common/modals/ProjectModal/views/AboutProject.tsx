@@ -42,7 +42,6 @@ interface AboutPageData extends Project {
 const collapseProps = {
   collapsedIcon: 'small-plus' as IconName,
   expandedIcon: 'small-minus' as IconName,
-  // isOpen: true,
   isRemovable: false,
   className: 'collapse'
 }

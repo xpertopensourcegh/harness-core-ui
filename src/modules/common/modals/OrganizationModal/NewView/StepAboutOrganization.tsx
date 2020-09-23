@@ -30,7 +30,6 @@ import css from './Steps.module.scss'
 const collapseProps = {
   collapsedIcon: 'small-plus' as IconName,
   expandedIcon: 'small-minus' as IconName,
-  isOpen: false,
   isRemovable: false,
   className: 'collapse'
 }
@@ -107,7 +106,7 @@ export const StepAboutOrganization: React.FC<StepProps<Organization> & Organizat
         persistOrg(values)
       }}
     >
-      {() => (
+      {formikProps => (
         <Form>
           <ModalErrorHandler bind={setModalErrorHandler} />
           <Layout.Horizontal>
@@ -119,12 +118,12 @@ export const StepAboutOrganization: React.FC<StepProps<Organization> & Organizat
                 <FormInput.InputWithIdentifier inputLabel={i18n.form.name} isIdentifierEditable={!edit} />
                 <FormInput.ColorPicker label={i18n.form.color} name="color" height={38} color={org?.color} />
                 <div className={css.collapseDiv}>
-                  <Collapse {...descriptionCollapseProps}>
+                  <Collapse isOpen={formikProps.values.description === '' ? false : true} {...descriptionCollapseProps}>
                     <FormInput.TextArea name="description" className={css.desc} />
                   </Collapse>
                 </div>
                 <div className={css.collapseDiv}>
-                  <Collapse {...tagCollapseProps}>
+                  <Collapse isOpen={formikProps.values.tags?.length ? true : false} {...tagCollapseProps}>
                     <FormInput.TagInput
                       name="tags"
                       items={[]}
