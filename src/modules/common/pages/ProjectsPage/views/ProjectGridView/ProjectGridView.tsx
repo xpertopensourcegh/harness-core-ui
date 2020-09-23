@@ -1,6 +1,7 @@
-import React from 'react'
-import { Layout } from '@wings-software/uikit'
+import React, { useState } from 'react'
+import { Container, Layout, Pagination } from '@wings-software/uikit'
 import { useParams } from 'react-router-dom'
+import cx from 'classnames'
 import { Project, useGetProjectList, ResponseDTONGPageResponseProject } from 'services/cd-ng'
 import { Page } from 'modules/common/components/Page/Page'
 import type { UseGetMockData } from 'modules/common/utils/testUtils'
@@ -16,9 +17,11 @@ interface ProjectGridViewProps {
   orgFilterId?: string
   module?: Required<Project>['modules'][number]
   reloadPage?: ((value: React.SetStateAction<boolean>) => void) | undefined
-  onCardClick?: ((e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void) | undefined
+  onCardClick?: ((project: Project) => void) | undefined
   openProjectModal?: (project?: Project | undefined) => void
   deselectModule?: boolean
+  className?: string
+  pageSize?: number
 }
 
 const ProjectGridView: React.FC<ProjectGridViewProps> = props => {
@@ -32,8 +35,11 @@ const ProjectGridView: React.FC<ProjectGridViewProps> = props => {
     reloadPage,
     onCardClick,
     openProjectModal,
-    deselectModule
+    deselectModule,
+    className,
+    pageSize
   } = props
+  const [page, setPage] = useState(0)
   const { accountId } = useParams()
   const { data, loading, refetch } = useGetProjectList({
     queryParams: {
@@ -41,7 +47,9 @@ const ProjectGridView: React.FC<ProjectGridViewProps> = props => {
       orgIdentifier: orgFilterId == 'ALL' ? undefined : orgFilterId,
       moduleType: module,
       searchTerm: searchParameter,
-      hasModule: deselectModule ? false : true
+      hasModule: deselectModule ? false : true,
+      page: page,
+      size: pageSize || 10
     },
     mock: mockData,
     debounce: 300
@@ -71,24 +79,38 @@ const ProjectGridView: React.FC<ProjectGridViewProps> = props => {
               message: i18n.noProject
             }
       }
+      className={className || cx(css.pageContainer, { [css.moduleContainer]: module ? true : false })}
     >
-      <Layout.Masonry
-        center
-        gutter={25}
-        width={900}
-        className={css.centerContainer}
-        items={data?.data?.content || []}
-        renderItem={(project: Project) => (
-          <ProjectCard
-            data={project}
-            reloadProjects={refetch}
-            editProject={showEditProject}
-            collaborators={collaborators}
-            onClick={onCardClick}
-          />
-        )}
-        keyOf={(project: Project) => project.identifier}
-      />
+      <Container height="90%">
+        <Layout.Masonry
+          center
+          gutter={25}
+          width={900}
+          className={css.centerContainer}
+          items={data?.data?.content || []}
+          renderItem={(project: Project) => (
+            <ProjectCard
+              data={project}
+              reloadProjects={refetch}
+              editProject={showEditProject}
+              collaborators={collaborators}
+              onClick={() => {
+                onCardClick?.(project)
+              }}
+            />
+          )}
+          keyOf={(project: Project) => project.identifier}
+        />
+      </Container>
+      <Container height="10%" className={css.pagination}>
+        <Pagination
+          itemCount={data?.data?.itemCount || 0}
+          pageSize={data?.data?.pageSize || 10}
+          pageCount={data?.data?.pageCount || 0}
+          pageIndex={data?.data?.pageIndex || 0}
+          gotoPage={(pageNumber: number) => setPage(pageNumber)}
+        />
+      </Container>
     </Page.Body>
   )
 }

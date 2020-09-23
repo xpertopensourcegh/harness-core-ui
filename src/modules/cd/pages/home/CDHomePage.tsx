@@ -19,6 +19,20 @@ const CDHomePage: React.FC = () => {
       onProjectCreated={(project: Project) => {
         history.push(routeCDDashboard.url({ projectIdentifier: project.identifier as string }))
       }}
+      onCardClick={(project: Project) => {
+        history.push(
+          routeCDDashboard.url({
+            projectIdentifier: project?.identifier as string
+          })
+        )
+      }}
+      onRowClick={(project: Project) => {
+        history.push(
+          routeCDDashboard.url({
+            projectIdentifier: project?.identifier as string
+          })
+        )
+      }}
     />
   )
 }

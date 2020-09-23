@@ -1,7 +1,18 @@
 .centerContainer {
   margin: 0 auto !important;
+  overflow: scroll;
+  height: inherit !important;
 }
+
 .pageContainer {
   background: var(--grey-100) !important;
   height: calc(100vh - 128px);
+}
+
+.moduleContainer {
+  height: calc(100vh - 192px) !important ;
+}
+
+.pagination {
+  padding: var(--spacing-large) var(--spacing-xxxlarge) !important ;
 }

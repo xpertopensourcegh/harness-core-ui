@@ -1,0 +1,25 @@
+.projects {
+  height: 500px;
+}
+
+.fullview {
+  height: calc(100vh - 64px) !important ;
+}
+
+.add {
+  height: 600px !important ;
+}
+
+.view {
+  background-color: white !important;
+}
+
+.crossIcon {
+  position: absolute;
+  right: var(--spacing-large);
+  top: var(--spacing-large);
+}
+
+.pageclass {
+  height: calc(100vh - 192px) !important ;
+}

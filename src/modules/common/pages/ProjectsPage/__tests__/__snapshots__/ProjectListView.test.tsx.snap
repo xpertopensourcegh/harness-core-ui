@@ -4,7 +4,7 @@ exports[`Project List render 1`] = `
 <div>
    
   <div
-    class="StyledProps---font--2ipy StyledProps---main--1Wws pageBody"
+    class="StyledProps---font--2ipy StyledProps---main--1Wws pageBody pageContainer"
   >
     <div
       class="StyledProps---font--2ipy StyledProps---main--1Wws spinner StyledProps---flex--2Jz8 StyledProps---flex-align-center-center--2AmX"

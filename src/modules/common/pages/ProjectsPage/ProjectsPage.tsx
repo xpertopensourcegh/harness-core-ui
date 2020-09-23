@@ -8,7 +8,7 @@ import { useGetOrganizationList } from 'services/cd-ng'
 import type { ModuleName } from 'framework/exports'
 
 import type { Project } from 'services/cd-ng'
-import { Page } from 'modules/common/exports'
+import { Page } from 'modules/common/components/Page/Page'
 import { useProjectModal } from 'modules/common/modals/ProjectModal/useProjectModal'
 import { useCollaboratorModal } from 'modules/common/modals/ProjectModal/useCollaboratorModal'
 import i18n from './ProjectsPage.i18n'
@@ -25,10 +25,12 @@ interface ProjectListProps {
   /** when the page is being shown inside continuous verification, value will be set to CV */
   module?: ModuleName
   onNewProjectCreated?(data: Project): void
+  onCardClick?: ((project: Project) => void) | undefined
+  onRowClick?: ((data: Project) => void) | undefined
 }
 const CustomSelect = Select.ofType<SelectOption>()
 
-const ProjectsListPage: React.FC<ProjectListProps> = ({ module, onNewProjectCreated }) => {
+const ProjectsListPage: React.FC<ProjectListProps> = ({ module, onNewProjectCreated, onCardClick, onRowClick }) => {
   const [orgFilter, setOrgFilter] = useState<SelectOption>(allOrgsSelectOption)
   const { accountId } = useParams()
   const [view, setView] = useState(Views.GRID)
@@ -157,30 +159,30 @@ const ProjectsListPage: React.FC<ProjectListProps> = ({ module, onNewProjectCrea
         </Layout.Horizontal>
       </Layout.Horizontal>
 
-      <Page.Body className={css.pageContainer}>
-        {view === Views.GRID ? (
-          <ProjectsGridView
-            showEditProject={showEditProject}
-            collaborators={showCollaborators}
-            orgFilterId={orgFilter.value as string}
-            searchParameter={searchParam}
-            module={module as Required<Project>['modules'][number]}
-            reloadPage={reloadProjectPage ? setReloadProjectPage : undefined}
-            openProjectModal={openProjectModal}
-          />
-        ) : null}
-        {view === Views.LIST ? (
-          <ProjectsListView
-            showEditProject={showEditProject}
-            collaborators={showCollaborators}
-            orgFilterId={orgFilter.value as string}
-            searchParameter={searchParam}
-            module={module as Required<Project>['modules'][number]}
-            reloadPage={reloadProjectPage ? setReloadProjectPage : undefined}
-            openProjectModal={openProjectModal}
-          />
-        ) : null}
-      </Page.Body>
+      {view === Views.GRID ? (
+        <ProjectsGridView
+          showEditProject={showEditProject}
+          collaborators={showCollaborators}
+          orgFilterId={orgFilter.value as string}
+          searchParameter={searchParam}
+          module={module as Required<Project>['modules'][number]}
+          reloadPage={reloadProjectPage ? setReloadProjectPage : undefined}
+          openProjectModal={openProjectModal}
+          onCardClick={onCardClick}
+        />
+      ) : null}
+      {view === Views.LIST ? (
+        <ProjectsListView
+          showEditProject={showEditProject}
+          collaborators={showCollaborators}
+          orgFilterId={orgFilter.value as string}
+          searchParameter={searchParam}
+          module={module as Required<Project>['modules'][number]}
+          reloadPage={reloadProjectPage ? setReloadProjectPage : undefined}
+          openProjectModal={openProjectModal}
+          onRowClick={onRowClick}
+        />
+      ) : null}
     </>
   )
 }

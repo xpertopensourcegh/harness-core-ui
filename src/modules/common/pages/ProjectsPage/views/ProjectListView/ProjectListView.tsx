@@ -227,6 +227,7 @@ const ProjectListView: React.FC<ProjectListViewProps> = props => {
               message: i18n.noProject
             }
       }
+      className={css.pageContainer}
     >
       <Table<Project>
         className={css.table}
