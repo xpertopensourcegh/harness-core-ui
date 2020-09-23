@@ -1,0 +1,14 @@
+{
+  "name": "Sample Connector",
+  "identifier": "SampleK8s",
+  "description": "Sample Kubernetes Connectors",
+  "accountIdentifier": "ACCOUNT_ID",
+  "orgIdentifier": null,
+  "projectIdentifier": null,
+  "tags": [{ "qualifier": "dev-ops" }, { "qualifier": "env" }],
+  "createdAt": null,
+  "lastModifiedAt": 1234567890,
+  "status": null,
+  "type": "K8sCluster",
+  "spec": { "type": "InheritFromDelegate", "spec": { "delegateName": "delegatek8s" } }
+}

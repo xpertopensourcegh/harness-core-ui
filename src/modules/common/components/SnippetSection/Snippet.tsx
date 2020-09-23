@@ -48,7 +48,7 @@ const Snippet: React.FC<SnippetInterface> = props => {
         position={Position.BOTTOM}
         interactionKind={PopoverInteractionKind.HOVER}
         content={getPopoverContent()}
-        onClose={() => setTooltipLabel(i18n.copyToClipboard)}
+        onOpening={() => setTooltipLabel(i18n.copyToClipboard)}
       >
         <div className={css.copy}>
           <Icon name="copy" size={20} className={css.snippetIcon} onClick={event => copyToClipboard(event, yaml)} />

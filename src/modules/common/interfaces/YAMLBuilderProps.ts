@@ -1,5 +1,6 @@
 import type { CompletionItemKind } from 'vscode-languageserver-types'
 import type { SnippetInterface } from './SnippetInterface'
+import type { YamlEntity } from '../constants/YamlConstants'
 
 export interface YamlBuilderHandlerBinding {
   getLatestYaml: () => string
@@ -11,7 +12,7 @@ export interface YamlBuilderProps {
   width?: string
   fileName: string
   existingYaml?: string
-  entityType: string
+  entityType: YamlEntity
   bind?: (dynamicPopoverHandler: YamlBuilderHandlerBinding) => void
   invocationMap?: Map<RegExp, Function>
   isReadOnlyMode?: boolean

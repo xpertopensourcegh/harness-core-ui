@@ -9,7 +9,7 @@ import Snippet from './Snippet'
 import css from './SnippetDetails.module.scss'
 
 interface SnippetDetailsProps {
-  entityType: typeof YamlEntity
+  entityType: YamlEntity
   selectedIcon?: string
   snippets: SnippetInterface[]
   onSnippetSearch: (arg0: string) => void

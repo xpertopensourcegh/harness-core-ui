@@ -1,18 +1,12 @@
 import React, { useState } from 'react'
 
 import { Icon, IconName } from '@wings-software/uikit'
-import { SnippetMenuIcons, YamlEntity } from '../../constants/YamlConstants'
+import { SnippetMenuIcons } from '../../constants/YamlConstants'
+import { YamlEntity } from '../../constants/YamlConstants'
 
 import SnippetDetails from './SnippetDetails'
-import type { SnippetInterface } from '../../interfaces/SnippetInterface'
+import type { SnippetSectionProps } from '../../interfaces/SnippetInterface'
 import css from './SnippetSection.module.scss'
-
-interface SnippetSectionProps {
-  entityType: typeof YamlEntity
-  showIconMenu?: boolean
-  snippets: SnippetInterface[]
-  onSnippetSearch: (arg0: string) => void
-}
 
 const SnippetSection: React.FC<SnippetSectionProps> = props => {
   const { showIconMenu, snippets, entityType, onSnippetSearch } = props
@@ -27,7 +21,7 @@ const SnippetSection: React.FC<SnippetSectionProps> = props => {
 
   const [selectedIcon, setSelectedIcon] = useState(icons[0].name)
 
-  const onIconClick = (event: any, icon?: string): void => {
+  const onIconClick = (event: React.MouseEvent<Element, MouseEvent>, icon?: string): void => {
     event.preventDefault()
     setSelectedIcon(icon)
   }

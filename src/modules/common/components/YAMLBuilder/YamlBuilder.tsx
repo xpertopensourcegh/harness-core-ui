@@ -18,6 +18,7 @@ import type {
 import SnippetSection from 'modules/common/components/SnippetSection/SnippetSection'
 import { JSONSchemaService } from 'modules/dx/services'
 import { validateYAML, validateYAMLWithSchema, addYAMLLanguageSettingsToSchema } from 'modules/common/utils/YamlUtils'
+import { findLeafToParentPath, getYAMLFromEditor, getMetaDataForKeyboardEventProcessing } from './YAMLBuilderUtils'
 
 import css from './YamlBuilder.module.scss'
 import { debounce } from 'lodash-es'
@@ -43,36 +44,6 @@ window.MonacoEnvironment = {
 }
 
 const toaster = Toaster.create()
-
-/**
- * @description Find json path(s) of a given node in json from it's nearest parent
- * @param jsonObj json equivalent of yaml
- * @param leafNode leaf node whose path(s) from the nearest parent needs to be known
- * @param delimiter delimiter to be used in node path(s) from parent
- * @returns exactly matching json path in the tree
- */
-const findLeafToParentPath = (jsonObj, leafNode, delimiter = '.') => {
-  let matchingPath = []
-  function findPath(currJSONObj, currentDepth, previous) {
-    Object.keys(currJSONObj).forEach(function (key) {
-      const value = currJSONObj[key]
-      const type = Object.prototype.toString.call(value)
-      const isObject = type === '[object Object]' || type === '[object Array]'
-      const newKey = previous ? previous + delimiter + key : key
-      if (isObject && Object.keys(value).length) {
-        if (key.match(leafNode)) {
-          matchingPath.push(newKey)
-        }
-        return findPath(value, currentDepth + 1, newKey)
-      }
-      if (newKey.match(leafNode)) {
-        matchingPath.push(newKey)
-      }
-    })
-  }
-  findPath(jsonObj, 1)
-  return matchingPath.length > 0 ? matchingPath[0] : null
-}
 
 const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
   const {
@@ -253,38 +224,6 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
         registerCompletionItemProviderForRTInputs(monaco, suggestionsPromise)
       }
     })
-  }
-
-  const getYAMLFromEditor = (editor, shouldAddPlaceholder: boolean): string => {
-    const currentEditorPosition = editor.getPosition(),
-      textInCurrentEditorLine = editor.getValue(currentEditorPosition).trim(),
-      currentLineNumber = currentEditorPosition.lineNumber,
-      splitedText = textInCurrentEditorLine.split('\n').slice(0, currentLineNumber),
-      currentLineContent = splitedText[currentLineNumber - 1]
-    let textToInsert = ''
-    if (shouldAddPlaceholder) {
-      textToInsert = textInCurrentEditorLine[textInCurrentEditorLine.length - 1] === ':' ? '' : ': ' + 'placeholder'
-    }
-    splitedText[currentLineNumber - 1] = [
-      currentLineContent?.slice(0, currentEditorPosition.column - 1),
-      textToInsert,
-      currentLineContent?.slice(currentEditorPosition.column - 1)
-    ].join('')
-    editor.setPosition(currentEditorPosition)
-
-    return splitedText.join('\n')
-  }
-
-  const getMetaDataForKeyboardEventProcessing = (
-    editor,
-    shouldAddPlaceholder: boolean = false
-  ): Record<string, string> => {
-    const yamlInEditor = getYAMLFromEditor(editor, shouldAddPlaceholder)
-    const jsonEquivalentOfYAMLInEditor = getJSONFromYAML(yamlInEditor)
-    const textInCurrentEditorLine = editor.getModel().getLineContent(editor.getPosition().lineNumber)
-    const [currentProperty, value] = textInCurrentEditorLine?.split(':').map(item => item.trim())
-    const parentToCurrentPropertyPath = findLeafToParentPath(jsonEquivalentOfYAMLInEditor, currentProperty)
-    return { currentProperty, yamlInEditor, parentToCurrentPropertyPath }
   }
 
   const handleEditorKeyDownEvent = (event: KeyboardEvent, editor): void => {
