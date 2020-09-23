@@ -1,5 +1,5 @@
 import React from 'react'
-import { Formik, FormikForm, FormInput, Button, SelectOption } from '@wings-software/uikit'
+import { Formik, FormikForm, FormInput, Button, SelectOption, Text } from '@wings-software/uikit'
 import * as Yup from 'yup'
 import { useParams } from 'react-router-dom'
 import { pick } from 'lodash-es'
@@ -9,25 +9,31 @@ import {
   usePostSecretFileV2,
   usePostSecret,
   useGetConnectorList,
-  SecretDTOV2
+  SecretDTOV2,
+  SecretResponseWrapper,
+  SecretRequestWrapper,
+  ConnectorSummaryDTO
 } from 'services/cd-ng'
 import type { SecretTextSpecDTO, SecretFileSpecDTO } from 'services/cd-ng'
 import { useToaster } from 'modules/common/exports'
 import { illegalIdentifiers } from 'modules/common/utils/StringUtils'
 
 import i18n from './CreateUpdateSecret.i18n'
+import VaultFormFields from './views/VaultFormFields'
+import LocalFormFields from './views/LocalFormFields'
 
 export type SecretFormData = Omit<SecretDTOV2, 'spec'> & SecretTextSpecDTO & SecretFileSpecDTO
 
 interface CreateSecretTextProps {
-  secret?: SecretDTOV2
-  type?: SecretDTOV2['type']
-  onChange?: (data: SecretFormData) => void
+  secret?: SecretResponseWrapper
+  type?: SecretResponseWrapper['secret']['type']
+  onChange?: (data: SecretDTOV2) => void
   onSuccess?: (data: SecretFormData) => void
 }
 
 const CreateUpdateSecret: React.FC<CreateSecretTextProps> = props => {
-  const { secret, onSuccess } = props
+  const { onSuccess } = props
+  const secret = props.secret?.secret
   let { type = 'SecretText' } = props
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
   const { showSuccess, showError } = useToaster()
@@ -72,15 +78,17 @@ const CreateUpdateSecret: React.FC<CreateSecretTextProps> = props => {
     return formData
   }
 
-  const createSecretTextData = (data: SecretFormData): SecretDTOV2 => {
+  const createSecretTextData = (data: SecretFormData): SecretRequestWrapper => {
     return {
-      type,
-      ...pick(data, ['name', 'identifier', 'description', 'tags']),
-      orgIdentifier,
-      projectIdentifier,
-      spec: {
-        ...pick(data, ['secretManagerIdentifier', 'value', 'valueType'])
-      } as SecretTextSpecDTO
+      secret: {
+        type,
+        ...pick(data, ['name', 'identifier', 'description', 'tags']),
+        orgIdentifier,
+        projectIdentifier,
+        spec: {
+          ...pick(data, ['secretManagerIdentifier', 'value', 'valueType'])
+        } as SecretTextSpecDTO
+      }
     }
   }
 
@@ -148,76 +156,53 @@ const CreateUpdateSecret: React.FC<CreateSecretTextProps> = props => {
           value: editing || type === 'SecretFile' ? Yup.string() : Yup.string().trim().required(i18n.validationValue),
           secretManagerIdentifier: Yup.string().required(i18n.validationKms)
         })}
-        validate={data => {
-          props.onChange?.(data)
+        validate={formData => {
+          props.onChange?.({
+            type: formData.type,
+            ...pick(formData, ['name', 'description', 'identifier']),
+            tags: {},
+            spec: pick(formData, ['value', 'valueType', 'secretManagerIdentifier']) as SecretTextSpecDTO
+          })
         }}
         onSubmit={data => {
           handleSubmit(data)
         }}
       >
-        {formikProps => (
-          <FormikForm>
-            <FormInput.Select
-              name="secretManagerIdentifier"
-              label={i18n.labelSecretsManager}
-              items={secretManagersOptions}
-              disabled={editing || loadingSecretsManagers}
-            />
-            <FormInput.InputWithIdentifier
-              inputName="name"
-              inputLabel={i18n.labelSecretName}
-              idName="identifier"
-              isIdentifierEditable={!editing}
-            />
-            {type === 'SecretText' ? (
-              <>
-                <FormInput.RadioGroup
-                  name="valueType"
-                  radioGroup={{ inline: true }}
-                  items={[
-                    { label: 'Inline Secret Value', value: 'Inline' },
-                    { label: 'Reference Secret', value: 'Reference' }
-                  ]}
-                />
-                {formikProps.values['valueType'] === 'Inline' ? (
-                  <FormInput.Text
-                    name="value"
-                    label={i18n.labelSecretValue}
-                    placeholder={editing ? i18n.valueEncrypted : i18n.placeholderSecretValue}
-                    inputGroup={{ type: 'password' }}
-                  />
-                ) : null}
-                {formikProps.values['valueType'] === 'Reference' ? (
-                  <FormInput.Text
-                    name="value"
-                    label={i18n.labelSecretReference}
-                    placeholder={i18n.placeholderSecretReference}
-                  />
-                ) : null}
-              </>
-            ) : null}
-            {type === 'SecretFile' ? <FormInput.FileInput name="file" multiple /> : null}
-            <FormInput.TextArea name="description" label={i18n.labelSecretDescription} />
-            {/* <FormInput.TagInput
-              name="tags"
-              label={i18n.labelSecretTags}
-              items={[]}
-              labelFor={name => name as string}
-              itemFromNewTag={newTag => newTag}
-              tagInputProps={{
-                showClearAllButton: true,
-                allowNewTag: true
-              }}
-            /> */}
-            <Button
-              intent="primary"
-              type="submit"
-              text={loading ? 'Saving' : 'Submit'}
-              margin={{ top: 'large' }}
-              disabled={loading}
-            />
-          </FormikForm>
-        )}
+        {formikProps => {
+          const typeOfSelectedSecretManager: ConnectorSummaryDTO['type'] = secretManagersApiResponse?.data?.content?.filter(
+            item => item.identifier === formikProps.values['secretManagerIdentifier']
+          )?.[0]?.type
+          return (
+            <FormikForm>
+              <FormInput.Select
+                name="secretManagerIdentifier"
+                label={i18n.labelSecretsManager}
+                items={secretManagersOptions}
+                disabled={editing || loadingSecretsManagers}
+              />
+              <FormInput.InputWithIdentifier
+                inputName="name"
+                inputLabel={i18n.labelSecretName}
+                idName="identifier"
+                isIdentifierEditable={!editing}
+              />
+              {!typeOfSelectedSecretManager ? <Text>{i18n.messageSelectSM}</Text> : null}
+              {typeOfSelectedSecretManager === 'Local' ? (
+                <LocalFormFields formik={formikProps} editing={editing} />
+              ) : null}
+              {typeOfSelectedSecretManager === 'Vault' ? (
+                <VaultFormFields formik={formikProps} type={type} editing={editing} />
+              ) : null}
+              <Button
+                intent="primary"
+                type="submit"
+                text={loading ? 'Saving' : 'Submit'}
+                margin={{ top: 'large' }}
+                disabled={loading || !typeOfSelectedSecretManager}
+              />
+            </FormikForm>
+          )
+        }}
       </Formik>
     </>
   )

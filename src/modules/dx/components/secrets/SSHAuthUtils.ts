@@ -1,5 +1,7 @@
+import { pick } from 'lodash-es'
 import { Scope } from 'modules/common/interfaces/SecretsInterface'
 import type { SSHConfigFormData } from 'modules/dx/modals/CreateSSHCredModal/views/StepAuthentication'
+import type { DetailsForm } from 'modules/dx/modals/CreateSSHCredModal/views/StepDetails'
 import type {
   KerberosConfigDTO,
   TGTPasswordSpecDTO,
@@ -9,7 +11,8 @@ import type {
   SSHConfigDTO,
   SSHKeyPathCredentialDTO,
   SSHKeyReferenceCredentialDTO,
-  SSHPasswordCredentialDTO
+  SSHPasswordCredentialDTO,
+  SSHKeySpecDTO
 } from 'services/cd-ng'
 import { postSecretPromise as createSecret } from 'services/cd-ng'
 
@@ -21,6 +24,46 @@ interface Identifiers {
   accountId: string
   orgIdentifier?: string
   projectIdentifier?: string
+}
+
+export const getSSHDTOFromFormData = (formData: DetailsForm & SSHConfigFormData): SecretDTOV2 => {
+  return {
+    type: 'SSHKey',
+    ...pick(formData, ['name', 'description', 'identifier']),
+    tags: {},
+    spec: {
+      ...pick(formData, ['authScheme', 'port']),
+      spec:
+        formData.authScheme === 'Kerberos'
+          ? ({
+              ...pick(formData, ['principal', 'realm', 'tgtGenerationMethod']),
+              spec:
+                formData.tgtGenerationMethod === 'Password'
+                  ? ({} as TGTPasswordSpecDTO)
+                  : formData.tgtGenerationMethod === 'KeyTabFilePath'
+                  ? ({
+                      keyPath: formData.keyPath
+                    } as TGTKeyTabFilePathSpecDTO)
+                  : null
+            } as KerberosConfigDTO)
+          : ({
+              credentialType: formData.credentialType,
+              spec:
+                formData.credentialType === 'KeyPath'
+                  ? ({
+                      userName: formData.userName,
+                      keyPath: formData.keyPath
+                    } as SSHKeyPathCredentialDTO)
+                  : formData.credentialType === 'KeyReference'
+                  ? ({
+                      userName: formData.userName
+                    } as SSHKeyReferenceCredentialDTO)
+                  : ({
+                      userName: formData.userName
+                    } as SSHPasswordCredentialDTO)
+            } as SSHConfigDTO)
+    } as SSHKeySpecDTO
+  }
 }
 
 const getReference = (scope?: Scope, identifier?: string): string | undefined => {
@@ -71,71 +114,96 @@ async function buildSSHCredentials(
         await createSecret({
           queryParams: { accountIdentifier: identifiers.accountId },
           body: {
-            type: 'SecretText',
-            name: data.encryptedPassphraseSecret?.secretName as string,
-            identifier: data.encryptedPassphraseSecret?.secretId as string,
-            orgIdentifier: identifiers.orgIdentifier,
-            projectIdentifier: identifiers.projectIdentifier,
-            tags: {},
-            spec: {
-              secretManagerIdentifier: data.encryptedPassphraseSecret?.secretManager?.value as string,
-              value: data.encryptedPassphraseText.value,
-              valueType: 'Inline'
-            } as SecretTextSpecDTO
+            secret: {
+              type: 'SecretText',
+              name: data.encryptedPassphraseSecret?.secretName as string,
+              identifier: data.encryptedPassphraseSecret?.secretId as string,
+              orgIdentifier: identifiers.orgIdentifier,
+              projectIdentifier: identifiers.projectIdentifier,
+              tags: {},
+              spec: {
+                secretManagerIdentifier: data.encryptedPassphraseSecret?.secretManager?.value as string,
+                value: data.encryptedPassphraseText.value,
+                valueType: 'Inline'
+              } as SecretTextSpecDTO
+            }
           }
         })
       }
+      if (
+        (data.encryptedPassphraseText?.isReference === false && data.encryptedPassphraseText?.value) ||
+        data.encryptedPassphraseText?.isReference
+      ) {
+        return {
+          userName: data.userName,
+          key: getReference(data.key?.scope, data.key?.identifier),
+          encryptedPassphrase: getReference(
+            data.encryptedPassphraseSecret?.scope,
+            data.encryptedPassphraseSecret?.secretId
+          )
+        } as SSHKeyReferenceCredentialDTO
+      }
       return {
         userName: data.userName,
-        key: getReference(data.key?.scope, data.key?.identifier),
-        encryptedPassphrase: getReference(
-          data.encryptedPassphraseSecret?.scope,
-          data.encryptedPassphraseSecret?.secretId
-        )
+        key: getReference(data.key?.scope, data.key?.identifier)
       } as SSHKeyReferenceCredentialDTO
     case 'KeyPath':
       if (data.encryptedPassphraseText?.isReference === false && data.encryptedPassphraseText?.value) {
         await createSecret({
           queryParams: { accountIdentifier: identifiers.accountId },
           body: {
-            type: 'SecretText',
-            name: data.encryptedPassphraseSecret?.secretName as string,
-            identifier: data.encryptedPassphraseSecret?.secretId as string,
-            orgIdentifier: identifiers.orgIdentifier,
-            projectIdentifier: identifiers.projectIdentifier,
-            tags: {},
-            spec: {
-              secretManagerIdentifier: data.encryptedPassphraseSecret?.secretManager?.value as string,
-              value: data.encryptedPassphraseText.value,
-              valueType: 'Inline'
-            } as SecretTextSpecDTO
+            secret: {
+              type: 'SecretText',
+              name: data.encryptedPassphraseSecret?.secretName as string,
+              identifier: data.encryptedPassphraseSecret?.secretId as string,
+              orgIdentifier: identifiers.orgIdentifier,
+              projectIdentifier: identifiers.projectIdentifier,
+              tags: {},
+              spec: {
+                secretManagerIdentifier: data.encryptedPassphraseSecret?.secretManager?.value as string,
+                value: data.encryptedPassphraseText.value,
+                valueType: 'Inline'
+              } as SecretTextSpecDTO
+            }
           }
         })
       }
-      return {
-        userName: data.userName,
-        keyPath: data.keyPath,
-        encryptedPassphrase: getReference(
-          data.encryptedPassphraseSecret?.scope,
-          data.encryptedPassphraseSecret?.secretId
-        )
-      } as SSHKeyPathCredentialDTO
+      if (
+        (data.encryptedPassphraseText?.isReference === false && data.encryptedPassphraseText?.value) ||
+        data.encryptedPassphraseText?.isReference
+      ) {
+        return {
+          userName: data.userName,
+          keyPath: data.keyPath,
+          encryptedPassphrase: getReference(
+            data.encryptedPassphraseSecret?.scope,
+            data.encryptedPassphraseSecret?.secretId
+          )
+        } as SSHKeyPathCredentialDTO
+      } else {
+        return {
+          userName: data.userName,
+          keyPath: data.keyPath
+        } as SSHKeyPathCredentialDTO
+      }
     case 'Password':
       if (data.passwordText?.isReference === false && data.passwordText?.value) {
         await createSecret({
           queryParams: { accountIdentifier: identifiers.accountId },
           body: {
-            type: 'SecretText',
-            name: data.passwordSecret?.secretName as string,
-            identifier: data.passwordSecret?.secretId as string,
-            orgIdentifier: identifiers.orgIdentifier,
-            projectIdentifier: identifiers.projectIdentifier,
-            tags: {},
-            spec: {
-              secretManagerIdentifier: data.passwordSecret?.secretManager?.value as string,
-              value: data.passwordText.value,
-              valueType: 'Inline'
-            } as SecretTextSpecDTO
+            secret: {
+              type: 'SecretText',
+              name: data.passwordSecret?.secretName as string,
+              identifier: data.passwordSecret?.secretId as string,
+              orgIdentifier: identifiers.orgIdentifier,
+              projectIdentifier: identifiers.projectIdentifier,
+              tags: {},
+              spec: {
+                secretManagerIdentifier: data.passwordSecret?.secretManager?.value as string,
+                value: data.passwordText.value,
+                valueType: 'Inline'
+              } as SecretTextSpecDTO
+            }
           }
         })
       }
@@ -165,17 +233,19 @@ async function buildKerberosConfig(
         await createSecret({
           queryParams: { accountIdentifier: identifiers.accountId },
           body: {
-            type: 'SecretText',
-            name: data.passwordSecret?.secretName as string,
-            identifier: data.passwordSecret?.secretId as string,
-            orgIdentifier: identifiers.orgIdentifier,
-            projectIdentifier: identifiers.projectIdentifier,
-            tags: {},
-            spec: {
-              secretManagerIdentifier: data.passwordSecret?.secretManager?.value as string,
-              value: data.passwordText.value,
-              valueType: 'Inline'
-            } as SecretTextSpecDTO
+            secret: {
+              type: 'SecretText',
+              name: data.passwordSecret?.secretName as string,
+              identifier: data.passwordSecret?.secretId as string,
+              orgIdentifier: identifiers.orgIdentifier,
+              projectIdentifier: identifiers.projectIdentifier,
+              tags: {},
+              spec: {
+                secretManagerIdentifier: data.passwordSecret?.secretManager?.value as string,
+                value: data.passwordText.value,
+                valueType: 'Inline'
+              } as SecretTextSpecDTO
+            }
           }
         })
       }

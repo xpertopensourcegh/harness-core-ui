@@ -3,10 +3,10 @@ import { useParams, Link, useLocation, useHistory } from 'react-router-dom'
 import { parse as parseQueryString } from 'query-string'
 import { stringify, parse } from 'yaml'
 import cx from 'classnames'
-import { omit, without, pick, omitBy, isNull } from 'lodash-es'
+import { omit, without, omitBy, isNull, pick } from 'lodash-es'
 import { Layout, Text, Color, Container, Button, IconName } from '@wings-software/uikit'
 
-import { useGetSecretV2, SecretTextSpecDTO, usePutSecretViaYaml, SecretDTOV2 } from 'services/cd-ng'
+import { useGetSecretV2, SecretTextSpecDTO, usePutSecretViaYaml } from 'services/cd-ng'
 import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
 import { PageError } from 'modules/common/components/Page/PageError'
 import { PageHeader } from 'modules/common/components/Page/PageHeader'
@@ -38,7 +38,7 @@ const SecretDetails: React.FC = () => {
   const history = useHistory()
   const { edit } = parseQueryString(queryParams)
   const [mode, setMode] = useState<Mode>(Mode.VISUAL)
-  const [fieldsRemovedFromYaml, setFieldsRemovedFromYaml] = useState(['spec.draft', 'lastModifiedAt'])
+  const [fieldsRemovedFromYaml, setFieldsRemovedFromYaml] = useState(['secret.spec.draft', 'createdAt', 'updatedAt'])
   const [snippets, setSnippets] = useState<SnippetInterface[]>()
   const [yamlHandler, setYamlHandler] = React.useState<YamlBuilderHandlerBinding | undefined>()
   const { loading, data, refetch, error } = useGetSecretV2({
@@ -102,8 +102,8 @@ const SecretDetails: React.FC = () => {
   }, [data?.data])
 
   useEffect(() => {
-    if (secretData?.type === 'SecretText') {
-      switch ((secretData?.spec as SecretTextSpecDTO)?.valueType) {
+    if (secretData?.secret.type === 'SecretText') {
+      switch ((secretData?.secret.spec as SecretTextSpecDTO)?.valueType) {
         case 'Inline':
           setFieldsRemovedFromYaml([...fieldsRemovedFromYaml, 'spec.value'])
           break
@@ -148,7 +148,7 @@ const SecretDetails: React.FC = () => {
               <Link to={routeResources.url() + '/secrets'}>{i18n.linkSecrets}</Link>
             </div>
             <Text font={{ size: 'medium' }} color={Color.BLACK}>
-              {data?.data?.name || 'Secret Details'}
+              {data?.data?.secret.name || 'Secret Details'}
             </Text>
           </Layout.Vertical>
         }
@@ -189,18 +189,17 @@ const SecretDetails: React.FC = () => {
           // EDIT in VISUAL mode
           mode === Mode.VISUAL ? (
             <Container>
-              {secretData.type === 'SSHKey' ? <EditSSHSecret secret={secretData} /> : null}
-              {secretData.type === 'SecretFile' || secretData.type === 'SecretText' ? (
+              {secretData.secret.type === 'SSHKey' ? (
+                <EditSSHSecret
+                  secret={secretData}
+                  onChange={secret => setSecretData({ secret, ...pick(secretData, ['createdAt', 'updatedAt']) })}
+                />
+              ) : null}
+              {secretData.secret.type === 'SecretFile' || secretData.secret.type === 'SecretText' ? (
                 <Container width="400px">
                   <CreateUpdateSecret
                     secret={secretData}
-                    onChange={formData =>
-                      setSecretData({
-                        ...secretData,
-                        ...pick(formData, ['name', 'description', 'identifier']),
-                        spec: pick(formData, ['value', 'valueType', 'secretManagerIdentifier']) as SecretTextSpecDTO
-                      } as SecretDTOV2)
-                    }
+                    onChange={secret => setSecretData({ secret, ...pick(secretData, ['createdAt', 'updatedAt']) })}
                   />
                 </Container>
               ) : null}
@@ -210,7 +209,7 @@ const SecretDetails: React.FC = () => {
             <Container>
               <YamlBuilder
                 entityType={YamlEntity.SECRET}
-                fileName={`${secretData.name}.yaml`}
+                fileName={`${secretData.secret.name}.yaml`}
                 // existingJson={}
                 // fieldRemovedFromYaml={[]}
                 existingYaml={stringify(omit(omitBy(secretData, isNull), fieldsRemovedFromYaml))}
@@ -228,7 +227,7 @@ const SecretDetails: React.FC = () => {
           <Container>
             <YamlBuilder
               entityType={YamlEntity.SECRET}
-              fileName={`${secretData.name}.yaml`}
+              fileName={`${secretData.secret.name}.yaml`}
               existingYaml={stringify(omit(omitBy(secretData, isNull), fieldsRemovedFromYaml))}
               isReadOnlyMode={true}
               showSnippetSection={false}

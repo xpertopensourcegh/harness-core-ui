@@ -95,18 +95,20 @@ const HttpCredentialStep: React.FC<HttpCredentialStepProps> = props => {
       modalErrorHandler?.hide()
       setLoadSecret(true)
       res = await createSecret({
-        type: 'SecretText',
-        orgIdentifier: props.orgIdentifier,
-        projectIdentifier: props.projectIdentifier,
-        identifier: formData.passwordRefSecret?.secretId,
-        name: formData.passwordRefSecret?.secretName,
-        tags: {},
-        spec: {
-          value: formData.passwordRef.value,
-          valueType: 'Inline',
-          secretManagerIdentifier: formData.passwordRefSecret?.secretManager?.value as string
-        }
-      } as SecretDTOV2)
+        secret: {
+          type: 'SecretText',
+          orgIdentifier: props.orgIdentifier,
+          projectIdentifier: props.projectIdentifier,
+          identifier: formData.passwordRefSecret?.secretId,
+          name: formData.passwordRefSecret?.secretName,
+          tags: {},
+          spec: {
+            value: formData.passwordRef.value,
+            valueType: 'Inline',
+            secretManagerIdentifier: formData.passwordRefSecret?.secretManager?.value as string
+          }
+        } as SecretDTOV2
+      })
 
       setLoadSecret(false)
     } catch (e) {

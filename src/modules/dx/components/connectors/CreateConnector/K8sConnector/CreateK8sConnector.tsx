@@ -455,18 +455,20 @@ const IntermediateStep: React.FC<IntermediateStepProps> = props => {
                 Promise.all(
                   passwordFields.map((item: SecretFieldByType) => {
                     return createSecret({
-                      type: 'SecretText',
-                      orgIdentifier: props.orgIdentifier,
-                      projectIdentifier: props.projectIdentifier,
-                      identifier: formData[item.secretField]?.secretId,
-                      name: formData[item.secretField]?.secretName,
-                      tags: {},
-                      spec: {
-                        value: formData[item.passwordField].value,
-                        valueType: 'Inline',
-                        secretManagerIdentifier: formData[item.secretField]?.secretManager?.value as string
-                      }
-                    } as SecretDTOV2)
+                      secret: {
+                        type: 'SecretText',
+                        orgIdentifier: props.orgIdentifier,
+                        projectIdentifier: props.projectIdentifier,
+                        identifier: formData[item.secretField]?.secretId,
+                        name: formData[item.secretField]?.secretName,
+                        tags: {},
+                        spec: {
+                          value: formData[item.passwordField].value,
+                          valueType: 'Inline',
+                          secretManagerIdentifier: formData[item.secretField]?.secretManager?.value as string
+                        }
+                      } as SecretDTOV2
+                    })
                   })
                 )
                   .then(() => {

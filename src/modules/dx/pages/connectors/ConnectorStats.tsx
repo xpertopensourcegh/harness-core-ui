@@ -6,10 +6,10 @@ import i18n from './ConnectorStats.i18n'
 import css from './ConnectorStats.module.scss'
 
 interface ConnectorStatsProps {
-  createdAt: number
-  lastTested: number
-  lastUpdated: number
-  lastConnected: number
+  createdAt?: number
+  lastTested?: number
+  lastUpdated?: number
+  lastConnected?: number
   status: string
   className?: string
 }
@@ -18,7 +18,7 @@ const TestStatus = {
   FAILED: 'FAILED'
 }
 
-const getValue = (value: number) => {
+const getValue = (value?: number) => {
   return value ? moment.unix(value / 1000).format(StringUtils.DEFAULT_DATE_FORMAT) : null
 }
 

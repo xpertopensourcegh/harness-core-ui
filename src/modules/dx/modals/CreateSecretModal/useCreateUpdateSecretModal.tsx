@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useModalHook, Button, Text, Color } from '@wings-software/uikit'
 import { Dialog } from '@blueprintjs/core'
 
-import type { SecretDTOV2 } from 'services/cd-ng'
+import type { SecretDTOV2, SecretResponseWrapper } from 'services/cd-ng'
 
 import CreateUpdateSecret from 'modules/dx/components/CreateUpdateSecret/CreateUpdateSecret'
 
@@ -16,13 +16,13 @@ export interface UseCreateSecretModalProps {
 }
 
 export interface UseCreateSecretModalReturn {
-  openCreateSecretModal: (type: SecretType, secret?: SecretDTOV2) => void
+  openCreateSecretModal: (type: SecretType, secret?: SecretResponseWrapper) => void
   closeCreateSecretModal: () => void
 }
 
 const useCreateUpdateSecretModal = (props: UseCreateSecretModalProps): UseCreateSecretModalReturn => {
   const [type, setType] = useState<SecretType>('SecretText')
-  const [secret, setSecret] = useState<SecretDTOV2>()
+  const [secret, setSecret] = useState<SecretResponseWrapper>()
   const handleSuccess = (): void => {
     hideModal()
     props.onSuccess?.()
@@ -48,7 +48,7 @@ const useCreateUpdateSecretModal = (props: UseCreateSecretModalProps): UseCreate
   )
 
   return {
-    openCreateSecretModal: (_type: SecretType, _secret: SecretDTOV2 | undefined) => {
+    openCreateSecretModal: (_type: SecretType, _secret: SecretResponseWrapper | undefined) => {
       setType(_type)
       setSecret(_secret)
       showModal()

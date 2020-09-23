@@ -313,9 +313,9 @@ export class CustomVariables extends Step<VariableList> {
     // Fetch only if the data is older then 60 Seconds
     if (this.lastFetched + 60000 < new Date().getTime() || !this.secrets) {
       this.lastFetched = new Date().getTime()
-      this.secrets = await listSecretsV2Promise({ queryParams: { accountIdentifier: accountId } }).then(response => {
-        return response?.data?.content
-      })
+      this.secrets = await listSecretsV2Promise({ queryParams: { accountIdentifier: accountId } }).then(response =>
+        response?.data?.content?.map(secretResponse => secretResponse.secret)
+      )
     }
 
     return this.secrets

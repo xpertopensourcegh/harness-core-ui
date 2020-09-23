@@ -49,9 +49,9 @@ const fetchRecords = (
         const response: EntityReferenceResponse<SecretRef>[] = []
         secrets.forEach(secret => {
           response.push({
-            name: secret.name || '',
-            identifier: secret.identifier || '',
-            record: { ...secret, scope }
+            name: secret.secret.name || '',
+            identifier: secret.secret.identifier || '',
+            record: { ...secret.secret, scope }
           })
         })
         done(response)

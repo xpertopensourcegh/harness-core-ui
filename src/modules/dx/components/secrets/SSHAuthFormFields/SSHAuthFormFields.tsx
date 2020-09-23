@@ -10,16 +10,19 @@ import SecretReference from 'modules/dx/components/SecretReference/SecretReferen
 import { FormikSecretTextInput } from 'modules/dx/components/SecretInput/SecretTextInput'
 import { getIdentifierFromName } from 'modules/common/utils/StringUtils'
 import type { SSHConfigFormData } from 'modules/dx/modals/CreateSSHCredModal/views/StepAuthentication'
+import type { SecretResponseWrapper } from 'services/cd-ng'
 
 import i18n from './SSHAuthFormFields.i18n'
 import css from './SSHAuthFormFields.module.scss'
 
 const CustomSelect = Select.ofType<SelectOption>()
+type SecretType = SecretResponseWrapper['secret']['type']
 
 interface SSHAuthFormFieldsProps {
   formik: FormikProps<SSHConfigFormData>
   secretName?: string
   editing?: boolean
+  showCreateSecretModal: (type: SecretType) => void
 }
 
 const credentialTypeOptions: SelectOption[] = [
@@ -64,7 +67,7 @@ const tgtGenerationMethodOptions: IOptionProps[] = [
 ]
 
 const SSHAuthFormFields: React.FC<SSHAuthFormFieldsProps> = props => {
-  const { formik, secretName, editing } = props
+  const { formik, secretName, editing, showCreateSecretModal } = props
   const { accountId, orgIdentifier, projectIdentifier } = useParams()
 
   return (
@@ -125,7 +128,7 @@ const SSHAuthFormFields: React.FC<SSHAuthFormFieldsProps> = props => {
                           padding="large"
                           border={{ bottom: true }}
                           color={Color.DARK_600}
-                          // onClick={() => setShowCreateSecretFileModal(true)}
+                          onClick={() => showCreateSecretModal('SecretFile')}
                           className={Classes.POPOVER_DISMISS}
                         >
                           {i18n.btnCreateSecretFile}
@@ -152,8 +155,7 @@ const SSHAuthFormFields: React.FC<SSHAuthFormFieldsProps> = props => {
                 defaultSecretName={getIdentifierFromName(secretName + '_passphrase')}
                 defaultSecretId={getIdentifierFromName(secretName + '_passphrase')}
                 isEditMode={editing && !!formik.values['encryptedPassphraseSecret']}
-                onClickCreateSecret={noop}
-                // onClickCreateSecret={() => setShowCreateSecretTextModal(true)}
+                onClickCreateSecret={() => showCreateSecretModal('SecretText')}
                 // onEditSecret={x => console.log(x)}
               />
             </>
@@ -171,8 +173,7 @@ const SSHAuthFormFields: React.FC<SSHAuthFormFieldsProps> = props => {
                 defaultSecretName={getIdentifierFromName(secretName + '_passphrase')}
                 defaultSecretId={getIdentifierFromName(secretName + '_passphrase')}
                 isEditMode={editing && !!formik.values['encryptedPassphraseSecret']}
-                // onClickCreateSecret={() => setShowCreateSecretTextModal(true)}
-                onClickCreateSecret={noop}
+                onClickCreateSecret={() => showCreateSecretModal('SecretText')}
                 onEditSecret={noop}
               />
             </>
@@ -188,8 +189,7 @@ const SSHAuthFormFields: React.FC<SSHAuthFormFieldsProps> = props => {
               defaultSecretName={getIdentifierFromName(secretName + '_password')}
               defaultSecretId={getIdentifierFromName(secretName + '_password')}
               isEditMode={editing && !!formik.values['passwordSecret']}
-              // onClickCreateSecret={() => setShowCreateSecretTextModal(true)}
-              onClickCreateSecret={noop}
+              onClickCreateSecret={() => showCreateSecretModal('SecretText')}
               onEditSecret={noop}
             />
           ) : null}
@@ -221,8 +221,7 @@ const SSHAuthFormFields: React.FC<SSHAuthFormFieldsProps> = props => {
               defaultSecretName={getIdentifierFromName(secretName + '_password')}
               defaultSecretId={getIdentifierFromName(secretName + '_password')}
               isEditMode={editing && !!formik.values['passwordSecret']}
-              // onClickCreateSecret={() => setShowCreateSecretTextModal(true)}
-              onClickCreateSecret={noop}
+              onClickCreateSecret={() => showCreateSecretModal('SecretText')}
               onEditSecret={noop}
             />
           ) : null}

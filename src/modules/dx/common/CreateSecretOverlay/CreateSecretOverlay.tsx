@@ -29,7 +29,7 @@ const CreateSecretOverlay: React.FC<CreateSecretOverlayProps> = props => {
         />
       </Layout.Horizontal>
       <CreateUpdateSecret
-        secret={editSecretData as SecretDTOV2}
+        secret={editSecretData ? { secret: editSecretData } : undefined}
         type={props.type || props.editSecretData?.type || 'SecretText'}
         onSuccess={data => {
           props.setShowCreateSecretModal(false)

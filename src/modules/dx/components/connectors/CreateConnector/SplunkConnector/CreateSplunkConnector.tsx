@@ -122,18 +122,20 @@ export function ConnectionConfigStep(props: ConnectionConfigProps): JSX.Element 
       modalErrorHandler?.hide()
       if (!values[passwordField.passwordField]?.isReference) {
         await createSecret({
-          type: 'SecretText',
-          orgIdentifier: props.orgIdentifier,
-          projectIdentifier: props.projectIdentifier,
-          identifier: values[passwordField.secretField]?.secretId,
-          name: values[passwordField.secretField]?.secretName,
-          tags: {},
-          spec: {
-            value: values[passwordField.passwordField]?.value,
-            valueType: 'Inline',
-            secretManagerIdentifier: values[passwordField.secretField]?.secretManager?.value as string
-          }
-        } as SecretDTOV2)
+          secret: {
+            type: 'SecretText',
+            orgIdentifier: props.orgIdentifier,
+            projectIdentifier: props.projectIdentifier,
+            identifier: values[passwordField.secretField]?.secretId,
+            name: values[passwordField.secretField]?.secretName,
+            tags: {},
+            spec: {
+              value: values[passwordField.passwordField]?.value,
+              valueType: 'Inline',
+              secretManagerIdentifier: values[passwordField.secretField]?.secretManager?.value as string
+            }
+          } as SecretDTOV2
+        })
       }
       const update = { ...props.formData, ...values }
       await props.onSecretCreated(update)

@@ -13,8 +13,8 @@ import {
 import { useParams } from 'react-router-dom'
 import * as Yup from 'yup'
 
-import { usePostSecret } from 'services/cd-ng'
-import type { SecretDTOV2, KerberosConfigDTO, SSHConfigDTO, SSHKeySpecDTO } from 'services/cd-ng'
+import { SecretRequestWrapper, usePostSecret } from 'services/cd-ng'
+import type { KerberosConfigDTO, SSHConfigDTO, SSHKeySpecDTO } from 'services/cd-ng'
 import type { SecretInfo } from 'modules/dx/components/SecretInput/SecretTextInput'
 import CreateSecretOverlay from 'modules/dx/common/CreateSecretOverlay/CreateSecretOverlay'
 import type { InlineSecret } from 'modules/common/components/CreateInlineSecret/CreateInlineSecret'
@@ -90,19 +90,21 @@ const StepAuthentication: React.FC<StepProps<SSHCredSharedObj> & StepAuthenticat
       const authConfig = await buildAuthConfig(formData, { accountId, orgIdentifier, projectIdentifier })
 
       // build final data to submit
-      const dataToSubmit: SecretDTOV2 = {
-        type: 'SSHKey',
-        name: prevStepData?.detailsData?.name as string,
-        identifier: prevStepData?.detailsData?.identifier as string,
-        description: prevStepData?.detailsData?.description,
-        tags: {},
-        projectIdentifier,
-        orgIdentifier,
-        spec: {
-          authScheme: formData.authScheme,
-          port: formData.port,
-          spec: authConfig
-        } as SSHKeySpecDTO
+      const dataToSubmit: SecretRequestWrapper = {
+        secret: {
+          type: 'SSHKey',
+          name: prevStepData?.detailsData?.name as string,
+          identifier: prevStepData?.detailsData?.identifier as string,
+          description: prevStepData?.detailsData?.description,
+          tags: {},
+          projectIdentifier,
+          orgIdentifier,
+          spec: {
+            authScheme: formData.authScheme,
+            port: formData.port,
+            spec: authConfig
+          } as SSHKeySpecDTO
+        }
       }
 
       // finally create the connector
@@ -144,7 +146,14 @@ const StepAuthentication: React.FC<StepProps<SSHCredSharedObj> & StepAuthenticat
           {formik => {
             return (
               <FormikForm>
-                <SSHAuthFormFields formik={formik} secretName={prevStepData?.detailsData?.name} />
+                <SSHAuthFormFields
+                  formik={formik}
+                  secretName={prevStepData?.detailsData?.name}
+                  showCreateSecretModal={type => {
+                    if (type === 'SecretText') setShowCreateSecretTextModal(true)
+                    if (type === 'SecretFile') setShowCreateSecretFileModal(true)
+                  }}
+                />
                 <Button type="submit" text={saving ? i18n.btnSaving : i18n.btnSave} disabled={saving} />
               </FormikForm>
             )

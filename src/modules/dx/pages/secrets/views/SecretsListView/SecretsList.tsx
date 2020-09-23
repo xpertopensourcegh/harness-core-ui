@@ -8,8 +8,8 @@ import { Text, Color, Layout, Icon, Button, Popover } from '@wings-software/uiki
 import Table from 'modules/common/components/Table/Table'
 import { routeSecretDetails } from 'modules/dx/routes'
 import { useToaster, useConfirmationDialog } from 'modules/common/exports'
-import { useDeleteSecretV2 } from 'services/cd-ng'
-import type { NGPageResponseSecretDTOV2, SecretDTOV2, SecretTextSpecDTO } from 'services/cd-ng'
+import { SecretResponseWrapper, useDeleteSecretV2 } from 'services/cd-ng'
+import type { NGPageResponseSecretResponseWrapper, SecretDTOV2, SecretTextSpecDTO } from 'services/cd-ng'
 import { getStringForType } from 'modules/dx/components/secrets/SSHAuthUtils'
 // import TagsPopover from 'modules/common/components/TagsPopover/TagsPopover'
 import { useVerifyModal } from 'modules/dx/modals/CreateSSHCredModal/useVerifyModal'
@@ -17,13 +17,13 @@ import i18n from '../../SecretsPage.i18n'
 import css from './SecretsList.module.scss'
 
 interface SecretsListProps {
-  secrets?: NGPageResponseSecretDTOV2
+  secrets?: NGPageResponseSecretResponseWrapper
   gotoPage: (pageNumber: number) => void
   refetch?: () => void
 }
 
-const RenderColumnSecret: Renderer<CellProps<SecretDTOV2>> = ({ row }) => {
-  const data = row.original
+const RenderColumnSecret: Renderer<CellProps<SecretResponseWrapper>> = ({ row }) => {
+  const data = row.original.secret
   return (
     <Layout.Horizontal>
       {data.type === 'SecretText' || data.type === 'SecretFile' ? (
@@ -42,8 +42,8 @@ const RenderColumnSecret: Renderer<CellProps<SecretDTOV2>> = ({ row }) => {
   )
 }
 
-const RenderColumnDetails: Renderer<CellProps<SecretDTOV2>> = ({ row }) => {
-  const data = row.original
+const RenderColumnDetails: Renderer<CellProps<SecretResponseWrapper>> = ({ row }) => {
+  const data = row.original.secret
   return (
     <>
       {data.type === 'SecretText' || data.type === 'SecretFile' ? (
@@ -55,18 +55,18 @@ const RenderColumnDetails: Renderer<CellProps<SecretDTOV2>> = ({ row }) => {
   )
 }
 
-const RenderColumnActivity: Renderer<CellProps<SecretDTOV2>> = ({ row }) => {
+const RenderColumnActivity: Renderer<CellProps<SecretResponseWrapper>> = ({ row }) => {
   const data = row.original
-  return data.lastModifiedAt ? (
+  return data.updatedAt ? (
     <Layout.Horizontal spacing="small">
       <Icon name="activity" />
-      <ReactTimeago date={data.lastModifiedAt} />
+      <ReactTimeago date={data.updatedAt} />
     </Layout.Horizontal>
   ) : null
 }
 
-const RenderColumnStatus: Renderer<CellProps<SecretDTOV2>> = ({ row }) => {
-  const data = row.original
+const RenderColumnStatus: Renderer<CellProps<SecretResponseWrapper>> = ({ row }) => {
+  const data = row.original.secret
   const { openVerifyModal } = useVerifyModal()
   if (data.type === 'SecretText' || data.type === 'SecretFile') {
     return (data.spec as SecretTextSpecDTO).draft ? (
@@ -163,31 +163,35 @@ const RenderColumnAction: Renderer<CellProps<SecretDTOV2>> = ({ row, column }) =
 
 const SecretsList: React.FC<SecretsListProps> = ({ secrets, refetch, gotoPage }) => {
   const history = useHistory()
-  const data: SecretDTOV2[] = useMemo(() => secrets?.content || [], [secrets?.content])
+  const data: SecretResponseWrapper[] = useMemo(() => secrets?.content || [], [secrets?.content])
   const { pathname } = useLocation()
-  const columns: Column<SecretDTOV2>[] = useMemo(
+  const columns: Column<SecretResponseWrapper>[] = useMemo(
     () => [
       {
         Header: i18n.table.secret,
-        accessor: 'name',
+        accessor: row => row.secret.name,
+        id: 'name',
         width: '30%',
         Cell: RenderColumnSecret
       },
       {
         Header: i18n.table.secretManager,
-        accessor: 'description',
+        accessor: row => row.secret.description,
+        id: 'details',
         width: '25%',
         Cell: RenderColumnDetails
       },
       {
         Header: i18n.table.lastActivity,
-        accessor: 'tags',
+        accessor: 'updatedAt',
+        id: 'activity',
         width: '20%',
         Cell: RenderColumnActivity
       },
       {
         Header: '',
-        accessor: 'type',
+        accessor: row => row.secret.type,
+        id: 'status',
         width: '20%',
         Cell: RenderColumnStatus,
         refreshSecrets: refetch,
@@ -195,7 +199,8 @@ const SecretsList: React.FC<SecretsListProps> = ({ secrets, refetch, gotoPage })
       },
       {
         Header: '',
-        accessor: 'identifier',
+        accessor: row => row.secret.identifier,
+        id: 'action',
         width: '5%',
         Cell: RenderColumnAction,
         refreshSecrets: refetch,
@@ -206,12 +211,12 @@ const SecretsList: React.FC<SecretsListProps> = ({ secrets, refetch, gotoPage })
   )
 
   return (
-    <Table<SecretDTOV2>
+    <Table<SecretResponseWrapper>
       className={css.table}
       columns={columns}
       data={data}
       onRowClick={secret => {
-        history.push(`${pathname}/${secret.identifier}`)
+        history.push(`${pathname}/${secret.secret?.identifier}`)
       }}
       pagination={{
         itemCount: secrets?.itemCount || 0,

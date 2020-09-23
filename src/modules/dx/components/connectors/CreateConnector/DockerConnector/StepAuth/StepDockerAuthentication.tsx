@@ -82,18 +82,20 @@ const StepDockerAuthentication: React.FC<StepProps<StepDockerAuthenticationProps
       modalErrorHandler?.hide()
       setLoadSecret(true)
       res = await createSecret({
-        type: 'SecretText',
-        orgIdentifier: orgIdentifier,
-        projectIdentifier: projectIdentifier,
-        identifier: stepData.passwordRefSecret?.secretId,
-        name: stepData.passwordRefSecret?.secretName,
-        tags: {},
-        spec: {
-          value: stepData.passwordRef.value,
-          valueType: 'Inline',
-          secretManagerIdentifier: stepData.passwordRefSecret?.secretManager?.value as string
-        }
-      } as SecretDTOV2)
+        secret: {
+          type: 'SecretText',
+          orgIdentifier: orgIdentifier,
+          projectIdentifier: projectIdentifier,
+          identifier: stepData.passwordRefSecret?.secretId,
+          name: stepData.passwordRefSecret?.secretName,
+          tags: {},
+          spec: {
+            value: stepData.passwordRef.value,
+            valueType: 'Inline',
+            secretManagerIdentifier: stepData.passwordRefSecret?.secretManager?.value as string
+          }
+        } as SecretDTOV2
+      })
 
       setLoadSecret(false)
     } catch (e) {

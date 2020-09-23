@@ -3,7 +3,7 @@ import { Layout, Text, Color } from '@wings-software/uikit'
 
 import type {
   KerberosConfigDTO,
-  SecretDTOV2,
+  SecretResponseWrapper,
   SecretTextSpecDTO,
   SSHConfigDTO,
   SSHKeyPathCredentialDTO,
@@ -21,10 +21,13 @@ import ConnectorStats from '../../connectors/ConnectorStats'
 import css from './EditSSHSecret.module.scss'
 
 interface ViewSecretDetailsProps {
-  secret: SecretDTOV2
+  secret: SecretResponseWrapper
 }
 
-const ViewSecretDetails: React.FC<ViewSecretDetailsProps> = ({ secret }) => {
+const ViewSecretDetails: React.FC<ViewSecretDetailsProps> = props => {
+  const {
+    secret: { secret }
+  } = props
   return (
     <Layout.Horizontal>
       <Layout.Vertical width="50%" spacing="large">
@@ -201,10 +204,8 @@ const ViewSecretDetails: React.FC<ViewSecretDetailsProps> = ({ secret }) => {
       {secret.type === 'SSHKey' ? (
         <Layout.Vertical width="50%" spacing="xxxlarge" border={{ left: true }} padding={{ left: 'xxxlarge' }}>
           <ConnectorStats
-            createdAt={1600259517268}
-            lastTested={1600259517268}
-            lastUpdated={1600259517268}
-            lastConnected={1600259517268}
+            createdAt={props.secret.createdAt}
+            lastUpdated={props.secret.updatedAt}
             status={''}
             className={css.stats}
           />
