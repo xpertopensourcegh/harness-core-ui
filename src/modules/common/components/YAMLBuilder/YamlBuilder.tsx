@@ -286,7 +286,6 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
           </div>
           <div className={css.editor}>
             <MonacoEditor
-              defaultValue={stringify(existingJSON)}
               width={width ?? '800px'}
               height={height ?? '600px'}
               language="yaml"
