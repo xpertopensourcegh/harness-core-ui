@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { useGetBuild } from 'modules/ci/services/BuildsService'
 import type { BuildPageUrlParams } from '../CIBuildPage'
 import { BuildPageContext, BuildPageStateInterface } from './BuildPageContext'
+import { getDefaultSelectionFromExecutionPipeline, graph2ExecutionPipeline } from '../utils/api2ui'
 
 export const BuildPageContextProvider: React.FC = props => {
   const { children } = props
@@ -29,8 +30,33 @@ export const BuildPageContextProvider: React.FC = props => {
       accountIdentifier,
       orgIdentifier,
       projectIdentifier
+    },
+    resolve: response => {
+      // api2ui model
+      const stagePipeline = graph2ExecutionPipeline(response.data.graph)
+
+      // default selected stage and step
+      const {
+        defaultSelectedStageIdentifier,
+        defaultSelectedStepIdentifier
+      } = getDefaultSelectionFromExecutionPipeline(stagePipeline)
+
+      return {
+        response,
+        stagePipeline,
+        defaultSelectedStageIdentifier,
+        defaultSelectedStepIdentifier
+      }
     }
   })
+
+  // by default fist stage/step is selected
+  useEffect(() => {
+    setState({
+      selectedStageIdentifier: buildData?.defaultSelectedStageIdentifier as string,
+      selectedStepIdentifier: buildData?.defaultSelectedStepIdentifier as string
+    })
+  }, [buildData?.defaultSelectedStageIdentifier, buildData?.defaultSelectedStepIdentifier])
 
   return (
     <BuildPageContext.Provider

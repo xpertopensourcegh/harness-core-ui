@@ -1,6 +1,6 @@
 import React from 'react'
 import type { GetDataError } from 'restful-react'
-import type { BuildResponse } from 'modules/ci/services/Types'
+import type { BuildData } from 'modules/ci/services/Types'
 import type { ErrorResponse } from 'modules/ci/services/BuildsService'
 
 export interface BuildPageStateInterface {
@@ -12,7 +12,7 @@ export interface BuildPageContextInterface {
   state: BuildPageStateInterface
   setSelectedStageIdentifier: (identifier: string) => void
   setSelectedStepIdentifier: (identifier: string) => void
-  buildData: BuildResponse | null
+  buildData: BuildData | null
   loading: boolean
   error: GetDataError<ErrorResponse> | null
 }

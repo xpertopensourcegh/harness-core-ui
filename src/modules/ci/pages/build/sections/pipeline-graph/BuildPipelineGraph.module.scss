@@ -32,7 +32,7 @@
   align-items: center;
   box-shadow: inset 0px -4px 0px 0px #d4ecfc; // TODO: color
   background: #f1faff !important; // TODO: color
-  padding-left: var(--spacing-medium);
+  padding-left: var(--spacing-large) !important;
 }
 
 .bottom-pane {

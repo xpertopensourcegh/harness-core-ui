@@ -1,21 +1,8 @@
 // TODO: temporary model, replace with TDO or update
 
-export interface Vertice {
-  uuid: string
-  name: string
-  lastUpdatedAt: number
-  steptype?: any
-  status: string
-  stepParameters: any
-  interruptHistories: any[]
-  outcomes: any[]
-  retryIds: any[]
-  subgraph: Subgraph
-}
-
 export interface Subgraph {
   mode: string
-  vertices: Vertice[]
+  vertices?: GraphVertex[]
 }
 
 export interface GraphVertex {
@@ -23,13 +10,14 @@ export interface GraphVertex {
   name: string
   startTs: number
   lastUpdatedAt: number
-  steptype?: any
+  stepType?: any
   status: string
   stepParameters: any
   interruptHistories: any[]
   outcomes: any[]
   retryIds: any[]
-  subgraph: Subgraph
+  subgraph?: Subgraph
+  next?: GraphVertex
 }
 
 export interface Graph {

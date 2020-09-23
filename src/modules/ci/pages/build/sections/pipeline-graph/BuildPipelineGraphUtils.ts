@@ -4,10 +4,22 @@ import type {
   ExecutionPipelineNode
 } from 'modules/common/components/ExecutionStageDiagram/ExecutionPipelineModel'
 
+export function getStepsPipelineFromExecutionPipeline<T>(
+  pipeline: ExecutionPipeline<T> | undefined,
+  selectedStageIdentifier = '-1'
+): ExecutionPipeline<T> {
+  if (!pipeline || selectedStageIdentifier === '-1') return { items: [] }
+
+  // TODO: iterate thoughts parallel stages
+  return pipeline.items.find(node => node.item.identifier === selectedStageIdentifier)?.item.pipeline || { items: [] }
+}
+
 /**
  * Get flat list of SelectOption form pipeline
  */
-export function getSelectOptionsFromExecutionPipeline<T>(pipeline: ExecutionPipeline<T>): SelectOption[] {
+export function getSelectOptionsFromExecutionPipeline<T>(pipeline: ExecutionPipeline<T> | undefined): SelectOption[] {
+  if (!pipeline) return []
+
   const options: SelectOption[] = []
   populateSelectOptionsFromStages<T>(options, pipeline.items)
   return options

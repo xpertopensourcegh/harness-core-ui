@@ -10,10 +10,21 @@ export enum ExecutionPipelineItemType {
 
 // TODO: should be replaced or same as DTO
 export enum ExecutionPipelineItemStatus {
-  FAILED = 'Failed',
-  SUCCESS = 'Success',
-  RUNNING = 'Running',
-  PENDING = 'Pending'
+  SUCCEEDED = 'SUCCEEDED',
+  FAILED = 'FAILED',
+  SUCCESS = 'SUCCESS',
+  ABORTED = 'ABORTED',
+  ERROR = 'ERROR',
+  PAUSED = 'PAUSED',
+  PAUSING = 'PAUSING',
+  WAITING = 'WAITING',
+  ABORTING = 'ABORTING',
+  RUNNING = 'RUNNING',
+  QUEUED = 'QUEUED',
+  SKIPPED = 'SKIPPED',
+  STARTING = 'STARTING',
+  REJECTED = 'REJECTED',
+  EXPIRED = 'EXPIRED'
 }
 
 export interface ExecutionPipelineItem<T> {
@@ -24,6 +35,7 @@ export interface ExecutionPipelineItem<T> {
   icon: IconName
   cssProps?: React.CSSProperties
   data?: T
+  pipeline?: ExecutionPipeline<T>
 }
 
 export interface ExecutionPipelineGroupInfo<T> {

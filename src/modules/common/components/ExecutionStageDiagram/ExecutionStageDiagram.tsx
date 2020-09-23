@@ -41,7 +41,7 @@ export class ItemMouseLeaveEvent<T> extends ItemEvent<T> {
 
 export interface ExecutionStageDiagramProps<T> {
   /** pipeline definition */
-  data: ExecutionPipeline<T>
+  data?: ExecutionPipeline<T>
   /** selected item id */
   selectedIdentifier: string // TODO: 1. add node style for each type/shape 2. add default value
   /** node style  */ nodeStyle?: {
@@ -57,7 +57,7 @@ export interface ExecutionStageDiagramProps<T> {
 
 export default function ExecutionStageDiagram<T>(props: ExecutionStageDiagramProps<T>): React.ReactElement {
   const {
-    data,
+    data = { items: [] },
     className,
     selectedIdentifier,
     nodeStyle = { width: 50, height: 50 },
@@ -93,7 +93,7 @@ export default function ExecutionStageDiagram<T>(props: ExecutionStageDiagramPro
   model.setDefaultNodeStyle(nodeStyle)
 
   //update
-  model.addUpdateGraph<T>(data, { nodeListeners: nodeListeners, linkListeners: {} }, selectedIdentifier, 100)
+  model.addUpdateGraph<T>(data, { nodeListeners: nodeListeners, linkListeners: {} }, selectedIdentifier, 300)
 
   //Load model into engine
   engine.setModel(model)

@@ -137,7 +137,7 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
           parallel.forEach(nodeP => {
             const resp = this.renderGraphNodes(nodeP, newX, newY, selectedStageId, splitPaneSize, prevNodes)
             startX = resp.startX
-            newY = resp.startY + this.gap / 2
+            newY = resp.startY + this.gap / 2 + (nodeStyle.height - 64)
             if (resp.prevNodes) {
               prevNodesAr.push(...resp.prevNodes)
             }

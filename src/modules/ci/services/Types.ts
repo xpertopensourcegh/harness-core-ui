@@ -1,6 +1,7 @@
+import type { ExecutionPipeline } from 'modules/common/components/ExecutionStageDiagram/ExecutionPipelineModel'
 // TODO: replace all with DTO
 
-import type { Graph } from './GraphTypes'
+import type { Graph, GraphVertex } from './GraphTypes'
 
 export enum BuildExecutionStatus {
   IN_PROGRESS = 'in_progress'
@@ -77,4 +78,11 @@ export interface BuildResponse {
   data: Build
   metaData?: any
   correlationId?: any
+}
+
+export interface BuildData {
+  response: BuildResponse
+  stagePipeline: ExecutionPipeline<GraphVertex>
+  defaultSelectedStageIdentifier: string
+  defaultSelectedStepIdentifier: string
 }

@@ -1,5 +1,5 @@
 import { useGet, UseGetProps } from 'restful-react'
-import type { BuildResponse, BuildsResponse } from './Types'
+import type { BuildData, BuildsResponse } from './Types'
 
 export interface PageableParams {
   page?: string
@@ -25,7 +25,7 @@ export interface ErrorResponse {
 
 export type UseGetBuildsProps = Omit<UseGetProps<BuildsResponse, ErrorResponse, GetBuildsQueryParams, void>, 'path'>
 
-export type UseGetBuildProps = Omit<UseGetProps<BuildResponse, ErrorResponse, GetBuildQueryParams, void>, 'path'>
+export type UseGetBuildProps = Omit<UseGetProps<BuildData, ErrorResponse, GetBuildQueryParams, void>, 'path'>
 
 /**
  * Get builds
@@ -39,6 +39,6 @@ export const useGetBuilds = (props: UseGetBuildsProps) =>
  * Get build
  */
 export const useGetBuild = (buildId: string, props: UseGetBuildProps) =>
-  useGet<BuildResponse, ErrorResponse, GetBuildQueryParams, void>(`/ng/api/build/${buildId}`, {
+  useGet<BuildData, ErrorResponse, GetBuildQueryParams, void>(`/ng/api/builds/${buildId}`, {
     ...props
   })

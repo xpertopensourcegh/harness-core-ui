@@ -82,7 +82,7 @@ const CIBuildsPage: React.FC = () => {
   )
 
   // BUILDS FOOTER
-  const buildsFooter = buildsData && (
+  const buildsFooter = buildsData && buildsData.itemCount > 0 && (
     <Pagination
       pageSize={buildsData?.pageSize}
       pageIndex={buildsData?.pageIndex}

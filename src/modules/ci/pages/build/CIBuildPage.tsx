@@ -42,6 +42,8 @@ const CIBuildPage: React.FC = props => {
   const history = useHistory()
   const { buildData } = React.useContext(BuildPageContext)
 
+  const buildResponse = buildData?.response
+
   let selectedTabId = ''
   if (isRouteActive(routeCIBuildPipelineGraph)) selectedTabId = 'ciPipelineTab'
   else if (isRouteActive(routeCIBuildPipelineLog)) selectedTabId = 'ciPipelineTab'
@@ -59,10 +61,10 @@ const CIBuildPage: React.FC = props => {
 
   return (
     <ExtendedPage>
-      {buildData ? (
+      {buildResponse ? (
         <>
           <ExtendedPageHeader
-            title={buildData?.data.pipeline.name}
+            title={buildResponse?.data.pipeline.name}
             toolbar={
               <Container>
                 <Button
@@ -76,41 +78,43 @@ const CIBuildPage: React.FC = props => {
             }
             rowOneContent={
               <>
-                <Status status={(buildData?.data.status as unknown) as ExecutionStatus}>
-                  {status2Message((buildData?.data.status as unknown) as ExecutionStatus)}
+                <Status status={(buildResponse?.data.status as unknown) as ExecutionStatus}>
+                  {status2Message((buildResponse?.data.status as unknown) as ExecutionStatus)}
                 </Status>
-                <ElapsedTime startTime={buildData?.data.startTime || 0} />
+                <ElapsedTime startTime={buildResponse?.data.startTime || 0} />
               </>
             }
             rowTwoContent={
               <>
-                <TitledInfo title={i18n.infoBuildNo} value={buildData?.data.id} />
-                <TitledInfo title={i18n.infoRepository} value={buildData?.data.branch?.link} maxWidth={'350px'} />
-                <TitledInfo title={i18n.infoBranch} value={buildData?.data.branch?.name} />
+                <TitledInfo title={i18n.infoBuildNo} value={buildResponse?.data.id} />
+                <TitledInfo title={i18n.infoRepository} value={buildResponse?.data.branch?.link} maxWidth={'350px'} />
+                <TitledInfo title={i18n.infoBranch} value={buildResponse?.data.branch?.name} />
                 <TitledInfo
                   title={i18n.infoCommitId}
-                  value={getShortCommitId(buildData?.data.branch?.commits[0].id || '')}
+                  value={getShortCommitId(buildResponse?.data.branch?.commits[0].id || '')}
                 />
-                <TitledInfo title={i18n.infoCommitMessage} value={buildData?.data.branch?.commits[0].message} />
+                <TitledInfo title={i18n.infoCommitMessage} value={buildResponse?.data.branch?.commits[0].message} />
               </>
             }
             rowThreeContent={
               detailsVisible ? (
                 <>
-                  <TitledInfo title={i18n.infoTriggerType} value={buildData?.data.triggerType} />
-                  <TitledInfo title={i18n.infoTriggerBy} value={buildData?.data.author.id} />
+                  <TitledInfo title={i18n.infoTriggerType} value={buildResponse?.data.triggerType} />
+                  <TitledInfo title={i18n.infoTriggerBy} value={buildResponse?.data.author.id} />
                   <TitledInfo
                     title={i18n.infoStartTime}
                     value={
-                      buildData?.data.startTime
-                        ? moment.unix(buildData?.data.startTime).format('MM/DD/YY hh:mm:ss A')
+                      buildResponse?.data.startTime
+                        ? moment.unix(buildResponse?.data.startTime).format('MM/DD/YY hh:mm:ss A')
                         : '-'
                     }
                   />
                   <TitledInfo
                     title={i18n.infoEndTime}
                     value={
-                      buildData?.data.endTime ? moment.unix(buildData?.data.endTime).format('MM/DD/YY hh:mm:ss A') : '-'
+                      buildResponse?.data.endTime
+                        ? moment.unix(buildResponse?.data.endTime).format('MM/DD/YY hh:mm:ss A')
+                        : '-'
                     }
                   />
                 </>
