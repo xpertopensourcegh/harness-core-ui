@@ -105,7 +105,6 @@ export default function CreateSplunkConnector(props: CreateSplunkConnectorProps)
           type={Connectors.SPLUNK}
         />
       </StepWizard>
-      <Button text={i18n.close} />
     </>
   )
 }

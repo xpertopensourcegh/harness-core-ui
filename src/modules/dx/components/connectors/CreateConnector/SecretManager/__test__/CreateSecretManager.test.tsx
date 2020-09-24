@@ -15,6 +15,7 @@ describe('Create Secret Manager Wizard', () => {
           hideLightModal={noop}
           orgIdentifier="dummyOrgId"
           projectIdentifier="dummyProjectId"
+          onSuccess={noop}
         />
       </MemoryRouter>
     )

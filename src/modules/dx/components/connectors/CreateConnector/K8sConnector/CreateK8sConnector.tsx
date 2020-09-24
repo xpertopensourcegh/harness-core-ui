@@ -633,7 +633,6 @@ const CreateK8sConnector = (props: CreateK8sConnectorProps) => {
           />
         )}
       </StepWizard>
-      <Button text="close" />
     </>
   )
 }

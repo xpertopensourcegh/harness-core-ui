@@ -1,5 +1,14 @@
-import React from 'react'
-import { Formik, FormikForm, FormInput, Button, SelectOption, Text } from '@wings-software/uikit'
+import React, { useState } from 'react'
+import {
+  Formik,
+  FormikForm,
+  FormInput,
+  Button,
+  SelectOption,
+  Text,
+  ModalErrorHandlerBinding,
+  ModalErrorHandler
+} from '@wings-software/uikit'
 import * as Yup from 'yup'
 import { useParams } from 'react-router-dom'
 import { pick } from 'lodash-es'
@@ -36,7 +45,8 @@ const CreateUpdateSecret: React.FC<CreateSecretTextProps> = props => {
   const secret = props.secret?.secret
   let { type = 'SecretText' } = props
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
-  const { showSuccess, showError } = useToaster()
+  const { showSuccess } = useToaster()
+  const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding>()
   const { data: secretManagersApiResponse, loading: loadingSecretsManagers } = useGetConnectorList({
     accountIdentifier: accountId,
     queryParams: { orgIdentifier, projectIdentifier, category: 'SECRET_MANAGER' }
@@ -65,14 +75,16 @@ const CreateUpdateSecret: React.FC<CreateSecretTextProps> = props => {
     formData.set(
       'spec',
       JSON.stringify({
-        type,
-        ...pick(data, ['name', 'identifier', 'description', 'tags']),
-        orgIdentifier,
-        projectIdentifier,
-        spec: {
-          ...pick(data, ['secretManagerIdentifier'])
-        } as SecretFileSpecDTO
-      } as SecretDTOV2)
+        secret: {
+          type,
+          ...pick(data, ['name', 'identifier', 'description', 'tags']),
+          orgIdentifier,
+          projectIdentifier,
+          spec: {
+            ...pick(data, ['secretManagerIdentifier'])
+          } as SecretFileSpecDTO
+        } as SecretDTOV2
+      })
     )
     formData.set('file', (data as any)?.['file']?.[0])
     return formData
@@ -113,8 +125,8 @@ const CreateUpdateSecret: React.FC<CreateSecretTextProps> = props => {
       }
 
       onSuccess?.(data)
-    } catch (e) {
-      showError(e?.data?.message || 'Something went wrong')
+    } catch (error) {
+      modalErrorHandler?.showDanger(error.data.message)
     }
   }
 
@@ -131,6 +143,7 @@ const CreateUpdateSecret: React.FC<CreateSecretTextProps> = props => {
 
   return (
     <>
+      <ModalErrorHandler bind={setModalErrorHandler} />
       <Formik<SecretFormData>
         initialValues={{
           name: '',
@@ -187,7 +200,7 @@ const CreateUpdateSecret: React.FC<CreateSecretTextProps> = props => {
                 isIdentifierEditable={!editing}
               />
               {!typeOfSelectedSecretManager ? <Text>{i18n.messageSelectSM}</Text> : null}
-              {typeOfSelectedSecretManager === 'Local' ? (
+              {typeOfSelectedSecretManager === 'Local' || typeOfSelectedSecretManager === 'GcpKms' ? (
                 <LocalFormFields formik={formikProps} editing={editing} />
               ) : null}
               {typeOfSelectedSecretManager === 'Vault' ? (

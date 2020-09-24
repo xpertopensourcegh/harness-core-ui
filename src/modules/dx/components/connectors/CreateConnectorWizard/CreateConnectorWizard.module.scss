@@ -1,19 +1,9 @@
 .createConnectorWizard {
-  height: 100%;
+  flex-grow: 1;
+  display: flex;
   border-radius: 6px;
   [class*='StepWizard-'] {
-    height: 100%;
-    position: relative;
-  }
-  [class*='StepWizard---navStep'] {
-    align-items: flex-start !important;
-    > p {
-      padding: 2px;
-    }
-  }
-
-  [class*='StepWizard---stepDetails'] {
-    padding: var(--spacing-large) 0 var(--spacing-large) var(--spacing-large) !important;
+    width: 100%;
   }
   :global {
     .bp3-progress-meter {

@@ -18,5 +18,6 @@ export default {
   validateValue: 'Value is required',
   validateSecretManager: 'Secret Manager is required',
   buttonSubmit: 'Save & Close',
-  noYaml: 'Unable to read YAML'
+  noYaml: 'Unable to read YAML',
+  updateSuccess: 'Secret updated successfully'
 }

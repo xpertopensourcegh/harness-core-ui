@@ -20,16 +20,9 @@ const useCreateConnectorModal = (props: UseCreateConnectorModalProps): UseCreate
   const [type, setType] = useState<ConnectorDTO['type']>(Connectors.KUBERNETES_CLUSTER)
   const [modalProps, setModalProps] = useState<IDialogProps>({
     isOpen: true,
-    usePortal: true,
-    autoFocus: true,
-    canEscapeKeyClose: true,
-    canOutsideClickClose: true,
-    enforceFocus: true,
     style: {
-      width: 'fit-content',
-      minWidth: 960,
-      height: 600,
-      maxWidth: 960,
+      width: 960,
+      minHeight: 600,
       borderLeft: 0,
       paddingBottom: 0,
       position: 'relative',
@@ -59,7 +52,6 @@ const useCreateConnectorModal = (props: UseCreateConnectorModalProps): UseCreate
           icon="cross"
           iconProps={{ size: 18 }}
           onClick={() => {
-            props.onSuccess?.()
             hideModal()
           }}
           className={css.crossIcon}
@@ -70,30 +62,9 @@ const useCreateConnectorModal = (props: UseCreateConnectorModalProps): UseCreate
   )
 
   return {
-    openConnectorModal: (_type: ConnectorDTO['type'], _modalProps: IDialogProps | undefined) => {
+    openConnectorModal: (_type: ConnectorDTO['type'], _modalProps?: IDialogProps | undefined) => {
       setType(_type)
-      if (_modalProps) {
-        setModalProps(_modalProps)
-      } else {
-        setModalProps({
-          isOpen: true,
-          usePortal: true,
-          autoFocus: true,
-          canEscapeKeyClose: true,
-          canOutsideClickClose: true,
-          enforceFocus: true,
-          style: {
-            width: 'fit-content',
-            minWidth: 960,
-            height: 600,
-            maxWidth: 960,
-            borderLeft: 0,
-            paddingBottom: 0,
-            position: 'relative',
-            overflow: 'hidden'
-          }
-        })
-      }
+      setModalProps(_modalProps || modalProps)
       showModal()
     },
     hideConnectorModal: hideModal

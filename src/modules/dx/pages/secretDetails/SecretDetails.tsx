@@ -65,7 +65,7 @@ const SecretDetails: React.FC = () => {
     if (yamlData && jsonData) {
       try {
         await updateSecretYaml(yamlData as any)
-        showSuccess('Secret updated successfully')
+        showSuccess(i18n.updateSuccess)
         history.push(routeSecretDetails.url({ secretId }))
       } catch (err) {
         showError(err.message)
@@ -105,11 +105,11 @@ const SecretDetails: React.FC = () => {
     if (secretData?.secret.type === 'SecretText') {
       switch ((secretData?.secret.spec as SecretTextSpecDTO)?.valueType) {
         case 'Inline':
-          setFieldsRemovedFromYaml([...fieldsRemovedFromYaml, 'spec.value'])
+          setFieldsRemovedFromYaml([...fieldsRemovedFromYaml, 'secret.spec.value'])
           break
         case 'Reference':
           // 'value' field should be persisted in visual->yaml transistion for reference type
-          setFieldsRemovedFromYaml(without(fieldsRemovedFromYaml, 'spec.value'))
+          setFieldsRemovedFromYaml(without(fieldsRemovedFromYaml, 'secret.spec.value'))
           break
       }
     }
@@ -200,6 +200,9 @@ const SecretDetails: React.FC = () => {
                   <CreateUpdateSecret
                     secret={secretData}
                     onChange={secret => setSecretData({ secret, ...pick(secretData, ['createdAt', 'updatedAt']) })}
+                    onSuccess={() => {
+                      history.push(routeSecretDetails.url({ secretId }))
+                    }}
                   />
                 </Container>
               ) : null}

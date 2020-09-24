@@ -21,7 +21,7 @@ const getLabelByType = (type: string) => {
       return i18n.NAME_LABEL.AppDynamics
     case Connectors.SPLUNK:
       return i18n.NAME_LABEL.Splunk
-    case Connectors.SECRET_MANAGER:
+    case Connectors.VAULT:
       return i18n.NAME_LABEL.SecretManager
     default:
       return ''

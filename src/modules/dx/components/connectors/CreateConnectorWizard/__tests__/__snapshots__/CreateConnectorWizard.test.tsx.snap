@@ -230,16 +230,6 @@ exports[`Delegate Step Wizard should render Delegate Setup Wizard 1`] = `
         </div>
       </div>
     </div>
-    <button
-      class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
-      type="button"
-    >
-      <span
-        class="bp3-button-text"
-      >
-        close
-      </span>
-    </button>
   </div>
 </div>
 `;

@@ -110,7 +110,6 @@ export default function CreateAppDynamicsConnector(props: CreateAppDynamicsConne
           type={Connectors.APP_DYNAMICS}
         />
       </StepWizard>
-      <Button text={i18n.close} />
     </>
   )
 }

@@ -40,12 +40,13 @@ export const ConnectorWizard: React.FC<CreateConnectorWizardProps> = props => {
           projectIdentifier={projectIdentifier}
         />
       )
-    case Connectors.SECRET_MANAGER:
+    case Connectors.VAULT:
       return (
         <CreateSecretManager
           accountId={accountId}
           hideLightModal={hideLightModal}
           orgIdentifier={orgIdentifier}
+          onSuccess={props.onSuccess}
           projectIdentifier={projectIdentifier}
         />
       )

@@ -91,26 +91,9 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ mockData }) => {
     },
     { label: ConnectorInfoText.GIT, value: Connectors.GIT, icon: 'service-github' },
     {
-      label: ConnectorInfoText.SECRET_MANAGER,
-      value: Connectors.SECRET_MANAGER,
-      icon: 'lock',
-      modalProps: {
-        isOpen: true,
-        usePortal: true,
-        autoFocus: true,
-        canEscapeKeyClose: true,
-        canOutsideClickClose: true,
-        enforceFocus: true,
-        style: {
-          width: 'fit-content',
-          minWidth: 960,
-          height: 650,
-          borderLeft: 0,
-          paddingBottom: 0,
-          position: 'relative',
-          overflow: 'hidden'
-        }
-      }
+      label: ConnectorInfoText.VAULT,
+      value: Connectors.VAULT,
+      icon: 'lock'
     },
     { label: ConnectorInfoText.APP_DYNAMICS, value: Connectors.APP_DYNAMICS, icon: 'service-appdynamics' },
     { label: ConnectorInfoText.SPLUNK, value: Connectors.SPLUNK, icon: 'service-splunk' },

@@ -47,7 +47,7 @@ export const getHeadingByType = (type: string) => {
       return i18n.k8sClusterDetails
     case Connectors.GIT:
       return i18n.gitConnectorDetails
-    case Connectors.SECRET_MANAGER:
+    case Connectors.VAULT:
       return i18n.secretManagerDetails
     case Connectors.APP_DYNAMICS:
       return i18n.appDynamicsDetails
@@ -66,7 +66,7 @@ export const getConnectorTextByType = (type: string) => {
       return i18n.LABEL.k8sCluster
     case Connectors.GIT:
       return i18n.LABEL.gitConnector
-    case Connectors.SECRET_MANAGER:
+    case Connectors.VAULT:
       return i18n.LABEL.secretManager
     case Connectors.APP_DYNAMICS:
       return i18n.LABEL.appdynamics

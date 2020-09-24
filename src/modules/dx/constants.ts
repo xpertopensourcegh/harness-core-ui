@@ -6,7 +6,7 @@ interface ConnectorType {
 export const Connectors: ConnectorType = {
   KUBERNETES_CLUSTER: 'K8sCluster',
   GIT: 'Git',
-  SECRET_MANAGER: 'Vault',
+  VAULT: 'Vault',
   APP_DYNAMICS: 'AppDynamics',
   SPLUNK: 'Splunk',
   DOCKER: 'DockerRegistry'
@@ -15,7 +15,7 @@ export const Connectors: ConnectorType = {
 export const ConnectorInfoText = {
   KUBERNETES_CLUSTER: 'Kubernetes',
   GIT: 'GIT',
-  SECRET_MANAGER: 'Secret Manager',
+  VAULT: 'Secret Manager',
   APP_DYNAMICS: 'AppDynamics',
   SPLUNK: 'Splunk',
   DOCKER: 'Docker',
