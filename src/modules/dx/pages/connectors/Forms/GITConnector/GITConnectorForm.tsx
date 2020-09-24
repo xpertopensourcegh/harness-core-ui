@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router'
+import { omit } from 'lodash-es'
 import * as Yup from 'yup'
 import {
   Formik,
@@ -14,7 +15,16 @@ import {
 } from '@wings-software/uikit'
 import type { ConnectorDTO, ConnectorRequestWrapper } from 'services/cd-ng'
 import UsernamePassword from 'modules/dx/components/connectors/ConnectorFormFields/UsernamePassword'
-import { buildGITFormData, buildGITPayload } from '../../utils/ConnectorUtils'
+import useCreateUpdateSecretModal from 'modules/dx/modals/CreateSecretModal/useCreateUpdateSecretModal'
+import type { InlineSecret } from 'modules/common/components/CreateInlineSecret/CreateInlineSecret'
+import { getSecretV2Promise, SecretTextSpecDTO, ResponseDTOSecretResponseWrapper } from 'services/cd-ng'
+import { Scope } from 'modules/common/interfaces/SecretsInterface'
+import {
+  buildGITFormData,
+  buildGITPayload,
+  getSecretIdFromString,
+  getScopeFromString
+} from '../../utils/ConnectorUtils'
 import { getLabelForAuthType, AuthTypes } from '../../utils/ConnectorHelper'
 import { AuthTypeFields } from '../KubeFormHelper'
 
@@ -37,11 +47,55 @@ const GITConnectorForm: React.FC<GITConnectorFormProps> = props => {
     value: AuthTypes.USER_PASSWORD
   } as SelectOption)
   const { connector } = props
+  const [secretData, setSecretData] = useState<ResponseDTOSecretResponseWrapper>()
 
+  const [passwordRefSecret, setPasswordRefSecret] = useState<InlineSecret>()
+  const [sshKeyRefSecret, setSshkeyRefSecret] = useState<InlineSecret>()
+  const { openCreateSecretModal } = useCreateUpdateSecretModal({})
+
+  const getSecretForValue = async (value: string, setSecretField: (val: InlineSecret) => void): Promise<void> => {
+    const secretId = getSecretIdFromString(value)
+    const secretScope = getScopeFromString(value)
+    const data = await getSecretV2Promise({
+      identifier: secretId,
+      queryParams: {
+        accountIdentifier: accountId,
+        orgIdentifier: secretScope === Scope.ORG || secretScope === Scope.PROJECT ? orgIdentifier : undefined,
+        projectIdentifier: secretScope === Scope.PROJECT ? projectIdentifier : undefined
+      }
+    })
+    setSecretData(data)
+    const secretManagerIdentifier = (data.data?.secret?.spec as SecretTextSpecDTO)?.secretManagerIdentifier
+    setSecretField({
+      secretId,
+      secretName: data.data?.secret?.name || '',
+      secretManager: {
+        label: secretManagerIdentifier,
+        value: secretManagerIdentifier
+      },
+      scope: Scope.ACCOUNT
+    })
+  }
+
+  useEffect(() => {
+    if (connector) {
+      const formData = buildGITFormData(connector)
+      if (formData.passwordRef) {
+        getSecretForValue(formData.passwordRef, setPasswordRefSecret)
+      }
+      if (formData.sshKeyRef) {
+        getSecretForValue(formData.sshKeyRef, setSshkeyRefSecret)
+      }
+    }
+  }, [])
+
+  const gitFormData = omit(buildGITFormData(connector), ['passwordRef', 'sshKeyRef'])
   return (
     <Formik
       initialValues={{
-        ...buildGITFormData(connector)
+        ...gitFormData,
+        passwordRefSecret,
+        sshKeyRefSecret
       }}
       validationSchema={Yup.object().shape({
         name: Yup.string().trim().required(),
@@ -141,7 +195,8 @@ const GITConnectorForm: React.FC<GITConnectorFormProps> = props => {
                     orgIdentifier={orgIdentifier}
                     projectIdentifier={projectIdentifier}
                     passwordField={AuthTypeFields.passwordRef}
-                    onClickCreateSecret={() => undefined}
+                    onClickCreateSecret={() => openCreateSecretModal('SecretText')}
+                    onEditSecret={() => openCreateSecretModal('SecretText', secretData?.data)}
                   />
                   <FormInput.Text name="branchName" label={i18n.BranchName} />
                 </Layout.Vertical>

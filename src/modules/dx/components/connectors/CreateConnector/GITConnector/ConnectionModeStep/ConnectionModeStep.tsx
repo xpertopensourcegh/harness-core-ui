@@ -72,11 +72,7 @@ const ConnectionModeStep = (props: ConnectionModeStepProps) => {
               </Layout.Horizontal>
               {props.connectType?.value === 'Ssh' ? (
                 <div className={css.sshFields}>
-                  <FormInput.Text
-                    name="sshKeyReference"
-                    label={i18n.SSH_ENCRYPTED_KEY}
-                    inputGroup={{ type: 'password' }}
-                  />
+                  <FormInput.Text name="sshKeyRef" label={i18n.SSH_ENCRYPTED_KEY} inputGroup={{ type: 'password' }} />
                   <FormInput.Text name="branchName" label={i18n.BRANCH_NAME} />
                 </div>
               ) : null}

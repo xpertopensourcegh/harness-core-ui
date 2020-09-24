@@ -149,14 +149,14 @@ export const buildDockerFormData = (connector: ConnectorDTO) => {
   return {
     ...pick(connector, ['name', 'identifier', 'description', 'tags']),
     dockerRegistryUrl: connector?.spec?.dockerRegistryUrl,
-    ...pick(connector?.spec?.authScheme?.spec, ['username', 'passwordRef'])
+    ...pick(connector?.spec?.auth?.spec, ['username', 'passwordRef'])
   }
 }
 
 export const getSpecByConnectType = (type: string, formData: FormData) => {
   let referenceField
   if (type === 'Ssh') {
-    referenceField = { sshKeyRef: formData?.sshKeyReference }
+    referenceField = { sshKeyRef: formData?.sshKeyRef }
   } else {
     referenceField = {
       passwordRef: getScopedSecretString(formData.passwordRefSecret?.scope, formData.passwordRefSecret?.secretId)
@@ -207,8 +207,7 @@ export const buildGITFormData = (connector: ConnectorDTO) => {
     branchName: connector?.spec?.branchName,
     url: connector?.spec?.url,
     connectType: connector?.spec?.type,
-    username: connector?.spec?.spec?.username
-    // Todo: passwordRefSecret: will be done as part of secret api integration with SecretTextInput
+    ...connector?.spec?.spec
   }
 }
 export const getDelegateTypeInfo = (delegateInfoSpec: any) => {

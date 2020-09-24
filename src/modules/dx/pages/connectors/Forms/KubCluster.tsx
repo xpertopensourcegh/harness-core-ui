@@ -24,9 +24,11 @@ import {
   KubernetesOpenIdConnectDTO,
   KubernetesClientKeyCertDTO,
   KubernetesServiceAccountDTO,
-  KubernetesUserNamePasswordDTO
+  KubernetesUserNamePasswordDTO,
+  ResponseDTOSecretResponseWrapper
 } from 'services/cd-ng'
 import { Scope } from 'modules/common/interfaces/SecretsInterface'
+import useCreateUpdateSecretModal from 'modules/dx/modals/CreateSecretModal/useCreateUpdateSecretModal'
 import { DelegateTypes } from './KubeFormInterfaces'
 
 import { authOptions, DelegateInClusterType, getIconsForCard } from './KubeFormHelper'
@@ -78,9 +80,8 @@ const KubCluster: React.FC<KubClusterProps> = props => {
   const { loading, data: delegateList } = useGetKubernetesDelegateNames({
     queryParams: { accountId }
   })
-
+  const { openCreateSecretModal } = useCreateUpdateSecretModal({})
   const [inclusterDelegate, setInClusterDelegate] = useState('')
-  const [, setShowCreateSecretModal] = useState<boolean>(false)
   const { connector } = props
 
   const radioProps = {
@@ -100,6 +101,7 @@ const KubCluster: React.FC<KubClusterProps> = props => {
       )
     }
   }
+  const [secretData, setSecretData] = useState<ResponseDTOSecretResponseWrapper>()
 
   const [passwordRefSecret, setPasswordRefSecret] = useState<InlineSecret>()
   const [serviceAccountTokenRefSecret, setServiceAccountTokenRefSecret] = useState<InlineSecret>()
@@ -124,6 +126,7 @@ const KubCluster: React.FC<KubClusterProps> = props => {
     })
 
     const secretManagerIdentifier = (data.data?.secret?.spec as SecretTextSpecDTO)?.secretManagerIdentifier
+    setSecretData(data)
     setSecretField({
       secretId,
       secretName: data.data?.secret?.name || '',
@@ -312,7 +315,8 @@ const KubCluster: React.FC<KubClusterProps> = props => {
                   projectIdentifier={projectIdentifier}
                   authType={authentication.value}
                   name={connector?.name || ''}
-                  onClickCreateSecret={() => setShowCreateSecretModal(true)}
+                  onClickCreateSecret={() => openCreateSecretModal('SecretText')}
+                  onEditSecret={() => openCreateSecretModal('SecretText', secretData?.data)}
                   isEditMode={true}
                 />
               </div>

@@ -1,11 +1,21 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
 import * as Yup from 'yup'
 import { Formik, FormikForm as Form, FormInput, Layout, Button } from '@wings-software/uikit'
 import type { ConnectorDTO, ConnectorRequestWrapper } from 'services/cd-ng'
 import UsernamePassword from 'modules/dx/components/connectors/ConnectorFormFields/UsernamePassword'
+import useCreateUpdateSecretModal from 'modules/dx/modals/CreateSecretModal/useCreateUpdateSecretModal'
 import { StringUtils } from 'modules/common/exports'
-import { buildDockerFormData, buildDockerPayload } from '../../utils/ConnectorUtils'
+
+import { getSecretV2Promise, SecretTextSpecDTO, ResponseDTOSecretResponseWrapper } from 'services/cd-ng'
+import { Scope } from 'modules/common/interfaces/SecretsInterface'
+import type { InlineSecret } from 'modules/common/components/CreateInlineSecret/CreateInlineSecret'
+import {
+  buildDockerFormData,
+  buildDockerPayload,
+  getSecretIdFromString,
+  getScopeFromString
+} from '../../utils/ConnectorUtils'
 import { AuthTypeFields } from '../KubeFormHelper'
 import i18n from './DockerConnectorForm.i18n'
 
@@ -20,11 +30,50 @@ interface DockerConnectorFormProps {
 const DockerConnectorForm: React.FC<DockerConnectorFormProps> = props => {
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
   const { connector } = props
+  const [passwordRefSecret, setPasswordRefSecret] = useState<InlineSecret>()
+  const [secretData, setSecretData] = useState<ResponseDTOSecretResponseWrapper>()
+  const { openCreateSecretModal } = useCreateUpdateSecretModal({})
+  const getSecretForValue = async (value: string, setSecretField: (val: InlineSecret) => void): Promise<void> => {
+    const secretId = getSecretIdFromString(value)
+    const secretScope = getScopeFromString(value)
+    const data = await getSecretV2Promise({
+      identifier: secretId,
+      queryParams: {
+        accountIdentifier: accountId,
+        orgIdentifier: secretScope === Scope.ORG || secretScope === Scope.PROJECT ? orgIdentifier : undefined,
+        projectIdentifier: secretScope === Scope.PROJECT ? projectIdentifier : undefined
+      }
+    })
+    const secretManagerIdentifier = (data.data?.secret?.spec as SecretTextSpecDTO)?.secretManagerIdentifier
+    setSecretData(data)
+    setSecretField({
+      secretId,
+      secretName: data.data?.secret?.name || '',
+      secretManager: {
+        label: secretManagerIdentifier,
+        value: secretManagerIdentifier
+      },
+      scope: Scope.ACCOUNT
+    })
+  }
+
+  useEffect(() => {
+    if (connector) {
+      const formData = buildDockerFormData(connector)
+      if (formData.passwordRef) {
+        getSecretForValue(formData.passwordRef, setPasswordRefSecret)
+      }
+    }
+  }, [])
+
+  const dockerFormData = buildDockerFormData(connector)
+  delete dockerFormData.passwordRef
 
   return (
     <Formik
       initialValues={{
-        ...buildDockerFormData(connector)
+        ...dockerFormData,
+        passwordRefSecret
       }}
       validationSchema={Yup.object().shape({
         name: Yup.string().trim().required(i18n.validation.name),
@@ -73,7 +122,9 @@ const DockerConnectorForm: React.FC<DockerConnectorFormProps> = props => {
               orgIdentifier={orgIdentifier}
               projectIdentifier={projectIdentifier}
               passwordField={AuthTypeFields.passwordRef}
-              onClickCreateSecret={() => undefined}
+              onClickCreateSecret={() => openCreateSecretModal('SecretText')}
+              onEditSecret={() => openCreateSecretModal('SecretText', secretData?.data)}
+              isOptional={true}
             />
           </Layout.Vertical>
           <Layout.Horizontal padding={{ top: 'medium' }}>
