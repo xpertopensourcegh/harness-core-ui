@@ -176,8 +176,8 @@ function ConnectionConfigStep(props: ConnectionConfigProps): JSX.Element {
             <UsernamePassword
               accountId={props.accountId}
               isEditMode={isEdit}
-              orgIdentifier={props.orgIdentifier || ''}
-              projectIdentifier={props.projectIdentifier || ''}
+              orgIdentifier={props.orgIdentifier as string}
+              projectIdentifier={props.projectIdentifier as string}
               passwordField={AuthTypeFields.passwordRef}
               name={props.formData?.name}
               onEditSecret={val => {

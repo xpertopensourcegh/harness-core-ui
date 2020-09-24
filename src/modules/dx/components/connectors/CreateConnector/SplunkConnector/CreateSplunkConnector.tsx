@@ -45,6 +45,7 @@ interface ConnectionConfigProps {
   setFormData: (data: ConnectorConfigDTO | undefined) => void
   name: string
   previousStep?: () => void
+  nextStep?: () => void
   onSecretCreated: (data: ConnectorConfigDTO) => Promise<void>
 }
 
@@ -138,6 +139,7 @@ export function ConnectionConfigStep(props: ConnectionConfigProps): JSX.Element 
       }
       const update = { ...props.formData, ...values }
       await props.onSecretCreated(update)
+      props.nextStep?.()
     } catch (error) {
       modalErrorHandler?.showDanger(error?.data?.message)
     }
