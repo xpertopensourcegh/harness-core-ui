@@ -9,5 +9,7 @@ declare const styles: {
   readonly serviceHeatMap: string
   readonly analysisView: string
   readonly categoryRiskCard: string
+  readonly heatmapTooltip: string
+  readonly overallScoreContent: string
 }
 export default styles

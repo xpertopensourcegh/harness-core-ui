@@ -9,5 +9,9 @@ export default {
     performance: 'Performance',
     quality: 'Quality',
     resources: 'Resources'
+  },
+  heatMapTooltipText: {
+    overallRiskScore: 'Overall Risk Score',
+    noData: 'N/A'
   }
 }

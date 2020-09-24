@@ -14,6 +14,7 @@ import {
 } from 'services/cv'
 import { useToaster } from 'modules/common/exports'
 import { routeCVDataSources } from 'modules/cv/routes'
+import { RiskScoreTile } from 'modules/cv/components/RiskScoreTile/RiskScoreTile'
 import ServiceSelector from './ServiceSelector/ServiceSelector'
 import i18n from './CVServicesPage.i18n'
 import { CategoryRiskCards } from '../dashboard/CategoryRiskCards/CategoryRiskCards'
@@ -41,6 +42,26 @@ const getRangeDates = (val: number) => {
 
 function mapHeatmapValue(val: any): number | CellStatusValues {
   return val && typeof val.riskScore === 'number' ? val.riskScore : CellStatusValues.Missing
+}
+
+function HeatMapTooltip({ cell }: { cell?: HeatMapDTO }): JSX.Element {
+  return cell ? (
+    <Container className={styles.heatmapTooltip}>
+      {cell.startTime && cell.endTime && (
+        <Text>{`${moment(cell.startTime).format('M/D/YYYY h:m a')} - ${moment(cell.endTime).format(
+          'M/D/YYYY h:m a'
+        )}`}</Text>
+      )}
+      <Container className={styles.overallScoreContent}>
+        <Text font={{ size: 'small' }}>{i18n.heatMapTooltipText.overallRiskScore}</Text>
+        <RiskScoreTile riskScore={Math.floor((cell?.riskScore || 0) * 100)} isSmall />
+      </Container>
+    </Container>
+  ) : (
+    <Container className={styles.heatmapTooltip}>
+      <Text className={styles.overallScoreContent}>{i18n.heatMapTooltipText.noData}</Text>
+    </Container>
+  )
 }
 
 export default function CVServicesPage(): JSX.Element {
@@ -202,7 +223,7 @@ export default function CVServicesPage(): JSX.Element {
                   labelsWidth={80}
                   className={styles.serviceHeatMap}
                   mapValue={mapHeatmapValue}
-                  renderTooltip={(cell: HeatMapDTO) => <div>{cell && cell.riskScore}</div>}
+                  renderTooltip={(cell: HeatMapDTO) => <HeatMapTooltip cell={cell} />}
                   cellShapeBreakpoint={0.5}
                   onCellClick={(cell: HeatMapDTO, rowData) => {
                     if (cell.startTime && cell.endTime) {
