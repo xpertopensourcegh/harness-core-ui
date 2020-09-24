@@ -1,6 +1,7 @@
 export default {
   STEP_ONE: {
     name: 'SPECIFY MANIFEST SERVER',
+    idPlaceholder: 'Give name to your manifest config',
     select: 'GIT Server',
     gitServerPlaceholder: 'Select GIT Server',
     title: 'Source Repository',
@@ -12,7 +13,7 @@ export default {
     manifestInputType: 'Manifest Format',
     filePath: 'File/Folder path',
     fetchValue: 'Branch Name',
-    manifestId: 'Maniest Identifier',
+    manifestId: 'Manifest Identifier',
     gitFetchTypeLabel: 'Commit ID',
     branchLabel: 'Branch',
     branchPlaceholder: 'Enter branch name here',
@@ -36,5 +37,11 @@ export default {
     {
       label: 'Specific Commit ID'
     }
-  ]
+  ],
+  validation: {
+    gitServer: 'Git server is a required field',
+    identifier: 'Manifest Identifier is a required field',
+    manifestType: 'Manifest format is a required field',
+    filePath: 'Manifest file path is a required field'
+  }
 }

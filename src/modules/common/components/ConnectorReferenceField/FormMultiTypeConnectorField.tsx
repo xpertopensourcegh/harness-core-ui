@@ -18,6 +18,7 @@ import { MultiTypeReferenceInput } from '../ReferenceSelect/ReferenceSelect'
 export interface MultiTypeConnectorFieldProps extends Omit<ConnectorReferenceFieldProps, 'onChange'> {
   onChange?: ExpressionAndRuntimeTypeProps['onChange']
   formik?: any // TODO: Remove this but not sure why FormikContext<any> was not working
+  isNewConnectorLabelVisible?: boolean
 }
 
 const errorCheck = (name: string, formik?: FormikContext<any>): boolean | '' | 0 | undefined =>
@@ -38,6 +39,7 @@ export const MultiTypeConnectorField: React.FC<MultiTypeConnectorFieldProps> = p
     width = 400,
     formik,
     placeholder,
+    isNewConnectorLabelVisible = true,
     ...restProps
   } = props
   const hasError = errorCheck(name, formik)
@@ -62,6 +64,7 @@ export const MultiTypeConnectorField: React.FC<MultiTypeConnectorFieldProps> = p
       }
     }
   })
+
   return (
     <FormGroup {...rest} labelFor={name} helperText={helperText} intent={intent} disabled={disabled} label={label}>
       <MultiTypeReferenceInput<ConnectorSummaryDTO>
@@ -78,6 +81,7 @@ export const MultiTypeConnectorField: React.FC<MultiTypeConnectorFieldProps> = p
             placeholder,
             label
           }),
+          isNewConnectorLabelVisible: isNewConnectorLabelVisible,
           createNewHandler: () => {
             openConnectorModal(type)
           },

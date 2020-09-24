@@ -3,13 +3,14 @@ import { Drawer, Position } from '@blueprintjs/core'
 import { v4 as uuid } from 'uuid'
 import type { StepData } from 'modules/common/components/AbstractSteps/AbstractStepFactory'
 import { PipelineContext } from '../PipelineContext/PipelineContext'
-import { DrawerTypes } from '../PipelineContext/PipelineActions'
+import { DrawerTypes, DrawerSizes } from '../PipelineContext/PipelineActions'
 import { StepCommands } from '../StepCommands/StepCommands'
 import { StepPalette } from '../StepPalette/StepPalette'
 import { addStepOrGroup } from '../ExecutionGraph/ExecutionGraphUtil'
 import { getStageFromPipeline } from '../StageBuilder/StageBuilderUtil'
 import { PipelineVariables } from '../PipelineVariables/PipelineVariables'
 import { PipelineTemplates } from '../PipelineTemplates/PipelineTemplates'
+import { ExecutionStrategy } from '../ExecutionStrategy/ExecutionStategy'
 
 export const RightDrawer: React.FC = (): JSX.Element => {
   const {
@@ -30,17 +31,18 @@ export const RightDrawer: React.FC = (): JSX.Element => {
   if (!isDrawerOpened) {
     return <></>
   }
+
   return (
     <Drawer
       onClose={() => {
         updatePipelineView({ ...pipelineView, isDrawerOpened: false, drawerData: { type: DrawerTypes.AddStep } })
       }}
       autoFocus={true}
-      canEscapeKeyClose={true}
-      canOutsideClickClose={true}
+      canEscapeKeyClose={type === DrawerTypes.ExecutionStrategy ? false : true}
+      canOutsideClickClose={type === DrawerTypes.ExecutionStrategy ? false : true}
       enforceFocus={true}
       hasBackdrop={false}
-      size={type === DrawerTypes.AddStep ? 700 : 450}
+      size={DrawerSizes[type]}
       isOpen={isDrawerOpened}
       position={Position.RIGHT}
       {...restDrawerProps}
@@ -98,6 +100,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
       {/* TODO */}
       {type === DrawerTypes.PipelineVariables && <PipelineVariables />}
       {type === DrawerTypes.Templates && <PipelineTemplates />}
+      {type === DrawerTypes.ExecutionStrategy && <ExecutionStrategy selectedStage={selectedStage || {}} />}
     </Drawer>
   )
 }

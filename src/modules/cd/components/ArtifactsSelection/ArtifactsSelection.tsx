@@ -1,10 +1,29 @@
 import React from 'react'
-import { Layout, Text, Container, Icon, Color } from '@wings-software/uikit'
+import {
+  Layout,
+  Text,
+  Container,
+  Icon,
+  Color,
+  useModalHook,
+  Button,
+  Heading,
+  CardSelect,
+  Formik,
+  FormInput,
+  FormikForm as Form
+} from '@wings-software/uikit'
+import { useParams } from 'react-router-dom'
+import * as Yup from 'yup'
 import cx from 'classnames'
 
 import { get } from 'lodash-es'
+import { Dialog, IDialogProps, Classes } from '@blueprintjs/core'
 import { PipelineContext } from 'modules/cd/pages/pipeline-studio/PipelineContext/PipelineContext'
-
+import { FormMultiTypeConnectorField } from 'modules/common/components/ConnectorReferenceField/FormMultiTypeConnectorField'
+import { Scope } from 'modules/common/interfaces/SecretsInterface'
+import CreateDockerConnector from '../connectors/DockerConnector/CreateDockerConnector'
+import ExistingDockerArtifact from './DockerArtifact/ExistingDockerArtifact'
 import i18n from './ArtifactsSelection.i18n'
 import { getStageFromPipeline } from '../../pages/pipeline-studio/StageBuilder/StageBuilderUtil'
 import css from './ArtifactsSelection.module.scss'
@@ -17,10 +36,21 @@ const artifactListHeaders: ArtifactTable = {
   type: i18n.artifactTable.type,
   server: i18n.artifactTable.server,
   source: i18n.artifactTable.artifactSource,
-  id: i18n.artifactTable.id
+  imagePath: i18n.artifactTable.imagePath
 }
 
-export default function ArtifactsSelection({ isForOverrideSets }: { isForOverrideSets: boolean }): JSX.Element {
+export type CreationType = 'DOCKER'
+export interface OrganizationCreationType {
+  type: CreationType
+}
+
+export default function ArtifactsSelection({
+  isForOverrideSets,
+  identifierName
+}: {
+  isForOverrideSets: boolean
+  identifierName?: string
+}): JSX.Element {
   const {
     state: {
       pipeline,
@@ -31,104 +61,325 @@ export default function ArtifactsSelection({ isForOverrideSets }: { isForOverrid
     updatePipeline
   } = React.useContext(PipelineContext)
 
+  const getPrimaryArtifactByIdentifier = (): void => {
+    return artifacts
+      .map((artifact: { overrideSet: { identifier: string; artifacts: { primary: object } } }) => {
+        if (artifact?.overrideSet?.identifier === identifierName) {
+          return artifact.overrideSet.artifacts['primary']
+        }
+      })
+      .filter((x: { overrideSet: { identifier: string; artifacts: [] } }) => x !== undefined)[0]
+  }
+
+  const getSidecarArtifactByIdentifier = (): void => {
+    return artifacts
+      .map(
+        (artifact: {
+          overrideSet: { identifier: string; artifacts: { sidecars: [{ sidecar: object }]; primary: object } }
+        }) => {
+          if (artifact?.overrideSet?.identifier === identifierName) {
+            return artifact.overrideSet.artifacts['sidecars']
+          }
+        }
+      )
+      .filter((x: { overrideSet: { identifier: string; artifacts: [] } }) => x !== undefined)[0]
+  }
+
   const { stage } = getStageFromPipeline(pipeline, selectedStageId || '')
 
-  const serviceSpec = get(stage, 'deployment.deployment.service.serviceSpec.artifacts', null)
+  const artifacts = !isForOverrideSets
+    ? get(stage, 'stage.spec.service.serviceDefinition.spec.artifacts', null)
+    : get(stage, 'stage.spec.service.serviceDefinition.spec.artifactOverrideSets', [])
 
-  const primaryArtifact = get(stage, 'deployment.deployment.service.serviceSpec.artifacts.primary', null)
+  const primaryArtifact = !isForOverrideSets
+    ? get(stage, 'stage.spec.service.serviceDefinition.spec.artifacts.primary', null)
+    : getPrimaryArtifactByIdentifier()
 
-  const primaryArtifactType = 'dockerhub'
+  const primaryArtifactType = 'Dockerhub'
 
-  const sideCarArtifact: [] = get(stage, 'deployment.deployment.service.serviceSpec.artifacts.sidecars', null)
+  // const sideCarArtifact = get(stage, 'stage.spec.service.serviceDefinition.spec.artifacts.sidecars', [])
+
+  const sideCarArtifact = !isForOverrideSets
+    ? get(stage, 'stage.spec.service.serviceDefinition.spec.artifacts.sidecars', [])
+    : getSidecarArtifactByIdentifier()
+
+  const DIALOG_PROPS: IDialogProps = {
+    isOpen: true,
+    usePortal: true,
+    autoFocus: true,
+    canEscapeKeyClose: false,
+    canOutsideClickClose: false,
+    enforceFocus: true,
+    title: '',
+    style: { width: 1000, height: 580, borderLeft: 'none', paddingBottom: 0, position: 'relative' }
+  }
+
+  const { accountId, projectIdentifier, orgIdentifier } = useParams()
+
+  const ModalView = { OPTIONS: 1, EXISTING: 2, NEW: 3 }
+  const ModalViewFor = { PRIMARY: 1, SIDECAR: 2 }
+
+  const [view, setView] = React.useState(ModalView.OPTIONS)
+  const [context, setModalContext] = React.useState(ModalViewFor.PRIMARY)
+  const [editContext, setEditModeContext] = React.useState(ModalViewFor.PRIMARY)
+  const [sidecarIndex, setEditIndex] = React.useState(0)
+
+  const addArtifact = (data: {
+    connectorId: undefined | { value: string }
+    imagePath: string
+    identifier?: string
+  }): void => {
+    if (context === ModalViewFor.PRIMARY) {
+      if (isForOverrideSets) {
+        artifacts.map((artifact: { overrideSet: { identifier: string; artifacts: object } }) => {
+          if (artifact?.overrideSet?.identifier === identifierName) {
+            artifact.overrideSet.artifacts = {
+              primary: {
+                type: primaryArtifactType,
+                spec: {
+                  dockerhubConnector: data.connectorId?.value ? data.connectorId.value : data.connectorId,
+                  imagePath: data.imagePath
+                }
+              }
+            }
+          }
+        })
+      } else {
+        artifacts['primary'] = {
+          type: primaryArtifactType,
+          spec: {
+            dockerhubConnector: data.connectorId?.value ? data.connectorId.value : data.connectorId,
+            imagePath: data.imagePath
+          }
+        }
+      }
+    } else {
+      const sideCarObject: {
+        type: string
+        identifier: string
+        spec: {
+          dockerhubConnector: string | undefined | { value: string }
+          imagePath: string
+        }
+      } = {
+        type: primaryArtifactType,
+        identifier: data.identifier as string,
+        spec: {
+          dockerhubConnector: data.connectorId?.value ? data.connectorId.value : data.connectorId,
+          imagePath: data.imagePath
+        }
+      }
+
+      if (isForOverrideSets) {
+        artifacts.map(
+          (artifact: {
+            overrideSet: { identifier: string; artifacts: { sidecars: [{ sidecar: object }]; primary: object } }
+          }) => {
+            if (artifact?.overrideSet?.identifier === identifierName) {
+              if (artifact.overrideSet.artifacts['sidecars']) {
+                artifact.overrideSet.artifacts['sidecars'].push({ sidecar: sideCarObject })
+              } else {
+                const primary = artifact.overrideSet.artifacts?.primary || {}
+
+                artifact.overrideSet.artifacts = {
+                  primary: primary,
+                  sidecars: [{ sidecar: sideCarObject }]
+                }
+              }
+            }
+          }
+        )
+      } else {
+        sideCarArtifact.push({ sidecar: sideCarObject })
+      }
+    }
+
+    updatePipeline(pipeline)
+    setView(ModalView.OPTIONS)
+    hideConnectorModal()
+  }
+
+  const [showConnectorModal, hideConnectorModal] = useModalHook(
+    () => (
+      <Dialog
+        onClose={() => {
+          setView(ModalView.OPTIONS)
+          setModalContext(ModalViewFor.PRIMARY)
+          hideConnectorModal()
+        }}
+        {...DIALOG_PROPS}
+        className={cx(css.modal, view !== ModalView.OPTIONS ? Classes.DIALOG : Classes.DARK)}
+      >
+        {view === ModalView.OPTIONS && (
+          <Container className={css.optionsViewContainer}>
+            <Heading level={2} color={Color.WHITE} style={{ fontSize: '30px' }}>
+              {i18n.modalHeading}
+            </Heading>
+            <Heading level={3} font="small" color={Color.WHITE} margin={{ top: 'large', bottom: 'medium' }}>
+              {i18n.modalSubHeading}
+            </Heading>
+            <Layout.Horizontal spacing="large">
+              <CardSelect<OrganizationCreationType>
+                onChange={() => setView(ModalView.EXISTING)}
+                selected={undefined}
+                className={css.optionsViewGrid}
+                data={[{ type: 'DOCKER' }]}
+                renderItem={(item: OrganizationCreationType) => (
+                  <Container>{item.type === 'DOCKER' && <Icon name="service-dockerhub" size={35} />}</Container>
+                )}
+              />
+            </Layout.Horizontal>
+          </Container>
+        )}
+
+        {view === ModalView.EXISTING && (
+          <ExistingDockerArtifact
+            handleSubmit={(data: { connectorId: undefined | { value: string }; imagePath: string }) => {
+              addArtifact(data)
+            }}
+            handleViewChange={() => setView(ModalView.NEW)}
+            context={context}
+          />
+        )}
+        {view === ModalView.NEW && (
+          <CreateDockerConnector
+            handleSubmit={(data: { connectorId: { value: string }; imagePath: string }) => {
+              addArtifact(data)
+            }}
+            hideLightModal={hideConnectorModal}
+          />
+        )}
+      </Dialog>
+    ),
+    [view, context]
+  )
+
+  const isValidScopeValue = (value: string): number => {
+    return value.indexOf(Scope.ACCOUNT) && value.indexOf(Scope.PROJECT) && value.indexOf(Scope.ORG)
+  }
+
+  const getInitialValues = (
+    primaryArtifactParam: { spec: { dockerhubConnector: string; imagePath: string } },
+    sideCarArtifactParam: any
+  ) => {
+    let spec
+    if (editContext === ModalViewFor.PRIMARY) {
+      spec = primaryArtifactParam?.spec
+    } else {
+      spec = sideCarArtifactParam[sidecarIndex]?.sidecar.spec
+    }
+    const initialValues = {
+      connectorId:
+        isValidScopeValue(spec?.dockerhubConnector) === 0
+          ? {
+              label: spec?.dockerhubConnector?.split('.')[1],
+              scope: spec?.dockerhubConnector?.split('.')[0],
+              value: spec?.dockerhubConnector
+            }
+          : spec?.dockerhubConnector,
+      imagePath: spec.imagePath
+    }
+
+    return initialValues
+  }
+
+  const resetFormValues = (): object => {
+    return { connectorId: undefined, imagePath: '' }
+  }
+
+  const updateArtifact = (value: { imagePath: string; connectorId: { value: string } }): void => {
+    if (editContext === ModalViewFor.PRIMARY) {
+      primaryArtifact.spec.imagePath = value.imagePath
+      primaryArtifact.spec.dockerhubConnector = value.connectorId.value ? value.connectorId.value : value.connectorId
+    } else {
+      sideCarArtifact[sidecarIndex].sidecar.spec.imagePath = value.imagePath
+      sideCarArtifact[sidecarIndex].sidecar.spec.dockerhubConnector = value.connectorId.value
+        ? value.connectorId.value
+        : value.connectorId
+    }
+
+    updatePipeline(pipeline)
+  }
+
+  const [showEditConnectorModal, hideEditConnectorModal] = useModalHook(
+    () => (
+      <Dialog
+        onClose={() => {
+          resetFormValues()
+          setEditModeContext(ModalViewFor.PRIMARY)
+          hideEditConnectorModal()
+        }}
+        {...DIALOG_PROPS}
+        style={{ width: 600, height: 300, borderLeft: 'none', paddingBottom: 0, position: 'relative' }}
+        className={Classes.DIALOG}
+      >
+        <Layout.Vertical spacing="large" padding="xlarge" className={css.editForm}>
+          <Text style={{ color: 'var(--black)' }}>{i18n.existingDocker.editModalTitle}</Text>
+          <Formik
+            validationSchema={Yup.object().shape({
+              connectorId: Yup.string().trim().required(i18n.validation.connectorId),
+              imagePath: Yup.string().trim().required(i18n.validation.imagePath)
+            })}
+            initialValues={getInitialValues(primaryArtifact, sideCarArtifact)}
+            onSubmit={values => {
+              updateArtifact(values)
+              hideEditConnectorModal()
+            }}
+          >
+            {() => (
+              <Form>
+                <div>
+                  <FormMultiTypeConnectorField
+                    name="connectorId"
+                    label={i18n.existingDocker.connectorLabel}
+                    placeholder={i18n.existingDocker.connectorPlaceholder}
+                    accountIdentifier={accountId}
+                    projectIdentifier={projectIdentifier}
+                    orgIdentifier={orgIdentifier}
+                    width={350}
+                    isNewConnectorLabelVisible={false}
+                    type={'DockerRegistry'}
+                  />
+                  <FormInput.MultiTextInput
+                    label={i18n.existingDocker.imageName}
+                    name="imagePath"
+                    style={{ width: 350 }}
+                    placeholder={i18n.existingDocker.imageNamePlaceholder}
+                  />
+                </div>
+                <Button intent="primary" type="submit" text={i18n.existingDocker.submit} />
+              </Form>
+            )}
+          </Formik>
+        </Layout.Vertical>
+      </Dialog>
+    ),
+    [primaryArtifact, sideCarArtifact, editContext, sidecarIndex]
+  )
 
   const addPrimaryArtifact = (): void => {
-    return
-    // const primaryArtifactStruct = {
-    //   dockerhub: {
-    //     dockerhubConnector: 'https://registry.hub.docker.com/',
-    //     imagePath: 'library/ubuntu',
-    //     tag: null,
-    //     tagRegex: 'groo*',
-    //     identifier: 'primary',
-    //     artifactType: 'primary',
-    //     sourceAttributes: {
-    //       dockerhubConnector: 'https://registry.hub.docker.com/',
-    //       imagePath: 'library/ubuntu',
-    //       tag: null,
-    //       tagRegex: 'groo*',
-    //       delegateArtifactServiceClass: 'io.harness.cdng.artifact.delegate.DockerArtifactServiceImpl'
-    //     },
-    //     uniqueHash: 'da524bfa3ddd46f7fada043505c9d836b79b79051f4e814a70435e4ef49ff522',
-    //     sourceType: 'dockerhub'
-    //   }
-    // }
-    // if (serviceSpec && stage) {
-    //   // stage['deployment']['deployment']['service']['serviceSpec']['artifacts']['primary'] = primaryArtifactStruct
-
-    //   updatePipeline(pipeline)
-    // }
+    setModalContext(ModalViewFor.PRIMARY)
+    showConnectorModal()
   }
 
   const addSideCarArtifact = (): void => {
-    return
-    // const sidecarArtifactOne = {
-    //   sidecar: {
-    //     identifier: 'sidecar1',
-    //     artifact: {
-    //       dockerhubConnector: 'https://registry.hub.docker.com/',
-    //       imagePath: 'library/redis',
-    //       tag: 'latest',
-    //       tagRegex: null,
-    //       identifier: 'sidecar1',
-    //       artifactType: 'sidecar',
-    //       sourceAttributes: {
-    //         dockerhubConnector: 'https://registry.hub.docker.com/',
-    //         imagePath: 'library/redis',
-    //         tag: 'latest',
-    //         tagRegex: null,
-    //         delegateArtifactServiceClass: 'io.harness.cdng.artifact.delegate.DockerArtifactServiceImpl'
-    //       },
-    //       uniqueHash: '806070eb81fd998c8b449afccc7c48b8626bedbd02aee33ed5e8159a87a94170',
-    //       sourceType: 'dockerhub'
-    //     }
-    //   }
-    // }
+    setModalContext(ModalViewFor.SIDECAR)
+    showConnectorModal()
+  }
 
-    // const sidecarArtifacTwo = {
-    //   sidecar: {
-    //     identifier: 'sidecar2',
-    //     artifact: {
-    //       dockerhubConnector: 'https://registry.hub.docker.com/',
-    //       imagePath: 'library/mongo',
-    //       tag: 'latest',
-    //       tagRegex: null,
-    //       identifier: 'sidecar2',
-    //       artifactType: 'sidecar',
-    //       sourceAttributes: {
-    //         dockerhubConnector: 'https://registry.hub.docker.com/',
-    //         imagePath: 'library/mongo',
-    //         tag: 'latest',
-    //         tagRegex: null,
-    //         delegateArtifactServiceClass: 'io.harness.cdng.artifact.delegate.DockerArtifactServiceImpl'
-    //       },
-    //       uniqueHash: '3ca3a056566baafd358db499fd7385584bd3563761d0824d038b7c711def81c7',
-    //       sourceType: 'dockerhub'
-    //     }
-    //   }
-    // }
-    // if (serviceSpec) {
-    //   if (serviceSpec['sidecars']?.length > 0) {
-    //     serviceSpec['sidecars'].push(sidecarArtifacTwo)
-    //   } else {
-    //     serviceSpec['sidecars'] = []
-    //     serviceSpec['sidecars'].push(sidecarArtifactOne)
-    //   }
-    //   updatePipeline(pipeline)
-    // }
+  const editPrimary = (): void => {
+    setEditModeContext(ModalViewFor.PRIMARY)
+    showEditConnectorModal()
+  }
+
+  const editSidecar = (index: number): void => {
+    setEditModeContext(ModalViewFor.SIDECAR)
+    setEditIndex(index)
+    showEditConnectorModal()
   }
 
   const removePrimary = (): void => {
-    serviceSpec['primary'] = null
+    artifacts['primary'] = null
     updatePipeline(pipeline)
   }
 
@@ -136,24 +387,14 @@ export default function ArtifactsSelection({ isForOverrideSets }: { isForOverrid
     sideCarArtifact.splice(index, 1)
     updatePipeline(pipeline)
   }
+
   return (
     <Layout.Vertical
       padding={!isForOverrideSets ? 'large' : 'none'}
       style={{ background: !isForOverrideSets ? 'var(--grey-100)' : '' }}
     >
       {!isForOverrideSets && <Text style={{ color: 'var(--grey-500)', lineHeight: '24px' }}>{i18n.info}</Text>}
-      <Layout.Vertical spacing="medium">
-        {!primaryArtifact && (
-          <Container className={css.rowItem}>
-            <Text onClick={addPrimaryArtifact}>{i18n.addPrimarySourceLable}</Text>
-          </Container>
-        )}
-        {(!sideCarArtifact || sideCarArtifact?.length === 0) && (
-          <Container className={css.rowItem}>
-            <Text onClick={addSideCarArtifact}>{i18n.addSideCarLable}</Text>
-          </Container>
-        )}
-      </Layout.Vertical>
+
       <Layout.Vertical spacing="small">
         {(primaryArtifact || (sideCarArtifact && sideCarArtifact.length > 0)) && (
           <Container>
@@ -162,7 +403,7 @@ export default function ArtifactsSelection({ isForOverrideSets }: { isForOverrid
               <span>{artifactListHeaders.server}</span>
               <span></span>
               <span>{artifactListHeaders.source}</span>
-              <span>{artifactListHeaders.id}</span>
+              <span>{artifactListHeaders.imagePath}</span>
               <span></span>
             </section>
           </Container>
@@ -180,7 +421,7 @@ export default function ArtifactsSelection({ isForOverrideSets }: { isForOverrid
                     width={200}
                     style={{ color: Color.BLACK, fontWeight: 900 }}
                   >
-                    {primaryArtifact[primaryArtifactType].sourceType}
+                    {primaryArtifact.type}
                   </Text>
                 </span>
                 <span>
@@ -188,39 +429,34 @@ export default function ArtifactsSelection({ isForOverrideSets }: { isForOverrid
                 </span>
                 <span>
                   <Text width={470} lineClamp={1} style={{ color: Color.GREY_500 }}>
-                    {primaryArtifact[primaryArtifactType]?.sourceAttributes?.dockerhubConnector +
-                      '' +
-                      primaryArtifact[primaryArtifactType]?.sourceAttributes?.imagePath}
+                    {primaryArtifact?.spec?.dockerhubConnector}
                   </Text>
                 </span>
                 <span>
                   <Text width={110} lineClamp={1} style={{ color: Color.GREY_500 }}>
-                    {primaryArtifact[primaryArtifactType]?.identifier}
+                    {primaryArtifact?.spec?.imagePath}
                   </Text>
                 </span>
                 <span>
                   <Layout.Horizontal spacing="medium">
+                    <Icon name="edit" size={14} style={{ cursor: 'pointer' }} onClick={editPrimary} />
                     <Icon name="delete" size={14} style={{ cursor: 'pointer' }} onClick={removePrimary} />
                   </Layout.Horizontal>
                 </span>
               </section>
             )}
           </section>
-          <section>
-            {sideCarArtifact &&
-              sideCarArtifact.length > 0 &&
-              sideCarArtifact.map(
+          {sideCarArtifact && sideCarArtifact.length > 0 && (
+            <section>
+              {sideCarArtifact.map(
                 (
                   data: {
                     sidecar: {
+                      type: string
                       identifier: string
-                      artifact: {
-                        sourceType: string
-                        identifier: string
-                        sourceAttributes: {
-                          dockerhubConnector: string
-                          imagePath: string
-                        }
+                      spec: {
+                        dockerhubConnector: string
+                        imagePath: string
                       }
                     }
                   },
@@ -238,7 +474,7 @@ export default function ArtifactsSelection({ isForOverrideSets }: { isForOverrid
                           width={470}
                           style={{ color: Color.BLACK, fontWeight: 900 }}
                         >
-                          {sidecar.artifact.sourceType}
+                          {sidecar.type}
                         </Text>
                       </span>
                       <span>
@@ -246,18 +482,22 @@ export default function ArtifactsSelection({ isForOverrideSets }: { isForOverrid
                       </span>
                       <span>
                         <Text width={480} lineClamp={1} style={{ color: Color.GREY_500 }}>
-                          {sidecar.artifact.sourceAttributes.dockerhubConnector +
-                            '' +
-                            sidecar.artifact.sourceAttributes.imagePath}
+                          {sidecar.spec.dockerhubConnector}
                         </Text>
                       </span>
                       <span>
                         <Text width={110} lineClamp={1} style={{ color: Color.GREY_500 }}>
-                          {sidecar.artifact.identifier}
+                          {sidecar.spec.imagePath}
                         </Text>
                       </span>
                       <span>
                         <Layout.Horizontal spacing="medium">
+                          <Icon
+                            name="edit"
+                            size={14}
+                            style={{ cursor: 'pointer' }}
+                            onClick={() => editSidecar(index)}
+                          />
                           <Icon
                             name="delete"
                             size={14}
@@ -270,13 +510,26 @@ export default function ArtifactsSelection({ isForOverrideSets }: { isForOverrid
                   )
                 }
               )}
-          </section>
+            </section>
+          )}
           {sideCarArtifact && sideCarArtifact.length > 0 && (
             <Text intent="primary" style={{ cursor: 'pointer' }} onClick={addSideCarArtifact}>
               {i18n.addSideCarLable}
             </Text>
           )}
         </Layout.Vertical>
+      </Layout.Vertical>
+      <Layout.Vertical spacing="medium">
+        {!primaryArtifact && (
+          <Container className={css.rowItem}>
+            <Text onClick={addPrimaryArtifact}>{i18n.addPrimarySourceLable}</Text>
+          </Container>
+        )}
+        {(!sideCarArtifact || sideCarArtifact?.length === 0) && (
+          <Container className={css.rowItem}>
+            <Text onClick={addSideCarArtifact}>{i18n.addSideCarLable}</Text>
+          </Container>
+        )}
       </Layout.Vertical>
     </Layout.Vertical>
   )

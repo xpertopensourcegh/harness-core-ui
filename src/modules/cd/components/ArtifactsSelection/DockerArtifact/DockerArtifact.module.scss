@@ -1,0 +1,41 @@
+.existingDocker {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 100%;
+
+  div[class*='StepWizard---navStep']:nth-of-type(2) {
+    display: none !important;
+  }
+}
+
+.firstep {
+  padding: var(--spacing-small) 0 0 var(--spacing-small) !important;
+  height: 100%;
+  div[class*='OverlaySpinner'] {
+    height: 100%;
+  }
+
+  .heading {
+    color: var(--grey-800);
+    font-size: var(--font-size-medium);
+    letter-spacing: 0;
+  }
+  .connectorForm {
+    width: 65%;
+    height: 100%;
+  }
+  .saveBtn {
+    position: absolute;
+    bottom: 0;
+  }
+  .addNewArtifact {
+    position: absolute;
+    right: 0;
+    top: var(--spacing-xlarge);
+    right: 60px;
+  }
+  .sidecarAddBtn {
+    top: 96px;
+  }
+}

@@ -12,7 +12,8 @@ import {
   Checkbox,
   Formik,
   FormikForm,
-  FormInput
+  FormInput,
+  IconName
 } from '@wings-software/uikit'
 
 import cx from 'classnames'
@@ -33,6 +34,41 @@ const specificationTypes = {
   SPECIFICATION: 'SPECIFICATION',
   OVERRIDES: 'OVERRIDES'
 }
+
+const supportedDeploymentTypes: { name: string; icon: IconName }[] = [
+  {
+    name: i18n.deploymentTypes.kubernetes,
+    icon: 'service-kubernetes'
+  },
+  {
+    name: i18n.deploymentTypes.amazonEcs,
+    icon: 'service-ecs'
+  },
+  {
+    name: i18n.deploymentTypes.amazonAmi,
+    icon: 'main-service-ami'
+  },
+  {
+    name: i18n.deploymentTypes.awsCodeDeploy,
+    icon: 'app-aws-code-deploy'
+  },
+  {
+    name: i18n.deploymentTypes.winrm,
+    icon: 'command-winrm'
+  },
+  {
+    name: i18n.deploymentTypes.awsLambda,
+    icon: 'app-aws-lambda'
+  },
+  {
+    name: i18n.deploymentTypes.pcf,
+    icon: 'service-pivotal'
+  },
+  {
+    name: i18n.deploymentTypes.ssh,
+    icon: 'secret-ssh'
+  }
+]
 
 export default function ServiceSpecifications(): JSX.Element {
   const [isDescriptionVisible, setDescriptionVisible] = React.useState(false)
@@ -66,7 +102,10 @@ export default function ServiceSpecifications(): JSX.Element {
           serviceDefinition: {
             type: 'Kubernetes',
             spec: {
-              artifacts: [],
+              artifacts: {
+                primary: null,
+                sidecars: []
+              },
               manifests: [],
               variables: [],
               artifactOverrideSets: [],
@@ -86,7 +125,7 @@ export default function ServiceSpecifications(): JSX.Element {
     return { serviceName: serviceName, description: description, tags: null }
   }
 
-  const handleTabChange = (data: string) => {
+  const handleTabChange = (data: string): void => {
     setSelectedTab(data)
   }
 
@@ -149,7 +188,7 @@ export default function ServiceSpecifications(): JSX.Element {
                     <FormInput.TagInput
                       name={i18n.addTags}
                       label={i18n.tagsLabel}
-                      items={['GCP', 'CDP']}
+                      items={[]}
                       style={{ width: 400 }}
                       labelFor={name => name as string}
                       itemFromNewTag={newTag => newTag}
@@ -188,16 +227,23 @@ export default function ServiceSpecifications(): JSX.Element {
         />
       </Layout.Horizontal>
       {specSelected === specificationTypes.SPECIFICATION && (
-        <Layout.Vertical spacing="medium">
+        <Layout.Vertical spacing="medium" style={{ display: 'inline-block' }}>
           <Text style={{ fontSize: 16, color: 'var(--grey-400)' }}>{i18n.deploymentTypeLabel}</Text>
 
-          <Card interactive={true} selected style={{ width: 120 }}>
-            <CardBody.Icon icon="service-kubernetes" iconSize={34}>
-              <Text font={{ align: 'center' }} style={{ fontSize: 14 }}>
-                {i18n.deploymentType}
-              </Text>
-            </CardBody.Icon>
-          </Card>
+          {supportedDeploymentTypes.map((type: { name: string; icon: IconName }) => (
+            <Card
+              key={type.name}
+              interactive={true}
+              selected={type.name === i18n.deploymentTypes.kubernetes ? true : false}
+              style={{ width: 90, padding: 'var(--spacing-small) 0', marginRight: 'var(--spacing-small)' }}
+            >
+              <CardBody.Icon icon={type.icon as IconName} iconSize={26}>
+                <Text font={{ align: 'center' }} style={{ fontSize: 14 }}>
+                  {type.name}
+                </Text>
+              </CardBody.Icon>
+            </Card>
+          ))}
         </Layout.Vertical>
       )}
       {specSelected === specificationTypes.OVERRIDES && (
@@ -210,7 +256,7 @@ export default function ServiceSpecifications(): JSX.Element {
         <Tabs id="serviceSpecifications" onChange={handleTabChange}>
           <Tab id={i18n.artifacts} title={i18n.artifacts} panel={<ArtifactsSelection isForOverrideSets={false} />} />
           <Tab id={i18n.manifests} title={i18n.manifests} panel={<ManifestSelection isForOverrideSets={false} />} />
-          <Tab id={i18n.variables} title={i18n.variables} panel={<WorkflowVariables />} />
+          <Tab id={i18n.variables} title={i18n.variables} panel={<WorkflowVariables isForOverrideSets={false} />} />
         </Tabs>
         <OverrideSets selectedTab={selectedTab} />
       </Layout.Vertical>

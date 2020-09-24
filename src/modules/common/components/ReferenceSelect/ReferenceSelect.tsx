@@ -32,6 +32,7 @@ export interface ReferenceSelectProps<T extends MinimalObject> extends Omit<Enti
   selectedRenderer?: JSX.Element
   editRenderer?: JSX.Element
   width?: number
+  isNewConnectorLabelVisible?: boolean
   onChange: (record: T, scope: Scope) => void
 }
 
@@ -44,6 +45,7 @@ export function ReferenceSelect<T extends MinimalObject>(props: ReferenceSelectP
     width = 300,
     createNewLabel,
     createNewHandler,
+    isNewConnectorLabelVisible = true,
     editRenderer,
     selectedRenderer,
     ...referenceProps
@@ -64,7 +66,7 @@ export function ReferenceSelect<T extends MinimalObject>(props: ReferenceSelectP
             {editRenderer}
           </Layout.Horizontal>
         )}
-        {createNewLabel && createNewHandler && (
+        {createNewLabel && createNewHandler && isNewConnectorLabelVisible && (
           <Layout.Horizontal
             padding="small"
             style={{

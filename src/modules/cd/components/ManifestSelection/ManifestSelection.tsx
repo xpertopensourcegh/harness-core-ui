@@ -123,11 +123,13 @@ function ManifestListView({
     : get(stage, 'stage.spec.service.serviceDefinition.spec.manifestOverrideSets', [])
 
   if (isForOverrideSets) {
-    listOfManifests = listOfManifests.map((overrideSets: { overrideSet: { identifier: string; manifests: [{}] } }) => {
-      if (overrideSets?.overrideSet?.identifier === identifierName) {
-        return overrideSets.overrideSet.manifests
-      }
-    })[0]
+    listOfManifests = listOfManifests
+      .map((overrideSets: { overrideSet: { identifier: string; manifests: [{}] } }) => {
+        if (overrideSets?.overrideSet?.identifier === identifierName) {
+          return overrideSets.overrideSet.manifests
+        }
+      })
+      .filter((x: { overrideSet: { identifier: string; manifests: [{}] } }) => x !== undefined)[0]
   }
 
   const removeManifestConfig = (index: number): void => {
@@ -260,11 +262,13 @@ export default function ManifestSelection({
     ? get(stage, 'stage.spec.service.serviceDefinition.spec.manifests', [])
     : get(stage, 'stage.spec.service.serviceDefinition.spec.manifestOverrideSets', [])
   if (isForOverrideSets) {
-    listOfManifests = listOfManifests.map((overrideSets: { overrideSet: { identifier: string; manifests: [{}] } }) => {
-      if (overrideSets.overrideSet.identifier === identifierName) {
-        return overrideSets.overrideSet.manifests
-      }
-    })[0]
+    listOfManifests = listOfManifests
+      .map((overrideSets: { overrideSet: { identifier: string; manifests: [{}] } }) => {
+        if (overrideSets.overrideSet.identifier === identifierName) {
+          return overrideSets.overrideSet.manifests
+        }
+      })
+      .filter((x: { overrideSet: { identifier: string; manifests: [{}] } }) => x !== undefined)[0]
   }
 
   return (

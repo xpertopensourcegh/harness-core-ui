@@ -121,7 +121,7 @@ export default function InfraSpecifications(): JSX.Element {
                     <FormInput.TagInput
                       name={i18n.addTags}
                       label={i18n.tagsLabel}
-                      items={['GCP', 'CDP']}
+                      items={[]}
                       style={{ width: 400 }}
                       labelFor={name => name as string}
                       itemFromNewTag={newTag => newTag}

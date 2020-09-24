@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { StepWizard, Layout, SelectOption, Button, Text, FormInput, Formik } from '@wings-software/uikit'
+import { StepWizard, Layout, Button, Text, FormInput, Formik } from '@wings-software/uikit'
 import { Form } from 'formik'
 
 import * as Yup from 'yup'
 import { get } from 'lodash-es'
-import { useGetConnectorList } from 'services/cd-ng'
+import { FormMultiTypeConnectorField } from 'modules/common/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import { StringUtils } from 'modules/common/exports'
 
 import type { StageElementWrapper } from 'services/cd-ng'
@@ -51,26 +51,7 @@ const gitFetchTypes = [
 const FirstStep = (props: any): JSX.Element => {
   const { setFormData } = props
 
-  const { accountId }: any = useParams()
-
-  const { data: gitConnectorListResponse, loading: loadingGitConnector } = useGetConnectorList({
-    accountIdentifier: accountId,
-    queryParams: { type: 'Git' }
-  })
-
-  const [gitConnectorsList, setGitConnectorsList] = useState<SelectOption[]>([])
-
-  useEffect(() => {
-    const gitConnectors =
-      gitConnectorListResponse?.data?.content?.map(git => {
-        return {
-          label: git.name || '',
-          value: git.identifier || ''
-        }
-      }) || []
-
-    setGitConnectorsList(gitConnectors)
-  }, [gitConnectorListResponse?.data?.content])
+  const { accountId, projectIdentifier, orgIdentifier } = useParams()
 
   return (
     <Layout.Vertical spacing="xxlarge" padding="small" style={{ height: '100%' }}>
@@ -78,11 +59,11 @@ const FirstStep = (props: any): JSX.Element => {
       <Formik
         initialValues={{}}
         validationSchema={Yup.object().shape({
-          gitServer: Yup.string().trim().required(),
-          name: Yup.string().trim().required(),
+          gitServer: Yup.string().trim().required(i18n.validation.gitServer),
+
           identifier: Yup.string()
             .trim()
-            .required()
+            .required(i18n.validation.identifier)
             .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, 'Identifier can only contain alphanumerics, _ and $')
             .notOneOf(StringUtils.illegalIdentifiers)
         })}
@@ -93,14 +74,21 @@ const FirstStep = (props: any): JSX.Element => {
       >
         {() => (
           <Form className={css.formContainer}>
-            <FormInput.InputWithIdentifier inputLabel={i18n.STEP_TWO.manifestId} />
-            <FormInput.MultiTypeInput
+            <FormInput.Text
+              name="identifier"
+              label={i18n.STEP_TWO.manifestId}
+              placeholder={i18n.STEP_ONE.idPlaceholder}
+            />
+            <FormMultiTypeConnectorField
               name="gitServer"
-              style={{ width: 400 }}
-              disabled={loadingGitConnector}
               label={i18n.STEP_ONE.select}
               placeholder={i18n.STEP_ONE.gitServerPlaceholder}
-              selectItems={gitConnectorsList}
+              accountIdentifier={accountId}
+              projectIdentifier={projectIdentifier}
+              orgIdentifier={orgIdentifier}
+              width={400}
+              isNewConnectorLabelVisible={false}
+              type={'Git'}
             />
             <Layout.Horizontal spacing="large" className={css.bottomButtons}>
               <Button type="submit" text={i18n.STEP_ONE.saveAndContinue} />
@@ -123,8 +111,8 @@ const SecondStep = (props: any): JSX.Element => {
       <Formik
         initialValues={{ gitFetchType: gitFetchTypes[0].value }}
         validationSchema={Yup.object().shape({
-          manifestType: Yup.string().trim().required(),
-          filePath: Yup.string().trim().required()
+          manifestType: Yup.string().trim().required(i18n.validation.manifestType),
+          filePath: Yup.string().trim().required(i18n.validation.filePath)
         })}
         onSubmit={(formData: any) => {
           const manifestObj = {

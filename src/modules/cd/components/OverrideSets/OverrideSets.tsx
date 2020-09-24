@@ -8,7 +8,7 @@ import i18n from './OverrideSets.i18n'
 
 import ArtifactsSelection from '../ArtifactsSelection/ArtifactsSelection'
 import ManifestSelection from '../ManifestSelection/ManifestSelection'
-// import WorkflowVariables from '../WorkflowVariablesSelection/WorkflowVariables'
+import WorkflowVariables from '../WorkflowVariablesSelection/WorkflowVariables'
 
 import css from './OverrideSets.module.scss'
 
@@ -105,12 +105,16 @@ export default function OverrideSets({ selectedTab }: { selectedTab: string }): 
                   }
                 }}
               >
-                {selectedTab === i18n.tabs.artifacts && <ArtifactsSelection isForOverrideSets={true} />}
+                {selectedTab === i18n.tabs.artifacts && (
+                  <ArtifactsSelection isForOverrideSets={true} identifierName={data.overrideSet.identifier} />
+                )}
                 {selectedTab === i18n.tabs.manifests && (
                   <ManifestSelection isForOverrideSets={true} identifierName={data.overrideSet.identifier} />
                 )}
                 {/* {selectedTab === i18n.tabs.variables && <WorkflowVariables />} */}
-                {selectedTab === i18n.tabs.variables && <section>tbd..</section>}
+                {selectedTab === i18n.tabs.variables && (
+                  <WorkflowVariables isForOverrideSets={true} identifierName={data.overrideSet.identifier} />
+                )}
               </CollapseListPanel>
             )
           })}

@@ -430,16 +430,32 @@ const ExecutionGraph = (): JSX.Element => {
           data.stage.spec = {}
         }
         data.stage.spec = {
-          ...data.stage.spec,
-          execution: {
-            steps: [],
-            rollbackSteps: []
-          }
+          ...data.stage.spec
+          // execution: {
+          //   steps: [],
+          //   rollbackSteps: []
+          // }
         }
+
         updatePipeline(pipeline)
       }
     }
   }, [selectedStageId, pipeline, isSplitViewOpen, updatePipeline, isInitialized])
+
+  useEffect(() => {
+    const { stage: data } = getStageFromPipeline(pipeline, selectedStageId as string)
+    if (data?.stage) {
+      if (!data?.stage?.spec?.execution) {
+        updatePipelineView({
+          ...pipelineView,
+          isDrawerOpened: true,
+          drawerData: {
+            type: DrawerTypes.ExecutionStrategy
+          }
+        })
+      }
+    }
+  }, [])
 
   React.useEffect(() => {
     if (!isDrawerOpened) {

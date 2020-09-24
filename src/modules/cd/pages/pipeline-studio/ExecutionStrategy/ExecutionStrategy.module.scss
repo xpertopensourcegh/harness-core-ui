@@ -1,0 +1,77 @@
+.patterns {
+  padding-top: 60px;
+  .strategies {
+    margin-top: var(--spacing-large);
+    display: grid;
+    grid-template-columns: 125px 125px 125px;
+    grid-column-gap: var(--spacing-large);
+    grid-row-gap: var(--spacing-large);
+    .card {
+      height: 150px;
+      display: flex;
+
+      flex-direction: column;
+      align-items: center;
+      :global {
+        .bp3-icon {
+          border: 1px solid var(--grey-250);
+          padding: var(--spacing-small);
+          border-radius: 30px;
+          margin-top: var(--spacing-medium);
+        }
+      }
+
+      .strategyName {
+        color: var(--grey-700);
+        /* font-weight: bold; */
+        font-size: 14px;
+        white-space: nowrap;
+        margin-top: var(--spacing-medium);
+      }
+      .strategyType {
+        font-size: 12px;
+        margin-top: var(--spacing-xsmall);
+        color: var(--grey-350);
+      }
+    }
+    .active {
+      border: 2px solid var(--blue-450);
+    }
+
+    :global {
+      .bp3-elevation-0 {
+        box-shadow: 0px 1px 8px -1px var(--grey-250);
+      }
+      .bp3-elevation-0:hover {
+        box-shadow: 0px 3px 8px -1px var(--grey-300);
+      }
+    }
+  }
+}
+.selectBtn {
+  position: absolute;
+  bottom: var(--spacing-huge);
+}
+
+.preview {
+  padding-top: 60px;
+  .previewContainer {
+    background: var(--blue-100);
+    height: 60vh;
+    margin-top: var(--spacing-xxlarge);
+    border-radius: 10px;
+    margin-right: 70px;
+    .info {
+      padding: var(--spacing-xlarge);
+      line-height: 26px;
+      color: var(--grey-500);
+    }
+    .image {
+      margin-top: var(--spacing-xlarge);
+      padding: var(--spacing-xlarge);
+      img {
+        width: 100%;
+      }
+    }
+  }
+}

@@ -22,7 +22,16 @@ export enum DrawerTypes {
   StepConfig = 'StepConfig',
   AddStep = 'AddCommand',
   PipelineVariables = 'PipelineVariables',
-  Templates = 'Templates'
+  Templates = 'Templates',
+  ExecutionStrategy = 'ExecutionStrategy'
+}
+
+export const DrawerSizes: { [key: string]: number } = {
+  StepConfig: 450,
+  AddCommand: 700,
+  PipelineVariables: 450,
+  Templates: 450,
+  ExecutionStrategy: 1000
 }
 
 export enum SplitViewTypes {

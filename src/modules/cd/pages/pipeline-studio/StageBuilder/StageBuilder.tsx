@@ -405,7 +405,7 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
             <div
               style={{
                 width: '100%',
-                height: `calc(100vh - ${splitPaneSize + 70}px)`,
+                height: `calc(100% - 62px)`,
                 overflow: 'scroll',
                 background: 'white'
               }}
