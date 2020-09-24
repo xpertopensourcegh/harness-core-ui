@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom'
 import ElapsedTime from 'modules/ci/components/ElapsedTime/ElapsedTime'
 import { BuildPageContext } from '../../context/BuildPageContext'
 import {
+  getFlattenItemsFromPipeline,
   getSelectOptionsFromExecutionPipeline,
   getStepsPipelineFromExecutionPipeline
 } from '../pipeline-graph/BuildPipelineGraphUtils'
@@ -36,6 +37,7 @@ const PipelineLog: React.FC = () => {
   const stagesSelectOptions = getSelectOptionsFromExecutionPipeline(buildData?.stagePipeline)
   const selectedStageOption = stagesSelectOptions.find(item => item.value === selectedStageIdentifier)
   const executionSteps = getStepsPipelineFromExecutionPipeline(buildData?.stagePipeline, selectedStageIdentifier)
+  const stepItems = getFlattenItemsFromPipeline(executionSteps)
 
   // TO DO use names from context
   const [selectedStep, setSelectedStep] = useState(executionSteps.items[0].item.name || '')
@@ -61,18 +63,18 @@ const PipelineLog: React.FC = () => {
     setSelectedStepIdentifier(identifier)
   }
 
-  const steps = executionSteps.items.map((item, key) => {
-    const isSelected = item.item.name === selectedStep
+  const steps = stepItems.map((item, key) => {
+    const isSelected = item.name === selectedStep
 
     return (
       <BuildStep
-        identifier={item.item.identifier}
+        identifier={item.identifier}
         onStepClick={onStepClick}
         key={key}
         isSelected={isSelected}
         isSubStep={false}
-        status={item.item.status}
-        label={item.item.name}
+        status={item.status}
+        label={item.name}
         time={1000}
       />
     )
