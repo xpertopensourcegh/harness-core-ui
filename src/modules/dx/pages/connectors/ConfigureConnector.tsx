@@ -3,6 +3,7 @@ import { useParams } from 'react-router'
 import { Button, Layout, IconName } from '@wings-software/uikit'
 import { parse } from 'yaml'
 import cx from 'classnames'
+import { omitBy, isNull } from 'lodash-es'
 import { useToaster } from 'modules/common/exports'
 import type { ConnectorDTO, ConnectorRequestWrapper } from 'services/cd-ng'
 import YamlBuilder from 'modules/common/components/YAMLBuilder/YamlBuilder'
@@ -91,9 +92,9 @@ const ConfigureConnector: React.FC<ConfigureConnectorProps> = props => {
     if (targetMode === SelectedView.VISUAL) {
       const yamlString = yamlHandler?.getLatestYaml() || ''
       try {
-        const yamlData = parse(yamlString)
-        if (yamlData) {
-          setConnector(yamlData)
+        const connectorJSONEq = parse(yamlString)?.connector
+        if (connectorJSONEq) {
+          setConnector(connectorJSONEq)
           setSelectedView(targetMode)
         }
       } catch (err) {
@@ -108,10 +109,10 @@ const ConfigureConnector: React.FC<ConfigureConnectorProps> = props => {
     event.preventDefault()
     const yamlString = yamlHandler?.getLatestYaml() || ''
     try {
-      const yamlData = parse(yamlString)
-      if (yamlData) {
-        onSubmit(yamlData)
-        setConnector(yamlData)
+      const connectorJSONEq = parse(yamlString)
+      if (connectorJSONEq) {
+        onSubmit(connectorJSONEq)
+        setConnector(connectorJSONEq?.connector)
       }
     } catch (err) {
       showError(`${err.name}: ${err.message}`)
@@ -141,7 +142,7 @@ const ConfigureConnector: React.FC<ConfigureConnectorProps> = props => {
   const yamlBuilderReadOnlyModeProps: YamlBuilderProps = {
     fileName: `${connector?.identifier ?? 'Connector'}.yaml`,
     entityType: YamlEntity.CONNECTOR,
-    existingJSON: isCreationThroughYamlBuilder ? {} : connector,
+    existingJSON: isCreationThroughYamlBuilder ? {} : { connector: omitBy(Object.assign({}, connector), isNull) },
     snippets: snippets,
     onSnippetSearch: fetchSnippets,
     bind: setYamlHandler

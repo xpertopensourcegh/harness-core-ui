@@ -64,6 +64,10 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
   const [currentYaml, setCurrentYaml] = useState<string | undefined>('')
   const [yamlValidationErrors, setYamlValidationErrors] = useState<Map<string, string> | undefined>()
   const editorRef = useRef(null)
+  const yamlRef = useRef<string>('')
+  const yamlValidationErrorsRef = useRef<Map<string, string> | undefined>()
+  yamlRef.current = currentYaml
+  yamlValidationErrorsRef.current = yamlValidationErrors
   const TRIGGER_CHAR_FOR_NEW_EXPR = '$'
   const TRIGGER_CHAR_FOR_PARTIAL_EXPR = '.'
   const KEY_CODE_FOR_DOLLAR_SIGN = 'Digit4'
@@ -71,17 +75,11 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
   const KEY_CODE_FOR_PERIOD = 'Period'
   const DEFAULT_YAML_PATH = 'DEFAULT_YAML_PATH'
 
-  const yamlRef = useRef<string>('')
-  const yamlValidationErrorRef = useRef<Map<string, string> | undefined>()
-
-  yamlRef.current = currentYaml
-  yamlValidationErrorRef.current = yamlValidationErrors
-
   const handler = React.useMemo(
     () =>
       ({
         getLatestYaml: () => yamlRef.current,
-        getYAMLValidationErrorMap: () => yamlValidationErrorRef.current
+        getYAMLValidationErrorMap: () => yamlValidationErrorsRef.current
       } as YamlBuilderHandlerBinding),
     []
   )
@@ -96,9 +94,7 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
   }
 
   useEffect(() => {
-    if (bind) {
-      bind(handler)
-    }
+    bind?.(handler)
   }, [bind, handler])
 
   useEffect(() => {
