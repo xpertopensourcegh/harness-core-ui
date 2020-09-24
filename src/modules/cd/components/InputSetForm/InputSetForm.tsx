@@ -47,7 +47,7 @@ export enum InputFormType {
   OverlayInputForm = 'OverlayInputForm'
 }
 
-interface InputSetDTO
+export interface InputSetDTO
   extends Omit<InputSetResponseDTO, 'inputSetYaml'>,
     Omit<OverlayInputSetResponseDTO, 'overlayInputSetYaml'> {
   pipeline?: CDPipeline
@@ -96,6 +96,44 @@ const collapseProps = {
   isRemovable: false,
   className: 'collapse'
 }
+
+export const BasicInputSetForm: React.FC<{ isEdit: boolean; formType: InputFormType }> = ({ isEdit, formType }) => (
+  <div className={css.basicForm}>
+    <FormInput.InputWithIdentifier
+      isIdentifierEditable={!isEdit}
+      inputLabel={formType === InputFormType.OverlayInputForm ? i18n.overlaySetName : i18n.inputSetName}
+      inputGroupProps={{ placeholder: i18n.name }}
+    />
+    <div className={css.collapseDiv}>
+      <Collapse {...descriptionCollapseProps}>
+        <FormInput.TextArea name="description" />
+      </Collapse>
+    </div>
+    <div className={css.collapseDiv}>
+      <Collapse {...tagCollapseProps}>
+        <FormInput.TagInput
+          name="tags"
+          items={[]}
+          labelFor={name => (typeof name === 'string' ? name : '')}
+          itemFromNewTag={newTag => newTag}
+          tagInputProps={{
+            noInputBorder: true,
+            openOnKeyDown: false,
+            showAddTagButton: true,
+            showClearAllButton: true,
+            allowNewTag: true,
+            placeholder: i18n.enterTags,
+            getTagProps: (value, _index, _selectedItems, createdItems) => {
+              return createdItems.includes(value)
+                ? { intent: 'danger', minimal: true }
+                : { intent: 'primary', minimal: true }
+            }
+          }}
+        />
+      </Collapse>
+    </div>
+  </div>
+)
 
 const getTitle = (isEdit: boolean, formType: InputFormType, inputSet: InputSetDTO): string => {
   if (isEdit) {
@@ -416,51 +454,14 @@ export const InputSetForm: React.FC<InputSetFormProps> = ({ hideForm, identifier
                 <>
                   {selectedView === SelectedView.VISUAL ? (
                     <FormikForm>
-                      <div className={css.basicForm}>
-                        <FormInput.InputWithIdentifier
-                          isIdentifierEditable={!isEdit}
-                          inputLabel={
-                            formType === InputFormType.OverlayInputForm ? i18n.overlaySetName : i18n.inputSetName
-                          }
-                          inputGroupProps={{ placeholder: i18n.name }}
-                        />
-                        <div className={css.collapseDiv}>
-                          <Collapse {...descriptionCollapseProps}>
-                            <FormInput.TextArea name="description" />
-                          </Collapse>
-                        </div>
-                        <div className={css.collapseDiv}>
-                          <Collapse {...tagCollapseProps}>
-                            <FormInput.TagInput
-                              name="tags"
-                              items={[]}
-                              labelFor={name => (typeof name === 'string' ? name : '')}
-                              itemFromNewTag={newTag => newTag}
-                              tagInputProps={{
-                                noInputBorder: true,
-                                openOnKeyDown: false,
-                                showAddTagButton: true,
-                                showClearAllButton: true,
-                                allowNewTag: true,
-                                placeholder: i18n.enterTags,
-                                getTagProps: (value, _index, _selectedItems, createdItems) => {
-                                  return createdItems.includes(value)
-                                    ? { intent: 'danger', minimal: true }
-                                    : { intent: 'primary', minimal: true }
-                                }
-                              }}
-                            />
-                          </Collapse>
-                        </div>
-                      </div>
-
+                      <BasicInputSetForm isEdit={isEdit} formType={formType} />
                       {formType === InputFormType.InputForm &&
                         pipeline?.data?.cdPipeline &&
                         template?.data?.inputSetTemplateYaml && (
                           <PipelineInputSetForm
                             originalPipeline={(pipeline.data.cdPipeline as any).pipeline}
                             template={parse(template.data.inputSetTemplateYaml).pipeline}
-                            inputSet={values}
+                            pipeline={values.pipeline}
                             onUpdate={updatedPipeline => {
                               setFieldValue('pipeline', updatedPipeline)
                             }}

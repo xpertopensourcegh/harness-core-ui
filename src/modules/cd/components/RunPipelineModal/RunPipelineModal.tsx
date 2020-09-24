@@ -7,7 +7,7 @@ import { RunPipelineForm } from './RunPipelineForm'
 export interface RunPipelineModalProps {
   children: React.ReactNode
   pipelineIdentifier: string
-  inputSetOption?: InputSetSelectorProps['value']
+  inputSetSelected?: InputSetSelectorProps['value']
   className?: string
 }
 
@@ -17,12 +17,12 @@ const dialogProps: Omit<IDialogProps, 'isOpen'> = {
   canEscapeKeyClose: true,
   canOutsideClickClose: true,
   enforceFocus: true,
-  style: { width: 700, height: 600 }
+  style: { minWidth: 700, minHeight: 210 }
 }
 
 export const RunPipelineModal: React.FC<RunPipelineModalProps> = ({
   children,
-  inputSetOption,
+  inputSetSelected,
   pipelineIdentifier,
   className = ''
 }): JSX.Element => {
@@ -31,10 +31,14 @@ export const RunPipelineModal: React.FC<RunPipelineModalProps> = ({
   const [openModel, hideModel] = useModalHook(
     () => (
       <Dialog isOpen={isOpen} {...dialogProps}>
-        <RunPipelineForm pipelineIdentifier={pipelineIdentifier} inputSetOption={inputSetOption} onClose={closeModel} />
+        <RunPipelineForm
+          pipelineIdentifier={pipelineIdentifier}
+          inputSetSelected={inputSetSelected}
+          onClose={closeModel}
+        />
       </Dialog>
     ),
-    [inputSetOption, pipelineIdentifier]
+    [inputSetSelected, pipelineIdentifier]
   )
 
   const closeModel = React.useCallback(() => {

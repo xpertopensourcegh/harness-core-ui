@@ -3,6 +3,7 @@ import { Classes, Dialog } from '@blueprintjs/core'
 import cx from 'classnames'
 import { Button, Icon, Text, useModalHook, Tag } from '@wings-software/uikit'
 import { useHistory, useRouteMatch, useParams, NavLink } from 'react-router-dom'
+import { parse } from 'yaml'
 import { NavigationCheck, useToaster, useConfirmationDialog } from 'modules/common/exports'
 import type { CDPipeline, FailureDTO } from 'services/cd-ng'
 import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
@@ -15,19 +16,15 @@ import { RightDrawer } from '../RightDrawer/RightDrawer'
 import css from './PipelineCanvas.module.scss'
 
 export const PipelineCanvas: React.FC = ({ children }): JSX.Element => {
-  const {
-    state,
-    updatePipeline,
-    deletePipelineCache,
-    pipelineSaved,
-    updatePipelineView,
-    fetchPipeline
-  } = React.useContext(PipelineContext)
+  const { state, updatePipeline, deletePipelineCache, updatePipelineView, fetchPipeline } = React.useContext(
+    PipelineContext
+  )
   const {
     pipeline,
     isUpdated,
     isLoading,
     isInitialized,
+    yamlHandler,
     isBEPipelineUpdated,
     pipelineView: {
       splitViewData: { type: splitViewType }
@@ -58,22 +55,53 @@ export const PipelineCanvas: React.FC = ({ children }): JSX.Element => {
   const isYaml = history.location.pathname.endsWith('/yaml/')
 
   const saveAndPublish = React.useCallback(async () => {
-    const response: FailureDTO | undefined = await savePipeline(
-      { accountIdentifier: accountId, projectIdentifier, orgIdentifier },
-      pipeline,
-      pipelineIdentifier !== DefaultNewPipelineId
-    )
-    const newPipelineId = pipeline.identifier
+    let response: FailureDTO | undefined
+    let latestPipeline: CDPipeline = pipeline
+    if (isYaml && yamlHandler) {
+      latestPipeline = parse(yamlHandler.getLatestYaml()).pipeline as CDPipeline
+      response = await savePipeline(
+        { accountIdentifier: accountId, projectIdentifier, orgIdentifier },
+        latestPipeline,
+        pipelineIdentifier !== DefaultNewPipelineId
+      )
+    } else {
+      response = await savePipeline(
+        { accountIdentifier: accountId, projectIdentifier, orgIdentifier },
+        latestPipeline,
+        pipelineIdentifier !== DefaultNewPipelineId
+      )
+    }
+
+    const newPipelineId = latestPipeline.identifier
 
     if (response && response.status === 'SUCCESS') {
-      pipelineSaved(pipeline)
-      history.replace(
-        routeCDPipelineStudio.url({ projectIdentifier, orgIdentifier, pipelineIdentifier: newPipelineId })
-      )
+      fetchPipeline(true, true)
+      if (pipelineIdentifier === DefaultNewPipelineId) {
+        if (isYaml) {
+          history.replace(
+            routeCDPipelineStudioYaml.url({ projectIdentifier, orgIdentifier, pipelineIdentifier: newPipelineId })
+          )
+        } else {
+          history.replace(
+            routeCDPipelineStudio.url({ projectIdentifier, orgIdentifier, pipelineIdentifier: newPipelineId })
+          )
+        }
+      }
     } else {
       showError(response?.message || i18n.errorWhileSaving)
     }
-  }, [accountId, history, projectIdentifier, orgIdentifier, pipeline, pipelineSaved, showError, pipelineIdentifier])
+  }, [
+    accountId,
+    history,
+    projectIdentifier,
+    orgIdentifier,
+    pipeline,
+    fetchPipeline,
+    showError,
+    pipelineIdentifier,
+    isYaml,
+    yamlHandler
+  ])
 
   const [showModal, hideModal] = useModalHook(
     () => (

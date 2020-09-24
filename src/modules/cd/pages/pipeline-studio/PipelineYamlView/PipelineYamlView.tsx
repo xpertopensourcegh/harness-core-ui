@@ -15,7 +15,8 @@ import css from './PipelineYamlView.module.scss'
 const PipelineYamlView: React.FC = () => {
   const {
     state: { pipeline },
-    updatePipeline
+    updatePipeline,
+    setYamlHandler: setYamlHandlerContext
   } = React.useContext(PipelineContext)
   const { showError } = useToaster()
   const [yamlHandler, setYamlHandler] = React.useState<YamlBuilderHandlerBinding | undefined>()
@@ -24,6 +25,11 @@ const PipelineYamlView: React.FC = () => {
   })
   const [snippets, setSnippets] = React.useState<SnippetInterface[]>()
 
+  React.useEffect(() => {
+    if (yamlHandler) {
+      setYamlHandlerContext(yamlHandler)
+    }
+  }, [yamlHandler, setYamlHandlerContext])
   const addIconInfoToSnippets = (snippetsList: SnippetInterface[], iconName: IconName): void => {
     if (!snippetsList) {
       return

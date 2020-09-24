@@ -50,8 +50,7 @@ const RenderValue = React.memo(function RenderValue({
   return (
     <Layout.Horizontal flex={{ distribution: 'space-between' }}>
       <span>{value.label}</span>
-      <Button
-        noStyling
+      <div
         className={css.clearButton}
         onClick={event => {
           event.stopPropagation()
@@ -59,7 +58,7 @@ const RenderValue = React.memo(function RenderValue({
         }}
       >
         <Icon name="cross" />
-      </Button>
+      </div>
     </Layout.Horizontal>
   )
 })

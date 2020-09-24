@@ -10,7 +10,11 @@ import { DrawerTypes } from '../PipelineContext/PipelineActions'
 import css from './RightBar.module.scss'
 
 export const RightBar = (): JSX.Element => {
-  const { accountId, projectIdentifier, orgIdentifier } = useParams()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<{
+    projectIdentifier: string
+    orgIdentifier: string
+    accountId: string
+  }>()
 
   const { showSuccess, showWarning } = useToaster()
   const {

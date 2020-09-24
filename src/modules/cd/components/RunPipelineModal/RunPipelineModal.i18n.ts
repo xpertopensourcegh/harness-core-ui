@@ -1,7 +1,13 @@
 export default {
   runPipeline: 'Run Pipeline',
   saveAsInputSet: 'Save as input set',
+  commonError: 'Error occurred while fetching/saving the data',
   inputForm: 'Input Form',
   VISUAL: 'VISUAL',
-  YAML: 'YAML'
+  YAML: 'YAML',
+  save: 'Save',
+  cancel: 'Cancel',
+  inputSetSaved: 'Input Set Saved',
+  pipelineRunSuccessFully: 'Pipeline Started SuccessFully',
+  runPipelineFailed: 'Failed to run pipeline'
 }

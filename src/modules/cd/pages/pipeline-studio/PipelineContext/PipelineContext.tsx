@@ -14,6 +14,7 @@ import {
 } from 'services/cd-ng'
 import { ModuleName, loggerFor } from 'framework/exports'
 import SessionToken from 'framework/utils/SessionToken'
+import type { YamlBuilderHandlerBinding } from 'modules/common/interfaces/YAMLBuilderProps'
 import {
   PipelineReducerState,
   ActionReturnType,
@@ -104,6 +105,7 @@ const KeyPath = 'identifier'
 interface PipelineContextInterface {
   state: PipelineReducerState
   fetchPipeline: (forceFetch?: boolean, forceUpdate?: boolean) => Promise<void>
+  setYamlHandler: (yamlHandler: YamlBuilderHandlerBinding) => void
   updatePipeline: (pipeline: CDPipeline) => Promise<void>
   updatePipelineView: (data: PipelineViewData) => void
   deletePipelineCache: () => void
@@ -265,13 +267,8 @@ const _initializeDb = async (dispatch: React.Dispatch<ActionReturnType>, version
   }
 }
 
-const _deletePipelineCache = async (
-  dispatch: React.Dispatch<ActionReturnType>,
-  queryParams: GetPipelineListQueryParams,
-  identifier: string
-): Promise<void> => {
+const _deletePipelineCache = async (queryParams: GetPipelineListQueryParams, identifier: string): Promise<void> => {
   if (IdbPipeline) {
-    dispatch(PipelineContextActions.updating())
     const id = getId(
       queryParams.accountIdentifier,
       queryParams.orgIdentifier || '',
@@ -293,6 +290,7 @@ export const PipelineContext = React.createContext<PipelineContextInterface>({
   state: initialState,
   fetchPipeline: () => new Promise<void>(() => undefined),
   updatePipelineView: () => undefined,
+  setYamlHandler: () => undefined,
   updatePipeline: () => new Promise<void>(() => undefined),
   pipelineSaved: () => undefined,
   deletePipelineCache: () => undefined
@@ -306,14 +304,17 @@ export const PipelineProvider: React.FC<{
   state.pipelineIdentifier = pipelineIdentifier
   const fetchPipeline = _fetchPipeline.bind(null, dispatch, queryParams, pipelineIdentifier)
   const updatePipeline = _updatePipeline.bind(null, dispatch, queryParams, pipelineIdentifier, state.originalPipeline)
-  const deletePipelineCache = _deletePipelineCache.bind(null, dispatch, queryParams, pipelineIdentifier)
+  const deletePipelineCache = _deletePipelineCache.bind(null, queryParams, pipelineIdentifier)
   const pipelineSaved = React.useCallback(
-    (pipeline: CDPipeline) => {
-      deletePipelineCache()
+    async (pipeline: CDPipeline) => {
+      await deletePipelineCache()
       dispatch(PipelineContextActions.pipelineSavedAction({ pipeline, originalPipeline: cloneDeep(pipeline) }))
     },
     [deletePipelineCache]
   )
+  const setYamlHandler = React.useCallback((yamlHandler: YamlBuilderHandlerBinding) => {
+    dispatch(PipelineContextActions.setYamlHandler({ yamlHandler }))
+  }, [])
 
   const updatePipelineView = React.useCallback((data: PipelineViewData) => {
     dispatch(PipelineContextActions.updatePipelineView({ pipelineView: data }))
@@ -330,7 +331,15 @@ export const PipelineProvider: React.FC<{
   }, [])
   return (
     <PipelineContext.Provider
-      value={{ state, fetchPipeline, updatePipeline, updatePipelineView, pipelineSaved, deletePipelineCache }}
+      value={{
+        state,
+        fetchPipeline,
+        updatePipeline,
+        updatePipelineView,
+        pipelineSaved,
+        deletePipelineCache,
+        setYamlHandler
+      }}
     >
       {children}
     </PipelineContext.Provider>

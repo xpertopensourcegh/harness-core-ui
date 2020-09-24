@@ -3,6 +3,7 @@ import type { IDrawerProps } from '@blueprintjs/core'
 import type { CDPipeline, ExecutionWrapper } from 'services/cd-ng'
 import type { SnippetInterface } from 'modules/common/interfaces/SnippetInterface'
 import type { Diagram } from 'modules/common/exports'
+import type { YamlBuilderHandlerBinding } from 'modules/common/interfaces/YAMLBuilderProps'
 
 export enum PipelineActions {
   DBInitialize = 'DBInitialize',
@@ -10,6 +11,7 @@ export enum PipelineActions {
   Fetching = 'Fetching',
   UpdatePipelineView = 'UpdatePipelineView',
   UpdatePipeline = 'UpdatePipeline',
+  SetYamlHandler = 'SetYamlHandler',
   PipelineSaved = 'PipelineSaved',
   Success = 'Success',
   Error = 'Error'
@@ -55,6 +57,7 @@ export interface PipelineViewData {
 
 export interface PipelineReducerState {
   pipeline: CDPipeline
+  yamlHandler?: YamlBuilderHandlerBinding
   originalPipeline: CDPipeline
   pipelineView: PipelineViewData
   pipelineIdentifier: string
@@ -76,6 +79,7 @@ export interface ActionResponse {
   error?: string
   isUpdated?: boolean
   pipeline?: CDPipeline
+  yamlHandler?: YamlBuilderHandlerBinding
   originalPipeline?: CDPipeline
   isBEPipelineUpdated?: boolean
   pipelineView?: PipelineViewData
@@ -90,6 +94,10 @@ const dbInitialized = (): ActionReturnType => ({ type: PipelineActions.DBInitial
 const initialized = (): ActionReturnType => ({ type: PipelineActions.Initialize })
 const updatePipelineView = (response: ActionResponse): ActionReturnType => ({
   type: PipelineActions.UpdatePipelineView,
+  response
+})
+const setYamlHandler = (response: ActionResponse): ActionReturnType => ({
+  type: PipelineActions.SetYamlHandler,
   response
 })
 const updating = (): ActionReturnType => ({ type: PipelineActions.UpdatePipeline })
@@ -108,6 +116,7 @@ export const PipelineContextActions = {
   fetching,
   pipelineSavedAction,
   updatePipelineView,
+  setYamlHandler,
   success,
   error
 }
@@ -143,6 +152,11 @@ export const PipelineReducer = (state = initialState, data: ActionReturnType): P
       return {
         ...state,
         isDBInitialized: true
+      }
+    case PipelineActions.SetYamlHandler:
+      return {
+        ...state,
+        yamlHandler: data.response?.yamlHandler
       }
     case PipelineActions.UpdatePipelineView:
       return {

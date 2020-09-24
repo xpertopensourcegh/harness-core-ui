@@ -95,7 +95,10 @@ export function ConfigureOptions(props: ConfigureOptionsProps): JSX.Element {
           validationSchema={Yup.object()}
           onSubmit={data => {
             let inputStr = RuntimeInputExpression
-            if (data.validation === Validation.AllowedValues && data.allowedValues?.length > 0) {
+            if (
+              data.validation === Validation.AllowedValues &&
+              (data.allowedValues?.length > 0 || data.advancedValue.length > 0)
+            ) {
               if (data.isAdvanced) {
                 inputStr += `.${AllowedExpression}(${JEXL}(${data.advancedValue}))`
               } else {
