@@ -21,6 +21,7 @@ export interface BuildCardProps {
   id: number
   startTime: number
   endTime: number
+  status: string
 
   // pipeline: Pipeline
   pipelineId: string
@@ -71,21 +72,9 @@ export const BuildCard: React.FC<BuildCardProps> = props => {
       <Link className={css.links} href="//harness.io" target="_blank">
         {isPullRequest ? props.PRTargetBranch : props.branchName}
       </Link>
-      |
-      <Link className={css.links} href="//harness.io" target="_blank">
-        {props.pipelineName}
-      </Link>
+      <span className={css.lastCommit}>{!isPullRequest && props.commits && props.commits[0].message}</span>
     </p>
   )
-
-  // hardcoded tags
-  const tags = ['Tag 1', 'Tag 2'].map((item, key) => {
-    return (
-      <div key={key} className={css.buildTag}>
-        {item} <Icon className={css.deleteIcon} name="main-close" size={6} />
-      </div>
-    )
-  })
 
   const [expanded, setExpanded] = useState(false)
 
@@ -95,51 +84,90 @@ export const BuildCard: React.FC<BuildCardProps> = props => {
       return (
         <div className={css.commitItem} key={key}>
           <div>
-            {item.message} | {item.description}
+            {item.message.slice(0, 80)} | {item.description}
           </div>
           <div>
             <Icon name="nav-user-profile" /> {item.ownerId} {i18n.commited}
             <span onClick={() => copyFunction(item.id)} className={css.commitHash}>
               {item.id.slice(0, 7)}
-              <Icon size={16} name="clipboard" />
+              <Icon size={12} name="clipboard" />
             </span>
           </div>
         </div>
       )
     })
 
+  const statusChecker = (status: string) => {
+    // TODO: use existing utility functions
+    switch (status) {
+      case 'SUCCEEDED':
+        return (
+          <Status className={css.status} status={ExecutionStatus.SUCCEEDED}>
+            SUCCESS
+          </Status>
+        )
+      case 'RUNNING':
+        return (
+          <Status className={css.status} status={ExecutionStatus.RUNNING}>
+            RUNNING
+          </Status>
+        )
+      case 'ASYNC_WAITING':
+      case 'INTERVENTION_WAITING':
+      case 'TIMED_WAITING':
+      case 'TASK_WAITING':
+      case 'QUEUED':
+        return (
+          <Status className={css.status} status={ExecutionStatus.WAITING}>
+            WAITING
+          </Status>
+        )
+      case 'FAILED':
+      case 'ERRORED':
+      case 'EXPIRED':
+      case 'SUSPENDED':
+        return (
+          <Status className={css.status} status={ExecutionStatus.FAILED}>
+            FAILED
+          </Status>
+        )
+      default:
+        return (
+          <Status className={css.status} status={ExecutionStatus.WAITING}>
+            {props?.status}
+          </Status>
+        )
+    }
+  }
+
+  statusChecker('label')
   return (
     <Container className={css.buildCard}>
       <div className={css.topper}>
         <div className={css.leftSide}>
           <div className={css.buildId} onClick={() => onClick(props.id)}>
             <Icon name="git-branch" />
-            {i18n.buildId}
-            {props.id}
+            {i18n.buildId} {props.id} | {props.pipelineName}
+            {statusChecker(props?.status)}
           </div>
           {elements}
-          <p>{!isPullRequest && props.commits && props.commits[0].message}</p>
         </div>
 
         <div className={css.rightSide}>
           <img src={pipelines}></img>
+          <div>
+            <Button minimal icon="pause" />
+            <Button minimal icon="command-stop" />
+            <Button minimal icon="more" />
+          </div>
         </div>
       </div>
       <div className={css.lower}>
-        <div>
+        <div className={css.creatorInfo}>
           <Icon name="nav-user-profile" /> {props.authorId}| {props.triggerType}
         </div>
-        <div className={css.buildCardStatus}>
-          <Status status={ExecutionStatus.SUCCESS}>Build Successful</Status>{' '}
-          <span>
-            | <Icon name="nav-user-profile" /> {i18n.duration} {duration}
-          </span>
-        </div>
-        <div>
-          <Icon name="nav-user-profile" /> 10d ago | 8/31/2020 4:30:45
-        </div>
-        <div className={css.buildTags}>
-          <Icon name="main-tags" /> {tags}
+        <div className={css.duration}>
+          <Icon name="nav-user-profile" /> {i18n.duration} {duration} | <Icon name="time" /> 10d ago
         </div>
         <Button
           disabled={!commits}

@@ -5,13 +5,13 @@ declare const styles: {
   readonly topper: string
   readonly leftSide: string
   readonly links: string
+  readonly lastCommit: string
   readonly buildId: string
+  readonly status: string
   readonly rightSide: string
   readonly lower: string
-  readonly buildCardStatus: string
-  readonly buildTags: string
-  readonly buildTag: string
-  readonly deleteIcon: string
+  readonly creatorInfo: string
+  readonly duration: string
   readonly extendedPart: string
   readonly commitItem: string
   readonly commitHash: string

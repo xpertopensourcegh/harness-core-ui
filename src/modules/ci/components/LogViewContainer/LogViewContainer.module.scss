@@ -1,0 +1,45 @@
+.console {
+  width: 90%;
+}
+
+.consoleHeader {
+  width: 100%;
+  background-color: #163755;
+  color: rgba(255, 255, 255, 0.7);
+  height: 30px;
+  line-height: 30px;
+  padding-left: 17px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.consoleFooter {
+  height: 70px;
+  background-color: #163755;
+  padding: var(--spacing-small) var(--spacing-medium);
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.consoleBody {
+  width: 100%;
+  background: #00162a;
+  height: 600px;
+  overflow-y: scroll;
+  padding: 10px;
+}
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background: #dddddf;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  opacity: 0.6;
+}

@@ -102,6 +102,7 @@ const CIBuildsPage: React.FC = () => {
   // body content
   const builds = buildsData?.content.map((item, key) => (
     <BuildCard
+      status={item.graph.status}
       key={key}
       id={item.id}
       startTime={item.startTime}

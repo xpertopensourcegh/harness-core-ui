@@ -24,7 +24,8 @@ export enum ExecutionPipelineItemStatus {
   SKIPPED = 'SKIPPED',
   STARTING = 'STARTING',
   REJECTED = 'REJECTED',
-  EXPIRED = 'EXPIRED'
+  EXPIRED = 'EXPIRED',
+  ASYNC_WAITING = 'ASYNC_WAITING'
 }
 
 export interface ExecutionPipelineItem<T> {
