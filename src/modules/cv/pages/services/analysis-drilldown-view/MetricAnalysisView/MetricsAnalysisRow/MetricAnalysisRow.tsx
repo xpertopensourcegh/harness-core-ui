@@ -60,7 +60,12 @@ export default function MetricAnalysisRow(props: MetricAnalysisRowProps): JSX.El
   const timeseriesOptions = useMemo(() => transformAnalysisDataToChartSeries(analysisData), [analysisData])
   return (
     <Container className={css.main} height={60}>
-      <TimeseriesRow transactionName={transactionName} metricName={metricName} seriesData={timeseriesOptions} />
+      <TimeseriesRow
+        transactionName={transactionName}
+        metricName={metricName}
+        seriesData={timeseriesOptions}
+        chartHeight={60}
+      />
     </Container>
   )
 }

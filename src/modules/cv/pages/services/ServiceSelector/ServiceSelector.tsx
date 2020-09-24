@@ -9,15 +9,12 @@ import css from './ServiceSelector.module.scss'
 interface ServiceSelectorProps {
   serviceData: EnvServiceRiskDTO[]
   className?: string
-  onSelect?: (serviceIdentifier: string, environmentIdentifier: string) => void
+  onSelect?: (environmentIdentifier?: string, serviceIdentifier?: string) => void
 }
 
-interface EnvironmentRowProps {
+interface RowProps {
   entityName: string
   riskScore: number
-}
-
-interface ServiceRowProps extends EnvironmentRowProps {
   selected?: boolean
   onSelect: (entityName: string) => void
 }
@@ -45,19 +42,26 @@ function generateOverallRiskScores(serviceData: ServiceSelectorProps['serviceDat
   return riskScoreMap
 }
 
-function EnvironmentRow(props: EnvironmentRowProps): JSX.Element {
-  const { entityName, riskScore } = props
+function EnvironmentRow(props: RowProps): JSX.Element {
+  const { entityName, riskScore, onSelect, selected } = props
   return (
-    <Container flex className={cx(css.entityRow, css.environmentRow)}>
+    <Container
+      flex
+      data-selected={selected}
+      className={cx(css.entityRow, css.environmentRow)}
+      onClick={() => {
+        onSelect(entityName)
+      }}
+    >
       <Text color={Color.BLACK} font={{ weight: 'bold' }}>
         {`${i18n.environmentLabelText} ${entityName}`}
       </Text>
-      <RiskScoreTile riskScore={riskScore} className={css.smallRiskTile} />
+      <RiskScoreTile riskScore={riskScore} isSmall />
     </Container>
   )
 }
 
-function ServiceRow(props: ServiceRowProps): JSX.Element {
+function ServiceRow(props: RowProps): JSX.Element {
   const { entityName, riskScore, selected, onSelect } = props
   return (
     <Container
@@ -69,22 +73,22 @@ function ServiceRow(props: ServiceRowProps): JSX.Element {
       }}
     >
       <Text color={Color.BLACK}>{entityName}</Text>
-      <RiskScoreTile riskScore={riskScore} className={css.smallRiskTile} />
+      <RiskScoreTile riskScore={riskScore} isSmall />
     </Container>
   )
 }
 
 export default function ServiceSelector(props: ServiceSelectorProps): JSX.Element {
   const { serviceData, onSelect, className } = props
-  const [selectedEntity, setSelectedEntity] = useState<{ envIdentifier: string; serviceIdentifier: string }>({
+  const [selectedEntity, setSelectedEntity] = useState<{ envIdentifier?: string; serviceIdentifier?: string }>({
     serviceIdentifier: i18n.allServiceOptionText,
     envIdentifier: ''
   })
   const [filterText, setFilterText] = useState<string | undefined>()
   const overallRiskScoresMap = useMemo(() => generateOverallRiskScores(serviceData), [serviceData])
-  const onSelectService = (serviceIdentifier: string, envIdentifier: string): void => {
+  const onSelectService = (envIdentifier?: string, serviceIdentifier?: string): void => {
     setSelectedEntity({ serviceIdentifier, envIdentifier })
-    onSelect?.(serviceIdentifier === i18n.allServiceOptionText ? '' : serviceIdentifier, envIdentifier)
+    onSelect?.(envIdentifier, serviceIdentifier === i18n.allServiceOptionText ? undefined : serviceIdentifier)
   }
   return (
     <Container className={cx(css.main, className)} background={Color.GREY_100}>
@@ -109,10 +113,15 @@ export default function ServiceSelector(props: ServiceSelectorProps): JSX.Elemen
                 entityName={i18n.allServiceOptionText}
                 riskScore={overallRiskScoresMap.get(i18n.allServiceOptionText) || 0}
                 selected={i18n.allServiceOptionText === selectedEntity.serviceIdentifier}
-                onSelect={() => onSelectService(i18n.allServiceOptionText, '')}
+                onSelect={() => onSelectService(undefined, i18n.allServiceOptionText)}
               />
             )}
-            <EnvironmentRow entityName={envIdentifier} riskScore={overallRiskScoresMap.get(envIdentifier) || 0} />
+            <EnvironmentRow
+              entityName={envIdentifier}
+              riskScore={overallRiskScoresMap.get(envIdentifier) || 0}
+              selected={!selectedEntity?.serviceIdentifier && selectedEntity?.envIdentifier === envIdentifier}
+              onSelect={() => onSelectService(envIdentifier)}
+            />
             {filteredServiceRisks.map(serviceRisk => {
               const { serviceIdentifier = '', risk = 0 } = serviceRisk || {}
               return (
@@ -124,7 +133,7 @@ export default function ServiceSelector(props: ServiceSelectorProps): JSX.Elemen
                     serviceIdentifier === selectedEntity?.serviceIdentifier &&
                     envIdentifier === selectedEntity?.envIdentifier
                   }
-                  onSelect={() => onSelectService(serviceIdentifier, envIdentifier)}
+                  onSelect={() => onSelectService(envIdentifier, serviceIdentifier)}
                 />
               )
             })}

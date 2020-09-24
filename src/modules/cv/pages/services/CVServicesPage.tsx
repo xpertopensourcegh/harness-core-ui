@@ -10,8 +10,7 @@ import {
   useGetHeatmap,
   useGetEnvServiceRisks,
   RestResponseListEnvServiceRiskDTO,
-  EnvServiceRiskDTO,
-  RestResponseMapCVMonitoringCategoryInteger
+  EnvServiceRiskDTO
 } from 'services/cv'
 import { useToaster } from 'modules/common/exports'
 import { routeCVDataSources } from 'modules/cv/routes'
@@ -56,7 +55,6 @@ export default function CVServicesPage(): JSX.Element {
   })
   const [heatmapData, setHeatmapData] = useState<Array<{ name: string; data: Array<any> }>>([])
   const [services, setServices] = useState<EnvServiceRiskDTO[]>([])
-  const [categoryRiskScores, setCategoryRiskScores] = useState<RestResponseMapCVMonitoringCategoryInteger['resource']>()
   const [selectedService, setSelectedService] = useState<{
     serviceIdentifier?: string
     environmentIdentifier?: string
@@ -171,7 +169,7 @@ export default function CVServicesPage(): JSX.Element {
           <ServiceSelector
             className={styles.fixedServices}
             serviceData={services}
-            onSelect={(serviceIdentifier: string, envIdentifier: string) => {
+            onSelect={(envIdentifier?: string, serviceIdentifier?: string) => {
               setSelectedService({ serviceIdentifier, environmentIdentifier: envIdentifier })
               setHeatmapData([])
               getHeatmap({
@@ -191,7 +189,6 @@ export default function CVServicesPage(): JSX.Element {
               categoryRiskCardClassName={styles.categoryRiskCard}
               environmentIdentifier={selectedService?.environmentIdentifier}
               serviceIdentifier={selectedService?.serviceIdentifier}
-              categoryRiskScores={setCategoryRiskScores}
             />
             <Container className={styles.serviceBody}>
               <OverlaySpinner show={loadingHeatmap}>
@@ -210,7 +207,7 @@ export default function CVServicesPage(): JSX.Element {
                   onCellClick={(cell: HeatMapDTO, rowData) => {
                     if (cell.startTime && cell.endTime) {
                       openDrillDown({
-                        categoryRiskScore: categoryRiskScores?.[rowData?.name] || 0,
+                        categoryRiskScore: cell.riskScore ? Math.floor(cell.riskScore * 100) : 0,
                         analysisProps: {
                           startTime: cell.startTime,
                           endTime: cell.endTime,

@@ -6,5 +6,6 @@ declare const styles: {
   readonly charts: string
   readonly chartRow: string
   readonly chartContainer: string
+  readonly verticalMoreIcon: string
 }
 export default styles

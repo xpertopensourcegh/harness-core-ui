@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { Container, Text, Color, Icon, Layout } from '@wings-software/uikit'
 import HighchartsReact from 'highcharts-react-official'
 import Highcharts from 'highcharts'
@@ -102,6 +102,32 @@ export function CategoryRiskCards(props: CategoryRiskCardsProps): JSX.Element {
     }
   })
 
+  const categoriesAndRisk = useMemo(() => {
+    if (!data || !data.resource) {
+      return []
+    }
+    return Object.keys(data.resource)
+      .sort((categoryA, categoryB) => {
+        if (!categoryA) {
+          return categoryB ? -1 : 0
+        }
+        if (!categoryB) {
+          return 1
+        }
+        if (!isNumber(data?.resource?.[categoryA])) {
+          return -1
+        }
+        if (!isNumber(data?.resource?.[categoryB])) {
+          return 1
+        }
+        return (data?.resource?.[categoryB] as number) - (data?.resource?.[categoryA] as number)
+      })
+      .map(sortedCategoryName => ({
+        categoryName: sortedCategoryName,
+        riskScore: data?.resource?.[sortedCategoryName]
+      }))
+  }, [data, data?.resource])
+
   if (loading) {
     return (
       <Container className={css.errorOrLoading} height={105}>
@@ -119,8 +145,7 @@ export function CategoryRiskCards(props: CategoryRiskCardsProps): JSX.Element {
     )
   }
 
-  const categories = Object.keys(data?.resource || {})
-  if (!categories?.length) {
+  if (!categoriesAndRisk?.length) {
     return (
       <NoDataCard
         message={i18n.noDataText}
@@ -144,10 +169,10 @@ export function CategoryRiskCards(props: CategoryRiskCardsProps): JSX.Element {
       </Container>
       <Container className={css.cardContainer}>
         {isNumber(overallRiskScore) && <OverallRiskScoreCard overallRiskScore={overallRiskScore} />}
-        {categories.map(categoryName => (
+        {categoriesAndRisk.map(({ categoryName, riskScore }) => (
           <CategoryRiskCard
             categoryName={categoryName}
-            riskScore={data?.resource?.[categoryName] ?? -1}
+            riskScore={riskScore ?? -1}
             key={categoryName}
             className={categoryRiskCardClassName}
           />

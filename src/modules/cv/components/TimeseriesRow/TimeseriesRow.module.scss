@@ -28,6 +28,9 @@
         min-width: 0;
         flex: 1;
       }
+      .verticalMoreIcon {
+        transform: rotate(90deg);
+      }
     }
   }
 }

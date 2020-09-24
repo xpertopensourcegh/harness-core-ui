@@ -8,7 +8,7 @@ const PLOT_LINE_LOCATIONS = [11, 22, 33, 44, 55, 66, 77, 88].map(degree => ({
 }))
 
 export default function getRiskGaugeChartOptions(riskScore: number): Highcharts.Options {
-  const gaugeColor = getColorValue(riskScore, 0, 100)
+  const gaugeColor = riskScore === -1 ? 'var(--grey-200)' : getColorValue(riskScore, 0, 100)
 
   return {
     chart: {

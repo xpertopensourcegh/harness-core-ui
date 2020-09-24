@@ -141,7 +141,7 @@ export default function MetricAnalysisView(props: MetricAnalysisViewProps): JSX.
   }
 
   const data = isViewingAnomalousData ? anomalousMetricData : allMetricData
-  const { pageSize, pageCount = 0, content, itemCount = 0 } = data?.resource || {}
+  const { pageSize, pageCount = 0, content, itemCount = 0, pageIndex } = data?.resource || {}
 
   return (
     <Container className={cx(css.main, className)}>
@@ -198,13 +198,14 @@ export default function MetricAnalysisView(props: MetricAnalysisViewProps): JSX.
       {pageSize && (
         <Pagination
           pageSize={pageSize}
+          pageIndex={pageIndex}
           pageCount={pageCount}
-          itemCount={itemCount}
-          gotoPage={(pageIndex: number) => {
+          itemCount={100}
+          gotoPage={(selectedPageIndex: number) => {
             if (isViewingAnomalousData) {
-              refetchAnomalousData({ queryParams: { ...queryParams, page: pageIndex } })
+              refetchAnomalousData({ queryParams: { ...queryParams, page: selectedPageIndex } })
             } else {
-              refetchAllMetricData({ queryParams: { ...queryParams, page: pageIndex } })
+              refetchAllMetricData({ queryParams: { ...queryParams, page: selectedPageIndex } })
             }
           }}
         />

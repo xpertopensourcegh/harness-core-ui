@@ -1,12 +1,13 @@
 import { Dialog, IDialogProps } from '@blueprintjs/core'
 import { Color, Layout, useModalHook, Text, Container } from '@wings-software/uikit'
 import React, { useState } from 'react'
-import { isNumber } from 'lodash-es'
+import { isNumber, omit } from 'lodash-es'
 import moment from 'moment'
 import { RiskScoreTile } from 'modules/cv/components/RiskScoreTile/RiskScoreTile'
 import { AnalysisDrillDownView, AnalysisDrillDownViewProps } from './AnalysisDrillDownView'
 import i18n from './AnalysisDrillDownView.i18n'
 import css from './useAnalysisDrillDownView.module.scss'
+
 interface UseAnalysisDrillDownViewProps {
   analysisProps: AnalysisDrillDownViewProps
   categoryRiskScore: number
@@ -61,24 +62,27 @@ function CategoryAndRiskScore(props: CategoryAndRiskScoreProps): JSX.Element {
 export default function useAnalysisDrillDownView(
   drillDownInfo?: UseAnalysisDrillDownViewProps
 ): UseAnalysisDrillDownViewReturnType {
-  const [drillDownProps, setDrillDownProps] = useState(drillDownInfo?.analysisProps)
+  const [drillDownProps, setDrillDownProps] = useState<UseAnalysisDrillDownViewProps | undefined>(drillDownInfo)
   const [openModal, hideModal] = useModalHook(
     () =>
-      drillDownProps ? (
+      drillDownProps && drillDownProps.analysisProps ? (
         <Dialog
           {...bpDialogProps}
           isOpen={true}
           onClose={hideModal}
           title={
             <CategoryAndRiskScore
-              riskScore={drillDownInfo?.categoryRiskScore || 0}
-              categoryName={drillDownProps.categoryName as string}
-              startTime={drillDownProps.startTime}
-              endTime={drillDownProps.endTime}
+              riskScore={drillDownProps.categoryRiskScore || 0}
+              categoryName={drillDownProps.analysisProps.categoryName as string}
+              startTime={drillDownProps.analysisProps.startTime}
+              endTime={drillDownProps.analysisProps.endTime}
             />
           }
         >
-          <AnalysisDrillDownView {...drillDownProps} />
+          <AnalysisDrillDownView
+            {...omit(drillDownProps.analysisProps, 'categoryRiskScore')}
+            startTime={moment(drillDownProps.analysisProps.startTime).subtract(2, 'hours').valueOf()}
+          />
         </Dialog>
       ) : null,
     [drillDownProps, drillDownInfo]
@@ -86,7 +90,7 @@ export default function useAnalysisDrillDownView(
 
   return {
     openDrillDown: (updatedInfo: UseAnalysisDrillDownViewProps) => {
-      setDrillDownProps(updatedInfo.analysisProps)
+      setDrillDownProps(updatedInfo)
       openModal()
     },
     closeDrillDown: hideModal

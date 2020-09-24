@@ -15,6 +15,7 @@ export interface TimeseriesRowProps {
   transactionName: React.ReactNode
   metricName?: React.ReactNode
   seriesData: Array<SeriesConfig>
+  chartHeight?: number
   className?: string
 }
 
@@ -22,7 +23,13 @@ const FONT_SIZE_SMALL: FontProps = {
   size: 'small'
 }
 
-export default function TimeseriesRow({ transactionName, metricName, seriesData, className }: TimeseriesRowProps) {
+export default function TimeseriesRow({
+  transactionName,
+  metricName,
+  seriesData,
+  className,
+  chartHeight
+}: TimeseriesRowProps) {
   return (
     <Container className={classnames(styles.timeseriesRow, className)}>
       <Container className={styles.labels}>
@@ -44,9 +51,9 @@ export default function TimeseriesRow({ transactionName, metricName, seriesData,
             {data.name && <Text>{data.name}</Text>}
             <Container className={styles.chartRow}>
               <Container className={styles.chartContainer}>
-                <HighchartsReact highcharts={Highcharts} options={chartsConfig(data.series)} />
+                <HighchartsReact highcharts={Highcharts} options={chartsConfig(data.series, chartHeight)} />
               </Container>
-              <Icon name="main-more" />
+              <Icon name="main-more" className={styles.verticalMoreIcon} color={Color.GREY_350} />
             </Container>
           </React.Fragment>
         ))}
@@ -55,11 +62,11 @@ export default function TimeseriesRow({ transactionName, metricName, seriesData,
   )
 }
 
-function chartsConfig(series: Highcharts.SeriesLineOptions[]): Highcharts.Options {
+function chartsConfig(series: Highcharts.SeriesLineOptions[], chartHeight?: number): Highcharts.Options {
   return {
     chart: {
       backgroundColor: '#FCFCFC',
-      height: 60,
+      height: chartHeight || 40,
       type: 'line',
       spacing: [5, 5, 5, 5]
     },
