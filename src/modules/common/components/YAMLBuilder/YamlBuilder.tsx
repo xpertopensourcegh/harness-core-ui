@@ -71,13 +71,19 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
   const KEY_CODE_FOR_PERIOD = 'Period'
   const DEFAULT_YAML_PATH = 'DEFAULT_YAML_PATH'
 
+  const yamlRef = useRef<string>('')
+  const yamlValidationErrorRef = useRef<Map<string, string> | undefined>()
+
+  yamlRef.current = currentYaml
+  yamlValidationErrorRef.current = yamlValidationErrors
+
   const handler = React.useMemo(
     () =>
       ({
-        getLatestYaml: () => currentYaml,
-        getYAMLValidationErrorMap: () => yamlValidationErrors
+        getLatestYaml: () => yamlRef.current,
+        getYAMLValidationErrorMap: () => yamlValidationErrorRef.current
       } as YamlBuilderHandlerBinding),
-    [currentYaml]
+    []
   )
 
   function getJSONFromYAML(yaml: string): Record<string, any> {
@@ -90,14 +96,16 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
   }
 
   useEffect(() => {
-    bind?.(handler)
+    if (bind) {
+      bind(handler)
+    }
   }, [bind, handler])
 
   useEffect(() => {
     const { yaml } = languages || {}
     const languageSettings = getYAMLLanguageSettings(entityType)
     yaml?.yamlDefaults.setDiagnosticsOptions(languageSettings)
-    verifyIncomingJSON(props.existingJSON)
+    verifyIncomingJSON(existingJSON)
   }, [existingJSON, entityType])
 
   const verifyIncomingJSON = (json: Record<string, any>): void => {
