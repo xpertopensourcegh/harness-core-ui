@@ -14,6 +14,7 @@ export const getNodeStyles = (isSelected: boolean, stageState: ExecutionPipeline
       style.backgroundColor = 'var(--execution-pipeline-status-failed-bg)'
       break
     case ExecutionPipelineItemStatus.SUCCESS:
+    case ExecutionPipelineItemStatus.SUCCEEDED:
       style.backgroundColor = 'var(--execution-pipeline-status-success-bg)'
       break
     case ExecutionPipelineItemStatus.RUNNING:

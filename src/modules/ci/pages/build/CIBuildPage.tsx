@@ -78,8 +78,8 @@ const CIBuildPage: React.FC = props => {
             }
             rowOneContent={
               <>
-                <Status status={(buildResponse?.data.status as unknown) as ExecutionStatus}>
-                  {status2Message((buildResponse?.data.status as unknown) as ExecutionStatus)}
+                <Status status={(buildResponse?.data.graph.status as unknown) as ExecutionStatus}>
+                  {status2Message((buildResponse?.data.graph.status as unknown) as ExecutionStatus)}
                 </Status>
                 <ElapsedTime startTime={buildResponse?.data.startTime || 0} />
               </>
@@ -136,7 +136,7 @@ const CIBuildPage: React.FC = props => {
                 id="ciInputsTab"
                 title={
                   <Link to={inputsUrl}>
-                    <Icon name="lab-test" /> {i18n.inputs}
+                    <Icon name="manually-entered-data" /> {i18n.inputs}
                   </Link>
                 }
               />
@@ -144,7 +144,7 @@ const CIBuildPage: React.FC = props => {
                 id="ciCommitsTab"
                 title={
                   <Link to={commitsUrl}>
-                    <Icon name="lab-test" /> {i18n.commits}
+                    <Icon name="git-commit" /> {i18n.commits}
                   </Link>
                 }
               />
@@ -160,7 +160,7 @@ const CIBuildPage: React.FC = props => {
                 id="ciArtifactsTab"
                 title={
                   <Link to={artifactsUrl}>
-                    <Icon name="lab-test" /> {i18n.artifacts}
+                    <Icon name="add-to-artifact" /> {i18n.artifacts}
                   </Link>
                 }
               />

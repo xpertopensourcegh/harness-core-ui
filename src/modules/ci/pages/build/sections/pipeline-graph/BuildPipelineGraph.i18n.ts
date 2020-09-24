@@ -1,3 +1,4 @@
 export default {
-  execution: 'Execution'
+  execution: 'Execution',
+  details: 'Details'
 }

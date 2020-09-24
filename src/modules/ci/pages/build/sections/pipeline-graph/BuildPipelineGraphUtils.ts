@@ -1,4 +1,5 @@
 import type { SelectOption } from '@wings-software/uikit'
+import type { ExecutionPipelineItem } from 'modules/common/components/ExecutionStageDiagram/ExecutionPipelineModel'
 import type {
   ExecutionPipeline,
   ExecutionPipelineNode
@@ -12,6 +13,34 @@ export function getStepsPipelineFromExecutionPipeline<T>(
 
   // TODO: iterate thoughts parallel stages
   return pipeline.items.find(node => node.item.identifier === selectedStageIdentifier)?.item.pipeline || { items: [] }
+}
+
+export function getFlattenItemsFromPipeline<T>(pipeline: ExecutionPipeline<T>) {
+  const steps: ExecutionPipelineItem<T>[] = []
+
+  pipeline.items.forEach(node => {
+    if (node.parallel) {
+      node.parallel.forEach(pNode => {
+        steps.push(pNode.item)
+      })
+    } else {
+      steps.push(node.item)
+    }
+  })
+
+  return steps
+}
+
+export function getItemFromPipeline<T>(
+  pipeline: ExecutionPipeline<T>,
+  identifier = '-1'
+): ExecutionPipelineItem<T> | undefined {
+  if (!pipeline || identifier === '-1') return undefined
+
+  const arr = getFlattenItemsFromPipeline(pipeline)
+
+  const retItem = arr.find(item => item.identifier === identifier)
+  return retItem
 }
 
 /**

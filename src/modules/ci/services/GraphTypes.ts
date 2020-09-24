@@ -9,6 +9,7 @@ export interface GraphVertex {
   uuid: string
   name: string
   startTs: number
+  endTs: number
   lastUpdatedAt: number
   stepType?: any
   status: string

@@ -1,6 +1,7 @@
 export default {
   success: 'SUCCESS',
+  succeeded: 'SUCCEEDED',
   failed: 'FAILED',
-  inProgress: 'IN PROGRESS',
-  pending: 'PENDING'
+  running: 'RUNNING',
+  waiting: 'WAITING'
 }

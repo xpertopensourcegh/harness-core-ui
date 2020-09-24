@@ -13,6 +13,7 @@ import {
 export enum MapStageTypeIconName {
   INTEGRATION_STAGE_STEP = 'main-setup'
 }
+
 /**
  * Get stage icon depend on stage type
  */
@@ -30,6 +31,14 @@ export function getDefaultSelectionFromExecutionPipeline<T>(pipeline: ExecutionP
   return {
     defaultSelectedStageIdentifier: pipeline.items[0].item.identifier || '-1',
     defaultSelectedStepIdentifier: pipeline.items[0].item.pipeline?.items[0].item.identifier || '-1'
+  }
+}
+
+export function getFirstItemIdFromExecutionPipeline<T>(pipeline: ExecutionPipeline<T>): string {
+  if (pipeline.items[0].parallel) {
+    return pipeline.items[0].parallel[0].item.identifier || '-1'
+  } else {
+    return pipeline.items[0].item.identifier || '-1'
   }
 }
 

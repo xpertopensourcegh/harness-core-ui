@@ -11,12 +11,13 @@ export interface StatusProps extends DivAttributesProps {
 function status2ClassName(status: ExecutionStatus): string {
   switch (status) {
     case ExecutionStatus.SUCCESS:
+    case ExecutionStatus.SUCCEEDED:
       return css.statusSuccess
     case ExecutionStatus.FAILED:
       return css.statusFailed
-    case ExecutionStatus.IN_PROGRESS:
+    case ExecutionStatus.RUNNING:
       return css.statusInProgress
-    case ExecutionStatus.PENDING:
+    case ExecutionStatus.WAITING:
       return css.statusPending
     default:
       return ''

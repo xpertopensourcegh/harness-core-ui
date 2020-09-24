@@ -54,6 +54,7 @@ export interface Build {
   author: Author
   branch?: Branch
   pullRequest?: PullRequest
+  graph: GraphVertex
 }
 
 export interface BuildsData {

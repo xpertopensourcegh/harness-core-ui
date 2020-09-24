@@ -1,10 +1,14 @@
 import React from 'react'
 import SplitPane, { Pane } from 'react-split-pane'
 import cx from 'classnames'
-import { Icon, Container, Select, Tab, Tabs } from '@wings-software/uikit'
+import { Icon, Container, Select, Tab, Tabs, Layout, Text } from '@wings-software/uikit'
 import ExecutionStageDiagram from 'modules/common/components/ExecutionStageDiagram/ExecutionStageDiagram'
 import { BuildPageContext } from '../../context/BuildPageContext'
-import { getSelectOptionsFromExecutionPipeline, getStepsPipelineFromExecutionPipeline } from './BuildPipelineGraphUtils'
+import {
+  getItemFromPipeline,
+  getSelectOptionsFromExecutionPipeline,
+  getStepsPipelineFromExecutionPipeline
+} from './BuildPipelineGraphUtils'
 import i18n from './BuildPipelineGraph.i18n'
 
 // TODO: Remove this dependency
@@ -23,6 +27,7 @@ const PipelineGraph: React.FC = () => {
   const stagesSelectOptions = getSelectOptionsFromExecutionPipeline(buildData?.stagePipeline)
   const selectedStageOption = stagesSelectOptions.find(item => item.value === selectedStageIdentifier)
   const executionSteps = getStepsPipelineFromExecutionPipeline(buildData?.stagePipeline, selectedStageIdentifier)
+  const selectedStep = getItemFromPipeline(executionSteps, selectedStepIdentifier)
 
   return (
     <Container className={css.main}>
@@ -40,7 +45,7 @@ const PipelineGraph: React.FC = () => {
             }}
           />
         </Pane>
-        <SplitPane split="vertical" size={'65%'}>
+        <SplitPane split="vertical" size={'60%'}>
           <Pane className={css.bottomPane}>
             <Container className={css.stepsToolbar}>
               <Select
@@ -77,8 +82,31 @@ const PipelineGraph: React.FC = () => {
               </Container>
             </Container>
           </Pane>
-          <Pane className="">
-            TODO: Add Step DETAILS and LOGS <br />
+          <Pane className={css.stepDetailsPane}>
+            <Layout.Vertical className={css.stepDetails}>
+              <Container className={css.stepInfo}>
+                <Layout.Horizontal>
+                  <Text>STEP: {selectedStep?.name}</Text>
+                </Layout.Horizontal>
+                <Tabs id="ciStepInfoTabs">
+                  <Tab id="ciStepInfoDetails" title={i18n.details}></Tab>
+                </Tabs>
+                <table>
+                  <tr>
+                    <td>Started at:</td>
+                    <td>{selectedStep?.data?.lastUpdatedAt}</td>
+                  </tr>
+                  <tr>
+                    <td>Ended at:</td>
+                    <td>{selectedStep?.data?.endTs}</td>
+                  </tr>
+                  <tr>
+                    <td>Duration:</td>
+                    <td>25s</td>
+                  </tr>
+                </table>
+              </Container>
+            </Layout.Vertical>
           </Pane>
         </SplitPane>
       </SplitPane>

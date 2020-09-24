@@ -25,13 +25,14 @@ interface BuildsPageUrlParams {
 }
 
 const CIBuildsPage: React.FC = () => {
-  const { accountId: accountIdentifier, orgIdentifier, projectIdentifier } = useParams<BuildsPageUrlParams>()
+  const { orgIdentifier, projectIdentifier } = useParams<BuildsPageUrlParams>()
   const { search: queryParams } = useLocation()
   const { page } = parseQueryString(queryParams)
   const history = useHistory()
   const { data, loading, error } = useGetBuilds({
     queryParams: {
-      accountIdentifier,
+      // TODO: HARDCODED FOR DEMO
+      accountIdentifier: 'zEaak-FLS425IEO7OLzMUg',
       orgIdentifier,
       projectIdentifier,
       page: (page ? page : '0') as string

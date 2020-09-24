@@ -31,7 +31,7 @@ export type UseGetBuildProps = Omit<UseGetProps<BuildData, ErrorResponse, GetBui
  * Get builds
  */
 export const useGetBuilds = (props: UseGetBuildsProps) =>
-  useGet<BuildsResponse, ErrorResponse, GetBuildsQueryParams, void>(`/ng/api/builds`, {
+  useGet<BuildsResponse, ErrorResponse, GetBuildsQueryParams, void>(`/ci/builds`, {
     ...props
   })
 
@@ -39,6 +39,6 @@ export const useGetBuilds = (props: UseGetBuildsProps) =>
  * Get build
  */
 export const useGetBuild = (buildId: string, props: UseGetBuildProps) =>
-  useGet<BuildData, ErrorResponse, GetBuildQueryParams, void>(`/ng/api/builds/${buildId}`, {
+  useGet<BuildData, ErrorResponse, GetBuildQueryParams, void>(`/ci/builds/${buildId}`, {
     ...props
   })

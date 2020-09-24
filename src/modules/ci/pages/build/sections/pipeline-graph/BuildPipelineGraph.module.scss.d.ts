@@ -6,5 +6,9 @@ declare const styles: {
   readonly stepsToolbar: string
   readonly bottomPane: string
   readonly canvas: string
+  readonly stepDetailsPane: string
+  readonly stepDetails: string
+  readonly stepInfo: string
+  readonly stepLogs: string
 }
 export default styles
