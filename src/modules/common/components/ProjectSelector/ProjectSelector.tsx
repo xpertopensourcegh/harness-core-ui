@@ -1,13 +1,16 @@
-import React from 'react'
-import { Select, SelectOption } from '@wings-software/uikit'
+import React, { useEffect, useState } from 'react'
+import { Select, SelectOption, useIsMounted } from '@wings-software/uikit'
 import type { IconProps } from '@wings-software/uikit/dist/icons/Icon'
 import cx from 'classnames'
-import { routeParams, useAppStoreReader, ModuleName } from 'framework/exports'
+import { routeParams, ModuleName } from 'framework/exports'
 import type { Project } from 'services/cd-ng'
+import { useGetProjectList } from 'services/cd-ng'
+import { useToaster } from 'modules/common/exports'
 import i18n from './ProjectSelector.i18n'
 import css from './ProjectSelector.module.scss'
 
 type ProjectListOptions = SelectOption & Project
+const PAGE_SIZE = 100
 
 export interface ProjectSelectorProps {
   module: ModuleName.CD | ModuleName.CV | ModuleName.CE | ModuleName.CI | ModuleName.CF
@@ -16,14 +19,23 @@ export interface ProjectSelectorProps {
 
 export const ProjectSelector: React.FC<ProjectSelectorProps> = ({ module, onSelect }) => {
   const {
-    params: { projectIdentifier }
+    params: { accountId, projectIdentifier }
   } = routeParams()
-  const [selectedProject, setSelectedProject] = React.useState<ProjectListOptions | undefined>()
-  const { projects } = useAppStoreReader()
+  const { showError } = useToaster()
+  const isMounted = useIsMounted()
+  const [selectedProject, setSelectedProject] = useState<ProjectListOptions | undefined>()
+  const { data: projects, error, refetch } = useGetProjectList({
+    queryParams: {
+      accountIdentifier: accountId,
+      moduleType: module,
+      size: PAGE_SIZE
+    }
+  })
+  const [currentProjectIdentifier, setCurrentProjectIdentifier] = useState(projectIdentifier)
   const projectSelectOptions: ProjectListOptions[] = React.useMemo(
     () =>
-      projects
-        .filter(project => project.modules?.includes?.(module))
+      (projects?.data?.content || [])
+        .filter((project: Project) => project.modules?.includes?.(module))
         .sort(({ name: name1 = '' }, { name: name2 = '' }) => {
           // sort projects by name
           name1 = name1.toLocaleLowerCase()
@@ -39,8 +51,12 @@ export const ProjectSelector: React.FC<ProjectSelectorProps> = ({ module, onSele
           })
           return values
         }, [] as ProjectListOptions[]),
-    [projects, module]
+    [projects?.data?.content, module]
   )
+
+  if (error) {
+    showError(error?.message)
+  }
 
   React.useEffect(() => {
     if (projectIdentifier) {
@@ -49,6 +65,13 @@ export const ProjectSelector: React.FC<ProjectSelectorProps> = ({ module, onSele
       setSelectedProject(undefined)
     }
   }, [projectSelectOptions, projectIdentifier])
+
+  useEffect(() => {
+    if (isMounted.current && currentProjectIdentifier !== projectIdentifier) {
+      setCurrentProjectIdentifier(projectIdentifier)
+      refetch()
+    }
+  }, [isMounted, currentProjectIdentifier, projectIdentifier, refetch])
 
   return (
     <Select
