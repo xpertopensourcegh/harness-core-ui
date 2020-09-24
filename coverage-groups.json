@@ -1,0 +1,12 @@
+{
+  "groups": {
+    "CD": ["src/modules/cd/**"],
+    "PL": ["src/framework/**"],
+    "DX": ["src/modules/dx/**"],
+    "CV": ["src/modules/cv/**"],
+    "CI": ["src/modules/ci/**"],
+    "CF": ["src/modules/cf/**"],
+    "SHARED": ["src/modules/common/**"]
+  },
+  "ignore": ["src/**/*.d.ts", "src/**/*.stories.*", "src/**/__tests__/**", "src/**/__test__/**"]
+}
