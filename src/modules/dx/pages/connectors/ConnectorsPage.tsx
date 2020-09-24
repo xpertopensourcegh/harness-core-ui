@@ -66,13 +66,14 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ mockData }) => {
           onClick={() => {
             openConnectorModal(item?.value, item?.modalProps)
           }}
-          key={index}
+          key={`${item}${index}`}
           text={getMenuItem(item)}
         />
       )
     })
     renderList.push(
       <Menu.Item
+        key={`yaml-builder`}
         text={getMenuItem({ label: ConnectorInfoText.YAML, value: Connectors.YAML, icon: 'main-code-yaml' })}
         onClick={() => {
           history.push(routeCreateConnectorFromYaml.url())

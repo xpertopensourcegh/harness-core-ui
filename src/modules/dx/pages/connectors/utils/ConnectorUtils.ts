@@ -6,6 +6,14 @@ import type { FormData } from 'modules/dx/interfaces/ConnectorInterface'
 import { Scope } from 'modules/common/interfaces/SecretsInterface'
 import { AuthTypes, DelegateTypes } from '../Forms/KubeFormInterfaces'
 
+export const getScopeFromString = (value: string) => {
+  return value?.indexOf('.') < 0 ? Scope.PROJECT : value?.split('.')[0]
+}
+
+export const getSecretIdFromString = (value: string) => {
+  return value?.indexOf('.') < 0 ? value : value?.split('.')[1]
+}
+
 export const getScopedSecretString = (scope: string, identifier: string) => {
   switch (scope) {
     case Scope.PROJECT:
@@ -21,17 +29,6 @@ export const userPasswrdAuthField = (formData: FormData) => {
   return {
     username: formData.username,
     passwordRef: getScopedSecretString(formData.passwordRefSecret?.scope, formData.passwordRefSecret?.secretId)
-  }
-}
-
-// Todo: add scoping
-export const userPasswrd = (authSpec: FormData) => {
-  return {
-    username: authSpec.username,
-    passwordRef: {
-      value: authSpec.passwordRef.split('.')[authSpec.passwordRef.split('.').length - 1],
-      isReference: true
-    }
   }
 }
 
@@ -86,21 +83,6 @@ const buildAuthTypePayload = (formData: FormData) => {
       return oidcAuthField(formData)
     case AuthTypes.CLIENT_KEY_CERT:
       return clientKeyCertField(formData)
-    default:
-      return []
-  }
-}
-
-const buildAuthFormData = (type: string, authSpec: FormData) => {
-  switch (type) {
-    case AuthTypes.USER_PASSWORD:
-      return userPasswrd(authSpec)
-    // case AuthTypes.SERVICE_ACCOUNT:
-    //   return serviceAcc(authSpec)
-    // case AuthTypes.OIDC:
-    //   return oidcAuth(authSpec)
-    // case AuthTypes.CLIENT_KEY_CERT:
-    //   return clientKey(authSpec)
     default:
       return []
   }
@@ -240,14 +222,14 @@ export const getDelegateTypeInfo = (delegateInfoSpec: any) => {
     delegateTypeMetaData = {
       masterUrl: delegateInfoSpec?.spec?.masterUrl,
       authType: delegateInfoSpec?.spec?.auth.type,
-      ...buildAuthFormData(delegateInfoSpec?.spec?.auth?.type, delegateInfoSpec?.spec?.auth?.spec)
+      ...delegateInfoSpec?.spec?.auth?.spec
     }
   }
 
   return delegateTypeMetaData
 }
 
-export const buildKubFormData = (connector: any) => {
+export const buildKubFormData = (connector: ConnectorDTO) => {
   return {
     name: connector?.name,
     description: connector?.description,

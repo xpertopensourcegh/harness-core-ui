@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router'
+import { omit } from 'lodash-es'
 import cx from 'classnames'
 import * as Yup from 'yup'
 import {
@@ -16,11 +17,21 @@ import { CardSelect, Icon } from '@wings-software/uikit'
 import ConnectorFormFields from 'modules/dx/components/connectors/ConnectorFormFields/ConnectorFormFields'
 import { useGetKubernetesDelegateNames } from 'services/portal'
 import type { ConnectorDTO, ConnectorRequestWrapper } from 'services/cd-ng'
+import type { InlineSecret } from 'modules/common/components/CreateInlineSecret/CreateInlineSecret'
+import {
+  getSecretV2Promise,
+  SecretTextSpecDTO,
+  KubernetesOpenIdConnectDTO,
+  KubernetesClientKeyCertDTO,
+  KubernetesServiceAccountDTO,
+  KubernetesUserNamePasswordDTO
+} from 'services/cd-ng'
+import { Scope } from 'modules/common/interfaces/SecretsInterface'
+import { DelegateTypes } from './KubeFormInterfaces'
+
 import { authOptions, DelegateInClusterType, getIconsForCard } from './KubeFormHelper'
 import { AuthTypes, getLabelForAuthType } from '../utils/ConnectorHelper'
-import { buildKubFormData, buildKubPayload } from '../utils/ConnectorUtils'
-
-import { DelegateTypes } from './KubeFormInterfaces'
+import { buildKubFormData, buildKubPayload, getSecretIdFromString, getScopeFromString } from '../utils/ConnectorUtils'
 
 import i18n from './KubCluster.i18n'
 import css from './KubCluster.module.scss'
@@ -89,6 +100,82 @@ const KubCluster: React.FC<KubClusterProps> = props => {
       )
     }
   }
+
+  const [passwordRefSecret, setPasswordRefSecret] = useState<InlineSecret>()
+  const [serviceAccountTokenRefSecret, setServiceAccountTokenRefSecret] = useState<InlineSecret>()
+  const [oidcPasswordRefSecret, setOidcPasswordRefSecret] = useState<InlineSecret>()
+  const [oidcClientIdRefSecret, setOidcClientIdRefSecret] = useState<InlineSecret>()
+  const [oidcSecretRefSecret, setOidcSecretRefSecret] = useState<InlineSecret>()
+  const [clientCertRefSecret, setClientCertRefSecret] = useState<InlineSecret>()
+  const [clientKeyRefSecret, setClientKeyRefSecret] = useState<InlineSecret>()
+  const [clientKeyPassphraseRefSecret, setCientKeyPassphraseRefSecret] = useState<InlineSecret>()
+  const [caCertRefSecret, setCaCertRefSecret] = useState<InlineSecret>()
+
+  const getSecretForValue = async (value: string, setSecretField: (val: InlineSecret) => void): Promise<void> => {
+    const secretId = getSecretIdFromString(value)
+    const secretScope = getScopeFromString(value)
+    const data = await getSecretV2Promise({
+      identifier: secretId,
+      queryParams: {
+        accountIdentifier: accountId,
+        orgIdentifier: secretScope === Scope.ORG || secretScope === Scope.PROJECT ? orgIdentifier : undefined,
+        projectIdentifier: secretScope === Scope.PROJECT ? projectIdentifier : undefined
+      }
+    })
+
+    const secretManagerIdentifier = (data.data?.secret?.spec as SecretTextSpecDTO)?.secretManagerIdentifier
+    setSecretField({
+      secretId,
+      secretName: data.data?.secret?.name || '',
+      secretManager: {
+        label: secretManagerIdentifier,
+        value: secretManagerIdentifier
+      },
+      scope: Scope.ACCOUNT
+    })
+  }
+  const getSecrets = (
+    formData:
+      | KubernetesClientKeyCertDTO
+      | KubernetesOpenIdConnectDTO
+      | KubernetesServiceAccountDTO
+      | KubernetesUserNamePasswordDTO
+  ) => {
+    if (formData.passwordRef) {
+      getSecretForValue(formData.passwordRef, setPasswordRefSecret)
+    }
+    if (formData.serviceAccountTokenRef) {
+      getSecretForValue(formData.serviceAccountTokenRef, setServiceAccountTokenRefSecret)
+    }
+    if (formData.oidcPasswordRef) {
+      getSecretForValue(formData.oidcPasswordRef, setOidcPasswordRefSecret)
+    }
+    if (formData.oidcClientIdRef) {
+      getSecretForValue(formData.oidcClientIdRef, setOidcClientIdRefSecret)
+    }
+    if (formData.oidcSecretRef) {
+      getSecretForValue(formData.oidcSecretRef, setOidcSecretRefSecret)
+    }
+    if (formData.clientCertRef) {
+      getSecretForValue(formData.clientCertRef, setClientCertRefSecret)
+    }
+    if (formData.clientKeyRef) {
+      getSecretForValue(formData.clientKeyRef, setClientKeyRefSecret)
+    }
+    if (formData.clientKeyPassphraseRef) {
+      getSecretForValue(formData.clientKeyPassphraseRef, setCientKeyPassphraseRefSecret)
+    }
+    if (formData.caCertRef) {
+      getSecretForValue(formData.caCertRef, setCaCertRefSecret)
+    }
+  }
+  useEffect(() => {
+    if (connector && connector.spec?.type === DelegateTypes.DELEGATE_OUT_CLUSTER) {
+      const formData = buildKubFormData(connector)
+      getSecrets(formData)
+    }
+  }, [])
+
   useEffect(() => {
     if (connector) {
       if (connector?.spec?.type === DelegateTypes.DELEGATE_OUT_CLUSTER) {
@@ -106,10 +193,31 @@ const KubCluster: React.FC<KubClusterProps> = props => {
     }
   }, [props])
   const delegateListFiltered = formatDelegateList(delegateList?.resource) || [{ label: '', value: '' }]
+  const kubFormData = omit(buildKubFormData(connector), [
+    'passwordRef',
+    'serviceAccountTokenRef',
+    'oidcPasswordRef',
+    'oidcClientIdRef',
+    'oidcSecretRef',
+    'clientCertRef',
+    'clientKeyRef',
+    'clientKeyPassphraseRef',
+    'caCertRef'
+  ])
+
   return (
     <Formik
       initialValues={{
-        ...buildKubFormData(connector)
+        ...kubFormData,
+        passwordRefSecret,
+        serviceAccountTokenRefSecret,
+        oidcPasswordRefSecret,
+        oidcClientIdRefSecret,
+        oidcSecretRefSecret,
+        clientCertRefSecret,
+        clientKeyRefSecret,
+        clientKeyPassphraseRefSecret,
+        caCertRefSecret
       }}
       validationSchema={Yup.object().shape({
         name: Yup.string().trim().required(),
