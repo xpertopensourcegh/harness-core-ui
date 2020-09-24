@@ -41,5 +41,10 @@ export abstract class Step<T extends object> {
     return this.stepPaletteVisible ?? true
   }
 
-  abstract renderStep(initialValues: T, onUpdate?: (data: T) => void, stepViewType?: StepViewType): JSX.Element
+  abstract renderStep(
+    initialValues: T,
+    onUpdate?: (data: T) => void,
+    stepViewType?: StepViewType,
+    template?: { [P in keyof T]: string }
+  ): JSX.Element
 }

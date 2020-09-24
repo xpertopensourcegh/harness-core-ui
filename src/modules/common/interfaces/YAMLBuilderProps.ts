@@ -8,8 +8,8 @@ export interface YamlBuilderHandlerBinding {
 }
 
 export interface YamlBuilderProps {
-  height?: string
-  width?: string
+  height?: React.CSSProperties['height']
+  width?: React.CSSProperties['width']
   fileName: string
   existingJSON?: Record<string, any>
   entityType: YamlEntity

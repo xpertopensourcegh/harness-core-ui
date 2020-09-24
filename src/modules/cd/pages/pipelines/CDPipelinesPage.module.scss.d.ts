@@ -11,5 +11,6 @@ declare const styles: {
   readonly tags: string
   readonly menu: string
   readonly clickable: string
+  readonly actionButton: string
 }
 export default styles

@@ -1,8 +1,8 @@
 /* eslint-disable */
 // this is an auto-generated file
 declare const styles: {
-  readonly search: string
-  readonly table: string
-  readonly actionButton: string
+  readonly optionBtns: string
+  readonly item: string
+  readonly selected: string
 }
 export default styles

@@ -185,7 +185,7 @@ const CDPipelinesPage: React.FC = () => {
         retryOnError={() => reloadPipelines()}
         noData={{
           when: () => !data?.data?.content?.length,
-          icon: 'nav-project',
+          icon: 'pipeline-ng',
           message: i18n.aboutPipeline,
           buttonText: i18n.addPipeline,
           onClick: () => goToPipeline()

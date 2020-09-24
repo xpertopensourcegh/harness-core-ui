@@ -1,12 +1,17 @@
 import React from 'react'
 import { Layout, Button, Popover } from '@wings-software/uikit'
 import { Menu, MenuItem, Position } from '@blueprintjs/core'
+import { useParams } from 'react-router-dom'
 import { Page } from 'modules/common/exports'
+import { RunPipelineModal } from 'modules/cd/components/RunPipelineModal/RunPipelineModal'
 import i18n from './PipelineDeploymentList.i18n'
 
 const PipelineDeploymentList: React.FC = (): JSX.Element => {
   const [buildFilter, setBuildFilter] = React.useState({ myBuild: false, running: false, failed: false })
   const [savedFilter, setSavedFilter] = React.useState(i18n.savedFilters)
+  const { pipelineIdentifier } = useParams<{
+    pipelineIdentifier: string
+  }>()
   return (
     <>
       <Page.Header
@@ -40,6 +45,9 @@ const PipelineDeploymentList: React.FC = (): JSX.Element => {
         }
         toolbar={
           <Layout.Horizontal spacing="small">
+            <RunPipelineModal pipelineIdentifier={pipelineIdentifier}>
+              <Button intent="primary" text={i18n.runPipeline} />
+            </RunPipelineModal>
             <Popover
               minimal
               content={

@@ -81,6 +81,7 @@ const RenderColumnMenu: Renderer<CellProps<PipelineDTO>> = ({ row, column }) => 
       >
         <Button
           minimal
+          className={css.actionButton}
           icon="more"
           onClick={e => {
             e.stopPropagation()
