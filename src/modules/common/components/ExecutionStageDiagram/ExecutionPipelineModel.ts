@@ -45,7 +45,7 @@ export interface ExecutionPipelineGroupInfo<T> {
   data: T
 }
 export interface ExecutionPipelineNode<T> {
-  item: ExecutionPipelineItem<T>
+  item?: ExecutionPipelineItem<T>
   parallel?: Array<ExecutionPipelineNode<T>>
 }
 

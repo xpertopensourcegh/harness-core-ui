@@ -29,16 +29,16 @@ export function getDefaultSelectionFromExecutionPipeline<T>(pipeline: ExecutionP
   // TODO: iterate thoughts parallel stages
 
   return {
-    defaultSelectedStageIdentifier: pipeline.items[0].item.identifier || '-1',
-    defaultSelectedStepIdentifier: pipeline.items[0].item.pipeline?.items[0].item.identifier || '-1'
+    defaultSelectedStageIdentifier: pipeline.items[0].item?.identifier || '-1',
+    defaultSelectedStepIdentifier: pipeline.items[0].item?.pipeline?.items[0].item?.identifier || '-1'
   }
 }
 
 export function getFirstItemIdFromExecutionPipeline<T>(pipeline: ExecutionPipeline<T>): string {
   if (pipeline.items[0].parallel) {
-    return pipeline.items[0].parallel[0].item.identifier || '-1'
+    return pipeline.items[0].parallel[0].item?.identifier || '-1'
   } else {
-    return pipeline.items[0].item.identifier || '-1'
+    return pipeline.items[0].item?.identifier || '-1'
   }
 }
 
@@ -99,8 +99,9 @@ export function graph2ExecutionPipeline(graph: Graph): ExecutionPipeline<GraphVe
       // set next
       next = next.next
     }
-
-    stageNode.item.pipeline = stepsPipeline
+    if (stageNode.item) {
+      stageNode.item.pipeline = stepsPipeline
+    }
   })
 
   return pipeline

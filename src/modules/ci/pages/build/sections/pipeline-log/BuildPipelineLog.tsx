@@ -40,7 +40,7 @@ const PipelineLog: React.FC = () => {
   const stepItems = getFlattenItemsFromPipeline(executionSteps)
 
   // TO DO use names from context
-  const [selectedStep, setSelectedStep] = useState(executionSteps.items[0].item.name || '')
+  const [selectedStep, setSelectedStep] = useState(executionSteps.items[0].item?.name || '')
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [selectedStage, setSelectedStage] = useState(stagesSelectOptions[0].label || '')
   const [logs, setLogs] = useState<[]>([])

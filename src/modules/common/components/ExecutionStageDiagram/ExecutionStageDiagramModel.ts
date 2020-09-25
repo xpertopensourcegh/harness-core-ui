@@ -87,18 +87,18 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
           let isSelected = false
           const icons: Array<IconName> = []
           parallel.forEach(nodeP => {
-            if (nodeP.item.identifier === selectedStageId) {
-              parallelStageNames.unshift(nodeP.item.name)
-              icons.unshift(nodeP.item.icon) // stageTypeToIconNameMapper[nodeP.stage.type])
+            if (nodeP.item?.identifier === selectedStageId) {
+              parallelStageNames.unshift(nodeP.item?.name)
+              icons.unshift(nodeP.item?.icon) // stageTypeToIconNameMapper[nodeP.stage.type])
               isSelected = true
             } else {
-              parallelStageNames.push(nodeP.item.name)
-              icons.push(nodeP.item.icon) // stageTypeToIconNameMapper[nodeP.stage.type])
+              parallelStageNames.push(nodeP.item?.name || '')
+              icons.push(nodeP.item?.icon || 'edit') // stageTypeToIconNameMapper[nodeP.stage.type])
             }
           })
           const groupedNode = new Diagram.GroupNodeModel({
             // TODO: check this - customNodeStyle: getNodeStyles(isSelected),
-            identifier: isSelected ? selectedStageId : parallel[0].item.identifier,
+            identifier: isSelected ? selectedStageId : parallel[0].item?.identifier,
             name:
               parallelStageNames.length > 2
                 ? `${parallelStageNames[0]}, ${parallelStageNames[1]}, +${parallelStageNames.length - 2}`
@@ -121,7 +121,7 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
           let newY = startY
           if (!isEmpty(prevNodes)) {
             const emptyNodeStart = new Diagram.EmptyNodeModel({
-              identifier: `${EmptyNodeSeparator}-${EmptyNodeSeparator}${parallel[0].item.identifier}`,
+              identifier: `${EmptyNodeSeparator}-${EmptyNodeSeparator}${parallel[0].item?.identifier}`,
               name: 'Empty'
             })
             this.addNode(emptyNodeStart)
@@ -144,7 +144,7 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
           })
           if (!isEmpty(prevNodesAr)) {
             const emptyNodeEnd = new Diagram.EmptyNodeModel({
-              identifier: `${EmptyNodeSeparator}${parallel[0].item.identifier}${EmptyNodeSeparator}`,
+              identifier: `${EmptyNodeSeparator}${parallel[0].item?.identifier}${EmptyNodeSeparator}`,
               name: 'Empty'
             })
             this.addNode(emptyNodeEnd)

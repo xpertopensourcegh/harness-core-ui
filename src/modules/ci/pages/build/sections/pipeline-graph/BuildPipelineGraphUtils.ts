@@ -12,7 +12,7 @@ export function getStepsPipelineFromExecutionPipeline<T>(
   if (!pipeline || selectedStageIdentifier === '-1') return { items: [] }
 
   // TODO: iterate thoughts parallel stages
-  return pipeline.items.find(node => node.item.identifier === selectedStageIdentifier)?.item.pipeline || { items: [] }
+  return pipeline.items.find(node => node.item?.identifier === selectedStageIdentifier)?.item?.pipeline || { items: [] }
 }
 
 export function getFlattenItemsFromPipeline<T>(pipeline: ExecutionPipeline<T>) {
@@ -21,10 +21,14 @@ export function getFlattenItemsFromPipeline<T>(pipeline: ExecutionPipeline<T>) {
   pipeline.items.forEach(node => {
     if (node.parallel) {
       node.parallel.forEach(pNode => {
-        steps.push(pNode.item)
+        if (pNode.item) {
+          steps.push(pNode.item)
+        }
       })
     } else {
-      steps.push(node.item)
+      if (node.item) {
+        steps.push(node.item)
+      }
     }
   })
 
