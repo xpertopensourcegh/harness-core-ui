@@ -2,6 +2,7 @@
 const webpack = require('webpack')
 const path = require('path')
 const fs = require('fs')
+const devServerProxyConfig = require('./webpack.devServerProxy.config')
 
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
 const CircularDependencyPlugin = require('circular-dependency-plugin')
@@ -32,25 +33,12 @@ const config = {
       key: fs.readFileSync(path.resolve(__dirname, './certificates/localhost-key.pem')),
       cert: fs.readFileSync(path.resolve(__dirname, './certificates/localhost.pem'))
     },
-    proxy: {
-      '/ng/api': {
-        logLevel: 'info',
-        target: 'http://localhost:7457',
-        pathRewrite: { '^/ng/api': '' }
-      },
-      '/api': {
-        logLevel: 'info',
-        target: 'https://localhost:9090',
-        secure: false
-        // add `changeOrigin` when pointing to anything other than local
-        // changeOrigin: true
-      },
-      '/cv-nextgen': {
-        logLevel: 'info',
-        target: 'https://localhost:6060',
-        secure: false
-      }
-    },
+    proxy: Object.fromEntries(
+      Object.entries(devServerProxyConfig).map(([key, value]) => [
+        key,
+        Object.assign({ logLevel: 'info', secure: false, changeOrigin: true }, value)
+      ])
+    ),
     stats: {
       children: false,
       maxModules: 0,
