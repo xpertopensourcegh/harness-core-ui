@@ -111,10 +111,10 @@ exports[`Verification step for existing delegate render VerifyExistingDelegate w
       </div>
     </div>
     <div
-      class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+      class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---margin-left-small--3XL_"
     >
       <button
-        class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi StyledProps---margin-top-small--1_l5 StyledProps---font-size-small--3cA6"
+        class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi StyledProps---padding-left-large--28UT StyledProps---margin-top-small--1_l5 StyledProps---font-size-small--3cA6"
         type="button"
       >
         <span
@@ -123,7 +123,16 @@ exports[`Verification step for existing delegate render VerifyExistingDelegate w
           RETEST CONNECTION
         </span>
       </button>
-      :
+      <button
+        class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi StyledProps---padding-left-large--28UT StyledProps---margin-top-small--1_l5 StyledProps---font-size-small--3cA6"
+        type="button"
+      >
+        <span
+          class="bp3-button-text"
+        >
+          CLOSE
+        </span>
+      </button>
     </div>
   </div>
 </div>

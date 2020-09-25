@@ -47,25 +47,4 @@ describe('Verification step for out of cluster delegate', () => {
     expect(getByText('Verifying Connection')).toBeDefined()
     expect(container).toMatchSnapshot()
   })
-
-  test('render in popover', () => {
-    const { container, getByText } = render(
-      <MemoryRouter>
-        <VerifyOutOfClusterDelegate
-          name="sample-name"
-          inPopover={true}
-          delegateStatusMockData={{
-            data: statusData as RestResponseDelegateStatus,
-            loading: false
-          }}
-          testConnectionMockData={{
-            data: testConnectionSuccess as ResponseDTOConnectorValidationResult,
-            loading: false
-          }}
-        />
-      </MemoryRouter>
-    )
-    expect(getByText('Establishing connection')).toBeDefined()
-    expect(container).toMatchSnapshot()
-  })
 })

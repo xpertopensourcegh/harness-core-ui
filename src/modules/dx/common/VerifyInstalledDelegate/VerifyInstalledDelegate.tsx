@@ -20,6 +20,8 @@ interface VerifyInstalledDelegateProps {
   connectorIdentifier?: string
   delegateName?: string
   profile?: string
+  hideLightModal?: () => void
+  onSuccess?: () => void
 }
 
 const STEP = {
@@ -75,28 +77,28 @@ const VerifyInstalledDelegate = (props: VerifyInstalledDelegateProps) => {
     })?.length
   }
 
-  const executeStepVerify = async (): Promise<void> => {
-    if (stepDetails.step === StepIndex.get(STEP.VERIFY)) {
-      let testConnectionResponse: ResponseDTOConnectorValidationResult
+  let testConnectionResponse: ResponseDTOConnectorValidationResult
+  const executeEstablishConnection = async (): Promise<void> => {
+    if (stepDetails.step === StepIndex.get(STEP.ESTABLISH_CONNECTION)) {
       if (stepDetails.status === 'PROCESS') {
         try {
           testConnectionResponse = await reloadTestConnection()
           if (testConnectionResponse?.data?.valid) {
             setStepDetails({
-              step: 3,
+              step: 2,
               intent: Intent.SUCCESS,
               status: 'DONE'
             })
           } else {
             setStepDetails({
-              step: 3,
+              step: 2,
               intent: Intent.DANGER,
               status: 'ERROR'
             })
           }
         } catch (err) {
           setStepDetails({
-            step: 3,
+            step: 2,
             intent: Intent.DANGER,
             status: 'ERROR'
           })
@@ -126,33 +128,27 @@ const VerifyInstalledDelegate = (props: VerifyInstalledDelegateProps) => {
       })
     }
 
-    if (stepDetails.step === StepIndex.get(STEP.ESTABLISH_CONNECTION) && stepDetails.status === 'PROCESS') {
+    if (stepDetails.step === StepIndex.get(STEP.ESTABLISH_CONNECTION) && stepDetails.status === 'DONE') {
+      setStepDetails({
+        step: 3,
+        intent: Intent.SUCCESS,
+        status: 'PROCESS'
+      })
+    }
+    if (stepDetails.step === StepIndex.get(STEP.VERIFY) && stepDetails.status === 'PROCESS') {
       const interval = setInterval(() => {
         setStepDetails({
-          step: 2,
+          step: 3,
           intent: Intent.SUCCESS,
           status: 'DONE'
         })
       }, 2000)
-      clearInterval(interval)
-    }
 
-    if (stepDetails.step === StepIndex.get(STEP.ESTABLISH_CONNECTION) && stepDetails.status === 'DONE') {
-      setStepDetails({
-        step: 3,
-        intent: Intent.SUCCESS,
-        status: 'PROCESS'
-      })
+      return () => {
+        clearInterval(interval)
+      }
     }
-
-    if (stepDetails.step === StepIndex.get(STEP.ESTABLISH_CONNECTION) && stepDetails.status === 'DONE') {
-      setStepDetails({
-        step: 3,
-        intent: Intent.SUCCESS,
-        status: 'PROCESS'
-      })
-    }
-    executeStepVerify()
+    executeEstablishConnection()
     return () => {
       clearInterval(intevalOne)
     }
@@ -179,12 +175,12 @@ const VerifyInstalledDelegate = (props: VerifyInstalledDelegateProps) => {
         {i18n.verifyConnectionText} <span className={css.name}>{props.connectorName}</span>
       </Text>
       <StepsProgress
-        steps={[i18n.STEPS.ONE, downloadOverLay ? i18n.STEPS.TWO_HIDDEN : i18n.STEPS.TWO, i18n.STEPS.THREE]}
+        steps={[i18n.STEPS.ONE, i18n.STEPS.TWO, i18n.STEPS.THREE]}
         intent={stepDetails.intent}
         current={stepDetails.step}
         currentStatus={stepDetails.status}
       />
-      {stepDetails.step === StepIndex.get(STEP.VERIFY) && stepDetails.status === 'PROCESS' ? (
+      {stepDetails.step === StepIndex.get(STEP.ESTABLISH_CONNECTION) && stepDetails.status === 'PROCESS' ? (
         <Text font="small" className={css.verificationText}>
           {i18n.VERIFICATION_TIME_TEXT}
         </Text>
@@ -240,9 +236,17 @@ const VerifyInstalledDelegate = (props: VerifyInstalledDelegateProps) => {
           </Layout.Vertical>
         </section>
       ) : null}
-      <Layout.Horizontal spacing="large" className={css.submitWrp}>
-        {/* TODO: <Button type="submit" onClick={() => props.hideLightModal} style={{ color: 'var(--blue-500)' }} text="Close" /> */}
-      </Layout.Horizontal>
+      {stepDetails.step > 1 ? (
+        <Layout.Horizontal spacing="large" className={css.btnWrapper}>
+          <Button
+            onClick={() => {
+              props.hideLightModal?.()
+              props.onSuccess?.()
+            }}
+            text={i18n.FINISH}
+          />
+        </Layout.Horizontal>
+      ) : null}
     </Layout.Vertical>
   )
 }

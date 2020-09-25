@@ -69,10 +69,12 @@
   margin: 20px 0;
   .radioOption {
     cursor: pointer;
+    display: flex;
   }
   .radioOptionInstall {
     cursor: pointer;
     margin-top: 20px;
+    display: flex;
   }
 }
 

@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Layout, Button } from '@wings-software/uikit'
 import VerifyOutOfClusterDelegate from 'modules/dx/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 import VerifyExistingDelegate from 'modules/dx/common/VerifyExistingDelegate/VerifyExistingDelegate'
+import type { ConnectorConnectivityDetails } from 'services/cd-ng'
 import i18n from './TestConnection.i18n'
 import css from './TestConnection.module.scss'
 
@@ -15,7 +16,7 @@ interface TestConnectionProps {
   delegateName?: string
   setLastTested: (val: number) => void
   setLastConnected?: (val: number) => void
-  setStatus?: (val: string) => void
+  setStatus?: (val: ConnectorConnectivityDetails['status']) => void
 }
 const TestConnection: React.FC<TestConnectionProps> = props => {
   const [testEnabled, setTestEnabled] = useState<boolean>(false)
@@ -28,10 +29,12 @@ const TestConnection: React.FC<TestConnectionProps> = props => {
             connectorName={props.connectorName}
             connectorIdentifier={props.connectorIdentifier}
             delegateName={props.delegateName}
+            renderInModal={false}
             setLastTested={props.setLastTested}
             setLastConnected={props.setLastConnected}
             setStatus={props.setStatus}
             type={props.connectorType}
+            setTesting={setTestEnabled}
           />
         ) : (
           <VerifyOutOfClusterDelegate
@@ -42,6 +45,7 @@ const TestConnection: React.FC<TestConnectionProps> = props => {
             setLastConnected={props.setLastConnected}
             setStatus={props.setStatus}
             type={props.connectorType}
+            setTesting={setTestEnabled}
           />
         )
       ) : (

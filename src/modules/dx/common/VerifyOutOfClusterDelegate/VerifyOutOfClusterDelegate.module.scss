@@ -15,7 +15,12 @@
 }
 .editCreds {
   position: relative;
-  bottom: 29px;
-  left: 165px;
+  bottom: 71px;
+  left: 190px;
   width: fit-content;
+}
+.verificationText {
+  color: var(--grey-400);
+  padding: 0;
+  width: 300;
 }

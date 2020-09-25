@@ -9,5 +9,7 @@ declare const styles: {
   readonly submitWrp: string
   readonly overlayHeading: string
   readonly verifyWrapper: string
+  readonly btnWrapper: string
+  readonly submitBtn: string
 }
 export default styles

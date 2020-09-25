@@ -608,6 +608,8 @@ const CreateK8sConnector = (props: CreateK8sConnectorProps) => {
               connectorIdentifier={formData?.identifier}
               delegateName={formData?.delegateName}
               profile={formData?.profile}
+              hideLightModal={props.hideLightModal}
+              onSuccess={props.onSuccess}
             />
           ) : (
             <VerifyExistingDelegate

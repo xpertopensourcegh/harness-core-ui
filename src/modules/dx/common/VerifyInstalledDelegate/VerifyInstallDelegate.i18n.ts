@@ -17,5 +17,6 @@ export default {
     COMMAND: 'kubectl apply -f harness-delegate.yaml'
   },
   verifyConnectionText: 'Verify Connection to',
-  RETEST: 'RETEST CONNECTION'
+  RETEST: 'RETEST CONNECTION',
+  FINISH: 'FINISH'
 }

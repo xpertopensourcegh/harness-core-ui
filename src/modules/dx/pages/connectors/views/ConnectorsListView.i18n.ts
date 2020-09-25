@@ -1,3 +1,5 @@
+import { pluralize } from 'modules/common/utils/StringUtils'
+
 export default {
   connector: 'Connector',
   details: 'Details',
@@ -10,5 +12,15 @@ export default {
   success: 'active',
   failed: 'error',
   TEST_CONNECTION: 'TEST CONNECTION',
-  TestInProgress: 'Test in progress'
+  TestInProgress: 'Test in progress',
+  STEPS: {
+    ONE: {
+      PROGRESS: 'Checking Delegate',
+      FAILED: 'Delegate not found',
+      SUCCESS: 'Delegate found'
+    },
+    TWO: 'Establishing Connection',
+    THREE: 'Verifying Connection'
+  },
+  delegateFound: (count: number | undefined) => `${count ? count : 'No'} delegate${pluralize(count || 0)} found`
 }

@@ -1,12 +1,17 @@
 import React, { useState } from 'react'
+import ReactTimeago from 'react-timeago'
 import { useParams } from 'react-router'
 import { Layout, Text, StepsProgress, Intent, Button, Color } from '@wings-software/uikit'
-import { useGetTestConnectionResult, ResponseDTOConnectorValidationResult } from 'services/cd-ng'
+import {
+  useGetTestConnectionResult,
+  ResponseDTOConnectorValidationResult,
+  ConnectorConnectivityDetails
+} from 'services/cd-ng'
 import { useGetDelegatesStatus, RestResponseDelegateStatus, DelegateInner } from 'services/portal'
 import type { UseGetMockData } from 'modules/common/utils/testUtils'
 import type { StepDetails } from 'modules/dx/interfaces/ConnectorInterface'
 import { getConnectorDisplayName } from 'modules/dx/pages/connectors/utils/ConnectorUtils'
-import { useToaster } from 'modules/common/exports'
+import { ConnectorStatus } from 'modules/dx/constants'
 import i18n from './VerifyExistingDelegate.i18n'
 
 import css from './VerifyExistingDelegate.module.scss'
@@ -23,7 +28,7 @@ interface VerifyExistingDelegateProps {
   onSuccess?: () => void
   setLastTested?: (val: number) => void
   setLastConnected?: (val: number) => void
-  setStatus?: (val: string) => void
+  setStatus?: (val: ConnectorConnectivityDetails['status']) => void
   setTesting?: (val: boolean) => void
   type?: string
 }
@@ -45,14 +50,24 @@ const StepIndex = new Map([
   [STEP.VERIFY, 3]
 ])
 
+export const getStepOneForExistingDelegate = (stepDetails: StepDetails, delegateName: string | undefined) => {
+  if (stepDetails.status === 'PROCESS') {
+    return `${i18n.STEPS.ONE.PROGRESS}: ${delegateName} `
+  } else if (stepDetails.status === 'DONE') {
+    return `${i18n.STEPS.ONE.SUCCESS}: ${delegateName} `
+  } else {
+    return `${i18n.STEPS.ONE.FAILED}`
+  }
+}
+
 const VerifyExistingDelegate = (props: VerifyExistingDelegateProps) => {
   const [stepDetails, setStepDetails] = useState<StepDetails>({
     step: 1,
     intent: Intent.WARNING,
     status: 'PROCESS'
   })
-  const { showSuccess } = useToaster()
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
+  // Todo: const [foundDelegateName, setFoundDelegateName] = useState('')
 
   const [downloadOverLay, setDownloadOverlay] = useState(true)
   const state: VerifyExistingDelegateState = {
@@ -80,46 +95,36 @@ const VerifyExistingDelegate = (props: VerifyExistingDelegateProps) => {
   const isSelectedDelegateActive = (delegateStatusResponse: RestResponseDelegateStatus) => {
     const delegateList = delegateStatusResponse?.resource?.delegates
     return delegateList?.filter(function (item: DelegateInner) {
-      return item.delegateName === props.delegateName
+      // if (item.delegateName && item.delegateName === props.delegateName) {
+      //   setFoundDelegateName(item.delegateName)
+      //   return true
+      // }
+      return item.delegateName && item.delegateName === props.delegateName
     })?.length
   }
 
-  const getStepOne = () => {
-    if (stepDetails.status === 'PROCESS') {
-      return `${i18n.STEPS.ONE.PROGRESS}: ${props.delegateName} `
-    } else if (stepDetails.status === 'DONE') {
-      return `${i18n.STEPS.ONE.SUCCESS}: ${props.delegateName} `
-    } else {
-      return `${i18n.STEPS.ONE.FAILED}`
-    }
-  }
-
-  const executeStepVerify = async (): Promise<void> => {
-    if (stepDetails.step === StepIndex.get(STEP.VERIFY)) {
-      let testConnectionResponse: ResponseDTOConnectorValidationResult
+  let testConnectionResponse: ResponseDTOConnectorValidationResult
+  const executeEstablishConnection = async (): Promise<void> => {
+    if (stepDetails.step === StepIndex.get(STEP.ESTABLISH_CONNECTION)) {
       if (stepDetails.status === 'PROCESS') {
         try {
           testConnectionResponse = await reloadTestConnection()
           if (testConnectionResponse?.data?.valid) {
             setStepDetails({
-              step: 3,
+              step: 2,
               intent: Intent.SUCCESS,
               status: 'DONE'
             })
-
-            props.setLastTested?.(testConnectionResponse?.data?.testedAt || 0)
-            props.setLastConnected?.(testConnectionResponse?.data?.testedAt || 0)
-            props.setStatus?.('SUCCESS')
           } else {
             setStepDetails({
-              step: 3,
+              step: 2,
               intent: Intent.DANGER,
               status: 'ERROR'
             })
           }
         } catch (err) {
           setStepDetails({
-            step: 3,
+            step: 2,
             intent: Intent.DANGER,
             status: 'ERROR'
           })
@@ -158,24 +163,36 @@ const VerifyExistingDelegate = (props: VerifyExistingDelegateProps) => {
         status: 'PROCESS'
       })
     }
-    if (stepDetails.step === StepIndex.get(STEP.ESTABLISH_CONNECTION) && stepDetails.status === 'PROCESS') {
+
+    if (stepDetails.step === StepIndex.get(STEP.ESTABLISH_CONNECTION) && stepDetails.status === 'DONE') {
+      setStepDetails({
+        step: 3,
+        intent: Intent.SUCCESS,
+        status: 'PROCESS'
+      })
+    }
+    if (stepDetails.step === StepIndex.get(STEP.VERIFY) && stepDetails.status === 'PROCESS') {
       const interval = setInterval(() => {
         setStepDetails({
           step: 3,
           intent: Intent.SUCCESS,
-          status: 'PROCESS'
+          status: 'DONE'
         })
+
+        props.setStatus?.(ConnectorStatus.SUCCESS)
+        props.setLastTested?.(new Date().getTime() || 0)
+        props.setLastConnected?.(new Date().getTime() || 0)
       }, 2000)
 
       return () => {
         clearInterval(interval)
       }
     }
-    executeStepVerify()
-    if (stepDetails.intent === Intent.DANGER) {
+    executeEstablishConnection()
+
+    if (stepDetails.step !== StepIndex.get(STEP.DELEGATE) && stepDetails.intent === Intent.DANGER) {
       props.setLastTested?.(new Date().getTime() || 0)
-      props.setTesting?.(false)
-      props.setStatus?.('FAILURE')
+      props.setStatus?.(ConnectorStatus.FAILURE)
     }
   }, [stepDetails, delegateStatus, error])
   return (
@@ -185,7 +202,7 @@ const VerifyExistingDelegate = (props: VerifyExistingDelegateProps) => {
       </Text>
       <StepsProgress
         steps={[
-          getStepOne(),
+          getStepOneForExistingDelegate(stepDetails, props.delegateName),
           i18n.STEPS.TWO.PROGRESS(getConnectorDisplayName(props.type || '')),
           i18n.STEPS.THREE.PROGRESS
         ]}
@@ -193,7 +210,9 @@ const VerifyExistingDelegate = (props: VerifyExistingDelegateProps) => {
         current={stepDetails.step}
         currentStatus={stepDetails.status}
       />
-      {stepDetails.step === StepIndex.get(STEP.VERIFY) && stepDetails.status === 'PROCESS' ? (
+      {renderInModal &&
+      stepDetails.step === StepIndex.get(STEP.ESTABLISH_CONNECTION) &&
+      stepDetails.status === 'PROCESS' ? (
         <Text font="small" className={css.verificationText}>
           {i18n.VERIFICATION_TIME_TEXT}
         </Text>
@@ -215,7 +234,7 @@ const VerifyExistingDelegate = (props: VerifyExistingDelegateProps) => {
               <span>Delegate: {props.delegateName}</span>
               {/* change it with values from api  */}
               <span>
-                Status:&nbsp;
+                {i18n.Status}:&nbsp;
                 {isSelectedDelegateActive(delegateStatus as RestResponseDelegateStatus) ? i18n.ACTIVE : i18n.NOT_ACTIVE}
               </span>
               {/* Todo <span>Sync:</span> */}
@@ -223,24 +242,21 @@ const VerifyExistingDelegate = (props: VerifyExistingDelegateProps) => {
           </Layout.Vertical>
         </section>
       ) : null}
-      {props.renderInModal ? (
-        <Layout.Horizontal padding={{ top: 'xxxlarge' }}>
-          <Button
-            onClick={() => {
-              props.hideLightModal?.()
-              props.onSuccess?.()
-              showSuccess(`Connector '${props.connectorName}' created successfully`)
-            }}
-            text={i18n.FINISH}
-          />
-        </Layout.Horizontal>
-      ) : stepDetails.intent === Intent.DANGER ? (
-        <Layout.Horizontal>
+      {!renderInModal && stepDetails.step === StepIndex.get(STEP.VERIFY) && stepDetails.status === 'DONE' ? (
+        <Text padding={{ top: 'small', left: 'large' }}>
+          {i18n.LAST_CONNECTED} {<ReactTimeago date={new Date().getTime()} />}
+        </Text>
+      ) : null}
+
+      {(stepDetails.step === StepIndex.get(STEP.VERIFY) && stepDetails.status === 'DONE') ||
+      stepDetails.intent === Intent.DANGER ? (
+        <Layout.Horizontal margin={{ left: 'small' }}>
           <Button
             intent="primary"
             minimal
-            text={i18n.RETEST}
+            padding={{ left: 'large' }}
             margin={{ top: 'small' }}
+            text={i18n.RETEST}
             font={{ size: 'small' }}
             onClick={() => {
               setStepDetails({
@@ -250,7 +266,32 @@ const VerifyExistingDelegate = (props: VerifyExistingDelegateProps) => {
               })
             }}
           />
-          :
+          {!renderInModal &&
+          ((stepDetails.step === StepIndex.get(STEP.VERIFY) && stepDetails.status === 'DONE') ||
+            stepDetails.intent === Intent.DANGER) ? (
+            <Button
+              intent="primary"
+              minimal
+              padding={{ left: 'large' }}
+              margin={{ top: 'small' }}
+              text={i18n.CLOSE}
+              font={{ size: 'small' }}
+              onClick={() => {
+                props.setTesting?.(false)
+              }}
+            />
+          ) : null}
+        </Layout.Horizontal>
+      ) : null}
+      {renderInModal && stepDetails.step > 1 ? (
+        <Layout.Horizontal padding={{ top: 'xxxlarge' }}>
+          <Button
+            onClick={() => {
+              props.hideLightModal?.()
+              props.onSuccess?.()
+            }}
+            text={i18n.FINISH}
+          />
         </Layout.Horizontal>
       ) : null}
     </Layout.Vertical>

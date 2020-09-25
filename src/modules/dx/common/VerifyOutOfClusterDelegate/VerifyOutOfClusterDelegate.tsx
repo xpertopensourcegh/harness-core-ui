@@ -3,10 +3,16 @@ import { useParams } from 'react-router'
 import ReactTimeago from 'react-timeago'
 import { StepsProgress, Layout, Button, Text, Intent, Color, StepProps } from '@wings-software/uikit'
 import { useGetDelegatesStatus, RestResponseDelegateStatus } from 'services/portal'
-import { useGetTestConnectionResult, ResponseDTOConnectorValidationResult, ConnectorConfigDTO } from 'services/cd-ng'
+import {
+  useGetTestConnectionResult,
+  ResponseDTOConnectorValidationResult,
+  ConnectorConfigDTO,
+  ConnectorConnectivityDetails
+} from 'services/cd-ng'
 import { getConnectorDisplayName } from 'modules/dx/pages/connectors/utils/ConnectorUtils'
 import type { UseGetMockData } from 'modules/common/utils/testUtils'
 import type { StepDetails } from 'modules/dx/interfaces/ConnectorInterface'
+import { ConnectorStatus } from 'modules/dx/constants'
 import i18n from './VerifyOutOfClusterDelegate.i18n'
 import css from './VerifyOutOfClusterDelegate.module.scss'
 
@@ -22,8 +28,7 @@ interface VerifyOutOfClusterDelegateProps {
   setIsEditMode?: () => void
   setLastTested?: (val: number) => void
   setLastConnected?: (val: number) => void
-  inPopover?: boolean
-  setStatus?: (val: string) => void
+  setStatus?: (val: ConnectorConnectivityDetails['status']) => void
   setTesting?: (val: boolean) => void
   isLastStep?: boolean
   type?: string
@@ -42,22 +47,19 @@ interface VerifyOutOfClusterDelegateState {
   stepDetails: StepDetails
   setStepDetails: (val: StepDetails) => void
 }
-const TOTAL_STEPS = 3
-
-const STEP = {
+export const STEP = {
   CHECK_DELEGATE: 'CHECK_DELEGATE',
   ESTABLISH_CONNECTION: 'ESTABLISH_CONNECTION',
   VERIFY: 'VERIFY'
 }
-const StepIndex = new Map([
+export const StepIndex = new Map([
   [STEP.CHECK_DELEGATE, 1],
   [STEP.ESTABLISH_CONNECTION, 2],
   [STEP.VERIFY, 3]
 ])
 
-const getStepOne = (state: VerifyOutOfClusterDelegateState) => {
+export const getStepOne = (state: VerifyOutOfClusterDelegateState) => {
   const count = state.delegateCount?.resource?.delegates?.length
-
   if (state.stepDetails.step !== StepIndex.get(STEP.CHECK_DELEGATE)) {
     return i18n.delegateFound(count)
   } else {
@@ -68,7 +70,7 @@ const getStepOne = (state: VerifyOutOfClusterDelegateState) => {
 const VerifyOutOfClusterDelegate: React.FC<
   StepProps<VerifyOutOfClusterStepProps> & VerifyOutOfClusterDelegateProps
 > = props => {
-  const { prevStepData, nextStep, isLastStep = false, renderInModal = false, inPopover = false } = props
+  const { prevStepData, nextStep, isLastStep = false, renderInModal = false } = props
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
   const [delegateCount, setDelegateCount] = useState({} as RestResponseDelegateStatus | null)
   const [validateError, setValidateError] = useState({} as RestResponseDelegateStatus | null)
@@ -103,35 +105,36 @@ const VerifyOutOfClusterDelegate: React.FC<
     }
   })
 
-  const executeStepVerify = async (): Promise<void> => {
-    if (stepDetails.step === StepIndex.get(STEP.VERIFY)) {
-      let testConnectionResponse: ResponseDTOConnectorValidationResult
+  const getStepTwo = () => {
+    if (stepDetails.status === 'ERROR') {
+      return i18n.STEPS.TWO.FAILED
+    } else {
+      return i18n.STEPS.TWO.SUCCESS(getConnectorDisplayName(props.type || ''))
+    }
+  }
+
+  let testConnectionResponse: ResponseDTOConnectorValidationResult
+  const executeEstablishConnection = async (): Promise<void> => {
+    if (stepDetails.step === StepIndex.get(STEP.ESTABLISH_CONNECTION)) {
       if (stepDetails.status === 'PROCESS') {
         try {
           testConnectionResponse = await reloadTestConnection()
           if (testConnectionResponse?.data?.valid) {
             setStepDetails({
-              step: 3,
+              step: 2,
               intent: Intent.SUCCESS,
               status: 'DONE'
             })
-
-            props.setLastTested?.(testConnectionResponse?.data?.testedAt || 0)
-            props.setLastConnected?.(testConnectionResponse?.data?.testedAt || 0)
-            props.setStatus?.('SUCCESS')
-            if (inPopover) {
-              props.setTesting?.(false)
-            }
           } else {
             setStepDetails({
-              step: 3,
+              step: 2,
               intent: Intent.DANGER,
               status: 'ERROR'
             })
           }
         } catch (err) {
           setStepDetails({
-            step: 3,
+            step: 2,
             intent: Intent.DANGER,
             status: 'ERROR'
           })
@@ -139,7 +142,6 @@ const VerifyOutOfClusterDelegate: React.FC<
       }
     }
   }
-
   React.useEffect(() => {
     if (stepDetails.step === StepIndex.get(STEP.CHECK_DELEGATE) && stepDetails.status === 'PROCESS') {
       if (delegateStatus) {
@@ -173,47 +175,61 @@ const VerifyOutOfClusterDelegate: React.FC<
         status: 'PROCESS'
       })
     }
-    if (stepDetails.step === StepIndex.get(STEP.ESTABLISH_CONNECTION) && stepDetails.status === 'PROCESS') {
+
+    if (stepDetails.step === StepIndex.get(STEP.ESTABLISH_CONNECTION) && stepDetails.status === 'DONE') {
+      setStepDetails({
+        step: 3,
+        intent: Intent.SUCCESS,
+        status: 'PROCESS'
+      })
+    }
+    if (stepDetails.step === StepIndex.get(STEP.VERIFY) && stepDetails.status === 'PROCESS') {
       const interval = setInterval(() => {
         setStepDetails({
           step: 3,
           intent: Intent.SUCCESS,
-          status: 'PROCESS'
+          status: 'DONE'
         })
+
+        props.setStatus?.(ConnectorStatus.SUCCESS)
+        props.setLastTested?.(new Date().getTime() || 0)
+        props.setLastConnected?.(new Date().getTime() || 0)
       }, 2000)
 
       return () => {
         clearInterval(interval)
       }
     }
+    executeEstablishConnection()
 
-    executeStepVerify()
-
-    if (stepDetails.intent === Intent.DANGER) {
+    if (stepDetails.step !== StepIndex.get(STEP.CHECK_DELEGATE) && stepDetails.intent === Intent.DANGER) {
       props.setLastTested?.(new Date().getTime() || 0)
-      props.setTesting?.(false)
-      props.setStatus?.('FAILURE')
+      props.setStatus?.(ConnectorStatus.FAILURE)
     }
   }, [stepDetails, delegateStatus, error])
   return (
     <Layout.Vertical padding="small" height={'100%'}>
       <Layout.Vertical height={'90%'}>
-        {inPopover ? null : (
-          <Text font="medium" color={Color.GREY_700} padding={{ right: 'small', left: 'small' }}>
-            {i18n.HEADING} <span className={css.name}>{props.connectorName || prevStepData?.name}</span>
-          </Text>
-        )}
+        <Text font="medium" color={Color.GREY_700} padding={{ right: 'small', left: 'small' }}>
+          {i18n.HEADING} <span className={css.name}>{props.connectorName || prevStepData?.name}</span>
+        </Text>
+
         <StepsProgress
-          steps={[
-            getStepOne(state),
-            inPopover ? i18n.STEP_TWO_POPOVER : i18n.STEPS.TWO(getConnectorDisplayName(props.type || '')),
-            i18n.STEPS.THREE
-          ]}
+          steps={[getStepOne(state), getStepTwo(), i18n.STEPS.THREE]}
           intent={stepDetails.intent}
           current={stepDetails.step}
           currentStatus={stepDetails.status}
         />
-        {renderInModal && stepDetails.step === StepIndex.get(STEP.VERIFY) && stepDetails.status === 'ERROR' ? (
+        {renderInModal &&
+        stepDetails.step === StepIndex.get(STEP.ESTABLISH_CONNECTION) &&
+        stepDetails.status === 'PROCESS' ? (
+          <Text font="small" className={css.verificationText}>
+            {i18n.VERIFICATION_TIME_TEXT}
+          </Text>
+        ) : null}
+        {renderInModal &&
+        stepDetails.step === StepIndex.get(STEP.ESTABLISH_CONNECTION) &&
+        stepDetails.status === 'ERROR' ? (
           <Button
             intent="primary"
             minimal
@@ -226,22 +242,20 @@ const VerifyOutOfClusterDelegate: React.FC<
           />
         ) : null}
 
-        {inPopover &&
-        !renderInModal &&
-        stepDetails.step === StepIndex.get(STEP.VERIFY) &&
-        stepDetails.status === 'DONE' ? (
+        {!renderInModal && stepDetails.step === StepIndex.get(STEP.VERIFY) && stepDetails.status === 'DONE' ? (
           <Text padding={{ top: 'small', left: 'large' }}>
             {i18n.LAST_CONNECTED} {<ReactTimeago date={new Date().getTime()} />}
           </Text>
         ) : null}
-        {inPopover && renderInModal && stepDetails.intent === Intent.DANGER ? (
-          <Layout.Horizontal>
+        {(stepDetails.step === StepIndex.get(STEP.VERIFY) && stepDetails.status === 'DONE') ||
+        stepDetails.intent === Intent.DANGER ? (
+          <Layout.Horizontal margin={{ left: 'small' }}>
             <Button
               intent="primary"
               minimal
-              text={i18n.RETEST}
               padding={{ left: 'large' }}
               margin={{ top: 'small' }}
+              text={i18n.RETEST}
               font={{ size: 'small' }}
               onClick={() => {
                 setStepDetails({
@@ -251,10 +265,25 @@ const VerifyOutOfClusterDelegate: React.FC<
                 })
               }}
             />
+            {!renderInModal &&
+            ((stepDetails.step === StepIndex.get(STEP.VERIFY) && stepDetails.status === 'DONE') ||
+              stepDetails.intent === Intent.DANGER) ? (
+              <Button
+                intent="primary"
+                minimal
+                padding={{ left: 'large' }}
+                margin={{ top: 'small' }}
+                text={i18n.CLOSE}
+                font={{ size: 'small' }}
+                onClick={() => {
+                  props.setTesting?.(false)
+                }}
+              />
+            ) : null}
           </Layout.Horizontal>
         ) : null}
       </Layout.Vertical>
-      {isLastStep && stepDetails.step === TOTAL_STEPS && stepDetails.status === 'DONE' ? (
+      {isLastStep && stepDetails.step > 1 ? (
         <Layout.Horizontal spacing="large" className={css.btnWrapper}>
           <Button
             onClick={() => {
@@ -265,7 +294,8 @@ const VerifyOutOfClusterDelegate: React.FC<
           />
         </Layout.Horizontal>
       ) : null}
-      {!isLastStep && renderInModal && !inPopover ? (
+
+      {!isLastStep && renderInModal ? (
         <Layout.Horizontal spacing="large" className={css.btnWrapper}>
           <Button
             onClick={() => {

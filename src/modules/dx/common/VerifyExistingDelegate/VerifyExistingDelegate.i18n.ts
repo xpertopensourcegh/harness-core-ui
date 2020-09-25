@@ -19,5 +19,8 @@ export default {
   FINISH: 'FINISH',
   ACTIVE: 'Active',
   NOT_ACTIVE: 'NOT_ACTIVE',
-  RETEST: 'RETEST CONNECTION'
+  RETEST: 'RETEST CONNECTION',
+  Status: 'Status',
+  LAST_CONNECTED: 'Last connected successfully',
+  CLOSE: 'CLOSE'
 }

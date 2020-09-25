@@ -36,3 +36,9 @@
 .verifyWrapper {
   padding: 0px var(--spacing-small) !important;
 }
+.btnWrapper {
+  margin-top: 300px;
+  .submitBtn {
+    color: var(--blue-500);
+  }
+}

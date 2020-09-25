@@ -1,7 +1,10 @@
-import type { ConnectorDTO } from 'services/cd-ng'
+import type { ConnectorDTO, ConnectorConnectivityDetails } from 'services/cd-ng'
 
 interface ConnectorType {
   [key: string]: ConnectorDTO['type']
+}
+interface ConnectorStatusType {
+  [key: string]: ConnectorConnectivityDetails['status']
 }
 export const Connectors: ConnectorType = {
   KUBERNETES_CLUSTER: 'K8sCluster',
@@ -20,4 +23,8 @@ export const ConnectorInfoText = {
   SPLUNK: 'Splunk',
   DOCKER: 'Docker',
   YAML: 'Create via YAML Builder'
+}
+export const ConnectorStatus: ConnectorStatusType = {
+  SUCCESS: 'SUCCESS',
+  FAILURE: 'FAILURE'
 }

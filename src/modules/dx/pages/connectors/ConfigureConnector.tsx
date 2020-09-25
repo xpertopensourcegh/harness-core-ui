@@ -13,6 +13,7 @@ import { YAMLService } from 'modules/dx/services'
 import TestConnection from 'modules/dx/components/connectors/TestConnection/TestConnection'
 import type { YamlBuilderHandlerBinding, YamlBuilderProps } from 'modules/common/interfaces/YAMLBuilderProps'
 import ConnectorForm from 'modules/dx/components/connectors/ConnectorForm/ConnectorForm'
+import type { ConnectorConnectivityDetails } from 'services/cd-ng'
 import SavedConnectorDetails from './views/savedDetailsView/SavedConnectorDetails'
 import ConnectorStats from './ConnectorStats'
 import { getHeadingByType } from './utils/ConnectorHelper'
@@ -49,15 +50,15 @@ const ConfigureConnector: React.FC<ConfigureConnectorProps> = props => {
   const { accountId, orgIdentifier, projectIdentifier } = useParams()
   const { isCreationThroughYamlBuilder } = props
   const [enableEdit, setEnableEdit] = useState(false)
-  const [lastTested, setLastTested] = useState(props.connector.status?.lastTestedAt || 0)
-  const [lastConnected, setLastConnected] = useState(props.connector.status?.lastTestedAt || 0)
+  const [lastTested, setLastTested] = useState<number>(props.connector.status?.lastTestedAt || 0)
+  const [lastConnected, setLastConnected] = useState<number>(props.connector.status?.lastTestedAt || 0)
   const [selectedView, setSelectedView] = useState(
     isCreationThroughYamlBuilder ? SelectedView.YAML : SelectedView.VISUAL
   )
 
   const [snippets, setSnippets] = useState<SnippetInterface[]>()
   const [connector, setConnector] = useState(props.connector)
-  const [status, setStatus] = useState(props.connector.status?.status || '')
+  const [status, setStatus] = useState<ConnectorConnectivityDetails['status']>(props.connector.status?.status)
   const [yamlHandler, setYamlHandler] = React.useState<YamlBuilderHandlerBinding | undefined>()
   const [confirmButtonIsEnabled, setConfirmButtonIsEnabled] = React.useState<boolean>(true)
 
