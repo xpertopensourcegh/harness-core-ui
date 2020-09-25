@@ -14,7 +14,7 @@ import i18n from './ProjectsPage.i18n'
 import css from './OrgsProjectsPage.module.scss'
 
 const OrgProjectsListPage: React.FC = () => {
-  const { orgId } = useParams()
+  const { orgIdentifier } = useParams()
   const { organisationsMap } = useAppStoreReader()
   const [reloadOrgPage, setReloadOrgPage] = useState(false)
 
@@ -39,7 +39,7 @@ const OrgProjectsListPage: React.FC = () => {
   return (
     <>
       <Page.Header
-        title={organisationsMap.get(orgId)?.name + ' / ' + i18n.projects.toUpperCase()}
+        title={organisationsMap.get(orgIdentifier)?.name + ' / ' + i18n.projects.toUpperCase()}
         toolbar={
           <Container>
             <Layout.Horizontal spacing="xlarge" padding={{ right: 'medium' }}>
@@ -53,7 +53,7 @@ const OrgProjectsListPage: React.FC = () => {
         <ProjectsGridView
           showEditProject={showEditProject}
           collaborators={showCollaborators}
-          orgFilterId={orgId}
+          orgFilterId={orgIdentifier}
           reloadPage={reloadOrgPage ? setReloadOrgPage : undefined}
         />
       </Page.Body>

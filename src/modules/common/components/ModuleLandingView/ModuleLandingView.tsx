@@ -49,11 +49,11 @@ export const ModuleLandingView: React.FC<ModuleLandingViewProps> = ({
   const noProjectPresent: boolean =
     projects.filter((project: Project) => project.modules?.includes?.(module)).length === 0
   return (
-    <Page.Body filled>
+    <Page.Body filled className={css.noProject}>
       <Layout.Vertical>
-        <Page.Body className={collapse ? css.fullview : css.projects}>
+        <Page.Body className={collapse ? css.noProject : css.projects}>
           {noProjectPresent ? (
-            <Layout.Vertical flex={{ align: 'center-center' }} height="100%">
+            <Layout.Vertical flex={{ align: 'center-center' }} className={css.noProject}>
               <Heading font={{ weight: 'bold', size: 'large' }} color="black">
                 {heading}
               </Heading>

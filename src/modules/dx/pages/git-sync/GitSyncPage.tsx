@@ -1,17 +1,22 @@
 import React from 'react'
 import { Layout, Container } from '@wings-software/uikit'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useParams } from 'react-router-dom'
 import { Page } from 'modules/common/exports'
 import {
   routeGitSyncRepos,
   routeGitSyncActivities,
   routeGitSyncEntities,
-  routeGitSyncErrors
+  routeGitSyncErrors,
+  routeOrgGitSyncRepos,
+  routeOrgGitSyncActivities,
+  routeOrgGitSyncEntities,
+  routeOrgGitSyncErrors
 } from '../../../common/routes'
 import i18n from './GitSyncPage.i18n'
 import css from './GitSyncPage.module.scss'
 
 const GitSyncPage: React.FC = ({ children }) => {
+  const { orgIdentifier } = useParams()
   return (
     <>
       <Page.Header
@@ -19,19 +24,35 @@ const GitSyncPage: React.FC = ({ children }) => {
         toolbar={
           <Container>
             <Layout.Horizontal spacing="medium">
-              <NavLink className={css.tags} activeClassName={css.activeTag} to={routeGitSyncRepos.url()}>
+              <NavLink
+                className={css.tags}
+                activeClassName={css.activeTag}
+                to={orgIdentifier ? routeOrgGitSyncRepos.url({ orgIdentifier }) : routeGitSyncRepos.url()}
+              >
                 {i18n.repos}
               </NavLink>
 
-              <NavLink className={css.tags} activeClassName={css.activeTag} to={routeGitSyncActivities.url()}>
+              <NavLink
+                className={css.tags}
+                activeClassName={css.activeTag}
+                to={orgIdentifier ? routeOrgGitSyncActivities.url({ orgIdentifier }) : routeGitSyncActivities.url()}
+              >
                 {i18n.activities}
               </NavLink>
 
-              <NavLink className={css.tags} activeClassName={css.activeTag} to={routeGitSyncEntities.url()}>
+              <NavLink
+                className={css.tags}
+                activeClassName={css.activeTag}
+                to={orgIdentifier ? routeOrgGitSyncEntities.url({ orgIdentifier }) : routeGitSyncEntities.url()}
+              >
                 {i18n.entities}
               </NavLink>
 
-              <NavLink className={css.tags} activeClassName={css.activeTag} to={routeGitSyncErrors.url()}>
+              <NavLink
+                className={css.tags}
+                activeClassName={css.activeTag}
+                to={orgIdentifier ? routeOrgGitSyncErrors.url({ orgIdentifier }) : routeGitSyncErrors.url()}
+              >
                 {i18n.errors}
               </NavLink>
             </Layout.Horizontal>

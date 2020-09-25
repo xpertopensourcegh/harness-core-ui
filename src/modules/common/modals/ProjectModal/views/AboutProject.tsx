@@ -51,7 +51,7 @@ const tagCollapseProps = Object.assign({}, collapseProps, { heading: i18n.newPro
 const AboutProject: React.FC<StepProps<Project> & ProjectModalData> = props => {
   const { prevStepData, nextStep, data: projectData, closeModal, onSuccess, orgmockData } = props
   const [showPreview, setShowPreview] = useState<boolean>(true)
-  const { accountId, orgId } = useParams()
+  const { accountId, orgIdentifier } = useParams()
   const isEdit = (!!projectData && !!projectData.identifier) || prevStepData?.identifier
   const isStep = prevStepData?.identifier
   const { mutate: updateProject } = usePutProject({
@@ -125,7 +125,7 @@ const AboutProject: React.FC<StepProps<Project> & ProjectModalData> = props => {
         color: '',
         identifier: '',
         name: '',
-        orgIdentifier: orgId,
+        orgIdentifier: orgIdentifier,
         description: '',
         tags: [],
         ...projectData,
@@ -171,7 +171,7 @@ const AboutProject: React.FC<StepProps<Project> & ProjectModalData> = props => {
                       label={i18n.newProjectWizard.aboutProject.org}
                       name="orgIdentifier"
                       items={organisations}
-                      disabled={isEdit || orgId ? true : loading}
+                      disabled={isEdit || orgIdentifier ? true : loading}
                     />
                   </Layout.Horizontal>
                   <div className={css.collapseDiv}>

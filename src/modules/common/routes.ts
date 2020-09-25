@@ -14,13 +14,13 @@ export const routeLogin: Route = {
   authenticated: false
 }
 
-export const routeOrgProjects: Route<{ orgId: string }> = {
+export const routeOrgProjects: Route<{ orgIdentifier: string }> = {
   module: ModuleName.COMMON,
   sidebarId: SidebarIdentifier.ACCOUNT,
-  path: '/organizations/:orgId/projects',
+  path: '/organizations/:orgIdentifier/projects',
   title: i18n.project,
   pageId: 'orgProjects',
-  url: ({ orgId }) => routeURL(routeOrgProjects, `/organizations/${orgId}/projects`),
+  url: ({ orgIdentifier }) => routeURL(routeOrgProjects, `/organizations/${orgIdentifier}/projects`),
   component: React.lazy(() => import('./pages/ProjectsPage/OrgsProjectsPage'))
 }
 
@@ -64,6 +64,16 @@ export const routeGovernance: Route = {
   component: React.lazy(() => import('./pages/governance/GovernancePage'))
 }
 
+export const routeOrgGovernance: Route<{ orgIdentifier: string }> = {
+  module: ModuleName.COMMON,
+  sidebarId: SidebarIdentifier.ACCOUNT,
+  path: '/governance/org/:orgIdentifier',
+  title: i18n.governance,
+  pageId: 'org-governance',
+  url: ({ orgIdentifier }) => routeURL(routeOrgGovernance, `/governance/org/${orgIdentifier}`),
+  component: React.lazy(() => import('./pages/governance/GovernancePage'))
+}
+
 export const routeResourcesConnectors: NestedRoute = {
   path: '/resources/connectors',
   title: i18n.resourcesConnectors,
@@ -95,6 +105,40 @@ export const routeResources: Route = {
   url: () => routeURL(routeResources, '/resources'),
   component: React.lazy(() => import('../cd/pages/Resources/ResourcesPage')),
   nestedRoutes: [routeResourcesConnectors, routeResourcesSecretsListing, routeResourcesSecretDetails]
+}
+
+export const routeOrgResourcesConnectors: NestedRoute<{ orgIdentifier: string }> = {
+  path: '/resources/org/:orgIdentifier/connectors',
+  title: i18n.resourcesConnectors,
+  url: ({ orgIdentifier }) => routeURL(routeOrgResourcesConnectors, `/resources/org/${orgIdentifier}/connectors`),
+  component: React.lazy(() => import('../dx/pages/connectors/ConnectorsPage')),
+  isDefault: true
+}
+
+export const routeOrgResourcesSecretsListing: NestedRoute<{ orgIdentifier: string }> = {
+  path: '/resources/org/:orgIdentifier/secrets',
+  title: i18n.resourcesSecrets,
+  url: ({ orgIdentifier }) => routeURL(routeOrgResourcesConnectors, `/resources/org/${orgIdentifier}/secrets`),
+  component: React.lazy(() => import('../dx/pages/secrets/SecretsPage'))
+}
+
+export const routeOrgResourcesSecretDetails: NestedRoute<{ orgIdentifier: string }> = {
+  path: '/resources/org/:orgIdentifier/secrets/:secretId',
+  title: i18n.resourcesSecretDetails,
+  url: ({ orgIdentifier }) =>
+    routeURL(routeOrgResourcesConnectors, `/resources/org/${orgIdentifier}/secrets/:secretId`),
+  component: React.lazy(() => import('../dx/pages/secretDetails/SecretDetails'))
+}
+
+export const routeOrgResources: Route<{ orgIdentifier: string }> = {
+  module: ModuleName.FRAMEWORK,
+  sidebarId: SidebarIdentifier.ACCOUNT,
+  path: '/resources/org/:orgIdentifier',
+  title: i18n.resources,
+  pageId: 'org-admin-resources',
+  url: ({ orgIdentifier }) => routeURL(routeOrgResources, `/resources/org/${orgIdentifier}`),
+  component: React.lazy(() => import('../cd/pages/Resources/ResourcesPage')),
+  nestedRoutes: [routeOrgResourcesConnectors, routeOrgResourcesSecretsListing, routeOrgResourcesSecretDetails]
 }
 
 export const routeGitSyncRepos: NestedRoute = {
@@ -135,6 +179,45 @@ export const routeGitSync: Route = {
   url: () => routeURL(routeGitSync, '/git-sync'),
   component: React.lazy(() => import('../dx/pages/git-sync/GitSyncPage')),
   nestedRoutes: [routeGitSyncActivities, routeGitSyncEntities, routeGitSyncErrors, routeGitSyncRepos]
+}
+export const routeOrgGitSyncRepos: NestedRoute<{ orgIdentifier: string }> = {
+  path: '/git-sync/org/:orgIdentifier/repos',
+  title: i18n.gitSync,
+  url: ({ orgIdentifier }) => routeURL(routeOrgGitSyncRepos, `/git-sync/org/${orgIdentifier}/repos`),
+  component: React.lazy(() => import('../dx/pages/git-sync/views/repos/GitSyncRepoTab')),
+  isDefault: true
+}
+
+export const routeOrgGitSyncActivities: NestedRoute<{ orgIdentifier: string }> = {
+  path: '/git-sync/org/:orgIdentifier/activities',
+  title: i18n.gitSync,
+  url: ({ orgIdentifier }) => routeURL(routeOrgGitSyncActivities, `/git-sync/org/${orgIdentifier}/activities`),
+  component: React.lazy(() => import('../dx/pages/git-sync/views/activities/GitSyncActivities'))
+}
+
+export const routeOrgGitSyncEntities: NestedRoute<{ orgIdentifier: string }> = {
+  path: '/git-sync/org/:orgIdentifier/entities',
+  title: i18n.gitSync,
+  url: ({ orgIdentifier }) => routeURL(routeOrgGitSyncEntities, `/git-sync/org/${orgIdentifier}/entities`),
+  component: React.lazy(() => import('../dx/pages/git-sync/views/entities/GitSyncEntityTab'))
+}
+
+export const routeOrgGitSyncErrors: NestedRoute<{ orgIdentifier: string }> = {
+  path: '/git-sync/org/:orgIdentifier/errors',
+  title: i18n.gitSync,
+  url: ({ orgIdentifier }) => routeURL(routeOrgGitSyncErrors, `/git-sync/org/${orgIdentifier}/errors`),
+  component: React.lazy(() => import('../dx/pages/git-sync/views/errors/GitSyncErrors'))
+}
+
+export const routeOrgGitSync: Route<{ orgIdentifier: string }> = {
+  module: ModuleName.COMMON,
+  sidebarId: SidebarIdentifier.ACCOUNT,
+  path: '/git-sync/org/:orgIdentifier',
+  title: i18n.gitSync,
+  pageId: 'org-git-sync',
+  url: ({ orgIdentifier }) => routeURL(routeOrgGitSync, `/git-sync/org/${orgIdentifier}`),
+  component: React.lazy(() => import('../dx/pages/git-sync/GitSyncPage')),
+  nestedRoutes: [routeOrgGitSyncActivities, routeOrgGitSyncEntities, routeOrgGitSyncErrors, routeOrgGitSyncRepos]
 }
 
 export const routePageNotFound: Route = {

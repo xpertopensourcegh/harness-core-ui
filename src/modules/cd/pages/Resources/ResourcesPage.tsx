@@ -1,12 +1,18 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useParams } from 'react-router-dom'
 import { Container, Layout } from '@wings-software/uikit'
 import { Page } from 'modules/common/exports'
-import { routeResourcesConnectors, routeResourcesSecretsListing } from 'modules/common/routes'
+import {
+  routeOrgResourcesConnectors,
+  routeOrgResourcesSecretsListing,
+  routeResourcesConnectors,
+  routeResourcesSecretsListing
+} from 'modules/common/routes'
 import i18n from './ResourcesPage.i18n'
 import css from './ResourcesPage.module.scss'
 
 const ResourcesPage: React.FC = ({ children }) => {
+  const { orgIdentifier } = useParams()
   return (
     <>
       <Page.Header
@@ -14,11 +20,23 @@ const ResourcesPage: React.FC = ({ children }) => {
         toolbar={
           <Container>
             <Layout.Horizontal spacing="medium">
-              <NavLink className={css.tags} activeClassName={css.activeTag} to={routeResourcesConnectors.url()}>
+              <NavLink
+                className={css.tags}
+                activeClassName={css.activeTag}
+                to={orgIdentifier ? routeOrgResourcesConnectors.url({ orgIdentifier }) : routeResourcesConnectors.url()}
+              >
                 {i18n.connectors}
               </NavLink>
 
-              <NavLink className={css.tags} activeClassName={css.activeTag} to={routeResourcesSecretsListing.url()}>
+              <NavLink
+                className={css.tags}
+                activeClassName={css.activeTag}
+                to={
+                  orgIdentifier
+                    ? routeOrgResourcesSecretsListing.url({ orgIdentifier })
+                    : routeResourcesSecretsListing.url()
+                }
+              >
                 {i18n.secrets}
               </NavLink>
 

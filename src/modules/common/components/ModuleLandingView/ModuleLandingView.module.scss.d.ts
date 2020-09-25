@@ -6,6 +6,7 @@ declare const styles: {
   readonly add: string
   readonly view: string
   readonly crossIcon: string
+  readonly noProject: string
   readonly pageclass: string
 }
 export default styles

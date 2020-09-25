@@ -1,0 +1,21 @@
+.orgSelector {
+  padding: var(--spacing-small) 0 var(--spacing-small) var(--spacing-xxxlarge);
+  background-color: var(--black);
+
+  input {
+    color: var(--blue-500) !important;
+    background-color: transparent !important;
+    border-width: 0 !important;
+
+    & + span span {
+      transform: translateX(-15px);
+    }
+  }
+
+  &.noSelected {
+    input::placeholder,
+    input + span span {
+      color: var(--white);
+    }
+  }
+}
