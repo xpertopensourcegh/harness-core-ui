@@ -103,7 +103,12 @@ const GITConnectorForm: React.FC<GITConnectorFormProps> = props => {
       })}
       enableReinitialize={true}
       onSubmit={formData => {
-        props.onSubmit(buildGITPayload(formData))
+        const connectorData = {
+          ...formData,
+          projectIdentifier: projectIdentifier,
+          orgIdentifier: orgIdentifier
+        }
+        props.onSubmit(buildGITPayload(connectorData))
       }}
       validate={data => props.setConnector(buildGITPayload(data).connector)}
     >
@@ -132,8 +137,8 @@ const GITConnectorForm: React.FC<GITConnectorFormProps> = props => {
                 name="connectionType"
                 label={i18n.CONFIGURE_TEXT}
                 items={[
-                  { label: i18n.gitAccount, value: 'Account' },
-                  { label: i18n.gitRepo, value: 'Repo' }
+                  { label: i18n.gitAccount, value: 'ACCOUNT' },
+                  { label: i18n.gitRepo, value: 'REPO' }
                 ]}
                 className={css.radioGroup}
               />

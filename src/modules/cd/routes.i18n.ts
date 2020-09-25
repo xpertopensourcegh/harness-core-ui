@@ -9,6 +9,7 @@ export default {
   templateLibary: 'Template Library',
   generalSettings: 'General Settings',
   resourcesConnectors: 'Connectors',
+  resourcesConnectorDetails: 'Connector Details',
   resourcesSecrets: 'Secrets',
   resourcesSecretDetails: 'Secret Details',
   accessControl: 'Access Control',

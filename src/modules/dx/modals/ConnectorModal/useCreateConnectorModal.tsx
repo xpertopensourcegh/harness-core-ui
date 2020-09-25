@@ -53,6 +53,7 @@ const useCreateConnectorModal = (props: UseCreateConnectorModalProps): UseCreate
           iconProps={{ size: 18 }}
           onClick={() => {
             hideModal()
+            props.onSuccess?.()
           }}
           className={css.crossIcon}
         />

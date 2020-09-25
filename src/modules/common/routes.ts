@@ -82,6 +82,13 @@ export const routeResourcesConnectors: NestedRoute = {
   isDefault: true
 }
 
+export const routeResourcesConnectorDetails: NestedRoute = {
+  path: '/resources/connectors/:connectorId',
+  title: i18n.resourcesConnectorDetails,
+  url: () => routeURL(routeResourcesConnectorDetails, '/resources/connectors/:connectorId'),
+  component: React.lazy(() => import('../dx/pages/connectors/ConnectorDetailsPage'))
+}
+
 export const routeResourcesSecretsListing: NestedRoute = {
   path: '/resources/secrets',
   title: i18n.resourcesSecrets,
@@ -104,7 +111,12 @@ export const routeResources: Route = {
   pageId: 'resources',
   url: () => routeURL(routeResources, '/resources'),
   component: React.lazy(() => import('../cd/pages/Resources/ResourcesPage')),
-  nestedRoutes: [routeResourcesConnectors, routeResourcesSecretsListing, routeResourcesSecretDetails]
+  nestedRoutes: [
+    routeResourcesConnectors,
+    routeResourcesConnectorDetails,
+    routeResourcesSecretsListing,
+    routeResourcesSecretDetails
+  ]
 }
 
 export const routeOrgResourcesConnectors: NestedRoute<{ orgIdentifier: string }> = {
@@ -113,6 +125,14 @@ export const routeOrgResourcesConnectors: NestedRoute<{ orgIdentifier: string }>
   url: ({ orgIdentifier }) => routeURL(routeOrgResourcesConnectors, `/resources/org/${orgIdentifier}/connectors`),
   component: React.lazy(() => import('../dx/pages/connectors/ConnectorsPage')),
   isDefault: true
+}
+
+export const routeOrgResourcesConnectorDetails: NestedRoute<{ orgIdentifier: string }> = {
+  path: '/resources/org/:orgIdentifier/connectors/:connectorId',
+  title: i18n.resourcesConnectorDetails,
+  url: ({ orgIdentifier }) =>
+    routeURL(routeOrgResourcesConnectorDetails, `/resources/org/${orgIdentifier}/connectors/:connectorId`),
+  component: React.lazy(() => import('../dx/pages/connectors/ConnectorDetailsPage'))
 }
 
 export const routeOrgResourcesSecretsListing: NestedRoute<{ orgIdentifier: string }> = {

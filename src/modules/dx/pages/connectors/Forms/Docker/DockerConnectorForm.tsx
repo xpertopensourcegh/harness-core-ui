@@ -90,7 +90,12 @@ const DockerConnectorForm: React.FC<DockerConnectorFormProps> = props => {
       })}
       enableReinitialize={true}
       onSubmit={formData => {
-        props.onSubmit(buildDockerPayload(formData))
+        const connectorData = {
+          ...formData,
+          projectIdentifier: projectIdentifier,
+          orgIdentifier: orgIdentifier
+        }
+        props.onSubmit(buildDockerPayload(connectorData))
       }}
       validate={data => props.setConnector(buildDockerPayload(data).connector)}
     >

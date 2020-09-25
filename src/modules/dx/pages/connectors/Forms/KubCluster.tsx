@@ -230,7 +230,12 @@ const KubCluster: React.FC<KubClusterProps> = props => {
       })}
       enableReinitialize={true}
       onSubmit={formData => {
-        props.onSubmit(buildKubPayload(formData))
+        const connectorData = {
+          ...formData,
+          projectIdentifier: projectIdentifier,
+          orgIdentifier: orgIdentifier
+        }
+        props.onSubmit(buildKubPayload(connectorData))
       }}
       validate={data => props.setConnector(buildKubPayload(data).connector)}
     >

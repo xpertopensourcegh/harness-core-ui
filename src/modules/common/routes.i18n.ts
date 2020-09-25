@@ -12,5 +12,6 @@ export default {
   gitSync: 'Git Sync',
   resourcesConnectors: 'Connectors',
   resourcesSecrets: 'Secrets',
-  resourcesSecretDetails: 'Secret Details'
+  resourcesSecretDetails: 'Secret Details',
+  resourcesConnectorDetails: 'Connector Details'
 }

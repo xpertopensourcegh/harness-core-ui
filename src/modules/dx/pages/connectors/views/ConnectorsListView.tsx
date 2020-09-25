@@ -2,7 +2,7 @@ import React, { useState, useMemo, useEffect } from 'react'
 import { Text, Layout, Color, Icon, Button, Popover, StepsProgress } from '@wings-software/uikit'
 import type { CellProps, Renderer, Column } from 'react-table'
 import { Menu, Classes, Position, PopoverInteractionKind, Intent } from '@blueprintjs/core'
-import { useParams, useHistory } from 'react-router-dom'
+import { useParams, useHistory, useLocation } from 'react-router-dom'
 import ReactTimeago from 'react-timeago'
 import {
   ConnectorSummaryDTO,
@@ -15,7 +15,6 @@ import {
 import Table from 'modules/common/components/Table/Table'
 import { useConfirmationDialog } from 'modules/common/exports'
 import { useToaster } from 'modules/common/components/Toaster/useToaster'
-import { routeConnectorDetails } from 'modules/dx/routes'
 import TagsPopover from 'modules/common/components/TagsPopover/TagsPopover'
 import { StepIndex, STEP } from 'modules/dx/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 import { getStepOneForExistingDelegate } from 'modules/dx/common/VerifyExistingDelegate/VerifyExistingDelegate'
@@ -363,6 +362,7 @@ const RenderColumnMenu: Renderer<CellProps<ConnectorSummaryDTO>> = ({ row, colum
 const ConnectorsListView: React.FC<ConnectorListViewProps> = props => {
   const { data, reload, gotoPage } = props
   const history = useHistory()
+  const { pathname } = useLocation()
   const columns: CustomColumn<ConnectorSummaryDTO>[] = useMemo(
     () => [
       {
@@ -406,7 +406,7 @@ const ConnectorsListView: React.FC<ConnectorListViewProps> = props => {
       columns={columns}
       data={data?.content || []}
       onRowClick={connector => {
-        history.push(routeConnectorDetails.url({ connectorId: connector.identifier as string }))
+        history.push(`${pathname}/${connector.identifier}`)
       }}
       pagination={{
         itemCount: data?.itemCount || 0,
