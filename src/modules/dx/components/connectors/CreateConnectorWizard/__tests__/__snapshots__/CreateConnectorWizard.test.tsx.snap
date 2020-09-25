@@ -20,7 +20,7 @@ exports[`Delegate Step Wizard should render Delegate Setup Wizard 1`] = `
             1
           </span>
           <p
-            class="StyledProps---font--2ipy Text---multiple--3ScU StyledProps---main--1Wws StepWizard---stepName--2M52"
+            class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
             style="--text-line-clamp: 2; width: 240px;"
           >
             CONNECTOR DETAILS
@@ -35,7 +35,7 @@ exports[`Delegate Step Wizard should render Delegate Setup Wizard 1`] = `
             2
           </span>
           <p
-            class="StyledProps---font--2ipy Text---multiple--3ScU StyledProps---main--1Wws StepWizard---stepName--2M52"
+            class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
             style="--text-line-clamp: 2; width: 240px;"
           >
             CONNECTION MODE
@@ -50,7 +50,7 @@ exports[`Delegate Step Wizard should render Delegate Setup Wizard 1`] = `
             3
           </span>
           <p
-            class="StyledProps---font--2ipy Text---multiple--3ScU StyledProps---main--1Wws StepWizard---stepName--2M52"
+            class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
             style="--text-line-clamp: 2; width: 240px;"
           >
             VERIFY CONNECTION

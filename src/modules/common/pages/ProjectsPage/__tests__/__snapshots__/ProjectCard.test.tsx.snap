@@ -64,7 +64,7 @@ exports[`Project Card test initializes ok  1`] = `
         Org Name
       </p>
       <p
-        class="StyledProps---font--2ipy Text---multiple--3ScU StyledProps---main--1Wws StyledProps---font-small--1qQz StyledProps---padding-top-medium--29t2"
+        class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StyledProps---font-small--1qQz StyledProps---padding-top-medium--29t2"
         style="--text-line-clamp: 3;"
       >
         test

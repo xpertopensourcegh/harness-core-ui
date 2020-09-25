@@ -1,0 +1,38 @@
+.status {
+  --execution-status-color: var(--green-500);
+
+  &.failed,
+  &.aborted,
+  &.error,
+  &.rejected {
+    --execution-status-color: var(--red-500);
+  }
+
+  &.success {
+    --execution-status-color: var(--green-500);
+  }
+
+  &.running,
+  &.starting,
+  &.aborting,
+  &.waiting,
+  &.pausing,
+  &.paused {
+    --execution-status-color: rgba(62, 123, 250, 0.5);
+  }
+
+  &.queued,
+  &.skipped,
+  &.expired {
+    --execution-status-color: var(--grey-350);
+  }
+
+  color: var(--execution-status-color) !important;
+  border: 1px solid var(--execution-status-color);
+  border-radius: 5px;
+  padding: 4px 12px !important;
+  font-weight: bold !important;
+  display: inline-flex;
+  height: 22px;
+  align-items: center;
+}

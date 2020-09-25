@@ -17,7 +17,7 @@ exports[`Create Secret Manager Wizard should render form 1`] = `
           1
         </span>
         <p
-          class="StyledProps---font--2ipy Text---multiple--3ScU StyledProps---main--1Wws StepWizard---stepName--2M52"
+          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
           style="--text-line-clamp: 2; width: 240px;"
         >
           CONNECTOR DETAILS
@@ -32,7 +32,7 @@ exports[`Create Secret Manager Wizard should render form 1`] = `
           2
         </span>
         <p
-          class="StyledProps---font--2ipy Text---multiple--3ScU StyledProps---main--1Wws StepWizard---stepName--2M52"
+          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
           style="--text-line-clamp: 2; width: 240px;"
         >
           AUTHENTICATION
@@ -47,7 +47,7 @@ exports[`Create Secret Manager Wizard should render form 1`] = `
           3
         </span>
         <p
-          class="StyledProps---font--2ipy Text---multiple--3ScU StyledProps---main--1Wws StepWizard---stepName--2M52"
+          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
           style="--text-line-clamp: 2; width: 240px;"
         >
           VERIFY CONNECTION
@@ -247,7 +247,7 @@ exports[`Create Secret Manager Wizard should render form 2`] = `
           1
         </span>
         <p
-          class="StyledProps---font--2ipy Text---multiple--3ScU StyledProps---main--1Wws StepWizard---stepName--2M52"
+          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
           style="--text-line-clamp: 2; width: 240px;"
         >
           CONNECTOR DETAILS
@@ -262,7 +262,7 @@ exports[`Create Secret Manager Wizard should render form 2`] = `
           2
         </span>
         <p
-          class="StyledProps---font--2ipy Text---multiple--3ScU StyledProps---main--1Wws StepWizard---stepName--2M52"
+          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
           style="--text-line-clamp: 2; width: 240px;"
         >
           AUTHENTICATION
@@ -277,7 +277,7 @@ exports[`Create Secret Manager Wizard should render form 2`] = `
           3
         </span>
         <p
-          class="StyledProps---font--2ipy Text---multiple--3ScU StyledProps---main--1Wws StepWizard---stepName--2M52"
+          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
           style="--text-line-clamp: 2; width: 240px;"
         >
           VERIFY CONNECTION
