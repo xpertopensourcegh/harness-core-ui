@@ -211,7 +211,7 @@ export const buildGITFormData = (connector: ConnectorDTO) => {
   }
 }
 export const getDelegateTypeInfo = (delegateInfoSpec: any) => {
-  const delegateType = delegateInfoSpec?.type
+  const delegateType = delegateInfoSpec?.credential?.type
   let delegateTypeMetaData
   if (delegateType === DelegateTypes.DELEGATE_IN_CLUSTER) {
     delegateTypeMetaData = {
@@ -234,7 +234,7 @@ export const buildKubFormData = (connector: ConnectorDTO) => {
     description: connector?.description,
     identifier: connector?.identifier,
     tags: connector?.tags,
-    delegateType: connector?.spec?.type,
+    delegateType: connector?.spec?.credential?.type,
     ...getDelegateTypeInfo(connector?.spec)
   }
 }

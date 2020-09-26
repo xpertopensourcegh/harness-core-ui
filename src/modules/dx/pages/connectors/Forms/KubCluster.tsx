@@ -173,7 +173,7 @@ const KubCluster: React.FC<KubClusterProps> = props => {
     }
   }
   useEffect(() => {
-    if (connector && connector.spec?.type === DelegateTypes.DELEGATE_OUT_CLUSTER) {
+    if (connector && connector.spec?.credential?.type === DelegateTypes.DELEGATE_OUT_CLUSTER) {
       const formData = buildKubFormData(connector)
       getSecrets(formData)
     }
@@ -181,16 +181,16 @@ const KubCluster: React.FC<KubClusterProps> = props => {
 
   useEffect(() => {
     if (connector) {
-      if (connector?.spec?.type === DelegateTypes.DELEGATE_OUT_CLUSTER) {
+      if (connector?.spec?.credential?.type === DelegateTypes.DELEGATE_OUT_CLUSTER) {
         setAuthentication({
           label: getLabelForAuthType(connector?.spec?.spec?.auth?.type),
           value: connector?.spec?.spec?.auth?.type
         })
-      } else if (connector?.spec?.type === DelegateTypes.DELEGATE_IN_CLUSTER) {
+      } else if (connector?.spec?.credential?.type === DelegateTypes.DELEGATE_IN_CLUSTER) {
         setInClusterDelegate(DelegateInClusterType.useExistingDelegate)
       }
-      if (connector?.spec?.type) {
-        const val = { type: connector?.spec?.type, value: '', icon: '' }
+      if (connector?.spec?.credential?.type) {
+        const val = { type: connector?.spec?.credential?.type, value: '', icon: '' }
         setSelectedDelegate(val)
       }
     }

@@ -36,194 +36,199 @@
               "spec": {
                 "type": "object",
                 "properties": {
-                  "type": {
-                    "enum": ["InheritFromDelegate", "ManualConfig"]
-                  },
-                  "additionalProperties": false
-                },
-                "allOf": [
-                  {
-                    "if": {
-                      "properties": {
-                        "type": {
-                          "const": "InheritFromDelegate"
-                        },
-                        "additionalProperties": false
-                      }
+                  "credentials": {
+                    "type": "object",
+                    "properties": {
+                      "type": {
+                        "enum": ["InheritFromDelegate", "ManualConfig"]
+                      },
+                      "additionalProperties": false
                     },
-                    "then": {
-                      "properties": {
-                        "spec": {
-                          "type": "object",
+                    "allOf": [
+                      {
+                        "if": {
                           "properties": {
-                            "delegateName": {
-                              "type": "string"
+                            "type": {
+                              "const": "InheritFromDelegate"
                             },
                             "additionalProperties": false
                           }
                         },
-                        "additionalProperties": false
-                      }
-                    }
-                  },
-                  {
-                    "if": {
-                      "properties": {
-                        "type": {
-                          "const": "ManualConfig"
-                        },
-                        "additionalProperties": false
-                      }
-                    },
-                    "then": {
-                      "properties": {
-                        "spec": {
-                          "type": "object",
+                        "then": {
                           "properties": {
-                            "masterUrl": {
-                              "type": "string"
-                            },
-                            "auth": {
+                            "spec": {
                               "type": "object",
                               "properties": {
-                                "type": {
-                                  "enum": ["UserPassword", "ClientKeyCert", "ServiceAccount", "OpenIdConnect"]
+                                "delegateName": {
+                                  "type": "string"
                                 },
                                 "additionalProperties": false
-                              },
-                              "allOf": [
-                                {
-                                  "if": {
-                                    "properties": {
-                                      "type": {
-                                        "const": "UserPassword"
-                                      },
-                                      "additionalProperties": false
-                                    }
-                                  },
-                                  "then": {
-                                    "properties": {
-                                      "spec": {
-                                        "type": "object",
-                                        "properties": {
-                                          "username": {
-                                            "type": "string"
-                                          },
-                                          "password": {
-                                            "type": "string"
-                                          },
-                                          "cacert": {
-                                            "type": "string"
-                                          }
-                                        },
-                                        "additionalProperties": false
-                                      }
-                                    }
-                                  }
-                                },
-                                {
-                                  "if": {
-                                    "properties": {
-                                      "type": {
-                                        "const": "ClientKeyCert"
-                                      },
-                                      "additionalProperties": false
-                                    }
-                                  },
-                                  "then": {
-                                    "properties": {
-                                      "spec": {
-                                        "type": "object",
-                                        "properties": {
-                                          "client-cert": {
-                                            "type": "string"
-                                          },
-                                          "client-key": {
-                                            "type": "string"
-                                          },
-                                          "client-key-passphrase": {
-                                            "type": "string"
-                                          },
-                                          "clientKeyAlgo": {
-                                            "type": "string"
-                                          }
-                                        },
-                                        "additionalProperties": false
-                                      }
-                                    }
-                                  }
-                                },
-                                {
-                                  "if": {
-                                    "properties": {
-                                      "type": {
-                                        "const": "ServiceAccount"
-                                      },
-                                      "additionalProperties": false
-                                    }
-                                  },
-                                  "then": {
-                                    "properties": {
-                                      "spec": {
-                                        "type": "object",
-                                        "properties": {
-                                          "service-acccount-token": {
-                                            "type": "string"
-                                          }
-                                        },
-                                        "additionalProperties": false
-                                      }
-                                    }
-                                  }
-                                },
-                                {
-                                  "if": {
-                                    "properties": {
-                                      "type": {
-                                        "const": "OpenIdConnect"
-                                      },
-                                      "additionalProperties": false
-                                    }
-                                  },
-                                  "then": {
-                                    "properties": {
-                                      "spec": {
-                                        "type": "object",
-                                        "properties": {
-                                          "oidc-issuer-url": {
-                                            "type": "string"
-                                          },
-                                          "oidc-client-id": {
-                                            "type": "string"
-                                          },
-                                          "oidc-username": {
-                                            "type": "string"
-                                          },
-                                          "oidc-password": {
-                                            "type": "string"
-                                          },
-                                          "oidc-secret": {
-                                            "type": "string"
-                                          },
-                                          "oidc-scopes": {
-                                            "type": "string"
-                                          }
-                                        },
-                                        "additionalProperties": false
-                                      }
-                                    }
-                                  }
-                                }
-                              ]
-                            }
-                          },
-                          "additionalProperties": false
+                              }
+                            },
+                            "additionalProperties": false
+                          }
+                        }
+                      },
+                      {
+                        "if": {
+                          "properties": {
+                            "type": {
+                              "const": "ManualConfig"
+                            },
+                            "additionalProperties": false
+                          }
                         },
-                        "additionalProperties": false
+                        "then": {
+                          "properties": {
+                            "spec": {
+                              "type": "object",
+                              "properties": {
+                                "masterUrl": {
+                                  "type": "string"
+                                },
+                                "auth": {
+                                  "type": "object",
+                                  "properties": {
+                                    "type": {
+                                      "enum": ["UserPassword", "ClientKeyCert", "ServiceAccount", "OpenIdConnect"]
+                                    },
+                                    "additionalProperties": false
+                                  },
+                                  "allOf": [
+                                    {
+                                      "if": {
+                                        "properties": {
+                                          "type": {
+                                            "const": "UserPassword"
+                                          },
+                                          "additionalProperties": false
+                                        }
+                                      },
+                                      "then": {
+                                        "properties": {
+                                          "spec": {
+                                            "type": "object",
+                                            "properties": {
+                                              "username": {
+                                                "type": "string"
+                                              },
+                                              "password": {
+                                                "type": "string"
+                                              },
+                                              "cacert": {
+                                                "type": "string"
+                                              }
+                                            },
+                                            "additionalProperties": false
+                                          }
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "if": {
+                                        "properties": {
+                                          "type": {
+                                            "const": "ClientKeyCert"
+                                          },
+                                          "additionalProperties": false
+                                        }
+                                      },
+                                      "then": {
+                                        "properties": {
+                                          "spec": {
+                                            "type": "object",
+                                            "properties": {
+                                              "client-cert": {
+                                                "type": "string"
+                                              },
+                                              "client-key": {
+                                                "type": "string"
+                                              },
+                                              "client-key-passphrase": {
+                                                "type": "string"
+                                              },
+                                              "clientKeyAlgo": {
+                                                "type": "string"
+                                              }
+                                            },
+                                            "additionalProperties": false
+                                          }
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "if": {
+                                        "properties": {
+                                          "type": {
+                                            "const": "ServiceAccount"
+                                          },
+                                          "additionalProperties": false
+                                        }
+                                      },
+                                      "then": {
+                                        "properties": {
+                                          "spec": {
+                                            "type": "object",
+                                            "properties": {
+                                              "service-acccount-token": {
+                                                "type": "string"
+                                              }
+                                            },
+                                            "additionalProperties": false
+                                          }
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "if": {
+                                        "properties": {
+                                          "type": {
+                                            "const": "OpenIdConnect"
+                                          },
+                                          "additionalProperties": false
+                                        }
+                                      },
+                                      "then": {
+                                        "properties": {
+                                          "spec": {
+                                            "type": "object",
+                                            "properties": {
+                                              "oidc-issuer-url": {
+                                                "type": "string"
+                                              },
+                                              "oidc-client-id": {
+                                                "type": "string"
+                                              },
+                                              "oidc-username": {
+                                                "type": "string"
+                                              },
+                                              "oidc-password": {
+                                                "type": "string"
+                                              },
+                                              "oidc-secret": {
+                                                "type": "string"
+                                              },
+                                              "oidc-scopes": {
+                                                "type": "string"
+                                              }
+                                            },
+                                            "additionalProperties": false
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              },
+                              "additionalProperties": false
+                            },
+                            "additionalProperties": false
+                          }
+                        }
                       }
-                    }
+                    ]
                   }
-                ]
+                }
               }
             }
           }

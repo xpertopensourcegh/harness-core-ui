@@ -32,7 +32,7 @@ const getKubernetesSchema = (connector: ConnectorConfigDTO) => {
     {
       label: i18n.k8sCluster.connectionMode,
       value:
-        connector?.spec?.type === DelegateTypes.DELEGATE_IN_CLUSTER
+        connector?.spec?.credential?.type === DelegateTypes.DELEGATE_IN_CLUSTER
           ? i18n.k8sCluster.delegateInCluster
           : i18n.k8sCluster.delegateOutCluster
     },
