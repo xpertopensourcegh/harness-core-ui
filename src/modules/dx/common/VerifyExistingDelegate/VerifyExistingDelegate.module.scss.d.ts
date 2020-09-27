@@ -7,5 +7,6 @@ declare const styles: {
   readonly name: string
   readonly verificationText: string
   readonly overlayHeading: string
+  readonly selectDelegate: string
 }
 export default styles

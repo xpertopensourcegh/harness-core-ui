@@ -28,3 +28,10 @@ export const ConnectorStatus: ConnectorStatusType = {
   SUCCESS: 'SUCCESS',
   FAILURE: 'FAILURE'
 }
+
+export const EntityTypes = {
+  PIPELINE: 'pipelines',
+  PROJECT: 'projects',
+  CONNECTOR: 'connectors',
+  SECRET: 'secrets'
+}

@@ -18,7 +18,11 @@ export default {
     MASTER_URL_LABEL: 'Master URL',
     MASTER_URL_PLACEHOLDER: '/url',
     HOW_TO_PROCEED: 'How would you like to proceed?',
-    RECOMMENDED: 'RECOMMENDED'
+    RECOMMENDED: 'RECOMMENDED',
+    validation: {
+      delegate: 'Delegate is required',
+      delegateName: 'Delegate name is required'
+    }
   },
   STEP_INTERMEDIATE: {
     NAME: 'CREDENTIALS',

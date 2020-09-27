@@ -14,5 +14,6 @@ declare const styles: {
   readonly label: string
   readonly lockIcon: string
   readonly selectAuth: string
+  readonly description: string
 }
 export default styles

@@ -58,6 +58,7 @@ const ConfigureConnector: React.FC<ConfigureConnectorProps> = props => {
 
   const [snippets, setSnippets] = useState<SnippetInterface[]>()
   const [connector, setConnector] = useState(props.connector)
+  const [connectorForYaml, setConnectorForYaml] = useState(props.connector)
   const [status, setStatus] = useState<ConnectorConnectivityDetails['status']>(props.connector.status?.status)
   const [yamlHandler, setYamlHandler] = React.useState<YamlBuilderHandlerBinding | undefined>()
   const [confirmButtonIsEnabled, setConfirmButtonIsEnabled] = React.useState<boolean>(true)
@@ -141,9 +142,11 @@ const ConfigureConnector: React.FC<ConfigureConnectorProps> = props => {
   }
 
   const yamlBuilderReadOnlyModeProps: YamlBuilderProps = {
-    fileName: `${connector?.identifier ?? 'Connector'}.yaml`,
+    fileName: `${connectorForYaml?.identifier ?? 'Connector'}.yaml`,
     entityType: YamlEntity.CONNECTOR,
-    existingJSON: isCreationThroughYamlBuilder ? {} : { connector: omitBy(Object.assign({}, connector), isNull) },
+    existingJSON: isCreationThroughYamlBuilder
+      ? {}
+      : { connector: omitBy(Object.assign({}, connectorForYaml), isNull) },
     snippets: snippets,
     onSnippetSearch: fetchSnippets,
     bind: setYamlHandler
@@ -156,6 +159,7 @@ const ConfigureConnector: React.FC<ConfigureConnectorProps> = props => {
   useEffect(() => {
     if (props.connector) {
       setConnector(props.connector)
+      setConnectorForYaml(props.connector)
     }
   }, [props.connector])
 
@@ -201,7 +205,13 @@ const ConfigureConnector: React.FC<ConfigureConnectorProps> = props => {
           </Layout.Horizontal>
           {enableEdit ? (
             selectedView === SelectedView.VISUAL ? (
-              <ConnectorForm type={props.type} connector={connector} setConnector={setConnector} onSubmit={onSubmit} />
+              <ConnectorForm
+                type={props.type}
+                connector={connector}
+                setConnector={setConnector}
+                setConnectorForYaml={setConnectorForYaml}
+                onSubmit={onSubmit}
+              />
             ) : (
               <div className={css.editor}>
                 <YamlBuilder {...yamlBuilderReadOnlyModeProps} />

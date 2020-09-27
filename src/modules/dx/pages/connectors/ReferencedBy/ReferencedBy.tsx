@@ -1,11 +1,13 @@
 import React, { useMemo, useState } from 'react'
 import ReactTimeago from 'react-timeago'
-import { Layout, Text, Icon, Color } from '@wings-software/uikit'
+import { Layout, Text, Icon, Color, IconName } from '@wings-software/uikit'
 import type { CellProps, Renderer, Column } from 'react-table'
 import Table from 'modules/common/components/Table/Table'
 
 import { useListReferredByEntities, EntityReferenceDTO } from 'services/cd-ng'
 import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
+import { Page } from 'modules/common/exports'
+import { getIconByEntityType, getReferredEntityLabelByType } from '../utils/ConnectorUtils'
 
 import i18n from './ReferencedBy.i18n'
 import css from './ReferencedBy.module.scss'
@@ -20,15 +22,17 @@ const RenderColumnEntity: Renderer<CellProps<EntityReferenceDTO>> = ({ row }) =>
   return (
     <Layout.Vertical>
       <Layout.Horizontal>
-        {/* Placeholder Icon, change after confirming supported entities */}
-        <Icon name={'pipeline'} size={16}></Icon>
+        <Icon
+          name={getIconByEntityType(data.referredByEntityType) as IconName}
+          size={16}
+          className={css.secretIconCss}
+        />
         <Text color={Color.BLACK} padding={{ left: 'small' }}>
           {data.referredByEntityName}
         </Text>
       </Layout.Horizontal>
-      {/* ToDo: change with type of entity refered when BE adds support */}
-      <Text color={Color.GREY_400} font={{ size: 'small' }} padding={{ left: 'xlarge' }}>
-        ({data.referredByEntityType})
+      <Text color={Color.GREY_400} font={{ size: 'small' }} padding={{ left: 'xxlarge' }} margin={{ left: 'xsmall' }}>
+        ({getReferredEntityLabelByType(data.referredByEntityType)})
       </Text>
     </Layout.Vertical>
   )
@@ -102,7 +106,7 @@ const ReferencedBy: React.FC<ReferencedByProps> = props => {
             }}
           />
         ) : (
-          <Text margin={'large'}>No Data</Text>
+          <Page.NoDataCard icon="nav-dashboard" message={i18n.noData} />
         )
       ) : (
         <PageSpinner />

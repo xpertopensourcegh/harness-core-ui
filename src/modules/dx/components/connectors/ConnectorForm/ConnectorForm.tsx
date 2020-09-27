@@ -9,6 +9,7 @@ interface ConnectorFormProps {
   type: string
   connector: ConnectorDTO
   setConnector: (val: ConnectorDTO) => void
+  setConnectorForYaml: (val: ConnectorDTO) => void
   enableCreate?: boolean
   enableEdit?: boolean
   onSubmit: (data: ConnectorRequestWrapper) => void

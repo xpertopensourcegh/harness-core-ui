@@ -1,5 +1,6 @@
 import React from 'react'
 import { FormInput } from '@wings-software/uikit'
+import type { FormikProps } from 'formik'
 import { FormikSecretTextInput } from 'modules/dx/components/SecretInput/SecretTextInput'
 import { AuthTypeFields } from 'modules/dx/pages/connectors/Forms/KubeFormHelper'
 import {
@@ -7,7 +8,7 @@ import {
   getSecretFieldValue,
   generateDefaultSecretConfig
 } from 'modules/dx/pages/connectors/utils/ConnectorHelper'
-import type { SecretDTOV2 } from 'services/cd-ng'
+import type { SecretDTOV2, ConnectorConfigDTO } from 'services/cd-ng'
 
 interface ClientKeyCertFieldsProps {
   accountId: string
@@ -17,6 +18,7 @@ interface ClientKeyCertFieldsProps {
   onClickCreateSecret: () => void
   isEditMode?: boolean
   onEditSecret?: (val: SecretDTOV2) => void
+  formik?: FormikProps<ConnectorConfigDTO>
 }
 
 const ClientKeyCertFields: React.FC<ClientKeyCertFieldsProps> = props => {
@@ -33,7 +35,7 @@ const ClientKeyCertFields: React.FC<ClientKeyCertFieldsProps> = props => {
         defaultSecretName={generateDefaultSecretConfig(name, AuthTypeFields.clientKeyRef)}
         defaultSecretId={generateDefaultSecretConfig(name, AuthTypeFields.clientKeyRef)}
         onClickCreateSecret={props.onClickCreateSecret}
-        isEditMode={props.isEditMode}
+        isEditMode={props.isEditMode && !!props.formik?.values?.[getSecretFieldValue(AuthTypeFields.clientKeyRef)]}
         onEditSecret={props.onEditSecret}
       />
       <FormikSecretTextInput
@@ -46,7 +48,7 @@ const ClientKeyCertFields: React.FC<ClientKeyCertFieldsProps> = props => {
         defaultSecretName={generateDefaultSecretConfig(name, AuthTypeFields.clientCertRef)}
         defaultSecretId={generateDefaultSecretConfig(name, AuthTypeFields.clientCertRef)}
         onClickCreateSecret={props.onClickCreateSecret}
-        isEditMode={props.isEditMode}
+        isEditMode={props.isEditMode && !!props.formik?.values?.[getSecretFieldValue(AuthTypeFields.clientCertRef)]}
         onEditSecret={props.onEditSecret}
       />
       <FormikSecretTextInput
@@ -59,7 +61,9 @@ const ClientKeyCertFields: React.FC<ClientKeyCertFieldsProps> = props => {
         defaultSecretName={generateDefaultSecretConfig(name, AuthTypeFields.clientKeyPassphraseRef)}
         defaultSecretId={generateDefaultSecretConfig(name, AuthTypeFields.clientKeyPassphraseRef)}
         onClickCreateSecret={props.onClickCreateSecret}
-        isEditMode={props.isEditMode}
+        isEditMode={
+          props.isEditMode && !!props.formik?.values?.[getSecretFieldValue(AuthTypeFields.clientKeyPassphraseRef)]
+        }
         onEditSecret={props.onEditSecret}
       />
       <FormikSecretTextInput
@@ -72,7 +76,7 @@ const ClientKeyCertFields: React.FC<ClientKeyCertFieldsProps> = props => {
         defaultSecretName={generateDefaultSecretConfig(name, AuthTypeFields.caCertRef)}
         defaultSecretId={generateDefaultSecretConfig(name, AuthTypeFields.caCertRef)}
         onClickCreateSecret={props.onClickCreateSecret}
-        isEditMode={props.isEditMode}
+        isEditMode={props.isEditMode && !!props.formik?.values?.[getSecretFieldValue(AuthTypeFields.caCertRef)]}
         onEditSecret={props.onEditSecret}
       />
 

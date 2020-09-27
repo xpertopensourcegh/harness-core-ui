@@ -1,6 +1,6 @@
 import { pick } from 'lodash-es'
 import type { IconName } from '@wings-software/uikit'
-import { Connectors, ConnectorInfoText } from 'modules/dx/constants'
+import { Connectors, ConnectorInfoText, EntityTypes } from 'modules/dx/constants'
 import type { ConnectorSummaryDTO, ConnectorDTO } from 'services/cd-ng'
 import type { FormData } from 'modules/dx/interfaces/ConnectorInterface'
 import { Scope } from 'modules/common/interfaces/SecretsInterface'
@@ -210,23 +210,6 @@ export const buildGITFormData = (connector: ConnectorDTO) => {
     ...connector?.spec?.spec
   }
 }
-export const getDelegateTypeInfo = (delegateInfoSpec: any) => {
-  const delegateType = delegateInfoSpec?.credential?.type
-  let delegateTypeMetaData
-  if (delegateType === DelegateTypes.DELEGATE_IN_CLUSTER) {
-    delegateTypeMetaData = {
-      delegateName: delegateInfoSpec?.spec?.delegateName
-    }
-  } else if (delegateType === DelegateTypes.DELEGATE_OUT_CLUSTER) {
-    delegateTypeMetaData = {
-      masterUrl: delegateInfoSpec?.spec?.masterUrl,
-      authType: delegateInfoSpec?.spec?.auth.type,
-      ...delegateInfoSpec?.spec?.auth?.spec
-    }
-  }
-
-  return delegateTypeMetaData
-}
 
 export const buildKubFormData = (connector: ConnectorDTO) => {
   return {
@@ -235,7 +218,10 @@ export const buildKubFormData = (connector: ConnectorDTO) => {
     identifier: connector?.identifier,
     tags: connector?.tags,
     delegateType: connector?.spec?.credential?.type,
-    ...getDelegateTypeInfo(connector?.spec)
+    delegateName: connector?.spec?.credential?.spec?.delegateName,
+    masterUrl: connector?.spec?.credential?.spec?.masterUrl,
+    authType: connector?.spec?.credential?.spec?.auth?.type,
+    ...connector?.spec?.credential?.spec?.auth?.spec
   }
 }
 
@@ -305,6 +291,34 @@ export const getConnectorDisplayName = (type: string) => {
       return 'AppDynamics server'
     case Connectors.SPLUNK:
       return 'Splunk server'
+    default:
+      return ''
+  }
+}
+
+export const getIconByEntityType = (type: string) => {
+  switch (type) {
+    case EntityTypes.PROJECT:
+      return 'nav-project'
+    case EntityTypes.PIPELINE:
+      return 'pipeline'
+    case EntityTypes.SECRET:
+      return 'key-main'
+
+    default:
+      return ''
+  }
+}
+
+export const getReferredEntityLabelByType = (type: string) => {
+  switch (type) {
+    case EntityTypes.PROJECT:
+      return 'Project'
+    case EntityTypes.PIPELINE:
+      return 'Pipeline'
+    case EntityTypes.SECRET:
+      return 'Secret'
+
     default:
       return ''
   }

@@ -17,6 +17,7 @@ import {
 import { Form } from 'formik'
 import cx from 'classnames'
 import * as Yup from 'yup'
+import { useToaster } from 'modules/common/exports'
 import {
   authOptions,
   DelegateInClusterType,
@@ -176,7 +177,6 @@ const addToFormData = (state: CreateK8sConnectorState, newFormData: any) => {
 
 const renderDelegateInclusterForm = (
   delegateList: RestResponseListString | null,
-  reloadDelegateList: () => Promise<unknown>,
   state: any,
   props: SecondStepProps
 ) => {
@@ -186,7 +186,6 @@ const renderDelegateInclusterForm = (
       <div
         className={css.radioOption}
         onClick={() => {
-          reloadDelegateList()
           state.setInClusterDelegate(DelegateInClusterType.useExistingDelegate)
           state.setInstallDelegate(false)
 
@@ -220,45 +219,38 @@ const renderDelegateInclusterForm = (
 const SecondStep = (props: SecondStepProps) => {
   const { state, accountId } = props
   const { projectIdentifier, orgIdentifier } = useParams()
-  const { data: delegateList, refetch: reloadDelegateList } = useGetKubernetesDelegateNames({
-    queryParams: { accountId },
-    lazy: true
+  const { showSuccess } = useToaster()
+  const { data: delegateList } = useGetKubernetesDelegateNames({
+    queryParams: { accountId }
   })
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
   const { mutate: createConnector } = useCreateConnector({ accountIdentifier: accountId })
+  const { mutate: updateConnector } = useUpdateConnector({ accountIdentifier: props.accountId })
+  const [loadConnector, setLoadConnector] = useState(false)
   const handleCreate = async (data: ConnectorRequestWrapper) => {
     try {
       modalErrorHandler?.hide()
+      setLoadConnector(true)
       await createConnector(data)
+      setLoadConnector(false)
+      showSuccess(`Connector '${props.formData?.name}' created successfully`)
       props.nextStep?.()
     } catch (e) {
       modalErrorHandler?.showDanger(e.data?.message || e.message)
     }
   }
 
-  const radioProps = {
-    data: secondStepData,
-    className: css.customCss,
-    renderItem: function renderItem(item: FirstData) {
-      return (
-        <div className={cx({ [css.selectedCard]: item.type === state.delegateType })}>
-          <Layout.Horizontal>
-            <div className={cx(css.itemName, { [css.selectedText]: item.type === state.delegateType })}>
-              {item.value}
-              {getIconsForCard(item.type, item.type === state.delegateType)}
-            </div>
-            {item.type === state.delegateType ? (
-              <Icon name="deployment-success-new" size={16} className={css.tickWrp} />
-            ) : null}
-          </Layout.Horizontal>
-          <div className={css.itemInfo}>
-            {item.type === DelegateTypes.DELEGATE_IN_CLUSTER ? (
-              <div className={css.recommended}>{i18n.STEP_TWO.RECOMMENDED}</div>
-            ) : null}
-            <div className={css.textInfo}>{item.info}</div>
-          </div>
-        </div>
-      )
+  const handleUpdate = async (data: ConnectorRequestWrapper) => {
+    try {
+      modalErrorHandler?.hide()
+      setLoadConnector(true)
+      await updateConnector(data)
+      setLoadConnector(false)
+      showSuccess(`Connector '${props.formData?.name}' updated successfully`)
+      props.nextStep?.()
+    } catch (error) {
+      setLoadConnector(false)
+      modalErrorHandler?.showDanger(error.data?.message || error.message)
     }
   }
 
@@ -274,8 +266,16 @@ const SecondStep = (props: SecondStepProps) => {
           profile: props?.formData?.profile || ''
         }}
         validationSchema={Yup.object().shape({
-          delegateType: Yup.string().trim().required(),
-          delegateName: Yup.string().trim()
+          delegateName: Yup.string().when('delegateType', {
+            is: DelegateTypes.DELEGATE_IN_CLUSTER,
+            then: Yup.string()
+              .trim()
+              .required(
+                state.inclusterDelegate === DelegateInClusterType.useExistingDelegate
+                  ? i18n.STEP_TWO.validation.delegate
+                  : i18n.STEP_TWO.validation.delegateName
+              )
+          })
         })}
         onSubmit={formData => {
           const connectorData = { ...state.formData, ...formData }
@@ -286,7 +286,11 @@ const SecondStep = (props: SecondStepProps) => {
               projectIdentifier: projectIdentifier,
               orgIdentifier: orgIdentifier
             }
-            handleCreate(data)
+            if (state.isEditMode) {
+              handleUpdate(data)
+            } else {
+              handleCreate(data)
+            }
           }
         }}
       >
@@ -299,18 +303,44 @@ const SecondStep = (props: SecondStepProps) => {
                   state?.setDelegateType(item.type)
                   formikProps?.setFieldValue('delegateType', item.type)
                 }}
-                {...radioProps}
-                selected={undefined}
+                data={secondStepData}
+                className={css.customCss}
+                renderItem={function renderItem(item: FirstData) {
+                  return (
+                    <div className={cx({ [css.selectedCard]: item.type === formikProps.values.delegateType })}>
+                      <Layout.Horizontal>
+                        <div
+                          className={cx(css.itemName, {
+                            [css.selectedText]: item.type === formikProps.values.delegateType
+                          })}
+                        >
+                          {item.value}
+                          {getIconsForCard(item.type, item.type === formikProps.values.delegateType)}
+                        </div>
+                        {item.type === formikProps.values.delegateType ? (
+                          <Icon name="deployment-success-new" size={16} className={css.tickWrp} />
+                        ) : null}
+                      </Layout.Horizontal>
+                      <div className={css.itemInfo}>
+                        {item.type === DelegateTypes.DELEGATE_IN_CLUSTER ? (
+                          <div className={css.recommended}>{i18n.STEP_TWO.RECOMMENDED}</div>
+                        ) : null}
+                        <div className={css.textInfo}>{item.info}</div>
+                      </div>
+                    </div>
+                  )
+                }}
+                selected={formikProps.values?.delegateType}
               />
-              {state.delegateType === DelegateTypes.DELEGATE_IN_CLUSTER
-                ? renderDelegateInclusterForm(delegateList, reloadDelegateList, state, props)
+              {formikProps.values.delegateType === DelegateTypes.DELEGATE_IN_CLUSTER
+                ? renderDelegateInclusterForm(delegateList, state, props)
                 : null}
             </div>
 
-            <Layout.Horizontal spacing="large" margin={{ top: 'large' }}>
+            <Layout.Horizontal spacing="large" margin={{ top: 'medium' }}>
               <Button onClick={() => props.previousStep?.()} text="Back" />
-              {state.delegateType === DelegateTypes.DELEGATE_IN_CLUSTER ? (
-                <Button type="submit" text="Continue" />
+              {formikProps.values.delegateType === DelegateTypes.DELEGATE_IN_CLUSTER ? (
+                <Button type="submit" text="Continue" disabled={loadConnector} />
               ) : (
                 <Button
                   text="Continue"
@@ -331,6 +361,7 @@ const SecondStep = (props: SecondStepProps) => {
 const IntermediateStep: React.FC<IntermediateStepProps> = props => {
   const [showCreateSecretModal, setShowCreateSecretModal] = useState<boolean>(false)
   const [editSecretData, setEditSecretData] = useState<SecretDTOV2>()
+  const { showSuccess } = useToaster()
   const { state, accountId } = props
   const { projectIdentifier, orgIdentifier } = useParams()
   const { mutate: createConnector } = useCreateConnector({ accountIdentifier: accountId })
@@ -341,9 +372,11 @@ const IntermediateStep: React.FC<IntermediateStepProps> = props => {
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
   const handleCreate = async (data: ConnectorRequestWrapper) => {
     try {
+      modalErrorHandler?.hide()
       setLoadConnector(true)
       await createConnector(data)
       setLoadConnector(false)
+      showSuccess(`Connector '${props.formData?.name}' created successfully`)
       props.nextStep?.()
     } catch (e) {
       setLoadConnector(false)
@@ -353,9 +386,11 @@ const IntermediateStep: React.FC<IntermediateStepProps> = props => {
 
   const handleUpdate = async (data: ConnectorRequestWrapper) => {
     try {
+      modalErrorHandler?.hide()
       setLoadConnector(true)
       await updateConnector(data)
       setLoadConnector(false)
+      showSuccess(`Connector '${props.formData?.name}' updated successfully`)
       props.nextStep?.()
     } catch (error) {
       setLoadConnector(false)
@@ -443,7 +478,7 @@ const IntermediateStep: React.FC<IntermediateStepProps> = props => {
                 }
               })
               .filter(item => {
-                if (item !== undefined) {
+                if (item !== undefined && formData[item.passwordField]) {
                   return item
                 }
               })
@@ -453,7 +488,7 @@ const IntermediateStep: React.FC<IntermediateStepProps> = props => {
               if (nonRefrencedFields.length) {
                 setLoadSecret(true)
                 Promise.all(
-                  passwordFields.map((item: SecretFieldByType) => {
+                  (nonRefrencedFields as SecretFieldByType[])?.map((item: SecretFieldByType) => {
                     return createSecret({
                       secret: {
                         type: 'SecretText',
@@ -463,7 +498,7 @@ const IntermediateStep: React.FC<IntermediateStepProps> = props => {
                         name: formData[item.secretField]?.secretName,
                         tags: {},
                         spec: {
-                          value: formData[item.passwordField].value,
+                          value: formData[item.passwordField]?.value,
                           valueType: 'Inline',
                           secretManagerIdentifier: formData[item.secretField]?.secretManager?.value as string
                         }
@@ -515,6 +550,7 @@ const IntermediateStep: React.FC<IntermediateStepProps> = props => {
                     </SelectV2>
                   </Layout.Horizontal>
                   <ConnectorFormFields
+                    formik={formikProps}
                     isEditMode={state.isEditMode}
                     accountId={props.accountId}
                     orgIdentifier={props.orgIdentifier}
@@ -528,7 +564,7 @@ const IntermediateStep: React.FC<IntermediateStepProps> = props => {
                     }}
                   />
                 </div>
-                <Layout.Horizontal spacing="large" style={{ marginBottom: '30px' }}>
+                <Layout.Horizontal spacing="large" margin={{ top: 'large' }}>
                   <Button onClick={() => props.previousStep?.()} text="Back" />
                   <Button
                     type="submit"
@@ -552,7 +588,7 @@ const IntermediateStep: React.FC<IntermediateStepProps> = props => {
 const CreateK8sConnector = (props: CreateK8sConnectorProps) => {
   const [delegateType, setDelegateType] = useState(DelegateTypes.DELEGATE_IN_CLUSTER)
   const [formData, setFormData] = useState<ConnectorConfigDTO | undefined>()
-  const [inclusterDelegate, setInClusterDelegate] = useState('')
+  const [inclusterDelegate, setInClusterDelegate] = useState(DelegateInClusterType.useExistingDelegate)
   const [authentication, setAuthentication] = useState({
     label: 'Username and Password',
     value: AuthTypes.USER_PASSWORD
@@ -620,6 +656,7 @@ const CreateK8sConnector = (props: CreateK8sConnectorProps) => {
               hideLightModal={props.hideLightModal}
               renderInModal={true}
               onSuccess={props.onSuccess}
+              setIsEditMode={() => setIsEditMode(true)}
             />
           )
         ) : (

@@ -1,12 +1,13 @@
 import React from 'react'
 import { FormInput } from '@wings-software/uikit'
+import type { FormikProps } from 'formik'
 import { FormikSecretTextInput } from 'modules/dx/components/SecretInput/SecretTextInput'
 import {
   getLabelForEncryptedSecret,
   getSecretFieldValue,
   generateDefaultSecretConfig
 } from 'modules/dx/pages/connectors/utils/ConnectorHelper'
-import type { SecretDTOV2 } from 'services/cd-ng'
+import type { ConnectorConfigDTO, SecretDTOV2 } from 'services/cd-ng'
 
 interface UsernamePasswordProps {
   accountId: string
@@ -18,6 +19,7 @@ interface UsernamePasswordProps {
   isEditMode?: boolean
   onEditSecret?: (val: SecretDTOV2) => void
   isOptional?: boolean
+  formik?: FormikProps<ConnectorConfigDTO>
 }
 
 const UsernamePassword: React.FC<UsernamePasswordProps> = props => {
@@ -36,7 +38,7 @@ const UsernamePassword: React.FC<UsernamePasswordProps> = props => {
         defaultSecretId={generateDefaultSecretConfig(name, passwordField)}
         defaultSecretName={generateDefaultSecretConfig(name, passwordField)}
         onClickCreateSecret={props.onClickCreateSecret}
-        isEditMode={props.isEditMode}
+        isEditMode={props.isEditMode && !!props.formik?.values?.[getSecretFieldValue(passwordField)]}
         onEditSecret={props.onEditSecret}
       />
     </>

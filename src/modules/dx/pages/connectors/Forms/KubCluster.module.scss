@@ -51,7 +51,6 @@
   }
 }
 .credWrapper {
-  width: 74%;
   margin-top: var(--spacing-large) !important;
   justify-content: space-between;
   .label {
@@ -78,23 +77,6 @@
   }
 }
 
-.tags {
-  height: 50px;
-  :global {
-    .bp3-form-content {
-      > div > div > div > div > {
-        button {
-          display: none;
-        }
-        div span {
-          height: 22px;
-          border-radius: 6px;
-          padding: 2px 3px;
-        }
-      }
-    }
-  }
-}
 .tickWrp {
   margin-top: var(--spacing-xsmall) !important;
   > svg {
@@ -110,7 +92,7 @@
   width: 172px;
 }
 .formCustomCss {
-  width: 74%;
+  max-width: 375px;
   :global {
     .bp3-label {
       color: var(--grey-400);
@@ -120,5 +102,12 @@
       margin-bottom: 0;
       margin-top: var(--spacing-large);
     }
+  }
+}
+.description {
+  textarea {
+    max-height: 205px;
+    min-height: 100px;
+    min-width: 375px;
   }
 }

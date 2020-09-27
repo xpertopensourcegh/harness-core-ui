@@ -8,7 +8,8 @@
   }
   .connectorForm {
     width: 64%;
-    min-height: 350px;
+    min-height: 440px;
+    max-width: 375px;
     :global {
       .bp3-label {
         color: var(--grey-400);
@@ -41,8 +42,9 @@
 }
 .description {
   textarea {
-    max-height: 150px;
-    max-width: 400px;
+    max-height: 205px;
+    min-height: 100px;
+    min-width: 375px;
   }
 }
 .tags {

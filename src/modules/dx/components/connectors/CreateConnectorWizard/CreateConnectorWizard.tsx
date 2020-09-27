@@ -37,6 +37,7 @@ export const ConnectorWizard: React.FC<CreateConnectorWizardProps> = props => {
           accountId={accountId}
           hideLightModal={hideLightModal}
           orgIdentifier={orgIdentifier}
+          onSuccess={props.onSuccess}
           projectIdentifier={projectIdentifier}
         />
       )

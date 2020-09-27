@@ -53,11 +53,12 @@ const StepDockerAuthentication: React.FC<StepProps<StepDockerAuthenticationProps
 
   const handleCreate = async (data: ConnectorRequestWrapper, stepData: ConnectorConfigDTO) => {
     try {
+      modalErrorHandler?.hide()
       setLoadConnector(true)
       await createConnector(data)
       setLoadConnector(false)
-      nextStep?.({ ...prevStepData, ...stepData })
       showSuccess(`Connector '${prevStepData?.name}' created successfully`)
+      nextStep?.({ ...prevStepData, ...stepData })
     } catch (e) {
       setLoadConnector(false)
       modalErrorHandler?.showDanger(e.data?.message || e.message)
@@ -66,9 +67,11 @@ const StepDockerAuthentication: React.FC<StepProps<StepDockerAuthenticationProps
 
   const handleUpdate = async (data: ConnectorRequestWrapper, stepData: ConnectorConfigDTO) => {
     try {
+      modalErrorHandler?.hide()
       setLoadConnector(true)
       await updateConnector(data)
       setLoadConnector(false)
+      showSuccess(`Connector '${prevStepData?.name}' updated successfully`)
       nextStep?.({ ...prevStepData, ...stepData })
     } catch (error) {
       setLoadConnector(false)
@@ -159,12 +162,14 @@ const StepDockerAuthentication: React.FC<StepProps<StepDockerAuthenticationProps
             }
           }}
         >
-          {() => (
+          {formikProps => (
             <Form>
               <ModalErrorHandler bind={setModalErrorHandler} />
-              <Layout.Vertical padding={{ top: 'large', bottom: 'large' }} width={'64%'}>
+
+              <Layout.Vertical padding={{ top: 'large', bottom: 'large' }} width={'64%'} style={{ minHeight: '440px' }}>
                 <FormInput.Text name="dockerRegistryUrl" label={i18n.STEP_TWO.DockerRegistryURL} />
                 <UsernamePassword
+                  formik={formikProps}
                   name={prevStepData?.identifier}
                   isEditMode={prevStepData?.isEditMode}
                   accountId={accountId}

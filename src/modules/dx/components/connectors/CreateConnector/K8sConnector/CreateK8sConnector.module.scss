@@ -74,8 +74,7 @@
 
   .delegateWrapper {
     padding: 2px;
-    height: 440px;
-    max-height: 440px;
+    min-height: 440px;
     overflow: auto;
   }
   .incluster {
@@ -87,7 +86,7 @@
     }
     .radioOption {
       cursor: pointer;
-      margin-top: var(--spacing-medium);
+      margin: var(--spacing-medium) 0;
       .label {
         margin-left: var(--spacing-large);
       }
@@ -159,14 +158,13 @@
 }
 .intermediateStep {
   margin: var(--spacing-small) 0 var(--spacing-small) var(--spacing-small);
-  height: 100%;
   .formWrapper {
-    height: 545px;
-    max-height: 545px;
-    overflow: auto;
+    max-height: calc(760px - 40px);
+
     .formFields {
-      min-height: 70%;
-      margin-bottom: var(--spacing-xxlarge);
+      min-height: 440px;
+      height: max-content;
+
       width: 64%;
     }
   }
@@ -174,9 +172,9 @@
     font-size: var(--font-size-medium);
     letter-spacing: 0;
     color: var(--grey-800);
+    padding: var(--spacing-xsmall) 0;
   }
   .credWrapper {
-    // width: 64%;
     margin-top: var(--spacing-medium);
     justify-content: space-between;
     .label {
@@ -191,8 +189,8 @@
     }
   }
   .credForm {
-    height: 90%;
-    margin: 30px 0;
+    max-height: 665px;
+    overflow: auto;
     :global {
       .bp3-label {
         color: var(--grey-400);
@@ -205,7 +203,6 @@
       .bp3-form-group {
         margin-bottom: unset;
         margin-top: 15px;
-        // width: 64%;
       }
       .bp3-input-group {
         .bp3-input {

@@ -68,7 +68,11 @@ const ConnectionModeStep = (props: ConnectionModeStepProps) => {
                   <Button text={props.connectType.label} rightIcon="chevron-down" minimal />
                 </SelectV2>
 
-                <FormInput.Text name="url" className={css.enterUrl} />
+                <FormInput.Text
+                  name="url"
+                  className={css.enterUrl}
+                  placeholder={props.connectType.value === 'Ssh' ? i18n.sshPlaceholder : i18n.httpPlaceholder}
+                />
               </Layout.Horizontal>
               {props.connectType?.value === 'Ssh' ? (
                 <div className={css.sshFields}>

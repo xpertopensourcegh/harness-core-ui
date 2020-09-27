@@ -18,11 +18,13 @@ import {
 } from '../../utils/ConnectorUtils'
 import { AuthTypeFields } from '../KubeFormHelper'
 import i18n from './DockerConnectorForm.i18n'
+import css from 'modules/dx/components/connectors/CreateConnector/commonSteps/ConnectorDetailsStep.module.scss'
 
 interface DockerConnectorFormProps {
   enableEdit?: boolean
   connector: ConnectorDTO
   setConnector: (data: ConnectorDTO) => void
+  setConnectorForYaml: (data: ConnectorDTO) => void
   enableCreate?: boolean
   onSubmit: (data: ConnectorRequestWrapper) => void
 }
@@ -85,8 +87,7 @@ const DockerConnectorForm: React.FC<DockerConnectorFormProps> = props => {
             .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, i18n.validation.validIdRegex)
             .notOneOf(StringUtils.illegalIdentifiers)
         }),
-        dockerRegistryUrl: Yup.string().trim().required(i18n.validation.dockerUrl),
-        username: Yup.string().trim().required(i18n.validation.username)
+        dockerRegistryUrl: Yup.string().trim().required(i18n.validation.dockerUrl)
       })}
       enableReinitialize={true}
       onSubmit={formData => {
@@ -97,13 +98,13 @@ const DockerConnectorForm: React.FC<DockerConnectorFormProps> = props => {
         }
         props.onSubmit(buildDockerPayload(connectorData))
       }}
-      validate={data => props.setConnector(buildDockerPayload(data).connector)}
+      validate={data => props.setConnectorForYaml(buildDockerPayload(data).connector)}
     >
-      {() => (
+      {formikProps => (
         <Form>
           <Layout.Vertical width={370} spacing="small">
             <FormInput.InputWithIdentifier isIdentifierEditable={false} />
-            <FormInput.TextArea label={i18n.description} name="description" />
+            <FormInput.TextArea label={i18n.description} name="description" className={css.description} />
             <FormInput.TagInput
               name="tags"
               label={i18n.tags}
@@ -121,6 +122,7 @@ const DockerConnectorForm: React.FC<DockerConnectorFormProps> = props => {
             />
             <FormInput.Text name="dockerRegistryUrl" label={i18n.DockerRegistryURL} />
             <UsernamePassword
+              formik={formikProps}
               name={connector?.identifier}
               isEditMode={true}
               accountId={accountId}

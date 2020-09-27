@@ -15,6 +15,7 @@ export default function KubernetesActivitySourceForm(): JSX.Element {
             connector={{} as ConnectorDTO}
             onSubmit={() => undefined}
             setConnector={() => undefined}
+            setConnectorForYaml={() => undefined}
           />
         </FormikForm>
       )}

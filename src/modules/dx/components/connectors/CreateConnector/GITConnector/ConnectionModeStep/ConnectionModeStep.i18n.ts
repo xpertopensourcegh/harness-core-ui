@@ -12,5 +12,7 @@ export default {
   validation: {
     connectionType: 'Required',
     url: 'URL is required'
-  }
+  },
+  httpPlaceholder: 'https://github.com/user/repo.git',
+  sshPlaceholder: 'git@github.com:user/repo.git'
 }

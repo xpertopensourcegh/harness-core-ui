@@ -35,6 +35,7 @@ interface GITConnectorFormProps {
   enableEdit?: boolean
   connector: ConnectorDTO
   setConnector: (data: ConnectorDTO) => void
+  setConnectorForYaml: (val: ConnectorDTO) => void
   enableCreate?: boolean
   onSubmit: (data: ConnectorRequestWrapper) => void
 }
@@ -110,13 +111,13 @@ const GITConnectorForm: React.FC<GITConnectorFormProps> = props => {
         }
         props.onSubmit(buildGITPayload(connectorData))
       }}
-      validate={data => props.setConnector(buildGITPayload(data).connector)}
+      validate={data => props.setConnectorForYaml(buildGITPayload(data).connector)}
     >
       {formikProps => (
         <Form>
           <div className={css.formCustomCss}>
             <FormInput.InputWithIdentifier isIdentifierEditable={false} />
-            <FormInput.TextArea label={i18n.description} name="description" />
+            <FormInput.TextArea label={i18n.description} name="description" className={css.description} />
             <FormInput.TagInput
               name="tags"
               label={i18n.tags}
@@ -194,6 +195,7 @@ const GITConnectorForm: React.FC<GITConnectorFormProps> = props => {
                     </SelectV2>
                   </Layout.Horizontal>
                   <UsernamePassword
+                    formik={formikProps}
                     name={connector?.identifier}
                     isEditMode={true}
                     accountId={accountId}

@@ -14,6 +14,7 @@ import {
 } from '@wings-software/uikit'
 import * as Yup from 'yup'
 import { useParams } from 'react-router-dom'
+import { useToaster } from 'modules/common/exports'
 import { buildGITPayload } from 'modules/dx/pages/connectors/utils/ConnectorUtils'
 import {
   useCreateConnector,
@@ -58,7 +59,7 @@ const HttpCredentialStep: React.FC<HttpCredentialStepProps> = props => {
   const [showCreateSecretModal, setShowCreateSecretModal] = useState<boolean>(false)
   const [editSecretData, setEditSecretData] = useState<SecretDTOV2>()
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
-
+  const { showSuccess } = useToaster()
   const { mutate: createConnector } = useCreateConnector({ accountIdentifier: accountId })
   const { mutate: updateConnector } = useUpdateConnector({ accountIdentifier: props.accountId })
   const { mutate: createSecret } = usePostSecret({ queryParams: { accountIdentifier: accountId } })
@@ -67,9 +68,11 @@ const HttpCredentialStep: React.FC<HttpCredentialStepProps> = props => {
 
   const handleCreate = async (data: ConnectorRequestWrapper) => {
     try {
+      modalErrorHandler?.hide()
       setLoadConnector(true)
       await createConnector(data)
       setLoadConnector(false)
+      showSuccess(`Connector '${props.formData?.name}' created successfully`)
       props.nextStep?.()
     } catch (e) {
       setLoadConnector(false)
@@ -79,9 +82,11 @@ const HttpCredentialStep: React.FC<HttpCredentialStepProps> = props => {
 
   const handleUpdate = async (data: ConnectorRequestWrapper) => {
     try {
+      modalErrorHandler?.hide()
       setLoadConnector(true)
       await updateConnector(data)
       setLoadConnector(false)
+      showSuccess(`Connector '${props.formData?.name}' updated successfully`)
       props.nextStep?.()
     } catch (error) {
       setLoadConnector(false)
@@ -187,42 +192,45 @@ const HttpCredentialStep: React.FC<HttpCredentialStepProps> = props => {
             <div className={css.formWrapper}>
               <Form className={css.credForm}>
                 <ModalErrorHandler bind={setModalErrorHandler} />
-                <Layout.Horizontal className={css.credWrapper}>
-                  <div className={css.label}>
-                    <Icon name="lock" size={14} className={css.lockIcon} />
-                    {i18n.Authentication}
-                  </div>
+                <Layout.Vertical style={{ minHeight: '440px' }}>
+                  <Layout.Horizontal className={css.credWrapper}>
+                    <div className={css.label}>
+                      <Icon name="lock" size={14} className={css.lockIcon} />
+                      {i18n.Authentication}
+                    </div>
 
-                  <SelectV2
-                    items={[
-                      { label: getLabelForAuthType(AuthTypes.USER_PASSWORD), value: AuthTypes.USER_PASSWORD }
-                      //ToDo: { label: 'Kerberos', value: 'Kerberos' }
-                    ]}
-                    value={authType}
-                    filterable={false}
-                    onChange={item => {
-                      setAuthType(item)
-                      formikProps.setFieldValue('authType', item.value)
+                    <SelectV2
+                      items={[
+                        { label: getLabelForAuthType(AuthTypes.USER_PASSWORD), value: AuthTypes.USER_PASSWORD }
+                        //ToDo: { label: 'Kerberos', value: 'Kerberos' }
+                      ]}
+                      value={authType}
+                      filterable={false}
+                      onChange={item => {
+                        setAuthType(item)
+                        formikProps.setFieldValue('authType', item.value)
+                      }}
+                      className={css.selectAuth}
+                    >
+                      <Button text={authType.label} rightIcon="chevron-down" minimal />
+                    </SelectV2>
+                  </Layout.Horizontal>
+                  <UsernamePassword
+                    formik={formikProps}
+                    name={props.formData?.identifier}
+                    isEditMode={props.isEditMode}
+                    accountId={props.accountId}
+                    orgIdentifier={props.orgIdentifier}
+                    projectIdentifier={props.projectIdentifier}
+                    passwordField={AuthTypeFields.passwordRef}
+                    onClickCreateSecret={() => setShowCreateSecretModal(true)}
+                    onEditSecret={val => {
+                      setShowCreateSecretModal(true)
+                      setEditSecretData(val)
                     }}
-                    className={css.selectAuth}
-                  >
-                    <Button text={authType.label} rightIcon="chevron-down" minimal />
-                  </SelectV2>
-                </Layout.Horizontal>
-                <UsernamePassword
-                  name={props.formData?.identifier}
-                  isEditMode={props.isEditMode}
-                  accountId={props.accountId}
-                  orgIdentifier={props.orgIdentifier}
-                  projectIdentifier={props.projectIdentifier}
-                  passwordField={AuthTypeFields.passwordRef}
-                  onClickCreateSecret={() => setShowCreateSecretModal(true)}
-                  onEditSecret={val => {
-                    setShowCreateSecretModal(true)
-                    setEditSecretData(val)
-                  }}
-                />
-                <FormInput.Text name="branchName" label={i18n.BranchName} className={css.branchName} />
+                  />
+                  <FormInput.Text name="branchName" label={i18n.BranchName} className={css.branchName} />
+                </Layout.Vertical>
                 <Layout.Horizontal spacing="large" className={css.footer}>
                   <Button
                     onClick={() => props.previousStep?.({ ...props.formData })}

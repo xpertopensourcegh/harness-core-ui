@@ -31,6 +31,8 @@ interface VerifyExistingDelegateProps {
   setStatus?: (val: ConnectorConnectivityDetails['status']) => void
   setTesting?: (val: boolean) => void
   type?: string
+  setIsEditMode?: () => void
+  previousStep?: () => void
 }
 
 interface VerifyExistingDelegateState {
@@ -101,6 +103,14 @@ const VerifyExistingDelegate = (props: VerifyExistingDelegateProps) => {
       // }
       return item.delegateName && item.delegateName === props.delegateName
     })?.length
+  }
+
+  const getStepTwo = () => {
+    if (stepDetails.status === 'ERROR') {
+      return i18n.STEPS.TWO.FAILED
+    } else {
+      return i18n.STEPS.TWO.PROGRESS(getConnectorDisplayName(props.type || ''))
+    }
   }
 
   let testConnectionResponse: ResponseDTOConnectorValidationResult
@@ -203,7 +213,7 @@ const VerifyExistingDelegate = (props: VerifyExistingDelegateProps) => {
       <StepsProgress
         steps={[
           getStepOneForExistingDelegate(stepDetails, props.delegateName),
-          i18n.STEPS.TWO.PROGRESS(getConnectorDisplayName(props.type || '')),
+          getStepTwo(),
           i18n.STEPS.THREE.PROGRESS
         ]}
         intent={stepDetails.intent}
@@ -216,6 +226,21 @@ const VerifyExistingDelegate = (props: VerifyExistingDelegateProps) => {
         <Text font="small" className={css.verificationText}>
           {i18n.VERIFICATION_TIME_TEXT}
         </Text>
+      ) : null}
+
+      {renderInModal &&
+      stepDetails.step === StepIndex.get(STEP.ESTABLISH_CONNECTION) &&
+      stepDetails.status === 'ERROR' ? (
+        <Button
+          intent="primary"
+          minimal
+          className={css.selectDelegate}
+          text={i18n.SELECT_NEW_DELEGATE}
+          onClick={() => {
+            props.previousStep?.()
+            props.setIsEditMode?.()
+          }}
+        />
       ) : null}
       {renderInModal && downloadOverLay ? (
         <section className={css.stepsOverlay}>
@@ -284,7 +309,7 @@ const VerifyExistingDelegate = (props: VerifyExistingDelegateProps) => {
         </Layout.Horizontal>
       ) : null}
       {renderInModal && stepDetails.step > 1 ? (
-        <Layout.Horizontal padding={{ top: 'xxxlarge' }}>
+        <Layout.Horizontal padding={{ top: 'xxxlarge' }} style={{ position: 'relative', top: '175px' }}>
           <Button
             onClick={() => {
               props.hideLightModal?.()

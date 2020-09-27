@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { get, isPlainObject } from 'lodash-es'
 import { Position, Classes, FormGroup, Intent, IFormGroupProps } from '@blueprintjs/core'
 import { Layout, Text, Button, Color, Icon, Popover, FormInput } from '@wings-software/uikit'
@@ -41,9 +41,15 @@ const errorCheck = (name: string, formik?: FormikContext<any>) =>
 
 const SecretTextField: React.FC<FormikSecretTextInput> = props => {
   const { accountId, isEditMode = false } = props
-  const [showCreateInlineSecret, setShowCreateInlineSecret] = useState<boolean>(true)
+  const [showCreateInlineSecret, setShowCreateInlineSecret] = useState<boolean>(false)
   const [isReference, setIsReference] = useState<boolean>()
   const [secretRefrence, setSecretRefrence] = useState({ name: '', identifier: '', secretManager: '' })
+
+  useEffect(() => {
+    if (props.formik.values[`pass${props.fieldName}`]?.length === 1) {
+      setShowCreateInlineSecret(true)
+    }
+  }, [props.formik.values[`pass${props.fieldName}`]])
 
   return (
     <div className={css.secretFieldWrapper}>

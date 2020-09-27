@@ -6,6 +6,7 @@ export default {
       SUCCESS: 'Delegate found'
     },
     TWO: {
+      FAILED: 'Delegate Connection Failed',
       PROGRESS: (connector: string) => `Establishing Connection between Delegate and ${connector || 'Connector'}`
     },
     THREE: {
@@ -22,5 +23,6 @@ export default {
   RETEST: 'RETEST CONNECTION',
   Status: 'Status',
   LAST_CONNECTED: 'Last connected successfully',
-  CLOSE: 'CLOSE'
+  CLOSE: 'CLOSE',
+  SELECT_NEW_DELEGATE: 'Select another delegate'
 }

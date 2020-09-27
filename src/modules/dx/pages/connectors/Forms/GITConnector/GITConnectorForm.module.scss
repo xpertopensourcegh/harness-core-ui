@@ -19,7 +19,6 @@
     textarea {
       border-radius: 8px;
       height: 96px;
-      max-height: 150px;
     }
   }
 }
@@ -82,5 +81,12 @@
   }
   .selectAuth {
     width: unset;
+  }
+}
+.description {
+  textarea {
+    max-height: 205px;
+    min-height: 100px;
+    min-width: 375px;
   }
 }

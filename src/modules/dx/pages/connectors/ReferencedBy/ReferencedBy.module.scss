@@ -1,4 +1,10 @@
 .table {
   padding: var(--spacing-small) var(--spacing-xlarge);
   background-color: var(--grey-100);
+  .secretIconCss {
+    margin-top: 2px;
+    svg {
+      width: 25px;
+    }
+  }
 }

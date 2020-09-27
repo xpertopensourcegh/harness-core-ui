@@ -13,6 +13,7 @@ interface CreateGITConnectorProps {
   projectIdentifier: string
   orgIdentifier: string
   hideLightModal: () => void
+  onSuccess: () => void
 }
 const CreateGITConnector = (props: CreateGITConnectorProps) => {
   const [formData, setFormData] = useState<ConnectorConfigDTO | undefined>()
@@ -53,6 +54,8 @@ const CreateGITConnector = (props: CreateGITConnectorProps) => {
           renderInModal={true}
           isLastStep={true}
           type={Connectors.GIT}
+          hideLightModal={props.hideLightModal}
+          onSuccess={props.onSuccess}
         />
       </StepWizard>
     </>

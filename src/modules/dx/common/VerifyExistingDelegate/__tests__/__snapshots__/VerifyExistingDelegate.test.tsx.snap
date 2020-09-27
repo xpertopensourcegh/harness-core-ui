@@ -82,7 +82,7 @@ exports[`Verification step for existing delegate render VerifyExistingDelegate w
                 </desc>
               </svg>
             </span>
-            Establishing Connection between Delegate and Kubernetes cluster
+            Delegate Connection Failed
           </span>
         </div>
         <div>
