@@ -7,14 +7,17 @@ export interface YamlBuilderHandlerBinding {
   getYAMLValidationErrorMap: () => Map<string, string>
 }
 
+export type InvocationMapFunction = (matchingPath: string, currentYaml: string) => Promise<CompletionItemInterface[]>
+
 export interface YamlBuilderProps {
   height?: React.CSSProperties['height']
   width?: React.CSSProperties['width']
   fileName: string
+  isRemoveNulls?: boolean
   existingJSON?: Record<string, any>
   entityType: YamlEntity
   bind?: (dynamicPopoverHandler: YamlBuilderHandlerBinding) => void
-  invocationMap?: Map<RegExp, Function>
+  invocationMap?: Map<RegExp, InvocationMapFunction>
   isReadOnlyMode?: boolean
   showSnippetSection?: boolean
   snippets?: SnippetInterface[]

@@ -3,7 +3,7 @@ import { Popover, Button, Layout, TextInput, useModalHook } from '@wings-softwar
 import { Menu, MenuItem, Position } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
 import { Page } from 'modules/common/exports'
-import { useGetInputSetsListForPipeline } from 'services/cd-ng'
+import { InputSetSummaryResponse, useGetInputSetsListForPipeline } from 'services/cd-ng'
 import { InputFormType, InputSetForm } from 'modules/cd/components/InputSetForm/InputSetForm'
 import i18n from './InputSetList.i18n'
 import { InputSetListView } from './InputSetListView'
@@ -20,32 +20,32 @@ const InputSetList: React.FC = (): JSX.Element => {
   }>()
 
   const { data: inputSet, loading, refetch, error } = useGetInputSetsListForPipeline({
-    queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier, pipelineIdentifier, page, size: 10 }
+    queryParams: {
+      accountIdentifier: accountId,
+      orgIdentifier,
+      projectIdentifier,
+      pipelineIdentifier,
+      page,
+      size: 10,
+      searchTerm: searchParam
+    }
   })
 
-  const [selectedInputSet, setSelectedInputSet] = React.useState<string>()
+  const [selectedInputSet, setSelectedInputSet] = React.useState<{
+    identifier?: string
+    type?: InputSetSummaryResponse['inputSetType']
+  }>()
 
   const [showInputSetForm, hideInputSetForm] = useModalHook(
     () => (
       <InputSetForm
-        formType={InputFormType.InputForm}
-        identifier={selectedInputSet}
+        formType={
+          selectedInputSet?.type === 'OVERLAY_INPUT_SET' ? InputFormType.OverlayInputForm : InputFormType.InputForm
+        }
+        identifier={selectedInputSet?.identifier}
         hideForm={() => {
           refetch()
           hideInputSetForm()
-        }}
-      />
-    ),
-    [selectedInputSet]
-  )
-  const [showOverlayInputSetForm, hideOverlayInputSetForm] = useModalHook(
-    () => (
-      <InputSetForm
-        formType={InputFormType.OverlayInputForm}
-        identifier={selectedInputSet}
-        hideForm={() => {
-          refetch()
-          hideOverlayInputSetForm()
         }}
       />
     ),
@@ -62,15 +62,15 @@ const InputSetList: React.FC = (): JSX.Element => {
                 <MenuItem
                   text={i18n.inputSet}
                   onClick={() => {
-                    setSelectedInputSet(undefined)
+                    setSelectedInputSet({ type: 'INPUT_SET' })
                     showInputSetForm()
                   }}
                 />
                 <MenuItem
                   text={i18n.overlayInputSet}
                   onClick={() => {
-                    setSelectedInputSet(undefined)
-                    showOverlayInputSetForm()
+                    setSelectedInputSet({ type: 'OVERLAY_INPUT_SET' })
+                    showInputSetForm()
                   }}
                 />
               </Menu>
@@ -109,8 +109,8 @@ const InputSetList: React.FC = (): JSX.Element => {
         <InputSetListView
           data={inputSet?.data}
           gotoPage={setPage}
-          goToInputSetDetail={identifier => {
-            setSelectedInputSet(identifier)
+          goToInputSetDetail={(identifier, type) => {
+            setSelectedInputSet({ identifier, type })
             showInputSetForm()
           }}
           refetchInputSet={refetch}

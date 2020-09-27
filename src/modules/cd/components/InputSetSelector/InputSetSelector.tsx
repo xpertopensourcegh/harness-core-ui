@@ -4,6 +4,7 @@ import {
   Checkbox,
   Color,
   Icon,
+  IconName,
   Layout,
   Popover,
   SelectOption,
@@ -11,45 +12,57 @@ import {
   Text,
   TextInput
 } from '@wings-software/uikit'
-import { isArray, clone } from 'lodash-es'
+import { clone } from 'lodash-es'
 import cx from 'classnames'
 import { Classes, Position } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
-import { InputSetSummaryResponseDTO, useGetInputSetsListForPipeline } from 'services/cd-ng'
+import { InputSetSummaryResponse, useGetInputSetsListForPipeline } from 'services/cd-ng'
 import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
 import { useToaster } from 'modules/common/exports'
 import i18n from './InputSetSelector.i18n'
 import css from './InputSetSelector.module.scss'
 
-type InputSetValue = SelectOption | SelectOption[]
+interface InputSetValue extends SelectOption {
+  type: InputSetSummaryResponse['inputSetType']
+}
 
 export interface InputSetSelectorProps {
-  value?: InputSetValue
-  onChange?: (value?: InputSetValue) => void
+  value?: InputSetValue[]
+  onChange?: (value?: InputSetValue[]) => void
   width?: number
+}
+
+const getIconByType = (type: InputSetSummaryResponse['inputSetType']): IconName => {
+  return type === 'OVERLAY_INPUT_SET' ? 'step-group' : 'yaml-builder-input-sets'
 }
 
 const RenderValue = React.memo(function RenderValue({
   value,
   onChange
 }: {
-  value: InputSetValue
-  onChange?: (value?: InputSetValue) => void
+  value: InputSetValue[]
+  onChange?: (value?: InputSetValue[]) => void
 }): JSX.Element {
-  if (isArray(value)) {
+  if (value.length > 1) {
     return (
       <>
         {value.map((item, index) => (
           <Tag minimal className={css.tag} key={index}>
-            {item.label}
+            <Layout.Horizontal spacing="xsmall">
+              <Icon name={getIconByType(item.type)} size={12} />
+              <Text font={{ size: 'small' }}>{item.label}</Text>
+            </Layout.Horizontal>
           </Tag>
         ))}
       </>
     )
   }
   return (
-    <Layout.Horizontal flex={{ distribution: 'space-between' }}>
-      <span>{value.label}</span>
+    <Layout.Horizontal flex={{ distribution: 'space-between' }} padding={{ right: 'small' }}>
+      <Layout.Horizontal spacing="small">
+        <Icon intent="primary" name={getIconByType(value[0].type)}></Icon>
+        <Text>{value[0].label}</Text>
+      </Layout.Horizontal>
       <div
         className={css.clearButton}
         onClick={event => {
@@ -66,14 +79,16 @@ const RenderValue = React.memo(function RenderValue({
 export const InputSetSelector: React.FC<InputSetSelectorProps> = ({ width = 300, value, onChange }): JSX.Element => {
   const [searchParam, setSearchParam] = React.useState('')
   const [multiple, setMultiple] = React.useState(false)
-  const [selectedInputSets, setSelectedInputSets] = React.useState<SelectOption[]>([])
+  const [selectedInputSets, setSelectedInputSets] = React.useState<InputSetValue[]>([])
 
   React.useEffect(() => {
-    if (isArray(value)) {
-      setMultiple(true)
+    if (value) {
       setSelectedInputSets(value)
-    } else if (value) {
-      setSelectedInputSets([value as SelectOption])
+      if (value.length > 1) {
+        setMultiple(true)
+      } else {
+        setMultiple(false)
+      }
     }
   }, [value])
 
@@ -93,13 +108,13 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({ width = 300,
   const { showError } = useToaster()
 
   const onSelectHandler = React.useCallback(
-    (inputSet: InputSetSummaryResponseDTO) => {
-      onChange?.({ label: inputSet.name || '', value: inputSet.identifier || '' })
+    (inputSet: InputSetSummaryResponse) => {
+      onChange?.([{ label: inputSet.name || '', value: inputSet.identifier || '', type: inputSet.inputSetType }])
     },
     [onChange]
   )
 
-  const onDragStart = React.useCallback((event: React.DragEvent<HTMLLIElement>, row: SelectOption) => {
+  const onDragStart = React.useCallback((event: React.DragEvent<HTMLLIElement>, row: InputSetValue) => {
     event.dataTransfer.setData('data', JSON.stringify(row))
     event.currentTarget.classList.add(css.dragging)
   }, [])
@@ -121,14 +136,14 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({ width = 300,
   }, [])
 
   const onDrop = React.useCallback(
-    (event: React.DragEvent<HTMLLIElement>, droppedLocation: SelectOption) => {
+    (event: React.DragEvent<HTMLLIElement>, droppedLocation: InputSetValue) => {
       if (event.preventDefault) {
         event.preventDefault()
       }
       const data = event.dataTransfer.getData('data')
       if (data) {
         try {
-          const dropInputSet: SelectOption = JSON.parse(data)
+          const dropInputSet: InputSetValue = JSON.parse(data)
           const selected = clone(selectedInputSets)
           const droppedItem = selected.filter(item => item.value === dropInputSet.value)[0]
           if (droppedItem) {
@@ -147,11 +162,11 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({ width = 300,
   )
 
   const onCheckBoxHandler = React.useCallback(
-    (checked: boolean, label: string, val: string) => {
+    (checked: boolean, label: string, val: string, type: InputSetSummaryResponse['inputSetType']) => {
       const selected = clone(selectedInputSets)
       const removedItem = selected.filter(set => set.value === val)[0]
       if (checked && !removedItem) {
-        selected.push({ label, value: val })
+        selected.push({ label, value: val, type })
       } else if (removedItem) {
         selected.splice(selected.indexOf(removedItem), 1)
       }
@@ -177,7 +192,7 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({ width = 300,
           }}
           key={inputSet.identifier}
         >
-          <Icon name="yaml-builder-input-sets" />
+          <Icon name={getIconByType(inputSet.inputSetType)} />
           &nbsp;&nbsp;{inputSet.name}
         </li>
       ))
@@ -194,7 +209,7 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({ width = 300,
       onDragLeave={onDragLeave}
       onDrop={event => onDrop(event, selected)}
       onClick={() => {
-        onCheckBoxHandler(false, selected.label, selected.value as string)
+        onCheckBoxHandler(false, selected.label, selected.value as string, selected.type)
       }}
       key={`${index}-${selected.value as string}`}
     >
@@ -202,13 +217,13 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({ width = 300,
         <Checkbox
           className={css.checkbox}
           labelElement={
-            <Text font={{ size: 'small' }} icon="yaml-builder-input-sets">
+            <Text font={{ size: 'small' }} icon={getIconByType(selected.type)}>
               {selected.label}
             </Text>
           }
           checked={true}
           onChange={event => {
-            onCheckBoxHandler(event.currentTarget.checked, selected.label, selected.value as string)
+            onCheckBoxHandler(event.currentTarget.checked, selected.label, selected.value as string, selected.type)
           }}
         />
         <span className={css.order}>
@@ -237,19 +252,29 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({ width = 300,
           className={cx(css.item)}
           key={inputSet.identifier}
           onClick={() => {
-            onCheckBoxHandler(true, inputSet.name || '', inputSet.identifier || '')
+            onCheckBoxHandler(
+              true,
+              inputSet.name || '',
+              inputSet.identifier || '',
+              inputSet.inputSetType || 'INPUT_SET'
+            )
           }}
         >
           <Layout.Horizontal flex={{ distribution: 'space-between' }}>
             <Checkbox
               className={css.checkbox}
               labelElement={
-                <Text font={{ size: 'small' }} icon="yaml-builder-input-sets">
+                <Text font={{ size: 'small' }} icon={getIconByType(inputSet.inputSetType)}>
                   {inputSet.name}
                 </Text>
               }
               onChange={event => {
-                onCheckBoxHandler(event.currentTarget.checked, inputSet.name || '', inputSet.identifier || '')
+                onCheckBoxHandler(
+                  event.currentTarget.checked,
+                  inputSet.name || '',
+                  inputSet.identifier || '',
+                  inputSet.inputSetType || 'INPUT_SET'
+                )
               }}
             />
           </Layout.Horizontal>

@@ -1,27 +1,27 @@
-import { Button, Color, Layout, Popover, Text } from '@wings-software/uikit'
+import { Button, Color, Icon, IconName, Layout, Popover, Text } from '@wings-software/uikit'
 import React from 'react'
 import type { CellProps, Column, Renderer } from 'react-table'
 import { useParams } from 'react-router-dom'
 import { Classes, Menu, Position } from '@blueprintjs/core'
 import Table from 'modules/common/components/Table/Table'
 import {
-  NGPageResponseInputSetSummaryResponseDTO,
+  NGPageResponseInputSetSummaryResponse,
   useDeleteInputSetForPipeline,
-  InputSetSummaryResponseDTO
+  InputSetSummaryResponse
 } from 'services/cd-ng'
 import { useConfirmationDialog, useToaster } from 'modules/common/exports'
 import i18n from './InputSetList.i18n'
 import css from './InputSetList.module.scss'
 
 interface InputSetListViewProps {
-  data?: NGPageResponseInputSetSummaryResponseDTO
-  goToInputSetDetail?: (identifier?: string) => void
+  data?: NGPageResponseInputSetSummaryResponse
+  goToInputSetDetail?: (identifier?: string, type?: InputSetSummaryResponse['inputSetType']) => void
   cloneInputSet?: (identifier?: string) => void
   refetchInputSet?: () => void
   gotoPage: (pageNumber: number) => void
 }
 
-interface InputSetLocal extends InputSetSummaryResponseDTO {
+interface InputSetLocal extends InputSetSummaryResponse {
   action?: string
   lastUpdatedBy?: string
   createdBy?: string
@@ -34,13 +34,20 @@ type CustomColumn<T extends object> = Column<T> & {
   refetchInputSet?: () => void
 }
 
+const getIconByType = (type: InputSetSummaryResponse['inputSetType']): IconName => {
+  return type === 'OVERLAY_INPUT_SET' ? 'step-group' : 'yaml-builder-input-sets'
+}
+
 const RenderColumnInputSet: Renderer<CellProps<InputSetLocal>> = ({ row }) => {
   const data = row.original
   return (
-    <>
-      <Text color={Color.BLACK}>{data.name}</Text>
-      <Text color={Color.GREY_400}>{data.identifier}</Text>
-    </>
+    <Layout.Horizontal spacing="small">
+      <Icon name={getIconByType(data.inputSetType)} size={30}></Icon>
+      <div>
+        <Text color={Color.BLACK}>{data.name}</Text>
+        <Text color={Color.GREY_400}>{data.identifier}</Text>
+      </div>
+    </Layout.Horizontal>
   )
 }
 
@@ -133,6 +140,7 @@ const RenderColumnMenu: Renderer<CellProps<InputSetLocal>> = ({ row, column }) =
           />
           <Menu.Item
             icon="duplicate"
+            disabled
             text={i18n.clone}
             onClick={(e: React.MouseEvent) => {
               e.stopPropagation()
@@ -198,7 +206,7 @@ export const InputSetListView: React.FC<InputSetListViewProps> = ({
       },
       {
         Header: i18n.actions.toUpperCase(),
-        accessor: 'overlaySet',
+        accessor: 'identifier',
         width: '10%',
         Cell: RenderColumnActions,
         disableSortBy: true,
@@ -222,7 +230,7 @@ export const InputSetListView: React.FC<InputSetListViewProps> = ({
       className={css.table}
       columns={columns}
       data={data?.content || []}
-      onRowClick={item => goToInputSetDetail?.(item.identifier)}
+      onRowClick={item => goToInputSetDetail?.(item.identifier, item.inputSetType)}
       pagination={{
         itemCount: data?.itemCount || 0,
         pageSize: data?.pageSize || 10,

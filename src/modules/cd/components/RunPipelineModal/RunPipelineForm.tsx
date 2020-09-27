@@ -3,15 +3,16 @@ import { Classes } from '@blueprintjs/core'
 import { Button, Color, Formik, FormikForm, Layout, Popover, Text } from '@wings-software/uikit'
 import { useParams } from 'react-router-dom'
 import cx from 'classnames'
-import { parse, stringify } from 'yaml'
-import { noop } from 'lodash-es'
+import { parse } from 'yaml'
+import { noop, pick } from 'lodash-es'
 import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
 import {
+  CDInputSet,
   CDPipeline,
   FailureDTO,
   getInputSetForPipelinePromise,
   useCreateInputSetForPipeline,
-  useGetMergeInputSetFromPipelineTemplate,
+  // useGetMergeInputSetFromPipelineTemplate,
   useGetPipeline,
   useGetTemplateFromPipeline,
   usePostPipelineExecute
@@ -111,57 +112,59 @@ export const RunPipelineForm: React.FC<RunPipelineFormProps> = ({ pipelineIdenti
     setSelectedInputSets(inputSetSelected)
   }, [inputSetSelected])
 
-  const {
-    mutate: mergeInputSet,
-    loading: loadingUpdate,
-    error: errorMergeInputSet
-  } = useGetMergeInputSetFromPipelineTemplate({
-    queryParams: { accountIdentifier: accountId, projectIdentifier, orgIdentifier, pipelineIdentifier }
-  })
+  // const {
+  //   mutate: mergeInputSet,
+  //   loading: loadingUpdate,
+  //   error: errorMergeInputSet
+  // } = useGetMergeInputSetFromPipelineTemplate({
+  //   queryParams: { accountIdentifier: accountId, projectIdentifier, orgIdentifier, pipelineIdentifier }
+  // })
 
   const {
     mutate: createInputSet,
     error: createInputSetError,
     loading: createInputSetLoading
   } = useCreateInputSetForPipeline({
-    queryParams: { accountIdentifier: accountId, orgIdentifier, pipelineIdentifier, projectIdentifier },
-    requestOptions: { headers: { 'content-type': 'text/yaml' } }
+    queryParams: { accountIdentifier: accountId, orgIdentifier, pipelineIdentifier, projectIdentifier }
   })
 
   React.useEffect(() => {
-    if (selectedInputSets && Array.isArray(selectedInputSets)) {
-      const fetchData = async (): Promise<void> => {
-        const data = await mergeInputSet({
-          inputSetIdentifierList: selectedInputSets.map(item => item.value as string)
-        })
-        if (data?.data?.pipelineYaml) {
-          setCurrentPipeline(parse(data.data.pipelineYaml) as { pipeline: CDPipeline })
-        }
-      }
-      fetchData()
-    } else if (selectedInputSets && selectedInputSets.value) {
+    if ((selectedInputSets && selectedInputSets.length > 1) || selectedInputSets?.[0].type === 'OVERLAY_INPUT_SET') {
+      // TODO: Once API Available then fix this
+      //   const fetchData = async (): Promise<void> => {
+      //     const data = await mergeInputSet({
+      //       inputSetIdentifierList: selectedInputSets.map(item => item.value as string)
+      //     })
+      //     if (data?.data?.pipelineYaml) {
+      //       setCurrentPipeline(parse(data.data.pipelineYaml) as { pipeline: CDPipeline })
+      //     }
+      //   }
+      //   fetchData()
+    } else if (selectedInputSets && selectedInputSets.length === 1) {
       const fetchData = async (): Promise<void> => {
         const data = await getInputSetForPipelinePromise({
-          inputSetIdentifier: selectedInputSets.value as string,
+          inputSetIdentifier: selectedInputSets[0].value as string,
           queryParams: { accountIdentifier: accountId, projectIdentifier, orgIdentifier, pipelineIdentifier }
         })
         if (data?.data?.inputSetYaml) {
-          setCurrentPipeline(parse(data.data.inputSetYaml)?.inputSet as { pipeline: CDPipeline })
+          if (selectedInputSets[0].type === 'INPUT_SET') {
+            setCurrentPipeline(pick(parse(data.data.inputSetYaml)?.inputSet, 'pipeline') as { pipeline: CDPipeline })
+          }
         }
       }
       fetchData()
     }
-  }, [selectedInputSets, accountId, projectIdentifier, orgIdentifier, pipelineIdentifier])
+  }, [selectedInputSets?.length, selectedInputSets, accountId, projectIdentifier, orgIdentifier, pipelineIdentifier])
 
-  if (loadingPipeline || loadingTemplate || loadingUpdate || createInputSetLoading) {
+  if (loadingPipeline || loadingTemplate || createInputSetLoading) {
     return <PageSpinner />
   }
 
-  if (errorPipeline || errorTemplate || errorMergeInputSet || createInputSetError) {
+  if (errorPipeline || errorTemplate || createInputSetError) {
     showError(
       (errorTemplate as FailureDTO)?.message ||
         (errorPipeline as FailureDTO)?.message ||
-        (errorMergeInputSet as FailureDTO)?.message ||
+        // (errorMergeInputSet as FailureDTO)?.message ||
         (createInputSetError as FailureDTO)?.message ||
         i18n.commonError
     )
@@ -239,7 +242,7 @@ export const RunPipelineForm: React.FC<RunPipelineFormProps> = ({ pipelineIdenti
                               >
                                 <Formik
                                   onSubmit={input => {
-                                    createInputSet(stringify({ inputSet: input })).then(() => {
+                                    createInputSet(input as CDInputSet).then(() => {
                                       showSuccess(i18n.inputSetSaved)
                                     })
                                   }}

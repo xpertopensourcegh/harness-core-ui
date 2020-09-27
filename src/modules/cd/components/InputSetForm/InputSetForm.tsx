@@ -1,4 +1,5 @@
 import React from 'react'
+import { omit } from 'lodash-es'
 import cx from 'classnames'
 import { Classes, Dialog, IDialogProps } from '@blueprintjs/core'
 import * as Yup from 'yup'
@@ -18,11 +19,11 @@ import {
 import { useParams } from 'react-router-dom'
 import { parse, stringify } from 'yaml'
 import { FieldArray, FieldArrayRenderProps } from 'formik'
+import { CompletionItemKind } from 'vscode-languageserver-types'
 import {
   CDPipeline,
   FailureDTO,
-  InputSetResponseDTO,
-  OverlayInputSetResponseDTO,
+  OverlayInputSet,
   useCreateInputSetForPipeline,
   useGetInputSetForPipeline,
   useGetOverlayInputSetForPipeline,
@@ -31,11 +32,17 @@ import {
   useUpdateInputSetForPipeline,
   useCreateOverlayInputSetForPipeline,
   useUpdateOverlayInputSetForPipeline,
-  useGetInputSetsListForPipeline
+  useGetInputSetsListForPipeline,
+  CDInputSet
 } from 'services/cd-ng'
 import { YamlEntity } from 'modules/common/constants/YamlConstants'
 import { useToaster } from 'modules/common/exports'
-import type { YamlBuilderHandlerBinding, YamlBuilderProps } from 'modules/common/interfaces/YAMLBuilderProps'
+import type {
+  YamlBuilderHandlerBinding,
+  YamlBuilderProps,
+  InvocationMapFunction,
+  CompletionItemInterface
+} from 'modules/common/interfaces/YAMLBuilderProps'
 import YAMLBuilder from 'modules/common/components/YAMLBuilder/YamlBuilder'
 import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
 import i18n from './InputSetForm.18n'
@@ -47,16 +54,15 @@ export enum InputFormType {
   OverlayInputForm = 'OverlayInputForm'
 }
 
-export interface InputSetDTO
-  extends Omit<InputSetResponseDTO, 'inputSetYaml'>,
-    Omit<OverlayInputSetResponseDTO, 'overlayInputSetYaml'> {
+export interface InputSetDTO extends Omit<CDInputSet, 'identifier'>, Omit<OverlayInputSet, 'identifier'> {
   pipeline?: CDPipeline
+  identifier?: string
 }
 
 const getDefaultInputSet = (template?: CDPipeline): InputSetDTO => ({
-  name: '',
-  identifier: '',
-  description: '',
+  name: undefined,
+  identifier: undefined,
+  description: undefined,
   pipeline: template,
   inputSetReferences: []
 })
@@ -196,7 +202,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = ({ hideForm, identifier
     loading: createInputSetLoading
   } = useCreateInputSetForPipeline({
     queryParams: { accountIdentifier: accountId, orgIdentifier, pipelineIdentifier, projectIdentifier },
-    requestOptions: { headers: { 'content-type': 'text/yaml' } }
+    requestOptions: { headers: { 'content-type': 'application/yaml' } }
   })
   const {
     mutate: updateInputSet,
@@ -205,7 +211,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = ({ hideForm, identifier
   } = useUpdateInputSetForPipeline({
     queryParams: { accountIdentifier: accountId, orgIdentifier, pipelineIdentifier, projectIdentifier },
     inputSetIdentifier: '',
-    requestOptions: { headers: { 'content-type': 'text/yaml' } }
+    requestOptions: { headers: { 'content-type': 'application/yaml' } }
   })
 
   const {
@@ -214,7 +220,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = ({ hideForm, identifier
     loading: createOverlayInputSetLoading
   } = useCreateOverlayInputSetForPipeline({
     queryParams: { accountIdentifier: accountId, orgIdentifier, pipelineIdentifier, projectIdentifier },
-    requestOptions: { headers: { 'content-type': 'text/yaml' } }
+    requestOptions: { headers: { 'content-type': 'application/yaml' } }
   })
   const {
     mutate: updateOverlayInputSet,
@@ -223,7 +229,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = ({ hideForm, identifier
   } = useUpdateOverlayInputSetForPipeline({
     queryParams: { accountIdentifier: accountId, orgIdentifier, pipelineIdentifier, projectIdentifier },
     inputSetIdentifier: '',
-    requestOptions: { headers: { 'content-type': 'text/yaml' } }
+    requestOptions: { headers: { 'content-type': 'application/yaml' } }
   })
 
   const {
@@ -232,7 +238,13 @@ export const InputSetForm: React.FC<InputSetFormProps> = ({ hideForm, identifier
     loading: loadingInputSetList,
     error: errorInputSetList
   } = useGetInputSetsListForPipeline({
-    queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier, pipelineIdentifier },
+    queryParams: {
+      accountIdentifier: accountId,
+      orgIdentifier,
+      projectIdentifier,
+      pipelineIdentifier,
+      inputSetType: 'INPUT_SET'
+    },
     debounce: 300,
     lazy: true
   })
@@ -248,7 +260,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = ({ hideForm, identifier
       const inputYamlObj = parse(inputSetObj.inputSetYaml || '')
       return {
         name: inputSetObj.name,
-        identifier: inputSetObj.identifier,
+        identifier: inputSetObj.identifier || '',
         description: inputSetObj?.description,
         pipeline: inputYamlObj?.inputSet?.pipeline
       }
@@ -256,7 +268,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = ({ hideForm, identifier
       const inputSetObj = overlayInputSetResponse?.data
       return {
         name: inputSetObj.name,
-        identifier: inputSetObj.identifier,
+        identifier: inputSetObj.identifier || '',
         description: inputSetObj?.description,
         inputSetReferences: inputSetObj?.inputSetReferences || []
       }
@@ -266,6 +278,16 @@ export const InputSetForm: React.FC<InputSetFormProps> = ({ hideForm, identifier
 
   const inputSetListOptions: SelectOption[] = React.useMemo(() => {
     return inputSetList?.data?.content?.map(item => ({ label: item.name || '', value: item.identifier || '' })) || []
+  }, [inputSetList?.data?.content?.map])
+
+  const inputSetListYaml: CompletionItemInterface[] = React.useMemo(() => {
+    return (
+      inputSetList?.data?.content?.map(item => ({
+        label: item.name || '',
+        insertText: item.identifier || '',
+        kind: CompletionItemKind.Field
+      })) || []
+    )
   }, [inputSetList?.data?.content?.map])
 
   React.useEffect(() => {
@@ -292,7 +314,10 @@ export const InputSetForm: React.FC<InputSetFormProps> = ({ hideForm, identifier
     (view: SelectedView) => {
       if (view === SelectedView.VISUAL) {
         const yaml = yamlHandler?.getLatestYaml() || ''
-        const inputSetYamlVisual = parse(yaml).inputSet as InputSetDTO
+        const inputSetYamlVisual =
+          formType === InputFormType.InputForm
+            ? (parse(yaml).inputSet as InputSetDTO)
+            : (parse(yaml).overlayInputSet as InputSetDTO)
         inputSet.name = inputSetYamlVisual.name
         inputSet.identifier = inputSetYamlVisual.identifier
         inputSet.description = inputSetYamlVisual.description
@@ -300,7 +325,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = ({ hideForm, identifier
       }
       setSelectedView(view)
     },
-    [yamlHandler?.getLatestYaml, inputSet]
+    [yamlHandler?.getLatestYaml, inputSet, formType]
   )
 
   const closeForm = React.useCallback(() => {
@@ -312,12 +337,13 @@ export const InputSetForm: React.FC<InputSetFormProps> = ({ hideForm, identifier
     async (inputSetObj: InputSetDTO) => {
       if (inputSetObj && formType === InputFormType.InputForm) {
         try {
+          delete inputSetObj.inputSetReferences
           if (isEdit) {
-            await updateInputSet(stringify({ inputSet: inputSetObj }), {
+            await updateInputSet(stringify({ inputSet: inputSetObj }) as any, {
               pathParams: { inputSetIdentifier: inputSetObj.identifier || '' }
             })
           } else {
-            await createInputSet(stringify({ inputSet: inputSetObj }))
+            await createInputSet(stringify({ inputSet: inputSetObj }) as any)
           }
           showSuccess(i18n.inputSetSaved)
           closeForm()
@@ -328,11 +354,11 @@ export const InputSetForm: React.FC<InputSetFormProps> = ({ hideForm, identifier
         delete inputSetObj.pipeline
         try {
           if (isEdit) {
-            await updateOverlayInputSet(stringify({ overlayInputSet: inputSetObj }), {
+            await updateOverlayInputSet(stringify({ overlayInputSet: inputSetObj }) as any, {
               pathParams: { inputSetIdentifier: inputSetObj.identifier || '' }
             })
           } else {
-            await createOverlayInputSet(stringify({ overlayInputSet: inputSetObj }))
+            await createOverlayInputSet(stringify({ overlayInputSet: inputSetObj }) as any)
           }
           showSuccess(i18n.overlayInputSetSaved)
           closeForm()
@@ -420,6 +446,16 @@ export const InputSetForm: React.FC<InputSetFormProps> = ({ hideForm, identifier
     )
   }
 
+  const invocationMap: YamlBuilderProps['invocationMap'] = new Map<RegExp, InvocationMapFunction>()
+  invocationMap.set(
+    /^.+\.inputSetReferences$/,
+    (_matchingPath: string, _currentYaml: string): Promise<CompletionItemInterface[]> => {
+      return new Promise(resolve => {
+        resolve(inputSetListYaml)
+      })
+    }
+  )
+
   return (
     <Dialog title={getTitle(isEdit, formType, inputSet)} onClose={() => closeForm()} isOpen={isOpen} {...dialogProps}>
       <div className={Classes.DIALOG_BODY}>
@@ -449,7 +485,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = ({ hideForm, identifier
               handleSubmit(values)
             }}
           >
-            {({ values, setFieldValue }) => {
+            {({ values, setFieldValue, dirty }) => {
               return (
                 <>
                   {selectedView === SelectedView.VISUAL ? (
@@ -532,7 +568,13 @@ export const InputSetForm: React.FC<InputSetFormProps> = ({ hideForm, identifier
                     <div className={css.editor}>
                       <YAMLBuilder
                         {...yamlBuilderReadOnlyModeProps}
-                        existingJSON={{ inputSet: values }}
+                        existingJSON={
+                          formType === InputFormType.InputForm
+                            ? { inputSet: omit(values, 'inputSetReferences') }
+                            : { overlayInputSet: omit(values, 'pipeline') }
+                        }
+                        isRemoveNulls={!isEdit && !dirty}
+                        invocationMap={invocationMap}
                         bind={setYamlHandler}
                       />
                       <Layout.Horizontal padding={{ top: 'medium' }}>
@@ -542,7 +584,11 @@ export const InputSetForm: React.FC<InputSetFormProps> = ({ hideForm, identifier
                           text={i18n.save}
                           onClick={() => {
                             const latestYaml = yamlHandler?.getLatestYaml() || ''
-                            handleSubmit(parse(latestYaml)?.inputSet)
+                            if (formType === InputFormType.InputForm) {
+                              handleSubmit(parse(latestYaml)?.inputSet)
+                            } else {
+                              handleSubmit(parse(latestYaml)?.overlayInputSet)
+                            }
                           }}
                         />
                         &nbsp; &nbsp;
