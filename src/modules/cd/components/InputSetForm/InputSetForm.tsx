@@ -485,7 +485,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = ({ hideForm, identifier
               handleSubmit(values)
             }}
           >
-            {({ values, setFieldValue, dirty }) => {
+            {({ values, setFieldValue }) => {
               return (
                 <>
                   {selectedView === SelectedView.VISUAL ? (
@@ -573,7 +573,6 @@ export const InputSetForm: React.FC<InputSetFormProps> = ({ hideForm, identifier
                             ? { inputSet: omit(values, 'inputSetReferences') }
                             : { overlayInputSet: omit(values, 'pipeline') }
                         }
-                        isRemoveNulls={!isEdit && !dirty}
                         invocationMap={invocationMap}
                         bind={setYamlHandler}
                       />

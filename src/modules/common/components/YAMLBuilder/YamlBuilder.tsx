@@ -57,7 +57,6 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
     invocationMap,
     bind,
     snippets,
-    isRemoveNulls = false,
     showIconMenu = false,
     onSnippetSearch,
     onExpressionTrigger
@@ -105,11 +104,13 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
     verifyIncomingJSON(existingJSON)
   }, [existingJSON, entityType])
 
-  const verifyIncomingJSON = (json: Record<string, any>): void => {
-    const sanitizedJSON = omitBy(json, isNull)
+  const replacer = (key, value) => (typeof value === 'undefined' ? '' : value)
+
+  const verifyIncomingJSON = (jsonObj: Record<string, any>): void => {
+    const sanitizedJSON = JSON.parse(JSON.stringify(jsonObj, replacer).replace(/null/g, '""'))
     if (sanitizedJSON && Object.keys(sanitizedJSON).length > 0) {
       const yamlEqOfJSON = stringify(sanitizedJSON)
-      const sanitizedYAML = isRemoveNulls ? yamlEqOfJSON.replaceAll(': null\n', ': \n') : yamlEqOfJSON
+      const sanitizedYAML = yamlEqOfJSON.replace(': null\n', ': \n')
       setCurrentYaml(sanitizedYAML)
       verifyYAMLValidity(sanitizedYAML)
     }

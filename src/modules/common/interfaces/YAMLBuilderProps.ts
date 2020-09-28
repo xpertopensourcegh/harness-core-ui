@@ -13,7 +13,6 @@ export interface YamlBuilderProps {
   height?: React.CSSProperties['height']
   width?: React.CSSProperties['width']
   fileName: string
-  isRemoveNulls?: boolean
   existingJSON?: Record<string, any>
   entityType: YamlEntity
   bind?: (dynamicPopoverHandler: YamlBuilderHandlerBinding) => void

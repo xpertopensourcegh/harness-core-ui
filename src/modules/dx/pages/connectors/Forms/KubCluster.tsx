@@ -354,7 +354,7 @@ const KubCluster: React.FC<KubClusterProps> = props => {
                     inputProps={{ defaultValue: AuthTypes.USER_PASSWORD }}
                   >
                     <Button
-                      text={getLabelForAuthType(formikProps?.values?.authType) || 'Select Authentucation'}
+                      text={getLabelForAuthType(formikProps?.values?.authType) || 'Select Authentication'}
                       rightIcon="chevron-down"
                       minimal
                     />

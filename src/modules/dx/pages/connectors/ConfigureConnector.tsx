@@ -3,7 +3,6 @@ import { useParams } from 'react-router'
 import { Button, Layout, IconName } from '@wings-software/uikit'
 import { parse } from 'yaml'
 import cx from 'classnames'
-import { omitBy, isNull } from 'lodash-es'
 import { useToaster } from 'modules/common/exports'
 import type { ConnectorInfoDTO, ConnectorRequestBody, ConnectorResponse } from 'services/cd-ng'
 import YamlBuilder from 'modules/common/components/YAMLBuilder/YamlBuilder'
@@ -92,14 +91,32 @@ const ConfigureConnector: React.FC<ConfigureConnectorProps> = props => {
     }
   }
 
+  const getValidationErrorMessagesForToaster = (errorMap: Map<string, string[]>): string => {
+    let toasterErrorMssg = ''
+    errorMap.forEach((values: string[], key: string) => {
+      toasterErrorMssg = toasterErrorMssg
+        .concat(`In property ${key}, `)
+        .concat(values.map((value: string) => value.replace('.', '').toLowerCase()).join(', '))
+        .concat('\n')
+    })
+    return toasterErrorMssg
+  }
+
   const handleModeSwitch = (targetMode: string): void => {
+    const { getLatestYaml, getYAMLValidationErrorMap } = yamlHandler || {}
     if (targetMode === SelectedView.VISUAL) {
-      const yamlString = yamlHandler?.getLatestYaml() || ''
+      const yamlString = getLatestYaml?.() || ''
       try {
         const connectorJSONEq = parse(yamlString)?.connector
         if (connectorJSONEq) {
+          const errorMap = getYAMLValidationErrorMap?.()
+          if (errorMap && errorMap.size > 0) {
+            showError(getValidationErrorMessagesForToaster(errorMap), 5000)
+          } else {
+            setSelectedView(targetMode)
+          }
           setConnector(connectorJSONEq)
-          setSelectedView(targetMode)
+          setConnectorForYaml(connectorJSONEq)
         }
       } catch (err) {
         showError(`${err.name}: ${err.message}`)
@@ -109,32 +126,21 @@ const ConfigureConnector: React.FC<ConfigureConnectorProps> = props => {
     }
   }
 
-  const getValidationErrorMessagesForToaster = (errorMap: Map<string, string[]>): string => {
-    let toasterErrorMssg = ''
-    errorMap.forEach((values: string[], key: string) => {
-      toasterErrorMssg = toasterErrorMssg
-        .concat(`In property ${key}, `)
-        .concat(values.map((value: string) => value.toLowerCase()).join(','))
-        .concat('\n')
-      toasterErrorMssg = toasterErrorMssg.concat('\n')
-    })
-    return toasterErrorMssg
-  }
-
   const handleSaveYaml = (event: React.MouseEvent<Element, MouseEvent>): void => {
     event.preventDefault()
     const { getLatestYaml, getYAMLValidationErrorMap } = yamlHandler || {}
-    const errorMap = getYAMLValidationErrorMap?.()
-    if (errorMap && errorMap.size > 0) {
-      showError(getValidationErrorMessagesForToaster(errorMap), 5000)
-      return
-    }
     const yamlString = getLatestYaml?.() || ''
     try {
       const connectorJSONEq = parse(yamlString)
       if (connectorJSONEq) {
-        onSubmit(connectorJSONEq)
+        const errorMap = getYAMLValidationErrorMap?.()
+        if (errorMap && errorMap.size > 0) {
+          showError(getValidationErrorMessagesForToaster(errorMap), 5000)
+        } else {
+          onSubmit(connectorJSONEq)
+        }
         setConnector(connectorJSONEq?.connector)
+        setConnectorForYaml(connectorJSONEq?.connector)
       }
     } catch (err) {
       showError(`${err.name}: ${err.message}`)
@@ -164,9 +170,7 @@ const ConfigureConnector: React.FC<ConfigureConnectorProps> = props => {
   const yamlBuilderReadOnlyModeProps: YamlBuilderProps = {
     fileName: `${connectorForYaml?.identifier ?? 'Connector'}.yaml`,
     entityType: YamlEntity.CONNECTOR,
-    existingJSON: isCreationThroughYamlBuilder
-      ? {}
-      : { connector: omitBy(Object.assign({}, connectorForYaml), isNull) },
+    existingJSON: isCreationThroughYamlBuilder ? {} : { connector: connectorForYaml },
     snippets: snippets,
     onSnippetSearch: fetchSnippets,
     bind: setYamlHandler
