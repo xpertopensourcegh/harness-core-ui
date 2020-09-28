@@ -27,11 +27,7 @@ const OrganizationsPage: React.FC = () => {
         title={i18n.organizations}
         toolbar={
           <Layout.Horizontal spacing="xsmall">
-            <Button
-              text={i18n.newOrganization}
-              onClick={() => openOrganizationModal()}
-              style={{ color: 'var(--blue-500)', borderColor: 'var(--blue-500)' }}
-            />
+            <Button text={i18n.newOrganization} onClick={() => openOrganizationModal()} />
           </Layout.Horizontal>
         }
       />

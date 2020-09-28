@@ -20,5 +20,9 @@ declare const styles: {
   readonly request: string
   readonly input: string
   readonly url: string
+  readonly pendingUser: string
+  readonly name: string
+  readonly email: string
+  readonly role: string
 }
 export default styles

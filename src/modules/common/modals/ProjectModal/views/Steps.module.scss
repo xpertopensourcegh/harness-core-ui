@@ -61,6 +61,10 @@
   align-items: center;
   border-top: 1px solid var(--grey-200);
   border-bottom: 1px solid var(--grey-200);
+  &:hover {
+    cursor: pointer;
+    background-color: var(--grey-200) !important;
+  }
 }
 
 .collaboratorForm {
@@ -89,9 +93,22 @@
 }
 
 .input {
-  width: 400px;
+  width: 400px !important ;
 }
 
 .url {
   width: 450px;
+}
+
+.pendingUser {
+  overflow-wrap: break-word;
+  .name {
+    max-width: 100px;
+  }
+  .email {
+    max-width: 200px;
+  }
+  .role {
+    max-width: 75px;
+  }
 }

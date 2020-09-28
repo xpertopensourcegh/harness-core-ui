@@ -90,7 +90,9 @@ export default {
       noRole: 'No project role assigned',
       collaborator: 'collaborators',
       manage: 'Manage all the users in the project',
-      notValid: ' is not a valid email '
+      notValid: ' is not a valid email ',
+      inviteSuccess: 'The invite has been sent successfully',
+      deleteSuccess: 'The invite has been deleted successfully'
     }
   }
 }

@@ -77,6 +77,7 @@ const InviteListRenderer: React.FC<InviteListProps> = props => {
     try {
       const updated = await updateInvite(dataToSubmit, { pathParams: { inviteId: user.id || '' } })
       if (updated) reload()
+      modalErrorHandler?.showSuccess(i18n.newProjectWizard.Collaborators.inviteSuccess)
     } catch (err) {
       modalErrorHandler?.show(err.data)
     }
@@ -86,19 +87,20 @@ const InviteListRenderer: React.FC<InviteListProps> = props => {
     try {
       const deleted = await deleteInvite(user.id || '')
       if (deleted) reload()
+      modalErrorHandler?.showSuccess(i18n.newProjectWizard.Collaborators.deleteSuccess)
     } catch (err) {
       modalErrorHandler?.show(err.data)
     }
   }
   return (
-    <Container className={css.invites} padding={{ top: 'medium', bottom: 'medium' }}>
+    <Container className={css.invites} padding={{ left: 'xsmall', top: 'medium', bottom: 'medium' }}>
       {user?.inviteType == InviteType.ADMIN_INITIATED ? (
         <Layout.Horizontal>
-          <Layout.Horizontal spacing="medium" className={css.align} width="75%">
+          <Layout.Horizontal spacing="medium" className={cx(css.align, css.pendingUser)} width="60%">
             <Icon name="main-user" size={30} />
             <Layout.Vertical padding={{ left: 'small' }}>
               <Layout.Horizontal spacing="small">
-                <Text font={{ weight: 'bold' }} color={Color.BLACK}>
+                <Text font={{ weight: 'bold' }} color={Color.BLACK} className={css.name} lineClamp={1}>
                   {user.name}
                 </Text>
                 <Text
@@ -109,18 +111,26 @@ const InviteListRenderer: React.FC<InviteListProps> = props => {
                   {i18n.newProjectWizard.Collaborators.pendingInvitation}
                 </Text>
               </Layout.Horizontal>
-              <Text>{user.email}</Text>
+              <Text className={css.email} lineClamp={1}>
+                {user.email}
+              </Text>
               <Layout.Horizontal>
                 <Text font={{ size: 'xsmall', weight: 'bold' }} color={Color.BLACK}>
                   {i18n.newProjectWizard.Collaborators.roleAssigned}
                 </Text>
-                <Text font="xsmall" color={Color.BLUE_600} padding={{ left: 'xsmall' }}>
+                <Text
+                  font="xsmall"
+                  color={Color.BLUE_600}
+                  padding={{ left: 'xsmall' }}
+                  className={css.role}
+                  lineClamp={1}
+                >
                   {user.role.name}
                 </Text>
               </Layout.Horizontal>
             </Layout.Vertical>
           </Layout.Horizontal>
-          <Layout.Horizontal width="25%" padding={{ right: 'medium' }} className={cx(css.align, css.toEnd)}>
+          <Layout.Horizontal width="40%" padding={{ right: 'medium' }} className={cx(css.align, css.toEnd)}>
             <Button
               inline
               minimal
@@ -134,11 +144,11 @@ const InviteListRenderer: React.FC<InviteListProps> = props => {
         </Layout.Horizontal>
       ) : (
         <Layout.Horizontal>
-          <Layout.Horizontal spacing="medium" className={css.align} width="75%">
+          <Layout.Horizontal spacing="medium" className={css.align} width="60%">
             <Icon name="main-user" size={30} />
             <Layout.Vertical padding={{ left: 'small' }}>
               <Layout.Horizontal spacing="small">
-                <Text font={{ weight: 'bold' }} color={Color.BLACK}>
+                <Text font={{ weight: 'bold' }} color={Color.BLACK} className={css.name} lineClamp={1}>
                   {user.name}
                 </Text>
                 <Text
@@ -149,13 +159,15 @@ const InviteListRenderer: React.FC<InviteListProps> = props => {
                   {i18n.newProjectWizard.Collaborators.requestAccess}
                 </Text>
               </Layout.Horizontal>
-              <Text>{user.email}</Text>
+              <Text className={css.email} lineClamp={1}>
+                {user.email}
+              </Text>
               <Text font={{ size: 'xsmall', weight: 'bold' }} color={Color.BLACK}>
                 {i18n.newProjectWizard.Collaborators.noRole}
               </Text>
             </Layout.Vertical>
           </Layout.Horizontal>
-          <Layout.Horizontal width="25%" padding={{ right: 'medium' }} className={cx(css.align, css.toEnd)}>
+          <Layout.Horizontal width="40%" padding={{ right: 'medium' }} className={cx(css.align, css.toEnd)}>
             {!approved ? (
               <Button
                 inline
@@ -207,12 +219,15 @@ const InviteListRenderer: React.FC<InviteListProps> = props => {
 const Collaborators: React.FC<StepProps<Project> & ProjectModalData> = props => {
   const { previousStep, nextStep, prevStepData, data } = props
   const [role, setRole] = useState<SelectOption>(defaultRole)
+  const [search, setSearch] = useState<string>()
   const { accountId } = useParams()
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding>()
   const isFromMenu = !!data && !!data.identifier
   const projectData = isFromMenu ? data : prevStepData
   const initialValues: CollaboratorsData = { collaborators: [] }
-  const { data: userData } = useGetUsers({ queryParams: { accountIdentifier: accountId } })
+  const { data: userData } = useGetUsers({
+    queryParams: { accountIdentifier: accountId, searchString: search === '' ? undefined : search }
+  })
 
   const { data: inviteData, refetch: reloadInvites } = useGetInvites({
     queryParams: {
@@ -289,6 +304,7 @@ const Collaborators: React.FC<StepProps<Project> & ProjectModalData> = props => 
         )
       })}
       onSubmit={(values, { resetForm }) => {
+        modalErrorHandler?.hide()
         SendInvitation(values.collaborators)
         setRole(defaultRole)
         resetForm({ collaborators: [] })
@@ -314,41 +330,40 @@ const Collaborators: React.FC<StepProps<Project> & ProjectModalData> = props => 
                   />
                 </Layout.Horizontal>
                 <Layout.Horizontal padding={{ top: 'medium' }} spacing="xlarge" className={cx(css.align, css.input)}>
-                  <Text>{i18n.newProjectWizard.Collaborators.inviteCollab}</Text>
-                  <CustomSelect
-                    items={roles}
-                    filterable={false}
-                    itemRenderer={(item, { handleClick }) => (
-                      <div>
-                        <Menu.Item
-                          text={item.label}
-                          onClick={(e: React.MouseEvent<HTMLElement, MouseEvent>) => handleClick(e)}
-                        />
-                      </div>
-                    )}
-                    onItemSelect={item => {
-                      setRole(item)
-                    }}
-                    popoverProps={{ minimal: true }}
-                  >
-                    <Layout.Horizontal padding={{ left: 'xlarge' }}>
-                      <Button
-                        inline
-                        minimal
-                        rightIcon="chevron-down"
-                        text={role.label}
-                        width={180}
-                        className={css.toEnd}
-                      />
-                    </Layout.Horizontal>
-                  </CustomSelect>
+                  <Layout.Horizontal width="50%">
+                    <Text>{i18n.newProjectWizard.Collaborators.inviteCollab}</Text>
+                  </Layout.Horizontal>
+                  <Layout.Horizontal width="50%" className={css.toEnd}>
+                    <CustomSelect
+                      items={roles}
+                      filterable={false}
+                      itemRenderer={(item, { handleClick }) => (
+                        <div>
+                          <Menu.Item
+                            text={item.label}
+                            onClick={(e: React.MouseEvent<HTMLElement, MouseEvent>) => handleClick(e)}
+                          />
+                        </div>
+                      )}
+                      onItemSelect={item => {
+                        setRole(item)
+                      }}
+                      popoverProps={{ minimal: true }}
+                    >
+                      <Button inline minimal rightIcon="chevron-down" text={role.label} className={css.toEnd} />
+                    </CustomSelect>
+                  </Layout.Horizontal>
                 </Layout.Horizontal>
                 <Layout.Horizontal spacing="small">
                   <FormInput.MultiSelect
                     name={i18n.newProjectWizard.Collaborators.collaborator}
                     items={users}
                     multiSelectProps={{
-                      allowCreatingNewItems: true
+                      allowCreatingNewItems: true,
+                      createNewItemFromQuery: (query: string) => {
+                        setSearch(query)
+                        return { label: query, value: query }
+                      }
                     }}
                     className={css.input}
                   />
