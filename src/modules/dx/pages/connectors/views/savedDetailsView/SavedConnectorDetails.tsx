@@ -1,13 +1,13 @@
 import React from 'react'
 import { Layout, Tag, Text, Color } from '@wings-software/uikit'
 import { Connectors } from 'modules/dx/constants'
-import type { ConnectorConfigDTO } from 'services/cd-ng'
+import type { ConnectorInfoDTO } from 'services/cd-ng'
 import { DelegateTypes } from '../../Forms/KubeFormInterfaces'
 import { getLabelForAuthType } from '../../utils/ConnectorHelper'
 import i18n from './SavedConnectorDetails.i18n'
 
 interface SavedConnectorDetailsProps {
-  connector: ConnectorConfigDTO
+  connector: ConnectorInfoDTO
 }
 const getLabelByType = (type: string) => {
   switch (type) {
@@ -27,7 +27,7 @@ const getLabelByType = (type: string) => {
       return ''
   }
 }
-const getKubernetesSchema = (connector: ConnectorConfigDTO) => {
+const getKubernetesSchema = (connector: ConnectorInfoDTO) => {
   return [
     {
       label: i18n.k8sCluster.connectionMode,
@@ -38,68 +38,71 @@ const getKubernetesSchema = (connector: ConnectorConfigDTO) => {
     },
     {
       label: i18n.k8sCluster.delegateName,
-      value: connector.spec?.spec?.delegateName
+      value: connector.spec?.credential?.spec?.delegateName
     },
     {
       label: i18n.k8sCluster.masterUrl,
-      value: connector?.spec?.spec?.masterUrl
+      value: connector?.spec?.credential?.spec?.masterUrl
     },
     {
       label: i18n.k8sCluster.credType,
-      value: getLabelForAuthType(connector?.spec?.spec?.auth?.type)
+      value: getLabelForAuthType(connector?.spec?.credential?.spec?.auth?.type)
     },
     {
       label: i18n.k8sCluster.identityProviderUrl,
-      value: connector?.spec?.spec?.auth?.spec?.oidcIssuerUrl
+      value: connector?.spec?.credential?.spec?.auth?.spec?.oidcIssuerUrl
     },
     {
       label: i18n.k8sCluster.username,
-      value: connector?.spec?.spec?.auth?.spec?.username || connector?.spec?.spec?.auth?.spec?.oidcUsername
+      value:
+        connector?.spec?.credential?.spec?.auth?.spec?.username ||
+        connector?.spec?.credential?.spec?.auth?.spec?.oidcUsername
     },
     {
       label: i18n.k8sCluster.password,
       value:
-        connector?.spec?.spec?.auth?.spec?.passwordRef || connector?.spec?.spec?.auth?.spec?.oidcPasswordRef
+        connector?.spec?.credential?.spec?.auth?.spec?.passwordRef ||
+        connector?.spec?.credential?.spec?.auth?.spec?.oidcPasswordRef
           ? i18n.k8sCluster.encrypted
           : null
     },
     {
       label: i18n.k8sCluster.serviceAccountToken,
-      value: connector?.spec?.spec?.auth?.spec?.serviceAccountTokenRef ? i18n.k8sCluster.encrypted : null
+      value: connector?.spec?.credential?.spec?.auth?.spec?.serviceAccountTokenRef ? i18n.k8sCluster.encrypted : null
     },
     {
       label: i18n.k8sCluster.oidcClientId,
-      value: connector?.spec?.spec?.auth?.spec?.oidcClientIdRef ? i18n.k8sCluster.encrypted : null
+      value: connector?.spec?.credential?.spec?.auth?.spec?.oidcClientIdRef ? i18n.k8sCluster.encrypted : null
     },
     {
       label: i18n.k8sCluster.clientSecret,
-      value: connector?.spec?.spec?.auth?.spec?.oidcSecretRef ? i18n.k8sCluster.encrypted : null
+      value: connector?.spec?.credential?.spec?.auth?.spec?.oidcSecretRef ? i18n.k8sCluster.encrypted : null
     },
     {
       label: i18n.k8sCluster.oidcScopes,
-      value: connector?.spec?.spec?.auth?.spec?.oidcScopes
+      value: connector?.spec?.credential?.spec?.auth?.spec?.oidcScopes
     },
 
     {
       label: i18n.k8sCluster.clientKey,
-      value: connector?.spec?.spec?.auth?.spec?.clientKeyRef ? i18n.k8sCluster.encrypted : null
+      value: connector?.spec?.credential?.spec?.auth?.spec?.clientKeyRef ? i18n.k8sCluster.encrypted : null
     },
     {
       label: i18n.k8sCluster.clientCert,
-      value: connector?.spec?.spec?.auth?.spec?.clientCertRef ? i18n.k8sCluster.encrypted : null
+      value: connector?.spec?.credential?.spec?.auth?.spec?.clientCertRef ? i18n.k8sCluster.encrypted : null
     },
     {
       label: i18n.k8sCluster.clientKeyPassphrase,
-      value: connector?.spec?.spec?.auth?.spec?.clientKeyPassphraseRef ? i18n.k8sCluster.encrypted : null
+      value: connector?.spec?.credential?.spec?.auth?.spec?.clientKeyPassphraseRef ? i18n.k8sCluster.encrypted : null
     },
     {
       label: i18n.k8sCluster.clientAlgo,
-      value: connector?.spec?.spec?.auth?.spec?.clientKeyAlgo
+      value: connector?.spec?.credential?.spec?.auth?.spec?.clientKeyAlgo
     }
   ]
 }
 
-const getGITSchema = (connector: ConnectorConfigDTO) => {
+const getGITSchema = (connector: ConnectorInfoDTO) => {
   return [
     {
       label: i18n.GIT.configure,
@@ -129,7 +132,7 @@ const getGITSchema = (connector: ConnectorConfigDTO) => {
   ]
 }
 
-const getDockerSchema = (connector: ConnectorConfigDTO) => {
+const getDockerSchema = (connector: ConnectorInfoDTO) => {
   return [
     {
       label: i18n.Docker.dockerRegistryURL,
@@ -149,7 +152,7 @@ const getDockerSchema = (connector: ConnectorConfigDTO) => {
     }
   ]
 }
-const getSchemaByType = (connector: ConnectorConfigDTO, type: string) => {
+const getSchemaByType = (connector: ConnectorInfoDTO, type: string) => {
   switch (type) {
     case Connectors.KUBERNETES_CLUSTER:
       return getKubernetesSchema(connector)
@@ -198,7 +201,7 @@ const renderTags = (value: string[]) => {
   )
 }
 
-const SavedConnectorDetails = (props: SavedConnectorDetailsProps) => {
+const SavedConnectorDetails: React.FC<SavedConnectorDetailsProps> = props => {
   const connectorDetailsSchema = getSchema(props).concat(getSchemaByType(props.connector, props.connector?.type) || [])
 
   return (

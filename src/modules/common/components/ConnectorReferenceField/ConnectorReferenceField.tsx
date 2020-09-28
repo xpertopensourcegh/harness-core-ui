@@ -1,7 +1,13 @@
 import React from 'react'
 import { FormGroup, IFormGroupProps } from '@blueprintjs/core'
 import { Layout, Icon, Color, Button, Tag, Text } from '@wings-software/uikit'
-import { FailureDTO, ConnectorSummaryDTO, getConnectorListPromise, ConnectorConfigDTO } from 'services/cd-ng'
+import {
+  FailureDTO,
+  ConnectorInfoDTO,
+  getConnectorListPromise,
+  ConnectorConfigDTO,
+  ConnectorResponse
+} from 'services/cd-ng'
 import { EntityReferenceResponse, getScopeFromValue } from 'modules/common/components/EntityReference/EntityReference'
 import { getIconByType } from 'modules/dx/exports'
 import useCreateConnectorModal from 'modules/dx/modals/ConnectorModal/useCreateConnectorModal'
@@ -21,11 +27,15 @@ export interface ConnectorReferenceFieldProps extends Omit<IFormGroupProps, 'lab
     value: string
     scope: Scope
   }
-  onChange?: (connector: ConnectorSummaryDTO, scope: Scope) => void
+  onChange?: (connector: ConnectorResponse, scope: Scope) => void
   orgIdentifier?: string
   defaultScope?: Scope
   width?: number
-  type?: ConnectorSummaryDTO['type']
+  type?: ConnectorInfoDTO['type']
+}
+
+interface ConnectorReferenceDTO extends ConnectorInfoDTO {
+  status: ConnectorResponse['status']
 }
 export function getEditRenderer(selected: ConnectorReferenceFieldProps['selected']): JSX.Element {
   return (
@@ -67,7 +77,7 @@ export function getReferenceFieldProps({
   width,
   selected,
   placeholder
-}: ConnectorReferenceFieldProps): Omit<ReferenceSelectProps<ConnectorSummaryDTO>, 'onChange'> {
+}: ConnectorReferenceFieldProps): Omit<ReferenceSelectProps<ConnectorReferenceDTO>, 'onChange'> {
   return {
     name,
     width,
@@ -78,8 +88,8 @@ export function getReferenceFieldProps({
     recordClassName: css.listItem,
     fetchRecords: (scope, search = '', done) => {
       getConnectorListPromise({
-        accountIdentifier,
         queryParams: {
+          accountIdentifier,
           type,
           searchTerm: search,
           projectIdentifier: scope === Scope.PROJECT ? projectIdentifier : undefined,
@@ -89,12 +99,12 @@ export function getReferenceFieldProps({
         .then(responseData => {
           if (responseData?.data?.content) {
             const connectors = responseData.data.content
-            const response: EntityReferenceResponse<ConnectorSummaryDTO>[] = []
+            const response: EntityReferenceResponse<ConnectorReferenceDTO>[] = []
             connectors.forEach(connector => {
               response.push({
-                name: connector.name || '',
-                identifier: connector.identifier || '',
-                record: connector
+                name: connector.connector?.name || '',
+                identifier: connector.connector?.identifier || '',
+                record: connector.connector as ConnectorReferenceDTO
               })
             })
             done(response)
@@ -170,7 +180,7 @@ export const ConnectorReferenceField: React.FC<ConnectorReferenceFieldProps> = p
 
   return (
     <FormGroup {...rest} label={label}>
-      <ReferenceSelect<ConnectorSummaryDTO>
+      <ReferenceSelect<ConnectorReferenceDTO>
         onChange={(connector, scope) => {
           props.onChange?.(connector, scope)
         }}

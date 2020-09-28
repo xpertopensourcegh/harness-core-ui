@@ -20,7 +20,7 @@ import { useToaster } from 'modules/common/exports'
 import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
 
 import {
-  ConnectorSummaryDTO,
+  ConnectorResponse,
   GitSyncConfigDTO,
   GitSyncFolderConfigDTO,
   useGetConnectorList,
@@ -35,14 +35,14 @@ import css from './GitSyncRepo.module.scss'
 interface RepoProps {
   repo: GitSyncConfigDTO
   key?: string
-  serverList: Array<ConnectorSummaryDTO>
+  serverList: Array<ConnectorResponse>
   persistGitSyncConnector?: Function
   abort?: Function
 }
 
 interface RepoListProps {
   repoList: Array<GitSyncConfigDTO>
-  serverList: Array<ConnectorSummaryDTO>
+  serverList: Array<ConnectorResponse>
   persistGitSyncConnector: Function
 }
 
@@ -80,7 +80,7 @@ const GitSyncRepo: React.FC<RepoProps> = (props: RepoProps) => {
               repoState === RepoState.VIEW && setRepoState(RepoState.EDIT)
             }}
             items={props.serverList.map(server => {
-              return { label: server.name || '', value: server.identifier || '' }
+              return { label: server.connector?.name || '', value: server.connector?.identifier || '' }
             })}
           />
           <FormInput.Text
@@ -244,7 +244,7 @@ const GitSyncRepoTab: React.FC = () => {
   })
 
   const { loading: loadingGitServerList, data: dataAllGitServerListResponse } = useGetConnectorList({
-    accountIdentifier: accountId
+    queryParams: { accountIdentifier: accountId }
   })
 
   const { mutate: createGitSyncConnector } = usePostGitSync({ queryParams: { accountId } })
@@ -290,7 +290,7 @@ const GitSyncRepoTab: React.FC = () => {
           repo={
             {
               identifier: '',
-              gitConnectorId: dataAllGitServerListResponse?.data?.content?.[0]?.identifier || '',
+              gitConnectorId: dataAllGitServerListResponse?.data?.content?.[0]?.connector?.identifier || '',
               repo: '',
               branch: '',
               gitSyncFolderConfigDTOs: [getNewRootFolder()]

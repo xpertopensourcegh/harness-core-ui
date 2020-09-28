@@ -16,9 +16,9 @@ import ConnectorDetailsStep from 'modules/dx/components/connectors/CreateConnect
 import {
   useCreateConnector,
   ConnectorConfigDTO,
-  ConnectorDTO,
+  ConnectorInfoDTO,
   usePostSecret,
-  ConnectorRequestWrapper,
+  ConnectorRequestBody,
   SecretDTOV2
 } from 'services/cd-ng'
 import { Connectors } from 'modules/dx/constants'
@@ -51,8 +51,8 @@ interface ConnectionConfigProps {
 
 export default function CreateSplunkConnector(props: CreateSplunkConnectorProps): JSX.Element {
   const [formData, setFormData] = useState<ConnectorConfigDTO | undefined>()
-  const [connectorResponse, setConnectorResponse] = useState<ConnectorRequestWrapper | undefined>()
-  const { mutate: createConnector } = useCreateConnector({ accountIdentifier: props.accountId })
+  const [connectorResponse, setConnectorResponse] = useState<ConnectorRequestBody | undefined>()
+  const { mutate: createConnector } = useCreateConnector({ queryParams: { accountIdentifier: props.accountId } })
   const secretCreatedCallback = async (data: ConnectorConfigDTO): Promise<void> => {
     const res = await createConnector({
       connector: {
@@ -100,7 +100,7 @@ export default function CreateSplunkConnector(props: CreateSplunkConnectorProps)
           name={i18n.verifyConnection}
           connectorName={formData?.name}
           connectorIdentifier={formData?.identifier}
-          onSuccess={() => props.onConnectorCreated?.(connectorResponse as ConnectorDTO)}
+          onSuccess={() => props.onConnectorCreated?.(connectorResponse as ConnectorInfoDTO)}
           renderInModal
           isLastStep
           type={Connectors.SPLUNK}

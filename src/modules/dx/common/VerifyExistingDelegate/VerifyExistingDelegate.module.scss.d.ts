@@ -8,5 +8,6 @@ declare const styles: {
   readonly verificationText: string
   readonly overlayHeading: string
   readonly selectDelegate: string
+  readonly inModalRetest: string
 }
 export default styles

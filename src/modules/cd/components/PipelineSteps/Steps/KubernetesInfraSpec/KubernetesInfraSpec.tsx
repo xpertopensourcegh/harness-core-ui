@@ -16,7 +16,7 @@ import { useParams } from 'react-router-dom'
 import { debounce, noop, isEmpty } from 'lodash-es'
 import { FormGroup } from '@blueprintjs/core'
 import { Step, StepViewType, ConfigureOptions } from 'modules/common/exports'
-import { K8SDirectInfrastructure, useGetConnector, ConnectorDTO } from 'services/cd-ng'
+import { K8SDirectInfrastructure, useGetConnector, ConnectorInfoDTO } from 'services/cd-ng'
 import {
   FormMultiTypeConnectorField,
   MultiTypeConnectorFieldProps
@@ -60,9 +60,9 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
   const connectorIdentifier = getIdentifierFromValue(initialValues.connectorIdentifier || '')
   const initialScope = getScopeFromValue(initialValues.connectorIdentifier || '')
   const { data: connector, loading, refetch } = useGetConnector({
-    accountIdentifier: accountId,
-    connectorIdentifier,
+    identifier: connectorIdentifier,
     queryParams: {
+      accountIdentifier: accountId,
       orgIdentifier: initialScope === Scope.ORG || initialScope === Scope.PROJECT ? orgIdentifier : undefined,
       projectIdentifier: initialScope === Scope.PROJECT ? projectIdentifier : undefined
     },
@@ -83,7 +83,7 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
     connector?.data?.connector &&
     getMultiTypeFromValue(initialValues.connectorIdentifier || '') === MultiTypeInputType.FIXED
   ) {
-    const scope = getScopeFromDTO<ConnectorDTO>(connector?.data?.connector)
+    const scope = getScopeFromDTO<ConnectorInfoDTO>(connector?.data?.connector)
     values.connectorIdentifier = {
       label: connector?.data?.connector.name || '',
       value: `${scope !== Scope.PROJECT ? `${scope}.` : ''}${connector?.data?.connector.identifier}`,
@@ -219,9 +219,9 @@ const KubernetesInfraSpecInputForm: React.FC<KubernetesInfraSpecEditableProps> =
   const initialScope = getScopeFromValue(initialValues.connectorIdentifier || '')
 
   const { data: connector, loading, refetch } = useGetConnector({
-    accountIdentifier: accountId,
-    connectorIdentifier,
+    identifier: connectorIdentifier,
     queryParams: {
+      accountIdentifier: accountId,
       orgIdentifier: initialScope === Scope.ORG || initialScope === Scope.PROJECT ? orgIdentifier : undefined,
       projectIdentifier: initialScope === Scope.PROJECT ? projectIdentifier : undefined
     },
@@ -241,7 +241,7 @@ const KubernetesInfraSpecInputForm: React.FC<KubernetesInfraSpecEditableProps> =
     getMultiTypeFromValue(template?.connectorIdentifier) === MultiTypeInputType.RUNTIME &&
     getMultiTypeFromValue(initialValues.connectorIdentifier) === MultiTypeInputType.FIXED
   ) {
-    const scope = getScopeFromDTO<ConnectorDTO>(connector?.data?.connector)
+    const scope = getScopeFromDTO<ConnectorInfoDTO>(connector?.data?.connector)
     connectorSelected = {
       label: connector?.data?.connector.name || '',
       value: `${scope !== Scope.PROJECT ? `${scope}.` : ''}${connector?.data?.connector.identifier}`,
@@ -265,7 +265,9 @@ const KubernetesInfraSpecInputForm: React.FC<KubernetesInfraSpecEditableProps> =
             onUpdate?.({
               ...initialValues,
               connectorIdentifier:
-                scope === Scope.ORG || scope === Scope.ACCOUNT ? `${scope}.${record.identifier}` : record.identifier
+                scope === Scope.ORG || scope === Scope.ACCOUNT
+                  ? `${scope}.${record.connector?.identifier}`
+                  : record.connector?.identifier
             })
           }}
         />

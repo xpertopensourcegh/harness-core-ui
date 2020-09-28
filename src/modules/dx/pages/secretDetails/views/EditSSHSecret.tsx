@@ -18,7 +18,8 @@ import {
   SSHKeyReferenceCredentialDTO,
   SSHKeySpecDTO,
   SSHPasswordCredentialDTO,
-  usePutSecret
+  usePutSecret,
+  ConnectorConnectivityDetails
 } from 'services/cd-ng'
 import type { DetailsForm } from 'modules/dx/modals/CreateSSHCredModal/views/StepDetails'
 import type { InlineSecret } from 'modules/common/components/CreateInlineSecret/CreateInlineSecret'
@@ -201,7 +202,7 @@ const EditSSHSecret: React.FC<EditSSHSecretProps> = props => {
         <ConnectorStats
           createdAt={props.secret.createdAt}
           lastUpdated={props.secret.updatedAt}
-          status={''}
+          status={'' as ConnectorConnectivityDetails['status']}
           className={css.stats}
         />
         <VerifyConnection identifier={secret.identifier} />

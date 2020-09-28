@@ -60,9 +60,12 @@ const VerifyInstalledDelegate = (props: VerifyInstalledDelegateProps) => {
   })
 
   const { mutate: reloadTestConnection } = useGetTestConnectionResult({
-    accountIdentifier: accountId,
-    connectorIdentifier: props.connectorIdentifier as string,
-    queryParams: { orgIdentifier: props.orgIdentifier, projectIdentifier: props.projectIdentifier },
+    identifier: props.connectorIdentifier as string,
+    queryParams: {
+      accountIdentifier: accountId,
+      orgIdentifier: props.orgIdentifier,
+      projectIdentifier: props.projectIdentifier
+    },
     requestOptions: {
       headers: {
         'content-type': 'application/json'

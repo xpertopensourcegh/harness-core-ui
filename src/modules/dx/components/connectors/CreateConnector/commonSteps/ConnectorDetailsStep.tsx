@@ -12,13 +12,13 @@ import {
 import { useParams } from 'react-router'
 import * as Yup from 'yup'
 import { StringUtils } from 'modules/common/exports'
-import { useValidateTheIdentifierIsUnique, ConnectorConfigDTO } from 'services/cd-ng'
+import { useValidateTheIdentifierIsUnique, ConnectorConfigDTO, ConnectorInfoDTO } from 'services/cd-ng'
 import { getHeadingByType, getConnectorTextByType } from '../../../../pages/connectors/utils/ConnectorHelper'
 import i18n from './ConnectorDetailsStep.i18n'
 import css from './ConnectorDetailsStep.module.scss'
 
-interface ConnectorDetailsStepProps extends StepProps<ConnectorConfigDTO> {
-  type: ConnectorConfigDTO['type']
+interface ConnectorDetailsStepProps extends StepProps<ConnectorInfoDTO> {
+  type: ConnectorInfoDTO['type']
   name: string
   setFormData?: (formData: ConnectorConfigDTO) => void
   formData?: ConnectorConfigDTO
@@ -29,9 +29,7 @@ const ConnectorDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDe
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
   const [stepData, setStepData] = useState<ConnectorConfigDTO>(prevStepData || props.formData || {})
   const { loading, data, refetch: validateUniqueIdentifier, error } = useValidateTheIdentifierIsUnique({
-    accountIdentifier: accountId,
-    lazy: true,
-    queryParams: { orgIdentifier: orgIdentifier, projectIdentifier: projectIdentifier }
+    lazy: true
   })
   const mounted = useRef(false)
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
@@ -76,7 +74,14 @@ const ConnectorDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDe
         })}
         onSubmit={formData => {
           setStepData(formData)
-          validateUniqueIdentifier({ queryParams: { connectorIdentifier: formData.identifier } })
+          validateUniqueIdentifier({
+            queryParams: {
+              identifier: formData.identifier,
+              accountIdentifier: accountId,
+              orgIdentifier: orgIdentifier,
+              projectIdentifier: projectIdentifier
+            }
+          })
           props.setFormData?.(formData)
         }}
       >

@@ -9,7 +9,8 @@ import {
   ModalErrorHandler,
   ModalErrorHandlerBinding,
   FormikForm as Form,
-  StepProps
+  StepProps,
+  Color
 } from '@wings-software/uikit'
 import * as Yup from 'yup'
 import { buildDockerPayload } from 'modules/dx/pages/connectors/utils/ConnectorUtils'
@@ -18,9 +19,10 @@ import {
   useCreateConnector,
   useUpdateConnector,
   ConnectorConfigDTO,
-  ConnectorRequestWrapper,
+  ConnectorRequestBody,
   usePostSecret,
-  SecretDTOV2
+  SecretDTOV2,
+  ConnectorInfoDTO
 } from 'services/cd-ng'
 import CreateSecretOverlay from 'modules/dx/common/CreateSecretOverlay/CreateSecretOverlay'
 import {
@@ -33,8 +35,8 @@ import UsernamePassword from '../../../ConnectorFormFields/UsernamePassword'
 
 import i18n from '../CreateDockerConnector.i18n'
 
-interface StepDockerAuthenticationProps extends ConnectorConfigDTO {
-  name?: string
+interface StepDockerAuthenticationProps extends ConnectorInfoDTO {
+  name: string
   isEditMode?: boolean
 }
 
@@ -45,41 +47,41 @@ const StepDockerAuthentication: React.FC<StepProps<StepDockerAuthenticationProps
   const [showCreateSecretModal, setShowCreateSecretModal] = useState<boolean>(false)
   const [editSecretData, setEditSecretData] = useState<SecretDTOV2>()
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
-  const { mutate: createConnector } = useCreateConnector({ accountIdentifier: accountId })
-  const { mutate: updateConnector } = useUpdateConnector({ accountIdentifier: accountId })
+  const { mutate: createConnector } = useCreateConnector({ queryParams: { accountIdentifier: accountId } })
+  const { mutate: updateConnector } = useUpdateConnector({ queryParams: { accountIdentifier: accountId } })
   const { mutate: createSecret } = usePostSecret({ queryParams: { accountIdentifier: accountId } })
   const [loadSecret, setLoadSecret] = useState(false)
   const [loadConnector, setLoadConnector] = useState(false)
 
-  const handleCreate = async (data: ConnectorRequestWrapper, stepData: ConnectorConfigDTO) => {
+  const handleCreate = async (data: ConnectorRequestBody, stepData: ConnectorConfigDTO) => {
     try {
       modalErrorHandler?.hide()
       setLoadConnector(true)
       await createConnector(data)
       setLoadConnector(false)
       showSuccess(`Connector '${prevStepData?.name}' created successfully`)
-      nextStep?.({ ...prevStepData, ...stepData })
+      nextStep?.({ ...prevStepData, ...stepData } as StepDockerAuthenticationProps)
     } catch (e) {
       setLoadConnector(false)
       modalErrorHandler?.showDanger(e.data?.message || e.message)
     }
   }
 
-  const handleUpdate = async (data: ConnectorRequestWrapper, stepData: ConnectorConfigDTO) => {
+  const handleUpdate = async (data: ConnectorRequestBody, stepData: ConnectorConfigDTO) => {
     try {
       modalErrorHandler?.hide()
       setLoadConnector(true)
       await updateConnector(data)
       setLoadConnector(false)
       showSuccess(`Connector '${prevStepData?.name}' updated successfully`)
-      nextStep?.({ ...prevStepData, ...stepData })
+      nextStep?.({ ...prevStepData, ...stepData } as StepDockerAuthenticationProps)
     } catch (error) {
       setLoadConnector(false)
       modalErrorHandler?.showDanger(error.data?.message || error.message)
     }
   }
 
-  const createSecretCallback = async (stepData: ConnectorConfigDTO, data: ConnectorRequestWrapper) => {
+  const createSecretCallback = async (stepData: ConnectorConfigDTO, data: ConnectorRequestBody) => {
     let res
     try {
       modalErrorHandler?.hide()
@@ -118,7 +120,7 @@ const StepDockerAuthentication: React.FC<StepProps<StepDockerAuthenticationProps
   return (
     <>
       <Layout.Vertical height={'inherit'}>
-        <Text font="medium" margin={{ top: 'small', left: 'small' }} color="var(--grey-800)">
+        <Text font="medium" margin={{ top: 'small' }} color={Color.BLACK}>
           {i18n.STEP_TWO.Heading}
         </Text>
         <Formik
@@ -185,7 +187,10 @@ const StepDockerAuthentication: React.FC<StepProps<StepDockerAuthenticationProps
                 />
               </Layout.Vertical>
               <Layout.Horizontal padding={{ top: 'small' }} spacing="medium">
-                <Button onClick={() => props.previousStep?.({ ...prevStepData })} text={i18n.STEP_TWO.BACK} />
+                <Button
+                  onClick={() => props.previousStep?.({ ...prevStepData } as StepDockerAuthenticationProps)}
+                  text={i18n.STEP_TWO.BACK}
+                />
                 <Button
                   type="submit"
                   text={i18n.STEP_TWO.SAVE_CREDENTIALS_AND_CONTINUE}

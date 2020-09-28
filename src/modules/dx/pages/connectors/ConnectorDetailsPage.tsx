@@ -6,7 +6,7 @@ import { useParams } from 'react-router'
 import { Page } from 'modules/common/exports'
 import { routeResources } from 'modules/common/routes'
 import { routeParams } from 'framework/exports'
-import { useGetConnector, ConnectorDTO, useUpdateConnector } from 'services/cd-ng'
+import { useGetConnector, ConnectorResponse, useUpdateConnector } from 'services/cd-ng'
 import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
 import ReferencedBy from './ReferencedBy/ReferencedBy'
 import ConfigureConnector from './ConfigureConnector'
@@ -30,15 +30,14 @@ const ConnectorDetailsPage: React.FC = () => {
   } = routeParams()
   const { accountId, orgIdentifier, projectIdentifier } = useParams()
   const { loading, data, refetch } = useGetConnector({
-    accountIdentifier: accountId,
-    connectorIdentifier: connectorId as string,
+    identifier: connectorId as string,
     queryParams: {
+      accountIdentifier: accountId,
       orgIdentifier: orgIdentifier,
       projectIdentifier: projectIdentifier
     }
   })
-  const { mutate: updateConnector } = useUpdateConnector({ accountIdentifier: accountId })
-
+  const { mutate: updateConnector } = useUpdateConnector({ queryParams: { accountIdentifier: accountId } })
   const renderTitle = () => {
     return (
       <Layout.Vertical>
@@ -83,7 +82,7 @@ const ConnectorDetailsPage: React.FC = () => {
             <ConfigureConnector
               type={data.data?.connector?.type || ''}
               updateConnector={updateConnector}
-              connector={data.data?.connector || ({} as ConnectorDTO)}
+              response={data.data || ({} as ConnectorResponse)}
               refetchConnector={refetch}
               isCreationThroughYamlBuilder={connectorId === 'undefined'}
             />

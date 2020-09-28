@@ -5,9 +5,9 @@ import { Menu, Classes, Position, PopoverInteractionKind, Intent } from '@bluepr
 import { useParams, useHistory, useLocation } from 'react-router-dom'
 import ReactTimeago from 'react-timeago'
 import {
-  ConnectorSummaryDTO,
+  ConnectorResponse,
   useDeleteConnector,
-  NGPageResponseConnectorSummaryDTO,
+  NGPageResponseConnectorResponse,
   useGetTestConnectionResult,
   ResponseDTOConnectorValidationResult,
   ConnectorConnectivityDetails
@@ -26,7 +26,7 @@ import i18n from './ConnectorsListView.i18n'
 import css from './ConnectorsListView.module.scss'
 
 interface ConnectorListViewProps {
-  data?: NGPageResponseConnectorSummaryDTO
+  data?: NGPageResponseConnectorResponse
   reload?: () => Promise<void>
   gotoPage: (pageNumber: number) => void
 }
@@ -35,36 +35,39 @@ type CustomColumn<T extends object> = Column<T> & {
   reload?: () => Promise<void>
 }
 
-const RenderColumnConnector: Renderer<CellProps<ConnectorSummaryDTO>> = ({ row }) => {
+const RenderColumnConnector: Renderer<CellProps<ConnectorResponse>> = ({ row }) => {
   const data = row.original
   return (
     <Layout.Horizontal spacing="small">
-      <Icon name={getIconByType(data.type)} size={30}></Icon>
+      <Icon name={getIconByType(data.connector?.type)} size={30}></Icon>
       <div className={css.wrapper}>
         <Layout.Horizontal spacing="small">
-          <div className={css.name} title={data.name}>
-            {data.name}
+          <div className={css.name} title={data.connector?.name}>
+            {data.connector?.name}
           </div>
-          {data.tags?.length ? <TagsPopover tags={data.tags} /> : null}
+          {data.connector?.tags?.length ? <TagsPopover tags={data.connector?.tags} /> : null}
         </Layout.Horizontal>
-        <div className={css.identifier} title={data.identifier}>
-          {data.identifier}
+        <div className={css.identifier} title={data.connector?.identifier}>
+          {data.connector?.identifier}
         </div>
       </div>
     </Layout.Horizontal>
   )
 }
-const RenderColumnDetails: Renderer<CellProps<ConnectorSummaryDTO>> = ({ row }) => {
+const RenderColumnDetails: Renderer<CellProps<ConnectorResponse>> = ({ row }) => {
   const data = row.original
+
   return (
     <div>
-      {data.connectorDetails ? <Text color={Color.BLACK}>{data.connectorDetails.masterURL}</Text> : null}
-      <Text color={Color.GREY_400}>{data.description}</Text>
+      {data.connector?.spec?.credential?.spec?.masterUrl ? (
+        <Text color={Color.BLACK}>{data.connector?.spec?.credential?.spec?.masterUrl}</Text>
+      ) : null}
+      <Text color={Color.GREY_400}>{data.connector?.description}</Text>
     </div>
   )
 }
 
-const RenderColumnActivity: Renderer<CellProps<ConnectorSummaryDTO>> = ({ row }) => {
+const RenderColumnActivity: Renderer<CellProps<ConnectorResponse>> = ({ row }) => {
   const data = row.original
   return (
     <Layout.Horizontal spacing="small">
@@ -73,7 +76,7 @@ const RenderColumnActivity: Renderer<CellProps<ConnectorSummaryDTO>> = ({ row })
     </Layout.Horizontal>
   )
 }
-const RenderColumnStatus: Renderer<CellProps<ConnectorSummaryDTO>> = ({ row }) => {
+const RenderColumnStatus: Renderer<CellProps<ConnectorResponse>> = ({ row }) => {
   const data = row.original
   const { accountId, orgIdentifier, projectIdentifier } = useParams()
   const [testing, setTesting] = useState(false)
@@ -92,9 +95,8 @@ const RenderColumnStatus: Renderer<CellProps<ConnectorSummaryDTO>> = ({ row }) =
     lazy: true
   })
   const { mutate: reloadTestConnection } = useGetTestConnectionResult({
-    accountIdentifier: accountId,
-    connectorIdentifier: data.identifier || '',
-    queryParams: { orgIdentifier: orgIdentifier, projectIdentifier: projectIdentifier },
+    identifier: data.connector?.identifier || '',
+    queryParams: { accountIdentifier: accountId, orgIdentifier: orgIdentifier, projectIdentifier: projectIdentifier },
     requestOptions: {
       headers: {
         'content-type': 'application/json'
@@ -103,8 +105,8 @@ const RenderColumnStatus: Renderer<CellProps<ConnectorSummaryDTO>> = ({ row }) =
   })
 
   const getStepOne = () => {
-    if (data?.connectorDetails?.delegateName) {
-      return getStepOneForExistingDelegate(stepDetails, data?.connectorDetails?.delegateName)
+    if (data.connector?.spec?.credential?.spec?.delegateName) {
+      return getStepOneForExistingDelegate(stepDetails, data.connector?.spec?.credential?.spec?.delegateName)
     } else {
       const count = delegateStatus?.resource?.delegates?.length
       if (stepDetails.step !== StepIndex.get(STEP.CHECK_DELEGATE)) {
@@ -118,7 +120,7 @@ const RenderColumnStatus: Renderer<CellProps<ConnectorSummaryDTO>> = ({ row }) =
   const isSelectedDelegateActive = (delegateStatusResponse: RestResponseDelegateStatus) => {
     const delegateList = delegateStatusResponse?.resource?.delegates
     return delegateList?.filter(function (item: DelegateInner) {
-      return item.delegateName && item.delegateName === data?.connectorDetails?.delegateName
+      return item.delegateName && item.delegateName === data.connector?.spec?.credential?.spec?.delegateName
     })?.length
   }
 
@@ -157,7 +159,7 @@ const RenderColumnStatus: Renderer<CellProps<ConnectorSummaryDTO>> = ({ row }) =
       if (stepDetails.step === StepIndex.get(STEP.CHECK_DELEGATE) && stepDetails.status === 'PROCESS') {
         if (delegateStatus) {
           if (
-            data?.connectorDetails?.delegateName
+            data.connector?.spec?.credential?.spec?.delegateName
               ? isSelectedDelegateActive(delegateStatus)
               : delegateStatus.resource?.delegates?.length
           ) {
@@ -235,7 +237,7 @@ const RenderColumnStatus: Renderer<CellProps<ConnectorSummaryDTO>> = ({ row }) =
     if (data.status?.errorMessage) {
       setErrorMessage(data.status?.errorMessage)
     }
-  }, [data.status?.status])
+  }, [data.status])
   return (
     <Layout.Horizontal>
       {!testing ? (
@@ -249,7 +251,7 @@ const RenderColumnStatus: Renderer<CellProps<ConnectorSummaryDTO>> = ({ row }) =
                   size: status === ConnectorStatus.SUCCESS ? 6 : 12,
                   color: status === ConnectorStatus.SUCCESS ? Color.GREEN_500 : Color.RED_500
                 }}
-                tooltip={errorMessage}
+                tooltip={errorMessage || data.status?.errorMessage}
               >
                 {status === ConnectorStatus.SUCCESS ? i18n.success : i18n.failed}
               </Text>
@@ -277,7 +279,7 @@ const RenderColumnStatus: Renderer<CellProps<ConnectorSummaryDTO>> = ({ row }) =
           <Text style={{ margin: 8 }}>{i18n.TestInProgress}</Text>
         </Layout.Horizontal>
       )}
-      {!testing && data.status?.status === 'FAILURE' ? (
+      {!testing && (status === 'FAILURE' || data.status?.status === 'FAILURE') ? (
         <Button
           font="small"
           className={css.testBtn}
@@ -293,30 +295,29 @@ const RenderColumnStatus: Renderer<CellProps<ConnectorSummaryDTO>> = ({ row }) =
   )
 }
 
-const RenderColumnMenu: Renderer<CellProps<ConnectorSummaryDTO>> = ({ row, column }) => {
+const RenderColumnMenu: Renderer<CellProps<ConnectorResponse>> = ({ row, column }) => {
   const data = row.original
   const [menuOpen, setMenuOpen] = useState(false)
   const { showSuccess, showError } = useToaster()
   const { accountId, orgIdentifier, projectIdentifier } = useParams()
 
   const { mutate: deleteConnector } = useDeleteConnector({
-    accountIdentifier: accountId,
-    queryParams: { orgIdentifier: orgIdentifier, projectIdentifier: projectIdentifier }
+    queryParams: { accountIdentifier: accountId, orgIdentifier: orgIdentifier, projectIdentifier: projectIdentifier }
   })
 
   const { openDialog } = useConfirmationDialog({
-    contentText: i18n.confirmDelete(data.name || ''),
+    contentText: i18n.confirmDelete(data.connector?.name || ''),
     titleText: i18n.confirmDeleteTitle,
     confirmButtonText: i18n.deleteButton,
     cancelButtonText: i18n.cancelButton,
     onCloseDialog: async (isConfirmed: boolean) => {
       if (isConfirmed) {
         try {
-          const deleted = await deleteConnector(data.identifier || '', {
+          const deleted = await deleteConnector(data.connector?.identifier || '', {
             headers: { 'content-type': 'application/json' }
           })
 
-          if (deleted) showSuccess(`Connector ${data.name} deleted`)
+          if (deleted) showSuccess(`Connector ${data.connector?.name} deleted`)
           ;(column as any).reload?.()
         } catch (err) {
           showError(err)
@@ -328,7 +329,7 @@ const RenderColumnMenu: Renderer<CellProps<ConnectorSummaryDTO>> = ({ row, colum
   const handleDelete = (e: React.MouseEvent<HTMLElement, MouseEvent>): void => {
     e.stopPropagation()
     setMenuOpen(false)
-    if (!data?.identifier) return
+    if (!data?.connector?.identifier) return
     openDialog()
   }
 
@@ -362,37 +363,43 @@ const RenderColumnMenu: Renderer<CellProps<ConnectorSummaryDTO>> = ({ row, colum
 const ConnectorsListView: React.FC<ConnectorListViewProps> = props => {
   const { data, reload, gotoPage } = props
   const history = useHistory()
+  const listData: ConnectorResponse[] = useMemo(() => data?.content || [], [data?.content])
   const { pathname } = useLocation()
-  const columns: CustomColumn<ConnectorSummaryDTO>[] = useMemo(
+  const columns: CustomColumn<ConnectorResponse>[] = useMemo(
     () => [
       {
         Header: i18n.connector.toUpperCase(),
-        accessor: 'name',
+        accessor: row => row.connector?.name,
+        id: 'name',
         width: '25%',
         Cell: RenderColumnConnector
       },
       {
         Header: i18n.details.toUpperCase(),
-        accessor: 'description',
+        accessor: row => row.connector?.description,
+        id: 'details',
         width: '25%',
         Cell: RenderColumnDetails
       },
       {
         Header: i18n.lastActivity.toUpperCase(),
         accessor: 'lastModifiedAt',
+        id: 'activity',
         width: '20%',
         Cell: RenderColumnActivity
       },
       {
         Header: i18n.status.toUpperCase(),
         accessor: 'status',
+        id: 'status',
         width: '25%',
         Cell: RenderColumnStatus
       },
       {
         Header: '',
-        accessor: 'identifier',
+        accessor: row => row.connector?.identifier,
         width: '5%',
+        id: 'action',
         Cell: RenderColumnMenu,
         reload: reload,
         disableSortBy: true
@@ -401,12 +408,12 @@ const ConnectorsListView: React.FC<ConnectorListViewProps> = props => {
     [reload]
   )
   return (
-    <Table<ConnectorSummaryDTO>
+    <Table<ConnectorResponse>
       className={css.table}
       columns={columns}
-      data={data?.content || []}
+      data={listData}
       onRowClick={connector => {
-        history.push(`${pathname}/${connector.identifier}`)
+        history.push(`${pathname}/${connector.connector?.identifier}`)
       }}
       pagination={{
         itemCount: data?.itemCount || 0,

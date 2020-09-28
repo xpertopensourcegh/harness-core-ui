@@ -4,7 +4,7 @@ import { FormikContext, isObject, connect } from 'formik'
 import { FormGroup, Intent } from '@blueprintjs/core'
 import { get } from 'lodash-es'
 import useCreateConnectorModal from 'modules/dx/modals/ConnectorModal/useCreateConnectorModal'
-import type { ConnectorConfigDTO, ConnectorSummaryDTO } from 'services/cd-ng'
+import type { ConnectorConfigDTO, ConnectorInfoDTO, ConnectorResponse } from 'services/cd-ng'
 import { Scope } from 'modules/common/interfaces/SecretsInterface'
 import { getScopeFromDTO } from '../EntityReference/EntityReference'
 import {
@@ -20,7 +20,9 @@ export interface MultiTypeConnectorFieldProps extends Omit<ConnectorReferenceFie
   formik?: any // TODO: Remove this but not sure why FormikContext<any> was not working
   isNewConnectorLabelVisible?: boolean
 }
-
+export interface ConnectorReferenceDTO extends ConnectorInfoDTO {
+  status: ConnectorResponse['status']
+}
 const errorCheck = (name: string, formik?: FormikContext<any>): boolean | '' | 0 | undefined =>
   (get(formik?.touched, name) || (formik?.submitCount && formik?.submitCount > 0)) &&
   get(formik?.errors, name) &&
@@ -67,7 +69,7 @@ export const MultiTypeConnectorField: React.FC<MultiTypeConnectorFieldProps> = p
 
   return (
     <FormGroup {...rest} labelFor={name} helperText={helperText} intent={intent} disabled={disabled} label={label}>
-      <MultiTypeReferenceInput<ConnectorSummaryDTO>
+      <MultiTypeReferenceInput<ConnectorReferenceDTO>
         referenceSelectProps={{
           ...getReferenceFieldProps({
             defaultScope,

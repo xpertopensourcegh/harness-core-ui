@@ -21,7 +21,8 @@ import {
   SecretDTOV2,
   SecretResponseWrapper,
   SecretRequestWrapper,
-  ConnectorSummaryDTO
+  ConnectorInfoDTO,
+  ConnectorResponse
 } from 'services/cd-ng'
 import type { SecretTextSpecDTO, SecretFileSpecDTO } from 'services/cd-ng'
 import { useToaster } from 'modules/common/exports'
@@ -48,8 +49,7 @@ const CreateUpdateSecret: React.FC<CreateSecretTextProps> = props => {
   const { showSuccess } = useToaster()
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding>()
   const { data: secretManagersApiResponse, loading: loadingSecretsManagers } = useGetConnectorList({
-    accountIdentifier: accountId,
-    queryParams: { orgIdentifier, projectIdentifier, category: 'SECRET_MANAGER' }
+    queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier, category: 'SECRET_MANAGER' }
   })
   const { mutate: createSecretText, loading: loadingCreateText } = usePostSecret({
     queryParams: { accountIdentifier: accountId }
@@ -131,15 +131,15 @@ const CreateUpdateSecret: React.FC<CreateSecretTextProps> = props => {
   }
 
   const secretManagersOptions: SelectOption[] =
-    secretManagersApiResponse?.data?.content?.map(item => {
+    secretManagersApiResponse?.data?.content?.map((item: ConnectorResponse) => {
       return {
-        label: item.name || '',
-        value: item.identifier || ''
+        label: item.connector?.name || '',
+        value: item.connector?.identifier || ''
       }
     }) || []
   const defaultSecretManagerId = secretManagersApiResponse?.data?.content?.filter(
-    item => item.connectorDetails?.default
-  )[0]?.identifier
+    item => item.connector?.spec?.default
+  )[0]?.connector?.identifier
 
   return (
     <>
@@ -182,9 +182,9 @@ const CreateUpdateSecret: React.FC<CreateSecretTextProps> = props => {
         }}
       >
         {formikProps => {
-          const typeOfSelectedSecretManager: ConnectorSummaryDTO['type'] = secretManagersApiResponse?.data?.content?.filter(
-            item => item.identifier === formikProps.values['secretManagerIdentifier']
-          )?.[0]?.type
+          const typeOfSelectedSecretManager: ConnectorInfoDTO['type'] = secretManagersApiResponse?.data?.content?.filter(
+            item => item.connector?.identifier === formikProps.values['secretManagerIdentifier']
+          )?.[0]?.connector?.type as ConnectorInfoDTO['type']
           return (
             <FormikForm>
               <FormInput.Select

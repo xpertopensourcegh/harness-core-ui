@@ -17,9 +17,9 @@ import {
   useCreateConnector,
   usePostSecret,
   ConnectorConfigDTO,
-  ConnectorRequestWrapper,
-  ConnectorWrapper,
-  SecretDTOV2
+  ConnectorRequestBody,
+  SecretDTOV2,
+  Connector
 } from 'services/cd-ng'
 import {
   AuthTypeFields,
@@ -39,7 +39,7 @@ interface CreateAppDynamicsConnectorProps {
   orgIdentifier: string
   projectIdentifier: string
   hideLightModal: () => void
-  onConnectorCreated?: (data: ConnectorRequestWrapper) => void | Promise<void>
+  onConnectorCreated?: (data: ConnectorRequestBody) => void | Promise<void>
 }
 
 export interface ConnectionConfigProps {
@@ -56,8 +56,8 @@ export interface ConnectionConfigProps {
 
 export default function CreateAppDynamicsConnector(props: CreateAppDynamicsConnectorProps): JSX.Element {
   const [formData, setFormData] = useState<ConnectorConfigDTO | undefined>({})
-  const { mutate: createConnector } = useCreateConnector({ accountIdentifier: props.accountId })
-  const [connectorResponse, setConnectorResponse] = useState<ConnectorWrapper | undefined>()
+  const { mutate: createConnector } = useCreateConnector({ queryParams: { accountIdentifier: props.accountId } })
+  const [connectorResponse, setConnectorResponse] = useState<Connector | undefined>()
   const secretCreatedCallback = async (data: ConnectorConfigDTO): Promise<void> => {
     const res = await createConnector({
       connector: {
@@ -104,7 +104,7 @@ export default function CreateAppDynamicsConnector(props: CreateAppDynamicsConne
           name={i18n.verifyConnection}
           connectorName={formData?.name}
           connectorIdentifier={formData?.identifier}
-          onSuccess={() => props.onConnectorCreated?.((connectorResponse as unknown) as ConnectorRequestWrapper)}
+          onSuccess={() => props.onConnectorCreated?.((connectorResponse as unknown) as ConnectorRequestBody)}
           renderInModal
           isLastStep
           type={Connectors.APP_DYNAMICS}

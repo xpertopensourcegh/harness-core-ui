@@ -3,7 +3,7 @@ import { Connectors } from 'modules/dx/constants'
 import CreateGITConnector from 'modules/dx/components/connectors/CreateConnector/GITConnector/CreateGITConnector'
 import CreateK8sConnector from 'modules/dx/components/connectors/CreateConnector/K8sConnector/CreateK8sConnector'
 import CreateSecretManager from 'modules/dx/components/connectors/CreateConnector/SecretManager/CreateSecretManager'
-import type { ConnectorConfigDTO, ConnectorDTO } from 'services/cd-ng'
+import type { ConnectorRequestBody, ConnectorInfoDTO } from 'services/cd-ng'
 import CreateAppDynamicsConnector from '../CreateConnector/AppDynamicsConnector/CreateAppDynamicsConnector'
 import CreateSplunkConnector from '../CreateConnector/SplunkConnector/CreateSplunkConnector'
 import CreateDockerConnector from '../CreateConnector/DockerConnector/CreateDockerConnector'
@@ -13,9 +13,9 @@ interface CreateConnectorWizardProps {
   accountId: string
   projectIdentifier: string
   orgIdentifier: string
-  type: ConnectorDTO['type']
+  type: ConnectorInfoDTO['type']
   hideLightModal: () => void
-  onSuccess: (data?: ConnectorConfigDTO) => void | Promise<void>
+  onSuccess: (data?: ConnectorRequestBody) => void | Promise<void>
 }
 
 export const ConnectorWizard: React.FC<CreateConnectorWizardProps> = props => {

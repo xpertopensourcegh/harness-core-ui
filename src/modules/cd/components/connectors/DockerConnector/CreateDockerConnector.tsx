@@ -3,7 +3,7 @@ import * as Yup from 'yup'
 import { StepWizard, Layout, Button, Formik, FormInput, FormikForm as Form, StepProps } from '@wings-software/uikit'
 import ConnectorDetailsStep from 'modules/dx/components/connectors/CreateConnector/commonSteps/ConnectorDetailsStep'
 
-import type { ConnectorConfigDTO, ConnectorRequestDTO } from 'services/cd-ng'
+import type { ConnectorConfigDTO, ConnectorInfoDTO } from 'services/cd-ng'
 import VerifyOutOfClusterDelegate from 'modules/dx/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 import { Connectors } from 'modules/dx/constants'
 import StepDockerAuthentication from 'modules/dx/components/connectors/CreateConnector/DockerConnector/StepAuth/StepDockerAuthentication'
@@ -15,8 +15,8 @@ interface CreateDockerConnectorProps {
   onConnectorCreated?: (data?: ConnectorConfigDTO) => void | Promise<void>
 }
 
-interface StepDockerAuthenticationProps extends ConnectorRequestDTO {
-  name?: string
+interface StepDockerAuthenticationProps extends ConnectorInfoDTO {
+  name: string
   isEditMode?: boolean
 }
 
@@ -62,7 +62,7 @@ const DockerImagePathSelection: React.FC<
 const CreateDockerConnector: React.FC<CreateDockerConnectorProps> = p => {
   return (
     <section className={css.wrapper}>
-      <StepWizard<ConnectorRequestDTO>>
+      <StepWizard<ConnectorInfoDTO>>
         <ConnectorDetailsStep type={Connectors.DOCKER} name={i18n.STEP_ONE.NAME} />
         <StepDockerAuthentication name={i18n.STEP_TWO.NAME} />
 

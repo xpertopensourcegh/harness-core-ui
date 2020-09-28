@@ -1,7 +1,7 @@
-import type { ConnectorDTO, ConnectorConnectivityDetails } from 'services/cd-ng'
+import type { ConnectorInfoDTO, ConnectorConnectivityDetails } from 'services/cd-ng'
 
 interface ConnectorType {
-  [key: string]: ConnectorDTO['type']
+  [key: string]: ConnectorInfoDTO['type']
 }
 interface ConnectorStatusType {
   [key: string]: ConnectorConnectivityDetails['status']

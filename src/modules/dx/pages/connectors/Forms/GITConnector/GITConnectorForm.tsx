@@ -13,7 +13,7 @@ import {
   Text,
   Icon
 } from '@wings-software/uikit'
-import type { ConnectorDTO, ConnectorRequestWrapper } from 'services/cd-ng'
+import type { ConnectorInfoDTO, ConnectorRequestBody } from 'services/cd-ng'
 import UsernamePassword from 'modules/dx/components/connectors/ConnectorFormFields/UsernamePassword'
 import useCreateUpdateSecretModal from 'modules/dx/modals/CreateSecretModal/useCreateUpdateSecretModal'
 import type { InlineSecret } from 'modules/common/components/CreateInlineSecret/CreateInlineSecret'
@@ -33,11 +33,11 @@ import css from './GITConnectorForm.module.scss'
 
 interface GITConnectorFormProps {
   enableEdit?: boolean
-  connector: ConnectorDTO
-  setConnector: (data: ConnectorDTO) => void
-  setConnectorForYaml: (val: ConnectorDTO) => void
+  connector: ConnectorInfoDTO
+  setConnector: (data: ConnectorInfoDTO) => void
+  setConnectorForYaml: (val: ConnectorInfoDTO) => void
   enableCreate?: boolean
-  onSubmit: (data: ConnectorRequestWrapper) => void
+  onSubmit: (data: ConnectorRequestBody) => void
 }
 
 const GITConnectorForm: React.FC<GITConnectorFormProps> = props => {

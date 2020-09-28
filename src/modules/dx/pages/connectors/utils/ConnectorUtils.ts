@@ -1,7 +1,7 @@
 import { pick } from 'lodash-es'
 import type { IconName } from '@wings-software/uikit'
 import { Connectors, ConnectorInfoText, EntityTypes } from 'modules/dx/constants'
-import type { ConnectorSummaryDTO, ConnectorDTO } from 'services/cd-ng'
+import type { ConnectorInfoDTO } from 'services/cd-ng'
 import type { FormData } from 'modules/dx/interfaces/ConnectorInterface'
 import { Scope } from 'modules/common/interfaces/SecretsInterface'
 import { AuthTypes, DelegateTypes } from '../Forms/KubeFormInterfaces'
@@ -115,8 +115,10 @@ export const buildKubPayload = (formData: FormData) => {
     tags: formData?.tags,
     type: Connectors.KUBERNETES_CLUSTER,
     spec: {
-      type: formData?.delegateType,
-      spec: getSpecForDelegateType(formData)
+      credential: {
+        type: formData?.delegateType,
+        spec: getSpecForDelegateType(formData)
+      }
     }
   }
   return { connector: savedData }
@@ -145,7 +147,7 @@ export const buildDockerPayload = (formData: FormData) => {
   return { connector: savedData }
 }
 
-export const buildDockerFormData = (connector: ConnectorDTO) => {
+export const buildDockerFormData = (connector: ConnectorInfoDTO) => {
   return {
     ...pick(connector, ['name', 'identifier', 'description', 'tags']),
     dockerRegistryUrl: connector?.spec?.dockerRegistryUrl,
@@ -197,7 +199,7 @@ export const buildGITPayload = (formData: FormData) => {
   return { connector: savedData }
 }
 
-export const buildGITFormData = (connector: ConnectorDTO) => {
+export const buildGITFormData = (connector: ConnectorInfoDTO) => {
   return {
     name: connector?.name,
     description: connector?.description,
@@ -211,7 +213,7 @@ export const buildGITFormData = (connector: ConnectorDTO) => {
   }
 }
 
-export const buildKubFormData = (connector: ConnectorDTO) => {
+export const buildKubFormData = (connector: ConnectorInfoDTO) => {
   return {
     name: connector?.name,
     description: connector?.description,
@@ -225,7 +227,7 @@ export const buildKubFormData = (connector: ConnectorDTO) => {
   }
 }
 
-export const getIconByType = (type: ConnectorDTO['type'] | undefined): IconName => {
+export const getIconByType = (type: ConnectorInfoDTO['type'] | undefined): IconName => {
   switch (type) {
     case Connectors.KUBERNETES_CLUSTER:
       return 'service-kubernetes'
@@ -252,31 +254,6 @@ export const getInfoTextByType = (type: string) => {
     default:
       return ''
   }
-}
-
-export const formatConnectorListData = (connectorList: ConnectorSummaryDTO[] | undefined) => {
-  // Removed any once BE fixes types
-  const formattedList = connectorList?.map((item: any) => {
-    return {
-      identifier: item.identifier,
-      icon: getIconByType(item.type),
-      infoText: getInfoTextByType(item.type),
-      tags: item.tags?.toString(),
-      belongsTo: item.accountName,
-      name: item.name,
-      lastActivityText: 'activity log',
-      details: {
-        url: item.connectorDetials?.masterURL,
-        description: item.description
-      },
-      lastActivityTime: item.lastModifiedAt,
-      status: 'ACTIVE',
-      statusTime: item.createdAt,
-      testConnectivity: true,
-      threeDots: true
-    }
-  })
-  return formattedList
 }
 
 export const getConnectorDisplayName = (type: string) => {

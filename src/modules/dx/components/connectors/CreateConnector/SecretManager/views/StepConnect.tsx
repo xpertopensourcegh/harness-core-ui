@@ -13,12 +13,12 @@ import {
 } from '@wings-software/uikit'
 import * as Yup from 'yup'
 
-import type { ConnectorDTO } from 'services/cd-ng'
+import type { ConnectorInfoDTO } from 'services/cd-ng'
 import type { SecretManagerWizardData } from '../CreateSecretManager'
 import i18n from '../CreateSecretManager.i18n'
 
 export interface ConnectFormData {
-  encryptionType: ConnectorDTO['type']
+  encryptionType: ConnectorInfoDTO['type']
   vaultUrl: string
   basePath: string
   readOnly: boolean

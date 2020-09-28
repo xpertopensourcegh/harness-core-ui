@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { StepWizard } from '@wings-software/uikit'
 import { pick } from 'lodash-es'
 
-import { VaultConfigDTO, useCreateConnector, ConnectorRequestWrapper, ConnectorConfigDTO } from 'services/cd-ng'
+import { VaultConfigDTO, useCreateConnector, ConnectorRequestBody, ConnectorInfoDTO } from 'services/cd-ng'
 import ConnectorDetailsStep from 'modules/dx/components/connectors/CreateConnector/commonSteps/ConnectorDetailsStep'
 import { useToaster } from 'modules/common/exports'
 import { Connectors } from 'modules/dx/constants'
@@ -22,7 +22,7 @@ interface CreateSecretManagerProps {
 }
 
 export interface SecretManagerWizardData {
-  detailsData?: ConnectorConfigDTO
+  detailsData?: ConnectorInfoDTO
   connectData?: ConnectFormData
   secretEngineData?: SecretEngineData
 }
@@ -36,19 +36,21 @@ const CreateSecretManager: React.FC<CreateSecretManagerProps> = ({
 }) => {
   const [formData, setFormData] = useState<VaultConfigDTO | undefined>()
   const { showSuccess } = useToaster()
-  const { mutate: createSecretManager, loading } = useCreateConnector({ accountIdentifier: accountId })
+  const { mutate: createSecretManager, loading } = useCreateConnector({ queryParams: { accountIdentifier: accountId } })
 
   return (
     <>
       <StepWizard<SecretManagerWizardData>
         onCompleteWizard={async data => {
           if (data) {
-            const dataToSubmit: ConnectorRequestWrapper = {
+            const dataToSubmit: ConnectorRequestBody = {
               connector: {
                 orgIdentifier,
                 projectIdentifier,
-                ...pick(data, ['name', 'identifier', 'description', 'tags']),
-                type: data.connectData?.encryptionType,
+                name: data.detailsData?.name || '',
+                identifier: data.detailsData?.identifier || '',
+                ...pick(data, ['description', 'tags']),
+                type: data.connectData?.encryptionType as ConnectorInfoDTO['type'],
                 spec: {
                   ...pick(data.connectData, ['authToken', 'basePath', 'vaultUrl', 'readOnly', 'default']),
                   ...pick(data.secretEngineData, ['secretEngineName', 'secretEngineVersion', 'renewIntervalHours'])

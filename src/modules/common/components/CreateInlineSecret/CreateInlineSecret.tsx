@@ -46,8 +46,7 @@ const getScope = ({ orgIdentifier, projectIdentifier }: GetScopeParams): Scope =
 const CreateInlineSecret: React.FC<CreateInlineSecretProps> = props => {
   const { defaultSecretId, defaultSecretName, accountIdentifier, projectIdentifier, orgIdentifier } = props
   const { data: secretManagersApiResponse, error, refetch, loading } = useGetConnectorList({
-    accountIdentifier,
-    queryParams: { orgIdentifier, projectIdentifier, category: 'SECRET_MANAGER' }
+    queryParams: { accountIdentifier, orgIdentifier, projectIdentifier, category: 'SECRET_MANAGER' }
   })
   const scope = getScope({ accountIdentifier, projectIdentifier, orgIdentifier })
   const [secretName, setSecretName] = useState(defaultSecretName || '')
@@ -58,13 +57,13 @@ const CreateInlineSecret: React.FC<CreateInlineSecretProps> = props => {
     const _secretManagers =
       secretManagersApiResponse?.data?.content?.map(sm => {
         return {
-          label: sm.name || '',
-          value: sm.identifier || ''
+          label: sm.connector?.name || '',
+          value: sm.connector?.identifier || ''
         }
       }) || []
     const defaultSecretManagerId = secretManagersApiResponse?.data?.content?.filter(
-      sm => sm.connectorDetails?.default
-    )[0]?.identifier
+      sm => sm.connector?.spec?.default
+    )[0]?.connector?.identifier
     const _defaultSecretManager = _secretManagers.filter(opt => opt.value === defaultSecretManagerId)[0]
     setSecretManagers(_secretManagers)
     setSecretManager(_defaultSecretManager)

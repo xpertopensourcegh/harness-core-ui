@@ -7,7 +7,7 @@ import { Formik, FormikForm as Form, FormInput, Layout, SelectV2, Button, Text }
 import { CardSelect, Icon } from '@wings-software/uikit'
 import ConnectorFormFields from 'modules/dx/components/connectors/ConnectorFormFields/ConnectorFormFields'
 import { useGetKubernetesDelegateNames } from 'services/portal'
-import type { ConnectorDTO, ConnectorRequestWrapper } from 'services/cd-ng'
+import type { ConnectorInfoDTO, ConnectorRequestBody } from 'services/cd-ng'
 import type { InlineSecret } from 'modules/common/components/CreateInlineSecret/CreateInlineSecret'
 import {
   getSecretV2Promise,
@@ -36,11 +36,11 @@ interface SelectedDelegate {
 }
 interface KubClusterProps {
   enableEdit?: boolean
-  connector: ConnectorDTO
-  setConnector: (data: ConnectorDTO) => void
-  setConnectorForYaml: (data: ConnectorDTO) => void
+  connector: ConnectorInfoDTO
+  setConnector: (data: ConnectorInfoDTO) => void
+  setConnectorForYaml: (data: ConnectorInfoDTO) => void
   enableCreate?: boolean
-  onSubmit: (data: ConnectorRequestWrapper) => void
+  onSubmit: (data: ConnectorRequestBody) => void
 }
 
 const delegateData = [

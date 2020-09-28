@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import ReactTimeago from 'react-timeago'
 import { useParams } from 'react-router'
+import cx from 'classnames'
 import { Layout, Text, StepsProgress, Intent, Button, Color } from '@wings-software/uikit'
 import {
   useGetTestConnectionResult,
@@ -83,9 +84,8 @@ const VerifyExistingDelegate = (props: VerifyExistingDelegateProps) => {
     mock: props.delegateStatusMockData
   })
   const { mutate: reloadTestConnection } = useGetTestConnectionResult({
-    accountIdentifier: accountId,
-    connectorIdentifier: connectorIdentifier as string,
-    queryParams: { orgIdentifier: orgIdentifier, projectIdentifier: projectIdentifier },
+    identifier: connectorIdentifier as string,
+    queryParams: { accountIdentifier: accountId, orgIdentifier: orgIdentifier, projectIdentifier: projectIdentifier },
     mock: props.testConnectionMockData,
     requestOptions: {
       headers: {
@@ -275,7 +275,7 @@ const VerifyExistingDelegate = (props: VerifyExistingDelegateProps) => {
 
       {(stepDetails.step === StepIndex.get(STEP.VERIFY) && stepDetails.status === 'DONE') ||
       stepDetails.intent === Intent.DANGER ? (
-        <Layout.Horizontal margin={{ left: 'small' }}>
+        <Layout.Horizontal margin={{ left: 'small' }} className={cx({ [css.inModalRetest]: renderInModal })}>
           <Button
             intent="primary"
             minimal

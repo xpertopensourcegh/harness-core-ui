@@ -5,7 +5,7 @@ import { parse } from 'yaml'
 import cx from 'classnames'
 import { omitBy, isNull } from 'lodash-es'
 import { useToaster } from 'modules/common/exports'
-import type { ConnectorDTO, ConnectorRequestWrapper } from 'services/cd-ng'
+import type { ConnectorInfoDTO, ConnectorRequestBody, ConnectorResponse } from 'services/cd-ng'
 import YamlBuilder from 'modules/common/components/YAMLBuilder/YamlBuilder'
 import { YamlEntity } from 'modules/common/constants/YamlConstants'
 import type { SnippetInterface } from 'modules/common/interfaces/SnippetInterface'
@@ -22,8 +22,8 @@ import css from './ConfigureConnector.module.scss'
 
 export interface ConfigureConnectorProps {
   type: string
-  connector: ConnectorDTO
-  updateConnector: (data: ConnectorRequestWrapper) => Promise<unknown>
+  response: ConnectorResponse
+  updateConnector: (data: ConnectorRequestBody) => Promise<unknown>
   refetchConnector: () => Promise<any>
   isCreationThroughYamlBuilder: boolean
 }
@@ -31,8 +31,8 @@ export interface ConfigureConnectorProps {
 interface ConfigureConnectorState {
   enableEdit: boolean
   setEnableEdit: (val: boolean) => void
-  connector: ConnectorDTO
-  setConnector: (object: ConnectorDTO) => void
+  connector: ConnectorInfoDTO
+  setConnector: (object: ConnectorInfoDTO) => void
   selectedView: string
   setSelectedView: (selection: string) => void
   lastTested: number
@@ -50,16 +50,18 @@ const ConfigureConnector: React.FC<ConfigureConnectorProps> = props => {
   const { accountId, orgIdentifier, projectIdentifier } = useParams()
   const { isCreationThroughYamlBuilder } = props
   const [enableEdit, setEnableEdit] = useState(false)
-  const [lastTested, setLastTested] = useState<number>(props.connector.status?.lastTestedAt || 0)
-  const [lastConnected, setLastConnected] = useState<number>(props.connector.status?.lastTestedAt || 0)
+  const [lastTested, setLastTested] = useState<number>(props.response?.status?.lastTestedAt || 0)
+  const [lastConnected, setLastConnected] = useState<number>(props.response?.status?.lastTestedAt || 0)
   const [selectedView, setSelectedView] = useState(
     isCreationThroughYamlBuilder ? SelectedView.YAML : SelectedView.VISUAL
   )
 
   const [snippets, setSnippets] = useState<SnippetInterface[]>()
-  const [connector, setConnector] = useState(props.connector)
-  const [connectorForYaml, setConnectorForYaml] = useState(props.connector)
-  const [status, setStatus] = useState<ConnectorConnectivityDetails['status']>(props.connector.status?.status)
+  const [connector, setConnector] = useState<ConnectorInfoDTO>(props.response?.connector || ({} as ConnectorInfoDTO))
+  const [connectorForYaml, setConnectorForYaml] = useState<ConnectorInfoDTO>(
+    props.response?.connector || ({} as ConnectorInfoDTO)
+  )
+  const [status, setStatus] = useState<ConnectorConnectivityDetails['status']>(props.response?.status?.status)
   const [yamlHandler, setYamlHandler] = React.useState<YamlBuilderHandlerBinding | undefined>()
   const [confirmButtonIsEnabled, setConfirmButtonIsEnabled] = React.useState<boolean>(true)
 
@@ -77,7 +79,7 @@ const ConfigureConnector: React.FC<ConfigureConnectorProps> = props => {
   }
   const { showSuccess, showError } = useToaster()
 
-  const onSubmit = async (connectorPayload: ConnectorRequestWrapper) => {
+  const onSubmit = async (connectorPayload: ConnectorRequestBody) => {
     try {
       const data = await props.updateConnector(connectorPayload)
       if (data) {
@@ -157,11 +159,11 @@ const ConfigureConnector: React.FC<ConfigureConnectorProps> = props => {
   })
 
   useEffect(() => {
-    if (props.connector) {
-      setConnector(props.connector)
-      setConnectorForYaml(props.connector)
+    if (props.response.connector) {
+      setConnector(props.response.connector)
+      setConnectorForYaml(props.response.connector)
     }
-  }, [props.connector])
+  }, [props.response])
 
   useEffect(() => {
     const enableBtn =
@@ -233,14 +235,14 @@ const ConfigureConnector: React.FC<ConfigureConnectorProps> = props => {
             </div>
           )}
         </div>
-        {selectedView === SelectedView.VISUAL && connector ? (
+        {selectedView === SelectedView.VISUAL && props.response ? (
           <Layout.Vertical width={'50%'}>
             <ConnectorStats
-              createdAt={connector.createdAt || 0}
-              lastTested={lastTested || 0}
-              lastUpdated={connector.lastModifiedAt as number}
-              lastConnected={lastConnected || 0}
-              status={status || ''}
+              createdAt={props.response.createdAt || 0}
+              lastTested={lastTested || props.response.status?.lastTestedAt}
+              lastUpdated={props.response.lastModifiedAt as number}
+              lastConnected={lastConnected || props.response.status?.lastConnectedAt}
+              status={status || props.response.status?.status}
             />
             <TestConnection
               accountId={accountId}
@@ -248,7 +250,7 @@ const ConfigureConnector: React.FC<ConfigureConnectorProps> = props => {
               projectIdentifier={projectIdentifier}
               connectorName={connector?.name || ''}
               connectorIdentifier={connector?.identifier || ''}
-              delegateName={connector.spec?.spec?.delegateName || ''}
+              delegateName={connector?.spec?.credential?.spec?.delegateName || ''}
               setLastTested={setLastTested}
               setLastConnected={setLastConnected}
               setStatus={setStatus}

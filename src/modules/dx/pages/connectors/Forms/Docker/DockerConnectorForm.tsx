@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
 import * as Yup from 'yup'
 import { Formik, FormikForm as Form, FormInput, Layout, Button } from '@wings-software/uikit'
-import type { ConnectorDTO, ConnectorRequestWrapper } from 'services/cd-ng'
+import type { ConnectorInfoDTO, ConnectorRequestBody } from 'services/cd-ng'
 import UsernamePassword from 'modules/dx/components/connectors/ConnectorFormFields/UsernamePassword'
 import useCreateUpdateSecretModal from 'modules/dx/modals/CreateSecretModal/useCreateUpdateSecretModal'
 import { StringUtils } from 'modules/common/exports'
@@ -22,11 +22,11 @@ import css from 'modules/dx/components/connectors/CreateConnector/commonSteps/Co
 
 interface DockerConnectorFormProps {
   enableEdit?: boolean
-  connector: ConnectorDTO
-  setConnector: (data: ConnectorDTO) => void
-  setConnectorForYaml: (data: ConnectorDTO) => void
+  connector: ConnectorInfoDTO
+  setConnector: (data: ConnectorInfoDTO) => void
+  setConnectorForYaml: (data: ConnectorInfoDTO) => void
   enableCreate?: boolean
-  onSubmit: (data: ConnectorRequestWrapper) => void
+  onSubmit: (data: ConnectorRequestBody) => void
 }
 
 const DockerConnectorForm: React.FC<DockerConnectorFormProps> = props => {

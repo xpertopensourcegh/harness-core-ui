@@ -2,7 +2,7 @@ import React from 'react'
 import { MemoryRouter } from 'react-router'
 
 import { render, queryByText } from '@testing-library/react'
-import type { ConnectorDTO } from 'services/cd-ng'
+import type { ConnectorInfoDTO } from 'services/cd-ng'
 import { CreateConnectorWizard } from '../CreateConnectorWizard'
 
 import i18n from '../CreateConnectorWizard.i18n'
@@ -11,7 +11,7 @@ const props = {
   accountId: 'accountId',
   orgIdentifier: 'orgId',
   projectIdentifier: 'projectId',
-  type: 'K8sCluster' as ConnectorDTO['type'],
+  type: 'K8sCluster' as ConnectorInfoDTO['type'],
   hideLightModal: jest.fn(),
   onSuccess: jest.fn()
 }

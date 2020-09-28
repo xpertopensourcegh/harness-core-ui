@@ -8,5 +8,6 @@ declare const styles: {
   readonly secretFieldHide: string
   readonly dotIcon: string
   readonly secretName: string
+  readonly overflowEllipsis: string
 }
 export default styles

@@ -7,5 +7,6 @@ declare const styles: {
   readonly submitBtn: string
   readonly editCreds: string
   readonly verificationText: string
+  readonly inModalRetest: string
 }
 export default styles

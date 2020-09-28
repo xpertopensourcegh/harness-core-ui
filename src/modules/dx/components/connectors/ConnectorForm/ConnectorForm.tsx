@@ -3,16 +3,16 @@ import { Connectors } from 'modules/dx/constants'
 import KubCluster from 'modules/dx/pages/connectors/Forms/KubCluster'
 import GITConnectorForm from 'modules/dx/pages/connectors/Forms/GITConnector/GITConnectorForm'
 import DockerConnectorForm from 'modules/dx/pages/connectors/Forms/Docker/DockerConnectorForm'
-import type { ConnectorDTO, ConnectorRequestWrapper } from 'services/cd-ng'
+import type { ConnectorInfoDTO, ConnectorRequestBody } from 'services/cd-ng'
 
 interface ConnectorFormProps {
   type: string
-  connector: ConnectorDTO
-  setConnector: (val: ConnectorDTO) => void
-  setConnectorForYaml: (val: ConnectorDTO) => void
+  connector: ConnectorInfoDTO
+  setConnector: (val: ConnectorInfoDTO) => void
+  setConnectorForYaml: (val: ConnectorInfoDTO) => void
   enableCreate?: boolean
   enableEdit?: boolean
-  onSubmit: (data: ConnectorRequestWrapper) => void
+  onSubmit: (data: ConnectorRequestBody) => void
 }
 
 const ConnectorForm: React.FC<ConnectorFormProps> = props => {

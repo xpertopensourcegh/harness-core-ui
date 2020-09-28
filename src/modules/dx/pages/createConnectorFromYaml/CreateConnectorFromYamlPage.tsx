@@ -21,7 +21,7 @@ const CreateConnectorFromYamlPage: React.FC = () => {
   const history = useHistory()
   const [snippets, setSnippets] = useState<SnippetInterface[]>()
   const { showSuccess, showError } = useToaster()
-  const { mutate: createConnector } = useCreateConnector({ accountIdentifier: accountId })
+  const { mutate: createConnector } = useCreateConnector({ queryParams: { accountIdentifier: accountId } })
 
   const addIconInfoToSnippets = (snippetsList: SnippetInterface[], iconName: IconName): void => {
     if (!snippetsList) {

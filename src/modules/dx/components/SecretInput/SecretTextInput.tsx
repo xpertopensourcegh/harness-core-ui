@@ -163,14 +163,29 @@ const SecretTextField: React.FC<FormikSecretTextInput> = props => {
             <Text margin={{ right: 'xsmall' }} color={Color.GREY_400} font={'small'}>
               {i18n.ID}
             </Text>
-            <Text font={'small'} margin={{ right: 'xsmall' }}>
+            <Text
+              font={'small'}
+              margin={{ right: 'xsmall' }}
+              className={css.overflowEllipsis}
+              tooltip={
+                props.isEditMode ? props.formik?.values[props.secretFieldName]?.secretId : secretRefrence.identifier
+              }
+            >
               {props.isEditMode ? props.formik?.values[props.secretFieldName]?.secretId : secretRefrence.identifier}
             </Text>
             <Icon name={'full-circle'} size={2} className={css.dotIcon} />
             <Text margin={{ right: 'xsmall' }} color={Color.GREY_400} font={'small'}>
               {i18n.SECRET_MANAGER}
             </Text>
-            <Text font={'small'}>
+            <Text
+              font={'small'}
+              className={css.overflowEllipsis}
+              tooltip={
+                props.isEditMode
+                  ? props.formik?.values[props.secretFieldName]?.secretManager?.label
+                  : secretRefrence.secretManager
+              }
+            >
               {props.isEditMode
                 ? props.formik?.values[props.secretFieldName]?.secretManager?.label
                 : secretRefrence.secretManager}

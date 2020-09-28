@@ -21,7 +21,7 @@ import {
   usePostSecret,
   useUpdateConnector,
   ConnectorConfigDTO,
-  ConnectorRequestWrapper,
+  ConnectorRequestBody,
   SecretDTOV2
 } from 'services/cd-ng'
 import CreateSecretOverlay from 'modules/dx/common/CreateSecretOverlay/CreateSecretOverlay'
@@ -55,18 +55,17 @@ const HttpCredentialStep: React.FC<HttpCredentialStepProps> = props => {
     label: 'Username and Password',
     value: AuthTypes.USER_PASSWORD
   } as SelectOption)
-
   const [showCreateSecretModal, setShowCreateSecretModal] = useState<boolean>(false)
   const [editSecretData, setEditSecretData] = useState<SecretDTOV2>()
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
   const { showSuccess } = useToaster()
-  const { mutate: createConnector } = useCreateConnector({ accountIdentifier: accountId })
-  const { mutate: updateConnector } = useUpdateConnector({ accountIdentifier: props.accountId })
+  const { mutate: createConnector } = useCreateConnector({ queryParams: { accountIdentifier: accountId } })
+  const { mutate: updateConnector } = useUpdateConnector({ queryParams: { accountIdentifier: accountId } })
   const { mutate: createSecret } = usePostSecret({ queryParams: { accountIdentifier: accountId } })
   const [loadSecret, setLoadSecret] = useState(false)
   const [loadConnector, setLoadConnector] = useState(false)
 
-  const handleCreate = async (data: ConnectorRequestWrapper) => {
+  const handleCreate = async (data: ConnectorRequestBody) => {
     try {
       modalErrorHandler?.hide()
       setLoadConnector(true)
@@ -80,7 +79,7 @@ const HttpCredentialStep: React.FC<HttpCredentialStepProps> = props => {
     }
   }
 
-  const handleUpdate = async (data: ConnectorRequestWrapper) => {
+  const handleUpdate = async (data: ConnectorRequestBody) => {
     try {
       modalErrorHandler?.hide()
       setLoadConnector(true)
@@ -94,7 +93,7 @@ const HttpCredentialStep: React.FC<HttpCredentialStepProps> = props => {
     }
   }
 
-  const createSecretCallback = async (formData: ConnectorConfigDTO, data: ConnectorRequestWrapper) => {
+  const createSecretCallback = async (formData: ConnectorConfigDTO, data: ConnectorRequestBody) => {
     let res
     try {
       modalErrorHandler?.hide()
@@ -141,11 +140,11 @@ const HttpCredentialStep: React.FC<HttpCredentialStepProps> = props => {
         </Text>
         <Formik
           initialValues={{
-            authType: props.formData?.authType || authType.value,
+            authType: authType.value || props.formData?.authType,
             username: props.formData?.username || '',
             branchName: props.formData?.branchName || '',
-            ...props.formData,
-            passwordRef: undefined
+            passwordRef: props.formData?.passwordRef,
+            ...props.formData
           }}
           validationSchema={Yup.object().shape({
             username: Yup.string().trim().required(i18n.validation.username),
@@ -180,7 +179,7 @@ const HttpCredentialStep: React.FC<HttpCredentialStepProps> = props => {
               handleUpdate(data)
             } else {
               if (nonReferencedFields.length) {
-                createSecretCallback(formData, data)
+                createSecretCallback(connectorData, data)
               } else {
                 handleCreate(data)
               }

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Layout, Button, TextInput, Icon, Popover, IconName, Text, Color } from '@wings-software/uikit'
 import { useParams, useHistory } from 'react-router-dom'
 import { IDialogProps, Position, Menu } from '@blueprintjs/core'
-import { useGetConnectorList, ResponseDTONGPageResponseConnectorSummaryDTO, ConnectorDTO } from 'services/cd-ng'
+import { useGetConnectorList, ResponseDTONGPageResponseConnectorResponse, ConnectorInfoDTO } from 'services/cd-ng'
 import { Connectors, ConnectorInfoText } from 'modules/dx/constants'
 import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
 import type { UseGetMockData } from 'modules/common/utils/testUtils'
@@ -13,7 +13,7 @@ import i18n from '../../components/connectors/CreateConnectorWizard/CreateConnec
 import css from './ConnectorsPage.module.scss'
 
 interface ConnectorsListProps {
-  mockData?: UseGetMockData<ResponseDTONGPageResponseConnectorSummaryDTO>
+  mockData?: UseGetMockData<ResponseDTONGPageResponseConnectorResponse>
 }
 
 const enum View {
@@ -22,7 +22,7 @@ const enum View {
 }
 interface OptionInterface {
   label: string
-  value: ConnectorDTO['type']
+  value: ConnectorInfoDTO['type']
   icon: IconName
   onClick?: () => void
   modalProps?: IDialogProps
@@ -47,8 +47,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ mockData }) => {
   const history = useHistory()
 
   const { loading, data, refetch: reloadConnectorList } = useGetConnectorList({
-    accountIdentifier: accountId,
-    queryParams: { page: page, size: 10, projectIdentifier, orgIdentifier, searchTerm },
+    queryParams: { page: page, size: 10, projectIdentifier, orgIdentifier, searchTerm, accountIdentifier: accountId },
     mock: mockData,
     debounce: 300
   })

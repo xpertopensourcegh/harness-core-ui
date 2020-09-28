@@ -31,7 +31,7 @@ import {
   useCreateConnector,
   ConnectorConfigDTO,
   useUpdateConnector,
-  ConnectorRequestWrapper,
+  ConnectorRequestBody,
   SecretDTOV2,
   usePostSecret
 } from 'services/cd-ng'
@@ -224,10 +224,10 @@ const SecondStep = (props: SecondStepProps) => {
     queryParams: { accountId }
   })
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
-  const { mutate: createConnector } = useCreateConnector({ accountIdentifier: accountId })
-  const { mutate: updateConnector } = useUpdateConnector({ accountIdentifier: props.accountId })
+  const { mutate: createConnector } = useCreateConnector({ queryParams: { accountIdentifier: accountId } })
+  const { mutate: updateConnector } = useUpdateConnector({ queryParams: { accountIdentifier: accountId } })
   const [loadConnector, setLoadConnector] = useState(false)
-  const handleCreate = async (data: ConnectorRequestWrapper) => {
+  const handleCreate = async (data: ConnectorRequestBody) => {
     try {
       modalErrorHandler?.hide()
       setLoadConnector(true)
@@ -240,7 +240,7 @@ const SecondStep = (props: SecondStepProps) => {
     }
   }
 
-  const handleUpdate = async (data: ConnectorRequestWrapper) => {
+  const handleUpdate = async (data: ConnectorRequestBody) => {
     try {
       modalErrorHandler?.hide()
       setLoadConnector(true)
@@ -364,13 +364,13 @@ const IntermediateStep: React.FC<IntermediateStepProps> = props => {
   const { showSuccess } = useToaster()
   const { state, accountId } = props
   const { projectIdentifier, orgIdentifier } = useParams()
-  const { mutate: createConnector } = useCreateConnector({ accountIdentifier: accountId })
-  const { mutate: updateConnector } = useUpdateConnector({ accountIdentifier: props.accountId })
+  const { mutate: createConnector } = useCreateConnector({ queryParams: { accountIdentifier: accountId } })
+  const { mutate: updateConnector } = useUpdateConnector({ queryParams: { accountIdentifier: accountId } })
   const { mutate: createSecret } = usePostSecret({ queryParams: { accountIdentifier: props.accountId } })
   const [loadSecret, setLoadSecret] = useState(false)
   const [loadConnector, setLoadConnector] = useState(false)
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
-  const handleCreate = async (data: ConnectorRequestWrapper) => {
+  const handleCreate = async (data: ConnectorRequestBody) => {
     try {
       modalErrorHandler?.hide()
       setLoadConnector(true)
@@ -384,7 +384,7 @@ const IntermediateStep: React.FC<IntermediateStepProps> = props => {
     }
   }
 
-  const handleUpdate = async (data: ConnectorRequestWrapper) => {
+  const handleUpdate = async (data: ConnectorRequestBody) => {
     try {
       modalErrorHandler?.hide()
       setLoadConnector(true)

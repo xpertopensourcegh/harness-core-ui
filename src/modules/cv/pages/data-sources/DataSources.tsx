@@ -27,7 +27,7 @@ import {
   CVIndexedDBPrimaryKeys
 } from 'modules/cv/hooks/IndexedDBHook/IndexedDBHook'
 import { CreateConnectorWizard } from 'modules/dx/components/connectors/CreateConnectorWizard/CreateConnectorWizard'
-import { useDeleteConnector, useGetConnectorList, ConnectorConfigDTO, ConnectorDTO } from 'services/cd-ng'
+import { useDeleteConnector, useGetConnectorList, ConnectorConfigDTO, ConnectorInfoDTO } from 'services/cd-ng'
 import type { DSConfig } from 'services/cv'
 import i18n from './DataSources.i18n'
 import css from './DataSources.module.scss'
@@ -187,7 +187,7 @@ function moveToDataSourceProductPage(
 
 function Providers(props: ProvidersProps): JSX.Element {
   const { accountId, projectId, orgId, dbInstance } = props
-  const [connectorType, setConnectorType] = useState<ConnectorDTO['type']>('AppDynamics')
+  const [connectorType, setConnectorType] = useState<ConnectorInfoDTO['type']>('AppDynamics')
   const history = useHistory()
 
   const [showConnectorModal, hideConnectorModal] = useModalHook(
@@ -232,7 +232,7 @@ function Providers(props: ProvidersProps): JSX.Element {
           key={key}
           item={(i18n.connectors as any)[key]}
           onClick={() => {
-            setConnectorType(key as ConnectorDTO['type']) // Remove after adding proper types to connector array
+            setConnectorType(key as ConnectorInfoDTO['type']) // Remove after adding proper types to connector array
             showConnectorModal()
           }}
         />
@@ -245,8 +245,7 @@ function CVConnectorListTable(props: CVConnectorListTableProps): JSX.Element {
   const { dbInstance, projectId = '', orgId = '', accountId, fetchConnectors, existingDataSources } = props
   const [deletedDSInfo, setSelectedDataSourceName] = useState<DeleteDataSourceInfo | undefined>(undefined)
   const { mutate: deleteConnector } = useDeleteConnector({
-    accountIdentifier: accountId,
-    queryParams: { orgIdentifier: orgId, projectIdentifier: projectId }
+    queryParams: { accountIdentifier: accountId, orgIdentifier: orgId, projectIdentifier: projectId }
   })
 
   const { openDialog } = useConfirmationDialog({
@@ -416,8 +415,8 @@ const DataSources: FunctionComponent<{}> = _ => {
   } = routeParams()
   const { isInitializingDB, dbInstance } = useIndexedDBHook()
   const { data: secretManagersApiResponse, loading, error, refetch } = useGetConnectorList({
-    accountIdentifier: accountId,
     queryParams: {
+      accountIdentifier: accountId,
       orgIdentifier: orgIdentifier as string,
       projectIdentifier: projectIdentifier as string
     }

@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useParams } from 'react-router'
 import ReactTimeago from 'react-timeago'
+import cx from 'classnames'
 import { StepsProgress, Layout, Button, Text, Intent, Color, StepProps } from '@wings-software/uikit'
 import { useGetDelegatesStatus, RestResponseDelegateStatus } from 'services/portal'
 import {
@@ -94,9 +95,8 @@ const VerifyOutOfClusterDelegate: React.FC<
     mock: props.delegateStatusMockData
   })
   const { mutate: reloadTestConnection } = useGetTestConnectionResult({
-    accountIdentifier: accountId,
-    connectorIdentifier: props.connectorIdentifier || prevStepData?.identifier || '',
-    queryParams: { orgIdentifier: orgIdentifier, projectIdentifier: projectIdentifier },
+    identifier: props.connectorIdentifier || prevStepData?.identifier || '',
+    queryParams: { accountIdentifier: accountId, orgIdentifier: orgIdentifier, projectIdentifier: projectIdentifier },
     mock: props.testConnectionMockData,
     requestOptions: {
       headers: {
@@ -249,7 +249,7 @@ const VerifyOutOfClusterDelegate: React.FC<
         ) : null}
         {(stepDetails.step === StepIndex.get(STEP.VERIFY) && stepDetails.status === 'DONE') ||
         stepDetails.intent === Intent.DANGER ? (
-          <Layout.Horizontal margin={{ left: 'small' }}>
+          <Layout.Horizontal margin={{ left: 'small' }} className={cx({ [css.inModalRetest]: renderInModal })}>
             <Button
               intent="primary"
               minimal

@@ -10,7 +10,8 @@ import type {
   SSHKeyReferenceCredentialDTO,
   SSHKeySpecDTO,
   SSHPasswordCredentialDTO,
-  TGTKeyTabFilePathSpecDTO
+  TGTKeyTabFilePathSpecDTO,
+  ConnectorConnectivityDetails
 } from 'services/cd-ng'
 import { getStringForCredentialType, getStringForType } from 'modules/dx/components/secrets/SSHAuthUtils'
 
@@ -206,7 +207,7 @@ const ViewSecretDetails: React.FC<ViewSecretDetailsProps> = props => {
           <ConnectorStats
             createdAt={props.secret.createdAt}
             lastUpdated={props.secret.updatedAt}
-            status={''}
+            status={'' as ConnectorConnectivityDetails['status']}
             className={css.stats}
           />
           <VerifyConnection identifier={secret.identifier} />
