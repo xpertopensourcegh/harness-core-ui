@@ -77,14 +77,6 @@ export function graph2ExecutionPipeline(graph: Graph): ExecutionPipeline<GraphVe
         //parallel
         if (next.stepType === 'FORK') {
           const parallelStepsNode: ExecutionPipelineNode<GraphVertex> = {
-            item: {
-              identifier: next.uuid,
-              name: next.name,
-              type: ExecutionPipelineItemType.CUSTOM,
-              status: ExecutionPipelineItemStatus[next.status as keyof typeof ExecutionPipelineItemStatus],
-              icon: 'step-group',
-              data: next
-            },
             parallel: []
           }
           stepsPipeline.items.push(parallelStepsNode)

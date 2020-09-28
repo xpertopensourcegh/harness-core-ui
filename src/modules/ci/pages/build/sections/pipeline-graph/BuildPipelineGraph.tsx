@@ -1,7 +1,6 @@
 import React from 'react'
 import SplitPane, { Pane } from 'react-split-pane'
-import cx from 'classnames'
-import { Icon, Container, Select, Tab, Tabs, Layout, Text } from '@wings-software/uikit'
+import { Container, Select, Tab, Tabs, Layout, Text } from '@wings-software/uikit'
 import ExecutionStageDiagram from 'modules/common/components/ExecutionStageDiagram/ExecutionStageDiagram'
 import { BuildPageContext } from '../../context/BuildPageContext'
 import {
@@ -10,10 +9,6 @@ import {
   getStepsPipelineFromExecutionPipeline
 } from './BuildPipelineGraphUtils'
 import i18n from './BuildPipelineGraph.i18n'
-
-// TODO: Remove this dependency
-import cssTmp from '../../../../../cd/pages/pipeline-studio/StageBuilder/StageBuilder.module.scss'
-
 import css from './BuildPipelineGraph.module.scss'
 
 const PipelineGraph: React.FC = () => {
@@ -32,7 +27,7 @@ const PipelineGraph: React.FC = () => {
   return (
     <Container className={css.main}>
       <SplitPane size={300} split="horizontal" minSize={100}>
-        <Pane className={cx(cssTmp.canvas, css.canvas)}>
+        <Pane className={css.canvas}>
           <ExecutionStageDiagram
             data={buildData?.stagePipeline}
             selectedIdentifier={selectedStageIdentifier}
@@ -59,15 +54,15 @@ const PipelineGraph: React.FC = () => {
               <Tabs id="ciStepExecutionTabs">
                 <Tab id="ciStepExecution" title={i18n.execution}></Tab>
               </Tabs>
-              <div className={cssTmp.splitButtons}>
+              {/*<div className={cssTmp.splitButtons}>
                 <Icon name="up" size={15} className={cssTmp.stageDecrease} />
                 <span className={cssTmp.separator} />
-                <Icon name="down" size={15} className={cssTmp.stageIncrease} />
-              </div>
+              <Icon name="down" size={15} className={cssTmp.stageIncrease} />
+              </div>*/}
             </Container>
 
             <Container style={{ position: 'relative', flexGrow: 1 }}>
-              <Container className={cx(cssTmp.canvas, css.canvas)}>
+              <Container className={css.canvas}>
                 <ExecutionStageDiagram
                   data={executionSteps}
                   selectedIdentifier={selectedStepIdentifier}

@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { first } from 'lodash-es'
 import { Container, Button, Icon, Intent } from '@wings-software/uikit'
 import { Tabs as BPTabs } from '@blueprintjs/core'
 import { Link, useParams, useHistory } from 'react-router-dom'
@@ -26,6 +27,7 @@ import {
 import { BuildPageContextProvider } from './context/BuildPageContextProvider'
 import { BuildPageContext } from './context/BuildPageContext'
 import i18n from './CIBuildPage.i18n'
+import common from '../ci-common.module.scss'
 import css from './CIBuildPage.module.scss'
 
 export interface BuildPageUrlParams {
@@ -60,11 +62,11 @@ const CIBuildPage: React.FC = props => {
   const artifactsUrl = routeCIBuildArtifacts.url({ orgIdentifier, projectIdentifier, buildIdentifier })
 
   return (
-    <ExtendedPage>
+    <ExtendedPage className={common.main}>
       {buildResponse ? (
         <>
           <ExtendedPageHeader
-            title={buildResponse?.data.pipeline.name}
+            title={buildResponse?.data.pipeline?.name}
             toolbar={
               <Container>
                 <Button
@@ -78,8 +80,8 @@ const CIBuildPage: React.FC = props => {
             }
             rowOneContent={
               <>
-                <Status status={(buildResponse?.data.graph.status as unknown) as ExecutionStatus}>
-                  {status2Message((buildResponse?.data.graph.status as unknown) as ExecutionStatus)}
+                <Status status={(buildResponse?.data.graph?.status as unknown) as ExecutionStatus}>
+                  {status2Message((buildResponse?.data.graph?.status as unknown) as ExecutionStatus)}
                 </Status>
                 <ElapsedTime startTime={buildResponse?.data.startTime || 0} />
               </>
@@ -91,16 +93,19 @@ const CIBuildPage: React.FC = props => {
                 <TitledInfo title={i18n.infoBranch} value={buildResponse?.data.branch?.name} />
                 <TitledInfo
                   title={i18n.infoCommitId}
-                  value={getShortCommitId(buildResponse?.data.branch?.commits[0].id || '')}
+                  value={getShortCommitId(first(buildResponse?.data.branch?.commits)?.id || '')}
                 />
-                <TitledInfo title={i18n.infoCommitMessage} value={buildResponse?.data.branch?.commits[0].message} />
+                <TitledInfo
+                  title={i18n.infoCommitMessage}
+                  value={first(buildResponse?.data.branch?.commits)?.message}
+                />
               </>
             }
             rowThreeContent={
               detailsVisible ? (
                 <>
                   <TitledInfo title={i18n.infoTriggerType} value={buildResponse?.data.triggerType} />
-                  <TitledInfo title={i18n.infoTriggerBy} value={buildResponse?.data.author.id} />
+                  <TitledInfo title={i18n.infoTriggerBy} value={buildResponse?.data.author?.id} />
                   <TitledInfo
                     title={i18n.infoStartTime}
                     value={

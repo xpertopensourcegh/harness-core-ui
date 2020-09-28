@@ -5,7 +5,14 @@ export interface PageableParams {
   page?: string
 }
 
-export interface GetBuildsQueryParams extends PageableParams {
+/**
+ * API query parameter for sorting (e.g. sort="buildNumber,desc")
+ */
+export interface SortableParams {
+  sort?: string
+}
+
+export interface GetBuildsQueryParams extends PageableParams, SortableParams {
   accountIdentifier: string
   orgIdentifier: string
   projectIdentifier: string
@@ -17,6 +24,7 @@ export interface GetBuildQueryParams {
   projectIdentifier: string
 }
 
+// TODO: shoud be replaced with DTO
 export interface ErrorResponse {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
   code?: 'DEFAULT_ERROR_CODE'

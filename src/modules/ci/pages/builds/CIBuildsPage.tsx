@@ -1,4 +1,6 @@
 import React from 'react'
+import { first } from 'lodash-es'
+import cx from 'classnames'
 import { Divider } from '@blueprintjs/core'
 import { Container, Button, Intent, Icon, Layout, Select, Pagination } from '@wings-software/uikit'
 import { useHistory, useLocation, useParams } from 'react-router-dom'
@@ -15,6 +17,7 @@ import { useGetBuilds } from 'modules/ci/services/BuildsService'
 import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
 import i18n from './CIBuildsPage.i18n'
 import css from './CIBuildsPage.module.scss'
+import common from '../ci-common.module.scss'
 
 interface BuildsPageUrlParams {
   accountId: string
@@ -35,7 +38,9 @@ const CIBuildsPage: React.FC = () => {
       accountIdentifier: 'zEaak-FLS425IEO7OLzMUg',
       orgIdentifier,
       projectIdentifier,
-      page: (page ? page : '0') as string
+      page: (page ? page : '0') as string,
+      // TODO: to consider, should we allow user to sort
+      sort: 'buildNumber,desc'
     }
   })
 
@@ -60,8 +65,8 @@ const CIBuildsPage: React.FC = () => {
   const buildsHeader = (
     <>
       <Layout.Horizontal spacing="small">
-        <Button>{i18n.myBuilds}</Button>
-        <Button active={true}>{i18n.running}</Button>
+        <Button margin={{ right: 'large' }}>{i18n.myBuilds}</Button>
+        <Button>{i18n.running}</Button>
         <Button>{i18n.failed}</Button>
       </Layout.Horizontal>
       <Layout.Horizontal spacing="small">
@@ -130,7 +135,7 @@ const CIBuildsPage: React.FC = () => {
   ))
 
   return (
-    <Container className={css.main}>
+    <Container className={cx(common.main, css.main)}>
       <ExtendedPage>
         <ExtendedPageHeader
           title={i18n.builds}
@@ -138,7 +143,12 @@ const CIBuildsPage: React.FC = () => {
           rowOneContent={''}
           rowTwoContent={
             <>
-              <TitledInfo maxWidth="auto" title="BUILD #" value="test-test/test-repo-1" href="https://harness.io" />
+              <TitledInfo
+                maxWidth="auto"
+                title={i18n.gitRepository}
+                value={first(buildsData?.content)?.branch?.link}
+                href={first(buildsData?.content)?.branch?.link}
+              />
             </>
           }
         />

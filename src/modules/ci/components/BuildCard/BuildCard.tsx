@@ -24,15 +24,15 @@ export interface BuildCardProps {
   status: string
 
   // pipeline: Pipeline
-  pipelineId: string
-  pipelineName: string
+  pipelineId?: string
+  pipelineName?: string
 
   triggerType: string
   event: string
 
   // author: Author
-  authorId: string
-  avatar: string
+  authorId?: string
+  avatar?: string
 
   // Branch
   branchName?: string

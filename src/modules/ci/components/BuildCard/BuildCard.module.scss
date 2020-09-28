@@ -99,21 +99,4 @@ $commits-scroll-bar-background-hover: gray;
       }
     }
   }
-  ::-webkit-scrollbar {
-    width: 5px;
-    padding-right: 10px;
-  }
-
-  ::-webkit-scrollbar-track {
-    background: #f1f1f1;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background: $commits-scroll-bar-background;
-    border-radius: 100px;
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    background: $commits-scroll-bar-background-hover;
-  }
 }

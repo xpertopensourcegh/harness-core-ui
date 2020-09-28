@@ -4,7 +4,21 @@ import type { ExecutionPipeline } from 'modules/common/components/ExecutionStage
 import type { Graph, GraphVertex } from './GraphTypes'
 
 export enum BuildExecutionStatus {
-  IN_PROGRESS = 'in_progress'
+  SUCCEEDED = 'SUCCEEDED',
+  FAILED = 'FAILED',
+  SUCCESS = 'SUCCESS',
+  ABORTED = 'ABORTED',
+  ERROR = 'ERROR',
+  PAUSED = 'PAUSED',
+  PAUSING = 'PAUSING',
+  WAITING = 'WAITING',
+  ABORTING = 'ABORTING',
+  RUNNING = 'RUNNING',
+  QUEUED = 'QUEUED',
+  SKIPPED = 'SKIPPED',
+  STARTING = 'STARTING',
+  REJECTED = 'REJECTED',
+  EXPIRED = 'EXPIRED'
 }
 
 export interface Pipeline {
@@ -48,10 +62,10 @@ export interface Build {
   status: BuildExecutionStatus
   startTime: number
   endTime: number
-  pipeline: Pipeline
+  pipeline?: Pipeline
   triggerType: string
   event: string
-  author: Author
+  author?: Author
   branch?: Branch
   pullRequest?: PullRequest
   graph: Graph
