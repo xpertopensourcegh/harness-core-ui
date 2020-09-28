@@ -14,6 +14,7 @@ function status2ClassName(status: ExecutionStatus): string {
     case ExecutionStatus.SUCCEEDED:
       return css.statusSuccess
     case ExecutionStatus.FAILED:
+    case ExecutionStatus.ERRORED:
       return css.statusFailed
     case ExecutionStatus.RUNNING:
       return css.statusInProgress

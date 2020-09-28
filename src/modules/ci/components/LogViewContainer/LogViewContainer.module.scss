@@ -1,29 +1,38 @@
+$background-color-header: #163755;
+$background-color-body: #00162a;
+
 .console {
   width: 90%;
 }
 
 .consoleHeader {
   width: 100%;
-  background-color: #163755;
+  background-color: $background-color-header;
   color: rgba(255, 255, 255, 0.7);
   height: 30px;
   line-height: 30px;
   padding-left: 17px;
   display: flex;
   justify-content: space-between;
+  .hederButtons {
+    display: flex;
+    align-items: center;
+    width: 70px;
+    justify-content: space-evenly;
+  }
 }
 
 .consoleFooter {
   height: 70px;
-  background-color: #163755;
+  background-color: $background-color-header;
   padding: var(--spacing-small) var(--spacing-medium);
   color: rgba(255, 255, 255, 0.7);
 }
 
 .consoleBody {
   width: 100%;
-  background: #00162a;
+  background-color: $background-color-body;
   height: 600px;
   overflow-y: scroll;
-  padding: 10px;
+  padding: var(--spacing-small);
 }

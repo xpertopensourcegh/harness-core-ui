@@ -6,7 +6,5 @@ declare const styles: {
   readonly timer: string
   readonly wrapper: string
   readonly steps: string
-  readonly consoleHeader: string
-  readonly consoleBody: string
 }
 export default styles

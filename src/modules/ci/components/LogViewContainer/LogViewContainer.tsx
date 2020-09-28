@@ -1,5 +1,6 @@
 import React from 'react'
 import { LogViewer, Container, LogViewerProps, Collapse, CollapseList, Icon, Button } from '@wings-software/uikit'
+import i18n from './LogViewContainer.i18n'
 import css from './LogViewContainer.module.scss'
 
 export interface LogViewContainerProps {
@@ -8,7 +9,8 @@ export interface LogViewContainerProps {
 }
 
 const LogViewContainer: React.FC<LogViewContainerProps> = props => {
-  const createConsoleBody3 = () => {
+  // TODO: add heading when api start providing it
+  const createConsoleBody = () => {
     return (
       <CollapseList>
         <Collapse heading="Clone source code">
@@ -21,8 +23,8 @@ const LogViewContainer: React.FC<LogViewContainerProps> = props => {
   return (
     <Container className={css.console}>
       <div className={css.consoleHeader}>
-        <span>Step Logs</span>
-        <span style={{ display: 'flex', alignItems: 'center', width: '70px', justifyContent: 'space-evenly' }}>
+        <span>{i18n.consoleHeading}</span>
+        <span className={css.hederButtons}>
           <Icon name="main-search" />
           <Button onClick={props.downloadLogs} minimal>
             <Icon name="download" />
@@ -30,10 +32,10 @@ const LogViewContainer: React.FC<LogViewContainerProps> = props => {
         </span>
       </div>
       <Container>
-        <div className={css.consoleBody}>{createConsoleBody3()}</div>
+        <div className={css.consoleBody}>{createConsoleBody()}</div>
       </Container>
       <div className={css.consoleFooter}>
-        <p>Summary</p>
+        <p>{i18n.summary}</p>
       </div>
     </Container>
   )

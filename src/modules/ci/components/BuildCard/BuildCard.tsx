@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import { noop } from 'lodash-es'
-import { Button, Icon, Link, Container } from '@wings-software/uikit'
+import { Button, Icon, Link, Container, Text } from '@wings-software/uikit'
+import ReactTimeago from 'react-timeago'
+import { ExecutionStatus, status2Message } from 'modules/ci/components/common/status'
 import pipelines from './pipelines.png'
 import Status from '../Status/Status'
-import { ExecutionStatus } from '../common/status'
 import { formatElapsedTime } from '../common/time'
 import i18n from './BuildCard.i18n'
 import css from './BuildCard.module.scss'
@@ -61,7 +62,7 @@ export const BuildCard: React.FC<BuildCardProps> = props => {
 
   const isPullRequest = props.event === 'pull_request'
 
-  const duration = formatElapsedTime((props.endTime - props.startTime) / 1000)
+  const duration = formatElapsedTime(Math.abs(props.endTime - props.startTime) / 1000)
 
   const elements = (
     <p>
@@ -72,7 +73,7 @@ export const BuildCard: React.FC<BuildCardProps> = props => {
       <Link className={css.links} href="//harness.io" target="_blank">
         {isPullRequest ? props.PRTargetBranch : props.branchName}
       </Link>
-      <span className={css.lastCommit}>{!isPullRequest && props.commits && props.commits[0].message}</span>
+      <Text className={css.lastCommit}>{!isPullRequest && props.commits && props.commits[0].message}</Text>
     </p>
   )
 
@@ -88,86 +89,50 @@ export const BuildCard: React.FC<BuildCardProps> = props => {
           </div>
           <div>
             <Icon name="nav-user-profile" /> {item.ownerId} {i18n.commited}
-            <span onClick={() => copyFunction(item.id)} className={css.commitHash}>
+            <Text onClick={() => copyFunction(item.id)} className={css.commitHash}>
               {item.id.slice(0, 7)}
               <Icon size={12} name="clipboard" />
-            </span>
+            </Text>
           </div>
         </div>
       )
     })
 
-  const statusChecker = (status: string) => {
-    // TODO: use existing utility functions
-    switch (status) {
-      case 'SUCCEEDED':
-        return (
-          <Status className={css.status} status={ExecutionStatus.SUCCEEDED}>
-            SUCCESS
-          </Status>
-        )
-      case 'RUNNING':
-        return (
-          <Status className={css.status} status={ExecutionStatus.RUNNING}>
-            RUNNING
-          </Status>
-        )
-      case 'ASYNC_WAITING':
-      case 'INTERVENTION_WAITING':
-      case 'TIMED_WAITING':
-      case 'TASK_WAITING':
-      case 'QUEUED':
-        return (
-          <Status className={css.status} status={ExecutionStatus.WAITING}>
-            WAITING
-          </Status>
-        )
-      case 'FAILED':
-      case 'ERRORED':
-      case 'EXPIRED':
-      case 'SUSPENDED':
-        return (
-          <Status className={css.status} status={ExecutionStatus.FAILED}>
-            FAILED
-          </Status>
-        )
-      default:
-        return (
-          <Status className={css.status} status={ExecutionStatus.WAITING}>
-            {props?.status}
-          </Status>
-        )
-    }
-  }
-
-  statusChecker('label')
   return (
-    <Container className={css.buildCard}>
+    <Container
+      background="white"
+      padding={{ left: 'large', right: 'large' }}
+      margin={{ top: 'medium', bottom: 'medium' }}
+      className={css.buildCard}
+    >
       <div className={css.topper}>
-        <div className={css.leftSide}>
+        <Container className={css.leftSide}>
           <div className={css.buildId} onClick={() => onClick(props.id)}>
-            <Icon name="git-branch" />
+            <Icon color="green800" name="git-branch" />
             {i18n.buildId} {props.id} | {props.pipelineName}
-            {statusChecker(props?.status)}
+            <Status className={css.status} status={(props?.status as unknown) as ExecutionStatus}>
+              {status2Message((props?.status as unknown) as ExecutionStatus)}
+            </Status>
           </div>
           {elements}
-        </div>
+        </Container>
 
-        <div className={css.rightSide}>
+        <Container className={css.rightSide}>
           <img src={pipelines}></img>
           <div>
             <Button minimal icon="pause" />
             <Button minimal icon="command-stop" />
             <Button minimal icon="more" />
           </div>
-        </div>
+        </Container>
       </div>
       <div className={css.lower}>
         <div className={css.creatorInfo}>
           <Icon name="nav-user-profile" /> {props.authorId}| {props.triggerType}
         </div>
         <div className={css.duration}>
-          <Icon name="nav-user-profile" /> {i18n.duration} {duration} | <Icon name="time" /> 10d ago
+          <Icon name="nav-user-profile" /> {i18n.duration} {duration} | <Icon name="time" />
+          <ReactTimeago date={props.startTime} />
         </div>
         <Button
           disabled={!commits}

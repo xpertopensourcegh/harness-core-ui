@@ -3,6 +3,7 @@
 declare const styles: {
   readonly console: string
   readonly consoleHeader: string
+  readonly hederButtons: string
   readonly consoleFooter: string
   readonly consoleBody: string
 }

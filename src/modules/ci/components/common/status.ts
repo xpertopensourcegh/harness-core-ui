@@ -7,6 +7,7 @@ export enum ExecutionStatus {
   SUCCESS = 'SUCCESS',
   ABORTED = 'ABORTED',
   ERROR = 'ERROR',
+  ERRORED = 'ERRORED',
   PAUSED = 'PAUSED',
   PAUSING = 'PAUSING',
   WAITING = 'WAITING',
@@ -33,6 +34,7 @@ export function status2Message(status: ExecutionStatus): string {
     case ExecutionStatus.SUCCEEDED:
       return i18n.succeeded
     case ExecutionStatus.FAILED:
+    case ExecutionStatus.ERRORED:
       return i18n.failed
     case ExecutionStatus.RUNNING:
       return i18n.running

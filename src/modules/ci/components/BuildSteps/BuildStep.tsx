@@ -36,7 +36,7 @@ export const BuildStep = (props: StepProps) => {
   return (
     <div
       onClick={() => {
-        props.onStepClick(props.identifier, props.label)
+        props.onStepClick(props.identifier)
       }}
       className={cx(css.step, props.isSelected && css.selected, props.isSubStep && css.subStep)}
     >
