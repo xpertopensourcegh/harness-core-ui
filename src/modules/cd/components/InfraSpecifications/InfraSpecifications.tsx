@@ -69,8 +69,7 @@ export default function InfraSpecifications(): JSX.Element {
                 name: value.infraName,
                 identifier: value.infraName,
                 description: value.description,
-                type: value.infraType,
-                tags: []
+                type: value.infraType
               },
               infrastructureDefinition: {}
             }

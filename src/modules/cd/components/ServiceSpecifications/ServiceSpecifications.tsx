@@ -98,7 +98,6 @@ export default function ServiceSpecifications(): JSX.Element {
           identifier: null,
           name: null,
           description: null,
-          tags: null,
           serviceDefinition: {
             type: 'Kubernetes',
             spec: {
@@ -140,7 +139,7 @@ export default function ServiceSpecifications(): JSX.Element {
               serviceObj['identifier'] = value.serviceName
               serviceObj['name'] = value.serviceName
               serviceObj['description'] = value.description
-              serviceObj['tags'] = value.tags
+              // serviceObj['tags'] = value.tags
               updatePipeline(pipeline)
             }
           }}
