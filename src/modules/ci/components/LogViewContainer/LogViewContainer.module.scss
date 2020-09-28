@@ -2,7 +2,10 @@ $background-color-header: #163755;
 $background-color-body: #00162a;
 
 .console {
-  width: 90%;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
 }
 
 .consoleHeader {
@@ -30,9 +33,10 @@ $background-color-body: #00162a;
 }
 
 .consoleBody {
+  flex-grow: 1;
   width: 100%;
+  height: 100%;
   background-color: $background-color-body;
-  height: 600px;
   overflow-y: scroll;
   padding: var(--spacing-small);
 }

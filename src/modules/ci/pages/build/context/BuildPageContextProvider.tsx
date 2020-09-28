@@ -9,13 +9,15 @@ import {
   graph2ExecutionPipeline
 } from '../utils/api2ui'
 import { getStepsPipelineFromExecutionPipeline } from '../sections/pipeline-graph/BuildPipelineGraphUtils'
+import { BuildPipelineGraphLayoutType } from '../sections/pipeline-graph/BuildPipelineGraphLayout/BuildPipelineGraphLayout'
 
 export const BuildPageContextProvider: React.FC = props => {
   const { children } = props
   const { orgIdentifier, projectIdentifier, buildIdentifier } = useParams<BuildPageUrlParams>()
   const [state, setState] = React.useState<BuildPageStateInterface>({
     selectedStageIdentifier: '-1',
-    selectedStepIdentifier: '-1'
+    selectedStepIdentifier: '-1',
+    graphLayoutType: BuildPipelineGraphLayoutType.COMBINED
   })
 
   const setSelectedStageIdentifier = (selectedStageIdentifier: string): void => {
@@ -31,6 +33,10 @@ export const BuildPageContextProvider: React.FC = props => {
   const setSelectedStepIdentifier = (selectedStepIdentifier: string): void => {
     if (selectedStepIdentifier === state.selectedStepIdentifier) return
     setState({ ...state, selectedStepIdentifier })
+  }
+
+  const setGraphLayoutType = (graphLayoutType: BuildPipelineGraphLayoutType): void => {
+    setState({ ...state, graphLayoutType })
   }
 
   const { data: buildData, loading, error } = useGetBuild(buildIdentifier, {
@@ -62,6 +68,7 @@ export const BuildPageContextProvider: React.FC = props => {
   // by default fist stage/step is selected
   useEffect(() => {
     setState({
+      ...state,
       selectedStageIdentifier: buildData?.defaultSelectedStageIdentifier as string,
       selectedStepIdentifier: buildData?.defaultSelectedStepIdentifier as string
     })
@@ -69,7 +76,15 @@ export const BuildPageContextProvider: React.FC = props => {
 
   return (
     <BuildPageContext.Provider
-      value={{ state, buildData, loading, error, setSelectedStageIdentifier, setSelectedStepIdentifier }}
+      value={{
+        state,
+        buildData,
+        loading,
+        error,
+        setSelectedStageIdentifier,
+        setSelectedStepIdentifier,
+        setGraphLayoutType
+      }}
     >
       {children}
     </BuildPageContext.Provider>

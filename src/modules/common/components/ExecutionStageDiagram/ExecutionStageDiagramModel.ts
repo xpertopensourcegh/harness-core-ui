@@ -10,6 +10,13 @@ export interface NodeStyleInterface {
   height: number
 }
 
+export interface GridStyleInterface {
+  gridSize?: number
+  startX?: number
+  startY?: number
+  gap?: number
+}
+
 export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
   nodeStyle: NodeStyleInterface = { width: 200, height: 200 }
 
@@ -20,6 +27,10 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
       startY: 50,
       gap: 200
     })
+  }
+
+  setGridStyle(style: GridStyleInterface): void {
+    Object.assign(this, style)
   }
 
   setDefaultNodeStyle(style: NodeStyleInterface): void {

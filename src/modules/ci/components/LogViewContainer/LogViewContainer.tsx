@@ -31,9 +31,7 @@ const LogViewContainer: React.FC<LogViewContainerProps> = props => {
           </Button>
         </span>
       </div>
-      <Container>
-        <div className={css.consoleBody}>{createConsoleBody()}</div>
-      </Container>
+      <Container className={css.consoleBody}>{createConsoleBody()}</Container>
       <div className={css.consoleFooter}>
         <p>{i18n.summary}</p>
       </div>

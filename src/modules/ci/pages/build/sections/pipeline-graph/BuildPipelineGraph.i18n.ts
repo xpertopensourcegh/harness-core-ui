@@ -1,4 +1,6 @@
 export default {
   execution: 'Execution',
-  details: 'Details'
+  stepTabDetails: 'Details',
+  stepTabInput: 'Input',
+  stepTabOutput: 'Output'
 }

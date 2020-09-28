@@ -92,9 +92,9 @@ const PipelineLog: React.FC = () => {
   )
 
   return (
-    <Layout.Vertical>
+    <Layout.Vertical className={css.main}>
       {header}
-      <Layout.Horizontal padding={{ right: 'xxlarge' }} className={css.wrapper}>
+      <Layout.Horizontal className={css.wrapper}>
         <div className={css.steps}>
           <ul className="pipeline-steps">{steps}</ul>
         </div>

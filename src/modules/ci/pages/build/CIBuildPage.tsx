@@ -26,6 +26,7 @@ import {
 } from '../../routes'
 import { BuildPageContextProvider } from './context/BuildPageContextProvider'
 import { BuildPageContext } from './context/BuildPageContext'
+import { BuildPipelineGraphLayoutType } from './sections/pipeline-graph/BuildPipelineGraphLayout/BuildPipelineGraphLayout'
 import i18n from './CIBuildPage.i18n'
 import common from '../ci-common.module.scss'
 import css from './CIBuildPage.module.scss'
@@ -42,7 +43,11 @@ const CIBuildPage: React.FC = props => {
   const { orgIdentifier, projectIdentifier, buildIdentifier } = useParams<BuildPageUrlParams>()
   const [detailsVisible, setDetailsVisible] = useState<boolean>(false)
   const history = useHistory()
-  const { buildData } = React.useContext(BuildPageContext)
+  const {
+    buildData,
+    state: { graphLayoutType },
+    setGraphLayoutType
+  } = React.useContext(BuildPageContext)
 
   const buildResponse = buildData?.response
 
@@ -187,6 +192,23 @@ const CIBuildPage: React.FC = props => {
                     >
                       {i18n.logView}
                     </Button>
+                  </RoundButtonGroup>
+                  <RoundButtonGroup>
+                    <Button
+                      icon="page-layout"
+                      active={graphLayoutType === BuildPipelineGraphLayoutType.COMBINED}
+                      onClick={() => setGraphLayoutType(BuildPipelineGraphLayoutType.COMBINED)}
+                    ></Button>
+                    <Button
+                      icon="page-layout"
+                      active={graphLayoutType === BuildPipelineGraphLayoutType.ROWS}
+                      onClick={() => setGraphLayoutType(BuildPipelineGraphLayoutType.ROWS)}
+                    ></Button>
+                    <Button
+                      icon="page-layout"
+                      active={graphLayoutType === BuildPipelineGraphLayoutType.FLOAT}
+                      onClick={() => setGraphLayoutType(BuildPipelineGraphLayoutType.FLOAT)}
+                    ></Button>
                   </RoundButtonGroup>
                   <Icon name="warning-sign" intent={Intent.DANGER} size={24} />
                 </Container>

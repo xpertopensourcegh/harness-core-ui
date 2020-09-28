@@ -5,7 +5,7 @@ import type { NodeModelListener } from '@projectstorm/react-diagrams-core'
 import { Diagram } from 'modules/common/exports'
 import { CanvasButtons, CanvasButtonsActions } from 'modules/common/components/CanvasButtons/CanvasButtons'
 import type { ExecutionPipeline, ExecutionPipelineItem } from './ExecutionPipelineModel'
-import { ExecutionStageDiagramModel } from './ExecutionStageDiagramModel'
+import { ExecutionStageDiagramModel, GridStyleInterface, NodeStyleInterface } from './ExecutionStageDiagramModel'
 import { getStageFromDiagramEvent } from './ExecutionStageDiagramUtils'
 
 import css from './ExecutionStageDiagram.module.scss'
@@ -44,10 +44,10 @@ export interface ExecutionStageDiagramProps<T> {
   data?: ExecutionPipeline<T>
   /** selected item id */
   selectedIdentifier: string // TODO: 1. add node style for each type/shape 2. add default value
-  /** node style  */ nodeStyle?: {
-    width: number
-    height: number
-  }
+  /** node style  */
+  nodeStyle?: NodeStyleInterface
+  /** grid style */
+  gridStyle: GridStyleInterface
   itemClickHandler?: (event: ItemClickEvent<T>) => void
   itemMouseEnter?: (event: ItemMouseEnterEvent<T>) => void
   itemMouseLeave?: (event: ItemMouseLeaveEvent<T>) => void
@@ -61,6 +61,7 @@ export default function ExecutionStageDiagram<T>(props: ExecutionStageDiagramPro
     className,
     selectedIdentifier,
     nodeStyle = { width: 50, height: 50 },
+    gridStyle = {},
     itemClickHandler = noop,
     itemMouseEnter = noop,
     itemMouseLeave = noop,
@@ -91,6 +92,7 @@ export default function ExecutionStageDiagram<T>(props: ExecutionStageDiagramPro
   //setup the diagram model
   const model = React.useMemo(() => new ExecutionStageDiagramModel(), [])
   model.setDefaultNodeStyle(nodeStyle)
+  model.setGridStyle(gridStyle)
 
   //update
   model.addUpdateGraph<T>(data, { nodeListeners: nodeListeners, linkListeners: {} }, selectedIdentifier, 300)
