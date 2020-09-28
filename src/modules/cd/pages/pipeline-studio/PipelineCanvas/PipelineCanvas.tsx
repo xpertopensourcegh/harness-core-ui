@@ -150,7 +150,6 @@ export const PipelineCanvas: React.FC = ({ children }): JSX.Element => {
     <div
       className={cx(Classes.POPOVER_DISMISS, css.content)}
       onClick={e => {
-        e.preventDefault()
         e.stopPropagation()
       }}
     >

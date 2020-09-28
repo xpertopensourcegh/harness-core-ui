@@ -21,8 +21,8 @@ export abstract class Step<T extends object> {
     return this.type
   }
 
-  getDefaultValues(): T {
-    return this.defaultValues
+  getDefaultValues(initialValues: T): T {
+    return { ...this.defaultValues, ...initialValues }
   }
 
   getIconName(): IconName {

@@ -2,13 +2,14 @@ import React from 'react'
 import { IconName, Text, Formik, FormInput, Button, DurationInput } from '@wings-software/uikit'
 import * as Yup from 'yup'
 import { get } from 'lodash-es'
-import { Step, StepViewType } from 'modules/common/exports'
+import type { StepViewType } from 'modules/common/exports'
 import type { K8sRollingStepInfo, StepElement } from 'services/cd-ng'
 import { StepType } from '../../PipelineStepInterface'
 import i18n from './K8sRolloutDeployStep.i18n'
+import { PipelineStep } from '../../PipelineStep'
 import stepCss from '../Steps.module.scss'
 
-export interface K8RolloutDeployData extends Omit<StepElement, 'spec'> {
+export interface K8RolloutDeployData extends StepElement {
   spec: K8sRollingStepInfo
 }
 
@@ -25,12 +26,15 @@ const K8RolloutDeployWidget: React.FC<K8RolloutDeployProps> = ({ initialValues, 
         {i18n.k8sRolloutDeploy}
       </Text>
       <Formik<K8RolloutDeployData>
-        onSubmit={values => {
+        onSubmit={(values: K8RolloutDeployData) => {
           onUpdate?.(values)
         }}
         initialValues={initialValues}
         validationSchema={Yup.object().shape({
-          name: Yup.string().required(i18n.stepNameRequired)
+          name: Yup.string().required(i18n.stepNameRequired),
+          spec: Yup.object().shape({
+            timeout: Yup.number().required(i18n.timeoutRequired).min(59999, i18n.timeoutMinimum)
+          })
         })}
       >
         {({ submitForm }) => {
@@ -60,7 +64,7 @@ const K8RolloutDeployWidget: React.FC<K8RolloutDeployProps> = ({ initialValues, 
   )
 }
 
-export class K8RolloutDeployStep extends Step<K8RolloutDeployData> {
+export class K8RolloutDeployStep extends PipelineStep<K8RolloutDeployData> {
   renderStep(
     initialValues: K8RolloutDeployData,
     onUpdate?: (data: K8RolloutDeployData) => void,
@@ -74,6 +78,7 @@ export class K8RolloutDeployStep extends Step<K8RolloutDeployData> {
   protected stepIcon: IconName = 'service-kubernetes'
 
   protected defaultValues: K8RolloutDeployData = {
+    identifier: '',
     spec: {
       skipDryRun: false,
       timeout: 60000

@@ -3,7 +3,7 @@ import { Diagram } from 'modules/common/exports'
 import type { ExecutionWrapper, ExecutionElement } from 'services/cd-ng'
 import factory from '../../../components/PipelineSteps/PipelineStepFactory'
 import { StepType } from '../../../components/PipelineSteps/PipelineStepInterface'
-import { Listeners, calculateDepthCount, StepStateMap } from './ExecutionGraphUtil'
+import { Listeners, calculateDepthCount, StepStateMap, isCustomGeneratedString } from './ExecutionGraphUtil'
 import { EmptyNodeSeparator } from '../StageBuilder/StageBuilderUtil'
 
 export class ExecutionStepModel extends Diagram.DiagramModel {
@@ -11,7 +11,7 @@ export class ExecutionStepModel extends Diagram.DiagramModel {
     super({
       gridSize: 100,
       startX: -100,
-      startY: 140,
+      startY: 50,
       gap: 200
     })
   }
@@ -37,6 +37,7 @@ export class ExecutionStepModel extends Diagram.DiagramModel {
               name: node.step.name,
               icon: 'command-approval',
               draggable: true,
+              isInComplete: isCustomGeneratedString(node.step.identifier),
               customNodeStyle: { borderColor: 'var(--pipeline-grey-border)' }
             })
           : new Diagram.DefaultNodeModel({
@@ -44,6 +45,7 @@ export class ExecutionStepModel extends Diagram.DiagramModel {
               name: node.step.name,
               icon: factory.getStepIcon(type),
               allowAdd: allowAdd === true,
+              isInComplete: isCustomGeneratedString(node.step.identifier),
               draggable: true,
               customNodeStyle: { borderColor: 'var(--pipeline-grey-border)' }
             })

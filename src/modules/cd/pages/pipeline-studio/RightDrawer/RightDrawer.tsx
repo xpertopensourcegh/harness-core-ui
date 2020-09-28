@@ -1,12 +1,11 @@
 import React from 'react'
 import { Drawer, Position } from '@blueprintjs/core'
-import { v4 as uuid } from 'uuid'
 import type { StepData } from 'modules/common/components/AbstractSteps/AbstractStepFactory'
 import { PipelineContext } from '../PipelineContext/PipelineContext'
 import { DrawerTypes, DrawerSizes } from '../PipelineContext/PipelineActions'
 import { StepCommands } from '../StepCommands/StepCommands'
 import { StepPalette } from '../StepPalette/StepPalette'
-import { addStepOrGroup } from '../ExecutionGraph/ExecutionGraphUtil'
+import { addStepOrGroup, generateRandomString } from '../ExecutionGraph/ExecutionGraphUtil'
 import { getStageFromPipeline } from '../StageBuilder/StageBuilderUtil'
 import { PipelineVariables } from '../PipelineVariables/PipelineVariables'
 import { PipelineTemplates } from '../PipelineTemplates/PipelineTemplates'
@@ -77,8 +76,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
                   step: {
                     type: item.type,
                     name: item.name,
-                    identifier: uuid(),
-                    spec: {}
+                    identifier: generateRandomString(item.name)
                   }
                 },
                 paletteData.isParallelNodeClicked,

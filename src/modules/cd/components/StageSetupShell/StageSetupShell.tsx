@@ -16,6 +16,7 @@ export default function StageSetupShell(): JSX.Element {
 
   const stageNames: string[] = [i18n.serviceLabel, i18n.infraLabel, i18n.executionLabel]
   const [selectedTabId, setSelectedTabId] = React.useState<string>(i18n.serviceLabel)
+  const layoutRef = React.useRef<HTMLDivElement>(null)
   const {
     state: {
       pipeline,
@@ -47,8 +48,17 @@ export default function StageSetupShell(): JSX.Element {
     setSelectedTabId(data)
   }
 
+  React.useEffect(() => {
+    if (layoutRef.current) {
+      const parent = layoutRef.current.parentElement
+      if (parent) {
+        parent.scrollTo(0, 0)
+      }
+    }
+  }, [selectedTabId])
+
   return (
-    <section className={css.setupShell}>
+    <section className={css.setupShell} ref={layoutRef}>
       <Layout.Horizontal
         spacing="small"
         className={cx(css.tabsContainer, { [css.tabExecution]: selectedTabId === i18n.executionLabel })}

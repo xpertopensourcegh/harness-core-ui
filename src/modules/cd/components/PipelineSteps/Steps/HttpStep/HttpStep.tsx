@@ -2,13 +2,14 @@ import React from 'react'
 import { SelectOption, IconName, Text, Formik, FormInput, Button, DurationInput } from '@wings-software/uikit'
 import * as Yup from 'yup'
 import { get } from 'lodash-es'
-import { Step, StepViewType } from 'modules/common/exports'
+import type { StepViewType } from 'modules/common/exports'
 import type { HttpStepInfo, StepElement } from 'services/cd-ng'
 import { StepType } from '../../PipelineStepInterface'
 import i18n from './HttpStep.i18n'
+import { PipelineStep } from '../../PipelineStep'
 import stepCss from '../Steps.module.scss'
 
-export interface HttpStepData extends Omit<StepElement, 'spec'> {
+export interface HttpStepData extends StepElement {
   spec: HttpStepInfo
 }
 
@@ -39,7 +40,11 @@ const HttpStepWidget: React.FC<HttpStepWidgetProps> = ({ initialValues, onUpdate
         }}
         initialValues={initialValues}
         validationSchema={Yup.object().shape({
-          name: Yup.string().required(i18n.stepNameRequired)
+          name: Yup.string().required(i18n.stepNameRequired),
+          spec: Yup.object().shape({
+            url: Yup.string().required(i18n.urlRequired),
+            socketTimeoutMillis: Yup.number().required(i18n.timeoutRequired).min(9999, i18n.timeoutMinimum)
+          })
         })}
       >
         {({ submitForm }) => {
@@ -72,7 +77,7 @@ const HttpStepWidget: React.FC<HttpStepWidgetProps> = ({ initialValues, onUpdate
   )
 }
 
-export class HttpStep extends Step<HttpStepData> {
+export class HttpStep extends PipelineStep<HttpStepData> {
   renderStep(
     initialValues: HttpStepData,
     onUpdate?: (data: HttpStepData) => void,
@@ -86,9 +91,10 @@ export class HttpStep extends Step<HttpStepData> {
   protected stepIcon: IconName = 'command-http'
 
   protected defaultValues: HttpStepData = {
+    identifier: '',
     spec: {
       method: httpStepType[0].value as string,
-      socketTimeoutMillis: 60000
+      socketTimeoutMillis: 10000
     }
   }
 }

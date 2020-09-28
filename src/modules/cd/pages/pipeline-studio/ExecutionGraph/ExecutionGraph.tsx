@@ -2,7 +2,6 @@ import React, { useEffect } from 'react'
 // import { cloneDeep } from 'lodash-es'
 import type { NodeModelListener, LinkModelListener } from '@projectstorm/react-diagrams-core'
 import type { BaseModelListener } from '@projectstorm/react-canvas-core'
-import { v4 as uuid } from 'uuid'
 import { Button, Text } from '@wings-software/uikit'
 import { Diagram, useToaster } from 'modules/common/exports'
 import { CanvasButtons } from 'modules/common/components/CanvasButtons/CanvasButtons'
@@ -18,7 +17,8 @@ import {
   getStepsState,
   removeStepOrGroup,
   isLinkUnderStepGroup,
-  getStepFromNode
+  getStepFromNode,
+  generateRandomString
 } from './ExecutionGraphUtil'
 import { EmptyStageName } from '../PipelineConstants'
 import { DrawerTypes } from '../PipelineContext/PipelineActions'
@@ -116,7 +116,7 @@ const ExecutionGraph = (): JSX.Element => {
         {
           stepGroup: {
             name: EmptyStageName,
-            identifier: uuid(),
+            identifier: generateRandomString(EmptyStageName),
             steps: []
           }
         },
@@ -541,7 +541,7 @@ const ExecutionGraph = (): JSX.Element => {
             active: state.isRollback ? Diagram.StepsType.Rollback : Diagram.StepsType.Normal
           }}
         />
-        <CanvasButtons engine={engine} className={css.canvasBtn} />
+        <CanvasButtons engine={engine} />
         <DynamicPopover
           className={css.addStepPopover}
           darkMode={true}

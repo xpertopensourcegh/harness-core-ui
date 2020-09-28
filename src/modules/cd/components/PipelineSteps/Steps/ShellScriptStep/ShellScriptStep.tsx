@@ -1,13 +1,14 @@
 import React from 'react'
 import { IconName, Text, Formik, FormInput, Button } from '@wings-software/uikit'
 import * as Yup from 'yup'
-import { Step, StepViewType } from 'modules/common/exports'
+import type { StepViewType } from 'modules/common/exports'
 import type { ShellScriptStepInfo, StepElement } from 'services/cd-ng'
 import { StepType } from '../../PipelineStepInterface'
 import i18n from './ShellScriptStep.i18n'
+import { PipelineStep } from '../../PipelineStep'
 import stepCss from '../Steps.module.scss'
 
-export interface ShellScriptData extends Omit<StepElement, 'spec'> {
+export interface ShellScriptData extends StepElement {
   spec: ShellScriptStepInfo
 }
 
@@ -45,7 +46,7 @@ const ShellScriptWidget: React.FC<ShellScriptWidgetProps> = ({ initialValues, on
   )
 }
 
-export class ShellScriptStep extends Step<ShellScriptData> {
+export class ShellScriptStep extends PipelineStep<ShellScriptData> {
   renderStep(
     initialValues: ShellScriptData,
     onUpdate?: (data: ShellScriptData) => void,
@@ -59,6 +60,7 @@ export class ShellScriptStep extends Step<ShellScriptData> {
   protected stepIcon: IconName = 'command-shell-script'
 
   protected defaultValues: ShellScriptData = {
+    identifier: '',
     spec: {
       skipDryRun: false,
       timeout: 60000

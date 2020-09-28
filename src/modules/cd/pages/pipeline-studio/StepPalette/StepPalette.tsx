@@ -9,7 +9,7 @@ import type { StepData } from 'modules/common/components/AbstractSteps/AbstractS
 
 import factory from 'modules/cd/components/PipelineSteps/PipelineStepFactory'
 import i18n from './StepPalette.18n'
-import { iconMapByName } from './iconMap'
+import { iconMap, iconMapByName } from './iconMap'
 import { RightBar } from '../RightBar/RightBar'
 import { getConfig } from '../../../../../services/config'
 import css from './StepPalette.module.scss'
@@ -139,9 +139,21 @@ export const StepPalette: React.FC<StepPaletteProps> = ({ onSelect, onClose, sel
                         }
                       }}
                     >
-                      <Card interactive={true} elevation={0} selected={false}>
-                        <Icon name={factory.getStepIcon(stepData.type)} />
-                      </Card>
+                      {factory.getStep(stepData.type) ? (
+                        <Card interactive={true} elevation={0} selected={false}>
+                          <Icon name={factory.getStepIcon(stepData.type)} />
+                        </Card>
+                      ) : (
+                        <Card
+                          interactive={false}
+                          elevation={0}
+                          selected={false}
+                          disabled
+                          onClick={e => e.stopPropagation()}
+                        >
+                          <Icon name={iconMap[stepData.name]} />
+                        </Card>
+                      )}
                       <section className={css.stepName}>{stepData.name}</section>
                     </section>
                   )
@@ -165,9 +177,21 @@ export const StepPalette: React.FC<StepPaletteProps> = ({ onSelect, onClose, sel
                           }
                         }}
                       >
-                        <Card interactive={true} elevation={0} selected={false}>
-                          <Icon name={factory.getStepIcon(step.type)} />
-                        </Card>
+                        {factory.getStep(step.type) ? (
+                          <Card interactive={true} elevation={0} selected={false}>
+                            <Icon name={factory.getStepIcon(step.type)} />
+                          </Card>
+                        ) : (
+                          <Card
+                            interactive={false}
+                            elevation={0}
+                            selected={false}
+                            disabled
+                            onClick={e => e.stopPropagation()}
+                          >
+                            <Icon name={iconMap[step.name]} />
+                          </Card>
+                        )}
                         <section className={css.stepName}>{step.name}</section>
                       </section>
                     )

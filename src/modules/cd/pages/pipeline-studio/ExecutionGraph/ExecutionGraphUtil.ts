@@ -1,5 +1,6 @@
 import type { NodeModelListener, LinkModelListener } from '@projectstorm/react-diagrams-core'
 import type { BaseModelListener, BaseModel } from '@projectstorm/react-canvas-core'
+import { v4 as nameSpace, v5 as uuid, version } from 'uuid'
 import type { ExecutionWrapper, ExecutionElement } from 'services/cd-ng'
 import { Diagram } from 'modules/common/exports'
 import { EmptyNodeSeparator } from '../StageBuilder/StageBuilderUtil'
@@ -18,6 +19,16 @@ export interface Listeners {
   nodeListeners: NodeModelListener
   linkListeners: LinkModelListener
   layerListeners: BaseModelListener
+}
+
+export const generateRandomString = (name: string): string => uuid(name, nameSpace())
+
+export const isCustomGeneratedString = (name: string): boolean => {
+  try {
+    return version(name) === 5
+  } catch (_e) {
+    return false
+  }
 }
 
 export interface StepState {

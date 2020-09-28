@@ -26,7 +26,7 @@ export function StepWidget<T extends object = {}>({
   if (!step) {
     return <Text intent="warning">{i18n.invalidStep}</Text>
   } else {
-    const values = { ...step?.getDefaultValues(), ...initialValues }
+    const values = step?.getDefaultValues(initialValues)
     return <>{step.renderStep(values, onUpdate, stepViewType, template)}</>
   }
 }
