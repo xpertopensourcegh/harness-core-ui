@@ -27,8 +27,7 @@
             "properties": {
               "type": {
                 "const": "K8sCluster"
-              },
-              "additionalProperties": false
+              }
             }
           },
           "then": {
@@ -41,8 +40,7 @@
                     "properties": {
                       "type": {
                         "enum": ["InheritFromDelegate", "ManualConfig"]
-                      },
-                      "additionalProperties": false
+                      }
                     },
                     "allOf": [
                       {
@@ -50,22 +48,20 @@
                           "properties": {
                             "type": {
                               "const": "InheritFromDelegate"
-                            },
-                            "additionalProperties": false
+                            }
                           }
                         },
                         "then": {
                           "properties": {
                             "spec": {
-                              "type": "object",
                               "properties": {
                                 "delegateName": {
                                   "type": "string"
-                                },
-                                "additionalProperties": false
-                              }
-                            },
-                            "additionalProperties": false
+                                }
+                              },
+                              "required": ["delegateName"],
+                              "additionalProperties": false
+                            }
                           }
                         }
                       },
@@ -74,8 +70,7 @@
                           "properties": {
                             "type": {
                               "const": "ManualConfig"
-                            },
-                            "additionalProperties": false
+                            }
                           }
                         },
                         "then": {
@@ -91,17 +86,16 @@
                                   "properties": {
                                     "type": {
                                       "enum": ["UserPassword", "ClientKeyCert", "ServiceAccount", "OpenIdConnect"]
-                                    },
-                                    "additionalProperties": false
+                                    }
                                   },
+
                                   "allOf": [
                                     {
                                       "if": {
                                         "properties": {
                                           "type": {
                                             "const": "UserPassword"
-                                          },
-                                          "additionalProperties": false
+                                          }
                                         }
                                       },
                                       "then": {
@@ -118,8 +112,7 @@
                                               "cacert": {
                                                 "type": "string"
                                               }
-                                            },
-                                            "additionalProperties": false
+                                            }
                                           }
                                         }
                                       }
@@ -129,8 +122,7 @@
                                         "properties": {
                                           "type": {
                                             "const": "ClientKeyCert"
-                                          },
-                                          "additionalProperties": false
+                                          }
                                         }
                                       },
                                       "then": {
@@ -150,8 +142,7 @@
                                               "clientKeyAlgo": {
                                                 "type": "string"
                                               }
-                                            },
-                                            "additionalProperties": false
+                                            }
                                           }
                                         }
                                       }
@@ -161,8 +152,7 @@
                                         "properties": {
                                           "type": {
                                             "const": "ServiceAccount"
-                                          },
-                                          "additionalProperties": false
+                                          }
                                         }
                                       },
                                       "then": {
@@ -173,8 +163,7 @@
                                               "service-acccount-token": {
                                                 "type": "string"
                                               }
-                                            },
-                                            "additionalProperties": false
+                                            }
                                           }
                                         }
                                       }
@@ -184,8 +173,7 @@
                                         "properties": {
                                           "type": {
                                             "const": "OpenIdConnect"
-                                          },
-                                          "additionalProperties": false
+                                          }
                                         }
                                       },
                                       "then": {
@@ -211,8 +199,7 @@
                                               "oidc-scopes": {
                                                 "type": "string"
                                               }
-                                            },
-                                            "additionalProperties": false
+                                            }
                                           }
                                         }
                                       }
@@ -221,8 +208,7 @@
                                 }
                               },
                               "additionalProperties": false
-                            },
-                            "additionalProperties": false
+                            }
                           }
                         }
                       }
@@ -234,10 +220,8 @@
           }
         }
       ],
-      "required": ["name", "identifier", "orgIdentifier", "projectIdentifier", "type"],
+      "required": ["name", "identifier", "type", "spec"],
       "additionalProperties": true
-    },
-    "additionalProperties": false
-  },
-  "additionalProperties": false
+    }
+  }
 }

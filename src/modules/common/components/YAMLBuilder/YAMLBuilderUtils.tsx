@@ -7,7 +7,7 @@ import { parse } from 'yaml'
  * @param delimiter delimiter to be used in node path(s) from parent
  * @returns exactly matching json path in the tree
  */
-const findLeafToParentPath = (jsonObj: Record<string, any>, leafNode: string, delimiter = '.') => {
+const findLeafToParentPath = (jsonObj: Record<string, any>, leafNode: string, delimiter = '.'): string | undefined => {
   let matchingPath: string[] = []
   function findPath(currJSONObj: any, currentDepth: number, previous?: string) {
     Object.keys(currJSONObj).forEach((key: string) => {
@@ -27,7 +27,7 @@ const findLeafToParentPath = (jsonObj: Record<string, any>, leafNode: string, de
     })
   }
   findPath(jsonObj, 1)
-  return matchingPath.length > 0 ? matchingPath[0] : null
+  return matchingPath.length > 0 ? matchingPath.slice(-1).pop() : undefined
 }
 
 /**
@@ -74,7 +74,7 @@ function getJSONFromYAML(yaml: string): Record<string, any> {
 const getMetaDataForKeyboardEventProcessing = (
   editor: any,
   shouldAddPlaceholder: boolean = false
-): { currentProperty: string; yamlInEditor: string; parentToCurrentPropertyPath: string | null } | null => {
+): { currentProperty: string; yamlInEditor: string; parentToCurrentPropertyPath: string | undefined } | undefined => {
   const yamlInEditor = getYAMLFromEditor(editor, shouldAddPlaceholder)
   if (yamlInEditor) {
     const jsonEquivalentOfYAMLInEditor = getJSONFromYAML(yamlInEditor)
@@ -83,7 +83,6 @@ const getMetaDataForKeyboardEventProcessing = (
     const parentToCurrentPropertyPath = findLeafToParentPath(jsonEquivalentOfYAMLInEditor, currentProperty)
     return { currentProperty, yamlInEditor, parentToCurrentPropertyPath }
   }
-  return null
 }
 
 export { findLeafToParentPath, getYAMLFromEditor, getMetaDataForKeyboardEventProcessing }

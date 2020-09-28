@@ -4,7 +4,7 @@ import type { YamlEntity } from '../constants/YamlConstants'
 
 export interface YamlBuilderHandlerBinding {
   getLatestYaml: () => string
-  getYAMLValidationErrorMap: () => Map<string, string>
+  getYAMLValidationErrorMap: () => Map<string, string[]>
 }
 
 export type InvocationMapFunction = (matchingPath: string, currentYaml: string) => Promise<CompletionItemInterface[]>

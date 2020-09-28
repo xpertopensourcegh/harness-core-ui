@@ -34,7 +34,7 @@ describe('YAMLBuilder Utils test', () => {
 
   test('Test findLeafToParentPath method for custom delimiter', async () => {
     const path = findLeafToParentPath(connector as Record<string, any>, 'qualifier', '/')
-    expect(path).toEqual('tags/0/qualifier')
+    expect(path).toEqual('tags/1/qualifier')
   })
 
   test('Test getYAMLFromEditor method, should add placeholder', async () => {

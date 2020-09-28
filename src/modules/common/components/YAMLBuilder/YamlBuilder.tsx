@@ -66,7 +66,7 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
   const [yamlValidationErrors, setYamlValidationErrors] = useState<Map<string, string> | undefined>()
   const editorRef = useRef(null)
   const yamlRef = useRef<string>('')
-  const yamlValidationErrorsRef = useRef<Map<string, string> | undefined>()
+  const yamlValidationErrorsRef = useRef<Map<string, string[]> | undefined>()
   yamlRef.current = currentYaml
   yamlValidationErrorsRef.current = yamlValidationErrors
   const TRIGGER_CHAR_FOR_NEW_EXPR = '$'
@@ -108,8 +108,9 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
   const verifyIncomingJSON = (json: Record<string, any>): void => {
     const sanitizedJSON = omitBy(json, isNull)
     if (sanitizedJSON && Object.keys(sanitizedJSON).length > 0) {
-      const sanitizedYAML = stringify(sanitizedJSON)
-      setCurrentYaml(isRemoveNulls ? sanitizedYAML.replaceAll(': null\n', ': \n') : sanitizedYAML)
+      const yamlEqOfJSON = stringify(sanitizedJSON)
+      const sanitizedYAML = isRemoveNulls ? yamlEqOfJSON.replaceAll(': null\n', ': \n') : yamlEqOfJSON
+      setCurrentYaml(sanitizedYAML)
       verifyYAMLValidity(sanitizedYAML)
     }
   }
@@ -128,23 +129,38 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
   const getYAMLPathToValidationErrorMap = (
     currentYaml: string,
     validationErrors: Diagnostic[]
-  ): Map<string, string> => {
-    const yamlPathToValidationErrorMap = new Map<string, string>()
+  ): Map<string, string[]> | undefined => {
+    const yamlPathToValidationErrorMap = new Map<string, string[]>()
     try {
       if (!validationErrors) {
-        return yamlPathToValidationErrorMap
+        return
       }
       const editor = editorRef?.current?.editor
-      const jsonEquivalentOfYAMLInEditor = getJSONFromYAML(currentYaml)
-      if (Object.keys(jsonEquivalentOfYAMLInEditor).length > 0) {
-        validationErrors.forEach(valError => {
-          const errorLineNum = valError?.range.end?.line + 1
-          const textInCurrentEditorLine = editor.getModel().getLineContent(errorLineNum).trim()
-          const [currentProperty, value] = textInCurrentEditorLine?.split(':').map(item => item.trim())
-          const path = findLeafToParentPath(jsonEquivalentOfYAMLInEditor, currentProperty)
-          yamlPathToValidationErrorMap.set(path, valError.message)
-        })
-      }
+
+      validationErrors.forEach(valError => {
+        const errorLineNum = valError?.range.end?.line + 1
+        const textInCurrentEditorLine = editor.getModel().getLineContent(errorLineNum).trim()
+        const [currentProperty, value] = textInCurrentEditorLine?.split(':').map(item => item.trim())
+        const indexOfOccurence = currentYaml.indexOf(textInCurrentEditorLine)
+        if (indexOfOccurence !== -1) {
+          const partialYAML = currentYaml.substring(0, indexOfOccurence + textInCurrentEditorLine.length)
+          const jsonEqOfYAML = getJSONFromYAML(partialYAML)
+          if (jsonEqOfYAML && Object.keys(jsonEqOfYAML).length > 0) {
+            const path = findLeafToParentPath(jsonEqOfYAML, currentProperty)
+            const existingErrorsOnPath = yamlPathToValidationErrorMap.get(path)
+            if (
+              existingErrorsOnPath !== undefined &&
+              Array.isArray(existingErrorsOnPath) &&
+              existingErrorsOnPath.length > 0
+            ) {
+              existingErrorsOnPath.push(valError.message)
+              yamlPathToValidationErrorMap.set(path, existingErrorsOnPath)
+            } else {
+              yamlPathToValidationErrorMap.set(path, [valError.message])
+            }
+          }
+        }
+      })
     } catch (error) {
       yamlPathToValidationErrorMap.set(DEFAULT_YAML_PATH, error)
     }

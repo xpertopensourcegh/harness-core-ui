@@ -63,7 +63,7 @@ const ConfigureConnector: React.FC<ConfigureConnectorProps> = props => {
   )
   const [status, setStatus] = useState<ConnectorConnectivityDetails['status']>(props.response?.status?.status)
   const [yamlHandler, setYamlHandler] = React.useState<YamlBuilderHandlerBinding | undefined>()
-  const [confirmButtonIsEnabled, setConfirmButtonIsEnabled] = React.useState<boolean>(true)
+  const [isValidYAML] = React.useState<boolean>(true)
 
   const state: ConfigureConnectorState = {
     enableEdit,
@@ -109,9 +109,27 @@ const ConfigureConnector: React.FC<ConfigureConnectorProps> = props => {
     }
   }
 
+  const getValidationErrorMessagesForToaster = (errorMap: Map<string, string[]>): string => {
+    let toasterErrorMssg = ''
+    errorMap.forEach((values: string[], key: string) => {
+      toasterErrorMssg = toasterErrorMssg
+        .concat(`In property ${key}, `)
+        .concat(values.map((value: string) => value.toLowerCase()).join(','))
+        .concat('\n')
+      toasterErrorMssg = toasterErrorMssg.concat('\n')
+    })
+    return toasterErrorMssg
+  }
+
   const handleSaveYaml = (event: React.MouseEvent<Element, MouseEvent>): void => {
     event.preventDefault()
-    const yamlString = yamlHandler?.getLatestYaml() || ''
+    const { getLatestYaml, getYAMLValidationErrorMap } = yamlHandler || {}
+    const errorMap = getYAMLValidationErrorMap?.()
+    if (errorMap && errorMap.size > 0) {
+      showError(getValidationErrorMessagesForToaster(errorMap), 5000)
+      return
+    }
+    const yamlString = getLatestYaml?.() || ''
     try {
       const connectorJSONEq = parse(yamlString)
       if (connectorJSONEq) {
@@ -165,13 +183,14 @@ const ConfigureConnector: React.FC<ConfigureConnectorProps> = props => {
     }
   }, [props.response])
 
-  useEffect(() => {
-    const enableBtn =
-      yamlHandler && yamlHandler.getYAMLValidationErrorMap()
-        ? yamlHandler?.getYAMLValidationErrorMap()?.size === 0
-        : true
-    setConfirmButtonIsEnabled(enableBtn)
-  }, [yamlHandler?.getYAMLValidationErrorMap])
+  //TODO enable it later on
+  // useEffect(() => {
+  //   const enableBtn =
+  //     yamlHandler && yamlHandler.getYAMLValidationErrorMap()
+  //       ? yamlHandler?.getYAMLValidationErrorMap()?.size === 0
+  //       : true
+  //   setIsValidYAML(enableBtn)
+  // }, [enableEdit])
 
   return (
     <div className={css.connectorWrp}>
@@ -180,7 +199,7 @@ const ConfigureConnector: React.FC<ConfigureConnectorProps> = props => {
           className={cx(
             css.item,
             { [css.selected]: selectedView === SelectedView.VISUAL },
-            { [css.disabled]: !confirmButtonIsEnabled }
+            { [css.disabled]: !isValidYAML }
           )}
           onClick={() => handleModeSwitch(SelectedView.VISUAL)}
         >
@@ -216,14 +235,13 @@ const ConfigureConnector: React.FC<ConfigureConnectorProps> = props => {
               />
             ) : (
               <div className={css.editor}>
-                <YamlBuilder {...yamlBuilderReadOnlyModeProps} />
+                <YamlBuilder {...Object.assign(yamlBuilderReadOnlyModeProps, { height: 550 })} />
                 <Button
                   intent="primary"
                   text={i18n.submit}
                   onClick={handleSaveYaml}
                   margin={{ top: 'large' }}
-                  disabled={!confirmButtonIsEnabled}
-                  title={!confirmButtonIsEnabled ? 'YAML is invalid. Please fix the issues to proceed.' : ''}
+                  title={isValidYAML ? '' : i18n.invalidYAML}
                 />
               </div>
             )
