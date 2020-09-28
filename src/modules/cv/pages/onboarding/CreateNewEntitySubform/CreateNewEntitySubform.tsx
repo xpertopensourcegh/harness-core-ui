@@ -3,13 +3,7 @@ import { Formik } from 'formik'
 import { FormInput, SelectWithSubviewContext, Layout, Button, FormikForm, Text } from '@wings-software/uikit'
 import * as Yup from 'yup'
 import { routeParams } from 'framework/exports'
-import {
-  useCreateService,
-  useCreateEnvironment,
-  EnvironmentRequestDTO,
-  ServiceRequestDTO,
-  ErrorDTO
-} from 'services/cd-ng'
+import { useCreateService, useCreateEnvironment, EnvironmentRequestDTO, ServiceRequestDTO, Error } from 'services/cd-ng'
 import i18n from './CreateNewEntitySeubform.i18n'
 
 const serviceSchema = Yup.object().shape({
@@ -60,7 +54,7 @@ export default function CreateNewEntitySubform({ entityType }: { entityType: 'se
         })
       }
     } catch (errorResponse) {
-      setError((errorResponse as ErrorDTO).message)
+      setError((errorResponse as Error).message)
     }
   }
 

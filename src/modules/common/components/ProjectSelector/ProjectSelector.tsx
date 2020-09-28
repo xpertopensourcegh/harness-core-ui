@@ -28,7 +28,7 @@ export const ProjectSelector: React.FC<ProjectSelectorProps> = ({ module, onSele
     queryParams: {
       accountIdentifier: accountId,
       moduleType: module,
-      size: PAGE_SIZE
+      pageSize: PAGE_SIZE
     }
   })
   const [currentProjectIdentifier, setCurrentProjectIdentifier] = useState(projectIdentifier)
@@ -60,11 +60,15 @@ export const ProjectSelector: React.FC<ProjectSelectorProps> = ({ module, onSele
 
   React.useEffect(() => {
     if (projectIdentifier) {
-      setSelectedProject(projectSelectOptions.find(project => project.identifier === projectIdentifier))
+      const selected = projectSelectOptions.find(project => project.identifier === projectIdentifier)
+      if (selected) setSelectedProject(selected)
+      else {
+        refetch()
+      }
     } else {
       setSelectedProject(undefined)
     }
-  }, [projectSelectOptions, projectIdentifier])
+  }, [projectSelectOptions, projectIdentifier, refetch])
 
   useEffect(() => {
     if (isMounted.current && currentProjectIdentifier !== projectIdentifier) {
@@ -82,8 +86,8 @@ export const ProjectSelector: React.FC<ProjectSelectorProps> = ({ module, onSele
         placeholder: i18n.selectProject
       }}
       onChange={item => {
-        setSelectedProject(item)
-        onSelect(item as Project)
+        setSelectedProject(item as ProjectListOptions)
+        onSelect(item as ProjectListOptions)
       }}
     />
   )

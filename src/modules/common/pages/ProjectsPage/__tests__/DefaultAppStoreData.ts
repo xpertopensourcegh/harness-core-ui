@@ -98,7 +98,7 @@ export const defaultAppStoreValues: AppStore = {
       'testOrg',
       {
         accountIdentifier: 'testAcc',
-        Identifier: 'testOrg',
+        identifier: 'testOrg',
         name: 'Org Name'
       }
     ]

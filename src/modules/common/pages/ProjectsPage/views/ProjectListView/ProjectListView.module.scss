@@ -13,6 +13,10 @@
   justify-content: flex-end;
 }
 
+.verticalCenter {
+  justify-content: center;
+}
+
 .pageContainer {
   background: var(--grey-100) !important;
   height: calc(100vh - 128px);

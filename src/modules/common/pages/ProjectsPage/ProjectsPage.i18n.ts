@@ -35,7 +35,8 @@ export default {
       errorColor: 'required',
       errorName: 'Name is required',
       errorIdentifier: 'Identifier is required',
-      errorOrganisation: 'Organisation is required'
+      errorOrganisation: 'Organisation is required',
+      default: 'default'
     },
     purposeList: {
       name: 'Which Harness module would you like to start with?',

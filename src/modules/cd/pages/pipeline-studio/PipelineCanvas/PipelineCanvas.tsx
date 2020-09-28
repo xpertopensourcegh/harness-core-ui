@@ -5,7 +5,7 @@ import { Button, Icon, Text, useModalHook, Tag } from '@wings-software/uikit'
 import { useHistory, useRouteMatch, useParams, NavLink } from 'react-router-dom'
 import { parse } from 'yaml'
 import { NavigationCheck, useToaster, useConfirmationDialog } from 'modules/common/exports'
-import type { CDPipeline, FailureDTO } from 'services/cd-ng'
+import type { CDPipeline, Failure } from 'services/cd-ng'
 import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
 import { routeCDPipelineStudio, routeCDPipelineStudioUI, routeCDPipelineStudioYaml } from 'modules/cd/routes'
 import { PipelineContext, savePipeline } from '../PipelineContext/PipelineContext'
@@ -55,7 +55,7 @@ export const PipelineCanvas: React.FC = ({ children }): JSX.Element => {
   const isYaml = history.location.pathname.endsWith('/yaml/')
 
   const saveAndPublish = React.useCallback(async () => {
-    let response: FailureDTO | undefined
+    let response: Failure | undefined
     let latestPipeline: CDPipeline = pipeline
     if (isYaml && yamlHandler) {
       latestPipeline = parse(yamlHandler.getLatestYaml()).pipeline as CDPipeline

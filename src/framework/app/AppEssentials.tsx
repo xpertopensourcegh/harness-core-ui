@@ -4,13 +4,13 @@ import { useIsMounted } from '@wings-software/uikit'
 import type { GetDataError } from 'restful-react'
 import { AUTH_ROUTE_PATH_PREFIX } from 'framework/utils/framework-utils'
 import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
-import { useGetProjectList, FailureDTO, ErrorDTO, useGetOrganizationList, Organization } from 'services/cd-ng'
+import { useGetProjectList, Failure, Error, useGetOrganizationList, Organization } from 'services/cd-ng'
 import { useGetUser } from 'services/portal'
 import type { AppStore } from 'framework/types/AppStore'
 
 export interface FetchingAppEssentialsProps {
   onSuccess: (data: Partial<Pick<AppStore, 'projects' | 'organisationsMap' | 'user'>>) => void
-  onError: (error: GetDataError<FailureDTO | ErrorDTO | unknown>) => void
+  onError: (error: GetDataError<Failure | Error | unknown>) => void
 }
 
 export const AppEssentials: React.FC<FetchingAppEssentialsProps> = ({ onSuccess, onError }) => {

@@ -1,7 +1,7 @@
 import React from 'react'
 import { MemoryRouter } from 'react-router'
 import { render } from '@testing-library/react'
-import type { ResponseDTOConnectorValidationResult } from 'services/cd-ng'
+import type { ResponseConnectorValidationResult } from 'services/cd-ng'
 import type { RestResponseDelegateStatus } from 'services/portal'
 import VerifyExistingDelegate from '../VerifyExistingDelegate'
 import statusData from '../../VerifyOutOfClusterDelegate/__tests__/mockData/delegate-status-response.json'
@@ -20,7 +20,7 @@ describe('Verification step for existing delegate', () => {
             loading: false
           }}
           testConnectionMockData={{
-            data: testConnectionSuccess as ResponseDTOConnectorValidationResult,
+            data: testConnectionSuccess as ResponseConnectorValidationResult,
             loading: false
           }}
           type="K8sCluster"
@@ -45,7 +45,7 @@ describe('Verification step for existing delegate', () => {
             loading: false
           }}
           testConnectionMockData={{
-            data: testConnectionSuccess as ResponseDTOConnectorValidationResult,
+            data: testConnectionSuccess as ResponseConnectorValidationResult,
             loading: false
           }}
           type="K8sCluster"

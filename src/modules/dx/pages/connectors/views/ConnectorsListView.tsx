@@ -7,9 +7,9 @@ import ReactTimeago from 'react-timeago'
 import {
   ConnectorResponse,
   useDeleteConnector,
-  NGPageResponseConnectorResponse,
+  PageConnectorResponse,
   useGetTestConnectionResult,
-  ResponseDTOConnectorValidationResult,
+  ResponseConnectorValidationResult,
   ConnectorConnectivityDetails
 } from 'services/cd-ng'
 import Table from 'modules/common/components/Table/Table'
@@ -26,7 +26,7 @@ import i18n from './ConnectorsListView.i18n'
 import css from './ConnectorsListView.module.scss'
 
 interface ConnectorListViewProps {
-  data?: NGPageResponseConnectorResponse
+  data?: PageConnectorResponse
   reload?: () => Promise<void>
   gotoPage: (pageNumber: number) => void
 }
@@ -126,7 +126,7 @@ const RenderColumnStatus: Renderer<CellProps<ConnectorResponse>> = ({ row }) => 
 
   const executeStepVerify = async (): Promise<void> => {
     if (stepDetails.step === StepIndex.get(STEP.ESTABLISH_CONNECTION)) {
-      let testConnectionResponse: ResponseDTOConnectorValidationResult
+      let testConnectionResponse: ResponseConnectorValidationResult
       if (stepDetails.status === 'PROCESS') {
         try {
           testConnectionResponse = await reloadTestConnection()
@@ -416,9 +416,9 @@ const ConnectorsListView: React.FC<ConnectorListViewProps> = props => {
         history.push(`${pathname}/${connector.connector?.identifier}`)
       }}
       pagination={{
-        itemCount: data?.itemCount || 0,
+        itemCount: data?.totalItems || 0,
         pageSize: data?.pageSize || 10,
-        pageCount: data?.pageCount || -1,
+        pageCount: data?.totalPages || -1,
         pageIndex: data?.pageIndex || 0,
         gotoPage
       }}

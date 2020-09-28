@@ -4,6 +4,7 @@ declare const styles: {
   readonly table: string
   readonly colorbox: string
   readonly layout: string
+  readonly verticalCenter: string
   readonly pageContainer: string
   readonly project: string
   readonly org: string

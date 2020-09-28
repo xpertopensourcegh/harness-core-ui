@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { render, queryByText } from '@testing-library/react'
-import type { Project, ResponseDTONGPageResponseOrganization } from 'services/cd-ng'
+import type { Project, ResponsePageOrganization } from 'services/cd-ng'
 import { TestWrapper, UseGetMockData } from 'modules/common/utils/testUtils'
 import AboutProject from '../AboutProject'
 import orgmockData from './OrgMockData.json'
@@ -23,7 +23,7 @@ describe('About Project test', () => {
   test('create project ', async () => {
     const { container } = render(
       <TestWrapper path="/account/:accountId" pathParams={{ accountId: 'testAcc' }}>
-        <AboutProject data={{}} orgmockData={orgmockData as UseGetMockData<ResponseDTONGPageResponseOrganization>} />
+        <AboutProject data={undefined} orgmockData={orgmockData as UseGetMockData<ResponsePageOrganization>} />
       </TestWrapper>
     )
     expect(queryByText(container, i18n.newProjectWizard.aboutProject.name)).toBeDefined()
@@ -32,10 +32,7 @@ describe('About Project test', () => {
     test('edit project ', async () => {
       const { container } = render(
         <TestWrapper path="/account/:accountId" pathParams={{ accountId: 'testAcc' }}>
-          <AboutProject
-            data={project}
-            orgmockData={orgmockData as UseGetMockData<ResponseDTONGPageResponseOrganization>}
-          />
+          <AboutProject data={project} orgmockData={orgmockData as UseGetMockData<ResponsePageOrganization>} />
         </TestWrapper>
       )
       expect(queryByText(container, i18n.newProjectWizard.aboutProject.edit)).toBeDefined()

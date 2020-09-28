@@ -6,7 +6,7 @@ import {
   useGetAnomalousMetricData,
   TimeSeriesMetricDataDTO,
   useGetMetricData,
-  RestResponseNGPageResponseTimeSeriesMetricDataDTO,
+  RestResponsePageTimeSeriesMetricDataDTO,
   MetricData
 } from 'services/cv'
 import { NoDataCard } from 'modules/common/components/Page/NoDataCard'
@@ -28,10 +28,10 @@ interface MetricAnalysisViewProps {
 }
 
 function generatePointsForTimeSeries(
-  data: RestResponseNGPageResponseTimeSeriesMetricDataDTO,
+  data: RestResponsePageTimeSeriesMetricDataDTO,
   startTime: number,
   endTime: number
-): RestResponseNGPageResponseTimeSeriesMetricDataDTO {
+): RestResponsePageTimeSeriesMetricDataDTO {
   if (!data?.resource?.content?.length) {
     return data
   }

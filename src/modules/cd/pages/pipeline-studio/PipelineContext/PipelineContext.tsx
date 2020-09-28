@@ -8,8 +8,8 @@ import {
   getPipelinePromise,
   putPipelinePromise,
   PutPipelineQueryParams,
-  ResponseDTOCDPipelineResponseDTO,
-  FailureDTO,
+  ResponseCDPipelineResponseDTO,
+  Failure,
   postPipelinePromise
 } from 'services/cd-ng'
 import { ModuleName, loggerFor } from 'framework/exports'
@@ -44,7 +44,7 @@ export const getPipelineByIdentifier = (
       }
     }
   }).then(response => {
-    let obj = {} as ResponseDTOCDPipelineResponseDTO
+    let obj = {} as ResponseCDPipelineResponseDTO
     if (typeof response === 'string') {
       obj = parse(response as string).data.yamlPipeline
     } else if (response.data?.yamlPipeline) {
@@ -60,7 +60,7 @@ export const savePipeline = (
   params: PutPipelineQueryParams,
   pipeline: CDPipeline,
   isEdit = false
-): Promise<FailureDTO | undefined> => {
+): Promise<Failure | undefined> => {
   return isEdit
     ? putPipelinePromise({
         pipelineIdentifier: pipeline.identifier,
@@ -69,11 +69,11 @@ export const savePipeline = (
           projectIdentifier: params.projectIdentifier,
           orgIdentifier: params.orgIdentifier
         },
-        body: stringify({ pipeline }),
+        body: stringify({ pipeline }) as any,
         requestOptions: { headers: { 'Content-Type': 'text/yaml' } }
       }).then(response => {
         if (typeof response === 'string') {
-          return JSON.parse(response as string) as FailureDTO
+          return JSON.parse(response as string) as Failure
         } else {
           return response
         }
@@ -88,9 +88,9 @@ export const savePipeline = (
         requestOptions: { headers: { 'Content-Type': 'text/yaml' } }
       }).then((response: unknown) => {
         if (typeof response === 'string') {
-          return JSON.parse((response as unknown) as string) as FailureDTO
+          return JSON.parse((response as unknown) as string) as Failure
         } else {
-          return (response as unknown) as FailureDTO
+          return (response as unknown) as Failure
         }
       })
 }

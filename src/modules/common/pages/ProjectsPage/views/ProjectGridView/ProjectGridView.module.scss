@@ -1,7 +1,8 @@
 .centerContainer {
   margin: 0 auto !important;
   overflow: scroll;
-  height: inherit !important;
+  position: relative;
+  height: calc(100%) !important;
 }
 
 .pageContainer {

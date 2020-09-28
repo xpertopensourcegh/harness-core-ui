@@ -7,7 +7,7 @@ import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
 import {
   GitSyncEntityListDTO,
   GitSyncEntityDTO,
-  NGPageResponseGitSyncEntityListDTO,
+  PageGitSyncEntityListDTO,
   useListGitSyncEntitiesByType,
   GitSyncProductDTO
 } from 'services/cd-ng'
@@ -23,7 +23,7 @@ interface EntitiesListingProps {
 }
 
 interface EntityListViewProps {
-  data: NGPageResponseGitSyncEntityListDTO | undefined
+  data: PageGitSyncEntityListDTO | undefined
   gotoPage: (pageNumber: number) => void
   refetch: Function
 }
@@ -44,9 +44,9 @@ const EntityListView: React.FC<EntityListViewProps> = props => {
         data={data?.gitSyncEntities || []}
         sortable={true}
         pagination={{
-          itemCount: props.data?.itemCount || 0,
+          itemCount: props.data?.totalItems || 0,
           pageSize: props.data?.pageSize || 10,
-          pageCount: props.data?.pageCount || -1,
+          pageCount: props.data?.totalPages || -1,
           pageIndex: props.data?.pageIndex || 0,
           gotoPage: props.gotoPage
         }}

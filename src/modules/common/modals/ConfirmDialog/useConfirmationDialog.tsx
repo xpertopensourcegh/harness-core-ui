@@ -42,7 +42,6 @@ const confirmDialogProps: IDialogProps = {
 
 export const useConfirmationDialog = (props: UseConfirmationDialogProps): UseConfirmationDialogReturn => {
   const { titleText, contentText, cancelButtonText, intent = Intent.NONE, confirmButtonText, onCloseDialog } = props
-
   const [showModal, hideModal] = useModalHook(() => {
     return (
       <Dialog title={titleText} icon={getIconForIntent(intent)} onClose={() => onClose(false)} {...confirmDialogProps}>

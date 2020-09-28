@@ -4,7 +4,7 @@ import { Text, Layout, Color, Icon, Button, Popover } from '@wings-software/uiki
 import type { CellProps, Renderer, Column } from 'react-table'
 import { Classes, Position } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
-import { Project, useGetProjectList, ResponseDTONGPageResponseProject } from 'services/cd-ng'
+import { Project, useGetProjectList, ResponsePageProject } from 'services/cd-ng'
 import Table from 'modules/common/components/Table/Table'
 
 import TagsPopover from 'modules/common/components/TagsPopover/TagsPopover'
@@ -16,7 +16,7 @@ import ContextMenu from '../Menu/ContextMenu'
 import css from './ProjectListView.module.scss'
 
 interface ProjectListViewProps {
-  mockData?: UseGetMockData<ResponseDTONGPageResponseProject>
+  mockData?: UseGetMockData<ResponsePageProject>
   showEditProject?: (project: Project) => void
   collaborators?: (project: Project) => void
   searchParameter?: string
@@ -39,16 +39,18 @@ const RenderColumnProject: Renderer<CellProps<Project>> = ({ row }) => {
   return (
     <Layout.Horizontal spacing="small">
       <div className={css.colorbox} style={{ backgroundColor: `${data.color}` }} />
-      <Layout.Vertical padding={{ left: 'small' }}>
+      <Layout.Vertical padding={{ left: 'small' }} className={css.verticalCenter}>
         <Layout.Horizontal spacing="small">
           <Text color={Color.BLACK} lineClamp={1} className={css.project}>
             {data.name}
           </Text>
           {data.tags?.length ? <TagsPopover tags={data.tags} /> : null}
         </Layout.Horizontal>
-        <Text color={Color.GREY_400} lineClamp={1} className={css.project}>
-          {data.description}
-        </Text>
+        {data.description ? (
+          <Text color={Color.GREY_400} lineClamp={1} className={css.project}>
+            {data.description}
+          </Text>
+        ) : null}
       </Layout.Vertical>
     </Layout.Horizontal>
   )
@@ -113,6 +115,7 @@ const RenderColumnMenu: Renderer<CellProps<Project>> = ({ row, column }) => {
           reloadProjects={(column as any).refetchProjects}
           editProject={(column as any).editProject}
           collaborators={(column as any).collaborators}
+          setMenuOpen={setMenuOpen}
         />
       </Popover>
     </Layout.Horizontal>
@@ -142,8 +145,8 @@ const ProjectListView: React.FC<ProjectListViewProps> = props => {
       moduleType: module,
       searchTerm: searchParameter,
       hasModule: deselectModule ? false : true,
-      page: page,
-      size: 10
+      pageIndex: page,
+      pageSize: 10
     },
     mock: mockData,
     debounce: 300
@@ -235,9 +238,9 @@ const ProjectListView: React.FC<ProjectListViewProps> = props => {
         data={data?.data?.content || []}
         onRowClick={onRowClick}
         pagination={{
-          itemCount: data?.data?.itemCount || 0,
+          itemCount: data?.data?.totalItems || 0,
           pageSize: data?.data?.pageSize || 10,
-          pageCount: data?.data?.pageCount || 0,
+          pageCount: data?.data?.totalPages || 0,
           pageIndex: data?.data?.pageIndex || 0,
           gotoPage: (pageNumber: number) => setPage(pageNumber)
         }}

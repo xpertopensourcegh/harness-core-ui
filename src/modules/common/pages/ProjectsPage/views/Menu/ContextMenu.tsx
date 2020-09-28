@@ -15,6 +15,7 @@ interface ContextMenuProps {
   reloadProjects?: () => Promise<unknown>
   editProject?: (project: Project) => void
   collaborators?: (project: Project) => void
+  setMenuOpen?: (value: React.SetStateAction<boolean>) => void
 }
 
 const ContextMenu: React.FC<ContextMenuProps> = props => {
@@ -58,7 +59,6 @@ const ContextMenu: React.FC<ContextMenuProps> = props => {
 
   const handleDelete = (event: React.MouseEvent<HTMLElement, MouseEvent>): void => {
     event.stopPropagation()
-    if (!project?.identifier) return
     openDialog()
   }
 

@@ -1459,7 +1459,7 @@
           "200": {
             "description": "successful operation",
             "schema": {
-              "$ref": "#/definitions/RestResponseNGPageResponseAnalyzedLogDataDTO"
+              "$ref": "#/definitions/RestResponsePageAnalyzedLogDataDTO"
             },
             "headers": {}
           }
@@ -1543,7 +1543,7 @@
           "200": {
             "description": "successful operation",
             "schema": {
-              "$ref": "#/definitions/RestResponseNGPageResponseAnalyzedLogDataDTO"
+              "$ref": "#/definitions/RestResponsePageAnalyzedLogDataDTO"
             },
             "headers": {}
           }
@@ -2297,7 +2297,7 @@
           "200": {
             "description": "successful operation",
             "schema": {
-              "$ref": "#/definitions/RestResponseNGPageResponseTimeSeriesMetricDataDTO"
+              "$ref": "#/definitions/RestResponsePageTimeSeriesMetricDataDTO"
             },
             "headers": {}
           }
@@ -2381,7 +2381,7 @@
           "200": {
             "description": "successful operation",
             "schema": {
-              "$ref": "#/definitions/RestResponseNGPageResponseTimeSeriesMetricDataDTO"
+              "$ref": "#/definitions/RestResponsePageTimeSeriesMetricDataDTO"
             },
             "headers": {}
           }
@@ -2996,14 +2996,14 @@
       "type": "object",
       "properties": {
         "pageResponse": {
-          "$ref": "#/definitions/NGPageResponseTransactionMetricInfo"
+          "$ref": "#/definitions/PageTransactionMetricInfo"
         },
         "deploymentTimeRange": {
           "$ref": "#/definitions/TimeRange"
         }
       }
     },
-    "RestResponseNGPageResponseAnalyzedLogDataDTO": {
+    "RestResponsePageAnalyzedLogDataDTO": {
       "type": "object",
       "properties": {
         "metaData": {
@@ -3013,7 +3013,7 @@
           }
         },
         "resource": {
-          "$ref": "#/definitions/NGPageResponseAnalyzedLogDataDTO"
+          "$ref": "#/definitions/PageAnalyzedLogDataDTO"
         },
         "responseMessages": {
           "type": "array",
@@ -3652,7 +3652,7 @@
         }
       }
     },
-    "NGPageResponseTransactionMetricInfo": {
+    "PageTransactionMetricInfo": {
       "type": "object",
       "properties": {
         "pageCount": {
@@ -5135,7 +5135,7 @@
         }
       }
     },
-    "RestResponseNGPageResponseTimeSeriesMetricDataDTO": {
+    "RestResponsePageTimeSeriesMetricDataDTO": {
       "type": "object",
       "properties": {
         "metaData": {
@@ -5145,7 +5145,7 @@
           }
         },
         "resource": {
-          "$ref": "#/definitions/NGPageResponseTimeSeriesMetricDataDTO"
+          "$ref": "#/definitions/PageTimeSeriesMetricDataDTO"
         },
         "responseMessages": {
           "type": "array",
@@ -5380,7 +5380,7 @@
         }
       }
     },
-    "NGPageResponseTimeSeriesMetricDataDTO": {
+    "PageTimeSeriesMetricDataDTO": {
       "type": "object",
       "properties": {
         "pageCount": {
@@ -5686,7 +5686,7 @@
         }
       }
     },
-    "NGPageResponseAnalyzedLogDataDTO": {
+    "PageAnalyzedLogDataDTO": {
       "type": "object",
       "properties": {
         "pageCount": {

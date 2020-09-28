@@ -78,7 +78,7 @@ export const ModuleLandingView: React.FC<ModuleLandingViewProps> = ({
         <Page.Body filled className={collapse ? undefined : css.add}>
           <Container
             style={{ borderTop: '1px solid var(--grey-300)', maxWidth: 900, margin: '0 auto' }}
-            padding={{ bottom: 'xxlarge' }}
+            padding={{ bottom: 'small' }}
           >
             <Layout.Vertical flex={{ align: 'center-center' }}>
               <Button

@@ -1,9 +1,9 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { Color, Layout, Icon, Text } from '@wings-software/uikit'
 import { routeCDDashboard } from 'modules/cd/routes'
 import { routeCVMainDashBoardPage } from 'modules/cv/routes'
-import type { Project } from 'services/cd-ng'
+import { Project, usePutProject } from 'services/cd-ng'
 import i18n from './ModuleRenderer.i18n'
 import css from './ModuleRenderer.module.scss'
 
@@ -14,6 +14,35 @@ interface DefaultProps {
 
 const DefaultRenderer: React.FC<DefaultProps> = props => {
   const { data, isPreview } = props
+  const { accountId } = useParams()
+  const { mutate: updateProject } = usePutProject({
+    identifier: '',
+    queryParams: {
+      accountIdentifier: accountId,
+      orgIdentifier: ''
+    }
+  })
+
+  const onSelect = async (module: Required<Project>['modules'][number]): Promise<boolean> => {
+    const dataToSubmit: Project = {
+      ...data,
+      modules: [module]
+    }
+    try {
+      await updateProject(dataToSubmit, {
+        pathParams: {
+          identifier: data.identifier
+        },
+        queryParams: {
+          accountIdentifier: accountId,
+          orgIdentifier: data.orgIdentifier
+        }
+      })
+      return true
+    } catch (e) {
+      return false
+    }
+  }
   return (
     <Layout.Vertical
       padding={{ top: 'medium', left: 'xlarge', right: 'xlarge', bottom: 'large' }}
@@ -36,7 +65,13 @@ const DefaultRenderer: React.FC<DefaultProps> = props => {
               projectIdentifier: data.identifier || ''
             })}
           >
-            <Icon name="cd-hover" size={20} />
+            <Icon
+              name="cd-hover"
+              size={20}
+              onClick={() => {
+                onSelect('CD')
+              }}
+            />
           </Link>
           <Link
             to={routeCVMainDashBoardPage.url({
@@ -44,7 +79,13 @@ const DefaultRenderer: React.FC<DefaultProps> = props => {
               orgIdentifier: data.orgIdentifier || ''
             })}
           >
-            <Icon name="nav-cv-hover" size={20} />
+            <Icon
+              name="nav-cv-hover"
+              size={20}
+              onClick={() => {
+                onSelect('CV')
+              }}
+            />
           </Link>
           <Icon name="ce-hover" size={20} />
         </Layout.Horizontal>

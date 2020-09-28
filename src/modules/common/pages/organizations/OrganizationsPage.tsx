@@ -55,7 +55,7 @@ const OrganizationsPage: React.FC = () => {
               onClick={() => history.push(routeOrgProjects.url({ orgIdentifier: org.identifier as string }))}
             />
           )}
-          keyOf={(org: Organization) => org.identifier}
+          keyOf={(org: Organization) => org?.identifier as string}
         />
       </Page.Body>
     </>

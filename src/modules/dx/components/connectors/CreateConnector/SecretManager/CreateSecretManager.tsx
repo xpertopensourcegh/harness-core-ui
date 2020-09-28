@@ -47,9 +47,7 @@ const CreateSecretManager: React.FC<CreateSecretManagerProps> = ({
               connector: {
                 orgIdentifier,
                 projectIdentifier,
-                name: data.detailsData?.name || '',
-                identifier: data.detailsData?.identifier || '',
-                ...pick(data, ['description', 'tags']),
+                ...(pick(data, ['name', 'identifier', 'description', 'tags']) as ConnectorInfoDTO),
                 type: data.connectData?.encryptionType as ConnectorInfoDTO['type'],
                 spec: {
                   ...pick(data.connectData, ['authToken', 'basePath', 'vaultUrl', 'readOnly', 'default']),

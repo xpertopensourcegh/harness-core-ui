@@ -2,7 +2,7 @@ import React from 'react'
 import { FormGroup, IFormGroupProps } from '@blueprintjs/core'
 import { Layout, Icon, Color, Button, Tag, Text } from '@wings-software/uikit'
 import {
-  FailureDTO,
+  Failure,
   ConnectorInfoDTO,
   getConnectorListPromise,
   ConnectorConfigDTO,
@@ -112,7 +112,7 @@ export function getReferenceFieldProps({
             done([])
           }
         })
-        .catch((err: FailureDTO) => {
+        .catch((err: Failure) => {
           throw err.message
         })
     },

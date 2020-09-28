@@ -6,7 +6,7 @@ import {
   RestResponseDelegateStatus,
   DelegateInner
 } from 'services/portal'
-import { useGetTestConnectionResult, ResponseDTOConnectorValidationResult } from 'services/cd-ng'
+import { useGetTestConnectionResult, ResponseConnectorValidationResult } from 'services/cd-ng'
 import type { StepDetails } from 'modules/dx/interfaces/ConnectorInterface'
 import i18n from './VerifyInstallDelegate.i18n'
 import css from './VerifyInstallDelegate.module.scss'
@@ -80,7 +80,7 @@ const VerifyInstalledDelegate = (props: VerifyInstalledDelegateProps) => {
     })?.length
   }
 
-  let testConnectionResponse: ResponseDTOConnectorValidationResult
+  let testConnectionResponse: ResponseConnectorValidationResult
   const executeEstablishConnection = async (): Promise<void> => {
     if (stepDetails.step === StepIndex.get(STEP.ESTABLISH_CONNECTION)) {
       if (stepDetails.status === 'PROCESS') {

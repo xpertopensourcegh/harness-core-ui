@@ -1,7 +1,7 @@
 import React from 'react'
 import { MemoryRouter } from 'react-router'
 import { render } from '@testing-library/react'
-import type { ResponseDTOConnectorValidationResult } from 'services/cd-ng'
+import type { ResponseConnectorValidationResult } from 'services/cd-ng'
 import type { RestResponseDelegateStatus } from 'services/portal'
 import VerifyOutOfClusterDelegate from '../VerifyOutOfClusterDelegate'
 import statusData from './mockData/delegate-status-response.json'
@@ -18,7 +18,7 @@ describe('Verification step for out of cluster delegate', () => {
             loading: false
           }}
           testConnectionMockData={{
-            data: testConnectionSuccess as ResponseDTOConnectorValidationResult,
+            data: testConnectionSuccess as ResponseConnectorValidationResult,
             loading: false
           }}
         />
@@ -38,7 +38,7 @@ describe('Verification step for out of cluster delegate', () => {
             loading: false
           }}
           testConnectionMockData={{
-            data: testConnectionSuccess as ResponseDTOConnectorValidationResult,
+            data: testConnectionSuccess as ResponseConnectorValidationResult,
             loading: false
           }}
         />

@@ -5,7 +5,7 @@ import cx from 'classnames'
 import { Layout, Text, StepsProgress, Intent, Button, Color } from '@wings-software/uikit'
 import {
   useGetTestConnectionResult,
-  ResponseDTOConnectorValidationResult,
+  ResponseConnectorValidationResult,
   ConnectorConnectivityDetails
 } from 'services/cd-ng'
 import { useGetDelegatesStatus, RestResponseDelegateStatus, DelegateInner } from 'services/portal'
@@ -19,7 +19,7 @@ import css from './VerifyExistingDelegate.module.scss'
 
 interface VerifyExistingDelegateProps {
   delegateStatusMockData?: UseGetMockData<RestResponseDelegateStatus>
-  testConnectionMockData?: UseGetMockData<ResponseDTOConnectorValidationResult>
+  testConnectionMockData?: UseGetMockData<ResponseConnectorValidationResult>
   name?: string
   connectorName?: string
   connectorIdentifier?: string
@@ -113,7 +113,7 @@ const VerifyExistingDelegate = (props: VerifyExistingDelegateProps) => {
     }
   }
 
-  let testConnectionResponse: ResponseDTOConnectorValidationResult
+  let testConnectionResponse: ResponseConnectorValidationResult
   const executeEstablishConnection = async (): Promise<void> => {
     if (stepDetails.step === StepIndex.get(STEP.ESTABLISH_CONNECTION)) {
       if (stepDetails.status === 'PROCESS') {

@@ -9,7 +9,7 @@ import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
 import {
   CDInputSet,
   CDPipeline,
-  FailureDTO,
+  Failure,
   getInputSetForPipelinePromise,
   useCreateInputSetForPipeline,
   // useGetMergeInputSetFromPipelineTemplate,
@@ -162,10 +162,10 @@ export const RunPipelineForm: React.FC<RunPipelineFormProps> = ({ pipelineIdenti
 
   if (errorPipeline || errorTemplate || createInputSetError) {
     showError(
-      (errorTemplate as FailureDTO)?.message ||
-        (errorPipeline as FailureDTO)?.message ||
-        // (errorMergeInputSet as FailureDTO)?.message ||
-        (createInputSetError as FailureDTO)?.message ||
+      (errorTemplate as Failure)?.message ||
+        (errorPipeline as Failure)?.message ||
+        // (errorMergeInputSet as Failure)?.message ||
+        (createInputSetError as Failure)?.message ||
         i18n.commonError
     )
   }

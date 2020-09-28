@@ -22,7 +22,7 @@ import { FieldArray, FieldArrayRenderProps } from 'formik'
 import { CompletionItemKind } from 'vscode-languageserver-types'
 import {
   CDPipeline,
-  FailureDTO,
+  Failure,
   OverlayInputSet,
   useCreateInputSetForPipeline,
   useGetInputSetForPipeline,
@@ -433,15 +433,15 @@ export const InputSetForm: React.FC<InputSetFormProps> = ({ hideForm, identifier
 
   if (errorInputSet || errorPipeline || errorTemplate || createInputSetError || updateInputSetError) {
     showError(
-      (errorInputSet as FailureDTO)?.message ||
-        (errorPipeline as FailureDTO)?.message ||
-        (errorTemplate as FailureDTO)?.message ||
-        (createInputSetError as FailureDTO)?.message ||
-        (updateInputSetError as FailureDTO)?.message ||
-        (createOverlayInputSetError as FailureDTO)?.message ||
-        (updateOverlayInputSetError as FailureDTO)?.message ||
-        (errorOverlayInputSet as FailureDTO)?.message ||
-        (errorInputSetList as FailureDTO)?.message ||
+      (errorInputSet as Failure)?.message ||
+        (errorPipeline as Failure)?.message ||
+        (errorTemplate as Failure)?.message ||
+        (createInputSetError as Failure)?.message ||
+        (updateInputSetError as Failure)?.message ||
+        (createOverlayInputSetError as Failure)?.message ||
+        (updateOverlayInputSetError as Failure)?.message ||
+        (errorOverlayInputSet as Failure)?.message ||
+        (errorInputSetList as Failure)?.message ||
         i18n.commonError
     )
   }

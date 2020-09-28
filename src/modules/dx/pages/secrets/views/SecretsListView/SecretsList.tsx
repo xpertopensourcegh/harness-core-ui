@@ -9,7 +9,7 @@ import Table from 'modules/common/components/Table/Table'
 import { routeSecretDetails } from 'modules/dx/routes'
 import { useToaster, useConfirmationDialog } from 'modules/common/exports'
 import { SecretResponseWrapper, useDeleteSecretV2 } from 'services/cd-ng'
-import type { NGPageResponseSecretResponseWrapper, SecretDTOV2, SecretTextSpecDTO } from 'services/cd-ng'
+import type { PageSecretResponseWrapper, SecretDTOV2, SecretTextSpecDTO } from 'services/cd-ng'
 import { getStringForType } from 'modules/dx/components/secrets/SSHAuthUtils'
 // import TagsPopover from 'modules/common/components/TagsPopover/TagsPopover'
 import { useVerifyModal } from 'modules/dx/modals/CreateSSHCredModal/useVerifyModal'
@@ -17,7 +17,7 @@ import i18n from '../../SecretsPage.i18n'
 import css from './SecretsList.module.scss'
 
 interface SecretsListProps {
-  secrets?: NGPageResponseSecretResponseWrapper
+  secrets?: PageSecretResponseWrapper
   gotoPage: (pageNumber: number) => void
   refetch?: () => void
 }
@@ -219,9 +219,9 @@ const SecretsList: React.FC<SecretsListProps> = ({ secrets, refetch, gotoPage })
         history.push(`${pathname}/${secret.secret?.identifier}`)
       }}
       pagination={{
-        itemCount: secrets?.itemCount || 0,
+        itemCount: secrets?.totalItems || 0,
         pageSize: secrets?.pageSize || 10,
-        pageCount: secrets?.pageCount || -1,
+        pageCount: secrets?.totalPages || -1,
         pageIndex: secrets?.pageIndex || 0,
         gotoPage
       }}

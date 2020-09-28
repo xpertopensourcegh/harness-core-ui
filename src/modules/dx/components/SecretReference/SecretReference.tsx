@@ -1,11 +1,5 @@
 import React from 'react'
-import {
-  ListSecretsQueryParams,
-  FailureDTO,
-  listSecretsV2Promise,
-  SecretDTOV2,
-  SecretTextSpecDTO
-} from 'services/cd-ng'
+import { ListSecretsQueryParams, Failure, listSecretsV2Promise, SecretDTOV2, SecretTextSpecDTO } from 'services/cd-ng'
 import { EntityReference } from 'modules/common/exports'
 import type { EntityReferenceResponse } from 'modules/common/components/EntityReference/EntityReference'
 import { Scope } from 'modules/common/interfaces/SecretsInterface'
@@ -59,7 +53,7 @@ const fetchRecords = (
         done([])
       }
     })
-    .catch((err: FailureDTO) => {
+    .catch((err: Failure) => {
       throw err.message
     })
 }

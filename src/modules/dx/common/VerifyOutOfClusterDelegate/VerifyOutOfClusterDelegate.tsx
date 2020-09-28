@@ -6,7 +6,7 @@ import { StepsProgress, Layout, Button, Text, Intent, Color, StepProps } from '@
 import { useGetDelegatesStatus, RestResponseDelegateStatus } from 'services/portal'
 import {
   useGetTestConnectionResult,
-  ResponseDTOConnectorValidationResult,
+  ResponseConnectorValidationResult,
   ConnectorConfigDTO,
   ConnectorConnectivityDetails
 } from 'services/cd-ng'
@@ -19,7 +19,7 @@ import css from './VerifyOutOfClusterDelegate.module.scss'
 
 interface VerifyOutOfClusterDelegateProps {
   delegateStatusMockData?: UseGetMockData<RestResponseDelegateStatus>
-  testConnectionMockData?: UseGetMockData<ResponseDTOConnectorValidationResult>
+  testConnectionMockData?: UseGetMockData<ResponseConnectorValidationResult>
   hideLightModal?: () => void
   connectorName?: string
   connectorIdentifier?: string
@@ -113,7 +113,7 @@ const VerifyOutOfClusterDelegate: React.FC<
     }
   }
 
-  let testConnectionResponse: ResponseDTOConnectorValidationResult
+  let testConnectionResponse: ResponseConnectorValidationResult
   const executeEstablishConnection = async (): Promise<void> => {
     if (stepDetails.step === StepIndex.get(STEP.ESTABLISH_CONNECTION)) {
       if (stepDetails.status === 'PROCESS') {

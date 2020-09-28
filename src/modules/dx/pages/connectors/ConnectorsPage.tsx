@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Layout, Button, TextInput, Icon, Popover, IconName, Text, Color } from '@wings-software/uikit'
 import { useParams, useHistory } from 'react-router-dom'
 import { IDialogProps, Position, Menu } from '@blueprintjs/core'
-import { useGetConnectorList, ResponseDTONGPageResponseConnectorResponse, ConnectorInfoDTO } from 'services/cd-ng'
+import { useGetConnectorList, ResponsePageConnectorResponse, ConnectorInfoDTO } from 'services/cd-ng'
 import { Connectors, ConnectorInfoText } from 'modules/dx/constants'
 import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
 import type { UseGetMockData } from 'modules/common/utils/testUtils'
@@ -13,7 +13,7 @@ import i18n from '../../components/connectors/CreateConnectorWizard/CreateConnec
 import css from './ConnectorsPage.module.scss'
 
 interface ConnectorsListProps {
-  mockData?: UseGetMockData<ResponseDTONGPageResponseConnectorResponse>
+  mockData?: UseGetMockData<ResponsePageConnectorResponse>
 }
 
 const enum View {
@@ -47,7 +47,14 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ mockData }) => {
   const history = useHistory()
 
   const { loading, data, refetch: reloadConnectorList } = useGetConnectorList({
-    queryParams: { page: page, size: 10, projectIdentifier, orgIdentifier, searchTerm, accountIdentifier: accountId },
+    queryParams: {
+      pageIndex: page,
+      pageSize: 10,
+      projectIdentifier,
+      orgIdentifier,
+      searchTerm,
+      accountIdentifier: accountId
+    },
     mock: mockData,
     debounce: 300
   })

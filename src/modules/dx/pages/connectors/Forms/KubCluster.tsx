@@ -16,7 +16,7 @@ import {
   KubernetesClientKeyCertDTO,
   KubernetesServiceAccountDTO,
   KubernetesUserNamePasswordDTO,
-  ResponseDTOSecretResponseWrapper
+  ResponseSecretResponseWrapper
 } from 'services/cd-ng'
 import { Scope } from 'modules/common/interfaces/SecretsInterface'
 import useCreateUpdateSecretModal from 'modules/dx/modals/CreateSecretModal/useCreateUpdateSecretModal'
@@ -71,7 +71,7 @@ const KubCluster: React.FC<KubClusterProps> = props => {
   const [inclusterDelegate, setInClusterDelegate] = useState('')
   const { connector } = props
 
-  const [secretData, setSecretData] = useState<ResponseDTOSecretResponseWrapper>()
+  const [secretData, setSecretData] = useState<ResponseSecretResponseWrapper>()
 
   const [passwordRefSecret, setPasswordRefSecret] = useState<InlineSecret>()
   const [serviceAccountTokenRefSecret, setServiceAccountTokenRefSecret] = useState<InlineSecret>()

@@ -2,9 +2,10 @@ import React, { useState } from 'react'
 
 import { CardSelect, Text, Layout, Icon, IconName, Container, Button } from '@wings-software/uikit'
 
-import { useParams } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 import type { Project } from 'services/cd-ng'
 import { usePutProject } from 'services/cd-ng'
+import { routeCDPipelineStudio } from 'modules/cd/routes'
 import i18n from '../../../pages/ProjectsPage/ProjectsPage.i18n'
 import css from './Purpose.module.scss'
 
@@ -74,7 +75,9 @@ const options: PurposeType[] = [
   }
 ]
 
-const ContinuousDeployement: React.FC<ModuleProps> = ({ onSubmit }) => {
+const ContinuousDeployement: React.FC<ModuleProps & ProjectModalData> = ({ onSubmit, data }) => {
+  const history = useHistory()
+
   return (
     <Container width="40%">
       <Layout.Vertical className={css.started}>
@@ -90,6 +93,13 @@ const ContinuousDeployement: React.FC<ModuleProps> = ({ onSubmit }) => {
           text={i18n.newProjectWizard.purposeList.buttoncd}
           onClick={() => {
             onSubmit()
+            history.push(
+              routeCDPipelineStudio.url({
+                orgIdentifier: data?.orgIdentifier as string,
+                projectIdentifier: data?.identifier as string,
+                pipelineIdentifier: -1
+              })
+            )
           }}
         />
       </Layout.Vertical>
@@ -202,7 +212,12 @@ const PurposeList: React.FC<ProjectModalData> = props => {
   })
 
   const onSuccess = async (): Promise<boolean> => {
-    const dataToSubmit: Project = { name: projectData?.name || '', modules: [selected.module] }
+    const dataToSubmit: Project = {
+      modules: [selected.module],
+      ...(projectData as Project)
+    }
+    ;(dataToSubmit as Project)['owners'] = [accountId]
+
     try {
       await updateProject(dataToSubmit, {
         pathParams: {
@@ -254,7 +269,7 @@ const PurposeList: React.FC<ProjectModalData> = props => {
           </div>
         </Layout.Vertical>
       </Container>
-      {selected.module === 'CD' ? <ContinuousDeployement onSubmit={onSuccess} /> : null}
+      {selected.module === 'CD' ? <ContinuousDeployement onSubmit={onSuccess} data={projectData} /> : null}
       {selected.module === 'CV' ? <ContinuousVerification onSubmit={onSuccess} /> : null}
       {selected.module === 'CI' ? <ContinuousIntegration onSubmit={onSuccess} /> : null}
       {selected.module === 'CE' ? <ContinuousEfficiency onSubmit={onSuccess} /> : null}

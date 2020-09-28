@@ -7,7 +7,7 @@ import UsernamePassword from 'modules/dx/components/connectors/ConnectorFormFiel
 import useCreateUpdateSecretModal from 'modules/dx/modals/CreateSecretModal/useCreateUpdateSecretModal'
 import { StringUtils } from 'modules/common/exports'
 
-import { getSecretV2Promise, SecretTextSpecDTO, ResponseDTOSecretResponseWrapper } from 'services/cd-ng'
+import { getSecretV2Promise, SecretTextSpecDTO, ResponseSecretResponseWrapper } from 'services/cd-ng'
 import { Scope } from 'modules/common/interfaces/SecretsInterface'
 import type { InlineSecret } from 'modules/common/components/CreateInlineSecret/CreateInlineSecret'
 import {
@@ -33,7 +33,7 @@ const DockerConnectorForm: React.FC<DockerConnectorFormProps> = props => {
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
   const { connector } = props
   const [passwordRefSecret, setPasswordRefSecret] = useState<InlineSecret>()
-  const [secretData, setSecretData] = useState<ResponseDTOSecretResponseWrapper>()
+  const [secretData, setSecretData] = useState<ResponseSecretResponseWrapper>()
   const { openCreateSecretModal } = useCreateUpdateSecretModal({})
   const getSecretForValue = async (value: string, setSecretField: (val: InlineSecret) => void): Promise<void> => {
     const secretId = getSecretIdFromString(value)

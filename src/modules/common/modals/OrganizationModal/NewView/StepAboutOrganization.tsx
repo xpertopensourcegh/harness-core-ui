@@ -71,17 +71,17 @@ export const StepAboutOrganization: React.FC<StepProps<Organization> & Organizat
   const persistOrg = async (values: Organization): Promise<void> => {
     const dataToSubmit: Organization = {
       name: values.name,
-      color: values.color,
       description: values.description,
+      identifier: values.identifier,
       tags: values.tags
     }
     try {
       if (edit) {
         await updateOrganization(dataToSubmit)
       } else {
-        dataToSubmit['identifier'] = values.identifier || ''
         await createOrganization(dataToSubmit)
       }
+      if (values.color == '') delete dataToSubmit.color
       updateAppStore({ organisationsMap: organisationsMap.set(values.identifier || '', values) })
       onSuccess?.()
     } catch (error) {
@@ -98,8 +98,7 @@ export const StepAboutOrganization: React.FC<StepProps<Organization> & Organizat
           .trim()
           .required(i18n.form.errorIdentifier)
           .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, 'Identifier can only contain alphanumerics, _ and $')
-          .notOneOf(illegalIdentifiers),
-        color: Yup.string().required(i18n.form.errorColor)
+          .notOneOf(illegalIdentifiers)
       })}
       validate={setOrg}
       onSubmit={(values: Organization) => {

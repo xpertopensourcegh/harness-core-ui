@@ -4,17 +4,13 @@ import type { CellProps, Column, Renderer } from 'react-table'
 import { useParams } from 'react-router-dom'
 import { Classes, Menu, Position } from '@blueprintjs/core'
 import Table from 'modules/common/components/Table/Table'
-import {
-  NGPageResponseInputSetSummaryResponse,
-  useDeleteInputSetForPipeline,
-  InputSetSummaryResponse
-} from 'services/cd-ng'
+import { PageInputSetSummaryResponse, useDeleteInputSetForPipeline, InputSetSummaryResponse } from 'services/cd-ng'
 import { useConfirmationDialog, useToaster } from 'modules/common/exports'
 import i18n from './InputSetList.i18n'
 import css from './InputSetList.module.scss'
 
 interface InputSetListViewProps {
-  data?: NGPageResponseInputSetSummaryResponse
+  data?: PageInputSetSummaryResponse
   goToInputSetDetail?: (identifier?: string, type?: InputSetSummaryResponse['inputSetType']) => void
   cloneInputSet?: (identifier?: string) => void
   refetchInputSet?: () => void
@@ -232,9 +228,9 @@ export const InputSetListView: React.FC<InputSetListViewProps> = ({
       data={data?.content || []}
       onRowClick={item => goToInputSetDetail?.(item.identifier, item.inputSetType)}
       pagination={{
-        itemCount: data?.itemCount || 0,
+        itemCount: data?.totalItems || 0,
         pageSize: data?.pageSize || 10,
-        pageCount: data?.pageCount || -1,
+        pageCount: data?.totalPages || -1,
         pageIndex: data?.pageIndex || 0,
         gotoPage
       }}

@@ -17,7 +17,7 @@ import type { ConnectorInfoDTO, ConnectorRequestBody } from 'services/cd-ng'
 import UsernamePassword from 'modules/dx/components/connectors/ConnectorFormFields/UsernamePassword'
 import useCreateUpdateSecretModal from 'modules/dx/modals/CreateSecretModal/useCreateUpdateSecretModal'
 import type { InlineSecret } from 'modules/common/components/CreateInlineSecret/CreateInlineSecret'
-import { getSecretV2Promise, SecretTextSpecDTO, ResponseDTOSecretResponseWrapper } from 'services/cd-ng'
+import { getSecretV2Promise, SecretTextSpecDTO, ResponseSecretResponseWrapper } from 'services/cd-ng'
 import { Scope } from 'modules/common/interfaces/SecretsInterface'
 import {
   buildGITFormData,
@@ -48,7 +48,7 @@ const GITConnectorForm: React.FC<GITConnectorFormProps> = props => {
     value: AuthTypes.USER_PASSWORD
   } as SelectOption)
   const { connector } = props
-  const [secretData, setSecretData] = useState<ResponseDTOSecretResponseWrapper>()
+  const [secretData, setSecretData] = useState<ResponseSecretResponseWrapper>()
 
   const [passwordRefSecret, setPasswordRefSecret] = useState<InlineSecret>()
   const [sshKeyRefSecret, setSshkeyRefSecret] = useState<InlineSecret>()

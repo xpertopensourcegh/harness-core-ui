@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Container, Layout, Pagination } from '@wings-software/uikit'
 import { useParams } from 'react-router-dom'
 import cx from 'classnames'
-import { Project, useGetProjectList, ResponseDTONGPageResponseProject } from 'services/cd-ng'
+import { Project, useGetProjectList, ResponsePageProject } from 'services/cd-ng'
 import { Page } from 'modules/common/components/Page/Page'
 import type { UseGetMockData } from 'modules/common/utils/testUtils'
 import i18n from './ProjectGridView.i18n'
@@ -10,7 +10,7 @@ import ProjectCard from '../ProjectCard/ProjectCard'
 import css from './ProjectGridView.module.scss'
 
 interface ProjectGridViewProps {
-  mockData?: UseGetMockData<ResponseDTONGPageResponseProject>
+  mockData?: UseGetMockData<ResponsePageProject>
   showEditProject?: (project: Project) => void
   collaborators?: (project: Project) => void
   searchParameter?: string
@@ -48,8 +48,8 @@ const ProjectGridView: React.FC<ProjectGridViewProps> = props => {
       moduleType: module,
       searchTerm: searchParameter,
       hasModule: deselectModule ? false : true,
-      page: page,
-      size: pageSize || 10
+      pageIndex: page,
+      pageSize: pageSize || 10
     },
     mock: mockData,
     debounce: 300
@@ -104,9 +104,9 @@ const ProjectGridView: React.FC<ProjectGridViewProps> = props => {
       </Container>
       <Container height="10%" className={css.pagination}>
         <Pagination
-          itemCount={data?.data?.itemCount || 0}
+          itemCount={data?.data?.totalItems || 0}
           pageSize={data?.data?.pageSize || 10}
-          pageCount={data?.data?.pageCount || 0}
+          pageCount={data?.data?.totalPages || 0}
           pageIndex={data?.data?.pageIndex || 0}
           gotoPage={(pageNumber: number) => setPage(pageNumber)}
         />

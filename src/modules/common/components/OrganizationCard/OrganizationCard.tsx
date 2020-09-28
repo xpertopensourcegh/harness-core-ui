@@ -23,7 +23,7 @@ interface OrganizationCardProps {
 }
 
 export const OrganizationCard: React.FC<OrganizationCardProps> = props => {
-  const { data = {}, width = 250, isPreview, className, onClick, editOrg, reloadOrgs } = props
+  const { data, width = 250, isPreview, className, onClick, editOrg, reloadOrgs } = props
   const { accountId } = useParams()
   const { organisationsMap } = useAppStoreReader()
   const updateAppStore = useAppStoreWriter()

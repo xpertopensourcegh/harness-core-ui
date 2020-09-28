@@ -25,8 +25,8 @@ const InputSetList: React.FC = (): JSX.Element => {
       orgIdentifier,
       projectIdentifier,
       pipelineIdentifier,
-      page,
-      size: 10,
+      pageIndex: page,
+      pageSize: 10,
       searchTerm: searchParam
     }
   })

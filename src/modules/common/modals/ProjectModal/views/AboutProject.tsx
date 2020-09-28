@@ -22,14 +22,14 @@ import { useAppStoreReader, useAppStoreWriter } from 'framework/exports'
 import ProjectCard from 'modules/common/pages/ProjectsPage/views/ProjectCard/ProjectCard'
 import i18n from 'modules/common/pages/ProjectsPage/ProjectsPage.i18n'
 import { illegalIdentifiers } from 'modules/common/utils/StringUtils'
-import { useGetOrganizationList, ResponseDTONGPageResponseOrganization } from 'services/cd-ng'
+import { useGetOrganizationList, ResponsePageOrganization } from 'services/cd-ng'
 import type { Project } from 'services/cd-ng'
 import { usePutProject, usePostProject } from 'services/cd-ng'
 import type { UseGetMockData } from 'modules/common/utils/testUtils'
 import css from './Steps.module.scss'
 
 interface ProjectModalData {
-  orgmockData?: UseGetMockData<ResponseDTONGPageResponseOrganization>
+  orgmockData?: UseGetMockData<ResponsePageOrganization>
   data: Project | undefined
   closeModal?: () => void
   onSuccess?: (project: Project | undefined) => void
@@ -93,7 +93,15 @@ const AboutProject: React.FC<StepProps<Project> & ProjectModalData> = props => {
   }
 
   const onComplete = async (values: Project): Promise<void> => {
-    const dataToSubmit: unknown = pick<Project, keyof Project>(values, ['name', 'color', 'description', 'tags'])
+    const dataToSubmit: Project = pick<Project, keyof Project>(values, [
+      'name',
+      'orgIdentifier',
+      'color',
+      'description',
+      'identifier',
+      'tags'
+    ])
+    if (values.color == '') delete dataToSubmit.color
     ;(dataToSubmit as Project)['accountIdentifier'] = accountId
     ;(dataToSubmit as Project)['owners'] = [accountId]
     if (isEdit) {
@@ -105,7 +113,6 @@ const AboutProject: React.FC<StepProps<Project> & ProjectModalData> = props => {
       onSuccess?.(values)
       updateAppStore({ projects: projects.filter(p => p.identifier !== values.identifier).concat(values) })
     } else {
-      ;(dataToSubmit as Project)['identifier'] = values.identifier || ''
       ;(dataToSubmit as Project)['modules'] = values.modules || []
       try {
         await createProject(dataToSubmit as Project, {
@@ -125,7 +132,7 @@ const AboutProject: React.FC<StepProps<Project> & ProjectModalData> = props => {
         color: '',
         identifier: '',
         name: '',
-        orgIdentifier: orgIdentifier,
+        orgIdentifier: orgIdentifier || i18n.newProjectWizard.aboutProject.default,
         description: '',
         tags: [],
         ...projectData,
@@ -138,7 +145,6 @@ const AboutProject: React.FC<StepProps<Project> & ProjectModalData> = props => {
           .required(i18n.newProjectWizard.aboutProject.errorIdentifier)
           .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, 'Identifier can only contain alphanumerics, _ and $')
           .notOneOf(illegalIdentifiers),
-        color: Yup.string().required(i18n.newProjectWizard.aboutProject.errorColor),
         orgIdentifier: Yup.string().required(i18n.newProjectWizard.aboutProject.errorOrganisation)
       })}
       onSubmit={(values: AboutPageData) => {

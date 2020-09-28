@@ -2,7 +2,7 @@ import React from 'react'
 import { render } from '@testing-library/react'
 
 import { TestWrapper, UseGetMockData } from 'modules/common/utils/testUtils'
-import type { ResponseDTONGPageResponseProject } from 'services/cd-ng'
+import type { ResponsePageProject } from 'services/cd-ng'
 import ProjectListView from '../views/ProjectListView/ProjectListView'
 
 import mockData from './ProjectPageMock.json'
@@ -18,7 +18,7 @@ describe('Project List', () => {
         pathParams={{ accountId: 'testAcc' }}
         defaultAppStoreValues={defaultAppStoreValues}
       >
-        <ProjectListView mockData={mockData as UseGetMockData<ResponseDTONGPageResponseProject>} />
+        <ProjectListView mockData={mockData as UseGetMockData<ResponsePageProject>} />
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()

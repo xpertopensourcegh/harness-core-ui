@@ -94,15 +94,15 @@ export interface EnvToServicesDTO {
 }
 
 export interface TransactionMetricInfoSummaryPageDTO {
-  pageResponse?: NGPageResponseTransactionMetricInfo
+  pageResponse?: PageTransactionMetricInfo
   deploymentTimeRange?: TimeRange
 }
 
-export interface RestResponseNGPageResponseAnalyzedLogDataDTO {
+export interface RestResponsePageAnalyzedLogDataDTO {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
-  resource?: NGPageResponseAnalyzedLogDataDTO
+  resource?: PageAnalyzedLogDataDTO
   responseMessages?: ResponseMessage[]
 }
 
@@ -325,7 +325,7 @@ export interface TimeSeriesDataRecordMetricValue {
   timeSeriesValues?: TimeSeriesDataRecordGroupValue[]
 }
 
-export interface NGPageResponseTransactionMetricInfo {
+export interface PageTransactionMetricInfo {
   pageCount?: number
   itemCount?: number
   pageSize?: number
@@ -968,11 +968,11 @@ export interface TransactionSummary {
   metricSummaries?: MetricSummary[]
 }
 
-export interface RestResponseNGPageResponseTimeSeriesMetricDataDTO {
+export interface RestResponsePageTimeSeriesMetricDataDTO {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
-  resource?: NGPageResponseTimeSeriesMetricDataDTO
+  resource?: PageTimeSeriesMetricDataDTO
   responseMessages?: ResponseMessage[]
 }
 
@@ -1061,7 +1061,7 @@ export interface TimeSeriesThresholdCriteria {
   criteria?: string
 }
 
-export interface NGPageResponseTimeSeriesMetricDataDTO {
+export interface PageTimeSeriesMetricDataDTO {
   pageCount?: number
   itemCount?: number
   pageSize?: number
@@ -1170,7 +1170,7 @@ export interface DataCollectionInfo {
   }
 }
 
-export interface NGPageResponseAnalyzedLogDataDTO {
+export interface PageAnalyzedLogDataDTO {
   pageCount?: number
   itemCount?: number
   pageSize?: number
@@ -1814,12 +1814,12 @@ export interface GetAnomalousMetricDataQueryParams {
 }
 
 export type GetAnomalousMetricDataProps = Omit<
-  GetProps<RestResponseNGPageResponseTimeSeriesMetricDataDTO, unknown, GetAnomalousMetricDataQueryParams, void>,
+  GetProps<RestResponsePageTimeSeriesMetricDataDTO, unknown, GetAnomalousMetricDataQueryParams, void>,
   'path'
 >
 
 export const GetAnomalousMetricData = (props: GetAnomalousMetricDataProps) => (
-  <Get<RestResponseNGPageResponseTimeSeriesMetricDataDTO, unknown, GetAnomalousMetricDataQueryParams, void>
+  <Get<RestResponsePageTimeSeriesMetricDataDTO, unknown, GetAnomalousMetricDataQueryParams, void>
     path={`/timeseries-dashboard/anomalous-metric-data`}
     base={getConfig('cv-nextgen')}
     {...props}
@@ -1827,12 +1827,12 @@ export const GetAnomalousMetricData = (props: GetAnomalousMetricDataProps) => (
 )
 
 export type UseGetAnomalousMetricDataProps = Omit<
-  UseGetProps<RestResponseNGPageResponseTimeSeriesMetricDataDTO, unknown, GetAnomalousMetricDataQueryParams, void>,
+  UseGetProps<RestResponsePageTimeSeriesMetricDataDTO, unknown, GetAnomalousMetricDataQueryParams, void>,
   'path'
 >
 
 export const useGetAnomalousMetricData = (props: UseGetAnomalousMetricDataProps) =>
-  useGet<RestResponseNGPageResponseTimeSeriesMetricDataDTO, unknown, GetAnomalousMetricDataQueryParams, void>(
+  useGet<RestResponsePageTimeSeriesMetricDataDTO, unknown, GetAnomalousMetricDataQueryParams, void>(
     `/timeseries-dashboard/anomalous-metric-data`,
     { base: getConfig('cv-nextgen'), ...props }
   )
@@ -1851,12 +1851,12 @@ export interface GetMetricDataQueryParams {
 }
 
 export type GetMetricDataProps = Omit<
-  GetProps<RestResponseNGPageResponseTimeSeriesMetricDataDTO, unknown, GetMetricDataQueryParams, void>,
+  GetProps<RestResponsePageTimeSeriesMetricDataDTO, unknown, GetMetricDataQueryParams, void>,
   'path'
 >
 
 export const GetMetricData = (props: GetMetricDataProps) => (
-  <Get<RestResponseNGPageResponseTimeSeriesMetricDataDTO, unknown, GetMetricDataQueryParams, void>
+  <Get<RestResponsePageTimeSeriesMetricDataDTO, unknown, GetMetricDataQueryParams, void>
     path={`/timeseries-dashboard/metric-data`}
     base={getConfig('cv-nextgen')}
     {...props}
@@ -1864,12 +1864,12 @@ export const GetMetricData = (props: GetMetricDataProps) => (
 )
 
 export type UseGetMetricDataProps = Omit<
-  UseGetProps<RestResponseNGPageResponseTimeSeriesMetricDataDTO, unknown, GetMetricDataQueryParams, void>,
+  UseGetProps<RestResponsePageTimeSeriesMetricDataDTO, unknown, GetMetricDataQueryParams, void>,
   'path'
 >
 
 export const useGetMetricData = (props: UseGetMetricDataProps) =>
-  useGet<RestResponseNGPageResponseTimeSeriesMetricDataDTO, unknown, GetMetricDataQueryParams, void>(
+  useGet<RestResponsePageTimeSeriesMetricDataDTO, unknown, GetMetricDataQueryParams, void>(
     `/timeseries-dashboard/metric-data`,
     { base: getConfig('cv-nextgen'), ...props }
   )
@@ -1888,12 +1888,12 @@ export interface GetAllLogsQueryParams {
 }
 
 export type GetAllLogsProps = Omit<
-  GetProps<RestResponseNGPageResponseAnalyzedLogDataDTO, unknown, GetAllLogsQueryParams, void>,
+  GetProps<RestResponsePageAnalyzedLogDataDTO, unknown, GetAllLogsQueryParams, void>,
   'path'
 >
 
 export const GetAllLogs = (props: GetAllLogsProps) => (
-  <Get<RestResponseNGPageResponseAnalyzedLogDataDTO, unknown, GetAllLogsQueryParams, void>
+  <Get<RestResponsePageAnalyzedLogDataDTO, unknown, GetAllLogsQueryParams, void>
     path={`/log-dashboard/all-logs`}
     base={getConfig('cv-nextgen')}
     {...props}
@@ -1901,15 +1901,15 @@ export const GetAllLogs = (props: GetAllLogsProps) => (
 )
 
 export type UseGetAllLogsProps = Omit<
-  UseGetProps<RestResponseNGPageResponseAnalyzedLogDataDTO, unknown, GetAllLogsQueryParams, void>,
+  UseGetProps<RestResponsePageAnalyzedLogDataDTO, unknown, GetAllLogsQueryParams, void>,
   'path'
 >
 
 export const useGetAllLogs = (props: UseGetAllLogsProps) =>
-  useGet<RestResponseNGPageResponseAnalyzedLogDataDTO, unknown, GetAllLogsQueryParams, void>(
-    `/log-dashboard/all-logs`,
-    { base: getConfig('cv-nextgen'), ...props }
-  )
+  useGet<RestResponsePageAnalyzedLogDataDTO, unknown, GetAllLogsQueryParams, void>(`/log-dashboard/all-logs`, {
+    base: getConfig('cv-nextgen'),
+    ...props
+  })
 
 export interface GetAnomalousLogsQueryParams {
   accountId?: string
@@ -1925,12 +1925,12 @@ export interface GetAnomalousLogsQueryParams {
 }
 
 export type GetAnomalousLogsProps = Omit<
-  GetProps<RestResponseNGPageResponseAnalyzedLogDataDTO, unknown, GetAnomalousLogsQueryParams, void>,
+  GetProps<RestResponsePageAnalyzedLogDataDTO, unknown, GetAnomalousLogsQueryParams, void>,
   'path'
 >
 
 export const GetAnomalousLogs = (props: GetAnomalousLogsProps) => (
-  <Get<RestResponseNGPageResponseAnalyzedLogDataDTO, unknown, GetAnomalousLogsQueryParams, void>
+  <Get<RestResponsePageAnalyzedLogDataDTO, unknown, GetAnomalousLogsQueryParams, void>
     path={`/log-dashboard/anomalous-logs`}
     base={getConfig('cv-nextgen')}
     {...props}
@@ -1938,12 +1938,12 @@ export const GetAnomalousLogs = (props: GetAnomalousLogsProps) => (
 )
 
 export type UseGetAnomalousLogsProps = Omit<
-  UseGetProps<RestResponseNGPageResponseAnalyzedLogDataDTO, unknown, GetAnomalousLogsQueryParams, void>,
+  UseGetProps<RestResponsePageAnalyzedLogDataDTO, unknown, GetAnomalousLogsQueryParams, void>,
   'path'
 >
 
 export const useGetAnomalousLogs = (props: UseGetAnomalousLogsProps) =>
-  useGet<RestResponseNGPageResponseAnalyzedLogDataDTO, unknown, GetAnomalousLogsQueryParams, void>(
+  useGet<RestResponsePageAnalyzedLogDataDTO, unknown, GetAnomalousLogsQueryParams, void>(
     `/log-dashboard/anomalous-logs`,
     { base: getConfig('cv-nextgen'), ...props }
   )
