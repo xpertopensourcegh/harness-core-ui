@@ -106,10 +106,10 @@ export default function ServiceSpecifications(): JSX.Element {
                 sidecars: []
               },
               manifests: [],
-              variables: [],
+              // variables: [],
               artifactOverrideSets: [],
-              manifestOverrideSets: [],
-              variableOverrideSets: []
+              manifestOverrideSets: []
+              // variableOverrideSets: []
             }
           }
         }
@@ -255,7 +255,12 @@ export default function ServiceSpecifications(): JSX.Element {
         <Tabs id="serviceSpecifications" onChange={handleTabChange}>
           <Tab id={i18n.artifacts} title={i18n.artifacts} panel={<ArtifactsSelection isForOverrideSets={false} />} />
           <Tab id={i18n.manifests} title={i18n.manifests} panel={<ManifestSelection isForOverrideSets={false} />} />
-          <Tab id={i18n.variables} title={i18n.variables} panel={<WorkflowVariables isForOverrideSets={false} />} />
+          <Tab
+            id={i18n.variables}
+            title={i18n.variables}
+            disabled={true}
+            panel={<WorkflowVariables isForOverrideSets={false} />}
+          />
         </Tabs>
         <OverrideSets selectedTab={selectedTab} />
       </Layout.Vertical>

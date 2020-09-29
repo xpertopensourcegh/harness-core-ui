@@ -40,7 +40,7 @@ export const StepPalette: React.FC<StepPaletteProps> = ({ onSelect, onClose, sel
   )
   const [originalData, setOriginalCategories] = useState([])
   const [selectedCategory, setSelectedCategory] = useState(primaryTypes.SHOW_ALL)
-  const serviceDefinationType = get(selectedStage, 'stage.spec.service.serviceDefinition.type', null)
+  const serviceDefinationType = get(selectedStage, 'stage.spec.service.serviceDefinition.type', 'Kubernetes')
 
   const { data: stepsData } = useGet({
     path: `/pipelines/steps?serviceDefinitionType=${serviceDefinationType}`,
