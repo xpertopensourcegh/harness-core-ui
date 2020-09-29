@@ -42,6 +42,7 @@ const ProjectNavLinks: React.FC<{ project?: Project }> = ({ project }) => {
       />
       <Sidebar.Link
         href={routeCDDeployments.url({
+          orgIdentifier,
           projectIdentifier
         })}
         label={i18n.deployments}

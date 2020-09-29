@@ -1,0 +1,44 @@
+/* eslint-disable */
+// this is an auto-generated file
+declare const styles: {
+  readonly card: string
+  readonly failed: string
+  readonly aborted: string
+  readonly error: string
+  readonly rejected: string
+  readonly success: string
+  readonly running: string
+  readonly starting: string
+  readonly aborting: string
+  readonly waiting: string
+  readonly pausing: string
+  readonly paused: string
+  readonly queued: string
+  readonly skipped: string
+  readonly expired: string
+  readonly cardBody: string
+  readonly executionId: string
+  readonly pipe: string
+  readonly topSection: string
+  readonly pipelineNameTarget: string
+  readonly cardFooter: string
+  readonly column: string
+  readonly instancesDeployedContainer: string
+  readonly instancesDeployed: string
+  readonly artifactText: string
+  readonly executionIdIcon: string
+  readonly actionButtons: string
+  readonly center: string
+  readonly overviewGraphContainer: string
+  readonly overviewGraph: string
+  readonly btnContainer: string
+  readonly parallel: string
+  readonly btnStage: string
+  readonly shadowStack1: string
+  readonly shadowStack2: string
+  readonly hidden: string
+  readonly disabled: string
+  readonly btnLeft: string
+  readonly btnRight: string
+}
+export default styles

@@ -1,20 +1,24 @@
-//
-// TODO: These statuses are not finalized yet.
-// They should come from cd-ng service.
-//
 export enum ExecutionStatus {
-  FAILED = 'FAILED',
+  /* Success */
   SUCCESS = 'SUCCESS',
+
+  /* Failure*/
+  FAILED = 'FAILED',
   ABORTED = 'ABORTED',
   ERROR = 'ERROR',
+  REJECTED = 'REJECTED',
+
+  /** Running */
   PAUSED = 'PAUSED',
   PAUSING = 'PAUSING',
   WAITING = 'WAITING',
   ABORTING = 'ABORTING',
   RUNNING = 'RUNNING',
+
+  /** Not Running, expired */
   QUEUED = 'QUEUED',
   SKIPPED = 'SKIPPED',
   STARTING = 'STARTING',
-  REJECTED = 'REJECTED',
+  NOT_STARTED = 'NOT_STARTED',
   EXPIRED = 'EXPIRED'
 }

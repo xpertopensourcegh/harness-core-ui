@@ -1,6 +1,10 @@
 // TODO: These are place holders. Feel free to change
 export default {
   title: 'DEPLOYMENTS',
-  newDeployment: 'New Deployment',
-  noDeployment: `Your account does not have any deployments yet. Click the button below to start a new one.`
+  runPipeline: 'Run Pipeline',
+  noDeployment: `Your account does not have any deployments yet. Click the button below to run a pipeline.`,
+  selectSavedFilter: 'Select Saved Filter',
+  myDeployments: 'My Deployments',
+  running: 'Running',
+  failed: 'Failed'
 }

@@ -1,0 +1,9 @@
+.actionButtons {
+  position: absolute;
+  right: 5px;
+  top: -15px;
+
+  > button {
+    min-width: 24px;
+  }
+}

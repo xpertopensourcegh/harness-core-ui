@@ -1,0 +1,102 @@
+.card {
+  --execution-status-color: var(--green-500);
+
+  display: block !important;
+  position: relative;
+  padding-bottom: var(--spacing-small);
+
+  &::before {
+    content: '';
+    position: absolute;
+    width: 4px;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: var(--execution-status-color);
+    border-radius: 100px 0 0 100px;
+  }
+
+  & + .card {
+    margin-top: var(--spacing-medium);
+  }
+
+  &.failed,
+  &.aborted,
+  &.error,
+  &.rejected {
+    --execution-status-color: var(--red-500);
+  }
+
+  &.success {
+    --execution-status-color: var(--green-500);
+  }
+
+  &.running,
+  &.starting,
+  &.aborting,
+  &.waiting,
+  &.pausing,
+  &.paused {
+    --execution-status-color: rgba(62, 123, 250, 0.5);
+  }
+
+  &.queued,
+  &.skipped,
+  &.expired,
+  &.notStarted {
+    --execution-status-color: var(--grey-350);
+  }
+
+  .cardBody {
+    margin-right: -5px;
+    padding-bottom: var(--spacing-large);
+
+    .executionId {
+      white-space: nowrap;
+    }
+
+    .topSection {
+      justify-content: left;
+    }
+
+    .pipelineNameTarget {
+      display: inline-flex;
+    }
+  }
+
+  .cardFooter {
+    margin-right: -5px;
+    padding-top: var(--spacing-small);
+    border-top: 1px solid var(--grey-200);
+  }
+
+  .column {
+    flex-basis: 50%;
+    flex-grow: 0;
+    align-items: center;
+    display: flex;
+
+    &.servicesContainer {
+      padding-left: 26px;
+      display: inline-flex;
+      align-items: center;
+
+      .services {
+        white-space: nowrap;
+      }
+    }
+  }
+
+  .executionIdIcon {
+    margin-right: var(--spacing-xsmall);
+    color: #30aaaf;
+  }
+}
+
+.pipe {
+  display: inline-block;
+  margin: 0 var(--spacing-xsmall);
+  width: 1px;
+  height: 12px;
+  background: var(--grey-300);
+}

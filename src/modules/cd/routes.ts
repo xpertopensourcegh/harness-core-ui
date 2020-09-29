@@ -22,13 +22,14 @@ export const routeCDDashboard: Route<{ projectIdentifier: string }> = {
   component: React.lazy(() => import('./pages/dashboard/CDDashboardPage'))
 }
 
-export const routeCDDeployments: Route<{ projectIdentifier: string }> = {
+export const routeCDDeployments: Route<{ orgIdentifier: string; projectIdentifier: string }> = {
   module: ModuleName.CD,
   sidebarId: SidebarIdentifier.CONTINUOUS_DEPLOYMENTS,
-  path: '/cd/deployments/projects/:projectIdentifier',
+  path: '/cd/deployments/orgs/:orgIdentifier/projects/:projectIdentifier',
   title: i18n.deployments,
   pageId: 'cd-deployments',
-  url: ({ projectIdentifier }) => routeURL(routeCDDeployments, `/cd/deployments/projects/${projectIdentifier}`),
+  url: ({ orgIdentifier, projectIdentifier }) =>
+    routeURL(routeCDDeployments, `/cd/deployments/orgs/${orgIdentifier}/projects/${projectIdentifier}`),
   component: React.lazy(() => import('./pages/deployments/CDDeploymentsPage'))
 }
 

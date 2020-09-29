@@ -1,5 +1,6 @@
 .status {
   --execution-status-color: var(--green-500);
+  white-space: nowrap !important;
 
   &.failed,
   &.aborted,
@@ -23,7 +24,8 @@
 
   &.queued,
   &.skipped,
-  &.expired {
+  &.expired,
+  &.notStarted {
     --execution-status-color: var(--grey-350);
   }
 

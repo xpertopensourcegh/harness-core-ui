@@ -12,5 +12,6 @@ export default {
   skipped: 'SKIPPED',
   starting: 'STARTING',
   rejected: 'REJECTED',
-  expired: 'EXPIRED'
+  expired: 'EXPIRED',
+  not_started: 'NOT STARTED' // eslint-disable-line @typescript-eslint/camelcase
 }
