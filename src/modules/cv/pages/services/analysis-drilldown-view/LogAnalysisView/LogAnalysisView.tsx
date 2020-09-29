@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo } from 'react'
-import { Container, Text, Color } from '@wings-software/uikit'
+import { Container, Text, Color, Pagination } from '@wings-software/uikit'
 import { routeParams } from 'framework/exports'
 import { PageError } from 'modules/common/components/Page/PageError'
 import { Frequency, useGetAllLogs } from 'services/cv'
@@ -129,6 +129,8 @@ export default function LogAnalysisView(props: LogAnalysisViewProps): JSX.Elemen
     )
   }
 
+  const { pageSize, totalPages = 0, totalItems = 0, pageIndex, empty } = logAnalysisResponse.resource as any
+
   return (
     <Container className={css.main}>
       <Container className={css.heading}>
@@ -147,6 +149,17 @@ export default function LogAnalysisView(props: LogAnalysisViewProps): JSX.Elemen
       <Container className={css.logContainer}>
         <LogAnalysisRow data={logDataDTOs} />
       </Container>
+      {pageIndex !== -1 && !empty && (
+        <Pagination
+          pageSize={pageSize || 0}
+          pageIndex={pageIndex}
+          pageCount={totalPages}
+          itemCount={totalItems}
+          gotoPage={(selectedPageIndex: number) => {
+            refetchLogAnalysis({ queryParams: { ...queryParams, page: selectedPageIndex } })
+          }}
+        />
+      )}
     </Container>
   )
 }

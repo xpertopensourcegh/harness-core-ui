@@ -13,6 +13,7 @@ interface MetricAnalysisRowProps {
   analysisData: MetricData[]
   startTime: number
   endTime: number
+  displaySelectedTimeRange?: boolean
 }
 
 const ROW_HEIGHT = 60
@@ -74,16 +75,18 @@ function transformAnalysisDataToChartSeries(analysisData: any[]): SeriesConfig[]
 }
 
 export default function MetricAnalysisRow(props: MetricAnalysisRowProps): JSX.Element {
-  const { metricName, analysisData = [], transactionName, startTime, endTime } = props || {}
+  const { metricName, analysisData = [], transactionName, startTime, endTime, displaySelectedTimeRange } = props || {}
   const timeseriesOptions = useMemo(() => transformAnalysisDataToChartSeries(analysisData), [analysisData])
   return (
     <Container className={css.main} height={ROW_HEIGHT}>
-      <Container
-        style={{ position: 'absolute', top: 0, right: 15, zIndex: 2, opacity: 0.3 }}
-        height={ROW_HEIGHT}
-        background={Color.BLUE_300}
-        width={getTimeMaskWidthBasedOnTimeRange(startTime, endTime)}
-      />
+      {displaySelectedTimeRange && (
+        <Container
+          className={css.selectedTimeRange}
+          height={ROW_HEIGHT}
+          background={Color.BLUE_300}
+          width={getTimeMaskWidthBasedOnTimeRange(startTime, endTime)}
+        />
+      )}
       <TimeseriesRow
         transactionName={transactionName}
         metricName={metricName}

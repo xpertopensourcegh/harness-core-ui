@@ -14,6 +14,7 @@ export interface AnalysisDrillDownViewProps {
   categoryName?: string
   environmentIdentifier?: string
   serviceIdentifier?: string
+  asModal?: boolean
 }
 
 export function AnalysisDrillDownView(props: AnalysisDrillDownViewProps): JSX.Element {
@@ -24,7 +25,8 @@ export function AnalysisDrillDownView(props: AnalysisDrillDownViewProps): JSX.El
     categoryName,
     environmentIdentifier,
     serviceIdentifier,
-    historyStartTime
+    historyStartTime,
+    asModal
   } = props
   return (
     <Container className={cx(css.main, className)}>
@@ -38,6 +40,7 @@ export function AnalysisDrillDownView(props: AnalysisDrillDownViewProps): JSX.El
               endTime={endTime}
               historyStartTime={historyStartTime}
               categoryName={categoryName}
+              showHistorySelection={asModal}
               environmentIdentifier={environmentIdentifier}
               serviceIdentifier={serviceIdentifier}
             />

@@ -26,6 +26,7 @@ interface MetricAnalysisViewProps {
   serviceIdentifier?: string
   className?: string
   historyStartTime?: number
+  showHistorySelection?: boolean
 }
 
 function generatePointsForTimeSeries(
@@ -81,7 +82,8 @@ export default function MetricAnalysisView(props: MetricAnalysisViewProps): JSX.
     historyStartTime,
     categoryName,
     environmentIdentifier,
-    serviceIdentifier
+    serviceIdentifier,
+    showHistorySelection
   } = props
   const {
     params: { orgIdentifier = '', projectIdentifier = '', accountId = '' }
@@ -98,7 +100,7 @@ export default function MetricAnalysisView(props: MetricAnalysisViewProps): JSX.
       startTime: finalStartTime,
       endTime
     }),
-    [serviceIdentifier, environmentIdentifier, finalStartTime, endTime, categoryName]
+    [serviceIdentifier, environmentIdentifier, finalStartTime, endTime, categoryName, projectIdentifier, orgIdentifier]
   )
   const [isViewingAnomalousData, setMetricDataView] = useState(true)
   const [needsRefetch, setNeedsRefetch] = useState(true)
@@ -151,7 +153,7 @@ export default function MetricAnalysisView(props: MetricAnalysisViewProps): JSX.
   }
 
   const data = isViewingAnomalousData ? anomalousMetricData : allMetricData
-  const { pageSize, pageCount = 0, content, itemCount = 0, pageIndex, empty } = data?.resource || {}
+  const { pageSize, totalPages = 0, content, totalItems = 0, pageIndex, empty } = (data?.resource as any) || {}
 
   return (
     <Container className={cx(css.main, className)}>
@@ -180,7 +182,7 @@ export default function MetricAnalysisView(props: MetricAnalysisViewProps): JSX.
           <Icon name="steps-spinner" size={25} color={Color.GREY_600} />
         </Container>
       )}
-      {!loadingAllMetricData && !loadingAnomalousData && !itemCount && (
+      {!loadingAllMetricData && !loadingAnomalousData && !totalItems && (
         <NoDataCard
           message={isViewingAnomalousData ? i18n.noDataText.anomalous : i18n.noDataText.allMetricData}
           icon="warning-sign"
@@ -202,6 +204,7 @@ export default function MetricAnalysisView(props: MetricAnalysisViewProps): JSX.
               endTime={endTime}
               transactionName={groupName}
               analysisData={metricDataList}
+              displaySelectedTimeRange={showHistorySelection}
             />
           ) : null
         })}
@@ -209,8 +212,8 @@ export default function MetricAnalysisView(props: MetricAnalysisViewProps): JSX.
         <Pagination
           pageSize={pageSize || 0}
           pageIndex={pageIndex}
-          pageCount={pageCount}
-          itemCount={100}
+          pageCount={totalPages}
+          itemCount={totalItems}
           gotoPage={(selectedPageIndex: number) => {
             if (isViewingAnomalousData) {
               refetchAnomalousData({ queryParams: { ...queryParams, page: selectedPageIndex } })
