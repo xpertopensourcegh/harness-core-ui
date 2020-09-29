@@ -40,7 +40,7 @@ export const getPipelineByIdentifier = (
     },
     requestOptions: {
       headers: {
-        'content-type': 'text/yaml'
+        'content-type': 'application/yaml'
       }
     }
   }).then(response => {
@@ -70,7 +70,7 @@ export const savePipeline = (
           orgIdentifier: params.orgIdentifier
         },
         body: stringify({ pipeline }) as any,
-        requestOptions: { headers: { 'Content-Type': 'text/yaml' } }
+        requestOptions: { headers: { 'Content-Type': 'application/yaml' } }
       }).then(response => {
         if (typeof response === 'string') {
           return JSON.parse(response as string) as Failure
@@ -85,7 +85,7 @@ export const savePipeline = (
           projectIdentifier: params.projectIdentifier,
           orgIdentifier: params.orgIdentifier
         },
-        requestOptions: { headers: { 'Content-Type': 'text/yaml' } }
+        requestOptions: { headers: { 'Content-Type': 'application/yaml' } }
       }).then((response: unknown) => {
         if (typeof response === 'string') {
           return JSON.parse((response as unknown) as string) as Failure
