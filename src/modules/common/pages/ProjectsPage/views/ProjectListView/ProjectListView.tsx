@@ -4,15 +4,18 @@ import { Text, Layout, Color, Icon, Button, Popover } from '@wings-software/uiki
 import type { CellProps, Renderer, Column } from 'react-table'
 import { Classes, Position } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
-import { Project, useGetProjectList, ResponsePageProject } from 'services/cd-ng'
+import { Project, useGetProjectList, ResponsePageProject, useDeleteProject } from 'services/cd-ng'
 import Table from 'modules/common/components/Table/Table'
 
 import TagsPopover from 'modules/common/components/TagsPopover/TagsPopover'
-import { useAppStoreReader } from 'framework/exports'
+import { useAppStoreReader, useAppStoreWriter } from 'framework/exports'
 import { Page } from 'modules/common/components/Page/Page'
 import type { UseGetMockData } from 'modules/common/utils/testUtils'
+import { useToaster } from 'modules/common/components/Toaster/useToaster'
+import { useConfirmationDialog } from 'modules/common/modals/ConfirmDialog/useConfirmationDialog'
 import i18n from './ProjectListView.i18n'
 import ContextMenu from '../Menu/ContextMenu'
+import { project } from '../../__tests__/DefaultAppStoreData'
 import css from './ProjectListView.module.scss'
 
 interface ProjectListViewProps {
@@ -90,7 +93,40 @@ const RenderColumnAdmin: Renderer<CellProps<Project>> = () => {
 
 const RenderColumnMenu: Renderer<CellProps<Project>> = ({ row, column }) => {
   const data = row.original
+  const { accountId } = useParams()
   const [menuOpen, setMenuOpen] = useState(false)
+  const { mutate: deleteProject } = useDeleteProject({
+    queryParams: { accountIdentifier: accountId, orgIdentifier: project.orgIdentifier || '' }
+  })
+  const { showSuccess, showError } = useToaster()
+
+  const { projects } = useAppStoreReader()
+  const updateAppStore = useAppStoreWriter()
+  const onDeleted = (): void => {
+    const index = projects.findIndex(p => p.identifier === project.identifier)
+    projects.splice(index, 1)
+    updateAppStore({ projects: ([] as Project[]).concat(projects) })
+  }
+  const { openDialog } = useConfirmationDialog({
+    contentText: i18n.confirmDelete(project.name || ''),
+    titleText: i18n.confirmDeleteTitle,
+    confirmButtonText: i18n.delete,
+    cancelButtonText: i18n.cancel,
+    onCloseDialog: async (isConfirmed: boolean) => {
+      if (isConfirmed) {
+        try {
+          const deleted = await deleteProject(project.identifier || '', {
+            headers: { 'content-type': 'application/json' }
+          })
+          if (deleted) showSuccess(i18n.successMessage(project.name || ''))
+          onDeleted?.()
+          ;(column as any).refetchProjects
+        } catch (err) {
+          showError(err)
+        }
+      }
+    }
+  })
 
   return (
     <Layout.Horizontal className={css.layout}>
@@ -116,6 +152,7 @@ const RenderColumnMenu: Renderer<CellProps<Project>> = ({ row, column }) => {
           editProject={(column as any).editProject}
           collaborators={(column as any).collaborators}
           setMenuOpen={setMenuOpen}
+          openDialog={openDialog}
         />
       </Popover>
     </Layout.Horizontal>

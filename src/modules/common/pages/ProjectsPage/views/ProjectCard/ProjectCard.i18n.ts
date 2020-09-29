@@ -17,7 +17,6 @@ export default {
   start: 'Get started with',
   confirmDelete: (name: string) => `Are you sure you want to delete the Project '${name}'?`,
   confirmDeleteTitle: 'Delete Project',
-  deleteButton: 'Delete',
-  cancelButton: 'Cancel',
+  cancel: 'Cancel',
   successMessage: (name: string) => `Project ${name} is deleted`
 }

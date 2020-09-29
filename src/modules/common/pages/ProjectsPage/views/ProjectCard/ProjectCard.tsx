@@ -2,14 +2,18 @@ import React from 'react'
 import cx from 'classnames'
 import { Card, Text, Tag, Layout, Icon, CardBody, Container, Color } from '@wings-software/uikit'
 import { Classes } from '@blueprintjs/core'
-import { ModuleName } from 'framework/exports'
-import type { Project } from 'services/cd-ng'
+import { ModuleName, useAppStoreWriter } from 'framework/exports'
+import { Project, useDeleteProject } from 'services/cd-ng'
 import { useAppStoreReader } from 'framework/exports'
 import DefaultRenderer from 'modules/common/pages/ProjectsPage/views/ModuleRenderer/DefaultRenderer'
 import CVRenderer from 'modules/common/pages/ProjectsPage/views/ModuleRenderer/cv/CVRenderer'
 import CDRenderer from 'modules/common/pages/ProjectsPage/views/ModuleRenderer/cd/CDRenderer'
+import { accountId } from 'modules/cv/constants'
+import { useToaster } from 'modules/common/components/Toaster/useToaster'
+import { useConfirmationDialog } from 'modules/common/modals/ConfirmDialog/useConfirmationDialog'
 import i18n from './ProjectCard.i18n'
 import ContextMenu from '../Menu/ContextMenu'
+import { project } from '../../__tests__/DefaultAppStoreData'
 import css from './ProjectCard.module.scss'
 
 export interface ProjectCardProps {
@@ -25,7 +29,38 @@ export interface ProjectCardProps {
 const ProjectCard: React.FC<ProjectCardProps> = props => {
   const { data, isPreview, reloadProjects, editProject, collaborators, onClick } = props
   const { organisationsMap } = useAppStoreReader()
+  const { mutate: deleteProject } = useDeleteProject({
+    queryParams: { accountIdentifier: accountId, orgIdentifier: project.orgIdentifier || '' }
+  })
+  const { showSuccess, showError } = useToaster()
 
+  const { projects } = useAppStoreReader()
+  const updateAppStore = useAppStoreWriter()
+  const onDeleted = (): void => {
+    const index = projects.findIndex(p => p.identifier === project.identifier)
+    projects.splice(index, 1)
+    updateAppStore({ projects: ([] as Project[]).concat(projects) })
+  }
+  const { openDialog } = useConfirmationDialog({
+    contentText: i18n.confirmDelete(project.name || ''),
+    titleText: i18n.confirmDeleteTitle,
+    confirmButtonText: i18n.delete,
+    cancelButtonText: i18n.cancel,
+    onCloseDialog: async (isConfirmed: boolean) => {
+      if (isConfirmed) {
+        try {
+          const deleted = await deleteProject(project.identifier || '', {
+            headers: { 'content-type': 'application/json' }
+          })
+          if (deleted) showSuccess(i18n.successMessage(project.name || ''))
+          onDeleted?.()
+          reloadProjects?.()
+        } catch (err) {
+          showError(err)
+        }
+      }
+    }
+  })
   return (
     <Card className={cx(css.projectCard, props.className)} onClick={onClick ? onClick : undefined}>
       <Container padding={{ left: 'xlarge', right: 'xlarge', bottom: 'large' }} className={css.overflow}>
@@ -37,6 +72,7 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
                 reloadProjects={reloadProjects}
                 editProject={editProject}
                 collaborators={collaborators}
+                openDialog={openDialog}
               />
             }
             menuPopoverProps={{

@@ -1,13 +1,11 @@
 import React from 'react'
-import { useParams, useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { Menu } from '@blueprintjs/core'
 import { Layout, Color, Text, Icon } from '@wings-software/uikit'
-import { Project, useDeleteProject } from 'services/cd-ng'
+import type { Project } from 'services/cd-ng'
 import { routeCDDashboard } from 'modules/cd/routes'
 import { routeCVDataSources } from 'modules/cv/routes'
-import { ModuleName, useAppStoreWriter, useAppStoreReader } from 'framework/exports'
-import { useToaster } from 'modules/common/components/Toaster/useToaster'
-import { useConfirmationDialog } from 'modules/common/modals/ConfirmDialog/useConfirmationDialog'
+import { ModuleName } from 'framework/exports'
 import i18n from './ContextMenu.i18n'
 
 interface ContextMenuProps {
@@ -16,50 +14,17 @@ interface ContextMenuProps {
   editProject?: (project: Project) => void
   collaborators?: (project: Project) => void
   setMenuOpen?: (value: React.SetStateAction<boolean>) => void
+  openDialog?: () => void
 }
 
 const ContextMenu: React.FC<ContextMenuProps> = props => {
-  const { accountId } = useParams()
   const history = useHistory()
-  const { project, reloadProjects, editProject, collaborators } = props
-  const { mutate: deleteProject } = useDeleteProject({
-    queryParams: { accountIdentifier: accountId, orgIdentifier: project.orgIdentifier || '' }
-  })
-  const { showSuccess, showError } = useToaster()
-
-  const { projects } = useAppStoreReader()
-  const updateAppStore = useAppStoreWriter()
-
-  const onDeleted = (): void => {
-    const index = projects.findIndex(p => p.identifier === project.identifier)
-    projects.splice(index, 1)
-    updateAppStore({ projects: ([] as Project[]).concat(projects) })
-  }
-
-  const { openDialog } = useConfirmationDialog({
-    contentText: i18n.confirmDelete(project.name || ''),
-    titleText: i18n.confirmDeleteTitle,
-    confirmButtonText: i18n.delete,
-    cancelButtonText: i18n.cancel,
-    onCloseDialog: async (isConfirmed: boolean) => {
-      if (isConfirmed) {
-        try {
-          const deleted = await deleteProject(project.identifier || '', {
-            headers: { 'content-type': 'application/json' }
-          })
-          if (deleted) showSuccess(i18n.successMessage(project.name || ''))
-          onDeleted?.()
-          reloadProjects?.()
-        } catch (err) {
-          showError(err)
-        }
-      }
-    }
-  })
-
+  const { project, editProject, collaborators, setMenuOpen, openDialog } = props
   const handleDelete = (event: React.MouseEvent<HTMLElement, MouseEvent>): void => {
     event.stopPropagation()
-    openDialog()
+    setMenuOpen?.(false)
+    if (!project?.identifier) return
+    openDialog?.()
   }
 
   const handleEdit = (): void => {

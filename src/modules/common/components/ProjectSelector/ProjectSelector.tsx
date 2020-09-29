@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Select, SelectOption, useIsMounted } from '@wings-software/uikit'
+import { Select, SelectOption } from '@wings-software/uikit'
 import type { IconProps } from '@wings-software/uikit/dist/icons/Icon'
 import cx from 'classnames'
 import { routeParams, ModuleName } from 'framework/exports'
@@ -22,7 +22,6 @@ export const ProjectSelector: React.FC<ProjectSelectorProps> = ({ module, onSele
     params: { accountId, projectIdentifier }
   } = routeParams()
   const { showError } = useToaster()
-  const isMounted = useIsMounted()
   const [selectedProject, setSelectedProject] = useState<ProjectListOptions | undefined>()
   const { data: projects, error, refetch } = useGetProjectList({
     queryParams: {
@@ -31,7 +30,7 @@ export const ProjectSelector: React.FC<ProjectSelectorProps> = ({ module, onSele
       pageSize: PAGE_SIZE
     }
   })
-  const [currentProjectIdentifier, setCurrentProjectIdentifier] = useState(projectIdentifier)
+
   const projectSelectOptions: ProjectListOptions[] = React.useMemo(
     () =>
       (projects?.data?.content || [])
@@ -57,25 +56,18 @@ export const ProjectSelector: React.FC<ProjectSelectorProps> = ({ module, onSele
   if (error) {
     showError(error?.message)
   }
+  const _project = projectSelectOptions.find(project => project.identifier === projectIdentifier)
+  if (!_project) {
+    refetch()
+  }
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (projectIdentifier) {
-      const selected = projectSelectOptions.find(project => project.identifier === projectIdentifier)
-      if (selected) setSelectedProject(selected)
-      else {
-        refetch()
-      }
+      setSelectedProject(projectSelectOptions.find(project => project.identifier === projectIdentifier))
     } else {
       setSelectedProject(undefined)
     }
-  }, [projectSelectOptions, projectIdentifier, refetch])
-
-  useEffect(() => {
-    if (isMounted.current && currentProjectIdentifier !== projectIdentifier) {
-      setCurrentProjectIdentifier(projectIdentifier)
-      refetch()
-    }
-  }, [isMounted, currentProjectIdentifier, projectIdentifier, refetch])
+  }, [projectSelectOptions, projectIdentifier])
 
   return (
     <Select
