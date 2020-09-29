@@ -2,10 +2,10 @@ export default {
   stepName: 'Specify your Kubernetes Connector',
   kubernetesConnector: 'Kubernetes Connector',
   k8ConnectorDropDownLabel: 'Connector',
-  k8ConnectorDropDownPlaceholder: 'Select a new connector',
+  k8ConnectorDropDownPlaceholder: 'Select a connector',
   nameSpaceLabel: 'Namespace',
-  releaseName: 'Release Name',
+  releaseName: 'Release name',
   loading: 'Loading...',
-  releaseNamePlaceholder: 'Specify Release Name',
+  releaseNamePlaceholder: 'Specify a release name',
   nameSpacePlaceholder: 'Specify a namespace'
 }

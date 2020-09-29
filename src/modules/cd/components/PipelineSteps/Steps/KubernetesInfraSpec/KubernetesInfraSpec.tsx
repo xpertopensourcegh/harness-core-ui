@@ -230,7 +230,10 @@ const KubernetesInfraSpecInputForm: React.FC<KubernetesInfraSpecEditableProps> =
   })
 
   React.useEffect(() => {
-    if (getMultiTypeFromValue(template?.connectorIdentifier) === MultiTypeInputType.RUNTIME) {
+    if (
+      getMultiTypeFromValue(template?.connectorIdentifier) === MultiTypeInputType.RUNTIME &&
+      getMultiTypeFromValue(initialValues?.connectorIdentifier) !== MultiTypeInputType.RUNTIME
+    ) {
       refetch()
     }
   }, [initialValues.connectorIdentifier])
@@ -265,9 +268,7 @@ const KubernetesInfraSpecInputForm: React.FC<KubernetesInfraSpecEditableProps> =
             onUpdate?.({
               ...initialValues,
               connectorIdentifier:
-                scope === Scope.ORG || scope === Scope.ACCOUNT
-                  ? `${scope}.${record.connector?.identifier}`
-                  : record.connector?.identifier
+                scope === Scope.ORG || scope === Scope.ACCOUNT ? `${scope}.${record?.identifier}` : record?.identifier
             })
           }}
         />

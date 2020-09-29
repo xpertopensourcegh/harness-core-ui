@@ -16,7 +16,7 @@ export interface PipelineInputSetFormProps {
 export const PipelineInputSetForm: React.FC<PipelineInputSetFormProps> = props => {
   const { originalPipeline, template, pipeline, onUpdate } = props
   return (
-    <Layout.Horizontal spacing="medium" padding="medium" className={css.container}>
+    <Layout.Vertical spacing="medium" padding="medium" className={css.container}>
       {(originalPipeline as any).variables?.length > 0 && (
         <CollapseForm header={i18n.pipelineVariables}>
           <div>WIP</div>
@@ -42,6 +42,6 @@ export const PipelineInputSetForm: React.FC<PipelineInputSetFormProps> = props =
           )}
         </CollapseForm>
       ))}
-    </Layout.Horizontal>
+    </Layout.Vertical>
   )
 }

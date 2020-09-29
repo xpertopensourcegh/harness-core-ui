@@ -23,10 +23,7 @@ interface PipelineListViewProps {
 interface PipelineDTO extends CDPipelineSummaryResponseDTO {
   admin?: string
   collaborators?: string
-  stages?: number
-  activity?: string
   status?: string
-  errors?: number
 }
 
 type CustomColumn<T extends object> = Column<T> & {
@@ -149,19 +146,20 @@ const RenderColumnAdmin: Renderer<CellProps<PipelineDTO>> = () => {
   return <Icon name="main-user-groups" size={20} />
 }
 
-const RenderActivity: Renderer<CellProps<PipelineDTO>> = () => {
+const RenderActivity: Renderer<CellProps<PipelineDTO>> = ({ row }) => {
+  const data = row.original
   return (
     <span className={css.activityChart}>
-      <SparkChart data={[2, 3, 4, 1, 5, 2, 5]} />
+      <SparkChart data={data.deployments || []} />
     </span>
   )
 }
 
-const RenderErrors: Renderer<CellProps<PipelineDTO>> = () => {
-  return <Text color={Color.RED_600}>4</Text>
+const RenderErrors: Renderer<CellProps<PipelineDTO>> = ({ row }) => {
+  return <Text color={Color.RED_600}>{row.original.numOfErrors || '-'}</Text>
 }
 
-const RenderStages: Renderer<CellProps<PipelineDTO>> = () => {
+const RenderStages: Renderer<CellProps<PipelineDTO>> = ({ row }) => {
   return (
     <Text
       icon="step-group"
@@ -170,7 +168,7 @@ const RenderStages: Renderer<CellProps<PipelineDTO>> = () => {
       iconProps={{ size: 12 }}
       style={{ textTransform: 'capitalize' }}
     >
-      X {i18n.stages}
+      {row.original.numOfStages} {i18n.stages}
     </Text>
   )
 }
@@ -199,21 +197,21 @@ export const PipelineListView: React.FC<PipelineListViewProps> = ({
       },
       {
         Header: i18n.stages.toUpperCase(),
-        accessor: 'stages',
+        accessor: 'numOfStages',
         width: '10%',
         Cell: RenderStages,
         disableSortBy: true
       },
       {
         Header: i18n.activity.toUpperCase(),
-        accessor: 'activity',
+        accessor: 'deployments',
         width: '15%',
         Cell: RenderActivity,
         disableSortBy: true
       },
       {
         Header: i18n.errors.toUpperCase(),
-        accessor: 'errors',
+        accessor: 'numOfErrors',
         width: '10%',
         Cell: RenderErrors,
         disableSortBy: true

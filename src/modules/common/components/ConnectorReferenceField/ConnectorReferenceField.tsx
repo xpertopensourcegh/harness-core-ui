@@ -27,7 +27,7 @@ export interface ConnectorReferenceFieldProps extends Omit<IFormGroupProps, 'lab
     value: string
     scope: Scope
   }
-  onChange?: (connector: ConnectorResponse, scope: Scope) => void
+  onChange?: (connector: ConnectorReferenceDTO, scope: Scope) => void
   orgIdentifier?: string
   defaultScope?: Scope
   width?: number
@@ -173,7 +173,7 @@ export const ConnectorReferenceField: React.FC<ConnectorReferenceFieldProps> = p
   const { openConnectorModal } = useCreateConnectorModal({
     onSuccess: (data?: ConnectorConfigDTO) => {
       if (data) {
-        props.onChange?.(data, Scope.PROJECT)
+        props.onChange?.({ ...data.connector, status: data.status }, Scope.PROJECT)
       }
     }
   })

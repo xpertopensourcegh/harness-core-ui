@@ -1,5 +1,5 @@
 import React from 'react'
-import { omit } from 'lodash-es'
+import { isNull, isUndefined, omit, omitBy } from 'lodash-es'
 import cx from 'classnames'
 import { Classes, Dialog, IDialogProps } from '@blueprintjs/core'
 import * as Yup from 'yup'
@@ -54,12 +54,12 @@ export enum InputFormType {
   OverlayInputForm = 'OverlayInputForm'
 }
 
-export interface InputSetDTO extends Omit<CDInputSet, 'identifier'>, Omit<OverlayInputSet, 'identifier'> {
+export interface InputSetDTO extends Omit<CDInputSet, 'identifier' | 'pipeline'>, Omit<OverlayInputSet, 'identifier'> {
   pipeline?: CDPipeline
   identifier?: string
 }
 
-const getDefaultInputSet = (template?: CDPipeline): InputSetDTO => ({
+const getDefaultInputSet = (template: CDPipeline): InputSetDTO => ({
   name: undefined,
   identifier: undefined,
   description: undefined,
@@ -103,7 +103,13 @@ const collapseProps = {
   className: 'collapse'
 }
 
-export const BasicInputSetForm: React.FC<{ isEdit: boolean; formType: InputFormType }> = ({ isEdit, formType }) => (
+const clearNullUndefined = (data: InputSetDTO): InputSetDTO => omitBy(omitBy(data, isUndefined), isNull)
+
+export const BasicInputSetForm: React.FC<{ isEdit: boolean; formType: InputFormType; values: InputSetDTO }> = ({
+  isEdit,
+  formType,
+  values
+}) => (
   <div className={css.basicForm}>
     <FormInput.InputWithIdentifier
       isIdentifierEditable={!isEdit}
@@ -111,7 +117,7 @@ export const BasicInputSetForm: React.FC<{ isEdit: boolean; formType: InputFormT
       inputGroupProps={{ placeholder: i18n.name }}
     />
     <div className={css.collapseDiv}>
-      <Collapse {...descriptionCollapseProps}>
+      <Collapse {...descriptionCollapseProps} isOpen={(values.description && values.description?.length > 0) || false}>
         <FormInput.TextArea name="description" />
       </Collapse>
     </div>
@@ -339,31 +345,31 @@ export const InputSetForm: React.FC<InputSetFormProps> = ({ hideForm, identifier
         try {
           delete inputSetObj.inputSetReferences
           if (isEdit) {
-            await updateInputSet(stringify({ inputSet: inputSetObj }) as any, {
+            await updateInputSet(stringify({ inputSet: clearNullUndefined(inputSetObj) }) as any, {
               pathParams: { inputSetIdentifier: inputSetObj.identifier || '' }
             })
           } else {
-            await createInputSet(stringify({ inputSet: inputSetObj }) as any)
+            await createInputSet(stringify({ inputSet: clearNullUndefined(inputSetObj) }) as any)
           }
           showSuccess(i18n.inputSetSaved)
           closeForm()
-        } catch (e) {
-          showError(e?.message || i18n.commonError)
+        } catch (_e) {
+          // showError(e?.message || i18n.commonError)
         }
       } else if (inputSetObj && formType === InputFormType.OverlayInputForm) {
         delete inputSetObj.pipeline
         try {
           if (isEdit) {
-            await updateOverlayInputSet(stringify({ overlayInputSet: inputSetObj }) as any, {
+            await updateOverlayInputSet(stringify({ overlayInputSet: clearNullUndefined(inputSetObj) }) as any, {
               pathParams: { inputSetIdentifier: inputSetObj.identifier || '' }
             })
           } else {
-            await createOverlayInputSet(stringify({ overlayInputSet: inputSetObj }) as any)
+            await createOverlayInputSet(stringify({ overlayInputSet: clearNullUndefined(inputSetObj) }) as any)
           }
           showSuccess(i18n.overlayInputSetSaved)
           closeForm()
-        } catch (e) {
-          showError(e?.message || i18n.commonError)
+        } catch (_e) {
+          // showError(e?.message || i18n.commonError)
         }
       }
     },
@@ -434,14 +440,14 @@ export const InputSetForm: React.FC<InputSetFormProps> = ({ hideForm, identifier
   if (errorInputSet || errorPipeline || errorTemplate || createInputSetError || updateInputSetError) {
     showError(
       (errorInputSet as Failure)?.message ||
-        (errorPipeline as Failure)?.message ||
-        (errorTemplate as Failure)?.message ||
-        (createInputSetError as Failure)?.message ||
-        (updateInputSetError as Failure)?.message ||
-        (createOverlayInputSetError as Failure)?.message ||
-        (updateOverlayInputSetError as Failure)?.message ||
-        (errorOverlayInputSet as Failure)?.message ||
-        (errorInputSetList as Failure)?.message ||
+        (errorPipeline?.data as Failure)?.message ||
+        (errorTemplate?.data as Failure)?.message ||
+        (createInputSetError?.data as Failure)?.message ||
+        (updateInputSetError?.data as Failure)?.message ||
+        (createOverlayInputSetError?.data as Failure)?.message ||
+        (updateOverlayInputSetError?.data as Failure)?.message ||
+        (errorOverlayInputSet?.data as Failure)?.message ||
+        (errorInputSetList?.data as Failure)?.message ||
         i18n.commonError
     )
   }
@@ -490,7 +496,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = ({ hideForm, identifier
                 <>
                   {selectedView === SelectedView.VISUAL ? (
                     <FormikForm>
-                      <BasicInputSetForm isEdit={isEdit} formType={formType} />
+                      <BasicInputSetForm isEdit={isEdit} formType={formType} values={values} />
                       {formType === InputFormType.InputForm &&
                         pipeline?.data?.cdPipeline &&
                         template?.data?.inputSetTemplateYaml && (

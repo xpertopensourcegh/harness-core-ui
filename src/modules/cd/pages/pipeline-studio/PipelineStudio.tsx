@@ -4,12 +4,18 @@ import { Icon, Text } from '@wings-software/uikit'
 import i18n from './PipelineStudio.i18n'
 import { PipelineProvider } from './PipelineContext/PipelineContext'
 import { PipelineCanvas } from './PipelineCanvas/PipelineCanvas'
-import { routeCDPipelines } from '../../routes'
+import { routeCDPipelines, routePipelineDeploymentList } from '../../routes'
 import { RightBar } from './RightBar/RightBar'
+import { DefaultNewPipelineId } from './PipelineContext/PipelineActions'
 import css from './PipelineStudio.module.scss'
 
 const PipelineStudio: React.FC = ({ children }): JSX.Element => {
-  const { accountId, projectIdentifier, orgIdentifier, pipelineIdentifier } = useParams()
+  const { accountId, projectIdentifier, orgIdentifier, pipelineIdentifier } = useParams<{
+    projectIdentifier: string
+    orgIdentifier: string
+    accountId: string
+    pipelineIdentifier: string
+  }>()
   const history = useHistory()
   return (
     <PipelineProvider
@@ -27,12 +33,22 @@ const PipelineStudio: React.FC = ({ children }): JSX.Element => {
               className={css.closeBtn}
               title="Dashboard"
               onClick={() => {
-                history.push(
-                  routeCDPipelines.url({
-                    projectIdentifier: projectIdentifier,
-                    orgIdentifier: orgIdentifier
-                  })
-                )
+                if (pipelineIdentifier !== DefaultNewPipelineId) {
+                  history.push(
+                    routePipelineDeploymentList.url({
+                      projectIdentifier,
+                      orgIdentifier,
+                      pipelineIdentifier
+                    })
+                  )
+                } else {
+                  history.push(
+                    routeCDPipelines.url({
+                      projectIdentifier,
+                      orgIdentifier
+                    })
+                  )
+                }
               }}
             >
               <Icon name="cross" margin="xsmall" padding="xsmall" size={21} className={css.logoImage} />

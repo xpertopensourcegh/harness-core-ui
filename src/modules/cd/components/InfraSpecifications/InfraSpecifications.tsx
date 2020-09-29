@@ -38,11 +38,23 @@ export default function InfraSpecifications(): JSX.Element {
 
   const { stage } = getStageFromPipeline(pipeline, selectedStageId || '')
 
-  const getInitialValues = (): { infraName: string; description: string; tags: null | []; infraType: string } => {
+  const getInitialValues = (): {
+    infraName: string
+    description: string
+    tags: null | []
+    infraType: string
+    identifier: string
+  } => {
     const environment = get(stage, 'stage.spec.infrastructure.environment', null)
     const displayName = environment?.name
     const description = environment?.description
-    return { infraName: displayName, description: description, tags: null, infraType: environment?.type }
+    return {
+      infraName: displayName,
+      description: description,
+      tags: null,
+      infraType: environment?.type,
+      identifier: ''
+    }
   }
 
   const getInitialInfraConnectorValues = (): K8SDirectInfrastructure => {
@@ -67,7 +79,7 @@ export default function InfraSpecifications(): JSX.Element {
             const infraStruct = {
               environment: {
                 name: value.infraName,
-                identifier: value.infraName,
+                identifier: value.identifier,
                 description: value.description,
                 type: value.infraType
               },
@@ -87,11 +99,10 @@ export default function InfraSpecifications(): JSX.Element {
             return (
               <FormikForm>
                 <Layout.Horizontal spacing="medium">
-                  <FormInput.MultiTextInput
-                    name="infraName"
-                    style={{ width: 300 }}
-                    label={i18n.infraNameLabel}
-                    placeholder={i18n.infraNamePlaceholderText}
+                  <FormInput.InputWithIdentifier
+                    inputName="infraName"
+                    inputLabel={i18n.infraNameLabel}
+                    inputGroupProps={{ placeholder: i18n.infraNamePlaceholderText }}
                   />
                   <div className={css.addDataLinks}>
                     <Button

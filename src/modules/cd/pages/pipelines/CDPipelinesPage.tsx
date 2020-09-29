@@ -99,16 +99,19 @@ const CDPipelinesPage: React.FC = () => {
       size: 10
     }
   }
+
+  const [searchParam, setSearchParam] = React.useState('')
+
   const { loading, data, refetch: reloadPipelines, error } = useGetPipelineList({
     queryParams: {
       accountIdentifier: accountId,
       projectIdentifier,
       orgIdentifier,
+      searchTerm: searchParam,
       ...extraParam
     }
   })
 
-  const [searchParam, setSearchParam] = React.useState('')
   const [filterTag, setFilterTag] = React.useState(i18n.tags)
   return (
     <>

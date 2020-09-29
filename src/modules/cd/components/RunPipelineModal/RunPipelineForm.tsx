@@ -1,18 +1,18 @@
 import React from 'react'
 import { Classes } from '@blueprintjs/core'
-import { Button, Color, Formik, FormikForm, Layout, Popover, Text } from '@wings-software/uikit'
+import { Button, Formik, FormikForm, Layout, Popover, Text } from '@wings-software/uikit'
 import { useParams } from 'react-router-dom'
 import cx from 'classnames'
-import { parse } from 'yaml'
+import { parse, stringify } from 'yaml'
 import { noop, pick } from 'lodash-es'
+import * as Yup from 'yup'
 import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
 import {
-  CDInputSet,
   CDPipeline,
   Failure,
   getInputSetForPipelinePromise,
   useCreateInputSetForPipeline,
-  // useGetMergeInputSetFromPipelineTemplate,
+  useGetMergeInputSetFromPipelineTemplateWithListInput,
   useGetPipeline,
   useGetTemplateFromPipeline,
   usePostPipelineExecute
@@ -112,34 +112,35 @@ export const RunPipelineForm: React.FC<RunPipelineFormProps> = ({ pipelineIdenti
     setSelectedInputSets(inputSetSelected)
   }, [inputSetSelected])
 
-  // const {
-  //   mutate: mergeInputSet,
-  //   loading: loadingUpdate,
-  //   error: errorMergeInputSet
-  // } = useGetMergeInputSetFromPipelineTemplate({
-  //   queryParams: { accountIdentifier: accountId, projectIdentifier, orgIdentifier, pipelineIdentifier }
-  // })
+  const {
+    mutate: mergeInputSet,
+    loading: loadingUpdate,
+    error: errorMergeInputSet
+  } = useGetMergeInputSetFromPipelineTemplateWithListInput({
+    queryParams: { accountIdentifier: accountId, projectIdentifier, orgIdentifier, pipelineIdentifier }
+  })
 
   const {
     mutate: createInputSet,
     error: createInputSetError,
     loading: createInputSetLoading
   } = useCreateInputSetForPipeline({
-    queryParams: { accountIdentifier: accountId, orgIdentifier, pipelineIdentifier, projectIdentifier }
+    queryParams: { accountIdentifier: accountId, orgIdentifier, pipelineIdentifier, projectIdentifier },
+    requestOptions: { headers: { 'content-type': 'application/yaml' } }
   })
 
   React.useEffect(() => {
     if ((selectedInputSets && selectedInputSets.length > 1) || selectedInputSets?.[0].type === 'OVERLAY_INPUT_SET') {
       // TODO: Once API Available then fix this
-      //   const fetchData = async (): Promise<void> => {
-      //     const data = await mergeInputSet({
-      //       inputSetIdentifierList: selectedInputSets.map(item => item.value as string)
-      //     })
-      //     if (data?.data?.pipelineYaml) {
-      //       setCurrentPipeline(parse(data.data.pipelineYaml) as { pipeline: CDPipeline })
-      //     }
-      //   }
-      //   fetchData()
+      const fetchData = async (): Promise<void> => {
+        const data = await mergeInputSet({
+          inputSetReferences: selectedInputSets.map(item => item.value as string)
+        })
+        if (data?.data?.pipelineYaml) {
+          setCurrentPipeline(parse(data.data.pipelineYaml) as { pipeline: CDPipeline })
+        }
+      }
+      fetchData()
     } else if (selectedInputSets && selectedInputSets.length === 1) {
       const fetchData = async (): Promise<void> => {
         const data = await getInputSetForPipelinePromise({
@@ -156,16 +157,16 @@ export const RunPipelineForm: React.FC<RunPipelineFormProps> = ({ pipelineIdenti
     }
   }, [selectedInputSets?.length, selectedInputSets, accountId, projectIdentifier, orgIdentifier, pipelineIdentifier])
 
-  if (loadingPipeline || loadingTemplate || createInputSetLoading) {
+  if (loadingPipeline || loadingTemplate || createInputSetLoading || loadingUpdate) {
     return <PageSpinner />
   }
 
-  if (errorPipeline || errorTemplate || createInputSetError) {
+  if (errorPipeline || errorTemplate || createInputSetError || errorMergeInputSet) {
     showError(
-      (errorTemplate as Failure)?.message ||
-        (errorPipeline as Failure)?.message ||
-        // (errorMergeInputSet as Failure)?.message ||
-        (createInputSetError as Failure)?.message ||
+      (errorTemplate?.data as Failure)?.message ||
+        (errorPipeline?.data as Failure)?.message ||
+        (errorMergeInputSet?.data as Failure)?.message ||
+        (createInputSetError?.data as Failure)?.message ||
         i18n.commonError
     )
   }
@@ -180,9 +181,6 @@ export const RunPipelineForm: React.FC<RunPipelineFormProps> = ({ pipelineIdenti
         <Layout.Vertical spacing="medium">
           <Layout.Horizontal flex={{ distribution: 'space-between' }}>
             <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-              <Text font={{ weight: 'bold' }} color={Color.BLACK}>
-                {i18n.inputForm}
-              </Text>
               <div className={css.optionBtns}>
                 <div
                   className={cx(css.item, { [css.selected]: selectedView === SelectedView.VISUAL })}
@@ -242,16 +240,23 @@ export const RunPipelineForm: React.FC<RunPipelineFormProps> = ({ pipelineIdenti
                               >
                                 <Formik
                                   onSubmit={input => {
-                                    createInputSet(input as CDInputSet).then(() => {
+                                    createInputSet(stringify({ inputSet: input }) as any).then(() => {
                                       showSuccess(i18n.inputSetSaved)
                                     })
                                   }}
+                                  validationSchema={Yup.object().shape({
+                                    name: Yup.string().trim().required(i18n.nameIsRequired)
+                                  })}
                                   initialValues={{ pipeline: values.pipeline, name: '', identifier: '' } as InputSetDTO}
                                 >
-                                  {({ submitForm }) => {
+                                  {({ submitForm, values: formikValues }) => {
                                     return (
                                       <>
-                                        <BasicInputSetForm isEdit={false} formType={InputFormType.InputForm} />
+                                        <BasicInputSetForm
+                                          isEdit={false}
+                                          formType={InputFormType.InputForm}
+                                          values={formikValues}
+                                        />
 
                                         <Layout.Horizontal
                                           flex={{ distribution: 'space-between' }}
