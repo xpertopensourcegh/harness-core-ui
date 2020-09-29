@@ -129,9 +129,12 @@ function mapType(type: string): string {
 function createMapOfExistingDataSources(dataSources: any[]): RenderContentProps['existingDataSources'] {
   const mapOfExistingDataSources = new Map()
   dataSources
-    ?.filter(con => con?.type === CVProviders.APP_DYNAMICS.label || con.type === CVProviders.SPLUNK.label)
-    .forEach(({ name, identifier, createdAt, lastModifiedAt, type }) => {
-      type = mapType(type)
+    ?.filter(
+      val => val.connector?.type === CVProviders.APP_DYNAMICS.label || val.connector.type === CVProviders.SPLUNK.label
+    )
+    .forEach(({ createdAt, lastModifiedAt, connector }) => {
+      const { name, identifier, type: connType } = connector
+      const type = mapType(connType)
       if (!mapOfExistingDataSources.has(type)) {
         mapOfExistingDataSources.set(type, [])
       }
