@@ -11,6 +11,7 @@ interface TimelineBarProps {
   endDate: string | number | Date
   className?: string
   style?: object
+  columnWidth?: number
 }
 
 const TIME_UNITS = [
@@ -55,7 +56,13 @@ const findOptimalStartingIndex = (range: DateRange): number => {
 
 const MIN_COL_SIZE = 50
 
-export default function TimelineBar({ startDate, endDate, className, style }: TimelineBarProps) {
+export default function TimelineBar({
+  startDate,
+  endDate,
+  className,
+  style,
+  columnWidth = MIN_COL_SIZE
+}: TimelineBarProps) {
   const ref = useRef<HTMLDivElement>(null)
   const [size, setSize] = useState(0)
 
@@ -81,7 +88,7 @@ export default function TimelineBar({ startDate, endDate, className, style }: Ti
       const timeUnit = TIME_UNITS[i]
       const rangeItems = Array.from(range.by(timeUnit.unit as any, { step: timeUnit.step }))
       const colSize = size / rangeItems.length
-      if (colSize >= MIN_COL_SIZE) {
+      if (colSize >= columnWidth) {
         return rangeItems.map((item: any) => ({
           formattedValue: item.format(timeUnit.format),
           originalValue: item
@@ -89,7 +96,7 @@ export default function TimelineBar({ startDate, endDate, className, style }: Ti
       }
     }
     return []
-  }, [size, startDate, endDate])
+  }, [size, startDate, endDate, columnWidth])
 
   /**
    * TODO - although the coeff is calculated correctly, if there is not enough space to render

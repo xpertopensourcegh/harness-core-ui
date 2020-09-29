@@ -10,13 +10,22 @@ export interface AnalysisDrillDownViewProps {
   className?: string
   startTime: number
   endTime: number
+  historyStartTime?: number
   categoryName?: string
   environmentIdentifier?: string
   serviceIdentifier?: string
 }
 
 export function AnalysisDrillDownView(props: AnalysisDrillDownViewProps): JSX.Element {
-  const { className, startTime, endTime, categoryName, environmentIdentifier, serviceIdentifier } = props
+  const {
+    className,
+    startTime,
+    endTime,
+    categoryName,
+    environmentIdentifier,
+    serviceIdentifier,
+    historyStartTime
+  } = props
   return (
     <Container className={cx(css.main, className)}>
       <Tabs id="AnalysisTabs" renderAllTabPanels={true}>
@@ -27,6 +36,7 @@ export function AnalysisDrillDownView(props: AnalysisDrillDownViewProps): JSX.El
             <MetricAnalysisView
               startTime={startTime}
               endTime={endTime}
+              historyStartTime={historyStartTime}
               categoryName={categoryName}
               environmentIdentifier={environmentIdentifier}
               serviceIdentifier={serviceIdentifier}
@@ -41,6 +51,7 @@ export function AnalysisDrillDownView(props: AnalysisDrillDownViewProps): JSX.El
               startTime={startTime}
               endTime={endTime}
               categoryName={categoryName}
+              historyStartTime={historyStartTime}
               serviceIdentifier={serviceIdentifier}
               environmentIdentifier={environmentIdentifier}
             />

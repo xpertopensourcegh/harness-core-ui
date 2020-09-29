@@ -21,6 +21,20 @@
       flex: 1;
       margin-top: var(--spacing-xlarge);
 
+      .rangeSelector {
+        width: 75px;
+        margin-right: var(--spacing-large);
+        :global {
+          .bp3-input {
+            border: none;
+            background: transparent;
+          }
+          .bp3-menu {
+            min-width: 75px;
+          }
+        }
+      }
+
       .serviceHeatMap {
         background-color: var(--white);
         padding: var(--spacing-small);

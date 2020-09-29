@@ -81,11 +81,11 @@ export default function useAnalysisDrillDownView(
         >
           <AnalysisDrillDownView
             {...omit(drillDownProps.analysisProps, 'categoryRiskScore')}
-            startTime={moment(drillDownProps.analysisProps.startTime).subtract(2, 'hours').valueOf()}
+            historyStartTime={moment(drillDownProps.analysisProps.startTime).subtract(2, 'hours').valueOf()}
           />
         </Dialog>
       ) : null,
-    [drillDownProps, drillDownInfo]
+    [drillDownProps]
   )
 
   return {

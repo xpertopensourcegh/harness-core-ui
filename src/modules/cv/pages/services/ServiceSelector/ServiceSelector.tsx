@@ -101,21 +101,23 @@ export default function ServiceSelector(props: ServiceSelectorProps): JSX.Elemen
       />
       {serviceData?.map((serviceMapping, index: number) => {
         const { envIdentifier = '', serviceRisks = [] } = serviceMapping || {}
+        const filterTextLowerCase = filterText?.toLocaleLowerCase()
         const filteredServiceRisks = filterText?.length
           ? serviceRisks.filter(serviceRisk =>
-              serviceRisk.serviceIdentifier?.toLowerCase().includes(filterText.toLowerCase())
+              serviceRisk.serviceIdentifier?.toLowerCase().includes(filterTextLowerCase!)
             )
           : serviceRisks
         return !filteredServiceRisks?.length ? null : (
           <Container key={envIdentifier}>
-            {index === 0 && (
-              <ServiceRow
-                entityName={i18n.allServiceOptionText}
-                riskScore={overallRiskScoresMap.get(i18n.allServiceOptionText) || 0}
-                selected={i18n.allServiceOptionText === selectedEntity.serviceIdentifier}
-                onSelect={() => onSelectService(undefined, i18n.allServiceOptionText)}
-              />
-            )}
+            {index === 0 &&
+              (!filterTextLowerCase?.length || filterTextLowerCase.includes(i18n.allServiceOptionText)) && (
+                <ServiceRow
+                  entityName={i18n.allServiceOptionText}
+                  riskScore={overallRiskScoresMap.get(i18n.allServiceOptionText) || 0}
+                  selected={i18n.allServiceOptionText === selectedEntity.serviceIdentifier}
+                  onSelect={() => onSelectService(undefined, i18n.allServiceOptionText)}
+                />
+              )}
             <EnvironmentRow
               entityName={envIdentifier}
               riskScore={overallRiskScoresMap.get(envIdentifier) || 0}

@@ -1,6 +1,7 @@
 import type { SeriesLineOptions } from 'highcharts'
+import moment from 'moment'
 
-export default function getLogAnalysisLineChartOptions(data: SeriesLineOptions['data']): Highcharts.Options {
+export default function getLogAnalysisLineChartOptions(series: SeriesLineOptions[]): Highcharts.Options {
   return {
     chart: {
       renderTo: 'chart',
@@ -46,25 +47,15 @@ export default function getLogAnalysisLineChartOptions(data: SeriesLineOptions['
       }
     },
     tooltip: {
-      outside: true
+      outside: true,
+      useHTML: true,
+      formatter: function () {
+        return `${moment(this.x).format('MM/DD/YYYY hh:mm')}<br/><p style="text-align:center;margin-bottom:0">${
+          this.y
+        }</p>`
+      }
     },
     subtitle: undefined,
-    series: [
-      {
-        type: 'line',
-        name: 'Installation',
-        data,
-        zoneAxis: 'x',
-        zones: [
-          // {
-          //   value: data[Math.floor(Math.random() * 14)].x,
-          //   color: 'var(--blue-500)'
-          // },
-          // {
-          //   color: 'var(--red-500)'
-          // }
-        ]
-      }
-    ]
+    series
   }
 }

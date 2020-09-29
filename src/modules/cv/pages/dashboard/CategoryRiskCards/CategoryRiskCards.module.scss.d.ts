@@ -13,6 +13,7 @@ declare const styles: {
   readonly chartContainer: string
   readonly overallRiskScoreCard: string
   readonly overallRiskScoreValue: string
+  readonly overallRiskScoreNoData: string
   readonly noData: string
 }
 export default styles

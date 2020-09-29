@@ -20,6 +20,8 @@ interface LogAnalysisFrequencyChartProps {
   className?: string
 }
 
+const FIVE_MINUTES_IN_MILLISECONDS = 1000 * 60 * 5
+
 function generatePointsForLogChart(data: RestResponseListLogDataByTag, startTime: number, endTime: number): any {
   if (!data?.resource) {
     return data
@@ -53,8 +55,12 @@ function generatePointsForLogChart(data: RestResponseListLogDataByTag, startTime
     return logDataA?.timestamp - logDataB?.timestamp
   })
 
+  const nearest5thMinute = new Date(
+    Math.round(startTime / FIVE_MINUTES_IN_MILLISECONDS) * FIVE_MINUTES_IN_MILLISECONDS
+  ).getTime()
+
   // set up categories(x axis) and the total number of data points
-  for (let i = startTime; i <= endTime; i += 300000) {
+  for (let i = nearest5thMinute; i <= endTime; i += 300000) {
     categories.push(i)
     columnChartData[0]?.data?.push(0)
     columnChartData[1]?.data?.push(0)

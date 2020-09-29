@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react'
-import { Container, Text, Select, OverlaySpinner, Color, SelectOption } from '@wings-software/uikit'
+import { Container, Text, Select, OverlaySpinner, Color, SelectOption, SelectProps } from '@wings-software/uikit'
 import moment from 'moment'
 import { useHistory } from 'react-router-dom'
 import { Page } from 'modules/common/exports'
@@ -49,7 +49,7 @@ function HeatMapTooltip({ cell }: { cell?: HeatMapDTO }): JSX.Element {
     <Container className={styles.heatmapTooltip}>
       {cell.startTime && cell.endTime && (
         <Text>{`${moment(cell.startTime).format('M/D/YYYY h:m a')} - ${moment(cell.endTime).format(
-          'M/D/YYYY h:m a'
+          'M/D/YYYY hh:mm a'
         )}`}</Text>
       )}
       <Container className={styles.overallScoreContent}>
@@ -139,32 +139,7 @@ export default function CVServicesPage(): JSX.Element {
 
   return (
     <>
-      <Page.Header
-        title="Services"
-        toolbar={
-          <Container>
-            <Select
-              defaultSelectedItem={DEFAULT_RANGE}
-              items={RangeOptions}
-              onChange={({ value }: SelectOption) => {
-                if (range?.selectedValue === value) return
-                const selectedValue = value as number
-                setRange({ selectedValue, dates: getRangeDates(selectedValue) })
-                setHeatmapData([])
-                const { start, end } = getRangeDates(value as number)
-                getHeatmap({
-                  queryParams: {
-                    accountId: accountId,
-                    projectIdentifier: projectIdentifier as string,
-                    startTimeMs: start.valueOf(),
-                    endTimeMs: end.valueOf()
-                  }
-                })
-              }}
-            />
-          </Container>
-        }
-      />
+      <Page.Header title="Services" toolbar={<Container></Container>} />
       <Page.Body
         loading={loadingServices}
         noData={{
@@ -213,14 +188,37 @@ export default function CVServicesPage(): JSX.Element {
             />
             <Container className={styles.serviceBody}>
               <OverlaySpinner show={loadingHeatmap}>
-                <Text margin={{ bottom: 'xsmall' }} font={{ size: 'small' }} color={Color.BLACK}>
-                  {i18n.heatmapSectionTitleText}
-                </Text>
+                <Container flex>
+                  <Text margin={{ bottom: 'xsmall' }} font={{ size: 'small' }} color={Color.BLACK}>
+                    {i18n.heatmapSectionTitleText}
+                  </Text>
+                  <Select
+                    defaultSelectedItem={DEFAULT_RANGE}
+                    items={RangeOptions}
+                    className={styles.rangeSelector}
+                    size={'small' as SelectProps['size']}
+                    onChange={({ value }: SelectOption) => {
+                      if (range?.selectedValue === value) return
+                      const selectedValue = value as number
+                      setRange({ selectedValue, dates: getRangeDates(selectedValue) })
+                      setHeatmapData([])
+                      const { start, end } = getRangeDates(value as number)
+                      getHeatmap({
+                        queryParams: {
+                          accountId: accountId,
+                          projectIdentifier: projectIdentifier as string,
+                          startTimeMs: start.valueOf(),
+                          endTimeMs: end.valueOf()
+                        }
+                      })
+                    }}
+                  />
+                </Container>
                 <HeatMap
                   series={heatmapData}
                   minValue={0}
                   maxValue={1}
-                  labelsWidth={80}
+                  labelsWidth={210}
                   className={styles.serviceHeatMap}
                   mapValue={mapHeatmapValue}
                   renderTooltip={(cell: HeatMapDTO) => <HeatMapTooltip cell={cell} />}

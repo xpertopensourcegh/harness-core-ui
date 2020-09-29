@@ -75,6 +75,11 @@
     font-size: 45px !important;
     margin-right: var(--spacing-large);
   }
+  .overallRiskScoreNoData {
+    font-size: var(--font-size-medium) !important;
+    margin: 0 auto;
+    display: block !important;
+  }
 }
 
 .noData {

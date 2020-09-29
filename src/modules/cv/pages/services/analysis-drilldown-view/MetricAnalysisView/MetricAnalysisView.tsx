@@ -25,6 +25,7 @@ interface MetricAnalysisViewProps {
   environmentIdentifier?: string
   serviceIdentifier?: string
   className?: string
+  historyStartTime?: number
 }
 
 function generatePointsForTimeSeries(
@@ -73,10 +74,19 @@ function generatePointsForTimeSeries(
 }
 
 export default function MetricAnalysisView(props: MetricAnalysisViewProps): JSX.Element {
-  const { className, startTime, endTime, categoryName, environmentIdentifier, serviceIdentifier } = props
+  const {
+    className,
+    startTime,
+    endTime,
+    historyStartTime,
+    categoryName,
+    environmentIdentifier,
+    serviceIdentifier
+  } = props
   const {
     params: { orgIdentifier = '', projectIdentifier = '', accountId = '' }
   } = routeParams()
+  const finalStartTime = historyStartTime ?? startTime
   const queryParams = useMemo(
     () => ({
       accountId,
@@ -85,10 +95,10 @@ export default function MetricAnalysisView(props: MetricAnalysisViewProps): JSX.
       environmentIdentifier,
       serviceIdentifier,
       monitoringCategory: (categoryName ? categoryNameToCategoryType(categoryName) : undefined) as string,
-      startTime,
+      startTime: finalStartTime,
       endTime
     }),
-    [serviceIdentifier, environmentIdentifier, startTime, endTime, categoryName]
+    [serviceIdentifier, environmentIdentifier, finalStartTime, endTime, categoryName]
   )
   const [isViewingAnomalousData, setMetricDataView] = useState(true)
   const [needsRefetch, setNeedsRefetch] = useState(true)
@@ -102,7 +112,7 @@ export default function MetricAnalysisView(props: MetricAnalysisViewProps): JSX.
   } = useGetAnomalousMetricData({
     queryParams,
     lazy: true,
-    resolve: response => generatePointsForTimeSeries(response, startTime, endTime)
+    resolve: response => generatePointsForTimeSeries(response, finalStartTime, endTime)
   })
   const {
     data: allMetricData,
@@ -113,7 +123,7 @@ export default function MetricAnalysisView(props: MetricAnalysisViewProps): JSX.
   } = useGetMetricData({
     queryParams,
     lazy: true,
-    resolve: response => generatePointsForTimeSeries(response, startTime, endTime)
+    resolve: response => generatePointsForTimeSeries(response, finalStartTime, endTime)
   })
 
   useEffect(() => {
@@ -141,7 +151,7 @@ export default function MetricAnalysisView(props: MetricAnalysisViewProps): JSX.
   }
 
   const data = isViewingAnomalousData ? anomalousMetricData : allMetricData
-  const { pageSize, pageCount = 0, content, itemCount = 0, pageIndex } = data?.resource || {}
+  const { pageSize, pageCount = 0, content, itemCount = 0, pageIndex, empty } = data?.resource || {}
 
   return (
     <Container className={cx(css.main, className)}>
@@ -163,7 +173,7 @@ export default function MetricAnalysisView(props: MetricAnalysisViewProps): JSX.
             })
           }}
         />
-        <TimelineBar startDate={startTime} endDate={endTime} className={css.timeline} />
+        <TimelineBar startDate={finalStartTime} endDate={endTime} className={css.timeline} columnWidth={70} />
       </Container>
       {(loadingAllMetricData || loadingAnomalousData) && (
         <Container className={css.errorOrLoading} margin="medium">
@@ -188,16 +198,16 @@ export default function MetricAnalysisView(props: MetricAnalysisViewProps): JSX.
               key={`${categoryName}-${groupName}-${metricName}`}
               metricName={metricName}
               categoryName={category}
-              startTime={startTime}
+              startTime={finalStartTime}
               endTime={endTime}
               transactionName={groupName}
               analysisData={metricDataList}
             />
           ) : null
         })}
-      {pageSize && (
+      {pageIndex !== -1 && !empty && (
         <Pagination
-          pageSize={pageSize}
+          pageSize={pageSize || 0}
           pageIndex={pageIndex}
           pageCount={pageCount}
           itemCount={100}

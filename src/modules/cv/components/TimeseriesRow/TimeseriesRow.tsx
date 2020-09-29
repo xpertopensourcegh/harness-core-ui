@@ -109,10 +109,7 @@ function chartsConfig(series: Highcharts.SeriesLineOptions[], chartHeight?: numb
     },
     tooltip: {
       formatter: function tooltipFormatter(this: any): string {
-        // return `<section class="serviceeGuardTimeSeriesTooltip"><p>${new Date(this.x)}</p><br/><p>Value: ${
-        //   this.y
-        // }</p></section>`
-        return `<p>${this.y}</p>`
+        return `<section class="serviceeGuardTimeSeriesTooltip"><p>${this.x}</p><br/><p>Value: ${this.y}</p></section>`
       },
       outside: true
     },

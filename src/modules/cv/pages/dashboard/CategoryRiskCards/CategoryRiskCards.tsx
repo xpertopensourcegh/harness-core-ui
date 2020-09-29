@@ -61,7 +61,13 @@ export function CategoryRiskCard(props: CategoryRiskCardProps): JSX.Element {
 
 export function OverallRiskScoreCard(props: OverallRiskScoreCard): JSX.Element {
   const { className, overallRiskScore } = props
-  return (
+  return overallRiskScore === -1 ? (
+    <Container className={cx(css.overallRiskScoreCard, className)} background={Color.GREY_250}>
+      <Text color={Color.BLACK} className={css.overallRiskScoreNoData}>
+        {i18n.noAnalysisText}
+      </Text>
+    </Container>
+  ) : (
     <Container className={cx(css.overallRiskScoreCard, className, getColorStyle(overallRiskScore, 0, 100))}>
       <Text color={Color.BLACK} className={css.overallRiskScoreValue}>
         {overallRiskScore}

@@ -1,14 +1,27 @@
 import type { SeriesColumnOptions, YAxisOptions } from 'highcharts'
 import moment from 'moment'
 
-function getPointWidthBasedOnTimeRange(startTime: number, endTime: number): number {
-  switch (Math.round(moment.duration(moment(endTime).diff(startTime)).asHours())) {
-    case 4:
-      return 30
-    case 12:
+function getLabelStepValue(startTime: number, endTime: number): number {
+  switch (Math.round(moment.duration(moment(endTime).diff(startTime)).asMinutes())) {
+    case 125:
+    case 135:
+      return 3
+    case 150:
       return 4
+    case 240:
+      return 5
+    case 360:
+      return 8
+    case 720:
+      return 10
+    case 840:
+      return 12
+    case 1440:
+      return 20
+    case 10080:
+      return 140
     default:
-      return 1
+      return 720
   }
 }
 
@@ -35,7 +48,7 @@ export default function getLogViewcolumnChartConfig(
       categories: categories.map((timestamp: number) => new Date(timestamp).toLocaleString()),
       lineWidth: 1,
       labels: {
-        step: 15,
+        step: getLabelStepValue(startTime, endTime),
         formatter() {
           return moment(this.value).format('h:mm A')
         },
@@ -72,8 +85,7 @@ export default function getLogViewcolumnChartConfig(
     ],
     plotOptions: {
       column: {
-        // maxPointWidth: 20,
-        pointWidth: getPointWidthBasedOnTimeRange(startTime, endTime)
+        groupPadding: 0
       }
     },
     legend: {

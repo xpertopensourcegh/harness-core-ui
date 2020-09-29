@@ -1,7 +1,6 @@
 .main {
   height: 100%;
   .dataContainer {
-    height: 100%;
     overflow-y: scroll;
   }
   .mainRow {
@@ -84,6 +83,7 @@
 
 .dataRow {
   padding: var(--spacing-xsmall) 0 !important;
+  height: 80px;
 }
 
 .highlightRow:hover {
