@@ -11,8 +11,8 @@ import css from './SnippetDetails.module.scss'
 interface SnippetDetailsProps {
   entityType: YamlEntity
   selectedIcon?: string
-  snippets: SnippetInterface[]
-  onSnippetSearch: (arg0: string) => void
+  snippets?: SnippetInterface[]
+  onSnippetSearch?: (query: string) => void
 }
 
 const SnippetDetails: React.FC<SnippetDetailsProps> = props => {
@@ -23,13 +23,13 @@ const SnippetDetails: React.FC<SnippetDetailsProps> = props => {
     event.preventDefault()
     const query = event.target.value
     setSearchedSnippet(query)
-    props.onSnippetSearch(query)
+    props.onSnippetSearch?.(query)
   }
 
   const onSearchClear = (event: React.MouseEvent<HTMLElement>): void => {
     event.preventDefault()
     setSearchedSnippet('')
-    props.onSnippetSearch('')
+    props.onSnippetSearch?.('')
   }
 
   //TODO Handle icon click when apis are ready

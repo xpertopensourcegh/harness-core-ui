@@ -74,7 +74,7 @@ function getJSONFromYAML(yaml: string): Record<string, any> {
 const getMetaDataForKeyboardEventProcessing = (
   editor: any,
   shouldAddPlaceholder: boolean = false
-): { currentProperty: string; yamlInEditor: string; parentToCurrentPropertyPath: string | undefined } | undefined => {
+): Record<string, string | undefined> | undefined => {
   const yamlInEditor = getYAMLFromEditor(editor, shouldAddPlaceholder)
   if (yamlInEditor) {
     const jsonEquivalentOfYAMLInEditor = getJSONFromYAML(yamlInEditor)

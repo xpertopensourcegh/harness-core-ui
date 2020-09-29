@@ -1,10 +1,11 @@
-// @ts-nocheck
 import React, { useEffect, useState, useRef } from 'react'
 import MonacoEditor from 'react-monaco-editor'
 import '@wings-software/monaco-yaml/lib/esm/monaco.contribution'
 import { languages } from 'monaco-editor/esm/vs/editor/editor.api'
 import 'monaco-editor'
+//@ts-ignore
 import YamlWorker from 'worker-loader!@wings-software/monaco-yaml/lib/esm/yaml.worker'
+//@ts-ignore
 import EditorWorker from 'worker-loader!monaco-editor/esm/vs/editor/editor.worker'
 import { Toaster, Intent } from '@blueprintjs/core'
 import cx from 'classnames'
@@ -17,12 +18,14 @@ import type {
 } from 'modules/common/interfaces/YAMLBuilderProps'
 import SnippetSection from 'modules/common/components/SnippetSection/SnippetSection'
 import { JSONSchemaService } from 'modules/dx/services'
-import { validateYAML, validateYAMLWithSchema, addYAMLLanguageSettingsToSchema } from 'modules/common/utils/YamlUtils'
+import { validateYAMLWithSchema, addYAMLLanguageSettingsToSchema } from 'modules/common/utils/YamlUtils'
 import { findLeafToParentPath, getYAMLFromEditor, getMetaDataForKeyboardEventProcessing } from './YAMLBuilderUtils'
 
 import css from './YamlBuilder.module.scss'
-import { debounce, omitBy, isNull } from 'lodash-es'
+import { debounce } from 'lodash-es'
+import type { Diagnostic } from 'vscode-languageserver-types'
 
+//@ts-ignore
 monaco.editor.defineTheme('vs', {
   base: 'vs',
   inherit: false,
@@ -32,10 +35,12 @@ monaco.editor.defineTheme('vs', {
     { token: 'comment', foreground: '9aa5b5' }
   ]
 })
+//@ts-ignore
 monaco.editor.setTheme('vs')
 
+//@ts-ignore
 window.MonacoEnvironment = {
-  getWorker(workerId, label: string) {
+  getWorker(_workerId: unknown, label: string) {
     if (label === 'yaml') {
       return new YamlWorker()
     }
@@ -62,9 +67,9 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
     onExpressionTrigger
   } = props
   const [currentYaml, setCurrentYaml] = useState<string | undefined>('')
-  const [yamlValidationErrors, setYamlValidationErrors] = useState<Map<string, string> | undefined>()
-  const editorRef = useRef(null)
-  const yamlRef = useRef<string>('')
+  const [yamlValidationErrors, setYamlValidationErrors] = useState<Map<string, string[]> | undefined>()
+  const editorRef = useRef<MonacoEditor>(null)
+  const yamlRef = useRef<string | undefined>('')
   const yamlValidationErrorsRef = useRef<Map<string, string[]> | undefined>()
   yamlRef.current = currentYaml
   yamlValidationErrorsRef.current = yamlValidationErrors
@@ -98,15 +103,16 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
   }, [bind, handler])
 
   useEffect(() => {
+    //@ts-ignore
     const { yaml } = languages || {}
     const languageSettings = getYAMLLanguageSettings(entityType)
     yaml?.yamlDefaults.setDiagnosticsOptions(languageSettings)
     verifyIncomingJSON(existingJSON)
   }, [existingJSON, entityType])
 
-  const replacer = (key, value) => (typeof value === 'undefined' ? '' : value)
+  const replacer = (_key: string, value: unknown) => (typeof value === 'undefined' ? '' : value)
 
-  const verifyIncomingJSON = (jsonObj: Record<string, any>): void => {
+  const verifyIncomingJSON = (jsonObj: Record<string, any> | undefined): void => {
     const sanitizedJSON = JSON.parse(JSON.stringify(jsonObj, replacer).replace(/null/g, '""'))
     if (sanitizedJSON && Object.keys(sanitizedJSON).length > 0) {
       const yamlEqOfJSON = stringify(sanitizedJSON)
@@ -140,24 +146,28 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
 
       validationErrors.forEach(valError => {
         const errorLineNum = valError?.range.end?.line + 1
-        const textInCurrentEditorLine = editor.getModel().getLineContent(errorLineNum).trim()
-        const [currentProperty, value] = textInCurrentEditorLine?.split(':').map(item => item.trim())
-        const indexOfOccurence = currentYaml.indexOf(textInCurrentEditorLine)
-        if (indexOfOccurence !== -1) {
-          const partialYAML = currentYaml.substring(0, indexOfOccurence + textInCurrentEditorLine.length)
-          const jsonEqOfYAML = getJSONFromYAML(partialYAML)
-          if (jsonEqOfYAML && Object.keys(jsonEqOfYAML).length > 0) {
-            const path = findLeafToParentPath(jsonEqOfYAML, currentProperty)
-            const existingErrorsOnPath = yamlPathToValidationErrorMap.get(path)
-            if (
-              existingErrorsOnPath !== undefined &&
-              Array.isArray(existingErrorsOnPath) &&
-              existingErrorsOnPath.length > 0
-            ) {
-              existingErrorsOnPath.push(valError.message)
-              yamlPathToValidationErrorMap.set(path, existingErrorsOnPath)
-            } else {
-              yamlPathToValidationErrorMap.set(path, [valError.message])
+        const textInCurrentEditorLine = editor?.getModel()?.getLineContent(errorLineNum).trim()
+        if (textInCurrentEditorLine) {
+          const currentProperty = textInCurrentEditorLine?.split(':').map(item => item.trim())?.[0]
+          const indexOfOccurence = currentYaml.indexOf(textInCurrentEditorLine)
+          if (indexOfOccurence !== -1) {
+            const partialYAML = currentYaml.substring(0, indexOfOccurence + textInCurrentEditorLine.length)
+            const jsonEqOfYAML = getJSONFromYAML(partialYAML)
+            if (jsonEqOfYAML && Object.keys(jsonEqOfYAML).length > 0) {
+              const path = findLeafToParentPath(jsonEqOfYAML, currentProperty)
+              if (path) {
+                const existingErrorsOnPath = yamlPathToValidationErrorMap.get(path)
+                if (
+                  existingErrorsOnPath !== undefined &&
+                  Array.isArray(existingErrorsOnPath) &&
+                  existingErrorsOnPath.length > 0
+                ) {
+                  existingErrorsOnPath.push(valError.message)
+                  yamlPathToValidationErrorMap.set(path, existingErrorsOnPath)
+                } else {
+                  yamlPathToValidationErrorMap.set(path, [valError.message])
+                }
+              }
             }
           }
         }
@@ -171,18 +181,18 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
   const verifyYAMLValidity = (currentYaml: string): void => {
     const jsonSchemas = JSONSchemaService.fetchEntitySchemas(entityType)
     validateYAMLWithSchema(currentYaml, [jsonSchemas])
-      .then(validationErrors => {
+      .then((validationErrors: Diagnostic[]) => {
         if (validationErrors && Array.isArray(validationErrors)) {
           const validationErrorMap = getYAMLPathToValidationErrorMap(currentYaml, validationErrors)
           setYamlValidationErrors(validationErrorMap)
         }
       })
-      .catch(error => {
+      .catch((error: string) => {
         toaster.show({ message: error, intent: Intent.DANGER, timeout: 5000 })
       })
   }
 
-  const editorDidMount = (editor, monaco) => {
+  const editorDidMount = (editor: any) => {
     if (editor) {
       if (!props.isReadOnlyMode) {
         editor.focus()
@@ -201,20 +211,20 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
   }
 
   /** For expressions */
-  const getExpressionFromCurrentLine = (editor): string => {
+  const getExpressionFromCurrentLine = (editor: any): string => {
     const textInCurrentEditorLine = editor.getModel().getLineContent(editor.getPosition().lineNumber)
-    const [property, expression] = textInCurrentEditorLine.split(':').map(item => item.trim())
+    const expression = textInCurrentEditorLine.split(':').map((item: string) => item.trim())?.[1]
     return expression
   }
 
   let expressionCompletionDisposer: { dispose: () => void }
   function registerCompletionItemProviderForExpressions(
-    editor,
+    editor: any,
     triggerCharacters: string[],
-    matchingPath: string,
-    currentExpression?: string = ''
+    matchingPath: string | undefined,
+    currentExpression: string | undefined = ''
   ): void {
-    if (editor) {
+    if (editor && matchingPath) {
       const suggestionsPromise = onExpressionTrigger ? onExpressionTrigger(matchingPath, currentExpression) : null
       if (suggestionsPromise) {
         suggestionsPromise.then(suggestions => {
@@ -232,7 +242,7 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
   /** For RT Inputs */
   let runTimeCompletionDisposer: { dispose: () => void }
   function registerCompletionItemProviderForRTInputs(
-    editor,
+    editor: any,
     suggestionsPromise: Promise<CompletionItemInterface[]>
   ): void {
     if (editor) {
@@ -247,44 +257,40 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
     }
   }
 
-  const invokeCallBackForMatchingYAMLPaths = (monaco, matchingPath: string, editor): void => {
-    invocationMap?.forEach((callBackFunc, yamlPath) => {
-      if (matchingPath.match(yamlPath) && typeof callBackFunc === 'function') {
-        const suggestionsPromise = callBackFunc(matchingPath, getYAMLFromEditor(editor, true))
-        registerCompletionItemProviderForRTInputs(monaco, suggestionsPromise)
-      }
-    })
+  const invokeCallBackForMatchingYAMLPaths = (editor: any, matchingPath: string | undefined): void => {
+    if (editor && matchingPath) {
+      invocationMap?.forEach((callBackFunc, yamlPath) => {
+        if (matchingPath.match(yamlPath) && typeof callBackFunc === 'function') {
+          const yamlLFromEditor = getYAMLFromEditor(editor, true) as string
+          const suggestionsPromise = callBackFunc(matchingPath, yamlLFromEditor)
+          registerCompletionItemProviderForRTInputs(editor, suggestionsPromise)
+        }
+      })
+    }
   }
 
-  const handleEditorKeyDownEvent = (event: KeyboardEvent, editor): void => {
+  const handleEditorKeyDownEvent = (event: KeyboardEvent, editor: any): void => {
     const { shiftKey, code } = event
     //TODO Need to check hotkey for cross browser/cross OS compatibility
     //TODO Need to debounce this function call for performance optimization
     if (shiftKey) {
       if (code === KEY_CODE_FOR_DOLLAR_SIGN) {
-        const { currentProperty, yamlInEditor, parentToCurrentPropertyPath } = getMetaDataForKeyboardEventProcessing(
-          editor
-        )
+        const yamlPath = getMetaDataForKeyboardEventProcessing(editor)?.parentToCurrentPropertyPath
         disposePreviousSuggestions()
-        registerCompletionItemProviderForExpressions(monaco, [TRIGGER_CHAR_FOR_NEW_EXPR], parentToCurrentPropertyPath)
-      } else if (code === KEY_CODE_FOR_SEMI_COLON && invocationMap?.size > 0) {
-        const { currentProperty, yamlInEditor, parentToCurrentPropertyPath } = getMetaDataForKeyboardEventProcessing(
-          editor,
-          true
-        )
+        registerCompletionItemProviderForExpressions(editor, [TRIGGER_CHAR_FOR_NEW_EXPR], yamlPath)
+      } else if (code === KEY_CODE_FOR_SEMI_COLON && invocationMap && invocationMap.size > 0) {
+        const yamlPath = getMetaDataForKeyboardEventProcessing(editor, true)?.parentToCurrentPropertyPath
         disposePreviousSuggestions()
-        invokeCallBackForMatchingYAMLPaths(monaco, parentToCurrentPropertyPath, editor)
+        invokeCallBackForMatchingYAMLPaths(editor, yamlPath)
       }
     }
     if (code === KEY_CODE_FOR_PERIOD) {
-      const { currentProperty, yamlInEditor, parentToCurrentPropertyPath } = getMetaDataForKeyboardEventProcessing(
-        editor
-      )
+      const yamlPath = getMetaDataForKeyboardEventProcessing(editor)?.parentToCurrentPropertyPath
       disposePreviousSuggestions()
       registerCompletionItemProviderForExpressions(
-        monaco,
+        editor,
         [TRIGGER_CHAR_FOR_PARTIAL_EXPR],
-        parentToCurrentPropertyPath,
+        yamlPath,
         getExpressionFromCurrentLine(editor)
       )
     }
@@ -299,7 +305,7 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
               <span className={cx(css.filePath, css.flexCenter)}>{fileName}</span>
               {fileName && entityType ? <Tag className={css.entityTag}>{entityType}</Tag> : null}
             </div>
-            {yamlValidationErrors?.size > 0 ? (
+            {yamlValidationErrors && yamlValidationErrors.size > 0 ? (
               <div className={cx(css.flexCenter, css.validationStatus)}>
                 <Icon name="main-issue-filled" size={14} className={css.validationIcon} />
                 <span className={css.invalidYaml}>Invalid</span>
@@ -314,7 +320,11 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
               value={currentYaml}
               onChange={debounce(onYamlChange, 200)}
               editorDidMount={editorDidMount}
-              options={{ readOnly: isReadOnlyMode, wordBasedSuggestions: false }}
+              options={{
+                readOnly: isReadOnlyMode,
+                //@ts-ignore
+                wordBasedSuggestions: false
+              }}
               ref={editorRef}
             />
           </div>

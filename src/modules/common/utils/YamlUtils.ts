@@ -65,7 +65,7 @@ const setUpLanguageService = schemas => {
   return languageService
 }
 
-const addYAMLLanguageSettingsToSchema = schemaSet => {
+const addYAMLLanguageSettingsToSchema = (schemaSet: unknown): Record<string, any> => {
   const languageSetting = {
     validate: true,
     enableSchemaRequest: true,

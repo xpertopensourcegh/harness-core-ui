@@ -12,6 +12,6 @@ export interface SnippetInterface {
 export interface SnippetSectionProps {
   entityType: YamlEntity
   showIconMenu?: boolean
-  snippets: SnippetInterface[]
-  onSnippetSearch: (arg0: string) => void
+  snippets?: SnippetInterface[]
+  onSnippetSearch?: (query: string) => void
 }
