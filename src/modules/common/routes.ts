@@ -158,7 +158,12 @@ export const routeOrgResources: Route<{ orgIdentifier: string }> = {
   pageId: 'org-admin-resources',
   url: ({ orgIdentifier }) => routeURL(routeOrgResources, `/resources/org/${orgIdentifier}`),
   component: React.lazy(() => import('../cd/pages/Resources/ResourcesPage')),
-  nestedRoutes: [routeOrgResourcesConnectors, routeOrgResourcesSecretsListing, routeOrgResourcesSecretDetails]
+  nestedRoutes: [
+    routeOrgResourcesConnectors,
+    routeOrgResourcesSecretsListing,
+    routeOrgResourcesSecretDetails,
+    routeOrgResourcesConnectorDetails
+  ]
 }
 
 export const routeGitSyncRepos: NestedRoute = {

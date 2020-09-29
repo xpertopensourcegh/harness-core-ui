@@ -10,6 +10,14 @@
   border-bottom: 1px solid var(--grey-300);
   height: 72px;
 }
+.listBody {
+  background-color: var(--grey-100) !important;
+  min-height: calc(100vh - 136px);
+  min-width: 900px;
+}
+.listPage {
+  min-width: 900px;
+}
 .view {
   justify-content: flex-end;
 }

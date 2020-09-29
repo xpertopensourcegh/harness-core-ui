@@ -8,6 +8,8 @@ import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
 import type { UseGetMockData } from 'modules/common/utils/testUtils'
 import useCreateConnectorModal from 'modules/dx/modals/ConnectorModal/useCreateConnectorModal'
 import { routeCreateConnectorFromYaml } from 'modules/dx/routes'
+import { PageError } from 'modules/common/components/Page/PageError'
+import { Page } from 'modules/common/exports'
 import ConnectorsListView from './views/ConnectorsListView'
 import i18n from '../../components/connectors/CreateConnectorWizard/CreateConnectorWizard.i18n'
 import css from './ConnectorsPage.module.scss'
@@ -46,7 +48,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ mockData }) => {
   const [page, setPage] = useState(0)
   const history = useHistory()
 
-  const { loading, data, refetch: reloadConnectorList } = useGetConnectorList({
+  const { loading, data, refetch: reloadConnectorList, error } = useGetConnectorList({
     queryParams: {
       pageIndex: page,
       pageSize: 10,
@@ -107,7 +109,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ mockData }) => {
   ]
 
   return (
-    <Layout.Vertical height={'calc(100vh - 64px'}>
+    <Layout.Vertical height={'calc(100vh - 64px'} className={css.listPage}>
       <Layout.Horizontal className={css.header}>
         <Layout.Horizontal inline width="55%">
           <Popover minimal position={Position.BOTTOM_RIGHT}>
@@ -142,17 +144,25 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ mockData }) => {
           />
         </Layout.Horizontal>
       </Layout.Horizontal>
-      {!loading ? (
-        view === View.LIST && data?.data?.content?.length ? (
+      <Page.Body className={css.listBody}>
+        {loading ? (
+          <div style={{ position: 'relative', height: 'calc(100vh - 128px)' }}>
+            <PageSpinner />
+          </div>
+        ) : error ? (
+          <div style={{ paddingTop: '200px' }}>
+            <PageError message={error.message} onClick={() => reloadConnectorList()} />
+          </div>
+        ) : view === View.LIST && data?.data?.content?.length ? (
           <ConnectorsListView
             data={data?.data}
             reload={reloadConnectorList}
             gotoPage={pageNumber => setPage(pageNumber)}
           />
-        ) : null
-      ) : (
-        <PageSpinner />
-      )}
+        ) : (
+          <Page.NoDataCard icon="nav-dashboard" message={i18n.NoConnector} />
+        )}
+      </Page.Body>
     </Layout.Vertical>
   )
 }

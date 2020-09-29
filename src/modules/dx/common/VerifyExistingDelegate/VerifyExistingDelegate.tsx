@@ -273,7 +273,7 @@ const VerifyExistingDelegate = (props: VerifyExistingDelegateProps) => {
         </Text>
       ) : null}
 
-      {(stepDetails.step === StepIndex.get(STEP.VERIFY) && stepDetails.status === 'DONE') ||
+      {(!renderInModal && stepDetails.step === StepIndex.get(STEP.VERIFY) && stepDetails.status === 'DONE') ||
       stepDetails.intent === Intent.DANGER ? (
         <Layout.Horizontal margin={{ left: 'small' }} className={cx({ [css.inModalRetest]: renderInModal })}>
           <Button

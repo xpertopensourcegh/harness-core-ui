@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Container, Button, IconName } from '@wings-software/uikit'
 import { parse } from 'yaml'
-import { useHistory, useParams } from 'react-router-dom'
+import { useHistory, useParams, useLocation } from 'react-router-dom'
 
 import YAMLBuilder from 'modules/common/components/YAMLBuilder/YamlBuilder'
 import { YamlEntity } from 'modules/common/constants/YamlConstants'
@@ -10,7 +10,6 @@ import { PageHeader } from 'modules/common/components/Page/PageHeader'
 import type { YamlBuilderHandlerBinding } from 'modules/common/interfaces/YAMLBuilderProps'
 import { useCreateConnector } from 'services/cd-ng'
 import { useToaster } from 'modules/common/exports'
-import { routeConnectorDetails } from 'modules/dx/routes'
 import { YAMLService } from 'modules/dx/services'
 import type { SnippetInterface } from 'modules/common/interfaces/SnippetInterface'
 import i18n from './CreateConnectorFromYaml.i18n'
@@ -23,6 +22,7 @@ const CreateConnectorFromYamlPage: React.FC = () => {
   const { showSuccess, showError } = useToaster()
   const { mutate: createConnector } = useCreateConnector({ queryParams: { accountIdentifier: accountId } })
 
+  const { pathname } = useLocation()
   const addIconInfoToSnippets = (snippetsList: SnippetInterface[], iconName: IconName): void => {
     if (!snippetsList) {
       return
@@ -58,9 +58,9 @@ const CreateConnectorFromYamlPage: React.FC = () => {
 
     if (yamlData && jsonData) {
       try {
-        await createConnector(yamlData as any) // Replace after BE changes api
+        await createConnector(jsonData as any) // Replace after BE changes api
         showSuccess(i18n.successfullyCreated)
-        history.push(routeConnectorDetails.url({ connectorId: jsonData['identifier'] }))
+        history.push(`${pathname}/${jsonData.connector?.['identifier']}`)
       } catch (err) {
         showError(err.data?.message)
       }

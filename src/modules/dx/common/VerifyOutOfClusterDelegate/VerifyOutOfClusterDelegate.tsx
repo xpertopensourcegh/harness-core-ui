@@ -247,7 +247,7 @@ const VerifyOutOfClusterDelegate: React.FC<
             {i18n.LAST_CONNECTED} {<ReactTimeago date={new Date().getTime()} />}
           </Text>
         ) : null}
-        {(stepDetails.step === StepIndex.get(STEP.VERIFY) && stepDetails.status === 'DONE') ||
+        {(!renderInModal && stepDetails.step === StepIndex.get(STEP.VERIFY) && stepDetails.status === 'DONE') ||
         stepDetails.intent === Intent.DANGER ? (
           <Layout.Horizontal margin={{ left: 'small' }} className={cx({ [css.inModalRetest]: renderInModal })}>
             <Button

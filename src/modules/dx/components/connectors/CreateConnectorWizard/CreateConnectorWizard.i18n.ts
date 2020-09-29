@@ -43,5 +43,6 @@ export default {
       COMMAND: 'kubectl apply -f harness-delegate.yaml'
     }
   },
-  Search: 'Search'
+  Search: 'Search',
+  NoConnector: 'No connectors found'
 }
