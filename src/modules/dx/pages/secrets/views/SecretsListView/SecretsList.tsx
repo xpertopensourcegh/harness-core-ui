@@ -9,7 +9,7 @@ import Table from 'modules/common/components/Table/Table'
 import { routeSecretDetails } from 'modules/dx/routes'
 import { useToaster, useConfirmationDialog } from 'modules/common/exports'
 import { SecretResponseWrapper, useDeleteSecretV2 } from 'services/cd-ng'
-import type { PageSecretResponseWrapper, SecretDTOV2, SecretTextSpecDTO } from 'services/cd-ng'
+import type { PageSecretResponseWrapper, SecretTextSpecDTO } from 'services/cd-ng'
 import { getStringForType } from 'modules/dx/components/secrets/SSHAuthUtils'
 // import TagsPopover from 'modules/common/components/TagsPopover/TagsPopover'
 import { useVerifyModal } from 'modules/dx/modals/CreateSSHCredModal/useVerifyModal'
@@ -91,8 +91,8 @@ const RenderColumnStatus: Renderer<CellProps<SecretResponseWrapper>> = ({ row })
   return null
 }
 
-const RenderColumnAction: Renderer<CellProps<SecretDTOV2>> = ({ row, column }) => {
-  const data = row.original
+const RenderColumnAction: Renderer<CellProps<SecretResponseWrapper>> = ({ row, column }) => {
+  const data = row.original.secret
   const history = useHistory()
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
   const { showSuccess, showError } = useToaster()
