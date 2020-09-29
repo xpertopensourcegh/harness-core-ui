@@ -1,7 +1,7 @@
 import React from 'react'
-import { IconName, Text, Formik, FormInput, Button, DurationInput } from '@wings-software/uikit'
+import { IconName, Text, Formik, FormInput, Button } from '@wings-software/uikit'
 import * as Yup from 'yup'
-import { get } from 'lodash-es'
+// import { get } from 'lodash-es'
 import type { StepViewType } from 'modules/common/exports'
 import type { K8sRollingStepInfo, StepElement } from 'services/cd-ng'
 import { StepType } from '../../PipelineStepInterface'
@@ -32,16 +32,17 @@ const K8RolloutDeployWidget: React.FC<K8RolloutDeployProps> = ({ initialValues, 
         initialValues={initialValues}
         validationSchema={Yup.object().shape({
           name: Yup.string().required(i18n.stepNameRequired),
-          spec: Yup.object().shape({
-            timeout: Yup.number().required(i18n.timeoutRequired).min(59999, i18n.timeoutMinimum)
-          })
+          // spec: Yup.object().shape({
+          //   timeout: Yup.number().required(i18n.timeoutRequired).min(59999, i18n.timeoutMinimum)
+          // })
+          spec: Yup.string().required(i18n.timeoutRequired)
         })}
       >
         {({ submitForm }) => {
           return (
             <>
               <FormInput.InputWithIdentifier inputLabel={i18n.displayName} />
-              <FormInput.CustomRender
+              {/* <FormInput.CustomRender
                 name="spec.timeout"
                 label={i18n.timeout}
                 className={stepCss.duration}
@@ -53,7 +54,8 @@ const K8RolloutDeployWidget: React.FC<K8RolloutDeployProps> = ({ initialValues, 
                     />
                   )
                 }}
-              />
+              /> */}
+              <FormInput.Text name="spec.timeout" label={i18n.timeout} className={stepCss.duration} />
               <FormInput.CheckBox name="spec.skipDryRun" label={i18n.skipDryRun} className={stepCss.checkbox} />
               <Button intent="primary" text={i18n.submit} onClick={submitForm} />
             </>
@@ -81,7 +83,7 @@ export class K8RolloutDeployStep extends PipelineStep<K8RolloutDeployData> {
     identifier: '',
     spec: {
       skipDryRun: false,
-      timeout: 60000
+      timeout: '10m'
     }
   }
 }

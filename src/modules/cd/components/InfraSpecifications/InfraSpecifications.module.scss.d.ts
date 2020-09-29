@@ -2,6 +2,7 @@
 // this is an auto-generated file
 declare const styles: {
   readonly serviceOverrides: string
+  readonly name: string
   readonly addDataLinks: string
   readonly removeLink: string
   readonly specTabs: string

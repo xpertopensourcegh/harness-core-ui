@@ -102,7 +102,7 @@ export default function InfraSpecifications(): JSX.Element {
                   <FormInput.InputWithIdentifier
                     inputName="infraName"
                     inputLabel={i18n.infraNameLabel}
-                    inputGroupProps={{ placeholder: i18n.infraNamePlaceholderText }}
+                    inputGroupProps={{ placeholder: i18n.infraNamePlaceholderText, className: css.name }}
                   />
                   <div className={css.addDataLinks}>
                     <Button

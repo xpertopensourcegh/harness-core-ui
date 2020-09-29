@@ -102,7 +102,6 @@ export default function ServiceSpecifications(): JSX.Element {
             type: 'Kubernetes',
             spec: {
               artifacts: {
-                primary: null,
                 sidecars: []
               },
               manifests: [],

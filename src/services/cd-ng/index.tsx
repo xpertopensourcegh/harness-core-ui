@@ -1219,12 +1219,12 @@ export type K8sManifest = ManifestAttributes & {
 }
 
 export type K8sRollingRollbackStepInfo = StepSpecType & {
-  timeout?: number
+  timeout?: string
   metadata?: string
 }
 
 export type K8sRollingStepInfo = StepSpecType & {
-  timeout?: number
+  timeout?: string
   skipDryRun?: boolean
   metadata?: string
 }
