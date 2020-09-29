@@ -10,13 +10,7 @@ describe('Create Secret Manager Wizard', () => {
   test('should render form', () => {
     const dom = render(
       <MemoryRouter>
-        <CreateSecretManager
-          accountId="dummy"
-          hideLightModal={noop}
-          orgIdentifier="dummyOrgId"
-          projectIdentifier="dummyProjectId"
-          onSuccess={noop}
-        />
+        <CreateSecretManager hideLightModal={noop} onSuccess={noop} />
       </MemoryRouter>
     )
 

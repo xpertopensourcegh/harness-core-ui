@@ -42,15 +42,7 @@ export const ConnectorWizard: React.FC<CreateConnectorWizardProps> = props => {
         />
       )
     case Connectors.VAULT:
-      return (
-        <CreateSecretManager
-          accountId={accountId}
-          hideLightModal={hideLightModal}
-          orgIdentifier={orgIdentifier}
-          onSuccess={props.onSuccess}
-          projectIdentifier={projectIdentifier}
-        />
-      )
+      return <CreateSecretManager hideLightModal={hideLightModal} onSuccess={props.onSuccess} />
     case Connectors.APP_DYNAMICS:
       return (
         <CreateAppDynamicsConnector
