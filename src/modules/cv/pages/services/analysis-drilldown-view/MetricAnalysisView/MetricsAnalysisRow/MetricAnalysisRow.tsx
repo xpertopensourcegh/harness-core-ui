@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react'
-import { Container } from '@wings-software/uikit'
+import { Color, Container } from '@wings-software/uikit'
 import { isNumber } from 'lodash-es'
+import moment from 'moment'
 import type { MetricData } from 'services/cv'
 import TimeseriesRow, { SeriesConfig } from 'modules/cv/components/TimeseriesRow/TimeseriesRow'
 import css from './MetricAnalysisRow.module.scss'
@@ -14,6 +15,8 @@ interface MetricAnalysisRowProps {
   endTime: number
 }
 
+const ROW_HEIGHT = 60
+
 function riskScoreToColor(riskScore: string): string {
   switch (riskScore) {
     case 'NO_ANALYSIS':
@@ -24,6 +27,21 @@ function riskScoreToColor(riskScore: string): string {
       return 'var(--orange-500)'
     default:
       return 'var(--red-500)'
+  }
+}
+
+function getTimeMaskWidthBasedOnTimeRange(startTime: number, endTime: number): number {
+  switch (Math.round(moment.duration(moment(endTime).diff(startTime)).asMinutes())) {
+    case 125:
+      return 48
+    case 135:
+      return 73
+    case 150:
+      return 130
+    case 360:
+      return 420
+    default:
+      return 545
   }
 }
 
@@ -56,15 +74,21 @@ function transformAnalysisDataToChartSeries(analysisData: any[]): SeriesConfig[]
 }
 
 export default function MetricAnalysisRow(props: MetricAnalysisRowProps): JSX.Element {
-  const { metricName, analysisData = [], transactionName } = props || {}
+  const { metricName, analysisData = [], transactionName, startTime, endTime } = props || {}
   const timeseriesOptions = useMemo(() => transformAnalysisDataToChartSeries(analysisData), [analysisData])
   return (
-    <Container className={css.main} height={60}>
+    <Container className={css.main} height={ROW_HEIGHT}>
+      <Container
+        style={{ position: 'absolute', top: 0, right: 15, zIndex: 2, opacity: 0.3 }}
+        height={ROW_HEIGHT}
+        background={Color.BLUE_300}
+        width={getTimeMaskWidthBasedOnTimeRange(startTime, endTime)}
+      />
       <TimeseriesRow
         transactionName={transactionName}
         metricName={metricName}
         seriesData={timeseriesOptions}
-        chartHeight={60}
+        chartHeight={ROW_HEIGHT}
       />
     </Container>
   )

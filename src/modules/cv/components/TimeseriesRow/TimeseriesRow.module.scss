@@ -24,9 +24,15 @@
       display: flex;
       align-items: center;
       .chartContainer {
+        :global {
+          [class*='highcharts-container'] {
+            z-index: 3 !important;
+          }
+        }
         position: relative;
         min-width: 0;
         flex: 1;
+        background-color: #fcfcfc;
       }
       .verticalMoreIcon {
         transform: rotate(90deg);

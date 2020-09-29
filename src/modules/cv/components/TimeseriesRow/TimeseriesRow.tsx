@@ -4,6 +4,7 @@ import type { FontProps } from '@wings-software/uikit/dist/styled-props/font/Fon
 import HighchartsReact from 'highcharts-react-official'
 import Highcharts from 'highcharts'
 import classnames from 'classnames'
+import moment from 'moment'
 import styles from './TimeseriesRow.module.scss'
 
 export interface SeriesConfig {
@@ -65,10 +66,10 @@ export default function TimeseriesRow({
 function chartsConfig(series: Highcharts.SeriesLineOptions[], chartHeight?: number): Highcharts.Options {
   return {
     chart: {
-      backgroundColor: '#FCFCFC',
+      backgroundColor: 'transparent',
       height: chartHeight || 40,
       type: 'line',
-      spacing: [5, 5, 5, 5]
+      spacing: [5, 2, 5, 2]
     },
     credits: undefined,
     title: {
@@ -109,7 +110,9 @@ function chartsConfig(series: Highcharts.SeriesLineOptions[], chartHeight?: numb
     },
     tooltip: {
       formatter: function tooltipFormatter(this: any): string {
-        return `<section class="serviceeGuardTimeSeriesTooltip"><p>${this.x}</p><br/><p>Value: ${this.y}</p></section>`
+        return `<section class="serviceeGuardTimeSeriesTooltip"><p>${moment(this.x).format(
+          'M/D/YYYY h:mm a'
+        )}</p><br/><p>Value: ${this.y}</p></section>`
       },
       outside: true
     },

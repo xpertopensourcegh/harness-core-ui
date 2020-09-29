@@ -1,6 +1,7 @@
 .main {
   margin-bottom: var(--spacing-xsmall) !important;
   height: 60px;
+  position: relative;
 }
 
 [class*='highcharts-tooltip-container'] {

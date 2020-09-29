@@ -48,8 +48,8 @@ function HeatMapTooltip({ cell }: { cell?: HeatMapDTO }): JSX.Element {
   return cell ? (
     <Container className={styles.heatmapTooltip}>
       {cell.startTime && cell.endTime && (
-        <Text>{`${moment(cell.startTime).format('M/D/YYYY h:m a')} - ${moment(cell.endTime).format(
-          'M/D/YYYY hh:mm a'
+        <Text>{`${moment(cell.startTime).format('M/D/YYYY h:mm a')} - ${moment(cell.endTime).format(
+          'M/D/YYYY h:mm a'
         )}`}</Text>
       )}
       <Container className={styles.overallScoreContent}>
