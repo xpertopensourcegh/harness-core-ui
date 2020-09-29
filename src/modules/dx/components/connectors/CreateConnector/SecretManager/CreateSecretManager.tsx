@@ -3,6 +3,7 @@ import { StepWizard } from '@wings-software/uikit'
 
 import StepConfigure from './views/StepConfigure'
 import StepDetails, { DetailsData } from './views/StepDetails'
+import StepVerify from './views/StepVerify'
 import type { VaultConfigFormData } from './views/VaultConfigForm'
 
 import i18n from './CreateSecretManager.i18n'
@@ -21,7 +22,8 @@ const CreateSecretManager: React.FC<CreateSecretManagerProps> = ({ hideLightModa
   return (
     <StepWizard<SecretManagerWizardData>>
       <StepDetails name={i18n.nameStepDetails} />
-      <StepConfigure name={i18n.nameStepConfigure} closeModal={hideLightModal} onSuccess={onSuccess} />
+      <StepConfigure name={i18n.nameStepConfigure} />
+      <StepVerify name={i18n.nameStepVerify} hideLightModal={hideLightModal} onSuccess={onSuccess} />
     </StepWizard>
   )
 }

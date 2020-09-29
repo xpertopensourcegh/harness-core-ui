@@ -39,6 +39,7 @@ export default {
   buttonSubmit: 'SAVE',
   buttonSaving: 'SAVING',
   messageSuccess: 'Secrets Manager created successfully',
-  nameStepDetails: 'SECRET MANAGER',
-  nameStepConfigure: 'CONFIGURE'
+  nameStepDetails: 'CREATE',
+  nameStepConfigure: 'CONFIGURE',
+  nameStepVerify: 'VERIFY'
 }

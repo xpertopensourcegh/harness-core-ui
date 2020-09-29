@@ -34,7 +34,7 @@ interface VerifyOutOfClusterDelegateProps {
   isLastStep?: boolean
   type?: string
 }
-interface VerifyOutOfClusterStepProps extends ConnectorConfigDTO {
+export interface VerifyOutOfClusterStepProps extends ConnectorConfigDTO {
   isEditMode?: boolean
 }
 

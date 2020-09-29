@@ -96,18 +96,7 @@ const validationSchema = Yup.object().shape({
   renewIntervalHours: Yup.number().positive(i18n.validationRenewalNumber).required(i18n.validationRenewal)
 })
 
-interface VaultConfigFormProps {
-  onSuccess?: () => void
-  closeModal?: () => void
-}
-
-const VaultConfigForm: React.FC<VaultConfigFormProps & StepProps<SecretManagerWizardData>> = ({
-  prevStepData,
-  previousStep,
-  nextStep,
-  onSuccess,
-  closeModal
-}) => {
+const VaultConfigForm: React.FC<StepProps<SecretManagerWizardData>> = ({ prevStepData, previousStep, nextStep }) => {
   const { accountId, orgIdentifier, projectIdentifier } = useParams()
   const { showSuccess, showError } = useToaster()
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
@@ -171,8 +160,6 @@ const VaultConfigForm: React.FC<VaultConfigFormProps & StepProps<SecretManagerWi
         await createSecretManager(dataToSubmit)
         nextStep?.({ ...prevStepData, configureData: formData })
         showSuccess(i18n.messageSuccess)
-        closeModal?.()
-        onSuccess?.()
       } catch (err) {
         modalErrorHandler?.showDanger(err?.data?.message)
       }

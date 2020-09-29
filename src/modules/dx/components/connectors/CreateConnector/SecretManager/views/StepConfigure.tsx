@@ -13,9 +13,7 @@ interface StepConfigureProps {
 const StepConfigure: React.FC<StepConfigureProps & StepProps<SecretManagerWizardData>> = ({
   prevStepData,
   nextStep,
-  previousStep,
-  onSuccess,
-  closeModal
+  previousStep
 }) => {
   return (
     <Container padding={{ top: 'medium' }} width="64%">
@@ -25,15 +23,7 @@ const StepConfigure: React.FC<StepConfigureProps & StepProps<SecretManagerWizard
       {(() => {
         switch (prevStepData?.detailsData?.encryptionType) {
           case 'Vault':
-            return (
-              <VaultConfigForm
-                prevStepData={prevStepData}
-                nextStep={nextStep}
-                previousStep={previousStep}
-                onSuccess={onSuccess}
-                closeModal={closeModal}
-              />
-            )
+            return <VaultConfigForm prevStepData={prevStepData} nextStep={nextStep} previousStep={previousStep} />
           default:
             return <Text>Invalid Secret Manager Type</Text> // TODO: Handle better
         }
