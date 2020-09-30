@@ -119,7 +119,7 @@ const RenderColumnMenu: Renderer<CellProps<Project>> = ({ row, column }) => {
           })
           if (deleted) showSuccess(i18n.successMessage(data.name || ''))
           onDeleted?.()
-          ;(column as any).refetchProjects
+          ;(column as any).refetchProjects()
         } catch (err) {
           showError(err)
         }

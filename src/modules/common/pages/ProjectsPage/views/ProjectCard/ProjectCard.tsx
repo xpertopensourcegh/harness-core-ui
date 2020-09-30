@@ -2,13 +2,13 @@ import React from 'react'
 import cx from 'classnames'
 import { Card, Text, Tag, Layout, Icon, CardBody, Container, Color } from '@wings-software/uikit'
 import { Classes } from '@blueprintjs/core'
+import { useParams } from 'react-router-dom'
 import { ModuleName, useAppStoreWriter } from 'framework/exports'
 import { Project, useDeleteProject } from 'services/cd-ng'
 import { useAppStoreReader } from 'framework/exports'
 import DefaultRenderer from 'modules/common/pages/ProjectsPage/views/ModuleRenderer/DefaultRenderer'
 import CVRenderer from 'modules/common/pages/ProjectsPage/views/ModuleRenderer/cv/CVRenderer'
 import CDRenderer from 'modules/common/pages/ProjectsPage/views/ModuleRenderer/cd/CDRenderer'
-import { accountId } from 'modules/cv/constants'
 import { useToaster } from 'modules/common/components/Toaster/useToaster'
 import { useConfirmationDialog } from 'modules/common/modals/ConfirmDialog/useConfirmationDialog'
 import i18n from './ProjectCard.i18n'
@@ -28,6 +28,7 @@ export interface ProjectCardProps {
 const ProjectCard: React.FC<ProjectCardProps> = props => {
   const { data, isPreview, reloadProjects, editProject, collaborators, onClick } = props
   const { organisationsMap } = useAppStoreReader()
+  const { accountId } = useParams()
   const { mutate: deleteProject } = useDeleteProject({
     queryParams: { accountIdentifier: accountId, orgIdentifier: data.orgIdentifier || '' }
   })
