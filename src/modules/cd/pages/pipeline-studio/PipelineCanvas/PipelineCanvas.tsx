@@ -2,12 +2,13 @@ import React from 'react'
 import { Classes, Dialog } from '@blueprintjs/core'
 import cx from 'classnames'
 import { Button, Icon, Text, useModalHook, Tag } from '@wings-software/uikit'
-import { useHistory, useRouteMatch, useParams, NavLink } from 'react-router-dom'
+import { useHistory, useParams, NavLink, matchPath } from 'react-router-dom'
 import { parse } from 'yaml'
 import { NavigationCheck, useToaster, useConfirmationDialog } from 'modules/common/exports'
 import type { CDPipeline, Failure } from 'services/cd-ng'
 import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
 import { routeCDPipelineStudio, routeCDPipelineStudioUI, routeCDPipelineStudioYaml } from 'modules/cd/routes'
+import { AUTH_ROUTE_PATH_PREFIX } from 'framework/exports'
 import { PipelineContext, savePipeline } from '../PipelineContext/PipelineContext'
 import i18n from './PipelineCanvas.i18n'
 import CreatePipelines from '../CreateModal/PipelineCreate'
@@ -51,7 +52,6 @@ export const PipelineCanvas: React.FC = ({ children }): JSX.Element => {
   })
 
   const history = useHistory()
-  const { url } = useRouteMatch()
   const isYaml = history.location.pathname.endsWith('/yaml/')
 
   const saveAndPublish = React.useCallback(async () => {
@@ -75,8 +75,8 @@ export const PipelineCanvas: React.FC = ({ children }): JSX.Element => {
     const newPipelineId = latestPipeline.identifier
 
     if (response && response.status === 'SUCCESS') {
-      fetchPipeline(true, true)
       if (pipelineIdentifier === DefaultNewPipelineId) {
+        await deletePipelineCache()
         if (isYaml) {
           history.replace(
             routeCDPipelineStudioYaml.url({ projectIdentifier, orgIdentifier, pipelineIdentifier: newPipelineId })
@@ -86,11 +86,15 @@ export const PipelineCanvas: React.FC = ({ children }): JSX.Element => {
             routeCDPipelineStudio.url({ projectIdentifier, orgIdentifier, pipelineIdentifier: newPipelineId })
           )
         }
+        location.reload()
+      } else {
+        fetchPipeline(true, true)
       }
     } else {
       showError(response?.message || i18n.errorWhileSaving)
     }
   }, [
+    deletePipelineCache,
     accountId,
     history,
     projectIdentifier,
@@ -155,7 +159,21 @@ export const PipelineCanvas: React.FC = ({ children }): JSX.Element => {
     >
       <NavigationCheck
         when={isUpdated}
-        shouldBlockNavigation={nextLocation => !(nextLocation.pathname.indexOf(url) > -1)}
+        shouldBlockNavigation={nextLocation => {
+          const matchUI = matchPath(nextLocation.pathname, {
+            path: AUTH_ROUTE_PATH_PREFIX + routeCDPipelineStudioUI.path,
+            exact: true
+          })
+          const matchYaml = matchPath(nextLocation.pathname, {
+            path: AUTH_ROUTE_PATH_PREFIX + routeCDPipelineStudioYaml.path,
+            exact: true
+          })
+          const matchDefault = matchPath(nextLocation.pathname, {
+            path: AUTH_ROUTE_PATH_PREFIX + routeCDPipelineStudio.path,
+            exact: true
+          })
+          return !(matchUI?.isExact || matchYaml?.isExact || matchDefault?.isExact)
+        }}
         navigate={newPath => {
           deletePipelineCache()
           history.push(newPath)

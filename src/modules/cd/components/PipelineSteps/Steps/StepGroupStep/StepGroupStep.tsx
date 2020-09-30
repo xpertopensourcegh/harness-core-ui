@@ -1,10 +1,11 @@
 import React from 'react'
 import { IconName, Text, Formik, FormInput, Button } from '@wings-software/uikit'
 import * as Yup from 'yup'
-import { Step, StepViewType } from 'modules/common/exports'
+import type { StepViewType } from 'modules/common/exports'
 import type { StepGroupElement } from 'services/cd-ng'
 import { StepType } from '../../PipelineStepInterface'
 import i18n from './StepGroupStep.i18n'
+import { PipelineStep } from '../../PipelineStep'
 import stepCss from '../Steps.module.scss'
 
 interface StepGroupWidgetProps {
@@ -41,7 +42,7 @@ const StepGroupWidget: React.FC<StepGroupWidgetProps> = ({ initialValues, onUpda
   )
 }
 
-export class StepGroupStep extends Step<StepGroupElement> {
+export class StepGroupStep extends PipelineStep<StepGroupElement> {
   renderStep(
     initialValues: StepGroupElement,
     onUpdate?: (data: StepGroupElement) => void,
@@ -56,7 +57,7 @@ export class StepGroupStep extends Step<StepGroupElement> {
   protected stepPaletteVisible = false
 
   protected defaultValues: StepGroupElement = {
-    identifier: 'step-group',
+    identifier: '',
     steps: []
   }
 }

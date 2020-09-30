@@ -86,7 +86,7 @@ export const savePipeline = (
           orgIdentifier: params.orgIdentifier
         },
         requestOptions: { headers: { 'Content-Type': 'application/yaml' } }
-      }).then((response: unknown) => {
+      }).then(async (response: unknown) => {
         if (typeof response === 'string') {
           return JSON.parse((response as unknown) as string) as Failure
         } else {
@@ -108,7 +108,7 @@ interface PipelineContextInterface {
   setYamlHandler: (yamlHandler: YamlBuilderHandlerBinding) => void
   updatePipeline: (pipeline: CDPipeline) => Promise<void>
   updatePipelineView: (data: PipelineViewData) => void
-  deletePipelineCache: () => void
+  deletePipelineCache: () => Promise<void>
   pipelineSaved: (pipeline: CDPipeline) => void
 }
 
@@ -293,7 +293,7 @@ export const PipelineContext = React.createContext<PipelineContextInterface>({
   setYamlHandler: () => undefined,
   updatePipeline: () => new Promise<void>(() => undefined),
   pipelineSaved: () => undefined,
-  deletePipelineCache: () => undefined
+  deletePipelineCache: () => new Promise<void>(() => undefined)
 })
 
 export const PipelineProvider: React.FC<{

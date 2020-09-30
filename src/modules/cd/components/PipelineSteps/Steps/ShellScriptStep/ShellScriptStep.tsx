@@ -61,9 +61,6 @@ export class ShellScriptStep extends PipelineStep<ShellScriptData> {
 
   protected defaultValues: ShellScriptData = {
     identifier: '',
-    spec: {
-      skipDryRun: false,
-      timeout: 60000
-    }
+    spec: {}
   }
 }

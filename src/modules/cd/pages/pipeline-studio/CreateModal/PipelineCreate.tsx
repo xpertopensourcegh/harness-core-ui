@@ -41,7 +41,7 @@ const tagCollapseProps = Object.assign({}, collapseProps, { heading: i18n.tags }
 
 export default function CreatePipelines({
   afterSave,
-  initialValues = { identifier: '', name: '' },
+  initialValues = { identifier: '', name: '', description: '' },
   closeModal
 }: PipelineCreateProps): JSX.Element {
   const identifier = initialValues?.identifier
@@ -68,44 +68,54 @@ export default function CreatePipelines({
               afterSave && afterSave(values)
             }}
           >
-            <FormikForm>
-              <div className={css.formInput}>
-                <FormInput.InputWithIdentifier
-                  isIdentifierEditable={!isEdit}
-                  inputLabel={i18n.pipelineNameLabel}
-                  inputGroupProps={{ placeholder: i18n.pipelineNamePlaceholder }}
+            {({ values }) => (
+              <FormikForm>
+                <div className={css.formInput}>
+                  <FormInput.InputWithIdentifier
+                    isIdentifierEditable={!isEdit}
+                    inputLabel={i18n.pipelineNameLabel}
+                    inputGroupProps={{ placeholder: i18n.pipelineNamePlaceholder }}
+                  />
+                  <div className={css.collapseDiv}>
+                    <Collapse
+                      {...descriptionCollapseProps}
+                      isOpen={(values.description && values.description?.length > 0) || false}
+                    >
+                      <FormInput.TextArea name="description" />
+                    </Collapse>
+                  </div>
+                  <div className={css.collapseDiv}>
+                    <Collapse {...tagCollapseProps}>
+                      <FormInput.TagInput
+                        name="tags"
+                        items={['pipeline', 'canary']}
+                        labelFor={name => (typeof name === 'string' ? name : '')}
+                        itemFromNewTag={newTag => newTag}
+                        tagInputProps={{
+                          noInputBorder: true,
+                          openOnKeyDown: false,
+                          showAddTagButton: true,
+                          showClearAllButton: true,
+                          allowNewTag: true,
+                          placeholder: i18n.enterTags,
+                          getTagProps: (value, _index, _selectedItems, createdItems) => {
+                            return createdItems.includes(value)
+                              ? { intent: 'danger', minimal: true }
+                              : { intent: 'primary', minimal: true }
+                          }
+                        }}
+                      />
+                    </Collapse>
+                  </div>
+                </div>
+                <Button
+                  intent="primary"
+                  className={css.startBtn}
+                  type="submit"
+                  text={isEdit ? i18n.save : i18n.start}
                 />
-                <div className={css.collapseDiv}>
-                  <Collapse {...descriptionCollapseProps}>
-                    <FormInput.TextArea name="description" />
-                  </Collapse>
-                </div>
-                <div className={css.collapseDiv}>
-                  <Collapse {...tagCollapseProps}>
-                    <FormInput.TagInput
-                      name="tags"
-                      items={['pipeline', 'canary']}
-                      labelFor={name => (typeof name === 'string' ? name : '')}
-                      itemFromNewTag={newTag => newTag}
-                      tagInputProps={{
-                        noInputBorder: true,
-                        openOnKeyDown: false,
-                        showAddTagButton: true,
-                        showClearAllButton: true,
-                        allowNewTag: true,
-                        placeholder: i18n.enterTags,
-                        getTagProps: (value, _index, _selectedItems, createdItems) => {
-                          return createdItems.includes(value)
-                            ? { intent: 'danger', minimal: true }
-                            : { intent: 'primary', minimal: true }
-                        }
-                      }}
-                    />
-                  </Collapse>
-                </div>
-              </div>
-              <Button intent="primary" className={css.startBtn} type="submit" text={isEdit ? i18n.save : i18n.start} />
-            </FormikForm>
+              </FormikForm>
+            )}
           </Formik>
         </div>
         <Carousel>

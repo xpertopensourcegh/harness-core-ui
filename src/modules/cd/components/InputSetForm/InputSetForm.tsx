@@ -499,10 +499,11 @@ export const InputSetForm: React.FC<InputSetFormProps> = ({ hideForm, identifier
                       <BasicInputSetForm isEdit={isEdit} formType={formType} values={values} />
                       {formType === InputFormType.InputForm &&
                         pipeline?.data?.cdPipeline &&
-                        template?.data?.inputSetTemplateYaml && (
+                        template?.data?.inputSetTemplateYaml &&
+                        parse(template.data.inputSetTemplateYaml) && (
                           <PipelineInputSetForm
                             originalPipeline={(pipeline.data.cdPipeline as any).pipeline}
-                            template={parse(template.data.inputSetTemplateYaml).pipeline}
+                            template={parse(template.data.inputSetTemplateYaml)?.pipeline}
                             pipeline={values.pipeline}
                             onUpdate={updatedPipeline => {
                               setFieldValue('pipeline', updatedPipeline)

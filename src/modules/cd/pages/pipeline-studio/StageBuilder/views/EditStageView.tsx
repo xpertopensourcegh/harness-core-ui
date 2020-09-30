@@ -101,7 +101,10 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, context
               <FormikForm>
                 <FormInput.InputWithIdentifier inputLabel={i18n.stageName} />
                 <div className={css.collapseDiv}>
-                  <Collapse {...collapseProps}>
+                  <Collapse
+                    {...collapseProps}
+                    isOpen={(formikProps.values.description && formikProps.values.description?.length > 0) || false}
+                  >
                     <FormInput.TextArea name="description" />
                   </Collapse>
                 </div>

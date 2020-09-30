@@ -71,6 +71,7 @@ export const StepCommands: React.FC<StepCommandsProps> = ({ step, onChange, isSt
           />
           <Tab
             id="advanced"
+            disabled
             title={i18n.advanced}
             panel={<AdvancedStep step={step} onChange={onChange} isStepGroup={isStepGroup} />}
           />
