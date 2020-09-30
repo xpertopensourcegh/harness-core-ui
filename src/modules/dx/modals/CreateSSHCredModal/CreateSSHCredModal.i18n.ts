@@ -25,5 +25,7 @@ export default {
   verifyStepOne: 'Checking for Delegates',
   verifyStepTwo: 'Verifying Connection',
   verifyRetest: 'Retest Connection',
-  verifyFinish: 'Finish'
+  verifyFinish: 'Finish',
+
+  messageSuccess: 'Execution Credential created successfully'
 }

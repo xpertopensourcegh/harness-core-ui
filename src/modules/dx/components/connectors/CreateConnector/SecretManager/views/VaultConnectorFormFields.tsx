@@ -137,7 +137,7 @@ const VaultConnectorFormFields: React.FC<VaultConnectorFormFieldsProps> = ({ for
       {formik?.values['accessType'] === 'APP_ROLE' ? (
         <Layout.Horizontal spacing="medium">
           <FormInput.Text name="appRoleId" label={i18n.labelAppRoleId} />
-          <FormInput.Text name="secretId" label={i18n.labelSecretId} />
+          <FormInput.Text name="secretId" label={i18n.labelSecretId} inputGroup={{ type: 'password' }} />
         </Layout.Horizontal>
       ) : (
         <FormInput.Text name="authToken" label={i18n.labelToken} inputGroup={{ type: 'password' }} />

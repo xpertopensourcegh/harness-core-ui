@@ -18,7 +18,7 @@ export const routeConnectorDetails: Route<{ connectorId?: string; type?: string 
   path: '/connectors/:connectorId',
   title: i18n.connectors,
   pageId: 'connector-details',
-  url: ({ connectorId }) => routeURL(routeConnectorDetails, `/connectors/${connectorId}`),
+  url: ({ connectorId }) => routeURL(routeConnectorDetails, `/resources/connectors/${connectorId}`),
   component: React.lazy(() => import('./pages/connectors/ConnectorDetailsPage'))
 }
 
@@ -37,7 +37,7 @@ export const routeSecretDetails: Route<{ secretId: string }> = {
   path: '/secrets/:secretId',
   title: i18n.secrets,
   pageId: 'secret-details',
-  url: ({ secretId }) => routeURL(routeSecretDetails, `/secrets/${secretId}`),
+  url: ({ secretId }) => routeURL(routeSecretDetails, `/resources/secrets/${secretId}`),
   component: React.lazy(() => import('./pages/secretDetails/SecretDetails')),
   module: ModuleName.DX
 }

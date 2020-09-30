@@ -92,7 +92,7 @@ const ViewSecretDetails: React.FC<ViewSecretDetailsProps> = props => {
                       <Text color={Color.BLACK}>
                         {
                           (((secret.spec as SSHKeySpecDTO)?.spec as SSHConfigDTO).spec as SSHKeyReferenceCredentialDTO)
-                            .path
+                            .key
                         }
                       </Text>
                     </div>

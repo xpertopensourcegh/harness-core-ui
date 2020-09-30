@@ -28,6 +28,8 @@ import { buildAuthConfig, getSSHDTOFromFormData } from 'modules/dx/components/se
 import { useToaster } from 'modules/common/exports'
 import VerifyConnection from 'modules/dx/modals/CreateSSHCredModal/views/VerifyConnection'
 import useCreateUpdateSecretModal from 'modules/dx/modals/CreateSecretModal/useCreateUpdateSecretModal'
+import type { SecretRef } from 'modules/dx/components/SecretReference/SecretReference'
+import { getScopeFromDTO } from 'modules/common/components/EntityReference/EntityReference'
 import ConnectorStats from '../../connectors/ConnectorStats'
 
 import css from './EditSSHSecret.module.scss'
@@ -50,6 +52,7 @@ const EditSSHSecret: React.FC<EditSSHSecretProps> = props => {
     identifier: secret.identifier,
     queryParams: { accountIdentifier: accountId }
   })
+  const [keySecret, setKeySecret] = useState<SecretRef>()
   const [passwordSecret, setPasswordSecret] = useState<InlineSecret>()
   const [encryptedPassphraseSecret, setEncryptedPassphraseSecret] = useState<InlineSecret>()
 
@@ -69,6 +72,20 @@ const EditSSHSecret: React.FC<EditSSHSecretProps> = props => {
       } else if (credentialType === 'KeyReference') {
         const keyRefSpec = sshConfig.spec as SSHKeyReferenceCredentialDTO
         encryptedPassphrase = keyRefSpec.encryptedPassphrase
+
+        if (keyRefSpec.key) {
+          const data = await getSecretV2Promise({
+            identifier: keyRefSpec.key.indexOf('.') < 0 ? keyRefSpec.key : keyRefSpec.key.split('.')[1],
+            queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
+          })
+          const keySecretData = data.data?.secret
+          if (keySecretData) {
+            setKeySecret({
+              scope: getScopeFromDTO(keySecretData),
+              ...data.data?.secret
+            } as SecretRef)
+          }
+        }
       }
     } else if (authScheme === 'Kerberos') {
       const kerberosConfig = secretSpec.spec as KerberosConfigDTO
@@ -170,6 +187,7 @@ const EditSSHSecret: React.FC<EditSSHSecretProps> = props => {
                 ((secret.spec as SSHKeySpecDTO)?.spec as KerberosConfigDTO)?.keyPath ||
                 (((secret.spec as SSHKeySpecDTO)?.spec as SSHConfigDTO)?.spec as SSHKeyPathCredentialDTO)?.keyPath,
               port: (secret.spec as SSHKeySpecDTO)?.port || 22,
+              key: keySecret,
               passwordSecret,
               encryptedPassphraseSecret
             }}

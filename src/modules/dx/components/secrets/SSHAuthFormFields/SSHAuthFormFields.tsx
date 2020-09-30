@@ -1,7 +1,6 @@
 import React from 'react'
 import { Container, FormInput, Layout, Button, Text, Color, SelectOption } from '@wings-software/uikit'
 import { IOptionProps, Popover, PopoverPosition, MenuItem, Classes } from '@blueprintjs/core'
-import { noop } from 'lodash-es'
 import { Select } from '@blueprintjs/select'
 import type { FormikProps } from 'formik'
 import { useParams } from 'react-router-dom'
@@ -22,7 +21,7 @@ interface SSHAuthFormFieldsProps {
   formik: FormikProps<SSHConfigFormData>
   secretName?: string
   editing?: boolean
-  showCreateSecretModal: (type: SecretType) => void
+  showCreateSecretModal: (type: SecretType, data?: SecretResponseWrapper) => void
 }
 
 const credentialTypeOptions: SelectOption[] = [
@@ -156,7 +155,7 @@ const SSHAuthFormFields: React.FC<SSHAuthFormFieldsProps> = props => {
                 defaultSecretId={getIdentifierFromName(secretName + '_passphrase')}
                 isEditMode={editing && !!formik.values['encryptedPassphraseSecret']}
                 onClickCreateSecret={() => showCreateSecretModal('SecretText')}
-                // onEditSecret={x => console.log(x)}
+                onEditSecret={secret => showCreateSecretModal('SecretText', { secret })}
               />
             </>
           ) : null}
@@ -174,7 +173,7 @@ const SSHAuthFormFields: React.FC<SSHAuthFormFieldsProps> = props => {
                 defaultSecretId={getIdentifierFromName(secretName + '_passphrase')}
                 isEditMode={editing && !!formik.values['encryptedPassphraseSecret']}
                 onClickCreateSecret={() => showCreateSecretModal('SecretText')}
-                onEditSecret={noop}
+                onEditSecret={secret => showCreateSecretModal('SecretText', { secret })}
               />
             </>
           ) : null}
@@ -190,7 +189,7 @@ const SSHAuthFormFields: React.FC<SSHAuthFormFieldsProps> = props => {
               defaultSecretId={getIdentifierFromName(secretName + '_password')}
               isEditMode={editing && !!formik.values['passwordSecret']}
               onClickCreateSecret={() => showCreateSecretModal('SecretText')}
-              onEditSecret={noop}
+              onEditSecret={secret => showCreateSecretModal('SecretText', { secret })}
             />
           ) : null}
           <FormInput.Text name="port" label={i18n.labelSSHPort} />
@@ -222,7 +221,7 @@ const SSHAuthFormFields: React.FC<SSHAuthFormFieldsProps> = props => {
               defaultSecretId={getIdentifierFromName(secretName + '_password')}
               isEditMode={editing && !!formik.values['passwordSecret']}
               onClickCreateSecret={() => showCreateSecretModal('SecretText')}
-              onEditSecret={noop}
+              onEditSecret={secret => showCreateSecretModal('SecretText', { secret })}
             />
           ) : null}
         </>

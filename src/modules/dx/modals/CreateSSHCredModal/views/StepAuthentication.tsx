@@ -13,7 +13,7 @@ import {
 import { useParams } from 'react-router-dom'
 import * as Yup from 'yup'
 
-import { SecretRequestWrapper, usePostSecret } from 'services/cd-ng'
+import { SecretRequestWrapper, usePostSecret, SecretDTOV2 } from 'services/cd-ng'
 import type { KerberosConfigDTO, SSHConfigDTO, SSHKeySpecDTO } from 'services/cd-ng'
 import type { SecretInfo } from 'modules/dx/components/SecretInput/SecretTextInput'
 import CreateSecretOverlay from 'modules/dx/common/CreateSecretOverlay/CreateSecretOverlay'
@@ -21,6 +21,7 @@ import type { InlineSecret } from 'modules/common/components/CreateInlineSecret/
 import type { SecretRef } from 'modules/dx/components/SecretReference/SecretReference'
 import SSHAuthFormFields from 'modules/dx/components/secrets/SSHAuthFormFields/SSHAuthFormFields'
 import { buildAuthConfig } from 'modules/dx/components/secrets/SSHAuthUtils'
+import { useToaster } from 'modules/common/exports'
 import type { SSHCredSharedObj } from '../useCreateSSHCredModal'
 
 import i18n from '../CreateSSHCredModal.i18n'
@@ -80,6 +81,8 @@ const StepAuthentication: React.FC<StepProps<SSHCredSharedObj> & StepAuthenticat
   const [showCreateSecretTextModal, setShowCreateSecretTextModal] = useState(false)
   const [showCreateSecretFileModal, setShowCreateSecretFileModal] = useState(false)
   const [saving, setSaving] = useState(false)
+  const [editSecretData, setEditSecretData] = useState<SecretDTOV2>()
+  const { showSuccess } = useToaster()
   const { mutate: createSecret } = usePostSecret({ queryParams: { accountIdentifier: accountId } })
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding>()
 
@@ -110,6 +113,7 @@ const StepAuthentication: React.FC<StepProps<SSHCredSharedObj> & StepAuthenticat
       // finally create the connector
       await createSecret(dataToSubmit)
       setSaving(false)
+      showSuccess(i18n.messageSuccess)
       onSuccess?.()
       nextStep?.({ ...prevStepData, authData: formData })
     } catch (err) {
@@ -149,7 +153,12 @@ const StepAuthentication: React.FC<StepProps<SSHCredSharedObj> & StepAuthenticat
                 <SSHAuthFormFields
                   formik={formik}
                   secretName={prevStepData?.detailsData?.name}
-                  showCreateSecretModal={type => {
+                  showCreateSecretModal={(type, data) => {
+                    if (data) {
+                      setEditSecretData(data.secret)
+                    } else {
+                      setEditSecretData(undefined)
+                    }
                     if (type === 'SecretText') setShowCreateSecretTextModal(true)
                     if (type === 'SecretFile') setShowCreateSecretFileModal(true)
                   }}
@@ -160,10 +169,18 @@ const StepAuthentication: React.FC<StepProps<SSHCredSharedObj> & StepAuthenticat
           }}
         </Formik>
         {showCreateSecretTextModal ? (
-          <CreateSecretOverlay setShowCreateSecretModal={setShowCreateSecretTextModal} type="SecretText" />
+          <CreateSecretOverlay
+            setShowCreateSecretModal={setShowCreateSecretTextModal}
+            type="SecretText"
+            editSecretData={editSecretData}
+          />
         ) : null}
         {showCreateSecretFileModal ? (
-          <CreateSecretOverlay setShowCreateSecretModal={setShowCreateSecretFileModal} type="SecretFile" />
+          <CreateSecretOverlay
+            setShowCreateSecretModal={setShowCreateSecretFileModal}
+            type="SecretFile"
+            editSecretData={editSecretData}
+          />
         ) : null}
       </Container>
     </>

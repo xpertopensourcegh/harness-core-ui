@@ -201,7 +201,7 @@ const CreateUpdateSecret: React.FC<CreateSecretTextProps> = props => {
               />
               {!typeOfSelectedSecretManager ? <Text>{i18n.messageSelectSM}</Text> : null}
               {typeOfSelectedSecretManager === 'Local' || typeOfSelectedSecretManager === 'GcpKms' ? (
-                <LocalFormFields formik={formikProps} editing={editing} />
+                <LocalFormFields formik={formikProps} type={type} editing={editing} />
               ) : null}
               {typeOfSelectedSecretManager === 'Vault' ? (
                 <VaultFormFields formik={formikProps} type={type} editing={editing} />

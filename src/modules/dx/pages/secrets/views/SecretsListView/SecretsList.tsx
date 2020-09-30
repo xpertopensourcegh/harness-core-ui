@@ -127,10 +127,7 @@ const RenderColumnAction: Renderer<CellProps<SecretResponseWrapper>> = ({ row, c
   }
 
   const handleEdit = (): void => {
-    history.replace({
-      pathname: routeSecretDetails.url({ secretId: data.identifier as string }),
-      search: '?edit=true'
-    })
+    history.push(routeSecretDetails.url({ secretId: data.identifier }))
   }
 
   return (

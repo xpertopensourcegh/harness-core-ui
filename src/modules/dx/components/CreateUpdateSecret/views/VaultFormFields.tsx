@@ -44,7 +44,7 @@ const VaultFormFields: React.FC<VaultFormFieldsProps & FormikContextProps<any>> 
           ) : null}
         </>
       ) : null}
-      {type === 'SecretFile' ? <FormInput.FileInput name="file" multiple /> : null}
+      {type === 'SecretFile' ? <FormInput.FileInput name="file" label={i18n.labelSecretFile} multiple /> : null}
       <FormInput.TextArea name="description" label={i18n.labelSecretDescription} />
       {/* <FormInput.TagInput
               name="tags"

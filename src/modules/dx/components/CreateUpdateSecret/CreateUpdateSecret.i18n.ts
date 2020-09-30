@@ -1,6 +1,7 @@
 export default {
   labelSecretName: 'Secret Name*',
   labelSecretValue: 'Secret Value*',
+  labelSecretFile: 'Select File',
   labelSecretReference: 'Reference Secret Identifier',
   labelSecretsManager: 'Secrets Manager*',
   labelSecretDescription: 'Description',
