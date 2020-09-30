@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState, useRef } from 'react'
 import { Container, Button, Layout, Select, Pagination } from '@wings-software/uikit'
 import cx from 'classnames'
 import { useLocation, useHistory } from 'react-router-dom'
@@ -9,6 +9,8 @@ import i18n from './CDDeploymentsPage.i18n'
 import { ExecutionsListView } from './views/ExecutionsListView'
 import css from './CDDeploymentsPage.module.scss'
 
+const POLLING_INTERVAL = 15 * 1000 // Polling interval in ms
+
 const CDDeploymentsPage: React.FC = () => {
   const {
     params: { accountId, projectIdentifier, orgIdentifier },
@@ -17,6 +19,7 @@ const CDDeploymentsPage: React.FC = () => {
   const { pathname, search } = useLocation()
   const [page, setPage] = useState(Number(query.page || 1))
   const history = useHistory()
+  const timeoutRef = useRef(0)
   const { loading, data: pipelineExecutionSummary, error, refetch } = useGetListOfExecutions({
     queryParams: {
       accountIdentifier: accountId,
@@ -45,6 +48,29 @@ const CDDeploymentsPage: React.FC = () => {
       }
     }
   }, [search, page])
+
+  // Polling logic:
+  //  - At any moment of time, only one polling is done
+  //  - Only do polling on first page
+  //  - When component is loading, wait until loading is done
+  //  - When polling call (API) is being processed, wait until it's done then re-schedule
+  useEffect(() => {
+    const schedulePolling = (): void => {
+      clearTimeout(timeoutRef.current)
+      timeoutRef.current = window.setTimeout(async () => {
+        if (page === 1 && refetch && !loading) {
+          await refetch()
+        }
+        schedulePolling()
+      }, POLLING_INTERVAL)
+    }
+
+    schedulePolling()
+
+    return () => {
+      clearTimeout(timeoutRef.current)
+    }
+  }, [page, refetch, loading])
 
   const runPipeline = useCallback(() => {
     alert('To be implemented')

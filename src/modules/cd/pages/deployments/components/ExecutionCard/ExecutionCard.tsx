@@ -57,7 +57,7 @@ export const ExecutionCard: React.FC<ExecutionCardProps> = ({ pipelineExecution 
       icon: success ? 'tick-circle' : failed ? 'warning-sign' : running ? 'spinner' : 'pending',
       color: failed ? Color.RED_500 : success ? Color.BLUE_500 : running ? Color.GREEN_500 : Color.GREY_300,
       parallel,
-      tooltip: 'To be implemented'
+      tooltip: undefined // TODO: disable tooltip since no tooltip design is finalized
     }
   }, [])
 

@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { useLocation } from 'react-router-dom'
-import { Select, SelectOption } from '@wings-software/uikit'
+import { Select, SelectOption, useIsMounted } from '@wings-software/uikit'
 import type { IconProps } from '@wings-software/uikit/dist/icons/Icon'
 import cx from 'classnames'
 import { routeParams, ModuleName } from 'framework/exports'
@@ -22,7 +22,8 @@ export const ProjectSelector: React.FC<ProjectSelectorProps> = ({ module, onSele
   const {
     params: { accountId, projectIdentifier }
   } = routeParams()
-  const { pathname, search } = useLocation()
+  const isMounted = useIsMounted()
+  const { pathname } = useLocation()
   const { showError } = useToaster()
   const [selectedProject, setSelectedProject] = useState<ProjectListOptions | undefined>()
   const { data: projects, error, refetch } = useGetProjectList({
@@ -33,6 +34,7 @@ export const ProjectSelector: React.FC<ProjectSelectorProps> = ({ module, onSele
     },
     lazy: true
   })
+  const timeoutRef = useRef(0)
 
   const projectSelectOptions: ProjectListOptions[] = React.useMemo(
     () =>
@@ -62,9 +64,21 @@ export const ProjectSelector: React.FC<ProjectSelectorProps> = ({ module, onSele
 
   useEffect(() => {
     if (accountId) {
-      refetch()
+      // Note: There's a moment pathname got changed before component is unmounted, causing
+      // refetch() to be called right before unmounting. This leads to component update after
+      // it is unmounted and a unnessessary call is made. To avoid this effect, use a timeout
+      // in combination with isMounted hook
+      clearTimeout(timeoutRef.current)
+      timeoutRef.current = window.setTimeout(() => {
+        if (isMounted.current) {
+          refetch()
+        }
+      }, 50)
     }
-  }, [accountId, pathname, search])
+    return () => {
+      clearTimeout(timeoutRef.current)
+    }
+  }, [accountId, pathname])
 
   useEffect(() => {
     if (projectIdentifier) {
