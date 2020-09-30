@@ -9,7 +9,7 @@ import YamlWorker from 'worker-loader!@wings-software/monaco-yaml/lib/esm/yaml.w
 import EditorWorker from 'worker-loader!monaco-editor/esm/vs/editor/editor.worker'
 import { Toaster, Intent } from '@blueprintjs/core'
 import cx from 'classnames'
-import { stringify, parse } from 'yaml'
+import { stringify } from 'yaml'
 import { Tag, Layout, Icon } from '@wings-software/uikit'
 import type {
   YamlBuilderProps,
@@ -19,7 +19,11 @@ import type {
 import SnippetSection from 'modules/common/components/SnippetSection/SnippetSection'
 import { JSONSchemaService } from 'modules/dx/services'
 import { validateYAMLWithSchema, addYAMLLanguageSettingsToSchema } from 'modules/common/utils/YamlUtils'
-import { findLeafToParentPath, getYAMLFromEditor, getMetaDataForKeyboardEventProcessing } from './YAMLBuilderUtils'
+import {
+  getYAMLFromEditor,
+  getMetaDataForKeyboardEventProcessing,
+  getYAMLPathToValidationErrorMap
+} from './YAMLBuilderUtils'
 
 import css from './YamlBuilder.module.scss'
 import { debounce } from 'lodash-es'
@@ -78,7 +82,6 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
   const KEY_CODE_FOR_DOLLAR_SIGN = 'Digit4'
   const KEY_CODE_FOR_SEMI_COLON = 'Semicolon'
   const KEY_CODE_FOR_PERIOD = 'Period'
-  const DEFAULT_YAML_PATH = 'DEFAULT_YAML_PATH'
 
   const handler = React.useMemo(
     () =>
@@ -88,15 +91,6 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
       } as YamlBuilderHandlerBinding),
     []
   )
-
-  function getJSONFromYAML(yaml: string): Record<string, any> {
-    try {
-      return parse(yaml)
-    } catch (error) {
-      // toaster.show({ message: 'Error while content parsing', intent: Intent.DANGER, timeout: 5000 })
-      throw error
-    }
-  }
 
   useEffect(() => {
     bind?.(handler)
@@ -133,57 +127,16 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
     verifyYAMLValidity(updatedYaml)
   }
 
-  const getYAMLPathToValidationErrorMap = (
-    currentYaml: string,
-    validationErrors: Diagnostic[]
-  ): Map<string, string[]> | undefined => {
-    const yamlPathToValidationErrorMap = new Map<string, string[]>()
-    try {
-      if (!validationErrors) {
-        return
-      }
-      const editor = editorRef?.current?.editor
-
-      validationErrors.forEach(valError => {
-        const errorLineNum = valError?.range.end?.line + 1
-        const textInCurrentEditorLine = editor?.getModel()?.getLineContent(errorLineNum).trim()
-        if (textInCurrentEditorLine) {
-          const currentProperty = textInCurrentEditorLine?.split(':').map(item => item.trim())?.[0]
-          const indexOfOccurence = currentYaml.indexOf(textInCurrentEditorLine)
-          if (indexOfOccurence !== -1) {
-            const partialYAML = currentYaml.substring(0, indexOfOccurence + textInCurrentEditorLine.length)
-            const jsonEqOfYAML = getJSONFromYAML(partialYAML)
-            if (jsonEqOfYAML && Object.keys(jsonEqOfYAML).length > 0) {
-              const path = findLeafToParentPath(jsonEqOfYAML, currentProperty)
-              if (path) {
-                const existingErrorsOnPath = yamlPathToValidationErrorMap.get(path)
-                if (
-                  existingErrorsOnPath !== undefined &&
-                  Array.isArray(existingErrorsOnPath) &&
-                  existingErrorsOnPath.length > 0
-                ) {
-                  existingErrorsOnPath.push(valError.message)
-                  yamlPathToValidationErrorMap.set(path, existingErrorsOnPath)
-                } else {
-                  yamlPathToValidationErrorMap.set(path, [valError.message])
-                }
-              }
-            }
-          }
-        }
-      })
-    } catch (error) {
-      yamlPathToValidationErrorMap.set(DEFAULT_YAML_PATH, error)
-    }
-    return yamlPathToValidationErrorMap
-  }
-
   const verifyYAMLValidity = (currentYaml: string): void => {
     const jsonSchemas = JSONSchemaService.fetchEntitySchemas(entityType)
     validateYAMLWithSchema(currentYaml, [jsonSchemas])
       .then((validationErrors: Diagnostic[]) => {
         if (validationErrors && Array.isArray(validationErrors)) {
-          const validationErrorMap = getYAMLPathToValidationErrorMap(currentYaml, validationErrors)
+          const validationErrorMap = getYAMLPathToValidationErrorMap(
+            currentYaml,
+            validationErrors,
+            editorRef?.current?.editor
+          )
           setYamlValidationErrors(validationErrorMap)
         }
       })

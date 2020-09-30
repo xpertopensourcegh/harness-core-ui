@@ -1,4 +1,7 @@
+import type { Diagnostic } from 'vscode-languageserver-types'
 import { parse } from 'yaml'
+
+const DEFAULT_YAML_PATH = 'DEFAULT_YAML_PATH'
 
 /**
  * @description Find json path(s) of a given node in json from it's nearest parent
@@ -85,4 +88,63 @@ const getMetaDataForKeyboardEventProcessing = (
   }
 }
 
-export { findLeafToParentPath, getYAMLFromEditor, getMetaDataForKeyboardEventProcessing }
+/**
+ * Get mapping of json path of a property to all errors on the value at that property
+ * @param currentYaml
+ * @param validationErrors
+ * @param editor
+ */
+const getYAMLPathToValidationErrorMap = (
+  currentYaml: string,
+  validationErrors: Diagnostic[],
+  editor: any | undefined
+): Map<string, string[]> | undefined => {
+  const yamlPathToValidationErrorMap = new Map<string, string[]>()
+  try {
+    if (!validationErrors) {
+      return
+    }
+
+    validationErrors.forEach(valError => {
+      const errorIndex = valError?.range?.end?.line
+      if (errorIndex) {
+        const errorLineNum = errorIndex + 1
+        const textInCurrentEditorLine = editor?.getModel()?.getLineContent(errorLineNum).trim()
+        if (textInCurrentEditorLine) {
+          const currentProperty = textInCurrentEditorLine?.split(':').map((item: string) => item.trim())?.[0]
+          const indexOfOccurence = currentYaml.indexOf(textInCurrentEditorLine)
+          if (indexOfOccurence !== -1) {
+            const partialYAML = currentYaml.substring(0, indexOfOccurence + textInCurrentEditorLine.length)
+            const jsonEqOfYAML = getJSONFromYAML(partialYAML)
+            if (jsonEqOfYAML && Object.keys(jsonEqOfYAML).length > 0) {
+              const path = findLeafToParentPath(jsonEqOfYAML, currentProperty)
+              if (path) {
+                const existingErrorsOnPath = yamlPathToValidationErrorMap.get(path)
+                if (
+                  existingErrorsOnPath !== undefined &&
+                  Array.isArray(existingErrorsOnPath) &&
+                  existingErrorsOnPath.length > 0
+                ) {
+                  existingErrorsOnPath.push(valError.message)
+                  yamlPathToValidationErrorMap.set(path, existingErrorsOnPath)
+                } else {
+                  yamlPathToValidationErrorMap.set(path, [valError.message])
+                }
+              }
+            }
+          }
+        }
+      }
+    })
+  } catch (error) {
+    yamlPathToValidationErrorMap.set(DEFAULT_YAML_PATH, error)
+  }
+  return yamlPathToValidationErrorMap
+}
+
+export {
+  findLeafToParentPath,
+  getYAMLFromEditor,
+  getMetaDataForKeyboardEventProcessing,
+  getYAMLPathToValidationErrorMap
+}
