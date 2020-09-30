@@ -34,7 +34,7 @@ const PipelineDetails: React.FC = ({ children }): JSX.Element => {
               </NavLink>
               &nbsp;/
             </span>
-            {!loading && <Text>{(pipeline?.data?.cdPipeline as any)?.pipeline.name}</Text>}
+            {!loading && <Text>{(pipeline?.data?.ngPipeline as any)?.pipeline.name}</Text>}
           </Layout.Vertical>
         }
         toolbar={

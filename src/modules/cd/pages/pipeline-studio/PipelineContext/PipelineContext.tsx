@@ -3,7 +3,7 @@ import { openDB, IDBPDatabase, deleteDB } from 'idb'
 import { isEqual, cloneDeep } from 'lodash-es'
 import { parse, stringify } from 'yaml'
 import {
-  CDPipeline,
+  NgPipeline,
   GetPipelineListQueryParams,
   getPipelinePromise,
   putPipelinePromise,
@@ -30,7 +30,7 @@ const logger = loggerFor(ModuleName.CD)
 export const getPipelineByIdentifier = (
   params: GetPipelineListQueryParams,
   identifier: string
-): Promise<CDPipeline | undefined> => {
+): Promise<NgPipeline | undefined> => {
   return getPipelinePromise({
     pipelineIdentifier: identifier,
     queryParams: {
@@ -51,14 +51,14 @@ export const getPipelineByIdentifier = (
       obj = response
     }
     if (obj.status === 'SUCCESS' && obj.data?.yamlPipeline) {
-      return parse(obj.data.yamlPipeline as string).pipeline as CDPipeline
+      return parse(obj.data.yamlPipeline as string).pipeline as NgPipeline
     }
   })
 }
 
 export const savePipeline = (
   params: PutPipelineQueryParams,
-  pipeline: CDPipeline,
+  pipeline: NgPipeline,
   isEdit = false
 ): Promise<Failure | undefined> => {
   return isEdit
@@ -106,16 +106,16 @@ interface PipelineContextInterface {
   state: PipelineReducerState
   fetchPipeline: (forceFetch?: boolean, forceUpdate?: boolean) => Promise<void>
   setYamlHandler: (yamlHandler: YamlBuilderHandlerBinding) => void
-  updatePipeline: (pipeline: CDPipeline) => Promise<void>
+  updatePipeline: (pipeline: NgPipeline) => Promise<void>
   updatePipelineView: (data: PipelineViewData) => void
   deletePipelineCache: () => Promise<void>
-  pipelineSaved: (pipeline: CDPipeline) => void
+  pipelineSaved: (pipeline: NgPipeline) => void
 }
 
 interface PipelinePayload {
   identifier: string
-  pipeline: CDPipeline | undefined
-  originalPipeline?: CDPipeline
+  pipeline: NgPipeline | undefined
+  originalPipeline?: NgPipeline
   isUpdated: boolean
 }
 
@@ -195,8 +195,8 @@ const _updatePipeline = async (
   dispatch: React.Dispatch<ActionReturnType>,
   queryParams: GetPipelineListQueryParams,
   identifier: string,
-  originalPipeline: CDPipeline,
-  pipeline: CDPipeline
+  originalPipeline: NgPipeline,
+  pipeline: NgPipeline
 ): Promise<void> => {
   const id = getId(
     queryParams.accountIdentifier,
@@ -306,7 +306,7 @@ export const PipelineProvider: React.FC<{
   const updatePipeline = _updatePipeline.bind(null, dispatch, queryParams, pipelineIdentifier, state.originalPipeline)
   const deletePipelineCache = _deletePipelineCache.bind(null, queryParams, pipelineIdentifier)
   const pipelineSaved = React.useCallback(
-    async (pipeline: CDPipeline) => {
+    async (pipeline: NgPipeline) => {
       await deletePipelineCache()
       dispatch(PipelineContextActions.pipelineSavedAction({ pipeline, originalPipeline: cloneDeep(pipeline) }))
     },

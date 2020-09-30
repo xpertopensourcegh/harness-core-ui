@@ -21,7 +21,7 @@ import { parse, stringify } from 'yaml'
 import { FieldArray, FieldArrayRenderProps } from 'formik'
 import { CompletionItemKind } from 'vscode-languageserver-types'
 import {
-  CDPipeline,
+  NgPipeline,
   Failure,
   OverlayInputSet,
   useCreateInputSetForPipeline,
@@ -55,11 +55,11 @@ export enum InputFormType {
 }
 
 export interface InputSetDTO extends Omit<CDInputSet, 'identifier' | 'pipeline'>, Omit<OverlayInputSet, 'identifier'> {
-  pipeline?: CDPipeline
+  pipeline?: NgPipeline
   identifier?: string
 }
 
-const getDefaultInputSet = (template: CDPipeline): InputSetDTO => ({
+const getDefaultInputSet = (template: NgPipeline): InputSetDTO => ({
   name: undefined,
   identifier: undefined,
   description: undefined,
@@ -498,12 +498,11 @@ export const InputSetForm: React.FC<InputSetFormProps> = ({ hideForm, identifier
                     <FormikForm>
                       <BasicInputSetForm isEdit={isEdit} formType={formType} values={values} />
                       {formType === InputFormType.InputForm &&
-                        pipeline?.data?.cdPipeline &&
-                        template?.data?.inputSetTemplateYaml &&
-                        parse(template.data.inputSetTemplateYaml) && (
+                        pipeline?.data?.ngPipeline &&
+                        template?.data?.inputSetTemplateYaml && (
                           <PipelineInputSetForm
-                            originalPipeline={(pipeline.data.cdPipeline as any).pipeline}
-                            template={parse(template.data.inputSetTemplateYaml)?.pipeline}
+                            originalPipeline={(pipeline.data.ngPipeline as any).pipeline}
+                            template={parse(template.data.inputSetTemplateYaml).pipeline}
                             pipeline={values.pipeline}
                             onUpdate={updatedPipeline => {
                               setFieldValue('pipeline', updatedPipeline)

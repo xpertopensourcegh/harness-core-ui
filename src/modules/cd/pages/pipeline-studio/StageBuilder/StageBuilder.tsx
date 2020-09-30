@@ -7,7 +7,7 @@ import SplitPane from 'react-split-pane'
 import { Diagram } from 'modules/common/exports'
 import { DynamicPopover, DynamicPopoverHandlerBinding } from 'modules/common/components/DynamicPopover/DynamicPopover'
 import { CanvasButtons } from 'modules/common/components/CanvasButtons/CanvasButtons'
-import type { StageElementWrapper, CDPipeline } from 'services/cd-ng'
+import type { StageElementWrapper, NgPipeline } from 'services/cd-ng'
 import { StageBuilderModel } from './StageBuilderModel'
 import StageSetupShell from '../../../components/StageSetupShell/StageSetupShell'
 import { PipelineContext } from '../PipelineContext/PipelineContext'
@@ -31,7 +31,7 @@ import css from './StageBuilder.module.scss'
 
 export type StageStateMap = Map<string, StageState>
 
-const initializeStageStateMap = (pipeline: CDPipeline, mapState: StageStateMap): void => {
+const initializeStageStateMap = (pipeline: NgPipeline, mapState: StageStateMap): void => {
   if (pipeline.stages) {
     pipeline.stages.forEach((node: StageElementWrapper) => {
       if (node.stage && node.stage.name !== EmptyStageName) {

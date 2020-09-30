@@ -1,7 +1,7 @@
 import type { IconName } from '@wings-software/uikit'
 import { isEmpty } from 'lodash-es'
 import { Diagram } from 'modules/common/exports'
-import type { CDPipeline, StageElementWrapper } from 'services/cd-ng'
+import type { NgPipeline, StageElementWrapper } from 'services/cd-ng'
 import i18n from './StageBuilder.i18n'
 import { EmptyStageName } from '../PipelineConstants'
 import {
@@ -177,7 +177,7 @@ export class StageBuilderModel extends Diagram.DiagramModel {
     return { startX, startY }
   }
 
-  addUpdateGraph(data: CDPipeline, listeners: Listeners, selectedStageId?: string, splitPaneSize?: number): void {
+  addUpdateGraph(data: NgPipeline, listeners: Listeners, selectedStageId?: string, splitPaneSize?: number): void {
     let { startX, startY } = this
     this.clearAllNodesAndLinks() // TODO: Improve this
 

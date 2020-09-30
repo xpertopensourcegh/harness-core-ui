@@ -4,7 +4,7 @@ import cx from 'classnames'
 import { Dialog, IDialogProps } from '@blueprintjs/core'
 import { get } from 'lodash-es'
 
-import type { StageElementWrapper, CDPipeline } from 'services/cd-ng'
+import type { StageElementWrapper, NgPipeline } from 'services/cd-ng'
 import { getStageFromPipeline } from 'modules/cd/pages/pipeline-studio/StageBuilder/StageBuilderUtil'
 import { PipelineContext } from '../../pages/pipeline-studio/PipelineContext/PipelineContext'
 import { ManifestWizard } from './ManifestWizardSteps/ManifestWizard'
@@ -87,9 +87,9 @@ function ManifestListView({
   stage
 }: {
   identifier: string
-  pipeline: CDPipeline
+  pipeline: NgPipeline
   isForOverrideSets: boolean
-  updatePipeline: (pipeline: CDPipeline) => Promise<void>
+  updatePipeline: (pipeline: NgPipeline) => Promise<void>
   identifierName?: string
   stage: StageElementWrapper | undefined
 }): JSX.Element {

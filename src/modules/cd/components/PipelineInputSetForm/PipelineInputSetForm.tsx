@@ -1,16 +1,16 @@
 import React from 'react'
 import { Layout } from '@wings-software/uikit'
-import type { CDPipeline } from 'services/cd-ng'
+import type { NgPipeline } from 'services/cd-ng'
 import { CollapseForm } from './CollapseForm'
 import i18n from './PipelineInputSetForm.i18n'
 import { StageInputSetForm } from './StageInputSetForm'
 import css from './PipelineInputSetForm.module.scss'
 
 export interface PipelineInputSetFormProps {
-  originalPipeline: CDPipeline
-  template: CDPipeline
-  pipeline?: CDPipeline
-  onUpdate: (pipeline?: CDPipeline) => void
+  originalPipeline: NgPipeline
+  template: NgPipeline
+  pipeline?: NgPipeline
+  onUpdate: (pipeline?: NgPipeline) => void
 }
 
 export const PipelineInputSetForm: React.FC<PipelineInputSetFormProps> = props => {

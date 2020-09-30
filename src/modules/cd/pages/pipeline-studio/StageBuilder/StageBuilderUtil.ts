@@ -1,7 +1,7 @@
 import { v4 as uuid } from 'uuid'
 import type { IconName } from '@wings-software/uikit'
 import type { NodeModelListener, LinkModelListener, DiagramEngine } from '@projectstorm/react-diagrams-core'
-import type { StageElement, StageElementWrapper, CDPipeline, DeploymentStage } from 'services/cd-ng'
+import type { StageElement, StageElementWrapper, NgPipeline, DeploymentStage } from 'services/cd-ng'
 import type { Diagram } from 'modules/common/exports'
 import { EmptyStageName } from '../PipelineConstants'
 
@@ -62,7 +62,7 @@ export const getCommonStyles = (isSelected: boolean): React.CSSProperties => ({
 })
 
 export const getStageFromPipeline = (
-  data: CDPipeline | StageElementWrapper,
+  data: NgPipeline | StageElementWrapper,
   identifier: string
 ): { stage: StageElementWrapper | undefined; parent: StageElementWrapper | undefined } => {
   let stage: StageElementWrapper | undefined = undefined
@@ -84,7 +84,7 @@ export const getStageFromPipeline = (
 }
 
 export const removeNodeFromPipeline = (
-  data: CDPipeline | StageElementWrapper,
+  data: NgPipeline | StageElementWrapper,
   stageMap: Map<string, StageState>,
   identifier: string,
   updateStateMap = true

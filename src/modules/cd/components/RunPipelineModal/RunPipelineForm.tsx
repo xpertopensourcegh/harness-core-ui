@@ -8,7 +8,7 @@ import { noop, pick } from 'lodash-es'
 import * as Yup from 'yup'
 import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
 import {
-  CDPipeline,
+  NgPipeline,
   Failure,
   getInputSetForPipelinePromise,
   useCreateInputSetForPipeline,
@@ -60,10 +60,10 @@ export const RunPipelineForm: React.FC<RunPipelineFormProps> = ({ pipelineIdenti
     queryParams: { accountIdentifier: accountId, orgIdentifier, pipelineIdentifier, projectIdentifier }
   })
 
-  const [currentPipeline, setCurrentPipeline] = React.useState<{ pipeline: CDPipeline } | undefined>()
+  const [currentPipeline, setCurrentPipeline] = React.useState<{ pipeline: NgPipeline } | undefined>()
 
   React.useEffect(() => {
-    setCurrentPipeline(parse(template?.data?.inputSetTemplateYaml || '') as { pipeline: CDPipeline })
+    setCurrentPipeline(parse(template?.data?.inputSetTemplateYaml || '') as { pipeline: NgPipeline })
   }, [template?.data?.inputSetTemplateYaml])
 
   const { showError, showSuccess, showWarning } = useToaster()
@@ -76,14 +76,14 @@ export const RunPipelineForm: React.FC<RunPipelineFormProps> = ({ pipelineIdenti
   const handleModeSwitch = React.useCallback(
     (view: SelectedView) => {
       if (view === SelectedView.VISUAL) {
-        setCurrentPipeline(parse(yamlHandler?.getLatestYaml() || '') as { pipeline: CDPipeline })
+        setCurrentPipeline(parse(yamlHandler?.getLatestYaml() || '') as { pipeline: NgPipeline })
       }
       setSelectedView(view)
     },
     [yamlHandler?.getLatestYaml]
   )
 
-  const pipeline: CDPipeline | undefined = (pipelineResponse?.data?.cdPipeline as any)?.pipeline
+  const pipeline: NgPipeline | undefined = (pipelineResponse?.data?.ngPipeline as any)?.pipeline
 
   const { mutate: runPipeline } = usePostPipelineExecute({
     queryParams: { accountIdentifier: accountId, projectIdentifier, orgIdentifier },
@@ -137,7 +137,7 @@ export const RunPipelineForm: React.FC<RunPipelineFormProps> = ({ pipelineIdenti
           inputSetReferences: selectedInputSets.map(item => item.value as string)
         })
         if (data?.data?.pipelineYaml) {
-          setCurrentPipeline(parse(data.data.pipelineYaml) as { pipeline: CDPipeline })
+          setCurrentPipeline(parse(data.data.pipelineYaml) as { pipeline: NgPipeline })
         }
       }
       fetchData()
@@ -149,7 +149,7 @@ export const RunPipelineForm: React.FC<RunPipelineFormProps> = ({ pipelineIdenti
         })
         if (data?.data?.inputSetYaml) {
           if (selectedInputSets[0].type === 'INPUT_SET') {
-            setCurrentPipeline(pick(parse(data.data.inputSetYaml)?.inputSet, 'pipeline') as { pipeline: CDPipeline })
+            setCurrentPipeline(pick(parse(data.data.inputSetYaml)?.inputSet, 'pipeline') as { pipeline: NgPipeline })
           }
         }
       }

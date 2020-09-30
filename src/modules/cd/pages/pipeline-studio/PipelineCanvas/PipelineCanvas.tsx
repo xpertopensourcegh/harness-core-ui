@@ -5,7 +5,7 @@ import { Button, Icon, Text, useModalHook, Tag } from '@wings-software/uikit'
 import { useHistory, useParams, NavLink, matchPath } from 'react-router-dom'
 import { parse } from 'yaml'
 import { NavigationCheck, useToaster, useConfirmationDialog } from 'modules/common/exports'
-import type { CDPipeline, Failure } from 'services/cd-ng'
+import type { NgPipeline, Failure } from 'services/cd-ng'
 import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
 import { routeCDPipelineStudio, routeCDPipelineStudioUI, routeCDPipelineStudioYaml } from 'modules/cd/routes'
 import { AUTH_ROUTE_PATH_PREFIX } from 'framework/exports'
@@ -56,9 +56,9 @@ export const PipelineCanvas: React.FC = ({ children }): JSX.Element => {
 
   const saveAndPublish = React.useCallback(async () => {
     let response: Failure | undefined
-    let latestPipeline: CDPipeline = pipeline
+    let latestPipeline: NgPipeline = pipeline
     if (isYaml && yamlHandler) {
-      latestPipeline = parse(yamlHandler.getLatestYaml()).pipeline as CDPipeline
+      latestPipeline = parse(yamlHandler.getLatestYaml()).pipeline as NgPipeline
       response = await savePipeline(
         { accountIdentifier: accountId, projectIdentifier, orgIdentifier },
         latestPipeline,
@@ -135,7 +135,7 @@ export const PipelineCanvas: React.FC = ({ children }): JSX.Element => {
   ])
 
   const onSubmit = React.useCallback(
-    (data: CDPipeline) => {
+    (data: NgPipeline) => {
       pipeline.name = data.name
       pipeline.description = data.description
       pipeline.identifier = data.identifier

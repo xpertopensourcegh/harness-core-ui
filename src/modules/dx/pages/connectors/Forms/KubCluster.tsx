@@ -9,15 +9,7 @@ import ConnectorFormFields from 'modules/dx/components/connectors/ConnectorFormF
 import { useGetKubernetesDelegateNames } from 'services/portal'
 import type { ConnectorInfoDTO, ConnectorRequestBody } from 'services/cd-ng'
 import type { InlineSecret } from 'modules/common/components/CreateInlineSecret/CreateInlineSecret'
-import {
-  getSecretV2Promise,
-  SecretTextSpecDTO,
-  KubernetesOpenIdConnectDTO,
-  KubernetesClientKeyCertDTO,
-  KubernetesServiceAccountDTO,
-  KubernetesUserNamePasswordDTO,
-  ResponseSecretResponseWrapper
-} from 'services/cd-ng'
+import { getSecretV2Promise, SecretTextSpecDTO, ResponseSecretResponseWrapper } from 'services/cd-ng'
 import { Scope } from 'modules/common/interfaces/SecretsInterface'
 import useCreateUpdateSecretModal from 'modules/dx/modals/CreateSecretModal/useCreateUpdateSecretModal'
 import { DelegateTypes } from './KubeFormInterfaces'
@@ -107,13 +99,7 @@ const KubCluster: React.FC<KubClusterProps> = props => {
       scope: Scope.ACCOUNT
     })
   }
-  const getSecrets = (
-    formData:
-      | KubernetesClientKeyCertDTO
-      | KubernetesOpenIdConnectDTO
-      | KubernetesServiceAccountDTO
-      | KubernetesUserNamePasswordDTO
-  ) => {
+  const getSecrets = (formData: any) => {
     if (formData.passwordRef) {
       getSecretForValue(formData.passwordRef, setPasswordRefSecret)
     }

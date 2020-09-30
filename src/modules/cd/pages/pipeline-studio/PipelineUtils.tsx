@@ -1,7 +1,7 @@
 import React from 'react'
 import type { ITreeNode } from '@blueprintjs/core'
 import { Text, Color } from '@wings-software/uikit'
-import type { CDPipeline, StageElement, StageElementWrapper } from 'services/cd-ng'
+import type { NgPipeline, StageElement, StageElementWrapper } from 'services/cd-ng'
 import i18n from './PipelineStudio.i18n'
 
 const getStageTree = (stage: StageElement): ITreeNode => {
@@ -40,7 +40,7 @@ const getStageTree = (stage: StageElement): ITreeNode => {
   return stageNode
 }
 
-export const getPipelineTree = (pipeline: CDPipeline): ITreeNode[] => {
+export const getPipelineTree = (pipeline: NgPipeline): ITreeNode[] => {
   const returnNodes: ITreeNode[] = [
     {
       id: 'Pipeline_Variables',
