@@ -1,7 +1,7 @@
 import React from 'react'
 import { Layout, Tag, Text, Color } from '@wings-software/uikit'
 import { Connectors } from 'modules/dx/constants'
-import type { ConnectorInfoDTO } from 'services/cd-ng'
+import type { ConnectorInfoDTO, VaultConnectorDTO } from 'services/cd-ng'
 import { DelegateTypes } from '../../Forms/KubeFormInterfaces'
 import { getLabelForAuthType } from '../../utils/ConnectorHelper'
 import i18n from './SavedConnectorDetails.i18n'
@@ -152,6 +152,37 @@ const getDockerSchema = (connector: ConnectorInfoDTO) => {
     }
   ]
 }
+
+const getVaultSchema = (connector: ConnectorInfoDTO) => {
+  const data = connector.spec as VaultConnectorDTO
+  return [
+    {
+      label: i18n.Vault.vaultUrl,
+      value: data.vaultUrl
+    },
+    {
+      label: i18n.Vault.engineName,
+      value: data.secretEngineName
+    },
+    {
+      label: i18n.Vault.engineVersion,
+      value: data.secretEngineVersion
+    },
+    {
+      label: i18n.Vault.renewal,
+      value: data.renewIntervalHours
+    },
+    {
+      label: i18n.Vault.readOnly,
+      value: data.readOnly ? i18n.Vault.yes : i18n.Vault.no
+    },
+    {
+      label: i18n.Vault.default,
+      value: data.default ? i18n.Vault.yes : i18n.Vault.no
+    }
+  ]
+}
+
 const getSchemaByType = (connector: ConnectorInfoDTO, type: string) => {
   switch (type) {
     case Connectors.KUBERNETES_CLUSTER:
@@ -160,6 +191,8 @@ const getSchemaByType = (connector: ConnectorInfoDTO, type: string) => {
       return getGITSchema(connector)
     case Connectors.DOCKER:
       return getDockerSchema(connector)
+    case Connectors.VAULT:
+      return getVaultSchema(connector)
     default:
       return []
   }

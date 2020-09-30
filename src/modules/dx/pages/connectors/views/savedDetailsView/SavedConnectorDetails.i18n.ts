@@ -50,5 +50,15 @@ export default {
     dockerRegistryURL: 'Docker Registry URL',
     username: 'Username',
     password: 'Password'
+  },
+  Vault: {
+    vaultUrl: 'Vault URL',
+    engineName: 'Secret Engine Name',
+    engineVersion: 'Secret Engine Version',
+    renewal: 'Renewal Interval (hours)',
+    readOnly: 'Read Only',
+    default: 'Default',
+    yes: 'Yes',
+    no: 'No'
   }
 }

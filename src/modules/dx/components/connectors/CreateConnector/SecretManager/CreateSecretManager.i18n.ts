@@ -1,5 +1,5 @@
 export default {
-  labelName: 'Give your Secret Manager a name',
+  labelName: 'Secret Manager Name',
   labelDescription: 'Description',
   labelTags: 'Tags',
   labelEncType: 'Encryption Type',
@@ -38,6 +38,7 @@ export default {
   buttonNext: 'CONTINUE',
   buttonSubmit: 'SAVE',
   buttonSaving: 'SAVING',
+  buttonSave: 'SAVE',
   messageSuccess: 'Secrets Manager created successfully',
   nameStepDetails: 'CREATE',
   nameStepConfigure: 'CONFIGURE',
