@@ -13,7 +13,6 @@ import { useToaster } from 'modules/common/components/Toaster/useToaster'
 import { useConfirmationDialog } from 'modules/common/modals/ConfirmDialog/useConfirmationDialog'
 import i18n from './ProjectCard.i18n'
 import ContextMenu from '../Menu/ContextMenu'
-import { project } from '../../__tests__/DefaultAppStoreData'
 import css from './ProjectCard.module.scss'
 
 export interface ProjectCardProps {
@@ -30,29 +29,30 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
   const { data, isPreview, reloadProjects, editProject, collaborators, onClick } = props
   const { organisationsMap } = useAppStoreReader()
   const { mutate: deleteProject } = useDeleteProject({
-    queryParams: { accountIdentifier: accountId, orgIdentifier: project.orgIdentifier || '' }
+    queryParams: { accountIdentifier: accountId, orgIdentifier: data.orgIdentifier || '' }
   })
   const { showSuccess, showError } = useToaster()
 
   const { projects } = useAppStoreReader()
   const updateAppStore = useAppStoreWriter()
   const onDeleted = (): void => {
-    const index = projects.findIndex(p => p.identifier === project.identifier)
+    const index = projects.findIndex(p => p.identifier === data.identifier)
     projects.splice(index, 1)
     updateAppStore({ projects: ([] as Project[]).concat(projects) })
   }
+
   const { openDialog } = useConfirmationDialog({
-    contentText: i18n.confirmDelete(project.name || ''),
+    contentText: i18n.confirmDelete(data.name || ''),
     titleText: i18n.confirmDeleteTitle,
     confirmButtonText: i18n.delete,
     cancelButtonText: i18n.cancel,
     onCloseDialog: async (isConfirmed: boolean) => {
       if (isConfirmed) {
         try {
-          const deleted = await deleteProject(project.identifier || '', {
+          const deleted = await deleteProject(data.identifier || '', {
             headers: { 'content-type': 'application/json' }
           })
-          if (deleted) showSuccess(i18n.successMessage(project.name || ''))
+          if (deleted) showSuccess(i18n.successMessage(data.name || ''))
           onDeleted?.()
           reloadProjects?.()
         } catch (err) {
