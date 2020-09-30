@@ -5,76 +5,82 @@
   "basePath": "/cv-nextgen",
   "tags": [
     {
-      "name": "verification-job-instance"
-    },
-    {
-      "name": "deployment-time-series-analysis"
-    },
-    {
-      "name": "timeseries-analysis"
-    },
-    {
-      "name": "timeseries"
-    },
-    {
-      "name": "anomaly"
-    },
-    {
-      "name": "webhook"
-    },
-    {
-      "name": "cv-config"
-    },
-    {
       "name": "host-record"
-    },
-    {
-      "name": "learning"
-    },
-    {
-      "name": "metric-pack"
-    },
-    {
-      "name": "ds-config"
-    },
-    {
-      "name": "splunk"
-    },
-    {
-      "name": "activity"
-    },
-    {
-      "name": "delegate-data-collection-task"
-    },
-    {
-      "name": "log-dashboard"
     },
     {
       "name": "timeseries-dashboard"
     },
     {
-      "name": "heatmap"
-    },
-    {
-      "name": "verification-job"
-    },
-    {
-      "name": "delegate-data-collection"
-    },
-    {
       "name": "health"
+    },
+    {
+      "name": "log-analysis"
+    },
+    {
+      "name": "anomaly"
+    },
+    {
+      "name": "deployment-log-analysis"
+    },
+    {
+      "name": "log-dashboard"
+    },
+    {
+      "name": "webhook"
+    },
+    {
+      "name": "splunk"
     },
     {
       "name": "log-cluster"
     },
     {
-      "name": "log-record"
+      "name": "activity"
+    },
+    {
+      "name": "trend-analysis"
+    },
+    {
+      "name": "delegate-data-collection"
+    },
+    {
+      "name": "delegate-data-collection-task"
+    },
+    {
+      "name": "ds-config"
+    },
+    {
+      "name": "learning"
+    },
+    {
+      "name": "cv-config"
+    },
+    {
+      "name": "verification-job-instance"
+    },
+    {
+      "name": "timeseries-analysis"
+    },
+    {
+      "name": "metric-pack"
+    },
+    {
+      "name": "timeseries"
+    },
+    {
+      "name": "deployment-time-series-analysis"
+    },
+    {
+      "name": "verification-job"
     },
     {
       "name": "appdynamics"
     },
     {
-      "name": "log-analysis"
+      "name": "heatmap"
+    },
+    {
+      "name": "log-record"
     }
   ],
   "schemes": ["https", "http"],
@@ -679,6 +685,80 @@
             "description": "successful operation",
             "schema": {
               "$ref": "#/definitions/RestResponseVoid"
+            },
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/deployment-log-analysis/{verificationJobInstanceId}": {
+      "get": {
+        "tags": ["deployment-log-analysis"],
+        "operationId": "getMetrics",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "verificationJobInstanceId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "accountId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "label",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "pageNumber",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/RestResponsePageLogAnalysisClusterDTO"
+            },
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/deployment-log-analysis/{verificationJobInstanceId}/clusters": {
+      "get": {
+        "tags": ["deployment-log-analysis"],
+        "operationId": "getMetrics",
+        "produces": ["application/json", "application/v1+json"],
+        "parameters": [
+          {
+            "name": "verificationJobInstanceId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "accountId",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/RestResponseListLogAnalysisClusterChartDTO"
             },
             "headers": {}
           }
@@ -1421,7 +1501,7 @@
           {
             "name": "monitoringCategory",
             "in": "query",
-            "required": true,
+            "required": false,
             "type": "string"
           },
           {
@@ -1505,7 +1585,7 @@
           {
             "name": "monitoringCategory",
             "in": "query",
-            "required": true,
+            "required": false,
             "type": "string"
           },
           {
@@ -1589,7 +1669,7 @@
           {
             "name": "monitoringCategory",
             "in": "query",
-            "required": true,
+            "required": false,
             "type": "string"
           },
           {
@@ -1611,7 +1691,7 @@
           "200": {
             "description": "successful operation",
             "schema": {
-              "$ref": "#/definitions/RestResponseListLogDataByTag"
+              "$ref": "#/definitions/RestResponseSortedSetLogDataByTag"
             },
             "headers": {}
           }
@@ -2259,7 +2339,7 @@
           {
             "name": "monitoringCategory",
             "in": "query",
-            "required": true,
+            "required": false,
             "type": "string"
           },
           {
@@ -2522,6 +2602,91 @@
         }
       }
     },
+    "/trend-analysis/service-guard-trend-save-analysis": {
+      "post": {
+        "tags": ["trend-analysis"],
+        "operationId": "saveServiceGuardAnalysis",
+        "produces": ["application/json", "application/v1+json"],
+        "parameters": [
+          {
+            "name": "taskId",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/ServiceGuardMetricAnalysisDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/RestResponseVoid"
+            },
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/trend-analysis/service-guard-trend-test-data": {
+      "get": {
+        "tags": ["trend-analysis"],
+        "operationId": "getTestData",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "verificationTaskId",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "analysisStartTime",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "analysisEndTime",
+            "in": "query",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/RestResponseMapStringMapStringListDouble"
+            },
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/trend-analysis/trend-metric-template": {
+      "get": {
+        "tags": ["trend-analysis"],
+        "operationId": "getMetricTemplate",
+        "produces": ["application/json"],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/RestResponseListTimeSeriesMetricDefinition"
+            },
+            "headers": {}
+          }
+        }
+      }
+    },
     "/verification-job": {
       "get": {
         "tags": ["verification-job"],
@@ -2756,39 +2921,6 @@
         }
       }
     },
-    "TimeSeriesTestDataDTO": {
-      "type": "object",
-      "properties": {
-        "cvConfigId": {
-          "type": "string"
-        },
-        "transactionMetricValues": {
-          "type": "object",
-          "additionalProperties": {
-            "type": "object",
-            "additionalProperties": {
-              "type": "array",
-              "items": {
-                "type": "number",
-                "format": "double"
-              }
-            }
-          }
-        },
-        "metricGroupValues": {
-          "type": "object",
-          "additionalProperties": {
-            "type": "object",
-            "additionalProperties": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/MetricData"
-              }
-            }
-          }
-        }
-      }
-    },
     "MetricPackDTO": {
       "type": "object",
       "properties": {
@@ -2824,17 +2956,35 @@
         }
       }
     },
-    "TransactionMetricInfo": {
+    "TimeSeriesTestDataDTO": {
       "type": "object",
       "properties": {
-        "transactionMetric": {
-          "$ref": "#/definitions/TransactionMetric"
+        "cvConfigId": {
+          "type": "string"
         },
-        "nodes": {
-          "type": "array",
-          "uniqueItems": true,
-          "items": {
-            "$ref": "#/definitions/HostData"
+        "transactionMetricValues": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "array",
+              "items": {
+                "type": "number",
+                "format": "double"
+              }
+            }
+          }
+        },
+        "metricGroupValues": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/MetricData"
+              }
+            }
           }
         }
       }
@@ -2864,6 +3014,21 @@
         "count": {
           "type": "integer",
           "format": "int64"
+        }
+      }
+    },
+    "TransactionMetricInfo": {
+      "type": "object",
+      "properties": {
+        "transactionMetric": {
+          "$ref": "#/definitions/TransactionMetric"
+        },
+        "nodes": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/definitions/HostData"
+          }
         }
       }
     },
@@ -3003,23 +3168,21 @@
         }
       }
     },
-    "RestResponsePageAnalyzedLogDataDTO": {
+    "DataCollectionTaskResult": {
       "type": "object",
       "properties": {
-        "metaData": {
-          "type": "object",
-          "additionalProperties": {
-            "type": "object"
-          }
+        "dataCollectionTaskId": {
+          "type": "string"
         },
-        "resource": {
-          "$ref": "#/definitions/PageAnalyzedLogDataDTO"
+        "status": {
+          "type": "string",
+          "enum": ["FAILED", "QUEUED", "RUNNING", "WAITING", "EXPIRED", "SUCCESS"]
         },
-        "responseMessages": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/ResponseMessage"
-          }
+        "exception": {
+          "type": "string"
+        },
+        "stacktrace": {
+          "type": "string"
         }
       }
     },
@@ -3043,24 +3206,6 @@
           "items": {
             "$ref": "#/definitions/ResponseMessage"
           }
-        }
-      }
-    },
-    "DataCollectionTaskResult": {
-      "type": "object",
-      "properties": {
-        "dataCollectionTaskId": {
-          "type": "string"
-        },
-        "status": {
-          "type": "string",
-          "enum": ["FAILED", "QUEUED", "RUNNING", "WAITING", "EXPIRED", "SUCCESS"]
-        },
-        "exception": {
-          "type": "string"
-        },
-        "stacktrace": {
-          "type": "string"
         }
       }
     },
@@ -3189,7 +3334,7 @@
         }
       }
     },
-    "RestResponseMapStringMapStringListDouble": {
+    "RestResponseListLogAnalysisClusterChartDTO": {
       "type": "object",
       "properties": {
         "metaData": {
@@ -3199,16 +3344,9 @@
           }
         },
         "resource": {
-          "type": "object",
-          "additionalProperties": {
-            "type": "object",
-            "additionalProperties": {
-              "type": "array",
-              "items": {
-                "type": "number",
-                "format": "double"
-              }
-            }
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/LogAnalysisClusterChartDTO"
           }
         },
         "responseMessages": {
@@ -3261,60 +3399,57 @@
         }
       }
     },
-    "DeploymentTimeSeriesAnalysisDTO": {
+    "RestResponseMapStringMapStringListDouble": {
       "type": "object",
       "properties": {
-        "resultSummary": {
-          "$ref": "#/definitions/ResultSummary"
+        "metaData": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          }
         },
-        "hostSummaries": {
+        "resource": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "array",
+              "items": {
+                "type": "number",
+                "format": "double"
+              }
+            }
+          }
+        },
+        "responseMessages": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/HostSummary"
+            "$ref": "#/definitions/ResponseMessage"
           }
         }
       }
     },
-    "EnvironmentResponseDTO": {
+    "LogAnalysisClusterChartDTO": {
       "type": "object",
       "properties": {
-        "accountId": {
-          "type": "string"
-        },
-        "orgIdentifier": {
-          "type": "string"
-        },
-        "projectIdentifier": {
-          "type": "string"
-        },
-        "identifier": {
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        },
-        "description": {
-          "type": "string"
-        },
-        "type": {
-          "type": "string",
-          "enum": ["PreProduction", "Production"]
-        },
-        "deleted": {
-          "type": "boolean",
-          "default": false
-        }
-      }
-    },
-    "AppDynamicsTier": {
-      "type": "object",
-      "properties": {
-        "id": {
+        "label": {
           "type": "integer",
-          "format": "int64"
+          "format": "int32"
         },
-        "name": {
+        "text": {
           "type": "string"
+        },
+        "risk": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "x": {
+          "type": "number",
+          "format": "double"
+        },
+        "y": {
+          "type": "number",
+          "format": "double"
         }
       }
     },
@@ -3354,6 +3489,74 @@
             "type": "number",
             "format": "double"
           }
+        }
+      }
+    },
+    "EnvironmentResponseDTO": {
+      "type": "object",
+      "properties": {
+        "accountId": {
+          "type": "string"
+        },
+        "orgIdentifier": {
+          "type": "string"
+        },
+        "projectIdentifier": {
+          "type": "string"
+        },
+        "identifier": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["PreProduction", "Production"]
+        },
+        "deleted": {
+          "type": "boolean",
+          "default": false
+        }
+      }
+    },
+    "DeploymentTimeSeriesAnalysisDTO": {
+      "type": "object",
+      "properties": {
+        "risk": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "score": {
+          "type": "number",
+          "format": "double"
+        },
+        "hostSummaries": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/HostInfo"
+          }
+        },
+        "transactionMetricSummaries": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TransactionMetricHostData"
+          }
+        }
+      }
+    },
+    "AppDynamicsTier": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
         }
       }
     },
@@ -3426,29 +3629,6 @@
         }
       }
     },
-    "RestResponseListEnvServiceRiskDTO": {
-      "type": "object",
-      "properties": {
-        "metaData": {
-          "type": "object",
-          "additionalProperties": {
-            "type": "object"
-          }
-        },
-        "resource": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/EnvServiceRiskDTO"
-          }
-        },
-        "responseMessages": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/ResponseMessage"
-          }
-        }
-      }
-    },
     "RestResponseListLogClusterDTO": {
       "type": "object",
       "properties": {
@@ -3462,6 +3642,29 @@
           "type": "array",
           "items": {
             "$ref": "#/definitions/LogClusterDTO"
+          }
+        },
+        "responseMessages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResponseMessage"
+          }
+        }
+      }
+    },
+    "RestResponseListEnvServiceRiskDTO": {
+      "type": "object",
+      "properties": {
+        "metaData": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          }
+        },
+        "resource": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/EnvServiceRiskDTO"
           }
         },
         "responseMessages": {
@@ -3524,6 +3727,41 @@
           "type": "string"
         },
         "nativeMethod": {
+          "type": "boolean",
+          "default": false
+        }
+      }
+    },
+    "PageAnalyzedLogDataDTO": {
+      "type": "object",
+      "properties": {
+        "totalPages": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "totalItems": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "pageItemCount": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "content": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AnalyzedLogDataDTO"
+          }
+        },
+        "pageIndex": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "empty": {
           "type": "boolean",
           "default": false
         }
@@ -3652,37 +3890,6 @@
         }
       }
     },
-    "PageTransactionMetricInfo": {
-      "type": "object",
-      "properties": {
-        "pageCount": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "itemCount": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "pageSize": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "content": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/TransactionMetricInfo"
-          }
-        },
-        "pageIndex": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "empty": {
-          "type": "boolean",
-          "default": false
-        }
-      }
-    },
     "RestResponseLearningEngineTask": {
       "type": "object",
       "properties": {
@@ -3720,7 +3927,7 @@
         "trend": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/Frequency"
+            "$ref": "#/definitions/FrequencyDTO"
           }
         },
         "tag": {
@@ -3809,32 +4016,6 @@
         }
       }
     },
-    "ResultSummary": {
-      "type": "object",
-      "properties": {
-        "risk": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "score": {
-          "type": "number",
-          "format": "double"
-        },
-        "controlClusterLabels": {
-          "type": "array",
-          "items": {
-            "type": "integer",
-            "format": "int32"
-          }
-        },
-        "testClusterSummaries": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/ClusterSummary"
-          }
-        }
-      }
-    },
     "HostRecordDTO": {
       "type": "object",
       "properties": {
@@ -3888,8 +4069,35 @@
         },
         "metricDataList": {
           "type": "array",
+          "uniqueItems": true,
           "items": {
             "$ref": "#/definitions/MetricData"
+          }
+        }
+      }
+    },
+    "ResultSummary": {
+      "type": "object",
+      "properties": {
+        "risk": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "score": {
+          "type": "number",
+          "format": "double"
+        },
+        "controlClusterLabels": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "testClusterSummaries": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ClusterSummary"
           }
         }
       }
@@ -3938,18 +4146,6 @@
         }
       }
     },
-    "TimeSeriesDataRecordGroupValue": {
-      "type": "object",
-      "properties": {
-        "groupName": {
-          "type": "string"
-        },
-        "value": {
-          "type": "number",
-          "format": "double"
-        }
-      }
-    },
     "AnalysisResult": {
       "type": "object",
       "properties": {
@@ -3967,15 +4163,15 @@
         }
       }
     },
-    "ServiceRisk": {
+    "TimeSeriesDataRecordGroupValue": {
       "type": "object",
       "properties": {
-        "serviceIdentifier": {
+        "groupName": {
           "type": "string"
         },
-        "risk": {
-          "type": "integer",
-          "format": "int32"
+        "value": {
+          "type": "number",
+          "format": "double"
         }
       }
     },
@@ -4002,16 +4198,52 @@
         }
       }
     },
+    "ServiceRisk": {
+      "type": "object",
+      "properties": {
+        "serviceIdentifier": {
+          "type": "string"
+        },
+        "risk": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "RestResponsePageTimeSeriesMetricDataDTO": {
+      "type": "object",
+      "properties": {
+        "metaData": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          }
+        },
+        "resource": {
+          "$ref": "#/definitions/PageTimeSeriesMetricDataDTO"
+        },
+        "responseMessages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResponseMessage"
+          }
+        }
+      }
+    },
     "Frequency": {
       "type": "object",
       "properties": {
+        "count": {
+          "type": "integer",
+          "format": "int32"
+        },
         "timestamp": {
           "type": "integer",
           "format": "int64"
         },
-        "count": {
-          "type": "integer",
-          "format": "int32"
+        "riskScore": {
+          "type": "number",
+          "format": "double"
         }
       }
     },
@@ -4054,8 +4286,11 @@
           "type": "integer",
           "format": "int64"
         },
-        "trend": {
-          "$ref": "#/definitions/Trend"
+        "frequencyTrend": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Frequency"
+          }
         },
         "text": {
           "type": "string"
@@ -4076,7 +4311,11 @@
         "hostName": {
           "type": "string"
         },
-        "riskScore": {
+        "risk": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "score": {
           "type": "number",
           "format": "double"
         },
@@ -4093,6 +4332,30 @@
             "type": "number",
             "format": "double"
           }
+        }
+      }
+    },
+    "HostInfo": {
+      "type": "object",
+      "properties": {
+        "hostName": {
+          "type": "string"
+        },
+        "presentBeforeDeployment": {
+          "type": "boolean",
+          "default": false
+        },
+        "presentAfterDeployment": {
+          "type": "boolean",
+          "default": false
+        },
+        "risk": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "score": {
+          "type": "number",
+          "format": "double"
         }
       }
     },
@@ -4217,6 +4480,20 @@
         }
       }
     },
+    "VerificationJobRuntimeDetails": {
+      "type": "object",
+      "properties": {
+        "verificationJobIdentifier": {
+          "type": "string"
+        },
+        "runtimeValues": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      }
+    },
     "AppdynamicsMetricValueValidationResponse": {
       "type": "object",
       "properties": {
@@ -4273,6 +4550,30 @@
           "additionalProperties": {
             "type": "integer",
             "format": "int32"
+          }
+        },
+        "responseMessages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResponseMessage"
+          }
+        }
+      }
+    },
+    "RestResponseSortedSetLogDataByTag": {
+      "type": "object",
+      "properties": {
+        "metaData": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          }
+        },
+        "resource": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/definitions/LogDataByTag"
           }
         },
         "responseMessages": {
@@ -4340,10 +4641,10 @@
         "name": {
           "type": "string"
         },
-        "verificationJobsToTrigger": {
+        "verificationJobRuntimeDetails": {
           "type": "array",
           "items": {
-            "type": "string"
+            "$ref": "#/definitions/VerificationJobRuntimeDetails"
           }
         },
         "activityStartTime": {
@@ -4353,6 +4654,12 @@
         "activityEndTime": {
           "type": "integer",
           "format": "int64"
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         },
         "type": {
           "type": "string",
@@ -4380,6 +4687,41 @@
         },
         "errorMessage": {
           "type": "string"
+        }
+      }
+    },
+    "PageTimeSeriesMetricDataDTO": {
+      "type": "object",
+      "properties": {
+        "totalPages": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "totalItems": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "pageItemCount": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "content": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TimeSeriesMetricDataDTO"
+          }
+        },
+        "pageIndex": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "empty": {
+          "type": "boolean",
+          "default": false
         }
       }
     },
@@ -4479,6 +4821,26 @@
         }
       }
     },
+    "RestResponsePageAnalyzedLogDataDTO": {
+      "type": "object",
+      "properties": {
+        "metaData": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          }
+        },
+        "resource": {
+          "$ref": "#/definitions/PageAnalyzedLogDataDTO"
+        },
+        "responseMessages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResponseMessage"
+          }
+        }
+      }
+    },
     "AnomalyDTO": {
       "type": "object",
       "properties": {
@@ -4520,6 +4882,19 @@
     "Void": {
       "type": "object"
     },
+    "CountByTag": {
+      "type": "object",
+      "properties": {
+        "tag": {
+          "type": "string",
+          "enum": ["KNOWN", "UNEXPECTED", "UNKNOWN"]
+        },
+        "count": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
     "DataCollectionTaskDTO": {
       "type": "object",
       "properties": {
@@ -4545,19 +4920,6 @@
         "endTime": {
           "type": "integer",
           "format": "int64"
-        }
-      }
-    },
-    "CountByTag": {
-      "type": "object",
-      "properties": {
-        "tag": {
-          "type": "string",
-          "enum": ["KNOWN", "UNEXPECTED", "UNKNOWN"]
-        },
-        "count": {
-          "type": "integer",
-          "format": "int32"
         }
       }
     },
@@ -4611,6 +4973,101 @@
         }
       }
     },
+    "PageLogAnalysisClusterDTO": {
+      "type": "object",
+      "properties": {
+        "totalPages": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "totalItems": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "pageItemCount": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "content": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/LogAnalysisClusterDTO"
+          }
+        },
+        "pageIndex": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "empty": {
+          "type": "boolean",
+          "default": false
+        }
+      }
+    },
+    "LogAnalysisClusterDTO": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "type": "string"
+        },
+        "label": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "clusterType": {
+          "type": "string",
+          "enum": ["KNOWN_EVENT", "UNKNOWN_EVENT", "UNEXPECTED_FREQUENCY"]
+        },
+        "risk": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "score": {
+          "type": "number",
+          "format": "double"
+        },
+        "count": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "controlFrequencyData": {
+          "type": "array",
+          "items": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "testFrequencyData": {
+          "type": "array",
+          "items": {
+            "type": "number",
+            "format": "double"
+          }
+        }
+      }
+    },
+    "SplunkValidationResponse": {
+      "type": "object",
+      "properties": {
+        "histogram": {
+          "$ref": "#/definitions/Histogram"
+        },
+        "samples": {
+          "$ref": "#/definitions/SplunkSampleResponse"
+        },
+        "errorMessage": {
+          "type": "string"
+        },
+        "queryDurationMillis": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
     "DSConfig": {
       "type": "object",
       "properties": {
@@ -4638,43 +5095,6 @@
         "type": {
           "type": "string",
           "enum": ["APP_DYNAMICS", "SPLUNK"]
-        }
-      }
-    },
-    "SplunkValidationResponse": {
-      "type": "object",
-      "properties": {
-        "histogram": {
-          "$ref": "#/definitions/Histogram"
-        },
-        "samples": {
-          "$ref": "#/definitions/SplunkSampleResponse"
-        },
-        "errorMessage": {
-          "type": "string"
-        },
-        "queryDurationMillis": {
-          "type": "integer",
-          "format": "int64"
-        }
-      }
-    },
-    "Trend": {
-      "type": "object",
-      "properties": {
-        "count": {
-          "type": "array",
-          "items": {
-            "type": "integer",
-            "format": "int32"
-          }
-        },
-        "timestamp": {
-          "type": "array",
-          "items": {
-            "type": "integer",
-            "format": "int64"
-          }
         }
       }
     },
@@ -4957,7 +5377,9 @@
             "DUPLICATE_DELEGATE_EXCEPTION",
             "GCP_MARKETPLACE_EXCEPTION",
             "MISSING_DEFAULT_GOOGLE_CREDENTIALS",
-            "INCORRECT_DEFAULT_GOOGLE_CREDENTIALS"
+            "INCORRECT_DEFAULT_GOOGLE_CREDENTIALS",
+            "OPTIMISTIC_LOCKING_EXCEPTION",
+            "RESOURCE_NOT_FOUND_EXCEPTION"
           ]
         },
         "level": {
@@ -5121,37 +5543,16 @@
         }
       }
     },
-    "TransactionSummary": {
+    "FrequencyDTO": {
       "type": "object",
       "properties": {
-        "transactionName": {
-          "type": "string"
+        "timestamp": {
+          "type": "integer",
+          "format": "int64"
         },
-        "metricSummaries": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/MetricSummary"
-          }
-        }
-      }
-    },
-    "RestResponsePageTimeSeriesMetricDataDTO": {
-      "type": "object",
-      "properties": {
-        "metaData": {
-          "type": "object",
-          "additionalProperties": {
-            "type": "object"
-          }
-        },
-        "resource": {
-          "$ref": "#/definitions/PageTimeSeriesMetricDataDTO"
-        },
-        "responseMessages": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/ResponseMessage"
-          }
+        "count": {
+          "type": "integer",
+          "format": "int32"
         }
       }
     },
@@ -5210,6 +5611,41 @@
         }
       }
     },
+    "PageTransactionMetricInfo": {
+      "type": "object",
+      "properties": {
+        "totalPages": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "totalItems": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "pageItemCount": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "content": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TransactionMetricInfo"
+          }
+        },
+        "pageIndex": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "empty": {
+          "type": "boolean",
+          "default": false
+        }
+      }
+    },
     "RestResponseListAnomalyDTO": {
       "type": "object",
       "properties": {
@@ -5245,32 +5681,17 @@
         }
       }
     },
-    "MetricSummary": {
+    "LogDataByTag": {
       "type": "object",
       "properties": {
-        "metricName": {
-          "type": "string"
-        },
-        "risk": {
+        "timestamp": {
           "type": "integer",
-          "format": "int32"
+          "format": "int64"
         },
-        "score": {
-          "type": "number",
-          "format": "double"
-        },
-        "controlData": {
+        "countByTags": {
           "type": "array",
           "items": {
-            "type": "number",
-            "format": "double"
-          }
-        },
-        "testData": {
-          "type": "array",
-          "items": {
-            "type": "number",
-            "format": "double"
+            "$ref": "#/definitions/CountByTag"
           }
         }
       }
@@ -5297,21 +5718,6 @@
           "type": "array",
           "items": {
             "$ref": "#/definitions/ResponseMessage"
-          }
-        }
-      }
-    },
-    "LogDataByTag": {
-      "type": "object",
-      "properties": {
-        "timestamp": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "countByTags": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/CountByTag"
           }
         }
       }
@@ -5377,37 +5783,6 @@
         },
         "criteria": {
           "type": "string"
-        }
-      }
-    },
-    "PageTimeSeriesMetricDataDTO": {
-      "type": "object",
-      "properties": {
-        "pageCount": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "itemCount": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "pageSize": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "content": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/TimeSeriesMetricDataDTO"
-          }
-        },
-        "pageIndex": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "empty": {
-          "type": "boolean",
-          "default": false
         }
       }
     },
@@ -5519,9 +5894,54 @@
         "metricName": {
           "type": "string"
         },
-        "riskScore": {
+        "score": {
           "type": "number",
           "format": "double"
+        }
+      }
+    },
+    "TransactionMetricHostData": {
+      "type": "object",
+      "properties": {
+        "transactionName": {
+          "type": "string"
+        },
+        "metricName": {
+          "type": "string"
+        },
+        "risk": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "score": {
+          "type": "number",
+          "format": "double"
+        },
+        "hostData": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/HostData"
+          }
+        }
+      }
+    },
+    "RestResponsePageLogAnalysisClusterDTO": {
+      "type": "object",
+      "properties": {
+        "metaData": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
+          }
+        },
+        "resource": {
+          "$ref": "#/definitions/PageLogAnalysisClusterDTO"
+        },
+        "responseMessages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ResponseMessage"
+          }
         }
       }
     },
@@ -5539,26 +5959,6 @@
           "items": {
             "type": "string"
           }
-        },
-        "responseMessages": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/ResponseMessage"
-          }
-        }
-      }
-    },
-    "RestResponseCVConfig": {
-      "type": "object",
-      "properties": {
-        "metaData": {
-          "type": "object",
-          "additionalProperties": {
-            "type": "object"
-          }
-        },
-        "resource": {
-          "$ref": "#/definitions/CVConfig"
         },
         "responseMessages": {
           "type": "array",
@@ -5588,7 +5988,7 @@
         }
       }
     },
-    "RestResponseListLogDataByTag": {
+    "RestResponseCVConfig": {
       "type": "object",
       "properties": {
         "metaData": {
@@ -5598,10 +5998,7 @@
           }
         },
         "resource": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/LogDataByTag"
-          }
+          "$ref": "#/definitions/CVConfig"
         },
         "responseMessages": {
           "type": "array",
@@ -5686,37 +6083,6 @@
         }
       }
     },
-    "PageAnalyzedLogDataDTO": {
-      "type": "object",
-      "properties": {
-        "pageCount": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "itemCount": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "pageSize": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "content": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/AnalyzedLogDataDTO"
-          }
-        },
-        "pageIndex": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "empty": {
-          "type": "boolean",
-          "default": false
-        }
-      }
-    },
     "MetricData": {
       "type": "object",
       "properties": {
@@ -5729,8 +6095,8 @@
           "format": "double"
         },
         "risk": {
-          "type": "string",
-          "enum": ["NO_DATA", "NO_ANALYSIS", "LOW_RISK", "MEDIUM_RISK", "HIGH_RISK"]
+          "type": "integer",
+          "format": "int32"
         }
       }
     }

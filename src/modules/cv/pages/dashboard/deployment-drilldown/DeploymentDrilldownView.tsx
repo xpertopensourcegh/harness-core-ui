@@ -1,17 +1,18 @@
-import React, { useState, useMemo, useEffect } from 'react'
-import { Container, Tabs, Tab, Link, Pagination } from '@wings-software/uikit'
-import TimelineBar from 'modules/common/components/TimelineView/TimelineBar'
-import { useGetDeploymentTimeSeries, HostData } from 'services/cv'
+import React, { useState, useEffect } from 'react'
+import { Container, Tabs, Tab } from '@wings-software/uikit'
+import {
+  useGetDeploymentTimeSeries,
+  HostData,
+  useGetDeploymentLogAnalyses,
+  useGetClusterChartAnalyses
+} from 'services/cv'
 import { Page } from 'modules/common/exports'
 import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
 import { routeParams } from 'framework/exports'
 import { useToaster } from 'modules/common/exports'
 import DeploymentGroupList from './DeploymentGroupList'
-import TimeseriesRow, { SeriesConfig } from '../../../components/TimeseriesRow/TimeseriesRow'
-import {
-  MetricAnalysisFilter,
-  MetricAnalysisFilterType
-} from '../../services/analysis-drilldown-view/MetricAnalysisView/MetricAnalysisFilter/MetricAnalysisFilter'
+import DeploymentMetricsTab from './DeploymentMetricsTab'
+import DeploymentLogsTab from './DeploymentLogsTab'
 import styles from './DeploymentDrilldownView.module.scss'
 
 export interface TransactionRowProps {
@@ -20,6 +21,10 @@ export interface TransactionRowProps {
   nodes?: HostData[]
 }
 
+const METRICS_TAB = 'METRICS_TAB'
+const LOGS_TAB = 'LOGS_TAB'
+const DEFAULT_SELECTED_TAB = METRICS_TAB
+
 export default function DeploymentDrilldownView() {
   const {
     params: { accountId },
@@ -27,6 +32,7 @@ export default function DeploymentDrilldownView() {
   } = routeParams()
   const { showError } = useToaster()
   const [anomalousMetricsOnly, setAnomalousMetricsOnly] = useState<boolean>(true)
+  const [selectedTab, setSelectedTab] = useState<string>(DEFAULT_SELECTED_TAB)
   const { data, loading, error, refetch: fetchTimeseries } = useGetDeploymentTimeSeries({
     verificationJobInstanceId: jobInstanceId as string,
     queryParams: {
@@ -34,18 +40,69 @@ export default function DeploymentDrilldownView() {
       anomalousMetricsOnly
     }
   })
+  const {
+    data: logsData,
+    loading: logsLoading,
+    error: logsError,
+    refetch: fetchLogAnalyses
+  } = useGetDeploymentLogAnalyses({
+    verificationJobInstanceId: jobInstanceId as string,
+    queryParams: {
+      accountId
+    },
+    lazy: true
+  })
+  const {
+    data: clusterChartData,
+    loading: clusterChartLoading,
+    error: clusterChartError,
+    refetch: fetchClusterChartData
+  } = useGetClusterChartAnalyses({
+    verificationJobInstanceId: jobInstanceId as string,
+    queryParams: {
+      accountId
+    },
+    lazy: true
+  })
 
   useEffect(() => {
     if (error) {
       showError(error.message)
+    } else if (logsError) {
+      showError(logsError.message)
+    } else if (clusterChartError) {
+      showError(clusterChartError.message)
     }
-  }, [error])
+  }, [error, logsError, clusterChartError])
+
+  const onTabChange = (tab: string) => {
+    if (tab === LOGS_TAB) {
+      if (!logsData) {
+        goToLogsPage(0)
+      }
+      if (!clusterChartData) {
+        fetchClusterChartData({
+          queryParams: { accountId }
+        })
+      }
+    }
+    setSelectedTab(tab)
+  }
 
   const goToPage = (page: number) => {
     fetchTimeseries({
       queryParams: {
         accountId: accountId,
         anomalousMetricsOnly,
+        pageNumber: page
+      }
+    })
+  }
+
+  const goToLogsPage = (page: number) => {
+    fetchLogAnalyses({
+      queryParams: {
+        accountId,
         pageNumber: page
       }
     })
@@ -79,87 +136,20 @@ export default function DeploymentDrilldownView() {
         </Container>
         <Container className={styles.content}>
           <Container className={styles.filters}>
-            <Tabs id="tabs1">
-              <Tab title="Metrics" id="tab1" />
-              <Tab title="Logs" id="tab2" />
+            <Tabs id="tabs1" onChange={onTabChange} selectedTabId={selectedTab}>
+              <Tab title="Metrics" id={METRICS_TAB} />
+              <Tab title="Logs" id={LOGS_TAB} />
             </Tabs>
-            <MetricAnalysisFilter
-              onChangeFilter={val => setAnomalousMetricsOnly(val === MetricAnalysisFilterType.ANOMALOUS)}
-            />
           </Container>
-          <Container className={styles.timeseriesList}>
-            {data?.resource?.pageResponse?.content?.map(value => (
-              <TransactionRow
-                key={(value.transactionMetric?.transactionName as string) + value.transactionMetric?.metricName}
-                transactionName={value.transactionMetric?.transactionName}
-                metricName={value.transactionMetric?.metricName}
-                nodes={value.nodes}
-              />
-            ))}
-          </Container>
-          {!!data?.resource?.pageResponse?.pageCount && (
-            <Pagination
-              pageSize={data.resource.pageResponse?.pageSize as number}
-              pageCount={data.resource.pageResponse.pageCount + 1}
-              itemCount={data.resource.pageResponse.itemCount as number}
-              pageIndex={data.resource.pageResponse.pageIndex}
-              gotoPage={goToPage}
-            />
+          {selectedTab === METRICS_TAB && (
+            <DeploymentMetricsTab data={data} goToPage={goToPage} onAnomalousMetricsOnly={setAnomalousMetricsOnly} />
           )}
-          {data?.resource?.deploymentTimeRange && (
-            <TimelineBar
-              className={styles.timelineBar}
-              startDate={data?.resource?.deploymentTimeRange.startTime as number}
-              endDate={data?.resource?.deploymentTimeRange.endTime as number}
-            />
+          {selectedTab === LOGS_TAB && (
+            <DeploymentLogsTab data={logsData} clusterChartData={clusterChartData} goToPage={goToLogsPage} />
           )}
         </Container>
       </Container>
-      {loading && <PageSpinner />}
+      {(loading || logsLoading || clusterChartLoading) && <PageSpinner />}
     </Page.Body>
-  )
-}
-
-function TransactionRow({ transactionName, metricName, nodes = [] }: TransactionRowProps) {
-  const [showMax, setShowMax] = useState<number>(3)
-  const seriesData: Array<SeriesConfig> = useMemo(
-    () =>
-      nodes
-        .map((node, index) => {
-          if (index + 1 > showMax) {
-            return undefined
-          }
-          return {
-            name: node.hostName,
-            series: [
-              {
-                name: 'one',
-                type: 'line',
-                color: 'var(--red-500)',
-                data: node.testData
-              },
-              {
-                name: 'two',
-                type: 'line',
-                color: 'var(--grey-350)',
-                data: node.controlData
-              }
-            ]
-          }
-        })
-        .filter(val => !!val) as Array<SeriesConfig>,
-    [nodes, showMax]
-  )
-  return (
-    <>
-      <TimeseriesRow transactionName={transactionName} metricName={metricName} seriesData={seriesData} />
-      <Container className={styles.showMore}>
-        {nodes.length > showMax && (
-          <Link minimal font={{ size: 'small' }} onClick={() => setShowMax(Infinity)}>
-            show more
-          </Link>
-        )}
-      </Container>
-    </>
   )
 }

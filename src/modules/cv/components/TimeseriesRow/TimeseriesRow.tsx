@@ -63,7 +63,7 @@ export default function TimeseriesRow({
   )
 }
 
-function chartsConfig(series: Highcharts.SeriesLineOptions[], chartHeight?: number): Highcharts.Options {
+export function chartsConfig(series: Highcharts.SeriesLineOptions[], chartHeight?: number): Highcharts.Options {
   return {
     chart: {
       backgroundColor: 'transparent',

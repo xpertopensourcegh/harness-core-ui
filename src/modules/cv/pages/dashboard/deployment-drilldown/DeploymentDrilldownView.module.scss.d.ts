@@ -10,5 +10,8 @@ declare const styles: {
   readonly timeseriesList: string
   readonly showMore: string
   readonly timelineBar: string
+  readonly logsTab: string
+  readonly tableContent: string
+  readonly logAnalysisRow: string
 }
 export default styles

@@ -5,7 +5,7 @@ import HighchartsReact from 'highcharts-react-official'
 import Highcharts from 'highcharts'
 import cx from 'classnames'
 import { routeParams } from 'framework/exports'
-import { RestResponseListLogDataByTag, useGetTagCount } from 'services/cv'
+import { RestResponseSortedSetLogDataByTag, useGetTagCount } from 'services/cv'
 import getLogViewcolumnChartConfig from './LogViewColumnChartConfig'
 import { categoryNameToCategoryType } from '../../../CVServicePageUtils'
 import i18n from './LogAnalysisFrequencyChart.i18n'
@@ -22,7 +22,7 @@ interface LogAnalysisFrequencyChartProps {
 
 const FIVE_MINUTES_IN_MILLISECONDS = 1000 * 60 * 5
 
-function generatePointsForLogChart(data: RestResponseListLogDataByTag, startTime: number, endTime: number): any {
+function generatePointsForLogChart(data: RestResponseSortedSetLogDataByTag, startTime: number, endTime: number): any {
   if (!data?.resource) {
     return data
   }

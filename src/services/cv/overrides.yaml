@@ -19,6 +19,8 @@ allowpaths:
   - /log-dashboard/anomalous-logs
   - /log-dashboard/log-count-by-tags
   - /deployment-time-series-analysis/{verificationJobInstanceId}
+  - /deployment-log-analysis/{verificationJobInstanceId}
+  - /deployment-log-analysis/{verificationJobInstanceId}/clusters
 operationIdOverrides:
   /appdynamics/applications.get: getAppDynamicsApplications
   /appdynamics/metric-data.post: getAppDynamicsMetricData
@@ -29,3 +31,5 @@ operationIdOverrides:
   /heatmap.get: getHeatmap
   /verification-job.put: saveVerificationJob
   /deployment-time-series-analysis/{verificationJobInstanceId}.get: getDeploymentTimeSeries
+  /deployment-log-analysis/{verificationJobInstanceId}.get: getDeploymentLogAnalyses
+  /deployment-log-analysis/{verificationJobInstanceId}/clusters.get: getClusterChartAnalyses

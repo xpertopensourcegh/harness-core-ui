@@ -14,6 +14,16 @@ export interface RestResponseVerificationJobDTO {
   responseMessages?: ResponseMessage[]
 }
 
+export interface MetricPackDTO {
+  accountId?: string
+  projectIdentifier?: string
+  dataSourceType?: 'APP_DYNAMICS' | 'SPLUNK'
+  identifier?: string
+  category?: 'PERFORMANCE' | 'QUALITY' | 'RESOURCES'
+  metrics?: MetricDefinitionDTO[]
+  thresholds?: TimeSeriesThresholdDTO[]
+}
+
 export interface TimeSeriesTestDataDTO {
   cvConfigId?: string
   transactionMetricValues?: {
@@ -28,21 +38,6 @@ export interface TimeSeriesTestDataDTO {
   }
 }
 
-export interface MetricPackDTO {
-  accountId?: string
-  projectIdentifier?: string
-  dataSourceType?: 'APP_DYNAMICS' | 'SPLUNK'
-  identifier?: string
-  category?: 'PERFORMANCE' | 'QUALITY' | 'RESOURCES'
-  metrics?: MetricDefinitionDTO[]
-  thresholds?: TimeSeriesThresholdDTO[]
-}
-
-export interface TransactionMetricInfo {
-  transactionMetric?: TransactionMetric
-  nodes?: HostData[]
-}
-
 export interface Histogram {
   query?: string
   intervalMs?: number
@@ -50,6 +45,11 @@ export interface Histogram {
   errorMessage?: string
   splunkQuery?: string
   count?: number
+}
+
+export interface TransactionMetricInfo {
+  transactionMetric?: TransactionMetric
+  nodes?: HostData[]
 }
 
 export interface TimeSeriesThreshold {
@@ -98,12 +98,11 @@ export interface TransactionMetricInfoSummaryPageDTO {
   deploymentTimeRange?: TimeRange
 }
 
-export interface RestResponsePageAnalyzedLogDataDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: PageAnalyzedLogDataDTO
-  responseMessages?: ResponseMessage[]
+export interface DataCollectionTaskResult {
+  dataCollectionTaskId?: string
+  status?: 'FAILED' | 'QUEUED' | 'RUNNING' | 'WAITING' | 'EXPIRED' | 'SUCCESS'
+  exception?: string
+  stacktrace?: string
 }
 
 export interface RestResponseListEnvToServicesDTO {
@@ -112,13 +111,6 @@ export interface RestResponseListEnvToServicesDTO {
   }
   resource?: EnvToServicesDTO[]
   responseMessages?: ResponseMessage[]
-}
-
-export interface DataCollectionTaskResult {
-  dataCollectionTaskId?: string
-  status?: 'FAILED' | 'QUEUED' | 'RUNNING' | 'WAITING' | 'EXPIRED' | 'SUCCESS'
-  exception?: string
-  stacktrace?: string
 }
 
 export interface VerificationJobDTO {
@@ -166,15 +158,11 @@ export interface RestResponseSetAppdynamicsValidationResponse {
   responseMessages?: ResponseMessage[]
 }
 
-export interface RestResponseMapStringMapStringListDouble {
+export interface RestResponseListLogAnalysisClusterChartDTO {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
-  resource?: {
-    [key: string]: {
-      [key: string]: number[]
-    }
-  }
+  resource?: LogAnalysisClusterChartDTO[]
   responseMessages?: ResponseMessage[]
 }
 
@@ -190,9 +178,34 @@ export interface LogAnalysisDTO {
   logAnalysisResults?: AnalysisResult[]
 }
 
-export interface DeploymentTimeSeriesAnalysisDTO {
-  resultSummary?: ResultSummary
-  hostSummaries?: HostSummary[]
+export interface RestResponseMapStringMapStringListDouble {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: {
+    [key: string]: {
+      [key: string]: number[]
+    }
+  }
+  responseMessages?: ResponseMessage[]
+}
+
+export interface LogAnalysisClusterChartDTO {
+  label?: number
+  text?: string
+  risk?: number
+  x?: number
+  y?: number
+}
+
+export interface ClusterSummary {
+  label?: number
+  clusterType?: 'KNOWN_EVENT' | 'UNKNOWN_EVENT' | 'UNEXPECTED_FREQUENCY'
+  risk?: number
+  score?: number
+  count?: number
+  controlFrequencyData?: number[]
+  testFrequencyData?: number[]
 }
 
 export interface EnvironmentResponseDTO {
@@ -206,19 +219,16 @@ export interface EnvironmentResponseDTO {
   deleted?: boolean
 }
 
+export interface DeploymentTimeSeriesAnalysisDTO {
+  risk?: number
+  score?: number
+  hostSummaries?: HostInfo[]
+  transactionMetricSummaries?: TransactionMetricHostData[]
+}
+
 export interface AppDynamicsTier {
   id?: number
   name?: string
-}
-
-export interface ClusterSummary {
-  label?: number
-  clusterType?: 'KNOWN_EVENT' | 'UNKNOWN_EVENT' | 'UNEXPECTED_FREQUENCY'
-  risk?: number
-  score?: number
-  count?: number
-  controlFrequencyData?: number[]
-  testFrequencyData?: number[]
 }
 
 export interface HeatMapDTO {
@@ -246,19 +256,19 @@ export interface RestResponseMapCVMonitoringCategorySortedSetHeatMapDTO {
   responseMessages?: ResponseMessage[]
 }
 
-export interface RestResponseListEnvServiceRiskDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: EnvServiceRiskDTO[]
-  responseMessages?: ResponseMessage[]
-}
-
 export interface RestResponseListLogClusterDTO {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
   resource?: LogClusterDTO[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListEnvServiceRiskDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: EnvServiceRiskDTO[]
   responseMessages?: ResponseMessage[]
 }
 
@@ -281,6 +291,16 @@ export interface StackTraceElement {
   lineNumber?: number
   className?: string
   nativeMethod?: boolean
+}
+
+export interface PageAnalyzedLogDataDTO {
+  totalPages?: number
+  totalItems?: number
+  pageItemCount?: number
+  pageSize?: number
+  content?: AnalyzedLogDataDTO[]
+  pageIndex?: number
+  empty?: boolean
 }
 
 export interface AnomalyMetricDetail {
@@ -325,15 +345,6 @@ export interface TimeSeriesDataRecordMetricValue {
   timeSeriesValues?: TimeSeriesDataRecordGroupValue[]
 }
 
-export interface PageTransactionMetricInfo {
-  pageCount?: number
-  itemCount?: number
-  pageSize?: number
-  content?: TransactionMetricInfo[]
-  pageIndex?: number
-  empty?: boolean
-}
-
 export interface RestResponseLearningEngineTask {
   metaData?: {
     [key: string]: { [key: string]: any }
@@ -346,7 +357,7 @@ export interface LogData {
   text?: string
   label?: number
   count?: number
-  trend?: Frequency[]
+  trend?: FrequencyDTO[]
   tag?: 'KNOWN' | 'UNEXPECTED' | 'UNKNOWN'
 }
 
@@ -376,13 +387,6 @@ export interface MetricSum {
   sum?: number
 }
 
-export interface ResultSummary {
-  risk?: number
-  score?: number
-  controlClusterLabels?: number[]
-  testClusterSummaries?: ClusterSummary[]
-}
-
 export interface HostRecordDTO {
   accountId?: string
   verificationTaskId?: string
@@ -402,6 +406,13 @@ export interface TimeSeriesMetricDataDTO {
   metricDataList?: MetricData[]
 }
 
+export interface ResultSummary {
+  risk?: number
+  score?: number
+  controlClusterLabels?: number[]
+  testClusterSummaries?: ClusterSummary[]
+}
+
 export interface RestResponseSetAppDynamicsTier {
   metaData?: {
     [key: string]: { [key: string]: any }
@@ -416,20 +427,15 @@ export interface DeploymentLogAnalysisDTO {
   hostSummaries?: HostSummary[]
 }
 
-export interface TimeSeriesDataRecordGroupValue {
-  groupName?: string
-  value?: number
-}
-
 export interface AnalysisResult {
   label?: number
   tag?: 'KNOWN' | 'UNEXPECTED' | 'UNKNOWN'
   count?: number
 }
 
-export interface ServiceRisk {
-  serviceIdentifier?: string
-  risk?: number
+export interface TimeSeriesDataRecordGroupValue {
+  groupName?: string
+  value?: number
 }
 
 export interface RestResponseListLogAnalysisCluster {
@@ -440,9 +446,23 @@ export interface RestResponseListLogAnalysisCluster {
   responseMessages?: ResponseMessage[]
 }
 
+export interface ServiceRisk {
+  serviceIdentifier?: string
+  risk?: number
+}
+
+export interface RestResponsePageTimeSeriesMetricDataDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: PageTimeSeriesMetricDataDTO
+  responseMessages?: ResponseMessage[]
+}
+
 export interface Frequency {
-  timestamp?: number
   count?: number
+  timestamp?: number
+  riskScore?: number
 }
 
 export interface LogAnalysisCluster {
@@ -456,7 +476,7 @@ export interface LogAnalysisCluster {
   accountId?: string
   analysisMinute?: number
   label?: number
-  trend?: Trend
+  frequencyTrend?: Frequency[]
   text?: string
   validUntil?: string
   evicted?: boolean
@@ -464,9 +484,18 @@ export interface LogAnalysisCluster {
 
 export interface HostData {
   hostName?: string
-  riskScore?: number
+  risk?: number
+  score?: number
   controlData?: number[]
   testData?: number[]
+}
+
+export interface HostInfo {
+  hostName?: string
+  presentBeforeDeployment?: boolean
+  presentAfterDeployment?: boolean
+  risk?: number
+  score?: number
 }
 
 export interface CVConfig {
@@ -502,6 +531,13 @@ export interface ServiceGuardTxnMetricAnalysisDataDTO {
   keyTransaction?: boolean
 }
 
+export interface VerificationJobRuntimeDetails {
+  verificationJobIdentifier?: string
+  runtimeValues?: {
+    [key: string]: string
+  }
+}
+
 export interface AppdynamicsMetricValueValidationResponse {
   metricName?: string
   apiResponseStatus?: 'SUCCESS' | 'NO_DATA' | 'FAILED'
@@ -527,6 +563,14 @@ export interface RestResponseMapCVMonitoringCategoryInteger {
   responseMessages?: ResponseMessage[]
 }
 
+export interface RestResponseSortedSetLogDataByTag {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: LogDataByTag[]
+  responseMessages?: ResponseMessage[]
+}
+
 export interface TimeSeriesDataCollectionRecord {
   accountId?: string
   cvConfigId?: string
@@ -543,9 +587,10 @@ export interface ActivityDTO {
   serviceIdentifier?: string
   environmentIdentifier: string
   name: string
-  verificationJobsToTrigger?: string[]
+  verificationJobRuntimeDetails?: VerificationJobRuntimeDetails[]
   activityStartTime: number
   activityEndTime?: number
+  tags?: string[]
   type?: 'DEPLOYMENT' | 'INFRASTRUCTURE' | 'CUSTOM'
 }
 
@@ -556,6 +601,16 @@ export interface SplunkSampleResponse {
   }
   splunkQuery?: string
   errorMessage?: string
+}
+
+export interface PageTimeSeriesMetricDataDTO {
+  totalPages?: number
+  totalItems?: number
+  pageItemCount?: number
+  pageSize?: number
+  content?: TimeSeriesMetricDataDTO[]
+  pageIndex?: number
+  empty?: boolean
 }
 
 export interface LearningEngineTask {
@@ -596,6 +651,14 @@ export interface RestResponseListAppDynamicsApplication {
   responseMessages?: ResponseMessage[]
 }
 
+export interface RestResponsePageAnalyzedLogDataDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: PageAnalyzedLogDataDTO
+  responseMessages?: ResponseMessage[]
+}
+
 export interface AnomalyDTO {
   serviceName?: string
   envName?: string
@@ -611,6 +674,11 @@ export interface Void {
   [key: string]: any
 }
 
+export interface CountByTag {
+  tag?: 'KNOWN' | 'UNEXPECTED' | 'UNKNOWN'
+  count?: number
+}
+
 export interface DataCollectionTaskDTO {
   uuid?: string
   accountId?: string
@@ -619,11 +687,6 @@ export interface DataCollectionTaskDTO {
   dataCollectionInfo?: DataCollectionInfo
   startTime?: number
   endTime?: number
-}
-
-export interface CountByTag {
-  tag?: 'KNOWN' | 'UNEXPECTED' | 'UNKNOWN'
-  count?: number
 }
 
 export interface RestResponseListDSConfig {
@@ -644,15 +707,25 @@ export interface ServiceResponseDTO {
   deleted?: boolean
 }
 
-export interface DSConfig {
-  identifier?: string
-  accountId?: string
-  orgIdentifier?: string
-  projectIdentifier?: string
-  productName?: string
-  connectorIdentifier?: string
-  envIdentifier?: string
-  type?: 'APP_DYNAMICS' | 'SPLUNK'
+export interface PageLogAnalysisClusterDTO {
+  totalPages?: number
+  totalItems?: number
+  pageItemCount?: number
+  pageSize?: number
+  content?: LogAnalysisClusterDTO[]
+  pageIndex?: number
+  empty?: boolean
+}
+
+export interface LogAnalysisClusterDTO {
+  message?: string
+  label?: number
+  clusterType?: 'KNOWN_EVENT' | 'UNKNOWN_EVENT' | 'UNEXPECTED_FREQUENCY'
+  risk?: number
+  score?: number
+  count?: number
+  controlFrequencyData?: number[]
+  testFrequencyData?: number[]
 }
 
 export interface SplunkValidationResponse {
@@ -662,9 +735,15 @@ export interface SplunkValidationResponse {
   queryDurationMillis?: number
 }
 
-export interface Trend {
-  count?: number[]
-  timestamp?: number[]
+export interface DSConfig {
+  identifier?: string
+  accountId?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  productName?: string
+  connectorIdentifier?: string
+  envIdentifier?: string
+  type?: 'APP_DYNAMICS' | 'SPLUNK'
 }
 
 export interface RestResponseListTimeSeriesThreshold {
@@ -911,6 +990,8 @@ export interface ResponseMessage {
     | 'GCP_MARKETPLACE_EXCEPTION'
     | 'MISSING_DEFAULT_GOOGLE_CREDENTIALS'
     | 'INCORRECT_DEFAULT_GOOGLE_CREDENTIALS'
+    | 'OPTIMISTIC_LOCKING_EXCEPTION'
+    | 'RESOURCE_NOT_FOUND_EXCEPTION'
   level?: 'INFO' | 'ERROR'
   message?: string
   exception?: Throwable
@@ -963,17 +1044,9 @@ export interface Throwable {
   suppressed?: Throwable[]
 }
 
-export interface TransactionSummary {
-  transactionName?: string
-  metricSummaries?: MetricSummary[]
-}
-
-export interface RestResponsePageTimeSeriesMetricDataDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: PageTimeSeriesMetricDataDTO
-  responseMessages?: ResponseMessage[]
+export interface FrequencyDTO {
+  timestamp?: number
+  count?: number
 }
 
 export interface RestResponseSplunkValidationResponse {
@@ -999,6 +1072,16 @@ export interface ServiceGuardMetricAnalysisDTO {
   }
 }
 
+export interface PageTransactionMetricInfo {
+  totalPages?: number
+  totalItems?: number
+  pageItemCount?: number
+  pageSize?: number
+  content?: TransactionMetricInfo[]
+  pageIndex?: number
+  empty?: boolean
+}
+
 export interface RestResponseListAnomalyDTO {
   metaData?: {
     [key: string]: { [key: string]: any }
@@ -1012,12 +1095,9 @@ export interface AppDynamicsApplication {
   id?: number
 }
 
-export interface MetricSummary {
-  metricName?: string
-  risk?: number
-  score?: number
-  controlData?: number[]
-  testData?: number[]
+export interface LogDataByTag {
+  timestamp?: number
+  countByTags?: CountByTag[]
 }
 
 export interface RestResponseMapStringMapStringMetricSum {
@@ -1030,11 +1110,6 @@ export interface RestResponseMapStringMapStringMetricSum {
     }
   }
   responseMessages?: ResponseMessage[]
-}
-
-export interface LogDataByTag {
-  timestamp?: number
-  countByTags?: CountByTag[]
 }
 
 export interface EnvServiceRiskDTO {
@@ -1059,15 +1134,6 @@ export interface TimeSeriesThresholdCriteria {
   action?: 'FAIL_IMMEDIATELY' | 'FAIL_AFTER_OCCURRENCES' | 'FAIL_AFTER_CONSECUTIVE_OCCURRENCES'
   occurrenceCount?: number
   criteria?: string
-}
-
-export interface PageTimeSeriesMetricDataDTO {
-  pageCount?: number
-  itemCount?: number
-  pageSize?: number
-  content?: TimeSeriesMetricDataDTO[]
-  pageIndex?: number
-  empty?: boolean
 }
 
 export interface TimeSeriesMetricDefinition {
@@ -1106,7 +1172,23 @@ export interface LogClusterDTO {
 export interface TransactionMetric {
   transactionName?: string
   metricName?: string
-  riskScore?: number
+  score?: number
+}
+
+export interface TransactionMetricHostData {
+  transactionName?: string
+  metricName?: string
+  risk?: number
+  score?: number
+  hostData?: HostData[]
+}
+
+export interface RestResponsePageLogAnalysisClusterDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: PageLogAnalysisClusterDTO
+  responseMessages?: ResponseMessage[]
 }
 
 export interface RestResponseListString {
@@ -1117,14 +1199,6 @@ export interface RestResponseListString {
   responseMessages?: ResponseMessage[]
 }
 
-export interface RestResponseCVConfig {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: CVConfig
-  responseMessages?: ResponseMessage[]
-}
-
 export interface Cluster {
   text?: string
   label?: number
@@ -1132,11 +1206,11 @@ export interface Cluster {
   y?: number
 }
 
-export interface RestResponseListLogDataByTag {
+export interface RestResponseCVConfig {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
-  resource?: LogDataByTag[]
+  resource?: CVConfig
   responseMessages?: ResponseMessage[]
 }
 
@@ -1170,19 +1244,10 @@ export interface DataCollectionInfo {
   }
 }
 
-export interface PageAnalyzedLogDataDTO {
-  pageCount?: number
-  itemCount?: number
-  pageSize?: number
-  content?: AnalyzedLogDataDTO[]
-  pageIndex?: number
-  empty?: boolean
-}
-
 export interface MetricData {
   timestamp?: number
   value?: number
-  risk?: 'NO_DATA' | 'NO_ANALYSIS' | 'LOW_RISK' | 'MEDIUM_RISK' | 'HIGH_RISK'
+  risk?: number
 }
 
 export type CVConfigArrayRequestBody = CVConfig[]
@@ -1190,6 +1255,8 @@ export type CVConfigArrayRequestBody = CVConfig[]
 export type MetricPackArrayRequestBody = MetricPack[]
 
 export type CVConfigRequestBody = CVConfig
+
+export type ServiceGuardMetricAnalysisDTORequestBody = ServiceGuardMetricAnalysisDTO
 
 export interface GetAppDynamicsApplicationsQueryParams {
   accountId: string
@@ -1806,7 +1873,7 @@ export interface GetAnomalousMetricDataQueryParams {
   orgIdentifier: string
   environmentIdentifier?: string
   serviceIdentifier?: string
-  monitoringCategory: string
+  monitoringCategory?: string
   startTime: number
   endTime: number
   page?: number
@@ -1880,7 +1947,7 @@ export interface GetAllLogsQueryParams {
   orgIdentifier: string
   environmentIdentifier?: string
   serviceIdentifier?: string
-  monitoringCategory: string
+  monitoringCategory?: string
   startTime: number
   endTime: number
   page?: number
@@ -1917,7 +1984,7 @@ export interface GetAnomalousLogsQueryParams {
   orgIdentifier: string
   environmentIdentifier?: string
   serviceIdentifier?: string
-  monitoringCategory: string
+  monitoringCategory?: string
   startTime: number
   endTime: number
   page?: number
@@ -1954,18 +2021,18 @@ export interface GetTagCountQueryParams {
   orgIdentifier: string
   environmentIdentifier?: string
   serviceIdentifier?: string
-  monitoringCategory: string
+  monitoringCategory?: string
   startTime: number
   endTime: number
 }
 
 export type GetTagCountProps = Omit<
-  GetProps<RestResponseListLogDataByTag, unknown, GetTagCountQueryParams, void>,
+  GetProps<RestResponseSortedSetLogDataByTag, unknown, GetTagCountQueryParams, void>,
   'path'
 >
 
 export const GetTagCount = (props: GetTagCountProps) => (
-  <Get<RestResponseListLogDataByTag, unknown, GetTagCountQueryParams, void>
+  <Get<RestResponseSortedSetLogDataByTag, unknown, GetTagCountQueryParams, void>
     path={`/log-dashboard/log-count-by-tags`}
     base={getConfig('cv-nextgen')}
     {...props}
@@ -1973,12 +2040,12 @@ export const GetTagCount = (props: GetTagCountProps) => (
 )
 
 export type UseGetTagCountProps = Omit<
-  UseGetProps<RestResponseListLogDataByTag, unknown, GetTagCountQueryParams, void>,
+  UseGetProps<RestResponseSortedSetLogDataByTag, unknown, GetTagCountQueryParams, void>,
   'path'
 >
 
 export const useGetTagCount = (props: UseGetTagCountProps) =>
-  useGet<RestResponseListLogDataByTag, unknown, GetTagCountQueryParams, void>(`/log-dashboard/log-count-by-tags`, {
+  useGet<RestResponseSortedSetLogDataByTag, unknown, GetTagCountQueryParams, void>(`/log-dashboard/log-count-by-tags`, {
     base: getConfig('cv-nextgen'),
     ...props
   })
@@ -2038,5 +2105,120 @@ export const useGetDeploymentTimeSeries = ({ verificationJobInstanceId, ...props
   >(
     (paramsInPath: GetDeploymentTimeSeriesPathParams) =>
       `/deployment-time-series-analysis/${paramsInPath.verificationJobInstanceId}`,
+    { base: getConfig('cv-nextgen'), pathParams: { verificationJobInstanceId }, ...props }
+  )
+
+export interface GetDeploymentLogAnalysesQueryParams {
+  accountId?: string
+  label?: number
+  pageNumber?: number
+}
+
+export interface GetDeploymentLogAnalysesPathParams {
+  verificationJobInstanceId: string
+}
+
+export type GetDeploymentLogAnalysesProps = Omit<
+  GetProps<
+    RestResponsePageLogAnalysisClusterDTO,
+    unknown,
+    GetDeploymentLogAnalysesQueryParams,
+    GetDeploymentLogAnalysesPathParams
+  >,
+  'path'
+> &
+  GetDeploymentLogAnalysesPathParams
+
+export const GetDeploymentLogAnalyses = ({ verificationJobInstanceId, ...props }: GetDeploymentLogAnalysesProps) => (
+  <Get<
+    RestResponsePageLogAnalysisClusterDTO,
+    unknown,
+    GetDeploymentLogAnalysesQueryParams,
+    GetDeploymentLogAnalysesPathParams
+  >
+    path={`/deployment-log-analysis/${verificationJobInstanceId}`}
+    base={getConfig('cv-nextgen')}
+    {...props}
+  />
+)
+
+export type UseGetDeploymentLogAnalysesProps = Omit<
+  UseGetProps<
+    RestResponsePageLogAnalysisClusterDTO,
+    unknown,
+    GetDeploymentLogAnalysesQueryParams,
+    GetDeploymentLogAnalysesPathParams
+  >,
+  'path'
+> &
+  GetDeploymentLogAnalysesPathParams
+
+export const useGetDeploymentLogAnalyses = ({
+  verificationJobInstanceId,
+  ...props
+}: UseGetDeploymentLogAnalysesProps) =>
+  useGet<
+    RestResponsePageLogAnalysisClusterDTO,
+    unknown,
+    GetDeploymentLogAnalysesQueryParams,
+    GetDeploymentLogAnalysesPathParams
+  >(
+    (paramsInPath: GetDeploymentLogAnalysesPathParams) =>
+      `/deployment-log-analysis/${paramsInPath.verificationJobInstanceId}`,
+    { base: getConfig('cv-nextgen'), pathParams: { verificationJobInstanceId }, ...props }
+  )
+
+export interface GetClusterChartAnalysesQueryParams {
+  accountId?: string
+}
+
+export interface GetClusterChartAnalysesPathParams {
+  verificationJobInstanceId: string
+}
+
+export type GetClusterChartAnalysesProps = Omit<
+  GetProps<
+    RestResponseListLogAnalysisClusterChartDTO,
+    unknown,
+    GetClusterChartAnalysesQueryParams,
+    GetClusterChartAnalysesPathParams
+  >,
+  'path'
+> &
+  GetClusterChartAnalysesPathParams
+
+export const GetClusterChartAnalyses = ({ verificationJobInstanceId, ...props }: GetClusterChartAnalysesProps) => (
+  <Get<
+    RestResponseListLogAnalysisClusterChartDTO,
+    unknown,
+    GetClusterChartAnalysesQueryParams,
+    GetClusterChartAnalysesPathParams
+  >
+    path={`/deployment-log-analysis/${verificationJobInstanceId}/clusters`}
+    base={getConfig('cv-nextgen')}
+    {...props}
+  />
+)
+
+export type UseGetClusterChartAnalysesProps = Omit<
+  UseGetProps<
+    RestResponseListLogAnalysisClusterChartDTO,
+    unknown,
+    GetClusterChartAnalysesQueryParams,
+    GetClusterChartAnalysesPathParams
+  >,
+  'path'
+> &
+  GetClusterChartAnalysesPathParams
+
+export const useGetClusterChartAnalyses = ({ verificationJobInstanceId, ...props }: UseGetClusterChartAnalysesProps) =>
+  useGet<
+    RestResponseListLogAnalysisClusterChartDTO,
+    unknown,
+    GetClusterChartAnalysesQueryParams,
+    GetClusterChartAnalysesPathParams
+  >(
+    (paramsInPath: GetClusterChartAnalysesPathParams) =>
+      `/deployment-log-analysis/${paramsInPath.verificationJobInstanceId}/clusters`,
     { base: getConfig('cv-nextgen'), pathParams: { verificationJobInstanceId }, ...props }
   )

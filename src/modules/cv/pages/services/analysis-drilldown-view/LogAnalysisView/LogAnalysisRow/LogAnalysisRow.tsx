@@ -20,6 +20,7 @@ export type LogAnalysisRowData = {
 
 interface LogAnalysisRowProps {
   data: LogAnalysisRowData[]
+  className?: string
 }
 
 interface LogAnalysisDataRowProps {
@@ -157,7 +158,7 @@ export function LogAnalysisRow(props: LogAnalysisRowProps): JSX.Element {
   // )
 
   return (
-    <Container className={css.main}>
+    <Container className={cx(css.main, props.className)}>
       <ColumnHeaderRow />
       <Container className={css.dataContainer}>
         {data.map((row, index) => {

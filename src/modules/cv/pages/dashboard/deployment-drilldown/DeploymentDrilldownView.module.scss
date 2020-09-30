@@ -42,3 +42,20 @@
   padding-top: var(--spacing-small);
   margin-left: 210px;
 }
+
+.logsTab {
+  margin-top: 30px !important;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  .tableContent {
+    flex: 1;
+    overflow: auto;
+    .logAnalysisRow {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+  }
+}
