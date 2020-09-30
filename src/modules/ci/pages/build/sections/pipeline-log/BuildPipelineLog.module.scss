@@ -37,7 +37,7 @@
 
   div[class*='LogViewer'] {
     background: #00162a;
-    padding: 0;
+    padding: var(--spacing-small);
   }
   .StyledProps---font--2ipy,
   .StyledProps---main--1Wws {

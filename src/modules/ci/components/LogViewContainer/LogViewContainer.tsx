@@ -1,5 +1,5 @@
 import React from 'react'
-import { LogViewer, Container, LogViewerProps, Collapse, CollapseList, Icon, Button } from '@wings-software/uikit'
+import { LogViewer, Container, LogViewerProps, Icon, Button } from '@wings-software/uikit'
 import i18n from './LogViewContainer.i18n'
 import css from './LogViewContainer.module.scss'
 
@@ -11,13 +11,7 @@ export interface LogViewContainerProps {
 const LogViewContainer: React.FC<LogViewContainerProps> = props => {
   // TODO: add heading when api start providing it
   const createConsoleBody = () => {
-    return (
-      <CollapseList>
-        <Collapse heading="Clone source code">
-          <LogViewer logs={props.logsViewerSections.logs} />
-        </Collapse>
-      </CollapseList>
-    )
+    return <LogViewer logs={props.logsViewerSections.logs} />
   }
 
   return (

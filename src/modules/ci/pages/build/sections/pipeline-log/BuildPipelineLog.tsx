@@ -1,19 +1,14 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { Container, Select, Layout } from '@wings-software/uikit'
-import { useParams } from 'react-router-dom'
 import ElapsedTime from 'modules/ci/components/ElapsedTime/ElapsedTime'
 import LogViewContainer from 'modules/ci/components/LogViewContainer/LogViewContainer'
 import { BuildStep } from 'modules/ci/components/BuildSteps/BuildStep'
-import { getLogsFromBlob } from 'modules/ci/services/LogService'
 import { BuildPageContext } from '../../context/BuildPageContext'
 import {
   getFlattenItemsFromPipeline,
   getSelectOptionsFromExecutionPipeline,
   getStepsPipelineFromExecutionPipeline
 } from '../pipeline-graph/BuildPipelineGraphUtils'
-
-import type { BuildPageUrlParams } from '../../CIBuildPage'
-
 import css from './BuildPipelineLog.module.scss'
 
 export interface LogResponse {
@@ -29,31 +24,15 @@ const PipelineLog: React.FC = () => {
     state: { selectedStageIdentifier, selectedStepIdentifier },
     setSelectedStageIdentifier,
     setSelectedStepIdentifier,
-    buildData
+    buildData,
+    logs
   } = React.useContext(BuildPageContext)
-
-  const { orgIdentifier, projectIdentifier, buildIdentifier } = useParams<BuildPageUrlParams>()
 
   const stagesSelectOptions = getSelectOptionsFromExecutionPipeline(buildData?.stagePipeline)
   const selectedStageOption = stagesSelectOptions.find(item => item.value === selectedStageIdentifier)
   const executionSteps = getStepsPipelineFromExecutionPipeline(buildData?.stagePipeline, selectedStageIdentifier)
   const stepItems = getFlattenItemsFromPipeline(executionSteps)
   const selectedStep = stepItems.find(item => item.identifier === selectedStepIdentifier)?.name
-
-  const [logs, setLogs] = useState<[]>([])
-
-  // TODO: hardcoded for demo
-  useEffect(() => {
-    getLogsFromBlob(
-      'zEaak-FLS425IEO7OLzMUg',
-      orgIdentifier,
-      projectIdentifier,
-      buildIdentifier,
-      selectedStageOption?.label || '',
-      selectedStep || '',
-      setLogs
-    )
-  }, [selectedStep])
 
   const onStepClick = (identifier: string): void => {
     setSelectedStepIdentifier(identifier)
@@ -98,12 +77,14 @@ const PipelineLog: React.FC = () => {
         <div className={css.steps}>
           <ul className="pipeline-steps">{steps}</ul>
         </div>
-        <LogViewContainer
-          downloadLogs={() => {
-            alert('Log download')
-          }}
-          logsViewerSections={{ logs: logs }}
-        />
+        <Container height="700px" width="100%">
+          <LogViewContainer
+            downloadLogs={() => {
+              alert('Log download')
+            }}
+            logsViewerSections={{ logs: logs }}
+          />
+        </Container>
       </Layout.Horizontal>
     </Layout.Vertical>
   )

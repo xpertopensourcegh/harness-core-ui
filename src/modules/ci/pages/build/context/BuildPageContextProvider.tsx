@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
+import { getLogsFromBlob, useLogs } from 'modules/ci/services/LogService'
 import { useGetBuild } from 'modules/ci/services/BuildsService'
+import { ExecutionPipelineItemStatus } from 'modules/common/components/ExecutionStageDiagram/ExecutionPipelineModel'
 import type { BuildPageUrlParams } from '../CIBuildPage'
 import { BuildPageContext, BuildPageStateInterface } from './BuildPageContext'
 import {
@@ -8,7 +10,11 @@ import {
   getFirstItemIdFromExecutionPipeline,
   graph2ExecutionPipeline
 } from '../utils/api2ui'
-import { getStepsPipelineFromExecutionPipeline } from '../sections/pipeline-graph/BuildPipelineGraphUtils'
+import {
+  getFlattenItemsFromPipeline,
+  getSelectOptionsFromExecutionPipeline,
+  getStepsPipelineFromExecutionPipeline
+} from '../../build/sections/pipeline-graph/BuildPipelineGraphUtils'
 import { BuildPipelineGraphLayoutType } from '../sections/pipeline-graph/BuildPipelineGraphLayout/BuildPipelineGraphLayout'
 
 export const BuildPageContextProvider: React.FC = props => {
@@ -19,6 +25,8 @@ export const BuildPageContextProvider: React.FC = props => {
     selectedStepIdentifier: '-1',
     graphLayoutType: BuildPipelineGraphLayoutType.COMBINED
   })
+
+  const [logs, setLogs] = React.useState<Array<any>>([])
 
   const setSelectedStageIdentifier = (selectedStageIdentifier: string): void => {
     if (selectedStageIdentifier === state.selectedStageIdentifier) return
@@ -65,6 +73,14 @@ export const BuildPageContextProvider: React.FC = props => {
     }
   })
 
+  const stagesSelectOptions = getSelectOptionsFromExecutionPipeline(buildData?.stagePipeline)
+  const selectedStageOption = stagesSelectOptions.find(item => item.value === state.selectedStageIdentifier)
+  const executionSteps = getStepsPipelineFromExecutionPipeline(buildData?.stagePipeline, state.selectedStageIdentifier)
+  const stepItems = getFlattenItemsFromPipeline(executionSteps)
+  const selectedStep = stepItems.find(item => item.identifier === state.selectedStepIdentifier)?.name
+  const isStepRunning =
+    stepItems.find(item => item.identifier === state.selectedStepIdentifier)?.status ===
+    ExecutionPipelineItemStatus.RUNNING
   // by default fist stage/step is selected
   useEffect(() => {
     setState({
@@ -74,6 +90,31 @@ export const BuildPageContextProvider: React.FC = props => {
     })
   }, [buildData?.defaultSelectedStageIdentifier, buildData?.defaultSelectedStepIdentifier])
 
+  const [logsStream] = useLogs(
+    'zEaak-FLS425IEO7OLzMUg',
+    orgIdentifier,
+    projectIdentifier,
+    buildIdentifier,
+    selectedStageOption?.label || '',
+    selectedStep || '',
+    isStepRunning && !!selectedStageOption && !!selectedStep
+  )
+
+  useEffect(() => {
+    !isStepRunning &&
+      selectedStageOption &&
+      selectedStep &&
+      getLogsFromBlob(
+        'zEaak-FLS425IEO7OLzMUg',
+        orgIdentifier,
+        projectIdentifier,
+        buildIdentifier,
+        selectedStageOption?.label || '',
+        selectedStep || '',
+        setLogs
+      )
+  }, [state.selectedStepIdentifier])
+
   return (
     <BuildPageContext.Provider
       value={{
@@ -81,6 +122,7 @@ export const BuildPageContextProvider: React.FC = props => {
         buildData,
         loading,
         error,
+        logs: isStepRunning ? logsStream : logs,
         setSelectedStageIdentifier,
         setSelectedStepIdentifier,
         setGraphLayoutType

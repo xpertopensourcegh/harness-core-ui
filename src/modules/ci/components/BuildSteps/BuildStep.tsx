@@ -21,6 +21,7 @@ export const BuildStep = (props: StepProps) => {
       case 'SUCCEEDED':
         return <Icon color="green500" name="command-artifact-check" size={12} />
       case 'inProgress':
+      case 'RUNNING':
         return <Icon color="blue500" name="repeat" size={12} />
       case 'ASYNC_WAITING':
       case 'pending':

@@ -16,7 +16,8 @@ const PipelineGraph: React.FC = () => {
     state: { selectedStageIdentifier, selectedStepIdentifier, graphLayoutType },
     setSelectedStageIdentifier,
     setSelectedStepIdentifier,
-    buildData
+    buildData,
+    logs
   } = React.useContext(BuildPageContext)
 
   const stagesSelectOptions = getSelectOptionsFromExecutionPipeline(buildData?.stagePipeline)
@@ -112,7 +113,7 @@ const PipelineGraph: React.FC = () => {
         // TODO: log download
         alert('Log download')
       }}
-      logsViewerSections={{ logs: [] }}
+      logsViewerSections={{ logs: logs }}
     />
   )
 

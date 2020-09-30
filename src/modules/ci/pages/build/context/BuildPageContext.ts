@@ -12,6 +12,7 @@ export interface BuildPageStateInterface {
 
 export interface BuildPageContextInterface {
   state: BuildPageStateInterface
+  logs: Array<any>
   setSelectedStageIdentifier: (identifier: string) => void
   setSelectedStepIdentifier: (identifier: string) => void
   setGraphLayoutType: (graphLayoutType: BuildPipelineGraphLayoutType) => void
@@ -26,6 +27,7 @@ export const initialBuildPageState: BuildPageContextInterface = {
     selectedStepIdentifier: '-1',
     graphLayoutType: BuildPipelineGraphLayoutType.COMBINED
   },
+  logs: [],
   buildData: null,
   loading: false,
   error: null,
