@@ -25,15 +25,21 @@ function updateTitle(title: string): void {
   document.title = `Harness | ${title}`
 }
 
-function updateRouteParams(path: string): void {
+function updateRouteParams(route: Pick<Route, 'path' | 'nestedRoutes'>): void {
   const match = matchPath('/' + location.href.split('/#/')[1]?.split('?')?.[0], {
-    path,
+    path: routePath(route),
     exact: true
   })
   const params = match?.params || {}
   const query = queryString.parse(window.location.href.split('?')[1])
 
   activeRouteParams = { params: { ...params, accountId: (params as { accountId: string }).accountId || '' }, query }
+
+  route.nestedRoutes?.forEach(nestedRoute => {
+    if (isRouteActive(nestedRoute)) {
+      updateRouteParams(nestedRoute)
+    }
+  })
 }
 
 function renderPageChildren(route: Route): React.ReactNode {
@@ -52,9 +58,8 @@ function renderPageChildren(route: Route): React.ReactNode {
       }
 
       const NestedContainer: React.FC = () => {
-        updateRouteParams(nestedPath)
-
         useEffect(() => {
+          updateRouteParams(nestedRoute)
           updateTitle(title)
         }, [])
 
@@ -73,7 +78,7 @@ export const RouteMounter: React.FC<RouteMounterProps> = ({ route, onEnter, onEx
   const { title, component: PageComponent, pageId } = route
   const updateApplicationState = useAppStoreWriter()
 
-  updateRouteParams(routePath(route))
+  updateRouteParams(route)
 
   useEffect(() => {
     updateTitle(title)

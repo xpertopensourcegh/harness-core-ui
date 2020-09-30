@@ -1,10 +1,9 @@
 import { Container, Layout, Button, Icon } from '@wings-software/uikit'
 import React, { useCallback } from 'react'
 import { useHistory } from 'react-router-dom'
-import { Sidebar, isRouteActive, routeParams, useAppStoreReader, ModuleName } from 'framework/exports'
+import { Sidebar, isRouteActive, routeParams, ModuleName } from 'framework/exports'
 import { AdminSelector, AdminSelectorLink } from 'modules/common/components/AdminSelector/AdminSelector'
 import { ProjectSelector } from 'modules/common/components/ProjectSelector/ProjectSelector'
-import type { Project } from 'services/cd-ng'
 import i18n from './MenuCV.i18n'
 import {
   routeCVDataSources,
@@ -19,10 +18,16 @@ import {
 } from '../routes'
 import css from './MenuCV.module.scss'
 
-const ProjectNavLinks: React.FC<{ project?: Project }> = ({ project }) => {
-  if (!project) return null
+const ProjectNavLinks: React.FC = () => {
+  const { params } = routeParams()
+  const { orgIdentifier, projectIdentifier } = (params as unknown) as {
+    orgIdentifier: string
+    projectIdentifier: string
+  }
 
-  const { identifier: projectIdentifier, orgIdentifier } = project as Required<Project>
+  if (!orgIdentifier || !projectIdentifier) {
+    return null
+  }
 
   return (
     <>
@@ -59,8 +64,8 @@ const ProjectNavLinks: React.FC<{ project?: Project }> = ({ project }) => {
       >
         <AdminSelectorLink
           href={routeCVAdminResources.url({
-            projectIdentifier: project.identifier as string,
-            orgIdentifier: project.orgIdentifier as string
+            projectIdentifier,
+            orgIdentifier
           })}
           label={i18n.adminSideNavLinks.resources}
           iconName="main-scope"
@@ -68,8 +73,8 @@ const ProjectNavLinks: React.FC<{ project?: Project }> = ({ project }) => {
         />
         <AdminSelectorLink
           href={routeCVAdminGovernance.url({
-            projectIdentifier: project.identifier as string,
-            orgIdentifier: project.orgIdentifier as string
+            projectIdentifier,
+            orgIdentifier
           })}
           label={i18n.adminSideNavLinks.governance}
           iconName="shield"
@@ -77,15 +82,15 @@ const ProjectNavLinks: React.FC<{ project?: Project }> = ({ project }) => {
         />
         <AdminSelectorLink
           href={routeCVAdminGeneralSettings.url({
-            projectIdentifier: project.identifier as string,
-            orgIdentifier: project.orgIdentifier as string
+            projectIdentifier,
+            orgIdentifier
           })}
           label={i18n.adminSideNavLinks.generalSettings}
           iconName="settings"
           selected={isRouteActive(routeCVAdminGeneralSettings)}
         />
         <AdminSelectorLink
-          href={routeCVAdminAccessControl.url({ projectIdentifier: project.identifier as string, orgIdentifier })}
+          href={routeCVAdminAccessControl.url({ projectIdentifier, orgIdentifier })}
           label={i18n.adminSideNavLinks.accessControl}
           iconName="user"
           selected={isRouteActive(routeCVAdminAccessControl)}
@@ -96,12 +101,7 @@ const ProjectNavLinks: React.FC<{ project?: Project }> = ({ project }) => {
 }
 
 export const MenuCV: React.FC = () => {
-  const {
-    params: { projectIdentifier }
-  } = routeParams()
   const history = useHistory()
-  const { projects } = useAppStoreReader()
-  const selectedProjectDTO = projects?.find(p => p.identifier === projectIdentifier)
   const toggleSummary = useCallback(() => {
     alert('TBD')
   }, [])
@@ -123,13 +123,13 @@ export const MenuCV: React.FC = () => {
               onSelect={project => {
                 history.push(
                   routeCVMainDashBoardPage.url({
-                    projectIdentifier: project.identifier as string,
-                    orgIdentifier: project.orgIdentifier as string
+                    projectIdentifier: project.identifier,
+                    orgIdentifier: project.orgIdentifier
                   })
                 )
               }}
             />
-            <ProjectNavLinks project={selectedProjectDTO} />
+            <ProjectNavLinks />
           </>
         </Layout.Vertical>
       </Container>

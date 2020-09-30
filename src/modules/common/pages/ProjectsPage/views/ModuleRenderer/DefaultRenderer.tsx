@@ -62,6 +62,7 @@ const DefaultRenderer: React.FC<DefaultProps> = props => {
         <Layout.Horizontal spacing="small">
           <Link
             to={routeCDDashboard.url({
+              orgIdentifier: data.orgIdentifier as string,
               projectIdentifier: data.identifier || ''
             })}
           >

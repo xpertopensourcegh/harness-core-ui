@@ -40,6 +40,7 @@ const ContextMenu: React.FC<ContextMenuProps> = props => {
   const handleCD = (): void => {
     history.push(
       routeCDDashboard.url({
+        orgIdentifier: project?.orgIdentifier as string,
         projectIdentifier: project?.identifier as string
       })
     )

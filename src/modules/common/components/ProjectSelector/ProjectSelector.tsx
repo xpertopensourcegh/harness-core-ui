@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import { Select, SelectOption } from '@wings-software/uikit'
 import type { IconProps } from '@wings-software/uikit/dist/icons/Icon'
 import cx from 'classnames'
@@ -21,6 +22,7 @@ export const ProjectSelector: React.FC<ProjectSelectorProps> = ({ module, onSele
   const {
     params: { accountId, projectIdentifier }
   } = routeParams()
+  const { pathname, search } = useLocation()
   const { showError } = useToaster()
   const [selectedProject, setSelectedProject] = useState<ProjectListOptions | undefined>()
   const { data: projects, error, refetch } = useGetProjectList({
@@ -28,7 +30,8 @@ export const ProjectSelector: React.FC<ProjectSelectorProps> = ({ module, onSele
       accountIdentifier: accountId,
       moduleType: module,
       pageSize: PAGE_SIZE
-    }
+    },
+    lazy: true
   })
 
   const projectSelectOptions: ProjectListOptions[] = React.useMemo(
@@ -56,10 +59,12 @@ export const ProjectSelector: React.FC<ProjectSelectorProps> = ({ module, onSele
   if (error) {
     showError(error?.message)
   }
-  const _project = projectSelectOptions.find(project => project.identifier === projectIdentifier)
-  if (!_project) {
-    refetch()
-  }
+
+  useEffect(() => {
+    if (accountId) {
+      refetch()
+    }
+  }, [accountId, pathname, search])
 
   useEffect(() => {
     if (projectIdentifier) {

@@ -29,9 +29,9 @@ export const ExecutionCard: React.FC<ExecutionCardProps> = ({ pipelineExecution 
     const parallel = !!get(stage, 'parallel')
     const checkStatus = (_status: ExecutionStatus): boolean =>
       !parallel
-        ? get(stage, 'CDStage.executionStatus') === _status
+        ? get(stage, 'stage.executionStatus') === _status
         : !!get(stage, 'parallel.stageExecutions', []).find(
-            (_stage: Record<string, string>) => get(_stage, 'CDStage.executionStatus') === _status
+            (_stage: Record<string, string>) => get(_stage, 'stage.executionStatus') === _status
           )
 
     const success = checkStatus(ExecutionStatus.SUCCESS)
@@ -52,8 +52,8 @@ export const ExecutionCard: React.FC<ExecutionCardProps> = ({ pipelineExecution 
 
     return {
       key: parallel
-        ? get(stage, 'parallel.stageExecutions[0].CDStage.planExecutionId')
-        : get(stage, 'CDStage.planExecutionId'),
+        ? get(stage, 'parallel.stageExecutions[0].stage.planExecutionId')
+        : get(stage, 'stage.planExecutionId'),
       icon: success ? 'tick-circle' : failed ? 'warning-sign' : running ? 'spinner' : 'pending',
       color: failed ? Color.RED_500 : success ? Color.BLUE_500 : running ? Color.GREEN_500 : Color.GREY_300,
       parallel,

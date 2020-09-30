@@ -12,6 +12,7 @@ const PipelineDeploymentList: React.FC = (): JSX.Element => {
   const { pipelineIdentifier } = useParams<{
     pipelineIdentifier: string
   }>()
+
   return (
     <>
       <Page.Header
@@ -76,6 +77,7 @@ const PipelineDeploymentList: React.FC = (): JSX.Element => {
           </Layout.Horizontal>
         }
       ></Page.Header>
+      <Page.Body>TBD</Page.Body>
     </>
   )
 }

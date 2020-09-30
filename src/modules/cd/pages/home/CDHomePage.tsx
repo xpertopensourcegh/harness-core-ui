@@ -17,19 +17,26 @@ const CDHomePage: React.FC = () => {
       subHeading={i18n.deployYourService}
       description={i18n.addCdToExistingProject}
       onProjectCreated={(project: Project) => {
-        history.push(routeCDDashboard.url({ projectIdentifier: project.identifier as string }))
+        history.push(
+          routeCDDashboard.url({
+            orgIdentifier: project.orgIdentifier as string,
+            projectIdentifier: project.identifier as string
+          })
+        )
       }}
       onCardClick={(project: Project) => {
         history.push(
           routeCDDashboard.url({
-            projectIdentifier: project?.identifier as string
+            orgIdentifier: project.orgIdentifier as string,
+            projectIdentifier: project.identifier as string
           })
         )
       }}
       onRowClick={(project: Project) => {
         history.push(
           routeCDDashboard.url({
-            projectIdentifier: project?.identifier as string
+            orgIdentifier: project.orgIdentifier as string,
+            projectIdentifier: project.identifier as string
           })
         )
       }}
