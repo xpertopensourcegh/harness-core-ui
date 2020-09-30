@@ -1,5 +1,7 @@
 # Harness Next Gen UI
 
+Grouped Code Coverage report for master branch: [Coverage Report](https://github.com/wings-software/nextgenui/wiki/Coverage)
+
 ### Getting Started
 
 1. Install **NodeJS v13.8**. There are many ways to do this (**choose any one**):

@@ -43,15 +43,21 @@ jobs:
         run: |
           npx jest-grouped-coverage -i coverage/coverage-summary.json -c coverage-groups.json -f md
           npx prettier --write coverage/grouped-coverage-report/grouped_summary.md
-          mv coverage/grouped-coverage-report/grouped_summary.md COVERAGE.md
 
-      - name: Publish Report
+      - name: Checkout wiki code
+        uses: actions/checkout@v2
+        with:
+          repository: ${{github.repository}}.wiki
+          path: markdown
+
+      - name: Publish report to wiki
         run: |
+          cp coverage/grouped-coverage-report/grouped_summary.md markdown/Coverage.md
+          cd markdown
           GIT_USER=$(curl --silent -H "Authorization: token ${{ secrets.GIT_BOT_TOKEN }}" -X GET https://api.github.com/user)
           GIT_USER_NAME=$(echo $GIT_USER | tr '\r\n' ' ' | jq -r .name)
           GIT_USER_EMAIL=$(echo $GIT_USER | tr '\r\n' ' ' | jq -r .email)
           git config user.name $GIT_USER_NAME
           git config user.email $GIT_USER_EMAIL
-          git add COVERAGE.md
-          git commit -m "Update coverage"
-          git push -f origin master
+          git add Coverage.md
+          git commit -m "Update Coverage" && git push
