@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import ReactTimeago from 'react-timeago'
 import { useParams } from 'react-router'
-import cx from 'classnames'
 import { Layout, Text, StepsProgress, Intent, Button, Color } from '@wings-software/uikit'
 import {
   useGetTestConnectionResult,
@@ -54,12 +53,14 @@ const StepIndex = new Map([
 ])
 
 export const getStepOneForExistingDelegate = (stepDetails: StepDetails, delegateName: string | undefined) => {
-  if (stepDetails.status === 'PROCESS') {
-    return `${i18n.STEPS.ONE.PROGRESS}: ${delegateName} `
-  } else if (stepDetails.status === 'DONE') {
-    return `${i18n.STEPS.ONE.SUCCESS}: ${delegateName} `
+  if (stepDetails.step === StepIndex.get(STEP.DELEGATE)) {
+    if (stepDetails.status === 'PROCESS') {
+      return `${i18n.STEPS.ONE.PROGRESS}: ${delegateName} `
+    } else {
+      return `${i18n.STEPS.ONE.FAILED}`
+    }
   } else {
-    return `${i18n.STEPS.ONE.FAILED}`
+    return `${i18n.STEPS.ONE.SUCCESS}: ${delegateName} `
   }
 }
 
@@ -275,7 +276,7 @@ const VerifyExistingDelegate = (props: VerifyExistingDelegateProps) => {
 
       {(!renderInModal && stepDetails.step === StepIndex.get(STEP.VERIFY) && stepDetails.status === 'DONE') ||
       stepDetails.intent === Intent.DANGER ? (
-        <Layout.Horizontal margin={{ left: 'small' }} className={cx({ [css.inModalRetest]: renderInModal })}>
+        <Layout.Horizontal margin={{ left: 'small' }}>
           <Button
             intent="primary"
             minimal

@@ -197,7 +197,7 @@ exports[`Verification step for existing delegate render VerifyExistingDelegate w
                 />
               </svg>
             </span>
-            Checking Delegate: Sample Delegate Name 
+            Delegate found: Sample Delegate Name 
           </span>
         </div>
         <div>

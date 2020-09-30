@@ -6,5 +6,6 @@ export default {
     SUCCESS: 'Connector saved successfully',
     ERROR: 'Unable to save connector'
   },
-  invalidYAML: 'YAML is invalid. Please fix the issues to proceed.'
+  invalidYAML: 'YAML is invalid. Please fix the issues to proceed.',
+  EDIT_DETAILS: 'Edit Details'
 }

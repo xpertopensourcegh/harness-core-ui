@@ -24,7 +24,6 @@ export interface ConfigureConnectorProps {
   response: ConnectorResponse
   updateConnector: (data: ConnectorRequestBody) => Promise<unknown>
   refetchConnector: () => Promise<any>
-  isCreationThroughYamlBuilder: boolean
 }
 
 interface ConfigureConnectorState {
@@ -47,13 +46,10 @@ const SelectedView = {
 
 const ConfigureConnector: React.FC<ConfigureConnectorProps> = props => {
   const { accountId, orgIdentifier, projectIdentifier } = useParams()
-  const { isCreationThroughYamlBuilder } = props
   const [enableEdit, setEnableEdit] = useState(false)
   const [lastTested, setLastTested] = useState<number>(props.response?.status?.lastTestedAt || 0)
   const [lastConnected, setLastConnected] = useState<number>(props.response?.status?.lastTestedAt || 0)
-  const [selectedView, setSelectedView] = useState(
-    isCreationThroughYamlBuilder ? SelectedView.YAML : SelectedView.VISUAL
-  )
+  const [selectedView, setSelectedView] = useState(SelectedView.VISUAL)
 
   const [snippets, setSnippets] = useState<SnippetInterface[]>()
   const [connector, setConnector] = useState<ConnectorInfoDTO>(props.response?.connector || ({} as ConnectorInfoDTO))
@@ -170,7 +166,7 @@ const ConfigureConnector: React.FC<ConfigureConnectorProps> = props => {
   const yamlBuilderReadOnlyModeProps: YamlBuilderProps = {
     fileName: `${connectorForYaml?.identifier ?? 'Connector'}.yaml`,
     entityType: YamlEntity.CONNECTOR,
-    existingJSON: isCreationThroughYamlBuilder ? {} : { connector: connectorForYaml },
+    existingJSON: { connector: connectorForYaml },
     snippets: snippets,
     onSnippetSearch: fetchSnippets,
     bind: setYamlHandler
@@ -221,11 +217,7 @@ const ConfigureConnector: React.FC<ConfigureConnectorProps> = props => {
           <Layout.Horizontal className={css.header}>
             {connector?.type ? <span className={css.name}>{getHeadingByType(connector?.type)}</span> : null}
             {state.enableEdit ? null : (
-              <Button
-                text={isCreationThroughYamlBuilder ? 'Create Connector' : 'Edit Details'}
-                icon="edit"
-                onClick={() => state.setEnableEdit(true)}
-              />
+              <Button text={i18n.EDIT_DETAILS} icon="edit" onClick={() => state.setEnableEdit(true)} />
             )}
           </Layout.Horizontal>
           {enableEdit ? (

@@ -13,8 +13,11 @@ export default {
   SSH_ENCRYPTED_KEY: 'SSH Encrypted Key',
   BRANCH_NAME: 'Branch Name',
   validation: {
+    name: 'Name is required',
     connectionType: 'Required',
-    url: 'Url is required'
+    url: 'URL is required',
+    username: 'Username is required',
+    passwordRef: 'Password is required'
   },
   Credentials: 'Credentials',
   Authentication: 'Authentication',

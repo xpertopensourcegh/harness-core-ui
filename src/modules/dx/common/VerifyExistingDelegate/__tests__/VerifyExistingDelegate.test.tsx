@@ -52,7 +52,7 @@ describe('Verification step for existing delegate', () => {
         />
       </MemoryRouter>
     )
-    expect(getByText('Checking Delegate: Sample Delegate Name')).toBeDefined()
+    expect(getByText('Delegate found: Sample Delegate Name')).toBeDefined()
     expect(getByText('Test Connector')).toBeDefined()
     expect(getByText('Verifying connection')).toBeDefined()
     expect(container).toMatchSnapshot()

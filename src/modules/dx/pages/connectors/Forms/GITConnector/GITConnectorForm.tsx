@@ -90,7 +90,7 @@ const GITConnectorForm: React.FC<GITConnectorFormProps> = props => {
     }
   }, [])
 
-  const gitFormData = omit(buildGITFormData(connector), ['passwordRef', 'sshKeyRef'])
+  const gitFormData = omit(buildGITFormData(connector))
   return (
     <Formik
       initialValues={{
@@ -99,8 +99,15 @@ const GITConnectorForm: React.FC<GITConnectorFormProps> = props => {
         sshKeyRefSecret
       }}
       validationSchema={Yup.object().shape({
-        name: Yup.string().trim().required(),
-        description: Yup.string()
+        name: Yup.string().trim().required(i18n.validation.name),
+        description: Yup.string(),
+        connectionType: Yup.string().trim().required(i18n.validation.connectionType),
+        url: Yup.string().trim().required(i18n.validation.url),
+        username: Yup.string().trim().required(i18n.validation.username),
+        passwordRef: Yup.string().when('authType', {
+          is: AuthTypes.USER_PASSWORD,
+          then: Yup.string().trim().required(i18n.validation.passwordRef)
+        })
       })}
       enableReinitialize={true}
       onSubmit={formData => {

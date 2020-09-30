@@ -1,8 +1,8 @@
 import React from 'react'
-import { Layout, Container, Link } from '@wings-software/uikit'
+import { Layout, Container } from '@wings-software/uikit'
 import { Tag } from '@blueprintjs/core'
 import cx from 'classnames'
-import { useParams } from 'react-router'
+import { useParams, Link } from 'react-router-dom'
 import { Page } from 'modules/common/exports'
 import { routeResources } from 'modules/common/routes'
 import { routeParams } from 'framework/exports'
@@ -42,11 +42,11 @@ const ConnectorDetailsPage: React.FC = () => {
     return (
       <Layout.Vertical>
         <Layout.Horizontal spacing="xsmall">
-          <Link className={css.breadCrumb} href={routeResources.url()}>
+          <Link className={css.breadCrumb} to={routeResources.url()}>
             {i18n.Resources}
           </Link>
           <span>/</span>
-          <Link className={css.breadCrumb} href={routeResources.url()}>
+          <Link className={css.breadCrumb} to={routeResources.url()}>
             {i18n.Connectors}
           </Link>
         </Layout.Horizontal>
@@ -84,7 +84,6 @@ const ConnectorDetailsPage: React.FC = () => {
               updateConnector={updateConnector}
               response={data.data || ({} as ConnectorResponse)}
               refetchConnector={refetch}
-              isCreationThroughYamlBuilder={connectorId === 'undefined'}
             />
           ) : (
             <PageSpinner />

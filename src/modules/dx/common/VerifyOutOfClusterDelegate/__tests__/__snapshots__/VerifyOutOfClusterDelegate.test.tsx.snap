@@ -8,7 +8,6 @@ exports[`Verification step for out of cluster delegate render VerifyOutOfCluster
   >
     <div
       class="Layout---vertical--3Szv StyledProps---main--1Wws"
-      style="height: 90%;"
     >
       <p
         class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-medium--2b-0 StyledProps---color--8PuS StyledProps---color-grey700--WvM3 StyledProps---padding-right-small--2ldZ StyledProps---padding-left-small--ODrE"
@@ -170,7 +169,6 @@ exports[`Verification step for out of cluster delegate render in modal 1`] = `
   >
     <div
       class="Layout---vertical--3Szv StyledProps---main--1Wws"
-      style="height: 90%;"
     >
       <p
         class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-medium--2b-0 StyledProps---color--8PuS StyledProps---color-grey700--WvM3 StyledProps---padding-right-small--2ldZ StyledProps---padding-left-small--ODrE"

@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { useParams } from 'react-router'
 import ReactTimeago from 'react-timeago'
-import cx from 'classnames'
 import { StepsProgress, Layout, Button, Text, Intent, Color, StepProps } from '@wings-software/uikit'
 import { useGetDelegatesStatus, RestResponseDelegateStatus } from 'services/portal'
 import {
@@ -59,15 +58,6 @@ export const StepIndex = new Map([
   [STEP.VERIFY, 3]
 ])
 
-export const getStepOne = (state: VerifyOutOfClusterDelegateState) => {
-  const count = state.delegateCount?.resource?.delegates?.length
-  if (state.stepDetails.step !== StepIndex.get(STEP.CHECK_DELEGATE)) {
-    return i18n.delegateFound(count)
-  } else {
-    return i18n.STEPS.ONE
-  }
-}
-
 const VerifyOutOfClusterDelegate: React.FC<
   StepProps<VerifyOutOfClusterStepProps> & VerifyOutOfClusterDelegateProps
 > = props => {
@@ -105,8 +95,17 @@ const VerifyOutOfClusterDelegate: React.FC<
     }
   })
 
+  const getStepOne = () => {
+    const count = state.delegateCount?.resource?.delegates?.length
+    if (stepDetails.step !== StepIndex.get(STEP.CHECK_DELEGATE)) {
+      return i18n.delegateFound(count)
+    } else {
+      return i18n.STEPS.ONE
+    }
+  }
+
   const getStepTwo = () => {
-    if (stepDetails.status === 'ERROR') {
+    if (stepDetails.step === StepIndex.get(STEP.ESTABLISH_CONNECTION) && stepDetails.status === 'ERROR') {
       return i18n.STEPS.TWO.FAILED
     } else {
       return i18n.STEPS.TWO.SUCCESS(getConnectorDisplayName(props.type || ''))
@@ -209,13 +208,13 @@ const VerifyOutOfClusterDelegate: React.FC<
   }, [stepDetails, delegateStatus, error])
   return (
     <Layout.Vertical padding="small" height={'100%'}>
-      <Layout.Vertical height={'90%'}>
+      <Layout.Vertical>
         <Text font="medium" color={Color.GREY_700} padding={{ right: 'small', left: 'small' }}>
           {i18n.HEADING} <span className={css.name}>{props.connectorName || prevStepData?.name}</span>
         </Text>
 
         <StepsProgress
-          steps={[getStepOne(state), getStepTwo(), i18n.STEPS.THREE]}
+          steps={[getStepOne(), getStepTwo(), i18n.STEPS.THREE]}
           intent={stepDetails.intent}
           current={stepDetails.step}
           currentStatus={stepDetails.status}
@@ -249,7 +248,7 @@ const VerifyOutOfClusterDelegate: React.FC<
         ) : null}
         {(!renderInModal && stepDetails.step === StepIndex.get(STEP.VERIFY) && stepDetails.status === 'DONE') ||
         stepDetails.intent === Intent.DANGER ? (
-          <Layout.Horizontal margin={{ left: 'small' }} className={cx({ [css.inModalRetest]: renderInModal })}>
+          <Layout.Horizontal margin={{ left: 'small' }}>
             <Button
               intent="primary"
               minimal
