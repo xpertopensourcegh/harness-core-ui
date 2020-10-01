@@ -1,0 +1,8 @@
+@import '../ExecutionVars';
+
+.main {
+  height: $details-height;
+  overflow: hidden;
+  padding: var(--spacing-medium) var(--spacing-medium) var(--spacing-medium) var(--spacing-xx-large);
+  box-shadow: inset var(--grey-200) 0 -4px 0;
+}

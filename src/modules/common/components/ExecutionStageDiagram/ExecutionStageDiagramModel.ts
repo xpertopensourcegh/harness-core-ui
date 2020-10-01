@@ -1,9 +1,10 @@
+import type { LinkModelListener, NodeModelListener } from '@projectstorm/react-diagrams-core'
+import type { BaseModelListener } from '@projectstorm/react-canvas-core'
 import type { IconName } from '@wings-software/uikit'
 import { last, isEmpty } from 'lodash-es'
 import { Diagram } from 'modules/common/exports'
-import { EmptyNodeSeparator, Listeners } from 'modules/cd/pages/pipeline-studio/StageBuilder/StageBuilderUtil'
-import { ExecutionPipeline, ExecutionPipelineNode, ExecutionPipelineItemType } from './ExecutionPipelineModel'
-import { getNodeStyles } from './ExecutionStageDiagramUtils'
+import { ExecutionPipeline, ExecutionPipelineNode, ExecutionPipelineNodeType } from './ExecutionPipelineModel'
+import { getNodeStyles, getStatusProps } from './ExecutionStageDiagramUtils'
 
 export interface NodeStyleInterface {
   width: number
@@ -16,6 +17,14 @@ export interface GridStyleInterface {
   startY?: number
   gap?: number
 }
+
+export interface Listeners {
+  nodeListeners: NodeModelListener
+  linkListeners: LinkModelListener
+  layerListeners: BaseModelListener
+}
+
+export const EmptyNodeSeparator = '$node$'
 
 export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
   nodeStyle: NodeStyleInterface = { width: 200, height: 200 }
@@ -42,7 +51,7 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
     startX: number,
     startY: number,
     selectedStageId?: string,
-    splitPaneSize?: number,
+    diagramContainerHeight?: number,
     prevNodes?: Diagram.DefaultNodeModel[]
   ): { startX: number; startY: number; prevNodes?: Diagram.DefaultNodeModel[] } {
     const { nodeStyle } = this
@@ -51,33 +60,28 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
       const { type } = stage
       startX += this.gap
       const isSelected = selectedStageId === stage.identifier
+      const statusProps = getStatusProps(stage.status)
       const nodeRender =
-        type === ExecutionPipelineItemType.APPROVAL
+        type === ExecutionPipelineNodeType.DIAMOND
           ? new Diagram.DiamondNodeModel({
               identifier: stage.identifier,
               customNodeStyle: {
                 // Without this doesn't look straight
                 marginTop: '2.5px',
-                ...getNodeStyles(isSelected, stage.status)
+                ...getNodeStyles(isSelected)
               },
               name: stage.name,
               width: nodeStyle.width,
               height: nodeStyle.height,
-              isInComplete: false,
-              draggable: false,
-              canDelete: false,
-              allowAdd: false,
+              ...statusProps,
               icon: stage.icon // stageTypeToIconNameMapper[type]
             })
           : new Diagram.DefaultNodeModel({
               identifier: stage.identifier,
-              customNodeStyle: getNodeStyles(isSelected, stage.status),
+              customNodeStyle: getNodeStyles(isSelected),
               name: stage.name,
+              ...statusProps,
               width: nodeStyle.width,
-              isInComplete: false,
-              draggable: false,
-              canDelete: false,
-              allowAdd: false,
               height: nodeStyle.height,
               icon: stage.icon //stageTypeToIconNameMapper[type]
             })
@@ -93,13 +97,13 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
     } else if (node.parallel && prevNodes) {
       const { parallel } = node
       if (parallel.length > 1) {
-        if (selectedStageId && (splitPaneSize || 0) < (this.gap * parallel.length) / 2 + 40) {
+        if (diagramContainerHeight && diagramContainerHeight < (this.gap * parallel.length) / 2 + 40) {
           const parallelStageNames: Array<string> = []
           let isSelected = false
           const icons: Array<IconName> = []
           parallel.forEach(nodeP => {
-            if (nodeP.item?.identifier === selectedStageId) {
-              parallelStageNames.unshift(nodeP.item?.name)
+            if (nodeP.item?.identifier === selectedStageId && nodeP.item?.icon) {
+              parallelStageNames.unshift(nodeP.item?.name || '')
               icons.unshift(nodeP.item?.icon) // stageTypeToIconNameMapper[nodeP.stage.type])
               isSelected = true
             } else {
@@ -146,7 +150,7 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
           }
           const prevNodesAr: Diagram.DefaultNodeModel[] = []
           parallel.forEach(nodeP => {
-            const resp = this.renderGraphNodes(nodeP, newX, newY, selectedStageId, splitPaneSize, prevNodes)
+            const resp = this.renderGraphNodes(nodeP, newX, newY, selectedStageId, diagramContainerHeight, prevNodes)
             startX = resp.startX
             newY = resp.startY + this.gap / 2 + (nodeStyle.height - 64)
             if (resp.prevNodes) {
@@ -169,9 +173,67 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
           }
         }
       } else {
-        return this.renderGraphNodes(parallel[0], startX, startY, selectedStageId, splitPaneSize, prevNodes)
+        return this.renderGraphNodes(parallel[0], startX, startY, selectedStageId, diagramContainerHeight, prevNodes)
       }
       return { startX, startY, prevNodes }
+    } else if (node.group) {
+      if (node.group.isOpen) {
+        const stepGroupLayer = new Diagram.StepGroupNodeLayerModel({
+          identifier: node.group.identifier,
+          label: node.group.name,
+          showRollback: false
+        })
+        if (prevNodes && prevNodes.length > 0) {
+          startX += this.gap
+          stepGroupLayer.startNode.setPosition(startX, startY)
+          prevNodes.forEach((prevNode: Diagram.DefaultNodeModel) => {
+            this.connectedParentToNode(stepGroupLayer.startNode, prevNode, false)
+          })
+          prevNodes = [stepGroupLayer.startNode]
+          startX = startX - this.gap / 2 - 20
+        }
+        this.useStepGroupLayer(stepGroupLayer)
+
+        // Check if step group has nodes
+        if (node.group.items?.length > 0) {
+          node.group.items.forEach(step => {
+            const resp = this.renderGraphNodes(step, startX, startY, selectedStageId, diagramContainerHeight, prevNodes)
+            startX = resp.startX
+            startY = resp.startY
+            if (resp.prevNodes) {
+              prevNodes = resp.prevNodes
+            }
+          })
+        }
+        if (prevNodes && prevNodes.length > 0) {
+          startX = startX + this.gap
+          stepGroupLayer.endNode.setPosition(startX, startY)
+          prevNodes.forEach((prevNode: Diagram.DefaultNodeModel) => {
+            this.connectedParentToNode(stepGroupLayer.endNode, prevNode, false)
+          })
+          prevNodes = [stepGroupLayer.endNode]
+          startX = startX - this.gap / 2 - 20
+        }
+        this.useNormalLayer()
+        return { startX, startY, prevNodes: prevNodes }
+      } else {
+        startX += this.gap
+        const nodeRender = new Diagram.DefaultNodeModel({
+          identifier: node.group.identifier,
+          name: node.group.name,
+          icon: node.group.icon,
+          secondaryIcon: 'plus',
+          customNodeStyle: node.group.cssProps
+        })
+        this.addNode(nodeRender)
+        nodeRender.setPosition(startX, startY)
+        if (!isEmpty(prevNodes) && prevNodes) {
+          prevNodes.forEach((prevNode: Diagram.DefaultNodeModel) => {
+            this.connectedParentToNode(nodeRender, prevNode, false)
+          })
+        }
+        return { startX, startY, prevNodes: [nodeRender] }
+      }
     }
     return { startX, startY }
   }
@@ -180,7 +242,8 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
     pipeline: ExecutionPipeline<T>,
     listeners: Listeners,
     selectedStageId?: string,
-    splitPaneSize?: number
+    diagramContainerHeight?: number,
+    showStartEndNode?: boolean
   ): void {
     const { gap } = this
     let { startX, startY } = this
@@ -189,19 +252,21 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
     // Unlock Graph
     this.setLocked(false)
 
-    //Start Node
-    const startNode = new Diagram.NodeStartModel({ id: 'start-new' })
-    startNode.setPosition(startX, startY)
-    this.addNode(startNode)
+    let prevNodes: Diagram.DefaultNodeModel[] = []
 
-    // Stop Node
-    const stopNode = new Diagram.NodeStartModel({ id: 'stop', icon: 'stop', isStart: false })
+    if (showStartEndNode) {
+      //Start Node
+      const startNode = new Diagram.NodeStartModel({ id: 'start-new' })
+      startNode.setPosition(startX, startY)
+      this.addNode(startNode)
+      startX -= gap / 2
+      prevNodes = [startNode]
+    } else {
+      startX -= gap
+    }
 
-    startX -= gap / 2
-
-    let prevNodes: Diagram.DefaultNodeModel[] = [startNode]
     pipeline.items?.forEach(node => {
-      const resp = this.renderGraphNodes(node, startX, startY, selectedStageId, splitPaneSize, prevNodes)
+      const resp = this.renderGraphNodes(node, startX, startY, selectedStageId, diagramContainerHeight, prevNodes)
       startX = resp.startX
       startY = resp.startY
       if (resp.prevNodes) {
@@ -209,10 +274,17 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
       }
     })
 
-    stopNode.setPosition(startX + gap, startY)
+    if (showStartEndNode) {
+      // Stop Node
+      const stopNode = new Diagram.NodeStartModel({ id: 'stop', icon: 'stop', isStart: false })
 
-    this.connectedParentToNode(stopNode, last(prevNodes) || startNode, false)
-    this.addNode(stopNode)
+      stopNode.setPosition(startX + gap, startY)
+      const lastNode = last(prevNodes)
+      if (lastNode) {
+        this.connectedParentToNode(stopNode, lastNode, false)
+      }
+      this.addNode(stopNode)
+    }
 
     const nodes = this.getActiveNodeLayer().getNodes()
     for (const key in nodes) {
@@ -224,6 +296,16 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
       const link = links[key]
       link.registerListener(listeners.linkListeners)
     }
+
+    this.stepGroupLayers.forEach(layer => {
+      layer.registerListener(listeners.layerListeners)
+      const nodesInLayer = layer.getNodes()
+      for (const key in nodesInLayer) {
+        const node = nodesInLayer[key]
+        node.registerListener(listeners.nodeListeners)
+      }
+    })
+
     // Lock the graph back
     this.setLocked(true)
   }

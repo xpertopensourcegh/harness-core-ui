@@ -1,11 +1,9 @@
 import type { IconName } from '@wings-software/uikit'
 
 // TODO: should be replaced with type-shape of the box (like: Stage, Step, Approval)
-export enum ExecutionPipelineItemType {
-  DEPLOY = 'Deployment',
-  APPROVAL = 'Approval',
-  PIPELINE = 'Pipeline',
-  CUSTOM = 'Custom'
+export enum ExecutionPipelineNodeType {
+  DIAMOND = 'DIAMOND',
+  NORMAL = 'NORMAL'
 }
 
 // TODO: should be replaced or same as DTO
@@ -31,7 +29,7 @@ export enum ExecutionPipelineItemStatus {
 export interface ExecutionPipelineItem<T> {
   identifier: string
   name: string
-  type: ExecutionPipelineItemType
+  type: ExecutionPipelineNodeType
   status: ExecutionPipelineItemStatus
   icon: IconName
   cssProps?: React.CSSProperties
@@ -43,10 +41,15 @@ export interface ExecutionPipelineGroupInfo<T> {
   identifier: string
   name: string
   data: T
+  cssProps?: React.CSSProperties
+  icon: IconName
+  isOpen: boolean
+  items: Array<ExecutionPipelineNode<T>>
 }
 export interface ExecutionPipelineNode<T> {
   item?: ExecutionPipelineItem<T>
   parallel?: Array<ExecutionPipelineNode<T>>
+  group?: ExecutionPipelineGroupInfo<T>
 }
 
 export interface ExecutionPipeline<T> {

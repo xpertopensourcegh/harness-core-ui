@@ -21,7 +21,7 @@ export interface DefaultNodeModelOptions extends BasePositionModelOptions {
   canDelete?: boolean
   isInComplete?: boolean
   secondaryIcon?: IconName
-  secondaryIconProps?: IconProps
+  secondaryIconProps?: Omit<IconProps, 'name'>
   secondaryIconStyle?: React.CSSProperties
 }
 
@@ -61,12 +61,6 @@ export class DefaultNodeModel<G extends DefaultNodeModelGenerics = DefaultNodeMo
       new DefaultPortModel({
         in: false,
         name: PortName.Out
-      })
-    )
-    this.addPort(
-      new DefaultPortModel({
-        in: true,
-        name: PortName.In
       })
     )
   }

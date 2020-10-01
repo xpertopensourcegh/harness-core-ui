@@ -6,7 +6,7 @@ import {
   ExecutionPipelineNode,
   ExecutionPipelineItem,
   ExecutionPipelineItemStatus,
-  ExecutionPipelineItemType
+  ExecutionPipelineNodeType
 } from 'modules/common/components/ExecutionStageDiagram/ExecutionPipelineModel'
 
 // TODO: random icons used; replace them with right one
@@ -55,7 +55,7 @@ export function graph2ExecutionPipeline(graph: Graph): ExecutionPipeline<GraphVe
     const stageItem: ExecutionPipelineItem<GraphVertex> = {
       identifier: vertex.uuid,
       name: vertex.name,
-      type: ExecutionPipelineItemType.PIPELINE,
+      type: ExecutionPipelineNodeType.NORMAL,
       status: ExecutionPipelineItemStatus[vertex.status as keyof typeof ExecutionPipelineItemStatus],
       icon: stageType2IconName(vertex.stepType),
       data: vertex
@@ -103,7 +103,7 @@ function addStepToArray(vertex: GraphVertex, arr: ExecutionPipelineNode<GraphVer
   const stepItem: ExecutionPipelineItem<GraphVertex> = {
     identifier: vertex.uuid,
     name: vertex.name,
-    type: ExecutionPipelineItemType.PIPELINE,
+    type: ExecutionPipelineNodeType.NORMAL,
     status: ExecutionPipelineItemStatus[vertex.status as keyof typeof ExecutionPipelineItemStatus],
     icon: stageType2IconName(vertex.stepType),
     data: vertex

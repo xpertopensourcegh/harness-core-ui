@@ -1,1 +1,1 @@
-export default { zoomIn: 'Zoom In', zoomOut: 'Zoom Out', reset: 'Reset', refresh: 'Refresh', zoomToFit: 'Zoom to Fit' }
+export default { zoomIn: 'Zoom In', zoomOut: 'Zoom Out', reset: 'Reset', zoomToFit: 'Zoom to Fit' }

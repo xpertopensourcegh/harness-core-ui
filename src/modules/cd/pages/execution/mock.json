@@ -1,0 +1,236 @@
+{
+  "status": "SUCCESS",
+  "data": {
+    "pipelineExecution": {
+      "pipelineIdentifier": "dummyPipelineIdentifier",
+      "pipelineName": "dummyPipeline",
+      "planExecutionId": "planExecutionId",
+      "executionStatus": "RUNNING",
+      "startedAt": 0,
+      "endedAt": 10,
+      "triggeredBy": {
+        "uuid": null,
+        "name": "admin",
+        "email": null
+      },
+      "triggerType": "MANUAL",
+      "tags": null,
+      "stageExecutionSummaryElements": [
+        {
+          "CDStage": {
+            "planExecutionId": "planExecutionIdcdStageDone",
+            "stageIdentifier": "stageIdentifiercdStageDone",
+            "stageName": "dev",
+            "artifactsDeployed": [
+              {
+                "identifier": "artifactIdentifier",
+                "artifactStream": null
+              }
+            ],
+            "deploymentType": "Kubernetes",
+            "executionStatus": "SUCCESS",
+            "startedAt": 0,
+            "endedAt": 10,
+            "serviceIdentifier": "serviceIdentifiercdStageDone",
+            "envIdentifier": "environmentIdentifiercdStageDone",
+            "errorMsg": null
+          }
+        },
+        {
+          "parallel": {
+            "stageExecutions": [
+              {
+                "CDStage": {
+                  "planExecutionId": "planExecutionIdparallelStage1",
+                  "stageIdentifier": "stageIdentifierparallelStage1",
+                  "stageName": "dev",
+                  "artifactsDeployed": [
+                    {
+                      "identifier": "artifactIdentifier",
+                      "artifactStream": null
+                    }
+                  ],
+                  "deploymentType": "Kubernetes",
+                  "executionStatus": "RUNNING",
+                  "startedAt": 0,
+                  "endedAt": 10,
+                  "serviceIdentifier": "serviceIdentifierparallelStage1",
+                  "envIdentifier": "environmentIdentifierparallelStage1",
+                  "errorMsg": null
+                }
+              },
+              {
+                "CDStage": {
+                  "planExecutionId": "planExecutionIdparallelStage2",
+                  "stageIdentifier": "stageIdentifierparallelStage2",
+                  "stageName": "dev",
+                  "artifactsDeployed": [
+                    {
+                      "identifier": "artifactIdentifier",
+                      "artifactStream": null
+                    }
+                  ],
+                  "deploymentType": "Kubernetes",
+                  "executionStatus": "RUNNING",
+                  "startedAt": 0,
+                  "endedAt": 10,
+                  "serviceIdentifier": "serviceIdentifierparallelStage2",
+                  "envIdentifier": "environmentIdentifierparallelStage2",
+                  "errorMsg": null
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "errorMsg": null,
+      "stageIdentifiers": ["stageIdentifier"],
+      "serviceIdentifiers": ["ServiceIdentifier1"],
+      "envIdentifiers": [],
+      "serviceDefinitionTypes": ["Kubernetes"],
+      "stageTypes": null,
+      "successfulStagesCount": 0,
+      "runningStagesCount": 0,
+      "failedStagesCount": 0
+    },
+    "stageGraph": {
+      "rootNodeId": "Ty_-CSAoShC7huCAzfjl6g",
+      "nodeMap": {
+        "gYO3l4TQQvSaDAf1LEQ5aQ": {
+          "uuid": "gYO3l4TQQvSaDAf1LEQ5aQ",
+          "name": "environment",
+          "startTs": null,
+          "endTs": 1600079943495,
+          "stepType": "ENVIRONMENT",
+          "status": "SUCCESS",
+          "failureInfo": null
+        },
+        "YLap7hH0SpOXgKW0ZSF44A": {
+          "uuid": "YLap7hH0SpOXgKW0ZSF44A",
+          "name": "artifacts",
+          "startTs": null,
+          "endTs": 1600079941395,
+          "stepType": "ARTIFACT_FORK_STEP",
+          "status": "SUCCESS",
+          "failureInfo": null
+        },
+        "uhkk3uOKRU-izlEDn8qXlA": {
+          "uuid": "uhkk3uOKRU-izlEDn8qXlA",
+          "name": "MANIFESTS",
+          "startTs": null,
+          "endTs": 1600079931903,
+          "stepType": "MANIFEST_STEP",
+          "status": "SUCCESS",
+          "failureInfo": null
+        },
+        "WQihquIbS0SwRb6Fv18heg": {
+          "uuid": "WQihquIbS0SwRb6Fv18heg",
+          "name": "infrastructureSpecification",
+          "startTs": null,
+          "endTs": 1600079944451,
+          "stepType": "INFRASTRUCTURE",
+          "status": "SUCCESS",
+          "failureInfo": null
+        },
+        "0ugp-sh-QCSKLXaAzk9BSA": {
+          "uuid": "0ugp-sh-QCSKLXaAzk9BSA",
+          "name": "service",
+          "startTs": null,
+          "endTs": 1600079942433,
+          "stepType": "SERVICE_STEP",
+          "status": "SUCCESS",
+          "failureInfo": null
+        },
+        "-T6xJ7S2SSWPgMZWc05LYg": {
+          "uuid": "-T6xJ7S2SSWPgMZWc05LYg",
+          "name": "infrastructure",
+          "startTs": null,
+          "endTs": 1600079945407,
+          "stepType": "SECTION_CHAIN",
+          "status": "SUCCESS",
+          "failureInfo": null
+        },
+        "Ty_-CSAoShC7huCAzfjl6g": {
+          "uuid": "Ty_-CSAoShC7huCAzfjl6g",
+          "name": "qa stage",
+          "startTs": null,
+          "endTs": null,
+          "stepType": "SECTION_CHAIN",
+          "status": "RUNNING",
+          "failureInfo": null
+        },
+        "bI4RNYnNQnaVYkEfasFjzg": {
+          "uuid": "bI4RNYnNQnaVYkEfasFjzg",
+          "name": "primary",
+          "startTs": null,
+          "endTs": 1600079940404,
+          "stepType": "ARTIFACT_STEP",
+          "status": "SUCCESS",
+          "failureInfo": null
+        },
+        "WOLUCzOCQDWyjJyOLN_9TQ": {
+          "uuid": "WOLUCzOCQDWyjJyOLN_9TQ",
+          "name": "Rollout Deployment",
+          "startTs": null,
+          "endTs": null,
+          "stepType": "K8S_ROLLING",
+          "status": "RUNNING",
+          "failureInfo": null
+        },
+        "EBb7aN29SDmnoBrS3js0RA": {
+          "uuid": "EBb7aN29SDmnoBrS3js0RA",
+          "name": "execution",
+          "startTs": null,
+          "endTs": null,
+          "stepType": "SECTION_CHAIN",
+          "status": "RUNNING",
+          "failureInfo": null
+        }
+      },
+      "nodeAdjacencyListMap": {
+        "gYO3l4TQQvSaDAf1LEQ5aQ": {
+          "children": [],
+          "next": "WQihquIbS0SwRb6Fv18heg"
+        },
+        "YLap7hH0SpOXgKW0ZSF44A": {
+          "children": ["bI4RNYnNQnaVYkEfasFjzg"],
+          "next": null
+        },
+        "uhkk3uOKRU-izlEDn8qXlA": {
+          "children": [],
+          "next": null
+        },
+        "WQihquIbS0SwRb6Fv18heg": {
+          "children": [],
+          "next": null
+        },
+        "0ugp-sh-QCSKLXaAzk9BSA": {
+          "children": ["YLap7hH0SpOXgKW0ZSF44A", "uhkk3uOKRU-izlEDn8qXlA"],
+          "next": "-T6xJ7S2SSWPgMZWc05LYg"
+        },
+        "-T6xJ7S2SSWPgMZWc05LYg": {
+          "children": ["gYO3l4TQQvSaDAf1LEQ5aQ"],
+          "next": "EBb7aN29SDmnoBrS3js0RA"
+        },
+        "Ty_-CSAoShC7huCAzfjl6g": {
+          "children": ["0ugp-sh-QCSKLXaAzk9BSA"],
+          "next": null
+        },
+        "bI4RNYnNQnaVYkEfasFjzg": {
+          "children": [],
+          "next": null
+        },
+        "WOLUCzOCQDWyjJyOLN_9TQ": {
+          "children": [],
+          "next": null
+        },
+        "EBb7aN29SDmnoBrS3js0RA": {
+          "children": ["WOLUCzOCQDWyjJyOLN_9TQ"],
+          "next": null
+        }
+      }
+    }
+  },
+  "metaData": null,
+  "correlationId": "b3fc32e6-a8b1-4933-8183-46f3a1169d1f"
+}

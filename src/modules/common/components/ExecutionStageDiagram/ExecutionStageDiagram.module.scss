@@ -2,6 +2,7 @@
   --execution-pipeline-status-failed-bg: var(--red-400);
   --execution-pipeline-status-success-bg: var(--green-400);
   --execution-pipeline-status-running-bg: var(--yellow-400);
+  --execution-pipeline-selected-node-bg: linear-gradient(147.14deg, #73dfe7 6.95%, #0063f7 93.05%);
 
   width: 100%;
   height: 100%;
@@ -16,6 +17,12 @@
   background: linear-gradient(90deg, $bg-color ($dot-space - $dot-size), transparent 1%) center,
     linear-gradient($bg-color ($dot-space - $dot-size), transparent 1%) center, $dot-color;
   background-size: $dot-space $dot-space;
+
+  &.white-background {
+    background: linear-gradient(90deg, var(--white) ($dot-space - $dot-size), transparent 1%) center,
+      linear-gradient($bg-color ($dot-space - $dot-size), transparent 1%) center, $dot-color;
+    background-size: $dot-space $dot-space;
+  }
 
   .canvas {
     width: 100%;

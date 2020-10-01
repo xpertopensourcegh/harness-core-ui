@@ -1,0 +1,10 @@
+.main {
+  margin-left: var(--spacing-xxlarge);
+
+  .more {
+    & svg[data-icon='more'] {
+      transform: rotate(90deg);
+      transform-origin: 50% 50%;
+    }
+  }
+}

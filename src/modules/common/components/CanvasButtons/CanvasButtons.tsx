@@ -9,7 +9,6 @@ export enum CanvasButtonsActions {
   ZoomIn,
   ZoomOut,
   Reset,
-  Refresh,
   ZoomToFit
 }
 
@@ -30,13 +29,6 @@ export const CanvasButtons: React.FC<CanvasButtonsProps> = ({ engine, callback, 
     engine.getModel().setOffset(0, 0)
     engine.repaintCanvas()
     callback?.(CanvasButtonsActions.ZoomToFit)
-  }, [engine, callback])
-
-  const zoomRefresh = useCallback(() => {
-    engine.getModel().setZoomLevel(100)
-    engine.getModel().setOffset(0, 0)
-    engine.repaintCanvas()
-    callback?.(CanvasButtonsActions.Refresh)
   }, [engine, callback])
 
   const zoomIn = useCallback(() => {
@@ -61,9 +53,6 @@ export const CanvasButtons: React.FC<CanvasButtonsProps> = ({ engine, callback, 
         </ButtonGroup>
         <ButtonGroup>
           <Button icon="canvas-selector" tooltip={i18n.reset} onClick={zoomReset} />
-        </ButtonGroup>
-        <ButtonGroup>
-          <Button icon="canvas-reset" tooltip={i18n.refresh} onClick={zoomRefresh} />
         </ButtonGroup>
         <span className={css.verticalButtons}>
           <ButtonGroup>

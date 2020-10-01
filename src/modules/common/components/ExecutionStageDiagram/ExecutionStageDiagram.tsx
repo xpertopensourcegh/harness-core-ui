@@ -48,11 +48,15 @@ export interface ExecutionStageDiagramProps<T> {
   nodeStyle?: NodeStyleInterface
   /** grid style */
   gridStyle: GridStyleInterface
+  showStartEndNode?: boolean // Default: true
+  diagramContainerHeight?: number
   itemClickHandler?: (event: ItemClickEvent<T>) => void
   itemMouseEnter?: (event: ItemMouseEnterEvent<T>) => void
   itemMouseLeave?: (event: ItemMouseLeaveEvent<T>) => void
   canvasListener?: (action: CanvasButtonsActions) => void
+  isWhiteBackground?: boolean // Default: false
   className?: string
+  canvasBtnsClass?: string
 }
 
 export default function ExecutionStageDiagram<T>(props: ExecutionStageDiagramProps<T>): React.ReactElement {
@@ -62,10 +66,14 @@ export default function ExecutionStageDiagram<T>(props: ExecutionStageDiagramPro
     selectedIdentifier,
     nodeStyle = { width: 50, height: 50 },
     gridStyle = {},
+    diagramContainerHeight,
+    showStartEndNode = true,
     itemClickHandler = noop,
     itemMouseEnter = noop,
     itemMouseLeave = noop,
-    canvasListener = noop
+    canvasListener = noop,
+    isWhiteBackground = false,
+    canvasBtnsClass = ''
   } = props
 
   const nodeListeners: NodeModelListener = {
@@ -95,16 +103,23 @@ export default function ExecutionStageDiagram<T>(props: ExecutionStageDiagramPro
   model.setGridStyle(gridStyle)
 
   //update
-  model.addUpdateGraph<T>(data, { nodeListeners: nodeListeners, linkListeners: {} }, selectedIdentifier, 300)
+  model.addUpdateGraph<T>(
+    data,
+    { nodeListeners: nodeListeners, linkListeners: {}, layerListeners: {} },
+    selectedIdentifier,
+    diagramContainerHeight,
+    showStartEndNode
+  )
 
   //Load model into engine
   engine.setModel(model)
 
   return (
-    <div className={classNames(css.main, className)}>
+    <div className={classNames(css.main, { [css.whiteBackground]: isWhiteBackground }, className)}>
       <Diagram.CanvasWidget engine={engine} className={css.canvas} />
       <CanvasButtons
         engine={engine}
+        className={canvasBtnsClass}
         callback={action => {
           canvasListener(action)
         }}

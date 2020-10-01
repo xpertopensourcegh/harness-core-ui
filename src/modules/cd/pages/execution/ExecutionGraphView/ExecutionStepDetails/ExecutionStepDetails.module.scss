@@ -1,0 +1,192 @@
+.main {
+  &[data-state='right'] {
+    border-left: 1px solid var(--blue-350);
+    height: 100%;
+  }
+
+  &[data-state='bottom'] {
+    border-top: 1px solid var(--blue-350);
+    height: 100%;
+  }
+
+  &[data-state='floating'] {
+    position: fixed;
+    bottom: 0;
+    right: 60px;
+
+    .infoDialog {
+      width: 520px;
+      height: 630px;
+      box-shadow: 0px 2px 8px var(--grey-400);
+      border-radius: 8px;
+
+      .header {
+        padding: var(--spacing-large);
+      }
+    }
+  }
+
+  .stepDetails {
+    display: flex;
+    align-items: center;
+    padding: var(--spacing-none) var(--spacing-small) var(--spacing-none) var(--spacing-large);
+    background: var(--white);
+    box-shadow: 0px 2px 6px var(--grey-400) !important;
+    height: var(--spacing-xxlarge);
+    border-radius: calc(var(--spacing-xxlarge) / 2) !important;
+    user-select: none;
+
+    &.draggable {
+      cursor: move;
+    }
+  }
+
+  .infoDialog {
+    background: var(--white);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+    .header {
+      padding: var(--spacing-medium) var(--spacing-large);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .title {
+      font-weight: 500;
+      font-size: var(--font-size-normal);
+      line-height: 18px;
+      color: var(--grey-400);
+    }
+
+    .actions {
+      display: flex;
+      align-items: center;
+    }
+
+    .aligmentIcon {
+      --icon-color: var(--grey-400);
+      --icon-bg: var(--grey-200);
+      display: inline-block;
+      width: var(--spacing-large);
+      height: var(--spacing-medium);
+      background: var(--icon-bg);
+      border: 1px solid var(--icon-color);
+      border-radius: 1px;
+      cursor: pointer;
+      position: relative;
+      margin-right: var(--spacing-small);
+
+      &::before {
+        content: '';
+        display: block;
+        position: absolute;
+        background: var(--icon-color);
+        opacity: 0.7;
+      }
+
+      &.isCurrent {
+        --icon-color: var(--blue-600);
+        --icon-bg: var(--blue-200);
+      }
+
+      &:global(.right::before) {
+        width: 35%;
+        height: 100%;
+        top: 0;
+        right: 0;
+      }
+
+      &:global(.bottom::before) {
+        width: 100%;
+        height: 40%;
+        bottom: 0;
+        left: 0;
+      }
+
+      &:global(.floating::before) {
+        width: 50%;
+        height: calc(100% - 2px);
+        top: 1px;
+        right: 1px;
+      }
+
+      & > input[type='radio'] {
+        opacity: 0;
+        visibility: hidden;
+      }
+    }
+
+    .more {
+      & svg[data-icon='more'] {
+        transform: rotate(90deg);
+        transform-origin: 50% 50%;
+      }
+    }
+
+    .tabs {
+      flex: 1 1 0%;
+      display: flex;
+      flex-direction: column;
+
+      & > :global(.bp3-tab-list) {
+        width: 100%;
+        height: 30px;
+        padding: var(--spacing-none) var(--spacing-large);
+        align-items: center;
+        box-shadow: inset var(--blue-350) 0px -4px 0px;
+      }
+
+      & :global(.bp3-tab-panel) {
+        margin-top: var(--spacing-none);
+        flex: 1 1 0%;
+      }
+
+      & :global(.bp3-tab) {
+        line-height: 30px;
+        padding: var(--spacing-none) var(--spacing-small);
+      }
+
+      & :global(.bp3-tab[aria-selected='true']),
+      & :global(.bp3-tab:not([aria-disabled='true']):hover) {
+        color: var(--blue-500);
+      }
+
+      & :global(.bp3-tab-indicator-wrapper .bp3-tab-indicator) {
+        background-color: var(--blue-500);
+        height: 4px;
+      }
+    }
+  }
+}
+
+.detailsTab {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  .detailsTable {
+    border-collapse: collapse;
+    margin: var(--spacing-large) var(--spacing-xsmall);
+
+    th,
+    td {
+      padding: var(--spacing-xsmall) var(--spacing-large);
+      font-weight: 600;
+      font-size: var(--font-size-small);
+      line-height: var(--font-size-small);
+      text-align: left;
+    }
+
+    & th {
+      color: var(--grey-400);
+      width: 100px;
+    }
+
+    & td {
+      color: var(--grey-500);
+    }
+  }
+}
