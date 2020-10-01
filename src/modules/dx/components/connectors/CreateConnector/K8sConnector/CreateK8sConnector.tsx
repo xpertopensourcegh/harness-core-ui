@@ -278,13 +278,16 @@ const SecondStep = (props: SecondStepProps) => {
           })
         })}
         onSubmit={formData => {
-          const connectorData = { ...state.formData, ...formData }
+          const connectorData = {
+            ...state.formData,
+            ...formData,
+            projectIdentifier: projectIdentifier,
+            orgIdentifier: orgIdentifier
+          }
           state.setFormData(connectorData)
           if (state.delegateType === DelegateTypes.DELEGATE_IN_CLUSTER) {
             const data = {
-              ...buildKubPayload(connectorData),
-              projectIdentifier: projectIdentifier,
-              orgIdentifier: orgIdentifier
+              ...buildKubPayload(connectorData)
             }
             if (state.isEditMode) {
               handleUpdate(data)
