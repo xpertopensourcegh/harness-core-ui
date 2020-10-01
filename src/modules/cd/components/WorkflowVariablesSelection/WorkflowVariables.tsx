@@ -8,6 +8,8 @@ import { PipelineContext } from 'modules/cd/pages/pipeline-studio/PipelineContex
 import { getStageFromPipeline } from 'modules/cd/pages/pipeline-studio/StageBuilder/StageBuilderUtil'
 import { StepType } from '../../components/PipelineSteps/PipelineStepInterface'
 
+import { PredefinedOverrideSets } from '../PredefinedOverrideSets/PredefinedOverrideSets'
+
 import factory from '../../components/PipelineSteps/PipelineStepFactory'
 import i18n from './WorkflowVariables.i18n'
 
@@ -15,10 +17,12 @@ import css from './WorkflowVariables.module.scss'
 
 export default function WorkflowVariables({
   isForOverrideSets,
-  identifierName
+  identifierName,
+  isForPredefinedSets
 }: {
   isForOverrideSets: boolean
   identifierName?: string
+  isForPredefinedSets: boolean
 }): JSX.Element {
   const {
     state: {
@@ -32,11 +36,15 @@ export default function WorkflowVariables({
   // console.log(isForOverrideSets, identifierName)
   const { stage } = getStageFromPipeline(pipeline, selectedStageId || '')
   const stageSpec = stage?.['stage']?.['spec']?.['service']?.['serviceDefinition']?.['spec']
-
-  const updateVariables = (vars: Variable[]) => {
-    if (stageSpec) {
+  const predefinedSetsPath = stage?.['stage']?.['spec']?.['service']?.['stageOverrides']
+  const updateVariables = (vars: Variable[]): void => {
+    if (stageSpec || predefinedSetsPath) {
       if (!isForOverrideSets) {
-        stageSpec['variables'] = vars
+        if (isForPredefinedSets) {
+          predefinedSetsPath['variables'] = vars
+        } else {
+          stageSpec['variables'] = vars
+        }
       } else {
         const overrideSets = stageSpec['variableOverrideSets']
         overrideSets.map((variableSet: { overrideSet: { identifier: string; variables: object } }) => {
@@ -49,24 +57,31 @@ export default function WorkflowVariables({
     updatePipeline(pipeline)
   }
 
-  const getInitialValues = () => {
+  const getInitialValues = (): Variable[] => {
     if (!isForOverrideSets) {
+      if (isForPredefinedSets) {
+        return predefinedSetsPath?.['variables'] || []
+      }
       return stageSpec?.['variables'] || []
     }
-
+    if (isForPredefinedSets) {
+      return predefinedSetsPath?.['variables'] || []
+    }
     const overrideSets = stageSpec['variableOverrideSets']
     return overrideSets
-      .map((variableSet: { overrideSet: { identifier: string; variables: any } }) => {
+      .map((variableSet: { overrideSet: { identifier: string; variables: Variable[] } }) => {
         if (variableSet?.overrideSet?.identifier === identifierName) {
           return variableSet.overrideSet['variables']
         }
       })
-      .filter((x: { overrideSet: { identifier: string; variables: any } }) => x !== undefined)[0]
+      .filter((x: { overrideSet: { identifier: string; variables: Variable[] } }) => x !== undefined)[0]
   }
 
   return (
     <Layout.Vertical padding="large" style={{ background: 'var(--grey-100)', borderRadius: '5px' }}>
+      {isForPredefinedSets && <PredefinedOverrideSets context="VARIABLES" currentStage={stage} />}
       {!isForOverrideSets && <Text style={{ color: 'var(--grey-500)', lineHeight: '24px' }}>{i18n.info}</Text>}
+
       <section className={css.variablesList}>
         <StepWidget<{ variables: Variable[] }>
           factory={factory}

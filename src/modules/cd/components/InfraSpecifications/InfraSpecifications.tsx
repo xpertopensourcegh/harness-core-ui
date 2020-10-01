@@ -22,6 +22,14 @@ const infraOptions = [
   { label: i18n.nonProdLabel, value: 'PreProduction' }
 ]
 
+interface InfraDetail {
+  infraName?: string
+  description?: string
+  tags?: null | []
+  infraType?: string
+  identifier?: string
+}
+
 export default function InfraSpecifications(): JSX.Element {
   const [isDescriptionVisible, setDescriptionVisible] = React.useState(false)
   const [isTagsVisible, setTagsVisible] = React.useState(false)
@@ -38,13 +46,7 @@ export default function InfraSpecifications(): JSX.Element {
 
   const { stage } = getStageFromPipeline(pipeline, selectedStageId || '')
 
-  const getInitialValues = (): {
-    infraName: string
-    description: string
-    tags: null | []
-    infraType: string
-    identifier: string
-  } => {
+  const getInitialValues = (): InfraDetail => {
     const environment = get(stage, 'stage.spec.infrastructure.environment', null)
     const displayName = environment?.name
     const description = environment?.description
@@ -69,25 +71,77 @@ export default function InfraSpecifications(): JSX.Element {
     }
   }
 
+  const onValidate = (value: InfraDetail): void => {
+    const pipelineData = get(stage, 'stage.spec', {})
+    if (pipelineData?.infrastructure) {
+      const infraDetail = pipelineData?.infrastructure?.environment
+      if (infraDetail) {
+        infraDetail['name'] = value.infraName
+        infraDetail['identifier'] = value.identifier
+        infraDetail['description'] = value.description
+        infraDetail['type'] = value.infraType
+
+        updatePipeline(pipeline)
+      }
+    } else {
+      const infraStruct = {
+        environment: {
+          name: value.infraName,
+          identifier: value.identifier,
+          description: value.description,
+          type: value.infraType
+        },
+        infrastructureDefinition: {}
+      }
+      pipelineData['infrastructure'] = infraStruct
+      updatePipeline(pipeline)
+    }
+  }
+
+  const onUpdateDefinition = (value: K8SDirectInfrastructure): void => {
+    const infraSpec = get(stage, 'stage.spec.infrastructure', null)
+    if (infraSpec) {
+      const infraStruct = {
+        type: 'KubernetesDirect',
+        spec: {
+          connectorIdentifier: value.connectorIdentifier,
+          namespace: value.namespace,
+          releaseName: value.releaseName
+        }
+      }
+      infraSpec['infrastructureDefinition'] = infraStruct
+      updatePipeline(pipeline)
+    } else {
+      const pipelineData = get(stage, 'stage.spec', {})
+      const infra = {
+        environment: {
+          name: value.infraName,
+          identifier: value.identifier,
+          description: value.description,
+          type: value.infraType
+        },
+        infrastructureDefinition: {
+          type: 'KubernetesDirect',
+          spec: {
+            connectorIdentifier: value.connectorIdentifier,
+            namespace: value.namespace,
+            releaseName: value.releaseName
+          }
+        }
+      }
+
+      pipelineData['infrastructure'] = infra
+      updatePipeline(pipeline)
+    }
+  }
+
   return (
     <Layout.Vertical className={css.serviceOverrides}>
       <Layout.Vertical spacing="large">
         <Formik
           initialValues={getInitialValues()}
-          validate={value => {
-            const pipelineData = get(stage, 'stage.spec', {})
-            const infraStruct = {
-              environment: {
-                name: value.infraName,
-                identifier: value.identifier,
-                description: value.description,
-                type: value.infraType
-              },
-              infrastructureDefinition: {}
-            }
-            pipelineData['infrastructure'] = infraStruct
-            updatePipeline(pipeline)
-          }}
+          enableReinitialize={true}
+          validate={value => onValidate(value)}
           onSubmit={values => {
             logger.info(JSON.stringify(values))
           }}
@@ -111,7 +165,7 @@ export default function InfraSpecifications(): JSX.Element {
                       icon="plus"
                       onClick={() => setDescriptionVisible(true)}
                     />
-                    <Button minimal text={i18n.addTags} icon="plus" onClick={() => setTagsVisible(true)} />
+                    {/* <Button minimal text={i18n.addTags} icon="plus" onClick={() => setTagsVisible(true)} /> */}
                   </div>
                 </Layout.Horizontal>
 
@@ -180,22 +234,11 @@ export default function InfraSpecifications(): JSX.Element {
       </Layout.Vertical>
       <StepWidget<K8SDirectInfrastructure>
         factory={factory}
+        key={Math.random()}
         initialValues={getInitialInfraConnectorValues()}
         type={StepType.KubernetesInfraSpec}
         stepViewType={StepViewType.Edit}
-        onUpdate={value => {
-          const infraSpec = get(stage, 'stage.spec.infrastructure', {})
-          const infraStruct = {
-            type: 'KubernetesDirect',
-            spec: {
-              connectorIdentifier: value.connectorIdentifier,
-              namespace: value.namespace,
-              releaseName: value.releaseName
-            }
-          }
-          infraSpec['infrastructureDefinition'] = infraStruct
-          updatePipeline(pipeline)
-        }}
+        onUpdate={value => onUpdateDefinition(value)}
       />
     </Layout.Vertical>
   )

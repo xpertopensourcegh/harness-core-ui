@@ -2,6 +2,9 @@
 // this is an auto-generated file
 declare const styles: {
   readonly serviceOverrides: string
+  readonly serviceStageSelection: string
+  readonly activeMode: string
+  readonly propagatedropdown: string
   readonly addDataLinks: string
   readonly removeLink: string
   readonly specTabs: string

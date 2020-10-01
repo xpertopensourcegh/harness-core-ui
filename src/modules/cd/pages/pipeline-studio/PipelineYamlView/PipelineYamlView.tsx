@@ -66,6 +66,7 @@ const PipelineYamlView: React.FC = () => {
         entityType={YamlEntity.PIPELINE}
         existingJSON={{ pipeline }}
         bind={setYamlHandler}
+        height={'calc(100vh - 200px)'}
         snippets={snippets}
         onSnippetSearch={fetchSnippets}
         invocationMap={factory.getInvocationMap()}

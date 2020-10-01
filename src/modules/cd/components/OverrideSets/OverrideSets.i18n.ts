@@ -2,6 +2,7 @@ export default {
   configure: 'Configure pre-defined override sets (Advanced)',
   createOverrideSet: '+ Create new override set',
   modalTitle: 'Create Override Set',
+  overrideSetError: 'Override Set cannot be empty',
   overrideSetNamePrefix: 'Override Set:',
   overrideSetPlaceholder: 'Production',
   tabs: {

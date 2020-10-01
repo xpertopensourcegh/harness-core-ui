@@ -1,7 +1,20 @@
 .serviceOverrides {
   width: 1024px !important;
   margin: 0 auto !important;
-
+  .serviceStageSelection {
+    padding: var(--spacing-small);
+    box-shadow: 0px 1px 4px 1px var(--grey-200);
+    border-radius: 8px;
+    cursor: pointer;
+    width: 400px;
+  }
+  .activeMode {
+    border: 1px solid var(--blue-500);
+    background-color: var(--blue-100);
+  }
+  .propagatedropdown {
+    margin-top: var(--spacing-small);
+  }
   :global {
     .bp3-tab-panel {
       margin: 0;

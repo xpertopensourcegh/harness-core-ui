@@ -13,7 +13,7 @@ export default {
   deploymentTypeLabel: 'Direct Connection',
   deploymentType: 'Kubernetes',
   validation: {
-    infraName: 'Infrastructure name is required field'
+    infraName: 'Environment name is required field'
   },
   infrastructureTypeLabel: 'Type of environment',
   infrastructureTypePlaceholder: 'Select type of environment',

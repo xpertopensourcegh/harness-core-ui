@@ -53,7 +53,7 @@ export const ExecutionStrategy: React.FC<ExecutionStrategyProps> = ({ selectedSt
   const [strategiesByDeploymentType, setStrategies] = useState([])
   const [isSubmitDisabled, disableSubmit] = useState(false)
   const [selectedStrategy, setSelectedStrategy] = useState('Rolling')
-  const serviceDefinationType = get(selectedStage, 'stage.spec.service.serviceDefinition.type', null)
+  const serviceDefinationType = get(selectedStage, 'stage.spec.service.serviceDefinition.type', 'Kubernetes')
 
   const { data: strategies } = useGet({
     path: `/pipelines/strategies`,

@@ -24,6 +24,8 @@ import { FormMultiTypeConnectorField } from 'modules/common/components/Connector
 import { Scope } from 'modules/common/interfaces/SecretsInterface'
 import CreateDockerConnector from '../connectors/DockerConnector/CreateDockerConnector'
 import ExistingDockerArtifact from './DockerArtifact/ExistingDockerArtifact'
+import { PredefinedOverrideSets } from '../PredefinedOverrideSets/PredefinedOverrideSets'
+
 import i18n from './ArtifactsSelection.i18n'
 import { getStageFromPipeline } from '../../pages/pipeline-studio/StageBuilder/StageBuilderUtil'
 import css from './ArtifactsSelection.module.scss'
@@ -46,9 +48,11 @@ export interface OrganizationCreationType {
 
 export default function ArtifactsSelection({
   isForOverrideSets,
-  identifierName
+  identifierName,
+  isForPredefinedSets
 }: {
   isForOverrideSets: boolean
+  isForPredefinedSets?: boolean
   identifierName?: string
 }): JSX.Element {
   const {
@@ -87,21 +91,45 @@ export default function ArtifactsSelection({
 
   const { stage } = getStageFromPipeline(pipeline, selectedStageId || '')
 
-  const artifacts = !isForOverrideSets
-    ? get(stage, 'stage.spec.service.serviceDefinition.spec.artifacts', null)
-    : get(stage, 'stage.spec.service.serviceDefinition.spec.artifactOverrideSets', [])
+  const getArtifactsPath = (): any => {
+    if (isForOverrideSets) {
+      return get(stage, 'stage.spec.service.serviceDefinition.spec.artifactOverrideSets', [])
+    }
+    if (isForPredefinedSets) {
+      return get(stage, 'stage.spec.service.stageOverrides.artifacts', [])
+    }
+    return get(stage, 'stage.spec.service.serviceDefinition.spec.artifacts', null)
+  }
 
-  const primaryArtifact = !isForOverrideSets
-    ? get(stage, 'stage.spec.service.serviceDefinition.spec.artifacts.primary', null)
-    : getPrimaryArtifactByIdentifier()
+  const getPrimaryArtifactPath = (): any => {
+    if (isForOverrideSets) {
+      return getPrimaryArtifactByIdentifier()
+    }
+    if (isForPredefinedSets) {
+      return get(stage, 'stage.spec.service.stageOverrides.artifacts.primary', null)
+    }
+    return get(stage, 'stage.spec.service.serviceDefinition.spec.artifacts.primary', null)
+  }
+
+  const getSidecarPath = (): any => {
+    if (isForOverrideSets) {
+      return getSidecarArtifactByIdentifier()
+    }
+    if (isForPredefinedSets) {
+      return get(stage, 'stage.spec.service.stageOverrides.artifacts.sidecars', [])
+    }
+    return get(stage, 'stage.spec.service.serviceDefinition.spec.artifacts.sidecars', [])
+  }
+
+  const artifacts = getArtifactsPath()
+
+  const primaryArtifact = getPrimaryArtifactPath()
 
   const primaryArtifactType = 'Dockerhub'
 
   // const sideCarArtifact = get(stage, 'stage.spec.service.serviceDefinition.spec.artifacts.sidecars', [])
 
-  const sideCarArtifact = !isForOverrideSets
-    ? get(stage, 'stage.spec.service.serviceDefinition.spec.artifacts.sidecars', [])
-    : getSidecarArtifactByIdentifier()
+  const sideCarArtifact = getSidecarPath()
 
   const DIALOG_PROPS: IDialogProps = {
     isOpen: true,
@@ -131,19 +159,25 @@ export default function ArtifactsSelection({
   }): void => {
     if (context === ModalViewFor.PRIMARY) {
       if (isForOverrideSets) {
-        artifacts.map((artifact: { overrideSet: { identifier: string; artifacts: object } }) => {
-          if (artifact?.overrideSet?.identifier === identifierName) {
-            artifact.overrideSet.artifacts = {
-              primary: {
-                type: primaryArtifactType,
-                spec: {
-                  dockerhubConnector: data.connectorId?.value ? data.connectorId.value : data.connectorId,
-                  imagePath: data.imagePath
+        artifacts.map(
+          (artifact: { overrideSet: { identifier: string; artifacts: { primary: object; sidecars?: [] } } }) => {
+            if (artifact?.overrideSet?.identifier === identifierName) {
+              const sideCars = artifact?.overrideSet.artifacts.sidecars
+              artifact.overrideSet.artifacts = {
+                primary: {
+                  type: primaryArtifactType,
+                  spec: {
+                    dockerhubConnector: data.connectorId?.value ? data.connectorId.value : data.connectorId,
+                    imagePath: data.imagePath
+                  }
                 }
+              }
+              if (sideCars) {
+                artifact.overrideSet.artifacts['sidecars'] = sideCars
               }
             }
           }
-        })
+        )
       } else {
         artifacts['primary'] = {
           type: primaryArtifactType,
@@ -179,7 +213,7 @@ export default function ArtifactsSelection({
               if (artifact.overrideSet.artifacts['sidecars']) {
                 artifact.overrideSet.artifacts['sidecars'].push({ sidecar: sideCarObject })
               } else {
-                const primary = artifact.overrideSet.artifacts?.primary || {}
+                const primary = artifact.overrideSet.artifacts?.primary || null
 
                 artifact.overrideSet.artifacts = {
                   primary: primary,
@@ -379,7 +413,17 @@ export default function ArtifactsSelection({
   }
 
   const removePrimary = (): void => {
-    artifacts['primary'] = null
+    if (isForOverrideSets) {
+      artifacts.map(
+        (artifact: { overrideSet: { identifier: string; artifacts: { primary: object | null; sidecars: [] } } }) => {
+          if (artifact?.overrideSet?.identifier === identifierName) {
+            artifact.overrideSet.artifacts['primary'] = null
+          }
+        }
+      )
+    } else {
+      artifacts['primary'] = null
+    }
     updatePipeline(pipeline)
   }
 
@@ -393,6 +437,7 @@ export default function ArtifactsSelection({
       padding={!isForOverrideSets ? 'large' : 'none'}
       style={{ background: !isForOverrideSets ? 'var(--grey-100)' : '' }}
     >
+      {isForPredefinedSets && <PredefinedOverrideSets context="ARTIFACT" currentStage={stage} />}
       {!isForOverrideSets && <Text style={{ color: 'var(--grey-500)', lineHeight: '24px' }}>{i18n.info}</Text>}
 
       <Layout.Vertical spacing="small">

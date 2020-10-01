@@ -26,5 +26,8 @@ export default {
     'You can override manifests files, variables etc for each stage. You can also use pre-defined override sets from the service specification. ',
   validation: {
     serviceName: 'Service name is required field'
-  }
+  },
+  propagateFromLabel: 'Propagate From:',
+  or: 'or',
+  deployDifferentLabel: 'Deploy different service'
 }

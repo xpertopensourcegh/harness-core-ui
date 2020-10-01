@@ -1,3 +1,4 @@
+import { flatMap, findIndex } from 'lodash-es'
 import { v4 as uuid } from 'uuid'
 import type { IconName } from '@wings-software/uikit'
 import type { NodeModelListener, LinkModelListener, DiagramEngine } from '@projectstorm/react-diagrams-core'
@@ -81,6 +82,42 @@ export const getStageFromPipeline = (
   })
 
   return { stage, parent }
+}
+
+export const getStageIndexFromPipeline = (data: StageElementWrapper, identifier: string): { index: number } => {
+  let _index = 0
+
+  let stages = []
+  stages = flatMap(data.stages, (n: StageElementWrapper) => {
+    const k = []
+    if (n.parallel) {
+      k.push(...n['parallel'])
+    } else {
+      k.push(n)
+    }
+    return k
+  })
+
+  _index = findIndex(stages, o => o.stage.identifier === identifier)
+  return { index: _index }
+}
+
+export const getPrevoiusStageFromIndex = (
+  data: StageElementWrapper
+): {
+  stages: StageElementWrapper[]
+} => {
+  let stages = []
+  stages = flatMap(data.stages, (n: StageElementWrapper) => {
+    const k = []
+    if (n.parallel) {
+      k.push(...n['parallel'])
+    } else {
+      k.push(n)
+    }
+    return k
+  })
+  return { stages }
 }
 
 export const removeNodeFromPipeline = (

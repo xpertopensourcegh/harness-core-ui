@@ -3,5 +3,6 @@
 declare const styles: {
   readonly collapseContainer: string
   readonly crossIcon: string
+  readonly error: string
 }
 export default styles

@@ -16,7 +16,7 @@ export default function OverrideSets({ selectedTab }: { selectedTab: string }): 
   const initialName = ''
   const [overrideName, setOverrideName] = React.useState(initialName)
   const [isModalOpen, setModalState] = React.useState(false)
-
+  const [isErrorVisible, setErrorVisibility] = React.useState(false)
   const {
     state: {
       pipeline,
@@ -39,13 +39,13 @@ export default function OverrideSets({ selectedTab }: { selectedTab: string }): 
       : 'variableOverrideSets')
   const currentVisibleOverridesList = get(stage, currentListPath, [])
 
-  const createOverrideSet = (idName: string) => {
+  const createOverrideSet = (idName: string): void => {
     if (selectedTab === i18n.tabs.artifacts) {
       const artifactOverrideSets = get(stage, serviceDefPath + '.artifactOverrideSets', [])
       const artifactOverrideSetsStruct = {
         overrideSet: {
           identifier: idName,
-          artifacts: []
+          artifacts: {}
         }
       }
       artifactOverrideSets.push(artifactOverrideSetsStruct)
@@ -81,7 +81,21 @@ export default function OverrideSets({ selectedTab }: { selectedTab: string }): 
     title: i18n.modalTitle,
     canOutsideClickClose: true,
     enforceFocus: true,
-    style: { width: 450, height: 200, paddingBottom: 0, borderLeftWidth: 5, position: 'relative', overflow: 'hidden' }
+    onClose: () => {
+      setOverrideName(initialName)
+      setModalState(false)
+    },
+    style: { width: 450, height: 215, paddingBottom: 0, borderLeftWidth: 5, position: 'relative', overflow: 'hidden' }
+  }
+
+  const onSubmitOverride = () => {
+    if (!overrideName) {
+      setErrorVisibility(true)
+      return
+    }
+    createOverrideSet(overrideName)
+    setModalState(false)
+    setOverrideName(initialName)
   }
 
   return (
@@ -106,14 +120,26 @@ export default function OverrideSets({ selectedTab }: { selectedTab: string }): 
                 }}
               >
                 {selectedTab === i18n.tabs.artifacts && (
-                  <ArtifactsSelection isForOverrideSets={true} identifierName={data.overrideSet.identifier} />
+                  <ArtifactsSelection
+                    isForOverrideSets={true}
+                    identifierName={data.overrideSet.identifier}
+                    isForPredefinedSets={false}
+                  />
                 )}
                 {selectedTab === i18n.tabs.manifests && (
-                  <ManifestSelection isForOverrideSets={true} identifierName={data.overrideSet.identifier} />
+                  <ManifestSelection
+                    isForOverrideSets={true}
+                    identifierName={data.overrideSet.identifier}
+                    isForPredefinedSets={false}
+                  />
                 )}
                 {/* {selectedTab === i18n.tabs.variables && <WorkflowVariables />} */}
                 {selectedTab === i18n.tabs.variables && (
-                  <WorkflowVariables isForOverrideSets={true} identifierName={data.overrideSet.identifier} />
+                  <WorkflowVariables
+                    isForOverrideSets={true}
+                    identifierName={data.overrideSet.identifier}
+                    isForPredefinedSets={false}
+                  />
                 )}
               </CollapseListPanel>
             )
@@ -135,27 +161,21 @@ export default function OverrideSets({ selectedTab }: { selectedTab: string }): 
                 e.preventDefault()
                 const element = e.currentTarget as HTMLInputElement
                 const elementValue = element.value
+                setErrorVisibility(false)
                 setOverrideName(elementValue)
               }}
             />
             <Layout.Horizontal spacing="medium">
+              <Button intent="primary" onClick={onSubmitOverride} text="Submit" />
               <Button
-                intent="primary"
-                onClick={() => {
-                  createOverrideSet(overrideName)
-                  setModalState(false)
-                  setOverrideName(initialName)
-                }}
-                text="Submit"
-              />
-              <Button
-                text="close"
+                text="Close"
                 onClick={() => {
                   setModalState(false)
                   setOverrideName(initialName)
                 }}
               />
             </Layout.Horizontal>
+            {isErrorVisible && <section className={css.error}>{i18n.overrideSetError}</section>}
           </Layout.Vertical>
         </Dialog>
       )}

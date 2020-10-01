@@ -104,7 +104,9 @@ const SecondStep = (props: any): JSX.Element => {
   const prevData = props?.prevStepData
   const manifests = props.isForOverrideSets
     ? get(props.stage, 'stage.spec.service.serviceDefinition.spec.manifestOverrideSets', [])
-    : get(props.stage, 'stage.spec.service.serviceDefinition.spec.manifests', [])
+    : !props.isForPredefinedSets
+    ? get(props.stage, 'stage.spec.service.serviceDefinition.spec.manifests', [])
+    : get(props.stage, 'stage.spec.service.stageOverrides.manifests', [])
   return (
     <Layout.Vertical spacing="xxlarge" padding="small" style={{ height: '100%' }}>
       <Text font="medium">{i18n.STEP_TWO.title}</Text>
@@ -157,14 +159,14 @@ const SecondStep = (props: any): JSX.Element => {
             <FormInput.Select name="gitFetchType" label={i18n.STEP_TWO.gitFetchTypeLabel} items={gitFetchTypes} />
 
             {formik.values?.gitFetchType === gitFetchTypes[0].value && (
-              <FormInput.Text
+              <FormInput.MultiTextInput
                 label={i18n.STEP_TWO.branchLabel}
                 placeholder={i18n.STEP_TWO.branchPlaceholder}
                 name="branch"
               />
             )}
             {formik.values?.gitFetchType === gitFetchTypes[1].value && (
-              <FormInput.Text
+              <FormInput.MultiTextInput
                 label={i18n.STEP_TWO.commitLabel}
                 placeholder={i18n.STEP_TWO.commitPlaceholder}
                 name="commitId"
@@ -172,7 +174,7 @@ const SecondStep = (props: any): JSX.Element => {
             )}
 
             {/* <FormInput.Text label={i18n.STEP_TWO.fetchValue} name="fetchValue" /> */}
-            <FormInput.Text label={i18n.STEP_TWO.filePath} name="filePath" />
+            <FormInput.MultiTextInput label={i18n.STEP_TWO.filePath} name="filePath" />
 
             <Layout.Horizontal spacing="large" className={css.bottomButtons}>
               <Button onClick={() => props.previousStep({})} text={i18n.STEP_TWO.back} />
@@ -192,6 +194,7 @@ export const ManifestWizard = ({
   pipeline,
   updatePipeline,
   isForOverrideSets,
+  isForPredefinedSets,
   identifierName,
   stage
 }: {
@@ -202,6 +205,7 @@ export const ManifestWizard = ({
   isForOverrideSets?: boolean
   identifierName?: string
   stage: StageElementWrapper | undefined
+  isForPredefinedSets?: boolean
 }): JSX.Element => {
   const [formData, setFormData] = useState({})
 
@@ -215,6 +219,7 @@ export const ManifestWizard = ({
           setFormData={setFormData}
           identifier={identifier}
           isForOverrideSets={isForOverrideSets}
+          isForPredefinedSets={isForPredefinedSets}
           identifierName={identifierName}
           pipeline={pipeline}
           stage={stage}

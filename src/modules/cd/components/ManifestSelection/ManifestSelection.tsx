@@ -8,6 +8,7 @@ import type { StageElementWrapper, NgPipeline } from 'services/cd-ng'
 import { getStageFromPipeline } from 'modules/cd/pages/pipeline-studio/StageBuilder/StageBuilderUtil'
 import { PipelineContext } from '../../pages/pipeline-studio/PipelineContext/PipelineContext'
 import { ManifestWizard } from './ManifestWizardSteps/ManifestWizard'
+import { PredefinedOverrideSets } from '../PredefinedOverrideSets/PredefinedOverrideSets'
 import i18n from './ManifestSelection.i18n'
 import css from './ManifestSelection.module.scss'
 
@@ -35,7 +36,8 @@ function AddManifestRender({
   identifierName,
   pipeline,
   updatePipeline,
-  stage
+  stage,
+  isForPredefinedSets
 }: {
   identifier: string
   pipeline: object
@@ -43,6 +45,7 @@ function AddManifestRender({
   isForOverrideSets: boolean
   identifierName?: string
   stage: StageElementWrapper | undefined
+  isForPredefinedSets?: boolean
 }): JSX.Element {
   const modalPropsLight: IDialogProps = {
     isOpen: true,
@@ -61,6 +64,7 @@ function AddManifestRender({
         identifier={identifier}
         pipeline={pipeline}
         isForOverrideSets={isForOverrideSets}
+        isForPredefinedSets={isForPredefinedSets}
         identifierName={identifierName}
         stage={stage}
         updatePipeline={updatePipeline}
@@ -84,7 +88,8 @@ function ManifestListView({
   updatePipeline,
   identifierName,
   isForOverrideSets,
-  stage
+  stage,
+  isForPredefinedSets
 }: {
   identifier: string
   pipeline: NgPipeline
@@ -92,6 +97,7 @@ function ManifestListView({
   updatePipeline: (pipeline: NgPipeline) => Promise<void>
   identifierName?: string
   stage: StageElementWrapper | undefined
+  isForPredefinedSets: boolean
 }): JSX.Element {
   const modalPropsLight: IDialogProps = {
     isOpen: true,
@@ -119,7 +125,9 @@ function ManifestListView({
   ))
 
   let listOfManifests = !isForOverrideSets
-    ? get(stage, 'stage.spec.service.serviceDefinition.spec.manifests', [])
+    ? !isForPredefinedSets
+      ? get(stage, 'stage.spec.service.serviceDefinition.spec.manifests', [])
+      : get(stage, 'stage.spec.service.stageOverrides.manifests', [])
     : get(stage, 'stage.spec.service.serviceDefinition.spec.manifestOverrideSets', [])
 
   if (isForOverrideSets) {
@@ -241,10 +249,12 @@ function ManifestListView({
 
 export default function ManifestSelection({
   isForOverrideSets,
-  identifierName
+  identifierName,
+  isForPredefinedSets = false
 }: {
   isForOverrideSets: boolean
   identifierName?: string
+  isForPredefinedSets: boolean
 }): JSX.Element {
   const {
     state: {
@@ -258,9 +268,13 @@ export default function ManifestSelection({
 
   const { stage } = getStageFromPipeline(pipeline, selectedStageId || '')
   const identifier = selectedStageId || 'stage-identifier'
+
   let listOfManifests = !isForOverrideSets
-    ? get(stage, 'stage.spec.service.serviceDefinition.spec.manifests', [])
+    ? !isForPredefinedSets
+      ? get(stage, 'stage.spec.service.serviceDefinition.spec.manifests', [])
+      : get(stage, 'stage.spec.service.stageOverrides.manifests', [])
     : get(stage, 'stage.spec.service.serviceDefinition.spec.manifestOverrideSets', [])
+
   if (isForOverrideSets) {
     listOfManifests = listOfManifests
       .map((overrideSets: { overrideSet: { identifier: string; manifests: [{}] } }) => {
@@ -276,12 +290,14 @@ export default function ManifestSelection({
       padding={!isForOverrideSets ? 'large' : 'none'}
       style={{ background: !isForOverrideSets ? 'var(--grey-100)' : '' }}
     >
+      {isForPredefinedSets && <PredefinedOverrideSets context="MANIFEST" currentStage={stage} />}
       {!isForOverrideSets && <Text style={{ color: 'var(--grey-500)', lineHeight: '24px' }}>{i18n.info}</Text>}
       {(!listOfManifests || listOfManifests.length === 0) && (
         <AddManifestRender
           identifier={identifier}
           pipeline={pipeline}
           isForOverrideSets={isForOverrideSets}
+          isForPredefinedSets={isForPredefinedSets}
           identifierName={identifierName}
           updatePipeline={updatePipeline}
           stage={stage}
@@ -295,6 +311,7 @@ export default function ManifestSelection({
           stage={stage}
           isForOverrideSets={isForOverrideSets}
           identifierName={identifierName}
+          isForPredefinedSets={isForPredefinedSets}
         />
       )}
     </Layout.Vertical>
