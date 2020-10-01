@@ -23,7 +23,7 @@ const processExecutionData = (
           icon: 'pipeline-deploy',
           identifier: cdStage.stageIdentifier || '',
           name: cdStage.stageName || '',
-          status: cdStage.pipelineExecutionStatus as any,
+          status: cdStage.executionStatus as any,
           type: ExecutionPipelineNodeType.NORMAL,
           data: cdStage
         }
@@ -51,7 +51,6 @@ export default function ExecutionGraph(props: ExecutionGraphProps): React.ReactE
         itemClickHandler={e => {
           props.onSelectedStage(e.stage.identifier)
         }}
-        showStartEndNode={false}
         diagramContainerHeight={props.graphSize}
         data={data}
         nodeStyle={{

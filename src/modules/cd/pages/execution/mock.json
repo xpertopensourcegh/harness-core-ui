@@ -20,7 +20,7 @@
           "CDStage": {
             "planExecutionId": "planExecutionIdcdStageDone",
             "stageIdentifier": "stageIdentifiercdStageDone",
-            "stageName": "dev",
+            "stageName": "Done Stage",
             "artifactsDeployed": [
               {
                 "identifier": "artifactIdentifier",
@@ -37,13 +37,95 @@
           }
         },
         {
+          "CDStage": {
+            "planExecutionId": "planExecutionIdcdStageWaiting",
+            "stageIdentifier": "stageIdentifiercdStageWaiting",
+            "stageName": "Waiting Stage",
+            "artifactsDeployed": [
+              {
+                "identifier": "artifactIdentifier",
+                "artifactStream": null
+              }
+            ],
+            "deploymentType": "Kubernetes",
+            "executionStatus": "WAITING",
+            "startedAt": 0,
+            "endedAt": 10,
+            "serviceIdentifier": "serviceIdentifiercdStageWaiting",
+            "envIdentifier": "environmentIdentifiercdStageWaiting",
+            "errorMsg": null
+          }
+        },
+
+        {
+          "CDStage": {
+            "planExecutionId": "planExecutionIdcdStagePaused",
+            "stageIdentifier": "stageIdentifiercdStagePaused",
+            "stageName": "Paused Stage",
+            "artifactsDeployed": [
+              {
+                "identifier": "artifactIdentifier",
+                "artifactStream": null
+              }
+            ],
+            "deploymentType": "Kubernetes",
+            "executionStatus": "PAUSED",
+            "startedAt": 0,
+            "endedAt": 10,
+            "serviceIdentifier": "serviceIdentifiercdStagePaused",
+            "envIdentifier": "environmentIdentifiercdStagePaused",
+            "errorMsg": null
+          }
+        },
+
+        {
+          "CDStage": {
+            "planExecutionId": "planExecutionIdcdStageFailed",
+            "stageIdentifier": "stageIdentifiercdStageFailed",
+            "stageName": "Failed Stage",
+            "artifactsDeployed": [
+              {
+                "identifier": "artifactIdentifier",
+                "artifactStream": null
+              }
+            ],
+            "deploymentType": "Kubernetes",
+            "executionStatus": "FAILED",
+            "startedAt": 0,
+            "endedAt": 10,
+            "serviceIdentifier": "serviceIdentifiercdStageFailed",
+            "envIdentifier": "environmentIdentifiercdStageFailed",
+            "errorMsg": null
+          }
+        },
+        {
+          "CDStage": {
+            "planExecutionId": "planExecutionIdcdStageError",
+            "stageIdentifier": "stageIdentifiercdStageError",
+            "stageName": "Error Stage",
+            "artifactsDeployed": [
+              {
+                "identifier": "artifactIdentifier",
+                "artifactStream": null
+              }
+            ],
+            "deploymentType": "Kubernetes",
+            "executionStatus": "ERROR",
+            "startedAt": 0,
+            "endedAt": 10,
+            "serviceIdentifier": "serviceIdentifiercdStageError",
+            "envIdentifier": "environmentIdentifiercdStageError",
+            "errorMsg": null
+          }
+        },
+        {
           "parallel": {
             "stageExecutions": [
               {
                 "CDStage": {
                   "planExecutionId": "planExecutionIdparallelStage1",
                   "stageIdentifier": "stageIdentifierparallelStage1",
-                  "stageName": "dev",
+                  "stageName": "Running Stage1",
                   "artifactsDeployed": [
                     {
                       "identifier": "artifactIdentifier",
@@ -63,7 +145,7 @@
                 "CDStage": {
                   "planExecutionId": "planExecutionIdparallelStage2",
                   "stageIdentifier": "stageIdentifierparallelStage2",
-                  "stageName": "dev",
+                  "stageName": "Running Stage 2",
                   "artifactsDeployed": [
                     {
                       "identifier": "artifactIdentifier",
@@ -80,6 +162,26 @@
                 }
               }
             ]
+          }
+        },
+        {
+          "CDStage": {
+            "planExecutionId": "planExecutionIdcdStageNotStarted",
+            "stageIdentifier": "stageIdentifiercdStageNotStarted",
+            "stageName": "Not Started Stage",
+            "artifactsDeployed": [
+              {
+                "identifier": "artifactIdentifier",
+                "artifactStream": null
+              }
+            ],
+            "deploymentType": "Kubernetes",
+            "executionStatus": "NOT_STARTED",
+            "startedAt": 0,
+            "endedAt": 10,
+            "serviceIdentifier": "serviceIdentifiercdStageNotStarted",
+            "envIdentifier": "environmentIdentifiercdStageNotStarted",
+            "errorMsg": null
           }
         }
       ],

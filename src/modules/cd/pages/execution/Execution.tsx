@@ -16,7 +16,7 @@ import ExecutionContext from './ExecutionContext/ExecutionContext'
 import ExecutionMetadata from './ExecutionMetadata/ExecutionMetadata'
 import ExecutionTabs from './ExecutionTabs/ExecutionTabs'
 import RightBar from './RightBar/RightBar'
-import mock from './mock.json'
+// import mock from './mock.json'
 
 import css from './Execution.module.scss'
 
@@ -45,14 +45,14 @@ export default function Execution(props: React.PropsWithChildren<{}>): React.Rea
   const lastCalled = React.useRef<null | number>(null)
 
   const { data, loading, refetch } = useGetPipelineExecutionDetail({
-    planExecutionId: pipelineIdentifier,
+    planExecutionId: executionIdentifier,
     queryParams: {
       orgIdentifier,
       projectIdentifier,
       accountIdentifier: accountId,
       stageIdentifier: queryParams.stage as string
-    },
-    mock: { data: mock as any, loading: false }
+    }
+    // mock: { data: mock as any, loading: false }
   })
 
   React.useEffect(() => {
@@ -102,7 +102,9 @@ export default function Execution(props: React.PropsWithChildren<{}>): React.Rea
             <div className={css.headerTopRow}>
               <div className={css.titleContainer}>
                 <div className={css.title}>{loading ? null : data?.data?.pipelineExecution?.pipelineName}</div>
-                <ExecutionStatusLabel status={data?.data?.pipelineExecution?.executionStatus as ExecutionStatus} />
+                {data?.data?.pipelineExecution?.executionStatus && (
+                  <ExecutionStatusLabel status={data.data.pipelineExecution.executionStatus as ExecutionStatus} />
+                )}
               </div>
               <div className={css.statusBar}>
                 <Duration

@@ -3,7 +3,7 @@ import { Button, Layout, TextInput, Text, Popover } from '@wings-software/uikit'
 import { useHistory, useParams } from 'react-router-dom'
 import { Menu, Position, MenuItem } from '@blueprintjs/core'
 import { Page, useToaster } from 'modules/common/exports'
-import { routeCDPipelineStudio, routePipelineDetail } from 'modules/cd/routes'
+import { routeCDPipelineExecutionGraph, routeCDPipelineStudio, routePipelineDetail } from 'modules/cd/routes'
 import { useGetPipelineList, usePostPipelineExecute } from 'services/cd-ng'
 import i18n from './CDPipelinesPage.i18n'
 import { PipelineGridView } from './views/PipelineGridView'
@@ -42,6 +42,14 @@ const CDPipelinesPage: React.FC = () => {
           const response = await runPipeline(undefined, { pathParams: { identifier } })
           if (response.status === 'SUCCESS') {
             showSuccess(i18n.pipelineStarted)
+            history.push(
+              routeCDPipelineExecutionGraph.url({
+                orgIdentifier,
+                pipelineIdentifier: identifier,
+                projectIdentifier,
+                executionIdentifier: response.data?.uuid || ''
+              })
+            )
           }
         } catch (error) {
           showWarning(error?.data?.message || i18n.runPipelineFailed)
