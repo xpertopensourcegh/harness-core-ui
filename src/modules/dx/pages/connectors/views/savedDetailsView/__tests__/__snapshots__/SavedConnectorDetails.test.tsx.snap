@@ -1,0 +1,508 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Saved Connector Details render for Docker schema 1`] = `
+<div>
+  <div
+    class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---margin-bottom-large--1jL3"
+  >
+    <p
+      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+    >
+      
+    </p>
+    <p
+      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+    >
+      DockerName
+    </p>
+  </div>
+  <div
+    class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---margin-bottom-large--1jL3"
+  >
+    <p
+      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+    >
+      Description
+    </p>
+    <p
+      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+    >
+      This description is for Docker
+    </p>
+  </div>
+  <div
+    class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---margin-bottom-large--1jL3"
+  >
+    <p
+      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+    >
+      Identifier
+    </p>
+    <p
+      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+    >
+      DockerId
+    </p>
+  </div>
+  <div
+    class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---margin-bottom-large--1jL3"
+  >
+    <p
+      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+    >
+      Tags
+    </p>
+    <div
+      class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+    >
+      <span
+        class="Tag---main--1vng"
+      >
+        <span
+          class="bp3-tag bp3-minimal"
+        >
+          <span
+            class="bp3-text-overflow-ellipsis bp3-fill"
+          >
+            tag1
+          </span>
+        </span>
+      </span>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Saved Connector Details render for GitHttp schema 1`] = `
+<div>
+  <div
+    class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---margin-bottom-large--1jL3"
+  >
+    <p
+      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+    >
+      GIT Connector Name
+    </p>
+    <p
+      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+    >
+      GitHttpName
+    </p>
+  </div>
+  <div
+    class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---margin-bottom-large--1jL3"
+  >
+    <p
+      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+    >
+      Description
+    </p>
+    <p
+      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+    >
+      This description is for Git
+    </p>
+  </div>
+  <div
+    class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---margin-bottom-large--1jL3"
+  >
+    <p
+      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+    >
+      Identifier
+    </p>
+    <p
+      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+    >
+      GitHttpId
+    </p>
+  </div>
+  <div
+    class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---margin-bottom-large--1jL3"
+  >
+    <p
+      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+    >
+      Tags
+    </p>
+    <div
+      class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+    >
+      <span
+        class="Tag---main--1vng"
+      >
+        <span
+          class="bp3-tag bp3-minimal"
+        >
+          <span
+            class="bp3-text-overflow-ellipsis bp3-fill"
+          >
+            tag1
+          </span>
+        </span>
+      </span>
+    </div>
+  </div>
+  <div
+    class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---margin-bottom-large--1jL3"
+  >
+    <p
+      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+    >
+      Configured
+    </p>
+    <p
+      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+    >
+      REPO
+    </p>
+  </div>
+  <div
+    class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---margin-bottom-large--1jL3"
+  >
+    <p
+      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+    >
+      Connection Type
+    </p>
+    <p
+      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+    >
+      HTTP
+    </p>
+  </div>
+  <div
+    class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---margin-bottom-large--1jL3"
+  >
+    <p
+      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+    >
+      URL
+    </p>
+    <p
+      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+    >
+      url
+    </p>
+  </div>
+  <div
+    class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---margin-bottom-large--1jL3"
+  >
+    <p
+      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+    >
+      Username
+    </p>
+    <p
+      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+    >
+      user name
+    </p>
+  </div>
+  <div
+    class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---margin-bottom-large--1jL3"
+  >
+    <p
+      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+    >
+      Password
+    </p>
+    <p
+      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey350--3j5q"
+    >
+      encrypted
+    </p>
+  </div>
+</div>
+`;
+
+exports[`Saved Connector Details render for Inline K8s schema 1`] = `
+<div>
+  <div
+    class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---margin-bottom-large--1jL3"
+  >
+    <p
+      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+    >
+      Kubernetes Connector Name
+    </p>
+    <p
+      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+    >
+      K8sName
+    </p>
+  </div>
+  <div
+    class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---margin-bottom-large--1jL3"
+  >
+    <p
+      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+    >
+      Description
+    </p>
+    <p
+      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+    >
+      This description is for K8s
+    </p>
+  </div>
+  <div
+    class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---margin-bottom-large--1jL3"
+  >
+    <p
+      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+    >
+      Identifier
+    </p>
+    <p
+      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+    >
+      k8sId
+    </p>
+  </div>
+  <div
+    class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---margin-bottom-large--1jL3"
+  >
+    <p
+      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+    >
+      Tags
+    </p>
+    <div
+      class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+    >
+      <span
+        class="Tag---main--1vng"
+      >
+        <span
+          class="bp3-tag bp3-minimal"
+        >
+          <span
+            class="bp3-text-overflow-ellipsis bp3-fill"
+          >
+            tag1
+          </span>
+        </span>
+      </span>
+    </div>
+  </div>
+  <div
+    class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---margin-bottom-large--1jL3"
+  >
+    <p
+      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+    >
+      Connection Mode
+    </p>
+    <p
+      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+    >
+      Harness Delegate running In-Cluster
+    </p>
+  </div>
+  <div
+    class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---margin-bottom-large--1jL3"
+  >
+    <p
+      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+    >
+      Delegate Name
+    </p>
+    <p
+      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+    >
+      kubernetes
+    </p>
+  </div>
+</div>
+`;
+
+exports[`Saved Connector Details render for Manual K8s schema 1`] = `
+<div>
+  <div
+    class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---margin-bottom-large--1jL3"
+  >
+    <p
+      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+    >
+      Kubernetes Connector Name
+    </p>
+    <p
+      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+    >
+      K8sName
+    </p>
+  </div>
+  <div
+    class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---margin-bottom-large--1jL3"
+  >
+    <p
+      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+    >
+      Description
+    </p>
+    <p
+      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+    >
+      This description is for K8s
+    </p>
+  </div>
+  <div
+    class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---margin-bottom-large--1jL3"
+  >
+    <p
+      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+    >
+      Identifier
+    </p>
+    <p
+      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+    >
+      k8sId
+    </p>
+  </div>
+  <div
+    class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---margin-bottom-large--1jL3"
+  >
+    <p
+      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+    >
+      Connection Mode
+    </p>
+    <p
+      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+    >
+      Harness Delegate running Out-of-Cluster
+    </p>
+  </div>
+  <div
+    class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---margin-bottom-large--1jL3"
+  >
+    <p
+      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+    >
+      Master URL
+    </p>
+    <p
+      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+    >
+      master url
+    </p>
+  </div>
+  <div
+    class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---margin-bottom-large--1jL3"
+  >
+    <p
+      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+    >
+      Credential Type
+    </p>
+    <p
+      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+    >
+      Username and Password
+    </p>
+  </div>
+  <div
+    class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---margin-bottom-large--1jL3"
+  >
+    <p
+      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+    >
+      Username
+    </p>
+    <p
+      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+    >
+      user name
+    </p>
+  </div>
+  <div
+    class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---margin-bottom-large--1jL3"
+  >
+    <p
+      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+    >
+      Password
+    </p>
+    <p
+      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey350--3j5q"
+    >
+      encrypted
+    </p>
+  </div>
+</div>
+`;
+
+exports[`Saved Connector Details render for Vault schema 1`] = `
+<div>
+  <div
+    class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---margin-bottom-large--1jL3"
+  >
+    <p
+      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+    >
+      
+    </p>
+    <p
+      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+    >
+      VaultName
+    </p>
+  </div>
+  <div
+    class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---margin-bottom-large--1jL3"
+  >
+    <p
+      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+    >
+      Description
+    </p>
+    <p
+      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+    >
+      This description is for Vault
+    </p>
+  </div>
+  <div
+    class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---margin-bottom-large--1jL3"
+  >
+    <p
+      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+    >
+      Identifier
+    </p>
+    <p
+      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+    >
+      VaultId
+    </p>
+  </div>
+  <div
+    class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---margin-bottom-large--1jL3"
+  >
+    <p
+      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+    >
+      Tags
+    </p>
+    <div
+      class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+    >
+      <span
+        class="Tag---main--1vng"
+      >
+        <span
+          class="bp3-tag bp3-minimal"
+        >
+          <span
+            class="bp3-text-overflow-ellipsis bp3-fill"
+          >
+            tag1
+          </span>
+        </span>
+      </span>
+    </div>
+  </div>
+</div>
+`;

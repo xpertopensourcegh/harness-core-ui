@@ -1,0 +1,56 @@
+{
+  "status": "SUCCESS",
+  "data": {
+    "content": [
+      {
+        "accountIdentifier": "accountId",
+        "referredEntityFQN": "accountId/harnessSecretManager",
+        "referredEntityName": "Harness Secrets Manager",
+        "referredEntityType": "connectors",
+        "referredByEntityFQN": "accountId/njghjk",
+        "referredByEntityType": "secrets",
+        "referredByEntityName": "Sample Secret",
+        "createdAt": 1601455231251
+      },
+      {
+        "accountIdentifier": "accountId",
+        "referredEntityFQN": "accountId/harnessSecretManager",
+        "referredEntityName": "Harness Secrets Manager",
+        "referredEntityType": "connectors",
+        "referredByEntityFQN": "accountId/fjhkjpasswordRef",
+        "referredByEntityType": "pipelines",
+        "referredByEntityName": "Sample pipeline",
+        "createdAt": 1601398588954
+      },
+      {
+        "accountIdentifier": "accountId",
+        "referredEntityFQN": "accountId/harnessSecretManager",
+        "referredEntityName": "Harness Secrets Manager",
+        "referredEntityType": "connectors",
+        "referredByEntityFQN": "accountId/dpckerpasswordRef",
+        "referredByEntityType": "projects",
+        "referredByEntityName": "Sample project",
+        "createdAt": 1601355284118
+      }
+    ],
+    "pageable": {
+      "sort": { "sorted": true, "unsorted": false, "empty": false },
+      "offset": 0,
+      "pageSize": 10,
+      "pageNumber": 0,
+      "paged": true,
+      "unpaged": false
+    },
+    "totalPages": 15,
+    "totalElements": 144,
+    "last": false,
+    "first": true,
+    "size": 10,
+    "number": 0,
+    "sort": { "sorted": true, "unsorted": false, "empty": false },
+    "numberOfElements": 10,
+    "empty": false
+  },
+  "metaData": null,
+  "correlationId": "c4b5150f-c9aa-4afe-9e89-dae575fd3810"
+}

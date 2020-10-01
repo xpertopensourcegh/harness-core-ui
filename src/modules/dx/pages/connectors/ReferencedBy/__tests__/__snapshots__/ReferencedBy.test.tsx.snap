@@ -1,0 +1,364 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Referenced By render for data 1`] = `
+<div>
+  <div
+    class="Layout---vertical--3Szv StyledProps---main--1Wws"
+  >
+    <div
+      class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---padding-top-large--i39X StyledProps---padding-bottom-large--1zGv StyledProps---padding-left-large--28UT StyledProps---padding-right-large--2vF9 StyledProps---border--uz_- StyledProps---border-bottom--6lR5 StyledProps---border-color-grey300--3jwf StyledProps---flex--2Jz8 StyledProps---flex-distribution-space-between--1TyN"
+      style="height: 72px;"
+    >
+      <p
+        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---color--8PuS StyledProps---color-dark600--5FCU"
+      >
+        Referenced by
+      </p>
+    </div>
+    <div
+      class="table table"
+    >
+      <div
+        class="header"
+        role="row"
+      >
+        <div
+          class="cell"
+          colspan="1"
+          role="columnheader"
+          style="width: 33%;"
+          title="Toggle SortBy"
+        >
+          ENTITY
+          <span
+            class="bp3-icon bp3-icon-double-caret-vertical StyledProps---main--1Wws StyledProps---padding-left-small--ODrE"
+            icon="double-caret-vertical"
+          >
+            <svg
+              data-icon="double-caret-vertical"
+              height="15"
+              viewBox="0 0 16 16"
+              width="15"
+            >
+              <desc>
+                double-caret-vertical
+              </desc>
+              <path
+                d="M5 7h6a1.003 1.003 0 00.71-1.71l-3-3C8.53 2.11 8.28 2 8 2s-.53.11-.71.29l-3 3A1.003 1.003 0 005 7zm6 2H5a1.003 1.003 0 00-.71 1.71l3 3c.18.18.43.29.71.29s.53-.11.71-.29l3-3A1.003 1.003 0 0011 9z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+        </div>
+        <div
+          class="cell"
+          colspan="1"
+          role="columnheader"
+          style="width: 66%;"
+          title="Toggle SortBy"
+        >
+           LAST ACTIVITY
+          <span
+            class="bp3-icon bp3-icon-double-caret-vertical StyledProps---main--1Wws StyledProps---padding-left-small--ODrE"
+            icon="double-caret-vertical"
+          >
+            <svg
+              data-icon="double-caret-vertical"
+              height="15"
+              viewBox="0 0 16 16"
+              width="15"
+            >
+              <desc>
+                double-caret-vertical
+              </desc>
+              <path
+                d="M5 7h6a1.003 1.003 0 00.71-1.71l-3-3C8.53 2.11 8.28 2 8 2s-.53.11-.71.29l-3 3A1.003 1.003 0 005 7zm6 2H5a1.003 1.003 0 00-.71 1.71l3 3c.18.18.43.29.71.29s.53-.11.71-.29l3-3A1.003 1.003 0 0011 9z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+        </div>
+      </div>
+      <div
+        class="row card"
+        role="row"
+      >
+        <div
+          class="cell"
+          role="cell"
+          style="width: 33%;"
+        >
+          <div
+            class="Layout---vertical--3Szv StyledProps---main--1Wws"
+          >
+            <div
+              class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+            >
+              <span
+                class="bp3-icon StyledProps---main--1Wws secretIconCss"
+              >
+                <svg
+                  height="16"
+                  width="16"
+                >
+                  <g
+                    fill="none"
+                    stroke="#1C1C28"
+                    stroke-width="0.5"
+                  >
+                    <path
+                      d="M5.444 1A4.45 4.45 0 001 5.444c0 2.459 1.994 4.46 4.444 4.46 1.939 0 3.613-1.542 4.202-2.995a.393.393 0 01.23-.223.39.39 0 01.322.015l1.032.507.757-.72a.402.402 0 01.552-.007l.543.493.547-.556a.404.404 0 01.572-.005l.527.516.528-.53a.406.406 0 01.571-.002l.522.522.524-.523a.406.406 0 01.571 0l.522.522.523-.522a.414.414 0 01.315-.118.41.41 0 01.294.16l.277.369c.116-.153.234-.311.312-.396a.412.412 0 01.3-.134c.693 0 .927-.37.927-1.465 0-1.018-.636-1.381-1.23-1.381H9.638a.408.408 0 01-.35-.202A4.448 4.448 0 005.444 1h0z"
+                    />
+                    <path
+                      d="M3.828 3.99c.403 0 .769.163 1.034.428a1.458 1.458 0 010 2.067 1.458 1.458 0 01-2.067 0 1.458 1.458 0 010-2.067c.265-.265.63-.428 1.033-.428z"
+                    />
+                  </g>
+                </svg>
+              </span>
+              <p
+                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn StyledProps---padding-left-small--ODrE"
+              >
+                Sample Secret
+              </p>
+            </div>
+            <p
+              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv StyledProps---font-size-small--3cA6 StyledProps---padding-left-xxlarge--1LeG StyledProps---margin-left-xsmall--m7Ss"
+            >
+              (
+              Secret
+              )
+            </p>
+          </div>
+        </div>
+        <div
+          class="cell"
+          role="cell"
+          style="width: 66%;"
+        >
+          <div
+            class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+          >
+            dummy date
+          </div>
+        </div>
+      </div>
+      <div
+        class="row card"
+        role="row"
+      >
+        <div
+          class="cell"
+          role="cell"
+          style="width: 33%;"
+        >
+          <div
+            class="Layout---vertical--3Szv StyledProps---main--1Wws"
+          >
+            <div
+              class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+            >
+              <span
+                class="bp3-icon StyledProps---main--1Wws secretIconCss"
+              >
+                <svg
+                  height="16"
+                  viewBox="0 0 38 16"
+                  width="16"
+                >
+                  <path
+                    d="M23.71.966a1 1 0 01.068.067L26.475 4H30V3a1 1 0 011-1h6a1 1 0 011 1v3a1 1 0 01-1 1h-6a1 1 0 01-1-1V5h-3.31l-2.912 3.203a1 1 0 01-1.48 0L19.384 5H18v1a1 1 0 01-1 1h-6a1 1 0 01-1-1V5H8v1a1 1 0 01-1 1H1a1 1 0 01-1-1V3a1 1 0 011-1h6a1 1 0 011 1v1h2V3a1 1 0 011-1h6a1 1 0 011 1v1h1.599l2.699-2.967A1 1 0 0123.71.966zm.04 1.31a1 1 0 00-1.414 0l-1.768 1.767a1 1 0 000 1.414l1.768 1.768a1 1 0 001.414 0l1.768-1.768a1 1 0 000-1.414zM6 3H2a1 1 0 00-1 1v1a1 1 0 001 1h4a1 1 0 001-1V4a1 1 0 00-1-1zm10 0h-4a1 1 0 00-1 1v1a1 1 0 001 1h4a1 1 0 001-1V4a1 1 0 00-1-1zm20 0h-4a1 1 0 00-1 1v1a1 1 0 001 1h4a1 1 0 001-1V4a1 1 0 00-1-1zm-19 8a1 1 0 011 1v3a1 1 0 01-1 1h-6a1 1 0 01-1-1v-3a1 1 0 011-1h6zm-1 1h-4a1 1 0 00-1 1v1a1 1 0 001 1h4a1 1 0 001-1v-1a1 1 0 00-1-1z"
+                    fill="#25A6F7"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+              <p
+                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn StyledProps---padding-left-small--ODrE"
+              >
+                Sample pipeline
+              </p>
+            </div>
+            <p
+              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv StyledProps---font-size-small--3cA6 StyledProps---padding-left-xxlarge--1LeG StyledProps---margin-left-xsmall--m7Ss"
+            >
+              (
+              Pipeline
+              )
+            </p>
+          </div>
+        </div>
+        <div
+          class="cell"
+          role="cell"
+          style="width: 66%;"
+        >
+          <div
+            class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+          >
+            dummy date
+          </div>
+        </div>
+      </div>
+      <div
+        class="row card"
+        role="row"
+      >
+        <div
+          class="cell"
+          role="cell"
+          style="width: 33%;"
+        >
+          <div
+            class="Layout---vertical--3Szv StyledProps---main--1Wws"
+          >
+            <div
+              class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+            >
+              <span
+                class="bp3-icon StyledProps---main--1Wws secretIconCss"
+              >
+                <svg
+                  height="16"
+                  viewBox="0 0 22 22"
+                  width="16"
+                >
+                  <path
+                    d="M1.1 4.583L11 0l9.9 4.583v12.834L11 22l-9.9-4.583zm9 5.171l-7.2-3.33v9.811l7.2 3.338V9.754zm9 6.481V6.424l-7.2 3.33v9.819zm-1.462-11.15L11 2.012 4.362 5.085 11 8.157z"
+                    fill="#56778d"
+                  />
+                </svg>
+              </span>
+              <p
+                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn StyledProps---padding-left-small--ODrE"
+              >
+                Sample project
+              </p>
+            </div>
+            <p
+              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv StyledProps---font-size-small--3cA6 StyledProps---padding-left-xxlarge--1LeG StyledProps---margin-left-xsmall--m7Ss"
+            >
+              (
+              Project
+              )
+            </p>
+          </div>
+        </div>
+        <div
+          class="cell"
+          role="cell"
+          style="width: 66%;"
+        >
+          <div
+            class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+          >
+            dummy date
+          </div>
+        </div>
+      </div>
+      <div
+        class="Layout---horizontal--3rmQ StyledProps---main--1Wws Pagination---container--3ype StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v StyledProps---flex--2Jz8 StyledProps---flex-align-center-center--2AmX StyledProps---flex-distribution-space-between--1TyN"
+      >
+        <span
+          class="StyledProps---font--2ipy StyledProps---main--1Wws Pagination---text--30fh StyledProps---inline--1f52"
+        >
+          Showing 
+          <strong>
+            10
+          </strong>
+           of 
+          <strong>
+            10
+          </strong>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Referenced By render for no data 1`] = `
+<div>
+  <div
+    class="Layout---vertical--3Szv StyledProps---main--1Wws"
+  >
+    <div
+      class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---padding-top-large--i39X StyledProps---padding-bottom-large--1zGv StyledProps---padding-left-large--28UT StyledProps---padding-right-large--2vF9 StyledProps---border--uz_- StyledProps---border-bottom--6lR5 StyledProps---border-color-grey300--3jwf StyledProps---flex--2Jz8 StyledProps---flex-distribution-space-between--1TyN"
+      style="height: 72px;"
+    >
+      <p
+        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---color--8PuS StyledProps---color-dark600--5FCU"
+      >
+        Referenced by
+      </p>
+    </div>
+    <div
+      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---flex--2Jz8 StyledProps---flex-align-center-center--2AmX"
+      style="width: 100%; height: 100%;"
+    >
+      <div
+        class="Layout---vertical--3Szv Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+        style="align-items: center; margin-top: -48px; width: 470px;"
+      >
+        <span
+          class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+        >
+          <svg
+            height="48"
+            viewBox="0 0 27 27"
+            width="48"
+          >
+            <filter
+              id="nav-dashboard_svg__a"
+            >
+              <fecolormatrix
+                in="SourceGraphic"
+                values="0 0 0 0 0.453512 0 0 0 0 0.490089 0 0 0 0 0.533316 0 0 0 1.000000 0"
+              />
+            </filter>
+            <filter
+              id="nav-dashboard_svg__b"
+            >
+              <fecolormatrix
+                in="SourceGraphic"
+                values="0 0 0 0 0.453512 0 0 0 0 0.490089 0 0 0 0 0.533316 0 0 0 1.000000 0"
+              />
+            </filter>
+            <g
+              fill="none"
+              fill-rule="evenodd"
+              filter="url(#nav-dashboard_svg__a)"
+              transform="translate(-100 -231)"
+            >
+              <g
+                filter="url(#nav-dashboard_svg__b)"
+                transform="translate(100 231)"
+              >
+                <rect
+                  height="26"
+                  opacity="0.5"
+                  rx="5"
+                  stroke="#cdcaca"
+                  width="26"
+                  x="0.5"
+                  y="0.5"
+                />
+                <path
+                  d="M13.656 8H19v4h-5.344zm0 12v-6.656H19V20zM7 20v-4h5.344v4zm0-5.344V8h5.344v6.656z"
+                  fill="#747d88"
+                  fill-rule="nonzero"
+                />
+              </g>
+            </g>
+          </svg>
+        </span>
+        <h2
+          class="StyledProps---font--2ipy StyledProps---font-h2--3Vpc StyledProps---main--1Wws StyledProps---font-align-center--22lb StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+          level="2"
+        >
+          There are no references of this Connector.
+        </h2>
+      </div>
+    </div>
+  </div>
+</div>
+`;

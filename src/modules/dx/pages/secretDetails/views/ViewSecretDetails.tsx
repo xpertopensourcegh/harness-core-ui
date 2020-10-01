@@ -205,7 +205,7 @@ const ViewSecretDetails: React.FC<ViewSecretDetailsProps> = props => {
       {secret.type === 'SSHKey' ? (
         <Layout.Vertical width="50%" spacing="xxxlarge" border={{ left: true }} padding={{ left: 'xxxlarge' }}>
           <ConnectorStats
-            createdAt={props.secret.createdAt}
+            createdAt={props.secret.createdAt as number}
             lastUpdated={props.secret.updatedAt}
             status={'' as ConnectorConnectivityDetails['status']}
             className={css.stats}

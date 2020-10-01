@@ -4,17 +4,18 @@ import { Layout, Text, Icon, Color, IconName } from '@wings-software/uikit'
 import type { CellProps, Renderer, Column } from 'react-table'
 import Table from 'modules/common/components/Table/Table'
 
-import { useListReferredByEntities, EntityReferenceDTO } from 'services/cd-ng'
+import { useListReferredByEntities, EntityReferenceDTO, ResponsePageEntityReferenceDTO } from 'services/cd-ng'
 import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
 import { Page } from 'modules/common/exports'
+import type { UseGetMockData } from 'modules/common/utils/testUtils'
 import { getIconByEntityType, getReferredEntityLabelByType } from '../utils/ConnectorUtils'
-
 import i18n from './ReferencedBy.i18n'
 import css from './ReferencedBy.module.scss'
 
 interface ReferencedByProps {
   accountId: string
   entityIdentifier: string | undefined
+  mockData?: UseGetMockData<ResponsePageEntityReferenceDTO>
 }
 
 const RenderColumnEntity: Renderer<CellProps<EntityReferenceDTO>> = ({ row }) => {
@@ -50,7 +51,8 @@ const RenderColumnActivity: Renderer<CellProps<EntityReferenceDTO>> = ({ row }) 
 const ReferencedBy: React.FC<ReferencedByProps> = props => {
   const [page, setPage] = useState(0)
   const { data, loading, refetch } = useListReferredByEntities({
-    queryParams: { account: props.accountId, identifier: props.entityIdentifier, page: page, size: 10 }
+    queryParams: { account: props.accountId, identifier: props.entityIdentifier, page: page, size: 10 },
+    mock: props.mockData
   })
 
   const columns: Column<EntityReferenceDTO>[] = useMemo(

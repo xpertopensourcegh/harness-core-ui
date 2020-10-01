@@ -7,7 +7,7 @@ import i18n from './ConnectorStats.i18n'
 import css from './ConnectorStats.module.scss'
 
 interface ConnectorStatsProps {
-  createdAt?: number
+  createdAt: number
   lastTested?: number
   lastUpdated?: number
   lastConnected?: number

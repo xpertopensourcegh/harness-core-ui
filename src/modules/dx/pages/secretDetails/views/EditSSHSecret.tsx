@@ -218,7 +218,7 @@ const EditSSHSecret: React.FC<EditSSHSecretProps> = props => {
       </Container>
       <Layout.Vertical width="50%" spacing="xxxlarge">
         <ConnectorStats
-          createdAt={props.secret.createdAt}
+          createdAt={props.secret.createdAt as number}
           lastUpdated={props.secret.updatedAt}
           status={'' as ConnectorConnectivityDetails['status']}
           className={css.stats}
