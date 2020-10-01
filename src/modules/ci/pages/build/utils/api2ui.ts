@@ -11,7 +11,12 @@ import {
 
 // TODO: random icons used; replace them with right one
 export enum MapStageTypeIconName {
-  INTEGRATION_STAGE_STEP = 'main-setup'
+  INTEGRATION_STAGE_STEP = 'integration',
+  PUBLISH = 'publish-step',
+  RUN = 'run-step',
+  GIT_CLONE = 'git-clone-step',
+  SAVE_CACHE = 'save-cache-step',
+  RESTORE_CACHE = 'restore-cache-step'
 }
 
 /**

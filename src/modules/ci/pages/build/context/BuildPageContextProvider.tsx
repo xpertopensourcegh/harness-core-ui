@@ -23,7 +23,8 @@ export const BuildPageContextProvider: React.FC = props => {
   const [state, setState] = React.useState<BuildPageStateInterface>({
     selectedStageIdentifier: '-1',
     selectedStepIdentifier: '-1',
-    graphLayoutType: BuildPipelineGraphLayoutType.COMBINED
+    graphLayoutType: BuildPipelineGraphLayoutType.RIGHT,
+    globalErrorMessage: null
   })
 
   const [logs, setLogs] = React.useState<Array<any>>([])
@@ -47,7 +48,7 @@ export const BuildPageContextProvider: React.FC = props => {
     setState({ ...state, graphLayoutType })
   }
 
-  const { data: buildData, loading, error } = useGetBuild(buildIdentifier, {
+  const { data: buildData, loading, error, refetch } = useGetBuild(buildIdentifier, {
     queryParams: {
       // TODO: HARDCODED FOR DEMO
       accountIdentifier: 'zEaak-FLS425IEO7OLzMUg',
@@ -55,6 +56,10 @@ export const BuildPageContextProvider: React.FC = props => {
       projectIdentifier
     },
     resolve: response => {
+      // TODO: Not finalized in the mock - TBD
+      // const globalErrorMessage = getGlobalErrorFromResponse();
+      const globalErrorMessage = null
+
       // api2ui model
       const stagePipeline = graph2ExecutionPipeline(response.data.graph)
 
@@ -68,27 +73,46 @@ export const BuildPageContextProvider: React.FC = props => {
         response,
         stagePipeline,
         defaultSelectedStageIdentifier,
-        defaultSelectedStepIdentifier
+        defaultSelectedStepIdentifier,
+        globalErrorMessage
       }
     }
   })
 
-  const stagesSelectOptions = getSelectOptionsFromExecutionPipeline(buildData?.stagePipeline)
-  const selectedStageOption = stagesSelectOptions.find(item => item.value === state.selectedStageIdentifier)
-  const executionSteps = getStepsPipelineFromExecutionPipeline(buildData?.stagePipeline, state.selectedStageIdentifier)
-  const stepItems = getFlattenItemsFromPipeline(executionSteps)
-  const selectedStep = stepItems.find(item => item.identifier === state.selectedStepIdentifier)?.name
-  const isStepRunning =
-    stepItems.find(item => item.identifier === state.selectedStepIdentifier)?.status ===
-    ExecutionPipelineItemStatus.RUNNING
+  // load data every 5 seconds
+  useEffect(() => {
+    const reloadInterval = setInterval(() => {
+      refetch()
+    }, 5000)
+
+    return function () {
+      clearInterval(reloadInterval)
+    }
+  })
+
   // by default fist stage/step is selected
   useEffect(() => {
     setState({
       ...state,
       selectedStageIdentifier: buildData?.defaultSelectedStageIdentifier as string,
-      selectedStepIdentifier: buildData?.defaultSelectedStepIdentifier as string
+      selectedStepIdentifier: buildData?.defaultSelectedStepIdentifier as string,
+      globalErrorMessage: buildData?.globalErrorMessage as string | null
     })
-  }, [buildData?.defaultSelectedStageIdentifier, buildData?.defaultSelectedStepIdentifier])
+  }, [
+    buildData?.defaultSelectedStageIdentifier,
+    buildData?.defaultSelectedStepIdentifier,
+    buildData?.globalErrorMessage
+  ])
+
+  const stagesSelectOptions = getSelectOptionsFromExecutionPipeline(buildData?.stagePipeline)
+  const selectedStageOption = stagesSelectOptions.find(item => item.value === state.selectedStageIdentifier)
+  const executionSteps = getStepsPipelineFromExecutionPipeline(buildData?.stagePipeline, state.selectedStageIdentifier)
+  const stepItems = getFlattenItemsFromPipeline(executionSteps)
+  const selectedStepName = stepItems.find(item => item.identifier === state.selectedStepIdentifier)?.name
+  const selectedStepStatus = stepItems.find(item => item.identifier === state.selectedStepIdentifier)?.status
+  const isStepRunning =
+    selectedStepStatus === ExecutionPipelineItemStatus.RUNNING ||
+    selectedStepStatus === ExecutionPipelineItemStatus.ASYNC_WAITING
 
   const [logsStream] = useLogs(
     'zEaak-FLS425IEO7OLzMUg',
@@ -96,21 +120,22 @@ export const BuildPageContextProvider: React.FC = props => {
     projectIdentifier,
     buildIdentifier,
     selectedStageOption?.label || '',
-    selectedStep || '',
-    isStepRunning && !!selectedStageOption && !!selectedStep
+    selectedStepName || '',
+    isStepRunning && !!selectedStageOption && !!selectedStepName
   )
 
   useEffect(() => {
+    setLogs([])
     !isStepRunning &&
       selectedStageOption &&
-      selectedStep &&
+      selectedStepName &&
       getLogsFromBlob(
         'zEaak-FLS425IEO7OLzMUg',
         orgIdentifier,
         projectIdentifier,
         buildIdentifier,
         selectedStageOption?.label || '',
-        selectedStep || '',
+        selectedStepName || '',
         setLogs
       )
   }, [state.selectedStepIdentifier])

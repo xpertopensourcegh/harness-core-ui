@@ -1,6 +1,5 @@
 export default {
-  logView: 'LogView',
-  graphView: 'Graph view',
+  consoleView: 'Console view',
   pipeline: 'Pipeline',
   inputs: 'Inputs',
   commits: 'Commits',

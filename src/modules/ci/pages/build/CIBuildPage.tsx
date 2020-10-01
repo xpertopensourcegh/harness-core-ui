@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
 import { first } from 'lodash-es'
-import { Container, Button, Icon, Intent } from '@wings-software/uikit'
+import { Container, Button, Icon, Intent, Switch } from '@wings-software/uikit'
 import { Tabs as BPTabs } from '@blueprintjs/core'
 import { Link, useParams, useHistory } from 'react-router-dom'
 import moment from 'moment'
-import { RoundButtonGroup } from 'modules/ci/components/RoundButtonGroup/RoundButtonGroup'
 import { Tabs, Tab } from 'modules/ci/components/Tabs/Tabs'
 import { ExtendedPageHeader } from 'modules/ci/components/ExtendedPage/ExtendedPageHeader'
 import { TitledInfo } from 'modules/ci/components/TitledInfo/TitledInfo'
@@ -26,7 +25,6 @@ import {
 } from '../../routes'
 import { BuildPageContextProvider } from './context/BuildPageContextProvider'
 import { BuildPageContext } from './context/BuildPageContext'
-import { BuildPipelineGraphLayoutType } from './sections/pipeline-graph/BuildPipelineGraphLayout/BuildPipelineGraphLayout'
 import i18n from './CIBuildPage.i18n'
 import common from '../ci-common.module.scss'
 import css from './CIBuildPage.module.scss'
@@ -42,11 +40,11 @@ const CIBuildPage: React.FC = props => {
   const { children } = props
   const { orgIdentifier, projectIdentifier, buildIdentifier } = useParams<BuildPageUrlParams>()
   const [detailsVisible, setDetailsVisible] = useState<boolean>(false)
+  const [errorVisible, setErrorVisible] = useState<boolean>(false)
   const history = useHistory()
   const {
     buildData,
-    state: { graphLayoutType },
-    setGraphLayoutType
+    state: { globalErrorMessage }
   } = React.useContext(BuildPageContext)
 
   const buildResponse = buildData?.response
@@ -177,40 +175,24 @@ const CIBuildPage: React.FC = props => {
               <BPTabs.Expander />
               {(isRouteActive(routeCIBuildPipelineGraph) || isRouteActive(routeCIBuildPipelineLog)) && (
                 <Container className={css.extendedTabContent}>
-                  <RoundButtonGroup>
-                    <Button
-                      icon="graph"
-                      active={isRouteActive(routeCIBuildPipelineGraph)}
-                      onClick={() => history.push(pipelineGraphUrl)}
-                    >
-                      {i18n.graphView}
-                    </Button>
-                    <Button
-                      icon="graph"
-                      active={isRouteActive(routeCIBuildPipelineLog)}
-                      onClick={() => history.push(pipelineLogUrl)}
-                    >
-                      {i18n.logView}
-                    </Button>
-                  </RoundButtonGroup>
-                  <RoundButtonGroup>
-                    <Button
-                      icon="page-layout"
-                      active={graphLayoutType === BuildPipelineGraphLayoutType.COMBINED}
-                      onClick={() => setGraphLayoutType(BuildPipelineGraphLayoutType.COMBINED)}
-                    ></Button>
-                    <Button
-                      icon="page-layout"
-                      active={graphLayoutType === BuildPipelineGraphLayoutType.ROWS}
-                      onClick={() => setGraphLayoutType(BuildPipelineGraphLayoutType.ROWS)}
-                    ></Button>
-                    <Button
-                      icon="page-layout"
-                      active={graphLayoutType === BuildPipelineGraphLayoutType.FLOAT}
-                      onClick={() => setGraphLayoutType(BuildPipelineGraphLayoutType.FLOAT)}
-                    ></Button>
-                  </RoundButtonGroup>
-                  <Icon name="warning-sign" intent={Intent.DANGER} size={24} />
+                  <Switch
+                    label={i18n.consoleView}
+                    className="bp3-align-right"
+                    defaultChecked={isRouteActive(routeCIBuildPipelineLog)}
+                    onChange={e => {
+                      const checked: boolean = (e.target as HTMLInputElement).checked
+                      if (checked) history.push(pipelineLogUrl)
+                      else history.push(pipelineGraphUrl)
+                    }}
+                  />
+                  {globalErrorMessage && (
+                    <Icon
+                      name="warning-sign"
+                      intent={Intent.DANGER}
+                      size={24}
+                      onClick={() => setErrorVisible(!errorVisible)}
+                    />
+                  )}
                 </Container>
               )}
             </Tabs>

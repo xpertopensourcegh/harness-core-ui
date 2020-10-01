@@ -1,6 +1,5 @@
 .main {
   width: 100%;
-  font-family: var(--font-family) !important;
 
   :global {
     .bp3-tabs {
@@ -38,7 +37,10 @@
     }
 
     .bp3-tab[aria-selected='true'] {
-      color: var(--grey-800);
+      color: var(--blue-500);
+      .bp3-icon {
+        color: var(--blue-500);
+      }
     }
 
     .bp3-tab:not([aria-disabled='true']):hover {

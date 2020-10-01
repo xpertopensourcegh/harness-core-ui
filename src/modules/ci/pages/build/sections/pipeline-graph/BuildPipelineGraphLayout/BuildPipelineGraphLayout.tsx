@@ -4,13 +4,14 @@ import SplitPane, { Pane } from 'react-split-pane'
 import css from './BuildPipelineGraphLayout.module.scss'
 
 export enum BuildPipelineGraphLayoutType {
-  COMBINED = 'COMBINED',
-  ROWS = 'ROWS',
+  RIGHT = 'RIGHT',
+  BOTTOM = 'BOTTOM',
   FLOAT = 'FLOAT'
 }
 
 export interface BuildPipelineGraphLayoutProps {
   layoutType: BuildPipelineGraphLayoutType
+  changeLayout: React.ReactElement
   stageSelect: React.ReactElement
   stagesPipeline: React.ReactElement
   stepsPipeline: React.ReactElement
@@ -20,7 +21,7 @@ export interface BuildPipelineGraphLayoutProps {
 }
 
 const BuildPipelineGraphLayout: React.FC<BuildPipelineGraphLayoutProps> = props => {
-  const { layoutType, stageSelect, stagesPipeline, stepsPipeline, stepTitle, stepTabs, stepLogs } = props
+  const { layoutType, changeLayout, stageSelect, stagesPipeline, stepsPipeline, stepTitle, stepTabs, stepLogs } = props
   const [showStepDetails, setShowStepDetails] = useState<boolean>(true)
 
   switch (layoutType) {
@@ -42,7 +43,10 @@ const BuildPipelineGraphLayout: React.FC<BuildPipelineGraphLayoutProps> = props 
             <Container className={css.floatingStepPanel}>
               <Layout.Vertical className={css.stepDetails}>
                 <Container className={css.stepInfo}>
-                  <Layout.Horizontal>{stepTitle}</Layout.Horizontal>
+                  <Layout.Horizontal>
+                    {stepTitle}
+                    <Container className={css.floatingRightToolbarContainer}>{changeLayout}</Container>
+                  </Layout.Horizontal>
                   <Tabs id={`ciStepTabs`}>
                     {stepTabs.map((item, idx) => {
                       return <Tab id={`ciStepTab_${idx}`} title={item.title} key={idx} panel={item.content}></Tab>
@@ -64,7 +68,7 @@ const BuildPipelineGraphLayout: React.FC<BuildPipelineGraphLayoutProps> = props 
           </Button>
         </Container>
       )
-    case BuildPipelineGraphLayoutType.ROWS:
+    case BuildPipelineGraphLayoutType.BOTTOM:
       return (
         <Container className={css.main}>
           <SplitPane size={250} split="horizontal" minSize={100}>
@@ -80,16 +84,15 @@ const BuildPipelineGraphLayout: React.FC<BuildPipelineGraphLayoutProps> = props 
               </Pane>
               <Layout.Vertical className={css.detailsContainer}>
                 <Layout.Horizontal className={css.stepsToolbar}>
-                  <Container>{stepTitle}</Container>
+                  {stepTitle}
                   <Tabs id={`ciStepTabs`}>
                     {stepTabs.map((item, idx) => {
                       return <Tab id={`ciStepTab_${idx}`} title={item.title} key={idx}></Tab>
                     })}
                   </Tabs>
-                  <Button minimal icon="more"></Button>
+                  <Container className={css.rowsRightToolbarContainer}>{changeLayout}</Container>
                 </Layout.Horizontal>
-
-                <Layout.Horizontal>
+                <Layout.Horizontal className={css.stepsDetailsAndLogs}>
                   {stepTabs[0].content}
                   {stepLogs}
                 </Layout.Horizontal>
@@ -115,7 +118,10 @@ const BuildPipelineGraphLayout: React.FC<BuildPipelineGraphLayoutProps> = props 
               <Pane className={css.stepDetailsPane}>
                 <Layout.Vertical className={css.stepDetails}>
                   <Container className={css.stepInfo}>
-                    <Layout.Horizontal>{stepTitle}</Layout.Horizontal>
+                    <Layout.Horizontal>
+                      {stepTitle}
+                      <Container className={css.defaultRightToolbarContainer}>{changeLayout}</Container>
+                    </Layout.Horizontal>
                     <Tabs id={`ciStepTabs`}>
                       {stepTabs.map((item, idx) => {
                         return <Tab id={`ciStepTab_${idx}`} title={item.title} key={idx} panel={item.content}></Tab>

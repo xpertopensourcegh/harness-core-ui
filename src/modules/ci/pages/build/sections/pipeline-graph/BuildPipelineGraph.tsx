@@ -1,8 +1,13 @@
 import React from 'react'
-import { Select, Text } from '@wings-software/uikit'
+import moment from 'moment'
+import { Button, Color, Select, Text } from '@wings-software/uikit'
 import ExecutionStageDiagram from 'modules/common/components/ExecutionStageDiagram/ExecutionStageDiagram'
 import LogViewContainer from 'modules/ci/components/LogViewContainer/LogViewContainer'
-import BuildPipelineGraphLayout from './BuildPipelineGraphLayout/BuildPipelineGraphLayout'
+import { RoundButtonGroup } from 'modules/ci/components/RoundButtonGroup/RoundButtonGroup'
+import { formatElapsedTime } from 'modules/ci/components/common/time'
+import BuildPipelineGraphLayout, {
+  BuildPipelineGraphLayoutType
+} from './BuildPipelineGraphLayout/BuildPipelineGraphLayout'
 import { BuildPageContext } from '../../context/BuildPageContext'
 import {
   getItemFromPipeline,
@@ -10,6 +15,7 @@ import {
   getStepsPipelineFromExecutionPipeline
 } from './BuildPipelineGraphUtils'
 import i18n from './BuildPipelineGraph.i18n'
+import css from './BuildPipelineGraph.module.scss'
 
 const PipelineGraph: React.FC = () => {
   const {
@@ -17,7 +23,8 @@ const PipelineGraph: React.FC = () => {
     setSelectedStageIdentifier,
     setSelectedStepIdentifier,
     buildData,
-    logs
+    logs,
+    setGraphLayoutType
   } = React.useContext(BuildPageContext)
 
   const stagesSelectOptions = getSelectOptionsFromExecutionPipeline(buildData?.stagePipeline)
@@ -73,25 +80,29 @@ const PipelineGraph: React.FC = () => {
   )
 
   // Step title
-  const stepTitle = <Text>STEP: {selectedStep?.name}</Text>
+  const stepTitle = <Text color={Color.GREY_500}>STEP: {selectedStep?.name}</Text>
 
   // Step tabs
   const stepTabs = [
     {
       title: <Text>{i18n.stepTabDetails}</Text>,
       content: (
-        <table>
+        <table className={css.stepDetailsTable}>
           <tr>
-            <td>Started at:</td>
-            <td>{selectedStep?.data?.lastUpdatedAt}</td>
+            <td>{i18n.startedAt}</td>
+            <td>{selectedStep?.data?.startTs && moment(selectedStep?.data?.startTs).format('M/D/YYYY h:mm:ss a')}</td>
           </tr>
           <tr>
-            <td>Ended at:</td>
-            <td>{selectedStep?.data?.endTs}</td>
+            <td>{i18n.endedAt}</td>
+            <td>{selectedStep?.data?.endTs && moment(selectedStep?.data?.endTs).format('M/D/YYYY h:mm:ss a')}</td>
           </tr>
           <tr>
-            <td>Duration:</td>
-            <td>25s</td>
+            <td>{i18n.duration}</td>
+            <td>
+              {selectedStep?.data?.startTs &&
+                selectedStep?.data?.endTs &&
+                formatElapsedTime(selectedStep?.data?.endTs - selectedStep?.data?.startTs, true)}
+            </td>
           </tr>
         </table>
       )
@@ -114,12 +125,33 @@ const PipelineGraph: React.FC = () => {
         alert('Log download')
       }}
       logsViewerSections={{ logs: logs }}
+      showSummary={false}
     />
   )
 
+  const changeLayout = (
+    <RoundButtonGroup>
+      <Button
+        icon="layout-right"
+        active={graphLayoutType === BuildPipelineGraphLayoutType.RIGHT}
+        onClick={() => setGraphLayoutType(BuildPipelineGraphLayoutType.RIGHT)}
+      ></Button>
+      <Button
+        icon="layout-bottom"
+        active={graphLayoutType === BuildPipelineGraphLayoutType.BOTTOM}
+        onClick={() => setGraphLayoutType(BuildPipelineGraphLayoutType.BOTTOM)}
+      ></Button>
+      <Button
+        icon="layout-float"
+        active={graphLayoutType === BuildPipelineGraphLayoutType.FLOAT}
+        onClick={() => setGraphLayoutType(BuildPipelineGraphLayoutType.FLOAT)}
+      ></Button>
+    </RoundButtonGroup>
+  )
   return (
     <BuildPipelineGraphLayout
       layoutType={graphLayoutType}
+      changeLayout={changeLayout}
       stageSelect={stageSelect}
       stagesPipeline={stagesPipeline}
       stepsPipeline={stepsPipeline}

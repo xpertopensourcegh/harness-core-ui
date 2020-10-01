@@ -16,7 +16,7 @@ export interface ElapsedTimeProps extends DivAttributesProps {
 const ElapsedTime: React.FC<ElapsedTimeProps> = props => {
   const { startTime, addLeadingZero, className, ...restProps } = props
 
-  const seconds = Math.floor(Date.now()) - startTime
+  const seconds = Math.floor(Math.floor(Date.now() - startTime) / 1000)
 
   const [counter, setCounter] = useState(seconds)
 

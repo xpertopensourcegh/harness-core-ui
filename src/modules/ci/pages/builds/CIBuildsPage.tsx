@@ -88,12 +88,12 @@ const CIBuildsPage: React.FC = () => {
   )
 
   // BUILDS FOOTER
-  const buildsFooter = buildsData && buildsData.itemCount > 0 && (
+  const buildsFooter = buildsData && buildsData.pageItemCount > 0 && (
     <Pagination
       pageSize={buildsData?.pageSize}
       pageIndex={buildsData?.pageIndex}
       pageCount={buildsData?.pageCount}
-      itemCount={buildsData?.itemCount}
+      itemCount={buildsData?.pageItemCount}
       pageCountClamp={5}
       gotoPage={pageNumber => {
         navigateToPage(pageNumber)

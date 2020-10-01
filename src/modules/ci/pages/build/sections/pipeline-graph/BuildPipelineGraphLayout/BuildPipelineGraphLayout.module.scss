@@ -37,13 +37,8 @@
   left: var(--spacing-large);
 }
 
-.steps-toolbar {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  box-shadow: inset 0px -4px 0px 0px #d4ecfc; // TODO: color
-  background: #f1faff !important; // TODO: color
-  padding-left: var(--spacing-large) !important;
+.rows-right-toolbar-container > * {
+  white-space: nowrap !important;
 }
 
 .bottom-pane {
@@ -65,6 +60,11 @@
 
 .step-details-pane {
   height: 100%;
+
+  .default-right-toolbar-container {
+    margin-left: auto !important;
+    white-space: nowrap !important;
+  }
 }
 
 .step-details {
@@ -112,6 +112,11 @@
   background: var(--white) !important;
   border-radius: 5px;
   border: 1px solid var(--grey-300);
+
+  .floating-right-toolbar-container {
+    margin-left: auto !important;
+    white-space: nowrap !important;
+  }
 }
 
 .details-container {
@@ -133,6 +138,7 @@
   box-shadow: inset 0px -4px 0px 0px #d4ecfc; // TODO: color
   padding-left: var(--spacing-large) !important;
   padding-right: var(--spacing-large) !important;
+  align-items: center;
 
   > :first-child {
     display: flex;
@@ -144,5 +150,11 @@
     .bp3-tab-list {
       border-bottom: none;
     }
+  }
+}
+
+.stepsDetailsAndLogs {
+  > *:first-child {
+    margin: var(--spacing-large) var(--spacing-medium);
   }
 }

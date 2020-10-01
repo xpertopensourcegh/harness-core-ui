@@ -75,7 +75,7 @@ export interface BuildsData {
   content: Build[]
   graph: Graph
   pageCount: number
-  itemCount: number
+  pageItemCount: number
   pageSize: number
   pageIndex: number
   empty: boolean
@@ -100,4 +100,5 @@ export interface BuildData {
   stagePipeline: ExecutionPipeline<GraphVertex>
   defaultSelectedStageIdentifier: string
   defaultSelectedStepIdentifier: string
+  globalErrorMessage: string | null
 }
