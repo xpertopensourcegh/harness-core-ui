@@ -7,7 +7,7 @@ import { cloneDeep } from 'lodash-es'
 import { CVNextGenCVConfigService } from 'modules/cv/services'
 import { RouteVerificationTypeToVerificationType } from 'modules/cv/constants'
 import { Page } from 'modules/common/exports'
-import { routeParams } from 'framework/exports'
+import { useRouteParams } from 'framework/exports'
 import useOnBoardingPageDataHook from 'modules/cv/hooks/OnBoardingPageDataHook/OnBoardingPageDataHook'
 import {
   useGetServiceListForProject,
@@ -84,7 +84,7 @@ export default function DataSourceSetupPage(): JSX.Element {
   const {
     params: { accountId, dataSourceType, projectIdentifier: routeProjectId, orgId: routeOrgId },
     query: { dataSourceId: routeDataSourceId = '' }
-  } = routeParams()
+  } = useRouteParams()
   const { pageData, dbInstance, isInitializingDB } = useOnBoardingPageDataHook<PageContextData>(
     routeDataSourceId as string
   )

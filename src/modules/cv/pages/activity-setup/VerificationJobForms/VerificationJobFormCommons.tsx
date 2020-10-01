@@ -2,7 +2,7 @@ import React from 'react'
 import { Button, Container, SelectOption } from '@wings-software/uikit'
 import { connect } from 'formik'
 import { useHistory } from 'react-router-dom'
-import { routeParams } from 'framework/exports'
+import { useRouteParams } from 'framework/exports'
 import { useToaster } from 'modules/common/exports'
 import { useSaveVerificationJob, VerificationJobDTO } from 'services/cv'
 import { routeCVActivities } from 'modules/cv/routes'
@@ -51,7 +51,7 @@ export interface UseFormSubmitProps {
 export const useFormSubmit = (props?: UseFormSubmitProps) => {
   const {
     params: { accountId, activityType, orgIdentifier, projectIdentifier }
-  } = routeParams()
+  } = useRouteParams()
   const history = useHistory()
   const { showError } = useToaster()
   const { mutate, error, loading } = useSaveVerificationJob({ queryParams: { accountId } })

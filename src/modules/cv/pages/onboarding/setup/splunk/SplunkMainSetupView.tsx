@@ -28,7 +28,7 @@ import { ThirdPartyCallLogModal } from 'modules/cv/components/ThirdPartyCallLogs
 import JsonSelectorFormInput from 'modules/cv/components/JsonSelector/JsonSelectorFormInput'
 import DataSourceConfigPanel from 'modules/cv/components/DataSourceConfigPanel/DataSourceConfigPanel'
 import { CVNextGenCVConfigService } from 'modules/cv/services'
-import { routeParams } from 'framework/exports'
+import { useRouteParams } from 'framework/exports'
 import OnBoardingConfigSetupHeader from 'modules/cv/components/OnBoardingConfigSetupHeader/OnBoardingConfigSetupHeader'
 import { NoDataCard } from 'modules/common/components/Page/NoDataCard'
 import { CVObjectStoreNames } from 'modules/cv/hooks/IndexedDBHook/IndexedDBHook'
@@ -326,7 +326,7 @@ function SplunkConfig(props: SplunkConfigProps): JSX.Element {
     loading: Boolean(dsConfig.query?.length)
   })
   const [thirdPartyGUID, setThirdPartyGUID] = useState<string | undefined>()
-  const { params } = routeParams()
+  const { params } = useRouteParams()
   const areFirstThreeFilledOut = dsConfig.envIdentifier && dsConfig.serviceIdentifier && dsConfig.queryName
 
   useEffect(() => {
@@ -446,7 +446,7 @@ function SplunkDataSourceForm(props: SplunkDataSourceFormProps): JSX.Element {
   const {
     params: { accountId },
     query: { dataSourceId: routeDataSourceId = '' }
-  } = routeParams()
+  } = useRouteParams()
   const dataSourceId = pageData.dataSourceId || (routeDataSourceId as string)
   return (
     <Formik
@@ -532,7 +532,7 @@ export default function SplunkOnboarding(props: SplunkOnBoardingProps): JSX.Elem
   const [splunkQueryOptions, setSplunkQueryOptions] = useState<SelectOption[]>([{ label: i18n.loadingText, value: '' }])
   const {
     params: { accountId, projectIdentifier: routeProjectId, orgId: routeOrgId }
-  } = routeParams()
+  } = useRouteParams()
   const toaster = useToaster()
   const projectId = routeProjectId as string
   const orgId = routeOrgId as string

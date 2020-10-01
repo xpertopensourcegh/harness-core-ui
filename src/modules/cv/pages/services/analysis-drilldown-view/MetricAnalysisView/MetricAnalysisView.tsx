@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react'
 import { Container, Icon, Color, Pagination } from '@wings-software/uikit'
 import cx from 'classnames'
-import { routeParams } from 'framework/exports'
+import { useRouteParams } from 'framework/exports'
 import {
   useGetAnomalousMetricData,
   TimeSeriesMetricDataDTO,
@@ -87,7 +87,7 @@ export default function MetricAnalysisView(props: MetricAnalysisViewProps): JSX.
   } = props
   const {
     params: { orgIdentifier = '', projectIdentifier = '', accountId = '' }
-  } = routeParams()
+  } = useRouteParams()
   const finalStartTime = historyStartTime ?? startTime
   const queryParams = useMemo(
     () => ({

@@ -4,7 +4,7 @@ import type { SeriesColumnOptions } from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
 import Highcharts from 'highcharts'
 import cx from 'classnames'
-import { routeParams } from 'framework/exports'
+import { useRouteParams } from 'framework/exports'
 import { RestResponseSortedSetLogDataByTag, useGetTagCount } from 'services/cv'
 import getLogViewcolumnChartConfig from './LogViewColumnChartConfig'
 import { categoryNameToCategoryType } from '../../../CVServicePageUtils'
@@ -89,7 +89,7 @@ function generatePointsForLogChart(data: RestResponseSortedSetLogDataByTag, star
 export default function LogAnalysisFrequencyChart(props: LogAnalysisFrequencyChartProps): JSX.Element {
   const {
     params: { accountId, orgIdentifier, projectIdentifier }
-  } = routeParams()
+  } = useRouteParams()
   const { environmentIdentifier, serviceIdentifier, categoryName, startTime, endTime, className } = props
   const { refetch } = useGetTagCount({
     lazy: true,

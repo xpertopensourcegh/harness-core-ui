@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react'
 import { Container } from '@wings-software/uikit'
-import { routeParams } from 'framework/exports'
+import { useRouteParams } from 'framework/exports'
 import { ActivityDetailsActivityType, ActivityDetailsActivitySource } from 'modules/cv/routePaths'
 import { Page } from 'modules/common/exports'
 import i18n from './ActivitySetupPage.i18n'
@@ -14,7 +14,7 @@ import css from './ActivitySetupPage.module.scss'
 export default function ActivitySetupPage(): JSX.Element {
   const {
     params: { activityType }
-  } = routeParams()
+  } = useRouteParams()
   const { desiredForm, title } = useMemo(() => {
     switch (activityType) {
       case ActivityDetailsActivityType.BG:

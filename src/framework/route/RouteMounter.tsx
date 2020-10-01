@@ -1,7 +1,7 @@
 import { Text, ModalProvider } from '@wings-software/uikit'
 import React, { Suspense, useEffect, useState } from 'react'
 import * as queryString from 'query-string'
-import { Route as ReactRoute, Switch, matchPath } from 'react-router'
+import { Route as ReactRoute, Switch, matchPath, useLocation } from 'react-router'
 import { Redirect } from 'react-router-dom'
 import SessionToken from 'framework/utils/SessionToken'
 import { useAppStoreWriter } from 'framework/hooks/useAppStore'
@@ -14,6 +14,7 @@ import css from './RouteMounter.module.scss'
 
 const Loading = <Text className={css.loading}>{i18n.loading}</Text>
 let activeRouteParams: RouteParams
+let activeRoute: Pick<Route, 'path' | 'nestedRoutes'>
 
 interface RouteMounterProps {
   route: Route
@@ -25,7 +26,7 @@ function updateTitle(title: string): void {
   document.title = `Harness | ${title}`
 }
 
-function updateRouteParams(route: Pick<Route, 'path' | 'nestedRoutes'>): void {
+function buildRouteParams(route: Pick<Route, 'path' | 'nestedRoutes'>): RouteParams {
   const match = matchPath('/' + location.href.split('/#/')[1]?.split('?')?.[0], {
     path: routePath(route),
     exact: true
@@ -37,9 +38,11 @@ function updateRouteParams(route: Pick<Route, 'path' | 'nestedRoutes'>): void {
 
   route.nestedRoutes?.forEach(nestedRoute => {
     if (isRouteActive(nestedRoute)) {
-      updateRouteParams(nestedRoute)
+      activeRouteParams = buildRouteParams(nestedRoute)
     }
   })
+
+  return activeRouteParams
 }
 
 function renderPageChildren(route: Route): React.ReactNode {
@@ -59,8 +62,9 @@ function renderPageChildren(route: Route): React.ReactNode {
 
       const NestedContainer: React.FC = () => {
         useEffect(() => {
-          updateRouteParams(nestedRoute)
+          buildRouteParams(nestedRoute)
           updateTitle(title)
+          activeRoute = nestedRoute
         }, [])
 
         return <NestedPageComponent>{renderPageChildren(Object.assign({}, route, nestedRoute))}</NestedPageComponent>
@@ -78,7 +82,8 @@ export const RouteMounter: React.FC<RouteMounterProps> = ({ route, onEnter, onEx
   const { title, component: PageComponent, pageId } = route
   const updateApplicationState = useAppStoreWriter()
 
-  updateRouteParams(route)
+  buildRouteParams(route)
+  activeRoute = route
 
   useEffect(() => {
     updateTitle(title)
@@ -130,6 +135,17 @@ export function isRouteActive<T>(route: Route<T> | NestedRoute<T>, exact = true)
  * Get active route params.
  * @returns RouteParams object of the active route.
  */
-export function routeParams(): RouteParams {
-  return activeRouteParams
+export function useRouteParams(): RouteParams {
+  const [params, setParams] = useState<RouteParams>(activeRouteParams)
+  const { pathname, search } = useLocation()
+  const locationRef = React.useRef({ pathname, search })
+
+  useEffect(() => {
+    if (activeRoute && (locationRef.current.pathname !== pathname || locationRef.current.search !== search)) {
+      locationRef.current = { pathname, search }
+      setParams(buildRouteParams(activeRoute))
+    }
+  }, [pathname, search])
+
+  return params
 }

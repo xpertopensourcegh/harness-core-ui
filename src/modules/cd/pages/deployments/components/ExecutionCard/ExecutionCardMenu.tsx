@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom'
 import type { PipelineExecutionSummaryDTO } from 'services/cd-ng'
 import { ExecutionStatus } from 'modules/common/exports'
 import { routeCDPipelineStudio } from 'modules/cd/routes'
-import { routeParams } from 'framework/exports'
+import { useRouteParams } from 'framework/exports'
 import i18n from './ExecutionCardMenu.i18n'
 
 export interface ExecutionCardMenuProps {
@@ -23,7 +23,7 @@ const FinishedExecutionStatus = [
 export const ExecutionCardMenu: React.FC<ExecutionCardMenuProps> = ({ pipelineExecution }) => {
   const {
     params: { orgIdentifier, projectIdentifier }
-  } = routeParams()
+  } = useRouteParams()
   const { pipelineIdentifier } = pipelineExecution
   const history = useHistory()
   const gotoPipelineStudio = useCallback(() => {

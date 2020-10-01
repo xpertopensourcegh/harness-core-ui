@@ -23,7 +23,6 @@ import { useParams } from 'react-router-dom'
 import { loggerFor, ModuleName } from 'framework/exports'
 import { Variable, SecretDTOV2, listSecretsV2Promise } from 'services/cd-ng'
 import { Step, StepViewType, ConfigureOptions } from 'modules/common/exports'
-import { routeParams } from 'framework/exports'
 import type { CompletionItemInterface } from 'modules/common/interfaces/YAMLBuilderProps'
 import SecretReference from 'modules/dx/components/SecretReference/SecretReference'
 import { Scope } from 'modules/common/interfaces/SecretsInterface'
@@ -307,9 +306,10 @@ export class CustomVariables extends Step<VariableList> {
   }
 
   protected async getSecrets(): Promise<SecretDTOV2[] | undefined> {
-    const {
-      params: { accountId }
-    } = routeParams()
+    // TODO: Class based component can't use useRouteParams() hook to get accountId
+    // Get it from localStorage for now
+    const accountId = localStorage.acctId
+
     // Fetch only if the data is older then 60 Seconds
     if (this.lastFetched + 60000 < new Date().getTime() || !this.secrets) {
       this.lastFetched = new Date().getTime()

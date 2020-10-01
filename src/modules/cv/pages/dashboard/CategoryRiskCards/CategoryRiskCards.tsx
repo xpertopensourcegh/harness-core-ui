@@ -8,7 +8,7 @@ import cx from 'classnames'
 import { isNumber } from 'lodash-es'
 import moment from 'moment'
 import { RiskScoreTile } from 'modules/cv/components/RiskScoreTile/RiskScoreTile'
-import { routeParams } from 'framework/exports'
+import { useRouteParams } from 'framework/exports'
 import { RestResponseMapCVMonitoringCategoryInteger, useGetCategoryRiskMap } from 'services/cv'
 import { NoDataCard } from 'modules/common/components/Page/NoDataCard'
 import { getColorStyle } from 'modules/common/components/HeatMap/ColorUtils'
@@ -88,7 +88,7 @@ export function CategoryRiskCards(props: CategoryRiskCardsProps): JSX.Element {
   const { categoryRiskCardClassName, environmentIdentifier, serviceIdentifier } = props
   const {
     params: { orgIdentifier = '', projectIdentifier = '', accountId }
-  } = routeParams()
+  } = useRouteParams()
   const [overallRiskScore, setOverallRiskScore] = useState<number | undefined>()
   const { data, error, loading, refetch } = useGetCategoryRiskMap({
     queryParams: {

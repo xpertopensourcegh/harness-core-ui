@@ -7,7 +7,7 @@ import { AppDynamicsService, CVNextGenCVConfigService } from 'modules/cv/service
 import { transformQueriesFromSplunk } from 'modules/cv/pages/onboarding/setup/splunk/SplunkMainSetupViewUtils'
 import { transformAppDynamicsApplications } from 'modules/cv/pages/onboarding/setup/appdynamics/AppDynamicsOnboardingUtils'
 import DataSourceSelectEntityTable from 'modules/cv/components/DataSourceSelectEntityTable/DataSourceSelectEntityTable'
-import { routeParams } from 'framework/exports'
+import { useRouteParams } from 'framework/exports'
 import { Page } from 'modules/common/exports'
 import type { ServiceResponse } from 'modules/common/services/ServiceResponse'
 import { CVObjectStoreNames, CVIndexedDBPrimaryKeys } from 'modules/cv/hooks/IndexedDBHook/IndexedDBHook'
@@ -50,7 +50,7 @@ export default function DataSourceListEntitySelect(): JSX.Element {
   const {
     params: { accountId, dataSourceType = '', projectIdentifier: routeProjectId, orgId: routeOrgId },
     query: { dataSourceId: routeDataSourceId }
-  } = routeParams()
+  } = useRouteParams()
   const { pageData, dbInstance } = useOnBoardingPageDataHook<PageContextData>(routeDataSourceId as string)
   const [{ pageError, noEntities }, setErrorOrNoData] = useState<{ pageError?: string; noEntities?: boolean }>({})
   const [loading, setLoading] = useState(true)

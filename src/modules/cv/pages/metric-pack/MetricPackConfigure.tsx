@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useState, useEffect } from 'react'
 import { Button, OverlaySpinner, Text } from '@wings-software/uikit'
 import { accountId, RouteVerificationTypeToVerificationType } from 'modules/cv/constants'
-import { routeParams } from 'framework/exports'
+import { useRouteParams } from 'framework/exports'
 import { fetchMetricPacks, saveGlobalMetricPacks } from '../../services/CVNextGenCVConfigService'
 import ConfigureThreshold from './ConfigureThreshold'
 import { MetricPackTable } from '../../components/MetricPackTable/MetricPackTable'
@@ -14,7 +14,7 @@ const MetricPackConfigure: FunctionComponent<any> = () => {
   const [inProgress, setInProgress] = useState(false)
   const {
     params: { orgId: routeOrgId, projectId: routeProjectId }
-  } = routeParams()
+  } = useRouteParams()
   const orgId = routeOrgId as string
   const projectId = routeProjectId as string
 

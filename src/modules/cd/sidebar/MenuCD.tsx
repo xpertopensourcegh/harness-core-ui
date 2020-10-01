@@ -1,7 +1,7 @@
 import { Container, Layout, Icon, Button } from '@wings-software/uikit'
 import React, { useCallback } from 'react'
 import { useHistory } from 'react-router-dom'
-import { Sidebar, isRouteActive, routeParams, ModuleName } from 'framework/exports'
+import { Sidebar, isRouteActive, useRouteParams, ModuleName } from 'framework/exports'
 import { ProjectSelector } from 'modules/common/components/ProjectSelector/ProjectSelector'
 import { AdminSelector, AdminSelectorLink } from 'modules/common/components/AdminSelector/AdminSelector'
 import i18n from './MenuCD.i18n'
@@ -25,7 +25,7 @@ import css from './MenuCD.module.scss'
 // TODO: icons are not finalized and not available in UIKit
 //
 const ProjectNavLinks: React.FC = () => {
-  const { params } = routeParams()
+  const { params } = useRouteParams()
   const { orgIdentifier, projectIdentifier } = (params as unknown) as {
     orgIdentifier: string
     projectIdentifier: string

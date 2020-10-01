@@ -4,7 +4,7 @@ import moment from 'moment'
 import { useHistory } from 'react-router-dom'
 import { Page } from 'modules/common/exports'
 import HeatMap, { CellStatusValues } from 'modules/common/components/HeatMap/HeatMap'
-import { routeParams } from 'framework/exports'
+import { useRouteParams } from 'framework/exports'
 import {
   HeatMapDTO,
   useGetHeatmap,
@@ -67,7 +67,7 @@ function HeatMapTooltip({ cell }: { cell?: HeatMapDTO }): JSX.Element {
 export default function CVServicesPage(): JSX.Element {
   const {
     params: { accountId, projectIdentifier, orgIdentifier }
-  } = routeParams()
+  } = useRouteParams()
   const [range, setRange] = useState({
     selectedValue: DEFAULT_RANGE.value,
     dates: {

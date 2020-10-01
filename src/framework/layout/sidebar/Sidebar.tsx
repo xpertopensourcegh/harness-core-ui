@@ -4,7 +4,7 @@ import cx from 'classnames'
 import { Link } from 'react-router-dom'
 import { useAppStoreReader } from 'framework/hooks/useAppStore'
 import type { Route, SidebarEntry } from 'framework/exports'
-import { routeParams } from 'framework/route/RouteMounter'
+import { useRouteParams } from 'framework/route/RouteMounter'
 import { SidebarTitle } from './components/SidebarTitle'
 import { SidebarLink, SidebarButton } from './components/SidebarLink'
 import css from './Sidebar.module.scss'
@@ -14,6 +14,7 @@ const BOTTOM = 'BOTTOM'
 
 const SidebarItem = (sidebarEntry: SidebarEntry, route?: Route): JSX.Element => {
   const [hover, setHover] = useState(false)
+  const params = useRouteParams()
   const isSelected = sidebarEntry.sidebarId === route?.sidebarId
 
   return (
@@ -21,7 +22,7 @@ const SidebarItem = (sidebarEntry: SidebarEntry, route?: Route): JSX.Element => 
       <Link
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
-        to={sidebarEntry.url(routeParams())}
+        to={sidebarEntry.url(params)}
         className={css.sidebarLink}
         title={sidebarEntry.title}
       >

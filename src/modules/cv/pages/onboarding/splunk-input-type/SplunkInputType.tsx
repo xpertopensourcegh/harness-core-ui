@@ -4,7 +4,7 @@ import { useHistory, useLocation } from 'react-router-dom'
 import { Page } from 'modules/common/exports'
 import { routeCVOnBoardingSetup, routeCVDataSourcesEntityPage } from 'modules/cv/routes'
 import { DataSourceRoutePaths } from 'modules/cv/routePaths'
-import { routeParams } from 'framework/exports'
+import { useRouteParams } from 'framework/exports'
 import i18n from './SplunkInputType.i18n'
 import css from './SplunkInputType.module.scss'
 
@@ -15,7 +15,7 @@ export default function SplunkInputType(): JSX.Element {
   const {
     query,
     params: { projectIdentifier: routeProjectId, orgId: routeOrgId }
-  } = routeParams()
+  } = useRouteParams()
   const { state: locationContext = {} } = useLocation()
   const projectId: string = (routeProjectId as string) || ''
   const orgId: string = (routeOrgId as string) || ''

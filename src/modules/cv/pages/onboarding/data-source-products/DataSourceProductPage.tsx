@@ -11,7 +11,7 @@ import {
 } from 'modules/cv/routes'
 import { Page } from 'modules/common/exports'
 import { CVNextGenCVConfigService } from 'modules/cv/services'
-import { routeParams } from 'framework/exports'
+import { useRouteParams } from 'framework/exports'
 import { DataSourceRoutePaths } from 'modules/cv/routePaths'
 import { CVObjectStoreNames } from 'modules/cv/hooks/IndexedDBHook/IndexedDBHook'
 import useOnBoardingPageDataHook from 'modules/cv/hooks/OnBoardingPageDataHook/OnBoardingPageDataHook'
@@ -84,7 +84,7 @@ export default function AppDynamicsProductPage(): JSX.Element {
       orgId: routeOrgId
     },
     query: { dataSourceId: routeDataSourceId = '' }
-  } = routeParams()
+  } = useRouteParams()
   const { pageData = {}, isInitializingDB, dbInstance } = useOnBoardingPageDataHook<PageContextData>(
     (routeDataSourceId as string) || ''
   )

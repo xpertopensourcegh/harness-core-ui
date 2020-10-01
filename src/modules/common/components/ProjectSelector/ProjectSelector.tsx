@@ -1,9 +1,8 @@
-import React, { useEffect, useState, useRef } from 'react'
-import { useLocation } from 'react-router-dom'
-import { Select, SelectOption, useIsMounted } from '@wings-software/uikit'
+import React from 'react'
+import { Select, SelectOption } from '@wings-software/uikit'
 import type { IconProps } from '@wings-software/uikit/dist/icons/Icon'
 import cx from 'classnames'
-import { routeParams, ModuleName } from 'framework/exports'
+import { useRouteParams, ModuleName } from 'framework/exports'
 import type { Project } from 'services/cd-ng'
 import { useGetProjectList } from 'services/cd-ng'
 import { useToaster } from 'modules/common/exports'
@@ -21,20 +20,15 @@ export interface ProjectSelectorProps {
 export const ProjectSelector: React.FC<ProjectSelectorProps> = ({ module, onSelect }) => {
   const {
     params: { accountId, projectIdentifier }
-  } = routeParams()
-  const isMounted = useIsMounted()
-  const { pathname } = useLocation()
+  } = useRouteParams()
   const { showError } = useToaster()
-  const [selectedProject, setSelectedProject] = useState<ProjectListOptions | undefined>()
-  const { data: projects, error, refetch } = useGetProjectList({
+  const { data: projects, error } = useGetProjectList({
     queryParams: {
       accountIdentifier: accountId,
       moduleType: module,
       pageSize: PAGE_SIZE
-    },
-    lazy: true
+    }
   })
-  const timeoutRef = useRef(0)
 
   const projectSelectOptions: ProjectListOptions[] = React.useMemo(
     () =>
@@ -62,31 +56,7 @@ export const ProjectSelector: React.FC<ProjectSelectorProps> = ({ module, onSele
     showError(error?.message)
   }
 
-  useEffect(() => {
-    if (accountId) {
-      // Note: There's a moment pathname got changed before component is unmounted, causing
-      // refetch() to be called right before unmounting. This leads to component update after
-      // it is unmounted and a unnessessary call is made. To avoid this effect, use a timeout
-      // in combination with isMounted hook
-      clearTimeout(timeoutRef.current)
-      timeoutRef.current = window.setTimeout(() => {
-        if (isMounted.current) {
-          refetch()
-        }
-      }, 50)
-    }
-    return () => {
-      clearTimeout(timeoutRef.current)
-    }
-  }, [accountId, pathname])
-
-  useEffect(() => {
-    if (projectIdentifier) {
-      setSelectedProject(projectSelectOptions.find(project => project.identifier === projectIdentifier))
-    } else {
-      setSelectedProject(undefined)
-    }
-  }, [projectSelectOptions, projectIdentifier])
+  const selectedProject = projectSelectOptions?.find(project => project.identifier === projectIdentifier)
 
   return (
     <Select
@@ -97,7 +67,6 @@ export const ProjectSelector: React.FC<ProjectSelectorProps> = ({ module, onSele
         placeholder: i18n.selectProject
       }}
       onChange={item => {
-        setSelectedProject(item as ProjectListOptions)
         onSelect(item as ProjectListOptions)
       }}
     />

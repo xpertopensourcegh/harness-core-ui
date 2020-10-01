@@ -3,13 +3,13 @@ import { Container, Button, Heading, Text, Icon, Layout } from '@wings-software/
 import { useHistory } from 'react-router-dom'
 import { routeCDPipelineStudio } from 'modules/cd/routes'
 import { Page } from 'modules/common/exports'
-import { routeParams, useAppStoreReader } from 'framework/exports'
+import { useRouteParams, useAppStoreReader } from 'framework/exports'
 import i18n from './CDDashboardPage.i18n'
 
 export const CDDashboardPage: React.FC = () => {
   const {
     params: { projectIdentifier }
-  } = routeParams()
+  } = useRouteParams()
   const { projects } = useAppStoreReader()
   const project = projects.find(({ identifier }) => identifier === projectIdentifier)
   const history = useHistory()

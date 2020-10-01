@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo } from 'react'
 import { Container, Text, Color, Pagination } from '@wings-software/uikit'
-import { routeParams } from 'framework/exports'
+import { useRouteParams } from 'framework/exports'
 import { PageError } from 'modules/common/components/Page/PageError'
 import { Frequency, useGetAllLogs } from 'services/cv'
 import { NoDataCard } from 'modules/common/components/Page/NoDataCard'
@@ -72,7 +72,7 @@ function generatePointsForLogFrequency(
 export default function LogAnalysisView(props: LogAnalysisViewProps): JSX.Element {
   const {
     params: { accountId, orgIdentifier, projectIdentifier }
-  } = routeParams()
+  } = useRouteParams()
   const { environmentIdentifier, serviceIdentifier, startTime, endTime, categoryName, historyStartTime } = props
   const finalStartTime = historyStartTime ?? startTime
   const { error, data: logAnalysisResponse, refetch: refetchLogAnalysis } = useGetAllLogs({ lazy: true })

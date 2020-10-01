@@ -1,7 +1,7 @@
 import { Container, Layout, Button, Icon } from '@wings-software/uikit'
 import React, { useCallback } from 'react'
 import { useHistory } from 'react-router-dom'
-import { Sidebar, isRouteActive, routeParams, ModuleName } from 'framework/exports'
+import { Sidebar, isRouteActive, useRouteParams, ModuleName } from 'framework/exports'
 import { AdminSelector, AdminSelectorLink } from 'modules/common/components/AdminSelector/AdminSelector'
 import { ProjectSelector } from 'modules/common/components/ProjectSelector/ProjectSelector'
 import i18n from './MenuCV.i18n'
@@ -19,7 +19,7 @@ import {
 import css from './MenuCV.module.scss'
 
 const ProjectNavLinks: React.FC = () => {
-  const { params } = routeParams()
+  const { params } = useRouteParams()
   const { orgIdentifier, projectIdentifier } = (params as unknown) as {
     orgIdentifier: string
     projectIdentifier: string

@@ -2,10 +2,10 @@ import React from 'react'
 import { Layout, Container } from '@wings-software/uikit'
 import { Tag } from '@blueprintjs/core'
 import cx from 'classnames'
-import { useParams, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { Page } from 'modules/common/exports'
 import { routeResources } from 'modules/common/routes'
-import { routeParams } from 'framework/exports'
+import { useRouteParams } from 'framework/exports'
 import { useGetConnector, ConnectorResponse, useUpdateConnector } from 'services/cd-ng'
 import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
 import ReferencedBy from './ReferencedBy/ReferencedBy'
@@ -26,15 +26,14 @@ const categories: Categories = {
 const ConnectorDetailsPage: React.FC = () => {
   const [activeCategory, setActiveCategory] = React.useState(0)
   const {
-    params: { connectorId }
-  } = routeParams()
-  const { accountId, orgIdentifier, projectIdentifier } = useParams()
+    params: { connectorId, accountId, orgIdentifier, projectIdentifier }
+  } = useRouteParams()
   const { loading, data, refetch } = useGetConnector({
     identifier: connectorId as string,
     queryParams: {
       accountIdentifier: accountId,
-      orgIdentifier: orgIdentifier,
-      projectIdentifier: projectIdentifier
+      orgIdentifier: orgIdentifier as string,
+      projectIdentifier: projectIdentifier as string
     }
   })
   const { mutate: updateConnector } = useUpdateConnector({ queryParams: { accountIdentifier: accountId } })

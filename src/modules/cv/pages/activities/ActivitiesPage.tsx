@@ -2,7 +2,7 @@ import React, { useState, useCallback } from 'react'
 import { Container, Heading, Text, Color, Button, useModalHook } from '@wings-software/uikit'
 import cx from 'classnames'
 import { useHistory } from 'react-router-dom'
-import { routeParams } from 'framework/exports'
+import { useRouteParams } from 'framework/exports'
 import { Page } from 'modules/common/exports'
 import { routeCVActivityDetails } from 'modules/cv/routes'
 import { ActivityDetailsActivityType, ActivityDetailsActivitySource } from 'modules/cv/routePaths'
@@ -33,7 +33,7 @@ const VerificationActivitySourceTileSelectionToRoute = {
 function ActivitiesPageTitle(): JSX.Element {
   const {
     params: { activitySubType = i18n.activitySubTypes.activities }
-  } = routeParams()
+  } = useRouteParams()
 
   return (
     <Container className={css.pageTitleContainer}>
@@ -63,7 +63,7 @@ function NoActivities(): JSX.Element {
   const history = useHistory()
   const {
     params: { projectIdentifier, orgIdentifier }
-  } = routeParams()
+  } = useRouteParams()
   const onActivityTypeOptionClickCallback = useCallback(
     (activityName: string) => {
       let routePath

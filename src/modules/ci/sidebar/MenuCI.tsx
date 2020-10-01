@@ -1,7 +1,7 @@
 import { Container, Layout, Icon, Button } from '@wings-software/uikit'
 import React, { useCallback } from 'react'
 import { useHistory } from 'react-router-dom'
-import { Sidebar, isRouteActive, routeParams, useAppStoreReader, ModuleName } from 'framework/exports'
+import { Sidebar, isRouteActive, useRouteParams, useAppStoreReader, ModuleName } from 'framework/exports'
 import type { Project } from 'services/cd-ng'
 import { ProjectSelector } from 'modules/common/components/ProjectSelector/ProjectSelector'
 import { AdminSelector, AdminSelectorLink } from 'modules/common/components/AdminSelector/AdminSelector'
@@ -77,7 +77,7 @@ const ProjectNavLinks: React.FC<{ project?: Project }> = ({ project }) => {
 export const MenuCI: React.FC = () => {
   const {
     params: { projectIdentifier }
-  } = routeParams()
+  } = useRouteParams()
   const history = useHistory()
   const { projects } = useAppStoreReader()
   const selectedProjectDTO = projects?.find(p => p.identifier === projectIdentifier)

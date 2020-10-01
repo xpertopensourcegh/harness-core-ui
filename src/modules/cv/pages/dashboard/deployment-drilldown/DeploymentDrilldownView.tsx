@@ -8,7 +8,7 @@ import {
 } from 'services/cv'
 import { Page } from 'modules/common/exports'
 import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
-import { routeParams } from 'framework/exports'
+import { useRouteParams } from 'framework/exports'
 import { useToaster } from 'modules/common/exports'
 import DeploymentGroupList from './DeploymentGroupList'
 import DeploymentMetricsTab from './DeploymentMetricsTab'
@@ -29,7 +29,7 @@ export default function DeploymentDrilldownView() {
   const {
     params: { accountId },
     query: { jobInstanceId }
-  } = routeParams()
+  } = useRouteParams()
   const { showError } = useToaster()
   const [anomalousMetricsOnly, setAnomalousMetricsOnly] = useState<boolean>(true)
   const [selectedTab, setSelectedTab] = useState<string>(DEFAULT_SELECTED_TAB)

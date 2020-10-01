@@ -19,7 +19,7 @@ import { AppDynamicsService } from 'modules/cv/services'
 import { CustomizeMetricPackDrawer } from 'modules/cv/components/CustomizeMetricPackDrawer/CustomizeMetricPackDrawer'
 import { useMetricPackHook, fetchMetricPacks } from 'modules/cv/hooks/ConfigureMetricPackHook/ConfigureMetricPackHook'
 import DataSourceConfigPanel from 'modules/cv/components/DataSourceConfigPanel/DataSourceConfigPanel'
-import { routeParams } from 'framework/exports'
+import { useRouteParams } from 'framework/exports'
 import OnBoardingConfigSetupHeader from 'modules/cv/components/OnBoardingConfigSetupHeader/OnBoardingConfigSetupHeader'
 import { CVObjectStoreNames } from 'modules/cv/hooks/IndexedDBHook/IndexedDBHook'
 import {
@@ -319,7 +319,7 @@ function AppDynamicsDataSourceForm(props: AppDynamicsDataSourceFormProps): JSX.E
   const {
     params: { accountId },
     query: { dataSourceId: routeDataSourceId = '' }
-  } = routeParams()
+  } = useRouteParams()
   const dataSourceId = pageData.dataSourceId || (routeDataSourceId as string)
 
   useEffect(() => {
@@ -432,7 +432,7 @@ export default function AppDynamicsMainSetupView(props: AppDynamicsMainSetupView
   const {
     params: { accountId, projectIdentifier: routeProjectId, orgId: routeOrgId },
     query: { dataSourceId: routeDataSourceId }
-  } = routeParams()
+  } = useRouteParams()
   const dataSourceId = (routeDataSourceId as string) || locationContext.dataSourceId
   const projectId = routeProjectId as string
   const orgId = routeOrgId as string

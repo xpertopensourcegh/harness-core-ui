@@ -4,7 +4,7 @@ import cx from 'classnames'
 import { useLocation, useHistory } from 'react-router-dom'
 import { Page } from 'modules/common/exports'
 import { useGetListOfExecutions } from 'services/cd-ng'
-import { routeParams } from 'framework/exports'
+import { useRouteParams } from 'framework/exports'
 import i18n from './CDDeploymentsPage.i18n'
 import { ExecutionsListView } from './views/ExecutionsListView'
 import css from './CDDeploymentsPage.module.scss'
@@ -15,7 +15,7 @@ const CDDeploymentsPage: React.FC = () => {
   const {
     params: { accountId, projectIdentifier, orgIdentifier },
     query
-  } = routeParams()
+  } = useRouteParams()
   const { pathname, search } = useLocation()
   const [page, setPage] = useState(Number(query.page || 1))
   const history = useHistory()

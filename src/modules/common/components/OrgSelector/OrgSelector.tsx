@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Layout, Select, SelectOption } from '@wings-software/uikit'
 import cx from 'classnames'
 import { useHistory } from 'react-router-dom'
-import { Sidebar, isRouteActive, routeParams } from 'framework/exports'
+import { Sidebar, isRouteActive, useRouteParams } from 'framework/exports'
 import { routeOrgGitSync, routeOrgGovernance, routeOrgProjects, routeOrgResources } from 'modules/common/routes'
 import { useGetOrganizationList } from 'services/cd-ng'
 import i18n from './OrgSelector.i18n'
@@ -50,7 +50,7 @@ const OrgNavLinks: React.FC<{ orgIdentifier?: string }> = ({ orgIdentifier }) =>
 const OrgSelector: React.FC = () => {
   const {
     params: { orgIdentifier, accountId }
-  } = routeParams()
+  } = useRouteParams()
   const history = useHistory()
   const [selectedOrg, setSelectedOrg] = useState<SelectOption>()
   const { data } = useGetOrganizationList({ queryParams: { accountIdentifier: accountId } })

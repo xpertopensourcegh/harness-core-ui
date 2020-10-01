@@ -20,7 +20,7 @@ import { Page, useConfirmationDialog } from 'modules/common/exports'
 import CVProductCard from 'modules/cv/components/CVProductCard/CVProductCard'
 import { routeCVDataSourcesProductPage, routeCVDataSources } from 'modules/cv/routes'
 import { CVProviders, VerificationTypeToRouteVerificationType } from 'modules/cv/constants'
-import { loggerFor, ModuleName, routeParams } from 'framework/exports'
+import { loggerFor, ModuleName, useRouteParams } from 'framework/exports'
 import {
   useIndexedDBHook,
   CVObjectStoreNames,
@@ -361,7 +361,7 @@ function RenderContent(props: RenderContentProps): JSX.Element {
   const {
     params: { projectIdentifier: projectId, orgIdentifier: orgId, accountId },
     query: { onBoarding: isOnboardingFlow = false }
-  } = routeParams()
+  } = useRouteParams()
   const [isNewDataSourceView, setToggleView] = useState(!isOnboardingFlow)
   const history = useHistory()
 
@@ -415,7 +415,7 @@ const DataSources: FunctionComponent<{}> = _ => {
   const [existingDataSources, setDataSources] = useState(new Map())
   const {
     params: { accountId, projectIdentifier, orgIdentifier }
-  } = routeParams()
+  } = useRouteParams()
   const { isInitializingDB, dbInstance } = useIndexedDBHook()
   const { data: secretManagersApiResponse, loading, error, refetch } = useGetConnectorList({
     queryParams: {
