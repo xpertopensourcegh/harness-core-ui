@@ -26,6 +26,7 @@ import { useGetOrganizationList, ResponsePageOrganization } from 'services/cd-ng
 import type { Project } from 'services/cd-ng'
 import { usePutProject, usePostProject } from 'services/cd-ng'
 import type { UseGetMockData } from 'modules/common/utils/testUtils'
+import { useToaster } from 'modules/common/components/Toaster/useToaster'
 import css from './Steps.module.scss'
 
 interface ProjectModalData {
@@ -54,14 +55,16 @@ const AboutProject: React.FC<StepProps<Project> & ProjectModalData> = props => {
   const { accountId, orgIdentifier } = useParams()
   const isEdit = (!!projectData && !!projectData.identifier) || prevStepData?.identifier
   const isStep = prevStepData?.identifier
-  const { mutate: updateProject } = usePutProject({
+  const { showSuccess } = useToaster()
+
+  const { mutate: updateProject, loading: updateLoading } = usePutProject({
     identifier: '',
     queryParams: {
       accountIdentifier: accountId,
       orgIdentifier: ''
     }
   })
-  const { mutate: createProject } = usePostProject({
+  const { mutate: createProject, loading: createLoading } = usePostProject({
     queryParams: {
       accountIdentifier: accountId,
       orgIdentifier: ''
@@ -105,13 +108,18 @@ const AboutProject: React.FC<StepProps<Project> & ProjectModalData> = props => {
     ;(dataToSubmit as Project)['accountIdentifier'] = accountId
     ;(dataToSubmit as Project)['owners'] = [accountId]
     if (isEdit) {
-      await updateProject(dataToSubmit as Project, {
-        pathParams: { identifier: values?.identifier || '' },
-        queryParams: { accountIdentifier: accountId, orgIdentifier: values?.orgIdentifier || '' }
-      })
-      isStep ? nextStep?.({ ...values }) : closeModal?.()
-      onSuccess?.(values)
-      updateAppStore({ projects: projects.filter(p => p.identifier !== values.identifier).concat(values) })
+      try {
+        await updateProject(dataToSubmit as Project, {
+          pathParams: { identifier: values?.identifier || '' },
+          queryParams: { accountIdentifier: accountId, orgIdentifier: values?.orgIdentifier || '' }
+        })
+        isStep ? nextStep?.({ ...values }) : closeModal?.()
+        showSuccess(i18n.newProjectWizard.aboutProject.editSuccess)
+        onSuccess?.(values)
+        updateAppStore({ projects: projects.filter(p => p.identifier !== values.identifier).concat(values) })
+      } catch (e) {
+        modalErrorHandler?.showDanger(e.data.message || getErrorMessage(e.data.errors))
+      }
     } else {
       ;(dataToSubmit as Project)['modules'] = values.modules || []
       try {
@@ -119,6 +127,7 @@ const AboutProject: React.FC<StepProps<Project> & ProjectModalData> = props => {
           queryParams: { accountIdentifier: accountId, orgIdentifier: values?.orgIdentifier || '' }
         })
         nextStep?.({ ...values })
+        showSuccess(i18n.newProjectWizard.aboutProject.createSuccess)
         onSuccess?.(values)
         updateAppStore({ projects: projects.concat(values) })
       } catch (e) {
@@ -140,11 +149,13 @@ const AboutProject: React.FC<StepProps<Project> & ProjectModalData> = props => {
       }}
       validationSchema={Yup.object().shape({
         name: Yup.string().trim().required(i18n.newProjectWizard.aboutProject.errorName),
-        identifier: Yup.string()
-          .trim()
-          .required(i18n.newProjectWizard.aboutProject.errorIdentifier)
-          .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, 'Identifier can only contain alphanumerics, _ and $')
-          .notOneOf(illegalIdentifiers),
+        identifier: Yup.string().when('name', {
+          is: val => val?.length,
+          then: Yup.string()
+            .required(i18n.newProjectWizard.aboutProject.errorIdentifier)
+            .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, i18n.newProjectWizard.aboutProject.validationIdentifierChars)
+            .notOneOf(illegalIdentifiers)
+        }),
         orgIdentifier: Yup.string().required(i18n.newProjectWizard.aboutProject.errorOrganisation)
       })}
       onSubmit={(values: AboutPageData) => {
@@ -217,7 +228,12 @@ const AboutProject: React.FC<StepProps<Project> & ProjectModalData> = props => {
                   />
                 </Container>
                 <Layout.Horizontal>
-                  <Button className={css.button} text={i18n.newProjectWizard.saveAndContinue} type="submit" />
+                  <Button
+                    className={css.button}
+                    text={i18n.newProjectWizard.saveAndContinue}
+                    type="submit"
+                    disabled={updateLoading || createLoading}
+                  />
                 </Layout.Horizontal>
               </Layout.Vertical>
               <Container width="50%" flex={{ align: 'center-center' }} className={css.preview}>

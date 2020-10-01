@@ -20,6 +20,7 @@ import { useParams } from 'react-router-dom'
 import { illegalIdentifiers } from 'modules/common/utils/StringUtils'
 import { useAppStoreReader, useAppStoreWriter } from 'framework/exports'
 import { OrganizationCard } from 'modules/common/components/OrganizationCard/OrganizationCard'
+import { useToaster } from 'modules/common/components/Toaster/useToaster'
 import { usePostOrganization, usePutOrganization } from 'services/cd-ng'
 import type { Organization } from 'services/cd-ng'
 import type { OrganizationModalInteraction } from '../OrganizationModalUtils'
@@ -44,6 +45,7 @@ export const StepAboutOrganization: React.FC<StepProps<Organization> & Organizat
   const updateAppStore = useAppStoreWriter()
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding>()
   const [showPreview, setShowPreview] = useState<boolean>(true)
+  const { showSuccess } = useToaster()
   const [org, setOrg] = useState<Organization>(
     (edit && data) || {
       color: '',
@@ -53,8 +55,10 @@ export const StepAboutOrganization: React.FC<StepProps<Organization> & Organizat
       identifier: ''
     }
   )
-  const { mutate: createOrganization } = usePostOrganization({ queryParams: { accountIdentifier: accountId } })
-  const { mutate: updateOrganization } = usePutOrganization({
+  const { mutate: createOrganization, loading: createLoading } = usePostOrganization({
+    queryParams: { accountIdentifier: accountId }
+  })
+  const { mutate: updateOrganization, loading: updateLoading } = usePutOrganization({
     identifier: org.identifier || '',
     queryParams: {
       accountIdentifier: accountId
@@ -71,17 +75,20 @@ export const StepAboutOrganization: React.FC<StepProps<Organization> & Organizat
   const persistOrg = async (values: Organization): Promise<void> => {
     const dataToSubmit: Organization = {
       name: values.name,
+      color: values.color,
       description: values.description,
       identifier: values.identifier,
       tags: values.tags
     }
+    if (values.color == '') delete dataToSubmit.color
     try {
       if (edit) {
         await updateOrganization(dataToSubmit)
+        showSuccess(i18n.form.editSuccess)
       } else {
         await createOrganization(dataToSubmit)
+        showSuccess(i18n.form.createSuccess)
       }
-      if (values.color == '') delete dataToSubmit.color
       updateAppStore({ organisationsMap: organisationsMap.set(values.identifier || '', values) })
       onSuccess?.()
     } catch (error) {
@@ -94,11 +101,13 @@ export const StepAboutOrganization: React.FC<StepProps<Organization> & Organizat
       initialValues={org}
       validationSchema={Yup.object().shape({
         name: Yup.string().trim().required(i18n.form.errorName),
-        identifier: Yup.string()
-          .trim()
-          .required(i18n.form.errorIdentifier)
-          .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, 'Identifier can only contain alphanumerics, _ and $')
-          .notOneOf(illegalIdentifiers)
+        identifier: Yup.string().when('name', {
+          is: val => val?.length,
+          then: Yup.string()
+            .required(i18n.form.errorIdentifier)
+            .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, i18n.form.validationIdentifierChars)
+            .notOneOf(illegalIdentifiers)
+        })
       })}
       validate={setOrg}
       onSubmit={(values: Organization) => {
@@ -148,7 +157,12 @@ export const StepAboutOrganization: React.FC<StepProps<Organization> & Organizat
               </Container>
               <Layout.Horizontal spacing="xsmall">
                 {!edit && <Button onClick={backToSelections} text={i18n.form.back} className={css.button} />}
-                <Button type="submit" className={css.button} text={i18n.form.save} />
+                <Button
+                  type="submit"
+                  className={css.button}
+                  text={i18n.form.save}
+                  disabled={updateLoading || createLoading}
+                />
               </Layout.Horizontal>
             </Layout.Vertical>
             <Container width="50%" flex={{ align: 'center-center' }} className={css.preview}>

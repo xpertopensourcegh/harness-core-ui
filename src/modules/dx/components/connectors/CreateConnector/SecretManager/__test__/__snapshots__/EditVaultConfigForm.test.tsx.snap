@@ -13,10 +13,14 @@ exports[`Edit Vault Config Form should render form 1`] = `
           class="InputWithIdentifier---txtNameContainer--20iZ"
         >
           <div
-            class="InputWithIdentifier---txtIdContainer--2Ozd"
+            class="Layout---horizontal--3rmQ StyledProps---main--1Wws InputWithIdentifier---txtIdContainer--2Ozd"
           >
-            ID
-            :
+            <p
+              class="StyledProps---font--2ipy StyledProps---main--1Wws"
+            >
+              ID
+              :
+            </p>
             <span
               class="InputWithIdentifier---idInput--w8_T"
               contenteditable="true"

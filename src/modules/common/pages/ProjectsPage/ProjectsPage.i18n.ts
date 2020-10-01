@@ -36,7 +36,10 @@ export default {
       errorName: 'Name is required',
       errorIdentifier: 'Identifier is required',
       errorOrganisation: 'Organisation is required',
-      default: 'default'
+      default: 'default',
+      createSuccess: 'Project Created Successfully',
+      editSuccess: 'Edited the Project Successfully',
+      validationIdentifierChars: 'Identifier can only contain alphanumerics, _ and $'
     },
     purposeList: {
       name: 'Which Harness module would you like to start with?',

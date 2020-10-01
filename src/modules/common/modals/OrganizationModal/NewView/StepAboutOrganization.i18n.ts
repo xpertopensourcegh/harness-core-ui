@@ -15,7 +15,10 @@ export default {
     closePreview: 'Close Preview',
     errorColor: 'required',
     errorName: 'Name is required',
-    errorIdentifier: 'Identifier is required'
+    errorIdentifier: 'Identifier is required',
+    createSuccess: 'Organization Created Successfully',
+    editSuccess: 'Edited the Organization Successfully',
+    validationIdentifierChars: 'Identifier can only contain alphanumerics, _ and $'
   },
   preview: 'Preview'
 }
