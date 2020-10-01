@@ -2,7 +2,7 @@ import React from 'react'
 import { render, waitFor, queryByText } from '@testing-library/react'
 import { TestWrapper } from 'modules/common/utils/testUtils'
 import ConnectorsPage from '../ConnectorsPage'
-import { ManualK8s, InlineK8s, GitHttp, Docker, ActiveDocker } from '../__tests__/mockData'
+import { ManualK8s, InlineK8s, GitHttp, Docker, ActiveDocker, Vault } from '../__tests__/mockData'
 
 jest.mock('react-timeago', () => () => 'dummy date')
 
@@ -90,6 +90,21 @@ describe('Connectors List', () => {
     await waitFor(() => queryByText(container, 'DockerId'))
     expect(getByText('DockerName')).toBeDefined()
     expect(getByText('active')).toBeDefined()
+    expect(container).toMatchSnapshot()
+  })
+  test('render vault secret manager row', async () => {
+    const { container, getByText } = render(
+      <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
+        <ConnectorsPage
+          mockData={{
+            data: Vault as any,
+            loading: false
+          }}
+        />
+      </TestWrapper>
+    )
+    await waitFor(() => queryByText(container, 'VaultId'))
+    expect(getByText('VaultName')).toBeDefined()
     expect(container).toMatchSnapshot()
   })
 })

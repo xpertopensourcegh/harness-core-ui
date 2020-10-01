@@ -2,21 +2,22 @@ import React, { useState } from 'react'
 import { Layout, Button } from '@wings-software/uikit'
 import VerifyOutOfClusterDelegate from 'modules/dx/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 import VerifyExistingDelegate from 'modules/dx/common/VerifyExistingDelegate/VerifyExistingDelegate'
-import type { ConnectorConnectivityDetails } from 'services/cd-ng'
+import type { ConnectorConnectivityDetails, ResponseConnectorValidationResult } from 'services/cd-ng'
+import type { UseGetMockData } from 'modules/common/utils/testUtils'
+import type { RestResponseDelegateStatus } from 'services/portal'
+
 import i18n from './TestConnection.i18n'
 import css from './TestConnection.module.scss'
-
 interface TestConnectionProps {
   connectorType: string
-  accountId: string
-  projectIdentifier: string
-  orgIdentifier: string
   connectorName: string
   connectorIdentifier: string
   delegateName?: string
   setLastTested: (val: number) => void
   setLastConnected?: (val: number) => void
   setStatus?: (val: ConnectorConnectivityDetails['status']) => void
+  delegateStatusMockData?: UseGetMockData<RestResponseDelegateStatus>
+  testConnectionMockData?: UseGetMockData<ResponseConnectorValidationResult>
 }
 const TestConnection: React.FC<TestConnectionProps> = props => {
   const [testEnabled, setTestEnabled] = useState<boolean>(false)
@@ -35,6 +36,8 @@ const TestConnection: React.FC<TestConnectionProps> = props => {
             setStatus={props.setStatus}
             type={props.connectorType}
             setTesting={setTestEnabled}
+            delegateStatusMockData={props.delegateStatusMockData}
+            testConnectionMockData={props.testConnectionMockData}
           />
         ) : (
           <VerifyOutOfClusterDelegate
@@ -46,6 +49,8 @@ const TestConnection: React.FC<TestConnectionProps> = props => {
             setStatus={props.setStatus}
             type={props.connectorType}
             setTesting={setTestEnabled}
+            delegateStatusMockData={props.delegateStatusMockData}
+            testConnectionMockData={props.testConnectionMockData}
           />
         )
       ) : (

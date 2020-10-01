@@ -20,9 +20,9 @@ interface VerifyExistingDelegateProps {
   delegateStatusMockData?: UseGetMockData<RestResponseDelegateStatus>
   testConnectionMockData?: UseGetMockData<ResponseConnectorValidationResult>
   name?: string
-  connectorName?: string
-  connectorIdentifier?: string
-  delegateName?: string
+  connectorName: string
+  connectorIdentifier: string
+  delegateName: string
   hideLightModal?: () => void
   renderInModal?: boolean
   onSuccess?: () => void

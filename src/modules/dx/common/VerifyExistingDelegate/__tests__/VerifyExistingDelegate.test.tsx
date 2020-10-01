@@ -14,6 +14,7 @@ describe('Verification step for existing delegate', () => {
         <VerifyExistingDelegate
           name="sample-name"
           connectorName="Test Connector"
+          connectorIdentifier="connectorId"
           delegateName="Incorrect Delegate Name"
           delegateStatusMockData={{
             data: statusData as RestResponseDelegateStatus,
@@ -39,6 +40,7 @@ describe('Verification step for existing delegate', () => {
         <VerifyExistingDelegate
           name="sample-name"
           connectorName="Test Connector"
+          connectorIdentifier={'connectorId'}
           delegateName="Sample Delegate Name"
           delegateStatusMockData={{
             data: statusData as RestResponseDelegateStatus,

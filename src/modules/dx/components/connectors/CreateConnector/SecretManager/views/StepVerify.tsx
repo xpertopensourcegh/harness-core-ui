@@ -20,7 +20,7 @@ const StepVerify: React.FC<
       name={i18n.nameStepVerify}
       renderInModal={true}
       isLastStep={true}
-      connectorIdentifier={props.prevStepData?.detailsData?.identifier}
+      connectorIdentifier={props.prevStepData?.detailsData?.identifier as string}
       connectorName={props.prevStepData?.detailsData?.name}
       {...props}
     />

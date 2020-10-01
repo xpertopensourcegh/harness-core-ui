@@ -22,12 +22,13 @@ import {
   SecretResponseWrapper,
   SecretRequestWrapper,
   ConnectorInfoDTO,
-  ConnectorResponse
+  ConnectorResponse,
+  ResponsePageConnectorResponse
 } from 'services/cd-ng'
 import type { SecretTextSpecDTO, SecretFileSpecDTO } from 'services/cd-ng'
 import { useToaster } from 'modules/common/exports'
 import { illegalIdentifiers } from 'modules/common/utils/StringUtils'
-
+import type { UseGetMockData } from 'modules/common/utils/testUtils'
 import i18n from './CreateUpdateSecret.i18n'
 import VaultFormFields from './views/VaultFormFields'
 import LocalFormFields from './views/LocalFormFields'
@@ -39,6 +40,7 @@ interface CreateSecretTextProps {
   type?: SecretResponseWrapper['secret']['type']
   onChange?: (data: SecretDTOV2) => void
   onSuccess?: (data: SecretFormData) => void
+  connectorListMockData?: UseGetMockData<ResponsePageConnectorResponse>
 }
 
 const CreateUpdateSecret: React.FC<CreateSecretTextProps> = props => {
@@ -49,7 +51,8 @@ const CreateUpdateSecret: React.FC<CreateSecretTextProps> = props => {
   const { showSuccess } = useToaster()
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding>()
   const { data: secretManagersApiResponse, loading: loadingSecretsManagers } = useGetConnectorList({
-    queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier, category: 'SECRET_MANAGER' }
+    queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier, category: 'SECRET_MANAGER' },
+    mock: props.connectorListMockData
   })
   const { mutate: createSecretText, loading: loadingCreateText } = usePostSecret({
     queryParams: { accountIdentifier: accountId }

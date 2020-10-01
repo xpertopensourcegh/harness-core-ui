@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { useParams } from 'react-router'
 import { Button, Layout, IconName } from '@wings-software/uikit'
 import { parse } from 'yaml'
 import cx from 'classnames'
@@ -45,7 +44,6 @@ const SelectedView = {
 }
 
 const ConfigureConnector: React.FC<ConfigureConnectorProps> = props => {
-  const { accountId, orgIdentifier, projectIdentifier } = useParams()
   const [enableEdit, setEnableEdit] = useState(false)
   const [lastTested, setLastTested] = useState<number>(props.response?.status?.lastTestedAt || 0)
   const [lastConnected, setLastConnected] = useState<number>(props.response?.status?.lastTestedAt || 0)
@@ -259,9 +257,6 @@ const ConfigureConnector: React.FC<ConfigureConnectorProps> = props => {
               status={status || props.response.status?.status}
             />
             <TestConnection
-              accountId={accountId}
-              orgIdentifier={orgIdentifier}
-              projectIdentifier={projectIdentifier}
               connectorName={connector?.name || ''}
               connectorIdentifier={connector?.identifier || ''}
               delegateName={connector?.spec?.credential?.spec?.delegateName || ''}
