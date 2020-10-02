@@ -1,0 +1,12 @@
+.pagination {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  left: 270px;
+  padding: 0 !important ;
+  background: var(--white) !important;
+
+  > div {
+    padding: var(--spacing-small) var(--spacing-large) !important;
+  }
+}

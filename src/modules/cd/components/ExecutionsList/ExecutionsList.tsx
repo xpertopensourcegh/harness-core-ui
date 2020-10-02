@@ -1,12 +1,12 @@
 import React from 'react'
 import type { ResponsePagePipelineExecutionSummaryDTO } from 'services/cd-ng'
-import { ExecutionCard } from '../components/ExecutionCard/ExecutionCard'
+import { ExecutionCard } from '../ExecutionCard/ExecutionCard'
 
-export interface ExecutionsListViewProps {
+export interface ExecutionsListProps {
   pipelineExecutionSummary: ResponsePagePipelineExecutionSummaryDTO | null
 }
 
-export const ExecutionsListView: React.FC<ExecutionsListViewProps> = ({ pipelineExecutionSummary }) => {
+export const ExecutionsList: React.FC<ExecutionsListProps> = ({ pipelineExecutionSummary }) => {
   return (
     <>
       {pipelineExecutionSummary?.data?.content?.map(pipelineExecution => (

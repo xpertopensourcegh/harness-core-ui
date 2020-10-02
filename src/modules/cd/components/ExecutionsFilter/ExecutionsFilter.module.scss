@@ -1,0 +1,8 @@
+.roundedButton {
+  border-radius: 14px !important;
+
+  &.selected {
+    border-color: var(--blue-500) !important;
+    background: var(--blue-100) !important;
+  }
+}
