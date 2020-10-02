@@ -17,7 +17,7 @@
       "tags": null,
       "stageExecutionSummaryElements": [
         {
-          "CDStage": {
+          "stage": {
             "planExecutionId": "planExecutionIdcdStageDone",
             "stageIdentifier": "stageIdentifiercdStageDone",
             "stageName": "Done Stage",
@@ -37,7 +37,7 @@
           }
         },
         {
-          "CDStage": {
+          "stage": {
             "planExecutionId": "planExecutionIdcdStageWaiting",
             "stageIdentifier": "stageIdentifiercdStageWaiting",
             "stageName": "Waiting Stage",
@@ -58,7 +58,7 @@
         },
 
         {
-          "CDStage": {
+          "stage": {
             "planExecutionId": "planExecutionIdcdStagePaused",
             "stageIdentifier": "stageIdentifiercdStagePaused",
             "stageName": "Paused Stage",
@@ -79,7 +79,7 @@
         },
 
         {
-          "CDStage": {
+          "stage": {
             "planExecutionId": "planExecutionIdcdStageFailed",
             "stageIdentifier": "stageIdentifiercdStageFailed",
             "stageName": "Failed Stage",
@@ -99,7 +99,7 @@
           }
         },
         {
-          "CDStage": {
+          "stage": {
             "planExecutionId": "planExecutionIdcdStageError",
             "stageIdentifier": "stageIdentifiercdStageError",
             "stageName": "Error Stage",
@@ -122,7 +122,7 @@
           "parallel": {
             "stageExecutions": [
               {
-                "CDStage": {
+                "stage": {
                   "planExecutionId": "planExecutionIdparallelStage1",
                   "stageIdentifier": "stageIdentifierparallelStage1",
                   "stageName": "Running Stage1",
@@ -142,7 +142,7 @@
                 }
               },
               {
-                "CDStage": {
+                "stage": {
                   "planExecutionId": "planExecutionIdparallelStage2",
                   "stageIdentifier": "stageIdentifierparallelStage2",
                   "stageName": "Running Stage 2",
@@ -165,7 +165,7 @@
           }
         },
         {
-          "CDStage": {
+          "stage": {
             "planExecutionId": "planExecutionIdcdStageNotStarted",
             "stageIdentifier": "stageIdentifiercdStageNotStarted",
             "stageName": "Not Started Stage",

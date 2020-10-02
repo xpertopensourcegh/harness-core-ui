@@ -8,7 +8,7 @@ import {
   getPipelinePromise,
   putPipelinePromise,
   PutPipelineQueryParams,
-  ResponseCDPipelineResponseDTO,
+  ResponseNGPipelineResponse,
   Failure,
   postPipelinePromise
 } from 'services/cd-ng'
@@ -44,14 +44,14 @@ export const getPipelineByIdentifier = (
       }
     }
   }).then(response => {
-    let obj = {} as ResponseCDPipelineResponseDTO
+    let obj = {} as ResponseNGPipelineResponse
     if (typeof response === 'string') {
       obj = parse(response as string).data.yamlPipeline
     } else if (response.data?.yamlPipeline) {
       obj = response
     }
     if (obj.status === 'SUCCESS' && obj.data?.yamlPipeline) {
-      return parse(obj.data.yamlPipeline as string).pipeline as NgPipeline
+      return parse(obj.data.yamlPipeline).pipeline as NgPipeline
     }
   })
 }

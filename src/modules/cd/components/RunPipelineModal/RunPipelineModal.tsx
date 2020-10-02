@@ -11,7 +11,7 @@ export interface RunPipelineModalProps {
   className?: string
 }
 
-const dialogProps: Omit<IDialogProps, 'isOpen'> = {
+export const runPipelineDialogProps: Omit<IDialogProps, 'isOpen'> = {
   usePortal: true,
   autoFocus: true,
   canEscapeKeyClose: true,
@@ -30,7 +30,7 @@ export const RunPipelineModal: React.FC<RunPipelineModalProps> = ({
 
   const [openModel, hideModel] = useModalHook(
     () => (
-      <Dialog isOpen={isOpen} {...dialogProps}>
+      <Dialog isOpen={isOpen} {...runPipelineDialogProps}>
         <RunPipelineForm
           pipelineIdentifier={pipelineIdentifier}
           inputSetSelected={inputSetSelected}
@@ -48,7 +48,8 @@ export const RunPipelineModal: React.FC<RunPipelineModalProps> = ({
   return (
     <span
       className={className}
-      onClick={() => {
+      onClick={e => {
+        e.stopPropagation()
         setIsOpen(true)
         openModel()
       }}

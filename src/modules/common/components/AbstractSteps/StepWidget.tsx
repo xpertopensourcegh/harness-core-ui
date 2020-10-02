@@ -8,6 +8,7 @@ export interface StepWidgetProps<T extends object = {}> {
   factory: AbstractStepFactory
   type: string
   initialValues: T
+  allValues?: T
   template?: { [key in keyof T]: string }
   stepViewType?: StepViewType
   onUpdate?: (data: T) => void
@@ -17,6 +18,7 @@ export function StepWidget<T extends object = {}>({
   factory,
   type,
   initialValues,
+  allValues,
   template,
   stepViewType = StepViewType.Edit,
   onUpdate
@@ -26,7 +28,7 @@ export function StepWidget<T extends object = {}>({
   if (!step) {
     return <Text intent="warning">{i18n.invalidStep}</Text>
   } else {
-    const values = step?.getDefaultValues(initialValues)
-    return <>{step.renderStep(values, onUpdate, stepViewType, template)}</>
+    const values = step?.getDefaultValues(initialValues, stepViewType)
+    return <>{step.renderStep(values, onUpdate, stepViewType, template, allValues)}</>
   }
 }

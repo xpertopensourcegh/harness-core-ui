@@ -21,7 +21,7 @@ export abstract class Step<T extends object> {
     return this.type
   }
 
-  getDefaultValues(initialValues: T): T {
+  getDefaultValues(initialValues: T, _stepViewType: StepViewType): T {
     return { ...this.defaultValues, ...initialValues }
   }
 
@@ -45,6 +45,7 @@ export abstract class Step<T extends object> {
     initialValues: T,
     onUpdate?: (data: T) => void,
     stepViewType?: StepViewType,
-    template?: { [P in keyof T]: string }
+    template?: { [P in keyof T]: string },
+    allValues?: T
   ): JSX.Element
 }

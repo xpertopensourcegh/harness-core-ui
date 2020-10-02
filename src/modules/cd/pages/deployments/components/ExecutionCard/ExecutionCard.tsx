@@ -3,6 +3,7 @@ import cx from 'classnames'
 import { get } from 'lodash-es'
 import { Container, Text, Layout, Card, CardBody, Color } from '@wings-software/uikit'
 import * as BP from '@blueprintjs/core'
+import { useHistory, useParams } from 'react-router-dom'
 import type { PipelineExecutionSummaryDTO, StageExecutionSummaryDTO } from 'services/cd-ng'
 import {
   ExecutionStatusLabel,
@@ -13,6 +14,7 @@ import {
   ExecutionStageGraph,
   RenderStageButtonInfo
 } from 'modules/common/exports'
+import { routeCDPipelineExecutionGraph } from 'modules/cd/routes'
 import i18n from './ExecutionCard.i18n'
 import { ExecutionServiceTooltip } from './ExecutionServiceTooltip'
 import { ExecutionActionButtons } from './ExecutionActionButtons'
@@ -25,6 +27,12 @@ export interface ExecutionCardProps {
 
 export const ExecutionCard: React.FC<ExecutionCardProps> = ({ pipelineExecution }) => {
   const status = pipelineExecution.executionStatus as ExecutionStatus
+  const { orgIdentifier, projectIdentifier } = useParams<{
+    projectIdentifier: string
+    orgIdentifier: string
+    accountId: string
+  }>()
+  const history = useHistory()
   const renderStageButton = useCallback((stage: StageExecutionSummaryDTO): RenderStageButtonInfo => {
     const parallel = !!get(stage, 'parallel')
     const checkStatus = (_status: ExecutionStatus): boolean =>
@@ -78,7 +86,20 @@ export const ExecutionCard: React.FC<ExecutionCardProps> = ({ pipelineExecution 
           <Layout.Vertical>
             <Container flex className={css.cardBody}>
               <Layout.Vertical className={css.column} spacing="small" style={{ alignItems: 'normal' }}>
-                <Container flex className={css.topSection}>
+                <Container
+                  flex
+                  className={css.topSection}
+                  onClick={() =>
+                    history.push(
+                      routeCDPipelineExecutionGraph.url({
+                        orgIdentifier,
+                        executionIdentifier: pipelineExecution.planExecutionId || '',
+                        pipelineIdentifier: pipelineExecution.pipelineIdentifier || '',
+                        projectIdentifier
+                      })
+                    )
+                  }
+                >
                   <Text
                     inline
                     className={css.executionId}

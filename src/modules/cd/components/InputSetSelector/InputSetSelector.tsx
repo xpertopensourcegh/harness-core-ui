@@ -1,6 +1,5 @@
 import React from 'react'
 import {
-  Button,
   Checkbox,
   Color,
   Icon,
@@ -14,7 +13,7 @@ import {
 } from '@wings-software/uikit'
 import { clone } from 'lodash-es'
 import cx from 'classnames'
-import { Classes, Position } from '@blueprintjs/core'
+import { Button, Classes, Position } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
 import { InputSetSummaryResponse, useGetInputSetsListForPipeline } from 'services/cd-ng'
 import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
@@ -28,6 +27,7 @@ interface InputSetValue extends SelectOption {
 
 export interface InputSetSelectorProps {
   value?: InputSetValue[]
+  pipelineIdentifier: string
   onChange?: (value?: InputSetValue[]) => void
   width?: number
 }
@@ -49,7 +49,11 @@ const RenderValue = React.memo(function RenderValue({
         {value.map((item, index) => (
           <Tag minimal className={css.tag} key={index}>
             <Layout.Horizontal spacing="xsmall">
-              <Icon name={getIconByType(item.type)} size={12} />
+              <Icon
+                name={getIconByType(item.type)}
+                size={12}
+                color={item.type === 'INPUT_SET' ? Color.BLACK : Color.BLUE_500}
+              />
               <Text font={{ size: 'small' }}>{item.label}</Text>
             </Layout.Horizontal>
           </Tag>
@@ -76,7 +80,12 @@ const RenderValue = React.memo(function RenderValue({
   )
 })
 
-export const InputSetSelector: React.FC<InputSetSelectorProps> = ({ width = 300, value, onChange }): JSX.Element => {
+export const InputSetSelector: React.FC<InputSetSelectorProps> = ({
+  width = 300,
+  value,
+  onChange,
+  pipelineIdentifier
+}): JSX.Element => {
   const [searchParam, setSearchParam] = React.useState('')
   const [multiple, setMultiple] = React.useState(false)
   const [selectedInputSets, setSelectedInputSets] = React.useState<InputSetValue[]>([])
@@ -92,11 +101,10 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({ width = 300,
     }
   }, [value])
 
-  const { projectIdentifier, orgIdentifier, accountId, pipelineIdentifier } = useParams<{
+  const { projectIdentifier, orgIdentifier, accountId } = useParams<{
     projectIdentifier: string
     orgIdentifier: string
     accountId: string
-    pipelineIdentifier: string
   }>()
 
   const { data: inputSetResponse, refetch, error } = useGetInputSetsListForPipeline({
@@ -192,7 +200,10 @@ export const InputSetSelector: React.FC<InputSetSelectorProps> = ({ width = 300,
           }}
           key={inputSet.identifier}
         >
-          <Icon name={getIconByType(inputSet.inputSetType)} />
+          <Icon
+            name={getIconByType(inputSet.inputSetType)}
+            color={inputSet.inputSetType === 'INPUT_SET' ? Color.BLACK : Color.BLUE_500}
+          />
           &nbsp;&nbsp;{inputSet.name}
         </li>
       ))

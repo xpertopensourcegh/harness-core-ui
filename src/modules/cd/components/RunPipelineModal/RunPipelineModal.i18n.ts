@@ -8,6 +8,8 @@ export default {
   cancel: 'Cancel',
   nameIsRequired: 'Name is Required field',
   inputSetSaved: 'Input Set Saved',
+  skipPreFlightCheck: 'Skip pre-flight check',
+  noRuntimeInput: 'No Runtime input in pipeline',
   pipelineRunSuccessFully: 'Pipeline Started SuccessFully',
   runPipelineFailed: 'Failed to run pipeline'
 }

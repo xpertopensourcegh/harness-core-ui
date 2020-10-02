@@ -2,9 +2,9 @@ import React from 'react'
 import { Button, Layout, TextInput, Text, Popover } from '@wings-software/uikit'
 import { useHistory, useParams } from 'react-router-dom'
 import { Menu, Position, MenuItem } from '@blueprintjs/core'
-import { Page, useToaster } from 'modules/common/exports'
-import { routeCDPipelineExecutionGraph, routeCDPipelineStudio, routePipelineDetail } from 'modules/cd/routes'
-import { useGetPipelineList, usePostPipelineExecute } from 'services/cd-ng'
+import { Page } from 'modules/common/exports'
+import { routeCDPipelineStudio, routePipelineDetail } from 'modules/cd/routes'
+import { useGetPipelineList } from 'services/cd-ng'
 import i18n from './CDPipelinesPage.i18n'
 import { PipelineGridView } from './views/PipelineGridView'
 import { PipelineListView } from './views/PipelineListView'
@@ -22,42 +22,6 @@ const CDPipelinesPage: React.FC = () => {
     orgIdentifier: string
     accountId: string
   }>()
-
-  const { showSuccess, showWarning } = useToaster()
-
-  const { mutate: runPipeline } = usePostPipelineExecute({
-    queryParams: { accountIdentifier: accountId, projectIdentifier, orgIdentifier },
-    identifier: '',
-    requestOptions: {
-      headers: {
-        'content-type': 'application/json'
-      }
-    }
-  })
-
-  const handlePipelineRun = React.useCallback(
-    async (identifier?: string) => {
-      if (identifier && identifier.length > 1) {
-        try {
-          const response = await runPipeline(undefined, { pathParams: { identifier } })
-          if (response.status === 'SUCCESS') {
-            showSuccess(i18n.pipelineStarted)
-            history.push(
-              routeCDPipelineExecutionGraph.url({
-                orgIdentifier,
-                pipelineIdentifier: identifier,
-                projectIdentifier,
-                executionIdentifier: response.data?.uuid || ''
-              })
-            )
-          }
-        } catch (error) {
-          showWarning(error?.data?.message || i18n.runPipelineFailed)
-        }
-      }
-    },
-    [runPipeline, showWarning, showSuccess]
-  )
 
   const goToPipelineStudio = React.useCallback(
     (pipelineIdentifier = '-1') => {
@@ -207,7 +171,6 @@ const CDPipelinesPage: React.FC = () => {
             pipelineList={data?.data?.content || []}
             goToPipelineDetail={goToPipelineDetail}
             goToPipelineStudio={goToPipelineStudio}
-            runPipeline={handlePipelineRun}
             refetchPipeline={reloadPipelines}
           />
         ) : (
@@ -216,7 +179,6 @@ const CDPipelinesPage: React.FC = () => {
             data={data?.data}
             goToPipelineDetail={goToPipelineDetail}
             goToPipelineStudio={goToPipelineStudio}
-            runPipeline={handlePipelineRun}
             refetchPipeline={reloadPipelines}
           />
         )}

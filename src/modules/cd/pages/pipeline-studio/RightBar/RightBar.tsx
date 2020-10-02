@@ -1,22 +1,17 @@
 import React from 'react'
 import cx from 'classnames'
-import { Icon, Button } from '@wings-software/uikit'
-import { useParams } from 'react-router-dom'
+import { Icon, Button, useModalHook } from '@wings-software/uikit'
+import { Dialog } from '@blueprintjs/core'
 import { useToaster } from 'modules/common/exports'
-import { usePostPipelineExecute } from 'services/cd-ng'
+import { RunPipelineForm } from 'modules/cd/components/RunPipelineModal/RunPipelineForm'
+import { runPipelineDialogProps } from 'modules/cd/components/RunPipelineModal/RunPipelineModal'
 import i18n from './RightBar.i18n'
 import { PipelineContext } from '../PipelineContext/PipelineContext'
 import { DrawerTypes } from '../PipelineContext/PipelineActions'
 import css from './RightBar.module.scss'
 
 export const RightBar = (): JSX.Element => {
-  const { accountId, projectIdentifier, orgIdentifier } = useParams<{
-    projectIdentifier: string
-    orgIdentifier: string
-    accountId: string
-  }>()
-
-  const { showSuccess, showWarning } = useToaster()
+  const { showWarning } = useToaster()
   const {
     state: {
       isUpdated,
@@ -29,34 +24,29 @@ export const RightBar = (): JSX.Element => {
     updatePipelineView
   } = React.useContext(PipelineContext)
 
-  const { mutate: runPipeline } = usePostPipelineExecute({
-    queryParams: { accountIdentifier: accountId, projectIdentifier, orgIdentifier },
-    identifier: pipeline.identifier || '',
-    requestOptions: {
-      headers: {
-        'content-type': 'application/json'
-      }
-    }
-  })
+  const [isRunPipelineOpen, setRunPipelineOpen] = React.useState(true)
+
+  const [openModel, hideModel] = useModalHook(
+    () => (
+      <Dialog isOpen={isRunPipelineOpen} {...runPipelineDialogProps}>
+        <RunPipelineForm pipelineIdentifier={pipeline.identifier} onClose={closeModel} />
+      </Dialog>
+    ),
+    [pipeline.identifier]
+  )
+
+  const closeModel = React.useCallback(() => {
+    setRunPipelineOpen(false)
+    hideModel()
+  }, [hideModel])
 
   const handleRunPipeline = React.useCallback(async () => {
     if (!isUpdated) {
-      updatePipelineView({
-        ...pipelineView,
-        isDrawerOpened: false
-      })
-      try {
-        const response = await runPipeline()
-        if (response.status === 'SUCCESS') {
-          showSuccess(i18n.pipelineSave)
-        }
-      } catch (error) {
-        showWarning(error?.data?.message || i18n.runPipelineFailed)
-      }
+      openModel()
     } else {
       showWarning(i18n.pipelineUnSave)
     }
-  }, [runPipeline, isUpdated, showWarning, showSuccess])
+  }, [openModel, isUpdated, showWarning])
 
   return (
     <div className={css.rightBar}>

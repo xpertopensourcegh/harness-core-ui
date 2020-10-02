@@ -13,11 +13,11 @@ const processExecutionData = (
   stages?: StageExecutionSummaryDTO[]
 ): Array<ExecutionPipelineNode<CDStageExecutionSummaryDTO>> => {
   const items: Array<ExecutionPipelineNode<CDStageExecutionSummaryDTO>> = []
-  stages?.forEach(stage => {
-    if (stage.parallel) {
-      items.push({ parallel: processExecutionData(stage.parallel.stageExecutions) })
+  stages?.forEach(item => {
+    if (item.parallel) {
+      items.push({ parallel: processExecutionData(item.parallel.stageExecutions) })
     } else {
-      const cdStage = stage.CDStage as CDStageExecutionSummaryDTO
+      const cdStage = item.stage as CDStageExecutionSummaryDTO
       items.push({
         item: {
           icon: 'pipeline-deploy',

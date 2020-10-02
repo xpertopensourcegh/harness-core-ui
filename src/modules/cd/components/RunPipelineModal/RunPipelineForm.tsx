@@ -1,7 +1,7 @@
 import React from 'react'
 import { Classes } from '@blueprintjs/core'
-import { Button, Formik, FormikForm, Layout, Popover, Text } from '@wings-software/uikit'
-import { useParams } from 'react-router-dom'
+import { Button, Checkbox, Formik, FormikForm, Layout, Popover, Text } from '@wings-software/uikit'
+import { useHistory, useParams } from 'react-router-dom'
 import cx from 'classnames'
 import { parse, stringify } from 'yaml'
 import { noop, pick } from 'lodash-es'
@@ -15,12 +15,13 @@ import {
   useGetMergeInputSetFromPipelineTemplateWithListInput,
   useGetPipeline,
   useGetTemplateFromPipeline,
-  usePostPipelineExecute
+  usePostPipelineExecuteWithInputSetYaml
 } from 'services/cd-ng'
 import { useToaster } from 'modules/common/exports'
 import YAMLBuilder from 'modules/common/components/YAMLBuilder/YamlBuilder'
 import type { YamlBuilderHandlerBinding, YamlBuilderProps } from 'modules/common/interfaces/YAMLBuilderProps'
 import { YamlEntity } from 'modules/common/constants/YamlConstants'
+import { routeCDPipelineExecutionGraph } from 'modules/cd/routes'
 import { BasicInputSetForm, InputFormType, InputSetDTO } from '../InputSetForm/InputSetForm'
 import i18n from './RunPipelineModal.i18n'
 import { PipelineInputSetForm } from '../PipelineInputSetForm/PipelineInputSetForm'
@@ -55,12 +56,12 @@ export const RunPipelineForm: React.FC<RunPipelineFormProps> = ({ pipelineIdenti
 
   const [selectedView, setSelectedView] = React.useState<SelectedView>(SelectedView.VISUAL)
   const [yamlHandler, setYamlHandler] = React.useState<YamlBuilderHandlerBinding | undefined>()
-
+  const [skipPreFlightCheck, setSkipPreFlightCheck] = React.useState<boolean>(false)
   const { data: template, loading: loadingTemplate, error: errorTemplate } = useGetTemplateFromPipeline({
     queryParams: { accountIdentifier: accountId, orgIdentifier, pipelineIdentifier, projectIdentifier }
   })
 
-  const [currentPipeline, setCurrentPipeline] = React.useState<{ pipeline: NgPipeline } | undefined>()
+  const [currentPipeline, setCurrentPipeline] = React.useState<{ pipeline?: NgPipeline } | undefined>()
 
   React.useEffect(() => {
     setCurrentPipeline(parse(template?.data?.inputSetTemplateYaml || '') as { pipeline: NgPipeline })
@@ -84,29 +85,44 @@ export const RunPipelineForm: React.FC<RunPipelineFormProps> = ({ pipelineIdenti
   )
 
   const pipeline: NgPipeline | undefined = (pipelineResponse?.data?.ngPipeline as any)?.pipeline
-
-  const { mutate: runPipeline } = usePostPipelineExecute({
+  const history = useHistory()
+  const { mutate: runPipeline } = usePostPipelineExecuteWithInputSetYaml({
     queryParams: { accountIdentifier: accountId, projectIdentifier, orgIdentifier },
     identifier: pipelineIdentifier,
     requestOptions: {
       headers: {
-        'content-type': 'application/json'
+        'content-type': 'application/yaml'
       }
     }
   })
 
-  const handleRunPipeline = React.useCallback(async () => {
-    try {
-      const response = await runPipeline()
-      if (response.status === 'SUCCESS') {
-        showSuccess(i18n.pipelineRunSuccessFully)
+  const handleRunPipeline = React.useCallback(
+    async (valuesPipeline?: NgPipeline) => {
+      try {
+        const response = await runPipeline(
+          valuesPipeline ? (stringify({ pipeline: valuesPipeline || '' }) as any) : (valuesPipeline as any)
+        )
+        if (response.status === 'SUCCESS') {
+          if (!response.data?.errorResponse) {
+            showSuccess(i18n.pipelineRunSuccessFully)
+            history.push(
+              routeCDPipelineExecutionGraph.url({
+                orgIdentifier,
+                pipelineIdentifier: pipelineIdentifier,
+                projectIdentifier,
+                executionIdentifier: response.data?.planExecution?.uuid || ''
+              })
+            )
+          }
+        }
+      } catch (error) {
+        showWarning(error?.data?.message || i18n.runPipelineFailed)
       }
-    } catch (error) {
-      showWarning(error?.data?.message || i18n.runPipelineFailed)
-    }
-  }, [runPipeline, showWarning, showSuccess])
+    },
+    [runPipeline, showWarning, showSuccess, pipelineIdentifier, history, orgIdentifier, projectIdentifier]
+  )
 
-  const [selectedInputSets, setSelectedInputSets] = React.useState<InputSetSelectorProps['value']>()
+  const [selectedInputSets, setSelectedInputSets] = React.useState<InputSetSelectorProps['value']>(inputSetSelected)
 
   React.useEffect(() => {
     setSelectedInputSets(inputSetSelected)
@@ -130,32 +146,41 @@ export const RunPipelineForm: React.FC<RunPipelineFormProps> = ({ pipelineIdenti
   })
 
   React.useEffect(() => {
-    if ((selectedInputSets && selectedInputSets.length > 1) || selectedInputSets?.[0].type === 'OVERLAY_INPUT_SET') {
-      // TODO: Once API Available then fix this
-      const fetchData = async (): Promise<void> => {
-        const data = await mergeInputSet({
-          inputSetReferences: selectedInputSets.map(item => item.value as string)
-        })
-        if (data?.data?.pipelineYaml) {
-          setCurrentPipeline(parse(data.data.pipelineYaml) as { pipeline: NgPipeline })
-        }
-      }
-      fetchData()
-    } else if (selectedInputSets && selectedInputSets.length === 1) {
-      const fetchData = async (): Promise<void> => {
-        const data = await getInputSetForPipelinePromise({
-          inputSetIdentifier: selectedInputSets[0].value as string,
-          queryParams: { accountIdentifier: accountId, projectIdentifier, orgIdentifier, pipelineIdentifier }
-        })
-        if (data?.data?.inputSetYaml) {
-          if (selectedInputSets[0].type === 'INPUT_SET') {
-            setCurrentPipeline(pick(parse(data.data.inputSetYaml)?.inputSet, 'pipeline') as { pipeline: NgPipeline })
+    if (template?.data?.inputSetTemplateYaml) {
+      if ((selectedInputSets && selectedInputSets.length > 1) || selectedInputSets?.[0].type === 'OVERLAY_INPUT_SET') {
+        const fetchData = async (): Promise<void> => {
+          const data = await mergeInputSet({
+            inputSetReferences: selectedInputSets.map(item => item.value as string)
+          })
+          if (data?.data?.pipelineYaml) {
+            setCurrentPipeline(parse(data.data.pipelineYaml) as { pipeline: NgPipeline })
           }
         }
+        fetchData()
+      } else if (selectedInputSets && selectedInputSets.length === 1) {
+        const fetchData = async (): Promise<void> => {
+          const data = await getInputSetForPipelinePromise({
+            inputSetIdentifier: selectedInputSets[0].value as string,
+            queryParams: { accountIdentifier: accountId, projectIdentifier, orgIdentifier, pipelineIdentifier }
+          })
+          if (data?.data?.inputSetYaml) {
+            if (selectedInputSets[0].type === 'INPUT_SET') {
+              setCurrentPipeline(pick(parse(data.data.inputSetYaml)?.inputSet, 'pipeline') as { pipeline: NgPipeline })
+            }
+          }
+        }
+        fetchData()
       }
-      fetchData()
     }
-  }, [selectedInputSets?.length, selectedInputSets, accountId, projectIdentifier, orgIdentifier, pipelineIdentifier])
+  }, [
+    template?.data?.inputSetTemplateYaml,
+    selectedInputSets?.length,
+    selectedInputSets,
+    accountId,
+    projectIdentifier,
+    orgIdentifier,
+    pipelineIdentifier
+  ])
 
   if (loadingPipeline || loadingTemplate || createInputSetLoading || loadingUpdate) {
     return <PageSpinner />
@@ -179,58 +204,77 @@ export const RunPipelineForm: React.FC<RunPipelineFormProps> = ({ pipelineIdenti
       </Layout.Horizontal>
       <div className={Classes.DIALOG_BODY}>
         <Layout.Vertical spacing="medium">
-          <Layout.Horizontal flex={{ distribution: 'space-between' }}>
-            <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-              <div className={css.optionBtns}>
-                <div
-                  className={cx(css.item, { [css.selected]: selectedView === SelectedView.VISUAL })}
-                  onClick={() => handleModeSwitch(SelectedView.VISUAL)}
-                >
-                  {i18n.VISUAL}
+          {pipeline && currentPipeline && template?.data?.inputSetTemplateYaml && (
+            <Layout.Horizontal flex={{ distribution: 'space-between' }}>
+              <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
+                <div className={css.optionBtns}>
+                  <div
+                    className={cx(css.item, { [css.selected]: selectedView === SelectedView.VISUAL })}
+                    onClick={() => handleModeSwitch(SelectedView.VISUAL)}
+                  >
+                    {i18n.VISUAL}
+                  </div>
+                  <div
+                    className={cx(css.item, { [css.selected]: selectedView === SelectedView.YAML })}
+                    onClick={() => handleModeSwitch(SelectedView.YAML)}
+                  >
+                    {i18n.YAML}
+                  </div>
                 </div>
-                <div
-                  className={cx(css.item, { [css.selected]: selectedView === SelectedView.YAML })}
-                  onClick={() => handleModeSwitch(SelectedView.YAML)}
-                >
-                  {i18n.YAML}
-                </div>
-              </div>
+              </Layout.Horizontal>
+              <InputSetSelector
+                pipelineIdentifier={pipelineIdentifier}
+                onChange={value => {
+                  setSelectedInputSets(value)
+                }}
+                value={selectedInputSets}
+              />
             </Layout.Horizontal>
-            <InputSetSelector
-              onChange={value => {
-                setSelectedInputSets(value)
-              }}
-              value={selectedInputSets}
-            />
-          </Layout.Horizontal>
+          )}
           <Layout.Vertical>
-            {currentPipeline && (
-              <Formik initialValues={currentPipeline} onSubmit={noop} enableReinitialize>
-                {({ setFieldValue, values }) => {
-                  return (
-                    <>
-                      {selectedView === SelectedView.VISUAL ? (
-                        <FormikForm>
-                          {pipeline && template?.data?.inputSetTemplateYaml && (
-                            <PipelineInputSetForm
-                              originalPipeline={pipeline}
-                              template={parse(template.data.inputSetTemplateYaml).pipeline}
-                              pipeline={values.pipeline}
-                              onUpdate={updatedPipeline => {
-                                setFieldValue('pipeline', updatedPipeline)
-                              }}
-                            />
-                          )}
-                        </FormikForm>
-                      ) : (
-                        <div className={css.editor}>
-                          <YAMLBuilder {...yamlBuilderReadOnlyModeProps} existingJSON={values} bind={setYamlHandler} />
-                        </div>
-                      )}
+            <Formik initialValues={currentPipeline || {}} onSubmit={noop} enableReinitialize>
+              {({ setFieldValue, values }) => {
+                return (
+                  <>
+                    {selectedView === SelectedView.VISUAL ? (
+                      <FormikForm>
+                        {pipeline && currentPipeline && template?.data?.inputSetTemplateYaml ? (
+                          <PipelineInputSetForm
+                            originalPipeline={pipeline}
+                            template={parse(template.data.inputSetTemplateYaml).pipeline}
+                            pipeline={values.pipeline}
+                            onUpdate={updatedPipeline => {
+                              setFieldValue('pipeline', updatedPipeline)
+                            }}
+                          />
+                        ) : (
+                          <Layout.Horizontal padding="medium" margin="medium">
+                            <Text>{i18n.noRuntimeInput}</Text>
+                          </Layout.Horizontal>
+                        )}
+                      </FormikForm>
+                    ) : (
+                      <div className={css.editor}>
+                        <YAMLBuilder {...yamlBuilderReadOnlyModeProps} existingJSON={values} bind={setYamlHandler} />
+                      </div>
+                    )}
 
-                      <Layout.Horizontal padding={{ top: 'medium' }}>
-                        <Layout.Horizontal flex={{ distribution: 'space-between' }} style={{ width: '100%' }}>
-                          <Button intent="primary" type="submit" text={i18n.runPipeline} onClick={handleRunPipeline} />
+                    <Layout.Horizontal padding={{ top: 'medium  ' }}>
+                      <Layout.Horizontal flex={{ distribution: 'space-between' }} style={{ width: '100%' }}>
+                        <Layout.Horizontal spacing="xxxlarge" style={{ alignItems: 'center' }}>
+                          <Button
+                            intent="primary"
+                            type="submit"
+                            text={i18n.runPipeline}
+                            onClick={() => handleRunPipeline(values.pipeline as any)}
+                          />
+                          <Checkbox
+                            label={i18n.skipPreFlightCheck}
+                            checked={skipPreFlightCheck}
+                            onChange={e => setSkipPreFlightCheck(e.currentTarget.checked)}
+                          />
+                        </Layout.Horizontal>
+                        {pipeline && currentPipeline && template?.data?.inputSetTemplateYaml && (
                           <Popover
                             content={
                               <Layout.Vertical
@@ -281,13 +325,13 @@ export const RunPipelineForm: React.FC<RunPipelineFormProps> = ({ pipelineIdenti
                           >
                             <Button minimal intent="primary" text={i18n.saveAsInputSet} />
                           </Popover>
-                        </Layout.Horizontal>
+                        )}
                       </Layout.Horizontal>
-                    </>
-                  )
-                }}
-              </Formik>
-            )}
+                    </Layout.Horizontal>
+                  </>
+                )
+              }}
+            </Formik>
           </Layout.Vertical>
         </Layout.Vertical>
       </div>

@@ -1,8 +1,5 @@
 import React from 'react'
-
-import { merge } from 'lodash-es'
 import { StepViewType, StepWidget } from 'modules/common/exports'
-
 import type { DeploymentStage, K8SDirectInfrastructure } from 'services/cd-ng'
 import factory from '../PipelineSteps/PipelineStepFactory'
 import { StepType } from '../PipelineSteps/PipelineStepInterface'
@@ -44,12 +41,8 @@ export const StageInputSetForm: React.FC<StageInputSetFormProps> = ({
             <StepWidget<K8SDirectInfrastructure>
               factory={factory}
               template={deploymentStageTemplate.infrastructure.infrastructureDefinition.spec}
-              initialValues={
-                merge(
-                  deploymentStage?.infrastructure?.infrastructureDefinition?.spec,
-                  deploymentStageInputSet?.infrastructure?.infrastructureDefinition?.spec
-                ) || {}
-              }
+              initialValues={deploymentStageInputSet?.infrastructure?.infrastructureDefinition?.spec || {}}
+              allValues={deploymentStage?.infrastructure?.infrastructureDefinition?.spec || {}}
               type={StepType.KubernetesInfraSpec}
               onUpdate={data => {
                 if (deploymentStageInputSet?.infrastructure?.infrastructureDefinition?.spec) {

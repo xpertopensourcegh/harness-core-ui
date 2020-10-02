@@ -15,7 +15,7 @@ import {
 import { useParams } from 'react-router-dom'
 import { debounce, noop, isEmpty } from 'lodash-es'
 import { FormGroup } from '@blueprintjs/core'
-import { Step, StepViewType, ConfigureOptions } from 'modules/common/exports'
+import { StepViewType, ConfigureOptions } from 'modules/common/exports'
 import { K8SDirectInfrastructure, useGetConnector, ConnectorInfoDTO } from 'services/cd-ng'
 import {
   FormMultiTypeConnectorField,
@@ -34,6 +34,7 @@ import {
 } from 'modules/common/components/ConnectorReferenceField/ConnectorReferenceField'
 import { StepType } from '../../PipelineStepInterface'
 import i18n from './KubernetesInfraSpec.18n'
+import { PipelineStep } from '../../PipelineStep'
 
 type K8SDirectInfrastructureTemplate = { [key in keyof K8SDirectInfrastructure]: string }
 interface KubernetesInfraSpecEditableProps {
@@ -309,7 +310,12 @@ const KubernetesInfraSpecInputForm: React.FC<KubernetesInfraSpecEditableProps> =
   )
 }
 
-export class KubernetesInfraSpec extends Step<K8SDirectInfrastructure> {
+interface K8SDirectInfrastructureStep extends K8SDirectInfrastructure {
+  name?: string
+  identifier?: string
+}
+
+export class KubernetesInfraSpec extends PipelineStep<K8SDirectInfrastructureStep> {
   protected type = StepType.KubernetesInfraSpec
   protected defaultValues: K8SDirectInfrastructure = {}
 

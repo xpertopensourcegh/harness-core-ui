@@ -57,6 +57,13 @@
 
     .topSection {
       justify-content: left;
+      cursor: pointer;
+      &:hover {
+        p,
+        span {
+          color: var(--blue-500) !important;
+        }
+      }
     }
 
     .pipelineNameTarget {

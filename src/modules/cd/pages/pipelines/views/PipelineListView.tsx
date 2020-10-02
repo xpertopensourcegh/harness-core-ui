@@ -4,30 +4,29 @@ import { Button, Color, Layout, Popover, Text, Icon, SparkChart } from '@wings-s
 import { Classes, Menu, Position } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
 import Table from 'modules/common/components/Table/Table'
-import { CDPipelineSummaryResponseDTO, PageCDPipelineSummaryResponseDTO, useSoftDeletePipeline } from 'services/cd-ng'
+import { NGPipelineSummaryResponse, PageNGPipelineSummaryResponse, useSoftDeletePipeline } from 'services/cd-ng'
 import TagsPopover from 'modules/common/components/TagsPopover/TagsPopover'
 import { useConfirmationDialog, useToaster } from 'modules/common/exports'
+import { RunPipelineModal } from 'modules/cd/components/RunPipelineModal/RunPipelineModal'
 import i18n from '../CDPipelinesPage.i18n'
 import css from '../CDPipelinesPage.module.scss'
 
 interface PipelineListViewProps {
-  data?: PageCDPipelineSummaryResponseDTO
+  data?: PageNGPipelineSummaryResponse
   gotoPage: (pageNumber: number) => void
   goToPipelineDetail: (pipelineIdentifier?: string) => void
-  runPipeline: (pipelineIdentifier?: string) => void
   goToPipelineStudio: (pipelineIdentifier?: string) => void
   refetchPipeline: () => void
 }
 
 // Todo: Remove this when BE updated
-interface PipelineDTO extends CDPipelineSummaryResponseDTO {
+interface PipelineDTO extends NGPipelineSummaryResponse {
   admin?: string
   collaborators?: string
   status?: string
 }
 
 type CustomColumn<T extends object> = Column<T> & {
-  runPipeline?: (pipelineIdentifier?: string) => void
   goToPipelineStudio?: (pipelineIdentifier?: string) => void
   refetchPipeline?: () => void
 }
@@ -86,15 +85,9 @@ const RenderColumnMenu: Renderer<CellProps<PipelineDTO>> = ({ row, column }) => 
           }}
         />
         <Menu style={{ minWidth: 'unset' }}>
-          <Menu.Item
-            icon="play"
-            text={i18n.runPipeline}
-            onClick={(e: React.MouseEvent) => {
-              e.stopPropagation()
-              ;(column as any).runPipeline(data.identifier)
-              setMenuOpen(false)
-            }}
-          />
+          <RunPipelineModal pipelineIdentifier={data.identifier || ''}>
+            <Menu.Item icon="play" text={i18n.runPipeline} />
+          </RunPipelineModal>
           <Menu.Item
             icon="cog"
             text={i18n.pipelineStudio}
@@ -177,7 +170,6 @@ export const PipelineListView: React.FC<PipelineListViewProps> = ({
   goToPipelineDetail,
   gotoPage,
   refetchPipeline,
-  runPipeline,
   goToPipelineStudio
 }): JSX.Element => {
   const columns: CustomColumn<PipelineDTO>[] = React.useMemo(
@@ -237,11 +229,10 @@ export const PipelineListView: React.FC<PipelineListViewProps> = ({
         Cell: RenderColumnMenu,
         disableSortBy: true,
         refetchPipeline,
-        goToPipelineStudio,
-        runPipeline
+        goToPipelineStudio
       }
     ],
-    [refetchPipeline, runPipeline, goToPipelineStudio]
+    [refetchPipeline, goToPipelineStudio]
   )
   return (
     <Table<PipelineDTO>

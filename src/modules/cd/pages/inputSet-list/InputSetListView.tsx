@@ -6,6 +6,7 @@ import { Classes, Menu, Position } from '@blueprintjs/core'
 import Table from 'modules/common/components/Table/Table'
 import { PageInputSetSummaryResponse, useDeleteInputSetForPipeline, InputSetSummaryResponse } from 'services/cd-ng'
 import { useConfirmationDialog, useToaster } from 'modules/common/exports'
+import { RunPipelineModal } from 'modules/cd/components/RunPipelineModal/RunPipelineModal'
 import i18n from './InputSetList.i18n'
 import css from './InputSetList.module.scss'
 
@@ -38,7 +39,11 @@ const RenderColumnInputSet: Renderer<CellProps<InputSetLocal>> = ({ row }) => {
   const data = row.original
   return (
     <Layout.Horizontal spacing="small">
-      <Icon name={getIconByType(data.inputSetType)} size={30}></Icon>
+      <Icon
+        name={getIconByType(data.inputSetType)}
+        color={data.inputSetType === 'INPUT_SET' ? Color.BLACK : Color.BLUE_500}
+        size={30}
+      ></Icon>
       <div>
         <Text color={Color.BLACK}>{data.name}</Text>
         <Text color={Color.GREY_400}>{data.identifier}</Text>
@@ -55,19 +60,19 @@ const RenderColumnDescription: Renderer<CellProps<InputSetLocal>> = ({ row }) =>
     </Text>
   )
 }
-const RenderColumnActions: Renderer<CellProps<InputSetLocal>> = ({ row, column }) => {
+const RenderColumnActions: Renderer<CellProps<InputSetLocal>> = ({ row }) => {
   const data = row.original
   return (
-    <Button
-      minimal
-      intent="primary"
-      onClick={e => {
-        e.preventDefault()
-        ;(column as any).goToInputSetDetail(data.identifier)
-      }}
+    <RunPipelineModal
+      pipelineIdentifier={data.pipelineIdentifier || ''}
+      inputSetSelected={[
+        { type: data.inputSetType || 'INPUT_SET', value: data.identifier || '', label: data.name || '' }
+      ]}
     >
-      {i18n.runPipeline}
-    </Button>
+      <Button minimal intent="primary">
+        {i18n.runPipeline}
+      </Button>
+    </RunPipelineModal>
   )
 }
 const RenderColumnMenu: Renderer<CellProps<InputSetLocal>> = ({ row, column }) => {

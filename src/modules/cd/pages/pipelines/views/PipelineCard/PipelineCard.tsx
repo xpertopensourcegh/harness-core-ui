@@ -2,32 +2,26 @@ import React from 'react'
 import { Card, Text, Color, Container, Button, Layout, SparkChart, Icon, CardBody, Tag } from '@wings-software/uikit'
 import { Classes, Intent, Menu } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
-import { CDPipelineSummaryResponseDTO, useSoftDeletePipeline } from 'services/cd-ng'
+import { NGPipelineSummaryResponse, useSoftDeletePipeline } from 'services/cd-ng'
 import { useConfirmationDialog, useToaster } from 'modules/common/exports'
+import { RunPipelineModal } from 'modules/cd/components/RunPipelineModal/RunPipelineModal'
 import i18n from '../../CDPipelinesPage.i18n'
 import css from '../../CDPipelinesPage.module.scss'
 
 export interface PipelineCardProps {
-  pipeline: CDPipelineSummaryResponseDTO
+  pipeline: NGPipelineSummaryResponse
   goToPipelineDetail: (pipelineIdentifier?: string) => void
-  runPipeline: (pipelineIdentifier?: string) => void
   goToPipelineStudio: (pipelineIdentifier?: string) => void
   refetchPipeline: () => void
 }
 
 interface ContextMenuProps {
-  pipeline: CDPipelineSummaryResponseDTO
-  runPipeline: (pipelineIdentifier?: string) => void
+  pipeline: NGPipelineSummaryResponse
   goToPipelineStudio: (pipelineIdentifier?: string) => void
   refetchPipeline: () => void
 }
 
-const ContextMenu: React.FC<ContextMenuProps> = ({
-  pipeline,
-  goToPipelineStudio,
-  runPipeline,
-  refetchPipeline
-}): JSX.Element => {
+const ContextMenu: React.FC<ContextMenuProps> = ({ pipeline, goToPipelineStudio, refetchPipeline }): JSX.Element => {
   const { showSuccess, showError } = useToaster()
   const { projectIdentifier, orgIdentifier, accountId } = useParams<{
     projectIdentifier: string
@@ -62,13 +56,9 @@ const ContextMenu: React.FC<ContextMenuProps> = ({
 
   return (
     <Menu style={{ minWidth: 'unset' }}>
-      <Menu.Item
-        icon="play"
-        text={i18n.runPipeline}
-        onClick={() => {
-          runPipeline(pipeline.identifier)
-        }}
-      />
+      <RunPipelineModal pipelineIdentifier={pipeline.identifier || ''}>
+        <Menu.Item icon="play" text={i18n.runPipeline} />
+      </RunPipelineModal>
       <Menu.Item
         icon="cog"
         text={i18n.pipelineStudio}
@@ -93,7 +83,6 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
   pipeline,
   goToPipelineDetail,
   goToPipelineStudio,
-  runPipeline,
   refetchPipeline
 }): JSX.Element => {
   return (
@@ -104,7 +93,6 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
             <ContextMenu
               pipeline={pipeline}
               goToPipelineStudio={goToPipelineStudio}
-              runPipeline={runPipeline}
               refetchPipeline={refetchPipeline}
             />
           }
@@ -178,15 +166,9 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
         </Layout.Horizontal>
       </Container>
       <Container padding="medium" border={{ top: true, color: Color.GREY_250 }} className={css.runPipeline}>
-        <Button
-          intent="primary"
-          icon="play"
-          text={i18n.runPipeline}
-          onClick={e => {
-            e.stopPropagation()
-            runPipeline(pipeline.identifier)
-          }}
-        />
+        <RunPipelineModal pipelineIdentifier={pipeline.identifier || ''}>
+          <Button intent="primary" icon="play" text={i18n.runPipeline} />
+        </RunPipelineModal>
       </Container>
     </Card>
   )
