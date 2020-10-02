@@ -229,7 +229,7 @@ const Collaborators: React.FC<StepProps<Project> & ProjectModalData> = props => 
     queryParams: { accountIdentifier: accountId, searchString: search === '' ? undefined : search }
   })
 
-  const { data: inviteData, refetch: reloadInvites } = useGetInvites({
+  const { data: inviteData, loading: inviteLoading, refetch: reloadInvites } = useGetInvites({
     queryParams: {
       accountIdentifier: accountId,
       orgIdentifier: projectData?.orgIdentifier || '',
@@ -348,7 +348,7 @@ const Collaborators: React.FC<StepProps<Project> & ProjectModalData> = props => 
                       onItemSelect={item => {
                         setRole(item)
                       }}
-                      popoverProps={{ minimal: true }}
+                      popoverProps={{ minimal: true, popoverClassName: css.customselect }}
                     >
                       <Button inline minimal rightIcon="chevron-down" text={role.label} className={css.toEnd} />
                     </CustomSelect>
@@ -400,6 +400,10 @@ const Collaborators: React.FC<StepProps<Project> & ProjectModalData> = props => 
                         />
                       ))}
                     </Container>
+                  </Layout.Vertical>
+                ) : inviteLoading ? (
+                  <Layout.Vertical padding={{ top: 'xxxlarge', bottom: 'xxxlarge' }}>
+                    <Icon name="steps-spinner" size={32} color={Color.GREY_600} flex={{ align: 'center-center' }} />
                   </Layout.Vertical>
                 ) : null}
               </Container>

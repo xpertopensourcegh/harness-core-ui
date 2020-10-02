@@ -4,13 +4,14 @@ import { Button, Text, Layout, TextInput, SelectOption } from '@wings-software/u
 
 import { Select } from '@blueprintjs/select'
 import { Menu } from '@blueprintjs/core'
-import { useGetOrganizationList } from 'services/cd-ng'
+import { ResponsePageOrganization, useGetOrganizationList } from 'services/cd-ng'
 import type { ModuleName } from 'framework/exports'
 
 import type { Project } from 'services/cd-ng'
 import { Page } from 'modules/common/components/Page/Page'
 import { useProjectModal } from 'modules/common/modals/ProjectModal/useProjectModal'
 import { useCollaboratorModal } from 'modules/common/modals/ProjectModal/useCollaboratorModal'
+import type { UseGetMockData } from 'modules/common/utils/testUtils'
 import i18n from './ProjectsPage.i18n'
 import { Views, Sort } from './Constants'
 import ProjectsListView from './views/ProjectListView/ProjectListView'
@@ -27,10 +28,17 @@ interface ProjectListProps {
   onNewProjectCreated?(data: Project): void
   onCardClick?: ((project: Project) => void) | undefined
   onRowClick?: ((data: Project) => void) | undefined
+  orgMockData?: UseGetMockData<ResponsePageOrganization>
 }
 const CustomSelect = Select.ofType<SelectOption>()
 
-const ProjectsListPage: React.FC<ProjectListProps> = ({ module, onNewProjectCreated, onCardClick, onRowClick }) => {
+const ProjectsListPage: React.FC<ProjectListProps> = ({
+  module,
+  onNewProjectCreated,
+  onCardClick,
+  onRowClick,
+  orgMockData
+}) => {
   const [orgFilter, setOrgFilter] = useState<SelectOption>(allOrgsSelectOption)
   const { accountId } = useParams()
   const [view, setView] = useState(Views.GRID)
@@ -61,7 +69,8 @@ const ProjectsListPage: React.FC<ProjectListProps> = ({ module, onNewProjectCrea
   const { data: orgsData } = useGetOrganizationList({
     queryParams: {
       accountIdentifier: accountId
-    }
+    },
+    mock: orgMockData
   })
 
   const organisations: SelectOption[] = [
@@ -133,7 +142,7 @@ const ProjectsListPage: React.FC<ProjectListProps> = ({ module, onNewProjectCrea
             onItemSelect={item => {
               setOrgFilter(item as SelectOption)
             }}
-            popoverProps={{ minimal: true }}
+            popoverProps={{ minimal: true, popoverClassName: css.customselect }}
           >
             <Button inline minimal rightIcon="chevron-down" text={orgFilter.label} className={css.orgSelect} />
           </CustomSelect>

@@ -3,6 +3,7 @@
 declare const styles: {
   readonly card: string
   readonly radioSelect: string
+  readonly customselect: string
   readonly radioSelectPurpose: string
   readonly halfWidth: string
   readonly collapseDiv: string

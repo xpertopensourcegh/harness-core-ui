@@ -19,6 +19,12 @@
   margin-right: var(--spacing-xlarge) !important;
 }
 
+.customselect {
+  max-height: 180px;
+  overflow: auto;
+  max-width: 180px;
+}
+
 .header {
   padding: var(--spacing-large) var(--spacing-xxxlarge) !important;
   border-bottom: 1px solid var(--grey-300);
