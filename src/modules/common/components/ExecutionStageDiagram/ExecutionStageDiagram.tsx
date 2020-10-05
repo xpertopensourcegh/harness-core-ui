@@ -6,8 +6,7 @@ import { Diagram } from 'modules/common/exports'
 import { CanvasButtons, CanvasButtonsActions } from 'modules/common/components/CanvasButtons/CanvasButtons'
 import type { ExecutionPipeline, ExecutionPipelineItem } from './ExecutionPipelineModel'
 import { ExecutionStageDiagramModel, GridStyleInterface, NodeStyleInterface } from './ExecutionStageDiagramModel'
-import { getStageFromDiagramEvent } from './ExecutionStageDiagramUtils'
-
+import { focusRunningNode, getStageFromDiagramEvent } from './ExecutionStageDiagramUtils'
 import css from './ExecutionStageDiagram.module.scss'
 
 abstract class ItemEvent<T> extends Event {
@@ -61,7 +60,7 @@ export interface ExecutionStageDiagramProps<T> {
 
 export default function ExecutionStageDiagram<T>(props: ExecutionStageDiagramProps<T>): React.ReactElement {
   const {
-    data = { items: [] },
+    data = { items: [], identifier: '' },
     className,
     selectedIdentifier,
     nodeStyle = { width: 50, height: 50 },
@@ -76,9 +75,14 @@ export default function ExecutionStageDiagram<T>(props: ExecutionStageDiagramPro
     canvasBtnsClass = ''
   } = props
 
+  const [autoPosition, setAutoPosition] = React.useState(true)
+
   const nodeListeners: NodeModelListener = {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     [Diagram.Event.ClickNode]: (event: any) => {
+      if (autoPosition) {
+        setAutoPosition(false)
+      }
       const stage = getStageFromDiagramEvent(event, data)
       if (stage) itemClickHandler(new ItemClickEvent(stage, event.target))
     },
@@ -102,6 +106,9 @@ export default function ExecutionStageDiagram<T>(props: ExecutionStageDiagramPro
   model.setDefaultNodeStyle(nodeStyle)
   model.setGridStyle(gridStyle)
 
+  React.useEffect(() => {
+    setAutoPosition(true)
+  }, [data.identifier])
   //update
   model.addUpdateGraph<T>(
     data,
@@ -114,6 +121,7 @@ export default function ExecutionStageDiagram<T>(props: ExecutionStageDiagramPro
   //Load model into engine
   engine.setModel(model)
 
+  autoPosition && focusRunningNode(engine, data)
   return (
     <div className={classNames(css.main, { [css.whiteBackground]: isWhiteBackground }, className)}>
       <Diagram.CanvasWidget engine={engine} className={css.canvas} />

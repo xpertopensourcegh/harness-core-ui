@@ -19,10 +19,12 @@ export enum ExecutionPipelineItemStatus {
   ABORTING = 'ABORTING',
   RUNNING = 'RUNNING',
   QUEUED = 'QUEUED',
+  ROLLBACK = 'ROLLBACK',
   SKIPPED = 'SKIPPED',
   STARTING = 'STARTING',
   REJECTED = 'REJECTED',
   EXPIRED = 'EXPIRED',
+  NOT_STARTED = 'NOT_STARTED',
   ASYNC_WAITING = 'ASYNC_WAITING'
 }
 
@@ -43,6 +45,7 @@ export interface ExecutionPipelineGroupInfo<T> {
   data: T
   cssProps?: React.CSSProperties
   icon: IconName
+  status: ExecutionPipelineItemStatus
   isOpen: boolean
   items: Array<ExecutionPipelineNode<T>>
 }
@@ -54,4 +57,6 @@ export interface ExecutionPipelineNode<T> {
 
 export interface ExecutionPipeline<T> {
   items: Array<ExecutionPipelineNode<T>>
+  identifier: string
+  status?: ExecutionPipelineItemStatus
 }

@@ -11,13 +11,15 @@ import type { DefaultLinkModel } from '../link/DefaultLinkModel'
 export interface DefaultNodeModelOptions extends BasePositionModelOptions {
   name: string
   customNodeStyle?: React.CSSProperties
+  nodeClassName?: string
   width?: number
   height?: number
   identifier?: string
   icon?: IconName
   allowAdd?: boolean
   draggable?: boolean
-  iconProps?: IconProps
+  iconStyle?: React.CSSProperties
+  iconProps?: Omit<IconProps, 'name'>
   canDelete?: boolean
   isInComplete?: boolean
   secondaryIcon?: IconName
@@ -45,8 +47,10 @@ export class DefaultNodeModel<G extends DefaultNodeModelGenerics = DefaultNodeMo
       type: DiagramType.Default,
       name: i18n.Untitled,
       icon: 'add',
+      nodeClassName: '',
       allowAdd: false,
       iconProps: {},
+      iconStyle: {},
       draggable: false,
       canDelete: true,
       secondaryIcon: 'command-echo',
@@ -122,6 +126,10 @@ export class DefaultNodeModel<G extends DefaultNodeModelGenerics = DefaultNodeMo
       this.portsOut.splice(0, 0, port)
     }
     return this.addPort(port)
+  }
+
+  setOptions(options: DefaultNodeModelOptions): void {
+    this.options = options
   }
 
   deserialize(event: DeserializeEvent<this>): void {

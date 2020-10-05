@@ -3,8 +3,14 @@ import type { BaseModelListener } from '@projectstorm/react-canvas-core'
 import type { IconName } from '@wings-software/uikit'
 import { last, isEmpty } from 'lodash-es'
 import { Diagram } from 'modules/common/exports'
-import { ExecutionPipeline, ExecutionPipelineNode, ExecutionPipelineNodeType } from './ExecutionPipelineModel'
-import { getNodeStyles, getStatusProps } from './ExecutionStageDiagramUtils'
+import {
+  ExecutionPipeline,
+  ExecutionPipelineItemStatus,
+  ExecutionPipelineNode,
+  ExecutionPipelineNodeType
+} from './ExecutionPipelineModel'
+import { getNodeStyles, getStatusProps, getArrowsColor } from './ExecutionStageDiagramUtils'
+import css from './ExecutionStageDiagram.module.scss'
 
 export interface NodeStyleInterface {
   width: number
@@ -61,36 +67,63 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
       startX += this.gap
       const isSelected = selectedStageId === stage.identifier
       const statusProps = getStatusProps(stage.status)
-      const nodeRender =
-        type === ExecutionPipelineNodeType.DIAMOND
-          ? new Diagram.DiamondNodeModel({
-              identifier: stage.identifier,
-              customNodeStyle: {
-                // Without this doesn't look straight
-                marginTop: '2.5px',
-                ...getNodeStyles(isSelected)
-              },
-              name: stage.name,
-              width: nodeStyle.width,
-              height: nodeStyle.height,
-              ...statusProps,
-              icon: stage.icon // stageTypeToIconNameMapper[type]
-            })
-          : new Diagram.DefaultNodeModel({
-              identifier: stage.identifier,
-              customNodeStyle: getNodeStyles(isSelected),
-              name: stage.name,
-              ...statusProps,
-              width: nodeStyle.width,
-              height: nodeStyle.height,
-              icon: stage.icon //stageTypeToIconNameMapper[type]
-            })
+      let nodeRender = this.getNodeFromId(stage.identifier)
+      const commonOption: Diagram.DiamondNodeModelOptions = {
+        customNodeStyle: getNodeStyles(isSelected, stage.status),
+        canDelete: false,
+        ...statusProps,
+        nodeClassName: stage.status === ExecutionPipelineItemStatus.RUNNING ? css.runningNode : '',
+        width: nodeStyle.width,
+        height: nodeStyle.height,
+        iconStyle: {
+          color:
+            (isSelected || stage.status === ExecutionPipelineItemStatus.RUNNING) &&
+            stage.status !== ExecutionPipelineItemStatus.NOT_STARTED
+              ? 'var(--white)'
+              : undefined
+        },
+        icon: stage.icon
+      }
 
-      this.addNode(nodeRender)
+      if (!nodeRender) {
+        nodeRender =
+          type === ExecutionPipelineNodeType.DIAMOND
+            ? new Diagram.DiamondNodeModel({
+                identifier: stage.identifier,
+                id: stage.identifier,
+                ...commonOption,
+                customNodeStyle: {
+                  // Without this doesn't look straight
+                  marginTop: '2.5px',
+                  ...commonOption.customNodeStyle
+                },
+                name: stage.name
+              })
+            : new Diagram.DefaultNodeModel({
+                identifier: stage.identifier,
+                id: stage.identifier,
+                name: stage.name,
+                ...commonOption
+              })
+
+        this.addNode(nodeRender)
+      } else {
+        nodeRender.setOptions({
+          ...nodeRender.getOptions(),
+          ...commonOption
+        })
+      }
       nodeRender.setPosition(startX, startY)
+
       if (!isEmpty(prevNodes) && prevNodes) {
         prevNodes.forEach((prevNode: Diagram.DefaultNodeModel) => {
-          this.connectedParentToNode(nodeRender, prevNode, false)
+          this.connectedParentToNode(
+            nodeRender as Diagram.DefaultNodeModel<Diagram.DefaultNodeModelGenerics>,
+            prevNode,
+            false,
+            0,
+            getArrowsColor(stage.status)
+          )
         })
       }
       return { startX, startY, prevNodes: [nodeRender] }
@@ -127,7 +160,13 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
           groupedNode.setPosition(startX, startY)
           if (!isEmpty(prevNodes) && prevNodes) {
             prevNodes.forEach((prevNode: Diagram.DefaultNodeModel) => {
-              this.connectedParentToNode(groupedNode, prevNode, false)
+              this.connectedParentToNode(
+                groupedNode,
+                prevNode,
+                false,
+                0,
+                getArrowsColor(parallel[0].item?.status || ExecutionPipelineItemStatus.NOT_STARTED)
+              )
             })
           }
           prevNodes = [groupedNode]
@@ -135,15 +174,23 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
           let newX = startX
           let newY = startY
           if (!isEmpty(prevNodes)) {
-            const emptyNodeStart = new Diagram.EmptyNodeModel({
-              identifier: `${EmptyNodeSeparator}-${EmptyNodeSeparator}${parallel[0].item?.identifier}`,
-              name: 'Empty'
-            })
+            const emptyNodeStart =
+              this.getNodeFromId(`${EmptyNodeSeparator}-${EmptyNodeSeparator}${parallel[0].item?.identifier}`) ||
+              new Diagram.EmptyNodeModel({
+                id: `${EmptyNodeSeparator}-${EmptyNodeSeparator}${parallel[0].item?.identifier}`,
+                name: 'Empty'
+              })
             this.addNode(emptyNodeStart)
             newX += this.gap
             emptyNodeStart.setPosition(newX, newY)
             prevNodes.forEach((prevNode: Diagram.DefaultNodeModel) => {
-              this.connectedParentToNode(emptyNodeStart, prevNode, false)
+              this.connectedParentToNode(
+                emptyNodeStart,
+                prevNode,
+                false,
+                0,
+                getArrowsColor(parallel[0].item?.status || ExecutionPipelineItemStatus.NOT_STARTED)
+              )
             })
             prevNodes = [emptyNodeStart]
             newX = newX - this.gap / 2 - 20
@@ -158,15 +205,23 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
             }
           })
           if (!isEmpty(prevNodesAr)) {
-            const emptyNodeEnd = new Diagram.EmptyNodeModel({
-              identifier: `${EmptyNodeSeparator}${parallel[0].item?.identifier}${EmptyNodeSeparator}`,
-              name: 'Empty'
-            })
+            const emptyNodeEnd =
+              this.getNodeFromId(`${EmptyNodeSeparator}${parallel[0].item?.identifier}${EmptyNodeSeparator}`) ||
+              new Diagram.EmptyNodeModel({
+                id: `${EmptyNodeSeparator}${parallel[0].item?.identifier}${EmptyNodeSeparator}`,
+                name: 'Empty'
+              })
             this.addNode(emptyNodeEnd)
             startX += this.gap
             emptyNodeEnd.setPosition(startX, startY)
             prevNodesAr.forEach((prevNode: Diagram.DefaultNodeModel) => {
-              this.connectedParentToNode(emptyNodeEnd, prevNode, false)
+              this.connectedParentToNode(
+                emptyNodeEnd,
+                prevNode,
+                false,
+                0,
+                getArrowsColor(parallel[0].item?.status || ExecutionPipelineItemStatus.NOT_STARTED, true)
+              )
             })
             prevNodes = [emptyNodeEnd]
             startX = startX - this.gap / 2 - 20
@@ -178,16 +233,25 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
       return { startX, startY, prevNodes }
     } else if (node.group) {
       if (node.group.isOpen) {
-        const stepGroupLayer = new Diagram.StepGroupNodeLayerModel({
-          identifier: node.group.identifier,
-          label: node.group.name,
-          showRollback: false
-        })
+        const stepGroupLayer =
+          this.getGroupLayer(node.group.identifier) ||
+          new Diagram.StepGroupNodeLayerModel({
+            identifier: node.group.identifier,
+            id: node.group.identifier,
+            label: node.group.name,
+            showRollback: false
+          })
         if (prevNodes && prevNodes.length > 0) {
           startX += this.gap
           stepGroupLayer.startNode.setPosition(startX, startY)
           prevNodes.forEach((prevNode: Diagram.DefaultNodeModel) => {
-            this.connectedParentToNode(stepGroupLayer.startNode, prevNode, false)
+            this.connectedParentToNode(
+              stepGroupLayer.startNode,
+              prevNode,
+              false,
+              0,
+              getArrowsColor(node.group?.status || ExecutionPipelineItemStatus.NOT_STARTED)
+            )
           })
           prevNodes = [stepGroupLayer.startNode]
           startX = startX - this.gap / 2 - 20
@@ -209,7 +273,13 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
           startX = startX + this.gap
           stepGroupLayer.endNode.setPosition(startX, startY)
           prevNodes.forEach((prevNode: Diagram.DefaultNodeModel) => {
-            this.connectedParentToNode(stepGroupLayer.endNode, prevNode, false)
+            this.connectedParentToNode(
+              stepGroupLayer.endNode,
+              prevNode,
+              false,
+              0,
+              getArrowsColor(node.group?.status || ExecutionPipelineItemStatus.NOT_STARTED, true)
+            )
           })
           prevNodes = [stepGroupLayer.endNode]
           startX = startX - this.gap / 2 - 20
@@ -218,18 +288,27 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
         return { startX, startY, prevNodes: prevNodes }
       } else {
         startX += this.gap
-        const nodeRender = new Diagram.DefaultNodeModel({
-          identifier: node.group.identifier,
-          name: node.group.name,
-          icon: node.group.icon,
-          secondaryIcon: 'plus',
-          customNodeStyle: node.group.cssProps
-        })
+        const nodeRender =
+          this.getNodeFromId(node.group.identifier) ||
+          new Diagram.DefaultNodeModel({
+            identifier: node.group.identifier,
+            id: node.group.identifier,
+            name: node.group.name,
+            icon: node.group.icon,
+            secondaryIcon: 'plus',
+            customNodeStyle: node.group.cssProps
+          })
         this.addNode(nodeRender)
         nodeRender.setPosition(startX, startY)
         if (!isEmpty(prevNodes) && prevNodes) {
           prevNodes.forEach((prevNode: Diagram.DefaultNodeModel) => {
-            this.connectedParentToNode(nodeRender, prevNode, false)
+            this.connectedParentToNode(
+              nodeRender,
+              prevNode,
+              false,
+              0,
+              getArrowsColor(node.group?.status || ExecutionPipelineItemStatus.NOT_STARTED)
+            )
           })
         }
         return { startX, startY, prevNodes: [nodeRender] }
@@ -247,8 +326,10 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
   ): void {
     const { gap } = this
     let { startX, startY } = this
-    this.clearAllNodesAndLinks() // TODO: Improve this
 
+    if (pipeline.items.length === 0) {
+      return
+    }
     // Unlock Graph
     this.setLocked(false)
 
@@ -256,8 +337,9 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
 
     if (showStartEndNode) {
       //Start Node
-      const startNode = new Diagram.NodeStartModel({ id: 'start-new' })
+      const startNode = this.getNodeFromId('start-new') || new Diagram.NodeStartModel({ id: 'start-new' })
       startNode.setPosition(startX, startY)
+      // this.clearAllLinksForNode('start-new')
       this.addNode(startNode)
       startX -= gap / 2
       prevNodes = [startNode]
@@ -276,12 +358,19 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
 
     if (showStartEndNode) {
       // Stop Node
-      const stopNode = new Diagram.NodeStartModel({ id: 'stop', icon: 'stop', isStart: false })
-
+      const stopNode =
+        this.getNodeFromId('stop-node') || new Diagram.NodeStartModel({ id: 'stop-node', icon: 'stop', isStart: false })
+      // this.clearAllLinksForNode('stop-node')
       stopNode.setPosition(startX + gap, startY)
       const lastNode = last(prevNodes)
       if (lastNode) {
-        this.connectedParentToNode(stopNode, lastNode, false)
+        this.connectedParentToNode(
+          stopNode,
+          lastNode,
+          false,
+          0,
+          getArrowsColor(pipeline.status || ExecutionPipelineItemStatus.NOT_STARTED)
+        )
       }
       this.addNode(stopNode)
     }

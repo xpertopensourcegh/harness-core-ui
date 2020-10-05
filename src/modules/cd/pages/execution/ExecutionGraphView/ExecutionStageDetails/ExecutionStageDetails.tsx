@@ -6,7 +6,12 @@ import {
   ExecutionPipelineNode,
   ExecutionPipelineNodeType
 } from 'modules/common/components/ExecutionStageDiagram/ExecutionPipelineModel'
-import type { ExecutionNode, ExecutionGraph } from 'services/cd-ng'
+import type {
+  ExecutionNode,
+  ExecutionGraph,
+  StageExecutionSummaryDTO,
+  CDStageExecutionSummaryDTO
+} from 'services/cd-ng'
 import ExecutionStageDiagram from 'modules/common/components/ExecutionStageDiagram/ExecutionStageDiagram'
 
 import css from './ExecutionStageDetails.module.scss'
@@ -64,6 +69,7 @@ const processExecutionData = (graph?: ExecutionGraph): Array<ExecutionPipelineNo
               name: nodeData.name || '',
               identifier: nodeId,
               data: nodeData,
+              status: nodeData.status as any,
               isOpen: true,
               icon: 'edit',
               items: processNodeData(nodeAdjacencyListMap[nodeId].children || [], graph?.nodeMap)
@@ -89,11 +95,36 @@ const processExecutionData = (graph?: ExecutionGraph): Array<ExecutionPipelineNo
   return items
 }
 
+const getStageFromSelectedStageId = (
+  selectedStep?: string,
+  stages?: StageExecutionSummaryDTO[]
+): CDStageExecutionSummaryDTO | undefined => {
+  let stage: CDStageExecutionSummaryDTO | undefined = undefined
+  stages?.some(item => {
+    if (item.parallel) {
+      stage = getStageFromSelectedStageId(selectedStep, item.parallel.stageExecutions)
+    } else {
+      const cdStage = item.stage as CDStageExecutionSummaryDTO
+      if (cdStage.stageIdentifier === selectedStep) {
+        stage = cdStage
+        return
+      }
+    }
+  })
+  return stage
+}
+
 export default function ExecutionStageDetails(props: ExecutionStageDetailsProps): React.ReactElement {
   const { pipelineExecutionDetail } = React.useContext(ExecutionContext)
+  const stage = getStageFromSelectedStageId(
+    props.selectedStep,
+    pipelineExecutionDetail?.pipelineExecution?.stageExecutionSummaryElements
+  )
 
   const data: ExecutionPipeline<ExecutionNode> = {
-    items: processExecutionData(pipelineExecutionDetail?.stageGraph)
+    items: processExecutionData(pipelineExecutionDetail?.stageGraph),
+    identifier: props.selectedStep,
+    status: stage?.executionStatus as any
   }
 
   return (

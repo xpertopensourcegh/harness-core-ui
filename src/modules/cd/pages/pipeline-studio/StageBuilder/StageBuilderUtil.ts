@@ -20,6 +20,13 @@ export const MapStepTypeToIcon: { [key in StageType]: IconName } = {
   Custom: 'pipeline-custom'
 }
 
+export const MapStepTypeToIconColor: { [key in StageType]: string } = {
+  Deployment: 'var(--pipeline-deploy-stage-color)',
+  Approval: 'var(--pipeline-approval-stage-color)',
+  Pipeline: 'var(--pipeline-blue-color)',
+  Custom: 'var(--pipeline-custom-stage-color)'
+}
+
 export interface StageState {
   isConfigured: boolean
   stage: StageElementWrapper

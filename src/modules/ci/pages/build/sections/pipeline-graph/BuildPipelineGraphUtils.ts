@@ -9,10 +9,15 @@ export function getStepsPipelineFromExecutionPipeline<T>(
   pipeline: ExecutionPipeline<T> | undefined,
   selectedStageIdentifier = '-1'
 ): ExecutionPipeline<T> {
-  if (!pipeline || selectedStageIdentifier === '-1') return { items: [] }
+  if (!pipeline || selectedStageIdentifier === '-1') return { items: [], identifier: '' }
 
   // TODO: iterate thoughts parallel stages
-  return pipeline.items.find(node => node.item?.identifier === selectedStageIdentifier)?.item?.pipeline || { items: [] }
+  return (
+    pipeline.items.find(node => node.item?.identifier === selectedStageIdentifier)?.item?.pipeline || {
+      items: [],
+      identifier: ''
+    }
+  )
 }
 
 export function getFlattenItemsFromPipeline<T>(pipeline: ExecutionPipeline<T>) {

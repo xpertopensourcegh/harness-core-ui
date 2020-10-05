@@ -52,7 +52,8 @@ export function getFirstItemIdFromExecutionPipeline<T>(pipeline: ExecutionPipeli
  */
 export function graph2ExecutionPipeline(graph: Graph): ExecutionPipeline<GraphVertex> {
   const pipeline: ExecutionPipeline<GraphVertex> = {
-    items: []
+    items: [],
+    identifier: ''
   }
 
   // 1. iterate to populate all stages
@@ -72,7 +73,8 @@ export function graph2ExecutionPipeline(graph: Graph): ExecutionPipeline<GraphVe
 
     // add steps pipeline
     const stepsPipeline: ExecutionPipeline<GraphVertex> = {
-      items: []
+      items: [],
+      identifier: ''
     }
 
     let next = first(first(vertex.subgraph?.vertices)?.subgraph?.vertices) as GraphVertex | undefined

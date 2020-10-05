@@ -1,9 +1,11 @@
 import React from 'react'
 import { AbstractReactFactory } from '@projectstorm/react-canvas-core'
 import type { DiagramEngine } from '@projectstorm/react-diagrams-core'
+import cx from 'classnames'
 import { DefaultLinkModel } from './DefaultLinkModel'
 import { DefaultLinkWidget } from './DefaultLinkWidget'
 import { DiagramType } from '../Constants'
+import css from './Default.module.scss'
 
 export class DefaultLinkFactory<Link extends DefaultLinkModel = DefaultLinkModel> extends AbstractReactFactory<
   Link,
@@ -21,16 +23,20 @@ export class DefaultLinkFactory<Link extends DefaultLinkModel = DefaultLinkModel
     return new DefaultLinkModel() as Link
   }
 
-  generateLinkSegment(model: Link, selected: boolean, path: string, allowAdd: boolean): JSX.Element {
+  generateLinkSegment(model: Link, selected: boolean, path: string, allowAdd: boolean, prevColor: string): JSX.Element {
     const options = model.getOptions()
     return (
       <path
         stroke={selected ? options.selectedColor : options.color}
+        className={cx({ [css.path]: options.color !== prevColor })}
         strokeWidth={options.width}
         strokeDasharray={options.strokeDasharray}
         d={path}
         fill="none"
         pointerEvents={allowAdd ? 'all' : 'none'}
+        onAnimationEnd={e => {
+          e.currentTarget.style.strokeDasharray = '0'
+        }}
       ></path>
     )
   }

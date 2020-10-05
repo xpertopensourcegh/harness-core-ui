@@ -64,10 +64,16 @@ export class DefaultLinkModel extends LinkModel<DefaultLinkModelGenerics> {
     return [0, this.options.curvyness || 0]
   }
 
+  setColorOfLink(color: string): void {
+    this.options.color = color
+  }
+
   getSVGPath(): string | undefined {
     if (this.points.length == 2) {
-      const firstPoint = this.getFirstPoint().getPosition()
-      const lastPoint = this.getLastPoint().getPosition()
+      const firstPoint = this.getFirstPoint().clone().getPosition()
+      firstPoint.x += 3
+      const lastPoint = this.getLastPoint().clone().getPosition()
+      lastPoint.x -= 3
       if (Math.abs(firstPoint.y - lastPoint.y) > 3 && this.options.curve) {
         const diameter = this.options.curve * 2
         const topToBottom = lastPoint.y - firstPoint.y > 0

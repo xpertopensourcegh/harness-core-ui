@@ -139,7 +139,17 @@ export const DefaultNodeWidget = (props: DefaultNodeProps): JSX.Element => {
       }}
     >
       <div
-        className={cx(css.defaultCard, { [css.selected]: props.node.isSelected() })}
+        className={cx(
+          css.defaultCard,
+          {
+            [css.selected]:
+              props.node.isSelected() &&
+              !options.customNodeStyle?.background &&
+              !options.customNodeStyle?.backgroundColor &&
+              !(options.nodeClassName && options.nodeClassName.length > 0)
+          },
+          options.nodeClassName
+        )}
         draggable={options.draggable}
         style={{
           width: options.width,
@@ -159,7 +169,7 @@ export const DefaultNodeWidget = (props: DefaultNodeProps): JSX.Element => {
           setDragging(false)
         }}
       >
-        {options.icon && <Icon size={28} name={options.icon} {...options.iconProps} />}
+        {options.icon && <Icon size={28} name={options.icon} {...options.iconProps} style={options.iconStyle} />}
         <div>{props.node.getInPorts().map(port => generatePort(port, props))}</div>
         <div>{props.node.getOutPorts().map(port => generatePort(port, props))}</div>
         {options.secondaryIcon && (

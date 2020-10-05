@@ -16,8 +16,7 @@ import ExecutionContext from './ExecutionContext/ExecutionContext'
 import ExecutionMetadata from './ExecutionMetadata/ExecutionMetadata'
 import ExecutionTabs from './ExecutionTabs/ExecutionTabs'
 import RightBar from './RightBar/RightBar'
-// import mock from './mock.json'
-
+// import { getPipelineExecutionDetails } from './MockService'
 import css from './Execution.module.scss'
 
 const TEMP_NOW = Date.now() - 10 * 1000
@@ -52,7 +51,7 @@ export default function Execution(props: React.PropsWithChildren<{}>): React.Rea
       accountIdentifier: accountId,
       stageIdentifier: queryParams.stage as string
     }
-    // mock: { data: mock as any, loading: false }
+    // mock: { data: getPipelineExecutionDetails(), loading: false }
   })
 
   React.useEffect(() => {

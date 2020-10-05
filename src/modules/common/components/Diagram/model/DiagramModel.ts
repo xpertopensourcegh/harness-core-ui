@@ -44,6 +44,21 @@ export class DiagramModel<G extends DiagramModelGenerics = DiagramModelGenerics>
     this.gap = options.gap || 200
   }
 
+  clearAllLinksForNode(id: string): void {
+    const node = this.getNodeFromId(id)
+    if (node) {
+      const ports = node.getPorts()
+      for (const portKey in ports) {
+        const port = ports[portKey]
+        const links = port.getLinks()
+        for (const keyLink in links) {
+          const link = links[keyLink]
+          link.remove()
+        }
+      }
+    }
+  }
+
   clearAllNodesAndLinks(): void {
     const links = this.getActiveLinkLayer().getLinks()
     for (const key in links) {
@@ -98,10 +113,11 @@ export class DiagramModel<G extends DiagramModelGenerics = DiagramModelGenerics>
     const links = inPort.getLinks()
     let isConnectedToParent = false
     for (const linkId in links) {
-      const link = links[linkId]
+      const link = links[linkId] as DefaultLinkModel
       const nodeId = link.getSourcePort().getNode().getID()
       if (nodeId === parent.getID()) {
         isConnectedToParent = true
+        link.setColorOfLink(color)
       }
     }
     if (!isConnectedToParent) {
@@ -179,6 +195,10 @@ export class DiagramModel<G extends DiagramModelGenerics = DiagramModelGenerics>
       dom?.classList.add(css.selectedLink)
     }
     return nodeLink
+  }
+
+  getGroupLayer(id: string): StepGroupNodeLayerModel | undefined {
+    return this.stepGroupLayers.filter(layer => layer.getID() === id)[0]
   }
 
   getNodeFromId(id: string): DefaultNodeModel | undefined {

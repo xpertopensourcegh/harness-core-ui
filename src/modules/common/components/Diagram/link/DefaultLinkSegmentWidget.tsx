@@ -18,13 +18,28 @@ export interface DefaultLinkSegmentWidgetProps {
 export const DefaultLinkSegmentWidget = (props: DefaultLinkSegmentWidgetProps): JSX.Element => {
   const { onSelection, link } = props
   const allowAdd = link.getOptions().allowAdd ?? true
-
+  const prevColorRef = React.useRef('')
+  const color = link.getOptions().color
+  React.useEffect(() => {
+    prevColorRef.current = color || ''
+  })
   const Bottom = React.cloneElement(
-    props.factory.generateLinkSegment(props.link, props.selected || props.link.isSelected(), props.path, allowAdd),
+    props.factory.generateLinkSegment(
+      props.link,
+      props.selected || props.link.isSelected(),
+      props.path,
+      allowAdd,
+      prevColorRef.current
+    ),
     {
       ref: props.forwardRef
     }
   )
+
+  const BeforePath = React.cloneElement(Bottom, {
+    stroke: prevColorRef.current,
+    className: ''
+  })
 
   const onMouseLeave = React.useCallback(() => {
     onSelection(false)
@@ -91,6 +106,7 @@ export const DefaultLinkSegmentWidget = (props: DefaultLinkSegmentWidgetProps): 
 
   return (
     <g>
+      {link.getOptions().color !== prevColorRef.current && BeforePath}
       {Bottom}
       {Top}
       {allowAdd && (

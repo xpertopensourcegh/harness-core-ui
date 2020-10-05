@@ -42,7 +42,9 @@ export interface ExecutionGraphProps {
 export default function ExecutionGraph(props: ExecutionGraphProps): React.ReactElement {
   const { pipelineExecutionDetail } = React.useContext(ExecutionContext)
   const data: ExecutionPipeline<CDStageExecutionSummaryDTO> = {
-    items: processExecutionData(pipelineExecutionDetail?.pipelineExecution?.stageExecutionSummaryElements)
+    items: processExecutionData(pipelineExecutionDetail?.pipelineExecution?.stageExecutionSummaryElements),
+    identifier: pipelineExecutionDetail?.pipelineExecution?.pipelineIdentifier || '',
+    status: pipelineExecutionDetail?.pipelineExecution?.executionStatus as any
   }
   return (
     <div className={css.main}>

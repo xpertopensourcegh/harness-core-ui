@@ -10,7 +10,8 @@ import {
   getTypeOfStage,
   getCommonStyles,
   EmptyNodeSeparator,
-  Listeners
+  Listeners,
+  MapStepTypeToIconColor
 } from './StageBuilderUtil'
 
 export class StageBuilderModel extends Diagram.DiagramModel {
@@ -51,6 +52,7 @@ export class StageBuilderModel extends Diagram.DiagramModel {
               isInComplete: node.stage.name === EmptyStageName,
               draggable: true,
               height: 57,
+              iconStyle: { color: isSelected ? 'var(--white)' : MapStepTypeToIconColor[type] },
               icon: MapStepTypeToIcon[type]
             })
           : new Diagram.DefaultNodeModel({
@@ -62,6 +64,7 @@ export class StageBuilderModel extends Diagram.DiagramModel {
               draggable: true,
               allowAdd: allowAdd === true,
               height: 50,
+              iconStyle: { color: isSelected ? 'var(--white)' : MapStepTypeToIconColor[type] },
               icon: MapStepTypeToIcon[type]
             })
 

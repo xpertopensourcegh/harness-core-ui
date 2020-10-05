@@ -142,7 +142,7 @@ const RenderColumnAction: Renderer<CellProps<SecretResponseWrapper>> = ({ row, c
       >
         <Button
           minimal
-          icon="options"
+          icon="Options"
           iconProps={{ size: 24 }}
           onClick={e => {
             e.stopPropagation()

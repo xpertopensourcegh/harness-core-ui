@@ -1,8 +1,19 @@
 .main {
-  --execution-pipeline-status-failed-bg: var(--red-400);
-  --execution-pipeline-status-success-bg: var(--green-400);
-  --execution-pipeline-status-running-bg: var(--yellow-400);
-  --execution-pipeline-selected-node-bg: linear-gradient(147.14deg, #73dfe7 6.95%, #0063f7 93.05%);
+  --execution-pipeline-color-blue: #25a6f7;
+  --execution-pipeline-color-arrow-complete: #0092e4;
+  --execution-pipeline-color-arrow-not-started: #d9dae6;
+  --execution-pipeline-color-grey: #b0b1c4;
+  --execution-pipeline-color-dark-grey: #8f90a6;
+  --execution-pipeline-color-red: #e86d64;
+  --execution-pipeline-color-dark-red: #cf2318;
+  --execution-pipeline-color-orange: #ff832b;
+  --execution-pipeline-color-dark-grey2: #9293ab;
+  --execution-pipeline-selected-running-bg: linear-gradient(
+    to right,
+    transparent 33%,
+    rgba(255, 255, 255, 0.3) 50%,
+    transparent 66%
+  );
 
   width: 100%;
   height: 100%;
@@ -24,8 +35,31 @@
     background-size: $dot-space $dot-space;
   }
 
+  .running-node {
+    position: relative;
+    animation: shine 1s infinite;
+    background-color: var(--blue-600);
+    background-image: var(--execution-pipeline-selected-running-bg) !important;
+    background-size: 300% 100%;
+  }
+
   .canvas {
     width: 100%;
     height: 100%;
+  }
+
+  @-webkit-keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+
+    100% {
+      opacity: 1;
+    }
+  }
+}
+@keyframes shine {
+  0% {
+    background-position: right;
   }
 }
