@@ -14,7 +14,7 @@ const LogViewContainer: React.FC<LogViewContainerProps> = props => {
 
   // TODO: add heading when api start providing it
   const createConsoleBody = () => {
-    return <LogViewer logs={logsViewerSections.logs} />
+    return <LogViewer defaultOptions={{ LogLimit: 500 }} logs={logsViewerSections.logs} />
   }
 
   return (

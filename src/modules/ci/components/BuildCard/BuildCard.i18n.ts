@@ -1,6 +1,8 @@
 export default {
-  buildId: ' Build id: ',
-  commited: 'commited 2 days ago',
-  duration: 'Duration: ',
-  master: 'master'
+  buildId: ' Build ID:',
+  duration: 'Duration:',
+  master: 'master',
+  clipboardCopySuccess: 'Successfully copied to clipboard',
+  clipboardCopyFail: 'Copy to clipboard has failed',
+  prIdSymbol: '#'
 }

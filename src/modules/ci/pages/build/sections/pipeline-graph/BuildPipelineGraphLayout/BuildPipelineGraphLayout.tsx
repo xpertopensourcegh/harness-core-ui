@@ -15,8 +15,8 @@ export interface BuildPipelineGraphLayoutProps {
   stageSelect: React.ReactElement
   stagesPipeline: React.ReactElement
   stepsPipeline: React.ReactElement
-  stepTitle: React.ReactElement
-  stepTabs: { title: React.ReactElement; content: React.ReactElement }[]
+  stepTitle: React.ReactElement | undefined
+  stepTabs: { title: React.ReactElement; content: React.ReactElement | undefined }[]
   stepLogs: React.ReactElement
 }
 

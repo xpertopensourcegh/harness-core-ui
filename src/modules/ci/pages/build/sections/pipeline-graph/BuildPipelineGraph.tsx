@@ -47,6 +47,7 @@ const PipelineGraph: React.FC = () => {
   const stagesPipeline = (
     <ExecutionStageDiagram
       data={buildData?.stagePipeline}
+      showStartEndNode={buildData?.stagePipeline && buildData?.stagePipeline.items.length > 0}
       selectedIdentifier={selectedStageIdentifier}
       nodeStyle={{
         width: 114,
@@ -64,7 +65,9 @@ const PipelineGraph: React.FC = () => {
   // Steps pipeline
   const stepsPipeline = (
     <ExecutionStageDiagram
+      key={selectedStageIdentifier}
       data={executionSteps}
+      showStartEndNode={executionSteps.items.length > 0}
       selectedIdentifier={selectedStepIdentifier}
       nodeStyle={{
         width: 80,
@@ -80,28 +83,34 @@ const PipelineGraph: React.FC = () => {
   )
 
   // Step title
-  const stepTitle = <Text color={Color.GREY_500}>STEP: {selectedStep?.name}</Text>
+  const stepTitle = selectedStep && (
+    <Text color={Color.GREY_500}>
+      {i18n.step} {selectedStep?.name}
+    </Text>
+  )
 
   // Step tabs
   const stepTabs = [
     {
       title: <Text>{i18n.stepTabDetails}</Text>,
-      content: (
+      content: selectedStep && (
         <table className={css.stepDetailsTable}>
           <tr>
             <td>{i18n.startedAt}</td>
-            <td>{selectedStep?.data?.startTs && moment(selectedStep?.data?.startTs).format('M/D/YYYY h:mm:ss a')}</td>
+            <td>
+              {selectedStep?.data?.startTs ? moment(selectedStep?.data?.startTs).format('M/D/YYYY h:mm:ss a') : '-'}
+            </td>
           </tr>
           <tr>
             <td>{i18n.endedAt}</td>
-            <td>{selectedStep?.data?.endTs && moment(selectedStep?.data?.endTs).format('M/D/YYYY h:mm:ss a')}</td>
+            <td>{selectedStep?.data?.endTs ? moment(selectedStep?.data?.endTs).format('M/D/YYYY h:mm:ss a') : '-'}</td>
           </tr>
           <tr>
             <td>{i18n.duration}</td>
             <td>
-              {selectedStep?.data?.startTs &&
-                selectedStep?.data?.endTs &&
-                formatElapsedTime(selectedStep?.data?.endTs - selectedStep?.data?.startTs, true)}
+              {selectedStep?.data?.startTs && selectedStep?.data?.endTs
+                ? formatElapsedTime(selectedStep?.data?.endTs / 1000 - selectedStep?.data?.startTs / 1000, true)
+                : '-'}
             </td>
           </tr>
         </table>

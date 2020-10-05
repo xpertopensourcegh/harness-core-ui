@@ -1,3 +1,6 @@
+import { throttle } from 'lodash-es'
+import React from 'react'
+
 export interface LogResponse {
   args?: any
   level: string
@@ -40,7 +43,7 @@ export async function getLogsFromBlob(
           return {
             logLevel: item?.level.toUpperCase(),
             createdAt: item.time,
-            logLine: item?.out
+            logLine: item?.out.replace(`\n`, '')
           }
         })
         setLogs(parsedData)
@@ -49,8 +52,6 @@ export async function getLogsFromBlob(
     // console.log(e);
   }
 }
-
-import React from 'react'
 
 export const useLogs = (
   accountIdentifier: string,
@@ -61,9 +62,23 @@ export const useLogs = (
   stepIdentifier: string,
   shouldCall: boolean
 ) => {
-  const [logs, setLogs] = React.useState([])
+  const [logs, setLogs] = React.useState<Logs[]>([])
 
   React.useEffect(() => {
+    const cachedLogs: Logs[] = []
+
+    const throttledLogs = throttle(() => {
+      const slicedLogs = cachedLogs.slice(Math.max(cachedLogs.length - 500, 0))
+      setLogs(slicedLogs)
+    }, 1000)
+
+    const pushLog = (element: LogResponse): void => {
+      cachedLogs.push({
+        logLevel: element?.level.toUpperCase(),
+        createdAt: element.time,
+        logLine: element?.out.replace(`\n`, '')
+      })
+    }
     const eventSource =
       shouldCall &&
       new EventSource(
@@ -74,7 +89,9 @@ export const useLogs = (
         if (e.type === 'error') {
           eventSource.close()
         }
-        updateLogList(JSON.parse(e.data), setLogs)
+
+        pushLog(JSON.parse(e.data))
+        throttledLogs()
       }
       eventSource.onerror = e => {
         e.type === 'error' && eventSource.close()
@@ -87,10 +104,4 @@ export const useLogs = (
   }, [stepIdentifier])
 
   return [logs]
-}
-
-const updateLogList = (element: LogResponse, setLogs: Function) => {
-  setLogs((prevLogs: Logs[]) => {
-    return [...prevLogs, { logLevel: element?.level.toUpperCase(), createdAt: element.time, logLine: element?.out }]
-  })
 }

@@ -5,8 +5,8 @@ declare const styles: {
   readonly topper: string
   readonly leftSide: string
   readonly links: string
-  readonly lastCommit: string
-  readonly buildId: string
+  readonly message: string
+  readonly buildTitle: string
   readonly status: string
   readonly rightSide: string
   readonly lower: string
@@ -15,5 +15,8 @@ declare const styles: {
   readonly extendedPart: string
   readonly commitItem: string
   readonly commitHash: string
+  readonly avatar: string
+  readonly pullRequestStatus: string
+  readonly prBranchName: string
 }
 export default styles

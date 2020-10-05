@@ -39,6 +39,7 @@ export interface Commit {
   ownerName: string
   ownerId: string
   ownerEmail: string
+  timeStamp: number
 }
 
 export interface Branch {
@@ -64,20 +65,21 @@ export interface Build {
   endTime: number
   pipeline?: Pipeline
   triggerType: string
-  event: string
+  event: 'pull_request' | 'branch'
   author?: Author
   branch?: Branch
-  pullRequest?: PullRequest
+  pull_request?: PullRequest
   graph: Graph
 }
 
 export interface BuildsData {
   content: Build[]
   graph: Graph
-  pageCount: number
   pageItemCount: number
   pageSize: number
   pageIndex: number
+  totalItems: number
+  totalPages: number
   empty: boolean
 }
 

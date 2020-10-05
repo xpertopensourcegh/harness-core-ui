@@ -1,6 +1,5 @@
 import React from 'react'
 import { Container, Select, Layout } from '@wings-software/uikit'
-import ElapsedTime from 'modules/ci/components/ElapsedTime/ElapsedTime'
 import LogViewContainer from 'modules/ci/components/LogViewContainer/LogViewContainer'
 import { BuildStep } from 'modules/ci/components/BuildSteps/BuildStep'
 import { BuildPageContext } from '../../context/BuildPageContext'
@@ -28,7 +27,9 @@ const PipelineLog: React.FC = () => {
     logs
   } = React.useContext(BuildPageContext)
 
-  const stagesSelectOptions = getSelectOptionsFromExecutionPipeline(buildData?.stagePipeline)
+  const stagesSelectOptions = getSelectOptionsFromExecutionPipeline(buildData?.stagePipeline).map(item => {
+    return { label: item.label, value: item.value }
+  })
   const selectedStageOption = stagesSelectOptions.find(item => item.value === selectedStageIdentifier)
   const executionSteps = getStepsPipelineFromExecutionPipeline(buildData?.stagePipeline, selectedStageIdentifier)
   const stepItems = getFlattenItemsFromPipeline(executionSteps)
@@ -55,38 +56,32 @@ const PipelineLog: React.FC = () => {
     )
   })
 
-  // TODO: Add time from API
-  const header = (
-    <Container className={css.header}>
-      <Select
-        items={stagesSelectOptions}
-        value={selectedStageOption}
-        onChange={item => {
-          setSelectedStageIdentifier(item.value as string)
-        }}
-        className={css.stageSelector}
-      />
-      <ElapsedTime className={css.timer} startTime={Math.floor(Date.now() / 1000)} />
-    </Container>
-  )
-
   return (
-    <Layout.Vertical className={css.main}>
-      {header}
-      <Layout.Horizontal className={css.wrapper}>
+    <Layout.Horizontal className={css.wrapper}>
+      <Container className={css.selectContainer}>
+        <div className={css.selectDiv}>
+          <Select
+            items={stagesSelectOptions}
+            value={selectedStageOption}
+            onChange={item => {
+              setSelectedStageIdentifier(item.value as string)
+            }}
+            className={css.stageSelector}
+          />
+        </div>
         <div className={css.steps}>
           <ul className="pipeline-steps">{steps}</ul>
         </div>
-        <Container height="700px" width="100%">
-          <LogViewContainer
-            downloadLogs={() => {
-              alert('Log download')
-            }}
-            logsViewerSections={{ logs: logs }}
-          />
-        </Container>
-      </Layout.Horizontal>
-    </Layout.Vertical>
+      </Container>
+      <Container height="100%" width="100%">
+        <LogViewContainer
+          downloadLogs={() => {
+            alert('Log download')
+          }}
+          logsViewerSections={{ logs: logs }}
+        />
+      </Container>
+    </Layout.Horizontal>
   )
 }
 

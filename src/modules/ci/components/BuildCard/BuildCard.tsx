@@ -1,8 +1,11 @@
 import React, { useState } from 'react'
-import { noop } from 'lodash-es'
-import { Button, Icon, Link, Container, Text } from '@wings-software/uikit'
+import { first, noop } from 'lodash-es'
+import copy from 'copy-to-clipboard'
+import { Button, Icon, Link, Container, Text, Color, IconName } from '@wings-software/uikit'
 import ReactTimeago from 'react-timeago'
 import { ExecutionStatus, status2Message } from 'modules/ci/components/common/status'
+import { getShortCommitId } from 'modules/ci/services/CIUtils'
+import { useToaster } from 'modules/common/exports'
 import pipelines from './pipelines.png'
 import Status from '../Status/Status'
 import { formatElapsedTime } from '../common/time'
@@ -17,30 +20,32 @@ export interface Commit {
   ownerName: string
   ownerId: string
   ownerEmail: string
+  timeStamp: number
 }
+
 export interface BuildCardProps {
   id: number
   startTime: number
   endTime: number
   status: string
 
-  // pipeline: Pipeline
+  triggerType: string
+  event: 'pull_request' | 'branch'
+
+  // pipeline
   pipelineId?: string
   pipelineName?: string
 
-  triggerType: string
-  event: string
-
-  // author: Author
+  // author
   authorId?: string
   avatar?: string
 
-  // Branch
+  // branch
   branchName?: string
   branchLink?: string
   commits?: Commit[]
 
-  // PullRequest
+  // pull request
   PRId?: number
   PRLink?: string
   PRTitle?: string
@@ -48,55 +53,89 @@ export interface BuildCardProps {
   PRSourceBranch?: string
   PRTargetBranch?: string
   PRState?: string
+
   onClick?: (id: number) => void
 }
 
-// TO DO add BuildCardProps
+const getIconForEvent = (event: 'pull_request' | 'branch'): IconName => {
+  switch (event) {
+    case 'pull_request':
+      return 'git-branch'
+    case 'branch':
+      return 'git-commit'
+  }
+}
+
 export const BuildCard: React.FC<BuildCardProps> = props => {
   const { onClick = noop } = props
+  const [expanded, setExpanded] = useState(false)
+  const { showSuccess, showError } = useToaster()
 
-  const copyFunction = (input: string): void => {
-    navigator.clipboard.writeText(String(input))
-    alert('copied')
+  const copy2Clipboard = (text: string): void => {
+    copy(String(text)) ? showSuccess(i18n.clipboardCopySuccess) : showError(i18n.clipboardCopyFail)
   }
 
-  const isPullRequest = props.event === 'pull_request'
+  const endTime = props.endTime ? props.endTime : Date.now()
+  const duration = formatElapsedTime(Math.abs(endTime - props.startTime) / 1000)
 
-  const duration = formatElapsedTime(Math.abs(props.endTime - props.startTime) / 1000)
+  const lastCommit = first(props.commits)
+  let sourceInfo
 
-  const elements = (
-    <p>
-      <Link className={css.links} href="//harness.io" target="_blank">
-        {isPullRequest ? props.PRSourceBranch : i18n.master}
-      </Link>
-      <Icon name={isPullRequest ? 'arrow-right' : 'git-commit'} />
-      <Link className={css.links} href="//harness.io" target="_blank">
-        {isPullRequest ? props.PRTargetBranch : props.branchName}
-      </Link>
-      <Text className={css.lastCommit}>{!isPullRequest && props.commits && props.commits[0].message}</Text>
-    </p>
-  )
-
-  const [expanded, setExpanded] = useState(false)
-
-  const commits =
-    !isPullRequest &&
-    props?.commits?.map((item, key) => {
-      return (
-        <div className={css.commitItem} key={key}>
-          <div>
-            {item.message.slice(0, 80)} | {item.description}
-          </div>
-          <div>
-            <Icon name="nav-user-profile" /> {item.ownerId} {i18n.commited}
-            <Text onClick={() => copyFunction(item.id)} className={css.commitHash}>
-              {item.id.slice(0, 7)}
-              <Icon size={12} name="clipboard" />
-            </Text>
-          </div>
-        </div>
+  switch (props.event) {
+    case 'branch':
+      sourceInfo = (
+        <>
+          <Link className={css.links} href={props.branchLink} target="_blank">
+            {props.branchName}
+          </Link>
+          {lastCommit && (
+            <>
+              <Icon name="git-commit" size={12} color={Color.GREY_450} padding={{ left: 'xsmall', right: 'xsmall' }} />
+              <Link className={css.links} href={lastCommit.link} target="_blank">
+                {getShortCommitId(lastCommit.id)}
+              </Link>
+              <Text className={css.message}>{lastCommit.message}</Text>
+            </>
+          )}
+        </>
       )
-    })
+      break
+    case 'pull_request':
+      sourceInfo = (
+        <>
+          <span className={css.prBranchName}>{props.PRSourceBranch}</span>
+          <Icon name="arrow-right" size={12} color={Color.GREY_350} padding={{ left: 'xsmall', right: 'xsmall' }} />
+          <span className={css.prBranchName}>{props.PRTargetBranch}</span>
+          <Text className={css.message}>{props.PRTitle}</Text>
+          <Link className={css.links} href={props.PRLink} target="_blank">
+            {i18n.prIdSymbol} {props.PRId}
+          </Link>
+          <span className={css.pullRequestStatus}>{props.PRState}</span>
+        </>
+      )
+      break
+  }
+
+  const commits = props?.commits?.map(item => {
+    return (
+      <div className={css.commitItem} key={item.id}>
+        <div>
+          {item.message?.slice(0, 80)} {item.description && <>| {item.description}</>}
+        </div>
+        <div>
+          <Icon name="nav-user-profile" />
+          <span>
+            {item.ownerId}
+            <ReactTimeago date={item.timeStamp} />
+          </span>
+          <Text className={css.commitHash} onClick={() => copy2Clipboard(item.id)}>
+            {getShortCommitId(item.id)}
+            <Icon size={12} name="clipboard" color={Color.BLUE_600} margin={{ left: 'xsmall' }} />
+          </Text>
+        </div>
+      </div>
+    )
+  })
 
   return (
     <Container
@@ -107,32 +146,47 @@ export const BuildCard: React.FC<BuildCardProps> = props => {
     >
       <div className={css.topper}>
         <Container className={css.leftSide}>
-          <div className={css.buildId} onClick={() => onClick(props.id)}>
-            <Icon color="green800" name="git-branch" />
-            {i18n.buildId} {props.id} | {props.pipelineName}
+          <div className={css.buildTitle} onClick={() => onClick(props.id)}>
+            <Icon color={Color.PURPLE_500} name={getIconForEvent(props.event)} size={20} />
+            <Text inline font={{ weight: 'semi-bold' }} color={Color.GREY_800}>
+              {props.pipelineName} | {i18n.buildId} {props.id}
+            </Text>
             <Status className={css.status} status={(props?.status as unknown) as ExecutionStatus}>
               {status2Message((props?.status as unknown) as ExecutionStatus)}
             </Status>
           </div>
-          {elements}
+          {sourceInfo}
         </Container>
 
         <Container className={css.rightSide}>
           <img src={pipelines}></img>
           <div>
-            <Button minimal icon="pause" />
-            <Button minimal icon="command-stop" />
-            <Button minimal icon="more" />
+            <Button minimal icon="pause" small />
+            <Button minimal icon="stop" small />
+            <Button minimal icon="more" small />
           </div>
         </Container>
       </div>
       <div className={css.lower}>
         <div className={css.creatorInfo}>
-          <Icon name="nav-user-profile" /> {props.authorId}| {props.triggerType}
+          <img src={props.avatar} className={css.avatar} />
+          <span>
+            {props.authorId} | {props.triggerType}
+          </span>
         </div>
         <div className={css.duration}>
-          <Icon name="nav-user-profile" /> {i18n.duration} {duration} | <Icon name="time" />
-          <ReactTimeago date={props.startTime} />
+          <div>
+            <Icon name="time" size={12} color={Color.GREY_350} />
+            <Text inline font={{ size: 'xsmall' }} color={Color.GREY_500}>
+              {i18n.duration} {duration}
+            </Text>
+          </div>
+          <div>
+            <Icon name="calendar" size={12} color={Color.GREY_350} />
+            <Text inline font={{ size: 'xsmall' }} color={Color.GREY_500}>
+              <ReactTimeago date={props.startTime} />
+            </Text>
+          </div>
         </div>
         <Button
           disabled={!commits}

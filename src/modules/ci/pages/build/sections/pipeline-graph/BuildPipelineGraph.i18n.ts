@@ -5,5 +5,6 @@ export default {
   stepTabOutput: 'Output',
   startedAt: 'Started at:',
   endedAt: 'Ended at:',
-  duration: 'Duration:'
+  duration: 'Duration:',
+  step: 'STEP:'
 }

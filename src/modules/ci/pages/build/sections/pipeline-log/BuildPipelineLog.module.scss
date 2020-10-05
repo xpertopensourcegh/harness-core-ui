@@ -1,34 +1,26 @@
-.main {
-  flex-grow: 1;
-}
-
-.header {
-  display: flex;
-  padding-left: var(--spacing-xlarge) !important;
-  height: 50px;
-  border-bottom: 2px solid rgba(0, 0, 0, 0.08);
-  .stageSelector {
-    align-self: center;
-    width: 200px;
-    input {
-      border: none;
-    }
-  }
-  .timer {
-    align-self: center;
-    margin: 0 75px;
-  }
-}
-
 .wrapper {
   flex-grow: 1;
-  .steps {
-    width: 300px;
+
+  .selectContainer {
+    .selectDiv {
+      padding: var(--spacing-xsmall) var(--spacing-xxxlarge) var(--spacing-xsmall) var(--spacing-large);
+      border-bottom: 1px solid var(--grey-300);
+      .stageSelector {
+        align-self: center;
+        input {
+          border: none;
+        }
+      }
+    }
+    .steps {
+      width: 300px;
+    }
   }
   ::-webkit-scrollbar-thumb {
     background: var(--grey-600);
   }
 }
+
 :global {
   .Collapse---main--34Is {
     border: none;
@@ -36,7 +28,7 @@
   }
 
   div[class*='LogViewer'] {
-    background: #00162a;
+    background: var(--black);
     padding: var(--spacing-small);
   }
   .StyledProps---font--2ipy,

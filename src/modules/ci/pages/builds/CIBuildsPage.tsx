@@ -88,12 +88,12 @@ const CIBuildsPage: React.FC = () => {
   )
 
   // BUILDS FOOTER
-  const buildsFooter = buildsData && buildsData.pageItemCount > 0 && (
+  const buildsFooter = buildsData && buildsData.totalItems > 0 && (
     <Pagination
       pageSize={buildsData?.pageSize}
       pageIndex={buildsData?.pageIndex}
-      pageCount={buildsData?.pageCount}
-      itemCount={buildsData?.pageItemCount}
+      pageCount={buildsData?.totalPages}
+      itemCount={buildsData?.totalItems}
       pageCountClamp={5}
       gotoPage={pageNumber => {
         navigateToPage(pageNumber)
@@ -121,13 +121,13 @@ const CIBuildsPage: React.FC = () => {
       branchName={item?.branch?.name}
       branchLink={item?.branch?.link}
       commits={item?.branch?.commits}
-      PRId={item?.pullRequest?.id}
-      PRLink={item?.pullRequest?.link}
-      PRTitle={item?.pullRequest?.body}
-      PRBody={item?.pullRequest?.body}
-      PRSourceBranch={item?.pullRequest?.sourceBranch}
-      PRTargetBranch={item?.pullRequest?.targetBranch}
-      PRState={item?.pullRequest?.state}
+      PRId={item?.pull_request?.id}
+      PRLink={item?.pull_request?.link}
+      PRTitle={item?.pull_request?.body}
+      PRBody={item?.pull_request?.body}
+      PRSourceBranch={item?.pull_request?.sourceBranch}
+      PRTargetBranch={item?.pull_request?.targetBranch}
+      PRState={item?.pull_request?.state}
       onClick={(id: number) => {
         navigateToBuild(id.toString())
       }}

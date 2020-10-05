@@ -64,6 +64,8 @@ const CIBuildPage: React.FC = props => {
   const testsUrl = routeCIBuildTests.url({ orgIdentifier, projectIdentifier, buildIdentifier })
   const artifactsUrl = routeCIBuildArtifacts.url({ orgIdentifier, projectIdentifier, buildIdentifier })
 
+  const executionStatus = buildResponse?.data.graph?.status
+
   return (
     <ExtendedPage className={common.main}>
       {buildResponse ? (
@@ -83,10 +85,14 @@ const CIBuildPage: React.FC = props => {
             }
             rowOneContent={
               <>
-                <Status status={(buildResponse?.data.graph?.status as unknown) as ExecutionStatus}>
-                  {status2Message((buildResponse?.data.graph?.status as unknown) as ExecutionStatus)}
-                </Status>
-                <ElapsedTime startTime={buildResponse?.data.startTime || 0} />
+                {executionStatus && (
+                  <Status status={(executionStatus as unknown) as ExecutionStatus}>
+                    {status2Message((executionStatus as unknown) as ExecutionStatus)}
+                  </Status>
+                )}
+                {buildResponse?.data.startTime && (
+                  <ElapsedTime startTime={buildResponse?.data.startTime} endTime={buildResponse?.data.endTime} />
+                )}
               </>
             }
             rowTwoContent={

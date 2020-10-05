@@ -34,8 +34,8 @@ export function getDefaultSelectionFromExecutionPipeline<T>(pipeline: ExecutionP
   // TODO: iterate thoughts parallel stages
 
   return {
-    defaultSelectedStageIdentifier: pipeline.items[0].item?.identifier || '-1',
-    defaultSelectedStepIdentifier: pipeline.items[0].item?.pipeline?.items[0].item?.identifier || '-1'
+    defaultSelectedStageIdentifier: first(pipeline.items)?.item?.identifier || '-1',
+    defaultSelectedStepIdentifier: first(first(pipeline.items)?.item?.pipeline?.items)?.item?.identifier || '-1'
   }
 }
 
