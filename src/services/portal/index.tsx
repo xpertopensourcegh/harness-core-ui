@@ -16728,3 +16728,31 @@ export type UseGetUserProps = Omit<UseGetProps<RestResponseUser, unknown, void, 
 
 export const useGetUser = (props: UseGetUserProps) =>
   useGet<RestResponseUser, unknown, void, void>(`/users/user`, { base: window.apiUrl || getConfig('api'), ...props })
+
+export interface GetDelegateTagsQueryParams {
+  accountId?: string
+}
+
+export type GetDelegateTagsProps = Omit<
+  GetProps<RestResponseSetString, unknown, GetDelegateTagsQueryParams, void>,
+  'path'
+>
+
+export const GetDelegateTags = (props: GetDelegateTagsProps) => (
+  <Get<RestResponseSetString, unknown, GetDelegateTagsQueryParams, void>
+    path={`/setup/delegates/delegate-tags`}
+    base={window.apiUrl || getConfig('api')}
+    {...props}
+  />
+)
+
+export type UseGetDelegateTagsProps = Omit<
+  UseGetProps<RestResponseSetString, unknown, GetDelegateTagsQueryParams, void>,
+  'path'
+>
+
+export const useGetDelegateTags = (props: UseGetDelegateTagsProps) =>
+  useGet<RestResponseSetString, unknown, GetDelegateTagsQueryParams, void>(`/setup/delegates/delegate-tags`, {
+    base: window.apiUrl || getConfig('api'),
+    ...props
+  })
