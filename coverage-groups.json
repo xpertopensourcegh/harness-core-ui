@@ -19,6 +19,7 @@
     ],
     "DX": [
       "src/modules/dx/**",
+      "src/modules/common/components/YAMLBuilder/**",
       "!src/modules/dx/components/SecretReference/**",
       "!src/modules/dx/components/CreateUpdateSecret/**",
       "!src/modules/common/components/CreateInlineSecret/**",

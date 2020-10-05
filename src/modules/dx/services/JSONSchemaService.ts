@@ -1,5 +1,5 @@
 import { YamlEntity } from 'modules/common/constants/YamlConstants'
-import connectorSchema from './mocks/connector-schema.json'
+import connectorSchema from './mocks/schema/connector-schema.json'
 import secretsSchema from './mocks/secrets-schema.json'
 
 export function fetchEntitySchemas(entityType: string): object {

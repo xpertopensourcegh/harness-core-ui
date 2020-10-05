@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { Button, Layout, IconName } from '@wings-software/uikit'
+import { Button, Layout } from '@wings-software/uikit'
 import { parse } from 'yaml'
 import cx from 'classnames'
 import { useToaster } from 'modules/common/exports'
 import type { ConnectorInfoDTO, ConnectorRequestBody, ConnectorResponse } from 'services/cd-ng'
 import YamlBuilder from 'modules/common/components/YAMLBuilder/YamlBuilder'
+import { addIconInfoToSnippets } from 'modules/common/components/YAMLBuilder/YAMLBuilderUtils'
 import { YamlEntity } from 'modules/common/constants/YamlConstants'
 import type { SnippetInterface } from 'modules/common/interfaces/SnippetInterface'
 import { YAMLService } from 'modules/dx/services'
@@ -141,23 +142,13 @@ const ConfigureConnector: React.FC<ConfigureConnectorProps> = props => {
     }
   }
 
-  const addIconInfoToSnippets = (snippetsList: SnippetInterface[], iconName: IconName): void => {
-    if (!snippetsList) {
-      return
-    }
-    const snippetsClone = snippetsList.slice()
-    snippetsClone.forEach(snippet => {
-      snippet['iconName'] = iconName
-    })
-  }
-
   const fetchSnippets = (query?: string): void => {
-    const { error, response: snippetsList } = YAMLService.fetchSnippets(YamlEntity.PIPELINE, query)
+    const { error, response: snippetsList } = YAMLService.fetchSnippets(YamlEntity.CONNECTOR, query) || {}
     if (error) {
       showError(error)
       return
     }
-    addIconInfoToSnippets(snippetsList, 'command-shell-script')
+    addIconInfoToSnippets('command-shell-script', snippetsList)
     setSnippets(snippetsList)
   }
 

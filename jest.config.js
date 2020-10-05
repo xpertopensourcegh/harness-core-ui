@@ -7,7 +7,13 @@ module.exports = {
     __DEV__: false
   },
   setupFiles: [],
-  collectCoverageFrom: ['src/**/*.{ts,tsx}', '!src/**/*.test.{ts,tsx}', '!src/**/__tests__/**', '!src/services/**'],
+  collectCoverageFrom: [
+    'src/**/*.{ts,tsx}',
+    '!src/**/*.test.{ts,tsx}',
+    '!src/**/__tests__/**',
+    '!src/services/**',
+    '!src/**/YamlBuilder.tsx'
+  ],
   coverageReporters: ['lcov', 'json-summary'],
   transform: {
     '^.+\\.tsx?$': 'ts-jest',

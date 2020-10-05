@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { Container, Button, IconName } from '@wings-software/uikit'
+import { Container, Button } from '@wings-software/uikit'
 import { parse } from 'yaml'
 import { useHistory, useParams, useLocation } from 'react-router-dom'
 
 import YAMLBuilder from 'modules/common/components/YAMLBuilder/YamlBuilder'
+import { addIconInfoToSnippets } from 'modules/common/components/YAMLBuilder/YAMLBuilderUtils'
 import { YamlEntity } from 'modules/common/constants/YamlConstants'
 import { PageBody } from 'modules/common/components/Page/PageBody'
 import { PageHeader } from 'modules/common/components/Page/PageHeader'
@@ -23,23 +24,14 @@ const CreateConnectorFromYamlPage: React.FC = () => {
   const { mutate: createConnector } = useCreateConnector({ queryParams: { accountIdentifier: accountId } })
 
   const { pathname } = useLocation()
-  const addIconInfoToSnippets = (snippetsList: SnippetInterface[], iconName: IconName): void => {
-    if (!snippetsList) {
-      return
-    }
-    const snippetsClone = snippetsList.slice()
-    snippetsClone.forEach(snippet => {
-      snippet['iconName'] = iconName
-    })
-  }
 
   const fetchSnippets = (query?: string): void => {
-    const { error: apiError, response: snippetsList } = YAMLService.fetchSnippets(YamlEntity.CONNECTOR, query)
+    const { error: apiError, response: snippetsList } = YAMLService.fetchSnippets(YamlEntity.CONNECTOR, query) || {}
     if (apiError) {
       showError(apiError)
       return
     }
-    addIconInfoToSnippets(snippetsList, 'command-shell-script')
+    addIconInfoToSnippets('command-shell-script', snippetsList)
     setSnippets(snippetsList)
   }
 

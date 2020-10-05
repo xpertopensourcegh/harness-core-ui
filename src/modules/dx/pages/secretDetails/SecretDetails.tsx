@@ -4,7 +4,7 @@ import { parse as parseQueryString } from 'query-string'
 import { parse } from 'yaml'
 import cx from 'classnames'
 import { omit, without, pick } from 'lodash-es'
-import { Layout, Text, Color, Container, Button, IconName } from '@wings-software/uikit'
+import { Layout, Text, Color, Container, Button } from '@wings-software/uikit'
 
 import { useGetSecretV2, SecretTextSpecDTO, usePutSecretViaYaml } from 'services/cd-ng'
 import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
@@ -12,6 +12,7 @@ import { PageError } from 'modules/common/components/Page/PageError'
 import { PageHeader } from 'modules/common/components/Page/PageHeader'
 import { routeResources } from 'modules/common/routes'
 import YamlBuilder from 'modules/common/components/YAMLBuilder/YamlBuilder'
+import { addIconInfoToSnippets } from 'modules/common/components/YAMLBuilder/YAMLBuilderUtils'
 import type { YamlBuilderHandlerBinding } from 'modules/common/interfaces/YAMLBuilderProps'
 import { YamlEntity } from 'modules/common/constants/YamlConstants'
 import { YAMLService } from 'modules/dx/services'
@@ -73,23 +74,14 @@ const SecretDetails: React.FC = () => {
     }
   }
 
-  const addIconInfoToSnippets = (snippetsList: SnippetInterface[], iconName: IconName): void => {
-    if (!snippetsList) {
-      return
-    }
-    const snippetsClone = snippetsList.slice()
-    snippetsClone.forEach(snippet => {
-      snippet['iconName'] = iconName
-    })
-  }
-
   const fetchSnippets = (query?: string): void => {
-    const { error: apiError, response: snippetsList } = YAMLService.fetchSnippets(YamlEntity.SECRET, query)
+    const { error: apiError, response: snippetsList } = YAMLService.fetchSnippets(YamlEntity.SECRET, query) || {}
+
     if (apiError) {
       showError(apiError)
       return
     }
-    addIconInfoToSnippets(snippetsList, 'command-shell-script')
+    addIconInfoToSnippets('command-shell-script', snippetsList)
     setSnippets(snippetsList)
   }
 

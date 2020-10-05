@@ -1,3 +1,5 @@
+import type { IconName } from '@wings-software/uikit'
+import type { SnippetInterface } from 'modules/common/interfaces/SnippetInterface'
 import type { Diagnostic } from 'vscode-languageserver-types'
 import { parse } from 'yaml'
 
@@ -142,9 +144,25 @@ const getYAMLPathToValidationErrorMap = (
   return yamlPathToValidationErrorMap
 }
 
+/**
+ * Add icon info to sippets
+ * @param iconName
+ * @param snippetsList
+ */
+const addIconInfoToSnippets = (iconName: IconName, snippetsList?: SnippetInterface[]): void => {
+  if (!snippetsList) {
+    return
+  }
+  const snippetsClone = snippetsList.slice()
+  snippetsClone.forEach(snippet => {
+    snippet['iconName'] = iconName
+  })
+}
+
 export {
   findLeafToParentPath,
   getYAMLFromEditor,
   getMetaDataForKeyboardEventProcessing,
-  getYAMLPathToValidationErrorMap
+  getYAMLPathToValidationErrorMap,
+  addIconInfoToSnippets
 }

@@ -1,9 +1,10 @@
 import React from 'react'
 import { parse } from 'yaml'
-import type { IconName } from '@wings-software/uikit'
 import { Prompt } from 'react-router-dom'
+import type { IconName } from '@blueprintjs/core'
 import { YamlEntity } from 'modules/common/constants/YamlConstants'
 import YAMLBuilder from 'modules/common/components/YAMLBuilder/YamlBuilder'
+import { addIconInfoToSnippets } from 'modules/common/components/YAMLBuilder/YAMLBuilderUtils'
 import { YAMLService } from 'modules/dx/services'
 import { useToaster } from 'modules/common/exports'
 import type { SnippetInterface } from 'modules/common/interfaces/SnippetInterface'
@@ -30,23 +31,14 @@ const PipelineYamlView: React.FC = () => {
       setYamlHandlerContext(yamlHandler)
     }
   }, [yamlHandler, setYamlHandlerContext])
-  const addIconInfoToSnippets = (snippetsList: SnippetInterface[], iconName: IconName): void => {
-    if (!snippetsList) {
-      return
-    }
-    const snippetsClone = snippetsList.slice()
-    snippetsClone.forEach(snippet => {
-      snippet['iconName'] = iconName
-    })
-  }
 
   const fetchSnippets = (query?: string): void => {
-    const { error, response: snippetsList } = YAMLService.fetchSnippets(YamlEntity.PIPELINE, query)
+    const { error, response: snippetsList } = YAMLService.fetchSnippets(YamlEntity.PIPELINE, query) || {}
     if (error) {
       showError(error)
       return
     }
-    addIconInfoToSnippets(snippetsList, 'command-shell-script')
+    addIconInfoToSnippets('command-shell-script' as IconName, snippetsList)
     setSnippets(snippetsList)
   }
 

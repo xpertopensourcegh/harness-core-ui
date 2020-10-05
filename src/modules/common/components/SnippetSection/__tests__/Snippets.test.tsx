@@ -8,7 +8,7 @@ import {
   waitFor
 } from '@testing-library/react'
 import { YamlEntity } from 'modules/common/constants/YamlConstants'
-import snippets from 'modules/dx/services/mocks/snippets.json'
+import snippets from 'modules/dx/services/mocks/snippets/connector/kubernetes/snippets.json'
 import type { SnippetSectionProps, SnippetInterface } from 'modules/common/interfaces/SnippetInterface'
 import SnippetSection from '../SnippetSection'
 
