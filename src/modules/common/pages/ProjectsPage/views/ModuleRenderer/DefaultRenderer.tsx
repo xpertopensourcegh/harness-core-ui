@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 import { Color, Layout, Icon, Text } from '@wings-software/uikit'
 import { routeCDDashboard } from 'modules/cd/routes'
 import { routeCVMainDashBoardPage } from 'modules/cv/routes'
@@ -15,6 +15,7 @@ interface DefaultProps {
 const DefaultRenderer: React.FC<DefaultProps> = props => {
   const { data, isPreview } = props
   const { accountId } = useParams()
+  const history = useHistory()
   const { mutate: updateProject } = usePutProject({
     identifier: '',
     queryParams: {
@@ -60,34 +61,35 @@ const DefaultRenderer: React.FC<DefaultProps> = props => {
         </Layout.Horizontal>
       ) : (
         <Layout.Horizontal spacing="small">
-          <Link
-            to={routeCDDashboard.url({
-              orgIdentifier: data.orgIdentifier as string,
-              projectIdentifier: data.identifier || ''
-            })}
-          >
-            <Icon
-              name="cd-hover"
-              size={20}
-              onClick={() => {
-                onSelect('CD')
-              }}
-            />
-          </Link>
-          <Link
-            to={routeCVMainDashBoardPage.url({
-              projectIdentifier: data.identifier || '',
-              orgIdentifier: data.orgIdentifier || ''
-            })}
-          >
-            <Icon
-              name="nav-cv-hover"
-              size={20}
-              onClick={() => {
-                onSelect('CV')
-              }}
-            />
-          </Link>
+          <Icon
+            name="cd-hover"
+            size={20}
+            onClick={() => {
+              onSelect('CD')
+              history.push(
+                routeCDDashboard.url({
+                  orgIdentifier: data.orgIdentifier as string,
+                  projectIdentifier: data.identifier || ''
+                })
+              )
+            }}
+            className={css.pointer}
+          />
+
+          <Icon
+            name="nav-cv-hover"
+            size={20}
+            onClick={() => {
+              onSelect('CV')
+              history.push(
+                routeCVMainDashBoardPage.url({
+                  orgIdentifier: data.orgIdentifier as string,
+                  projectIdentifier: data.identifier || ''
+                })
+              )
+            }}
+            className={css.pointer}
+          />
           <Icon name="ce-hover" size={20} />
         </Layout.Horizontal>
       )}

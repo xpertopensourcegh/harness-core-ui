@@ -30,15 +30,22 @@ import {
   useSendInvite,
   InviteDTO,
   useDeleteInvite,
-  useUpdateInvite
+  useUpdateInvite,
+  ResponsePageUserSearchDTO,
+  ResponseOptionalListRoleDTO,
+  ResponsePageInviteDTO
 } from 'services/cd-ng'
 import i18n from 'modules/common/pages/ProjectsPage/ProjectsPage.i18n'
+import type { UseGetMockData } from 'modules/common/utils/testUtils'
 import { InviteType } from '../Constants'
 
 import css from './Steps.module.scss'
 
 interface ProjectModalData {
   data: Project | undefined
+  userMockData?: UseGetMockData<ResponsePageUserSearchDTO>
+  rolesMockData?: UseGetMockData<ResponseOptionalListRoleDTO>
+  invitesMockData?: UseGetMockData<ResponsePageInviteDTO>
 }
 interface CollaboratorsData {
   collaborators: MultiSelectOption[]
@@ -217,7 +224,7 @@ const InviteListRenderer: React.FC<InviteListProps> = props => {
 }
 
 const Collaborators: React.FC<StepProps<Project> & ProjectModalData> = props => {
-  const { previousStep, nextStep, prevStepData, data } = props
+  const { previousStep, nextStep, prevStepData, data, rolesMockData, userMockData, invitesMockData } = props
   const [role, setRole] = useState<SelectOption>(defaultRole)
   const [search, setSearch] = useState<string>()
   const { accountId } = useParams()
@@ -226,7 +233,8 @@ const Collaborators: React.FC<StepProps<Project> & ProjectModalData> = props => 
   const projectData = isFromMenu ? data : prevStepData
   const initialValues: CollaboratorsData = { collaborators: [] }
   const { data: userData } = useGetUsers({
-    queryParams: { accountIdentifier: accountId, searchString: search === '' ? undefined : search }
+    queryParams: { accountIdentifier: accountId, searchString: search === '' ? undefined : search },
+    mock: userMockData
   })
 
   const { data: inviteData, loading: inviteLoading, refetch: reloadInvites } = useGetInvites({
@@ -234,7 +242,8 @@ const Collaborators: React.FC<StepProps<Project> & ProjectModalData> = props => 
       accountIdentifier: accountId,
       orgIdentifier: projectData?.orgIdentifier || '',
       projectIdentifier: projectData?.identifier || ''
-    }
+    },
+    mock: invitesMockData
   })
 
   const { mutate: sendInvite, loading } = useSendInvite({
@@ -250,7 +259,8 @@ const Collaborators: React.FC<StepProps<Project> & ProjectModalData> = props => 
       accountIdentifier: accountId,
       orgIdentifier: projectData?.orgIdentifier || '',
       projectIdentifier: projectData?.identifier || ''
-    }
+    },
+    mock: rolesMockData
   })
 
   const users: SelectOption[] =

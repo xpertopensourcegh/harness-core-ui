@@ -104,7 +104,7 @@ const AboutProject: React.FC<StepProps<Project> & ProjectModalData> = props => {
       'identifier',
       'tags'
     ])
-    if (values.color == '') delete dataToSubmit.color
+    if (values.color === '') delete dataToSubmit.color
     ;(dataToSubmit as Project)['accountIdentifier'] = accountId
     ;(dataToSubmit as Project)['owners'] = [accountId]
     if (isEdit) {

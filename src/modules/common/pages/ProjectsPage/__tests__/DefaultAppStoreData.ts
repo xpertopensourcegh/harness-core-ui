@@ -7,7 +7,7 @@ export const project: Project = {
   identifier: 'test',
   name: 'test',
   color: '#e6b800',
-  modules: ['CD'],
+  modules: ['CD', 'CV'],
   description: 'test',
   tags: ['tag1', 'tag2'],
   owners: ['testAcc']
@@ -21,7 +21,7 @@ export const defaultAppStoreValues: AppStore = {
       identifier: 'test',
       name: 'test',
       color: '#e6b800',
-      modules: ['CD'],
+      modules: ['CD', 'CV'],
       description: 'test',
       tags: ['tag1', 'tag2'],
       owners: ['testAcc']

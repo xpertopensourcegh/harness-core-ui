@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Container, Layout, Pagination } from '@wings-software/uikit'
 import { useParams } from 'react-router-dom'
 import cx from 'classnames'
@@ -59,6 +59,10 @@ const ProjectGridView: React.FC<ProjectGridViewProps> = props => {
     refetch()
     reloadPage(false)
   }
+
+  useEffect(() => {
+    setPage(0)
+  }, [searchParameter, orgFilterId])
 
   return (
     <Page.Body

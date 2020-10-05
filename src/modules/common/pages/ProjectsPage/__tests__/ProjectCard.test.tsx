@@ -16,5 +16,17 @@ describe('Project Card test', () => {
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()
-  })
+  }),
+    test('Preview is ok', async () => {
+      const { container } = render(
+        <TestWrapper
+          path="/account/:accountId"
+          pathParams={{ accountId: 'testAcc' }}
+          defaultAppStoreValues={defaultAppStoreValues}
+        >
+          <ProjectCard data={project} isPreview={true} />
+        </TestWrapper>
+      )
+      expect(container).toMatchSnapshot()
+    })
 })

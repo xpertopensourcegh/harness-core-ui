@@ -119,8 +119,8 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
       </Container>
 
       {data?.modules?.length ? null : <DefaultRenderer data={data} isPreview={isPreview} />}
-      {data.modules?.includes(ModuleName.CD) ? <CDRenderer /> : null}
-      {data.modules?.includes(ModuleName.CV) ? <CVRenderer /> : null}
+      {data.modules?.includes(ModuleName.CD) ? <CDRenderer data={data} isPreview={isPreview} /> : null}
+      {data.modules?.includes(ModuleName.CV) ? <CVRenderer data={data} isPreview={isPreview} /> : null}
     </Card>
   )
 }

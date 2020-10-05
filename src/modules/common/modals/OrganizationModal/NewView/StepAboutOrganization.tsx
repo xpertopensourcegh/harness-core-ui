@@ -80,7 +80,7 @@ export const StepAboutOrganization: React.FC<StepProps<Organization> & Organizat
       identifier: values.identifier,
       tags: values.tags
     }
-    if (values.color == '') delete dataToSubmit.color
+    if (values.color === '') delete dataToSubmit.color
     try {
       if (edit) {
         await updateOrganization(dataToSubmit)

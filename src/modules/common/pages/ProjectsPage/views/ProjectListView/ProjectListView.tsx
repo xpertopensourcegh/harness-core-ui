@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react'
+import React, { useState, useMemo, useEffect } from 'react'
 import ReactTimeago from 'react-timeago'
 import { Text, Layout, Color, Icon, Button, Popover } from '@wings-software/uikit'
 import type { CellProps, Renderer, Column } from 'react-table'
@@ -192,6 +192,10 @@ const ProjectListView: React.FC<ProjectListViewProps> = props => {
     refetch()
     reloadPage(false)
   }
+
+  useEffect(() => {
+    setPage(0)
+  }, [searchParameter, orgFilterId])
 
   const columns: CustomColumn<Project>[] = useMemo(
     () => [
