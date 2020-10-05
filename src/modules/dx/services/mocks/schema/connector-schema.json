@@ -22,7 +22,7 @@
           "description": "Project ID. OPTIONAL"
         },
         "type": {
-          "enum": ["K8sCluster", "Git", "DockerRegistry"],
+          "enum": ["K8sCluster", "Git", "DockerRegistry", "Local", "GcpKms", "Vault"],
           "description": "Connector type. See list of all connector types available. Required"
         }
       },

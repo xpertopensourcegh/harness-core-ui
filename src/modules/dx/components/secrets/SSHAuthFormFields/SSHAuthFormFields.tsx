@@ -134,6 +134,8 @@ const SSHAuthFormFields: React.FC<SSHAuthFormFieldsProps> = props => {
                         </Text>
                         <SecretReference
                           accountIdentifier={accountId}
+                          orgIdentifier={orgIdentifier}
+                          projectIdentifier={projectIdentifier}
                           type="SecretFile"
                           onSelect={file => {
                             formik.setFieldValue('key', file)

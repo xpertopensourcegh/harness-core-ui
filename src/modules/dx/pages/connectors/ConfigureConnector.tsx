@@ -82,7 +82,7 @@ const ConfigureConnector: React.FC<ConfigureConnectorProps> = props => {
         state.setEnableEdit(false)
       }
     } catch (error) {
-      showError(error.message)
+      showError(error.data?.message)
     }
   }
 
@@ -108,13 +108,16 @@ const ConfigureConnector: React.FC<ConfigureConnectorProps> = props => {
           if (errorMap && errorMap.size > 0) {
             showError(getValidationErrorMessagesForToaster(errorMap), 5000)
           } else {
+            if (connectorJSONEq.identifier != props.response.connector?.identifier) {
+              throw i18n.idError
+            }
             setSelectedView(targetMode)
           }
           setConnector(connectorJSONEq)
           setConnectorForYaml(connectorJSONEq)
         }
       } catch (err) {
-        showError(`${err.name}: ${err.message}`)
+        showError(err.name ? `${err.name}: ${err.message}` : err)
       }
     } else {
       setSelectedView(targetMode)

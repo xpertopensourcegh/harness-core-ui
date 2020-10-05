@@ -12,7 +12,9 @@ export const Connectors: ConnectorType = {
   VAULT: 'Vault',
   APP_DYNAMICS: 'AppDynamics',
   SPLUNK: 'Splunk',
-  DOCKER: 'DockerRegistry'
+  DOCKER: 'DockerRegistry',
+  GCP_KMS: 'GcpKms',
+  LOCAL: 'Local'
 }
 
 export const ConnectorInfoText = {
@@ -22,7 +24,9 @@ export const ConnectorInfoText = {
   APP_DYNAMICS: 'AppDynamics',
   SPLUNK: 'Splunk',
   DOCKER: 'Docker',
-  YAML: 'Create via YAML Builder'
+  YAML: 'Create via YAML Builder',
+  GCP_KMS: 'Secret Manager',
+  LOCAL: 'Secret Manager'
 }
 export const ConnectorStatus: ConnectorStatusType = {
   SUCCESS: 'SUCCESS',

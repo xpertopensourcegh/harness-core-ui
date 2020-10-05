@@ -7,5 +7,6 @@ export default {
     ERROR: 'Unable to save connector'
   },
   invalidYAML: 'YAML is invalid. Please fix the issues to proceed.',
+  idError: 'Identifier cannot be changed',
   EDIT_DETAILS: 'Edit Details'
 }

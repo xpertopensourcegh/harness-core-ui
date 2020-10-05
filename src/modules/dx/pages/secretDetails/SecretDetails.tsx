@@ -10,7 +10,12 @@ import { useGetSecretV2, SecretTextSpecDTO, usePutSecretViaYaml } from 'services
 import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
 import { PageError } from 'modules/common/components/Page/PageError'
 import { PageHeader } from 'modules/common/components/Page/PageHeader'
-import { routeResources } from 'modules/common/routes'
+import {
+  routeOrgResourcesConnectors,
+  routeResourcesConnectors,
+  routeOrgResourcesSecretsListing,
+  routeResourcesSecretsListing
+} from 'modules/common/routes'
 import YamlBuilder from 'modules/common/components/YAMLBuilder/YamlBuilder'
 import { addIconInfoToSnippets } from 'modules/common/components/YAMLBuilder/YAMLBuilderUtils'
 import type { YamlBuilderHandlerBinding } from 'modules/common/interfaces/YAMLBuilderProps'
@@ -30,6 +35,20 @@ import css from './SecretDetails.module.scss'
 enum Mode {
   VISUAL,
   YAML
+}
+
+interface OptionalIdentifiers {
+  orgIdentifier?: string
+}
+
+const getConnectorsUrl = ({ orgIdentifier }: OptionalIdentifiers): string => {
+  if (orgIdentifier) return routeOrgResourcesConnectors.url({ orgIdentifier })
+  return routeResourcesConnectors.url()
+}
+
+const getSecretsUrl = ({ orgIdentifier }: OptionalIdentifiers): string => {
+  if (orgIdentifier) return routeOrgResourcesSecretsListing.url({ orgIdentifier })
+  return routeResourcesSecretsListing.url()
 }
 
 const SecretDetails: React.FC = () => {
@@ -136,8 +155,8 @@ const SecretDetails: React.FC = () => {
         title={
           <Layout.Vertical>
             <div>
-              <Link to={routeResources.url()}>{i18n.linkResources}</Link> /{' '}
-              <Link to={routeResources.url() + '/secrets'}>{i18n.linkSecrets}</Link>
+              <Link to={getConnectorsUrl({ orgIdentifier })}>{i18n.linkResources}</Link> /{' '}
+              <Link to={getSecretsUrl({ orgIdentifier })}>{i18n.linkSecrets}</Link>
             </div>
             <Text font={{ size: 'medium' }} color={Color.BLACK}>
               {data?.data?.secret.name || 'Secret Details'}

@@ -112,7 +112,7 @@ const VaultConnectorFormFields: React.FC<VaultConnectorFormFieldsProps> = ({ for
     }
   }
   const isFetchDisabled = (formData: VaultConfigFormData): boolean => {
-    if (!formData.vaultUrl.trim()) return true
+    if (!formData.vaultUrl?.trim()) return true
     switch (formData.accessType) {
       case 'APP_ROLE':
         if (!formData.appRoleId?.trim() || !formData.secretId?.trim()) return true

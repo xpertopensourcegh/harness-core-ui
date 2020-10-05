@@ -31,12 +31,16 @@ const RenderColumnSecret: Renderer<CellProps<SecretResponseWrapper>> = ({ row })
       ) : null}
       {data.type === 'SSHKey' ? <Icon name="secret-ssh" size={28} margin={{ top: 'xsmall', right: 'small' }} /> : null}
       <Layout.Vertical>
-        <Layout.Horizontal spacing="small">
-          <Text color={Color.BLACK}>{data.name}</Text>
+        <Layout.Horizontal spacing="small" width={230}>
+          <Text color={Color.BLACK} lineClamp={1}>
+            {data.name}
+          </Text>
           {/* TODO {Abhinav} Enable tags once spec is finalized */}
           {/* {data.tags?.length ? <TagsPopover tags={data.tags} /> : null} */}
         </Layout.Horizontal>
-        <Text color={Color.GREY_400}>{data.identifier}</Text>
+        <Text color={Color.GREY_400} width={230} lineClamp={1}>
+          {data.identifier}
+        </Text>
       </Layout.Vertical>
     </Layout.Horizontal>
   )
@@ -47,7 +51,9 @@ const RenderColumnDetails: Renderer<CellProps<SecretResponseWrapper>> = ({ row }
   return (
     <>
       {data.type === 'SecretText' || data.type === 'SecretFile' ? (
-        <Text color={Color.BLACK}>{(data.spec as SecretTextSpecDTO).secretManagerIdentifier}</Text>
+        <Text color={Color.BLACK} lineClamp={1} width={230}>
+          {(data.spec as SecretTextSpecDTO).secretManagerIdentifier}
+        </Text>
       ) : null}
       {/* TODO {Abhinav} display SM name */}
       <Text color={Color.GREY_400}>{getStringForType(data.type)}</Text>

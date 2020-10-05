@@ -67,7 +67,7 @@ const EditVaultConfigForm: React.FC<ConnectorFormProps> = ({ connector, onSubmit
       >
         {formik => (
           <FormikForm>
-            <FormInput.InputWithIdentifier inputLabel={i18n.labelName} />
+            <FormInput.InputWithIdentifier inputLabel={i18n.labelName} isIdentifierEditable={false} />
             <FormInput.TextArea label={i18n.labelDescription} name="description" />
             <FormInput.TagInput
               label={i18n.labelTags}

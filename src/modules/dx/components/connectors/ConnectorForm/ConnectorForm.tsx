@@ -26,6 +26,8 @@ const ConnectorForm: React.FC<ConnectorFormProps> = props => {
     case Connectors.DOCKER:
       return <DockerConnectorForm {...props} />
     case Connectors.VAULT:
+    case Connectors.GCP_KMS:
+    case Connectors.LOCAL:
       return <EditVaultConfigForm {...props} />
 
     default:

@@ -22,6 +22,8 @@ const getLabelByType = (type: string) => {
     case Connectors.SPLUNK:
       return i18n.NAME_LABEL.Splunk
     case Connectors.VAULT:
+    case Connectors.GCP_KMS:
+    case Connectors.LOCAL:
       return i18n.NAME_LABEL.SecretManager
     default:
       return ''
@@ -192,6 +194,8 @@ const getSchemaByType = (connector: ConnectorInfoDTO, type: string) => {
     case Connectors.DOCKER:
       return getDockerSchema(connector)
     case Connectors.VAULT:
+    case Connectors.GCP_KMS:
+    case Connectors.LOCAL:
       return getVaultSchema(connector)
     default:
       return []
