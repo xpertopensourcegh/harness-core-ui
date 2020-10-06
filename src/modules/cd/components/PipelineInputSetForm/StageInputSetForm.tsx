@@ -55,7 +55,7 @@ export const StageInputSetForm: React.FC<StageInputSetFormProps> = ({
           )}
         </CollapseForm>
       )}
-      {deploymentStageTemplate.stageVariables && (
+      {deploymentStageTemplate.variables && (
         <CollapseForm
           header={i18n.stageVariables}
           headerProps={{ font: { size: 'normal' } }}

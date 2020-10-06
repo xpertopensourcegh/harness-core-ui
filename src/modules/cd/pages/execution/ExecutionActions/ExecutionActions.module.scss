@@ -1,6 +1,12 @@
 .main {
   margin-left: var(--spacing-xxlarge);
 
+  & :global(.bp3-button) {
+    height: 24px !important;
+    min-width: auto;
+    min-height: auto;
+  }
+
   .more {
     & svg[data-icon='more'] {
       transform: rotate(90deg);

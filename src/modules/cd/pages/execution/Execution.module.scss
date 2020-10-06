@@ -31,12 +31,26 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    padding: var(--spacing-small) var(--spacing-medium) var(--spacing-medium) var(--spacing-xxlarge);
+
+    .breadcrumbs {
+      font-size: var(--font-size-small);
+
+      a {
+        color: var(--blue-500);
+      }
+
+      a::after {
+        content: '/';
+        color: var(--grey-800);
+        margin: 0 var(--spacing-xsmall);
+      }
+    }
 
     & .headerTopRow {
       display: flex;
       align-items: flex-start;
       justify-content: space-between;
-      padding: var(--spacing-medium) var(--spacing-medium) 0 var(--spacing-xxlarge);
     }
 
     & .titleContainer {
@@ -47,7 +61,7 @@
     & .title {
       font-weight: 600;
       font-size: var(--font-size-large);
-      line-height: 32px;
+      line-height: 28px;
       color: var(--grey-800);
       margin-right: var(--spacing-xxlarge);
     }
@@ -74,7 +88,6 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: var(--spacing-none) var(--spacing-medium) var(--spacing-medium) var(--spacing-xxlarge);
     }
 
     & .statusBar {
@@ -84,8 +97,10 @@
 
     & .toggleDetails {
       padding: var(--spacing-none);
-      width: var(--spacing-medium);
-      height: var(--spacing-medium);
+      width: var(--spacing-medium) !important;
+      height: var(--spacing-medium) !important;
+      min-width: auto;
+      min-height: auto;
       background: var(--grey-200);
       border: none;
 

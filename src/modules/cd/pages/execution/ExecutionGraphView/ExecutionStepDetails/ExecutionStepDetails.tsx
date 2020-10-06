@@ -5,7 +5,7 @@ import { Tabs } from '@blueprintjs/core'
 import Draggable from 'react-draggable'
 import { usePopper } from 'react-popper'
 
-import ExecutionContext from 'modules/cd/pages/execution/ExecutionContext/ExecutionContext'
+import { useExecutionContext } from 'modules/cd/pages/execution/ExecutionContext/ExecutionContext'
 
 import ExecutionStepDetailsTab from './ExecutionStepDetailsTab'
 import ExecutionStepInputTab from './ExecutionStepInputTab'
@@ -28,7 +28,7 @@ export interface ExecutionStepDetailsProps {
 
 export default function ExecutionStepDetails(props: ExecutionStepDetailsProps): React.ReactElement {
   const { viewState, onViewStateChange, selectedStep } = props
-  const { pipelineExecutionDetail } = React.useContext(ExecutionContext)
+  const { pipelineExecutionDetail } = useExecutionContext()
   const [isOpen, setIsOpen] = React.useState(true)
   const [referenceElement, setReferenceElement] = React.useState<HTMLElement | null>(null)
   const [popperElement, setPopperElement] = React.useState<HTMLElement | null>(null)

@@ -1,5 +1,6 @@
 import React from 'react'
-import ExecutionContext from 'modules/cd/pages/execution/ExecutionContext/ExecutionContext'
+
+import { useExecutionContext } from 'modules/cd/pages/execution/ExecutionContext/ExecutionContext'
 import {
   ExecutionPipeline,
   ExecutionPipelineNode,
@@ -7,6 +8,7 @@ import {
 } from 'modules/common/components/ExecutionStageDiagram/ExecutionPipelineModel'
 import type { CDStageExecutionSummaryDTO, StageExecutionSummaryDTO } from 'services/cd-ng'
 import ExecutionStageDiagram from 'modules/common/components/ExecutionStageDiagram/ExecutionStageDiagram'
+
 import css from './ExecutionGraph.module.scss'
 
 const processExecutionData = (
@@ -40,7 +42,7 @@ export interface ExecutionGraphProps {
 }
 
 export default function ExecutionGraph(props: ExecutionGraphProps): React.ReactElement {
-  const { pipelineExecutionDetail } = React.useContext(ExecutionContext)
+  const { pipelineExecutionDetail } = useExecutionContext()
   const data: ExecutionPipeline<CDStageExecutionSummaryDTO> = {
     items: processExecutionData(pipelineExecutionDetail?.pipelineExecution?.stageExecutionSummaryElements),
     identifier: pipelineExecutionDetail?.pipelineExecution?.pipelineIdentifier || '',

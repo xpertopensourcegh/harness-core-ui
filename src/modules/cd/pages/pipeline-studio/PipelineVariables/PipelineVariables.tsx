@@ -2,7 +2,7 @@ import React from 'react'
 import { cloneDeep } from 'lodash-es'
 import { Text, Card, Color } from '@wings-software/uikit'
 import { Tree, ITreeNode } from '@blueprintjs/core'
-import type { StageElement, StageElementWrapper, DeploymentStage, Variable } from 'services/cd-ng'
+import type { StageElement, StageElementWrapper, DeploymentStage, NGVariable as Variable } from 'services/cd-ng'
 import { StepWidget, StepViewType } from 'modules/common/exports'
 import { StepType } from '../../../components/PipelineSteps/PipelineStepInterface'
 import factory from '../../../components/PipelineSteps/PipelineStepFactory'
@@ -51,7 +51,7 @@ function renderForStage(stage: StageElement): JSX.Element {
       {stage.spec && (
         <StepWidget
           factory={factory}
-          initialValues={{ variables: (stage.spec as DeploymentStage).stageVariables || [] }}
+          initialValues={{ variables: (stage.spec as DeploymentStage).variables || [] }}
           type={StepType.CustomVariable}
           stepViewType={StepViewType.InputVariable}
         />

@@ -49,8 +49,8 @@ export function getRunningStep(graph: ExecutionGraph, nodeId?: string): string |
     }
   }
 
-  if (nodeAdjacencyList.next) {
-    const step = getRunningStep(graph, nodeAdjacencyList.next)
+  if (nodeAdjacencyList.nextIds && nodeAdjacencyList.nextIds[0]) {
+    const step = getRunningStep(graph, nodeAdjacencyList.nextIds[0])
 
     if (typeof step === 'string') return step
   }

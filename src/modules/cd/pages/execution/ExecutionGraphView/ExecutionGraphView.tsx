@@ -5,7 +5,7 @@ import qs from 'qs'
 import { Button } from '@wings-software/uikit'
 import { debounce } from 'lodash-es'
 
-import ExecutionContext from 'modules/cd/pages/execution/ExecutionContext/ExecutionContext'
+import { useExecutionContext } from 'modules/cd/pages/execution/ExecutionContext/ExecutionContext'
 
 import ExecutionGraph from './ExecutionGraph/ExecutionGraph'
 import ExecutionStageDetails from './ExecutionStageDetails/ExecutionStageDetails'
@@ -42,7 +42,7 @@ export default function ExecutionGraphView(): React.ReactElement {
   const [autoSelectedStepId, setAutoSelectedStepId] = React.useState('')
   const location = useLocation()
   const history = useHistory()
-  const { pipelineExecutionDetail } = React.useContext(ExecutionContext)
+  const { pipelineExecutionDetail, pipelineStagesMap } = useExecutionContext()
   const queryParams = qs.parse(location.search, { ignoreQueryPrefix: true })
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const setStageSplitPaneSizeDebounce = React.useCallback(debounce(setStageSplitPaneSize, 300), [setStageSplitPaneSize])
@@ -91,6 +91,12 @@ export default function ExecutionGraphView(): React.ReactElement {
   }, [detailsViewState])
 
   function handleStepSelection(step: string): void {
+    const selectedStep = pipelineExecutionDetail?.stageGraph?.nodeMap?.[step]
+
+    if (selectedStep?.status === 'NOT_STARTED') {
+      return
+    }
+
     const params = {
       ...qs.parse(location.search, { ignoreQueryPrefix: true }),
       stage: (queryParams.stage as string) || autoSelectedStageId,
@@ -101,6 +107,12 @@ export default function ExecutionGraphView(): React.ReactElement {
   }
 
   function handleStageSelection(stage: string): void {
+    const selectedStage = pipelineStagesMap.get(stage)
+
+    if (selectedStage?.executionStatus === 'NOT_STARTED') {
+      return
+    }
+
     const params = {
       ...qs.parse(location.search, { ignoreQueryPrefix: true }),
       stage,

@@ -2,7 +2,7 @@ import React from 'react'
 import { Layout, Text } from '@wings-software/uikit'
 
 import { StepWidget, StepViewType } from 'modules/common/exports'
-import type { Variable } from 'services/cd-ng'
+import type { NGVariable as Variable } from 'services/cd-ng'
 
 import { PipelineContext } from 'modules/cd/pages/pipeline-studio/PipelineContext/PipelineContext'
 import { getStageFromPipeline } from 'modules/cd/pages/pipeline-studio/StageBuilder/StageBuilderUtil'

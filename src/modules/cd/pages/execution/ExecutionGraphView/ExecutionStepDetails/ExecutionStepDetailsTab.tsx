@@ -1,7 +1,7 @@
 import React from 'react'
 import moment from 'moment'
 
-import ExecutionContext from 'modules/cd/pages/execution/ExecutionContext/ExecutionContext'
+import { useExecutionContext } from 'modules/cd/pages/execution/ExecutionContext/ExecutionContext'
 import { timeDelta } from 'modules/common/components/Duration/Duration'
 import durationI18n from 'modules/common/components/Duration/Duration.i18n'
 
@@ -10,7 +10,7 @@ import css from './ExecutionStepDetails.module.scss'
 const DATE_FORMAT = 'MM/DD/YYYY hh:mm:ss a'
 
 export default function ExecutionStepDetailsTab(): React.ReactElement {
-  const { pipelineExecutionDetail } = React.useContext(ExecutionContext)
+  const { pipelineExecutionDetail } = useExecutionContext()
 
   const delta = timeDelta(
     pipelineExecutionDetail?.pipelineExecution?.startedAt || 0,

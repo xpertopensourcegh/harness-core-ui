@@ -95,43 +95,43 @@
   "nodeAdjacencyListMap": {
     "gYO3l4TQQvSaDAf1LEQ5aQ": {
       "children": [],
-      "next": "WQihquIbS0SwRb6Fv18heg"
+      "nextIds": ["WQihquIbS0SwRb6Fv18heg"]
     },
     "YLap7hH0SpOXgKW0ZSF44A": {
       "children": ["bI4RNYnNQnaVYkEfasFjzg"],
-      "next": null
+      "nextIds": []
     },
     "uhkk3uOKRU-izlEDn8qXlA": {
       "children": [],
-      "next": null
+      "nextIds": []
     },
     "WQihquIbS0SwRb6Fv18heg": {
       "children": [],
-      "next": null
+      "nextIds": []
     },
     "0ugp-sh-QCSKLXaAzk9BSA": {
       "children": ["YLap7hH0SpOXgKW0ZSF44A", "uhkk3uOKRU-izlEDn8qXlA"],
-      "next": "-T6xJ7S2SSWPgMZWc05LYg"
+      "nextIds": ["-T6xJ7S2SSWPgMZWc05LYg"]
     },
     "-T6xJ7S2SSWPgMZWc05LYg": {
       "children": ["gYO3l4TQQvSaDAf1LEQ5aQ"],
-      "next": "EBb7aN29SDmnoBrS3js0RA"
+      "nextIds": ["EBb7aN29SDmnoBrS3js0RA"]
     },
     "Ty_-CSAoShC7huCAzfjl6g": {
       "children": ["0ugp-sh-QCSKLXaAzk9BSA"],
-      "next": null
+      "nextIds": []
     },
     "bI4RNYnNQnaVYkEfasFjzg": {
       "children": [],
-      "next": null
+      "nextIds": []
     },
     "WOLUCzOCQDWyjJyOLN_9TQ": {
       "children": [],
-      "next": null
+      "nextIds": []
     },
     "EBb7aN29SDmnoBrS3js0RA": {
       "children": ["WOLUCzOCQDWyjJyOLN_9TQ"],
-      "next": null
+      "nextIds": []
     }
   }
 }

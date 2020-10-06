@@ -151,9 +151,9 @@ export const ExecutionCard: React.FC<ExecutionCardProps> = ({ pipelineExecution 
 
             <Container flex className={css.cardFooter}>
               <Container className={css.column}>
-                <UserLabel name={pipelineExecution.triggeredBy?.name || i18n.unknown} />
+                <UserLabel name={pipelineExecution.triggerInfo?.triggeredBy?.name || i18n.unknown} />
                 <span className={css.pipe}></span>
-                <Text inline>{i18n.triggerType[pipelineExecution.triggerType || 'MANUAL']}</Text>
+                <Text inline>{i18n.triggerType[pipelineExecution.triggerInfo?.triggerType || 'MANUAL']}</Text>
               </Container>
               <Container className={css.column} padding={{ left: 'xxxlarge' }}>
                 <Duration

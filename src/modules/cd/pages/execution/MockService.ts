@@ -90,10 +90,12 @@ export const getPipelineExecutionDetails = (): ResponsePipelineExecutionDetail =
         executionStatus: 'RUNNING',
         startedAt: 0,
         endedAt: 10,
-        triggeredBy: {
-          name: 'admin'
+        triggerInfo: {
+          triggeredBy: {
+            name: 'admin'
+          },
+          triggerType: 'MANUAL'
         },
-        triggerType: 'MANUAL',
         stageExecutionSummaryElements: statusAr.map((status, index) => {
           if (Array.isArray(status)) {
             return { parallel: getParallelStages(index.toString(), status as Status[]) }

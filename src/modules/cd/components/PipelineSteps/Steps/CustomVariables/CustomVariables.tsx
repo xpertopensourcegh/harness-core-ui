@@ -21,7 +21,7 @@ import { parse } from 'yaml'
 import { CompletionItemKind } from 'vscode-languageserver-types'
 import { useParams } from 'react-router-dom'
 import { loggerFor, ModuleName } from 'framework/exports'
-import { Variable, SecretDTOV2, listSecretsV2Promise } from 'services/cd-ng'
+import { NGVariable, SecretDTOV2, listSecretsV2Promise } from 'services/cd-ng'
 import { Step, StepViewType, ConfigureOptions } from 'modules/common/exports'
 import type { CompletionItemInterface } from 'modules/common/interfaces/YAMLBuilderProps'
 import SecretReference from 'modules/dx/components/SecretReference/SecretReference'
@@ -31,6 +31,9 @@ import { StepType } from '../../PipelineStepInterface'
 import css from './CustomVariables.module.scss'
 
 const logger = loggerFor(ModuleName.CD)
+export interface Variable extends NGVariable {
+  value: string
+}
 
 type VariableList = { variables: Variable[] }
 
@@ -67,7 +70,7 @@ const getSecretKey = (secret: SecretDTOV2): string =>
     secret.identifier
   }` || ''
 
-const getDefaultVariable = (): Variable => ({ name: '', type: VariableTypes.String, value: '' })
+const getDefaultVariable = (): Variable => ({ name: '', type: 'STRING', value: '' })
 
 const secretsOptions: Map<string, string> = new Map()
 
@@ -79,7 +82,11 @@ const CustomVariableEditable: React.FC<CustomVariableEditableProps> = ({
 }): JSX.Element => {
   const [selectedVariable, setSelectedVariable] = React.useState<Variable>(getDefaultVariable())
   const [inputVariables, setInputVariables] = React.useState<Variable[]>(initialValues.variables)
-  const { accountId, projectIdentifier, orgIdentifier } = useParams()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<{
+    projectIdentifier: string
+    orgIdentifier: string
+    accountId: string
+  }>()
   React.useEffect(() => {
     setInputVariables(initialValues.variables)
   }, [initialValues.variables])
@@ -232,8 +239,8 @@ const CustomVariableEditable: React.FC<CustomVariableEditableProps> = ({
               {getMultiTypeFromValue(variable.value) === MultiTypeInputType.RUNTIME && (
                 <ConfigureOptions
                   value={variable.value}
-                  type={variable.type}
-                  variableName={variable.name}
+                  type={variable.type || 'String'}
+                  variableName={variable.name || ''}
                   onChange={value => {
                     inputVariables[index].value = value
                     setInputVariables(cloneDeep(inputVariables))

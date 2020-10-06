@@ -4,6 +4,7 @@ declare const styles: {
   readonly main: string
   readonly lhs: string
   readonly header: string
+  readonly breadcrumbs: string
   readonly headerTopRow: string
   readonly titleContainer: string
   readonly title: string

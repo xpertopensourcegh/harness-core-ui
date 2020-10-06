@@ -1,6 +1,6 @@
 import React from 'react'
 
-import ExecutionContext from 'modules/cd/pages/execution/ExecutionContext/ExecutionContext'
+import { useExecutionContext } from 'modules/cd/pages/execution/ExecutionContext/ExecutionContext'
 import {
   ExecutionPipeline,
   ExecutionPipelineNode,
@@ -88,7 +88,7 @@ const processExecutionData = (graph?: ExecutionGraph): Array<ExecutionPipelineNo
           })
         }
       }
-      nodeId = nodeAdjacencyListMap[nodeId].next
+      nodeId = nodeAdjacencyListMap[nodeId].nextIds?.[0]
     }
   }
 
@@ -115,7 +115,7 @@ const getStageFromSelectedStageId = (
 }
 
 export default function ExecutionStageDetails(props: ExecutionStageDetailsProps): React.ReactElement {
-  const { pipelineExecutionDetail } = React.useContext(ExecutionContext)
+  const { pipelineExecutionDetail } = useExecutionContext()
   const stage = getStageFromSelectedStageId(
     props.selectedStep,
     pipelineExecutionDetail?.pipelineExecution?.stageExecutionSummaryElements

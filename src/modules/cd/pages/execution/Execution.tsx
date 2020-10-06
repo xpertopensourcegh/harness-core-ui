@@ -1,22 +1,22 @@
 import React from 'react'
-import { useParams, useLocation, NavLink } from 'react-router-dom'
+import { useParams, useLocation, NavLink, Link } from 'react-router-dom'
 import { Button, Icon } from '@wings-software/uikit'
 import cx from 'classnames'
 import qs from 'qs'
 
-import { routeCDPipelineExecutionGraph, routeCDPipelineExecutionLog } from 'modules/cd/routes'
+import { routeCDPipelineExecutionGraph, routeCDPipelineExecutionLog, routeCDDeployments } from 'modules/cd/routes'
 import { useGetPipelineExecutionDetail } from 'services/cd-ng'
 import { ExecutionStatusLabel } from 'modules/common/components/ExecutionStatusLabel/ExecutionStatusLabel'
 import { Duration } from 'modules/common/components/Duration/Duration'
 import type { ExecutionStatus } from 'modules/common/exports'
 
+import { getPipelineStagesMap } from './ExecutionUtils'
 import { ExecutionTab } from './ExecutionConstants'
 import ExecutionActions from './ExecutionActions/ExecutionActions'
 import ExecutionContext from './ExecutionContext/ExecutionContext'
 import ExecutionMetadata from './ExecutionMetadata/ExecutionMetadata'
 import ExecutionTabs from './ExecutionTabs/ExecutionTabs'
 import RightBar from './RightBar/RightBar'
-// import { getPipelineExecutionDetails } from './MockService'
 import css from './Execution.module.scss'
 
 const TEMP_NOW = Date.now() - 10 * 1000
@@ -30,7 +30,6 @@ export interface ExecutionPathParams {
 }
 
 const POLL_INTERVAL = 30 /* sec */ * 1000 /* ms */
-const SET_INTERVAL_TIME = 5 /* sec */ * 1000 /* ms */
 
 export default function Execution(props: React.PropsWithChildren<{}>): React.ReactElement {
   const [currentTab, setCurrentTab] = React.useState<ExecutionTab>(ExecutionTab.PIPELINE)
@@ -40,10 +39,8 @@ export default function Execution(props: React.PropsWithChildren<{}>): React.Rea
   >()
   const location = useLocation()
   const queryParams = qs.parse(location.search, { ignoreQueryPrefix: true })
-  const timer = React.useRef<null | number>(null)
-  const lastCalled = React.useRef<null | number>(null)
 
-  const { data, loading, refetch } = useGetPipelineExecutionDetail({
+  const { data, refetch } = useGetPipelineExecutionDetail({
     planExecutionId: executionIdentifier,
     queryParams: {
       orgIdentifier,
@@ -51,56 +48,39 @@ export default function Execution(props: React.PropsWithChildren<{}>): React.Rea
       accountIdentifier: accountId,
       stageIdentifier: queryParams.stage as string
     }
-    // mock: { data: getPipelineExecutionDetails(), loading: false }
   })
 
+  const pipelineStagesMap = React.useMemo(() => {
+    return getPipelineStagesMap(data || {})
+  }, [data])
+
   React.useEffect(() => {
-    const timerId = timer.current
-
-    if (timerId) {
-      window.clearInterval(timerId)
-    }
-
-    // set timer only after a call is complete
-    if (!loading && data) {
-      timer.current = window.setInterval(() => {
-        // do not do anything if a call is already in progress
-        if (loading) {
-          return
-        }
-
-        const now = new Date().getTime()
-
-        // do not do anything if timeElapsed is less than poll interval
-        if (lastCalled.current && now - lastCalled.current < POLL_INTERVAL) {
-          return
-        }
-
-        lastCalled.current = now
+    if (data && !['COMPLETED', 'PAUSED', 'FAILED'].includes(data.data?.pipelineExecution?.executionStatus || '')) {
+      const timerId = window.setTimeout(() => {
         refetch()
-      }, SET_INTERVAL_TIME)
-    }
+      }, POLL_INTERVAL)
 
-    return () => {
-      if (timerId) {
-        window.clearInterval(timerId)
+      return () => {
+        window.clearTimeout(timerId)
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data, loading])
+  }, [data, refetch])
 
   function toggleDetails(): void {
     setShowDetails(status => !status)
   }
 
   return (
-    <ExecutionContext.Provider value={{ currentTab, pipelineExecutionDetail: data?.data || null }}>
+    <ExecutionContext.Provider value={{ currentTab, pipelineExecutionDetail: data?.data || null, pipelineStagesMap }}>
       <main className={css.main}>
         <div className={css.lhs}>
           <header className={cx(css.header, { [css.showDetails]: showDetail })}>
+            <div className={css.breadcrumbs}>
+              <Link to={routeCDDeployments.url({ orgIdentifier, projectIdentifier })}>Deployments</Link>
+            </div>
             <div className={css.headerTopRow}>
               <div className={css.titleContainer}>
-                <div className={css.title}>{loading ? null : data?.data?.pipelineExecution?.pipelineName}</div>
+                <div className={css.title}>{data?.data?.pipelineExecution?.pipelineName}</div>
                 {data?.data?.pipelineExecution?.executionStatus && (
                   <ExecutionStatusLabel status={data.data.pipelineExecution.executionStatus as ExecutionStatus} />
                 )}
@@ -111,18 +91,15 @@ export default function Execution(props: React.PropsWithChildren<{}>): React.Rea
                   // endTime={data?.data?.pipelineExecution?.endedAt}
                   durationText={' '}
                 />
-                <ExecutionActions pipelineExecutionStatus={data?.data?.pipelineExecution?.executionStatus} />
+                <ExecutionActions executionStatus={data?.data?.pipelineExecution?.executionStatus} />
               </div>
             </div>
             <div className={css.headerBottomRow}>
-              <div className={css.piplineInfo}>
-                <div className={css.pipelineIdTitle}>Pipeline ID</div>
-                <div className={css.pipelineId}>{data?.data?.pipelineExecution?.pipelineIdentifier}</div>
-              </div>
               <Button
                 className={css.toggleDetails}
                 icon={showDetail ? 'chevron-up' : 'chevron-down'}
                 small
+                iconProps={{ size: 14 }}
                 onClick={toggleDetails}
               />
             </div>
