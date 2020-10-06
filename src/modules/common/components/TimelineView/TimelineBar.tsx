@@ -54,7 +54,7 @@ const findOptimalStartingIndex = (range: DateRange): number => {
   return start
 }
 
-const MIN_COL_SIZE = 50
+const MIN_COL_SIZE = 70
 
 export function TimelineBar({ startDate, endDate, className, style, columnWidth = MIN_COL_SIZE }: TimelineBarProps) {
   const ref = useRef<HTMLDivElement>(null)
@@ -92,12 +92,8 @@ export function TimelineBar({ startDate, endDate, className, style, columnWidth 
     return []
   }, [size, startDate, endDate, columnWidth])
 
-  /**
-   * TODO - although the coeff is calculated correctly, if there is not enough space to render
-   * the last label, it will push everything little bit to the left (just enough to render the text).
-   * Find a better way to handle this edge case.
-   */
   let lastItemCoeff = 0
+  let estimatedLastColumnSize = 0
   if (items.length >= 2) {
     const limit = moment(endDate)
     if (limit.isAfter(items[items.length - 1].originalValue)) {
@@ -105,13 +101,24 @@ export function TimelineBar({ startDate, endDate, className, style, columnWidth 
       const b = limit.diff(items[items.length - 1].originalValue)
       lastItemCoeff = b / a
     }
+    if (lastItemCoeff > 0) {
+      estimatedLastColumnSize = (size / (items.length - 1 + lastItemCoeff)) * lastItemCoeff
+    }
   }
+
   return (
     <div ref={ref} style={style} className={classnames(styles.timelineBar, className)}>
       {items.map((item, i) => (
         <div
           key={i}
-          style={i === items.length - 1 ? { flex: lastItemCoeff } : undefined}
+          style={
+            i === items.length - 1
+              ? {
+                  flex: lastItemCoeff,
+                  visibility: estimatedLastColumnSize > 55 ? 'visible' : 'hidden'
+                }
+              : undefined
+          }
           className={styles.timelineBarItem}
         >
           {item.formattedValue}

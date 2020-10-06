@@ -16,3 +16,10 @@
     @include dataColumnWidth(300px, 50px);
   }
 }
+
+.dataRow {
+  cursor: pointer;
+  &:hover {
+    background-color: var(--blue-200);
+  }
+}

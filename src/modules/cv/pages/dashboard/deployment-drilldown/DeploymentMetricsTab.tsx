@@ -1,8 +1,11 @@
 import React, { useState, useMemo } from 'react'
 import { Container, Pagination, Link } from '@wings-software/uikit'
+import * as Moment from 'moment'
+import { extendMoment } from 'moment-range'
 import { TimelineBar } from 'modules/common/components/TimelineView/TimelineBar'
-import type { RestResponseTransactionMetricInfoSummaryPageDTO, HostData } from 'services/cv'
+import type { RestResponseTransactionMetricInfoSummaryPageDTO, HostData, TimeRange } from 'services/cv'
 import { getColorValue } from 'modules/common/components/HeatMap/ColorUtils'
+import { NoDataCard } from 'modules/common/components/Page/NoDataCard'
 import {
   MetricAnalysisFilter,
   MetricAnalysisFilterType
@@ -11,10 +14,13 @@ import TimeseriesRow, { SeriesConfig } from '../../../components/TimeseriesRow/T
 import i18n from './DeploymentDrilldownView.i18n'
 import styles from './DeploymentDrilldownView.module.scss'
 
+const moment = extendMoment(Moment)
+
 export interface DeploymentMetricsTabProps {
   data: RestResponseTransactionMetricInfoSummaryPageDTO | null
   goToPage(val: number): void
   onAnomalousMetricsOnly(val: boolean): void
+  isLoading: boolean
 }
 
 export interface TransactionRowProps {
@@ -22,14 +28,23 @@ export interface TransactionRowProps {
   metricName?: string
   riskScore?: number
   nodes?: HostData[]
+  timeRange?: TimeRange
 }
 
-export default function DeploymentMetricsTab({ data, goToPage, onAnomalousMetricsOnly }: DeploymentMetricsTabProps) {
+export default function DeploymentMetricsTab({
+  data,
+  goToPage,
+  onAnomalousMetricsOnly,
+  isLoading
+}: DeploymentMetricsTabProps) {
   return (
-    <>
+    <div className={styles.metricsTab}>
       <MetricAnalysisFilter
         onChangeFilter={val => onAnomalousMetricsOnly(val === MetricAnalysisFilterType.ANOMALOUS)}
       />
+      {data?.resource?.pageResponse?.content?.length === 0 && !isLoading && (
+        <NoDataCard message={i18n.nothingToDisplay} icon="warning-sign" />
+      )}
       <Container className={styles.timeseriesList}>
         {data?.resource?.pageResponse?.content?.map(value => (
           <TransactionRow
@@ -38,6 +53,7 @@ export default function DeploymentMetricsTab({ data, goToPage, onAnomalousMetric
             metricName={value.transactionMetric?.metricName}
             riskScore={value.transactionMetric?.score}
             nodes={value.nodes}
+            timeRange={data?.resource?.deploymentTimeRange}
           />
         ))}
       </Container>
@@ -57,14 +73,22 @@ export default function DeploymentMetricsTab({ data, goToPage, onAnomalousMetric
           endDate={data?.resource?.deploymentTimeRange.endTime as number}
         />
       )}
-    </>
+    </div>
   )
 }
 
 const DEFAULT_ROW_SIZE = 3
 
-function TransactionRow({ transactionName, metricName, riskScore, nodes = [] }: TransactionRowProps) {
+function TransactionRow({ transactionName, metricName, riskScore, nodes = [], timeRange }: TransactionRowProps) {
   const [showMax, setShowMax] = useState<number>(DEFAULT_ROW_SIZE)
+  const range = moment.range(moment(timeRange?.startTime), moment(timeRange?.endTime))
+  const mapSeriesData = (items: number[]) => {
+    const increment = Math.floor(range.diff() / Math.max(items.length - 1, 1))
+    return items.map((item, index) => ({
+      x: range.start.valueOf() + index * increment,
+      y: item
+    }))
+  }
   const seriesData: Array<SeriesConfig> = useMemo(
     () =>
       nodes
@@ -76,22 +100,22 @@ function TransactionRow({ transactionName, metricName, riskScore, nodes = [] }: 
             name: node.hostName,
             series: [
               {
-                name: 'one',
+                name: 'testData',
                 type: 'line',
                 color: getColorValue(riskScore!),
-                data: node.testData
+                data: mapSeriesData(node.testData ?? [])
               },
               {
-                name: 'two',
+                name: 'controlData',
                 type: 'line',
                 color: 'var(--grey-350)',
-                data: node.controlData
+                data: mapSeriesData(node.controlData ?? [])
               }
             ]
           }
         })
         .filter(val => !!val) as Array<SeriesConfig>,
-    [nodes, showMax]
+    [nodes, timeRange, showMax]
   )
   return (
     <>

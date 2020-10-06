@@ -13,6 +13,7 @@ allowpaths:
   - /heatmap/category-risks
   - /heatmap/env-service-risks
   - /verification-job
+  - /verification-job/list
   - /timeseries-dashboard/anomalous-metric-data
   - /timeseries-dashboard/metric-data
   - /log-dashboard/all-logs
@@ -21,6 +22,8 @@ allowpaths:
   - /deployment-time-series-analysis/{verificationJobInstanceId}
   - /deployment-log-analysis/{verificationJobInstanceId}
   - /deployment-log-analysis/{verificationJobInstanceId}/clusters
+  - /activity/recent-deployment-activity-verifications
+  - /activity/deployment-activity-verifications/{deploymentTag}
 operationIdOverrides:
   /appdynamics/applications.get: getAppDynamicsApplications
   /appdynamics/metric-data.post: getAppDynamicsMetricData
@@ -30,6 +33,9 @@ operationIdOverrides:
   /ds-config/env-to-services.get: getServices
   /heatmap.get: getHeatmap
   /verification-job.put: saveVerificationJob
+  /verification-job/list.get: getVerificationJobs
   /deployment-time-series-analysis/{verificationJobInstanceId}.get: getDeploymentTimeSeries
   /deployment-log-analysis/{verificationJobInstanceId}.get: getDeploymentLogAnalyses
   /deployment-log-analysis/{verificationJobInstanceId}/clusters.get: getClusterChartAnalyses
+  /activity/recent-deployment-activity-verifications.get: getRecentDeploymentActivityVerifications
+  /activity/deployment-activity-verifications/{deploymentTag}.get: getVerificationInstances

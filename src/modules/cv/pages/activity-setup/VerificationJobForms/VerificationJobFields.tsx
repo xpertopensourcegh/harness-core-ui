@@ -1,5 +1,12 @@
 import React, { useMemo, CSSProperties } from 'react'
 import { FormInput, SelectOption, MultiTypeInputType } from '@wings-software/uikit'
+import { useRouteParams } from 'framework/exports'
+import {
+  useGetServiceListForProject,
+  useGetEnvironmentListForProject,
+  EnvironmentResponseDTO,
+  ServiceResponseDTO
+} from 'services/cd-ng'
 import i18n from './VerificationJobForms.i18n'
 
 interface BaseFieldProps {
@@ -42,15 +49,17 @@ export function VerificationSensitivity(props: BaseFieldProps): JSX.Element {
 }
 
 export function ServiceName(props: BaseFieldProps): JSX.Element {
-  const selectProps = useMemo(
-    () => ({
-      items: [
-        { label: 'Service1', value: 'service1' },
-        { label: 'Service2', value: 'service2' }
-      ]
-    }),
-    []
-  )
+  const {
+    params: { accountId, projectIdentifier, orgIdentifier }
+  } = useRouteParams()
+  const { data: serviceOptions } = useGetServiceListForProject({
+    queryParams: { accountId, projectIdentifier: projectIdentifier as string, orgIdentifier: orgIdentifier as string },
+    resolve: serviceList =>
+      serviceList?.data?.content?.map(({ identifier }: ServiceResponseDTO) => ({
+        label: identifier,
+        value: identifier
+      }))
+  })
   const { zIndex } = props
   const style: CSSProperties = useMemo(() => ({ zIndex: zIndex ?? 9 }), [zIndex]) as CSSProperties
   return (
@@ -58,7 +67,7 @@ export function ServiceName(props: BaseFieldProps): JSX.Element {
       name="service"
       style={style}
       label={i18n.fieldLabels.service}
-      selectItems={selectProps.items}
+      selectItems={serviceOptions as SelectOption[]}
       multiTypeInputProps={{
         allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME]
       }}
@@ -93,15 +102,17 @@ export function Duration(props: BaseFieldProps): JSX.Element {
 }
 
 export function EnvironmentName(props: BaseFieldProps): JSX.Element {
-  const selectProps = useMemo(
-    () => ({
-      items: [
-        { label: 'Env1', value: 'envionment1' },
-        { label: 'Env2', value: 'environment2' }
-      ]
-    }),
-    []
-  )
+  const {
+    params: { accountId, projectIdentifier, orgIdentifier }
+  } = useRouteParams()
+  const { data: environmentOptions } = useGetEnvironmentListForProject({
+    queryParams: { accountId, projectIdentifier: projectIdentifier as string, orgIdentifier: orgIdentifier as string },
+    resolve: envList =>
+      envList?.data.content?.map(({ identifier }: EnvironmentResponseDTO) => ({
+        label: identifier,
+        value: identifier
+      })) || []
+  })
   const { zIndex } = props
   const style: CSSProperties = useMemo(() => ({ zIndex: zIndex ?? 7 }), [zIndex]) as CSSProperties
   return (
@@ -109,7 +120,7 @@ export function EnvironmentName(props: BaseFieldProps): JSX.Element {
       name="environment"
       style={style}
       label={i18n.fieldLabels.environment}
-      selectItems={selectProps.items}
+      selectItems={environmentOptions as SelectOption[]}
       multiTypeInputProps={{
         allowableTypes: [MultiTypeInputType.FIXED, MultiTypeInputType.RUNTIME]
       }}

@@ -5,5 +5,6 @@ export default {
   minutesRemaining: 'minutes remaining',
   passedVerification: 'passed',
   startOn: 'Started on',
-  abbreviatedMinute: 'min'
+  abbreviatedMinute: 'min',
+  failed: 'Failed'
 }

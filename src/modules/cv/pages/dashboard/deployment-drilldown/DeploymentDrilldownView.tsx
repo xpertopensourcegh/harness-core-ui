@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { Container, Tabs, Tab } from '@wings-software/uikit'
+import { Container, Tabs, Tab, Button, Text } from '@wings-software/uikit'
 import {
+  useGetVerificationInstances,
   useGetDeploymentTimeSeries,
   HostData,
   useGetDeploymentLogAnalyses,
@@ -10,9 +11,10 @@ import { Page } from 'modules/common/exports'
 import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
 import { useRouteParams } from 'framework/exports'
 import { useToaster } from 'modules/common/exports'
-import DeploymentGroupList from './DeploymentGroupList'
 import DeploymentMetricsTab from './DeploymentMetricsTab'
 import DeploymentLogsTab from './DeploymentLogsTab'
+import DeploymentDrilldownViewHeader from './DeploymentDrilldownViewHeader'
+import DeploymentDrilldownSideNav from './DeploymentDrilldownSideNav'
 import styles from './DeploymentDrilldownView.module.scss'
 
 export interface TransactionRowProps {
@@ -27,53 +29,107 @@ const DEFAULT_SELECTED_TAB = METRICS_TAB
 
 export default function DeploymentDrilldownView() {
   const {
-    params: { accountId },
-    query: { jobInstanceId }
+    params: { accountId, projectIdentifier, deploymentTag }
   } = useRouteParams()
   const { showError } = useToaster()
   const [anomalousMetricsOnly, setAnomalousMetricsOnly] = useState<boolean>(true)
   const [selectedTab, setSelectedTab] = useState<string>(DEFAULT_SELECTED_TAB)
-  const { data, loading, error, refetch: fetchTimeseries } = useGetDeploymentTimeSeries({
-    verificationJobInstanceId: jobInstanceId as string,
+  const [verificationInstance, setVerificationInstance] = useState<any>()
+
+  const {
+    data: activityVerifications,
+    loading: activityVerificationsLoading,
+    error: activityVerificationsError
+  } = useGetVerificationInstances({
+    deploymentTag: deploymentTag as string,
+    queryParams: {
+      accountId: accountId as string,
+      projectIdentifier: projectIdentifier as string
+    }
+  })
+
+  const {
+    data: timeseriesData,
+    loading: timeseriesLoading,
+    error: timeseriesError,
+    refetch: fetchTimeseries
+  } = useGetDeploymentTimeSeries({
+    verificationJobInstanceId: verificationInstance?.verificationJobInstanceId,
     queryParams: {
       accountId: accountId,
       anomalousMetricsOnly
-    }
+    },
+    lazy: true
   })
+
   const {
     data: logsData,
     loading: logsLoading,
     error: logsError,
     refetch: fetchLogAnalyses
   } = useGetDeploymentLogAnalyses({
-    verificationJobInstanceId: jobInstanceId as string,
-    queryParams: {
-      accountId
-    },
-    lazy: true
-  })
-  const {
-    data: clusterChartData,
-    loading: clusterChartLoading,
-    error: clusterChartError,
-    refetch: fetchClusterChartData
-  } = useGetClusterChartAnalyses({
-    verificationJobInstanceId: jobInstanceId as string,
+    verificationJobInstanceId: verificationInstance?.verificationJobInstanceId,
     queryParams: {
       accountId
     },
     lazy: true
   })
 
+  const {
+    data: clusterChartData,
+    loading: clusterChartLoading,
+    error: clusterChartError,
+    refetch: fetchClusterChartData
+  } = useGetClusterChartAnalyses({
+    verificationJobInstanceId: verificationInstance?.verificationJobInstanceId,
+    queryParams: {
+      accountId
+    },
+    lazy: true
+  })
+
+  const {
+    preProductionDeploymentVerificationJobInstanceSummaries: preProduction,
+    postDeploymentVerificationJobInstanceSummaries: postDeployment,
+    productionDeploymentVerificationJobInstanceSummaries: productionDeployment
+  } = activityVerifications?.resource?.deploymentResultSummary || {}
+
   useEffect(() => {
-    if (error) {
-      showError(error.message)
+    if (activityVerifications?.resource) {
+      const instance =
+        (preProduction?.length && preProduction[0]) ||
+        (postDeployment?.length && postDeployment[0]) ||
+        (productionDeployment?.length && productionDeployment[0])
+      if (instance) {
+        setVerificationInstance(instance)
+      }
+    }
+  }, [activityVerifications])
+
+  useEffect(() => {
+    if (verificationInstance?.verificationJobInstanceId) {
+      if (selectedTab === METRICS_TAB) {
+        goToTimeseriesPage(0)
+      } else {
+        goToLogsPage(0)
+        fetchClusterChartData({
+          queryParams: { accountId }
+        })
+      }
+    }
+  }, [verificationInstance])
+
+  useEffect(() => {
+    if (activityVerificationsError) {
+      showError(activityVerificationsError.message)
+    } else if (timeseriesError) {
+      showError(timeseriesError.message)
     } else if (logsError) {
       showError(logsError.message)
     } else if (clusterChartError) {
       showError(clusterChartError.message)
     }
-  }, [error, logsError, clusterChartError])
+  }, [activityVerificationsError, timeseriesError, logsError, clusterChartError])
 
   const onTabChange = (tab: string) => {
     if (tab === LOGS_TAB) {
@@ -85,11 +141,13 @@ export default function DeploymentDrilldownView() {
           queryParams: { accountId }
         })
       }
+    } else if (!timeseriesData) {
+      goToTimeseriesPage(0)
     }
     setSelectedTab(tab)
   }
 
-  const goToPage = (page: number) => {
+  const goToTimeseriesPage = (page: number) => {
     fetchTimeseries({
       queryParams: {
         accountId: accountId,
@@ -110,31 +168,29 @@ export default function DeploymentDrilldownView() {
 
   return (
     <Page.Body className={styles.main}>
-      <Container className={styles.header}></Container>
+      <DeploymentDrilldownViewHeader
+        deploymentTag={decodeURIComponent(deploymentTag as string)}
+        environments={activityVerifications?.resource?.environments}
+        service={activityVerifications?.resource?.serviceName}
+      />
       <Container className={styles.body}>
-        <Container className={styles.sideNav}>
-          <DeploymentGroupList
-            name="Pre Production Tests"
-            items={[
-              { name: 'Test 1', environment: 'Freemium', startedOn: 1600097927747, status: 'success' },
-              { name: 'Test 2', environment: 'Freemium', startedOn: 1600097927747, status: 'warn' }
-            ]}
-          />
-          <DeploymentGroupList
-            name="Post Deployment"
-            defaultOpen
-            items={[
-              { name: 'Blue Green Phase 1', environment: 'Freemium', startedOn: 1600097927747, status: 'success' },
-              { name: 'Blue Green Phase 2', environment: 'Freemium', startedOn: 1600097927747, status: 'success' },
-              { name: 'Blue Green Phase 3', environment: 'Freemium', startedOn: 1600097927747, status: 'warn' }
-            ]}
-          />
-          <DeploymentGroupList
-            name="Production Deployment"
-            items={[{ name: 'Prod 1', environment: 'Freemium', startedOn: 1600097927747, status: 'success' }]}
-          />
-        </Container>
+        <DeploymentDrilldownSideNav
+          selectedInstance={verificationInstance}
+          onSelect={item => setVerificationInstance(item)}
+          preProductionInstances={preProduction}
+          postDeploymentInstances={postDeployment}
+          productionDeployment={productionDeployment}
+        />
         <Container className={styles.content}>
+          <Container className={styles.subHeader}>
+            <Text font={{ weight: 'bold' }}>{verificationInstance?.jobName}</Text>
+            <Container>
+              <Button minimal icon="symbol-square" text="Stop Deployment" disabled />
+              <Button minimal icon="refresh" text="Rollback" disabled />
+              <Button minimal icon="share" text="Share" disabled />
+              <Button minimal icon="service-jira" text="Create Ticket" disabled />
+            </Container>
+          </Container>
           <Container className={styles.filters}>
             <Tabs id="tabs1" onChange={onTabChange} selectedTabId={selectedTab}>
               <Tab title="Metrics" id={METRICS_TAB} />
@@ -142,14 +198,32 @@ export default function DeploymentDrilldownView() {
             </Tabs>
           </Container>
           {selectedTab === METRICS_TAB && (
-            <DeploymentMetricsTab data={data} goToPage={goToPage} onAnomalousMetricsOnly={setAnomalousMetricsOnly} />
+            <DeploymentMetricsTab
+              data={timeseriesData}
+              goToPage={goToTimeseriesPage}
+              isLoading={timeseriesLoading}
+              onAnomalousMetricsOnly={val => {
+                setAnomalousMetricsOnly(val)
+                fetchTimeseries({
+                  queryParams: {
+                    accountId: accountId,
+                    anomalousMetricsOnly: val
+                  }
+                })
+              }}
+            />
           )}
           {selectedTab === LOGS_TAB && (
-            <DeploymentLogsTab data={logsData} clusterChartData={clusterChartData} goToPage={goToLogsPage} />
+            <DeploymentLogsTab
+              data={logsData}
+              clusterChartData={clusterChartData}
+              isLoading={logsLoading}
+              goToPage={goToLogsPage}
+            />
           )}
         </Container>
       </Container>
-      {(loading || logsLoading || clusterChartLoading) && <PageSpinner />}
+      {(activityVerificationsLoading || timeseriesLoading || logsLoading || clusterChartLoading) && <PageSpinner />}
     </Page.Body>
   )
 }

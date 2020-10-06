@@ -15,5 +15,11 @@ export default {
     activitySources: 'Activity Sources',
     verificationJobs: 'Verification Jobs'
   },
+  identifier: 'Identifier',
+  jobName: 'Job Name',
+  type: 'Type',
+  sensitivity: 'Sensitivity',
+  duration: 'Duration',
+  emptyMessage: 'No verification jobs created yet',
   noActivityButtons
 }

@@ -1,22 +1,13 @@
 .main {
   height: 100%;
-  .pageTitleContainer {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
   .noActivities {
-    height: 100%;
+    height: 350px;
     width: 50%;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    position: relative;
-    bottom: 15%;
 
     .activityPlaceholder {
       height: 35% !important;
@@ -48,4 +39,9 @@
       border-radius: 5px;
     }
   }
+}
+
+.activitiesTable {
+  width: 80%;
+  margin: auto;
 }

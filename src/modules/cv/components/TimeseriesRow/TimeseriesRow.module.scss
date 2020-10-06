@@ -1,9 +1,10 @@
 .timeseriesRow {
   display: flex;
   .labels {
-    background-color: #fcfcfc !important;
+    background-color: var(--grey-200) !important;
     padding: var(--spacing-medium);
     width: 200px;
+    border-radius: 2px;
     > div {
       display: flex;
       justify-content: space-between;

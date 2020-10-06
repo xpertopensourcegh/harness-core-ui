@@ -3,10 +3,33 @@ import HighchartsReact from 'highcharts-react-official'
 import Highcharts from 'highcharts'
 import { Container } from '@wings-software/uikit'
 import type { LogAnalysisClusterChartDTO } from 'services/cv'
-import { getColorValue } from 'modules/common/components/HeatMap/ColorUtils'
 
 export interface ClusterChartProps {
   data: LogAnalysisClusterChartDTO[]
+}
+
+const mapRisk = (risk: number): Highcharts.PointOptionsObject => {
+  if (risk > 1) {
+    risk = risk / 100
+  }
+  risk = Math.max(Math.min(risk, 1), 0)
+  if (risk < 0.3) {
+    return {
+      color: '#F3FFE5',
+      marker: {
+        lineWidth: 1,
+        lineColor: 'var(--green-450)',
+        radius: 12
+      }
+    }
+  } else {
+    return {
+      color: risk < 0.6 ? 'var(--yellow-500)' : 'var(--red-500)',
+      marker: {
+        radius: 9
+      }
+    }
+  }
 }
 
 export default function ClusterChart({ data }: ClusterChartProps) {
@@ -18,16 +41,21 @@ export default function ClusterChart({ data }: ClusterChartProps) {
           radius: 8,
           symbol: 'circle'
         },
-        data: data.map(val => ({
-          x: val.x,
-          y: val.y,
-          color: getColorValue(val.risk ?? 0)
-        }))
+        data: data.map(val =>
+          Object.assign(
+            {},
+            {
+              x: val.x,
+              y: val.y
+            },
+            mapRisk(val.risk ?? 0)
+          )
+        )
       }
     ])
   }, [data])
   return (
-    <Container style={{ margin: '0 20%' }}>
+    <Container style={{ margin: '0 10%' }}>
       <HighchartsReact highcharts={Highcharts} options={chartConfig} />
     </Container>
   )

@@ -1,6 +1,9 @@
 import React from 'react'
 import { Container, Text, Color, Button } from '@wings-software/uikit'
-import type { Intent } from '@blueprintjs/core'
+import { useHistory } from 'react-router-dom'
+import { routeCVDeploymentPage } from 'modules/cv/routes'
+import { useGetRecentDeploymentActivityVerifications } from 'services/cv'
+import { useRouteParams } from 'framework/exports'
 import ActivityProgressIndicator from '../ActivityProgressIndicator/ActivityProgressIndicator'
 import i18n from './ActivityVerifications.i18n'
 import ActivityType from '../ActivityType/ActivityType'
@@ -17,131 +20,18 @@ const RECENT_VERIFICATIONS_COLUMN_NAMES = Object.values(i18n.activityVerificatio
   </Text>
 ))
 
-const MOCK_DATA = [
-  {
-    buildName: 'Build 77',
-    serviceName: 'Manager',
-    preProdVerification: {
-      progress: 15,
-      startTime: new Date().getTime() - 60000,
-      passedVerifications: '2/3',
-      minutesRemaining: 20,
-      status: 'success' as Intent
-    },
-    prodVerification: {
-      progress: -1
-    },
-    postVerification: {
-      progress: -1
-    }
-  },
-  {
-    buildName: 'Hotfix-1',
-    serviceName: 'WingsUI',
-    preProdVerification: {
-      progress: 100,
-      startTime: new Date().getTime() - 60000,
-      passedVerifications: '2/3',
-      minutesRemaining: 0,
-      status: 'danger' as Intent,
-      duration: 10
-    },
-    prodVerification: {
-      progress: 100,
-      startTime: new Date().getTime() - 30000,
-      passedVerifications: '1/1',
-      minutesRemaining: 0,
-      status: 'success' as Intent,
-      duration: 10
-    },
-    postVerification: {
-      progress: 43,
-      startTime: new Date().getTime(),
-      minutesRemaining: 3,
-      passedVerifications: '1/4',
-      status: 'success' as Intent
-    }
-  },
-  {
-    buildName: 'Build 76',
-    serviceName: 'Manager',
-    preProdVerification: {
-      progress: 100,
-      startTime: new Date().getTime() - 60000,
-      passedVerifications: '1/1',
-      minutesRemaining: 0,
-      status: 'success' as Intent,
-      duration: 5
-    },
-    prodVerification: {
-      progress: 65,
-      startTime: new Date().getTime() - 30000,
-      minutesRemaining: 12,
-      passedVerifications: '1/1',
-      status: 'danger' as Intent
-    },
-    postVerification: {
-      progress: -1
-    }
-  },
-  {
-    buildName: 'Build 23',
-    serviceName: 'Delegate',
-    preProdVerification: {
-      progress: 100,
-      startTime: new Date().getTime() - 60000,
-      passedVerifications: '2/2',
-      minutesRemaining: 0,
-      duration: 12,
-      status: 'success' as Intent
-    },
-    prodVerification: {
-      progress: 100,
-      startTime: new Date().getTime() - 30000,
-      passedVerifications: '1/1',
-      minutesRemaining: 0,
-      duration: 10,
-      status: 'success' as Intent
-    },
-    postVerification: {
-      progress: 35,
-      startTime: new Date().getTime(),
-      minutesRemaining: 4,
-      passedVerifications: '1/2',
-      status: 'warning' as Intent
-    }
-  },
-  {
-    buildName: 'Build 2',
-    serviceName: 'CV-NextGen',
-    preProdVerification: {
-      progress: 100,
-      startTime: new Date().getTime() - 60000,
-      passedVerifications: '2/2',
-      minutesRemaining: 0,
-      duration: 12,
-      status: 'success' as Intent
-    },
-    prodVerification: {
-      progress: 100,
-      startTime: new Date().getTime() - 30000,
-      passedVerifications: '2/2',
-      minutesRemaining: 0,
-      duration: 20,
-      status: 'success' as Intent
-    },
-    postVerification: {
-      progress: 100,
-      startTime: new Date().getTime(),
-      passedVerifications: '2/2',
-      minutesRemaining: 0,
-      duration: 18,
-      status: 'success' as Intent
-    }
-  }
-]
-
 export default function ActivityVerifications(): JSX.Element {
+  const history = useHistory()
+  const {
+    params: { accountId, projectIdentifier, orgIdentifier }
+  } = useRouteParams()
+  const { data } = useGetRecentDeploymentActivityVerifications({
+    queryParams: {
+      accountId: accountId as string,
+      projectIdentifier: projectIdentifier as string
+    }
+  })
+
   return (
     <Container className={css.main}>
       <Container className={css.header}>
@@ -152,14 +42,26 @@ export default function ActivityVerifications(): JSX.Element {
       </Container>
       <ul className={css.activityList}>
         <li className={css.headerRow}>{RECENT_VERIFICATIONS_COLUMN_NAMES}</li>
-        {MOCK_DATA.map(data => {
-          const { serviceName, buildName, ...verificationResultProps } = data || {}
+        {data?.resource?.map(item => {
+          const { serviceName, tag } = item
           return (
-            <li key={`${buildName}-${serviceName}`} className={css.dataRow}>
-              <ActivityType buildName={buildName} serviceName={serviceName} iconProps={{ name: 'nav-cd' }} />
-              <ActivityProgressIndicator {...verificationResultProps.preProdVerification} className={css.dataColumn} />
-              <ActivityProgressIndicator {...verificationResultProps.prodVerification} className={css.dataColumn} />
-              <ActivityProgressIndicator {...verificationResultProps.postVerification} className={css.dataColumn} />
+            <li
+              key={`${tag}-${serviceName}`}
+              className={css.dataRow}
+              onClick={() =>
+                history.push(
+                  routeCVDeploymentPage.url({
+                    projectIdentifier: projectIdentifier as string,
+                    orgIdentifier: orgIdentifier as string,
+                    deploymentTag: encodeURIComponent(tag!)
+                  })
+                )
+              }
+            >
+              <ActivityType buildName={tag!} serviceName={serviceName!} iconProps={{ name: 'nav-cd' }} />
+              <ActivityProgressIndicator data={item.preProductionDeploymentSummary} className={css.dataColumn} />
+              <ActivityProgressIndicator data={item.productionDeploymentSummary} className={css.dataColumn} />
+              <ActivityProgressIndicator data={item.postDeploymentSummary} className={css.dataColumn} />
             </li>
           )
         })}

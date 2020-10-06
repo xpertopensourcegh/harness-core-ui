@@ -6,6 +6,7 @@ import type {
   LogData
 } from 'services/cv'
 import { getColorValue } from 'modules/common/components/HeatMap/ColorUtils'
+import { NoDataCard } from 'modules/common/components/Page/NoDataCard'
 import ClusterChart from './ClusterChart'
 import i18n from './DeploymentDrilldownView.i18n'
 import {
@@ -18,6 +19,7 @@ export interface DeploymentLogsTabProps {
   data: RestResponsePageLogAnalysisClusterDTO | null
   clusterChartData: RestResponseListLogAnalysisClusterChartDTO | null
   goToPage(val: number): void
+  isLoading: boolean
 }
 
 const mapClusterType = (type: string): LogData['tag'] => {
@@ -31,7 +33,7 @@ const mapClusterType = (type: string): LogData['tag'] => {
   }
 }
 
-export default function DeploymentLogsTab({ data, clusterChartData, goToPage }: DeploymentLogsTabProps) {
+export default function DeploymentLogsTab({ data, clusterChartData, goToPage, isLoading }: DeploymentLogsTabProps) {
   const logAnalysisData = useMemo((): LogAnalysisRowData[] => {
     return (
       data?.resource?.content?.map(d => ({
@@ -57,10 +59,16 @@ export default function DeploymentLogsTab({ data, clusterChartData, goToPage }: 
   }, [data])
   return (
     <Container className={styles.logsTab}>
-      <Text font={{ weight: 'bold' }}>{i18n.logCluster}</Text>
-      <ClusterChart data={clusterChartData?.resource || []} />
+      <Container className={styles.logsCluster}>
+        <Text font={{ weight: 'bold' }}>{i18n.logCluster}</Text>
+        <ClusterChart data={clusterChartData?.resource || []} />
+      </Container>
+      <Text font={{ weight: 'bold' }} margin={{ top: 'small', bottom: 'small' }}>
+        {i18n.logsCluster}
+      </Text>
       <Container className={styles.tableContent}>
-        <LogAnalysisRow className={styles.logAnalysisRow} data={logAnalysisData} />
+        {!logAnalysisData.length && !isLoading && <NoDataCard message={i18n.nothingToDisplay} icon="warning-sign" />}
+        {!!logAnalysisData.length && <LogAnalysisRow className={styles.logAnalysisRow} data={logAnalysisData} />}
       </Container>
       {!!data?.resource?.totalPages && (
         <Pagination

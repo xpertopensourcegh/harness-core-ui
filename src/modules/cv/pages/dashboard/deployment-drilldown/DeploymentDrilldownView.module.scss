@@ -3,22 +3,36 @@
   display: flex;
   flex-direction: column;
   .header {
-    flex-basis: 100px;
-    background-color: var(--blue-200);
+    flex-basis: 70px;
+    border-bottom: 1px solid var(--grey-300);
+    .headerWrap {
+      display: flex;
+      align-items: center;
+    }
   }
   .body {
     flex: 1;
     display: flex;
     padding: var(--spacing-large);
     overflow: auto;
+    padding: 0;
     .sideNav {
       flex-basis: 200px;
+      border-right: 1px solid var(--grey-300);
+      padding-top: var(--spacing-small);
     }
     .content {
       flex: 1;
       min-width: 0;
       display: flex;
       flex-direction: column;
+      background-color: var(--grey-100);
+      padding: var(--spacing-small);
+      .subHeader {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
       .filters {
         width: 200px;
       }
@@ -30,6 +44,18 @@
   }
 }
 
+.metricsTab {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  background-color: var(--white);
+  padding: var(--spacing-small);
+  margin-top: var(--spacing-xsmall);
+  border-radius: 2px;
+  box-shadow: 0 0 1px 0px var(--grey-400);
+}
+
 .showMore {
   margin-left: 200px !important;
   min-height: var(--spacing-small);
@@ -37,18 +63,24 @@
 }
 
 .timelineBar {
-  margin-top: var(--spacing-xxxlarge);
   border-top: 1px solid var(--grey-200);
   padding-top: var(--spacing-small);
   margin-left: 210px;
 }
 
 .logsTab {
-  margin-top: 30px !important;
+  margin-top: var(--spacing-xsmall) !important;
   flex: 1;
   min-height: 0;
   display: flex;
   flex-direction: column;
+  .logsCluster {
+    box-shadow: 0px 1px 2px 1px var(--grey-300);
+    border-radius: 2px;
+    padding: var(--spacing-small);
+    margin-bottom: var(--spacing-small);
+    background-color: var(--white);
+  }
   .tableContent {
     flex: 1;
     overflow: auto;

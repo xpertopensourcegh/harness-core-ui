@@ -1,6 +1,5 @@
 import React, { useState, useCallback } from 'react'
-import { Container, Heading, Text, Color, Button, useModalHook } from '@wings-software/uikit'
-import cx from 'classnames'
+import { Container, Color, Button, useModalHook } from '@wings-software/uikit'
 import { useHistory } from 'react-router-dom'
 import { useRouteParams } from 'framework/exports'
 import { Page } from 'modules/common/exports'
@@ -14,6 +13,7 @@ import {
   ActivitySourceName
 } from './ActivitySelectionModal/ActivitySelectionModal'
 import i18n from './ActivitiesPage.i18n'
+import ActivitiesListView from './ActivitiesListView'
 import css from './ActivitiesPage.module.scss'
 
 const VerificationJobTileSelectionToRoute = {
@@ -28,34 +28,6 @@ const VerificationActivitySourceTileSelectionToRoute = {
   [ActivitySourceName.AWS]: ActivityDetailsActivitySource.AWS,
   [ActivitySourceName.GCP]: ActivityDetailsActivitySource.GCP,
   [ActivitySourceName.AZURE]: ActivityDetailsActivitySource.AZURE
-}
-
-function ActivitiesPageTitle(): JSX.Element {
-  const {
-    params: { activitySubType = i18n.activitySubTypes.activities }
-  } = useRouteParams()
-
-  return (
-    <Container className={css.pageTitleContainer}>
-      <Heading level={2} color={Color.BLACK}>
-        {i18n.pageTitle}
-      </Heading>
-      <Container className={css.subTypes}>
-        {Object.values(i18n.activitySubTypes).map(subType => {
-          return (
-            <Text
-              key={subType}
-              inline
-              font="small"
-              className={cx(css.subType, activitySubType === subType ? css.selectedSubType : undefined)}
-            >
-              {subType}
-            </Text>
-          )
-        })}
-      </Container>
-    </Container>
-  )
 }
 
 function NoActivities(): JSX.Element {
@@ -121,13 +93,15 @@ function NoActivities(): JSX.Element {
 }
 
 export default function ActivitiesPage(): JSX.Element {
-  const [hasActivities] = useState(false)
   return (
-    <Page.Body>
-      <Container className={css.main}>
-        <Page.Header title={hasActivities ? <ActivitiesPageTitle /> : i18n.pageTitle} />
-        <NoActivities />
-      </Container>
-    </Page.Body>
+    <>
+      <Page.Header title={i18n.pageTitle} />
+      <Page.Body>
+        <Container className={css.main}>
+          <NoActivities />
+          <ActivitiesListView />
+        </Container>
+      </Page.Body>
+    </>
   )
 }

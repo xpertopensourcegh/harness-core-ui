@@ -28,6 +28,7 @@
   overflow: hidden;
   .timelineBarItem {
     flex: 1;
+    overflow: hidden;
     font-size: var(--font-size-small);
     color: var(--grey-300);
     white-space: nowrap;
