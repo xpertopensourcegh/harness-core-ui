@@ -20,22 +20,26 @@ import i18n from './CVServicesPage.i18n'
 import { CategoryRiskCards } from '../dashboard/CategoryRiskCards/CategoryRiskCards'
 import { AnalysisDrillDownView } from './analysis-drilldown-view/AnalysisDrillDownView'
 import useAnalysisDrillDownView from './analysis-drilldown-view/useAnalysisDrillDownView'
+import ServiceActivityTimeline from './ServiceActivityTimeline/ServiceActivityTimeline'
 import styles from './CVServicesPage.module.scss'
 
 const RangeOptions = [
-  { label: '4 hrs', value: 4 },
-  { label: '12 hrs', value: 12 },
-  { label: '1 day', value: 24 },
-  { label: '7 days', value: 7 * 24 },
-  { label: '30 days', value: 30 * 24 }
+  { label: i18n.timeRangeLabels.fiveMinutes, value: 5 },
+  { label: i18n.timeRangeLabels.fifteenMinutes, value: 15 },
+  { label: i18n.timeRangeLabels.oneHour, value: 60 },
+  { label: i18n.timeRangeLabels.fourHours, value: 4 * 60 },
+  { label: i18n.timeRangeLabels.twelveHours, value: 12 * 60 },
+  { label: i18n.timeRangeLabels.oneDay, value: 24 * 60 },
+  { label: i18n.timeRangeLabels.sevenDays, value: 7 * 24 * 60 },
+  { label: i18n.timeRangeLabels.thirtyDays, value: 30 * 24 * 60 }
 ]
-const DEFAULT_RANGE = RangeOptions[0]
+const DEFAULT_RANGE = RangeOptions[1]
+const FIVE_MINUTES_IN_MILLISECONDS = 1000 * 60 * 5
+
 const getRangeDates = (val: number) => {
-  const now = moment()
-  now.subtract(now.seconds() % 60, 'seconds') // floor to the nearest minute
-  now.subtract(now.milliseconds() % 1000, 'milliseconds')
+  const now = moment(Math.round(new Date().getTime() / FIVE_MINUTES_IN_MILLISECONDS) * FIVE_MINUTES_IN_MILLISECONDS)
   return {
-    start: now.clone().subtract(val, 'hours'),
+    start: now.clone().subtract(val, 'minutes'),
     end: now
   }
 }
@@ -84,6 +88,7 @@ export default function CVServicesPage(): JSX.Element {
   const { showError } = useToaster()
   const { openDrillDown } = useAnalysisDrillDownView()
 
+  const isTimeRangeMoreThan4Hours = range.dates.end.diff(range.dates.start, 'minutes') > 4 * 60
   const { data: heatmapResponse, loading: loadingHeatmap, error: heatmapError, refetch: getHeatmap } = useGetHeatmap({
     queryParams: {
       accountId: accountId,
@@ -168,16 +173,18 @@ export default function CVServicesPage(): JSX.Element {
             onSelect={(envIdentifier?: string, serviceIdentifier?: string) => {
               setSelectedService({ serviceIdentifier, environmentIdentifier: envIdentifier })
               setHeatmapData([])
-              getHeatmap({
-                queryParams: {
-                  accountId: accountId,
-                  projectIdentifier: projectIdentifier as string,
-                  startTimeMs: range.dates.start.valueOf(),
-                  endTimeMs: range.dates.end.valueOf(),
-                  serviceIdentifier,
-                  envIdentifier
-                }
-              })
+              if (isTimeRangeMoreThan4Hours) {
+                getHeatmap({
+                  queryParams: {
+                    accountId: accountId,
+                    projectIdentifier: projectIdentifier as string,
+                    startTimeMs: range.dates.start.valueOf(),
+                    endTimeMs: range.dates.end.valueOf(),
+                    serviceIdentifier,
+                    envIdentifier
+                  }
+                })
+              }
             }}
           />
           <Container className={styles.content}>
@@ -187,22 +194,22 @@ export default function CVServicesPage(): JSX.Element {
               serviceIdentifier={selectedService?.serviceIdentifier}
             />
             <Container className={styles.serviceBody}>
-              <OverlaySpinner show={loadingHeatmap}>
-                <Container flex>
-                  <Text margin={{ bottom: 'xsmall' }} font={{ size: 'small' }} color={Color.BLACK}>
-                    {i18n.heatmapSectionTitleText}
-                  </Text>
-                  <Select
-                    defaultSelectedItem={DEFAULT_RANGE}
-                    items={RangeOptions}
-                    className={styles.rangeSelector}
-                    size={'small' as SelectProps['size']}
-                    onChange={({ value }: SelectOption) => {
-                      if (range?.selectedValue === value) return
-                      const selectedValue = value as number
-                      setRange({ selectedValue, dates: getRangeDates(selectedValue) })
+              <Container flex>
+                <Text margin={{ bottom: 'xsmall' }} font={{ size: 'small' }} color={Color.BLACK}>
+                  {i18n.activityTimeline}
+                </Text>
+                <Select
+                  defaultSelectedItem={DEFAULT_RANGE}
+                  items={RangeOptions}
+                  className={styles.rangeSelector}
+                  size={'small' as SelectProps['size']}
+                  onChange={({ value }: SelectOption) => {
+                    if (range?.selectedValue === value) return
+                    const selectedValue = value as number
+                    setRange({ selectedValue, dates: getRangeDates(selectedValue) })
+                    const { start, end } = getRangeDates(value as number)
+                    if (end.diff(start, 'minutes') > 4 * 60) {
                       setHeatmapData([])
-                      const { start, end } = getRangeDates(value as number)
                       getHeatmap({
                         queryParams: {
                           accountId: accountId,
@@ -211,34 +218,45 @@ export default function CVServicesPage(): JSX.Element {
                           endTimeMs: end.valueOf()
                         }
                       })
-                    }}
-                  />
-                </Container>
-                <HeatMap
-                  series={heatmapData}
-                  minValue={0}
-                  maxValue={1}
-                  labelsWidth={210}
-                  className={styles.serviceHeatMap}
-                  mapValue={mapHeatmapValue}
-                  renderTooltip={(cell: HeatMapDTO) => <HeatMapTooltip cell={cell} />}
-                  cellShapeBreakpoint={0.5}
-                  onCellClick={(cell: HeatMapDTO, rowData) => {
-                    if (cell.startTime && cell.endTime) {
-                      openDrillDown({
-                        categoryRiskScore: cell.riskScore ? Math.floor(cell.riskScore * 100) : 0,
-                        analysisProps: {
-                          startTime: cell.startTime,
-                          endTime: cell.endTime,
-                          categoryName: rowData?.name,
-                          environmentIdentifier: selectedService?.environmentIdentifier,
-                          serviceIdentifier: selectedService?.serviceIdentifier
-                        }
-                      })
                     }
                   }}
-                  rowSize={heatMapSize}
                 />
+              </Container>
+              <ServiceActivityTimeline startTime={range.dates.start.valueOf()} endTime={range.dates.end.valueOf()} />
+              {isTimeRangeMoreThan4Hours ? (
+                <>
+                  <Text margin={{ bottom: 'xsmall' }} font={{ size: 'small' }} color={Color.BLACK}>
+                    {i18n.heatmapSectionTitleText}
+                  </Text>
+                  <OverlaySpinner show={loadingHeatmap}>
+                    <HeatMap
+                      series={heatmapData}
+                      minValue={0}
+                      maxValue={1}
+                      labelsWidth={205}
+                      className={styles.serviceHeatMap}
+                      mapValue={mapHeatmapValue}
+                      renderTooltip={(cell: HeatMapDTO) => <HeatMapTooltip cell={cell} />}
+                      cellShapeBreakpoint={0.5}
+                      onCellClick={(cell: HeatMapDTO, rowData) => {
+                        if (cell.startTime && cell.endTime) {
+                          openDrillDown({
+                            categoryRiskScore: cell.riskScore ? Math.floor(cell.riskScore * 100) : 0,
+                            analysisProps: {
+                              startTime: cell.startTime,
+                              endTime: cell.endTime,
+                              categoryName: rowData?.name,
+                              environmentIdentifier: selectedService?.environmentIdentifier,
+                              serviceIdentifier: selectedService?.serviceIdentifier
+                            }
+                          })
+                        }
+                      }}
+                      rowSize={heatMapSize}
+                    />
+                  </OverlaySpinner>
+                </>
+              ) : (
                 <AnalysisDrillDownView
                   className={styles.analysisView}
                   startTime={range.dates.start.valueOf()}
@@ -246,7 +264,7 @@ export default function CVServicesPage(): JSX.Element {
                   serviceIdentifier={selectedService?.serviceIdentifier}
                   environmentIdentifier={selectedService?.environmentIdentifier}
                 />
-              </OverlaySpinner>
+              )}
             </Container>
           </Container>
         </Container>

@@ -1,6 +1,7 @@
 export default {
   heatmapSectionTitleText: 'Risk Timeline',
   affectedMetrics: 'Affected Metrics',
+  activityTimeline: 'Activity Timeline',
   noDataText: {
     noServicesConfigured: 'No services have been configured',
     goBackToDataSourcePage: 'Go to Data Source Page'
@@ -13,5 +14,15 @@ export default {
   heatMapTooltipText: {
     overallRiskScore: 'Overall Risk Score',
     noData: 'N/A'
+  },
+  timeRangeLabels: {
+    fiveMinutes: '5 Minutes',
+    fifteenMinutes: '15 Minutes',
+    oneHour: '1 Hour',
+    fourHours: '4 Hours',
+    twelveHours: '12 Hours',
+    oneDay: '1 Day',
+    sevenDays: '7 Days',
+    thirtyDays: '30 Days'
   }
 }

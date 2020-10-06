@@ -1,13 +1,13 @@
 import React from 'react'
-import { Text } from '@wings-software/uikit'
+import { Container, Text } from '@wings-software/uikit'
 import isUndefined from 'lodash/isUndefined'
 import moment from 'moment'
 import classnames from 'classnames'
-import TimelineBar from './TimelineBar'
+import { TimelineBar, TimelineBarProps } from './TimelineBar'
 import styles from './TimelineView.module.scss'
 
 interface RowConfig {
-  name?: string
+  name?: string | JSX.Element
   data: Array<{
     startDate: string | number | Date
     endDate?: string | number | Date
@@ -25,6 +25,7 @@ export interface TimelineViewProps {
   labelsWidth?: number
   hideTimelineBar?: boolean
   rowHeight?: number
+  timelineBarProps?: Omit<TimelineBarProps, 'startDate' | 'endDate'>
 }
 
 export default function TimelineView({
@@ -35,7 +36,8 @@ export default function TimelineView({
   className,
   labelsWidth = 125,
   hideTimelineBar = false,
-  rowHeight = 50
+  rowHeight = 50,
+  timelineBarProps
 }: TimelineViewProps) {
   const start = moment(startDate)
   const end = moment(endDate)
@@ -52,12 +54,12 @@ export default function TimelineView({
         <div key={rowIndex} className={styles.timelineRow} style={{ height: rowHeight }}>
           {showLabels && (
             <span className={styles.nameWrapper}>
-              <Text width={labelsWidth}>{row.name}</Text>
+              {typeof row.name === 'string' ? <Text width={labelsWidth}>{row.name}</Text> : row.name}
             </span>
           )}
           <div className={styles.rowItems}>
             {row.data.map((item, itemIndex) => (
-              <div
+              <Container
                 key={itemIndex}
                 style={{
                   left: `${leftPosition(moment(item.startDate))}%`,
@@ -66,13 +68,14 @@ export default function TimelineView({
                 className={styles.rowItem}
               >
                 {renderItem(item)}
-              </div>
+              </Container>
             ))}
           </div>
         </div>
       ))}
       {!hideTimelineBar && (
         <TimelineBar
+          {...timelineBarProps}
           style={showLabels ? { marginLeft: labelsWidth } : undefined}
           className={styles.timelineViewBar}
           startDate={startDate}

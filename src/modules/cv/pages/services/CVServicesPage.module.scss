@@ -22,7 +22,7 @@
       margin-top: var(--spacing-xlarge);
 
       .rangeSelector {
-        width: 75px;
+        width: 92px;
         margin-right: var(--spacing-large);
         :global {
           .bp3-input {
@@ -30,7 +30,7 @@
             background: transparent;
           }
           .bp3-menu {
-            min-width: 75px;
+            min-width: 92px;
           }
         }
       }

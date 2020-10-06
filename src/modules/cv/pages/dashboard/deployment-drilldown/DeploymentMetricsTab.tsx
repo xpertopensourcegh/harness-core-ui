@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react'
 import { Container, Pagination, Link } from '@wings-software/uikit'
-import TimelineBar from 'modules/common/components/TimelineView/TimelineBar'
+import { TimelineBar } from 'modules/common/components/TimelineView/TimelineBar'
 import type { RestResponseTransactionMetricInfoSummaryPageDTO, HostData } from 'services/cv'
 import { getColorValue } from 'modules/common/components/HeatMap/ColorUtils'
 import {

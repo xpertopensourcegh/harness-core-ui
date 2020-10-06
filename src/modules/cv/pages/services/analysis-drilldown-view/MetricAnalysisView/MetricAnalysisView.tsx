@@ -10,7 +10,7 @@ import {
   MetricData
 } from 'services/cv'
 import { NoDataCard } from 'modules/common/components/Page/NoDataCard'
-import TimelineBar from 'modules/common/components/TimelineView/TimelineBar'
+import { TimelineBar } from 'modules/common/components/TimelineView/TimelineBar'
 import { PageError } from 'modules/common/components/Page/PageError'
 import MetricAnalysisRow from './MetricsAnalysisRow/MetricAnalysisRow'
 import { MetricAnalysisFilter } from './MetricAnalysisFilter/MetricAnalysisFilter'
@@ -175,7 +175,7 @@ export default function MetricAnalysisView(props: MetricAnalysisViewProps): JSX.
             })
           }}
         />
-        <TimelineBar startDate={finalStartTime} endDate={endTime} className={css.timeline} columnWidth={70} />
+        <TimelineBar startDate={finalStartTime} endDate={endTime} className={css.timeline} columnWidth={65} />
       </Container>
       {(loadingAllMetricData || loadingAnomalousData) && (
         <Container className={css.errorOrLoading} margin="medium">

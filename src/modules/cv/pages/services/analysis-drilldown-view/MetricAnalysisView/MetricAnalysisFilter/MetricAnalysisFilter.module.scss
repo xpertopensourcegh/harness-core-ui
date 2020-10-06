@@ -1,11 +1,11 @@
 .main {
   width: 200px;
-  padding: var(--spacing-xsmall) !important;
   margin-bottom: var(--spacing-xsmall) !important;
 
   .filterOptionContainer {
     display: flex;
     align-items: center;
+    width: 180px;
 
     .filterByOptions {
       border: none;

@@ -10,8 +10,7 @@
     align-items: baseline;
     .timeline {
       flex: 1;
-      margin-left: var(--spacing-small);
-      padding-right: var(--spacing-medium);
+      margin: 0 var(--spacing-small);
     }
   }
 }

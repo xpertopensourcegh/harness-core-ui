@@ -6,7 +6,7 @@ import styles from './TimelineView.module.scss'
 
 const moment = extendMoment(Moment)
 
-interface TimelineBarProps {
+export interface TimelineBarProps {
   startDate: string | number | Date
   endDate: string | number | Date
   className?: string
@@ -56,13 +56,7 @@ const findOptimalStartingIndex = (range: DateRange): number => {
 
 const MIN_COL_SIZE = 50
 
-export default function TimelineBar({
-  startDate,
-  endDate,
-  className,
-  style,
-  columnWidth = MIN_COL_SIZE
-}: TimelineBarProps) {
+export function TimelineBar({ startDate, endDate, className, style, columnWidth = MIN_COL_SIZE }: TimelineBarProps) {
   const ref = useRef<HTMLDivElement>(null)
   const [size, setSize] = useState(0)
 
