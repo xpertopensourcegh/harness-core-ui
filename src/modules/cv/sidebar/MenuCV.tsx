@@ -14,7 +14,8 @@ import {
   routeCVAdminGeneralSettings,
   routeCVAdminGovernance,
   routeCVAdminResources,
-  routeCVAdminAccessControl
+  routeCVAdminAccessControl,
+  routeCVMetricPackConfigureThresholdPage
 } from '../routes'
 import css from './MenuCV.module.scss'
 
@@ -34,7 +35,7 @@ const ProjectNavLinks: React.FC = () => {
       <Sidebar.Link
         href={routeCVMainDashBoardPage.url({ projectIdentifier, orgIdentifier })}
         label={i18n.cvSideNavLinks.dashboard}
-        icon="main-help"
+        icon="dashboard"
         selected={isRouteActive(routeCVMainDashBoardPage)}
       />
       <Sidebar.Link
@@ -54,6 +55,12 @@ const ProjectNavLinks: React.FC = () => {
         label={i18n.cvSideNavLinks.services}
         icon="service"
         selected={isRouteActive(routeCVServices)}
+      />
+      <Sidebar.Link
+        href={routeCVMetricPackConfigureThresholdPage.url({ projectIdentifier, orgIdentifier })}
+        label={i18n.cvSideNavLinks.metricPacks}
+        icon="wrench"
+        selected={isRouteActive(routeCVMetricPackConfigureThresholdPage)}
       />
       <AdminSelector
         selected={

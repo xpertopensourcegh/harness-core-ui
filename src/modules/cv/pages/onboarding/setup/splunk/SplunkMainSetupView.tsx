@@ -339,13 +339,13 @@ function SplunkConfig(props: SplunkConfigProps): JSX.Element {
         dataSourceId,
         dsConfig.query,
         guid,
-        params.orgId as string,
+        params.orgIdentifier as string,
         params.projectIdentifier as string,
         setValidationResult
       )
     }
     return () => xhr.abort(XHR_VALIDATION_GROUP)
-  }, [dsConfig.query, dataSourceId, params.accountId, params.orgId, params.projectIdentifier])
+  }, [dsConfig.query, dataSourceId, params.accountId, params.orgIdentifier, params.projectIdentifier])
 
   useEffect(() => {
     formikProps.setFieldValue(`dsConfigs[${index}].isValid`, validationResult?.error ? false : true)
@@ -531,7 +531,7 @@ export default function SplunkOnboarding(props: SplunkOnBoardingProps): JSX.Elem
   const { configs, serviceOptions, locationContext, indexedDB, envOptions } = props
   const [splunkQueryOptions, setSplunkQueryOptions] = useState<SelectOption[]>([{ label: i18n.loadingText, value: '' }])
   const {
-    params: { accountId, projectIdentifier: routeProjectId, orgId: routeOrgId }
+    params: { accountId, projectIdentifier: routeProjectId, orgIdentifier: routeOrgId }
   } = useRouteParams()
   const toaster = useToaster()
   const projectId = routeProjectId as string

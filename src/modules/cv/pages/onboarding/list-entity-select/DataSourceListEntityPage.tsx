@@ -48,7 +48,7 @@ function createNextPageData(pageData: any): PageContextData {
 
 export default function DataSourceListEntitySelect(): JSX.Element {
   const {
-    params: { accountId, dataSourceType = '', projectIdentifier: routeProjectId, orgId: routeOrgId },
+    params: { accountId, dataSourceType = '', projectIdentifier: routeProjectId, orgIdentifier: routeOrgId },
     query: { dataSourceId: routeDataSourceId }
   } = useRouteParams()
   const { pageData, dbInstance } = useOnBoardingPageDataHook<PageContextData>(routeDataSourceId as string)
@@ -71,7 +71,7 @@ export default function DataSourceListEntitySelect(): JSX.Element {
         pathname: routeCVOnBoardingSetup.url({
           dataSourceType: dataSourceType as string,
           projectIdentifier: projectId,
-          orgId
+          orgIdentifier: orgId
         }),
         search: `?dataSourceId=${dataSourceId}`,
         state: newPageData
@@ -164,7 +164,7 @@ export default function DataSourceListEntitySelect(): JSX.Element {
                   pathname: routeCVDataSourcesProductPage.url({
                     dataSourceType: dataSourceType as string,
                     projectIdentifier: projectId,
-                    orgId
+                    orgIdentifier: orgId
                   }),
                   state: { ...pageData }
                 })

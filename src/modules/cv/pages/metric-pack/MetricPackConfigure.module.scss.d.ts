@@ -5,6 +5,6 @@ declare const styles: {
   readonly packsContainer: string
   readonly header: string
   readonly thresholdSection: string
-  readonly actionButtons: string
+  readonly actionButton: string
 }
 export default styles

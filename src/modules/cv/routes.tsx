@@ -50,7 +50,7 @@ export const routeCVHome: Route = {
 /* ------------------------------------------ DataSource page routes ------------------------------------------ */
 export const routeCVDataSources: Route<{ projectIdentifier: string; orgIdentifier: string }> = {
   sidebarId: SidebarIdentifier.CONTINUOUS_VERIFICATION,
-  path: '/cv-datasources/org/:orgIdentifier/project/:projectIdentifier',
+  path: '/cv/datasources/org/:orgIdentifier/project/:projectIdentifier',
   authenticated: true,
   title: i18n.datasources,
   pageId: 'cv-datasources',
@@ -58,7 +58,7 @@ export const routeCVDataSources: Route<{ projectIdentifier: string; orgIdentifie
     routeURL(
       routeCVDataSources,
       projectIdentifier && orgIdentifier
-        ? `/cv-datasources/org/${orgIdentifier}/project/${projectIdentifier}`
+        ? `/cv/datasources/org/${orgIdentifier}/project/${projectIdentifier}`
         : routeCVHome.path
     ),
   component: React.lazy(() => import('./pages/data-sources/DataSources')),
@@ -67,28 +67,32 @@ export const routeCVDataSources: Route<{ projectIdentifier: string; orgIdentifie
 
 export const routeCVServices: Route<{ projectIdentifier: string; orgIdentifier: string }> = {
   sidebarId: SidebarIdentifier.CONTINUOUS_VERIFICATION,
-  path: '/cv-services/org/:orgIdentifier/project/:projectIdentifier',
+  path: '/cv/services/org/:orgIdentifier/project/:projectIdentifier',
   title: i18n.services,
   pageId: 'cv-services',
   authenticated: true,
   url: ({ orgIdentifier, projectIdentifier }) =>
-    routeURL(routeCVServices, `/cv-services/org/${orgIdentifier}/project/${projectIdentifier}`),
+    routeURL(routeCVServices, `/cv/services/org/${orgIdentifier}/project/${projectIdentifier}`),
   component: React.lazy(() => import('./pages/services/CVServicesPage')),
   module: ModuleName.CV
 }
 
 /* ------------------------------------------ Onboarding page routes ------------------------------------------ */
-export const routeCVOnBoardingSetup: Route<{ dataSourceType: string; projectIdentifier: string; orgId: string }> = {
+export const routeCVOnBoardingSetup: Route<{
+  dataSourceType: string
+  projectIdentifier: string
+  orgIdentifier: string
+}> = {
   sidebarId: SidebarIdentifier.CONTINUOUS_VERIFICATION,
-  path: '/cv-onboarding/:dataSourceType/setup/org/:orgId/project/:projectIdentifier/',
+  path: '/cv/onboarding/:dataSourceType/setup/org/:orgIdentifier/project/:projectIdentifier/',
   title: i18n.services,
   authenticated: true,
   pageId: 'cv-onboarding/onboarding',
-  url: ({ dataSourceType, projectIdentifier, orgId }) =>
+  url: ({ dataSourceType, projectIdentifier, orgIdentifier }) =>
     routeURL(
       routeCVOnBoardingSetup,
-      dataSourceType && projectIdentifier && orgId
-        ? `/cv-onboarding/${dataSourceType}/setup/org/${orgId}/project/${projectIdentifier}`
+      dataSourceType && projectIdentifier && orgIdentifier
+        ? `/cv/onboarding/${dataSourceType}/setup/org/${orgIdentifier}/project/${projectIdentifier}`
         : routeCVHome.path
     ),
 
@@ -99,35 +103,39 @@ export const routeCVOnBoardingSetup: Route<{ dataSourceType: string; projectIden
 export const routeCVDataSourcesProductPage: Route<{
   dataSourceType: string
   projectIdentifier: string
-  orgId: string
+  orgIdentifier: string
 }> = {
   sidebarId: SidebarIdentifier.CONTINUOUS_VERIFICATION,
-  path: '/cv-onboarding/:dataSourceType/product/org/:orgId/project/:projectIdentifier',
+  path: '/cv/onboarding/:dataSourceType/product/org/:orgIdentifier/project/:projectIdentifier',
   title: i18n.services,
   pageId: '/cv-onboarding/product',
   authenticated: true,
-  url: ({ dataSourceType, projectIdentifier, orgId }) =>
+  url: ({ dataSourceType, projectIdentifier, orgIdentifier }) =>
     routeURL(
       routeCVDataSourcesProductPage,
-      dataSourceType && projectIdentifier && orgId
-        ? `/cv-onboarding/${dataSourceType}/product/org/${orgId}/project/${projectIdentifier}`
+      dataSourceType && projectIdentifier && orgIdentifier
+        ? `/cv/onboarding/${dataSourceType}/product/org/${orgIdentifier}/project/${projectIdentifier}`
         : routeCVHome.path
     ),
   component: React.lazy(() => import('./pages/onboarding/data-source-products/DataSourceProductPage')),
   module: ModuleName.CV
 }
 
-export const routeCVSplunkInputTypePage: Route<{ dataSourceType: string; projectIdentifier: string; orgId: string }> = {
+export const routeCVSplunkInputTypePage: Route<{
+  dataSourceType: string
+  projectIdentifier: string
+  orgIdentifier: string
+}> = {
   sidebarId: SidebarIdentifier.CONTINUOUS_VERIFICATION,
-  path: '/cv-onboarding/:dataSourceType/input-type/org/:orgId/project/:projectIdentifier',
+  path: '/cv/onboarding/:dataSourceType/input-type/org/:orgIdentifier/project/:projectIdentifier',
   title: i18n.services,
   pageId: '/cv-onboarding/input-type',
   authenticated: true,
-  url: ({ dataSourceType, projectIdentifier, orgId }) =>
+  url: ({ dataSourceType, projectIdentifier, orgIdentifier }) =>
     routeURL(
       routeCVSplunkInputTypePage,
-      dataSourceType && projectIdentifier && orgId
-        ? `/cv-onboarding/${dataSourceType}/input-type/org/${orgId}/project/${projectIdentifier}`
+      dataSourceType && projectIdentifier && orgIdentifier
+        ? `/cv/onboarding/${dataSourceType}/input-type/org/${orgIdentifier}/project/${projectIdentifier}`
         : routeCVHome.path
     ),
   component: React.lazy(() => import('./pages/onboarding/splunk-input-type/SplunkInputType')),
@@ -137,18 +145,18 @@ export const routeCVSplunkInputTypePage: Route<{ dataSourceType: string; project
 export const routeCVDataSourcesEntityPage: Route<{
   dataSourceType: string
   projectIdentifier: string
-  orgId: string
+  orgIdentifier: string
 }> = {
   sidebarId: SidebarIdentifier.CONTINUOUS_VERIFICATION,
-  path: '/cv-onboarding/:dataSourceType/select-list-entities/org/:orgId/project/:projectIdentifier',
+  path: '/cv/onboarding/:dataSourceType/select-list-entities/org/:orgIdentifier/project/:projectIdentifier',
   title: i18n.services,
   pageId: 'cv-onboarding/:dataSourceType/select-list-entities',
   authenticated: true,
-  url: ({ dataSourceType, projectIdentifier, orgId }) =>
+  url: ({ dataSourceType, projectIdentifier, orgIdentifier }) =>
     routeURL(
       routeCVDataSourcesEntityPage,
-      dataSourceType && projectIdentifier && orgId
-        ? `/cv-onboarding/${dataSourceType}/select-list-entities/org/${orgId}/project/${projectIdentifier}`
+      dataSourceType && projectIdentifier && orgIdentifier
+        ? `/cv/onboarding/${dataSourceType}/select-list-entities/org/${orgIdentifier}/project/${projectIdentifier}`
         : routeCVHome.path
     ),
   component: React.lazy(() => {
@@ -159,13 +167,20 @@ export const routeCVDataSourcesEntityPage: Route<{
 
 /* ------------------------------------------ Global Metric page routes ------------------------------------------ */
 
-export const routeCVMetricPackConfigureThresholdPage: Route = {
+export const routeCVMetricPackConfigureThresholdPage: Route<{
+  projectIdentifier: string
+  orgIdentifier: string
+}> = {
   sidebarId: SidebarIdentifier.CONTINUOUS_VERIFICATION,
-  path: '/metric-pack/config',
+  path: '/cv/metric-pack/config/org/:orgIdentifier/project/:projectIdentifier',
   title: i18n.services,
   pageId: '/metric-pack/config',
   authenticated: true,
-  url: () => routeURL(routeCVMetricPackConfigureThresholdPage, `/metric-pack/config`),
+  url: ({ projectIdentifier, orgIdentifier }) =>
+    routeURL(
+      routeCVMetricPackConfigureThresholdPage,
+      `/cv/metric-pack/config/org/${orgIdentifier}/project/${projectIdentifier}`
+    ),
   component: React.lazy(() => {
     return import('./pages/metric-pack/MetricPackConfigure')
   }),
@@ -176,12 +191,12 @@ export const routeCVMetricPackConfigureThresholdPage: Route = {
 
 export const routeCVActivities: Route<{ orgIdentifier: string; projectIdentifier: string }> = {
   sidebarId: SidebarIdentifier.CONTINUOUS_VERIFICATION,
-  path: '/cv-activities/org/:orgIdentifier/project/:projectIdentifier',
+  path: '/cv/activities/org/:orgIdentifier/project/:projectIdentifier',
   title: i18n.activities,
   pageId: '/cv-activities',
   authenticated: true,
   url: ({ orgIdentifier, projectIdentifier }) =>
-    routeURL(routeCVActivities, `/cv-activities/org/${orgIdentifier}/project/${projectIdentifier}`),
+    routeURL(routeCVActivities, `/cv/activities/org/${orgIdentifier}/project/${projectIdentifier}`),
   component: React.lazy(() => {
     return import('./pages/activities/ActivitiesPage')
   }),
@@ -194,14 +209,14 @@ export const routeCVActivityDetails: Route<{
   projectIdentifier: string
 }> = {
   sidebarId: SidebarIdentifier.CONTINUOUS_VERIFICATION,
-  path: '/cv-activities/setup/:activityType/org/:orgIdentifier/project/:projectIdentifier',
+  path: '/cv/activities/setup/:activityType/org/:orgIdentifier/project/:projectIdentifier',
   title: i18n.activityTypes,
   pageId: '/cv-activities/setup',
   authenticated: true,
   url: ({ activityType, orgIdentifier, projectIdentifier }) =>
     routeURL(
       routeCVActivityDetails,
-      `/cv-activities/setup/${activityType}/org/${orgIdentifier}/project/${projectIdentifier}`
+      `/cv/activities/setup/${activityType}/org/${orgIdentifier}/project/${projectIdentifier}`
     ),
   component: React.lazy(() => {
     return import('./pages/activity-setup/ActivitySetupPage')

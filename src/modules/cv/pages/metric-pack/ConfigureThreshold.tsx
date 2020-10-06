@@ -1,12 +1,11 @@
 import React, { FunctionComponent, useState, useEffect } from 'react'
-import { Tabs, Tab } from '@wings-software/uikit'
+import { Tabs, Tab, OverlaySpinner } from '@wings-software/uikit'
 import { FieldArray } from 'formik'
-import { Formik, FormikForm, FormInput, Button, OverlaySpinner } from '@wings-software/uikit'
+import { Formik, FormikForm, FormInput, Button } from '@wings-software/uikit'
 import * as Yup from 'yup'
-import { accountId, projectIdentifier } from 'modules/cv/constants'
+import { useRouteParams } from 'framework/exports'
 import { saveMerics, getMerics } from './ConfigureThresholdService'
 import { mapCriteriaToRequest, mapCriteriaSignToForm } from './ConfigureThresholdUtils'
-
 import css from './ConfigureThreshold.module.scss'
 
 const criteriaOptions = [
@@ -92,6 +91,9 @@ const ConfigureThreshold: FunctionComponent<any> = (props: ConfigureThresholdPro
   const [metricOptions, setMetricOptions] = useState(dummyMetricOptions)
   const [metricPackIdentifier, setMetricPackIdentifier] = useState('')
   const [inProgress, setInProgress] = useState(false)
+  const {
+    params: { projectIdentifier, accountId }
+  } = useRouteParams()
 
   useEffect(() => {
     const { metricPack, dataSourceType, hints } = props
@@ -116,7 +118,7 @@ const ConfigureThreshold: FunctionComponent<any> = (props: ConfigureThresholdPro
 
     setIgnoreMetrics(
       response.resource
-        .filter((metric: any) => metric.action === 'ignore')
+        ?.filter((metric: any) => metric.action === 'ignore')
         .map((metric: any) => {
           const ignoreInitialValue = { ...ignoreInitialValues }
           ignoreInitialValue.name = metric.metricName
@@ -125,12 +127,12 @@ const ConfigureThreshold: FunctionComponent<any> = (props: ConfigureThresholdPro
           ignoreInitialValue.criteriaOptions = mapCriteriaSignToForm(metric.criteria.criteria)
           ignoreInitialValue.criteria = parseInt(metric.criteria.criteria.split(' ')[1])
           return ignoreInitialValue
-        })
+        }) || []
     )
 
     setFailMetrics(
       response.resource
-        .filter((metric: any) => metric.action === 'fail')
+        ?.filter((metric: any) => metric.action === 'fail')
         .map((metric: any) => {
           if (metric.action === 'fail') {
             const failInitialValue = { ...failInitialValues }
@@ -142,7 +144,7 @@ const ConfigureThreshold: FunctionComponent<any> = (props: ConfigureThresholdPro
             failInitialValue.occurrenceCount = metric.criteria.occurrenceCount
             return failInitialValue
           }
-        })
+        }) || []
     )
     setInProgress(false)
   }

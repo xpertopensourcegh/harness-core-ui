@@ -430,7 +430,7 @@ export default function AppDynamicsMainSetupView(props: AppDynamicsMainSetupView
   const [metricPackMap, setMetricPackMap] = useState<Map<string, MetricPack>>(new Map())
   const { configs, serviceOptions, envOptions, locationContext, indexedDB } = props
   const {
-    params: { accountId, projectIdentifier: routeProjectId, orgId: routeOrgId },
+    params: { accountId, projectIdentifier: routeProjectId, orgIdentifier: routeOrgId },
     query: { dataSourceId: routeDataSourceId }
   } = useRouteParams()
   const dataSourceId = (routeDataSourceId as string) || locationContext.dataSourceId

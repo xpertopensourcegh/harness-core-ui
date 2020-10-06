@@ -44,9 +44,9 @@ const ProductOptions: { [datasourceType: string]: Array<{ item: TypeCard }> } = 
 function getLinkForCreationFlow(dataSource: string, projectIdentifier: string, orgId: string): string {
   switch (dataSource) {
     case DataSourceRoutePaths.SPLUNK:
-      return routeCVSplunkInputTypePage.url({ dataSourceType: dataSource, orgId, projectIdentifier })
+      return routeCVSplunkInputTypePage.url({ dataSourceType: dataSource, orgIdentifier: orgId, projectIdentifier })
     default:
-      return routeCVDataSourcesEntityPage.url({ dataSourceType: dataSource, orgId, projectIdentifier })
+      return routeCVDataSourcesEntityPage.url({ dataSourceType: dataSource, orgIdentifier: orgId, projectIdentifier })
   }
 }
 
@@ -81,7 +81,7 @@ export default function AppDynamicsProductPage(): JSX.Element {
       accountId,
       dataSourceType: routeDataSourceType = '',
       projectIdentifier: routeProjectId,
-      orgId: routeOrgId
+      orgIdentifier: routeOrgId
     },
     query: { dataSourceId: routeDataSourceId = '' }
   } = useRouteParams()
@@ -129,7 +129,7 @@ export default function AppDynamicsProductPage(): JSX.Element {
   const urlParams = useMemo(
     () => ({
       pathname: pageData.isEdit
-        ? routeCVOnBoardingSetup.url({ dataSourceType, projectIdentifier: projectId, orgId })
+        ? routeCVOnBoardingSetup.url({ dataSourceType, projectIdentifier: projectId, orgIdentifier: orgId })
         : getLinkForCreationFlow(dataSourceType, projectId, orgId),
       search: `?dataSourceId=${dataSourceId}`,
       state: { products: selectedProducts, isEdit: pageData.isEdit, dataSourceId }

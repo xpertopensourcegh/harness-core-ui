@@ -180,7 +180,7 @@ function moveToDataSourceProductPage(
     pathname: routeCVDataSourcesProductPage.url({
       dataSourceType: VerificationTypeToRouteVerificationType[mapType(type)],
       projectIdentifier: projectId,
-      orgId
+      orgIdentifier: orgId
     }),
     search: `?dataSourceId=${dataSourceId}`,
     state: contextualData
@@ -282,7 +282,7 @@ function CVConnectorListTable(props: CVConnectorListTableProps): JSX.Element {
             pathname: routeCVDataSourcesProductPage.url({
               dataSourceType: originalData.dataSourceRoute,
               projectIdentifier: projectId,
-              orgId
+              orgIdentifier: orgId
             }),
             search: `?dataSourceId=${originalData.identifier}`,
             state: { dataSourceId: originalData.identifier, isEdit: true }

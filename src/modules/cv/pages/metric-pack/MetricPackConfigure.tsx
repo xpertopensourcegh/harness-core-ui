@@ -1,10 +1,12 @@
 import React, { FunctionComponent, useState, useEffect } from 'react'
-import { Button, OverlaySpinner, Text } from '@wings-software/uikit'
+import { Button, Color, Container, Heading, OverlaySpinner, Text } from '@wings-software/uikit'
 import { accountId, RouteVerificationTypeToVerificationType } from 'modules/cv/constants'
 import { useRouteParams } from 'framework/exports'
+import { Page } from 'modules/common/exports'
 import { fetchMetricPacks, saveGlobalMetricPacks } from '../../services/CVNextGenCVConfigService'
 import ConfigureThreshold from './ConfigureThreshold'
 import { MetricPackTable } from '../../components/MetricPackTable/MetricPackTable'
+import i18n from './MetricPackConfigure.i18n'
 import css from './MetricPackConfigure.module.scss'
 
 const MetricPackConfigure: FunctionComponent<any> = () => {
@@ -68,48 +70,51 @@ const MetricPackConfigure: FunctionComponent<any> = () => {
   function renderBody() {
     return (
       <OverlaySpinner show={inProgress}>
-        <div>
-          <div className={css.header}>
-            <h3> Configure Metric Pack </h3>
-            <Text> Add or remove metrics that make up a metric pack </Text>
-          </div>
-
-          <div className={css.packsContainer}>{renderMetricTables(metricPacks)}</div>
-
-          <div className={css.actionButtons}>
-            <Button
-              large
-              intent="primary"
-              text="Save"
-              width={120}
-              onClick={() => {
-                onSave(metricPacks)
-              }}
-              type="submit"
-            />
-          </div>
-        </div>
+        <Container>
+          <Container className={css.header}>
+            <Heading level={3} color={Color.BLACK} font={{ weight: 'bold', size: 'medium' }}>
+              {i18n.configureMetricPackText}
+            </Heading>
+            <Text>{i18n.configurePackSubtitle}</Text>
+          </Container>
+          <Container className={css.packsContainer}>{renderMetricTables(metricPacks)}</Container>
+          <Button
+            large
+            intent="primary"
+            text="Save"
+            className={css.actionButton}
+            width={120}
+            onClick={() => {
+              onSave(metricPacks)
+            }}
+            type="submit"
+          />
+        </Container>
       </OverlaySpinner>
     )
   }
 
   return (
-    <div className={css.main}>
-      <h2> Metric Packs </h2>
-      {!isEditingThreshold ? (
-        renderBody()
-      ) : (
-        <div className={css.thresholdSection}>
-          <ConfigureThreshold
-            metricPack={metricPacksThresholdData}
-            dataSourceType={RouteVerificationTypeToVerificationType['app-dynamics']}
-            onCancel={() => {
-              setIsEditingThreshold(false)
-            }}
-          />
-        </div>
-      )}
-    </div>
+    <>
+      <Page.Header title={i18n.titleText} />
+      <Page.Body>
+        <Container className={css.main}>
+          {!isEditingThreshold ? (
+            renderBody()
+          ) : (
+            <Container className={css.thresholdSection}>
+              <ConfigureThreshold
+                metricPack={metricPacksThresholdData}
+                dataSourceType={RouteVerificationTypeToVerificationType['app-dynamics']}
+                onCancel={() => {
+                  setIsEditingThreshold(false)
+                }}
+              />
+            </Container>
+          )}
+        </Container>
+      </Page.Body>
+    </>
   )
 }
 

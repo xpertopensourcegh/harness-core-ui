@@ -14,7 +14,7 @@ export default function SplunkInputType(): JSX.Element {
   const history = useHistory()
   const {
     query,
-    params: { projectIdentifier: routeProjectId, orgId: routeOrgId }
+    params: { projectIdentifier: routeProjectId, orgIdentifier: routeOrgId }
   } = useRouteParams()
   const { state: locationContext = {} } = useLocation()
   const projectId: string = (routeProjectId as string) || ''
@@ -41,7 +41,7 @@ export default function SplunkInputType(): JSX.Element {
                 pathname: routeCVOnBoardingSetup.url({
                   dataSourceType: DataSourceRoutePaths.SPLUNK,
                   projectIdentifier: projectId,
-                  orgId
+                  orgIdentifier: orgId
                 }),
                 search: `?dataSourceId=${query.dataSourceId}`,
                 state: locationContext
@@ -57,7 +57,7 @@ export default function SplunkInputType(): JSX.Element {
                 pathname: routeCVDataSourcesEntityPage.url({
                   dataSourceType: DataSourceRoutePaths.SPLUNK,
                   projectIdentifier: projectId,
-                  orgId
+                  orgIdentifier: orgId
                 }),
                 search: `?dataSourceId=${query.dataSourceId}`,
                 state: locationContext

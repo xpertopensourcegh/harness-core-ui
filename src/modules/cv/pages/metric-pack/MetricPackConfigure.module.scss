@@ -20,9 +20,10 @@
     margin-left: 24px;
   }
 
-  .actionButtons {
-    display: flex;
-    justify-content: flex-end;
+  .actionButton {
+    position: relative;
+    left: 62%;
+    top: 50px;
     margin-top: 24px;
   }
 }

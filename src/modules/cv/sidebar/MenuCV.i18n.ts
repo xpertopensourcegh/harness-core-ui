@@ -5,7 +5,8 @@ export default {
     dataSource: 'Data Sources',
     activites: 'Activities',
     dashboard: 'Dashboard',
-    services: 'Services'
+    services: 'Services',
+    metricPacks: 'Metric Packs'
   },
   adminSideNavLinks: {
     resources: 'Resources',

@@ -82,7 +82,7 @@ function transformIncomingDSConfigs(savedConfig: DSConfig[], verificationProvide
 
 export default function DataSourceSetupPage(): JSX.Element {
   const {
-    params: { accountId, dataSourceType, projectIdentifier: routeProjectId, orgId: routeOrgId },
+    params: { accountId, dataSourceType, projectIdentifier: routeProjectId, orgIdentifier: routeOrgId },
     query: { dataSourceId: routeDataSourceId = '' }
   } = useRouteParams()
   const { pageData, dbInstance, isInitializingDB } = useOnBoardingPageDataHook<PageContextData>(
