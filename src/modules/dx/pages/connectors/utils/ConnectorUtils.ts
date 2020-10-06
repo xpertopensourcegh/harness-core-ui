@@ -124,6 +124,42 @@ export const buildKubPayload = (formData: FormData) => {
   return { connector: savedData }
 }
 
+export const buildAWSPayload = (formData: FormData) => {
+  const savedData = {
+    name: formData.name,
+    description: formData.description,
+    projectIdentifier: formData.projectIdentifier,
+    identifier: formData.identifier,
+    orgIdentifier: formData.orgIdentifier,
+    tags: formData.tags,
+    type: Connectors.AWS,
+    spec: {
+      credential: {
+        type: formData.credential,
+        spec:
+          formData.credential === DelegateTypes.DELEGATE_IN_CLUSTER
+            ? {
+                delegateSelector: formData.delegateSelector
+              }
+            : {
+                accessKey: formData.accessKey,
+                secretKeyRef: getScopedSecretString(
+                  formData.secretKeyRefSecret?.scope,
+                  formData.secretKeyRefSecret?.secretId
+                )
+              },
+        crossAccountAccess: formData.crossAccountAccess
+          ? {
+              crossAccountRoleArn: formData.crossAccountRoleArn,
+              externalId: formData.externalId
+            }
+          : null
+      }
+    }
+  }
+  return { connector: savedData }
+}
+
 export const buildDockerPayload = (formData: FormData) => {
   const savedData = {
     name: formData.name,
@@ -242,6 +278,8 @@ export const getIconByType = (type: ConnectorInfoDTO['type'] | undefined): IconN
       return 'service-splunk'
     case Connectors.DOCKER:
       return 'service-dockerhub'
+    case Connectors.AWS:
+      return 'service-aws'
     default:
       return 'cog'
   }
@@ -268,6 +306,8 @@ export const getConnectorDisplayName = (type: string) => {
       return 'AppDynamics server'
     case Connectors.SPLUNK:
       return 'Splunk server'
+    case Connectors.AWS:
+      return 'AWS'
     default:
       return ''
   }

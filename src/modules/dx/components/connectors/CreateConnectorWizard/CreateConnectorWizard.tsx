@@ -7,6 +7,7 @@ import type { ConnectorRequestBody, ConnectorInfoDTO } from 'services/cd-ng'
 import CreateAppDynamicsConnector from '../CreateConnector/AppDynamicsConnector/CreateAppDynamicsConnector'
 import CreateSplunkConnector from '../CreateConnector/SplunkConnector/CreateSplunkConnector'
 import CreateDockerConnector from '../CreateConnector/DockerConnector/CreateDockerConnector'
+import CreateAWSConnector from '../CreateConnector/AWSConnector/CreateAWSConnector'
 import css from './CreateConnectorWizard.module.scss'
 
 interface CreateConnectorWizardProps {
@@ -67,6 +68,9 @@ export const ConnectorWizard: React.FC<CreateConnectorWizardProps> = props => {
       )
     case Connectors.DOCKER:
       return <CreateDockerConnector onConnectorCreated={props.onSuccess} hideLightModal={hideLightModal} />
+
+    case Connectors.AWS:
+      return <CreateAWSConnector onConnectorCreated={props.onSuccess} hideLightModal={hideLightModal} />
     default:
       return null
   }

@@ -14,7 +14,8 @@ export const Connectors: ConnectorType = {
   SPLUNK: 'Splunk',
   DOCKER: 'DockerRegistry',
   GCP_KMS: 'GcpKms',
-  LOCAL: 'Local'
+  LOCAL: 'Local',
+  AWS: 'Aws'
 }
 
 export const ConnectorInfoText = {
@@ -26,7 +27,8 @@ export const ConnectorInfoText = {
   DOCKER: 'Docker',
   YAML: 'Create via YAML Builder',
   GCP_KMS: 'Secret Manager',
-  LOCAL: 'Secret Manager'
+  LOCAL: 'Secret Manager',
+  AWS: 'AWS'
 }
 export const ConnectorStatus: ConnectorStatusType = {
   SUCCESS: 'SUCCESS',

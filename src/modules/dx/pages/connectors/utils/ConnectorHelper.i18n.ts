@@ -9,8 +9,10 @@ export default {
     secretManager: 'Secret Manager',
     appdynamics: 'AppDynamics connector',
     splunk: 'Splunk connector',
-    docker: 'Docker Connector'
+    docker: 'Docker Connector',
+    aws: 'AWS Connector'
   },
   appDynamicsDetails: 'AppDynamics Connector Details',
-  splunkConnectorDetails: 'Splunk Connector Details'
+  splunkConnectorDetails: 'Splunk Connector Details',
+  awsConnectorDetails: 'AWS Connector Details'
 }

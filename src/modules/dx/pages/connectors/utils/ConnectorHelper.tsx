@@ -57,6 +57,8 @@ export const getHeadingByType = (type: string) => {
       return i18n.splunkConnectorDetails
     case Connectors.DOCKER:
       return i18n.dockerConnectorDetails
+    case Connectors.AWS:
+      return i18n.awsConnectorDetails
     default:
       return null
   }
@@ -78,6 +80,8 @@ export const getConnectorTextByType = (type: string) => {
       return i18n.LABEL.splunk
     case Connectors.DOCKER:
       return i18n.LABEL.docker
+    case Connectors.AWS:
+      return i18n.LABEL.aws
     default:
       return null
   }
