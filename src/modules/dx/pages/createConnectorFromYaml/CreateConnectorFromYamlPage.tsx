@@ -4,7 +4,7 @@ import { parse } from 'yaml'
 import { useHistory, useParams, useLocation } from 'react-router-dom'
 
 import YAMLBuilder from 'modules/common/components/YAMLBuilder/YamlBuilder'
-import { addIconInfoToSnippets } from 'modules/common/components/YAMLBuilder/YAMLBuilderUtils'
+import { addIconInfoToSnippets, pickIconForEntity } from 'modules/common/components/YAMLBuilder/YAMLBuilderUtils'
 import { YamlEntity } from 'modules/common/constants/YamlConstants'
 import { PageBody } from 'modules/common/components/Page/PageBody'
 import { PageHeader } from 'modules/common/components/Page/PageHeader'
@@ -13,6 +13,7 @@ import { useCreateConnector } from 'services/cd-ng'
 import { useToaster } from 'modules/common/exports'
 import { YAMLService } from 'modules/dx/services'
 import type { SnippetInterface } from 'modules/common/interfaces/SnippetInterface'
+import { Connectors } from 'modules/dx/constants'
 import i18n from './CreateConnectorFromYaml.i18n'
 
 const CreateConnectorFromYamlPage: React.FC = () => {
@@ -25,19 +26,35 @@ const CreateConnectorFromYamlPage: React.FC = () => {
 
   const { pathname } = useLocation()
 
+  //TODO @vardan convert to Promise.all when apis are available
   const fetchSnippets = (query?: string): void => {
-    const { error: apiError, response: snippetsList } = YAMLService.fetchSnippets(YamlEntity.CONNECTOR, query) || {}
-    if (apiError) {
-      showError(apiError)
+    const { error: errorWhileFethingK8sSnippets, response: k8sConnSnippets } =
+      YAMLService.fetchSnippets(YamlEntity.CONNECTOR, Connectors.KUBERNETES_CLUSTER, query) || {}
+    const { error: errorWhileFethingGitSnippets, response: gitConnSnippets } =
+      YAMLService.fetchSnippets(YamlEntity.CONNECTOR, Connectors.GIT, query) || {}
+    const { error: errorWhileFethingDockerSnippets, response: dockerConnSnippets } =
+      YAMLService.fetchSnippets(YamlEntity.CONNECTOR, Connectors.DOCKER, query) || {}
+    if (errorWhileFethingK8sSnippets) {
+      showError(errorWhileFethingK8sSnippets)
       return
     }
-    addIconInfoToSnippets('command-shell-script', snippetsList)
-    setSnippets(snippetsList)
+    if (errorWhileFethingGitSnippets) {
+      showError(errorWhileFethingGitSnippets)
+      return
+    }
+    if (errorWhileFethingDockerSnippets) {
+      showError(errorWhileFethingDockerSnippets)
+      return
+    }
+    addIconInfoToSnippets(pickIconForEntity(Connectors.KUBERNETES_CLUSTER), k8sConnSnippets)
+    addIconInfoToSnippets(pickIconForEntity(Connectors.GIT), gitConnSnippets)
+    addIconInfoToSnippets(pickIconForEntity(Connectors.DOCKER), dockerConnSnippets)
+    setSnippets([...(k8sConnSnippets || []), ...(gitConnSnippets || []), ...(dockerConnSnippets || [])])
   }
 
   useEffect(() => {
     fetchSnippets()
-  })
+  }, [])
 
   const handleCreate = async (): Promise<void> => {
     const yamlData = yamlHandler?.getLatestYaml()
@@ -69,6 +86,7 @@ const CreateConnectorFromYamlPage: React.FC = () => {
             entityType={YamlEntity.CONNECTOR}
             bind={setYamlHandler}
             snippets={snippets}
+            showIconMenu={true}
           />
           <Button text="Create" intent="primary" margin={{ top: 'xlarge' }} onClick={handleCreate} />
         </Container>

@@ -50,6 +50,7 @@ exports[`Snippets tests Initial render should match snapshot 1`] = `
         </div>
         <div
           class="snippets"
+          style="overflow: auto;"
         >
           <div
             class="flexCenter snippet"

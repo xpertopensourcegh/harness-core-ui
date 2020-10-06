@@ -1,0 +1,11 @@
+{
+  "error": null,
+  "response": [
+    {
+      "name": "Docker with Username and Password",
+      "version": "0.1",
+      "description": "Docker with Username and Password",
+      "yaml": "connector:\r\n  name: SampleDockerConnector\r\n  identifier: SampleDockerConnectorId\r\n  description: Sample Docker Connector\r\n  orgIdentifier: orgId\r\n  projectIdentifier: projectId\r\n  tags:\r\n    - tag1_key : tag1_value\r\n  type: DockerRegistry\r\n  spec:\r\n    dockerRegistryUrl: somedockerregistryurl\r\n    auth:\r\n      type: UsernamePassword\r\n      spec:\r\n        username: someuser\r\n        passwordRef: somepasswordref"
+    }
+  ]
+}

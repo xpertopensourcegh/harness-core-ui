@@ -13,23 +13,26 @@ interface SnippetDetailsProps {
   selectedIcon?: string
   snippets?: SnippetInterface[]
   onSnippetSearch?: (query: string) => void
+  height?: React.CSSProperties['height']
 }
 
 const SnippetDetails: React.FC<SnippetDetailsProps> = props => {
+  const { height, onSnippetSearch, entityType } = props
   const [snippets, setSnippets] = useState<SnippetInterface[]>()
   const [searchedSnippet, setSearchedSnippet] = useState('')
 
-  const onSnippetSearch = (event: React.ChangeEvent<HTMLInputElement>): void => {
+  const handleSnippetSearch = (event: React.ChangeEvent<HTMLInputElement>): void => {
     event.preventDefault()
     const query = event.target.value
     setSearchedSnippet(query)
-    props.onSnippetSearch?.(query)
+    onSnippetSearch?.(query)
+    alert('TBD')
   }
 
   const onSearchClear = (event: React.MouseEvent<HTMLElement>): void => {
     event.preventDefault()
     setSearchedSnippet('')
-    props.onSnippetSearch?.('')
+    onSnippetSearch?.('')
   }
 
   //TODO Handle icon click when apis are ready
@@ -40,7 +43,7 @@ const SnippetDetails: React.FC<SnippetDetailsProps> = props => {
   return (
     <div className={css.main}>
       <div className={css.title}>
-        {props.entityType}&nbsp;
+        {entityType}&nbsp;
         {i18n.title}
       </div>
       <div className={css.searchBar}>
@@ -51,7 +54,7 @@ const SnippetDetails: React.FC<SnippetDetailsProps> = props => {
           placeholder="Search"
           name="snippet-search"
           className={css.search}
-          onChange={onSnippetSearch}
+          onChange={handleSnippetSearch}
           value={searchedSnippet}
         />
         {searchedSnippet ? (
@@ -60,7 +63,7 @@ const SnippetDetails: React.FC<SnippetDetailsProps> = props => {
           </span>
         ) : null}
       </div>
-      <div className={css.snippets}>
+      <div className={css.snippets} style={{ maxHeight: height, overflow: 'auto' }}>
         {snippets?.map(snippet => (
           <Snippet key={snippet.name} {...snippet} />
         ))}

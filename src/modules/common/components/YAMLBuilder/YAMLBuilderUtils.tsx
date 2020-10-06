@@ -2,6 +2,9 @@ import type { IconName } from '@wings-software/uikit'
 import type { SnippetInterface } from 'modules/common/interfaces/SnippetInterface'
 import type { Diagnostic } from 'vscode-languageserver-types'
 import { parse } from 'yaml'
+import { Connectors } from 'modules/dx/constants'
+import type { DetailedReactHTMLElement } from 'react'
+import React from 'react'
 
 const DEFAULT_YAML_PATH = 'DEFAULT_YAML_PATH'
 
@@ -159,10 +162,47 @@ const addIconInfoToSnippets = (iconName: IconName, snippetsList?: SnippetInterfa
   })
 }
 
+const pickIconForEntity = (entity: string): IconName => {
+  switch (entity) {
+    case Connectors.KUBERNETES_CLUSTER:
+      return 'service-kubernetes' as IconName
+    case Connectors.GIT:
+      return 'service-github' as IconName
+    case Connectors.DOCKER:
+      return 'service-dockerhub' as IconName
+    default:
+      return 'main-code-yaml' as IconName
+  }
+}
+
+/**
+ * Get formatted HTML of list items
+ * @param errorMap yaml path to validation error map
+ */
+const getValidationErrorMessagesForToaster = (
+  errorMap: Map<string, string[]>
+): DetailedReactHTMLElement<{ id: string }, HTMLElement> => {
+  const errorRenderItemList: JSX.Element[] = []
+  errorMap.forEach((values: string[], key: string) => {
+    errorRenderItemList.push(
+      <li key={key}>
+        In{' '}
+        <b>
+          <i>{key}</i>
+        </b>
+        , {values?.map((value: string) => value.replace('.', '').toLowerCase()).join(', ')}
+      </li>
+    )
+  })
+  return React.createElement('ul', { id: 'ul-errors' }, errorRenderItemList)
+}
+
 export {
   findLeafToParentPath,
   getYAMLFromEditor,
   getMetaDataForKeyboardEventProcessing,
   getYAMLPathToValidationErrorMap,
-  addIconInfoToSnippets
+  addIconInfoToSnippets,
+  pickIconForEntity,
+  getValidationErrorMessagesForToaster
 }

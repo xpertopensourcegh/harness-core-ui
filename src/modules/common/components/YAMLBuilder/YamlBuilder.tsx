@@ -7,7 +7,6 @@ import 'monaco-editor'
 import YamlWorker from 'worker-loader!@wings-software/monaco-yaml/lib/esm/yaml.worker'
 //@ts-ignore
 import EditorWorker from 'worker-loader!monaco-editor/esm/vs/editor/editor.worker'
-import { Toaster, Intent } from '@blueprintjs/core'
 import cx from 'classnames'
 import { stringify } from 'yaml'
 import { Tag, Layout, Icon } from '@wings-software/uikit'
@@ -28,6 +27,7 @@ import {
 import css from './YamlBuilder.module.scss'
 import { debounce } from 'lodash-es'
 import type { Diagnostic } from 'vscode-languageserver-types'
+import { useToaster } from 'modules/common/exports'
 
 //@ts-ignore
 monaco.editor.defineTheme('vs', {
@@ -52,7 +52,8 @@ window.MonacoEnvironment = {
   }
 }
 
-const toaster = Toaster.create()
+const DEFAULT_EDITOR_HEIGHT = '600px'
+const DEFAULT_EDITOR_WIDTH = '800px'
 
 const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
   const {
@@ -82,6 +83,7 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
   const KEY_CODE_FOR_DOLLAR_SIGN = 'Digit4'
   const KEY_CODE_FOR_SEMI_COLON = 'Semicolon'
   const KEY_CODE_FOR_PERIOD = 'Period'
+  const { showError } = useToaster()
 
   const handler = React.useMemo(
     () =>
@@ -141,7 +143,7 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
         }
       })
       .catch((error: string) => {
-        toaster.show({ message: error, intent: Intent.DANGER, timeout: 5000 })
+        showError(error, 5000)
       })
   }
 
@@ -267,8 +269,8 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
           </div>
           <div className={css.editor}>
             <MonacoEditor
-              width={width ?? '800px'}
-              height={height ?? '600px'}
+              width={width ?? DEFAULT_EDITOR_WIDTH}
+              height={height ?? DEFAULT_EDITOR_HEIGHT}
               language="yaml"
               value={currentYaml}
               onChange={debounce(onYamlChange, 200)}
@@ -288,6 +290,7 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
             entityType={entityType}
             snippets={snippets}
             onSnippetSearch={onSnippetSearch}
+            height={height ?? DEFAULT_EDITOR_HEIGHT}
           />
         ) : null}
       </Layout.Horizontal>

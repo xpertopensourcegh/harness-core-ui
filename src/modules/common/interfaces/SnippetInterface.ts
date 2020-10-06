@@ -14,4 +14,6 @@ export interface SnippetSectionProps {
   showIconMenu?: boolean
   snippets?: SnippetInterface[]
   onSnippetSearch?: (query: string) => void
+  height?: React.CSSProperties['height']
+  width?: React.CSSProperties['width']
 }

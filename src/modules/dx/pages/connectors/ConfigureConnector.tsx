@@ -5,7 +5,11 @@ import cx from 'classnames'
 import { useToaster } from 'modules/common/exports'
 import type { ConnectorInfoDTO, ConnectorRequestBody, ConnectorResponse } from 'services/cd-ng'
 import YamlBuilder from 'modules/common/components/YAMLBuilder/YamlBuilder'
-import { addIconInfoToSnippets } from 'modules/common/components/YAMLBuilder/YAMLBuilderUtils'
+import {
+  addIconInfoToSnippets,
+  pickIconForEntity,
+  getValidationErrorMessagesForToaster
+} from 'modules/common/components/YAMLBuilder/YAMLBuilderUtils'
 import { YamlEntity } from 'modules/common/constants/YamlConstants'
 import type { SnippetInterface } from 'modules/common/interfaces/SnippetInterface'
 import { YAMLService } from 'modules/dx/services'
@@ -86,17 +90,6 @@ const ConfigureConnector: React.FC<ConfigureConnectorProps> = props => {
     }
   }
 
-  const getValidationErrorMessagesForToaster = (errorMap: Map<string, string[]>): string => {
-    let toasterErrorMssg = ''
-    errorMap.forEach((values: string[], key: string) => {
-      toasterErrorMssg = toasterErrorMssg
-        .concat(`In property ${key}, `)
-        .concat(values.map((value: string) => value.replace('.', '').toLowerCase()).join(', '))
-        .concat('\n')
-    })
-    return toasterErrorMssg
-  }
-
   const handleModeSwitch = (targetMode: string): void => {
     const { getLatestYaml, getYAMLValidationErrorMap } = yamlHandler || {}
     if (targetMode === SelectedView.VISUAL) {
@@ -145,13 +138,14 @@ const ConfigureConnector: React.FC<ConfigureConnectorProps> = props => {
     }
   }
 
-  const fetchSnippets = (query?: string): void => {
-    const { error, response: snippetsList } = YAMLService.fetchSnippets(YamlEntity.CONNECTOR, query) || {}
+  const fetchSnippets = (connectorType: string, query?: string): void => {
+    const { error, response: snippetsList } =
+      YAMLService.fetchSnippets(YamlEntity.CONNECTOR, connectorType, query) || {}
     if (error) {
       showError(error)
       return
     }
-    addIconInfoToSnippets('command-shell-script', snippetsList)
+    addIconInfoToSnippets(pickIconForEntity(connectorType), snippetsList)
     setSnippets(snippetsList)
   }
 
@@ -161,11 +155,12 @@ const ConfigureConnector: React.FC<ConfigureConnectorProps> = props => {
     existingJSON: { connector: connectorForYaml },
     snippets: snippets,
     onSnippetSearch: fetchSnippets,
-    bind: setYamlHandler
+    bind: setYamlHandler,
+    width: 900
   }
 
   useEffect(() => {
-    fetchSnippets()
+    fetchSnippets(connector?.type)
   })
 
   useEffect(() => {

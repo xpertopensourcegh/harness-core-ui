@@ -1,4 +1,5 @@
 import { Toaster, Position, IToaster, Intent } from '@blueprintjs/core'
+import type { ReactNode } from 'react'
 import css from './useToaster.module.scss'
 
 const toaster = Toaster.create({
@@ -8,7 +9,7 @@ const toaster = Toaster.create({
 
 export interface ToasterProps extends IToaster {
   showSuccess: (message: string) => void
-  showError: (message: string, timeout?: number) => void
+  showError: (message: string | ReactNode, timeout?: number) => void
   showWarning: (message: string) => void
 }
 
@@ -16,7 +17,7 @@ const showSuccess = (message: string): void => {
   toaster.show({ message, intent: Intent.SUCCESS, icon: 'tick' })
 }
 
-const showError = (message: string, timeout?: number): void => {
+const showError = (message: string | ReactNode, timeout?: number): void => {
   toaster.show({ message, intent: Intent.DANGER, icon: 'error', timeout })
 }
 

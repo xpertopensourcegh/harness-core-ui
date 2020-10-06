@@ -13,6 +13,10 @@
           "type": "string",
           "description": "Non-changeable identifier of the connector, can not contain spaces or special chars. Required"
         },
+        "description": {
+          "type": "string",
+          "description": "Name of the connector. Required"
+        },
         "orgIdentifier": {
           "type": "string",
           "description": "Org ID. OPTIONAL"
@@ -277,6 +281,9 @@
                       "enabled": {
                         "type": "boolean"
                       },
+                      "syncEnabled": {
+                        "type": "boolean"
+                      },
                       "customCommitAttributes": {
                         "properties": {
                           "authorName": {
@@ -290,9 +297,12 @@
                           }
                         }
                       }
-                    }
+                    },
+                    "additionalProperties": false
                   }
                 },
+                "required": ["connectionType", "url", "type", "gitSync", "branchName", "spec"],
+                "additionalProperties": false,
                 "allOf": [
                   {
                     "if": {
@@ -405,14 +415,15 @@
                     ]
                   }
                 },
-                "required": ["dockerRegistryUrl", "auth"]
+                "required": ["dockerRegistryUrl", "auth", "spec"],
+                "additionalProperties": false
               }
             }
           }
         }
       ],
       "required": ["name", "identifier", "type", "spec"],
-      "additionalProperties": true
+      "additionalProperties": false
     }
   }
 }
