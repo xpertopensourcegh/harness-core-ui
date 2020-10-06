@@ -180,11 +180,17 @@ export default function ServiceSpecifications(): JSX.Element {
     updatePipeline(pipeline)
   }
 
-  const getInitialValues = (): { serviceName: string; description: string; tags: null | string[] } => {
+  const getInitialValues = (): {
+    serviceName: string
+    description: string
+    tags: null | string[]
+    identifier: string
+  } => {
     const pipelineData = stage?.['stage']?.['spec']?.['service'] || null
     const serviceName = pipelineData?.name || ''
+    const identifier = pipelineData?.identifier || ''
     const description = pipelineData?.description || ''
-    return { serviceName: serviceName, description: description, tags: null }
+    return { serviceName: serviceName, description: description, tags: null, identifier }
   }
 
   const handleTabChange = (data: string): void => {
@@ -359,7 +365,7 @@ export default function ServiceSpecifications(): JSX.Element {
               validate={value => {
                 if (stage) {
                   const serviceObj = stage['stage']['spec']['service']
-                  serviceObj['identifier'] = value.serviceName
+                  serviceObj['identifier'] = value.identifier
                   serviceObj['name'] = value.serviceName
                   serviceObj['description'] = value.description
                   // serviceObj['tags'] = value.tags
@@ -377,11 +383,10 @@ export default function ServiceSpecifications(): JSX.Element {
                 return (
                   <FormikForm>
                     <Layout.Horizontal spacing="medium">
-                      <FormInput.Text
-                        name="serviceName"
-                        style={{ width: 300 }}
-                        label={i18n.serviceNameLabel}
-                        placeholder={i18n.serviceNamePlaceholderText}
+                      <FormInput.InputWithIdentifier
+                        inputName="serviceName"
+                        inputLabel={i18n.serviceNameLabel}
+                        inputGroupProps={{ placeholder: i18n.serviceNamePlaceholderText, className: css.name }}
                       />
                       <div className={css.addDataLinks}>
                         <Button

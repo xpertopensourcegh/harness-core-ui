@@ -15,6 +15,9 @@
   .propagatedropdown {
     margin-top: var(--spacing-small);
   }
+  .name {
+    width: 300px;
+  }
   :global {
     .bp3-tab-panel {
       margin: 0;

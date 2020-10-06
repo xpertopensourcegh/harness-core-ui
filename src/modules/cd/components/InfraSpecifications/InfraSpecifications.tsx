@@ -33,7 +33,8 @@ interface InfraDetail {
 export default function InfraSpecifications(): JSX.Element {
   const [isDescriptionVisible, setDescriptionVisible] = React.useState(false)
   const [isTagsVisible, setTagsVisible] = React.useState(false)
-
+  const [initialValues, setInitialValues] = React.useState<{}>()
+  const [updateKey, setUpdateKey] = React.useState(0)
   const {
     state: {
       pipeline,
@@ -55,9 +56,14 @@ export default function InfraSpecifications(): JSX.Element {
       description: description,
       tags: null,
       infraType: environment?.type,
-      identifier: ''
+      identifier: environment?.identifier || ''
     }
   }
+
+  React.useEffect(() => {
+    setInitialValues(getInitialInfraConnectorValues())
+    setUpdateKey(Math.random())
+  }, [stage])
 
   const getInitialInfraConnectorValues = (): K8SDirectInfrastructure => {
     const infrastructure = get(stage, 'stage.spec.infrastructure.infrastructureDefinition', null)
@@ -77,7 +83,7 @@ export default function InfraSpecifications(): JSX.Element {
       const infraDetail = pipelineData?.infrastructure?.environment
       if (infraDetail) {
         infraDetail['name'] = value.infraName
-        infraDetail['identifier'] = value.identifier
+        infraDetail['identifier'] = value.identifier || ''
         infraDetail['description'] = value.description
         infraDetail['type'] = value.infraType
 
@@ -87,7 +93,7 @@ export default function InfraSpecifications(): JSX.Element {
       const infraStruct = {
         environment: {
           name: value.infraName,
-          identifier: value.identifier,
+          identifier: value.identifier || '',
           description: value.description,
           type: value.infraType
         },
@@ -116,7 +122,7 @@ export default function InfraSpecifications(): JSX.Element {
       const infra = {
         environment: {
           name: value.infraName,
-          identifier: value.identifier,
+          identifier: value.identifier || '',
           description: value.description,
           type: value.infraType
         },
@@ -234,8 +240,8 @@ export default function InfraSpecifications(): JSX.Element {
       </Layout.Vertical>
       <StepWidget<K8SDirectInfrastructure>
         factory={factory}
-        key={Math.random()}
-        initialValues={getInitialInfraConnectorValues()}
+        key={updateKey}
+        initialValues={initialValues || {}}
         type={StepType.KubernetesInfraSpec}
         stepViewType={StepViewType.Edit}
         onUpdate={value => onUpdateDefinition(value)}

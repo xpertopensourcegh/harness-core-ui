@@ -5,6 +5,7 @@ declare const styles: {
   readonly serviceStageSelection: string
   readonly activeMode: string
   readonly propagatedropdown: string
+  readonly name: string
   readonly addDataLinks: string
   readonly removeLink: string
   readonly specTabs: string
