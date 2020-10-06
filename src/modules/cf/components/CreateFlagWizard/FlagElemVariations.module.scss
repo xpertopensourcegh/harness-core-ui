@@ -1,0 +1,53 @@
+.input-select-flag-type {
+  width: 35%;
+  padding: 0 var(--spacing-small) 0 0 !important;
+}
+
+.spacing-select-variation {
+  padding: 0 0 0 var(--spacing-small) !important;
+  align-self: center;
+  width: 30% !important;
+  height: 32px !important;
+  input {
+    border: 1px solid var(--grey-300) !important;
+  }
+}
+
+.spacing-elem-variation {
+  padding-left: var(--spacing-small);
+  margin-right: var(--spacing-small);
+}
+
+.collapse-container {
+  align-self: center;
+  & > div {
+    border: 0 !important;
+  }
+}
+
+.btns-group {
+  .test-ff-btn {
+    margin-left: auto !important;
+  }
+}
+
+.btns-group-boolean {
+  position: absolute;
+  bottom: 0;
+  width: 100% !important;
+}
+
+.serve-text-align {
+  height: 38px;
+  align-self: center;
+}
+
+.tooltip-multi-flag {
+  & > div {
+    p {
+      padding: var(--spacing-large) !important;
+      width: 300px !important;
+      font-size: var(--font-size-small) !important;
+    }
+  }
+}

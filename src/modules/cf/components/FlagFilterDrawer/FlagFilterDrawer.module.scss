@@ -1,0 +1,10 @@
+.flag-filter-btns {
+  position: fixed;
+  bottom: var(--spacing-large);
+}
+
+.save-filter-container {
+  :global(.bp3-control-indicator) {
+    margin-left: 0 !important;
+  }
+}

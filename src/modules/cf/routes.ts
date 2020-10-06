@@ -12,43 +12,65 @@ export const routeCFHome: Route = {
   component: React.lazy(() => import('./pages/home/CFHomePage'))
 }
 
-export const routeCFDashboard: Route<{ projectIdentifier: string }> = {
+export const routeCFDashboard: Route<{ orgIdentifier: string; projectIdentifier: string }> = {
   module: ModuleName.CF,
   sidebarId: SidebarIdentifier.CONTINUOUS_FEATURES,
-  path: '/cf/dashboard/projects/:projectIdentifier',
+  path: '/cf/dashboard/orgs/:orgIdentifier/projects/:projectIdentifier',
   title: i18n.dashboard,
   pageId: 'cf-dashboard',
-  url: ({ projectIdentifier }) => routeURL(routeCFDashboard, `/cf/dashboard/projects/${projectIdentifier}`),
+  url: ({ orgIdentifier, projectIdentifier }) =>
+    routeURL(routeCFDashboard, `/cf/dashboard/orgs/${orgIdentifier}/projects/${projectIdentifier}`),
   component: React.lazy(() => import('./pages/dashboard/CFDashboardPage'))
 }
 
-export const routeCFFeatureFlags: Route<{ projectIdentifier: string }> = {
+export const routeCFFeatureFlags: Route<{ orgIdentifier: string; projectIdentifier: string }> = {
   module: ModuleName.CF,
   sidebarId: SidebarIdentifier.CONTINUOUS_FEATURES,
-  path: '/cf/feature-flags/projects/:projectIdentifier',
+  path: '/cf/feature-flags/orgs/:orgIdentifier/projects/:projectIdentifier',
   title: i18n.featureFlags,
   pageId: 'cf-feature-flags',
-  url: ({ projectIdentifier }) => routeURL(routeCFDashboard, `/cf/feature-flags/projects/${projectIdentifier}`),
+  url: ({ orgIdentifier, projectIdentifier }) =>
+    routeURL(routeCFDashboard, `/cf/feature-flags/orgs/${orgIdentifier}/projects/${projectIdentifier}`),
   component: React.lazy(() => import('./pages/feature-flags/CFFeatureFlagsPage'))
 }
 
-export const routeCFTargets: Route<{ projectIdentifier: string }> = {
+export const routeCFFeatureFlagsDetail: Route<{
+  orgIdentifier: string
+  projectIdentifier: string
+  featureFlagIdentifier: string
+}> = {
   module: ModuleName.CF,
   sidebarId: SidebarIdentifier.CONTINUOUS_FEATURES,
-  path: '/cf/targets/projects/:projectIdentifier',
+  path: '/cf/feature-flags/orgs/:orgIdentifier/projects/:projectIdentifier/feature-flags/:featureFlagIdentifier',
+  title: i18n.featureFlags,
+  pageId: 'cf-feature-flags-detail',
+  url: ({ orgIdentifier, projectIdentifier, featureFlagIdentifier }) =>
+    routeURL(
+      routeCFFeatureFlagsDetail,
+      `/cf/feature-flags/orgs/${orgIdentifier}/projects/${projectIdentifier}/feature-flags/${featureFlagIdentifier}`
+    ),
+  component: React.lazy(() => import('./pages/feature-flags-detail/CFFeatureFlagsDetailPage'))
+}
+
+export const routeCFTargets: Route<{ orgIdentifier: string; projectIdentifier: string }> = {
+  module: ModuleName.CF,
+  sidebarId: SidebarIdentifier.CONTINUOUS_FEATURES,
+  path: '/cf/targets/orgs/:orgIdentifier/projects/:projectIdentifier',
   title: i18n.targets,
   pageId: 'cf-targets',
-  url: ({ projectIdentifier }) => routeURL(routeCFDashboard, `/cf/targets/projects/${projectIdentifier}`),
+  url: ({ orgIdentifier, projectIdentifier }) =>
+    routeURL(routeCFDashboard, `/cf/targets/orgs/${orgIdentifier}/projects/${projectIdentifier}`),
   component: React.lazy(() => import('./pages/targets/CFTargetsPage'))
 }
 
-export const routeCFWorkflows: Route<{ projectIdentifier: string }> = {
+export const routeCFWorkflows: Route<{ orgIdentifier: string; projectIdentifier: string }> = {
   module: ModuleName.CF,
   sidebarId: SidebarIdentifier.CONTINUOUS_FEATURES,
-  path: '/cf/workflows/projects/:projectIdentifier',
+  path: '/cf/workflows/orgs/:orgIdentifier/projects/:projectIdentifier',
   title: i18n.workflows,
   pageId: 'cf-workflows',
-  url: ({ projectIdentifier }) => routeURL(routeCFDashboard, `/cf/workflows/projects/${projectIdentifier}`),
+  url: ({ orgIdentifier, projectIdentifier }) =>
+    routeURL(routeCFDashboard, `/cf/workflows/orgs/${orgIdentifier}/projects/${projectIdentifier}`),
   component: React.lazy(() => import('./pages/workflows/CFWorkflowsPage'))
 }
 

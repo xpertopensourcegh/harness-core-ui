@@ -1,0 +1,34 @@
+.modal {
+  position: relative;
+  width: 1000px;
+  min-height: 600px;
+  background: var(--blue-800) !important;
+  border-left: 0 !important;
+  .close-icon {
+    position: absolute;
+    right: var(--spacing-small);
+    top: var(--spacing-xsmall);
+  }
+  .type-flag-container {
+    position: absolute;
+    bottom: 0;
+    & > p:first-child {
+      text-transform: uppercase;
+    }
+    .type-flag-btns {
+      display: flex;
+      align-items: center;
+      flex-flow: row wrap;
+      & > div:first-child {
+        margin-right: var(--spacing-medium);
+      }
+      .icon-ml {
+        margin-left: -5px;
+      }
+    }
+  }
+}
+
+.open-modal-btn {
+  padding: var(--spacing-small) var(--spacing-huge) !important;
+}

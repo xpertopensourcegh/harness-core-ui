@@ -1,0 +1,37 @@
+.env-select {
+  width: 200px !important;
+}
+
+.test-flag-dialog {
+  width: 1000px;
+  height: 600px;
+  position: relative;
+  padding: 0;
+  .test-flag-dialog-container {
+    height: 100%;
+    padding: var(--spacing-medium) var(--spacing-xlarge) !important;
+    [class*='OverlaySpinner'] {
+      height: inherit;
+      overflow: auto;
+      & > form {
+        height: inherit;
+        & > div {
+          height: inherit;
+        }
+      }
+    }
+  }
+}
+
+.tab-container {
+  position: relative;
+  padding: 0 var(--spacing-xlarge) !important;
+  :global(.bp3-tab-list) {
+    border-bottom-color: var(--grey-300) !important;
+  }
+  .tab-container-test-flag-btn {
+    position: absolute;
+    right: 15px;
+    top: 25px;
+  }
+}

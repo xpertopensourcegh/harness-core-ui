@@ -1,0 +1,39 @@
+.about-flag-container {
+  position: relative;
+  height: inherit;
+  .optional-collapse {
+    position: relative;
+    width: 60%;
+    & > p {
+      position: absolute;
+      color: var(--grey-450);
+    }
+    & > div {
+      border: 0 !important;
+      padding: 0 !important;
+    }
+    & > div:first-child {
+      margin-bottom: var(--spacing-xsmall);
+    }
+  }
+  :global(.bp3-control-indicator) {
+    margin-left: 0 !important;
+  }
+  .checkbox-icon {
+    position: absolute;
+  }
+  .about-flag-container-btn {
+    position: absolute;
+    bottom: 0;
+  }
+}
+
+.tooltip-about-flag {
+  & > div {
+    p {
+      padding: var(--spacing-large) !important;
+      width: 300px !important;
+      font-size: var(--font-size-small) !important;
+    }
+  }
+}

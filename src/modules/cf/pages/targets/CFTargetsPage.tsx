@@ -1,12 +1,13 @@
 import React from 'react'
-import { Text } from '@wings-software/uikit'
-import { Page } from 'modules/common/exports'
+import { Container } from '@wings-software/uikit'
+import i18n from './CFTargetsPage.i18n'
 
 const CFTargetsPage: React.FC = () => {
   return (
-    <Page.Body filled>
-      <Text>To be implemened</Text>
-    </Page.Body>
+    <Container>
+      To be implemented...
+      {i18n.overview}
+    </Container>
   )
 }
 

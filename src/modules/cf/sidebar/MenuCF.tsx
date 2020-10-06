@@ -1,8 +1,7 @@
 import { Container, Layout, Icon, Button } from '@wings-software/uikit'
 import React, { useCallback } from 'react'
 import { useHistory } from 'react-router-dom'
-import { Sidebar, isRouteActive, useRouteParams, useAppStoreReader, ModuleName } from 'framework/exports'
-import type { Project } from 'services/cd-ng'
+import { Sidebar, isRouteActive, useRouteParams, ModuleName } from 'framework/exports'
 import { ProjectSelector } from 'modules/common/components/ProjectSelector/ProjectSelector'
 // import { AdminSelector, AdminSelectorLink } from 'modules/common/components/AdminSelector/AdminSelector'
 import i18n from './MenuCF.i18n'
@@ -10,7 +9,8 @@ import {
   routeCFDashboard,
   routeCFFeatureFlags,
   routeCFTargets,
-  routeCFWorkflows
+  routeCFWorkflows,
+  routeCFFeatureFlagsDetail
   // routeCFAdminBuildSettings,
   // routeCFAdminGovernance,
   // routeCFAdminResources
@@ -20,15 +20,22 @@ import css from './MenuCF.module.scss'
 //
 // TODO: icons are not finalized and not available in UIKit
 //
-const ProjectNavLinks: React.FC<{ project?: Project }> = ({ project }) => {
-  if (!project) return null
+const ProjectNavLinks: React.FC = () => {
+  const { params } = useRouteParams()
+  const { orgIdentifier, projectIdentifier } = (params as unknown) as {
+    orgIdentifier: string
+    projectIdentifier: string
+  }
 
-  const { identifier: projectIdentifier } = project as Required<Project>
+  if (!orgIdentifier || !projectIdentifier) {
+    return null
+  }
 
   return (
     <>
       <Sidebar.Link
         href={routeCFDashboard.url({
+          orgIdentifier,
           projectIdentifier
         })}
         label={i18n.dashboard}
@@ -37,14 +44,16 @@ const ProjectNavLinks: React.FC<{ project?: Project }> = ({ project }) => {
       />
       <Sidebar.Link
         href={routeCFFeatureFlags.url({
+          orgIdentifier,
           projectIdentifier
         })}
         label={i18n.featureFlags}
         icon="flag"
-        selected={isRouteActive(routeCFFeatureFlags)}
+        selected={isRouteActive(routeCFFeatureFlags) || isRouteActive(routeCFFeatureFlagsDetail)}
       />
       <Sidebar.Link
         href={routeCFTargets.url({
+          orgIdentifier,
           projectIdentifier
         })}
         label={i18n.targets}
@@ -53,6 +62,7 @@ const ProjectNavLinks: React.FC<{ project?: Project }> = ({ project }) => {
       />
       <Sidebar.Link
         href={routeCFWorkflows.url({
+          orgIdentifier,
           projectIdentifier
         })}
         label={i18n.workflows}
@@ -90,12 +100,7 @@ const ProjectNavLinks: React.FC<{ project?: Project }> = ({ project }) => {
 }
 
 export const MenuCF: React.FC = () => {
-  const {
-    params: { projectIdentifier }
-  } = useRouteParams()
   const history = useHistory()
-  const { projects } = useAppStoreReader()
-  const selectedProjectDTO = projects?.find(p => p.identifier === projectIdentifier)
   const toggleSummary = useCallback(() => {
     alert('TBD')
   }, [])
@@ -115,10 +120,15 @@ export const MenuCF: React.FC = () => {
             <ProjectSelector
               module={ModuleName.CF}
               onSelect={project => {
-                history.push(routeCFDashboard.url({ projectIdentifier: project.identifier as string }))
+                history.push(
+                  routeCFDashboard.url({
+                    orgIdentifier: project.orgIdentifier as string,
+                    projectIdentifier: project.identifier as string
+                  })
+                )
               }}
             />
-            <ProjectNavLinks project={selectedProjectDTO} />
+            <ProjectNavLinks />
           </>
         </Layout.Vertical>
       </Container>

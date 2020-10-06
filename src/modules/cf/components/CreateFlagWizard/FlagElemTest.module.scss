@@ -1,0 +1,46 @@
+.test-flag-container {
+  height: calc(100% - 42px);
+  .btns-group {
+    position: sticky;
+    bottom: 0;
+    width: 100% !important;
+    background: var(--white) !important;
+    padding-top: var(--spacing-small) !important;
+  }
+  .btns-group-posa {
+    position: absolute;
+  }
+  .border-bottom {
+    border-bottom: 1px solid var(--grey-300);
+  }
+  .border-top {
+    border-top: 1px solid var(--grey-300);
+  }
+}
+
+.select-options-card {
+  padding: 1px;
+  & > div {
+    margin: 0 var(--spacing-small);
+    padding: var(--spacing-small) var(--spacing-medium);
+  }
+  & > div:first-child {
+    margin: 0 var(--spacing-small) 0 0;
+  }
+}
+
+.test-code-block {
+  & > div {
+    border: 1px solid var(--grey-300) !important;
+    background-color: var(--grey-200) !important;
+    padding: var(--spacing-small) !important;
+  }
+}
+
+.test-ff-headline {
+  padding-bottom: var(--spacing-small) !important;
+  position: sticky;
+  top: 0;
+  width: 100%;
+  background-color: var(--white) !important;
+}

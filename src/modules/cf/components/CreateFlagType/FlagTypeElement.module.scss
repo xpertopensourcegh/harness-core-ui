@@ -1,0 +1,9 @@
+.type-flag {
+  width: 120px;
+  height: 120px;
+  cursor: pointer;
+  background-color: var(--white);
+  border-radius: var(--spacing-small);
+  padding: var(--spacing-small);
+  border: 2px solid var(--grey-300);
+}

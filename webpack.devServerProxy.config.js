@@ -1,5 +1,5 @@
 const baseUrl = 'https://qb.harness.io'
-const targetLocalHost = true // set to false to target baseUrl environment instead of localhost
+const targetLocalHost = false // set to false to target baseUrl environment instead of localhost
 
 module.exports = {
   '/ng/api': {
@@ -10,6 +10,10 @@ module.exports = {
     target: targetLocalHost ? 'https://localhost:9090' : baseUrl
   },
   '/cv-nextgen': {
-    target: targetLocalHost ? 'https://localhost:6060' : baseUrl
+    target: targetLocalHost ? 'https://localhost:6060' : `${baseUrl}/cv-nextgen`
+  },
+  '/cf': {
+    target: 'http://localhost:3000/api/1.0',
+    pathRewrite: { '^/cf': '' }
   }
 }

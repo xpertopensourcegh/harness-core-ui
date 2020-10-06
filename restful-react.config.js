@@ -34,5 +34,14 @@ module.exports = {
     customProps: {
       base: `{getConfig("cv-nextgen")}`
     }
+  },
+  cf: {
+    output: 'src/services/cf/index.tsx',
+    url: 'http://127.0.0.1:8085/docs/release/admin-v1.yaml',
+    transformer: 'scripts/swagger-transform.js',
+    customImport: `import { getConfig } from "../config";`,
+    customProps: {
+      base: `{getConfig("cf")}`
+    }
   }
 }
