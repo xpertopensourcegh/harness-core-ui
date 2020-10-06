@@ -12,30 +12,6 @@ exports[`Project Page List render 1`] = `
     >
       PROJECTS
     </h2>
-    <div
-      class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---inline--1f52"
-    >
-      <button
-        class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
-        type="button"
-      >
-        <span
-          class="bp3-button-text"
-        >
-          Recent
-        </span>
-      </button>
-      <button
-        class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
-        type="button"
-      >
-        <span
-          class="bp3-button-text"
-        >
-          All Projects
-        </span>
-      </button>
-    </div>
   </div>
   <div
     class="Layout---horizontal--3rmQ StyledProps---main--1Wws header"

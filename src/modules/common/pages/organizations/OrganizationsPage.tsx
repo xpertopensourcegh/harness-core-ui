@@ -6,16 +6,22 @@ import { OrganizationCard } from 'modules/common/components/OrganizationCard/Org
 import { Page } from 'modules/common/exports'
 import { routeOrgProjects } from 'modules/common/routes'
 import { useOrganizationModal } from 'modules/common/modals/OrganizationModal/useOrganizationModal'
-import { useGetOrganizationList } from 'services/cd-ng'
+import { ResponsePageOrganization, useGetOrganizationList } from 'services/cd-ng'
 import type { Organization } from 'services/cd-ng'
 
+import type { UseGetMockData } from 'modules/common/utils/testUtils'
 import i18n from './OrganizationsPage.i18n'
 
-const OrganizationsPage: React.FC = () => {
+interface OrganizationsPageData {
+  orgMockData?: UseGetMockData<ResponsePageOrganization>
+}
+
+const OrganizationsPage: React.FC<OrganizationsPageData> = ({ orgMockData }) => {
   const { accountId } = useParams()
   const history = useHistory()
   const { loading, data: organizations, refetch, error } = useGetOrganizationList({
-    queryParams: { accountIdentifier: accountId }
+    queryParams: { accountIdentifier: accountId },
+    mock: orgMockData
   })
   const { openOrganizationModal } = useOrganizationModal({
     onSuccess: () => refetch()

@@ -5,7 +5,7 @@ import { TestWrapper, UseGetMockData } from 'modules/common/utils/testUtils'
 import type { ResponsePageProject } from 'services/cd-ng'
 import ProjectGridView from '../views/ProjectGridView/ProjectGridView'
 
-import mockData from './ProjectPageMock.json'
+import { projectPageMock } from './ProjectPageMock'
 import { defaultAppStoreValues } from './DefaultAppStoreData'
 
 describe('Project Grid', () => {
@@ -16,7 +16,7 @@ describe('Project Grid', () => {
         pathParams={{ accountId: 'testAcc' }}
         defaultAppStoreValues={defaultAppStoreValues}
       >
-        <ProjectGridView mockData={mockData as UseGetMockData<ResponsePageProject>} />
+        <ProjectGridView mockData={projectPageMock as UseGetMockData<ResponsePageProject>} />
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()

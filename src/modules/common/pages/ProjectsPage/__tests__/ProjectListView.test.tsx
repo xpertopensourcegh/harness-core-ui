@@ -5,7 +5,7 @@ import { TestWrapper, UseGetMockData } from 'modules/common/utils/testUtils'
 import type { ResponsePageProject } from 'services/cd-ng'
 import ProjectListView from '../views/ProjectListView/ProjectListView'
 
-import mockData from './ProjectPageMock.json'
+import { projectPageMock } from './ProjectPageMock'
 import { defaultAppStoreValues } from './DefaultAppStoreData'
 
 jest.mock('react-timeago', () => () => 'dummy date')
@@ -18,7 +18,7 @@ describe('Project List', () => {
         pathParams={{ accountId: 'testAcc' }}
         defaultAppStoreValues={defaultAppStoreValues}
       >
-        <ProjectListView mockData={mockData as UseGetMockData<ResponsePageProject>} />
+        <ProjectListView mockData={projectPageMock as UseGetMockData<ResponsePageProject>} />
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()

@@ -13,7 +13,7 @@ import { useProjectModal } from 'modules/common/modals/ProjectModal/useProjectMo
 import { useCollaboratorModal } from 'modules/common/modals/ProjectModal/useCollaboratorModal'
 import type { UseGetMockData } from 'modules/common/utils/testUtils'
 import i18n from './ProjectsPage.i18n'
-import { Views, Sort } from './Constants'
+import { Views } from './Constants'
 import ProjectsListView from './views/ProjectListView/ProjectListView'
 import ProjectsGridView from './views/ProjectGridView/ProjectGridView'
 import css from './ProjectsPage.module.scss'
@@ -42,7 +42,6 @@ const ProjectsListPage: React.FC<ProjectListProps> = ({
   const [orgFilter, setOrgFilter] = useState<SelectOption>(allOrgsSelectOption)
   const { accountId } = useParams()
   const [view, setView] = useState(Views.GRID)
-  const [recentFilter, setRecentFilter] = useState(Sort.ALL_PROJECTS)
   const [searchParam, setSearchParam] = useState<string | undefined>()
   const [reloadProjectPage, setReloadProjectPage] = useState(false)
   const projectCreateSuccessHandler = (project: Project | undefined): void => {
@@ -85,29 +84,7 @@ const ProjectsListPage: React.FC<ProjectListProps> = ({
 
   return (
     <>
-      <Page.Header
-        title={i18n.projects.toUpperCase()}
-        toolbar={
-          <Layout.Horizontal inline>
-            <Button
-              minimal
-              text={i18n.tabRecent}
-              intent={recentFilter === Sort.RECENT ? 'primary' : 'none'}
-              onClick={() => {
-                setRecentFilter(Sort.RECENT)
-              }}
-            />
-            <Button
-              minimal
-              text={i18n.tabAllProjects}
-              intent={recentFilter === Sort.ALL_PROJECTS ? 'primary' : 'none'}
-              onClick={() => {
-                setRecentFilter(Sort.ALL_PROJECTS)
-              }}
-            />
-          </Layout.Horizontal>
-        }
-      />
+      <Page.Header title={i18n.projects.toUpperCase()} />
       <Layout.Horizontal className={css.header}>
         <Layout.Horizontal width="55%">
           <Button
