@@ -47,6 +47,7 @@ interface HttpCredentialStepProps {
   accountId: string
   hideLightModal: () => void
   isEditMode: boolean
+  onSuccess: () => void
 }
 
 const HttpCredentialStep: React.FC<HttpCredentialStepProps> = props => {
@@ -71,6 +72,7 @@ const HttpCredentialStep: React.FC<HttpCredentialStepProps> = props => {
       setLoadConnector(true)
       await createConnector(data)
       setLoadConnector(false)
+      props.onSuccess?.()
       showSuccess(`Connector '${props.formData?.name}' created successfully`)
       props.nextStep?.()
     } catch (e) {

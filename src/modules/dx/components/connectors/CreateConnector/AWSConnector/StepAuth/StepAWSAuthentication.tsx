@@ -38,6 +38,7 @@ import css from './StepAWSAuthentication.module.scss'
 interface StepAWSAuthenticationProps extends ConnectorInfoDTO {
   name: string
   isEditMode?: boolean
+  onConnectorCreated?: () => void
 }
 
 const StepAWSAuthentication: React.FC<StepProps<StepAWSAuthenticationProps>> = props => {
@@ -61,6 +62,7 @@ const StepAWSAuthentication: React.FC<StepProps<StepAWSAuthenticationProps>> = p
       setLoadConnector(true)
       await createConnector(data)
       setLoadConnector(false)
+      prevStepData?.onConnectorCreated?.()
       showSuccess(`Connector '${prevStepData?.name}' created successfully`)
       nextStep?.({ ...prevStepData, ...stepData } as StepAWSAuthenticationProps)
     } catch (e) {

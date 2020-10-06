@@ -91,6 +91,7 @@ interface SecondStepProps {
   nextStep?: () => void
   formData?: ConnectorConfigDTO
   hideLightModal?: () => void
+  onSuccess: () => void
 }
 interface IntermediateStepProps {
   name: string
@@ -233,6 +234,7 @@ const SecondStep = (props: SecondStepProps) => {
       setLoadConnector(true)
       await createConnector(data)
       setLoadConnector(false)
+      props.onSuccess?.()
       showSuccess(`Connector '${props.formData?.name}' created successfully`)
       props.nextStep?.()
     } catch (e) {
@@ -379,6 +381,7 @@ const IntermediateStep: React.FC<IntermediateStepProps> = props => {
       setLoadConnector(true)
       await createConnector(data)
       setLoadConnector(false)
+      props.onSuccess?.()
       showSuccess(`Connector '${props.formData?.name}' created successfully`)
       props.nextStep?.()
     } catch (e) {

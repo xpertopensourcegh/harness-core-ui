@@ -32,7 +32,6 @@ const useCreateConnectorModal = (props: UseCreateConnectorModalProps): UseCreate
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
 
   const handleSuccess = (data?: ConnectorRequestBody): void => {
-    hideModal()
     props.onSuccess?.(data)
   }
 
@@ -53,7 +52,6 @@ const useCreateConnectorModal = (props: UseCreateConnectorModalProps): UseCreate
           iconProps={{ size: 18 }}
           onClick={() => {
             hideModal()
-            props.onSuccess?.()
           }}
           className={css.crossIcon}
         />

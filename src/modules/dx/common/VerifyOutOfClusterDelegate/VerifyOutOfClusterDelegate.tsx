@@ -287,7 +287,6 @@ const VerifyOutOfClusterDelegate: React.FC<
           <Button
             onClick={() => {
               props.hideLightModal?.()
-              props.onSuccess?.()
             }}
             text={i18n.FINISH}
           />

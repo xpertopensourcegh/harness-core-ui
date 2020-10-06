@@ -314,7 +314,6 @@ const VerifyExistingDelegate = (props: VerifyExistingDelegateProps) => {
           <Button
             onClick={() => {
               props.hideLightModal?.()
-              props.onSuccess?.()
             }}
             text={i18n.FINISH}
           />

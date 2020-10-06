@@ -38,6 +38,7 @@ import i18n from '../CreateDockerConnector.i18n'
 interface StepDockerAuthenticationProps extends ConnectorInfoDTO {
   name: string
   isEditMode?: boolean
+  onConnectorCreated?: () => void
 }
 
 const StepDockerAuthentication: React.FC<StepProps<StepDockerAuthenticationProps>> = props => {
@@ -59,6 +60,7 @@ const StepDockerAuthentication: React.FC<StepProps<StepDockerAuthenticationProps
       setLoadConnector(true)
       await createConnector(data)
       setLoadConnector(false)
+      prevStepData?.onConnectorCreated?.()
       showSuccess(`Connector '${prevStepData?.name}' created successfully`)
       nextStep?.({ ...prevStepData, ...stepData } as StepDockerAuthenticationProps)
     } catch (e) {

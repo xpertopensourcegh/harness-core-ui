@@ -244,7 +244,6 @@ const VerifyInstalledDelegate = (props: VerifyInstalledDelegateProps) => {
           <Button
             onClick={() => {
               props.hideLightModal?.()
-              props.onSuccess?.()
             }}
             text={i18n.FINISH}
           />
