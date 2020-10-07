@@ -15,6 +15,7 @@ import ExtendedPage from 'modules/ci/components/ExtendedPage/ExtendedPage'
 import RightBar from 'modules/ci/components/RightBar/RightBar'
 import { useGetBuilds } from 'modules/ci/services/BuildsService'
 import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
+import { graph2ExecutionPipeline } from '../build/utils/api2ui'
 import i18n from './CIBuildsPage.i18n'
 import css from './CIBuildsPage.module.scss'
 import common from '../ci-common.module.scss'
@@ -128,6 +129,7 @@ const CIBuildsPage: React.FC = () => {
       PRSourceBranch={item?.pull_request?.sourceBranch}
       PRTargetBranch={item?.pull_request?.targetBranch}
       PRState={item?.pull_request?.state}
+      pipeline={graph2ExecutionPipeline(item.graph)}
       onClick={(id: number) => {
         navigateToBuild(id.toString())
       }}

@@ -6,7 +6,9 @@ import ReactTimeago from 'react-timeago'
 import { ExecutionStatus, status2Message } from 'modules/ci/components/common/status'
 import { getShortCommitId } from 'modules/ci/services/CIUtils'
 import { useToaster } from 'modules/common/exports'
-import pipelines from './pipelines.png'
+import type { ExecutionPipeline } from 'modules/common/components/ExecutionStageDiagram/ExecutionPipelineModel'
+import type { GraphVertex } from 'modules/ci/services/GraphTypes'
+import { CIExecutionStageGraph } from '../CIExecutionStageGraph/CIExecutionStageGraph'
 import Status from '../Status/Status'
 import { formatElapsedTime } from '../common/time'
 import i18n from './BuildCard.i18n'
@@ -54,6 +56,8 @@ export interface BuildCardProps {
   PRTargetBranch?: string
   PRState?: string
 
+  pipeline: ExecutionPipeline<GraphVertex>
+
   onClick?: (id: number) => void
 }
 
@@ -67,7 +71,7 @@ const getIconForEvent = (event: 'pull_request' | 'branch'): IconName => {
 }
 
 export const BuildCard: React.FC<BuildCardProps> = props => {
-  const { onClick = noop } = props
+  const { pipeline, onClick = noop } = props
   const [expanded, setExpanded] = useState(false)
   const { showSuccess, showError } = useToaster()
 
@@ -159,7 +163,7 @@ export const BuildCard: React.FC<BuildCardProps> = props => {
         </Container>
 
         <Container className={css.rightSide}>
-          <img src={pipelines}></img>
+          <CIExecutionStageGraph pipeline={pipeline} />
           <div>
             <Button minimal icon="pause" small />
             <Button minimal icon="stop" small />

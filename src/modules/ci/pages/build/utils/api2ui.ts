@@ -19,6 +19,66 @@ export enum MapStageTypeIconName {
   RESTORE_CACHE = 'restore-cache-step'
 }
 
+export interface StatusCounter {
+  success: number
+  running: number
+  failed: number
+}
+
+/**
+ * Count success/running/failed stages
+ */
+export const getStagesStatusesCounter = (nodes: ExecutionPipelineNode<GraphVertex>[]): StatusCounter => {
+  let statusCounter = {
+    success: 0,
+    running: 0,
+    failed: 0
+  }
+
+  nodes.forEach(node => {
+    statusCounter = node.parallel
+      ? countStagesStatuses(node.parallel, statusCounter)
+      : countStagesStatuses([node], statusCounter)
+  })
+
+  return statusCounter
+}
+
+const countStagesStatuses = (nodes: ExecutionPipelineNode<GraphVertex>[], counter: StatusCounter): StatusCounter => {
+  const retCounter = { ...counter }
+  nodes.forEach(node => {
+    const statusType = getGeneralStatusType(node.item?.status)
+    retCounter.success += statusType === 'SUCCESS' ? 1 : 0
+    retCounter.failed += statusType === 'ERROR' ? 1 : 0
+    retCounter.running += statusType === 'RUNNING' ? 1 : 0
+  })
+
+  return retCounter
+}
+
+const getGeneralStatusType = (
+  status: ExecutionPipelineItemStatus | undefined
+): 'SUCCESS' | 'ERROR' | 'RUNNING' | 'UNDEFINED' => {
+  switch (status) {
+    case ExecutionPipelineItemStatus.SUCCESS:
+    case ExecutionPipelineItemStatus.SUCCEEDED:
+      return 'SUCCESS'
+    case ExecutionPipelineItemStatus.FAILED:
+    case ExecutionPipelineItemStatus.ABORTED:
+    case ExecutionPipelineItemStatus.ERROR:
+    case ExecutionPipelineItemStatus.REJECTED:
+      return 'ERROR'
+    case ExecutionPipelineItemStatus.RUNNING:
+    case ExecutionPipelineItemStatus.PAUSED:
+    case ExecutionPipelineItemStatus.PAUSING:
+    case ExecutionPipelineItemStatus.WAITING:
+    case ExecutionPipelineItemStatus.ABORTING:
+      return 'RUNNING'
+  }
+
+  return 'UNDEFINED'
+}
+
 /**
  * Get stage icon depend on stage type
  */
@@ -45,6 +105,14 @@ export function getFirstItemIdFromExecutionPipeline<T>(pipeline: ExecutionPipeli
   } else {
     return pipeline.items[0].item?.identifier || '-1'
   }
+}
+
+/**
+ * Return empty ExecutionPipeline
+ */
+
+export function getEmptyExecutionPipeline(): ExecutionPipeline<GraphVertex> {
+  return { items: [], identifier: '' }
 }
 
 /**
