@@ -6,6 +6,10 @@
  * @returns {string}
  */
 export function formatElapsedTime(seconds: number, addLeadingZero = false): string {
+  if (seconds < 1) {
+    return '0s'
+  }
+
   let ret = ''
   let remainingSec = seconds
   const numberSize = addLeadingZero ? 2 : 0

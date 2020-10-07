@@ -57,31 +57,33 @@ const PipelineLog: React.FC = () => {
   })
 
   return (
-    <Layout.Horizontal className={css.wrapper}>
-      <Container className={css.selectContainer}>
-        <div className={css.selectDiv}>
-          <Select
-            items={stagesSelectOptions}
-            value={selectedStageOption}
-            onChange={item => {
-              setSelectedStageIdentifier(item.value as string)
+    <Container className={css.main}>
+      <Layout.Horizontal className={css.wrapper}>
+        <Container className={css.selectContainer}>
+          <div className={css.selectDiv}>
+            <Select
+              items={stagesSelectOptions}
+              value={selectedStageOption}
+              onChange={item => {
+                setSelectedStageIdentifier(item.value as string)
+              }}
+              className={css.stageSelector}
+            />
+          </div>
+          <div className={css.steps}>
+            <ul className="pipeline-steps">{steps}</ul>
+          </div>
+        </Container>
+        <Container height="100%" width="100%">
+          <LogViewContainer
+            downloadLogs={() => {
+              alert('Log download')
             }}
-            className={css.stageSelector}
+            logsViewerSections={{ logs: logs }}
           />
-        </div>
-        <div className={css.steps}>
-          <ul className="pipeline-steps">{steps}</ul>
-        </div>
-      </Container>
-      <Container height="100%" width="100%">
-        <LogViewContainer
-          downloadLogs={() => {
-            alert('Log download')
-          }}
-          logsViewerSections={{ logs: logs }}
-        />
-      </Container>
-    </Layout.Horizontal>
+        </Container>
+      </Layout.Horizontal>
+    </Container>
   )
 }
 

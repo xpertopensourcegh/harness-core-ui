@@ -90,8 +90,11 @@ const CIBuildPage: React.FC = props => {
                     {status2Message((executionStatus as unknown) as ExecutionStatus)}
                   </Status>
                 )}
-                {buildResponse?.data.startTime && (
-                  <ElapsedTime startTime={buildResponse?.data.startTime} endTime={buildResponse?.data.endTime} />
+                {buildResponse?.data.graph.startTs && (
+                  <ElapsedTime
+                    startTime={buildResponse?.data.graph.startTs}
+                    endTime={buildResponse?.data.graph.endTs}
+                  />
                 )}
               </>
             }
@@ -118,16 +121,16 @@ const CIBuildPage: React.FC = props => {
                   <TitledInfo
                     title={i18n.infoStartTime}
                     value={
-                      buildResponse?.data.startTime
-                        ? moment.unix(buildResponse?.data.startTime).format('MM/DD/YY hh:mm:ss A')
+                      buildResponse?.data.graph.startTs
+                        ? moment.unix(buildResponse?.data.graph.startTs).format('MM/DD/YY hh:mm:ss A')
                         : '-'
                     }
                   />
                   <TitledInfo
                     title={i18n.infoEndTime}
                     value={
-                      buildResponse?.data.endTime
-                        ? moment.unix(buildResponse?.data.endTime).format('MM/DD/YY hh:mm:ss A')
+                      buildResponse?.data.graph.endTs
+                        ? moment.unix(buildResponse?.data.graph.endTs).format('MM/DD/YY hh:mm:ss A')
                         : '-'
                     }
                   />

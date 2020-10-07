@@ -26,11 +26,11 @@ const ElapsedTime: React.FC<ElapsedTimeProps> = props => {
   const [counter, setCounter] = useState(seconds)
 
   useEffect(() => {
+    setCounter(seconds)
+
     if (!endTime) {
       const interval = setInterval(() => setCounter(count => count + 1), 1000)
       return () => clearInterval(interval)
-    } else {
-      setCounter(seconds)
     }
   }, [endTime, seconds])
 

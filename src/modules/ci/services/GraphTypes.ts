@@ -1,10 +1,5 @@
 // TODO: temporary model, replace with TDO or update
 
-export interface Subgraph {
-  mode: string
-  vertices?: GraphVertex[]
-}
-
 export interface GraphVertex {
   uuid: string
   name: string
@@ -17,16 +12,21 @@ export interface GraphVertex {
   interruptHistories: any[]
   outcomes: any[]
   retryIds: any[]
-  subgraph?: Subgraph
-  next?: GraphVertex
 }
 
 export interface Graph {
-  cacheContextOrder: number
-  cacheKey: string
   planExecutionId: string
   startTs: number
+  endTs: number
   status: string
-  graphVertex: GraphVertex
-  lastUpdatedAt: number
+  rootNodeIds: Array<string>
+  adjacencyList: {
+    graphVertexMap: { [id: string]: GraphVertex }
+    adjacencyMap: { [id: string]: EdgeList }
+  }
+}
+
+export interface EdgeList {
+  edges: Array<string>
+  nextIds: Array<string>
 }

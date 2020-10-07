@@ -110,8 +110,8 @@ const CIBuildsPage: React.FC = () => {
       status={item.graph.status}
       key={key}
       id={item.id}
-      startTime={item.startTime}
-      endTime={item.endTime}
+      startTime={item.graph.startTs}
+      endTime={item.graph.endTs}
       pipelineId={item.pipeline?.id}
       pipelineName={item.pipeline?.name}
       triggerType={item.triggerType}

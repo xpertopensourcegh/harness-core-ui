@@ -47,6 +47,7 @@ const PipelineGraph: React.FC = () => {
   const stagesPipeline = (
     <ExecutionStageDiagram
       data={buildData?.stagePipeline}
+      key={buildData?.stagePipeline.identifier}
       showStartEndNode={buildData?.stagePipeline && buildData?.stagePipeline.items.length > 0}
       selectedIdentifier={selectedStageIdentifier}
       nodeStyle={{

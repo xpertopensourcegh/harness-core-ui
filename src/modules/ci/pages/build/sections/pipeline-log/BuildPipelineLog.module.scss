@@ -1,5 +1,14 @@
-.wrapper {
+.main {
   flex-grow: 1;
+  position: relative;
+}
+
+.wrapper {
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  top: 0px;
+  bottom: 0px;
 
   .selectContainer {
     .selectDiv {

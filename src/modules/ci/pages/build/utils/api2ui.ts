@@ -56,51 +56,78 @@ export function graph2ExecutionPipeline(graph: Graph): ExecutionPipeline<GraphVe
     identifier: ''
   }
 
-  // 1. iterate to populate all stages
-  first(graph?.graphVertex.subgraph?.vertices)?.subgraph?.vertices?.forEach(vertex => {
-    const stageItem: ExecutionPipelineItem<GraphVertex> = {
-      identifier: vertex.uuid,
-      name: vertex.name,
-      type: ExecutionPipelineNodeType.NORMAL,
-      status: ExecutionPipelineItemStatus[vertex.status as keyof typeof ExecutionPipelineItemStatus],
-      icon: stageType2IconName(vertex.stepType),
-      data: vertex
-    }
+  // TODO: might be case that graph?.rootNodeIds contains ids for parallel stages
+  const rootNodeId: string | undefined = first(graph?.rootNodeIds)
+  if (!rootNodeId) {
+    return pipeline
+  }
 
-    // add stage node
-    const stageNode: ExecutionPipelineNode<GraphVertex> = { item: stageItem }
-    pipeline.items.push(stageNode)
+  pipeline.identifier = rootNodeId
 
-    // add steps pipeline
-    const stepsPipeline: ExecutionPipeline<GraphVertex> = {
-      items: [],
-      identifier: ''
-    }
+  // first level
+  const rootEdgeList = graph.adjacencyList.adjacencyMap[rootNodeId]
 
-    let next = first(first(vertex.subgraph?.vertices)?.subgraph?.vertices) as GraphVertex | undefined
-    while (next) {
-      //TODO: do not add LITE_ENGINE_TASK - solution for demo
-      if (next.stepType !== 'LITE_ENGINE_TASK') {
-        //parallel
-        if (next.stepType === 'FORK') {
-          const parallelStepsNode: ExecutionPipelineNode<GraphVertex> = {
-            parallel: []
-          }
-          stepsPipeline.items.push(parallelStepsNode)
-          next.subgraph?.vertices?.forEach(parallelVertex => {
-            addStepToArray(parallelVertex, parallelStepsNode.parallel as ExecutionPipelineNode<GraphVertex>[])
-          })
-        } else {
-          addStepToArray(next, stepsPipeline.items)
-        }
+  rootEdgeList.edges.forEach((edgeId: string) => {
+    // second level
+    const stagesRootEdgeList = graph.adjacencyList.adjacencyMap[edgeId]
+
+    stagesRootEdgeList.edges.forEach((stageEdgeId: string) => {
+      const vertex = graph.adjacencyList.graphVertexMap[stageEdgeId]
+
+      const stageItem: ExecutionPipelineItem<GraphVertex> = {
+        identifier: vertex.uuid,
+        name: vertex.name,
+        type: ExecutionPipelineNodeType.NORMAL,
+        status: ExecutionPipelineItemStatus[vertex.status as keyof typeof ExecutionPipelineItemStatus],
+        icon: stageType2IconName(vertex.stepType),
+        data: vertex
       }
 
-      // set next
-      next = next.next
-    }
-    if (stageNode.item) {
-      stageNode.item.pipeline = stepsPipeline
-    }
+      // add stage node
+      const stageNode: ExecutionPipelineNode<GraphVertex> = { item: stageItem }
+      pipeline.items.push(stageNode)
+
+      // add steps pipeline
+      const stepsPipeline: ExecutionPipeline<GraphVertex> = {
+        items: [],
+        identifier: ''
+      }
+
+      // get first step
+      const stepsRootId = first(graph.adjacencyList.adjacencyMap[stageEdgeId]?.edges) as string
+      const nextId = first(graph.adjacencyList.adjacencyMap[stepsRootId]?.edges) as string
+      let next = graph.adjacencyList.graphVertexMap[nextId]
+
+      while (next) {
+        //TODO: do not add LITE_ENGINE_TASK - solution for demo
+        if (next.stepType !== 'LITE_ENGINE_TASK') {
+          //parallel steps
+          if (next.stepType === 'FORK') {
+            const parallelStepsNode: ExecutionPipelineNode<GraphVertex> = {
+              parallel: []
+            }
+            stepsPipeline.items.push(parallelStepsNode)
+
+            // populate parallel steps
+            const nextIds = graph.adjacencyList.adjacencyMap[next.uuid]?.edges as string[]
+            nextIds.forEach(parallelId => {
+              const parallelVertex = graph.adjacencyList.graphVertexMap[parallelId]
+              addStepToArray(parallelVertex, parallelStepsNode.parallel as ExecutionPipelineNode<GraphVertex>[])
+            })
+          } else {
+            addStepToArray(next, stepsPipeline.items)
+          }
+        }
+
+        // set next
+        const _nextId = first(graph.adjacencyList.adjacencyMap[next.uuid]?.nextIds) as string
+        next = graph.adjacencyList.graphVertexMap[_nextId]
+      }
+
+      if (stageNode.item) {
+        stageNode.item.pipeline = stepsPipeline
+      }
+    })
   })
 
   return pipeline
