@@ -18,10 +18,10 @@ interface ConnectorsListProps {
   mockData?: UseGetMockData<ResponsePageConnectorResponse>
 }
 
-const enum View {
-  GRID,
-  LIST
-}
+// const enum View {
+//   GRID,
+//   LIST
+// }
 interface OptionInterface {
   label: string
   value: ConnectorInfoDTO['type']
@@ -43,7 +43,7 @@ const getMenuItem: React.FC<OptionInterface> = item => {
 
 const ConnectorsPage: React.FC<ConnectorsListProps> = ({ mockData }) => {
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
-  const [view, setView] = useState(View.LIST)
+  // const [view, setView] = useState(View.LIST)
   const [searchTerm, setSearchTerm] = useState('')
   const [page, setPage] = useState(0)
   const history = useHistory()
@@ -135,14 +135,15 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ mockData }) => {
                 setView(View.GRID)
               }}
             /> */}
-          <Button
+          {/* Enable once grid view is also supported:
+           <Button
             minimal
             icon="list"
             intent={view === View.LIST ? 'primary' : 'none'}
             onClick={() => {
               setView(View.LIST)
             }}
-          />
+          /> */}
         </Layout.Horizontal>
       </Layout.Horizontal>
       <Page.Body className={css.listBody}>
@@ -154,7 +155,7 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ mockData }) => {
           <div style={{ paddingTop: '200px' }}>
             <PageError message={error.message} onClick={() => reloadConnectorList()} />
           </div>
-        ) : view === View.LIST && data?.data?.content?.length ? (
+        ) : data?.data?.content?.length ? (
           <ConnectorsListView
             data={data?.data}
             reload={reloadConnectorList}

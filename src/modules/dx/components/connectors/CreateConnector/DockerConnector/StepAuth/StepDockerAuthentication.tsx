@@ -38,10 +38,15 @@ import i18n from '../CreateDockerConnector.i18n'
 interface StepDockerAuthenticationProps extends ConnectorInfoDTO {
   name: string
   isEditMode?: boolean
-  onConnectorCreated?: () => void
 }
 
-const StepDockerAuthentication: React.FC<StepProps<StepDockerAuthenticationProps>> = props => {
+interface DockerAuthenticationProps {
+  onConnectorCreated?: (data?: ConnectorRequestBody) => void | Promise<void>
+}
+
+const StepDockerAuthentication: React.FC<
+  StepProps<StepDockerAuthenticationProps> & DockerAuthenticationProps
+> = props => {
   const { prevStepData, nextStep } = props
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
   const { showSuccess } = useToaster()
@@ -60,7 +65,7 @@ const StepDockerAuthentication: React.FC<StepProps<StepDockerAuthenticationProps
       setLoadConnector(true)
       await createConnector(data)
       setLoadConnector(false)
-      prevStepData?.onConnectorCreated?.()
+      props.onConnectorCreated?.()
       showSuccess(`Connector '${prevStepData?.name}' created successfully`)
       nextStep?.({ ...prevStepData, ...stepData } as StepDockerAuthenticationProps)
     } catch (e) {

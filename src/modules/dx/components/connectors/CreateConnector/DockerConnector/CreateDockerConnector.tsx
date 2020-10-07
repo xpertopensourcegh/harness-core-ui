@@ -16,7 +16,7 @@ const CreateDockerConnector: React.FC<CreateDockerConnectorProps> = props => {
     <>
       <StepWizard<ConnectorInfoDTO>>
         <ConnectorDetailsStep type={Connectors.DOCKER} name={i18n.STEP_ONE.NAME} />
-        <StepDockerAuthentication name={i18n.STEP_TWO.NAME} />
+        <StepDockerAuthentication name={i18n.STEP_TWO.NAME} onConnectorCreated={props.onConnectorCreated} />
         <VerifyOutOfClusterDelegate
           name={i18n.STEP_THREE.NAME}
           renderInModal={true}

@@ -2,9 +2,8 @@ import React from 'react'
 import { Layout, Container } from '@wings-software/uikit'
 import { Tag } from '@blueprintjs/core'
 import cx from 'classnames'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useParams, useLocation } from 'react-router-dom'
 import { Page } from 'modules/common/exports'
-import { routeResources } from 'modules/common/routes'
 import { useGetConnector, ConnectorResponse, useUpdateConnector } from 'services/cd-ng'
 import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
 import ReferencedBy from './ReferencedBy/ReferencedBy'
@@ -25,6 +24,7 @@ const categories: Categories = {
 const ConnectorDetailsPage: React.FC = () => {
   const [activeCategory, setActiveCategory] = React.useState(0)
   const { connectorId, accountId, orgIdentifier, projectIdentifier } = useParams()
+  const { pathname } = useLocation()
   const { loading, data, refetch } = useGetConnector({
     identifier: connectorId as string,
     queryParams: {
@@ -38,11 +38,11 @@ const ConnectorDetailsPage: React.FC = () => {
     return (
       <Layout.Vertical>
         <Layout.Horizontal spacing="xsmall">
-          <Link className={css.breadCrumb} to={routeResources.url()}>
+          <Link className={css.breadCrumb} to={`${pathname.substring(0, pathname.lastIndexOf('/'))}`}>
             {i18n.Resources}
           </Link>
           <span>/</span>
-          <Link className={css.breadCrumb} to={routeResources.url()}>
+          <Link className={css.breadCrumb} to={`${pathname.substring(0, pathname.lastIndexOf('/'))}`}>
             {i18n.Connectors}
           </Link>
         </Layout.Horizontal>
