@@ -55,7 +55,7 @@ export function getRunningStep(graph: ExecutionGraph, nodeId?: string): string |
     if (typeof step === 'string') return step
   }
 
-  if (node.status === 'RUNNING') {
+  if (node.status === 'Running') {
     return currentNodeId
   }
 

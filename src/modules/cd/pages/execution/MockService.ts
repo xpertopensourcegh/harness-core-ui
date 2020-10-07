@@ -5,24 +5,24 @@ import type {
 } from 'services/cd-ng'
 import mock from './mock.json'
 
-type Status = CDStageExecutionSummaryDTO['executionStatus'] | 'ERROR'
+type Status = CDStageExecutionSummaryDTO['executionStatus'] | 'Error'
 
 const StatusObj: Status[] = [
-  'RUNNING',
-  'FAILED',
-  'NOT_STARTED',
-  'EXPIRED',
-  'ABORTED',
-  'QUEUED',
-  'PAUSED',
-  'WAITING',
-  'SUCCESS',
-  'ERROR',
-  'SUSPENDED'
+  'Running',
+  'Failed',
+  'NotStarted',
+  'Expired',
+  'Aborted',
+  'Queued',
+  'Paused',
+  'Waiting',
+  'Success',
+  'Error',
+  'Suspended'
 ]
 
 const getRandomStatus = (): Status => {
-  return StatusObj[Math.floor(Math.random() * 10)] || 'RUNNING'
+  return StatusObj[Math.floor(Math.random() * 10)] || 'Running'
 }
 
 const getStage = (uniqueId: string, status?: Status): CDStageExecutionSummaryDTO => {
@@ -52,13 +52,13 @@ export const getParallelStages = (uniqueId: string, statusAr: Status[]): Paralle
 }
 
 const statusAr = [
-  'NOT_STARTED',
-  'NOT_STARTED',
-  ['NOT_STARTED', 'NOT_STARTED'],
-  'NOT_STARTED',
-  'NOT_STARTED',
-  ['NOT_STARTED', 'NOT_STARTED'],
-  'NOT_STARTED'
+  'NotStarted',
+  'NotStarted',
+  ['NotStarted', 'NotStarted'],
+  'NotStarted',
+  'NotStarted',
+  ['NotStarted', 'NotStarted'],
+  'NotStarted'
 ]
 
 let i = 1
@@ -87,7 +87,7 @@ export const getPipelineExecutionDetails = (): ResponsePipelineExecutionDetail =
         pipelineIdentifier: 'dummyPipelineIdentifier',
         pipelineName: 'dummyPipeline',
         planExecutionId: 'planExecutionId',
-        executionStatus: 'RUNNING',
+        executionStatus: 'Running',
         startedAt: 0,
         endedAt: 10,
         triggerInfo: {

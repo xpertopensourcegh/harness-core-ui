@@ -44,7 +44,7 @@ export const ExecutionsListingView: React.FC<ExecutionsListingViewProps> = React
         page: Number(page) - 1,
 
         // TODO: Filter is not supported yet by API
-        filter: pipelineIdentifier ? `pipelineIdentifier=${pipelineIdentifier}` : undefined
+        searchTerm: pipelineIdentifier
       }
     })
     const gotoPage = useCallback(

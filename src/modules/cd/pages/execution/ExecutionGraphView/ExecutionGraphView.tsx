@@ -93,7 +93,7 @@ export default function ExecutionGraphView(): React.ReactElement {
   function handleStepSelection(step: string): void {
     const selectedStep = pipelineExecutionDetail?.stageGraph?.nodeMap?.[step]
 
-    if (selectedStep?.status === 'NOT_STARTED') {
+    if (selectedStep?.status === 'NotStarted') {
       return
     }
 
@@ -109,7 +109,7 @@ export default function ExecutionGraphView(): React.ReactElement {
   function handleStageSelection(stage: string): void {
     const selectedStage = pipelineStagesMap.get(stage)
 
-    if (selectedStage?.executionStatus === 'NOT_STARTED') {
+    if (selectedStage?.executionStatus === 'NotStarted') {
       return
     }
 

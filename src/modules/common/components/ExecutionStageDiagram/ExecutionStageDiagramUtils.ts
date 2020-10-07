@@ -187,7 +187,7 @@ export const getRunningNode = <T>(data: ExecutionPipeline<T>): ExecutionPipeline
   let stage: ExecutionPipelineItem<T> | undefined = undefined
   data.items?.forEach(node => {
     if (!stage) {
-      if (node?.item?.status === 'RUNNING') {
+      if (node?.item?.status === 'Running') {
         stage = node?.item
       } else if (node?.parallel) {
         stage = getRunningNode({ items: node.parallel, identifier: '' })

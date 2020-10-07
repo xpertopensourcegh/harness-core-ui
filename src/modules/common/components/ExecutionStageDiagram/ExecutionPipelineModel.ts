@@ -8,24 +8,24 @@ export enum ExecutionPipelineNodeType {
 
 // TODO: should be replaced or same as DTO
 export enum ExecutionPipelineItemStatus {
-  SUCCEEDED = 'SUCCEEDED',
-  FAILED = 'FAILED',
-  SUCCESS = 'SUCCESS',
-  ABORTED = 'ABORTED',
-  ERROR = 'ERROR',
-  PAUSED = 'PAUSED',
-  PAUSING = 'PAUSING',
-  WAITING = 'WAITING',
-  ABORTING = 'ABORTING',
-  RUNNING = 'RUNNING',
-  QUEUED = 'QUEUED',
-  ROLLBACK = 'ROLLBACK',
-  SKIPPED = 'SKIPPED',
-  STARTING = 'STARTING',
-  REJECTED = 'REJECTED',
-  EXPIRED = 'EXPIRED',
-  NOT_STARTED = 'NOT_STARTED',
-  ASYNC_WAITING = 'ASYNC_WAITING'
+  SUCCEEDED = 'Succeeded',
+  FAILED = 'Failed',
+  SUCCESS = 'Success',
+  ABORTED = 'Aborted',
+  ERROR = 'Error',
+  PAUSED = 'Paused',
+  PAUSING = 'Pausing',
+  WAITING = 'Waiting',
+  ABORTING = 'Aborting',
+  RUNNING = 'Running',
+  QUEUED = 'Queued',
+  ROLLBACK = 'Rollback',
+  SKIPPED = 'Skipped',
+  STARTING = 'Starting',
+  REJECTED = 'Rejected',
+  EXPIRED = 'Expired',
+  NOT_STARTED = 'NotStarted',
+  ASYNC_WAITING = 'AsyncWaiting'
 }
 
 export interface StageOptions extends SelectOption {

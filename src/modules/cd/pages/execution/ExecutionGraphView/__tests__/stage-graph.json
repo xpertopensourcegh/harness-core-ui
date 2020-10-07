@@ -7,7 +7,7 @@
       "startTs": null,
       "endTs": 1600079943495,
       "stepType": "ENVIRONMENT",
-      "status": "SUCCESS",
+      "status": "Success",
       "failureInfo": null
     },
     "YLap7hH0SpOXgKW0ZSF44A": {
@@ -16,7 +16,7 @@
       "startTs": null,
       "endTs": 1600079941395,
       "stepType": "ARTIFACT_FORK_STEP",
-      "status": "SUCCESS",
+      "status": "Success",
       "failureInfo": null
     },
     "uhkk3uOKRU-izlEDn8qXlA": {
@@ -25,7 +25,7 @@
       "startTs": null,
       "endTs": 1600079931903,
       "stepType": "MANIFEST_STEP",
-      "status": "SUCCESS",
+      "status": "Success",
       "failureInfo": null
     },
     "WQihquIbS0SwRb6Fv18heg": {
@@ -34,7 +34,7 @@
       "startTs": null,
       "endTs": 1600079944451,
       "stepType": "INFRASTRUCTURE",
-      "status": "SUCCESS",
+      "status": "Success",
       "failureInfo": null
     },
     "0ugp-sh-QCSKLXaAzk9BSA": {
@@ -43,7 +43,7 @@
       "startTs": null,
       "endTs": 1600079942433,
       "stepType": "SERVICE_STEP",
-      "status": "SUCCESS",
+      "status": "Success",
       "failureInfo": null
     },
     "-T6xJ7S2SSWPgMZWc05LYg": {
@@ -52,7 +52,7 @@
       "startTs": null,
       "endTs": 1600079945407,
       "stepType": "SECTION_CHAIN",
-      "status": "SUCCESS",
+      "status": "Success",
       "failureInfo": null
     },
     "Ty_-CSAoShC7huCAzfjl6g": {
@@ -61,7 +61,7 @@
       "startTs": null,
       "endTs": null,
       "stepType": "SECTION_CHAIN",
-      "status": "RUNNING",
+      "status": "Running",
       "failureInfo": null
     },
     "bI4RNYnNQnaVYkEfasFjzg": {
@@ -70,7 +70,7 @@
       "startTs": null,
       "endTs": 1600079940404,
       "stepType": "ARTIFACT_STEP",
-      "status": "SUCCESS",
+      "status": "Success",
       "failureInfo": null
     },
     "WOLUCzOCQDWyjJyOLN_9TQ": {
@@ -79,7 +79,7 @@
       "startTs": null,
       "endTs": null,
       "stepType": "K8S_ROLLING",
-      "status": "RUNNING",
+      "status": "Running",
       "failureInfo": null
     },
     "EBb7aN29SDmnoBrS3js0RA": {
@@ -88,7 +88,7 @@
       "startTs": null,
       "endTs": null,
       "stepType": "SECTION_CHAIN",
-      "status": "RUNNING",
+      "status": "Running",
       "failureInfo": null
     }
   },
