@@ -61,7 +61,7 @@ export interface InputSetDTO extends Omit<CDInputSet, 'identifier' | 'pipeline'>
 
 const getDefaultInputSet = (template: NgPipeline): InputSetDTO => ({
   name: undefined,
-  identifier: undefined,
+  identifier: '',
   description: undefined,
   pipeline: template,
   inputSetReferences: []
@@ -423,16 +423,15 @@ export const InputSetForm: React.FC<InputSetFormProps> = ({ hideForm, identifier
   )
 
   if (
-    (loadingInputSet ||
-      loadingPipeline ||
-      loadingTemplate ||
-      createInputSetLoading ||
-      updateInputSetLoading ||
-      createOverlayInputSetLoading ||
-      updateOverlayInputSetLoading ||
-      loadingInputSetList ||
-      loadingOverlayInputSet) &&
-    (template?.data?.inputSetTemplateYaml || inputSetList?.data?.content)
+    loadingInputSet ||
+    loadingPipeline ||
+    loadingTemplate ||
+    createInputSetLoading ||
+    updateInputSetLoading ||
+    createOverlayInputSetLoading ||
+    updateOverlayInputSetLoading ||
+    loadingInputSetList ||
+    loadingOverlayInputSet
   ) {
     return <PageSpinner />
   }
@@ -499,7 +498,8 @@ export const InputSetForm: React.FC<InputSetFormProps> = ({ hideForm, identifier
                       <BasicInputSetForm isEdit={isEdit} formType={formType} values={values} />
                       {formType === InputFormType.InputForm &&
                         pipeline?.data?.ngPipeline &&
-                        template?.data?.inputSetTemplateYaml && (
+                        template?.data?.inputSetTemplateYaml &&
+                        parse(template.data.inputSetTemplateYaml) && (
                           <PipelineInputSetForm
                             originalPipeline={(pipeline.data.ngPipeline as any).pipeline}
                             template={parse(template.data.inputSetTemplateYaml).pipeline}

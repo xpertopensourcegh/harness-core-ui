@@ -174,7 +174,7 @@ function ManifestListView({
                       store: {
                         type: string
                         spec: {
-                          connectorIdentifier: string
+                          connectorRef: string
                           gitFetchType: string
                           branch: string
                           commitId: string

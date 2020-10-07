@@ -3,7 +3,7 @@ import type { ConnectorConfigDTO } from 'services/cd-ng'
 
 export const ConnectorSecretScope: { [scope: string]: string } = {
   [Scope.ORG]: 'org.',
-  [Scope.ACCOUNT]: 'acc.'
+  [Scope.ACCOUNT]: 'account.'
 }
 
 export function getScopingStringFromSecretRef(connecterConfig: ConnectorConfigDTO): string | undefined {

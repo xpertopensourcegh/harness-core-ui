@@ -35,7 +35,7 @@ export function getScopeFromValue(value: string): Scope {
 
 export function getIdentifierFromValue(value: string): string {
   const scope = getScopeFromValue(value)
-  if (scope === Scope.ACCOUNT || scope === Scope.PROJECT) {
+  if (scope === Scope.ACCOUNT || scope === Scope.ORG) {
     return value.replace(`${scope}.`, '')
   }
   return value
@@ -76,11 +76,15 @@ export function EntityReference<T>(props: EntityReferenceProps<T>): JSX.Element 
   const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<string | null>()
 
-  const delayedFetchRecords = useRef(debounce(fetchRecords, 300)).current
+  const delayedFetchRecords = useRef(
+    debounce((scope: Scope, search: string | undefined, done: (records: EntityReferenceResponse<T>[]) => void) => {
+      setLoading(true)
+      fetchRecords(scope, search, done)
+    }, 300)
+  ).current
   const fetchData = useCallback(() => {
     try {
       setError(null)
-      setLoading(true)
       delayedFetchRecords(selectedScope, searchTerm, records => {
         setData(records)
         setLoading(false)

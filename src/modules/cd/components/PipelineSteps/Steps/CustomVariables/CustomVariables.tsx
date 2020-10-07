@@ -70,7 +70,7 @@ const getSecretKey = (secret: SecretDTOV2): string =>
     secret.identifier
   }` || ''
 
-const getDefaultVariable = (): Variable => ({ name: '', type: 'STRING', value: '' })
+const getDefaultVariable = (): Variable => ({ name: '', type: 'String', value: '' })
 
 const secretsOptions: Map<string, string> = new Map()
 

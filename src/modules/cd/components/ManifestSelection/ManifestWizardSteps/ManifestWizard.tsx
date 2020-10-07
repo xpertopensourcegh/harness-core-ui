@@ -125,7 +125,7 @@ const SecondStep = (props: any): JSX.Element => {
                 store: {
                   type: 'Git',
                   spec: {
-                    connectorIdentifier: prevData?.gitServer?.value,
+                    connectorRef: prevData?.gitServer?.value,
                     gitFetchType: formData?.gitFetchType,
                     branch: formData?.branch,
                     commitId: formData?.commitId,

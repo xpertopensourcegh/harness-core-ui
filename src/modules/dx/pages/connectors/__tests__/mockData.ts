@@ -19,7 +19,7 @@ export const ManualK8s = {
                 auth: {
                   type: 'UsernamePassword',
                   spec: {
-                    passwordRef: 'acc.secretname',
+                    passwordRef: 'account.secretname',
                     username: 'user name'
                   }
                 }
@@ -100,7 +100,7 @@ export const GitHttp = {
             type: 'Http',
             url: 'url',
             spec: {
-              passwordRef: 'acc.secretname',
+              passwordRef: 'account.secretname',
               username: 'user name'
             }
           }
@@ -139,7 +139,7 @@ export const Docker = {
             auth: {
               type: 'UsernamePassword',
               spec: {
-                passwordRef: 'acc.secretname',
+                passwordRef: 'account.secretname',
                 username: 'user name'
               }
             }
@@ -178,7 +178,7 @@ export const ActiveDocker = {
             auth: {
               type: 'UsernamePassword',
               spec: {
-                passwordRef: 'acc.secretname',
+                passwordRef: 'account.secretname',
                 username: 'user name'
               }
             }

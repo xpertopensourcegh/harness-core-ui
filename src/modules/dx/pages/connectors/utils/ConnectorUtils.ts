@@ -19,7 +19,7 @@ export const getScopedSecretString = (scope: string, identifier: string) => {
     case Scope.PROJECT:
       return identifier
     case Scope.ACCOUNT:
-      return `acc.${identifier}`
+      return `account.${identifier}`
     case Scope.ORG:
       return `org.${identifier}`
   }

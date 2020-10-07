@@ -44,8 +44,8 @@ interface KubernetesInfraSpecEditableProps {
   template?: K8SDirectInfrastructureTemplate
 }
 
-interface FormValues extends Omit<K8SDirectInfrastructure, 'connectorIdentifier'> {
-  connectorIdentifier: MultiTypeConnectorFieldProps['selected'] | string
+interface FormValues extends Omit<K8SDirectInfrastructure, 'connectorRef'> {
+  connectorRef: MultiTypeConnectorFieldProps['selected'] | string
 }
 
 const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = ({
@@ -58,10 +58,10 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
     accountId: string
   }>()
   const delayedOnUpdate = React.useRef(debounce(onUpdate || noop, 300)).current
-  const connectorIdentifier = getIdentifierFromValue(initialValues.connectorIdentifier || '')
-  const initialScope = getScopeFromValue(initialValues.connectorIdentifier || '')
+  const connectorRef = getIdentifierFromValue(initialValues.connectorRef || '')
+  const initialScope = getScopeFromValue(initialValues.connectorRef || '')
   const { data: connector, loading, refetch } = useGetConnector({
-    identifier: connectorIdentifier,
+    identifier: connectorRef,
     queryParams: {
       accountIdentifier: accountId,
       orgIdentifier: initialScope === Scope.ORG || initialScope === Scope.PROJECT ? orgIdentifier : undefined,
@@ -73,25 +73,25 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
 
   React.useEffect(() => {
     if (
-      !isEmpty(initialValues.connectorIdentifier) &&
-      getMultiTypeFromValue(initialValues.connectorIdentifier || '') === MultiTypeInputType.FIXED
+      !isEmpty(initialValues.connectorRef) &&
+      getMultiTypeFromValue(initialValues.connectorRef || '') === MultiTypeInputType.FIXED
     ) {
       refetch()
     }
-  }, [initialValues.connectorIdentifier])
-  const values: FormValues = { ...initialValues, connectorIdentifier: undefined }
+  }, [initialValues.connectorRef])
+  const values: FormValues = { ...initialValues, connectorRef: undefined }
   if (
     connector?.data?.connector &&
-    getMultiTypeFromValue(initialValues.connectorIdentifier || '') === MultiTypeInputType.FIXED
+    getMultiTypeFromValue(initialValues.connectorRef || '') === MultiTypeInputType.FIXED
   ) {
     const scope = getScopeFromDTO<ConnectorInfoDTO>(connector?.data?.connector)
-    values.connectorIdentifier = {
+    values.connectorRef = {
       label: connector?.data?.connector.name || '',
       value: `${scope !== Scope.PROJECT ? `${scope}.` : ''}${connector?.data?.connector.identifier}`,
       scope: scope
     }
   } else {
-    values.connectorIdentifier = initialValues.connectorIdentifier
+    values.connectorRef = initialValues.connectorRef
   }
 
   return (
@@ -104,10 +104,10 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
           const data: K8SDirectInfrastructure = {
             namespace: value.namespace,
             releaseName: value.releaseName,
-            connectorIdentifier: undefined
+            connectorRef: undefined
           }
-          if (value.connectorIdentifier) {
-            data.connectorIdentifier = (value.connectorIdentifier as any)?.value || value.connectorIdentifier
+          if (value.connectorRef) {
+            data.connectorRef = (value.connectorRef as any)?.value || value.connectorRef
           }
           delayedOnUpdate(data)
         }}
@@ -118,7 +118,7 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
             <FormikForm>
               <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
                 <FormMultiTypeConnectorField
-                  name="connectorIdentifier"
+                  name="connectorRef"
                   label={i18n.k8ConnectorDropDownLabel}
                   placeholder={loading ? i18n.loading : i18n.k8ConnectorDropDownPlaceholder}
                   disabled={loading}
@@ -127,9 +127,9 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
                   orgIdentifier={orgIdentifier}
                   width={400}
                 />
-                {getMultiTypeFromValue(formik.values.connectorIdentifier) === MultiTypeInputType.RUNTIME && (
+                {getMultiTypeFromValue(formik.values.connectorRef) === MultiTypeInputType.RUNTIME && (
                   <ConfigureOptions
-                    value={formik.values.connectorIdentifier as string}
+                    value={formik.values.connectorRef as string}
                     type={
                       <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
                         <Icon name={getIconByType('K8sCluster')}></Icon>
@@ -141,7 +141,7 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
                     showDefaultField={false}
                     showAdvanced={true}
                     onChange={value => {
-                      formik.setFieldValue('connectorIdentifier', value)
+                      formik.setFieldValue('connectorRef', value)
                     }}
                   />
                 )}
@@ -216,11 +216,11 @@ const KubernetesInfraSpecInputForm: React.FC<KubernetesInfraSpecEditableProps> =
     orgIdentifier: string
     accountId: string
   }>()
-  const connectorIdentifier = getIdentifierFromValue(initialValues.connectorIdentifier || '')
-  const initialScope = getScopeFromValue(initialValues.connectorIdentifier || '')
+  const connectorRef = getIdentifierFromValue(initialValues.connectorRef || '')
+  const initialScope = getScopeFromValue(initialValues.connectorRef || '')
 
   const { data: connector, loading, refetch } = useGetConnector({
-    identifier: connectorIdentifier,
+    identifier: connectorRef,
     queryParams: {
       accountIdentifier: accountId,
       orgIdentifier: initialScope === Scope.ORG || initialScope === Scope.PROJECT ? orgIdentifier : undefined,
@@ -232,18 +232,18 @@ const KubernetesInfraSpecInputForm: React.FC<KubernetesInfraSpecEditableProps> =
 
   React.useEffect(() => {
     if (
-      getMultiTypeFromValue(template?.connectorIdentifier) === MultiTypeInputType.RUNTIME &&
-      getMultiTypeFromValue(initialValues?.connectorIdentifier) !== MultiTypeInputType.RUNTIME
+      getMultiTypeFromValue(template?.connectorRef) === MultiTypeInputType.RUNTIME &&
+      getMultiTypeFromValue(initialValues?.connectorRef) !== MultiTypeInputType.RUNTIME
     ) {
       refetch()
     }
-  }, [initialValues.connectorIdentifier])
+  }, [initialValues.connectorRef])
 
   let connectorSelected: ConnectorReferenceFieldProps['selected'] = undefined
   if (
     connector?.data?.connector &&
-    getMultiTypeFromValue(template?.connectorIdentifier) === MultiTypeInputType.RUNTIME &&
-    getMultiTypeFromValue(initialValues.connectorIdentifier) === MultiTypeInputType.FIXED
+    getMultiTypeFromValue(template?.connectorRef) === MultiTypeInputType.RUNTIME &&
+    getMultiTypeFromValue(initialValues.connectorRef) === MultiTypeInputType.FIXED
   ) {
     const scope = getScopeFromDTO<ConnectorInfoDTO>(connector?.data?.connector)
     connectorSelected = {
@@ -254,21 +254,21 @@ const KubernetesInfraSpecInputForm: React.FC<KubernetesInfraSpecEditableProps> =
   }
   return (
     <Layout.Vertical padding="medium" spacing="small">
-      {getMultiTypeFromValue(template?.connectorIdentifier) === MultiTypeInputType.RUNTIME && (
+      {getMultiTypeFromValue(template?.connectorRef) === MultiTypeInputType.RUNTIME && (
         <ConnectorReferenceField
           accountIdentifier={accountId}
           selected={connectorSelected}
           projectIdentifier={projectIdentifier}
           orgIdentifier={orgIdentifier}
           width={400}
-          name="connectorIdentifier"
+          name="connectorRef"
           label={i18n.k8ConnectorDropDownLabel}
           placeholder={loading ? i18n.loading : i18n.k8ConnectorDropDownPlaceholder}
           disabled={loading}
           onChange={(record, scope) => {
             onUpdate?.({
               ...initialValues,
-              connectorIdentifier:
+              connectorRef:
                 scope === Scope.ORG || scope === Scope.ACCOUNT ? `${scope}.${record?.identifier}` : record?.identifier
             })
           }}

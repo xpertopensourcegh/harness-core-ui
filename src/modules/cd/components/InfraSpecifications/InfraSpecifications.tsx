@@ -67,11 +67,11 @@ export default function InfraSpecifications(): JSX.Element {
 
   const getInitialInfraConnectorValues = (): K8SDirectInfrastructure => {
     const infrastructure = get(stage, 'stage.spec.infrastructure.infrastructureDefinition', null)
-    const connectorIdentifier = infrastructure?.spec?.connectorIdentifier
+    const connectorRef = infrastructure?.spec?.connectorRef
     const namespace = infrastructure?.spec?.namespace
     const releaseName = infrastructure?.spec?.releaseName
     return {
-      connectorIdentifier,
+      connectorRef,
       namespace,
       releaseName
     }
@@ -110,7 +110,7 @@ export default function InfraSpecifications(): JSX.Element {
       const infraStruct = {
         type: 'KubernetesDirect',
         spec: {
-          connectorIdentifier: value.connectorIdentifier,
+          connectorRef: value.connectorRef,
           namespace: value.namespace,
           releaseName: value.releaseName
         }
@@ -129,7 +129,7 @@ export default function InfraSpecifications(): JSX.Element {
         infrastructureDefinition: {
           type: 'KubernetesDirect',
           spec: {
-            connectorIdentifier: value.connectorIdentifier,
+            connectorRef: value.connectorRef,
             namespace: value.namespace,
             releaseName: value.releaseName
           }

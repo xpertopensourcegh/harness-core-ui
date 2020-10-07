@@ -167,7 +167,7 @@ export default function ArtifactsSelection({
                 primary: {
                   type: primaryArtifactType,
                   spec: {
-                    dockerhubConnector: data.connectorId?.value ? data.connectorId.value : data.connectorId,
+                    connectorRef: data.connectorId?.value ? data.connectorId.value : data.connectorId,
                     imagePath: data.imagePath
                   }
                 }
@@ -182,7 +182,7 @@ export default function ArtifactsSelection({
         artifacts['primary'] = {
           type: primaryArtifactType,
           spec: {
-            dockerhubConnector: data.connectorId?.value ? data.connectorId.value : data.connectorId,
+            connectorRef: data.connectorId?.value ? data.connectorId.value : data.connectorId,
             imagePath: data.imagePath
           }
         }
@@ -192,14 +192,14 @@ export default function ArtifactsSelection({
         type: string
         identifier: string
         spec: {
-          dockerhubConnector: string | undefined | { value: string }
+          connectorRef: string | undefined | { value: string }
           imagePath: string
         }
       } = {
         type: primaryArtifactType,
         identifier: data.identifier as string,
         spec: {
-          dockerhubConnector: data.connectorId?.value ? data.connectorId.value : data.connectorId,
+          connectorRef: data.connectorId?.value ? data.connectorId.value : data.connectorId,
           imagePath: data.imagePath
         }
       }
@@ -293,7 +293,7 @@ export default function ArtifactsSelection({
   }
 
   const getInitialValues = (
-    primaryArtifactParam: { spec: { dockerhubConnector: string; imagePath: string } },
+    primaryArtifactParam: { spec: { connectorRef: string; imagePath: string } },
     sideCarArtifactParam: any
   ) => {
     let spec
@@ -304,13 +304,13 @@ export default function ArtifactsSelection({
     }
     const initialValues = {
       connectorId:
-        isValidScopeValue(spec?.dockerhubConnector) === 0
+        isValidScopeValue(spec?.connectorRef) === 0
           ? {
-              label: spec?.dockerhubConnector?.split('.')[1],
-              scope: spec?.dockerhubConnector?.split('.')[0],
-              value: spec?.dockerhubConnector
+              label: spec?.connectorRef?.split('.')[1],
+              scope: spec?.connectorRef?.split('.')[0],
+              value: spec?.connectorRef
             }
-          : spec?.dockerhubConnector,
+          : spec?.connectorRef,
       imagePath: spec.imagePath
     }
 
@@ -324,10 +324,10 @@ export default function ArtifactsSelection({
   const updateArtifact = (value: { imagePath: string; connectorId: { value: string } }): void => {
     if (editContext === ModalViewFor.PRIMARY) {
       primaryArtifact.spec.imagePath = value.imagePath
-      primaryArtifact.spec.dockerhubConnector = value.connectorId.value ? value.connectorId.value : value.connectorId
+      primaryArtifact.spec.connectorRef = value.connectorId.value ? value.connectorId.value : value.connectorId
     } else {
       sideCarArtifact[sidecarIndex].sidecar.spec.imagePath = value.imagePath
-      sideCarArtifact[sidecarIndex].sidecar.spec.dockerhubConnector = value.connectorId.value
+      sideCarArtifact[sidecarIndex].sidecar.spec.connectorRef = value.connectorId.value
         ? value.connectorId.value
         : value.connectorId
     }
@@ -474,7 +474,7 @@ export default function ArtifactsSelection({
                 </span>
                 <span>
                   <Text width={470} lineClamp={1} style={{ color: Color.GREY_500 }}>
-                    {primaryArtifact?.spec?.dockerhubConnector}
+                    {primaryArtifact?.spec?.connectorRef}
                   </Text>
                 </span>
                 <span>
@@ -500,7 +500,7 @@ export default function ArtifactsSelection({
                       type: string
                       identifier: string
                       spec: {
-                        dockerhubConnector: string
+                        connectorRef: string
                         imagePath: string
                       }
                     }
@@ -527,7 +527,7 @@ export default function ArtifactsSelection({
                       </span>
                       <span>
                         <Text width={480} lineClamp={1} style={{ color: Color.GREY_500 }}>
-                          {sidecar.spec.dockerhubConnector}
+                          {sidecar.spec.connectorRef}
                         </Text>
                       </span>
                       <span>

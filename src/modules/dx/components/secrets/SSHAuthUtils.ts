@@ -73,7 +73,7 @@ const getReference = (scope?: Scope, identifier?: string): string | undefined =>
     case Scope.ORG:
       return `org.${identifier}`
     case Scope.ACCOUNT:
-      return `acc.${identifier}`
+      return `account.${identifier}`
   }
 }
 
