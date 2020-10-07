@@ -1,4 +1,7 @@
 .main {
+  position: relative;
+  height: 100%;
+
   .fullHeight {
     height: 100%;
   }
@@ -27,7 +30,7 @@
     position: absolute;
     right: var(--spacing-medium);
     top: var(--spacing-none);
-    z-index: 10;
+    z-index: 2;
     transform: translateY(-18px);
     height: 30px;
     width: 22px;

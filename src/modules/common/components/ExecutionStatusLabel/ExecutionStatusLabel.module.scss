@@ -31,10 +31,12 @@
 
   color: var(--execution-status-color) !important;
   border: 1px solid var(--execution-status-color);
-  border-radius: 5px;
-  padding: 4px 12px !important;
+  border-radius: 8px;
+  padding: 2px 12px !important;
+  height: 20px;
+  line-height: 20px !important;
   font-weight: bold !important;
-  display: inline-flex;
-  height: 22px;
+  display: inline-flex !important;
+  justify-content: center;
   align-items: center;
 }

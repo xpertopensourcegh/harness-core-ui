@@ -1,6 +1,6 @@
 import React from 'react'
 import { useParams, useLocation, NavLink, Link } from 'react-router-dom'
-import { Button, Icon } from '@wings-software/uikit'
+import { Button } from '@wings-software/uikit'
 import cx from 'classnames'
 import qs from 'qs'
 
@@ -9,8 +9,9 @@ import { useGetPipelineExecutionDetail } from 'services/cd-ng'
 import { ExecutionStatusLabel } from 'modules/common/components/ExecutionStatusLabel/ExecutionStatusLabel'
 import { Duration } from 'modules/common/components/Duration/Duration'
 import type { ExecutionStatus } from 'modules/common/exports'
+import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
 
-import { getPipelineStagesMap } from './ExecutionUtils'
+import { getPipelineStagesMap, isExecutionComplete } from './ExecutionUtils'
 import { ExecutionTab } from './ExecutionConstants'
 import ExecutionActions from './ExecutionActions/ExecutionActions'
 import ExecutionContext from './ExecutionContext/ExecutionContext'
@@ -18,8 +19,6 @@ import ExecutionMetadata from './ExecutionMetadata/ExecutionMetadata'
 import ExecutionTabs from './ExecutionTabs/ExecutionTabs'
 import RightBar from './RightBar/RightBar'
 import css from './Execution.module.scss'
-
-const TEMP_NOW = Date.now() - 10 * 1000
 
 export interface ExecutionPathParams {
   orgIdentifier: string
@@ -40,7 +39,7 @@ export default function Execution(props: React.PropsWithChildren<{}>): React.Rea
   const location = useLocation()
   const queryParams = qs.parse(location.search, { ignoreQueryPrefix: true })
 
-  const { data, refetch } = useGetPipelineExecutionDetail({
+  const { data, refetch, loading } = useGetPipelineExecutionDetail({
     planExecutionId: executionIdentifier,
     queryParams: {
       orgIdentifier,
@@ -55,7 +54,7 @@ export default function Execution(props: React.PropsWithChildren<{}>): React.Rea
   }, [data])
 
   React.useEffect(() => {
-    if (data && !['COMPLETED', 'PAUSED', 'FAILED'].includes(data.data?.pipelineExecution?.executionStatus || '')) {
+    if (data && !isExecutionComplete(data.data?.pipelineExecution?.executionStatus)) {
       const timerId = window.setTimeout(() => {
         refetch()
       }, POLL_INTERVAL)
@@ -70,8 +69,11 @@ export default function Execution(props: React.PropsWithChildren<{}>): React.Rea
     setShowDetails(status => !status)
   }
 
+  const { pipelineExecution = {} } = data?.data || {}
+
   return (
     <ExecutionContext.Provider value={{ currentTab, pipelineExecutionDetail: data?.data || null, pipelineStagesMap }}>
+      {loading && !data ? <PageSpinner /> : null}
       <main className={css.main}>
         <div className={css.lhs}>
           <header className={cx(css.header, { [css.showDetails]: showDetail })}>
@@ -80,24 +82,28 @@ export default function Execution(props: React.PropsWithChildren<{}>): React.Rea
             </div>
             <div className={css.headerTopRow}>
               <div className={css.titleContainer}>
-                <div className={css.title}>{data?.data?.pipelineExecution?.pipelineName}</div>
-                {data?.data?.pipelineExecution?.executionStatus && (
-                  <ExecutionStatusLabel status={data.data.pipelineExecution.executionStatus as ExecutionStatus} />
-                )}
+                <div className={css.title}>{pipelineExecution.pipelineName}</div>
+                <div className={css.pipelineId}>(Execution ID: {pipelineExecution.planExecutionId})</div>
               </div>
               <div className={css.statusBar}>
+                {pipelineExecution.executionStatus && (
+                  <ExecutionStatusLabel
+                    className={css.statusLabel}
+                    status={pipelineExecution.executionStatus as ExecutionStatus}
+                  />
+                )}
                 <Duration
-                  startTime={data?.data?.pipelineExecution?.startedAt || TEMP_NOW} // TODO: remove Date.now() after complete API integration
-                  // endTime={data?.data?.pipelineExecution?.endedAt}
+                  startTime={pipelineExecution.startedAt}
+                  endTime={pipelineExecution.endedAt}
                   durationText={' '}
                 />
-                <ExecutionActions executionStatus={data?.data?.pipelineExecution?.executionStatus} />
+                <ExecutionActions executionStatus={pipelineExecution.executionStatus} />
               </div>
             </div>
             <div className={css.headerBottomRow}>
               <Button
                 className={css.toggleDetails}
-                icon={showDetail ? 'chevron-up' : 'chevron-down'}
+                icon={showDetail ? 'chevron-down' : 'chevron-right'}
                 small
                 iconProps={{ size: 14 }}
                 onClick={toggleDetails}
@@ -105,11 +111,8 @@ export default function Execution(props: React.PropsWithChildren<{}>): React.Rea
             </div>
           </header>
           {showDetail ? <ExecutionMetadata /> : null}
-          <ExecutionTabs key={currentTab} currentTab={currentTab} onTabChange={setCurrentTab}>
+          <ExecutionTabs currentTab={currentTab} onTabChange={setCurrentTab}>
             <div className={css.viewStatus}>
-              <div className={css.statusIcon}>
-                <Icon name="warning-sign" size={20} intent="danger" />
-              </div>
               <div className={css.viewToggle}>
                 <NavLink
                   activeClassName={css.active}

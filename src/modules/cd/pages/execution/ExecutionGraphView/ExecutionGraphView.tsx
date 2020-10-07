@@ -11,9 +11,11 @@ import ExecutionGraph from './ExecutionGraph/ExecutionGraph'
 import ExecutionStageDetails from './ExecutionStageDetails/ExecutionStageDetails'
 import ExecutionStepDetails, { DetailsViewState } from './ExecutionStepDetails/ExecutionStepDetails'
 import { getRunningStage, getRunningStep } from './ExecutionGraphViewUtils'
+import { isExecutionNotStarted } from '../ExecutionUtils'
 
 import css from './ExecutionGraphView.module.scss'
 
+const RESIZER_POSITION_DELTA = 8
 export const PANEL_RESIZE_DELTA = 50
 export const MIN_PANEL_SIZE = 200
 
@@ -40,6 +42,7 @@ export default function ExecutionGraphView(): React.ReactElement {
   const [stepSplitPaneSize, setStepSplitPaneSize] = React.useState(250)
   const [autoSelectedStageId, setAutoSelectedStageId] = React.useState('')
   const [autoSelectedStepId, setAutoSelectedStepId] = React.useState('')
+  const resizerRef = React.useRef<HTMLDivElement | null>(null)
   const location = useLocation()
   const history = useHistory()
   const { pipelineExecutionDetail, pipelineStagesMap } = useExecutionContext()
@@ -93,7 +96,7 @@ export default function ExecutionGraphView(): React.ReactElement {
   function handleStepSelection(step: string): void {
     const selectedStep = pipelineExecutionDetail?.stageGraph?.nodeMap?.[step]
 
-    if (selectedStep?.status === 'NotStarted') {
+    if (isExecutionNotStarted(selectedStep?.status)) {
       return
     }
 
@@ -109,7 +112,7 @@ export default function ExecutionGraphView(): React.ReactElement {
   function handleStageSelection(stage: string): void {
     const selectedStage = pipelineStagesMap.get(stage)
 
-    if (selectedStage?.executionStatus === 'NotStarted') {
+    if (isExecutionNotStarted(selectedStage?.executionStatus)) {
       return
     }
 
@@ -122,9 +125,41 @@ export default function ExecutionGraphView(): React.ReactElement {
     history.push(`${location.pathname}?${qs.stringify(params)}`)
   }
 
+  function handleStageResize(size: number): void {
+    window.requestAnimationFrame(() => {
+      if (resizerRef.current) {
+        resizerRef.current.style.transform = `translateY(${size - RESIZER_POSITION_DELTA}px)`
+      }
+    })
+
+    setStageSplitPaneSizeDebounce(size)
+  }
+
   const stageExecutionDetails = (
-    <React.Fragment>
-      <div className={css.resizers}>
+    <ExecutionStageDetails
+      onStepSelect={handleStepSelection}
+      onStageSelect={handleStageSelection}
+      selectedStage={(queryParams.stage as string) || autoSelectedStageId}
+      selectedStep={(queryParams.step as string) || autoSelectedStepId}
+    />
+  )
+
+  const stepDetails =
+    detailsViewState === DetailsViewState.NONE ? null : (
+      <ExecutionStepDetails
+        selectedStep={(queryParams.step as string) || autoSelectedStepId}
+        viewState={detailsViewState}
+        onViewStateChange={setDetailsViewState}
+      />
+    )
+
+  return (
+    <div className={css.main}>
+      <div
+        className={css.resizers}
+        ref={resizerRef}
+        style={{ transform: `translateY(${stageSplitPaneSize - RESIZER_POSITION_DELTA}px)` }}
+      >
         <Button
           icon="up"
           minimal
@@ -140,57 +175,33 @@ export default function ExecutionGraphView(): React.ReactElement {
           onClick={() => setStageSplitPaneSize(size => size + PANEL_RESIZE_DELTA)}
         />
       </div>
-      <ExecutionStageDetails
-        onStepSelect={handleStepSelection}
-        onStageSelect={handleStageSelection}
-        selectedStage={(queryParams.stage as string) || autoSelectedStageId}
-        selectedStep={(queryParams.step as string) || autoSelectedStepId}
-      />
-    </React.Fragment>
-  )
-
-  const stepDetails =
-    detailsViewState === DetailsViewState.NONE ? null : (
-      <ExecutionStepDetails
-        selectedStep={(queryParams.step as string) || autoSelectedStepId}
-        viewState={detailsViewState}
-        onViewStateChange={setDetailsViewState}
-      />
-    )
-
-  return (
-    <SplitPane
-      className={css.main}
-      split="horizontal"
-      minSize={MIN_PANEL_SIZE}
-      size={stageSplitPaneSize}
-      onChange={size => setStageSplitPaneSizeDebounce(size)}
-    >
-      <Pane className={css.executionGraphPane}>
-        <ExecutionGraph
-          onSelectedStage={handleStageSelection}
-          selectedStage={(queryParams.stage as string) || autoSelectedStageId}
-          graphSize={stageSplitPaneSize}
-        />
-      </Pane>
-      <Pane className={css.fullHeight}>
-        {detailsViewState === DetailsViewState.BOTTOM || detailsViewState === DetailsViewState.RIGHT ? (
-          <SplitPane
-            className={css.executionStageSplitPane}
-            {...splitPaneProps[detailsViewState]}
-            size={stepSplitPaneSize}
-            onChange={setStepSplitPaneSizeDebounce}
-          >
-            <Pane className={css.executionStagePane}>{stageExecutionDetails}</Pane>
-            <Pane className={css.fullHeight}>{stepDetails}</Pane>
-          </SplitPane>
-        ) : (
-          <React.Fragment>
-            {stageExecutionDetails}
-            {stepDetails}
-          </React.Fragment>
-        )}
-      </Pane>
-    </SplitPane>
+      <SplitPane split="horizontal" minSize={MIN_PANEL_SIZE} size={stageSplitPaneSize} onChange={handleStageResize}>
+        <Pane className={css.executionGraphPane}>
+          <ExecutionGraph
+            onSelectedStage={handleStageSelection}
+            selectedStage={(queryParams.stage as string) || autoSelectedStageId}
+            graphSize={stageSplitPaneSize}
+          />
+        </Pane>
+        <Pane className={css.fullHeight}>
+          {detailsViewState === DetailsViewState.BOTTOM || detailsViewState === DetailsViewState.RIGHT ? (
+            <SplitPane
+              className={css.executionStageSplitPane}
+              {...splitPaneProps[detailsViewState]}
+              size={stepSplitPaneSize}
+              onChange={setStepSplitPaneSizeDebounce}
+            >
+              <Pane className={css.executionStagePane}>{stageExecutionDetails}</Pane>
+              <Pane className={css.fullHeight}>{stepDetails}</Pane>
+            </SplitPane>
+          ) : (
+            <React.Fragment>
+              {stageExecutionDetails}
+              {stepDetails}
+            </React.Fragment>
+          )}
+        </Pane>
+      </SplitPane>
+    </div>
   )
 }

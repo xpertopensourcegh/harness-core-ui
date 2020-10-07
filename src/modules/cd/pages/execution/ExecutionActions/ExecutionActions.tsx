@@ -4,6 +4,8 @@ import { Menu, MenuItem } from '@blueprintjs/core'
 
 import type { PipelineExecutionSummaryDTO } from 'services/cd-ng'
 
+import { isExecutionComplete, isExecutionInProgress, isExecutionPaused } from '../ExecutionUtils'
+
 import css from './ExecutionActions.module.scss'
 
 type ExecutionStatus = PipelineExecutionSummaryDTO['executionStatus']
@@ -17,26 +19,28 @@ export interface ExecutionActionsProps {
   executionStatus: ExecutionStatus
 }
 
-const COMPLETED_PIPELINE_STATUS: ExecutionStatus[] = ['Aborted', 'Expired', 'Failed', 'Success']
-
 export default function ExecutionActions(props: ExecutionActionsProps): React.ReactElement {
   const { executionStatus } = props
 
+  const canPause = isExecutionInProgress(executionStatus) && !isExecutionPaused(executionStatus)
+  const canAbort = isExecutionInProgress(executionStatus)
+  const canRerun = isExecutionComplete(executionStatus)
+  const canResume = isExecutionPaused(executionStatus)
+
   return (
     <div className={css.main}>
-      {executionStatus === 'Paused' ? <Button icon="play" {...commonButtonProps} /> : null}
-      {COMPLETED_PIPELINE_STATUS.includes(executionStatus) ? <Button icon="redo" {...commonButtonProps} /> : null}
-      {executionStatus === 'Running' ? <Button icon="pause" {...commonButtonProps} /> : null}
-      {executionStatus === 'Running' ? <Button icon="stop" {...commonButtonProps} /> : null}
+      {canResume ? <Button icon="play" {...commonButtonProps} /> : null}
+      {canRerun ? <Button icon="repeat" {...commonButtonProps} /> : null}
+      {canPause ? <Button icon="pause" {...commonButtonProps} /> : null}
+      {canAbort ? <Button icon="stop" {...commonButtonProps} /> : null}
       <Popover position="bottom-right" minimal>
         <Button icon="more" {...commonButtonProps} className={css.more} />
         <Menu>
           <MenuItem text="Edit Pipeline" />
-          <MenuItem text="Run" disabled={executionStatus === 'Running'} />
-          <MenuItem text="Re-run" disabled={!COMPLETED_PIPELINE_STATUS.includes(executionStatus)} />
-          <MenuItem text="Pause" disabled={executionStatus !== 'Running'} />
-          <MenuItem text="Abort" disabled={executionStatus !== 'Running'} />
-          <MenuItem text="Resume" disabled={executionStatus !== 'Running'} />
+          <MenuItem text="Re-run" disabled={!canRerun} />
+          <MenuItem text="Pause" disabled={!canPause} />
+          <MenuItem text="Abort" disabled={!canAbort} />
+          <MenuItem text="Resume" disabled={!canResume} />
           <MenuItem text="Download logs" />
         </Menu>
       </Popover>

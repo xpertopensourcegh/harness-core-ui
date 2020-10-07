@@ -9,10 +9,10 @@ declare const styles: {
   readonly titleContainer: string
   readonly title: string
   readonly piplineInfo: string
-  readonly pipelineIdTitle: string
   readonly pipelineId: string
   readonly headerBottomRow: string
   readonly statusBar: string
+  readonly statusLabel: string
   readonly toggleDetails: string
   readonly childContainer: string
   readonly showDetails: string

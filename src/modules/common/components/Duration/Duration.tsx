@@ -3,7 +3,7 @@ import { Text, TextProps } from '@wings-software/uikit'
 import i18n from './Duration.i18n'
 
 export interface DurationProps extends TextProps {
-  startTime: number
+  startTime?: number
   endTime?: number // if endTime is nullable, endTime is Date.now() and the duration is re-calculated by an interval
   formatter?: string // subset of 'wdhms'
   durationText?: string // optional text to override the default `Duration: ` prefix
@@ -50,7 +50,7 @@ export function timeDelta(start: number, end: number, formatter = 'wdhms'): Dura
 
 export const Duration: React.FC<DurationProps> = ({ startTime, endTime, formatter, durationText, ...textProps }) => {
   const [_endTime, setEndTime] = useState(endTime || Date.now())
-  const delta = timeDelta(startTime, _endTime, formatter)
+  const delta = startTime ? timeDelta(startTime, _endTime, formatter) : { w: 0, d: 0, h: 0, m: 0, s: 0 }
 
   useEffect(() => {
     const timeoutId =
