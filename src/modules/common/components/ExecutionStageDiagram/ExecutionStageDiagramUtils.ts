@@ -22,6 +22,7 @@ export const getNodeStyles = (isSelected: boolean, status: ExecutionPipelineItem
         break
       case ExecutionPipelineItemStatus.RUNNING:
         style.borderColor = 'var(--execution-pipeline-color-blue)'
+        style.backgroundColor = isSelected ? 'var(--blue-600)' : 'var(--white)'
         break
       case ExecutionPipelineItemStatus.PAUSED:
       case ExecutionPipelineItemStatus.ROLLBACK:
@@ -66,8 +67,8 @@ export const getStatusProps = (
   status: ExecutionPipelineItemStatus
 ): {
   secondaryIcon?: IconName
-  secondaryIconProps?: Omit<IconProps, 'name'>
-  secondaryIconStyle?: React.CSSProperties
+  secondaryIconProps: Omit<IconProps, 'name'>
+  secondaryIconStyle: React.CSSProperties
 } => {
   const secondaryIconStyle: React.CSSProperties = { top: -7, right: -7 }
   let secondaryIcon: IconName | undefined = undefined
@@ -111,7 +112,7 @@ export const getStatusProps = (
         break
     }
   }
-  return { secondaryIconStyle, secondaryIcon, secondaryIconProps }
+  return { secondaryIconStyle, secondaryIcon: secondaryIcon, secondaryIconProps }
 }
 
 export const getStageFromExecutionPipeline = <T>(
@@ -132,6 +133,44 @@ export const getStageFromExecutionPipeline = <T>(
   })
 
   return stage
+}
+
+export interface GroupState<T> {
+  data: T
+  collapsed: boolean
+  name: string
+  status: ExecutionPipelineItemStatus
+  identifier: string
+}
+
+export const getGroupsFromData = <T>(data: ExecutionPipeline<T>): Map<string, GroupState<T>> => {
+  const groupState = new Map<string, GroupState<T>>()
+  data.items.forEach(node => {
+    if (node.group) {
+      groupState.set(node.group.identifier, {
+        collapsed: false,
+        name: node.group.name,
+        status: node.group.status,
+        identifier: node.group.identifier,
+        data: node.group.data
+      })
+    }
+  })
+  return groupState
+}
+
+export const moveStageToFocus = (engine: DiagramEngine, identifier: string): void => {
+  const model = engine.getModel() as Diagram.DiagramModel
+  const layer = model.getGroupLayer(identifier)
+  const canvas = engine.getCanvas()
+  if (layer && canvas) {
+    const rect = canvas.getBoundingClientRect()
+    const newOffsetX = rect.width * 0.2 - layer.startNode.getPosition().x
+    const offsetY = engine.getModel().getOffsetY()
+    engine.getModel().setOffset(newOffsetX, offsetY)
+    engine.getModel().setZoomLevel(100)
+    engine.repaintCanvas()
+  }
 }
 
 export const getStageFromDiagramEvent = <T>(
@@ -173,6 +212,8 @@ export const focusRunningNode = <T>(engine: DiagramEngine, data: ExecutionPipeli
         const newOffsetX = (rect.width - node.width) * 0.8 - nodePosition.x
         const offsetY = engine.getModel().getOffsetY()
         engine.getModel().setOffset(newOffsetX, offsetY)
+        engine.getModel().setZoomLevel(100)
+        engine.repaintCanvas()
       }
     }
   }

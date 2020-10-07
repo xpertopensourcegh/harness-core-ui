@@ -14,7 +14,7 @@ export const AddStageView: React.FC<AddStageViewProps> = ({ callback, isParallel
   <div className={cx(css.createNewContent, { [css.parallel]: isParallel })}>
     <div className={css.createNewCards}>
       <Card interactive={true} className={css.cardNew} onClick={() => callback(StageType.DEPLOY)}>
-        <Icon name="pipeline-deploy" size={24} />
+        <Icon name="pipeline-deploy" size={24} style={{ color: 'var(--pipeline-deploy-stage-color)' }} />
         <div>{i18n.deploy}</div>
       </Card>
       <Card interactive={true} disabled className={cx(css.cardNew, css.disabled)} onClick={e => e.stopPropagation()}>

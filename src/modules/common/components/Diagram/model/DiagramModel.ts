@@ -59,6 +59,18 @@ export class DiagramModel<G extends DiagramModelGenerics = DiagramModelGenerics>
     }
   }
 
+  clearAllLinksForGroupLayer(id: string): void {
+    const layer = this.getGroupLayer(id)
+    if (layer) {
+      const groupNodes = layer.getNodes()
+      for (const key in groupNodes) {
+        const node = groupNodes[key]
+        this.clearAllLinksForNode(node.getID())
+      }
+      layer.remove()
+    }
+  }
+
   clearAllNodesAndLinks(): void {
     const links = this.getActiveLinkLayer().getLinks()
     for (const key in links) {
@@ -70,7 +82,14 @@ export class DiagramModel<G extends DiagramModelGenerics = DiagramModelGenerics>
       const node = nodes[key]
       node.remove()
     }
-    this.stepGroupLayers.forEach(layer => layer.remove())
+    this.stepGroupLayers.forEach(layer => {
+      const groupNodes = layer.getNodes()
+      for (const key in groupNodes) {
+        const node = groupNodes[key]
+        node.remove()
+      }
+      layer.remove()
+    })
   }
 
   addLayer(layer: LayerModel): void {
@@ -117,6 +136,11 @@ export class DiagramModel<G extends DiagramModelGenerics = DiagramModelGenerics>
       const nodeId = link.getSourcePort().getNode().getID()
       if (nodeId === parent.getID()) {
         isConnectedToParent = true
+        const parentPort = parent.getPort(PortName.Out)
+        if (inPort && parentPort) {
+          link.setSourcePort(parentPort)
+          link.setTargetPort(inPort)
+        }
         link.setColorOfLink(color)
       }
     }

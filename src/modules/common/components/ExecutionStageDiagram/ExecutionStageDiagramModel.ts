@@ -1,6 +1,7 @@
 import type { LinkModelListener, NodeModelListener } from '@projectstorm/react-diagrams-core'
 import type { BaseModelListener } from '@projectstorm/react-canvas-core'
 import type { IconName } from '@wings-software/uikit'
+import cx from 'classnames'
 import { last, isEmpty } from 'lodash-es'
 import { Diagram } from 'modules/common/exports'
 import {
@@ -9,7 +10,7 @@ import {
   ExecutionPipelineNode,
   ExecutionPipelineNodeType
 } from './ExecutionPipelineModel'
-import { getNodeStyles, getStatusProps, getArrowsColor } from './ExecutionStageDiagramUtils'
+import { getNodeStyles, getStatusProps, getArrowsColor, GroupState } from './ExecutionStageDiagramUtils'
 import css from './ExecutionStageDiagram.module.scss'
 
 export interface NodeStyleInterface {
@@ -58,7 +59,8 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
     startY: number,
     selectedStageId?: string,
     diagramContainerHeight?: number,
-    prevNodes?: Diagram.DefaultNodeModel[]
+    prevNodes?: Diagram.DefaultNodeModel[],
+    groupStage?: Map<string, GroupState<T>>
   ): { startX: number; startY: number; prevNodes?: Diagram.DefaultNodeModel[] } {
     const { nodeStyle } = this
     if (node.item && !node.parallel) {
@@ -72,15 +74,14 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
         customNodeStyle: getNodeStyles(isSelected, stage.status),
         canDelete: false,
         ...statusProps,
-        nodeClassName: stage.status === ExecutionPipelineItemStatus.RUNNING ? css.runningNode : '',
+        nodeClassName: cx(
+          { [css.runningNode]: stage.status === ExecutionPipelineItemStatus.RUNNING },
+          { [css.selected]: stage.status === ExecutionPipelineItemStatus.RUNNING && isSelected }
+        ),
         width: nodeStyle.width,
         height: nodeStyle.height,
         iconStyle: {
-          color:
-            (isSelected || stage.status === ExecutionPipelineItemStatus.RUNNING) &&
-            stage.status !== ExecutionPipelineItemStatus.NOT_STARTED
-              ? 'var(--white)'
-              : undefined
+          color: isSelected && stage.status !== ExecutionPipelineItemStatus.NOT_STARTED ? 'var(--white)' : undefined
         },
         icon: stage.icon
       }
@@ -197,7 +198,15 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
           }
           const prevNodesAr: Diagram.DefaultNodeModel[] = []
           parallel.forEach(nodeP => {
-            const resp = this.renderGraphNodes(nodeP, newX, newY, selectedStageId, diagramContainerHeight, prevNodes)
+            const resp = this.renderGraphNodes(
+              nodeP,
+              newX,
+              newY,
+              selectedStageId,
+              diagramContainerHeight,
+              prevNodes,
+              groupStage
+            )
             startX = resp.startX
             newY = resp.startY + this.gap / 2 + (nodeStyle.height - 64)
             if (resp.prevNodes) {
@@ -228,11 +237,20 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
           }
         }
       } else {
-        return this.renderGraphNodes(parallel[0], startX, startY, selectedStageId, diagramContainerHeight, prevNodes)
+        return this.renderGraphNodes(
+          parallel[0],
+          startX,
+          startY,
+          selectedStageId,
+          diagramContainerHeight,
+          prevNodes,
+          groupStage
+        )
       }
       return { startX, startY, prevNodes }
     } else if (node.group) {
       if (node.group.isOpen) {
+        this.clearAllLinksForNode(node.group.identifier)
         const stepGroupLayer =
           this.getGroupLayer(node.group.identifier) ||
           new Diagram.StepGroupNodeLayerModel({
@@ -261,7 +279,15 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
         // Check if step group has nodes
         if (node.group.items?.length > 0) {
           node.group.items.forEach(step => {
-            const resp = this.renderGraphNodes(step, startX, startY, selectedStageId, diagramContainerHeight, prevNodes)
+            const resp = this.renderGraphNodes(
+              step,
+              startX,
+              startY,
+              selectedStageId,
+              diagramContainerHeight,
+              prevNodes,
+              groupStage
+            )
             startX = resp.startX
             startY = resp.startY
             if (resp.prevNodes) {
@@ -287,6 +313,7 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
         this.useNormalLayer()
         return { startX, startY, prevNodes: prevNodes }
       } else {
+        this.clearAllLinksForGroupLayer(node.group.identifier)
         startX += this.gap
         const nodeRender =
           this.getNodeFromId(node.group.identifier) ||
@@ -294,6 +321,7 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
             identifier: node.group.identifier,
             id: node.group.identifier,
             name: node.group.name,
+            canDelete: false,
             icon: node.group.icon,
             secondaryIcon: 'plus',
             customNodeStyle: node.group.cssProps
@@ -322,7 +350,8 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
     listeners: Listeners,
     selectedStageId?: string,
     diagramContainerHeight?: number,
-    showStartEndNode?: boolean
+    showStartEndNode?: boolean,
+    groupStage?: Map<string, GroupState<T>>
   ): void {
     const { gap } = this
     let { startX, startY } = this
@@ -348,7 +377,15 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
     }
 
     pipeline.items?.forEach(node => {
-      const resp = this.renderGraphNodes(node, startX, startY, selectedStageId, diagramContainerHeight, prevNodes)
+      const resp = this.renderGraphNodes(
+        node,
+        startX,
+        startY,
+        selectedStageId,
+        diagramContainerHeight,
+        prevNodes,
+        groupStage
+      )
       startX = resp.startX
       startY = resp.startY
       if (resp.prevNodes) {

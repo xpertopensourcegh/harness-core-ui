@@ -142,6 +142,8 @@ export default function ExecutionGraphView(): React.ReactElement {
       </div>
       <ExecutionStageDetails
         onStepSelect={handleStepSelection}
+        onStageSelect={handleStageSelection}
+        selectedStage={(queryParams.stage as string) || autoSelectedStageId}
         selectedStep={(queryParams.step as string) || autoSelectedStepId}
       />
     </React.Fragment>

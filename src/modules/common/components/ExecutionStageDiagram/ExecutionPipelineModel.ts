@@ -1,4 +1,4 @@
-import type { IconName } from '@wings-software/uikit'
+import type { IconName, SelectOption } from '@wings-software/uikit'
 
 // TODO: should be replaced with type-shape of the box (like: Stage, Step, Approval)
 export enum ExecutionPipelineNodeType {
@@ -26,6 +26,11 @@ export enum ExecutionPipelineItemStatus {
   EXPIRED = 'EXPIRED',
   NOT_STARTED = 'NOT_STARTED',
   ASYNC_WAITING = 'ASYNC_WAITING'
+}
+
+export interface StageOptions extends SelectOption {
+  value: string
+  disabled?: boolean
 }
 
 export interface ExecutionPipelineItem<T> {

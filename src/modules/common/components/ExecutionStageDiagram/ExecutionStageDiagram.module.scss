@@ -9,7 +9,14 @@
   --execution-pipeline-color-orange: #ff832b;
   --execution-pipeline-color-dark-grey2: #9293ab;
   --execution-pipeline-selected-running-bg: linear-gradient(
-    to right,
+    to top left,
+    transparent 33%,
+    rgba(100, 100, 100, 0.1) 50%,
+    transparent 66%
+  );
+
+  --execution-pipeline-selected-running-bg-selected: linear-gradient(
+    to top left,
     transparent 33%,
     rgba(255, 255, 255, 0.3) 50%,
     transparent 66%
@@ -38,9 +45,17 @@
   .running-node {
     position: relative;
     animation: shine 1s infinite;
-    background-color: var(--blue-600);
     background-image: var(--execution-pipeline-selected-running-bg) !important;
-    background-size: 300% 100%;
+    background-size: 200% 200%;
+    &.selected {
+      background-image: var(--execution-pipeline-selected-running-bg-selected) !important;
+    }
+  }
+
+  .stage-selection {
+    position: absolute;
+    top: var(--spacing-large);
+    left: var(--spacing-large);
   }
 
   .canvas {
@@ -48,6 +63,49 @@
     height: 100%;
   }
 
+  .group-labels {
+    display: flex;
+    justify-content: space-around;
+    font-family: var(--font-family);
+    font-size: var(--font-size, var(--font-size-normal));
+    height: 32px;
+    padding: 0 var(--spacing-medium);
+    transition: all 0.25s cubic-bezier(0.39, 0.58, 0.57, 1);
+    transition-property: background-color, color, border-color;
+    border: 1px solid var(--grey-350);
+    color: var(--grey-600);
+    background-color: var(--white);
+    border-radius: 100px;
+    cursor: pointer;
+
+    .label {
+      margin-right: var(--spacing-large);
+      padding: var(--spacing-xsmall) var(--spacing-medium);
+      position: relative;
+
+      &.selected-label:after {
+        content: ' ';
+        display: block;
+        background-color: var(--blue-600);
+        height: 2px;
+        width: 38px;
+        border: 1px solid transparent;
+        border-radius: 10px;
+        bottom: 0;
+        animation: fadeIn 1s;
+        margin-left: calc(50% - 18px);
+      }
+
+      &:last-child {
+        margin-right: 0;
+      }
+
+      &:hover {
+        color: var(--blue-500);
+        background-color: var(--blue-100);
+      }
+    }
+  }
   @-webkit-keyframes fadeIn {
     0% {
       opacity: 0;
@@ -58,8 +116,14 @@
     }
   }
 }
+
+.stage-item {
+  display: block !important;
+  width: 100%;
+}
+
 @keyframes shine {
   0% {
-    background-position: right;
+    background-position: bottom right;
   }
 }

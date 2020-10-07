@@ -4,21 +4,19 @@ import { useExecutionContext } from 'modules/cd/pages/execution/ExecutionContext
 import {
   ExecutionPipeline,
   ExecutionPipelineNode,
-  ExecutionPipelineNodeType
+  ExecutionPipelineNodeType,
+  StageOptions
 } from 'modules/common/components/ExecutionStageDiagram/ExecutionPipelineModel'
-import type {
-  ExecutionNode,
-  ExecutionGraph,
-  StageExecutionSummaryDTO,
-  CDStageExecutionSummaryDTO
-} from 'services/cd-ng'
+import type { ExecutionNode, ExecutionGraph } from 'services/cd-ng'
 import ExecutionStageDiagram from 'modules/common/components/ExecutionStageDiagram/ExecutionStageDiagram'
 
 import css from './ExecutionStageDetails.module.scss'
 
 export interface ExecutionStageDetailsProps {
   onStepSelect(step: string): void
+  onStageSelect(step: string): void
   selectedStep: string
+  selectedStage: string
 }
 
 export enum StepTypes {
@@ -95,31 +93,15 @@ const processExecutionData = (graph?: ExecutionGraph): Array<ExecutionPipelineNo
   return items
 }
 
-const getStageFromSelectedStageId = (
-  selectedStep?: string,
-  stages?: StageExecutionSummaryDTO[]
-): CDStageExecutionSummaryDTO | undefined => {
-  let stage: CDStageExecutionSummaryDTO | undefined = undefined
-  stages?.some(item => {
-    if (item.parallel) {
-      stage = getStageFromSelectedStageId(selectedStep, item.parallel.stageExecutions)
-    } else {
-      const cdStage = item.stage as CDStageExecutionSummaryDTO
-      if (cdStage.stageIdentifier === selectedStep) {
-        stage = cdStage
-        return
-      }
-    }
-  })
-  return stage
-}
-
 export default function ExecutionStageDetails(props: ExecutionStageDetailsProps): React.ReactElement {
-  const { pipelineExecutionDetail } = useExecutionContext()
-  const stage = getStageFromSelectedStageId(
-    props.selectedStep,
-    pipelineExecutionDetail?.pipelineExecution?.stageExecutionSummaryElements
-  )
+  const { pipelineExecutionDetail, pipelineStagesMap } = useExecutionContext()
+  const stagesOptions: StageOptions[] = [...pipelineStagesMap].map(item => ({
+    label: item[1].stageName || '',
+    value: item[1].stageIdentifier || '',
+    icon: { name: 'pipeline-deploy' },
+    disabled: item[1].executionStatus === 'NOT_STARTED'
+  }))
+  const stage = pipelineStagesMap.get(props.selectedStage)
 
   const data: ExecutionPipeline<ExecutionNode> = {
     items: processExecutionData(pipelineExecutionDetail?.stageGraph),
@@ -141,6 +123,16 @@ export default function ExecutionStageDetails(props: ExecutionStageDetailsProps)
         gridStyle={{
           startX: 50,
           startY: 150
+        }}
+        showStageSelection={true}
+        selectedStage={{
+          label: stage?.stageName || '',
+          value: stage?.stageIdentifier || '',
+          icon: { name: 'pipeline-deploy' }
+        }}
+        stageSelectionOptions={stagesOptions}
+        onChangeStageSelection={(item: StageOptions) => {
+          props.onStageSelect(item.value as string)
         }}
         canvasBtnsClass={css.canvasBtns}
       />
