@@ -318,11 +318,19 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
             {singleFlag?.data?.identifier}
           </span>
         </Text>
-        <Text>
+        <Container className={css.tagsFlagActivationDetails}>
           {singleFlag?.data?.tags?.map((elem, i) => (
-            <Text key={i}>{elem.value}</Text>
+            <Text
+              key={`flagDetails-${i}`}
+              background={Color.GREY_300}
+              color={Color.GREY_800}
+              margin={{ right: 'xsmall' }}
+              padding={{ top: 'small', bottom: 'small', left: 'xsmall', right: 'xsmall' }}
+            >
+              {elem.value}
+            </Text>
           ))}
-        </Text>
+        </Container>
 
         <Layout.Horizontal flex margin={{ top: 'medium' }}>
           <Layout.Vertical>
@@ -353,7 +361,7 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
         </Layout.Horizontal>
 
         <Layout.Vertical padding="large" margin={{ top: 'large' }} style={{ boxShadow: '0 0 10px #ccc' }}>
-          <Layout.Horizontal flex={{ align: 'center-center' }} border={{ bottom: true, color: Color.GREY_200 }}>
+          <Layout.Horizontal flex={{ align: 'center-center' }} margin={{ bottom: 'medium' }}>
             <Text color={Color.BLACK}>{i18n.variations}</Text>
             <Text
               tooltip="To be added..."
@@ -368,11 +376,15 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
           </Layout.Horizontal>
 
           <Layout.Vertical>
-            <Text>
+            <Text
+              border={{ bottom: true, color: Color.GREY_300 }}
+              margin={{ bottom: 'medium' }}
+              padding={{ bottom: 'xsmall' }}
+            >
               {singleFlag?.data?.kind === FlagTypeVariations.booleanFlag ? i18n.boolean : i18n.multivariate} (
               {singleFlag?.data?.variations.length} variations)
             </Text>
-            <Text>{singleFlag?.data?.defaultOnVariation}</Text>
+            <Text margin={{ bottom: 'medium' }}>{singleFlag?.data?.defaultOnVariation}</Text>
             <Text>{singleFlag?.data?.defaultOffVariation}</Text>
           </Layout.Vertical>
         </Layout.Vertical>

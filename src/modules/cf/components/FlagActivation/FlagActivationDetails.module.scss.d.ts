@@ -2,6 +2,7 @@
 // this is an auto-generated file
 declare const styles: {
   readonly variationsContainer: string
+  readonly tagsFlagActivationDetails: string
   readonly newEnvRulesContainer: string
   readonly selectEnv: string
   readonly checkboxEnv: string

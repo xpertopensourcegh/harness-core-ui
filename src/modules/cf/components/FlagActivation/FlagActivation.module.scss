@@ -26,6 +26,10 @@
 .tab-container {
   position: relative;
   padding: 0 var(--spacing-xlarge) !important;
+  // 74px is height of header
+  // 72px is height of footer
+  height: calc(100% - 74px - 72px);
+  overflow: auto;
   :global(.bp3-tab-list) {
     border-bottom-color: var(--grey-300) !important;
   }

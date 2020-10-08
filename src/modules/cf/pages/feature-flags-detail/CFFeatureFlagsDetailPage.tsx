@@ -4,6 +4,7 @@ import { Spinner } from '@blueprintjs/core'
 import { useToaster } from 'modules/common/exports'
 import { useGetFeatureFlag, useGetFeatureFlagActivation } from 'services/cf'
 import { useRouteParams } from 'framework/exports'
+import { FlagTypeVariations } from 'modules/cf/components/CreateFlagDialog/FlagDialogUtils'
 import FlagActivation from '../../components/FlagActivation/FlagActivation'
 import FlagActivationDetails from '../../components/FlagActivation/FlagActivationDetails'
 import css from './CFFeatureFlagsDetailPage.module.scss'
@@ -22,8 +23,6 @@ const CFFeatureFlagsDetailPage: React.FC = () => {
     }
   })
 
-  // FIXME: Fix when BE is ready
-  // eslint-disable-next-line
   const { data: flagActivationData, loading: loadingActivation, error: errorActivation } = useGetFeatureFlagActivation({
     identifier: featureFlagIdentifier as string,
     queryParams: {
@@ -56,7 +55,13 @@ const CFFeatureFlagsDetailPage: React.FC = () => {
 
         <Layout.Horizontal width="70%" height="100%">
           <Layout.Vertical width="100%">
-            <FlagActivation flagActivationData={flagActivationData} />
+            <FlagActivation
+              flagActivationData={flagActivationData}
+              variations={singleFlag?.data?.variations}
+              defaultOnVariation={singleFlag?.data?.defaultOnVariation}
+              defaultOffVariation={singleFlag?.data?.defaultOffVariation}
+              isBooleanTypeFlag={singleFlag?.data?.kind === FlagTypeVariations.booleanFlag}
+            />
           </Layout.Vertical>
         </Layout.Horizontal>
       </Container>

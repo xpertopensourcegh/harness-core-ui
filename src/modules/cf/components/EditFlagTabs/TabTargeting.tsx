@@ -13,15 +13,21 @@ import {
 import { FieldArray } from 'formik'
 import cx from 'classnames'
 import { Dialog } from '@blueprintjs/core'
-import type { FeatureFlagActivation } from 'services/cf'
+import type { FeatureFlagActivation, Variation } from 'services/cf'
 import i18n from './Tabs.i18n'
 import css from './TabTargeting.module.scss'
 
 interface TabTargetingProps {
   targetData: FeatureFlagActivation | undefined
+  defaultOnVariation: string | undefined
+  defaultOffVariation: string | undefined
+  variations: Variation[] | undefined
+  isBooleanTypeFlag?: boolean
 }
 
-const TodoTargeting: React.FC<TabTargetingProps> = () => {
+const TodoTargeting: React.FC<TabTargetingProps> = props => {
+  const { defaultOnVariation, defaultOffVariation, isBooleanTypeFlag } = props
+
   const [isEditOn, setIsEditOn] = useState(false)
   const [isServeTargetOn, setIsServeTargetOn] = useState(false)
 
@@ -92,15 +98,30 @@ const TodoTargeting: React.FC<TabTargetingProps> = () => {
                 {formikProps => (
                   <Form>
                     <Container>
-                      <Layout.Horizontal style={{ alignItems: 'baseline' }}>
-                        <Text width="150px">{i18n.tabTargeting.flagOn}</Text>
-                        <FormInput.Select name="1" items={[{ label: '1', value: '1' }]} />
-                      </Layout.Horizontal>
-
-                      <Layout.Horizontal style={{ alignItems: 'baseline' }}>
-                        <Text width="150px">{i18n.tabTargeting.flagOff}</Text>
-                        <FormInput.Select name="2" items={[{ label: '1', value: '1' }]} />
-                      </Layout.Horizontal>
+                      {/* TODO: Work in progress */}
+                      {isBooleanTypeFlag ? (
+                        <>
+                          <Layout.Horizontal style={{ alignItems: 'baseline' }}>
+                            <Text width="150px">{i18n.tabTargeting.flagOn}</Text>
+                            <FormInput.Select name="1" items={[{ label: 'trueBoolean', value: 'trueBoolean' }]} />
+                          </Layout.Horizontal>
+                          <Layout.Horizontal style={{ alignItems: 'baseline' }}>
+                            <Text width="150px">{i18n.tabTargeting.flagOff}</Text>
+                            <FormInput.Select name="2" items={[{ label: 'falseBoolean', value: 'falseBoolean' }]} />
+                          </Layout.Horizontal>
+                        </>
+                      ) : (
+                        <>
+                          <Layout.Horizontal style={{ alignItems: 'baseline' }}>
+                            <Text width="150px">{i18n.tabTargeting.flagOn}</Text>
+                            <FormInput.Select name="3" items={[{ label: 'multi', value: 'multi' }]} />
+                          </Layout.Horizontal>
+                          <Layout.Horizontal style={{ alignItems: 'baseline' }}>
+                            <Text width="150px">{i18n.tabTargeting.flagOff}</Text>
+                            <FormInput.Select name="4" items={[{ label: 'multi', value: 'multi' }]} />
+                          </Layout.Horizontal>
+                        </>
+                      )}
                     </Container>
 
                     <Container>
@@ -124,36 +145,38 @@ const TodoTargeting: React.FC<TabTargetingProps> = () => {
                                           key={`serve-${index}`}
                                           className={css.editCustomRuleTargetContainer}
                                         >
-                                          <Text>{i18n.tabTargeting.serve}</Text>
+                                          <Container>
+                                            <Text>{i18n.tabTargeting.serve}</Text>
 
-                                          {/* FIXME: Should fix items array from BE */}
-                                          <FormInput.Select
-                                            name={`variationsTargets.${index}.name`}
-                                            items={[{ label: '1', value: '1' }]}
-                                          />
+                                            {/* FIXME: Should fix items array from BE */}
+                                            <FormInput.Select
+                                              name={`variationsTargets.${index}.name`}
+                                              items={[{ label: '1', value: '1' }]}
+                                            />
 
-                                          <Text margin={{ right: 'small' }}>{i18n.tabTargeting.toTarget}</Text>
+                                            <Text margin={{ right: 'small' }}>{i18n.tabTargeting.toTarget}</Text>
 
-                                          {elem.targets.map((elemT, indexT, arr) => (
-                                            <Layout.Horizontal key={`target-${indexT}`} margin={{ right: 'small' }}>
-                                              <Text>{elemT}</Text>
-                                              <Text>
-                                                {arr.length} {i18n.total}
-                                              </Text>
-                                            </Layout.Horizontal>
-                                          ))}
+                                            {elem.targets.map((elemT, indexT, arr) => (
+                                              <Layout.Horizontal key={`target-${indexT}`} margin={{ right: 'small' }}>
+                                                <Text>{elemT}</Text>
+                                                <Text>
+                                                  {arr.length} {i18n.total}
+                                                </Text>
+                                              </Layout.Horizontal>
+                                            ))}
 
-                                          <Button
-                                            icon="add"
-                                            iconProps={{ size: 20 }}
-                                            minimal
-                                            intent="primary"
-                                            onClick={onOpenTargetModal}
-                                            margin={{ right: 'small' }}
-                                          />
+                                            <Button
+                                              icon="add"
+                                              iconProps={{ size: 20 }}
+                                              minimal
+                                              intent="primary"
+                                              onClick={onOpenTargetModal}
+                                              margin={{ right: 'small' }}
+                                            />
 
-                                          {/* TODO: Here we should add Popover component */}
-                                          <Text icon="more" />
+                                            {/* TODO: Here we should add Popover component */}
+                                            <Text icon="more" />
+                                          </Container>
 
                                           <Button
                                             icon="trash"
@@ -193,24 +216,28 @@ const TodoTargeting: React.FC<TabTargetingProps> = () => {
                         </Container>
 
                         <Container>
+                          {/* Outer formik array - on request */}
                           <FieldArray name="variationRequest">
                             {arrayProps => {
                               return (
                                 <>
                                   {formikProps?.values?.variationRequest.map((_, index) => (
                                     <Layout.Vertical key={index} className={css.requestContainerWrapper}>
-                                      <Layout.Vertical>
+                                      <Layout.Vertical margin={{ bottom: 'small' }}>
                                         <Layout.Horizontal className={css.requestContainer}>
-                                          <Text>{i18n.tabTargeting.onRequest}</Text>
+                                          <Container>
+                                            <Text>{i18n.tabTargeting.onRequest}</Text>
 
-                                          <FormInput.Select name="TODO_1" items={[{ label: '2', value: '2' }]} />
+                                            <FormInput.Select name="TODO_1" items={[{ label: '2', value: '2' }]} />
 
-                                          <FormInput.Select name="TODO_2" items={[{ label: '2', value: '2' }]} />
+                                            <FormInput.Select name="TODO_2" items={[{ label: '2', value: '2' }]} />
 
-                                          <FormInput.Select name="TODO_3" items={[{ label: '2', value: '2' }]} />
+                                            <FormInput.Select name="TODO_3" items={[{ label: '2', value: '2' }]} />
+                                          </Container>
 
                                           <Button
                                             icon="trash"
+                                            iconProps={{ size: 20 }}
                                             minimal
                                             onClick={() => {
                                               arrayProps.remove(index)
@@ -218,6 +245,7 @@ const TodoTargeting: React.FC<TabTargetingProps> = () => {
                                           />
                                         </Layout.Horizontal>
 
+                                        {/* Inner formik array - on request serve */}
                                         <Container>
                                           <FieldArray name="variationRequestInner">
                                             {arrayPropsInner => {
@@ -250,7 +278,7 @@ const TodoTargeting: React.FC<TabTargetingProps> = () => {
 
                                                         <Button
                                                           icon="minus"
-                                                          iconProps={{ color: 'var(--orange-400)' }}
+                                                          iconProps={{ color: Color.ORANGE_400 }}
                                                           minimal
                                                           onClick={() => {
                                                             arrayPropsInner.remove(index)
@@ -259,6 +287,7 @@ const TodoTargeting: React.FC<TabTargetingProps> = () => {
                                                       </Layout.Horizontal>
                                                     )
                                                   )}
+
                                                   <Button
                                                     intent="primary"
                                                     minimal
@@ -318,12 +347,12 @@ const TodoTargeting: React.FC<TabTargetingProps> = () => {
               <Container className={css.defaultRulesContainer}>
                 <Layout.Horizontal margin={{ bottom: 'medium' }}>
                   <Text width="150px">{i18n.tabTargeting.flagOn}</Text>
-                  <Text>Lorem</Text>
+                  <Text>{defaultOnVariation}</Text>
                 </Layout.Horizontal>
 
                 <Layout.Horizontal>
                   <Text width="150px">{i18n.tabTargeting.flagOn}</Text>
-                  <Text>Ipsum</Text>
+                  <Text>{defaultOffVariation}</Text>
                 </Layout.Horizontal>
               </Container>
 

@@ -12,7 +12,7 @@ import {
   Select,
   Popover
 } from '@wings-software/uikit'
-import { Drawer, Menu, Spinner } from '@blueprintjs/core'
+import { Drawer, Menu, Spinner, Position } from '@blueprintjs/core'
 import type { CellProps, Renderer, Column } from 'react-table'
 import moment from 'moment'
 import { routeCFFeatureFlagsDetail } from 'modules/cf/routes'
@@ -57,22 +57,22 @@ const RenderColumnFlag: Renderer<CellProps<FeatureFlag>> = ({ row }) => {
           {data.identifier}
         </Text>
       </Layout.Vertical>
-      <Container>
+      <Container margin={{ right: 'medium' }}>
         <Text
           icon="main-tags"
           tooltip={
-            <>
-              <Text>{i18n.tags.toUpperCase()}</Text>
-              {data.tags?.map((elem, i) => (
-                <Text key={i}>{elem.value}</Text>
-              ))}
-            </>
+            data?.tags?.length ? (
+              <>
+                <Text>{i18n.tags.toUpperCase()}</Text>
+                {data.tags.map((elem, i) => (
+                  <Text key={`${elem.value}-${i}`}>{elem.value}</Text>
+                ))}
+              </>
+            ) : undefined
           }
-          tooltipProps={{
-            targetClassName: css.tagsPopover
-          }}
+          tooltipProps={{ portalClassName: css.tagsPopover, position: Position.RIGHT }}
         >
-          {data.tags?.length}
+          {data?.tags?.length ? data.tags.length : 0}
         </Text>
       </Container>
     </Layout.Horizontal>

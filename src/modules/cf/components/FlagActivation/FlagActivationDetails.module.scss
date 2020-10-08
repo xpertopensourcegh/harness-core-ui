@@ -4,6 +4,14 @@
   }
 }
 
+.tags-flag-activation-details {
+  margin-top: var(--spacing-medium) !important;
+  & > p {
+    display: inline-block;
+    border-radius: var(--spacing-small);
+  }
+}
+
 .new-env-rules-container {
   align-items: baseline;
   .select-env {
