@@ -27,6 +27,8 @@
     "services:cdng": "restful-react import --config restful-react.config.js cd-ng",
     "services:cf": "restful-react import --config restful-react.config.js cf",
     "postservices:cdng": "prettier --write src/services/cd-ng/index.tsx",
+    "services:ci": "restful-react import --config restful-react.config.js ci",
+    "postservices:ci": "prettier --write src/services/ci/index.tsx",
     "services:cv": "restful-react import --config restful-react.config.js cv",
     "postservices": "prettier --write src/services/**/*.tsx",
     "build": "yarn clean && GIT_COMMIT=$(git log -1 --pretty=%h) GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD) webpack",

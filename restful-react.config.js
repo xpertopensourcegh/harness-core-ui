@@ -26,6 +26,16 @@ module.exports = {
     },
     customGenerator: arg => customGenerator(arg, "getConfig('ng/api')")
   },
+  ci: {
+    output: 'src/services/ci/index.tsx',
+    file: 'src/services/ci/swagger.json',
+    transformer: 'scripts/swagger-transform.js',
+    customImport: `import { getConfig, getUsingFetch, mutateUsingFetch, GetUsingFetchProps, MutateUsingFetchProps } from "../config";`,
+    customProps: {
+      base: `{getConfig("ci")}`
+    },
+    customGenerator: arg => customGenerator(arg, "getConfig('ci')")
+  },
   cv: {
     output: 'src/services/cv/index.tsx',
     file: 'src/services/cv/swagger.json',
