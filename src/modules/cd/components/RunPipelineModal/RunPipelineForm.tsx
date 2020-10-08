@@ -21,7 +21,7 @@ import { useToaster } from 'modules/common/exports'
 import YAMLBuilder from 'modules/common/components/YAMLBuilder/YamlBuilder'
 import type { YamlBuilderHandlerBinding, YamlBuilderProps } from 'modules/common/interfaces/YAMLBuilderProps'
 import { YamlEntity } from 'modules/common/constants/YamlConstants'
-import { routeCDPipelineExecutionGraph } from 'modules/cd/routes'
+import { routeCDPipelineExecutionPipline } from 'modules/cd/routes'
 import { BasicInputSetForm, InputFormType, InputSetDTO } from '../InputSetForm/InputSetForm'
 import i18n from './RunPipelineModal.i18n'
 import { PipelineInputSetForm } from '../PipelineInputSetForm/PipelineInputSetForm'
@@ -106,7 +106,7 @@ export const RunPipelineForm: React.FC<RunPipelineFormProps> = ({ pipelineIdenti
           if (!response.data?.errorResponse) {
             showSuccess(i18n.pipelineRunSuccessFully)
             history.push(
-              routeCDPipelineExecutionGraph.url({
+              routeCDPipelineExecutionPipline.url({
                 orgIdentifier,
                 pipelineIdentifier: pipelineIdentifier,
                 projectIdentifier,

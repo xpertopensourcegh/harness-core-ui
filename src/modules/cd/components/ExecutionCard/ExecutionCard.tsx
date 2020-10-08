@@ -14,7 +14,7 @@ import {
   ExecutionStageGraph,
   RenderStageButtonInfo
 } from 'modules/common/exports'
-import { routeCDPipelineExecutionGraph } from 'modules/cd/routes'
+import { routeCDPipelineExecutionPipline } from 'modules/cd/routes'
 import i18n from './ExecutionCard.i18n'
 import { ExecutionServiceTooltip } from './ExecutionServiceTooltip'
 import { ExecutionActionButtons } from './ExecutionActionButtons'
@@ -91,7 +91,7 @@ export const ExecutionCard: React.FC<ExecutionCardProps> = ({ pipelineExecution 
                   className={css.topSection}
                   onClick={() =>
                     history.push(
-                      routeCDPipelineExecutionGraph.url({
+                      routeCDPipelineExecutionPipline.url({
                         orgIdentifier,
                         executionIdentifier: pipelineExecution.planExecutionId || '',
                         pipelineIdentifier: pipelineExecution.pipelineIdentifier || '',

@@ -1,0 +1,93 @@
+@import 'modules/cd/pages/execution/ExecutionVars';
+
+.main {
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-none) var(--spacing-medium) var(--spacing-none) var(--spacing-xxlarge);
+  height: $tabs-height;
+  border-bottom: 4px solid var(--blue-350);
+
+  & .tabs {
+    display: flex;
+    height: 100%;
+    position: relative;
+
+    & .tabLink {
+      display: inline-flex;
+      align-items: center;
+      height: 100%;
+      padding: var(--spacing-none) var(--spacing-medium);
+      color: var(--grey-600);
+      cursor: pointer;
+
+      &:not(:last-child) {
+        margin-right: var(--spacing-medium);
+      }
+
+      &:hover,
+      &.activeLink {
+        text-decoration: none;
+        color: var(--blue-500);
+
+        & :global(.bp3-icon) {
+          color: var(--blue-500);
+        }
+      }
+
+      & > :global(.bp3-icon) {
+        margin-right: var(--spacing-small);
+      }
+
+      & [icon='add-to-artifact'] {
+        transform: translateY(-2px);
+      }
+    }
+
+    & .tabIndicator {
+      background-color: var(--blue-500);
+      height: 4px;
+      min-width: 10px;
+      position: absolute;
+      left: 0;
+      top: 100%;
+      transform-origin: left center;
+      transition: transform 0.2s ease-in-out;
+    }
+  }
+
+  & .children {
+    flex: 1 1 auto;
+    height: 100%;
+    padding: var(--spacing-none) var(--spacing-small);
+
+    &:last-child {
+      padding-right: var(--spacing-xxlarge);
+    }
+  }
+
+  & .viewToggle {
+    display: flex;
+    height: var(--spacing-xlarge);
+    border-radius: var(--font-size-small);
+    overflow: hidden;
+    font-size: var(--font-size-small);
+    line-height: calc(2 * var(--font-size-small));
+    background: var(--grey-200);
+
+    & > a {
+      color: var(--grey-500);
+      display: inline-flex;
+      padding: var(--spacing-none) var(--spacing-medium);
+      border-radius: var(--font-size-small);
+      &.activeView {
+        background: var(--blue-500);
+        color: var(--white);
+      }
+
+      &:hover,
+      &.active:hover {
+        text-decoration: none;
+      }
+    }
+  }
+}

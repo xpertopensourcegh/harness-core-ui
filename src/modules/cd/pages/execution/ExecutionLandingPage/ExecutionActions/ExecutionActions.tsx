@@ -4,7 +4,11 @@ import { Menu, MenuItem } from '@blueprintjs/core'
 
 import type { PipelineExecutionSummaryDTO } from 'services/cd-ng'
 
-import { isExecutionComplete, isExecutionInProgress, isExecutionPaused } from '../ExecutionUtils'
+import {
+  isExecutionComplete,
+  isExecutionInProgress,
+  isExecutionPaused
+} from 'modules/cd/pages/execution/ExecutionUtils'
 
 import css from './ExecutionActions.module.scss'
 

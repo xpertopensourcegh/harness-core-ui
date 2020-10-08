@@ -1,42 +1,32 @@
 import React from 'react'
-import { useParams, useLocation, NavLink, Link } from 'react-router-dom'
-import { Button } from '@wings-software/uikit'
+import { useParams, useLocation, Link } from 'react-router-dom'
+import { Button, Icon, Tag } from '@wings-software/uikit'
 import cx from 'classnames'
 import qs from 'qs'
 
-import { routeCDPipelineExecutionGraph, routeCDPipelineExecutionLog, routeCDDeployments } from 'modules/cd/routes'
+import { routeCDDeployments } from 'modules/cd/routes'
 import { useGetPipelineExecutionDetail } from 'services/cd-ng'
 import { ExecutionStatusLabel } from 'modules/common/components/ExecutionStatusLabel/ExecutionStatusLabel'
 import { Duration } from 'modules/common/components/Duration/Duration'
 import type { ExecutionStatus } from 'modules/common/exports'
 import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
+import ExecutionContext from 'modules/cd/pages/execution/ExecutionContext/ExecutionContext'
 
-import { getPipelineStagesMap, isExecutionComplete } from './ExecutionUtils'
-import { ExecutionTab } from './ExecutionConstants'
+import { getPipelineStagesMap, isExecutionComplete, ExecutionPathParams } from '../ExecutionUtils'
 import ExecutionActions from './ExecutionActions/ExecutionActions'
-import ExecutionContext from './ExecutionContext/ExecutionContext'
 import ExecutionMetadata from './ExecutionMetadata/ExecutionMetadata'
 import ExecutionTabs from './ExecutionTabs/ExecutionTabs'
 import RightBar from './RightBar/RightBar'
-import css from './Execution.module.scss'
 
-export interface ExecutionPathParams {
-  orgIdentifier: string
-  projectIdentifier: string
-  pipelineIdentifier: string
-  executionIdentifier: string
-  accountId: string
-}
+import css from './ExecutionLandingPage.module.scss'
 
 const POLL_INTERVAL = 30 /* sec */ * 1000 /* ms */
 
-export default function Execution(props: React.PropsWithChildren<{}>): React.ReactElement {
-  const [currentTab, setCurrentTab] = React.useState<ExecutionTab>(ExecutionTab.PIPELINE)
-  const [showDetail, setShowDetails] = React.useState(false)
-  const { orgIdentifier, projectIdentifier, pipelineIdentifier, executionIdentifier, accountId } = useParams<
-    ExecutionPathParams
-  >()
+export default function ExecutionLandingPage(props: React.PropsWithChildren<{}>): React.ReactElement {
   const location = useLocation()
+
+  const [showDetail, setShowDetails] = React.useState(false)
+  const { orgIdentifier, projectIdentifier, executionIdentifier, accountId } = useParams<ExecutionPathParams>()
   const queryParams = qs.parse(location.search, { ignoreQueryPrefix: true })
 
   const { data, refetch, loading } = useGetPipelineExecutionDetail({
@@ -72,7 +62,7 @@ export default function Execution(props: React.PropsWithChildren<{}>): React.Rea
   const { pipelineExecution = {} } = data?.data || {}
 
   return (
-    <ExecutionContext.Provider value={{ currentTab, pipelineExecutionDetail: data?.data || null, pipelineStagesMap }}>
+    <ExecutionContext.Provider value={{ pipelineExecutionDetail: data?.data || null, pipelineStagesMap }}>
       {loading && !data ? <PageSpinner /> : null}
       <main className={css.main}>
         <div className={css.lhs}>
@@ -108,37 +98,18 @@ export default function Execution(props: React.PropsWithChildren<{}>): React.Rea
                 iconProps={{ size: 14 }}
                 onClick={toggleDetails}
               />
+              <div className={css.tags}>
+                <Icon name="main-tags" size={14} />
+                {(pipelineExecution.tags || []).map(tag => (
+                  <Tag className={css.tag} key={tag.key}>
+                    {tag.value}
+                  </Tag>
+                ))}
+              </div>
             </div>
           </header>
           {showDetail ? <ExecutionMetadata /> : null}
-          <ExecutionTabs currentTab={currentTab} onTabChange={setCurrentTab}>
-            <div className={css.viewStatus}>
-              <div className={css.viewToggle}>
-                <NavLink
-                  activeClassName={css.active}
-                  to={routeCDPipelineExecutionGraph.url({
-                    orgIdentifier,
-                    projectIdentifier,
-                    pipelineIdentifier,
-                    executionIdentifier
-                  })}
-                >
-                  Graph View
-                </NavLink>
-                <NavLink
-                  activeClassName={css.active}
-                  to={routeCDPipelineExecutionLog.url({
-                    orgIdentifier,
-                    projectIdentifier,
-                    pipelineIdentifier,
-                    executionIdentifier
-                  })}
-                >
-                  Log View
-                </NavLink>
-              </div>
-            </div>
-          </ExecutionTabs>
+          <ExecutionTabs />
           <div className={cx(css.childContainer, { [css.showDetails]: showDetail })} id="pipeline-execution-container">
             {props.children}
           </div>

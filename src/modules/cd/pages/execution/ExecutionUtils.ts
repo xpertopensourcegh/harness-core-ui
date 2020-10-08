@@ -4,6 +4,14 @@ import type {
   PipelineExecutionSummaryDTO
 } from 'services/cd-ng'
 
+export interface ExecutionPathParams {
+  orgIdentifier: string
+  projectIdentifier: string
+  pipelineIdentifier: string
+  executionIdentifier: string
+  accountId: string
+}
+
 export type ExecutionStatus = Required<PipelineExecutionSummaryDTO>['executionStatus'] | 'Error'
 
 export function getPipelineStagesMap(res: ResponsePipelineExecutionDetail): Map<string, StageExecutionSummaryDTO> {

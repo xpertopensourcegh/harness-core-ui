@@ -6,12 +6,12 @@ import { Button } from '@wings-software/uikit'
 import { debounce } from 'lodash-es'
 
 import { useExecutionContext } from 'modules/cd/pages/execution/ExecutionContext/ExecutionContext'
+import { isExecutionNotStarted } from 'modules/cd/pages/execution/ExecutionUtils'
 
 import ExecutionGraph from './ExecutionGraph/ExecutionGraph'
 import ExecutionStageDetails from './ExecutionStageDetails/ExecutionStageDetails'
 import ExecutionStepDetails, { DetailsViewState } from './ExecutionStepDetails/ExecutionStepDetails'
 import { getRunningStage, getRunningStep } from './ExecutionGraphViewUtils'
-import { isExecutionNotStarted } from '../ExecutionUtils'
 
 import css from './ExecutionGraphView.module.scss'
 

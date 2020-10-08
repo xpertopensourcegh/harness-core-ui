@@ -1,4 +1,4 @@
-@import './ExecutionVars';
+@import 'modules/cd/pages/execution/ExecutionVars';
 
 .main {
   height: 100vh;
@@ -80,7 +80,23 @@
     & .headerBottomRow {
       display: flex;
       align-items: center;
-      justify-content: space-between;
+    }
+
+    & .tags {
+      margin-left: var(--spacing-large);
+
+      & > :global(.bp3-icon) {
+        margin-right: var(--spacing-xsmall);
+      }
+
+      & .tag {
+        font-size: var(--font-size-xsmall);
+        background-color: var(--grey-200);
+        color: var(--grey-450);
+        min-height: auto;
+        height: var(--font-size-normal);
+        margin-left: var(--spacing-xsmall);
+      }
     }
 
     & .statusBar {
@@ -116,42 +132,6 @@
 
     &.showDetails {
       height: calc(100vh - #{$header-height + $details-height + $tabs-height});
-    }
-  }
-
-  .viewStatus {
-    display: flex;
-    align-items: center;
-
-    & .statusIcon {
-      margin-right: var(--spacing-large);
-      color: var(--red-300);
-    }
-  }
-
-  .viewToggle {
-    display: flex;
-    height: var(--spacing-xlarge);
-    border-radius: var(--font-size-small);
-    overflow: hidden;
-    font-size: var(--font-size-small);
-    line-height: calc(2 * var(--font-size-small));
-    background: var(--grey-200);
-
-    & > a {
-      color: var(--grey-500);
-      display: inline-flex;
-      padding: var(--spacing-none) var(--spacing-medium);
-      border-radius: var(--font-size-small);
-      &.active {
-        background: var(--blue-500);
-        color: var(--white);
-      }
-
-      &:hover,
-      &.active:hover {
-        text-decoration: none;
-      }
     }
   }
 }

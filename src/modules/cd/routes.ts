@@ -188,39 +188,56 @@ export const routePipelineDeploymentList: NestedRoute<{
   isDefault: true
 }
 
-export const routeCDPipelineExecutionGraph: NestedRoute<{
+export const routeCDPipelineExecutionPipline: NestedRoute<{
   orgIdentifier: string
   projectIdentifier: string
   pipelineIdentifier: string | number
   executionIdentifier: string
 }> = {
   path:
-    '/cd/pipelines/orgs/:orgIdentifier/projects/:projectIdentifier/pipelines/:pipelineIdentifier/executions/:executionIdentifier/graph',
+    '/cd/pipelines/orgs/:orgIdentifier/projects/:projectIdentifier/pipelines/:pipelineIdentifier/executions/:executionIdentifier/pipeline',
   title: i18n.pipelineExecution,
   url: ({ orgIdentifier, projectIdentifier, pipelineIdentifier, executionIdentifier }) =>
     routeURL(
       routeCDPipelineExecution,
-      `/cd/pipelines/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/executions/${executionIdentifier}/graph`
+      `/cd/pipelines/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/executions/${executionIdentifier}/pipeline`
     ),
-  component: React.lazy(() => import('./pages/execution/ExecutionGraphView/ExecutionGraphView')),
+  component: React.lazy(() => import('./pages/execution/ExecutionPipelineView/ExecutionPipelineView')),
   isDefault: true
 }
 
-export const routeCDPipelineExecutionLog: NestedRoute<{
+export const routeCDPipelineExecutionInputs: NestedRoute<{
   orgIdentifier: string
   projectIdentifier: string
   pipelineIdentifier: string | number
   executionIdentifier: string
 }> = {
   path:
-    '/cd/pipelines/orgs/:orgIdentifier/projects/:projectIdentifier/pipelines/:pipelineIdentifier/executions/:executionIdentifier/log',
+    '/cd/pipelines/orgs/:orgIdentifier/projects/:projectIdentifier/pipelines/:pipelineIdentifier/executions/:executionIdentifier/inputs',
   title: i18n.pipelineExecution,
   url: ({ orgIdentifier, projectIdentifier, pipelineIdentifier, executionIdentifier }) =>
     routeURL(
       routeCDPipelineExecution,
-      `/cd/pipelines/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/executions/${executionIdentifier}/log`
+      `/cd/pipelines/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/executions/${executionIdentifier}/inputs`
     ),
-  component: React.lazy(() => import('./pages/execution/ExecutionLogView/ExecutionLogView'))
+  component: React.lazy(() => import('./pages/execution/ExecutionInputsView/ExecutionInputsView'))
+}
+
+export const routeCDPipelineExecutionArtifacts: NestedRoute<{
+  orgIdentifier: string
+  projectIdentifier: string
+  pipelineIdentifier: string | number
+  executionIdentifier: string
+}> = {
+  path:
+    '/cd/pipelines/orgs/:orgIdentifier/projects/:projectIdentifier/pipelines/:pipelineIdentifier/executions/:executionIdentifier/artifacts',
+  title: i18n.pipelineExecution,
+  url: ({ orgIdentifier, projectIdentifier, pipelineIdentifier, executionIdentifier }) =>
+    routeURL(
+      routeCDPipelineExecution,
+      `/cd/pipelines/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/executions/${executionIdentifier}/artifacts`
+    ),
+  component: React.lazy(() => import('./pages/execution/ExecutionArtifactsView/ExecutionArtifactsView'))
 }
 
 export const routeCDPipelineExecution: Route<{
@@ -241,8 +258,8 @@ export const routeCDPipelineExecution: Route<{
       routeCDPipelineExecution,
       `/cd/pipelines/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/executions/${executionIdentifier}`
     ),
-  component: React.lazy(() => import('./pages/execution/Execution')),
-  nestedRoutes: [routeCDPipelineExecutionGraph, routeCDPipelineExecutionLog]
+  component: React.lazy(() => import('./pages/execution/ExecutionLandingPage/ExecutionLandingPage')),
+  nestedRoutes: [routeCDPipelineExecutionPipline, routeCDPipelineExecutionInputs, routeCDPipelineExecutionArtifacts]
 }
 
 export const routePipelineDetail: Route<{
