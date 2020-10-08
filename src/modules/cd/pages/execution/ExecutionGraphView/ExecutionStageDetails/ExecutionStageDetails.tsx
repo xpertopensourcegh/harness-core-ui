@@ -99,7 +99,7 @@ export default function ExecutionStageDetails(props: ExecutionStageDetailsProps)
     label: item[1].stageName || '',
     value: item[1].stageIdentifier || '',
     icon: { name: 'pipeline-deploy' },
-    disabled: item[1].executionStatus === 'NOT_STARTED'
+    disabled: item[1].executionStatus === 'NotStarted'
   }))
   const stage = pipelineStagesMap.get(props.selectedStage)
 

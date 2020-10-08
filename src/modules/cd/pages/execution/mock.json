@@ -90,7 +90,7 @@
               }
             ],
             "deploymentType": "Kubernetes",
-            "executionStatus": "FAILED",
+            "executionStatus": "Failed",
             "startedAt": 0,
             "endedAt": 10,
             "serviceIdentifier": "serviceIdentifiercdStageFailed",

@@ -69,15 +69,15 @@ export const getPipelineExecutionDetails = (): ResponsePipelineExecutionDetail =
   if (i % 2 == 0) {
     const status = statusAr[i / 2]
     if (Array.isArray(status)) {
-      statusAr[i / 2] = status.map(() => 'RUNNING')
+      statusAr[i / 2] = status.map(() => 'Running')
     } else if (status) {
-      statusAr[i / 2] = 'RUNNING'
+      statusAr[i / 2] = 'Running'
     }
     const prevStatus = statusAr[i / 2 - 1]
     if (Array.isArray(prevStatus)) {
-      statusAr[i / 2 - 1] = prevStatus.map(() => 'SUCCESS')
+      statusAr[i / 2 - 1] = prevStatus.map(() => 'Success')
     } else if (prevStatus) {
-      statusAr[i / 2 - 1] = 'SUCCESS'
+      statusAr[i / 2 - 1] = 'Success'
     }
   }
   return {

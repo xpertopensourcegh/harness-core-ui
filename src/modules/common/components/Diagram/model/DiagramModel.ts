@@ -136,11 +136,6 @@ export class DiagramModel<G extends DiagramModelGenerics = DiagramModelGenerics>
       const nodeId = link.getSourcePort().getNode().getID()
       if (nodeId === parent.getID()) {
         isConnectedToParent = true
-        const parentPort = parent.getPort(PortName.Out)
-        if (inPort && parentPort) {
-          link.setSourcePort(parentPort)
-          link.setTargetPort(inPort)
-        }
         link.setColorOfLink(color)
       }
     }

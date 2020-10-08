@@ -96,12 +96,12 @@ export default function ExecutionStageDiagram<T>(props: ExecutionStageDiagramPro
 
   const [autoPosition, setAutoPosition] = React.useState(true)
 
-  const [groupStage, setGroupState] = React.useState<Map<string, GroupState<T>>>()
+  const [groupStage, setGroupStage] = React.useState<Map<string, GroupState<T>>>()
 
   React.useEffect(() => {
     const stageData = getGroupsFromData(data)
     if (stageData.size !== groupStage?.size) {
-      setGroupState(stageData)
+      setGroupStage(stageData)
     }
   }, [data, groupStage?.size])
 
@@ -112,7 +112,7 @@ export default function ExecutionStageDiagram<T>(props: ExecutionStageDiagramPro
         ...group,
         collapsed: !group.collapsed
       })
-      setGroupState(groupStage)
+      setGroupStage(groupStage)
     }
   }
 
