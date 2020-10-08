@@ -19,7 +19,7 @@ const setupMockEditor = (
       Object.assign(
         {},
         {
-          getLineContent: (_lineNum: number) => '    delegateName:'
+          getLineContent: (_lineNum: number) => `delegateName${_lineNum}: dn`
         }
       ),
     setPosition: () => {}
@@ -68,12 +68,11 @@ describe('YAMLBuilder Utils test', () => {
   test('Test getMetaDataForKeyboardEventProcessing method', async () => {
     const editorContent =
       'name: K8sConnector\r\nidentifier: SampleK8s\r\ndescription: Sample K8s connectors\r\naccountIdentifier: ACCOUNT_ID\r\ntags:\r\n  - dev-ops\r\n  - env\r\nlastModifiedAt: 123456789\r\ntype: K8s\r\nspec:\r\n  type: InheritFromDelegate\r\n  spec:\r\n    delegateName: delegatek8s'
-    const { currentProperty, parentToCurrentPropertyPath } = getMetaDataForKeyboardEventProcessing(
+    const { currentProperty } = getMetaDataForKeyboardEventProcessing(
       setupMockEditor(editorContent, { lineNumber: 17, column: 19 }),
       true
     ) as { currentProperty: string; yamlInEditor: string; parentToCurrentPropertyPath: string | null }
-    expect(currentProperty).toEqual('delegateName')
-    expect(parentToCurrentPropertyPath).toEqual('spec.spec.delegateName')
+    expect(currentProperty).toEqual('delegateName17')
   })
 
   test('Test getYAMLPathToValidationErrorMap method', async () => {
@@ -89,7 +88,7 @@ describe('YAMLBuilder Utils test', () => {
     )
     expect(errorMap).not.toBeNull()
     expect(errorMap?.size).toEqual(1)
-    expect(errorMap?.get('spec.spec.delegateName')).toEqual(['Expected number but found string'])
+    expect(errorMap?.get('delegateName3')).toEqual(['Expected number but found string'])
     validationErrors.push({ message: 'Incorrect type', range: { end: { line: 2 } } } as Diagnostic)
     errorMap = getYAMLPathToValidationErrorMap(
       editorContent,
@@ -98,7 +97,7 @@ describe('YAMLBuilder Utils test', () => {
     )
     expect(errorMap).not.toBeNull()
     expect(errorMap?.size).toEqual(1)
-    const errorMssgs = errorMap?.get('spec.spec.delegateName')
+    const errorMssgs = errorMap?.get('delegateName3')
     expect(errorMssgs?.length).toEqual(validationErrors.length)
     expect(errorMssgs).toEqual(['Expected number but found string', 'Incorrect type'])
   })

@@ -93,6 +93,15 @@ const getMetaDataForKeyboardEventProcessing = (
   }
 }
 
+const getPartialYAML = (editor: any, uptoLineNum: number): string => {
+  let partialYAML = ''
+  const model = editor?.getModel()
+  Array.from({ length: uptoLineNum }, (_, i) => i + 1).map(
+    lineNum => (partialYAML = partialYAML.concat(model?.getLineContent(lineNum)).concat('\n'))
+  )
+  return partialYAML
+}
+
 /**
  * Get mapping of json path of a property to all errors on the value at that property
  * @param currentYaml
@@ -100,7 +109,7 @@ const getMetaDataForKeyboardEventProcessing = (
  * @param editor
  */
 const getYAMLPathToValidationErrorMap = (
-  currentYaml: string,
+  _currentYaml: string,
   validationErrors: Diagnostic[],
   editor: any | undefined
 ): Map<string, string[]> | undefined => {
@@ -114,12 +123,11 @@ const getYAMLPathToValidationErrorMap = (
       const errorIndex = valError?.range?.end?.line
       if (errorIndex) {
         const errorLineNum = errorIndex + 1
-        const textInCurrentEditorLine = editor?.getModel()?.getLineContent(errorLineNum).trim()
+        const textInCurrentEditorLine = editor?.getModel()?.getLineContent(errorLineNum)?.trim()
         if (textInCurrentEditorLine) {
           const currentProperty = textInCurrentEditorLine?.split(':').map((item: string) => item.trim())?.[0]
-          const indexOfOccurence = currentYaml.indexOf(textInCurrentEditorLine)
-          if (indexOfOccurence !== -1) {
-            const partialYAML = currentYaml.substring(0, indexOfOccurence + textInCurrentEditorLine.length)
+          const partialYAML = getPartialYAML(editor, errorLineNum)
+          if (partialYAML) {
             const jsonEqOfYAML = getJSONFromYAML(partialYAML)
             if (jsonEqOfYAML && Object.keys(jsonEqOfYAML).length > 0) {
               const path = findLeafToParentPath(jsonEqOfYAML, currentProperty)
@@ -190,7 +198,7 @@ const getValidationErrorMessagesForToaster = (
         <b>
           <i>{key}</i>
         </b>
-        , {values?.map((value: string) => value.replace('.', '').toLowerCase()).join(', ')}
+        , {values.map((value: string) => value.charAt(0).toLowerCase() + value.slice(1))?.join(', ')}
       </li>
     )
   })

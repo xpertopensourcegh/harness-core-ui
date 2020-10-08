@@ -25,6 +25,12 @@
           "type": "string",
           "description": "Project ID. OPTIONAL"
         },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
         "type": {
           "enum": ["K8sCluster", "Git", "DockerRegistry", "Local", "GcpKms", "Vault"],
           "description": "Connector type. See list of all connector types available. Required"
@@ -320,11 +326,11 @@
                             "username": {
                               "type": "string"
                             },
-                            "passwordReference": {
+                            "passwordRef": {
                               "type": "string"
                             }
                           },
-                          "required": ["username", "passwordReference"],
+                          "required": ["username", "passwordRef"],
                           "additionalProperties": false
                         }
                       }
@@ -343,11 +349,11 @@
                         "spec": {
                           "type": "object",
                           "properties": {
-                            "sshKeyReference": {
+                            "sshKeyRef": {
                               "type": "string"
                             }
                           },
-                          "required": ["sshKeyReference"],
+                          "required": ["sshKeyRef"],
                           "additionalProperties": false
                         }
                       }
