@@ -1,15 +1,17 @@
 import React from 'react'
-import { Container, FormInput, Layout, Button, Text, Color, SelectOption } from '@wings-software/uikit'
+import { Container, FormInput, Layout, Button, Text, Color, SelectOption, IconName, Icon } from '@wings-software/uikit'
 import { IOptionProps, Popover, PopoverPosition, MenuItem, Classes } from '@blueprintjs/core'
 import { Select } from '@blueprintjs/select'
 import type { FormikProps } from 'formik'
 import { useParams } from 'react-router-dom'
+import { omit } from 'lodash-es'
 
 import SecretReference from 'modules/dx/components/SecretReference/SecretReference'
 import { FormikSecretTextInput } from 'modules/dx/components/SecretInput/SecretTextInput'
 import { getIdentifierFromName } from 'modules/common/utils/StringUtils'
 import type { SSHConfigFormData } from 'modules/dx/modals/CreateSSHCredModal/views/StepAuthentication'
 import type { SecretResponseWrapper } from 'services/cd-ng'
+import { Scope } from 'modules/common/interfaces/SecretsInterface'
 
 import i18n from './SSHAuthFormFields.i18n'
 import css from './SSHAuthFormFields.module.scss'
@@ -65,6 +67,17 @@ const tgtGenerationMethodOptions: IOptionProps[] = [
   }
 ]
 
+const getIconForScope = (scope: Scope): IconName => {
+  switch (scope) {
+    case Scope.ACCOUNT:
+      return 'placeholder'
+    case Scope.ORG:
+      return 'placeholder'
+    case Scope.PROJECT:
+      return 'nav-project'
+  }
+}
+
 const SSHAuthFormFields: React.FC<SSHAuthFormFieldsProps> = props => {
   const { formik, secretName, editing, showCreateSecretModal } = props
   const { accountId, orgIdentifier, projectIdentifier } = useParams()
@@ -119,9 +132,39 @@ const SSHAuthFormFields: React.FC<SSHAuthFormFieldsProps> = props => {
                       <Button
                         rightIcon="chevron-down"
                         height={38}
-                        text={formik.values.key?.name || i18n.labelSelectFile}
+                        text={
+                          formik.values.key?.name ? (
+                            <Layout.Horizontal spacing="xsmall">
+                              <Text>{formik.values.key.name}</Text>
+                              <Icon name={getIconForScope(formik.values.key.scope)} />
+                            </Layout.Horizontal>
+                          ) : (
+                            i18n.labelSelectFile
+                          )
+                        }
                       />
                       <Container>
+                        {formik.values.key ? (
+                          <Layout.Horizontal
+                            padding="medium"
+                            border={{ bottom: true }}
+                            flex={{ distribution: 'space-between' }}
+                          >
+                            <Layout.Vertical>
+                              <Text font={{ size: 'small' }}>{i18n.labelSavedSecret}</Text>
+                              <Text>{formik.values.key.name}</Text>
+                            </Layout.Vertical>
+                            <Button
+                              icon="edit"
+                              className={Classes.POPOVER_DISMISS}
+                              onClick={() =>
+                                showCreateSecretModal('SecretFile', {
+                                  secret: omit(formik.values.key, 'scope')
+                                })
+                              }
+                            />
+                          </Layout.Horizontal>
+                        ) : null}
                         <Text
                           style={{ cursor: 'pointer' }}
                           padding="large"

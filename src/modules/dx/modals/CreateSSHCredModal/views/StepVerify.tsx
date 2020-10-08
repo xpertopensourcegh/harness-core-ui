@@ -1,13 +1,12 @@
 import React from 'react'
 import { StepProps, Container, Text, Color } from '@wings-software/uikit'
 
-import type { SSHCredSharedObj } from '../useCreateSSHCredModal'
-
 import i18n from '../CreateSSHCredModal.i18n'
 import VerifyConnection from './VerifyConnection'
+import type { SSHCredSharedObj } from '../CreateSSHCredWizard'
 
 interface StepVerifyProps {
-  closeModal: () => void
+  closeModal?: () => void
 }
 
 const StepVerify: React.FC<StepProps<SSHCredSharedObj> & StepVerifyProps> = ({ prevStepData, closeModal }) => {

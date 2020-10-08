@@ -4,13 +4,13 @@ import { render, fireEvent } from '@testing-library/react'
 import { act } from 'react-dom/test-utils'
 import { MemoryRouter } from 'react-router'
 
-import CreateSecretManager from '../CreateSecretManager'
+import CreateSSHCredWizard from '../CreateSSHCredWizard'
 
 describe('Create Secret Manager Wizard', () => {
   test('should render form', async () => {
     const dom = render(
       <MemoryRouter>
-        <CreateSecretManager hideLightModal={noop} onSuccess={noop} mock={true} />
+        <CreateSSHCredWizard hideModal={noop} onSuccess={noop} />
       </MemoryRouter>
     )
 
@@ -24,6 +24,7 @@ describe('Create Secret Manager Wizard', () => {
       })
     })
 
+    // submit step 1
     await act(async () => {
       fireEvent.click(dom.container.querySelector('button[type="submit"]')!)
     })

@@ -1,15 +1,8 @@
 import React from 'react'
 import { Dialog } from '@blueprintjs/core'
-import { Button, StepWizard, useModalHook } from '@wings-software/uikit'
+import { Button, useModalHook } from '@wings-software/uikit'
 
-import StepSSHDetails from './views/StepDetails'
-import StepAuthentication from './views/StepAuthentication'
-
-import type { DetailsForm } from './views/StepDetails'
-import type { SSHConfigFormData } from './views/StepAuthentication'
-
-import i18n from './CreateSSHCredModal.i18n'
-import StepVerify from './views/StepVerify'
+import CreateSSHCredWizard from './CreateSSHCredWizard'
 import css from './useCreateSSHCredModal.module.scss'
 
 export interface UseCreateSSHCredModalProps {
@@ -19,11 +12,6 @@ export interface UseCreateSSHCredModalProps {
 export interface UseCreateSSHCredModalReturn {
   openCreateSSHCredModal: () => void
   closeCreateSSHCredModal: () => void
-}
-
-export interface SSHCredSharedObj {
-  detailsData?: DetailsForm
-  authData?: SSHConfigFormData
 }
 
 const useCreateSSHCredModal = (props: UseCreateSSHCredModalProps): UseCreateSSHCredModalReturn => {
@@ -36,11 +24,7 @@ const useCreateSSHCredModal = (props: UseCreateSSHCredModalProps): UseCreateSSHC
           hideModal()
         }}
       >
-        <StepWizard<SSHCredSharedObj>>
-          <StepSSHDetails name={i18n.titleDetails.toUpperCase()} />
-          <StepAuthentication name={i18n.stepTitleAuth.toUpperCase()} onSuccess={props.onSuccess} />
-          <StepVerify name={i18n.stepTitleVerify.toUpperCase()} closeModal={hideModal} />
-        </StepWizard>
+        <CreateSSHCredWizard {...props} hideModal={hideModal} />
         <Button minimal icon="cross" iconProps={{ size: 18 }} onClick={hideModal} className={css.crossIcon} />
       </Dialog>
     ),

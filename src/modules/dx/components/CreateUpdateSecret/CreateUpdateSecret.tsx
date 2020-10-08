@@ -89,7 +89,8 @@ const CreateUpdateSecret: React.FC<CreateSecretTextProps> = props => {
         } as SecretDTOV2
       })
     )
-    formData.set('file', (data as any)?.['file']?.[0])
+    const file = (data as any)?.['file']?.[0]
+    file && formData.set('file', file)
     return formData
   }
 

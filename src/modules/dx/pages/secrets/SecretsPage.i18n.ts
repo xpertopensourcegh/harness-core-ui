@@ -1,5 +1,5 @@
 export default {
-  confirmDelete: (name: string) => `Are you sure you want to delete the secret '${name}'?`,
+  confirmDelete: (name: string) => `Are you sure you want to delete the secret ${name} ?`,
   confirmDeleteTitle: 'Delete Secret',
   btnDelete: 'Delete',
   btnCancel: 'Cancel',

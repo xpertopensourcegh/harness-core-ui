@@ -40,15 +40,12 @@ const engineTypeOptions: IOptionProps[] = [
 
 interface VaultConnectorFormFieldsProps {
   formik: FormikContext<VaultConfigFormData>
+  isEditing?: boolean
   identifier: string
 }
 
 export const vaultConnectorFormFieldsValidationSchema = {
   vaultUrl: Yup.string().trim().required(i18n.validationVaultUrl),
-  authToken: Yup.string().when('accessType', {
-    is: 'TOKEN',
-    then: Yup.string().trim().required(i18n.validationAuthToken)
-  }),
   appRoleId: Yup.string().when('accessType', {
     is: 'APP_ROLE',
     then: Yup.string().trim().required(i18n.validationAppRole)
@@ -72,7 +69,7 @@ export const vaultConnectorFormFieldsValidationSchema = {
   renewIntervalHours: Yup.number().positive(i18n.validationRenewalNumber).required(i18n.validationRenewal)
 }
 
-const VaultConnectorFormFields: React.FC<VaultConnectorFormFieldsProps> = ({ formik, identifier }) => {
+const VaultConnectorFormFields: React.FC<VaultConnectorFormFieldsProps> = ({ formik, identifier, isEditing }) => {
   const { accountId, orgIdentifier, projectIdentifier } = useParams()
   const { showError } = useToaster()
   const [secretEngineOptions, setSecretEngineOptions] = useState<SelectOption[]>([])
@@ -140,7 +137,12 @@ const VaultConnectorFormFields: React.FC<VaultConnectorFormFieldsProps> = ({ for
           <FormInput.Text name="secretId" label={i18n.labelSecretId} inputGroup={{ type: 'password' }} />
         </Layout.Horizontal>
       ) : (
-        <FormInput.Text name="authToken" label={i18n.labelToken} inputGroup={{ type: 'password' }} />
+        <FormInput.Text
+          name="authToken"
+          label={i18n.labelToken}
+          inputGroup={{ type: 'password' }}
+          placeholder={isEditing ? i18n.placeholderEncrypted : ''}
+        />
       )}
       <FormInput.RadioGroup
         name="engineType"

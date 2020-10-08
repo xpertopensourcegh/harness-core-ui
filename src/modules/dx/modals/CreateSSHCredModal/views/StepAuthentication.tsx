@@ -8,7 +8,8 @@ import {
   Text,
   Color,
   ModalErrorHandler,
-  ModalErrorHandlerBinding
+  ModalErrorHandlerBinding,
+  Layout
 } from '@wings-software/uikit'
 import { useParams } from 'react-router-dom'
 import * as Yup from 'yup'
@@ -22,14 +23,14 @@ import type { SecretRef } from 'modules/dx/components/SecretReference/SecretRefe
 import SSHAuthFormFields from 'modules/dx/components/secrets/SSHAuthFormFields/SSHAuthFormFields'
 import { buildAuthConfig } from 'modules/dx/components/secrets/SSHAuthUtils'
 import { useToaster } from 'modules/common/exports'
-import type { SSHCredSharedObj } from '../useCreateSSHCredModal'
+import type { SSHCredSharedObj } from '../CreateSSHCredWizard'
 
 import i18n from '../CreateSSHCredModal.i18n'
 
 export interface SSHConfigFormData {
   authScheme: SSHKeySpecDTO['authScheme']
   credentialType: SSHConfigDTO['credentialType']
-  tgtGenerationMethod: KerberosConfigDTO['tgtGenerationMethod']
+  tgtGenerationMethod: KerberosConfigDTO['tgtGenerationMethod'] | 'None'
   userName: string
   port: number
   key?: SecretRef
@@ -75,6 +76,7 @@ const validationSchema = Yup.object().shape({
 const StepAuthentication: React.FC<StepProps<SSHCredSharedObj> & StepAuthenticationProps> = ({
   prevStepData,
   nextStep,
+  previousStep,
   onSuccess
 }) => {
   const { accountId, orgIdentifier, projectIdentifier } = useParams()
@@ -163,7 +165,10 @@ const StepAuthentication: React.FC<StepProps<SSHCredSharedObj> & StepAuthenticat
                     if (type === 'SecretFile') setShowCreateSecretFileModal(true)
                   }}
                 />
-                <Button type="submit" text={saving ? i18n.btnSaving : i18n.btnSave} disabled={saving} />
+                <Layout.Horizontal spacing="small">
+                  <Button text="Back" onClick={() => previousStep?.({ ...prevStepData, authData: formik.values })} />
+                  <Button type="submit" text={saving ? i18n.btnSaving : i18n.btnSave} disabled={saving} />
+                </Layout.Horizontal>
               </FormikForm>
             )
           }}

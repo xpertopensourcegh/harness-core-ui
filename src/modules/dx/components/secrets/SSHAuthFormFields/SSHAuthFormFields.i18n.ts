@@ -24,5 +24,6 @@ export default {
   labelTGT: 'TGT Generation',
   labelKeyTab: 'Key Tab File Path',
 
-  btnCreateSecretFile: 'Create a new Secret File'
+  btnCreateSecretFile: 'Create a new Secret File',
+  labelSavedSecret: 'This secret is saved as'
 }

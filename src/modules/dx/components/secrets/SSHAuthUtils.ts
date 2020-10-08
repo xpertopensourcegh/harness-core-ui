@@ -257,11 +257,10 @@ async function buildKerberosConfig(
           password: getReference(data.passwordSecret?.scope, data.passwordSecret?.secretId)
         } as TGTPasswordSpecDTO
       } as KerberosConfigDTO
-    case 'None':
+    default:
       return {
         principal: data.principal,
-        realm: data.realm,
-        tgtGenerationMethod: data.tgtGenerationMethod
+        realm: data.realm
       }
   }
 }

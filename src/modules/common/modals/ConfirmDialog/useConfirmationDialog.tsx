@@ -37,7 +37,7 @@ const confirmDialogProps: IDialogProps = {
   canEscapeKeyClose: true,
   canOutsideClickClose: true,
   enforceFocus: true,
-  style: { width: 400, height: 200 }
+  style: { width: 500, height: 200 }
 }
 
 export const useConfirmationDialog = (props: UseConfirmationDialogProps): UseConfirmationDialogReturn => {

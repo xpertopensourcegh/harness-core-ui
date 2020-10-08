@@ -295,6 +295,7 @@ exports[`Edit Vault Config Form should render form 1`] = `
                 autocomplete="off"
                 class="bp3-input"
                 name="authToken"
+                placeholder="encrypted"
                 type="password"
                 value=""
               />
@@ -492,7 +493,7 @@ exports[`Edit Vault Config Form should render form 1`] = `
           <span
             class="bp3-button-text"
           >
-            SAVE
+            Save
           </span>
         </button>
       </div>

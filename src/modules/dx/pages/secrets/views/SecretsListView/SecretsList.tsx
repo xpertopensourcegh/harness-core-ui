@@ -75,7 +75,7 @@ const RenderColumnStatus: Renderer<CellProps<SecretResponseWrapper>> = ({ row })
   const data = row.original.secret
   const { openVerifyModal } = useVerifyModal()
   if (data.type === 'SecretText' || data.type === 'SecretFile') {
-    return (data.spec as SecretTextSpecDTO).draft ? (
+    return row.original.draft ? (
       <Text icon="warning-sign" intent="warning">
         {i18n.incompleteSecret}
       </Text>

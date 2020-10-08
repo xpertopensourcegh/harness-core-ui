@@ -6,8 +6,8 @@ import type { SecretDTOV2 } from 'services/cd-ng'
 import { illegalIdentifiers } from 'modules/common/utils/StringUtils'
 
 import SSHDetailsFormFields from 'modules/dx/components/secrets/SSHDetailsFormFields/SSHDetailsFormFields'
+import type { SSHCredSharedObj } from '../CreateSSHCredWizard'
 import i18n from '../CreateSSHCredModal.i18n'
-import type { SSHCredSharedObj } from '../useCreateSSHCredModal'
 
 export type DetailsForm = Pick<SecretDTOV2, 'name' | 'identifier' | 'description' | 'tags'>
 

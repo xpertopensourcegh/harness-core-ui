@@ -16,6 +16,7 @@ export interface GetUsingFetchProps<
   queryParams?: TQueryParams
   pathParams?: TPathParams
   requestOptions?: RequestInit
+  mock?: _TData
 }
 
 export const getUsingFetch = <
@@ -30,9 +31,10 @@ export const getUsingFetch = <
 >(
   base: string,
   path: string,
-  props: { queryParams?: TQueryParams; pathParams?: TPathParams; requestOptions?: RequestInit },
+  props: { queryParams?: TQueryParams; pathParams?: TPathParams; requestOptions?: RequestInit; mock?: TData },
   signal?: RequestInit['signal']
 ): Promise<TData> => {
+  if (props.mock) return Promise.resolve(props.mock)
   let url = base + path
   if (props.queryParams && Object.keys(props.queryParams).length) {
     url += `?${qs.stringify(props.queryParams)}`
@@ -67,6 +69,7 @@ export interface MutateUsingFetchProps<
   queryParams?: TQueryParams
   pathParams?: TPathParams
   requestOptions?: RequestInit
+  mock?: _TData
 }
 
 export const mutateUsingFetch = <
@@ -88,9 +91,11 @@ export const mutateUsingFetch = <
     queryParams?: TQueryParams
     pathParams?: TPathParams
     requestOptions?: RequestInit
+    mock?: TData
   },
   signal?: RequestInit['signal']
 ): Promise<TData> => {
+  if (props.mock) return Promise.resolve(props.mock)
   let url = base + path
   if (method === 'DELETE' && typeof props.body === 'string') {
     url += `/${props.body}`

@@ -83,7 +83,7 @@ const EditVaultConfigForm: React.FC<ConnectorFormProps> = ({ connector, onSubmit
                 allowNewTag: true
               }}
             />
-            <VaultConnectorFormFields formik={formik} identifier={connector.identifier} />
+            <VaultConnectorFormFields formik={formik} identifier={connector.identifier} isEditing={true} />
             <Button intent="primary" type="submit" text={i18n.buttonSave} />
           </FormikForm>
         )}

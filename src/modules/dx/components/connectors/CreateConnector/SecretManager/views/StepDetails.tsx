@@ -35,7 +35,11 @@ const encryptionTypeOptions: SelectOption[] = [
   }
 ]
 
-const ConnectorDetailsStep: React.FC<StepProps<SecretManagerWizardData>> = props => {
+interface ConnectorDetailsStepProps extends StepProps<SecretManagerWizardData> {
+  mock?: any
+}
+
+const ConnectorDetailsStep: React.FC<ConnectorDetailsStepProps> = props => {
   const { prevStepData, nextStep } = props
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
   const [loading, setLoading] = useState(false)
@@ -51,7 +55,8 @@ const ConnectorDetailsStep: React.FC<StepProps<SecretManagerWizardData>> = props
           orgIdentifier: orgIdentifier,
           projectIdentifier: projectIdentifier,
           identifier: formData.identifier
-        }
+        },
+        mock: props.mock
       })
       setLoading(false)
       if (res.data) {

@@ -39,7 +39,13 @@ export interface VaultConfigFormData {
   renewIntervalHours: number
 }
 
-const validationSchema = Yup.object().shape(vaultConnectorFormFieldsValidationSchema)
+const validationSchema = Yup.object().shape({
+  ...vaultConnectorFormFieldsValidationSchema,
+  authToken: Yup.string().when('accessType', {
+    is: 'TOKEN',
+    then: Yup.string().trim().required(i18n.validationAuthToken)
+  })
+})
 
 const VaultConfigForm: React.FC<StepProps<SecretManagerWizardData>> = ({ prevStepData, previousStep, nextStep }) => {
   const { accountId, orgIdentifier, projectIdentifier } = useParams()
@@ -103,7 +109,7 @@ const VaultConfigForm: React.FC<StepProps<SecretManagerWizardData>> = ({ prevSte
           <FormikForm>
             <VaultConnectorFormFields formik={formik} identifier={prevStepData?.detailsData?.identifier || ''} />
             <Layout.Horizontal spacing="medium">
-              <Button text={i18n.buttonBack} onClick={() => previousStep?.()} />
+              <Button text={i18n.buttonBack} onClick={() => previousStep?.(prevStepData)} />
               <Button intent="primary" type="submit" text={i18n.buttonNext} disabled={loading} />
             </Layout.Horizontal>
           </FormikForm>

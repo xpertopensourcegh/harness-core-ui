@@ -21,7 +21,7 @@ const props: SnippetSectionProps = {
 describe('Snippets tests', () => {
   const { container } = render(<SnippetSection {...props} />)
   const snippetsList = queryAllByAttribute('class', container, /flexCenter snippet/)
-  expect(snippetsList.length).toBe(5)
+  expect(snippetsList.length).toBe(6)
 
   test('Initial render should match snapshot', () => {
     expect(queryAllByText(snippetsList[0], 'K8s Cluster with Username and Password').length).toBe(2)

@@ -11,6 +11,7 @@ import i18n from './CreateSecretManager.i18n'
 interface CreateSecretManagerProps {
   hideLightModal: () => void
   onSuccess: () => void
+  mock?: any
 }
 
 export interface SecretManagerWizardData {
@@ -18,10 +19,10 @@ export interface SecretManagerWizardData {
   configureData?: VaultConfigFormData
 }
 
-const CreateSecretManager: React.FC<CreateSecretManagerProps> = ({ hideLightModal, onSuccess }) => {
+const CreateSecretManager: React.FC<CreateSecretManagerProps> = ({ hideLightModal, onSuccess, mock }) => {
   return (
     <StepWizard<SecretManagerWizardData>>
-      <StepDetails name={i18n.nameStepDetails} />
+      <StepDetails name={i18n.nameStepDetails} mock={mock} />
       <StepConfigure name={i18n.nameStepConfigure} />
       <StepVerify name={i18n.nameStepVerify} hideLightModal={hideLightModal} onSuccess={onSuccess} />
     </StepWizard>
