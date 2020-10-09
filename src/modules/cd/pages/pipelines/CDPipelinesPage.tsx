@@ -4,7 +4,8 @@ import { useHistory, useParams } from 'react-router-dom'
 import { Menu, Position, MenuItem } from '@blueprintjs/core'
 import { Page } from 'modules/common/exports'
 import { routeCDPipelineStudio, routePipelineDetail } from 'modules/cd/routes'
-import { useGetPipelineList } from 'services/cd-ng'
+import { ResponsePageNGPipelineSummaryResponse, useGetPipelineList } from 'services/cd-ng'
+import type { UseGetMockData } from 'modules/common/utils/testUtils'
 import i18n from './CDPipelinesPage.i18n'
 import { PipelineGridView } from './views/PipelineGridView'
 import { PipelineListView } from './views/PipelineListView'
@@ -15,7 +16,11 @@ export enum Views {
   GRID
 }
 
-const CDPipelinesPage: React.FC = () => {
+export interface CDPipelinesPageProps {
+  mockData?: UseGetMockData<ResponsePageNGPipelineSummaryResponse>
+}
+
+const CDPipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
   const history = useHistory()
   const { projectIdentifier, orgIdentifier, accountId } = useParams<{
     projectIdentifier: string
@@ -81,7 +86,8 @@ const CDPipelinesPage: React.FC = () => {
       orgIdentifier,
       searchTerm: searchParam,
       ...extraParam
-    }
+    },
+    mock: mockData
   })
 
   const [filterTag, setFilterTag] = React.useState(i18n.tags)
@@ -131,7 +137,14 @@ const CDPipelinesPage: React.FC = () => {
               <Button minimal text={filterTag} rightIcon="caret-down" />
             </Popover>
             <span className={css.separator} />
-            <Button minimal intent="primary" text={i18n.addPipeline} icon="add" onClick={() => goToPipeline()} />
+            <Button
+              minimal
+              intent="primary"
+              data-testid="add-pipeline"
+              text={i18n.addPipeline}
+              icon="add"
+              onClick={() => goToPipeline()}
+            />
             <span className={css.separator} />
             <Layout.Horizontal inline padding="medium">
               <Button

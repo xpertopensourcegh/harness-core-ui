@@ -2,10 +2,11 @@ import React from 'react'
 import { UseGetProps, RestfulProvider } from 'restful-react'
 import { compile } from 'path-to-regexp'
 import { createMemoryHistory } from 'history'
-import { Router, Route } from 'react-router-dom'
+import { Router, Route, Switch, useLocation } from 'react-router-dom'
 import { ModalProvider } from '@wings-software/uikit'
 import { AppStoreProvider, useAppStoreWriter } from 'framework/hooks/useAppStore'
 import type { AppStore } from 'framework/types/AppStore'
+import { AUTH_ROUTE_PATH_PREFIX } from 'framework/exports'
 
 export type UseGetMockData<TData, TError = undefined, TQueryParams = undefined, TPathParams = undefined> = Required<
   UseGetProps<TData, TError, TQueryParams, TPathParams>
@@ -17,6 +18,8 @@ interface TestWrapperProps {
   defaultAppStoreValues?: Partial<AppStore>
 }
 
+export const prependAccountPath = (path: string): string => AUTH_ROUTE_PATH_PREFIX + path
+
 const AppStoreInitializer: React.FC<{ defaultAppStoreValues: TestWrapperProps['defaultAppStoreValues'] }> = ({
   children,
   defaultAppStoreValues
@@ -24,6 +27,16 @@ const AppStoreInitializer: React.FC<{ defaultAppStoreValues: TestWrapperProps['d
   const updateAppStore = useAppStoreWriter()
   updateAppStore(defaultAppStoreValues || {})
   return <> {children} </>
+}
+
+export const NotFound = (): JSX.Element => {
+  const location = useLocation()
+  return (
+    <div>
+      <h1>Not Found</h1>
+      <div data-testid="location">{`${location.pathname}${location.search ? `?${location.search}` : ''}`}</div>
+    </div>
+  )
 }
 
 export const TestWrapper: React.FC<TestWrapperProps> = props => {
@@ -37,7 +50,14 @@ export const TestWrapper: React.FC<TestWrapperProps> = props => {
         <Router history={history}>
           <ModalProvider>
             <RestfulProvider base="/">
-              <Route path={path}>{props.children}</Route>
+              <Switch>
+                <Route exact path={path}>
+                  {props.children}
+                </Route>
+                <Route>
+                  <NotFound />
+                </Route>
+              </Switch>
             </RestfulProvider>
           </ModalProvider>
         </Router>

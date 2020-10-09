@@ -109,6 +109,7 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
         <Text
           font="medium"
           color={Color.BLACK}
+          data-testid={pipeline.identifier}
           className={css.clickable}
           onClick={() => goToPipelineDetail(pipeline.identifier)}
         >
@@ -167,7 +168,7 @@ export const PipelineCard: React.FC<PipelineCardProps> = ({
       </Container>
       <Container padding="medium" border={{ top: true, color: Color.GREY_250 }} className={css.runPipeline}>
         <RunPipelineModal pipelineIdentifier={pipeline.identifier || ''}>
-          <Button intent="primary" icon="play" text={i18n.runPipeline} />
+          <Button data-testid="card-run-pipeline" intent="primary" icon="play" text={i18n.runPipeline} />
         </RunPipelineModal>
       </Container>
     </Card>
