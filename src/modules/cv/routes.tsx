@@ -193,6 +193,20 @@ export const routeCVMetricPackConfigureThresholdPage: Route<{
 
 /* ------------------------------------------ Activity page routes ------------------------------------------ */
 
+export const routeCVActivityDashboard: Route<{ orgIdentifier: string; projectIdentifier: string }> = {
+  sidebarId: SidebarIdentifier.CONTINUOUS_VERIFICATION,
+  path: '/cv/activities/dashboard/orgs/:orgIdentifier/projects/:projectIdentifier',
+  title: i18n.activities,
+  pageId: '/cv/activities/dashboard',
+  authenticated: true,
+  url: ({ orgIdentifier, projectIdentifier }) =>
+    routeURL(routeCVActivities, `/cv/activities/dashboard/org/${orgIdentifier}/project/${projectIdentifier}`),
+  component: React.lazy(() => {
+    return import('./pages/activities/dashboard/ActivityDashBoardPage')
+  }),
+  module: ModuleName.CV
+}
+
 export const routeCVActivities: Route<{ orgIdentifier: string; projectIdentifier: string }> = {
   sidebarId: SidebarIdentifier.CONTINUOUS_VERIFICATION,
   path: '/cv/activities/org/:orgIdentifier/project/:projectIdentifier',
