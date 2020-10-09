@@ -429,7 +429,7 @@
         }
       ],
       "required": ["name", "identifier", "type", "spec"],
-      "additionalProperties": false
+      "additionalProperties": true
     }
   }
 }
