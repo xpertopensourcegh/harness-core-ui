@@ -33,7 +33,7 @@ interface OptionInterface {
 const getMenuItem: React.FC<OptionInterface> = item => {
   return (
     <Layout.Horizontal flex={{ distribution: 'space-between' }}>
-      <Text font={{ weight: 'bold' }} margin="xsmall" color={Color.GREY_800}>
+      <Text font={{ weight: 'bold' }} margin="xsmall" color={Color.GREY_800} className={css.dropdownLabel}>
         {item.label}
       </Text>
       <Icon name={item.icon} size={24} margin={{ right: 'small' }} />

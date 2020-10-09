@@ -341,7 +341,7 @@ const RenderColumnMenu: Renderer<CellProps<ConnectorResponse>> = ({ row, column 
           setMenuOpen(nextOpenState)
         }}
         className={Classes.DARK}
-        position={Position.BOTTOM_RIGHT}
+        position={Position.RIGHT_TOP}
       >
         <Button
           minimal

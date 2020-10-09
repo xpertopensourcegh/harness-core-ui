@@ -51,8 +51,10 @@
   > li {
     &:hover {
       background-color: var(--blue-500);
-      color: var(--white);
       font-weight: 500;
+      .dropdownLabel {
+        color: var(--white) !important;
+      }
     }
   }
 }

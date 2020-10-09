@@ -55,7 +55,6 @@ const CreateGITConnector = (props: CreateGITConnectorProps) => {
           isLastStep={true}
           type={Connectors.GIT}
           hideLightModal={props.hideLightModal}
-          onSuccess={props.onSuccess}
         />
       </StepWizard>
     </>

@@ -9,5 +9,6 @@ declare const styles: {
   readonly tableContainer: string
   readonly listContainer: string
   readonly selectConnector: string
+  readonly dropdownLabel: string
 }
 export default styles
