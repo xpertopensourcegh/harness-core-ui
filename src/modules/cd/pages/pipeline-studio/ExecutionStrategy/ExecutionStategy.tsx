@@ -2,10 +2,13 @@ import React, { useState, useEffect } from 'react'
 import YAML from 'yaml'
 import { Text, Icon, Layout, Button, Card, IconName } from '@wings-software/uikit'
 import { get } from 'lodash-es'
-import { useGet } from 'restful-react'
 import cx from 'classnames'
+import {
+  GetExecutionStrategyYamlQueryParams,
+  useGetExecutionStrategyList,
+  useGetExecutionStrategyYaml
+} from 'services/cd-ng'
 import i18n from './ExecutionStrategy.i18n'
-import { getConfig } from '../../../../../services/config'
 import { PipelineContext } from '../PipelineContext/PipelineContext'
 import { DrawerTypes } from '../PipelineContext/PipelineActions'
 import BlueGreen from './images/BlueGreen.png'
@@ -43,6 +46,8 @@ const imageByType: { [key: string]: string } = {
   BlankCanvas
 }
 
+type StrategyType = GetExecutionStrategyYamlQueryParams['strategyType'] | 'BlankCanvas'
+
 export const ExecutionStrategy: React.FC<ExecutionStrategyProps> = ({ selectedStage }): JSX.Element => {
   const {
     state: { pipeline, pipelineView },
@@ -52,30 +57,31 @@ export const ExecutionStrategy: React.FC<ExecutionStrategyProps> = ({ selectedSt
 
   const [strategiesByDeploymentType, setStrategies] = useState([])
   const [isSubmitDisabled, disableSubmit] = useState(false)
-  const [selectedStrategy, setSelectedStrategy] = useState('Rolling')
-  const serviceDefinationType = get(selectedStage, 'stage.spec.service.serviceDefinition.type', 'Kubernetes')
+  const [selectedStrategy, setSelectedStrategy] = useState<StrategyType>('Rolling')
+  const serviceDefinitionType: GetExecutionStrategyYamlQueryParams['serviceDefinitionType'] = get(
+    selectedStage,
+    'stage.spec.service.serviceDefinition.type',
+    'Kubernetes'
+  )
 
-  const { data: strategies } = useGet({
-    path: `/pipelines/strategies`,
-    base: getConfig('ng/api')
-  })
+  const { data: strategies } = useGetExecutionStrategyList({})
 
   useEffect(() => {
     const _strategies = strategies?.data
     if (_strategies) {
-      setStrategies(_strategies[serviceDefinationType])
+      setStrategies(_strategies[serviceDefinitionType] as any)
     }
-  }, [strategies?.data])
+  }, [strategies?.data, serviceDefinitionType])
 
-  const BlankCanvasType = 'BlankCanvas'
-
-  const { data: yamlSnippet, error } = useGet({
-    path: `/pipelines/strategies/yaml-snippets?serviceDefinitionType=${serviceDefinationType}&strategyType=${selectedStrategy}`,
-    base: getConfig('ng/api')
+  const { data: yamlSnippet, error } = useGetExecutionStrategyYaml({
+    queryParams: {
+      serviceDefinitionType,
+      strategyType: selectedStrategy !== 'BlankCanvas' ? selectedStrategy : 'Rolling'
+    }
   })
 
   useEffect(() => {
-    if (error && selectedStrategy !== BlankCanvasType) {
+    if (error && selectedStrategy !== 'BlankCanvas') {
       disableSubmit(true)
     } else {
       disableSubmit(false)
@@ -83,7 +89,7 @@ export const ExecutionStrategy: React.FC<ExecutionStrategyProps> = ({ selectedSt
   }, [error])
 
   useEffect(() => {
-    if (yamlSnippet?.data && selectedStrategy !== BlankCanvasType) {
+    if (yamlSnippet?.data && selectedStrategy !== 'BlankCanvas') {
       const selectedStageSpec = get(selectedStage, 'stage.spec', null)
       const jsonFromYaml = YAML.parse(yamlSnippet?.data)
       selectedStageSpec['execution'] = jsonFromYaml['execution']
@@ -114,7 +120,7 @@ export const ExecutionStrategy: React.FC<ExecutionStrategyProps> = ({ selectedSt
           <section className={css.patterns}>
             <Text style={{ color: 'var(--grey-600)' }}>{i18n.commonPatterns}</Text>
             <section className={css.strategies}>
-              {strategiesByDeploymentType.map((v: string) => (
+              {strategiesByDeploymentType.map((v: StrategyType) => (
                 // <div>{v}</div>
                 <Card
                   className={cx(css.card, selectedStrategy === v && css.active)}
@@ -134,12 +140,12 @@ export const ExecutionStrategy: React.FC<ExecutionStrategyProps> = ({ selectedSt
             <Text style={{ color: 'var(--grey-600)' }}>{i18n.letMeExplore}</Text>
             <section className={css.strategies}>
               <Card
-                className={cx(css.card, selectedStrategy === BlankCanvasType && css.active)}
+                className={cx(css.card, selectedStrategy === 'BlankCanvas' && css.active)}
                 elevation={0}
                 interactive={true}
-                onClick={() => setSelectedStrategy(BlankCanvasType)}
+                onClick={() => setSelectedStrategy('BlankCanvas')}
               >
-                <Icon name={iconMap[BlankCanvasType] as IconName} size={24} />
+                <Icon name={iconMap['BlankCanvas'] as IconName} size={24} />
                 <section className={css.strategyName} style={{ marginTop: 'var(--spacing-large)' }}>
                   {i18n.blankCanvas}
                 </section>

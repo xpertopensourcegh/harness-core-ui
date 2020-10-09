@@ -33,7 +33,7 @@ import {
   useCreateOverlayInputSetForPipeline,
   useUpdateOverlayInputSetForPipeline,
   useGetInputSetsListForPipeline,
-  CDInputSet
+  InputSetConfig
 } from 'services/cd-ng'
 import { YamlEntity } from 'modules/common/constants/YamlConstants'
 import { useToaster } from 'modules/common/exports'
@@ -54,7 +54,9 @@ export enum InputFormType {
   OverlayInputForm = 'OverlayInputForm'
 }
 
-export interface InputSetDTO extends Omit<CDInputSet, 'identifier' | 'pipeline'>, Omit<OverlayInputSet, 'identifier'> {
+export interface InputSetDTO
+  extends Omit<InputSetConfig, 'identifier' | 'pipeline'>,
+    Omit<OverlayInputSet, 'identifier'> {
   pipeline?: NgPipeline
   identifier?: string
 }
