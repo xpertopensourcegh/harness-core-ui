@@ -9,6 +9,10 @@ import {
 } from 'modules/common/components/ExecutionStageDiagram/ExecutionPipelineModel'
 import type { ExecutionNode, ExecutionGraph } from 'services/cd-ng'
 import ExecutionStageDiagram from 'modules/common/components/ExecutionStageDiagram/ExecutionStageDiagram'
+import {
+  useExecutionLayoutContext,
+  ExecutionLayoutState
+} from 'modules/common/components/ExecutionLayout/ExecutionLayoutContext'
 
 import css from './ExecutionStageDetails.module.scss'
 
@@ -94,7 +98,9 @@ const processExecutionData = (graph?: ExecutionGraph): Array<ExecutionPipelineNo
 }
 
 export default function ExecutionStageDetails(props: ExecutionStageDetailsProps): React.ReactElement {
-  const { pipelineExecutionDetail, pipelineStagesMap } = useExecutionContext()
+  const { pipelineExecutionDetail, pipelineStagesMap, queryParams } = useExecutionContext()
+  const { layout, setLayout } = useExecutionLayoutContext()
+
   const stagesOptions: StageOptions[] = [...pipelineStagesMap].map(item => ({
     label: item[1].stageName || '',
     value: item[1].stageIdentifier || '',
@@ -108,6 +114,13 @@ export default function ExecutionStageDetails(props: ExecutionStageDetailsProps)
     identifier: props.selectedStep,
     status: stage?.executionStatus as any
   }
+
+  // open details view when a user selection is active
+  React.useEffect(() => {
+    if (queryParams.step && layout === ExecutionLayoutState.NONE) {
+      setLayout(ExecutionLayoutState.RIGHT)
+    }
+  }, [queryParams, layout, setLayout])
 
   return (
     <div className={css.main}>

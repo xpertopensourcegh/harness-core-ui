@@ -12,7 +12,14 @@ import type { ExecutionStatus } from 'modules/common/exports'
 import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
 import ExecutionContext from 'modules/cd/pages/execution/ExecutionContext/ExecutionContext'
 
-import { getPipelineStagesMap, isExecutionComplete, ExecutionPathParams } from '../ExecutionUtils'
+import {
+  getPipelineStagesMap,
+  isExecutionComplete,
+  ExecutionPathParams,
+  getRunningStage,
+  getRunningStep
+} from '../ExecutionUtils'
+
 import ExecutionActions from './ExecutionActions/ExecutionActions'
 import ExecutionMetadata from './ExecutionMetadata/ExecutionMetadata'
 import ExecutionTabs from './ExecutionTabs/ExecutionTabs'
@@ -27,7 +34,9 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<{}>)
 
   const [showDetail, setShowDetails] = React.useState(false)
   const { orgIdentifier, projectIdentifier, executionIdentifier, accountId } = useParams<ExecutionPathParams>()
-  const queryParams = qs.parse(location.search, { ignoreQueryPrefix: true })
+  const [autoSelectedStageId, setAutoSelectedStageId] = React.useState('')
+  const [autoSelectedStepId, setAutoSelectedStepId] = React.useState('')
+  const queryParams = React.useMemo(() => qs.parse(location.search, { ignoreQueryPrefix: true }), [location.search])
 
   const { data, refetch, loading } = useGetPipelineExecutionDetail({
     planExecutionId: executionIdentifier,
@@ -59,10 +68,42 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<{}>)
     setShowDetails(status => !status)
   }
 
+  // show the current running stage and steps automatically
+  React.useEffect(() => {
+    // if user has selected a stage/step do not auto-update
+    if (queryParams.stage || queryParams.step) {
+      setAutoSelectedStageId('')
+      setAutoSelectedStepId('')
+      return
+    }
+
+    if (!data || !data.data) return
+
+    const runningStage = getRunningStage(data.data.pipelineExecution?.stageExecutionSummaryElements || [])
+
+    const runningStep = getRunningStep(data.data.stageGraph || {})
+
+    if (runningStage) {
+      setAutoSelectedStageId(runningStage)
+    }
+
+    if (runningStep) {
+      setAutoSelectedStepId(runningStep)
+    }
+  }, [queryParams, data])
+
   const { pipelineExecution = {} } = data?.data || {}
 
   return (
-    <ExecutionContext.Provider value={{ pipelineExecutionDetail: data?.data || null, pipelineStagesMap }}>
+    <ExecutionContext.Provider
+      value={{
+        pipelineExecutionDetail: data?.data || null,
+        pipelineStagesMap,
+        autoSelectedStageId,
+        autoSelectedStepId,
+        queryParams
+      }}
+    >
       {loading && !data ? <PageSpinner /> : null}
       <main className={css.main}>
         <div className={css.lhs}>

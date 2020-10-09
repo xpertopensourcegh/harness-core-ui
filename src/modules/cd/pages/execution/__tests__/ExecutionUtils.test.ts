@@ -1,8 +1,8 @@
-import { getRunningStep } from '../ExecutionGraphViewUtils'
+import { getRunningStep } from '../ExecutionUtils'
 
 import stageGraph from './stage-graph.json'
 
-describe('ExecutionGraphViewUtils test', () => {
+describe('ExecutionUtils test', () => {
   describe('getRunningStep tests', () => {
     test('gives current running step from stage graph', () => {
       const result = getRunningStep((stageGraph as unknown) as any)

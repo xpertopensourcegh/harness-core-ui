@@ -10,20 +10,6 @@
     border-right: 1px solid var(--grey-200);
   }
 
-  :global(.Resizer.horizontal:not(.disabled)) {
-    height: var(--spacing-small);
-    cursor: row-resize;
-    background: transparent;
-    z-index: 10;
-  }
-
-  :global(.Resizer.vertical:not(.disabled)) {
-    width: var(--spacing-small);
-    cursor: col-resize;
-    background: transparent;
-    z-index: 10;
-  }
-
   .header {
     height: $header-height;
     box-shadow: inset var(--grey-200) 0 -1px 0;

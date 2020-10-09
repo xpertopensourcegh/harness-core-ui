@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { useExecutionContext } from 'modules/cd/pages/execution/ExecutionContext/ExecutionContext'
+import { useExecutionLayoutContext } from 'modules/common/components/ExecutionLayout/ExecutionLayoutContext'
 import {
   ExecutionPipeline,
   ExecutionPipelineNode,
@@ -38,11 +39,12 @@ const processExecutionData = (
 export interface ExecutionGraphProps {
   selectedStage: string
   onSelectedStage(stage: string): void
-  graphSize: number
 }
 
 export default function ExecutionGraph(props: ExecutionGraphProps): React.ReactElement {
   const { pipelineExecutionDetail } = useExecutionContext()
+  const { primaryPaneSize } = useExecutionLayoutContext()
+
   const data: ExecutionPipeline<CDStageExecutionSummaryDTO> = {
     items: processExecutionData(pipelineExecutionDetail?.pipelineExecution?.stageExecutionSummaryElements),
     identifier: pipelineExecutionDetail?.pipelineExecution?.pipelineIdentifier || '',
@@ -52,10 +54,8 @@ export default function ExecutionGraph(props: ExecutionGraphProps): React.ReactE
     <div className={css.main}>
       <ExecutionStageDiagram
         selectedIdentifier={props.selectedStage}
-        itemClickHandler={e => {
-          props.onSelectedStage(e.stage.identifier)
-        }}
-        diagramContainerHeight={props.graphSize}
+        itemClickHandler={e => props.onSelectedStage(e.stage.identifier)}
+        diagramContainerHeight={primaryPaneSize}
         data={data}
         nodeStyle={{
           width: 114,
