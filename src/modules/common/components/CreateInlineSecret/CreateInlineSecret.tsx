@@ -3,10 +3,11 @@ import { Text, SelectOption, Button, Color } from '@wings-software/uikit'
 import { Select } from '@blueprintjs/select'
 import { FormikProps, connect } from 'formik'
 import { MenuItem } from '@blueprintjs/core'
-import { useGetConnectorList } from 'services/cd-ng'
+import { useGetConnectorList, ResponsePageConnectorResponse } from 'services/cd-ng'
 
 import EditableText from 'modules/common/components/EditableText/EditableText'
 import { Scope } from 'modules/common/interfaces/SecretsInterface'
+import type { UseGetMockData } from 'modules/common/utils/testUtils'
 import i18n from './CreateInlineSecret.i18n'
 import css from './CreateInlineSecret.module.scss'
 
@@ -24,6 +25,7 @@ interface CreateInlineSecretProps {
   defaultSecretName?: string
   defaultSecretId?: string
   onChange?: (values: InlineSecret) => void
+  mock?: UseGetMockData<ResponsePageConnectorResponse>
 }
 
 const CustomSelect = Select.ofType<SelectOption>()
@@ -46,13 +48,15 @@ const getScope = ({ orgIdentifier, projectIdentifier }: GetScopeParams): Scope =
 const CreateInlineSecret: React.FC<CreateInlineSecretProps> = props => {
   const { defaultSecretId, defaultSecretName, accountIdentifier, projectIdentifier, orgIdentifier } = props
   const { data: secretManagersApiResponse, error, refetch, loading } = useGetConnectorList({
-    queryParams: { accountIdentifier, orgIdentifier, projectIdentifier, category: 'SECRET_MANAGER' }
+    queryParams: { accountIdentifier, orgIdentifier, projectIdentifier, category: 'SECRET_MANAGER' },
+    mock: props.mock
   })
   const scope = getScope({ accountIdentifier, projectIdentifier, orgIdentifier })
   const [secretName, setSecretName] = useState(defaultSecretName || '')
   const [secretId, setSecretId] = useState(defaultSecretId || '')
   const [secretManager, setSecretManager] = useState<SelectOption>()
   const [secretManagers, setSecretManagers] = useState<SelectOption[]>([])
+
   useEffect(() => {
     const _secretManagers =
       secretManagersApiResponse?.data?.content?.map(sm => {

@@ -93,7 +93,6 @@ const StepAuthentication: React.FC<StepProps<SSHCredSharedObj> & StepAuthenticat
     try {
       // this will create secrets if needed
       const authConfig = await buildAuthConfig(formData, { accountId, orgIdentifier, projectIdentifier })
-
       // build final data to submit
       const dataToSubmit: SecretRequestWrapper = {
         secret: {

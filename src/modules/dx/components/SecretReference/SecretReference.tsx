@@ -1,5 +1,12 @@
 import React from 'react'
-import { ListSecretsQueryParams, Failure, listSecretsV2Promise, SecretDTOV2, SecretTextSpecDTO } from 'services/cd-ng'
+import {
+  ListSecretsQueryParams,
+  Failure,
+  listSecretsV2Promise,
+  SecretDTOV2,
+  SecretTextSpecDTO,
+  ResponsePageSecretResponseWrapper
+} from 'services/cd-ng'
 import { EntityReference } from 'modules/common/exports'
 import type { EntityReferenceResponse } from 'modules/common/components/EntityReference/EntityReference'
 import { Scope } from 'modules/common/interfaces/SecretsInterface'
@@ -17,6 +24,7 @@ interface SecretReferenceProps {
   orgIdentifier?: string
   defaultScope?: Scope
   type?: ListSecretsQueryParams['type']
+  mock?: ResponsePageSecretResponseWrapper
 }
 
 const fetchRecords = (
@@ -26,7 +34,8 @@ const fetchRecords = (
   type: ListSecretsQueryParams['type'],
   accountIdentifier: string,
   projectIdentifier?: string,
-  orgIdentifier?: string
+  orgIdentifier?: string,
+  mock?: ResponsePageSecretResponseWrapper
 ): void => {
   listSecretsV2Promise({
     queryParams: {
@@ -35,7 +44,8 @@ const fetchRecords = (
       searchTerm: search?.trim(),
       projectIdentifier: scope === Scope.PROJECT ? projectIdentifier : undefined,
       orgIdentifier: scope === Scope.PROJECT || scope === Scope.ORG ? orgIdentifier : undefined
-    }
+    },
+    mock
   })
     .then(responseData => {
       if (responseData?.data?.content) {
@@ -59,7 +69,7 @@ const fetchRecords = (
 }
 
 const SecretReference: React.FC<SecretReferenceProps> = props => {
-  const { defaultScope, accountIdentifier, projectIdentifier, orgIdentifier, type = 'SecretText' } = props
+  const { defaultScope, accountIdentifier, projectIdentifier, orgIdentifier, type = 'SecretText', mock } = props
   return (
     <EntityReference<SecretRef>
       onSelect={(secret, scope) => {
@@ -69,7 +79,7 @@ const SecretReference: React.FC<SecretReferenceProps> = props => {
       defaultScope={defaultScope}
       recordClassName={css.listItem}
       fetchRecords={(scope, search = '', done) => {
-        fetchRecords(scope, search, done, type, accountIdentifier, projectIdentifier, orgIdentifier)
+        fetchRecords(scope, search, done, type, accountIdentifier, projectIdentifier, orgIdentifier, mock)
       }}
       projectIdentifier={projectIdentifier}
       orgIdentifier={orgIdentifier}

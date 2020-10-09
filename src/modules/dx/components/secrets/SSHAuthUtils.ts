@@ -42,7 +42,9 @@ export const getSSHDTOFromFormData = (formData: DetailsForm & SSHConfigFormData)
                 ...pick(formData, ['principal', 'realm', 'tgtGenerationMethod']),
                 spec:
                   formData.tgtGenerationMethod === 'Password'
-                    ? ({} as TGTPasswordSpecDTO)
+                    ? ({
+                        password: getReference(formData.passwordSecret?.scope, formData.passwordSecret?.secretId)
+                      } as TGTPasswordSpecDTO)
                     : formData.tgtGenerationMethod === 'KeyTabFilePath'
                     ? ({
                         keyPath: formData.keyPath
@@ -55,7 +57,11 @@ export const getSSHDTOFromFormData = (formData: DetailsForm & SSHConfigFormData)
                   formData.credentialType === 'KeyPath'
                     ? ({
                         userName: formData.userName,
-                        keyPath: formData.keyPath
+                        keyPath: formData.keyPath,
+                        encryptedPassphrase: getReference(
+                          formData.encryptedPassphraseSecret?.scope,
+                          formData.encryptedPassphraseSecret?.secretId
+                        )
                       } as SSHKeyPathCredentialDTO)
                     : formData.credentialType === 'KeyReference'
                     ? ({
@@ -76,7 +82,7 @@ export const getSSHDTOFromFormData = (formData: DetailsForm & SSHConfigFormData)
   }
 }
 
-const getReference = (scope?: Scope, identifier?: string): string | undefined => {
+export const getReference = (scope?: Scope, identifier?: string): string | undefined => {
   switch (scope) {
     case Scope.PROJECT:
       return identifier

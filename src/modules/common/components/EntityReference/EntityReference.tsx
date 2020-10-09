@@ -85,14 +85,22 @@ export function EntityReference<T>(props: EntityReferenceProps<T>): JSX.Element 
   const fetchData = useCallback(() => {
     try {
       setError(null)
-      delayedFetchRecords(selectedScope, searchTerm, records => {
-        setData(records)
-        setLoading(false)
-      })
+      if (!searchTerm) {
+        setLoading(true)
+        fetchRecords(selectedScope, searchTerm, records => {
+          setData(records)
+          setLoading(false)
+        })
+      } else {
+        delayedFetchRecords(selectedScope, searchTerm, records => {
+          setData(records)
+          setLoading(false)
+        })
+      }
     } catch (msg) {
       setError(msg)
     }
-  }, [selectedScope, delayedFetchRecords, searchTerm])
+  }, [selectedScope, delayedFetchRecords, searchTerm, fetchRecords])
 
   useEffect(() => {
     fetchData()
