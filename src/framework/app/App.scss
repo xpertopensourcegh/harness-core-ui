@@ -25,5 +25,9 @@ body,
 
 body {
   --font-family: 'Inter', sans-serif;
-  font-family: var(--font-family);
+  --font-size-xsmall: 9px;
+  --font-size-small: 11px;
+  --font-size-normal: 13px;
+  --font-size-medium: 16px;
+  --font-size-large: 28px;
 }
