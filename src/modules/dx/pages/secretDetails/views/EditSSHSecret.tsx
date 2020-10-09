@@ -59,9 +59,9 @@ const EditSSHSecret: React.FC<EditSSHSecretProps> = props => {
   const getSecrets = async (): Promise<void> => {
     let password, encryptedPassphrase
     const secretSpec = secret.spec as SSHKeySpecDTO
-    const authScheme = secretSpec.authScheme
+    const authScheme = secretSpec.auth.type
     if (authScheme === 'SSH') {
-      const sshConfig = secretSpec.spec as SSHConfigDTO
+      const sshConfig = secretSpec.auth.spec as SSHConfigDTO
       const credentialType = sshConfig.credentialType
       if (credentialType === 'Password') {
         const passwordSpec = sshConfig.spec as SSHPasswordCredentialDTO
@@ -88,7 +88,7 @@ const EditSSHSecret: React.FC<EditSSHSecretProps> = props => {
         }
       }
     } else if (authScheme === 'Kerberos') {
-      const kerberosConfig = secretSpec.spec as KerberosConfigDTO
+      const kerberosConfig = secretSpec.auth.spec as KerberosConfigDTO
       if (kerberosConfig.tgtGenerationMethod === 'Password') {
         password = kerberosConfig.password
       }
@@ -152,9 +152,11 @@ const EditSSHSecret: React.FC<EditSSHSecretProps> = props => {
           orgIdentifier,
           tags: {},
           spec: {
-            authScheme: formData.authScheme,
-            port: formData.port,
-            spec: authConfig
+            auth: {
+              type: formData.authScheme,
+              spec: authConfig
+            },
+            port: formData.port
           } as SSHKeySpecDTO
         }
       }
@@ -176,16 +178,17 @@ const EditSSHSecret: React.FC<EditSSHSecretProps> = props => {
           <Formik<DetailsForm & SSHConfigFormData>
             initialValues={{
               ...pick(secret, 'name', 'description', 'tags', 'identifier'),
-              authScheme: (secret.spec as SSHKeySpecDTO)?.authScheme,
-              credentialType: ((secret.spec as SSHKeySpecDTO)?.spec as SSHConfigDTO)?.credentialType,
-              tgtGenerationMethod: ((secret.spec as SSHKeySpecDTO)?.spec as KerberosConfigDTO).tgtGenerationMethod,
-              userName: (((secret.spec as SSHKeySpecDTO)?.spec as SSHConfigDTO)?.spec as SSHKeyReferenceCredentialDTO)
-                ?.userName,
-              principal: ((secret.spec as SSHKeySpecDTO)?.spec as KerberosConfigDTO)?.principal,
-              realm: ((secret.spec as SSHKeySpecDTO)?.spec as KerberosConfigDTO)?.realm,
+              authScheme: (secret.spec as SSHKeySpecDTO)?.auth.type,
+              credentialType: ((secret.spec as SSHKeySpecDTO)?.auth.spec as SSHConfigDTO)?.credentialType,
+              tgtGenerationMethod:
+                ((secret.spec as SSHKeySpecDTO)?.auth.spec as KerberosConfigDTO).tgtGenerationMethod || 'None',
+              userName: (((secret.spec as SSHKeySpecDTO)?.auth.spec as SSHConfigDTO)
+                ?.spec as SSHKeyReferenceCredentialDTO)?.userName,
+              principal: ((secret.spec as SSHKeySpecDTO)?.auth.spec as KerberosConfigDTO)?.principal,
+              realm: ((secret.spec as SSHKeySpecDTO)?.auth.spec as KerberosConfigDTO)?.realm,
               keyPath:
-                ((secret.spec as SSHKeySpecDTO)?.spec as KerberosConfigDTO)?.keyPath ||
-                (((secret.spec as SSHKeySpecDTO)?.spec as SSHConfigDTO)?.spec as SSHKeyPathCredentialDTO)?.keyPath,
+                ((secret.spec as SSHKeySpecDTO)?.auth.spec as KerberosConfigDTO)?.keyPath ||
+                (((secret.spec as SSHKeySpecDTO)?.auth.spec as SSHConfigDTO)?.spec as SSHKeyPathCredentialDTO)?.keyPath,
               port: (secret.spec as SSHKeySpecDTO)?.port || 22,
               key: keySecret,
               passwordSecret,

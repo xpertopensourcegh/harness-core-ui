@@ -58,7 +58,7 @@ const SecretDetails: React.FC = () => {
   const history = useHistory()
   const { edit } = parseQueryString(queryParams)
   const [mode, setMode] = useState<Mode>(Mode.VISUAL)
-  const [fieldsRemovedFromYaml, setFieldsRemovedFromYaml] = useState(['secret.spec.draft', 'createdAt', 'updatedAt'])
+  const [fieldsRemovedFromYaml, setFieldsRemovedFromYaml] = useState(['draft', 'createdAt', 'updatedAt'])
   const [snippets, setSnippets] = useState<SnippetInterface[]>()
   const [yamlHandler, setYamlHandler] = React.useState<YamlBuilderHandlerBinding | undefined>()
   const { loading, data, refetch, error } = useGetSecretV2({

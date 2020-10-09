@@ -14,7 +14,7 @@ import {
 import { useParams } from 'react-router-dom'
 import * as Yup from 'yup'
 
-import { SecretRequestWrapper, usePostSecret, SecretDTOV2 } from 'services/cd-ng'
+import { SecretRequestWrapper, usePostSecret, SecretDTOV2, SSHAuthDTO } from 'services/cd-ng'
 import type { KerberosConfigDTO, SSHConfigDTO, SSHKeySpecDTO } from 'services/cd-ng'
 import type { SecretInfo } from 'modules/dx/components/SecretInput/SecretTextInput'
 import CreateSecretOverlay from 'modules/dx/common/CreateSecretOverlay/CreateSecretOverlay'
@@ -28,7 +28,7 @@ import type { SSHCredSharedObj } from '../CreateSSHCredWizard'
 import i18n from '../CreateSSHCredModal.i18n'
 
 export interface SSHConfigFormData {
-  authScheme: SSHKeySpecDTO['authScheme']
+  authScheme: SSHAuthDTO['type']
   credentialType: SSHConfigDTO['credentialType']
   tgtGenerationMethod: KerberosConfigDTO['tgtGenerationMethod'] | 'None'
   userName: string
@@ -105,9 +105,11 @@ const StepAuthentication: React.FC<StepProps<SSHCredSharedObj> & StepAuthenticat
           projectIdentifier,
           orgIdentifier,
           spec: {
-            authScheme: formData.authScheme,
-            port: formData.port,
-            spec: authConfig
+            auth: {
+              type: formData.authScheme,
+              spec: authConfig
+            },
+            port: formData.port
           } as SSHKeySpecDTO
         }
       }

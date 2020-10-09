@@ -23,6 +23,7 @@ export default {
   labelRealm: 'Realm',
   labelTGT: 'TGT Generation',
   labelKeyTab: 'Key Tab File Path',
+  valueNone: 'None',
 
   btnCreateSecretFile: 'Create a new Secret File',
   labelSavedSecret: 'This secret is saved as'

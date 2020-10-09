@@ -12,7 +12,8 @@ import type {
   SSHKeyPathCredentialDTO,
   SSHKeyReferenceCredentialDTO,
   SSHPasswordCredentialDTO,
-  SSHKeySpecDTO
+  SSHKeySpecDTO,
+  SSHAuthDTO
 } from 'services/cd-ng'
 import { postSecretPromise as createSecret } from 'services/cd-ng'
 
@@ -32,36 +33,45 @@ export const getSSHDTOFromFormData = (formData: DetailsForm & SSHConfigFormData)
     ...pick(formData, ['name', 'description', 'identifier']),
     tags: {},
     spec: {
-      ...pick(formData, ['authScheme', 'port']),
-      spec:
-        formData.authScheme === 'Kerberos'
-          ? ({
-              ...pick(formData, ['principal', 'realm', 'tgtGenerationMethod']),
-              spec:
-                formData.tgtGenerationMethod === 'Password'
-                  ? ({} as TGTPasswordSpecDTO)
-                  : formData.tgtGenerationMethod === 'KeyTabFilePath'
-                  ? ({
-                      keyPath: formData.keyPath
-                    } as TGTKeyTabFilePathSpecDTO)
-                  : null
-            } as KerberosConfigDTO)
-          : ({
-              credentialType: formData.credentialType,
-              spec:
-                formData.credentialType === 'KeyPath'
-                  ? ({
-                      userName: formData.userName,
-                      keyPath: formData.keyPath
-                    } as SSHKeyPathCredentialDTO)
-                  : formData.credentialType === 'KeyReference'
-                  ? ({
-                      userName: formData.userName
-                    } as SSHKeyReferenceCredentialDTO)
-                  : ({
-                      userName: formData.userName
-                    } as SSHPasswordCredentialDTO)
-            } as SSHConfigDTO)
+      port: formData.port,
+      auth: {
+        type: formData.authScheme,
+        spec:
+          formData.authScheme === 'Kerberos'
+            ? ({
+                ...pick(formData, ['principal', 'realm', 'tgtGenerationMethod']),
+                spec:
+                  formData.tgtGenerationMethod === 'Password'
+                    ? ({} as TGTPasswordSpecDTO)
+                    : formData.tgtGenerationMethod === 'KeyTabFilePath'
+                    ? ({
+                        keyPath: formData.keyPath
+                      } as TGTKeyTabFilePathSpecDTO)
+                    : null
+              } as KerberosConfigDTO)
+            : ({
+                credentialType: formData.credentialType,
+                spec:
+                  formData.credentialType === 'KeyPath'
+                    ? ({
+                        userName: formData.userName,
+                        keyPath: formData.keyPath
+                      } as SSHKeyPathCredentialDTO)
+                    : formData.credentialType === 'KeyReference'
+                    ? ({
+                        userName: formData.userName,
+                        key: getReference(formData.key?.scope, formData.key?.identifier),
+                        encryptedPassphrase: getReference(
+                          formData.encryptedPassphraseSecret?.scope,
+                          formData.encryptedPassphraseSecret?.secretId
+                        )
+                      } as SSHKeyReferenceCredentialDTO)
+                    : ({
+                        userName: formData.userName,
+                        password: getReference(formData.passwordSecret?.scope, formData.passwordSecret?.secretId)
+                      } as SSHPasswordCredentialDTO)
+              } as SSHConfigDTO)
+      } as SSHAuthDTO
     } as SSHKeySpecDTO
   }
 }

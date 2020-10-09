@@ -40,27 +40,30 @@ const ViewSecretDetails: React.FC<ViewSecretDetailsProps> = props => {
           <Text>{i18n.labelType}</Text>
           <Text color={Color.BLACK}>{getStringForType(secret.type)}</Text>
         </div>
-        {secret.type === 'SSHKey' ? (
+        {secret.type === 'SSHKey' && (secret.spec as SSHKeySpecDTO)?.auth?.type ? (
           <>
             <div>
               <Text>{sshi18n.labelAuth}</Text>
-              <Text color={Color.BLACK}>{(secret.spec as SSHKeySpecDTO)?.authScheme}</Text>
+              <Text color={Color.BLACK}>{(secret.spec as SSHKeySpecDTO)?.auth.type}</Text>
             </div>
-            {(secret.spec as SSHKeySpecDTO)?.authScheme === 'SSH' ? (
+            {(secret.spec as SSHKeySpecDTO)?.auth.type === 'SSH' ? (
               <>
                 <div>
                   <Text>{sshi18n.labelCredentialType}</Text>
                   <Text color={Color.BLACK}>
-                    {getStringForCredentialType((secret.spec as SSHKeySpecDTO)?.spec.credentialType)}
+                    {getStringForCredentialType((secret.spec as SSHKeySpecDTO)?.auth.spec.credentialType)}
                   </Text>
                 </div>
                 <div>
                   <Text>{sshi18n.labelUsername}</Text>
                   <Text color={Color.BLACK}>
-                    {(((secret.spec as SSHKeySpecDTO)?.spec as SSHConfigDTO).spec as SSHPasswordCredentialDTO).userName}
+                    {
+                      (((secret.spec as SSHKeySpecDTO)?.auth.spec as SSHConfigDTO).spec as SSHPasswordCredentialDTO)
+                        .userName
+                    }
                   </Text>
                 </div>
-                {((secret.spec as SSHKeySpecDTO)?.spec as SSHConfigDTO).credentialType === 'Password' ? (
+                {((secret.spec as SSHKeySpecDTO)?.auth.spec as SSHConfigDTO).credentialType === 'Password' ? (
                   <>
                     <div>
                       <Text>{sshi18n.labelPassword}</Text>
@@ -68,13 +71,13 @@ const ViewSecretDetails: React.FC<ViewSecretDetailsProps> = props => {
                     </div>
                   </>
                 ) : null}
-                {((secret.spec as SSHKeySpecDTO)?.spec as SSHConfigDTO).credentialType === 'KeyPath' ? (
+                {((secret.spec as SSHKeySpecDTO)?.auth.spec as SSHConfigDTO).credentialType === 'KeyPath' ? (
                   <>
                     <div>
                       <Text>{sshi18n.labelKeyFilePath}</Text>
                       <Text color={Color.BLACK}>
                         {
-                          (((secret.spec as SSHKeySpecDTO)?.spec as SSHConfigDTO).spec as SSHKeyPathCredentialDTO)
+                          (((secret.spec as SSHKeySpecDTO)?.auth.spec as SSHConfigDTO).spec as SSHKeyPathCredentialDTO)
                             .keyPath
                         }
                       </Text>
@@ -85,14 +88,14 @@ const ViewSecretDetails: React.FC<ViewSecretDetailsProps> = props => {
                     </div>
                   </>
                 ) : null}
-                {((secret.spec as SSHKeySpecDTO)?.spec as SSHConfigDTO).credentialType === 'KeyReference' ? (
+                {((secret.spec as SSHKeySpecDTO)?.auth.spec as SSHConfigDTO).credentialType === 'KeyReference' ? (
                   <>
                     <div>
                       <Text>{sshi18n.labelKeyReference}</Text>
                       <Text color={Color.BLACK}>
                         {
-                          (((secret.spec as SSHKeySpecDTO)?.spec as SSHConfigDTO).spec as SSHKeyReferenceCredentialDTO)
-                            .key
+                          (((secret.spec as SSHKeySpecDTO)?.auth.spec as SSHConfigDTO)
+                            .spec as SSHKeyReferenceCredentialDTO).key
                         }
                       </Text>
                     </div>
@@ -104,39 +107,42 @@ const ViewSecretDetails: React.FC<ViewSecretDetailsProps> = props => {
                 ) : null}
               </>
             ) : null}
-            {(secret.spec as SSHKeySpecDTO)?.authScheme === 'Kerberos' ? (
+            {(secret.spec as SSHKeySpecDTO)?.auth.type === 'Kerberos' ? (
               <>
                 <div>
                   <Text>{sshi18n.labelPrincipal}</Text>
                   <Text color={Color.BLACK}>
-                    {((secret.spec as SSHKeySpecDTO)?.spec as KerberosConfigDTO).principal}
+                    {((secret.spec as SSHKeySpecDTO)?.auth.spec as KerberosConfigDTO).principal}
                   </Text>
                 </div>
                 <div>
                   <Text>{sshi18n.labelRealm}</Text>
-                  <Text color={Color.BLACK}>{((secret.spec as SSHKeySpecDTO)?.spec as KerberosConfigDTO).realm}</Text>
+                  <Text color={Color.BLACK}>
+                    {((secret.spec as SSHKeySpecDTO)?.auth.spec as KerberosConfigDTO).realm}
+                  </Text>
                 </div>
                 <div>
                   <Text>{sshi18n.labelTGT}</Text>
                   <Text color={Color.BLACK}>
-                    {((secret.spec as SSHKeySpecDTO)?.spec as KerberosConfigDTO).tgtGenerationMethod}
+                    {((secret.spec as SSHKeySpecDTO)?.auth.spec as KerberosConfigDTO).tgtGenerationMethod ||
+                      sshi18n.valueNone}
                   </Text>
                 </div>
-                {((secret.spec as SSHKeySpecDTO)?.spec as KerberosConfigDTO).tgtGenerationMethod ===
+                {((secret.spec as SSHKeySpecDTO)?.auth.spec as KerberosConfigDTO).tgtGenerationMethod ===
                 'KeyTabFilePath' ? (
                   <>
                     <div>
                       <Text>{sshi18n.labelKeyTab}</Text>
                       <Text color={Color.BLACK}>
                         {
-                          (((secret.spec as SSHKeySpecDTO)?.spec as KerberosConfigDTO)
+                          (((secret.spec as SSHKeySpecDTO)?.auth.spec as KerberosConfigDTO)
                             ?.spec as TGTKeyTabFilePathSpecDTO)?.keyPath
                         }
                       </Text>
                     </div>
                   </>
                 ) : null}
-                {((secret.spec as SSHKeySpecDTO)?.spec as KerberosConfigDTO).tgtGenerationMethod === 'Password' ? (
+                {((secret.spec as SSHKeySpecDTO)?.auth.spec as KerberosConfigDTO).tgtGenerationMethod === 'Password' ? (
                   <>
                     <div>
                       <Text>{sshi18n.labelPassword}</Text>
