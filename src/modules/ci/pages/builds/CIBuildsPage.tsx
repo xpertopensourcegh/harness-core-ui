@@ -13,7 +13,7 @@ import { BuildCard } from 'modules/ci/components/BuildCard/BuildCard'
 import ExtendedPageBody from 'modules/ci/components/ExtendedPage/ExtendedPageBody'
 import ExtendedPage from 'modules/ci/components/ExtendedPage/ExtendedPage'
 import RightBar from 'modules/ci/components/RightBar/RightBar'
-import { useGetBuilds } from 'modules/ci/services/BuildsService'
+import { useGetBuilds } from 'services/ci'
 import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
 import { graph2ExecutionPipeline } from '../build/utils/api2ui'
 import i18n from './CIBuildsPage.i18n'
@@ -29,19 +29,19 @@ interface BuildsPageUrlParams {
 }
 
 const CIBuildsPage: React.FC = () => {
-  const { orgIdentifier, projectIdentifier } = useParams<BuildsPageUrlParams>()
+  const { orgIdentifier, projectIdentifier, accountId } = useParams<BuildsPageUrlParams>()
   const { search: queryParams } = useLocation()
   const { page } = parseQueryString(queryParams)
   const history = useHistory()
   const { data, loading, error } = useGetBuilds({
     queryParams: {
       // TODO: HARDCODED FOR DEMO
-      accountIdentifier: 'zEaak-FLS425IEO7OLzMUg',
+      accountIdentifier: accountId,
       orgIdentifier,
       projectIdentifier,
-      page: (page ? page : '0') as string,
+      page: (page ? page : 0) as number,
       // TODO: to consider, should we allow user to sort
-      sort: 'buildNumber,desc'
+      sort: ['buildNumber', 'desc']
     }
   })
 
@@ -89,47 +89,49 @@ const CIBuildsPage: React.FC = () => {
   )
 
   // BUILDS FOOTER
-  const buildsFooter = buildsData && buildsData.totalItems > 0 && (
-    <Pagination
-      pageSize={buildsData?.pageSize}
-      pageIndex={buildsData?.pageIndex}
-      pageCount={buildsData?.totalPages}
-      itemCount={buildsData?.totalItems}
-      pageCountClamp={5}
-      gotoPage={pageNumber => {
-        navigateToPage(pageNumber)
-      }}
-      nextPage={pageNumber => {
-        navigateToPage(pageNumber)
-      }}
-    />
-  )
+  const buildsFooter =
+    (buildsData && buildsData.totalItems) ||
+    (0 > 0 && (
+      <Pagination
+        pageSize={buildsData?.pageSize || 0}
+        pageIndex={buildsData?.pageIndex}
+        pageCount={buildsData?.totalPages || 0}
+        itemCount={buildsData?.totalItems || 0}
+        pageCountClamp={5}
+        gotoPage={pageNumber => {
+          navigateToPage(pageNumber)
+        }}
+        nextPage={pageNumber => {
+          navigateToPage(pageNumber)
+        }}
+      />
+    ))
 
   // body content
-  const builds = buildsData?.content.map((item, key) => (
+  const builds = buildsData?.content?.map((item, key) => (
     <BuildCard
-      status={item.graph.status}
+      status={item.graph?.status || ''}
       key={key}
-      id={item.id}
-      startTime={item.graph.startTs}
-      endTime={item.graph.endTs}
+      id={item.id as number}
+      startTime={item.graph?.startTs || 0}
+      endTime={item.graph?.endTs || 0}
       pipelineId={item.pipeline?.id}
       pipelineName={item.pipeline?.name}
-      triggerType={item.triggerType}
-      event={item.event}
+      triggerType={item.triggerType || ''}
+      event={(item.event as 'branch') || 'pull_request'}
       authorId={item.author?.id}
       avatar={item.author?.avatar}
       branchName={item?.branch?.name}
       branchLink={item?.branch?.link}
       commits={item?.branch?.commits}
-      PRId={item?.pull_request?.id}
-      PRLink={item?.pull_request?.link}
-      PRTitle={item?.pull_request?.body}
-      PRBody={item?.pull_request?.body}
-      PRSourceBranch={item?.pull_request?.sourceBranch}
-      PRTargetBranch={item?.pull_request?.targetBranch}
-      PRState={item?.pull_request?.state}
-      pipeline={graph2ExecutionPipeline(item.graph)}
+      PRId={item?.pullRequest?.id}
+      PRLink={item?.pullRequest?.link || ''}
+      PRTitle={item?.pullRequest?.body}
+      PRBody={item?.pullRequest?.body}
+      PRSourceBranch={item?.pullRequest?.sourceBranch}
+      PRTargetBranch={item?.pullRequest?.targetBranch}
+      PRState={item?.pullRequest?.state}
+      pipeline={graph2ExecutionPipeline(item?.graph)}
       onClick={(id: number) => {
         navigateToBuild(id.toString())
       }}

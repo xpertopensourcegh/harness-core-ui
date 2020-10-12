@@ -64,14 +64,14 @@ const CIBuildPage: React.FC = props => {
   const testsUrl = routeCIBuildTests.url({ orgIdentifier, projectIdentifier, buildIdentifier })
   const artifactsUrl = routeCIBuildArtifacts.url({ orgIdentifier, projectIdentifier, buildIdentifier })
 
-  const executionStatus = buildResponse?.data.graph?.status
+  const executionStatus = buildResponse?.data?.graph?.status
 
   return (
     <ExtendedPage className={common.main}>
       {buildResponse ? (
         <>
           <ExtendedPageHeader
-            title={buildResponse?.data.pipeline?.name}
+            title={buildResponse?.data?.pipeline?.name}
             toolbar={
               <Container>
                 <Button
@@ -90,7 +90,7 @@ const CIBuildPage: React.FC = props => {
                     {status2Message((executionStatus as unknown) as ExecutionStatus)}
                   </Status>
                 )}
-                {buildResponse?.data.graph.startTs && (
+                {buildResponse?.data?.graph?.startTs && (
                   <ElapsedTime
                     startTime={buildResponse?.data.graph.startTs}
                     endTime={buildResponse?.data.graph.endTs}
@@ -100,28 +100,28 @@ const CIBuildPage: React.FC = props => {
             }
             rowTwoContent={
               <>
-                <TitledInfo title={i18n.infoBuildNo} value={buildResponse?.data.id} />
-                <TitledInfo title={i18n.infoRepository} value={buildResponse?.data.branch?.link} maxWidth={'350px'} />
-                <TitledInfo title={i18n.infoBranch} value={buildResponse?.data.branch?.name} />
+                <TitledInfo title={i18n.infoBuildNo} value={buildResponse?.data?.id} />
+                <TitledInfo title={i18n.infoRepository} value={buildResponse?.data?.branch?.link} maxWidth={'350px'} />
+                <TitledInfo title={i18n.infoBranch} value={buildResponse?.data?.branch?.name} />
                 <TitledInfo
                   title={i18n.infoCommitId}
-                  value={getShortCommitId(first(buildResponse?.data.branch?.commits)?.id || '')}
+                  value={getShortCommitId(first(buildResponse?.data?.branch?.commits)?.id || '')}
                 />
                 <TitledInfo
                   title={i18n.infoCommitMessage}
-                  value={first(buildResponse?.data.branch?.commits)?.message}
+                  value={first(buildResponse?.data?.branch?.commits)?.message}
                 />
               </>
             }
             rowThreeContent={
               detailsVisible ? (
                 <>
-                  <TitledInfo title={i18n.infoTriggerType} value={buildResponse?.data.triggerType} />
-                  <TitledInfo title={i18n.infoTriggerBy} value={buildResponse?.data.author?.id} />
+                  <TitledInfo title={i18n.infoTriggerType} value={buildResponse?.data?.triggerType} />
+                  <TitledInfo title={i18n.infoTriggerBy} value={buildResponse?.data?.author?.id} />
                   <TitledInfo
                     title={i18n.infoStartTime}
                     value={
-                      buildResponse?.data.graph.startTs
+                      buildResponse?.data?.graph?.startTs
                         ? moment.unix(buildResponse?.data.graph.startTs).format('MM/DD/YY hh:mm:ss A')
                         : '-'
                     }
@@ -129,7 +129,7 @@ const CIBuildPage: React.FC = props => {
                   <TitledInfo
                     title={i18n.infoEndTime}
                     value={
-                      buildResponse?.data.graph.endTs
+                      buildResponse?.data?.graph?.endTs
                         ? moment.unix(buildResponse?.data.graph.endTs).format('MM/DD/YY hh:mm:ss A')
                         : '-'
                     }

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { getLogsFromBlob, useLogs } from 'modules/ci/services/LogService'
-import { useGetBuild } from 'modules/ci/services/BuildsService'
+import { useGetBuild } from 'services/ci'
 import { ExecutionPipelineItemStatus } from 'modules/common/components/ExecutionStageDiagram/ExecutionPipelineModel'
 import type { BuildPageUrlParams } from '../CIBuildPage'
 import { BuildPageContext, BuildPageStateInterface } from './BuildPageContext'
@@ -19,7 +19,7 @@ import { BuildPipelineGraphLayoutType } from '../sections/pipeline-graph/BuildPi
 
 export const BuildPageContextProvider: React.FC = props => {
   const { children } = props
-  const { orgIdentifier, projectIdentifier, buildIdentifier } = useParams<BuildPageUrlParams>()
+  const { orgIdentifier, projectIdentifier, buildIdentifier, accountId } = useParams<BuildPageUrlParams>()
   const [state, setState] = React.useState<BuildPageStateInterface>({
     selectedStageIdentifier: '-1',
     selectedStepIdentifier: '-1',
@@ -48,36 +48,34 @@ export const BuildPageContextProvider: React.FC = props => {
     setState({ ...state, graphLayoutType })
   }
 
-  const { data: buildData, loading, error, refetch } = useGetBuild(buildIdentifier, {
+  const { data, loading, error, refetch } = useGetBuild({
+    buildIdentifier: Number(buildIdentifier),
     queryParams: {
-      // TODO: HARDCODED FOR DEMO
-      accountIdentifier: 'zEaak-FLS425IEO7OLzMUg',
+      accountIdentifier: accountId,
       orgIdentifier,
       projectIdentifier
-    },
-    resolve: response => {
-      // TODO: Not finalized in the mock - TBD
-      // const globalErrorMessage = getGlobalErrorFromResponse();
-      const globalErrorMessage = null
-
-      // api2ui model
-      const stagePipeline = graph2ExecutionPipeline(response.data.graph)
-
-      // default selected stage and step
-      const {
-        defaultSelectedStageIdentifier,
-        defaultSelectedStepIdentifier
-      } = getDefaultSelectionFromExecutionPipeline(stagePipeline)
-
-      return {
-        response,
-        stagePipeline,
-        defaultSelectedStageIdentifier,
-        defaultSelectedStepIdentifier,
-        globalErrorMessage
-      }
     }
   })
+
+  // TODO: Not finalized in the mock - TBD
+  // const globalErrorMessage = getGlobalErrorFromResponse();
+  const globalErrorMessage = null
+
+  // api2ui model
+  const stagePipeline = graph2ExecutionPipeline(data?.data?.graph)
+
+  // default selected stage and step
+  const { defaultSelectedStageIdentifier, defaultSelectedStepIdentifier } = getDefaultSelectionFromExecutionPipeline(
+    stagePipeline
+  )
+
+  const buildData = {
+    response: data,
+    stagePipeline,
+    defaultSelectedStageIdentifier,
+    defaultSelectedStepIdentifier,
+    globalErrorMessage
+  }
 
   // load data every 5 seconds
   useEffect(() => {
@@ -115,7 +113,7 @@ export const BuildPageContextProvider: React.FC = props => {
     selectedStepStatus === ExecutionPipelineItemStatus.ASYNC_WAITING
 
   const [logsStream] = useLogs(
-    'zEaak-FLS425IEO7OLzMUg',
+    accountId,
     orgIdentifier,
     projectIdentifier,
     buildIdentifier,
@@ -130,7 +128,7 @@ export const BuildPageContextProvider: React.FC = props => {
       selectedStageOption &&
       selectedStepName &&
       getLogsFromBlob(
-        'zEaak-FLS425IEO7OLzMUg',
+        accountId,
         orgIdentifier,
         projectIdentifier,
         buildIdentifier,

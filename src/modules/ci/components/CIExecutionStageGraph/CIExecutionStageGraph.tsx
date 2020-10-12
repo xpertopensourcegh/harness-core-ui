@@ -1,7 +1,6 @@
 import React, { useCallback } from 'react'
 import { first } from 'lodash-es'
 import { Color } from '@wings-software/uikit'
-import type { GraphVertex } from 'modules/ci/services/GraphTypes'
 import {
   ExecutionPipeline,
   ExecutionPipelineItemStatus,
@@ -9,6 +8,7 @@ import {
 } from 'modules/common/components/ExecutionStageDiagram/ExecutionPipelineModel'
 import { ExecutionStageGraph, RenderStageButtonInfo } from 'modules/common/exports'
 import { getStagesStatusesCounter } from 'modules/ci/pages/build/utils/api2ui'
+import type { GraphVertex } from 'services/ci'
 
 interface CIExecutionStageGraphProps {
   pipeline: ExecutionPipeline<GraphVertex>

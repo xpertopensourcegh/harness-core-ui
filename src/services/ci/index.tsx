@@ -625,7 +625,7 @@ export type UseGetBuildProps = Omit<
  */
 export const useGetBuild = ({ buildIdentifier, ...props }: UseGetBuildProps) =>
   useGet<ResponseCIBuildResponseDTO, unknown, GetBuildQueryParams, GetBuildPathParams>(
-    (paramsInPath: GetBuildPathParams) => `/ci/builds/${paramsInPath.buildIdentifier}`,
+    (paramsInPath: GetBuildPathParams) => `/builds/${paramsInPath.buildIdentifier}`,
     { base: getConfig('ci'), pathParams: { buildIdentifier }, ...props }
   )
 
@@ -643,7 +643,7 @@ export const getBuildPromise = (
 ) =>
   getUsingFetch<ResponseCIBuildResponseDTO, unknown, GetBuildQueryParams, GetBuildPathParams>(
     getConfig('ci'),
-    `/ci/builds/${buildIdentifier}`,
+    `/builds/${buildIdentifier}`,
     props,
     signal
   )
@@ -667,7 +667,7 @@ export type GetBuildsProps = Omit<GetProps<ResponsePageCIBuildResponseDTO, unkno
  */
 export const GetBuilds = (props: GetBuildsProps) => (
   <Get<ResponsePageCIBuildResponseDTO, unknown, GetBuildsQueryParams, void>
-    path={`/ci/builds`}
+    path={`/builds`}
     base={getConfig('ci')}
     {...props}
   />
@@ -682,7 +682,7 @@ export type UseGetBuildsProps = Omit<
  * Get builds list
  */
 export const useGetBuilds = (props: UseGetBuildsProps) =>
-  useGet<ResponsePageCIBuildResponseDTO, unknown, GetBuildsQueryParams, void>(`/ci/builds`, {
+  useGet<ResponsePageCIBuildResponseDTO, unknown, GetBuildsQueryParams, void>(`/builds`, {
     base: getConfig('ci'),
     ...props
   })

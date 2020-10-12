@@ -7,23 +7,12 @@ import { ExecutionStatus, status2Message } from 'modules/ci/components/common/st
 import { getShortCommitId } from 'modules/ci/services/CIUtils'
 import { useToaster } from 'modules/common/exports'
 import type { ExecutionPipeline } from 'modules/common/components/ExecutionStageDiagram/ExecutionPipelineModel'
-import type { GraphVertex } from 'modules/ci/services/GraphTypes'
+import type { CIBuildCommit, GraphVertex } from 'services/ci'
 import { CIExecutionStageGraph } from '../CIExecutionStageGraph/CIExecutionStageGraph'
 import Status from '../Status/Status'
 import { formatElapsedTime } from '../common/time'
 import i18n from './BuildCard.i18n'
 import css from './BuildCard.module.scss'
-
-export interface Commit {
-  id: string
-  link: string
-  message: string
-  description?: string
-  ownerName: string
-  ownerId: string
-  ownerEmail: string
-  timeStamp: number
-}
 
 export interface BuildCardProps {
   id: number
@@ -45,7 +34,7 @@ export interface BuildCardProps {
   // branch
   branchName?: string
   branchLink?: string
-  commits?: Commit[]
+  commits?: CIBuildCommit[]
 
   // pull request
   PRId?: number
@@ -96,7 +85,7 @@ export const BuildCard: React.FC<BuildCardProps> = props => {
             <>
               <Icon name="git-commit" size={12} color={Color.GREY_450} padding={{ left: 'xsmall', right: 'xsmall' }} />
               <Link className={css.links} href={lastCommit.link} target="_blank">
-                {getShortCommitId(lastCommit.id)}
+                {getShortCommitId(lastCommit.id as string)}
               </Link>
               <Text className={css.message}>{lastCommit.message}</Text>
             </>
@@ -124,16 +113,16 @@ export const BuildCard: React.FC<BuildCardProps> = props => {
     return (
       <div className={css.commitItem} key={item.id}>
         <div>
-          {item.message?.slice(0, 80)} {item.description && <>| {item.description}</>}
+          {item.message?.slice(0, 80)} {/*description missing in API?: item. && <>| {item.description}</>*/}
         </div>
         <div>
           <Icon name="nav-user-profile" />
           <span>
             {item.ownerId}
-            <ReactTimeago date={item.timeStamp} />
+            {/*timeStamp missing in API?: <ReactTimeago date={item.timeStamp} />*/}
           </span>
-          <Text className={css.commitHash} onClick={() => copy2Clipboard(item.id)}>
-            {getShortCommitId(item.id)}
+          <Text className={css.commitHash} onClick={() => copy2Clipboard(item.id as string)}>
+            {getShortCommitId(item.id as string)}
             <Icon size={12} name="clipboard" color={Color.BLUE_600} margin={{ left: 'xsmall' }} />
           </Text>
         </div>
@@ -151,7 +140,7 @@ export const BuildCard: React.FC<BuildCardProps> = props => {
       <div className={css.topper}>
         <Container className={css.leftSide}>
           <div className={css.buildTitle} onClick={() => onClick(props.id)}>
-            <Icon color={Color.PURPLE_500} name={getIconForEvent(props.event)} size={20} />
+            <Icon color={Color.PURPLE_500} name={getIconForEvent(props.event as 'branch' | 'pull_request')} size={20} />
             <Text inline font={{ weight: 'semi-bold' }} color={Color.GREY_800}>
               {props.pipelineName} | {i18n.buildId} {props.id}
             </Text>

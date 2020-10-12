@@ -1,8 +1,16 @@
 import React from 'react'
 import type { GetDataError } from 'restful-react'
-import type { BuildData } from 'modules/ci/services/Types'
-import type { ErrorResponse } from 'modules/ci/services/BuildsService'
+import type { ResponseCIBuildResponseDTO, GraphVertex } from 'services/ci'
+import type { ExecutionPipeline } from 'modules/common/components/ExecutionStageDiagram/ExecutionPipelineModel'
 import { BuildPipelineGraphLayoutType } from '../sections/pipeline-graph/BuildPipelineGraphLayout/BuildPipelineGraphLayout'
+
+export interface BuildData {
+  response: ResponseCIBuildResponseDTO | null
+  stagePipeline: ExecutionPipeline<GraphVertex>
+  defaultSelectedStageIdentifier: string
+  defaultSelectedStepIdentifier: string
+  globalErrorMessage: string | null
+}
 
 export interface BuildPageStateInterface {
   selectedStageIdentifier: string
@@ -19,7 +27,7 @@ export interface BuildPageContextInterface {
   setGraphLayoutType: (graphLayoutType: BuildPipelineGraphLayoutType) => void
   buildData: BuildData | null
   loading: boolean
-  error: GetDataError<ErrorResponse> | null
+  error: GetDataError<unknown> | null
 }
 
 export const initialBuildPageState: BuildPageContextInterface = {

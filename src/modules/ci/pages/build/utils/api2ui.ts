@@ -1,6 +1,6 @@
 import type { IconName } from '@blueprintjs/core'
 import { first } from 'lodash-es'
-import type { Graph, GraphVertex } from 'modules/ci/services/GraphTypes'
+import type { GraphVertex, OrchestrationGraphDTO } from 'services/ci'
 import {
   ExecutionPipeline,
   ExecutionPipelineNode,
@@ -118,7 +118,7 @@ export function getEmptyExecutionPipeline(): ExecutionPipeline<GraphVertex> {
 /**
  * Create ExecutionPipeline from Graph model (API2UI model)
  */
-export function graph2ExecutionPipeline(graph: Graph): ExecutionPipeline<GraphVertex> {
+export function graph2ExecutionPipeline(graph: OrchestrationGraphDTO | undefined): ExecutionPipeline<GraphVertex> {
   const pipeline: ExecutionPipeline<GraphVertex> = {
     items: [],
     identifier: ''
@@ -132,22 +132,25 @@ export function graph2ExecutionPipeline(graph: Graph): ExecutionPipeline<GraphVe
 
   pipeline.identifier = rootNodeId
 
+  const adjacencyMap = graph?.adjacencyList?.adjacencyMap || {}
+  const graphVertexMap = graph?.adjacencyList?.graphVertexMap || {}
+
   // first level
-  const rootEdgeList = graph.adjacencyList.adjacencyMap[rootNodeId]
+  const rootEdgeList = adjacencyMap[rootNodeId]
 
-  rootEdgeList.edges.forEach((edgeId: string) => {
+  rootEdgeList?.edges?.forEach((edgeId: string) => {
     // second level
-    const stagesRootEdgeList = graph.adjacencyList.adjacencyMap[edgeId]
+    const stagesRootEdgeList = adjacencyMap[edgeId]
 
-    stagesRootEdgeList.edges.forEach((stageEdgeId: string) => {
-      const vertex = graph.adjacencyList.graphVertexMap[stageEdgeId]
+    stagesRootEdgeList?.edges?.forEach((stageEdgeId: string) => {
+      const vertex = graphVertexMap[stageEdgeId]
 
       const stageItem: ExecutionPipelineItem<GraphVertex> = {
-        identifier: vertex.uuid,
-        name: vertex.name,
+        identifier: vertex.uuid as string,
+        name: vertex.name as string,
         type: ExecutionPipelineNodeType.NORMAL,
         status: ExecutionPipelineItemStatus[vertex.status as keyof typeof ExecutionPipelineItemStatus],
-        icon: stageType2IconName(vertex.stepType),
+        icon: stageType2IconName(vertex.stepType as string),
         data: vertex
       }
 
@@ -162,9 +165,9 @@ export function graph2ExecutionPipeline(graph: Graph): ExecutionPipeline<GraphVe
       }
 
       // get first step
-      const stepsRootId = first(graph.adjacencyList.adjacencyMap[stageEdgeId]?.edges) as string
-      const nextId = first(graph.adjacencyList.adjacencyMap[stepsRootId]?.edges) as string
-      let next = graph.adjacencyList.graphVertexMap[nextId]
+      const stepsRootId = first(adjacencyMap[stageEdgeId]?.edges) as string
+      const nextId = first(adjacencyMap[stepsRootId]?.edges) as string
+      let next = graphVertexMap[nextId]
 
       while (next) {
         //TODO: do not add LITE_ENGINE_TASK - solution for demo
@@ -177,9 +180,9 @@ export function graph2ExecutionPipeline(graph: Graph): ExecutionPipeline<GraphVe
             stepsPipeline.items.push(parallelStepsNode)
 
             // populate parallel steps
-            const nextIds = graph.adjacencyList.adjacencyMap[next.uuid]?.edges as string[]
+            const nextIds = adjacencyMap[next.uuid as string]?.edges as string[]
             nextIds.forEach(parallelId => {
-              const parallelVertex = graph.adjacencyList.graphVertexMap[parallelId]
+              const parallelVertex = graphVertexMap[parallelId]
               addStepToArray(parallelVertex, parallelStepsNode.parallel as ExecutionPipelineNode<GraphVertex>[])
             })
           } else {
@@ -188,8 +191,8 @@ export function graph2ExecutionPipeline(graph: Graph): ExecutionPipeline<GraphVe
         }
 
         // set next
-        const _nextId = first(graph.adjacencyList.adjacencyMap[next.uuid]?.nextIds) as string
-        next = graph.adjacencyList.graphVertexMap[_nextId]
+        const _nextId = first(adjacencyMap[next.uuid as string]?.nextIds) as string
+        next = graphVertexMap[_nextId]
       }
 
       if (stageNode.item) {
@@ -203,11 +206,11 @@ export function graph2ExecutionPipeline(graph: Graph): ExecutionPipeline<GraphVe
 
 function addStepToArray(vertex: GraphVertex, arr: ExecutionPipelineNode<GraphVertex>[]): void {
   const stepItem: ExecutionPipelineItem<GraphVertex> = {
-    identifier: vertex.uuid,
-    name: vertex.name,
+    identifier: vertex.uuid as string,
+    name: vertex.name as string,
     type: ExecutionPipelineNodeType.NORMAL,
     status: ExecutionPipelineItemStatus[vertex.status as keyof typeof ExecutionPipelineItemStatus],
-    icon: stageType2IconName(vertex.stepType),
+    icon: stageType2IconName(vertex.stepType as string),
     data: vertex
   }
   // add step node
