@@ -33,7 +33,10 @@ import {
   useCreateOverlayInputSetForPipeline,
   useUpdateOverlayInputSetForPipeline,
   useGetInputSetsListForPipeline,
-  InputSetConfig
+  InputSetConfig,
+  ResponseInputSetResponse,
+  ResponseOverlayInputSetResponse,
+  useGetMergeInputSetFromPipelineTemplateWithListInput
 } from 'services/cd-ng'
 import { YamlEntity } from 'modules/common/constants/YamlConstants'
 import { useToaster } from 'modules/common/exports'
@@ -193,6 +196,16 @@ export const InputSetForm: React.FC<InputSetFormProps> = ({ hideForm, identifier
     }
   )
 
+  const [mergeTemplate, setMergeTemplate] = React.useState<string>()
+
+  const {
+    mutate: mergeInputSet,
+    loading: loadingMerge,
+    error: errorMergeInputSet
+  } = useGetMergeInputSetFromPipelineTemplateWithListInput({
+    queryParams: { accountIdentifier: accountId, projectIdentifier, orgIdentifier, pipelineIdentifier }
+  })
+
   const {
     data: overlayInputSetResponse,
     refetch: refetchOverlay,
@@ -257,20 +270,21 @@ export const InputSetForm: React.FC<InputSetFormProps> = ({ hideForm, identifier
     lazy: true
   })
 
-  const { data: pipeline, loading: loadingPipeline, error: errorPipeline } = useGetPipeline({
+  const { data: pipeline, loading: loadingPipeline, error: errorPipeline, refetch: refetchPipeline } = useGetPipeline({
     pipelineIdentifier,
+    lazy: true,
     queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
   })
 
   const inputSet = React.useMemo(() => {
-    if (inputSetResponse?.data && formType === InputFormType.InputForm) {
+    if (inputSetResponse?.data && mergeTemplate && formType === InputFormType.InputForm) {
       const inputSetObj = inputSetResponse?.data
-      const inputYamlObj = parse(inputSetObj.inputSetYaml || '')
+      const inputYamlObj = parse(mergeTemplate || '')?.pipeline || {}
       return {
         name: inputSetObj.name,
         identifier: inputSetObj.identifier || '',
         description: inputSetObj?.description,
-        pipeline: inputYamlObj?.inputSet?.pipeline
+        pipeline: inputYamlObj
       }
     } else if (overlayInputSetResponse?.data && formType === InputFormType.OverlayInputForm) {
       const inputSetObj = overlayInputSetResponse?.data
@@ -282,7 +296,13 @@ export const InputSetForm: React.FC<InputSetFormProps> = ({ hideForm, identifier
       }
     }
     return getDefaultInputSet(parse(template?.data?.inputSetTemplateYaml || '')?.pipeline as any)
-  }, [inputSetResponse?.data, template?.data?.inputSetTemplateYaml, formType, overlayInputSetResponse?.data])
+  }, [
+    mergeTemplate,
+    inputSetResponse?.data,
+    template?.data?.inputSetTemplateYaml,
+    formType,
+    overlayInputSetResponse?.data
+  ])
 
   const inputSetListOptions: SelectOption[] = React.useMemo(() => {
     return inputSetList?.data?.content?.map(item => ({ label: item.name || '', value: item.identifier || '' })) || []
@@ -304,6 +324,10 @@ export const InputSetForm: React.FC<InputSetFormProps> = ({ hideForm, identifier
       if (formType === InputFormType.InputForm) {
         refetch({ pathParams: { inputSetIdentifier: identifier } })
         refetchTemplate()
+        refetchPipeline()
+        mergeInputSet({ inputSetReferences: [identifier] }).then(response => {
+          setMergeTemplate(response.data?.pipelineYaml)
+        })
       } else {
         refetchInputSetList()
         refetchOverlay({ pathParams: { inputSetIdentifier: identifier } })
@@ -311,6 +335,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = ({ hideForm, identifier
     } else {
       if (formType === InputFormType.InputForm) {
         refetchTemplate()
+        refetchPipeline()
       } else {
         refetchInputSetList()
       }
@@ -346,14 +371,22 @@ export const InputSetForm: React.FC<InputSetFormProps> = ({ hideForm, identifier
       if (inputSetObj && formType === InputFormType.InputForm) {
         try {
           delete inputSetObj.inputSetReferences
+          let response: ResponseInputSetResponse | null = null
           if (isEdit) {
-            await updateInputSet(stringify({ inputSet: clearNullUndefined(inputSetObj) }) as any, {
+            response = await updateInputSet(stringify({ inputSet: clearNullUndefined(inputSetObj) }) as any, {
               pathParams: { inputSetIdentifier: inputSetObj.identifier || '' }
             })
           } else {
-            await createInputSet(stringify({ inputSet: clearNullUndefined(inputSetObj) }) as any)
+            response = await createInputSet(stringify({ inputSet: clearNullUndefined(inputSetObj) }) as any)
           }
-          showSuccess(i18n.inputSetSaved)
+          if (response) {
+            if (response.data?.errorResponse) {
+              showError(i18n.inputSetSavedError)
+            } else {
+              showSuccess(i18n.inputSetSaved)
+            }
+          }
+
           closeForm()
         } catch (_e) {
           // showError(e?.message || i18n.commonError)
@@ -361,14 +394,26 @@ export const InputSetForm: React.FC<InputSetFormProps> = ({ hideForm, identifier
       } else if (inputSetObj && formType === InputFormType.OverlayInputForm) {
         delete inputSetObj.pipeline
         try {
+          let response: ResponseOverlayInputSetResponse | null = null
           if (isEdit) {
-            await updateOverlayInputSet(stringify({ overlayInputSet: clearNullUndefined(inputSetObj) }) as any, {
-              pathParams: { inputSetIdentifier: inputSetObj.identifier || '' }
-            })
+            response = await updateOverlayInputSet(
+              stringify({ overlayInputSet: clearNullUndefined(inputSetObj) }) as any,
+              {
+                pathParams: { inputSetIdentifier: inputSetObj.identifier || '' }
+              }
+            )
           } else {
-            await createOverlayInputSet(stringify({ overlayInputSet: clearNullUndefined(inputSetObj) }) as any)
+            response = await createOverlayInputSet(
+              stringify({ overlayInputSet: clearNullUndefined(inputSetObj) }) as any
+            )
           }
-          showSuccess(i18n.overlayInputSetSaved)
+          if (response) {
+            if (response.data?.errorResponse) {
+              showError(i18n.overlayInputSetSavedError)
+            } else {
+              showSuccess(i18n.overlayInputSetSaved)
+            }
+          }
           closeForm()
         } catch (_e) {
           // showError(e?.message || i18n.commonError)
@@ -424,20 +469,6 @@ export const InputSetForm: React.FC<InputSetFormProps> = ({ hideForm, identifier
     []
   )
 
-  if (
-    loadingInputSet ||
-    loadingPipeline ||
-    loadingTemplate ||
-    createInputSetLoading ||
-    updateInputSetLoading ||
-    createOverlayInputSetLoading ||
-    updateOverlayInputSetLoading ||
-    loadingInputSetList ||
-    loadingOverlayInputSet
-  ) {
-    return <PageSpinner />
-  }
-
   if (errorInputSet || errorPipeline || errorTemplate || createInputSetError || updateInputSetError) {
     showError(
       (errorInputSet as Failure)?.message ||
@@ -449,6 +480,7 @@ export const InputSetForm: React.FC<InputSetFormProps> = ({ hideForm, identifier
         (updateOverlayInputSetError?.data as Failure)?.message ||
         (errorOverlayInputSet?.data as Failure)?.message ||
         (errorInputSetList?.data as Failure)?.message ||
+        (errorMergeInputSet?.data as Failure)?.message ||
         i18n.commonError
     )
   }
@@ -465,6 +497,16 @@ export const InputSetForm: React.FC<InputSetFormProps> = ({ hideForm, identifier
 
   return (
     <Dialog title={getTitle(isEdit, formType, inputSet)} onClose={() => closeForm()} isOpen={isOpen} {...dialogProps}>
+      {(loadingInputSet ||
+        loadingPipeline ||
+        loadingTemplate ||
+        createInputSetLoading ||
+        updateInputSetLoading ||
+        createOverlayInputSetLoading ||
+        updateOverlayInputSetLoading ||
+        loadingInputSetList ||
+        loadingMerge ||
+        loadingOverlayInputSet) && <PageSpinner />}
       <div className={Classes.DIALOG_BODY}>
         <Layout.Vertical spacing="medium">
           <div className={css.optionBtns}>

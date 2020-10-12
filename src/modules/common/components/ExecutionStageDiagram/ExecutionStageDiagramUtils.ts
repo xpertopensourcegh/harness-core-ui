@@ -2,7 +2,7 @@ import type { DiagramEngine } from '@projectstorm/react-diagrams-core'
 import { Color, IconName } from '@wings-software/uikit'
 import type { IconProps } from '@wings-software/uikit/dist/icons/Icon'
 import type { DefaultNodeModel } from 'modules/common/components/Diagram'
-import type { Diagram } from 'modules/common/exports'
+import { Diagram } from 'modules/common/exports'
 import { ExecutionPipelineItemStatus, ExecutionPipeline, ExecutionPipelineItem } from './ExecutionPipelineModel'
 import css from './ExecutionStageDiagram.module.scss'
 
@@ -136,7 +136,7 @@ export const getStageFromExecutionPipeline = <T>(
 }
 
 export interface GroupState<T> {
-  data: T
+  data?: T
   collapsed: boolean
   name: string
   status: ExecutionPipelineItemStatus
@@ -154,6 +154,14 @@ export const getGroupsFromData = <T>(data: ExecutionPipeline<T>): Map<string, Gr
         identifier: node.group.identifier,
         data: node.group.data
       })
+    } else if (node.item?.showInLabel) {
+      groupState.set(node.item.identifier, {
+        collapsed: false,
+        name: node.item.name,
+        status: node.item.status,
+        identifier: node.item.identifier,
+        data: node.item.data
+      })
     }
   })
   return groupState
@@ -161,11 +169,16 @@ export const getGroupsFromData = <T>(data: ExecutionPipeline<T>): Map<string, Gr
 
 export const moveStageToFocus = (engine: DiagramEngine, identifier: string): void => {
   const model = engine.getModel() as Diagram.DiagramModel
-  const layer = model.getGroupLayer(identifier)
+  const layer = model.getGroupLayer(identifier) || model.getNodeFromId(identifier)
   const canvas = engine.getCanvas()
   if (layer && canvas) {
     const rect = canvas.getBoundingClientRect()
-    const newOffsetX = rect.width * 0.2 - layer.startNode.getPosition().x
+    let newOffsetX = 100
+    if (layer instanceof Diagram.StepGroupNodeLayerModel) {
+      newOffsetX = rect.width * 0.2 - layer.startNode.getPosition().x
+    } else {
+      newOffsetX = rect.width * 0.2 - layer.getPosition().x
+    }
     const offsetY = engine.getModel().getOffsetY()
     engine.getModel().setOffset(newOffsetX, offsetY)
     engine.getModel().setZoomLevel(100)

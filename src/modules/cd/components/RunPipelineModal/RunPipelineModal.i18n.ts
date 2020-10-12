@@ -7,6 +7,7 @@ export default {
   save: 'Save',
   cancel: 'Cancel',
   nameIsRequired: 'Name is Required field',
+  inputSetSavedError: 'Error while saving InputSet',
   inputSetSaved: 'Input Set Saved',
   skipPreFlightCheck: 'Skip pre-flight check',
   noRuntimeInput: 'No Runtime input in pipeline',

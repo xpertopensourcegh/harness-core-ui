@@ -65,7 +65,7 @@ const processExecutionData = (graph?: ExecutionGraph): Array<ExecutionPipelineNo
     while (nodeId && nodeAdjacencyListMap[nodeId]) {
       const nodeData = graph?.nodeMap?.[nodeId]
       if (nodeData) {
-        if (nodeData.stepType === StepTypes.SECTION_CHAIN || nodeData.stepType === StepTypes.SERVICE_STEP) {
+        if (nodeData.stepType === StepTypes.SECTION_CHAIN) {
           items.push({
             group: {
               name: nodeData.name || '',
@@ -82,6 +82,8 @@ const processExecutionData = (graph?: ExecutionGraph): Array<ExecutionPipelineNo
             item: {
               name: nodeData.name || '',
               icon: 'edit',
+              showInLabel:
+                nodeData.stepType === StepTypes.SERVICE_STEP || nodeData.stepType === StepTypes.INFRASTRUCTURE,
               identifier: nodeId,
               status: nodeData.status as any,
               type: ExecutionPipelineNodeType.NORMAL,

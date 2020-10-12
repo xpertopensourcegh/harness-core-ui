@@ -39,6 +39,7 @@ export interface ExecutionPipelineItem<T> {
   type: ExecutionPipelineNodeType
   status: ExecutionPipelineItemStatus
   icon: IconName
+  showInLabel?: boolean // Default = false
   cssProps?: React.CSSProperties
   data?: T
   pipeline?: ExecutionPipeline<T>

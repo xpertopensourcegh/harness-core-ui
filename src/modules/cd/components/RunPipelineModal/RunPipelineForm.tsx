@@ -284,8 +284,12 @@ export const RunPipelineForm: React.FC<RunPipelineFormProps> = ({ pipelineIdenti
                               >
                                 <Formik
                                   onSubmit={input => {
-                                    createInputSet(stringify({ inputSet: input }) as any).then(() => {
-                                      showSuccess(i18n.inputSetSaved)
+                                    createInputSet(stringify({ inputSet: input }) as any).then(response => {
+                                      if (response.data?.errorResponse) {
+                                        showError(i18n.inputSetSavedError)
+                                      } else {
+                                        showSuccess(i18n.inputSetSaved)
+                                      }
                                     })
                                   }}
                                   validationSchema={Yup.object().shape({

@@ -13,6 +13,8 @@ export default {
   nameIsRequired: 'Name is Required field',
   overlaySetName: 'Overlay set name',
   inputSetSaved: 'Input Set saved',
+  inputSetSavedError: 'Error while saving InputSet',
+  overlayInputSetSavedError: 'Error while saving Overlay InputSet',
   overlayInputSetSaved: 'Overlay Input Set saved',
   commonError: 'Error occurred while fetching/saving the data',
   inputSetName: 'Input set name',
