@@ -293,7 +293,7 @@ export default function ServiceSpecifications(): JSX.Element {
       setSelectedPropagatedState({ label: '', value: '' })
       setSetupMode(setupMode.DIFFERENT)
     }
-  }, [stage.stage.spec])
+  }, [stage?.stage?.spec])
 
   const initWithServiceDefination = () => {
     setDefaultServiceSchema()
