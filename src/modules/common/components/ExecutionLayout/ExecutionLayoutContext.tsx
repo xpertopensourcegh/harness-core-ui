@@ -19,11 +19,11 @@ export interface ExecutionLayoutContextParams {
 
 export const ExecutionLayoutContext = createContext<ExecutionLayoutContextParams>({
   layout: ExecutionLayoutState.NONE,
-  setLayout: () => void 0,
+  setLayout: /* istanbul ignore next */ () => void 0,
   primaryPaneSize: 0,
   teritiaryPaneSize: 0,
-  setPrimaryPaneSize: () => void 0,
-  setTeritiaryPaneSize: () => void 0
+  setPrimaryPaneSize: /* istanbul ignore next */ () => void 0,
+  setTeritiaryPaneSize: /* istanbul ignore next */ () => void 0
 })
 
 export function useExecutionLayoutContext(): ExecutionLayoutContextParams {

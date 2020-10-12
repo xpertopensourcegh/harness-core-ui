@@ -10,10 +10,11 @@ import ExcecutionLayoutToggle from './ExecutionLayoutToggle'
 
 import css from './ExecutionLayout.module.scss'
 
+const IS_TEST = process.env.NODE_ENV === 'test'
 export const PANEL_RESIZE_DELTA = 50
 export const MIN_PANEL_SIZE = 200
 const RESIZER_POSITION_DELTA = 18
-const EXECUTION_LAYOUT_DOM_ID = `execution-layout-${new Date().getTime()}`
+const EXECUTION_LAYOUT_DOM_ID = `execution-layout-${IS_TEST ? 'test' : /* istanbul ignore next */ Date.now()}`
 
 const splitPaneProps: Partial<Record<ExecutionLayoutState, SplitPaneProps>> = {
   [ExecutionLayoutState.RIGHT]: {
@@ -34,11 +35,12 @@ const splitPaneProps: Partial<Record<ExecutionLayoutState, SplitPaneProps>> = {
 
 export interface ExecutionLayoutProps {
   className?: string
+  defaultLayout?: ExecutionLayoutState
 }
 
 export default function ExecutionLayout(props: React.PropsWithChildren<ExecutionLayoutProps>): React.ReactElement {
   const [child1, child2, child3] = React.Children.toArray(props.children)
-  const [layoutState, setLayoutState] = React.useState(ExecutionLayoutState.NONE)
+  const [layoutState, setLayoutState] = React.useState(props.defaultLayout || ExecutionLayoutState.NONE)
   const [primaryPaneSize, setPrimaryPaneSize] = React.useState(250)
   const [teritiaryPaneSize, setTeritiaryPaneSize] = React.useState(250)
   const resizerRef = React.useRef<HTMLDivElement | null>(null)
@@ -47,6 +49,8 @@ export default function ExecutionLayout(props: React.PropsWithChildren<Execution
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const setStepSplitPaneSizeDebounce = React.useCallback(debounce(setTeritiaryPaneSize, 300), [setTeritiaryPaneSize])
 
+  /* Ignoring this function as it is used by "react-split-pane" */
+  /* istanbul ignore next */
   function handleStageResize(size: number): void {
     window.requestAnimationFrame(() => {
       if (resizerRef.current) {

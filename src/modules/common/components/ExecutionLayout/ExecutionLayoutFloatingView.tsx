@@ -4,9 +4,12 @@ import { usePopper } from 'react-popper'
 import { Button } from '@wings-software/uikit'
 import cx from 'classnames'
 
-import { useExecutionLayoutContext, ExecutionLayoutState } from './ExecutionLayoutContext'
+import { useExecutionLayoutContext } from './ExecutionLayoutContext'
 import css from './ExecutionLayout.module.scss'
 
+/**
+ * This component will only be rendered when layout === 'FLOATING'
+ */
 export default function ExecutionLayoutFloatingView(props: React.PropsWithChildren<{}>): React.ReactElement {
   const { layout } = useExecutionLayoutContext()
   const [isOpen, setIsOpen] = React.useState(true)
@@ -32,7 +35,7 @@ export default function ExecutionLayoutFloatingView(props: React.PropsWithChildr
 
   return (
     <div className={css.floatingView} data-state={layout.toLowerCase()}>
-      {layout === ExecutionLayoutState.FLOATING ? (
+      {
         <Draggable
           // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           offsetParent={document.getElementById('pipeline-execution-container')!}
@@ -44,13 +47,9 @@ export default function ExecutionLayoutFloatingView(props: React.PropsWithChildr
             <Button onClick={toggleDialog} rightIcon={isOpen ? 'minus' : 'plus'} minimal small intent="primary" />
           </div>
         </Draggable>
-      ) : null}
+      }
       {isOpen ? (
-        <div
-          className="floating-wrapper"
-          ref={setPopperElement}
-          {...(layout === ExecutionLayoutState.FLOATING ? { ...attributes.popper, style: styles.popper } : {})}
-        >
+        <div className="floating-wrapper" ref={setPopperElement} {...attributes.popper} style={styles.popper}>
           {props.children}
         </div>
       ) : null}
