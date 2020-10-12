@@ -9,6 +9,7 @@ declare const styles: {
   readonly stackedCardCount: string
   readonly expandedActivityCard: string
   readonly expand: string
-  readonly expandedCardPopover: string
+  readonly selectedCard: string
+  readonly overlayOnExpand: string
 }
 export default styles

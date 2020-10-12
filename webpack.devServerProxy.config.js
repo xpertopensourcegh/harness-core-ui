@@ -10,7 +10,7 @@ module.exports = {
     target: targetLocalHost ? 'https://localhost:9090' : baseUrl
   },
   '/cv-nextgen': {
-    target: targetLocalHost ? 'https://localhost:6060' : `${baseUrl}/cv-nextgen`
+    target: targetLocalHost ? 'https://localhost:6060' : `${baseUrl}`
   },
   '/cf': {
     target: 'http://localhost:3000/api/1.0',

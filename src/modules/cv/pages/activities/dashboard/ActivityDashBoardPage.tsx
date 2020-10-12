@@ -1,5 +1,5 @@
 import React from 'react'
-import { CircularPercentageChart, Color, Container, Text } from '@wings-software/uikit'
+import { CircularPercentageChart, Color, Container, Text, Utils } from '@wings-software/uikit'
 import moment from 'moment'
 import { Page } from 'modules/common/exports'
 import i18n from './ActivityDashboardPage.i18n'
@@ -27,12 +27,13 @@ function ActivityCardContent(props: ActivityCardContentProps): JSX.Element {
       <Text color={Color.BLACK} lineClamp={2} font={{ size: 'small' }} style={{ marginTop: 'var(--spacing-xsmall)' }}>
         {activity.activityName}
       </Text>
+      <Text>{new Date(activity.startTime).toLocaleString()}</Text>
     </Container>
   )
 }
 
 const startTime = Math.round(new Date().getTime() / (5 * 60000)) * 5 * 60000
-const endTime = moment(startTime).subtract(2, 'weeks').valueOf()
+const endTime = moment(startTime).subtract(3, 'weeks').valueOf()
 const ActivityTypes = {
   DEPLOYMENT: 'DEPLOYMENT',
   OTHER_CHANGES: 'OTHER CHANGES',
@@ -48,31 +49,19 @@ const MockData = {
 }
 
 for (const activityType of Object.keys(MockData)) {
-  for (let currTime = startTime; currTime >= endTime; currTime -= (Math.floor(Math.random() * 10) + 5) * 60000) {
+  for (let currTime = startTime; currTime >= endTime; currTime -= (Math.floor(Math.random() * 120) + 5) * 60000) {
     const shouldAddEvent = Math.floor(Math.random() * 5)
     if (!shouldAddEvent) {
       MockData[activityType].push({
         startTime: currTime,
         progress: Math.floor(Math.random() * 100),
         activityName: 'Build 78',
-        activitySummaryText: 'Delegate'
+        activitySummaryText: 'Delegate',
+        uuid: Utils.randomId()
       } as never)
     }
   }
 }
-
-MockData[ActivityTypes.DEPLOYMENT].unshift({
-  startTime,
-  progress: Math.floor(Math.random() * 100),
-  activityName: 'Build 78',
-  activitySummaryText: 'Delegate'
-} as never)
-MockData[ActivityTypes.DEPLOYMENT].unshift({
-  startTime,
-  progress: Math.floor(Math.random() * 100),
-  activityName: 'Build 100',
-  activitySummaryText: 'Manager'
-} as never)
 
 function renderActivityCardContent(data: Activity): JSX.Element {
   return <ActivityCardContent activity={data} />
@@ -84,8 +73,8 @@ export default function ActivityDashboardPage(): JSX.Element {
       <Page.Header title={i18n.pageTitle} />
       <Page.Body>
         <ActivityTimeline
-          startTime={Date.now()}
-          endTime={Date.now()}
+          startTime={startTime}
+          endTime={endTime}
           onLoadMore={() => []}
           activityTracks={[
             {

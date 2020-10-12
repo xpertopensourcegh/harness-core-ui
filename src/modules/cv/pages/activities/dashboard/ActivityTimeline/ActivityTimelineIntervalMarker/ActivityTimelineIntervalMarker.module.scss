@@ -1,0 +1,20 @@
+.main {
+  .timeMarker {
+    position: absolute;
+    width: calc(50vw - 20px);
+    display: flex;
+
+    .timeLabel {
+      padding: var(--spacing-xsmall);
+      border-top-left-radius: 4px;
+      border-top-right-radius: 4px;
+      max-width: 200px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .totalActivities {
+      box-shadow: 0px 0px 1px rgba(40, 41, 61, 0.04), 0px 2px 4px rgba(96, 97, 112, 0.16);
+    }
+  }
+}
