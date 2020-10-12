@@ -1,7 +1,8 @@
 $separator-width: 100px;
 $separator-label-height: 38px;
-$cell-width: 30px;
-$cell-height: 25px;
+$cell-width: 22px;
+$cell-height: 20px;
+$cell-content-size: var(--spacing-small);
 
 .chart {
   display: flex;
@@ -36,8 +37,8 @@ $cell-height: 25px;
 }
 
 .box {
-  width: $cell-width * 5;
-  height: $cell-height * 4;
+  width: $cell-width * 6;
+  height: $cell-height * 3;
   display: grid;
   grid-template-columns: repeat(auto-fit, #{$cell-width});
   grid-template-rows: repeat(auto-fit, #{$cell-height});
@@ -47,8 +48,8 @@ $cell-height: 25px;
   align-content: center;
   box-sizing: content-box;
   div {
-    width: 12px;
-    height: 12px;
+    width: $cell-content-size;
+    height: $cell-content-size;
     cursor: pointer;
     border-radius: 50%;
     &:hover {

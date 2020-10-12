@@ -1,0 +1,21 @@
+.progressBar {
+  border-radius: 1px;
+  background-color: var(--grey-200);
+  height: 6px !important;
+  [class~='bp3-progress-meter'] {
+    background-color: var(--grey-300);
+    border-radius: 1px;
+    width: 0;
+    transition: width 1s ease-out;
+  }
+  &[class~='bp3-intent-success'] [class~='bp3-progress-meter'] {
+    background-color: var(--green-500);
+  }
+  &[class~='bp3-intent-danger'] [class~='bp3-progress-meter'] {
+    background-color: var(--red-500);
+  }
+  &[class~='bp3-intent-warning'] [class~='bp3-progress-meter'] {
+    background-color: var(--orange-500);
+  }
+  margin: 2px 0;
+}

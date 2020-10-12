@@ -42,13 +42,13 @@ export default function DeploymentLogsTab({ data, clusterChartData, goToPage, is
         message: d.message!,
         messageFrequency: [
           {
-            name: 'one',
+            name: 'testData',
             type: 'line',
             color: getColorValue(d.risk!),
             data: d!.testFrequencyData
           },
           {
-            name: 'two',
+            name: 'controlData',
             type: 'line',
             color: 'var(--grey-350)',
             data: d!.controlFrequencyData
@@ -59,7 +59,7 @@ export default function DeploymentLogsTab({ data, clusterChartData, goToPage, is
   }, [data])
   return (
     <Container className={styles.logsTab}>
-      <Container className={styles.logsCluster}>
+      <Container className={styles.panel}>
         <Text font={{ weight: 'bold' }}>{i18n.logCluster}</Text>
         <ClusterChart data={clusterChartData?.resource || []} />
       </Container>

@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import { Container, Tabs, Tab, Button, Text } from '@wings-software/uikit'
+import moment from 'moment'
+import CVProgressBar from 'modules/cv/components/CVProgressBar/CVProgressBar'
 import {
   useGetVerificationInstances,
   useGetDeploymentTimeSeries,
@@ -14,7 +16,9 @@ import { useToaster } from 'modules/common/exports'
 import DeploymentMetricsTab from './DeploymentMetricsTab'
 import DeploymentLogsTab from './DeploymentLogsTab'
 import DeploymentDrilldownViewHeader from './DeploymentDrilldownViewHeader'
-import DeploymentDrilldownSideNav from './DeploymentDrilldownSideNav'
+import DeploymentDrilldownSideNav, { InstancePhase } from './DeploymentDrilldownSideNav'
+import BlueGreenVerificationChart from '../../services/BlueGreenVerificationChart'
+import i18n from './DeploymentDrilldownView.i18n'
 import styles from './DeploymentDrilldownView.module.scss'
 
 export interface TransactionRowProps {
@@ -35,6 +39,7 @@ export default function DeploymentDrilldownView() {
   const [anomalousMetricsOnly, setAnomalousMetricsOnly] = useState<boolean>(true)
   const [selectedTab, setSelectedTab] = useState<string>(DEFAULT_SELECTED_TAB)
   const [verificationInstance, setVerificationInstance] = useState<any>()
+  const [instancePhase, setInstancePhase] = useState<InstancePhase>()
 
   const {
     data: activityVerifications,
@@ -96,15 +101,42 @@ export default function DeploymentDrilldownView() {
 
   useEffect(() => {
     if (activityVerifications?.resource) {
-      const instance =
-        (preProduction?.length && preProduction[0]) ||
-        (postDeployment?.length && postDeployment[0]) ||
-        (productionDeployment?.length && productionDeployment[0])
-      if (instance) {
-        setVerificationInstance(instance)
+      let defaultInstance
+      let defaultPhase
+      if (preProduction?.length) {
+        defaultInstance = preProduction[0]
+        defaultPhase = InstancePhase.PRE_PRODUCTION
+      } else if (productionDeployment?.length) {
+        defaultInstance = productionDeployment[0]
+        defaultPhase = InstancePhase.PRODUCTION
+      } else if (postDeployment?.length) {
+        defaultInstance = postDeployment[0]
+        defaultPhase = InstancePhase.POST_DEPLOYMENT
+      }
+      if (defaultInstance) {
+        setVerificationInstance(defaultInstance)
+        setInstancePhase(defaultPhase)
       }
     }
   }, [activityVerifications])
+
+  const deploymentNodesData = useMemo(() => {
+    if (!!instancePhase && !!verificationInstance?.deploymentVerificationHostInfo) {
+      const nodesData = verificationInstance?.deploymentVerificationHostInfo
+      return {
+        before: (nodesData?.preDeploymentHosts ?? []).map((node: string) => ({
+          name: node,
+          color: 'blue-200'
+        })),
+        after: (nodesData?.postDeploymentHosts ?? []).map((node: any) => ({
+          name: node.name,
+          riskScore: node.riskScore
+        })),
+        percentageBefore: Math.round(nodesData.trafficSplitPercentage.preDeploymentPercentage),
+        percentageAfter: Math.round(nodesData.trafficSplitPercentage.postDeploymentPercentage)
+      }
+    }
+  }, [verificationInstance])
 
   useEffect(() => {
     if (verificationInstance?.verificationJobInstanceId) {
@@ -176,7 +208,10 @@ export default function DeploymentDrilldownView() {
       <Container className={styles.body}>
         <DeploymentDrilldownSideNav
           selectedInstance={verificationInstance}
-          onSelect={item => setVerificationInstance(item)}
+          onSelect={(item, phase) => {
+            setVerificationInstance(item)
+            setInstancePhase(phase)
+          }}
           preProductionInstances={preProduction}
           postDeploymentInstances={postDeployment}
           productionDeployment={productionDeployment}
@@ -190,6 +225,24 @@ export default function DeploymentDrilldownView() {
               <Button minimal icon="share" text="Share" disabled />
               <Button minimal icon="service-jira" text="Create Ticket" disabled />
             </Container>
+          </Container>
+          <Container className={styles.panel}>
+            <CVProgressBar
+              stripes={false}
+              value={(verificationInstance?.progressPercentage ?? 0) / 100}
+              risk={verificationInstance?.riskScore}
+            />
+            {verificationInstance && (
+              <>
+                <Text font={{ size: 'small' }}>
+                  {i18n.startedOn}: {moment(verificationInstance.startTime).format('MMM D, YYYY h:mm A')}
+                </Text>
+                <Text font={{ size: 'small' }}>
+                  {i18n.duration}: {moment.duration(verificationInstance.durationMs, 'ms').humanize()}
+                </Text>
+              </>
+            )}
+            {deploymentNodesData && <BlueGreenVerificationChart {...deploymentNodesData} />}
           </Container>
           <Container className={styles.filters}>
             <Tabs id="tabs1" onChange={onTabChange} selectedTabId={selectedTab}>

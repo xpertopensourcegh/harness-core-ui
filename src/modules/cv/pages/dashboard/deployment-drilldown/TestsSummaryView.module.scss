@@ -1,0 +1,16 @@
+.testsSummaryView {
+  display: flex;
+  justify-content: center;
+  .separator {
+    width: 1px;
+    background-color: var(--grey-200);
+    margin: var(--spacing-xxlarge) var(--spacing-xxxlarge) 0 var(--spacing-xxxlarge);
+  }
+  .baselineTest {
+    text-align: right;
+  }
+  .mainLabel {
+    text-transform: uppercase;
+    margin-bottom: var(--spacing-small);
+  }
+}

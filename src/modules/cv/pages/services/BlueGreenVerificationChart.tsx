@@ -1,6 +1,5 @@
 import React from 'react'
 import { Text, Container, Color } from '@wings-software/uikit'
-import { isArray } from 'highcharts'
 import styles from './BlueGreenVerificationChart.module.scss'
 
 export const Colors = {
@@ -9,90 +8,46 @@ export const Colors = {
   Red: Color.RED_500
 }
 
-const MAX_SERIE_LENGTH = 20
+const MAX_SERIE_LENGTH = 18
 
-const validateSeries = (series: any) =>
-  Array.isArray(series.before) &&
-  isArray(series.after) &&
-  series.after.length === 2 &&
-  Array.isArray(series.after[0]) &&
-  Array.isArray(series.after[1])
+interface NodeData {
+  name?: string
+  riskScore?: string
+}
 
-const seriesMock = {
-  before: [
-    { color: Colors.Blue },
-    { color: Colors.Blue },
-    { color: Colors.Blue },
-    { color: Colors.Blue },
-    { color: Colors.Blue },
-    { color: Colors.Blue },
-    { color: Colors.Blue },
-    { color: Colors.Blue },
-    { color: Colors.Blue },
-    { color: Colors.Blue },
-    { color: Colors.Blue },
-    { color: Colors.Blue },
-    { color: Colors.Blue },
-    { color: Colors.Blue },
-    { color: Colors.Blue }
-  ],
-  after: [
-    [
-      { color: Colors.Blue },
-      { color: Colors.Blue },
-      { color: Colors.Blue },
-      { color: Colors.Blue },
-      { color: Colors.Blue },
-      { color: Colors.Blue },
-      { color: Colors.Blue },
-      { color: Colors.Blue },
-      { color: Colors.Blue },
-      { color: Colors.Blue },
-      { color: Colors.Blue },
-      { color: Colors.Blue },
-      { color: Colors.Blue },
-      { color: Colors.Blue },
-      { color: Colors.Blue }
-    ],
-    [
-      { color: Colors.Green },
-      { color: Colors.Green },
-      { color: Colors.Green },
-      { color: Colors.Green },
-      { color: Colors.Green },
-      { color: Colors.Red },
-      { color: Colors.Green },
-      { color: Colors.Green },
-      { color: Colors.Green },
-      { color: Colors.Green },
-      { color: Colors.Green },
-      { color: Colors.Red },
-      { color: Colors.Green },
-      { color: Colors.Green },
-      { color: Colors.Green }
-    ]
-  ]
+export interface BlueGreenVerificationChartProps {
+  before: Array<NodeData>
+  after: Array<NodeData>
+  percentageBefore: number
+  percentageAfter: number
+  onNodeClick?(): void
+}
+
+const mapColor = (riskScore?: string): Color => {
+  switch (riskScore) {
+    case 'LOW_RISK':
+      return Color.GREEN_400
+    case 'MEDIUM_RISK':
+      return Color.ORANGE_500
+    case 'HIGH_RISK':
+      return Color.RED_500
+    default:
+      return Color.GREY_300
+  }
 }
 
 export default function BlueGreenVerificationChart({
-  series = seriesMock,
-  onCellClick = (_cell: any) => alert('clicked'),
-  beforeBluePercent = 100,
-  afterBluePercent = 80,
-  afterGreenPercent = 20
-}) {
-  if (!validateSeries(series)) {
-    // invalid props: 'BlueGreenVerificationChart: invalid series'
-    return null
-  }
-  const { before, after } = series
-  const [aftera, afterb] = after
-
-  const renderSeries = (data: Array<any>) =>
+  before,
+  after,
+  percentageBefore,
+  percentageAfter,
+  onNodeClick
+}: BlueGreenVerificationChartProps) {
+  const renderSeries = (data: Array<NodeData>, color?: Color) =>
     data.map(
       (cell, i) =>
         i < MAX_SERIE_LENGTH && (
-          <Container key={i} background={cell.color} onClick={() => onCellClick && onCellClick(cell)} />
+          <Container key={i} background={color || mapColor(cell.riskScore)} onClick={() => onNodeClick?.()} />
         )
     )
 
@@ -100,8 +55,8 @@ export default function BlueGreenVerificationChart({
     <Container className={styles.chart}>
       <div className={styles.boxWrap}>
         <Text>BEFORE</Text>
-        <div className={styles.box}>{renderSeries(before)}</div>
-        <Text>{`Blue ${beforeBluePercent} %`}</Text>
+        <div className={styles.box}>{renderSeries(before, Color.BLUE_500)}</div>
+        <Text>{`Blue ${100} %`}</Text>
       </div>
       <div className={styles.separator}>
         <Text>Verification Triggered</Text>
@@ -110,12 +65,12 @@ export default function BlueGreenVerificationChart({
         <Text>AFTER</Text>
         <div className={styles.boxGroup}>
           <div className={styles.boxWrap}>
-            <div className={styles.box}>{renderSeries(aftera)}</div>
-            <Text>{`Blue (${afterBluePercent}%)`}</Text>
+            <div className={styles.box}>{renderSeries(before, Color.BLUE_500)}</div>
+            <Text>{`Blue (${percentageBefore}%)`}</Text>
           </div>
           <div className={styles.boxWrap}>
-            <div className={styles.box}>{renderSeries(afterb)}</div>
-            <Text>{`Green (${afterGreenPercent}%)`}</Text>
+            <div className={styles.box}>{renderSeries(after)}</div>
+            <Text>{`Green (${percentageAfter}%)`}</Text>
           </div>
         </div>
       </div>

@@ -28,13 +28,22 @@
       flex-direction: column;
       background-color: var(--grey-100);
       padding: var(--spacing-small);
+      overflow-y: auto;
       .subHeader {
         display: flex;
         align-items: center;
         justify-content: space-between;
       }
+      .panel {
+        box-shadow: 0px 1px 2px 1px var(--grey-300);
+        border-radius: 2px;
+        padding: var(--spacing-small);
+        margin-bottom: var(--spacing-small);
+        background-color: var(--white);
+      }
       .filters {
         width: 200px;
+        margin-top: calc(var(--spacing-large) * -1);
       }
       .timeseriesList {
         flex: 1;
@@ -74,16 +83,8 @@
   min-height: 0;
   display: flex;
   flex-direction: column;
-  .logsCluster {
-    box-shadow: 0px 1px 2px 1px var(--grey-300);
-    border-radius: 2px;
-    padding: var(--spacing-small);
-    margin-bottom: var(--spacing-small);
-    background-color: var(--white);
-  }
   .tableContent {
     flex: 1;
-    overflow: auto;
     .logAnalysisRow {
       display: flex;
       flex-direction: column;

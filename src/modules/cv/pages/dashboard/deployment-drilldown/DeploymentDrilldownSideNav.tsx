@@ -9,14 +9,21 @@ export interface DeploymentDrilldownSideNavProps {
   postDeploymentInstances?: Array<any>
   productionDeployment?: Array<any>
   selectedInstance: any
-  onSelect: (instance: string) => void
+  onSelect: (instance: any, phase: InstancePhase) => void
+}
+
+export enum InstancePhase {
+  PRE_PRODUCTION = 'PRE_PRODUCTION',
+  PRODUCTION = 'PRODUCTION',
+  POST_DEPLOYMENT = 'POST_DEPLOYMENT'
 }
 
 export default function DeploymentDrilldownSideNav(props: DeploymentDrilldownSideNavProps) {
-  const labels = [i18n.preProductionTests, i18n.postDeployment, i18n.productionDeployment]
+  const labels = [i18n.preProductionTests, i18n.productionDeployment, i18n.postDeployment]
+  const phases = [InstancePhase.PRE_PRODUCTION, InstancePhase.PRODUCTION, InstancePhase.POST_DEPLOYMENT]
   return (
     <Container className={styles.sideNav}>
-      {[props.preProductionInstances, props.postDeploymentInstances, props.productionDeployment].map((instances, i) => (
+      {[props.preProductionInstances, props.productionDeployment, props.postDeploymentInstances].map((instances, i) => (
         <DeploymentGroupList
           key={i}
           name={labels[i]}
@@ -26,7 +33,7 @@ export default function DeploymentDrilldownSideNav(props: DeploymentDrilldownSid
             environment: item.environmentName,
             startedOn: item.startTime,
             status: item.status,
-            onClick: () => props.onSelect(item),
+            onClick: () => props.onSelect(item, phases[i]),
             selected: props.selectedInstance === item
           }))}
         />

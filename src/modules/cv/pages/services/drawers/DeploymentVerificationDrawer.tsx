@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { Drawer as BPDrawer } from '@blueprintjs/core'
 import { Container, Text, Tag, Intent } from '@wings-software/uikit'
-import BlueGreenVerificationChart from '../BlueGreenVerificationChart'
 import styles from './DeploymentVerificationDrawer.module.scss'
 
 export function Drawer({
@@ -75,7 +74,7 @@ export default function DeploymentVerificationDrawer({ onClose }: any) {
         <DeploymentVerificationHeader />
       </DrawerHeader>
       <DrawerBody>
-        <BlueGreenVerificationChart />
+        <div>{/* todo */}</div>
       </DrawerBody>
     </Drawer>
   )

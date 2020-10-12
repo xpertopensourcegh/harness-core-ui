@@ -19,14 +19,14 @@ const mapRisk = (risk: number): Highcharts.PointOptionsObject => {
       marker: {
         lineWidth: 1,
         lineColor: 'var(--green-450)',
-        radius: 12
+        radius: 9
       }
     }
   } else {
     return {
       color: risk < 0.6 ? 'var(--yellow-500)' : 'var(--red-500)',
       marker: {
-        radius: 9
+        radius: 7
       }
     }
   }
@@ -55,7 +55,7 @@ export default function ClusterChart({ data }: ClusterChartProps) {
     ])
   }, [data])
   return (
-    <Container style={{ margin: '0 10%' }}>
+    <Container style={{ padding: '0 10%' }}>
       <HighchartsReact highcharts={Highcharts} options={chartConfig} />
     </Container>
   )
@@ -65,7 +65,9 @@ const chartOptions = (series: Highcharts.SeriesScatterOptions[]) => {
   return {
     chart: {
       renderTo: 'chart',
-      height: 170
+      spacingRight: 100,
+      spacingLeft: 100,
+      height: 120
     },
     credits: {
       enabled: false
@@ -97,7 +99,7 @@ const chartOptions = (series: Highcharts.SeriesScatterOptions[]) => {
     series,
     tooltip: {
       formatter: function (this: any): any {
-        return `<div><p>x: ${this.x}</p><br /><p>y: ${this.y}</p></div>`
+        return `<div><p>x: ${this.x && this.x.toFixed(5)}</p><br /><p>y: ${this.y && this.y.toFixed(5)}</p></div>`
       }
     }
   }
