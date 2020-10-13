@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { first } from 'lodash-es'
 import cx from 'classnames'
 import { Divider } from '@blueprintjs/core'
-import { Container, Button, Intent, Icon, Layout, Select, Pagination } from '@wings-software/uikit'
+import { Container, Button, Icon, Layout, Select, Pagination, Heading, Text, Card, Link } from '@wings-software/uikit'
 import { useHistory, useLocation, useParams } from 'react-router-dom'
 import { parse as parseQueryString } from 'query-string'
 import { routeCIBuild, routeCIBuilds } from 'modules/ci/routes'
 import { routePageNotFound } from 'modules/common/routes'
 import { ExtendedPageHeader } from 'modules/ci/components/ExtendedPage/ExtendedPageHeader'
-import { TitledInfo } from 'modules/ci/components/TitledInfo/TitledInfo'
 import { BuildCard } from 'modules/ci/components/BuildCard/BuildCard'
 import ExtendedPageBody from 'modules/ci/components/ExtendedPage/ExtendedPageBody'
 import ExtendedPage from 'modules/ci/components/ExtendedPage/ExtendedPage'
@@ -17,6 +15,10 @@ import { useGetBuilds } from 'services/ci'
 import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
 import { graph2ExecutionPipeline } from '../build/utils/api2ui'
 import i18n from './CIBuildsPage.i18n'
+import image from './images/image.jpg'
+import pipeline from './images/pipeline.svg'
+import triggers from './images/triggers.svg'
+import manualExecution from './images/manual-execution.svg'
 import css from './CIBuildsPage.module.scss'
 import common from '../ci-common.module.scss'
 
@@ -79,15 +81,21 @@ const CIBuildsPage: React.FC = () => {
     return null
   }
 
+  if (loading) {
+    return null
+  }
+
   const buildsData = data?.data
 
   // BUILDS HEADER
   const buildsHeader = (
     <>
       <Layout.Horizontal spacing="small">
-        <Button margin={{ right: 'large' }}>{i18n.myBuilds}</Button>
-        <Button>{i18n.running}</Button>
-        <Button>{i18n.failed}</Button>
+        <Button round margin={{ right: 'large' }}>
+          {i18n.myBuilds}
+        </Button>
+        <Button round>{i18n.running}</Button>
+        <Button round>{i18n.failed}</Button>
       </Layout.Horizontal>
       <Layout.Horizontal spacing="small">
         <Select
@@ -160,30 +168,140 @@ const CIBuildsPage: React.FC = () => {
   return (
     <Container className={cx(common.main, css.main)}>
       <ExtendedPage>
-        <ExtendedPageHeader
-          title={i18n.builds}
-          toolbar={<Button intent={Intent.PRIMARY}>{i18n.newBuild}</Button>}
-          rowOneContent={''}
-          rowTwoContent={
-            <>
-              <TitledInfo
-                maxWidth="auto"
-                title={i18n.gitRepository}
-                value={first(buildsData?.content)?.branch?.link}
-                href={first(buildsData?.content)?.branch?.link}
-              />
-            </>
-          }
-        />
-        <ExtendedPageBody className={css.builds}>
-          <Container className={css.buildsHeader}>{buildsHeader}</Container>
-          <Divider />
-          <Container className={css.buildsBody}>
-            <Container className={css.buildsBodyInner}>{builds}</Container>
-          </Container>
-          <Divider />
-          <Container className={css.buildsFooter}>{buildsFooter}</Container>
-        </ExtendedPageBody>
+        <ExtendedPageHeader title={i18n.builds} rowOneContent="" rowTwoContent="" />
+        {buildsData ? (
+          <ExtendedPageBody className={css.builds}>
+            <Container className={css.buildsHeader}>{buildsHeader}</Container>
+            <Divider />
+            <Container className={css.buildsBody}>
+              <Container className={css.buildsBodyInner}>{builds}</Container>
+            </Container>
+            <Divider />
+            <Container className={css.buildsFooter}>{buildsFooter}</Container>
+          </ExtendedPageBody>
+        ) : (
+          <ExtendedPageBody className={css.emptyBuilds}>
+            <div className={css.emptyBuildsContent}>
+              <img className={css.emptyBuildsImage} src={image} alt="" aria-hidden />
+              <Heading
+                className={css.emptyBuildsTitle}
+                level={2}
+                font={{ size: 'medium', align: 'center', weight: 'semi-bold' }}
+                margin={{ bottom: 'large' }}
+              >
+                {i18n.emptyBuildsTitle}
+              </Heading>
+              <Text
+                className={css.emptyBuildsText1}
+                font={{ size: 'normal', align: 'center' }}
+                margin={{ bottom: 'medium' }}
+                style={{ opacity: 0.6 }}
+              >
+                {i18n.emptyBuildsText1}
+              </Text>
+              <Text
+                className={css.emptyBuildsText2}
+                font={{ size: 'small', align: 'center' }}
+                width={520}
+                margin={{ bottom: 'xlarge' }}
+              >
+                {i18n.emptyBuildsText2}
+              </Text>
+              <Button intent="primary" margin={{ bottom: 'huge' }}>
+                {i18n.emptyBuildsButtonText}
+              </Button>
+            </div>
+            <Divider className={css.emptyBuildsDivider} />
+            <Heading
+              className={css.conceptsTitle}
+              level={2}
+              font={{ size: 'normal', weight: 'bold' }}
+              margin={{ top: 'xxlarge', bottom: 'large' }}
+            >
+              {i18n.conceptsTitle}
+            </Heading>
+            <Layout.Horizontal spacing="xxxlarge">
+              <Card className={css.conceptCard}>
+                <img className={css.conceptCardIcon} src={pipeline} alt="" aria-hidden />
+                <div>
+                  <Heading
+                    className={css.conceptCardTitle}
+                    level={3}
+                    font={{ size: 'normal', weight: 'bold' }}
+                    margin={{ bottom: 'xsmall' }}
+                  >
+                    {i18n.concept1Title}
+                  </Heading>
+                  <Text
+                    className={css.conceptCardSubtitle}
+                    font={{ size: 'xsmall', weight: 'semi-bold' }}
+                    margin={{ bottom: 'xsmall' }}
+                  >
+                    {i18n.concept1Subtitle}
+                  </Text>
+                  <Text className={css.conceptCardDescription} font="xsmall" margin={{ bottom: 'small' }}>
+                    {i18n.concept1Description}
+                  </Text>
+                  <Link font={{ size: 'xsmall', weight: 'semi-bold' }} href="/">
+                    {i18n.concept1FooterText}
+                  </Link>
+                </div>
+              </Card>
+              <Card className={css.conceptCard}>
+                <img className={css.conceptCardIcon} src={triggers} alt="" aria-hidden />
+                <div>
+                  <Heading
+                    className={css.conceptCardTitle}
+                    level={3}
+                    font={{ size: 'normal', weight: 'bold' }}
+                    margin={{ bottom: 'xsmall' }}
+                  >
+                    {i18n.concept2Title}
+                  </Heading>
+                  <Text
+                    className={css.conceptCardSubtitle}
+                    font={{ size: 'xsmall', weight: 'semi-bold' }}
+                    margin={{ bottom: 'xsmall' }}
+                  >
+                    {i18n.concept2Subtitle}
+                  </Text>
+                  <Text className={css.conceptCardDescription} font="xsmall" margin={{ bottom: 'small' }}>
+                    {i18n.concept2Description}
+                  </Text>
+                  <Link font={{ size: 'xsmall', weight: 'semi-bold' }} href="/">
+                    {i18n.concept2FooterText}
+                  </Link>
+                </div>
+              </Card>
+              <Card className={css.conceptCard}>
+                <img className={css.conceptCardIcon} src={manualExecution} alt="" aria-hidden />
+                <div>
+                  <Heading
+                    className={css.conceptCardTitle}
+                    level={3}
+                    font={{ size: 'normal', weight: 'bold' }}
+                    margin={{ bottom: 'xsmall' }}
+                  >
+                    {i18n.concept3Title}
+                  </Heading>
+                  <Text
+                    className={css.conceptCardSubtitle}
+                    font={{ size: 'xsmall', weight: 'semi-bold' }}
+                    margin={{ bottom: 'xsmall' }}
+                  >
+                    {i18n.concept3Subtitle}
+                  </Text>
+                  <Text className={css.conceptCardDescription} font="xsmall" margin={{ bottom: 'small' }}>
+                    {i18n.concept3Description}
+                  </Text>
+                  <Link font={{ size: 'xsmall', weight: 'semi-bold' }} href="/">
+                    {i18n.concept3FooterText}
+                  </Link>
+                </div>
+              </Card>
+            </Layout.Horizontal>
+          </ExtendedPageBody>
+        )}
       </ExtendedPage>
       {!isRendered && loading && <PageSpinner />}
       <RightBar />
