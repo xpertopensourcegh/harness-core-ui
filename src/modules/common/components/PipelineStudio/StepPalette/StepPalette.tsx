@@ -2,21 +2,18 @@ import React, { useState, useEffect } from 'react'
 import { ExpandingSearchInput, Card, Text, Icon, Layout, Button } from '@wings-software/uikit'
 
 import { get, cloneDeep, uniqBy } from 'lodash-es'
-import { useGet } from 'restful-react'
 
 import cx from 'classnames'
-import type { AbstractStepFactory, StepData } from 'modules/common/components/AbstractSteps/AbstractStepFactory'
+import type {
+  AbstractStepFactory,
+  StepData as FactoryStepData
+} from 'modules/common/components/AbstractSteps/AbstractStepFactory'
 
+import { StepCategory, StepData, useGetSteps } from 'services/cd-ng'
 import i18n from './StepPalette.18n'
 import { iconMap, iconMapByName } from './iconMap'
 import { RightBar } from '../RightBar/RightBar'
-import { getConfig } from '../../../../../services/config'
 import css from './StepPalette.module.scss'
-
-interface StepsData {
-  name: string
-  type: string
-}
 
 const primaryTypes = {
   SHOW_ALL: 'show_all',
@@ -29,7 +26,7 @@ const filterContext = {
 }
 
 export interface StepPaletteProps {
-  onSelect: (item: StepData) => void
+  onSelect: (item: FactoryStepData) => void
   onClose: () => void
   stepsFactory: AbstractStepFactory
   selectedStage: object
@@ -40,64 +37,55 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
   selectedStage,
   stepsFactory
 }): JSX.Element => {
-  const [stepCategories, setStepsCategories] = useState<{ name: string; stepCategories: []; stepsData: StepsData[] }[]>(
-    []
-  )
-  const [originalData, setOriginalCategories] = useState([])
+  const [stepCategories, setStepsCategories] = useState<StepCategory[]>([])
+  const [originalData, setOriginalCategories] = useState<StepCategory[]>([])
   const [selectedCategory, setSelectedCategory] = useState(primaryTypes.SHOW_ALL)
   const serviceDefinationType = get(selectedStage, 'stage.spec.service.serviceDefinition.type', 'Kubernetes')
 
-  const { data: stepsData } = useGet({
-    path: `/pipelines/steps?serviceDefinitionType=${serviceDefinationType}`,
-    base: getConfig('ng/api')
-  })
+  const { data: stepsData } = useGetSteps({ queryParams: { serviceDefinitionType: serviceDefinationType } })
 
   useEffect(() => {
     const stepsCategories = stepsData?.data?.stepCategories
-    setStepsCategories(stepsCategories)
-    setOriginalCategories(stepsCategories)
-  }, [stepsData?.data])
+    if (stepsCategories) {
+      setStepsCategories(stepsCategories)
+      setOriginalCategories(stepsCategories)
+    }
+  }, [stepsData?.data?.stepCategories])
 
-  const filterSteps = (stepName: string, context: string = filterContext.NAV) => {
-    const filteredData: { name: string }[] = []
+  const filterSteps = (stepName: string, context: string = filterContext.NAV): void => {
+    const filteredData: StepCategory[] = []
     const name = stepName.toLowerCase()
     const cloneOriginalData = cloneDeep(originalData)
     if (name !== primaryTypes.SHOW_ALL) {
-      cloneOriginalData.map(
-        (k: {
-          name: string
-          stepCategories: { name: string; stepData: StepsData[]; type: string }[]
-          stepsData: StepsData[]
-        }) => {
-          if (k.name.toLowerCase().search(name) !== -1) {
+      cloneOriginalData.forEach((k: StepCategory) => {
+        if (k.name?.toLowerCase().search(name) !== -1) {
+          filteredData.push(k)
+        } else if (k.stepCategories && k.stepCategories.length > 0) {
+          const _stepCategories: StepCategory[] = []
+          k.stepCategories.forEach((v: StepCategory) => {
+            if (v.name?.toLowerCase().search(name) !== -1) {
+              _stepCategories.push(v)
+            }
+          })
+          if (_stepCategories?.length) {
+            k.stepCategories = _stepCategories
             filteredData.push(k)
-          } else if (k.stepCategories && k.stepCategories.length > 0) {
-            const _stepCategories: any = []
-            k.stepCategories.map((v: { name: string }) => {
-              if (v.name.toLowerCase().search(name) !== -1) {
-                _stepCategories.push(v)
-              }
-            })
-            if (_stepCategories?.length) {
-              k.stepCategories = _stepCategories
-              filteredData.push(k)
-            }
-          }
-          if (context === filterContext.SEARCH && k.stepsData) {
-            const _stepsData: StepsData[] = []
-            k.stepsData.map((m: { name: string; type: string }) => {
-              if (m.name.toLowerCase().search(name) !== -1) {
-                _stepsData.push(m)
-              }
-            })
-            if (_stepsData?.length) {
-              k.stepsData = _stepsData
-              filteredData.push(k)
-            }
           }
         }
-      )
-      const uniqueData: any = uniqBy(filteredData, 'name')
+        if (context === filterContext.SEARCH && k.stepsData) {
+          const _stepsData: StepData[] = []
+          k.stepsData.forEach((m: StepData) => {
+            if (m.name?.toLowerCase().search(name) !== -1) {
+              _stepsData.push(m)
+            }
+          })
+          if (_stepsData?.length) {
+            k.stepsData = _stepsData
+            filteredData.push(k)
+          }
+        }
+      })
+      const uniqueData: StepCategory[] = uniqBy(filteredData, 'name')
       setStepsCategories(uniqueData)
       setSelectedCategory(stepName)
     } else {
@@ -126,10 +114,10 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
                 {i18n.noSearchResultsFound}
               </section>
             )}
-            {stepCategories?.map((stepCategory: { stepsData: StepsData[]; stepCategories: []; name: string }) => {
+            {stepCategories?.map((stepCategory: StepCategory) => {
               const categorySteps: JSX.Element[] = []
               if (stepCategory?.stepsData) {
-                stepCategory.stepsData.forEach((stepData: { name: string; type: string }) => {
+                stepCategory.stepsData.forEach((stepData: StepData) => {
                   categorySteps.push(
                     <section
                       className={css.step}
@@ -137,16 +125,16 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
                       onClick={() => {
                         if (stepData.type !== 'Placeholder') {
                           onSelect({
-                            name: stepData.name,
-                            type: stepData.type,
-                            icon: stepsFactory.getStepIcon(stepData.type)
+                            name: stepData.name || '',
+                            type: stepData.type || '',
+                            icon: stepsFactory.getStepIcon(stepData.type || '')
                           })
                         }
                       }}
                     >
-                      {stepsFactory.getStep(stepData.type) ? (
+                      {stepsFactory.getStep(stepData.type || '') ? (
                         <Card interactive={true} elevation={0} selected={false}>
-                          <Icon name={stepsFactory.getStepIcon(stepData.type)} />
+                          <Icon name={stepsFactory.getStepIcon(stepData.type || '')} />
                         </Card>
                       ) : (
                         <Card
@@ -156,7 +144,7 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
                           disabled
                           onClick={e => e.stopPropagation()}
                         >
-                          <Icon name={iconMap[stepData.name]} />
+                          <Icon name={iconMap[stepData.name || '']} />
                         </Card>
                       )}
                       <section className={css.stepName}>{stepData.name}</section>
@@ -165,9 +153,9 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
                 })
               }
 
-              if (stepCategory?.stepCategories?.length > 0) {
-                stepCategory.stepCategories.map((subStepData: { stepsData: [] }) => {
-                  subStepData?.stepsData?.map((step: { name: string; type: string }) => {
+              if (stepCategory?.stepCategories && stepCategory.stepCategories.length > 0) {
+                stepCategory.stepCategories.forEach((subStepData: StepCategory) => {
+                  subStepData?.stepsData?.map((step: StepData) => {
                     categorySteps.push(
                       <section
                         className={css.step}
@@ -175,16 +163,16 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
                         onClick={() => {
                           if (step.type !== 'Placeholder') {
                             onSelect({
-                              name: step.name,
-                              type: step.type,
-                              icon: stepsFactory.getStepIcon(step.type)
+                              name: step.name || '',
+                              type: step.type || '',
+                              icon: stepsFactory.getStepIcon(step.type || '')
                             })
                           }
                         }}
                       >
-                        {stepsFactory.getStep(step.type) ? (
+                        {stepsFactory.getStep(step.type || '') ? (
                           <Card interactive={true} elevation={0} selected={false}>
-                            <Icon name={stepsFactory.getStepIcon(step.type)} />
+                            <Icon name={stepsFactory.getStepIcon(step.type || '')} />
                           </Card>
                         ) : (
                           <Card
@@ -194,7 +182,7 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
                             disabled
                             onClick={e => e.stopPropagation()}
                           >
-                            <Icon name={iconMap[step.name]} />
+                            <Icon name={iconMap[step.name || '']} />
                           </Card>
                         )}
                         <section className={css.stepName}>{step.name}</section>
@@ -232,45 +220,45 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
           <section className={css.secCategories}>
             <section className={css.title}>{i18n.secCategoriesTitle}</section>
             <Layout.Vertical>
-              {originalData?.map((category: { name: string; stepsData: StepsData[]; stepCategories: [] }) => {
+              {originalData?.map((category: StepCategory) => {
                 const stepRenderer = []
-                if (category && category.stepCategories.length === 0) {
+                if (category?.stepCategories && category.stepCategories.length === 0) {
                   stepRenderer.push(
                     <section
                       className={cx(css.category, selectedCategory === category.name && css.active)}
                       onClick={() => {
-                        filterSteps(category.name)
+                        filterSteps(category.name || '')
                       }}
                       key={category.name}
                     >
-                      <Icon size={14} name={iconMapByName[category.name]} /> {category.name} (
-                      {category.stepsData.length})
+                      <Icon size={14} name={iconMapByName[category.name || '']} /> {category.name} (
+                      {category.stepsData?.length})
                     </section>
                   )
                 }
-                if (category && category.stepCategories.length > 0) {
+                if (category?.stepCategories && category.stepCategories.length > 0) {
                   const subCategory = category.stepCategories
                   stepRenderer.push(
                     <section
                       className={cx(css.category, selectedCategory === category.name && css.active)}
                       onClick={() => {
-                        filterSteps(category.name)
+                        filterSteps(category.name || '')
                       }}
                       key={category.name}
                     >
-                      <Icon size={14} name={iconMapByName[category.name]} /> {category.name}
+                      <Icon size={14} name={iconMapByName[category.name || '']} /> {category.name}
                     </section>
                   )
-                  subCategory.map((subCat: { stepsData: StepsData[]; name: string; type: string }) =>
+                  subCategory.forEach((subCat: StepCategory) =>
                     stepRenderer.push(
                       <section
                         className={cx(css.category, css.offset, selectedCategory === subCat.name && css.active)}
                         onClick={() => {
-                          filterSteps(subCat.name)
+                          filterSteps(subCat.name || '')
                         }}
                         key={subCat.name}
                       >
-                        {subCat.name} ({subCat.stepsData.length})
+                        {subCat.name} ({subCat.stepsData?.length})
                       </section>
                     )
                   )

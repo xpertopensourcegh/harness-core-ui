@@ -41,10 +41,8 @@ export const ExecutionsListingView: React.FC<ExecutionsListingViewProps> = React
         accountIdentifier: accountId,
         projectIdentifier: projectIdentifier as string,
         orgIdentifier: orgIdentifier as string,
-        page: Number(page) - 1,
-
-        // TODO: Filter is not supported yet by API
-        searchTerm: pipelineIdentifier
+        pipelineIdentifiers: [pipelineIdentifier as string],
+        page: Number(page) - 1
       }
     })
     const gotoPage = useCallback(
