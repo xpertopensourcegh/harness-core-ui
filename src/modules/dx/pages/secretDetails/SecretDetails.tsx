@@ -6,7 +6,13 @@ import cx from 'classnames'
 import { omit, without, pick } from 'lodash-es'
 import { Layout, Text, Color, Container, Button } from '@wings-software/uikit'
 
-import { useGetSecretV2, SecretTextSpecDTO, usePutSecretViaYaml } from 'services/cd-ng'
+import {
+  useGetSecretV2,
+  SecretTextSpecDTO,
+  usePutSecretViaYaml,
+  ResponseSecretResponseWrapper,
+  ResponsePageConnectorResponse
+} from 'services/cd-ng'
 import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
 import { PageError } from 'modules/common/components/Page/PageError'
 import { PageHeader } from 'modules/common/components/Page/PageHeader'
@@ -26,6 +32,7 @@ import { useToaster } from 'modules/common/exports'
 import CreateUpdateSecret from 'modules/dx/components/CreateUpdateSecret/CreateUpdateSecret'
 import { routeSecretDetails } from 'modules/dx/routes'
 
+import type { UseGetMockData } from 'modules/common/utils/testUtils'
 import EditSSHSecret from './views/EditSSHSecret'
 import ViewSecretDetails from './views/ViewSecretDetails'
 
@@ -41,6 +48,14 @@ interface OptionalIdentifiers {
   orgIdentifier?: string
 }
 
+interface SecretDetailsProps {
+  mockSecretDetails?: UseGetMockData<ResponseSecretResponseWrapper>
+  connectorListMockData?: UseGetMockData<ResponsePageConnectorResponse>
+  mockKey?: ResponseSecretResponseWrapper
+  mockPassword?: ResponseSecretResponseWrapper
+  mockPassphrase?: ResponseSecretResponseWrapper
+}
+
 const getConnectorsUrl = ({ orgIdentifier }: OptionalIdentifiers): string => {
   if (orgIdentifier) return routeOrgResourcesConnectors.url({ orgIdentifier })
   return routeResourcesConnectors.url()
@@ -51,7 +66,7 @@ const getSecretsUrl = ({ orgIdentifier }: OptionalIdentifiers): string => {
   return routeResourcesSecretsListing.url()
 }
 
-const SecretDetails: React.FC = () => {
+const SecretDetails: React.FC<SecretDetailsProps> = props => {
   const { accountId, projectIdentifier, orgIdentifier, secretId } = useParams()
   const { search: queryParams, pathname } = useLocation()
   const { showSuccess, showError } = useToaster()
@@ -63,7 +78,8 @@ const SecretDetails: React.FC = () => {
   const [yamlHandler, setYamlHandler] = React.useState<YamlBuilderHandlerBinding | undefined>()
   const { loading, data, refetch, error } = useGetSecretV2({
     identifier: secretId,
-    queryParams: { accountIdentifier: accountId, projectIdentifier: projectIdentifier, orgIdentifier: orgIdentifier }
+    queryParams: { accountIdentifier: accountId, projectIdentifier: projectIdentifier, orgIdentifier: orgIdentifier },
+    mock: props.mockSecretDetails
   })
   const { mutate: updateSecretYaml } = usePutSecretViaYaml({
     identifier: secretId,
@@ -88,7 +104,7 @@ const SecretDetails: React.FC = () => {
         showSuccess(i18n.updateSuccess)
         history.push(routeSecretDetails.url({ secretId }))
       } catch (err) {
-        showError(err.message)
+        showError(err.data.message)
       }
     }
   }
@@ -204,6 +220,9 @@ const SecretDetails: React.FC = () => {
                 <EditSSHSecret
                   secret={secretData}
                   onChange={secret => setSecretData({ secret, ...pick(secretData, ['createdAt', 'updatedAt']) })}
+                  mockPassword={props.mockPassword}
+                  mockPassphrase={props.mockPassphrase}
+                  mockKey={props.mockKey}
                 />
               ) : null}
               {secretData.secret.type === 'SecretFile' || secretData.secret.type === 'SecretText' ? (
@@ -214,6 +233,7 @@ const SecretDetails: React.FC = () => {
                     onSuccess={() => {
                       history.push(routeSecretDetails.url({ secretId }))
                     }}
+                    connectorListMockData={props.connectorListMockData}
                   />
                 </Container>
               ) : null}

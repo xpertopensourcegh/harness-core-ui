@@ -35,7 +35,7 @@ import LocalFormFields from './views/LocalFormFields'
 
 export type SecretFormData = Omit<SecretDTOV2, 'spec'> & SecretTextSpecDTO & SecretFileSpecDTO
 
-interface CreateSecretTextProps {
+interface CreateUpdateSecretProps {
   secret?: SecretResponseWrapper
   type?: SecretResponseWrapper['secret']['type']
   onChange?: (data: SecretDTOV2) => void
@@ -43,7 +43,7 @@ interface CreateSecretTextProps {
   connectorListMockData?: UseGetMockData<ResponsePageConnectorResponse>
 }
 
-const CreateUpdateSecret: React.FC<CreateSecretTextProps> = props => {
+const CreateUpdateSecret: React.FC<CreateUpdateSecretProps> = props => {
   const { onSuccess } = props
   const secret = props.secret?.secret
   let { type = 'SecretText' } = props

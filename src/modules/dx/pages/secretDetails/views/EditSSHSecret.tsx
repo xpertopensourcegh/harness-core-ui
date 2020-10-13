@@ -19,7 +19,8 @@ import {
   SSHKeySpecDTO,
   SSHPasswordCredentialDTO,
   usePutSecret,
-  ConnectorConnectivityDetails
+  ConnectorConnectivityDetails,
+  ResponseSecretResponseWrapper
 } from 'services/cd-ng'
 import type { DetailsForm } from 'modules/dx/modals/CreateSSHCredModal/views/StepDetails'
 import type { InlineSecret } from 'modules/common/components/CreateInlineSecret/CreateInlineSecret'
@@ -37,6 +38,9 @@ import css from './EditSSHSecret.module.scss'
 interface EditSSHSecretProps {
   secret: SecretResponseWrapper
   onChange?: (data: SecretDTOV2) => void
+  mockKey?: ResponseSecretResponseWrapper
+  mockPassword?: ResponseSecretResponseWrapper
+  mockPassphrase?: ResponseSecretResponseWrapper
 }
 
 const EditSSHSecret: React.FC<EditSSHSecretProps> = props => {
@@ -76,7 +80,8 @@ const EditSSHSecret: React.FC<EditSSHSecretProps> = props => {
         if (keyRefSpec.key) {
           const data = await getSecretV2Promise({
             identifier: keyRefSpec.key.indexOf('.') < 0 ? keyRefSpec.key : keyRefSpec.key.split('.')[1],
-            queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
+            queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier },
+            mock: props.mockKey
           })
           const keySecretData = data.data?.secret
           if (keySecretData) {
@@ -98,7 +103,8 @@ const EditSSHSecret: React.FC<EditSSHSecretProps> = props => {
       const secretId = password.indexOf('.') < 0 ? password : password.split('.')[1]
       const data = await getSecretV2Promise({
         identifier: secretId,
-        queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
+        queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier },
+        mock: props.mockPassword
       })
       const secretManagerIdentifier = (data.data?.secret.spec as SecretTextSpecDTO)?.secretManagerIdentifier
       setPasswordSecret({
@@ -116,7 +122,8 @@ const EditSSHSecret: React.FC<EditSSHSecretProps> = props => {
       const secretId = encryptedPassphrase.indexOf('.') < 0 ? encryptedPassphrase : encryptedPassphrase.split('.')[1]
       const data = await getSecretV2Promise({
         identifier: secretId,
-        queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
+        queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier },
+        mock: props.mockPassphrase
       })
       const secretManagerIdentifier = (data.data?.secret.spec as SecretTextSpecDTO)?.secretManagerIdentifier
       setEncryptedPassphraseSecret({
@@ -167,7 +174,7 @@ const EditSSHSecret: React.FC<EditSSHSecretProps> = props => {
       showSuccess('saved')
     } catch (err) {
       setSaving(false)
-      showError(err.message)
+      showError(err.data.message)
     }
   }
 

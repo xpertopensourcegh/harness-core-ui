@@ -11,7 +11,8 @@ import type {
   SSHKeySpecDTO,
   SSHPasswordCredentialDTO,
   TGTKeyTabFilePathSpecDTO,
-  ConnectorConnectivityDetails
+  ConnectorConnectivityDetails,
+  TGTPasswordSpecDTO
 } from 'services/cd-ng'
 import { getStringForCredentialType, getStringForType } from 'modules/dx/components/secrets/SSHAuthUtils'
 
@@ -67,7 +68,12 @@ const ViewSecretDetails: React.FC<ViewSecretDetailsProps> = props => {
                   <>
                     <div>
                       <Text>{sshi18n.labelPassword}</Text>
-                      <Text color={Color.GREY_350}>{i18n.valueValue}</Text>
+                      <Text color={Color.GREY_350}>
+                        {
+                          (((secret.spec as SSHKeySpecDTO)?.auth.spec as SSHConfigDTO).spec as SSHPasswordCredentialDTO)
+                            .password
+                        }
+                      </Text>
                     </div>
                   </>
                 ) : null}
@@ -84,7 +90,12 @@ const ViewSecretDetails: React.FC<ViewSecretDetailsProps> = props => {
                     </div>
                     <div>
                       <Text>{sshi18n.labelPassphrase}</Text>
-                      <Text color={Color.GREY_350}>{i18n.valueValue}</Text>
+                      <Text color={Color.GREY_350}>
+                        {
+                          (((secret.spec as SSHKeySpecDTO)?.auth.spec as SSHConfigDTO).spec as SSHKeyPathCredentialDTO)
+                            .encryptedPassphrase
+                        }
+                      </Text>
                     </div>
                   </>
                 ) : null}
@@ -101,7 +112,12 @@ const ViewSecretDetails: React.FC<ViewSecretDetailsProps> = props => {
                     </div>
                     <div>
                       <Text>{sshi18n.labelPassphrase}</Text>
-                      <Text color={Color.GREY_350}>{i18n.valueValue}</Text>
+                      <Text color={Color.GREY_350}>
+                        {
+                          (((secret.spec as SSHKeySpecDTO)?.auth.spec as SSHConfigDTO)
+                            .spec as SSHKeyReferenceCredentialDTO).encryptedPassphrase
+                        }
+                      </Text>
                     </div>
                   </>
                 ) : null}
@@ -146,7 +162,12 @@ const ViewSecretDetails: React.FC<ViewSecretDetailsProps> = props => {
                   <>
                     <div>
                       <Text>{sshi18n.labelPassword}</Text>
-                      <Text color={Color.GREY_350}>{i18n.valueValue}</Text>
+                      <Text color={Color.GREY_350}>
+                        {
+                          (((secret.spec as SSHKeySpecDTO)?.auth.spec as KerberosConfigDTO).spec as TGTPasswordSpecDTO)
+                            .password
+                        }
+                      </Text>
                     </div>
                   </>
                 ) : null}

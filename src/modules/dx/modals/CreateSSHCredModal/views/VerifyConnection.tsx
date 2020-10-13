@@ -52,7 +52,7 @@ const VerifyConnection: React.FC<VerifyConnectionProps> = ({ identifier, closeMo
         </Formik>
       </Container>
       {validationMetadata ? (
-        <Container margin={{ top: 'xxxlarge' }}>
+        <Container margin={{ top: 'xxlarge' }}>
           <VerifySecret
             identifier={identifier as string}
             validationMetadata={validationMetadata}

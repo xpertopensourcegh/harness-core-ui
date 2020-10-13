@@ -2,19 +2,24 @@ import React, { useState } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 import { Layout, Popover, Button, Icon, TextInput, Container } from '@wings-software/uikit'
 import { Menu, Position } from '@blueprintjs/core'
-import { useListSecretsV2 } from 'services/cd-ng'
+import { useListSecretsV2, ResponsePageSecretResponseWrapper } from 'services/cd-ng'
 import { routeCreateSecretFromYaml } from 'modules/dx/routes'
 import useCreateUpdateSecretModal from 'modules/dx/modals/CreateSecretModal/useCreateUpdateSecretModal'
 import useCreateSSHCredModal from 'modules/dx/modals/CreateSSHCredModal/useCreateSSHCredModal'
 import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
 import { PageError } from 'modules/common/components/Page/PageError'
 
+import type { UseGetMockData } from 'modules/common/utils/testUtils'
 import SecretsList from './views/SecretsListView/SecretsList'
 
 import i18n from './SecretsPage.i18n'
 import css from './SecretsPage.module.scss'
 
-const SecretsPage: React.FC = () => {
+interface SecretsPageProps {
+  mock?: UseGetMockData<ResponsePageSecretResponseWrapper>
+}
+
+const SecretsPage: React.FC<SecretsPageProps> = ({ mock }) => {
   const { accountId, orgIdentifier, projectIdentifier } = useParams()
   const history = useHistory()
   const [searchTerm, setSearchTerm] = useState<string | undefined>()
@@ -29,7 +34,8 @@ const SecretsPage: React.FC = () => {
       orgIdentifier,
       projectIdentifier
     },
-    debounce: 300
+    debounce: 300,
+    mock
   })
   const { openCreateSecretModal } = useCreateUpdateSecretModal({
     onSuccess: () => {

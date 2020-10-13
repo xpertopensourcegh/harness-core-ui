@@ -1,6 +1,17 @@
 {
   "groups": {
     "CD": ["src/modules/cd/**"],
+    "Secrets": [
+      "src/modules/dx/components/SecretReference/**",
+      "src/modules/dx/components/CreateUpdateSecret/**",
+      "src/modules/dx/components/secrets/**",
+      "src/modules/common/components/CreateInlineSecret/**",
+      "src/modules/dx/modals/CreateSecretModal/**",
+      "src/modules/dx/modals/CreateSSHCredModal/**",
+      "src/modules/dx/pages/secrets/**",
+      "src/modules/dx/pages/secretDetails/**",
+      "src/modules/dx/common/CreateSecretOverlay/**"
+    ],
     "PL": [
       "src/framework/**",
       "src/modules/dx/components/SecretReference/**",
@@ -10,7 +21,6 @@
       "src/modules/dx/modals/CreateSSHCredModal/**",
       "src/modules/dx/pages/secrets/**",
       "src/modules/dx/pages/secretDetails/**",
-      "src/modules/dx/pages/createSecretFromYaml/**",
       "src/modules/common/pages/organizations/**",
       "src/modules/common/pages/ProjectsPage/**",
       "src/modules/common/modals/ProjectModal/**",

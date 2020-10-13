@@ -6,30 +6,32 @@ import { MemoryRouter } from 'react-router'
 
 import CreateSSHCredWizard from '../CreateSSHCredWizard'
 
+import mockListSecrets from './mockListSecrets.json'
+
 describe('Create Secret Manager Wizard', () => {
   test('should render form', async () => {
-    const dom = render(
+    const { container } = render(
       <MemoryRouter>
-        <CreateSSHCredWizard hideModal={noop} onSuccess={noop} />
+        <CreateSSHCredWizard hideModal={noop} onSuccess={noop} mockSecretReference={mockListSecrets as any} />
       </MemoryRouter>
     )
 
     // match step 1
-    expect(dom.container).toMatchSnapshot()
+    expect(container).toMatchSnapshot()
 
     // fill step 1
     await act(async () => {
-      fireEvent.change(dom.container.querySelector('input[name="name"]')!, {
+      fireEvent.change(container.querySelector('input[name="name"]')!, {
         target: { value: 'dummy name' }
       })
     })
 
     // submit step 1
     await act(async () => {
-      fireEvent.click(dom.container.querySelector('button[type="submit"]')!)
+      fireEvent.click(container.querySelector('button[type="submit"]')!)
     })
 
     // match step 2
-    expect(dom.container).toMatchSnapshot()
+    expect(container).toMatchSnapshot()
   })
 })

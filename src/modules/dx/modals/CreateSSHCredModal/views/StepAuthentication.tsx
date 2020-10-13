@@ -14,7 +14,13 @@ import {
 import { useParams } from 'react-router-dom'
 import * as Yup from 'yup'
 
-import { SecretRequestWrapper, usePostSecret, SecretDTOV2, SSHAuthDTO } from 'services/cd-ng'
+import {
+  SecretRequestWrapper,
+  usePostSecret,
+  SecretDTOV2,
+  SSHAuthDTO,
+  ResponsePageSecretResponseWrapper
+} from 'services/cd-ng'
 import type { KerberosConfigDTO, SSHConfigDTO, SSHKeySpecDTO } from 'services/cd-ng'
 import type { SecretInfo } from 'modules/dx/components/SecretInput/SecretTextInput'
 import CreateSecretOverlay from 'modules/dx/common/CreateSecretOverlay/CreateSecretOverlay'
@@ -45,6 +51,7 @@ export interface SSHConfigFormData {
 
 interface StepAuthenticationProps {
   onSuccess?: () => void
+  mockSecretReference?: ResponsePageSecretResponseWrapper
 }
 
 const validationSchema = Yup.object().shape({
@@ -77,7 +84,8 @@ const StepAuthentication: React.FC<StepProps<SSHCredSharedObj> & StepAuthenticat
   prevStepData,
   nextStep,
   previousStep,
-  onSuccess
+  onSuccess,
+  mockSecretReference
 }) => {
   const { accountId, orgIdentifier, projectIdentifier } = useParams()
   const [showCreateSecretTextModal, setShowCreateSecretTextModal] = useState(false)
@@ -165,6 +173,7 @@ const StepAuthentication: React.FC<StepProps<SSHCredSharedObj> & StepAuthenticat
                     if (type === 'SecretText') setShowCreateSecretTextModal(true)
                     if (type === 'SecretFile') setShowCreateSecretFileModal(true)
                   }}
+                  mockSecretReference={mockSecretReference}
                 />
                 <Layout.Horizontal spacing="small">
                   <Button text="Back" onClick={() => previousStep?.({ ...prevStepData, authData: formik.values })} />

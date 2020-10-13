@@ -14,7 +14,7 @@ describe('Secrets List', () => {
   test('render', async () => {
     const { container } = render(
       <TestWrapper path="/account/:accountId/resources/secrets" pathParams={{ accountId: 'dummy' }}>
-        <SecretsList secrets={mockData as PageSecretResponseWrapper} gotoPage={noop} />
+        <SecretsList secrets={mockData.data as PageSecretResponseWrapper} gotoPage={noop} />
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()

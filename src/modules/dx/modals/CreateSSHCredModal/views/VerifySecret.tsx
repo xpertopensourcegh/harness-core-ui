@@ -1,15 +1,18 @@
-import { Intent, StepsProgress } from '@wings-software/uikit'
+import { Intent, StepsProgress, ModalErrorHandler, ModalErrorHandlerBinding } from '@wings-software/uikit'
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { SSHKeyValidationMetadata, useValidateSecret } from 'services/cd-ng'
-import { useGetDelegatesStatus } from 'services/portal'
+import { SSHKeyValidationMetadata, useValidateSecret, ResponseSecretValidationResultDTO } from 'services/cd-ng'
+import { useGetDelegatesStatus, RestResponseDelegateStatus } from 'services/portal'
 
+import type { UseGetMockData } from 'modules/common/utils/testUtils'
 import i18n from '../CreateSSHCredModal.i18n'
 
 interface VerifySecretProps {
   validationMetadata?: SSHKeyValidationMetadata
   identifier: string
   onFinish?: (status: Status) => void
+  mockDelegateStatus?: UseGetMockData<RestResponseDelegateStatus>
+  mockValidateSecret?: UseGetMockData<ResponseSecretValidationResultDTO>
 }
 
 enum Step {
@@ -25,8 +28,15 @@ export enum Status {
   ERROR = 'ERROR'
 }
 
-const VerifySecret: React.FC<VerifySecretProps> = ({ identifier, validationMetadata, onFinish }) => {
+const VerifySecret: React.FC<VerifySecretProps> = ({
+  identifier,
+  validationMetadata,
+  onFinish,
+  mockDelegateStatus,
+  mockValidateSecret
+}) => {
   const { accountId: accountIdentifier, projectIdentifier, orgIdentifier } = useParams()
+  const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding>()
   const {
     data: delegateStatus,
     loading: loadingDelegateStatus,
@@ -34,10 +44,12 @@ const VerifySecret: React.FC<VerifySecretProps> = ({ identifier, validationMetad
     refetch: getDelegatesStatus
   } = useGetDelegatesStatus({
     queryParams: { accountId: accountIdentifier },
-    lazy: true
+    lazy: true,
+    mock: mockDelegateStatus
   })
   const { mutate: validateSecret } = useValidateSecret({
-    queryParams: { identifier, accountIdentifier, projectIdentifier, orgIdentifier }
+    queryParams: { identifier, accountIdentifier, projectIdentifier, orgIdentifier },
+    mock: mockValidateSecret
   })
   const [currentStep, setCurrentStep] = useState<Step>(Step.ONE)
   const [currentStatus, setCurrentStatus] = useState<Status>(Status.WAIT)
@@ -53,17 +65,26 @@ const VerifySecret: React.FC<VerifySecretProps> = ({ identifier, validationMetad
       case Step.TWO:
         setCurrentStatus(Status.PROCESS)
         if (validationMetadata) {
-          validateSecret(validationMetadata).then(response => {
-            if (response.data?.success) {
-              setCurrentStatus(Status.DONE)
-              setCurrentIntent(Intent.SUCCESS)
-              onFinish?.(currentStatus)
-            } else {
+          validateSecret(validationMetadata).then(
+            response => {
+              if (response.data?.success) {
+                setCurrentStatus(Status.DONE)
+                setCurrentIntent(Intent.SUCCESS)
+                onFinish?.(currentStatus)
+              } else {
+                setCurrentStatus(Status.ERROR)
+                setCurrentIntent(Intent.DANGER)
+                response.data?.message && modalErrorHandler?.showDanger(response.data.message)
+                onFinish?.(currentStatus)
+              }
+            },
+            _error => {
               setCurrentStatus(Status.ERROR)
               setCurrentIntent(Intent.DANGER)
+              _error?.data?.message && modalErrorHandler?.showDanger(_error.data.message)
               onFinish?.(currentStatus)
             }
-          })
+          )
         }
         break
     }
@@ -75,6 +96,8 @@ const VerifySecret: React.FC<VerifySecretProps> = ({ identifier, validationMetad
     } else if (delegateStatusError) {
       setCurrentStatus(Status.ERROR)
       setCurrentIntent(Intent.DANGER)
+      const err = (delegateStatusError.data as any)?.responseMessages?.[0]?.message
+      err && modalErrorHandler?.showDanger(err)
       onFinish?.(currentStatus)
     } else if (delegateStatus) {
       setCurrentStatus(Status.DONE)
@@ -91,6 +114,7 @@ const VerifySecret: React.FC<VerifySecretProps> = ({ identifier, validationMetad
         currentStatus={currentStatus}
         intent={currentIntent}
       />
+      <ModalErrorHandler bind={setModalErrorHandler} style={{ marginTop: 'var(--spacing-large)' }} />
     </>
   )
 }

@@ -10,7 +10,7 @@ import SecretReference from 'modules/dx/components/SecretReference/SecretReferen
 import { FormikSecretTextInput } from 'modules/dx/components/SecretInput/SecretTextInput'
 import { getIdentifierFromName } from 'modules/common/utils/StringUtils'
 import type { SSHConfigFormData } from 'modules/dx/modals/CreateSSHCredModal/views/StepAuthentication'
-import type { SecretResponseWrapper } from 'services/cd-ng'
+import type { SecretResponseWrapper, ResponsePageSecretResponseWrapper } from 'services/cd-ng'
 import { Scope } from 'modules/common/interfaces/SecretsInterface'
 
 import i18n from './SSHAuthFormFields.i18n'
@@ -24,6 +24,7 @@ interface SSHAuthFormFieldsProps {
   secretName?: string
   editing?: boolean
   showCreateSecretModal: (type: SecretType, data?: SecretResponseWrapper) => void
+  mockSecretReference?: ResponsePageSecretResponseWrapper
 }
 
 const credentialTypeOptions: SelectOption[] = [
@@ -183,6 +184,7 @@ const SSHAuthFormFields: React.FC<SSHAuthFormFieldsProps> = props => {
                           onSelect={file => {
                             formik.setFieldValue('key', file)
                           }}
+                          mock={props.mockSecretReference}
                         />
                       </Container>
                     </Popover>
