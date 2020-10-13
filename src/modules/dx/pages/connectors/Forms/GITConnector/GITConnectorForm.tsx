@@ -145,8 +145,8 @@ const GITConnectorForm: React.FC<GITConnectorFormProps> = props => {
                 name="connectionType"
                 label={i18n.CONFIGURE_TEXT}
                 items={[
-                  { label: i18n.gitAccount, value: 'ACCOUNT' },
-                  { label: i18n.gitRepo, value: 'REPO' }
+                  { label: i18n.gitAccount, value: 'Account' },
+                  { label: i18n.gitRepo, value: 'Repo' }
                 ]}
                 className={css.radioGroup}
               />
