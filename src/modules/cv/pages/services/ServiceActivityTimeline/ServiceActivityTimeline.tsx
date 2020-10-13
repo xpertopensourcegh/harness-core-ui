@@ -1,10 +1,11 @@
 import React, { useMemo, useState } from 'react'
-import { Button, Color, Container, Icon, Layout, Text } from '@wings-software/uikit'
+import { Color, Container, Icon, Layout, Text } from '@wings-software/uikit'
 import type { IconProps } from '@wings-software/uikit/dist/icons/Icon'
 import moment from 'moment'
 import { ITooltipProps, PopoverInteractionKind, Position, Tooltip } from '@blueprintjs/core'
 import cx from 'classnames'
 import TimelineView from 'modules/common/components/TimelineView/TimelineView'
+import i18n from './ServiceActivityTimeline.i18n'
 import css from './ServiceActivityTimeline.module.scss'
 
 interface ServiceActivityTimelineProps {
@@ -342,16 +343,17 @@ export default function ServiceActivityTimeline(props: ServiceActivityTimelinePr
   return (
     <Container className={css.main}>
       {zoomTimeRange ? (
-        <Button small onClick={() => setZoomTimeRange(undefined)}>
-          Reset Zoom
-        </Button>
+        <Text onClick={() => setZoomTimeRange(undefined)} className={css.zoomOutButton}>
+          {i18n.resetZoomButtonText}
+        </Text>
       ) : null}
       <TimelineView
         startDate={zoomTimeRange?.zoomStartTime || startTime}
         endDate={zoomTimeRange?.zoomEndTime || endTime}
         className={css.activityView}
         timelineBarProps={{
-          columnWidth: 65
+          columnWidth: 65,
+          className: css.serviceTimelineBar
         }}
         rows={[
           {

@@ -44,6 +44,17 @@ const getRangeDates = (val: number) => {
   }
 }
 
+function getHeatmapCellTimeRange(heatmapData: HeatMapDTO[]): string {
+  if (!heatmapData?.length) return ''
+  const timeDifference = moment(heatmapData[0]?.endTime).diff(heatmapData[0]?.startTime, 'minutes')
+  if (timeDifference > 60) {
+    return `(${moment(heatmapData[0]?.endTime).diff(heatmapData[0]?.startTime, 'hours')} ${i18n.hours} ${
+      i18n.heatmapCellTimeRangeText
+    })`
+  }
+  return `(${timeDifference} ${i18n.minutes} ${i18n.heatmapCellTimeRangeText})`
+}
+
 function mapHeatmapValue(val: any): number | CellStatusValues {
   return val && typeof val.riskScore === 'number' ? val.riskScore : CellStatusValues.Missing
 }
@@ -173,6 +184,7 @@ export default function CVServicesPage(): JSX.Element {
             onSelect={(envIdentifier?: string, serviceIdentifier?: string) => {
               setSelectedService({ serviceIdentifier, environmentIdentifier: envIdentifier })
               setHeatmapData([])
+              refetchServices()
               if (isTimeRangeMoreThan4Hours) {
                 getHeatmap({
                   queryParams: {
@@ -226,7 +238,7 @@ export default function CVServicesPage(): JSX.Element {
               {isTimeRangeMoreThan4Hours ? (
                 <>
                   <Text margin={{ bottom: 'xsmall' }} font={{ size: 'small' }} color={Color.BLACK}>
-                    {i18n.heatmapSectionTitleText}
+                    {`${i18n.heatmapSectionTitleText} ${getHeatmapCellTimeRange(heatmapData?.[0]?.data)}`}
                   </Text>
                   <OverlaySpinner show={loadingHeatmap}>
                     <HeatMap

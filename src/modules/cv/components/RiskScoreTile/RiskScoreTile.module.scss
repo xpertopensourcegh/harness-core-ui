@@ -16,7 +16,7 @@
 
 .smallTile {
   width: 25px;
-  height: 17px;
+  padding: 0 var(--spacing-xsmall);
   .riskScore {
     font-size: var(--font-size-xsmall) !important;
   }

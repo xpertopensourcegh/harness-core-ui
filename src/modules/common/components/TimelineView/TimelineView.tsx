@@ -75,9 +75,9 @@ export default function TimelineView({
       ))}
       {!hideTimelineBar && (
         <TimelineBar
-          {...timelineBarProps}
           style={showLabels ? { marginLeft: labelsWidth } : undefined}
           className={styles.timelineViewBar}
+          {...timelineBarProps}
           startDate={startDate}
           endDate={endDate}
         />

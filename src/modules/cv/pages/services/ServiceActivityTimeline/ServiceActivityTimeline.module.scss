@@ -5,64 +5,72 @@
   padding: var(--spacing-small) !important;
   margin-bottom: var(--spacing-xlarge) !important;
 
+  .zoomOutButton {
+    font-size: var(--font-size-small) !important;
+    position: absolute;
+    right: 60px;
+    color: var(--blue-500) !important;
+    cursor: pointer;
+  }
+
   .activityView {
-    > [class*='timelineBar'] {
+    .serviceTimelineBar {
       margin-left: 210px !important;
       width: 80%;
     }
-  }
-  [class*='timelineRow'] {
-    border-bottom: none;
-    overflow: hidden;
-  }
-  [class*='rowItems'] {
-    height: 10px;
-    border-bottom: 1px solid var(--grey-200);
-    align-self: center;
+    [class*='timelineRow'] {
+      border-bottom: none;
+      overflow: hidden;
+    }
+    [class*='rowItems'] {
+      height: 10px;
+      border-bottom: 1px solid var(--grey-200);
+      align-self: center;
 
-    position: relative;
-    bottom: 2px;
-    margin-right: var(--spacing-small);
-    margin-left: 25px;
-
-    .timelineEvent {
       position: relative;
-      margin-bottom: var(--spacing-xsmall);
+      bottom: 2px;
+      margin-right: var(--spacing-small);
+      margin-left: 25px;
 
-      .tooltipContent {
-        height: 100% !important;
-        width: 100% !important;
-      }
+      .timelineEvent {
+        position: relative;
+        margin-bottom: var(--spacing-xsmall);
 
-      .polygon {
-        position: absolute;
-        &[data-name='0'] {
-          z-index: 2;
-          bottom: 15px;
+        .tooltipContent {
+          height: 100% !important;
+          width: 100% !important;
         }
-        &[data-name='1'] {
-          left: 4px;
-          bottom: 18px;
-          z-index: 1;
+
+        .polygon {
+          position: absolute;
+          &[data-name='0'] {
+            z-index: 2;
+            bottom: 15px;
+          }
+          &[data-name='1'] {
+            left: 4px;
+            bottom: 18px;
+            z-index: 1;
+          }
+          &[data-name='2'] {
+            left: 8px;
+            bottom: 21px;
+            z-index: 0;
+          }
         }
-        &[data-name='2'] {
-          left: 8px;
-          bottom: 21px;
-          z-index: 0;
+
+        @mixin polygonWithStatus($border-color) {
+          border: 1px solid $border-color;
+          background-color: var(--white);
         }
-      }
 
-      @mixin polygonWithStatus($border-color) {
-        border: 1px solid $border-color;
-        background-color: var(--white);
-      }
+        .errorPolygon {
+          @include polygonWithStatus(var(--red-500));
+        }
 
-      .errorPolygon {
-        @include polygonWithStatus(var(--red-500));
-      }
-
-      .successPolygon {
-        @include polygonWithStatus(var(--green-500));
+        .successPolygon {
+          @include polygonWithStatus(var(--green-500));
+        }
       }
     }
   }
