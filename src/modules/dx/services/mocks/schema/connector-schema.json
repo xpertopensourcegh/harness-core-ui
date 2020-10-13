@@ -15,7 +15,7 @@
         },
         "description": {
           "type": "string",
-          "description": "Name of the connector. Required"
+          "description": "Description of the connector. Required"
         },
         "orgIdentifier": {
           "type": "string",
@@ -50,7 +50,7 @@
               "spec": {
                 "type": "object",
                 "properties": {
-                  "credentials": {
+                  "credential": {
                     "type": "object",
                     "properties": {
                       "type": {
@@ -103,7 +103,6 @@
                                       "enum": ["UserPassword", "ClientKeyCert", "ServiceAccount", "OpenIdConnect"]
                                     }
                                   },
-
                                   "allOf": [
                                     {
                                       "if": {
@@ -308,7 +307,6 @@
                   }
                 },
                 "required": ["connectionType", "url", "type", "gitSync", "branchName", "spec"],
-                "additionalProperties": false,
                 "allOf": [
                   {
                     "if": {
@@ -421,15 +419,16 @@
                     ]
                   }
                 },
-                "required": ["dockerRegistryUrl", "auth", "spec"],
+                "required": ["dockerRegistryUrl", "auth"],
                 "additionalProperties": false
               }
             }
           }
         }
       ],
-      "required": ["name", "identifier", "type", "spec"],
-      "additionalProperties": true
+      "required": ["name", "identifier", "type", "spec"]
     }
-  }
+  },
+  "required": ["connector"],
+  "additionalProperties": false
 }

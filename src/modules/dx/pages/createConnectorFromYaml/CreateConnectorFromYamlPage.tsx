@@ -34,6 +34,8 @@ const CreateConnectorFromYamlPage: React.FC = () => {
       YAMLService.fetchSnippets(YamlEntity.CONNECTOR, Connectors.GIT, query) || {}
     const { error: errorWhileFethingDockerSnippets, response: dockerConnSnippets } =
       YAMLService.fetchSnippets(YamlEntity.CONNECTOR, Connectors.DOCKER, query) || {}
+    const { error: errorWhileFethingSecretManagerSnippets, response: secretManagerConnSnippets } =
+      YAMLService.fetchSnippets(YamlEntity.CONNECTOR, Connectors.SECRET_MANAGER, query) || {}
     if (errorWhileFethingK8sSnippets) {
       showError(errorWhileFethingK8sSnippets)
       return
@@ -46,10 +48,20 @@ const CreateConnectorFromYamlPage: React.FC = () => {
       showError(errorWhileFethingDockerSnippets)
       return
     }
+    if (errorWhileFethingSecretManagerSnippets) {
+      showError(errorWhileFethingSecretManagerSnippets)
+      return
+    }
     addIconInfoToSnippets(pickIconForEntity(Connectors.KUBERNETES_CLUSTER), k8sConnSnippets)
     addIconInfoToSnippets(pickIconForEntity(Connectors.GIT), gitConnSnippets)
     addIconInfoToSnippets(pickIconForEntity(Connectors.DOCKER), dockerConnSnippets)
-    setSnippets([...(k8sConnSnippets || []), ...(gitConnSnippets || []), ...(dockerConnSnippets || [])])
+    addIconInfoToSnippets('main-code-yaml', secretManagerConnSnippets)
+    setSnippets([
+      ...(k8sConnSnippets || []),
+      ...(gitConnSnippets || []),
+      ...(dockerConnSnippets || []),
+      ...(secretManagerConnSnippets || [])
+    ])
   }
 
   useEffect(() => {

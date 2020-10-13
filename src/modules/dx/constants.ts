@@ -16,6 +16,7 @@ export const Connectors: ConnectorType = {
   GCP_KMS: 'GcpKms',
   LOCAL: 'Local',
   AWS: 'Aws',
+  SECRET_MANAGER: 'CustomSecretManager',
   NEXUS: 'Nexus',
   ARTIFACTORY: 'Artifactory'
 }
