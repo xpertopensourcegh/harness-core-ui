@@ -1,4 +1,26 @@
-/** return last 6 characters from commit id */
+import moment from 'moment'
+
+// Returns first 7 letters of commit ID
 export function getShortCommitId(commitId: string): string {
-  return commitId.slice(-6)
+  return commitId.slice(0, 7)
+}
+
+// TODO: Add singular forms, better using i18n because they have support for it
+export function getTimeAgo(timeStamp: number): string {
+  const currentDate = moment(new Date())
+  const timeStampAsDate = moment(timeStamp)
+
+  if (currentDate.diff(timeStampAsDate, 'days') > 30) {
+    return `on ${timeStampAsDate.format('MMM D')}`
+  } else if (currentDate.diff(timeStampAsDate, 'days') === 1) {
+    return 'yesterday'
+  } else if (currentDate.diff(timeStampAsDate, 'days') === 0) {
+    if (currentDate.diff(timeStampAsDate, 'minutes') >= 60) {
+      return `${currentDate.diff(timeStampAsDate, 'hours')} hours ago`
+    } else {
+      return `${currentDate.diff(timeStampAsDate, 'minutes')} minutes ago`
+    }
+  } else {
+    return `${currentDate.diff(timeStampAsDate, 'days')} days ago`
+  }
 }

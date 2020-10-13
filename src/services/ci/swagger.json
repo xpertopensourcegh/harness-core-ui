@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "version": "2.0",
-    "title": "CI NextGen API Reference"
+    "title": "CI API Reference"
   },
   "host": "localhost",
   "tags": [
@@ -141,96 +141,6 @@
             "description": "successful operation",
             "schema": {
               "$ref": "#/definitions/ResponsePageCIBuildResponseDTO"
-            }
-          }
-        }
-      }
-    },
-    "/ci/pipelines": {
-      "post": {
-        "tags": ["ci"],
-        "summary": "Create a CI Pipeline",
-        "description": "",
-        "operationId": "postPipeline",
-        "consumes": ["application/json", "text/yaml"],
-        "produces": ["application/json", "text/yaml"],
-        "parameters": [
-          {
-            "name": "accountIdentifier",
-            "in": "query",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "orgIdentifier",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "projectIdentifier",
-            "in": "query",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "in": "body",
-            "name": "body",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/RestResponseString"
-            }
-          }
-        }
-      }
-    },
-    "/ci/pipelines/{pipelineIdentifier}": {
-      "get": {
-        "tags": ["ci"],
-        "summary": "Gets a CI pipeline by identifier",
-        "description": "",
-        "operationId": "getPipeline",
-        "consumes": ["application/json", "text/yaml"],
-        "produces": ["application/json", "text/yaml"],
-        "parameters": [
-          {
-            "name": "accountIdentifier",
-            "in": "query",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "orgIdentifier",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "projectIdentifier",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "pipelineIdentifier",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "$ref": "#/definitions/ResponseNgPipelineEntity"
             }
           }
         }
@@ -477,6 +387,10 @@
         },
         "ownerEmail": {
           "type": "string"
+        },
+        "timeStamp": {
+          "type": "integer",
+          "format": "int64"
         }
       }
     },
@@ -587,12 +501,12 @@
         "zero": {
           "type": "boolean"
         },
+        "negative": {
+          "type": "boolean"
+        },
         "nano": {
           "type": "integer",
           "format": "int32"
-        },
-        "negative": {
-          "type": "boolean"
         },
         "units": {
           "type": "array",
@@ -1335,184 +1249,6 @@
           "items": {
             "$ref": "#/definitions/Throwable"
           }
-        }
-      }
-    },
-    "NGVariable": {
-      "type": "object",
-      "properties": {
-        "description": {
-          "type": "string"
-        },
-        "required": {
-          "type": "boolean"
-        },
-        "name": {
-          "type": "string"
-        },
-        "type": {
-          "type": "string",
-          "enum": ["String", "Number"]
-        },
-        "metadata": {
-          "type": "string"
-        }
-      }
-    },
-    "NgPipeline": {
-      "type": "object",
-      "required": ["identifier", "name"],
-      "properties": {
-        "name": {
-          "type": "string"
-        },
-        "identifier": {
-          "type": "string"
-        },
-        "description": {
-          "type": "string"
-        },
-        "tags": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Tag"
-          }
-        },
-        "variables": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/NGVariable"
-          }
-        },
-        "stages": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/StageElementWrapper"
-          }
-        },
-        "metadata": {
-          "type": "string"
-        }
-      }
-    },
-    "NgPipelineEntity": {
-      "type": "object",
-      "required": ["lastUpdatedAt"],
-      "properties": {
-        "uuid": {
-          "type": "string"
-        },
-        "ngPipeline": {
-          "$ref": "#/definitions/NgPipeline"
-        },
-        "yamlPipeline": {
-          "type": "string"
-        },
-        "accountId": {
-          "type": "string"
-        },
-        "orgIdentifier": {
-          "type": "string"
-        },
-        "identifier": {
-          "type": "string"
-        },
-        "projectIdentifier": {
-          "type": "string"
-        },
-        "createdAt": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "lastUpdatedAt": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "deleted": {
-          "type": "boolean"
-        }
-      }
-    },
-    "ParallelStageElement": {
-      "allOf": [
-        {
-          "$ref": "#/definitions/StageElementWrapper"
-        },
-        {
-          "type": "object",
-          "required": ["sections"],
-          "properties": {
-            "sections": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/StageElementWrapper"
-              }
-            },
-            "metadata": {
-              "type": "string"
-            }
-          }
-        }
-      ]
-    },
-    "ResponseNgPipelineEntity": {
-      "type": "object",
-      "properties": {
-        "status": {
-          "type": "string",
-          "enum": ["SUCCESS", "FAILURE", "ERROR"]
-        },
-        "data": {
-          "$ref": "#/definitions/NgPipelineEntity"
-        },
-        "metaData": {
-          "type": "object"
-        },
-        "correlationId": {
-          "type": "string"
-        }
-      }
-    },
-    "StageElement": {
-      "allOf": [
-        {
-          "$ref": "#/definitions/StageElementWrapper"
-        },
-        {
-          "type": "object",
-          "required": ["identifier"],
-          "properties": {
-            "identifier": {
-              "type": "string"
-            },
-            "name": {
-              "type": "string"
-            },
-            "description": {
-              "type": "string"
-            },
-            "type": {
-              "type": "string"
-            },
-            "metadata": {
-              "type": "string"
-            },
-            "spec": {
-              "$ref": "#/definitions/StageType"
-            }
-          }
-        }
-      ]
-    },
-    "StageElementWrapper": {
-      "type": "object"
-    },
-    "StageType": {
-      "type": "object",
-      "required": ["identifier"],
-      "properties": {
-        "identifier": {
-          "type": "string"
         }
       }
     },

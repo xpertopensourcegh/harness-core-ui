@@ -27,6 +27,7 @@ export interface CIBuildCommit {
   ownerName?: string
   ownerId?: string
   ownerEmail?: string
+  timeStamp?: number
 }
 
 export interface CIBuildPRHook {
@@ -65,8 +66,8 @@ export interface CIBuildResponseDTO {
 export interface Duration {
   seconds?: number
   zero?: boolean
-  nano?: number
   negative?: boolean
+  nano?: number
   units?: TemporalUnit[]
 }
 
@@ -517,66 +518,6 @@ export interface Throwable {
   suppressed?: Throwable[]
 }
 
-export interface NGVariable {
-  description?: string
-  required?: boolean
-  name?: string
-  type?: 'String' | 'Number'
-  metadata?: string
-}
-
-export interface NgPipeline {
-  name: string
-  identifier: string
-  description?: string
-  tags?: Tag[]
-  variables?: NGVariable[]
-  stages?: StageElementWrapper[]
-  metadata?: string
-}
-
-export interface NgPipelineEntity {
-  uuid?: string
-  ngPipeline?: NgPipeline
-  yamlPipeline?: string
-  accountId?: string
-  orgIdentifier?: string
-  identifier?: string
-  projectIdentifier?: string
-  createdAt?: number
-  lastUpdatedAt: number
-  deleted?: boolean
-}
-
-export type ParallelStageElement = StageElementWrapper & {
-  sections: StageElementWrapper[]
-  metadata?: string
-}
-
-export interface ResponseNgPipelineEntity {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: NgPipelineEntity
-  metaData?: { [key: string]: any }
-  correlationId?: string
-}
-
-export type StageElement = StageElementWrapper & {
-  identifier: string
-  name?: string
-  description?: string
-  type?: string
-  metadata?: string
-  spec?: StageType
-}
-
-export interface StageElementWrapper {
-  [key: string]: any
-}
-
-export interface StageType {
-  identifier: string
-}
-
 export interface WebHookRequest {
   application?: string
   artifacts?: {
@@ -609,7 +550,7 @@ export type GetBuildProps = Omit<
 export const GetBuild = ({ buildIdentifier, ...props }: GetBuildProps) => (
   <Get<ResponseCIBuildResponseDTO, unknown, GetBuildQueryParams, GetBuildPathParams>
     path={`/ci/builds/${buildIdentifier}`}
-    base={getConfig('ci')}
+    base={getConfig('')}
     {...props}
   />
 )
@@ -625,8 +566,8 @@ export type UseGetBuildProps = Omit<
  */
 export const useGetBuild = ({ buildIdentifier, ...props }: UseGetBuildProps) =>
   useGet<ResponseCIBuildResponseDTO, unknown, GetBuildQueryParams, GetBuildPathParams>(
-    (paramsInPath: GetBuildPathParams) => `/builds/${paramsInPath.buildIdentifier}`,
-    { base: getConfig('ci'), pathParams: { buildIdentifier }, ...props }
+    (paramsInPath: GetBuildPathParams) => `/ci/builds/${paramsInPath.buildIdentifier}`,
+    { base: getConfig(''), pathParams: { buildIdentifier }, ...props }
   )
 
 /**
@@ -643,7 +584,7 @@ export const getBuildPromise = (
 ) =>
   getUsingFetch<ResponseCIBuildResponseDTO, unknown, GetBuildQueryParams, GetBuildPathParams>(
     getConfig('ci'),
-    `/builds/${buildIdentifier}`,
+    `/ci/builds/${buildIdentifier}`,
     props,
     signal
   )
@@ -667,8 +608,8 @@ export type GetBuildsProps = Omit<GetProps<ResponsePageCIBuildResponseDTO, unkno
  */
 export const GetBuilds = (props: GetBuildsProps) => (
   <Get<ResponsePageCIBuildResponseDTO, unknown, GetBuildsQueryParams, void>
-    path={`/builds`}
-    base={getConfig('ci')}
+    path={`/ci/builds`}
+    base={getConfig('')}
     {...props}
   />
 )
@@ -682,8 +623,8 @@ export type UseGetBuildsProps = Omit<
  * Get builds list
  */
 export const useGetBuilds = (props: UseGetBuildsProps) =>
-  useGet<ResponsePageCIBuildResponseDTO, unknown, GetBuildsQueryParams, void>(`/builds`, {
-    base: getConfig('ci'),
+  useGet<ResponsePageCIBuildResponseDTO, unknown, GetBuildsQueryParams, void>(`/ci/builds`, {
+    base: getConfig(''),
     ...props
   })
 
@@ -697,119 +638,6 @@ export const getBuildsPromise = (
   getUsingFetch<ResponsePageCIBuildResponseDTO, unknown, GetBuildsQueryParams, void>(
     getConfig('ci'),
     `/ci/builds`,
-    props,
-    signal
-  )
-
-export interface PostPipelineQueryParams {
-  accountIdentifier: string
-  orgIdentifier?: string
-  projectIdentifier: string
-}
-
-export type PostPipelineProps = Omit<
-  MutateProps<RestResponseString, unknown, PostPipelineQueryParams, string, void>,
-  'path' | 'verb'
->
-
-/**
- * Create a CI Pipeline
- */
-export const PostPipeline = (props: PostPipelineProps) => (
-  <Mutate<RestResponseString, unknown, PostPipelineQueryParams, string, void>
-    verb="POST"
-    path={`/ci/pipelines`}
-    base={getConfig('ci')}
-    {...props}
-  />
-)
-
-export type UsePostPipelineProps = Omit<
-  UseMutateProps<RestResponseString, unknown, PostPipelineQueryParams, string, void>,
-  'path' | 'verb'
->
-
-/**
- * Create a CI Pipeline
- */
-export const usePostPipeline = (props: UsePostPipelineProps) =>
-  useMutate<RestResponseString, unknown, PostPipelineQueryParams, string, void>('POST', `/ci/pipelines`, {
-    base: getConfig('ci'),
-    ...props
-  })
-
-/**
- * Create a CI Pipeline
- */
-export const postPipelinePromise = (
-  props: MutateUsingFetchProps<RestResponseString, unknown, PostPipelineQueryParams, string, void>,
-  signal?: RequestInit['signal']
-) =>
-  mutateUsingFetch<RestResponseString, unknown, PostPipelineQueryParams, string, void>(
-    'POST',
-    getConfig('ci'),
-    `/ci/pipelines`,
-    props,
-    signal
-  )
-
-export interface GetPipelineQueryParams {
-  accountIdentifier: string
-  orgIdentifier?: string
-  projectIdentifier?: string
-}
-
-export interface GetPipelinePathParams {
-  pipelineIdentifier: string
-}
-
-export type GetPipelineProps = Omit<
-  GetProps<ResponseNgPipelineEntity, unknown, GetPipelineQueryParams, GetPipelinePathParams>,
-  'path'
-> &
-  GetPipelinePathParams
-
-/**
- * Gets a CI pipeline by identifier
- */
-export const GetPipeline = ({ pipelineIdentifier, ...props }: GetPipelineProps) => (
-  <Get<ResponseNgPipelineEntity, unknown, GetPipelineQueryParams, GetPipelinePathParams>
-    path={`/ci/pipelines/${pipelineIdentifier}`}
-    base={getConfig('ci')}
-    {...props}
-  />
-)
-
-export type UseGetPipelineProps = Omit<
-  UseGetProps<ResponseNgPipelineEntity, unknown, GetPipelineQueryParams, GetPipelinePathParams>,
-  'path'
-> &
-  GetPipelinePathParams
-
-/**
- * Gets a CI pipeline by identifier
- */
-export const useGetPipeline = ({ pipelineIdentifier, ...props }: UseGetPipelineProps) =>
-  useGet<ResponseNgPipelineEntity, unknown, GetPipelineQueryParams, GetPipelinePathParams>(
-    (paramsInPath: GetPipelinePathParams) => `/ci/pipelines/${paramsInPath.pipelineIdentifier}`,
-    { base: getConfig('ci'), pathParams: { pipelineIdentifier }, ...props }
-  )
-
-/**
- * Gets a CI pipeline by identifier
- */
-export const getPipelinePromise = (
-  {
-    pipelineIdentifier,
-    ...props
-  }: GetUsingFetchProps<ResponseNgPipelineEntity, unknown, GetPipelineQueryParams, GetPipelinePathParams> & {
-    pipelineIdentifier: string
-  },
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<ResponseNgPipelineEntity, unknown, GetPipelineQueryParams, GetPipelinePathParams>(
-    getConfig('ci'),
-    `/ci/pipelines/${pipelineIdentifier}`,
     props,
     signal
   )
@@ -837,7 +665,7 @@ export const ExecutePipeline = ({ identifier, ...props }: ExecutePipelineProps) 
   <Mutate<RestResponseString, unknown, ExecutePipelineQueryParams, void, ExecutePipelinePathParams>
     verb="POST"
     path={`/ci/pipelines/${identifier}/run`}
-    base={getConfig('ci')}
+    base={getConfig('')}
     {...props}
   />
 )
@@ -855,7 +683,7 @@ export const useExecutePipeline = ({ identifier, ...props }: UseExecutePipelineP
   useMutate<RestResponseString, unknown, ExecutePipelineQueryParams, void, ExecutePipelinePathParams>(
     'POST',
     (paramsInPath: ExecutePipelinePathParams) => `/ci/pipelines/${paramsInPath.identifier}/run`,
-    { base: getConfig('ci'), pathParams: { identifier }, ...props }
+    { base: getConfig(''), pathParams: { identifier }, ...props }
   )
 
 /**
@@ -885,14 +713,14 @@ export interface PingPathParams {
 export type PingProps = Omit<GetProps<void, void, void, PingPathParams>, 'path'> & PingPathParams
 
 export const Ping = ({ id, ...props }: PingProps) => (
-  <Get<void, void, void, PingPathParams> path={`/ci/${id}`} base={getConfig('ci')} {...props} />
+  <Get<void, void, void, PingPathParams> path={`/ci/${id}`} base={getConfig('')} {...props} />
 )
 
 export type UsePingProps = Omit<UseGetProps<void, void, void, PingPathParams>, 'path'> & PingPathParams
 
 export const usePing = ({ id, ...props }: UsePingProps) =>
   useGet<void, void, void, PingPathParams>((paramsInPath: PingPathParams) => `/ci/${paramsInPath.id}`, {
-    base: getConfig('ci'),
+    base: getConfig(''),
     pathParams: { id },
     ...props
   })
@@ -916,7 +744,7 @@ export const RunPipelineFromTrigger = ({ id, ...props }: RunPipelineFromTriggerP
   <Mutate<RestResponseString, unknown, void, string, RunPipelineFromTriggerPathParams>
     verb="POST"
     path={`/ci/webhook/trigger/${id}`}
-    base={getConfig('ci')}
+    base={getConfig('')}
     {...props}
   />
 )
@@ -931,7 +759,7 @@ export const useRunPipelineFromTrigger = ({ id, ...props }: UseRunPipelineFromTr
   useMutate<RestResponseString, unknown, void, string, RunPipelineFromTriggerPathParams>(
     'POST',
     (paramsInPath: RunPipelineFromTriggerPathParams) => `/ci/webhook/trigger/${paramsInPath.id}`,
-    { base: getConfig('ci'), pathParams: { id }, ...props }
+    { base: getConfig(''), pathParams: { id }, ...props }
   )
 
 export const runPipelineFromTriggerPromise = (
@@ -966,7 +794,7 @@ export const ParkedHttp = (props: ParkedHttpProps) => (
   <Mutate<string, unknown, ParkedHttpQueryParams, void, void>
     verb="POST"
     path={`/sample/parked/http`}
-    base={getConfig('ci')}
+    base={getConfig('')}
     {...props}
   />
 )
@@ -981,7 +809,7 @@ export type UseParkedHttpProps = Omit<
  */
 export const useParkedHttp = (props: UseParkedHttpProps) =>
   useMutate<string, unknown, ParkedHttpQueryParams, void, void>('POST', `/sample/parked/http`, {
-    base: getConfig('ci'),
+    base: getConfig(''),
     ...props
   })
 
@@ -1018,7 +846,7 @@ export const AsyncTaskOutput = (props: AsyncTaskOutputProps) => (
   <Mutate<string, unknown, AsyncTaskOutputQueryParams, void, void>
     verb="POST"
     path={`/sample/async/output`}
-    base={getConfig('ci')}
+    base={getConfig('')}
     {...props}
   />
 )
@@ -1033,7 +861,7 @@ export type UseAsyncTaskOutputProps = Omit<
  */
 export const useAsyncTaskOutput = (props: UseAsyncTaskOutputProps) =>
   useMutate<string, unknown, AsyncTaskOutputQueryParams, void, void>('POST', `/sample/async/output`, {
-    base: getConfig('ci'),
+    base: getConfig(''),
     ...props
   })
 

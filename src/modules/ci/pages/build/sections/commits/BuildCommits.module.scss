@@ -1,0 +1,112 @@
+.wrapper {
+  // 96px is ExtendedPageHeader's height
+  // 56px is Tabs's height
+  // --spacing-huge * 2 is top + bottom margins
+  height: calc(100vh - 96px - 56px - var(--spacing-huge) * 2);
+  width: 1000px;
+  margin-right: auto;
+  margin-left: auto;
+  overflow: auto;
+  padding-right: var(--spacing-large);
+  margin-top: var(--spacing-huge);
+  margin-bottom: var(--spacing-huge);
+}
+
+.stack {
+  position: relative;
+  padding-bottom: var(--spacing-xxxlarge);
+  overflow: hidden;
+
+  &:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 10px;
+    width: 1px;
+    height: 100%;
+    // TODO: Replace color once it is available in UIKit
+    background-color: rgba(0, 19, 37, 0.6);
+  }
+
+  &:last-child {
+    padding-bottom: var(--spacing-xsmall);
+  }
+}
+
+.stackHeader {
+  display: flex;
+  align-items: center;
+  margin-bottom: var(--spacing-small);
+}
+
+.stackHeaderIcon {
+  position: relative;
+  z-index: 1;
+  // TODO: Replace color once it is available in UIKit
+  color: rgba(0, 19, 37, 0.3) !important;
+  background-color: var(--white) !important;
+}
+
+.stackHeaderText {
+  // TODO: Replace color once it is available in UIKit
+  color: rgba(0, 19, 37, 0.87);
+  opacity: 0.6;
+}
+
+.commit {
+  display: flex !important;
+  justify-content: space-between;
+  align-items: center;
+  // TODO: Replace color once it is available in UIKit
+  border: 1px solid rgba(0, 0, 0, 0.03);
+  // TODO: Replace color once it is available in UIKit
+  box-shadow: 0px 1px 4px rgba(0, 12, 120, 0.15);
+  padding-top: var(--spacing-small);
+  padding-bottom: var(--spacing-small);
+  margin-left: 34px;
+}
+
+.commitTitle {
+  // TODO: Replace color once it is available in UIKit
+  color: rgba(0, 19, 37, 0.87);
+}
+
+.commitDescription {
+  // TODO: Replace color once it is available in UIKit
+  color: rgba(0, 0, 0, 0.6);
+  opacity: 0.68;
+}
+
+.avatar {
+  width: 16px;
+  border-radius: 50%;
+  margin-right: var(--spacing-small);
+}
+
+.committed {
+  color: var(--black);
+  opacity: 0.68;
+}
+
+.hash {
+  display: flex;
+  align-items: center;
+  border-radius: 5px;
+  // TODO: Replace color once it is available in UIKit
+  background: rgba(196, 196, 196, 0.2);
+  // TODO: Replace color once it is available in UIKit
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  padding: 0;
+}
+
+.hashText {
+  color: var(--black);
+  // TODO: Replace color once it is available in UIKit
+  border-right: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.hashIcon {
+  // TODO: Replace color once it is available in UIKit
+  color: #999999 !important;
+}
