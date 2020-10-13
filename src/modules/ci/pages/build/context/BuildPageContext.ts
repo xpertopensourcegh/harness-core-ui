@@ -22,6 +22,7 @@ export interface BuildPageStateInterface {
 export interface BuildPageContextInterface {
   state: BuildPageStateInterface
   logs: Array<any>
+  isStepRunning: boolean
   setSelectedStageIdentifier: (identifier: string) => void
   setSelectedStepIdentifier: (identifier: string) => void
   setGraphLayoutType: (graphLayoutType: BuildPipelineGraphLayoutType) => void
@@ -38,6 +39,7 @@ export const initialBuildPageState: BuildPageContextInterface = {
     globalErrorMessage: null
   },
   logs: [],
+  isStepRunning: false,
   buildData: null,
   loading: false,
   error: null,

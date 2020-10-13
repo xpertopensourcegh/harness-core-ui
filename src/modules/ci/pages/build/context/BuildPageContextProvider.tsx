@@ -146,6 +146,7 @@ export const BuildPageContextProvider: React.FC = props => {
         loading,
         error,
         logs: isStepRunning ? logsStream : logs,
+        isStepRunning,
         setSelectedStageIdentifier,
         setSelectedStepIdentifier,
         setGraphLayoutType

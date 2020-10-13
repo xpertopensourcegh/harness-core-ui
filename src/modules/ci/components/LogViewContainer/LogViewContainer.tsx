@@ -7,6 +7,7 @@ export interface LogViewContainerProps {
   logsViewerSections: LogViewerProps
   downloadLogs: () => void
   showSummary?: boolean
+  isStepRunning?: boolean
 }
 
 const LogViewContainer: React.FC<LogViewContainerProps> = props => {
@@ -14,7 +15,7 @@ const LogViewContainer: React.FC<LogViewContainerProps> = props => {
 
   // TODO: add heading when api start providing it
   const createConsoleBody = () => {
-    return <LogViewer defaultOptions={{ LogLimit: 500 }} logs={logsViewerSections.logs} />
+    return <LogViewer defaultOptions={{ LogLimit: props.isStepRunning ? 500 : 5000 }} logs={logsViewerSections.logs} />
   }
 
   return (

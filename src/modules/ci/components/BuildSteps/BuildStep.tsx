@@ -1,7 +1,6 @@
 import React from 'react'
 import cx from 'classnames'
 import { Icon } from '@wings-software/uikit'
-import { formatElapsedTime } from '../common/time'
 import css from './BuildStep.module.scss'
 
 export interface StepProps {
@@ -9,7 +8,7 @@ export interface StepProps {
   key: number
   status: string
   label: string
-  time?: number
+  time?: string
   isSubStep: boolean
   isSelected: boolean
   onStepClick: Function
@@ -43,7 +42,7 @@ export const BuildStep = (props: StepProps) => {
     >
       {statusChecker(props.status)}
       <div className={css.stepLabel}>{props.label}</div>
-      <div className={css.stepDuration}>{(props.time && formatElapsedTime(props.time)) || null}</div>
+      <div className={css.stepDuration}>{props.time}</div>
       {props.isSelected && <Icon name="double-chevron-right" />}
     </div>
   )

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { first } from 'lodash-es'
 import cx from 'classnames'
 import { Divider } from '@blueprintjs/core'
@@ -33,7 +33,7 @@ const CIBuildsPage: React.FC = () => {
   const { search: queryParams } = useLocation()
   const { page } = parseQueryString(queryParams)
   const history = useHistory()
-  const { data, loading, error } = useGetBuilds({
+  const { data, loading, error, refetch } = useGetBuilds({
     queryParams: {
       // TODO: HARDCODED FOR DEMO
       accountIdentifier: accountId,
@@ -42,6 +42,25 @@ const CIBuildsPage: React.FC = () => {
       page: (page ? page : 0) as number,
       // TODO: to consider, should we allow user to sort
       sort: ['buildNumber', 'desc']
+    }
+  })
+
+  const [isRendered, setIsRendered] = useState(false)
+
+  useEffect(() => {
+    if (!isRendered && !loading) {
+      setIsRendered(true)
+    }
+  }, [loading])
+
+  // load data every 5 seconds
+  useEffect(() => {
+    const reloadInterval = setInterval(() => {
+      refetch()
+    }, 5000)
+
+    return function () {
+      clearInterval(reloadInterval)
     }
   })
 
@@ -166,7 +185,7 @@ const CIBuildsPage: React.FC = () => {
           <Container className={css.buildsFooter}>{buildsFooter}</Container>
         </ExtendedPageBody>
       </ExtendedPage>
-      {loading && <PageSpinner />}
+      {!isRendered && loading && <PageSpinner />}
       <RightBar />
     </Container>
   )

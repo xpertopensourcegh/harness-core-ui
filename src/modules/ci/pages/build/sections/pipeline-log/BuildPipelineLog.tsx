@@ -1,5 +1,6 @@
 import React from 'react'
 import { Container, Select, Layout } from '@wings-software/uikit'
+import { formatElapsedTime } from 'modules/ci/components/common/time'
 import LogViewContainer from 'modules/ci/components/LogViewContainer/LogViewContainer'
 import { BuildStep } from 'modules/ci/components/BuildSteps/BuildStep'
 import { BuildPageContext } from '../../context/BuildPageContext'
@@ -24,7 +25,8 @@ const PipelineLog: React.FC = () => {
     setSelectedStageIdentifier,
     setSelectedStepIdentifier,
     buildData,
-    logs
+    logs,
+    isStepRunning
   } = React.useContext(BuildPageContext)
 
   const stagesSelectOptions = getSelectOptionsFromExecutionPipeline(buildData?.stagePipeline).map(item => {
@@ -41,7 +43,10 @@ const PipelineLog: React.FC = () => {
 
   const steps = stepItems.map((item, key) => {
     const isSelected = item.name === selectedStep
-
+    const time =
+      item?.data?.startTs && item?.data?.endTs
+        ? formatElapsedTime(item?.data?.endTs / 1000 - item?.data?.startTs / 1000, true)
+        : ''
     return (
       <BuildStep
         identifier={item.identifier}
@@ -51,7 +56,7 @@ const PipelineLog: React.FC = () => {
         isSubStep={false}
         status={item.status}
         label={item.name}
-        time={1000}
+        time={time}
       />
     )
   })
@@ -80,6 +85,7 @@ const PipelineLog: React.FC = () => {
               alert('Log download')
             }}
             logsViewerSections={{ logs: logs }}
+            isStepRunning={isStepRunning}
           />
         </Container>
       </Layout.Horizontal>
