@@ -8,8 +8,9 @@ import i18n from 'modules/common/pages/ProjectsPage/ProjectsPage.i18n'
 import { Views } from './Constants'
 import Collaborators from './views/Collaborators'
 import PurposeList from './views/PurposeList'
-import AboutProject from './views/AboutProject'
 
+import StepProject from './views/StepAboutProject'
+import EditProject from './views/EditProject'
 import css from './useProjectModal.module.scss'
 
 export interface UseProjectModalProps {
@@ -50,14 +51,21 @@ export const useProjectModal = ({ onSuccess }: UseProjectModalProps): UseProject
       >
         {view === Views.CREATE ? (
           <StepWizard<Project> onCompleteWizard={wizardCompleteHandler} stepClassName={css.stepClass}>
-            <AboutProject name={i18n.newProjectWizard.aboutProject.name} data={projectData} onSuccess={onSuccess} />
-            <Collaborators name={i18n.newProjectWizard.Collaborators.name} data={projectData} />
+            <StepProject name={i18n.newProjectWizard.aboutProject.name} onSuccess={onSuccess} />
+            <Collaborators name={i18n.newProjectWizard.Collaborators.name} />
           </StepWizard>
         ) : null}
 
         {view === Views.PURPOSE ? <PurposeList data={projectData} /> : null}
 
-        {view === Views.EDIT ? <AboutProject data={projectData} closeModal={hideModal} onSuccess={onSuccess} /> : null}
+        {view === Views.EDIT ? (
+          <EditProject
+            identifier={projectData?.identifier}
+            orgIdentifier={projectData?.orgIdentifier}
+            closeModal={hideModal}
+            onSuccess={onSuccess}
+          />
+        ) : null}
 
         <Button
           minimal

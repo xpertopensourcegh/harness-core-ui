@@ -8468,10 +8468,10 @@ resolve@^1.10.0, resolve@^1.12.0, resolve@^1.13.1, resolve@^1.15.1, resolve@^1.1
   dependencies:
     path-parse "^1.0.6"
 
-restful-react@14.3:
-  version "14.3.0"
-  resolved "https://registry.yarnpkg.com/restful-react/-/restful-react-14.3.0.tgz#4914bee4f08cf21dcda0d21c30e7194c4b9d0a67"
-  integrity sha512-C14M5vjWv3zRWznZ+MarneN9VvChMKW1aM7kWn4AtK+e7WW1tTbu6PcQXD5XFUDaxNqKuKlwBgNOkn+iLCR7OA==
+restful-react@15.1.0:
+  version "15.1.0"
+  resolved "https://registry.yarnpkg.com/restful-react/-/restful-react-15.1.0.tgz#f4253f2908c9e437372c4268f7f99ce9341116ac"
+  integrity sha512-pVzIp86v6N3TTsI4Og7PeEX+4KEVv9gzIoJ4AZnylpCzJRhTn+WVSgcm7j6xEJg6nY9BT461U0XqFHgU8sk6pQ==
   dependencies:
     case "^1.6.2"
     chalk "^3.0.0"

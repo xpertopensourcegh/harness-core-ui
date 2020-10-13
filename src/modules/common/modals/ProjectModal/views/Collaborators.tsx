@@ -41,8 +41,9 @@ import { InviteType } from '../Constants'
 
 import css from './Steps.module.scss'
 
-interface ProjectModalData {
-  data: Project | undefined
+interface CollaboratorModalData {
+  identifier?: string
+  orgIdentifier?: string
   userMockData?: UseGetMockData<ResponsePageUserSearchDTO>
   rolesMockData?: UseGetMockData<ResponseOptionalListRoleDTO>
   invitesMockData?: UseGetMockData<ResponsePageInviteDTO>
@@ -223,14 +224,24 @@ const InviteListRenderer: React.FC<InviteListProps> = props => {
   )
 }
 
-const Collaborators: React.FC<StepProps<Project> & ProjectModalData> = props => {
-  const { previousStep, nextStep, prevStepData, data, rolesMockData, userMockData, invitesMockData } = props
+const Collaborators: React.FC<StepProps<Project> & CollaboratorModalData> = props => {
+  const {
+    previousStep,
+    nextStep,
+    prevStepData,
+    rolesMockData,
+    userMockData,
+    invitesMockData,
+    identifier,
+    orgIdentifier
+  } = props
   const [role, setRole] = useState<SelectOption>(defaultRole)
   const [search, setSearch] = useState<string>()
   const { accountId } = useParams()
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding>()
-  const isFromMenu = !!data && !!data.identifier
-  const projectData = isFromMenu ? data : prevStepData
+  const projectIdentifier = identifier ? identifier : prevStepData?.identifier
+  const organisationIdentifier = orgIdentifier ? orgIdentifier : prevStepData?.orgIdentifier
+
   const initialValues: CollaboratorsData = { collaborators: [] }
   const { data: userData } = useGetUsers({
     queryParams: { accountIdentifier: accountId, searchString: search === '' ? undefined : search },
@@ -240,8 +251,8 @@ const Collaborators: React.FC<StepProps<Project> & ProjectModalData> = props => 
   const { data: inviteData, loading: inviteLoading, refetch: reloadInvites } = useGetInvites({
     queryParams: {
       accountIdentifier: accountId,
-      orgIdentifier: projectData?.orgIdentifier || '',
-      projectIdentifier: projectData?.identifier || ''
+      orgIdentifier: organisationIdentifier || '',
+      projectIdentifier: projectIdentifier || ''
     },
     mock: invitesMockData
   })
@@ -249,16 +260,16 @@ const Collaborators: React.FC<StepProps<Project> & ProjectModalData> = props => 
   const { mutate: sendInvite, loading } = useSendInvite({
     queryParams: {
       accountIdentifier: accountId,
-      orgIdentifier: projectData?.orgIdentifier || '',
-      projectIdentifier: projectData?.identifier || ''
+      orgIdentifier: organisationIdentifier || '',
+      projectIdentifier: projectIdentifier || ''
     }
   })
 
   const { data: roleData } = useGetRoles({
     queryParams: {
       accountIdentifier: accountId,
-      orgIdentifier: projectData?.orgIdentifier || '',
-      projectIdentifier: projectData?.identifier || ''
+      orgIdentifier: organisationIdentifier || '',
+      projectIdentifier: projectIdentifier || ''
     },
     mock: rolesMockData
   })
@@ -417,7 +428,7 @@ const Collaborators: React.FC<StepProps<Project> & ProjectModalData> = props => 
                   </Layout.Vertical>
                 ) : null}
               </Container>
-              {!isFromMenu ? (
+              {prevStepData ? (
                 <Layout.Horizontal spacing="small">
                   <Button
                     className={css.button}

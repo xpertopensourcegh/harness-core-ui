@@ -27,17 +27,23 @@ const ContextMenu: React.FC<ContextMenuProps> = props => {
     openDialog?.()
   }
 
-  const handleEdit = (): void => {
+  const handleEdit = (event: React.MouseEvent<HTMLElement, MouseEvent>): void => {
+    event.stopPropagation()
+    setMenuOpen?.(false)
     if (!project) return
     editProject?.(project)
   }
 
-  const handleCollaborate = (): void => {
+  const handleCollaborate = (event: React.MouseEvent<HTMLElement, MouseEvent>): void => {
+    event.stopPropagation()
+    setMenuOpen?.(false)
     if (!project) return
     collaborators?.(project)
   }
 
-  const handleCD = (): void => {
+  const handleCD = (event: React.MouseEvent<HTMLElement, MouseEvent>): void => {
+    event.stopPropagation()
+    setMenuOpen?.(false)
     history.push(
       routeCDDashboard.url({
         orgIdentifier: project?.orgIdentifier as string,
@@ -46,7 +52,9 @@ const ContextMenu: React.FC<ContextMenuProps> = props => {
     )
   }
 
-  const handleCV = (): void => {
+  const handleCV = (event: React.MouseEvent<HTMLElement, MouseEvent>): void => {
+    event.stopPropagation()
+    setMenuOpen?.(false)
     history.push(
       routeCVDataSources.url({
         projectIdentifier: project.identifier || '',

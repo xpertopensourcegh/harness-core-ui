@@ -39,7 +39,8 @@ export default {
       default: 'default',
       createSuccess: 'Project Created Successfully',
       editSuccess: 'Edited the Project Successfully',
-      validationIdentifierChars: 'Identifier can only contain alphanumerics, _ and $'
+      validationIdentifierChars: 'Identifier can only contain alphanumerics, _ and $',
+      validationNameChars: 'Name can only contain alphanumerics, _ and -'
     },
     purposeList: {
       name: 'Which Harness module would you like to start with?',
