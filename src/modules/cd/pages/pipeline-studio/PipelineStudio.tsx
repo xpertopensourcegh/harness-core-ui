@@ -1,6 +1,8 @@
 import React from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 import { Icon, Text } from '@wings-software/uikit'
+import { getCDPipelineStages, stagesMap } from 'modules/cd/components/CDPipelineStages/CDPipelineStages'
+import factory from 'modules/cd/components/PipelineSteps/PipelineStepFactory'
 import i18n from './PipelineStudio.i18n'
 import { PipelineProvider } from './PipelineContext/PipelineContext'
 import { PipelineCanvas } from './PipelineCanvas/PipelineCanvas'
@@ -19,8 +21,11 @@ const PipelineStudio: React.FC = ({ children }): JSX.Element => {
   const history = useHistory()
   return (
     <PipelineProvider
+      stagesMap={stagesMap}
       queryParams={{ accountIdentifier: accountId, orgIdentifier, projectIdentifier }}
       pipelineIdentifier={pipelineIdentifier}
+      renderPipelineStage={getCDPipelineStages}
+      stepsFactory={factory}
     >
       <div className={css.container}>
         <div className={css.leftBar}>

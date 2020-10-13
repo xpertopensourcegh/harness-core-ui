@@ -1,7 +1,6 @@
 import { isEmpty } from 'lodash-es'
-import { Diagram } from 'modules/common/exports'
+import { AbstractStepFactory, Diagram } from 'modules/common/exports'
 import type { ExecutionWrapper, ExecutionElement } from 'services/cd-ng'
-import factory from '../../../components/PipelineSteps/PipelineStepFactory'
 import { StepType } from '../../../components/PipelineSteps/PipelineStepInterface'
 import { Listeners, calculateDepthCount, StepStateMap, isCustomGeneratedString } from './ExecutionGraphUtil'
 import { EmptyNodeSeparator } from '../StageBuilder/StageBuilderUtil'
@@ -20,6 +19,7 @@ export class ExecutionStepModel extends Diagram.DiagramModel {
     node: ExecutionWrapper,
     startX: number,
     startY: number,
+    factory: AbstractStepFactory,
     stepStates: StepStateMap,
     isRollback = false,
     prevNodes?: Diagram.DefaultNodeModel[],
@@ -98,6 +98,7 @@ export class ExecutionStepModel extends Diagram.DiagramModel {
             nodeP,
             newX,
             newY,
+            factory,
             stepStates,
             isRollback,
             prevNodes,
@@ -141,6 +142,7 @@ export class ExecutionStepModel extends Diagram.DiagramModel {
           node.parallel[0],
           startX,
           startY,
+          factory,
           stepStates,
           isRollback,
           prevNodes,
@@ -212,6 +214,7 @@ export class ExecutionStepModel extends Diagram.DiagramModel {
               nodeP,
               startX,
               startY,
+              factory,
               stepStates,
               isRollback,
               prevNodes,
@@ -263,6 +266,7 @@ export class ExecutionStepModel extends Diagram.DiagramModel {
     data: ExecutionWrapper[],
     { nodeListeners, linkListeners, layerListeners }: Listeners,
     stepStates: StepStateMap,
+    factory: AbstractStepFactory,
     isRollback: boolean
   ): void {
     let { startX, startY } = this
@@ -290,7 +294,7 @@ export class ExecutionStepModel extends Diagram.DiagramModel {
 
     let prevNodes: Diagram.DefaultNodeModel[] = [startNode]
     data.forEach((node: ExecutionWrapper) => {
-      const resp = this.renderGraphNodes(node, startX, startY, stepStates, isRollback, prevNodes, true)
+      const resp = this.renderGraphNodes(node, startX, startY, factory, stepStates, isRollback, prevNodes, true)
       startX = resp.startX
       startY = resp.startY
       if (resp.prevNodes) {

@@ -4,15 +4,8 @@ import { Diagram } from 'modules/common/exports'
 import type { NgPipeline, StageElementWrapper } from 'services/cd-ng'
 import i18n from './StageBuilder.i18n'
 import { EmptyStageName } from '../PipelineConstants'
-import {
-  StageType,
-  MapStepTypeToIcon,
-  getTypeOfStage,
-  getCommonStyles,
-  EmptyNodeSeparator,
-  Listeners,
-  MapStepTypeToIconColor
-} from './StageBuilderUtil'
+import type { StagesMap } from '../PipelineContext/PipelineContext'
+import { getCommonStyles, EmptyNodeSeparator, Listeners } from './StageBuilderUtil'
 
 export class StageBuilderModel extends Diagram.DiagramModel {
   constructor() {
@@ -28,6 +21,7 @@ export class StageBuilderModel extends Diagram.DiagramModel {
     node: StageElementWrapper,
     startX: number,
     startY: number,
+    stagesMap: StagesMap,
     selectedStageId?: string,
     splitPaneSize?: number,
     prevNodes?: Diagram.DefaultNodeModel[],
@@ -35,40 +29,39 @@ export class StageBuilderModel extends Diagram.DiagramModel {
     isParallelNodes = false
   ): { startX: number; startY: number; prevNodes?: Diagram.DefaultNodeModel[] } {
     if (node && node.stage) {
-      const { type } = getTypeOfStage(node.stage)
+      const type = stagesMap[node.stage.type]
       startX += this.gap
       const isSelected = selectedStageId === node.stage.identifier
-      const nodeRender =
-        type === StageType.APPROVAL
-          ? new Diagram.DiamondNodeModel({
-              identifier: node.stage.identifier,
-              customNodeStyle: {
-                // Without this doesn't look straight
-                marginTop: '2.5px',
-                ...getCommonStyles(isSelected)
-              },
-              name: node.stage.name,
-              width: 57,
-              isInComplete: node.stage.name === EmptyStageName,
-              canDelete: selectedStageId && selectedStageId.length > 0 ? false : true,
-              draggable: true,
-              height: 57,
-              iconStyle: { color: isSelected ? 'var(--white)' : MapStepTypeToIconColor[type] },
-              icon: MapStepTypeToIcon[type]
-            })
-          : new Diagram.DefaultNodeModel({
-              identifier: node.stage.identifier,
-              customNodeStyle: getCommonStyles(isSelected),
-              name: node.stage.name,
-              isInComplete: node.stage.name === EmptyStageName,
-              width: 114,
-              draggable: true,
-              canDelete: selectedStageId && selectedStageId.length > 0 ? false : true,
-              allowAdd: allowAdd === true,
-              height: 50,
-              iconStyle: { color: isSelected ? 'var(--white)' : MapStepTypeToIconColor[type] },
-              icon: MapStepTypeToIcon[type]
-            })
+      const nodeRender = type.isApproval
+        ? new Diagram.DiamondNodeModel({
+            identifier: node.stage.identifier,
+            customNodeStyle: {
+              // Without this doesn't look straight
+              marginTop: '2.5px',
+              ...getCommonStyles(isSelected)
+            },
+            name: node.stage.name,
+            width: 57,
+            isInComplete: node.stage.name === EmptyStageName,
+            canDelete: selectedStageId && selectedStageId.length > 0 ? false : true,
+            draggable: true,
+            height: 57,
+            iconStyle: { color: isSelected ? 'var(--white)' : type.iconColor },
+            icon: type.icon
+          })
+        : new Diagram.DefaultNodeModel({
+            identifier: node.stage.identifier,
+            customNodeStyle: getCommonStyles(isSelected),
+            name: node.stage.name,
+            isInComplete: node.stage.name === EmptyStageName,
+            width: 114,
+            draggable: true,
+            canDelete: selectedStageId && selectedStageId.length > 0 ? false : true,
+            allowAdd: allowAdd === true,
+            height: 50,
+            iconStyle: { color: isSelected ? 'var(--white)' : type.iconColor },
+            icon: type.icon
+          })
 
       this.addNode(nodeRender)
       nodeRender.setPosition(startX, startY)
@@ -85,13 +78,14 @@ export class StageBuilderModel extends Diagram.DiagramModel {
           let isSelected = false
           const icons: Array<IconName> = []
           node.parallel.forEach((nodeP: StageElementWrapper) => {
+            const type = stagesMap[nodeP.stage.type]
             if (nodeP.stage.identifier === selectedStageId) {
               parallelStageNames.unshift(nodeP.stage.name)
-              icons.unshift(MapStepTypeToIcon[getTypeOfStage(nodeP.stage).type])
+              icons.unshift(type.icon)
               isSelected = true
             } else {
               parallelStageNames.push(nodeP.stage.name)
-              icons.push(MapStepTypeToIcon[getTypeOfStage(nodeP.stage).type])
+              icons.push(type.icon)
             }
           })
           const groupedNode = new Diagram.GroupNodeModel({
@@ -138,6 +132,7 @@ export class StageBuilderModel extends Diagram.DiagramModel {
               nodeP,
               newX,
               newY,
+              stagesMap,
               selectedStageId,
               splitPaneSize,
               prevNodes,
@@ -170,6 +165,7 @@ export class StageBuilderModel extends Diagram.DiagramModel {
           node.parallel[0],
           startX,
           startY,
+          stagesMap,
           selectedStageId,
           splitPaneSize,
           prevNodes,
@@ -182,7 +178,13 @@ export class StageBuilderModel extends Diagram.DiagramModel {
     return { startX, startY }
   }
 
-  addUpdateGraph(data: NgPipeline, listeners: Listeners, selectedStageId?: string, splitPaneSize?: number): void {
+  addUpdateGraph(
+    data: NgPipeline,
+    listeners: Listeners,
+    stagesMap: StagesMap,
+    selectedStageId?: string,
+    splitPaneSize?: number
+  ): void {
     let { startX, startY } = this
     this.clearAllNodesAndLinks() // TODO: Improve this
 
@@ -210,7 +212,16 @@ export class StageBuilderModel extends Diagram.DiagramModel {
 
     let prevNodes: Diagram.DefaultNodeModel[] = [startNode]
     data.stages?.forEach((node: StageElementWrapper) => {
-      const resp = this.renderGraphNodes(node, startX, startY, selectedStageId, splitPaneSize, prevNodes, true)
+      const resp = this.renderGraphNodes(
+        node,
+        startX,
+        startY,
+        stagesMap,
+        selectedStageId,
+        splitPaneSize,
+        prevNodes,
+        true
+      )
       startX = resp.startX
       startY = resp.startY
       if (resp.prevNodes) {

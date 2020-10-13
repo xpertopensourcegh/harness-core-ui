@@ -3,9 +3,8 @@ import { cloneDeep } from 'lodash-es'
 import { Text, Card, Color } from '@wings-software/uikit'
 import { Tree, ITreeNode } from '@blueprintjs/core'
 import type { StageElement, StageElementWrapper, DeploymentStage, NGVariable as Variable } from 'services/cd-ng'
-import { StepWidget, StepViewType } from 'modules/common/exports'
+import { StepWidget, StepViewType, AbstractStepFactory } from 'modules/common/exports'
 import { StepType } from '../../../components/PipelineSteps/PipelineStepInterface'
-import factory from '../../../components/PipelineSteps/PipelineStepFactory'
 import { RightBar } from '../RightBar/RightBar'
 import i18n from './PipelineVariables.i18n'
 import { PipelineContext } from '../PipelineContext/PipelineContext'
@@ -21,7 +20,7 @@ function forEachNode(nodes: ITreeNode[], callback: (node: ITreeNode) => void): v
   }
 }
 
-function renderForStage(stage: StageElement): JSX.Element {
+function renderForStage(stage: StageElement, factory: AbstractStepFactory): JSX.Element {
   return (
     <Card className={css.variableCard} key={stage.identifier}>
       <Text color={Color.BLACK}>{i18n.stage}</Text>
@@ -63,7 +62,8 @@ function renderForStage(stage: StageElement): JSX.Element {
 export const PipelineVariables: React.FC = (): JSX.Element => {
   const {
     state: { pipeline },
-    updatePipeline
+    updatePipeline,
+    stepsFactory
   } = React.useContext(PipelineContext)
 
   const [nodes, updateNodes] = React.useState<ITreeNode[]>([])
@@ -77,10 +77,10 @@ export const PipelineVariables: React.FC = (): JSX.Element => {
     pipeline.stages.forEach(data => {
       if (data.parallel && data.parallel.length > 0) {
         data.parallel.forEach((nodeP: StageElementWrapper) => {
-          nodeP.stage && stagesCards.push(renderForStage(nodeP.stage))
+          nodeP.stage && stagesCards.push(renderForStage(nodeP.stage, stepsFactory))
         })
       } else if (data.stage) {
-        stagesCards.push(renderForStage(data.stage))
+        stagesCards.push(renderForStage(data.stage, stepsFactory))
       }
     })
   }
@@ -146,7 +146,7 @@ export const PipelineVariables: React.FC = (): JSX.Element => {
               </div>
 
               <StepWidget<{ variables: Variable[] }>
-                factory={factory}
+                factory={stepsFactory}
                 initialValues={{ variables: (pipeline as any).variables || [] }}
                 type={StepType.CustomVariable}
                 stepViewType={StepViewType.InputVariable}

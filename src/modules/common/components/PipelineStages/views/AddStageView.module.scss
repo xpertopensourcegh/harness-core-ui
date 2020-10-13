@@ -1,0 +1,46 @@
+.create-new-content {
+  max-width: 300px;
+
+  &.parallel {
+    max-width: 220px;
+
+    .create-new-cards {
+      grid-template-columns: 66px 66px 66px;
+    }
+  }
+
+  .create-new-cards {
+    display: grid;
+    grid-template-columns: 66px 66px 66px 66px;
+    gap: 10px;
+
+    .card-new {
+      width: 66px;
+      height: 62px;
+      padding: var(--spacing-xsmall);
+      cursor: pointer;
+      background-color: var(--pipeline-blue-bc);
+
+      &.disabled {
+        background-color: var(--pipeline-blue-bc) !important;
+      }
+      & > div {
+        text-align: center;
+      }
+
+      & > span {
+        padding: var(--spacing-xsmall) 18px var(--spacing-xsmall);
+      }
+
+      &:hover {
+        background-color: rgba($color: #000000, $alpha: 0.2);
+        color: var(--white);
+      }
+    }
+  }
+
+  .create-new-message {
+    font-size: var(--font-size-small);
+    padding-top: var(--spacing-large);
+  }
+}

@@ -1,31 +1,10 @@
 import { flatMap, findIndex } from 'lodash-es'
 import { v4 as uuid } from 'uuid'
-import type { IconName } from '@wings-software/uikit'
 import type { NodeModelListener, LinkModelListener, DiagramEngine } from '@projectstorm/react-diagrams-core'
-import type { StageElement, StageElementWrapper, NgPipeline, DeploymentStage } from 'services/cd-ng'
+import type { StageElementWrapper, NgPipeline } from 'services/cd-ng'
 import type { Diagram } from 'modules/common/exports'
 import { EmptyStageName } from '../PipelineConstants'
-
-export enum StageType {
-  DEPLOY = 'Deployment',
-  APPROVAL = 'Approval',
-  PIPELINE = 'Pipeline',
-  CUSTOM = 'Custom'
-}
-
-export const MapStepTypeToIcon: { [key in StageType]: IconName } = {
-  Deployment: 'pipeline-deploy',
-  Approval: 'pipeline-approval',
-  Pipeline: 'pipeline',
-  Custom: 'pipeline-custom'
-}
-
-export const MapStepTypeToIconColor: { [key in StageType]: string } = {
-  Deployment: 'var(--pipeline-deploy-stage-color)',
-  Approval: 'var(--pipeline-approval-stage-color)',
-  Pipeline: 'var(--pipeline-blue-color)',
-  Custom: 'var(--pipeline-custom-stage-color)'
-}
+import type { PipelineContextInterface, StagesMap } from '../PipelineContext/PipelineContext'
 
 export interface StageState {
   isConfigured: boolean
@@ -37,15 +16,17 @@ export interface PopoverData {
   isStageView: boolean
   groupStages?: StageElementWrapper[]
   isGroupStage?: boolean
+  stagesMap: StagesMap
   groupSelectedStageId?: string
   isParallel?: boolean
   event?: Diagram.DefaultNodeEvent
   addStage?: (newStage: StageElementWrapper, isParallel?: boolean, event?: Diagram.DefaultNodeEvent) => void
   onSubmitPrimaryData?: (values: StageElementWrapper, identifier: string) => void
-  onClickGroupStage?: (stageId: string) => void
+  onClickGroupStage?: (stageId: string, type: string) => void
+  renderPipelineStage: PipelineContextInterface['renderPipelineStage']
 }
 
-export const getNewStageFromType = (type: StageType): StageElementWrapper => {
+export const getNewStageFromType = (type: string): StageElementWrapper => {
   return {
     stage: {
       name: EmptyStageName,
@@ -156,17 +137,6 @@ export const removeNodeFromPipeline = (
     }
   }
   return false
-}
-
-export const getTypeOfStage = (stage: StageElement): { type: StageType; stage: DeploymentStage | StageElement } => {
-  if (stage.type === StageType.DEPLOY) {
-    return { type: StageType.DEPLOY, stage: stage as DeploymentStage }
-  } else if (stage.type === StageType.APPROVAL) {
-    return { type: StageType.APPROVAL, stage }
-  } else if (stage.type === StageType.PIPELINE) {
-    return { type: StageType.PIPELINE, stage }
-  }
-  return { type: StageType.CUSTOM, stage }
 }
 
 export const resetDiagram = (engine: DiagramEngine): void => {

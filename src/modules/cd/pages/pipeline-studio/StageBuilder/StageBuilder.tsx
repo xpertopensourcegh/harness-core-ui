@@ -9,7 +9,6 @@ import { DynamicPopover, DynamicPopoverHandlerBinding } from 'modules/common/com
 import { CanvasButtons } from 'modules/common/components/CanvasButtons/CanvasButtons'
 import type { StageElementWrapper, NgPipeline } from 'services/cd-ng'
 import { StageBuilderModel } from './StageBuilderModel'
-import StageSetupShell from '../../../components/StageSetupShell/StageSetupShell'
 import { PipelineContext } from '../PipelineContext/PipelineContext'
 import { EmptyStageName, MinimumSplitPaneSize, DefaultSplitPaneSize } from '../PipelineConstants'
 import {
@@ -21,9 +20,7 @@ import {
   resetDiagram,
   removeNodeFromPipeline
 } from './StageBuilderUtil'
-import { EditStageView } from './views/EditStageView'
 import { StageList } from './views/StageList'
-import { AddStageView } from './views/AddStageView'
 import { SplitViewTypes } from '../PipelineContext/PipelineActions'
 import { PipelineNotifications } from '../PipelineNotifications/PipelineNotifications'
 import { PipelineTriggers } from '../PipelineTriggers/PipelineTriggers'
@@ -55,9 +52,11 @@ export const renderPopover = ({
   groupStages,
   groupSelectedStageId,
   onClickGroupStage,
+  stagesMap,
   event,
   isStageView,
-  onSubmitPrimaryData
+  onSubmitPrimaryData,
+  renderPipelineStage
 }: PopoverData): JSX.Element => {
   if (isStageView && data) {
     const stageData = {
@@ -67,23 +66,34 @@ export const renderPopover = ({
         name: data?.stage.name === EmptyStageName ? '' : data.stage.name
       }
     }
-    return (
-      <EditStageView
-        data={stageData}
-        onSubmit={(values, identifier) => {
+    return renderPipelineStage({
+      minimal: true,
+      stageType: data.stage.type,
+      stageProps: {
+        data: stageData,
+        onSubmit: (values: StageElementWrapper, identifier: string) => {
           data.stage = {
             ...values.stage
           }
           onSubmitPrimaryData?.(values, identifier)
-        }}
+        }
+      }
+    })
+  } else if (isGroupStage) {
+    return (
+      <StageList
+        stagesMap={stagesMap}
+        stages={groupStages || []}
+        selectedStageId={groupSelectedStageId}
+        onClick={onClickGroupStage}
       />
     )
-  } else if (isGroupStage) {
-    return <StageList stages={groupStages || []} selectedStageId={groupSelectedStageId} onClick={onClickGroupStage} />
   }
-  return (
-    <AddStageView isParallel={isParallel} callback={type => addStage?.(getNewStageFromType(type), isParallel, event)} />
-  )
+  return renderPipelineStage({
+    isParallel,
+    showSelectMenu: true,
+    onSelectStage: type => addStage?.(getNewStageFromType(type as any), isParallel, event)
+  })
 }
 
 const StageBuilder: React.FC<{}> = (): JSX.Element => {
@@ -92,13 +102,15 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
       pipeline,
       pipelineView: {
         isSplitViewOpen,
-        splitViewData: { selectedStageId, type = SplitViewTypes.StageView }
+        splitViewData: { selectedStageId, type = SplitViewTypes.StageView, stageType }
       },
       pipelineView,
       isInitialized
     },
+    stagesMap,
     updatePipeline,
-    updatePipelineView
+    updatePipelineView,
+    renderPipelineStage
   } = React.useContext(PipelineContext)
 
   const [dynamicPopoverHandler, setDynamicPopoverHandler] = React.useState<
@@ -173,7 +185,7 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
       }
     }
     dynamicPopoverHandler?.hide()
-    model.addUpdateGraph(pipeline, { nodeListeners, linkListeners }, selectedStageId)
+    model.addUpdateGraph(pipeline, { nodeListeners, linkListeners }, stagesMap, selectedStageId)
     engine.repaintCanvas()
     updatePipeline(pipeline)
   }
@@ -197,7 +209,9 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
             nodeRender,
             {
               addStage,
-              isStageView: false
+              isStageView: false,
+              renderPipelineStage,
+              stagesMap
             },
             { useArrows: true, darkMode: true }
           )
@@ -211,15 +225,17 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
                 groupSelectedStageId: selectedStageId,
                 isStageView: false,
                 groupStages: parent.parallel,
-                onClickGroupStage: (stageId: string) => {
+                onClickGroupStage: (stageId: string, typeOfStage: string) => {
                   dynamicPopoverHandler?.hide()
                   resetDiagram(engine)
                   updatePipelineView({
                     ...pipelineView,
                     isSplitViewOpen: true,
-                    splitViewData: { selectedStageId: stageId, type: SplitViewTypes.StageView }
+                    splitViewData: { selectedStageId: stageId, type: SplitViewTypes.StageView, stageType: typeOfStage }
                   })
-                }
+                },
+                stagesMap,
+                renderPipelineStage
               },
               { useArrows: true, darkMode: true }
             )
@@ -231,7 +247,11 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
             updatePipelineView({
               ...pipelineView,
               isSplitViewOpen: true,
-              splitViewData: { selectedStageId: data?.stage?.identifier, type: SplitViewTypes.StageView }
+              splitViewData: {
+                selectedStageId: data?.stage?.identifier,
+                type: SplitViewTypes.StageView,
+                stageType: data?.stage?.type || 'Deployment'
+              }
             })
           } else if (!isSplitViewOpen) {
             if (stageMap.has(data?.stage?.identifier)) {
@@ -239,7 +259,11 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
               updatePipelineView({
                 ...pipelineView,
                 isSplitViewOpen: true,
-                splitViewData: { selectedStageId: data?.stage?.identifier, type: SplitViewTypes.StageView }
+                splitViewData: {
+                  selectedStageId: data?.stage?.identifier,
+                  type: SplitViewTypes.StageView,
+                  stageType: data?.stage?.type || 'Deployment'
+                }
               })
             } else {
               dynamicPopoverHandler?.show(
@@ -255,9 +279,15 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
                     updatePipelineView({
                       ...pipelineView,
                       isSplitViewOpen: true,
-                      splitViewData: { selectedStageId: identifier, type: SplitViewTypes.StageView }
+                      splitViewData: {
+                        selectedStageId: identifier,
+                        type: SplitViewTypes.StageView,
+                        stageType: node.stage.type
+                      }
                     })
-                  }
+                  },
+                  stagesMap,
+                  renderPipelineStage
                 },
                 { useArrows: false, darkMode: false }
               )
@@ -284,7 +314,9 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
             addStage,
             isParallel: true,
             isStageView: false,
-            event: eventTemp
+            event: eventTemp,
+            stagesMap,
+            renderPipelineStage
           },
           { useArrows: true, darkMode: true },
           eventTemp.callback
@@ -335,7 +367,9 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
           {
             addStage,
             isStageView: false,
-            event: eventTemp
+            event: eventTemp,
+            stagesMap,
+            renderPipelineStage
           },
           { useArrows: true, darkMode: true }
         )
@@ -360,7 +394,7 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
   const model = React.useMemo(() => new StageBuilderModel(), [])
   const [splitPaneSize, setSplitPaneSize] = React.useState(DefaultSplitPaneSize)
 
-  model.addUpdateGraph(pipeline, { nodeListeners, linkListeners }, selectedStageId, splitPaneSize)
+  model.addUpdateGraph(pipeline, { nodeListeners, linkListeners }, stagesMap, selectedStageId, splitPaneSize)
   const setSplitPaneSizeDeb = debounce(setSplitPaneSize, 200)
   // load model into engine
   engine.setModel(model)
@@ -429,7 +463,7 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
                   }}
                 />
               </div>
-              {type === SplitViewTypes.StageView && <StageSetupShell />}
+              {type === SplitViewTypes.StageView && renderPipelineStage({ stageType, minimal: false })}
               {type === SplitViewTypes.Notifications && <PipelineNotifications />}
               {type === SplitViewTypes.Triggers && <PipelineTriggers />}
             </div>

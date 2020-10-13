@@ -5,9 +5,8 @@ import { get, cloneDeep, uniqBy } from 'lodash-es'
 import { useGet } from 'restful-react'
 
 import cx from 'classnames'
-import type { StepData } from 'modules/common/components/AbstractSteps/AbstractStepFactory'
+import type { AbstractStepFactory, StepData } from 'modules/common/components/AbstractSteps/AbstractStepFactory'
 
-import factory from 'modules/cd/components/PipelineSteps/PipelineStepFactory'
 import i18n from './StepPalette.18n'
 import { iconMap, iconMapByName } from './iconMap'
 import { RightBar } from '../RightBar/RightBar'
@@ -32,9 +31,15 @@ const filterContext = {
 export interface StepPaletteProps {
   onSelect: (item: StepData) => void
   onClose: () => void
+  stepsFactory: AbstractStepFactory
   selectedStage: object
 }
-export const StepPalette: React.FC<StepPaletteProps> = ({ onSelect, onClose, selectedStage }): JSX.Element => {
+export const StepPalette: React.FC<StepPaletteProps> = ({
+  onSelect,
+  onClose,
+  selectedStage,
+  stepsFactory
+}): JSX.Element => {
   const [stepCategories, setStepsCategories] = useState<{ name: string; stepCategories: []; stepsData: StepsData[] }[]>(
     []
   )
@@ -134,14 +139,14 @@ export const StepPalette: React.FC<StepPaletteProps> = ({ onSelect, onClose, sel
                           onSelect({
                             name: stepData.name,
                             type: stepData.type,
-                            icon: factory.getStepIcon(stepData.type)
+                            icon: stepsFactory.getStepIcon(stepData.type)
                           })
                         }
                       }}
                     >
-                      {factory.getStep(stepData.type) ? (
+                      {stepsFactory.getStep(stepData.type) ? (
                         <Card interactive={true} elevation={0} selected={false}>
-                          <Icon name={factory.getStepIcon(stepData.type)} />
+                          <Icon name={stepsFactory.getStepIcon(stepData.type)} />
                         </Card>
                       ) : (
                         <Card
@@ -172,14 +177,14 @@ export const StepPalette: React.FC<StepPaletteProps> = ({ onSelect, onClose, sel
                             onSelect({
                               name: step.name,
                               type: step.type,
-                              icon: factory.getStepIcon(step.type)
+                              icon: stepsFactory.getStepIcon(step.type)
                             })
                           }
                         }}
                       >
-                        {factory.getStep(step.type) ? (
+                        {stepsFactory.getStep(step.type) ? (
                           <Card interactive={true} elevation={0} selected={false}>
-                            <Icon name={factory.getStepIcon(step.type)} />
+                            <Icon name={stepsFactory.getStepIcon(step.type)} />
                           </Card>
                         ) : (
                           <Card

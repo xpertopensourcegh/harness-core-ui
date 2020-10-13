@@ -2,6 +2,7 @@ import React from 'react'
 import { openDB, IDBPDatabase, deleteDB } from 'idb'
 import { isEqual, cloneDeep } from 'lodash-es'
 import { parse, stringify } from 'yaml'
+import type { IconName } from '@wings-software/uikit'
 import {
   NgPipeline,
   GetPipelineListQueryParams,
@@ -15,6 +16,8 @@ import {
 import { ModuleName, loggerFor } from 'framework/exports'
 import SessionToken from 'framework/utils/SessionToken'
 import type { YamlBuilderHandlerBinding } from 'modules/common/interfaces/YAMLBuilderProps'
+import type { PipelineStagesProps } from 'modules/common/components/PipelineStages/PipelineStages'
+import type { AbstractStepFactory } from 'modules/common/exports'
 import {
   PipelineReducerState,
   ActionReturnType,
@@ -102,8 +105,14 @@ const IdbPipelineStoreName = 'pipeline-cache'
 const PipelineDBName = 'pipeline-db'
 const KeyPath = 'identifier'
 
-interface PipelineContextInterface {
+export interface StagesMap {
+  [key: string]: { name: string; type: string; icon: IconName; iconColor: string; isApproval: boolean }
+}
+export interface PipelineContextInterface {
   state: PipelineReducerState
+  stagesMap: StagesMap
+  stepsFactory: AbstractStepFactory
+  renderPipelineStage: (args: Omit<PipelineStagesProps, 'children'>) => React.ReactElement<PipelineStagesProps>
   fetchPipeline: (forceFetch?: boolean, forceUpdate?: boolean) => Promise<void>
   setYamlHandler: (yamlHandler: YamlBuilderHandlerBinding) => void
   updatePipeline: (pipeline: NgPipeline) => Promise<void>
@@ -288,6 +297,10 @@ const _deletePipelineCache = async (queryParams: GetPipelineListQueryParams, ide
 
 export const PipelineContext = React.createContext<PipelineContextInterface>({
   state: initialState,
+  stepsFactory: {} as AbstractStepFactory,
+  stagesMap: {},
+  // eslint-disable-next-line react/display-name
+  renderPipelineStage: () => <div />,
   fetchPipeline: () => new Promise<void>(() => undefined),
   updatePipelineView: () => undefined,
   setYamlHandler: () => undefined,
@@ -299,7 +312,10 @@ export const PipelineContext = React.createContext<PipelineContextInterface>({
 export const PipelineProvider: React.FC<{
   queryParams: GetPipelineListQueryParams
   pipelineIdentifier: string
-}> = ({ queryParams, pipelineIdentifier, children }) => {
+  stepsFactory: AbstractStepFactory
+  stagesMap: StagesMap
+  renderPipelineStage: PipelineContextInterface['renderPipelineStage']
+}> = ({ queryParams, pipelineIdentifier, children, renderPipelineStage, stepsFactory, stagesMap }) => {
   const [state, dispatch] = React.useReducer(PipelineReducer, initialState)
   state.pipelineIdentifier = pipelineIdentifier
   const fetchPipeline = _fetchPipeline.bind(null, dispatch, queryParams, pipelineIdentifier)
@@ -333,6 +349,9 @@ export const PipelineProvider: React.FC<{
     <PipelineContext.Provider
       value={{
         state,
+        stepsFactory,
+        stagesMap,
+        renderPipelineStage,
         fetchPipeline,
         updatePipeline,
         updatePipelineView,

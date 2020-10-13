@@ -8,7 +8,6 @@ import { addIconInfoToSnippets } from 'modules/common/components/YAMLBuilder/YAM
 import { YAMLService } from 'modules/dx/services'
 import { useToaster } from 'modules/common/exports'
 import type { SnippetInterface } from 'modules/common/interfaces/SnippetInterface'
-import factory from 'modules/cd/components/PipelineSteps/PipelineStepFactory'
 import type { YamlBuilderHandlerBinding } from 'modules/common/interfaces/YAMLBuilderProps'
 import { PipelineContext } from '../PipelineContext/PipelineContext'
 import css from './PipelineYamlView.module.scss'
@@ -17,6 +16,7 @@ const PipelineYamlView: React.FC = () => {
   const {
     state: { pipeline },
     updatePipeline,
+    stepsFactory,
     setYamlHandler: setYamlHandlerContext
   } = React.useContext(PipelineContext)
   const { showError } = useToaster()
@@ -61,7 +61,7 @@ const PipelineYamlView: React.FC = () => {
         height={'calc(100vh - 200px)'}
         snippets={snippets}
         onSnippetSearch={fetchSnippets}
-        invocationMap={factory.getInvocationMap()}
+        invocationMap={stepsFactory.getInvocationMap()}
         showSnippetSection={false}
       />
     </div>

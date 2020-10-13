@@ -16,7 +16,7 @@ import { DefaultNewPipelineId, SplitViewTypes } from '../PipelineContext/Pipelin
 import { RightDrawer } from '../RightDrawer/RightDrawer'
 import css from './PipelineCanvas.module.scss'
 
-export const PipelineCanvas: React.FC = ({ children }): JSX.Element => {
+export const PipelineCanvas: React.FC<{ children: React.ReactNode }> = ({ children }): JSX.Element => {
   const { state, updatePipeline, deletePipelineCache, updatePipelineView, fetchPipeline } = React.useContext(
     PipelineContext
   )

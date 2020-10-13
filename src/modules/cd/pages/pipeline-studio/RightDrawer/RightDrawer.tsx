@@ -23,7 +23,8 @@ export const RightDrawer: React.FC = (): JSX.Element => {
       pipelineView
     },
     updatePipeline,
-    updatePipelineView
+    updatePipelineView,
+    stepsFactory
   } = React.useContext(PipelineContext)
   const { type, data, ...restDrawerProps } = drawerData
   const { stage: selectedStage } = getStageFromPipeline(pipeline, selectedStageId || '')
@@ -49,6 +50,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
       {type === DrawerTypes.StepConfig && data?.stepConfig && data?.stepConfig.node && (
         <StepCommands
           step={data.stepConfig.node}
+          stepsFactory={stepsFactory}
           onChange={item => {
             const node = data?.stepConfig?.node
             if (node) {
@@ -65,6 +67,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
       {type === DrawerTypes.AddStep && selectedStageId && data?.paletteData && (
         <StepPalette
           selectedStage={selectedStage || {}}
+          stepsFactory={stepsFactory}
           onSelect={(item: StepData) => {
             const paletteData = data.paletteData
             if (paletteData?.entity) {

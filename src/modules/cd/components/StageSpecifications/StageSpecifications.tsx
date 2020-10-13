@@ -6,7 +6,7 @@ import { cloneDeep } from 'lodash-es'
 
 import { PipelineContext } from 'modules/cd/pages/pipeline-studio/PipelineContext/PipelineContext'
 import { getStageFromPipeline } from 'modules/cd/pages/pipeline-studio/StageBuilder/StageBuilderUtil'
-import { EditStageView } from '../../pages/pipeline-studio/StageBuilder/views/EditStageView'
+import { EditStageView } from '../CDPipelineStages/stages/DeployStage/EditStageView/EditStageView'
 
 export default function StageSpecifications(): JSX.Element {
   const {

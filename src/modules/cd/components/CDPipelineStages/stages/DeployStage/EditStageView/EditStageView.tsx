@@ -16,9 +16,8 @@ import {
 import * as Yup from 'yup'
 import type { IconName } from '@blueprintjs/core'
 import type { StageElementWrapper } from 'services/cd-ng'
-import i18n from '../StageBuilder.i18n'
-import { MapStepTypeToIcon, StageType, getTypeOfStage } from '../StageBuilderUtil'
-import css from '../StageBuilder.module.scss'
+import i18n from './EditStageView.i18n'
+import css from './EditStageView.module.scss'
 
 const collapseProps = {
   collapsedIcon: 'small-plus' as IconName,
@@ -64,11 +63,10 @@ export interface EditStageView {
 }
 
 export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, context, onChange }): JSX.Element => {
-  const type = data ? getTypeOfStage(data.stage).type : StageType.DEPLOY
   return (
     <div className={css.stageCreate}>
       {!context && (
-        <Text icon={MapStepTypeToIcon[type]} iconProps={{ size: 16 }}>
+        <Text icon="pipeline-deploy" iconProps={{ size: 16 }}>
           {i18n.aboutYourStage}
         </Text>
       )}

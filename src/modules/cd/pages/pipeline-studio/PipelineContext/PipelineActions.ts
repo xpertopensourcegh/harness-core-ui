@@ -58,6 +58,7 @@ export interface PipelineViewData {
   isSplitViewOpen: boolean
   splitViewData: {
     selectedStageId?: string
+    stageType?: string
     type?: SplitViewTypes
   }
   isDrawerOpened: boolean

@@ -78,6 +78,7 @@ const ExecutionGraph = (): JSX.Element => {
       },
       pipelineView
     },
+    stepsFactory,
     updatePipelineView,
     updatePipeline
   } = React.useContext(PipelineContext)
@@ -403,6 +404,7 @@ const ExecutionGraph = (): JSX.Element => {
     state.isRollback ? state.data.rollbackSteps || [] : state.data.steps || [],
     { nodeListeners, linkListeners, layerListeners },
     state.stepStates,
+    stepsFactory,
     state.isRollback
   )
 

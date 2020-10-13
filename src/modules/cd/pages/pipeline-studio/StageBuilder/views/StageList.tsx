@@ -1,28 +1,32 @@
 import React from 'react'
 import { IconName, Icon, Layout, Text } from '@wings-software/uikit'
 import type { StageElementWrapper } from 'services/cd-ng'
-import { MapStepTypeToIcon, getTypeOfStage } from '../StageBuilderUtil'
+import type { StagesMap } from '../../PipelineContext/PipelineContext'
 
 interface StageListProps {
   stages: StageElementWrapper[]
   selectedStageId?: string
-  onClick?: (stageId: string) => void
+  stagesMap: StagesMap
+  onClick?: (stageId: string, type: string) => void
 }
 
-export const StageList: React.FC<StageListProps> = ({ stages, selectedStageId, onClick }): JSX.Element => {
-  const list: Array<{ name: string; icon: IconName; identifier: string }> = []
+export const StageList: React.FC<StageListProps> = ({ stages, selectedStageId, onClick, stagesMap }): JSX.Element => {
+  const list: Array<{ name: string; icon: IconName; identifier: string; type: string }> = []
   stages.forEach((node: StageElementWrapper) => {
+    const type = stagesMap[node.stage.type]
     if (node.stage.identifier === selectedStageId) {
       list.unshift({
         name: node.stage.name,
         identifier: node.stage.identifier,
-        icon: MapStepTypeToIcon[getTypeOfStage(node.stage).type]
+        icon: type.icon,
+        type: node.stage.type
       })
     } else {
       list.push({
         name: node.stage.name,
         identifier: node.stage.identifier,
-        icon: MapStepTypeToIcon[getTypeOfStage(node.stage).type]
+        icon: type.icon,
+        type: node.stage.type
       })
     }
   })
@@ -36,7 +40,7 @@ export const StageList: React.FC<StageListProps> = ({ stages, selectedStageId, o
           key={node.identifier}
           onClick={e => {
             e.stopPropagation()
-            onClick?.(node.identifier)
+            onClick?.(node.identifier, node.type)
           }}
         >
           <Icon name={node.icon} />
