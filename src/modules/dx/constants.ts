@@ -15,7 +15,9 @@ export const Connectors: ConnectorType = {
   DOCKER: 'DockerRegistry',
   GCP_KMS: 'GcpKms',
   LOCAL: 'Local',
-  AWS: 'Aws'
+  AWS: 'Aws',
+  NEXUS: 'Nexus',
+  ARTIFACTORY: 'Artifactory'
 }
 
 export const ConnectorInfoText = {
@@ -28,7 +30,9 @@ export const ConnectorInfoText = {
   YAML: 'Create via YAML Builder',
   GCP_KMS: 'Secret Manager',
   LOCAL: 'Secret Manager',
-  AWS: 'AWS'
+  AWS: 'AWS',
+  NEXUS: 'Nexus',
+  ARTIFACTORY: 'Artifactory'
 }
 export const ConnectorStatus: ConnectorStatusType = {
   SUCCESS: 'SUCCESS',

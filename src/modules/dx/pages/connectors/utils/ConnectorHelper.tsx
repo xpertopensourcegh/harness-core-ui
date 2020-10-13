@@ -59,6 +59,10 @@ export const getHeadingByType = (type: string) => {
       return i18n.dockerConnectorDetails
     case Connectors.AWS:
       return i18n.awsConnectorDetails
+    case Connectors.NEXUS:
+      return i18n.nexusConnectorDetails
+    case Connectors.ARTIFACTORY:
+      return i18n.artifactoryConnectorDetails
     default:
       return null
   }
@@ -82,6 +86,10 @@ export const getConnectorTextByType = (type: string) => {
       return i18n.LABEL.docker
     case Connectors.AWS:
       return i18n.LABEL.aws
+    case Connectors.NEXUS:
+      return i18n.LABEL.nexus
+    case Connectors.ARTIFACTORY:
+      return i18n.LABEL.artifactory
     default:
       return null
   }

@@ -263,6 +263,43 @@ export const buildKubFormData = (connector: ConnectorInfoDTO) => {
   }
 }
 
+export const buildNexusPayload = (formData: FormData) => {
+  const savedData = {
+    type: Connectors.NEXUS,
+    ...pick(formData, ['name', 'identifier', 'description', 'tags']),
+    spec: {
+      nexusServerUrl: formData?.nexusServerUrl,
+      version: formData?.nexusVersion,
+      auth:
+        !formData.username && !formData.passwordRef
+          ? null
+          : {
+              type: 'UsernamePassword',
+              spec: userPasswrdAuthField(formData)
+            }
+    }
+  }
+  return { connector: savedData }
+}
+
+export const buildArtifactoryPayload = (formData: FormData) => {
+  const savedData = {
+    type: Connectors.ARTIFACTORY,
+    ...pick(formData, ['name', 'identifier', 'description', 'tags']),
+    spec: {
+      artifactoryServerUrl: formData?.artifactoryServerUrl,
+      auth:
+        !formData.username && !formData.passwordRef
+          ? null
+          : {
+              type: 'UsernamePassword',
+              spec: userPasswrdAuthField(formData)
+            }
+    }
+  }
+  return { connector: savedData }
+}
+
 export const getIconByType = (type: ConnectorInfoDTO['type'] | undefined): IconName => {
   switch (type) {
     case Connectors.KUBERNETES_CLUSTER:
@@ -280,6 +317,10 @@ export const getIconByType = (type: ConnectorInfoDTO['type'] | undefined): IconN
       return 'service-dockerhub'
     case Connectors.AWS:
       return 'service-aws'
+    case Connectors.NEXUS:
+      return 'service-nexus'
+    case Connectors.ARTIFACTORY:
+      return 'service-artifactory'
     default:
       return 'cog'
   }
@@ -308,6 +349,8 @@ export const getConnectorDisplayName = (type: string) => {
       return 'Splunk server'
     case Connectors.AWS:
       return 'AWS'
+    case Connectors.NEXUS:
+      return 'Nexus'
     default:
       return ''
   }

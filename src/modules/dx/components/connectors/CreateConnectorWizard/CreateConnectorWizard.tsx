@@ -8,6 +8,8 @@ import CreateAppDynamicsConnector from '../CreateConnector/AppDynamicsConnector/
 import CreateSplunkConnector from '../CreateConnector/SplunkConnector/CreateSplunkConnector'
 import CreateDockerConnector from '../CreateConnector/DockerConnector/CreateDockerConnector'
 import CreateAWSConnector from '../CreateConnector/AWSConnector/CreateAWSConnector'
+import CreateNexusConnector from '../CreateConnector/NexusConnector/CreateNexusConnector'
+import CreateArtifactoryConnector from '../CreateConnector/ArtifactoryConnector/CreateArtifactoryConnector'
 import css from './CreateConnectorWizard.module.scss'
 
 interface CreateConnectorWizardProps {
@@ -71,6 +73,10 @@ export const ConnectorWizard: React.FC<CreateConnectorWizardProps> = props => {
 
     case Connectors.AWS:
       return <CreateAWSConnector onConnectorCreated={props.onSuccess} hideLightModal={hideLightModal} />
+    case Connectors.NEXUS:
+      return <CreateNexusConnector onConnectorCreated={props.onSuccess} hideLightModal={hideLightModal} />
+    case Connectors.ARTIFACTORY:
+      return <CreateArtifactoryConnector onConnectorCreated={props.onSuccess} hideLightModal={hideLightModal} />
     default:
       return null
   }

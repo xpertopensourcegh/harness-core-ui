@@ -10,9 +10,13 @@ export default {
     appdynamics: 'AppDynamics connector',
     splunk: 'Splunk connector',
     docker: 'Docker Connector',
-    aws: 'AWS Connector'
+    aws: 'AWS Connector',
+    nexus: 'Nexus Connector',
+    artifactory: 'Artifactory Connector'
   },
   appDynamicsDetails: 'AppDynamics Connector Details',
   splunkConnectorDetails: 'Splunk Connector Details',
-  awsConnectorDetails: 'AWS Connector Details'
+  awsConnectorDetails: 'AWS Connector Details',
+  nexusConnectorDetails: 'Nexus Connector Details',
+  artifactoryConnectorDetails: 'Artifactory Connector Details'
 }

@@ -106,7 +106,9 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ mockData }) => {
     { label: ConnectorInfoText.APP_DYNAMICS, value: Connectors.APP_DYNAMICS, icon: 'service-appdynamics' },
     { label: ConnectorInfoText.SPLUNK, value: Connectors.SPLUNK, icon: 'service-splunk' },
     { label: ConnectorInfoText.DOCKER, value: Connectors.DOCKER, icon: 'service-dockerhub' },
-    { label: ConnectorInfoText.AWS, value: Connectors.AWS, icon: 'service-aws' }
+    { label: ConnectorInfoText.AWS, value: Connectors.AWS, icon: 'service-aws' },
+    { label: ConnectorInfoText.NEXUS, value: Connectors.NEXUS, icon: 'service-nexus' },
+    { label: ConnectorInfoText.ARTIFACTORY, value: Connectors.ARTIFACTORY, icon: 'service-artifactory' }
   ]
 
   return (

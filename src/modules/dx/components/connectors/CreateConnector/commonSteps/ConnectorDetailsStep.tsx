@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 import {
   Layout,
   Button,
@@ -12,7 +12,13 @@ import {
 import { useParams } from 'react-router'
 import * as Yup from 'yup'
 import { StringUtils } from 'modules/common/exports'
-import { useValidateTheIdentifierIsUnique, ConnectorConfigDTO, ConnectorInfoDTO } from 'services/cd-ng'
+import {
+  ConnectorConfigDTO,
+  ConnectorInfoDTO,
+  ResponseBoolean,
+  validateTheIdentifierIsUniquePromise,
+  Failure
+} from 'services/cd-ng'
 import { getHeadingByType, getConnectorTextByType } from '../../../../pages/connectors/utils/ConnectorHelper'
 import i18n from './ConnectorDetailsStep.i18n'
 import css from './ConnectorDetailsStep.module.scss'
@@ -22,32 +28,48 @@ interface ConnectorDetailsStepProps extends StepProps<ConnectorInfoDTO> {
   name: string
   setFormData?: (formData: ConnectorConfigDTO) => void
   formData?: ConnectorConfigDTO
+  mock?: ResponseBoolean
 }
 
 const ConnectorDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDetailsStepProps> = props => {
   const { prevStepData, nextStep } = props
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
-  const [stepData, setStepData] = useState<ConnectorConfigDTO>(prevStepData || props.formData || {})
-  const { loading, data, refetch: validateUniqueIdentifier, error } = useValidateTheIdentifierIsUnique({
-    lazy: true
-  })
   const mounted = useRef(false)
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
-  useEffect(() => {
-    if (mounted.current && !loading) {
-      if (data?.data) {
-        nextStep?.({ ...prevStepData, ...stepData })
-      } else {
-        if (error) {
-          modalErrorHandler?.showDanger(error.message)
+  const [loading, setLoading] = useState(false)
+
+  const handleSubmit = async (formData: ConnectorConfigDTO): Promise<void> => {
+    mounted.current = true
+    setLoading(true)
+
+    try {
+      const response = await validateTheIdentifierIsUniquePromise({
+        queryParams: {
+          identifier: formData.identifier,
+          accountIdentifier: accountId,
+          orgIdentifier: orgIdentifier,
+          projectIdentifier: projectIdentifier
+        },
+        mock: props.mock
+      })
+      setLoading(false)
+
+      if ('SUCCESS' === response.status) {
+        if (response.data) {
+          props.setFormData?.(formData)
+          nextStep?.({ ...prevStepData, ...formData })
         } else {
           modalErrorHandler?.showDanger(i18n.validateError)
         }
+      } else {
+        throw response as Failure
       }
-    } else {
-      mounted.current = true
+    } catch (error) {
+      setLoading(false)
+      modalErrorHandler?.showDanger(error.message)
     }
-  }, [mounted, loading, data])
+  }
+
   return (
     <Layout.Vertical spacing="xxlarge" className={css.firstep}>
       <div className={css.heading}>{getHeadingByType(props.type)}</div>
@@ -73,16 +95,7 @@ const ConnectorDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDe
           })
         })}
         onSubmit={formData => {
-          setStepData(formData)
-          validateUniqueIdentifier({
-            queryParams: {
-              identifier: formData.identifier,
-              accountIdentifier: accountId,
-              orgIdentifier: orgIdentifier,
-              projectIdentifier: projectIdentifier
-            }
-          })
-          props.setFormData?.(formData)
+          handleSubmit(formData)
         }}
       >
         {() => (
