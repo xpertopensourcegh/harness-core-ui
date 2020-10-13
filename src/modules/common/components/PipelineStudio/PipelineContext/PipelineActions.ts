@@ -2,8 +2,8 @@ import { clone } from 'lodash-es'
 import type { IDrawerProps } from '@blueprintjs/core'
 import type { NgPipeline, ExecutionWrapper } from 'services/cd-ng'
 import type { SnippetInterface } from 'modules/common/interfaces/SnippetInterface'
-import type { Diagram } from 'modules/common/exports'
 import type { YamlBuilderHandlerBinding } from 'modules/common/interfaces/YAMLBuilderProps'
+import type { DefaultNodeModel } from '../../Diagram'
 
 export enum PipelineActions {
   DBInitialize = 'DBInitialize',
@@ -46,7 +46,7 @@ export interface DrawerData extends Omit<IDrawerProps, 'isOpen'> {
       isAddStepOverride: boolean
       isRollback: boolean
       isParallelNodeClicked: boolean
-      entity: Diagram.DefaultNodeModel
+      entity: DefaultNodeModel
     }
     stepConfig?: {
       node: ExecutionWrapper

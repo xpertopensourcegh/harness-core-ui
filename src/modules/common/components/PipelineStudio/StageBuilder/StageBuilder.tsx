@@ -4,10 +4,19 @@ import cx from 'classnames'
 import { debounce } from 'lodash-es'
 import type { NodeModelListener, LinkModelListener } from '@projectstorm/react-diagrams-core'
 import SplitPane from 'react-split-pane'
-import { Diagram } from 'modules/common/exports'
 import { DynamicPopover, DynamicPopoverHandlerBinding } from 'modules/common/components/DynamicPopover/DynamicPopover'
 import { CanvasButtons } from 'modules/common/components/CanvasButtons/CanvasButtons'
 import type { StageElementWrapper, NgPipeline } from 'services/cd-ng'
+import {
+  CanvasWidget,
+  createEngine,
+  DefaultLinkEvent,
+  DefaultLinkModel,
+  DefaultNodeEvent,
+  DefaultNodeModel,
+  DiagramType,
+  Event
+} from '../../Diagram'
 import { StageBuilderModel } from './StageBuilderModel'
 import { PipelineContext } from '../PipelineContext/PipelineContext'
 import { EmptyStageName, MinimumSplitPaneSize, DefaultSplitPaneSize } from '../PipelineConstants'
@@ -124,18 +133,18 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
   const addStage = (
     newStage: StageElementWrapper,
     isParallel = false,
-    event?: Diagram.DefaultNodeEvent,
+    event?: DefaultNodeEvent,
     insertAt?: number
   ): void => {
     if (!pipeline.stages) {
       pipeline.stages = []
     }
-    if (event?.entity && event.entity instanceof Diagram.DefaultLinkModel) {
-      let node = event.entity.getSourcePort().getNode() as Diagram.DefaultNodeModel
+    if (event?.entity && event.entity instanceof DefaultLinkModel) {
+      let node = event.entity.getSourcePort().getNode() as DefaultNodeModel
       let { stage } = getStageFromPipeline(pipeline, node.getIdentifier())
       let next = 1
       if (!stage) {
-        node = event.entity.getTargetPort().getNode() as Diagram.DefaultNodeModel
+        node = event.entity.getTargetPort().getNode() as DefaultNodeModel
         stage = getStageFromPipeline(pipeline, node.getIdentifier()).stage
         next = 0
       }
@@ -146,12 +155,12 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
         }
       } else {
         // parallel next parallel case
-        let nodeParallel = event.entity.getSourcePort().getNode() as Diagram.DefaultNodeModel
+        let nodeParallel = event.entity.getSourcePort().getNode() as DefaultNodeModel
         let nodeId = nodeParallel.getIdentifier().split(EmptyNodeSeparator)[1]
         stage = getStageFromPipeline(pipeline, nodeId).parent
         next = 1
         if (!stage) {
-          nodeParallel = event.entity.getTargetPort().getNode() as Diagram.DefaultNodeModel
+          nodeParallel = event.entity.getTargetPort().getNode() as DefaultNodeModel
           nodeId = nodeParallel.getIdentifier().split(EmptyNodeSeparator)[2]
           stage = getStageFromPipeline(pipeline, nodeId).parent
           next = 0
@@ -163,7 +172,7 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
           }
         }
       }
-    } else if (isParallel && event?.entity && event.entity instanceof Diagram.DefaultNodeModel) {
+    } else if (isParallel && event?.entity && event.entity instanceof DefaultNodeModel) {
       const { stage, parent } = getStageFromPipeline(pipeline, event.entity.getIdentifier())
       if (stage) {
         if (parent && parent.parallel && parent.parallel.length > 0) {
@@ -200,11 +209,11 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
 
   const nodeListeners: NodeModelListener = {
     // Can not remove this Any because of React Diagram Issue
-    [Diagram.Event.ClickNode]: (event: any) => {
-      const eventTemp = event as Diagram.DefaultNodeEvent
+    [Event.ClickNode]: (event: any) => {
+      const eventTemp = event as DefaultNodeEvent
       const nodeRender = document.querySelector(`[data-nodeid="${eventTemp.entity.getID()}"]`)
       if (nodeRender && eventTemp.entity) {
-        if (eventTemp.entity.getType() === Diagram.DiagramType.CreateNew) {
+        if (eventTemp.entity.getType() === DiagramType.CreateNew) {
           dynamicPopoverHandler?.show(
             nodeRender,
             {
@@ -215,7 +224,7 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
             },
             { useArrows: true, darkMode: true }
           )
-        } else if (eventTemp.entity.getType() === Diagram.DiagramType.GroupNode && selectedStageId) {
+        } else if (eventTemp.entity.getType() === DiagramType.GroupNode && selectedStageId) {
           const parent = getStageFromPipeline(pipeline, eventTemp.entity.getIdentifier()).parent
           if (parent?.parallel) {
             dynamicPopoverHandler?.show(
@@ -240,7 +249,7 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
               { useArrows: true, darkMode: true }
             )
           }
-        } else if (eventTemp.entity.getType() !== Diagram.DiagramType.StartNode) {
+        } else if (eventTemp.entity.getType() !== DiagramType.StartNode) {
           const data = getStageFromPipeline(pipeline, eventTemp.entity.getIdentifier()).stage
           if (isSplitViewOpen && data?.stage?.identifier) {
             resetDiagram(engine)
@@ -297,15 +306,15 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
       }
     },
     // Can not remove this Any because of React Diagram Issue
-    [Diagram.Event.RemoveNode]: (event: any) => {
-      const eventTemp = event as Diagram.DefaultNodeEvent
+    [Event.RemoveNode]: (event: any) => {
+      const eventTemp = event as DefaultNodeEvent
       const isRemove = removeNodeFromPipeline(pipeline, stageMap, eventTemp.entity.getIdentifier())
       if (isRemove) {
         updatePipeline(pipeline)
       }
     },
-    [Diagram.Event.AddParallelNode]: (event: any) => {
-      const eventTemp = event as Diagram.DefaultNodeEvent
+    [Event.AddParallelNode]: (event: any) => {
+      const eventTemp = event as DefaultNodeEvent
       eventTemp.stopPropagation()
       if (eventTemp.target) {
         dynamicPopoverHandler?.show(
@@ -323,8 +332,8 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
         )
       }
     },
-    [Diagram.Event.DropLinkEvent]: (event: any) => {
-      const eventTemp = event as Diagram.DefaultNodeEvent
+    [Event.DropLinkEvent]: (event: any) => {
+      const eventTemp = event as DefaultNodeEvent
       eventTemp.stopPropagation()
       if (event.node?.identifier) {
         const dropNode = getStageFromPipeline(pipeline, event.node.identifier).stage
@@ -358,8 +367,8 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
   }
 
   const linkListeners: LinkModelListener = {
-    [Diagram.Event.AddLinkClicked]: (event: any) => {
-      const eventTemp = event as Diagram.DefaultNodeEvent
+    [Event.AddLinkClicked]: (event: any) => {
+      const eventTemp = event as DefaultNodeEvent
       const linkRender = document.querySelector(`[data-linkid="${eventTemp.entity.getID()}"] circle`)
       if (linkRender) {
         dynamicPopoverHandler?.show(
@@ -375,8 +384,8 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
         )
       }
     },
-    [Diagram.Event.DropLinkEvent]: (event: any) => {
-      const eventTemp = event as Diagram.DefaultLinkEvent
+    [Event.DropLinkEvent]: (event: any) => {
+      const eventTemp = event as DefaultLinkEvent
       eventTemp.stopPropagation()
       if (event.node?.identifier) {
         const dropNode = getStageFromPipeline(pipeline, event.node.identifier).stage
@@ -388,7 +397,7 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
     }
   }
   //1) setup the diagram engine
-  const engine = React.useMemo(() => Diagram.createEngine({}), [])
+  const engine = React.useMemo(() => createEngine({}), [])
 
   //2) setup the diagram model
   const model = React.useMemo(() => new StageBuilderModel(), [])
@@ -413,7 +422,7 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
         }
       }}
     >
-      <Diagram.CanvasWidget engine={engine} />
+      <CanvasWidget engine={engine} />
       <DynamicPopover
         darkMode={true}
         className={css.renderPopover}

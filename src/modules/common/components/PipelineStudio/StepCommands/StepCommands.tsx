@@ -2,10 +2,10 @@ import React from 'react'
 import { Tabs, Tab, Formik, Text, MultiTypeInput } from '@wings-software/uikit'
 import { FormGroup } from '@blueprintjs/core'
 import type { ExecutionWrapper } from 'services/cd-ng'
-import { AbstractStepFactory, StepWidget } from 'modules/common/exports'
-import { StepType } from '../../../components/PipelineSteps/PipelineStepInterface'
 import i18n from './StepCommands.18n'
 import { RightBar } from '../RightBar/RightBar'
+import { StepWidget } from '../../AbstractSteps/StepWidget'
+import type { AbstractStepFactory } from '../../AbstractSteps/AbstractStepFactory'
 import css from './StepCommands.module.scss'
 
 export interface StepCommandsProps {
@@ -65,7 +65,7 @@ export const StepCommands: React.FC<StepCommandsProps> = ({ step, onChange, isSt
                 factory={stepsFactory}
                 initialValues={step}
                 onUpdate={onChange}
-                type={isStepGroup ? StepType.StepGroup : step.type}
+                type={isStepGroup ? 'StepGroup' : step.type}
               />
             }
           />

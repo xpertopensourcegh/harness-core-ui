@@ -2,9 +2,9 @@ import { flatMap, findIndex } from 'lodash-es'
 import { v4 as uuid } from 'uuid'
 import type { NodeModelListener, LinkModelListener, DiagramEngine } from '@projectstorm/react-diagrams-core'
 import type { StageElementWrapper, NgPipeline } from 'services/cd-ng'
-import type { Diagram } from 'modules/common/exports'
 import { EmptyStageName } from '../PipelineConstants'
 import type { PipelineContextInterface, StagesMap } from '../PipelineContext/PipelineContext'
+import type { DefaultNodeEvent } from '../../Diagram'
 
 export interface StageState {
   isConfigured: boolean
@@ -19,8 +19,8 @@ export interface PopoverData {
   stagesMap: StagesMap
   groupSelectedStageId?: string
   isParallel?: boolean
-  event?: Diagram.DefaultNodeEvent
-  addStage?: (newStage: StageElementWrapper, isParallel?: boolean, event?: Diagram.DefaultNodeEvent) => void
+  event?: DefaultNodeEvent
+  addStage?: (newStage: StageElementWrapper, isParallel?: boolean, event?: DefaultNodeEvent) => void
   onSubmitPrimaryData?: (values: StageElementWrapper, identifier: string) => void
   onClickGroupStage?: (stageId: string, type: string) => void
   renderPipelineStage: PipelineContextInterface['renderPipelineStage']

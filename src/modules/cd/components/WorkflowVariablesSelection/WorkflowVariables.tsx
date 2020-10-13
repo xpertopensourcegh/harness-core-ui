@@ -4,8 +4,8 @@ import { Layout, Text } from '@wings-software/uikit'
 import { StepWidget, StepViewType } from 'modules/common/exports'
 import type { NGVariable as Variable } from 'services/cd-ng'
 
-import { PipelineContext } from 'modules/cd/pages/pipeline-studio/PipelineContext/PipelineContext'
-import { getStageFromPipeline } from 'modules/cd/pages/pipeline-studio/StageBuilder/StageBuilderUtil'
+import { PipelineContext } from 'modules/common/components/PipelineStudio/PipelineContext/PipelineContext'
+import { getStageFromPipeline } from 'modules/common/components/PipelineStudio/StageBuilder/StageBuilderUtil'
 import { StepType } from '../../components/PipelineSteps/PipelineStepInterface'
 
 import { PredefinedOverrideSets } from '../PredefinedOverrideSets/PredefinedOverrideSets'

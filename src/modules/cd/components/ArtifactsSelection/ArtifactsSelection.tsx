@@ -19,15 +19,15 @@ import cx from 'classnames'
 
 import { get } from 'lodash-es'
 import { Dialog, IDialogProps, Classes } from '@blueprintjs/core'
-import { PipelineContext } from 'modules/cd/pages/pipeline-studio/PipelineContext/PipelineContext'
+import { PipelineContext } from 'modules/common/components/PipelineStudio/PipelineContext/PipelineContext'
 import { FormMultiTypeConnectorField } from 'modules/common/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import { Scope } from 'modules/common/interfaces/SecretsInterface'
+import { getStageFromPipeline } from 'modules/common/components/PipelineStudio/StageBuilder/StageBuilderUtil'
 import CreateDockerConnector from '../connectors/DockerConnector/CreateDockerConnector'
 import ExistingDockerArtifact from './DockerArtifact/ExistingDockerArtifact'
 import { PredefinedOverrideSets } from '../PredefinedOverrideSets/PredefinedOverrideSets'
 
 import i18n from './ArtifactsSelection.i18n'
-import { getStageFromPipeline } from '../../pages/pipeline-studio/StageBuilder/StageBuilderUtil'
 import css from './ArtifactsSelection.module.scss'
 
 interface ArtifactTable {

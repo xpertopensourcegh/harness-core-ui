@@ -2,8 +2,15 @@ import type { NodeModelListener, LinkModelListener } from '@projectstorm/react-d
 import type { BaseModelListener, BaseModel } from '@projectstorm/react-canvas-core'
 import { v4 as nameSpace, v5 as uuid, version } from 'uuid'
 import type { ExecutionWrapper, ExecutionElement } from 'services/cd-ng'
-import { Diagram } from 'modules/common/exports'
 import { EmptyNodeSeparator } from '../StageBuilder/StageBuilderUtil'
+import {
+  CreateNewModel,
+  DefaultLinkModel,
+  DefaultNodeModel,
+  StepGroupNodeLayerModel,
+  StepGroupNodeLayerOptions,
+  StepsType
+} from '../../Diagram'
 
 export interface ExecutionGraphState {
   isRollback: boolean
@@ -68,13 +75,13 @@ export const calculateDepthCount = (node: ExecutionWrapper, stepStates: StepStat
 
 export const getStepFromNode = (
   stepData: Required<ExecutionElement> | undefined,
-  node: Diagram.DefaultNodeModel,
+  node: DefaultNodeModel,
   isComplete = false,
   isFindParallelNode = false
 ): { node: ExecutionWrapper | undefined; parent: ExecutionWrapper[] } => {
   let data = stepData
   const layer = node.getParent()
-  if (layer instanceof Diagram.StepGroupNodeLayerModel) {
+  if (layer instanceof StepGroupNodeLayerModel) {
     const group = getStepFromId(data, layer.getIdentifier() || '', false).node
     if (group) {
       data = group as Required<ExecutionElement>
@@ -213,11 +220,11 @@ export const getStepsState = (node: ExecutionWrapper, mapState: StepStateMap): v
   }
 }
 
-export const removeStepOrGroup = (state: ExecutionGraphState, entity: Diagram.DefaultNodeModel): boolean => {
+export const removeStepOrGroup = (state: ExecutionGraphState, entity: DefaultNodeModel): boolean => {
   let isRemoved = false
   let data = state.data
   const layer = entity.getParent()
-  if (layer instanceof Diagram.StepGroupNodeLayerModel) {
+  if (layer instanceof StepGroupNodeLayerModel) {
     const node = getStepFromId(data, layer.getIdentifier() || '', false).node
     if (node) {
       data = node as Required<ExecutionElement>
@@ -234,12 +241,12 @@ export const removeStepOrGroup = (state: ExecutionGraphState, entity: Diagram.De
   return isRemoved
 }
 
-export const isLinkUnderStepGroup = (link: Diagram.DefaultLinkModel): boolean => {
-  const sourceNode = link.getSourcePort().getNode() as Diagram.DefaultNodeModel
-  const targetNode = link.getTargetPort().getNode() as Diagram.DefaultNodeModel
+export const isLinkUnderStepGroup = (link: DefaultLinkModel): boolean => {
+  const sourceNode = link.getSourcePort().getNode() as DefaultNodeModel
+  const targetNode = link.getTargetPort().getNode() as DefaultNodeModel
   if (
-    sourceNode.getParent() instanceof Diagram.StepGroupNodeLayerModel &&
-    targetNode.getParent() instanceof Diagram.StepGroupNodeLayerModel
+    sourceNode.getParent() instanceof StepGroupNodeLayerModel &&
+    targetNode.getParent() instanceof StepGroupNodeLayerModel
   ) {
     return true
   }
@@ -253,12 +260,12 @@ export const addStepOrGroup = (
   isParallel: boolean,
   isRollback: boolean
 ): void => {
-  if (entity instanceof Diagram.DefaultLinkModel) {
-    const sourceNode = entity.getSourcePort().getNode() as Diagram.DefaultNodeModel
-    const targetNode = entity.getTargetPort().getNode() as Diagram.DefaultNodeModel
+  if (entity instanceof DefaultLinkModel) {
+    const sourceNode = entity.getSourcePort().getNode() as DefaultNodeModel
+    const targetNode = entity.getTargetPort().getNode() as DefaultNodeModel
     if (isLinkUnderStepGroup(entity)) {
       const layer = sourceNode.getParent()
-      if (layer instanceof Diagram.StepGroupNodeLayerModel) {
+      if (layer instanceof StepGroupNodeLayerModel) {
         const node = getStepFromId(data, layer.getIdentifier() || '', false).node
         if (node) {
           data = node as Required<ExecutionElement>
@@ -293,14 +300,14 @@ export const addStepOrGroup = (
         }
       }
     }
-  } else if (entity instanceof Diagram.CreateNewModel) {
+  } else if (entity instanceof CreateNewModel) {
     // Steps if you are under step group
     const groupId = entity.getIdentifier().split(EmptyNodeSeparator)[1]
     const node = getStepFromId(data, groupId).node
     const layer = entity.getParent()
-    if (layer instanceof Diagram.StepGroupNodeLayerModel) {
-      const options = layer.getOptions() as Diagram.StepGroupNodeLayerOptions
-      const isRollbackGroup = options.rollBackProps?.active === Diagram.StepsType.Rollback
+    if (layer instanceof StepGroupNodeLayerModel) {
+      const options = layer.getOptions() as StepGroupNodeLayerOptions
+      const isRollbackGroup = options.rollBackProps?.active === StepsType.Rollback
       if (!isRollbackGroup && node?.steps) {
         node.steps.push(step)
       } else if (isRollbackGroup && node?.rollbackSteps) {
@@ -313,7 +320,7 @@ export const addStepOrGroup = (
         data.steps.push(step)
       }
     }
-  } else if (entity instanceof Diagram.DefaultNodeModel) {
+  } else if (entity instanceof DefaultNodeModel) {
     if (isParallel) {
       const response = getStepFromId(data, entity.getIdentifier(), true, true)
       if (response.node) {
@@ -333,7 +340,7 @@ export const addStepOrGroup = (
         data.steps.push(step)
       }
     }
-  } else if (entity instanceof Diagram.StepGroupNodeLayerModel) {
+  } else if (entity instanceof StepGroupNodeLayerModel) {
     if (isParallel) {
       const response = getStepFromId(data, entity.getIdentifier() || '', true, true)
       if (response.node) {

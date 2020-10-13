@@ -4,19 +4,43 @@ import cx from 'classnames'
 import { Button, Icon, Text, useModalHook, Tag } from '@wings-software/uikit'
 import { useHistory, useParams, NavLink, matchPath } from 'react-router-dom'
 import { parse } from 'yaml'
-import { NavigationCheck, useToaster, useConfirmationDialog } from 'modules/common/exports'
 import type { NgPipeline, Failure } from 'services/cd-ng'
 import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
-import { routeCDPipelineStudio, routeCDPipelineStudioUI, routeCDPipelineStudioYaml } from 'modules/cd/routes'
-import { AUTH_ROUTE_PATH_PREFIX } from 'framework/exports'
+import { AUTH_ROUTE_PATH_PREFIX, NestedRoute, Route } from 'framework/exports'
+import { useConfirmationDialog } from 'modules/common/modals/ConfirmDialog/useConfirmationDialog'
 import { PipelineContext, savePipeline } from '../PipelineContext/PipelineContext'
 import i18n from './PipelineCanvas.i18n'
 import CreatePipelines from '../CreateModal/PipelineCreate'
 import { DefaultNewPipelineId, SplitViewTypes } from '../PipelineContext/PipelineActions'
 import { RightDrawer } from '../RightDrawer/RightDrawer'
+import { useToaster } from '../../Toaster/useToaster'
+import { NavigationCheck } from '../../NavigationCheck/NavigationCheck'
 import css from './PipelineCanvas.module.scss'
 
-export const PipelineCanvas: React.FC<{ children: React.ReactNode }> = ({ children }): JSX.Element => {
+export interface PipelineCanvasProps {
+  routePipelineStudio: Route<{
+    orgIdentifier: string
+    projectIdentifier: string
+    pipelineIdentifier: string | number
+  }>
+  routePipelineStudioUI: NestedRoute<{
+    orgIdentifier: string
+    projectIdentifier: string
+    pipelineIdentifier: string | number
+  }>
+  routePipelineStudioYaml: NestedRoute<{
+    orgIdentifier: string
+    projectIdentifier: string
+    pipelineIdentifier: string | number
+  }>
+}
+
+export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
+  children,
+  routePipelineStudio,
+  routePipelineStudioUI,
+  routePipelineStudioYaml
+}): JSX.Element => {
   const { state, updatePipeline, deletePipelineCache, updatePipelineView, fetchPipeline } = React.useContext(
     PipelineContext
   )
@@ -34,7 +58,12 @@ export const PipelineCanvas: React.FC<{ children: React.ReactNode }> = ({ childr
   } = state
 
   const { showError } = useToaster()
-  const { accountId, projectIdentifier, orgIdentifier, pipelineIdentifier } = useParams()
+  const { accountId, projectIdentifier, orgIdentifier, pipelineIdentifier } = useParams<{
+    orgIdentifier: string
+    projectIdentifier: string
+    pipelineIdentifier: string
+    accountId: string
+  }>()
 
   const [discardBEUpdateDialog, setDiscardBEUpdate] = React.useState(false)
   const { openDialog: openConfirmBEUpdateError } = useConfirmationDialog({
@@ -79,11 +108,11 @@ export const PipelineCanvas: React.FC<{ children: React.ReactNode }> = ({ childr
         await deletePipelineCache()
         if (isYaml) {
           history.replace(
-            routeCDPipelineStudioYaml.url({ projectIdentifier, orgIdentifier, pipelineIdentifier: newPipelineId })
+            routePipelineStudioYaml.url({ projectIdentifier, orgIdentifier, pipelineIdentifier: newPipelineId })
           )
         } else {
           history.replace(
-            routeCDPipelineStudio.url({ projectIdentifier, orgIdentifier, pipelineIdentifier: newPipelineId })
+            routePipelineStudio.url({ projectIdentifier, orgIdentifier, pipelineIdentifier: newPipelineId })
           )
         }
         location.reload()
@@ -97,6 +126,8 @@ export const PipelineCanvas: React.FC<{ children: React.ReactNode }> = ({ childr
     deletePipelineCache,
     accountId,
     history,
+    routePipelineStudioYaml,
+    routePipelineStudio,
     projectIdentifier,
     orgIdentifier,
     pipeline,
@@ -161,15 +192,15 @@ export const PipelineCanvas: React.FC<{ children: React.ReactNode }> = ({ childr
         when={isUpdated}
         shouldBlockNavigation={nextLocation => {
           const matchUI = matchPath(nextLocation.pathname, {
-            path: AUTH_ROUTE_PATH_PREFIX + routeCDPipelineStudioUI.path,
+            path: AUTH_ROUTE_PATH_PREFIX + routePipelineStudioUI.path,
             exact: true
           })
           const matchYaml = matchPath(nextLocation.pathname, {
-            path: AUTH_ROUTE_PATH_PREFIX + routeCDPipelineStudioYaml.path,
+            path: AUTH_ROUTE_PATH_PREFIX + routePipelineStudioYaml.path,
             exact: true
           })
           const matchDefault = matchPath(nextLocation.pathname, {
-            path: AUTH_ROUTE_PATH_PREFIX + routeCDPipelineStudio.path,
+            path: AUTH_ROUTE_PATH_PREFIX + routePipelineStudio.path,
             exact: true
           })
           return !(matchUI?.isExact || matchYaml?.isExact || matchDefault?.isExact)
@@ -184,14 +215,14 @@ export const PipelineCanvas: React.FC<{ children: React.ReactNode }> = ({ childr
           <NavLink
             className={css.topButtons}
             activeClassName={css.selected}
-            to={routeCDPipelineStudioUI.url({ orgIdentifier, projectIdentifier, pipelineIdentifier })}
+            to={routePipelineStudioUI.url({ orgIdentifier, projectIdentifier, pipelineIdentifier })}
           >
             {i18n.visual}
           </NavLink>
           <NavLink
             className={css.topButtons}
             activeClassName={css.selected}
-            to={routeCDPipelineStudioYaml.url({ orgIdentifier, projectIdentifier, pipelineIdentifier })}
+            to={routePipelineStudioYaml.url({ orgIdentifier, projectIdentifier, pipelineIdentifier })}
           >
             {i18n.yaml}
           </NavLink>

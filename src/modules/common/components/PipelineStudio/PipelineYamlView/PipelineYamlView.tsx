@@ -6,10 +6,10 @@ import { YamlEntity } from 'modules/common/constants/YamlConstants'
 import YAMLBuilder from 'modules/common/components/YAMLBuilder/YamlBuilder'
 import { addIconInfoToSnippets } from 'modules/common/components/YAMLBuilder/YAMLBuilderUtils'
 import { YAMLService } from 'modules/dx/services'
-import { useToaster } from 'modules/common/exports'
 import type { SnippetInterface } from 'modules/common/interfaces/SnippetInterface'
 import type { YamlBuilderHandlerBinding } from 'modules/common/interfaces/YAMLBuilderProps'
 import { PipelineContext } from '../PipelineContext/PipelineContext'
+import { useToaster } from '../../Toaster/useToaster'
 import css from './PipelineYamlView.module.scss'
 
 const PipelineYamlView: React.FC = () => {

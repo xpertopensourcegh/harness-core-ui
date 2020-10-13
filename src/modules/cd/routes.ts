@@ -57,7 +57,7 @@ export const routeCDPipelineStudioUI: NestedRoute<{
       routeCDPipelineStudioUI,
       `/cd/pipeline-studio/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/ui/`
     ),
-  component: React.lazy(() => import('./pages/pipeline-studio/StageBuilder/StageBuilder')),
+  component: React.lazy(() => import('../common/components/PipelineStudio/StageBuilder/StageBuilder')),
   isDefault: true
 }
 
@@ -73,7 +73,7 @@ export const routeCDPipelineStudioYaml: NestedRoute<{
       routeCDPipelineStudioYaml,
       `/cd/pipeline-studio/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/yaml/`
     ),
-  component: React.lazy(() => import('./pages/pipeline-studio/PipelineYamlView/PipelineYamlView'))
+  component: React.lazy(() => import('../common/components/PipelineStudio/PipelineYamlView/PipelineYamlView'))
 }
 
 export const routeCDPipelineStudio: Route<{
@@ -92,7 +92,7 @@ export const routeCDPipelineStudio: Route<{
       routeCDPipelineStudio,
       `/cd/pipeline-studio/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/`
     ),
-  component: React.lazy(() => import('./pages/pipeline-studio/PipelineStudio')),
+  component: React.lazy(() => import('./pages/pipeline-studio/CDPipelineStudio')),
   nestedRoutes: [routeCDPipelineStudioYaml, routeCDPipelineStudioUI]
 }
 

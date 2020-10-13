@@ -1,10 +1,12 @@
 import React from 'react'
 import type { IconName } from '@wings-software/uikit'
 import { PipelineStages, PipelineStagesProps } from 'modules/common/components/PipelineStages/PipelineStages'
-import type { StagesMap } from 'modules/cd/pages/pipeline-studio/PipelineContext/PipelineContext'
+import type { StagesMap } from 'modules/common/components/PipelineStudio/PipelineContext/PipelineContext'
 import { DeployStage } from './stages/DeployStage/DeployStage'
 import i18n from './CDPipelineStages.i18n'
 import { PipelineStage } from './stages/PipelineStage'
+import { CustomStage } from './stages/CustomStage'
+import { ApprovalStage } from './stages/ApprovalStage'
 
 export enum CDStageTypes {
   DEPLOY = 'Deployment',
@@ -77,14 +79,14 @@ export const getCDPipelineStages: (
       isDisabled={true}
       isApproval={false}
     />
-    <PipelineStage
+    <ApprovalStage
       icon={MapStepTypeToIcon[CDStageTypes.APPROVAL]}
       name={i18n.approval}
       type={CDStageTypes.APPROVAL}
       isDisabled={true}
       isApproval={true}
     />
-    <PipelineStage
+    <CustomStage
       icon={MapStepTypeToIcon[CDStageTypes.CUSTOM]}
       name={i18n.custom}
       type={CDStageTypes.CUSTOM}

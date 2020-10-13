@@ -1,13 +1,10 @@
 import React from 'react'
 import cx from 'classnames'
-import { Icon, Button, useModalHook } from '@wings-software/uikit'
-import { Dialog } from '@blueprintjs/core'
-import { useToaster } from 'modules/common/exports'
-import { RunPipelineForm } from 'modules/cd/components/RunPipelineModal/RunPipelineForm'
-import { runPipelineDialogProps } from 'modules/cd/components/RunPipelineModal/RunPipelineModal'
+import { Icon, Button } from '@wings-software/uikit'
 import i18n from './RightBar.i18n'
 import { PipelineContext } from '../PipelineContext/PipelineContext'
 import { DrawerTypes } from '../PipelineContext/PipelineActions'
+import { useToaster } from '../../Toaster/useToaster'
 import css from './RightBar.module.scss'
 
 export const RightBar = (): JSX.Element => {
@@ -21,32 +18,17 @@ export const RightBar = (): JSX.Element => {
         drawerData: { type }
       }
     },
+    runPipeline,
     updatePipelineView
   } = React.useContext(PipelineContext)
 
-  const [isRunPipelineOpen, setRunPipelineOpen] = React.useState(true)
-
-  const [openModel, hideModel] = useModalHook(
-    () => (
-      <Dialog isOpen={isRunPipelineOpen} {...runPipelineDialogProps}>
-        <RunPipelineForm pipelineIdentifier={pipeline.identifier} onClose={closeModel} />
-      </Dialog>
-    ),
-    [pipeline.identifier]
-  )
-
-  const closeModel = React.useCallback(() => {
-    setRunPipelineOpen(false)
-    hideModel()
-  }, [hideModel])
-
   const handleRunPipeline = React.useCallback(async () => {
     if (!isUpdated) {
-      openModel()
+      runPipeline(pipeline.identifier)
     } else {
       showWarning(i18n.pipelineUnSave)
     }
-  }, [openModel, isUpdated, showWarning])
+  }, [runPipeline, isUpdated, showWarning, pipeline.identifier])
 
   return (
     <div className={css.rightBar}>

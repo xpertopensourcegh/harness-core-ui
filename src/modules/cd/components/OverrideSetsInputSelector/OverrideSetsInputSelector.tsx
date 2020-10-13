@@ -14,11 +14,11 @@ import {
 import { isArray, clone } from 'lodash-es'
 import cx from 'classnames'
 import { Classes, Position } from '@blueprintjs/core'
-import { PipelineContext } from 'modules/cd/pages/pipeline-studio/PipelineContext/PipelineContext'
+import { PipelineContext } from 'modules/common/components/PipelineStudio/PipelineContext/PipelineContext'
 import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
 
+import { getStageFromPipeline } from 'modules/common/components/PipelineStudio/StageBuilder/StageBuilderUtil'
 import i18n from './OverrideSetsInputSelector.i18n'
-import { getStageFromPipeline } from '../../pages/pipeline-studio/StageBuilder/StageBuilderUtil'
 import css from './OverrideSetsInputSelector.module.scss'
 
 type InputSetValue = SelectOption | SelectOption[]

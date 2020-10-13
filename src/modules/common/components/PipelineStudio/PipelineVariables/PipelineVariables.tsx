@@ -3,12 +3,13 @@ import { cloneDeep } from 'lodash-es'
 import { Text, Card, Color } from '@wings-software/uikit'
 import { Tree, ITreeNode } from '@blueprintjs/core'
 import type { StageElement, StageElementWrapper, DeploymentStage, NGVariable as Variable } from 'services/cd-ng'
-import { StepWidget, StepViewType, AbstractStepFactory } from 'modules/common/exports'
-import { StepType } from '../../../components/PipelineSteps/PipelineStepInterface'
 import { RightBar } from '../RightBar/RightBar'
 import i18n from './PipelineVariables.i18n'
 import { PipelineContext } from '../PipelineContext/PipelineContext'
 import { getPipelineTree } from '../PipelineUtils'
+import { StepWidget } from '../../AbstractSteps/StepWidget'
+import { StepViewType } from '../../AbstractSteps/Step'
+import type { AbstractStepFactory } from '../../AbstractSteps/AbstractStepFactory'
 import css from './PipelineVariables.module.scss'
 
 function forEachNode(nodes: ITreeNode[], callback: (node: ITreeNode) => void): void {
@@ -51,7 +52,7 @@ function renderForStage(stage: StageElement, factory: AbstractStepFactory): JSX.
         <StepWidget
           factory={factory}
           initialValues={{ variables: (stage.spec as DeploymentStage).variables || [] }}
-          type={StepType.CustomVariable}
+          type={'Custom_Variable'}
           stepViewType={StepViewType.InputVariable}
         />
       )}
@@ -148,7 +149,7 @@ export const PipelineVariables: React.FC = (): JSX.Element => {
               <StepWidget<{ variables: Variable[] }>
                 factory={stepsFactory}
                 initialValues={{ variables: (pipeline as any).variables || [] }}
-                type={StepType.CustomVariable}
+                type={'Custom_Variable'}
                 stepViewType={StepViewType.InputVariable}
                 onUpdate={({ variables }: { variables: Variable[] }) => {
                   ;(pipeline as any).variables = variables

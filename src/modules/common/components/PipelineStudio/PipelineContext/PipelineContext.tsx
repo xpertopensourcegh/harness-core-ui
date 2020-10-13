@@ -17,7 +17,6 @@ import { ModuleName, loggerFor } from 'framework/exports'
 import SessionToken from 'framework/utils/SessionToken'
 import type { YamlBuilderHandlerBinding } from 'modules/common/interfaces/YAMLBuilderProps'
 import type { PipelineStagesProps } from 'modules/common/components/PipelineStages/PipelineStages'
-import type { AbstractStepFactory } from 'modules/common/exports'
 import {
   PipelineReducerState,
   ActionReturnType,
@@ -28,6 +27,7 @@ import {
   PipelineReducer,
   PipelineViewData
 } from './PipelineActions'
+import type { AbstractStepFactory } from '../../AbstractSteps/AbstractStepFactory'
 const logger = loggerFor(ModuleName.CD)
 
 export const getPipelineByIdentifier = (
@@ -118,6 +118,7 @@ export interface PipelineContextInterface {
   updatePipeline: (pipeline: NgPipeline) => Promise<void>
   updatePipelineView: (data: PipelineViewData) => void
   deletePipelineCache: () => Promise<void>
+  runPipeline: (identifier: string) => void
   pipelineSaved: (pipeline: NgPipeline) => void
 }
 
@@ -299,6 +300,7 @@ export const PipelineContext = React.createContext<PipelineContextInterface>({
   state: initialState,
   stepsFactory: {} as AbstractStepFactory,
   stagesMap: {},
+  runPipeline: () => undefined,
   // eslint-disable-next-line react/display-name
   renderPipelineStage: () => <div />,
   fetchPipeline: () => new Promise<void>(() => undefined),
@@ -314,8 +316,9 @@ export const PipelineProvider: React.FC<{
   pipelineIdentifier: string
   stepsFactory: AbstractStepFactory
   stagesMap: StagesMap
+  runPipeline: (identifier: string) => void
   renderPipelineStage: PipelineContextInterface['renderPipelineStage']
-}> = ({ queryParams, pipelineIdentifier, children, renderPipelineStage, stepsFactory, stagesMap }) => {
+}> = ({ queryParams, pipelineIdentifier, children, renderPipelineStage, stepsFactory, stagesMap, runPipeline }) => {
   const [state, dispatch] = React.useReducer(PipelineReducer, initialState)
   state.pipelineIdentifier = pipelineIdentifier
   const fetchPipeline = _fetchPipeline.bind(null, dispatch, queryParams, pipelineIdentifier)
@@ -349,6 +352,7 @@ export const PipelineProvider: React.FC<{
     <PipelineContext.Provider
       value={{
         state,
+        runPipeline,
         stepsFactory,
         stagesMap,
         renderPipelineStage,
