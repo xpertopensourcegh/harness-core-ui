@@ -25,7 +25,7 @@ export default {
     sevenDays: '7 Days',
     thirtyDays: '30 Days'
   },
-  heatmapCellTimeRangeText: 'per heatmap cell',
+  heatmapCellTimeRangeText: 'per heat map cell',
   hours: 'hours',
   minutes: 'minutes'
 }

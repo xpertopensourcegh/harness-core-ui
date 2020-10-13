@@ -38,14 +38,7 @@ export function MetricCategoriesWithRiskScore(props: CategoriesWithRiskScoreProp
           return (
             <Container key={categoryName} className={css.infoContainer}>
               <Text font={{ size: 'small' }}>{AbbreviatedMetricCategories[categoryName]}</Text>
-              <RiskScoreTile
-                riskScore={riskScore}
-                className={css.riskTileSizing}
-                textProps={{
-                  font: 'xsmall'
-                }}
-                {...riskScoreTileProps}
-              />
+              <RiskScoreTile riskScore={riskScore} isSmall {...riskScoreTileProps} />
             </Container>
           )
         })}
