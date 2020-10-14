@@ -278,7 +278,9 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
               options={{
                 readOnly: isReadOnlyMode,
                 //@ts-ignore
-                wordBasedSuggestions: false
+                wordBasedSuggestions: false,
+                fontFamily: "'Roboto Mono', monospace",
+                fontSize: 13
               }}
               ref={editorRef}
             />
