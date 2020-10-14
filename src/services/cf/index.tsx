@@ -78,6 +78,7 @@ export interface FeatureFlag {
   tags?: Tag[]
   defaultOnVariation?: string
   defaultOffVariation?: string
+  permanent?: boolean
   version?: number
   project: string
 }

@@ -7,6 +7,8 @@ export default {
   variation: 'Variation',
   boolean: 'Boolean',
   multivariate: 'Multivariate',
+  nameLabel: 'Name',
+  nameLabelOptional: 'Name (optional)',
   editVariations: {
     editVariationHeading: 'Edit Variations',
     true: 'True',
@@ -15,7 +17,7 @@ export default {
     defaultRulesDesc: "Changes will only apply to newly created environments. Existing environments won't be affected",
     defaultFlagOn: 'If the flag is ON, serve',
     defaultFlagOff: 'If the flag is OFF, serve',
-    applyEnv: 'Also apply to existing enviroments'
+    variationAbout: 'What is your variation about?'
   },
   save: 'Save',
   cancel: 'Cancel',
@@ -36,7 +38,6 @@ export default {
   },
   editDetails: {
     editDetailsHeading: 'Edit Flag Details',
-    nameLabel: 'Name',
     tags: 'Tags',
     permaFlag: 'This is a permanent flag'
   }

@@ -17,11 +17,6 @@
   .select-env {
     margin-right: var(--spacing-medium) !important;
   }
-  .checkbox-env {
-    :global(.bp3-control-indicator) {
-      margin-left: 0 !important;
-    }
-  }
 }
 
 .edit-details-modal-container {

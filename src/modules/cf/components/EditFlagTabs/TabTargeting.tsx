@@ -8,8 +8,10 @@ import {
   Formik,
   FormikForm as Form,
   FormInput,
-  useModalHook
+  useModalHook,
+  SelectOption
 } from '@wings-software/uikit'
+import { sumBy } from 'lodash-es'
 import { FieldArray } from 'formik'
 import cx from 'classnames'
 import { Dialog } from '@blueprintjs/core'
@@ -25,11 +27,23 @@ interface TabTargetingProps {
   isBooleanTypeFlag?: boolean
 }
 
+interface PercentageValues {
+  id: string
+  value: number
+  color: string
+}
+
 const TodoTargeting: React.FC<TabTargetingProps> = props => {
-  const { defaultOnVariation, defaultOffVariation, isBooleanTypeFlag } = props
+  // TODO: Only for DEV
+  const randomColor = ['blue', 'red', 'yellow', 'green', 'cyan', 'black']
+
+  const { defaultOnVariation, defaultOffVariation, isBooleanTypeFlag, variations } = props
 
   const [isEditOn, setIsEditOn] = useState(false)
   const [isServeTargetOn, setIsServeTargetOn] = useState(false)
+  const [percentageRollout, setPercentageRollout] = useState(false)
+  const [percentageValues, setPercentageValues] = useState<PercentageValues[] | undefined>([])
+  const [percentageError, setPercentageError] = useState(false)
 
   const [onOpenTargetModal, hideTargetModal] = useModalHook(() => (
     <Dialog onClose={hideTargetModal} title="" isOpen={true}>
@@ -65,6 +79,41 @@ const TodoTargeting: React.FC<TabTargetingProps> = props => {
   }
   const onServeTarget = (): void => {
     setIsServeTargetOn(true)
+  }
+
+  const onPercentageRollout = (inputSelectPercentage: SelectOption): void => {
+    const variationsToPercentage = variations?.map(elem => {
+      return { id: elem.identifier, value: 50, color: randomColor[Math.floor(Math.random() * randomColor.length)] }
+    })
+    if (inputSelectPercentage.value === 'percentage') {
+      setPercentageRollout(true)
+      setPercentageValues(variationsToPercentage)
+    } else {
+      setPercentageRollout(false)
+    }
+  }
+
+  const changeColorWidthSlider = (e: React.ChangeEvent<HTMLInputElement>, id: string): void => {
+    const percentageThreshold = 100
+
+    if (percentageValues) {
+      const onUpdateValue = percentageValues.map(elem => {
+        if (elem.id === id) {
+          return { ...elem, value: +e.target.value }
+        }
+        return elem
+      })
+
+      const valueOfInputs = sumBy(onUpdateValue, 'value')
+
+      if (valueOfInputs > percentageThreshold) {
+        return setPercentageError(true)
+      } else {
+        setPercentageError(false)
+      }
+
+      setPercentageValues(onUpdateValue)
+    }
   }
 
   return (
@@ -103,11 +152,68 @@ const TodoTargeting: React.FC<TabTargetingProps> = props => {
                         <>
                           <Layout.Horizontal style={{ alignItems: 'baseline' }}>
                             <Text width="150px">{i18n.tabTargeting.flagOn}</Text>
-                            <FormInput.Select name="1" items={[{ label: 'trueBoolean', value: 'trueBoolean' }]} />
+                            <FormInput.Select
+                              name="1"
+                              items={[
+                                { label: 'trueBoolean', value: 'trueBoolean' },
+                                { label: 'Percentage Rollout', value: 'percentage' }
+                              ]}
+                              onChange={elem => onPercentageRollout(elem)}
+                            />
                           </Layout.Horizontal>
+                          {percentageRollout && (
+                            <Container>
+                              <div
+                                style={{
+                                  borderRadius: '10px',
+                                  border: '1px solid #ccc',
+                                  width: '300px',
+                                  height: '15px',
+                                  display: 'flex'
+                                }}
+                              >
+                                {percentageValues?.map(elem => (
+                                  <span
+                                    key={elem.id}
+                                    style={{
+                                      width: `${elem.value}%`,
+                                      backgroundColor: elem.color,
+                                      display: 'inline-block',
+                                      height: '13px'
+                                    }}
+                                  />
+                                ))}
+                              </div>
+                              <Container>
+                                {variations?.map((elem, i) => (
+                                  <Layout.Horizontal key={`${elem.identifier}-${i}`} margin={{ bottom: 'small' }}>
+                                    <Text margin={{ right: 'medium' }} width="100px">
+                                      {elem.identifier}
+                                    </Text>
+                                    <input
+                                      type="number"
+                                      onChange={e => changeColorWidthSlider(e, elem.identifier)}
+                                      style={{ width: '50px', marginRight: '10px' }}
+                                      defaultValue={50}
+                                      min={0}
+                                      max={100}
+                                    />
+                                    <Text icon="percentage" iconProps={{ color: Color.GREY_300 }} />
+                                  </Layout.Horizontal>
+                                ))}
+                                {percentageError && <Text intent="danger">Cannot set above 100%</Text>}
+                              </Container>
+                            </Container>
+                          )}
                           <Layout.Horizontal style={{ alignItems: 'baseline' }}>
                             <Text width="150px">{i18n.tabTargeting.flagOff}</Text>
-                            <FormInput.Select name="2" items={[{ label: 'falseBoolean', value: 'falseBoolean' }]} />
+                            <FormInput.Select
+                              name="2"
+                              items={[
+                                { label: 'falseBoolean', value: 'falseBoolean' },
+                                { label: 'Percentage Rollout', value: 'percentage' }
+                              ]}
+                            />
                           </Layout.Horizontal>
                         </>
                       ) : (

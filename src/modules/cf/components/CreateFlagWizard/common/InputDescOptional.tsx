@@ -1,17 +1,18 @@
 import React, { useState } from 'react'
-import { Layout, FormInput, Button, Icon } from '@wings-software/uikit'
+import { Layout, FormInput, Button, Color } from '@wings-software/uikit'
 import css from './InputDescOptional.module.scss'
 
 interface InputDescOptionalProps {
   text: string
   inputName: string
   inputPlaceholder: string | undefined
+  isOpen?: boolean
 }
 
 const InputDescOptional: React.FC<InputDescOptionalProps> = props => {
-  const { text, inputName, inputPlaceholder } = props
+  const { text, inputName, inputPlaceholder, isOpen } = props
 
-  const [toggleDescInput, setToggleDescInput] = useState(false)
+  const [toggleDescInput, setToggleDescInput] = useState(isOpen)
 
   const onOpenDesc = (): void => {
     setToggleDescInput(true)
@@ -34,10 +35,14 @@ const InputDescOptional: React.FC<InputDescOptionalProps> = props => {
           <Button minimal onClick={onCloseDesc} icon="small-cross" />
         </>
       ) : (
-        <span onClick={onOpenDesc} className={css.toggleDescText}>
-          <Icon name="small-plus" color="grey400" />
-          {text}
-        </span>
+        <Button
+          minimal
+          className={css.toggleDescText}
+          icon="small-plus"
+          iconProps={{ color: Color.GREY_400 }}
+          text={text}
+          onClick={onOpenDesc}
+        />
       )}
     </Layout.Horizontal>
   )

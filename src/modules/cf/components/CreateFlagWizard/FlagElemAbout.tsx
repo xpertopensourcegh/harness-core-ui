@@ -13,7 +13,6 @@ import {
 } from '@wings-software/uikit'
 import type { IconName } from '@blueprintjs/core'
 import * as Yup from 'yup'
-import type { Tag } from 'services/cf'
 import { illegalIdentifiers } from 'modules/common/utils/StringUtils'
 import i18n from './FlagWizard.i18n'
 import css from './FlagElemAbout.module.scss'
@@ -37,7 +36,8 @@ const FlagElemAbout: React.FC<StepProps<any>> = props => {
           name: '',
           identifier: '',
           description: '',
-          tags: [] as Tag[],
+          tags: [],
+          permanent: false,
           ...prevStepData
         }}
         validationSchema={Yup.object().shape({
@@ -91,8 +91,7 @@ const FlagElemAbout: React.FC<StepProps<any>> = props => {
               </Container>
               <Container margin={{ top: 'huge' }}>
                 <Layout.Horizontal>
-                  {/* TODO: Check with BE for the name of this field */}
-                  {/* <FormInput.CheckBox name="" label={i18n.aboutFlag.permaFlag} />
+                  <FormInput.CheckBox name="permanent" label={i18n.aboutFlag.permaFlag} />
                   <Text
                     margin={{ left: 'xsmall' }}
                     tooltip={i18n.aboutFlag.permaFlagTooltip}
@@ -103,7 +102,7 @@ const FlagElemAbout: React.FC<StepProps<any>> = props => {
                     inline
                     icon="info-sign"
                     iconProps={{ size: 10, color: Color.BLUE_500 }}
-                  /> */}
+                  />
                 </Layout.Horizontal>
               </Container>
               <Button type="submit" text={i18n.saveAndContinue} className={css.aboutFlagContainerBtn} />

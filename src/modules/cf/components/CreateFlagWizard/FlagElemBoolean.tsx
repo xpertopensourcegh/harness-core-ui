@@ -31,6 +31,18 @@ interface FlagElemVariationsProps {
   isLoadingCreateFeatureFlag: boolean
 }
 
+// TODO: WIP
+// interface FlagElemTypeVariation {
+//   identifier: string
+//   name: string
+//   description: string
+//   value: string | number | boolean | object
+// }
+
+// interface FlagElemTypeVariationError {
+//   variations: string
+// }
+
 // FIXME: Change any for StepProps
 const FlagElemBoolean: React.FC<StepProps<any> & FlagElemVariationsProps> = props => {
   const {
@@ -47,6 +59,9 @@ const FlagElemBoolean: React.FC<StepProps<any> & FlagElemVariationsProps> = prop
     isLoadingCreateFeatureFlag
   } = props
 
+  // TODO: Consider the possibility to put everthing related to Boolean flag
+  // change state and prepopulate fields to be in a separate component,
+  // because we have similar functionality also in Edit Variations modal
   const [trueFlagOption, setTrueFlagOption] = useState('true')
   const [falseFlagOption, setFalseFlagOption] = useState('false')
 
@@ -71,6 +86,30 @@ const FlagElemBoolean: React.FC<StepProps<any> & FlagElemVariationsProps> = prop
     previousStep?.({ ...prevStepData })
   }
 
+  // TODO: WIP; possible solution is to use yup.addMethod
+  // const validateForm = (values: any): FlagElemTypeVariationError => {
+  //   let isValid = true
+  //   const errors = {
+  //     variations: ''
+  //   }
+
+  //   values.variations.find((item: FlagElemTypeVariation) => {
+  //     if (!item.identifier) {
+  //       isValid = false
+  //     }
+  //   })
+
+  //   if (
+  //     values.variations.length !== new Set(values.variations.map((item: FlagElemTypeVariation) => item.identifier)).size
+  //   ) {
+  //     errors.variations = 'Cannot have duplicated values'
+  //   } else if (!isValid) {
+  //     errors.variations = 'Required'
+  //   }
+
+  //   return errors
+  // }
+
   return (
     <>
       <Formik
@@ -84,6 +123,8 @@ const FlagElemBoolean: React.FC<StepProps<any> & FlagElemVariationsProps> = prop
           defaultOffVariation: '',
           ...prevStepData
         }}
+        // TODO: WIP
+        // validate={validateForm}
         onSubmit={vals => {
           if (testFlagClicked) {
             // When user clicks on third optional step, load it's component
@@ -104,8 +145,7 @@ const FlagElemBoolean: React.FC<StepProps<any> & FlagElemVariationsProps> = prop
                 name="kind"
                 label={i18n.varSettingsFlag.flagType}
                 items={flagTypeOptions}
-                // FIXME: Change type casting
-                onChange={newFlagType => handleNewFlagType(String(newFlagType.value))}
+                onChange={newFlagType => handleNewFlagType(newFlagType.value as string)}
                 className={css.inputSelectFlagType}
               />
               <Container margin={{ bottom: 'large' }}>
@@ -149,6 +189,8 @@ const FlagElemBoolean: React.FC<StepProps<any> & FlagElemVariationsProps> = prop
                     />
                   </Container>
                 </Layout.Horizontal>
+                {/* TODO: WIP */}
+                {/* {formikProps.errors.variations ? <Text intent="danger">{formikProps.errors.variations}</Text> : null} */}
               </Container>
 
               <Container margin={{ bottom: 'xlarge' }}>

@@ -1,4 +1,4 @@
-import React, { useState, Dispatch, SetStateAction } from 'react'
+import React, { useState, Dispatch, SetStateAction, useCallback } from 'react'
 import {
   Color,
   Formik,
@@ -37,12 +37,11 @@ interface FlagMultivariateSelectOptions {
   id: string
   label: string
   value: string
-  sliderVal: number
 }
 
 const flagVariationOptions = [
-  { label: i18n.varSettingsFlag.jsonType.toUpperCase(), value: FlagTypeVariationsSelect.json },
   { label: i18n.varSettingsFlag.stringType.toUpperCase(), value: FlagTypeVariationsSelect.string },
+  { label: i18n.varSettingsFlag.jsonType.toUpperCase(), value: FlagTypeVariationsSelect.json },
   { label: i18n.varSettingsFlag.numberType.toUpperCase(), value: FlagTypeVariationsSelect.number }
 ]
 
@@ -63,8 +62,8 @@ const FlagElemMultivariate: React.FC<StepProps<any> & FlagElemVariationsProps> =
   } = props
 
   const [flagMultiRules, setFlagMultiRules] = useState<FlagMultivariateSelectOptions[]>([
-    { id: 'variations.0.identifier', label: 'Variation 1', value: '1', sliderVal: 0 },
-    { id: 'variations.1.identifier', label: 'Variation 2', value: '2', sliderVal: 0 }
+    { id: 'variations.0.identifier', label: 'Variation 1', value: '1' },
+    { id: 'variations.1.identifier', label: 'Variation 2', value: '2' }
   ])
 
   const handleNewFlagType = (newFlagTypeVal: string): void => {
@@ -84,8 +83,7 @@ const FlagElemMultivariate: React.FC<StepProps<any> & FlagElemVariationsProps> =
     const newFlagMultivariateOption = {
       id: `variations.${multiRulesLength}.identifier`,
       label: `Variation ${multiRulesLength + 1}`,
-      value: `${multiRulesLength + 1}`,
-      sliderVal: 0
+      value: `${multiRulesLength + 1}`
     }
     setFlagMultiRules(prevState => [...prevState, newFlagMultivariateOption])
   }
@@ -105,6 +103,17 @@ const FlagElemMultivariate: React.FC<StepProps<any> & FlagElemVariationsProps> =
   const onClickBack = (): void => {
     previousStep?.({ ...prevStepData })
   }
+
+  const kindToSelectValue = useCallback(kind => {
+    switch (kind) {
+      case FlagTypeVariationsSelect.number:
+        return flagVariationOptions[2]
+      case FlagTypeVariationsSelect.json:
+        return flagVariationOptions[1]
+      default:
+        return flagVariationOptions[0]
+    }
+  }, [])
 
   return (
     <>
@@ -140,12 +149,11 @@ const FlagElemMultivariate: React.FC<StepProps<any> & FlagElemVariationsProps> =
                   name="kind"
                   label={i18n.varSettingsFlag.flagType}
                   items={flagTypeOptions}
-                  // FIXME: Change type casting
-                  onChange={newFlagType => handleNewFlagType(String(newFlagType.value))}
+                  onChange={newFlagType => handleNewFlagType(newFlagType.value as string)}
                   style={{ width: '35%' }}
                 />
-                {/* TODO: How to preselect JSON in here */}
                 <Select
+                  value={kindToSelectValue(formikProps.values.kind)}
                   items={flagVariationOptions}
                   className={css.spacingSelectVariation}
                   onChange={kindVariation => {

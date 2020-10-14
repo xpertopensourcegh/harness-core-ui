@@ -14,7 +14,8 @@ import {
   Formik,
   FormikForm as Form,
   FormInput,
-  useModalHook
+  useModalHook,
+  SelectOption
 } from '@wings-software/uikit'
 import moment from 'moment'
 import { Menu, Dialog, Classes } from '@blueprintjs/core'
@@ -49,120 +50,142 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
   const [editOpenedMenu, setEditOpenedMenu] = useState(false)
   const [showPrerequisites, setShowPrerequisites] = useState(false)
   const [listPrerequisites, setListPrequisites] = useState<ListPrerequisitesOptionElement[]>([])
+  const [editDefaultValuesModal, setEditDefaultValuesModal] = useState<SelectOption[]>([])
 
   const history = useHistory()
 
-  const [openModalEditVariations, hideModalEditVariations] = useModalHook(() => (
-    <Dialog onClose={hideModalEditVariations} title={''} isOpen={true} style={{ width: '800px' }}>
-      <Layout.Vertical padding={{ left: 'xlarge', right: 'large' }}>
-        <Heading level={2} font={{ weight: 'bold' }} margin={{ bottom: 'medium' }}>
-          {i18n.editVariations.editVariationHeading}
-        </Heading>
-        <Container>
-          <Formik
-            initialValues={{
-              editVariationTrue: '',
-              editVariationTrueDesc: '',
-              editVariationFalse: '',
-              editVariationFalseDesc: '',
-              editVariationOn: '',
-              editVariationOnChecked: false,
-              editVariationOff: '',
-              editVariationOffChecked: false
-            }}
-            onSubmit={vals => alert(JSON.stringify(vals, null, 2))}
-          >
-            {() => (
-              <Form>
-                <Layout.Vertical>
-                  <Container>
-                    <Layout.Horizontal className={css.variationsContainer}>
-                      <FormInput.Text name="editVariationTrue" label={i18n.editVariations.true} />
-                      <InputDescOptional
-                        text={i18n.descOptional}
-                        inputName="editVariationTrueDesc"
-                        inputPlaceholder={''}
-                      />
+  const isBooleanFlag = singleFlag?.data?.kind === FlagTypeVariations.booleanFlag
+
+  const setDefaultFlags = (): void => {
+    let localVars: SelectOption[] = []
+    if (singleFlag?.data?.variations.length) {
+      // FIXME: Check the TS error about incompatible types
+      localVars = singleFlag.data.variations.map(elem => {
+        return { label: elem.identifier as string, value: elem.value as any }
+      })
+    }
+    setEditDefaultValuesModal(localVars)
+  }
+
+  const [openModalEditVariations, hideModalEditVariations] = useModalHook(
+    () => (
+      <Dialog onClose={hideModalEditVariations} title={''} isOpen={true} style={{ width: '800px' }}>
+        <Layout.Vertical padding={{ left: 'xlarge', right: 'large' }}>
+          <Heading level={2} font={{ weight: 'bold' }} margin={{ bottom: 'medium' }}>
+            {i18n.editVariations.editVariationHeading}
+          </Heading>
+          <Container>
+            <Formik
+              initialValues={{
+                variations: singleFlag?.data?.variations,
+                defaultOnVariation: singleFlag?.data?.defaultOnVariation,
+                defaultOffVariation: singleFlag?.data?.defaultOffVariation
+              }}
+              onSubmit={vals => alert(JSON.stringify(vals, null, 2))}
+            >
+              {formikProps => (
+                <Form>
+                  <Layout.Vertical>
+                    <Container>
+                      {isBooleanFlag ? (
+                        <>
+                          <Layout.Horizontal className={css.variationsContainer}>
+                            <FormInput.Text name="variations[0].identifier" label={i18n.editVariations.true} />
+                            <InputDescOptional
+                              text={i18n.descOptional}
+                              inputName="variations[0].description"
+                              inputPlaceholder={''}
+                              isOpen={singleFlag?.data?.variations[0].description ? true : false}
+                            />
+                          </Layout.Horizontal>
+                          <Layout.Horizontal className={css.variationsContainer}>
+                            <FormInput.Text name="variations[1].identifier" label={i18n.editVariations.false} />
+                            <InputDescOptional
+                              text={i18n.descOptional}
+                              inputName="variations[1].description"
+                              inputPlaceholder={''}
+                              isOpen={singleFlag?.data?.variations[1].description ? true : false}
+                            />
+                          </Layout.Horizontal>
+                        </>
+                      ) : (
+                        formikProps?.values?.variations?.map((elem, index) => (
+                          <Layout.Horizontal key={`${elem.identifier}-${index}`}>
+                            <FormInput.Text
+                              name={`variations.${index}.identifier`}
+                              label={`${i18n.variation} ${index + 1}`}
+                              style={{ marginRight: 'var(--spacing-small)' }}
+                            />
+                            <FormInput.Text
+                              name={`variations.${index}.name`}
+                              label={i18n.nameLabelOptional}
+                              placeholder={i18n.nameLabel}
+                              style={{ marginRight: 'var(--spacing-small)' }}
+                            />
+                            <InputDescOptional
+                              text={i18n.descOptional}
+                              inputName={`variations.${index}.description`}
+                              inputPlaceholder={i18n.editVariations.variationAbout}
+                              isOpen={singleFlag?.data?.variations[index].description ? true : false}
+                            />
+                          </Layout.Horizontal>
+                        ))
+                      )}
+                    </Container>
+
+                    <Container>
+                      <Layout.Vertical margin={{ top: 'xlarge' }}>
+                        <Layout.Horizontal>
+                          <Text font={{ weight: 'bold' }} color={Color.BLACK} margin={{ right: 'xsmall' }}>
+                            {i18n.editVariations.defaultRules}
+                          </Text>
+                          <Text
+                            icon="info-sign"
+                            iconProps={{ size: 10, color: Color.BLUE_500 }}
+                            tooltip="To be added..."
+                            tooltipProps={{ isDark: true }}
+                          />
+                        </Layout.Horizontal>
+
+                        <Text margin={{ bottom: 'large' }}>{i18n.editVariations.defaultRulesDesc}</Text>
+
+                        <Layout.Horizontal className={css.newEnvRulesContainer}>
+                          <Text margin={{ right: 'medium' }} width="150px">
+                            {i18n.editVariations.defaultFlagOn}
+                          </Text>
+                          <FormInput.Select
+                            name="defaultOnVariation"
+                            items={editDefaultValuesModal}
+                            className={css.selectEnv}
+                          />
+                        </Layout.Horizontal>
+
+                        <Layout.Horizontal className={css.newEnvRulesContainer}>
+                          <Text margin={{ right: 'medium' }} width="150px">
+                            {i18n.editVariations.defaultFlagOff}
+                          </Text>
+                          <FormInput.Select
+                            name="defaultOffVariation"
+                            items={editDefaultValuesModal}
+                            className={css.selectEnv}
+                          />
+                        </Layout.Horizontal>
+                      </Layout.Vertical>
+                    </Container>
+                    <Layout.Horizontal padding={{ top: 'large', bottom: 'large' }}>
+                      <Button text={i18n.save} intent="primary" margin={{ right: 'small' }} type="submit" />
+                      <Button onClick={hideModalEditVariations} text={i18n.cancel} />
                     </Layout.Horizontal>
-                    <Layout.Horizontal className={css.variationsContainer}>
-                      <FormInput.Text name="editVariationFalse" label={i18n.editVariations.false} />
-                      <InputDescOptional
-                        text={i18n.descOptional}
-                        inputName="editVariationFalseDesc"
-                        inputPlaceholder={''}
-                      />
-                    </Layout.Horizontal>
-                  </Container>
-
-                  <Container>
-                    <Layout.Vertical margin={{ top: 'xlarge' }}>
-                      <Layout.Horizontal>
-                        <Text font={{ weight: 'bold' }} color={Color.BLACK} margin={{ right: 'xsmall' }}>
-                          {i18n.editVariations.defaultRules}
-                        </Text>
-                        <Text
-                          icon="info-sign"
-                          iconProps={{ size: 10, color: Color.BLUE_500 }}
-                          tooltip="To be added..."
-                          tooltipProps={{ isDark: true }}
-                        />
-                      </Layout.Horizontal>
-
-                      <Text margin={{ bottom: 'large' }}>{i18n.editVariations.defaultRulesDesc}</Text>
-
-                      <Layout.Horizontal className={css.newEnvRulesContainer}>
-                        <Text margin={{ right: 'medium' }} width="150px">
-                          {i18n.editVariations.defaultFlagOn}
-                        </Text>
-                        {/* FIXME: Need to change these items with actual values */}
-                        <FormInput.Select
-                          name="editVariationOn"
-                          items={[
-                            { label: 'Placeholder 1', value: 'placeholder1' },
-                            { label: 'Placeholder 2', value: 'placeholder2' }
-                          ]}
-                          className={css.selectEnv}
-                        />
-                        <FormInput.CheckBox
-                          name="editVariationOnChecked"
-                          label={i18n.editVariations.applyEnv}
-                          className={css.checkboxEnv}
-                        />
-                      </Layout.Horizontal>
-
-                      <Layout.Horizontal className={css.newEnvRulesContainer}>
-                        <Text margin={{ right: 'medium' }} width="150px">
-                          {i18n.editVariations.defaultFlagOff}
-                        </Text>
-                        {/* FIXME: Need to change these items with actual values */}
-                        <FormInput.Select
-                          name="editVariationOff"
-                          items={[
-                            { label: 'Placeholder 1', value: 'placeholder1' },
-                            { label: 'Placeholder 2', value: 'placeholder2' }
-                          ]}
-                          className={css.selectEnv}
-                        />
-                        <FormInput.CheckBox
-                          name="editVariationOffChecked"
-                          label={i18n.editVariations.applyEnv}
-                          className={css.checkboxEnv}
-                        />
-                      </Layout.Horizontal>
-                    </Layout.Vertical>
-                  </Container>
-                  <Layout.Horizontal padding={{ top: 'large', bottom: 'large' }}>
-                    <Button text={i18n.save} intent="primary" margin={{ right: 'small' }} type="submit" />
-                    <Button onClick={hideModalEditVariations} text={i18n.cancel} />
-                  </Layout.Horizontal>
-                </Layout.Vertical>
-              </Form>
-            )}
-          </Formik>
-        </Container>
-      </Layout.Vertical>
-    </Dialog>
-  ))
+                  </Layout.Vertical>
+                </Form>
+              )}
+            </Formik>
+          </Container>
+        </Layout.Vertical>
+      </Dialog>
+    ),
+    [editDefaultValuesModal]
+  )
 
   const [openModalPrerequisites, hideModalPrerequisites] = useModalHook(() => (
     <Dialog title={i18n.addPrerequisites.addPrerequisitesHeading} onClose={hideModalPrerequisites} isOpen={true}>
@@ -227,7 +250,9 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
       <Formik
         initialValues={{
           name: singleFlag?.data?.name,
-          description: singleFlag?.data?.description
+          description: singleFlag?.data?.description,
+          tags: singleFlag?.data?.tags?.map(elem => elem.name),
+          permanent: singleFlag?.data?.permanent
         }}
         onSubmit={vals => alert(JSON.stringify(vals, null, 2))}
       >
@@ -236,7 +261,7 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
             <Layout.Vertical className={css.editDetailsModalContainer}>
               <Text>{i18n.editDetails.editDetailsHeading}</Text>
 
-              <FormInput.Text name="name" label={i18n.editDetails.nameLabel} />
+              <FormInput.Text name="name" label={i18n.nameLabel} />
 
               <FormInput.TextArea name="description" label={i18n.descOptional} />
 
@@ -250,18 +275,17 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
               />
 
               <Layout.Horizontal padding={{ top: 'medium', bottom: 'medium' }}>
-                {/* FIXME: Disabled until BE implements this field */}
-                {/* <FormInput.CheckBox
-                  name="permanentFlag"
+                <FormInput.CheckBox
+                  name="permanent"
                   label={i18n.editDetails.permaFlag}
                   className={css.checkboxEditDetails}
-                /> 
+                />
                 <Text
                   icon="info-sign"
                   iconProps={{ color: Color.BLUE_500, size: 12 }}
                   tooltip="To be added..."
                   tooltipProps={{ isDark: true }}
-                /> */}
+                />
               </Layout.Horizontal>
 
               <Layout.Horizontal>
@@ -372,7 +396,15 @@ const FlagActivationDetails: React.FC<FlagActivationDetailsProps> = props => {
               rightIconProps={{ size: 14, color: Color.BLUE_500 }}
             />
             <FlexExpander />
-            <Button minimal intent="primary" icon="edit" onClick={openModalEditVariations} />
+            <Button
+              minimal
+              intent="primary"
+              icon="edit"
+              onClick={() => {
+                openModalEditVariations()
+                setDefaultFlags()
+              }}
+            />
           </Layout.Horizontal>
 
           <Layout.Vertical>

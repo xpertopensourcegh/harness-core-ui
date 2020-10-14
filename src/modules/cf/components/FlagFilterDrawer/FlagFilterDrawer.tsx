@@ -9,7 +9,8 @@ import {
   Radio,
   RadioGroup,
   Text,
-  Color
+  Color,
+  DateInput
 } from '@wings-software/uikit'
 import i18n from './FlagFilterDrawer.i18n'
 import css from './FlagFilterDrawer.module.scss'
@@ -91,11 +92,12 @@ const FlagFilterDrawer: React.FC<FlagFilterDrawerProps> = props => {
                 />
               </Layout.Horizontal>
 
-              {/* TODO: Check the UIKit for some alternative */}
-              {/* <Layout.Horizontal>
+              {/* TODO: Check the UIKit for some alternative, it doesn't render nicely inside Drawer */}
+              <Layout.Horizontal margin={{ top: 'medium', bottom: 'medium' }}>
                 <DateInput placeholder={i18n.any} />
+                <FlexExpander />
                 <DateInput placeholder={i18n.any} />
-              </Layout.Horizontal> */}
+              </Layout.Horizontal>
 
               <FormInput.TagInput
                 name="owner"
