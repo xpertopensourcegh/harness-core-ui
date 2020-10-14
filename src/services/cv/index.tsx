@@ -2,10 +2,8 @@
 
 import React from 'react'
 import { Get, GetProps, useGet, UseGetProps, Mutate, MutateProps, useMutate, UseMutateProps } from 'restful-react'
+
 import { getConfig } from '../config'
-
-export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
-
 export interface ResponseMessage {
   code?:
     | 'DEFAULT_ERROR_CODE'
@@ -282,8 +280,10 @@ export interface LearningEngineTask {
     | 'LOG_CLUSTER'
     | 'SERVICE_GUARD_LOG_ANALYSIS'
     | 'CANARY_LOG_ANALYSIS'
+    | 'TEST_LOG_ANALYSIS'
     | 'TIME_SERIES_CANARY'
     | 'SERVICE_GUARD_FEEDBACK_ANALYSIS'
+    | 'TIME_SERIES_LOAD_TEST'
   taskPriority?: number
   analysisSaveUrl?: string
   failureUrl?: string
@@ -296,8 +296,10 @@ export interface LearningEngineTask {
     | 'LOG_CLUSTER'
     | 'SERVICE_GUARD_LOG_ANALYSIS'
     | 'CANARY_LOG_ANALYSIS'
+    | 'TEST_LOG_ANALYSIS'
     | 'TIME_SERIES_CANARY'
     | 'SERVICE_GUARD_FEEDBACK_ANALYSIS'
+    | 'TIME_SERIES_LOAD_TEST'
 }
 
 export interface RestResponseLearningEngineTask {
@@ -308,21 +310,10 @@ export interface RestResponseLearningEngineTask {
   responseMessages?: ResponseMessage[]
 }
 
-export interface LogClusterDTO {
-  cvConfigId?: string
-  epochMinute?: number
-  host?: string
-  log?: string
-  clusterLabel?: string
-  clusterCount?: number
-}
-
-export interface RestResponseListLogClusterDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: LogClusterDTO[]
-  responseMessages?: ResponseMessage[]
+export interface AnalysisResult {
+  label?: number
+  tag?: 'KNOWN' | 'UNEXPECTED' | 'UNKNOWN'
+  count?: number
 }
 
 export interface Frequency {
@@ -346,20 +337,6 @@ export interface LogAnalysisCluster {
   text?: string
   validUntil?: string
   evicted?: boolean
-}
-
-export interface RestResponseListLogAnalysisCluster {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: LogAnalysisCluster[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface AnalysisResult {
-  label?: number
-  tag?: 'KNOWN' | 'UNEXPECTED' | 'UNKNOWN'
-  count?: number
 }
 
 export interface LogAnalysisDTO {
@@ -421,6 +398,31 @@ export interface ResultSummary {
   testClusterSummaries?: ClusterSummary[]
 }
 
+export interface LogClusterDTO {
+  cvConfigId?: string
+  epochMinute?: number
+  host?: string
+  log?: string
+  clusterLabel?: string
+  clusterCount?: number
+}
+
+export interface RestResponseListLogClusterDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: LogClusterDTO[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface RestResponseListLogAnalysisCluster {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: LogAnalysisCluster[]
+  responseMessages?: ResponseMessage[]
+}
+
 export interface MetricSum {
   metricName?: string
   risk?: number
@@ -471,23 +473,6 @@ export interface TimeSeriesMetricDefinition {
   value?: number
 }
 
-export interface RestResponseListTimeSeriesRecordDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: TimeSeriesRecordDTO[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface TimeSeriesRecordDTO {
-  verificationTaskId?: string
-  host?: string
-  metricName?: string
-  groupName?: string
-  timestamp?: number
-  metricValue?: number
-}
-
 export interface RestResponseMapStringMapStringListTimeSeriesAnomalies {
   metaData?: {
     [key: string]: { [key: string]: any }
@@ -534,6 +519,23 @@ export interface ServiceGuardTxnMetricAnalysisDataDTO {
   keyTransaction?: boolean
 }
 
+export interface RestResponseListTimeSeriesRecordDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: TimeSeriesRecordDTO[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface TimeSeriesRecordDTO {
+  verificationTaskId?: string
+  host?: string
+  metricName?: string
+  groupName?: string
+  epochMinute?: number
+  metricValue?: number
+}
+
 export interface DeploymentTimeSeriesAnalysisDTO {
   risk?: number
   score?: number
@@ -563,6 +565,36 @@ export interface TransactionMetricHostData {
   risk?: number
   score?: number
   hostData?: HostData[]
+}
+
+export interface DeploymentActivityVerificationResultDTO {
+  tag?: string
+  serviceName?: string
+  preProductionDeploymentSummary?: DeploymentSummary
+  productionDeploymentSummary?: DeploymentSummary
+  postDeploymentSummary?: DeploymentSummary
+}
+
+export interface DeploymentSummary {
+  total?: number
+  passed?: number
+  failed?: number
+  errors?: number
+  progress?: number
+  notStarted?: number
+  timeRemainingMs?: number
+  progressPercentage?: number
+  startTime?: number
+  durationMs?: number
+  riskScore?: number
+}
+
+export interface RestResponseListDeploymentActivityVerificationResultDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: DeploymentActivityVerificationResultDTO[]
+  responseMessages?: ResponseMessage[]
 }
 
 export interface DeploymentActivityResultDTO {
@@ -597,48 +629,20 @@ export interface RestResponseDeploymentActivityResultDTO {
   responseMessages?: ResponseMessage[]
 }
 
-export interface DeploymentActivityVerificationResultDTO {
-  tag?: string
-  serviceName?: string
-  preProductionDeploymentSummary?: DeploymentSummary
-  productionDeploymentSummary?: DeploymentSummary
-  postDeploymentSummary?: DeploymentSummary
-}
-
-export interface DeploymentSummary {
-  total?: number
-  passed?: number
-  failed?: number
-  errors?: number
-  progress?: number
-  notStarted?: number
-  timeRemainingMs?: number
-  progressPercentage?: number
-  startTime?: number
-  durationMs?: number
-  riskScore?: number
-}
-
-export interface RestResponseListDeploymentActivityVerificationResultDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: DeploymentActivityVerificationResultDTO[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface ActivityDTO {
-  accountIdentifier: string
-  projectIdentifier: string
-  orgIdentifier: string
+export interface KubernetesActivityDTO {
+  accountIdentifier?: string
+  projectIdentifier?: string
+  orgIdentifier?: string
   serviceIdentifier?: string
-  environmentIdentifier: string
+  environmentIdentifier?: string
   name: string
   verificationJobRuntimeDetails?: VerificationJobRuntimeDetails[]
   activityStartTime: number
   activityEndTime?: number
   tags?: string[]
-  type?: 'DEPLOYMENT' | 'INFRASTRUCTURE' | 'CUSTOM'
+  clusterName?: string
+  activityDescription?: string
+  activitySourceConfigId?: string
 }
 
 export interface VerificationJobRuntimeDetails {
@@ -646,6 +650,37 @@ export interface VerificationJobRuntimeDetails {
   runtimeValues?: {
     [key: string]: string
   }
+}
+
+export interface ActivityDTO {
+  accountIdentifier?: string
+  projectIdentifier?: string
+  orgIdentifier?: string
+  serviceIdentifier?: string
+  environmentIdentifier?: string
+  name: string
+  verificationJobRuntimeDetails?: VerificationJobRuntimeDetails[]
+  activityStartTime: number
+  activityEndTime?: number
+  tags?: string[]
+}
+
+export interface RestResponseString {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: string
+  responseMessages?: ResponseMessage[]
+}
+
+export interface KubernetesActivitySourceDTO {
+  uuid?: string
+  connectorIdentifier: string
+  serviceIdentifier: string
+  envIdentifier: string
+  namespace: string
+  clusterName: string
+  workloadName?: string
 }
 
 export interface AppdynamicsMetricValueValidationResponse {
@@ -709,19 +744,6 @@ export interface TimeSeriesThresholdCriteria {
   criteria?: string
 }
 
-export interface AppDynamicsTier {
-  id?: number
-  name?: string
-}
-
-export interface RestResponseSetAppDynamicsTier {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: AppDynamicsTier[]
-  responseMessages?: ResponseMessage[]
-}
-
 export interface AppDynamicsApplication {
   name?: string
   id?: number
@@ -735,11 +757,16 @@ export interface RestResponseListAppDynamicsApplication {
   responseMessages?: ResponseMessage[]
 }
 
-export interface RestResponseListString {
+export interface AppDynamicsTier {
+  id?: number
+  name?: string
+}
+
+export interface RestResponseSetAppDynamicsTier {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
-  resource?: string[]
+  resource?: AppDynamicsTier[]
   responseMessages?: ResponseMessage[]
 }
 
@@ -760,21 +787,8 @@ export interface CVConfig {
   productName?: string
   groupId?: string
   analysisOrchestrationIteration?: number
-  type?: 'APP_DYNAMICS' | 'SPLUNK'
   firstTimeDataCollectionTimeRange?: TimeRange
-}
-
-export interface RestResponseListCVConfig {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: CVConfig[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface TimeRange {
-  startTime?: number
-  endTime?: number
+  type?: 'APP_DYNAMICS' | 'SPLUNK'
 }
 
 export interface RestResponseCVConfig {
@@ -785,38 +799,25 @@ export interface RestResponseCVConfig {
   responseMessages?: ResponseMessage[]
 }
 
-export interface EnvToServicesDTO {
-  environment?: EnvironmentResponseDTO
-  services?: ServiceResponseDTO[]
+export interface TimeRange {
+  startTime?: number
+  endTime?: number
 }
 
-export interface EnvironmentResponseDTO {
-  accountId?: string
-  orgIdentifier?: string
-  projectIdentifier?: string
-  identifier?: string
-  name?: string
-  description?: string
-  type?: 'PreProduction' | 'Production'
-  deleted?: boolean
-}
-
-export interface RestResponseListEnvToServicesDTO {
+export interface RestResponseListCVConfig {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
-  resource?: EnvToServicesDTO[]
+  resource?: CVConfig[]
   responseMessages?: ResponseMessage[]
 }
 
-export interface ServiceResponseDTO {
-  accountId?: string
-  identifier?: string
-  orgIdentifier?: string
-  projectIdentifier?: string
-  name?: string
-  description?: string
-  deleted?: boolean
+export interface RestResponseListString {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: string[]
+  responseMessages?: ResponseMessage[]
 }
 
 export interface DSConfig {
@@ -838,6 +839,46 @@ export interface RestResponseListDSConfig {
   responseMessages?: ResponseMessage[]
 }
 
+export interface EnvToServicesDTO {
+  environment?: EnvironmentResponseDTO
+  services?: ServiceResponseDTO[]
+}
+
+export interface EnvironmentResponseDTO {
+  accountId?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  identifier?: string
+  name?: string
+  description?: string
+  type?: 'PreProduction' | 'Production'
+  deleted?: boolean
+  tags?: {
+    [key: string]: string
+  }
+}
+
+export interface RestResponseListEnvToServicesDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: EnvToServicesDTO[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface ServiceResponseDTO {
+  accountId?: string
+  identifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  name?: string
+  description?: string
+  deleted?: boolean
+  tags?: {
+    [key: string]: string
+  }
+}
+
 export interface TimeSeriesDataCollectionRecord {
   accountId?: string
   cvConfigId?: string
@@ -855,6 +896,13 @@ export interface TimeSeriesDataRecordGroupValue {
 export interface TimeSeriesDataRecordMetricValue {
   metricName?: string
   timeSeriesValues?: TimeSeriesDataRecordGroupValue[]
+}
+
+export interface DataCollectionTaskResult {
+  dataCollectionTaskId?: string
+  status?: 'FAILED' | 'QUEUED' | 'RUNNING' | 'WAITING' | 'EXPIRED' | 'SUCCESS'
+  exception?: string
+  stacktrace?: string
 }
 
 export interface DataCollectionInfo {
@@ -881,21 +929,6 @@ export interface RestResponseOptionalDataCollectionTaskDTO {
     [key: string]: { [key: string]: any }
   }
   resource?: DataCollectionTaskDTO
-  responseMessages?: ResponseMessage[]
-}
-
-export interface DataCollectionTaskResult {
-  dataCollectionTaskId?: string
-  status?: 'FAILED' | 'QUEUED' | 'RUNNING' | 'WAITING' | 'EXPIRED' | 'SUCCESS'
-  exception?: string
-  stacktrace?: string
-}
-
-export interface RestResponseString {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: string
   responseMessages?: ResponseMessage[]
 }
 
@@ -963,6 +996,19 @@ export interface RestResponseListTimeSeriesThreshold {
   responseMessages?: ResponseMessage[]
 }
 
+export interface RestResponseListSplunkSavedSearch {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: SplunkSavedSearch[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface SplunkSavedSearch {
+  title?: string
+  searchQuery?: string
+}
+
 export interface Bar {
   timestamp?: number
   count?: number
@@ -1004,19 +1050,6 @@ export interface SplunkValidationResponse {
   samples?: SplunkSampleResponse
   errorMessage?: string
   queryDurationMillis?: number
-}
-
-export interface RestResponseListSplunkSavedSearch {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: SplunkSavedSearch[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface SplunkSavedSearch {
-  title?: string
-  searchQuery?: string
 }
 
 export interface MetricData {
@@ -1083,29 +1116,22 @@ export interface RestResponseListAnomalyDTO {
   responseMessages?: ResponseMessage[]
 }
 
-export interface HeatMapDTO {
-  startTime?: number
-  endTime?: number
-  riskScore?: number
+export interface CategoryRisk {
+  category?: 'PERFORMANCE' | 'ERRORS' | 'RESOURCES'
+  risk?: number
 }
 
-export interface RestResponseMapCVMonitoringCategorySortedSetHeatMapDTO {
+export interface CategoryRisksDTO {
+  startTimeEpoch?: number
+  endTimeEpoch?: number
+  categoryRisks?: CategoryRisk[]
+}
+
+export interface RestResponseCategoryRisksDTO {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
-  resource?: {
-    [key: string]: HeatMapDTO[]
-  }
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseMapCVMonitoringCategoryInteger {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: {
-    [key: string]: number
-  }
+  resource?: CategoryRisksDTO
   responseMessages?: ResponseMessage[]
 }
 
@@ -1127,6 +1153,22 @@ export interface RestResponseListEnvServiceRiskDTO {
 export interface ServiceRisk {
   serviceIdentifier?: string
   risk?: number
+}
+
+export interface HeatMapDTO {
+  startTime?: number
+  endTime?: number
+  riskScore?: number
+}
+
+export interface RestResponseMapCVMonitoringCategorySortedSetHeatMapDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: {
+    [key: string]: HeatMapDTO[]
+  }
+  responseMessages?: ResponseMessage[]
 }
 
 export interface Page {
@@ -1162,10 +1204,28 @@ export interface TimeSeriesMetricDataDTO {
   orgIdentifier?: string
   environmentIdentifier?: string
   serviceIdentifier?: string
-  category?: 'PERFORMANCE' | 'QUALITY' | 'RESOURCES'
+  category?: 'PERFORMANCE' | 'ERRORS' | 'RESOURCES'
   groupName?: string
   metricName?: string
   metricDataList?: MetricData[]
+}
+
+export interface CountByTag {
+  tag?: 'KNOWN' | 'UNEXPECTED' | 'UNKNOWN'
+  count?: number
+}
+
+export interface LogDataByTag {
+  timestamp?: number
+  countByTags?: CountByTag[]
+}
+
+export interface RestResponseSortedSetLogDataByTag {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: LogDataByTag[]
+  responseMessages?: ResponseMessage[]
 }
 
 export interface AnalyzedLogDataDTO {
@@ -1204,24 +1264,6 @@ export interface RestResponsePageAnalyzedLogDataDTO {
     [key: string]: { [key: string]: any }
   }
   resource?: PageAnalyzedLogDataDTO
-  responseMessages?: ResponseMessage[]
-}
-
-export interface CountByTag {
-  tag?: 'KNOWN' | 'UNEXPECTED' | 'UNKNOWN'
-  count?: number
-}
-
-export interface LogDataByTag {
-  timestamp?: number
-  countByTags?: CountByTag[]
-}
-
-export interface RestResponseSortedSetLogDataByTag {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: LogDataByTag[]
   responseMessages?: ResponseMessage[]
 }
 
@@ -1304,21 +1346,6 @@ export interface TransactionMetricInfoSummaryPageDTO {
   deploymentTimeRange?: TimeRange
 }
 
-export interface VerificationJobInstanceDTO {
-  verificationJobIdentifier: string
-  oldVersionHosts?: string[]
-  newVersionHosts?: string[]
-  newHostsTrafficSplitPercentage?: number
-}
-
-export interface RestResponseVerificationJobDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: VerificationJobDTO
-  responseMessages?: ResponseMessage[]
-}
-
 export interface VerificationJobDTO {
   identifier?: string
   jobName?: string
@@ -1329,6 +1356,14 @@ export interface VerificationJobDTO {
   dataSources?: ('APP_DYNAMICS' | 'SPLUNK')[]
   duration?: string
   type?: 'TEST' | 'CANARY' | 'BLUE_GREEN' | 'HEALTH'
+}
+
+export interface RestResponseVerificationJobDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: VerificationJobDTO
+  responseMessages?: ResponseMessage[]
 }
 
 export interface RestResponseListVerificationJobDTO {
@@ -1359,9 +1394,12 @@ export type GetAppDynamicsApplicationsProps = Omit<
   'path'
 >
 
+/**
+ * get all appdynamics applications
+ */
 export const GetAppDynamicsApplications = (props: GetAppDynamicsApplicationsProps) => (
   <Get<RestResponseListAppDynamicsApplication, unknown, GetAppDynamicsApplicationsQueryParams, void>
-    path={`/appdynamics/applications`}
+    path="/appdynamics/applications"
     base={getConfig('cv-nextgen')}
     {...props}
   />
@@ -1372,6 +1410,9 @@ export type UseGetAppDynamicsApplicationsProps = Omit<
   'path'
 >
 
+/**
+ * get all appdynamics applications
+ */
 export const useGetAppDynamicsApplications = (props: UseGetAppDynamicsApplicationsProps) =>
   useGet<RestResponseListAppDynamicsApplication, unknown, GetAppDynamicsApplicationsQueryParams, void>(
     `/appdynamics/applications`,
@@ -1399,6 +1440,9 @@ export type GetAppDynamicsMetricDataProps = Omit<
   'path' | 'verb'
 >
 
+/**
+ * get metric data for given metric packs
+ */
 export const GetAppDynamicsMetricData = (props: GetAppDynamicsMetricDataProps) => (
   <Mutate<
     RestResponseSetAppdynamicsValidationResponse,
@@ -1408,7 +1452,7 @@ export const GetAppDynamicsMetricData = (props: GetAppDynamicsMetricDataProps) =
     void
   >
     verb="POST"
-    path={`/appdynamics/metric-data`}
+    path="/appdynamics/metric-data"
     base={getConfig('cv-nextgen')}
     {...props}
   />
@@ -1425,6 +1469,9 @@ export type UseGetAppDynamicsMetricDataProps = Omit<
   'path' | 'verb'
 >
 
+/**
+ * get metric data for given metric packs
+ */
 export const useGetAppDynamicsMetricData = (props: UseGetAppDynamicsMetricDataProps) =>
   useMutate<
     RestResponseSetAppdynamicsValidationResponse,
@@ -1447,9 +1494,12 @@ export type GetAppDynamicsTiersProps = Omit<
   'path'
 >
 
+/**
+ * get all appdynamics tiers for an application
+ */
 export const GetAppDynamicsTiers = (props: GetAppDynamicsTiersProps) => (
   <Get<RestResponseSetAppDynamicsTier, unknown, GetAppDynamicsTiersQueryParams, void>
-    path={`/appdynamics/tiers`}
+    path="/appdynamics/tiers"
     base={getConfig('cv-nextgen')}
     {...props}
   />
@@ -1460,38 +1510,47 @@ export type UseGetAppDynamicsTiersProps = Omit<
   'path'
 >
 
+/**
+ * get all appdynamics tiers for an application
+ */
 export const useGetAppDynamicsTiers = (props: UseGetAppDynamicsTiersProps) =>
   useGet<RestResponseSetAppDynamicsTier, unknown, GetAppDynamicsTiersQueryParams, void>(`/appdynamics/tiers`, {
     base: getConfig('cv-nextgen'),
     ...props
   })
 
-export interface GetDataSourceCVConfigsQueryParams {
+export interface GetDataSourceConfigsQueryParams {
   accountId?: string
   connectorIdentifier?: string
   productName?: string
 }
 
-export type GetDataSourceCVConfigsProps = Omit<
-  GetProps<RestResponseListDSConfig, unknown, GetDataSourceCVConfigsQueryParams, void>,
+export type GetDataSourceConfigsProps = Omit<
+  GetProps<RestResponseListDSConfig, unknown, GetDataSourceConfigsQueryParams, void>,
   'path'
 >
 
-export const GetDataSourceCVConfigs = (props: GetDataSourceCVConfigsProps) => (
-  <Get<RestResponseListDSConfig, unknown, GetDataSourceCVConfigsQueryParams, void>
-    path={`/ds-config`}
+/**
+ * gets list of data source configs
+ */
+export const GetDataSourceConfigs = (props: GetDataSourceConfigsProps) => (
+  <Get<RestResponseListDSConfig, unknown, GetDataSourceConfigsQueryParams, void>
+    path="/ds-config"
     base={getConfig('cv-nextgen')}
     {...props}
   />
 )
 
-export type UseGetDataSourceCVConfigsProps = Omit<
-  UseGetProps<RestResponseListDSConfig, unknown, GetDataSourceCVConfigsQueryParams, void>,
+export type UseGetDataSourceConfigsProps = Omit<
+  UseGetProps<RestResponseListDSConfig, unknown, GetDataSourceConfigsQueryParams, void>,
   'path'
 >
 
-export const useGetDataSourceCVConfigs = (props: UseGetDataSourceCVConfigsProps) =>
-  useGet<RestResponseListDSConfig, unknown, GetDataSourceCVConfigsQueryParams, void>(`/ds-config`, {
+/**
+ * gets list of data source configs
+ */
+export const useGetDataSourceConfigs = (props: UseGetDataSourceConfigsProps) =>
+  useGet<RestResponseListDSConfig, unknown, GetDataSourceConfigsQueryParams, void>(`/ds-config`, {
     base: getConfig('cv-nextgen'),
     ...props
   })
@@ -1505,10 +1564,13 @@ export type SaveDataSourceCVConfigProps = Omit<
   'path' | 'verb'
 >
 
+/**
+ * saves a data source config
+ */
 export const SaveDataSourceCVConfig = (props: SaveDataSourceCVConfigProps) => (
   <Mutate<void, void, SaveDataSourceCVConfigQueryParams, DSConfig, void>
     verb="PUT"
-    path={`/ds-config`}
+    path="/ds-config"
     base={getConfig('cv-nextgen')}
     {...props}
   />
@@ -1519,37 +1581,49 @@ export type UseSaveDataSourceCVConfigProps = Omit<
   'path' | 'verb'
 >
 
+/**
+ * saves a data source config
+ */
 export const useSaveDataSourceCVConfig = (props: UseSaveDataSourceCVConfigProps) =>
   useMutate<void, void, SaveDataSourceCVConfigQueryParams, DSConfig, void>('PUT', `/ds-config`, {
     base: getConfig('cv-nextgen'),
     ...props
   })
 
-export interface DeleteByGroupQueryParams {
+export interface DeleteDataSourceCVConfigByGroupQueryParams {
   accountId?: string
   connectorIdentifier?: string
   productName?: string
   identifier?: string
 }
 
-export type DeleteByGroupProps = Omit<MutateProps<void, void, DeleteByGroupQueryParams, void, void>, 'path' | 'verb'>
+export type DeleteDataSourceCVConfigByGroupProps = Omit<
+  MutateProps<void, void, DeleteDataSourceCVConfigByGroupQueryParams, void, void>,
+  'path' | 'verb'
+>
 
-export const DeleteByGroup = (props: DeleteByGroupProps) => (
-  <Mutate<void, void, DeleteByGroupQueryParams, void, void>
+/**
+ * deletes all data source configs for a group
+ */
+export const DeleteDataSourceCVConfigByGroup = (props: DeleteDataSourceCVConfigByGroupProps) => (
+  <Mutate<void, void, DeleteDataSourceCVConfigByGroupQueryParams, void, void>
     verb="DELETE"
-    path={`/ds-config`}
+    path="/ds-config"
     base={getConfig('cv-nextgen')}
     {...props}
   />
 )
 
-export type UseDeleteByGroupProps = Omit<
-  UseMutateProps<void, void, DeleteByGroupQueryParams, void, void>,
+export type UseDeleteDataSourceCVConfigByGroupProps = Omit<
+  UseMutateProps<void, void, DeleteDataSourceCVConfigByGroupQueryParams, void, void>,
   'path' | 'verb'
 >
 
-export const useDeleteByGroup = (props: UseDeleteByGroupProps) =>
-  useMutate<void, void, DeleteByGroupQueryParams, void, void>('DELETE', `/ds-config`, {
+/**
+ * deletes all data source configs for a group
+ */
+export const useDeleteDataSourceCVConfigByGroup = (props: UseDeleteDataSourceCVConfigByGroupProps) =>
+  useMutate<void, void, DeleteDataSourceCVConfigByGroupQueryParams, void, void>('DELETE', `/ds-config`, {
     base: getConfig('cv-nextgen'),
     ...props
   })
@@ -1565,9 +1639,12 @@ export type GetMetricPacksProps = Omit<
   'path'
 >
 
+/**
+ * get all metric packs for a connector type
+ */
 export const GetMetricPacks = (props: GetMetricPacksProps) => (
   <Get<RestResponseListMetricPackDTO, unknown, GetMetricPacksQueryParams, void>
-    path={`/metric-pack`}
+    path="/metric-pack"
     base={getConfig('cv-nextgen')}
     {...props}
   />
@@ -1578,6 +1655,9 @@ export type UseGetMetricPacksProps = Omit<
   'path'
 >
 
+/**
+ * get all metric packs for a connector type
+ */
 export const useGetMetricPacks = (props: UseGetMetricPacksProps) =>
   useGet<RestResponseListMetricPackDTO, unknown, GetMetricPacksQueryParams, void>(`/metric-pack`, {
     base: getConfig('cv-nextgen'),
@@ -1595,10 +1675,13 @@ export type SaveMetricPacksProps = Omit<
   'path' | 'verb'
 >
 
+/**
+ * saves a metric pack for a connector type
+ */
 export const SaveMetricPacks = (props: SaveMetricPacksProps) => (
   <Mutate<RestResponseBoolean, unknown, SaveMetricPacksQueryParams, MetricPackArrayRequestBody, void>
     verb="POST"
-    path={`/metric-pack`}
+    path="/metric-pack"
     base={getConfig('cv-nextgen')}
     {...props}
   />
@@ -1609,6 +1692,9 @@ export type UseSaveMetricPacksProps = Omit<
   'path' | 'verb'
 >
 
+/**
+ * saves a metric pack for a connector type
+ */
 export const useSaveMetricPacks = (props: UseSaveMetricPacksProps) =>
   useMutate<RestResponseBoolean, unknown, SaveMetricPacksQueryParams, MetricPackArrayRequestBody, void>(
     'POST',
@@ -1630,9 +1716,12 @@ export type GetSplunkValidationProps = Omit<
   'path'
 >
 
+/**
+ * validates given setting for splunk data source
+ */
 export const GetSplunkValidation = (props: GetSplunkValidationProps) => (
   <Get<RestResponseSplunkValidationResponse, unknown, GetSplunkValidationQueryParams, void>
-    path={`/splunk/validation`}
+    path="/splunk/validation"
     base={getConfig('cv-nextgen')}
     {...props}
   />
@@ -1643,6 +1732,9 @@ export type UseGetSplunkValidationProps = Omit<
   'path'
 >
 
+/**
+ * validates given setting for splunk data source
+ */
 export const useGetSplunkValidation = (props: UseGetSplunkValidationProps) =>
   useGet<RestResponseSplunkValidationResponse, unknown, GetSplunkValidationQueryParams, void>(`/splunk/validation`, {
     base: getConfig('cv-nextgen'),
@@ -1662,9 +1754,12 @@ export type GetSplunkSavedSearchesProps = Omit<
   'path'
 >
 
+/**
+ * gets saved searches in splunk
+ */
 export const GetSplunkSavedSearches = (props: GetSplunkSavedSearchesProps) => (
   <Get<RestResponseListSplunkSavedSearch, unknown, GetSplunkSavedSearchesQueryParams, void>
-    path={`/splunk/saved-searches`}
+    path="/splunk/saved-searches"
     base={getConfig('cv-nextgen')}
     {...props}
   />
@@ -1675,6 +1770,9 @@ export type UseGetSplunkSavedSearchesProps = Omit<
   'path'
 >
 
+/**
+ * gets saved searches in splunk
+ */
 export const useGetSplunkSavedSearches = (props: UseGetSplunkSavedSearchesProps) =>
   useGet<RestResponseListSplunkSavedSearch, unknown, GetSplunkSavedSearchesQueryParams, void>(
     `/splunk/saved-searches`,
@@ -1695,9 +1793,12 @@ export type GetTimeSeriesDataProps = Omit<
   'path'
 >
 
+/**
+ * get time series data for a given data source config
+ */
 export const GetTimeSeriesData = (props: GetTimeSeriesDataProps) => (
   <Get<RestResponseTimeSeriesTestDataDTO, unknown, GetTimeSeriesDataQueryParams, void>
-    path={`/timeseries/metric-group-data`}
+    path="/timeseries/metric-group-data"
     base={getConfig('cv-nextgen')}
     {...props}
   />
@@ -1708,6 +1809,9 @@ export type UseGetTimeSeriesDataProps = Omit<
   'path'
 >
 
+/**
+ * get time series data for a given data source config
+ */
 export const useGetTimeSeriesData = (props: UseGetTimeSeriesDataProps) =>
   useGet<RestResponseTimeSeriesTestDataDTO, unknown, GetTimeSeriesDataQueryParams, void>(
     `/timeseries/metric-group-data`,
@@ -1724,9 +1828,12 @@ export type GetMetricDefinitionsProps = Omit<
   'path'
 >
 
+/**
+ * get metric definition for a given data source config
+ */
 export const GetMetricDefinitions = (props: GetMetricDefinitionsProps) => (
   <Get<RestResponseListTimeSeriesMetricDefinition, unknown, GetMetricDefinitionsQueryParams, void>
-    path={`/timeseries/metric-template`}
+    path="/timeseries/metric-template"
     base={getConfig('cv-nextgen')}
     {...props}
   />
@@ -1737,6 +1844,9 @@ export type UseGetMetricDefinitionsProps = Omit<
   'path'
 >
 
+/**
+ * get metric definition for a given data source config
+ */
 export const useGetMetricDefinitions = (props: UseGetMetricDefinitionsProps) =>
   useGet<RestResponseListTimeSeriesMetricDefinition, unknown, GetMetricDefinitionsQueryParams, void>(
     `/timeseries/metric-template`,
@@ -1754,9 +1864,12 @@ export type GetServicesProps = Omit<
   'path'
 >
 
+/**
+ * gets list of env to services mapping for which data sources are configured
+ */
 export const GetServices = (props: GetServicesProps) => (
   <Get<RestResponseListEnvToServicesDTO, unknown, GetServicesQueryParams, void>
-    path={`/ds-config/env-to-services`}
+    path="/ds-config/env-to-services"
     base={getConfig('cv-nextgen')}
     {...props}
   />
@@ -1767,6 +1880,9 @@ export type UseGetServicesProps = Omit<
   'path'
 >
 
+/**
+ * gets list of env to services mapping for which data sources are configured
+ */
 export const useGetServices = (props: UseGetServicesProps) =>
   useGet<RestResponseListEnvToServicesDTO, unknown, GetServicesQueryParams, void>(`/ds-config/env-to-services`, {
     base: getConfig('cv-nextgen'),
@@ -1787,9 +1903,12 @@ export type GetHeatmapProps = Omit<
   'path'
 >
 
+/**
+ * get heatmap for a time range
+ */
 export const GetHeatmap = (props: GetHeatmapProps) => (
   <Get<RestResponseMapCVMonitoringCategorySortedSetHeatMapDTO, unknown, GetHeatmapQueryParams, void>
-    path={`/heatmap`}
+    path="/heatmap"
     base={getConfig('cv-nextgen')}
     {...props}
   />
@@ -1800,6 +1919,9 @@ export type UseGetHeatmapProps = Omit<
   'path'
 >
 
+/**
+ * get heatmap for a time range
+ */
 export const useGetHeatmap = (props: UseGetHeatmapProps) =>
   useGet<RestResponseMapCVMonitoringCategorySortedSetHeatMapDTO, unknown, GetHeatmapQueryParams, void>(`/heatmap`, {
     base: getConfig('cv-nextgen'),
@@ -1815,28 +1937,34 @@ export interface GetCategoryRiskMapQueryParams {
 }
 
 export type GetCategoryRiskMapProps = Omit<
-  GetProps<RestResponseMapCVMonitoringCategoryInteger, unknown, GetCategoryRiskMapQueryParams, void>,
+  GetProps<RestResponseCategoryRisksDTO, unknown, GetCategoryRiskMapQueryParams, void>,
   'path'
 >
 
+/**
+ * get current risk for all categories
+ */
 export const GetCategoryRiskMap = (props: GetCategoryRiskMapProps) => (
-  <Get<RestResponseMapCVMonitoringCategoryInteger, unknown, GetCategoryRiskMapQueryParams, void>
-    path={`/heatmap/category-risks`}
+  <Get<RestResponseCategoryRisksDTO, unknown, GetCategoryRiskMapQueryParams, void>
+    path="/heatmap/category-risks"
     base={getConfig('cv-nextgen')}
     {...props}
   />
 )
 
 export type UseGetCategoryRiskMapProps = Omit<
-  UseGetProps<RestResponseMapCVMonitoringCategoryInteger, unknown, GetCategoryRiskMapQueryParams, void>,
+  UseGetProps<RestResponseCategoryRisksDTO, unknown, GetCategoryRiskMapQueryParams, void>,
   'path'
 >
 
+/**
+ * get current risk for all categories
+ */
 export const useGetCategoryRiskMap = (props: UseGetCategoryRiskMapProps) =>
-  useGet<RestResponseMapCVMonitoringCategoryInteger, unknown, GetCategoryRiskMapQueryParams, void>(
-    `/heatmap/category-risks`,
-    { base: getConfig('cv-nextgen'), ...props }
-  )
+  useGet<RestResponseCategoryRisksDTO, unknown, GetCategoryRiskMapQueryParams, void>(`/heatmap/category-risks`, {
+    base: getConfig('cv-nextgen'),
+    ...props
+  })
 
 export interface GetEnvServiceRisksQueryParams {
   accountId: string
@@ -1849,9 +1977,12 @@ export type GetEnvServiceRisksProps = Omit<
   'path'
 >
 
+/**
+ * get current risks for each env/service combination
+ */
 export const GetEnvServiceRisks = (props: GetEnvServiceRisksProps) => (
   <Get<RestResponseListEnvServiceRiskDTO, unknown, GetEnvServiceRisksQueryParams, void>
-    path={`/heatmap/env-service-risks`}
+    path="/heatmap/env-service-risks"
     base={getConfig('cv-nextgen')}
     {...props}
   />
@@ -1862,6 +1993,9 @@ export type UseGetEnvServiceRisksProps = Omit<
   'path'
 >
 
+/**
+ * get current risks for each env/service combination
+ */
 export const useGetEnvServiceRisks = (props: UseGetEnvServiceRisksProps) =>
   useGet<RestResponseListEnvServiceRiskDTO, unknown, GetEnvServiceRisksQueryParams, void>(
     `/heatmap/env-service-risks`,
@@ -1878,9 +2012,12 @@ export type GetVerificationJobProps = Omit<
   'path'
 >
 
+/**
+ * gets the verification job for an identifier
+ */
 export const GetVerificationJob = (props: GetVerificationJobProps) => (
   <Get<RestResponseVerificationJobDTO, unknown, GetVerificationJobQueryParams, void>
-    path={`/verification-job`}
+    path="/verification-job"
     base={getConfig('cv-nextgen')}
     {...props}
   />
@@ -1891,6 +2028,9 @@ export type UseGetVerificationJobProps = Omit<
   'path'
 >
 
+/**
+ * gets the verification job for an identifier
+ */
 export const useGetVerificationJob = (props: UseGetVerificationJobProps) =>
   useGet<RestResponseVerificationJobDTO, unknown, GetVerificationJobQueryParams, void>(`/verification-job`, {
     base: getConfig('cv-nextgen'),
@@ -1906,10 +2046,13 @@ export type SaveVerificationJobProps = Omit<
   'path' | 'verb'
 >
 
+/**
+ * upserts a verification job for an identifier
+ */
 export const SaveVerificationJob = (props: SaveVerificationJobProps) => (
   <Mutate<void, void, SaveVerificationJobQueryParams, VerificationJobDTO, void>
     verb="PUT"
-    path={`/verification-job`}
+    path="/verification-job"
     base={getConfig('cv-nextgen')}
     {...props}
   />
@@ -1920,38 +2063,47 @@ export type UseSaveVerificationJobProps = Omit<
   'path' | 'verb'
 >
 
+/**
+ * upserts a verification job for an identifier
+ */
 export const useSaveVerificationJob = (props: UseSaveVerificationJobProps) =>
   useMutate<void, void, SaveVerificationJobQueryParams, VerificationJobDTO, void>('PUT', `/verification-job`, {
     base: getConfig('cv-nextgen'),
     ...props
   })
 
-export interface DeleteJobByGroupQueryParams {
+export interface DeleteVerificationJobQueryParams {
   accountId?: string
   identifier?: string
 }
 
-export type DeleteJobByGroupProps = Omit<
-  MutateProps<void, void, DeleteJobByGroupQueryParams, void, void>,
+export type DeleteVerificationJobProps = Omit<
+  MutateProps<void, void, DeleteVerificationJobQueryParams, void, void>,
   'path' | 'verb'
 >
 
-export const DeleteJobByGroup = (props: DeleteJobByGroupProps) => (
-  <Mutate<void, void, DeleteJobByGroupQueryParams, void, void>
+/**
+ * deletes a verification job for an identifier
+ */
+export const DeleteVerificationJob = (props: DeleteVerificationJobProps) => (
+  <Mutate<void, void, DeleteVerificationJobQueryParams, void, void>
     verb="DELETE"
-    path={`/verification-job`}
+    path="/verification-job"
     base={getConfig('cv-nextgen')}
     {...props}
   />
 )
 
-export type UseDeleteJobByGroupProps = Omit<
-  UseMutateProps<void, void, DeleteJobByGroupQueryParams, void, void>,
+export type UseDeleteVerificationJobProps = Omit<
+  UseMutateProps<void, void, DeleteVerificationJobQueryParams, void, void>,
   'path' | 'verb'
 >
 
-export const useDeleteJobByGroup = (props: UseDeleteJobByGroupProps) =>
-  useMutate<void, void, DeleteJobByGroupQueryParams, void, void>('DELETE', `/verification-job`, {
+/**
+ * deletes a verification job for an identifier
+ */
+export const useDeleteVerificationJob = (props: UseDeleteVerificationJobProps) =>
+  useMutate<void, void, DeleteVerificationJobQueryParams, void, void>('DELETE', `/verification-job`, {
     base: getConfig('cv-nextgen'),
     ...props
   })
@@ -1967,9 +2119,12 @@ export type GetVerificationJobsProps = Omit<
   'path'
 >
 
+/**
+ * lists all verification jobs for an identifier
+ */
 export const GetVerificationJobs = (props: GetVerificationJobsProps) => (
   <Get<RestResponseListVerificationJobDTO, unknown, GetVerificationJobsQueryParams, void>
-    path={`/verification-job/list`}
+    path="/verification-job/list"
     base={getConfig('cv-nextgen')}
     {...props}
   />
@@ -1980,13 +2135,16 @@ export type UseGetVerificationJobsProps = Omit<
   'path'
 >
 
+/**
+ * lists all verification jobs for an identifier
+ */
 export const useGetVerificationJobs = (props: UseGetVerificationJobsProps) =>
   useGet<RestResponseListVerificationJobDTO, unknown, GetVerificationJobsQueryParams, void>(`/verification-job/list`, {
     base: getConfig('cv-nextgen'),
     ...props
   })
 
-export interface GetAnomalousMetricDataQueryParams {
+export interface GetAnomalousMetricDashboardDataQueryParams {
   accountId: string
   projectIdentifier: string
   orgIdentifier: string
@@ -1999,26 +2157,32 @@ export interface GetAnomalousMetricDataQueryParams {
   size?: number
 }
 
-export type GetAnomalousMetricDataProps = Omit<
-  GetProps<RestResponsePageTimeSeriesMetricDataDTO, unknown, GetAnomalousMetricDataQueryParams, void>,
+export type GetAnomalousMetricDashboardDataProps = Omit<
+  GetProps<RestResponsePageTimeSeriesMetricDataDTO, unknown, GetAnomalousMetricDashboardDataQueryParams, void>,
   'path'
 >
 
-export const GetAnomalousMetricData = (props: GetAnomalousMetricDataProps) => (
-  <Get<RestResponsePageTimeSeriesMetricDataDTO, unknown, GetAnomalousMetricDataQueryParams, void>
-    path={`/timeseries-dashboard/anomalous-metric-data`}
+/**
+ * get anomalous time series data in a given time range
+ */
+export const GetAnomalousMetricDashboardData = (props: GetAnomalousMetricDashboardDataProps) => (
+  <Get<RestResponsePageTimeSeriesMetricDataDTO, unknown, GetAnomalousMetricDashboardDataQueryParams, void>
+    path="/timeseries-dashboard/anomalous-metric-data"
     base={getConfig('cv-nextgen')}
     {...props}
   />
 )
 
-export type UseGetAnomalousMetricDataProps = Omit<
-  UseGetProps<RestResponsePageTimeSeriesMetricDataDTO, unknown, GetAnomalousMetricDataQueryParams, void>,
+export type UseGetAnomalousMetricDashboardDataProps = Omit<
+  UseGetProps<RestResponsePageTimeSeriesMetricDataDTO, unknown, GetAnomalousMetricDashboardDataQueryParams, void>,
   'path'
 >
 
-export const useGetAnomalousMetricData = (props: UseGetAnomalousMetricDataProps) =>
-  useGet<RestResponsePageTimeSeriesMetricDataDTO, unknown, GetAnomalousMetricDataQueryParams, void>(
+/**
+ * get anomalous time series data in a given time range
+ */
+export const useGetAnomalousMetricDashboardData = (props: UseGetAnomalousMetricDashboardDataProps) =>
+  useGet<RestResponsePageTimeSeriesMetricDataDTO, unknown, GetAnomalousMetricDashboardDataQueryParams, void>(
     `/timeseries-dashboard/anomalous-metric-data`,
     { base: getConfig('cv-nextgen'), ...props }
   )
@@ -2041,9 +2205,12 @@ export type GetMetricDataProps = Omit<
   'path'
 >
 
+/**
+ * get all time series data in a given time range
+ */
 export const GetMetricData = (props: GetMetricDataProps) => (
   <Get<RestResponsePageTimeSeriesMetricDataDTO, unknown, GetMetricDataQueryParams, void>
-    path={`/timeseries-dashboard/metric-data`}
+    path="/timeseries-dashboard/metric-data"
     base={getConfig('cv-nextgen')}
     {...props}
   />
@@ -2054,6 +2221,9 @@ export type UseGetMetricDataProps = Omit<
   'path'
 >
 
+/**
+ * get all time series data in a given time range
+ */
 export const useGetMetricData = (props: UseGetMetricDataProps) =>
   useGet<RestResponsePageTimeSeriesMetricDataDTO, unknown, GetMetricDataQueryParams, void>(
     `/timeseries-dashboard/metric-data`,
@@ -2078,9 +2248,12 @@ export type GetAllLogsProps = Omit<
   'path'
 >
 
+/**
+ * get all logs for a time range
+ */
 export const GetAllLogs = (props: GetAllLogsProps) => (
   <Get<RestResponsePageAnalyzedLogDataDTO, unknown, GetAllLogsQueryParams, void>
-    path={`/log-dashboard/all-logs`}
+    path="/log-dashboard/all-logs"
     base={getConfig('cv-nextgen')}
     {...props}
   />
@@ -2091,6 +2264,9 @@ export type UseGetAllLogsProps = Omit<
   'path'
 >
 
+/**
+ * get all logs for a time range
+ */
 export const useGetAllLogs = (props: UseGetAllLogsProps) =>
   useGet<RestResponsePageAnalyzedLogDataDTO, unknown, GetAllLogsQueryParams, void>(`/log-dashboard/all-logs`, {
     base: getConfig('cv-nextgen'),
@@ -2115,9 +2291,12 @@ export type GetAnomalousLogsProps = Omit<
   'path'
 >
 
+/**
+ * get anomalous logs for a time range
+ */
 export const GetAnomalousLogs = (props: GetAnomalousLogsProps) => (
   <Get<RestResponsePageAnalyzedLogDataDTO, unknown, GetAnomalousLogsQueryParams, void>
-    path={`/log-dashboard/anomalous-logs`}
+    path="/log-dashboard/anomalous-logs"
     base={getConfig('cv-nextgen')}
     {...props}
   />
@@ -2128,6 +2307,9 @@ export type UseGetAnomalousLogsProps = Omit<
   'path'
 >
 
+/**
+ * get anomalous logs for a time range
+ */
 export const useGetAnomalousLogs = (props: UseGetAnomalousLogsProps) =>
   useGet<RestResponsePageAnalyzedLogDataDTO, unknown, GetAnomalousLogsQueryParams, void>(
     `/log-dashboard/anomalous-logs`,
@@ -2150,9 +2332,12 @@ export type GetTagCountProps = Omit<
   'path'
 >
 
+/**
+ * get a sorted tag vs logs list
+ */
 export const GetTagCount = (props: GetTagCountProps) => (
   <Get<RestResponseSortedSetLogDataByTag, unknown, GetTagCountQueryParams, void>
-    path={`/log-dashboard/log-count-by-tags`}
+    path="/log-dashboard/log-count-by-tags"
     base={getConfig('cv-nextgen')}
     {...props}
   />
@@ -2163,6 +2348,9 @@ export type UseGetTagCountProps = Omit<
   'path'
 >
 
+/**
+ * get a sorted tag vs logs list
+ */
 export const useGetTagCount = (props: UseGetTagCountProps) =>
   useGet<RestResponseSortedSetLogDataByTag, unknown, GetTagCountQueryParams, void>(`/log-dashboard/log-count-by-tags`, {
     base: getConfig('cv-nextgen'),
@@ -2191,6 +2379,9 @@ export type GetDeploymentTimeSeriesProps = Omit<
 > &
   GetDeploymentTimeSeriesPathParams
 
+/**
+ * get metrics for given verificationJob
+ */
 export const GetDeploymentTimeSeries = ({ verificationJobInstanceId, ...props }: GetDeploymentTimeSeriesProps) => (
   <Get<
     RestResponseTransactionMetricInfoSummaryPageDTO,
@@ -2198,7 +2389,7 @@ export const GetDeploymentTimeSeries = ({ verificationJobInstanceId, ...props }:
     GetDeploymentTimeSeriesQueryParams,
     GetDeploymentTimeSeriesPathParams
   >
-    path={`/deployment-time-series-analysis/${verificationJobInstanceId}`}
+    path="/deployment-time-series-analysis/${verificationJobInstanceId}"
     base={getConfig('cv-nextgen')}
     {...props}
   />
@@ -2215,6 +2406,9 @@ export type UseGetDeploymentTimeSeriesProps = Omit<
 > &
   GetDeploymentTimeSeriesPathParams
 
+/**
+ * get metrics for given verificationJob
+ */
 export const useGetDeploymentTimeSeries = ({ verificationJobInstanceId, ...props }: UseGetDeploymentTimeSeriesProps) =>
   useGet<
     RestResponseTransactionMetricInfoSummaryPageDTO,
@@ -2248,6 +2442,9 @@ export type GetDeploymentLogAnalysesProps = Omit<
 > &
   GetDeploymentLogAnalysesPathParams
 
+/**
+ * get logs for given verificationJob
+ */
 export const GetDeploymentLogAnalyses = ({ verificationJobInstanceId, ...props }: GetDeploymentLogAnalysesProps) => (
   <Get<
     RestResponsePageLogAnalysisClusterDTO,
@@ -2255,7 +2452,7 @@ export const GetDeploymentLogAnalyses = ({ verificationJobInstanceId, ...props }
     GetDeploymentLogAnalysesQueryParams,
     GetDeploymentLogAnalysesPathParams
   >
-    path={`/deployment-log-analysis/${verificationJobInstanceId}`}
+    path="/deployment-log-analysis/${verificationJobInstanceId}"
     base={getConfig('cv-nextgen')}
     {...props}
   />
@@ -2272,6 +2469,9 @@ export type UseGetDeploymentLogAnalysesProps = Omit<
 > &
   GetDeploymentLogAnalysesPathParams
 
+/**
+ * get logs for given verificationJob
+ */
 export const useGetDeploymentLogAnalyses = ({
   verificationJobInstanceId,
   ...props
@@ -2306,6 +2506,9 @@ export type GetClusterChartAnalysesProps = Omit<
 > &
   GetClusterChartAnalysesPathParams
 
+/**
+ * get logs for given verificationJob
+ */
 export const GetClusterChartAnalyses = ({ verificationJobInstanceId, ...props }: GetClusterChartAnalysesProps) => (
   <Get<
     RestResponseListLogAnalysisClusterChartDTO,
@@ -2313,7 +2516,7 @@ export const GetClusterChartAnalyses = ({ verificationJobInstanceId, ...props }:
     GetClusterChartAnalysesQueryParams,
     GetClusterChartAnalysesPathParams
   >
-    path={`/deployment-log-analysis/${verificationJobInstanceId}/clusters`}
+    path="/deployment-log-analysis/${verificationJobInstanceId}/clusters"
     base={getConfig('cv-nextgen')}
     {...props}
   />
@@ -2330,6 +2533,9 @@ export type UseGetClusterChartAnalysesProps = Omit<
 > &
   GetClusterChartAnalysesPathParams
 
+/**
+ * get logs for given verificationJob
+ */
 export const useGetClusterChartAnalyses = ({ verificationJobInstanceId, ...props }: UseGetClusterChartAnalysesProps) =>
   useGet<
     RestResponseListLogAnalysisClusterChartDTO,
@@ -2357,6 +2563,9 @@ export type GetRecentDeploymentActivityVerificationsProps = Omit<
   'path'
 >
 
+/**
+ * get recent deployment activity verification
+ */
 export const GetRecentDeploymentActivityVerifications = (props: GetRecentDeploymentActivityVerificationsProps) => (
   <Get<
     RestResponseListDeploymentActivityVerificationResultDTO,
@@ -2364,7 +2573,7 @@ export const GetRecentDeploymentActivityVerifications = (props: GetRecentDeploym
     GetRecentDeploymentActivityVerificationsQueryParams,
     void
   >
-    path={`/activity/recent-deployment-activity-verifications`}
+    path="/activity/recent-deployment-activity-verifications"
     base={getConfig('cv-nextgen')}
     {...props}
   />
@@ -2380,6 +2589,9 @@ export type UseGetRecentDeploymentActivityVerificationsProps = Omit<
   'path'
 >
 
+/**
+ * get recent deployment activity verification
+ */
 export const useGetRecentDeploymentActivityVerifications = (props: UseGetRecentDeploymentActivityVerificationsProps) =>
   useGet<
     RestResponseListDeploymentActivityVerificationResultDTO,
@@ -2408,6 +2620,9 @@ export type GetVerificationInstancesProps = Omit<
 > &
   GetVerificationInstancesPathParams
 
+/**
+ * get deployment activities for given build tag
+ */
 export const GetVerificationInstances = ({ deploymentTag, ...props }: GetVerificationInstancesProps) => (
   <Get<
     RestResponseDeploymentActivityResultDTO,
@@ -2415,7 +2630,7 @@ export const GetVerificationInstances = ({ deploymentTag, ...props }: GetVerific
     GetVerificationInstancesQueryParams,
     GetVerificationInstancesPathParams
   >
-    path={`/activity/deployment-activity-verifications/${deploymentTag}`}
+    path="/activity/deployment-activity-verifications/${deploymentTag}"
     base={getConfig('cv-nextgen')}
     {...props}
   />
@@ -2432,6 +2647,9 @@ export type UseGetVerificationInstancesProps = Omit<
 > &
   GetVerificationInstancesPathParams
 
+/**
+ * get deployment activities for given build tag
+ */
 export const useGetVerificationInstances = ({ deploymentTag, ...props }: UseGetVerificationInstancesProps) =>
   useGet<
     RestResponseDeploymentActivityResultDTO,

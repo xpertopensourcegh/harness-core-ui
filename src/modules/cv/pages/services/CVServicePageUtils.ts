@@ -3,7 +3,7 @@ import i18n from './CVServicesPage.i18n'
 
 export const MetricPackCategoryLabels = {
   PERFORMANCE: i18n.categoryNameLabels.performance,
-  QUALITY: i18n.categoryNameLabels.quality,
+  ERRORS: i18n.categoryNameLabels.quality,
   RESOURCES: i18n.categoryNameLabels.resources
 }
 
@@ -11,8 +11,8 @@ export function categoryNameToCategoryType(categoryName: string): TimeSeriesMetr
   switch (categoryName) {
     case MetricPackCategoryLabels.PERFORMANCE:
       return 'PERFORMANCE'
-    case MetricPackCategoryLabels.QUALITY:
-      return 'QUALITY'
+    case MetricPackCategoryLabels.ERRORS:
+      return 'ERRORS'
     case MetricPackCategoryLabels.RESOURCES:
       return 'RESOURCES'
   }

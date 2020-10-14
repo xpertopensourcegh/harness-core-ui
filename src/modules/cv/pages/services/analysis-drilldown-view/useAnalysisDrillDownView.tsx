@@ -81,6 +81,7 @@ export default function useAnalysisDrillDownView(
         >
           <AnalysisDrillDownView
             {...omit(drillDownProps.analysisProps, 'categoryRiskScore')}
+            className={css.drillDownContent}
             asModal={true}
             historyStartTime={moment(drillDownProps.analysisProps.startTime).subtract(2, 'hours').valueOf()}
           />

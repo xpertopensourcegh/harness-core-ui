@@ -3,7 +3,7 @@ import { Container, Icon, Color, Pagination } from '@wings-software/uikit'
 import cx from 'classnames'
 import { useRouteParams } from 'framework/exports'
 import {
-  useGetAnomalousMetricData,
+  useGetAnomalousMetricDashboardData,
   TimeSeriesMetricDataDTO,
   useGetMetricData,
   RestResponsePageTimeSeriesMetricDataDTO,
@@ -111,7 +111,7 @@ export default function MetricAnalysisView(props: MetricAnalysisViewProps): JSX.
     loading: loadingAnomalousData,
     cancel: cancelAnomalousCall,
     refetch: refetchAnomalousData
-  } = useGetAnomalousMetricData({
+  } = useGetAnomalousMetricDashboardData({
     queryParams,
     lazy: true,
     resolve: response => generatePointsForTimeSeries(response, finalStartTime, endTime)

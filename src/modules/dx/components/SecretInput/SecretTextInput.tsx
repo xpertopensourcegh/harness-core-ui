@@ -57,7 +57,7 @@ const SecretTextField: React.FC<FormikSecretTextInput> = props => {
         <Text color={Color.GREY_400} font={{ size: 'small' }}>
           {props.label}
         </Text>
-        <Popover position={Position.BOTTOM}>
+        <Popover position={Position.TOP}>
           <div className={css.secretPop}>
             <Icon name="key-main" size={24} height={12} width={24} /> <Icon name="chevron-down" size={14} />
           </div>

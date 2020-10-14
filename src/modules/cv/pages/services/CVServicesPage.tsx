@@ -37,7 +37,9 @@ const DEFAULT_RANGE = RangeOptions[1]
 const FIVE_MINUTES_IN_MILLISECONDS = 1000 * 60 * 5
 
 const getRangeDates = (val: number) => {
-  const now = moment(Math.round(new Date().getTime() / FIVE_MINUTES_IN_MILLISECONDS) * FIVE_MINUTES_IN_MILLISECONDS)
+  const now = moment(
+    Math.round(new Date().getTime() / FIVE_MINUTES_IN_MILLISECONDS) * FIVE_MINUTES_IN_MILLISECONDS
+  ).subtract(FIVE_MINUTES_IN_MILLISECONDS, 'milliseconds')
   return {
     start: now.clone().subtract(val, 'minutes'),
     end: now

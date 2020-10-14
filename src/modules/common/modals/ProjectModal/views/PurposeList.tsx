@@ -6,6 +6,7 @@ import { useHistory, useParams } from 'react-router-dom'
 import type { Project } from 'services/cd-ng'
 import { usePutProject } from 'services/cd-ng'
 import { routeCDPipelineStudio } from 'modules/cd/routes'
+import { routeCVDataSources } from 'modules/cv/routes'
 import i18n from '../../../pages/ProjectsPage/ProjectsPage.i18n'
 import css from './Purpose.module.scss'
 
@@ -107,7 +108,9 @@ const ContinuousDeployement: React.FC<ModuleProps & ProjectModalData> = ({ onSub
   )
 }
 
-const ContinuousVerification: React.FC<ModuleProps> = ({ onSubmit }) => {
+const ContinuousVerification: React.FC<ModuleProps & ProjectModalData> = ({ onSubmit, data }) => {
+  const history = useHistory()
+
   return (
     <Container width="40%">
       <Layout.Vertical className={css.started}>
@@ -123,6 +126,13 @@ const ContinuousVerification: React.FC<ModuleProps> = ({ onSubmit }) => {
           text={i18n.newProjectWizard.purposeList.buttoncv}
           onClick={() => {
             onSubmit()
+            history.push({
+              pathname: routeCVDataSources.url({
+                projectIdentifier: data?.identifier || '',
+                orgIdentifier: data?.orgIdentifier || ''
+              }),
+              search: '?onBoarding=true'
+            })
           }}
         />
       </Layout.Vertical>
@@ -270,7 +280,7 @@ const PurposeList: React.FC<ProjectModalData> = props => {
         </Layout.Vertical>
       </Container>
       {selected.module === 'CD' ? <ContinuousDeployement onSubmit={onSuccess} data={projectData} /> : null}
-      {selected.module === 'CV' ? <ContinuousVerification onSubmit={onSuccess} /> : null}
+      {selected.module === 'CV' ? <ContinuousVerification onSubmit={onSuccess} data={projectData} /> : null}
       {selected.module === 'CI' ? <ContinuousIntegration onSubmit={onSuccess} /> : null}
       {selected.module === 'CE' ? <ContinuousEfficiency onSubmit={onSuccess} /> : null}
       {selected.module === 'CF' ? <ContinuousFeatures onSubmit={onSuccess} /> : null}

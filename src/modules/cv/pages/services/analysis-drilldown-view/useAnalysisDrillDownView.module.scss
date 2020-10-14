@@ -1,12 +1,15 @@
 .main {
   padding: var(--spacing-large);
-  overflow-y: scroll;
   border-left: none !important;
   :global {
     .bp3-dialog-header {
       padding-left: 0;
       margin-bottom: var(--spacing-large);
     }
+  }
+  .drillDownContent {
+    height: 500px !important;
+    overflow-y: scroll;
   }
 
   .timeRange {

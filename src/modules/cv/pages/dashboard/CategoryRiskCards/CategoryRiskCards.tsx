@@ -9,7 +9,7 @@ import { isNumber } from 'lodash-es'
 import moment from 'moment'
 import { RiskScoreTile } from 'modules/cv/components/RiskScoreTile/RiskScoreTile'
 import { useRouteParams } from 'framework/exports'
-import { RestResponseMapCVMonitoringCategoryInteger, useGetCategoryRiskMap } from 'services/cv'
+import { CategoryRisk, useGetCategoryRiskMap } from 'services/cv'
 import { NoDataCard } from 'modules/common/components/Page/NoDataCard'
 import { getColorStyle } from 'modules/common/components/HeatMap/ColorUtils'
 import i18n from './CategoryRiskCards.i18n'
@@ -26,7 +26,6 @@ interface CategoryRiskCardsProps {
   categoryRiskCardClassName?: string
   environmentIdentifier?: string
   serviceIdentifier?: string
-  categoryRiskScores?: (riskScores: RestResponseMapCVMonitoringCategoryInteger['resource']) => void
 }
 
 interface OverallRiskScoreCard {
@@ -99,9 +98,12 @@ export function CategoryRiskCards(props: CategoryRiskCardsProps): JSX.Element {
       serviceIdentifier
     },
     resolve: response => {
-      const riskValues: number[] = Object.values(response?.resource || {})
+      const riskValues: CategoryRisk[] = Object.values(response?.resource.categoryRisks || [])
       if (riskValues.length) {
-        const maxValue = riskValues.reduce((currMax = -1, currVal) => (currVal > currMax ? currVal : currMax))
+        const maxValue = riskValues.reduce((currMax = -1, currVal) => {
+          if (!isNumber(currVal?.risk)) return currMax
+          return currVal.risk > currMax ? currVal.risk : currMax
+        }, -1)
         setOverallRiskScore(maxValue)
       }
       return response
@@ -109,10 +111,11 @@ export function CategoryRiskCards(props: CategoryRiskCardsProps): JSX.Element {
   })
 
   const categoriesAndRisk = useMemo(() => {
-    if (!data || !data.resource) {
+    if (!data || !data.resource || !data.resource.categoryRisks?.length) {
       return []
     }
-    return Object.keys(data.resource)
+    const { categoryRisks } = data.resource
+    return categoryRisks
       .sort((categoryA, categoryB) => {
         if (!categoryA) {
           return categoryB ? -1 : 0
@@ -120,17 +123,17 @@ export function CategoryRiskCards(props: CategoryRiskCardsProps): JSX.Element {
         if (!categoryB) {
           return 1
         }
-        if (!isNumber(data?.resource?.[categoryA])) {
+        if (!isNumber(categoryA.risk)) {
           return -1
         }
-        if (!isNumber(data?.resource?.[categoryB])) {
+        if (!isNumber(categoryB.risk)) {
           return 1
         }
-        return (data?.resource?.[categoryB] as number) - (data?.resource?.[categoryA] as number)
+        return categoryB.risk - categoryA.risk
       })
       .map(sortedCategoryName => ({
-        categoryName: sortedCategoryName,
-        riskScore: data?.resource?.[sortedCategoryName]
+        categoryName: sortedCategoryName.category,
+        riskScore: sortedCategoryName.risk
       }))
   }, [data, data?.resource])
 
@@ -170,14 +173,14 @@ export function CategoryRiskCards(props: CategoryRiskCardsProps): JSX.Element {
           {i18n.productionRisk}
         </Text>
         <Text font={{ size: 'xsmall' }} color={Color.GREY_350}>{`${i18n.evaluationPeriodText} ${moment(
-          new Date().getTime() - 60000 * 5
-        ).format('MMM D, YYYY h:mma')} - ${moment().format('h:mma ')}`}</Text>
+          data?.resource?.startTimeEpoch
+        ).format('MMM D, YYYY h:mma')} - ${moment(data?.resource?.endTimeEpoch).format('h:mma')}`}</Text>
       </Container>
       <Container className={css.cardContainer}>
         {isNumber(overallRiskScore) && <OverallRiskScoreCard overallRiskScore={overallRiskScore} />}
         {categoriesAndRisk.map(({ categoryName, riskScore }) => (
           <CategoryRiskCard
-            categoryName={categoryName}
+            categoryName={categoryName || ''}
             riskScore={riskScore ?? -1}
             key={categoryName}
             className={categoryRiskCardClassName}
