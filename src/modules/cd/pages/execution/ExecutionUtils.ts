@@ -35,18 +35,23 @@ export function getPipelineStagesMap(res: ResponsePipelineExecutionDetail): Map<
 }
 
 export function isExecutionComplete(status?: ExecutionStatus): boolean {
+  return isExecutionSuccess(status) || isExecutionErrored(status)
+}
+
+export function isExecutionErrored(status?: ExecutionStatus): boolean {
   return (
-    status === 'Aborted' ||
-    status === 'Expired' ||
-    status === 'Failed' ||
-    status === 'Success' ||
-    status === 'Suspended' ||
-    status === 'Error'
+    status === 'Aborted' || status === 'Expired' || status === 'Failed' || status === 'Suspended' || status === 'Error'
   )
 }
 
 export function isExecutionInProgress(status?: ExecutionStatus): boolean {
-  return status === 'Paused' || status === 'Running' || status === 'Waiting' || status === 'Queued'
+  return (
+    isExecutionPaused(status) ||
+    isExecutionRunning(status) ||
+    isExecutionNotStarted(status) ||
+    status === 'Waiting' ||
+    status === 'Queued'
+  )
 }
 
 export function isExecutionRunning(status?: ExecutionStatus): boolean {
@@ -61,11 +66,18 @@ export function isExecutionNotStarted(status?: ExecutionStatus): boolean {
   return status === 'NotStarted'
 }
 
-export function getRunningStage(stages: StageExecutionSummaryDTO[], executionStatus?: ExecutionStatus): string | null {
+export function isExecutionSuccess(status?: ExecutionStatus): boolean {
+  return status === 'Success'
+}
+
+export function getRunningStageForPipeline(
+  stages: StageExecutionSummaryDTO[],
+  pipelineExecutionStatus?: ExecutionStatus
+): string | null {
   const n = stages.length
 
-  // for completed stage, select the last stage
-  if (isExecutionComplete(executionStatus)) {
+  // for completed pipeline, select the last completed stage
+  if (isExecutionSuccess(pipelineExecutionStatus)) {
     const stage = stages[stages.length - 1]
 
     if (stage.stage) {
@@ -76,6 +88,24 @@ export function getRunningStage(stages: StageExecutionSummaryDTO[], executionSta
       stage.parallel.stageExecutions[0]?.stage
     ) {
       return stage.parallel.stageExecutions[0].stage.stageIdentifier
+    }
+
+    return null
+  }
+
+  // for errored pipeline, select the errored stage
+  if (isExecutionErrored(pipelineExecutionStatus)) {
+    for (let i = stages.length - 1; i >= 0; i--) {
+      const stage = stages[i]
+      if (stage.stage) {
+        if (isExecutionErrored(stage.stage.executionStatus)) {
+          return stage.stage.stageIdentifier
+        } else {
+          continue
+        }
+      } else if (stage.parallel && Array.isArray(stage.parallel.stageExecutions)) {
+        return stage.parallel.stageExecutions[0].stage.stageIdentifier
+      }
     }
   }
 
@@ -92,7 +122,7 @@ export function getRunningStage(stages: StageExecutionSummaryDTO[], executionSta
       }
       // for parallel stage
     } else if (stage.parallel && Array.isArray(stage.parallel.stageExecutions)) {
-      const activeStage = getRunningStage(stage.parallel.stageExecutions)
+      const activeStage = getRunningStageForPipeline(stage.parallel.stageExecutions, pipelineExecutionStatus)
 
       if (activeStage) {
         return activeStage

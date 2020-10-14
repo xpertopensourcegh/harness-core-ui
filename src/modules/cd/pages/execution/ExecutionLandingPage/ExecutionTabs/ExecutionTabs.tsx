@@ -11,6 +11,8 @@ import {
 } from 'modules/cd/routes'
 import type { ExecutionPathParams } from 'modules/cd/pages/execution/ExecutionUtils'
 
+import i18n from './ExecutionTabs.i18n'
+
 import css from './ExecutionTabs.module.scss'
 
 export default function ExecutionTabs(props: React.PropsWithChildren<{}>): React.ReactElement {
@@ -27,6 +29,8 @@ export default function ExecutionTabs(props: React.PropsWithChildren<{}>): React
   const isLogView = view === 'log'
   const indicatorRef = React.useRef<HTMLDivElement | null>(null)
 
+  /* The following function does not have any business logic and hence can be ignored */
+  /* istanbul ignore next */
   React.useEffect(() => {
     const id = window.setTimeout(() => {
       if (!indicatorRef.current) return
@@ -55,7 +59,7 @@ export default function ExecutionTabs(props: React.PropsWithChildren<{}>): React
           activeClassName={css.activeLink}
         >
           <Icon name="alignment-vertical-center" size={16} />
-          <span>Pipeline</span>
+          <span>{i18n.piplines}</span>
         </NavLink>
         <NavLink
           to={routeCDPipelineExecutionInputs.url(params)}
@@ -63,7 +67,7 @@ export default function ExecutionTabs(props: React.PropsWithChildren<{}>): React
           activeClassName={css.activeLink}
         >
           <Icon name="manually-entered-data" size={16} />
-          <span>Inputs</span>
+          <span>{i18n.inputs}</span>
         </NavLink>
         <NavLink
           to={routeCDPipelineExecutionArtifacts.url(params)}
@@ -71,7 +75,7 @@ export default function ExecutionTabs(props: React.PropsWithChildren<{}>): React
           activeClassName={css.activeLink}
         >
           <Icon name="add-to-artifact" size={16} />
-          <span>Artifacts</span>
+          <span>{i18n.artifacts}</span>
         </NavLink>
         <div ref={indicatorRef} className={css.tabIndicator} />
       </div>
@@ -82,13 +86,13 @@ export default function ExecutionTabs(props: React.PropsWithChildren<{}>): React
             className={cx({ [css.activeView]: isGraphView })}
             to={`${routeCDPipelineExecutionPipline.url(params)}?view=graph`}
           >
-            Graph View
+            {i18n.graphView}
           </NavLink>
           <NavLink
             className={cx({ [css.activeView]: isLogView })}
             to={`${routeCDPipelineExecutionPipline.url(params)}?view=log`}
           >
-            Log View
+            {i18n.logView}
           </NavLink>
         </div>
       ) : null}

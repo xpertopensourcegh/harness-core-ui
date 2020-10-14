@@ -16,7 +16,7 @@ import {
   getPipelineStagesMap,
   isExecutionComplete,
   ExecutionPathParams,
-  getRunningStage,
+  getRunningStageForPipeline,
   getRunningStep
 } from '../ExecutionUtils'
 
@@ -24,10 +24,11 @@ import ExecutionActions from './ExecutionActions/ExecutionActions'
 import ExecutionMetadata from './ExecutionMetadata/ExecutionMetadata'
 import ExecutionTabs from './ExecutionTabs/ExecutionTabs'
 import RightBar from './RightBar/RightBar'
+import i18n from './ExecutionLandingPage.i18n'
 
 import css from './ExecutionLandingPage.module.scss'
 
-const POLL_INTERVAL = 5 /* sec */ * 1000 /* ms */
+export const POLL_INTERVAL = 5 /* sec */ * 1000 /* ms */
 
 export default function ExecutionLandingPage(props: React.PropsWithChildren<{}>): React.ReactElement {
   const location = useLocation()
@@ -81,7 +82,7 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<{}>)
 
     if (!data || !data.data) return
 
-    const runningStage = getRunningStage(
+    const runningStage = getRunningStageForPipeline(
       data.data.pipelineExecution?.stageExecutionSummaryElements || [],
       data.data?.pipelineExecution?.executionStatus
     )
@@ -115,13 +116,13 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<{}>)
           <header className={cx(css.header, { [css.showDetails]: showDetail })}>
             <div className={css.breadcrumbs}>
               <Link to={routePipelineDeploymentList.url({ orgIdentifier, projectIdentifier, pipelineIdentifier })}>
-                Deployments
+                {i18n.deployments}
               </Link>
             </div>
             <div className={css.headerTopRow}>
               <div className={css.titleContainer}>
                 <div className={css.title}>{pipelineExecution.pipelineName}</div>
-                <div className={css.pipelineId}>(Execution ID: {pipelineExecution.planExecutionId})</div>
+                <div className={css.pipelineId}>{i18n.executionId(pipelineExecution.planExecutionId)}</div>
               </div>
               <div className={css.statusBar}>
                 {pipelineExecution.executionStatus && (
@@ -145,6 +146,7 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<{}>)
                 small
                 iconProps={{ size: 14 }}
                 onClick={toggleDetails}
+                data-testid="toggle-details"
               />
               <div className={css.tags}>
                 <Icon name="main-tags" size={14} />
