@@ -1,6 +1,7 @@
 export default {
   STEP_ONE: {
     name: 'SPECIFY MANIFEST SERVER',
+    addnewConnector: 'New Manifest Server',
     idPlaceholder: 'Give name to your manifest config',
     select: 'GIT Server',
     gitServerPlaceholder: 'Select GIT Server',
@@ -11,7 +12,9 @@ export default {
     name: 'MANIFEST SOURCE',
     title: 'Configure Manifest Source',
     manifestInputType: 'Manifest Format',
+    manifestIdentifier: 'Identifier can only contain alphanumerics, _ and $',
     filePath: 'File/Folder path',
+    filePathPlaceholder: 'Enter overrides file path',
     fetchValue: 'Branch Name',
     manifestId: 'Manifest Identifier',
     gitFetchTypeLabel: 'Commit ID',

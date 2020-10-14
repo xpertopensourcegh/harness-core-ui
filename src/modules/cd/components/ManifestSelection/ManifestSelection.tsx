@@ -1,12 +1,30 @@
 import React from 'react'
-import { Layout, Text, Container, Icon, Color, useModalHook, Button } from '@wings-software/uikit'
+import {
+  Layout,
+  Text,
+  Container,
+  Icon,
+  Color,
+  useModalHook,
+  Button,
+  Heading,
+  CardSelect,
+  Formik,
+  FormInput,
+  FormikForm as Form
+} from '@wings-software/uikit'
+import { useParams } from 'react-router-dom'
+import * as Yup from 'yup'
 import cx from 'classnames'
-import { Dialog, IDialogProps } from '@blueprintjs/core'
+import { Dialog, IDialogProps, Classes } from '@blueprintjs/core'
 import { get } from 'lodash-es'
-
+import { FormMultiTypeConnectorField } from 'modules/common/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import type { StageElementWrapper, NgPipeline } from 'services/cd-ng'
+import { Scope } from 'modules/common/interfaces/SecretsInterface'
 import { getStageFromPipeline } from 'modules/common/components/PipelineStudio/StageBuilder/StageBuilderUtil'
 import { PipelineContext } from 'modules/common/exports'
+import CreateGitConnector from '../connectors/GitConnector/CreateGitConnector'
+
 import { ManifestWizard } from './ManifestWizardSteps/ManifestWizard'
 import { PredefinedOverrideSets } from '../PredefinedOverrideSets/PredefinedOverrideSets'
 import i18n from './ManifestSelection.i18n'
@@ -15,6 +33,8 @@ import css from './ManifestSelection.module.scss'
 interface ManifestTable {
   [key: string]: string
 }
+
+export type CreationType = 'KUBERNETES' | 'VALUES'
 
 const artifactListHeaders: ManifestTable = {
   type: i18n.manifestTable.type,
@@ -30,60 +50,23 @@ const manifestTypeLabels: Record<string, string> = {
   Values: 'Values Overrides'
 }
 
-function AddManifestRender({
-  identifier,
-  isForOverrideSets,
-  identifierName,
-  pipeline,
-  updatePipeline,
-  stage,
-  isForPredefinedSets
-}: {
-  identifier: string
-  pipeline: object
-  updatePipeline: object
-  isForOverrideSets: boolean
-  identifierName?: string
-  stage: StageElementWrapper | undefined
-  isForPredefinedSets?: boolean
-}): JSX.Element {
-  const modalPropsLight: IDialogProps = {
-    isOpen: true,
-    usePortal: true,
-    autoFocus: true,
-    canEscapeKeyClose: true,
-    canOutsideClickClose: true,
-    enforceFocus: true,
-    style: { width: 960, height: 600, borderLeft: 0, paddingBottom: 0, position: 'relative', overflow: 'hidden' }
-  }
-
-  const [openLightModal, hideLightModal] = useModalHook(() => (
-    <Dialog {...modalPropsLight}>
-      <ManifestWizard
-        closeModal={hideLightModal}
-        identifier={identifier}
-        pipeline={pipeline}
-        isForOverrideSets={isForOverrideSets}
-        isForPredefinedSets={isForPredefinedSets}
-        identifierName={identifierName}
-        stage={stage}
-        updatePipeline={updatePipeline}
-      />
-      <Button minimal icon="cross" iconProps={{ size: 18 }} onClick={hideLightModal} className={css.crossIcon} />
-    </Dialog>
-  ))
-
-  return (
-    <Layout.Vertical spacing="medium">
-      <Container className={css.rowItem}>
-        <Text onClick={() => openLightModal()}>{i18n.addPrimarySourceLable}</Text>
-      </Container>
-    </Layout.Vertical>
-  )
+const manifestTypeLabel: { [key: string]: string } = {
+  KUBERNETES: 'K8s Manifest',
+  VALUES: 'Values Override'
 }
 
+export interface ManifestCreationType {
+  type: CreationType
+}
+
+const gitFetchTypes = [
+  { label: i18n.gitFetchTypes[0].label, value: 'Branch' },
+  { label: i18n.gitFetchTypes[1].label, value: 'Commit' }
+]
+let selectedManifestReference: { spec: { store: { spec: {} } } } | undefined
 function ManifestListView({
   identifier,
+  manifestList,
   pipeline,
   updatePipeline,
   identifierName,
@@ -94,35 +77,116 @@ function ManifestListView({
   identifier: string
   pipeline: NgPipeline
   isForOverrideSets: boolean
+  manifestList: {}[] | undefined
   updatePipeline: (pipeline: NgPipeline) => Promise<void>
   identifierName?: string
   stage: StageElementWrapper | undefined
   isForPredefinedSets: boolean
 }): JSX.Element {
-  const modalPropsLight: IDialogProps = {
+  const ModalView = { OPTIONS: 1, KUBERNETES: 2, VALUES: 3 }
+  const ModalContext = { EXISTING: 0, NEW: 1 }
+
+  const [view, setView] = React.useState(ModalView.OPTIONS)
+  const [modalContext, setModalContext] = React.useState(ModalContext.EXISTING)
+
+  const DIALOG_PROPS: IDialogProps = {
     isOpen: true,
     usePortal: true,
     autoFocus: true,
-    canEscapeKeyClose: true,
-    canOutsideClickClose: true,
+    canEscapeKeyClose: false,
+    canOutsideClickClose: false,
     enforceFocus: true,
-    style: { width: 960, height: 600, borderLeft: 0, paddingBottom: 0, position: 'relative', overflow: 'hidden' }
+    title: '',
+    style: { width: 1000, height: 580, borderLeft: 'none', paddingBottom: 0, position: 'relative' }
   }
 
-  const [openLightModal, hideLightModal] = useModalHook(() => (
-    <Dialog {...modalPropsLight}>
-      <ManifestWizard
-        closeModal={hideLightModal}
-        identifier={identifier}
-        stage={stage}
-        isForOverrideSets={isForOverrideSets}
-        identifierName={identifierName}
-        pipeline={pipeline}
-        updatePipeline={updatePipeline}
-      />
-      <Button minimal icon="cross" iconProps={{ size: 18 }} onClick={hideLightModal} className={css.crossIcon} />
-    </Dialog>
-  ))
+  const { accountId, projectIdentifier, orgIdentifier } = useParams()
+
+  const [showConnectorModal, hideConnectorModal] = useModalHook(
+    () => (
+      <Dialog
+        onClose={() => {
+          setView(ModalView.OPTIONS)
+          setModalContext(ModalContext.EXISTING)
+          hideConnectorModal()
+        }}
+        {...DIALOG_PROPS}
+        className={cx(css.modal, view !== ModalView.OPTIONS ? Classes.DIALOG : Classes.DARK)}
+      >
+        {view === ModalView.OPTIONS && (
+          <Container className={css.optionsViewContainer}>
+            <Heading level={2} color={Color.WHITE} style={{ fontSize: '30px' }}>
+              {i18n.modalHeading}
+            </Heading>
+            <Heading level={3} font="small" color={Color.WHITE} margin={{ top: 'large', bottom: 'medium' }}>
+              {i18n.modalSubHeading}
+            </Heading>
+            <Layout.Horizontal spacing="large">
+              <CardSelect<ManifestCreationType>
+                onChange={selected => {
+                  if (selected.type === 'KUBERNETES') {
+                    setView(ModalView.KUBERNETES)
+                  } else {
+                    setView(ModalView.VALUES)
+                  }
+                }}
+                selected={undefined}
+                className={css.optionsViewGrid}
+                data={[{ type: 'KUBERNETES' }, { type: 'VALUES' }]}
+                renderItem={(item: ManifestCreationType) => (
+                  <>
+                    <Container>
+                      {(item.type === 'KUBERNETES' && <Icon name="service-kubernetes" size={35} />) ||
+                        (item.type === 'VALUES' && <Icon name="functions" size={35} />)}
+                    </Container>
+                    <section style={{ marginTop: 'var(--spacing-small)' }}>{manifestTypeLabel[item.type]}</section>
+                  </>
+                )}
+              />
+            </Layout.Horizontal>
+          </Container>
+        )}
+
+        {(view === ModalView.KUBERNETES || view === ModalView.VALUES) && modalContext === ModalContext.EXISTING && (
+          <ManifestWizard
+            closeModal={() => {
+              setView(ModalView.OPTIONS)
+              setModalContext(ModalContext.EXISTING)
+              hideConnectorModal()
+            }}
+            identifier={identifier}
+            pipeline={pipeline}
+            isForOverrideSets={isForOverrideSets}
+            isForPredefinedSets={isForPredefinedSets}
+            identifierName={identifierName}
+            stage={stage}
+            view={view}
+            handleViewChange={() => setModalContext(ModalContext.NEW)}
+            updatePipeline={updatePipeline}
+          />
+        )}
+        {modalContext === ModalContext.NEW && (
+          <CreateGitConnector
+            accountId={accountId}
+            projectIdentifier={projectIdentifier}
+            orgIdentifier={orgIdentifier}
+            onSuccess={() => {
+              // handle success
+            }}
+            isForOverrideSets={isForOverrideSets}
+            isForPredefinedSets={isForPredefinedSets}
+            identifierName={identifierName}
+            stage={stage}
+            pipeline={pipeline}
+            updatePipeline={updatePipeline}
+            view={view}
+            hideLightModal={hideConnectorModal}
+          />
+        )}
+      </Dialog>
+    ),
+    [view, modalContext]
+  )
 
   let listOfManifests = !isForOverrideSets
     ? !isForPredefinedSets
@@ -145,9 +209,145 @@ function ManifestListView({
     updatePipeline(pipeline)
   }
 
+  const editManifest = (manifest: {
+    identifier: string
+    type: string
+    spec: {
+      store: {
+        type: string
+        spec: {
+          connectorRef: string
+          gitFetchType: string
+          branch: string
+          commitId: string
+          paths: string[]
+        }
+      }
+    }
+  }): void => {
+    selectedManifestReference = undefined
+    selectedManifestReference = manifest
+    showEditConnectorModal()
+  }
+
+  const isValidScopeValue = (value: string): number => {
+    return value.indexOf(Scope.ACCOUNT) && value.indexOf(Scope.PROJECT) && value.indexOf(Scope.ORG)
+  }
+
+  const getManifestInitialValues = () => {
+    const initValues = get(selectedManifestReference, 'spec.store.spec', null)
+    if (initValues) {
+      const values = {
+        ...initValues,
+        connectorRef:
+          isValidScopeValue(initValues?.connectorRef) === 0
+            ? {
+                label: initValues?.connectorRef?.split('.')[1],
+                scope: initValues?.connectorRef?.split('.')[0],
+                value: initValues?.connectorRef
+              }
+            : initValues?.connectorRef,
+        paths: initValues['paths'][0]
+      }
+      return values
+    } else {
+      return {}
+    }
+  }
+
+  const [showEditConnectorModal, hideEditConnectorModal] = useModalHook(
+    () => (
+      <Dialog
+        onClose={() => {
+          // resetFormValues()
+          selectedManifestReference = undefined
+          // setEditModeContext(ModalViewFor.PRIMARY)
+          hideEditConnectorModal()
+        }}
+        {...DIALOG_PROPS}
+        style={{ width: 600, height: 350, borderLeft: 'none', paddingBottom: 0, position: 'relative' }}
+        className={Classes.DIALOG}
+      >
+        <Layout.Vertical spacing="large" padding="xlarge" className={css.editForm}>
+          <Text style={{ color: 'var(--black)' }}>{i18n.existingManifest.editModalTitle}</Text>
+          <Formik
+            enableReinitialize={true}
+            validationSchema={Yup.object().shape({
+              connectorRef: Yup.string().trim().required(i18n.validation.connectorId)
+            })}
+            initialValues={getManifestInitialValues()}
+            onSubmit={values => {
+              const _updatedValues = {
+                ...getManifestInitialValues(),
+                ...values,
+                connectorRef: values.connectorRef.value ? values.connectorRef.value : values.connectorRef,
+                paths: [values['paths']]
+              }
+
+              if (selectedManifestReference) selectedManifestReference['spec']['store']['spec'] = _updatedValues
+              updatePipeline(pipeline)
+              hideEditConnectorModal()
+            }}
+          >
+            {() => (
+              <Form>
+                <div>
+                  <FormMultiTypeConnectorField
+                    name="connectorRef"
+                    label={i18n.existingManifest.connectorLabel}
+                    placeholder={i18n.existingManifest.connectorPlaceholder}
+                    accountIdentifier={accountId}
+                    projectIdentifier={projectIdentifier}
+                    orgIdentifier={orgIdentifier}
+                    width={350}
+                    isNewConnectorLabelVisible={false}
+                    type={'Git'}
+                  />
+                </div>
+                {getManifestInitialValues().gitFetchType === gitFetchTypes[0].value && (
+                  <FormInput.MultiTextInput
+                    label={i18n.existingManifest.branchLabel}
+                    placeholder={i18n.existingManifest.branchPlaceholder}
+                    name="branch"
+                  />
+                )}
+                {getManifestInitialValues().gitFetchType === gitFetchTypes[1].value && (
+                  <FormInput.MultiTextInput
+                    label={i18n.existingManifest.commitLabel}
+                    placeholder={i18n.existingManifest.commitPlaceholder}
+                    name="commitId"
+                  />
+                )}
+                <FormInput.MultiTextInput
+                  label={i18n.existingManifest.filePath}
+                  placeholder={i18n.existingManifest.filePathPlaceholder}
+                  name="paths"
+                />
+                <Button intent="primary" type="submit" text={i18n.existingManifest.submit} />
+              </Form>
+            )}
+          </Formik>
+        </Layout.Vertical>
+      </Dialog>
+    ),
+    [selectedManifestReference]
+  )
+
   return (
     <Layout.Vertical spacing="small">
-      {listOfManifests && (
+      {(!manifestList || manifestList.length === 0) && (
+        <Container className={css.rowItem}>
+          <Text
+            onClick={() => {
+              setView(ModalView.OPTIONS)
+              showConnectorModal()
+            }}
+          >
+            {i18n.addPrimarySourceLable}
+          </Text>
+        </Container>
+      )}
+      {listOfManifests && manifestList && manifestList.length > 0 && (
         <Container>
           <section className={cx(css.thead, isForOverrideSets && css.overrideSetRow)}>
             <span>{artifactListHeaders.type}</span>
@@ -224,9 +424,18 @@ function ManifestListView({
                     </span>
                     <span>
                       <Layout.Horizontal spacing="medium">
-                        {/* <Icon name="main-edit" size={14} />
-                    <Icon name="main-clone" size={14} /> */}
-                        <Icon name="delete" size={14} onClick={() => removeManifestConfig(index)} />
+                        <Icon
+                          name="edit"
+                          size={14}
+                          style={{ cursor: 'pointer' }}
+                          onClick={() => editManifest(manifest)}
+                        />
+                        <Icon
+                          name="delete"
+                          size={14}
+                          style={{ cursor: 'pointer' }}
+                          onClick={() => removeManifestConfig(index)}
+                        />
                       </Layout.Horizontal>
                     </span>
                   </section>
@@ -235,13 +444,15 @@ function ManifestListView({
             )}
         </section>
 
-        <Text
-          intent="primary"
-          style={{ cursor: 'pointer', marginBottom: 'var(--spacing-medium)' }}
-          onClick={() => openLightModal()}
-        >
-          {i18n.addFileLabel}
-        </Text>
+        {manifestList && manifestList.length > 0 && (
+          <Text
+            intent="primary"
+            style={{ cursor: 'pointer', marginBottom: 'var(--spacing-medium)' }}
+            onClick={() => showConnectorModal()}
+          >
+            {i18n.addFileLabel}
+          </Text>
+        )}
       </Layout.Vertical>
     </Layout.Vertical>
   )
@@ -292,28 +503,17 @@ export default function ManifestSelection({
     >
       {isForPredefinedSets && <PredefinedOverrideSets context="MANIFEST" currentStage={stage} />}
       {!isForOverrideSets && <Text style={{ color: 'var(--grey-500)', lineHeight: '24px' }}>{i18n.info}</Text>}
-      {(!listOfManifests || listOfManifests.length === 0) && (
-        <AddManifestRender
-          identifier={identifier}
-          pipeline={pipeline}
-          isForOverrideSets={isForOverrideSets}
-          isForPredefinedSets={isForPredefinedSets}
-          identifierName={identifierName}
-          updatePipeline={updatePipeline}
-          stage={stage}
-        />
-      )}
-      {listOfManifests && listOfManifests.length > 0 && (
-        <ManifestListView
-          identifier={identifier}
-          pipeline={pipeline}
-          updatePipeline={updatePipeline}
-          stage={stage}
-          isForOverrideSets={isForOverrideSets}
-          identifierName={identifierName}
-          isForPredefinedSets={isForPredefinedSets}
-        />
-      )}
+
+      <ManifestListView
+        identifier={identifier}
+        manifestList={listOfManifests}
+        pipeline={pipeline}
+        updatePipeline={updatePipeline}
+        stage={stage}
+        isForOverrideSets={isForOverrideSets}
+        identifierName={identifierName}
+        isForPredefinedSets={isForPredefinedSets}
+      />
     </Layout.Vertical>
   )
 }

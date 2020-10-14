@@ -38,10 +38,7 @@ export interface StepWizardProps<SharedObject> {
   initialStep?: number
 }
 
-const manifestTypes = [
-  { label: i18n.MANIFEST_TYPES[0].label, value: 'K8sManifest' },
-  { label: i18n.MANIFEST_TYPES[1].label, value: 'Values' }
-]
+const manifestTypes: { [key: number]: string } = { 2: 'K8sManifest', 3: 'Values' }
 
 const gitFetchTypes = [
   { label: i18n.gitFetchTypes[0].label, value: 'Branch' },
@@ -49,7 +46,7 @@ const gitFetchTypes = [
 ]
 
 const FirstStep = (props: any): JSX.Element => {
-  const { setFormData } = props
+  const { setFormData, handleViewChange } = props
 
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
 
@@ -59,13 +56,7 @@ const FirstStep = (props: any): JSX.Element => {
       <Formik
         initialValues={{}}
         validationSchema={Yup.object().shape({
-          gitServer: Yup.string().trim().required(i18n.validation.gitServer),
-
-          identifier: Yup.string()
-            .trim()
-            .required(i18n.validation.identifier)
-            .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, 'Identifier can only contain alphanumerics, _ and $')
-            .notOneOf(StringUtils.illegalIdentifiers)
+          gitServer: Yup.string().trim().required(i18n.validation.gitServer)
         })}
         onSubmit={formData => {
           props.nextStep(formData)
@@ -73,23 +64,27 @@ const FirstStep = (props: any): JSX.Element => {
         }}
       >
         {() => (
-          <Form className={css.formContainer}>
-            <FormInput.Text
-              name="identifier"
-              label={i18n.STEP_TWO.manifestId}
-              placeholder={i18n.STEP_ONE.idPlaceholder}
-            />
-            <FormMultiTypeConnectorField
-              name="gitServer"
-              label={i18n.STEP_ONE.select}
-              placeholder={i18n.STEP_ONE.gitServerPlaceholder}
-              accountIdentifier={accountId}
-              projectIdentifier={projectIdentifier}
-              orgIdentifier={orgIdentifier}
-              width={400}
-              isNewConnectorLabelVisible={false}
-              type={'Git'}
-            />
+          <Form className={css.formContainerStepOne}>
+            <Layout.Horizontal spacing="large" style={{ alignItems: 'center' }}>
+              <FormMultiTypeConnectorField
+                name="gitServer"
+                label={i18n.STEP_ONE.select}
+                placeholder={i18n.STEP_ONE.gitServerPlaceholder}
+                accountIdentifier={accountId}
+                projectIdentifier={projectIdentifier}
+                orgIdentifier={orgIdentifier}
+                width={400}
+                isNewConnectorLabelVisible={false}
+                type={'Git'}
+              />
+              <Button
+                intent="primary"
+                minimal
+                text={i18n.STEP_ONE.addnewConnector}
+                icon="plus"
+                onClick={() => handleViewChange()}
+              />
+            </Layout.Horizontal>
             <Layout.Horizontal spacing="large" className={css.bottomButtons}>
               <Button type="submit" text={i18n.STEP_ONE.saveAndContinue} />
             </Layout.Horizontal>
@@ -113,14 +108,18 @@ const SecondStep = (props: any): JSX.Element => {
       <Formik
         initialValues={{ gitFetchType: gitFetchTypes[0].value }}
         validationSchema={Yup.object().shape({
-          manifestType: Yup.string().trim().required(i18n.validation.manifestType),
+          identifier: Yup.string()
+            .trim()
+            .required(i18n.validation.identifier)
+            .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, i18n.STEP_TWO.manifestIdentifier)
+            .notOneOf(StringUtils.illegalIdentifiers),
           filePath: Yup.string().trim().required(i18n.validation.filePath)
         })}
         onSubmit={(formData: any) => {
           const manifestObj = {
             manifest: {
-              identifier: prevData.identifier,
-              type: formData?.manifestType,
+              identifier: formData.identifier,
+              type: manifestTypes[props.view],
               spec: {
                 store: {
                   type: 'Git',
@@ -155,7 +154,11 @@ const SecondStep = (props: any): JSX.Element => {
       >
         {(formik: { values: { gitFetchType: string } }) => (
           <Form className={css.formContainer}>
-            <FormInput.Select name="manifestType" label={i18n.STEP_TWO.manifestInputType} items={manifestTypes} />
+            <FormInput.Text
+              name="identifier"
+              label={i18n.STEP_TWO.manifestId}
+              placeholder={i18n.STEP_ONE.idPlaceholder}
+            />
             <FormInput.Select name="gitFetchType" label={i18n.STEP_TWO.gitFetchTypeLabel} items={gitFetchTypes} />
 
             {formik.values?.gitFetchType === gitFetchTypes[0].value && (
@@ -173,8 +176,11 @@ const SecondStep = (props: any): JSX.Element => {
               />
             )}
 
-            {/* <FormInput.Text label={i18n.STEP_TWO.fetchValue} name="fetchValue" /> */}
-            <FormInput.MultiTextInput label={i18n.STEP_TWO.filePath} name="filePath" />
+            <FormInput.MultiTextInput
+              label={i18n.STEP_TWO.filePath}
+              placeholder={i18n.STEP_TWO.filePathPlaceholder}
+              name="filePath"
+            />
 
             <Layout.Horizontal spacing="large" className={css.bottomButtons}>
               <Button onClick={() => props.previousStep({})} text={i18n.STEP_TWO.back} />
@@ -196,7 +202,9 @@ export const ManifestWizard = ({
   isForOverrideSets,
   isForPredefinedSets,
   identifierName,
-  stage
+  stage,
+  handleViewChange,
+  view
 }: {
   closeModal: () => void
   identifier: string
@@ -206,16 +214,24 @@ export const ManifestWizard = ({
   identifierName?: string
   stage: StageElementWrapper | undefined
   isForPredefinedSets?: boolean
+  view?: number
+  handleViewChange: () => void
 }): JSX.Element => {
   const [formData, setFormData] = useState({})
 
   return (
     <div className={css.exampleWizard}>
       <StepWizard>
-        <FirstStep name={i18n.STEP_ONE.name} formData={formData} setFormData={setFormData} />
+        <FirstStep
+          name={i18n.STEP_ONE.name}
+          formData={formData}
+          setFormData={setFormData}
+          handleViewChange={handleViewChange}
+        />
         <SecondStep
           name={i18n.STEP_TWO.name}
           formData={formData}
+          view={view}
           setFormData={setFormData}
           identifier={identifier}
           isForOverrideSets={isForOverrideSets}
@@ -227,7 +243,6 @@ export const ManifestWizard = ({
           closeModal={closeModal}
         />
       </StepWizard>
-      <Button text="close" />
     </div>
   )
 }

@@ -22,7 +22,7 @@
   align-items: center;
   padding: var(--spacing-large);
   padding-bottom: 0;
-  grid-template-columns: 180px 90px 50px 180px 271px 156px 30px;
+  grid-template-columns: 180px 90px 50px 180px 230px 156px 30px;
   color: var(--grey-500);
   font-size: 12px;
 }
@@ -32,11 +32,54 @@
 }
 
 .overrideSetRow {
-  grid-template-columns: 180px 90px 50px 180px 271px 120px 30px;
+  grid-template-columns: 180px 90px 50px 180px 230px 120px 30px;
 }
 
 .crossIcon {
   position: absolute;
   right: var(--spacing-large);
   top: var(--spacing-large);
+}
+
+.modal {
+  [class*='bp3-dialog-header'] button {
+    z-index: 2;
+  }
+}
+
+.connectorDialog {
+  width: fit-content;
+  min-width: 960px;
+  height: 600px;
+  border-left: 0;
+  padding-bottom: 0;
+  position: relative;
+  overflow: hidden;
+  .crossButton {
+    position: absolute;
+    right: var(--spacing-small);
+    top: var(--spacing-small);
+  }
+}
+
+.optionsViewContainer {
+  padding: 200px 0 0 60px !important;
+}
+
+.optionsViewGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 100px);
+  grid-template-rows: 110px;
+  grid-column-gap: var(--spacing-large);
+  grid-row-gap: 0;
+
+  > div {
+    text-align: center;
+    background-color: var(--white) !important;
+  }
+}
+
+.editForm {
+  margin-top: -50px !important;
+  width: calc(100% - 35px) !important;
 }

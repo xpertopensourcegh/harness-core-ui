@@ -8,5 +8,11 @@ declare const styles: {
   readonly sideCarBtn: string
   readonly overrideSetRow: string
   readonly crossIcon: string
+  readonly modal: string
+  readonly connectorDialog: string
+  readonly crossButton: string
+  readonly optionsViewContainer: string
+  readonly optionsViewGrid: string
+  readonly editForm: string
 }
 export default styles

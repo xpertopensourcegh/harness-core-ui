@@ -1,6 +1,8 @@
 .exampleWizard {
   height: 100%;
   border-radius: 6px;
+  width: 100%;
+  position: absolute;
   [class*='StepWizard-'] {
     height: 100%;
     border-radius: 4px;
@@ -22,5 +24,8 @@
   .bottomButtons {
     position: absolute;
     bottom: 0;
+  }
+  .formContainerStepOne {
+    width: 100%;
   }
 }

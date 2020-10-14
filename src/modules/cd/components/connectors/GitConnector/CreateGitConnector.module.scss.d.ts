@@ -1,9 +1,9 @@
 /* eslint-disable */
 // this is an auto-generated file
 declare const styles: {
-  readonly exampleWizard: string
+  readonly wrapper: string
   readonly formContainer: string
-  readonly bottomButtons: string
-  readonly formContainerStepOne: string
+  readonly bottomButton: string
+  readonly heading: string
 }
 export default styles

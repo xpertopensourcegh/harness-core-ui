@@ -15,7 +15,7 @@ interface CreateGITConnectorProps {
   hideLightModal: () => void
   onSuccess: () => void
 }
-const CreateGITConnector = (props: CreateGITConnectorProps) => {
+const CreateGITConnector = (props: CreateGITConnectorProps): JSX.Element => {
   const [formData, setFormData] = useState<ConnectorConfigDTO | undefined>()
   const [connectType, setConnectType] = useState({ label: 'HTTP', value: 'Http' } as SelectOption)
   const [isEditMode, setIsEditMode] = useState<boolean>(false)
