@@ -61,18 +61,36 @@ export function isExecutionNotStarted(status?: ExecutionStatus): boolean {
   return status === 'NotStarted'
 }
 
-export function getRunningStage(stages: StageExecutionSummaryDTO[]): string | null {
+export function getRunningStage(stages: StageExecutionSummaryDTO[], executionStatus?: ExecutionStatus): string | null {
   const n = stages.length
 
+  // for completed stage, select the last stage
+  if (isExecutionComplete(executionStatus)) {
+    const stage = stages[stages.length - 1]
+
+    if (stage.stage) {
+      return stage.stage.stageIdentifier
+    } else if (
+      stage.parallel &&
+      Array.isArray(stage.parallel.stageExecutions) &&
+      stage.parallel.stageExecutions[0]?.stage
+    ) {
+      return stage.parallel.stageExecutions[0].stage.stageIdentifier
+    }
+  }
+
+  // find the current running stage
   for (let i = 0; i < n; i++) {
     const stage = stages[i]
 
-    if (stage.CDStage) {
-      if (stage.CDStage.pipelineExecutionStatus === 'RUNNING') {
-        return stage.CDStage.stageIdentifier
+    // for normal stage
+    if (stage.stage) {
+      if (isExecutionRunning(stage.stage.executionStatus)) {
+        return stage.stage.stageIdentifier
       } else {
         continue
       }
+      // for parallel stage
     } else if (stage.parallel && Array.isArray(stage.parallel.stageExecutions)) {
       const activeStage = getRunningStage(stage.parallel.stageExecutions)
 
@@ -116,7 +134,7 @@ export function getRunningStep(graph: ExecutionGraph, nodeId?: string): string |
     if (typeof step === 'string') return step
   }
 
-  if (node.status === 'Running') {
+  if (isExecutionRunning(node.status)) {
     return currentNodeId
   }
 

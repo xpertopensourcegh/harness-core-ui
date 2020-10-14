@@ -4,7 +4,7 @@ import { Button, Icon, Tag } from '@wings-software/uikit'
 import cx from 'classnames'
 import qs from 'qs'
 
-import { routeCDDeployments } from 'modules/cd/routes'
+import { routePipelineDeploymentList } from 'modules/cd/routes'
 import { useGetPipelineExecutionDetail } from 'services/cd-ng'
 import { ExecutionStatusLabel } from 'modules/common/components/ExecutionStatusLabel/ExecutionStatusLabel'
 import { Duration } from 'modules/common/components/Duration/Duration'
@@ -27,13 +27,15 @@ import RightBar from './RightBar/RightBar'
 
 import css from './ExecutionLandingPage.module.scss'
 
-const POLL_INTERVAL = 30 /* sec */ * 1000 /* ms */
+const POLL_INTERVAL = 5 /* sec */ * 1000 /* ms */
 
 export default function ExecutionLandingPage(props: React.PropsWithChildren<{}>): React.ReactElement {
   const location = useLocation()
 
   const [showDetail, setShowDetails] = React.useState(false)
-  const { orgIdentifier, projectIdentifier, executionIdentifier, accountId } = useParams<ExecutionPathParams>()
+  const { orgIdentifier, projectIdentifier, executionIdentifier, accountId, pipelineIdentifier } = useParams<
+    ExecutionPathParams
+  >()
   const [autoSelectedStageId, setAutoSelectedStageId] = React.useState('')
   const [autoSelectedStepId, setAutoSelectedStepId] = React.useState('')
   const queryParams = React.useMemo(() => qs.parse(location.search, { ignoreQueryPrefix: true }), [location.search])
@@ -44,7 +46,7 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<{}>)
       orgIdentifier,
       projectIdentifier,
       accountIdentifier: accountId,
-      stageIdentifier: queryParams.stage as string
+      stageIdentifier: (queryParams.stage as string) || autoSelectedStageId
     }
   })
 
@@ -79,7 +81,10 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<{}>)
 
     if (!data || !data.data) return
 
-    const runningStage = getRunningStage(data.data.pipelineExecution?.stageExecutionSummaryElements || [])
+    const runningStage = getRunningStage(
+      data.data.pipelineExecution?.stageExecutionSummaryElements || [],
+      data.data?.pipelineExecution?.executionStatus
+    )
 
     const runningStep = getRunningStep(data.data.stageGraph || {})
 
@@ -109,7 +114,9 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<{}>)
         <div className={css.lhs}>
           <header className={cx(css.header, { [css.showDetails]: showDetail })}>
             <div className={css.breadcrumbs}>
-              <Link to={routeCDDeployments.url({ orgIdentifier, projectIdentifier })}>Deployments</Link>
+              <Link to={routePipelineDeploymentList.url({ orgIdentifier, projectIdentifier, pipelineIdentifier })}>
+                Deployments
+              </Link>
             </div>
             <div className={css.headerTopRow}>
               <div className={css.titleContainer}>

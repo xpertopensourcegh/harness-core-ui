@@ -24,8 +24,8 @@ export interface ExecutionStageDetailsProps {
 }
 
 export enum StepTypes {
-  SERVICE_STEP = 'SERVICE_STEP',
-  SECTION_CHAIN = 'SECTION_CHAIN',
+  SERVICE = 'SERVICE',
+  GENERIC_SECTION = 'GENERIC_SECTION',
   ENVIRONMENT = 'ENVIRONMENT',
   ARTIFACT_FORK_STEP = 'ARTIFACT_FORK_STEP',
   MANIFEST_STEP = 'MANIFEST_STEP',
@@ -36,7 +36,8 @@ export enum StepTypes {
 
 const processNodeData = (
   children: string[],
-  nodeMap: ExecutionGraph['nodeMap']
+  nodeMap: ExecutionGraph['nodeMap'],
+  nodeAdjacencyListMap: ExecutionGraph['nodeAdjacencyListMap']
 ): Array<ExecutionPipelineNode<ExecutionNode>> => {
   const items: Array<ExecutionPipelineNode<ExecutionNode>> = []
   children?.forEach(item => {
@@ -50,6 +51,20 @@ const processNodeData = (
         type: ExecutionPipelineNodeType.NORMAL,
         data: nodeData
       }
+    })
+    const nextIds = nodeAdjacencyListMap?.[item].nextIds || []
+    nextIds.forEach(id => {
+      const nodeDataNext = nodeMap?.[id]
+      items.push({
+        item: {
+          name: nodeDataNext?.name || '',
+          icon: 'edit',
+          identifier: id,
+          status: nodeDataNext?.status as any,
+          type: ExecutionPipelineNodeType.NORMAL,
+          data: nodeDataNext
+        }
+      })
     })
   })
   return items
@@ -65,7 +80,7 @@ const processExecutionData = (graph?: ExecutionGraph): Array<ExecutionPipelineNo
     while (nodeId && nodeAdjacencyListMap[nodeId]) {
       const nodeData = graph?.nodeMap?.[nodeId]
       if (nodeData) {
-        if (nodeData.stepType === StepTypes.SECTION_CHAIN) {
+        if (nodeData.stepType === StepTypes.GENERIC_SECTION) {
           items.push({
             group: {
               name: nodeData.name || '',
@@ -74,7 +89,11 @@ const processExecutionData = (graph?: ExecutionGraph): Array<ExecutionPipelineNo
               status: nodeData.status as any,
               isOpen: true,
               icon: 'edit',
-              items: processNodeData(nodeAdjacencyListMap[nodeId].children || [], graph?.nodeMap)
+              items: processNodeData(
+                nodeAdjacencyListMap[nodeId].children || [],
+                graph?.nodeMap,
+                graph?.nodeAdjacencyListMap
+              )
             }
           })
         } else {
@@ -82,8 +101,7 @@ const processExecutionData = (graph?: ExecutionGraph): Array<ExecutionPipelineNo
             item: {
               name: nodeData.name || '',
               icon: 'edit',
-              showInLabel:
-                nodeData.stepType === StepTypes.SERVICE_STEP || nodeData.stepType === StepTypes.INFRASTRUCTURE,
+              showInLabel: nodeData.stepType === StepTypes.SERVICE || nodeData.stepType === StepTypes.INFRASTRUCTURE,
               identifier: nodeId,
               status: nodeData.status as any,
               type: ExecutionPipelineNodeType.NORMAL,
@@ -127,6 +145,7 @@ export default function ExecutionStageDetails(props: ExecutionStageDetailsProps)
   return (
     <div className={css.main}>
       <ExecutionStageDiagram
+        key={props.selectedStage}
         selectedIdentifier={props.selectedStep}
         itemClickHandler={e => props.onStepSelect(e.stage.identifier)}
         data={data}
