@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Create Nexus connector Wizard should render form 1`] = `
+exports[`Create Artifactory connector Wizard should render form 1`] = `
 <div>
   <div
     class="StepWizard---main--SGVz StepWizard---navBar--2KYu"
@@ -264,7 +264,7 @@ exports[`Create Nexus connector Wizard should render form 1`] = `
 </div>
 `;
 
-exports[`Create Nexus connector Wizard should render form 2`] = `
+exports[`Create Artifactory connector Wizard should render form 2`] = `
 <div>
   <div
     class="StepWizard---main--SGVz StepWizard---navBar--2KYu"

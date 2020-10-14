@@ -3,8 +3,10 @@ export default {
   gitConnectorDetails: 'GIT Connector Details',
   secretManagerDetails: 'Secret Manager Details',
   dockerConnectorDetails: 'Docker Connector Details',
+  gcpConnectorDetails: 'GCP Connector Details',
   LABEL: {
     k8sCluster: 'Kubernetes Connector',
+    gcpConnector: 'GCP Connector',
     gitConnector: 'GIT Connector',
     secretManager: 'Secret Manager',
     appdynamics: 'AppDynamics connector',

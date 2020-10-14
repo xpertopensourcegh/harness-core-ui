@@ -14,6 +14,11 @@ export const getSecretIdFromString = (value: string) => {
   return value?.indexOf('.') < 0 ? value : value?.split('.')[1]
 }
 
+export const GCP_AUTH_TYPE = {
+  DELEGATE: 'delegate',
+  ENCRYPTED_KEY: 'encryptedKey'
+}
+
 export const getScopedSecretString = (scope: string, identifier: string) => {
   switch (scope) {
     case Scope.PROJECT:
@@ -191,6 +196,38 @@ export const buildDockerFormData = (connector: ConnectorInfoDTO) => {
   }
 }
 
+export const buildGcpPayload = (formData: FormData) => {
+  const savedData = {
+    name: formData.name,
+    description: formData.description,
+    projectIdentifier: formData.projectIdentifier,
+    identifier: formData.identifier,
+    orgIdentifier: formData.orgIdentifier,
+    tags: formData.tags,
+    type: Connectors.GCP,
+    spec: {
+      credential: {}
+    }
+  }
+
+  savedData.spec.credential =
+    formData.authType === GCP_AUTH_TYPE.ENCRYPTED_KEY
+      ? {
+          type: 'ManualConfig',
+          spec: {
+            secretKeyRef: getScopedSecretString(formData.passwordRefSecret?.scope, formData.passwordRefSecret?.secretId)
+          }
+        }
+      : {
+          type: 'InheritFromDelegate',
+          spec: {
+            delegateSelector: formData.delegateName
+          }
+        }
+
+  return { connector: savedData }
+}
+
 export const getSpecByConnectType = (type: string, formData: FormData) => {
   let referenceField
   if (type === 'Ssh') {
@@ -321,6 +358,8 @@ export const getIconByType = (type: ConnectorInfoDTO['type'] | undefined): IconN
       return 'service-nexus'
     case Connectors.ARTIFACTORY:
       return 'service-artifactory'
+    case Connectors.GCP:
+      return 'service-gcp'
     default:
       return 'cog'
   }
@@ -343,6 +382,8 @@ export const getConnectorDisplayName = (type: string) => {
       return 'Git'
     case Connectors.DOCKER:
       return 'Docker'
+    case Connectors.GCP:
+      return 'GCP'
     case Connectors.APP_DYNAMICS:
       return 'AppDynamics server'
     case Connectors.SPLUNK:

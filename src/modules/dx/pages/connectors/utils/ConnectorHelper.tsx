@@ -63,6 +63,8 @@ export const getHeadingByType = (type: string) => {
       return i18n.nexusConnectorDetails
     case Connectors.ARTIFACTORY:
       return i18n.artifactoryConnectorDetails
+    case Connectors.GCP:
+      return i18n.gcpConnectorDetails
     default:
       return null
   }
@@ -90,6 +92,8 @@ export const getConnectorTextByType = (type: string) => {
       return i18n.LABEL.nexus
     case Connectors.ARTIFACTORY:
       return i18n.LABEL.artifactory
+    case Connectors.GCP:
+      return i18n.LABEL.gcpConnector
     default:
       return null
   }
