@@ -134,14 +134,6 @@ export default function CVServicesPage(): JSX.Element {
     resolve: (response: RestResponseListEnvServiceRiskDTO) => {
       if (response?.resource?.length) {
         setServices(response.resource)
-        getHeatmap({
-          queryParams: {
-            accountId: accountId,
-            projectIdentifier: projectIdentifier as string,
-            startTimeMs: range.dates.start.valueOf(),
-            endTimeMs: range.dates.end.valueOf()
-          }
-        })
       }
       return response
     }

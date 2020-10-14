@@ -22,7 +22,7 @@ const ENVIRONMENT_TYPE_OPTIONS = [
 
 export default function CreateNewEntitySubform({ entityType }: { entityType: 'service' | 'environment' }): JSX.Element {
   const {
-    params: { accountId, projectIdentifier: routeProjectIdentifier, orgId: routeOrgIdentifier }
+    params: { accountId, projectIdentifier: routeProjectIdentifier, orgIdentifier: routeOrgIdentifier }
   } = useRouteParams()
   const { toggleSubview } = useContext(SelectWithSubviewContext)
   const projectIdentifier = routeProjectIdentifier as string
