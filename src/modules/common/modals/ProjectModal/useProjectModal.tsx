@@ -51,7 +51,11 @@ export const useProjectModal = ({ onSuccess }: UseProjectModalProps): UseProject
       >
         {view === Views.CREATE ? (
           <StepWizard<Project> onCompleteWizard={wizardCompleteHandler} stepClassName={css.stepClass}>
-            <StepProject name={i18n.newProjectWizard.aboutProject.name} onSuccess={onSuccess} />
+            <StepProject
+              name={i18n.newProjectWizard.aboutProject.name}
+              modules={projectData?.modules}
+              onSuccess={onSuccess}
+            />
             <Collaborators name={i18n.newProjectWizard.Collaborators.name} />
           </StepWizard>
         ) : null}

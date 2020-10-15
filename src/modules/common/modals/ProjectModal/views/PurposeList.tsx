@@ -223,8 +223,8 @@ const PurposeList: React.FC<ProjectModalData> = props => {
 
   const onSuccess = async (): Promise<boolean> => {
     const dataToSubmit: Project = {
-      modules: [selected.module],
-      ...(projectData as Project)
+      ...(projectData as Project),
+      modules: [selected.module]
     }
     ;(dataToSubmit as Project)['owners'] = [accountId]
 

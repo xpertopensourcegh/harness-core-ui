@@ -13,11 +13,12 @@ import ProjectForm from './ProjectFrom'
 
 interface CreateModalData {
   orgMockData?: UseGetMockData<ResponsePageOrganization>
+  modules?: Project['modules']
   onSuccess?: (project: Project | undefined) => void
 }
 
 const CreateProject: React.FC<StepProps<Project> & CreateModalData> = props => {
-  const { nextStep, onSuccess, orgMockData } = props
+  const { nextStep, onSuccess, orgMockData, modules } = props
   const { accountId, orgIdentifier } = useParams()
   const { showSuccess } = useToaster()
   const { mutate: createProject } = usePostProject({
@@ -64,13 +65,13 @@ const CreateProject: React.FC<StepProps<Project> & CreateModalData> = props => {
     ;(dataToSubmit as Project)['owners'] = [accountId]
     ;(dataToSubmit as Project)['modules'] = values.modules || []
     try {
-      await createProject(dataToSubmit as Project, {
+      const { data: project } = await createProject(dataToSubmit as Project, {
         queryParams: { accountIdentifier: accountId, orgIdentifier: values?.orgIdentifier || '' }
       })
-      nextStep?.({ ...values })
+      nextStep?.(project)
       showSuccess(i18n.newProjectWizard.aboutProject.createSuccess)
-      onSuccess?.(values)
-      updateAppStore({ projects: projects.concat(values) })
+      onSuccess?.(project)
+      updateAppStore({ projects: projects.concat(project!) })
     } catch (e) {
       modalErrorHandler?.showDanger(e.data.message || getErrorMessage(e.data.errors))
     }
@@ -81,6 +82,7 @@ const CreateProject: React.FC<StepProps<Project> & CreateModalData> = props => {
       enableEdit={true}
       disableSubmit={false}
       initialOrgIdentifier={orgIdentifier || i18n.newProjectWizard.aboutProject.default}
+      initialModules={modules}
       organisationItems={organisations}
       title={i18n.newProjectWizard.aboutProject.name.toUpperCase()}
       setModalErrorHandler={setModalErrorHandler}

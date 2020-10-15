@@ -71,7 +71,12 @@ export const ModuleLandingView: React.FC<ModuleLandingViewProps> = ({
               </Text>
             </Layout.Vertical>
           ) : (
-            <ProjectsListPage module={module} onCardClick={onCardClick} onRowClick={onRowClick}></ProjectsListPage>
+            <ProjectsListPage
+              module={module}
+              onNewProjectCreated={onProjectCreated}
+              onCardClick={onCardClick}
+              onRowClick={onRowClick}
+            />
           )}
         </Page.Body>
 

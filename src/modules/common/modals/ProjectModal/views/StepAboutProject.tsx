@@ -9,6 +9,7 @@ interface ProjectModalData {
   closeModal?: () => void
   onSuccess?: (project: Project | undefined) => void
   onProjectSubmit?: (project: Project) => Promise<void>
+  modules?: Project['modules']
   orgMockData?: UseGetMockData<ResponsePageOrganization>
   editOrgMockData?: UseGetMockData<ResponseOrganization>
   projectMockData?: UseGetMockData<ResponseProject>

@@ -29,6 +29,7 @@ interface ProjectModalData {
   enableEdit: boolean
   title: string
   initialOrgIdentifier: string
+  initialModules?: Project['modules']
   onComplete: (project: Project) => Promise<void>
   organisationItems: SelectOption[]
   setModalErrorHandler: (modalErrorHandler: ModalErrorHandlerBinding) => void
@@ -57,6 +58,7 @@ const ProjectForm: React.FC<StepProps<Project> & ProjectModalData> = props => {
     disableSubmit,
     organisationItems,
     initialOrgIdentifier,
+    initialModules,
     setModalErrorHandler
   } = props
   return (
@@ -66,6 +68,7 @@ const ProjectForm: React.FC<StepProps<Project> & ProjectModalData> = props => {
         identifier: '',
         name: '',
         orgIdentifier: initialOrgIdentifier,
+        modules: initialModules,
         description: '',
         tags: [],
         ...projectData
