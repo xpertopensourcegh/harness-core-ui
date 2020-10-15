@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useState } from 'react'
 import { Container, Text, Select, Color, SelectOption, SelectProps } from '@wings-software/uikit'
 import moment from 'moment'
 import { useHistory } from 'react-router-dom'
@@ -27,9 +27,9 @@ const RangeOptions = [
 const DEFAULT_RANGE = RangeOptions[1]
 const FIVE_MINUTES_IN_MILLISECONDS = 1000 * 60 * 5
 
-const getRangeDates = (val: number, startTime?: number) => {
+const getRangeDates = (val: number, endTime?: number) => {
   const currTime =
-    startTime ||
+    endTime ||
     Math.round(new Date().getTime() / FIVE_MINUTES_IN_MILLISECONDS) * FIVE_MINUTES_IN_MILLISECONDS -
       FIVE_MINUTES_IN_MILLISECONDS
   const now = moment(currTime)
@@ -65,41 +65,28 @@ export default function CVServicesPage(): JSX.Element {
     ...selectedService
   })
   const history = useHistory()
-  const queryParams = useMemo(
-    () => ({
+
+  const { data: categoryRiskData, error, loading, refetch: refetchCategoryRisk } = useGetCategoryRiskMap({
+    queryParams: {
       orgIdentifier: orgIdentifier as string,
       projectIdentifier: projectIdentifier as string,
       accountId,
       envIdentifier: selectedService?.environmentIdentifier,
       serviceIdentifier: selectedService?.serviceIdentifier
-    }),
-    [
-      selectedService?.environmentIdentifier,
-      selectedService?.serviceIdentifier,
-      accountId,
-      projectIdentifier,
-      orgIdentifier
-    ]
-  )
-
-  const { data: categoryRiskData, error, loading, refetch: refetchCategoryRisk } = useGetCategoryRiskMap({
+    },
     resolve: (response: RestResponseCategoryRisksDTO) => {
-      if (response?.resource?.startTimeEpoch) {
+      if (response?.resource?.endTimeEpoch) {
         const { startTime: updatedStartTime, endTime: updatedEndTime } = getRangeDates(
           selectedValue,
-          response.resource.startTimeEpoch
+          response.resource.endTimeEpoch
         )
         setRange({ selectedValue, startTime: updatedStartTime, endTime: updatedEndTime })
         setInput({ startTime: updatedStartTime, endTime: updatedEndTime, ...selectedService })
       }
       return response
-    },
-    lazy: true
+    }
   })
 
-  useEffect(() => {
-    refetchCategoryRisk({ queryParams })
-  }, [queryParams])
   const isTimeRangeMoreThan4Hours = moment(endTime).diff(startTime, 'minutes') > 4 * 60
 
   return (
@@ -108,7 +95,7 @@ export default function CVServicesPage(): JSX.Element {
       <Page.Body
         loading={loading}
         noData={{
-          when: () => serviceIsEmpty === true,
+          when: () => !loading && serviceIsEmpty === true,
           message: i18n.noDataText.noServicesConfigured,
           buttonText: i18n.noDataText.goBackToDataSourcePage,
           onClick: () => {
@@ -148,7 +135,7 @@ export default function CVServicesPage(): JSX.Element {
                     if (selectedValue === value) return
                     const { startTime: updatedStartTime, endTime: updatedEndTime } = getRangeDates(
                       value as number,
-                      startTime
+                      endTime
                     )
                     setRange({ selectedValue: value as number, startTime: updatedStartTime, endTime: updatedEndTime })
                     setInput({ ...selectedService, startTime: updatedStartTime, endTime: updatedEndTime })
