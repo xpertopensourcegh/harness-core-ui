@@ -12,7 +12,9 @@ module.exports = {
     '!src/**/*.test.{ts,tsx}',
     '!src/**/__tests__/**',
     '!src/services/**',
-    '!src/**/YamlBuilder.tsx'
+    '!src/**/YamlBuilder.tsx',
+    '!src/**/*mock*.{ts,tsx}',
+    '!src/**/*Mock*.{ts,tsx}'
   ],
   coverageReporters: ['lcov', 'json-summary'],
   transform: {

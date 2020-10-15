@@ -34,28 +34,28 @@ export function getPipelineStagesMap(res: ResponsePipelineExecutionDetail): Map<
   return map
 }
 
-export function isExecutionComplete(status?: ExecutionStatus): boolean {
-  return isExecutionSuccess(status) || isExecutionErrored(status)
-}
-
-export function isExecutionErrored(status?: ExecutionStatus): boolean {
-  return (
-    status === 'Aborted' || status === 'Expired' || status === 'Failed' || status === 'Suspended' || status === 'Error'
-  )
-}
-
-export function isExecutionInProgress(status?: ExecutionStatus): boolean {
-  return (
-    isExecutionPaused(status) ||
-    isExecutionRunning(status) ||
-    isExecutionNotStarted(status) ||
-    status === 'Waiting' ||
-    status === 'Queued'
-  )
-}
-
 export function isExecutionRunning(status?: ExecutionStatus): boolean {
   return status === 'Running'
+}
+
+export function isExecutionFailed(status?: ExecutionStatus): boolean {
+  return status === 'Failed'
+}
+
+export function isExecutionExpired(status?: ExecutionStatus): boolean {
+  return status === 'Expired'
+}
+
+export function isExecutionAborted(status?: ExecutionStatus): boolean {
+  return status === 'Aborted'
+}
+
+export function isExecutionQueued(status?: ExecutionStatus): boolean {
+  return status === 'Queued'
+}
+
+export function isExecutionWaiting(status?: ExecutionStatus): boolean {
+  return status === 'Waiting'
 }
 
 export function isExecutionPaused(status?: ExecutionStatus): boolean {
@@ -68,6 +68,38 @@ export function isExecutionNotStarted(status?: ExecutionStatus): boolean {
 
 export function isExecutionSuccess(status?: ExecutionStatus): boolean {
   return status === 'Success'
+}
+
+export function isExecutionSuspended(status?: ExecutionStatus): boolean {
+  return status === 'Suspended'
+}
+
+export function isExecutionError(status?: ExecutionStatus): boolean {
+  return status === 'Error'
+}
+
+export function isExecutionComplete(status?: ExecutionStatus): boolean {
+  return isExecutionSuccess(status) || isExecutionCompletedWithBadState(status)
+}
+
+export function isExecutionCompletedWithBadState(status?: ExecutionStatus): boolean {
+  return (
+    isExecutionAborted(status) ||
+    isExecutionExpired(status) ||
+    isExecutionFailed(status) ||
+    isExecutionSuspended(status) ||
+    isExecutionError(status)
+  )
+}
+
+export function isExecutionInProgress(status?: ExecutionStatus): boolean {
+  return (
+    isExecutionPaused(status) ||
+    isExecutionRunning(status) ||
+    isExecutionNotStarted(status) ||
+    isExecutionWaiting(status) ||
+    isExecutionQueued(status)
+  )
 }
 
 export function getRunningStageForPipeline(
@@ -89,22 +121,26 @@ export function getRunningStageForPipeline(
     ) {
       return stage.parallel.stageExecutions[0].stage.stageIdentifier
     }
-
-    return null
   }
 
   // for errored pipeline, select the errored stage
-  if (isExecutionErrored(pipelineExecutionStatus)) {
+  if (isExecutionCompletedWithBadState(pipelineExecutionStatus)) {
     for (let i = stages.length - 1; i >= 0; i--) {
       const stage = stages[i]
+
       if (stage.stage) {
-        if (isExecutionErrored(stage.stage.executionStatus)) {
+        if (isExecutionCompletedWithBadState(stage.stage.executionStatus)) {
           return stage.stage.stageIdentifier
         } else {
           continue
         }
       } else if (stage.parallel && Array.isArray(stage.parallel.stageExecutions)) {
-        return stage.parallel.stageExecutions[0].stage.stageIdentifier
+        const erorredStage = getRunningStageForPipeline(stage.parallel.stageExecutions, pipelineExecutionStatus)
+
+        /* istanbul ignore else */
+        if (erorredStage) {
+          return erorredStage
+        }
       }
     }
   }
@@ -124,6 +160,7 @@ export function getRunningStageForPipeline(
     } else if (stage.parallel && Array.isArray(stage.parallel.stageExecutions)) {
       const activeStage = getRunningStageForPipeline(stage.parallel.stageExecutions, pipelineExecutionStatus)
 
+      /* istanbul ignore else */
       if (activeStage) {
         return activeStage
       }

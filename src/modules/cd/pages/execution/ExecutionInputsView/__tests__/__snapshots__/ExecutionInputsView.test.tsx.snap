@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ExecutionInputsView /> tests snapshot test 1`] = `
+<div>
+  <div>
+    ExecutionInputsView
+  </div>
+</div>
+`;

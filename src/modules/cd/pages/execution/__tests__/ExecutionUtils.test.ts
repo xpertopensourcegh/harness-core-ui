@@ -1,100 +1,144 @@
-import {
-  getRunningStep,
-  getRunningStageForPipeline,
-  isExecutionComplete,
-  ExecutionStatus,
-  isExecutionInProgress,
-  isExecutionPaused,
-  isExecutionNotStarted,
-  isExecutionRunning
-} from '../ExecutionUtils'
+import * as utils from '../ExecutionUtils'
 
 import stageGraph from './stage-graph.json'
 
 describe('ExecutionUtils tests', () => {
   describe('getRunningStep tests', () => {
     test('gives current running step from stage graph', () => {
-      const result = getRunningStep((stageGraph as unknown) as any)
+      const result = utils.getRunningStep((stageGraph as unknown) as any)
 
       expect(result).toBe('WOLUCzOCQDWyjJyOLN_9TQ')
     })
 
     test('handles empty objects', () => {
-      expect(getRunningStep({})).toBe(null)
-      expect(getRunningStep({ nodeMap: {} })).toBe(null)
-      expect(getRunningStep({ nodeAdjacencyListMap: {} })).toBe(null)
-      expect(getRunningStep({ nodeMap: {}, nodeAdjacencyListMap: {} })).toBe(null)
+      expect(utils.getRunningStep({})).toBe(null)
+      expect(utils.getRunningStep({ nodeMap: {} })).toBe(null)
+      expect(utils.getRunningStep({ nodeAdjacencyListMap: {} })).toBe(null)
+      expect(utils.getRunningStep({ nodeMap: {}, nodeAdjacencyListMap: {} })).toBe(null)
     })
   })
 
   describe('getRunningStageForPipeline tests', () => {
     test('gives current running stage', () => {
-      const stage = getRunningStageForPipeline([
-        { stage: { stageIdentifier: 'stage1', executionStatus: 'Success' } },
-        { stage: { stageIdentifier: 'stage2', executionStatus: 'Running' } },
-        { stage: { stageIdentifier: 'stage3', executionStatus: 'NotStarted' } }
-      ])
+      const stage = utils.getRunningStageForPipeline(
+        [
+          { stage: { stageIdentifier: 'stage1', executionStatus: 'Success' } },
+          { stage: { stageIdentifier: 'stage2', executionStatus: 'Running' } },
+          { stage: { stageIdentifier: 'stage3', executionStatus: 'NotStarted' } }
+        ],
+        'Running'
+      )
 
       expect(stage).toBe('stage2')
     })
 
     test('gives current running stage - parallel', () => {
-      const stage = getRunningStageForPipeline([
-        { stage: { stageIdentifier: 'stage1', executionStatus: 'Success' } },
-        {
-          parallel: {
-            stageExecutions: [
-              { stage: { stageIdentifier: 'stage2.1', executionStatus: 'Running' } },
-              { stage: { stageIdentifier: 'stage2.2', executionStatus: 'Running' } }
-            ]
-          }
-        },
-        { stage: { stageIdentifier: 'stage3', executionStatus: 'NotStarted' } }
-      ])
+      const stage = utils.getRunningStageForPipeline(
+        [
+          { stage: { stageIdentifier: 'stage1', executionStatus: 'Success' } },
+          {
+            parallel: {
+              stageExecutions: [
+                { stage: { stageIdentifier: 'stage2.1', executionStatus: 'Running' } },
+                { stage: { stageIdentifier: 'stage2.2', executionStatus: 'Running' } }
+              ]
+            }
+          },
+          { stage: { stageIdentifier: 'stage3', executionStatus: 'NotStarted' } }
+        ],
+        'Running'
+      )
 
       expect(stage).toBe('stage2.1')
     })
 
     test('handles empty objects', () => {
-      const stage = getRunningStageForPipeline([{}, { parallel: { stageExecutions: [] } }, { stage: {} }])
+      const stage = utils.getRunningStageForPipeline([{}, { parallel: { stageExecutions: [] } }, { stage: {} }])
 
       expect(stage).toBe(null)
+    })
+
+    test('gives correct stage for completed process', () => {
+      const stage = utils.getRunningStageForPipeline(
+        [
+          { stage: { stageIdentifier: 'stage1', executionStatus: 'Success' } },
+          { stage: { stageIdentifier: 'stage2', executionStatus: 'Success' } },
+          { stage: { stageIdentifier: 'stage3', executionStatus: 'Success' } }
+        ],
+        'Success'
+      )
+
+      expect(stage).toBe('stage3')
+    })
+
+    test('gives correct stage for completed process - parallel', () => {
+      const stage = utils.getRunningStageForPipeline(
+        [
+          { stage: { stageIdentifier: 'stage1', executionStatus: 'Success' } },
+          {
+            parallel: {
+              stageExecutions: [
+                { stage: { stageIdentifier: 'stage2.1', executionStatus: 'Success' } },
+                { stage: { stageIdentifier: 'stage2.2', executionStatus: 'Success' } }
+              ]
+            }
+          }
+        ],
+        'Success'
+      )
+
+      expect(stage).toBe('stage2.1')
+    })
+
+    test('gives correct stage for errored process', () => {
+      const stage = utils.getRunningStageForPipeline(
+        [
+          { stage: { stageIdentifier: 'stage1', executionStatus: 'Success' } },
+          { stage: { stageIdentifier: 'stage2', executionStatus: 'Failed' } },
+          { stage: { stageIdentifier: 'stage3', executionStatus: 'NotStarted' } }
+        ],
+        'Failed'
+      )
+
+      expect(stage).toBe('stage2')
+    })
+
+    test('gives correct stage for errored process - parallel', () => {
+      const stage = utils.getRunningStageForPipeline(
+        [
+          { stage: { stageIdentifier: 'stage1', executionStatus: 'Success' } },
+          {
+            parallel: {
+              stageExecutions: [
+                { stage: { stageIdentifier: 'stage2.1', executionStatus: 'Failed' } },
+                { stage: { stageIdentifier: 'stage2.2', executionStatus: 'Success' } }
+              ]
+            }
+          },
+          { stage: { stageIdentifier: 'stage3', executionStatus: 'NotStarted' } }
+        ],
+        'Failed'
+      )
+
+      expect(stage).toBe('stage2.1')
     })
   })
 
   describe('isExecutionComplete tests', () => {
-    test.each<[ExecutionStatus]>([['Aborted'], ['Expired'], ['Failed'], ['Success'], ['Suspended'], ['Error']])(
+    test.each<[utils.ExecutionStatus]>([['Aborted'], ['Expired'], ['Failed'], ['Success'], ['Suspended'], ['Error']])(
       'Status "%s" marks stage as complete',
       status => {
-        expect(isExecutionComplete(status)).toBe(true)
+        expect(utils.isExecutionComplete(status)).toBe(true)
       }
     )
   })
 
   describe('isExecutionInProgress tests', () => {
-    test.each<[ExecutionStatus]>([['Paused'], ['Running'], ['Waiting'], ['Queued']])(
+    test.each<[utils.ExecutionStatus]>([['Paused'], ['Running'], ['Waiting'], ['Queued']])(
       'Status "%s" marks stage as in-progress',
       status => {
-        expect(isExecutionInProgress(status)).toBe(true)
+        expect(utils.isExecutionInProgress(status)).toBe(true)
       }
     )
-  })
-
-  describe('isExecutionPaused tests', () => {
-    test.each<[ExecutionStatus]>([['Paused']])('Status "%s" marks stage as paused', status => {
-      expect(isExecutionPaused(status)).toBe(true)
-    })
-  })
-
-  describe('isExecutionNotStarted tests', () => {
-    test.each<[ExecutionStatus]>([['NotStarted']])('Status "%s" marks stage as not started', status => {
-      expect(isExecutionNotStarted(status)).toBe(true)
-    })
-  })
-
-  describe('isExecutionRunning tests', () => {
-    test.each<[ExecutionStatus]>([['Running']])('Status "%s" marks stage as running', status => {
-      expect(isExecutionRunning(status)).toBe(true)
-    })
   })
 })
