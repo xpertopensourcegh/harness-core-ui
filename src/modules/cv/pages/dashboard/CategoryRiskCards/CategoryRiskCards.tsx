@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react'
+import React, { useMemo } from 'react'
 import { Container, Text, Color, Icon, Layout } from '@wings-software/uikit'
 import HighchartsReact from 'highcharts-react-official'
 import Highcharts from 'highcharts'
@@ -9,12 +9,18 @@ import { isNumber } from 'lodash-es'
 import moment from 'moment'
 import { RiskScoreTile } from 'modules/cv/components/RiskScoreTile/RiskScoreTile'
 import { useRouteParams } from 'framework/exports'
-import { CategoryRisk, useGetCategoryRiskMap } from 'services/cv'
+import { CategoryRisk, RestResponseCategoryRisksDTO, useGetCategoryRiskMap } from 'services/cv'
 import { NoDataCard } from 'modules/common/components/Page/NoDataCard'
 import { getColorStyle } from 'modules/common/components/HeatMap/ColorUtils'
 import i18n from './CategoryRiskCards.i18n'
 import getRiskGaugeChartOptions from './RiskGauge'
 import css from './CategoryRiskCards.module.scss'
+
+interface CategoryRiskCardsWithApiProps {
+  environmentIdentifier?: string
+  serviceIdentifier?: string
+  className?: string
+}
 
 interface CategoryRiskCardProps {
   categoryName: string
@@ -23,9 +29,10 @@ interface CategoryRiskCardProps {
 }
 
 interface CategoryRiskCardsProps {
-  categoryRiskCardClassName?: string
-  environmentIdentifier?: string
-  serviceIdentifier?: string
+  className?: string
+  data: RestResponseCategoryRisksDTO | null
+  loading?: boolean
+  error?: string
 }
 
 interface OverallRiskScoreCard {
@@ -35,6 +42,37 @@ interface OverallRiskScoreCard {
 
 highchartsMore(Highcharts)
 gauge(Highcharts)
+
+function getOverallRisk(data: CategoryRiskCardsProps['data']): number {
+  const riskValues: CategoryRisk[] = Object.values(data?.resource?.categoryRisks || [])
+  if (!riskValues.length) return -1
+  const maxValue = riskValues.reduce((currMax = -1, currVal) => {
+    if (!isNumber(currVal?.risk)) return currMax
+    return currVal.risk > currMax ? currVal.risk : currMax
+  }, -1)
+  return maxValue
+}
+
+function transformCategoryRiskResponse(
+  data: CategoryRiskCardsProps['data']
+): Array<{ categoryName: string; riskScore: number }> {
+  if (!data || !data.resource || !data.resource.categoryRisks?.length) {
+    return []
+  }
+  const { categoryRisks } = data.resource
+  return categoryRisks
+    .sort((categoryA, categoryB) => {
+      if (!categoryA) return categoryB ? -1 : 0
+      if (!categoryB) return 1
+      if (!isNumber(categoryA.risk)) return -1
+      if (!isNumber(categoryB.risk)) return 1
+      return categoryB.risk - categoryA.risk
+    })
+    .map(sortedCategoryName => ({
+      categoryName: sortedCategoryName.category,
+      riskScore: sortedCategoryName.risk
+    })) as Array<{ categoryName: string; riskScore: number }>
+}
 
 export function CategoryRiskCard(props: CategoryRiskCardProps): JSX.Element {
   const { riskScore = 0, categoryName = '', className } = props
@@ -83,59 +121,28 @@ export function OverallRiskScoreCard(props: OverallRiskScoreCard): JSX.Element {
   )
 }
 
-export function CategoryRiskCards(props: CategoryRiskCardsProps): JSX.Element {
-  const { categoryRiskCardClassName, environmentIdentifier, serviceIdentifier } = props
+export function CategoryRiskCardsWithApi(props: CategoryRiskCardsWithApiProps): JSX.Element {
+  const { environmentIdentifier, serviceIdentifier, className } = props
   const {
     params: { orgIdentifier = '', projectIdentifier = '', accountId }
   } = useRouteParams()
-  const [overallRiskScore, setOverallRiskScore] = useState<number | undefined>()
-  const { data, error, loading, refetch } = useGetCategoryRiskMap({
+  const { data, error, loading } = useGetCategoryRiskMap({
     queryParams: {
       orgIdentifier: orgIdentifier as string,
       projectIdentifier: projectIdentifier as string,
       accountId,
       envIdentifier: environmentIdentifier,
       serviceIdentifier
-    },
-    resolve: response => {
-      const riskValues: CategoryRisk[] = Object.values(response?.resource.categoryRisks || [])
-      if (riskValues.length) {
-        const maxValue = riskValues.reduce((currMax = -1, currVal) => {
-          if (!isNumber(currVal?.risk)) return currMax
-          return currVal.risk > currMax ? currVal.risk : currMax
-        }, -1)
-        setOverallRiskScore(maxValue)
-      }
-      return response
     }
   })
 
-  const categoriesAndRisk = useMemo(() => {
-    if (!data || !data.resource || !data.resource.categoryRisks?.length) {
-      return []
-    }
-    const { categoryRisks } = data.resource
-    return categoryRisks
-      .sort((categoryA, categoryB) => {
-        if (!categoryA) {
-          return categoryB ? -1 : 0
-        }
-        if (!categoryB) {
-          return 1
-        }
-        if (!isNumber(categoryA.risk)) {
-          return -1
-        }
-        if (!isNumber(categoryB.risk)) {
-          return 1
-        }
-        return categoryB.risk - categoryA.risk
-      })
-      .map(sortedCategoryName => ({
-        categoryName: sortedCategoryName.category,
-        riskScore: sortedCategoryName.risk
-      }))
-  }, [data, data?.resource])
+  return <CategoryRiskCards className={className} data={data} error={error?.message} loading={loading} />
+}
+
+export function CategoryRiskCards(props: CategoryRiskCardsProps): JSX.Element {
+  const { className, data, loading, error } = props
+  const overallRiskScore = useMemo(() => getOverallRisk(data), [data])
+  const categoriesAndRisk = useMemo(() => transformCategoryRiskResponse(data), [data])
 
   if (loading) {
     return (
@@ -149,7 +156,7 @@ export function CategoryRiskCards(props: CategoryRiskCardsProps): JSX.Element {
     return (
       <Container className={css.errorOrLoading} height={105}>
         <Icon name="error" size={20} color={Color.RED_500} />
-        <Text intent="danger">{error.message}</Text>
+        <Text intent="danger">{error}</Text>
       </Container>
     )
   }
@@ -160,7 +167,6 @@ export function CategoryRiskCards(props: CategoryRiskCardsProps): JSX.Element {
         message={i18n.noDataText}
         icon="warning-sign"
         buttonText={i18n.retryButtonText}
-        onClick={() => refetch()}
         className={css.noData}
       />
     )
@@ -183,7 +189,7 @@ export function CategoryRiskCards(props: CategoryRiskCardsProps): JSX.Element {
             categoryName={categoryName || ''}
             riskScore={riskScore ?? -1}
             key={categoryName}
-            className={categoryRiskCardClassName}
+            className={className}
           />
         ))}
       </Container>

@@ -17,7 +17,7 @@ export interface AnalysisDrillDownViewProps {
   asModal?: boolean
 }
 
-export function AnalysisDrillDownView(props: AnalysisDrillDownViewProps): JSX.Element {
+export function AnalysisDrillDownView(props: AnalysisDrillDownViewProps): JSX.Element | null {
   const {
     className,
     startTime,
@@ -28,6 +28,7 @@ export function AnalysisDrillDownView(props: AnalysisDrillDownViewProps): JSX.El
     historyStartTime,
     asModal
   } = props
+  if (!startTime || !endTime) return null
   return (
     <Container className={cx(css.main, className)}>
       <Tabs id="AnalysisTabs" renderAllTabPanels={true}>

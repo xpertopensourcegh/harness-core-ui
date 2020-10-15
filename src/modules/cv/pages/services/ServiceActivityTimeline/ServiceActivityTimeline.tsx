@@ -322,7 +322,7 @@ function TimelineEvent(props: TimelineEventProps): JSX.Element | null {
   )
 }
 
-export default function ServiceActivityTimeline(props: ServiceActivityTimelineProps): JSX.Element {
+export default function ServiceActivityTimeline(props: ServiceActivityTimelineProps): JSX.Element | null {
   const { endTime, startTime } = props
   const [zoomTimeRange, setZoomTimeRange] = useState<{ zoomStartTime: number; zoomEndTime: number } | undefined>()
   const timelineEvents = useMemo(
@@ -340,6 +340,7 @@ export default function ServiceActivityTimeline(props: ServiceActivityTimelinePr
     [startTime, endTime, zoomTimeRange?.zoomStartTime, zoomTimeRange?.zoomEndTime]
   )
 
+  if (!startTime || !endTime) return null
   return (
     <Container className={css.main}>
       {zoomTimeRange ? (

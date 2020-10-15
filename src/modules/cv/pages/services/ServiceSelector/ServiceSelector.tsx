@@ -2,14 +2,15 @@ import React, { useState, ChangeEvent, useMemo } from 'react'
 import { Container, Text, Color } from '@wings-software/uikit'
 import cx from 'classnames'
 import { RiskScoreTile } from 'modules/cv/components/RiskScoreTile/RiskScoreTile'
-import type { EnvServiceRiskDTO } from 'services/cv'
+import { EnvServiceRiskDTO, RestResponseListEnvServiceRiskDTO, useGetEnvServiceRisks } from 'services/cv'
+import { useRouteParams } from 'framework/exports'
 import i18n from './ServiceSelector.i18n'
 import css from './ServiceSelector.module.scss'
 
 interface ServiceSelectorProps {
-  serviceData: EnvServiceRiskDTO[]
   className?: string
   onSelect?: (environmentIdentifier?: string, serviceIdentifier?: string) => void
+  isEmptyList?: (isEmpty: boolean) => void
 }
 
 interface RowProps {
@@ -19,7 +20,7 @@ interface RowProps {
   onSelect: (entityName: string) => void
 }
 
-function generateOverallRiskScores(serviceData: ServiceSelectorProps['serviceData']): Map<string, number> {
+function generateOverallRiskScores(serviceData?: EnvServiceRiskDTO[]): Map<string, number> {
   const riskScoreMap = new Map<string, number>()
   if (!serviceData) {
     return riskScoreMap
@@ -79,7 +80,24 @@ function ServiceRow(props: RowProps): JSX.Element {
 }
 
 export default function ServiceSelector(props: ServiceSelectorProps): JSX.Element {
-  const { serviceData, onSelect, className } = props
+  const { onSelect, className, isEmptyList } = props
+  const {
+    params: { accountId, projectIdentifier, orgIdentifier }
+  } = useRouteParams()
+
+  const { refetch: refetchServices, data } = useGetEnvServiceRisks({
+    queryParams: {
+      accountId,
+      projectIdentifier: projectIdentifier as string,
+      orgIdentifier: orgIdentifier as string
+    },
+    resolve: (response: RestResponseListEnvServiceRiskDTO) => {
+      isEmptyList?.(Number(response?.resource?.length) === 0)
+      return response
+    }
+  })
+
+  const serviceData = data?.resource
   const [selectedEntity, setSelectedEntity] = useState<{ envIdentifier?: string; serviceIdentifier?: string }>({
     serviceIdentifier: i18n.allServiceOptionText,
     envIdentifier: ''
@@ -89,15 +107,14 @@ export default function ServiceSelector(props: ServiceSelectorProps): JSX.Elemen
   const onSelectService = (envIdentifier?: string, serviceIdentifier?: string): void => {
     setSelectedEntity({ serviceIdentifier, envIdentifier })
     onSelect?.(envIdentifier, serviceIdentifier === i18n.allServiceOptionText ? undefined : serviceIdentifier)
+    refetchServices()
   }
   return (
     <Container className={cx(css.main, className)} background={Color.GREY_100}>
       <input
         placeholder={i18n.searchInputPlaceholder}
         className={css.filterService}
-        onChange={(e: ChangeEvent<HTMLInputElement>) => {
-          setFilterText(e.target.value)
-        }}
+        onChange={(e: ChangeEvent<HTMLInputElement>) => setFilterText(e.target.value)}
       />
       {serviceData?.map((serviceMapping, index: number) => {
         const { envIdentifier = '', serviceRisks = [] } = serviceMapping || {}

@@ -1,26 +1,17 @@
-import React, { useState, useEffect, useMemo } from 'react'
-import { Container, Text, Select, OverlaySpinner, Color, SelectOption, SelectProps } from '@wings-software/uikit'
+import React, { useEffect, useMemo, useState } from 'react'
+import { Container, Text, Select, Color, SelectOption, SelectProps } from '@wings-software/uikit'
 import moment from 'moment'
 import { useHistory } from 'react-router-dom'
 import { Page } from 'modules/common/exports'
-import HeatMap, { CellStatusValues } from 'modules/common/components/HeatMap/HeatMap'
 import { useRouteParams } from 'framework/exports'
-import {
-  HeatMapDTO,
-  useGetHeatmap,
-  useGetEnvServiceRisks,
-  RestResponseListEnvServiceRiskDTO,
-  EnvServiceRiskDTO
-} from 'services/cv'
-import { useToaster } from 'modules/common/exports'
 import { routeCVDataSources } from 'modules/cv/routes'
-import { RiskScoreTile } from 'modules/cv/components/RiskScoreTile/RiskScoreTile'
+import { RestResponseCategoryRisksDTO, useGetCategoryRiskMap } from 'services/cv'
 import ServiceSelector from './ServiceSelector/ServiceSelector'
 import i18n from './CVServicesPage.i18n'
 import { CategoryRiskCards } from '../dashboard/CategoryRiskCards/CategoryRiskCards'
-import { AnalysisDrillDownView } from './analysis-drilldown-view/AnalysisDrillDownView'
-import useAnalysisDrillDownView from './analysis-drilldown-view/useAnalysisDrillDownView'
+import { AnalysisDrillDownView, AnalysisDrillDownViewProps } from './analysis-drilldown-view/AnalysisDrillDownView'
 import ServiceActivityTimeline from './ServiceActivityTimeline/ServiceActivityTimeline'
+import ServiceHeatMap from './ServiceHeatMap/ServiceHeatMap'
 import styles from './CVServicesPage.module.scss'
 
 const RangeOptions = [
@@ -36,124 +27,88 @@ const RangeOptions = [
 const DEFAULT_RANGE = RangeOptions[1]
 const FIVE_MINUTES_IN_MILLISECONDS = 1000 * 60 * 5
 
-const getRangeDates = (val: number) => {
-  const now = moment(
-    Math.round(new Date().getTime() / FIVE_MINUTES_IN_MILLISECONDS) * FIVE_MINUTES_IN_MILLISECONDS
-  ).subtract(FIVE_MINUTES_IN_MILLISECONDS, 'milliseconds')
+const getRangeDates = (val: number, startTime?: number) => {
+  const currTime =
+    startTime ||
+    Math.round(new Date().getTime() / FIVE_MINUTES_IN_MILLISECONDS) * FIVE_MINUTES_IN_MILLISECONDS -
+      FIVE_MINUTES_IN_MILLISECONDS
+  const now = moment(currTime)
   return {
-    start: now.clone().subtract(val, 'minutes'),
-    end: now
+    startTime: now.clone().subtract(val, 'minutes').valueOf(),
+    endTime: currTime
   }
-}
-
-function getHeatmapCellTimeRange(heatmapData: HeatMapDTO[]): string {
-  if (!heatmapData?.length) return ''
-  const timeDifference = moment(heatmapData[0]?.endTime).diff(heatmapData[0]?.startTime, 'minutes')
-  if (timeDifference > 60) {
-    return `(${moment(heatmapData[0]?.endTime).diff(heatmapData[0]?.startTime, 'hours')} ${i18n.hours} ${
-      i18n.heatmapCellTimeRangeText
-    })`
-  }
-  return `(${timeDifference} ${i18n.minutes} ${i18n.heatmapCellTimeRangeText})`
-}
-
-function mapHeatmapValue(val: any): number | CellStatusValues {
-  return val && typeof val.riskScore === 'number' ? val.riskScore : CellStatusValues.Missing
-}
-
-function HeatMapTooltip({ cell }: { cell?: HeatMapDTO }): JSX.Element {
-  return cell ? (
-    <Container className={styles.heatmapTooltip}>
-      {cell.startTime && cell.endTime && (
-        <Text>{`${moment(cell.startTime).format('M/D/YYYY h:mm a')} - ${moment(cell.endTime).format(
-          'M/D/YYYY h:mm a'
-        )}`}</Text>
-      )}
-      <Container className={styles.overallScoreContent}>
-        <Text font={{ size: 'small' }}>{i18n.heatMapTooltipText.overallRiskScore}</Text>
-        <RiskScoreTile riskScore={Math.floor((cell?.riskScore || 0) * 100)} isSmall />
-      </Container>
-    </Container>
-  ) : (
-    <Container className={styles.heatmapTooltip}>
-      <Text className={styles.overallScoreContent}>{i18n.heatMapTooltipText.noData}</Text>
-    </Container>
-  )
 }
 
 export default function CVServicesPage(): JSX.Element {
   const {
     params: { accountId, projectIdentifier, orgIdentifier }
   } = useRouteParams()
-  const [range, setRange] = useState({
+  const [serviceIsEmpty, setIsServiceEmpty] = useState<boolean>(false)
+  const [{ selectedValue, startTime, endTime }, setRange] = useState<{
+    selectedValue: number
+    endTime?: number
+    startTime?: number
+  }>({
     selectedValue: DEFAULT_RANGE.value,
-    dates: {
-      ...getRangeDates(DEFAULT_RANGE.value)
-    }
+    endTime: undefined,
+    startTime: undefined
   })
-  const [heatmapData, setHeatmapData] = useState<Array<{ name: string; data: Array<any> }>>([])
-  const [services, setServices] = useState<EnvServiceRiskDTO[]>([])
   const [selectedService, setSelectedService] = useState<{
     serviceIdentifier?: string
     environmentIdentifier?: string
   }>({})
-  const history = useHistory()
-  const { showError } = useToaster()
-  const { openDrillDown } = useAnalysisDrillDownView()
-
-  const isTimeRangeMoreThan4Hours = range.dates.end.diff(range.dates.start, 'minutes') > 4 * 60
-  const { data: heatmapResponse, loading: loadingHeatmap, error: heatmapError, refetch: getHeatmap } = useGetHeatmap({
-    queryParams: {
-      accountId: accountId,
-      envIdentifier: selectedService?.environmentIdentifier,
-      serviceIdentifier: selectedService?.serviceIdentifier,
-      projectIdentifier: projectIdentifier as string,
-      startTimeMs: range.dates.start.valueOf(),
-      endTimeMs: range.dates.end.valueOf()
-    },
-    lazy: true,
-    resolve: response => {
-      setHeatmapData(
-        !response?.resource
-          ? []
-          : Object.keys(response.resource).map((key: string) => ({
-              name: key,
-              data: response?.resource[key]
-            }))
-      )
-      return response
-    }
+  const [heatMapAndTimeSeriesInput, setInput] = useState<
+    Pick<AnalysisDrillDownViewProps, 'startTime' | 'endTime' | 'environmentIdentifier' | 'serviceIdentifier'>
+  >({
+    startTime: startTime || 0,
+    endTime: endTime || 0,
+    ...selectedService
   })
-
-  const { loading: loadingServices, error: servicesError, refetch: refetchServices } = useGetEnvServiceRisks({
-    queryParams: {
-      accountId,
+  const history = useHistory()
+  const queryParams = useMemo(
+    () => ({
+      orgIdentifier: orgIdentifier as string,
       projectIdentifier: projectIdentifier as string,
-      orgIdentifier: orgIdentifier as string
-    },
-    resolve: (response: RestResponseListEnvServiceRiskDTO) => {
-      if (response?.resource?.length) {
-        setServices(response.resource)
+      accountId,
+      envIdentifier: selectedService?.environmentIdentifier,
+      serviceIdentifier: selectedService?.serviceIdentifier
+    }),
+    [
+      selectedService?.environmentIdentifier,
+      selectedService?.serviceIdentifier,
+      accountId,
+      projectIdentifier,
+      orgIdentifier
+    ]
+  )
+
+  const { data: categoryRiskData, error, loading, refetch: refetchCategoryRisk } = useGetCategoryRiskMap({
+    resolve: (response: RestResponseCategoryRisksDTO) => {
+      if (response?.resource?.startTimeEpoch) {
+        const { startTime: updatedStartTime, endTime: updatedEndTime } = getRangeDates(
+          selectedValue,
+          response.resource.startTimeEpoch
+        )
+        setRange({ selectedValue, startTime: updatedStartTime, endTime: updatedEndTime })
+        setInput({ startTime: updatedStartTime, endTime: updatedEndTime, ...selectedService })
       }
       return response
-    }
+    },
+    lazy: true
   })
 
   useEffect(() => {
-    if (heatmapError) showError(heatmapError.message)
-  }, [heatmapResponse])
-
-  const heatMapSize = useMemo(() => {
-    return Math.max(...heatmapData.map(({ data }) => data.length)) || 48
-  }, [heatmapData])
+    refetchCategoryRisk({ queryParams })
+  }, [queryParams])
+  const isTimeRangeMoreThan4Hours = moment(endTime).diff(startTime, 'minutes') > 4 * 60
 
   return (
     <>
       <Page.Header title="Services" toolbar={<Container></Container>} />
       <Page.Body
-        loading={loadingServices}
+        loading={loading}
         noData={{
-          when: () => services?.length === 0 && !servicesError?.message?.length,
+          when: () => serviceIsEmpty === true,
           message: i18n.noDataText.noServicesConfigured,
           buttonText: i18n.noDataText.goBackToDataSourcePage,
           onClick: () => {
@@ -166,39 +121,19 @@ export default function CVServicesPage(): JSX.Element {
           },
           icon: 'error'
         }}
-        error={servicesError?.message}
-        retryOnError={() => {
-          refetchServices()
-        }}
+        error={error?.message}
+        retryOnError={() => refetchCategoryRisk()}
       >
         <Container className={styles.servicesPage} background={Color.GREY_100}>
           <ServiceSelector
             className={styles.fixedServices}
-            serviceData={services}
-            onSelect={(envIdentifier?: string, serviceIdentifier?: string) => {
-              setSelectedService({ serviceIdentifier, environmentIdentifier: envIdentifier })
-              setHeatmapData([])
-              refetchServices()
-              if (isTimeRangeMoreThan4Hours) {
-                getHeatmap({
-                  queryParams: {
-                    accountId: accountId,
-                    projectIdentifier: projectIdentifier as string,
-                    startTimeMs: range.dates.start.valueOf(),
-                    endTimeMs: range.dates.end.valueOf(),
-                    serviceIdentifier,
-                    envIdentifier
-                  }
-                })
-              }
+            isEmptyList={isEmpty => setIsServiceEmpty(isEmpty)}
+            onSelect={(environmentIdentifier?: string, serviceIdentifier?: string) => {
+              setSelectedService({ environmentIdentifier, serviceIdentifier })
             }}
           />
           <Container className={styles.content}>
-            <CategoryRiskCards
-              categoryRiskCardClassName={styles.categoryRiskCard}
-              environmentIdentifier={selectedService?.environmentIdentifier}
-              serviceIdentifier={selectedService?.serviceIdentifier}
-            />
+            <CategoryRiskCards className={styles.categoryRiskCard} data={categoryRiskData} />
             <Container className={styles.serviceBody}>
               <Container flex>
                 <Text margin={{ bottom: 'xsmall' }} font={{ size: 'small' }} color={Color.BLACK}>
@@ -210,66 +145,24 @@ export default function CVServicesPage(): JSX.Element {
                   className={styles.rangeSelector}
                   size={'small' as SelectProps['size']}
                   onChange={({ value }: SelectOption) => {
-                    if (range?.selectedValue === value) return
-                    const selectedValue = value as number
-                    setRange({ selectedValue, dates: getRangeDates(selectedValue) })
-                    const { start, end } = getRangeDates(value as number)
-                    if (end.diff(start, 'minutes') > 4 * 60) {
-                      setHeatmapData([])
-                      getHeatmap({
-                        queryParams: {
-                          accountId: accountId,
-                          projectIdentifier: projectIdentifier as string,
-                          startTimeMs: start.valueOf(),
-                          endTimeMs: end.valueOf()
-                        }
-                      })
-                    }
+                    if (selectedValue === value) return
+                    const { startTime: updatedStartTime, endTime: updatedEndTime } = getRangeDates(
+                      value as number,
+                      startTime
+                    )
+                    setRange({ selectedValue: value as number, startTime: updatedStartTime, endTime: updatedEndTime })
+                    setInput({ ...selectedService, startTime: updatedStartTime, endTime: updatedEndTime })
                   }}
                 />
               </Container>
-              <ServiceActivityTimeline startTime={range.dates.start.valueOf()} endTime={range.dates.end.valueOf()} />
+              <ServiceActivityTimeline
+                startTime={heatMapAndTimeSeriesInput.startTime}
+                endTime={heatMapAndTimeSeriesInput.endTime}
+              />
               {isTimeRangeMoreThan4Hours ? (
-                <>
-                  <Text margin={{ bottom: 'xsmall' }} font={{ size: 'small' }} color={Color.BLACK}>
-                    {`${i18n.heatmapSectionTitleText} ${getHeatmapCellTimeRange(heatmapData?.[0]?.data)}`}
-                  </Text>
-                  <OverlaySpinner show={loadingHeatmap}>
-                    <HeatMap
-                      series={heatmapData}
-                      minValue={0}
-                      maxValue={1}
-                      labelsWidth={205}
-                      className={styles.serviceHeatMap}
-                      mapValue={mapHeatmapValue}
-                      renderTooltip={(cell: HeatMapDTO) => <HeatMapTooltip cell={cell} />}
-                      cellShapeBreakpoint={0.5}
-                      onCellClick={(cell: HeatMapDTO, rowData) => {
-                        if (cell.startTime && cell.endTime) {
-                          openDrillDown({
-                            categoryRiskScore: cell.riskScore ? Math.floor(cell.riskScore * 100) : 0,
-                            analysisProps: {
-                              startTime: cell.startTime,
-                              endTime: cell.endTime,
-                              categoryName: rowData?.name,
-                              environmentIdentifier: selectedService?.environmentIdentifier,
-                              serviceIdentifier: selectedService?.serviceIdentifier
-                            }
-                          })
-                        }
-                      }}
-                      rowSize={heatMapSize}
-                    />
-                  </OverlaySpinner>
-                </>
+                <ServiceHeatMap {...heatMapAndTimeSeriesInput} />
               ) : (
-                <AnalysisDrillDownView
-                  className={styles.analysisView}
-                  startTime={range.dates.start.valueOf()}
-                  endTime={range.dates.end.valueOf()}
-                  serviceIdentifier={selectedService?.serviceIdentifier}
-                  environmentIdentifier={selectedService?.environmentIdentifier}
-                />
+                <AnalysisDrillDownView className={styles.analysisView} {...heatMapAndTimeSeriesInput} />
               )}
             </Container>
           </Container>
