@@ -4,7 +4,7 @@ import { Layout, Text, Icon, Color, IconName } from '@wings-software/uikit'
 import type { CellProps, Renderer, Column } from 'react-table'
 import Table from 'modules/common/components/Table/Table'
 
-import { useListReferredByEntities, EntityReferenceDTO, ResponsePageEntityReferenceDTO } from 'services/cd-ng'
+import { useListReferredByEntities, EntitySetupUsageDTO, ResponsePageEntitySetupUsageDTO } from 'services/cd-ng'
 import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
 import { Page } from 'modules/common/exports'
 import type { UseGetMockData } from 'modules/common/utils/testUtils'
@@ -15,31 +15,31 @@ import css from './ReferencedBy.module.scss'
 interface ReferencedByProps {
   accountId: string
   entityIdentifier: string | undefined
-  mockData?: UseGetMockData<ResponsePageEntityReferenceDTO>
+  mockData?: UseGetMockData<ResponsePageEntitySetupUsageDTO>
 }
 
-const RenderColumnEntity: Renderer<CellProps<EntityReferenceDTO>> = ({ row }) => {
+const RenderColumnEntity: Renderer<CellProps<EntitySetupUsageDTO>> = ({ row }) => {
   const data = row.original
   return (
     <Layout.Vertical>
       <Layout.Horizontal>
         <Icon
-          name={getIconByEntityType(data.referredByEntityType) as IconName}
+          name={getIconByEntityType(data.referredByEntity?.type || '') as IconName}
           size={16}
           className={css.secretIconCss}
         />
         <Text color={Color.BLACK} padding={{ left: 'small' }}>
-          {data.referredByEntityName}
+          {data.referredByEntity?.name}
         </Text>
       </Layout.Horizontal>
       <Text color={Color.GREY_400} font={{ size: 'small' }} padding={{ left: 'xxlarge' }} margin={{ left: 'xsmall' }}>
-        ({getReferredEntityLabelByType(data.referredByEntityType)})
+        ({getReferredEntityLabelByType(data.referredByEntity?.type || '')})
       </Text>
     </Layout.Vertical>
   )
 }
 
-const RenderColumnActivity: Renderer<CellProps<EntityReferenceDTO>> = ({ row }) => {
+const RenderColumnActivity: Renderer<CellProps<EntitySetupUsageDTO>> = ({ row }) => {
   const data = row.original
   return (
     <Layout.Horizontal spacing="small">
@@ -51,15 +51,20 @@ const RenderColumnActivity: Renderer<CellProps<EntityReferenceDTO>> = ({ row }) 
 const ReferencedBy: React.FC<ReferencedByProps> = props => {
   const [page, setPage] = useState(0)
   const { data, loading, refetch } = useListReferredByEntities({
-    queryParams: { account: props.accountId, identifier: props.entityIdentifier, page: page, size: 10 },
+    queryParams: {
+      accountIdentifier: props.accountId,
+      identifier: props.entityIdentifier,
+      pageIndex: page,
+      pageSize: 10
+    },
     mock: props.mockData
   })
 
-  const columns: Column<EntityReferenceDTO>[] = useMemo(
+  const columns: Column<EntitySetupUsageDTO>[] = useMemo(
     () => [
       {
         Header: i18n.ENTITY,
-        accessor: 'referredEntityName',
+        accessor: 'referredByEntity',
         width: '33%',
         Cell: RenderColumnEntity
       },
@@ -95,7 +100,7 @@ const ReferencedBy: React.FC<ReferencedByProps> = props => {
       </Layout.Horizontal>
       {!loading ? (
         data?.data?.content?.length ? (
-          <Table<EntityReferenceDTO>
+          <Table<EntitySetupUsageDTO>
             className={css.table}
             columns={columns}
             data={data.data.content || []}

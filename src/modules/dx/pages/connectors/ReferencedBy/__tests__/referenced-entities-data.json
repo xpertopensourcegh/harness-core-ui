@@ -4,33 +4,81 @@
     "content": [
       {
         "accountIdentifier": "accountId",
-        "referredEntityFQN": "accountId/harnessSecretManager",
-        "referredEntityName": "Harness Secrets Manager",
-        "referredEntityType": "connectors",
-        "referredByEntityFQN": "accountId/njghjk",
-        "referredByEntityType": "secrets",
-        "referredByEntityName": "Sample Secret",
+        "referredByEntity": {
+          "name": "Sample Secret",
+          "type": "secrets",
+          "entityRef": {
+            "accountIdentifier": "ACCOUNTID",
+            "identifier": "hbgjgjpasswordRef",
+            "orgIdentifier": null,
+            "projectIdentifier": null,
+            "scope": "ACCOUNT"
+          }
+        },
+        "referredEntity": {
+          "name": "Harness Secrets Manager",
+          "type": "connectors",
+          "entityRef": {
+            "accountIdentifier": "ACCOUNTID",
+            "identifier": "hbgjgjpasswordRef",
+            "orgIdentifier": null,
+            "projectIdentifier": null,
+            "scope": "ACCOUNT"
+          }
+        },
         "createdAt": 1601455231251
       },
       {
         "accountIdentifier": "accountId",
-        "referredEntityFQN": "accountId/harnessSecretManager",
-        "referredEntityName": "Harness Secrets Manager",
-        "referredEntityType": "connectors",
-        "referredByEntityFQN": "accountId/fjhkjpasswordRef",
-        "referredByEntityType": "pipelines",
-        "referredByEntityName": "Sample pipeline",
-        "createdAt": 1601398588954
+        "referredByEntity": {
+          "name": "Sample pipeline",
+          "type": "pipelines",
+          "entityRef": {
+            "accountIdentifier": "ACCOUNTID",
+            "identifier": "hbgjgjpasswordRef",
+            "orgIdentifier": null,
+            "projectIdentifier": null,
+            "scope": "ACCOUNT"
+          }
+        },
+        "referredEntity": {
+          "name": "Harness Secrets Manager",
+          "type": "connectors",
+          "entityRef": {
+            "accountIdentifier": "ACCOUNTID",
+            "identifier": "hbgjgjpasswordRef",
+            "orgIdentifier": null,
+            "projectIdentifier": null,
+            "scope": "ACCOUNT"
+          }
+        },
+        "createdAt": 1601355284118
       },
       {
         "accountIdentifier": "accountId",
-        "referredEntityFQN": "accountId/harnessSecretManager",
-        "referredEntityName": "Harness Secrets Manager",
-        "referredEntityType": "connectors",
-        "referredByEntityFQN": "accountId/dpckerpasswordRef",
-        "referredByEntityType": "projects",
-        "referredByEntityName": "Sample project",
-        "createdAt": 1601355284118
+        "referredByEntity": {
+          "name": "Sample project",
+          "type": "projects",
+          "entityRef": {
+            "accountIdentifier": "ACCOUNTID",
+            "identifier": "hbgjgjpasswordRef",
+            "orgIdentifier": null,
+            "projectIdentifier": null,
+            "scope": "ACCOUNT"
+          }
+        },
+        "referredEntity": {
+          "name": "Harness Secrets Manager",
+          "type": "connectors",
+          "entityRef": {
+            "accountIdentifier": "ACCOUNTID",
+            "identifier": "hbgjgjpasswordRef",
+            "orgIdentifier": null,
+            "projectIdentifier": null,
+            "scope": "ACCOUNT"
+          }
+        },
+        "createdAt": 1601398588954
       }
     ],
     "pageable": {
