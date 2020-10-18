@@ -13,7 +13,7 @@ import {
 } from 'services/cd-ng'
 import type { Project } from 'services/cd-ng'
 import { usePutProject } from 'services/cd-ng'
-import type { UseGetMockData } from 'modules/common/utils/testUtils'
+import type { UseGetMockData, UseMutateMockData } from 'modules/common/utils/testUtils'
 import { useToaster } from 'modules/common/components/Toaster/useToaster'
 import ProjectForm from './ProjectFrom'
 
@@ -26,6 +26,7 @@ interface EditModalData {
   isStep?: boolean
   editOrgMockData?: UseGetMockData<ResponseOrganization>
   projectMockData?: UseGetMockData<ResponseProject>
+  editMockData?: UseMutateMockData<ResponseProject>
 }
 
 const EditProject: React.FC<StepProps<Project> & EditModalData> = props => {
@@ -38,7 +39,8 @@ const EditProject: React.FC<StepProps<Project> & EditModalData> = props => {
     onSuccess,
     isStep,
     editOrgMockData,
-    projectMockData
+    projectMockData,
+    editMockData
   } = props
   const [version, setVersion] = useState<string>()
   const { accountId } = useParams()
@@ -66,7 +68,8 @@ const EditProject: React.FC<StepProps<Project> & EditModalData> = props => {
     },
     requestOptions: {
       headers: { 'If-Match': version as string }
-    }
+    },
+    mock: editMockData
   })
 
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding>()

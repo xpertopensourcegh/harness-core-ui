@@ -3,15 +3,17 @@ import React, { useState } from 'react'
 import { CardSelect, Text, Layout, Icon, IconName, Container, Button } from '@wings-software/uikit'
 
 import { useHistory, useParams } from 'react-router-dom'
-import type { Project } from 'services/cd-ng'
+import type { Project, ResponseProject } from 'services/cd-ng'
 import { usePutProject } from 'services/cd-ng'
 import { routeCDPipelineStudio } from 'modules/cd/routes'
 import { routeCVDataSources } from 'modules/cv/routes'
+import type { UseMutateMockData } from 'modules/common/utils/testUtils'
 import i18n from '../../../pages/ProjectsPage/ProjectsPage.i18n'
 import css from './Purpose.module.scss'
 
 interface ProjectModalData {
   data: Project | undefined
+  mock?: UseMutateMockData<ResponseProject>
 }
 
 interface PurposeType {
@@ -41,7 +43,7 @@ const options: PurposeType[] = [
   {
     title: i18n.newProjectWizard.purposeList.cv,
     icon: 'nav-cv-hover',
-    Description: i18n.newProjectWizard.purposeList.cdDescription,
+    Description: i18n.newProjectWizard.purposeList.cvDescription,
     start: i18n.newProjectWizard.purposeList.startcv,
     text: i18n.newProjectWizard.purposeList.textcv,
     button: i18n.newProjectWizard.purposeList.buttoncv,
@@ -210,7 +212,7 @@ const ContinuousFeatures: React.FC<ModuleProps> = ({ onSubmit }) => {
 }
 
 const PurposeList: React.FC<ProjectModalData> = props => {
-  const { data: projectData } = props
+  const { data: projectData, mock } = props
   const { accountId } = useParams()
   const [selected, setSelected] = useState<PurposeType>(options[0])
   const { mutate: updateProject } = usePutProject({
@@ -218,7 +220,8 @@ const PurposeList: React.FC<ProjectModalData> = props => {
     queryParams: {
       accountIdentifier: accountId,
       orgIdentifier: ''
-    }
+    },
+    mock: mock
   })
 
   const onSuccess = async (): Promise<boolean> => {

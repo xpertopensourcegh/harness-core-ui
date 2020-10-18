@@ -51,6 +51,7 @@ export default {
       ce: 'Efficiency',
       cf: 'Features',
       cdDescription: 'Deploy your services with blazingly fast pipelines.',
+      cvDescription: 'Deploy in peace - verify activities that take place in your system. Identify risk early.',
       startcd: "Let's get you started with Harness Continuous Deployment",
       startcv: "Let's get you started with Harness Continuous Verification",
       startci: "Let's get you started with Harness Continuous Integration",

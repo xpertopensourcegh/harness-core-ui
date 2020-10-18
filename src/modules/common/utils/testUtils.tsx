@@ -13,7 +13,6 @@ import { AUTH_ROUTE_PATH_PREFIX } from 'framework/exports'
 export type UseGetMockData<TData, TError = undefined, TQueryParams = undefined, TPathParams = undefined> = Required<
   UseGetProps<TData, TError, TQueryParams, TPathParams>
 >['mock']
-
 interface TestWrapperProps {
   path?: string
   pathParams?: Record<string, string | number>
@@ -21,6 +20,10 @@ interface TestWrapperProps {
   defaultAppStoreValues?: Partial<AppStore>
 }
 
+export interface UseMutateMockData<TData, TRequestBody = unknown> {
+  loading?: boolean
+  mutate?: (data?: TRequestBody) => Promise<TData>
+}
 export const prependAccountPath = (path: string): string => AUTH_ROUTE_PATH_PREFIX + path
 
 const AppStoreInitializer: React.FC<{ defaultAppStoreValues: TestWrapperProps['defaultAppStoreValues'] }> = ({

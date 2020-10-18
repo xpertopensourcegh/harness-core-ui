@@ -4,10 +4,10 @@ import type { StepProps, SelectOption, ModalErrorHandlerBinding } from '@wings-s
 import { pick } from 'lodash-es'
 import { useAppStoreReader, useAppStoreWriter } from 'framework/exports'
 import i18n from 'modules/common/pages/ProjectsPage/ProjectsPage.i18n'
-import { useGetOrganizationList, ResponsePageOrganization } from 'services/cd-ng'
+import { useGetOrganizationList, ResponsePageOrganization, ResponseProject } from 'services/cd-ng'
 import type { Project } from 'services/cd-ng'
 import { usePostProject } from 'services/cd-ng'
-import type { UseGetMockData } from 'modules/common/utils/testUtils'
+import type { UseGetMockData, UseMutateMockData } from 'modules/common/utils/testUtils'
 import { useToaster } from 'modules/common/components/Toaster/useToaster'
 import ProjectForm from './ProjectFrom'
 
@@ -15,17 +15,19 @@ interface CreateModalData {
   orgMockData?: UseGetMockData<ResponsePageOrganization>
   modules?: Project['modules']
   onSuccess?: (project: Project | undefined) => void
+  createMock?: UseMutateMockData<ResponseProject>
 }
 
 const CreateProject: React.FC<StepProps<Project> & CreateModalData> = props => {
-  const { nextStep, onSuccess, orgMockData, modules } = props
+  const { nextStep, onSuccess, orgMockData, modules, createMock } = props
   const { accountId, orgIdentifier } = useParams()
   const { showSuccess } = useToaster()
   const { mutate: createProject } = usePostProject({
     queryParams: {
       accountIdentifier: accountId,
       orgIdentifier: ''
-    }
+    },
+    mock: createMock
   })
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding>()
   const { data: orgData } = useGetOrganizationList({

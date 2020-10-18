@@ -39,6 +39,22 @@ const DefaultRenderer: React.FC<DefaultProps> = props => {
           orgIdentifier: data.orgIdentifier
         }
       })
+      if (module === 'CD') {
+        history.push(
+          routeCDDashboard.url({
+            orgIdentifier: data.orgIdentifier as string,
+            projectIdentifier: data.identifier || ''
+          })
+        )
+      }
+      if (module === 'CV') {
+        history.push(
+          routeCVMainDashBoardPage.url({
+            orgIdentifier: data.orgIdentifier as string,
+            projectIdentifier: data.identifier || ''
+          })
+        )
+      }
       return true
     } catch (e) {
       return false
@@ -66,12 +82,6 @@ const DefaultRenderer: React.FC<DefaultProps> = props => {
             size={20}
             onClick={() => {
               onSelect('CD')
-              history.push(
-                routeCDDashboard.url({
-                  orgIdentifier: data.orgIdentifier as string,
-                  projectIdentifier: data.identifier || ''
-                })
-              )
             }}
             className={css.pointer}
           />
@@ -81,12 +91,6 @@ const DefaultRenderer: React.FC<DefaultProps> = props => {
             size={20}
             onClick={() => {
               onSelect('CV')
-              history.push(
-                routeCVMainDashBoardPage.url({
-                  orgIdentifier: data.orgIdentifier as string,
-                  projectIdentifier: data.identifier || ''
-                })
-              )
             }}
             className={css.pointer}
           />

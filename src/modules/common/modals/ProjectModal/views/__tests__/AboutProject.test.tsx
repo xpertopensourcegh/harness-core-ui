@@ -1,8 +1,9 @@
 import React from 'react'
 
-import { render, queryByText } from '@testing-library/react'
+import { render, queryByText, fireEvent } from '@testing-library/react'
+import { act } from 'react-dom/test-utils'
 import type { Project, ResponseOrganization, ResponsePageOrganization, ResponseProject } from 'services/cd-ng'
-import { TestWrapper, UseGetMockData } from 'modules/common/utils/testUtils'
+import { TestWrapper, UseGetMockData, UseMutateMockData } from 'modules/common/utils/testUtils'
 import { orgMockData } from './OrgMockData'
 import i18n from '../../../../pages/ProjectsPage/ProjectsPage.i18n'
 import StepProject from '../StepAboutProject'
@@ -57,14 +58,71 @@ const editOrgMockData: UseGetMockData<ResponseOrganization> = {
   }
 }
 
+const createMockData: UseMutateMockData<ResponseProject> = {
+  mutate: async () => {
+    return {
+      status: 'SUCCESS',
+      data: {
+        accountIdentifier: 'kmpySmUISimoRrJL6NL73w',
+        orgIdentifier: 'default',
+        identifier: 'dummy_name',
+        name: 'dummy name',
+        color: '#0063F7',
+        modules: [],
+        description: '',
+        owners: ['testAcc'],
+        tags: [],
+        lastModifiedAt: 1602660684194
+      },
+      metaData: undefined,
+      correlationId: '375d39b4-3552-42a2-a4e3-e6b9b7e51d44'
+    }
+  },
+  loading: false
+}
+
+const editMockData: UseMutateMockData<ResponseProject> = {
+  mutate: async () => {
+    return {
+      status: 'SUCCESS',
+      data: {
+        accountIdentifier: 'testAcc',
+        orgIdentifier: 'testOrg',
+        identifier: 'test',
+        name: 'dummy name',
+        color: '#e6b800',
+        modules: ['CD'],
+        description: 'test',
+        tags: ['tag1', 'tag2'],
+        owners: ['testAcc'],
+        lastModifiedAt: 1602660684194
+      },
+      metaData: undefined,
+      correlationId: '375d39b4-3552-42a2-a4e3-e6b9b7e51d44'
+    }
+  },
+  loading: false
+}
+
 describe('About Project test', () => {
   test('create project ', async () => {
     const { container } = render(
       <TestWrapper path="/account/:accountId" pathParams={{ accountId: 'testAcc' }}>
-        <StepProject orgMockData={orgMockData as UseGetMockData<ResponsePageOrganization>} />
+        <StepProject
+          orgMockData={orgMockData as UseGetMockData<ResponsePageOrganization>}
+          createMock={createMockData}
+        />
       </TestWrapper>
     )
     expect(queryByText(container, i18n.newProjectWizard.aboutProject.name)).toBeDefined()
+    expect(container).toMatchSnapshot()
+
+    await act(async () => {
+      fireEvent.change(container.querySelector('input[name="name"]')!, {
+        target: { value: 'dummy name' }
+      })
+      fireEvent.click(container.querySelector('button[type="submit"]')!)
+    })
     expect(container).toMatchSnapshot()
   }),
     test('edit project ', async () => {
@@ -75,10 +133,19 @@ describe('About Project test', () => {
             orgIdentifier={project.accountIdentifier}
             editOrgMockData={editOrgMockData}
             projectMockData={projectMockData}
+            editMockData={editMockData}
           />
         </TestWrapper>
       )
       expect(queryByText(container, i18n.newProjectWizard.aboutProject.name)).toBeDefined()
+      expect(container).toMatchSnapshot()
+
+      await act(async () => {
+        fireEvent.change(container.querySelector('input[name="name"]')!, {
+          target: { value: 'dummy name' }
+        })
+        fireEvent.click(container.querySelector('button[type="submit"]')!)
+      })
       expect(container).toMatchSnapshot()
     })
 })

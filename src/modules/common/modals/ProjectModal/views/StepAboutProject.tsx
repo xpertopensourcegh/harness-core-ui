@@ -1,7 +1,7 @@
 import React from 'react'
 import type { StepProps } from '@wings-software/uikit'
 import type { Project, ResponseOrganization, ResponsePageOrganization, ResponseProject } from 'services/cd-ng'
-import type { UseGetMockData } from 'modules/common/utils/testUtils'
+import type { UseGetMockData, UseMutateMockData } from 'modules/common/utils/testUtils'
 import CreateProject from './CreateProject'
 import EditProject from './EditProject'
 
@@ -13,6 +13,7 @@ interface ProjectModalData {
   orgMockData?: UseGetMockData<ResponsePageOrganization>
   editOrgMockData?: UseGetMockData<ResponseOrganization>
   projectMockData?: UseGetMockData<ResponseProject>
+  createMock?: UseMutateMockData<ResponseProject>
 }
 
 const StepAboutProject: React.FC<StepProps<Project> & ProjectModalData> = props => {
