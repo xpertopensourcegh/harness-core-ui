@@ -17,7 +17,7 @@ import type {
 } from 'modules/common/interfaces/YAMLBuilderProps'
 import SnippetSection from 'modules/common/components/SnippetSection/SnippetSection'
 import { JSONSchemaService } from 'modules/dx/services'
-import { validateYAMLWithSchema, addYAMLLanguageSettingsToSchema } from 'modules/common/utils/YamlUtils'
+import { validateYAMLWithSchema } from 'modules/common/utils/YamlUtils'
 import {
   getYAMLFromEditor,
   getMetaDataForKeyboardEventProcessing,
@@ -118,10 +118,9 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
     }
   }
 
-  const getYAMLLanguageSettings = (entityType: string): Record<string, string> => {
+  const getYAMLLanguageSettings = (entityType: string): Record<string, any> | undefined => {
     const jsonSchemas = JSONSchemaService.fetchEntitySchemas(entityType)
-    const languageSetting = addYAMLLanguageSettingsToSchema([jsonSchemas])
-    return languageSetting
+    return jsonSchemas
   }
 
   const onYamlChange = (updatedYaml: string): void => {
