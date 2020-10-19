@@ -137,7 +137,7 @@ async function loadAppDApplications(
     CVObjectStoreNames.LIST_ENTITIES,
     dataSourceId
   )
-  let appDApplicationsOptions: SelectOption[] = cachedEntities.entityOptions
+  let appDApplicationsOptions: SelectOption[] = cachedEntities?.entityOptions
   if (!appDApplicationsOptions?.length) {
     appDApplicationsOptions = await fetchAppDApps(accountId, dataSourceId, orgId, projectId)
   }
