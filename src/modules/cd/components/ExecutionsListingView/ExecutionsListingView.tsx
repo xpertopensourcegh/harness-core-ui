@@ -43,6 +43,9 @@ export const ExecutionsListingView: React.FC<ExecutionsListingViewProps> = React
         orgIdentifier: orgIdentifier as string,
         pipelineIdentifiers: [pipelineIdentifier as string],
         page: Number(page) - 1
+      },
+      queryParamStringifyOptions: {
+        arrayFormat: 'repeat'
       }
     })
     const gotoPage = useCallback(

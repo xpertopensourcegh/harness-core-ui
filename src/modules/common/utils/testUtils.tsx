@@ -24,7 +24,7 @@ export type UseGetReturnData<TData, TError = undefined, TQueryParams = undefined
   'absolutePath' | 'cancel' | 'response'
 >
 
-export const findDialogContainer = (): Element | null => document.querySelector('.bp3-dialog-container')
+export const findDialogContainer = (): Element | null => document.querySelector('.bp3-dialog')
 export const findPopoverContainer = (): Element | null => document.querySelector('.bp3-popover-content')
 
 interface TestWrapperProps {
