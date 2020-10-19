@@ -279,10 +279,11 @@ const KubernetesInfraSpecInputForm: React.FC<KubernetesInfraSpecEditableProps> =
           <TextInput
             placeholder={i18n.releaseNamePlaceholder}
             style={{ width: 400 }}
+            name="releaseName"
             value={
               getMultiTypeFromValue(initialValues.releaseName) === MultiTypeInputType.RUNTIME
                 ? ''
-                : initialValues.releaseName
+                : initialValues.releaseName || ''
             }
             onChange={(event: React.FormEvent<HTMLInputElement>) => {
               onUpdate?.({ ...initialValues, releaseName: event.currentTarget.value })
@@ -295,10 +296,11 @@ const KubernetesInfraSpecInputForm: React.FC<KubernetesInfraSpecEditableProps> =
           <TextInput
             placeholder={i18n.nameSpacePlaceholder}
             style={{ width: 400 }}
+            name="namespace"
             value={
               getMultiTypeFromValue(initialValues.namespace) === MultiTypeInputType.RUNTIME
                 ? ''
-                : initialValues.namespace
+                : initialValues.namespace || ''
             }
             onChange={(event: React.FormEvent<HTMLInputElement>) => {
               onUpdate?.({ ...initialValues, namespace: event.currentTarget.value })

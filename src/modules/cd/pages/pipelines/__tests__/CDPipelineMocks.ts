@@ -18,22 +18,6 @@ export default {
           numOfStages: 2,
           numOfErrors: 2,
           deployments: [3, 4, 5, 4, 4, 1, 1, 2, 3, 2]
-        },
-        {
-          name: 'pipeline3',
-          identifier: 'pipeline3',
-          description: '',
-          numOfStages: 1,
-          numOfErrors: 2,
-          deployments: [1, 0, 3, 3, 1, 1, 3, 3, 4, 0]
-        },
-        {
-          name: 'pipeline4',
-          identifier: 'pipeline4',
-          description: '',
-          numOfStages: 10,
-          numOfErrors: 0,
-          deployments: [1, 0, 5, 1, 3, 5, 5, 4, 2, 3]
         }
       ],
       pageable: {

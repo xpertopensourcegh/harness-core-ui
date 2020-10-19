@@ -1,5 +1,5 @@
 import React from 'react'
-import { UseGetProps, RestfulProvider } from 'restful-react'
+import { UseGetProps, UseGetReturn, RestfulProvider } from 'restful-react'
 import { compile } from 'path-to-regexp'
 import { createMemoryHistory } from 'history'
 import { Router, Route, Switch, useLocation } from 'react-router-dom'
@@ -13,6 +13,20 @@ import { AUTH_ROUTE_PATH_PREFIX } from 'framework/exports'
 export type UseGetMockData<TData, TError = undefined, TQueryParams = undefined, TPathParams = undefined> = Required<
   UseGetProps<TData, TError, TQueryParams, TPathParams>
 >['mock']
+
+export interface UseMutateMockData<TData, TRequestBody = unknown> {
+  loading?: boolean
+  mutate?: (data?: TRequestBody) => Promise<TData>
+}
+
+export type UseGetReturnData<TData, TError = undefined, TQueryParams = undefined, TPathParams = undefined> = Omit<
+  UseGetReturn<TData, TError, TQueryParams, TPathParams>,
+  'absolutePath' | 'cancel' | 'response'
+>
+
+export const findDialogContainer = (): Element | null => document.querySelector('.bp3-dialog-container')
+export const findPopoverContainer = (): Element | null => document.querySelector('.bp3-popover-content')
+
 interface TestWrapperProps {
   path?: string
   pathParams?: Record<string, string | number>
@@ -20,10 +34,6 @@ interface TestWrapperProps {
   defaultAppStoreValues?: Partial<AppStore>
 }
 
-export interface UseMutateMockData<TData, TRequestBody = unknown> {
-  loading?: boolean
-  mutate?: (data?: TRequestBody) => Promise<TData>
-}
 export const prependAccountPath = (path: string): string => AUTH_ROUTE_PATH_PREFIX + path
 
 const AppStoreInitializer: React.FC<{ defaultAppStoreValues: TestWrapperProps['defaultAppStoreValues'] }> = ({

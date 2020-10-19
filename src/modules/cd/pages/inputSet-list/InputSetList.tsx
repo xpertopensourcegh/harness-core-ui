@@ -28,7 +28,8 @@ const InputSetList: React.FC = (): JSX.Element => {
       pageIndex: page,
       pageSize: 10,
       searchTerm: searchParam
-    }
+    },
+    debounce: 300
   })
 
   const [selectedInputSet, setSelectedInputSet] = React.useState<{
@@ -97,7 +98,7 @@ const InputSetList: React.FC = (): JSX.Element => {
       <Page.Body
         loading={loading}
         error={error?.message}
-        retryOnError={() => refetch()}
+        retryOnError={/* istanbul ignore next */ () => refetch()}
         noData={{
           when: () => !inputSet?.data?.content?.length,
           icon: 'yaml-builder-input-sets',

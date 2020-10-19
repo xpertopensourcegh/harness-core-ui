@@ -1,0 +1,2763 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Render Forms - Snapshot Testing render Edit Input Set Form view 1`] = `
+<div
+  class="bp3-dialog-container bp3-overlay-content bp3-overlay-appear bp3-overlay-appear-active"
+  tabindex="0"
+>
+  <div
+    class="bp3-dialog"
+    style="min-width: 700px; min-height: 600px;"
+  >
+    <div
+      class="bp3-dialog-header"
+    >
+      <h4
+        class="bp3-heading"
+      >
+        Edit Input Set: asd
+      </h4>
+      <button
+        aria-label="Close"
+        class="bp3-button bp3-minimal bp3-dialog-close-button"
+        type="button"
+      >
+        <span
+          class="bp3-icon bp3-icon-small-cross"
+          icon="small-cross"
+        >
+          <svg
+            data-icon="small-cross"
+            height="20"
+            viewBox="0 0 20 20"
+            width="20"
+          >
+            <desc>
+              small-cross
+            </desc>
+            <path
+              d="M11.41 10l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L10 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42L8.59 10 5.3 13.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l3.29-3.3 3.29 3.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L11.41 10z"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </span>
+      </button>
+    </div>
+    <div
+      class="bp3-dialog-body"
+    >
+      <div
+        class="Layout---vertical--3Szv Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+      >
+        <div
+          class="optionBtns"
+        >
+          <div
+            class="item selected"
+          >
+            VISUAL
+          </div>
+          <div
+            class="item"
+          >
+            YAML
+          </div>
+        </div>
+        <div
+          class="OverlaySpinner---overlaySpinner--3Bs3"
+        >
+          <form
+            class="FormikForm---main--1N87"
+          >
+            <div>
+              <div
+                class="basicForm"
+              >
+                <div
+                  class="InputWithIdentifier---txtNameContainer--20iZ"
+                >
+                  <div
+                    class="Layout---horizontal--3rmQ StyledProps---main--1Wws InputWithIdentifier---txtIdContainer--2Ozd"
+                  >
+                    <p
+                      class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                    >
+                      ID
+                      :
+                    </p>
+                    <span
+                      class="InputWithIdentifier---idInput--w8_T"
+                      contenteditable="false"
+                      disabled=""
+                    >
+                      asd
+                      
+                    </span>
+                  </div>
+                  <div
+                    class="bp3-form-group"
+                    data-id="name-0"
+                  >
+                    <label
+                      class="bp3-label"
+                      for="name"
+                    >
+                      Input set name
+                       
+                      <span
+                        class="bp3-text-muted"
+                      />
+                    </label>
+                    <div
+                      class="bp3-form-content"
+                    >
+                      <div
+                        class="bp3-input-group"
+                      >
+                        <input
+                          autocomplete="off"
+                          class="bp3-input"
+                          name="name"
+                          placeholder="Name"
+                          type="text"
+                          value="asd"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="collapseDiv"
+                >
+                  <div
+                    class="Collapse---main--34Is"
+                  >
+                    <div
+                      class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---main--2ZKU Collapse---header--3aq4"
+                    >
+                      <div
+                        class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---leftSection--YiEo"
+                      >
+                        <span
+                          class="bp3-icon bp3-icon-small-minus StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+                          icon="small-minus"
+                        >
+                          <svg
+                            data-icon="small-minus"
+                            height="10"
+                            viewBox="0 0 16 16"
+                            width="10"
+                          >
+                            <desc>
+                              small-minus
+                            </desc>
+                            <path
+                              d="M11 7H5c-.55 0-1 .45-1 1s.45 1 1 1h6c.55 0 1-.45 1-1s-.45-1-1-1z"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                        <p
+                          class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---title--2DAT"
+                        >
+                          Description
+                        </p>
+                      </div>
+                      <div
+                        class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                      />
+                    </div>
+                    <div
+                      class="Collapse---collapse--2EmT"
+                    >
+                      <div
+                        class="bp3-collapse collapse"
+                        style="height: 0px;"
+                      >
+                        <div
+                          aria-hidden="false"
+                          class="bp3-collapse-body"
+                          style="transform: translateY(0);"
+                        >
+                          <div
+                            class="bp3-form-group"
+                          >
+                            <div
+                              class="bp3-form-content"
+                            >
+                              <textarea
+                                autocomplete="off"
+                                class="bp3-input bp3-fill"
+                                name="description"
+                              >
+                                asd
+                              </textarea>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="collapseDiv"
+                >
+                  <div
+                    class="Collapse---main--34Is"
+                  >
+                    <div
+                      class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---main--2ZKU Collapse---header--3aq4"
+                    >
+                      <div
+                        class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---leftSection--YiEo"
+                      >
+                        <span
+                          class="bp3-icon bp3-icon-small-plus StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+                          icon="small-plus"
+                        >
+                          <svg
+                            data-icon="small-plus"
+                            height="10"
+                            viewBox="0 0 16 16"
+                            width="10"
+                          >
+                            <desc>
+                              small-plus
+                            </desc>
+                            <path
+                              d="M11 7H9V5c0-.55-.45-1-1-1s-1 .45-1 1v2H5c-.55 0-1 .45-1 1s.45 1 1 1h2v2c0 .55.45 1 1 1s1-.45 1-1V9h2c.55 0 1-.45 1-1s-.45-1-1-1z"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                        <p
+                          class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---title--2DAT"
+                        >
+                          Tags
+                        </p>
+                      </div>
+                      <div
+                        class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                      />
+                    </div>
+                    <div
+                      class="Collapse---collapse--2EmT"
+                    >
+                      <div
+                        class="bp3-collapse collapse"
+                      >
+                        <div
+                          aria-hidden="false"
+                          class="bp3-collapse-body"
+                          style="transform: translateY(-undefinedpx);"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="Layout---vertical--3Szv Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws container StyledProps---padding-medium--3Ish"
+              >
+                <div
+                  style="width: 100%;"
+                >
+                  <div
+                    class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---flex--2Jz8 StyledProps---flex-distribution-space-between--1TyN"
+                    style="cursor: pointer;"
+                  >
+                    <p
+                      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7"
+                    >
+                      Stage: asd
+                    </p>
+                    <span
+                      class="bp3-icon bp3-icon-chevron-up StyledProps---main--1Wws"
+                      icon="chevron-up"
+                    >
+                      <svg
+                        data-icon="chevron-up"
+                        height="20"
+                        viewBox="0 0 20 20"
+                        width="20"
+                      >
+                        <desc>
+                          chevron-up
+                        </desc>
+                        <path
+                          d="M16.71 12.29l-6-6C10.53 6.11 10.28 6 10 6s-.53.11-.71.29l-6 6a1.003 1.003 0 001.42 1.42L10 8.41l5.29 5.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
+                  </div>
+                  <div
+                    class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+                  >
+                     
+                    <div
+                      style="width: 100%;"
+                    >
+                      <div
+                        class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---flex--2Jz8 StyledProps---flex-distribution-space-between--1TyN"
+                        style="cursor: pointer;"
+                      >
+                        <p
+                          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-normal--3yZj"
+                        >
+                          Infrastructure
+                        </p>
+                        <span
+                          class="bp3-icon bp3-icon-chevron-up StyledProps---main--1Wws"
+                          icon="chevron-up"
+                        >
+                          <svg
+                            data-icon="chevron-up"
+                            height="20"
+                            viewBox="0 0 20 20"
+                            width="20"
+                          >
+                            <desc>
+                              chevron-up
+                            </desc>
+                            <path
+                              d="M16.71 12.29l-6-6C10.53 6.11 10.28 6 10 6s-.53.11-.71.29l-6 6a1.003 1.003 0 001.42 1.42L10 8.41l5.29 5.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71z"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                      </div>
+                      <div
+                        class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+                      >
+                         
+                        <div
+                          class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws StyledProps---padding-medium--3Ish"
+                        >
+                          <div
+                            class="bp3-form-group"
+                            data-id="null-1"
+                          >
+                            <label
+                              class="bp3-label"
+                            >
+                              Connector
+                               
+                              <span
+                                class="bp3-text-muted"
+                              />
+                            </label>
+                            <div
+                              class="bp3-form-content"
+                            >
+                              <span
+                                class="bp3-popover-wrapper"
+                              >
+                                <span
+                                  class="bp3-popover-target"
+                                >
+                                  <button
+                                    class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws container"
+                                    style="width: 400px;"
+                                    type="button"
+                                  >
+                                    <span
+                                      class="bp3-button-text"
+                                    >
+                                      <div
+                                        class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+                                        style="justify-content: space-between; width: 100%;"
+                                      >
+                                        <p
+                                          class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                                        >
+                                          tesa1
+                                        </p>
+                                        <span
+                                          class="Tag---main--1vng"
+                                        >
+                                          <span
+                                            class="bp3-tag bp3-minimal tag"
+                                          >
+                                            <span
+                                              class="bp3-text-overflow-ellipsis bp3-fill"
+                                            >
+                                              org
+                                            </span>
+                                          </span>
+                                        </span>
+                                      </div>
+                                    </span>
+                                    <span
+                                      class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws"
+                                      icon="caret-down"
+                                    >
+                                      <svg
+                                        data-icon="caret-down"
+                                        height="16"
+                                        viewBox="0 0 16 16"
+                                        width="16"
+                                      >
+                                        <desc>
+                                          caret-down
+                                        </desc>
+                                        <path
+                                          d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                          fill-rule="evenodd"
+                                        />
+                                      </svg>
+                                    </span>
+                                  </button>
+                                </span>
+                              </span>
+                            </div>
+                          </div>
+                          <div
+                            class="bp3-form-group"
+                            data-id="releaseName-2"
+                          >
+                            <label
+                              class="bp3-label"
+                              for="releaseName"
+                            >
+                              Release name
+                               
+                              <span
+                                class="bp3-text-muted"
+                              />
+                            </label>
+                            <div
+                              class="bp3-form-content"
+                            >
+                              <div
+                                class="TextInput---main--1ytZ"
+                              >
+                                <div
+                                  class="bp3-input-group"
+                                >
+                                  <input
+                                    class="bp3-input"
+                                    name="releaseName"
+                                    placeholder="Specify a release name"
+                                    style="width: 400px;"
+                                    type="text"
+                                    value="asd"
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div
+                            class="bp3-form-group"
+                            data-id="namespace-3"
+                          >
+                            <label
+                              class="bp3-label"
+                              for="namespace"
+                            >
+                              Namespace
+                               
+                              <span
+                                class="bp3-text-muted"
+                              />
+                            </label>
+                            <div
+                              class="bp3-form-content"
+                            >
+                              <div
+                                class="TextInput---main--1ytZ"
+                              >
+                                <div
+                                  class="bp3-input-group"
+                                >
+                                  <input
+                                    class="bp3-input"
+                                    name="namespace"
+                                    placeholder="Specify a namespace"
+                                    style="width: 400px;"
+                                    type="text"
+                                    value="asd"
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="bp3-dialog-footer"
+              >
+                <button
+                  class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+                  type="submit"
+                >
+                  <span
+                    class="bp3-button-text"
+                  >
+                    Save
+                  </span>
+                </button>
+                   
+                <button
+                  class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+                  type="button"
+                >
+                  <span
+                    class="bp3-button-text"
+                  >
+                    Cancel
+                  </span>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form and test drag drop 1`] = `
+<div
+  class="Layout---horizontal--3rmQ Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws dragging"
+  data-testid="asd"
+  draggable="true"
+  style="align-items: baseline;"
+>
+  <span
+    class="bp3-icon bp3-icon-drag-handle-vertical StyledProps---main--1Wws drag"
+    icon="drag-handle-vertical"
+  >
+    <svg
+      data-icon="drag-handle-vertical"
+      height="16"
+      viewBox="0 0 16 16"
+      width="16"
+    >
+      <desc>
+        drag-handle-vertical
+      </desc>
+      <path
+        d="M6 9c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm4-6c.55 0 1-.45 1-1s-.45-1-1-1-1 .45-1 1 .45 1 1 1zM6 13c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0-8c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0-4c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm4 8c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0-4c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0 8c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z"
+        fill-rule="evenodd"
+      />
+    </svg>
+  </span>
+  <p
+    class="StyledProps---font--2ipy StyledProps---main--1Wws"
+  >
+    1.
+  </p>
+  <div
+    class="bp3-form-group"
+    data-id="inputSetReferences[0]-2"
+    style="width: 400px;"
+  >
+    <div
+      class="bp3-form-content"
+    >
+      <div
+        class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+      >
+        <div
+          class="bp3-popover-target"
+        >
+          <div
+            class="bp3-input-group"
+          >
+            <input
+              autocomplete="off"
+              class="bp3-input"
+              name="inputSetReferences[0]"
+              placeholder="Input Sets"
+              style="padding-right: 0px;"
+              type="text"
+              value="asd"
+            />
+            <span
+              class="bp3-input-action"
+            >
+              <span
+                class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                icon="caret-down"
+              >
+                <svg
+                  data-icon="caret-down"
+                  height="14"
+                  viewBox="0 0 16 16"
+                  width="14"
+                >
+                  <desc>
+                    caret-down
+                  </desc>
+                  <path
+                    d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form and test drag drop 2`] = `
+<div
+  class="Layout---horizontal--3rmQ Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+  data-testid="asd"
+  draggable="true"
+  style="align-items: baseline;"
+>
+  <span
+    class="bp3-icon bp3-icon-drag-handle-vertical StyledProps---main--1Wws drag"
+    icon="drag-handle-vertical"
+  >
+    <svg
+      data-icon="drag-handle-vertical"
+      height="16"
+      viewBox="0 0 16 16"
+      width="16"
+    >
+      <desc>
+        drag-handle-vertical
+      </desc>
+      <path
+        d="M6 9c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm4-6c.55 0 1-.45 1-1s-.45-1-1-1-1 .45-1 1 .45 1 1 1zM6 13c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0-8c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0-4c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm4 8c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0-4c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0 8c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z"
+        fill-rule="evenodd"
+      />
+    </svg>
+  </span>
+  <p
+    class="StyledProps---font--2ipy StyledProps---main--1Wws"
+  >
+    1.
+  </p>
+  <div
+    class="bp3-form-group"
+    data-id="inputSetReferences[0]-2"
+    style="width: 400px;"
+  >
+    <div
+      class="bp3-form-content"
+    >
+      <div
+        class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+      >
+        <div
+          class="bp3-popover-target"
+        >
+          <div
+            class="bp3-input-group"
+          >
+            <input
+              autocomplete="off"
+              class="bp3-input"
+              name="inputSetReferences[0]"
+              placeholder="Input Sets"
+              style="padding-right: 0px;"
+              type="text"
+              value="asd"
+            />
+            <span
+              class="bp3-input-action"
+            >
+              <span
+                class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                icon="caret-down"
+              >
+                <svg
+                  data-icon="caret-down"
+                  height="14"
+                  viewBox="0 0 16 16"
+                  width="14"
+                >
+                  <desc>
+                    caret-down
+                  </desc>
+                  <path
+                    d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form and test drag drop 3`] = `
+<div
+  class="Layout---horizontal--3rmQ Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+  data-testid="asd"
+  draggable="true"
+  style="align-items: baseline;"
+>
+  <span
+    class="bp3-icon bp3-icon-drag-handle-vertical StyledProps---main--1Wws drag"
+    icon="drag-handle-vertical"
+  >
+    <svg
+      data-icon="drag-handle-vertical"
+      height="16"
+      viewBox="0 0 16 16"
+      width="16"
+    >
+      <desc>
+        drag-handle-vertical
+      </desc>
+      <path
+        d="M6 9c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm4-6c.55 0 1-.45 1-1s-.45-1-1-1-1 .45-1 1 .45 1 1 1zM6 13c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0-8c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0-4c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm4 8c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0-4c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0 8c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z"
+        fill-rule="evenodd"
+      />
+    </svg>
+  </span>
+  <p
+    class="StyledProps---font--2ipy StyledProps---main--1Wws"
+  >
+    1.
+  </p>
+  <div
+    class="bp3-form-group"
+    data-id="inputSetReferences[0]-2"
+    style="width: 400px;"
+  >
+    <div
+      class="bp3-form-content"
+    >
+      <div
+        class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+      >
+        <div
+          class="bp3-popover-target"
+        >
+          <div
+            class="bp3-input-group"
+          >
+            <input
+              autocomplete="off"
+              class="bp3-input"
+              name="inputSetReferences[0]"
+              placeholder="Input Sets"
+              style="padding-right: 0px;"
+              type="text"
+              value="asd"
+            />
+            <span
+              class="bp3-input-action"
+            >
+              <span
+                class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                icon="caret-down"
+              >
+                <svg
+                  data-icon="caret-down"
+                  height="14"
+                  viewBox="0 0 16 16"
+                  width="14"
+                >
+                  <desc>
+                    caret-down
+                  </desc>
+                  <path
+                    d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form and test drag drop 4`] = `
+<div
+  class="Layout---horizontal--3rmQ Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws dragOver"
+  data-testid="test"
+  draggable="true"
+  style="align-items: baseline;"
+>
+  <span
+    class="bp3-icon bp3-icon-drag-handle-vertical StyledProps---main--1Wws drag"
+    icon="drag-handle-vertical"
+  >
+    <svg
+      data-icon="drag-handle-vertical"
+      height="16"
+      viewBox="0 0 16 16"
+      width="16"
+    >
+      <desc>
+        drag-handle-vertical
+      </desc>
+      <path
+        d="M6 9c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm4-6c.55 0 1-.45 1-1s-.45-1-1-1-1 .45-1 1 .45 1 1 1zM6 13c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0-8c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0-4c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm4 8c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0-4c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0 8c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z"
+        fill-rule="evenodd"
+      />
+    </svg>
+  </span>
+  <p
+    class="StyledProps---font--2ipy StyledProps---main--1Wws"
+  >
+    2.
+  </p>
+  <div
+    class="bp3-form-group"
+    data-id="inputSetReferences[1]-3"
+    style="width: 400px;"
+  >
+    <div
+      class="bp3-form-content"
+    >
+      <div
+        class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+      >
+        <div
+          class="bp3-popover-target"
+        >
+          <div
+            class="bp3-input-group"
+          >
+            <input
+              autocomplete="off"
+              class="bp3-input"
+              name="inputSetReferences[1]"
+              placeholder="Input Sets"
+              style="padding-right: 0px;"
+              type="text"
+              value="test"
+            />
+            <span
+              class="bp3-input-action"
+            >
+              <span
+                class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                icon="caret-down"
+              >
+                <svg
+                  data-icon="caret-down"
+                  height="14"
+                  viewBox="0 0 16 16"
+                  width="14"
+                >
+                  <desc>
+                    caret-down
+                  </desc>
+                  <path
+                    d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form and test drag drop 5`] = `
+<div
+  class="Layout---horizontal--3rmQ Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+  data-testid="test"
+  draggable="true"
+  style="align-items: baseline;"
+>
+  <span
+    class="bp3-icon bp3-icon-drag-handle-vertical StyledProps---main--1Wws drag"
+    icon="drag-handle-vertical"
+  >
+    <svg
+      data-icon="drag-handle-vertical"
+      height="16"
+      viewBox="0 0 16 16"
+      width="16"
+    >
+      <desc>
+        drag-handle-vertical
+      </desc>
+      <path
+        d="M6 9c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm4-6c.55 0 1-.45 1-1s-.45-1-1-1-1 .45-1 1 .45 1 1 1zM6 13c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0-8c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0-4c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm4 8c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0-4c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0 8c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z"
+        fill-rule="evenodd"
+      />
+    </svg>
+  </span>
+  <p
+    class="StyledProps---font--2ipy StyledProps---main--1Wws"
+  >
+    2.
+  </p>
+  <div
+    class="bp3-form-group"
+    data-id="inputSetReferences[1]-3"
+    style="width: 400px;"
+  >
+    <div
+      class="bp3-form-content"
+    >
+      <div
+        class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+      >
+        <div
+          class="bp3-popover-target"
+        >
+          <div
+            class="bp3-input-group"
+          >
+            <input
+              autocomplete="off"
+              class="bp3-input"
+              name="inputSetReferences[1]"
+              placeholder="Input Sets"
+              style="padding-right: 0px;"
+              type="text"
+              value="test"
+            />
+            <span
+              class="bp3-input-action"
+            >
+              <span
+                class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                icon="caret-down"
+              >
+                <svg
+                  data-icon="caret-down"
+                  height="14"
+                  viewBox="0 0 16 16"
+                  width="14"
+                >
+                  <desc>
+                    caret-down
+                  </desc>
+                  <path
+                    d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Render Forms - Snapshot Testing render Edit Overlay Input Set Form view 1`] = `
+<div
+  class="bp3-dialog-container bp3-overlay-content bp3-overlay-appear bp3-overlay-appear-active"
+  tabindex="0"
+>
+  <div
+    class="bp3-dialog"
+    style="min-width: 700px; min-height: 600px;"
+  >
+    <div
+      class="bp3-dialog-header"
+    >
+      <h4
+        class="bp3-heading"
+      >
+        Edit Overlay Input Set: OverLayInput
+      </h4>
+      <button
+        aria-label="Close"
+        class="bp3-button bp3-minimal bp3-dialog-close-button"
+        type="button"
+      >
+        <span
+          class="bp3-icon bp3-icon-small-cross"
+          icon="small-cross"
+        >
+          <svg
+            data-icon="small-cross"
+            height="20"
+            viewBox="0 0 20 20"
+            width="20"
+          >
+            <desc>
+              small-cross
+            </desc>
+            <path
+              d="M11.41 10l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L10 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42L8.59 10 5.3 13.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l3.29-3.3 3.29 3.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L11.41 10z"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </span>
+      </button>
+    </div>
+    <div
+      class="bp3-dialog-body"
+    >
+      <div
+        class="Layout---vertical--3Szv Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+      >
+        <div
+          class="optionBtns"
+        >
+          <div
+            class="item selected"
+          >
+            VISUAL
+          </div>
+          <div
+            class="item"
+          >
+            YAML
+          </div>
+        </div>
+        <div
+          class="OverlaySpinner---overlaySpinner--3Bs3"
+        >
+          <form
+            class="FormikForm---main--1N87"
+          >
+            <div>
+              <div
+                class="basicForm"
+              >
+                <div
+                  class="InputWithIdentifier---txtNameContainer--20iZ"
+                >
+                  <div
+                    class="Layout---horizontal--3rmQ StyledProps---main--1Wws InputWithIdentifier---txtIdContainer--2Ozd"
+                  >
+                    <p
+                      class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                    >
+                      ID
+                      :
+                    </p>
+                    <span
+                      class="InputWithIdentifier---idInput--w8_T"
+                      contenteditable="false"
+                      disabled=""
+                    >
+                      OverLayInput
+                    </span>
+                  </div>
+                  <div
+                    class="bp3-form-group"
+                    data-id="name-0"
+                  >
+                    <label
+                      class="bp3-label"
+                      for="name"
+                    >
+                      Overlay set name
+                       
+                      <span
+                        class="bp3-text-muted"
+                      />
+                    </label>
+                    <div
+                      class="bp3-form-content"
+                    >
+                      <div
+                        class="bp3-input-group"
+                      >
+                        <input
+                          autocomplete="off"
+                          class="bp3-input"
+                          name="name"
+                          placeholder="Name"
+                          type="text"
+                          value="OverLayInput"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="collapseDiv"
+                >
+                  <div
+                    class="Collapse---main--34Is"
+                  >
+                    <div
+                      class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---main--2ZKU Collapse---header--3aq4"
+                    >
+                      <div
+                        class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---leftSection--YiEo"
+                      >
+                        <span
+                          class="bp3-icon bp3-icon-small-minus StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+                          icon="small-minus"
+                        >
+                          <svg
+                            data-icon="small-minus"
+                            height="10"
+                            viewBox="0 0 16 16"
+                            width="10"
+                          >
+                            <desc>
+                              small-minus
+                            </desc>
+                            <path
+                              d="M11 7H5c-.55 0-1 .45-1 1s.45 1 1 1h6c.55 0 1-.45 1-1s-.45-1-1-1z"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                        <p
+                          class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---title--2DAT"
+                        >
+                          Description
+                        </p>
+                      </div>
+                      <div
+                        class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                      />
+                    </div>
+                    <div
+                      class="Collapse---collapse--2EmT"
+                    >
+                      <div
+                        class="bp3-collapse collapse"
+                        style="height: auto; overflow-y: visible; transition: none;"
+                      >
+                        <div
+                          aria-hidden="false"
+                          class="bp3-collapse-body"
+                          style="transform: translateY(0); transition: none;"
+                        >
+                          <div
+                            class="bp3-form-group"
+                            data-id="description-1"
+                          >
+                            <div
+                              class="bp3-form-content"
+                            >
+                              <textarea
+                                autocomplete="off"
+                                class="bp3-input bp3-fill"
+                                name="description"
+                              >
+                                OverLayInput
+                              </textarea>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="collapseDiv"
+                >
+                  <div
+                    class="Collapse---main--34Is"
+                  >
+                    <div
+                      class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---main--2ZKU Collapse---header--3aq4"
+                    >
+                      <div
+                        class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---leftSection--YiEo"
+                      >
+                        <span
+                          class="bp3-icon bp3-icon-small-plus StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+                          icon="small-plus"
+                        >
+                          <svg
+                            data-icon="small-plus"
+                            height="10"
+                            viewBox="0 0 16 16"
+                            width="10"
+                          >
+                            <desc>
+                              small-plus
+                            </desc>
+                            <path
+                              d="M11 7H9V5c0-.55-.45-1-1-1s-1 .45-1 1v2H5c-.55 0-1 .45-1 1s.45 1 1 1h2v2c0 .55.45 1 1 1s1-.45 1-1V9h2c.55 0 1-.45 1-1s-.45-1-1-1z"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                        <p
+                          class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---title--2DAT"
+                        >
+                          Tags
+                        </p>
+                      </div>
+                      <div
+                        class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                      />
+                    </div>
+                    <div
+                      class="Collapse---collapse--2EmT"
+                    >
+                      <div
+                        class="bp3-collapse collapse"
+                      >
+                        <div
+                          aria-hidden="false"
+                          class="bp3-collapse-body"
+                          style="transform: translateY(-undefinedpx);"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws StyledProps---padding-top-large--i39X StyledProps---padding-bottom-xxxlarge--1sq8"
+              >
+                <p
+                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7"
+                >
+                  Select Input Sets
+                </p>
+                <p
+                  class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                  style="display: flex; align-items: center;"
+                >
+                  <span
+                    class="bp3-icon bp3-icon-info-sign StyledProps---main--1Wws StyledProps---padding-small--3f0A StyledProps---color--8PuS StyledProps---color-blue450--6C4Y"
+                    icon="info-sign"
+                  >
+                    <svg
+                      data-icon="info-sign"
+                      height="23"
+                      viewBox="0 0 20 20"
+                      width="23"
+                    >
+                      <desc>
+                        info-sign
+                      </desc>
+                      <path
+                        d="M10 0C4.48 0 0 4.48 0 10s4.48 10 10 10 10-4.48 10-10S15.52 0 10 0zM9 4h2v2H9V4zm4 12H7v-1h2V8H8V7h3v8h2v1z"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                  Multiple input sets can be overlaid together. They are applied in the order specified - first one gets applied first, and the subsequent ones get layered in the order and overrides any previously specified values.
+                </p>
+                <div
+                  class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---padding-top-xxxlarge--3gf7 StyledProps---padding-bottom-large--1zGv"
+                >
+                  <div
+                    class="Layout---vertical--3Szv StyledProps---main--1Wws"
+                  >
+                    <div
+                      class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---flex--2Jz8 StyledProps---flex-distribution-space-between--1TyN"
+                      style="align-items: end;"
+                    >
+                      <div
+                        class="Layout---horizontal--3rmQ Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+                        data-testid="asd"
+                        draggable="true"
+                        style="align-items: baseline;"
+                      >
+                        <span
+                          class="bp3-icon bp3-icon-drag-handle-vertical StyledProps---main--1Wws drag"
+                          icon="drag-handle-vertical"
+                        >
+                          <svg
+                            data-icon="drag-handle-vertical"
+                            height="16"
+                            viewBox="0 0 16 16"
+                            width="16"
+                          >
+                            <desc>
+                              drag-handle-vertical
+                            </desc>
+                            <path
+                              d="M6 9c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm4-6c.55 0 1-.45 1-1s-.45-1-1-1-1 .45-1 1 .45 1 1 1zM6 13c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0-8c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0-4c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm4 8c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0-4c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0 8c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                        <p
+                          class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                        >
+                          1.
+                        </p>
+                        <div
+                          class="bp3-form-group"
+                          data-id="inputSetReferences[0]-2"
+                          style="width: 400px;"
+                        >
+                          <div
+                            class="bp3-form-content"
+                          >
+                            <div
+                              class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+                            >
+                              <div
+                                class="bp3-popover-target"
+                              >
+                                <div
+                                  class="bp3-input-group"
+                                >
+                                  <input
+                                    autocomplete="off"
+                                    class="bp3-input"
+                                    name="inputSetReferences[0]"
+                                    placeholder="Input Sets"
+                                    style="padding-right: 0px;"
+                                    type="text"
+                                    value="asd"
+                                  />
+                                  <span
+                                    class="bp3-input-action"
+                                  >
+                                    <span
+                                      class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                                      icon="caret-down"
+                                    >
+                                      <svg
+                                        data-icon="caret-down"
+                                        height="14"
+                                        viewBox="0 0 16 16"
+                                        width="14"
+                                      >
+                                        <desc>
+                                          caret-down
+                                        </desc>
+                                        <path
+                                          d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                          fill-rule="evenodd"
+                                        />
+                                      </svg>
+                                    </span>
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <button
+                        class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+                        type="button"
+                      >
+                        <span
+                          class="bp3-icon bp3-icon-delete StyledProps---main--1Wws"
+                          icon="delete"
+                        >
+                          <svg
+                            data-icon="delete"
+                            height="16"
+                            viewBox="0 0 16 16"
+                            width="16"
+                          >
+                            <desc>
+                              delete
+                            </desc>
+                            <path
+                              d="M11.99 4.99a1.003 1.003 0 00-1.71-.71l-2.29 2.3L5.7 4.29a.965.965 0 00-.71-.3 1.003 1.003 0 00-.71 1.71l2.29 2.29-2.29 2.29A1.003 1.003 0 005.7 11.7l2.29-2.29 2.29 2.29a1.003 1.003 0 001.42-1.42L9.41 7.99 11.7 5.7c.18-.18.29-.43.29-.71zm-4-5c-4.42 0-8 3.58-8 8s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.68 6-6 6z"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                      </button>
+                    </div>
+                    <div
+                      class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---flex--2Jz8 StyledProps---flex-distribution-space-between--1TyN"
+                      style="align-items: end;"
+                    >
+                      <div
+                        class="Layout---horizontal--3rmQ Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+                        data-testid="test"
+                        draggable="true"
+                        style="align-items: baseline;"
+                      >
+                        <span
+                          class="bp3-icon bp3-icon-drag-handle-vertical StyledProps---main--1Wws drag"
+                          icon="drag-handle-vertical"
+                        >
+                          <svg
+                            data-icon="drag-handle-vertical"
+                            height="16"
+                            viewBox="0 0 16 16"
+                            width="16"
+                          >
+                            <desc>
+                              drag-handle-vertical
+                            </desc>
+                            <path
+                              d="M6 9c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm4-6c.55 0 1-.45 1-1s-.45-1-1-1-1 .45-1 1 .45 1 1 1zM6 13c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0-8c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0-4c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm4 8c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0-4c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0 8c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                        <p
+                          class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                        >
+                          2.
+                        </p>
+                        <div
+                          class="bp3-form-group"
+                          data-id="inputSetReferences[1]-3"
+                          style="width: 400px;"
+                        >
+                          <div
+                            class="bp3-form-content"
+                          >
+                            <div
+                              class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+                            >
+                              <div
+                                class="bp3-popover-target"
+                              >
+                                <div
+                                  class="bp3-input-group"
+                                >
+                                  <input
+                                    autocomplete="off"
+                                    class="bp3-input"
+                                    name="inputSetReferences[1]"
+                                    placeholder="Input Sets"
+                                    style="padding-right: 0px;"
+                                    type="text"
+                                    value="test"
+                                  />
+                                  <span
+                                    class="bp3-input-action"
+                                  >
+                                    <span
+                                      class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                                      icon="caret-down"
+                                    >
+                                      <svg
+                                        data-icon="caret-down"
+                                        height="14"
+                                        viewBox="0 0 16 16"
+                                        width="14"
+                                      >
+                                        <desc>
+                                          caret-down
+                                        </desc>
+                                        <path
+                                          d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                          fill-rule="evenodd"
+                                        />
+                                      </svg>
+                                    </span>
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <button
+                        class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+                        type="button"
+                      >
+                        <span
+                          class="bp3-icon bp3-icon-delete StyledProps---main--1Wws"
+                          icon="delete"
+                        >
+                          <svg
+                            data-icon="delete"
+                            height="16"
+                            viewBox="0 0 16 16"
+                            width="16"
+                          >
+                            <desc>
+                              delete
+                            </desc>
+                            <path
+                              d="M11.99 4.99a1.003 1.003 0 00-1.71-.71l-2.29 2.3L5.7 4.29a.965.965 0 00-.71-.3 1.003 1.003 0 00-.71 1.71l2.29 2.29-2.29 2.29A1.003 1.003 0 005.7 11.7l2.29-2.29 2.29 2.29a1.003 1.003 0 001.42-1.42L9.41 7.99 11.7 5.7c.18-.18.29-.43.29-.71zm-4-5c-4.42 0-8 3.58-8 8s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.68 6-6 6z"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                      </button>
+                    </div>
+                    <span>
+                      <button
+                        class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+                        type="button"
+                      >
+                        <span
+                          class="bp3-button-text"
+                        >
+                          + Add Input Set
+                        </span>
+                      </button>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="bp3-dialog-footer"
+              >
+                <button
+                  class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+                  type="submit"
+                >
+                  <span
+                    class="bp3-button-text"
+                  >
+                    Save
+                  </span>
+                </button>
+                   
+                <button
+                  class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+                  type="button"
+                >
+                  <span
+                    class="bp3-button-text"
+                  >
+                    Cancel
+                  </span>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Render Forms - Snapshot Testing render Input Set Form view 1`] = `
+<div
+  class="bp3-dialog-container bp3-overlay-content bp3-overlay-appear bp3-overlay-appear-active"
+  tabindex="0"
+>
+  <div
+    class="bp3-dialog"
+    style="min-width: 700px; min-height: 600px;"
+  >
+    <div
+      class="bp3-dialog-header"
+    >
+      <h4
+        class="bp3-heading"
+      >
+        New Input Set
+      </h4>
+      <button
+        aria-label="Close"
+        class="bp3-button bp3-minimal bp3-dialog-close-button"
+        type="button"
+      >
+        <span
+          class="bp3-icon bp3-icon-small-cross"
+          icon="small-cross"
+        >
+          <svg
+            data-icon="small-cross"
+            height="20"
+            viewBox="0 0 20 20"
+            width="20"
+          >
+            <desc>
+              small-cross
+            </desc>
+            <path
+              d="M11.41 10l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L10 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42L8.59 10 5.3 13.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l3.29-3.3 3.29 3.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L11.41 10z"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </span>
+      </button>
+    </div>
+    <div
+      class="bp3-dialog-body"
+    >
+      <div
+        class="Layout---vertical--3Szv Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+      >
+        <div
+          class="optionBtns"
+        >
+          <div
+            class="item selected"
+          >
+            VISUAL
+          </div>
+          <div
+            class="item"
+          >
+            YAML
+          </div>
+        </div>
+        <div
+          class="OverlaySpinner---overlaySpinner--3Bs3"
+        >
+          <form
+            class="FormikForm---main--1N87"
+          >
+            <div>
+              <div
+                class="basicForm"
+              >
+                <div
+                  class="InputWithIdentifier---txtNameContainer--20iZ"
+                >
+                  <div
+                    class="Layout---horizontal--3rmQ StyledProps---main--1Wws InputWithIdentifier---txtIdContainer--2Ozd"
+                  >
+                    <p
+                      class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                    >
+                      ID
+                      :
+                    </p>
+                    <span
+                      class="InputWithIdentifier---idInput--w8_T"
+                      contenteditable="true"
+                    />
+                    <span
+                      class="bp3-icon bp3-icon-edit StyledProps---main--1Wws"
+                      icon="edit"
+                      style="vertical-align: middle;"
+                    >
+                      <svg
+                        data-icon="edit"
+                        height="12"
+                        viewBox="0 0 16 16"
+                        width="12"
+                      >
+                        <desc>
+                          edit
+                        </desc>
+                        <path
+                          d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
+                  </div>
+                  <div
+                    class="bp3-form-group"
+                    data-id="name-0"
+                  >
+                    <label
+                      class="bp3-label"
+                      for="name"
+                    >
+                      Input set name
+                       
+                      <span
+                        class="bp3-text-muted"
+                      />
+                    </label>
+                    <div
+                      class="bp3-form-content"
+                    >
+                      <div
+                        class="bp3-input-group"
+                      >
+                        <input
+                          autocomplete="off"
+                          class="bp3-input"
+                          name="name"
+                          placeholder="Name"
+                          type="text"
+                          value=""
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="collapseDiv"
+                >
+                  <div
+                    class="Collapse---main--34Is"
+                  >
+                    <div
+                      class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---main--2ZKU Collapse---header--3aq4"
+                    >
+                      <div
+                        class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---leftSection--YiEo"
+                      >
+                        <span
+                          class="bp3-icon bp3-icon-small-plus StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+                          icon="small-plus"
+                        >
+                          <svg
+                            data-icon="small-plus"
+                            height="10"
+                            viewBox="0 0 16 16"
+                            width="10"
+                          >
+                            <desc>
+                              small-plus
+                            </desc>
+                            <path
+                              d="M11 7H9V5c0-.55-.45-1-1-1s-1 .45-1 1v2H5c-.55 0-1 .45-1 1s.45 1 1 1h2v2c0 .55.45 1 1 1s1-.45 1-1V9h2c.55 0 1-.45 1-1s-.45-1-1-1z"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                        <p
+                          class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---title--2DAT"
+                        >
+                          Description
+                        </p>
+                      </div>
+                      <div
+                        class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                      />
+                    </div>
+                    <div
+                      class="Collapse---collapse--2EmT"
+                    >
+                      <div
+                        class="bp3-collapse collapse"
+                      >
+                        <div
+                          aria-hidden="false"
+                          class="bp3-collapse-body"
+                          style="transform: translateY(-undefinedpx);"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="collapseDiv"
+                >
+                  <div
+                    class="Collapse---main--34Is"
+                  >
+                    <div
+                      class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---main--2ZKU Collapse---header--3aq4"
+                    >
+                      <div
+                        class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---leftSection--YiEo"
+                      >
+                        <span
+                          class="bp3-icon bp3-icon-small-plus StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+                          icon="small-plus"
+                        >
+                          <svg
+                            data-icon="small-plus"
+                            height="10"
+                            viewBox="0 0 16 16"
+                            width="10"
+                          >
+                            <desc>
+                              small-plus
+                            </desc>
+                            <path
+                              d="M11 7H9V5c0-.55-.45-1-1-1s-1 .45-1 1v2H5c-.55 0-1 .45-1 1s.45 1 1 1h2v2c0 .55.45 1 1 1s1-.45 1-1V9h2c.55 0 1-.45 1-1s-.45-1-1-1z"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                        <p
+                          class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---title--2DAT"
+                        >
+                          Tags
+                        </p>
+                      </div>
+                      <div
+                        class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                      />
+                    </div>
+                    <div
+                      class="Collapse---collapse--2EmT"
+                    >
+                      <div
+                        class="bp3-collapse collapse"
+                      >
+                        <div
+                          aria-hidden="false"
+                          class="bp3-collapse-body"
+                          style="transform: translateY(-undefinedpx);"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="Layout---vertical--3Szv Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws container StyledProps---padding-medium--3Ish"
+              >
+                <div
+                  style="width: 100%;"
+                >
+                  <div
+                    class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---flex--2Jz8 StyledProps---flex-distribution-space-between--1TyN"
+                    style="cursor: pointer;"
+                  >
+                    <p
+                      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7"
+                    >
+                      Stage: asd
+                    </p>
+                    <span
+                      class="bp3-icon bp3-icon-chevron-up StyledProps---main--1Wws"
+                      icon="chevron-up"
+                    >
+                      <svg
+                        data-icon="chevron-up"
+                        height="20"
+                        viewBox="0 0 20 20"
+                        width="20"
+                      >
+                        <desc>
+                          chevron-up
+                        </desc>
+                        <path
+                          d="M16.71 12.29l-6-6C10.53 6.11 10.28 6 10 6s-.53.11-.71.29l-6 6a1.003 1.003 0 001.42 1.42L10 8.41l5.29 5.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
+                  </div>
+                  <div
+                    class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+                  >
+                     
+                    <div
+                      style="width: 100%;"
+                    >
+                      <div
+                        class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---flex--2Jz8 StyledProps---flex-distribution-space-between--1TyN"
+                        style="cursor: pointer;"
+                      >
+                        <p
+                          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-normal--3yZj"
+                        >
+                          Infrastructure
+                        </p>
+                        <span
+                          class="bp3-icon bp3-icon-chevron-up StyledProps---main--1Wws"
+                          icon="chevron-up"
+                        >
+                          <svg
+                            data-icon="chevron-up"
+                            height="20"
+                            viewBox="0 0 20 20"
+                            width="20"
+                          >
+                            <desc>
+                              chevron-up
+                            </desc>
+                            <path
+                              d="M16.71 12.29l-6-6C10.53 6.11 10.28 6 10 6s-.53.11-.71.29l-6 6a1.003 1.003 0 001.42 1.42L10 8.41l5.29 5.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71z"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                      </div>
+                      <div
+                        class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+                      >
+                         
+                        <div
+                          class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws StyledProps---padding-medium--3Ish"
+                        >
+                          <div
+                            class="bp3-form-group"
+                            data-id="null-1"
+                          >
+                            <label
+                              class="bp3-label"
+                            >
+                              Connector
+                               
+                              <span
+                                class="bp3-text-muted"
+                              />
+                            </label>
+                            <div
+                              class="bp3-form-content"
+                            >
+                              <span
+                                class="bp3-popover-wrapper"
+                              >
+                                <span
+                                  class="bp3-popover-target"
+                                >
+                                  <button
+                                    class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws container"
+                                    style="width: 400px;"
+                                    type="button"
+                                  >
+                                    <span
+                                      class="bp3-button-text"
+                                    >
+                                      <span
+                                        class="placeholder"
+                                      >
+                                        Select a connector
+                                      </span>
+                                    </span>
+                                    <span
+                                      class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws"
+                                      icon="caret-down"
+                                    >
+                                      <svg
+                                        data-icon="caret-down"
+                                        height="16"
+                                        viewBox="0 0 16 16"
+                                        width="16"
+                                      >
+                                        <desc>
+                                          caret-down
+                                        </desc>
+                                        <path
+                                          d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                          fill-rule="evenodd"
+                                        />
+                                      </svg>
+                                    </span>
+                                  </button>
+                                </span>
+                              </span>
+                            </div>
+                          </div>
+                          <div
+                            class="bp3-form-group"
+                            data-id="releaseName-2"
+                          >
+                            <label
+                              class="bp3-label"
+                              for="releaseName"
+                            >
+                              Release name
+                               
+                              <span
+                                class="bp3-text-muted"
+                              />
+                            </label>
+                            <div
+                              class="bp3-form-content"
+                            >
+                              <div
+                                class="TextInput---main--1ytZ"
+                              >
+                                <div
+                                  class="bp3-input-group"
+                                >
+                                  <input
+                                    class="bp3-input"
+                                    name="releaseName"
+                                    placeholder="Specify a release name"
+                                    style="width: 400px;"
+                                    type="text"
+                                    value=""
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div
+                            class="bp3-form-group"
+                            data-id="namespace-3"
+                          >
+                            <label
+                              class="bp3-label"
+                              for="namespace"
+                            >
+                              Namespace
+                               
+                              <span
+                                class="bp3-text-muted"
+                              />
+                            </label>
+                            <div
+                              class="bp3-form-content"
+                            >
+                              <div
+                                class="TextInput---main--1ytZ"
+                              >
+                                <div
+                                  class="bp3-input-group"
+                                >
+                                  <input
+                                    class="bp3-input"
+                                    name="namespace"
+                                    placeholder="Specify a namespace"
+                                    style="width: 400px;"
+                                    type="text"
+                                    value=""
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="bp3-dialog-footer"
+              >
+                <button
+                  class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+                  type="submit"
+                >
+                  <span
+                    class="bp3-button-text"
+                  >
+                    Save
+                  </span>
+                </button>
+                   
+                <button
+                  class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+                  type="button"
+                >
+                  <span
+                    class="bp3-button-text"
+                  >
+                    Cancel
+                  </span>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Render Forms - Snapshot Testing render Input Set Form view 2`] = `
+<div
+  class="bp3-dialog-container bp3-overlay-content bp3-overlay-appear bp3-overlay-appear-active"
+  tabindex="0"
+>
+  <div
+    class="bp3-dialog"
+    style="min-width: 700px; min-height: 600px;"
+  >
+    <div
+      class="bp3-dialog-header"
+    >
+      <h4
+        class="bp3-heading"
+      >
+        New Input Set
+      </h4>
+      <button
+        aria-label="Close"
+        class="bp3-button bp3-minimal bp3-dialog-close-button"
+        type="button"
+      >
+        <span
+          class="bp3-icon bp3-icon-small-cross"
+          icon="small-cross"
+        >
+          <svg
+            data-icon="small-cross"
+            height="20"
+            viewBox="0 0 20 20"
+            width="20"
+          >
+            <desc>
+              small-cross
+            </desc>
+            <path
+              d="M11.41 10l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L10 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42L8.59 10 5.3 13.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l3.29-3.3 3.29 3.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L11.41 10z"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </span>
+      </button>
+    </div>
+    <div
+      class="bp3-dialog-body"
+    >
+      <div
+        class="Layout---vertical--3Szv Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+      >
+        <div
+          class="optionBtns"
+        >
+          <div
+            class="item"
+          >
+            VISUAL
+          </div>
+          <div
+            class="item selected"
+          >
+            YAML
+          </div>
+        </div>
+        <div
+          class="OverlaySpinner---overlaySpinner--3Bs3"
+        >
+          <div
+            class="editor"
+          >
+            <div>
+              <span>
+                Yaml View
+              </span>
+            </div>
+            <div
+              class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---padding-top-medium--29t2"
+            >
+              <button
+                class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+                type="submit"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  Save
+                </span>
+              </button>
+                 
+              <button
+                class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+                type="button"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  Cancel
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Render Forms - Snapshot Testing render Overlay Input Set Form view 1`] = `
+<div
+  class="bp3-dialog-container bp3-overlay-content bp3-overlay-appear bp3-overlay-appear-active"
+  tabindex="0"
+>
+  <div
+    class="bp3-dialog"
+    style="min-width: 700px; min-height: 600px;"
+  >
+    <div
+      class="bp3-dialog-header"
+    >
+      <h4
+        class="bp3-heading"
+      >
+        New Overlay Input Set
+      </h4>
+      <button
+        aria-label="Close"
+        class="bp3-button bp3-minimal bp3-dialog-close-button"
+        type="button"
+      >
+        <span
+          class="bp3-icon bp3-icon-small-cross"
+          icon="small-cross"
+        >
+          <svg
+            data-icon="small-cross"
+            height="20"
+            viewBox="0 0 20 20"
+            width="20"
+          >
+            <desc>
+              small-cross
+            </desc>
+            <path
+              d="M11.41 10l3.29-3.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L10 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42L8.59 10 5.3 13.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71l3.29-3.3 3.29 3.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L11.41 10z"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </span>
+      </button>
+    </div>
+    <div
+      class="bp3-dialog-body"
+    >
+      <div
+        class="Layout---vertical--3Szv Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+      >
+        <div
+          class="optionBtns"
+        >
+          <div
+            class="item selected"
+          >
+            VISUAL
+          </div>
+          <div
+            class="item"
+          >
+            YAML
+          </div>
+        </div>
+        <div
+          class="OverlaySpinner---overlaySpinner--3Bs3"
+        >
+          <form
+            class="FormikForm---main--1N87"
+          >
+            <div>
+              <div
+                class="basicForm"
+              >
+                <div
+                  class="InputWithIdentifier---txtNameContainer--20iZ"
+                >
+                  <div
+                    class="Layout---horizontal--3rmQ StyledProps---main--1Wws InputWithIdentifier---txtIdContainer--2Ozd"
+                  >
+                    <p
+                      class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                    >
+                      ID
+                      :
+                    </p>
+                    <span
+                      class="InputWithIdentifier---idInput--w8_T"
+                      contenteditable="true"
+                    >
+                      OverLayInput
+                    </span>
+                    <span
+                      class="bp3-icon bp3-icon-edit StyledProps---main--1Wws"
+                      icon="edit"
+                      style="vertical-align: middle;"
+                    >
+                      <svg
+                        data-icon="edit"
+                        height="12"
+                        viewBox="0 0 16 16"
+                        width="12"
+                      >
+                        <desc>
+                          edit
+                        </desc>
+                        <path
+                          d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
+                  </div>
+                  <div
+                    class="bp3-form-group"
+                    data-id="name-0"
+                  >
+                    <label
+                      class="bp3-label"
+                      for="name"
+                    >
+                      Overlay set name
+                       
+                      <span
+                        class="bp3-text-muted"
+                      />
+                    </label>
+                    <div
+                      class="bp3-form-content"
+                    >
+                      <div
+                        class="bp3-input-group"
+                      >
+                        <input
+                          autocomplete="off"
+                          class="bp3-input"
+                          name="name"
+                          placeholder="Name"
+                          type="text"
+                          value="OverLayInput"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="collapseDiv"
+                >
+                  <div
+                    class="Collapse---main--34Is"
+                  >
+                    <div
+                      class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---main--2ZKU Collapse---header--3aq4"
+                    >
+                      <div
+                        class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---leftSection--YiEo"
+                      >
+                        <span
+                          class="bp3-icon bp3-icon-small-minus StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+                          icon="small-minus"
+                        >
+                          <svg
+                            data-icon="small-minus"
+                            height="10"
+                            viewBox="0 0 16 16"
+                            width="10"
+                          >
+                            <desc>
+                              small-minus
+                            </desc>
+                            <path
+                              d="M11 7H5c-.55 0-1 .45-1 1s.45 1 1 1h6c.55 0 1-.45 1-1s-.45-1-1-1z"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                        <p
+                          class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---title--2DAT"
+                        >
+                          Description
+                        </p>
+                      </div>
+                      <div
+                        class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                      />
+                    </div>
+                    <div
+                      class="Collapse---collapse--2EmT"
+                    >
+                      <div
+                        class="bp3-collapse collapse"
+                        style="height: auto; overflow-y: visible; transition: none;"
+                      >
+                        <div
+                          aria-hidden="false"
+                          class="bp3-collapse-body"
+                          style="transform: translateY(0); transition: none;"
+                        >
+                          <div
+                            class="bp3-form-group"
+                            data-id="description-1"
+                          >
+                            <div
+                              class="bp3-form-content"
+                            >
+                              <textarea
+                                autocomplete="off"
+                                class="bp3-input bp3-fill"
+                                name="description"
+                              >
+                                OverLayInput
+                              </textarea>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="collapseDiv"
+                >
+                  <div
+                    class="Collapse---main--34Is"
+                  >
+                    <div
+                      class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---main--2ZKU Collapse---header--3aq4"
+                    >
+                      <div
+                        class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---leftSection--YiEo"
+                      >
+                        <span
+                          class="bp3-icon bp3-icon-small-plus StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+                          icon="small-plus"
+                        >
+                          <svg
+                            data-icon="small-plus"
+                            height="10"
+                            viewBox="0 0 16 16"
+                            width="10"
+                          >
+                            <desc>
+                              small-plus
+                            </desc>
+                            <path
+                              d="M11 7H9V5c0-.55-.45-1-1-1s-1 .45-1 1v2H5c-.55 0-1 .45-1 1s.45 1 1 1h2v2c0 .55.45 1 1 1s1-.45 1-1V9h2c.55 0 1-.45 1-1s-.45-1-1-1z"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                        <p
+                          class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---title--2DAT"
+                        >
+                          Tags
+                        </p>
+                      </div>
+                      <div
+                        class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                      />
+                    </div>
+                    <div
+                      class="Collapse---collapse--2EmT"
+                    >
+                      <div
+                        class="bp3-collapse collapse"
+                      >
+                        <div
+                          aria-hidden="false"
+                          class="bp3-collapse-body"
+                          style="transform: translateY(-undefinedpx);"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws StyledProps---padding-top-large--i39X StyledProps---padding-bottom-xxxlarge--1sq8"
+              >
+                <p
+                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7"
+                >
+                  Select Input Sets
+                </p>
+                <p
+                  class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                  style="display: flex; align-items: center;"
+                >
+                  <span
+                    class="bp3-icon bp3-icon-info-sign StyledProps---main--1Wws StyledProps---padding-small--3f0A StyledProps---color--8PuS StyledProps---color-blue450--6C4Y"
+                    icon="info-sign"
+                  >
+                    <svg
+                      data-icon="info-sign"
+                      height="23"
+                      viewBox="0 0 20 20"
+                      width="23"
+                    >
+                      <desc>
+                        info-sign
+                      </desc>
+                      <path
+                        d="M10 0C4.48 0 0 4.48 0 10s4.48 10 10 10 10-4.48 10-10S15.52 0 10 0zM9 4h2v2H9V4zm4 12H7v-1h2V8H8V7h3v8h2v1z"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                  Multiple input sets can be overlaid together. They are applied in the order specified - first one gets applied first, and the subsequent ones get layered in the order and overrides any previously specified values.
+                </p>
+                <div
+                  class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---padding-top-xxxlarge--3gf7 StyledProps---padding-bottom-large--1zGv"
+                >
+                  <div
+                    class="Layout---vertical--3Szv StyledProps---main--1Wws"
+                  >
+                    <div
+                      class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---flex--2Jz8 StyledProps---flex-distribution-space-between--1TyN"
+                      style="align-items: end;"
+                    >
+                      <div
+                        class="Layout---horizontal--3rmQ Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+                        data-testid="asd"
+                        draggable="true"
+                        style="align-items: baseline;"
+                      >
+                        <span
+                          class="bp3-icon bp3-icon-drag-handle-vertical StyledProps---main--1Wws drag"
+                          icon="drag-handle-vertical"
+                        >
+                          <svg
+                            data-icon="drag-handle-vertical"
+                            height="16"
+                            viewBox="0 0 16 16"
+                            width="16"
+                          >
+                            <desc>
+                              drag-handle-vertical
+                            </desc>
+                            <path
+                              d="M6 9c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm4-6c.55 0 1-.45 1-1s-.45-1-1-1-1 .45-1 1 .45 1 1 1zM6 13c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0-8c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0-4c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm4 8c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0-4c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0 8c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                        <p
+                          class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                        >
+                          1.
+                        </p>
+                        <div
+                          class="bp3-form-group"
+                          data-id="inputSetReferences[0]-2"
+                          style="width: 400px;"
+                        >
+                          <div
+                            class="bp3-form-content"
+                          >
+                            <div
+                              class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+                            >
+                              <div
+                                class="bp3-popover-target"
+                              >
+                                <div
+                                  class="bp3-input-group"
+                                >
+                                  <input
+                                    autocomplete="off"
+                                    class="bp3-input"
+                                    name="inputSetReferences[0]"
+                                    placeholder="Input Sets"
+                                    style="padding-right: 0px;"
+                                    type="text"
+                                    value="asd"
+                                  />
+                                  <span
+                                    class="bp3-input-action"
+                                  >
+                                    <span
+                                      class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                                      icon="caret-down"
+                                    >
+                                      <svg
+                                        data-icon="caret-down"
+                                        height="14"
+                                        viewBox="0 0 16 16"
+                                        width="14"
+                                      >
+                                        <desc>
+                                          caret-down
+                                        </desc>
+                                        <path
+                                          d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                          fill-rule="evenodd"
+                                        />
+                                      </svg>
+                                    </span>
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <button
+                        class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+                        type="button"
+                      >
+                        <span
+                          class="bp3-icon bp3-icon-delete StyledProps---main--1Wws"
+                          icon="delete"
+                        >
+                          <svg
+                            data-icon="delete"
+                            height="16"
+                            viewBox="0 0 16 16"
+                            width="16"
+                          >
+                            <desc>
+                              delete
+                            </desc>
+                            <path
+                              d="M11.99 4.99a1.003 1.003 0 00-1.71-.71l-2.29 2.3L5.7 4.29a.965.965 0 00-.71-.3 1.003 1.003 0 00-.71 1.71l2.29 2.29-2.29 2.29A1.003 1.003 0 005.7 11.7l2.29-2.29 2.29 2.29a1.003 1.003 0 001.42-1.42L9.41 7.99 11.7 5.7c.18-.18.29-.43.29-.71zm-4-5c-4.42 0-8 3.58-8 8s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.68 6-6 6z"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                      </button>
+                    </div>
+                    <div
+                      class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---flex--2Jz8 StyledProps---flex-distribution-space-between--1TyN"
+                      style="align-items: end;"
+                    >
+                      <div
+                        class="Layout---horizontal--3rmQ Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+                        data-testid=""
+                        draggable="true"
+                        style="align-items: baseline;"
+                      >
+                        <span
+                          class="bp3-icon bp3-icon-drag-handle-vertical StyledProps---main--1Wws drag"
+                          icon="drag-handle-vertical"
+                        >
+                          <svg
+                            data-icon="drag-handle-vertical"
+                            height="16"
+                            viewBox="0 0 16 16"
+                            width="16"
+                          >
+                            <desc>
+                              drag-handle-vertical
+                            </desc>
+                            <path
+                              d="M6 9c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm4-6c.55 0 1-.45 1-1s-.45-1-1-1-1 .45-1 1 .45 1 1 1zM6 13c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0-8c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0-4c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm4 8c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0-4c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1zm0 8c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                        <p
+                          class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                        >
+                          2.
+                        </p>
+                        <div
+                          class="bp3-form-group"
+                          style="width: 400px;"
+                        >
+                          <div
+                            class="bp3-form-content"
+                          >
+                            <div
+                              class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+                            >
+                              <div
+                                class="bp3-popover-target"
+                              >
+                                <div
+                                  class="bp3-input-group"
+                                >
+                                  <input
+                                    autocomplete="off"
+                                    class="bp3-input"
+                                    name="inputSetReferences[1]"
+                                    placeholder="Input Sets"
+                                    style="padding-right: 0px;"
+                                    type="text"
+                                    value=""
+                                  />
+                                  <span
+                                    class="bp3-input-action"
+                                  >
+                                    <span
+                                      class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                                      icon="caret-down"
+                                    >
+                                      <svg
+                                        data-icon="caret-down"
+                                        height="14"
+                                        viewBox="0 0 16 16"
+                                        width="14"
+                                      >
+                                        <desc>
+                                          caret-down
+                                        </desc>
+                                        <path
+                                          d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                          fill-rule="evenodd"
+                                        />
+                                      </svg>
+                                    </span>
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <button
+                        class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+                        type="button"
+                      >
+                        <span
+                          class="bp3-icon bp3-icon-delete StyledProps---main--1Wws"
+                          icon="delete"
+                        >
+                          <svg
+                            data-icon="delete"
+                            height="16"
+                            viewBox="0 0 16 16"
+                            width="16"
+                          >
+                            <desc>
+                              delete
+                            </desc>
+                            <path
+                              d="M11.99 4.99a1.003 1.003 0 00-1.71-.71l-2.29 2.3L5.7 4.29a.965.965 0 00-.71-.3 1.003 1.003 0 00-.71 1.71l2.29 2.29-2.29 2.29A1.003 1.003 0 005.7 11.7l2.29-2.29 2.29 2.29a1.003 1.003 0 001.42-1.42L9.41 7.99 11.7 5.7c.18-.18.29-.43.29-.71zm-4-5c-4.42 0-8 3.58-8 8s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.68 6-6 6z"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                      </button>
+                    </div>
+                    <span>
+                      <button
+                        class="bp3-button bp3-disabled bp3-loading bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+                        disabled=""
+                        tabindex="-1"
+                        type="button"
+                      >
+                        <div
+                          class="bp3-spinner bp3-button-spinner"
+                        >
+                          <div
+                            class="bp3-spinner-animation"
+                          >
+                            <svg
+                              height="20"
+                              stroke-width="16.00"
+                              viewBox="-3.00 -3.00 106.00 106.00"
+                              width="20"
+                            >
+                              <path
+                                class="bp3-spinner-track"
+                                d="M 50,50 m 0,-45 a 45,45 0 1 1 0,90 a 45,45 0 1 1 0,-90"
+                              />
+                              <path
+                                class="bp3-spinner-head"
+                                d="M 50,50 m 0,-45 a 45,45 0 1 1 0,90 a 45,45 0 1 1 0,-90"
+                                pathLength="280"
+                                stroke-dasharray="280 280"
+                                stroke-dashoffset="210"
+                              />
+                            </svg>
+                          </div>
+                        </div>
+                        <span
+                          class="bp3-button-text"
+                        >
+                          + Add Input Set
+                        </span>
+                      </button>
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="bp3-dialog-footer"
+              >
+                <button
+                  class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+                  type="submit"
+                >
+                  <span
+                    class="bp3-button-text"
+                  >
+                    Save
+                  </span>
+                </button>
+                   
+                <button
+                  class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+                  type="button"
+                >
+                  <span
+                    class="bp3-button-text"
+                  >
+                    Cancel
+                  </span>
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

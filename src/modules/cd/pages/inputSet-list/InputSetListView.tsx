@@ -64,9 +64,13 @@ const RenderColumnActions: Renderer<CellProps<InputSetLocal>> = ({ row }) => {
   const data = row.original
   return (
     <RunPipelineModal
-      pipelineIdentifier={data.pipelineIdentifier || ''}
+      pipelineIdentifier={data.pipelineIdentifier || /* istanbul ignore next */ ''}
       inputSetSelected={[
-        { type: data.inputSetType || 'INPUT_SET', value: data.identifier || '', label: data.name || '' }
+        {
+          type: data.inputSetType || /* istanbul ignore next */ 'INPUT_SET',
+          value: data.identifier || /* istanbul ignore next */ '',
+          label: data.name || /* istanbul ignore next */ ''
+        }
       ]}
     >
       <Button minimal intent="primary">
@@ -90,21 +94,29 @@ const RenderColumnMenu: Renderer<CellProps<InputSetLocal>> = ({ row, column }) =
   })
 
   const { openDialog: confirmDelete } = useConfirmationDialog({
-    contentText: i18n.confirmDelete(data.name || ''),
-    titleText: i18n.confirmDeleteTitle,
+    contentText: i18n.confirmDelete(
+      data.name || /* istanbul ignore next */ '',
+      data.inputSetType === 'OVERLAY_INPUT_SET' ? i18n.overlayInputSet : i18n.inputSet
+    ),
+    titleText: i18n.confirmDeleteTitle(
+      data.inputSetType === 'OVERLAY_INPUT_SET' ? i18n.overlayInputSet : i18n.inputSet
+    ),
     confirmButtonText: i18n.deleteButton,
     cancelButtonText: i18n.cancel,
     onCloseDialog: async (isConfirmed: boolean) => {
+      /* istanbul ignore else */
       if (isConfirmed) {
         try {
-          const deleted = await deleteInputSet(data.identifier || '', {
+          const deleted = await deleteInputSet(data.identifier || /* istanbul ignore next */ '', {
             headers: { 'content-type': 'application/json' }
           })
+          /* istanbul ignore else */
           if (deleted.status === 'SUCCESS') {
-            showSuccess(i18n.inputSetDeleted(data.name || ''))
+            showSuccess(i18n.inputSetDeleted(data.name || /* istanbul ignore next */ ''))
           }
           ;(column as any).refetchInputSet?.()
         } catch (err) {
+          /* istanbul ignore next */
           showError(err?.data?.message)
         }
       }
@@ -135,7 +147,7 @@ const RenderColumnMenu: Renderer<CellProps<InputSetLocal>> = ({ row, column }) =
             text={i18n.edit}
             onClick={(e: React.MouseEvent) => {
               e.stopPropagation()
-              ;(column as any).goToInputSetDetail?.(data.identifier)
+              ;(column as any).goToInputSetDetail?.(data.identifier, data.inputSetType)
               setMenuOpen(false)
             }}
           />
@@ -143,11 +155,14 @@ const RenderColumnMenu: Renderer<CellProps<InputSetLocal>> = ({ row, column }) =
             icon="duplicate"
             disabled
             text={i18n.clone}
-            onClick={(e: React.MouseEvent) => {
-              e.stopPropagation()
-              ;(column as any).cloneInputSet?.(data.identifier)
-              setMenuOpen(false)
-            }}
+            onClick={
+              /* istanbul ignore next */
+              (e: React.MouseEvent) => {
+                e.stopPropagation()
+                ;(column as any).cloneInputSet?.(data.identifier)
+                setMenuOpen(false)
+              }
+            }
           />
           <Menu.Divider />
           <Menu.Item
@@ -230,13 +245,13 @@ export const InputSetListView: React.FC<InputSetListViewProps> = ({
     <Table<InputSetLocal>
       className={css.table}
       columns={columns}
-      data={data?.content || []}
+      data={data?.content || /* istanbul ignore next */ []}
       onRowClick={item => goToInputSetDetail?.(item.identifier, item.inputSetType)}
       pagination={{
-        itemCount: data?.totalItems || 0,
-        pageSize: data?.pageSize || 10,
-        pageCount: data?.totalPages || -1,
-        pageIndex: data?.pageIndex || 0,
+        itemCount: data?.totalItems || /* istanbul ignore next */ 0,
+        pageSize: data?.pageSize || /* istanbul ignore next */ 10,
+        pageCount: data?.totalPages || /* istanbul ignore next */ -1,
+        pageIndex: data?.pageIndex || /* istanbul ignore next */ 0,
         gotoPage
       }}
     />
