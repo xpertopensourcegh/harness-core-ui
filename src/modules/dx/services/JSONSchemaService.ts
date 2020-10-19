@@ -1,6 +1,7 @@
 import { YamlEntity } from 'modules/common/constants/YamlConstants'
 import { getRefUrlPrefix } from 'modules/common/utils/SchemaUtils'
 import secretsSchema from './mocks/secrets-schema.json'
+import connectorSchema from './mocks/connector-schema.json'
 
 //TODO @vardan Can this be moved to a separate util file?
 const getApiUrlTemplate = (entity: string) =>
@@ -41,10 +42,12 @@ export function fetchEntitySchemas(entityType: string): Record<string, any> | un
   switch (entityType) {
     case YamlEntity.SECRET:
       return secretsSchema
-    case YamlEntity.PIPELINE:
-      return getBaseSchema(YamlEntity.PIPELINE.toLowerCase(), apiUrlMap.get(YamlEntity.PIPELINE) || '')
+    //TODO @vardan enable later on
+    // case YamlEntity.PIPELINE:
+    //   return getBaseSchema(YamlEntity.PIPELINE.toLowerCase(), apiUrlMap.get(YamlEntity.PIPELINE) || '')
     case YamlEntity.CONNECTOR:
-      return getBaseSchema(YamlEntity.CONNECTOR.toLowerCase(), apiUrlMap.get(YamlEntity.CONNECTOR) || '')
+      return connectorSchema
+    //return getBaseSchema(YamlEntity.CONNECTOR.toLowerCase(), apiUrlMap.get(YamlEntity.CONNECTOR) || '')
     default:
       return {}
   }

@@ -33,6 +33,6 @@ describe('schema utils', () => {
       protocol = 'https'
     const mockedLocation = setupMockLocationObj(hostName, protocol)
     const refUrlPrefix = getRefUrlPrefix(mockedLocation)
-    expect(refUrlPrefix).toEqual(`${protocol}://${hostName}`)
+    expect(refUrlPrefix).toEqual(`${protocol}//${hostName}`)
   })
 })

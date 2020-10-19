@@ -13,7 +13,7 @@ const getHostPrefix = (location: Location): string => {
 }
 
 const getRefUrlPrefix = (location: Location): string => {
-  const protocol = (isLocalHost(location) ? 'http' : location.protocol) + ':'
+  const protocol = isLocalHost(location) ? 'http:' : location.protocol
   return protocol + '//' + encodeURIComponent(getHostPrefix(location))
 }
 
