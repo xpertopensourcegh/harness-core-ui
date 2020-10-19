@@ -44,7 +44,7 @@ const processNodeData = (
     const nodeData = nodeMap?.[item]
     items.push({
       item: {
-        name: nodeData?.name || '',
+        name: nodeData?.name || /* istanbul ignore next */ '',
         icon: 'edit',
         identifier: item,
         status: nodeData?.status as any,
@@ -52,12 +52,12 @@ const processNodeData = (
         data: nodeData
       }
     })
-    const nextIds = nodeAdjacencyListMap?.[item].nextIds || []
+    const nextIds = nodeAdjacencyListMap?.[item].nextIds || /* istanbul ignore next */ []
     nextIds.forEach(id => {
       const nodeDataNext = nodeMap?.[id]
       items.push({
         item: {
-          name: nodeDataNext?.name || '',
+          name: nodeDataNext?.name || /* istanbul ignore next */ '',
           icon: 'edit',
           identifier: id,
           status: nodeDataNext?.status as any,
@@ -73,24 +73,26 @@ const processNodeData = (
 const processExecutionData = (graph?: ExecutionGraph): Array<ExecutionPipelineNode<ExecutionNode>> => {
   const items: Array<ExecutionPipelineNode<ExecutionNode>> = []
 
+  /* istanbul ignore else */
   if (graph?.nodeAdjacencyListMap && graph?.rootNodeId) {
     const nodeAdjacencyListMap = graph.nodeAdjacencyListMap
     const rootNode = graph.rootNodeId
     let nodeId = nodeAdjacencyListMap[rootNode].children?.[0]
     while (nodeId && nodeAdjacencyListMap[nodeId]) {
       const nodeData = graph?.nodeMap?.[nodeId]
+      /* istanbul ignore else */
       if (nodeData) {
         if (nodeData.stepType === StepTypes.GENERIC_SECTION) {
           items.push({
             group: {
-              name: nodeData.name || '',
+              name: nodeData.name || /* istanbul ignore next */ '',
               identifier: nodeId,
               data: nodeData,
               status: nodeData.status as any,
               isOpen: true,
               icon: 'edit',
               items: processNodeData(
-                nodeAdjacencyListMap[nodeId].children || [],
+                nodeAdjacencyListMap[nodeId].children || /* istanbul ignore next */ [],
                 graph?.nodeMap,
                 graph?.nodeAdjacencyListMap
               )
@@ -99,7 +101,7 @@ const processExecutionData = (graph?: ExecutionGraph): Array<ExecutionPipelineNo
         } else {
           items.push({
             item: {
-              name: nodeData.name || '',
+              name: nodeData.name || /* istanbul ignore next */ '',
               icon: 'edit',
               showInLabel: nodeData.stepType === StepTypes.SERVICE || nodeData.stepType === StepTypes.INFRASTRUCTURE,
               identifier: nodeId,
@@ -122,8 +124,8 @@ export default function ExecutionStageDetails(props: ExecutionStageDetailsProps)
   const { layout, setLayout } = useExecutionLayoutContext()
 
   const stagesOptions: StageOptions[] = [...pipelineStagesMap].map(item => ({
-    label: item[1].stageName || '',
-    value: item[1].stageIdentifier || '',
+    label: item[1].stageName || /* istanbul ignore next */ '',
+    value: item[1].stageIdentifier || /* istanbul ignore next */ '',
     icon: { name: 'pipeline-deploy' },
     disabled: item[1].executionStatus === 'NotStarted'
   }))
@@ -160,8 +162,8 @@ export default function ExecutionStageDetails(props: ExecutionStageDetailsProps)
         }}
         showStageSelection={true}
         selectedStage={{
-          label: stage?.stageName || '',
-          value: stage?.stageIdentifier || '',
+          label: stage?.stageName || /* istanbul ignore next */ '',
+          value: stage?.stageIdentifier || /* istanbul ignore next */ '',
           icon: { name: 'pipeline-deploy' }
         }}
         stageSelectionOptions={stagesOptions}

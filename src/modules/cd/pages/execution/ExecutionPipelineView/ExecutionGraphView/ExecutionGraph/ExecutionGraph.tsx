@@ -24,8 +24,8 @@ const processExecutionData = (
       items.push({
         item: {
           icon: 'pipeline-deploy',
-          identifier: cdStage.stageIdentifier || '',
-          name: cdStage.stageName || '',
+          identifier: cdStage.stageIdentifier || /* istanbul ignore next */ '',
+          name: cdStage.stageName || /* istanbul ignore next */ '',
           status: cdStage.executionStatus as any,
           type: ExecutionPipelineNodeType.NORMAL,
           data: cdStage
@@ -47,7 +47,7 @@ export default function ExecutionGraph(props: ExecutionGraphProps): React.ReactE
 
   const data: ExecutionPipeline<CDStageExecutionSummaryDTO> = {
     items: processExecutionData(pipelineExecutionDetail?.pipelineExecution?.stageExecutionSummaryElements),
-    identifier: pipelineExecutionDetail?.pipelineExecution?.pipelineIdentifier || '',
+    identifier: pipelineExecutionDetail?.pipelineExecution?.pipelineIdentifier || /* istanbul ignore next */ '',
     status: pipelineExecutionDetail?.pipelineExecution?.executionStatus as any
   }
   return (
