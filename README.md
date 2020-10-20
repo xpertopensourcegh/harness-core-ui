@@ -60,6 +60,8 @@ For login, you need to run `wingsui` repo first. Once logged in, come back here 
   You can also use `nginx` on your machine to run both `wingsui` and `nextgenui` simultaneously if needed.
 </details>
 
+[NextGen Setup and Onboarding Slides (With Troubleshoot section)](https://docs.google.com/presentation/d/1xGl8JJPzEVDz1yew6cz7ADOZ7J-geI0dXk159EgAauA/edit?usp=sharing)
+
 ### Publishing
 
 ```
