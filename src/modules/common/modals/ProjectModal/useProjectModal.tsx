@@ -15,6 +15,7 @@ import css from './useProjectModal.module.scss'
 
 export interface UseProjectModalProps {
   onSuccess: (project: Project | undefined) => void
+  onNewProjectCreated?: (project: Project) => void
 }
 
 export interface UseProjectModalReturn {
@@ -22,7 +23,7 @@ export interface UseProjectModalReturn {
   closeProjectModal: () => void
 }
 
-export const useProjectModal = ({ onSuccess }: UseProjectModalProps): UseProjectModalReturn => {
+export const useProjectModal = ({ onSuccess, onNewProjectCreated }: UseProjectModalProps): UseProjectModalReturn => {
   const [view, setView] = useState(Views.CREATE)
   const [projectData, setProjectData] = useState<Project>()
 
@@ -31,7 +32,7 @@ export const useProjectModal = ({ onSuccess }: UseProjectModalProps): UseProject
       setView(Views.PURPOSE)
       setProjectData(wizardData)
     } else {
-      hideModal()
+      onNewProjectCreated?.(wizardData)
     }
     onSuccess(wizardData)
   }

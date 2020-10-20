@@ -44,15 +44,13 @@ const ProjectsListPage: React.FC<ProjectListProps> = ({
   const [view, setView] = useState(Views.GRID)
   const [searchParam, setSearchParam] = useState<string | undefined>()
   const [reloadProjectPage, setReloadProjectPage] = useState(false)
-  const projectCreateSuccessHandler = (project: Project | undefined): void => {
-    if (project && onNewProjectCreated) {
-      onNewProjectCreated(project)
-    }
+  const projectCreateSuccessHandler = (): void => {
     setReloadProjectPage(true)
   }
 
   const { openProjectModal } = useProjectModal({
-    onSuccess: projectCreateSuccessHandler
+    onSuccess: projectCreateSuccessHandler,
+    onNewProjectCreated
   })
 
   const showEditProject = (project: Project): void => {
