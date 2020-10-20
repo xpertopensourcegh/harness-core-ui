@@ -1,6 +1,7 @@
 import React from 'react'
 import { Container, Layout, Icon, Color, Text } from '@wings-software/uikit'
 import { NavLink, useParams } from 'react-router-dom'
+import { parse } from 'yaml'
 import { Page } from 'modules/common/exports'
 import {
   routePipelineDeploymentList,
@@ -34,7 +35,7 @@ const PipelineDetails: React.FC = ({ children }): JSX.Element => {
               </NavLink>
               &nbsp;/
             </span>
-            {!loading && <Text>{(pipeline?.data?.ngPipeline as any)?.pipeline.name}</Text>}
+            {!loading && <Text>{parse(pipeline?.data?.yamlPipeline as any)?.pipeline.name}</Text>}
           </Layout.Vertical>
         }
         toolbar={

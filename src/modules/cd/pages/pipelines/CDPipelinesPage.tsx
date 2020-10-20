@@ -28,21 +28,8 @@ const CDPipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
     accountId: string
   }>()
 
-  const goToPipelineStudio = React.useCallback(
-    (pipelineIdentifier = '-1') => {
-      history.push(
-        routeCDPipelineStudio.url({
-          projectIdentifier,
-          orgIdentifier,
-          pipelineIdentifier
-        })
-      )
-    },
-    [projectIdentifier, orgIdentifier, history]
-  )
-
   const goToPipelineDetail = React.useCallback(
-    (pipelineIdentifier = '-1') => {
+    (/* istanbul ignore next */ pipelineIdentifier = '-1') => {
       history.push(
         routePipelineDetail.url({
           projectIdentifier,
@@ -87,6 +74,7 @@ const CDPipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
       searchTerm: searchParam,
       ...extraParam
     },
+    debounce: 300,
     mock: mockData
   })
 
@@ -113,22 +101,28 @@ const CDPipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
                 <Menu>
                   <MenuItem
                     text={i18n.tags}
-                    onClick={() => {
-                      setFilterTag(i18n.tags)
-                    }}
+                    onClick={
+                      /* istanbul ignore next */ () => {
+                        setFilterTag(i18n.tags)
+                      }
+                    }
                   />
                   {/* TODO: Change with actual API */}
                   <MenuItem
                     text="Tag 1"
-                    onClick={() => {
-                      setFilterTag('Tag 1')
-                    }}
+                    onClick={
+                      /* istanbul ignore next */ () => {
+                        setFilterTag('Tag 1')
+                      }
+                    }
                   />
                   <MenuItem
                     text="Tag 2"
-                    onClick={() => {
-                      setFilterTag('Tag 2')
-                    }}
+                    onClick={
+                      /* istanbul ignore next */ () => {
+                        setFilterTag('Tag 2')
+                      }
+                    }
                   />
                 </Menu>
               }
@@ -170,7 +164,7 @@ const CDPipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
       <Page.Body
         loading={loading}
         error={error?.message}
-        retryOnError={() => reloadPipelines()}
+        retryOnError={/* istanbul ignore next */ () => reloadPipelines()}
         noData={{
           when: () => !data?.data?.content?.length,
           icon: 'pipeline-ng',
@@ -181,17 +175,17 @@ const CDPipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
       >
         {view === Views.GRID ? (
           <PipelineGridView
-            pipelineList={data?.data?.content || []}
+            pipelineList={data?.data?.content || /* istanbul ignore next */ []}
             goToPipelineDetail={goToPipelineDetail}
-            goToPipelineStudio={goToPipelineStudio}
+            goToPipelineStudio={goToPipeline}
             refetchPipeline={reloadPipelines}
           />
         ) : (
           <PipelineListView
-            gotoPage={pageNumber => setPage(pageNumber)}
+            gotoPage={/* istanbul ignore next */ pageNumber => setPage(pageNumber)}
             data={data?.data}
             goToPipelineDetail={goToPipelineDetail}
-            goToPipelineStudio={goToPipelineStudio}
+            goToPipelineStudio={goToPipeline}
             refetchPipeline={reloadPipelines}
           />
         )}

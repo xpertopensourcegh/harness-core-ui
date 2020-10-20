@@ -1,0 +1,79 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Pipeline Details tests render snapshot view 1`] = `
+<div>
+   
+  <div
+    class="Layout---horizontal--3rmQ StyledProps---main--1Wws container standard StyledProps---flex--2Jz8 StyledProps---padding-left-large--28UT StyledProps---padding-right-large--2vF9"
+  >
+    <div
+      class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
+    >
+      <span>
+        <a
+          class="link"
+          href="/account/null/cd/pipelines/orgs/testOrg/projects/test"
+        >
+          Pipeline
+        </a>
+         /
+      </span>
+      <p
+        class="StyledProps---font--2ipy StyledProps---main--1Wws"
+      >
+        testsdfsdf
+      </p>
+    </div>
+    <div
+      class="StyledProps---font--2ipy StyledProps---main--1Wws"
+    >
+      <div
+        class="Layout---horizontal--3rmQ Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+      >
+        <a
+          class="tags"
+          href="/account/null/cd/pipelines/orgs/testOrg/projects/test/pipelines/pipeline/executions"
+        >
+          Executions
+        </a>
+        <a
+          class="tags"
+          href="/account/null/cd/pipelines/orgs/testOrg/projects/test/pipelines/pipeline/input-sets"
+        >
+          Input Sets
+        </a>
+        <a
+          class="tags"
+          href="/account/null/cd/pipeline-studio/orgs/testOrg/projects/test/pipelines/pipeline/"
+        >
+          <span
+            class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-blue600--3aH7"
+            style="margin-right: 8px;"
+          >
+            <svg
+              height="20"
+              width="20"
+            >
+              <g
+                fill="#25A6F7"
+              >
+                <path
+                  d="M17.857 2.705h-3.672a2.85 2.85 0 00-5.614.714 2.85 2.85 0 005.614.714h3.672c.395 0 .714.32.714.715v6.428c0 .395-.32.714-.714.714h-6.786a.714.714 0 100 1.429h6.786c1.184 0 2.143-.96 2.143-2.143V4.848c0-1.184-.96-2.143-2.143-2.143zM11.43 4.848a1.429 1.429 0 110-2.858 1.429 1.429 0 010 2.858z"
+                />
+                <path
+                  d="M17.143 14.848c-1.28 0-2.352.848-2.715 2.01H7.143a.711.711 0 01-.709-.685 2.85 2.85 0 00-.72-5.611 2.844 2.844 0 00-2.46 1.428H2.143a.714.714 0 01-.714-.714V4.848c0-.395.32-.715.714-.715h4.643a.714.714 0 000-1.428H2.143C.959 2.705 0 3.665 0 4.848v6.428c0 1.184.96 2.143 2.143 2.143h.714a2.85 2.85 0 002.147 2.757 2.14 2.14 0 002.139 2.11h7.203a2.857 2.857 0 102.797-3.438zM4.286 13.419a1.429 1.429 0 112.858 0 1.429 1.429 0 01-2.858 0zm12.857 5.714a1.429 1.429 0 110-2.858 1.429 1.429 0 010 2.858z"
+                />
+              </g>
+            </svg>
+          </span>
+          Studio
+        </a>
+      </div>
+    </div>
+  </div>
+  <div
+    class="StyledProps---font--2ipy StyledProps---main--1Wws pageBody"
+  />
+   
+</div>
+`;
