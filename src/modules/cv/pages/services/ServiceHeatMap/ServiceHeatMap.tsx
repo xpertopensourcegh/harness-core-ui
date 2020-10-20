@@ -7,7 +7,7 @@ import { HeatMapDTO, useGetHeatmap } from 'services/cv'
 import { RiskScoreTile } from 'modules/cv/components/RiskScoreTile/RiskScoreTile'
 import useAnalysisDrillDownView from '../analysis-drilldown-view/useAnalysisDrillDownView'
 import i18n from './ServiceHeatMap.i18n'
-import css from './ServiceHeatmap.module.scss'
+import css from './Service_Heatmap.module.scss'
 
 interface ServiceHeatMapProps {
   startTime: number
