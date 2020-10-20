@@ -6,5 +6,6 @@ declare const styles: {
   readonly boxWrap: string
   readonly boxGroup: string
   readonly box: string
+  readonly nodeSelected: string
 }
 export default styles

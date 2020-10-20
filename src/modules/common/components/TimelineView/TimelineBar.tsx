@@ -15,7 +15,7 @@ export interface TimelineBarProps {
 }
 
 const TIME_UNITS = [
-  { unit: 'minutes', step: 1, format: 'h:mm A' },
+  { unit: 'minutes', step: 1, format: 'h:mm:ss A' },
   { unit: 'minutes', step: 2, format: 'h:mm A' },
   { unit: 'minutes', step: 5, format: 'h:mm A' },
   { unit: 'minutes', step: 10, format: 'h:mm A' },

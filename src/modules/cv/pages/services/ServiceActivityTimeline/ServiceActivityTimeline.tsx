@@ -32,8 +32,8 @@ interface TimelineEventTooltipProps {
 }
 
 type TimelineBucket = {
-  startDate: number
-  endDate: number
+  startTime: number
+  endTime: number
   events: typeof MockData
   eventNames: string[]
   isHomogenousBucket: boolean
@@ -188,8 +188,8 @@ function initializeTimeline(dataArr: typeof MockData, startTime: number, endTime
     timelineIntervalBuckets.set(minuteInterval, {
       eventNames: [],
       events: [],
-      startDate: minuteInterval,
-      endDate: minuteInterval + BucketIntervals[timeRangeInMinutes],
+      startTime: minuteInterval,
+      endTime: minuteInterval + BucketIntervals[timeRangeInMinutes],
       isHomogenousBucket: true,
       totalSuccessfulEvents: 0
     })
@@ -206,7 +206,7 @@ function initializeTimeline(dataArr: typeof MockData, startTime: number, endTime
 
     // find the bucket the event belongs to
     for (const bucket of timelineIntervalBuckets.values()) {
-      if (bucket.endDate >= event.occurenceTime && bucket.startDate <= event.occurenceTime) {
+      if (bucket.endTime >= event.occurenceTime && bucket.startTime <= event.occurenceTime) {
         timelineBucket = bucket
         break
       }
@@ -276,8 +276,8 @@ function TimelineEventTooltip(props: TimelineEventTooltipProps): JSX.Element {
 
 function TimelineEvent(props: TimelineEventProps): JSX.Element | null {
   const { event, onAggregateEventClick } = props
-  const { eventNames, events, startDate, endDate } = event
-  const eventTimeRange = Math.round(moment.duration(moment(endDate).diff(startDate)).asMinutes())
+  const { eventNames, events, startTime, endTime } = event
+  const eventTimeRange = Math.round(moment.duration(moment(endTime).diff(startTime)).asMinutes())
 
   if (!events?.length) return null
   const isSingleEvent = events.length === 1
@@ -288,11 +288,11 @@ function TimelineEvent(props: TimelineEventProps): JSX.Element | null {
       width={TimelineBucketWidth[eventTimeRange]}
       height={31}
       className={css.timelineEvent}
-      onClick={() => onAggregateEventClick?.(startDate, endDate)}
+      onClick={() => onAggregateEventClick?.(startTime, endTime)}
     >
       <TimelineEventTooltip
-        eventStartTime={event.startDate}
-        eventEndTime={event.endDate}
+        eventStartTime={event.startTime}
+        eventEndTime={event.endTime}
         totalEvents={totalPolygons}
         eventNames={eventNames}
       >
@@ -349,9 +349,10 @@ export default function ServiceActivityTimeline(props: ServiceActivityTimelinePr
         </Text>
       ) : null}
       <TimelineView
-        startDate={zoomTimeRange?.zoomStartTime || startTime}
-        endDate={zoomTimeRange?.zoomEndTime || endTime}
+        startTime={zoomTimeRange?.zoomStartTime || startTime}
+        endTime={zoomTimeRange?.zoomEndTime || endTime}
         className={css.activityView}
+        labelsWidth={185}
         timelineBarProps={{
           columnWidth: 65,
           className: css.serviceTimelineBar

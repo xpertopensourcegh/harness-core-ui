@@ -1,0 +1,73 @@
+.main {
+  position: relative;
+  :global(.timelineRow) {
+    border-bottom: none;
+  }
+  :global(.rowItems) {
+    height: 9px;
+    border-bottom: 1px solid var(--grey-200);
+    align-self: center;
+  }
+  .resetZoomButton {
+    position: absolute;
+    right: 10px;
+    top: 15px;
+  }
+}
+
+.eventItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+}
+
+.eventBatch {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  cursor: zoom-in;
+  .itemsGroup {
+    position: relative;
+    width: 16px;
+    height: 16px;
+    > * {
+      position: absolute;
+    }
+  }
+}
+
+.timelineViewLabel {
+  display: flex;
+  align-items: center;
+  > p {
+    margin-left: var(--spacing-small) !important;
+  }
+}
+
+.timelineHeader {
+  height: 15px;
+  display: flex;
+  .headerSideContent {
+    width: 215px;
+  }
+  .headerBar {
+    flex: 1;
+    display: flex;
+    .headerPrimaryMsg {
+      flex-basis: 100%;
+    }
+    .headerSecondaryMsg {
+      position: relative;
+      background-color: var(--blue-500);
+      .verticalLine {
+        background-color: var(--blue-500);
+        position: absolute;
+        height: 0;
+        width: 1px;
+      }
+    }
+  }
+}

@@ -1,26 +1,25 @@
 import React from 'react'
 import { Text, Container, Color } from '@wings-software/uikit'
+import { PopoverInteractionKind, Position, Tooltip } from '@blueprintjs/core'
+import classnames from 'classnames'
 import styles from './BlueGreenVerificationChart.module.scss'
 
-export const Colors = {
-  Blue: Color.BLUE_500,
-  Green: Color.GREEN_400,
-  Red: Color.RED_500
-}
+const MAX_SERIE_LENGTH = 16
 
-const MAX_SERIE_LENGTH = 18
-
-interface NodeData {
-  name?: string
+export interface NodeData {
+  hostName?: string
   riskScore?: string
+  anomalousLogClustersCount?: number
+  anomalousMetricsCount?: number
 }
 
 export interface BlueGreenVerificationChartProps {
   before: Array<NodeData>
   after: Array<NodeData>
-  percentageBefore: number
-  percentageAfter: number
-  onNodeClick?(): void
+  percentageBefore?: number
+  percentageAfter?: number
+  selectedNode?: NodeData
+  onSelectNode?(node?: NodeData): void
 }
 
 const mapColor = (riskScore?: string): Color => {
@@ -41,36 +40,51 @@ export default function BlueGreenVerificationChart({
   after,
   percentageBefore,
   percentageAfter,
-  onNodeClick
+  selectedNode,
+  onSelectNode
 }: BlueGreenVerificationChartProps) {
-  const renderSeries = (data: Array<NodeData>, color?: Color) =>
+  const renderSeries = (data: Array<NodeData>) =>
     data.map(
       (cell, i) =>
         i < MAX_SERIE_LENGTH && (
-          <Container key={i} background={color || mapColor(cell.riskScore)} onClick={() => onNodeClick?.()} />
+          <Tooltip
+            key={i}
+            lazy={true}
+            position={Position.TOP}
+            interactionKind={PopoverInteractionKind.HOVER}
+            content={
+              <Container>
+                <Text font={{ size: 'small', weight: 'bold' }}>{cell.hostName}</Text>
+                <Container margin={{ top: 'small' }}>
+                  <Text font={{ size: 'small' }}>{cell.anomalousMetricsCount} anomalous metrics</Text>
+                  <Text font={{ size: 'small' }}>{cell.anomalousLogClustersCount} anomalous log clusters</Text>
+                </Container>
+              </Container>
+            }
+          >
+            <Container
+              className={classnames({ [styles.nodeSelected]: cell === selectedNode })}
+              background={cell === selectedNode ? Color.BLUE_500 : mapColor(cell.riskScore)}
+              onClick={() => onSelectNode?.(cell === selectedNode ? undefined : cell)}
+            />
+          </Tooltip>
         )
     )
 
   return (
     <Container className={styles.chart}>
       <div className={styles.boxWrap}>
-        <Text>BEFORE</Text>
-        <div className={styles.box}>{renderSeries(before, Color.BLUE_500)}</div>
-        <Text>{`Blue ${100} %`}</Text>
+        <Text>PRIMARY</Text>
+        <div className={styles.box}>{renderSeries(before)}</div>
+        {!!percentageBefore && <Text font={{ size: 'small' }}>{`${percentageBefore}% Traffic`}</Text>}
       </div>
-      <div className={styles.separator}>
-        <Text>Verification Triggered</Text>
-      </div>
+      <div className={styles.separator}>{/* <Text>Verification Triggered</Text> */}</div>
       <div className={styles.boxWrap}>
-        <Text>AFTER</Text>
+        <Text>CANARY</Text>
         <div className={styles.boxGroup}>
           <div className={styles.boxWrap}>
-            <div className={styles.box}>{renderSeries(before, Color.BLUE_500)}</div>
-            <Text>{`Blue (${percentageBefore}%)`}</Text>
-          </div>
-          <div className={styles.boxWrap}>
             <div className={styles.box}>{renderSeries(after)}</div>
-            <Text>{`Green (${percentageAfter}%)`}</Text>
+            {!!percentageAfter && <Text font={{ size: 'small' }}>{`${percentageAfter}% Traffic`}</Text>}
           </div>
         </div>
       </div>

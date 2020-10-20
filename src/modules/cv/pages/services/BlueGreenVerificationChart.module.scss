@@ -30,15 +30,12 @@ $cell-content-size: var(--spacing-small);
   }
   .boxGroup {
     display: flex;
-    > *:first-child {
-      margin-right: var(--spacing-small);
-    }
   }
 }
 
 .box {
-  width: $cell-width * 6;
-  height: $cell-height * 3;
+  width: $cell-width * 8;
+  height: $cell-height * 2;
   display: grid;
   grid-template-columns: repeat(auto-fit, #{$cell-width});
   grid-template-rows: repeat(auto-fit, #{$cell-height});
@@ -56,4 +53,8 @@ $cell-content-size: var(--spacing-small);
       opacity: 0.8;
     }
   }
+}
+
+.nodeSelected {
+  box-shadow: 0px 0px 2px 2px var(--grey-350);
 }

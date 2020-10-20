@@ -14,8 +14,8 @@ export interface TestsSummaryViewProps {
 
 const defaultDateFormat = 'MMM D, YYYY h:mm A'
 
-const fontSizeProps: FontProps = { size: 'medium' }
-const fontWeightPros: FontProps = { weight: 'bold' }
+const primaryFontProps: FontProps = { size: 'normal' }
+const secondaryFontProps: FontProps = { weight: 'bold', size: 'small' }
 
 export default function TestsSummaryView({
   baselineTestName,
@@ -26,22 +26,22 @@ export default function TestsSummaryView({
   return (
     <Container className={styles.testsSummaryView}>
       <Container className={styles.baselineTest}>
-        <Text font={fontSizeProps} className={styles.mainLabel}>
+        <Text font={primaryFontProps} className={styles.mainLabel}>
           {i18n.baselineTest}
         </Text>
-        <Text font={fontWeightPros}>{baselineTestName}</Text>
-        <Text font={fontWeightPros}>
-          {i18n.testsRan}: {moment(baselineTestDate).format(defaultDateFormat)}
+        <Text font={secondaryFontProps}>{baselineTestName || 'none'}</Text>
+        <Text font={secondaryFontProps}>
+          {i18n.testsRan}: {(baselineTestDate && moment(baselineTestDate).format(defaultDateFormat)) || 'none'}
         </Text>
       </Container>
       <Container className={styles.separator} />
       <Container>
-        <Text font={fontSizeProps} className={styles.mainLabel}>
+        <Text font={primaryFontProps} className={styles.mainLabel}>
           {i18n.currentTest}
         </Text>
-        <Text font={fontWeightPros}>{currentTestName}</Text>
-        <Text font={fontWeightPros}>
-          {i18n.testsRan}: {moment(currentTestDate).format(defaultDateFormat)}
+        <Text font={secondaryFontProps}>{currentTestName || 'none'}</Text>
+        <Text font={secondaryFontProps}>
+          {i18n.testsRan}: {(currentTestDate && moment(currentTestDate).format(defaultDateFormat)) || 'none'}
         </Text>
       </Container>
     </Container>

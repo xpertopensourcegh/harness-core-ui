@@ -17,7 +17,8 @@ import DeploymentMetricsTab from './DeploymentMetricsTab'
 import DeploymentLogsTab from './DeploymentLogsTab'
 import DeploymentDrilldownViewHeader from './DeploymentDrilldownViewHeader'
 import DeploymentDrilldownSideNav, { InstancePhase } from './DeploymentDrilldownSideNav'
-import BlueGreenVerificationChart from '../../services/BlueGreenVerificationChart'
+import TestsSummaryView from './TestsSummaryView'
+import BlueGreenVerificationChart, { NodeData } from '../../services/BlueGreenVerificationChart'
 import i18n from './DeploymentDrilldownView.i18n'
 import styles from './DeploymentDrilldownView.module.scss'
 
@@ -37,6 +38,7 @@ export default function DeploymentDrilldownView() {
   } = useRouteParams()
   const { showError } = useToaster()
   const [anomalousMetricsOnly, setAnomalousMetricsOnly] = useState<boolean>(true)
+  const [selectedNode, setSelectedNode] = useState<NodeData | undefined>()
   const [selectedTab, setSelectedTab] = useState<string>(DEFAULT_SELECTED_TAB)
   const [verificationInstance, setVerificationInstance] = useState<any>()
   const [instancePhase, setInstancePhase] = useState<InstancePhase>()
@@ -62,7 +64,8 @@ export default function DeploymentDrilldownView() {
     verificationJobInstanceId: verificationInstance?.verificationJobInstanceId,
     queryParams: {
       accountId: accountId,
-      anomalousMetricsOnly
+      anomalousMetricsOnly,
+      hostName: selectedNode?.hostName
     },
     lazy: true
   })
@@ -121,19 +124,30 @@ export default function DeploymentDrilldownView() {
   }, [activityVerifications])
 
   const deploymentNodesData = useMemo(() => {
-    if (!!instancePhase && !!verificationInstance?.deploymentVerificationHostInfo) {
-      const nodesData = verificationInstance?.deploymentVerificationHostInfo
+    if (!!instancePhase && verificationInstance?.additionalInfo.type === 'CANARY') {
+      const { primary: before = [], canary: after = [], trafficSplitPercentage } = verificationInstance.additionalInfo
       return {
-        before: (nodesData?.preDeploymentHosts ?? []).map((node: string) => ({
-          name: node,
-          color: 'blue-200'
-        })),
-        after: (nodesData?.postDeploymentHosts ?? []).map((node: any) => ({
-          name: node.name,
-          riskScore: node.riskScore
-        })),
-        percentageBefore: Math.round(nodesData.trafficSplitPercentage.preDeploymentPercentage),
-        percentageAfter: Math.round(nodesData.trafficSplitPercentage.postDeploymentPercentage)
+        before,
+        after,
+        percentageBefore: Math.round(trafficSplitPercentage?.preDeploymentPercentage),
+        percentageAfter: Math.round(trafficSplitPercentage?.postDeploymentPercentage)
+      }
+    }
+  }, [verificationInstance])
+
+  const baselineSummaryData = useMemo(() => {
+    if (verificationInstance?.additionalInfo.type === 'TEST') {
+      const {
+        baselineDeploymentTag,
+        baselineStartTime,
+        currentDeploymentTag,
+        currentStartTime
+      } = verificationInstance.additionalInfo
+      return {
+        baselineTestName: baselineDeploymentTag,
+        baselineTestDate: baselineStartTime,
+        currentTestName: currentDeploymentTag,
+        currentTestDate: currentStartTime
       }
     }
   }, [verificationInstance])
@@ -184,6 +198,7 @@ export default function DeploymentDrilldownView() {
       queryParams: {
         accountId: accountId,
         anomalousMetricsOnly,
+        hostName: selectedNode?.hostName,
         pageNumber: page
       }
     })
@@ -230,7 +245,12 @@ export default function DeploymentDrilldownView() {
             <CVProgressBar
               stripes={false}
               value={(verificationInstance?.progressPercentage ?? 0) / 100}
-              risk={verificationInstance?.riskScore}
+              intent={
+                (verificationInstance?.status === 'IN_PROGRESS' && 'primary') ||
+                (verificationInstance?.status === 'SUCCESS' && 'success') ||
+                (verificationInstance?.status === 'ERROR' && 'danger') ||
+                undefined
+              }
             />
             {verificationInstance && (
               <>
@@ -242,7 +262,23 @@ export default function DeploymentDrilldownView() {
                 </Text>
               </>
             )}
-            {deploymentNodesData && <BlueGreenVerificationChart {...deploymentNodesData} />}
+            {deploymentNodesData && (
+              <BlueGreenVerificationChart
+                {...deploymentNodesData}
+                selectedNode={selectedNode}
+                onSelectNode={(node: NodeData) => {
+                  setSelectedNode(node)
+                  fetchTimeseries({
+                    queryParams: {
+                      accountId: accountId,
+                      anomalousMetricsOnly,
+                      hostName: node?.hostName
+                    }
+                  })
+                }}
+              />
+            )}
+            {baselineSummaryData && <TestsSummaryView {...baselineSummaryData} />}
           </Container>
           <Container className={styles.filters}>
             <Tabs id="tabs1" onChange={onTabChange} selectedTabId={selectedTab}>
@@ -260,7 +296,8 @@ export default function DeploymentDrilldownView() {
                 fetchTimeseries({
                   queryParams: {
                     accountId: accountId,
-                    anomalousMetricsOnly: val
+                    anomalousMetricsOnly: val,
+                    hostName: selectedNode?.hostName
                   }
                 })
               }}
