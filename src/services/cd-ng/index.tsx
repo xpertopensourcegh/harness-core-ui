@@ -2,10 +2,8 @@
 
 import React from 'react'
 import { Get, GetProps, useGet, UseGetProps, Mutate, MutateProps, useMutate, UseMutateProps } from 'restful-react'
+
 import { getConfig, getUsingFetch, mutateUsingFetch, GetUsingFetchProps, MutateUsingFetchProps } from '../config'
-
-export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
-
 export interface Response {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
   data?: { [key: string]: any }
@@ -788,10 +786,10 @@ export interface ManifestOverrideSets {
 }
 
 export interface NGVariable {
+  description?: string
   name?: string
   type?: 'String' | 'Number'
   required?: boolean
-  description?: string
   metadata?: string
 }
 
@@ -861,8 +859,8 @@ export interface ServiceOverrides {
 export interface ServiceSpec {
   artifactOverrideSets?: ArtifactOverrideSets[]
   manifestOverrideSets?: ManifestOverrideSets[]
-  manifests?: ManifestConfigWrapper[]
   artifacts?: ArtifactListConfig
+  manifests?: ManifestConfigWrapper[]
 }
 
 export interface ServiceUseFromStage {
@@ -1285,16 +1283,16 @@ export interface ResponseBoolean {
 }
 
 export interface Page {
-  totalPages?: number
   totalElements?: number
+  totalPages?: number
   size?: number
   content?: { [key: string]: any }[]
   number?: number
-  first?: boolean
   sort?: Sort
+  first?: boolean
+  numberOfElements?: number
   last?: boolean
   pageable?: Pageable
-  numberOfElements?: number
   empty?: boolean
 }
 
@@ -1407,6 +1405,15 @@ export interface ActivityDetail {
   [key: string]: any
 }
 
+export interface ActivityList {
+  activityHistoriesForEntityUsage?: Activity[]
+  connectivityCheckSummary?: ConnectivityCheckSummary
+}
+
+export interface ConnectivityCheckSummary {
+  failureCount?: number
+}
+
 export interface EntityDetail {
   type?: 'projects' | 'pipelines' | 'connectors' | 'secrets'
   entityRef?: EntityReference
@@ -1421,32 +1428,54 @@ export interface EntityReference {
   orgIdentifier?: string
 }
 
-export interface PageActivity {
-  totalPages?: number
+export interface ResponseActivityList {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: ActivityList
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
+export interface ResponseActivity {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: Activity
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
+export interface ActivitySummary {
+  start?: number
+  end?: number
+  heartBeatFailuresCount?: number
+  successfulActivitiesCount?: number
+  failedActivitiesCount?: number
+}
+
+export interface PageActivitySummary {
   totalElements?: number
+  totalPages?: number
   size?: number
-  content?: Activity[]
+  content?: ActivitySummary[]
   number?: number
-  first?: boolean
   sort?: Sort
+  first?: boolean
+  numberOfElements?: number
   last?: boolean
   pageable?: Pageable
-  numberOfElements?: number
   empty?: boolean
 }
 
 export interface Pageable {
   offset?: number
-  pageSize?: number
   sort?: Sort
-  unpaged?: boolean
   paged?: boolean
+  unpaged?: boolean
   pageNumber?: number
+  pageSize?: number
 }
 
-export interface ResponsePageActivity {
+export interface ResponsePageActivitySummary {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: PageActivity
+  data?: PageActivitySummary
   metaData?: { [key: string]: any }
   correlationId?: string
 }
@@ -1455,13 +1484,6 @@ export interface Sort {
   sorted?: boolean
   unsorted?: boolean
   empty?: boolean
-}
-
-export interface ResponseActivity {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: Activity
-  metaData?: { [key: string]: any }
-  correlationId?: string
 }
 
 export interface DockerBuildDetailsDTO {
@@ -1512,16 +1534,16 @@ export interface EntitySetupUsageDTO {
 }
 
 export interface PageEntitySetupUsageDTO {
-  totalPages?: number
   totalElements?: number
+  totalPages?: number
   size?: number
   content?: EntitySetupUsageDTO[]
   number?: number
-  first?: boolean
   sort?: Sort
+  first?: boolean
+  numberOfElements?: number
   last?: boolean
   pageable?: Pageable
-  numberOfElements?: number
   empty?: boolean
 }
 
@@ -1585,129 +1607,6 @@ export interface PageEnvironmentResponseDTO {
 export interface ResponsePageEnvironmentResponseDTO {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
   data?: PageEnvironmentResponseDTO
-  metaData?: { [key: string]: any }
-  correlationId?: string
-}
-
-export interface InputSetError {
-  fieldName?: string
-  message?: string
-  identifierOfErrorSource?: string
-}
-
-export interface InputSetErrorResponse {
-  errors?: InputSetError[]
-}
-
-export interface InputSetErrorWrapper {
-  errorPipelineYaml?: string
-  uuidToErrorResponseMap?: {
-    [key: string]: InputSetErrorResponse
-  }
-}
-
-export interface InputSetResponse {
-  accountId?: string
-  orgIdentifier?: string
-  projectIdentifier?: string
-  pipelineIdentifier?: string
-  identifier?: string
-  inputSetYaml?: string
-  name?: string
-  description?: string
-  inputSetErrorWrapper?: InputSetErrorWrapper
-  errorResponse?: boolean
-}
-
-export interface ResponseInputSetResponse {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: InputSetResponse
-  metaData?: { [key: string]: any }
-  correlationId?: string
-}
-
-export interface OverlayInputSetResponse {
-  accountId?: string
-  orgIdentifier?: string
-  projectIdentifier?: string
-  pipelineIdentifier?: string
-  identifier?: string
-  name?: string
-  description?: string
-  inputSetReferences?: string[]
-  overlayInputSetYaml?: string
-  invalidInputSetReferences?: {
-    [key: string]: string
-  }
-  errorResponse?: boolean
-}
-
-export interface ResponseOverlayInputSetResponse {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: OverlayInputSetResponse
-  metaData?: { [key: string]: any }
-  correlationId?: string
-}
-
-export interface InputSetConfig {
-  identifier: string
-  name?: string
-  description?: string
-  pipeline: NgPipeline
-}
-
-export interface OverlayInputSet {
-  identifier?: string
-  name?: string
-  description?: string
-  inputSetReferences?: string[]
-}
-
-export interface InputSetSummaryResponse {
-  identifier?: string
-  name?: string
-  pipelineIdentifier?: string
-  description?: string
-  inputSetType?: 'INPUT_SET' | 'OVERLAY_INPUT_SET'
-}
-
-export interface PageInputSetSummaryResponse {
-  totalPages?: number
-  totalItems?: number
-  pageItemCount?: number
-  pageSize?: number
-  content?: InputSetSummaryResponse[]
-  pageIndex?: number
-  empty?: boolean
-}
-
-export interface ResponsePageInputSetSummaryResponse {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: PageInputSetSummaryResponse
-  metaData?: { [key: string]: any }
-  correlationId?: string
-}
-
-export interface InputSetTemplateResponse {
-  inputSetTemplateYaml?: string
-}
-
-export interface ResponseInputSetTemplateResponse {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: InputSetTemplateResponse
-  metaData?: { [key: string]: any }
-  correlationId?: string
-}
-
-export interface MergeInputSetResponse {
-  pipelineYaml?: string
-  inputSetErrorWrapper?: InputSetErrorWrapper
-  errorResponse?: boolean
-}
-
-export interface ResponseMergeInputSetResponse {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: MergeInputSetResponse
   metaData?: { [key: string]: any }
   correlationId?: string
 }
@@ -1873,6 +1772,20 @@ export type VaultMetadataRequestSpecDTO = SecretManagerMetadataRequestSpecDTO & 
   spec?: VaultCredentialDTO
 }
 
+export interface SecretTextDTO {
+  account?: string
+  org?: string
+  project?: string
+  identifier?: string
+  secretManager?: string
+  name?: string
+  tags?: string[]
+  description?: string
+  type: 'SecretFile' | 'SecretText' | 'SSHKey'
+  valueType: 'Inline' | 'Reference'
+  value?: string
+}
+
 export interface PageEncryptedDataDTO {
   totalPages?: number
   totalItems?: number
@@ -1888,20 +1801,6 @@ export interface ResponsePageEncryptedDataDTO {
   data?: PageEncryptedDataDTO
   metaData?: { [key: string]: any }
   correlationId?: string
-}
-
-export interface SecretTextDTO {
-  account?: string
-  org?: string
-  project?: string
-  identifier?: string
-  secretManager?: string
-  name?: string
-  tags?: string[]
-  description?: string
-  type: 'SecretFile' | 'SecretText' | 'SSHKey'
-  valueType: 'Inline' | 'Reference'
-  value?: string
 }
 
 export interface BaseSSHSpecDTO {
@@ -2008,23 +1907,6 @@ export interface SecretRequestWrapper {
   secret: SecretDTOV2
 }
 
-export interface PageSecretResponseWrapper {
-  totalPages?: number
-  totalItems?: number
-  pageItemCount?: number
-  pageSize?: number
-  content?: SecretResponseWrapper[]
-  pageIndex?: number
-  empty?: boolean
-}
-
-export interface ResponsePageSecretResponseWrapper {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: PageSecretResponseWrapper
-  metaData?: { [key: string]: any }
-  correlationId?: string
-}
-
 export interface ResponseSecretValidationResultDTO {
   status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
   data?: SecretValidationResultDTO
@@ -2045,6 +1927,23 @@ export interface SecretValidationMetaData {
   type?: 'SecretFile' | 'SecretText' | 'SSHKey'
 }
 
+export interface PageSecretResponseWrapper {
+  totalPages?: number
+  totalItems?: number
+  pageItemCount?: number
+  pageSize?: number
+  content?: SecretResponseWrapper[]
+  pageIndex?: number
+  empty?: boolean
+}
+
+export interface ResponsePageSecretResponseWrapper {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: PageSecretResponseWrapper
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
 export interface Organization {
   accountIdentifier?: string
   identifier: string
@@ -2053,6 +1952,7 @@ export interface Organization {
   description?: string
   tags?: string[]
   lastModifiedAt?: number
+  version?: number
 }
 
 export interface ResponseOrganization {
@@ -2090,6 +1990,7 @@ export interface Project {
   owners?: string[]
   tags?: string[]
   lastModifiedAt?: number
+  version?: number
 }
 
 export interface ResponseProject {
@@ -2185,6 +2086,19 @@ export interface UserSearchDTO {
   name: string
   email: string
   uuid: string
+}
+
+export interface ResponsePipelineExecutionInterrupt {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: PipelineExecutionInterrupt
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
+export interface PipelineExecutionInterrupt {
+  id?: string
+  type?: 'Abort' | 'Pause' | 'Resume'
+  planExecutionId?: string
 }
 
 export interface ArtifactSummary {
@@ -2390,25 +2304,40 @@ export interface ResponsePagePipelineExecutionSummaryDTO {
   correlationId?: string
 }
 
-export interface ResponsePipelineExecutionInterrupt {
-  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
-  data?: PipelineExecutionInterrupt
-  metaData?: { [key: string]: any }
-  correlationId?: string
+export interface CreateJiraTicketRequest {
+  project: string
+  summary: string
+  description: string
+  issueType: string
+  priority?: string
+  labels?: string[]
+  customFields?: {
+    [key: string]: JiraCustomFieldValue
+  }
+  issueId?: string
+  updateIssueIds?: string[]
+  status?: string
+  comment?: string
+  createmetaExpandParam?: string
+  activityId?: string
+  approvalId?: string
+  approvalField?: string
+  approvalValue?: string
+  rejectionField?: string
+  rejectionValue?: string
 }
 
-export interface PipelineExecutionInterrupt {
-  id?: string
-  type?: 'Abort' | 'Pause' | 'Resume'
-  planExecutionId?: string
+export interface JiraCustomFieldValue {
+  fieldType?: string
+  fieldValue?: string
 }
 
 export interface Duration {
   seconds?: number
+  nano?: number
   zero?: boolean
   negative?: boolean
   units?: TemporalUnit[]
-  nano?: number
 }
 
 export interface EdgeList {
@@ -2815,6 +2744,129 @@ export interface RestResponsePlanExecution {
   responseMessages?: ResponseMessage[]
 }
 
+export interface InputSetError {
+  fieldName?: string
+  message?: string
+  identifierOfErrorSource?: string
+}
+
+export interface InputSetErrorResponse {
+  errors?: InputSetError[]
+}
+
+export interface InputSetErrorWrapper {
+  errorPipelineYaml?: string
+  uuidToErrorResponseMap?: {
+    [key: string]: InputSetErrorResponse
+  }
+}
+
+export interface InputSetResponse {
+  accountId?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  pipelineIdentifier?: string
+  identifier?: string
+  inputSetYaml?: string
+  name?: string
+  description?: string
+  inputSetErrorWrapper?: InputSetErrorWrapper
+  errorResponse?: boolean
+}
+
+export interface ResponseInputSetResponse {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: InputSetResponse
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
+export interface OverlayInputSetResponse {
+  accountId?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  pipelineIdentifier?: string
+  identifier?: string
+  name?: string
+  description?: string
+  inputSetReferences?: string[]
+  overlayInputSetYaml?: string
+  invalidInputSetReferences?: {
+    [key: string]: string
+  }
+  errorResponse?: boolean
+}
+
+export interface ResponseOverlayInputSetResponse {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: OverlayInputSetResponse
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
+export interface InputSetConfig {
+  identifier: string
+  name?: string
+  description?: string
+  pipeline: NgPipeline
+}
+
+export interface OverlayInputSet {
+  identifier?: string
+  name?: string
+  description?: string
+  inputSetReferences?: string[]
+}
+
+export interface InputSetSummaryResponse {
+  identifier?: string
+  name?: string
+  pipelineIdentifier?: string
+  description?: string
+  inputSetType?: 'INPUT_SET' | 'OVERLAY_INPUT_SET'
+}
+
+export interface PageInputSetSummaryResponse {
+  totalPages?: number
+  totalItems?: number
+  pageItemCount?: number
+  pageSize?: number
+  content?: InputSetSummaryResponse[]
+  pageIndex?: number
+  empty?: boolean
+}
+
+export interface ResponsePageInputSetSummaryResponse {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: PageInputSetSummaryResponse
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
+export interface InputSetTemplateResponse {
+  inputSetTemplateYaml?: string
+}
+
+export interface ResponseInputSetTemplateResponse {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: InputSetTemplateResponse
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
+export interface MergeInputSetResponse {
+  pipelineYaml?: string
+  inputSetErrorWrapper?: InputSetErrorWrapper
+  errorResponse?: boolean
+}
+
+export interface ResponseMergeInputSetResponse {
+  status?: 'SUCCESS' | 'FAILURE' | 'ERROR'
+  data?: MergeInputSetResponse
+  metaData?: { [key: string]: any }
+  correlationId?: string
+}
+
 export interface NGPipelineResponse {
   ngPipeline?: NgPipeline
   executionsPlaceHolder?: string[]
@@ -2839,16 +2891,16 @@ export interface NGPipelineSummaryResponse {
 }
 
 export interface PageNGPipelineSummaryResponse {
-  totalPages?: number
   totalElements?: number
+  totalPages?: number
   size?: number
   content?: NGPipelineSummaryResponse[]
   number?: number
-  first?: boolean
   sort?: Sort
+  first?: boolean
+  numberOfElements?: number
   last?: boolean
   pageable?: Pageable
-  numberOfElements?: number
   empty?: boolean
 }
 
@@ -2879,17 +2931,17 @@ export type NgPipelineRequestBody = NgPipeline
 
 export type ConnectorRequestBody = Connector
 
+export type SecretTextDTO2RequestBody = SecretTextDTO
+
+export type SecretRequestWrapperRequestBody = void
+
+export type SecretRequestWrapper2RequestBody = SecretRequestWrapper
+
+export type ServiceRequestDTORequestBody = ServiceRequestDTO
+
 export type InputSetConfigRequestBody = InputSetConfig
 
 export type OverlayInputSetRequestBody = OverlayInputSet
-
-export type SecretTextDTO2RequestBody = SecretTextDTO
-
-export type SecretRequestWrapperRequestBody = SecretRequestWrapper
-
-export type SecretRequestWrapper2RequestBody = void
-
-export type ServiceRequestDTORequestBody = ServiceRequestDTO
 
 export interface GetStepsQueryParams {
   serviceDefinitionType: 'Ssh' | 'Kubernetes' | 'Ecs' | 'Helm' | 'Pcf'
@@ -2902,7 +2954,7 @@ export type GetStepsProps = Omit<GetProps<ResponseStepCategory, Failure | Error,
  */
 export const GetSteps = (props: GetStepsProps) => (
   <Get<ResponseStepCategory, Failure | Error, GetStepsQueryParams, void>
-    path={`/pipelines/configuration/steps`}
+    path="/pipelines/configuration/steps"
     base={getConfig('ng/api')}
     {...props}
   />
@@ -2946,7 +2998,7 @@ export type GetExecutionStrategyListProps = Omit<
  */
 export const GetExecutionStrategyList = (props: GetExecutionStrategyListProps) => (
   <Get<ResponseMapServiceDefinitionTypeListExecutionStrategyType, Failure | Error, void, void>
-    path={`/pipelines/configuration/strategies`}
+    path="/pipelines/configuration/strategies"
     base={getConfig('ng/api')}
     {...props}
   />
@@ -2995,7 +3047,7 @@ export type GetExecutionStrategyYamlProps = Omit<
  */
 export const GetExecutionStrategyYaml = (props: GetExecutionStrategyYamlProps) => (
   <Get<ResponseString, Failure | Error, GetExecutionStrategyYamlQueryParams, void>
-    path={`/pipelines/configuration/strategies/yaml-snippets`}
+    path="/pipelines/configuration/strategies/yaml-snippets"
     base={getConfig('ng/api')}
     {...props}
   />
@@ -3039,7 +3091,7 @@ export type GetServiceDefinitionTypesProps = Omit<
  */
 export const GetServiceDefinitionTypes = (props: GetServiceDefinitionTypesProps) => (
   <Get<ResponseListServiceDefinitionType, Failure | Error, void, void>
-    path={`/pipelines/configuration/serviceDefinitionTypes`}
+    path="/pipelines/configuration/serviceDefinitionTypes"
     base={getConfig('ng/api')}
     {...props}
   />
@@ -3090,7 +3142,7 @@ export type ValidatePipelineProps = Omit<
  */
 export const ValidatePipeline = (props: ValidatePipelineProps) => (
   <Get<ResponseNGPipelineValidationInfo, Failure | Error, ValidatePipelineQueryParams, void>
-    path={`/pipelines/execute/validate`}
+    path="/pipelines/execute/validate"
     base={getConfig('ng/api')}
     {...props}
   />
@@ -3162,7 +3214,7 @@ export const PostPipelineExecuteWithInputSetYaml = ({
     PostPipelineExecuteWithInputSetYamlPathParams
   >
     verb="POST"
-    path={`/pipelines/execute/${identifier}`}
+    path="/pipelines/execute/${identifier}"
     base={getConfig('ng/api')}
     {...props}
   />
@@ -3261,7 +3313,7 @@ export const PostPipelineExecuteWithInputSetList = ({
     PostPipelineExecuteWithInputSetListPathParams
   >
     verb="POST"
-    path={`/pipelines/execute/${identifier}/inputSetList`}
+    path="/pipelines/execute/${identifier}/inputSetList"
     base={getConfig('ng/api')}
     {...props}
   />
@@ -3344,7 +3396,7 @@ export type GetConnectorProps = Omit<
  */
 export const GetConnector = ({ identifier, ...props }: GetConnectorProps) => (
   <Get<ResponseConnectorResponse, Failure | Error, GetConnectorQueryParams, GetConnectorPathParams>
-    path={`/connectors/${identifier}`}
+    path="/connectors/${identifier}"
     base={getConfig('ng/api')}
     {...props}
   />
@@ -3401,7 +3453,7 @@ export type DeleteConnectorProps = Omit<
 export const DeleteConnector = (props: DeleteConnectorProps) => (
   <Mutate<ResponseBoolean, Failure | Error, DeleteConnectorQueryParams, string, void>
     verb="DELETE"
-    path={`/connectors`}
+    path="/connectors"
     base={getConfig('ng/api')}
     {...props}
   />
@@ -3475,7 +3527,7 @@ export type GetConnectorListProps = Omit<
  */
 export const GetConnectorList = (props: GetConnectorListProps) => (
   <Get<ResponsePageConnectorResponse, Failure | Error, GetConnectorListQueryParams, void>
-    path={`/connectors`}
+    path="/connectors"
     base={getConfig('ng/api')}
     {...props}
   />
@@ -3524,7 +3576,7 @@ export type CreateConnectorProps = Omit<
 export const CreateConnector = (props: CreateConnectorProps) => (
   <Mutate<ResponseConnectorResponse, Failure | Error, CreateConnectorQueryParams, ConnectorRequestBody, void>
     verb="POST"
-    path={`/connectors`}
+    path="/connectors"
     base={getConfig('ng/api')}
     {...props}
   />
@@ -3581,7 +3633,7 @@ export type UpdateConnectorProps = Omit<
 export const UpdateConnector = (props: UpdateConnectorProps) => (
   <Mutate<ResponseConnectorResponse, Failure | Error, UpdateConnectorQueryParams, ConnectorRequestBody, void>
     verb="PUT"
-    path={`/connectors`}
+    path="/connectors"
     base={getConfig('ng/api')}
     {...props}
   />
@@ -3623,98 +3675,6 @@ export const updateConnectorPromise = (
     signal
   )
 
-export interface GetTestConnectionResultQueryParams {
-  accountIdentifier?: string
-  orgIdentifier?: string
-  projectIdentifier?: string
-}
-
-export interface GetTestConnectionResultPathParams {
-  identifier: string
-}
-
-export type GetTestConnectionResultProps = Omit<
-  MutateProps<
-    ResponseConnectorValidationResult,
-    Failure | Error,
-    GetTestConnectionResultQueryParams,
-    void,
-    GetTestConnectionResultPathParams
-  >,
-  'path' | 'verb'
-> &
-  GetTestConnectionResultPathParams
-
-/**
- * Test the connection
- */
-export const GetTestConnectionResult = ({ identifier, ...props }: GetTestConnectionResultProps) => (
-  <Mutate<
-    ResponseConnectorValidationResult,
-    Failure | Error,
-    GetTestConnectionResultQueryParams,
-    void,
-    GetTestConnectionResultPathParams
-  >
-    verb="POST"
-    path={`/connectors/testConnection/${identifier}`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseGetTestConnectionResultProps = Omit<
-  UseMutateProps<
-    ResponseConnectorValidationResult,
-    Failure | Error,
-    GetTestConnectionResultQueryParams,
-    void,
-    GetTestConnectionResultPathParams
-  >,
-  'path' | 'verb'
-> &
-  GetTestConnectionResultPathParams
-
-/**
- * Test the connection
- */
-export const useGetTestConnectionResult = ({ identifier, ...props }: UseGetTestConnectionResultProps) =>
-  useMutate<
-    ResponseConnectorValidationResult,
-    Failure | Error,
-    GetTestConnectionResultQueryParams,
-    void,
-    GetTestConnectionResultPathParams
-  >(
-    'POST',
-    (paramsInPath: GetTestConnectionResultPathParams) => `/connectors/testConnection/${paramsInPath.identifier}`,
-    { base: getConfig('ng/api'), pathParams: { identifier }, ...props }
-  )
-
-/**
- * Test the connection
- */
-export const getTestConnectionResultPromise = (
-  {
-    identifier,
-    ...props
-  }: MutateUsingFetchProps<
-    ResponseConnectorValidationResult,
-    Failure | Error,
-    GetTestConnectionResultQueryParams,
-    void,
-    GetTestConnectionResultPathParams
-  > & { identifier: string },
-  signal?: RequestInit['signal']
-) =>
-  mutateUsingFetch<
-    ResponseConnectorValidationResult,
-    Failure | Error,
-    GetTestConnectionResultQueryParams,
-    void,
-    GetTestConnectionResultPathParams
-  >('POST', getConfig('ng/api'), `/connectors/testConnection/${identifier}`, props, signal)
-
 export interface GetConnectorStatusQueryParams {
   accountIdentifier?: string
 }
@@ -3736,7 +3696,7 @@ export type GetConnectorStatusProps = Omit<
 export const GetConnectorStatus = (props: GetConnectorStatusProps) => (
   <Mutate<ResponseConnectorValidationResult, Failure | Error, GetConnectorStatusQueryParams, ConnectorRequestBody, void>
     verb="POST"
-    path={`/connectors/validate`}
+    path="/connectors/validate"
     base={getConfig('ng/api')}
     {...props}
   />
@@ -3803,7 +3763,7 @@ export type ValidateTheIdentifierIsUniqueProps = Omit<
  */
 export const ValidateTheIdentifierIsUnique = (props: ValidateTheIdentifierIsUniqueProps) => (
   <Get<ResponseBoolean, Failure | Error, ValidateTheIdentifierIsUniqueQueryParams, void>
-    path={`/connectors/validateUniqueIdentifier`}
+    path="/connectors/validateUniqueIdentifier"
     base={getConfig('ng/api')}
     {...props}
   />
@@ -3837,6 +3797,98 @@ export const validateTheIdentifierIsUniquePromise = (
     signal
   )
 
+export interface GetTestConnectionResultQueryParams {
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
+
+export interface GetTestConnectionResultPathParams {
+  identifier: string
+}
+
+export type GetTestConnectionResultProps = Omit<
+  MutateProps<
+    ResponseConnectorValidationResult,
+    Failure | Error,
+    GetTestConnectionResultQueryParams,
+    void,
+    GetTestConnectionResultPathParams
+  >,
+  'path' | 'verb'
+> &
+  GetTestConnectionResultPathParams
+
+/**
+ * Test the connection
+ */
+export const GetTestConnectionResult = ({ identifier, ...props }: GetTestConnectionResultProps) => (
+  <Mutate<
+    ResponseConnectorValidationResult,
+    Failure | Error,
+    GetTestConnectionResultQueryParams,
+    void,
+    GetTestConnectionResultPathParams
+  >
+    verb="POST"
+    path="/connectors/testConnection/${identifier}"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetTestConnectionResultProps = Omit<
+  UseMutateProps<
+    ResponseConnectorValidationResult,
+    Failure | Error,
+    GetTestConnectionResultQueryParams,
+    void,
+    GetTestConnectionResultPathParams
+  >,
+  'path' | 'verb'
+> &
+  GetTestConnectionResultPathParams
+
+/**
+ * Test the connection
+ */
+export const useGetTestConnectionResult = ({ identifier, ...props }: UseGetTestConnectionResultProps) =>
+  useMutate<
+    ResponseConnectorValidationResult,
+    Failure | Error,
+    GetTestConnectionResultQueryParams,
+    void,
+    GetTestConnectionResultPathParams
+  >(
+    'POST',
+    (paramsInPath: GetTestConnectionResultPathParams) => `/connectors/testConnection/${paramsInPath.identifier}`,
+    { base: getConfig('ng/api'), pathParams: { identifier }, ...props }
+  )
+
+/**
+ * Test the connection
+ */
+export const getTestConnectionResultPromise = (
+  {
+    identifier,
+    ...props
+  }: MutateUsingFetchProps<
+    ResponseConnectorValidationResult,
+    Failure | Error,
+    GetTestConnectionResultQueryParams,
+    void,
+    GetTestConnectionResultPathParams
+  > & { identifier: string },
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponseConnectorValidationResult,
+    Failure | Error,
+    GetTestConnectionResultQueryParams,
+    void,
+    GetTestConnectionResultPathParams
+  >('POST', getConfig('ng/api'), `/connectors/testConnection/${identifier}`, props, signal)
+
 export interface ListGitSyncEntitiesByProductQueryParams {
   projectId?: string
   organizationId?: string
@@ -3855,7 +3907,7 @@ export type ListGitSyncEntitiesByProductProps = Omit<
  */
 export const ListGitSyncEntitiesByProduct = (props: ListGitSyncEntitiesByProductProps) => (
   <Get<ResponseGitSyncProductDTO, unknown, ListGitSyncEntitiesByProductQueryParams, void>
-    path={`/git-sync-entities`}
+    path="/git-sync-entities"
     base={getConfig('ng/api')}
     {...props}
   />
@@ -3923,7 +3975,7 @@ export const ListGitSyncEntitiesByType = ({ entityType, ...props }: ListGitSyncE
     ListGitSyncEntitiesByTypeQueryParams,
     ListGitSyncEntitiesByTypePathParams
   >
-    path={`/git-sync-entities/entities/${entityType}`}
+    path="/git-sync-entities/entities/${entityType}"
     base={getConfig('ng/api')}
     {...props}
   />
@@ -3999,7 +4051,7 @@ export type PutGitSyncProps = Omit<
 export const PutGitSync = ({ identifier, ...props }: PutGitSyncProps) => (
   <Mutate<GitSyncConfigDTO, unknown, PutGitSyncQueryParams, GitSyncConfigDTORequestBody, PutGitSyncPathParams>
     verb="PUT"
-    path={`/git-sync/${identifier}`}
+    path="/git-sync/${identifier}"
     base={getConfig('ng/api')}
     {...props}
   />
@@ -4058,7 +4110,7 @@ export type ListGitSyncProps = Omit<GetProps<GitSyncConfigDTO[], unknown, ListGi
  */
 export const ListGitSync = (props: ListGitSyncProps) => (
   <Get<GitSyncConfigDTO[], unknown, ListGitSyncQueryParams, void>
-    path={`/git-sync`}
+    path="/git-sync"
     base={getConfig('ng/api')}
     {...props}
   />
@@ -4106,7 +4158,7 @@ export type PostGitSyncProps = Omit<
 export const PostGitSync = (props: PostGitSyncProps) => (
   <Mutate<GitSyncConfigDTO, unknown, PostGitSyncQueryParams, GitSyncConfigDTORequestBody, void>
     verb="POST"
-    path={`/git-sync`}
+    path="/git-sync"
     base={getConfig('ng/api')}
     {...props}
   />
@@ -4164,7 +4216,7 @@ export type PutGitSyncDefaultProps = Omit<
 export const PutGitSyncDefault = ({ identifier, folderIdentifier, ...props }: PutGitSyncDefaultProps) => (
   <Mutate<GitSyncConfigDTO[], unknown, PutGitSyncDefaultQueryParams, void, PutGitSyncDefaultPathParams>
     verb="PUT"
-    path={`/git-sync/${identifier}/folder/${folderIdentifier}/default`}
+    path="/git-sync/${identifier}/folder/${folderIdentifier}/default"
     base={getConfig('ng/api')}
     {...props}
   />
@@ -4212,41 +4264,40 @@ export const putGitSyncDefaultPromise = (
     signal
   )
 
-export interface ListEntityUsageActivityQueryParams {
+export interface ListActivitiesQueryParams {
   pageIndex?: number
   pageSize?: number
   accountIdentifier?: string
   orgIdentifier?: string
   projectIdentifier?: string
   identifier?: string
+  start?: number
+  end?: number
 }
 
-export type ListEntityUsageActivityProps = Omit<
-  GetProps<ResponsePageActivity, unknown, ListEntityUsageActivityQueryParams, void>,
-  'path'
->
+export type ListActivitiesProps = Omit<GetProps<ResponseActivityList, unknown, ListActivitiesQueryParams, void>, 'path'>
 
 /**
  * Get Activities where this resource was used
  */
-export const ListEntityUsageActivity = (props: ListEntityUsageActivityProps) => (
-  <Get<ResponsePageActivity, unknown, ListEntityUsageActivityQueryParams, void>
-    path={`/activityHistory`}
+export const ListActivities = (props: ListActivitiesProps) => (
+  <Get<ResponseActivityList, unknown, ListActivitiesQueryParams, void>
+    path="/activityHistory"
     base={getConfig('ng/api')}
     {...props}
   />
 )
 
-export type UseListEntityUsageActivityProps = Omit<
-  UseGetProps<ResponsePageActivity, unknown, ListEntityUsageActivityQueryParams, void>,
+export type UseListActivitiesProps = Omit<
+  UseGetProps<ResponseActivityList, unknown, ListActivitiesQueryParams, void>,
   'path'
 >
 
 /**
  * Get Activities where this resource was used
  */
-export const useListEntityUsageActivity = (props: UseListEntityUsageActivityProps) =>
-  useGet<ResponsePageActivity, unknown, ListEntityUsageActivityQueryParams, void>(`/activityHistory`, {
+export const useListActivities = (props: UseListActivitiesProps) =>
+  useGet<ResponseActivityList, unknown, ListActivitiesQueryParams, void>(`/activityHistory`, {
     base: getConfig('ng/api'),
     ...props
   })
@@ -4254,11 +4305,11 @@ export const useListEntityUsageActivity = (props: UseListEntityUsageActivityProp
 /**
  * Get Activities where this resource was used
  */
-export const listEntityUsageActivityPromise = (
-  props: GetUsingFetchProps<ResponsePageActivity, unknown, ListEntityUsageActivityQueryParams, void>,
+export const listActivitiesPromise = (
+  props: GetUsingFetchProps<ResponseActivityList, unknown, ListActivitiesQueryParams, void>,
   signal?: RequestInit['signal']
 ) =>
-  getUsingFetch<ResponsePageActivity, unknown, ListEntityUsageActivityQueryParams, void>(
+  getUsingFetch<ResponseActivityList, unknown, ListActivitiesQueryParams, void>(
     getConfig('ng/api'),
     `/activityHistory`,
     props,
@@ -4273,7 +4324,7 @@ export type PostActivityProps = Omit<MutateProps<ResponseActivity, unknown, void
 export const PostActivity = (props: PostActivityProps) => (
   <Mutate<ResponseActivity, unknown, void, Activity, void>
     verb="POST"
-    path={`/activityHistory`}
+    path="/activityHistory"
     base={getConfig('ng/api')}
     {...props}
   />
@@ -4308,54 +4359,55 @@ export const postActivityPromise = (
     signal
   )
 
-export interface GetBuildDetailsForDockerQueryParams {
-  imagePath?: string
-  connectorRef?: string
-  accountId?: string
+export interface GetActivitiesSummaryQueryParams {
+  accountIdentifier?: string
   orgIdentifier?: string
   projectIdentifier?: string
+  identifier?: string
+  start?: number
+  end?: number
 }
 
-export type GetBuildDetailsForDockerProps = Omit<
-  GetProps<ResponseDockerResponseDTO, Failure | Error, GetBuildDetailsForDockerQueryParams, void>,
+export type GetActivitiesSummaryProps = Omit<
+  GetProps<ResponsePageActivitySummary, unknown, GetActivitiesSummaryQueryParams, void>,
   'path'
 >
 
 /**
- * Gets docker build details
+ * Get Activities Summary
  */
-export const GetBuildDetailsForDocker = (props: GetBuildDetailsForDockerProps) => (
-  <Get<ResponseDockerResponseDTO, Failure | Error, GetBuildDetailsForDockerQueryParams, void>
-    path={`/artifacts/docker/getBuildDetails`}
+export const GetActivitiesSummary = (props: GetActivitiesSummaryProps) => (
+  <Get<ResponsePageActivitySummary, unknown, GetActivitiesSummaryQueryParams, void>
+    path="/activityHistory/summary"
     base={getConfig('ng/api')}
     {...props}
   />
 )
 
-export type UseGetBuildDetailsForDockerProps = Omit<
-  UseGetProps<ResponseDockerResponseDTO, Failure | Error, GetBuildDetailsForDockerQueryParams, void>,
+export type UseGetActivitiesSummaryProps = Omit<
+  UseGetProps<ResponsePageActivitySummary, unknown, GetActivitiesSummaryQueryParams, void>,
   'path'
 >
 
 /**
- * Gets docker build details
+ * Get Activities Summary
  */
-export const useGetBuildDetailsForDocker = (props: UseGetBuildDetailsForDockerProps) =>
-  useGet<ResponseDockerResponseDTO, Failure | Error, GetBuildDetailsForDockerQueryParams, void>(
-    `/artifacts/docker/getBuildDetails`,
-    { base: getConfig('ng/api'), ...props }
-  )
+export const useGetActivitiesSummary = (props: UseGetActivitiesSummaryProps) =>
+  useGet<ResponsePageActivitySummary, unknown, GetActivitiesSummaryQueryParams, void>(`/activityHistory/summary`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
 
 /**
- * Gets docker build details
+ * Get Activities Summary
  */
-export const getBuildDetailsForDockerPromise = (
-  props: GetUsingFetchProps<ResponseDockerResponseDTO, Failure | Error, GetBuildDetailsForDockerQueryParams, void>,
+export const getActivitiesSummaryPromise = (
+  props: GetUsingFetchProps<ResponsePageActivitySummary, unknown, GetActivitiesSummaryQueryParams, void>,
   signal?: RequestInit['signal']
 ) =>
-  getUsingFetch<ResponseDockerResponseDTO, Failure | Error, GetBuildDetailsForDockerQueryParams, void>(
+  getUsingFetch<ResponsePageActivitySummary, unknown, GetActivitiesSummaryQueryParams, void>(
     getConfig('ng/api'),
-    `/artifacts/docker/getBuildDetails`,
+    `/activityHistory/summary`,
     props,
     signal
   )
@@ -4385,7 +4437,7 @@ export type GetLabelsForDockerProps = Omit<
 export const GetLabelsForDocker = (props: GetLabelsForDockerProps) => (
   <Mutate<ResponseDockerResponseDTO, Failure | Error, GetLabelsForDockerQueryParams, DockerRequestDTORequestBody, void>
     verb="POST"
-    path={`/artifacts/docker/getLabels`}
+    path="/artifacts/docker/getLabels"
     base={getConfig('ng/api')}
     {...props}
   />
@@ -4435,58 +4487,6 @@ export const getLabelsForDockerPromise = (
     void
   >('POST', getConfig('ng/api'), `/artifacts/docker/getLabels`, props, signal)
 
-export interface ValidateArtifactImageForDockerQueryParams {
-  imagePath?: string
-  connectorRef?: string
-  accountId?: string
-  orgIdentifier?: string
-  projectIdentifier?: string
-}
-
-export type ValidateArtifactImageForDockerProps = Omit<
-  GetProps<ResponseBoolean, Failure | Error, ValidateArtifactImageForDockerQueryParams, void>,
-  'path'
->
-
-/**
- * Validate docker image
- */
-export const ValidateArtifactImageForDocker = (props: ValidateArtifactImageForDockerProps) => (
-  <Get<ResponseBoolean, Failure | Error, ValidateArtifactImageForDockerQueryParams, void>
-    path={`/artifacts/docker/validateArtifactSource`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseValidateArtifactImageForDockerProps = Omit<
-  UseGetProps<ResponseBoolean, Failure | Error, ValidateArtifactImageForDockerQueryParams, void>,
-  'path'
->
-
-/**
- * Validate docker image
- */
-export const useValidateArtifactImageForDocker = (props: UseValidateArtifactImageForDockerProps) =>
-  useGet<ResponseBoolean, Failure | Error, ValidateArtifactImageForDockerQueryParams, void>(
-    `/artifacts/docker/validateArtifactSource`,
-    { base: getConfig('ng/api'), ...props }
-  )
-
-/**
- * Validate docker image
- */
-export const validateArtifactImageForDockerPromise = (
-  props: GetUsingFetchProps<ResponseBoolean, Failure | Error, ValidateArtifactImageForDockerQueryParams, void>,
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<ResponseBoolean, Failure | Error, ValidateArtifactImageForDockerQueryParams, void>(
-    getConfig('ng/api'),
-    `/artifacts/docker/validateArtifactSource`,
-    props,
-    signal
-  )
-
 export interface ValidateArtifactServerForDockerQueryParams {
   connectorRef?: string
   accountId?: string
@@ -4504,7 +4504,7 @@ export type ValidateArtifactServerForDockerProps = Omit<
  */
 export const ValidateArtifactServerForDocker = (props: ValidateArtifactServerForDockerProps) => (
   <Get<ResponseBoolean, Failure | Error, ValidateArtifactServerForDockerQueryParams, void>
-    path={`/artifacts/docker/validateArtifactServer`}
+    path="/artifacts/docker/validateArtifactServer"
     base={getConfig('ng/api')}
     {...props}
   />
@@ -4569,7 +4569,7 @@ export const GetLastSuccessfulBuildForDocker = (props: GetLastSuccessfulBuildFor
     void
   >
     verb="POST"
-    path={`/artifacts/docker/getLastSuccessfulBuild`}
+    path="/artifacts/docker/getLastSuccessfulBuild"
     base={getConfig('ng/api')}
     {...props}
   />
@@ -4619,6 +4619,110 @@ export const getLastSuccessfulBuildForDockerPromise = (
     void
   >('POST', getConfig('ng/api'), `/artifacts/docker/getLastSuccessfulBuild`, props, signal)
 
+export interface ValidateArtifactImageForDockerQueryParams {
+  imagePath?: string
+  connectorRef?: string
+  accountId?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
+
+export type ValidateArtifactImageForDockerProps = Omit<
+  GetProps<ResponseBoolean, Failure | Error, ValidateArtifactImageForDockerQueryParams, void>,
+  'path'
+>
+
+/**
+ * Validate docker image
+ */
+export const ValidateArtifactImageForDocker = (props: ValidateArtifactImageForDockerProps) => (
+  <Get<ResponseBoolean, Failure | Error, ValidateArtifactImageForDockerQueryParams, void>
+    path="/artifacts/docker/validateArtifactSource"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseValidateArtifactImageForDockerProps = Omit<
+  UseGetProps<ResponseBoolean, Failure | Error, ValidateArtifactImageForDockerQueryParams, void>,
+  'path'
+>
+
+/**
+ * Validate docker image
+ */
+export const useValidateArtifactImageForDocker = (props: UseValidateArtifactImageForDockerProps) =>
+  useGet<ResponseBoolean, Failure | Error, ValidateArtifactImageForDockerQueryParams, void>(
+    `/artifacts/docker/validateArtifactSource`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Validate docker image
+ */
+export const validateArtifactImageForDockerPromise = (
+  props: GetUsingFetchProps<ResponseBoolean, Failure | Error, ValidateArtifactImageForDockerQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseBoolean, Failure | Error, ValidateArtifactImageForDockerQueryParams, void>(
+    getConfig('ng/api'),
+    `/artifacts/docker/validateArtifactSource`,
+    props,
+    signal
+  )
+
+export interface GetBuildDetailsForDockerQueryParams {
+  imagePath?: string
+  connectorRef?: string
+  accountId?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
+
+export type GetBuildDetailsForDockerProps = Omit<
+  GetProps<ResponseDockerResponseDTO, Failure | Error, GetBuildDetailsForDockerQueryParams, void>,
+  'path'
+>
+
+/**
+ * Gets docker build details
+ */
+export const GetBuildDetailsForDocker = (props: GetBuildDetailsForDockerProps) => (
+  <Get<ResponseDockerResponseDTO, Failure | Error, GetBuildDetailsForDockerQueryParams, void>
+    path="/artifacts/docker/getBuildDetails"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetBuildDetailsForDockerProps = Omit<
+  UseGetProps<ResponseDockerResponseDTO, Failure | Error, GetBuildDetailsForDockerQueryParams, void>,
+  'path'
+>
+
+/**
+ * Gets docker build details
+ */
+export const useGetBuildDetailsForDocker = (props: UseGetBuildDetailsForDockerProps) =>
+  useGet<ResponseDockerResponseDTO, Failure | Error, GetBuildDetailsForDockerQueryParams, void>(
+    `/artifacts/docker/getBuildDetails`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Gets docker build details
+ */
+export const getBuildDetailsForDockerPromise = (
+  props: GetUsingFetchProps<ResponseDockerResponseDTO, Failure | Error, GetBuildDetailsForDockerQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseDockerResponseDTO, Failure | Error, GetBuildDetailsForDockerQueryParams, void>(
+    getConfig('ng/api'),
+    `/artifacts/docker/getBuildDetails`,
+    props,
+    signal
+  )
+
 export interface SyncTaskD2QueryParams {
   accountId?: string
   orgIdentifier?: string
@@ -4636,7 +4740,7 @@ export type SyncTaskD2Props = Omit<
 export const SyncTaskD2 = (props: SyncTaskD2Props) => (
   <Mutate<DelegateResponseData, unknown, SyncTaskD2QueryParams, void, void>
     verb="POST"
-    path={`/delegate2-tasks/sync`}
+    path="/delegate2-tasks/sync"
     base={getConfig('ng/api')}
     {...props}
   />
@@ -4685,7 +4789,7 @@ export type AsyncTaskD2Props = Omit<MutateProps<string, unknown, AsyncTaskD2Quer
 export const AsyncTaskD2 = (props: AsyncTaskD2Props) => (
   <Mutate<string, unknown, AsyncTaskD2QueryParams, void, void>
     verb="POST"
-    path={`/delegate2-tasks/async`}
+    path="/delegate2-tasks/async"
     base={getConfig('ng/api')}
     {...props}
   />
@@ -4740,7 +4844,7 @@ export type ListReferredByEntitiesProps = Omit<
  */
 export const ListReferredByEntities = (props: ListReferredByEntitiesProps) => (
   <Get<ResponsePageEntitySetupUsageDTO, unknown, ListReferredByEntitiesQueryParams, void>
-    path={`/entitySetupUsage`}
+    path="/entitySetupUsage"
     base={getConfig('ng/api')}
     {...props}
   />
@@ -4785,7 +4889,7 @@ export type PostEntitySetupUsageProps = Omit<
 export const PostEntitySetupUsage = (props: PostEntitySetupUsageProps) => (
   <Mutate<ResponseEntitySetupUsageDTO, unknown, void, EntitySetupUsageDTO, void>
     verb="POST"
-    path={`/entitySetupUsage`}
+    path="/entitySetupUsage"
     base={getConfig('ng/api')}
     {...props}
   />
@@ -4839,7 +4943,7 @@ export type DeleteEntitySetupUsageProps = Omit<
 export const DeleteEntitySetupUsage = (props: DeleteEntitySetupUsageProps) => (
   <Mutate<ResponseBoolean, unknown, DeleteEntitySetupUsageQueryParams, void, void>
     verb="DELETE"
-    path={`/entitySetupUsage`}
+    path="/entitySetupUsage"
     base={getConfig('ng/api')}
     {...props}
   />
@@ -4891,7 +4995,7 @@ export type IsEntityReferencedProps = Omit<
  */
 export const IsEntityReferenced = (props: IsEntityReferencedProps) => (
   <Get<ResponseBoolean, unknown, IsEntityReferencedQueryParams, void>
-    path={`/entitySetupUsage/isEntityReferenced`}
+    path="/entitySetupUsage/isEntityReferenced"
     base={getConfig('ng/api')}
     {...props}
   />
@@ -4947,7 +5051,7 @@ export type GetEnvironmentProps = Omit<
  */
 export const GetEnvironment = ({ environmentIdentifier, ...props }: GetEnvironmentProps) => (
   <Get<ResponseEnvironmentResponseDTO, Failure | Error, GetEnvironmentQueryParams, GetEnvironmentPathParams>
-    path={`/environments/${environmentIdentifier}`}
+    path="/environments/${environmentIdentifier}"
     base={getConfig('ng/api')}
     {...props}
   />
@@ -5007,7 +5111,7 @@ export type DeleteEnvironmentProps = Omit<
 export const DeleteEnvironment = (props: DeleteEnvironmentProps) => (
   <Mutate<ResponseBoolean, Failure | Error, DeleteEnvironmentQueryParams, string, void>
     verb="DELETE"
-    path={`/environments`}
+    path="/environments"
     base={getConfig('ng/api')}
     {...props}
   />
@@ -5061,7 +5165,7 @@ export type GetEnvironmentListForProjectProps = Omit<
  */
 export const GetEnvironmentListForProject = (props: GetEnvironmentListForProjectProps) => (
   <Get<ResponsePageEnvironmentResponseDTO, Failure | Error, GetEnvironmentListForProjectQueryParams, void>
-    path={`/environments`}
+    path="/environments"
     base={getConfig('ng/api')}
     {...props}
   />
@@ -5127,7 +5231,7 @@ export const CreateEnvironment = (props: CreateEnvironmentProps) => (
     void
   >
     verb="POST"
-    path={`/environments`}
+    path="/environments"
     base={getConfig('ng/api')}
     {...props}
   />
@@ -5204,7 +5308,7 @@ export const UpdateEnvironment = (props: UpdateEnvironmentProps) => (
     void
   >
     verb="PUT"
-    path={`/environments`}
+    path="/environments"
     base={getConfig('ng/api')}
     {...props}
   />
@@ -5281,7 +5385,7 @@ export const UpsertEnvironment = (props: UpsertEnvironmentProps) => (
     void
   >
     verb="PUT"
-    path={`/environments/upsert`}
+    path="/environments/upsert"
     base={getConfig('ng/api')}
     {...props}
   />
@@ -5331,6 +5435,3490 @@ export const upsertEnvironmentPromise = (
     void
   >('PUT', getConfig('ng/api'), `/environments/upsert`, props, signal)
 
+export interface UpdateInviteQueryParams {
+  accountIdentifier?: string
+}
+
+export interface UpdateInvitePathParams {
+  inviteId: string
+}
+
+export type UpdateInviteProps = Omit<
+  MutateProps<ResponseOptionalInviteDTO, Failure | Error, UpdateInviteQueryParams, InviteDTO, UpdateInvitePathParams>,
+  'path' | 'verb'
+> &
+  UpdateInvitePathParams
+
+/**
+ * Resend invite mail
+ */
+export const UpdateInvite = ({ inviteId, ...props }: UpdateInviteProps) => (
+  <Mutate<ResponseOptionalInviteDTO, Failure | Error, UpdateInviteQueryParams, InviteDTO, UpdateInvitePathParams>
+    verb="PUT"
+    path="/invites/${inviteId}"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseUpdateInviteProps = Omit<
+  UseMutateProps<
+    ResponseOptionalInviteDTO,
+    Failure | Error,
+    UpdateInviteQueryParams,
+    InviteDTO,
+    UpdateInvitePathParams
+  >,
+  'path' | 'verb'
+> &
+  UpdateInvitePathParams
+
+/**
+ * Resend invite mail
+ */
+export const useUpdateInvite = ({ inviteId, ...props }: UseUpdateInviteProps) =>
+  useMutate<ResponseOptionalInviteDTO, Failure | Error, UpdateInviteQueryParams, InviteDTO, UpdateInvitePathParams>(
+    'PUT',
+    (paramsInPath: UpdateInvitePathParams) => `/invites/${paramsInPath.inviteId}`,
+    { base: getConfig('ng/api'), pathParams: { inviteId }, ...props }
+  )
+
+/**
+ * Resend invite mail
+ */
+export const updateInvitePromise = (
+  {
+    inviteId,
+    ...props
+  }: MutateUsingFetchProps<
+    ResponseOptionalInviteDTO,
+    Failure | Error,
+    UpdateInviteQueryParams,
+    InviteDTO,
+    UpdateInvitePathParams
+  > & { inviteId: string },
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponseOptionalInviteDTO,
+    Failure | Error,
+    UpdateInviteQueryParams,
+    InviteDTO,
+    UpdateInvitePathParams
+  >('PUT', getConfig('ng/api'), `/invites/${inviteId}`, props, signal)
+
+export interface DeleteInviteQueryParams {
+  accountIdentifier?: string
+}
+
+export type DeleteInviteProps = Omit<
+  MutateProps<ResponseOptionalInviteDTO, Failure | Error, DeleteInviteQueryParams, string, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Delete a invite for the specified project
+ */
+export const DeleteInvite = (props: DeleteInviteProps) => (
+  <Mutate<ResponseOptionalInviteDTO, Failure | Error, DeleteInviteQueryParams, string, void>
+    verb="DELETE"
+    path="/invites"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseDeleteInviteProps = Omit<
+  UseMutateProps<ResponseOptionalInviteDTO, Failure | Error, DeleteInviteQueryParams, string, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Delete a invite for the specified project
+ */
+export const useDeleteInvite = (props: UseDeleteInviteProps) =>
+  useMutate<ResponseOptionalInviteDTO, Failure | Error, DeleteInviteQueryParams, string, void>('DELETE', `/invites`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+/**
+ * Delete a invite for the specified project
+ */
+export const deleteInvitePromise = (
+  props: MutateUsingFetchProps<ResponseOptionalInviteDTO, Failure | Error, DeleteInviteQueryParams, string, void>,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<ResponseOptionalInviteDTO, Failure | Error, DeleteInviteQueryParams, string, void>(
+    'DELETE',
+    getConfig('ng/api'),
+    `/invites`,
+    props,
+    signal
+  )
+
+export interface VerifyInviteQueryParams {
+  token: string
+  accountIdentifier?: string
+}
+
+export type VerifyInviteProps = Omit<GetProps<void, Failure | Error, VerifyInviteQueryParams, void>, 'path'>
+
+/**
+ * Verify user invite
+ */
+export const VerifyInvite = (props: VerifyInviteProps) => (
+  <Get<void, Failure | Error, VerifyInviteQueryParams, void>
+    path="/invites/verify"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseVerifyInviteProps = Omit<UseGetProps<void, Failure | Error, VerifyInviteQueryParams, void>, 'path'>
+
+/**
+ * Verify user invite
+ */
+export const useVerifyInvite = (props: UseVerifyInviteProps) =>
+  useGet<void, Failure | Error, VerifyInviteQueryParams, void>(`/invites/verify`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+/**
+ * Verify user invite
+ */
+export const verifyInvitePromise = (
+  props: GetUsingFetchProps<void, Failure | Error, VerifyInviteQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<void, Failure | Error, VerifyInviteQueryParams, void>(
+    getConfig('ng/api'),
+    `/invites/verify`,
+    props,
+    signal
+  )
+
+export interface GetInvitesQueryParams {
+  accountIdentifier?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  pageIndex?: number
+  pageSize?: number
+  sortOrders?: string[]
+}
+
+export type GetInvitesProps = Omit<
+  GetProps<ResponsePageInviteDTO, Failure | Error, GetInvitesQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get all invites for the queried project
+ */
+export const GetInvites = (props: GetInvitesProps) => (
+  <Get<ResponsePageInviteDTO, Failure | Error, GetInvitesQueryParams, void>
+    path="/invites"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetInvitesProps = Omit<
+  UseGetProps<ResponsePageInviteDTO, Failure | Error, GetInvitesQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get all invites for the queried project
+ */
+export const useGetInvites = (props: UseGetInvitesProps) =>
+  useGet<ResponsePageInviteDTO, Failure | Error, GetInvitesQueryParams, void>(`/invites`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+/**
+ * Get all invites for the queried project
+ */
+export const getInvitesPromise = (
+  props: GetUsingFetchProps<ResponsePageInviteDTO, Failure | Error, GetInvitesQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponsePageInviteDTO, Failure | Error, GetInvitesQueryParams, void>(
+    getConfig('ng/api'),
+    `/invites`,
+    props,
+    signal
+  )
+
+export interface SendInviteQueryParams {
+  accountIdentifier: string
+  orgIdentifier: string
+  projectIdentifier: string
+}
+
+export type SendInviteProps = Omit<
+  MutateProps<ResponseListInviteOperationResponse, Failure | Error, SendInviteQueryParams, CreateInviteListDTO, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Add a new invite for the specified project
+ */
+export const SendInvite = (props: SendInviteProps) => (
+  <Mutate<ResponseListInviteOperationResponse, Failure | Error, SendInviteQueryParams, CreateInviteListDTO, void>
+    verb="POST"
+    path="/invites"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseSendInviteProps = Omit<
+  UseMutateProps<
+    ResponseListInviteOperationResponse,
+    Failure | Error,
+    SendInviteQueryParams,
+    CreateInviteListDTO,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Add a new invite for the specified project
+ */
+export const useSendInvite = (props: UseSendInviteProps) =>
+  useMutate<ResponseListInviteOperationResponse, Failure | Error, SendInviteQueryParams, CreateInviteListDTO, void>(
+    'POST',
+    `/invites`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Add a new invite for the specified project
+ */
+export const sendInvitePromise = (
+  props: MutateUsingFetchProps<
+    ResponseListInviteOperationResponse,
+    Failure | Error,
+    SendInviteQueryParams,
+    CreateInviteListDTO,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponseListInviteOperationResponse,
+    Failure | Error,
+    SendInviteQueryParams,
+    CreateInviteListDTO,
+    void
+  >('POST', getConfig('ng/api'), `/invites`, props, signal)
+
+export interface GetRolesQueryParams {
+  accountIdentifier: string
+  orgIdentifier: string
+  projectIdentifier: string
+}
+
+export type GetRolesProps = Omit<
+  GetProps<ResponseOptionalListRoleDTO, Failure | Error, GetRolesQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get all roles for the queried project
+ */
+export const GetRoles = (props: GetRolesProps) => (
+  <Get<ResponseOptionalListRoleDTO, Failure | Error, GetRolesQueryParams, void>
+    path="/roles"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetRolesProps = Omit<
+  UseGetProps<ResponseOptionalListRoleDTO, Failure | Error, GetRolesQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get all roles for the queried project
+ */
+export const useGetRoles = (props: UseGetRolesProps) =>
+  useGet<ResponseOptionalListRoleDTO, Failure | Error, GetRolesQueryParams, void>(`/roles`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+/**
+ * Get all roles for the queried project
+ */
+export const getRolesPromise = (
+  props: GetUsingFetchProps<ResponseOptionalListRoleDTO, Failure | Error, GetRolesQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseOptionalListRoleDTO, Failure | Error, GetRolesQueryParams, void>(
+    getConfig('ng/api'),
+    `/roles`,
+    props,
+    signal
+  )
+
+export type PostSecretFileViaYamlProps = Omit<
+  MutateProps<ResponseEncryptedDataDTO, Failure | Error, void, SecretFileDTORequestBody, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Create a secret file via yaml
+ */
+export const PostSecretFileViaYaml = (props: PostSecretFileViaYamlProps) => (
+  <Mutate<ResponseEncryptedDataDTO, Failure | Error, void, SecretFileDTORequestBody, void>
+    verb="POST"
+    path="/secrets/files/yaml"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UsePostSecretFileViaYamlProps = Omit<
+  UseMutateProps<ResponseEncryptedDataDTO, Failure | Error, void, SecretFileDTORequestBody, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Create a secret file via yaml
+ */
+export const usePostSecretFileViaYaml = (props: UsePostSecretFileViaYamlProps) =>
+  useMutate<ResponseEncryptedDataDTO, Failure | Error, void, SecretFileDTORequestBody, void>(
+    'POST',
+    `/secrets/files/yaml`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Create a secret file via yaml
+ */
+export const postSecretFileViaYamlPromise = (
+  props: MutateUsingFetchProps<ResponseEncryptedDataDTO, Failure | Error, void, SecretFileDTORequestBody, void>,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<ResponseEncryptedDataDTO, Failure | Error, void, SecretFileDTORequestBody, void>(
+    'POST',
+    getConfig('ng/api'),
+    `/secrets/files/yaml`,
+    props,
+    signal
+  )
+
+export interface PutSecretFilePathParams {
+  identifier: string
+}
+
+export type PutSecretFileProps = Omit<
+  MutateProps<ResponseBoolean, Failure | Error, void, void, PutSecretFilePathParams>,
+  'path' | 'verb'
+> &
+  PutSecretFilePathParams
+
+/**
+ * Update a secret file
+ */
+export const PutSecretFile = ({ identifier, ...props }: PutSecretFileProps) => (
+  <Mutate<ResponseBoolean, Failure | Error, void, void, PutSecretFilePathParams>
+    verb="PUT"
+    path="/secrets/files/${identifier}"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UsePutSecretFileProps = Omit<
+  UseMutateProps<ResponseBoolean, Failure | Error, void, void, PutSecretFilePathParams>,
+  'path' | 'verb'
+> &
+  PutSecretFilePathParams
+
+/**
+ * Update a secret file
+ */
+export const usePutSecretFile = ({ identifier, ...props }: UsePutSecretFileProps) =>
+  useMutate<ResponseBoolean, Failure | Error, void, void, PutSecretFilePathParams>(
+    'PUT',
+    (paramsInPath: PutSecretFilePathParams) => `/secrets/files/${paramsInPath.identifier}`,
+    { base: getConfig('ng/api'), pathParams: { identifier }, ...props }
+  )
+
+/**
+ * Update a secret file
+ */
+export const putSecretFilePromise = (
+  {
+    identifier,
+    ...props
+  }: MutateUsingFetchProps<ResponseBoolean, Failure | Error, void, void, PutSecretFilePathParams> & {
+    identifier: string
+  },
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<ResponseBoolean, Failure | Error, void, void, PutSecretFilePathParams>(
+    'PUT',
+    getConfig('ng/api'),
+    `/secrets/files/${identifier}`,
+    props,
+    signal
+  )
+
+export interface PutSecretFileViaYamlPathParams {
+  identifier: string
+}
+
+export type PutSecretFileViaYamlProps = Omit<
+  MutateProps<ResponseBoolean, Failure | Error, void, SecretFileDTORequestBody, PutSecretFileViaYamlPathParams>,
+  'path' | 'verb'
+> &
+  PutSecretFileViaYamlPathParams
+
+/**
+ * Update a secret file via yaml
+ */
+export const PutSecretFileViaYaml = ({ identifier, ...props }: PutSecretFileViaYamlProps) => (
+  <Mutate<ResponseBoolean, Failure | Error, void, SecretFileDTORequestBody, PutSecretFileViaYamlPathParams>
+    verb="PUT"
+    path="/secrets/files/${identifier}/yaml"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UsePutSecretFileViaYamlProps = Omit<
+  UseMutateProps<ResponseBoolean, Failure | Error, void, SecretFileDTORequestBody, PutSecretFileViaYamlPathParams>,
+  'path' | 'verb'
+> &
+  PutSecretFileViaYamlPathParams
+
+/**
+ * Update a secret file via yaml
+ */
+export const usePutSecretFileViaYaml = ({ identifier, ...props }: UsePutSecretFileViaYamlProps) =>
+  useMutate<ResponseBoolean, Failure | Error, void, SecretFileDTORequestBody, PutSecretFileViaYamlPathParams>(
+    'PUT',
+    (paramsInPath: PutSecretFileViaYamlPathParams) => `/secrets/files/${paramsInPath.identifier}/yaml`,
+    { base: getConfig('ng/api'), pathParams: { identifier }, ...props }
+  )
+
+/**
+ * Update a secret file via yaml
+ */
+export const putSecretFileViaYamlPromise = (
+  {
+    identifier,
+    ...props
+  }: MutateUsingFetchProps<
+    ResponseBoolean,
+    Failure | Error,
+    void,
+    SecretFileDTORequestBody,
+    PutSecretFileViaYamlPathParams
+  > & { identifier: string },
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<ResponseBoolean, Failure | Error, void, SecretFileDTORequestBody, PutSecretFileViaYamlPathParams>(
+    'PUT',
+    getConfig('ng/api'),
+    `/secrets/files/${identifier}/yaml`,
+    props,
+    signal
+  )
+
+export interface GetMetadataQueryParams {
+  accountIdentifier: string
+}
+
+export type GetMetadataProps = Omit<
+  MutateProps<
+    ResponseSecretManagerMetadataDTO,
+    Failure | Error,
+    GetMetadataQueryParams,
+    SecretManagerMetadataRequestDTO,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Get metadata of secret manager
+ */
+export const GetMetadata = (props: GetMetadataProps) => (
+  <Mutate<
+    ResponseSecretManagerMetadataDTO,
+    Failure | Error,
+    GetMetadataQueryParams,
+    SecretManagerMetadataRequestDTO,
+    void
+  >
+    verb="POST"
+    path="/secret-managers/meta-data"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetMetadataProps = Omit<
+  UseMutateProps<
+    ResponseSecretManagerMetadataDTO,
+    Failure | Error,
+    GetMetadataQueryParams,
+    SecretManagerMetadataRequestDTO,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Get metadata of secret manager
+ */
+export const useGetMetadata = (props: UseGetMetadataProps) =>
+  useMutate<
+    ResponseSecretManagerMetadataDTO,
+    Failure | Error,
+    GetMetadataQueryParams,
+    SecretManagerMetadataRequestDTO,
+    void
+  >('POST', `/secret-managers/meta-data`, { base: getConfig('ng/api'), ...props })
+
+/**
+ * Get metadata of secret manager
+ */
+export const getMetadataPromise = (
+  props: MutateUsingFetchProps<
+    ResponseSecretManagerMetadataDTO,
+    Failure | Error,
+    GetMetadataQueryParams,
+    SecretManagerMetadataRequestDTO,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponseSecretManagerMetadataDTO,
+    Failure | Error,
+    GetMetadataQueryParams,
+    SecretManagerMetadataRequestDTO,
+    void
+  >('POST', getConfig('ng/api'), `/secret-managers/meta-data`, props, signal)
+
+export type PostSecretTextViaYamlProps = Omit<
+  MutateProps<ResponseEncryptedDataDTO, Failure | Error, void, SecretTextDTORequestBody, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Create a secret text via yaml
+ */
+export const PostSecretTextViaYaml = (props: PostSecretTextViaYamlProps) => (
+  <Mutate<ResponseEncryptedDataDTO, Failure | Error, void, SecretTextDTORequestBody, void>
+    verb="POST"
+    path="/secrets/yaml"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UsePostSecretTextViaYamlProps = Omit<
+  UseMutateProps<ResponseEncryptedDataDTO, Failure | Error, void, SecretTextDTORequestBody, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Create a secret text via yaml
+ */
+export const usePostSecretTextViaYaml = (props: UsePostSecretTextViaYamlProps) =>
+  useMutate<ResponseEncryptedDataDTO, Failure | Error, void, SecretTextDTORequestBody, void>('POST', `/secrets/yaml`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+/**
+ * Create a secret text via yaml
+ */
+export const postSecretTextViaYamlPromise = (
+  props: MutateUsingFetchProps<ResponseEncryptedDataDTO, Failure | Error, void, SecretTextDTORequestBody, void>,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<ResponseEncryptedDataDTO, Failure | Error, void, SecretTextDTORequestBody, void>(
+    'POST',
+    getConfig('ng/api'),
+    `/secrets/yaml`,
+    props,
+    signal
+  )
+
+export interface GetSecretQueryParams {
+  accountIdentifier: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
+
+export interface GetSecretPathParams {
+  identifier: string
+}
+
+export type GetSecretProps = Omit<
+  GetProps<ResponseEncryptedDataDTO, Failure | Error, GetSecretQueryParams, GetSecretPathParams>,
+  'path'
+> &
+  GetSecretPathParams
+
+/**
+ * Gets secret
+ */
+export const GetSecret = ({ identifier, ...props }: GetSecretProps) => (
+  <Get<ResponseEncryptedDataDTO, Failure | Error, GetSecretQueryParams, GetSecretPathParams>
+    path="/secrets/${identifier}"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetSecretProps = Omit<
+  UseGetProps<ResponseEncryptedDataDTO, Failure | Error, GetSecretQueryParams, GetSecretPathParams>,
+  'path'
+> &
+  GetSecretPathParams
+
+/**
+ * Gets secret
+ */
+export const useGetSecret = ({ identifier, ...props }: UseGetSecretProps) =>
+  useGet<ResponseEncryptedDataDTO, Failure | Error, GetSecretQueryParams, GetSecretPathParams>(
+    (paramsInPath: GetSecretPathParams) => `/secrets/${paramsInPath.identifier}`,
+    { base: getConfig('ng/api'), pathParams: { identifier }, ...props }
+  )
+
+/**
+ * Gets secret
+ */
+export const getSecretPromise = (
+  {
+    identifier,
+    ...props
+  }: GetUsingFetchProps<ResponseEncryptedDataDTO, Failure | Error, GetSecretQueryParams, GetSecretPathParams> & {
+    identifier: string
+  },
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseEncryptedDataDTO, Failure | Error, GetSecretQueryParams, GetSecretPathParams>(
+    getConfig('ng/api'),
+    `/secrets/${identifier}`,
+    props,
+    signal
+  )
+
+export interface PutSecretTextPathParams {
+  identifier: string
+}
+
+export type PutSecretTextProps = Omit<
+  MutateProps<ResponseBoolean, Failure | Error, void, SecretTextDTO2RequestBody, PutSecretTextPathParams>,
+  'path' | 'verb'
+> &
+  PutSecretTextPathParams
+
+/**
+ * Update a secret text
+ */
+export const PutSecretText = ({ identifier, ...props }: PutSecretTextProps) => (
+  <Mutate<ResponseBoolean, Failure | Error, void, SecretTextDTO2RequestBody, PutSecretTextPathParams>
+    verb="PUT"
+    path="/secrets/${identifier}"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UsePutSecretTextProps = Omit<
+  UseMutateProps<ResponseBoolean, Failure | Error, void, SecretTextDTO2RequestBody, PutSecretTextPathParams>,
+  'path' | 'verb'
+> &
+  PutSecretTextPathParams
+
+/**
+ * Update a secret text
+ */
+export const usePutSecretText = ({ identifier, ...props }: UsePutSecretTextProps) =>
+  useMutate<ResponseBoolean, Failure | Error, void, SecretTextDTO2RequestBody, PutSecretTextPathParams>(
+    'PUT',
+    (paramsInPath: PutSecretTextPathParams) => `/secrets/${paramsInPath.identifier}`,
+    { base: getConfig('ng/api'), pathParams: { identifier }, ...props }
+  )
+
+/**
+ * Update a secret text
+ */
+export const putSecretTextPromise = (
+  {
+    identifier,
+    ...props
+  }: MutateUsingFetchProps<
+    ResponseBoolean,
+    Failure | Error,
+    void,
+    SecretTextDTO2RequestBody,
+    PutSecretTextPathParams
+  > & { identifier: string },
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<ResponseBoolean, Failure | Error, void, SecretTextDTO2RequestBody, PutSecretTextPathParams>(
+    'PUT',
+    getConfig('ng/api'),
+    `/secrets/${identifier}`,
+    props,
+    signal
+  )
+
+export interface DeleteSecretQueryParams {
+  accountIdentifier: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
+
+export type DeleteSecretProps = Omit<
+  MutateProps<ResponseBoolean, Failure | Error, DeleteSecretQueryParams, string, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Delete a secret text
+ */
+export const DeleteSecret = (props: DeleteSecretProps) => (
+  <Mutate<ResponseBoolean, Failure | Error, DeleteSecretQueryParams, string, void>
+    verb="DELETE"
+    path="/secrets"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseDeleteSecretProps = Omit<
+  UseMutateProps<ResponseBoolean, Failure | Error, DeleteSecretQueryParams, string, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Delete a secret text
+ */
+export const useDeleteSecret = (props: UseDeleteSecretProps) =>
+  useMutate<ResponseBoolean, Failure | Error, DeleteSecretQueryParams, string, void>('DELETE', `/secrets`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+/**
+ * Delete a secret text
+ */
+export const deleteSecretPromise = (
+  props: MutateUsingFetchProps<ResponseBoolean, Failure | Error, DeleteSecretQueryParams, string, void>,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<ResponseBoolean, Failure | Error, DeleteSecretQueryParams, string, void>(
+    'DELETE',
+    getConfig('ng/api'),
+    `/secrets`,
+    props,
+    signal
+  )
+
+export interface ListSecretsQueryParams {
+  accountIdentifier: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  type?: 'SecretFile' | 'SecretText' | 'SSHKey'
+  searchTerm?: string
+  pageIndex?: number
+  pageSize?: number
+}
+
+export type ListSecretsProps = Omit<
+  GetProps<ResponsePageEncryptedDataDTO, Failure | Error, ListSecretsQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get secrets for an account
+ */
+export const ListSecrets = (props: ListSecretsProps) => (
+  <Get<ResponsePageEncryptedDataDTO, Failure | Error, ListSecretsQueryParams, void>
+    path="/secrets"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseListSecretsProps = Omit<
+  UseGetProps<ResponsePageEncryptedDataDTO, Failure | Error, ListSecretsQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get secrets for an account
+ */
+export const useListSecrets = (props: UseListSecretsProps) =>
+  useGet<ResponsePageEncryptedDataDTO, Failure | Error, ListSecretsQueryParams, void>(`/secrets`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+/**
+ * Get secrets for an account
+ */
+export const listSecretsPromise = (
+  props: GetUsingFetchProps<ResponsePageEncryptedDataDTO, Failure | Error, ListSecretsQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponsePageEncryptedDataDTO, Failure | Error, ListSecretsQueryParams, void>(
+    getConfig('ng/api'),
+    `/secrets`,
+    props,
+    signal
+  )
+
+export type PostSecretTextProps = Omit<
+  MutateProps<ResponseEncryptedDataDTO, Failure | Error, void, SecretTextDTO2RequestBody, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Create a secret text
+ */
+export const PostSecretText = (props: PostSecretTextProps) => (
+  <Mutate<ResponseEncryptedDataDTO, Failure | Error, void, SecretTextDTO2RequestBody, void>
+    verb="POST"
+    path="/secrets"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UsePostSecretTextProps = Omit<
+  UseMutateProps<ResponseEncryptedDataDTO, Failure | Error, void, SecretTextDTO2RequestBody, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Create a secret text
+ */
+export const usePostSecretText = (props: UsePostSecretTextProps) =>
+  useMutate<ResponseEncryptedDataDTO, Failure | Error, void, SecretTextDTO2RequestBody, void>('POST', `/secrets`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+/**
+ * Create a secret text
+ */
+export const postSecretTextPromise = (
+  props: MutateUsingFetchProps<ResponseEncryptedDataDTO, Failure | Error, void, SecretTextDTO2RequestBody, void>,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<ResponseEncryptedDataDTO, Failure | Error, void, SecretTextDTO2RequestBody, void>(
+    'POST',
+    getConfig('ng/api'),
+    `/secrets`,
+    props,
+    signal
+  )
+
+export interface PutSecretTextViaYamlPathParams {
+  identifier: string
+}
+
+export type PutSecretTextViaYamlProps = Omit<
+  MutateProps<ResponseBoolean, Failure | Error, void, SecretTextDTORequestBody, PutSecretTextViaYamlPathParams>,
+  'path' | 'verb'
+> &
+  PutSecretTextViaYamlPathParams
+
+/**
+ * Update a secret text via yaml
+ */
+export const PutSecretTextViaYaml = ({ identifier, ...props }: PutSecretTextViaYamlProps) => (
+  <Mutate<ResponseBoolean, Failure | Error, void, SecretTextDTORequestBody, PutSecretTextViaYamlPathParams>
+    verb="PUT"
+    path="/secrets/${identifier}/yaml"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UsePutSecretTextViaYamlProps = Omit<
+  UseMutateProps<ResponseBoolean, Failure | Error, void, SecretTextDTORequestBody, PutSecretTextViaYamlPathParams>,
+  'path' | 'verb'
+> &
+  PutSecretTextViaYamlPathParams
+
+/**
+ * Update a secret text via yaml
+ */
+export const usePutSecretTextViaYaml = ({ identifier, ...props }: UsePutSecretTextViaYamlProps) =>
+  useMutate<ResponseBoolean, Failure | Error, void, SecretTextDTORequestBody, PutSecretTextViaYamlPathParams>(
+    'PUT',
+    (paramsInPath: PutSecretTextViaYamlPathParams) => `/secrets/${paramsInPath.identifier}/yaml`,
+    { base: getConfig('ng/api'), pathParams: { identifier }, ...props }
+  )
+
+/**
+ * Update a secret text via yaml
+ */
+export const putSecretTextViaYamlPromise = (
+  {
+    identifier,
+    ...props
+  }: MutateUsingFetchProps<
+    ResponseBoolean,
+    Failure | Error,
+    void,
+    SecretTextDTORequestBody,
+    PutSecretTextViaYamlPathParams
+  > & { identifier: string },
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<ResponseBoolean, Failure | Error, void, SecretTextDTORequestBody, PutSecretTextViaYamlPathParams>(
+    'PUT',
+    getConfig('ng/api'),
+    `/secrets/${identifier}/yaml`,
+    props,
+    signal
+  )
+
+export interface PostSecretViaYamlQueryParams {
+  accountIdentifier: string
+}
+
+export type PostSecretViaYamlProps = Omit<
+  MutateProps<
+    ResponseSecretResponseWrapper,
+    Failure | Error,
+    PostSecretViaYamlQueryParams,
+    SecretRequestWrapperRequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Create a secret via yaml
+ */
+export const PostSecretViaYaml = (props: PostSecretViaYamlProps) => (
+  <Mutate<
+    ResponseSecretResponseWrapper,
+    Failure | Error,
+    PostSecretViaYamlQueryParams,
+    SecretRequestWrapperRequestBody,
+    void
+  >
+    verb="POST"
+    path="/v2/secrets/yaml"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UsePostSecretViaYamlProps = Omit<
+  UseMutateProps<
+    ResponseSecretResponseWrapper,
+    Failure | Error,
+    PostSecretViaYamlQueryParams,
+    SecretRequestWrapperRequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Create a secret via yaml
+ */
+export const usePostSecretViaYaml = (props: UsePostSecretViaYamlProps) =>
+  useMutate<
+    ResponseSecretResponseWrapper,
+    Failure | Error,
+    PostSecretViaYamlQueryParams,
+    SecretRequestWrapperRequestBody,
+    void
+  >('POST', `/v2/secrets/yaml`, { base: getConfig('ng/api'), ...props })
+
+/**
+ * Create a secret via yaml
+ */
+export const postSecretViaYamlPromise = (
+  props: MutateUsingFetchProps<
+    ResponseSecretResponseWrapper,
+    Failure | Error,
+    PostSecretViaYamlQueryParams,
+    SecretRequestWrapperRequestBody,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponseSecretResponseWrapper,
+    Failure | Error,
+    PostSecretViaYamlQueryParams,
+    SecretRequestWrapperRequestBody,
+    void
+  >('POST', getConfig('ng/api'), `/v2/secrets/yaml`, props, signal)
+
+export interface ValidateSecretQueryParams {
+  accountIdentifier: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  identifier?: string
+}
+
+export type ValidateSecretProps = Omit<
+  MutateProps<
+    ResponseSecretValidationResultDTO,
+    Failure | Error,
+    ValidateSecretQueryParams,
+    SecretValidationMetaData,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Validate a secret
+ */
+export const ValidateSecret = (props: ValidateSecretProps) => (
+  <Mutate<ResponseSecretValidationResultDTO, Failure | Error, ValidateSecretQueryParams, SecretValidationMetaData, void>
+    verb="POST"
+    path="/v2/secrets/validate"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseValidateSecretProps = Omit<
+  UseMutateProps<
+    ResponseSecretValidationResultDTO,
+    Failure | Error,
+    ValidateSecretQueryParams,
+    SecretValidationMetaData,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Validate a secret
+ */
+export const useValidateSecret = (props: UseValidateSecretProps) =>
+  useMutate<
+    ResponseSecretValidationResultDTO,
+    Failure | Error,
+    ValidateSecretQueryParams,
+    SecretValidationMetaData,
+    void
+  >('POST', `/v2/secrets/validate`, { base: getConfig('ng/api'), ...props })
+
+/**
+ * Validate a secret
+ */
+export const validateSecretPromise = (
+  props: MutateUsingFetchProps<
+    ResponseSecretValidationResultDTO,
+    Failure | Error,
+    ValidateSecretQueryParams,
+    SecretValidationMetaData,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponseSecretValidationResultDTO,
+    Failure | Error,
+    ValidateSecretQueryParams,
+    SecretValidationMetaData,
+    void
+  >('POST', getConfig('ng/api'), `/v2/secrets/validate`, props, signal)
+
+export interface GetSecretV2QueryParams {
+  accountIdentifier: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
+
+export interface GetSecretV2PathParams {
+  identifier: string
+}
+
+export type GetSecretV2Props = Omit<
+  GetProps<ResponseSecretResponseWrapper, Failure | Error, GetSecretV2QueryParams, GetSecretV2PathParams>,
+  'path'
+> &
+  GetSecretV2PathParams
+
+/**
+ * Gets secret
+ */
+export const GetSecretV2 = ({ identifier, ...props }: GetSecretV2Props) => (
+  <Get<ResponseSecretResponseWrapper, Failure | Error, GetSecretV2QueryParams, GetSecretV2PathParams>
+    path="/v2/secrets/${identifier}"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetSecretV2Props = Omit<
+  UseGetProps<ResponseSecretResponseWrapper, Failure | Error, GetSecretV2QueryParams, GetSecretV2PathParams>,
+  'path'
+> &
+  GetSecretV2PathParams
+
+/**
+ * Gets secret
+ */
+export const useGetSecretV2 = ({ identifier, ...props }: UseGetSecretV2Props) =>
+  useGet<ResponseSecretResponseWrapper, Failure | Error, GetSecretV2QueryParams, GetSecretV2PathParams>(
+    (paramsInPath: GetSecretV2PathParams) => `/v2/secrets/${paramsInPath.identifier}`,
+    { base: getConfig('ng/api'), pathParams: { identifier }, ...props }
+  )
+
+/**
+ * Gets secret
+ */
+export const getSecretV2Promise = (
+  {
+    identifier,
+    ...props
+  }: GetUsingFetchProps<
+    ResponseSecretResponseWrapper,
+    Failure | Error,
+    GetSecretV2QueryParams,
+    GetSecretV2PathParams
+  > & { identifier: string },
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseSecretResponseWrapper, Failure | Error, GetSecretV2QueryParams, GetSecretV2PathParams>(
+    getConfig('ng/api'),
+    `/v2/secrets/${identifier}`,
+    props,
+    signal
+  )
+
+export interface PutSecretQueryParams {
+  accountIdentifier: string
+}
+
+export interface PutSecretPathParams {
+  identifier: string
+}
+
+export type PutSecretProps = Omit<
+  MutateProps<
+    ResponseBoolean,
+    Failure | Error,
+    PutSecretQueryParams,
+    SecretRequestWrapper2RequestBody,
+    PutSecretPathParams
+  >,
+  'path' | 'verb'
+> &
+  PutSecretPathParams
+
+/**
+ * Update a secret
+ */
+export const PutSecret = ({ identifier, ...props }: PutSecretProps) => (
+  <Mutate<ResponseBoolean, Failure | Error, PutSecretQueryParams, SecretRequestWrapper2RequestBody, PutSecretPathParams>
+    verb="PUT"
+    path="/v2/secrets/${identifier}"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UsePutSecretProps = Omit<
+  UseMutateProps<
+    ResponseBoolean,
+    Failure | Error,
+    PutSecretQueryParams,
+    SecretRequestWrapper2RequestBody,
+    PutSecretPathParams
+  >,
+  'path' | 'verb'
+> &
+  PutSecretPathParams
+
+/**
+ * Update a secret
+ */
+export const usePutSecret = ({ identifier, ...props }: UsePutSecretProps) =>
+  useMutate<
+    ResponseBoolean,
+    Failure | Error,
+    PutSecretQueryParams,
+    SecretRequestWrapper2RequestBody,
+    PutSecretPathParams
+  >('PUT', (paramsInPath: PutSecretPathParams) => `/v2/secrets/${paramsInPath.identifier}`, {
+    base: getConfig('ng/api'),
+    pathParams: { identifier },
+    ...props
+  })
+
+/**
+ * Update a secret
+ */
+export const putSecretPromise = (
+  {
+    identifier,
+    ...props
+  }: MutateUsingFetchProps<
+    ResponseBoolean,
+    Failure | Error,
+    PutSecretQueryParams,
+    SecretRequestWrapper2RequestBody,
+    PutSecretPathParams
+  > & { identifier: string },
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponseBoolean,
+    Failure | Error,
+    PutSecretQueryParams,
+    SecretRequestWrapper2RequestBody,
+    PutSecretPathParams
+  >('PUT', getConfig('ng/api'), `/v2/secrets/${identifier}`, props, signal)
+
+export interface DeleteSecretV2QueryParams {
+  accountIdentifier: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
+
+export type DeleteSecretV2Props = Omit<
+  MutateProps<ResponseBoolean, Failure | Error, DeleteSecretV2QueryParams, string, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Delete secret
+ */
+export const DeleteSecretV2 = (props: DeleteSecretV2Props) => (
+  <Mutate<ResponseBoolean, Failure | Error, DeleteSecretV2QueryParams, string, void>
+    verb="DELETE"
+    path="/v2/secrets"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseDeleteSecretV2Props = Omit<
+  UseMutateProps<ResponseBoolean, Failure | Error, DeleteSecretV2QueryParams, string, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Delete secret
+ */
+export const useDeleteSecretV2 = (props: UseDeleteSecretV2Props) =>
+  useMutate<ResponseBoolean, Failure | Error, DeleteSecretV2QueryParams, string, void>('DELETE', `/v2/secrets`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+/**
+ * Delete secret
+ */
+export const deleteSecretV2Promise = (
+  props: MutateUsingFetchProps<ResponseBoolean, Failure | Error, DeleteSecretV2QueryParams, string, void>,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<ResponseBoolean, Failure | Error, DeleteSecretV2QueryParams, string, void>(
+    'DELETE',
+    getConfig('ng/api'),
+    `/v2/secrets`,
+    props,
+    signal
+  )
+
+export interface ListSecretsV2QueryParams {
+  accountIdentifier: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  type?: 'SecretFile' | 'SecretText' | 'SSHKey'
+  searchTerm?: string
+  pageIndex?: number
+  pageSize?: number
+}
+
+export type ListSecretsV2Props = Omit<
+  GetProps<ResponsePageSecretResponseWrapper, Failure | Error, ListSecretsV2QueryParams, void>,
+  'path'
+>
+
+/**
+ * Get secrets
+ */
+export const ListSecretsV2 = (props: ListSecretsV2Props) => (
+  <Get<ResponsePageSecretResponseWrapper, Failure | Error, ListSecretsV2QueryParams, void>
+    path="/v2/secrets"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseListSecretsV2Props = Omit<
+  UseGetProps<ResponsePageSecretResponseWrapper, Failure | Error, ListSecretsV2QueryParams, void>,
+  'path'
+>
+
+/**
+ * Get secrets
+ */
+export const useListSecretsV2 = (props: UseListSecretsV2Props) =>
+  useGet<ResponsePageSecretResponseWrapper, Failure | Error, ListSecretsV2QueryParams, void>(`/v2/secrets`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+/**
+ * Get secrets
+ */
+export const listSecretsV2Promise = (
+  props: GetUsingFetchProps<ResponsePageSecretResponseWrapper, Failure | Error, ListSecretsV2QueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponsePageSecretResponseWrapper, Failure | Error, ListSecretsV2QueryParams, void>(
+    getConfig('ng/api'),
+    `/v2/secrets`,
+    props,
+    signal
+  )
+
+export interface PostSecretQueryParams {
+  accountIdentifier: string
+}
+
+export type PostSecretProps = Omit<
+  MutateProps<
+    ResponseSecretResponseWrapper,
+    Failure | Error,
+    PostSecretQueryParams,
+    SecretRequestWrapper2RequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Create a secret
+ */
+export const PostSecret = (props: PostSecretProps) => (
+  <Mutate<ResponseSecretResponseWrapper, Failure | Error, PostSecretQueryParams, SecretRequestWrapper2RequestBody, void>
+    verb="POST"
+    path="/v2/secrets"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UsePostSecretProps = Omit<
+  UseMutateProps<
+    ResponseSecretResponseWrapper,
+    Failure | Error,
+    PostSecretQueryParams,
+    SecretRequestWrapper2RequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Create a secret
+ */
+export const usePostSecret = (props: UsePostSecretProps) =>
+  useMutate<
+    ResponseSecretResponseWrapper,
+    Failure | Error,
+    PostSecretQueryParams,
+    SecretRequestWrapper2RequestBody,
+    void
+  >('POST', `/v2/secrets`, { base: getConfig('ng/api'), ...props })
+
+/**
+ * Create a secret
+ */
+export const postSecretPromise = (
+  props: MutateUsingFetchProps<
+    ResponseSecretResponseWrapper,
+    Failure | Error,
+    PostSecretQueryParams,
+    SecretRequestWrapper2RequestBody,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponseSecretResponseWrapper,
+    Failure | Error,
+    PostSecretQueryParams,
+    SecretRequestWrapper2RequestBody,
+    void
+  >('POST', getConfig('ng/api'), `/v2/secrets`, props, signal)
+
+export interface PutSecretViaYamlQueryParams {
+  accountIdentifier: string
+}
+
+export interface PutSecretViaYamlPathParams {
+  identifier: string
+}
+
+export type PutSecretViaYamlProps = Omit<
+  MutateProps<
+    ResponseBoolean,
+    Failure | Error,
+    PutSecretViaYamlQueryParams,
+    SecretRequestWrapperRequestBody,
+    PutSecretViaYamlPathParams
+  >,
+  'path' | 'verb'
+> &
+  PutSecretViaYamlPathParams
+
+/**
+ * Update a secret via yaml
+ */
+export const PutSecretViaYaml = ({ identifier, ...props }: PutSecretViaYamlProps) => (
+  <Mutate<
+    ResponseBoolean,
+    Failure | Error,
+    PutSecretViaYamlQueryParams,
+    SecretRequestWrapperRequestBody,
+    PutSecretViaYamlPathParams
+  >
+    verb="PUT"
+    path="/v2/secrets/${identifier}/yaml"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UsePutSecretViaYamlProps = Omit<
+  UseMutateProps<
+    ResponseBoolean,
+    Failure | Error,
+    PutSecretViaYamlQueryParams,
+    SecretRequestWrapperRequestBody,
+    PutSecretViaYamlPathParams
+  >,
+  'path' | 'verb'
+> &
+  PutSecretViaYamlPathParams
+
+/**
+ * Update a secret via yaml
+ */
+export const usePutSecretViaYaml = ({ identifier, ...props }: UsePutSecretViaYamlProps) =>
+  useMutate<
+    ResponseBoolean,
+    Failure | Error,
+    PutSecretViaYamlQueryParams,
+    SecretRequestWrapperRequestBody,
+    PutSecretViaYamlPathParams
+  >('PUT', (paramsInPath: PutSecretViaYamlPathParams) => `/v2/secrets/${paramsInPath.identifier}/yaml`, {
+    base: getConfig('ng/api'),
+    pathParams: { identifier },
+    ...props
+  })
+
+/**
+ * Update a secret via yaml
+ */
+export const putSecretViaYamlPromise = (
+  {
+    identifier,
+    ...props
+  }: MutateUsingFetchProps<
+    ResponseBoolean,
+    Failure | Error,
+    PutSecretViaYamlQueryParams,
+    SecretRequestWrapperRequestBody,
+    PutSecretViaYamlPathParams
+  > & { identifier: string },
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponseBoolean,
+    Failure | Error,
+    PutSecretViaYamlQueryParams,
+    SecretRequestWrapperRequestBody,
+    PutSecretViaYamlPathParams
+  >('PUT', getConfig('ng/api'), `/v2/secrets/${identifier}/yaml`, props, signal)
+
+export interface PutSecretFileV2QueryParams {
+  accountIdentifier: string
+}
+
+export interface PutSecretFileV2PathParams {
+  identifier: string
+}
+
+export type PutSecretFileV2Props = Omit<
+  MutateProps<ResponseBoolean, Failure | Error, PutSecretFileV2QueryParams, void, PutSecretFileV2PathParams>,
+  'path' | 'verb'
+> &
+  PutSecretFileV2PathParams
+
+/**
+ * Update a secret file
+ */
+export const PutSecretFileV2 = ({ identifier, ...props }: PutSecretFileV2Props) => (
+  <Mutate<ResponseBoolean, Failure | Error, PutSecretFileV2QueryParams, void, PutSecretFileV2PathParams>
+    verb="PUT"
+    path="/v2/secrets/files/${identifier}"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UsePutSecretFileV2Props = Omit<
+  UseMutateProps<ResponseBoolean, Failure | Error, PutSecretFileV2QueryParams, void, PutSecretFileV2PathParams>,
+  'path' | 'verb'
+> &
+  PutSecretFileV2PathParams
+
+/**
+ * Update a secret file
+ */
+export const usePutSecretFileV2 = ({ identifier, ...props }: UsePutSecretFileV2Props) =>
+  useMutate<ResponseBoolean, Failure | Error, PutSecretFileV2QueryParams, void, PutSecretFileV2PathParams>(
+    'PUT',
+    (paramsInPath: PutSecretFileV2PathParams) => `/v2/secrets/files/${paramsInPath.identifier}`,
+    { base: getConfig('ng/api'), pathParams: { identifier }, ...props }
+  )
+
+/**
+ * Update a secret file
+ */
+export const putSecretFileV2Promise = (
+  {
+    identifier,
+    ...props
+  }: MutateUsingFetchProps<
+    ResponseBoolean,
+    Failure | Error,
+    PutSecretFileV2QueryParams,
+    void,
+    PutSecretFileV2PathParams
+  > & { identifier: string },
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<ResponseBoolean, Failure | Error, PutSecretFileV2QueryParams, void, PutSecretFileV2PathParams>(
+    'PUT',
+    getConfig('ng/api'),
+    `/v2/secrets/files/${identifier}`,
+    props,
+    signal
+  )
+
+export interface PostSecretFileV2QueryParams {
+  accountIdentifier: string
+}
+
+export type PostSecretFileV2Props = Omit<
+  MutateProps<ResponseSecretResponseWrapper, Failure | Error, PostSecretFileV2QueryParams, void, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Create a secret file
+ */
+export const PostSecretFileV2 = (props: PostSecretFileV2Props) => (
+  <Mutate<ResponseSecretResponseWrapper, Failure | Error, PostSecretFileV2QueryParams, void, void>
+    verb="POST"
+    path="/v2/secrets/files"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UsePostSecretFileV2Props = Omit<
+  UseMutateProps<ResponseSecretResponseWrapper, Failure | Error, PostSecretFileV2QueryParams, void, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Create a secret file
+ */
+export const usePostSecretFileV2 = (props: UsePostSecretFileV2Props) =>
+  useMutate<ResponseSecretResponseWrapper, Failure | Error, PostSecretFileV2QueryParams, void, void>(
+    'POST',
+    `/v2/secrets/files`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Create a secret file
+ */
+export const postSecretFileV2Promise = (
+  props: MutateUsingFetchProps<ResponseSecretResponseWrapper, Failure | Error, PostSecretFileV2QueryParams, void, void>,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<ResponseSecretResponseWrapper, Failure | Error, PostSecretFileV2QueryParams, void, void>(
+    'POST',
+    getConfig('ng/api'),
+    `/v2/secrets/files`,
+    props,
+    signal
+  )
+
+export interface GetOrganizationQueryParams {
+  accountIdentifier: string
+}
+
+export interface GetOrganizationPathParams {
+  identifier: string
+}
+
+export type GetOrganizationProps = Omit<
+  GetProps<ResponseOrganization, Failure | Error, GetOrganizationQueryParams, GetOrganizationPathParams>,
+  'path'
+> &
+  GetOrganizationPathParams
+
+/**
+ * Get an Organization by identifier
+ */
+export const GetOrganization = ({ identifier, ...props }: GetOrganizationProps) => (
+  <Get<ResponseOrganization, Failure | Error, GetOrganizationQueryParams, GetOrganizationPathParams>
+    path="/organizations/${identifier}"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetOrganizationProps = Omit<
+  UseGetProps<ResponseOrganization, Failure | Error, GetOrganizationQueryParams, GetOrganizationPathParams>,
+  'path'
+> &
+  GetOrganizationPathParams
+
+/**
+ * Get an Organization by identifier
+ */
+export const useGetOrganization = ({ identifier, ...props }: UseGetOrganizationProps) =>
+  useGet<ResponseOrganization, Failure | Error, GetOrganizationQueryParams, GetOrganizationPathParams>(
+    (paramsInPath: GetOrganizationPathParams) => `/organizations/${paramsInPath.identifier}`,
+    { base: getConfig('ng/api'), pathParams: { identifier }, ...props }
+  )
+
+/**
+ * Get an Organization by identifier
+ */
+export const getOrganizationPromise = (
+  {
+    identifier,
+    ...props
+  }: GetUsingFetchProps<
+    ResponseOrganization,
+    Failure | Error,
+    GetOrganizationQueryParams,
+    GetOrganizationPathParams
+  > & { identifier: string },
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseOrganization, Failure | Error, GetOrganizationQueryParams, GetOrganizationPathParams>(
+    getConfig('ng/api'),
+    `/organizations/${identifier}`,
+    props,
+    signal
+  )
+
+export interface PutOrganizationQueryParams {
+  accountIdentifier: string
+}
+
+export interface PutOrganizationPathParams {
+  identifier: string
+}
+
+export type PutOrganizationProps = Omit<
+  MutateProps<
+    ResponseOrganization,
+    Failure | Error,
+    PutOrganizationQueryParams,
+    OrganizationRequestBody,
+    PutOrganizationPathParams
+  >,
+  'path' | 'verb'
+> &
+  PutOrganizationPathParams
+
+/**
+ * Update an Organization by identifier
+ */
+export const PutOrganization = ({ identifier, ...props }: PutOrganizationProps) => (
+  <Mutate<
+    ResponseOrganization,
+    Failure | Error,
+    PutOrganizationQueryParams,
+    OrganizationRequestBody,
+    PutOrganizationPathParams
+  >
+    verb="PUT"
+    path="/organizations/${identifier}"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UsePutOrganizationProps = Omit<
+  UseMutateProps<
+    ResponseOrganization,
+    Failure | Error,
+    PutOrganizationQueryParams,
+    OrganizationRequestBody,
+    PutOrganizationPathParams
+  >,
+  'path' | 'verb'
+> &
+  PutOrganizationPathParams
+
+/**
+ * Update an Organization by identifier
+ */
+export const usePutOrganization = ({ identifier, ...props }: UsePutOrganizationProps) =>
+  useMutate<
+    ResponseOrganization,
+    Failure | Error,
+    PutOrganizationQueryParams,
+    OrganizationRequestBody,
+    PutOrganizationPathParams
+  >('PUT', (paramsInPath: PutOrganizationPathParams) => `/organizations/${paramsInPath.identifier}`, {
+    base: getConfig('ng/api'),
+    pathParams: { identifier },
+    ...props
+  })
+
+/**
+ * Update an Organization by identifier
+ */
+export const putOrganizationPromise = (
+  {
+    identifier,
+    ...props
+  }: MutateUsingFetchProps<
+    ResponseOrganization,
+    Failure | Error,
+    PutOrganizationQueryParams,
+    OrganizationRequestBody,
+    PutOrganizationPathParams
+  > & { identifier: string },
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponseOrganization,
+    Failure | Error,
+    PutOrganizationQueryParams,
+    OrganizationRequestBody,
+    PutOrganizationPathParams
+  >('PUT', getConfig('ng/api'), `/organizations/${identifier}`, props, signal)
+
+export interface DeleteOrganizationQueryParams {
+  accountIdentifier: string
+}
+
+export type DeleteOrganizationProps = Omit<
+  MutateProps<ResponseBoolean, Failure | Error, DeleteOrganizationQueryParams, string, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Delete an Organization by identifier
+ */
+export const DeleteOrganization = (props: DeleteOrganizationProps) => (
+  <Mutate<ResponseBoolean, Failure | Error, DeleteOrganizationQueryParams, string, void>
+    verb="DELETE"
+    path="/organizations"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseDeleteOrganizationProps = Omit<
+  UseMutateProps<ResponseBoolean, Failure | Error, DeleteOrganizationQueryParams, string, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Delete an Organization by identifier
+ */
+export const useDeleteOrganization = (props: UseDeleteOrganizationProps) =>
+  useMutate<ResponseBoolean, Failure | Error, DeleteOrganizationQueryParams, string, void>('DELETE', `/organizations`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+/**
+ * Delete an Organization by identifier
+ */
+export const deleteOrganizationPromise = (
+  props: MutateUsingFetchProps<ResponseBoolean, Failure | Error, DeleteOrganizationQueryParams, string, void>,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<ResponseBoolean, Failure | Error, DeleteOrganizationQueryParams, string, void>(
+    'DELETE',
+    getConfig('ng/api'),
+    `/organizations`,
+    props,
+    signal
+  )
+
+export interface GetOrganizationListQueryParams {
+  accountIdentifier: string
+  searchTerm?: string
+  pageIndex?: number
+  pageSize?: number
+  sortOrders?: string[]
+}
+
+export type GetOrganizationListProps = Omit<
+  GetProps<ResponsePageOrganization, Failure | Error, GetOrganizationListQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get Organization list
+ */
+export const GetOrganizationList = (props: GetOrganizationListProps) => (
+  <Get<ResponsePageOrganization, Failure | Error, GetOrganizationListQueryParams, void>
+    path="/organizations"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetOrganizationListProps = Omit<
+  UseGetProps<ResponsePageOrganization, Failure | Error, GetOrganizationListQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get Organization list
+ */
+export const useGetOrganizationList = (props: UseGetOrganizationListProps) =>
+  useGet<ResponsePageOrganization, Failure | Error, GetOrganizationListQueryParams, void>(`/organizations`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+/**
+ * Get Organization list
+ */
+export const getOrganizationListPromise = (
+  props: GetUsingFetchProps<ResponsePageOrganization, Failure | Error, GetOrganizationListQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponsePageOrganization, Failure | Error, GetOrganizationListQueryParams, void>(
+    getConfig('ng/api'),
+    `/organizations`,
+    props,
+    signal
+  )
+
+export interface PostOrganizationQueryParams {
+  accountIdentifier: string
+}
+
+export type PostOrganizationProps = Omit<
+  MutateProps<ResponseOrganization, Failure | Error, PostOrganizationQueryParams, OrganizationRequestBody, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Create an Organization
+ */
+export const PostOrganization = (props: PostOrganizationProps) => (
+  <Mutate<ResponseOrganization, Failure | Error, PostOrganizationQueryParams, OrganizationRequestBody, void>
+    verb="POST"
+    path="/organizations"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UsePostOrganizationProps = Omit<
+  UseMutateProps<ResponseOrganization, Failure | Error, PostOrganizationQueryParams, OrganizationRequestBody, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Create an Organization
+ */
+export const usePostOrganization = (props: UsePostOrganizationProps) =>
+  useMutate<ResponseOrganization, Failure | Error, PostOrganizationQueryParams, OrganizationRequestBody, void>(
+    'POST',
+    `/organizations`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Create an Organization
+ */
+export const postOrganizationPromise = (
+  props: MutateUsingFetchProps<
+    ResponseOrganization,
+    Failure | Error,
+    PostOrganizationQueryParams,
+    OrganizationRequestBody,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<ResponseOrganization, Failure | Error, PostOrganizationQueryParams, OrganizationRequestBody, void>(
+    'POST',
+    getConfig('ng/api'),
+    `/organizations`,
+    props,
+    signal
+  )
+
+export interface GetProjectQueryParams {
+  accountIdentifier: string
+  orgIdentifier: string
+}
+
+export interface GetProjectPathParams {
+  identifier: string
+}
+
+export type GetProjectProps = Omit<
+  GetProps<ResponseProject, Failure | Error, GetProjectQueryParams, GetProjectPathParams>,
+  'path'
+> &
+  GetProjectPathParams
+
+/**
+ * Gets a Project by identifier
+ */
+export const GetProject = ({ identifier, ...props }: GetProjectProps) => (
+  <Get<ResponseProject, Failure | Error, GetProjectQueryParams, GetProjectPathParams>
+    path="/projects/${identifier}"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetProjectProps = Omit<
+  UseGetProps<ResponseProject, Failure | Error, GetProjectQueryParams, GetProjectPathParams>,
+  'path'
+> &
+  GetProjectPathParams
+
+/**
+ * Gets a Project by identifier
+ */
+export const useGetProject = ({ identifier, ...props }: UseGetProjectProps) =>
+  useGet<ResponseProject, Failure | Error, GetProjectQueryParams, GetProjectPathParams>(
+    (paramsInPath: GetProjectPathParams) => `/projects/${paramsInPath.identifier}`,
+    { base: getConfig('ng/api'), pathParams: { identifier }, ...props }
+  )
+
+/**
+ * Gets a Project by identifier
+ */
+export const getProjectPromise = (
+  {
+    identifier,
+    ...props
+  }: GetUsingFetchProps<ResponseProject, Failure | Error, GetProjectQueryParams, GetProjectPathParams> & {
+    identifier: string
+  },
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseProject, Failure | Error, GetProjectQueryParams, GetProjectPathParams>(
+    getConfig('ng/api'),
+    `/projects/${identifier}`,
+    props,
+    signal
+  )
+
+export interface PutProjectQueryParams {
+  accountIdentifier: string
+  orgIdentifier: string
+}
+
+export interface PutProjectPathParams {
+  identifier: string
+}
+
+export type PutProjectProps = Omit<
+  MutateProps<ResponseProject, Failure | Error, PutProjectQueryParams, ProjectRequestBody, PutProjectPathParams>,
+  'path' | 'verb'
+> &
+  PutProjectPathParams
+
+/**
+ * Update a project by identifier
+ */
+export const PutProject = ({ identifier, ...props }: PutProjectProps) => (
+  <Mutate<ResponseProject, Failure | Error, PutProjectQueryParams, ProjectRequestBody, PutProjectPathParams>
+    verb="PUT"
+    path="/projects/${identifier}"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UsePutProjectProps = Omit<
+  UseMutateProps<ResponseProject, Failure | Error, PutProjectQueryParams, ProjectRequestBody, PutProjectPathParams>,
+  'path' | 'verb'
+> &
+  PutProjectPathParams
+
+/**
+ * Update a project by identifier
+ */
+export const usePutProject = ({ identifier, ...props }: UsePutProjectProps) =>
+  useMutate<ResponseProject, Failure | Error, PutProjectQueryParams, ProjectRequestBody, PutProjectPathParams>(
+    'PUT',
+    (paramsInPath: PutProjectPathParams) => `/projects/${paramsInPath.identifier}`,
+    { base: getConfig('ng/api'), pathParams: { identifier }, ...props }
+  )
+
+/**
+ * Update a project by identifier
+ */
+export const putProjectPromise = (
+  {
+    identifier,
+    ...props
+  }: MutateUsingFetchProps<
+    ResponseProject,
+    Failure | Error,
+    PutProjectQueryParams,
+    ProjectRequestBody,
+    PutProjectPathParams
+  > & { identifier: string },
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<ResponseProject, Failure | Error, PutProjectQueryParams, ProjectRequestBody, PutProjectPathParams>(
+    'PUT',
+    getConfig('ng/api'),
+    `/projects/${identifier}`,
+    props,
+    signal
+  )
+
+export interface DeleteProjectQueryParams {
+  accountIdentifier: string
+  orgIdentifier: string
+}
+
+export type DeleteProjectProps = Omit<
+  MutateProps<ResponseBoolean, Failure | Error, DeleteProjectQueryParams, string, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Delete a project by identifier
+ */
+export const DeleteProject = (props: DeleteProjectProps) => (
+  <Mutate<ResponseBoolean, Failure | Error, DeleteProjectQueryParams, string, void>
+    verb="DELETE"
+    path="/projects"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseDeleteProjectProps = Omit<
+  UseMutateProps<ResponseBoolean, Failure | Error, DeleteProjectQueryParams, string, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Delete a project by identifier
+ */
+export const useDeleteProject = (props: UseDeleteProjectProps) =>
+  useMutate<ResponseBoolean, Failure | Error, DeleteProjectQueryParams, string, void>('DELETE', `/projects`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+/**
+ * Delete a project by identifier
+ */
+export const deleteProjectPromise = (
+  props: MutateUsingFetchProps<ResponseBoolean, Failure | Error, DeleteProjectQueryParams, string, void>,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<ResponseBoolean, Failure | Error, DeleteProjectQueryParams, string, void>(
+    'DELETE',
+    getConfig('ng/api'),
+    `/projects`,
+    props,
+    signal
+  )
+
+export interface GetProjectListQueryParams {
+  accountIdentifier: string
+  orgIdentifier?: string
+  hasModule?: boolean
+  moduleType?: 'CD' | 'CI' | 'CORE' | 'CV' | 'CF' | 'CE'
+  searchTerm?: string
+  pageIndex?: number
+  pageSize?: number
+  sortOrders?: string[]
+}
+
+export type GetProjectListProps = Omit<
+  GetProps<ResponsePageProject, Failure | Error, GetProjectListQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get Project list
+ */
+export const GetProjectList = (props: GetProjectListProps) => (
+  <Get<ResponsePageProject, Failure | Error, GetProjectListQueryParams, void>
+    path="/projects"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetProjectListProps = Omit<
+  UseGetProps<ResponsePageProject, Failure | Error, GetProjectListQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get Project list
+ */
+export const useGetProjectList = (props: UseGetProjectListProps) =>
+  useGet<ResponsePageProject, Failure | Error, GetProjectListQueryParams, void>(`/projects`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+/**
+ * Get Project list
+ */
+export const getProjectListPromise = (
+  props: GetUsingFetchProps<ResponsePageProject, Failure | Error, GetProjectListQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponsePageProject, Failure | Error, GetProjectListQueryParams, void>(
+    getConfig('ng/api'),
+    `/projects`,
+    props,
+    signal
+  )
+
+export interface PostProjectQueryParams {
+  accountIdentifier: string
+  orgIdentifier: string
+}
+
+export type PostProjectProps = Omit<
+  MutateProps<ResponseProject, Failure | Error, PostProjectQueryParams, ProjectRequestBody, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Create a Project
+ */
+export const PostProject = (props: PostProjectProps) => (
+  <Mutate<ResponseProject, Failure | Error, PostProjectQueryParams, ProjectRequestBody, void>
+    verb="POST"
+    path="/projects"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UsePostProjectProps = Omit<
+  UseMutateProps<ResponseProject, Failure | Error, PostProjectQueryParams, ProjectRequestBody, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Create a Project
+ */
+export const usePostProject = (props: UsePostProjectProps) =>
+  useMutate<ResponseProject, Failure | Error, PostProjectQueryParams, ProjectRequestBody, void>('POST', `/projects`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+/**
+ * Create a Project
+ */
+export const postProjectPromise = (
+  props: MutateUsingFetchProps<ResponseProject, Failure | Error, PostProjectQueryParams, ProjectRequestBody, void>,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<ResponseProject, Failure | Error, PostProjectQueryParams, ProjectRequestBody, void>(
+    'POST',
+    getConfig('ng/api'),
+    `/projects`,
+    props,
+    signal
+  )
+
+export interface SchemafileQueryParams {
+  filename?: string
+}
+
+export type SchemafileProps = Omit<GetProps<void, void, SchemafileQueryParams, void>, 'path'>
+
+/**
+ * Get Schema for the given entity type
+ */
+export const Schemafile = (props: SchemafileProps) => (
+  <Get<void, void, SchemafileQueryParams, void> path="/yamlschema/schemafile" base={getConfig('ng/api')} {...props} />
+)
+
+export type UseSchemafileProps = Omit<UseGetProps<void, void, SchemafileQueryParams, void>, 'path'>
+
+/**
+ * Get Schema for the given entity type
+ */
+export const useSchemafile = (props: UseSchemafileProps) =>
+  useGet<void, void, SchemafileQueryParams, void>(`/yamlschema/schemafile`, { base: getConfig('ng/api'), ...props })
+
+/**
+ * Get Schema for the given entity type
+ */
+export const schemafilePromise = (
+  props: GetUsingFetchProps<void, void, SchemafileQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<void, void, SchemafileQueryParams, void>(getConfig('ng/api'), `/yamlschema/schemafile`, props, signal)
+
+export interface GetServiceQueryParams {
+  accountId?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  deleted?: boolean
+}
+
+export interface GetServicePathParams {
+  serviceIdentifier: string
+}
+
+export type GetServiceProps = Omit<
+  GetProps<ResponseServiceResponseDTO, Failure | Error, GetServiceQueryParams, GetServicePathParams>,
+  'path'
+> &
+  GetServicePathParams
+
+/**
+ * Gets a Service by identifier
+ */
+export const GetService = ({ serviceIdentifier, ...props }: GetServiceProps) => (
+  <Get<ResponseServiceResponseDTO, Failure | Error, GetServiceQueryParams, GetServicePathParams>
+    path="/services/${serviceIdentifier}"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetServiceProps = Omit<
+  UseGetProps<ResponseServiceResponseDTO, Failure | Error, GetServiceQueryParams, GetServicePathParams>,
+  'path'
+> &
+  GetServicePathParams
+
+/**
+ * Gets a Service by identifier
+ */
+export const useGetService = ({ serviceIdentifier, ...props }: UseGetServiceProps) =>
+  useGet<ResponseServiceResponseDTO, Failure | Error, GetServiceQueryParams, GetServicePathParams>(
+    (paramsInPath: GetServicePathParams) => `/services/${paramsInPath.serviceIdentifier}`,
+    { base: getConfig('ng/api'), pathParams: { serviceIdentifier }, ...props }
+  )
+
+/**
+ * Gets a Service by identifier
+ */
+export const getServicePromise = (
+  {
+    serviceIdentifier,
+    ...props
+  }: GetUsingFetchProps<ResponseServiceResponseDTO, Failure | Error, GetServiceQueryParams, GetServicePathParams> & {
+    serviceIdentifier: string
+  },
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseServiceResponseDTO, Failure | Error, GetServiceQueryParams, GetServicePathParams>(
+    getConfig('ng/api'),
+    `/services/${serviceIdentifier}`,
+    props,
+    signal
+  )
+
+export interface DeleteServiceQueryParams {
+  accountId?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
+
+export type DeleteServiceProps = Omit<
+  MutateProps<ResponseBoolean, Failure | Error, DeleteServiceQueryParams, string, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Delete a service by identifier
+ */
+export const DeleteService = (props: DeleteServiceProps) => (
+  <Mutate<ResponseBoolean, Failure | Error, DeleteServiceQueryParams, string, void>
+    verb="DELETE"
+    path="/services"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseDeleteServiceProps = Omit<
+  UseMutateProps<ResponseBoolean, Failure | Error, DeleteServiceQueryParams, string, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Delete a service by identifier
+ */
+export const useDeleteService = (props: UseDeleteServiceProps) =>
+  useMutate<ResponseBoolean, Failure | Error, DeleteServiceQueryParams, string, void>('DELETE', `/services`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+/**
+ * Delete a service by identifier
+ */
+export const deleteServicePromise = (
+  props: MutateUsingFetchProps<ResponseBoolean, Failure | Error, DeleteServiceQueryParams, string, void>,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<ResponseBoolean, Failure | Error, DeleteServiceQueryParams, string, void>(
+    'DELETE',
+    getConfig('ng/api'),
+    `/services`,
+    props,
+    signal
+  )
+
+export interface GetServiceListForProjectQueryParams {
+  page?: number
+  size?: number
+  accountId?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  sort?: string[]
+}
+
+export type GetServiceListForProjectProps = Omit<
+  GetProps<ResponsePageServiceResponseDTO, Failure | Error, GetServiceListForProjectQueryParams, void>,
+  'path'
+>
+
+/**
+ * Gets Service list for a project
+ */
+export const GetServiceListForProject = (props: GetServiceListForProjectProps) => (
+  <Get<ResponsePageServiceResponseDTO, Failure | Error, GetServiceListForProjectQueryParams, void>
+    path="/services"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetServiceListForProjectProps = Omit<
+  UseGetProps<ResponsePageServiceResponseDTO, Failure | Error, GetServiceListForProjectQueryParams, void>,
+  'path'
+>
+
+/**
+ * Gets Service list for a project
+ */
+export const useGetServiceListForProject = (props: UseGetServiceListForProjectProps) =>
+  useGet<ResponsePageServiceResponseDTO, Failure | Error, GetServiceListForProjectQueryParams, void>(`/services`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+/**
+ * Gets Service list for a project
+ */
+export const getServiceListForProjectPromise = (
+  props: GetUsingFetchProps<ResponsePageServiceResponseDTO, Failure | Error, GetServiceListForProjectQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponsePageServiceResponseDTO, Failure | Error, GetServiceListForProjectQueryParams, void>(
+    getConfig('ng/api'),
+    `/services`,
+    props,
+    signal
+  )
+
+export interface CreateServiceQueryParams {
+  accountId?: string
+}
+
+export type CreateServiceProps = Omit<
+  MutateProps<
+    ResponseServiceResponseDTO,
+    Failure | Error,
+    CreateServiceQueryParams,
+    ServiceRequestDTORequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Create a Service
+ */
+export const CreateService = (props: CreateServiceProps) => (
+  <Mutate<ResponseServiceResponseDTO, Failure | Error, CreateServiceQueryParams, ServiceRequestDTORequestBody, void>
+    verb="POST"
+    path="/services"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseCreateServiceProps = Omit<
+  UseMutateProps<
+    ResponseServiceResponseDTO,
+    Failure | Error,
+    CreateServiceQueryParams,
+    ServiceRequestDTORequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Create a Service
+ */
+export const useCreateService = (props: UseCreateServiceProps) =>
+  useMutate<ResponseServiceResponseDTO, Failure | Error, CreateServiceQueryParams, ServiceRequestDTORequestBody, void>(
+    'POST',
+    `/services`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Create a Service
+ */
+export const createServicePromise = (
+  props: MutateUsingFetchProps<
+    ResponseServiceResponseDTO,
+    Failure | Error,
+    CreateServiceQueryParams,
+    ServiceRequestDTORequestBody,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponseServiceResponseDTO,
+    Failure | Error,
+    CreateServiceQueryParams,
+    ServiceRequestDTORequestBody,
+    void
+  >('POST', getConfig('ng/api'), `/services`, props, signal)
+
+export interface UpdateServiceQueryParams {
+  accountId?: string
+}
+
+export type UpdateServiceProps = Omit<
+  MutateProps<
+    ResponseServiceResponseDTO,
+    Failure | Error,
+    UpdateServiceQueryParams,
+    ServiceRequestDTORequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Update a service by identifier
+ */
+export const UpdateService = (props: UpdateServiceProps) => (
+  <Mutate<ResponseServiceResponseDTO, Failure | Error, UpdateServiceQueryParams, ServiceRequestDTORequestBody, void>
+    verb="PUT"
+    path="/services"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseUpdateServiceProps = Omit<
+  UseMutateProps<
+    ResponseServiceResponseDTO,
+    Failure | Error,
+    UpdateServiceQueryParams,
+    ServiceRequestDTORequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Update a service by identifier
+ */
+export const useUpdateService = (props: UseUpdateServiceProps) =>
+  useMutate<ResponseServiceResponseDTO, Failure | Error, UpdateServiceQueryParams, ServiceRequestDTORequestBody, void>(
+    'PUT',
+    `/services`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Update a service by identifier
+ */
+export const updateServicePromise = (
+  props: MutateUsingFetchProps<
+    ResponseServiceResponseDTO,
+    Failure | Error,
+    UpdateServiceQueryParams,
+    ServiceRequestDTORequestBody,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponseServiceResponseDTO,
+    Failure | Error,
+    UpdateServiceQueryParams,
+    ServiceRequestDTORequestBody,
+    void
+  >('PUT', getConfig('ng/api'), `/services`, props, signal)
+
+export interface UpsertServiceQueryParams {
+  accountId?: string
+}
+
+export type UpsertServiceProps = Omit<
+  MutateProps<
+    ResponseServiceResponseDTO,
+    Failure | Error,
+    UpsertServiceQueryParams,
+    ServiceRequestDTORequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Upsert a service by identifier
+ */
+export const UpsertService = (props: UpsertServiceProps) => (
+  <Mutate<ResponseServiceResponseDTO, Failure | Error, UpsertServiceQueryParams, ServiceRequestDTORequestBody, void>
+    verb="PUT"
+    path="/services/upsert"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseUpsertServiceProps = Omit<
+  UseMutateProps<
+    ResponseServiceResponseDTO,
+    Failure | Error,
+    UpsertServiceQueryParams,
+    ServiceRequestDTORequestBody,
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * Upsert a service by identifier
+ */
+export const useUpsertService = (props: UseUpsertServiceProps) =>
+  useMutate<ResponseServiceResponseDTO, Failure | Error, UpsertServiceQueryParams, ServiceRequestDTORequestBody, void>(
+    'PUT',
+    `/services/upsert`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Upsert a service by identifier
+ */
+export const upsertServicePromise = (
+  props: MutateUsingFetchProps<
+    ResponseServiceResponseDTO,
+    Failure | Error,
+    UpsertServiceQueryParams,
+    ServiceRequestDTORequestBody,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponseServiceResponseDTO,
+    Failure | Error,
+    UpsertServiceQueryParams,
+    ServiceRequestDTORequestBody,
+    void
+  >('PUT', getConfig('ng/api'), `/services/upsert`, props, signal)
+
+export interface GetUsersQueryParams {
+  accountIdentifier: string
+  searchString?: string
+  pageIndex?: number
+  pageSize?: number
+  sortOrders?: string[]
+}
+
+export type GetUsersProps = Omit<
+  GetProps<ResponsePageUserSearchDTO, Failure | Error, GetUsersQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get users for an account
+ */
+export const GetUsers = (props: GetUsersProps) => (
+  <Get<ResponsePageUserSearchDTO, Failure | Error, GetUsersQueryParams, void>
+    path="/users"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetUsersProps = Omit<
+  UseGetProps<ResponsePageUserSearchDTO, Failure | Error, GetUsersQueryParams, void>,
+  'path'
+>
+
+/**
+ * Get users for an account
+ */
+export const useGetUsers = (props: UseGetUsersProps) =>
+  useGet<ResponsePageUserSearchDTO, Failure | Error, GetUsersQueryParams, void>(`/users`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+/**
+ * Get users for an account
+ */
+export const getUsersPromise = (
+  props: GetUsingFetchProps<ResponsePageUserSearchDTO, Failure | Error, GetUsersQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponsePageUserSearchDTO, Failure | Error, GetUsersQueryParams, void>(
+    getConfig('ng/api'),
+    `/users`,
+    props,
+    signal
+  )
+
+export interface HandleInterruptQueryParams {
+  accountIdentifier: string
+  orgIdentifier: string
+  projectIdentifier: string
+  interruptType: 'Abort' | 'Pause' | 'Resume'
+}
+
+export interface HandleInterruptPathParams {
+  planExecutionId: string
+}
+
+export type HandleInterruptProps = Omit<
+  MutateProps<
+    ResponsePipelineExecutionInterrupt,
+    Failure | Error,
+    HandleInterruptQueryParams,
+    void,
+    HandleInterruptPathParams
+  >,
+  'path' | 'verb'
+> &
+  HandleInterruptPathParams
+
+/**
+ * pause, resume or stop the pipeline executions
+ */
+export const HandleInterrupt = ({ planExecutionId, ...props }: HandleInterruptProps) => (
+  <Mutate<
+    ResponsePipelineExecutionInterrupt,
+    Failure | Error,
+    HandleInterruptQueryParams,
+    void,
+    HandleInterruptPathParams
+  >
+    verb="PUT"
+    path="/executions/interrupt/${planExecutionId}"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseHandleInterruptProps = Omit<
+  UseMutateProps<
+    ResponsePipelineExecutionInterrupt,
+    Failure | Error,
+    HandleInterruptQueryParams,
+    void,
+    HandleInterruptPathParams
+  >,
+  'path' | 'verb'
+> &
+  HandleInterruptPathParams
+
+/**
+ * pause, resume or stop the pipeline executions
+ */
+export const useHandleInterrupt = ({ planExecutionId, ...props }: UseHandleInterruptProps) =>
+  useMutate<
+    ResponsePipelineExecutionInterrupt,
+    Failure | Error,
+    HandleInterruptQueryParams,
+    void,
+    HandleInterruptPathParams
+  >('PUT', (paramsInPath: HandleInterruptPathParams) => `/executions/interrupt/${paramsInPath.planExecutionId}`, {
+    base: getConfig('ng/api'),
+    pathParams: { planExecutionId },
+    ...props
+  })
+
+/**
+ * pause, resume or stop the pipeline executions
+ */
+export const handleInterruptPromise = (
+  {
+    planExecutionId,
+    ...props
+  }: MutateUsingFetchProps<
+    ResponsePipelineExecutionInterrupt,
+    Failure | Error,
+    HandleInterruptQueryParams,
+    void,
+    HandleInterruptPathParams
+  > & { planExecutionId: string },
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<
+    ResponsePipelineExecutionInterrupt,
+    Failure | Error,
+    HandleInterruptQueryParams,
+    void,
+    HandleInterruptPathParams
+  >('PUT', getConfig('ng/api'), `/executions/interrupt/${planExecutionId}`, props, signal)
+
+export interface GetPipelineExecutionDetailQueryParams {
+  accountIdentifier: string
+  orgIdentifier: string
+  projectIdentifier: string
+  stageIdentifier?: string
+}
+
+export interface GetPipelineExecutionDetailPathParams {
+  planExecutionId: string
+}
+
+export type GetPipelineExecutionDetailProps = Omit<
+  GetProps<
+    ResponsePipelineExecutionDetail,
+    Failure | Error,
+    GetPipelineExecutionDetailQueryParams,
+    GetPipelineExecutionDetailPathParams
+  >,
+  'path'
+> &
+  GetPipelineExecutionDetailPathParams
+
+/**
+ * Gets Execution Detail
+ */
+export const GetPipelineExecutionDetail = ({ planExecutionId, ...props }: GetPipelineExecutionDetailProps) => (
+  <Get<
+    ResponsePipelineExecutionDetail,
+    Failure | Error,
+    GetPipelineExecutionDetailQueryParams,
+    GetPipelineExecutionDetailPathParams
+  >
+    path="/executions/${planExecutionId}"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetPipelineExecutionDetailProps = Omit<
+  UseGetProps<
+    ResponsePipelineExecutionDetail,
+    Failure | Error,
+    GetPipelineExecutionDetailQueryParams,
+    GetPipelineExecutionDetailPathParams
+  >,
+  'path'
+> &
+  GetPipelineExecutionDetailPathParams
+
+/**
+ * Gets Execution Detail
+ */
+export const useGetPipelineExecutionDetail = ({ planExecutionId, ...props }: UseGetPipelineExecutionDetailProps) =>
+  useGet<
+    ResponsePipelineExecutionDetail,
+    Failure | Error,
+    GetPipelineExecutionDetailQueryParams,
+    GetPipelineExecutionDetailPathParams
+  >((paramsInPath: GetPipelineExecutionDetailPathParams) => `/executions/${paramsInPath.planExecutionId}`, {
+    base: getConfig('ng/api'),
+    pathParams: { planExecutionId },
+    ...props
+  })
+
+/**
+ * Gets Execution Detail
+ */
+export const getPipelineExecutionDetailPromise = (
+  {
+    planExecutionId,
+    ...props
+  }: GetUsingFetchProps<
+    ResponsePipelineExecutionDetail,
+    Failure | Error,
+    GetPipelineExecutionDetailQueryParams,
+    GetPipelineExecutionDetailPathParams
+  > & { planExecutionId: string },
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<
+    ResponsePipelineExecutionDetail,
+    Failure | Error,
+    GetPipelineExecutionDetailQueryParams,
+    GetPipelineExecutionDetailPathParams
+  >(getConfig('ng/api'), `/executions/${planExecutionId}`, props, signal)
+
+export type GetExecutionStatusesProps = Omit<GetProps<ResponseListExecutionStatus, Failure | Error, void, void>, 'path'>
+
+/**
+ * Gets Execution Status list
+ */
+export const GetExecutionStatuses = (props: GetExecutionStatusesProps) => (
+  <Get<ResponseListExecutionStatus, Failure | Error, void, void>
+    path="/executions/executionStatus"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetExecutionStatusesProps = Omit<
+  UseGetProps<ResponseListExecutionStatus, Failure | Error, void, void>,
+  'path'
+>
+
+/**
+ * Gets Execution Status list
+ */
+export const useGetExecutionStatuses = (props: UseGetExecutionStatusesProps) =>
+  useGet<ResponseListExecutionStatus, Failure | Error, void, void>(`/executions/executionStatus`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+/**
+ * Gets Execution Status list
+ */
+export const getExecutionStatusesPromise = (
+  props: GetUsingFetchProps<ResponseListExecutionStatus, Failure | Error, void, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseListExecutionStatus, Failure | Error, void, void>(
+    getConfig('ng/api'),
+    `/executions/executionStatus`,
+    props,
+    signal
+  )
+
+export interface GetStepTypesToYamlTypeMappingQueryParams {
+  executionNodeType?:
+    | 'SERVICE'
+    | 'MANIFEST_FETCH'
+    | 'PIPELINE_SETUP'
+    | 'INFRASTRUCTURE_SECTION'
+    | 'INFRASTRUCTURE'
+    | 'DEPLOYMENT_STAGE_STEP'
+    | 'K8S_ROLLING'
+    | 'K8S_ROLLBACK_ROLLING'
+    | 'ROLLBACK_SECTION'
+    | 'GENERIC_SECTION'
+    | 'HTTP'
+}
+
+export type GetStepTypesToYamlTypeMappingProps = Omit<
+  GetProps<ResponseMapExecutionNodeTypeString, Failure | Error, GetStepTypesToYamlTypeMappingQueryParams, void>,
+  'path'
+>
+
+/**
+ * Gets Step Types to Yaml Type Mapping
+ */
+export const GetStepTypesToYamlTypeMapping = (props: GetStepTypesToYamlTypeMappingProps) => (
+  <Get<ResponseMapExecutionNodeTypeString, Failure | Error, GetStepTypesToYamlTypeMappingQueryParams, void>
+    path="/executions/step-types"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetStepTypesToYamlTypeMappingProps = Omit<
+  UseGetProps<ResponseMapExecutionNodeTypeString, Failure | Error, GetStepTypesToYamlTypeMappingQueryParams, void>,
+  'path'
+>
+
+/**
+ * Gets Step Types to Yaml Type Mapping
+ */
+export const useGetStepTypesToYamlTypeMapping = (props: UseGetStepTypesToYamlTypeMappingProps) =>
+  useGet<ResponseMapExecutionNodeTypeString, Failure | Error, GetStepTypesToYamlTypeMappingQueryParams, void>(
+    `/executions/step-types`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Gets Step Types to Yaml Type Mapping
+ */
+export const getStepTypesToYamlTypeMappingPromise = (
+  props: GetUsingFetchProps<
+    ResponseMapExecutionNodeTypeString,
+    Failure | Error,
+    GetStepTypesToYamlTypeMappingQueryParams,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseMapExecutionNodeTypeString, Failure | Error, GetStepTypesToYamlTypeMappingQueryParams, void>(
+    getConfig('ng/api'),
+    `/executions/step-types`,
+    props,
+    signal
+  )
+
+export interface GetListOfExecutionsQueryParams {
+  accountIdentifier: string
+  orgIdentifier?: string
+  projectIdentifier: string
+  serviceIdentifiers?: string[]
+  envIdentifiers?: string[]
+  pipelineIdentifiers?: string[]
+  executionStatuses?: (
+    | 'Running'
+    | 'Failed'
+    | 'NotStarted'
+    | 'Expired'
+    | 'Aborted'
+    | 'Queued'
+    | 'Paused'
+    | 'Waiting'
+    | 'Success'
+    | 'Suspended'
+  )[]
+  startTime?: number
+  endTime?: number
+  searchTerm?: string
+  page?: number
+  size?: number
+  sort?: string[]
+}
+
+export type GetListOfExecutionsProps = Omit<
+  GetProps<ResponsePagePipelineExecutionSummaryDTO, Failure | Error, GetListOfExecutionsQueryParams, void>,
+  'path'
+>
+
+/**
+ * Gets Executions list
+ */
+export const GetListOfExecutions = (props: GetListOfExecutionsProps) => (
+  <Get<ResponsePagePipelineExecutionSummaryDTO, Failure | Error, GetListOfExecutionsQueryParams, void>
+    path="/executions"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetListOfExecutionsProps = Omit<
+  UseGetProps<ResponsePagePipelineExecutionSummaryDTO, Failure | Error, GetListOfExecutionsQueryParams, void>,
+  'path'
+>
+
+/**
+ * Gets Executions list
+ */
+export const useGetListOfExecutions = (props: UseGetListOfExecutionsProps) =>
+  useGet<ResponsePagePipelineExecutionSummaryDTO, Failure | Error, GetListOfExecutionsQueryParams, void>(
+    `/executions`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Gets Executions list
+ */
+export const getListOfExecutionsPromise = (
+  props: GetUsingFetchProps<
+    ResponsePagePipelineExecutionSummaryDTO,
+    Failure | Error,
+    GetListOfExecutionsQueryParams,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponsePagePipelineExecutionSummaryDTO, Failure | Error, GetListOfExecutionsQueryParams, void>(
+    getConfig('ng/api'),
+    `/executions`,
+    props,
+    signal
+  )
+
+export interface ValidateJiraCredentialsQueryParams {
+  connectorRef?: string
+  accountId?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
+
+export type ValidateJiraCredentialsProps = Omit<
+  GetProps<ResponseBoolean, Failure | Error, ValidateJiraCredentialsQueryParams, void>,
+  'path'
+>
+
+/**
+ * Validate jira credentials
+ */
+export const ValidateJiraCredentials = (props: ValidateJiraCredentialsProps) => (
+  <Get<ResponseBoolean, Failure | Error, ValidateJiraCredentialsQueryParams, void>
+    path="/jira/validate"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseValidateJiraCredentialsProps = Omit<
+  UseGetProps<ResponseBoolean, Failure | Error, ValidateJiraCredentialsQueryParams, void>,
+  'path'
+>
+
+/**
+ * Validate jira credentials
+ */
+export const useValidateJiraCredentials = (props: UseValidateJiraCredentialsProps) =>
+  useGet<ResponseBoolean, Failure | Error, ValidateJiraCredentialsQueryParams, void>(`/jira/validate`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+/**
+ * Validate jira credentials
+ */
+export const validateJiraCredentialsPromise = (
+  props: GetUsingFetchProps<ResponseBoolean, Failure | Error, ValidateJiraCredentialsQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<ResponseBoolean, Failure | Error, ValidateJiraCredentialsQueryParams, void>(
+    getConfig('ng/api'),
+    `/jira/validate`,
+    props,
+    signal
+  )
+
+export interface CreateJiraTicketQueryParams {
+  connectorRef?: string
+  accountId?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+}
+
+export type CreateJiraTicketProps = Omit<
+  MutateProps<ResponseString, Failure | Error, CreateJiraTicketQueryParams, CreateJiraTicketRequest, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Create jira ticket
+ */
+export const CreateJiraTicket = (props: CreateJiraTicketProps) => (
+  <Mutate<ResponseString, Failure | Error, CreateJiraTicketQueryParams, CreateJiraTicketRequest, void>
+    verb="POST"
+    path="/jira/create-ticket"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseCreateJiraTicketProps = Omit<
+  UseMutateProps<ResponseString, Failure | Error, CreateJiraTicketQueryParams, CreateJiraTicketRequest, void>,
+  'path' | 'verb'
+>
+
+/**
+ * Create jira ticket
+ */
+export const useCreateJiraTicket = (props: UseCreateJiraTicketProps) =>
+  useMutate<ResponseString, Failure | Error, CreateJiraTicketQueryParams, CreateJiraTicketRequest, void>(
+    'POST',
+    `/jira/create-ticket`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * Create jira ticket
+ */
+export const createJiraTicketPromise = (
+  props: MutateUsingFetchProps<
+    ResponseString,
+    Failure | Error,
+    CreateJiraTicketQueryParams,
+    CreateJiraTicketRequest,
+    void
+  >,
+  signal?: RequestInit['signal']
+) =>
+  mutateUsingFetch<ResponseString, Failure | Error, CreateJiraTicketQueryParams, CreateJiraTicketRequest, void>(
+    'POST',
+    getConfig('ng/api'),
+    `/jira/create-ticket`,
+    props,
+    signal
+  )
+
+export interface GetGraphOrchestrationQueryParams {
+  planExecutionId?: string
+}
+
+export type GetGraphOrchestrationProps = Omit<
+  GetProps<RestResponseOrchestrationGraphDTO, unknown, GetGraphOrchestrationQueryParams, void>,
+  'path'
+>
+
+/**
+ * generate orchestration graph for plan execution
+ */
+export const GetGraphOrchestration = (props: GetGraphOrchestrationProps) => (
+  <Get<RestResponseOrchestrationGraphDTO, unknown, GetGraphOrchestrationQueryParams, void>
+    path="/orchestration/get-graph-orchestration"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetGraphOrchestrationProps = Omit<
+  UseGetProps<RestResponseOrchestrationGraphDTO, unknown, GetGraphOrchestrationQueryParams, void>,
+  'path'
+>
+
+/**
+ * generate orchestration graph for plan execution
+ */
+export const useGetGraphOrchestration = (props: UseGetGraphOrchestrationProps) =>
+  useGet<RestResponseOrchestrationGraphDTO, unknown, GetGraphOrchestrationQueryParams, void>(
+    `/orchestration/get-graph-orchestration`,
+    { base: getConfig('ng/api'), ...props }
+  )
+
+/**
+ * generate orchestration graph for plan execution
+ */
+export const getGraphOrchestrationPromise = (
+  props: GetUsingFetchProps<RestResponseOrchestrationGraphDTO, unknown, GetGraphOrchestrationQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<RestResponseOrchestrationGraphDTO, unknown, GetGraphOrchestrationQueryParams, void>(
+    getConfig('ng/api'),
+    `/orchestration/get-graph-orchestration`,
+    props,
+    signal
+  )
+
+export interface GetGraphVisualizationQueryParams {
+  planExecutionId?: string
+}
+
+export type GetGraphVisualizationProps = Omit<GetProps<void, unknown, GetGraphVisualizationQueryParams, void>, 'path'>
+
+/**
+ * generate graph execution visualization
+ */
+export const GetGraphVisualization = (props: GetGraphVisualizationProps) => (
+  <Get<void, unknown, GetGraphVisualizationQueryParams, void>
+    path="/orchestration/get-graph-visualization"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetGraphVisualizationProps = Omit<
+  UseGetProps<void, unknown, GetGraphVisualizationQueryParams, void>,
+  'path'
+>
+
+/**
+ * generate graph execution visualization
+ */
+export const useGetGraphVisualization = (props: UseGetGraphVisualizationProps) =>
+  useGet<void, unknown, GetGraphVisualizationQueryParams, void>(`/orchestration/get-graph-visualization`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+/**
+ * generate graph execution visualization
+ */
+export const getGraphVisualizationPromise = (
+  props: GetUsingFetchProps<void, unknown, GetGraphVisualizationQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<void, unknown, GetGraphVisualizationQueryParams, void>(
+    getConfig('ng/api'),
+    `/orchestration/get-graph-visualization`,
+    props,
+    signal
+  )
+
+export interface HttpV2QueryParams {
+  accountId: string
+  appId: string
+}
+
+export type HttpV2Props = Omit<GetProps<RestResponsePlanExecution, unknown, HttpV2QueryParams, void>, 'path'>
+
+/**
+ * Triggers a task v2 Plan
+ */
+export const HttpV2 = (props: HttpV2Props) => (
+  <Get<RestResponsePlanExecution, unknown, HttpV2QueryParams, void>
+    path="/orchestration/http-v2"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseHttpV2Props = Omit<UseGetProps<RestResponsePlanExecution, unknown, HttpV2QueryParams, void>, 'path'>
+
+/**
+ * Triggers a task v2 Plan
+ */
+export const useHttpV2 = (props: UseHttpV2Props) =>
+  useGet<RestResponsePlanExecution, unknown, HttpV2QueryParams, void>(`/orchestration/http-v2`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+/**
+ * Triggers a task v2 Plan
+ */
+export const httpV2Promise = (
+  props: GetUsingFetchProps<RestResponsePlanExecution, unknown, HttpV2QueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<RestResponsePlanExecution, unknown, HttpV2QueryParams, void>(
+    getConfig('ng/api'),
+    `/orchestration/http-v2`,
+    props,
+    signal
+  )
+
+export interface HttpV3QueryParams {
+  accountId: string
+  appId: string
+}
+
+export type HttpV3Props = Omit<GetProps<RestResponsePlanExecution, unknown, HttpV3QueryParams, void>, 'path'>
+
+/**
+ * Triggers a task v3 Plan
+ */
+export const HttpV3 = (props: HttpV3Props) => (
+  <Get<RestResponsePlanExecution, unknown, HttpV3QueryParams, void>
+    path="/orchestration/http-v3"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseHttpV3Props = Omit<UseGetProps<RestResponsePlanExecution, unknown, HttpV3QueryParams, void>, 'path'>
+
+/**
+ * Triggers a task v3 Plan
+ */
+export const useHttpV3 = (props: UseHttpV3Props) =>
+  useGet<RestResponsePlanExecution, unknown, HttpV3QueryParams, void>(`/orchestration/http-v3`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+/**
+ * Triggers a task v3 Plan
+ */
+export const httpV3Promise = (
+  props: GetUsingFetchProps<RestResponsePlanExecution, unknown, HttpV3QueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<RestResponsePlanExecution, unknown, HttpV3QueryParams, void>(
+    getConfig('ng/api'),
+    `/orchestration/http-v3`,
+    props,
+    signal
+  )
+
+export interface HttpChainV2QueryParams {
+  accountId: string
+  appId: string
+}
+
+export type HttpChainV2Props = Omit<GetProps<RestResponsePlanExecution, unknown, HttpChainV2QueryParams, void>, 'path'>
+
+/**
+ * Triggers a task chain v2 Plan
+ */
+export const HttpChainV2 = (props: HttpChainV2Props) => (
+  <Get<RestResponsePlanExecution, unknown, HttpChainV2QueryParams, void>
+    path="/orchestration/http-chain-v2"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseHttpChainV2Props = Omit<
+  UseGetProps<RestResponsePlanExecution, unknown, HttpChainV2QueryParams, void>,
+  'path'
+>
+
+/**
+ * Triggers a task chain v2 Plan
+ */
+export const useHttpChainV2 = (props: UseHttpChainV2Props) =>
+  useGet<RestResponsePlanExecution, unknown, HttpChainV2QueryParams, void>(`/orchestration/http-chain-v2`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+/**
+ * Triggers a task chain v2 Plan
+ */
+export const httpChainV2Promise = (
+  props: GetUsingFetchProps<RestResponsePlanExecution, unknown, HttpChainV2QueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<RestResponsePlanExecution, unknown, HttpChainV2QueryParams, void>(
+    getConfig('ng/api'),
+    `/orchestration/http-chain-v2`,
+    props,
+    signal
+  )
+
+export interface HttpChainV3QueryParams {
+  accountId: string
+  appId: string
+}
+
+export type HttpChainV3Props = Omit<GetProps<RestResponsePlanExecution, unknown, HttpChainV3QueryParams, void>, 'path'>
+
+/**
+ * Triggers a task chain v3 Plan
+ */
+export const HttpChainV3 = (props: HttpChainV3Props) => (
+  <Get<RestResponsePlanExecution, unknown, HttpChainV3QueryParams, void>
+    path="/orchestration/http-chain-v3"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseHttpChainV3Props = Omit<
+  UseGetProps<RestResponsePlanExecution, unknown, HttpChainV3QueryParams, void>,
+  'path'
+>
+
+/**
+ * Triggers a task chain v3 Plan
+ */
+export const useHttpChainV3 = (props: UseHttpChainV3Props) =>
+  useGet<RestResponsePlanExecution, unknown, HttpChainV3QueryParams, void>(`/orchestration/http-chain-v3`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+/**
+ * Triggers a task chain v3 Plan
+ */
+export const httpChainV3Promise = (
+  props: GetUsingFetchProps<RestResponsePlanExecution, unknown, HttpChainV3QueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<RestResponsePlanExecution, unknown, HttpChainV3QueryParams, void>(
+    getConfig('ng/api'),
+    `/orchestration/http-chain-v3`,
+    props,
+    signal
+  )
+
+export interface GetGraphQueryParams {
+  planExecutionId?: string
+}
+
+export type GetGraphProps = Omit<
+  GetProps<RestResponseOrchestrationGraphDTO, unknown, GetGraphQueryParams, void>,
+  'path'
+>
+
+/**
+ * generate graph for plan execution
+ */
+export const GetGraph = (props: GetGraphProps) => (
+  <Get<RestResponseOrchestrationGraphDTO, unknown, GetGraphQueryParams, void>
+    path="/orchestration/get-graph"
+    base={getConfig('ng/api')}
+    {...props}
+  />
+)
+
+export type UseGetGraphProps = Omit<
+  UseGetProps<RestResponseOrchestrationGraphDTO, unknown, GetGraphQueryParams, void>,
+  'path'
+>
+
+/**
+ * generate graph for plan execution
+ */
+export const useGetGraph = (props: UseGetGraphProps) =>
+  useGet<RestResponseOrchestrationGraphDTO, unknown, GetGraphQueryParams, void>(`/orchestration/get-graph`, {
+    base: getConfig('ng/api'),
+    ...props
+  })
+
+/**
+ * generate graph for plan execution
+ */
+export const getGraphPromise = (
+  props: GetUsingFetchProps<RestResponseOrchestrationGraphDTO, unknown, GetGraphQueryParams, void>,
+  signal?: RequestInit['signal']
+) =>
+  getUsingFetch<RestResponseOrchestrationGraphDTO, unknown, GetGraphQueryParams, void>(
+    getConfig('ng/api'),
+    `/orchestration/get-graph`,
+    props,
+    signal
+  )
+
 export interface GetInputSetForPipelineQueryParams {
   accountIdentifier: string
   orgIdentifier: string
@@ -5359,7 +8947,7 @@ export type GetInputSetForPipelineProps = Omit<
  */
 export const GetInputSetForPipeline = ({ inputSetIdentifier, ...props }: GetInputSetForPipelineProps) => (
   <Get<ResponseInputSetResponse, Failure | Error, GetInputSetForPipelineQueryParams, GetInputSetForPipelinePathParams>
-    path={`/inputSets/${inputSetIdentifier}`}
+    path="/inputSets/${inputSetIdentifier}"
     base={getConfig('ng/api')}
     {...props}
   />
@@ -5448,7 +9036,7 @@ export const UpdateInputSetForPipeline = ({ inputSetIdentifier, ...props }: Upda
     UpdateInputSetForPipelinePathParams
   >
     verb="PUT"
-    path={`/inputSets/${inputSetIdentifier}`}
+    path="/inputSets/${inputSetIdentifier}"
     base={getConfig('ng/api')}
     {...props}
   />
@@ -5524,7 +9112,7 @@ export type DeleteInputSetForPipelineProps = Omit<
 export const DeleteInputSetForPipeline = (props: DeleteInputSetForPipelineProps) => (
   <Mutate<ResponseBoolean, Failure | Error, DeleteInputSetForPipelineQueryParams, string, void>
     verb="DELETE"
-    path={`/inputSets`}
+    path="/inputSets"
     base={getConfig('ng/api')}
     {...props}
   />
@@ -5593,7 +9181,7 @@ export const GetOverlayInputSetForPipeline = ({ inputSetIdentifier, ...props }: 
     GetOverlayInputSetForPipelineQueryParams,
     GetOverlayInputSetForPipelinePathParams
   >
-    path={`/inputSets/overlay/${inputSetIdentifier}`}
+    path="/inputSets/overlay/${inputSetIdentifier}"
     base={getConfig('ng/api')}
     {...props}
   />
@@ -5687,7 +9275,7 @@ export const UpdateOverlayInputSetForPipeline = ({
     UpdateOverlayInputSetForPipelinePathParams
   >
     verb="PUT"
-    path={`/inputSets/overlay/${inputSetIdentifier}`}
+    path="/inputSets/overlay/${inputSetIdentifier}"
     base={getConfig('ng/api')}
     {...props}
   />
@@ -5771,7 +9359,7 @@ export type GetInputSetsListForPipelineProps = Omit<
  */
 export const GetInputSetsListForPipeline = (props: GetInputSetsListForPipelineProps) => (
   <Get<ResponsePageInputSetSummaryResponse, Failure | Error, GetInputSetsListForPipelineQueryParams, void>
-    path={`/inputSets`}
+    path="/inputSets"
     base={getConfig('ng/api')}
     {...props}
   />
@@ -5840,7 +9428,7 @@ export const CreateInputSetForPipeline = (props: CreateInputSetForPipelineProps)
     void
   >
     verb="POST"
-    path={`/inputSets`}
+    path="/inputSets"
     base={getConfig('ng/api')}
     {...props}
   />
@@ -5920,7 +9508,7 @@ export const CreateOverlayInputSetForPipeline = (props: CreateOverlayInputSetFor
     void
   >
     verb="POST"
-    path={`/inputSets/overlay`}
+    path="/inputSets/overlay"
     base={getConfig('ng/api')}
     {...props}
   />
@@ -5987,7 +9575,7 @@ export type GetTemplateFromPipelineProps = Omit<
  */
 export const GetTemplateFromPipeline = (props: GetTemplateFromPipelineProps) => (
   <Get<ResponseInputSetTemplateResponse, Failure | Error, GetTemplateFromPipelineQueryParams, void>
-    path={`/inputSets/template`}
+    path="/inputSets/template"
     base={getConfig('ng/api')}
     {...props}
   />
@@ -6059,7 +9647,7 @@ export const GetMergeInputSetFromPipelineTemplateWithListInput = (
     void
   >
     verb="POST"
-    path={`/inputSets/merge`}
+    path="/inputSets/merge"
     base={getConfig('ng/api')}
     {...props}
   />
@@ -6111,3336 +9699,6 @@ export const getMergeInputSetFromPipelineTemplateWithListInputPromise = (
     void
   >('POST', getConfig('ng/api'), `/inputSets/merge`, props, signal)
 
-export interface UpdateInviteQueryParams {
-  accountIdentifier?: string
-}
-
-export interface UpdateInvitePathParams {
-  inviteId: string
-}
-
-export type UpdateInviteProps = Omit<
-  MutateProps<ResponseOptionalInviteDTO, Failure | Error, UpdateInviteQueryParams, InviteDTO, UpdateInvitePathParams>,
-  'path' | 'verb'
-> &
-  UpdateInvitePathParams
-
-/**
- * Resend invite mail
- */
-export const UpdateInvite = ({ inviteId, ...props }: UpdateInviteProps) => (
-  <Mutate<ResponseOptionalInviteDTO, Failure | Error, UpdateInviteQueryParams, InviteDTO, UpdateInvitePathParams>
-    verb="PUT"
-    path={`/invites/${inviteId}`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseUpdateInviteProps = Omit<
-  UseMutateProps<
-    ResponseOptionalInviteDTO,
-    Failure | Error,
-    UpdateInviteQueryParams,
-    InviteDTO,
-    UpdateInvitePathParams
-  >,
-  'path' | 'verb'
-> &
-  UpdateInvitePathParams
-
-/**
- * Resend invite mail
- */
-export const useUpdateInvite = ({ inviteId, ...props }: UseUpdateInviteProps) =>
-  useMutate<ResponseOptionalInviteDTO, Failure | Error, UpdateInviteQueryParams, InviteDTO, UpdateInvitePathParams>(
-    'PUT',
-    (paramsInPath: UpdateInvitePathParams) => `/invites/${paramsInPath.inviteId}`,
-    { base: getConfig('ng/api'), pathParams: { inviteId }, ...props }
-  )
-
-/**
- * Resend invite mail
- */
-export const updateInvitePromise = (
-  {
-    inviteId,
-    ...props
-  }: MutateUsingFetchProps<
-    ResponseOptionalInviteDTO,
-    Failure | Error,
-    UpdateInviteQueryParams,
-    InviteDTO,
-    UpdateInvitePathParams
-  > & { inviteId: string },
-  signal?: RequestInit['signal']
-) =>
-  mutateUsingFetch<
-    ResponseOptionalInviteDTO,
-    Failure | Error,
-    UpdateInviteQueryParams,
-    InviteDTO,
-    UpdateInvitePathParams
-  >('PUT', getConfig('ng/api'), `/invites/${inviteId}`, props, signal)
-
-export interface DeleteInviteQueryParams {
-  accountIdentifier?: string
-}
-
-export type DeleteInviteProps = Omit<
-  MutateProps<ResponseOptionalInviteDTO, Failure | Error, DeleteInviteQueryParams, string, void>,
-  'path' | 'verb'
->
-
-/**
- * Delete a invite for the specified project
- */
-export const DeleteInvite = (props: DeleteInviteProps) => (
-  <Mutate<ResponseOptionalInviteDTO, Failure | Error, DeleteInviteQueryParams, string, void>
-    verb="DELETE"
-    path={`/invites`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseDeleteInviteProps = Omit<
-  UseMutateProps<ResponseOptionalInviteDTO, Failure | Error, DeleteInviteQueryParams, string, void>,
-  'path' | 'verb'
->
-
-/**
- * Delete a invite for the specified project
- */
-export const useDeleteInvite = (props: UseDeleteInviteProps) =>
-  useMutate<ResponseOptionalInviteDTO, Failure | Error, DeleteInviteQueryParams, string, void>('DELETE', `/invites`, {
-    base: getConfig('ng/api'),
-    ...props
-  })
-
-/**
- * Delete a invite for the specified project
- */
-export const deleteInvitePromise = (
-  props: MutateUsingFetchProps<ResponseOptionalInviteDTO, Failure | Error, DeleteInviteQueryParams, string, void>,
-  signal?: RequestInit['signal']
-) =>
-  mutateUsingFetch<ResponseOptionalInviteDTO, Failure | Error, DeleteInviteQueryParams, string, void>(
-    'DELETE',
-    getConfig('ng/api'),
-    `/invites`,
-    props,
-    signal
-  )
-
-export interface VerifyInviteQueryParams {
-  token: string
-  accountIdentifier?: string
-}
-
-export type VerifyInviteProps = Omit<GetProps<void, Failure | Error, VerifyInviteQueryParams, void>, 'path'>
-
-/**
- * Verify user invite
- */
-export const VerifyInvite = (props: VerifyInviteProps) => (
-  <Get<void, Failure | Error, VerifyInviteQueryParams, void>
-    path={`/invites/verify`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseVerifyInviteProps = Omit<UseGetProps<void, Failure | Error, VerifyInviteQueryParams, void>, 'path'>
-
-/**
- * Verify user invite
- */
-export const useVerifyInvite = (props: UseVerifyInviteProps) =>
-  useGet<void, Failure | Error, VerifyInviteQueryParams, void>(`/invites/verify`, {
-    base: getConfig('ng/api'),
-    ...props
-  })
-
-/**
- * Verify user invite
- */
-export const verifyInvitePromise = (
-  props: GetUsingFetchProps<void, Failure | Error, VerifyInviteQueryParams, void>,
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<void, Failure | Error, VerifyInviteQueryParams, void>(
-    getConfig('ng/api'),
-    `/invites/verify`,
-    props,
-    signal
-  )
-
-export interface GetInvitesQueryParams {
-  accountIdentifier?: string
-  orgIdentifier?: string
-  projectIdentifier?: string
-  pageIndex?: number
-  pageSize?: number
-  sortOrders?: string[]
-}
-
-export type GetInvitesProps = Omit<
-  GetProps<ResponsePageInviteDTO, Failure | Error, GetInvitesQueryParams, void>,
-  'path'
->
-
-/**
- * Get all invites for the queried project
- */
-export const GetInvites = (props: GetInvitesProps) => (
-  <Get<ResponsePageInviteDTO, Failure | Error, GetInvitesQueryParams, void>
-    path={`/invites`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseGetInvitesProps = Omit<
-  UseGetProps<ResponsePageInviteDTO, Failure | Error, GetInvitesQueryParams, void>,
-  'path'
->
-
-/**
- * Get all invites for the queried project
- */
-export const useGetInvites = (props: UseGetInvitesProps) =>
-  useGet<ResponsePageInviteDTO, Failure | Error, GetInvitesQueryParams, void>(`/invites`, {
-    base: getConfig('ng/api'),
-    ...props
-  })
-
-/**
- * Get all invites for the queried project
- */
-export const getInvitesPromise = (
-  props: GetUsingFetchProps<ResponsePageInviteDTO, Failure | Error, GetInvitesQueryParams, void>,
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<ResponsePageInviteDTO, Failure | Error, GetInvitesQueryParams, void>(
-    getConfig('ng/api'),
-    `/invites`,
-    props,
-    signal
-  )
-
-export interface SendInviteQueryParams {
-  accountIdentifier: string
-  orgIdentifier: string
-  projectIdentifier: string
-}
-
-export type SendInviteProps = Omit<
-  MutateProps<ResponseListInviteOperationResponse, Failure | Error, SendInviteQueryParams, CreateInviteListDTO, void>,
-  'path' | 'verb'
->
-
-/**
- * Add a new invite for the specified project
- */
-export const SendInvite = (props: SendInviteProps) => (
-  <Mutate<ResponseListInviteOperationResponse, Failure | Error, SendInviteQueryParams, CreateInviteListDTO, void>
-    verb="POST"
-    path={`/invites`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseSendInviteProps = Omit<
-  UseMutateProps<
-    ResponseListInviteOperationResponse,
-    Failure | Error,
-    SendInviteQueryParams,
-    CreateInviteListDTO,
-    void
-  >,
-  'path' | 'verb'
->
-
-/**
- * Add a new invite for the specified project
- */
-export const useSendInvite = (props: UseSendInviteProps) =>
-  useMutate<ResponseListInviteOperationResponse, Failure | Error, SendInviteQueryParams, CreateInviteListDTO, void>(
-    'POST',
-    `/invites`,
-    { base: getConfig('ng/api'), ...props }
-  )
-
-/**
- * Add a new invite for the specified project
- */
-export const sendInvitePromise = (
-  props: MutateUsingFetchProps<
-    ResponseListInviteOperationResponse,
-    Failure | Error,
-    SendInviteQueryParams,
-    CreateInviteListDTO,
-    void
-  >,
-  signal?: RequestInit['signal']
-) =>
-  mutateUsingFetch<
-    ResponseListInviteOperationResponse,
-    Failure | Error,
-    SendInviteQueryParams,
-    CreateInviteListDTO,
-    void
-  >('POST', getConfig('ng/api'), `/invites`, props, signal)
-
-export interface GetRolesQueryParams {
-  accountIdentifier: string
-  orgIdentifier: string
-  projectIdentifier: string
-}
-
-export type GetRolesProps = Omit<
-  GetProps<ResponseOptionalListRoleDTO, Failure | Error, GetRolesQueryParams, void>,
-  'path'
->
-
-/**
- * Get all roles for the queried project
- */
-export const GetRoles = (props: GetRolesProps) => (
-  <Get<ResponseOptionalListRoleDTO, Failure | Error, GetRolesQueryParams, void>
-    path={`/roles`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseGetRolesProps = Omit<
-  UseGetProps<ResponseOptionalListRoleDTO, Failure | Error, GetRolesQueryParams, void>,
-  'path'
->
-
-/**
- * Get all roles for the queried project
- */
-export const useGetRoles = (props: UseGetRolesProps) =>
-  useGet<ResponseOptionalListRoleDTO, Failure | Error, GetRolesQueryParams, void>(`/roles`, {
-    base: getConfig('ng/api'),
-    ...props
-  })
-
-/**
- * Get all roles for the queried project
- */
-export const getRolesPromise = (
-  props: GetUsingFetchProps<ResponseOptionalListRoleDTO, Failure | Error, GetRolesQueryParams, void>,
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<ResponseOptionalListRoleDTO, Failure | Error, GetRolesQueryParams, void>(
-    getConfig('ng/api'),
-    `/roles`,
-    props,
-    signal
-  )
-
-export interface PutSecretFilePathParams {
-  identifier: string
-}
-
-export type PutSecretFileProps = Omit<
-  MutateProps<ResponseBoolean, Failure | Error, void, void, PutSecretFilePathParams>,
-  'path' | 'verb'
-> &
-  PutSecretFilePathParams
-
-/**
- * Update a secret file
- */
-export const PutSecretFile = ({ identifier, ...props }: PutSecretFileProps) => (
-  <Mutate<ResponseBoolean, Failure | Error, void, void, PutSecretFilePathParams>
-    verb="PUT"
-    path={`/secrets/files/${identifier}`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UsePutSecretFileProps = Omit<
-  UseMutateProps<ResponseBoolean, Failure | Error, void, void, PutSecretFilePathParams>,
-  'path' | 'verb'
-> &
-  PutSecretFilePathParams
-
-/**
- * Update a secret file
- */
-export const usePutSecretFile = ({ identifier, ...props }: UsePutSecretFileProps) =>
-  useMutate<ResponseBoolean, Failure | Error, void, void, PutSecretFilePathParams>(
-    'PUT',
-    (paramsInPath: PutSecretFilePathParams) => `/secrets/files/${paramsInPath.identifier}`,
-    { base: getConfig('ng/api'), pathParams: { identifier }, ...props }
-  )
-
-/**
- * Update a secret file
- */
-export const putSecretFilePromise = (
-  {
-    identifier,
-    ...props
-  }: MutateUsingFetchProps<ResponseBoolean, Failure | Error, void, void, PutSecretFilePathParams> & {
-    identifier: string
-  },
-  signal?: RequestInit['signal']
-) =>
-  mutateUsingFetch<ResponseBoolean, Failure | Error, void, void, PutSecretFilePathParams>(
-    'PUT',
-    getConfig('ng/api'),
-    `/secrets/files/${identifier}`,
-    props,
-    signal
-  )
-
-export type PostSecretFileViaYamlProps = Omit<
-  MutateProps<ResponseEncryptedDataDTO, Failure | Error, void, SecretFileDTORequestBody, void>,
-  'path' | 'verb'
->
-
-/**
- * Create a secret file via yaml
- */
-export const PostSecretFileViaYaml = (props: PostSecretFileViaYamlProps) => (
-  <Mutate<ResponseEncryptedDataDTO, Failure | Error, void, SecretFileDTORequestBody, void>
-    verb="POST"
-    path={`/secrets/files/yaml`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UsePostSecretFileViaYamlProps = Omit<
-  UseMutateProps<ResponseEncryptedDataDTO, Failure | Error, void, SecretFileDTORequestBody, void>,
-  'path' | 'verb'
->
-
-/**
- * Create a secret file via yaml
- */
-export const usePostSecretFileViaYaml = (props: UsePostSecretFileViaYamlProps) =>
-  useMutate<ResponseEncryptedDataDTO, Failure | Error, void, SecretFileDTORequestBody, void>(
-    'POST',
-    `/secrets/files/yaml`,
-    { base: getConfig('ng/api'), ...props }
-  )
-
-/**
- * Create a secret file via yaml
- */
-export const postSecretFileViaYamlPromise = (
-  props: MutateUsingFetchProps<ResponseEncryptedDataDTO, Failure | Error, void, SecretFileDTORequestBody, void>,
-  signal?: RequestInit['signal']
-) =>
-  mutateUsingFetch<ResponseEncryptedDataDTO, Failure | Error, void, SecretFileDTORequestBody, void>(
-    'POST',
-    getConfig('ng/api'),
-    `/secrets/files/yaml`,
-    props,
-    signal
-  )
-
-export interface PutSecretFileViaYamlPathParams {
-  identifier: string
-}
-
-export type PutSecretFileViaYamlProps = Omit<
-  MutateProps<ResponseBoolean, Failure | Error, void, SecretFileDTORequestBody, PutSecretFileViaYamlPathParams>,
-  'path' | 'verb'
-> &
-  PutSecretFileViaYamlPathParams
-
-/**
- * Update a secret file via yaml
- */
-export const PutSecretFileViaYaml = ({ identifier, ...props }: PutSecretFileViaYamlProps) => (
-  <Mutate<ResponseBoolean, Failure | Error, void, SecretFileDTORequestBody, PutSecretFileViaYamlPathParams>
-    verb="PUT"
-    path={`/secrets/files/${identifier}/yaml`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UsePutSecretFileViaYamlProps = Omit<
-  UseMutateProps<ResponseBoolean, Failure | Error, void, SecretFileDTORequestBody, PutSecretFileViaYamlPathParams>,
-  'path' | 'verb'
-> &
-  PutSecretFileViaYamlPathParams
-
-/**
- * Update a secret file via yaml
- */
-export const usePutSecretFileViaYaml = ({ identifier, ...props }: UsePutSecretFileViaYamlProps) =>
-  useMutate<ResponseBoolean, Failure | Error, void, SecretFileDTORequestBody, PutSecretFileViaYamlPathParams>(
-    'PUT',
-    (paramsInPath: PutSecretFileViaYamlPathParams) => `/secrets/files/${paramsInPath.identifier}/yaml`,
-    { base: getConfig('ng/api'), pathParams: { identifier }, ...props }
-  )
-
-/**
- * Update a secret file via yaml
- */
-export const putSecretFileViaYamlPromise = (
-  {
-    identifier,
-    ...props
-  }: MutateUsingFetchProps<
-    ResponseBoolean,
-    Failure | Error,
-    void,
-    SecretFileDTORequestBody,
-    PutSecretFileViaYamlPathParams
-  > & { identifier: string },
-  signal?: RequestInit['signal']
-) =>
-  mutateUsingFetch<ResponseBoolean, Failure | Error, void, SecretFileDTORequestBody, PutSecretFileViaYamlPathParams>(
-    'PUT',
-    getConfig('ng/api'),
-    `/secrets/files/${identifier}/yaml`,
-    props,
-    signal
-  )
-
-export interface GetMetadataQueryParams {
-  accountIdentifier: string
-}
-
-export type GetMetadataProps = Omit<
-  MutateProps<
-    ResponseSecretManagerMetadataDTO,
-    Failure | Error,
-    GetMetadataQueryParams,
-    SecretManagerMetadataRequestDTO,
-    void
-  >,
-  'path' | 'verb'
->
-
-/**
- * Get metadata of secret manager
- */
-export const GetMetadata = (props: GetMetadataProps) => (
-  <Mutate<
-    ResponseSecretManagerMetadataDTO,
-    Failure | Error,
-    GetMetadataQueryParams,
-    SecretManagerMetadataRequestDTO,
-    void
-  >
-    verb="POST"
-    path={`/secret-managers/meta-data`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseGetMetadataProps = Omit<
-  UseMutateProps<
-    ResponseSecretManagerMetadataDTO,
-    Failure | Error,
-    GetMetadataQueryParams,
-    SecretManagerMetadataRequestDTO,
-    void
-  >,
-  'path' | 'verb'
->
-
-/**
- * Get metadata of secret manager
- */
-export const useGetMetadata = (props: UseGetMetadataProps) =>
-  useMutate<
-    ResponseSecretManagerMetadataDTO,
-    Failure | Error,
-    GetMetadataQueryParams,
-    SecretManagerMetadataRequestDTO,
-    void
-  >('POST', `/secret-managers/meta-data`, { base: getConfig('ng/api'), ...props })
-
-/**
- * Get metadata of secret manager
- */
-export const getMetadataPromise = (
-  props: MutateUsingFetchProps<
-    ResponseSecretManagerMetadataDTO,
-    Failure | Error,
-    GetMetadataQueryParams,
-    SecretManagerMetadataRequestDTO,
-    void
-  >,
-  signal?: RequestInit['signal']
-) =>
-  mutateUsingFetch<
-    ResponseSecretManagerMetadataDTO,
-    Failure | Error,
-    GetMetadataQueryParams,
-    SecretManagerMetadataRequestDTO,
-    void
-  >('POST', getConfig('ng/api'), `/secret-managers/meta-data`, props, signal)
-
-export interface GetSecretQueryParams {
-  accountIdentifier: string
-  orgIdentifier?: string
-  projectIdentifier?: string
-}
-
-export interface GetSecretPathParams {
-  identifier: string
-}
-
-export type GetSecretProps = Omit<
-  GetProps<ResponseEncryptedDataDTO, Failure | Error, GetSecretQueryParams, GetSecretPathParams>,
-  'path'
-> &
-  GetSecretPathParams
-
-/**
- * Gets secret
- */
-export const GetSecret = ({ identifier, ...props }: GetSecretProps) => (
-  <Get<ResponseEncryptedDataDTO, Failure | Error, GetSecretQueryParams, GetSecretPathParams>
-    path={`/secrets/${identifier}`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseGetSecretProps = Omit<
-  UseGetProps<ResponseEncryptedDataDTO, Failure | Error, GetSecretQueryParams, GetSecretPathParams>,
-  'path'
-> &
-  GetSecretPathParams
-
-/**
- * Gets secret
- */
-export const useGetSecret = ({ identifier, ...props }: UseGetSecretProps) =>
-  useGet<ResponseEncryptedDataDTO, Failure | Error, GetSecretQueryParams, GetSecretPathParams>(
-    (paramsInPath: GetSecretPathParams) => `/secrets/${paramsInPath.identifier}`,
-    { base: getConfig('ng/api'), pathParams: { identifier }, ...props }
-  )
-
-/**
- * Gets secret
- */
-export const getSecretPromise = (
-  {
-    identifier,
-    ...props
-  }: GetUsingFetchProps<ResponseEncryptedDataDTO, Failure | Error, GetSecretQueryParams, GetSecretPathParams> & {
-    identifier: string
-  },
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<ResponseEncryptedDataDTO, Failure | Error, GetSecretQueryParams, GetSecretPathParams>(
-    getConfig('ng/api'),
-    `/secrets/${identifier}`,
-    props,
-    signal
-  )
-
-export interface PutSecretTextPathParams {
-  identifier: string
-}
-
-export type PutSecretTextProps = Omit<
-  MutateProps<ResponseBoolean, Failure | Error, void, SecretTextDTO2RequestBody, PutSecretTextPathParams>,
-  'path' | 'verb'
-> &
-  PutSecretTextPathParams
-
-/**
- * Update a secret text
- */
-export const PutSecretText = ({ identifier, ...props }: PutSecretTextProps) => (
-  <Mutate<ResponseBoolean, Failure | Error, void, SecretTextDTO2RequestBody, PutSecretTextPathParams>
-    verb="PUT"
-    path={`/secrets/${identifier}`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UsePutSecretTextProps = Omit<
-  UseMutateProps<ResponseBoolean, Failure | Error, void, SecretTextDTO2RequestBody, PutSecretTextPathParams>,
-  'path' | 'verb'
-> &
-  PutSecretTextPathParams
-
-/**
- * Update a secret text
- */
-export const usePutSecretText = ({ identifier, ...props }: UsePutSecretTextProps) =>
-  useMutate<ResponseBoolean, Failure | Error, void, SecretTextDTO2RequestBody, PutSecretTextPathParams>(
-    'PUT',
-    (paramsInPath: PutSecretTextPathParams) => `/secrets/${paramsInPath.identifier}`,
-    { base: getConfig('ng/api'), pathParams: { identifier }, ...props }
-  )
-
-/**
- * Update a secret text
- */
-export const putSecretTextPromise = (
-  {
-    identifier,
-    ...props
-  }: MutateUsingFetchProps<
-    ResponseBoolean,
-    Failure | Error,
-    void,
-    SecretTextDTO2RequestBody,
-    PutSecretTextPathParams
-  > & { identifier: string },
-  signal?: RequestInit['signal']
-) =>
-  mutateUsingFetch<ResponseBoolean, Failure | Error, void, SecretTextDTO2RequestBody, PutSecretTextPathParams>(
-    'PUT',
-    getConfig('ng/api'),
-    `/secrets/${identifier}`,
-    props,
-    signal
-  )
-
-export interface DeleteSecretQueryParams {
-  accountIdentifier: string
-  orgIdentifier?: string
-  projectIdentifier?: string
-}
-
-export type DeleteSecretProps = Omit<
-  MutateProps<ResponseBoolean, Failure | Error, DeleteSecretQueryParams, string, void>,
-  'path' | 'verb'
->
-
-/**
- * Delete a secret text
- */
-export const DeleteSecret = (props: DeleteSecretProps) => (
-  <Mutate<ResponseBoolean, Failure | Error, DeleteSecretQueryParams, string, void>
-    verb="DELETE"
-    path={`/secrets`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseDeleteSecretProps = Omit<
-  UseMutateProps<ResponseBoolean, Failure | Error, DeleteSecretQueryParams, string, void>,
-  'path' | 'verb'
->
-
-/**
- * Delete a secret text
- */
-export const useDeleteSecret = (props: UseDeleteSecretProps) =>
-  useMutate<ResponseBoolean, Failure | Error, DeleteSecretQueryParams, string, void>('DELETE', `/secrets`, {
-    base: getConfig('ng/api'),
-    ...props
-  })
-
-/**
- * Delete a secret text
- */
-export const deleteSecretPromise = (
-  props: MutateUsingFetchProps<ResponseBoolean, Failure | Error, DeleteSecretQueryParams, string, void>,
-  signal?: RequestInit['signal']
-) =>
-  mutateUsingFetch<ResponseBoolean, Failure | Error, DeleteSecretQueryParams, string, void>(
-    'DELETE',
-    getConfig('ng/api'),
-    `/secrets`,
-    props,
-    signal
-  )
-
-export interface ListSecretsQueryParams {
-  accountIdentifier: string
-  orgIdentifier?: string
-  projectIdentifier?: string
-  type?: 'SecretFile' | 'SecretText' | 'SSHKey'
-  searchTerm?: string
-  pageIndex?: number
-  pageSize?: number
-}
-
-export type ListSecretsProps = Omit<
-  GetProps<ResponsePageEncryptedDataDTO, Failure | Error, ListSecretsQueryParams, void>,
-  'path'
->
-
-/**
- * Get secrets for an account
- */
-export const ListSecrets = (props: ListSecretsProps) => (
-  <Get<ResponsePageEncryptedDataDTO, Failure | Error, ListSecretsQueryParams, void>
-    path={`/secrets`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseListSecretsProps = Omit<
-  UseGetProps<ResponsePageEncryptedDataDTO, Failure | Error, ListSecretsQueryParams, void>,
-  'path'
->
-
-/**
- * Get secrets for an account
- */
-export const useListSecrets = (props: UseListSecretsProps) =>
-  useGet<ResponsePageEncryptedDataDTO, Failure | Error, ListSecretsQueryParams, void>(`/secrets`, {
-    base: getConfig('ng/api'),
-    ...props
-  })
-
-/**
- * Get secrets for an account
- */
-export const listSecretsPromise = (
-  props: GetUsingFetchProps<ResponsePageEncryptedDataDTO, Failure | Error, ListSecretsQueryParams, void>,
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<ResponsePageEncryptedDataDTO, Failure | Error, ListSecretsQueryParams, void>(
-    getConfig('ng/api'),
-    `/secrets`,
-    props,
-    signal
-  )
-
-export type PostSecretTextProps = Omit<
-  MutateProps<ResponseEncryptedDataDTO, Failure | Error, void, SecretTextDTO2RequestBody, void>,
-  'path' | 'verb'
->
-
-/**
- * Create a secret text
- */
-export const PostSecretText = (props: PostSecretTextProps) => (
-  <Mutate<ResponseEncryptedDataDTO, Failure | Error, void, SecretTextDTO2RequestBody, void>
-    verb="POST"
-    path={`/secrets`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UsePostSecretTextProps = Omit<
-  UseMutateProps<ResponseEncryptedDataDTO, Failure | Error, void, SecretTextDTO2RequestBody, void>,
-  'path' | 'verb'
->
-
-/**
- * Create a secret text
- */
-export const usePostSecretText = (props: UsePostSecretTextProps) =>
-  useMutate<ResponseEncryptedDataDTO, Failure | Error, void, SecretTextDTO2RequestBody, void>('POST', `/secrets`, {
-    base: getConfig('ng/api'),
-    ...props
-  })
-
-/**
- * Create a secret text
- */
-export const postSecretTextPromise = (
-  props: MutateUsingFetchProps<ResponseEncryptedDataDTO, Failure | Error, void, SecretTextDTO2RequestBody, void>,
-  signal?: RequestInit['signal']
-) =>
-  mutateUsingFetch<ResponseEncryptedDataDTO, Failure | Error, void, SecretTextDTO2RequestBody, void>(
-    'POST',
-    getConfig('ng/api'),
-    `/secrets`,
-    props,
-    signal
-  )
-
-export type PostSecretTextViaYamlProps = Omit<
-  MutateProps<ResponseEncryptedDataDTO, Failure | Error, void, SecretTextDTORequestBody, void>,
-  'path' | 'verb'
->
-
-/**
- * Create a secret text via yaml
- */
-export const PostSecretTextViaYaml = (props: PostSecretTextViaYamlProps) => (
-  <Mutate<ResponseEncryptedDataDTO, Failure | Error, void, SecretTextDTORequestBody, void>
-    verb="POST"
-    path={`/secrets/yaml`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UsePostSecretTextViaYamlProps = Omit<
-  UseMutateProps<ResponseEncryptedDataDTO, Failure | Error, void, SecretTextDTORequestBody, void>,
-  'path' | 'verb'
->
-
-/**
- * Create a secret text via yaml
- */
-export const usePostSecretTextViaYaml = (props: UsePostSecretTextViaYamlProps) =>
-  useMutate<ResponseEncryptedDataDTO, Failure | Error, void, SecretTextDTORequestBody, void>('POST', `/secrets/yaml`, {
-    base: getConfig('ng/api'),
-    ...props
-  })
-
-/**
- * Create a secret text via yaml
- */
-export const postSecretTextViaYamlPromise = (
-  props: MutateUsingFetchProps<ResponseEncryptedDataDTO, Failure | Error, void, SecretTextDTORequestBody, void>,
-  signal?: RequestInit['signal']
-) =>
-  mutateUsingFetch<ResponseEncryptedDataDTO, Failure | Error, void, SecretTextDTORequestBody, void>(
-    'POST',
-    getConfig('ng/api'),
-    `/secrets/yaml`,
-    props,
-    signal
-  )
-
-export interface PutSecretTextViaYamlPathParams {
-  identifier: string
-}
-
-export type PutSecretTextViaYamlProps = Omit<
-  MutateProps<ResponseBoolean, Failure | Error, void, SecretTextDTORequestBody, PutSecretTextViaYamlPathParams>,
-  'path' | 'verb'
-> &
-  PutSecretTextViaYamlPathParams
-
-/**
- * Update a secret text via yaml
- */
-export const PutSecretTextViaYaml = ({ identifier, ...props }: PutSecretTextViaYamlProps) => (
-  <Mutate<ResponseBoolean, Failure | Error, void, SecretTextDTORequestBody, PutSecretTextViaYamlPathParams>
-    verb="PUT"
-    path={`/secrets/${identifier}/yaml`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UsePutSecretTextViaYamlProps = Omit<
-  UseMutateProps<ResponseBoolean, Failure | Error, void, SecretTextDTORequestBody, PutSecretTextViaYamlPathParams>,
-  'path' | 'verb'
-> &
-  PutSecretTextViaYamlPathParams
-
-/**
- * Update a secret text via yaml
- */
-export const usePutSecretTextViaYaml = ({ identifier, ...props }: UsePutSecretTextViaYamlProps) =>
-  useMutate<ResponseBoolean, Failure | Error, void, SecretTextDTORequestBody, PutSecretTextViaYamlPathParams>(
-    'PUT',
-    (paramsInPath: PutSecretTextViaYamlPathParams) => `/secrets/${paramsInPath.identifier}/yaml`,
-    { base: getConfig('ng/api'), pathParams: { identifier }, ...props }
-  )
-
-/**
- * Update a secret text via yaml
- */
-export const putSecretTextViaYamlPromise = (
-  {
-    identifier,
-    ...props
-  }: MutateUsingFetchProps<
-    ResponseBoolean,
-    Failure | Error,
-    void,
-    SecretTextDTORequestBody,
-    PutSecretTextViaYamlPathParams
-  > & { identifier: string },
-  signal?: RequestInit['signal']
-) =>
-  mutateUsingFetch<ResponseBoolean, Failure | Error, void, SecretTextDTORequestBody, PutSecretTextViaYamlPathParams>(
-    'PUT',
-    getConfig('ng/api'),
-    `/secrets/${identifier}/yaml`,
-    props,
-    signal
-  )
-
-export interface GetSecretV2QueryParams {
-  accountIdentifier: string
-  orgIdentifier?: string
-  projectIdentifier?: string
-}
-
-export interface GetSecretV2PathParams {
-  identifier: string
-}
-
-export type GetSecretV2Props = Omit<
-  GetProps<ResponseSecretResponseWrapper, Failure | Error, GetSecretV2QueryParams, GetSecretV2PathParams>,
-  'path'
-> &
-  GetSecretV2PathParams
-
-/**
- * Gets secret
- */
-export const GetSecretV2 = ({ identifier, ...props }: GetSecretV2Props) => (
-  <Get<ResponseSecretResponseWrapper, Failure | Error, GetSecretV2QueryParams, GetSecretV2PathParams>
-    path={`/v2/secrets/${identifier}`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseGetSecretV2Props = Omit<
-  UseGetProps<ResponseSecretResponseWrapper, Failure | Error, GetSecretV2QueryParams, GetSecretV2PathParams>,
-  'path'
-> &
-  GetSecretV2PathParams
-
-/**
- * Gets secret
- */
-export const useGetSecretV2 = ({ identifier, ...props }: UseGetSecretV2Props) =>
-  useGet<ResponseSecretResponseWrapper, Failure | Error, GetSecretV2QueryParams, GetSecretV2PathParams>(
-    (paramsInPath: GetSecretV2PathParams) => `/v2/secrets/${paramsInPath.identifier}`,
-    { base: getConfig('ng/api'), pathParams: { identifier }, ...props }
-  )
-
-/**
- * Gets secret
- */
-export const getSecretV2Promise = (
-  {
-    identifier,
-    ...props
-  }: GetUsingFetchProps<
-    ResponseSecretResponseWrapper,
-    Failure | Error,
-    GetSecretV2QueryParams,
-    GetSecretV2PathParams
-  > & { identifier: string },
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<ResponseSecretResponseWrapper, Failure | Error, GetSecretV2QueryParams, GetSecretV2PathParams>(
-    getConfig('ng/api'),
-    `/v2/secrets/${identifier}`,
-    props,
-    signal
-  )
-
-export interface PutSecretQueryParams {
-  accountIdentifier: string
-}
-
-export interface PutSecretPathParams {
-  identifier: string
-}
-
-export type PutSecretProps = Omit<
-  MutateProps<
-    ResponseBoolean,
-    Failure | Error,
-    PutSecretQueryParams,
-    SecretRequestWrapperRequestBody,
-    PutSecretPathParams
-  >,
-  'path' | 'verb'
-> &
-  PutSecretPathParams
-
-/**
- * Update a secret
- */
-export const PutSecret = ({ identifier, ...props }: PutSecretProps) => (
-  <Mutate<ResponseBoolean, Failure | Error, PutSecretQueryParams, SecretRequestWrapperRequestBody, PutSecretPathParams>
-    verb="PUT"
-    path={`/v2/secrets/${identifier}`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UsePutSecretProps = Omit<
-  UseMutateProps<
-    ResponseBoolean,
-    Failure | Error,
-    PutSecretQueryParams,
-    SecretRequestWrapperRequestBody,
-    PutSecretPathParams
-  >,
-  'path' | 'verb'
-> &
-  PutSecretPathParams
-
-/**
- * Update a secret
- */
-export const usePutSecret = ({ identifier, ...props }: UsePutSecretProps) =>
-  useMutate<
-    ResponseBoolean,
-    Failure | Error,
-    PutSecretQueryParams,
-    SecretRequestWrapperRequestBody,
-    PutSecretPathParams
-  >('PUT', (paramsInPath: PutSecretPathParams) => `/v2/secrets/${paramsInPath.identifier}`, {
-    base: getConfig('ng/api'),
-    pathParams: { identifier },
-    ...props
-  })
-
-/**
- * Update a secret
- */
-export const putSecretPromise = (
-  {
-    identifier,
-    ...props
-  }: MutateUsingFetchProps<
-    ResponseBoolean,
-    Failure | Error,
-    PutSecretQueryParams,
-    SecretRequestWrapperRequestBody,
-    PutSecretPathParams
-  > & { identifier: string },
-  signal?: RequestInit['signal']
-) =>
-  mutateUsingFetch<
-    ResponseBoolean,
-    Failure | Error,
-    PutSecretQueryParams,
-    SecretRequestWrapperRequestBody,
-    PutSecretPathParams
-  >('PUT', getConfig('ng/api'), `/v2/secrets/${identifier}`, props, signal)
-
-export interface DeleteSecretV2QueryParams {
-  accountIdentifier: string
-  orgIdentifier?: string
-  projectIdentifier?: string
-}
-
-export type DeleteSecretV2Props = Omit<
-  MutateProps<ResponseBoolean, Failure | Error, DeleteSecretV2QueryParams, string, void>,
-  'path' | 'verb'
->
-
-/**
- * Delete secret
- */
-export const DeleteSecretV2 = (props: DeleteSecretV2Props) => (
-  <Mutate<ResponseBoolean, Failure | Error, DeleteSecretV2QueryParams, string, void>
-    verb="DELETE"
-    path={`/v2/secrets`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseDeleteSecretV2Props = Omit<
-  UseMutateProps<ResponseBoolean, Failure | Error, DeleteSecretV2QueryParams, string, void>,
-  'path' | 'verb'
->
-
-/**
- * Delete secret
- */
-export const useDeleteSecretV2 = (props: UseDeleteSecretV2Props) =>
-  useMutate<ResponseBoolean, Failure | Error, DeleteSecretV2QueryParams, string, void>('DELETE', `/v2/secrets`, {
-    base: getConfig('ng/api'),
-    ...props
-  })
-
-/**
- * Delete secret
- */
-export const deleteSecretV2Promise = (
-  props: MutateUsingFetchProps<ResponseBoolean, Failure | Error, DeleteSecretV2QueryParams, string, void>,
-  signal?: RequestInit['signal']
-) =>
-  mutateUsingFetch<ResponseBoolean, Failure | Error, DeleteSecretV2QueryParams, string, void>(
-    'DELETE',
-    getConfig('ng/api'),
-    `/v2/secrets`,
-    props,
-    signal
-  )
-
-export interface ListSecretsV2QueryParams {
-  accountIdentifier: string
-  orgIdentifier?: string
-  projectIdentifier?: string
-  type?: 'SecretFile' | 'SecretText' | 'SSHKey'
-  searchTerm?: string
-  pageIndex?: number
-  pageSize?: number
-}
-
-export type ListSecretsV2Props = Omit<
-  GetProps<ResponsePageSecretResponseWrapper, Failure | Error, ListSecretsV2QueryParams, void>,
-  'path'
->
-
-/**
- * Get secrets
- */
-export const ListSecretsV2 = (props: ListSecretsV2Props) => (
-  <Get<ResponsePageSecretResponseWrapper, Failure | Error, ListSecretsV2QueryParams, void>
-    path={`/v2/secrets`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseListSecretsV2Props = Omit<
-  UseGetProps<ResponsePageSecretResponseWrapper, Failure | Error, ListSecretsV2QueryParams, void>,
-  'path'
->
-
-/**
- * Get secrets
- */
-export const useListSecretsV2 = (props: UseListSecretsV2Props) =>
-  useGet<ResponsePageSecretResponseWrapper, Failure | Error, ListSecretsV2QueryParams, void>(`/v2/secrets`, {
-    base: getConfig('ng/api'),
-    ...props
-  })
-
-/**
- * Get secrets
- */
-export const listSecretsV2Promise = (
-  props: GetUsingFetchProps<ResponsePageSecretResponseWrapper, Failure | Error, ListSecretsV2QueryParams, void>,
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<ResponsePageSecretResponseWrapper, Failure | Error, ListSecretsV2QueryParams, void>(
-    getConfig('ng/api'),
-    `/v2/secrets`,
-    props,
-    signal
-  )
-
-export interface PostSecretQueryParams {
-  accountIdentifier: string
-}
-
-export type PostSecretProps = Omit<
-  MutateProps<
-    ResponseSecretResponseWrapper,
-    Failure | Error,
-    PostSecretQueryParams,
-    SecretRequestWrapperRequestBody,
-    void
-  >,
-  'path' | 'verb'
->
-
-/**
- * Create a secret
- */
-export const PostSecret = (props: PostSecretProps) => (
-  <Mutate<ResponseSecretResponseWrapper, Failure | Error, PostSecretQueryParams, SecretRequestWrapperRequestBody, void>
-    verb="POST"
-    path={`/v2/secrets`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UsePostSecretProps = Omit<
-  UseMutateProps<
-    ResponseSecretResponseWrapper,
-    Failure | Error,
-    PostSecretQueryParams,
-    SecretRequestWrapperRequestBody,
-    void
-  >,
-  'path' | 'verb'
->
-
-/**
- * Create a secret
- */
-export const usePostSecret = (props: UsePostSecretProps) =>
-  useMutate<
-    ResponseSecretResponseWrapper,
-    Failure | Error,
-    PostSecretQueryParams,
-    SecretRequestWrapperRequestBody,
-    void
-  >('POST', `/v2/secrets`, { base: getConfig('ng/api'), ...props })
-
-/**
- * Create a secret
- */
-export const postSecretPromise = (
-  props: MutateUsingFetchProps<
-    ResponseSecretResponseWrapper,
-    Failure | Error,
-    PostSecretQueryParams,
-    SecretRequestWrapperRequestBody,
-    void
-  >,
-  signal?: RequestInit['signal']
-) =>
-  mutateUsingFetch<
-    ResponseSecretResponseWrapper,
-    Failure | Error,
-    PostSecretQueryParams,
-    SecretRequestWrapperRequestBody,
-    void
-  >('POST', getConfig('ng/api'), `/v2/secrets`, props, signal)
-
-export interface PostSecretViaYamlQueryParams {
-  accountIdentifier: string
-}
-
-export type PostSecretViaYamlProps = Omit<
-  MutateProps<
-    ResponseSecretResponseWrapper,
-    Failure | Error,
-    PostSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
-    void
-  >,
-  'path' | 'verb'
->
-
-/**
- * Create a secret via yaml
- */
-export const PostSecretViaYaml = (props: PostSecretViaYamlProps) => (
-  <Mutate<
-    ResponseSecretResponseWrapper,
-    Failure | Error,
-    PostSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
-    void
-  >
-    verb="POST"
-    path={`/v2/secrets/yaml`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UsePostSecretViaYamlProps = Omit<
-  UseMutateProps<
-    ResponseSecretResponseWrapper,
-    Failure | Error,
-    PostSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
-    void
-  >,
-  'path' | 'verb'
->
-
-/**
- * Create a secret via yaml
- */
-export const usePostSecretViaYaml = (props: UsePostSecretViaYamlProps) =>
-  useMutate<
-    ResponseSecretResponseWrapper,
-    Failure | Error,
-    PostSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
-    void
-  >('POST', `/v2/secrets/yaml`, { base: getConfig('ng/api'), ...props })
-
-/**
- * Create a secret via yaml
- */
-export const postSecretViaYamlPromise = (
-  props: MutateUsingFetchProps<
-    ResponseSecretResponseWrapper,
-    Failure | Error,
-    PostSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
-    void
-  >,
-  signal?: RequestInit['signal']
-) =>
-  mutateUsingFetch<
-    ResponseSecretResponseWrapper,
-    Failure | Error,
-    PostSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
-    void
-  >('POST', getConfig('ng/api'), `/v2/secrets/yaml`, props, signal)
-
-export interface ValidateSecretQueryParams {
-  accountIdentifier: string
-  orgIdentifier?: string
-  projectIdentifier?: string
-  identifier?: string
-}
-
-export type ValidateSecretProps = Omit<
-  MutateProps<
-    ResponseSecretValidationResultDTO,
-    Failure | Error,
-    ValidateSecretQueryParams,
-    SecretValidationMetaData,
-    void
-  >,
-  'path' | 'verb'
->
-
-/**
- * Validate a secret
- */
-export const ValidateSecret = (props: ValidateSecretProps) => (
-  <Mutate<ResponseSecretValidationResultDTO, Failure | Error, ValidateSecretQueryParams, SecretValidationMetaData, void>
-    verb="POST"
-    path={`/v2/secrets/validate`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseValidateSecretProps = Omit<
-  UseMutateProps<
-    ResponseSecretValidationResultDTO,
-    Failure | Error,
-    ValidateSecretQueryParams,
-    SecretValidationMetaData,
-    void
-  >,
-  'path' | 'verb'
->
-
-/**
- * Validate a secret
- */
-export const useValidateSecret = (props: UseValidateSecretProps) =>
-  useMutate<
-    ResponseSecretValidationResultDTO,
-    Failure | Error,
-    ValidateSecretQueryParams,
-    SecretValidationMetaData,
-    void
-  >('POST', `/v2/secrets/validate`, { base: getConfig('ng/api'), ...props })
-
-/**
- * Validate a secret
- */
-export const validateSecretPromise = (
-  props: MutateUsingFetchProps<
-    ResponseSecretValidationResultDTO,
-    Failure | Error,
-    ValidateSecretQueryParams,
-    SecretValidationMetaData,
-    void
-  >,
-  signal?: RequestInit['signal']
-) =>
-  mutateUsingFetch<
-    ResponseSecretValidationResultDTO,
-    Failure | Error,
-    ValidateSecretQueryParams,
-    SecretValidationMetaData,
-    void
-  >('POST', getConfig('ng/api'), `/v2/secrets/validate`, props, signal)
-
-export interface PutSecretViaYamlQueryParams {
-  accountIdentifier: string
-}
-
-export interface PutSecretViaYamlPathParams {
-  identifier: string
-}
-
-export type PutSecretViaYamlProps = Omit<
-  MutateProps<
-    ResponseBoolean,
-    Failure | Error,
-    PutSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
-    PutSecretViaYamlPathParams
-  >,
-  'path' | 'verb'
-> &
-  PutSecretViaYamlPathParams
-
-/**
- * Update a secret via yaml
- */
-export const PutSecretViaYaml = ({ identifier, ...props }: PutSecretViaYamlProps) => (
-  <Mutate<
-    ResponseBoolean,
-    Failure | Error,
-    PutSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
-    PutSecretViaYamlPathParams
-  >
-    verb="PUT"
-    path={`/v2/secrets/${identifier}/yaml`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UsePutSecretViaYamlProps = Omit<
-  UseMutateProps<
-    ResponseBoolean,
-    Failure | Error,
-    PutSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
-    PutSecretViaYamlPathParams
-  >,
-  'path' | 'verb'
-> &
-  PutSecretViaYamlPathParams
-
-/**
- * Update a secret via yaml
- */
-export const usePutSecretViaYaml = ({ identifier, ...props }: UsePutSecretViaYamlProps) =>
-  useMutate<
-    ResponseBoolean,
-    Failure | Error,
-    PutSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
-    PutSecretViaYamlPathParams
-  >('PUT', (paramsInPath: PutSecretViaYamlPathParams) => `/v2/secrets/${paramsInPath.identifier}/yaml`, {
-    base: getConfig('ng/api'),
-    pathParams: { identifier },
-    ...props
-  })
-
-/**
- * Update a secret via yaml
- */
-export const putSecretViaYamlPromise = (
-  {
-    identifier,
-    ...props
-  }: MutateUsingFetchProps<
-    ResponseBoolean,
-    Failure | Error,
-    PutSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
-    PutSecretViaYamlPathParams
-  > & { identifier: string },
-  signal?: RequestInit['signal']
-) =>
-  mutateUsingFetch<
-    ResponseBoolean,
-    Failure | Error,
-    PutSecretViaYamlQueryParams,
-    SecretRequestWrapper2RequestBody,
-    PutSecretViaYamlPathParams
-  >('PUT', getConfig('ng/api'), `/v2/secrets/${identifier}/yaml`, props, signal)
-
-export interface PutSecretFileV2QueryParams {
-  accountIdentifier: string
-}
-
-export interface PutSecretFileV2PathParams {
-  identifier: string
-}
-
-export type PutSecretFileV2Props = Omit<
-  MutateProps<ResponseBoolean, Failure | Error, PutSecretFileV2QueryParams, void, PutSecretFileV2PathParams>,
-  'path' | 'verb'
-> &
-  PutSecretFileV2PathParams
-
-/**
- * Update a secret file
- */
-export const PutSecretFileV2 = ({ identifier, ...props }: PutSecretFileV2Props) => (
-  <Mutate<ResponseBoolean, Failure | Error, PutSecretFileV2QueryParams, void, PutSecretFileV2PathParams>
-    verb="PUT"
-    path={`/v2/secrets/files/${identifier}`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UsePutSecretFileV2Props = Omit<
-  UseMutateProps<ResponseBoolean, Failure | Error, PutSecretFileV2QueryParams, void, PutSecretFileV2PathParams>,
-  'path' | 'verb'
-> &
-  PutSecretFileV2PathParams
-
-/**
- * Update a secret file
- */
-export const usePutSecretFileV2 = ({ identifier, ...props }: UsePutSecretFileV2Props) =>
-  useMutate<ResponseBoolean, Failure | Error, PutSecretFileV2QueryParams, void, PutSecretFileV2PathParams>(
-    'PUT',
-    (paramsInPath: PutSecretFileV2PathParams) => `/v2/secrets/files/${paramsInPath.identifier}`,
-    { base: getConfig('ng/api'), pathParams: { identifier }, ...props }
-  )
-
-/**
- * Update a secret file
- */
-export const putSecretFileV2Promise = (
-  {
-    identifier,
-    ...props
-  }: MutateUsingFetchProps<
-    ResponseBoolean,
-    Failure | Error,
-    PutSecretFileV2QueryParams,
-    void,
-    PutSecretFileV2PathParams
-  > & { identifier: string },
-  signal?: RequestInit['signal']
-) =>
-  mutateUsingFetch<ResponseBoolean, Failure | Error, PutSecretFileV2QueryParams, void, PutSecretFileV2PathParams>(
-    'PUT',
-    getConfig('ng/api'),
-    `/v2/secrets/files/${identifier}`,
-    props,
-    signal
-  )
-
-export interface PostSecretFileV2QueryParams {
-  accountIdentifier: string
-}
-
-export type PostSecretFileV2Props = Omit<
-  MutateProps<ResponseSecretResponseWrapper, Failure | Error, PostSecretFileV2QueryParams, void, void>,
-  'path' | 'verb'
->
-
-/**
- * Create a secret file
- */
-export const PostSecretFileV2 = (props: PostSecretFileV2Props) => (
-  <Mutate<ResponseSecretResponseWrapper, Failure | Error, PostSecretFileV2QueryParams, void, void>
-    verb="POST"
-    path={`/v2/secrets/files`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UsePostSecretFileV2Props = Omit<
-  UseMutateProps<ResponseSecretResponseWrapper, Failure | Error, PostSecretFileV2QueryParams, void, void>,
-  'path' | 'verb'
->
-
-/**
- * Create a secret file
- */
-export const usePostSecretFileV2 = (props: UsePostSecretFileV2Props) =>
-  useMutate<ResponseSecretResponseWrapper, Failure | Error, PostSecretFileV2QueryParams, void, void>(
-    'POST',
-    `/v2/secrets/files`,
-    { base: getConfig('ng/api'), ...props }
-  )
-
-/**
- * Create a secret file
- */
-export const postSecretFileV2Promise = (
-  props: MutateUsingFetchProps<ResponseSecretResponseWrapper, Failure | Error, PostSecretFileV2QueryParams, void, void>,
-  signal?: RequestInit['signal']
-) =>
-  mutateUsingFetch<ResponseSecretResponseWrapper, Failure | Error, PostSecretFileV2QueryParams, void, void>(
-    'POST',
-    getConfig('ng/api'),
-    `/v2/secrets/files`,
-    props,
-    signal
-  )
-
-export interface GetOrganizationQueryParams {
-  accountIdentifier: string
-}
-
-export interface GetOrganizationPathParams {
-  identifier: string
-}
-
-export type GetOrganizationProps = Omit<
-  GetProps<ResponseOrganization, Failure | Error, GetOrganizationQueryParams, GetOrganizationPathParams>,
-  'path'
-> &
-  GetOrganizationPathParams
-
-/**
- * Get an Organization by identifier
- */
-export const GetOrganization = ({ identifier, ...props }: GetOrganizationProps) => (
-  <Get<ResponseOrganization, Failure | Error, GetOrganizationQueryParams, GetOrganizationPathParams>
-    path={`/organizations/${identifier}`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseGetOrganizationProps = Omit<
-  UseGetProps<ResponseOrganization, Failure | Error, GetOrganizationQueryParams, GetOrganizationPathParams>,
-  'path'
-> &
-  GetOrganizationPathParams
-
-/**
- * Get an Organization by identifier
- */
-export const useGetOrganization = ({ identifier, ...props }: UseGetOrganizationProps) =>
-  useGet<ResponseOrganization, Failure | Error, GetOrganizationQueryParams, GetOrganizationPathParams>(
-    (paramsInPath: GetOrganizationPathParams) => `/organizations/${paramsInPath.identifier}`,
-    { base: getConfig('ng/api'), pathParams: { identifier }, ...props }
-  )
-
-/**
- * Get an Organization by identifier
- */
-export const getOrganizationPromise = (
-  {
-    identifier,
-    ...props
-  }: GetUsingFetchProps<
-    ResponseOrganization,
-    Failure | Error,
-    GetOrganizationQueryParams,
-    GetOrganizationPathParams
-  > & { identifier: string },
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<ResponseOrganization, Failure | Error, GetOrganizationQueryParams, GetOrganizationPathParams>(
-    getConfig('ng/api'),
-    `/organizations/${identifier}`,
-    props,
-    signal
-  )
-
-export interface PutOrganizationQueryParams {
-  accountIdentifier: string
-}
-
-export interface PutOrganizationPathParams {
-  identifier: string
-}
-
-export type PutOrganizationProps = Omit<
-  MutateProps<
-    ResponseOrganization,
-    Failure | Error,
-    PutOrganizationQueryParams,
-    OrganizationRequestBody,
-    PutOrganizationPathParams
-  >,
-  'path' | 'verb'
-> &
-  PutOrganizationPathParams
-
-/**
- * Update an Organization by identifier
- */
-export const PutOrganization = ({ identifier, ...props }: PutOrganizationProps) => (
-  <Mutate<
-    ResponseOrganization,
-    Failure | Error,
-    PutOrganizationQueryParams,
-    OrganizationRequestBody,
-    PutOrganizationPathParams
-  >
-    verb="PUT"
-    path={`/organizations/${identifier}`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UsePutOrganizationProps = Omit<
-  UseMutateProps<
-    ResponseOrganization,
-    Failure | Error,
-    PutOrganizationQueryParams,
-    OrganizationRequestBody,
-    PutOrganizationPathParams
-  >,
-  'path' | 'verb'
-> &
-  PutOrganizationPathParams
-
-/**
- * Update an Organization by identifier
- */
-export const usePutOrganization = ({ identifier, ...props }: UsePutOrganizationProps) =>
-  useMutate<
-    ResponseOrganization,
-    Failure | Error,
-    PutOrganizationQueryParams,
-    OrganizationRequestBody,
-    PutOrganizationPathParams
-  >('PUT', (paramsInPath: PutOrganizationPathParams) => `/organizations/${paramsInPath.identifier}`, {
-    base: getConfig('ng/api'),
-    pathParams: { identifier },
-    ...props
-  })
-
-/**
- * Update an Organization by identifier
- */
-export const putOrganizationPromise = (
-  {
-    identifier,
-    ...props
-  }: MutateUsingFetchProps<
-    ResponseOrganization,
-    Failure | Error,
-    PutOrganizationQueryParams,
-    OrganizationRequestBody,
-    PutOrganizationPathParams
-  > & { identifier: string },
-  signal?: RequestInit['signal']
-) =>
-  mutateUsingFetch<
-    ResponseOrganization,
-    Failure | Error,
-    PutOrganizationQueryParams,
-    OrganizationRequestBody,
-    PutOrganizationPathParams
-  >('PUT', getConfig('ng/api'), `/organizations/${identifier}`, props, signal)
-
-export interface DeleteOrganizationQueryParams {
-  accountIdentifier: string
-}
-
-export type DeleteOrganizationProps = Omit<
-  MutateProps<ResponseBoolean, Failure | Error, DeleteOrganizationQueryParams, string, void>,
-  'path' | 'verb'
->
-
-/**
- * Delete an Organization by identifier
- */
-export const DeleteOrganization = (props: DeleteOrganizationProps) => (
-  <Mutate<ResponseBoolean, Failure | Error, DeleteOrganizationQueryParams, string, void>
-    verb="DELETE"
-    path={`/organizations`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseDeleteOrganizationProps = Omit<
-  UseMutateProps<ResponseBoolean, Failure | Error, DeleteOrganizationQueryParams, string, void>,
-  'path' | 'verb'
->
-
-/**
- * Delete an Organization by identifier
- */
-export const useDeleteOrganization = (props: UseDeleteOrganizationProps) =>
-  useMutate<ResponseBoolean, Failure | Error, DeleteOrganizationQueryParams, string, void>('DELETE', `/organizations`, {
-    base: getConfig('ng/api'),
-    ...props
-  })
-
-/**
- * Delete an Organization by identifier
- */
-export const deleteOrganizationPromise = (
-  props: MutateUsingFetchProps<ResponseBoolean, Failure | Error, DeleteOrganizationQueryParams, string, void>,
-  signal?: RequestInit['signal']
-) =>
-  mutateUsingFetch<ResponseBoolean, Failure | Error, DeleteOrganizationQueryParams, string, void>(
-    'DELETE',
-    getConfig('ng/api'),
-    `/organizations`,
-    props,
-    signal
-  )
-
-export interface GetOrganizationListQueryParams {
-  accountIdentifier: string
-  searchTerm?: string
-  pageIndex?: number
-  pageSize?: number
-  sortOrders?: string[]
-}
-
-export type GetOrganizationListProps = Omit<
-  GetProps<ResponsePageOrganization, Failure | Error, GetOrganizationListQueryParams, void>,
-  'path'
->
-
-/**
- * Get Organization list
- */
-export const GetOrganizationList = (props: GetOrganizationListProps) => (
-  <Get<ResponsePageOrganization, Failure | Error, GetOrganizationListQueryParams, void>
-    path={`/organizations`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseGetOrganizationListProps = Omit<
-  UseGetProps<ResponsePageOrganization, Failure | Error, GetOrganizationListQueryParams, void>,
-  'path'
->
-
-/**
- * Get Organization list
- */
-export const useGetOrganizationList = (props: UseGetOrganizationListProps) =>
-  useGet<ResponsePageOrganization, Failure | Error, GetOrganizationListQueryParams, void>(`/organizations`, {
-    base: getConfig('ng/api'),
-    ...props
-  })
-
-/**
- * Get Organization list
- */
-export const getOrganizationListPromise = (
-  props: GetUsingFetchProps<ResponsePageOrganization, Failure | Error, GetOrganizationListQueryParams, void>,
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<ResponsePageOrganization, Failure | Error, GetOrganizationListQueryParams, void>(
-    getConfig('ng/api'),
-    `/organizations`,
-    props,
-    signal
-  )
-
-export interface PostOrganizationQueryParams {
-  accountIdentifier: string
-}
-
-export type PostOrganizationProps = Omit<
-  MutateProps<ResponseOrganization, Failure | Error, PostOrganizationQueryParams, OrganizationRequestBody, void>,
-  'path' | 'verb'
->
-
-/**
- * Create an Organization
- */
-export const PostOrganization = (props: PostOrganizationProps) => (
-  <Mutate<ResponseOrganization, Failure | Error, PostOrganizationQueryParams, OrganizationRequestBody, void>
-    verb="POST"
-    path={`/organizations`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UsePostOrganizationProps = Omit<
-  UseMutateProps<ResponseOrganization, Failure | Error, PostOrganizationQueryParams, OrganizationRequestBody, void>,
-  'path' | 'verb'
->
-
-/**
- * Create an Organization
- */
-export const usePostOrganization = (props: UsePostOrganizationProps) =>
-  useMutate<ResponseOrganization, Failure | Error, PostOrganizationQueryParams, OrganizationRequestBody, void>(
-    'POST',
-    `/organizations`,
-    { base: getConfig('ng/api'), ...props }
-  )
-
-/**
- * Create an Organization
- */
-export const postOrganizationPromise = (
-  props: MutateUsingFetchProps<
-    ResponseOrganization,
-    Failure | Error,
-    PostOrganizationQueryParams,
-    OrganizationRequestBody,
-    void
-  >,
-  signal?: RequestInit['signal']
-) =>
-  mutateUsingFetch<ResponseOrganization, Failure | Error, PostOrganizationQueryParams, OrganizationRequestBody, void>(
-    'POST',
-    getConfig('ng/api'),
-    `/organizations`,
-    props,
-    signal
-  )
-
-export interface GetProjectQueryParams {
-  accountIdentifier: string
-  orgIdentifier: string
-}
-
-export interface GetProjectPathParams {
-  identifier: string
-}
-
-export type GetProjectProps = Omit<
-  GetProps<ResponseProject, Failure | Error, GetProjectQueryParams, GetProjectPathParams>,
-  'path'
-> &
-  GetProjectPathParams
-
-/**
- * Gets a Project by identifier
- */
-export const GetProject = ({ identifier, ...props }: GetProjectProps) => (
-  <Get<ResponseProject, Failure | Error, GetProjectQueryParams, GetProjectPathParams>
-    path={`/projects/${identifier}`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseGetProjectProps = Omit<
-  UseGetProps<ResponseProject, Failure | Error, GetProjectQueryParams, GetProjectPathParams>,
-  'path'
-> &
-  GetProjectPathParams
-
-/**
- * Gets a Project by identifier
- */
-export const useGetProject = ({ identifier, ...props }: UseGetProjectProps) =>
-  useGet<ResponseProject, Failure | Error, GetProjectQueryParams, GetProjectPathParams>(
-    (paramsInPath: GetProjectPathParams) => `/projects/${paramsInPath.identifier}`,
-    { base: getConfig('ng/api'), pathParams: { identifier }, ...props }
-  )
-
-/**
- * Gets a Project by identifier
- */
-export const getProjectPromise = (
-  {
-    identifier,
-    ...props
-  }: GetUsingFetchProps<ResponseProject, Failure | Error, GetProjectQueryParams, GetProjectPathParams> & {
-    identifier: string
-  },
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<ResponseProject, Failure | Error, GetProjectQueryParams, GetProjectPathParams>(
-    getConfig('ng/api'),
-    `/projects/${identifier}`,
-    props,
-    signal
-  )
-
-export interface PutProjectQueryParams {
-  accountIdentifier: string
-  orgIdentifier: string
-}
-
-export interface PutProjectPathParams {
-  identifier: string
-}
-
-export type PutProjectProps = Omit<
-  MutateProps<ResponseProject, Failure | Error, PutProjectQueryParams, ProjectRequestBody, PutProjectPathParams>,
-  'path' | 'verb'
-> &
-  PutProjectPathParams
-
-/**
- * Update a project by identifier
- */
-export const PutProject = ({ identifier, ...props }: PutProjectProps) => (
-  <Mutate<ResponseProject, Failure | Error, PutProjectQueryParams, ProjectRequestBody, PutProjectPathParams>
-    verb="PUT"
-    path={`/projects/${identifier}`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UsePutProjectProps = Omit<
-  UseMutateProps<ResponseProject, Failure | Error, PutProjectQueryParams, ProjectRequestBody, PutProjectPathParams>,
-  'path' | 'verb'
-> &
-  PutProjectPathParams
-
-/**
- * Update a project by identifier
- */
-export const usePutProject = ({ identifier, ...props }: UsePutProjectProps) =>
-  useMutate<ResponseProject, Failure | Error, PutProjectQueryParams, ProjectRequestBody, PutProjectPathParams>(
-    'PUT',
-    (paramsInPath: PutProjectPathParams) => `/projects/${paramsInPath.identifier}`,
-    { base: getConfig('ng/api'), pathParams: { identifier }, ...props }
-  )
-
-/**
- * Update a project by identifier
- */
-export const putProjectPromise = (
-  {
-    identifier,
-    ...props
-  }: MutateUsingFetchProps<
-    ResponseProject,
-    Failure | Error,
-    PutProjectQueryParams,
-    ProjectRequestBody,
-    PutProjectPathParams
-  > & { identifier: string },
-  signal?: RequestInit['signal']
-) =>
-  mutateUsingFetch<ResponseProject, Failure | Error, PutProjectQueryParams, ProjectRequestBody, PutProjectPathParams>(
-    'PUT',
-    getConfig('ng/api'),
-    `/projects/${identifier}`,
-    props,
-    signal
-  )
-
-export interface DeleteProjectQueryParams {
-  accountIdentifier: string
-  orgIdentifier: string
-}
-
-export type DeleteProjectProps = Omit<
-  MutateProps<ResponseBoolean, Failure | Error, DeleteProjectQueryParams, string, void>,
-  'path' | 'verb'
->
-
-/**
- * Delete a project by identifier
- */
-export const DeleteProject = (props: DeleteProjectProps) => (
-  <Mutate<ResponseBoolean, Failure | Error, DeleteProjectQueryParams, string, void>
-    verb="DELETE"
-    path={`/projects`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseDeleteProjectProps = Omit<
-  UseMutateProps<ResponseBoolean, Failure | Error, DeleteProjectQueryParams, string, void>,
-  'path' | 'verb'
->
-
-/**
- * Delete a project by identifier
- */
-export const useDeleteProject = (props: UseDeleteProjectProps) =>
-  useMutate<ResponseBoolean, Failure | Error, DeleteProjectQueryParams, string, void>('DELETE', `/projects`, {
-    base: getConfig('ng/api'),
-    ...props
-  })
-
-/**
- * Delete a project by identifier
- */
-export const deleteProjectPromise = (
-  props: MutateUsingFetchProps<ResponseBoolean, Failure | Error, DeleteProjectQueryParams, string, void>,
-  signal?: RequestInit['signal']
-) =>
-  mutateUsingFetch<ResponseBoolean, Failure | Error, DeleteProjectQueryParams, string, void>(
-    'DELETE',
-    getConfig('ng/api'),
-    `/projects`,
-    props,
-    signal
-  )
-
-export interface GetProjectListQueryParams {
-  accountIdentifier: string
-  orgIdentifier?: string
-  hasModule?: boolean
-  moduleType?: 'CD' | 'CI' | 'CORE' | 'CV' | 'CF' | 'CE'
-  searchTerm?: string
-  pageIndex?: number
-  pageSize?: number
-  sortOrders?: string[]
-}
-
-export type GetProjectListProps = Omit<
-  GetProps<ResponsePageProject, Failure | Error, GetProjectListQueryParams, void>,
-  'path'
->
-
-/**
- * Get Project list
- */
-export const GetProjectList = (props: GetProjectListProps) => (
-  <Get<ResponsePageProject, Failure | Error, GetProjectListQueryParams, void>
-    path={`/projects`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseGetProjectListProps = Omit<
-  UseGetProps<ResponsePageProject, Failure | Error, GetProjectListQueryParams, void>,
-  'path'
->
-
-/**
- * Get Project list
- */
-export const useGetProjectList = (props: UseGetProjectListProps) =>
-  useGet<ResponsePageProject, Failure | Error, GetProjectListQueryParams, void>(`/projects`, {
-    base: getConfig('ng/api'),
-    ...props
-  })
-
-/**
- * Get Project list
- */
-export const getProjectListPromise = (
-  props: GetUsingFetchProps<ResponsePageProject, Failure | Error, GetProjectListQueryParams, void>,
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<ResponsePageProject, Failure | Error, GetProjectListQueryParams, void>(
-    getConfig('ng/api'),
-    `/projects`,
-    props,
-    signal
-  )
-
-export interface PostProjectQueryParams {
-  accountIdentifier: string
-  orgIdentifier: string
-}
-
-export type PostProjectProps = Omit<
-  MutateProps<ResponseProject, Failure | Error, PostProjectQueryParams, ProjectRequestBody, void>,
-  'path' | 'verb'
->
-
-/**
- * Create a Project
- */
-export const PostProject = (props: PostProjectProps) => (
-  <Mutate<ResponseProject, Failure | Error, PostProjectQueryParams, ProjectRequestBody, void>
-    verb="POST"
-    path={`/projects`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UsePostProjectProps = Omit<
-  UseMutateProps<ResponseProject, Failure | Error, PostProjectQueryParams, ProjectRequestBody, void>,
-  'path' | 'verb'
->
-
-/**
- * Create a Project
- */
-export const usePostProject = (props: UsePostProjectProps) =>
-  useMutate<ResponseProject, Failure | Error, PostProjectQueryParams, ProjectRequestBody, void>('POST', `/projects`, {
-    base: getConfig('ng/api'),
-    ...props
-  })
-
-/**
- * Create a Project
- */
-export const postProjectPromise = (
-  props: MutateUsingFetchProps<ResponseProject, Failure | Error, PostProjectQueryParams, ProjectRequestBody, void>,
-  signal?: RequestInit['signal']
-) =>
-  mutateUsingFetch<ResponseProject, Failure | Error, PostProjectQueryParams, ProjectRequestBody, void>(
-    'POST',
-    getConfig('ng/api'),
-    `/projects`,
-    props,
-    signal
-  )
-
-export interface SchemafileQueryParams {
-  filename?: string
-}
-
-export type SchemafileProps = Omit<GetProps<void, void, SchemafileQueryParams, void>, 'path'>
-
-/**
- * Get Schema for the given entity type
- */
-export const Schemafile = (props: SchemafileProps) => (
-  <Get<void, void, SchemafileQueryParams, void> path={`/yamlschema/schemafile`} base={getConfig('ng/api')} {...props} />
-)
-
-export type UseSchemafileProps = Omit<UseGetProps<void, void, SchemafileQueryParams, void>, 'path'>
-
-/**
- * Get Schema for the given entity type
- */
-export const useSchemafile = (props: UseSchemafileProps) =>
-  useGet<void, void, SchemafileQueryParams, void>(`/yamlschema/schemafile`, { base: getConfig('ng/api'), ...props })
-
-/**
- * Get Schema for the given entity type
- */
-export const schemafilePromise = (
-  props: GetUsingFetchProps<void, void, SchemafileQueryParams, void>,
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<void, void, SchemafileQueryParams, void>(getConfig('ng/api'), `/yamlschema/schemafile`, props, signal)
-
-export interface GetServiceQueryParams {
-  accountId?: string
-  orgIdentifier?: string
-  projectIdentifier?: string
-  deleted?: boolean
-}
-
-export interface GetServicePathParams {
-  serviceIdentifier: string
-}
-
-export type GetServiceProps = Omit<
-  GetProps<ResponseServiceResponseDTO, Failure | Error, GetServiceQueryParams, GetServicePathParams>,
-  'path'
-> &
-  GetServicePathParams
-
-/**
- * Gets a Service by identifier
- */
-export const GetService = ({ serviceIdentifier, ...props }: GetServiceProps) => (
-  <Get<ResponseServiceResponseDTO, Failure | Error, GetServiceQueryParams, GetServicePathParams>
-    path={`/services/${serviceIdentifier}`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseGetServiceProps = Omit<
-  UseGetProps<ResponseServiceResponseDTO, Failure | Error, GetServiceQueryParams, GetServicePathParams>,
-  'path'
-> &
-  GetServicePathParams
-
-/**
- * Gets a Service by identifier
- */
-export const useGetService = ({ serviceIdentifier, ...props }: UseGetServiceProps) =>
-  useGet<ResponseServiceResponseDTO, Failure | Error, GetServiceQueryParams, GetServicePathParams>(
-    (paramsInPath: GetServicePathParams) => `/services/${paramsInPath.serviceIdentifier}`,
-    { base: getConfig('ng/api'), pathParams: { serviceIdentifier }, ...props }
-  )
-
-/**
- * Gets a Service by identifier
- */
-export const getServicePromise = (
-  {
-    serviceIdentifier,
-    ...props
-  }: GetUsingFetchProps<ResponseServiceResponseDTO, Failure | Error, GetServiceQueryParams, GetServicePathParams> & {
-    serviceIdentifier: string
-  },
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<ResponseServiceResponseDTO, Failure | Error, GetServiceQueryParams, GetServicePathParams>(
-    getConfig('ng/api'),
-    `/services/${serviceIdentifier}`,
-    props,
-    signal
-  )
-
-export interface DeleteServiceQueryParams {
-  accountId?: string
-  orgIdentifier?: string
-  projectIdentifier?: string
-}
-
-export type DeleteServiceProps = Omit<
-  MutateProps<ResponseBoolean, Failure | Error, DeleteServiceQueryParams, string, void>,
-  'path' | 'verb'
->
-
-/**
- * Delete a service by identifier
- */
-export const DeleteService = (props: DeleteServiceProps) => (
-  <Mutate<ResponseBoolean, Failure | Error, DeleteServiceQueryParams, string, void>
-    verb="DELETE"
-    path={`/services`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseDeleteServiceProps = Omit<
-  UseMutateProps<ResponseBoolean, Failure | Error, DeleteServiceQueryParams, string, void>,
-  'path' | 'verb'
->
-
-/**
- * Delete a service by identifier
- */
-export const useDeleteService = (props: UseDeleteServiceProps) =>
-  useMutate<ResponseBoolean, Failure | Error, DeleteServiceQueryParams, string, void>('DELETE', `/services`, {
-    base: getConfig('ng/api'),
-    ...props
-  })
-
-/**
- * Delete a service by identifier
- */
-export const deleteServicePromise = (
-  props: MutateUsingFetchProps<ResponseBoolean, Failure | Error, DeleteServiceQueryParams, string, void>,
-  signal?: RequestInit['signal']
-) =>
-  mutateUsingFetch<ResponseBoolean, Failure | Error, DeleteServiceQueryParams, string, void>(
-    'DELETE',
-    getConfig('ng/api'),
-    `/services`,
-    props,
-    signal
-  )
-
-export interface GetServiceListForProjectQueryParams {
-  page?: number
-  size?: number
-  accountId?: string
-  orgIdentifier?: string
-  projectIdentifier?: string
-  sort?: string[]
-}
-
-export type GetServiceListForProjectProps = Omit<
-  GetProps<ResponsePageServiceResponseDTO, Failure | Error, GetServiceListForProjectQueryParams, void>,
-  'path'
->
-
-/**
- * Gets Service list for a project
- */
-export const GetServiceListForProject = (props: GetServiceListForProjectProps) => (
-  <Get<ResponsePageServiceResponseDTO, Failure | Error, GetServiceListForProjectQueryParams, void>
-    path={`/services`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseGetServiceListForProjectProps = Omit<
-  UseGetProps<ResponsePageServiceResponseDTO, Failure | Error, GetServiceListForProjectQueryParams, void>,
-  'path'
->
-
-/**
- * Gets Service list for a project
- */
-export const useGetServiceListForProject = (props: UseGetServiceListForProjectProps) =>
-  useGet<ResponsePageServiceResponseDTO, Failure | Error, GetServiceListForProjectQueryParams, void>(`/services`, {
-    base: getConfig('ng/api'),
-    ...props
-  })
-
-/**
- * Gets Service list for a project
- */
-export const getServiceListForProjectPromise = (
-  props: GetUsingFetchProps<ResponsePageServiceResponseDTO, Failure | Error, GetServiceListForProjectQueryParams, void>,
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<ResponsePageServiceResponseDTO, Failure | Error, GetServiceListForProjectQueryParams, void>(
-    getConfig('ng/api'),
-    `/services`,
-    props,
-    signal
-  )
-
-export interface CreateServiceQueryParams {
-  accountId?: string
-}
-
-export type CreateServiceProps = Omit<
-  MutateProps<
-    ResponseServiceResponseDTO,
-    Failure | Error,
-    CreateServiceQueryParams,
-    ServiceRequestDTORequestBody,
-    void
-  >,
-  'path' | 'verb'
->
-
-/**
- * Create a Service
- */
-export const CreateService = (props: CreateServiceProps) => (
-  <Mutate<ResponseServiceResponseDTO, Failure | Error, CreateServiceQueryParams, ServiceRequestDTORequestBody, void>
-    verb="POST"
-    path={`/services`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseCreateServiceProps = Omit<
-  UseMutateProps<
-    ResponseServiceResponseDTO,
-    Failure | Error,
-    CreateServiceQueryParams,
-    ServiceRequestDTORequestBody,
-    void
-  >,
-  'path' | 'verb'
->
-
-/**
- * Create a Service
- */
-export const useCreateService = (props: UseCreateServiceProps) =>
-  useMutate<ResponseServiceResponseDTO, Failure | Error, CreateServiceQueryParams, ServiceRequestDTORequestBody, void>(
-    'POST',
-    `/services`,
-    { base: getConfig('ng/api'), ...props }
-  )
-
-/**
- * Create a Service
- */
-export const createServicePromise = (
-  props: MutateUsingFetchProps<
-    ResponseServiceResponseDTO,
-    Failure | Error,
-    CreateServiceQueryParams,
-    ServiceRequestDTORequestBody,
-    void
-  >,
-  signal?: RequestInit['signal']
-) =>
-  mutateUsingFetch<
-    ResponseServiceResponseDTO,
-    Failure | Error,
-    CreateServiceQueryParams,
-    ServiceRequestDTORequestBody,
-    void
-  >('POST', getConfig('ng/api'), `/services`, props, signal)
-
-export interface UpdateServiceQueryParams {
-  accountId?: string
-}
-
-export type UpdateServiceProps = Omit<
-  MutateProps<
-    ResponseServiceResponseDTO,
-    Failure | Error,
-    UpdateServiceQueryParams,
-    ServiceRequestDTORequestBody,
-    void
-  >,
-  'path' | 'verb'
->
-
-/**
- * Update a service by identifier
- */
-export const UpdateService = (props: UpdateServiceProps) => (
-  <Mutate<ResponseServiceResponseDTO, Failure | Error, UpdateServiceQueryParams, ServiceRequestDTORequestBody, void>
-    verb="PUT"
-    path={`/services`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseUpdateServiceProps = Omit<
-  UseMutateProps<
-    ResponseServiceResponseDTO,
-    Failure | Error,
-    UpdateServiceQueryParams,
-    ServiceRequestDTORequestBody,
-    void
-  >,
-  'path' | 'verb'
->
-
-/**
- * Update a service by identifier
- */
-export const useUpdateService = (props: UseUpdateServiceProps) =>
-  useMutate<ResponseServiceResponseDTO, Failure | Error, UpdateServiceQueryParams, ServiceRequestDTORequestBody, void>(
-    'PUT',
-    `/services`,
-    { base: getConfig('ng/api'), ...props }
-  )
-
-/**
- * Update a service by identifier
- */
-export const updateServicePromise = (
-  props: MutateUsingFetchProps<
-    ResponseServiceResponseDTO,
-    Failure | Error,
-    UpdateServiceQueryParams,
-    ServiceRequestDTORequestBody,
-    void
-  >,
-  signal?: RequestInit['signal']
-) =>
-  mutateUsingFetch<
-    ResponseServiceResponseDTO,
-    Failure | Error,
-    UpdateServiceQueryParams,
-    ServiceRequestDTORequestBody,
-    void
-  >('PUT', getConfig('ng/api'), `/services`, props, signal)
-
-export interface UpsertServiceQueryParams {
-  accountId?: string
-}
-
-export type UpsertServiceProps = Omit<
-  MutateProps<
-    ResponseServiceResponseDTO,
-    Failure | Error,
-    UpsertServiceQueryParams,
-    ServiceRequestDTORequestBody,
-    void
-  >,
-  'path' | 'verb'
->
-
-/**
- * Upsert a service by identifier
- */
-export const UpsertService = (props: UpsertServiceProps) => (
-  <Mutate<ResponseServiceResponseDTO, Failure | Error, UpsertServiceQueryParams, ServiceRequestDTORequestBody, void>
-    verb="PUT"
-    path={`/services/upsert`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseUpsertServiceProps = Omit<
-  UseMutateProps<
-    ResponseServiceResponseDTO,
-    Failure | Error,
-    UpsertServiceQueryParams,
-    ServiceRequestDTORequestBody,
-    void
-  >,
-  'path' | 'verb'
->
-
-/**
- * Upsert a service by identifier
- */
-export const useUpsertService = (props: UseUpsertServiceProps) =>
-  useMutate<ResponseServiceResponseDTO, Failure | Error, UpsertServiceQueryParams, ServiceRequestDTORequestBody, void>(
-    'PUT',
-    `/services/upsert`,
-    { base: getConfig('ng/api'), ...props }
-  )
-
-/**
- * Upsert a service by identifier
- */
-export const upsertServicePromise = (
-  props: MutateUsingFetchProps<
-    ResponseServiceResponseDTO,
-    Failure | Error,
-    UpsertServiceQueryParams,
-    ServiceRequestDTORequestBody,
-    void
-  >,
-  signal?: RequestInit['signal']
-) =>
-  mutateUsingFetch<
-    ResponseServiceResponseDTO,
-    Failure | Error,
-    UpsertServiceQueryParams,
-    ServiceRequestDTORequestBody,
-    void
-  >('PUT', getConfig('ng/api'), `/services/upsert`, props, signal)
-
-export interface GetUsersQueryParams {
-  accountIdentifier: string
-  searchString?: string
-  pageIndex?: number
-  pageSize?: number
-  sortOrders?: string[]
-}
-
-export type GetUsersProps = Omit<
-  GetProps<ResponsePageUserSearchDTO, Failure | Error, GetUsersQueryParams, void>,
-  'path'
->
-
-/**
- * Get users for an account
- */
-export const GetUsers = (props: GetUsersProps) => (
-  <Get<ResponsePageUserSearchDTO, Failure | Error, GetUsersQueryParams, void>
-    path={`/users`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseGetUsersProps = Omit<
-  UseGetProps<ResponsePageUserSearchDTO, Failure | Error, GetUsersQueryParams, void>,
-  'path'
->
-
-/**
- * Get users for an account
- */
-export const useGetUsers = (props: UseGetUsersProps) =>
-  useGet<ResponsePageUserSearchDTO, Failure | Error, GetUsersQueryParams, void>(`/users`, {
-    base: getConfig('ng/api'),
-    ...props
-  })
-
-/**
- * Get users for an account
- */
-export const getUsersPromise = (
-  props: GetUsingFetchProps<ResponsePageUserSearchDTO, Failure | Error, GetUsersQueryParams, void>,
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<ResponsePageUserSearchDTO, Failure | Error, GetUsersQueryParams, void>(
-    getConfig('ng/api'),
-    `/users`,
-    props,
-    signal
-  )
-
-export interface GetPipelineExecutionDetailQueryParams {
-  accountIdentifier: string
-  orgIdentifier: string
-  projectIdentifier: string
-  stageIdentifier?: string
-}
-
-export interface GetPipelineExecutionDetailPathParams {
-  planExecutionId: string
-}
-
-export type GetPipelineExecutionDetailProps = Omit<
-  GetProps<
-    ResponsePipelineExecutionDetail,
-    Failure | Error,
-    GetPipelineExecutionDetailQueryParams,
-    GetPipelineExecutionDetailPathParams
-  >,
-  'path'
-> &
-  GetPipelineExecutionDetailPathParams
-
-/**
- * Gets Execution Detail
- */
-export const GetPipelineExecutionDetail = ({ planExecutionId, ...props }: GetPipelineExecutionDetailProps) => (
-  <Get<
-    ResponsePipelineExecutionDetail,
-    Failure | Error,
-    GetPipelineExecutionDetailQueryParams,
-    GetPipelineExecutionDetailPathParams
-  >
-    path={`/executions/${planExecutionId}`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseGetPipelineExecutionDetailProps = Omit<
-  UseGetProps<
-    ResponsePipelineExecutionDetail,
-    Failure | Error,
-    GetPipelineExecutionDetailQueryParams,
-    GetPipelineExecutionDetailPathParams
-  >,
-  'path'
-> &
-  GetPipelineExecutionDetailPathParams
-
-/**
- * Gets Execution Detail
- */
-export const useGetPipelineExecutionDetail = ({ planExecutionId, ...props }: UseGetPipelineExecutionDetailProps) =>
-  useGet<
-    ResponsePipelineExecutionDetail,
-    Failure | Error,
-    GetPipelineExecutionDetailQueryParams,
-    GetPipelineExecutionDetailPathParams
-  >((paramsInPath: GetPipelineExecutionDetailPathParams) => `/executions/${paramsInPath.planExecutionId}`, {
-    base: getConfig('ng/api'),
-    pathParams: { planExecutionId },
-    ...props
-  })
-
-/**
- * Gets Execution Detail
- */
-export const getPipelineExecutionDetailPromise = (
-  {
-    planExecutionId,
-    ...props
-  }: GetUsingFetchProps<
-    ResponsePipelineExecutionDetail,
-    Failure | Error,
-    GetPipelineExecutionDetailQueryParams,
-    GetPipelineExecutionDetailPathParams
-  > & { planExecutionId: string },
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<
-    ResponsePipelineExecutionDetail,
-    Failure | Error,
-    GetPipelineExecutionDetailQueryParams,
-    GetPipelineExecutionDetailPathParams
-  >(getConfig('ng/api'), `/executions/${planExecutionId}`, props, signal)
-
-export type GetExecutionStatusesProps = Omit<GetProps<ResponseListExecutionStatus, Failure | Error, void, void>, 'path'>
-
-/**
- * Gets Execution Status list
- */
-export const GetExecutionStatuses = (props: GetExecutionStatusesProps) => (
-  <Get<ResponseListExecutionStatus, Failure | Error, void, void>
-    path={`/executions/executionStatus`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseGetExecutionStatusesProps = Omit<
-  UseGetProps<ResponseListExecutionStatus, Failure | Error, void, void>,
-  'path'
->
-
-/**
- * Gets Execution Status list
- */
-export const useGetExecutionStatuses = (props: UseGetExecutionStatusesProps) =>
-  useGet<ResponseListExecutionStatus, Failure | Error, void, void>(`/executions/executionStatus`, {
-    base: getConfig('ng/api'),
-    ...props
-  })
-
-/**
- * Gets Execution Status list
- */
-export const getExecutionStatusesPromise = (
-  props: GetUsingFetchProps<ResponseListExecutionStatus, Failure | Error, void, void>,
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<ResponseListExecutionStatus, Failure | Error, void, void>(
-    getConfig('ng/api'),
-    `/executions/executionStatus`,
-    props,
-    signal
-  )
-
-export type GetStepTypesToYamlTypeMappingProps = Omit<
-  GetProps<ResponseMapExecutionNodeTypeString, Failure | Error, void, void>,
-  'path'
->
-
-/**
- * Gets Step Types to Yaml Type Mapping
- */
-export const GetStepTypesToYamlTypeMapping = (props: GetStepTypesToYamlTypeMappingProps) => (
-  <Get<ResponseMapExecutionNodeTypeString, Failure | Error, void, void>
-    path={`/executions/step-types`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseGetStepTypesToYamlTypeMappingProps = Omit<
-  UseGetProps<ResponseMapExecutionNodeTypeString, Failure | Error, void, void>,
-  'path'
->
-
-/**
- * Gets Step Types to Yaml Type Mapping
- */
-export const useGetStepTypesToYamlTypeMapping = (props: UseGetStepTypesToYamlTypeMappingProps) =>
-  useGet<ResponseMapExecutionNodeTypeString, Failure | Error, void, void>(`/executions/step-types`, {
-    base: getConfig('ng/api'),
-    ...props
-  })
-
-/**
- * Gets Step Types to Yaml Type Mapping
- */
-export const getStepTypesToYamlTypeMappingPromise = (
-  props: GetUsingFetchProps<ResponseMapExecutionNodeTypeString, Failure | Error, void, void>,
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<ResponseMapExecutionNodeTypeString, Failure | Error, void, void>(
-    getConfig('ng/api'),
-    `/executions/step-types`,
-    props,
-    signal
-  )
-
-export interface GetListOfExecutionsQueryParams {
-  accountIdentifier: string
-  orgIdentifier?: string
-  projectIdentifier: string
-  serviceIdentifiers?: string[]
-  envIdentifiers?: string[]
-  pipelineIdentifiers?: string[]
-  executionStatuses?: (
-    | 'Running'
-    | 'Failed'
-    | 'NotStarted'
-    | 'Expired'
-    | 'Aborted'
-    | 'Queued'
-    | 'Paused'
-    | 'Waiting'
-    | 'Success'
-    | 'Suspended'
-  )[]
-  startTime?: number
-  endTime?: number
-  searchTerm?: string
-  page?: number
-  size?: number
-  sort?: string[]
-}
-
-export type GetListOfExecutionsProps = Omit<
-  GetProps<ResponsePagePipelineExecutionSummaryDTO, Failure | Error, GetListOfExecutionsQueryParams, void>,
-  'path'
->
-
-/**
- * Gets Executions list
- */
-export const GetListOfExecutions = (props: GetListOfExecutionsProps) => (
-  <Get<ResponsePagePipelineExecutionSummaryDTO, Failure | Error, GetListOfExecutionsQueryParams, void>
-    path={`/executions`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseGetListOfExecutionsProps = Omit<
-  UseGetProps<ResponsePagePipelineExecutionSummaryDTO, Failure | Error, GetListOfExecutionsQueryParams, void>,
-  'path'
->
-
-/**
- * Gets Executions list
- */
-export const useGetListOfExecutions = (props: UseGetListOfExecutionsProps) =>
-  useGet<ResponsePagePipelineExecutionSummaryDTO, Failure | Error, GetListOfExecutionsQueryParams, void>(
-    `/executions`,
-    { base: getConfig('ng/api'), ...props }
-  )
-
-/**
- * Gets Executions list
- */
-export const getListOfExecutionsPromise = (
-  props: GetUsingFetchProps<
-    ResponsePagePipelineExecutionSummaryDTO,
-    Failure | Error,
-    GetListOfExecutionsQueryParams,
-    void
-  >,
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<ResponsePagePipelineExecutionSummaryDTO, Failure | Error, GetListOfExecutionsQueryParams, void>(
-    getConfig('ng/api'),
-    `/executions`,
-    props,
-    signal
-  )
-
-export interface HandleInterruptQueryParams {
-  accountIdentifier: string
-  orgIdentifier: string
-  projectIdentifier: string
-  interruptType: 'Abort' | 'Pause' | 'Resume'
-}
-
-export interface HandleInterruptPathParams {
-  planExecutionId: string
-}
-
-export type HandleInterruptProps = Omit<
-  GetProps<ResponsePipelineExecutionInterrupt, Failure | Error, HandleInterruptQueryParams, HandleInterruptPathParams>,
-  'path'
-> &
-  HandleInterruptPathParams
-
-/**
- * pause, resume or stop the pipeline executions
- */
-export const HandleInterrupt = ({ planExecutionId, ...props }: HandleInterruptProps) => (
-  <Get<ResponsePipelineExecutionInterrupt, Failure | Error, HandleInterruptQueryParams, HandleInterruptPathParams>
-    path={`/executions/interrupt/${planExecutionId}`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseHandleInterruptProps = Omit<
-  UseGetProps<
-    ResponsePipelineExecutionInterrupt,
-    Failure | Error,
-    HandleInterruptQueryParams,
-    HandleInterruptPathParams
-  >,
-  'path'
-> &
-  HandleInterruptPathParams
-
-/**
- * pause, resume or stop the pipeline executions
- */
-export const useHandleInterrupt = ({ planExecutionId, ...props }: UseHandleInterruptProps) =>
-  useGet<ResponsePipelineExecutionInterrupt, Failure | Error, HandleInterruptQueryParams, HandleInterruptPathParams>(
-    (paramsInPath: HandleInterruptPathParams) => `/executions/interrupt/${paramsInPath.planExecutionId}`,
-    { base: getConfig('ng/api'), pathParams: { planExecutionId }, ...props }
-  )
-
-/**
- * pause, resume or stop the pipeline executions
- */
-export const handleInterruptPromise = (
-  {
-    planExecutionId,
-    ...props
-  }: GetUsingFetchProps<
-    ResponsePipelineExecutionInterrupt,
-    Failure | Error,
-    HandleInterruptQueryParams,
-    HandleInterruptPathParams
-  > & { planExecutionId: string },
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<
-    ResponsePipelineExecutionInterrupt,
-    Failure | Error,
-    HandleInterruptQueryParams,
-    HandleInterruptPathParams
-  >(getConfig('ng/api'), `/executions/interrupt/${planExecutionId}`, props, signal)
-
-export interface GetGraphOrchestrationQueryParams {
-  planExecutionId?: string
-}
-
-export type GetGraphOrchestrationProps = Omit<
-  GetProps<RestResponseOrchestrationGraphDTO, unknown, GetGraphOrchestrationQueryParams, void>,
-  'path'
->
-
-/**
- * generate orchestration graph for plan execution
- */
-export const GetGraphOrchestration = (props: GetGraphOrchestrationProps) => (
-  <Get<RestResponseOrchestrationGraphDTO, unknown, GetGraphOrchestrationQueryParams, void>
-    path={`/orchestration/get-graph-orchestration`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseGetGraphOrchestrationProps = Omit<
-  UseGetProps<RestResponseOrchestrationGraphDTO, unknown, GetGraphOrchestrationQueryParams, void>,
-  'path'
->
-
-/**
- * generate orchestration graph for plan execution
- */
-export const useGetGraphOrchestration = (props: UseGetGraphOrchestrationProps) =>
-  useGet<RestResponseOrchestrationGraphDTO, unknown, GetGraphOrchestrationQueryParams, void>(
-    `/orchestration/get-graph-orchestration`,
-    { base: getConfig('ng/api'), ...props }
-  )
-
-/**
- * generate orchestration graph for plan execution
- */
-export const getGraphOrchestrationPromise = (
-  props: GetUsingFetchProps<RestResponseOrchestrationGraphDTO, unknown, GetGraphOrchestrationQueryParams, void>,
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<RestResponseOrchestrationGraphDTO, unknown, GetGraphOrchestrationQueryParams, void>(
-    getConfig('ng/api'),
-    `/orchestration/get-graph-orchestration`,
-    props,
-    signal
-  )
-
-export interface GetGraphVisualizationQueryParams {
-  planExecutionId?: string
-}
-
-export type GetGraphVisualizationProps = Omit<GetProps<void, unknown, GetGraphVisualizationQueryParams, void>, 'path'>
-
-/**
- * generate graph execution visualization
- */
-export const GetGraphVisualization = (props: GetGraphVisualizationProps) => (
-  <Get<void, unknown, GetGraphVisualizationQueryParams, void>
-    path={`/orchestration/get-graph-visualization`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseGetGraphVisualizationProps = Omit<
-  UseGetProps<void, unknown, GetGraphVisualizationQueryParams, void>,
-  'path'
->
-
-/**
- * generate graph execution visualization
- */
-export const useGetGraphVisualization = (props: UseGetGraphVisualizationProps) =>
-  useGet<void, unknown, GetGraphVisualizationQueryParams, void>(`/orchestration/get-graph-visualization`, {
-    base: getConfig('ng/api'),
-    ...props
-  })
-
-/**
- * generate graph execution visualization
- */
-export const getGraphVisualizationPromise = (
-  props: GetUsingFetchProps<void, unknown, GetGraphVisualizationQueryParams, void>,
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<void, unknown, GetGraphVisualizationQueryParams, void>(
-    getConfig('ng/api'),
-    `/orchestration/get-graph-visualization`,
-    props,
-    signal
-  )
-
-export interface HttpV2QueryParams {
-  accountId: string
-  appId: string
-}
-
-export type HttpV2Props = Omit<GetProps<RestResponsePlanExecution, unknown, HttpV2QueryParams, void>, 'path'>
-
-/**
- * Triggers a task v2 Plan
- */
-export const HttpV2 = (props: HttpV2Props) => (
-  <Get<RestResponsePlanExecution, unknown, HttpV2QueryParams, void>
-    path={`/orchestration/http-v2`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseHttpV2Props = Omit<UseGetProps<RestResponsePlanExecution, unknown, HttpV2QueryParams, void>, 'path'>
-
-/**
- * Triggers a task v2 Plan
- */
-export const useHttpV2 = (props: UseHttpV2Props) =>
-  useGet<RestResponsePlanExecution, unknown, HttpV2QueryParams, void>(`/orchestration/http-v2`, {
-    base: getConfig('ng/api'),
-    ...props
-  })
-
-/**
- * Triggers a task v2 Plan
- */
-export const httpV2Promise = (
-  props: GetUsingFetchProps<RestResponsePlanExecution, unknown, HttpV2QueryParams, void>,
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<RestResponsePlanExecution, unknown, HttpV2QueryParams, void>(
-    getConfig('ng/api'),
-    `/orchestration/http-v2`,
-    props,
-    signal
-  )
-
-export interface HttpV3QueryParams {
-  accountId: string
-  appId: string
-}
-
-export type HttpV3Props = Omit<GetProps<RestResponsePlanExecution, unknown, HttpV3QueryParams, void>, 'path'>
-
-/**
- * Triggers a task v3 Plan
- */
-export const HttpV3 = (props: HttpV3Props) => (
-  <Get<RestResponsePlanExecution, unknown, HttpV3QueryParams, void>
-    path={`/orchestration/http-v3`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseHttpV3Props = Omit<UseGetProps<RestResponsePlanExecution, unknown, HttpV3QueryParams, void>, 'path'>
-
-/**
- * Triggers a task v3 Plan
- */
-export const useHttpV3 = (props: UseHttpV3Props) =>
-  useGet<RestResponsePlanExecution, unknown, HttpV3QueryParams, void>(`/orchestration/http-v3`, {
-    base: getConfig('ng/api'),
-    ...props
-  })
-
-/**
- * Triggers a task v3 Plan
- */
-export const httpV3Promise = (
-  props: GetUsingFetchProps<RestResponsePlanExecution, unknown, HttpV3QueryParams, void>,
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<RestResponsePlanExecution, unknown, HttpV3QueryParams, void>(
-    getConfig('ng/api'),
-    `/orchestration/http-v3`,
-    props,
-    signal
-  )
-
-export interface HttpChainV2QueryParams {
-  accountId: string
-  appId: string
-}
-
-export type HttpChainV2Props = Omit<GetProps<RestResponsePlanExecution, unknown, HttpChainV2QueryParams, void>, 'path'>
-
-/**
- * Triggers a task chain v2 Plan
- */
-export const HttpChainV2 = (props: HttpChainV2Props) => (
-  <Get<RestResponsePlanExecution, unknown, HttpChainV2QueryParams, void>
-    path={`/orchestration/http-chain-v2`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseHttpChainV2Props = Omit<
-  UseGetProps<RestResponsePlanExecution, unknown, HttpChainV2QueryParams, void>,
-  'path'
->
-
-/**
- * Triggers a task chain v2 Plan
- */
-export const useHttpChainV2 = (props: UseHttpChainV2Props) =>
-  useGet<RestResponsePlanExecution, unknown, HttpChainV2QueryParams, void>(`/orchestration/http-chain-v2`, {
-    base: getConfig('ng/api'),
-    ...props
-  })
-
-/**
- * Triggers a task chain v2 Plan
- */
-export const httpChainV2Promise = (
-  props: GetUsingFetchProps<RestResponsePlanExecution, unknown, HttpChainV2QueryParams, void>,
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<RestResponsePlanExecution, unknown, HttpChainV2QueryParams, void>(
-    getConfig('ng/api'),
-    `/orchestration/http-chain-v2`,
-    props,
-    signal
-  )
-
-export interface HttpChainV3QueryParams {
-  accountId: string
-  appId: string
-}
-
-export type HttpChainV3Props = Omit<GetProps<RestResponsePlanExecution, unknown, HttpChainV3QueryParams, void>, 'path'>
-
-/**
- * Triggers a task chain v3 Plan
- */
-export const HttpChainV3 = (props: HttpChainV3Props) => (
-  <Get<RestResponsePlanExecution, unknown, HttpChainV3QueryParams, void>
-    path={`/orchestration/http-chain-v3`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseHttpChainV3Props = Omit<
-  UseGetProps<RestResponsePlanExecution, unknown, HttpChainV3QueryParams, void>,
-  'path'
->
-
-/**
- * Triggers a task chain v3 Plan
- */
-export const useHttpChainV3 = (props: UseHttpChainV3Props) =>
-  useGet<RestResponsePlanExecution, unknown, HttpChainV3QueryParams, void>(`/orchestration/http-chain-v3`, {
-    base: getConfig('ng/api'),
-    ...props
-  })
-
-/**
- * Triggers a task chain v3 Plan
- */
-export const httpChainV3Promise = (
-  props: GetUsingFetchProps<RestResponsePlanExecution, unknown, HttpChainV3QueryParams, void>,
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<RestResponsePlanExecution, unknown, HttpChainV3QueryParams, void>(
-    getConfig('ng/api'),
-    `/orchestration/http-chain-v3`,
-    props,
-    signal
-  )
-
-export interface GetGraphQueryParams {
-  planExecutionId?: string
-}
-
-export type GetGraphProps = Omit<
-  GetProps<RestResponseOrchestrationGraphDTO, unknown, GetGraphQueryParams, void>,
-  'path'
->
-
-/**
- * generate graph for plan execution
- */
-export const GetGraph = (props: GetGraphProps) => (
-  <Get<RestResponseOrchestrationGraphDTO, unknown, GetGraphQueryParams, void>
-    path={`/orchestration/get-graph`}
-    base={getConfig('ng/api')}
-    {...props}
-  />
-)
-
-export type UseGetGraphProps = Omit<
-  UseGetProps<RestResponseOrchestrationGraphDTO, unknown, GetGraphQueryParams, void>,
-  'path'
->
-
-/**
- * generate graph for plan execution
- */
-export const useGetGraph = (props: UseGetGraphProps) =>
-  useGet<RestResponseOrchestrationGraphDTO, unknown, GetGraphQueryParams, void>(`/orchestration/get-graph`, {
-    base: getConfig('ng/api'),
-    ...props
-  })
-
-/**
- * generate graph for plan execution
- */
-export const getGraphPromise = (
-  props: GetUsingFetchProps<RestResponseOrchestrationGraphDTO, unknown, GetGraphQueryParams, void>,
-  signal?: RequestInit['signal']
-) =>
-  getUsingFetch<RestResponseOrchestrationGraphDTO, unknown, GetGraphQueryParams, void>(
-    getConfig('ng/api'),
-    `/orchestration/get-graph`,
-    props,
-    signal
-  )
-
 export interface GetPipelineListQueryParams {
   accountIdentifier: string
   orgIdentifier: string
@@ -9462,7 +9720,7 @@ export type GetPipelineListProps = Omit<
  */
 export const GetPipelineList = (props: GetPipelineListProps) => (
   <Get<ResponsePageNGPipelineSummaryResponse, Failure | Error, GetPipelineListQueryParams, void>
-    path={`/pipelines`}
+    path="/pipelines"
     base={getConfig('ng/api')}
     {...props}
   />
@@ -9513,7 +9771,7 @@ export type PostPipelineProps = Omit<
 export const PostPipeline = (props: PostPipelineProps) => (
   <Mutate<ResponseString, Failure | Error, PostPipelineQueryParams, NgPipelineRequestBody, void>
     verb="POST"
-    path={`/pipelines`}
+    path="/pipelines"
     base={getConfig('ng/api')}
     {...props}
   />
@@ -9570,7 +9828,7 @@ export type GetPipelineProps = Omit<
  */
 export const GetPipeline = ({ pipelineIdentifier, ...props }: GetPipelineProps) => (
   <Get<ResponseNGPipelineResponse, Failure | Error, GetPipelineQueryParams, GetPipelinePathParams>
-    path={`/pipelines/${pipelineIdentifier}`}
+    path="/pipelines/${pipelineIdentifier}"
     base={getConfig('ng/api')}
     {...props}
   />
@@ -9632,7 +9890,7 @@ export type PutPipelineProps = Omit<
 export const PutPipeline = ({ pipelineIdentifier, ...props }: PutPipelineProps) => (
   <Mutate<ResponseString, Failure | Error, PutPipelineQueryParams, NgPipelineRequestBody, PutPipelinePathParams>
     verb="PUT"
-    path={`/pipelines/${pipelineIdentifier}`}
+    path="/pipelines/${pipelineIdentifier}"
     base={getConfig('ng/api')}
     {...props}
   />
@@ -9695,7 +9953,7 @@ export type SoftDeletePipelineProps = Omit<
 export const SoftDeletePipeline = (props: SoftDeletePipelineProps) => (
   <Mutate<ResponseBoolean, Failure | Error, SoftDeletePipelineQueryParams, string, void>
     verb="DELETE"
-    path={`/pipelines`}
+    path="/pipelines"
     base={getConfig('ng/api')}
     {...props}
   />

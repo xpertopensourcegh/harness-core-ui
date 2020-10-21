@@ -56,7 +56,7 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<{}>)
   }, [data])
 
   React.useEffect(() => {
-    if (data && !isExecutionComplete(data.data?.pipelineExecution?.executionStatus)) {
+    if (!loading && data && !isExecutionComplete(data.data?.pipelineExecution?.executionStatus)) {
       const timerId = window.setTimeout(() => {
         refetch()
       }, POLL_INTERVAL)
@@ -65,7 +65,7 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<{}>)
         window.clearTimeout(timerId)
       }
     }
-  }, [data, refetch])
+  }, [data, refetch, loading])
 
   function toggleDetails(): void {
     setShowDetails(status => !status)
@@ -136,7 +136,7 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<{}>)
                   endTime={pipelineExecution.endedAt}
                   durationText={' '}
                 />
-                <ExecutionActions executionStatus={pipelineExecution.executionStatus} />
+                <ExecutionActions executionStatus={pipelineExecution.executionStatus} refetch={refetch} />
               </div>
             </div>
             <div className={css.headerBottomRow}>
