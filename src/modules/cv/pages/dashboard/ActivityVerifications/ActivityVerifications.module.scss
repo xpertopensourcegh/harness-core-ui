@@ -11,15 +11,56 @@
       font-weight: bold;
     }
   }
-
-  .dataColumn {
-    @include dataColumnWidth(300px, 50px);
-  }
 }
 
 .dataRow {
   cursor: pointer;
   &:hover {
     background-color: var(--blue-200);
+  }
+}
+
+.verificationTooltip {
+  min-width: 200px;
+  .tooltipHeader,
+  .tooltipSubHeader {
+    display: flex;
+    justify-content: space-between;
+  }
+  .tooltipHeader,
+  .tooltipSubHeader,
+  .tooltipNameGroup {
+    p:first-child {
+      margin-right: var(--spacing-small);
+    }
+  }
+  .tooltipSubHeader {
+    border-bottom: 1px solid var(--grey-400);
+    margin-top: var(--spacing-small);
+  }
+  .tooltipItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: var(--spacing-small) 0;
+    .tooltipItemContent {
+      min-width: 170px;
+      margin-right: var(--spacing-large);
+      .tooltipNameGroup {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+      }
+      .tooltipDateGroup {
+        display: flex;
+      }
+    }
+  }
+}
+
+.tooltipTarget {
+  flex: 1;
+  > * {
+    width: 80%;
   }
 }

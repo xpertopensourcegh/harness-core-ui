@@ -1,5 +1,8 @@
 @import '../_ActivityList.module.scss';
 
-.dataColumn {
-  @include dataColumnWidth();
+.columnWrapp {
+  flex: 1;
+  .dataColumn {
+    width: 80%;
+  }
 }

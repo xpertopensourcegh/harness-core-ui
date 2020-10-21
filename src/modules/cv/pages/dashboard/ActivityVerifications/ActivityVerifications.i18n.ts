@@ -17,5 +17,17 @@ export default {
     startOn: 'Started on',
     abbreviatedMinute: 'min'
   },
-  viewAllActivities: 'View All'
+  viewAllActivities: 'View All',
+  verificationTooltip: {
+    preProdVerifications: 'Pre Production Verifications',
+    prodVerifications: 'Production Verifications',
+    postDeployVerifications: 'Post Deployment Verifications',
+    startedOn: 'Started On',
+    risk: 'Risk',
+    statusError: 'Error',
+    statusPassed: 'Passed',
+    statusFailed: 'Failed',
+    statusNotStarted: 'Not Started',
+    minRemaining: 'min remaining'
+  }
 }

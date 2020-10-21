@@ -23,18 +23,20 @@ export const routeCVDeploymentPage: Route<{
   projectIdentifier: string
   orgIdentifier: string
   deploymentTag: string
+  serviceIdentifier: string
 }> = {
   sidebarId: SidebarIdentifier.CONTINUOUS_VERIFICATION,
-  path: '/cv/dashboard/deployment/:deploymentTag/org/:orgIdentifier/project/:projectIdentifier',
+  path:
+    '/cv/dashboard/deployment/:deploymentTag/service/:serviceIdentifier/org/:orgIdentifier/project/:projectIdentifier',
   title: i18n.services,
   pageId: '/cv/dashboard/deployment',
   authenticated: true,
-  url: ({ projectIdentifier, orgIdentifier, deploymentTag }) =>
+  url: ({ projectIdentifier, orgIdentifier, deploymentTag, serviceIdentifier }) =>
     !projectIdentifier || !orgIdentifier
       ? routeURL(routeCVHome, `/cv/home`)
       : routeURL(
           routeCVMainDashBoardPage,
-          `/cv/dashboard/deployment/${deploymentTag}/org/${orgIdentifier}/project/${projectIdentifier}`
+          `/cv/dashboard/deployment/${deploymentTag}/service/${serviceIdentifier}/org/${orgIdentifier}/project/${projectIdentifier}`
         ),
   component: React.lazy(() => import('./pages/dashboard/deployment-drilldown/DeploymentDrilldownView')),
   module: ModuleName.CV

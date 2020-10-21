@@ -34,7 +34,7 @@ const DEFAULT_SELECTED_TAB = METRICS_TAB
 
 export default function DeploymentDrilldownView() {
   const {
-    params: { accountId, projectIdentifier, deploymentTag }
+    params: { accountId, projectIdentifier, orgIdentifier, deploymentTag, serviceIdentifier }
   } = useRouteParams()
   const { showError } = useToaster()
   const [anomalousMetricsOnly, setAnomalousMetricsOnly] = useState<boolean>(true)
@@ -51,7 +51,9 @@ export default function DeploymentDrilldownView() {
     deploymentTag: deploymentTag as string,
     queryParams: {
       accountId: accountId as string,
-      projectIdentifier: projectIdentifier as string
+      projectIdentifier: projectIdentifier as string,
+      orgIdentifier: orgIdentifier as string,
+      serviceIdentifier: serviceIdentifier as string
     }
   })
 

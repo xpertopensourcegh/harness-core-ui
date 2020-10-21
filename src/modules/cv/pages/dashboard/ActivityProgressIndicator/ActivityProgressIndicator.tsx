@@ -22,7 +22,7 @@ export default function ActivityProgressIndicator(props: ActivityProgressIndicat
     total,
     progress: progressCount,
     failed,
-    timeRemainingMs,
+    remainingTimeMs,
     startTime,
     durationMs,
     riskScore
@@ -48,7 +48,7 @@ export default function ActivityProgressIndicator(props: ActivityProgressIndicat
   }
 
   const passedVerifications = `${progressCount}/${total}`
-  const minutesRemaining = Math.floor((timeRemainingMs ?? 0) / 1000 / 60)
+  const minutesRemaining = Math.floor((remainingTimeMs ?? 0) / 1000 / 60)
   const duration = Math.floor((durationMs ?? 0) / 1000 / 60)
 
   let progressDescription = `${passedVerifications} ${i18n.verificationsInProgress} (${minutesRemaining} ${i18n.minutesRemaining})`

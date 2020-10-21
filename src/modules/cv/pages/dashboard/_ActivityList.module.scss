@@ -8,17 +8,17 @@
   padding-left: 0;
   width: 100%;
 
-  .dataColumn {
-    align-self: center;
-    > * {
-      width: 80%;
-    }
-  }
-
   .headerRow {
     display: flex;
     margin: var(--margin-large);
     padding: 0 var(--spacing-xsmall);
+    *:first-child {
+      flex-shrink: 0;
+    }
+  }
+
+  .dataColumn {
+    flex: 1;
   }
 
   .dataRow {

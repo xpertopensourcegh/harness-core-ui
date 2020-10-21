@@ -4,9 +4,8 @@ import { useHistory } from 'react-router-dom'
 import { routeCVDeploymentPage } from 'modules/cv/routes'
 import { useGetRecentDeploymentActivityVerifications } from 'services/cv'
 import { useRouteParams } from 'framework/exports'
-import ActivityProgressIndicator from '../ActivityProgressIndicator/ActivityProgressIndicator'
 import i18n from './ActivityVerifications.i18n'
-import ActivityType from '../ActivityType/ActivityType'
+import VerificationItem from './VerificationItem'
 import css from './ActivityVerifications.module.scss'
 
 const RECENT_VERIFICATIONS_COLUMN_NAMES = Object.values(i18n.activityVerificationsColumns).map(columnName => (
@@ -28,7 +27,8 @@ export default function ActivityVerifications(): JSX.Element {
   const { data } = useGetRecentDeploymentActivityVerifications({
     queryParams: {
       accountId: accountId as string,
-      projectIdentifier: projectIdentifier as string
+      projectIdentifier: projectIdentifier as string,
+      orgIdentifier: orgIdentifier as string
     }
   })
 
@@ -45,24 +45,20 @@ export default function ActivityVerifications(): JSX.Element {
         {data?.resource?.map(item => {
           const { serviceName, tag } = item
           return (
-            <li
+            <VerificationItem
               key={`${tag}-${serviceName}`}
-              className={css.dataRow}
+              item={item}
               onClick={() =>
                 history.push(
                   routeCVDeploymentPage.url({
                     projectIdentifier: projectIdentifier as string,
                     orgIdentifier: orgIdentifier as string,
-                    deploymentTag: encodeURIComponent(tag!)
+                    deploymentTag: encodeURIComponent(tag!),
+                    serviceIdentifier: encodeURIComponent(serviceName!)
                   })
                 )
               }
-            >
-              <ActivityType buildName={tag!} serviceName={serviceName!} iconProps={{ name: 'nav-cd' }} />
-              <ActivityProgressIndicator data={item.preProductionDeploymentSummary} className={css.dataColumn} />
-              <ActivityProgressIndicator data={item.productionDeploymentSummary} className={css.dataColumn} />
-              <ActivityProgressIndicator data={item.postDeploymentSummary} className={css.dataColumn} />
-            </li>
+            />
           )
         })}
         <Button

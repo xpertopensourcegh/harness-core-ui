@@ -24,6 +24,7 @@ allowpaths:
   - /deployment-log-analysis/{verificationJobInstanceId}/clusters
   - /activity/recent-deployment-activity-verifications
   - /activity/deployment-activity-verifications/{deploymentTag}
+  - /activity/deployment-activity-verifications-popover-summary/{deploymentTag}
 operationIdOverrides:
   /appdynamics/applications.get: getAppDynamicsApplications
   /appdynamics/metric-data.post: getAppDynamicsMetricData
@@ -39,3 +40,4 @@ operationIdOverrides:
   /deployment-log-analysis/{verificationJobInstanceId}/clusters.get: getClusterChartAnalyses
   /activity/recent-deployment-activity-verifications.get: getRecentDeploymentActivityVerifications
   /activity/deployment-activity-verifications/{deploymentTag}.get: getVerificationInstances
+  /activity/deployment-activity-verifications-popover-summary/{deploymentTag}.get: getVerificationsPopoverSummary

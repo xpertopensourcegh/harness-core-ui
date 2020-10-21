@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, Intent, Button } from '@wings-software/uikit'
+import { Text, Intent, Button, Container } from '@wings-software/uikit'
 import {
   MetricCategoriesWithRiskScore,
   MetricCategories
@@ -154,7 +154,9 @@ export default function ActivityChanges(): JSX.Element {
               iconProps={{ name: activityType === 'KUBERNETES' ? 'service-kubernetes' : 'database', size: 25 }}
             />
             <MetricCategoriesWithRiskScore categoriesWithRiskScores={priorRiskScores} className={css.dataColumn} />
-            <ActivityProgressIndicator {...verificationStatus} className={css.dataColumn} />
+            <Container className={css.columnWrapp}>
+              <ActivityProgressIndicator {...verificationStatus} className={css.dataColumn} />
+            </Container>
             <MetricCategoriesWithRiskScore categoriesWithRiskScores={postRiskScores} className={css.dataColumn} />
           </li>
         )
