@@ -131,8 +131,8 @@ const ProjectForm: React.FC<StepProps<Project> & ProjectModalData> = props => {
                       <FormInput.TagInput
                         name="tags"
                         items={[]}
-                        labelFor={name => name as string}
-                        itemFromNewTag={newTag => newTag}
+                        labelFor={/* istanbul ignore next */ name => name as string}
+                        itemFromNewTag={/* istanbul ignore next */ newTag => newTag}
                         tagInputProps={{
                           showClearAllButton: true,
                           allowNewTag: true,

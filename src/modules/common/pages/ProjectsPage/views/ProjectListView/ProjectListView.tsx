@@ -62,7 +62,7 @@ const RenderColumnOrganisation: Renderer<CellProps<Project>> = ({ row }) => {
   const { organisationsMap } = useAppStoreReader()
   return (
     <Text color={Color.BLACK} lineClamp={1} className={css.org}>
-      {organisationsMap.get(data.orgIdentifier || '')?.name}
+      {organisationsMap.get(data.orgIdentifier || /* istanbul ignore next */ '')?.name}
     </Text>
   )
 }
@@ -95,7 +95,7 @@ const RenderColumnMenu: Renderer<CellProps<Project>> = ({ row, column }) => {
   const { accountId } = useParams()
   const [menuOpen, setMenuOpen] = useState(false)
   const { mutate: deleteProject } = useDeleteProject({
-    queryParams: { accountIdentifier: accountId, orgIdentifier: data.orgIdentifier || '' }
+    queryParams: { accountIdentifier: accountId, orgIdentifier: data.orgIdentifier || /* istanbul ignore next */ '' }
   })
   const { showSuccess, showError } = useToaster()
 
@@ -107,18 +107,18 @@ const RenderColumnMenu: Renderer<CellProps<Project>> = ({ row, column }) => {
     updateAppStore({ projects: ([] as Project[]).concat(projects) })
   }
   const { openDialog } = useConfirmationDialog({
-    contentText: i18n.confirmDelete(data.name || ''),
+    contentText: i18n.confirmDelete(data.name || /* istanbul ignore next */ ''),
     titleText: i18n.confirmDeleteTitle,
     confirmButtonText: i18n.delete,
     cancelButtonText: i18n.cancel,
     onCloseDialog: async (isConfirmed: boolean) => {
       if (isConfirmed) {
         try {
-          const deleted = await deleteProject(data.identifier || '', {
+          const deleted = await deleteProject(data.identifier || /* istanbul ignore next */ '', {
             headers: { 'content-type': 'application/json' }
           })
-          if (deleted) showSuccess(i18n.successMessage(data.name || ''))
-          onDeleted?.()
+          if (deleted) showSuccess(i18n.successMessage(data.name || /* istanbul ignore next */ ''))
+          onDeleted()
           ;(column as any).refetchProjects()
         } catch (err) {
           showError(err)

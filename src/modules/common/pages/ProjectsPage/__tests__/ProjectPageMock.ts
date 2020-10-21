@@ -99,3 +99,64 @@ export const projectPageMock = {
   },
   loading: false
 }
+
+export const projectMockData = {
+  data: {
+    status: 'SUCCESS',
+    data: {
+      accountIdentifier: 'testAcc',
+      orgIdentifier: 'Cisco_Meraki',
+      identifier: 'Portal',
+      name: 'Portal',
+      color: '#ff8800',
+      modules: [],
+      description: 'Online users',
+      owners: ['testAcc'],
+      tags: ['prod', 'ui', 'customer'],
+      lastModifiedAt: 1599715155888
+    },
+    metaData: undefined,
+    correlationId: '88124a30-e021-4890-8466-c2345e1d42d6'
+  },
+  loading: false
+}
+
+export const OrgMockData = {
+  data: {
+    status: 'SUCCESS',
+    data: {
+      accountIdentifier: 'testAcc',
+      identifier: 'testOrg',
+      name: 'Org Name',
+      color: '#004fc4',
+      description: 'Description',
+      tags: ['tag1', 'tag2'],
+      lastModifiedAt: 1602148957762
+    },
+    metaData: undefined,
+    correlationId: '9f77f74d-c4ab-44a2-bfea-b4545c6a4a39'
+  }
+}
+
+export const createMockData = {
+  mutate: async () => {
+    return {
+      status: 'SUCCESS',
+      data: {
+        accountIdentifier: 'kmpySmUISimoRrJL6NL73w',
+        orgIdentifier: 'testOrg',
+        identifier: 'dummy_name',
+        name: 'dummy name',
+        color: '#0063F7',
+        modules: [],
+        description: '',
+        owners: ['testAcc'],
+        tags: [],
+        lastModifiedAt: 1602660684194
+      },
+      metaData: undefined,
+      correlationId: '375d39b4-3552-42a2-a4e3-e6b9b7e51d44'
+    }
+  },
+  loading: false
+}

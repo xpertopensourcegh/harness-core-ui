@@ -42,17 +42,10 @@ const CreateProject: React.FC<StepProps<Project> & CreateModalData> = props => {
   const organisations: SelectOption[] =
     orgData?.data?.content?.map(org => {
       return {
-        label: org.name || '',
-        value: org.identifier || ''
+        label: org.name || /* istanbul ignore next */ '',
+        value: org.identifier || /* istanbul ignore next */ ''
       }
     }) || []
-
-  const getErrorMessage = (errors: any): string => {
-    const message: string[] = errors.map((error: any) => {
-      return error.error
-    })
-    return message.toString()
-  }
 
   const onComplete = async (values: Project): Promise<void> => {
     const dataToSubmit: Project = pick<Project, keyof Project>(values, [
@@ -68,14 +61,18 @@ const CreateProject: React.FC<StepProps<Project> & CreateModalData> = props => {
     ;(dataToSubmit as Project)['modules'] = values.modules || []
     try {
       const { data: project } = await createProject(dataToSubmit as Project, {
-        queryParams: { accountIdentifier: accountId, orgIdentifier: values?.orgIdentifier || '' }
+        queryParams: {
+          accountIdentifier: accountId,
+          orgIdentifier: values?.orgIdentifier || /* istanbul ignore next */ ''
+        }
       })
       nextStep?.(project)
       showSuccess(i18n.newProjectWizard.aboutProject.createSuccess)
       onSuccess?.(project)
       updateAppStore({ projects: projects.concat(project!) })
     } catch (e) {
-      modalErrorHandler?.showDanger(e.data.message || getErrorMessage(e.data.errors))
+      /* istanbul ignore next */
+      modalErrorHandler?.showDanger(e.data.message)
     }
   }
   return (

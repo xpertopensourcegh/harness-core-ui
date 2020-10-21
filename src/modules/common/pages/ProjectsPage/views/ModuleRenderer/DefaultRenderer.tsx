@@ -57,6 +57,7 @@ const DefaultRenderer: React.FC<DefaultProps> = props => {
       }
       return true
     } catch (e) {
+      /* istanbul ignore next */
       return false
     }
   }

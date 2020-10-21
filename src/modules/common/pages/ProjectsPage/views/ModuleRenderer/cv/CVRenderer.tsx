@@ -19,7 +19,7 @@ const CVRenderer: React.FC<CVRendererProps> = ({ data, isPreview }) => {
             <Link
               to={routeCVMainDashBoardPage.url({
                 orgIdentifier: data.orgIdentifier as string,
-                projectIdentifier: data.identifier || ''
+                projectIdentifier: data.identifier
               })}
             >
               <Icon name="nav-cv-hover" size={30} flex={{ align: 'center-center' }} />

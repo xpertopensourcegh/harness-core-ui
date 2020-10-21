@@ -30,7 +30,7 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
   const { organisationsMap } = useAppStoreReader()
   const { accountId } = useParams()
   const { mutate: deleteProject } = useDeleteProject({
-    queryParams: { accountIdentifier: accountId, orgIdentifier: data.orgIdentifier || '' }
+    queryParams: { accountIdentifier: accountId, orgIdentifier: data.orgIdentifier || /* istanbul ignore next */ '' }
   })
   const { showSuccess, showError } = useToaster()
 
@@ -43,20 +43,21 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
   }
 
   const { openDialog } = useConfirmationDialog({
-    contentText: i18n.confirmDelete(data.name || ''),
+    contentText: i18n.confirmDelete(data.name || /* istanbul ignore next */ ''),
     titleText: i18n.confirmDeleteTitle,
     confirmButtonText: i18n.delete,
     cancelButtonText: i18n.cancel,
     onCloseDialog: async (isConfirmed: boolean) => {
       if (isConfirmed) {
         try {
-          const deleted = await deleteProject(data.identifier || '', {
+          const deleted = await deleteProject(data.identifier || /* istanbul ignore next */ '', {
             headers: { 'content-type': 'application/json' }
           })
-          if (deleted) showSuccess(i18n.successMessage(data.name || ''))
-          onDeleted?.()
+          if (deleted) showSuccess(i18n.successMessage(data.name || /* istanbul ignore next */ ''))
+          onDeleted()
           reloadProjects?.()
         } catch (err) {
+          /* istanbul ignore next */
           showError(err)
         }
       }
@@ -81,8 +82,8 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
             }}
           />
         ) : null}
-        <div className={css.colorBar} style={{ backgroundColor: data?.color || 'var(--blue-500)' }}></div>
-        {data?.name ? (
+        <div className={css.colorBar} style={{ backgroundColor: data.color }}></div>
+        {data.name ? (
           <Text font="medium" color={Color.BLACK}>
             {data.name}
           </Text>
@@ -91,13 +92,15 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
             {i18n.projectName}
           </Text>
         ) : null}
-        <Text font={{ size: 'small', weight: 'bold' }}>{organisationsMap.get(data.orgIdentifier || '')?.name}</Text>
-        {data?.description ? (
+        <Text font={{ size: 'small', weight: 'bold' }}>
+          {organisationsMap.get(data.orgIdentifier || /* istanbul ignore next */ '')?.name}
+        </Text>
+        {data.description ? (
           <Text font="small" lineClamp={3} padding={{ top: 'medium' }}>
             {data.description}
           </Text>
         ) : null}
-        {data?.tags?.length ? (
+        {data.tags?.length ? (
           <Layout.Horizontal padding={{ top: 'small' }} className={css.wrap}>
             {data.tags.map((tag: string) => (
               <Tag className={css.cardTags} key={tag}>
@@ -118,7 +121,7 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
         </Layout.Horizontal>
       </Container>
 
-      {data?.modules?.length ? null : <DefaultRenderer data={data} isPreview={isPreview} />}
+      {data.modules?.length ? null : <DefaultRenderer data={data} isPreview={isPreview} />}
       {data.modules?.includes(ModuleName.CD) ? <CDRenderer data={data} isPreview={isPreview} /> : null}
       {data.modules?.includes(ModuleName.CV) ? <CVRenderer data={data} isPreview={isPreview} /> : null}
     </Card>

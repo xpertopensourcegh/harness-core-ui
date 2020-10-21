@@ -12,7 +12,7 @@ import i18n from '../../../pages/ProjectsPage/ProjectsPage.i18n'
 import css from './Purpose.module.scss'
 
 interface ProjectModalData {
-  data: Project | undefined
+  data: Project
   mock?: UseMutateMockData<ResponseProject>
 }
 
@@ -98,8 +98,8 @@ const ContinuousDeployement: React.FC<ModuleProps & ProjectModalData> = ({ onSub
             onSubmit()
             history.push(
               routeCDPipelineStudio.url({
-                orgIdentifier: data?.orgIdentifier as string,
-                projectIdentifier: data?.identifier as string,
+                orgIdentifier: data.orgIdentifier as string,
+                projectIdentifier: data.identifier as string,
                 pipelineIdentifier: -1
               })
             )
@@ -130,8 +130,8 @@ const ContinuousVerification: React.FC<ModuleProps & ProjectModalData> = ({ onSu
             onSubmit()
             history.push({
               pathname: routeCVDataSources.url({
-                projectIdentifier: data?.identifier || '',
-                orgIdentifier: data?.orgIdentifier || ''
+                projectIdentifier: data.identifier,
+                orgIdentifier: data.orgIdentifier
               }),
               search: '?onBoarding=true'
             })
@@ -234,15 +234,16 @@ const PurposeList: React.FC<ProjectModalData> = props => {
     try {
       await updateProject(dataToSubmit, {
         pathParams: {
-          identifier: projectData?.identifier || ''
+          identifier: projectData.identifier
         },
         queryParams: {
           accountIdentifier: accountId,
-          orgIdentifier: projectData?.orgIdentifier || ''
+          orgIdentifier: projectData.orgIdentifier
         }
       })
       return true
     } catch (e) {
+      /* istanbul ignore next */
       return false
     }
   }

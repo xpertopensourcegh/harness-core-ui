@@ -18,7 +18,7 @@ const CDRenderer: React.FC<CDRendererProps> = ({ data, isPreview }) => {
             <Link
               to={routeCDDashboard.url({
                 orgIdentifier: data.orgIdentifier as string,
-                projectIdentifier: data.identifier || ''
+                projectIdentifier: data.identifier
               })}
             >
               <Icon name="cd-hover" size={30} flex={{ align: 'center-center' }} />

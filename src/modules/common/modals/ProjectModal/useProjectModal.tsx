@@ -61,7 +61,7 @@ export const useProjectModal = ({ onSuccess, onNewProjectCreated }: UseProjectMo
           </StepWizard>
         ) : null}
 
-        {view === Views.PURPOSE ? <PurposeList data={projectData} /> : null}
+        {view === Views.PURPOSE ? <PurposeList data={projectData as Project} /> : null}
 
         {view === Views.EDIT ? (
           <EditProject

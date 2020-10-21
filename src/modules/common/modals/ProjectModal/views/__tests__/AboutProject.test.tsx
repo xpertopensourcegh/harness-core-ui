@@ -118,9 +118,16 @@ describe('About Project test', () => {
     expect(container).toMatchSnapshot()
 
     await act(async () => {
+      fireEvent.click(container.querySelector('button[type="submit"]')!)
+    })
+    expect(container).toMatchSnapshot()
+
+    await act(async () => {
       fireEvent.change(container.querySelector('input[name="name"]')!, {
         target: { value: 'dummy name' }
       })
+    })
+    await act(async () => {
       fireEvent.click(container.querySelector('button[type="submit"]')!)
     })
     expect(container).toMatchSnapshot()
@@ -144,6 +151,8 @@ describe('About Project test', () => {
         fireEvent.change(container.querySelector('input[name="name"]')!, {
           target: { value: 'dummy name' }
         })
+      })
+      await act(async () => {
         fireEvent.click(container.querySelector('button[type="submit"]')!)
       })
       expect(container).toMatchSnapshot()

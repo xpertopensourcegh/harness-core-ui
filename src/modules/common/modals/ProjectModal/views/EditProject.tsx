@@ -49,13 +49,16 @@ const EditProject: React.FC<StepProps<Project> & EditModalData> = props => {
   const organisationIdentifier = isStep ? prevStepData?.orgIdentifier : orgIdentifier
 
   const { data: projectData, loading, response, error } = useGetProject({
-    identifier: projectIdentifier || '',
-    queryParams: { accountIdentifier: accountId, orgIdentifier: organisationIdentifier || '' },
+    identifier: projectIdentifier || /* istanbul ignore next */ '',
+    queryParams: {
+      accountIdentifier: accountId,
+      orgIdentifier: organisationIdentifier || /* istanbul ignore next */ ''
+    },
     mock: projectMockData
   })
 
   const { data: orgData } = useGetOrganization({
-    identifier: organisationIdentifier || '',
+    identifier: organisationIdentifier || /* istanbul ignore next */ '',
     queryParams: { accountIdentifier: accountId },
     mock: editOrgMockData
   })
@@ -85,17 +88,10 @@ const EditProject: React.FC<StepProps<Project> & EditModalData> = props => {
 
   const organisations: SelectOption[] = [
     {
-      label: orgData?.data?.name || '',
-      value: orgData?.data?.identifier || ''
+      label: orgData?.data?.name || /* istanbul ignore next */ '',
+      value: orgData?.data?.identifier || /* istanbul ignore next */ ''
     }
   ]
-
-  const getErrorMessage = (errors: any): string => {
-    const message: string[] = errors.map((errorMessage: any) => {
-      return errorMessage.error
-    })
-    return message.toString()
-  }
 
   const onComplete = async (values: Project): Promise<void> => {
     const dataToSubmit: Project = pick<Project, keyof Project>(values, [
@@ -110,15 +106,21 @@ const EditProject: React.FC<StepProps<Project> & EditModalData> = props => {
     ;(dataToSubmit as Project)['owners'] = [accountId]
     try {
       await updateProject(dataToSubmit as Project, {
-        pathParams: { identifier: values?.identifier || '' },
-        queryParams: { accountIdentifier: accountId, orgIdentifier: values?.orgIdentifier || '' }
+        pathParams: { identifier: values.identifier },
+        queryParams: {
+          accountIdentifier: accountId,
+          orgIdentifier: values.orgIdentifier
+        }
       })
       showSuccess(i18n.newProjectWizard.aboutProject.editSuccess)
       onSuccess?.(values)
-      updateAppStore({ projects: projects.filter(p => p.identifier !== values.identifier).concat(values) })
+      updateAppStore({
+        projects: projects.filter(/* istanbul ignore next */ p => p.identifier !== values.identifier).concat(values)
+      })
       isStep ? nextStep?.({ ...values }) : closeModal?.()
     } catch (e) {
-      modalErrorHandler?.showDanger(e.data.message || getErrorMessage(e.data.errors))
+      /* istanbul ignore next */
+      modalErrorHandler?.showDanger(e.data.message)
     }
   }
   return (
@@ -129,7 +131,7 @@ const EditProject: React.FC<StepProps<Project> & EditModalData> = props => {
           disableSelect={true}
           enableEdit={false}
           disableSubmit={false}
-          initialOrgIdentifier={projectData.data?.orgIdentifier || orgIdentifier || ''}
+          initialOrgIdentifier={projectData.data?.orgIdentifier || orgIdentifier || /* istanbul ignore next */ ''}
           organisationItems={organisations}
           title={i18n.newProjectWizard.aboutProject.edit.toUpperCase()}
           setModalErrorHandler={setModalErrorHandler}

@@ -1,13 +1,14 @@
 import React from 'react'
 
-import { render } from '@testing-library/react'
+import { fireEvent, getByText, render } from '@testing-library/react'
+import { act } from 'react-dom/test-utils'
 import type {
   Project,
   ResponseOptionalListRoleDTO,
   ResponsePageInviteDTO,
   ResponsePageUserSearchDTO
 } from 'services/cd-ng'
-import { TestWrapper, UseGetMockData } from 'modules/common/utils/testUtils'
+import { findPopoverContainer, TestWrapper, UseGetMockData } from 'modules/common/utils/testUtils'
 import { rolesMockData } from './RolesMockData'
 import { userMockData } from './UserMockData'
 import Collaborators from '../Collaborators'
@@ -39,5 +40,24 @@ describe('Collaborators test', () => {
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()
+    const role = getByText(container, 'Assign a role')
+    fireEvent.click(role!)
+    const popover = findPopoverContainer()
+    const opt = getByText(popover as HTMLElement, 'Project Viewer')
+    fireEvent.click(opt!)
+    await act(async () => {
+      fireEvent.change(container.querySelector("input[name='collaborators']")!, {
+        target: { value: 'example5@email.com' }
+      })
+      fireEvent.click(container.querySelector('button[type="submit"]')!)
+    })
+    await act(async () => {
+      const refresh = container.querySelectorAll('[icon="refresh"]')[0]
+      fireEvent.click(refresh)
+    })
+    await act(async () => {
+      const deleteInvite = container.querySelectorAll('[height="20"]')[0]
+      fireEvent.click(deleteInvite)
+    })
   })
 })
