@@ -65,8 +65,12 @@ export const CreateNewWidget: React.FC<CreateNewWidgetProps> = (props): JSX.Elem
           <Icon icon="plus" iconSize={isEmpty(options.name) ? 20 : 10} color={'var(--diagram-grey)'} />
 
           <div>
-            <div>{props.node.getInPorts().map(port => generatePort(port, props))}</div>
-            <div>{props.node.getOutPorts().map(port => generatePort(port, props))}</div>
+            <div style={{ visibility: options.showPorts ? 'visible' : 'hidden' }}>
+              {props.node.getInPorts().map(port => generatePort(port, props))}
+            </div>
+            <div style={{ visibility: options.showPorts ? 'visible' : 'hidden' }}>
+              {props.node.getOutPorts().map(port => generatePort(port, props))}
+            </div>
           </div>
         </div>
         {!isEmpty(options.name) && (

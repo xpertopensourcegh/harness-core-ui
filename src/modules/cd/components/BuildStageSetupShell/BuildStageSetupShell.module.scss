@@ -1,0 +1,11 @@
+.execution {
+  background-image: var(--pipeline-canvas-image) !important;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+.setupShell {
+  position: relative;
+  height: 100%;
+}

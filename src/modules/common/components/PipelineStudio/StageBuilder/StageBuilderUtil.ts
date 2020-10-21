@@ -27,12 +27,31 @@ export interface PopoverData {
 }
 
 export const getNewStageFromType = (type: string): StageElementWrapper => {
+  // TODO: replace string with type
+  if (type === 'Build') {
+    return {
+      stage: {
+        name: EmptyStageName,
+        identifier: uuid(),
+        description: '',
+        type: type,
+        spec: {
+          execution: {},
+          services: []
+        }
+      }
+    }
+  }
+
   return {
     stage: {
       name: EmptyStageName,
       identifier: uuid(),
       description: '',
-      type: type
+      type: type,
+      spec: {
+        execution: {}
+      }
     }
   }
 }

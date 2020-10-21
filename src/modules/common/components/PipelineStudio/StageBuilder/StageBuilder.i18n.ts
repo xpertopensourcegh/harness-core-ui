@@ -1,3 +1,4 @@
 export default {
-  addStage: 'Add Stage'
+  addStage: 'Add Stage',
+  services: 'Service(s)'
 }

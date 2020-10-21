@@ -4,6 +4,7 @@ import type { NgPipeline, ExecutionWrapper } from 'services/cd-ng'
 import type { SnippetInterface } from 'modules/common/interfaces/SnippetInterface'
 import type { YamlBuilderHandlerBinding } from 'modules/common/interfaces/YAMLBuilderProps'
 import type { DefaultNodeModel } from '../../Diagram'
+import type { ServiceWrapper } from '../ExecutionGraph/ExecutionGraphUtil'
 
 export enum PipelineActions {
   DBInitialize = 'DBInitialize',
@@ -49,7 +50,7 @@ export interface DrawerData extends Omit<IDrawerProps, 'isOpen'> {
       entity: DefaultNodeModel
     }
     stepConfig?: {
-      node: ExecutionWrapper
+      node: ExecutionWrapper | ServiceWrapper
       isStepGroup: boolean
     }
   }

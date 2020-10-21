@@ -1,6 +1,13 @@
 import { isEmpty } from 'lodash-es'
 import type { ExecutionWrapper, ExecutionElement } from 'services/cd-ng'
-import { Listeners, calculateDepthCount, StepStateMap, isCustomGeneratedString } from './ExecutionGraphUtil'
+import {
+  Listeners,
+  calculateDepthCount,
+  StepStateMap,
+  isCustomGeneratedString,
+  STATIC_SERVICE_GROUP_NAME,
+  ServiceWrapper
+} from './ExecutionGraphUtil'
 import { EmptyNodeSeparator } from '../StageBuilder/StageBuilderUtil'
 import {
   CreateNewModel,
@@ -13,6 +20,7 @@ import {
   StepsType
 } from '../../Diagram'
 import type { AbstractStepFactory } from '../../AbstractSteps/AbstractStepFactory'
+import i18n from './ExecutionGraph.i18n'
 
 export class ExecutionStepModel extends DiagramModel {
   constructor() {
@@ -24,7 +32,116 @@ export class ExecutionStepModel extends DiagramModel {
     })
   }
 
-  renderGraphNodes(
+  renderGraphServiceNodes(
+    services: ServiceWrapper[],
+    startX: number,
+    startY: number,
+    factory: AbstractStepFactory,
+    stepStates: StepStateMap,
+    prevNodes?: DefaultNodeModel[]
+  ): { startX: number; startY: number; prevNodes?: DefaultNodeModel[] } {
+    const serviceState = stepStates.get(STATIC_SERVICE_GROUP_NAME)
+    if (serviceState && serviceState.isStepGroupCollapsed) {
+      startX += this.gap
+      const nodeRender = new DefaultNodeModel({
+        identifier: STATIC_SERVICE_GROUP_NAME,
+        name: 'Dependencies',
+        icon: factory.getStepIcon('StepGroup'),
+        secondaryIcon: 'plus',
+        draggable: false,
+        allowAdd: false,
+        canDelete: false,
+        customNodeStyle: { borderColor: 'var(--pipeline-grey-border)', backgroundColor: '#55b8ec' }
+      })
+
+      this.addNode(nodeRender)
+      nodeRender.setPosition(startX, startY)
+      if (!isEmpty(prevNodes) && prevNodes) {
+        prevNodes.forEach((prevNode: DefaultNodeModel) => {
+          this.connectedParentToNode(nodeRender, prevNode, true, 0)
+        })
+      }
+      return { startX, startY, prevNodes: [nodeRender] }
+    } else {
+      const stepGroupLayer = new StepGroupNodeLayerModel({
+        identifier: STATIC_SERVICE_GROUP_NAME,
+        label: i18n.dependencies,
+        depth: 1,
+        allowAdd: false,
+        showRollback: false
+      })
+      if (prevNodes && prevNodes.length > 0) {
+        startX += this.gap
+        stepGroupLayer.startNode.setPosition(startX, startY)
+        prevNodes.forEach((prevNode: DefaultNodeModel) => {
+          this.connectedParentToNode(stepGroupLayer.startNode, prevNode, true)
+        })
+        prevNodes = [stepGroupLayer.startNode]
+        startX = startX - this.gap / 2 - 20
+      }
+      this.useStepGroupLayer(stepGroupLayer)
+
+      let newX = startX
+      let newY = startY
+      newX += this.gap * 0.75
+
+      const createNode = new CreateNewModel({
+        customNodeStyle: {
+          borderColor: 'var(--pipeline-grey-border)'
+        },
+        showPorts: false
+      })
+      this.addNode(createNode)
+      createNode.setPosition(newX, newY)
+      if (prevNodes && prevNodes.length > 0) {
+        prevNodes.forEach((prevNode: DefaultNodeModel) => {
+          this.connectedParentToNode(createNode, prevNode, false, 0, 'var(--pipeline-transparent-border)')
+        })
+      }
+      prevNodes = [createNode]
+
+      newY += this.gap * 0.5
+      services.forEach(({ service }: ServiceWrapper) => {
+        const nodeRender = new DefaultNodeModel({
+          identifier: service.identifier,
+          name: service.name,
+          icon: factory.getStepIcon(service.type),
+          allowAdd: false,
+          isInComplete: isCustomGeneratedString(service.identifier),
+          draggable: true,
+          customNodeStyle: { borderColor: 'var(--pipeline-grey-border)' },
+          showPorts: false
+        })
+
+        this.addNode(nodeRender)
+        nodeRender.setPosition(newX, newY)
+        if (!isEmpty(prevNodes) && prevNodes) {
+          prevNodes.forEach((prevNode: DefaultNodeModel) => {
+            this.connectedParentToNode(nodeRender, prevNode, false, 0, 'var(--pipeline-transparent-border)')
+          })
+        }
+        prevNodes = [nodeRender]
+        newY += this.gap * 0.5
+      })
+
+      startX += this.gap / 2
+
+      if (prevNodes && prevNodes.length > 0) {
+        startX = startX + this.gap
+        stepGroupLayer.endNode.setPosition(startX, startY)
+        prevNodes.forEach((prevNode: DefaultNodeModel) => {
+          this.connectedParentToNode(stepGroupLayer.endNode, prevNode, false, 0, 'var(--pipeline-transparent-border)')
+        })
+        prevNodes = [stepGroupLayer.endNode]
+        startX = startX - this.gap / 2 - 20
+      }
+      this.useNormalLayer()
+
+      return { startX, startY, prevNodes: prevNodes }
+    }
+  }
+
+  renderGraphStepNodes(
     node: ExecutionWrapper,
     startX: number,
     startY: number,
@@ -103,7 +220,7 @@ export class ExecutionStepModel extends DiagramModel {
 
         node.parallel.forEach((nodeP: ExecutionWrapper, index: number) => {
           const isLastNode = node.parallel.length === index + 1
-          const resp = this.renderGraphNodes(
+          const resp = this.renderGraphStepNodes(
             nodeP,
             newX,
             newY,
@@ -147,7 +264,7 @@ export class ExecutionStepModel extends DiagramModel {
 
         return { startX, startY, prevNodes }
       } else if (node.parallel.length === 1) {
-        return this.renderGraphNodes(
+        return this.renderGraphStepNodes(
           node.parallel[0],
           startX,
           startY,
@@ -219,7 +336,7 @@ export class ExecutionStepModel extends DiagramModel {
         // Check if step group has nodes
         if (steps?.length > 0) {
           steps.forEach((nodeP: ExecutionElement) => {
-            const resp = this.renderGraphNodes(
+            const resp = this.renderGraphStepNodes(
               nodeP,
               startX,
               startY,
@@ -272,10 +389,12 @@ export class ExecutionStepModel extends DiagramModel {
   }
 
   addUpdateGraph(
-    data: ExecutionWrapper[],
-    { nodeListeners, linkListeners, layerListeners }: Listeners,
+    stageType: string,
+    stepsData: ExecutionWrapper[],
     stepStates: StepStateMap,
+    servicesData: ServiceWrapper[],
     factory: AbstractStepFactory,
+    { nodeListeners, linkListeners, layerListeners }: Listeners,
     isRollback: boolean
   ): void {
     let { startX, startY } = this
@@ -300,15 +419,26 @@ export class ExecutionStepModel extends DiagramModel {
     })
 
     let prevNodes: DefaultNodeModel[] = [startNode]
-    data.forEach((node: ExecutionWrapper) => {
-      const resp = this.renderGraphNodes(node, startX, startY, factory, stepStates, isRollback, prevNodes, true)
+
+    if (stageType === 'Build') {
+      const servicesResp = this.renderGraphServiceNodes(servicesData, startX, startY, factory, stepStates, prevNodes)
+      startX = servicesResp.startX
+      startY = servicesResp.startY
+      if (servicesResp.prevNodes) {
+        prevNodes = servicesResp.prevNodes
+      }
+    }
+
+    stepsData.forEach((node: ExecutionWrapper) => {
+      const resp = this.renderGraphStepNodes(node, startX, startY, factory, stepStates, isRollback, prevNodes, true)
       startX = resp.startX
       startY = resp.startY
       if (resp.prevNodes) {
         prevNodes = resp.prevNodes
       }
     })
-    if (tempStartX !== startX || data.length === 0) {
+
+    if (tempStartX !== startX || stepsData.length === 0) {
       createNode.setPosition(startX + this.gap, startY)
     }
     prevNodes.forEach((prevNode: DefaultNodeModel) => {

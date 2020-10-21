@@ -25,6 +25,7 @@ export interface DefaultNodeModelOptions extends BasePositionModelOptions {
   secondaryIcon?: IconName
   secondaryIconProps?: Omit<IconProps, 'name'>
   secondaryIconStyle?: React.CSSProperties
+  showPorts?: boolean
 }
 
 export interface DefaultNodeModelGenerics extends NodeModelGenerics {
@@ -55,6 +56,7 @@ export class DefaultNodeModel<G extends DefaultNodeModelGenerics = DefaultNodeMo
       canDelete: true,
       secondaryIcon: 'command-echo',
       customNodeStyle: {},
+      showPorts: true,
       width: 64,
       height: 64,
       ...options

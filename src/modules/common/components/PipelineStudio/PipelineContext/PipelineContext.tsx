@@ -106,7 +106,14 @@ const PipelineDBName = 'pipeline-db'
 const KeyPath = 'identifier'
 
 export interface StagesMap {
-  [key: string]: { name: string; type: string; icon: IconName; iconColor: string; isApproval: boolean }
+  [key: string]: {
+    name: string
+    type: string
+    icon: IconName
+    iconColor: string
+    isApproval: boolean
+    openExecutionStrategy: boolean
+  }
 }
 export interface PipelineContextInterface {
   state: PipelineReducerState

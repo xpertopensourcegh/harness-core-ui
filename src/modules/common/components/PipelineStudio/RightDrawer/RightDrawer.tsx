@@ -85,6 +85,14 @@ export const RightDrawer: React.FC = (): JSX.Element => {
                 paletteData.isParallelNodeClicked,
                 paletteData.isRollback
               )
+              // TODO: (NOTE) code for adding service (will be moved to right place in next PR)
+              /*addService(pipelineStage?.stage.spec.services, {
+                service: {
+                  type: item.type,
+                  name: item.name,
+                  identifier: generateRandomString(item.name)
+                }
+              })*/
               updatePipeline(pipeline)
             }
             updatePipelineView({ ...pipelineView, isDrawerOpened: false, drawerData: { type: DrawerTypes.AddStep } })

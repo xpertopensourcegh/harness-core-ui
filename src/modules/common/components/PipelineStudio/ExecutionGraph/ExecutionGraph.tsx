@@ -17,7 +17,10 @@ import {
   removeStepOrGroup,
   isLinkUnderStepGroup,
   getStepFromNode,
-  generateRandomString
+  generateRandomString,
+  getServiceState,
+  StepType,
+  getServiceFromNode
 } from './ExecutionGraphUtil'
 import { EmptyStageName } from '../PipelineConstants'
 import { DrawerTypes } from '../PipelineContext/PipelineActions'
@@ -66,9 +69,10 @@ const renderPopover = ({ onPopoverSelection, isParallelNodeClicked = false, even
 const ExecutionGraph = (): JSX.Element => {
   const canvasRef = React.useRef<HTMLDivElement | null>(null)
   const [state, setState] = React.useState<ExecutionGraphState>({
-    data: { steps: [], rollbackSteps: [], metadata: '' },
-    isRollback: false,
-    stepStates: new Map<string, StepState>()
+    stepsData: { steps: [], rollbackSteps: [], metadata: '' },
+    stepStates: new Map<string, StepState>(),
+    servicesData: [],
+    isRollback: false
   })
 
   const [dynamicPopoverHandler, setDynamicPopoverHandler] = React.useState<
@@ -82,12 +86,13 @@ const ExecutionGraph = (): JSX.Element => {
       pipeline,
       isInitialized,
       pipelineView: {
-        splitViewData: { selectedStageId },
+        splitViewData: { selectedStageId, stageType },
         isSplitViewOpen,
         isDrawerOpened
       },
       pipelineView
     },
+    stagesMap,
     stepsFactory,
     updatePipelineView,
     updatePipeline
@@ -119,7 +124,7 @@ const ExecutionGraph = (): JSX.Element => {
     } else if (event?.entity) {
       addStepOrGroup(
         event.entity,
-        state.data,
+        state.stepsData,
         {
           stepGroup: {
             name: EmptyStageName,
@@ -141,8 +146,8 @@ const ExecutionGraph = (): JSX.Element => {
     if (event.node?.identifier) {
       const dropEntity = model.getNodeFromId(event.node.id)
       if (dropEntity) {
-        const dropNode = getStepFromNode(state.data, dropEntity, true).node
-        const current = getStepFromNode(state.data, eventTemp.entity, true, true)
+        const dropNode = getStepFromNode(state.stepsData, dropEntity, true).node
+        const current = getStepFromNode(state.stepsData, eventTemp.entity, true, true)
         // Check Drop Node and Current node should not be same
         if (event.node.identifier !== eventTemp.entity.getIdentifier() && dropNode) {
           if (dropNode?.stepGroup && eventTemp.entity.getParent() instanceof StepGroupNodeLayerModel) {
@@ -163,7 +168,7 @@ const ExecutionGraph = (): JSX.Element => {
                   updatePipeline(pipeline)
                 }
               } else {
-                addStepOrGroup(eventTemp.entity, state.data, dropNode, false, state.isRollback)
+                addStepOrGroup(eventTemp.entity, state.stepsData, dropNode, false, state.isRollback)
                 updatePipeline(pipeline)
               }
             }
@@ -217,7 +222,12 @@ const ExecutionGraph = (): JSX.Element => {
         })
         setState(prev => ({ ...prev, stepStates }))
       } else {
-        const node = getStepFromNode(state.data, eventTemp.entity).node
+        let node
+        if (stepState?.stepType === StepType.STEP) {
+          node = getStepFromNode(state.stepsData, eventTemp.entity).node
+        } else if (stepState?.stepType === StepType.SERVICE) {
+          node = getServiceFromNode(state.servicesData, eventTemp.entity).node?.service
+        }
         if (node) {
           updatePipelineView({
             ...pipelineView,
@@ -249,7 +259,7 @@ const ExecutionGraph = (): JSX.Element => {
       eventTemp.stopPropagation()
       const layer = eventTemp.entity.getParent()
       if (layer instanceof StepGroupNodeLayerModel) {
-        const node = getStepFromNode(state.data, eventTemp.entity).node
+        const node = getStepFromNode(state.stepsData, eventTemp.entity).node
         if (node) {
           updatePipelineView({
             ...pipelineView,
@@ -314,13 +324,13 @@ const ExecutionGraph = (): JSX.Element => {
       if (event.node?.identifier && event.node?.id) {
         const dropEntity = model.getNodeFromId(event.node.id)
         if (dropEntity) {
-          const dropNode = getStepFromNode(state.data, dropEntity, true).node
+          const dropNode = getStepFromNode(state.stepsData, dropEntity, true).node
           if (dropNode?.stepGroup && isLinkUnderStepGroup(eventTemp.entity)) {
             showError(i18n.stepGroupInAnotherStepGroup)
           } else {
             const isRemove = removeStepOrGroup(state, dropEntity)
             if (isRemove && dropNode) {
-              addStepOrGroup(eventTemp.entity, state.data, dropNode, false, state.isRollback)
+              addStepOrGroup(eventTemp.entity, state.stepsData, dropNode, false, state.isRollback)
               updatePipeline(pipeline)
             }
           }
@@ -345,7 +355,7 @@ const ExecutionGraph = (): JSX.Element => {
     [Event.StepGroupClicked]: (event: any) => {
       const eventTemp = event as DefaultNodeEvent
       eventTemp.stopPropagation()
-      const node = getStepFromNode(state.data, eventTemp.entity).node
+      const node = getStepFromNode(state.stepsData, eventTemp.entity).node
       if (node) {
         updatePipelineView({
           ...pipelineView,
@@ -404,10 +414,12 @@ const ExecutionGraph = (): JSX.Element => {
 
   // renderParallelNodes(model)
   model.addUpdateGraph(
-    state.isRollback ? state.data.rollbackSteps || [] : state.data.steps || [],
-    { nodeListeners, linkListeners, layerListeners },
+    stagesMap[stageType as string].type,
+    state.isRollback ? state.stepsData.rollbackSteps || [] : state.stepsData.steps || [],
     state.stepStates,
+    state.servicesData,
     stepsFactory,
+    { nodeListeners, linkListeners, layerListeners },
     state.isRollback
   )
 
@@ -424,11 +436,16 @@ const ExecutionGraph = (): JSX.Element => {
         if (!data.stage.spec.execution.rollbackSteps) {
           data.stage.spec.execution.rollbackSteps = []
         }
+        if (!data.stage.spec.services) {
+          data.stage.spec.services = []
+        }
         getStepsState(data.stage.spec.execution, state.stepStates)
+        getServiceState(data.stage.spec.services, state.stepStates)
         setState(prevState => ({
           ...prevState,
-          data: data.stage.spec.execution,
-          stepStates: state.stepStates
+          stepsData: data.stage.spec.execution,
+          stepStates: state.stepStates,
+          servicesData: data.stage.spec.services
         }))
       } else if (data?.stage) {
         if (!data.stage.spec) {
@@ -448,16 +465,19 @@ const ExecutionGraph = (): JSX.Element => {
   }, [selectedStageId, pipeline, isSplitViewOpen, updatePipeline, isInitialized])
 
   useEffect(() => {
-    const { stage: data } = getStageFromPipeline(pipeline, selectedStageId as string)
-    if (data?.stage) {
-      if (!data?.stage?.spec?.execution) {
-        updatePipelineView({
-          ...pipelineView,
-          isDrawerOpened: true,
-          drawerData: {
-            type: DrawerTypes.ExecutionStrategy
-          }
-        })
+    const openExecutionStrategy = stageType ? stagesMap[stageType].openExecutionStrategy : true
+    if (openExecutionStrategy) {
+      const { stage: data } = getStageFromPipeline(pipeline, selectedStageId as string)
+      if (data?.stage) {
+        if (!data?.stage?.spec?.execution) {
+          updatePipelineView({
+            ...pipelineView,
+            isDrawerOpened: true,
+            drawerData: {
+              type: DrawerTypes.ExecutionStrategy
+            }
+          })
+        }
       }
     }
   }, [])
