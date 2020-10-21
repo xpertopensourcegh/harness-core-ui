@@ -79,9 +79,9 @@ export function Duration(props: BaseFieldProps): JSX.Element {
   const selectProps = useMemo(
     () => ({
       items: [
-        { label: '5 min', value: 60000 * 5 },
-        { label: '10 min', value: 60000 * 10 },
-        { label: '30 min', value: 60000 * 30 }
+        { label: '5 min', value: '5m' },
+        { label: '10 min', value: '10m' },
+        { label: '30 min', value: '30m' }
       ]
     }),
     []
