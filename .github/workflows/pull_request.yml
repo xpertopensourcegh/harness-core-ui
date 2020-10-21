@@ -187,4 +187,4 @@ jobs:
         run: npx jest --changedSince=origin/master --listTests
 
       - name: Run tests and coverage
-        run: npx jest coverage --coverageReporters text --coverageReporters text-summary --changedSince=origin/master --passWithNoTests
+        run: npx jest --coverage --coverageReporters text --coverageReporters text-summary --changedSince=origin/master --passWithNoTests
