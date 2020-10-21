@@ -1,0 +1,43 @@
+name: release
+on:
+  push:
+    branches:
+      - 'release-*'
+
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.GIT_BOT_TOKEN }}
+      - name: Set Up Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: '13.8'
+      - name: Set up GitHub Package Registry token
+        run: |
+          echo @wings-software:registry=https://npm.pkg.github.com > .npmrc
+          echo "//npm.pkg.github.com/:_authToken="${{ secrets.GIT_BOT_TOKEN }} >> .npmrc
+          echo always-auth=true >> .npmrc
+      - name: Cache node_modules
+        uses: actions/cache@v1
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('yarn.lock') }}
+          restore-keys: ${{ runner.os }}-node
+      - name: Install packages and build application
+        run: |
+          yarn
+          yarn build
+      - name: Publish to docker
+        if: ${{ success() }}
+        env:
+          version: ${{ github.run_number }}
+        run: |
+          echo ${{ secrets.DOCKERBOT_JENKINS_PASSWORD }} | docker login -u ${{ secrets.DOCKERBOT_JENKINS_USERNAME }} --password-stdin
+          yarn docker v$version
+          docker logout
+          rm -rf /home/runner/.docker/config.json
