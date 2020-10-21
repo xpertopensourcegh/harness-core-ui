@@ -31,10 +31,10 @@ module.exports = {
   },
   coverageThreshold: {
     global: {
-      statements: 18,
-      branches: 6,
-      functions: 6,
-      lines: 17
+      statements: 50,
+      branches: 30,
+      functions: 30,
+      lines: 50
     }
   },
   transformIgnorePatterns: ['node_modules/(?!(date-fns|lodash-es)/)']
