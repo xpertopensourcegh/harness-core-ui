@@ -41,7 +41,7 @@ jobs:
 
       - name: Prepare grouped coverage report
         run: |
-          npx jest-grouped-coverage -i coverage/coverage-summary.json -c coverage-groups.json -f md
+          npx jest-grouped-coverage -i coverage/coverage-summary.json -c coverage-groups.json -u 1 -f md
           npx prettier --write coverage/grouped-coverage-report/grouped_summary.md
 
       - name: Checkout wiki code
@@ -54,6 +54,18 @@ jobs:
         run: |
           cp coverage/grouped-coverage-report/grouped_summary.md markdown/Coverage.md
           cd markdown
+
+          ed -s Coverage.md << EOL
+          1i
+          **Last updated at:** $(env TZ=PDT8PST date +"%x %X %Z") ($(env TZ=Asia/Kolkata date +"%x %X %Z"))
+
+          **Report for Commit**: [${{ github.sha }}](https://github.com/${{ github.repository }}/commit/${{ github.sha }})
+
+          .
+          w
+          q
+          EOL
+
           GIT_USER=$(curl --silent -H "Authorization: token ${{ secrets.GIT_BOT_TOKEN }}" -X GET https://api.github.com/user)
           GIT_USER_NAME=$(echo $GIT_USER | tr '\r\n' ' ' | jq -r .name)
           GIT_USER_EMAIL=$(echo $GIT_USER | tr '\r\n' ' ' | jq -r .email)
