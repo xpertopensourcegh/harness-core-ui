@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom'
 import { ModuleName } from 'framework/exports'
 import type { Project } from 'services/cd-ng'
 import { ModuleLandingView } from 'modules/common/exports'
-import { routeCIOverview } from 'modules/ci/routes'
+import { routeCIOverview } from 'navigation/ci/routes'
 import i18n from './CFHomePage.i18n'
 
 const CFHomePage: React.FC = () => {

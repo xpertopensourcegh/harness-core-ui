@@ -2,7 +2,7 @@ import React from 'react'
 import { Container, Icon, Text } from '@wings-software/uikit'
 import { Link } from 'react-router-dom'
 import { useRouteParams } from 'framework/exports'
-import { routeCVMainDashBoardPage } from 'modules/cv/routes'
+import { routeCVMainDashBoardPage } from 'navigation/cv/routes'
 import i18n from './DeploymentDrilldownView.i18n'
 import styles from './DeploymentDrilldownView.module.scss'
 

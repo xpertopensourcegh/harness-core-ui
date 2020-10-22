@@ -16,7 +16,7 @@ import {
 } from 'modules/common/utils/testUtils'
 import type { ResponsePageNGPipelineSummaryResponse } from 'services/cd-ng'
 import { defaultAppStoreValues } from 'modules/common/pages/ProjectsPage/__tests__/DefaultAppStoreData'
-import { routeCDPipelines, routeCDPipelineStudio, routePipelineDetail } from 'modules/cd/routes'
+import { routeCDPipelines, routeCDPipelineStudio, routePipelineDetail } from 'navigation/cd/routes'
 import CDPipelinesPage from '../CDPipelinesPage'
 import mocks, { EmptyResponse } from './CDPipelineMocks'
 import i18n from '../CDPipelinesPage.i18n'

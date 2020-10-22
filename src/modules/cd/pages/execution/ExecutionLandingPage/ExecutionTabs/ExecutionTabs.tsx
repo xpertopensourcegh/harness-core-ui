@@ -8,7 +8,7 @@ import {
   routeCDPipelineExecutionPipline,
   routeCDPipelineExecutionInputs,
   routeCDPipelineExecutionArtifacts
-} from 'modules/cd/routes'
+} from 'navigation/cd/routes'
 import type { ExecutionPathParams } from 'modules/cd/pages/execution/ExecutionUtils'
 
 import i18n from './ExecutionTabs.i18n'

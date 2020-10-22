@@ -1,7 +1,7 @@
 import React from 'react'
 import { Container, Button, Heading, Text, Icon, Layout } from '@wings-software/uikit'
 import { useHistory } from 'react-router-dom'
-import { routeCDPipelineStudio } from 'modules/cd/routes'
+import { routeCDPipelineStudio } from 'navigation/cd/routes'
 import { Page } from 'modules/common/exports'
 import { useRouteParams, useAppStoreReader } from 'framework/exports'
 import i18n from './CDDashboardPage.i18n'

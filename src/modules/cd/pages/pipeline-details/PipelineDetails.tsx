@@ -8,7 +8,7 @@ import {
   routeInputSetList,
   routeCDPipelineStudio,
   routeCDPipelines
-} from 'modules/cd/routes'
+} from 'navigation/cd/routes'
 import { useGetPipeline } from 'services/cd-ng'
 import i18n from './PipelineDetails.i18n'
 import css from './PipelineDetails.module.scss'

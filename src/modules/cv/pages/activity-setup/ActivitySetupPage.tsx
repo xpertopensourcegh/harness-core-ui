@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react'
 import { Container } from '@wings-software/uikit'
 import { useRouteParams } from 'framework/exports'
-import { ActivityDetailsActivityType, ActivityDetailsActivitySource } from 'modules/cv/routePaths'
+import { ActivityDetailsActivityType, ActivityDetailsActivitySource } from 'navigation/cv/routePaths'
 import { Page } from 'modules/common/exports'
 import i18n from './ActivitySetupPage.i18n'
 import BlueGreenVerificationJobForm from './VerificationJobForms/BlueGreenVerificationJobForm/BlueGreenVerificationJobForm'

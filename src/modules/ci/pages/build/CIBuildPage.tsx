@@ -22,7 +22,7 @@ import {
   routeCIBuildCommits,
   routeCIBuildTests,
   routeCIBuildArtifacts
-} from '../../routes'
+} from 'navigation/ci/routes'
 import { BuildPageContextProvider } from './context/BuildPageContextProvider'
 import { BuildPageContext } from './context/BuildPageContext'
 import i18n from './CIBuildPage.i18n'

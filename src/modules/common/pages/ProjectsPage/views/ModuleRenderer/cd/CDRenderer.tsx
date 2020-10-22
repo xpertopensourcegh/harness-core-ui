@@ -1,7 +1,7 @@
 import React from 'react'
 import { Text, Color, Container, Layout, Icon } from '@wings-software/uikit'
 import { Link } from 'react-router-dom'
-import { routeCDDashboard } from 'modules/cd/routes'
+import { routeCDDashboard } from 'navigation/cd/routes'
 import type { Project } from 'services/cd-ng'
 import i18n from './CDRenderer.i18n'
 

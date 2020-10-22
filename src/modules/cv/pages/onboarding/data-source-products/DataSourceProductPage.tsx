@@ -8,11 +8,11 @@ import {
   routeCVOnBoardingSetup,
   routeCVDataSources,
   routeCVSplunkInputTypePage
-} from 'modules/cv/routes'
+} from 'navigation/cv/routes'
 import { Page } from 'modules/common/exports'
 import { CVNextGenCVConfigService } from 'modules/cv/services'
 import { useRouteParams } from 'framework/exports'
-import { DataSourceRoutePaths } from 'modules/cv/routePaths'
+import { DataSourceRoutePaths } from 'navigation/cv/routePaths'
 import { CVObjectStoreNames } from 'modules/cv/hooks/IndexedDBHook/IndexedDBHook'
 import useOnBoardingPageDataHook from 'modules/cv/hooks/OnBoardingPageDataHook/OnBoardingPageDataHook'
 import i18n from './DataSourceProductPage.i18n'

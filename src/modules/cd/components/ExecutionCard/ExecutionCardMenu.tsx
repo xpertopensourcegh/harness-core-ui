@@ -3,7 +3,7 @@ import * as BP from '@blueprintjs/core'
 import { useHistory } from 'react-router-dom'
 import type { PipelineExecutionSummaryDTO } from 'services/cd-ng'
 import { ExecutionStatus } from 'modules/common/exports'
-import { routeCDPipelineStudio } from 'modules/cd/routes'
+import { routeCDPipelineStudio } from 'navigation/cd/routes'
 import { useRouteParams } from 'framework/exports'
 import i18n from './ExecutionCardMenu.i18n'
 

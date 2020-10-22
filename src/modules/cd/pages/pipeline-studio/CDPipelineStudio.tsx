@@ -13,7 +13,7 @@ import {
   routeCDPipelineStudioYaml,
   routeCDPipelineStudio,
   routeCDPipelineStudioUI
-} from '../../routes'
+} from 'navigation/cd/routes'
 import css from './CDPipelineStudio.module.scss'
 
 const CDPipelineStudio: React.FC = ({ children }): JSX.Element => {

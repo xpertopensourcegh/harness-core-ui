@@ -7,7 +7,7 @@ import {
   findDialogContainer,
   findPopoverContainer
 } from 'modules/common/utils/testUtils'
-import { routeInputSetList } from 'modules/cd/routes'
+import { routeInputSetList } from 'navigation/cd/routes'
 import { defaultAppStoreValues } from 'modules/common/pages/ProjectsPage/__tests__/DefaultAppStoreData'
 import InputSetList from '../InputSetList'
 import {

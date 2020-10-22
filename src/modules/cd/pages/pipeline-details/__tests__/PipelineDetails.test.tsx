@@ -2,7 +2,7 @@ import React from 'react'
 import { render } from '@testing-library/react'
 import { prependAccountPath, TestWrapper } from 'modules/common/utils/testUtils'
 import { defaultAppStoreValues } from 'modules/common/pages/ProjectsPage/__tests__/DefaultAppStoreData'
-import { routePipelineDetail } from '../../../routes'
+import { routePipelineDetail } from 'navigation/cd/routes'
 import PipelineDetails from '../PipelineDetails'
 import { PipelineResponse } from './PipelineDetailsMocks'
 jest.mock('services/cd-ng', () => ({

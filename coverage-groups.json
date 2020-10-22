@@ -47,7 +47,7 @@
     "CV": ["src/modules/cv/**"],
     "CI": ["src/modules/ci/**"],
     "CF": ["src/modules/cf/**"],
-    "SHARED": ["src/modules/common/**"]
+    "SHARED": ["src/modules/common/**", "src/navigation/**"]
   },
   "ignore": ["src/**/*.d.ts", "src/**/*.stories.*", "src/**/__tests__/**", "src/**/__test__/**"]
 }

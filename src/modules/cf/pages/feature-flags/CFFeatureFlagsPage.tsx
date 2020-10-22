@@ -15,7 +15,7 @@ import {
 import { Drawer, Menu, Spinner, Position } from '@blueprintjs/core'
 import type { CellProps, Renderer, Column } from 'react-table'
 import moment from 'moment'
-import { routeCFFeatureFlagsDetail } from 'modules/cf/routes'
+import { routeCFFeatureFlagsDetail } from 'navigation/cf/routes'
 import { useToaster, useConfirmationDialog } from 'modules/common/exports'
 import Table from 'modules/common/components/Table/Table'
 import { useGetAllFeatureFlags, FeatureFlag, useDeleteFeatureFlag } from 'services/cf'

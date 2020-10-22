@@ -7,7 +7,7 @@ import {
   routeOrgResourcesSecretsListing,
   routeResourcesConnectors,
   routeResourcesSecretsListing
-} from 'modules/common/routes'
+} from 'navigation/accounts/routes'
 import i18n from './ResourcesPage.i18n'
 import css from './ResourcesPage.module.scss'
 

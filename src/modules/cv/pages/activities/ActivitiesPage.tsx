@@ -3,8 +3,8 @@ import { Container, Color, Button, useModalHook } from '@wings-software/uikit'
 import { useHistory } from 'react-router-dom'
 import { useRouteParams } from 'framework/exports'
 import { Page } from 'modules/common/exports'
-import { routeCVActivityDetails } from 'modules/cv/routes'
-import { ActivityDetailsActivityType, ActivityDetailsActivitySource } from 'modules/cv/routePaths'
+import { routeCVActivityDetails } from 'navigation/cv/routes'
+import { ActivityDetailsActivityType, ActivityDetailsActivitySource } from 'navigation/cv/routePaths'
 import {
   ActivitySelectionModal,
   ActivityType,

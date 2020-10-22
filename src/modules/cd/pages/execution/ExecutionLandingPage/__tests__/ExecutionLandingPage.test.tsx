@@ -7,7 +7,7 @@ import {
   routeCDPipelineExecutionPipline,
   routeCDPipelineExecutionInputs,
   routeCDPipelineExecutionArtifacts
-} from 'modules/cd/routes'
+} from 'navigation/cd/routes'
 import { useGetPipelineExecutionDetail } from 'services/cd-ng'
 
 import type { ExecutionStatus } from '../../ExecutionUtils'

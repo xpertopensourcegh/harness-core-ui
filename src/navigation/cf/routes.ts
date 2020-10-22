@@ -9,7 +9,7 @@ export const routeCFHome: Route = {
   title: i18n.cf,
   pageId: 'cf-home',
   url: () => routeURL(routeCFHome, '/cf/home'),
-  component: React.lazy(() => import('./pages/home/CFHomePage'))
+  component: React.lazy(() => import('modules/cf/pages/home/CFHomePage'))
 }
 
 export const routeCFDashboard: Route<{ orgIdentifier: string; projectIdentifier: string }> = {
@@ -20,7 +20,7 @@ export const routeCFDashboard: Route<{ orgIdentifier: string; projectIdentifier:
   pageId: 'cf-dashboard',
   url: ({ orgIdentifier, projectIdentifier }) =>
     routeURL(routeCFDashboard, `/cf/dashboard/orgs/${orgIdentifier}/projects/${projectIdentifier}`),
-  component: React.lazy(() => import('./pages/dashboard/CFDashboardPage'))
+  component: React.lazy(() => import('modules/cf/pages/dashboard/CFDashboardPage'))
 }
 
 export const routeCFFeatureFlags: Route<{ orgIdentifier: string; projectIdentifier: string }> = {
@@ -31,7 +31,7 @@ export const routeCFFeatureFlags: Route<{ orgIdentifier: string; projectIdentifi
   pageId: 'cf-feature-flags',
   url: ({ orgIdentifier, projectIdentifier }) =>
     routeURL(routeCFDashboard, `/cf/feature-flags/orgs/${orgIdentifier}/projects/${projectIdentifier}`),
-  component: React.lazy(() => import('./pages/feature-flags/CFFeatureFlagsPage'))
+  component: React.lazy(() => import('modules/cf/pages/feature-flags/CFFeatureFlagsPage'))
 }
 
 export const routeCFFeatureFlagsDetail: Route<{
@@ -49,7 +49,7 @@ export const routeCFFeatureFlagsDetail: Route<{
       routeCFFeatureFlagsDetail,
       `/cf/feature-flags/orgs/${orgIdentifier}/projects/${projectIdentifier}/feature-flags/${featureFlagIdentifier}`
     ),
-  component: React.lazy(() => import('./pages/feature-flags-detail/CFFeatureFlagsDetailPage'))
+  component: React.lazy(() => import('modules/cf/pages/feature-flags-detail/CFFeatureFlagsDetailPage'))
 }
 
 export const routeCFTargets: Route<{ orgIdentifier: string; projectIdentifier: string }> = {
@@ -60,7 +60,7 @@ export const routeCFTargets: Route<{ orgIdentifier: string; projectIdentifier: s
   pageId: 'cf-targets',
   url: ({ orgIdentifier, projectIdentifier }) =>
     routeURL(routeCFDashboard, `/cf/targets/orgs/${orgIdentifier}/projects/${projectIdentifier}`),
-  component: React.lazy(() => import('./pages/targets/CFTargetsPage'))
+  component: React.lazy(() => import('modules/cf/pages/targets/CFTargetsPage'))
 }
 
 export const routeCFWorkflows: Route<{ orgIdentifier: string; projectIdentifier: string }> = {
@@ -71,7 +71,7 @@ export const routeCFWorkflows: Route<{ orgIdentifier: string; projectIdentifier:
   pageId: 'cf-workflows',
   url: ({ orgIdentifier, projectIdentifier }) =>
     routeURL(routeCFDashboard, `/cf/workflows/orgs/${orgIdentifier}/projects/${projectIdentifier}`),
-  component: React.lazy(() => import('./pages/workflows/CFWorkflowsPage'))
+  component: React.lazy(() => import('modules/cf/pages/workflows/CFWorkflowsPage'))
 }
 
 // export const routeCFAdminBuildSettings: Route<{ projectIdentifier: string }> = {
@@ -81,7 +81,7 @@ export const routeCFWorkflows: Route<{ orgIdentifier: string; projectIdentifier:
 //   title: i18n.cf,
 //   pageId: 'cf-admin-build-settings',
 //   url: ({ projectIdentifier }) => routeURL(routeCFDashboard, `/cf/admin/build-settings/projects/${projectIdentifier}`),
-//   component: React.lazy(() => import('./pages/admin/build-settings/CFBuildSettingsPage'))
+//   component: React.lazy(() => import('modules/cf/pages/admin/build-settings/CFBuildSettingsPage'))
 // }
 
 // export const routeCFAdminGovernance: Route<{ projectIdentifier: string }> = {
@@ -91,7 +91,7 @@ export const routeCFWorkflows: Route<{ orgIdentifier: string; projectIdentifier:
 //   title: i18n.cf,
 //   pageId: 'cf-admin-governance',
 //   url: ({ projectIdentifier }) => routeURL(routeCFDashboard, `/cf/admin/governance/projects/${projectIdentifier}`),
-//   component: React.lazy(() => import('./pages/admin/governance/CFGovernancePage'))
+//   component: React.lazy(() => import('modules/cf/pages/admin/governance/CFGovernancePage'))
 // }
 
 // export const routeCFAdminResources: Route<{ projectIdentifier: string }> = {
@@ -101,5 +101,5 @@ export const routeCFWorkflows: Route<{ orgIdentifier: string; projectIdentifier:
 //   title: i18n.cf,
 //   pageId: 'cf-admin-resources',
 //   url: ({ projectIdentifier }) => routeURL(routeCFDashboard, `/cf/admin/resources/projects/${projectIdentifier}`),
-//   component: React.lazy(() => import('./pages/admin/resources/CFResourcesPage'))
+//   component: React.lazy(() => import('modules/cf/pages/admin/resources/CFResourcesPage'))
 // }

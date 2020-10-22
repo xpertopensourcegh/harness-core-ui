@@ -4,7 +4,7 @@ import { Button, Icon, Tag } from '@wings-software/uikit'
 import cx from 'classnames'
 import qs from 'qs'
 
-import { routePipelineDeploymentList } from 'modules/cd/routes'
+import { routePipelineDeploymentList } from 'navigation/cd/routes'
 import { useGetPipelineExecutionDetail } from 'services/cd-ng'
 import { ExecutionStatusLabel } from 'modules/common/components/ExecutionStatusLabel/ExecutionStatusLabel'
 import { Duration } from 'modules/common/components/Duration/Duration'

@@ -11,7 +11,7 @@ import { PageHeader } from 'modules/common/components/Page/PageHeader'
 import type { YamlBuilderHandlerBinding } from 'modules/common/interfaces/YAMLBuilderProps'
 import { usePostSecretViaYaml } from 'services/cd-ng'
 import { useToaster } from 'modules/common/exports'
-import { routeSecretDetails } from 'modules/dx/routes'
+import { routeSecretDetails } from 'navigation/accounts/routes'
 import { YAMLService } from 'modules/dx/services'
 import type { SnippetInterface } from 'modules/common/interfaces/SnippetInterface'
 

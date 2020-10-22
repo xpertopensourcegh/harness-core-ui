@@ -1,7 +1,7 @@
 import React from 'react'
 import { Container, Text, Color, Button } from '@wings-software/uikit'
 import { useHistory } from 'react-router-dom'
-import { routeCVDeploymentPage } from 'modules/cv/routes'
+import { routeCVDeploymentPage } from 'navigation/cv/routes'
 import { useGetRecentDeploymentActivityVerifications } from 'services/cv'
 import { useRouteParams } from 'framework/exports'
 import i18n from './ActivityVerifications.i18n'

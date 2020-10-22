@@ -6,7 +6,7 @@ import type { Column, Renderer, CellProps } from 'react-table'
 import { Text, Color, Layout, Icon, Button, Popover } from '@wings-software/uikit'
 
 import Table from 'modules/common/components/Table/Table'
-import { routeSecretDetails } from 'modules/dx/routes'
+import { routeSecretDetails } from 'navigation/accounts/routes'
 import { useToaster, useConfirmationDialog } from 'modules/common/exports'
 import { SecretResponseWrapper, useDeleteSecretV2 } from 'services/cd-ng'
 import type { PageSecretResponseWrapper, SecretTextSpecDTO } from 'services/cd-ng'

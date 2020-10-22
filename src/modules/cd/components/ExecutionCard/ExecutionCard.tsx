@@ -14,7 +14,7 @@ import {
   ExecutionStageGraph,
   RenderStageButtonInfo
 } from 'modules/common/exports'
-import { routeCDPipelineExecutionPipline } from 'modules/cd/routes'
+import { routeCDPipelineExecutionPipline } from 'navigation/cd/routes'
 import i18n from './ExecutionCard.i18n'
 import { ExecutionServiceTooltip } from './ExecutionServiceTooltip'
 import { ExecutionActionButtons } from './ExecutionActionButtons'

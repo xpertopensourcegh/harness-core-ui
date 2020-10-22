@@ -18,7 +18,7 @@ import { useHistory } from 'react-router-dom'
 import type * as H from 'history'
 import { Page, useConfirmationDialog } from 'modules/common/exports'
 import CVProductCard from 'modules/cv/components/CVProductCard/CVProductCard'
-import { routeCVDataSourcesProductPage, routeCVDataSources } from 'modules/cv/routes'
+import { routeCVDataSourcesProductPage, routeCVDataSources } from 'navigation/cv/routes'
 import { CVProviders, VerificationTypeToRouteVerificationType } from 'modules/cv/constants'
 import { loggerFor, ModuleName, useRouteParams } from 'framework/exports'
 import {

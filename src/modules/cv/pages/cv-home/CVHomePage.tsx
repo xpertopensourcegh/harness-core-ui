@@ -2,7 +2,7 @@ import React from 'react'
 import { useHistory } from 'react-router-dom'
 import { ModuleName } from 'framework/exports'
 import { ModuleLandingView } from 'modules/common/exports'
-import { routeCVDataSources, routeCVMainDashBoardPage } from 'modules/cv/routes'
+import { routeCVDataSources, routeCVMainDashBoardPage } from 'navigation/cv/routes'
 import type { Project } from 'services/cd-ng'
 import i18n from './CVHomePage.i18n'
 

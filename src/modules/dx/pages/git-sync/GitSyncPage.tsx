@@ -11,7 +11,7 @@ import {
   routeOrgGitSyncActivities,
   routeOrgGitSyncEntities,
   routeOrgGitSyncErrors
-} from '../../../common/routes'
+} from 'navigation/accounts/routes'
 import i18n from './GitSyncPage.i18n'
 import css from './GitSyncPage.module.scss'
 

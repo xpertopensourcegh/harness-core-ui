@@ -2,7 +2,7 @@ import React from 'react'
 import { Text, Color, Container, Layout, Icon } from '@wings-software/uikit'
 import { Link } from 'react-router-dom'
 import type { Project } from 'services/cd-ng'
-import { routeCVMainDashBoardPage } from 'modules/cv/routes'
+import { routeCVMainDashBoardPage } from 'navigation/cv/routes'
 import i18n from './CVRenderer.i18n'
 
 interface CVRendererProps {

@@ -21,7 +21,7 @@ import {
   routeResourcesConnectors,
   routeOrgResourcesSecretsListing,
   routeResourcesSecretsListing
-} from 'modules/common/routes'
+} from 'navigation/accounts/routes'
 import YamlBuilder from 'modules/common/components/YAMLBuilder/YamlBuilder'
 import { addIconInfoToSnippets } from 'modules/common/components/YAMLBuilder/YAMLBuilderUtils'
 import type { YamlBuilderHandlerBinding } from 'modules/common/interfaces/YAMLBuilderProps'
@@ -30,7 +30,7 @@ import { YAMLService } from 'modules/dx/services'
 import type { SnippetInterface } from 'modules/common/interfaces/SnippetInterface'
 import { useToaster } from 'modules/common/exports'
 import CreateUpdateSecret from 'modules/dx/components/CreateUpdateSecret/CreateUpdateSecret'
-import { routeSecretDetails } from 'modules/dx/routes'
+import { routeSecretDetails } from 'navigation/accounts/routes'
 
 import type { UseGetMockData } from 'modules/common/utils/testUtils'
 import EditSSHSecret from './views/EditSSHSecret'
