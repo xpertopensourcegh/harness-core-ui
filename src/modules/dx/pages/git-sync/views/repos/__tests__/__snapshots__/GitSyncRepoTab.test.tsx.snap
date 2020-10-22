@@ -1,0 +1,643 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Git Sync - repo tab render Git Sync repo List  1`] = `
+<div>
+  <section
+    class="repoContainer"
+  >
+    <div
+      class="OverlaySpinner---overlaySpinner--3Bs3"
+    >
+      <form
+        class="FormikForm---main--1N87"
+      >
+        <div>
+          <div
+            class="StyledProps---font--2ipy StyledProps---main--1Wws contentGrid gitSyncGrid StyledProps---margin-top-medium--1XOJ StyledProps---margin-right-huge--3Kfu StyledProps---margin-bottom-small--3Kji StyledProps---margin-left-xlarge--2EHr"
+          >
+            <div
+              class="bp3-form-group"
+              data-id="gitConnectorId-0"
+            >
+              <div
+                class="bp3-form-content"
+              >
+                <div
+                  class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+                >
+                  <div
+                    class="bp3-popover-target"
+                  >
+                    <div
+                      class="bp3-input-group"
+                    >
+                      <input
+                        autocomplete="off"
+                        class="bp3-input"
+                        name="gitConnectorId"
+                        placeholder="Search..."
+                        style="padding-right: 0px;"
+                        type="text"
+                        value="GItOne"
+                      />
+                      <span
+                        class="bp3-input-action"
+                      >
+                        <span
+                          class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                          icon="caret-down"
+                        >
+                          <svg
+                            data-icon="caret-down"
+                            height="14"
+                            viewBox="0 0 16 16"
+                            width="14"
+                          >
+                            <desc>
+                              caret-down
+                            </desc>
+                            <path
+                              d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="bp3-form-group"
+              data-id="repo-1"
+            >
+              <div
+                class="bp3-form-content"
+              >
+                <div
+                  class="bp3-input-group"
+                >
+                  <input
+                    autocomplete="off"
+                    class="bp3-input"
+                    name="repo"
+                    placeholder="Repo name"
+                    type="text"
+                    value="wingsUI"
+                  />
+                </div>
+              </div>
+            </div>
+            <div
+              class="bp3-form-group"
+              data-id="branch-2"
+            >
+              <div
+                class="bp3-form-content"
+              >
+                <div
+                  class="bp3-input-group"
+                >
+                  <input
+                    autocomplete="off"
+                    class="bp3-input"
+                    name="branch"
+                    placeholder="Branch name"
+                    type="text"
+                    value="master"
+                  />
+                </div>
+              </div>
+            </div>
+            <div
+              class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+            >
+              <div
+                class="TextInput---main--1ytZ"
+              >
+                <div
+                  class="bp3-input-group rootFolder"
+                >
+                  <input
+                    class="bp3-input"
+                    placeholder="Root folder path"
+                    type="text"
+                    value="src/temp"
+                  />
+                </div>
+              </div>
+              <button
+                class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws unsetButtons StyledProps---intent-primary--2Xgi"
+                type="button"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  + Add Folder
+                </span>
+              </button>
+            </div>
+            <div
+              class="StyledProps---font--2ipy Radio---radioGroup--3xzN radioGroup StyledProps---main--1Wws"
+            >
+              <div
+                class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+              >
+                <label
+                  class="bp3-control bp3-radio StyledProps---font--2ipy Radio---radio--3bxG defaultRootRadio StyledProps---main--1Wws"
+                >
+                  <input
+                    type="radio"
+                  />
+                  <span
+                    class="bp3-control-indicator"
+                  />
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+  <section
+    class="repoContainer"
+  >
+    <div
+      class="OverlaySpinner---overlaySpinner--3Bs3"
+    >
+      <form
+        class="FormikForm---main--1N87"
+      >
+        <div>
+          <div
+            class="StyledProps---font--2ipy StyledProps---main--1Wws contentGrid gitSyncGrid StyledProps---margin-top-medium--1XOJ StyledProps---margin-right-huge--3Kfu StyledProps---margin-bottom-small--3Kji StyledProps---margin-left-xlarge--2EHr"
+          >
+            <div
+              class="bp3-form-group"
+              data-id="gitConnectorId-0"
+            >
+              <div
+                class="bp3-form-content"
+              >
+                <div
+                  class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+                >
+                  <div
+                    class="bp3-popover-target"
+                  >
+                    <div
+                      class="bp3-input-group"
+                    >
+                      <input
+                        autocomplete="off"
+                        class="bp3-input"
+                        name="gitConnectorId"
+                        placeholder="Search..."
+                        style="padding-right: 0px;"
+                        type="text"
+                        value="GItOne"
+                      />
+                      <span
+                        class="bp3-input-action"
+                      >
+                        <span
+                          class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                          icon="caret-down"
+                        >
+                          <svg
+                            data-icon="caret-down"
+                            height="14"
+                            viewBox="0 0 16 16"
+                            width="14"
+                          >
+                            <desc>
+                              caret-down
+                            </desc>
+                            <path
+                              d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="bp3-form-group"
+              data-id="repo-1"
+            >
+              <div
+                class="bp3-form-content"
+              >
+                <div
+                  class="bp3-input-group"
+                >
+                  <input
+                    autocomplete="off"
+                    class="bp3-input"
+                    name="repo"
+                    placeholder="Repo name"
+                    type="text"
+                    value="repoTwo"
+                  />
+                </div>
+              </div>
+            </div>
+            <div
+              class="bp3-form-group"
+              data-id="branch-2"
+            >
+              <div
+                class="bp3-form-content"
+              >
+                <div
+                  class="bp3-input-group"
+                >
+                  <input
+                    autocomplete="off"
+                    class="bp3-input"
+                    name="branch"
+                    placeholder="Branch name"
+                    type="text"
+                    value="master"
+                  />
+                </div>
+              </div>
+            </div>
+            <div
+              class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+            >
+              <div
+                class="TextInput---main--1ytZ"
+              >
+                <div
+                  class="bp3-input-group rootFolder"
+                >
+                  <input
+                    class="bp3-input"
+                    placeholder="Root folder path"
+                    type="text"
+                    value="temp2"
+                  />
+                </div>
+              </div>
+              <button
+                class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws unsetButtons StyledProps---intent-primary--2Xgi"
+                type="button"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  + Add Folder
+                </span>
+              </button>
+            </div>
+            <div
+              class="StyledProps---font--2ipy Radio---radioGroup--3xzN radioGroup StyledProps---main--1Wws"
+            >
+              <div
+                class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+              >
+                <label
+                  class="bp3-control bp3-radio StyledProps---font--2ipy Radio---radio--3bxG defaultRootRadio StyledProps---main--1Wws"
+                >
+                  <input
+                    type="radio"
+                  />
+                  <span
+                    class="bp3-control-indicator"
+                  />
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+</div>
+`;
+
+exports[`Git Sync - repo tab rendering landing view 1`] = `
+<div>
+   
+  <div
+    class="StyledProps---font--2ipy StyledProps---main--1Wws bodyContainer StyledProps---padding-top-large--i39X StyledProps---padding-right-xxxlarge--1Uke StyledProps---padding-bottom-large--1zGv StyledProps---padding-left-xxxlarge--37cM"
+  >
+    <section
+      class="header gitSyncGrid"
+    >
+      <p
+        class="StyledProps---font--2ipy StyledProps---main--1Wws columnHeader"
+      >
+        GIT SERVER
+      </p>
+      <p
+        class="StyledProps---font--2ipy StyledProps---main--1Wws columnHeader"
+      >
+        REPOSITORY
+      </p>
+      <p
+        class="StyledProps---font--2ipy StyledProps---main--1Wws columnHeader"
+      >
+        BRANCH
+      </p>
+      <div
+        class="StyledProps---font--2ipy StyledProps---main--1Wws"
+      >
+        <p
+          class="StyledProps---font--2ipy StyledProps---main--1Wws columnHeader"
+        >
+          SYNC ROOT FOLDER
+        </p>
+        <p
+          class="StyledProps---font--2ipy StyledProps---main--1Wws columnHeaderBody"
+        >
+          Anything in these folders will be synced to the project
+        </p>
+      </div>
+      <div
+        class="StyledProps---font--2ipy StyledProps---main--1Wws"
+      >
+        <p
+          class="StyledProps---font--2ipy StyledProps---main--1Wws columnHeader"
+        >
+          DEFAULT
+        </p>
+        <p
+          class="StyledProps---font--2ipy StyledProps---main--1Wws columnHeaderBody"
+        >
+          Any new entities created via Harness user interface/apis will be synced to this folder
+        </p>
+      </div>
+    </section>
+    <div
+      class="StyledProps---font--2ipy StyledProps---main--1Wws repoContainer StyledProps---padding-medium--3Ish"
+    >
+      <button
+        class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi StyledProps---margin-right-medium--1Ojn"
+        type="button"
+      >
+        <span
+          class="bp3-button-text"
+        >
+          + Add Repository
+        </span>
+      </button>
+      <span
+        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
+      >
+        Specify your Git server, repository, branch to sync your entities to
+      </span>
+    </div>
+  </div>
+   
+</div>
+`;
+
+exports[`Git Sync - repo tab rendering landing view 2`] = `
+<div>
+   
+  <div
+    class="StyledProps---font--2ipy StyledProps---main--1Wws bodyContainer StyledProps---padding-top-large--i39X StyledProps---padding-right-xxxlarge--1Uke StyledProps---padding-bottom-large--1zGv StyledProps---padding-left-xxxlarge--37cM"
+  >
+    <section
+      class="header gitSyncGrid"
+    >
+      <p
+        class="StyledProps---font--2ipy StyledProps---main--1Wws columnHeader"
+      >
+        GIT SERVER
+      </p>
+      <p
+        class="StyledProps---font--2ipy StyledProps---main--1Wws columnHeader"
+      >
+        REPOSITORY
+      </p>
+      <p
+        class="StyledProps---font--2ipy StyledProps---main--1Wws columnHeader"
+      >
+        BRANCH
+      </p>
+      <div
+        class="StyledProps---font--2ipy StyledProps---main--1Wws"
+      >
+        <p
+          class="StyledProps---font--2ipy StyledProps---main--1Wws columnHeader"
+        >
+          SYNC ROOT FOLDER
+        </p>
+        <p
+          class="StyledProps---font--2ipy StyledProps---main--1Wws columnHeaderBody"
+        >
+          Anything in these folders will be synced to the project
+        </p>
+      </div>
+      <div
+        class="StyledProps---font--2ipy StyledProps---main--1Wws"
+      >
+        <p
+          class="StyledProps---font--2ipy StyledProps---main--1Wws columnHeader"
+        >
+          DEFAULT
+        </p>
+        <p
+          class="StyledProps---font--2ipy StyledProps---main--1Wws columnHeaderBody"
+        >
+          Any new entities created via Harness user interface/apis will be synced to this folder
+        </p>
+      </div>
+    </section>
+    <section
+      class="repoContainer"
+    >
+      <div
+        class="OverlaySpinner---overlaySpinner--3Bs3"
+      >
+        <form
+          class="FormikForm---main--1N87"
+        >
+          <div>
+            <div
+              class="StyledProps---font--2ipy StyledProps---main--1Wws contentGrid gitSyncGrid StyledProps---margin-top-medium--1XOJ StyledProps---margin-right-huge--3Kfu StyledProps---margin-bottom-small--3Kji StyledProps---margin-left-xlarge--2EHr"
+            >
+              <div
+                class="bp3-form-group"
+                data-id="gitConnectorId-0"
+              >
+                <div
+                  class="bp3-form-content"
+                >
+                  <div
+                    class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+                  >
+                    <div
+                      class="bp3-popover-target"
+                    >
+                      <div
+                        class="bp3-input-group"
+                      >
+                        <input
+                          autocomplete="off"
+                          class="bp3-input"
+                          name="gitConnectorId"
+                          placeholder="Search..."
+                          style="padding-right: 0px;"
+                          type="text"
+                          value=""
+                        />
+                        <span
+                          class="bp3-input-action"
+                        >
+                          <span
+                            class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                            icon="caret-down"
+                          >
+                            <svg
+                              data-icon="caret-down"
+                              height="14"
+                              viewBox="0 0 16 16"
+                              width="14"
+                            >
+                              <desc>
+                                caret-down
+                              </desc>
+                              <path
+                                d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                fill-rule="evenodd"
+                              />
+                            </svg>
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="bp3-form-group"
+                data-id="repo-1"
+              >
+                <div
+                  class="bp3-form-content"
+                >
+                  <div
+                    class="bp3-input-group"
+                  >
+                    <input
+                      autocomplete="off"
+                      class="bp3-input"
+                      name="repo"
+                      placeholder="Repo name"
+                      type="text"
+                      value=""
+                    />
+                  </div>
+                </div>
+              </div>
+              <div
+                class="bp3-form-group"
+                data-id="branch-2"
+              >
+                <div
+                  class="bp3-form-content"
+                >
+                  <div
+                    class="bp3-input-group"
+                  >
+                    <input
+                      autocomplete="off"
+                      class="bp3-input"
+                      name="branch"
+                      placeholder="Branch name"
+                      type="text"
+                      value=""
+                    />
+                  </div>
+                </div>
+              </div>
+              <div
+                class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+              >
+                <div
+                  class="TextInput---main--1ytZ"
+                >
+                  <div
+                    class="bp3-input-group rootFolder"
+                  >
+                    <input
+                      class="bp3-input"
+                      placeholder="Root folder path"
+                      type="text"
+                      value=""
+                    />
+                  </div>
+                </div>
+                <button
+                  class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws unsetButtons StyledProps---intent-primary--2Xgi"
+                  type="button"
+                >
+                  <span
+                    class="bp3-button-text"
+                  >
+                    + Add Folder
+                  </span>
+                </button>
+              </div>
+              <div
+                class="StyledProps---font--2ipy Radio---radioGroup--3xzN radioGroup StyledProps---main--1Wws"
+              >
+                <div
+                  class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+                >
+                  <label
+                    class="bp3-control bp3-radio bp3-disabled StyledProps---font--2ipy Radio---radio--3bxG defaultRootRadio StyledProps---main--1Wws"
+                  >
+                    <input
+                      disabled=""
+                      type="radio"
+                    />
+                    <span
+                      class="bp3-control-indicator"
+                    />
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div
+              class="StyledProps---font--2ipy StyledProps---main--1Wws editRepoContainer StyledProps---padding-medium--3Ish"
+            >
+              <button
+                class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws saveButton StyledProps---intent-primary--2Xgi StyledProps---margin-right-large--2cZ8"
+                type="submit"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  Save
+                </span>
+              </button>
+              <button
+                class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws cancelButton StyledProps---intent-danger--1PFK"
+                type="button"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  Cancel
+                </span>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+  </div>
+   
+</div>
+`;

@@ -26,9 +26,11 @@ import {
   useGetConnectorList,
   useListGitSync,
   usePostGitSync,
-  usePutGitSync
+  usePutGitSync,
+  ResponsePageConnectorResponse
 } from 'services/cd-ng'
 
+import type { UseGetMockData } from 'modules/common/utils/testUtils'
 import i18n from './GitSyncRepoTab.i18n'
 import css from './GitSyncRepo.module.scss'
 
@@ -216,7 +218,7 @@ const RepoHeader: React.FC = () => {
   )
 }
 
-const RepoList: React.FC<RepoListProps> = props => {
+export const RepoList: React.FC<RepoListProps> = props => {
   return (
     <React.Fragment>
       {props.repoList.map((repo, i) => {
@@ -233,18 +235,25 @@ const RepoList: React.FC<RepoListProps> = props => {
   )
 }
 
-const GitSyncRepoTab: React.FC = () => {
+interface GitSyncRepoTabProps {
+  gitSyncMockData?: UseGetMockData<Array<GitSyncConfigDTO>> | undefined
+  gitConnectorsMockData?: UseGetMockData<ResponsePageConnectorResponse> | undefined
+}
+
+const GitSyncRepoTab: React.FC<GitSyncRepoTabProps> = props => {
   const { showSuccess, showError } = useToaster()
   const [isAddingRepo, setIsAddingRepo] = useState(false)
   const { accountId } = useParams()
 
   // ToDo: Add suuport for orgId annd projectId level, once BE support is added
   const { loading: loadingGitSyncList, data: dataAllGitSync, refetch: reloadAllGitSync } = useListGitSync({
-    queryParams: { accountId }
+    queryParams: { accountId },
+    mock: props.gitSyncMockData
   })
 
   const { loading: loadingGitServerList, data: dataAllGitServerListResponse } = useGetConnectorList({
-    queryParams: { accountIdentifier: accountId }
+    queryParams: { accountIdentifier: accountId, type: 'Git' },
+    mock: props.gitConnectorsMockData
   })
 
   const { mutate: createGitSyncConnector } = usePostGitSync({ queryParams: { accountId } })

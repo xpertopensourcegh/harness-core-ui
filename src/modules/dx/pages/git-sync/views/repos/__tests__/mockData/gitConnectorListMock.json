@@ -1,0 +1,37 @@
+{
+  "status": "SUCCESS",
+  "data": {
+    "totalPages": 1,
+    "totalItems": 1,
+    "pageItemCount": 1,
+    "pageSize": 100,
+    "content": [
+      {
+        "connector": {
+          "name": "GItOne",
+          "identifier": "GItOne",
+          "description": "",
+          "orgIdentifier": "",
+          "projectIdentifier": "",
+          "tags": [],
+          "type": "Git",
+          "spec": {
+            "url": "https://test.git",
+            "branchName": "master",
+            "type": "Http",
+            "connectionType": "Account",
+            "spec": { "username": "dummy", "passwordRef": "account.connectorSecret" },
+            "gitSync": { "enabled": false, "customCommitAttributes": null, "syncEnabled": false }
+          }
+        },
+        "createdAt": 1603225889165,
+        "lastModifiedAt": 1603225892112,
+        "status": { "status": "FAILURE", "errorMessage": null, "lastTestedAt": 1603225892110, "lastConnectedAt": 0 }
+      }
+    ],
+    "pageIndex": 0,
+    "empty": false
+  },
+  "metaData": null,
+  "correlationId": "dbc023c7-8216-4a1d-917f-9cfa00974b98"
+}
