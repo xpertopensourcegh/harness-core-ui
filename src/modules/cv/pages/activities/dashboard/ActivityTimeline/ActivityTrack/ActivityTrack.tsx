@@ -10,7 +10,7 @@ export interface ActivityTrackProps {
   trackName: string
   trackIcon: IconProps
   cardContent: (activity: Activity) => JSX.Element
-  onActivityClick: (activity: Activity) => void
+  onActivityClick: (activity: Activity | null) => void
   activities: Activity[]
   startTime: number
   endTime: number
@@ -29,28 +29,43 @@ const ACTIVITY_SELECTION_EVENT = 'SelectActivityCardEvent'
 function ActivityCard(props: ActivityCardProps): JSX.Element {
   const { cardContent, activityBucket, onActivityClick, selectedActivityId } = props
   const [isExpandedView, setExpandView] = useState(false)
-
   const { activities } = activityBucket
   const activitiesToRender = isExpandedView ? activities : [activities[0]]
+  const toggleExpandCallback = (expandView: boolean) => () => {
+    setExpandView(expandView)
+    if (!expandView && selectedActivityId && selectedActivityId !== activityBucket?.activities?.[0].uuid) {
+      onActivityClick(null)
+    }
+  }
 
   return (
     <div className={cx(isExpandedView ? css.expandedActivityCard : undefined)}>
-      <Overlay isOpen={isExpandedView} className={css.overlayOnExpand} lazy={true}>
+      <Overlay
+        isOpen={isExpandedView}
+        className={css.overlayOnExpand}
+        lazy={true}
+        canEscapeKeyClose={true}
+        canOutsideClickClose={true}
+        onClose={toggleExpandCallback(false)}
+      >
         <Container />
       </Overlay>
       {activitiesToRender.map((activity, index) => (
-        <Card
-          interactive={true}
-          elevation={2}
-          key={index}
-          className={cx(css.activityCardContent, selectedActivityId === activity.uuid ? css.selectedCard : undefined)}
-          style={{ height: ACTIVITY_CARD_HEIGHT }}
-          onClick={() => {
-            if (selectedActivityId !== activity.uuid) onActivityClick(activity)
-          }}
-        >
-          {cardContent?.(activity)}
-        </Card>
+        <div key={activity.uuid}>
+          <Card
+            interactive={true}
+            elevation={1}
+            className={cx(css.activityCardContent, selectedActivityId === activity.uuid ? css.selectedCard : undefined)}
+            style={{ height: ACTIVITY_CARD_HEIGHT }}
+            onClick={() => {
+              if (selectedActivityId !== activity.uuid) {
+                onActivityClick({ ...activity, offset: index * ACTIVITY_CARD_HEIGHT })
+              }
+            }}
+          >
+            {cardContent?.(activity)}
+          </Card>
+        </div>
       ))}
       {activities.length > 1 && (
         <Text
@@ -58,7 +73,7 @@ function ActivityCard(props: ActivityCardProps): JSX.Element {
           color={Color.WHITE}
           font={{ size: 'xsmall' }}
           className={css.stackedCardCount}
-          onClick={() => setExpandView(isExpanded => !isExpanded)}
+          onClick={toggleExpandCallback(!isExpandedView)}
         >
           {isExpandedView ? 'Collapse' : `+ ${activities.length}`}
         </Text>
@@ -77,6 +92,7 @@ function ActivityCardWrapper(props: ActivityCardProps): JSX.Element {
       if (!event?.detail?.isOwnBucket) setSelected(undefined)
       document.removeEventListener(ACTIVITY_SELECTION_EVENT, eventEmitHandler, false)
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [selectedActivityId]
   )
 
@@ -118,8 +134,8 @@ function ActivityCardWrapper(props: ActivityCardProps): JSX.Element {
                 detail: selectedActivityId ? { isOwnBucket: true } : undefined
               })
             )
-            setSelected(selectedActivity.uuid)
-            onActivityClick(selectedActivity)
+            setSelected(selectedActivity?.uuid)
+            onActivityClick(selectedActivity ? { ...selectedActivity, ref: cardRef?.current || undefined } : null)
           }}
         />
       ) : null}

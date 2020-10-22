@@ -1,0 +1,16 @@
+.main {
+  .dashedLine {
+    stroke-dasharray: 5;
+  }
+  .line {
+    animation: drawLine 1s linear forwards;
+    stroke-dashoffset: 1000;
+    stroke-dasharray: 1000;
+
+    @keyframes drawLine {
+      to {
+        stroke-dashoffset: 0;
+      }
+    }
+  }
+}

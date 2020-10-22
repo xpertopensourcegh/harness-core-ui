@@ -33,7 +33,7 @@ function ActivityCardContent(props: ActivityCardContentProps): JSX.Element {
 }
 
 const startTime = Math.round(new Date().getTime() / (5 * 60000)) * 5 * 60000
-const endTime = moment(startTime).subtract(3, 'weeks').valueOf()
+const endTime = moment(startTime).subtract(4, 'weeks').valueOf()
 const ActivityTypes = {
   DEPLOYMENT: 'DEPLOYMENT',
   OTHER_CHANGES: 'OTHER CHANGES',

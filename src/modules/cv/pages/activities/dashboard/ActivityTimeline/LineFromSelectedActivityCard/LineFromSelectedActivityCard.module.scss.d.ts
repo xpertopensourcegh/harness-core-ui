@@ -2,7 +2,8 @@
 // this is an auto-generated file
 declare const styles: {
   readonly main: string
-  readonly activityTracks: string
-  readonly dayMarkersAndSummaryCard: string
+  readonly dashedLine: string
+  readonly line: string
+  readonly drawLine: string
 }
 export default styles

@@ -4,7 +4,13 @@ export const TOTAL_CARDS_PER_INTERVAL = 5
 export const TIMELINE_INCREMENT_HEIGHT = TOTAL_CARDS_PER_INTERVAL * ACTIVITY_CARD_HEIGHT
 export const BUCKET_TOP_OFFSET = 80 // to accomadate for the labels at the top of the tracks
 
-export type Activity = { startTime: number; uuid: string; [key: string]: any }
+export type Activity = {
+  startTime: number
+  uuid: string
+  [key: string]: any
+  offset?: number
+  ref?: HTMLDivElement
+}
 export type ActivityBucket = {
   activities: Activity[]
   startTime: number
