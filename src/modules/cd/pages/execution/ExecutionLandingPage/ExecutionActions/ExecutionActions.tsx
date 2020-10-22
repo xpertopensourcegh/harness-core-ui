@@ -11,7 +11,7 @@ import {
 } from 'modules/cd/pages/execution/ExecutionUtils'
 import type { ExecutionPathParams } from 'modules/cd/pages/execution/ExecutionUtils'
 import { useToaster } from 'modules/common/exports'
-import { routeCDPipelineStudio } from 'modules/cd/routes'
+import { routeCDPipelineStudio } from 'navigation/cd/routes'
 import type { ExecutionStatus } from 'modules/cd/pages/execution/ExecutionUtils'
 
 import i18n from './ExecutionActions.i18n'

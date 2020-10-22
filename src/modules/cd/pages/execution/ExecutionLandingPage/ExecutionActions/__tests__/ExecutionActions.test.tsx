@@ -3,7 +3,7 @@ import { render, fireEvent, findByText, act } from '@testing-library/react'
 
 import { TestWrapper, prependAccountPath } from 'modules/common/utils/testUtils'
 import type { ExecutionStatus } from 'modules/cd/pages/execution/ExecutionUtils'
-import { routeCDPipelineExecutionPipline } from 'modules/cd/routes'
+import { routeCDPipelineExecutionPipline } from 'navigation/cd/routes'
 import { useHandleInterrupt } from 'services/cd-ng'
 
 import ExecutionActions from '../ExecutionActions'
