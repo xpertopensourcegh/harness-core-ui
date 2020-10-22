@@ -157,8 +157,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Fetch Recent Master
-        run: git fetch --no-tags --depth=1 origin master
+      - name: Checkout Master
+        run: |
+          git fetch --no-tags --depth=100 origin +refs/heads/${{ github.base_ref }}
+          git fetch --no-tags --depth=100 origin ${{ github.sha }}
+          
+      - name: List Branches
+        run: |
+          git branch -a
 
       - name: Set Up Node
         uses: actions/setup-node@v1
@@ -184,7 +190,8 @@ jobs:
         run: yarn
 
       - name: List changed tests
-        run: npx jest --changedSince=origin/master --listTests
+        run: npx jest --coverage --silent --coverageReporters text --coverageReporters text-summary --changedSince=origin/master --passWithNoTests --listTests
 
       - name: Run tests and coverage
-        run: npx jest --coverage --coverageReporters text --coverageReporters text-summary --changedSince=origin/master --passWithNoTests
+        run: npx jest --coverage --silent --coverageReporters text --coverageReporters text-summary --changedSince=origin/master --passWithNoTests
+        
