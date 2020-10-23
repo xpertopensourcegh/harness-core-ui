@@ -172,15 +172,19 @@ export function CategoryRiskCards(props: CategoryRiskCardsProps): JSX.Element {
     )
   }
 
+  const { endTimeEpoch = -1, startTimeEpoch = -1 } = data?.resource || {}
+
   return (
     <Container className={css.main}>
       <Container className={css.timeRange}>
         <Text color={Color.BLACK} font={{ weight: 'bold' }}>
           {i18n.productionRisk}
         </Text>
-        <Text font={{ size: 'xsmall' }} color={Color.GREY_350}>{`${i18n.evaluationPeriodText} ${moment(
-          data?.resource?.startTimeEpoch
-        ).format('MMM D, YYYY h:mma')} - ${moment(data?.resource?.endTimeEpoch).format('h:mma')}`}</Text>
+        {new Date(endTimeEpoch).getTime() > 0 && new Date(startTimeEpoch).getTime() > 0 && (
+          <Text font={{ size: 'xsmall' }} color={Color.GREY_350}>{`${i18n.evaluationPeriodText} ${moment(
+            startTimeEpoch
+          ).format('MMM D, YYYY h:mma')} - ${moment(endTimeEpoch).format('h:mma')}`}</Text>
+        )}
       </Container>
       <Container className={css.cardContainer}>
         {isNumber(overallRiskScore) && <OverallRiskScoreCard overallRiskScore={overallRiskScore} />}
