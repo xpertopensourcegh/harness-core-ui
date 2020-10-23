@@ -100,7 +100,7 @@ export function EntityReference<T>(props: EntityReferenceProps<T>): JSX.Element 
     } catch (msg) {
       setError(msg)
     }
-  }, [selectedScope, delayedFetchRecords, searchTerm, fetchRecords])
+  }, [selectedScope, delayedFetchRecords, searchTerm])
 
   useEffect(() => {
     fetchData()
