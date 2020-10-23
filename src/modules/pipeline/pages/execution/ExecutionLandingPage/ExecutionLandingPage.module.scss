@@ -1,0 +1,123 @@
+@import '../ExecutionVars';
+
+.main {
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 60px;
+  overflow: hidden;
+
+  .lhs {
+    border-right: 1px solid var(--grey-200);
+  }
+
+  .header {
+    height: $header-height;
+    box-shadow: inset var(--grey-200) 0 -1px 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: var(--spacing-small) var(--spacing-medium) var(--spacing-medium) var(--spacing-xxlarge);
+
+    .breadcrumbs {
+      font-size: var(--font-size-small);
+
+      a {
+        color: var(--blue-500);
+      }
+
+      a::after {
+        content: '/';
+        color: var(--grey-800);
+        margin: 0 var(--spacing-xsmall);
+      }
+    }
+
+    & .headerTopRow {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+    }
+
+    & .titleContainer {
+      display: flex;
+      align-items: flex-end;
+    }
+
+    & .title {
+      font-weight: 600;
+      font-size: var(--font-size-large);
+      line-height: 28px;
+      color: var(--grey-800);
+      margin-right: var(--spacing-small);
+    }
+
+    & .piplineInfo {
+      display: flex;
+      align-items: center;
+    }
+
+    & .pipelineId {
+      color: var(--grey-500);
+      font-weight: 500;
+      line-height: 24px;
+    }
+
+    & .headerBottomRow {
+      display: flex;
+      align-items: center;
+    }
+
+    & .tags {
+      margin-left: var(--spacing-large);
+
+      & > :global(.bp3-icon) {
+        margin-right: var(--spacing-xsmall);
+      }
+
+      & .tag {
+        font-size: var(--font-size-xsmall);
+        background-color: var(--grey-200);
+        color: var(--grey-450);
+        min-height: auto;
+        height: var(--font-size-normal);
+        margin-left: var(--spacing-xsmall);
+      }
+    }
+
+    & .statusBar {
+      display: flex;
+      align-items: center;
+    }
+
+    & .statusLabel {
+      margin-right: var(--spacing-xxlarge);
+    }
+
+    & .toggleDetails {
+      padding: var(--spacing-none);
+      width: var(--spacing-medium) !important;
+      height: var(--spacing-medium) !important;
+      min-width: auto;
+      min-height: auto;
+      background: var(--blue-200) !important;
+      color: var(--blue-500) !important;
+      border: none;
+
+      &:hover {
+        border: none;
+        color: var(--blue-500) !important;
+        background: var(--blue-200) !important;
+      }
+    }
+  }
+
+  .childContainer {
+    position: relative;
+    height: calc(100vh - #{$header-height + $tabs-height});
+
+    &.showDetails {
+      height: calc(100vh - #{$header-height + $details-height + $tabs-height});
+    }
+  }
+}

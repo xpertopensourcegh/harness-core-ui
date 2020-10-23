@@ -1,4 +1,4 @@
-import { AbstractStepFactory } from 'modules/common/exports'
+import { AbstractStepFactory } from 'modules/pipeline/exports'
 import { HttpStep } from './Steps/HttpStep/HttpStep'
 import { K8RolloutDeployStep } from './Steps/K8sRolloutDeployStep/K8sRolloutDeployStep'
 import { ShellScriptStep } from './Steps/ShellScriptStep/ShellScriptStep'

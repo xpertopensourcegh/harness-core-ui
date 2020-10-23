@@ -1,12 +1,8 @@
 import React, { useCallback } from 'react'
 import { first } from 'lodash-es'
 import { Color } from '@wings-software/uikit'
-import {
-  ExecutionPipeline,
-  ExecutionPipelineItemStatus,
-  ExecutionPipelineNode
-} from 'modules/common/components/ExecutionStageDiagram/ExecutionPipelineModel'
-import { ExecutionStageGraph, RenderStageButtonInfo } from 'modules/common/exports'
+import { ExecutionStageGraph, RenderStageButtonInfo } from 'modules/pipeline/exports'
+import { ExecutionPipeline, ExecutionPipelineItemStatus, ExecutionPipelineNode } from 'modules/pipeline/exports'
 import { getStagesStatusesCounter } from 'modules/ci/pages/build/utils/api2ui'
 import type { GraphVertex } from 'services/ci'
 

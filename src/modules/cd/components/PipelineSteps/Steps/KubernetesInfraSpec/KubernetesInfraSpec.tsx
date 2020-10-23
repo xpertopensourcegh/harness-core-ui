@@ -15,7 +15,7 @@ import {
 import { useParams } from 'react-router-dom'
 import { debounce, noop, isEmpty } from 'lodash-es'
 import { FormGroup } from '@blueprintjs/core'
-import { StepViewType, ConfigureOptions } from 'modules/common/exports'
+import { StepViewType, ConfigureOptions } from 'modules/pipeline/exports'
 import { K8SDirectInfrastructure, useGetConnector, ConnectorInfoDTO } from 'services/cd-ng'
 import {
   FormMultiTypeConnectorField,

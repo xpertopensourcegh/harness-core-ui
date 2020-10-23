@@ -1,0 +1,32 @@
+@import '../../ExecutionVars';
+
+.main {
+  height: $details-height;
+  overflow: hidden;
+  box-shadow: inset var(--grey-200) 0 -2px 0;
+  padding: var(--spacing-small) var(--spacing-medium) var(--spacing-small) var(--spacing-xxlarge);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto;
+  align-items: center;
+
+  & .entry {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: var(--font-size-small);
+  }
+
+  & .label {
+    display: inline-block;
+    color: var(--grey-350);
+    margin-right: var(--spacing-large);
+    min-width: 80px;
+  }
+
+  & .value {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}

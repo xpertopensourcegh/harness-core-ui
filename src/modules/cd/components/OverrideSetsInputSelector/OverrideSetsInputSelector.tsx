@@ -14,10 +14,8 @@ import {
 import { isArray, clone } from 'lodash-es'
 import cx from 'classnames'
 import { Classes, Position } from '@blueprintjs/core'
-import { PipelineContext } from 'modules/common/components/PipelineStudio/PipelineContext/PipelineContext'
+import { PipelineContext, getStageFromPipeline } from 'modules/pipeline/exports'
 import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
-
-import { getStageFromPipeline } from 'modules/common/components/PipelineStudio/StageBuilder/StageBuilderUtil'
 import i18n from './OverrideSetsInputSelector.i18n'
 import css from './OverrideSetsInputSelector.module.scss'
 

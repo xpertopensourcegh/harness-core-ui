@@ -1,6 +1,5 @@
 import { omit } from 'lodash-es'
-import { Step, StepViewType } from 'modules/common/exports'
-import { isCustomGeneratedString } from 'modules/common/components/PipelineStudio/ExecutionGraph/ExecutionGraphUtil'
+import { Step, StepViewType, isCustomGeneratedString } from 'modules/pipeline/exports'
 
 export abstract class PipelineStep<T extends { name?: string; identifier?: string }> extends Step<T> {
   getDefaultValues(initialValues: T, viewType: StepViewType): T {

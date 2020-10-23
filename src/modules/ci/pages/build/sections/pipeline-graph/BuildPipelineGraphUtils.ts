@@ -1,9 +1,6 @@
 import type { SelectOption } from '@wings-software/uikit'
-import type { ExecutionPipelineItem } from 'modules/common/components/ExecutionStageDiagram/ExecutionPipelineModel'
-import type {
-  ExecutionPipeline,
-  ExecutionPipelineNode
-} from 'modules/common/components/ExecutionStageDiagram/ExecutionPipelineModel'
+import type { ExecutionPipelineItem } from 'modules/pipeline/exports'
+import type { ExecutionPipeline, ExecutionPipelineNode } from 'modules/pipeline/exports'
 
 export function getStepsPipelineFromExecutionPipeline<T>(
   pipeline: ExecutionPipeline<T> | undefined,

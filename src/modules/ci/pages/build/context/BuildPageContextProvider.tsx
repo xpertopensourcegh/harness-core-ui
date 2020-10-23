@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { getLogsFromBlob, useLogs } from 'modules/ci/services/LogService'
 import { useGetBuild } from 'services/ci'
-import { ExecutionPipelineItemStatus } from 'modules/common/components/ExecutionStageDiagram/ExecutionPipelineModel'
+import { ExecutionPipelineItemStatus } from 'modules/pipeline/exports'
 import type { BuildPageUrlParams } from '../CIBuildPage'
 import { BuildPageContext, BuildPageStateInterface } from './BuildPageContext'
 import {

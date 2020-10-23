@@ -19,12 +19,12 @@ import {
 } from '@wings-software/uikit'
 
 import cx from 'classnames'
-import { PipelineContext } from 'modules/common/components/PipelineStudio/PipelineContext/PipelineContext'
 import {
+  PipelineContext,
   getStageFromPipeline,
   getStageIndexFromPipeline,
   getPrevoiusStageFromIndex
-} from 'modules/common/components/PipelineStudio/StageBuilder/StageBuilderUtil'
+} from 'modules/pipeline/exports'
 import { loggerFor, ModuleName } from 'framework/exports'
 import ArtifactsSelection from '../ArtifactsSelection/ArtifactsSelection'
 import ManifestSelection from '../ManifestSelection/ManifestSelection'

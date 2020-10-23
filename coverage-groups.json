@@ -1,6 +1,7 @@
 {
   "groups": {
     "CD": ["src/modules/cd/**"],
+    "Pipeline": ["src/modules/pipeline/**"],
     "Secrets": [
       "src/modules/dx/components/SecretReference/**",
       "src/modules/dx/components/CreateUpdateSecret/**",

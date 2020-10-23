@@ -1,5 +1,5 @@
 import React from 'react'
-import { StepViewType, StepWidget } from 'modules/common/exports'
+import { StepViewType, StepWidget } from 'modules/pipeline/exports'
 import type { DeploymentStage, K8SDirectInfrastructure } from 'services/cd-ng'
 import factory from '../PipelineSteps/PipelineStepFactory'
 import { StepType } from '../PipelineSteps/PipelineStepInterface'

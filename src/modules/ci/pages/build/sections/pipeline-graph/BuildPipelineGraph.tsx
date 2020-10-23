@@ -1,7 +1,7 @@
 import React from 'react'
 import moment from 'moment'
 import { Button, Color, Select, Text } from '@wings-software/uikit'
-import ExecutionStageDiagram from 'modules/common/components/ExecutionStageDiagram/ExecutionStageDiagram'
+import { ExecutionStageDiagram } from 'modules/pipeline/exports'
 import LogViewContainer from 'modules/ci/components/LogViewContainer/LogViewContainer'
 import { RoundButtonGroup } from 'modules/ci/components/RoundButtonGroup/RoundButtonGroup'
 import { formatElapsedTime } from 'modules/ci/components/common/time'

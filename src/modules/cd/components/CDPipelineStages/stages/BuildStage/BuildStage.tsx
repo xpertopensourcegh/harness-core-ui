@@ -1,5 +1,5 @@
 import React from 'react'
-import { PipelineStage } from 'modules/common/components/PipelineStages/PipelineStage'
+import { PipelineStage } from 'modules/pipeline/exports'
 import type { StageElementWrapper } from 'services/cd-ng'
 import { EditStageView } from './EditStageView/EditStageView'
 import BuildStageSetupShell from '../../../BuildStageSetupShell/BuildStageSetupShell'

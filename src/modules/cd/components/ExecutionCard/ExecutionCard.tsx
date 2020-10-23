@@ -5,15 +5,8 @@ import { Container, Text, Layout, Card, CardBody, Color } from '@wings-software/
 import * as BP from '@blueprintjs/core'
 import { useHistory, useParams } from 'react-router-dom'
 import type { PipelineExecutionSummaryDTO, StageExecutionSummaryDTO } from 'services/cd-ng'
-import {
-  ExecutionStatusLabel,
-  UserLabel,
-  Duration,
-  TimeAgo,
-  ExecutionStatus,
-  ExecutionStageGraph,
-  RenderStageButtonInfo
-} from 'modules/common/exports'
+import { UserLabel, Duration, TimeAgo, ExecutionStatus } from 'modules/common/exports'
+import { ExecutionStatusLabel, ExecutionStageGraph, RenderStageButtonInfo } from 'modules/pipeline/exports'
 import { routeCDPipelineExecutionPipline } from 'navigation/cd/routes'
 import i18n from './ExecutionCard.i18n'
 import { ExecutionServiceTooltip } from './ExecutionServiceTooltip'
