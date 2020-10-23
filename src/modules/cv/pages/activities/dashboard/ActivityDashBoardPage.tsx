@@ -75,6 +75,7 @@ export default function ActivityDashboardPage(): JSX.Element {
         <ActivityTimeline
           startTime={startTime}
           endTime={endTime}
+          renderSummaryCardContent={() => <Container />}
           onLoadMore={() => []}
           activityTracks={[
             {

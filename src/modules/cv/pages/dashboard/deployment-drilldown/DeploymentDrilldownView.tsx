@@ -1,7 +1,5 @@
-import React, { useState, useEffect, useMemo } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Container, Tabs, Tab, Button, Text } from '@wings-software/uikit'
-import moment from 'moment'
-import CVProgressBar from 'modules/cv/components/CVProgressBar/CVProgressBar'
 import {
   useGetVerificationInstances,
   useGetDeploymentTimeSeries,
@@ -13,13 +11,12 @@ import { Page } from 'modules/common/exports'
 import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
 import { useRouteParams } from 'framework/exports'
 import { useToaster } from 'modules/common/exports'
+import { DeploymentProgressAndNodes } from 'modules/cv/components/DeploymentProgressAndNodes/DeploymentProgressAndNodes'
+import type { NodeData } from '../../services/BlueGreenVerificationChart'
 import DeploymentMetricsTab from './DeploymentMetricsTab'
 import DeploymentLogsTab from './DeploymentLogsTab'
 import DeploymentDrilldownViewHeader from './DeploymentDrilldownViewHeader'
 import DeploymentDrilldownSideNav, { InstancePhase } from './DeploymentDrilldownSideNav'
-import TestsSummaryView from './TestsSummaryView'
-import BlueGreenVerificationChart, { NodeData } from '../../services/BlueGreenVerificationChart'
-import i18n from './DeploymentDrilldownView.i18n'
 import styles from './DeploymentDrilldownView.module.scss'
 
 export interface TransactionRowProps {
@@ -32,7 +29,7 @@ const METRICS_TAB = 'METRICS_TAB'
 const LOGS_TAB = 'LOGS_TAB'
 const DEFAULT_SELECTED_TAB = METRICS_TAB
 
-export default function DeploymentDrilldownView() {
+export default function DeploymentDrilldownView(): JSX.Element {
   const {
     params: { accountId, projectIdentifier, orgIdentifier, deploymentTag, serviceIdentifier }
   } = useRouteParams()
@@ -50,7 +47,7 @@ export default function DeploymentDrilldownView() {
   } = useGetVerificationInstances({
     deploymentTag: deploymentTag as string,
     queryParams: {
-      accountId: accountId as string,
+      accountId,
       projectIdentifier: projectIdentifier as string,
       orgIdentifier: orgIdentifier as string,
       serviceIdentifier: serviceIdentifier as string
@@ -124,35 +121,6 @@ export default function DeploymentDrilldownView() {
       }
     }
   }, [activityVerifications])
-
-  const deploymentNodesData = useMemo(() => {
-    if (!!instancePhase && verificationInstance?.additionalInfo.type === 'CANARY') {
-      const { primary: before = [], canary: after = [], trafficSplitPercentage } = verificationInstance.additionalInfo
-      return {
-        before,
-        after,
-        percentageBefore: Math.round(trafficSplitPercentage?.preDeploymentPercentage),
-        percentageAfter: Math.round(trafficSplitPercentage?.postDeploymentPercentage)
-      }
-    }
-  }, [verificationInstance])
-
-  const baselineSummaryData = useMemo(() => {
-    if (verificationInstance?.additionalInfo.type === 'TEST') {
-      const {
-        baselineDeploymentTag,
-        baselineStartTime,
-        currentDeploymentTag,
-        currentStartTime
-      } = verificationInstance.additionalInfo
-      return {
-        baselineTestName: baselineDeploymentTag,
-        baselineTestDate: baselineStartTime,
-        currentTestName: currentDeploymentTag,
-        currentTestDate: currentStartTime
-      }
-    }
-  }, [verificationInstance])
 
   useEffect(() => {
     if (verificationInstance?.verificationJobInstanceId) {
@@ -243,45 +211,20 @@ export default function DeploymentDrilldownView() {
               <Button minimal icon="service-jira" text="Create Ticket" disabled />
             </Container>
           </Container>
-          <Container className={styles.panel}>
-            <CVProgressBar
-              stripes={false}
-              value={(verificationInstance?.progressPercentage ?? 0) / 100}
-              intent={
-                (verificationInstance?.status === 'IN_PROGRESS' && 'primary') ||
-                (verificationInstance?.status === 'SUCCESS' && 'success') ||
-                (verificationInstance?.status === 'ERROR' && 'danger') ||
-                undefined
-              }
-            />
-            {verificationInstance && (
-              <>
-                <Text font={{ size: 'small' }}>
-                  {i18n.startedOn}: {moment(verificationInstance.startTime).format('MMM D, YYYY h:mm A')}
-                </Text>
-                <Text font={{ size: 'small' }}>
-                  {i18n.duration}: {moment.duration(verificationInstance.durationMs, 'ms').humanize()}
-                </Text>
-              </>
-            )}
-            {deploymentNodesData && (
-              <BlueGreenVerificationChart
-                {...deploymentNodesData}
-                selectedNode={selectedNode}
-                onSelectNode={(node: NodeData) => {
-                  setSelectedNode(node)
-                  fetchTimeseries({
-                    queryParams: {
-                      accountId: accountId,
-                      anomalousMetricsOnly,
-                      hostName: node?.hostName
-                    }
-                  })
-                }}
-              />
-            )}
-            {baselineSummaryData && <TestsSummaryView {...baselineSummaryData} />}
-          </Container>
+          <DeploymentProgressAndNodes
+            deploymentSummary={verificationInstance}
+            instancePhase={instancePhase}
+            onSelectNode={(node: NodeData) => {
+              setSelectedNode(node)
+              fetchTimeseries({
+                queryParams: {
+                  accountId,
+                  anomalousMetricsOnly,
+                  hostName: node?.hostName
+                }
+              })
+            }}
+          />
           <Container className={styles.filters}>
             <Tabs id="tabs1" onChange={onTabChange} selectedTabId={selectedTab}>
               <Tab title="Metrics" id={METRICS_TAB} />

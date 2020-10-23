@@ -12,6 +12,7 @@ interface ActivityTimelineViewProps {
   startTime: number
   endTime: number
   onLoadMore: (startTime: number, endTime: number) => any[]
+  renderSummaryCardContent: (selectedActivity: Activity) => JSX.Element
 }
 
 export function ActivityTimeline(props: ActivityTimelineViewProps): JSX.Element {
