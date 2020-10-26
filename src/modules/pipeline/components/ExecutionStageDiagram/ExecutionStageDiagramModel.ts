@@ -90,7 +90,7 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
       if (!nodeRender) {
         nodeRender =
           type === ExecutionPipelineNodeType.DIAMOND
-            ? new Diagram.DiamondNodeModel({
+            ? /* istanbul ignore next */ new Diagram.DiamondNodeModel({
                 identifier: stage.identifier,
                 id: stage.identifier,
                 ...commonOption,
@@ -117,7 +117,7 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
       }
       nodeRender.setPosition(startX, startY)
 
-      if (!isEmpty(prevNodes) && prevNodes) {
+      /* istanbul ignore else */ if (!isEmpty(prevNodes) && prevNodes) {
         prevNodes.forEach((prevNode: Diagram.DefaultNodeModel) => {
           this.connectedParentToNode(
             nodeRender as Diagram.DefaultNodeModel<Diagram.DefaultNodeModelGenerics>,
@@ -131,7 +131,7 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
       return { startX, startY, prevNodes: [nodeRender] }
     } else if (node.parallel && prevNodes) {
       const { parallel } = node
-      if (parallel.length > 1) {
+      /* istanbul ignore else */ if (parallel.length > 1) {
         if (diagramContainerHeight && diagramContainerHeight < (this.gap * parallel.length) / 2 + 40) {
           const parallelStageNames: Array<string> = []
           let isSelected = false
@@ -160,14 +160,16 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
           startX += this.gap
           this.addNode(groupedNode)
           groupedNode.setPosition(startX, startY)
-          if (!isEmpty(prevNodes) && prevNodes) {
+          /* istanbul ignore else */ if (!isEmpty(prevNodes) && prevNodes) {
             prevNodes.forEach((prevNode: Diagram.DefaultNodeModel) => {
               this.connectedParentToNode(
                 groupedNode,
                 prevNode,
                 false,
                 0,
-                getArrowsColor(parallel[0].item?.status || ExecutionPipelineItemStatus.NOT_STARTED)
+                getArrowsColor(
+                  parallel[0].item?.status || /* istanbul ignore next */ ExecutionPipelineItemStatus.NOT_STARTED
+                )
               )
             })
           }
@@ -175,7 +177,7 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
         } else {
           let newX = startX
           let newY = startY
-          if (!isEmpty(prevNodes)) {
+          /* istanbul ignore else */ if (!isEmpty(prevNodes)) {
             const emptyNodeStart =
               this.getNodeFromId(`${EmptyNodeSeparator}-${EmptyNodeSeparator}${parallel[0].item?.identifier}`) ||
               new Diagram.EmptyNodeModel({
@@ -191,7 +193,9 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
                 prevNode,
                 false,
                 0,
-                getArrowsColor(parallel[0].item?.status || ExecutionPipelineItemStatus.NOT_STARTED)
+                getArrowsColor(
+                  parallel[0].item?.status || /* istanbul ignore next */ ExecutionPipelineItemStatus.NOT_STARTED
+                )
               )
             })
             prevNodes = [emptyNodeStart]
@@ -210,11 +214,11 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
             )
             startX = resp.startX
             newY = resp.startY + this.gap / 2 + (nodeStyle.height - 64)
-            if (resp.prevNodes) {
+            /* istanbul ignore else */ if (resp.prevNodes) {
               prevNodesAr.push(...resp.prevNodes)
             }
           })
-          if (!isEmpty(prevNodesAr)) {
+          /* istanbul ignore else */ if (!isEmpty(prevNodesAr)) {
             const emptyNodeEnd =
               this.getNodeFromId(`${EmptyNodeSeparator}${parallel[0].item?.identifier}${EmptyNodeSeparator}`) ||
               new Diagram.EmptyNodeModel({
@@ -230,7 +234,10 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
                 prevNode,
                 false,
                 0,
-                getArrowsColor(parallel[0].item?.status || ExecutionPipelineItemStatus.NOT_STARTED, true)
+                getArrowsColor(
+                  parallel[0].item?.status || /* istanbul ignore next */ ExecutionPipelineItemStatus.NOT_STARTED,
+                  true
+                )
               )
             })
             prevNodes = [emptyNodeEnd]
@@ -249,8 +256,8 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
         )
       }
       return { startX, startY, prevNodes }
-    } else if (node.group) {
-      if (node.group.isOpen) {
+    } /* istanbul ignore else */ else if (node.group) {
+      /* istanbul ignore else */ if (node.group.isOpen) {
         this.clearAllLinksForNode(node.group.identifier)
         const stepGroupLayer =
           this.getGroupLayer(node.group.identifier) ||
@@ -260,7 +267,7 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
             label: node.group.name,
             showRollback: false
           })
-        if (prevNodes && prevNodes.length > 0) {
+        /* istanbul ignore else */ if (prevNodes && prevNodes.length > 0) {
           startX += this.gap
           stepGroupLayer.startNode.setPosition(startX, startY)
           prevNodes.forEach((prevNode: Diagram.DefaultNodeModel) => {
@@ -269,7 +276,7 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
               prevNode,
               false,
               0,
-              getArrowsColor(node.group?.status || ExecutionPipelineItemStatus.NOT_STARTED)
+              getArrowsColor(node.group?.status || /* istanbul ignore next */ ExecutionPipelineItemStatus.NOT_STARTED)
             )
           })
           prevNodes = [stepGroupLayer.startNode]
@@ -278,7 +285,7 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
         this.useStepGroupLayer(stepGroupLayer)
 
         // Check if step group has nodes
-        if (node.group.items?.length > 0) {
+        /* istanbul ignore else */ if (node.group.items?.length > 0) {
           node.group.items.forEach(step => {
             const resp = this.renderGraphNodes(
               step,
@@ -291,12 +298,12 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
             )
             startX = resp.startX
             startY = resp.startY
-            if (resp.prevNodes) {
+            /* istanbul ignore else */ if (resp.prevNodes) {
               prevNodes = resp.prevNodes
             }
           })
         }
-        if (prevNodes && prevNodes.length > 0) {
+        /* istanbul ignore else */ if (prevNodes && prevNodes.length > 0) {
           startX = startX + this.gap
           stepGroupLayer.endNode.setPosition(startX, startY)
           prevNodes.forEach((prevNode: Diagram.DefaultNodeModel) => {
@@ -305,7 +312,10 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
               prevNode,
               false,
               0,
-              getArrowsColor(node.group?.status || ExecutionPipelineItemStatus.NOT_STARTED, true)
+              getArrowsColor(
+                node.group?.status || /* istanbul ignore next */ ExecutionPipelineItemStatus.NOT_STARTED,
+                true
+              )
             )
           })
           prevNodes = [stepGroupLayer.endNode]
@@ -357,7 +367,7 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
     const { gap } = this
     let { startX, startY } = this
 
-    if (pipeline.items.length === 0) {
+    /* istanbul ignore if */ if (pipeline.items.length === 0) {
       return
     }
     // Unlock Graph
@@ -365,7 +375,7 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
 
     let prevNodes: Diagram.DefaultNodeModel[] = []
 
-    if (showStartEndNode) {
+    /* istanbul ignore else */ if (showStartEndNode) {
       //Start Node
       const startNode = this.getNodeFromId('start-new') || new Diagram.NodeStartModel({ id: 'start-new' })
       startNode.setPosition(startX, startY)
@@ -389,25 +399,25 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
       )
       startX = resp.startX
       startY = resp.startY
-      if (resp.prevNodes) {
+      /* istanbul ignore else */ if (resp.prevNodes) {
         prevNodes = resp.prevNodes
       }
     })
 
-    if (showStartEndNode) {
+    /* istanbul ignore else */ if (showStartEndNode) {
       // Stop Node
       const stopNode =
         this.getNodeFromId('stop-node') || new Diagram.NodeStartModel({ id: 'stop-node', icon: 'stop', isStart: false })
       // this.clearAllLinksForNode('stop-node')
       stopNode.setPosition(startX + gap, startY)
       const lastNode = last(prevNodes)
-      if (lastNode) {
+      /* istanbul ignore else */ if (lastNode) {
         this.connectedParentToNode(
           stopNode,
           lastNode,
           false,
           0,
-          getArrowsColor(pipeline.status || ExecutionPipelineItemStatus.NOT_STARTED)
+          getArrowsColor(pipeline.status || /* istanbul ignore next */ ExecutionPipelineItemStatus.NOT_STARTED)
         )
       }
       this.addNode(stopNode)

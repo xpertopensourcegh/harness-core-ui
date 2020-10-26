@@ -45,22 +45,26 @@ const PipelineGraph: React.FC = () => {
 
   // Stages pipeline
   const stagesPipeline = (
-    <ExecutionStageDiagram
-      data={buildData?.stagePipeline}
-      key={buildData?.stagePipeline.identifier}
-      showStartEndNode={buildData?.stagePipeline && buildData?.stagePipeline.items.length > 0}
-      selectedIdentifier={selectedStageIdentifier}
-      nodeStyle={{
-        width: 114,
-        height: 50
-      }}
-      gridStyle={{
-        startY: 50
-      }}
-      itemClickHandler={event => {
-        setSelectedStageIdentifier(event.stage.identifier)
-      }}
-    />
+    <>
+      {buildData?.stagePipeline && (
+        <ExecutionStageDiagram
+          data={buildData.stagePipeline}
+          key={buildData?.stagePipeline.identifier}
+          showStartEndNode={buildData?.stagePipeline && buildData?.stagePipeline.items.length > 0}
+          selectedIdentifier={selectedStageIdentifier}
+          nodeStyle={{
+            width: 114,
+            height: 50
+          }}
+          gridStyle={{
+            startY: 50
+          }}
+          itemClickHandler={event => {
+            setSelectedStageIdentifier(event.stage.identifier)
+          }}
+        />
+      )}
+    </>
   )
 
   // Steps pipeline

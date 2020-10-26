@@ -1,14 +1,22 @@
 import React from 'react'
-
 import { queryByAttribute, render, getByPlaceholderText, fireEvent, act, waitFor } from '@testing-library/react'
 import PipelineCreate from '../CreateModal/PipelineCreate'
 import i18n from '../CreateModal/PipelineCreate.i18n'
+import type { PipelineCreateProps } from '../CreateModal/PipelineCreate'
+import { DefaultNewPipelineId } from '../PipelineContext/PipelineActions'
 
-const props = {}
+const afterSave = jest.fn()
+const closeModal = jest.fn()
+
+const getEditProps = (identifier = 'test', description = 'desc', name = 'pipeline'): PipelineCreateProps => ({
+  afterSave,
+  initialValues: { identifier, description, name },
+  closeModal
+})
 
 describe('PipelineCreate test', () => {
   test('initializes ok ', async () => {
-    const { container } = render(<PipelineCreate {...props} />)
+    const { container } = render(<PipelineCreate />)
     expect(queryByAttribute('class', container, /container/)).not.toBeNull()
     const nameInput = getByPlaceholderText(container, i18n.pipelineNamePlaceholder)
     expect(nameInput).not.toBeNull()
@@ -27,5 +35,29 @@ describe('PipelineCreate test', () => {
 
       expect(container.querySelector('[class*="collapseDiv"]')).not.toBeNull()
     }
+  })
+  test('initializes ok edit pipeline', async () => {
+    afterSave.mockReset()
+    const { container, getByText } = render(<PipelineCreate {...getEditProps()} />)
+    await waitFor(() => getByText('Save'))
+    expect(container).toMatchSnapshot()
+    const saveBtn = getByText('Save')
+    fireEvent.click(saveBtn)
+    await waitFor(() => expect(afterSave).toBeCalledTimes(1))
+    expect(afterSave).toBeCalledWith({
+      description: 'desc',
+      identifier: 'test',
+      name: 'pipeline'
+    })
+    const closeBtn = container.querySelector('[icon="cross"]')
+    fireEvent.click(closeBtn!)
+    await waitFor(() => expect(closeModal).toBeCalledTimes(1))
+    expect(closeModal).toBeCalled()
+  })
+  test('initializes ok new pipeline', async () => {
+    closeModal.mockReset()
+    const { container, getByText } = render(<PipelineCreate {...getEditProps(DefaultNewPipelineId)} />)
+    await waitFor(() => getByText('Start'))
+    expect(container).toMatchSnapshot()
   })
 })

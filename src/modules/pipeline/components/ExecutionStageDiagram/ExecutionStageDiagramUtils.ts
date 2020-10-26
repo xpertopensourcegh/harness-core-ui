@@ -13,7 +13,7 @@ export const getNodeStyles = (isSelected: boolean, status: ExecutionPipelineItem
   style.borderWidth = '2px'
   style.borderStyle = 'solid'
 
-  if (status) {
+  /* istanbul ignore else */ if (status) {
     switch (status) {
       case ExecutionPipelineItemStatus.SUCCESS:
       case ExecutionPipelineItemStatus.SUCCEEDED:
@@ -73,7 +73,7 @@ export const getStatusProps = (
   const secondaryIconStyle: React.CSSProperties = { top: -7, right: -7 }
   let secondaryIcon: IconName | undefined = undefined
   const secondaryIconProps: Omit<IconProps, 'name'> = { size: 16 }
-  if (status) {
+  /* istanbul ignore else */ if (status) {
     switch (status) {
       case ExecutionPipelineItemStatus.FAILED:
       case ExecutionPipelineItemStatus.ERROR:
@@ -171,7 +171,7 @@ export const moveStageToFocus = (engine: DiagramEngine, identifier: string): voi
   const model = engine.getModel() as Diagram.DiagramModel
   const layer = model.getGroupLayer(identifier) || model.getNodeFromId(identifier)
   const canvas = engine.getCanvas()
-  if (layer && canvas) {
+  /* istanbul ignore else */ if (layer && canvas) {
     const rect = canvas.getBoundingClientRect()
     let newOffsetX = 100
     if (layer instanceof Diagram.StepGroupNodeLayerModel) {
@@ -214,14 +214,14 @@ export const getRunningNode = <T>(data: ExecutionPipeline<T>): ExecutionPipeline
 
 export const focusRunningNode = <T>(engine: DiagramEngine, data: ExecutionPipeline<T>): void => {
   const runningStage = getRunningNode(data)
-  if (runningStage) {
+  /* istanbul ignore else */ if (runningStage) {
     const node = (engine.getModel() as Diagram.DiagramModel).getNodeFromId(runningStage.identifier)
     const canvas = engine.getCanvas()
     if (canvas && node) {
       const rect = canvas.getBoundingClientRect()
       const nodePosition = node.getPosition()
       const nodeWidth = node.width
-      if (rect.width < nodePosition.x + nodeWidth + 40) {
+      /* istanbul ignore else */ if (rect.width < nodePosition.x + nodeWidth + 40) {
         const newOffsetX = (rect.width - node.width) * 0.8 - nodePosition.x
         const offsetY = engine.getModel().getOffsetY()
         engine.getModel().setOffset(newOffsetX, offsetY)

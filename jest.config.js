@@ -6,7 +6,7 @@ module.exports = {
     },
     __DEV__: false
   },
-  setupFiles: ['<rootDir>/scripts/jest/setup-file.js'],
+  setupFiles: ['<rootDir>/scripts/jest/setup-file.js', 'fake-indexeddb/auto'],
   collectCoverageFrom: [
     'src/**/*.{ts,tsx}',
     '!src/**/*.test.{ts,tsx}',

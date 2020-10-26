@@ -73,14 +73,14 @@ export class StageBuilderModel extends DiagramModel {
 
       this.addNode(nodeRender)
       nodeRender.setPosition(startX, startY)
-      if (!isEmpty(prevNodes) && prevNodes) {
+      /* istanbul ignore else */ if (!isEmpty(prevNodes) && prevNodes) {
         prevNodes.forEach((prevNode: DefaultNodeModel) => {
           this.connectedParentToNode(nodeRender, prevNode, !isParallelNodes)
         })
       }
       return { startX, startY, prevNodes: [nodeRender] }
-    } else if (node.parallel && prevNodes) {
-      if (node.parallel.length > 1) {
+    } /* istanbul ignore else */ else if (node.parallel && prevNodes) {
+      /* istanbul ignore else */ if (node.parallel.length > 1) {
         if (selectedStageId && (splitPaneSize || 0) < (this.gap * node.parallel.length) / 2 + 40) {
           const parallelStageNames: Array<string> = []
           let isSelected = false
@@ -119,7 +119,7 @@ export class StageBuilderModel extends DiagramModel {
         } else {
           let newX = startX
           let newY = startY
-          if (!isEmpty(prevNodes)) {
+          /* istanbul ignore else */ if (!isEmpty(prevNodes)) {
             const emptyNodeStart = new EmptyNodeModel({
               identifier: `${EmptyNodeSeparator}-${EmptyNodeSeparator}${node.parallel[0].stage.identifier}${EmptyNodeSeparator}`,
               name: 'Empty'
@@ -149,11 +149,11 @@ export class StageBuilderModel extends DiagramModel {
             )
             startX = resp.startX
             newY = resp.startY + this.gap / 2
-            if (resp.prevNodes) {
+            /* istanbul ignore else */ if (resp.prevNodes) {
               prevNodesAr.push(...resp.prevNodes)
             }
           })
-          if (!isEmpty(prevNodesAr)) {
+          /* istanbul ignore else */ if (!isEmpty(prevNodesAr)) {
             const emptyNodeEnd = new EmptyNodeModel({
               identifier: `${EmptyNodeSeparator}${node.parallel[0].stage.identifier}${EmptyNodeSeparator}`,
               name: 'Empty'
@@ -232,7 +232,7 @@ export class StageBuilderModel extends DiagramModel {
       )
       startX = resp.startX
       startY = resp.startY
-      if (resp.prevNodes) {
+      /* istanbul ignore else */ if (resp.prevNodes) {
         prevNodes = resp.prevNodes
       }
     })

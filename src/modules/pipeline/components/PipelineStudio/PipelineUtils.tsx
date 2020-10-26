@@ -55,7 +55,7 @@ export const getPipelineTree = (pipeline: NgPipeline): ITreeNode[] => {
     }
   ]
 
-  if (pipeline.stages && pipeline.stages?.length > 0) {
+  /* istanbul ignore else */ if (pipeline.stages && pipeline.stages?.length > 0) {
     const stages: ITreeNode = {
       id: 'Stages',
       hasCaret: true,
@@ -68,7 +68,7 @@ export const getPipelineTree = (pipeline: NgPipeline): ITreeNode[] => {
         data.parallel.forEach((nodeP: StageElementWrapper) => {
           nodeP.stage && stages.childNodes?.push(getStageTree(nodeP.stage))
         })
-      } else if (data.stage) {
+      } /* istanbul ignore else */ else if (data.stage) {
         stages.childNodes?.push(getStageTree(data.stage))
       }
     })

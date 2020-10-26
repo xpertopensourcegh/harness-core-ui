@@ -74,13 +74,13 @@ export const PipelineVariables: React.FC = (): JSX.Element => {
   }, [pipeline])
 
   const stagesCards: JSX.Element[] = []
-  if (pipeline.stages && pipeline.stages?.length > 0) {
+  /* istanbul ignore else */ if (pipeline.stages && pipeline.stages?.length > 0) {
     pipeline.stages.forEach(data => {
       if (data.parallel && data.parallel.length > 0) {
         data.parallel.forEach((nodeP: StageElementWrapper) => {
           nodeP.stage && stagesCards.push(renderForStage(nodeP.stage, stepsFactory))
         })
-      } else if (data.stage) {
+      } /* istanbul ignore else */ else if (data.stage) {
         stagesCards.push(renderForStage(data.stage, stepsFactory))
       }
     })

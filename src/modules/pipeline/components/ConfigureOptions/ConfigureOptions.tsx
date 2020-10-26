@@ -62,7 +62,7 @@ export function ConfigureOptions(props: ConfigureOptionsProps): JSX.Element {
     const isAdvanced = RegExpression.test(input)
     let advancedValue = ''
     if (isAdvanced) {
-      advancedValue = allowedValueStr.match(RegExpression)?.[1] || ''
+      advancedValue = allowedValueStr.match(RegExpression)?.[1] || /* istanbul ignore next */ ''
     } else if (allowedValueStr.length > 0) {
       allowedValues = allowedValueStr.split(',')
     }
@@ -104,7 +104,10 @@ export function ConfigureOptions(props: ConfigureOptionsProps): JSX.Element {
               } else {
                 inputStr += `.${AllowedExpression}(${data.allowedValues.join(',')})`
               }
-            } else if (data.validation === Validation.Regex && data.regExValues?.length > 0) {
+            } /* istanbul ignore else */ else if (
+              data.validation === Validation.Regex &&
+              data.regExValues?.length > 0
+            ) {
               inputStr += `.${RegexExpression}(${data.regExValues})`
             }
             setInput(inputStr)
@@ -155,7 +158,7 @@ export function ConfigureOptions(props: ConfigureOptionsProps): JSX.Element {
                             }}
                           />
                         </span>
-                      ) : null}
+                      ) : /* istanbul ignore next */ null}
                       {values.isAdvanced ? (
                         <FormInput.TextArea
                           name="advancedValue"

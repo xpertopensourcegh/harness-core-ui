@@ -51,7 +51,7 @@ export class ItemMouseLeaveEvent<T> extends ItemEvent<T> {
 
 export interface ExecutionStageDiagramProps<T> {
   /** pipeline definition */
-  data?: ExecutionPipeline<T>
+  data: ExecutionPipeline<T>
   /** selected item id */
   selectedIdentifier: string // TODO: 1. add node style for each type/shape 2. add default value
   /** node style  */
@@ -75,11 +75,11 @@ export interface ExecutionStageDiagramProps<T> {
 
 export default function ExecutionStageDiagram<T>(props: ExecutionStageDiagramProps<T>): React.ReactElement {
   const {
-    data = { items: [], identifier: '' },
+    data,
     className,
     selectedIdentifier,
     nodeStyle = { width: 50, height: 50 },
-    gridStyle = {},
+    gridStyle,
     diagramContainerHeight,
     showStartEndNode = true,
     itemClickHandler = noop,
@@ -119,7 +119,7 @@ export default function ExecutionStageDiagram<T>(props: ExecutionStageDiagramPro
   const nodeListeners: NodeModelListener = {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     [Diagram.Event.ClickNode]: (event: any) => {
-      if (autoPosition) {
+      /* istanbul ignore else */ if (autoPosition) {
         setAutoPosition(false)
       }
       const group = groupStage?.get(event.entity.getIdentifier())
@@ -127,18 +127,18 @@ export default function ExecutionStageDiagram<T>(props: ExecutionStageDiagramPro
         updateGroupStage(event)
       } else {
         const stage = getStageFromDiagramEvent(event, data)
-        if (stage) itemClickHandler(new ItemClickEvent(stage, event.target))
+        /* istanbul ignore else */ if (stage) itemClickHandler(new ItemClickEvent(stage, event.target))
       }
     },
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     [Diagram.Event.MouseEnterNode]: (event: any) => {
       const stage = getStageFromDiagramEvent(event, data)
-      if (stage) itemMouseEnter(new ItemMouseEnterEvent(stage, event.target))
+      /* istanbul ignore else */ if (stage) itemMouseEnter(new ItemMouseEnterEvent(stage, event.target))
     },
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     [Diagram.Event.MouseLeaveNode]: (event: any) => {
       const stage = getStageFromDiagramEvent(event, data)
-      if (stage) itemMouseLeave(new ItemMouseLeaveEvent(stage, event.target))
+      /* istanbul ignore else */ if (stage) itemMouseLeave(new ItemMouseLeaveEvent(stage, event.target))
     }
   }
   const layerListeners: BaseModelListener = {
@@ -193,13 +193,13 @@ export default function ExecutionStageDiagram<T>(props: ExecutionStageDiagramPro
             itemPredicate={(query, item, _index, exactMatch) => {
               const normalizedValue = item.value.toLowerCase()
               const normalizedQuery = query.toLowerCase()
-              if (exactMatch) {
+              /* istanbul ignore if */ if (exactMatch) {
                 return normalizedValue === normalizedQuery
               } else {
                 return normalizedValue.indexOf(normalizedQuery) > -1 || item.label.indexOf(normalizedQuery) > -1
               }
             }}
-            items={stageSelectionOptions || []}
+            items={stageSelectionOptions || /* istanbul ignore next */ []}
             onItemSelect={item => onChangeStageSelection?.(item)}
           >
             <Button round icon={selectedStage.icon?.name} text={selectedStage.label} rightIcon="caret-down" />

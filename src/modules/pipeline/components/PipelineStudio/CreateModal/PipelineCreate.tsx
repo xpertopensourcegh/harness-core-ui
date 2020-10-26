@@ -30,7 +30,7 @@ const collapseProps = {
   className: 'collapse'
 }
 
-interface PipelineCreateProps {
+export interface PipelineCreateProps {
   afterSave?: (values: NgPipeline) => void
   initialValues?: NgPipeline
   closeModal?: () => void
@@ -97,12 +97,7 @@ export default function CreatePipelines({
                           showAddTagButton: true,
                           showClearAllButton: true,
                           allowNewTag: true,
-                          placeholder: i18n.enterTags,
-                          getTagProps: (value, _index, _selectedItems, createdItems) => {
-                            return createdItems.includes(value)
-                              ? { intent: 'danger', minimal: true }
-                              : { intent: 'primary', minimal: true }
-                          }
+                          placeholder: i18n.enterTags
                         }}
                       />
                     </Collapse>
