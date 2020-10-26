@@ -43,7 +43,7 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
 
   useEffect(() => {
     const stepsCategories = stepsData?.data?.stepCategories
-    if (stepsCategories) {
+    /* istanbul ignore else */ if (stepsCategories) {
       setStepsCategories(stepsCategories)
       setOriginalCategories(stepsCategories)
     }
@@ -113,7 +113,7 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
             )}
             {stepCategories?.map((stepCategory: StepCategory) => {
               const categorySteps: JSX.Element[] = []
-              if (stepCategory?.stepsData) {
+              /* istanbul ignore else */ if (stepCategory?.stepsData) {
                 stepCategory.stepsData.forEach((stepData: StepData) => {
                   categorySteps.push(
                     <section
@@ -129,9 +129,9 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
                         }
                       }}
                     >
-                      {stepsFactory.getStep(stepData.type || '') ? (
+                      {stepsFactory.getStep(stepData.type || /* istanbul ignore next */ '') ? (
                         <Card interactive={true} elevation={0} selected={false}>
-                          <Icon name={stepsFactory.getStepIcon(stepData.type || '')} />
+                          <Icon name={stepsFactory.getStepIcon(stepData.type || /* istanbul ignore next */ '')} />
                         </Card>
                       ) : (
                         <Card
@@ -141,7 +141,7 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
                           disabled
                           onClick={e => e.stopPropagation()}
                         >
-                          <Icon name={iconMap[stepData.name || '']} />
+                          <Icon name={iconMap[stepData.name || /* istanbul ignore next */ '']} />
                         </Card>
                       )}
                       <section className={css.stepName}>{stepData.name}</section>
@@ -158,18 +158,18 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
                         className={css.step}
                         key={step.name}
                         onClick={() => {
-                          if (step.type !== 'Placeholder') {
+                          /* istanbul ignore else */ if (step.type !== 'Placeholder') {
                             onSelect({
-                              name: step.name || '',
-                              type: step.type || '',
-                              icon: stepsFactory.getStepIcon(step.type || '')
+                              name: step.name || /* istanbul ignore next */ '',
+                              type: step.type || /* istanbul ignore next */ '',
+                              icon: stepsFactory.getStepIcon(step.type || /* istanbul ignore next */ '')
                             })
                           }
                         }}
                       >
-                        {stepsFactory.getStep(step.type || '') ? (
+                        {stepsFactory.getStep(step.type || /* istanbul ignore next */ '') ? (
                           <Card interactive={true} elevation={0} selected={false}>
-                            <Icon name={stepsFactory.getStepIcon(step.type || '')} />
+                            <Icon name={stepsFactory.getStepIcon(step.type || /* istanbul ignore next */ '')} />
                           </Card>
                         ) : (
                           <Card
@@ -179,7 +179,7 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
                             disabled
                             onClick={e => e.stopPropagation()}
                           >
-                            <Icon name={iconMap[step.name || '']} />
+                            <Icon name={iconMap[step.name || /* istanbul ignore next */ '']} />
                           </Card>
                         )}
                         <section className={css.stepName}>{step.name}</section>
@@ -204,7 +204,7 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
           </Layout.Horizontal>
           <section className={css.primaryCategories}>
             <section
-              className={cx(selectedCategory === primaryTypes.SHOW_ALL ? css.active : '')}
+              className={cx(selectedCategory === primaryTypes.SHOW_ALL ? css.active : /* istanbul ignore next */ '')}
               onClick={() => {
                 filterSteps(primaryTypes.SHOW_ALL)
               }}
@@ -224,12 +224,12 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
                     <section
                       className={cx(css.category, selectedCategory === category.name && css.active)}
                       onClick={() => {
-                        filterSteps(category.name || '')
+                        filterSteps(category.name || /* istanbul ignore next */ '')
                       }}
                       key={category.name}
                     >
-                      <Icon size={14} name={iconMapByName[category.name || '']} /> {category.name} (
-                      {category.stepsData?.length})
+                      <Icon size={14} name={iconMapByName[category.name || /* istanbul ignore next */ '']} />{' '}
+                      {category.name} ({category.stepsData?.length})
                     </section>
                   )
                 }
@@ -243,7 +243,8 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
                       }}
                       key={category.name}
                     >
-                      <Icon size={14} name={iconMapByName[category.name || '']} /> {category.name}
+                      <Icon size={14} name={iconMapByName[category.name || /* istanbul ignore next */ '']} />{' '}
+                      {category.name}
                     </section>
                   )
                   subCategory.forEach((subCat: StepCategory) =>
@@ -251,7 +252,7 @@ export const StepPalette: React.FC<StepPaletteProps> = ({
                       <section
                         className={cx(css.category, css.offset, selectedCategory === subCat.name && css.active)}
                         onClick={() => {
-                          filterSteps(subCat.name || '')
+                          filterSteps(subCat.name || /* istanbul ignore next */ '')
                         }}
                         key={subCat.name}
                       >

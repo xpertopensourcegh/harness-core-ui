@@ -228,7 +228,7 @@ const ExecutionGraph = (): JSX.Element => {
         } else if (stepState?.stepType === StepType.SERVICE) {
           node = getServiceFromNode(state.servicesData, eventTemp.entity).node?.service
         }
-        if (node) {
+        /* istanbul ignore else */ if (node) {
           updatePipelineView({
             ...pipelineView,
             isDrawerOpened: true,
@@ -278,7 +278,7 @@ const ExecutionGraph = (): JSX.Element => {
           })
         }
       } else {
-        if (eventTemp.target) {
+        /* istanbul ignore else */ if (eventTemp.target) {
           dynamicPopoverHandler?.show(
             eventTemp.target,
             {
@@ -466,7 +466,7 @@ const ExecutionGraph = (): JSX.Element => {
 
   useEffect(() => {
     const openExecutionStrategy = stageType ? stagesMap[stageType].openExecutionStrategy : true
-    if (openExecutionStrategy) {
+    /* istanbul ignore else */ if (openExecutionStrategy) {
       const { stage: data } = getStageFromPipeline(pipeline, selectedStageId as string)
       if (data?.stage) {
         if (!data?.stage?.spec?.execution) {
