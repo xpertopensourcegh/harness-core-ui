@@ -5,9 +5,9 @@ import { PopoverInteractionKind, Position, Tooltip } from '@blueprintjs/core'
 import type { EventData } from './ActivitiesTimelineView'
 
 export default function TimelineTooltip({ items, children }: { items: Array<EventData>; children: JSX.Element }) {
-  let dateLabel = moment(items[0].startDate).format('MMM D, h:mm:ss a')
+  let dateLabel = moment(items[0].startTime).format('MMM D, h:mm:ss a')
   if (items.length > 1) {
-    dateLabel = `${dateLabel} - ${moment(items[items.length - 1].startDate).format('MMM D, h:mm:ss a')}`
+    dateLabel = `${dateLabel} - ${moment(items[items.length - 1].startTime).format('MMM D, h:mm:ss a')}`
   }
   return (
     <Tooltip

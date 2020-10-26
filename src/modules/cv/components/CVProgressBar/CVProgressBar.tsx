@@ -24,5 +24,7 @@ export default function CVProgressBar({ risk, className, ...rest }: CVProgressBa
   if (risk !== undefined) {
     intentOverride.intent = mapRiskToIntent(risk)
   }
-  return <ProgressBar {...rest} {...intentOverride} className={classnames(styles.progressBar, className)} />
+  return (
+    <ProgressBar stripes={false} {...rest} {...intentOverride} className={classnames(styles.progressBar, className)} />
+  )
 }

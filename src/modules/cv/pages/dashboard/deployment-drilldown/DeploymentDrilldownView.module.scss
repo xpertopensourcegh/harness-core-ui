@@ -1,14 +1,17 @@
+.header {
+  flex-basis: 70px;
+  .headerWrap {
+    display: flex;
+    align-items: center;
+  }
+}
+
 .main {
   height: 100%;
   display: flex;
   flex-direction: column;
   .header {
-    flex-basis: 70px;
     border-bottom: 1px solid var(--grey-300);
-    .headerWrap {
-      display: flex;
-      align-items: center;
-    }
   }
   .body {
     flex: 1;
@@ -27,7 +30,7 @@
       display: flex;
       flex-direction: column;
       background-color: var(--grey-100);
-      padding: var(--spacing-small);
+      padding: var(--spacing-large);
       overflow-y: auto;
       .subHeader {
         display: flex;
@@ -37,8 +40,8 @@
       .panel {
         box-shadow: 0px 1px 2px 1px var(--grey-300);
         border-radius: 2px;
-        padding: var(--spacing-small);
-        margin-bottom: var(--spacing-small);
+        padding: var(--spacing-medium);
+        margin-bottom: var(--spacing-medium);
         background-color: var(--white);
       }
       .filters {
@@ -59,7 +62,7 @@
   flex-direction: column;
   min-height: 0;
   background-color: var(--white);
-  padding: var(--spacing-small);
+  padding: var(--spacing-medium);
   margin-top: var(--spacing-xsmall);
   border-radius: 2px;
   box-shadow: 0 0 1px 0px var(--grey-400);
@@ -91,4 +94,8 @@
       height: 100%;
     }
   }
+}
+
+.progressBar {
+  margin-bottom: var(--spacing-small);
 }

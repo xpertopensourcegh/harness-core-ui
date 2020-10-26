@@ -6,3 +6,10 @@
     width: 80%;
   }
 }
+
+.dataRow {
+  cursor: pointer;
+  &:hover {
+    background-color: var(--blue-200);
+  }
+}

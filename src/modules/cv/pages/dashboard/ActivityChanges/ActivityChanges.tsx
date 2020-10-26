@@ -1,10 +1,13 @@
 import React from 'react'
 import { Text, Intent, Button, Container } from '@wings-software/uikit'
+import { useHistory } from 'react-router-dom'
+import { routeCVActivityChangesPage } from 'navigation/cv/routes'
 import {
   MetricCategoriesWithRiskScore,
   MetricCategories
 } from 'modules/cv/components/MetricCategoriesWithRiskScore/MetricCategoriesWithRiskScore'
 import type { MetricPackDTO } from 'services/cv'
+import { useRouteParams } from 'framework/exports'
 import i18n from './ActivityChanges.i18n'
 import ActivityType from '../ActivityType/ActivityType'
 import ActivityProgressIndicator from '../ActivityProgressIndicator/ActivityProgressIndicator'
@@ -141,13 +144,28 @@ const MOCK_DATA = [
 ]
 
 export default function ActivityChanges(): JSX.Element {
+  const history = useHistory()
+  const {
+    params: { projectIdentifier, orgIdentifier }
+  } = useRouteParams()
   return (
     <ul className={css.activityList}>
       <li className={css.headerRow}>{ACTIVITY_COLUMN_NAMES}</li>
       {MOCK_DATA.map(data => {
         const { changeEvent, service, activityType, verificationStatus, priorRiskScores, postRiskScores } = data || {}
         return (
-          <li key={`${data.activityType}-${data.changeEvent}-${data.service}`} className={css.dataRow}>
+          <li
+            key={`${data.activityType}-${data.changeEvent}-${data.service}`}
+            className={css.dataRow}
+            onClick={() =>
+              history.push(
+                routeCVActivityChangesPage.url({
+                  projectIdentifier: projectIdentifier as string,
+                  orgIdentifier: orgIdentifier as string
+                })
+              )
+            }
+          >
             <ActivityType
               serviceName={service}
               buildName={changeEvent}

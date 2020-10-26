@@ -1,15 +1,17 @@
 import React from 'react'
 import { Container, Text } from '@wings-software/uikit'
+import classnames from 'classnames'
 import type { MetricPackDTO } from 'services/cv'
 import { RiskScoreTile, RiskScoreTileProps } from '../RiskScoreTile/RiskScoreTile'
 import css from './MetricCategoriesWithRiskScore.module.scss'
 
-interface CategoriesWithRiskScoreProps {
+export interface CategoriesWithRiskScoreProps {
   categoriesWithRiskScores: Array<{
-    categoryName: MetricPackDTO['category']
+    categoryName: MetricPackDTO['category'] | 'QUALITY'
     riskScore: number
   }>
   className?: string
+  infoContainerClassName?: string
   riskScoreTileProps?: Omit<RiskScoreTileProps, 'riskScore'>
 }
 
@@ -26,7 +28,12 @@ const AbbreviatedMetricCategories = {
 }
 
 export function MetricCategoriesWithRiskScore(props: CategoriesWithRiskScoreProps): JSX.Element {
-  const { categoriesWithRiskScores: categoriesAndRiskScore = [], className, riskScoreTileProps } = props
+  const {
+    categoriesWithRiskScores: categoriesAndRiskScore = [],
+    className,
+    infoContainerClassName,
+    riskScoreTileProps
+  } = props
   return (
     <Container className={className}>
       <Container className={css.main}>
@@ -36,7 +43,7 @@ export function MetricCategoriesWithRiskScore(props: CategoriesWithRiskScoreProp
             return
           }
           return (
-            <Container key={categoryName} className={css.infoContainer}>
+            <Container key={categoryName} className={classnames(css.infoContainer, infoContainerClassName)}>
               <Text font={{ size: 'small' }}>{AbbreviatedMetricCategories[categoryName]}</Text>
               <RiskScoreTile riskScore={riskScore} isSmall {...riskScoreTileProps} />
             </Container>

@@ -1,0 +1,30 @@
+.main {
+  display: flex;
+  margin-top: var(--spacing-small) !important;
+  .column {
+    flex: 1;
+    &.statusGroup > p {
+      margin-bottom: 2px;
+    }
+    &.risksGroup {
+      display: flex;
+      align-items: baseline;
+      .infoContainer {
+        margin-right: var(--spacing-large);
+      }
+      > p {
+        margin-right: var(--spacing-small);
+        color: var(--black);
+      }
+    }
+    &.cumulativeRisk {
+      display: flex;
+      align-items: center;
+      flex: 0;
+      > p,
+      > button {
+        margin-left: var(--spacing-small);
+      }
+    }
+  }
+}

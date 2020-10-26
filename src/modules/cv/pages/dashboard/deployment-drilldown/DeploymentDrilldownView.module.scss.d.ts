@@ -1,9 +1,9 @@
 /* eslint-disable */
 // this is an auto-generated file
 declare const styles: {
-  readonly main: string
   readonly header: string
   readonly headerWrap: string
+  readonly main: string
   readonly body: string
   readonly sideNav: string
   readonly content: string
@@ -17,5 +17,6 @@ declare const styles: {
   readonly logsTab: string
   readonly tableContent: string
   readonly logAnalysisRow: string
+  readonly progressBar: string
 }
 export default styles

@@ -42,6 +42,28 @@ export const routeCVDeploymentPage: Route<{
   module: ModuleName.CV
 }
 
+export const routeCVActivityChangesPage: Route<{
+  projectIdentifier: string
+  orgIdentifier: string
+}> = {
+  sidebarId: SidebarIdentifier.CONTINUOUS_VERIFICATION,
+  path: '/cv/dashboard/activity-changes/org/:orgIdentifier/project/:projectIdentifier',
+  title: i18n.services,
+  pageId: '/cv/dashboard/activityChanges',
+  authenticated: true,
+  url: ({ projectIdentifier, orgIdentifier }) =>
+    !projectIdentifier || !orgIdentifier
+      ? routeURL(routeCVHome, `/cv/home`)
+      : routeURL(
+          routeCVMainDashBoardPage,
+          `/cv/dashboard/activity-changes/org/${orgIdentifier}/project/${projectIdentifier}`
+        ),
+  component: React.lazy(() =>
+    import('modules/cv/pages/dashboard/activity-changes-drilldown/ActivityChangesDrilldownView')
+  ),
+  module: ModuleName.CV
+}
+
 export const routeCVHome: Route = {
   sidebarId: SidebarIdentifier.CONTINUOUS_VERIFICATION,
   path: '/cv/home',
