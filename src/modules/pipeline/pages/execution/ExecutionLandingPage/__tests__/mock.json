@@ -9,12 +9,10 @@
       "executionStatus": "Success",
       "startedAt": 1602606406435,
       "endedAt": 1602606454275,
-      "tags": [
-        {
-          "key1": "Value1",
-          "key2": "Value2"
-        }
-      ],
+      "tags": {
+        "key1": "Value1",
+        "key2": "Value2"
+      },
       "stageExecutionSummaryElements": [
         {
           "stage": {

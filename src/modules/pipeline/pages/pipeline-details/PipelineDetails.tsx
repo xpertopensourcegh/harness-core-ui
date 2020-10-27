@@ -1,7 +1,6 @@
 import React from 'react'
 import { Container, Layout, Icon, Color, Text } from '@wings-software/uikit'
 import { NavLink, useParams } from 'react-router-dom'
-import { parse } from 'yaml'
 import { Page } from 'modules/common/exports'
 import {
   routePipelineDeploymentList,
@@ -9,7 +8,7 @@ import {
   routeCDPipelineStudio,
   routeCDPipelines
 } from 'navigation/cd/routes'
-import { useGetPipeline } from 'services/cd-ng'
+import { useGetPipelineSummary } from 'services/cd-ng'
 import i18n from './PipelineDetails.i18n'
 import css from './PipelineDetails.module.scss'
 
@@ -20,7 +19,7 @@ const PipelineDetails: React.FC = ({ children }): JSX.Element => {
     accountId: string
     pipelineIdentifier: string
   }>()
-  const { data: pipeline, loading } = useGetPipeline({
+  const { data: pipeline, loading } = useGetPipelineSummary({
     pipelineIdentifier,
     queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
   })
@@ -35,7 +34,7 @@ const PipelineDetails: React.FC = ({ children }): JSX.Element => {
               </NavLink>
               &nbsp;/
             </span>
-            {!loading && <Text>{parse(pipeline?.data?.yamlPipeline as any)?.pipeline.name}</Text>}
+            {!loading && <Text>{pipeline?.data?.name}</Text>}
           </Layout.Vertical>
         }
         toolbar={

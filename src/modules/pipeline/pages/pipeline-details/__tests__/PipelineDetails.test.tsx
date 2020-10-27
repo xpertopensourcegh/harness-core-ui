@@ -6,7 +6,7 @@ import { routePipelineDetail } from 'navigation/cd/routes'
 import PipelineDetails from '../PipelineDetails'
 import { PipelineResponse } from './PipelineDetailsMocks'
 jest.mock('services/cd-ng', () => ({
-  useGetPipeline: jest.fn(() => PipelineResponse)
+  useGetPipelineSummary: jest.fn(() => PipelineResponse)
 }))
 describe('Pipeline Details tests', () => {
   test('render snapshot view', async () => {

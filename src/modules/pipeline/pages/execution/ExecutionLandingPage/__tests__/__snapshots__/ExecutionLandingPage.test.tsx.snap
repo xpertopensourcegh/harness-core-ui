@@ -209,7 +209,26 @@ exports[`<ExecutionLandingPage /> tests Toggle details works: With Details 1`] =
             >
               <span
                 class="bp3-tag tag"
-              />
+              >
+                <span
+                  class="bp3-text-overflow-ellipsis bp3-fill"
+                >
+                  key1: Value1
+                </span>
+              </span>
+            </span>
+            <span
+              class="Tag---main--1vng"
+            >
+              <span
+                class="bp3-tag tag"
+              >
+                <span
+                  class="bp3-text-overflow-ellipsis bp3-fill"
+                >
+                  key2: Value2
+                </span>
+              </span>
             </span>
           </div>
         </div>
@@ -618,7 +637,26 @@ exports[`<ExecutionLandingPage /> tests Toggle details works: Without Details 1`
             >
               <span
                 class="bp3-tag tag"
-              />
+              >
+                <span
+                  class="bp3-text-overflow-ellipsis bp3-fill"
+                >
+                  key1: Value1
+                </span>
+              </span>
+            </span>
+            <span
+              class="Tag---main--1vng"
+            >
+              <span
+                class="bp3-tag tag"
+              >
+                <span
+                  class="bp3-text-overflow-ellipsis bp3-fill"
+                >
+                  key2: Value2
+                </span>
+              </span>
             </span>
           </div>
         </div>

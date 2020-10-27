@@ -23,7 +23,7 @@ import { CompletionItemKind } from 'vscode-languageserver-types'
 import {
   NgPipeline,
   Failure,
-  OverlayInputSet,
+  OverlayInputSetConfig,
   useCreateInputSetForPipeline,
   useGetInputSetForPipeline,
   useGetOverlayInputSetForPipeline,
@@ -59,7 +59,7 @@ export enum InputFormType {
 
 export interface InputSetDTO
   extends Omit<InputSetConfig, 'identifier' | 'pipeline'>,
-    Omit<OverlayInputSet, 'identifier'> {
+    Omit<OverlayInputSetConfig, 'identifier'> {
   pipeline?: NgPipeline
   identifier?: string
 }

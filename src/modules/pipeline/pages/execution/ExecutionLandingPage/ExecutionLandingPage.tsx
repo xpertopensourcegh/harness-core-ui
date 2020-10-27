@@ -150,11 +150,12 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<{}>)
               />
               <div className={css.tags}>
                 <Icon name="main-tags" size={14} />
-                {(pipelineExecution.tags || []).map(tag => (
-                  <Tag className={css.tag} key={tag.key}>
-                    {tag.value}
-                  </Tag>
-                ))}
+                {pipelineExecution.tags &&
+                  (Object.entries(pipelineExecution.tags) || []).map(tag => (
+                    <Tag className={css.tag} key={tag[0]}>
+                      {tag[1].length > 0 ? `${tag[0]}: ${tag[1]}` : tag[0]}
+                    </Tag>
+                  ))}
               </div>
             </div>
           </header>

@@ -122,7 +122,11 @@ const RenderColumnPipeline: Renderer<CellProps<PipelineDTO>> = ({ row }) => {
     <>
       <Layout.Horizontal spacing="small" data-testid={data.identifier}>
         <Text color={Color.BLACK}>{data.name}</Text>
-        {data.tags?.length ? <TagsPopover tags={data.tags.map(tag => tag.value)} /> : null}
+        {data.tags?.length ? (
+          <TagsPopover
+            tags={Object.entries(data.tags).map(tag => (tag[1].length > 0 ? `${tag[0]}: ${tag[1]}` : tag[0]))}
+          />
+        ) : null}
       </Layout.Horizontal>
       <Text color={Color.GREY_400}>{data.identifier}</Text>
     </>
