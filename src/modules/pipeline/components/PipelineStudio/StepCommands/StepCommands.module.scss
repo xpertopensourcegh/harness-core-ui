@@ -11,6 +11,8 @@
   overflow-y: hidden;
 
   .step-tabs {
+    overflow-y: auto;
     padding: 0 var(--spacing-large);
+    padding-bottom: var(--spacing-xlarge);
   }
 }
