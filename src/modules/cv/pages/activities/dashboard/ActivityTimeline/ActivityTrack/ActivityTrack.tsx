@@ -145,7 +145,7 @@ function ActivityCardWrapper(props: ActivityCardProps): JSX.Element {
 
 export function ActivityTrack(props: ActivityTrackProps): JSX.Element {
   const { trackIcon: iconProps, trackName, activities, cardContent, startTime, endTime, onActivityClick } = props
-  const activityBuckets = useMemo(() => placeActivitiesOnTrack(startTime, endTime, activities), [
+  const { activityBuckets, timelineHeight } = useMemo(() => placeActivitiesOnTrack(startTime, endTime, activities), [
     startTime,
     endTime,
     activities
@@ -154,7 +154,7 @@ export function ActivityTrack(props: ActivityTrackProps): JSX.Element {
   return (
     <Container
       style={{
-        height: activityBuckets[activityBuckets.length - 1].top + ACTIVITY_CARD_HEIGHT * 2,
+        height: timelineHeight + ACTIVITY_CARD_HEIGHT * 2,
         width: TRACK_WIDTH,
         padding: 'var(--spacing-xsmall)'
       }}

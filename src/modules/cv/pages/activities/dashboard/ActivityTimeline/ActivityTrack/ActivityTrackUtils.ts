@@ -55,7 +55,11 @@ export function computePositionOnTimeline(
   return BUCKET_TOP_OFFSET + ((startTime - activityStartTime) / totalTimeDifference) * timelineHeight
 }
 
-export function placeActivitiesOnTrack(startTime: number, endTime: number, activities: Activity[]): ActivityBucket[] {
+export function placeActivitiesOnTrack(
+  startTime: number,
+  endTime: number,
+  activities: Activity[]
+): { activityBuckets: ActivityBucket[]; timelineHeight: number } {
   const incrementUnit = findTimeIncrement(startTime, endTime, TOTAL_CARDS_PER_INTERVAL)
   const activityBuckets: ActivityBucket[] = []
   const { timelineHeight, totalTimeDifference } = computeTimelineHeight(startTime, endTime)
@@ -86,5 +90,5 @@ export function placeActivitiesOnTrack(startTime: number, endTime: number, activ
     }
   }
 
-  return activityBuckets
+  return { activityBuckets, timelineHeight }
 }

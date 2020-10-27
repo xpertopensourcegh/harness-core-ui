@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from 'react'
 import { Container, Text } from '@wings-software/uikit'
 import moment from 'moment'
+import cx from 'classnames'
 import type { DeploymentVerificationJobInstanceSummary } from 'services/cv'
 import TestsSummaryView from 'modules/cv/pages/dashboard/deployment-drilldown/TestsSummaryView'
 import BlueGreenVerificationChart, { NodeData } from 'modules/cv/pages/services/BlueGreenVerificationChart'
@@ -13,10 +14,11 @@ export interface DeploymentProgressAndNodesProps {
   deploymentSummary?: DeploymentVerificationJobInstanceSummary
   onSelectNode?: (node: NodeData) => void
   instancePhase?: InstancePhase
+  className?: string
 }
 
 export function DeploymentProgressAndNodes(props: DeploymentProgressAndNodesProps): JSX.Element {
-  const { deploymentSummary, onSelectNode, instancePhase } = props
+  const { deploymentSummary, onSelectNode, instancePhase, className } = props
   const [selectedNode, setSelectedNode] = useState<NodeData | undefined>()
   const deploymentNodesData = useMemo(() => {
     if (!!instancePhase && deploymentSummary?.additionalInfo?.type === 'CANARY') {
@@ -51,7 +53,7 @@ export function DeploymentProgressAndNodes(props: DeploymentProgressAndNodesProp
   }, [deploymentSummary])
 
   return (
-    <Container className={css.main}>
+    <Container className={cx(css.main, className)}>
       <CVProgressBar
         stripes={false}
         value={(deploymentSummary?.progressPercentage ?? 0) / 100}
@@ -64,10 +66,10 @@ export function DeploymentProgressAndNodes(props: DeploymentProgressAndNodesProp
       />
       {deploymentSummary && (
         <>
-          <Text font={{ size: 'small' }}>
+          <Text font={{ size: 'small' }} data-name={i18n.startedOnText}>
             {i18n.startedOnText}: {moment(deploymentSummary.startTime).format('MMM D, YYYY h:mm A')}
           </Text>
-          <Text font={{ size: 'small' }}>
+          <Text font={{ size: 'small' }} data-name={i18n.durationText}>
             {i18n.durationText}: {moment.duration(deploymentSummary.durationMs, 'ms').humanize()}
           </Text>
         </>

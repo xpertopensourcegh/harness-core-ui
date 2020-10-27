@@ -1,0 +1,29 @@
+.main {
+  padding: var(--spacing-medium) !important;
+  .header {
+    display: flex;
+    height: 60px;
+    align-items: center;
+
+    .activityTypeIcon,
+    .activityName {
+      margin-right: var(--spacing-medium) !important;
+    }
+  }
+  .progressCard {
+    box-shadow: none;
+    [data-name='Started On'],
+    [data-name='Duration'] {
+      font-size: var(--font-size-normal) !important;
+    }
+    [data-name='Started On'] {
+      margin-top: var(--spacing-small);
+    }
+    [data-name='Duration'] {
+      margin-bottom: var(--spacing-large);
+    }
+    [class*='progressBar'] {
+      height: 6px !important;
+    }
+  }
+}
