@@ -150,14 +150,6 @@ export function MockedActivitiesTimelineView() {
         { startTime: 1602590400000 + 120 * 60 * 1000, name: 'DB Deletion 3', verificationResult: 'FAILED' },
         { startTime: 1602590400000 + 140 * 60 * 1000, name: 'DB Deletion 4', verificationResult: 'PASSED' },
         { startTime: 1602590400000 + 170 * 60 * 1000, name: 'DB Deletion 5', verificationResult: 'FAILED' }
-
-        // { startTime: 1602590400000 + 190 * 60 * 1000, name: 'DB Deletion X1', verificationResult: 'FAILED' },
-        // { startTime: 1602590400000 + 192 * 60 * 1000, name: 'DB Deletion X2', verificationResult: 'FAILED' },
-        // { startTime: 1602590400000 + 195 * 60 * 1000, name: 'DB Deletion X3', verificationResult: 'FAILED' },
-        // { startTime: 1602590400000 + 199 * 60 * 1000, name: 'DB Deletion OK', verificationResult: 'PASSED' },
-        // { startTime: 1602590400000 + 200 * 60 * 1000, name: 'DB Deletion X5', verificationResult: 'FAILED' },
-        // { startTime: 1602590400000 + 209 * 60 * 1000, name: 'DB Deletion X6', verificationResult: 'FAILED' },
-        // { startTime: 1602590400000 + 222 * 60 * 1000, name: 'DB Deletion X7', verificationResult: 'FAILED' },
       ]}
     />
   )

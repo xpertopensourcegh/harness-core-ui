@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TimelineView matches snapshot 1`] = `
+<div>
+  <div
+    class="timelineView timelineView"
+  >
+    <div
+      class="timelineRow timelineRow"
+      style="height: 50px;"
+    >
+      <div
+        class="StyledProps---font--2ipy StyledProps---main--1Wws nameWrapper"
+        style="width: 125px;"
+      >
+        <p
+          class="StyledProps---font--2ipy StyledProps---main--1Wws"
+          style="width: 125px;"
+        >
+          Test Row
+        </p>
+      </div>
+      <div
+        class="rowItems rowItems"
+      >
+        <div
+          class="StyledProps---font--2ipy StyledProps---main--1Wws rowItem"
+          style="left: 0.00018055555555555555%; right: 99.99981944444444%;"
+        >
+          <div>
+            $
+            test_name
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="timelineBar timelineViewBar"
+      style="margin-left: 125px;"
+    />
+  </div>
+</div>
+`;

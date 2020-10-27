@@ -1,10 +1,9 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react'
-import * as Moment from 'moment'
 import { extendMoment, DateRange } from 'moment-range'
 import classnames from 'classnames'
 import styles from './TimelineView.module.scss'
 
-const moment = extendMoment(Moment)
+const moment = extendMoment(require('moment')) // eslint-disable-line
 
 export interface TimelineBarProps {
   startDate: string | number | Date
@@ -76,6 +75,7 @@ export function TimelineBar({ startDate, endDate, className, style, columnWidth 
     if (size === 0) {
       return []
     }
+
     const range = moment.range(moment(startDate), moment(endDate))
 
     for (let i = findOptimalStartingIndex(range); i < TIME_UNITS.length; i++) {

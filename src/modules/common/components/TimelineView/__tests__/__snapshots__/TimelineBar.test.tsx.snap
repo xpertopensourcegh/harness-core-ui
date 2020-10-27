@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TimelineBar matches snapshot 1`] = `
+<div>
+  <div
+    class="timelineBar"
+  >
+    <div
+      class="timelineBarItem"
+    >
+      XX:YY
+    </div>
+    <div
+      class="timelineBarItem"
+    >
+      XX:YY
+    </div>
+    <div
+      class="timelineBarItem"
+    >
+      XX:YY
+    </div>
+    <div
+      class="timelineBarItem"
+      style="flex: 0 0px; visibility: hidden;"
+    >
+      XX:YY
+    </div>
+  </div>
+</div>
+`;
