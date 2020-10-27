@@ -31,6 +31,8 @@
     "DX": [
       "src/modules/dx/**",
       "src/modules/common/components/YAMLBuilder/**",
+      "!src/modules/dx/components/connectors/CreateConnector/AppDynamicsConnector/**",
+      "!src/modules/dx/components/connectors/CreateConnector/SplunkConnector/**",
       "!src/modules/dx/components/SecretReference/**",
       "!src/modules/dx/components/CreateUpdateSecret/**",
       "!src/modules/common/components/CreateInlineSecret/**",
@@ -45,7 +47,11 @@
       "!src/modules/common/modals/OrganizationModal/**",
       "!src/modules/common/components/OrganizationCard/**"
     ],
-    "CV": ["src/modules/cv/**"],
+    "CV": [
+      "src/modules/cv/**",
+      "src/modules/dx/components/connectors/CreateConnector/AppDynamicsConnector/**",
+      "src/modules/dx/components/connectors/CreateConnector/SplunkConnector/**"
+    ],
     "CI": ["src/modules/ci/**"],
     "CF": ["src/modules/cf/**"],
     "SHARED": ["src/modules/common/**", "src/navigation/**"]

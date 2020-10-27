@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Git Sync - entity tab rendering landing view 1`] = `
+<div>
+   
+  <div
+    class="Layout---horizontal--3rmQ StyledProps---main--1Wws bodyContainer"
+  >
+    <div
+      class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws productMenu StyledProps---padding-top-small--1-XA StyledProps---padding-right-xlarge--xu-3 StyledProps---padding-bottom-xsmall--iU1g StyledProps---padding-left-xlarge--3m2O"
+    >
+      <p
+        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-weight-bold--22XZ StyledProps---font-size-medium--aOY7 StyledProps---margin-top-medium--1XOJ StyledProps---margin-right-medium--1Ojn StyledProps---margin-bottom-xlarge--mILw StyledProps---margin-left-medium--2jOL StyledProps---color--8PuS StyledProps---color-dark600--5FCU"
+      >
+        ENTITIES BY PRODUCTS
+      </p>
+      <div
+        class="StyledProps---font--2ipy StyledProps---main--1Wws activeTag tags StyledProps---margin-small--1ZqR StyledProps---font-size-small--3cA6"
+      >
+        CONTINUOUS DEPLOYMENT
+      </div>
+      <div
+        class="StyledProps---font--2ipy StyledProps---main--1Wws tags StyledProps---margin-small--1ZqR StyledProps---font-size-small--3cA6"
+      >
+        CONTINUOUS INTEGRATION
+      </div>
+      <div
+        class="StyledProps---font--2ipy StyledProps---main--1Wws tags StyledProps---margin-small--1ZqR StyledProps---font-size-small--3cA6"
+      >
+        CORE ENTITIES
+      </div>
+    </div>
+    <div
+      class="StyledProps---font--2ipy StyledProps---main--1Wws productListing StyledProps---padding-small--3f0A"
+    >
+      <div
+        class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+      />
+    </div>
+  </div>
+   
+</div>
+`;

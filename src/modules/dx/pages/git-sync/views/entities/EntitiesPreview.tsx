@@ -24,7 +24,7 @@ interface EntitiesPreviewProps {
   selectedProduct: GitSyncProductDTO['moduleType']
 }
 
-const EntityListView: React.FC<EntityListViewProps> = props => {
+export const EntityListView: React.FC<EntityListViewProps> = props => {
   const { data } = props
 
   return (

@@ -1,0 +1,56 @@
+{
+  "status": "SUCCESS",
+  "data": {
+    "moduleType": "CD",
+    "gitSyncEntityListDTOList": [
+      {
+        "entityType": "pipelines",
+        "count": 4,
+        "gitSyncEntities": [
+          {
+            "entityName": "My prod pipeline",
+            "entityType": "pipelines",
+            "entityIdentifier": "pipelinesIdentifier1",
+            "gitConnectorId": null,
+            "repositoryName": "wings-software/nextgenui",
+            "branch": "Master",
+            "filePath": "rootFolder1/pipelines/pipelinesIdentifier1.yaml",
+            "repoProviderType": "github"
+          },
+          {
+            "entityName": "My prod pipeline",
+            "entityType": "pipelines",
+            "entityIdentifier": "pipelineidentifier2",
+            "gitConnectorId": null,
+            "repositoryName": "wings-software/nextgenui",
+            "branch": "Master",
+            "filePath": "rootFolder1/pipelines/pipelineidentifier2.yaml",
+            "repoProviderType": "gitlab"
+          },
+          {
+            "entityName": null,
+            "entityType": "pipelines",
+            "entityIdentifier": "connectoridentifier",
+            "gitConnectorId": null,
+            "repositoryName": "wings-software/nextgenui",
+            "branch": "Master",
+            "filePath": "rootFolder1/pipelines/connectoridentifier.yaml",
+            "repoProviderType": "gitlab"
+          },
+          {
+            "entityName": null,
+            "entityType": "pipelines",
+            "entityIdentifier": "connectoridentifier",
+            "gitConnectorId": null,
+            "repositoryName": "myProdPipeline",
+            "branch": "Master",
+            "filePath": "rootFolder1/pipelines/connectoridentifier.yaml",
+            "repoProviderType": "unknown"
+          }
+        ]
+      }
+    ]
+  },
+  "metaData": null,
+  "correlationId": "372a58dd-d0b4-4948-9264-3fbeb582ded6"
+}
