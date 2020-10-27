@@ -1,0 +1,51 @@
+.fieldsSection {
+  // TODO: Replace color once it is available in UIKit
+  border-bottom: 1px solid #d9dae6;
+  padding-bottom: var(--spacing-xlarge);
+  margin-bottom: var(--spacing-xlarge);
+}
+
+.fieldsGroup {
+  display: flex;
+  align-items: center;
+
+  &:not(:first-child):not(.without-spacing) {
+    margin-top: var(--spacing-medium);
+  }
+
+  > * {
+    margin-bottom: 0;
+
+    &:not(:last-child) {
+      margin-right: var(--spacing-medium) !important;
+    }
+  }
+}
+
+.verifying {
+  display: flex;
+  align-items: center;
+  // TODO: Replace color once it is available in UIKit
+  color: #06c270 !important;
+}
+
+.verifyingIcon {
+  path {
+    // TODO: Replace color once it is available in UIKit
+    fill: #06c270 !important;
+  }
+}
+
+.optionalConfiguration {
+  // TODO: Replace color once it is available in UIKit
+  color: #9293ab !important;
+}
+
+.tagInput {
+  margin-bottom: var(--spacing-xlarge);
+}
+
+.buttonsWrapper {
+  display: flex;
+  align-items: center;
+}

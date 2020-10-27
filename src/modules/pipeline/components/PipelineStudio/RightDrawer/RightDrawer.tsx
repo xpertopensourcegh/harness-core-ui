@@ -4,12 +4,14 @@ import { PipelineContext } from '../PipelineContext/PipelineContext'
 import { DrawerTypes, DrawerSizes } from '../PipelineContext/PipelineActions'
 import { StepCommands } from '../StepCommands/StepCommands'
 import { StepPalette } from '../StepPalette/StepPalette'
-import { addStepOrGroup, generateRandomString } from '../ExecutionGraph/ExecutionGraphUtil'
+import { addService, addStepOrGroup, generateRandomString } from '../ExecutionGraph/ExecutionGraphUtil'
 import { getStageFromPipeline } from '../StageBuilder/StageBuilderUtil'
 import { PipelineVariables } from '../PipelineVariables/PipelineVariables'
 import { PipelineTemplates } from '../PipelineTemplates/PipelineTemplates'
 import { ExecutionStrategy } from '../ExecutionStrategy/ExecutionStategy'
 import type { StepData } from '../../AbstractSteps/AbstractStepFactory'
+import { PipelineAddService } from '../PipelineAddService/PipelineAddService'
+import { PipelineConfigureService } from '../PipelineConfigureService/PipelineConfigureService'
 
 export const RightDrawer: React.FC = (): JSX.Element => {
   const {
@@ -18,7 +20,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
       pipelineView: {
         drawerData,
         isDrawerOpened,
-        splitViewData: { selectedStageId }
+        splitViewData: { selectedStageId, stageType }
       },
       pipelineView
     },
@@ -68,6 +70,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
         <StepPalette
           selectedStage={selectedStage || {}}
           stepsFactory={stepsFactory}
+          stageType={stageType as string}
           onSelect={(item: StepData) => {
             const paletteData = data.paletteData
             if (paletteData?.entity) {
@@ -85,14 +88,6 @@ export const RightDrawer: React.FC = (): JSX.Element => {
                 paletteData.isParallelNodeClicked,
                 paletteData.isRollback
               )
-              // TODO: (NOTE) code for adding service (will be moved to right place in next PR)
-              /*addService(pipelineStage?.stage.spec.services, {
-                service: {
-                  type: item.type,
-                  name: item.name,
-                  identifier: generateRandomString(item.name)
-                }
-              })*/
               updatePipeline(pipeline)
             }
             updatePipelineView({ ...pipelineView, isDrawerOpened: false, drawerData: { type: DrawerTypes.AddStep } })
@@ -110,6 +105,56 @@ export const RightDrawer: React.FC = (): JSX.Element => {
       {type === DrawerTypes.PipelineVariables && <PipelineVariables />}
       {type === DrawerTypes.Templates && <PipelineTemplates />}
       {type === DrawerTypes.ExecutionStrategy && <ExecutionStrategy selectedStage={selectedStage || {}} />}
+      {type === DrawerTypes.AddService && <PipelineAddService />}
+      {type === DrawerTypes.ConfigureService && selectedStageId && data?.stepConfig && data?.stepConfig.node && (
+        <PipelineConfigureService
+          step={data.stepConfig.node}
+          stepsFactory={stepsFactory}
+          onSubmit={item => {
+            const spec = {
+              image: item.spec.image,
+              connector: item.spec.connector,
+              environment: item.spec.environment,
+              entrypoint: item.spec.entrypoint,
+              args: item.spec.args,
+              resources: {
+                limit: {
+                  memory: '',
+                  cpu: item.spec.limitCPU
+                }
+              }
+            }
+
+            if (item.spec.limitMemory && item.spec.limitMemoryUnits) {
+              spec.resources.limit.memory = item.spec.limitMemory + item.spec.limitMemoryUnits
+            }
+
+            if (data.stepConfig?.addOrEdit === 'add') {
+              const { stage: pipelineStage } = getStageFromPipeline(pipeline, selectedStageId)
+              addService(pipelineStage?.stage.spec.dependencies, {
+                identifier: item.identifier,
+                name: item.name,
+                type: item.type,
+                spec
+              })
+              updatePipelineView({
+                ...pipelineView,
+                isDrawerOpened: false,
+                drawerData: { type: DrawerTypes.ConfigureService }
+              })
+            } else if (data.stepConfig?.addOrEdit === 'edit') {
+              const node = data?.stepConfig?.node
+              if (node) {
+                node.name = item.name
+                node.identifier = item.identifier
+                node.spec = spec
+                updatePipeline(pipeline)
+              }
+              updatePipelineView({ ...pipelineView, isDrawerOpened: false, drawerData: { type: DrawerTypes.AddStep } })
+            }
+          }}
+        />
+      )}
     </Drawer>
   )
 }

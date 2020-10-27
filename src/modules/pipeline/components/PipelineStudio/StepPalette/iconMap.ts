@@ -23,7 +23,18 @@ export const iconMap: iconMapOptions = {
   Email: 'command-email',
   Barriers: 'command-barrier',
   'New Relic Deployment Maker': 'service-newrelic',
-  'Templatized Secret Manager': 'main-template-library'
+  'Templatized Secret Manager': 'main-template-library',
+  Run: 'run-step',
+  'Restore Cache': 'restore-cache-step',
+  'Save Cache': 'save-cache-step',
+  'Git Clone': 'git-clone-step',
+  // TODO: temp icons
+  // >> start
+  JIRA: 'service-jira',
+  'Approval Step': 'command-approval',
+  HTTP: 'command-http',
+  Plugin: 'git-clone-step'
+  // << end
 }
 
 // This is temporary, need to get types as above for icons

@@ -37,7 +37,7 @@ export const getNewStageFromType = (type: string): StageElementWrapper => {
         type: type,
         spec: {
           execution: {},
-          services: []
+          dependencies: []
         }
       }
     }

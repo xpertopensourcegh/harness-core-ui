@@ -90,7 +90,7 @@ export const getServiceFromNode = (
   servicesData: Required<ServiceWrapper[]> | undefined,
   node: DefaultNodeModel
 ): { node: ServiceWrapper | undefined; parent: ServiceWrapper[] } => {
-  const _service = servicesData?.find((service: ServiceWrapper) => node.getIdentifier() === service.service.identifier)
+  const _service = servicesData?.find((service: ServiceWrapper) => node.getIdentifier() === service.identifier)
   return { node: _service, parent: servicesData as ServiceWrapper[] }
 }
 
@@ -221,7 +221,7 @@ export const getServiceState = (services: ServiceWrapper[], mapState: StepStateM
   })
 
   services.forEach((service: ServiceWrapper) => {
-    mapState.set(service.service.identifier, { isSaved: true, isStepGroup: false, stepType: StepType.SERVICE })
+    mapState.set(service.identifier, { isSaved: true, isStepGroup: false, stepType: StepType.SERVICE })
   })
 }
 export const getStepsState = (node: ExecutionWrapper, mapState: StepStateMap): void => {
@@ -261,6 +261,20 @@ export const getStepsState = (node: ExecutionWrapper, mapState: StepStateMap): v
 }
 
 export const removeStepOrGroup = (state: ExecutionGraphState, entity: DefaultNodeModel): boolean => {
+  // 1. services
+  const servicesData = state.servicesData
+  let idx
+  servicesData.forEach((service, _idx) => {
+    if (service.identifier === entity.getOptions().identifier) {
+      idx = _idx
+    }
+  })
+  if (idx !== undefined) {
+    servicesData.splice(idx, 1)
+    return true
+  }
+
+  // 2. steps
   let isRemoved = false
   let data = state.stepsData
   const layer = entity.getParent()

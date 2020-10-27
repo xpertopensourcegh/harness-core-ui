@@ -24,7 +24,9 @@ export enum DrawerTypes {
   AddStep = 'AddCommand',
   PipelineVariables = 'PipelineVariables',
   Templates = 'Templates',
-  ExecutionStrategy = 'ExecutionStrategy'
+  ExecutionStrategy = 'ExecutionStrategy',
+  AddService = 'AddService',
+  ConfigureService = 'ConfigureService'
 }
 
 export const DrawerSizes: { [key: string]: number } = {
@@ -32,7 +34,9 @@ export const DrawerSizes: { [key: string]: number } = {
   AddCommand: 700,
   PipelineVariables: 450,
   Templates: 450,
-  ExecutionStrategy: 1000
+  ExecutionStrategy: 1000,
+  AddService: 485,
+  ConfigureService: 740
 }
 
 export enum SplitViewTypes {
@@ -51,6 +55,7 @@ export interface DrawerData extends Omit<IDrawerProps, 'isOpen'> {
     }
     stepConfig?: {
       node: ExecutionWrapper | ServiceWrapper
+      addOrEdit: 'add' | 'edit'
       isStepGroup: boolean
     }
   }

@@ -1,0 +1,106 @@
+.wrapper {
+  display: grid;
+  grid-template-columns: 1fr 60px;
+  height: 100%;
+  overflow-y: hidden;
+}
+
+.inner {
+  position: relative;
+  // TODO: Replace color once it is available in UIKit
+  background-color: rgba(#00ade4, 0.05);
+  padding-top: var(--spacing-xlarge);
+  padding-right: var(--spacing-xxlarge);
+  padding-bottom: var(--spacing-xlarge);
+  padding-left: var(--spacing-xxlarge);
+  overflow-x: auto;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  // TODO: Replace color once it is available in UIKit
+  border-bottom: 1px solid #d9dae6;
+  padding-right: var(--spacing-medium);
+  padding-bottom: var(--spacing-large);
+  margin-bottom: var(--spacing-xlarge);
+}
+
+.headerLeftSide {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.back {
+  // TODO: Replace color once it is available in UIKit
+  color: #6b6d85 !important;
+}
+
+.title {
+  // TODO: Replace font-size once it is available in UIKit
+  font-size: 20px !important;
+  // TODO: Replace color once it is available in UIKit
+  color: #4f5162 !important;
+}
+
+.fieldsSection {
+  // TODO: Replace color once it is available in UIKit
+  border-bottom: 1px solid #d9dae6;
+  padding-bottom: var(--spacing-xlarge);
+  margin-bottom: var(--spacing-xlarge);
+}
+
+.fieldsGroup {
+  display: flex;
+  align-items: center;
+
+  &:not(:first-child):not(.without-spacing) {
+    margin-top: var(--spacing-medium);
+  }
+
+  > * {
+    margin-bottom: 0;
+
+    &:not(:last-child) {
+      margin-right: var(--spacing-medium) !important;
+    }
+  }
+}
+
+.verifying {
+  display: flex;
+  align-items: center;
+  // TODO: Replace color once it is available in UIKit
+  color: #06c270 !important;
+}
+
+.verifyingIcon {
+  path {
+    // TODO: Replace color once it is available in UIKit
+    fill: #06c270 !important;
+  }
+}
+
+.optionalConfiguration {
+  // TODO: Replace color once it is available in UIKit
+  color: #9293ab !important;
+}
+
+.tagInput {
+  margin-bottom: var(--spacing-xlarge);
+}
+
+.buttonsWrapper {
+  display: flex;
+  align-items: center;
+}
+
+.close {
+  position: absolute;
+  top: var(--spacing-small);
+  right: var(--spacing-small);
+  // TODO: Replace color once it is available in UIKit
+  color: #383946 !important;
+}

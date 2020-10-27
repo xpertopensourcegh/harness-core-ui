@@ -1,17 +1,45 @@
 import React, { useState, useEffect } from 'react'
 import { ExpandingSearchInput, Card, Text, Icon, Layout, Button } from '@wings-software/uikit'
-
+import { useGet } from 'restful-react'
 import { get, cloneDeep, uniqBy } from 'lodash-es'
 
 import cx from 'classnames'
-import { StepCategory, StepData, useGetSteps } from 'services/cd-ng'
+import { getConfig } from 'services/config'
+import {
+  Failure,
+  GetStepsQueryParams,
+  ResponseStepCategory,
+  StepCategory,
+  StepData,
+  useGetSteps,
+  UseGetStepsProps
+} from 'services/cd-ng'
 import type { AbstractStepFactory, StepData as FactoryStepData } from '../../AbstractSteps/AbstractStepFactory'
 
 import i18n from './StepPalette.18n'
 import { iconMap, iconMapByName } from './iconMap'
 import { RightBar } from '../RightBar/RightBar'
+// TODO: Mock API
+import buildStageSteps from './mock/buildStageSteps.json'
 import css from './StepPalette.module.scss'
 
+// TODO: This shoud be removed once the DTO is available
+const useGetBuildSteps = (props: UseGetStepsProps) =>
+  useGet<ResponseStepCategory, Failure | Error, GetStepsQueryParams, void>(`/pipelines/configuration/buildsteps`, {
+    base: getConfig('ng/api'),
+    ...props,
+    mock: { data: (buildStageSteps as unknown) as ResponseStepCategory }
+  })
+
+// TODO: move to StepPalleteUtils.ts
+const dataSourceFactory = (stageType: string): any => {
+  switch (stageType) {
+    case 'Build':
+      return useGetBuildSteps
+    case 'Deployment':
+      return useGetSteps
+  }
+}
 const primaryTypes = {
   SHOW_ALL: 'show_all',
   RECENTLY_USED: 'recently_used'
@@ -27,19 +55,21 @@ export interface StepPaletteProps {
   onClose: () => void
   stepsFactory: AbstractStepFactory
   selectedStage: object
+  stageType: string
 }
 export const StepPalette: React.FC<StepPaletteProps> = ({
   onSelect,
   onClose,
   selectedStage,
-  stepsFactory
+  stepsFactory,
+  stageType
 }): JSX.Element => {
   const [stepCategories, setStepsCategories] = useState<StepCategory[]>([])
   const [originalData, setOriginalCategories] = useState<StepCategory[]>([])
   const [selectedCategory, setSelectedCategory] = useState(primaryTypes.SHOW_ALL)
-  const serviceDefinationType = get(selectedStage, 'stage.spec.service.serviceDefinition.type', 'Kubernetes')
+  const serviceDefinitionType = get(selectedStage, 'stage.spec.service.serviceDefinition.type', 'Kubernetes')
 
-  const { data: stepsData } = useGetSteps({ queryParams: { serviceDefinitionType: serviceDefinationType } })
+  const { data: stepsData } = dataSourceFactory(stageType)({ queryParams: { serviceDefinitionType } })
 
   useEffect(() => {
     const stepsCategories = stepsData?.data?.stepCategories

@@ -101,7 +101,7 @@ export class ExecutionStepModel extends DiagramModel {
       prevNodes = [createNode]
 
       newY += this.gap * 0.5
-      services.forEach(({ service }: ServiceWrapper) => {
+      services.forEach((service: ServiceWrapper) => {
         const nodeRender = new DefaultNodeModel({
           identifier: service.identifier,
           name: service.name,

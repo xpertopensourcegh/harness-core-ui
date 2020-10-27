@@ -189,21 +189,29 @@ const ExecutionGraph = (): JSX.Element => {
       if (eventTemp.entity.getType() === DiagramType.CreateNew && nodeRender) {
         // if Node is in Step Group then directly show Add Steps
         if (layer instanceof StepGroupNodeLayerModel) {
-          updatePipelineView({
-            ...pipelineView,
-            isDrawerOpened: true,
-            drawerData: {
-              type: DrawerTypes.AddStep,
-              data: {
-                paletteData: {
-                  isAddStepOverride: false,
-                  isRollback: state.isRollback,
-                  entity: eventTemp.entity,
-                  isParallelNodeClicked: false
+          if (stageType === 'Build') {
+            updatePipelineView({
+              ...pipelineView,
+              isDrawerOpened: true,
+              drawerData: { type: DrawerTypes.AddService }
+            })
+          } else {
+            updatePipelineView({
+              ...pipelineView,
+              isDrawerOpened: true,
+              drawerData: {
+                type: DrawerTypes.AddStep,
+                data: {
+                  paletteData: {
+                    isAddStepOverride: false,
+                    isRollback: state.isRollback,
+                    entity: eventTemp.entity,
+                    isParallelNodeClicked: false
+                  }
                 }
               }
-            }
-          })
+            })
+          }
         } else {
           dynamicPopoverHandler?.show(
             nodeRender,
@@ -226,18 +234,19 @@ const ExecutionGraph = (): JSX.Element => {
         if (stepState?.stepType === StepType.STEP) {
           node = getStepFromNode(state.stepsData, eventTemp.entity).node
         } else if (stepState?.stepType === StepType.SERVICE) {
-          node = getServiceFromNode(state.servicesData, eventTemp.entity).node?.service
+          node = getServiceFromNode(state.servicesData, eventTemp.entity).node
         }
         /* istanbul ignore else */ if (node) {
           updatePipelineView({
             ...pipelineView,
             isDrawerOpened: true,
             drawerData: {
-              type: DrawerTypes.StepConfig,
+              type: stepState?.stepType === StepType.STEP ? DrawerTypes.StepConfig : DrawerTypes.ConfigureService,
               data: {
                 stepConfig: {
                   node: node,
-                  isStepGroup: false
+                  isStepGroup: false,
+                  addOrEdit: 'edit'
                 }
               }
             }
@@ -365,7 +374,8 @@ const ExecutionGraph = (): JSX.Element => {
             data: {
               stepConfig: {
                 node: node,
-                isStepGroup: true
+                isStepGroup: true,
+                addOrEdit: 'edit'
               }
             }
           }
@@ -436,16 +446,16 @@ const ExecutionGraph = (): JSX.Element => {
         if (!data.stage.spec.execution.rollbackSteps) {
           data.stage.spec.execution.rollbackSteps = []
         }
-        if (!data.stage.spec.services) {
-          data.stage.spec.services = []
+        if (!data.stage.spec.dependencies) {
+          data.stage.spec.dependencies = []
         }
         getStepsState(data.stage.spec.execution, state.stepStates)
-        getServiceState(data.stage.spec.services, state.stepStates)
+        getServiceState(data.stage.spec.dependencies, state.stepStates)
         setState(prevState => ({
           ...prevState,
           stepsData: data.stage.spec.execution,
           stepStates: state.stepStates,
-          servicesData: data.stage.spec.services
+          servicesData: data.stage.spec.dependencies
         }))
       } else if (data?.stage) {
         if (!data.stage.spec) {
