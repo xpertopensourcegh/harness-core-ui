@@ -2,7 +2,6 @@ export default {
   displayName: 'Display Name',
 
   revertToDefaultConfiguration: 'Revert to Default Configuration',
-  verifyingConnection: 'Verifying connection...',
   loading: 'Loading...',
 
   optionalConfiguration: 'OPTIONAL CONFIGURATIONS',

@@ -20,7 +20,8 @@ import {
   generateRandomString,
   getServiceState,
   StepType,
-  getServiceFromNode
+  getServiceFromNode,
+  STATIC_SERVICE_GROUP_NAME
 } from './ExecutionGraphUtil'
 import { EmptyStageName } from '../PipelineConstants'
 import { DrawerTypes } from '../PipelineContext/PipelineActions'
@@ -32,6 +33,7 @@ import {
   DiagramType,
   Event,
   StepGroupNodeLayerModel,
+  StepGroupNodeLayerOptions,
   StepsType
 } from '../../Diagram'
 import { CanvasButtons } from '../../CanvasButtons/CanvasButtons'
@@ -189,7 +191,7 @@ const ExecutionGraph = (): JSX.Element => {
       if (eventTemp.entity.getType() === DiagramType.CreateNew && nodeRender) {
         // if Node is in Step Group then directly show Add Steps
         if (layer instanceof StepGroupNodeLayerModel) {
-          if (stageType === 'Build') {
+          if ((layer.getOptions() as StepGroupNodeLayerOptions).identifier === STATIC_SERVICE_GROUP_NAME) {
             updatePipelineView({
               ...pipelineView,
               isDrawerOpened: true,

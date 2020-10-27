@@ -2,12 +2,12 @@ import React from 'react'
 import {
   Text,
   Formik,
+  FormikForm,
   FormInput,
   Button,
   getMultiTypeFromValue,
   MultiTypeInputType,
   Layout,
-  Icon,
   SimpleTagInput
 } from '@wings-software/uikit'
 import { FieldArray } from 'formik'
@@ -148,9 +148,9 @@ const CommonServiceWidget: React.FC<CommonServiceWidgetProps> = ({ initialValues
       initialValues={initialValues}
       validationSchema={validationSchema}
     >
-      {({ values: { spec: formValues }, setFieldValue, handleSubmit }) => {
+      {({ values: formValues, setFieldValue, handleSubmit }) => {
         return (
-          <>
+          <FormikForm>
             <div className={css.fieldsSection}>
               <FormInput.InputWithIdentifier
                 inputName="name"
@@ -168,15 +168,15 @@ const CommonServiceWidget: React.FC<CommonServiceWidgetProps> = ({ initialValues
                   projectIdentifier={projectIdentifier}
                   orgIdentifier={orgIdentifier}
                 />
-                {getMultiTypeFromValue(formValues.connector) === MultiTypeInputType.RUNTIME && (
+                {getMultiTypeFromValue(formValues.spec.connector) === MultiTypeInputType.RUNTIME && (
                   <ConfigureOptions
-                    value={formValues.connector as string}
+                    value={formValues.spec.connector as string}
                     type={
                       <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
                         <Text>{i18n.connectorLabel}</Text>
                       </Layout.Horizontal>
                     }
-                    variableName="connector"
+                    variableName="spec.connector"
                     showRequiredField={false}
                     showDefaultField={false}
                     showAdvanced={true}
@@ -186,22 +186,18 @@ const CommonServiceWidget: React.FC<CommonServiceWidgetProps> = ({ initialValues
                   />
                 )}
               </div>
-              <Text className={css.verifying} font="small" margin={{ top: 'xsmall', bottom: 'medium' }}>
-                <Icon className={css.verifyingIcon} name="command-artifact-check" margin={{ right: 'small' }} />
-                {i18n.verifyingConnection}
-              </Text>
-              <Text margin={{ bottom: 'xsmall' }}>{i18n.imageLabel}</Text>
+              <Text margin={{ top: 'medium', bottom: 'xsmall' }}>{i18n.imageLabel}</Text>
               <div className={cx(css.fieldsGroup, css.withoutSpacing)}>
                 <FormInput.MultiTextInput name="spec.image" label="" style={{ flexGrow: 1 }} />
-                {getMultiTypeFromValue(formValues.image) === MultiTypeInputType.RUNTIME && (
+                {getMultiTypeFromValue(formValues.spec.image) === MultiTypeInputType.RUNTIME && (
                   <ConfigureOptions
-                    value={formValues.image as string}
+                    value={formValues.spec.image as string}
                     type={
                       <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
                         <Text>{i18n.imageLabel}</Text>
                       </Layout.Horizontal>
                     }
-                    variableName="image"
+                    variableName="spec.image"
                     showRequiredField={false}
                     showDefaultField={false}
                     showAdvanced={true}
@@ -219,7 +215,7 @@ const CommonServiceWidget: React.FC<CommonServiceWidgetProps> = ({ initialValues
                 name="spec.environment"
                 render={({ push, remove }) => (
                   <>
-                    {formValues.environment.map((_environment: string, index: number) => (
+                    {formValues.spec.environment.map((_environment: string, index: number) => (
                       <div className={css.fieldsGroup} key={index}>
                         <FormInput.Text
                           name={`spec.environment[${index}].key`}
@@ -232,15 +228,16 @@ const CommonServiceWidget: React.FC<CommonServiceWidgetProps> = ({ initialValues
                           placeholder={i18n.environmentValuePlaceholder}
                           style={{ flexGrow: 1 }}
                         />
-                        {getMultiTypeFromValue(formValues.environment[index].value) === MultiTypeInputType.RUNTIME && (
+                        {getMultiTypeFromValue(formValues.spec.environment[index].value) ===
+                          MultiTypeInputType.RUNTIME && (
                           <ConfigureOptions
-                            value={formValues.environment[index].value as string}
+                            value={formValues.spec.environment[index].value as string}
                             type={
                               <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
                                 <Text>{i18n.environmentValuePlaceholder}</Text>
                               </Layout.Horizontal>
                             }
-                            variableName={`environment[${index}].value`}
+                            variableName={`spec.environment[${index}].value`}
                             showRequiredField={false}
                             showDefaultField={false}
                             showAdvanced={true}
@@ -248,7 +245,7 @@ const CommonServiceWidget: React.FC<CommonServiceWidgetProps> = ({ initialValues
                           />
                         )}
 
-                        {formValues.environment.length > 1 && (
+                        {formValues.spec.environment.length > 1 && (
                           <Button
                             intent="primary"
                             icon="ban-circle"
@@ -298,7 +295,7 @@ const CommonServiceWidget: React.FC<CommonServiceWidgetProps> = ({ initialValues
                   {i18n.setContainerResources}
                   <Button icon="question" minimal tooltip={i18n.setContainerResourcesTooltip} />
                 </Text>
-                <div className={css.fieldsGroup}>
+                <div className={cx(css.fieldsGroup, css.withoutSpacing)}>
                   <div>
                     <FormInput.Text
                       name="spec.limitMemory"
@@ -339,7 +336,7 @@ const CommonServiceWidget: React.FC<CommonServiceWidgetProps> = ({ initialValues
               />
               <Button text={i18n.cancel} minimal onClick={handleCancelClick} />
             </div>
-          </>
+          </FormikForm>
         )
       }}
     </Formik>
