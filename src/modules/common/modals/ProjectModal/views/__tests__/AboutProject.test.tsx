@@ -4,8 +4,9 @@ import { render, queryByText, fireEvent } from '@testing-library/react'
 import { act } from 'react-dom/test-utils'
 import type { Project, ResponseOrganization, ResponsePageOrganization, ResponseProject } from 'services/cd-ng'
 import { TestWrapper, UseGetMockData, UseMutateMockData } from 'modules/common/utils/testUtils'
+import { clickSubmit, InputTypes, setFieldValue } from 'modules/common/utils/JestFormHelper'
+import i18n from 'modules/common/pages/ProjectsPage/ProjectsPage.i18n'
 import { orgMockData } from './OrgMockData'
-import i18n from '../../../../pages/ProjectsPage/ProjectsPage.i18n'
 import StepProject from '../StepAboutProject'
 import EditProject from '../EditProject'
 
@@ -117,19 +118,17 @@ describe('About Project test', () => {
     expect(queryByText(container, i18n.newProjectWizard.aboutProject.name)).toBeDefined()
     expect(container).toMatchSnapshot()
 
-    await act(async () => {
-      fireEvent.click(container.querySelector('button[type="submit"]')!)
-    })
-    expect(container).toMatchSnapshot()
+    setFieldValue({ type: InputTypes.TEXTFIELD, container: container, fieldId: 'name', value: 'dummy name' })
+    fireEvent.click(container.querySelectorAll('[icon="small-plus"]')[0]!)
 
-    await act(async () => {
-      fireEvent.change(container.querySelector('input[name="name"]')!, {
-        target: { value: 'dummy name' }
-      })
+    setFieldValue({
+      type: InputTypes.TEXTAREA,
+      container: container,
+      fieldId: 'description',
+      value: ' This is new description'
     })
-    await act(async () => {
-      fireEvent.click(container.querySelector('button[type="submit"]')!)
-    })
+    fireEvent.click(container.querySelectorAll('[icon="small-plus"]')[0]!)
+    clickSubmit(container)
     expect(container).toMatchSnapshot()
   }),
     test('edit project ', async () => {
