@@ -9,3 +9,10 @@
   position: relative;
   height: 100%;
 }
+
+.floatingToolbar {
+  position: absolute;
+  z-index: 1;
+  left: var(--spacing-large);
+  top: var(--spacing-large);
+}

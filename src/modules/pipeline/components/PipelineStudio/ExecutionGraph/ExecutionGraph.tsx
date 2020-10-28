@@ -572,7 +572,7 @@ const ExecutionGraph = (): JSX.Element => {
         )}
         <CanvasWidget
           engine={engine}
-          isRollback={true}
+          isRollback={stageType === 'Deployment'}
           rollBackProps={{
             style: { top: 62 },
             active: state.isRollback ? StepsType.Rollback : StepsType.Normal

@@ -448,8 +448,9 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
             <div
               style={{
                 width: '100%',
-                height: `calc(100% - 62px)`,
-                overflow: 'scroll',
+                /*TODO: temporaty solution*/
+                height: stageType === 'Build' ? '100%' : `calc(100% - 62px)`,
+                overflow: 'auto',
                 background: 'white'
               }}
             >
