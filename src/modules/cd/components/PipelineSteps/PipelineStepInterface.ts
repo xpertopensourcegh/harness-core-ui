@@ -7,6 +7,6 @@ export enum StepType {
   KubernetesInfraSpec = 'KubernetesInfraSpec',
   K8sRollingDeploy = 'K8sRollingDeploy',
   CustomVariable = 'Custom_Variable',
-  Redis = 'Redis',
+  Redis = 'service',
   Run = 'Run'
 }

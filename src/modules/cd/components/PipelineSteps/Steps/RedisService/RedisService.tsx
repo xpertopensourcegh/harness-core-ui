@@ -10,7 +10,7 @@ export class RedisService extends CommonService {
 
   protected defaultValues: CommonServiceData = {
     identifier: '',
-    type: 'Redis',
+    type: 'service',
     name: '',
     spec: {
       connector: '',

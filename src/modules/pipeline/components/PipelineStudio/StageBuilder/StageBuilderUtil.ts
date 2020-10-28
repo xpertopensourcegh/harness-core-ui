@@ -28,7 +28,7 @@ export interface PopoverData {
 
 export const getNewStageFromType = (type: string): StageElementWrapper => {
   // TODO: replace string with type
-  if (type === 'Build') {
+  if (type === 'ci') {
     return {
       stage: {
         name: EmptyStageName,

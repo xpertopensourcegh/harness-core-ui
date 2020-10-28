@@ -11,7 +11,7 @@ import { ApprovalStage } from './stages/ApprovalStage'
 
 export enum StageTypes {
   DEPLOY = 'Deployment',
-  BUILD = 'Build',
+  BUILD = 'ci',
   PIPELINE = 'Pipeline',
   APPROVAL = 'Approval',
   CUSTOM = 'Custom'
@@ -19,7 +19,7 @@ export enum StageTypes {
 
 export const MapStepTypeToIcon: { [key in StageTypes]: IconName } = {
   Deployment: 'pipeline-deploy',
-  Build: 'pipeline-build',
+  ci: 'pipeline-build',
   Approval: 'pipeline-approval',
   Pipeline: 'pipeline',
   Custom: 'pipeline-custom'
@@ -27,7 +27,7 @@ export const MapStepTypeToIcon: { [key in StageTypes]: IconName } = {
 
 export const MapStepTypeToIconColor: { [key in StageTypes]: string } = {
   Deployment: 'var(--pipeline-deploy-stage-color)',
-  Build: 'var(--pipeline-build-stage-color)',
+  ci: 'var(--pipeline-build-stage-color)',
   Approval: 'var(--pipeline-approval-stage-color)',
   Pipeline: 'var(--pipeline-blue-color)',
   Custom: 'var(--pipeline-custom-stage-color)'

@@ -11,13 +11,13 @@ import css from './PipelineAddService.module.scss'
 const services = [
   {
     name: 'Redis',
-    type: 'Redis',
+    type: 'service',
     iconName: 'service-redis',
     iconSize: 40
   },
   {
     name: 'Mongo DB',
-    type: 'Mongo',
+    type: 'service',
     iconName: 'service-mongodb',
     iconSize: 37
   }

@@ -420,7 +420,7 @@ export class ExecutionStepModel extends DiagramModel {
 
     let prevNodes: DefaultNodeModel[] = [startNode]
 
-    if (stageType === 'Build') {
+    if (stageType === 'ci') {
       const servicesResp = this.renderGraphServiceNodes(servicesData, startX, startY, factory, stepStates, prevNodes)
       startX = servicesResp.startX
       startY = servicesResp.startY
