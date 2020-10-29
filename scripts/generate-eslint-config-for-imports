@@ -1,0 +1,38 @@
+#! /usr/bin/env node
+const fs = require('fs')
+const path = require('path')
+const yaml = require('yaml')
+
+;(async () => {
+  const modules = path.resolve(__dirname, '../src/modules')
+
+  const dirs = await fs.promises.readdir(modules, { withFileTypes: true })
+
+  const numberedDirs = dirs.filter(dir => dir.isDirectory() && /^\d{2,3}-/.test(dir.name)).map(dir => dir.name)
+
+  numberedDirs.sort()
+
+  const tasks = numberedDirs.map((dir, i) => {
+    const restDirs = numberedDirs.slice(i + 1)
+
+    const config = {
+      rules: {
+        'no-restricted-imports': [
+          'error',
+          {
+            patterns: [
+              'lodash.*',
+              ...restDirs.map(mod => `modules/${mod}/*`),
+              ...restDirs.map(mod => `${mod.replace(/^\d+-/, '@')}/*`)
+            ],
+            paths: ['lodash']
+          }
+        ]
+      }
+    }
+
+    return fs.promises.writeFile(path.join(modules, dir, '.eslintrc.yml'), yaml.stringify(config), 'utf8')
+  })
+
+  await Promise.all(tasks)
+})()

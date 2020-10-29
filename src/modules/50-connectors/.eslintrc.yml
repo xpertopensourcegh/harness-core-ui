@@ -1,0 +1,11 @@
+rules:
+  no-restricted-imports:
+    - error
+    - patterns:
+        - lodash.*
+        - modules/60-gitsync/*
+        - modules/70-pipeline/*
+        - '@gitsync/*'
+        - '@pipeline/*'
+      paths:
+        - lodash

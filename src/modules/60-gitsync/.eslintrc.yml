@@ -1,0 +1,9 @@
+rules:
+  no-restricted-imports:
+    - error
+    - patterns:
+        - lodash.*
+        - modules/70-pipeline/*
+        - '@pipeline/*'
+      paths:
+        - lodash
