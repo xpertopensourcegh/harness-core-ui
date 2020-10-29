@@ -14,7 +14,7 @@ import ElapsedTime from 'modules/ci/components/ElapsedTime/ElapsedTime'
 import ExtendedPage from 'modules/ci/components/ExtendedPage/ExtendedPage'
 import ExtendedPageBody from 'modules/ci/components/ExtendedPage/ExtendedPageBody'
 import { getShortCommitId } from 'modules/ci/services/CIUtils'
-import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
+import { PageSpinner } from '@common/components/Page/PageSpinner'
 import {
   routeCIBuildPipelineGraph,
   routeCIBuildPipelineLog,

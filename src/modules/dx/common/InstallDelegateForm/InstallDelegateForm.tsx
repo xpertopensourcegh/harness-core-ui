@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { FormInput, SelectOption } from '@wings-software/uikit'
 import { useGetDelegateProfiles, DelegateProfile } from 'services/portal'
-import type { UseGetMockData } from 'modules/common/utils/testUtils'
+import type { UseGetMockData } from '@common/utils/testUtils'
 import i18n from './InstallDelegateForm.i18n'
 
 import css from './InstallDelegateForm.module.scss'

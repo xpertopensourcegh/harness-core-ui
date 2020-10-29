@@ -3,8 +3,8 @@ import React, { useCallback } from 'react'
 import { useHistory } from 'react-router-dom'
 import { Sidebar, isRouteActive, useRouteParams, useAppStoreReader, ModuleName } from 'framework/exports'
 import type { Project } from 'services/cd-ng'
-import { ProjectSelector } from 'modules/common/components/ProjectSelector/ProjectSelector'
-import { AdminSelector, AdminSelectorLink } from 'modules/common/components/AdminSelector/AdminSelector'
+import { ProjectSelector } from '@common/components/ProjectSelector/ProjectSelector'
+import { AdminSelector, AdminSelectorLink } from '@common/components/AdminSelector/AdminSelector'
 import i18n from './MenuCI.i18n'
 import {
   routeCIOverview,

@@ -2,8 +2,8 @@ import { Container, Layout, Icon, Button } from '@wings-software/uikit'
 import React, { useCallback } from 'react'
 import { useHistory } from 'react-router-dom'
 import { Sidebar, isRouteActive, useRouteParams, ModuleName } from 'framework/exports'
-import { ProjectSelector } from 'modules/common/components/ProjectSelector/ProjectSelector'
-import { AdminSelector, AdminSelectorLink } from 'modules/common/components/AdminSelector/AdminSelector'
+import { ProjectSelector } from '@common/components/ProjectSelector/ProjectSelector'
+import { AdminSelector, AdminSelectorLink } from '@common/components/AdminSelector/AdminSelector'
 import i18n from './MenuCD.i18n'
 import {
   routeCDPipelines,

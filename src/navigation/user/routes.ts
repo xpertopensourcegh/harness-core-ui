@@ -9,5 +9,5 @@ export const routeUserProfile: Route = {
   title: i18n.userProfile,
   pageId: 'user-profile',
   url: () => routeURL(routeUserProfile, '/user-profile'),
-  component: React.lazy(() => import('modules/common/pages/user-profile/UserProfilePage'))
+  component: React.lazy(() => import('@common/pages/user-profile/UserProfilePage'))
 }

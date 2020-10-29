@@ -13,26 +13,26 @@ import {
   ResponseSecretResponseWrapper,
   ResponsePageConnectorResponse
 } from 'services/cd-ng'
-import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
-import { PageError } from 'modules/common/components/Page/PageError'
-import { PageHeader } from 'modules/common/components/Page/PageHeader'
+import { PageSpinner } from '@common/components/Page/PageSpinner'
+import { PageError } from '@common/components/Page/PageError'
+import { PageHeader } from '@common/components/Page/PageHeader'
 import {
   routeOrgResourcesConnectors,
   routeResourcesConnectors,
   routeOrgResourcesSecretsListing,
   routeResourcesSecretsListing
 } from 'navigation/accounts/routes'
-import YamlBuilder from 'modules/common/components/YAMLBuilder/YamlBuilder'
-import { addIconInfoToSnippets } from 'modules/common/components/YAMLBuilder/YAMLBuilderUtils'
-import type { YamlBuilderHandlerBinding } from 'modules/common/interfaces/YAMLBuilderProps'
-import { YamlEntity } from 'modules/common/constants/YamlConstants'
+import YamlBuilder from '@common/components/YAMLBuilder/YamlBuilder'
+import { addIconInfoToSnippets } from '@common/components/YAMLBuilder/YAMLBuilderUtils'
+import type { YamlBuilderHandlerBinding } from '@common/interfaces/YAMLBuilderProps'
+import { YamlEntity } from '@common/constants/YamlConstants'
 import { YAMLService } from 'modules/dx/services'
-import type { SnippetInterface } from 'modules/common/interfaces/SnippetInterface'
-import { useToaster } from 'modules/common/exports'
+import type { SnippetInterface } from '@common/interfaces/SnippetInterface'
+import { useToaster } from '@common/exports'
 import CreateUpdateSecret from 'modules/dx/components/CreateUpdateSecret/CreateUpdateSecret'
 import { routeSecretDetails } from 'navigation/accounts/routes'
 
-import type { UseGetMockData } from 'modules/common/utils/testUtils'
+import type { UseGetMockData } from '@common/utils/testUtils'
 import EditSSHSecret from './views/EditSSHSecret'
 import ViewSecretDetails from './views/ViewSecretDetails'
 

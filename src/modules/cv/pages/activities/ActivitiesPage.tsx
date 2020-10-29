@@ -2,7 +2,7 @@ import React, { useState, useCallback } from 'react'
 import { Container, Color, Button, useModalHook } from '@wings-software/uikit'
 import { useHistory } from 'react-router-dom'
 import { useRouteParams } from 'framework/exports'
-import { Page } from 'modules/common/exports'
+import { Page } from '@common/exports'
 import { routeCVActivityDetails } from 'navigation/cv/routes'
 import { ActivityDetailsActivityType, ActivityDetailsActivitySource } from 'navigation/cv/routePaths'
 import {

@@ -4,7 +4,7 @@ import { Position, Classes, FormGroup, Intent, IFormGroupProps } from '@blueprin
 import { Layout, Text, Button, Color, Icon, Popover, FormInput } from '@wings-software/uikit'
 import { connect, FormikContext } from 'formik'
 import cx from 'classnames'
-import { FormikCreateInlineSecret } from 'modules/common/components/CreateInlineSecret/CreateInlineSecret'
+import { FormikCreateInlineSecret } from '@common/components/CreateInlineSecret/CreateInlineSecret'
 import SecretReference from 'modules/dx/components/SecretReference/SecretReference'
 import type { SecretTextSpecDTO, SecretDTOV2 } from 'services/cd-ng'
 import i18n from './SecretTextInput.i18n'

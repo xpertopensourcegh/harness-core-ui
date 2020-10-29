@@ -3,7 +3,7 @@ import type { Route } from 'framework/exports'
 import { useAppStoreWriter } from 'framework/hooks/useAppStore'
 import { sidebarRegistry } from 'framework/registry'
 import { AppEssentials } from 'framework/app/AppEssentials'
-import { useToaster } from 'modules/common/exports'
+import { useToaster } from '@common/exports'
 import { PageLayout } from './PageLayout'
 
 /**

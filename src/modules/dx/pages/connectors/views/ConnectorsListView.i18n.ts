@@ -1,4 +1,4 @@
-import { pluralize } from 'modules/common/utils/StringUtils'
+import { pluralize } from '@common/utils/StringUtils'
 
 export default {
   connector: 'Connector',

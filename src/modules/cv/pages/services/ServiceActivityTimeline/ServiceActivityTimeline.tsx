@@ -4,7 +4,7 @@ import type { IconProps } from '@wings-software/uikit/dist/icons/Icon'
 import moment from 'moment'
 import { ITooltipProps, PopoverInteractionKind, Position, Tooltip } from '@blueprintjs/core'
 import cx from 'classnames'
-import TimelineView from 'modules/common/components/TimelineView/TimelineView'
+import TimelineView from '@common/components/TimelineView/TimelineView'
 import i18n from './ServiceActivityTimeline.i18n'
 import css from './ServiceActivityTimeline.module.scss'
 

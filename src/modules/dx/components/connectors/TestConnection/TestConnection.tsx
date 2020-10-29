@@ -3,7 +3,7 @@ import { Layout, Button } from '@wings-software/uikit'
 import VerifyOutOfClusterDelegate from 'modules/dx/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 import VerifyExistingDelegate from 'modules/dx/common/VerifyExistingDelegate/VerifyExistingDelegate'
 import type { ConnectorConnectivityDetails, ResponseConnectorValidationResult } from 'services/cd-ng'
-import type { UseGetMockData } from 'modules/common/utils/testUtils'
+import type { UseGetMockData } from '@common/utils/testUtils'
 import type { RestResponseDelegateStatus } from 'services/portal'
 
 import i18n from './TestConnection.i18n'

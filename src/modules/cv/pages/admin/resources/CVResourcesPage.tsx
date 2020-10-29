@@ -1,6 +1,6 @@
 import { Button, Container } from '@wings-software/uikit'
 import React from 'react'
-import { Page } from 'modules/common/exports'
+import { Page } from '@common/exports'
 import i18n from './CVResourcesPage.i18n'
 
 const CVResourcesPage: React.FC = () => {

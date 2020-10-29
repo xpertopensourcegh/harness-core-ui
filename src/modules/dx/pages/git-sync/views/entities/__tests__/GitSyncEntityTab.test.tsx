@@ -1,6 +1,6 @@
 import React from 'react'
 import { render, waitFor } from '@testing-library/react'
-import { TestWrapper } from 'modules/common/utils/testUtils'
+import { TestWrapper } from '@common/utils/testUtils'
 import GitSyncEntityTab from '../GitSyncEntityTab'
 
 jest.mock('services/cd-ng', () => ({

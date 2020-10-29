@@ -4,7 +4,7 @@ import { StepWizard, SelectOption, ModalErrorHandlerBinding } from '@wings-softw
 import { useCreateFeatureFlag, FeatureFlag } from 'services/cf'
 import { useRouteParams } from 'framework/exports'
 import { routeCFFeatureFlagsDetail } from 'navigation/cf/routes'
-import { useToaster } from 'modules/common/exports'
+import { useToaster } from '@common/exports'
 import FlagElemAbout from './FlagElemAbout'
 import FlagElemBoolean from './FlagElemBoolean'
 import FlagElemMultivariate from './FlagElemMultivariate'

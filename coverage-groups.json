@@ -1,12 +1,12 @@
 {
   "groups": {
     "CD": ["src/modules/cd/**"],
-    "Pipeline": ["src/modules/pipeline/**"],
+    "Pipeline": ["src/modules/70-pipeline/**"],
     "Secrets": [
       "src/modules/dx/components/SecretReference/**",
       "src/modules/dx/components/CreateUpdateSecret/**",
       "src/modules/dx/components/secrets/**",
-      "src/modules/common/components/CreateInlineSecret/**",
+      "src/modules/10-common/components/CreateInlineSecret/**",
       "src/modules/dx/modals/CreateSecretModal/**",
       "src/modules/dx/modals/CreateSSHCredModal/**",
       "src/modules/dx/pages/secrets/**",
@@ -17,35 +17,35 @@
       "src/framework/**",
       "src/modules/dx/components/SecretReference/**",
       "src/modules/dx/components/CreateUpdateSecret/**",
-      "src/modules/common/components/CreateInlineSecret/**",
+      "src/modules/10-common/components/CreateInlineSecret/**",
       "src/modules/dx/modals/CreateSecretModal/**",
       "src/modules/dx/modals/CreateSSHCredModal/**",
       "src/modules/dx/pages/secrets/**",
       "src/modules/dx/pages/secretDetails/**",
-      "src/modules/common/pages/organizations/**",
-      "src/modules/common/pages/ProjectsPage/**",
-      "src/modules/common/modals/ProjectModal/**",
-      "src/modules/common/modals/OrganizationModal/**",
-      "src/modules/common/components/OrganizationCard/**"
+      "src/modules/10-common/pages/organizations/**",
+      "src/modules/10-common/pages/ProjectsPage/**",
+      "src/modules/10-common/modals/ProjectModal/**",
+      "src/modules/10-common/modals/OrganizationModal/**",
+      "src/modules/10-common/components/OrganizationCard/**"
     ],
     "DX": [
       "src/modules/dx/**",
-      "src/modules/common/components/YAMLBuilder/**",
+      "src/modules/10-common/components/YAMLBuilder/**",
       "!src/modules/dx/components/connectors/CreateConnector/AppDynamicsConnector/**",
       "!src/modules/dx/components/connectors/CreateConnector/SplunkConnector/**",
       "!src/modules/dx/components/SecretReference/**",
       "!src/modules/dx/components/CreateUpdateSecret/**",
-      "!src/modules/common/components/CreateInlineSecret/**",
+      "!src/modules/10-common/components/CreateInlineSecret/**",
       "!src/modules/dx/modals/CreateSecretModal/**",
       "!src/modules/dx/modals/CreateSSHCredModal/**",
       "!src/modules/dx/pages/secrets/**",
       "!src/modules/dx/pages/secretDetails/**",
       "!src/modules/dx/pages/createSecretFromYaml/**",
-      "!src/modules/common/pages/organizations/**",
-      "!src/modules/common/pages/ProjectsPage/**",
-      "!src/modules/common/modals/ProjectModal/**",
-      "!src/modules/common/modals/OrganizationModal/**",
-      "!src/modules/common/components/OrganizationCard/**"
+      "!src/modules/10-common/pages/organizations/**",
+      "!src/modules/10-common/pages/ProjectsPage/**",
+      "!src/modules/10-common/modals/ProjectModal/**",
+      "!src/modules/10-common/modals/OrganizationModal/**",
+      "!src/modules/10-common/components/OrganizationCard/**"
     ],
     "CV": [
       "src/modules/cv/**",
@@ -54,7 +54,7 @@
     ],
     "CI": ["src/modules/ci/**"],
     "CF": ["src/modules/cf/**"],
-    "SHARED": ["src/modules/common/**", "src/navigation/**"]
+    "SHARED": ["src/modules/10-common/**", "src/navigation/**"]
   },
   "ignore": ["src/**/*.d.ts", "src/**/*.stories.*", "src/**/__tests__/**", "src/**/__test__/**"]
 }

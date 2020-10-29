@@ -3,7 +3,7 @@ import { Text, Color, Container } from '@wings-software/uikit'
 import cx from 'classnames'
 import type { TextProps } from '@wings-software/uikit/dist/components/Text/Text'
 import { isNumber } from 'highcharts'
-import { getColorStyle } from 'modules/common/components/HeatMap/ColorUtils'
+import { getColorStyle } from '@common/components/HeatMap/ColorUtils'
 import css from './RiskScoreTile.module.scss'
 
 export interface RiskScoreTileProps {

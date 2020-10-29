@@ -1,7 +1,7 @@
 import React from 'react'
 import type { GetDataError } from 'restful-react'
 import type { ResponseCIBuildResponseDTO, GraphVertex } from 'services/ci'
-import type { ExecutionPipeline } from 'modules/pipeline/exports'
+import type { ExecutionPipeline } from '@pipeline/exports'
 import { BuildPipelineGraphLayoutType } from '../sections/pipeline-graph/BuildPipelineGraphLayout/BuildPipelineGraphLayout'
 
 export interface BuildData {

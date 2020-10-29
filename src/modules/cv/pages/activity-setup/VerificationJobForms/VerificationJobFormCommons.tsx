@@ -3,7 +3,7 @@ import { Button, Container, SelectOption } from '@wings-software/uikit'
 import { connect } from 'formik'
 import { useHistory } from 'react-router-dom'
 import { useRouteParams } from 'framework/exports'
-import { useToaster } from 'modules/common/exports'
+import { useToaster } from '@common/exports'
 import { useSaveVerificationJob, VerificationJobDTO } from 'services/cv'
 import { routeCVActivities } from 'navigation/cv/routes'
 

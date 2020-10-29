@@ -3,7 +3,7 @@ import { string } from 'yup'
 import { Layout, Icon } from '@wings-software/uikit'
 import * as Yup from 'yup'
 import cx from 'classnames'
-import { StringUtils } from 'modules/common/exports'
+import { StringUtils } from '@common/exports'
 import { AuthTypes, DelegateTypes } from './KubeFormInterfaces'
 import css from './KubFormHelper.module.scss'
 

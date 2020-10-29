@@ -1,5 +1,5 @@
-import { YamlEntity } from 'modules/common/constants/YamlConstants'
-import { getRefUrlPrefix } from 'modules/common/utils/SchemaUtils'
+import { YamlEntity } from '@common/constants/YamlConstants'
+import { getRefUrlPrefix } from '@common/utils/SchemaUtils'
 import secretsSchema from './mocks/secrets-schema.json'
 import connectorSchema from './mocks/connector-schema.json'
 import pipelineSchema from './mocks/pipeline-schema.json'

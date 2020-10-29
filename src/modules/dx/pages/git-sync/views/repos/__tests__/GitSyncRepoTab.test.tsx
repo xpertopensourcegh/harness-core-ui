@@ -1,7 +1,7 @@
 import React from 'react'
 import { render, waitFor, fireEvent, getByText, queryByText } from '@testing-library/react'
 import { noop } from 'lodash-es'
-import { TestWrapper } from 'modules/common/utils/testUtils'
+import { TestWrapper } from '@common/utils/testUtils'
 import GitSyncRepoTab, { RepoList } from '../GitSyncRepoTab'
 
 import gitSyncListResponse from './mockData/gitSyncRepoListMock.json'

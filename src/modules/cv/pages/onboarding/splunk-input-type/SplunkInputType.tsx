@@ -1,7 +1,7 @@
 import React from 'react'
 import { Container, Text, HarnessIcons, Color, Icon, Button } from '@wings-software/uikit'
 import { useHistory, useLocation } from 'react-router-dom'
-import { Page } from 'modules/common/exports'
+import { Page } from '@common/exports'
 import { routeCVOnBoardingSetup, routeCVDataSourcesEntityPage } from 'navigation/cv/routes'
 import { DataSourceRoutePaths } from 'navigation/cv/routePaths'
 import { useRouteParams } from 'framework/exports'

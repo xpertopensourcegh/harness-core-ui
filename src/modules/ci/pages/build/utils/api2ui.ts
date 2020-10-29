@@ -7,7 +7,7 @@ import {
   ExecutionPipelineItem,
   ExecutionPipelineItemStatus,
   ExecutionPipelineNodeType
-} from 'modules/pipeline/exports'
+} from '@pipeline/exports'
 
 // TODO: random icons used; replace them with right one
 export enum MapStageTypeIconName {

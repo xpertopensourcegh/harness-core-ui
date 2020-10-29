@@ -5,8 +5,8 @@ import type {
   RestResponseListLogAnalysisClusterChartDTO,
   LogData
 } from 'services/cv'
-import { getColorValue } from 'modules/common/components/HeatMap/ColorUtils'
-import { NoDataCard } from 'modules/common/components/Page/NoDataCard'
+import { getColorValue } from '@common/components/HeatMap/ColorUtils'
+import { NoDataCard } from '@common/components/Page/NoDataCard'
 import ClusterChart from './ClusterChart'
 import i18n from './DeploymentDrilldownView.i18n'
 import {

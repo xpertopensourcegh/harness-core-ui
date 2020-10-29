@@ -1,4 +1,4 @@
-import { Scope } from 'modules/common/interfaces/SecretsInterface'
+import { Scope } from '@common/interfaces/SecretsInterface'
 import { getSSHDTOFromFormData, getReference, buildAuthConfig } from '../SSHAuthUtils'
 
 describe('SSHAuthUtils', () => {

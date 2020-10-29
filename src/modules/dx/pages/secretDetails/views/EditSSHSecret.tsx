@@ -23,14 +23,14 @@ import {
   ResponseSecretResponseWrapper
 } from 'services/cd-ng'
 import type { DetailsForm } from 'modules/dx/modals/CreateSSHCredModal/views/StepDetails'
-import type { InlineSecret } from 'modules/common/components/CreateInlineSecret/CreateInlineSecret'
-import { Scope } from 'modules/common/interfaces/SecretsInterface'
+import type { InlineSecret } from '@common/components/CreateInlineSecret/CreateInlineSecret'
+import { Scope } from '@common/interfaces/SecretsInterface'
 import { buildAuthConfig, getSSHDTOFromFormData } from 'modules/dx/components/secrets/SSHAuthUtils'
-import { useToaster } from 'modules/common/exports'
+import { useToaster } from '@common/exports'
 import VerifyConnection from 'modules/dx/modals/CreateSSHCredModal/views/VerifyConnection'
 import useCreateUpdateSecretModal from 'modules/dx/modals/CreateSecretModal/useCreateUpdateSecretModal'
 import type { SecretRef } from 'modules/dx/components/SecretReference/SecretReference'
-import { getScopeFromDTO } from 'modules/common/components/EntityReference/EntityReference'
+import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
 import ConnectorStats from '../../connectors/ConnectorStats'
 
 import css from './EditSSHSecret.module.scss'

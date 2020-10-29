@@ -1,7 +1,7 @@
 import React from 'react'
 import { Layout, Container } from '@wings-software/uikit'
 import { Spinner } from '@blueprintjs/core'
-import { useToaster } from 'modules/common/exports'
+import { useToaster } from '@common/exports'
 import { useGetFeatureFlag, useGetFeatureFlagActivation } from 'services/cf'
 import { useRouteParams } from 'framework/exports'
 import { FlagTypeVariations } from 'modules/cf/components/CreateFlagDialog/FlagDialogUtils'

@@ -6,7 +6,7 @@ import xhr from '@wings-software/xhr-async'
 import { cloneDeep } from 'lodash-es'
 import { CVNextGenCVConfigService } from 'modules/cv/services'
 import { RouteVerificationTypeToVerificationType } from 'modules/cv/constants'
-import { Page } from 'modules/common/exports'
+import { Page } from '@common/exports'
 import { useRouteParams } from 'framework/exports'
 import useOnBoardingPageDataHook from 'modules/cv/hooks/OnBoardingPageDataHook/OnBoardingPageDataHook'
 import {

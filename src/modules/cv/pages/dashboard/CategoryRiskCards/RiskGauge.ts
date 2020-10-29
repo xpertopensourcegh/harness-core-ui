@@ -1,5 +1,5 @@
 import type Highcharts from 'highcharts'
-import { getColorValue } from 'modules/common/components/HeatMap/ColorUtils'
+import { getColorValue } from '@common/components/HeatMap/ColorUtils'
 
 const PLOT_LINE_LOCATIONS = [11, 22, 33, 44, 55, 66, 77, 88].map(degree => ({
   color: 'white',

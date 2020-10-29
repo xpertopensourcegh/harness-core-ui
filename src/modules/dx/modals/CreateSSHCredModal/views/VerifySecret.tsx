@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom'
 import { SSHKeyValidationMetadata, useValidateSecret, ResponseSecretValidationResultDTO } from 'services/cd-ng'
 import { useGetDelegatesStatus, RestResponseDelegateStatus } from 'services/portal'
 
-import type { UseGetMockData } from 'modules/common/utils/testUtils'
+import type { UseGetMockData } from '@common/utils/testUtils'
 import i18n from '../CreateSSHCredModal.i18n'
 
 interface VerifySecretProps {

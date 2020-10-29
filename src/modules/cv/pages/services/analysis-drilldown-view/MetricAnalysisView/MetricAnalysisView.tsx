@@ -9,9 +9,9 @@ import {
   RestResponsePageTimeSeriesMetricDataDTO,
   MetricData
 } from 'services/cv'
-import { NoDataCard } from 'modules/common/components/Page/NoDataCard'
-import { TimelineBar } from 'modules/common/components/TimelineView/TimelineBar'
-import { PageError } from 'modules/common/components/Page/PageError'
+import { NoDataCard } from '@common/components/Page/NoDataCard'
+import { TimelineBar } from '@common/components/TimelineView/TimelineBar'
+import { PageError } from '@common/components/Page/PageError'
 import MetricAnalysisRow from './MetricsAnalysisRow/MetricAnalysisRow'
 import { MetricAnalysisFilter } from './MetricAnalysisFilter/MetricAnalysisFilter'
 import i18n from './MetricAnalysisView.i18n'

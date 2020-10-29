@@ -4,7 +4,7 @@ import { Layout } from '@wings-software/uikit'
 
 import { cloneDeep } from 'lodash-es'
 
-import { PipelineContext, getStageFromPipeline } from 'modules/pipeline/exports'
+import { PipelineContext, getStageFromPipeline } from '@pipeline/exports'
 import { EditStageView } from '../CDPipelineStages/stages/DeployStage/EditStageView/EditStageView'
 
 export default function StageSpecifications(): JSX.Element {

@@ -16,8 +16,8 @@ import {
 } from '@wings-software/uikit'
 import _cloneDeep from 'lodash/cloneDeep'
 import cx from 'classnames'
-import { useToaster } from 'modules/common/exports'
-import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
+import { useToaster } from '@common/exports'
+import { PageSpinner } from '@common/components/Page/PageSpinner'
 
 import {
   ConnectorResponse,
@@ -30,7 +30,7 @@ import {
   ResponsePageConnectorResponse
 } from 'services/cd-ng'
 
-import type { UseGetMockData } from 'modules/common/utils/testUtils'
+import type { UseGetMockData } from '@common/utils/testUtils'
 import i18n from './GitSyncRepoTab.i18n'
 import css from './GitSyncRepo.module.scss'
 

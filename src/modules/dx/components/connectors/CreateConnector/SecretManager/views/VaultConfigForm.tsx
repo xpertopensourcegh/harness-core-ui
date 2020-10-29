@@ -12,7 +12,7 @@ import {
 import { useParams } from 'react-router-dom'
 import { pick } from 'lodash-es'
 
-import { useToaster } from 'modules/common/exports'
+import { useToaster } from '@common/exports'
 import {
   ConnectorRequestBody,
   useCreateConnector,

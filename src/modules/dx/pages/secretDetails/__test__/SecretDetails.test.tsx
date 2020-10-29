@@ -1,12 +1,12 @@
 import React from 'react'
 import { render, fireEvent, findByText, act } from '@testing-library/react'
 
-import { TestWrapper } from 'modules/common/utils/testUtils'
+import { TestWrapper } from '@common/utils/testUtils'
 import SecretDetails from '../SecretDetails'
 
 import mockData from './secretDetailsMocks.json'
 
-jest.mock('modules/common/components/YAMLBuilder/YamlBuilder', jest.fn())
+jest.mock('@common/components/YAMLBuilder/YamlBuilder', jest.fn())
 
 describe('Secret Details', () => {
   test('Text Secret', async () => {

@@ -1,6 +1,6 @@
 import type { SelectOption } from '@wings-software/uikit'
-import type { ExecutionPipelineItem } from 'modules/pipeline/exports'
-import type { ExecutionPipeline, ExecutionPipelineNode } from 'modules/pipeline/exports'
+import type { ExecutionPipelineItem } from '@pipeline/exports'
+import type { ExecutionPipeline, ExecutionPipelineNode } from '@pipeline/exports'
 
 export function getStepsPipelineFromExecutionPipeline<T>(
   pipeline: ExecutionPipeline<T> | undefined,

@@ -1,5 +1,5 @@
 import React from 'react'
-import { PipelineStage } from 'modules/pipeline/exports'
+import { PipelineStage } from '@pipeline/exports'
 
 export class ApprovalStage extends PipelineStage {
   render(): JSX.Element {

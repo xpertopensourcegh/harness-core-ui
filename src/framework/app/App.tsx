@@ -10,7 +10,7 @@ import SessionToken from 'framework/utils/SessionToken'
 import { routePath } from 'framework/utils/framework-utils'
 import { RouteMounter } from '../route/RouteMounter'
 import { AppStoreProvider } from '../hooks/useAppStore'
-import 'modules/common/services'
+import '@common/services'
 import './App.scss'
 
 FocusStyleManager.onlyShowFocusOnTabs()

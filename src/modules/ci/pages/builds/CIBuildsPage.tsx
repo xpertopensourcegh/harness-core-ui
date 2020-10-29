@@ -12,7 +12,7 @@ import ExtendedPageBody from 'modules/ci/components/ExtendedPage/ExtendedPageBod
 import ExtendedPage from 'modules/ci/components/ExtendedPage/ExtendedPage'
 import RightBar from 'modules/ci/components/RightBar/RightBar'
 import { useGetBuilds } from 'services/ci'
-import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
+import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { graph2ExecutionPipeline } from '../build/utils/api2ui'
 import i18n from './CIBuildsPage.i18n'
 import image from './images/image.jpg'

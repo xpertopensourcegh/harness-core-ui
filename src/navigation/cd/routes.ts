@@ -42,7 +42,7 @@ export const routeCDPipelines: Route<{ orgIdentifier: string; projectIdentifier:
   pageId: 'cd-pipelines',
   url: ({ orgIdentifier, projectIdentifier }) =>
     routeURL(routeCDPipelines, `/cd/pipelines/orgs/${orgIdentifier}/projects/${projectIdentifier}`),
-  component: React.lazy(() => import('modules/pipeline/pages/pipelines/CDPipelinesPage'))
+  component: React.lazy(() => import('@pipeline/pages/pipelines/CDPipelinesPage'))
 }
 
 export const routeCDPipelineStudioUI: NestedRoute<{
@@ -57,7 +57,7 @@ export const routeCDPipelineStudioUI: NestedRoute<{
       routeCDPipelineStudioUI,
       `/cd/pipeline-studio/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/ui/`
     ),
-  component: React.lazy(() => import('modules/pipeline/components/PipelineStudio/StageBuilder/StageBuilder')),
+  component: React.lazy(() => import('@pipeline/components/PipelineStudio/StageBuilder/StageBuilder')),
   isDefault: true
 }
 
@@ -73,7 +73,7 @@ export const routeCDPipelineStudioYaml: NestedRoute<{
       routeCDPipelineStudioYaml,
       `/cd/pipeline-studio/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/yaml/`
     ),
-  component: React.lazy(() => import('modules/pipeline/components/PipelineStudio/PipelineYamlView/PipelineYamlView'))
+  component: React.lazy(() => import('@pipeline/components/PipelineStudio/PipelineYamlView/PipelineYamlView'))
 }
 
 export const routeCDPipelineStudio: Route<{
@@ -92,7 +92,7 @@ export const routeCDPipelineStudio: Route<{
       routeCDPipelineStudio,
       `/cd/pipeline-studio/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/`
     ),
-  component: React.lazy(() => import('modules/pipeline/pages/pipeline-studio/CDPipelineStudio')),
+  component: React.lazy(() => import('@pipeline/pages/pipeline-studio/CDPipelineStudio')),
   nestedRoutes: [routeCDPipelineStudioYaml, routeCDPipelineStudioUI]
 }
 
@@ -169,7 +169,7 @@ export const routeInputSetList: NestedRoute<{
       routeInputSetList,
       `/cd/pipelines/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/input-sets`
     ),
-  component: React.lazy(() => import('modules/pipeline/pages/inputSet-list/InputSetList'))
+  component: React.lazy(() => import('@pipeline/pages/inputSet-list/InputSetList'))
 }
 
 export const routePipelineDeploymentList: NestedRoute<{
@@ -184,7 +184,7 @@ export const routePipelineDeploymentList: NestedRoute<{
       routePipelineDeploymentList,
       `/cd/pipelines/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/executions`
     ),
-  component: React.lazy(() => import('modules/pipeline/pages/pipeline-deployment-list/PipelineDeploymentList')),
+  component: React.lazy(() => import('@pipeline/pages/pipeline-deployment-list/PipelineDeploymentList')),
   isDefault: true
 }
 
@@ -202,7 +202,7 @@ export const routeCDPipelineExecutionPipline: NestedRoute<{
       routeCDPipelineExecution,
       `/cd/pipelines/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/executions/${executionIdentifier}/pipeline`
     ),
-  component: React.lazy(() => import('modules/pipeline/pages/execution/ExecutionPipelineView/ExecutionPipelineView')),
+  component: React.lazy(() => import('@pipeline/pages/execution/ExecutionPipelineView/ExecutionPipelineView')),
   isDefault: true
 }
 
@@ -220,7 +220,7 @@ export const routeCDPipelineExecutionInputs: NestedRoute<{
       routeCDPipelineExecution,
       `/cd/pipelines/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/executions/${executionIdentifier}/inputs`
     ),
-  component: React.lazy(() => import('modules/pipeline/pages/execution/ExecutionInputsView/ExecutionInputsView'))
+  component: React.lazy(() => import('@pipeline/pages/execution/ExecutionInputsView/ExecutionInputsView'))
 }
 
 export const routeCDPipelineExecutionArtifacts: NestedRoute<{
@@ -237,7 +237,7 @@ export const routeCDPipelineExecutionArtifacts: NestedRoute<{
       routeCDPipelineExecution,
       `/cd/pipelines/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/executions/${executionIdentifier}/artifacts`
     ),
-  component: React.lazy(() => import('modules/pipeline/pages/execution/ExecutionArtifactsView/ExecutionArtifactsView'))
+  component: React.lazy(() => import('@pipeline/pages/execution/ExecutionArtifactsView/ExecutionArtifactsView'))
 }
 
 export const routeCDPipelineExecution: Route<{
@@ -258,7 +258,7 @@ export const routeCDPipelineExecution: Route<{
       routeCDPipelineExecution,
       `/cd/pipelines/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/executions/${executionIdentifier}`
     ),
-  component: React.lazy(() => import('modules/pipeline/pages/execution/ExecutionLandingPage/ExecutionLandingPage')),
+  component: React.lazy(() => import('@pipeline/pages/execution/ExecutionLandingPage/ExecutionLandingPage')),
   nestedRoutes: [routeCDPipelineExecutionPipline, routeCDPipelineExecutionInputs, routeCDPipelineExecutionArtifacts]
 }
 
@@ -277,7 +277,7 @@ export const routePipelineDetail: Route<{
       routePipelineDetail,
       `/cd/pipelines/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}`
     ),
-  component: React.lazy(() => import('modules/pipeline/pages/pipeline-details/PipelineDetails')),
+  component: React.lazy(() => import('@pipeline/pages/pipeline-details/PipelineDetails')),
   nestedRoutes: [routeInputSetList, routePipelineDeploymentList]
 }
 

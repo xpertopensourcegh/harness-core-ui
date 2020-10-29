@@ -1,7 +1,7 @@
 import React from 'react'
 import { Container, Table } from '@wings-software/uikit'
 import { useGetVerificationJobs } from 'services/cv'
-import { NoDataCard } from 'modules/common/components/Page/NoDataCard'
+import { NoDataCard } from '@common/components/Page/NoDataCard'
 import { useRouteParams } from 'framework/exports'
 import i18n from './ActivitiesPage.i18n'
 import styles from './ActivitiesPage.module.scss'

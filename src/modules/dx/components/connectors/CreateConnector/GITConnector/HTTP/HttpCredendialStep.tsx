@@ -14,7 +14,7 @@ import {
 } from '@wings-software/uikit'
 import * as Yup from 'yup'
 import { useParams } from 'react-router-dom'
-import { useToaster } from 'modules/common/exports'
+import { useToaster } from '@common/exports'
 import { buildGITPayload } from 'modules/dx/pages/connectors/utils/ConnectorUtils'
 import {
   useCreateConnector,

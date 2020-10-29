@@ -1,5 +1,5 @@
 import { Connectors } from 'modules/dx/constants'
-import { StringUtils } from 'modules/common/exports'
+import { StringUtils } from '@common/exports'
 import { getKubValidationSchema, AuthTypeFields } from '../Forms/KubeFormHelper'
 import i18n from './ConnectorHelper.i18n'
 

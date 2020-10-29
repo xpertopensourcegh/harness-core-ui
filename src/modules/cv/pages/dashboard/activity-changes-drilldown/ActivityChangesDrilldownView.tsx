@@ -1,7 +1,7 @@
 import React from 'react'
 import { Container } from '@wings-software/uikit'
 import classnames from 'classnames'
-import { Page } from 'modules/common/exports'
+import { Page } from '@common/exports'
 import CVProgressBar from 'modules/cv/components/CVProgressBar/CVProgressBar'
 import {
   MockedActivitiesTimelineView,

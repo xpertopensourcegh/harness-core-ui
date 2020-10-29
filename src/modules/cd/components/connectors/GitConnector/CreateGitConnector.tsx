@@ -15,7 +15,7 @@ import {
 import ConnectorDetailsStep from 'modules/dx/components/connectors/CreateConnector/commonSteps/ConnectorDetailsStep'
 import type { ConnectorConfigDTO, NgPipeline } from 'services/cd-ng'
 import { Connectors } from 'modules/dx/constants'
-import { StringUtils } from 'modules/common/exports'
+import { StringUtils } from '@common/exports'
 import VerifyOutOfClusterDelegate from 'modules/dx/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 import ConnectionModeStep from 'modules/dx/components/connectors/CreateConnector/GITConnector/ConnectionModeStep/ConnectionModeStep'
 

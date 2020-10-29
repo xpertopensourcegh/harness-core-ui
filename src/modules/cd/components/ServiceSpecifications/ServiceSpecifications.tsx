@@ -24,7 +24,7 @@ import {
   getStageFromPipeline,
   getStageIndexFromPipeline,
   getPrevoiusStageFromIndex
-} from 'modules/pipeline/exports'
+} from '@pipeline/exports'
 import { loggerFor, ModuleName } from 'framework/exports'
 import ArtifactsSelection from '../ArtifactsSelection/ArtifactsSelection'
 import ManifestSelection from '../ManifestSelection/ManifestSelection'

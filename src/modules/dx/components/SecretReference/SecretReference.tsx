@@ -7,9 +7,9 @@ import {
   SecretTextSpecDTO,
   ResponsePageSecretResponseWrapper
 } from 'services/cd-ng'
-import { EntityReference } from 'modules/common/exports'
-import type { EntityReferenceResponse } from 'modules/common/components/EntityReference/EntityReference'
-import { Scope } from 'modules/common/interfaces/SecretsInterface'
+import { EntityReference } from '@common/exports'
+import type { EntityReferenceResponse } from '@common/components/EntityReference/EntityReference'
+import { Scope } from '@common/interfaces/SecretsInterface'
 import i18n from './SecretReference.i18n'
 import css from './SecretReference.module.scss'
 

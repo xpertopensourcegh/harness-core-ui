@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import { Color, Container, OverlaySpinner, Text, TextProps } from '@wings-software/uikit'
 import moment from 'moment'
-import HeatMap, { CellStatusValues, SerieConfig } from 'modules/common/components/HeatMap/HeatMap'
+import HeatMap, { CellStatusValues, SerieConfig } from '@common/components/HeatMap/HeatMap'
 import { useRouteParams } from 'framework/exports'
 import { HeatMapDTO, useGetHeatmap } from 'services/cv'
 import { RiskScoreTile } from 'modules/cv/components/RiskScoreTile/RiskScoreTile'

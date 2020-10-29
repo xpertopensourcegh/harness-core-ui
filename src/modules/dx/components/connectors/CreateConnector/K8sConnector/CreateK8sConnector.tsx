@@ -17,7 +17,7 @@ import {
 import { Form } from 'formik'
 import cx from 'classnames'
 import * as Yup from 'yup'
-import { useToaster } from 'modules/common/exports'
+import { useToaster } from '@common/exports'
 import {
   authOptions,
   DelegateInClusterType,

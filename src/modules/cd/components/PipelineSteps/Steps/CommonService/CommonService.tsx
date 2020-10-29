@@ -15,17 +15,17 @@ import * as yup from 'yup'
 import cx from 'classnames'
 import { isEmpty } from 'lodash-es'
 import { useParams } from 'react-router-dom'
-import { ConfigureOptions, PipelineContext, StepViewType } from 'modules/pipeline/exports'
+import { ConfigureOptions, PipelineContext, StepViewType } from '@pipeline/exports'
 import { ConnectorInfoDTO, useGetConnector } from 'services/cd-ng'
-import { FormMultiTypeConnectorField } from 'modules/common/components/ConnectorReferenceField/FormMultiTypeConnectorField'
+import { FormMultiTypeConnectorField } from '@common/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import {
   getIdentifierFromValue,
   getScopeFromDTO,
   getScopeFromValue
-} from 'modules/common/components/EntityReference/EntityReference'
-import { Scope } from 'modules/common/interfaces/SecretsInterface'
-import { DrawerTypes } from 'modules/pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
-import type { ServiceWrapper } from 'modules/pipeline/components/PipelineStudio/ExecutionGraph/ExecutionGraphUtil'
+} from '@common/components/EntityReference/EntityReference'
+import { Scope } from '@common/interfaces/SecretsInterface'
+import { DrawerTypes } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
+import type { ServiceWrapper } from '@pipeline/components/PipelineStudio/ExecutionGraph/ExecutionGraphUtil'
 import i18n from './CommonService.i18n'
 import { PipelineStep } from '../../PipelineStep'
 import css from './CommonService.module.scss'

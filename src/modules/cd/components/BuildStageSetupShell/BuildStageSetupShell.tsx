@@ -1,11 +1,11 @@
 import React from 'react'
 import { Layout, Select } from '@wings-software/uikit'
-import ExecutionGraph from 'modules/pipeline/components/PipelineStudio/ExecutionGraph/ExecutionGraph'
-import { PipelineContext } from 'modules/pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
+import ExecutionGraph from '@pipeline/components/PipelineStudio/ExecutionGraph/ExecutionGraph'
+import { PipelineContext } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineContext'
 import {
   getSelectStageOptionsFromPipeline,
   StageSelectOption
-} from 'modules/pipeline/components/PipelineStudio/CommonUtils/CommonUtils'
+} from '@pipeline/components/PipelineStudio/CommonUtils/CommonUtils'
 import css from './BuildStageSetupShell.module.scss'
 
 export default function BuildStageSetupShell(): JSX.Element {

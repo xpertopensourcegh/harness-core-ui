@@ -13,7 +13,7 @@ import {
 } from '@wings-software/uikit'
 import type { IconName } from '@blueprintjs/core'
 import * as Yup from 'yup'
-import { illegalIdentifiers } from 'modules/common/utils/StringUtils'
+import { illegalIdentifiers } from '@common/utils/StringUtils'
 import i18n from './FlagWizard.i18n'
 import css from './FlagElemAbout.module.scss'
 

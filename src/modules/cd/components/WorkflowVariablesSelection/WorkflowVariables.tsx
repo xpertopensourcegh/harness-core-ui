@@ -1,10 +1,10 @@
 import React from 'react'
 import { Layout, Text } from '@wings-software/uikit'
 
-import { StepWidget, StepViewType } from 'modules/pipeline/exports'
+import { StepWidget, StepViewType } from '@pipeline/exports'
 import type { NGVariable as Variable } from 'services/cd-ng'
 
-import { PipelineContext, getStageFromPipeline } from 'modules/pipeline/exports'
+import { PipelineContext, getStageFromPipeline } from '@pipeline/exports'
 import { StepType } from '../../components/PipelineSteps/PipelineStepInterface'
 
 import { PredefinedOverrideSets } from '../PredefinedOverrideSets/PredefinedOverrideSets'

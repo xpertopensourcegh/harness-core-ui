@@ -7,7 +7,7 @@ import type {
   RestResponseSetAppdynamicsValidationResponse,
   RestResponseListSplunkSavedSearch
 } from '@wings-software/swagger-ts/definitions'
-import type { ServiceResponse } from 'modules/common/services/ServiceResponse'
+import type { ServiceResponse } from '@common/services/ServiceResponse'
 import { getConfig } from 'services/config'
 
 export const Endpoints = {

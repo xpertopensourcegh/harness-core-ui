@@ -1,4 +1,4 @@
-import type { UseGetReturnData, UseMutateMockData } from 'modules/common/utils/testUtils'
+import type { UseGetReturnData, UseMutateMockData } from '@common/utils/testUtils'
 import type {
   ResponseInputSetTemplateResponse,
   ResponseNGPipelineResponse,

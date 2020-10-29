@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Container, Text, Button } from '@wings-software/uikit'
-import TimelineView from 'modules/common/components/TimelineView/TimelineView'
+import TimelineView from '@common/components/TimelineView/TimelineView'
 import { PredefinedLabels } from './TimelineViewLabel'
 import TimelineTooltip from './TimelineTooltip'
 import ActivitiesTimelineHeader from './ActivitiesTimelineHeader'

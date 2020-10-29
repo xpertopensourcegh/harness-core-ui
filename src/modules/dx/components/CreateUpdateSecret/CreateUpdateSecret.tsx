@@ -26,9 +26,9 @@ import {
   ResponsePageConnectorResponse
 } from 'services/cd-ng'
 import type { SecretTextSpecDTO, SecretFileSpecDTO } from 'services/cd-ng'
-import { useToaster } from 'modules/common/exports'
-import { illegalIdentifiers } from 'modules/common/utils/StringUtils'
-import type { UseGetMockData } from 'modules/common/utils/testUtils'
+import { useToaster } from '@common/exports'
+import { illegalIdentifiers } from '@common/utils/StringUtils'
+import type { UseGetMockData } from '@common/utils/testUtils'
 import i18n from './CreateUpdateSecret.i18n'
 import VaultFormFields from './views/VaultFormFields'
 import LocalFormFields from './views/LocalFormFields'

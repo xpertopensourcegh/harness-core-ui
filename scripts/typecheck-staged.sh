@@ -13,7 +13,7 @@ done
 # create temporary tsconfig which includes only passed files
 str="{
   \"extends\": \"./tsconfig.json\",
-  \"include\": [\"src/global.d.ts\", \"src/modules/common/components/Table/react-table-config.d.ts\", $files]
+  \"include\": [\"src/global.d.ts\", \"src/modules/10-common/components/Table/react-table-config.d.ts\", $files]
 }"
 echo $str > tsconfig.tmp
 

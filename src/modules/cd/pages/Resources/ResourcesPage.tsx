@@ -1,7 +1,7 @@
 import React from 'react'
 import { NavLink, useParams } from 'react-router-dom'
 import { Container, Layout } from '@wings-software/uikit'
-import { Page } from 'modules/common/exports'
+import { Page } from '@common/exports'
 import {
   routeOrgResourcesConnectors,
   routeOrgResourcesSecretsListing,

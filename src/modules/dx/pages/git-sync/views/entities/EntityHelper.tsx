@@ -3,7 +3,7 @@ import { Container, Icon, IconName, Text } from '@wings-software/uikit'
 import copy from 'clipboard-copy'
 import type { CellProps, Renderer, Column } from 'react-table'
 import type { GitSyncEntityListDTO, GitSyncEntityDTO, GitSyncProductDTO } from 'services/cd-ng'
-import { useToaster } from 'modules/common/components/Toaster/useToaster'
+import { useToaster } from '@common/components/Toaster/useToaster'
 import i18n from './GitSyncEntityTab.i18n'
 
 export enum Products {

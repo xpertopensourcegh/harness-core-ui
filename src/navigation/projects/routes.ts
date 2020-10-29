@@ -9,5 +9,5 @@ export const routeProjects: Route = {
   title: i18n.project,
   pageId: 'projects',
   url: () => routeURL(routeProjects, '/projects'),
-  component: React.lazy(() => import('modules/common/pages/ProjectsPage/ProjectsPage'))
+  component: React.lazy(() => import('@common/pages/ProjectsPage/ProjectsPage'))
 }

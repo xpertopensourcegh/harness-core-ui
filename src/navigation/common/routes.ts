@@ -10,7 +10,7 @@ export const routeLogin: Route = {
   title: i18n.login,
   pageId: 'login',
   url: () => '/login',
-  component: React.lazy(() => import('../../modules/common/pages/login/LoginPage')),
+  component: React.lazy(() => import('@common/pages/login/LoginPage')),
   authenticated: false
 }
 
@@ -22,6 +22,6 @@ export const routePageNotFound: Route = {
   title: i18n.notFound,
   pageId: '404',
   url: () => routeURL(routePageNotFound, '/404'),
-  component: React.lazy(() => import('../../modules/common/pages/404/NotFoundPage')),
+  component: React.lazy(() => import('@common/pages/404/NotFoundPage')),
   authenticated: false
 }

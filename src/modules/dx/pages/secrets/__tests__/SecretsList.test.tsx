@@ -2,7 +2,7 @@ import React from 'react'
 import { render } from '@testing-library/react'
 import { noop } from 'lodash-es'
 
-import { TestWrapper } from 'modules/common/utils/testUtils'
+import { TestWrapper } from '@common/utils/testUtils'
 import type { PageSecretResponseWrapper } from 'services/cd-ng'
 import SecretsList from '../views/SecretsListView/SecretsList'
 

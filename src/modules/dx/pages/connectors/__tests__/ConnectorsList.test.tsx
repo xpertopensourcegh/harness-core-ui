@@ -1,6 +1,6 @@
 import React from 'react'
 import { render, waitFor, queryByText } from '@testing-library/react'
-import { TestWrapper } from 'modules/common/utils/testUtils'
+import { TestWrapper } from '@common/utils/testUtils'
 import ConnectorsPage from '../ConnectorsPage'
 import { ManualK8s, InlineK8s, GitHttp, Docker, ActiveDocker, Vault } from '../__tests__/mockData'
 

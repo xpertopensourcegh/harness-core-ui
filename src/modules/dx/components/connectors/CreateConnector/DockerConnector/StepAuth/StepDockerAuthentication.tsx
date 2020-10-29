@@ -14,7 +14,7 @@ import {
 } from '@wings-software/uikit'
 import * as Yup from 'yup'
 import { buildDockerPayload } from 'modules/dx/pages/connectors/utils/ConnectorUtils'
-import { useToaster } from 'modules/common/exports'
+import { useToaster } from '@common/exports'
 import {
   useCreateConnector,
   useUpdateConnector,

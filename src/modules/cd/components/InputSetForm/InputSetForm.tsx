@@ -38,16 +38,16 @@ import {
   ResponseOverlayInputSetResponse,
   useGetMergeInputSetFromPipelineTemplateWithListInput
 } from 'services/cd-ng'
-import { YamlEntity } from 'modules/common/constants/YamlConstants'
-import { useToaster } from 'modules/common/exports'
+import { YamlEntity } from '@common/constants/YamlConstants'
+import { useToaster } from '@common/exports'
 import type {
   YamlBuilderHandlerBinding,
   YamlBuilderProps,
   InvocationMapFunction,
   CompletionItemInterface
-} from 'modules/common/interfaces/YAMLBuilderProps'
-import YAMLBuilder from 'modules/common/components/YAMLBuilder/YamlBuilder'
-import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
+} from '@common/interfaces/YAMLBuilderProps'
+import YAMLBuilder from '@common/components/YAMLBuilder/YamlBuilder'
+import { PageSpinner } from '@common/components/Page/PageSpinner'
 import i18n from './InputSetForm.18n'
 import { PipelineInputSetForm } from '../PipelineInputSetForm/PipelineInputSetForm'
 import css from './InputSetForm.module.scss'

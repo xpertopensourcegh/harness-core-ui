@@ -6,7 +6,7 @@ import * as Yup from 'yup'
 import { get } from 'lodash-es'
 import { loggerFor, ModuleName } from 'framework/exports'
 
-import { StepWidget, StepViewType, PipelineContext, getStageFromPipeline } from 'modules/pipeline/exports'
+import { StepWidget, StepViewType, PipelineContext, getStageFromPipeline } from '@pipeline/exports'
 import type { K8SDirectInfrastructure } from 'services/cd-ng'
 import i18n from './InfraSpecifications.i18n'
 import factory from '../PipelineSteps/PipelineStepFactory'

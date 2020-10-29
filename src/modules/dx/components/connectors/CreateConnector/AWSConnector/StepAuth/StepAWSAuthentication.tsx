@@ -15,7 +15,7 @@ import {
 import cx from 'classnames'
 import * as Yup from 'yup'
 import { buildAWSPayload } from 'modules/dx/pages/connectors/utils/ConnectorUtils'
-import { useToaster } from 'modules/common/exports'
+import { useToaster } from '@common/exports'
 import {
   useCreateConnector,
   useUpdateConnector,

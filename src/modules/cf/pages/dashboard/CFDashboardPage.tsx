@@ -1,6 +1,6 @@
 import React from 'react'
 import { Container, Button, Text } from '@wings-software/uikit'
-import { Page } from 'modules/common/exports'
+import { Page } from '@common/exports'
 import i18n from './CFDashboardPage.i18n'
 
 const CFDashboardPage: React.FC = () => {

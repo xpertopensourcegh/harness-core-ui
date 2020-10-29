@@ -2,7 +2,7 @@ import React from 'react'
 import { useHistory } from 'react-router-dom'
 import { ModuleName } from 'framework/exports'
 import type { Project } from 'services/cd-ng'
-import { ModuleLandingView } from 'modules/common/exports'
+import { ModuleLandingView } from '@common/exports'
 import { routeCDDashboard } from 'navigation/cd/routes'
 import i18n from './CDHomePage.i18n'
 

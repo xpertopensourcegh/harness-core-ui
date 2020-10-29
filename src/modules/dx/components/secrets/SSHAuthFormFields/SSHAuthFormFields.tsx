@@ -8,10 +8,10 @@ import { omit } from 'lodash-es'
 
 import SecretReference from 'modules/dx/components/SecretReference/SecretReference'
 import { FormikSecretTextInput } from 'modules/dx/components/SecretInput/SecretTextInput'
-import { getIdentifierFromName } from 'modules/common/utils/StringUtils'
+import { getIdentifierFromName } from '@common/utils/StringUtils'
 import type { SSHConfigFormData } from 'modules/dx/modals/CreateSSHCredModal/views/StepAuthentication'
 import type { SecretResponseWrapper, ResponsePageSecretResponseWrapper } from 'services/cd-ng'
-import { Scope } from 'modules/common/interfaces/SecretsInterface'
+import { Scope } from '@common/interfaces/SecretsInterface'
 
 import i18n from './SSHAuthFormFields.i18n'
 import css from './SSHAuthFormFields.module.scss'

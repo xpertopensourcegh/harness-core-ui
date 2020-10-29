@@ -2,7 +2,7 @@ import React from 'react'
 import { Layout, Text, CollapseList, CollapseListPanel, Button, TextInput, Label } from '@wings-software/uikit'
 import { Dialog, IDialogProps } from '@blueprintjs/core'
 import { get } from 'lodash-es'
-import { PipelineContext, getStageFromPipeline } from 'modules/pipeline/exports'
+import { PipelineContext, getStageFromPipeline } from '@pipeline/exports'
 import i18n from './OverrideSets.i18n'
 
 import ArtifactsSelection from '../ArtifactsSelection/ArtifactsSelection'

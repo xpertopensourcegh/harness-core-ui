@@ -6,10 +6,10 @@ import { useListSecretsV2, ResponsePageSecretResponseWrapper } from 'services/cd
 import { routeCreateSecretFromYaml } from 'navigation/accounts/routes'
 import useCreateUpdateSecretModal from 'modules/dx/modals/CreateSecretModal/useCreateUpdateSecretModal'
 import useCreateSSHCredModal from 'modules/dx/modals/CreateSSHCredModal/useCreateSSHCredModal'
-import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
-import { PageError } from 'modules/common/components/Page/PageError'
+import { PageSpinner } from '@common/components/Page/PageSpinner'
+import { PageError } from '@common/components/Page/PageError'
 
-import type { UseGetMockData } from 'modules/common/utils/testUtils'
+import type { UseGetMockData } from '@common/utils/testUtils'
 import SecretsList from './views/SecretsListView/SecretsList'
 
 import i18n from './SecretsPage.i18n'

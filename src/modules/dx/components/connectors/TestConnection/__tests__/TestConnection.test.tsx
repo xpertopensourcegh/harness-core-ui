@@ -1,7 +1,7 @@
 import React from 'react'
 import { render, act, fireEvent } from '@testing-library/react'
 import { MemoryRouter } from 'react-router'
-import { TestWrapper } from 'modules/common/utils/testUtils'
+import { TestWrapper } from '@common/utils/testUtils'
 import statusData from 'modules/dx/common/VerifyOutOfClusterDelegate/__tests__/mockData/delegate-status-response.json'
 import testConnectionSuccess from 'modules/dx/common/VerifyOutOfClusterDelegate/__tests__/mockData/test-connection-success.json'
 import type { RestResponseDelegateStatus } from 'services/portal'

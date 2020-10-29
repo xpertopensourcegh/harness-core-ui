@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react'
 import { Container, Button } from '@wings-software/uikit'
-import { Page } from 'modules/common/exports'
+import { Page } from '@common/exports'
 import i18n from './CDDeploymentsPage.i18n'
 import { ExecutionsListingView } from '../../components/ExecutionsListingView/ExecutionsListingView'
 

@@ -14,7 +14,7 @@ import {
 import { useParams } from 'react-router'
 import * as Yup from 'yup'
 
-import { StringUtils } from 'modules/common/exports'
+import { StringUtils } from '@common/exports'
 import { ConnectorInfoDTO, validateTheIdentifierIsUniquePromise } from 'services/cd-ng'
 import type { SecretManagerWizardData } from '../CreateSecretManager'
 

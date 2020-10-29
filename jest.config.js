@@ -1,4 +1,7 @@
 process.env.TZ = 'GMT'
+const { pathsToModuleNameMapper } = require('ts-jest/utils');
+const { compilerOptions } = require('./tsconfig');
+
 module.exports = {
   globals: {
     'ts-jest': {
@@ -27,7 +30,8 @@ module.exports = {
     '\\.s?css$': 'identity-obj-proxy',
     'monaco-editor': '<rootDir>/node_modules/react-monaco-editor',
     '\\.(jpg|jpeg|png|gif|svg|eot|otf|webp|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$':
-      '<rootDir>/scripts/jest/file-mock.js'
+      '<rootDir>/scripts/jest/file-mock.js',
+    ...pathsToModuleNameMapper(compilerOptions.paths)
   },
   coverageThreshold: {
     global: {

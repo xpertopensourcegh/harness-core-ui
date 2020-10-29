@@ -10,7 +10,7 @@ import {
   ConnectorConnectivityDetails
 } from 'services/cd-ng'
 import { getConnectorDisplayName } from 'modules/dx/pages/connectors/utils/ConnectorUtils'
-import type { UseGetMockData } from 'modules/common/utils/testUtils'
+import type { UseGetMockData } from '@common/utils/testUtils'
 import type { StepDetails } from 'modules/dx/interfaces/ConnectorInterface'
 import { ConnectorStatus } from 'modules/dx/constants'
 import i18n from './VerifyOutOfClusterDelegate.i18n'

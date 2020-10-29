@@ -2,7 +2,7 @@ import { Container, Layout } from '@wings-software/uikit'
 import React from 'react'
 import { NavLink, useParams } from 'react-router-dom'
 import { routeCDResourcesConnectors, routeCDResourcesSecretsListing } from 'navigation/cd/routes'
-import { Page } from 'modules/common/exports'
+import { Page } from '@common/exports'
 import i18n from './CDResourcesPage.i18n'
 import css from './CDResourcesPage.module.scss'
 

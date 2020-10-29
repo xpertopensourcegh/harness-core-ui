@@ -1,4 +1,4 @@
-import { Scope } from 'modules/common/interfaces/SecretsInterface'
+import { Scope } from '@common/interfaces/SecretsInterface'
 import type { ConnectorConfigDTO } from 'services/cd-ng'
 
 export const ConnectorSecretScope: { [scope: string]: string } = {

@@ -15,23 +15,23 @@ import {
 import { useParams } from 'react-router-dom'
 import { debounce, noop, isEmpty } from 'lodash-es'
 import { FormGroup } from '@blueprintjs/core'
-import { StepViewType, ConfigureOptions } from 'modules/pipeline/exports'
+import { StepViewType, ConfigureOptions } from '@pipeline/exports'
 import { K8SDirectInfrastructure, useGetConnector, ConnectorInfoDTO } from 'services/cd-ng'
 import {
   FormMultiTypeConnectorField,
   MultiTypeConnectorFieldProps
-} from 'modules/common/components/ConnectorReferenceField/FormMultiTypeConnectorField'
+} from '@common/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import {
   getScopeFromDTO,
   getIdentifierFromValue,
   getScopeFromValue
-} from 'modules/common/components/EntityReference/EntityReference'
+} from '@common/components/EntityReference/EntityReference'
 import { getIconByType } from 'modules/dx/exports'
-import { Scope } from 'modules/common/interfaces/SecretsInterface'
+import { Scope } from '@common/interfaces/SecretsInterface'
 import {
   ConnectorReferenceField,
   ConnectorReferenceFieldProps
-} from 'modules/common/components/ConnectorReferenceField/ConnectorReferenceField'
+} from '@common/components/ConnectorReferenceField/ConnectorReferenceField'
 import { StepType } from '../../PipelineStepInterface'
 import i18n from './KubernetesInfraSpec.18n'
 import { PipelineStep } from '../../PipelineStep'

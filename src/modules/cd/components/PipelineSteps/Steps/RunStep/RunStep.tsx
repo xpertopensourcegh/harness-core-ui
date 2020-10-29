@@ -16,16 +16,16 @@ import * as yup from 'yup'
 import cx from 'classnames'
 import { isEmpty } from 'lodash-es'
 import { useParams } from 'react-router-dom'
-import { ConfigureOptions, PipelineContext, StepViewType } from 'modules/pipeline/exports'
+import { ConfigureOptions, PipelineContext, StepViewType } from '@pipeline/exports'
 import { ConnectorInfoDTO, useGetConnector } from 'services/cd-ng'
-import { FormMultiTypeConnectorField } from 'modules/common/components/ConnectorReferenceField/FormMultiTypeConnectorField'
+import { FormMultiTypeConnectorField } from '@common/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import {
   getIdentifierFromValue,
   getScopeFromDTO,
   getScopeFromValue
-} from 'modules/common/components/EntityReference/EntityReference'
-import { Scope } from 'modules/common/interfaces/SecretsInterface'
-import { DrawerTypes } from 'modules/pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
+} from '@common/components/EntityReference/EntityReference'
+import { Scope } from '@common/interfaces/SecretsInterface'
+import { DrawerTypes } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
 import { StepType } from '../../PipelineStepInterface'
 import { PipelineStep } from '../../PipelineStep'
 import i18n from './RunStep.i18n'

@@ -6,7 +6,7 @@ import cx from 'classnames'
 import { parse, stringify } from 'yaml'
 import { noop, pick } from 'lodash-es'
 import * as Yup from 'yup'
-import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
+import { PageSpinner } from '@common/components/Page/PageSpinner'
 import {
   NgPipeline,
   Failure,
@@ -17,10 +17,10 @@ import {
   useGetTemplateFromPipeline,
   usePostPipelineExecuteWithInputSetYaml
 } from 'services/cd-ng'
-import { useToaster } from 'modules/common/exports'
-import YAMLBuilder from 'modules/common/components/YAMLBuilder/YamlBuilder'
-import type { YamlBuilderHandlerBinding, YamlBuilderProps } from 'modules/common/interfaces/YAMLBuilderProps'
-import { YamlEntity } from 'modules/common/constants/YamlConstants'
+import { useToaster } from '@common/exports'
+import YAMLBuilder from '@common/components/YAMLBuilder/YamlBuilder'
+import type { YamlBuilderHandlerBinding, YamlBuilderProps } from '@common/interfaces/YAMLBuilderProps'
+import { YamlEntity } from '@common/constants/YamlConstants'
 import { routeCDPipelineExecutionPipline } from 'navigation/cd/routes'
 import { BasicInputSetForm, InputFormType, InputSetDTO } from '../InputSetForm/InputSetForm'
 import i18n from './RunPipelineModal.i18n'

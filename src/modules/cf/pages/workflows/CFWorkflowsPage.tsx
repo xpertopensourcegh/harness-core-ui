@@ -1,6 +1,6 @@
 import React from 'react'
 import { Text } from '@wings-software/uikit'
-import { Page } from 'modules/common/exports'
+import { Page } from '@common/exports'
 
 const CFWorkflowsPage: React.FC = () => {
   return (

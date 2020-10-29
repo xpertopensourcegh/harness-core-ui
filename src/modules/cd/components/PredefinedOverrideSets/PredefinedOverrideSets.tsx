@@ -1,7 +1,7 @@
 import React from 'react'
 import { Layout, Text, SelectOption } from '@wings-software/uikit'
 import { isArray } from 'lodash-es'
-import { PipelineContext } from 'modules/pipeline/exports'
+import { PipelineContext } from '@pipeline/exports'
 import type { StageElementWrapper } from 'services/cd-ng'
 import { OverrideSetsInputSelector } from '../OverrideSetsInputSelector/OverrideSetsInputSelector'
 import type { InputSetSelectorProps } from '../OverrideSetsInputSelector/OverrideSetsInputSelector'

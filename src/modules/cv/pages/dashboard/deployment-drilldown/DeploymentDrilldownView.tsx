@@ -7,10 +7,10 @@ import {
   useGetDeploymentLogAnalyses,
   useGetClusterChartAnalyses
 } from 'services/cv'
-import { Page } from 'modules/common/exports'
-import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
+import { Page } from '@common/exports'
+import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { useRouteParams } from 'framework/exports'
-import { useToaster } from 'modules/common/exports'
+import { useToaster } from '@common/exports'
 import { DeploymentProgressAndNodes } from 'modules/cv/components/DeploymentProgressAndNodes/DeploymentProgressAndNodes'
 import type { NodeData } from '../../services/BlueGreenVerificationChart'
 import DeploymentMetricsTab from './DeploymentMetricsTab'

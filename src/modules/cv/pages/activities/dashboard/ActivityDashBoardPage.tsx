@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { CircularPercentageChart, Color, Container, Text, Utils } from '@wings-software/uikit'
 import moment from 'moment'
-import { Page } from 'modules/common/exports'
+import { Page } from '@common/exports'
 import i18n from './ActivityDashboardPage.i18n'
 import { ActivityTimeline } from './ActivityTimeline/ActivityTimeline'
 import type { Activity } from './ActivityTimeline/ActivityTrack/ActivityTrackUtils'

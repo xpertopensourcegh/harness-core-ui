@@ -3,7 +3,7 @@ import type { IconName } from '@wings-software/uikit'
 import { Connectors, ConnectorInfoText, EntityTypes } from 'modules/dx/constants'
 import type { ConnectorInfoDTO } from 'services/cd-ng'
 import type { FormData } from 'modules/dx/interfaces/ConnectorInterface'
-import { Scope } from 'modules/common/interfaces/SecretsInterface'
+import { Scope } from '@common/interfaces/SecretsInterface'
 import { AuthTypes, DelegateTypes } from '../Forms/KubeFormInterfaces'
 
 export const getScopeFromString = (value: string) => {

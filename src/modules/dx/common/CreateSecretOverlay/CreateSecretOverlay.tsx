@@ -2,7 +2,7 @@ import React from 'react'
 import { Layout, Text, Color, Container, Button } from '@wings-software/uikit'
 import CreateUpdateSecret, { SecretFormData } from 'modules/dx/components/CreateUpdateSecret/CreateUpdateSecret'
 import type { SecretDTOV2, ResponsePageConnectorResponse } from 'services/cd-ng'
-import type { UseGetMockData } from 'modules/common/utils/testUtils'
+import type { UseGetMockData } from '@common/utils/testUtils'
 import i18n from './CreateSecretOverlay.i18n'
 import css from './CreateSecretOverlay.module.scss'
 

@@ -1,6 +1,6 @@
 import React from 'react'
 import { ConfirmActionButton, Layout } from '@wings-software/uikit'
-import { ExecutionStatus } from 'modules/common/exports'
+import { ExecutionStatus } from '@common/exports'
 import type { PipelineExecutionSummaryDTO } from 'services/cd-ng'
 import i18n from './ExecutionActionButtons.i18n'
 import css from './ExecutionActionButtons.module.scss'

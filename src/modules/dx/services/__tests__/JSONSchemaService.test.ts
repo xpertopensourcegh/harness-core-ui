@@ -1,4 +1,4 @@
-import { LOCAL_API_PORT } from 'modules/common/constants/Common'
+import { LOCAL_API_PORT } from '@common/constants/Common'
 import { getBaseSchema } from '../JSONSchemaService'
 
 describe('Test utils from JSONSchemaService', () => {

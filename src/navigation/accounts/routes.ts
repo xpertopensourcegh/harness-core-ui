@@ -9,7 +9,7 @@ export const routeAdmin: Route = {
   title: i18n.admin,
   pageId: 'admin',
   url: () => routeURL(routeAdmin, '/admin'),
-  component: React.lazy(() => import('modules/common/pages/admin/AdminPage'))
+  component: React.lazy(() => import('@common/pages/admin/AdminPage'))
 }
 
 export const routeSettings: Route = {
@@ -19,7 +19,7 @@ export const routeSettings: Route = {
   title: i18n.settings,
   pageId: 'settings',
   url: () => routeURL(routeSettings, '/settings'),
-  component: React.lazy(() => import('modules/common/pages/settings/SettingsPage'))
+  component: React.lazy(() => import('@common/pages/settings/SettingsPage'))
 }
 
 export const routeOrgResourcesConnectors: NestedRoute<{ orgIdentifier: string }> = {
@@ -155,7 +155,7 @@ export const routeOrgProjects: Route<{ orgIdentifier: string }> = {
   title: i18n.project,
   pageId: 'orgProjects',
   url: ({ orgIdentifier }) => routeURL(routeOrgProjects, `/organizations/${orgIdentifier}/projects`),
-  component: React.lazy(() => import('modules/common/pages/ProjectsPage/OrgsProjectsPage'))
+  component: React.lazy(() => import('@common/pages/ProjectsPage/OrgsProjectsPage'))
 }
 
 export const routeOrganizations: Route = {
@@ -165,7 +165,7 @@ export const routeOrganizations: Route = {
   title: i18n.organization,
   pageId: 'organization',
   url: () => routeURL(routeOrganizations, `/organizations`),
-  component: React.lazy(() => import('modules/common/pages/organizations/OrganizationsPage'))
+  component: React.lazy(() => import('@common/pages/organizations/OrganizationsPage'))
 }
 
 export const routeGovernance: Route = {
@@ -175,7 +175,7 @@ export const routeGovernance: Route = {
   title: i18n.governance,
   pageId: 'governance',
   url: () => routeURL(routeGovernance, '/governance'),
-  component: React.lazy(() => import('modules/common/pages/governance/GovernancePage'))
+  component: React.lazy(() => import('@common/pages/governance/GovernancePage'))
 }
 
 export const routeOrgGovernance: Route<{ orgIdentifier: string }> = {
@@ -185,7 +185,7 @@ export const routeOrgGovernance: Route<{ orgIdentifier: string }> = {
   title: i18n.governance,
   pageId: 'org-governance',
   url: ({ orgIdentifier }) => routeURL(routeOrgGovernance, `/governance/org/${orgIdentifier}`),
-  component: React.lazy(() => import('modules/common/pages/governance/GovernancePage'))
+  component: React.lazy(() => import('@common/pages/governance/GovernancePage'))
 }
 
 export const routeResourcesConnectors: NestedRoute = {

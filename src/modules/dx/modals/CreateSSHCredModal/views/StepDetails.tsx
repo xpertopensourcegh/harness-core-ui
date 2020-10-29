@@ -3,7 +3,7 @@ import { Button, Text, Color, StepProps, FormikForm, Formik, Container, Layout }
 import * as Yup from 'yup'
 import type { SecretDTOV2 } from 'services/cd-ng'
 
-import { illegalIdentifiers } from 'modules/common/utils/StringUtils'
+import { illegalIdentifiers } from '@common/utils/StringUtils'
 
 import SSHDetailsFormFields from 'modules/dx/components/secrets/SSHDetailsFormFields/SSHDetailsFormFields'
 import type { SSHCredSharedObj } from '../CreateSSHCredWizard'

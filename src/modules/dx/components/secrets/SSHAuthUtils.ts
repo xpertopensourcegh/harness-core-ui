@@ -1,5 +1,5 @@
 import { pick } from 'lodash-es'
-import { Scope } from 'modules/common/interfaces/SecretsInterface'
+import { Scope } from '@common/interfaces/SecretsInterface'
 import type { SSHConfigFormData } from 'modules/dx/modals/CreateSSHCredModal/views/StepAuthentication'
 import type { DetailsForm } from 'modules/dx/modals/CreateSSHCredModal/views/StepDetails'
 import type {

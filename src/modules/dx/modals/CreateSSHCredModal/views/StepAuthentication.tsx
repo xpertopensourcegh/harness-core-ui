@@ -24,11 +24,11 @@ import {
 import type { KerberosConfigDTO, SSHConfigDTO, SSHKeySpecDTO } from 'services/cd-ng'
 import type { SecretInfo } from 'modules/dx/components/SecretInput/SecretTextInput'
 import CreateSecretOverlay from 'modules/dx/common/CreateSecretOverlay/CreateSecretOverlay'
-import type { InlineSecret } from 'modules/common/components/CreateInlineSecret/CreateInlineSecret'
+import type { InlineSecret } from '@common/components/CreateInlineSecret/CreateInlineSecret'
 import type { SecretRef } from 'modules/dx/components/SecretReference/SecretReference'
 import SSHAuthFormFields from 'modules/dx/components/secrets/SSHAuthFormFields/SSHAuthFormFields'
 import { buildAuthConfig } from 'modules/dx/components/secrets/SSHAuthUtils'
-import { useToaster } from 'modules/common/exports'
+import { useToaster } from '@common/exports'
 import type { SSHCredSharedObj } from '../CreateSSHCredWizard'
 
 import i18n from '../CreateSSHCredModal.i18n'

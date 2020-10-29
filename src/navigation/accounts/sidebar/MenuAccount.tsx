@@ -1,7 +1,7 @@
 import { Container, Layout } from '@wings-software/uikit'
 import React, { useState } from 'react'
 import { Sidebar, isRouteActive } from 'framework/exports'
-import OrgSelector from 'modules/common/components/OrgSelector/OrgSelector'
+import OrgSelector from '@common/components/OrgSelector/OrgSelector'
 import { routeGitSync, routeGovernance, routeOrganizations, routeResources } from '../routes'
 import i18n from './MenuAccount.i18n'
 

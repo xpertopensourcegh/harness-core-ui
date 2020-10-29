@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useParams } from 'react-router-dom'
 
 import { Icon, Color, Text, Container } from '@wings-software/uikit'
-import { PageSpinner } from 'modules/common/components/Page/PageSpinner'
+import { PageSpinner } from '@common/components/Page/PageSpinner'
 
 import {
   GitSyncEntityListDTO,
@@ -11,7 +11,7 @@ import {
   useListGitSyncEntitiesByType,
   GitSyncProductDTO
 } from 'services/cd-ng'
-import Table from 'modules/common/components/Table/Table'
+import Table from '@common/components/Table/Table'
 import { getEntityHeaderText, getTableColumns } from './EntityHelper'
 import i18n from './GitSyncEntityTab.i18n'
 import css from './GitSyncEntity.module.scss'

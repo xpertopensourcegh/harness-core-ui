@@ -2,10 +2,10 @@ import React, { useState, useMemo } from 'react'
 import { Container, Pagination, Link } from '@wings-software/uikit'
 import * as Moment from 'moment'
 import { extendMoment } from 'moment-range'
-import { TimelineBar } from 'modules/common/components/TimelineView/TimelineBar'
+import { TimelineBar } from '@common/components/TimelineView/TimelineBar'
 import type { RestResponseTransactionMetricInfoSummaryPageDTO, HostData, TimeRange } from 'services/cv'
-import { getColorValue } from 'modules/common/components/HeatMap/ColorUtils'
-import { NoDataCard } from 'modules/common/components/Page/NoDataCard'
+import { getColorValue } from '@common/components/HeatMap/ColorUtils'
+import { NoDataCard } from '@common/components/Page/NoDataCard'
 import {
   MetricAnalysisFilter,
   MetricAnalysisFilterType

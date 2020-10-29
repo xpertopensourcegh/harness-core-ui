@@ -12,10 +12,10 @@ import {
   ResponseConnectorValidationResult,
   ConnectorConnectivityDetails
 } from 'services/cd-ng'
-import Table from 'modules/common/components/Table/Table'
-import { useConfirmationDialog } from 'modules/common/exports'
-import { useToaster } from 'modules/common/components/Toaster/useToaster'
-import TagsPopover from 'modules/common/components/TagsPopover/TagsPopover'
+import Table from '@common/components/Table/Table'
+import { useConfirmationDialog } from '@common/exports'
+import { useToaster } from '@common/components/Toaster/useToaster'
+import TagsPopover from '@common/components/TagsPopover/TagsPopover'
 import { StepIndex, STEP } from 'modules/dx/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 import { getStepOneForExistingDelegate } from 'modules/dx/common/VerifyExistingDelegate/VerifyExistingDelegate'
 import { useGetDelegatesStatus, RestResponseDelegateStatus, DelegateInner } from 'services/portal'

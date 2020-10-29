@@ -1,7 +1,7 @@
 import React from 'react'
 import { render, fireEvent, findByText, act } from '@testing-library/react'
 
-import { TestWrapper } from 'modules/common/utils/testUtils'
+import { TestWrapper } from '@common/utils/testUtils'
 import CreateUpdateSecret from '../CreateUpdateSecret'
 
 import mockData from './listSecretManagersMock.json'

@@ -9,7 +9,7 @@ import {
   routeCVDataSources,
   routeCVSplunkInputTypePage
 } from 'navigation/cv/routes'
-import { Page } from 'modules/common/exports'
+import { Page } from '@common/exports'
 import { CVNextGenCVConfigService } from 'modules/cv/services'
 import { useRouteParams } from 'framework/exports'
 import { DataSourceRoutePaths } from 'navigation/cv/routePaths'
