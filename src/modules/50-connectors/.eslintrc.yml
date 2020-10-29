@@ -5,7 +5,11 @@ rules:
         - lodash.*
         - modules/60-gitsync/*
         - modules/70-pipeline/*
+        - modules/75-cd/*
+        - modules/80-ci/*
         - '@gitsync/*'
         - '@pipeline/*'
+        - '@cd/*'
+        - '@ci/*'
       paths:
         - lodash

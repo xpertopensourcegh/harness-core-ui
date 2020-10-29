@@ -29,10 +29,10 @@
       "@connectors/*": ["modules/50-connectors/*"],
       "@gitsync/*": ["modules/60-gitsync/*"],
       "@pipeline/*": ["modules/70-pipeline/*"],
+      "@cd/*": ["modules/75-cd/*"],
+      "@ci/*": ["modules/80-ci/*"],
       "@cv/*": ["modules/cv/*"],
-      "@cd/*": ["modules/cd/*"],
       "@cf/*": ["modules/cf/*"],
-      "@ci/*": ["modules/ci/*"],
       "@ci-enterprise/*": ["modules/ci-enterprise/*"],
       "@dx/*": ["modules/dx/*"]
     }

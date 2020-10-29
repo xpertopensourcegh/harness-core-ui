@@ -9,7 +9,7 @@ export const routeCIHome: Route = {
   title: i18n.ci,
   pageId: 'ci-home',
   url: () => routeURL(routeCIHome, '/ci/home'),
-  component: React.lazy(() => import('modules/ci/pages/home/CIHomePage'))
+  component: React.lazy(() => import('@ci/pages/home/CIHomePage'))
 }
 
 export const routeCIDashboard: Route<{ orgIdentifier: string; projectIdentifier: string }> = {
@@ -20,18 +20,18 @@ export const routeCIDashboard: Route<{ orgIdentifier: string; projectIdentifier:
   pageId: 'ci-dashboard',
   url: ({ orgIdentifier, projectIdentifier }) =>
     routeURL(routeCIDashboard, `/ci/dashboard/orgs/${orgIdentifier}/projects/${projectIdentifier}`),
-  component: React.lazy(() => import('modules/ci/pages/dashboard/CIDashboardPage'))
+  component: React.lazy(() => import('@ci/pages/dashboard/CIDashboardPage'))
 }
 
 export const routeCIPipelines: Route<{ orgIdentifier: string; projectIdentifier: string }> = {
-  module: ModuleName.CD,
-  sidebarId: SidebarIdentifier.CONTINUOUS_DEPLOYMENTS,
+  module: ModuleName.CI,
+  sidebarId: SidebarIdentifier.CONTINUOUS_INTEGRATION,
   path: '/ci/pipelines/orgs/:orgIdentifier/projects/:projectIdentifier',
   title: i18n.pipelines,
   pageId: 'ci-pipelines',
   url: ({ orgIdentifier, projectIdentifier }) =>
     routeURL(routeCIPipelines, `/ci/pipelines/orgs/${orgIdentifier}/projects/${projectIdentifier}`),
-  component: React.lazy(() => import('@pipeline/pages/pipelines/CDPipelinesPage'))
+  component: React.lazy(() => import('@pipeline/pages/pipelines/PipelinesPage'))
 }
 
 export const routeCIPipelineStudioUI: NestedRoute<{
@@ -81,7 +81,7 @@ export const routeCIPipelineStudio: Route<{
       routeCIPipelineStudio,
       `/ci/pipeline-studio/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/`
     ),
-  component: React.lazy(() => import('modules/ci/pages/pipeline-studio/CIPipelineStudio')),
+  component: React.lazy(() => import('@ci/pages/pipeline-studio/CIPipelineStudio')),
   nestedRoutes: [routeCIPipelineStudioYaml, routeCIPipelineStudioUI]
 }
 
@@ -109,7 +109,7 @@ export const routeCIBuilds: Route<{ orgIdentifier: string; projectIdentifier: st
   pageId: 'ci-builds',
   url: ({ orgIdentifier, projectIdentifier }) =>
     routeURL(routeCIBuilds, `/ci/orgs/${orgIdentifier}/projects/${projectIdentifier}/builds`),
-  component: React.lazy(() => import('modules/ci/pages/builds/CIBuildsPage'))
+  component: React.lazy(() => import('@ci/pages/builds/CIBuildsPage'))
 }
 
 export const routeCIBuildPipelineGraph: NestedRoute<{
@@ -124,7 +124,7 @@ export const routeCIBuildPipelineGraph: NestedRoute<{
       routeCIBuildPipelineGraph,
       `/ci/orgs/${orgIdentifier}/projects/${projectIdentifier}/builds/${buildIdentifier}/pipeline/graph`
     ),
-  component: React.lazy(() => import('modules/ci/pages/build/sections/pipeline-graph/BuildPipelineGraph')),
+  component: React.lazy(() => import('@ci/pages/build/sections/pipeline-graph/BuildPipelineGraph')),
   isDefault: true
 }
 
@@ -140,7 +140,7 @@ export const routeCIBuildPipelineLog: NestedRoute<{
       routeCIBuildPipelineLog,
       `/ci/orgs/${orgIdentifier}/projects/${projectIdentifier}/builds/${buildIdentifier}/pipeline/log`
     ),
-  component: React.lazy(() => import('modules/ci/pages/build/sections/pipeline-log/BuildPipelineLog'))
+  component: React.lazy(() => import('@ci/pages/build/sections/pipeline-log/BuildPipelineLog'))
 }
 
 export const routeCIBuildInputs: NestedRoute<{
@@ -155,7 +155,7 @@ export const routeCIBuildInputs: NestedRoute<{
       routeCIBuildInputs,
       `/ci/orgs/${orgIdentifier}/projects/${projectIdentifier}/builds/${buildIdentifier}/inputs`
     ),
-  component: React.lazy(() => import('modules/ci/pages/build/sections/inputs/BuildInputs'))
+  component: React.lazy(() => import('@ci/pages/build/sections/inputs/BuildInputs'))
 }
 
 export const routeCIBuildCommits: NestedRoute<{
@@ -170,7 +170,7 @@ export const routeCIBuildCommits: NestedRoute<{
       routeCIBuildCommits,
       `/ci/orgs/${orgIdentifier}/projects/${projectIdentifier}/builds/${buildIdentifier}/commits`
     ),
-  component: React.lazy(() => import('modules/ci/pages/build/sections/commits/BuildCommits'))
+  component: React.lazy(() => import('@ci/pages/build/sections/commits/BuildCommits'))
 }
 
 export const routeCIBuildTests: NestedRoute<{
@@ -185,7 +185,7 @@ export const routeCIBuildTests: NestedRoute<{
       routeCIBuildTests,
       `/ci/orgs/${orgIdentifier}/projects/${projectIdentifier}/builds/${buildIdentifier}/tests`
     ),
-  component: React.lazy(() => import('modules/ci/pages/build/sections/tests/BuildTests'))
+  component: React.lazy(() => import('@ci/pages/build/sections/tests/BuildTests'))
 }
 
 export const routeCIBuildArtifacts: NestedRoute<{
@@ -200,7 +200,7 @@ export const routeCIBuildArtifacts: NestedRoute<{
       routeCIBuildArtifacts,
       `/ci/orgs/${orgIdentifier}/projects/${projectIdentifier}/builds/${buildIdentifier}/artifacts`
     ),
-  component: React.lazy(() => import('modules/ci/pages/build/sections/artifacts/BuildArtifacts'))
+  component: React.lazy(() => import('@ci/pages/build/sections/artifacts/BuildArtifacts'))
 }
 
 export const routeCIBuild: Route<{ orgIdentifier: string; projectIdentifier: string; buildIdentifier: string }> = {
@@ -211,7 +211,7 @@ export const routeCIBuild: Route<{ orgIdentifier: string; projectIdentifier: str
   pageId: 'ci-build',
   url: ({ orgIdentifier, projectIdentifier, buildIdentifier }) =>
     routeURL(routeCIBuild, `/ci/orgs/${orgIdentifier}/projects/${projectIdentifier}/builds/${buildIdentifier}`),
-  component: React.lazy(() => import('modules/ci/pages/build/CIBuildPage')),
+  component: React.lazy(() => import('@ci/pages/build/CIBuildPage')),
   nestedRoutes: [
     routeCIBuildPipelineGraph,
     routeCIBuildPipelineLog,
@@ -229,7 +229,7 @@ export const routeCIAdminBuildSettings: Route<{ projectIdentifier: string }> = {
   title: i18n.ci,
   pageId: 'ci-admin-build-settings',
   url: ({ projectIdentifier }) => routeURL(routeCIDashboard, `/ci/admin/build-settings/projects/${projectIdentifier}`),
-  component: React.lazy(() => import('modules/ci/pages/admin/build-settings/CIBuildSettingsPage'))
+  component: React.lazy(() => import('@ci/pages/admin/build-settings/CIBuildSettingsPage'))
 }
 
 export const routeCIAdminGovernance: Route<{ projectIdentifier: string }> = {
@@ -239,7 +239,7 @@ export const routeCIAdminGovernance: Route<{ projectIdentifier: string }> = {
   title: i18n.ci,
   pageId: 'ci-admin-governance',
   url: ({ projectIdentifier }) => routeURL(routeCIDashboard, `/ci/admin/governance/projects/${projectIdentifier}`),
-  component: React.lazy(() => import('modules/ci/pages/admin/governance/CIGovernancePage'))
+  component: React.lazy(() => import('@ci/pages/admin/governance/CIGovernancePage'))
 }
 
 export const routeCIAdminResources: Route<{ projectIdentifier: string }> = {
@@ -249,5 +249,5 @@ export const routeCIAdminResources: Route<{ projectIdentifier: string }> = {
   title: i18n.ci,
   pageId: 'ci-admin-resources',
   url: ({ projectIdentifier }) => routeURL(routeCIDashboard, `/ci/admin/resources/projects/${projectIdentifier}`),
-  component: React.lazy(() => import('modules/ci/pages/admin/resources/CIResourcesPage'))
+  component: React.lazy(() => import('@ci/pages/admin/resources/CIResourcesPage'))
 }

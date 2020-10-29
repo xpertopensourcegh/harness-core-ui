@@ -161,7 +161,7 @@ jobs:
         run: |
           git fetch --no-tags --depth=100 origin +refs/heads/${{ github.base_ref }}
           git fetch --no-tags --depth=100 origin ${{ github.sha }}
-          
+
       - name: List Branches
         run: |
           git branch -a
@@ -194,4 +194,3 @@ jobs:
 
       - name: Run tests and coverage
         run: npx jest --coverage --silent --coverageReporters text --coverageReporters text-summary --changedSince=origin/master --passWithNoTests
-        

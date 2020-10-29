@@ -1,0 +1,9 @@
+rules:
+  no-restricted-imports:
+    - error
+    - patterns:
+        - lodash.*
+        - modules/80-ci/*
+        - '@ci/*'
+      paths:
+        - lodash

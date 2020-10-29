@@ -8,10 +8,14 @@ rules:
         - modules/50-connectors/*
         - modules/60-gitsync/*
         - modules/70-pipeline/*
+        - modules/75-cd/*
+        - modules/80-ci/*
         - '@secrets/*'
         - '@projects-orgs/*'
         - '@connectors/*'
         - '@gitsync/*'
         - '@pipeline/*'
+        - '@cd/*'
+        - '@ci/*'
       paths:
         - lodash

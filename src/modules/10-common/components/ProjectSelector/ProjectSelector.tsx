@@ -17,7 +17,7 @@ export interface ProjectSelectorProps {
   onSelect: (project: Project) => void
 }
 
-export const ProjectSelector: React.FC<ProjectSelectorProps> = ({ module, onSelect }) => {
+export const ProjectSelector: React.FC<ProjectSelectorProps> = ({ onSelect }) => {
   const {
     params: { accountId, projectIdentifier }
   } = useRouteParams()
@@ -25,7 +25,6 @@ export const ProjectSelector: React.FC<ProjectSelectorProps> = ({ module, onSele
   const { data: projects, error } = useGetProjectList({
     queryParams: {
       accountIdentifier: accountId,
-      moduleType: module,
       pageSize: PAGE_SIZE
     }
   })
@@ -33,7 +32,6 @@ export const ProjectSelector: React.FC<ProjectSelectorProps> = ({ module, onSele
   const projectSelectOptions: ProjectListOptions[] = React.useMemo(
     () =>
       (projects?.data?.content || [])
-        .filter((project: Project) => project.modules?.includes?.(module))
         .sort(({ name: name1 = '' }, { name: name2 = '' }) => {
           // sort projects by name
           name1 = name1.toLocaleLowerCase()
@@ -49,7 +47,7 @@ export const ProjectSelector: React.FC<ProjectSelectorProps> = ({ module, onSele
           })
           return values
         }, [] as ProjectListOptions[]),
-    [projects?.data?.content, module]
+    [projects?.data?.content]
   )
 
   if (error) {

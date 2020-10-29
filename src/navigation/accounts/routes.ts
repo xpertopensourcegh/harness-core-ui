@@ -60,7 +60,7 @@ export const routeOrgResources: Route<{ orgIdentifier: string }> = {
   title: i18n.resources,
   pageId: 'org-admin-resources',
   url: ({ orgIdentifier }) => routeURL(routeOrgResources, `/resources/org/${orgIdentifier}`),
-  component: React.lazy(() => import('modules/cd/pages/Resources/ResourcesPage')),
+  component: React.lazy(() => import('@cd/pages/Resources/ResourcesPage')),
   nestedRoutes: [
     routeOrgResourcesConnectors,
     routeOrgResourcesSecretsListing,
@@ -224,7 +224,7 @@ export const routeResources: Route = {
   title: i18n.resources,
   pageId: 'resources',
   url: () => routeURL(routeResources, '/resources'),
-  component: React.lazy(() => import('modules/cd/pages/Resources/ResourcesPage')),
+  component: React.lazy(() => import('@cd/pages/Resources/ResourcesPage')),
   nestedRoutes: [
     routeResourcesConnectors,
     routeResourcesConnectorDetails,

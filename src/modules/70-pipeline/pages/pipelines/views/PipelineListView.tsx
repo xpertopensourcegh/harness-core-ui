@@ -7,9 +7,9 @@ import Table from '@common/components/Table/Table'
 import { NGPipelineSummaryResponse, PageNGPipelineSummaryResponse, useSoftDeletePipeline } from 'services/cd-ng'
 import TagsPopover from '@common/components/TagsPopover/TagsPopover'
 import { useConfirmationDialog, useToaster } from '@common/exports'
-import { RunPipelineModal } from 'modules/cd/components/RunPipelineModal/RunPipelineModal'
-import i18n from '../CDPipelinesPage.i18n'
-import css from '../CDPipelinesPage.module.scss'
+import { RunPipelineModal } from '@pipeline/components/RunPipelineModal/RunPipelineModal'
+import i18n from '../PipelinesPage.i18n'
+import css from '../PipelinesPage.module.scss'
 
 interface PipelineListViewProps {
   data?: PageNGPipelineSummaryResponse

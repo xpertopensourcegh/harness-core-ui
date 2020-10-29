@@ -6,7 +6,7 @@ import { Classes, Menu, Position } from '@blueprintjs/core'
 import Table from '@common/components/Table/Table'
 import { PageInputSetSummaryResponse, useDeleteInputSetForPipeline, InputSetSummaryResponse } from 'services/cd-ng'
 import { useConfirmationDialog, useToaster } from '@common/exports'
-import { RunPipelineModal } from 'modules/cd/components/RunPipelineModal/RunPipelineModal'
+import { RunPipelineModal } from '@pipeline/components/RunPipelineModal/RunPipelineModal'
 import i18n from './InputSetList.i18n'
 import css from './InputSetList.module.scss'
 

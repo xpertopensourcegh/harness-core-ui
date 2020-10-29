@@ -1,6 +1,6 @@
 {
   "groups": {
-    "CD": ["src/modules/cd/**"],
+    "CD": ["src/modules/75-cd/**"],
     "Pipeline": ["src/modules/70-pipeline/**"],
     "Secrets": [
       "src/modules/dx/components/SecretReference/**",
@@ -52,7 +52,7 @@
       "src/modules/dx/components/connectors/CreateConnector/AppDynamicsConnector/**",
       "src/modules/dx/components/connectors/CreateConnector/SplunkConnector/**"
     ],
-    "CI": ["src/modules/ci/**"],
+    "CI": ["src/modules/80-ci/**"],
     "CF": ["src/modules/cf/**"],
     "SHARED": ["src/modules/10-common/**", "src/navigation/**"]
   },

@@ -1,10 +1,10 @@
 import React from 'react'
 import { useModalHook } from '@wings-software/uikit'
 import { Dialog } from '@blueprintjs/core'
-import { ExecutionsListingView } from 'modules/cd/components/ExecutionsListingView/ExecutionsListingView'
+import { ExecutionsListingView } from '@pipeline/components/ExecutionsListingView/ExecutionsListingView'
 import { useRouteParams } from 'framework/exports'
-import { runPipelineDialogProps } from 'modules/cd/components/RunPipelineModal/RunPipelineModal'
-import { RunPipelineForm } from 'modules/cd/components/RunPipelineModal/RunPipelineForm'
+import { runPipelineDialogProps } from '@pipeline/components/RunPipelineModal/RunPipelineModal'
+import { RunPipelineForm } from '@pipeline/components/RunPipelineModal/RunPipelineForm'
 
 const PipelineDeploymentList: React.FC = () => {
   const { params } = useRouteParams()

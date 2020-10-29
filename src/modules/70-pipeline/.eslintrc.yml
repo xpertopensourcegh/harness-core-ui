@@ -3,5 +3,9 @@ rules:
     - error
     - patterns:
         - lodash.*
+        - modules/75-cd/*
+        - modules/80-ci/*
+        - '@cd/*'
+        - '@ci/*'
       paths:
         - lodash

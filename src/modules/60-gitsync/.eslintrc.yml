@@ -4,6 +4,10 @@ rules:
     - patterns:
         - lodash.*
         - modules/70-pipeline/*
+        - modules/75-cd/*
+        - modules/80-ci/*
         - '@pipeline/*'
+        - '@cd/*'
+        - '@ci/*'
       paths:
         - lodash

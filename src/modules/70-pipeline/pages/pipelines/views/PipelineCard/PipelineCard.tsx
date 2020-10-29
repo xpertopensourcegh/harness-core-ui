@@ -4,9 +4,9 @@ import { Classes, Intent, Menu } from '@blueprintjs/core'
 import { useParams } from 'react-router-dom'
 import { NGPipelineSummaryResponse, useSoftDeletePipeline } from 'services/cd-ng'
 import { useConfirmationDialog, useToaster } from '@common/exports'
-import { RunPipelineModal } from 'modules/cd/components/RunPipelineModal/RunPipelineModal'
-import i18n from '../../CDPipelinesPage.i18n'
-import css from '../../CDPipelinesPage.module.scss'
+import { RunPipelineModal } from '@pipeline/components/RunPipelineModal/RunPipelineModal'
+import i18n from '../../PipelinesPage.i18n'
+import css from '../../PipelinesPage.module.scss'
 
 export interface PipelineCardProps {
   pipeline: NGPipelineSummaryResponse
