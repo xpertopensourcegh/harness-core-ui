@@ -1,7 +1,7 @@
 export default {
   continuous: 'CONTINUOUS',
   integration: 'Integration',
-  overview: 'Overview',
+  dashboard: 'Dashboard',
   builds: 'Builds',
   pipelines: 'Pipelines',
   resources: 'Resources',

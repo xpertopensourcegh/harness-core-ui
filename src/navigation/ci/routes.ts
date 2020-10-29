@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route, ModuleName, SidebarIdentifier, routeURL, NestedRoute } from 'framework/exports'
+import { Route, ModuleName, PageLayout, SidebarIdentifier, routeURL, NestedRoute } from 'framework/exports'
 import i18n from './routes.i18n'
 
 export const routeCIHome: Route = {
@@ -12,15 +12,93 @@ export const routeCIHome: Route = {
   component: React.lazy(() => import('modules/ci/pages/home/CIHomePage'))
 }
 
-export const routeCIOverview: Route<{ orgIdentifier: string; projectIdentifier: string }> = {
+export const routeCIDashboard: Route<{ orgIdentifier: string; projectIdentifier: string }> = {
   module: ModuleName.CI,
   sidebarId: SidebarIdentifier.CONTINUOUS_INTEGRATION,
-  path: '/ci/overview/orgs/:orgIdentifier/projects/:projectIdentifier',
-  title: i18n.ci,
-  pageId: 'ci-overview',
+  path: '/ci/dashboard/orgs/:orgIdentifier/projects/:projectIdentifier',
+  title: i18n.ciDashboard,
+  pageId: 'ci-dashboard',
   url: ({ orgIdentifier, projectIdentifier }) =>
-    routeURL(routeCIOverview, `/ci/overview/orgs/${orgIdentifier}/projects/${projectIdentifier}`),
-  component: React.lazy(() => import('modules/ci/pages/overview/CIOverviewPage'))
+    routeURL(routeCIDashboard, `/ci/dashboard/orgs/${orgIdentifier}/projects/${projectIdentifier}`),
+  component: React.lazy(() => import('modules/ci/pages/dashboard/CIDashboardPage'))
+}
+
+export const routeCIPipelines: Route<{ orgIdentifier: string; projectIdentifier: string }> = {
+  module: ModuleName.CD,
+  sidebarId: SidebarIdentifier.CONTINUOUS_DEPLOYMENTS,
+  path: '/ci/pipelines/orgs/:orgIdentifier/projects/:projectIdentifier',
+  title: i18n.pipelines,
+  pageId: 'ci-pipelines',
+  url: ({ orgIdentifier, projectIdentifier }) =>
+    routeURL(routeCIPipelines, `/ci/pipelines/orgs/${orgIdentifier}/projects/${projectIdentifier}`),
+  component: React.lazy(() => import('@pipeline/pages/pipelines/CDPipelinesPage'))
+}
+
+export const routeCIPipelineStudioUI: NestedRoute<{
+  orgIdentifier: string
+  projectIdentifier: string
+  pipelineIdentifier: string | number
+}> = {
+  path: '/ci/pipeline-studio/orgs/:orgIdentifier/projects/:projectIdentifier/pipelines/:pipelineIdentifier/ui/',
+  title: i18n.pipelineStudio,
+  url: ({ orgIdentifier, projectIdentifier, pipelineIdentifier }) =>
+    routeURL(
+      routeCIPipelineStudioUI,
+      `/ci/pipeline-studio/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/ui/`
+    ),
+  component: React.lazy(() => import('@pipeline/components/PipelineStudio/StageBuilder/StageBuilder')),
+  isDefault: true
+}
+
+export const routeCIPipelineStudioYaml: NestedRoute<{
+  orgIdentifier: string
+  projectIdentifier: string
+  pipelineIdentifier: string | number
+}> = {
+  path: '/ci/pipeline-studio/orgs/:orgIdentifier/projects/:projectIdentifier/pipelines/:pipelineIdentifier/yaml/',
+  title: i18n.pipelineStudio,
+  url: ({ orgIdentifier, projectIdentifier, pipelineIdentifier }) =>
+    routeURL(
+      routeCIPipelineStudioYaml,
+      `/ci/pipeline-studio/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/yaml/`
+    ),
+  component: React.lazy(() => import('@pipeline/components/PipelineStudio/PipelineYamlView/PipelineYamlView'))
+}
+
+export const routeCIPipelineStudio: Route<{
+  orgIdentifier: string
+  projectIdentifier: string
+  pipelineIdentifier: string | number
+}> = {
+  module: ModuleName.CI,
+  layout: PageLayout.BlankLayout,
+  sidebarId: SidebarIdentifier.CONTINUOUS_DEPLOYMENTS,
+  path: '/ci/pipeline-studio/orgs/:orgIdentifier/projects/:projectIdentifier/pipelines/:pipelineIdentifier/',
+  title: i18n.pipelineStudio,
+  pageId: 'ci-pipeline-studio',
+  url: ({ orgIdentifier, projectIdentifier, pipelineIdentifier }) =>
+    routeURL(
+      routeCIPipelineStudio,
+      `/ci/pipeline-studio/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/`
+    ),
+  component: React.lazy(() => import('modules/ci/pages/pipeline-studio/CIPipelineStudio')),
+  nestedRoutes: [routeCIPipelineStudioYaml, routeCIPipelineStudioUI]
+}
+
+export const routePipelineDeploymentList: NestedRoute<{
+  projectIdentifier: string
+  orgIdentifier: string
+  pipelineIdentifier: string
+}> = {
+  path: '/ci/pipelines/orgs/:orgIdentifier/projects/:projectIdentifier/pipelines/:pipelineIdentifier/executions',
+  title: i18n.pipelineExecution,
+  url: ({ projectIdentifier, orgIdentifier, pipelineIdentifier }) =>
+    routeURL(
+      routePipelineDeploymentList,
+      `/ci/pipelines/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/executions`
+    ),
+  component: React.lazy(() => import('@pipeline/pages/pipeline-deployment-list/PipelineDeploymentList')),
+  isDefault: true
 }
 
 export const routeCIBuilds: Route<{ orgIdentifier: string; projectIdentifier: string }> = {
@@ -150,7 +228,7 @@ export const routeCIAdminBuildSettings: Route<{ projectIdentifier: string }> = {
   path: '/ci/admin/build-settings/projects/:projectIdentifier',
   title: i18n.ci,
   pageId: 'ci-admin-build-settings',
-  url: ({ projectIdentifier }) => routeURL(routeCIOverview, `/ci/admin/build-settings/projects/${projectIdentifier}`),
+  url: ({ projectIdentifier }) => routeURL(routeCIDashboard, `/ci/admin/build-settings/projects/${projectIdentifier}`),
   component: React.lazy(() => import('modules/ci/pages/admin/build-settings/CIBuildSettingsPage'))
 }
 
@@ -160,7 +238,7 @@ export const routeCIAdminGovernance: Route<{ projectIdentifier: string }> = {
   path: '/ci/admin/governance/projects/:projectIdentifier',
   title: i18n.ci,
   pageId: 'ci-admin-governance',
-  url: ({ projectIdentifier }) => routeURL(routeCIOverview, `/ci/admin/governance/projects/${projectIdentifier}`),
+  url: ({ projectIdentifier }) => routeURL(routeCIDashboard, `/ci/admin/governance/projects/${projectIdentifier}`),
   component: React.lazy(() => import('modules/ci/pages/admin/governance/CIGovernancePage'))
 }
 
@@ -170,6 +248,6 @@ export const routeCIAdminResources: Route<{ projectIdentifier: string }> = {
   path: '/ci/admin/resources/projects/:projectIdentifier',
   title: i18n.ci,
   pageId: 'ci-admin-resources',
-  url: ({ projectIdentifier }) => routeURL(routeCIOverview, `/ci/admin/resources/projects/${projectIdentifier}`),
+  url: ({ projectIdentifier }) => routeURL(routeCIDashboard, `/ci/admin/resources/projects/${projectIdentifier}`),
   component: React.lazy(() => import('modules/ci/pages/admin/resources/CIResourcesPage'))
 }

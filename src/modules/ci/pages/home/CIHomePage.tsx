@@ -1,9 +1,9 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
+import { ModuleLandingView } from '@common/exports'
 import { ModuleName } from 'framework/exports'
 import type { Project } from 'services/cd-ng'
-import { ModuleLandingView } from '@common/exports'
-import { routeCIOverview } from 'navigation/ci/routes'
+import { routeCIDashboard } from 'navigation/ci/routes'
 import i18n from './CIHomePage.i18n'
 
 const CIHomePage: React.FC = () => {
@@ -20,7 +20,7 @@ const CIHomePage: React.FC = () => {
       description={i18n.addCIToExistingProject}
       onProjectCreated={(project: Project) => {
         history.push(
-          routeCIOverview.url({
+          routeCIDashboard.url({
             orgIdentifier: project.orgIdentifier as string,
             projectIdentifier: project.identifier as string
           })

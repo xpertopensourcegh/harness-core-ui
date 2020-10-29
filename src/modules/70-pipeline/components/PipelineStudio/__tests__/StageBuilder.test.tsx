@@ -1,9 +1,9 @@
 import React from 'react'
 import { render, waitFor, getByText as getByTextBody, fireEvent, RenderResult } from '@testing-library/react'
 import { prependAccountPath, TestWrapper } from '@common/utils/testUtils'
-import { routeCDPipelineStudio } from 'navigation/cd/routes'
 import { defaultAppStoreValues } from '@common/pages/ProjectsPage/__tests__/DefaultAppStoreData'
-import CDPipelineStudio from '@pipeline/pages/pipeline-studio/CDPipelineStudio'
+import { routeCDPipelineStudio } from 'navigation/cd/routes'
+import CDPipelineStudio from 'modules/cd/pages/pipeline-studio/CDPipelineStudio'
 import StageBuilder from '../StageBuilder/StageBuilder'
 import { PipelineResponse, StepsResponse, ExecutionResponse, YamlResponse } from './PipelineStudioMocks'
 jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (

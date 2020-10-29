@@ -7,7 +7,7 @@ import { ProjectSelector } from '@common/components/ProjectSelector/ProjectSelec
 import { AdminSelector, AdminSelectorLink } from '@common/components/AdminSelector/AdminSelector'
 import i18n from './MenuCI.i18n'
 import {
-  routeCIOverview,
+  routeCIDashboard,
   routeCIBuilds,
   routeCIAdminBuildSettings,
   routeCIAdminGovernance,
@@ -27,13 +27,13 @@ const ProjectNavLinks: React.FC<{ project?: Project }> = ({ project }) => {
   return (
     <>
       <Sidebar.Link
-        href={routeCIOverview.url({
+        href={routeCIDashboard.url({
           orgIdentifier,
           projectIdentifier
         })}
-        label={i18n.overview}
-        icon="nav-pipelines"
-        selected={isRouteActive(routeCIOverview)}
+        label={i18n.dashboard}
+        icon="globe-network"
+        selected={isRouteActive(routeCIDashboard)}
       />
       <Sidebar.Link
         href={routeCIBuilds.url({
@@ -101,8 +101,8 @@ export const MenuCI: React.FC = () => {
               module={ModuleName.CI}
               onSelect={project => {
                 history.push(
-                  routeCIOverview.url({
-                    orgIdentifier: project.orgIdentifier as string,
+                  routeCIDashboard.url({
+                    orgIdentifier: project?.orgIdentifier as string,
                     projectIdentifier: project.identifier as string
                   })
                 )

@@ -92,7 +92,7 @@ export const routeCDPipelineStudio: Route<{
       routeCDPipelineStudio,
       `/cd/pipeline-studio/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/`
     ),
-  component: React.lazy(() => import('@pipeline/pages/pipeline-studio/CDPipelineStudio')),
+  component: React.lazy(() => import('modules/cd/pages/pipeline-studio/CDPipelineStudio')),
   nestedRoutes: [routeCDPipelineStudioYaml, routeCDPipelineStudioUI]
 }
 
