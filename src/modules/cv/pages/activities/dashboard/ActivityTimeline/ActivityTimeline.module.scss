@@ -1,12 +1,20 @@
 .main {
   display: flex;
-  .activityTracks {
-    display: flex;
-  }
 
-  .dayMarkersAndSummaryCard {
-    width: 100%;
+  .tracksAndIntervalMarkers {
+    overflow-y: scroll;
+    flex-grow: 1;
+    display: flex;
     position: relative;
-    margin-right: var(--spacing-large) !important;
+
+    .activityTracks {
+      display: flex;
+    }
+
+    .dayMarkersAndSummaryCard {
+      width: 100%;
+      position: relative;
+      margin-right: var(--spacing-large) !important;
+    }
   }
 }

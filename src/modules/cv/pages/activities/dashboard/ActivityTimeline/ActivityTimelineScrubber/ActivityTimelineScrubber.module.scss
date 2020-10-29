@@ -1,0 +1,57 @@
+.main {
+  display: flex;
+}
+
+.monthIntervalMarker {
+  border-right: 1px solid var(--grey-300);
+  padding-top: var(--spacing-xlarge) !important;
+  padding-left: var(--spacing-medium) !important;
+
+  .intervalContent {
+    display: flex;
+    justify-content: space-between;
+    .monthLabel {
+      align-self: center;
+    }
+    &:not(:last-of-type) {
+      margin-bottom: var(--spacing-xsmall) !important;
+    }
+  }
+}
+
+.draggingScrubber {
+  cursor: grabbing !important;
+}
+
+.scrubber {
+  width: 80% !important;
+  position: absolute;
+  top: 20px;
+  left: 8px;
+  border: 1px solid var(--blue-500);
+  border-radius: 4px;
+  z-index: 1;
+  cursor: grab;
+  height: 40px !important;
+}
+
+.scrubberLaneContainer {
+  border-right: 1px dashed var(--grey-350);
+  display: flex;
+  justify-content: center;
+  padding-top: var(--spacing-xlarge) !important;
+  padding-right: var(--spacing-small) !important;
+  padding-left: var(--spacing-xsmall) !important;
+  position: relative;
+
+  .scrubberLane {
+    position: relative;
+    &:not(:last-of-type) {
+      margin-right: 9px !important;
+    }
+    .activity {
+      border-radius: 50%;
+      opacity: 0.7;
+    }
+  }
+}

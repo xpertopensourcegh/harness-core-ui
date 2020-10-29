@@ -53,6 +53,7 @@ function generateMockData(startTime: number, endTime: number, mockData: Activity
           startTime: currTime,
           progress: Math.floor(Math.random() * 100),
           activityName: 'Build 78',
+          riskScore: Math.floor(Math.random() * 100),
           activityType: Object.keys(ActivityTypes)[activityTypeIndex],
           activitySummaryText: 'Delegate',
           uuid: Utils.randomId()

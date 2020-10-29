@@ -135,7 +135,11 @@ function ActivityCardWrapper(props: ActivityCardProps): JSX.Element {
               })
             )
             setSelected(selectedActivity?.uuid)
-            onActivityClick(selectedActivity ? { ...selectedActivity, ref: cardRef?.current || undefined } : null)
+            onActivityClick(
+              selectedActivity
+                ? { ...selectedActivity, ref: cardRef?.current || undefined, top: activityBucket.top }
+                : null
+            )
           }}
         />
       ) : null}

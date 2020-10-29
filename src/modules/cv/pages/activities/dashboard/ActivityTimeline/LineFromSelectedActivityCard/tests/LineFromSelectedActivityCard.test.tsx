@@ -9,7 +9,8 @@ const MockActivity = {
   activityName: 'Build 78',
   activityType: 'Deployment',
   activitySummaryText: 'Delegate',
-  uuid: Utils.randomId()
+  uuid: Utils.randomId(),
+  top: 10
 }
 
 let timelineContainer: HTMLDivElement

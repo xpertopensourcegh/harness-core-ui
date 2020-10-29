@@ -34,6 +34,12 @@ jest.mock('../ActivityTrack/ActivityTrack', () => ({
   }
 }))
 
+jest.mock('../ActivityTimelineScrubber/ActivityTimelineScrubber', () => ({
+  ActivityTimelineScrubber() {
+    return <div />
+  }
+}))
+
 jest.mock('../ActivityTimelineIntervalMarker/ActivityTimelineIntervalMarker', () => {
   const MockedTimelineMarker = () => (
     <div className="mockedTimelineMarker">

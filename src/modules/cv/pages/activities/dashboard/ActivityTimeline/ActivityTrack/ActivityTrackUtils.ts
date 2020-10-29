@@ -10,6 +10,7 @@ export type Activity = {
   [key: string]: any
   offset?: number
   ref?: HTMLDivElement
+  top?: number
 }
 export type ActivityBucket = {
   activities: Activity[]
