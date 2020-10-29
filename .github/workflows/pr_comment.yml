@@ -1,0 +1,71 @@
+name: PR Comment
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  dockerize:
+    name: Dockerize
+    runs-on: ubuntu-latest
+    if: ${{ (github.event.comment.body == 'dockerize') && (github.event.comment.user.type == 'User') }}
+    steps:
+      - name: Initialize
+        run: |
+          PR_DATA=$(curl --silent -H "Authorization: token ${{ secrets.GIT_BOT_TOKEN }}" "${{ github.event.issue.pull_request.url }}")
+          BRANCH=$(echo $PR_DATA | jq -r .head.ref)
+          BRANCH_SANITIZED=$(echo $BRANCH | sed -e 's/[^A-Za-z0-9\-_]/-/g')
+          SHA=$(echo $PR_DATA | jq -r .head.sha | cut -c1-6)
+          DOCKER_TAG="$BRANCH_SANITIZED-$SHA"
+          echo "Branch is $BRANCH"
+          echo "Docker tag is $DOCKER_TAG"
+          if [[ $BRANCH = 'master' ]]; then
+            curl \
+            --silent -o /dev/null \
+              -H "Content-Type: application/json" \
+              -H "Authorization: token ${{ secrets.GIT_BOT_TOKEN }}" \
+              -d "{\"body\": \"Please use `harness/nextgenui:latest` docker tag""}" \
+              -X POST "${{ github.event.comment.issue_url }}/comments"
+            exit 1
+          fi
+          echo "::set-env name=BRANCH::$BRANCH"
+          echo "::set-env name=DOCKER_TAG::$DOCKER_TAG"
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.GIT_BOT_TOKEN }}
+          ref: ${{ env.BRANCH }}
+      - name: Set Up Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: '13.12'
+      - name: Set up GitHub Package Registry token
+        run: |
+          echo @wings-software:registry=https://npm.pkg.github.com > .npmrc
+          echo "//npm.pkg.github.com/:_authToken="${{ secrets.GIT_BOT_TOKEN }} >> .npmrc
+          echo always-auth=true >> .npmrc
+      - name: Cache node_modules
+        uses: actions/cache@v1
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('yarn.lock') }}
+          restore-keys: ${{ runner.os }}-node
+      - name: Install packages and build application
+        run: |
+          yarn
+          yarn build
+      - name: Publish to docker
+        if: ${{ success() }}
+        run: |
+          echo ${{ secrets.DOCKERBOT_JENKINS_PASSWORD }} | docker login -u ${{ secrets.DOCKERBOT_JENKINS_USERNAME }} --password-stdin
+          yarn docker:push ${{ env.DOCKER_TAG }}
+          docker logout
+          rm -rf /home/runner/.docker/config.json
+      - name: Report back on GitHub Pull Request
+        if: ${{ success() }}
+        run: |
+          curl \
+            --silent -o /dev/null \
+            -H "Content-Type: application/json" \
+            -H "Authorization: token ${{ secrets.GIT_BOT_TOKEN }}" \
+            -d '{"body": "@${{ github.event.comment.user.login }} please use <code>harness/nextgenui:${{ env.DOCKER_TAG }}</code> docker tag"}' \
+            -X POST "${{ github.event.comment.issue_url }}/comments"
