@@ -1437,7 +1437,7 @@ export type GetAppDynamicsApplicationsProps = Omit<
 export const GetAppDynamicsApplications = (props: GetAppDynamicsApplicationsProps) => (
   <Get<RestResponseListAppDynamicsApplication, unknown, GetAppDynamicsApplicationsQueryParams, void>
     path="/appdynamics/applications"
-    base={getConfig('cv-nextgen')}
+    base={getConfig('cv/api')}
     {...props}
   />
 )
@@ -1453,7 +1453,7 @@ export type UseGetAppDynamicsApplicationsProps = Omit<
 export const useGetAppDynamicsApplications = (props: UseGetAppDynamicsApplicationsProps) =>
   useGet<RestResponseListAppDynamicsApplication, unknown, GetAppDynamicsApplicationsQueryParams, void>(
     `/appdynamics/applications`,
-    { base: getConfig('cv-nextgen'), ...props }
+    { base: getConfig('cv/api'), ...props }
   )
 
 export interface GetAppDynamicsMetricDataQueryParams {
@@ -1490,7 +1490,7 @@ export const GetAppDynamicsMetricData = (props: GetAppDynamicsMetricDataProps) =
   >
     verb="POST"
     path="/appdynamics/metric-data"
-    base={getConfig('cv-nextgen')}
+    base={getConfig('cv/api')}
     {...props}
   />
 )
@@ -1516,7 +1516,7 @@ export const useGetAppDynamicsMetricData = (props: UseGetAppDynamicsMetricDataPr
     GetAppDynamicsMetricDataQueryParams,
     MetricPackArrayRequestBody,
     void
-  >('POST', `/appdynamics/metric-data`, { base: getConfig('cv-nextgen'), ...props })
+  >('POST', `/appdynamics/metric-data`, { base: getConfig('cv/api'), ...props })
 
 export interface GetAppDynamicsTiersQueryParams {
   accountId: string
@@ -1537,7 +1537,7 @@ export type GetAppDynamicsTiersProps = Omit<
 export const GetAppDynamicsTiers = (props: GetAppDynamicsTiersProps) => (
   <Get<RestResponseSetAppDynamicsTier, unknown, GetAppDynamicsTiersQueryParams, void>
     path="/appdynamics/tiers"
-    base={getConfig('cv-nextgen')}
+    base={getConfig('cv/api')}
     {...props}
   />
 )
@@ -1552,7 +1552,7 @@ export type UseGetAppDynamicsTiersProps = Omit<
  */
 export const useGetAppDynamicsTiers = (props: UseGetAppDynamicsTiersProps) =>
   useGet<RestResponseSetAppDynamicsTier, unknown, GetAppDynamicsTiersQueryParams, void>(`/appdynamics/tiers`, {
-    base: getConfig('cv-nextgen'),
+    base: getConfig('cv/api'),
     ...props
   })
 
@@ -1573,7 +1573,7 @@ export type GetDataSourceConfigsProps = Omit<
 export const GetDataSourceConfigs = (props: GetDataSourceConfigsProps) => (
   <Get<RestResponseListDSConfig, unknown, GetDataSourceConfigsQueryParams, void>
     path="/ds-config"
-    base={getConfig('cv-nextgen')}
+    base={getConfig('cv/api')}
     {...props}
   />
 )
@@ -1588,7 +1588,7 @@ export type UseGetDataSourceConfigsProps = Omit<
  */
 export const useGetDataSourceConfigs = (props: UseGetDataSourceConfigsProps) =>
   useGet<RestResponseListDSConfig, unknown, GetDataSourceConfigsQueryParams, void>(`/ds-config`, {
-    base: getConfig('cv-nextgen'),
+    base: getConfig('cv/api'),
     ...props
   })
 
@@ -1608,7 +1608,7 @@ export const SaveDataSourceCVConfig = (props: SaveDataSourceCVConfigProps) => (
   <Mutate<void, void, SaveDataSourceCVConfigQueryParams, DSConfig, void>
     verb="PUT"
     path="/ds-config"
-    base={getConfig('cv-nextgen')}
+    base={getConfig('cv/api')}
     {...props}
   />
 )
@@ -1623,7 +1623,7 @@ export type UseSaveDataSourceCVConfigProps = Omit<
  */
 export const useSaveDataSourceCVConfig = (props: UseSaveDataSourceCVConfigProps) =>
   useMutate<void, void, SaveDataSourceCVConfigQueryParams, DSConfig, void>('PUT', `/ds-config`, {
-    base: getConfig('cv-nextgen'),
+    base: getConfig('cv/api'),
     ...props
   })
 
@@ -1646,7 +1646,7 @@ export const DeleteDataSourceCVConfigByGroup = (props: DeleteDataSourceCVConfigB
   <Mutate<void, void, DeleteDataSourceCVConfigByGroupQueryParams, void, void>
     verb="DELETE"
     path="/ds-config"
-    base={getConfig('cv-nextgen')}
+    base={getConfig('cv/api')}
     {...props}
   />
 )
@@ -1661,7 +1661,7 @@ export type UseDeleteDataSourceCVConfigByGroupProps = Omit<
  */
 export const useDeleteDataSourceCVConfigByGroup = (props: UseDeleteDataSourceCVConfigByGroupProps) =>
   useMutate<void, void, DeleteDataSourceCVConfigByGroupQueryParams, void, void>('DELETE', `/ds-config`, {
-    base: getConfig('cv-nextgen'),
+    base: getConfig('cv/api'),
     ...props
   })
 
@@ -1682,7 +1682,7 @@ export type GetMetricPacksProps = Omit<
 export const GetMetricPacks = (props: GetMetricPacksProps) => (
   <Get<RestResponseListMetricPackDTO, unknown, GetMetricPacksQueryParams, void>
     path="/metric-pack"
-    base={getConfig('cv-nextgen')}
+    base={getConfig('cv/api')}
     {...props}
   />
 )
@@ -1697,7 +1697,7 @@ export type UseGetMetricPacksProps = Omit<
  */
 export const useGetMetricPacks = (props: UseGetMetricPacksProps) =>
   useGet<RestResponseListMetricPackDTO, unknown, GetMetricPacksQueryParams, void>(`/metric-pack`, {
-    base: getConfig('cv-nextgen'),
+    base: getConfig('cv/api'),
     ...props
   })
 
@@ -1719,7 +1719,7 @@ export const SaveMetricPacks = (props: SaveMetricPacksProps) => (
   <Mutate<RestResponseBoolean, unknown, SaveMetricPacksQueryParams, MetricPackArrayRequestBody, void>
     verb="POST"
     path="/metric-pack"
-    base={getConfig('cv-nextgen')}
+    base={getConfig('cv/api')}
     {...props}
   />
 )
@@ -1736,7 +1736,7 @@ export const useSaveMetricPacks = (props: UseSaveMetricPacksProps) =>
   useMutate<RestResponseBoolean, unknown, SaveMetricPacksQueryParams, MetricPackArrayRequestBody, void>(
     'POST',
     `/metric-pack`,
-    { base: getConfig('cv-nextgen'), ...props }
+    { base: getConfig('cv/api'), ...props }
   )
 
 export interface GetSplunkValidationQueryParams {
@@ -1759,7 +1759,7 @@ export type GetSplunkValidationProps = Omit<
 export const GetSplunkValidation = (props: GetSplunkValidationProps) => (
   <Get<RestResponseSplunkValidationResponse, unknown, GetSplunkValidationQueryParams, void>
     path="/splunk/validation"
-    base={getConfig('cv-nextgen')}
+    base={getConfig('cv/api')}
     {...props}
   />
 )
@@ -1774,7 +1774,7 @@ export type UseGetSplunkValidationProps = Omit<
  */
 export const useGetSplunkValidation = (props: UseGetSplunkValidationProps) =>
   useGet<RestResponseSplunkValidationResponse, unknown, GetSplunkValidationQueryParams, void>(`/splunk/validation`, {
-    base: getConfig('cv-nextgen'),
+    base: getConfig('cv/api'),
     ...props
   })
 
@@ -1797,7 +1797,7 @@ export type GetSplunkSavedSearchesProps = Omit<
 export const GetSplunkSavedSearches = (props: GetSplunkSavedSearchesProps) => (
   <Get<RestResponseListSplunkSavedSearch, unknown, GetSplunkSavedSearchesQueryParams, void>
     path="/splunk/saved-searches"
-    base={getConfig('cv-nextgen')}
+    base={getConfig('cv/api')}
     {...props}
   />
 )
@@ -1813,7 +1813,7 @@ export type UseGetSplunkSavedSearchesProps = Omit<
 export const useGetSplunkSavedSearches = (props: UseGetSplunkSavedSearchesProps) =>
   useGet<RestResponseListSplunkSavedSearch, unknown, GetSplunkSavedSearchesQueryParams, void>(
     `/splunk/saved-searches`,
-    { base: getConfig('cv-nextgen'), ...props }
+    { base: getConfig('cv/api'), ...props }
   )
 
 export interface GetTimeSeriesDataQueryParams {
@@ -1836,7 +1836,7 @@ export type GetTimeSeriesDataProps = Omit<
 export const GetTimeSeriesData = (props: GetTimeSeriesDataProps) => (
   <Get<RestResponseTimeSeriesTestDataDTO, unknown, GetTimeSeriesDataQueryParams, void>
     path="/timeseries/metric-group-data"
-    base={getConfig('cv-nextgen')}
+    base={getConfig('cv/api')}
     {...props}
   />
 )
@@ -1852,7 +1852,7 @@ export type UseGetTimeSeriesDataProps = Omit<
 export const useGetTimeSeriesData = (props: UseGetTimeSeriesDataProps) =>
   useGet<RestResponseTimeSeriesTestDataDTO, unknown, GetTimeSeriesDataQueryParams, void>(
     `/timeseries/metric-group-data`,
-    { base: getConfig('cv-nextgen'), ...props }
+    { base: getConfig('cv/api'), ...props }
   )
 
 export interface GetMetricDefinitionsQueryParams {
@@ -1871,7 +1871,7 @@ export type GetMetricDefinitionsProps = Omit<
 export const GetMetricDefinitions = (props: GetMetricDefinitionsProps) => (
   <Get<RestResponseListTimeSeriesMetricDefinition, unknown, GetMetricDefinitionsQueryParams, void>
     path="/timeseries/metric-template"
-    base={getConfig('cv-nextgen')}
+    base={getConfig('cv/api')}
     {...props}
   />
 )
@@ -1887,7 +1887,7 @@ export type UseGetMetricDefinitionsProps = Omit<
 export const useGetMetricDefinitions = (props: UseGetMetricDefinitionsProps) =>
   useGet<RestResponseListTimeSeriesMetricDefinition, unknown, GetMetricDefinitionsQueryParams, void>(
     `/timeseries/metric-template`,
-    { base: getConfig('cv-nextgen'), ...props }
+    { base: getConfig('cv/api'), ...props }
   )
 
 export interface GetServicesQueryParams {
@@ -1907,7 +1907,7 @@ export type GetServicesProps = Omit<
 export const GetServices = (props: GetServicesProps) => (
   <Get<RestResponseListEnvToServicesDTO, unknown, GetServicesQueryParams, void>
     path="/ds-config/env-to-services"
-    base={getConfig('cv-nextgen')}
+    base={getConfig('cv/api')}
     {...props}
   />
 )
@@ -1922,7 +1922,7 @@ export type UseGetServicesProps = Omit<
  */
 export const useGetServices = (props: UseGetServicesProps) =>
   useGet<RestResponseListEnvToServicesDTO, unknown, GetServicesQueryParams, void>(`/ds-config/env-to-services`, {
-    base: getConfig('cv-nextgen'),
+    base: getConfig('cv/api'),
     ...props
   })
 
@@ -1946,7 +1946,7 @@ export type GetHeatmapProps = Omit<
 export const GetHeatmap = (props: GetHeatmapProps) => (
   <Get<RestResponseMapCVMonitoringCategorySortedSetHeatMapDTO, unknown, GetHeatmapQueryParams, void>
     path="/heatmap"
-    base={getConfig('cv-nextgen')}
+    base={getConfig('cv/api')}
     {...props}
   />
 )
@@ -1961,7 +1961,7 @@ export type UseGetHeatmapProps = Omit<
  */
 export const useGetHeatmap = (props: UseGetHeatmapProps) =>
   useGet<RestResponseMapCVMonitoringCategorySortedSetHeatMapDTO, unknown, GetHeatmapQueryParams, void>(`/heatmap`, {
-    base: getConfig('cv-nextgen'),
+    base: getConfig('cv/api'),
     ...props
   })
 
@@ -1984,7 +1984,7 @@ export type GetCategoryRiskMapProps = Omit<
 export const GetCategoryRiskMap = (props: GetCategoryRiskMapProps) => (
   <Get<RestResponseCategoryRisksDTO, unknown, GetCategoryRiskMapQueryParams, void>
     path="/heatmap/category-risks"
-    base={getConfig('cv-nextgen')}
+    base={getConfig('cv/api')}
     {...props}
   />
 )
@@ -1999,7 +1999,7 @@ export type UseGetCategoryRiskMapProps = Omit<
  */
 export const useGetCategoryRiskMap = (props: UseGetCategoryRiskMapProps) =>
   useGet<RestResponseCategoryRisksDTO, unknown, GetCategoryRiskMapQueryParams, void>(`/heatmap/category-risks`, {
-    base: getConfig('cv-nextgen'),
+    base: getConfig('cv/api'),
     ...props
   })
 
@@ -2020,7 +2020,7 @@ export type GetEnvServiceRisksProps = Omit<
 export const GetEnvServiceRisks = (props: GetEnvServiceRisksProps) => (
   <Get<RestResponseListEnvServiceRiskDTO, unknown, GetEnvServiceRisksQueryParams, void>
     path="/heatmap/env-service-risks"
-    base={getConfig('cv-nextgen')}
+    base={getConfig('cv/api')}
     {...props}
   />
 )
@@ -2036,7 +2036,7 @@ export type UseGetEnvServiceRisksProps = Omit<
 export const useGetEnvServiceRisks = (props: UseGetEnvServiceRisksProps) =>
   useGet<RestResponseListEnvServiceRiskDTO, unknown, GetEnvServiceRisksQueryParams, void>(
     `/heatmap/env-service-risks`,
-    { base: getConfig('cv-nextgen'), ...props }
+    { base: getConfig('cv/api'), ...props }
   )
 
 export interface GetVerificationJobQueryParams {
@@ -2055,7 +2055,7 @@ export type GetVerificationJobProps = Omit<
 export const GetVerificationJob = (props: GetVerificationJobProps) => (
   <Get<RestResponseVerificationJobDTO, unknown, GetVerificationJobQueryParams, void>
     path="/verification-job"
-    base={getConfig('cv-nextgen')}
+    base={getConfig('cv/api')}
     {...props}
   />
 )
@@ -2070,7 +2070,7 @@ export type UseGetVerificationJobProps = Omit<
  */
 export const useGetVerificationJob = (props: UseGetVerificationJobProps) =>
   useGet<RestResponseVerificationJobDTO, unknown, GetVerificationJobQueryParams, void>(`/verification-job`, {
-    base: getConfig('cv-nextgen'),
+    base: getConfig('cv/api'),
     ...props
   })
 
@@ -2090,7 +2090,7 @@ export const SaveVerificationJob = (props: SaveVerificationJobProps) => (
   <Mutate<void, void, SaveVerificationJobQueryParams, VerificationJobDTO, void>
     verb="PUT"
     path="/verification-job"
-    base={getConfig('cv-nextgen')}
+    base={getConfig('cv/api')}
     {...props}
   />
 )
@@ -2105,7 +2105,7 @@ export type UseSaveVerificationJobProps = Omit<
  */
 export const useSaveVerificationJob = (props: UseSaveVerificationJobProps) =>
   useMutate<void, void, SaveVerificationJobQueryParams, VerificationJobDTO, void>('PUT', `/verification-job`, {
-    base: getConfig('cv-nextgen'),
+    base: getConfig('cv/api'),
     ...props
   })
 
@@ -2126,7 +2126,7 @@ export const DeleteVerificationJob = (props: DeleteVerificationJobProps) => (
   <Mutate<void, void, DeleteVerificationJobQueryParams, void, void>
     verb="DELETE"
     path="/verification-job"
-    base={getConfig('cv-nextgen')}
+    base={getConfig('cv/api')}
     {...props}
   />
 )
@@ -2141,7 +2141,7 @@ export type UseDeleteVerificationJobProps = Omit<
  */
 export const useDeleteVerificationJob = (props: UseDeleteVerificationJobProps) =>
   useMutate<void, void, DeleteVerificationJobQueryParams, void, void>('DELETE', `/verification-job`, {
-    base: getConfig('cv-nextgen'),
+    base: getConfig('cv/api'),
     ...props
   })
 
@@ -2162,7 +2162,7 @@ export type GetVerificationJobsProps = Omit<
 export const GetVerificationJobs = (props: GetVerificationJobsProps) => (
   <Get<RestResponseListVerificationJobDTO, unknown, GetVerificationJobsQueryParams, void>
     path="/verification-job/list"
-    base={getConfig('cv-nextgen')}
+    base={getConfig('cv/api')}
     {...props}
   />
 )
@@ -2177,7 +2177,7 @@ export type UseGetVerificationJobsProps = Omit<
  */
 export const useGetVerificationJobs = (props: UseGetVerificationJobsProps) =>
   useGet<RestResponseListVerificationJobDTO, unknown, GetVerificationJobsQueryParams, void>(`/verification-job/list`, {
-    base: getConfig('cv-nextgen'),
+    base: getConfig('cv/api'),
     ...props
   })
 
@@ -2205,7 +2205,7 @@ export type GetAnomalousMetricDashboardDataProps = Omit<
 export const GetAnomalousMetricDashboardData = (props: GetAnomalousMetricDashboardDataProps) => (
   <Get<RestResponsePageTimeSeriesMetricDataDTO, unknown, GetAnomalousMetricDashboardDataQueryParams, void>
     path="/timeseries-dashboard/anomalous-metric-data"
-    base={getConfig('cv-nextgen')}
+    base={getConfig('cv/api')}
     {...props}
   />
 )
@@ -2221,7 +2221,7 @@ export type UseGetAnomalousMetricDashboardDataProps = Omit<
 export const useGetAnomalousMetricDashboardData = (props: UseGetAnomalousMetricDashboardDataProps) =>
   useGet<RestResponsePageTimeSeriesMetricDataDTO, unknown, GetAnomalousMetricDashboardDataQueryParams, void>(
     `/timeseries-dashboard/anomalous-metric-data`,
-    { base: getConfig('cv-nextgen'), ...props }
+    { base: getConfig('cv/api'), ...props }
   )
 
 export interface GetMetricDataQueryParams {
@@ -2248,7 +2248,7 @@ export type GetMetricDataProps = Omit<
 export const GetMetricData = (props: GetMetricDataProps) => (
   <Get<RestResponsePageTimeSeriesMetricDataDTO, unknown, GetMetricDataQueryParams, void>
     path="/timeseries-dashboard/metric-data"
-    base={getConfig('cv-nextgen')}
+    base={getConfig('cv/api')}
     {...props}
   />
 )
@@ -2264,7 +2264,7 @@ export type UseGetMetricDataProps = Omit<
 export const useGetMetricData = (props: UseGetMetricDataProps) =>
   useGet<RestResponsePageTimeSeriesMetricDataDTO, unknown, GetMetricDataQueryParams, void>(
     `/timeseries-dashboard/metric-data`,
-    { base: getConfig('cv-nextgen'), ...props }
+    { base: getConfig('cv/api'), ...props }
   )
 
 export interface GetAllLogsQueryParams {
@@ -2291,7 +2291,7 @@ export type GetAllLogsProps = Omit<
 export const GetAllLogs = (props: GetAllLogsProps) => (
   <Get<RestResponsePageAnalyzedLogDataDTO, unknown, GetAllLogsQueryParams, void>
     path="/log-dashboard/all-logs"
-    base={getConfig('cv-nextgen')}
+    base={getConfig('cv/api')}
     {...props}
   />
 )
@@ -2306,7 +2306,7 @@ export type UseGetAllLogsProps = Omit<
  */
 export const useGetAllLogs = (props: UseGetAllLogsProps) =>
   useGet<RestResponsePageAnalyzedLogDataDTO, unknown, GetAllLogsQueryParams, void>(`/log-dashboard/all-logs`, {
-    base: getConfig('cv-nextgen'),
+    base: getConfig('cv/api'),
     ...props
   })
 
@@ -2334,7 +2334,7 @@ export type GetAnomalousLogsProps = Omit<
 export const GetAnomalousLogs = (props: GetAnomalousLogsProps) => (
   <Get<RestResponsePageAnalyzedLogDataDTO, unknown, GetAnomalousLogsQueryParams, void>
     path="/log-dashboard/anomalous-logs"
-    base={getConfig('cv-nextgen')}
+    base={getConfig('cv/api')}
     {...props}
   />
 )
@@ -2350,7 +2350,7 @@ export type UseGetAnomalousLogsProps = Omit<
 export const useGetAnomalousLogs = (props: UseGetAnomalousLogsProps) =>
   useGet<RestResponsePageAnalyzedLogDataDTO, unknown, GetAnomalousLogsQueryParams, void>(
     `/log-dashboard/anomalous-logs`,
-    { base: getConfig('cv-nextgen'), ...props }
+    { base: getConfig('cv/api'), ...props }
   )
 
 export interface GetTagCountQueryParams {
@@ -2375,7 +2375,7 @@ export type GetTagCountProps = Omit<
 export const GetTagCount = (props: GetTagCountProps) => (
   <Get<RestResponseSortedSetLogDataByTag, unknown, GetTagCountQueryParams, void>
     path="/log-dashboard/log-count-by-tags"
-    base={getConfig('cv-nextgen')}
+    base={getConfig('cv/api')}
     {...props}
   />
 )
@@ -2390,7 +2390,7 @@ export type UseGetTagCountProps = Omit<
  */
 export const useGetTagCount = (props: UseGetTagCountProps) =>
   useGet<RestResponseSortedSetLogDataByTag, unknown, GetTagCountQueryParams, void>(`/log-dashboard/log-count-by-tags`, {
-    base: getConfig('cv-nextgen'),
+    base: getConfig('cv/api'),
     ...props
   })
 
@@ -2427,7 +2427,7 @@ export const GetDeploymentTimeSeries = ({ verificationJobInstanceId, ...props }:
     GetDeploymentTimeSeriesPathParams
   >
     path="/deployment-time-series-analysis/${verificationJobInstanceId}"
-    base={getConfig('cv-nextgen')}
+    base={getConfig('cv/api')}
     {...props}
   />
 )
@@ -2455,7 +2455,7 @@ export const useGetDeploymentTimeSeries = ({ verificationJobInstanceId, ...props
   >(
     (paramsInPath: GetDeploymentTimeSeriesPathParams) =>
       `/deployment-time-series-analysis/${paramsInPath.verificationJobInstanceId}`,
-    { base: getConfig('cv-nextgen'), pathParams: { verificationJobInstanceId }, ...props }
+    { base: getConfig('cv/api'), pathParams: { verificationJobInstanceId }, ...props }
   )
 
 export interface GetDeploymentLogAnalysesQueryParams {
@@ -2491,7 +2491,7 @@ export const GetDeploymentLogAnalyses = ({ verificationJobInstanceId, ...props }
     GetDeploymentLogAnalysesPathParams
   >
     path="/deployment-log-analysis/${verificationJobInstanceId}"
-    base={getConfig('cv-nextgen')}
+    base={getConfig('cv/api')}
     {...props}
   />
 )
@@ -2522,7 +2522,7 @@ export const useGetDeploymentLogAnalyses = ({
   >(
     (paramsInPath: GetDeploymentLogAnalysesPathParams) =>
       `/deployment-log-analysis/${paramsInPath.verificationJobInstanceId}`,
-    { base: getConfig('cv-nextgen'), pathParams: { verificationJobInstanceId }, ...props }
+    { base: getConfig('cv/api'), pathParams: { verificationJobInstanceId }, ...props }
   )
 
 export interface GetClusterChartAnalysesQueryParams {
@@ -2556,7 +2556,7 @@ export const GetClusterChartAnalyses = ({ verificationJobInstanceId, ...props }:
     GetClusterChartAnalysesPathParams
   >
     path="/deployment-log-analysis/${verificationJobInstanceId}/clusters"
-    base={getConfig('cv-nextgen')}
+    base={getConfig('cv/api')}
     {...props}
   />
 )
@@ -2584,7 +2584,7 @@ export const useGetClusterChartAnalyses = ({ verificationJobInstanceId, ...props
   >(
     (paramsInPath: GetClusterChartAnalysesPathParams) =>
       `/deployment-log-analysis/${paramsInPath.verificationJobInstanceId}/clusters`,
-    { base: getConfig('cv-nextgen'), pathParams: { verificationJobInstanceId }, ...props }
+    { base: getConfig('cv/api'), pathParams: { verificationJobInstanceId }, ...props }
   )
 
 export interface GetRecentDeploymentActivityVerificationsQueryParams {
@@ -2614,7 +2614,7 @@ export const GetRecentDeploymentActivityVerifications = (props: GetRecentDeploym
     void
   >
     path="/activity/recent-deployment-activity-verifications"
-    base={getConfig('cv-nextgen')}
+    base={getConfig('cv/api')}
     {...props}
   />
 )
@@ -2638,7 +2638,7 @@ export const useGetRecentDeploymentActivityVerifications = (props: UseGetRecentD
     unknown,
     GetRecentDeploymentActivityVerificationsQueryParams,
     void
-  >(`/activity/recent-deployment-activity-verifications`, { base: getConfig('cv-nextgen'), ...props })
+  >(`/activity/recent-deployment-activity-verifications`, { base: getConfig('cv/api'), ...props })
 
 export interface GetVerificationInstancesQueryParams {
   accountId: string
@@ -2673,7 +2673,7 @@ export const GetVerificationInstances = ({ deploymentTag, ...props }: GetVerific
     GetVerificationInstancesPathParams
   >
     path="/activity/deployment-activity-verifications/${deploymentTag}"
-    base={getConfig('cv-nextgen')}
+    base={getConfig('cv/api')}
     {...props}
   />
 )
@@ -2701,7 +2701,7 @@ export const useGetVerificationInstances = ({ deploymentTag, ...props }: UseGetV
   >(
     (paramsInPath: GetVerificationInstancesPathParams) =>
       `/activity/deployment-activity-verifications/${paramsInPath.deploymentTag}`,
-    { base: getConfig('cv-nextgen'), pathParams: { deploymentTag }, ...props }
+    { base: getConfig('cv/api'), pathParams: { deploymentTag }, ...props }
   )
 
 export interface GetVerificationsPopoverSummaryQueryParams {
@@ -2737,7 +2737,7 @@ export const GetVerificationsPopoverSummary = ({ deploymentTag, ...props }: GetV
     GetVerificationsPopoverSummaryPathParams
   >
     path="/activity/deployment-activity-verifications-popover-summary/${deploymentTag}"
-    base={getConfig('cv-nextgen')}
+    base={getConfig('cv/api')}
     {...props}
   />
 )
@@ -2768,5 +2768,5 @@ export const useGetVerificationsPopoverSummary = ({
   >(
     (paramsInPath: GetVerificationsPopoverSummaryPathParams) =>
       `/activity/deployment-activity-verifications-popover-summary/${paramsInPath.deploymentTag}`,
-    { base: getConfig('cv-nextgen'), pathParams: { deploymentTag }, ...props }
+    { base: getConfig('cv/api'), pathParams: { deploymentTag }, ...props }
   )

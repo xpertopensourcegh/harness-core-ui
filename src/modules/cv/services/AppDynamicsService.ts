@@ -9,11 +9,11 @@ import { getConfig } from 'services/config'
 export const Endpoints = {
   appdApplications: (accountId: string, dataSourceId: string, orgId: string, projectId: string) =>
     `${getConfig(
-      'cv-nextgen'
+      'cv/api'
     )}/appdynamics/applications?accountId=${accountId}&connectorIdentifier=${dataSourceId}&orgIdentifier=${orgId}&projectIdentifier=${projectId}`,
   appdTier: (accountId: string, dataSourceId: string, appDynamicsAppId: number, orgId: string, projectId: string) =>
     `${getConfig(
-      'cv-nextgen'
+      'cv/api'
     )}/appdynamics/tiers?accountId=${accountId}&connectorIdentifier=${dataSourceId}&appDynamicsAppId=${appDynamicsAppId}&orgIdentifier=${orgId}&projectIdentifier=${projectId}`
 }
 

@@ -42,7 +42,7 @@ module.exports = {
     transformer: 'scripts/swagger-transform.js',
     customImport: `import { getConfig } from "../config";`,
     customProps: {
-      base: `{getConfig("cv-nextgen")}`
+      base: `{getConfig("cv/api")}`
     }
   },
   cf: {
