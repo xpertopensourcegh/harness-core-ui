@@ -61,7 +61,7 @@ export default function ServiceHeatMap(props: ServiceHeatMapProps): JSX.Element 
   const { openDrillDown } = useAnalysisDrillDownView()
   const [heatmapData, setHeatmapData] = useState<SerieConfig[]>([])
   const {
-    params: { accountId, projectIdentifier }
+    params: { accountId, projectIdentifier, orgIdentifier }
   } = useRouteParams()
 
   const { loading: loadingHeatmap, refetch: getHeatmap } = useGetHeatmap({
@@ -86,9 +86,10 @@ export default function ServiceHeatMap(props: ServiceHeatMapProps): JSX.Element 
         envIdentifier: environmentIdentifier,
         serviceIdentifier,
         projectIdentifier: projectIdentifier as string,
+        orgIdentifier: orgIdentifier as string,
         startTimeMs: startTime,
         endTimeMs: endTime
-      }
+      } as any
     })
   }, [projectIdentifier, startTime, endTime, serviceIdentifier, environmentIdentifier])
 
