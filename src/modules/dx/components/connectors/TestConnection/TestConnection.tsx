@@ -23,7 +23,7 @@ const TestConnection: React.FC<TestConnectionProps> = props => {
   const [testEnabled, setTestEnabled] = useState<boolean>(false)
 
   return (
-    <Layout.Vertical padding="xlarge" border={{ left: true }}>
+    <Layout.Vertical>
       {testEnabled ? (
         props.delegateName ? (
           <VerifyExistingDelegate

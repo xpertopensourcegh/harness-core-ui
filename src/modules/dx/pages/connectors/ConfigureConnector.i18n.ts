@@ -8,5 +8,8 @@ export default {
   },
   invalidYAML: 'YAML is invalid. Please fix the issues to proceed.',
   idError: 'Identifier cannot be changed',
-  EDIT_DETAILS: 'Edit Details'
+  EDIT_DETAILS: 'Edit Details',
+  title: {
+    connectorActivity: 'Connector Activity'
+  }
 }

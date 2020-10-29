@@ -1,7 +1,7 @@
 import React from 'react'
 import * as moment from 'moment'
 import { Layout, Text, Color } from '@wings-software/uikit'
-import { StringUtils } from '@common/exports'
+import { StringUtils } from 'modules/10-common/exports'
 import type { ConnectorConnectivityDetails } from 'services/cd-ng'
 import i18n from './ConnectorStats.i18n'
 import css from './ConnectorStats.module.scss'

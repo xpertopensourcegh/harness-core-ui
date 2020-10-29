@@ -3,6 +3,14 @@ export default {
   description: 'Description',
   identifier: 'Identifier',
   tags: 'Tags',
+  created: 'Connector Created',
+  lastTested: 'Last Tested',
+  lastUpdated: 'Last Updated',
+  lastConnectionSuccess: 'Last time connection is successful',
+  failed: 'Failed',
+  success: 'Success',
+  overview: 'Overview',
+  credentials: 'Credentials',
 
   delegate: 'Delegate',
 
@@ -10,6 +18,10 @@ export default {
     Kubernetes: 'Kubernetes Connector Name',
     GIT: 'GIT Connector Name',
     Docker: 'Docker Connector Name',
+    GCP: 'GCP Connector Name',
+    AWS: 'AWS Connector Name',
+    Nexus: 'Nexus Connector Name',
+    Artifactory: 'Artifactory Connector Name',
     SecretManager: 'Secret Manager Name',
     AppDynamics: 'AppDynamics Connector Name',
     Splunk: ' Splunk Connector Name'
@@ -60,5 +72,22 @@ export default {
     default: 'Default',
     yes: 'Yes',
     no: 'No'
-  }
+  },
+  AWS: {
+    STSEnabled: 'STS Role enabled',
+    roleARN: 'Role ARN',
+    externalId: 'External Id'
+  },
+  Nexus: {
+    serverUrl: 'Nexus Server Url',
+    version: 'Version'
+  },
+  Artifactory: {
+    serverUrl: 'Artifactory Server Url',
+    version: 'Version'
+  },
+  credType: 'Credential Type',
+  delegateName: 'Delegate Name',
+  username: 'Username',
+  password: 'Password'
 }

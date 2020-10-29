@@ -1,25 +1,26 @@
 import React, { useState, useEffect } from 'react'
-import { Button, Layout } from '@wings-software/uikit'
+import { Button, Layout, Container } from '@wings-software/uikit'
 import { parse } from 'yaml'
 import cx from 'classnames'
-import { useToaster } from '@common/exports'
+import { useToaster } from 'modules/10-common/exports'
 import type { ConnectorInfoDTO, ConnectorRequestBody, ConnectorResponse } from 'services/cd-ng'
-import YamlBuilder from '@common/components/YAMLBuilder/YamlBuilder'
+import YamlBuilder from 'modules/10-common/components/YAMLBuilder/YamlBuilder'
 import {
   addIconInfoToSnippets,
   pickIconForEntity,
   getValidationErrorMessagesForToaster
-} from '@common/components/YAMLBuilder/YAMLBuilderUtils'
-import { YamlEntity } from '@common/constants/YamlConstants'
-import type { SnippetInterface } from '@common/interfaces/SnippetInterface'
+} from 'modules/10-common/components/YAMLBuilder/YAMLBuilderUtils'
+import { YamlEntity } from 'modules/10-common/constants/YamlConstants'
+import type { SnippetInterface } from 'modules/10-common/interfaces/SnippetInterface'
 import { YAMLService } from 'modules/dx/services'
 import TestConnection from 'modules/dx/components/connectors/TestConnection/TestConnection'
-import type { YamlBuilderHandlerBinding, YamlBuilderProps } from '@common/interfaces/YAMLBuilderProps'
+import type { YamlBuilderHandlerBinding, YamlBuilderProps } from 'modules/10-common/interfaces/YAMLBuilderProps'
 import ConnectorForm from 'modules/dx/components/connectors/ConnectorForm/ConnectorForm'
 import type { ConnectorConnectivityDetails } from 'services/cd-ng'
-import SavedConnectorDetails from './views/savedDetailsView/SavedConnectorDetails'
-import ConnectorStats from './ConnectorStats'
-import { getHeadingByType } from './utils/ConnectorHelper'
+import SavedConnectorDetails, {
+  RenderDetailsSection,
+  getActivityDetails
+} from './views/savedDetailsView/SavedConnectorDetails'
 import i18n from './ConfigureConnector.i18n'
 import css from './ConfigureConnector.module.scss'
 
@@ -180,84 +181,92 @@ const ConfigureConnector: React.FC<ConfigureConnectorProps> = props => {
   // }, [enableEdit])
 
   return (
-    <div className={css.connectorWrp}>
-      <div className={css.optionBtns}>
-        <div
-          className={cx(
-            css.item,
-            { [css.selected]: selectedView === SelectedView.VISUAL },
-            { [css.disabled]: !isValidYAML }
-          )}
-          onClick={() => handleModeSwitch(SelectedView.VISUAL)}
-        >
-          {i18n.VISUAL}
-        </div>
-        <div
-          className={cx(css.item, { [css.selected]: selectedView === SelectedView.YAML })}
-          onClick={() => handleModeSwitch(SelectedView.YAML)}
-        >
-          {i18n.YAML}
-        </div>
-      </div>
-      <Layout.Horizontal className={css.mainDetails}>
-        <div className={css.connectorDetails}>
-          <Layout.Horizontal className={css.header}>
-            {connector?.type ? <span className={css.name}>{getHeadingByType(connector?.type)}</span> : null}
-            {state.enableEdit ? null : (
-              <Button text={i18n.EDIT_DETAILS} icon="edit" onClick={() => state.setEnableEdit(true)} />
+    <Layout.Vertical padding={{ top: 'large', left: 'huge', bottom: 'large', right: 'huge' }}>
+      <Container className={css.buttonContainer}>
+        <div className={css.optionBtns}>
+          <div
+            className={cx(
+              css.item,
+              { [css.selected]: selectedView === SelectedView.VISUAL },
+              { [css.disabled]: !isValidYAML }
             )}
-          </Layout.Horizontal>
-          {enableEdit ? (
-            selectedView === SelectedView.VISUAL ? (
-              <ConnectorForm
-                type={props.type}
-                connector={connector}
-                setConnector={setConnector}
-                setConnectorForYaml={setConnectorForYaml}
-                onSubmit={onSubmit}
-              />
-            ) : (
-              <div className={css.editor}>
-                <YamlBuilder {...Object.assign(yamlBuilderReadOnlyModeProps, { height: 550 })} />
-                <Button
-                  intent="primary"
-                  text={i18n.submit}
-                  onClick={handleSaveYaml}
-                  margin={{ top: 'large' }}
-                  title={isValidYAML ? '' : i18n.invalidYAML}
-                />
-              </div>
-            )
-          ) : selectedView === SelectedView.VISUAL ? (
-            <SavedConnectorDetails connector={connector} />
+            onClick={() => handleModeSwitch(SelectedView.VISUAL)}
+          >
+            {i18n.VISUAL}
+          </div>
+          <div
+            className={cx(css.item, { [css.selected]: selectedView === SelectedView.YAML })}
+            onClick={() => handleModeSwitch(SelectedView.YAML)}
+          >
+            {i18n.YAML}
+          </div>
+        </div>
+        {state.enableEdit ? null : (
+          <Button
+            className={css.editButton}
+            text={i18n.EDIT_DETAILS}
+            icon="edit"
+            onClick={() => state.setEnableEdit(true)}
+          />
+        )}
+      </Container>
+
+      <Layout.Horizontal>
+        {enableEdit ? (
+          selectedView === SelectedView.VISUAL ? (
+            <ConnectorForm
+              type={props.type}
+              connector={connector}
+              setConnector={setConnector}
+              setConnectorForYaml={setConnectorForYaml}
+              onSubmit={onSubmit}
+            />
           ) : (
             <div className={css.editor}>
-              <YamlBuilder {...yamlBuilderReadOnlyModeProps} isReadOnlyMode={true} showSnippetSection={false} />
+              <YamlBuilder {...Object.assign(yamlBuilderReadOnlyModeProps, { height: 550 })} />
+              <Button
+                intent="primary"
+                text={i18n.submit}
+                onClick={handleSaveYaml}
+                margin={{ top: 'large' }}
+                title={isValidYAML ? '' : i18n.invalidYAML}
+              />
             </div>
-          )}
-        </div>
-        {selectedView === SelectedView.VISUAL && props.response ? (
-          <Layout.Vertical width={'50%'}>
-            <ConnectorStats
-              createdAt={props.response.createdAt || 0}
-              lastTested={lastTested || props.response.status?.lastTestedAt}
-              lastUpdated={props.response.lastModifiedAt as number}
-              lastConnected={lastConnected || props.response.status?.lastConnectedAt}
-              status={status || props.response.status?.status}
-            />
-            <TestConnection
-              connectorName={connector?.name || ''}
-              connectorIdentifier={connector?.identifier || ''}
-              delegateName={connector?.spec?.credential?.spec?.delegateName || ''}
-              setLastTested={setLastTested}
-              setLastConnected={setLastConnected}
-              setStatus={setStatus}
-              connectorType={connector?.type || ''}
-            />
-          </Layout.Vertical>
-        ) : null}
+          )
+        ) : selectedView === SelectedView.VISUAL ? (
+          <>
+            <SavedConnectorDetails connector={connector}></SavedConnectorDetails>
+            <Container className={css.connectorDetailsWrapper}>
+              <Layout.Vertical>
+                <RenderDetailsSection
+                  title={i18n.title.connectorActivity}
+                  data={getActivityDetails({
+                    createdAt: props.response.createdAt || 0,
+                    lastTested: lastTested || props.response.status?.lastTestedAt || 0,
+                    lastUpdated: (props.response.lastModifiedAt as number) || 0,
+                    lastConnectionSuccess: lastConnected || props.response.status?.lastConnectedAt || 0,
+                    status: status || props.response.status?.status || ''
+                  })}
+                ></RenderDetailsSection>
+                <TestConnection
+                  connectorName={connector?.name || ''}
+                  connectorIdentifier={connector?.identifier || ''}
+                  delegateName={connector?.spec?.credential?.spec?.delegateName || ''}
+                  setLastTested={setLastTested}
+                  setLastConnected={setLastConnected}
+                  setStatus={setStatus}
+                  connectorType={connector?.type || ''}
+                />
+              </Layout.Vertical>
+            </Container>
+          </>
+        ) : (
+          <div className={css.editor}>
+            <YamlBuilder {...yamlBuilderReadOnlyModeProps} isReadOnlyMode={true} showSnippetSection={false} />
+          </div>
+        )}
       </Layout.Horizontal>
-    </div>
+    </Layout.Vertical>
   )
 }
 

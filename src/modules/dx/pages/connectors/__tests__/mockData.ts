@@ -232,3 +232,132 @@ export const Vault = {
   metaData: null,
   correlationId: 'correlationId'
 }
+
+export const GCP = {
+  status: 'SUCCESS' as const,
+  data: {
+    currentPage: 1,
+    empty: false,
+    content: [
+      {
+        connector: {
+          name: 'GCP for demo',
+          identifier: 'GCP_for_demo',
+          description: 'Details',
+          tags: ['GCP', 'demo'],
+          type: 'Gcp',
+          spec: { credential: { type: 'ManualConfig', spec: { secretKeyRef: 'account.GCP' } } }
+        },
+        status: {
+          errorMessage: null,
+          lastConnectedAt: 1601199008081,
+          lastTestedAt: 1601199008081,
+          status: 'SUCCESS'
+        },
+        createdAt: 1601198999531,
+        lastModifiedAt: 1601199008088
+      }
+    ],
+    total: 1
+  }
+}
+export const AWS = {
+  status: 'SUCCESS' as const,
+  data: {
+    currentPage: 1,
+    empty: false,
+    content: [
+      {
+        connector: {
+          name: 'AWS demo',
+          identifier: 'AWS_demo',
+          description: 'connector description',
+          tags: ['demo', 'test'],
+          type: 'Aws',
+          spec: {
+            credential: {
+              crossAccountAccess: { crossAccountRoleArn: 'dummyRoleARN', externalId: '12345' },
+              type: 'InheritFromDelegate',
+              spec: { delegateSelector: 'primary' }
+            }
+          }
+        },
+        status: {
+          errorMessage: null,
+          lastConnectedAt: 1601199008081,
+          lastTestedAt: 1601199008081,
+          status: 'SUCCESS'
+        },
+        createdAt: 1601198999531,
+        lastModifiedAt: 1601199008088
+      }
+    ],
+    total: 1
+  }
+}
+export const Nexus = {
+  status: 'SUCCESS' as const,
+  data: {
+    currentPage: 1,
+    empty: false,
+    content: [
+      {
+        connector: {
+          name: 'Nexus one',
+          identifier: 'Nexus_one',
+          description: 'testing nexus connector',
+          tags: [],
+          type: 'Nexus',
+          spec: {
+            nexusServerUrl: 'https://nexus2.harness.io',
+            version: '3.x',
+            auth: { type: 'UsernamePassword', spec: { username: 'dev', passwordRef: 'account.NexusPassword' } }
+          }
+        },
+        status: {
+          errorMessage: null,
+          lastConnectedAt: 1601199008081,
+          lastTestedAt: 1601199008081,
+          status: 'SUCCESS'
+        },
+        createdAt: 1601198999531,
+        lastModifiedAt: 1601199008088
+      }
+    ],
+    total: 1
+  }
+}
+export const Artifactory = {
+  status: 'SUCCESS' as const,
+  data: {
+    currentPage: 1,
+    empty: false,
+    content: [
+      {
+        connector: {
+          name: 'Artifacory One',
+          identifier: 'Artifacory_One',
+          description: '',
+          tags: [],
+          type: 'Artifactory',
+          spec: {
+            artifactoryServerUrl: 'https://test-repo.blackducksoftware.com/artifactory/',
+            auth: {
+              type: 'UsernamePassword',
+              spec: { username: 'harness-dev', passwordRef: 'account.connectorSecret' }
+            }
+          }
+        },
+        status: {
+          errorMessage: null,
+          lastConnectedAt: 1601199008081,
+          lastTestedAt: 1601199008081,
+          status: 'SUCCESS'
+        },
+        createdAt: 1601198999531,
+        lastModifiedAt: 1601199008088
+      }
+    ],
+    total: 1
+  }
+}

@@ -1,0 +1,114 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Connector Details Page Rendring connector deatils: view text 1`] = `
+<div>
+  <div
+    class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---padding-top-large--i39X StyledProps---padding-left-huge--2Znx StyledProps---padding-bottom-large--1zGv StyledProps---padding-right-huge--eVaX"
+  >
+    <div
+      class="StyledProps---font--2ipy StyledProps---main--1Wws buttonContainer"
+    >
+      <div
+        class="optionBtns"
+      >
+        <div
+          class="item selected"
+        >
+          VISUAL
+        </div>
+        <div
+          class="item"
+        >
+          YAML
+        </div>
+      </div>
+      <button
+        class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws editButton"
+        type="button"
+      >
+        <span
+          class="bp3-icon bp3-icon-edit StyledProps---main--1Wws StyledProps---padding-right-xsmall--3D04"
+          icon="edit"
+        >
+          <svg
+            data-icon="edit"
+            height="16"
+            viewBox="0 0 16 16"
+            width="16"
+          >
+            <desc>
+              edit
+            </desc>
+            <path
+              d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </span>
+        <span
+          class="bp3-button-text"
+        >
+          Edit Details
+        </span>
+      </button>
+    </div>
+    <div
+      class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+    >
+      <div
+        class="StyledProps---font--2ipy StyledProps---main--1Wws detailsSectionContainer"
+      >
+        <div
+          class="StyledProps---font--2ipy StyledProps---main--1Wws detailsSection"
+        >
+          <p
+            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-weight-bold--22XZ StyledProps---font-size-medium--aOY7 StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+          >
+            Overview
+          </p>
+        </div>
+        <div
+          class="StyledProps---font--2ipy StyledProps---main--1Wws detailsSection"
+        >
+          <p
+            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-weight-bold--22XZ StyledProps---font-size-medium--aOY7 StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+          >
+            Credentials
+          </p>
+        </div>
+      </div>
+      <div
+        class="StyledProps---font--2ipy StyledProps---main--1Wws connectorDetailsWrapper"
+      >
+        <div
+          class="Layout---vertical--3Szv StyledProps---main--1Wws"
+        >
+          <div
+            class="StyledProps---font--2ipy StyledProps---main--1Wws detailsSection"
+          >
+            <p
+              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-weight-bold--22XZ StyledProps---font-size-medium--aOY7 StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+            >
+              Connector Activity
+            </p>
+          </div>
+          <div
+            class="Layout---vertical--3Szv StyledProps---main--1Wws"
+          >
+            <button
+              class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws testButton"
+              type="button"
+            >
+              <span
+                class="bp3-button-text"
+              >
+                Test Connection
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

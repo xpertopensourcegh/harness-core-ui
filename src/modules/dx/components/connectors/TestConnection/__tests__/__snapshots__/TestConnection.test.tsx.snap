@@ -4,7 +4,7 @@ exports[`Test Connection render test connection 1`] = `
 <div>
    
   <div
-    class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---padding-xlarge--DH-e StyledProps---border--uz_- StyledProps---border-left--3J5s"
+    class="Layout---vertical--3Szv StyledProps---main--1Wws"
   >
     <button
       class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws testButton"
@@ -25,7 +25,7 @@ exports[`Test Connection render test connection verify existing delegate  1`] = 
 <div>
    
   <div
-    class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---padding-xlarge--DH-e StyledProps---border--uz_- StyledProps---border-left--3J5s"
+    class="Layout---vertical--3Szv StyledProps---main--1Wws"
   >
     <button
       class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws testButton"
@@ -46,7 +46,7 @@ exports[`Test Connection render test connection verify existing delegate  2`] = 
 <div>
    
   <div
-    class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---padding-xlarge--DH-e StyledProps---border--uz_- StyledProps---border-left--3J5s"
+    class="Layout---vertical--3Szv StyledProps---main--1Wws"
   >
     <div
       class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---padding-right-small--2ldZ StyledProps---padding-left-small--ODrE"
@@ -194,7 +194,7 @@ exports[`Test Connection render test connection verify out of cluster  1`] = `
 <div>
    
   <div
-    class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---padding-xlarge--DH-e StyledProps---border--uz_- StyledProps---border-left--3J5s"
+    class="Layout---vertical--3Szv StyledProps---main--1Wws"
   >
     <button
       class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws testButton"
@@ -215,7 +215,7 @@ exports[`Test Connection render test connection verify out of cluster  2`] = `
 <div>
    
   <div
-    class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---padding-xlarge--DH-e StyledProps---border--uz_- StyledProps---border-left--3J5s"
+    class="Layout---vertical--3Szv StyledProps---main--1Wws"
   >
     <div
       class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---padding-small--3f0A"

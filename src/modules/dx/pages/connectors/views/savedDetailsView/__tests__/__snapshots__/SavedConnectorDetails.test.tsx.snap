@@ -1,73 +1,608 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Saved Connector Details render for AWS schema 1`] = `
+<div>
+  <div
+    class="StyledProps---font--2ipy StyledProps---main--1Wws detailsSectionContainer"
+  >
+    <div
+      class="StyledProps---font--2ipy StyledProps---main--1Wws detailsSection"
+    >
+      <p
+        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-weight-bold--22XZ StyledProps---font-size-medium--aOY7 StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+      >
+        Overview
+      </p>
+      <div
+        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+      >
+        <p
+          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+        >
+          AWS Connector Name
+        </p>
+        <div
+          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+        >
+          <span
+            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+          >
+            AWS demo
+          </span>
+        </div>
+      </div>
+      <div
+        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+      >
+        <p
+          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+        >
+          Description
+        </p>
+        <div
+          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+        >
+          <span
+            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+          >
+            connector description
+          </span>
+        </div>
+      </div>
+      <div
+        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+      >
+        <p
+          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+        >
+          Identifier
+        </p>
+        <div
+          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+        >
+          <span
+            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+          >
+            AWS_demo
+          </span>
+        </div>
+      </div>
+      <div
+        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+      >
+        <p
+          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+        >
+          Tags
+        </p>
+        <div
+          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+        >
+          <span
+            class="Tag---main--1vng"
+          >
+            <span
+              class="bp3-tag bp3-minimal"
+            >
+              <span
+                class="bp3-text-overflow-ellipsis bp3-fill"
+              >
+                demo
+              </span>
+            </span>
+          </span>
+          <span
+            class="Tag---main--1vng"
+          >
+            <span
+              class="bp3-tag bp3-minimal"
+            >
+              <span
+                class="bp3-text-overflow-ellipsis bp3-fill"
+              >
+                test
+              </span>
+            </span>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      class="StyledProps---font--2ipy StyledProps---main--1Wws detailsSection"
+    >
+      <p
+        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-weight-bold--22XZ StyledProps---font-size-medium--aOY7 StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+      >
+        Credentials
+      </p>
+      <div
+        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+      >
+        <p
+          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+        >
+          Credential Type
+        </p>
+        <div
+          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+        >
+          <span
+            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+          >
+            InheritFromDelegate
+          </span>
+        </div>
+      </div>
+      <div
+        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+      >
+        <p
+          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+        >
+          Delegate Name
+        </p>
+        <div
+          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+        >
+          <span
+            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+          >
+            primary
+          </span>
+        </div>
+      </div>
+      <div
+        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+      >
+        <p
+          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+        >
+          STS Role enabled
+        </p>
+        <div
+          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+        >
+          <span
+            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+          >
+            true
+          </span>
+        </div>
+      </div>
+      <div
+        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+      >
+        <p
+          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+        >
+          Role ARN
+        </p>
+        <div
+          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+        >
+          <span
+            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+          >
+            dummyRoleARN
+          </span>
+        </div>
+      </div>
+      <div
+        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+      >
+        <p
+          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+        >
+          External Id
+        </p>
+        <div
+          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+        >
+          <span
+            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+          >
+            12345
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Saved Connector Details render for Artifactory schema 1`] = `
+<div>
+  <div
+    class="StyledProps---font--2ipy StyledProps---main--1Wws detailsSectionContainer"
+  >
+    <div
+      class="StyledProps---font--2ipy StyledProps---main--1Wws detailsSection"
+    >
+      <p
+        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-weight-bold--22XZ StyledProps---font-size-medium--aOY7 StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+      >
+        Overview
+      </p>
+      <div
+        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+      >
+        <p
+          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+        >
+          Artifactory Connector Name
+        </p>
+        <div
+          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+        >
+          <span
+            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+          >
+            Artifacory One
+          </span>
+        </div>
+      </div>
+      <div
+        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+      >
+        <p
+          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+        >
+          Identifier
+        </p>
+        <div
+          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+        >
+          <span
+            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+          >
+            Artifacory_One
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      class="StyledProps---font--2ipy StyledProps---main--1Wws detailsSection"
+    >
+      <p
+        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-weight-bold--22XZ StyledProps---font-size-medium--aOY7 StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+      >
+        Credentials
+      </p>
+      <div
+        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+      >
+        <p
+          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+        >
+          Artifactory Server Url
+        </p>
+        <div
+          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+        >
+          <span
+            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+          >
+            https://test-repo.blackducksoftware.com/artifactory/
+          </span>
+        </div>
+      </div>
+      <div
+        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+      >
+        <p
+          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+        >
+          Credential Type
+        </p>
+        <div
+          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+        >
+          <span
+            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+          >
+            Username and Password
+          </span>
+        </div>
+      </div>
+      <div
+        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+      >
+        <p
+          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+        >
+          Username
+        </p>
+        <div
+          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+        >
+          <span
+            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+          >
+            harness-dev
+          </span>
+        </div>
+      </div>
+      <div
+        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+      >
+        <p
+          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+        >
+          Password
+        </p>
+        <div
+          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+        >
+          <span
+            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-grey350--3j5q"
+          >
+            encrypted
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`Saved Connector Details render for Docker schema 1`] = `
 <div>
   <div
-    class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---margin-bottom-large--1jL3"
+    class="StyledProps---font--2ipy StyledProps---main--1Wws detailsSectionContainer"
   >
-    <p
-      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
-    >
-      
-    </p>
-    <p
-      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
-    >
-      DockerName
-    </p>
-  </div>
-  <div
-    class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---margin-bottom-large--1jL3"
-  >
-    <p
-      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
-    >
-      Description
-    </p>
-    <p
-      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
-    >
-      This description is for Docker
-    </p>
-  </div>
-  <div
-    class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---margin-bottom-large--1jL3"
-  >
-    <p
-      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
-    >
-      Identifier
-    </p>
-    <p
-      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
-    >
-      DockerId
-    </p>
-  </div>
-  <div
-    class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---margin-bottom-large--1jL3"
-  >
-    <p
-      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
-    >
-      Tags
-    </p>
     <div
-      class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+      class="StyledProps---font--2ipy StyledProps---main--1Wws detailsSection"
     >
-      <span
-        class="Tag---main--1vng"
+      <p
+        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-weight-bold--22XZ StyledProps---font-size-medium--aOY7 StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
       >
-        <span
-          class="bp3-tag bp3-minimal"
+        Overview
+      </p>
+      <div
+        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+      >
+        <p
+          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+        >
+          
+        </p>
+        <div
+          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
         >
           <span
-            class="bp3-text-overflow-ellipsis bp3-fill"
+            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
           >
-            tag1
+            DockerName
           </span>
-        </span>
-      </span>
+        </div>
+      </div>
+      <div
+        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+      >
+        <p
+          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+        >
+          Description
+        </p>
+        <div
+          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+        >
+          <span
+            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+          >
+            This description is for Docker
+          </span>
+        </div>
+      </div>
+      <div
+        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+      >
+        <p
+          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+        >
+          Identifier
+        </p>
+        <div
+          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+        >
+          <span
+            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+          >
+            DockerId
+          </span>
+        </div>
+      </div>
+      <div
+        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+      >
+        <p
+          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+        >
+          Tags
+        </p>
+        <div
+          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+        >
+          <span
+            class="Tag---main--1vng"
+          >
+            <span
+              class="bp3-tag bp3-minimal"
+            >
+              <span
+                class="bp3-text-overflow-ellipsis bp3-fill"
+              >
+                tag1
+              </span>
+            </span>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      class="StyledProps---font--2ipy StyledProps---main--1Wws detailsSection"
+    >
+      <p
+        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-weight-bold--22XZ StyledProps---font-size-medium--aOY7 StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+      >
+        Credentials
+      </p>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Saved Connector Details render for GCP schema 1`] = `
+<div>
+  <div
+    class="StyledProps---font--2ipy StyledProps---main--1Wws detailsSectionContainer"
+  >
+    <div
+      class="StyledProps---font--2ipy StyledProps---main--1Wws detailsSection"
+    >
+      <p
+        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-weight-bold--22XZ StyledProps---font-size-medium--aOY7 StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+      >
+        Overview
+      </p>
+      <div
+        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+      >
+        <p
+          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+        >
+          GCP Connector Name
+        </p>
+        <div
+          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+        >
+          <span
+            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+          >
+            GCP for demo
+          </span>
+        </div>
+      </div>
+      <div
+        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+      >
+        <p
+          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+        >
+          Description
+        </p>
+        <div
+          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+        >
+          <span
+            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+          >
+            Details
+          </span>
+        </div>
+      </div>
+      <div
+        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+      >
+        <p
+          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+        >
+          Identifier
+        </p>
+        <div
+          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+        >
+          <span
+            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+          >
+            GCP_for_demo
+          </span>
+        </div>
+      </div>
+      <div
+        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+      >
+        <p
+          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+        >
+          Tags
+        </p>
+        <div
+          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+        >
+          <span
+            class="Tag---main--1vng"
+          >
+            <span
+              class="bp3-tag bp3-minimal"
+            >
+              <span
+                class="bp3-text-overflow-ellipsis bp3-fill"
+              >
+                GCP
+              </span>
+            </span>
+          </span>
+          <span
+            class="Tag---main--1vng"
+          >
+            <span
+              class="bp3-tag bp3-minimal"
+            >
+              <span
+                class="bp3-text-overflow-ellipsis bp3-fill"
+              >
+                demo
+              </span>
+            </span>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      class="StyledProps---font--2ipy StyledProps---main--1Wws detailsSection"
+    >
+      <p
+        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-weight-bold--22XZ StyledProps---font-size-medium--aOY7 StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+      >
+        Credentials
+      </p>
+      <div
+        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+      >
+        <p
+          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+        >
+          Credential Type
+        </p>
+        <div
+          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+        >
+          <span
+            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+          >
+            ManualConfig
+          </span>
+        </div>
+      </div>
+      <div
+        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+      >
+        <p
+          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+        >
+          Password
+        </p>
+        <div
+          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+        >
+          <span
+            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-grey350--3j5q"
+          >
+            encrypted
+          </span>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -76,142 +611,196 @@ exports[`Saved Connector Details render for Docker schema 1`] = `
 exports[`Saved Connector Details render for GitHttp schema 1`] = `
 <div>
   <div
-    class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---margin-bottom-large--1jL3"
+    class="StyledProps---font--2ipy StyledProps---main--1Wws detailsSectionContainer"
   >
-    <p
-      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
-    >
-      GIT Connector Name
-    </p>
-    <p
-      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
-    >
-      GitHttpName
-    </p>
-  </div>
-  <div
-    class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---margin-bottom-large--1jL3"
-  >
-    <p
-      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
-    >
-      Description
-    </p>
-    <p
-      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
-    >
-      This description is for Git
-    </p>
-  </div>
-  <div
-    class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---margin-bottom-large--1jL3"
-  >
-    <p
-      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
-    >
-      Identifier
-    </p>
-    <p
-      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
-    >
-      GitHttpId
-    </p>
-  </div>
-  <div
-    class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---margin-bottom-large--1jL3"
-  >
-    <p
-      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
-    >
-      Tags
-    </p>
     <div
-      class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+      class="StyledProps---font--2ipy StyledProps---main--1Wws detailsSection"
     >
-      <span
-        class="Tag---main--1vng"
+      <p
+        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-weight-bold--22XZ StyledProps---font-size-medium--aOY7 StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
       >
-        <span
-          class="bp3-tag bp3-minimal"
+        Overview
+      </p>
+      <div
+        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+      >
+        <p
+          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+        >
+          GIT Connector Name
+        </p>
+        <div
+          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
         >
           <span
-            class="bp3-text-overflow-ellipsis bp3-fill"
+            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
           >
-            tag1
+            GitHttpName
           </span>
-        </span>
-      </span>
+        </div>
+      </div>
+      <div
+        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+      >
+        <p
+          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+        >
+          Description
+        </p>
+        <div
+          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+        >
+          <span
+            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+          >
+            This description is for Git
+          </span>
+        </div>
+      </div>
+      <div
+        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+      >
+        <p
+          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+        >
+          Identifier
+        </p>
+        <div
+          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+        >
+          <span
+            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+          >
+            GitHttpId
+          </span>
+        </div>
+      </div>
+      <div
+        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+      >
+        <p
+          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+        >
+          Tags
+        </p>
+        <div
+          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+        >
+          <span
+            class="Tag---main--1vng"
+          >
+            <span
+              class="bp3-tag bp3-minimal"
+            >
+              <span
+                class="bp3-text-overflow-ellipsis bp3-fill"
+              >
+                tag1
+              </span>
+            </span>
+          </span>
+        </div>
+      </div>
     </div>
-  </div>
-  <div
-    class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---margin-bottom-large--1jL3"
-  >
-    <p
-      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+    <div
+      class="StyledProps---font--2ipy StyledProps---main--1Wws detailsSection"
     >
-      Configured
-    </p>
-    <p
-      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
-    >
-      REPO
-    </p>
-  </div>
-  <div
-    class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---margin-bottom-large--1jL3"
-  >
-    <p
-      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
-    >
-      Connection Type
-    </p>
-    <p
-      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
-    >
-      HTTP
-    </p>
-  </div>
-  <div
-    class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---margin-bottom-large--1jL3"
-  >
-    <p
-      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
-    >
-      URL
-    </p>
-    <p
-      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
-    >
-      url
-    </p>
-  </div>
-  <div
-    class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---margin-bottom-large--1jL3"
-  >
-    <p
-      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
-    >
-      Username
-    </p>
-    <p
-      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
-    >
-      user name
-    </p>
-  </div>
-  <div
-    class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---margin-bottom-large--1jL3"
-  >
-    <p
-      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
-    >
-      Password
-    </p>
-    <p
-      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey350--3j5q"
-    >
-      encrypted
-    </p>
+      <p
+        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-weight-bold--22XZ StyledProps---font-size-medium--aOY7 StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+      >
+        Credentials
+      </p>
+      <div
+        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+      >
+        <p
+          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+        >
+          Configured
+        </p>
+        <div
+          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+        >
+          <span
+            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+          >
+            REPO
+          </span>
+        </div>
+      </div>
+      <div
+        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+      >
+        <p
+          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+        >
+          Connection Type
+        </p>
+        <div
+          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+        >
+          <span
+            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+          >
+            HTTP
+          </span>
+        </div>
+      </div>
+      <div
+        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+      >
+        <p
+          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+        >
+          URL
+        </p>
+        <div
+          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+        >
+          <span
+            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+          >
+            url
+          </span>
+        </div>
+      </div>
+      <div
+        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+      >
+        <p
+          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+        >
+          Username
+        </p>
+        <div
+          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+        >
+          <span
+            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+          >
+            user name
+          </span>
+        </div>
+      </div>
+      <div
+        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+      >
+        <p
+          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+        >
+          Password
+        </p>
+        <div
+          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+        >
+          <span
+            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-grey350--3j5q"
+          >
+            encrypted
+          </span>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 `;
@@ -219,100 +808,142 @@ exports[`Saved Connector Details render for GitHttp schema 1`] = `
 exports[`Saved Connector Details render for Inline K8s schema 1`] = `
 <div>
   <div
-    class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---margin-bottom-large--1jL3"
+    class="StyledProps---font--2ipy StyledProps---main--1Wws detailsSectionContainer"
   >
-    <p
-      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
-    >
-      Kubernetes Connector Name
-    </p>
-    <p
-      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
-    >
-      K8sName
-    </p>
-  </div>
-  <div
-    class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---margin-bottom-large--1jL3"
-  >
-    <p
-      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
-    >
-      Description
-    </p>
-    <p
-      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
-    >
-      This description is for K8s
-    </p>
-  </div>
-  <div
-    class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---margin-bottom-large--1jL3"
-  >
-    <p
-      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
-    >
-      Identifier
-    </p>
-    <p
-      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
-    >
-      k8sId
-    </p>
-  </div>
-  <div
-    class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---margin-bottom-large--1jL3"
-  >
-    <p
-      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
-    >
-      Tags
-    </p>
     <div
-      class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+      class="StyledProps---font--2ipy StyledProps---main--1Wws detailsSection"
     >
-      <span
-        class="Tag---main--1vng"
+      <p
+        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-weight-bold--22XZ StyledProps---font-size-medium--aOY7 StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
       >
-        <span
-          class="bp3-tag bp3-minimal"
+        Overview
+      </p>
+      <div
+        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+      >
+        <p
+          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+        >
+          Kubernetes Connector Name
+        </p>
+        <div
+          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
         >
           <span
-            class="bp3-text-overflow-ellipsis bp3-fill"
+            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
           >
-            tag1
+            K8sName
           </span>
-        </span>
-      </span>
+        </div>
+      </div>
+      <div
+        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+      >
+        <p
+          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+        >
+          Description
+        </p>
+        <div
+          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+        >
+          <span
+            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+          >
+            This description is for K8s
+          </span>
+        </div>
+      </div>
+      <div
+        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+      >
+        <p
+          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+        >
+          Identifier
+        </p>
+        <div
+          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+        >
+          <span
+            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+          >
+            k8sId
+          </span>
+        </div>
+      </div>
+      <div
+        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+      >
+        <p
+          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+        >
+          Tags
+        </p>
+        <div
+          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+        >
+          <span
+            class="Tag---main--1vng"
+          >
+            <span
+              class="bp3-tag bp3-minimal"
+            >
+              <span
+                class="bp3-text-overflow-ellipsis bp3-fill"
+              >
+                tag1
+              </span>
+            </span>
+          </span>
+        </div>
+      </div>
     </div>
-  </div>
-  <div
-    class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---margin-bottom-large--1jL3"
-  >
-    <p
-      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+    <div
+      class="StyledProps---font--2ipy StyledProps---main--1Wws detailsSection"
     >
-      Connection Mode
-    </p>
-    <p
-      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
-    >
-      Harness Delegate running In-Cluster
-    </p>
-  </div>
-  <div
-    class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---margin-bottom-large--1jL3"
-  >
-    <p
-      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
-    >
-      Delegate Name
-    </p>
-    <p
-      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
-    >
-      kubernetes
-    </p>
+      <p
+        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-weight-bold--22XZ StyledProps---font-size-medium--aOY7 StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+      >
+        Credentials
+      </p>
+      <div
+        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+      >
+        <p
+          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+        >
+          Connection Mode
+        </p>
+        <div
+          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+        >
+          <span
+            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+          >
+            Harness Delegate running In-Cluster
+          </span>
+        </div>
+      </div>
+      <div
+        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+      >
+        <p
+          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+        >
+          Delegate Name
+        </p>
+        <div
+          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+        >
+          <span
+            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+          >
+            kubernetes
+          </span>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 `;
@@ -320,116 +951,341 @@ exports[`Saved Connector Details render for Inline K8s schema 1`] = `
 exports[`Saved Connector Details render for Manual K8s schema 1`] = `
 <div>
   <div
-    class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---margin-bottom-large--1jL3"
+    class="StyledProps---font--2ipy StyledProps---main--1Wws detailsSectionContainer"
   >
-    <p
-      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+    <div
+      class="StyledProps---font--2ipy StyledProps---main--1Wws detailsSection"
     >
-      Kubernetes Connector Name
-    </p>
-    <p
-      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+      <p
+        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-weight-bold--22XZ StyledProps---font-size-medium--aOY7 StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+      >
+        Overview
+      </p>
+      <div
+        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+      >
+        <p
+          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+        >
+          Kubernetes Connector Name
+        </p>
+        <div
+          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+        >
+          <span
+            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+          >
+            K8sName
+          </span>
+        </div>
+      </div>
+      <div
+        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+      >
+        <p
+          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+        >
+          Description
+        </p>
+        <div
+          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+        >
+          <span
+            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+          >
+            This description is for K8s
+          </span>
+        </div>
+      </div>
+      <div
+        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+      >
+        <p
+          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+        >
+          Identifier
+        </p>
+        <div
+          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+        >
+          <span
+            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+          >
+            k8sId
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      class="StyledProps---font--2ipy StyledProps---main--1Wws detailsSection"
     >
-      K8sName
-    </p>
+      <p
+        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-weight-bold--22XZ StyledProps---font-size-medium--aOY7 StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+      >
+        Credentials
+      </p>
+      <div
+        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+      >
+        <p
+          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+        >
+          Connection Mode
+        </p>
+        <div
+          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+        >
+          <span
+            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+          >
+            Harness Delegate running Out-of-Cluster
+          </span>
+        </div>
+      </div>
+      <div
+        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+      >
+        <p
+          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+        >
+          Master URL
+        </p>
+        <div
+          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+        >
+          <span
+            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+          >
+            master url
+          </span>
+        </div>
+      </div>
+      <div
+        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+      >
+        <p
+          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+        >
+          Credential Type
+        </p>
+        <div
+          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+        >
+          <span
+            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+          >
+            Username and Password
+          </span>
+        </div>
+      </div>
+      <div
+        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+      >
+        <p
+          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+        >
+          Username
+        </p>
+        <div
+          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+        >
+          <span
+            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+          >
+            user name
+          </span>
+        </div>
+      </div>
+      <div
+        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+      >
+        <p
+          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+        >
+          Password
+        </p>
+        <div
+          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+        >
+          <span
+            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-grey350--3j5q"
+          >
+            encrypted
+          </span>
+        </div>
+      </div>
+    </div>
   </div>
+</div>
+`;
+
+exports[`Saved Connector Details render for Nexus schema 1`] = `
+<div>
   <div
-    class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---margin-bottom-large--1jL3"
+    class="StyledProps---font--2ipy StyledProps---main--1Wws detailsSectionContainer"
   >
-    <p
-      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+    <div
+      class="StyledProps---font--2ipy StyledProps---main--1Wws detailsSection"
     >
-      Description
-    </p>
-    <p
-      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+      <p
+        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-weight-bold--22XZ StyledProps---font-size-medium--aOY7 StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+      >
+        Overview
+      </p>
+      <div
+        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+      >
+        <p
+          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+        >
+          Nexus Connector Name
+        </p>
+        <div
+          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+        >
+          <span
+            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+          >
+            Nexus one
+          </span>
+        </div>
+      </div>
+      <div
+        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+      >
+        <p
+          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+        >
+          Description
+        </p>
+        <div
+          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+        >
+          <span
+            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+          >
+            testing nexus connector
+          </span>
+        </div>
+      </div>
+      <div
+        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+      >
+        <p
+          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+        >
+          Identifier
+        </p>
+        <div
+          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+        >
+          <span
+            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+          >
+            Nexus_one
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      class="StyledProps---font--2ipy StyledProps---main--1Wws detailsSection"
     >
-      This description is for K8s
-    </p>
-  </div>
-  <div
-    class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---margin-bottom-large--1jL3"
-  >
-    <p
-      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
-    >
-      Identifier
-    </p>
-    <p
-      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
-    >
-      k8sId
-    </p>
-  </div>
-  <div
-    class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---margin-bottom-large--1jL3"
-  >
-    <p
-      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
-    >
-      Connection Mode
-    </p>
-    <p
-      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
-    >
-      Harness Delegate running Out-of-Cluster
-    </p>
-  </div>
-  <div
-    class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---margin-bottom-large--1jL3"
-  >
-    <p
-      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
-    >
-      Master URL
-    </p>
-    <p
-      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
-    >
-      master url
-    </p>
-  </div>
-  <div
-    class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---margin-bottom-large--1jL3"
-  >
-    <p
-      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
-    >
-      Credential Type
-    </p>
-    <p
-      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
-    >
-      Username and Password
-    </p>
-  </div>
-  <div
-    class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---margin-bottom-large--1jL3"
-  >
-    <p
-      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
-    >
-      Username
-    </p>
-    <p
-      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
-    >
-      user name
-    </p>
-  </div>
-  <div
-    class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---margin-bottom-large--1jL3"
-  >
-    <p
-      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
-    >
-      Password
-    </p>
-    <p
-      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey350--3j5q"
-    >
-      encrypted
-    </p>
+      <p
+        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-weight-bold--22XZ StyledProps---font-size-medium--aOY7 StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+      >
+        Credentials
+      </p>
+      <div
+        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+      >
+        <p
+          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+        >
+          Nexus Server Url
+        </p>
+        <div
+          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+        >
+          <span
+            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+          >
+            https://nexus2.harness.io
+          </span>
+        </div>
+      </div>
+      <div
+        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+      >
+        <p
+          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+        >
+          Version
+        </p>
+        <div
+          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+        >
+          <span
+            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+          >
+            3.x
+          </span>
+        </div>
+      </div>
+      <div
+        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+      >
+        <p
+          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+        >
+          Credential Type
+        </p>
+        <div
+          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+        >
+          <span
+            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+          >
+            Username and Password
+          </span>
+        </div>
+      </div>
+      <div
+        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+      >
+        <p
+          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+        >
+          Username
+        </p>
+        <div
+          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+        >
+          <span
+            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+          >
+            dev
+          </span>
+        </div>
+      </div>
+      <div
+        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+      >
+        <p
+          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+        >
+          Password
+        </p>
+        <div
+          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+        >
+          <span
+            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-grey350--3j5q"
+          >
+            encrypted
+          </span>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 `;
@@ -437,71 +1293,201 @@ exports[`Saved Connector Details render for Manual K8s schema 1`] = `
 exports[`Saved Connector Details render for Vault schema 1`] = `
 <div>
   <div
-    class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---margin-bottom-large--1jL3"
+    class="StyledProps---font--2ipy StyledProps---main--1Wws detailsSectionContainer"
   >
-    <p
-      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
-    >
-      
-    </p>
-    <p
-      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
-    >
-      VaultName
-    </p>
-  </div>
-  <div
-    class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---margin-bottom-large--1jL3"
-  >
-    <p
-      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
-    >
-      Description
-    </p>
-    <p
-      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
-    >
-      This description is for Vault
-    </p>
-  </div>
-  <div
-    class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---margin-bottom-large--1jL3"
-  >
-    <p
-      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
-    >
-      Identifier
-    </p>
-    <p
-      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
-    >
-      VaultId
-    </p>
-  </div>
-  <div
-    class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---margin-bottom-large--1jL3"
-  >
-    <p
-      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
-    >
-      Tags
-    </p>
     <div
-      class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+      class="StyledProps---font--2ipy StyledProps---main--1Wws detailsSection"
     >
-      <span
-        class="Tag---main--1vng"
+      <p
+        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-weight-bold--22XZ StyledProps---font-size-medium--aOY7 StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
       >
-        <span
-          class="bp3-tag bp3-minimal"
+        Overview
+      </p>
+      <div
+        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+      >
+        <p
+          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+        >
+          
+        </p>
+        <div
+          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
         >
           <span
-            class="bp3-text-overflow-ellipsis bp3-fill"
+            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
           >
-            tag1
+            VaultName
           </span>
+        </div>
+      </div>
+      <div
+        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+      >
+        <p
+          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+        >
+          Description
+        </p>
+        <div
+          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+        >
+          <span
+            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+          >
+            This description is for Vault
+          </span>
+        </div>
+      </div>
+      <div
+        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+      >
+        <p
+          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+        >
+          Identifier
+        </p>
+        <div
+          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+        >
+          <span
+            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+          >
+            VaultId
+          </span>
+        </div>
+      </div>
+      <div
+        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+      >
+        <p
+          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+        >
+          Tags
+        </p>
+        <div
+          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+        >
+          <span
+            class="Tag---main--1vng"
+          >
+            <span
+              class="bp3-tag bp3-minimal"
+            >
+              <span
+                class="bp3-text-overflow-ellipsis bp3-fill"
+              >
+                tag1
+              </span>
+            </span>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      class="StyledProps---font--2ipy StyledProps---main--1Wws detailsSection"
+    >
+      <p
+        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-weight-bold--22XZ StyledProps---font-size-medium--aOY7 StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+      >
+        Credentials
+      </p>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Saved Connector Details render for connector activity details 1`] = `
+<div>
+  <div
+    class="StyledProps---font--2ipy StyledProps---main--1Wws detailsSection"
+  >
+    <p
+      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-weight-bold--22XZ StyledProps---font-size-medium--aOY7 StyledProps---color--8PuS StyledProps---color-grey700--WvM3"
+    >
+      Connector Activity
+    </p>
+    <div
+      class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+    >
+      <p
+        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+      >
+        Connector Created
+      </p>
+      <div
+        class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+      >
+        <span
+          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+        >
+          09/27/2020 09:29 am
         </span>
-      </span>
+      </div>
+    </div>
+    <div
+      class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+    >
+      <p
+        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+      >
+        Last Updated
+      </p>
+      <div
+        class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+      >
+        <span
+          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+        >
+          09/27/2020 09:30 am
+        </span>
+      </div>
+    </div>
+    <div
+      class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws detailsSectionRowWrapper StyledProps---padding-top-medium--29t2 StyledProps---padding-bottom-medium--3R7v"
+    >
+      <p
+        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6"
+      >
+        Last Tested
+      </p>
+      <div
+        class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws detailsSectionRow"
+      >
+        <span
+          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+        >
+          09/27/2020 09:30 am
+        </span>
+        <div
+          class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+        >
+          <span
+            class="bp3-icon bp3-icon-warning-sign StyledProps---main--1Wws StyledProps---inline--1f52 StyledProps---color--8PuS StyledProps---color-red500--uX9L"
+            icon="warning-sign"
+          >
+            <svg
+              data-icon="warning-sign"
+              height="14"
+              viewBox="0 0 16 16"
+              width="14"
+            >
+              <desc>
+                Failed
+              </desc>
+              <path
+                d="M15.84 13.5l.01-.01-7-12-.01.01c-.17-.3-.48-.5-.85-.5s-.67.2-.85.5l-.01-.01-7 12 .01.01c-.09.15-.15.31-.15.5 0 .55.45 1 1 1h14c.55 0 1-.45 1-1 0-.19-.06-.35-.15-.5zm-6.85-.51h-2v-2h2v2zm0-3h-2v-5h2v5z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+          <span
+            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---inline--1f52"
+          >
+            Failed
+          </span>
+        </div>
+      </div>
     </div>
   </div>
 </div>
