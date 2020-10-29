@@ -46,11 +46,11 @@
         "name": "Build",
         "stepsData": [
           {
-            "type": "Run",
+            "type": "run",
             "name": "Run"
           },
           {
-            "type": "Placeholder",
+            "type": "plugin",
             "name": "Plugin"
           },
           {

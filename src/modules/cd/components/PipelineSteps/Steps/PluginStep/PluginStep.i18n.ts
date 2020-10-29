@@ -1,11 +1,11 @@
 export default {
-  title: 'Run Step',
+  title: 'Plugin Step',
 
   loading: 'Loading...',
 
   optionalConfiguration: 'OPTIONAL CONFIGURATIONS',
-  environment: 'Environment',
-  addEnvironment: '+ Add Environment',
+  settings: 'Settings',
+  addSetting: '+ Add Setting',
   setContainerResources: 'Set container Resources',
   setContainerResourcesTooltip: 'Information',
 
@@ -13,17 +13,14 @@ export default {
   connectorLabel: 'Connector',
   connectorPlaceholder: 'Select',
   imageLabel: 'Image',
-  commandsLabel: 'Commands',
-  environmentKeyPlaceholder: 'Key',
-  environmentValuePlaceholder: 'Value',
-  workingDirectoryLabel: 'Working Directory',
+  settingsKeyPlaceholder: 'Key',
+  settingsValuePlaceholder: 'Value',
   limitMemoryLabel: 'Limit Memory',
   limitMemoryPlaceholder: '512',
   limitCPULabel: 'Limit CPU',
   limitCPUPlaceholder: '1',
   limitMemoryUnitMiLabel: 'Mi',
   limitMemoryUnitGiLabel: 'Gi',
-  outputVariablesLabel: 'Output Variables',
 
   limitMemoryExample: 'Ex: 512 MiB, 1 GiB',
   limitCPUExample: 'Ex: 1',

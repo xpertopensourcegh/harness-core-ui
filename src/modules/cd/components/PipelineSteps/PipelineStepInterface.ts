@@ -8,5 +8,6 @@ export enum StepType {
   K8sRollingDeploy = 'K8sRollingDeploy',
   CustomVariable = 'Custom_Variable',
   Redis = 'service',
-  Run = 'Run'
+  Run = 'run',
+  Plugin = 'plugin'
 }

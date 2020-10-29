@@ -8,8 +8,7 @@ import {
   IconName,
   MultiTypeInputType,
   Layout,
-  FormikForm,
-  SimpleTagInput
+  FormikForm
 } from '@wings-software/uikit'
 import { FieldArray } from 'formik'
 import * as yup from 'yup'
@@ -38,21 +37,47 @@ export enum LimitMemoryUnits {
 }
 
 const validationSchema = yup.object().shape({
-  identifier: yup.string().required(),
-  name: yup.string().required(),
-  spec: yup.object().shape({
-    connector: yup.string().required(),
-    image: yup.string().required(),
-    command: yup.array().required(),
-    limitCPU: yup.number().min(0),
-    limitMemory: yup.number().min(0)
-  })
+  identifier: yup.string().trim().required(),
+  name: yup.string().trim().required(),
+  spec: yup
+    .object()
+    .shape({
+      connectorRef: yup.mixed().required(),
+      image: yup.string().trim().required(),
+      command: yup.array().compact().required(),
+      limitCPU: yup.number().min(0),
+      limitMemory: yup.number().min(0)
+    })
+    .required()
 })
 
 export interface RunStepWidgetProps {
   initialValues: any //RunStepData
   onUpdate?: (data: any) => void //RunStepData
   stepViewType?: StepViewType
+}
+
+function getInitialValuesInCorrectFormat(initialValues: any): any {
+  if (initialValues.spec?.resources) {
+    return {
+      identifier: initialValues.identifier,
+      name: initialValues.name,
+      spec: {
+        connectorRef: initialValues.spec.connectorRef,
+        image: initialValues.spec.image,
+        command: initialValues.spec.command,
+        environment: initialValues.spec.environment,
+        workingDir: initialValues.spec.workingDir,
+        limitMemory: initialValues.spec?.resources?.limit?.memory?.match(/\d+/g)?.join(''),
+        limitMemoryUnits:
+          initialValues.spec?.resources?.limit?.memory?.match(/[A-Za-z]+$/)?.join('') || LimitMemoryUnits.Mi,
+        limitCPU: initialValues.spec?.resources?.limit?.cpu,
+        outputVariables: initialValues.spec.outputVariables
+      }
+    }
+  } else {
+    return { ...initialValues }
+  }
 }
 
 const RunStepWidget: React.FC<RunStepWidgetProps> = ({ initialValues, onUpdate }): JSX.Element => {
@@ -67,11 +92,11 @@ const RunStepWidget: React.FC<RunStepWidgetProps> = ({ initialValues, onUpdate }
     accountId: string
   }>()
 
-  const connectorRef = getIdentifierFromValue((initialValues.spec.connector as string) || '') // ? as string
-  const initialScope = getScopeFromValue((initialValues.spec.connector as string) || '') // ? as string
+  const connectorId = getIdentifierFromValue((initialValues.spec.connectorRef as string) || '') // ? as string
+  const initialScope = getScopeFromValue((initialValues.spec.connectorRef as string) || '') // ? as string
 
   const { data: connector, loading, refetch } = useGetConnector({
-    identifier: connectorRef,
+    identifier: connectorId,
     queryParams: {
       accountIdentifier: accountId,
       orgIdentifier: initialScope === Scope.ORG || initialScope === Scope.PROJECT ? orgIdentifier : undefined,
@@ -83,27 +108,27 @@ const RunStepWidget: React.FC<RunStepWidgetProps> = ({ initialValues, onUpdate }
 
   React.useEffect(() => {
     if (
-      !isEmpty(initialValues.spec.connector) &&
-      getMultiTypeFromValue(initialValues.spec.connector || '') === MultiTypeInputType.FIXED
+      !isEmpty(initialValues.spec.connectorRef) &&
+      getMultiTypeFromValue(initialValues.spec.connectorRef || '') === MultiTypeInputType.FIXED
     ) {
       refetch()
     }
-  }, [initialValues.spec.connector])
+  }, [initialValues.spec.connectorRef])
 
-  const values = { ...initialValues }
+  const values = getInitialValuesInCorrectFormat(initialValues)
 
   if (
     connector?.data?.connector &&
-    getMultiTypeFromValue(initialValues.spec.connector || '') === MultiTypeInputType.FIXED
+    getMultiTypeFromValue(initialValues.spec.connectorRef || '') === MultiTypeInputType.FIXED
   ) {
     const scope = getScopeFromDTO<ConnectorInfoDTO>(connector?.data?.connector)
-    values.spec.connector = {
+    values.spec.connectorRef = {
       label: connector?.data?.connector.name || '',
       value: `${scope !== Scope.PROJECT ? `${scope}.` : ''}${connector?.data?.connector.identifier}`,
       scope: scope
     }
   } else {
-    values.spec.connector = initialValues.spec.connector
+    values.spec.connectorRef = initialValues.spec.connectorRef
   }
 
   const handleCancelClick = (): void => {
@@ -120,7 +145,7 @@ const RunStepWidget: React.FC<RunStepWidgetProps> = ({ initialValues, onUpdate }
         {i18n.title}
       </Text>
       <Formik
-        initialValues={initialValues}
+        initialValues={getInitialValuesInCorrectFormat(initialValues)}
         validationSchema={validationSchema}
         onSubmit={_values => {
           // TODO: Use appropriate interface
@@ -128,7 +153,7 @@ const RunStepWidget: React.FC<RunStepWidgetProps> = ({ initialValues, onUpdate }
             identifier: _values.identifier,
             name: _values.name,
             spec: {
-              connector: _values.spec.connector,
+              connectorRef: _values.spec.connectorRef,
               image: _values.spec.image,
               command: _values.spec.command,
               environment: _values.spec.environment,
@@ -157,7 +182,7 @@ const RunStepWidget: React.FC<RunStepWidgetProps> = ({ initialValues, onUpdate }
               <Text margin={{ bottom: 'xsmall' }}>{i18n.connectorLabel}</Text>
               <div className={cx(css.fieldsGroup, css.withoutSpacing)}>
                 <FormMultiTypeConnectorField
-                  name="spec.connector"
+                  name="spec.connectorRef"
                   label=""
                   placeholder={loading ? i18n.loading : i18n.connectorPlaceholder}
                   disabled={loading}
@@ -165,20 +190,20 @@ const RunStepWidget: React.FC<RunStepWidgetProps> = ({ initialValues, onUpdate }
                   projectIdentifier={projectIdentifier}
                   orgIdentifier={orgIdentifier}
                 />
-                {getMultiTypeFromValue(formValues.spec.connector) === MultiTypeInputType.RUNTIME && (
+                {getMultiTypeFromValue(formValues.spec.connectorRef) === MultiTypeInputType.RUNTIME && (
                   <ConfigureOptions
-                    value={formValues.spec.connector as string}
+                    value={formValues.spec.connectorRef as string}
                     type={
                       <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
                         <Text>{i18n.connectorLabel}</Text>
                       </Layout.Horizontal>
                     }
-                    variableName="spec.connector"
+                    variableName="spec.connectorRef"
                     showRequiredField={false}
                     showDefaultField={false}
                     showAdvanced={true}
                     onChange={value => {
-                      setFieldValue('spec.connector', value)
+                      setFieldValue('spec.connectorRef', value)
                     }}
                   />
                 )}
@@ -203,16 +228,22 @@ const RunStepWidget: React.FC<RunStepWidgetProps> = ({ initialValues, onUpdate }
                 )}
               </div>
               <Text margin={{ top: 'medium', bottom: 'xsmall' }}>{i18n.commandsLabel}</Text>
-              <SimpleTagInput
-                className=""
-                placeholder=""
+              <FormInput.TagInput
+                name="spec.command"
+                label=""
                 items={[]}
-                fill
-                noInputBorder
-                openOnKeyDown={false}
-                showNewlyCreatedItemsInList={false}
-                allowNewTag
-                onChange={selectedItems => setFieldValue('spec.command', selectedItems)}
+                labelFor={name => name as string}
+                itemFromNewTag={newTag => newTag}
+                tagInputProps={{
+                  className: '',
+                  noInputBorder: true,
+                  openOnKeyDown: false,
+                  showAddTagButton: false,
+                  fill: true,
+                  showNewlyCreatedItemsInList: false,
+                  allowNewTag: true,
+                  placeholder: ''
+                }}
               />
             </div>
             <div className={css.fieldsSection}>
@@ -268,7 +299,7 @@ const RunStepWidget: React.FC<RunStepWidgetProps> = ({ initialValues, onUpdate }
                     <Button
                       intent="primary"
                       minimal
-                      text="+ Add Environment"
+                      text={i18n.addEnvironment}
                       onClick={() => push({ key: '', value: '' })}
                       margin={{ bottom: 'medium' }}
                     />
@@ -330,16 +361,22 @@ const RunStepWidget: React.FC<RunStepWidgetProps> = ({ initialValues, onUpdate }
                   </Text>
                 </div>
               </div>
-              <Text margin={{ bottom: 'xsmall' }}>{i18n.outputVariablesLabel}</Text>
-              <SimpleTagInput
-                placeholder=""
+              <FormInput.TagInput
+                name="spec.outputVariables"
+                label={i18n.outputVariablesLabel}
                 items={[]}
-                fill
-                noInputBorder
-                openOnKeyDown={false}
-                showNewlyCreatedItemsInList={false}
-                allowNewTag
-                onChange={selectedItems => setFieldValue('spec.outputVariables', selectedItems)}
+                labelFor={name => name as string}
+                itemFromNewTag={newTag => newTag}
+                tagInputProps={{
+                  className: '',
+                  noInputBorder: true,
+                  openOnKeyDown: false,
+                  showAddTagButton: false,
+                  fill: true,
+                  showNewlyCreatedItemsInList: false,
+                  allowNewTag: true,
+                  placeholder: ''
+                }}
               />
             </div>
             <div className={css.buttonsWrapper}>

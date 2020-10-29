@@ -6,6 +6,7 @@ export default {
 
   optionalConfiguration: 'OPTIONAL CONFIGURATIONS',
   environment: 'Environment',
+  addEnvironment: '+ Add Environment',
   setContainerResources: 'Set container Resources',
   setContainerResourcesTooltip: 'Information',
 

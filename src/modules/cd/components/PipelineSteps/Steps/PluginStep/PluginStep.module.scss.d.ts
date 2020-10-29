@@ -5,6 +5,7 @@ declare const styles: {
   readonly fieldsGroup: string
   readonly withoutSpacing: string
   readonly optionalConfiguration: string
+  readonly textWithTooltip: string
   readonly buttonsWrapper: string
 }
 export default styles

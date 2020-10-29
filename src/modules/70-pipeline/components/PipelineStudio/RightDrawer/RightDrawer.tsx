@@ -111,31 +111,13 @@ export const RightDrawer: React.FC = (): JSX.Element => {
           step={data.stepConfig.node}
           stepsFactory={stepsFactory}
           onSubmit={item => {
-            const spec = {
-              image: item.spec.image,
-              connector: item.spec.connector,
-              environment: item.spec.environment,
-              entrypoint: item.spec.entrypoint,
-              args: item.spec.args,
-              resources: {
-                limit: {
-                  memory: '',
-                  cpu: item.spec.limitCPU
-                }
-              }
-            }
-
-            if (item.spec.limitMemory && item.spec.limitMemoryUnits) {
-              spec.resources.limit.memory = item.spec.limitMemory + item.spec.limitMemoryUnits
-            }
-
             if (data.stepConfig?.addOrEdit === 'add') {
               const { stage: pipelineStage } = getStageFromPipeline(pipeline, selectedStageId)
               addService(pipelineStage?.stage.spec.dependencies, {
                 identifier: item.identifier,
                 name: item.name,
                 type: item.type,
-                spec
+                spec: item.spec
               })
               updatePipelineView({
                 ...pipelineView,
@@ -147,7 +129,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
               if (node) {
                 node.name = item.name
                 node.identifier = item.identifier
-                node.spec = spec
+                node.spec = item.spec
                 updatePipeline(pipeline)
               }
               updatePipelineView({ ...pipelineView, isDrawerOpened: false, drawerData: { type: DrawerTypes.AddStep } })

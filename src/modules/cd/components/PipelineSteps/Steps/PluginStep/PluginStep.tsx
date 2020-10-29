@@ -2,12 +2,13 @@ import React from 'react'
 import {
   Text,
   Formik,
-  FormikForm,
   FormInput,
   Button,
   getMultiTypeFromValue,
+  IconName,
   MultiTypeInputType,
-  Layout
+  Layout,
+  FormikForm
 } from '@wings-software/uikit'
 import { FieldArray } from 'formik'
 import * as yup from 'yup'
@@ -15,7 +16,6 @@ import cx from 'classnames'
 import { isEmpty } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import { ConfigureOptions, PipelineContext, StepViewType } from '@pipeline/exports'
-import { ConnectorInfoDTO, useGetConnector } from 'services/cd-ng'
 import { FormMultiTypeConnectorField } from '@common/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import {
   getIdentifierFromValue,
@@ -24,41 +24,12 @@ import {
 } from '@common/components/EntityReference/EntityReference'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import { DrawerTypes } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
-import type { ServiceWrapper } from '@pipeline/components/PipelineStudio/ExecutionGraph/ExecutionGraphUtil'
-import i18n from './CommonService.i18n'
+import { ConnectorInfoDTO, useGetConnector } from 'services/cd-ng'
+import { StepType } from '../../PipelineStepInterface'
 import { PipelineStep } from '../../PipelineStep'
-import css from './CommonService.module.scss'
-
-// TODO: TDO
-export type CommonServiceInfo = ServiceSpecType & {
-  [key: string]: any
-}
-
-// TODO: TDO
-export interface ServiceSpecType {
-  [key: string]: any
-}
-
-// TODO: TDO
-export type ServiceElement = ServiceWrapper & {
-  identifier: string
-  name?: string
-  type?: string
-  metadata?: string
-  spec?: ServiceSpecType
-}
-
-export interface CommonServiceData extends ServiceElement {
-  type: string
-  name: string
-  spec: CommonServiceInfo
-}
-
-interface CommonServiceWidgetProps {
-  initialValues: CommonServiceData
-  onUpdate?: (data: CommonServiceData) => void
-  stepViewType?: StepViewType
-}
+import i18n from './PluginStep.i18n'
+import css from './PluginStep.module.scss'
+import stepCss from '../Steps.module.scss'
 
 export enum LimitMemoryUnits {
   Mi = 'Mi',
@@ -73,23 +44,29 @@ const validationSchema = yup.object().shape({
     .shape({
       connectorRef: yup.mixed().required(),
       image: yup.string().trim().required(),
+      settings: yup.array().compact().required(),
       limitCPU: yup.number().min(0),
       limitMemory: yup.number().min(0)
     })
     .required()
 })
 
+export interface PluginStepWidgetProps {
+  initialValues: any //PluginStepData
+  onUpdate?: (data: any) => void //PluginStepData
+  stepViewType?: StepViewType
+}
+
+// TODO: Fix types
 function getInitialValuesInCorrectFormat(initialValues: any): any {
   if (initialValues.spec?.resources) {
     return {
       identifier: initialValues.identifier,
       name: initialValues.name,
       spec: {
-        image: initialValues.spec.image,
-        connectorRef: initialValues.spec.connectorRef,
-        environment: initialValues.spec.environment,
-        entrypoint: initialValues.spec.entrypoint,
-        args: initialValues.spec.args,
+        connectorRef: initialValues.spec?.connectorRef,
+        image: initialValues.spec?.image,
+        settings: initialValues.spec?.settings,
         limitMemory: initialValues.spec?.resources?.limit?.memory?.match(/\d+/g)?.join(''),
         limitMemoryUnits:
           initialValues.spec?.resources?.limit?.memory?.match(/[A-Za-z]+$/)?.join('') || LimitMemoryUnits.Mi,
@@ -101,14 +78,9 @@ function getInitialValuesInCorrectFormat(initialValues: any): any {
   }
 }
 
-const CommonServiceWidget: React.FC<CommonServiceWidgetProps> = ({ initialValues, onUpdate }): JSX.Element => {
+const PluginStepWidget: React.FC<PluginStepWidgetProps> = ({ initialValues, onUpdate }): JSX.Element => {
   const {
-    state: {
-      pipelineView,
-      pipelineView: {
-        drawerData: { data }
-      }
-    },
+    state: { pipelineView },
     updatePipelineView
   } = React.useContext(PipelineContext)
 
@@ -118,9 +90,8 @@ const CommonServiceWidget: React.FC<CommonServiceWidgetProps> = ({ initialValues
     accountId: string
   }>()
 
-  const isEdit = data?.stepConfig?.addOrEdit === 'edit'
-  const connectorId = getIdentifierFromValue((initialValues.connectorRef as string) || '') // ? as string
-  const initialScope = getScopeFromValue((initialValues.connectorRef as string) || '') // ? as string
+  const connectorId = getIdentifierFromValue((initialValues.spec.connectorRef as string) || '') // ? as string
+  const initialScope = getScopeFromValue((initialValues.spec.connectorRef as string) || '') // ? as string
 
   const { data: connector, loading, refetch } = useGetConnector({
     identifier: connectorId,
@@ -135,78 +106,74 @@ const CommonServiceWidget: React.FC<CommonServiceWidgetProps> = ({ initialValues
 
   React.useEffect(() => {
     if (
-      !isEmpty(initialValues.connectorRef) &&
-      getMultiTypeFromValue(initialValues.connectorRef || '') === MultiTypeInputType.FIXED
+      !isEmpty(initialValues.spec.connectorRef) &&
+      getMultiTypeFromValue(initialValues.spec.connectorRef || '') === MultiTypeInputType.FIXED
     ) {
       refetch()
     }
-  }, [initialValues.connectorRef])
+  }, [initialValues.spec.connectorRef])
 
   const values = getInitialValuesInCorrectFormat(initialValues)
 
   if (
     connector?.data?.connector &&
-    getMultiTypeFromValue(initialValues.connectorRef || '') === MultiTypeInputType.FIXED
+    getMultiTypeFromValue(initialValues.spec.connectorRef || '') === MultiTypeInputType.FIXED
   ) {
     const scope = getScopeFromDTO<ConnectorInfoDTO>(connector?.data?.connector)
-    values.connectorRef = {
+    values.spec.connectorRef = {
       label: connector?.data?.connector.name || '',
       value: `${scope !== Scope.PROJECT ? `${scope}.` : ''}${connector?.data?.connector.identifier}`,
       scope: scope
     }
   } else {
-    values.connectorRef = initialValues.connectorRef
+    values.spec.connectorRef = initialValues.spec.connectorRef
   }
 
   const handleCancelClick = (): void => {
     updatePipelineView({
       ...pipelineView,
       isDrawerOpened: false,
-      drawerData: { type: DrawerTypes.ConfigureService }
+      drawerData: { type: DrawerTypes.StepConfig }
     })
   }
 
   return (
-    <Formik<CommonServiceData>
-      initialValues={getInitialValuesInCorrectFormat(initialValues)}
-      validationSchema={validationSchema}
-      onSubmit={_values => {
-        // TODO: Use appropriate interface
-        const schemaValues: any = {
-          identifier: _values.identifier,
-          name: _values.name,
-          type: _values.type,
-          spec: {
-            image: _values.spec.image,
-            connectorRef: _values.spec.connectorRef,
-            environment: _values.spec.environment,
-            entrypoint: _values.spec.entrypoint,
-            args: _values.spec.args,
-            resources: {
-              limit: {
-                memory: '',
-                cpu: _values.spec.limitCPU
+    <>
+      <Text className={stepCss.boldLabel} font={{ size: 'medium' }}>
+        {i18n.title}
+      </Text>
+      <Formik
+        initialValues={getInitialValuesInCorrectFormat(initialValues)}
+        validationSchema={validationSchema}
+        onSubmit={_values => {
+          // TODO: Use appropriate interface
+          const schemaValues: any = {
+            identifier: _values.identifier,
+            name: _values.name,
+            spec: {
+              connectorRef: _values.spec.connectorRef,
+              image: _values.spec.image,
+              settings: _values.spec.settings,
+              resources: {
+                limit: {
+                  memory: '',
+                  cpu: _values.spec.limitCPU
+                }
               }
             }
           }
-        }
 
-        if (_values.spec.limitMemory && _values.spec.limitMemoryUnits) {
-          schemaValues.spec.resources.limit.memory = _values.spec.limitMemory + _values.spec.limitMemoryUnits
-        }
+          if (_values.spec.limitMemory && _values.spec.limitMemoryUnits) {
+            schemaValues.spec.resources.limit.memory = _values.spec.limitMemory + _values.spec.limitMemoryUnits
+          }
 
-        onUpdate?.(schemaValues)
-      }}
-    >
-      {({ values: formValues, setFieldValue, handleSubmit }) => {
-        return (
+          onUpdate?.(schemaValues)
+        }}
+      >
+        {({ values: formValues, setFieldValue, handleSubmit }) => (
           <FormikForm>
             <div className={css.fieldsSection}>
-              <FormInput.InputWithIdentifier
-                inputName="name"
-                idName="identifier"
-                inputLabel={i18n.dependencyNameLabel}
-              />
+              <FormInput.InputWithIdentifier inputName="name" idName="identifier" inputLabel={i18n.stepNameLabel} />
               <Text margin={{ bottom: 'xsmall' }}>{i18n.connectorLabel}</Text>
               <div className={cx(css.fieldsGroup, css.withoutSpacing)}>
                 <FormMultiTypeConnectorField
@@ -255,47 +222,58 @@ const CommonServiceWidget: React.FC<CommonServiceWidgetProps> = ({ initialValues
                   />
                 )}
               </div>
-            </div>
-            <div className={css.fieldsSection}>
-              <Text className={css.optionalConfiguration} font={{ weight: 'semi-bold' }} margin={{ bottom: 'small' }}>
-                {i18n.optionalConfiguration}
-              </Text>
-              <Text margin={{ bottom: 'xsmall' }}>{i18n.environment}</Text>
+              <Text margin={{ top: 'medium' }}>{i18n.settings}</Text>
               <FieldArray
-                name="spec.environment"
+                name="spec.settings"
                 render={({ push, remove }) => (
                   <>
-                    {formValues.spec.environment.map((_environment: string, index: number) => (
+                    {formValues.spec.settings.map((_settings: string, index: number) => (
                       <div className={css.fieldsGroup} key={index}>
-                        <FormInput.Text
-                          name={`spec.environment[${index}].key`}
-                          placeholder={i18n.environmentKeyPlaceholder}
-                          style={{ flexGrow: 1 }}
-                        />
                         <FormInput.MultiTextInput
                           label=""
-                          name={`spec.environment[${index}].value`}
-                          placeholder={i18n.environmentValuePlaceholder}
+                          name={`spec.settings[${index}].key`}
+                          placeholder={i18n.settingsKeyPlaceholder}
                           style={{ flexGrow: 1 }}
                         />
-                        {getMultiTypeFromValue(formValues.spec.environment[index].value) ===
-                          MultiTypeInputType.RUNTIME && (
+                        {getMultiTypeFromValue(formValues.spec.settings[index].key) === MultiTypeInputType.RUNTIME && (
                           <ConfigureOptions
-                            value={formValues.spec.environment[index].value as string}
+                            value={formValues.spec.settings[index].key as string}
                             type={
                               <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-                                <Text>{i18n.environmentValuePlaceholder}</Text>
+                                <Text>{i18n.settingsKeyPlaceholder}</Text>
                               </Layout.Horizontal>
                             }
-                            variableName={`spec.environment[${index}].value`}
+                            variableName={`spec.settings[${index}].key`}
                             showRequiredField={false}
                             showDefaultField={false}
                             showAdvanced={true}
-                            onChange={value => setFieldValue(`spec.environment[${index}].value`, value)}
+                            onChange={value => setFieldValue(`spec.settings[${index}].key`, value)}
+                          />
+                        )}
+                        <FormInput.MultiTextInput
+                          label=""
+                          name={`spec.settings[${index}].value`}
+                          placeholder={i18n.settingsValuePlaceholder}
+                          style={{ flexGrow: 1 }}
+                        />
+                        {getMultiTypeFromValue(formValues.spec.settings[index].value) ===
+                          MultiTypeInputType.RUNTIME && (
+                          <ConfigureOptions
+                            value={formValues.spec.settings[index].value as string}
+                            type={
+                              <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
+                                <Text>{i18n.settingsValuePlaceholder}</Text>
+                              </Layout.Horizontal>
+                            }
+                            variableName={`spec.settings[${index}].value`}
+                            showRequiredField={false}
+                            showDefaultField={false}
+                            showAdvanced={true}
+                            onChange={value => setFieldValue(`spec.settings[${index}].value`, value)}
                           />
                         )}
 
-                        {formValues.spec.environment.length > 1 && (
+                        {formValues.spec.settings.length > 1 && (
                           <Button
                             intent="primary"
                             icon="ban-circle"
@@ -309,80 +287,48 @@ const CommonServiceWidget: React.FC<CommonServiceWidgetProps> = ({ initialValues
                     <Button
                       intent="primary"
                       minimal
-                      text={i18n.addEnvironment}
+                      text={i18n.addSetting}
                       onClick={() => push({ key: '', value: '' })}
-                      margin={{ bottom: 'medium' }}
                     />
                   </>
                 )}
               />
-              <FormInput.TagInput
-                name="spec.entrypoint"
-                label={i18n.entryPointsLabel}
-                items={[]}
-                labelFor={name => name as string}
-                itemFromNewTag={newTag => newTag}
-                tagInputProps={{
-                  className: '',
-                  noInputBorder: true,
-                  openOnKeyDown: false,
-                  showAddTagButton: false,
-                  fill: true,
-                  showNewlyCreatedItemsInList: false,
-                  allowNewTag: true,
-                  placeholder: ''
-                }}
-              />
-              <FormInput.TagInput
-                name="spec.args"
-                label={i18n.argumentsLabel}
-                items={[]}
-                labelFor={name => name as string}
-                itemFromNewTag={newTag => newTag}
-                tagInputProps={{
-                  className: '',
-                  noInputBorder: true,
-                  openOnKeyDown: false,
-                  showAddTagButton: false,
-                  fill: true,
-                  showNewlyCreatedItemsInList: false,
-                  allowNewTag: true,
-                  placeholder: ''
-                }}
-              />
-              <div>
-                <Text>
-                  {i18n.setContainerResources}
-                  <Button icon="question" minimal tooltip={i18n.setContainerResourcesTooltip} />
-                </Text>
-                <div className={cx(css.fieldsGroup, css.withoutSpacing)}>
-                  <div>
-                    <FormInput.Text
-                      name="spec.limitMemory"
-                      label={i18n.limitMemoryLabel}
-                      placeholder={i18n.limitMemoryPlaceholder}
-                    />
-                    <Text font="xsmall" margin={{ top: 'small' }}>
-                      {i18n.limitMemoryExample}
-                    </Text>
-                  </div>
-                  <FormInput.Select
-                    name="spec.limitMemoryUnits"
-                    items={[
-                      { label: i18n.limitMemoryUnitMiLabel, value: LimitMemoryUnits.Mi },
-                      { label: i18n.limitMemoryUnitGiLabel, value: LimitMemoryUnits.Gi }
-                    ]}
+            </div>
+            <div className={css.fieldsSection}>
+              <Text className={css.optionalConfiguration} font={{ weight: 'semi-bold' }} margin={{ bottom: 'small' }}>
+                {i18n.optionalConfiguration}
+              </Text>
+              <Text margin={{ top: 'medium' }}>
+                {i18n.setContainerResources}
+                <Button icon="question" minimal tooltip={i18n.setContainerResourcesTooltip} />
+              </Text>
+              <div className={cx(css.fieldsGroup, css.withoutSpacing)}>
+                <div>
+                  <FormInput.Text
+                    name="spec.limitMemory"
+                    label={i18n.limitMemoryLabel}
+                    placeholder={i18n.limitMemoryPlaceholder}
                   />
-                  <div>
-                    <FormInput.Text
-                      name="spec.limitCPU"
-                      label={i18n.limitCPULabel}
-                      placeholder={i18n.limitCPUPlaceholder}
-                    />
-                    <Text font="xsmall" margin={{ top: 'small' }}>
-                      {i18n.limitCPUExample}
-                    </Text>
-                  </div>
+                  <Text font="xsmall" margin={{ top: 'small' }}>
+                    {i18n.limitMemoryExample}
+                  </Text>
+                </div>
+                <FormInput.Select
+                  name="spec.limitMemoryUnits"
+                  items={[
+                    { label: i18n.limitMemoryUnitMiLabel, value: LimitMemoryUnits.Mi },
+                    { label: i18n.limitMemoryUnitGiLabel, value: LimitMemoryUnits.Gi }
+                  ]}
+                />
+                <div>
+                  <FormInput.Text
+                    name="spec.limitCPU"
+                    label={i18n.limitCPULabel}
+                    placeholder={i18n.limitCPUPlaceholder}
+                  />
+                  <Text font="xsmall" margin={{ top: 'small' }}>
+                    {i18n.limitCPUExample}
+                  </Text>
                 </div>
               </div>
             </div>
@@ -391,24 +337,37 @@ const CommonServiceWidget: React.FC<CommonServiceWidgetProps> = ({ initialValues
                 onClick={() => handleSubmit()}
                 intent="primary"
                 type="submit"
-                text={isEdit ? i18n.save : i18n.add}
+                text={i18n.save}
                 margin={{ right: 'xxlarge' }}
               />
               <Button text={i18n.cancel} minimal onClick={handleCancelClick} />
             </div>
           </FormikForm>
-        )
-      }}
-    </Formik>
+        )}
+      </Formik>
+    </>
   )
 }
 
-export abstract class CommonService extends PipelineStep<CommonServiceData> {
+export class PluginStep extends PipelineStep<any /*PluginStepData*/> {
   renderStep(
-    initialValues: CommonServiceData,
-    onUpdate?: (data: CommonServiceData) => void,
+    initialValues: any, //PluginStepData
+    onUpdate?: (data: any) => void, //PluginStepData
     stepViewType?: StepViewType
   ): JSX.Element {
-    return <CommonServiceWidget initialValues={initialValues} onUpdate={onUpdate} stepViewType={stepViewType} />
+    return <PluginStepWidget initialValues={initialValues} onUpdate={onUpdate} stepViewType={stepViewType} />
+  }
+
+  protected type = StepType.Plugin
+  protected stepName = i18n.title
+  // TODO: Replace with correct icon
+  protected stepIcon: IconName = 'git-clone-step'
+
+  protected defaultValues: any /*PluginStepData*/ = {
+    identifier: '',
+    spec: {
+      settings: [{ key: '', value: '' }],
+      limitMemoryUnits: LimitMemoryUnits.Mi
+    }
   }
 }
