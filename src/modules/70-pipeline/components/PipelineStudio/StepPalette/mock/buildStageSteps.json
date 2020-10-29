@@ -54,11 +54,11 @@
             "name": "Plugin"
           },
           {
-            "type": "Placeholder",
+            "type": "Restore_Cache",
             "name": "Restore Cache"
           },
           {
-            "type": "Placeholder",
+            "type": "Save_Cache",
             "name": "Save Cache"
           },
           {

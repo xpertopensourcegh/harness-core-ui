@@ -53,6 +53,27 @@ export async function getLogsFromBlob(
   }
 }
 
+export const downloadLogs = (
+  accountIdentifier: string,
+  orgIdentifier: string,
+  projectIdentifier: string,
+  buildIdentifier: string,
+  stageIdentifier: string,
+  stepIdentifier: string
+) => {
+  fetch(
+    `${endpoint}/accounts/${accountIdentifier}/orgs/${orgIdentifier}/projects/${projectIdentifier}/builds/${buildIdentifier}/logs/${stageIdentifier}/${stepIdentifier}/blob`
+  ).then(response => {
+    response.blob().then(blob => {
+      const url = window.URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      a.href = url
+      a.download = `${stageIdentifier}-${stepIdentifier}`
+      a.click()
+    })
+  })
+}
+
 export const useLogs = (
   accountIdentifier: string,
   orgIdentifier: string,
