@@ -2,7 +2,7 @@ import React from 'react'
 import { render, waitFor } from '@testing-library/react'
 import { prependAccountPath, TestWrapper } from '@common/utils/testUtils'
 import { routePipelineDeploymentList } from 'navigation/cd/routes'
-import { defaultAppStoreValues } from '@common/pages/ProjectsPage/__tests__/DefaultAppStoreData'
+import { defaultAppStoreValues } from '@projects-orgs/pages/projects/__tests__/DefaultAppStoreData'
 import PipelineDeploymentList from '../PipelineDeploymentList'
 
 jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (

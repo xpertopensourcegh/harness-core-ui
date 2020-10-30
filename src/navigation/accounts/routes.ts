@@ -155,7 +155,7 @@ export const routeOrgProjects: Route<{ orgIdentifier: string }> = {
   title: i18n.project,
   pageId: 'orgProjects',
   url: ({ orgIdentifier }) => routeURL(routeOrgProjects, `/organizations/${orgIdentifier}/projects`),
-  component: React.lazy(() => import('@common/pages/ProjectsPage/OrgsProjectsPage'))
+  component: React.lazy(() => import('@projects-orgs/pages/projects/OrgsProjectsPage'))
 }
 
 export const routeOrganizations: Route = {
@@ -165,7 +165,7 @@ export const routeOrganizations: Route = {
   title: i18n.organization,
   pageId: 'organization',
   url: () => routeURL(routeOrganizations, `/organizations`),
-  component: React.lazy(() => import('@common/pages/organizations/OrganizationsPage'))
+  component: React.lazy(() => import('@projects-orgs/pages/organizations/OrganizationsPage'))
 }
 
 export const routeGovernance: Route = {

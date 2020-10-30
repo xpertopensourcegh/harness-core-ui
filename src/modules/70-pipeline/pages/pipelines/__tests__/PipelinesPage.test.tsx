@@ -15,7 +15,7 @@ import {
   findPopoverContainer
 } from '@common/utils/testUtils'
 import type { ResponsePageNGPipelineSummaryResponse } from 'services/cd-ng'
-import { defaultAppStoreValues } from '@common/pages/ProjectsPage/__tests__/DefaultAppStoreData'
+import { defaultAppStoreValues } from '@projects-orgs/pages/projects/__tests__/DefaultAppStoreData'
 import { routeCDPipelines, routeCDPipelineStudio, routePipelineDetail } from 'navigation/cd/routes'
 import CDPipelinesPage from '../PipelinesPage'
 import mocks, { EmptyResponse } from './PipelineMocks'

@@ -2,8 +2,8 @@ import React from 'react'
 import { useHistory } from 'react-router-dom'
 import { ModuleName } from 'framework/exports'
 import type { Project } from 'services/cd-ng'
-import { ModuleLandingView } from '@common/exports'
 import { routeCDDashboard } from 'navigation/cd/routes'
+import { ModuleLandingView } from '@projects-orgs/components/ModuleLandingView/ModuleLandingView'
 import i18n from './CDHomePage.i18n'
 
 const CDHomePage: React.FC = () => {

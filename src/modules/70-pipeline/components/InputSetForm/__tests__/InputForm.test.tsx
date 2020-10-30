@@ -1,7 +1,7 @@
 import React from 'react'
 import { render, waitFor, fireEvent, createEvent, act } from '@testing-library/react'
 import { findDialogContainer, prependAccountPath, TestWrapper } from '@common/utils/testUtils'
-import { defaultAppStoreValues } from '@common/pages/ProjectsPage/__tests__/DefaultAppStoreData'
+import { defaultAppStoreValues } from '@projects-orgs/pages/projects/__tests__/DefaultAppStoreData'
 import { routeInputSetList } from 'navigation/cd/routes'
 import type { YamlBuilderHandlerBinding, YamlBuilderProps } from '@common/interfaces/YAMLBuilderProps'
 import { InputFormType, InputSetForm } from '../InputSetForm'

@@ -1,7 +1,7 @@
 import React from 'react'
 import { render } from '@testing-library/react'
 import { prependAccountPath, TestWrapper } from '@common/utils/testUtils'
-import { defaultAppStoreValues } from '@common/pages/ProjectsPage/__tests__/DefaultAppStoreData'
+import { defaultAppStoreValues } from '@projects-orgs/pages/projects/__tests__/DefaultAppStoreData'
 import { routePipelineDetail } from 'navigation/cd/routes'
 import PipelineDetails from '../PipelineDetails'
 import { PipelineResponse } from './PipelineDetailsMocks'

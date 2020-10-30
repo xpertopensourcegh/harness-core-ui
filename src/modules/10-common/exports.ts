@@ -13,13 +13,10 @@ import * as rsql from './utils/rsql'
 export type DynamicPopoverHandlerBinding<T> = _DynamicPopoverHandlerBinding<T>
 export { DynamicPopover } from './components/DynamicPopover/DynamicPopover'
 export { Page } from './components/Page/Page'
-export { useProjectModal } from './modals/ProjectModal/useProjectModal'
 export { StringUtils, rsql /*, YamlUtils */, DurationI18n }
 export { useConfirmationDialog } from './modals/ConfirmDialog/useConfirmationDialog'
 export { NavigationCheck } from './components/NavigationCheck/NavigationCheck'
 export { useToaster } from './components/Toaster/useToaster'
-export type { ModuleLandingViewProps } from './components/ModuleLandingView/ModuleLandingView'
-export { ModuleLandingView } from './components/ModuleLandingView/ModuleLandingView'
 export { EntityReference } from './components/EntityReference/EntityReference'
 export { ReferenceSelect, MultiTypeReferenceInput } from './components/ReferenceSelect/ReferenceSelect'
 export type { UserLabelProps } from './components/UserLabel/UserLabel'

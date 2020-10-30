@@ -1,7 +1,7 @@
 import React from 'react'
 import { render, waitFor, getByText as getByTextBody, fireEvent, RenderResult } from '@testing-library/react'
 import { prependAccountPath, TestWrapper } from '@common/utils/testUtils'
-import { defaultAppStoreValues } from '@common/pages/ProjectsPage/__tests__/DefaultAppStoreData'
+import { defaultAppStoreValues } from '@projects-orgs/pages/projects/__tests__/DefaultAppStoreData'
 import { routeCDPipelineStudio } from 'navigation/cd/routes'
 import CDPipelineStudio from '@cd/pages/pipeline-studio/CDPipelineStudio'
 import StageBuilder from '@pipeline/components/PipelineStudio/StageBuilder/StageBuilder'

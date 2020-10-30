@@ -1,6 +1,6 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
-import { ModuleLandingView } from '@common/exports'
+import { ModuleLandingView } from '@projects-orgs/components/ModuleLandingView/ModuleLandingView'
 import { ModuleName } from 'framework/exports'
 import type { Project } from 'services/cd-ng'
 import { routeCIDashboard } from 'navigation/ci/routes'
