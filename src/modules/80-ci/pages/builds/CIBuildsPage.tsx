@@ -79,7 +79,7 @@ const CIBuildsPage: React.FC = () => {
     return null
   }
 
-  if (loading) {
+  if (!isRendered && loading) {
     return null
   }
 
