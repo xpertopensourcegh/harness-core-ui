@@ -15,7 +15,7 @@ export const routeCVMainDashBoardPage: Route<{ projectIdentifier: string; orgIde
     !projectIdentifier || !orgIdentifier
       ? routeURL(routeCVHome, `/cv/home`)
       : routeURL(routeCVMainDashBoardPage, `/cv/dashboard/org/${orgIdentifier}/project/${projectIdentifier}`),
-  component: React.lazy(() => import('modules/cv/pages/dashboard/CVDashboardPage')),
+  component: React.lazy(() => import('@cv/pages/dashboard/CVDashboardPage')),
   module: ModuleName.CV
 }
 
@@ -38,7 +38,7 @@ export const routeCVDeploymentPage: Route<{
           routeCVMainDashBoardPage,
           `/cv/dashboard/deployment/${deploymentTag}/service/${serviceIdentifier}/org/${orgIdentifier}/project/${projectIdentifier}`
         ),
-  component: React.lazy(() => import('modules/cv/pages/dashboard/deployment-drilldown/DeploymentDrilldownView')),
+  component: React.lazy(() => import('@cv/pages/dashboard/deployment-drilldown/DeploymentDrilldownView')),
   module: ModuleName.CV
 }
 
@@ -58,9 +58,7 @@ export const routeCVActivityChangesPage: Route<{
           routeCVMainDashBoardPage,
           `/cv/dashboard/activity-changes/org/${orgIdentifier}/project/${projectIdentifier}`
         ),
-  component: React.lazy(() =>
-    import('modules/cv/pages/dashboard/activity-changes-drilldown/ActivityChangesDrilldownView')
-  ),
+  component: React.lazy(() => import('@cv/pages/dashboard/activity-changes-drilldown/ActivityChangesDrilldownView')),
   module: ModuleName.CV
 }
 
@@ -71,7 +69,7 @@ export const routeCVHome: Route = {
   pageId: 'cv/home',
   authenticated: true,
   url: () => routeURL(routeCVHome, '/cv/home'),
-  component: React.lazy(() => import('modules/cv/pages/cv-home/CVHomePage')),
+  component: React.lazy(() => import('@cv/pages/cv-home/CVHomePage')),
   module: ModuleName.CV
 }
 
@@ -89,7 +87,7 @@ export const routeCVDataSources: Route<{ projectIdentifier: string; orgIdentifie
         ? `/cv/datasources/org/${orgIdentifier}/project/${projectIdentifier}`
         : routeCVHome.path
     ),
-  component: React.lazy(() => import('modules/cv/pages/data-sources/DataSources')),
+  component: React.lazy(() => import('@cv/pages/data-sources/DataSources')),
   module: ModuleName.CV
 }
 
@@ -101,7 +99,7 @@ export const routeCVServices: Route<{ projectIdentifier: string; orgIdentifier: 
   authenticated: true,
   url: ({ orgIdentifier, projectIdentifier }) =>
     routeURL(routeCVServices, `/cv/services/org/${orgIdentifier}/project/${projectIdentifier}`),
-  component: React.lazy(() => import('modules/cv/pages/services/CVServicesPage')),
+  component: React.lazy(() => import('@cv/pages/services/CVServicesPage')),
   module: ModuleName.CV
 }
 
@@ -124,7 +122,7 @@ export const routeCVOnBoardingSetup: Route<{
         : routeCVHome.path
     ),
 
-  component: React.lazy(() => import('modules/cv/pages/onboarding/setup/DataSourceSetupPage')),
+  component: React.lazy(() => import('@cv/pages/onboarding/setup/DataSourceSetupPage')),
   module: ModuleName.CV
 }
 
@@ -145,7 +143,7 @@ export const routeCVDataSourcesProductPage: Route<{
         ? `/cv/onboarding/${dataSourceType}/product/org/${orgIdentifier}/project/${projectIdentifier}`
         : routeCVHome.path
     ),
-  component: React.lazy(() => import('modules/cv/pages/onboarding/data-source-products/DataSourceProductPage')),
+  component: React.lazy(() => import('@cv/pages/onboarding/data-source-products/DataSourceProductPage')),
   module: ModuleName.CV
 }
 
@@ -166,7 +164,7 @@ export const routeCVSplunkInputTypePage: Route<{
         ? `/cv/onboarding/${dataSourceType}/input-type/org/${orgIdentifier}/project/${projectIdentifier}`
         : routeCVHome.path
     ),
-  component: React.lazy(() => import('modules/cv/pages/onboarding/splunk-input-type/SplunkInputType')),
+  component: React.lazy(() => import('@cv/pages/onboarding/splunk-input-type/SplunkInputType')),
   module: ModuleName.CV
 }
 
@@ -188,7 +186,7 @@ export const routeCVDataSourcesEntityPage: Route<{
         : routeCVHome.path
     ),
   component: React.lazy(() => {
-    return import('modules/cv/pages/onboarding/list-entity-select/DataSourceListEntityPage')
+    return import('@cv/pages/onboarding/list-entity-select/DataSourceListEntityPage')
   }),
   module: ModuleName.CV
 }
@@ -210,7 +208,7 @@ export const routeCVMetricPackConfigureThresholdPage: Route<{
       `/cv/metric-pack/config/org/${orgIdentifier}/project/${projectIdentifier}`
     ),
   component: React.lazy(() => {
-    return import('modules/cv/pages/metric-pack/MetricPackConfigure')
+    return import('@cv/pages/metric-pack/MetricPackConfigure')
   }),
   module: ModuleName.CV
 }
@@ -226,7 +224,7 @@ export const routeCVActivityDashboard: Route<{ orgIdentifier: string; projectIde
   url: ({ orgIdentifier, projectIdentifier }) =>
     routeURL(routeCVActivities, `/cv/activities/dashboard/org/${orgIdentifier}/project/${projectIdentifier}`),
   component: React.lazy(() => {
-    return import('modules/cv/pages/activities/dashboard/ActivityDashBoardPage')
+    return import('@cv/pages/activities/dashboard/ActivityDashBoardPage')
   }),
   module: ModuleName.CV
 }
@@ -240,7 +238,7 @@ export const routeCVActivities: Route<{ orgIdentifier: string; projectIdentifier
   url: ({ orgIdentifier, projectIdentifier }) =>
     routeURL(routeCVActivities, `/cv/activities/org/${orgIdentifier}/project/${projectIdentifier}`),
   component: React.lazy(() => {
-    return import('modules/cv/pages/activities/ActivitiesPage')
+    return import('@cv/pages/activities/ActivitiesPage')
   }),
   module: ModuleName.CV
 }
@@ -261,7 +259,7 @@ export const routeCVActivityDetails: Route<{
       `/cv/activities/setup/${activityType}/org/${orgIdentifier}/project/${projectIdentifier}`
     ),
   component: React.lazy(() => {
-    return import('modules/cv/pages/activity-setup/ActivitySetupPage')
+    return import('@cv/pages/activity-setup/ActivitySetupPage')
   }),
   module: ModuleName.CV
 }
@@ -276,7 +274,7 @@ export const routeCVAdminGeneralSettings: Route<{ projectIdentifier: string; org
   pageId: 'cv-admin-general-settings',
   url: ({ projectIdentifier, orgIdentifier }) =>
     routeURL(routeCVMainDashBoardPage, `/cv/admin/general-settings/org/${orgIdentifier}/projects/${projectIdentifier}`),
-  component: React.lazy(() => import('modules/cv/pages/admin/general-settings/CVGeneralSettingsPage'))
+  component: React.lazy(() => import('@cv/pages/admin/general-settings/CVGeneralSettingsPage'))
 }
 
 export const routeCVAdminGovernance: Route<{ projectIdentifier: string; orgIdentifier: string }> = {
@@ -287,7 +285,7 @@ export const routeCVAdminGovernance: Route<{ projectIdentifier: string; orgIdent
   pageId: 'cv-admin-governance',
   url: ({ projectIdentifier, orgIdentifier }) =>
     routeURL(routeCVMainDashBoardPage, `/cv/admin/governance/org/${orgIdentifier}/projects/${projectIdentifier}`),
-  component: React.lazy(() => import('modules/cv/pages/admin/governance/CVGovernancePage'))
+  component: React.lazy(() => import('@cv/pages/admin/governance/CVGovernancePage'))
 }
 
 export const routeCVAdminResources: Route<{ projectIdentifier: string; orgIdentifier: string }> = {
@@ -298,7 +296,7 @@ export const routeCVAdminResources: Route<{ projectIdentifier: string; orgIdenti
   pageId: 'cv-admin-resources',
   url: ({ projectIdentifier, orgIdentifier }) =>
     routeURL(routeCVMainDashBoardPage, `/cv/admin/resources/org/${orgIdentifier}/projects/${projectIdentifier}`),
-  component: React.lazy(() => import('modules/cv/pages/admin/resources/CVResourcesPage'))
+  component: React.lazy(() => import('@cv/pages/admin/resources/CVResourcesPage'))
 }
 
 export const routeCVAdminAccessControl: Route<{ projectIdentifier: string; orgIdentifier: string }> = {
@@ -309,5 +307,5 @@ export const routeCVAdminAccessControl: Route<{ projectIdentifier: string; orgId
   pageId: 'cv-admin-access-control',
   url: ({ projectIdentifier, orgIdentifier }) =>
     routeURL(routeCVMainDashBoardPage, `/cv/admin/access-control/org/${orgIdentifier}/projects/${projectIdentifier}`),
-  component: React.lazy(() => import('modules/cv/pages/admin/access-control/CVAccessControlPage'))
+  component: React.lazy(() => import('@cv/pages/admin/access-control/CVAccessControlPage'))
 }

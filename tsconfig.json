@@ -31,7 +31,7 @@
       "@pipeline/*": ["modules/70-pipeline/*"],
       "@cd/*": ["modules/75-cd/*"],
       "@ci/*": ["modules/80-ci/*"],
-      "@cv/*": ["modules/cv/*"],
+      "@cv/*": ["modules/85-cv/*"],
       "@cf/*": ["modules/cf/*"],
       "@ci-enterprise/*": ["modules/ci-enterprise/*"],
       "@dx/*": ["modules/dx/*"]

@@ -9,11 +9,13 @@ rules:
         - modules/70-pipeline/*
         - modules/75-cd/*
         - modules/80-ci/*
+        - modules/85-cv/*
         - '@projects-orgs/*'
         - '@connectors/*'
         - '@gitsync/*'
         - '@pipeline/*'
         - '@cd/*'
         - '@ci/*'
+        - '@cv/*'
       paths:
         - lodash

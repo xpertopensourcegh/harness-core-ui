@@ -10,6 +10,7 @@ rules:
         - modules/70-pipeline/*
         - modules/75-cd/*
         - modules/80-ci/*
+        - modules/85-cv/*
         - '@secrets/*'
         - '@projects-orgs/*'
         - '@connectors/*'
@@ -17,5 +18,6 @@ rules:
         - '@pipeline/*'
         - '@cd/*'
         - '@ci/*'
+        - '@cv/*'
       paths:
         - lodash
