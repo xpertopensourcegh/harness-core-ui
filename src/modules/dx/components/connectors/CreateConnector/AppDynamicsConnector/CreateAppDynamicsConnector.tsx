@@ -27,7 +27,7 @@ import {
   SecretFieldByType
 } from 'modules/dx/pages/connectors/Forms/KubeFormHelper'
 import { Connectors } from 'modules/dx/constants'
-import CreateSecretOverlay from 'modules/dx/common/CreateSecretOverlay/CreateSecretOverlay'
+import CreateSecretOverlay from '@secrets/components/CreateSecretOverlay/CreateSecretOverlay'
 import { AuthTypes } from 'modules/dx/pages/connectors/Forms/KubeFormInterfaces'
 import UsernamePassword from '../../ConnectorFormFields/UsernamePassword'
 import i18n from './CreateAppDynamicsConnector.i18n'

@@ -15,8 +15,8 @@ import {
 } from '@wings-software/uikit'
 import type { ConnectorInfoDTO, ConnectorRequestBody } from 'services/cd-ng'
 import UsernamePassword from 'modules/dx/components/connectors/ConnectorFormFields/UsernamePassword'
-import useCreateUpdateSecretModal from 'modules/dx/modals/CreateSecretModal/useCreateUpdateSecretModal'
-import type { InlineSecret } from '@common/components/CreateInlineSecret/CreateInlineSecret'
+import useCreateUpdateSecretModal from '@secrets/modals/CreateSecretModal/useCreateUpdateSecretModal'
+import type { InlineSecret } from '@secrets/components/CreateInlineSecret/CreateInlineSecret'
 import { getSecretV2Promise, SecretTextSpecDTO, ResponseSecretResponseWrapper } from 'services/cd-ng'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import {

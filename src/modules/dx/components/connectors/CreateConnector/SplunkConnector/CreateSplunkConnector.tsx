@@ -23,7 +23,7 @@ import {
 } from 'services/cd-ng'
 import { Connectors } from 'modules/dx/constants'
 import { getSecretFieldsByType, SecretFieldByType } from 'modules/dx/pages/connectors/Forms/KubeFormHelper'
-import CreateSecretOverlay from 'modules/dx/common/CreateSecretOverlay/CreateSecretOverlay'
+import CreateSecretOverlay from '@secrets/components/CreateSecretOverlay/CreateSecretOverlay'
 import { AuthTypes } from 'modules/dx/pages/connectors/Forms/KubeFormInterfaces'
 import i18n from './CreateSplunkConnector.i18n'
 import ConnectorFormFields from '../../ConnectorFormFields/ConnectorFormFields'

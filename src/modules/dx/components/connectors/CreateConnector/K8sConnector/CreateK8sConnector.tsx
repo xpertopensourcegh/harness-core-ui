@@ -40,7 +40,7 @@ import InstallDelegateForm from 'modules/dx/common/InstallDelegateForm/InstallDe
 import VerifyInstalledDelegate from 'modules/dx/common/VerifyInstalledDelegate/VerifyInstalledDelegate'
 import VerifyExistingDelegate from 'modules/dx/common/VerifyExistingDelegate/VerifyExistingDelegate'
 import VerifyOutOfClusterDelegate from 'modules/dx/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
-import CreateSecretOverlay from 'modules/dx/common/CreateSecretOverlay/CreateSecretOverlay'
+import CreateSecretOverlay from '@secrets/components/CreateSecretOverlay/CreateSecretOverlay'
 import { Connectors } from 'modules/dx/constants'
 import { DelegateTypes, AuthTypes } from 'modules/dx/pages/connectors/Forms/KubeFormInterfaces'
 import ConnectorFormFields from '../../ConnectorFormFields/ConnectorFormFields'

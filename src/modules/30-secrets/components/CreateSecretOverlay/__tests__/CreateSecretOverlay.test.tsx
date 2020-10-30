@@ -3,7 +3,7 @@ import { render } from '@testing-library/react'
 import { MemoryRouter } from 'react-router'
 import type { SecretDTOV2, SecretSpecDTO } from 'services/cd-ng'
 import { TestWrapper } from '@common/utils/testUtils'
-import { Vault } from 'modules/dx/pages/connectors/__tests__/mockData'
+import { Vault } from '@dx/pages/connectors/__tests__/mockData'
 import CreateSecretOverlay from '../CreateSecretOverlay'
 
 const secretTextCreateProps = {

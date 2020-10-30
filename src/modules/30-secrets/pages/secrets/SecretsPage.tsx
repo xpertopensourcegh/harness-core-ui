@@ -4,8 +4,8 @@ import { Layout, Popover, Button, Icon, TextInput, Container } from '@wings-soft
 import { Menu, Position } from '@blueprintjs/core'
 import { useListSecretsV2, ResponsePageSecretResponseWrapper } from 'services/cd-ng'
 import { routeCreateSecretFromYaml } from 'navigation/accounts/routes'
-import useCreateUpdateSecretModal from 'modules/dx/modals/CreateSecretModal/useCreateUpdateSecretModal'
-import useCreateSSHCredModal from 'modules/dx/modals/CreateSSHCredModal/useCreateSSHCredModal'
+import useCreateUpdateSecretModal from '@secrets/modals/CreateSecretModal/useCreateUpdateSecretModal'
+import useCreateSSHCredModal from '@secrets/modals/CreateSSHCredModal/useCreateSSHCredModal'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { PageError } from '@common/components/Page/PageError'
 

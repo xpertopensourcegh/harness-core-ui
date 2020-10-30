@@ -2,7 +2,7 @@ import React from 'react'
 import { FormInput } from '@wings-software/uikit'
 import type { FormikProps } from 'formik'
 import { AuthTypeFields } from 'modules/dx/pages/connectors/Forms/KubeFormHelper'
-import { FormikSecretTextInput } from 'modules/dx/components/SecretInput/SecretTextInput'
+import { FormikSecretTextInput } from '@secrets/components/SecretInput/SecretTextInput'
 import {
   getLabelForEncryptedSecret,
   getSecretFieldValue,

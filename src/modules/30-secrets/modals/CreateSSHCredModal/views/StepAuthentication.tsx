@@ -22,12 +22,12 @@ import {
   ResponsePageSecretResponseWrapper
 } from 'services/cd-ng'
 import type { KerberosConfigDTO, SSHConfigDTO, SSHKeySpecDTO } from 'services/cd-ng'
-import type { SecretInfo } from 'modules/dx/components/SecretInput/SecretTextInput'
-import CreateSecretOverlay from 'modules/dx/common/CreateSecretOverlay/CreateSecretOverlay'
-import type { InlineSecret } from '@common/components/CreateInlineSecret/CreateInlineSecret'
-import type { SecretRef } from 'modules/dx/components/SecretReference/SecretReference'
-import SSHAuthFormFields from 'modules/dx/components/secrets/SSHAuthFormFields/SSHAuthFormFields'
-import { buildAuthConfig } from 'modules/dx/components/secrets/SSHAuthUtils'
+import type { SecretInfo } from '@secrets/components/SecretInput/SecretTextInput'
+import CreateSecretOverlay from '@secrets/components/CreateSecretOverlay/CreateSecretOverlay'
+import type { InlineSecret } from '@secrets/components/CreateInlineSecret/CreateInlineSecret'
+import type { SecretRef } from '@secrets/components/SecretReference/SecretReference'
+import SSHAuthFormFields from '@secrets/components/SSHAuthFormFields/SSHAuthFormFields'
+import { buildAuthConfig } from '@secrets/utils/SSHAuthUtils'
 import { useToaster } from '@common/exports'
 import type { SSHCredSharedObj } from '../CreateSSHCredWizard'
 

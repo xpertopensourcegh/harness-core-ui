@@ -24,13 +24,13 @@ import {
   SecretDTOV2,
   ConnectorInfoDTO
 } from 'services/cd-ng'
-import CreateSecretOverlay from 'modules/dx/common/CreateSecretOverlay/CreateSecretOverlay'
+import CreateSecretOverlay from '@secrets/components/CreateSecretOverlay/CreateSecretOverlay'
 import {
   AuthTypeFields,
   getSecretFieldsByType,
   SecretFieldByType
 } from 'modules/dx/pages/connectors/Forms/KubeFormHelper'
-import type { SecretInfo } from 'modules/dx/components/SecretInput/SecretTextInput'
+import type { SecretInfo } from '@secrets/components/SecretInput/SecretTextInput'
 import UsernamePassword from '../../../ConnectorFormFields/UsernamePassword'
 
 import i18n from '../CreateDockerConnector.i18n'

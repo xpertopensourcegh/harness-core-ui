@@ -14,12 +14,12 @@ import type {
   ConnectorConnectivityDetails,
   TGTPasswordSpecDTO
 } from 'services/cd-ng'
-import { getStringForCredentialType, getStringForType } from 'modules/dx/components/secrets/SSHAuthUtils'
+import { getStringForCredentialType, getStringForType } from '@secrets/utils/SSHAuthUtils'
 
-import sshi18n from 'modules/dx/components/secrets/SSHAuthFormFields/SSHAuthFormFields.i18n'
-import VerifyConnection from 'modules/dx/modals/CreateSSHCredModal/views/VerifyConnection'
+import sshi18n from '@secrets/components/SSHAuthFormFields/SSHAuthFormFields.i18n'
+import VerifyConnection from '@secrets/modals/CreateSSHCredModal/views/VerifyConnection'
+import ConnectorStats from '@dx/pages/connectors/ConnectorStats'
 import i18n from '../SecretDetails.i18n'
-import ConnectorStats from '../../connectors/ConnectorStats'
 import css from './EditSSHSecret.module.scss'
 
 interface ViewSecretDetailsProps {

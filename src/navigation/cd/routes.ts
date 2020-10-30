@@ -116,7 +116,7 @@ export const routeCDResourcesSecretsListing: NestedRoute<{ projectIdentifier: st
       routeCDResourcesConnectors,
       `/cd/admin/resources/orgs/${orgIdentifier}/projects/${projectIdentifier}/secrets`
     ),
-  component: React.lazy(() => import('modules/dx/pages/secrets/SecretsPage'))
+  component: React.lazy(() => import('@secrets/pages/secrets/SecretsPage'))
 }
 export const routeCDResourcesConnectorDetails: NestedRoute<{ projectIdentifier: string; orgIdentifier: string }> = {
   path: '/cd/admin/resources/orgs/:orgIdentifier/projects/:projectIdentifier/connectors/:connectorId',
@@ -137,7 +137,7 @@ export const routeCDResourcesSecretDetails: NestedRoute<{ projectIdentifier: str
       routeCDResourcesConnectors,
       `/cd/admin/resources/orgs/${orgIdentifier}/projects/${projectIdentifier}/secrets/:secretId`
     ),
-  component: React.lazy(() => import('modules/dx/pages/secretDetails/SecretDetails'))
+  component: React.lazy(() => import('@secrets/pages/secretDetails/SecretDetails'))
 }
 
 export const routeCDResources: Route<{ projectIdentifier: string; orgIdentifier: string }> = {

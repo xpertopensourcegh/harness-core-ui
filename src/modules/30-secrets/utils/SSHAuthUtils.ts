@@ -1,7 +1,7 @@
 import { pick } from 'lodash-es'
 import { Scope } from '@common/interfaces/SecretsInterface'
-import type { SSHConfigFormData } from 'modules/dx/modals/CreateSSHCredModal/views/StepAuthentication'
-import type { DetailsForm } from 'modules/dx/modals/CreateSSHCredModal/views/StepDetails'
+import type { SSHConfigFormData } from '@secrets/modals/CreateSSHCredModal/views/StepAuthentication'
+import type { DetailsForm } from '@secrets/modals/CreateSSHCredModal/views/StepDetails'
 import type {
   KerberosConfigDTO,
   TGTPasswordSpecDTO,

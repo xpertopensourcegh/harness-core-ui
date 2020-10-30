@@ -42,7 +42,7 @@ export const routeOrgResourcesSecretsListing: NestedRoute<{ orgIdentifier: strin
   path: '/resources/org/:orgIdentifier/secrets',
   title: i18n.resourcesSecrets,
   url: ({ orgIdentifier }) => routeURL(routeOrgResourcesConnectors, `/resources/org/${orgIdentifier}/secrets`),
-  component: React.lazy(() => import('modules/dx/pages/secrets/SecretsPage'))
+  component: React.lazy(() => import('@secrets/pages/secrets/SecretsPage'))
 }
 
 export const routeOrgResourcesSecretDetails: NestedRoute<{ orgIdentifier: string }> = {
@@ -50,7 +50,7 @@ export const routeOrgResourcesSecretDetails: NestedRoute<{ orgIdentifier: string
   title: i18n.resourcesSecretDetails,
   url: ({ orgIdentifier }) =>
     routeURL(routeOrgResourcesConnectors, `/resources/org/${orgIdentifier}/secrets/:secretId`),
-  component: React.lazy(() => import('modules/dx/pages/secretDetails/SecretDetails'))
+  component: React.lazy(() => import('@secrets/pages/secretDetails/SecretDetails'))
 }
 
 export const routeOrgResources: Route<{ orgIdentifier: string }> = {
@@ -207,14 +207,14 @@ export const routeResourcesSecretsListing: NestedRoute = {
   path: '/resources/secrets',
   title: i18n.resourcesSecrets,
   url: () => routeURL(routeResourcesSecretsListing, '/resources/secrets'),
-  component: React.lazy(() => import('modules/dx/pages/secrets/SecretsPage'))
+  component: React.lazy(() => import('@secrets/pages/secrets/SecretsPage'))
 }
 
 export const routeResourcesSecretDetails: NestedRoute = {
   path: '/resources/secrets/:secretId',
   title: i18n.resourcesSecretDetails,
   url: () => routeURL(routeResourcesSecretDetails, '/resources/secrets/:secretId'),
-  component: React.lazy(() => import('modules/dx/pages/secretDetails/SecretDetails'))
+  component: React.lazy(() => import('@secrets/pages/secretDetails/SecretDetails'))
 }
 
 export const routeResources: Route = {
@@ -259,7 +259,7 @@ export const routeSecretDetails: Route<{ secretId: string }> = {
   title: i18n.secrets,
   pageId: 'secret-details',
   url: ({ secretId }) => routeURL(routeSecretDetails, `/resources/secrets/${secretId}`),
-  component: React.lazy(() => import('modules/dx/pages/secretDetails/SecretDetails')),
+  component: React.lazy(() => import('@secrets/pages/secretDetails/SecretDetails')),
   module: ModuleName.DX
 }
 
@@ -270,5 +270,5 @@ export const routeCreateSecretFromYaml: Route = {
   title: 'Create Secret From Yaml',
   pageId: 'create-secret-from-yaml',
   url: () => routeURL(routeCreateSecretFromYaml, '/create-secret-from-yaml'),
-  component: React.lazy(() => import('modules/dx/pages/createSecretFromYaml/CreateSecretFromYamlPage'))
+  component: React.lazy(() => import('@secrets/pages/createSecretFromYaml/CreateSecretFromYamlPage'))
 }

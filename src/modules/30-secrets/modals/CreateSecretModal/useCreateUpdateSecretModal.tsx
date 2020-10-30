@@ -4,7 +4,7 @@ import { Dialog } from '@blueprintjs/core'
 
 import type { SecretDTOV2, SecretResponseWrapper } from 'services/cd-ng'
 
-import CreateUpdateSecret from 'modules/dx/components/CreateUpdateSecret/CreateUpdateSecret'
+import CreateUpdateSecret from '@secrets/components/CreateUpdateSecret/CreateUpdateSecret'
 
 import i18n from './CreateSecretModal.i18n'
 import css from './useCreateSecretModal.module.scss'

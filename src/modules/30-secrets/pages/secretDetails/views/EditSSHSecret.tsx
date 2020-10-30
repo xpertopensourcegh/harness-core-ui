@@ -3,9 +3,9 @@ import { Button, Color, Container, Formik, FormikForm, Layout } from '@wings-sof
 import { pick } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 
-import SSHAuthFormFields from 'modules/dx/components/secrets/SSHAuthFormFields/SSHAuthFormFields'
-import SSHDetailsFormFields from 'modules/dx/components/secrets/SSHDetailsFormFields/SSHDetailsFormFields'
-import type { SSHConfigFormData } from 'modules/dx/modals/CreateSSHCredModal/views/StepAuthentication'
+import SSHAuthFormFields from '@secrets/components/SSHAuthFormFields/SSHAuthFormFields'
+import SSHDetailsFormFields from '@secrets/components/SSHDetailsFormFields/SSHDetailsFormFields'
+import type { SSHConfigFormData } from '@secrets/modals/CreateSSHCredModal/views/StepAuthentication'
 import {
   getSecretV2Promise,
   KerberosConfigDTO,
@@ -22,16 +22,16 @@ import {
   ConnectorConnectivityDetails,
   ResponseSecretResponseWrapper
 } from 'services/cd-ng'
-import type { DetailsForm } from 'modules/dx/modals/CreateSSHCredModal/views/StepDetails'
-import type { InlineSecret } from '@common/components/CreateInlineSecret/CreateInlineSecret'
+import type { DetailsForm } from '@secrets/modals/CreateSSHCredModal/views/StepDetails'
+import type { InlineSecret } from '@secrets/components/CreateInlineSecret/CreateInlineSecret'
 import { Scope } from '@common/interfaces/SecretsInterface'
-import { buildAuthConfig, getSSHDTOFromFormData } from 'modules/dx/components/secrets/SSHAuthUtils'
+import { buildAuthConfig, getSSHDTOFromFormData } from '@secrets/utils/SSHAuthUtils'
 import { useToaster } from '@common/exports'
-import VerifyConnection from 'modules/dx/modals/CreateSSHCredModal/views/VerifyConnection'
-import useCreateUpdateSecretModal from 'modules/dx/modals/CreateSecretModal/useCreateUpdateSecretModal'
-import type { SecretRef } from 'modules/dx/components/SecretReference/SecretReference'
+import VerifyConnection from '@secrets/modals/CreateSSHCredModal/views/VerifyConnection'
+import useCreateUpdateSecretModal from '@secrets/modals/CreateSecretModal/useCreateUpdateSecretModal'
+import type { SecretRef } from '@secrets/components/SecretReference/SecretReference'
 import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
-import ConnectorStats from '../../connectors/ConnectorStats'
+import ConnectorStats from '@dx/pages/connectors/ConnectorStats'
 
 import css from './EditSSHSecret.module.scss'
 
