@@ -1,13 +1,18 @@
-import { Container, Layout } from '@wings-software/uikit'
 import React from 'react'
 import { NavLink, useParams } from 'react-router-dom'
-import { routeCIAdminResourcesConnectors, routeCIAdminResourcesSecretsListing } from 'navigation/ci/routes'
+import { Container, Layout } from '@wings-software/uikit'
 import { Page } from '@common/exports'
-import i18n from './CIResourcesPage.i18n'
-import css from './CIResourcesPage.module.scss'
+import {
+  routeOrgResourcesConnectors,
+  routeOrgResourcesSecretsListing,
+  routeResourcesConnectors,
+  routeResourcesSecretsListing
+} from 'navigation/accounts/routes'
+import i18n from './ResourcesPage.i18n'
+import css from './ResourcesPage.module.scss'
 
-const CIResourcesPage: React.FC = ({ children }) => {
-  const { orgIdentifier, projectIdentifier } = useParams()
+const ResourcesPage: React.FC = ({ children }) => {
+  const { orgIdentifier } = useParams()
   return (
     <>
       <Page.Header
@@ -18,7 +23,7 @@ const CIResourcesPage: React.FC = ({ children }) => {
               <NavLink
                 className={css.tags}
                 activeClassName={css.activeTag}
-                to={routeCIAdminResourcesConnectors.url({ orgIdentifier, projectIdentifier })}
+                to={orgIdentifier ? routeOrgResourcesConnectors.url({ orgIdentifier }) : routeResourcesConnectors.url()}
               >
                 {i18n.connectors}
               </NavLink>
@@ -26,7 +31,11 @@ const CIResourcesPage: React.FC = ({ children }) => {
               <NavLink
                 className={css.tags}
                 activeClassName={css.activeTag}
-                to={routeCIAdminResourcesSecretsListing.url({ orgIdentifier, projectIdentifier })}
+                to={
+                  orgIdentifier
+                    ? routeOrgResourcesSecretsListing.url({ orgIdentifier })
+                    : routeResourcesSecretsListing.url()
+                }
               >
                 {i18n.secrets}
               </NavLink>
@@ -51,4 +60,4 @@ const CIResourcesPage: React.FC = ({ children }) => {
   )
 }
 
-export default CIResourcesPage
+export default ResourcesPage

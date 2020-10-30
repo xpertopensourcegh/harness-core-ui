@@ -1,4 +1,3 @@
-// TODO: these are place-holders - Feel free to change
 export default {
   title: 'RESOURCES',
   newConnectorButton: 'New Connector',

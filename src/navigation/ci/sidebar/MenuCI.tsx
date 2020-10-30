@@ -13,7 +13,11 @@ import {
   routeCIAdminGovernance,
   routeCIAdminResources,
   routeCIBuild,
-  routeCIPipelines
+  routeCIPipelines,
+  routeCIAdminResourcesConnectors,
+  routeCIAdminResourcesSecretsListing,
+  routeCIAdminResourcesConnectorDetails,
+  routeCIAdminResourcesSecretDetails
 } from '../routes'
 import css from './MenuCI.module.scss'
 
@@ -58,23 +62,27 @@ const ProjectNavLinks: React.FC<{ project?: Project }> = ({ project }) => {
         selected={
           isRouteActive(routeCIAdminBuildSettings) ||
           isRouteActive(routeCIAdminGovernance) ||
-          isRouteActive(routeCIAdminResources)
+          isRouteActive(routeCIAdminResources) ||
+          isRouteActive(routeCIAdminResourcesConnectors) ||
+          isRouteActive(routeCIAdminResourcesSecretsListing) ||
+          isRouteActive(routeCIAdminResourcesConnectorDetails) ||
+          isRouteActive(routeCIAdminResourcesSecretDetails)
         }
       >
         <AdminSelectorLink
-          href={routeCIAdminResources.url({ projectIdentifier: project.identifier as string })}
+          href={routeCIAdminResources.url({ projectIdentifier, orgIdentifier })}
           label={i18n.resources}
           iconName="main-scope"
           selected={isRouteActive(routeCIAdminResources)}
         />
         <AdminSelectorLink
-          href={routeCIAdminGovernance.url({ projectIdentifier: project.identifier as string })}
+          href={routeCIAdminGovernance.url({ projectIdentifier })}
           label={i18n.governance}
           iconName="grid"
           selected={isRouteActive(routeCIAdminGovernance)}
         />
         <AdminSelectorLink
-          href={routeCIAdminBuildSettings.url({ projectIdentifier: project.identifier as string })}
+          href={routeCIAdminBuildSettings.url({ projectIdentifier })}
           label={i18n.buildSettings}
           iconName="git-repo"
           selected={isRouteActive(routeCIAdminBuildSettings)}

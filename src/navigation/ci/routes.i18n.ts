@@ -9,5 +9,10 @@ export default {
   buildCommits: 'Build commits',
   buildTests: 'Build tests',
   buildArtifacts: 'Build artifacts',
-  pipelineExecution: 'Pipeline Executions'
+  pipelineExecution: 'Pipeline Executions',
+  resourcesConnectors: 'Connectors',
+  resourcesConnectorDetails: 'Connector Details',
+  resourcesSecrets: 'Secrets',
+  resourcesSecretDetails: 'Secret Details',
+  resources: 'Resources'
 }

@@ -72,7 +72,7 @@ export const routeCIPipelineStudio: Route<{
 }> = {
   module: ModuleName.CI,
   layout: PageLayout.BlankLayout,
-  sidebarId: SidebarIdentifier.CONTINUOUS_DEPLOYMENTS,
+  sidebarId: SidebarIdentifier.CONTINUOUS_INTEGRATION,
   path: '/ci/pipeline-studio/orgs/:orgIdentifier/projects/:projectIdentifier/pipelines/:pipelineIdentifier/',
   title: i18n.pipelineStudio,
   pageId: 'ci-pipeline-studio',
@@ -242,12 +242,66 @@ export const routeCIAdminGovernance: Route<{ projectIdentifier: string }> = {
   component: React.lazy(() => import('@ci/pages/admin/governance/CIGovernancePage'))
 }
 
-export const routeCIAdminResources: Route<{ projectIdentifier: string }> = {
+export const routeCIAdminResourcesConnectors: NestedRoute<{ projectIdentifier: string; orgIdentifier: string }> = {
+  path: '/ci/admin/resources/orgs/:orgIdentifier/projects/:projectIdentifier/connectors',
+  title: i18n.resourcesConnectors,
+  url: ({ projectIdentifier, orgIdentifier }) =>
+    routeURL(
+      routeCIAdminResourcesConnectors,
+      `/ci/admin/resources/orgs/${orgIdentifier}/projects/${projectIdentifier}/connectors`
+    ),
+  component: React.lazy(() => import('modules/dx/pages/connectors/ConnectorsPage')),
+  isDefault: true
+}
+
+export const routeCIAdminResourcesSecretsListing: NestedRoute<{ projectIdentifier: string; orgIdentifier: string }> = {
+  path: '/ci/admin/resources/orgs/:orgIdentifier/projects/:projectIdentifier/secrets',
+  title: i18n.resourcesSecrets,
+  url: ({ projectIdentifier, orgIdentifier }) =>
+    routeURL(
+      routeCIAdminResourcesConnectors,
+      `/ci/admin/resources/orgs/${orgIdentifier}/projects/${projectIdentifier}/secrets`
+    ),
+  component: React.lazy(() => import('@secrets/pages/secrets/SecretsPage'))
+}
+export const routeCIAdminResourcesConnectorDetails: NestedRoute<{
+  projectIdentifier: string
+  orgIdentifier: string
+}> = {
+  path: '/ci/admin/resources/orgs/:orgIdentifier/projects/:projectIdentifier/connectors/:connectorId',
+  title: i18n.resourcesConnectorDetails,
+  url: ({ projectIdentifier, orgIdentifier }) =>
+    routeURL(
+      routeCIAdminResourcesConnectors,
+      `/ci/admin/resources/orgs/${orgIdentifier}/projects/${projectIdentifier}/connectors/:connectorId`
+    ),
+  component: React.lazy(() => import('modules/dx/pages/connectors/ConnectorDetailsPage'))
+}
+
+export const routeCIAdminResourcesSecretDetails: NestedRoute<{ projectIdentifier: string; orgIdentifier: string }> = {
+  path: '/ci/admin/resources/orgs/:orgIdentifier/projects/:projectIdentifier/secrets/:secretId',
+  title: i18n.resourcesSecretDetails,
+  url: ({ projectIdentifier, orgIdentifier }) =>
+    routeURL(
+      routeCIAdminResourcesConnectors,
+      `/ci/admin/resources/orgs/${orgIdentifier}/projects/${projectIdentifier}/secrets/:secretId`
+    ),
+  component: React.lazy(() => import('@secrets/pages/secretDetails/SecretDetails'))
+}
+
+export const routeCIAdminResources: Route<{ projectIdentifier: string; orgIdentifier: string }> = {
   module: ModuleName.CI,
   sidebarId: SidebarIdentifier.CONTINUOUS_INTEGRATION,
-  path: '/ci/admin/resources/projects/:projectIdentifier',
-  title: i18n.ci,
+  path: '/ci/admin/resources/orgs/:orgIdentifier/projects/:projectIdentifier',
+  title: i18n.resources,
   pageId: 'ci-admin-resources',
-  url: ({ projectIdentifier }) => routeURL(routeCIDashboard, `/ci/admin/resources/projects/${projectIdentifier}`),
-  component: React.lazy(() => import('@ci/pages/admin/resources/CIResourcesPage'))
+  url: ({ projectIdentifier, orgIdentifier }) =>
+    routeURL(routeCIAdminResources, `/ci/admin/resources/orgs/${orgIdentifier}/projects/${projectIdentifier}`),
+  component: React.lazy(() => import('@ci/pages/admin/resources/CIResourcesPage')),
+  nestedRoutes: [
+    routeCIAdminResourcesConnectors,
+    routeCIAdminResourcesConnectorDetails,
+    routeCIAdminResourcesSecretsListing,
+    routeCIAdminResourcesSecretDetails
+  ]
 }

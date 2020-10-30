@@ -17,7 +17,11 @@ import {
   routeCDGeneralSettings,
   routePipelineDetail,
   routeInputSetList,
-  routePipelineDeploymentList
+  routePipelineDeploymentList,
+  routeCDResourcesConnectors,
+  routeCDResourcesConnectorDetails,
+  routeCDResourcesSecretsListing,
+  routeCDResourcesSecretDetails
 } from '../routes'
 import css from './MenuCD.module.scss'
 
@@ -76,7 +80,11 @@ const ProjectNavLinks: React.FC = () => {
           isRouteActive(routeCDGitSync) ||
           isRouteActive(routeCDGovernance) ||
           isRouteActive(routeCDAccessControl) ||
-          isRouteActive(routeCDGeneralSettings)
+          isRouteActive(routeCDGeneralSettings) ||
+          isRouteActive(routeCDResourcesConnectors) ||
+          isRouteActive(routeCDResourcesConnectorDetails) ||
+          isRouteActive(routeCDResourcesSecretsListing) ||
+          isRouteActive(routeCDResourcesSecretDetails)
         }
       >
         <AdminSelectorLink
