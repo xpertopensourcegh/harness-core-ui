@@ -24,14 +24,25 @@ import {
 } from '@common/components/EntityReference/EntityReference'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import { DrawerTypes } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
-import type { ServiceWrapper } from '@pipeline/components/PipelineStudio/ExecutionGraph/ExecutionGraphUtil'
 import i18n from './CommonService.i18n'
 import { PipelineStep } from '../../PipelineStep'
+import { convertFromUIModel, convertToUIModel } from './CommonServiceUtils'
+
 import css from './CommonService.module.scss'
 
 // TODO: TDO
 export type CommonServiceInfo = ServiceSpecType & {
-  [key: string]: any
+  image: string
+  connectorRef?: string
+  environment?: { [key: string]: string }
+  entrypoint?: string[]
+  args?: string[]
+  resources?: {
+    limit: {
+      memory?: number
+      cpu?: number
+    }
+  }
 }
 
 // TODO: TDO
@@ -40,24 +51,23 @@ export interface ServiceSpecType {
 }
 
 // TODO: TDO
-export type ServiceElement = ServiceWrapper & {
+export interface CommonServiceData {
   identifier: string
-  name?: string
-  type?: string
-  metadata?: string
-  spec?: ServiceSpecType
-}
-
-export interface CommonServiceData extends ServiceElement {
   type: string
-  name: string
+  name?: string
   spec: CommonServiceInfo
 }
 
-interface CommonServiceWidgetProps {
-  initialValues: CommonServiceData
-  onUpdate?: (data: CommonServiceData) => void
-  stepViewType?: StepViewType
+// Interface for the form
+export interface CommonServiceDataUI {
+  identifier: string
+  type: string
+  name?: string
+  spec: CommonServiceInfoUI
+}
+
+export type CommonServiceInfoUI = ServiceSpecType & {
+  [key: string]: any
 }
 
 export enum LimitMemoryUnits {
@@ -73,32 +83,16 @@ const validationSchema = yup.object().shape({
     .shape({
       connectorRef: yup.mixed().required(),
       image: yup.string().trim().required(),
-      limitCPU: yup.number().min(0),
-      limitMemory: yup.number().min(0)
+      limitCPU: yup.number().min(1),
+      limitMemory: yup.number().min(1)
     })
     .required()
 })
 
-function getInitialValuesInCorrectFormat(initialValues: any): any {
-  if (initialValues.spec?.resources) {
-    return {
-      identifier: initialValues.identifier,
-      name: initialValues.name,
-      spec: {
-        image: initialValues.spec.image,
-        connectorRef: initialValues.spec.connectorRef,
-        environment: initialValues.spec.environment,
-        entrypoint: initialValues.spec.entrypoint,
-        args: initialValues.spec.args,
-        limitMemory: initialValues.spec?.resources?.limit?.memory?.match(/\d+/g)?.join(''),
-        limitMemoryUnits:
-          initialValues.spec?.resources?.limit?.memory?.match(/[A-Za-z]+$/)?.join('') || LimitMemoryUnits.Mi,
-        limitCPU: initialValues.spec?.resources?.limit?.cpu
-      }
-    }
-  } else {
-    return { ...initialValues }
-  }
+interface CommonServiceWidgetProps {
+  initialValues: CommonServiceData
+  onUpdate?: (data: CommonServiceData) => void
+  stepViewType?: StepViewType
 }
 
 const CommonServiceWidget: React.FC<CommonServiceWidgetProps> = ({ initialValues, onUpdate }): JSX.Element => {
@@ -119,8 +113,8 @@ const CommonServiceWidget: React.FC<CommonServiceWidgetProps> = ({ initialValues
   }>()
 
   const isEdit = data?.stepConfig?.addOrEdit === 'edit'
-  const connectorId = getIdentifierFromValue((initialValues.connectorRef as string) || '') // ? as string
-  const initialScope = getScopeFromValue((initialValues.connectorRef as string) || '') // ? as string
+  const connectorId = getIdentifierFromValue((initialValues.spec.connectorRef as string) || '')
+  const initialScope = getScopeFromValue((initialValues.spec.connectorRef as string) || '')
 
   const { data: connector, loading, refetch } = useGetConnector({
     identifier: connectorId,
@@ -135,27 +129,27 @@ const CommonServiceWidget: React.FC<CommonServiceWidgetProps> = ({ initialValues
 
   React.useEffect(() => {
     if (
-      !isEmpty(initialValues.connectorRef) &&
-      getMultiTypeFromValue(initialValues.connectorRef || '') === MultiTypeInputType.FIXED
+      !isEmpty(initialValues.spec.connectorRef) &&
+      getMultiTypeFromValue(initialValues.spec.connectorRef || '') === MultiTypeInputType.FIXED
     ) {
       refetch()
     }
-  }, [initialValues.connectorRef])
+  }, [initialValues.spec.connectorRef])
 
-  const values = getInitialValuesInCorrectFormat(initialValues)
+  const values = convertToUIModel(initialValues)
 
   if (
     connector?.data?.connector &&
-    getMultiTypeFromValue(initialValues.connectorRef || '') === MultiTypeInputType.FIXED
+    getMultiTypeFromValue(initialValues.spec.connectorRef || '') === MultiTypeInputType.FIXED
   ) {
     const scope = getScopeFromDTO<ConnectorInfoDTO>(connector?.data?.connector)
-    values.connectorRef = {
+    values.spec.connectorRef = {
       label: connector?.data?.connector.name || '',
       value: `${scope !== Scope.PROJECT ? `${scope}.` : ''}${connector?.data?.connector.identifier}`,
       scope: scope
     }
   } else {
-    values.connectorRef = initialValues.connectorRef
+    values.spec.connectorRef = initialValues.spec.connectorRef
   }
 
   const handleCancelClick = (): void => {
@@ -167,34 +161,11 @@ const CommonServiceWidget: React.FC<CommonServiceWidgetProps> = ({ initialValues
   }
 
   return (
-    <Formik<CommonServiceData>
-      initialValues={getInitialValuesInCorrectFormat(initialValues)}
+    <Formik<CommonServiceDataUI>
+      initialValues={values}
       validationSchema={validationSchema}
-      onSubmit={_values => {
-        // TODO: Use appropriate interface
-        const schemaValues: any = {
-          identifier: _values.identifier,
-          name: _values.name,
-          type: _values.type,
-          spec: {
-            image: _values.spec.image,
-            connectorRef: _values.spec.connectorRef,
-            environment: _values.spec.environment,
-            entrypoint: _values.spec.entrypoint,
-            args: _values.spec.args,
-            resources: {
-              limit: {
-                memory: '',
-                cpu: _values.spec.limitCPU
-              }
-            }
-          }
-        }
-
-        if (_values.spec.limitMemory && _values.spec.limitMemoryUnits) {
-          schemaValues.spec.resources.limit.memory = _values.spec.limitMemory + _values.spec.limitMemoryUnits
-        }
-
+      onSubmit={(_values: CommonServiceDataUI) => {
+        const schemaValues = convertFromUIModel(_values)
         onUpdate?.(schemaValues)
       }}
     >

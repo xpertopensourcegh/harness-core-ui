@@ -16,7 +16,7 @@ import cx from 'classnames'
 import { isEmpty } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import { ConfigureOptions, PipelineContext, StepViewType } from '@pipeline/exports'
-import { ConnectorInfoDTO, useGetConnector } from 'services/cd-ng'
+import { ConnectorInfoDTO, StepSpecType, useGetConnector } from 'services/cd-ng'
 import { FormMultiTypeConnectorField } from '@common/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import {
   getIdentifierFromValue,
@@ -27,9 +27,47 @@ import { Scope } from '@common/interfaces/SecretsInterface'
 import { DrawerTypes } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
 import { StepType } from '../../PipelineStepInterface'
 import { PipelineStep } from '../../PipelineStep'
+import { convertFromUIModel, convertToUIModel } from './RunStepUtils'
 import i18n from './RunStep.i18n'
 import css from './RunStep.module.scss'
 import stepCss from '../Steps.module.scss'
+
+// TODO: TDO
+export type RunServiceSpec = StepSpecType & {
+  image?: string
+  connectorRef?: string
+  environment?: { [key: string]: string }
+  command?: string[]
+  output?: string[]
+  //timeout?: number;
+  //retry:?: number
+  resources?: {
+    limit: {
+      memory?: number
+      cpu?: number
+    }
+  }
+}
+
+// TODO: TDO
+export interface RunStepData {
+  identifier: string
+  type: string
+  name?: string
+  spec: RunServiceSpec
+}
+
+// Interface for the form
+export interface RunStepDataUI {
+  identifier: string
+  type: string
+  name?: string
+  spec: RunStepSpecUI
+}
+
+export type RunStepSpecUI = StepSpecType & {
+  [key: string]: any
+}
 
 export enum LimitMemoryUnits {
   Mi = 'Mi',
@@ -55,29 +93,6 @@ export interface RunStepWidgetProps {
   initialValues: any //RunStepData
   onUpdate?: (data: any) => void //RunStepData
   stepViewType?: StepViewType
-}
-
-function getInitialValuesInCorrectFormat(initialValues: any): any {
-  if (initialValues.spec?.resources) {
-    return {
-      identifier: initialValues.identifier,
-      name: initialValues.name,
-      spec: {
-        connectorRef: initialValues.spec.connectorRef,
-        image: initialValues.spec.image,
-        command: initialValues.spec.command,
-        environment: initialValues.spec.environment,
-        workingDir: initialValues.spec.workingDir,
-        limitMemory: initialValues.spec?.resources?.limit?.memory?.match(/\d+/g)?.join(''),
-        limitMemoryUnits:
-          initialValues.spec?.resources?.limit?.memory?.match(/[A-Za-z]+$/)?.join('') || LimitMemoryUnits.Mi,
-        limitCPU: initialValues.spec?.resources?.limit?.cpu,
-        outputVariables: initialValues.spec.outputVariables
-      }
-    }
-  } else {
-    return { ...initialValues }
-  }
 }
 
 const RunStepWidget: React.FC<RunStepWidgetProps> = ({ initialValues, onUpdate }): JSX.Element => {
@@ -115,7 +130,7 @@ const RunStepWidget: React.FC<RunStepWidgetProps> = ({ initialValues, onUpdate }
     }
   }, [initialValues.spec.connectorRef])
 
-  const values = getInitialValuesInCorrectFormat(initialValues)
+  const values = convertToUIModel(initialValues)
 
   if (
     connector?.data?.connector &&
@@ -145,33 +160,10 @@ const RunStepWidget: React.FC<RunStepWidgetProps> = ({ initialValues, onUpdate }
         {i18n.title}
       </Text>
       <Formik
-        initialValues={getInitialValuesInCorrectFormat(initialValues)}
+        initialValues={values}
         validationSchema={validationSchema}
         onSubmit={_values => {
-          // TODO: Use appropriate interface
-          const schemaValues: any = {
-            identifier: _values.identifier,
-            name: _values.name,
-            spec: {
-              connectorRef: _values.spec.connectorRef,
-              image: _values.spec.image,
-              command: _values.spec.command,
-              environment: _values.spec.environment,
-              workingDir: _values.spec.workingDir,
-              resources: {
-                limit: {
-                  memory: '',
-                  cpu: _values.spec.limitCPU
-                }
-              },
-              outputVariables: _values.spec.outputVariables
-            }
-          }
-
-          if (_values.spec.limitMemory && _values.spec.limitMemoryUnits) {
-            schemaValues.spec.resources.limit.memory = _values.spec.limitMemory + _values.spec.limitMemoryUnits
-          }
-
+          const schemaValues = convertFromUIModel(_values)
           onUpdate?.(schemaValues)
         }}
       >
@@ -362,7 +354,7 @@ const RunStepWidget: React.FC<RunStepWidgetProps> = ({ initialValues, onUpdate }
                 </div>
               </div>
               <FormInput.TagInput
-                name="spec.outputVariables"
+                name="spec.output"
                 label={i18n.outputVariablesLabel}
                 items={[]}
                 labelFor={name => name as string}
@@ -396,10 +388,10 @@ const RunStepWidget: React.FC<RunStepWidgetProps> = ({ initialValues, onUpdate }
   )
 }
 
-export class RunStep extends PipelineStep<any /*RunStepData*/> {
+export class RunStep extends PipelineStep<RunStepData> {
   renderStep(
-    initialValues: any, //RunStepData
-    onUpdate?: (data: any) => void, //RunStepData
+    initialValues: RunStepData,
+    onUpdate?: (data: RunStepData) => void,
     stepViewType?: StepViewType
   ): JSX.Element {
     return <RunStepWidget initialValues={initialValues} onUpdate={onUpdate} stepViewType={stepViewType} />
@@ -409,11 +401,9 @@ export class RunStep extends PipelineStep<any /*RunStepData*/> {
   protected stepName = i18n.title
   protected stepIcon: IconName = 'run-step'
 
-  protected defaultValues: any /*RunStepData*/ = {
+  protected defaultValues: RunStepData = {
     identifier: '',
-    spec: {
-      environment: [{ key: '', value: '' }],
-      limitMemoryUnits: LimitMemoryUnits.Mi
-    }
+    type: StepType.Run as string,
+    spec: {}
   }
 }

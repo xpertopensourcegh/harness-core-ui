@@ -445,7 +445,7 @@ const ExecutionGraph = (): JSX.Element => {
         if (!data.stage.spec.execution.steps) {
           data.stage.spec.execution.steps = []
         }
-        if (!data.stage.spec.execution.rollbackSteps) {
+        if (!data.stage.spec.execution.rollbackSteps && stageType === 'Deployment') {
           data.stage.spec.execution.rollbackSteps = []
         }
         if (!data.stage.spec.dependencies) {

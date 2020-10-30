@@ -1,7 +1,7 @@
 import type { IconName } from '@wings-software/uikit'
 import { StepType } from '../../PipelineStepInterface'
 import i18n from './RedisService.i18n'
-import { CommonService, CommonServiceData, LimitMemoryUnits } from '../CommonService/CommonService'
+import { CommonService, CommonServiceData } from '../CommonService/CommonService'
 
 export class RedisService extends CommonService {
   protected type = StepType.Redis
@@ -11,12 +11,8 @@ export class RedisService extends CommonService {
   protected defaultValues: CommonServiceData = {
     identifier: '',
     type: 'service',
-    name: '',
     spec: {
-      connector: '',
-      image: 'redis:latest',
-      environment: [{ key: '', value: '' }],
-      limitMemoryUnits: LimitMemoryUnits.Mi
+      image: 'redis:latest'
     }
   }
 }
