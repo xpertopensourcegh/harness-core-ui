@@ -18,6 +18,12 @@ jest.mock('services/cd-ng', () => ({
   listSecretsV2Promise: jest.fn().mockImplementation(() => Promise.resolve({ response: { data: { content: [] } } }))
 }))
 
+jest.mock('@pipeline/components/PipelineStudio/PipelineContext/PipelineContextUtils', () => ({
+  getPipelinePromiseFactory: jest.fn().mockImplementation(() => () => Promise.resolve(PipelineResponse)),
+  putPipelinePromiseFactory: jest.fn().mockImplementation(() => () => Promise.resolve({ status: 'SUCCESS' })),
+  postPipelinePromiseFactory: jest.fn().mockImplementation(() => () => Promise.resolve({ status: 'SUCCESS' }))
+}))
+
 jest.mock('@pipeline/components/RunPipelineModal/RunPipelineForm', () => ({
   // eslint-disable-next-line react/display-name
   RunPipelineForm: ({ onClose }: { onClose: () => void }): JSX.Element => (

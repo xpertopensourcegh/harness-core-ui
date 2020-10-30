@@ -3,15 +3,15 @@ import { openDB, IDBPDatabase, deleteDB } from 'idb'
 import { isEqual, cloneDeep } from 'lodash-es'
 import { parse, stringify } from 'yaml'
 import type { IconName } from '@wings-software/uikit'
-import {
+import type {
   NgPipeline,
   GetPipelineListQueryParams,
-  getPipelinePromise,
-  putPipelinePromise,
+  // getPipelinePromise,
+  // putPipelinePromise,
   PutPipelineQueryParams,
   ResponseNGPipelineResponse,
-  Failure,
-  postPipelinePromise
+  Failure
+  // postPipelinePromise
 } from 'services/cd-ng'
 import { ModuleName, loggerFor } from 'framework/exports'
 import SessionToken from 'framework/utils/SessionToken'
@@ -28,13 +28,20 @@ import {
 } from './PipelineActions'
 import type { AbstractStepFactory } from '../../AbstractSteps/AbstractStepFactory'
 import type { PipelineStagesProps } from '../../PipelineStages/PipelineStages'
+import {
+  getPipelinePromiseFactory,
+  postPipelinePromiseFactory,
+  putPipelinePromiseFactory
+} from './PipelineContextUtils'
+
 const logger = loggerFor(ModuleName.CD)
 
 export const getPipelineByIdentifier = (
   params: GetPipelineListQueryParams,
-  identifier: string
+  identifier: string,
+  moduleName: 'ci' | 'cd' = 'cd'
 ): Promise<NgPipeline | undefined> => {
-  return getPipelinePromise({
+  return getPipelinePromiseFactory(moduleName)({
     pipelineIdentifier: identifier,
     queryParams: {
       accountIdentifier: params.accountIdentifier,
@@ -62,10 +69,11 @@ export const getPipelineByIdentifier = (
 export const savePipeline = (
   params: PutPipelineQueryParams,
   pipeline: NgPipeline,
-  isEdit = false
+  isEdit = false,
+  moduleName: 'cd' | 'ci' = 'cd'
 ): Promise<Failure | undefined> => {
   return isEdit
-    ? putPipelinePromise({
+    ? putPipelinePromiseFactory(moduleName)({
         pipelineIdentifier: pipeline.identifier,
         queryParams: {
           accountIdentifier: params.accountIdentifier,
@@ -81,7 +89,7 @@ export const savePipeline = (
           return response
         }
       })
-    : postPipelinePromise({
+    : postPipelinePromiseFactory(moduleName)({
         body: stringify({ pipeline }) as any,
         queryParams: {
           accountIdentifier: params.accountIdentifier,
@@ -157,10 +165,13 @@ const _fetchPipeline = async (
     identifier
   )
   if (IdbPipeline) {
+    // TODO: next line is temporary
+    const moduleName = window.location.hash.indexOf('ci') !== -1 ? 'ci' : 'cd'
+
     dispatch(PipelineContextActions.fetching())
     const data: PipelinePayload = await IdbPipeline.get(IdbPipelineStoreName, id)
     if ((!data || forceFetch) && identifier !== DefaultNewPipelineId) {
-      const pipeline = await getPipelineByIdentifier(queryParams, identifier)
+      const pipeline = await getPipelineByIdentifier(queryParams, identifier, moduleName)
       const payload: PipelinePayload = {
         [KeyPath]: id,
         pipeline,

@@ -2,7 +2,7 @@ import React from 'react'
 import { Classes, Dialog } from '@blueprintjs/core'
 import cx from 'classnames'
 import { Button, Icon, Text, useModalHook, Tag } from '@wings-software/uikit'
-import { useHistory, useParams, NavLink, matchPath } from 'react-router-dom'
+import { useHistory, useParams, NavLink, matchPath, useLocation } from 'react-router-dom'
 import { parse } from 'yaml'
 import type { NgPipeline, Failure } from 'services/cd-ng'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
@@ -65,6 +65,9 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
     accountId: string
   }>()
 
+  // TODO: temporary
+  const moduleName = useLocation().pathname.indexOf('/ci/') !== -1 ? 'ci' : 'cd'
+
   const [discardBEUpdateDialog, setDiscardBEUpdate] = React.useState(false)
   const { openDialog: openConfirmBEUpdateError } = useConfirmationDialog({
     cancelButtonText: i18n.cancel,
@@ -91,13 +94,15 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
       response = await savePipeline(
         { accountIdentifier: accountId, projectIdentifier, orgIdentifier },
         latestPipeline,
-        pipelineIdentifier !== DefaultNewPipelineId
+        pipelineIdentifier !== DefaultNewPipelineId,
+        moduleName
       )
     } else {
       response = await savePipeline(
         { accountIdentifier: accountId, projectIdentifier, orgIdentifier },
         latestPipeline,
-        pipelineIdentifier !== DefaultNewPipelineId
+        pipelineIdentifier !== DefaultNewPipelineId,
+        moduleName
       )
     }
 
