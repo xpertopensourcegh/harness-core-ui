@@ -1,7 +1,8 @@
 import React from 'react'
 import { parse } from 'yaml'
-import { Prompt } from 'react-router-dom'
+import { Prompt, useHistory } from 'react-router-dom'
 import type { IconName } from '@blueprintjs/core'
+import type * as History from 'history'
 import { YamlEntity } from '@common/constants/YamlConstants'
 import YAMLBuilder from '@common/components/YAMLBuilder/YamlBuilder'
 import { addIconInfoToSnippets } from '@common/components/YAMLBuilder/YAMLBuilderUtils'
@@ -24,6 +25,8 @@ const PipelineYamlView: React.FC = () => {
   React.useEffect(() => {
     fetchSnippets()
   })
+  const history = useHistory()
+  const [isYamlUpdated, setYamlUpdated] = React.useState(false)
   const [snippets, setSnippets] = React.useState<SnippetInterface[]>()
 
   React.useEffect(() => {
@@ -46,9 +49,13 @@ const PipelineYamlView: React.FC = () => {
     <div className={css.yamlBuilder}>
       <Prompt
         when={true}
-        message={() => {
-          if (yamlHandler) {
-            updatePipeline(parse(yamlHandler.getLatestYaml()).pipeline)
+        message={(nextLocation: History.Location) => {
+          if (yamlHandler && !isYamlUpdated) {
+            updatePipeline(parse(yamlHandler.getLatestYaml()).pipeline).then(() => {
+              setYamlUpdated(true)
+              history.push(nextLocation.pathname)
+            })
+            return false
           }
           return true
         }}

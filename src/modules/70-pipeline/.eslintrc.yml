@@ -5,7 +5,9 @@ rules:
         - lodash.*
         - modules/75-cd/*
         - modules/80-ci/*
+        - modules/85-cv/*
         - '@cd/*'
         - '@ci/*'
+        - '@cv/*'
       paths:
         - lodash

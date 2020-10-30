@@ -4,6 +4,8 @@ rules:
     - patterns:
         - lodash.*
         - modules/80-ci/*
+        - modules/85-cv/*
         - '@ci/*'
+        - '@cv/*'
       paths:
         - lodash
