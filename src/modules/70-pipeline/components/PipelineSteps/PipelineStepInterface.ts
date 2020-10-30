@@ -9,7 +9,7 @@ export enum StepType {
   CustomVariable = 'Custom_Variable',
   Redis = 'service',
   Plugin = 'plugin',
-  Run = 'Run',
+  Run = 'run',
   SaveCache = 'Save_Cache',
   RestoreCache = 'Restore_Cache'
 }
