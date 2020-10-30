@@ -28,6 +28,7 @@
       "src/modules/10-common/modals/OrganizationModal/**",
       "src/modules/10-common/components/OrganizationCard/**"
     ],
+    "GitSync": ["src/modules/60-gitsync/**"],
     "DX": [
       "src/modules/dx/**",
       "src/modules/10-common/components/YAMLBuilder/**",

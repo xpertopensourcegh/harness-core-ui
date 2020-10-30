@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GitSync Page render GitSync container 1`] = `
+<div>
+   
+  <div
+    class="Layout---horizontal--3rmQ StyledProps---main--1Wws container standard StyledProps---flex--2Jz8 StyledProps---padding-left-large--28UT StyledProps---padding-right-large--2vF9"
+  >
+    <h2
+      class="StyledProps---font--2ipy StyledProps---font-h2--3Vpc StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey800--2G2G"
+      level="2"
+    >
+      GIT SYNC
+    </h2>
+    <div
+      class="StyledProps---font--2ipy StyledProps---main--1Wws"
+    >
+      <div
+        class="Layout---horizontal--3rmQ Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+      >
+        <a
+          class="tags"
+          href="/account/null/git-sync/repos"
+        >
+          Repos
+        </a>
+        <a
+          class="tags"
+          href="/account/null/git-sync/activities"
+        >
+          Activities
+        </a>
+        <a
+          class="tags"
+          href="/account/null/git-sync/entities"
+        >
+          Entities
+        </a>
+        <a
+          class="tags"
+          href="/account/null/git-sync/errors"
+        >
+          Errors
+        </a>
+      </div>
+    </div>
+  </div>
+  <div
+    class="StyledProps---font--2ipy StyledProps---main--1Wws pageBody"
+  />
+   
+</div>
+`;

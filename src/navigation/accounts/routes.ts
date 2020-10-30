@@ -73,7 +73,7 @@ export const routeGitSyncRepos: NestedRoute = {
   path: '/git-sync/repos',
   title: i18n.gitSync,
   url: () => routeURL(routeGitSyncRepos, '/git-sync/repos'),
-  component: React.lazy(() => import('modules/dx/pages/git-sync/views/repos/GitSyncRepoTab')),
+  component: React.lazy(() => import('@gitsync/pages/views/repos/GitSyncRepoTab')),
   isDefault: true
 }
 
@@ -81,21 +81,21 @@ export const routeGitSyncActivities: NestedRoute = {
   path: '/git-sync/activities',
   title: i18n.gitSync,
   url: () => routeURL(routeGitSyncActivities, '/git-sync/activities'),
-  component: React.lazy(() => import('modules/dx/pages/git-sync/views/activities/GitSyncActivities'))
+  component: React.lazy(() => import('@gitsync/pages/views/activities/GitSyncActivities'))
 }
 
 export const routeGitSyncEntities: NestedRoute = {
   path: '/git-sync/entities',
   title: i18n.gitSync,
   url: () => routeURL(routeGitSyncEntities, '/git-sync/entities'),
-  component: React.lazy(() => import('modules/dx/pages/git-sync/views/entities/GitSyncEntityTab'))
+  component: React.lazy(() => import('@gitsync/pages/views/entities/GitSyncEntityTab'))
 }
 
 export const routeGitSyncErrors: NestedRoute = {
   path: '/git-sync/errors',
   title: i18n.gitSync,
   url: () => routeURL(routeGitSyncErrors, '/git-sync/errors'),
-  component: React.lazy(() => import('modules/dx/pages/git-sync/views/errors/GitSyncErrors'))
+  component: React.lazy(() => import('@gitsync/pages/views/errors/GitSyncErrors'))
 }
 
 export const routeGitSync: Route = {
@@ -105,14 +105,14 @@ export const routeGitSync: Route = {
   title: i18n.gitSync,
   pageId: 'git-sync',
   url: () => routeURL(routeGitSync, '/git-sync'),
-  component: React.lazy(() => import('modules/dx/pages/git-sync/GitSyncPage')),
+  component: React.lazy(() => import('@gitsync/pages/GitSyncPage')),
   nestedRoutes: [routeGitSyncActivities, routeGitSyncEntities, routeGitSyncErrors, routeGitSyncRepos]
 }
 export const routeOrgGitSyncRepos: NestedRoute<{ orgIdentifier: string }> = {
   path: '/git-sync/org/:orgIdentifier/repos',
   title: i18n.gitSync,
   url: ({ orgIdentifier }) => routeURL(routeOrgGitSyncRepos, `/git-sync/org/${orgIdentifier}/repos`),
-  component: React.lazy(() => import('modules/dx/pages/git-sync/views/repos/GitSyncRepoTab')),
+  component: React.lazy(() => import('@gitsync/pages/views/repos/GitSyncRepoTab')),
   isDefault: true
 }
 
@@ -120,21 +120,21 @@ export const routeOrgGitSyncActivities: NestedRoute<{ orgIdentifier: string }> =
   path: '/git-sync/org/:orgIdentifier/activities',
   title: i18n.gitSync,
   url: ({ orgIdentifier }) => routeURL(routeOrgGitSyncActivities, `/git-sync/org/${orgIdentifier}/activities`),
-  component: React.lazy(() => import('modules/dx/pages/git-sync/views/activities/GitSyncActivities'))
+  component: React.lazy(() => import('@gitsync/pages/views/activities/GitSyncActivities'))
 }
 
 export const routeOrgGitSyncEntities: NestedRoute<{ orgIdentifier: string }> = {
   path: '/git-sync/org/:orgIdentifier/entities',
   title: i18n.gitSync,
   url: ({ orgIdentifier }) => routeURL(routeOrgGitSyncEntities, `/git-sync/org/${orgIdentifier}/entities`),
-  component: React.lazy(() => import('modules/dx/pages/git-sync/views/entities/GitSyncEntityTab'))
+  component: React.lazy(() => import('@gitsync/pages/views/entities/GitSyncEntityTab'))
 }
 
 export const routeOrgGitSyncErrors: NestedRoute<{ orgIdentifier: string }> = {
   path: '/git-sync/org/:orgIdentifier/errors',
   title: i18n.gitSync,
   url: ({ orgIdentifier }) => routeURL(routeOrgGitSyncErrors, `/git-sync/org/${orgIdentifier}/errors`),
-  component: React.lazy(() => import('modules/dx/pages/git-sync/views/errors/GitSyncErrors'))
+  component: React.lazy(() => import('@gitsync/pages/views/errors/GitSyncErrors'))
 }
 
 export const routeOrgGitSync: Route<{ orgIdentifier: string }> = {
@@ -144,7 +144,7 @@ export const routeOrgGitSync: Route<{ orgIdentifier: string }> = {
   title: i18n.gitSync,
   pageId: 'org-git-sync',
   url: ({ orgIdentifier }) => routeURL(routeOrgGitSync, `/git-sync/org/${orgIdentifier}`),
-  component: React.lazy(() => import('modules/dx/pages/git-sync/GitSyncPage')),
+  component: React.lazy(() => import('@gitsync/pages/GitSyncPage')),
   nestedRoutes: [routeOrgGitSyncActivities, routeOrgGitSyncEntities, routeOrgGitSyncErrors, routeOrgGitSyncRepos]
 }
 
