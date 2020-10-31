@@ -1,10 +1,14 @@
-import type { ConnectorInfoDTO, ConnectorConnectivityDetails } from 'services/cd-ng'
+import type { ConnectorInfoDTO, ConnectorConnectivityDetails, Activity } from 'services/cd-ng'
 
 interface ConnectorType {
   [key: string]: ConnectorInfoDTO['type']
 }
 interface ConnectorStatusType {
   [key: string]: ConnectorConnectivityDetails['status']
+}
+
+interface ActivityStatusType {
+  [key: string]: Activity['activityStatus']
 }
 export const Connectors: ConnectorType = {
   KUBERNETES_CLUSTER: 'K8sCluster',
@@ -47,4 +51,9 @@ export const EntityTypes = {
   PROJECT: 'projects',
   CONNECTOR: 'connectors',
   SECRET: 'secrets'
+}
+
+export const ActivityStatus: ActivityStatusType = {
+  SUCCESS: 'SUCCESS',
+  FAILED: 'FAILED'
 }

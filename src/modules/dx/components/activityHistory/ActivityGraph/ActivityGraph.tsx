@@ -1,0 +1,221 @@
+import React, { useEffect, useMemo } from 'react'
+import moment from 'moment'
+import { useParams } from 'react-router-dom'
+import { Container, Color } from '@wings-software/uikit'
+import HighchartsReact from 'highcharts-react-official'
+import Highcharts, { SeriesColumnOptions } from 'highcharts'
+import type { DateRange } from '@blueprintjs/datetime'
+import {
+  GetActivitiesSummaryQueryParams,
+  useGetActivitiesSummary,
+  ListActivitiesQueryParams,
+  GetConnectivitySummaryQueryParams,
+  ResponsePageActivitySummary
+} from 'services/cd-ng'
+import { PageSpinner } from 'modules/10-common/components/Page/PageSpinner'
+import type { UseGetMockData } from '@common/utils/testUtils'
+import type { ActivityGraphDataType } from '../ActivityHistory/ActivityHistory'
+
+import i18n from './ActivityGraph.i18n'
+
+interface ActivityGraphProps {
+  entityIdentifier: string
+  dataFormat: GetActivitiesSummaryQueryParams['timeGroupType']
+  dateRange: DateRange
+  refetchActivities: (data: { queryParams: ListActivitiesQueryParams }) => Promise<void>
+  refetchConnectivitySummary: (data: { queryParams: GetConnectivitySummaryQueryParams }) => Promise<void>
+  setShowConnectivityChecks: (val: boolean) => void
+  setShowOtherActivity: (val: boolean) => void
+  mockData?: UseGetMockData<ResponsePageActivitySummary>
+}
+
+const ActivityGraph: React.FC<ActivityGraphProps> = props => {
+  const { accountId, projectIdentifier, orgIdentifier } = useParams()
+  const { data: activitySummary, refetch: refetchActivitySummary, loading } = useGetActivitiesSummary({
+    queryParams: {
+      identifier: props.entityIdentifier,
+      accountIdentifier: accountId,
+      projectIdentifier: projectIdentifier,
+      orgIdentifier: orgIdentifier,
+      startTime: moment(props.dateRange[0]).startOf('day').valueOf() as number,
+      endTime: moment(props.dateRange[1]).endOf('day').valueOf() + 1,
+      timeGroupType: props.dataFormat
+    },
+    lazy: true,
+    mock: props.mockData
+  })
+
+  const formatActivityForGraph = (): ActivityGraphDataType => {
+    const success: Array<Array<number | undefined>> = [],
+      failure: Array<Array<number | undefined>> = [],
+      heartBeat: Array<Array<number | undefined>> = []
+    activitySummary?.data?.content?.forEach(item => {
+      success.push([item.startTime, item.successfulActivitiesCount])
+      failure.push([item.startTime, item.failedActivitiesCount])
+      heartBeat.push([item.startTime, item.heartBeatFailuresCount])
+    })
+    return {
+      Success: success || [],
+      Failure: failure || [],
+      HeartBeatFailure: heartBeat || []
+    }
+  }
+
+  const timezone = new Date().getTimezoneOffset()
+  Highcharts.setOptions({
+    time: {
+      timezoneOffset: timezone
+    }
+  })
+  const getConfig = (activityData: ActivityGraphDataType): Highcharts.Options => {
+    return {
+      chart: {
+        type: 'column'
+      },
+      title: {
+        text: undefined
+      },
+      xAxis: {
+        type: 'datetime',
+
+        startOnTick: true,
+        endOnTick: true,
+        showLastLabel: true
+      },
+      yAxis: {
+        title: {
+          text: undefined
+        }
+      },
+      credits: {
+        enabled: false
+      },
+
+      legend: {
+        align: 'right',
+        x: -30,
+        verticalAlign: 'top',
+        y: -15,
+        floating: true
+      },
+      plotOptions: {
+        column: {
+          stacking: 'normal',
+          pointPlacement: 'on',
+          pointWidth: 10
+        },
+        series: {
+          cursor: 'pointer',
+          point: {
+            events: {
+              click: function (this) {
+                const activityName = this.series.userOptions.name
+                if (activityName === i18n.ConnectionSuccessful || activityName == i18n.ConnectionFailed) {
+                  props.setShowConnectivityChecks(false)
+                  props.setShowOtherActivity(true)
+                  props.refetchActivities({
+                    queryParams: {
+                      accountIdentifier: accountId,
+                      projectIdentifier: projectIdentifier,
+                      orgIdentifier: orgIdentifier,
+                      identifier: props.entityIdentifier,
+                      startTime: moment(this.x).startOf('day').valueOf(),
+                      endTime: moment(this.x).endOf('day').valueOf(),
+                      status: activityName === i18n.ConnectionSuccessful ? 'SUCCESS' : 'FAILED'
+                    }
+                  })
+                } else if (activityName === i18n.HeartbeatFailure) {
+                  props.setShowOtherActivity(false)
+                  props.setShowConnectivityChecks(true)
+                  props.refetchConnectivitySummary({
+                    queryParams: {
+                      accountIdentifier: accountId,
+                      projectIdentifier: projectIdentifier,
+                      orgIdentifier: orgIdentifier,
+                      identifier: props.entityIdentifier,
+                      startTime: moment(this.x).startOf('day').valueOf(),
+                      endTime: moment(this.x).endOf('day').valueOf()
+                    }
+                  })
+                }
+              }
+            }
+          }
+        },
+        scatter: {
+          marker: {
+            radius: 5,
+            states: {
+              hover: {
+                enabled: true,
+                lineColor: 'rgb(100,100,100)'
+              }
+            }
+          }
+        }
+      },
+      series: [
+        {
+          name: i18n.ConnectionSuccessful,
+          data: activityData.Success.map(val =>
+            Object.assign(
+              {},
+              {
+                x: val[0],
+                y: val[1]
+              }
+            )
+          ),
+          color: 'var(--green-500)'
+        } as SeriesColumnOptions,
+        {
+          name: i18n.ConnectionFailed,
+          data: activityData.Failure.map(val =>
+            Object.assign(
+              {},
+              {
+                x: val[0],
+                y: val[1]
+              }
+            )
+          ),
+          color: 'var(--red-500)'
+        } as SeriesColumnOptions,
+        {
+          type: 'spline',
+          name: i18n.HeartbeatFailure,
+          data: activityData.HeartBeatFailure,
+          color: Color.BLACK,
+          marker: {
+            symbol: 'circle',
+            backgroundColor: Color.WHITE,
+            radius: 5,
+            lineColor: Color.BLACK,
+            lineWidth: 1,
+            borderColor: Color.BLACK,
+            fillColor: Color.WHITE
+          }
+        }
+      ]
+    }
+  }
+
+  const chartConfig = useMemo(() => {
+    const activityData = formatActivityForGraph()
+    return getConfig(activityData)
+  }, [activitySummary])
+
+  useEffect(() => {
+    if (props.dateRange[0] && props.dateRange[1]) {
+      refetchActivitySummary()
+    }
+  }, [props.dateRange])
+
+  return (
+    <Container padding={{ bottom: 'large', top: 'small', left: 'small', right: 'small' }}>
+      {!loading ? <HighchartsReact highcharts={Highcharts} options={chartConfig} /> : <PageSpinner />}
+    </Container>
+  )
+}
+
+export default ActivityGraph

@@ -6,6 +6,9 @@ import { Link, useParams, useLocation } from 'react-router-dom'
 import { Page } from 'modules/10-common/exports'
 import { PageSpinner } from 'modules/10-common/components/Page/PageSpinner'
 import { useGetConnector, ConnectorResponse, useUpdateConnector } from 'services/cd-ng'
+
+import ActivityHistory from 'modules/dx/components/activityHistory/ActivityHistory/ActivityHistory'
+
 import ReferencedBy from './ReferencedBy/ReferencedBy'
 import ConfigureConnector from './ConfigureConnector'
 import i18n from './ConnectorDetailsPage.i18n'
@@ -88,6 +91,13 @@ const ConnectorDetailsPage: React.FC = () => {
         {activeCategory === 1 ? (
           !loading && data ? (
             <ReferencedBy accountId={accountId} entityIdentifier={data.data?.connector?.identifier} />
+          ) : (
+            <PageSpinner />
+          )
+        ) : null}
+        {activeCategory === 2 ? (
+          !loading && data ? (
+            <ActivityHistory entityIdentifier={data.data?.connector?.identifier || ''} />
           ) : (
             <PageSpinner />
           )

@@ -1,0 +1,10 @@
+.page {
+  min-height: calc(100vh - 128px);
+  min-width: 900px;
+}
+.dateRangePicker {
+  padding: var(--spacing-large);
+}
+.popoverClassname {
+  border-radius: 4px;
+}

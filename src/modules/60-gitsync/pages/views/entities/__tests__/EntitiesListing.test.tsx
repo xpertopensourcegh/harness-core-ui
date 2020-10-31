@@ -13,7 +13,7 @@ describe('Git Sync - EntitiesPreview', () => {
   test('render Git Sync EntitiesPreview wrapper', async () => {
     const { container } = render(
       <TestWrapper path="/account/:accountId/git-sync/entities" pathParams={{ accountId: 'dummy' }}>
-        <EntitiesListing backToSummary={noop} entityType={'pipelines'} selectedProduct={'CD'} />
+        <EntitiesListing backToSummary={noop} entityType="Pipelines" selectedProduct={'CD'} />
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()

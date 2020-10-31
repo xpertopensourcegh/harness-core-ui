@@ -1,0 +1,75 @@
+{
+  "status": "SUCCESS",
+  "data": {
+    "content": [
+      {
+        "_id": 1602959400000,
+        "startTime": 1602959400000,
+        "endTime": 1603045800000,
+        "heartBeatFailuresCount": 1,
+        "successfulActivitiesCount": 7,
+        "failedActivitiesCount": 9
+      },
+      {
+        "_id": 1603045800000,
+        "startTime": 1603045800000,
+        "endTime": 1603132200000,
+        "heartBeatFailuresCount": 6,
+        "successfulActivitiesCount": 8,
+        "failedActivitiesCount": 9
+      },
+      {
+        "_id": 1603132200000,
+        "startTime": 1603132200000,
+        "endTime": 1603218600000,
+        "heartBeatFailuresCount": 5,
+        "successfulActivitiesCount": 3,
+        "failedActivitiesCount": 3
+      },
+      {
+        "_id": 1603218600000,
+        "startTime": 1603218600000,
+        "endTime": 1603305000000,
+        "heartBeatFailuresCount": 2,
+        "successfulActivitiesCount": 1,
+        "failedActivitiesCount": 1
+      },
+      {
+        "_id": 1603305000000,
+        "startTime": 1603305000000,
+        "endTime": 1603391400000,
+        "heartBeatFailuresCount": 1,
+        "successfulActivitiesCount": 0,
+        "failedActivitiesCount": 1
+      },
+      {
+        "_id": 1603391400000,
+        "startTime": 1603391400000,
+        "endTime": 1603477800000,
+        "heartBeatFailuresCount": 0,
+        "successfulActivitiesCount": 4,
+        "failedActivitiesCount": 3
+      },
+      {
+        "_id": 1603477800000,
+        "startTime": 1603477800000,
+        "endTime": 1603564200000,
+        "heartBeatFailuresCount": 0,
+        "successfulActivitiesCount": 1,
+        "failedActivitiesCount": 1
+      }
+    ],
+    "pageable": "INSTANCE",
+    "last": true,
+    "totalElements": 7,
+    "totalPages": 1,
+    "first": true,
+    "size": 7,
+    "number": 0,
+    "sort": { "sorted": false, "unsorted": true, "empty": true },
+    "numberOfElements": 7,
+    "empty": false
+  },
+  "metaData": null,
+  "correlationId": "aa4e3027-339f-4da2-98ad-1fd390bfab71"
+}
