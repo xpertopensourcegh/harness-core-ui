@@ -5,7 +5,7 @@ import { Form } from 'formik'
 
 import * as Yup from 'yup'
 import { get } from 'lodash-es'
-import { FormMultiTypeConnectorField } from '@common/components/ConnectorReferenceField/FormMultiTypeConnectorField'
+import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import { StringUtils } from '@common/exports'
 
 import type { StageElementWrapper } from 'services/cd-ng'

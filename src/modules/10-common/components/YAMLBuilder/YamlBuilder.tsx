@@ -16,7 +16,7 @@ import type {
   CompletionItemInterface
 } from '@common/interfaces/YAMLBuilderProps'
 import SnippetSection from '@common/components/SnippetSection/SnippetSection'
-import { JSONSchemaService } from 'modules/dx/services'
+import { JSONSchemaService } from '@common/services'
 import { validateYAMLWithSchema } from '@common/utils/YamlUtils'
 import {
   getYAMLFromEditor,

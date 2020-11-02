@@ -20,18 +20,18 @@ import { K8SDirectInfrastructure, useGetConnector, ConnectorInfoDTO } from 'serv
 import {
   FormMultiTypeConnectorField,
   MultiTypeConnectorFieldProps
-} from '@common/components/ConnectorReferenceField/FormMultiTypeConnectorField'
+} from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import {
   getScopeFromDTO,
   getIdentifierFromValue,
   getScopeFromValue
 } from '@common/components/EntityReference/EntityReference'
-import { getIconByType } from 'modules/dx/exports'
+import { getIconByType } from '@connectors/exports'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import {
   ConnectorReferenceField,
   ConnectorReferenceFieldProps
-} from '@common/components/ConnectorReferenceField/ConnectorReferenceField'
+} from '@connectors/components/ConnectorReferenceField/ConnectorReferenceField'
 import { StepType } from '../../PipelineStepInterface'
 import i18n from './KubernetesInfraSpec.18n'
 import { PipelineStep } from '../../PipelineStep'

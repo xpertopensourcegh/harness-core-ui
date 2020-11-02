@@ -16,7 +16,7 @@ import cx from 'classnames'
 import { isEmpty } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import { ConfigureOptions, PipelineContext, StepViewType } from '@pipeline/exports'
-import { FormMultiTypeConnectorField } from '@common/components/ConnectorReferenceField/FormMultiTypeConnectorField'
+import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import {
   getIdentifierFromValue,
   getScopeFromDTO,

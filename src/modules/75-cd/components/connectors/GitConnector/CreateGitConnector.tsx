@@ -12,16 +12,16 @@ import {
   Text,
   Button
 } from '@wings-software/uikit'
-import ConnectorDetailsStep from 'modules/dx/components/connectors/CreateConnector/commonSteps/ConnectorDetailsStep'
+import ConnectorDetailsStep from '@connectors/components/CreateConnector/commonSteps/ConnectorDetailsStep'
 import type { ConnectorConfigDTO, NgPipeline } from 'services/cd-ng'
-import { Connectors } from 'modules/dx/constants'
+import { Connectors } from '@connectors/constants'
 import { StringUtils } from '@common/exports'
-import VerifyOutOfClusterDelegate from 'modules/dx/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
-import ConnectionModeStep from 'modules/dx/components/connectors/CreateConnector/GITConnector/ConnectionModeStep/ConnectionModeStep'
+import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
+import ConnectionModeStep from '@connectors/components/CreateConnector/GITConnector/ConnectionModeStep/ConnectionModeStep'
 
-import HttpCredendialStep from 'modules/dx/components/connectors/CreateConnector/GITConnector/HTTP/HttpCredendialStep'
+import HttpCredendialStep from '@connectors/components/CreateConnector/GITConnector/HTTP/HttpCredendialStep'
 import type { StageElementWrapper } from 'services/cd-ng'
-import i18n from 'modules/dx/components/connectors/CreateConnector/GITConnector/CreateGITConnector.i18n'
+import i18n from '@connectors/components/CreateConnector/GITConnector/CreateGITConnector.i18n'
 import customi18n from '../../ManifestSelection/ManifestWizardSteps/ManifestWizard.i18n'
 import css from './CreateGitConnector.module.scss'
 

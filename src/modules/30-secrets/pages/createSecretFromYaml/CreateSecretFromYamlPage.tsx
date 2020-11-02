@@ -12,7 +12,7 @@ import type { YamlBuilderHandlerBinding } from '@common/interfaces/YAMLBuilderPr
 import { usePostSecretViaYaml } from 'services/cd-ng'
 import { useToaster } from '@common/exports'
 import { routeSecretDetails } from 'navigation/accounts/routes'
-import { YAMLService } from '@dx/services'
+import { YAMLService } from '@common/services'
 import type { SnippetInterface } from '@common/interfaces/SnippetInterface'
 
 const CreateSecretFromYamlPage: React.FC = () => {

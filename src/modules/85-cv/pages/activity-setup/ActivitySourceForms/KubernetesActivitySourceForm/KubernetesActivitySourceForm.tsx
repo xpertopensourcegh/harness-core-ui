@@ -1,6 +1,6 @@
 import React from 'react'
 import { Formik, FormikForm } from '@wings-software/uikit'
-import KubCluster from 'modules/dx/pages/connectors/Forms/KubCluster'
+import KubCluster from '@connectors/pages/connectors/Forms/KubCluster'
 import type { ConnectorInfoDTO } from 'services/cd-ng'
 import css from './KubernetesActivitySourceForm.module.scss'
 

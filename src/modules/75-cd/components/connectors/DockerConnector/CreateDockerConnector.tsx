@@ -1,12 +1,12 @@
 import React from 'react'
 import * as Yup from 'yup'
 import { StepWizard, Layout, Button, Formik, FormInput, FormikForm as Form, StepProps } from '@wings-software/uikit'
-import ConnectorDetailsStep from 'modules/dx/components/connectors/CreateConnector/commonSteps/ConnectorDetailsStep'
+import ConnectorDetailsStep from '@connectors/components/CreateConnector/commonSteps/ConnectorDetailsStep'
 
 import type { ConnectorConfigDTO, ConnectorInfoDTO } from 'services/cd-ng'
-import VerifyOutOfClusterDelegate from 'modules/dx/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
-import { Connectors } from 'modules/dx/constants'
-import StepDockerAuthentication from 'modules/dx/components/connectors/CreateConnector/DockerConnector/StepAuth/StepDockerAuthentication'
+import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
+import { Connectors } from '@connectors/constants'
+import StepDockerAuthentication from '@connectors/components/CreateConnector/DockerConnector/StepAuth/StepDockerAuthentication'
 import i18n from './CreateDockerConnector.i18n'
 import css from './DockerConnector.module.scss'
 interface CreateDockerConnectorProps {

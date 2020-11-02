@@ -26,7 +26,7 @@ export const routeOrgResourcesConnectors: NestedRoute<{ orgIdentifier: string }>
   path: '/resources/org/:orgIdentifier/connectors',
   title: i18n.resourcesConnectors,
   url: ({ orgIdentifier }) => routeURL(routeOrgResourcesConnectors, `/resources/org/${orgIdentifier}/connectors`),
-  component: React.lazy(() => import('modules/dx/pages/connectors/ConnectorsPage')),
+  component: React.lazy(() => import('@connectors/pages/connectors/ConnectorsPage')),
   isDefault: true
 }
 
@@ -35,7 +35,7 @@ export const routeOrgResourcesConnectorDetails: NestedRoute<{ orgIdentifier: str
   title: i18n.resourcesConnectorDetails,
   url: ({ orgIdentifier }) =>
     routeURL(routeOrgResourcesConnectorDetails, `/resources/org/${orgIdentifier}/connectors/:connectorId`),
-  component: React.lazy(() => import('modules/dx/pages/connectors/ConnectorDetailsPage'))
+  component: React.lazy(() => import('@connectors/pages/connectors/ConnectorDetailsPage'))
 }
 
 export const routeOrgResourcesSecretsListing: NestedRoute<{ orgIdentifier: string }> = {
@@ -192,7 +192,7 @@ export const routeResourcesConnectors: NestedRoute = {
   path: '/resources/connectors',
   title: i18n.resourcesConnectors,
   url: () => routeURL(routeResourcesConnectors, '/resources/connectors'),
-  component: React.lazy(() => import('modules/dx/pages/connectors/ConnectorsPage')),
+  component: React.lazy(() => import('@connectors/pages/connectors/ConnectorsPage')),
   isDefault: true
 }
 
@@ -200,7 +200,7 @@ export const routeResourcesConnectorDetails: NestedRoute = {
   path: '/resources/connectors/:connectorId',
   title: i18n.resourcesConnectorDetails,
   url: () => routeURL(routeResourcesConnectorDetails, '/resources/connectors/:connectorId'),
-  component: React.lazy(() => import('modules/dx/pages/connectors/ConnectorDetailsPage'))
+  component: React.lazy(() => import('@connectors/pages/connectors/ConnectorDetailsPage'))
 }
 
 export const routeResourcesSecretsListing: NestedRoute = {
@@ -240,7 +240,7 @@ export const routeConnectorDetails: Route<{ connectorId?: string; type?: string 
   title: i18n.connectors,
   pageId: 'connector-details',
   url: ({ connectorId }) => routeURL(routeConnectorDetails, `/resources/connectors/${connectorId}`),
-  component: React.lazy(() => import('modules/dx/pages/connectors/ConnectorDetailsPage'))
+  component: React.lazy(() => import('@connectors/pages/connectors/ConnectorDetailsPage'))
 }
 
 export const routeCreateConnectorFromYaml: Route = {
@@ -250,7 +250,7 @@ export const routeCreateConnectorFromYaml: Route = {
   title: 'Create Connector From Yaml',
   pageId: 'create-connector-from-yaml',
   url: () => routeURL(routeCreateSecretFromYaml, '/create-connector-from-yaml'),
-  component: React.lazy(() => import('modules/dx/pages/createConnectorFromYaml/CreateConnectorFromYamlPage'))
+  component: React.lazy(() => import('@connectors/pages/createConnectorFromYaml/CreateConnectorFromYamlPage'))
 }
 
 export const routeSecretDetails: Route<{ secretId: string }> = {

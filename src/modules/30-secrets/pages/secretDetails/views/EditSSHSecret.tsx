@@ -31,7 +31,7 @@ import VerifyConnection from '@secrets/modals/CreateSSHCredModal/views/VerifyCon
 import useCreateUpdateSecretModal from '@secrets/modals/CreateSecretModal/useCreateUpdateSecretModal'
 import type { SecretRef } from '@secrets/components/SecretReference/SecretReference'
 import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
-import ConnectorStats from '@dx/pages/connectors/ConnectorStats'
+import ConnectorStats from '@common/components/ConnectorStats/ConnectorStats'
 
 import css from './EditSSHSecret.module.scss'
 

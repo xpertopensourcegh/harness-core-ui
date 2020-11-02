@@ -18,7 +18,7 @@ import { getStringForCredentialType, getStringForType } from '@secrets/utils/SSH
 
 import sshi18n from '@secrets/components/SSHAuthFormFields/SSHAuthFormFields.i18n'
 import VerifyConnection from '@secrets/modals/CreateSSHCredModal/views/VerifyConnection'
-import ConnectorStats from '@dx/pages/connectors/ConnectorStats'
+import ConnectorStats from '@common/components/ConnectorStats/ConnectorStats'
 import i18n from '../SecretDetails.i18n'
 import css from './EditSSHSecret.module.scss'
 

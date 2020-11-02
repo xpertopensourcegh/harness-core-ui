@@ -28,30 +28,17 @@
       "src/modules/10-common/modals/OrganizationModal/**",
       "src/modules/10-common/components/OrganizationCard/**"
     ],
-    "GitSync": ["src/modules/60-gitsync/**"],
-    "DX": [
-      "src/modules/dx/**",
+    "Connectors": [
+      "src/modules/50-connectors/**",
       "src/modules/10-common/components/YAMLBuilder/**",
-      "!src/modules/dx/components/connectors/CreateConnector/AppDynamicsConnector/**",
-      "!src/modules/dx/components/connectors/CreateConnector/SplunkConnector/**",
-      "!src/modules/dx/components/SecretReference/**",
-      "!src/modules/dx/components/CreateUpdateSecret/**",
-      "!src/modules/10-common/components/CreateInlineSecret/**",
-      "!src/modules/dx/modals/CreateSecretModal/**",
-      "!src/modules/dx/modals/CreateSSHCredModal/**",
-      "!src/modules/dx/pages/secrets/**",
-      "!src/modules/dx/pages/secretDetails/**",
-      "!src/modules/dx/pages/createSecretFromYaml/**",
-      "!src/modules/10-common/pages/organizations/**",
-      "!src/modules/10-common/pages/ProjectsPage/**",
-      "!src/modules/10-common/modals/ProjectModal/**",
-      "!src/modules/10-common/modals/OrganizationModal/**",
-      "!src/modules/10-common/components/OrganizationCard/**"
+      "!src/modules/50-connectors/components/CreateConnector/AppDynamicsConnector/**",
+      "!src/modules/50-connectors/components/CreateConnector/SplunkConnector/**"
     ],
+    "GitSync": ["src/modules/60-gitsync/**"],
     "CV": [
       "src/modules/85-cv/**",
-      "src/modules/dx/components/connectors/CreateConnector/AppDynamicsConnector/**",
-      "src/modules/dx/components/connectors/CreateConnector/SplunkConnector/**"
+      "src/modules/50-connectors/components/CreateConnector/AppDynamicsConnector/**",
+      "src/modules/50-connectors/components/CreateConnector/SplunkConnector/**"
     ],
     "CI": ["src/modules/80-ci/**"],
     "CF": ["src/modules/cf/**"],

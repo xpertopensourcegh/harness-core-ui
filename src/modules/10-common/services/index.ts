@@ -1,7 +1,10 @@
 import xhr from '@wings-software/xhr-async'
+import AppStorage from 'framework/utils/AppStorage'
+import * as JSONSchemaService from './JSONSchemaService'
+import * as YAMLService from './YAMLService'
+
 // TODO: Limit access to AppStorage by providing a better mechanism to get the token
 // AppStorage should not be exposed as it's a legacy
-import AppStorage from 'framework/utils/AppStorage'
 
 ///////////////// This section needs to move out //////////////////
 // interface CustomWindow extends Window {
@@ -27,3 +30,5 @@ xhr.before(({ headers }) => {
   // TODO Filter out `undefined` from POST/PUT requests
 })
 /////////////////////////////////////////////////////////////////
+
+export { JSONSchemaService, YAMLService }

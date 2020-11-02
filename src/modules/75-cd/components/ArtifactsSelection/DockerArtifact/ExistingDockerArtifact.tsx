@@ -4,7 +4,7 @@ import { Layout, Button, Formik, FormInput, FormikForm as Form } from '@wings-so
 import { useParams } from 'react-router-dom'
 import * as Yup from 'yup'
 import cx from 'classnames'
-import { FormMultiTypeConnectorField } from '@common/components/ConnectorReferenceField/FormMultiTypeConnectorField'
+import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import { StringUtils } from '@common/exports'
 import i18n from '../ArtifactsSelection.i18n'
 import css from './DockerArtifact.module.scss'

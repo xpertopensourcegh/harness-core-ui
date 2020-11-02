@@ -2,7 +2,7 @@ import type { IconName } from '@wings-software/uikit'
 import type { SnippetInterface } from '@common/interfaces/SnippetInterface'
 import type { Diagnostic } from 'vscode-languageserver-types'
 import { parse } from 'yaml'
-import { Connectors } from 'modules/dx/constants'
+import { Connectors } from '@connectors/constants'
 import type { DetailedReactHTMLElement } from 'react'
 import React from 'react'
 

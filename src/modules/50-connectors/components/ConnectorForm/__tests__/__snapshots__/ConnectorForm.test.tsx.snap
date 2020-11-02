@@ -1,0 +1,1456 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ConnectorForm render DOCKER form 1`] = `
+<div>
+   
+  <div
+    class="OverlaySpinner---overlaySpinner--3Bs3"
+  >
+    <form
+      class="FormikForm---main--1N87"
+    >
+      <div>
+        <div
+          class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+          style="width: 370px;"
+        >
+          <div
+            class="InputWithIdentifier---txtNameContainer--20iZ"
+          >
+            <div
+              class="Layout---horizontal--3rmQ StyledProps---main--1Wws InputWithIdentifier---txtIdContainer--2Ozd"
+            >
+              <p
+                class="StyledProps---font--2ipy StyledProps---main--1Wws"
+              >
+                ID
+                :
+              </p>
+              <span
+                class="InputWithIdentifier---idInput--w8_T"
+                contenteditable="false"
+                disabled=""
+              />
+            </div>
+            <div
+              class="bp3-form-group"
+              data-id="name-0"
+            >
+              <label
+                class="bp3-label"
+                for="name"
+              >
+                Name
+                 
+                <span
+                  class="bp3-text-muted"
+                />
+              </label>
+              <div
+                class="bp3-form-content"
+              >
+                <div
+                  class="bp3-input-group"
+                >
+                  <input
+                    autocomplete="off"
+                    class="bp3-input"
+                    name="name"
+                    type="text"
+                    value=""
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="bp3-form-group description"
+            data-id="description-1"
+          >
+            <label
+              class="bp3-label"
+              for="description"
+            >
+              Description
+               
+              <span
+                class="bp3-text-muted"
+              />
+            </label>
+            <div
+              class="bp3-form-content"
+            >
+              <textarea
+                autocomplete="off"
+                class="bp3-input bp3-fill"
+                name="description"
+              />
+            </div>
+          </div>
+          <div
+            class="bp3-form-group"
+            data-id="tags-2"
+          >
+            <label
+              class="bp3-label"
+              for="tags"
+            >
+              Tags
+               
+              <span
+                class="bp3-text-muted"
+              />
+            </label>
+            <div
+              class="bp3-form-content"
+            >
+              <div
+                class="bp3-popover-wrapper TagInput---tagInput--1eAz bp3-fill"
+              >
+                <div
+                  class="bp3-popover-target"
+                >
+                  <div
+                    class=""
+                  >
+                    <div
+                      class="bp3-input bp3-tag-input bp3-fill bp3-multi-select TagInput---input--2yQS"
+                    >
+                      <div
+                        class="bp3-tag-input-values"
+                      >
+                        <span
+                          class="bp3-tag bp3-minimal TagInput---tag--2ZBU TagInput---addTagButton--1ENX"
+                          data-tag-index="0"
+                        >
+                          <span
+                            class="bp3-text-overflow-ellipsis bp3-fill"
+                          >
+                            + tag
+                          </span>
+                          <button
+                            class="bp3-tag-remove"
+                            type="button"
+                          >
+                            <span
+                              class="bp3-icon bp3-icon-small-cross"
+                              icon="small-cross"
+                            >
+                              <svg
+                                data-icon="small-cross"
+                                height="16"
+                                viewBox="0 0 16 16"
+                                width="16"
+                              >
+                                <desc>
+                                  small-cross
+                                </desc>
+                                <path
+                                  d="M9.41 8l2.29-2.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L8 6.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42L6.59 8 4.3 10.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71L8 9.41l2.29 2.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L9.41 8z"
+                                  fill-rule="evenodd"
+                                />
+                              </svg>
+                            </span>
+                          </button>
+                        </span>
+                        <input
+                          class="bp3-input-ghost bp3-multi-select-tag-input-input"
+                          value=""
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="bp3-form-group"
+            data-id="dockerRegistryUrl-3"
+          >
+            <label
+              class="bp3-label"
+              for="dockerRegistryUrl"
+            >
+              Docker Registry URL
+               
+              <span
+                class="bp3-text-muted"
+              />
+            </label>
+            <div
+              class="bp3-form-content"
+            >
+              <div
+                class="bp3-input-group"
+              >
+                <input
+                  autocomplete="off"
+                  class="bp3-input"
+                  name="dockerRegistryUrl"
+                  type="text"
+                  value=""
+                />
+              </div>
+            </div>
+          </div>
+          <div
+            class="bp3-form-group"
+            data-id="username-4"
+          >
+            <label
+              class="bp3-label"
+              for="username"
+            >
+              Username (Optional)
+               
+              <span
+                class="bp3-text-muted"
+              />
+            </label>
+            <div
+              class="bp3-form-content"
+            >
+              <div
+                class="bp3-input-group"
+              >
+                <input
+                  autocomplete="off"
+                  class="bp3-input"
+                  name="username"
+                  type="text"
+                  value=""
+                />
+              </div>
+            </div>
+          </div>
+          <div
+            class="bp3-form-group"
+            data-id="passpasswordRef-5"
+          >
+            <div
+              class="bp3-form-content"
+            >
+              <div
+                class="secretFieldWrapper"
+              >
+                <div
+                  class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---flex--2Jz8 StyledProps---flex-distribution-space-between--1TyN StyledProps---margin-bottom-xsmall--N8Iq"
+                >
+                  <p
+                    class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv StyledProps---font-size-small--3cA6"
+                  >
+                    Password (Optional)
+                  </p>
+                  <span
+                    class="bp3-popover-wrapper"
+                  >
+                    <span
+                      class="bp3-popover-target"
+                    >
+                      <div
+                        class="secretPop"
+                      >
+                        <span
+                          class="bp3-icon StyledProps---main--1Wws"
+                          style="width: 24px; height: 12px;"
+                        >
+                          <svg
+                            height="24"
+                            width="24"
+                          >
+                            <g
+                              fill="none"
+                              stroke="#1C1C28"
+                              stroke-width="0.5"
+                            >
+                              <path
+                                d="M5.444 1A4.45 4.45 0 001 5.444c0 2.459 1.994 4.46 4.444 4.46 1.939 0 3.613-1.542 4.202-2.995a.393.393 0 01.23-.223.39.39 0 01.322.015l1.032.507.757-.72a.402.402 0 01.552-.007l.543.493.547-.556a.404.404 0 01.572-.005l.527.516.528-.53a.406.406 0 01.571-.002l.522.522.524-.523a.406.406 0 01.571 0l.522.522.523-.522a.414.414 0 01.315-.118.41.41 0 01.294.16l.277.369c.116-.153.234-.311.312-.396a.412.412 0 01.3-.134c.693 0 .927-.37.927-1.465 0-1.018-.636-1.381-1.23-1.381H9.638a.408.408 0 01-.35-.202A4.448 4.448 0 005.444 1h0z"
+                              />
+                              <path
+                                d="M3.828 3.99c.403 0 .769.163 1.034.428a1.458 1.458 0 010 2.067 1.458 1.458 0 01-2.067 0 1.458 1.458 0 010-2.067c.265-.265.63-.428 1.033-.428z"
+                              />
+                            </g>
+                          </svg>
+                        </span>
+                         
+                        <span
+                          class="bp3-icon bp3-icon-chevron-down StyledProps---main--1Wws"
+                          icon="chevron-down"
+                        >
+                          <svg
+                            data-icon="chevron-down"
+                            height="14"
+                            viewBox="0 0 16 16"
+                            width="14"
+                          >
+                            <desc>
+                              chevron-down
+                            </desc>
+                            <path
+                              d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                      </div>
+                    </span>
+                  </span>
+                </div>
+                <div
+                  class="bp3-form-group secretField"
+                  data-id="passpasswordRef-6"
+                >
+                  <div
+                    class="bp3-form-content"
+                  >
+                    <div
+                      class="bp3-input-group"
+                    >
+                      <input
+                        autocomplete="off"
+                        class="bp3-input"
+                        name="passpasswordRef"
+                        type="password"
+                        value=""
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---flex--2Jz8 StyledProps---flex-distribution-space-between--1TyN StyledProps---margin-top-xsmall--33hS"
+                  style="height: 14px;"
+                >
+                  <p
+                    class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-xsmall--1f9b StyledProps---font-weight-bold--22XZ StyledProps---color--8PuS StyledProps---color-grey800--2G2G"
+                  >
+                    VALUE WILL BE SAVED TO SECRET MANAGER
+                  </p>
+                  <button
+                    class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws viewBtn StyledProps---intent-primary--2Xgi StyledProps---font-small--1qQz"
+                    type="button"
+                  >
+                    <span
+                      class="bp3-button-text"
+                    >
+                      View
+                    </span>
+                    <span
+                      class="bp3-icon bp3-icon-chevron-down StyledProps---main--1Wws"
+                      icon="chevron-down"
+                    >
+                      <svg
+                        data-icon="chevron-down"
+                        height="12"
+                        viewBox="0 0 16 16"
+                        width="12"
+                      >
+                        <desc>
+                          chevron-down
+                        </desc>
+                        <path
+                          d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---padding-top-medium--29t2"
+        >
+          <button
+            class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+            type="submit"
+          >
+            <span
+              class="bp3-button-text"
+            >
+              SUBMIT
+            </span>
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+   
+</div>
+`;
+
+exports[`ConnectorForm render GIT form 1`] = `
+<div>
+   
+  <div
+    class="OverlaySpinner---overlaySpinner--3Bs3"
+  >
+    <form
+      class="FormikForm---main--1N87"
+    >
+      <div>
+        <div
+          class="formCustomCss"
+        >
+          <div
+            class="InputWithIdentifier---txtNameContainer--20iZ"
+          >
+            <div
+              class="Layout---horizontal--3rmQ StyledProps---main--1Wws InputWithIdentifier---txtIdContainer--2Ozd"
+            >
+              <p
+                class="StyledProps---font--2ipy StyledProps---main--1Wws"
+              >
+                ID
+                :
+              </p>
+              <span
+                class="InputWithIdentifier---idInput--w8_T"
+                contenteditable="false"
+                disabled=""
+              />
+            </div>
+            <div
+              class="bp3-form-group"
+              data-id="name-0"
+            >
+              <label
+                class="bp3-label"
+                for="name"
+              >
+                Name
+                 
+                <span
+                  class="bp3-text-muted"
+                />
+              </label>
+              <div
+                class="bp3-form-content"
+              >
+                <div
+                  class="bp3-input-group"
+                >
+                  <input
+                    autocomplete="off"
+                    class="bp3-input"
+                    name="name"
+                    type="text"
+                    value=""
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="bp3-form-group description"
+            data-id="description-1"
+          >
+            <label
+              class="bp3-label"
+              for="description"
+            >
+              Description
+               
+              <span
+                class="bp3-text-muted"
+              />
+            </label>
+            <div
+              class="bp3-form-content"
+            >
+              <textarea
+                autocomplete="off"
+                class="bp3-input bp3-fill"
+                name="description"
+              />
+            </div>
+          </div>
+          <div
+            class="bp3-form-group"
+            data-id="tags-2"
+          >
+            <label
+              class="bp3-label"
+              for="tags"
+            >
+              Tag
+               
+              <span
+                class="bp3-text-muted"
+              />
+            </label>
+            <div
+              class="bp3-form-content"
+            >
+              <div
+                class="bp3-popover-wrapper TagInput---tagInput--1eAz bp3-fill"
+              >
+                <div
+                  class="bp3-popover-target"
+                >
+                  <div
+                    class=""
+                  >
+                    <div
+                      class="bp3-input bp3-tag-input bp3-fill bp3-multi-select TagInput---input--2yQS"
+                    >
+                      <div
+                        class="bp3-tag-input-values"
+                      >
+                        <span
+                          class="bp3-tag bp3-minimal TagInput---tag--2ZBU TagInput---addTagButton--1ENX"
+                          data-tag-index="0"
+                        >
+                          <span
+                            class="bp3-text-overflow-ellipsis bp3-fill"
+                          >
+                            + tag
+                          </span>
+                          <button
+                            class="bp3-tag-remove"
+                            type="button"
+                          >
+                            <span
+                              class="bp3-icon bp3-icon-small-cross"
+                              icon="small-cross"
+                            >
+                              <svg
+                                data-icon="small-cross"
+                                height="16"
+                                viewBox="0 0 16 16"
+                                width="16"
+                              >
+                                <desc>
+                                  small-cross
+                                </desc>
+                                <path
+                                  d="M9.41 8l2.29-2.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L8 6.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42L6.59 8 4.3 10.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71L8 9.41l2.29 2.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L9.41 8z"
+                                  fill-rule="evenodd"
+                                />
+                              </svg>
+                            </span>
+                          </button>
+                        </span>
+                        <input
+                          class="bp3-input-ghost bp3-multi-select-tag-input-input"
+                          value=""
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="formFields"
+          >
+            <div
+              class="bp3-form-group radioGroup"
+              data-id="connectionType-3"
+            >
+              <label
+                class="bp3-label"
+                for="connectionType"
+              >
+                What would you like to configure?
+                 
+                <span
+                  class="bp3-text-muted"
+                />
+              </label>
+              <div
+                class="bp3-form-content"
+              >
+                <div>
+                  <label
+                    class="bp3-control bp3-radio Radio---radio--3bxG"
+                  >
+                    <input
+                      name="connectionType"
+                      type="radio"
+                      value="Account"
+                    />
+                    <span
+                      class="bp3-control-indicator"
+                    />
+                    GIT Account
+                  </label>
+                  <label
+                    class="bp3-control bp3-radio Radio---radio--3bxG"
+                  >
+                    <input
+                      name="connectionType"
+                      type="radio"
+                      value="Repo"
+                    />
+                    <span
+                      class="bp3-control-indicator"
+                    />
+                    GIT Repo
+                  </label>
+                </div>
+              </div>
+            </div>
+            <p
+              class="StyledProps---font--2ipy StyledProps---main--1Wws connectByLabel"
+            >
+              How would you like to connect?
+            </p>
+            <div
+              class="Layout---horizontal--3rmQ StyledProps---main--1Wws connectWrp"
+            >
+              <div
+                class="bp3-popover-wrapper selectConnectType Select---main--1QpB bp3-fill"
+              >
+                <div
+                  class="bp3-popover-target"
+                >
+                  <div
+                    class=""
+                  >
+                    <button
+                      class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+                      type="button"
+                    >
+                      <span
+                        class="bp3-button-text"
+                      >
+                        HTTP
+                      </span>
+                      <span
+                        class="bp3-icon bp3-icon-chevron-down StyledProps---main--1Wws"
+                        icon="chevron-down"
+                      >
+                        <svg
+                          data-icon="chevron-down"
+                          height="16"
+                          viewBox="0 0 16 16"
+                          width="16"
+                        >
+                          <desc>
+                            chevron-down
+                          </desc>
+                          <path
+                            d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                            fill-rule="evenodd"
+                          />
+                        </svg>
+                      </span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="bp3-form-group enterUrl"
+                data-id="url-4"
+              >
+                <div
+                  class="bp3-form-content"
+                >
+                  <div
+                    class="bp3-input-group"
+                  >
+                    <input
+                      autocomplete="off"
+                      class="bp3-input"
+                      name="url"
+                      type="text"
+                      value=""
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="Layout---vertical--3Szv Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+            >
+              <div
+                class="Layout---horizontal--3rmQ StyledProps---main--1Wws credWrapper"
+              >
+                <div
+                  class="label"
+                >
+                  <span
+                    class="bp3-icon bp3-icon-lock StyledProps---main--1Wws lockIcon"
+                    icon="lock"
+                  >
+                    <svg
+                      data-icon="lock"
+                      height="14"
+                      viewBox="0 0 16 16"
+                      width="14"
+                    >
+                      <desc>
+                        lock
+                      </desc>
+                      <path
+                        d="M13.96 7H12V3.95C12 1.77 10.21 0 8 0S4 1.77 4 3.95V7H1.96c-.55 0-.96.35-.96.9v6.91c0 .54.41 1.19.96 1.19h12c.55 0 1.04-.65 1.04-1.19V7.9c0-.55-.49-.9-1.04-.9zM6 7V3.95c0-1.09.9-1.97 2-1.97s2 .88 2 1.97V7H6z"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                  Authentication
+                </div>
+                <div
+                  class="bp3-popover-wrapper selectAuth Select---main--1QpB bp3-fill"
+                >
+                  <div
+                    class="bp3-popover-target"
+                  >
+                    <div
+                      class=""
+                    >
+                      <button
+                        class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+                        type="button"
+                      >
+                        <span
+                          class="bp3-button-text"
+                        >
+                          Username and Password
+                        </span>
+                        <span
+                          class="bp3-icon bp3-icon-chevron-down StyledProps---main--1Wws"
+                          icon="chevron-down"
+                        >
+                          <svg
+                            data-icon="chevron-down"
+                            height="16"
+                            viewBox="0 0 16 16"
+                            width="16"
+                          >
+                            <desc>
+                              chevron-down
+                            </desc>
+                            <path
+                              d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="bp3-form-group"
+                data-id="username-5"
+              >
+                <label
+                  class="bp3-label"
+                  for="username"
+                >
+                  Username 
+                   
+                  <span
+                    class="bp3-text-muted"
+                  />
+                </label>
+                <div
+                  class="bp3-form-content"
+                >
+                  <div
+                    class="bp3-input-group"
+                  >
+                    <input
+                      autocomplete="off"
+                      class="bp3-input"
+                      name="username"
+                      type="text"
+                      value=""
+                    />
+                  </div>
+                </div>
+              </div>
+              <div
+                class="bp3-form-group"
+                data-id="passpasswordRef-6"
+              >
+                <div
+                  class="bp3-form-content"
+                >
+                  <div
+                    class="secretFieldWrapper"
+                  >
+                    <div
+                      class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---flex--2Jz8 StyledProps---flex-distribution-space-between--1TyN StyledProps---margin-bottom-xsmall--N8Iq"
+                    >
+                      <p
+                        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv StyledProps---font-size-small--3cA6"
+                      >
+                        Password 
+                      </p>
+                      <span
+                        class="bp3-popover-wrapper"
+                      >
+                        <span
+                          class="bp3-popover-target"
+                        >
+                          <div
+                            class="secretPop"
+                          >
+                            <span
+                              class="bp3-icon StyledProps---main--1Wws"
+                              style="width: 24px; height: 12px;"
+                            >
+                              <svg
+                                height="24"
+                                width="24"
+                              >
+                                <g
+                                  fill="none"
+                                  stroke="#1C1C28"
+                                  stroke-width="0.5"
+                                >
+                                  <path
+                                    d="M5.444 1A4.45 4.45 0 001 5.444c0 2.459 1.994 4.46 4.444 4.46 1.939 0 3.613-1.542 4.202-2.995a.393.393 0 01.23-.223.39.39 0 01.322.015l1.032.507.757-.72a.402.402 0 01.552-.007l.543.493.547-.556a.404.404 0 01.572-.005l.527.516.528-.53a.406.406 0 01.571-.002l.522.522.524-.523a.406.406 0 01.571 0l.522.522.523-.522a.414.414 0 01.315-.118.41.41 0 01.294.16l.277.369c.116-.153.234-.311.312-.396a.412.412 0 01.3-.134c.693 0 .927-.37.927-1.465 0-1.018-.636-1.381-1.23-1.381H9.638a.408.408 0 01-.35-.202A4.448 4.448 0 005.444 1h0z"
+                                  />
+                                  <path
+                                    d="M3.828 3.99c.403 0 .769.163 1.034.428a1.458 1.458 0 010 2.067 1.458 1.458 0 01-2.067 0 1.458 1.458 0 010-2.067c.265-.265.63-.428 1.033-.428z"
+                                  />
+                                </g>
+                              </svg>
+                            </span>
+                             
+                            <span
+                              class="bp3-icon bp3-icon-chevron-down StyledProps---main--1Wws"
+                              icon="chevron-down"
+                            >
+                              <svg
+                                data-icon="chevron-down"
+                                height="14"
+                                viewBox="0 0 16 16"
+                                width="14"
+                              >
+                                <desc>
+                                  chevron-down
+                                </desc>
+                                <path
+                                  d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                                  fill-rule="evenodd"
+                                />
+                              </svg>
+                            </span>
+                          </div>
+                        </span>
+                      </span>
+                    </div>
+                    <div
+                      class="bp3-form-group secretField"
+                      data-id="passpasswordRef-7"
+                    >
+                      <div
+                        class="bp3-form-content"
+                      >
+                        <div
+                          class="bp3-input-group"
+                        >
+                          <input
+                            autocomplete="off"
+                            class="bp3-input"
+                            name="passpasswordRef"
+                            type="password"
+                            value=""
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---flex--2Jz8 StyledProps---flex-distribution-space-between--1TyN StyledProps---margin-top-xsmall--33hS"
+                      style="height: 14px;"
+                    >
+                      <p
+                        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-xsmall--1f9b StyledProps---font-weight-bold--22XZ StyledProps---color--8PuS StyledProps---color-grey800--2G2G"
+                      >
+                        VALUE WILL BE SAVED TO SECRET MANAGER
+                      </p>
+                      <button
+                        class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws viewBtn StyledProps---intent-primary--2Xgi StyledProps---font-small--1qQz"
+                        type="button"
+                      >
+                        <span
+                          class="bp3-button-text"
+                        >
+                          View
+                        </span>
+                        <span
+                          class="bp3-icon bp3-icon-chevron-down StyledProps---main--1Wws"
+                          icon="chevron-down"
+                        >
+                          <svg
+                            data-icon="chevron-down"
+                            height="12"
+                            viewBox="0 0 16 16"
+                            width="12"
+                          >
+                            <desc>
+                              chevron-down
+                            </desc>
+                            <path
+                              d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="bp3-form-group"
+                data-id="branchName-8"
+              >
+                <label
+                  class="bp3-label"
+                  for="branchName"
+                >
+                   Branch Name
+                   
+                  <span
+                    class="bp3-text-muted"
+                  />
+                </label>
+                <div
+                  class="bp3-form-content"
+                >
+                  <div
+                    class="bp3-input-group"
+                  >
+                    <input
+                      autocomplete="off"
+                      class="bp3-input"
+                      name="branchName"
+                      type="text"
+                      value=""
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---padding-top-medium--29t2"
+        >
+          <button
+            class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+            type="submit"
+          >
+            <span
+              class="bp3-button-text"
+            >
+              Submit
+            </span>
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+   
+</div>
+`;
+
+exports[`ConnectorForm render VAULT form 1`] = `
+<div>
+   
+  <div
+    class="OverlaySpinner---overlaySpinner--3Bs3"
+  >
+    <form
+      class="FormikForm---main--1N87"
+    >
+      <div>
+        <div
+          class="InputWithIdentifier---txtNameContainer--20iZ"
+        >
+          <div
+            class="Layout---horizontal--3rmQ StyledProps---main--1Wws InputWithIdentifier---txtIdContainer--2Ozd"
+          >
+            <p
+              class="StyledProps---font--2ipy StyledProps---main--1Wws"
+            >
+              ID
+              :
+            </p>
+            <span
+              class="InputWithIdentifier---idInput--w8_T"
+              contenteditable="false"
+              disabled=""
+            />
+          </div>
+          <div
+            class="bp3-form-group"
+            data-id="name-0"
+          >
+            <label
+              class="bp3-label"
+              for="name"
+            >
+              Secret Manager Name
+               
+              <span
+                class="bp3-text-muted"
+              />
+            </label>
+            <div
+              class="bp3-form-content"
+            >
+              <div
+                class="bp3-input-group"
+              >
+                <input
+                  autocomplete="off"
+                  class="bp3-input"
+                  name="name"
+                  type="text"
+                  value=""
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="bp3-form-group"
+          data-id="description-1"
+        >
+          <label
+            class="bp3-label"
+            for="description"
+          >
+            Description
+             
+            <span
+              class="bp3-text-muted"
+            />
+          </label>
+          <div
+            class="bp3-form-content"
+          >
+            <textarea
+              autocomplete="off"
+              class="bp3-input bp3-fill"
+              name="description"
+            />
+          </div>
+        </div>
+        <div
+          class="bp3-form-group"
+          data-id="tags-2"
+        >
+          <label
+            class="bp3-label"
+            for="tags"
+          >
+            Tags
+             
+            <span
+              class="bp3-text-muted"
+            />
+          </label>
+          <div
+            class="bp3-form-content"
+          >
+            <div
+              class="bp3-popover-wrapper TagInput---tagInput--1eAz bp3-fill"
+            >
+              <div
+                class="bp3-popover-target"
+              >
+                <div
+                  class=""
+                >
+                  <div
+                    class="bp3-input bp3-tag-input bp3-fill bp3-multi-select TagInput---input--2yQS"
+                  >
+                    <div
+                      class="bp3-tag-input-values"
+                    >
+                      <span
+                        class="bp3-tag bp3-minimal TagInput---tag--2ZBU TagInput---addTagButton--1ENX"
+                        data-tag-index="0"
+                      >
+                        <span
+                          class="bp3-text-overflow-ellipsis bp3-fill"
+                        >
+                          + tag
+                        </span>
+                        <button
+                          class="bp3-tag-remove"
+                          type="button"
+                        >
+                          <span
+                            class="bp3-icon bp3-icon-small-cross"
+                            icon="small-cross"
+                          >
+                            <svg
+                              data-icon="small-cross"
+                              height="16"
+                              viewBox="0 0 16 16"
+                              width="16"
+                            >
+                              <desc>
+                                small-cross
+                              </desc>
+                              <path
+                                d="M9.41 8l2.29-2.29c.19-.18.3-.43.3-.71a1.003 1.003 0 00-1.71-.71L8 6.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42L6.59 8 4.3 10.29c-.19.18-.3.43-.3.71a1.003 1.003 0 001.71.71L8 9.41l2.29 2.29c.18.19.43.3.71.3a1.003 1.003 0 00.71-1.71L9.41 8z"
+                                fill-rule="evenodd"
+                              />
+                            </svg>
+                          </span>
+                        </button>
+                      </span>
+                      <input
+                        class="bp3-input-ghost bp3-multi-select-tag-input-input"
+                        value=""
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="bp3-form-group"
+          data-id="vaultUrl-3"
+        >
+          <label
+            class="bp3-label"
+            for="vaultUrl"
+          >
+            Vault URL
+             
+            <span
+              class="bp3-text-muted"
+            />
+          </label>
+          <div
+            class="bp3-form-content"
+          >
+            <div
+              class="bp3-input-group"
+            >
+              <input
+                autocomplete="off"
+                class="bp3-input"
+                name="vaultUrl"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          class="bp3-form-group"
+          data-id="basePath-4"
+        >
+          <label
+            class="bp3-label"
+            for="basePath"
+          >
+            Base Secret Path (optional)
+             
+            <span
+              class="bp3-text-muted"
+            />
+          </label>
+          <div
+            class="bp3-form-content"
+          >
+            <div
+              class="bp3-input-group"
+            >
+              <input
+                autocomplete="off"
+                class="bp3-input"
+                name="basePath"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          class="bp3-form-group"
+          data-id="accessType-5"
+        >
+          <label
+            class="bp3-label"
+            for="accessType"
+          >
+            Authentication
+             
+            <span
+              class="bp3-text-muted"
+            />
+          </label>
+          <div
+            class="bp3-form-content"
+          >
+            <div>
+              <label
+                class="bp3-control bp3-radio bp3-inline Radio---radio--3bxG"
+              >
+                <input
+                  name="accessType"
+                  type="radio"
+                  value="APP_ROLE"
+                />
+                <span
+                  class="bp3-control-indicator"
+                />
+                App Role
+              </label>
+              <label
+                class="bp3-control bp3-radio bp3-inline Radio---radio--3bxG"
+              >
+                <input
+                  checked=""
+                  name="accessType"
+                  type="radio"
+                  value="TOKEN"
+                />
+                <span
+                  class="bp3-control-indicator"
+                />
+                Token
+              </label>
+            </div>
+          </div>
+        </div>
+        <div
+          class="bp3-form-group"
+          data-id="authToken-6"
+        >
+          <label
+            class="bp3-label"
+            for="authToken"
+          >
+            Token
+             
+            <span
+              class="bp3-text-muted"
+            />
+          </label>
+          <div
+            class="bp3-form-content"
+          >
+            <div
+              class="bp3-input-group"
+            >
+              <input
+                autocomplete="off"
+                class="bp3-input"
+                name="authToken"
+                placeholder="encrypted"
+                type="password"
+                value=""
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          class="bp3-form-group"
+          data-id="engineType-7"
+        >
+          <label
+            class="bp3-label"
+            for="engineType"
+          >
+            Secret Engine
+             
+            <span
+              class="bp3-text-muted"
+            />
+          </label>
+          <div
+            class="bp3-form-content"
+          >
+            <div>
+              <label
+                class="bp3-control bp3-radio bp3-inline Radio---radio--3bxG"
+              >
+                <input
+                  name="engineType"
+                  type="radio"
+                  value="fetch"
+                />
+                <span
+                  class="bp3-control-indicator"
+                />
+                Fetch Engines
+              </label>
+              <label
+                class="bp3-control bp3-radio bp3-inline Radio---radio--3bxG"
+              >
+                <input
+                  checked=""
+                  name="engineType"
+                  type="radio"
+                  value="manual"
+                />
+                <span
+                  class="bp3-control-indicator"
+                />
+                Manually Configure Engine
+              </label>
+            </div>
+          </div>
+        </div>
+        <div
+          class="Layout---horizontal--3rmQ Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+        >
+          <div
+            class="bp3-form-group"
+            data-id="secretEngineName-8"
+          >
+            <label
+              class="bp3-label"
+              for="secretEngineName"
+            >
+              Secret Engine Name
+               
+              <span
+                class="bp3-text-muted"
+              />
+            </label>
+            <div
+              class="bp3-form-content"
+            >
+              <div
+                class="bp3-input-group"
+              >
+                <input
+                  autocomplete="off"
+                  class="bp3-input"
+                  name="secretEngineName"
+                  type="text"
+                  value=""
+                />
+              </div>
+            </div>
+          </div>
+          <div
+            class="bp3-form-group"
+            data-id="secretEngineVersion-9"
+          >
+            <label
+              class="bp3-label"
+              for="secretEngineVersion"
+            >
+              Secret Engine Version
+               
+              <span
+                class="bp3-text-muted"
+              />
+            </label>
+            <div
+              class="bp3-form-content"
+            >
+              <div
+                class="bp3-input-group"
+              >
+                <input
+                  autocomplete="off"
+                  class="bp3-input"
+                  name="secretEngineVersion"
+                  type="text"
+                  value=""
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="bp3-form-group"
+          data-id="renewIntervalHours-10"
+        >
+          <label
+            class="bp3-label"
+            for="renewIntervalHours"
+          >
+            Renewal Interval (hours)
+             
+            <span
+              class="bp3-text-muted"
+            />
+          </label>
+          <div
+            class="bp3-form-content"
+          >
+            <div
+              class="bp3-input-group"
+            >
+              <input
+                autocomplete="off"
+                class="bp3-input"
+                name="renewIntervalHours"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          class="bp3-form-group"
+          data-id="readOnly-11"
+        >
+          <div
+            class="bp3-form-content"
+          >
+            <label
+              class="bp3-control bp3-checkbox StyledProps---font--2ipy Checkbox---checkbox--2kFy StyledProps---main--1Wws StyledProps---padding-left-xxlarge--1LeG StyledProps---inline--1f52"
+            >
+              <input
+                name="readOnly"
+                type="checkbox"
+              />
+              <span
+                class="bp3-control-indicator"
+              />
+              Read-only Vault
+            </label>
+          </div>
+        </div>
+        <div
+          class="bp3-form-group"
+          data-id="default-12"
+        >
+          <div
+            class="bp3-form-content"
+          >
+            <label
+              class="bp3-control bp3-checkbox StyledProps---font--2ipy Checkbox---checkbox--2kFy StyledProps---main--1Wws StyledProps---padding-left-xxlarge--1LeG StyledProps---inline--1f52"
+            >
+              <input
+                name="default"
+                type="checkbox"
+              />
+              <span
+                class="bp3-control-indicator"
+              />
+              Use as Default Secrets Manager
+            </label>
+          </div>
+        </div>
+        <button
+          class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+          type="submit"
+        >
+          <span
+            class="bp3-button-text"
+          >
+            Save
+          </span>
+        </button>
+      </div>
+    </form>
+  </div>
+   
+</div>
+`;

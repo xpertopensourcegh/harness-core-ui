@@ -22,7 +22,7 @@ import { routeCVDataSourcesProductPage, routeCVDataSources } from 'navigation/cv
 import { CVProviders, VerificationTypeToRouteVerificationType } from '@cv/constants'
 import { loggerFor, ModuleName, useRouteParams } from 'framework/exports'
 import { useIndexedDBHook, CVObjectStoreNames, CVIndexedDBPrimaryKeys } from '@cv/hooks/IndexedDBHook/IndexedDBHook'
-import { CreateConnectorWizard } from 'modules/dx/components/connectors/CreateConnectorWizard/CreateConnectorWizard'
+import { CreateConnectorWizard } from '@connectors/components/CreateConnectorWizard/CreateConnectorWizard'
 import { useDeleteConnector, useGetConnectorList, ConnectorConfigDTO, ConnectorInfoDTO } from 'services/cd-ng'
 import type { DSConfig } from 'services/cv'
 import i18n from './DataSources.i18n'
