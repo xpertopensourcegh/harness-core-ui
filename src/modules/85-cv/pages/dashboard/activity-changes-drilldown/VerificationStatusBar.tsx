@@ -99,14 +99,14 @@ export function VerificationStatusBarMocked() {
       remainingTimeMs={6000}
       cumulativeRisk={26}
       scoresBeforeChanges={[
-        { categoryName: 'PERFORMANCE', riskScore: 30 },
-        { categoryName: 'QUALITY', riskScore: 25 },
-        { categoryName: 'RESOURCES', riskScore: 76 }
+        { category: 'PERFORMANCE', risk: 30 },
+        { category: 'ERRORS', risk: 25 },
+        { category: 'RESOURCES', risk: 76 }
       ]}
       scoresAfterChanges={[
-        { categoryName: 'PERFORMANCE', riskScore: 30 },
-        { categoryName: 'QUALITY', riskScore: 25 },
-        { categoryName: 'RESOURCES', riskScore: 76 }
+        { category: 'PERFORMANCE', risk: 30 },
+        { category: 'ERRORS', risk: 25 },
+        { category: 'RESOURCES', risk: 76 }
       ]}
       dropDownContent={<Container height={200} background={Color.GREY_200} />}
     />

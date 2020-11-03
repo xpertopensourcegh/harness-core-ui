@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Text, Color, Intent } from '@wings-software/uikit'
+import { Container, Text, Color } from '@wings-software/uikit'
 import { PopoverInteractionKind, Position, Tooltip, Spinner } from '@blueprintjs/core'
 import moment from 'moment'
 import {
@@ -124,11 +124,7 @@ function ItemTooltip(props: {
                         {mapTooltipItemStatus(item.status, item.remainingTimeMs)}
                       </Text>
                     </Container>
-                    <CVProgressBar
-                      intent={mapProgressBarIntent(item.status)}
-                      stripes={false}
-                      value={item.progressPercentage}
-                    />
+                    <CVProgressBar status={item.status} value={item.progressPercentage} />
                     <Container className={css.tooltipDateGroup}>
                       <Text color={Color.GREY_300} font={{ size: 'xsmall' }} style={{ marginRight: 2 }}>
                         {i18n.verificationTooltip.startedOn}:
@@ -164,17 +160,5 @@ function mapTooltipItemStatus(status: VerificationResult['status'], remainingTim
       return i18n.verificationTooltip.statusFailed
     case 'VERIFICATION_PASSED':
       return i18n.verificationTooltip.statusPassed
-  }
-}
-
-function mapProgressBarIntent(status: VerificationResult['status']) {
-  switch (status) {
-    case 'ERROR':
-    case 'VERIFICATION_FAILED':
-      return Intent.DANGER
-    case 'VERIFICATION_PASSED':
-      return Intent.SUCCESS
-    default:
-      return Intent.NONE
   }
 }

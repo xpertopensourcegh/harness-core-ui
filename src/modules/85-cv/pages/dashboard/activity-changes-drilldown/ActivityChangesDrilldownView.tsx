@@ -26,7 +26,7 @@ export default function ActivityChangesDrilldownView() {
       />
       <Page.Body className={styles.main}>
         <Container className={styles.panel}>
-          <CVProgressBar value={0.7} intent="primary" />
+          <CVProgressBar value={0.7} />
           <VerificationStatusBarMocked />
         </Container>
         <Container className={styles.panel}>

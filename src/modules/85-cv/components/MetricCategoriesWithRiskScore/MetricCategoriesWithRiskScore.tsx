@@ -1,30 +1,38 @@
 import React from 'react'
 import { Container, Text } from '@wings-software/uikit'
 import classnames from 'classnames'
-import type { MetricPackDTO } from 'services/cv'
+import type { CategoryRisk } from 'services/cv'
 import { RiskScoreTile, RiskScoreTileProps } from '../RiskScoreTile/RiskScoreTile'
+import i18n from './MetricCategoriesWithRiskScore.i18n'
 import css from './MetricCategoriesWithRiskScore.module.scss'
 
 export interface CategoriesWithRiskScoreProps {
-  categoriesWithRiskScores: Array<{
-    categoryName: MetricPackDTO['category'] | 'QUALITY'
-    riskScore: number
-  }>
+  categoriesWithRiskScores: CategoryRisk[]
   className?: string
   infoContainerClassName?: string
   riskScoreTileProps?: Omit<RiskScoreTileProps, 'riskScore'>
 }
 
-export const MetricCategories = {
-  PERFORMANCE: 'PERFORMANCE',
-  QUALITY: 'QUALITY',
-  RESOURCES: 'RESOURCES'
+export const MetricCategoryNames = {
+  ERRORS: i18n.categoryRiskLabels.errors,
+  RESOURCES: i18n.categoryRiskLabels.resource,
+  PERFORMANCE: i18n.categoryRiskLabels.performance
 }
 
-const AbbreviatedMetricCategories = {
-  [MetricCategories.PERFORMANCE]: 'Perf',
-  [MetricCategories.QUALITY]: 'Qual',
-  [MetricCategories.RESOURCES]: 'Res'
+function getAbbreviatedMetricCategories(category: string): string {
+  switch (category) {
+    case MetricCategoryNames.ERRORS:
+    case i18n.categoryRiskLabels.errors:
+      return i18n.categoryRiskAbbreviatedLabels.errors
+    case MetricCategoryNames.RESOURCES:
+    case i18n.categoryRiskLabels.resource:
+      return i18n.categoryRiskAbbreviatedLabels.resource
+    case MetricCategoryNames.PERFORMANCE:
+    case i18n.categoryRiskLabels.performance:
+      return i18n.categoryRiskAbbreviatedLabels.performance
+    default:
+      return ' '
+  }
 }
 
 export function MetricCategoriesWithRiskScore(props: CategoriesWithRiskScoreProps): JSX.Element {
@@ -38,14 +46,11 @@ export function MetricCategoriesWithRiskScore(props: CategoriesWithRiskScoreProp
     <Container className={className}>
       <Container className={css.main}>
         {categoriesAndRiskScore.map(riskScoreMapping => {
-          const { categoryName, riskScore } = riskScoreMapping
-          if (!categoryName) {
-            return
-          }
-          return (
-            <Container key={categoryName} className={classnames(css.infoContainer, infoContainerClassName)}>
-              <Text font={{ size: 'small' }}>{AbbreviatedMetricCategories[categoryName]}</Text>
-              <RiskScoreTile riskScore={riskScore} isSmall {...riskScoreTileProps} />
+          const { category, risk = -1 } = riskScoreMapping
+          return !category ? undefined : (
+            <Container key={category} className={classnames(css.infoContainer, infoContainerClassName)}>
+              <Text font={{ size: 'small' }}>{getAbbreviatedMetricCategories(category)}</Text>
+              <RiskScoreTile riskScore={risk} isSmall {...riskScoreTileProps} />
             </Container>
           )
         })}

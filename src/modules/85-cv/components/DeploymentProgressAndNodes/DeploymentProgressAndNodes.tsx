@@ -54,16 +54,7 @@ export function DeploymentProgressAndNodes(props: DeploymentProgressAndNodesProp
 
   return (
     <Container className={cx(css.main, className)}>
-      <CVProgressBar
-        stripes={false}
-        value={(deploymentSummary?.progressPercentage ?? 0) / 100}
-        intent={
-          (deploymentSummary?.status === 'IN_PROGRESS' && 'primary') ||
-          ((deploymentSummary?.status as string) === 'SUCCESS' && 'success') ||
-          (deploymentSummary?.status === 'ERROR' && 'danger') ||
-          undefined
-        }
-      />
+      <CVProgressBar value={deploymentSummary?.progressPercentage ?? 0} status={deploymentSummary?.status} />
       {deploymentSummary && (
         <>
           <Text font={{ size: 'small' }} data-name={i18n.startedOnText}>

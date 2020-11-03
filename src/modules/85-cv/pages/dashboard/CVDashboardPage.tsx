@@ -4,7 +4,7 @@ import { Page } from '@common/exports'
 import i18n from './CVDashboardPage.i18n'
 import { CategoryRiskCardsWithApi } from './CategoryRiskCards/CategoryRiskCards'
 import ActivityVerifications from './ActivityVerifications/ActivityVerifications'
-import ActivityChanges from './ActivityChanges/ActivityChanges'
+import RecentActivityChanges from './RecentActivityChanges/RecentActivityChanges'
 import css from './CVDashboardPage.module.scss'
 
 export const CDDashboardPage: React.FC = () => {
@@ -15,7 +15,7 @@ export const CDDashboardPage: React.FC = () => {
         <Container className={css.main}>
           <CategoryRiskCardsWithApi />
           <ActivityVerifications />
-          <ActivityChanges />
+          <RecentActivityChanges />
         </Container>
       </Page.Body>
     </>

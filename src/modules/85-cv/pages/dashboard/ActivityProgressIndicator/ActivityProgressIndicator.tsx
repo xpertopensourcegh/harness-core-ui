@@ -3,12 +3,12 @@ import { Container, Text, Color } from '@wings-software/uikit'
 import cx from 'classnames'
 import type { FontProps } from '@wings-software/uikit/dist/styled-props/font/FontProps'
 import CVProgressBar from '@cv/components/CVProgressBar/CVProgressBar'
-import type { DeploymentSummary } from 'services/cv'
+import type { ActivityVerificationSummary } from 'services/cv'
 import i18n from './ActivityProgressIndicator.i18n'
 import css from './ActivityProgressIndicator.module.scss'
 
 interface ActivityProgressIndicatorProps {
-  data?: DeploymentSummary | null
+  data?: ActivityVerificationSummary | null
   className?: string
 }
 
@@ -25,7 +25,7 @@ export default function ActivityProgressIndicator(props: ActivityProgressIndicat
     remainingTimeMs,
     startTime,
     durationMs,
-    riskScore
+    aggregatedStatus
   } = props.data || {}
   const [progressValue, setProgressValue] = useState(0)
   const isValidProgressValue = props.data && progress !== undefined && progress !== null && progress > -1
@@ -42,7 +42,7 @@ export default function ActivityProgressIndicator(props: ActivityProgressIndicat
     return (
       <Container className={cx(props.className, css.notStarted)}>
         <Text font={XSMALL_FONT_SIZE}>{i18n.verificationNotStarted}</Text>
-        <CVProgressBar stripes={false} intent="none" />
+        <CVProgressBar />
       </Container>
     )
   }
@@ -66,7 +66,7 @@ export default function ActivityProgressIndicator(props: ActivityProgressIndicat
       <Text color={progress === 100 ? undefined : Color.BLACK} font={XSMALL_FONT_SIZE}>
         {progressDescription}
       </Text>
-      <CVProgressBar risk={riskScore} value={progressValue} stripes={false} />
+      <CVProgressBar status={aggregatedStatus} value={progressValue} />
       <Container flex>
         {startTime !== undefined && startTime !== null && (
           <Text color={Color.GREY_300} font={XSMALL_FONT_SIZE}>

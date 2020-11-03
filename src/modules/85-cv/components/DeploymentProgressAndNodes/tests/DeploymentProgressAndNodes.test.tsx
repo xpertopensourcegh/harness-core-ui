@@ -144,9 +144,7 @@ describe('Deployment progress and nodes unit tests', () => {
     await waitFor(() => getByText('CANARY'))
 
     expect(container.querySelector('[class*="bp3-intent-danger"]'))
-    expect(container.querySelector(`.${Classes.PROGRESS_METER}`)?.getAttribute('style')).toEqual(
-      'width: 57.99999999999999%;'
-    )
+    expect(container.querySelector(`.${Classes.PROGRESS_METER}`)?.getAttribute('style')).toEqual('width: 58%;')
     getByText('PRIMARY')
     getByText('CANARY')
 

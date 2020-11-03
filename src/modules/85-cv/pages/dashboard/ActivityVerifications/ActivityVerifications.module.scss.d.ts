@@ -2,6 +2,7 @@
 // this is an auto-generated file
 declare const styles: {
   readonly activityList: string
+  readonly noData: string
   readonly headerRow: string
   readonly dataColumn: string
   readonly dataRow: string
