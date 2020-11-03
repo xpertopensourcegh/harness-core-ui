@@ -18,7 +18,9 @@ exports[`<ExecutionLandingPage /> tests Toggle details works: With Details 1`] =
           <a
             href="/account/null/cd/pipelines/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/executions"
           >
-            Deployments
+            <span>
+              Deployments
+            </span>
           </a>
         </div>
         <div
@@ -35,7 +37,9 @@ exports[`<ExecutionLandingPage /> tests Toggle details works: With Details 1`] =
             <div
               class="pipelineId"
             >
-              (Execution ID: 09FtLo8NRjGiHXBm0YFUfQ)
+              <span>
+                (Build ID: 09FtLo8NRjGiHXBm0YFUfQ)
+              </span>
             </div>
           </div>
           <div
@@ -474,7 +478,9 @@ exports[`<ExecutionLandingPage /> tests Toggle details works: Without Details 1`
           <a
             href="/account/null/cd/pipelines/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/executions"
           >
-            Deployments
+            <span>
+              Deployments
+            </span>
           </a>
         </div>
         <div
@@ -491,7 +497,9 @@ exports[`<ExecutionLandingPage /> tests Toggle details works: Without Details 1`
             <div
               class="pipelineId"
             >
-              (Execution ID: 09FtLo8NRjGiHXBm0YFUfQ)
+              <span>
+                (Build ID: 09FtLo8NRjGiHXBm0YFUfQ)
+              </span>
             </div>
           </div>
           <div
@@ -887,7 +895,9 @@ exports[`<ExecutionLandingPage /> tests loading state - snapshot test 1`] = `
           <a
             href="/account/null/cd/pipelines/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/executions"
           >
-            Deployments
+            <span>
+              Deployments
+            </span>
           </a>
         </div>
         <div
@@ -902,7 +912,9 @@ exports[`<ExecutionLandingPage /> tests loading state - snapshot test 1`] = `
             <div
               class="pipelineId"
             >
-              (Execution ID: undefined)
+              <span>
+                (Build ID: )
+              </span>
             </div>
           </div>
           <div

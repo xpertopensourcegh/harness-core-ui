@@ -149,6 +149,18 @@ const config = {
       {
         test: /\.ttf$/,
         loader: 'file-loader'
+      },
+      {
+        test: /\.ya?ml$/,
+        type: 'json',
+        use: [
+          {
+            loader: 'yaml-loader',
+            options: {
+              asJson: true
+            }
+          }
+        ]
       }
     ]
   },

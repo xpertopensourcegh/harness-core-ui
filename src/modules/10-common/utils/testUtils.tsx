@@ -6,9 +6,10 @@ import { Router, Route, Switch, useLocation } from 'react-router-dom'
 import { ModalProvider } from '@wings-software/uikit'
 import qs from 'qs'
 
+import strings from 'strings/strings.en.yaml'
 import { AppStoreProvider, useAppStoreWriter } from 'framework/hooks/useAppStore'
 import type { AppStore } from 'framework/types/AppStore'
-import { AUTH_ROUTE_PATH_PREFIX } from 'framework/exports'
+import { AUTH_ROUTE_PATH_PREFIX, StringsContext } from 'framework/exports'
 
 export type UseGetMockData<TData, TError = undefined, TQueryParams = undefined, TPathParams = undefined> = Required<
   UseGetProps<TData, TError, TQueryParams, TPathParams>
@@ -67,22 +68,24 @@ export const TestWrapper: React.FC<TestWrapperProps> = props => {
 
   return (
     <AppStoreProvider>
-      <AppStoreInitializer defaultAppStoreValues={defaultAppStoreValues}>
-        <Router history={history}>
-          <ModalProvider>
-            <RestfulProvider base="/">
-              <Switch>
-                <Route exact path={path}>
-                  {props.children}
-                </Route>
-                <Route>
-                  <NotFound />
-                </Route>
-              </Switch>
-            </RestfulProvider>
-          </ModalProvider>
-        </Router>
-      </AppStoreInitializer>
+      <StringsContext.Provider value={strings}>
+        <AppStoreInitializer defaultAppStoreValues={defaultAppStoreValues}>
+          <Router history={history}>
+            <ModalProvider>
+              <RestfulProvider base="/">
+                <Switch>
+                  <Route exact path={path}>
+                    {props.children}
+                  </Route>
+                  <Route>
+                    <NotFound />
+                  </Route>
+                </Switch>
+              </RestfulProvider>
+            </ModalProvider>
+          </Router>
+        </AppStoreInitializer>
+      </StringsContext.Provider>
     </AppStoreProvider>
   )
 }

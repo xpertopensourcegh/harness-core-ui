@@ -8,14 +8,21 @@ import { LayoutManager } from 'framework/layout/LayoutManager'
 import { routeRegistry } from 'framework/registry'
 import SessionToken from 'framework/utils/SessionToken'
 import { routePath } from 'framework/utils/framework-utils'
+import languageLoader from 'strings/languageLoader'
+import type { LangLocale } from 'strings/languageLoader'
 import { RouteMounter } from '../route/RouteMounter'
 import { AppStoreProvider } from '../hooks/useAppStore'
+import { StringsContext } from '../strings/String'
 import '@common/services'
 import './App.scss'
 
 FocusStyleManager.onlyShowFocusOnTabs()
 
-const App: React.FC = () => {
+interface AppProps {
+  strings: Record<string, any>
+}
+
+function App(props: AppProps): React.ReactElement {
   const token = SessionToken.getToken()
   const [activeRoute, setActiveRoute] = useState<Route>()
   const getRequestOptions = React.useCallback((): Partial<RequestInit> => {
@@ -37,20 +44,22 @@ const App: React.FC = () => {
 
   return (
     <AppStoreProvider>
-      <RestfulProvider base="/" requestOptions={getRequestOptions}>
-        <HashRouter>
-          <LayoutManager route={activeRoute}>
-            <Switch>
-              <ReactRoute exact path="/" component={RedirectRoot} />
-              {sortedRoutes.map(route => (
-                <ReactRoute path={routePath(route)} key={route.path}>
-                  <RouteMounter route={route} onEnter={setActiveRoute} />
-                </ReactRoute>
-              ))}
-            </Switch>
-          </LayoutManager>
-        </HashRouter>
-      </RestfulProvider>
+      <StringsContext.Provider value={props.strings}>
+        <RestfulProvider base="/" requestOptions={getRequestOptions}>
+          <HashRouter>
+            <LayoutManager route={activeRoute}>
+              <Switch>
+                <ReactRoute exact path="/" component={RedirectRoot} />
+                {sortedRoutes.map(route => (
+                  <ReactRoute path={routePath(route)} key={route.path}>
+                    <RouteMounter route={route} onEnter={setActiveRoute} />
+                  </ReactRoute>
+                ))}
+              </Switch>
+            </LayoutManager>
+          </HashRouter>
+        </RestfulProvider>
+      </StringsContext.Provider>
     </AppStoreProvider>
   )
 }
@@ -65,4 +74,10 @@ const RedirectRoot: React.FC = () => {
   return <Redirect exact from="/" to={`/account/${accountId}/dashboard`} />
 }
 
-ReactDOM.render(<App />, document.getElementById('react-root'))
+;(async () => {
+  const lang: LangLocale = 'en'
+
+  const strings = await languageLoader(lang)
+
+  ReactDOM.render(<App strings={strings} />, document.getElementById('react-root'))
+})()

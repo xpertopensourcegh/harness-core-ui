@@ -9,6 +9,8 @@ import { useGetPipelineExecutionDetail } from 'services/cd-ng'
 import { Duration } from '@common/components/Duration/Duration'
 import type { ExecutionStatus } from '@common/exports'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
+import { String } from 'framework/exports'
+
 import { ExecutionStatusLabel } from '../../../components/ExecutionStatusLabel/ExecutionStatusLabel'
 import ExecutionContext from '../ExecutionContext/ExecutionContext'
 
@@ -24,7 +26,6 @@ import ExecutionActions from './ExecutionActions/ExecutionActions'
 import ExecutionMetadata from './ExecutionMetadata/ExecutionMetadata'
 import ExecutionTabs from './ExecutionTabs/ExecutionTabs'
 import RightBar from './RightBar/RightBar'
-import i18n from './ExecutionLandingPage.i18n'
 
 import css from './ExecutionLandingPage.module.scss'
 
@@ -116,13 +117,19 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<{}>)
           <header className={cx(css.header, { [css.showDetails]: showDetail })}>
             <div className={css.breadcrumbs}>
               <Link to={routePipelineDeploymentList.url({ orgIdentifier, projectIdentifier, pipelineIdentifier })}>
-                {i18n.deployments}
+                <String stringID="execution.breadcrumbTitle" />
               </Link>
             </div>
             <div className={css.headerTopRow}>
               <div className={css.titleContainer}>
                 <div className={css.title}>{pipelineExecution.pipelineName}</div>
-                <div className={css.pipelineId}>{i18n.executionId(pipelineExecution.planExecutionId)}</div>
+                <div className={css.pipelineId}>
+                  <String
+                    stringID="execution.pipelineIdentifierText"
+                    namespace="pipeline-execution-ci"
+                    vars={pipelineExecution}
+                  />
+                </div>
               </div>
               <div className={css.statusBar}>
                 {pipelineExecution.executionStatus && (

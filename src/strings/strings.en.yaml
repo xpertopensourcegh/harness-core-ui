@@ -1,0 +1,10 @@
+---
+global:
+  harness: Harness # Name of the company
+  execution:
+    breadcrumbTitle: Deployments
+    pipelineIdentifierText: '(Execution ID: {{planExecutionId}})' # Text for Pipeline Identifier
+pipeline-execution-ci:
+  execution:
+    pipelineIdentifierText: '(Build ID: {{planExecutionId}})' # Text for Pipeline Identifier
+pipeline-execution-cd: {}
