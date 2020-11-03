@@ -6,6 +6,6 @@ declare const styles: {
   readonly started: string
   readonly cardTags: string
   readonly wrap: string
-  readonly overflow: string
+  readonly projectInfo: string
 }
 export default styles

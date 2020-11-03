@@ -4,6 +4,7 @@ import { Color, Layout, Icon, Text } from '@wings-software/uikit'
 import { routeCDDashboard } from 'navigation/cd/routes'
 import { routeCVMainDashBoardPage } from 'navigation/cv/routes'
 import { Project, usePutProject } from 'services/cd-ng'
+import { ModuleName } from 'framework/exports'
 import i18n from './ModuleRenderer.i18n'
 import css from './ModuleRenderer.module.scss'
 
@@ -39,7 +40,7 @@ const DefaultRenderer: React.FC<DefaultProps> = props => {
           orgIdentifier: data.orgIdentifier
         }
       })
-      if (module === 'CD') {
+      if (module === ModuleName.CD) {
         history.push(
           routeCDDashboard.url({
             orgIdentifier: data.orgIdentifier as string,
@@ -47,7 +48,7 @@ const DefaultRenderer: React.FC<DefaultProps> = props => {
           })
         )
       }
-      if (module === 'CV') {
+      if (module === ModuleName.CV) {
         history.push(
           routeCVMainDashBoardPage.url({
             orgIdentifier: data.orgIdentifier as string,
@@ -72,30 +73,55 @@ const DefaultRenderer: React.FC<DefaultProps> = props => {
       </Text>
       {isPreview ? (
         <Layout.Horizontal spacing="small">
-          <Icon name="cd-hover" size={20} />
-          <Icon name="nav-cv-hover" size={20} />
-          <Icon name="ce-hover" size={20} />
+          <Icon name="cd-main" size={20} />
+          <Icon name="cv-main" size={20} />
+          <Icon name="ce-main" size={20} />
+          <Icon name="cf-main" size={20} />
+          <Icon name="ci-main" size={20} />
         </Layout.Horizontal>
       ) : (
         <Layout.Horizontal spacing="small">
           <Icon
-            name="cd-hover"
+            name="cd-main"
             size={20}
             onClick={() => {
-              onSelect('CD')
+              onSelect(ModuleName.CD)
             }}
             className={css.pointer}
           />
 
           <Icon
-            name="nav-cv-hover"
+            name="cv-main"
             size={20}
             onClick={() => {
-              onSelect('CV')
+              onSelect(ModuleName.CV)
             }}
             className={css.pointer}
           />
-          <Icon name="ce-hover" size={20} />
+          <Icon
+            name="ce-main"
+            size={20}
+            onClick={() => {
+              onSelect(ModuleName.CE)
+            }}
+            className={css.pointer}
+          />
+          <Icon
+            name="cf-main"
+            size={20}
+            onClick={() => {
+              onSelect(ModuleName.CF)
+            }}
+            className={css.pointer}
+          />
+          <Icon
+            name="ci-main"
+            size={20}
+            onClick={() => {
+              onSelect(ModuleName.CI)
+            }}
+            className={css.pointer}
+          />
         </Layout.Horizontal>
       )}
     </Layout.Vertical>

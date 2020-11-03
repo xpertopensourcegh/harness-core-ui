@@ -80,7 +80,7 @@ const ContextMenu: React.FC<ContextMenuProps> = props => {
         <Menu.Item
           text={
             <Layout.Horizontal spacing="xsmall">
-              <Icon name="nav-cv-hover" />
+              <Icon name="cv-main" />
               <Text color={Color.WHITE}>{i18n.gotoCV}</Text>
             </Layout.Horizontal>
           }

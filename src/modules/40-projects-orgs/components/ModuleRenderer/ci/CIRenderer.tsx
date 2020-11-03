@@ -1,16 +1,16 @@
 import React from 'react'
 import { Text, Color, Container, Layout, Icon, SparkChart } from '@wings-software/uikit'
 import { useHistory } from 'react-router-dom'
-import { routeCDDashboard } from 'navigation/cd/routes'
+import { routeCIDashboard } from 'navigation/ci/routes'
 import type { Project } from 'services/cd-ng'
-import i18n from './CDRenderer.i18n'
+import i18n from './CIRenderer.i18n'
 import css from '../ModuleRenderer.module.scss'
 
-interface CDRendererProps {
+interface CIRendererProps {
   data: Project
   isPreview?: boolean
 }
-const CDRenderer: React.FC<CDRendererProps> = ({ data, isPreview }) => {
+const CIRenderer: React.FC<CIRendererProps> = ({ data, isPreview }) => {
   const history = useHistory()
   return (
     <Container
@@ -20,7 +20,7 @@ const CDRenderer: React.FC<CDRendererProps> = ({ data, isPreview }) => {
       onClick={() => {
         !isPreview
           ? history.push(
-              routeCDDashboard.url({
+              routeCIDashboard.url({
                 orgIdentifier: data.orgIdentifier,
                 projectIdentifier: data.identifier
               })
@@ -30,7 +30,7 @@ const CDRenderer: React.FC<CDRendererProps> = ({ data, isPreview }) => {
     >
       <Layout.Horizontal>
         <Container width="30%" border={{ right: true, color: Color.GREY_250 }} flex={{ align: 'center-center' }}>
-          <Icon name="cd-main" size={35} />
+          <Icon name="ci-main" size={30} />
         </Container>
         <Container width="70%" flex={{ align: 'center-center' }}>
           <Layout.Vertical flex={{ align: 'center-center' }}>
@@ -50,4 +50,4 @@ const CDRenderer: React.FC<CDRendererProps> = ({ data, isPreview }) => {
   )
 }
 
-export default CDRenderer
+export default CIRenderer

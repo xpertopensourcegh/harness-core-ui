@@ -7,9 +7,9 @@ export const Deployments: SidebarEntry = {
   sidebarId: SidebarIdentifier.CONTINUOUS_DEPLOYMENTS,
   title: i18n.cd,
   icon: {
-    normal: 'nav-cd',
-    hover: 'nav-cd-hover',
-    selected: 'nav-cd-selected'
+    normal: 'cd-main',
+    hover: 'cd-main',
+    selected: 'cd-main'
   },
   url: routeCDHome.url,
   sidebarMenu: MenuCD

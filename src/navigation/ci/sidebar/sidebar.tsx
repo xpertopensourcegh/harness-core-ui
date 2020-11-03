@@ -7,9 +7,9 @@ export const CIHome: SidebarEntry = {
   sidebarId: SidebarIdentifier.CONTINUOUS_INTEGRATION,
   title: i18n.ci,
   icon: {
-    normal: 'placeholder',
-    hover: 'placeholder-hover',
-    selected: 'placeholder-selected'
+    normal: 'ci-main',
+    hover: 'ci-main',
+    selected: 'ci-main'
   },
   url: routeCIHome.url,
   sidebarMenu: MenuCI

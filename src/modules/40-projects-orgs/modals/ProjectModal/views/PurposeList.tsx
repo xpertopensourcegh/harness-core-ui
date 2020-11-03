@@ -33,7 +33,7 @@ interface ModuleProps {
 const options: PurposeType[] = [
   {
     title: i18n.newProjectWizard.purposeList.cd,
-    icon: 'nav-cd-hover',
+    icon: 'cd-main',
     Description: i18n.newProjectWizard.purposeList.cdDescription,
     start: i18n.newProjectWizard.purposeList.startcd,
     text: i18n.newProjectWizard.purposeList.textcd,
@@ -42,7 +42,7 @@ const options: PurposeType[] = [
   },
   {
     title: i18n.newProjectWizard.purposeList.cv,
-    icon: 'nav-cv-hover',
+    icon: 'cv-main',
     Description: i18n.newProjectWizard.purposeList.cvDescription,
     start: i18n.newProjectWizard.purposeList.startcv,
     text: i18n.newProjectWizard.purposeList.textcv,
@@ -51,7 +51,7 @@ const options: PurposeType[] = [
   },
   {
     title: i18n.newProjectWizard.purposeList.ci,
-    icon: 'unknown-vehicle',
+    icon: 'ci-main',
     Description: i18n.newProjectWizard.purposeList.cdDescription,
     start: i18n.newProjectWizard.purposeList.startci,
     text: i18n.newProjectWizard.purposeList.textci,
@@ -60,7 +60,7 @@ const options: PurposeType[] = [
   },
   {
     title: i18n.newProjectWizard.purposeList.ce,
-    icon: 'ce-main-colored',
+    icon: 'ce-main',
     Description: i18n.newProjectWizard.purposeList.cdDescription,
     start: i18n.newProjectWizard.purposeList.startce,
     text: i18n.newProjectWizard.purposeList.textce,
@@ -69,7 +69,7 @@ const options: PurposeType[] = [
   },
   {
     title: i18n.newProjectWizard.purposeList.cf,
-    icon: 'unknown-vehicle',
+    icon: 'cf-main',
     Description: i18n.newProjectWizard.purposeList.cdDescription,
     start: i18n.newProjectWizard.purposeList.startcf,
     text: i18n.newProjectWizard.purposeList.textcf,

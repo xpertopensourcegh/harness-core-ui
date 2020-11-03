@@ -5,3 +5,20 @@
 .pointer {
   cursor: pointer;
 }
+
+.moduleContainer {
+  &:hover {
+    cursor: pointer;
+    border-bottom-left-radius: inherit !important;
+    border-bottom-right-radius: inherit !important;
+    background: var(--grey-100) !important;
+  }
+}
+
+.activityChart {
+  max-width: 60px;
+  display: block;
+  :global(.progress-bar) {
+    height: var(--spacing-medium) !important;
+  }
+}

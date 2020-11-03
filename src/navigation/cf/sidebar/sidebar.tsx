@@ -7,9 +7,9 @@ export const CFHome: SidebarEntry = {
   sidebarId: SidebarIdentifier.CONTINUOUS_FEATURES,
   title: i18n.cf,
   icon: {
-    normal: 'nav-cd',
-    hover: 'nav-cd-hover',
-    selected: 'nav-cd-selected'
+    normal: 'cf-main',
+    hover: 'cf-main',
+    selected: 'cf-main'
   },
   url: routeCFHome.url,
   sidebarMenu: MenuCF

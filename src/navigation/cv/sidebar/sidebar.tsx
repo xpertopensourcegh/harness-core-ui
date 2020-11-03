@@ -7,9 +7,9 @@ export const CVDashboard: SidebarEntry = {
   sidebarId: SidebarIdentifier.CONTINUOUS_VERIFICATION,
   title: i18n.title,
   icon: {
-    normal: 'nav-cv',
-    hover: 'nav-cv-hover',
-    selected: 'nav-cv-selected'
+    normal: 'cv-main',
+    hover: 'cv-main',
+    selected: 'cv-main'
   },
   url: routeCVHome.url,
   sidebarMenu: MenuCV

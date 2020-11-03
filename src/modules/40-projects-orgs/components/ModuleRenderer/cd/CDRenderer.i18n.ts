@@ -1,5 +1,5 @@
 export default {
   alerts: 'Alerts',
-  deployments: 'Deployments',
-  placeholder: '1'
+  deployments: 'Deployments in last 7 days',
+  placeholder: '23'
 }

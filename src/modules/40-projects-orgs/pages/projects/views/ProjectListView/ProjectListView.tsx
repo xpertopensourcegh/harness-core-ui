@@ -72,7 +72,7 @@ const RenderColumnModules: Renderer<CellProps<Project>> = ({ row }) => {
   return (
     <Layout.Horizontal spacing="medium">
       {data.modules?.includes('CD') ? <Icon name="cd-hover" size={20}></Icon> : null}
-      {data.modules?.includes('CV') ? <Icon name="nav-cv-hover" size={20}></Icon> : null}
+      {data.modules?.includes('CV') ? <Icon name="cv-main" size={20}></Icon> : null}
     </Layout.Horizontal>
   )
 }

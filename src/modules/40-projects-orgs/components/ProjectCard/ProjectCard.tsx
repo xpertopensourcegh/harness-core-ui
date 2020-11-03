@@ -8,6 +8,7 @@ import { Project, useDeleteProject } from 'services/cd-ng'
 import { useAppStoreReader } from 'framework/exports'
 import DefaultRenderer from '@projects-orgs/components/ModuleRenderer/DefaultRenderer'
 import CVRenderer from '@projects-orgs/components/ModuleRenderer/cv/CVRenderer'
+import CIRenderer from '@projects-orgs/components/ModuleRenderer/ci/CIRenderer'
 import CDRenderer from '@projects-orgs/components/ModuleRenderer/cd/CDRenderer'
 import { useToaster } from '@common/components/Toaster/useToaster'
 import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmationDialog'
@@ -65,7 +66,7 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
   })
   return (
     <Card className={cx(css.projectCard, props.className)} onClick={onClick ? onClick : undefined}>
-      <Container padding={{ left: 'xlarge', right: 'xlarge', bottom: 'large' }} className={css.overflow}>
+      <Container padding="xlarge" className={css.projectInfo}>
         {!isPreview ? (
           <CardBody.Menu
             menuContent={
@@ -84,11 +85,11 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
         ) : null}
         <div className={css.colorBar} style={{ backgroundColor: data.color }}></div>
         {data.name ? (
-          <Text font="medium" color={Color.BLACK}>
+          <Text font="medium" lineClamp={1} color={Color.BLACK}>
             {data.name}
           </Text>
         ) : isPreview ? (
-          <Text font="medium" color={Color.BLACK}>
+          <Text font="medium" lineClamp={1} color={Color.BLACK}>
             {i18n.projectName}
           </Text>
         ) : null}
@@ -96,7 +97,7 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
           {organisationsMap.get(data.orgIdentifier || /* istanbul ignore next */ '')?.name}
         </Text>
         {data.description ? (
-          <Text font="small" lineClamp={3} padding={{ top: 'medium' }}>
+          <Text font="small" lineClamp={2} padding={{ top: 'medium' }}>
             {data.description}
           </Text>
         ) : null}
@@ -120,10 +121,10 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
           </Layout.Vertical>
         </Layout.Horizontal>
       </Container>
-
       {data.modules?.length ? null : <DefaultRenderer data={data} isPreview={isPreview} />}
       {data.modules?.includes(ModuleName.CD) ? <CDRenderer data={data} isPreview={isPreview} /> : null}
       {data.modules?.includes(ModuleName.CV) ? <CVRenderer data={data} isPreview={isPreview} /> : null}
+      {data.modules?.includes(ModuleName.CI) ? <CIRenderer data={data} isPreview={isPreview} /> : null}
     </Card>
   )
 }

@@ -1,9 +1,10 @@
 import React from 'react'
-import { Text, Color, Container, Layout, Icon } from '@wings-software/uikit'
-import { Link } from 'react-router-dom'
+import { Text, Color, Container, Layout, Icon, SparkChart } from '@wings-software/uikit'
+import { useHistory } from 'react-router-dom'
 import type { Project } from 'services/cd-ng'
 import { routeCVMainDashBoardPage } from 'navigation/cv/routes'
 import i18n from './CVRenderer.i18n'
+import css from '../ModuleRenderer.module.scss'
 
 interface CVRendererProps {
   data: Project
@@ -11,38 +12,38 @@ interface CVRendererProps {
 }
 
 const CVRenderer: React.FC<CVRendererProps> = ({ data, isPreview }) => {
+  const history = useHistory()
   return (
-    <Container border={{ top: true, color: Color.GREY_250 }} padding={{ top: 'medium', bottom: 'medium' }}>
-      <Layout.Horizontal>
-        <Container width="33.33%" border={{ right: true, color: Color.GREY_250 }}>
-          {!isPreview ? (
-            <Link
-              to={routeCVMainDashBoardPage.url({
-                orgIdentifier: data.orgIdentifier as string,
+    <Container
+      border={{ top: true, color: Color.GREY_250 }}
+      padding={{ top: 'medium', bottom: 'medium' }}
+      onClick={() => {
+        !isPreview
+          ? history.push(
+              routeCVMainDashBoardPage.url({
+                orgIdentifier: data.orgIdentifier,
                 projectIdentifier: data.identifier
-              })}
-            >
-              <Icon name="nav-cv-hover" size={30} flex={{ align: 'center-center' }} />
-            </Link>
-          ) : (
-            <Icon name="nav-cv-hover" size={30} flex={{ align: 'center-center' }} />
-          )}
+              })
+            )
+          : undefined
+      }}
+      className={css.moduleContainer}
+    >
+      <Layout.Horizontal>
+        <Container width="30%" border={{ right: true, color: Color.GREY_250 }} flex={{ align: 'center-center' }}>
+          <Icon name="cv-main" size={30} />
         </Container>
-        <Container width="33.33%" border={{ right: true, color: Color.GREY_250 }} flex={{ align: 'center-center' }}>
-          <Layout.Vertical>
-            <Text font="medium" flex={{ align: 'center-center' }}>
-              {i18n.placeholder}
+        <Container width="70%" flex={{ align: 'center-center' }}>
+          <Layout.Vertical flex={{ align: 'center-center' }}>
+            <Layout.Horizontal flex={{ align: 'center-center' }} className={css.activityChart} spacing="xxlarge">
+              <SparkChart data={[2, 3, 4, 5, 4, 3, 2]} />
+              <Text color={Color.GREY_400} font={{ size: 'medium' }}>
+                {i18n.placeholder.toUpperCase()}
+              </Text>
+            </Layout.Horizontal>
+            <Text color={Color.GREY_400} font={{ size: 'xsmall' }}>
+              {i18n.verifications.toUpperCase()}
             </Text>
-            <Text font="xsmall">{i18n.activities.toUpperCase()}</Text>
-          </Layout.Vertical>
-        </Container>
-
-        <Container width="33.33%" flex={{ align: 'center-center' }}>
-          <Layout.Vertical>
-            <Text font="medium" color={Color.RED_600} flex={{ align: 'center-center' }}>
-              {i18n.placeholder}
-            </Text>
-            <Text font="xsmall">{i18n.anomalies.toUpperCase()}</Text>
           </Layout.Vertical>
         </Container>
       </Layout.Horizontal>
