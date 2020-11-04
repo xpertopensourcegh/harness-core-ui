@@ -172,6 +172,21 @@ export const routeInputSetList: NestedRoute<{
   component: React.lazy(() => import('@pipeline/pages/inputSet-list/InputSetList'))
 }
 
+export const routeTriggersPage: NestedRoute<{
+  orgIdentifier: string
+  projectIdentifier: string
+  pipelineIdentifier: string | number
+}> = {
+  path: '/cd/pipelines/orgs/:orgIdentifier/projects/:projectIdentifier/pipelines/:pipelineIdentifier/triggers',
+  title: i18n.triggers,
+  url: ({ orgIdentifier, projectIdentifier, pipelineIdentifier }) =>
+    routeURL(
+      routeTriggersPage,
+      `/cd/pipelines/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/triggers`
+    ),
+  component: React.lazy(() => import('@pipeline/pages/triggers/TriggersPage'))
+}
+
 export const routePipelineDeploymentList: NestedRoute<{
   projectIdentifier: string
   orgIdentifier: string
@@ -181,7 +196,7 @@ export const routePipelineDeploymentList: NestedRoute<{
   title: i18n.pipelineExecution,
   url: ({ projectIdentifier, orgIdentifier, pipelineIdentifier }) =>
     routeURL(
-      routePipelineDeploymentList,
+      routeCDPipelineExecution,
       `/cd/pipelines/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/executions`
     ),
   component: React.lazy(() => import('@pipeline/pages/pipeline-deployment-list/PipelineDeploymentList')),
@@ -278,7 +293,7 @@ export const routePipelineDetail: Route<{
       `/cd/pipelines/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}`
     ),
   component: React.lazy(() => import('@pipeline/pages/pipeline-details/PipelineDetails')),
-  nestedRoutes: [routeInputSetList, routePipelineDeploymentList]
+  nestedRoutes: [routeInputSetList, routeTriggersPage, routePipelineDeploymentList]
 }
 
 export const routeCDTemplateLibrary: Route<{ orgIdentifier: string; projectIdentifier: string }> = {

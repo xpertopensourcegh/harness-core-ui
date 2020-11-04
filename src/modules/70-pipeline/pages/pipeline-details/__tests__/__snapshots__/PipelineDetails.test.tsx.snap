@@ -44,6 +44,12 @@ exports[`Pipeline Details tests render snapshot view 1`] = `
         </a>
         <a
           class="tags"
+          href="/account/null/cd/pipelines/orgs/testOrg/projects/test/pipelines/pipeline/triggers"
+        >
+          Triggers
+        </a>
+        <a
+          class="tags"
           href="/account/null/cd/pipeline-studio/orgs/testOrg/projects/test/pipelines/pipeline/"
         >
           <span

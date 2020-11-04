@@ -5,6 +5,7 @@ import { Page } from '@common/exports'
 import {
   routePipelineDeploymentList,
   routeInputSetList,
+  routeTriggersPage,
   routeCDPipelineStudio,
   routeCDPipelines
 } from 'navigation/cd/routes'
@@ -54,6 +55,13 @@ const PipelineDetails: React.FC = ({ children }): JSX.Element => {
                 to={routeInputSetList.url({ orgIdentifier, projectIdentifier, pipelineIdentifier })}
               >
                 {i18n.inputSets}
+              </NavLink>
+              <NavLink
+                className={css.tags}
+                activeClassName={css.activeTag}
+                to={routeTriggersPage.url({ orgIdentifier, projectIdentifier, pipelineIdentifier })}
+              >
+                {i18n.triggers}
               </NavLink>
 
               <NavLink

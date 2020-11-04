@@ -17,5 +17,6 @@ export default {
   gitSync: 'Git Sync',
   inputSets: 'Input Sets',
   pipelineExecution: 'Pipeline Executions',
-  pipelineDetails: 'Pipeline Details'
+  pipelineDetails: 'Pipeline Details',
+  triggers: 'Triggers'
 }
