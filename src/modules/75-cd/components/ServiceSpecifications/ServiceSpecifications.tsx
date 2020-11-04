@@ -455,16 +455,19 @@ export default function ServiceSpecifications(): JSX.Element {
                 <div>
                   <Button
                     minimal
-                    text={i18n.serviceSpecificationLabel}
-                    onClick={() => setSelectedSpec(specificationTypes.SPECIFICATION)}
-                    className={cx({ [css.selected]: specSelected === specificationTypes.SPECIFICATION })}
-                  />
-                  <Button
-                    minimal
                     disabled={stageIndex === 0}
                     text={i18n.stageOverrideLabel}
                     onClick={() => setSelectedSpec(specificationTypes.OVERRIDES)}
-                    className={cx({ [css.selected]: specSelected === specificationTypes.OVERRIDES })}
+                    className={cx({
+                      [css.selected]: specSelected === specificationTypes.OVERRIDES,
+                      [css.nopadleft]: true
+                    })}
+                  />
+                  <Button
+                    minimal
+                    text={i18n.serviceSpecificationLabel}
+                    onClick={() => setSelectedSpec(specificationTypes.SPECIFICATION)}
+                    className={cx({ [css.selected]: specSelected === specificationTypes.SPECIFICATION })}
                   />
                 </div>
               </Layout.Horizontal>

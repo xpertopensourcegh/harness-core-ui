@@ -2,6 +2,7 @@
 // this is an auto-generated file
 declare const styles: {
   readonly serviceOverrides: string
+  readonly nopadleft: string
   readonly serviceStageSelection: string
   readonly activeMode: string
   readonly propagatedropdown: string

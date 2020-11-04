@@ -1,6 +1,9 @@
 .serviceOverrides {
   // width: 1024px !important;
   margin: 0 auto !important;
+  .nopadleft {
+    padding-left: 0 !important;
+  }
   .serviceStageSelection {
     padding: var(--spacing-small);
     box-shadow: 0px 1px 4px 1px var(--grey-200);
@@ -76,6 +79,7 @@
         font-weight: 800;
       }
     }
+
     .selected {
       border-bottom: 2px solid var(--grey-700) !important;
     }
