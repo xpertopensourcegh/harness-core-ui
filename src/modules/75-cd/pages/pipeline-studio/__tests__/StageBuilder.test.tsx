@@ -156,8 +156,9 @@ describe('Stage Builder Test', () => {
     await waitFor(() => getByTextBody(document.body, 'test1'))
     const newStage = getByTextBody(document.body, 'test1')
     fireEvent.click(newStage)
-    await waitFor(() => getByTextBody(document.body, 'Propagate From:'))
-    expect(getByTextContainer('Stage: test1')).toBeDefined()
+    await waitFor(() =>
+      getByTextBody(document.body.querySelector('.serviceStageSelection') as HTMLElement, 'Propagate From:')
+    )
     const stageIncrease = stageBuilder.querySelector('.stageIncrease')
     fireEvent.click(stageIncrease!)
     fireEvent.click(stageIncrease!)

@@ -33,9 +33,29 @@ describe('getSelectOptionsFromPipeline', () => {
   })
   test('should return correct stage at index', async () => {
     const options = getSelectStageOptionsFromPipeline(pipeline)
-    expect(options[0]).toEqual({ label: stage1.stage.name, value: stage1.stage.identifier, node: stage1 })
-    expect(options[1]).toEqual({ label: stage2.stage.name, value: stage2.stage.identifier, node: stage2 })
-    expect(options[2]).toEqual({ label: stage3.stage.name, value: stage3.stage.identifier, node: stage3 })
-    expect(options[3]).toEqual({ label: stage4.stage.name, value: stage4.stage.identifier, node: stage4 })
+    expect(options[0]).toEqual({
+      label: stage1.stage.name,
+      value: stage1.stage.identifier,
+      node: stage1,
+      type: stage1.stage.type
+    })
+    expect(options[1]).toEqual({
+      label: stage2.stage.name,
+      value: stage2.stage.identifier,
+      node: stage2,
+      type: stage2.stage.type
+    })
+    expect(options[2]).toEqual({
+      label: stage3.stage.name,
+      value: stage3.stage.identifier,
+      node: stage3,
+      type: stage3.stage.type
+    })
+    expect(options[3]).toEqual({
+      label: stage4.stage.name,
+      value: stage4.stage.identifier,
+      node: stage4,
+      type: stage4.stage.type
+    })
   })
 })

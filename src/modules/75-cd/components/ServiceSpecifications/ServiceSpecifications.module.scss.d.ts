@@ -11,5 +11,7 @@ declare const styles: {
   readonly specTabs: string
   readonly selected: string
   readonly overideCheckbox: string
+  readonly serviceSection: string
+  readonly noPadTop: string
 }
 export default styles

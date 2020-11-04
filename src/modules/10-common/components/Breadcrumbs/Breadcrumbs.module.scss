@@ -1,0 +1,16 @@
+.breadcrumbs {
+  .breadcrumb {
+    color: #0092e4;
+    text-decoration: none;
+    &:hover {
+      text-decoration: none;
+      color: #0092e4;
+    }
+  }
+  .lastBreadcrumb {
+    color: #9293ab;
+  }
+  .separator {
+    padding: 0px var(--spacing-small);
+  }
+}

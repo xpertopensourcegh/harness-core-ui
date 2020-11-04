@@ -29,5 +29,8 @@ export default {
   },
   propagateFromLabel: 'Propagate From:',
   or: 'or',
-  deployDifferentLabel: 'Deploy different service'
+  deployDifferentLabel: 'Deploy different service',
+  stageDetailLabel: 'Stage Details',
+  deploymentDetailsLabel: 'Deployment Details',
+  artifactDetails: 'Artifact Details'
 }

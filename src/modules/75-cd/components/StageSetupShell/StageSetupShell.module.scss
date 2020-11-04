@@ -22,15 +22,16 @@
         text-align: center;
       }
       .bp3-tab-list {
-        background: var(--grey-900);
+        background: white;
         position: fixed;
         width: 100%;
         border-bottom: 0;
         z-index: 1;
+        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.13);
       }
       .bp3-tab-panel {
         position: absolute;
-        padding-top: 90px;
+        padding-top: 50px;
         height: calc(100vh);
         width: 100%;
         z-index: 0;
@@ -38,7 +39,7 @@
         // margin: 20px 0;
       }
       .bp3-tab[aria-selected='true'] {
-        color: white;
+        color: var(--grey-400);
         padding: 0 var(--spacing-large);
       }
       .bp3-tab[aria-selected='false'] {
@@ -64,5 +65,13 @@
     background-color: var(--white);
     z-index: 1;
     box-shadow: 4px 0px 2px 0 rgba(0, 0, 0, 0.13);
+  }
+}
+.stageDropDown {
+  text-align: left;
+  display: block !important;
+  width: 100%;
+  span:first-child {
+    margin-right: var(--spacing-small);
   }
 }

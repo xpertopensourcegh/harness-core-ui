@@ -67,11 +67,11 @@ describe('Test Pipeline Studio', () => {
         <CIPipelineStudio />
       </TestWrapper>
     )
-    await waitFor(() => getByText(document.body, 'test-p1'))
+    await waitFor(() => getByText(container.querySelector('.pipelineNameContainer') as HTMLElement, 'test-p1'))
     expect(container).toMatchSnapshot()
   })
   test('should render edit pipeline studio, run pipeline line, save Pipeline and close studio', async () => {
-    const { getByTitle, container, getByTestId } = render(
+    const { getByTitle, container } = render(
       <TestWrapper
         path={prependAccountPath(routeCIPipelineStudio.path)}
         pathParams={{
@@ -85,7 +85,7 @@ describe('Test Pipeline Studio', () => {
         <CIPipelineStudio />
       </TestWrapper>
     )
-    await waitFor(() => getByText(document.body, 'test-p1'))
+    await waitFor(() => getByText(container.querySelector('.pipelineNameContainer') as HTMLElement, 'test-p1'))
     const runPipeline = getByTitle('Run Pipeline')
     fireEvent.click(runPipeline)
     await waitFor(() => getByText(document.body, 'Run Pipeline Form'))
@@ -95,14 +95,9 @@ describe('Test Pipeline Studio', () => {
     fireEvent.click(crossBtn)
     const saveBtn = getByText(document.body, 'Save and Publish')
     fireEvent.click(saveBtn)
-    const closeStudio = container.querySelector('[icon="cross"]')
-    fireEvent.click(closeStudio!)
-    expect(getByTestId('location').innerHTML).toBe(
-      '/account/null/ci/pipelines/orgs/testOrg/projects/test/pipelines/editPipeline/executions'
-    )
   })
   test('should render new pipeline studio, run pipeline line, save Pipeline and close studio', async () => {
-    const { container } = render(
+    render(
       <TestWrapper
         path={prependAccountPath(routeCIPipelineStudio.path)}
         pathParams={{
@@ -124,9 +119,6 @@ describe('Test Pipeline Studio', () => {
     const saveBtn = getByText(document.body, 'Save and Publish')
     fireEvent.click(saveBtn)
     expect(saveBtn).toBeDefined()
-    const closeStudio = container.querySelector('[icon="cross"]')
-    fireEvent.click(closeStudio!)
-    expect(closeStudio).toBeDefined()
   })
 
   test('should render and test Trigger, Notifications, Templates and Variables Sections', async () => {
@@ -144,14 +136,10 @@ describe('Test Pipeline Studio', () => {
         <CIPipelineStudio />
       </TestWrapper>
     )
-    await waitFor(() => getByText(container, 'test-p1'))
-    const triggersBtn = getByText(container, 'Triggers')
-    fireEvent.click(triggersBtn)
-    let isPrimary = triggersBtn.parentElement?.getAttribute('class')?.indexOf('primary')
-    expect(isPrimary && isPrimary > -1).toBeTruthy()
+    await waitFor(() => getByText(container.querySelector('.pipelineNameContainer') as HTMLElement, 'test-p1'))
     const notificationsBtn = getByText(container, 'Notifications')
     fireEvent.click(notificationsBtn)
-    isPrimary = notificationsBtn.parentElement?.getAttribute('class')?.indexOf('primary')
+    const isPrimary = notificationsBtn.parentElement?.getAttribute('class')?.indexOf('primary')
     expect(isPrimary && isPrimary > -1).toBeTruthy()
     const varBtn = getByTitle('Input Variables')
     fireEvent.click(varBtn)

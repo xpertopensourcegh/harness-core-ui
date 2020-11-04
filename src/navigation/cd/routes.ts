@@ -82,7 +82,7 @@ export const routeCDPipelineStudio: Route<{
   pipelineIdentifier: string | number
 }> = {
   module: ModuleName.CD,
-  layout: PageLayout.BlankLayout,
+  layout: PageLayout.NoMenuLayout,
   sidebarId: SidebarIdentifier.CONTINUOUS_DEPLOYMENTS,
   path: '/cd/pipeline-studio/orgs/:orgIdentifier/projects/:projectIdentifier/pipelines/:pipelineIdentifier/',
   title: i18n.pipelineStudio,

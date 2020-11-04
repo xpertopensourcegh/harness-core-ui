@@ -1,13 +1,14 @@
 import React from 'react'
 import { Classes, Dialog } from '@blueprintjs/core'
 import cx from 'classnames'
-import { Button, Icon, Text, useModalHook, Tag } from '@wings-software/uikit'
+import { Button, Text, useModalHook, Tag } from '@wings-software/uikit'
 import { useHistory, useParams, NavLink, matchPath, useLocation } from 'react-router-dom'
 import { parse } from 'yaml'
 import type { NgPipeline, Failure } from 'services/cd-ng'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
-import { AUTH_ROUTE_PATH_PREFIX, NestedRoute, Route } from 'framework/exports'
+import { AUTH_ROUTE_PATH_PREFIX, NestedRoute, Route, useAppStoreReader } from 'framework/exports'
 import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmationDialog'
+import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import { PipelineContext, savePipeline } from '../PipelineContext/PipelineContext'
 import i18n from './PipelineCanvas.i18n'
 import CreatePipelines from '../CreateModal/PipelineCreate'
@@ -33,17 +34,34 @@ export interface PipelineCanvasProps {
     projectIdentifier: string
     pipelineIdentifier: string | number
   }>
+  routePipelineDetail: Route<{
+    orgIdentifier: string
+    projectIdentifier: string
+    pipelineIdentifier: string
+  }>
+  routePipelineList: Route<{
+    orgIdentifier: string
+    projectIdentifier: string
+  }>
+  routePipelineProject: Route<{
+    orgIdentifier: string
+    projectIdentifier: string
+  }>
 }
 
 export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
   children,
   routePipelineStudio,
   routePipelineStudioUI,
-  routePipelineStudioYaml
+  routePipelineStudioYaml,
+  routePipelineDetail,
+  routePipelineList,
+  routePipelineProject
 }): JSX.Element => {
   const { state, updatePipeline, deletePipelineCache, updatePipelineView, fetchPipeline } = React.useContext(
     PipelineContext
   )
+
   const {
     pipeline,
     isUpdated,
@@ -143,6 +161,9 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
     yamlHandler
   ])
 
+  const { projects } = useAppStoreReader()
+  const project = projects.find(({ identifier }) => identifier === projectIdentifier)
+
   const [showModal, hideModal] = useModalHook(
     () => (
       <Dialog isOpen={true} className={cx(css.dialog, Classes.DIALOG)}>
@@ -186,6 +207,13 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
     return <PageSpinner />
   }
 
+  const getPipelineRoute = () => {
+    const isPipelineSaved = pipeline.identifier !== DefaultNewPipelineId
+    return isPipelineSaved
+      ? routePipelineDetail.url({ projectIdentifier, orgIdentifier, pipelineIdentifier })
+      : routePipelineList.url({ orgIdentifier, projectIdentifier })
+  }
+
   return (
     <div
       className={cx(Classes.POPOVER_DISMISS, css.content)}
@@ -215,81 +243,88 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
           history.push(newPath)
         }}
       />
-      <div className={css.topBar}>
-        <div>
-          <NavLink
-            className={css.topButtons}
-            activeClassName={css.selected}
-            to={routePipelineStudioUI.url({ orgIdentifier, projectIdentifier, pipelineIdentifier })}
-          >
-            {i18n.visual}
-          </NavLink>
-          <NavLink
-            className={css.topButtons}
-            activeClassName={css.selected}
-            to={routePipelineStudioYaml.url({ orgIdentifier, projectIdentifier, pipelineIdentifier })}
-          >
-            {i18n.yaml}
-          </NavLink>
-        </div>
-        <div>
-          {isUpdated && (
-            <Tag intent="primary" className={css.tagRender} minimal>
-              {i18n.unsavedChanges}
-            </Tag>
-          )}
-        </div>
-        <div>
-          <Button
-            minimal
-            intent="primary"
-            text={i18n.saveAndPublish}
-            onClick={saveAndPublish}
-            icon="arrow-up"
-            className={css.savePublishBtn}
-          />
-        </div>
-      </div>
-      <div className={css.secondaryBar}>
-        <Icon style={{ paddingLeft: 20 }} size={38} name="pipeline" />
-        <div>
-          <Text className={css.pipelineName}>{pipeline?.name}</Text>
-          <Button minimal icon="Edit" iconProps={{ size: 12 }} onClick={showModal} />
-        </div>
-        {!isYaml && (
-          <div className={css.btnGroup}>
-            <Button
-              minimal={!(splitViewType === SplitViewTypes.Triggers)}
-              intent={splitViewType === SplitViewTypes.Triggers ? 'primary' : 'none'}
-              text={i18n.triggers}
-              tooltip={i18n.triggers}
-              icon="yaml-builder-trigger"
-              iconProps={{ color: 'var(--dark-500)' }}
-              onClick={() => {
-                updatePipelineView({
-                  ...pipelineView,
-                  isSplitViewOpen: true,
-                  splitViewData: { type: SplitViewTypes.Triggers }
-                })
-              }}
+      <div>
+        <div className={css.titleBar}>
+          <div className={css.breadcrumbsMenu}>
+            <Breadcrumbs
+              links={[
+                { url: routePipelineProject.url({ orgIdentifier, projectIdentifier }), label: project?.name as string },
+                { url: getPipelineRoute(), label: i18n.pipelineListLabel },
+                { url: '#', label: pipeline?.name }
+              ]}
             />
-            <Button
-              minimal={!(splitViewType === SplitViewTypes.Notifications)}
-              text={i18n.notifications}
-              intent={splitViewType === SplitViewTypes.Notifications ? 'primary' : 'none'}
-              tooltip={i18n.notifications}
-              icon="yaml-builder-notifications"
-              iconProps={{ color: 'var(--dark-500)' }}
-              onClick={() => {
-                updatePipelineView({
-                  ...pipelineView,
-                  isSplitViewOpen: true,
-                  splitViewData: { type: SplitViewTypes.Notifications }
-                })
-              }}
-            />
+            <div className={css.pipelineNameContainer}>
+              <div>
+                <Text className={css.pipelineName}>{pipeline?.name}</Text>
+                <Button minimal icon="Edit" iconProps={{ size: 12 }} onClick={showModal} />
+              </div>
+            </div>
           </div>
-        )}
+
+          <div className={css.pipelineStudioTitleContainer}>
+            <div className={css.pipelineStudioTitle}>
+              <div className={css.rectangle}>
+                <span>Pipeline Studio</span>
+              </div>
+            </div>
+            <NavLink
+              className={css.topButtons}
+              activeClassName={css.selected}
+              to={routePipelineStudioUI.url({ orgIdentifier, projectIdentifier, pipelineIdentifier })}
+            >
+              {i18n.visual}
+            </NavLink>
+            <NavLink
+              className={css.topButtons}
+              activeClassName={css.selected}
+              to={routePipelineStudioYaml.url({ orgIdentifier, projectIdentifier, pipelineIdentifier })}
+            >
+              {i18n.yaml}
+            </NavLink>
+          </div>
+          <div>
+            <div className={css.savePublishContainer}>
+              <div>
+                {isUpdated && (
+                  <Tag intent="primary" className={css.tagRender} minimal>
+                    {i18n.unsavedChanges}
+                  </Tag>
+                )}
+              </div>
+              <div>
+                <Button
+                  minimal
+                  intent="primary"
+                  text={i18n.saveAndPublish}
+                  onClick={saveAndPublish}
+                  icon="arrow-up"
+                  className={css.savePublishBtn}
+                />
+              </div>
+            </div>
+            <div className={css.notificationContainer}>
+              {!isYaml && (
+                <div className={css.btnGroup}>
+                  <Button
+                    minimal={!(splitViewType === SplitViewTypes.Notifications)}
+                    text={i18n.notifications}
+                    intent={splitViewType === SplitViewTypes.Notifications ? 'primary' : 'none'}
+                    tooltip={i18n.notifications}
+                    icon="yaml-builder-notifications"
+                    iconProps={{ color: 'var(--dark-500)' }}
+                    onClick={() => {
+                      updatePipelineView({
+                        ...pipelineView,
+                        isSplitViewOpen: true,
+                        splitViewData: { type: SplitViewTypes.Notifications }
+                      })
+                    }}
+                  />
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
       </div>
       {children}
       <RightDrawer />

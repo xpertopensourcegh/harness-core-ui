@@ -12,7 +12,8 @@ import {
   routePipelineDeploymentList,
   routeCIPipelineStudioYaml,
   routeCIPipelineStudio,
-  routeCIPipelineStudioUI
+  routeCIPipelineStudioUI,
+  routeCIBuilds
 } from 'navigation/ci/routes'
 import css from './CIPipelineStudio.module.scss'
 
@@ -76,6 +77,9 @@ const CIPipelineStudio: React.FC = ({ children }): JSX.Element => {
         routePipelineStudio={routeCIPipelineStudio}
         routePipelineStudioUI={routeCIPipelineStudioUI}
         routePipelineStudioYaml={routeCIPipelineStudioYaml}
+        routePipelineDetail={routeCIPipelineStudio}
+        routePipelineProject={routeCIBuilds}
+        routePipelineList={routeCIPipelines}
       >
         {children}
       </PipelineStudio>

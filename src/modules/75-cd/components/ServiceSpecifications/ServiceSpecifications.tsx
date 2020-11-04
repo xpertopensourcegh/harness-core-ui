@@ -304,35 +304,37 @@ export default function ServiceSpecifications(): JSX.Element {
   return (
     <Layout.Vertical className={css.serviceOverrides}>
       {stageIndex > 0 && (
-        <Layout.Vertical
-          spacing="medium"
-          style={{ borderBottom: '1px solid var(--grey-200)', paddingBottom: 'var(--spacing-large)' }}
-        >
-          <Text style={{ color: 'var(--grey-600)' }}>Service</Text>
-          <Layout.Horizontal spacing="medium" flex={true} style={{ alignItems: 'center', justifyContent: 'end' }}>
-            <section
-              className={cx(css.serviceStageSelection, setupModeType === setupMode.PROPAGATE && css.activeMode)}
-              onClick={() => setSetupMode(setupMode.PROPAGATE)}
-            >
-              {i18n.propagateFromLabel}
-              <Select
-                className={css.propagatedropdown}
-                items={previousStageList}
-                value={selectedPropagatedState}
-                onChange={(item: SelectOption) => selectPropagatedStep(item)}
-              />
-            </section>
-            <section>{i18n.or}</section>
-            <section
-              className={cx(css.serviceStageSelection, setupModeType === setupMode.DIFFERENT && css.activeMode)}
-              onClick={() => {
-                initWithServiceDefination()
-              }}
-            >
-              {i18n.deployDifferentLabel}
-            </section>
-          </Layout.Horizontal>
-        </Layout.Vertical>
+        <div className={css.serviceSection}>
+          <Layout.Vertical flex={true} className={css.specTabs}>
+            {i18n.stageDetailLabel}
+          </Layout.Vertical>
+          <Layout.Vertical spacing="medium" style={{ paddingBottom: 'var(--spacing-large)' }}>
+            <Layout.Horizontal spacing="medium" flex={true} style={{ alignItems: 'center', justifyContent: 'end' }}>
+              <Text style={{ color: 'var(--grey-600)' }}>Service</Text>
+              <section
+                className={cx(css.serviceStageSelection, setupModeType === setupMode.PROPAGATE && css.activeMode)}
+                onClick={() => setSetupMode(setupMode.PROPAGATE)}
+              >
+                {i18n.propagateFromLabel}
+                <Select
+                  className={css.propagatedropdown}
+                  items={previousStageList}
+                  value={selectedPropagatedState}
+                  onChange={(item: SelectOption) => selectPropagatedStep(item)}
+                />
+              </section>
+              <section>{i18n.or}</section>
+              <section
+                className={cx(css.serviceStageSelection, setupModeType === setupMode.DIFFERENT && css.activeMode)}
+                onClick={() => {
+                  initWithServiceDefination()
+                }}
+              >
+                {i18n.deployDifferentLabel}
+              </section>
+            </Layout.Horizontal>
+          </Layout.Vertical>
+        </div>
       )}
       {stageIndex > 0 && setupModeType === setupMode.PROPAGATE && (
         <Layout.Horizontal flex={true} className={css.specTabs}>
@@ -381,138 +383,154 @@ export default function ServiceSpecifications(): JSX.Element {
             >
               {() => {
                 return (
-                  <FormikForm>
-                    <Layout.Horizontal spacing="medium">
-                      <FormInput.InputWithIdentifier
-                        inputName="serviceName"
-                        inputLabel={i18n.serviceNameLabel}
-                        inputGroupProps={{ placeholder: i18n.serviceNamePlaceholderText, className: css.name }}
-                      />
-                      <div className={css.addDataLinks}>
-                        <Button
-                          minimal
-                          text={i18n.addDescription}
-                          icon="plus"
-                          onClick={() => setDescriptionVisible(true)}
+                  <div className={cx(css.serviceSection, css.noPadTop)}>
+                    <Layout.Vertical flex={true} className={css.specTabs}>
+                      {i18n.stageDetailLabel}
+                    </Layout.Vertical>
+                    <FormikForm>
+                      <Layout.Horizontal spacing="medium">
+                        <FormInput.InputWithIdentifier
+                          inputName="serviceName"
+                          inputLabel={i18n.serviceNameLabel}
+                          inputGroupProps={{ placeholder: i18n.serviceNamePlaceholderText, className: css.name }}
                         />
-                        <Button minimal text={i18n.addTags} icon="plus" onClick={() => setTagsVisible(true)} />
-                      </div>
-                    </Layout.Horizontal>
+                        <div className={css.addDataLinks}>
+                          <Button
+                            minimal
+                            text={i18n.addDescription}
+                            icon="plus"
+                            onClick={() => setDescriptionVisible(true)}
+                          />
+                          <Button minimal text={i18n.addTags} icon="plus" onClick={() => setTagsVisible(true)} />
+                        </div>
+                      </Layout.Horizontal>
 
-                    {isDescriptionVisible && (
-                      <div>
-                        <span onClick={() => setDescriptionVisible(false)} className={css.removeLink}>
-                          {i18n.removeLabel}
-                        </span>
-                        <FormInput.TextArea name="description" label="Description" style={{ width: 400 }} />
-                      </div>
-                    )}
-                    {isTagsVisible && (
-                      <div>
-                        <span onClick={() => setTagsVisible(false)} className={css.removeLink}>
-                          {i18n.removeLabel}
-                        </span>
-                        <FormInput.TagInput
-                          name={i18n.addTags}
-                          label={i18n.tagsLabel}
-                          items={[]}
-                          style={{ width: 400 }}
-                          labelFor={name => name as string}
-                          itemFromNewTag={newTag => newTag}
-                          tagInputProps={{
-                            noInputBorder: true,
-                            openOnKeyDown: false,
-                            showAddTagButton: true,
-                            showClearAllButton: true,
-                            allowNewTag: true,
-                            getTagProps: (value, _index, _selectedItems, createdItems) => {
-                              return createdItems.includes(value)
-                                ? { intent: 'danger', minimal: true }
-                                : { intent: 'none', minimal: true }
-                            }
-                          }}
-                        />
-                      </div>
-                    )}
-                  </FormikForm>
+                      {isDescriptionVisible && (
+                        <div>
+                          <span onClick={() => setDescriptionVisible(false)} className={css.removeLink}>
+                            {i18n.removeLabel}
+                          </span>
+                          <FormInput.TextArea name="description" label="Description" style={{ width: 400 }} />
+                        </div>
+                      )}
+                      {isTagsVisible && (
+                        <div>
+                          <span onClick={() => setTagsVisible(false)} className={css.removeLink}>
+                            {i18n.removeLabel}
+                          </span>
+                          <FormInput.TagInput
+                            name={i18n.addTags}
+                            label={i18n.tagsLabel}
+                            items={[]}
+                            style={{ width: 400 }}
+                            labelFor={name => name as string}
+                            itemFromNewTag={newTag => newTag}
+                            tagInputProps={{
+                              noInputBorder: true,
+                              openOnKeyDown: false,
+                              showAddTagButton: true,
+                              showClearAllButton: true,
+                              allowNewTag: true,
+                              getTagProps: (value, _index, _selectedItems, createdItems) => {
+                                return createdItems.includes(value)
+                                  ? { intent: 'danger', minimal: true }
+                                  : { intent: 'none', minimal: true }
+                              }
+                            }}
+                          />
+                        </div>
+                      )}
+                    </FormikForm>
+                  </div>
                 )
               }}
             </Formik>
           </Layout.Vertical>
-          <Layout.Horizontal flex={true} className={css.specTabs}>
-            <Button
-              minimal
-              text={i18n.serviceSpecificationLabel}
-              onClick={() => setSelectedSpec(specificationTypes.SPECIFICATION)}
-              className={cx({ [css.selected]: specSelected === specificationTypes.SPECIFICATION })}
-            />
-            <Button
-              minimal
-              disabled={stageIndex === 0}
-              text={i18n.stageOverrideLabel}
-              onClick={() => setSelectedSpec(specificationTypes.OVERRIDES)}
-              className={cx({ [css.selected]: specSelected === specificationTypes.OVERRIDES })}
-            />
-          </Layout.Horizontal>
-          {specSelected === specificationTypes.SPECIFICATION && (
-            <Layout.Vertical spacing="medium" style={{ display: 'inline-block' }}>
-              <Text style={{ fontSize: 16, color: 'var(--grey-400)' }}>{i18n.deploymentTypeLabel}</Text>
-
-              {supportedDeploymentTypes.map((type: { name: string; icon: IconName }) => (
-                <Card
-                  key={type.name}
-                  interactive={true}
-                  selected={type.name === i18n.deploymentTypes.kubernetes ? true : false}
-                  style={{ width: 90, padding: 'var(--spacing-small) 0', marginRight: 'var(--spacing-small)' }}
-                >
-                  <CardBody.Icon icon={type.icon as IconName} iconSize={26}>
-                    <Text font={{ align: 'center' }} style={{ fontSize: 14 }}>
-                      {type.name}
-                    </Text>
-                  </CardBody.Icon>
-                </Card>
-              ))}
+          <div className={css.serviceSection}>
+            <Layout.Vertical flex={true} className={css.specTabs}>
+              {i18n.serviceSpecificationLabel}
             </Layout.Vertical>
-          )}
+            <div>
+              <Layout.Horizontal flex={true}>
+                <div>
+                  <Button
+                    minimal
+                    text={i18n.serviceSpecificationLabel}
+                    onClick={() => setSelectedSpec(specificationTypes.SPECIFICATION)}
+                    className={cx({ [css.selected]: specSelected === specificationTypes.SPECIFICATION })}
+                  />
+                  <Button
+                    minimal
+                    disabled={stageIndex === 0}
+                    text={i18n.stageOverrideLabel}
+                    onClick={() => setSelectedSpec(specificationTypes.OVERRIDES)}
+                    className={cx({ [css.selected]: specSelected === specificationTypes.OVERRIDES })}
+                  />
+                </div>
+              </Layout.Horizontal>
+              {specSelected === specificationTypes.SPECIFICATION && (
+                <Layout.Vertical spacing="medium" style={{ display: 'inline-block', marginTop: '12px' }}>
+                  <Text style={{ fontSize: 16, color: 'var(--grey-400)' }}>{i18n.deploymentTypeLabel}</Text>
+
+                  {supportedDeploymentTypes.map((type: { name: string; icon: IconName }) => (
+                    <Card
+                      key={type.name}
+                      interactive={true}
+                      selected={type.name === i18n.deploymentTypes.kubernetes ? true : false}
+                      style={{ width: 90, padding: 'var(--spacing-small) 0', marginRight: 'var(--spacing-small)' }}
+                    >
+                      <CardBody.Icon icon={type.icon as IconName} iconSize={26}>
+                        <Text font={{ align: 'center' }} style={{ fontSize: 14 }}>
+                          {type.name}
+                        </Text>
+                      </CardBody.Icon>
+                    </Card>
+                  ))}
+                </Layout.Vertical>
+              )}
+              <>
+                {(isConfigVisible || stageIndex === 0 || setupModeType === setupMode.DIFFERENT) && (
+                  <Layout.Vertical spacing="small">
+                    <Tabs id="serviceSpecifications" onChange={handleTabChange}>
+                      <Tab
+                        id={i18n.artifacts}
+                        title={i18n.artifacts}
+                        panel={
+                          <ArtifactsSelection
+                            isForOverrideSets={false}
+                            isForPredefinedSets={stageIndex > 0 && setupModeType === setupMode.PROPAGATE}
+                          />
+                        }
+                      />
+                      <Tab
+                        id={i18n.manifests}
+                        title={i18n.manifests}
+                        panel={
+                          <ManifestSelection
+                            isForOverrideSets={false}
+                            isForPredefinedSets={stageIndex > 0 && setupModeType === setupMode.PROPAGATE}
+                          />
+                        }
+                      />
+                      <Tab
+                        id={i18n.variables}
+                        title={i18n.variables}
+                        disabled={true}
+                        panel={
+                          <WorkflowVariables
+                            isForOverrideSets={false}
+                            isForPredefinedSets={stageIndex > 0 && setupModeType === setupMode.PROPAGATE}
+                          />
+                        }
+                      />
+                    </Tabs>
+                    {setupModeType === setupMode.DIFFERENT && <OverrideSets selectedTab={selectedTab} />}
+                  </Layout.Vertical>
+                )}
+              </>
+            </div>
+          </div>
         </>
-      )}
-      {(isConfigVisible || stageIndex === 0 || setupModeType === setupMode.DIFFERENT) && (
-        <Layout.Vertical spacing="small">
-          <Tabs id="serviceSpecifications" onChange={handleTabChange}>
-            <Tab
-              id={i18n.artifacts}
-              title={i18n.artifacts}
-              panel={
-                <ArtifactsSelection
-                  isForOverrideSets={false}
-                  isForPredefinedSets={stageIndex > 0 && setupModeType === setupMode.PROPAGATE}
-                />
-              }
-            />
-            <Tab
-              id={i18n.manifests}
-              title={i18n.manifests}
-              panel={
-                <ManifestSelection
-                  isForOverrideSets={false}
-                  isForPredefinedSets={stageIndex > 0 && setupModeType === setupMode.PROPAGATE}
-                />
-              }
-            />
-            <Tab
-              id={i18n.variables}
-              title={i18n.variables}
-              disabled={true}
-              panel={
-                <WorkflowVariables
-                  isForOverrideSets={false}
-                  isForPredefinedSets={stageIndex > 0 && setupModeType === setupMode.PROPAGATE}
-                />
-              }
-            />
-          </Tabs>
-          {setupModeType === setupMode.DIFFERENT && <OverrideSets selectedTab={selectedTab} />}
-        </Layout.Vertical>
       )}
     </Layout.Vertical>
   )

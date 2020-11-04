@@ -1,5 +1,5 @@
 .serviceOverrides {
-  width: 1024px !important;
+  // width: 1024px !important;
   margin: 0 auto !important;
   .serviceStageSelection {
     padding: var(--spacing-small);
@@ -65,8 +65,7 @@
     left: 350px;
   }
   .specTabs {
-    border-bottom: 1px solid var(--grey-200);
-    margin-top: var(--spacing-xxlarge) !important;
+    align-items: start !important;
     button[class*='minimal'] {
       border-radius: 0 !important;
       font-size: 16px;
@@ -81,9 +80,21 @@
       border-bottom: 2px solid var(--grey-700) !important;
     }
   }
+
   .overideCheckbox {
     color: var(--grey-900);
     font-weight: bold !important;
     font-size: 16px !important;
+  }
+}
+
+.serviceSection {
+  display: grid;
+  grid-template-columns: 350px 1fr;
+  padding: 32px 32px 32px 32px;
+  border-bottom: 1px solid var(--grey-200);
+
+  &.noPadTop {
+    padding-top: 0px;
   }
 }

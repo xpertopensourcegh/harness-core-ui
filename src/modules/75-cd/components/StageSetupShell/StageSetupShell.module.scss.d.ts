@@ -6,5 +6,6 @@ declare const styles: {
   readonly tabExecution: string
   readonly tab: string
   readonly footer: string
+  readonly stageDropDown: string
 }
 export default styles

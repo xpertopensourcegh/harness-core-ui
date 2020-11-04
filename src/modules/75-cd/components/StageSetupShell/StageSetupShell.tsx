@@ -1,13 +1,29 @@
 import React from 'react'
 import { Layout, Tabs, Tab, Button, Icon } from '@wings-software/uikit'
 import cx from 'classnames'
-import type { StageElementWrapper } from 'services/cd-ng'
+import { Select } from '@blueprintjs/select'
+import type { HarnessIconName } from '@wings-software/uikit/dist/icons/HarnessIcons'
+import {
+  getSelectStageOptionsFromPipeline,
+  StageSelectOption
+} from '@pipeline/components/PipelineStudio/CommonUtils/CommonUtils'
 import { PipelineContext, getStageFromPipeline, ExecutionGraph } from '@pipeline/exports'
+import type { StageElementWrapper } from 'services/cd-ng'
 import InfraSpecifications from '../InfraSpecifications/InfraSpecifications'
 import ServiceSpecifications from '../ServiceSpecifications/ServiceSpecifications'
 import StageSpecifications from '../StageSpecifications/StageSpecifications'
 import i18n from './StageSetupShell.i18n'
 import css from './StageSetupShell.module.scss'
+
+const StageSelection = Select.ofType<StageSelectOption>()
+
+export const MapStepTypeToIcon: { [key: string]: HarnessIconName } = {
+  Deployment: 'pipeline-deploy',
+  ci: 'pipeline-build',
+  Approval: 'pipeline-approval',
+  Pipeline: 'pipeline',
+  Custom: 'pipeline-custom'
+}
 
 export default function StageSetupShell(): JSX.Element {
   // export default function StageSetupShell({ stageData }: { stageData: { name: string } }): JSX.Element {
@@ -40,12 +56,29 @@ export default function StageSetupShell(): JSX.Element {
     if (stageNames.indexOf(selectedStageId) !== -1) {
       setSelectedTabId(selectedStageId)
     }
-  }, [selectedStageId, pipeline, isSplitViewOpen])
+  }, [selectedStageId, pipeline, isSplitViewOpen, stageNames])
 
   const handleTabChange = (data: string) => {
     setSelectedTabId(data)
   }
+  const handleStageChange = (
+    selectedStage: StageSelectOption,
+    event?: React.SyntheticEvent<HTMLElement, Event> | undefined
+  ) => {
+    event?.stopPropagation()
+    const value = selectedStage.value.toString()
+    const { stage } = getStageFromPipeline(pipeline, value)
 
+    updatePipelineView({
+      ...pipelineView,
+      isSplitViewOpen: true,
+      splitViewData: {
+        ...pipelineView.splitViewData,
+        selectedStageId: value,
+        stageType: stage?.stage?.type
+      }
+    })
+  }
   React.useEffect(() => {
     if (layoutRef.current) {
       const parent = layoutRef.current.parentElement
@@ -54,6 +87,7 @@ export default function StageSetupShell(): JSX.Element {
       }
     }
   }, [selectedTabId])
+  const selectOptions = getSelectStageOptionsFromPipeline(pipeline)
 
   return (
     <section className={css.setupShell} ref={layoutRef}>
@@ -67,8 +101,26 @@ export default function StageSetupShell(): JSX.Element {
             panel={<StageSpecifications />}
             title={
               <span className={css.tab}>
-                <Icon name="pipeline-deploy" size={20} />
-                {`Stage: ${stageData?.name}`}
+                <StageSelection
+                  itemRenderer={(item, { modifiers: { disabled }, handleClick }) => (
+                    <div>
+                      <Button
+                        className={css.stageDropDown}
+                        icon={MapStepTypeToIcon[item.type]}
+                        text={item.label}
+                        disabled={disabled}
+                        minimal
+                        onClick={e => handleClick(e as React.MouseEvent<HTMLElement, MouseEvent>)}
+                      />
+                    </div>
+                  )}
+                  items={selectOptions}
+                  onItemSelect={handleStageChange}
+                  filterable={false}
+                  popoverProps={{ minimal: true }}
+                >
+                  <Button icon={MapStepTypeToIcon[stageData?.type]} text={stageData?.name} rightIcon="caret-down" />
+                </StageSelection>
               </span>
             }
           />

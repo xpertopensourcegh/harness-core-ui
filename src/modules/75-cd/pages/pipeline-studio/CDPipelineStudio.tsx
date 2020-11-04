@@ -1,18 +1,19 @@
 import React from 'react'
-import { useParams, useHistory } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { useModalHook } from '@wings-software/uikit'
 import { Dialog } from '@blueprintjs/core'
 import { getCDPipelineStages, stagesMap } from '@cd/components/CDPipelineStages/CDPipelineStages'
 import factory from '@pipeline/components/PipelineSteps/PipelineStepFactory'
-import { DefaultNewPipelineId, PipelineProvider, PipelineStudio } from '@pipeline/exports'
+import { PipelineProvider, PipelineStudio } from '@pipeline/exports'
 import { RunPipelineForm } from '@pipeline/components/RunPipelineModal/RunPipelineForm'
 import { runPipelineDialogProps } from '@pipeline/components/RunPipelineModal/RunPipelineModal'
 import {
-  routeCDPipelines,
-  routePipelineDeploymentList,
   routeCDPipelineStudioYaml,
   routeCDPipelineStudio,
-  routeCDPipelineStudioUI
+  routeCDPipelineStudioUI,
+  routeCDDeployments,
+  routeCDPipelines,
+  routePipelineDetail
 } from 'navigation/cd/routes'
 import css from './CDPipelineStudio.module.scss'
 
@@ -43,7 +44,6 @@ const CDPipelineStudio: React.FC = ({ children }): JSX.Element => {
     openModel()
   }, [openModel])
 
-  const history = useHistory()
   return (
     <PipelineProvider
       stagesMap={stagesMap}
@@ -55,27 +55,12 @@ const CDPipelineStudio: React.FC = ({ children }): JSX.Element => {
     >
       <PipelineStudio
         className={css.container}
-        onClose={() => {
-          if (pipelineIdentifier !== DefaultNewPipelineId) {
-            history.push(
-              routePipelineDeploymentList.url({
-                projectIdentifier,
-                orgIdentifier,
-                pipelineIdentifier
-              })
-            )
-          } else {
-            history.push(
-              routeCDPipelines.url({
-                projectIdentifier,
-                orgIdentifier
-              })
-            )
-          }
-        }}
         routePipelineStudio={routeCDPipelineStudio}
         routePipelineStudioUI={routeCDPipelineStudioUI}
         routePipelineStudioYaml={routeCDPipelineStudioYaml}
+        routePipelineProject={routeCDDeployments}
+        routePipelineDetail={routePipelineDetail}
+        routePipelineList={routeCDPipelines}
       >
         {children}
       </PipelineStudio>

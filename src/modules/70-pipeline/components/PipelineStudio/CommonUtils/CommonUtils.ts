@@ -4,13 +4,15 @@ import { EmptyStageName } from '../PipelineConstants'
 
 export interface StageSelectOption extends SelectOption {
   node: StageElementWrapper
+  type: string
 }
 
 export function getSelectStageOptionsFromPipeline(pipeline: NgPipeline): StageSelectOption[] {
   return getStagesFromPipeline(pipeline).map(node => ({
     label: node.stage.name,
     value: node.stage.identifier,
-    node: node
+    node: node,
+    type: node.stage.type
   }))
 }
 

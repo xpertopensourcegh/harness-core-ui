@@ -11,7 +11,7 @@
   --pipeline-canvas-blue-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAKBAMAAABGe2PVAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAAYUExURfH5//T8//D4/t3l6ery+Ofv9eHp7+Lq72WMkdUAAAAlSURBVAjXY2AgDJhAhBKYGQzEjMEKIKYbiHAHMxnhBEQtEy6TAFp+AZ/Vsio1AAAAAElFTkSuQmCC);
 
   display: grid;
-  grid-template-columns: 50px 1fr 60px;
+  grid-template-columns: 1fr 60px;
   height: 100%;
   overflow: hidden;
 
