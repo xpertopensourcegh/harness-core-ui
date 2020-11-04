@@ -123,8 +123,7 @@ const CommonServiceWidget: React.FC<CommonServiceWidgetProps> = ({ initialValues
       orgIdentifier: initialScope === Scope.ORG || initialScope === Scope.PROJECT ? orgIdentifier : undefined,
       projectIdentifier: initialScope === Scope.PROJECT ? projectIdentifier : undefined
     },
-    lazy: true,
-    debounce: 300
+    lazy: true
   })
 
   React.useEffect(() => {
@@ -136,7 +135,9 @@ const CommonServiceWidget: React.FC<CommonServiceWidgetProps> = ({ initialValues
     }
   }, [initialValues.spec.connectorRef])
 
-  const values = convertToUIModel(initialValues)
+  // 1. remove connectorRef in order to show placholder text (connectorRef will be set below)
+  // 2. convert to ui model
+  const values = convertToUIModel({ ...initialValues, spec: { ...initialValues.spec, connectorRef: undefined } })
 
   if (
     connector?.data?.connector &&
@@ -149,7 +150,10 @@ const CommonServiceWidget: React.FC<CommonServiceWidgetProps> = ({ initialValues
       scope: scope
     }
   } else {
-    values.spec.connectorRef = initialValues.spec.connectorRef
+    // do not apply if we are loading connectors (this will keep "Loading" as placeholder in a input field)
+    if (!loading) {
+      values.spec.connectorRef = initialValues.spec.connectorRef
+    }
   }
 
   const handleCancelClick = (): void => {
@@ -162,6 +166,7 @@ const CommonServiceWidget: React.FC<CommonServiceWidgetProps> = ({ initialValues
 
   return (
     <Formik<CommonServiceDataUI>
+      enableReinitialize={true}
       initialValues={values}
       validationSchema={validationSchema}
       onSubmit={(_values: CommonServiceDataUI) => {
@@ -359,6 +364,7 @@ const CommonServiceWidget: React.FC<CommonServiceWidgetProps> = ({ initialValues
             </div>
             <div className={css.buttonsWrapper}>
               <Button
+                disabled={loading}
                 onClick={() => handleSubmit()}
                 intent="primary"
                 type="submit"

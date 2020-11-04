@@ -107,9 +107,8 @@ const RunStepWidget: React.FC<RunStepWidgetProps> = ({ initialValues, onUpdate }
     accountId: string
   }>()
 
-  const connectorId = getIdentifierFromValue((initialValues.spec.connectorRef as string) || '') // ? as string
-  const initialScope = getScopeFromValue((initialValues.spec.connectorRef as string) || '') // ? as string
-
+  const connectorId = getIdentifierFromValue(initialValues.spec.connectorRef || '')
+  const initialScope = getScopeFromValue(initialValues.spec.connectorRef || '')
   const { data: connector, loading, refetch } = useGetConnector({
     identifier: connectorId,
     queryParams: {
@@ -117,8 +116,7 @@ const RunStepWidget: React.FC<RunStepWidgetProps> = ({ initialValues, onUpdate }
       orgIdentifier: initialScope === Scope.ORG || initialScope === Scope.PROJECT ? orgIdentifier : undefined,
       projectIdentifier: initialScope === Scope.PROJECT ? projectIdentifier : undefined
     },
-    lazy: true,
-    debounce: 300
+    lazy: true
   })
 
   React.useEffect(() => {
@@ -130,7 +128,9 @@ const RunStepWidget: React.FC<RunStepWidgetProps> = ({ initialValues, onUpdate }
     }
   }, [initialValues.spec.connectorRef])
 
-  const values = convertToUIModel(initialValues)
+  // 1. remove connectorRef in order to show placholder text (connectorRef will be set below)
+  // 2. convert to ui model
+  const values = convertToUIModel({ ...initialValues, spec: { ...initialValues.spec, connectorRef: undefined } })
 
   if (
     connector?.data?.connector &&
@@ -143,7 +143,10 @@ const RunStepWidget: React.FC<RunStepWidgetProps> = ({ initialValues, onUpdate }
       scope: scope
     }
   } else {
-    values.spec.connectorRef = initialValues.spec.connectorRef
+    // do not apply if we are loading connectors (this will keep "Loading" as placeholder in a input field)
+    if (!loading) {
+      values.spec.connectorRef = initialValues.spec.connectorRef
+    }
   }
 
   const handleCancelClick = (): void => {
@@ -160,6 +163,7 @@ const RunStepWidget: React.FC<RunStepWidgetProps> = ({ initialValues, onUpdate }
         {i18n.title}
       </Text>
       <Formik
+        enableReinitialize={true}
         initialValues={values}
         validationSchema={validationSchema}
         onSubmit={_values => {

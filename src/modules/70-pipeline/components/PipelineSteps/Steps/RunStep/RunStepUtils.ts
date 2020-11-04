@@ -37,13 +37,18 @@ export function convertFromUIModel(data: RunStepDataUI): RunStepData {
     }
   })
 
+  let connectorRef
+  if (data.spec.connectorRef) {
+    connectorRef = data.spec.connectorRef?.value || data.spec.connectorRef
+  }
+
   const schemaValues: RunStepData = {
     identifier: data.identifier,
     name: data.name,
     type: data.type,
     spec: {
       image: data.spec.image,
-      ...(!isEmpty(data.spec.connectorRef) && { connectorRef: data.spec.connectorRef }),
+      ...(!isEmpty(connectorRef) && { connectorRef }),
       ...(!isEmpty(environment) && { environment }),
       ...(!isEmpty(data.spec.command) && { command: data.spec.command }),
       ...(!isEmpty(data.spec.output) && { output: data.spec.output }),

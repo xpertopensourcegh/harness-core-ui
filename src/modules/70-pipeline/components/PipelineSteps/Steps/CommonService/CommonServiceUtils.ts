@@ -37,13 +37,18 @@ export function convertFromUIModel(data: CommonServiceDataUI): CommonServiceData
     }
   })
 
+  let connectorRef
+  if (data.spec.connectorRef) {
+    connectorRef = data.spec.connectorRef?.value || data.spec.connectorRef
+  }
+
   const schemaValues: CommonServiceData = {
     identifier: data.identifier,
     name: data.name,
     type: data.type,
     spec: {
       image: data.spec.image,
-      ...(!isEmpty(data.spec.connectorRef) && { connectorRef: data.spec.connectorRef }),
+      ...(!isEmpty(connectorRef) && { connectorRef }),
       ...(!isEmpty(environment) && { environment }),
       ...(!isEmpty(data.spec.entrypoint) && { entrypoint: data.spec.entrypoint }),
       ...(!isEmpty(data.spec.args) && { args: data.spec.args }),
