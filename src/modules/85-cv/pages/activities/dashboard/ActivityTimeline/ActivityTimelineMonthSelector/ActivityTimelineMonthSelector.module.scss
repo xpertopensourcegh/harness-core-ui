@@ -1,0 +1,20 @@
+.main {
+  border-right: 1px solid var(--grey-300);
+  padding-top: var(--spacing-xlarge) !important;
+
+  .intervalContent {
+    display: flex;
+    justify-content: flex-end;
+    .monthLabel {
+      align-self: center;
+      margin-right: var(--spacing-medium);
+    }
+    &:not(:last-of-type) {
+      margin-bottom: var(--spacing-xsmall) !important;
+    }
+    &:hover {
+      cursor: pointer;
+      background-color: var(--blue-300);
+    }
+  }
+}

@@ -1,58 +1,75 @@
-import React, { useLayoutEffect, useMemo, useState } from 'react'
-import { Color, Container, Layout, Text } from '@wings-software/uikit'
+import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
+import { Container } from '@wings-software/uikit'
 import cx from 'classnames'
 import Draggable from 'react-draggable'
 import { getColorStyle } from '@common/components/HeatMap/ColorUtils'
-import { getMonthIncrements, positionScrubberPoints } from './ActivityTimelineScrubberUtils'
+import { positionScrubberPoints } from './ActivityTimelineScrubberUtils'
 import type { Activity } from '../ActivityTrack/ActivityTrackUtils'
 import css from './ActivityTimelineScrubber.module.scss'
-
-export interface MonthIntervalMarkersProps {
-  timelineStartTime: number
-  timelineEndTime: number
-}
 
 export interface ActivityTimelineScrubberProps {
   timelineStartTime: number
   timelineEndTime: number
   scrubberData: Activity[][]
-}
-
-export interface ScrubberLaneProps {
-  timelineStartTime: number
-  timelineEndTime: number
-  laneHeight?: number
-  scrubberData: Activity[][]
+  scrubberLaneRef?: (ref: HTMLDivElement) => void
+  scrubberRef?: (ref: React.Component) => void
+  onScrubberPositionChange?: (updatedPosition: { x: number; y: number }) => void
 }
 
 interface ScrubberProps {
   laneHeight: number
+  scrubberRef?: (ref: React.Component) => void
+  onScrubberPositionChange?: (updatedPosition: { x: number; y: number }) => void
 }
 
 const TOP_OFFSET = 30
 
-export function MonthIntervalMarkers(props: MonthIntervalMarkersProps): JSX.Element {
-  const { timelineStartTime, timelineEndTime } = props
-  const months = getMonthIncrements(timelineStartTime, timelineEndTime)
+function Scrubber(props: ScrubberProps): JSX.Element {
+  const { laneHeight, scrubberRef: scrubberRefFunc, onScrubberPositionChange } = props
+  const scrubberRef = useRef(null)
+  useEffect(() => {
+    const nodeReference = scrubberRef?.current
+    if (nodeReference) scrubberRefFunc?.(nodeReference)
+  }, [scrubberRef, scrubberRefFunc])
 
   return (
-    <Layout.Vertical width={55} className={css.monthIntervalMarker}>
-      {months.map(month => (
-        <Container key={month} height={30} className={css.intervalContent}>
-          <Text className={css.monthLabel} font={{ size: 'small' }} color={Color.BLACK}>
-            {month}
-          </Text>
-          <Container background={Color.GREY_200} width={5} />
-        </Container>
-      ))}
-    </Layout.Vertical>
+    <Draggable
+      axis="y"
+      bounds={{ top: 0, bottom: laneHeight - 60 }}
+      defaultClassNameDragging={css.draggingScrubber}
+      ref={scrubberRef}
+      onDrag={(e, data) => {
+        e.stopPropagation()
+        onScrubberPositionChange?.({ x: data.x, y: data.y })
+      }}
+    >
+      <Container className={css.scrubber} />
+    </Draggable>
   )
 }
 
-export function ScrubberLane(props: ScrubberLaneProps): JSX.Element {
-  const { timelineStartTime, scrubberData, laneHeight } = props
+export function ActivityTimelineScrubber(props: ActivityTimelineScrubberProps): JSX.Element {
+  const { timelineStartTime, scrubberData, scrubberLaneRef, onScrubberPositionChange, scrubberRef } = props
+  const [laneHeight, setlaneHeight] = useState<number | undefined>()
+  const laneRef = useRef<HTMLDivElement>(null)
+
+  useLayoutEffect(() => {
+    const pageHeader = document.querySelector('[class*="PageHeader"]')
+    let contentHeight = window.innerHeight
+    if (pageHeader) {
+      contentHeight -= pageHeader.getBoundingClientRect().height
+    }
+    setlaneHeight(contentHeight)
+  }, [])
+
+  useEffect(() => {
+    if (laneRef?.current && scrubberLaneRef) {
+      scrubberLaneRef(laneRef.current)
+    }
+  }, [laneRef, scrubberLaneRef])
+
   const plottedActivities = useMemo(() => {
-    if (!laneHeight || !scrubberData?.length) return []
+    if (!laneHeight || !scrubberData || !scrubberData.length) return []
 
     let dataSetEndTime = Infinity
     for (const laneData of scrubberData) {
@@ -84,45 +101,17 @@ export function ScrubberLane(props: ScrubberLaneProps): JSX.Element {
       )
     })
   }, [scrubberData, laneHeight, timelineStartTime])
-  return (
-    <Container width={80} className={css.scrubberLaneContainer}>
-      <Scrubber laneHeight={laneHeight || 0} />
-      {plottedActivities}
-    </Container>
-  )
-}
-
-function Scrubber(props: ScrubberProps): JSX.Element {
-  const { laneHeight } = props
-  return (
-    <Draggable axis="y" bounds={{ top: 0, bottom: laneHeight - 60 }} defaultClassNameDragging={css.draggingScrubber}>
-      <Container className={css.scrubber} />
-    </Draggable>
-  )
-}
-
-export function ActivityTimelineScrubber(props: ActivityTimelineScrubberProps): JSX.Element {
-  const { timelineStartTime, timelineEndTime, scrubberData } = props
-  const [viewportHeight, setViewportHeight] = useState<number | undefined>()
-
-  useLayoutEffect(() => {
-    const pageHeader = document.querySelector('[class*="PageHeader"]')
-    let contentHeight = window.innerHeight
-    if (pageHeader) {
-      contentHeight -= pageHeader.getBoundingClientRect().height
-    }
-    setViewportHeight(contentHeight)
-  }, [])
 
   return (
-    <Container className={css.main} height={viewportHeight}>
-      <MonthIntervalMarkers timelineStartTime={timelineStartTime} timelineEndTime={timelineEndTime} />
-      <ScrubberLane
-        timelineStartTime={timelineStartTime}
-        timelineEndTime={timelineEndTime}
-        laneHeight={viewportHeight}
-        scrubberData={scrubberData}
+    <div className={css.scrubberLaneContainer} ref={scrubberLaneRef} style={{ height: laneHeight }}>
+      <Container className={css.laneContainer} onClick={e => onScrubberPositionChange?.({ x: 0, y: e.clientY - 100 })}>
+        {plottedActivities}
+      </Container>
+      <Scrubber
+        laneHeight={laneHeight || 0}
+        onScrubberPositionChange={onScrubberPositionChange}
+        scrubberRef={scrubberRef}
       />
-    </Container>
+    </div>
   )
 }

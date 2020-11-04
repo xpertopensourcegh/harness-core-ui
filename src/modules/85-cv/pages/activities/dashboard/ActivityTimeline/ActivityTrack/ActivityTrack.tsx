@@ -108,7 +108,7 @@ function ActivityCardWrapper(props: ActivityCardProps): JSX.Element {
     if (!cardRef || !cardRef?.current || !pageBodyElement) return
     const cardRefElement = cardRef.current
     const intersectionObserver = new IntersectionObserver(arr => setVisible(arr[0].isIntersecting), {
-      rootMargin: `200px 0px 200px 0px`,
+      rootMargin: `500px 0px 500px 0px`,
       root: pageBodyElement,
       threshold: 0.5
     })
