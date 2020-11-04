@@ -16,6 +16,7 @@ import {
   getStepsPipelineFromExecutionPipeline
 } from '../../build/sections/pipeline-graph/BuildPipelineGraphUtils'
 import { BuildPipelineGraphLayoutType } from '../sections/pipeline-graph/BuildPipelineGraphLayout/BuildPipelineGraphLayout'
+import { fetchLogsAccessToken } from '../../../services/TokenService'
 
 export const BuildPageContextProvider: React.FC = props => {
   const { children } = props
@@ -28,6 +29,7 @@ export const BuildPageContextProvider: React.FC = props => {
   })
 
   const [logs, setLogs] = React.useState<Array<any>>([])
+  const [logsToken, setLogsToken] = React.useState<string | undefined>()
 
   const setSelectedStageIdentifier = (selectedStageIdentifier: string): void => {
     if (selectedStageIdentifier === state.selectedStageIdentifier) return
@@ -88,6 +90,13 @@ export const BuildPageContextProvider: React.FC = props => {
     }
   })
 
+  // get token for accessing logs
+  useEffect(() => {
+    fetchLogsAccessToken(accountId).then((token: string) => {
+      setLogsToken(token)
+    })
+  }, [])
+
   // by default fist stage/step is selected
   useEffect(() => {
     setState({
@@ -113,21 +122,24 @@ export const BuildPageContextProvider: React.FC = props => {
     selectedStepStatus === ExecutionPipelineItemStatus.ASYNC_WAITING
 
   const [logsStream] = useLogs(
+    logsToken as string,
     accountId,
     orgIdentifier,
     projectIdentifier,
     buildIdentifier,
     selectedStageOption?.label || '',
     selectedStepName || '',
-    isStepRunning && !!selectedStageOption && !!selectedStepName
+    !!logsToken && isStepRunning && !!selectedStageOption && !!selectedStepName
   )
 
   useEffect(() => {
     setLogs([])
-    !isStepRunning &&
+    !!logsToken &&
+      !isStepRunning &&
       selectedStageOption &&
       selectedStepName &&
       getLogsFromBlob(
+        logsToken,
         accountId,
         orgIdentifier,
         projectIdentifier,
@@ -136,7 +148,7 @@ export const BuildPageContextProvider: React.FC = props => {
         selectedStepName || '',
         setLogs
       )
-  }, [state.selectedStepIdentifier])
+  }, [logsToken, state.selectedStepIdentifier])
 
   return (
     <BuildPageContext.Provider

@@ -15,14 +15,15 @@ export interface Logs {
   logLine: string
 }
 
-const endpoint = 'https://qb.harness.io/log-service/api'
+const apiEndpoint = '/log-service/blob'
+const streamEndpoint = '/log-service/stream'
 
 /**
  * Get Logs from blob
  */
 
-// TODO migrate to useGet restfull react, after demo
 export async function getLogsFromBlob(
+  token: string,
   accountIdentifier: string,
   orgIdentifier: string,
   projectIdentifier: string,
@@ -33,12 +34,22 @@ export async function getLogsFromBlob(
 ): Promise<void> {
   try {
     fetch(
-      `${endpoint}/accounts/${accountIdentifier}/orgs/${orgIdentifier}/projects/${projectIdentifier}/builds/${buildIdentifier}/logs/${stageIdentifier}/${stepIdentifier}/blob`
+      `${apiEndpoint}?accountID=${accountIdentifier}&key=${accountIdentifier}/${orgIdentifier}/${projectIdentifier}/${buildIdentifier}/${stageIdentifier}/${stepIdentifier}`,
+      {
+        headers: { 'X-Harness-Token': token }
+      }
     )
       .then(resp => resp.text())
       .then(resp => {
         const lines = resp.split('\n')
-        const data = lines.filter(line => line.length > 0).map(line => line && JSON.parse(line))
+        let data: LogResponse[] = []
+        try {
+          data = lines.filter(line => line.length > 0).map(line => line && JSON.parse(line))
+        } catch (ex) {
+          // TBD: how to handle errors
+          // response: {error_msg: "..."}
+        }
+
         const parsedData = data.map((item: LogResponse) => {
           return {
             logLevel: item?.level.toUpperCase(),
@@ -54,6 +65,7 @@ export async function getLogsFromBlob(
 }
 
 export const downloadLogs = (
+  token: string,
   accountIdentifier: string,
   orgIdentifier: string,
   projectIdentifier: string,
@@ -62,7 +74,10 @@ export const downloadLogs = (
   stepIdentifier: string
 ) => {
   fetch(
-    `${endpoint}/accounts/${accountIdentifier}/orgs/${orgIdentifier}/projects/${projectIdentifier}/builds/${buildIdentifier}/logs/${stageIdentifier}/${stepIdentifier}/blob`
+    `${apiEndpoint}?accountID=${accountIdentifier}&key=${accountIdentifier}/${orgIdentifier}/${projectIdentifier}/${buildIdentifier}/${stageIdentifier}/${stepIdentifier}`,
+    {
+      headers: { 'X-Harness-Token': token }
+    }
   ).then(response => {
     response.blob().then(blob => {
       const url = window.URL.createObjectURL(blob)
@@ -75,6 +90,7 @@ export const downloadLogs = (
 }
 
 export const useLogs = (
+  token: string,
   accountIdentifier: string,
   orgIdentifier: string,
   projectIdentifier: string,
@@ -103,7 +119,7 @@ export const useLogs = (
     const eventSource =
       shouldCall &&
       new EventSource(
-        `${endpoint}/accounts/${accountIdentifier}/orgs/${orgIdentifier}/projects/${projectIdentifier}/builds/${buildIdentifier}/logs/${stageIdentifier}/${stepIdentifier}/stream`
+        `${streamEndpoint}?accountID=${accountIdentifier}&key=${accountIdentifier}/${orgIdentifier}/${projectIdentifier}/${buildIdentifier}/${stageIdentifier}/${stepIdentifier}&X-Harness-Token=${token}`
       )
     if (shouldCall && eventSource) {
       eventSource.onmessage = e => {
