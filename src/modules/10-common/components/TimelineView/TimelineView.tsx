@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react'
 import { Container, Text } from '@wings-software/uikit'
+import { Classes } from '@blueprintjs/core'
 import isUndefined from 'lodash/isUndefined'
 import moment from 'moment'
 import classnames from 'classnames'
@@ -27,6 +28,7 @@ export interface TimelineViewProps {
   renderBatch?(items: Array<RowItem>): JSX.Element
   className?: string
   labelsWidth?: number
+  loading?: boolean
   hideTimelineBar?: boolean
   rowHeight?: number
   timelineBarProps?: Omit<TimelineBarProps, 'startDate' | 'endDate'>
@@ -40,6 +42,7 @@ export default function TimelineView({
   renderItem,
   renderBatch,
   className,
+  loading,
   labelsWidth = 125,
   hideTimelineBar = false,
   rowHeight = 50,
@@ -98,7 +101,13 @@ export default function TimelineView({
               {typeof row.name === 'string' ? <Text width={labelsWidth}>{row.name}</Text> : row.name}
             </Container>
           )}
-          <div className={classnames(styles.rowItems, 'rowItems')}>
+          <div
+            className={classnames(
+              styles.rowItems,
+              'rowItems',
+              loading ? classnames(styles.loading, Classes.SKELETON) : undefined
+            )}
+          >
             {row.data.map((item, itemIndex) => (
               <Container
                 key={itemIndex}

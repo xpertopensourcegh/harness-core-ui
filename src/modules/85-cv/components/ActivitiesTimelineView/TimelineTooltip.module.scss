@@ -1,0 +1,12 @@
+.main {
+  max-height: 150px;
+  overflow-y: scroll;
+  padding: var(--spacing-small) !important;
+  .timestamp {
+    margin-bottom: 2px;
+    font-size: var(--font-size-small) !important;
+  }
+  .activityName {
+    font-size: var(--font-size-xsmall) !important;
+  }
+}

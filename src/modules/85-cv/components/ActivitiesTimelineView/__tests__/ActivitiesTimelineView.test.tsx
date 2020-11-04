@@ -37,8 +37,8 @@ describe('ActivitiesTimelineView', () => {
         endTime={1602604800000}
         canSelect
         deployments={[
-          { startTime: 1602592200000, name: 'DB Integration 1001', verificationResult: 'PASSED' },
-          { startTime: 1602592200000, name: 'DB Integration 1002', verificationResult: 'FAILED' }
+          { startTime: 1602592200000, name: 'DB Integration 1001', verificationResult: 'VERIFICATION_PASSED' },
+          { startTime: 1602592200000, name: 'DB Integration 1002', verificationResult: 'VERIFICATION_FAILED' }
         ]}
       />
     )
@@ -47,7 +47,7 @@ describe('ActivitiesTimelineView', () => {
     act(() => {
       fireEvent.click(container.querySelector('.eventBatch .itemsGroup')!)
     })
-    expect(container.querySelector('.timelineBar')?.children.length).not.toEqual(oldBarLabelsCount)
+    expect(container.querySelector('.timelineBar')?.children.length).toEqual(oldBarLabelsCount)
   })
 
   test('can select activity', () => {
@@ -56,7 +56,9 @@ describe('ActivitiesTimelineView', () => {
         startTime={1602590400000}
         endTime={1602604800000}
         canSelect
-        deployments={[{ startTime: 1602592200000, name: 'DB Integration 1001', verificationResult: 'PASSED' }]}
+        deployments={[
+          { startTime: 1602592200000, name: 'DB Integration 1001', verificationResult: 'VERIFICATION_PASSED' }
+        ]}
       />
     )
     act(() => {

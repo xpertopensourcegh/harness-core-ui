@@ -13,5 +13,6 @@ declare const styles: {
   readonly headerPrimaryMsg: string
   readonly headerSecondaryMsg: string
   readonly verticalLine: string
+  readonly errorAndNoData: string
 }
 export default styles

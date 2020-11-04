@@ -26,6 +26,7 @@ allowpaths:
   - /activity/deployment-activity-verifications/{deploymentTag}
   - /activity/deployment-activity-verifications-popover-summary/{deploymentTag}
   - /activity/recent-activity-verifications
+  - /activity/list
 operationIdOverrides:
   /appdynamics/applications.get: getAppDynamicsApplications
   /appdynamics/metric-data.post: getAppDynamicsMetricData

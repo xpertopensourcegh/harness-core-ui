@@ -15,15 +15,18 @@ export default function EventSvg({
 }) {
   const { verificationResult } = item
   const pathProps: any = {
-    strokeWidth: 2
+    strokeWidth: 1.5
   }
   if (selected) {
     pathProps.fill = 'var(--blue-500)'
     pathProps.stroke = 'var(--blue-500)'
-  } else if (verificationResult === 'PASSED') {
-    pathProps.fill = '#86DD29'
+  } else if (verificationResult === 'IN_PROGRESS') {
+    pathProps.fill = '#ffffff'
+    pathProps.stroke = 'var(--blue-500)'
+  } else if (verificationResult === 'VERIFICATION_PASSED') {
+    pathProps.fill = '#ffffff'
     pathProps.stroke = '#86DD29'
-  } else if (verificationResult === 'FAILED') {
+  } else if (verificationResult === 'VERIFICATION_FAILED') {
     pathProps.fill = '#ffffff'
     pathProps.stroke = '#F45858'
   }

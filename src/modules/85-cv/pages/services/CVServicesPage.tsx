@@ -3,6 +3,7 @@ import { Container, Text, Select, Color, SelectOption, SelectProps } from '@wing
 import moment from 'moment'
 import { useHistory } from 'react-router-dom'
 import { Page } from '@common/exports'
+import ActivitesTimelineViewSection from '@cv/components/ActivitiesTimelineView/ActivitiesTimelineViewSection'
 import { useRouteParams } from 'framework/exports'
 import { routeCVDataSources } from 'navigation/cv/routes'
 import { RestResponseCategoryRisksDTO, useGetCategoryRiskMap } from 'services/cv'
@@ -10,7 +11,6 @@ import ServiceSelector from './ServiceSelector/ServiceSelector'
 import i18n from './CVServicesPage.i18n'
 import { CategoryRiskCards } from '../dashboard/CategoryRiskCards/CategoryRiskCards'
 import { AnalysisDrillDownView, AnalysisDrillDownViewProps } from './analysis-drilldown-view/AnalysisDrillDownView'
-import ServiceActivityTimeline from './ServiceActivityTimeline/ServiceActivityTimeline'
 import ServiceHeatMap from './ServiceHeatMap/ServiceHeatMap'
 import styles from './CVServicesPage.module.scss'
 
@@ -142,9 +142,18 @@ export default function CVServicesPage(): JSX.Element {
                   }}
                 />
               </Container>
-              <ServiceActivityTimeline
+              <ActivitesTimelineViewSection
                 startTime={heatMapAndTimeSeriesInput.startTime}
                 endTime={heatMapAndTimeSeriesInput.endTime}
+                environmentIdentifier={selectedService?.environmentIdentifier}
+                className={styles.serviceActivityTimeline}
+                timelineViewProps={{
+                  labelsWidth: 210,
+                  timelineBarProps: {
+                    columnWidth: 65,
+                    className: styles.timelineBarStyle
+                  }
+                }}
               />
               {isTimeRangeMoreThan4Hours ? (
                 <ServiceHeatMap {...heatMapAndTimeSeriesInput} />

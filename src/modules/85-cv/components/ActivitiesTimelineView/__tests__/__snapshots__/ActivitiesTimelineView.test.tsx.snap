@@ -97,39 +97,38 @@ exports[`ActivitiesTimelineView matches snapshot 1`] = `
                 >
                   <div
                     class="StyledProps---font--2ipy StyledProps---main--1Wws itemsGroup"
-                    style="margin-bottom: 3px;"
                     tabindex="0"
                   >
                     <svg
                       class=""
                       fill="none"
                       height="16"
-                      style="top: 0px; left: 0px; z-index: 0;"
+                      style="top: 0px; left: 0px; z-index: 3;"
                       viewBox="0 0 18 16"
                       width="18"
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
                         d="M12.9226 1.20577L16.8453 8L12.9226 14.7942H5.07735L1.1547 8L5.07735 1.20577L12.9226 1.20577Z"
-                        fill="#86DD29"
+                        fill="#ffffff"
                         stroke="#86DD29"
-                        stroke-width="2"
+                        stroke-width="1.5"
                       />
                     </svg>
                     <svg
                       class=""
                       fill="none"
                       height="16"
-                      style="top: 3px; left: -3px; z-index: 1;"
+                      style="top: -2px; left: 4px; z-index: 2;"
                       viewBox="0 0 18 16"
                       width="18"
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
                         d="M12.9226 1.20577L16.8453 8L12.9226 14.7942H5.07735L1.1547 8L5.07735 1.20577L12.9226 1.20577Z"
-                        fill="#86DD29"
+                        fill="#ffffff"
                         stroke="#86DD29"
-                        stroke-width="2"
+                        stroke-width="1.5"
                       />
                     </svg>
                   </div>
@@ -137,7 +136,7 @@ exports[`ActivitiesTimelineView matches snapshot 1`] = `
               </span>
               <p
                 class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StyledProps---font-size-xsmall--1f9b"
-                style="--text-line-clamp: 2; width: 70px;"
+                style="--text-line-clamp: 1; width: 50px;"
               >
                 2 Events
               </p>
@@ -158,14 +157,13 @@ exports[`ActivitiesTimelineView matches snapshot 1`] = `
                 >
                   <div
                     class="StyledProps---font--2ipy StyledProps---main--1Wws itemsGroup"
-                    style="margin-bottom: 6px;"
                     tabindex="0"
                   >
                     <svg
                       class=""
                       fill="none"
                       height="16"
-                      style="top: 0px; left: 0px; z-index: 0;"
+                      style="top: 0px; left: 0px; z-index: 3;"
                       viewBox="0 0 18 16"
                       width="18"
                       xmlns="http://www.w3.org/2000/svg"
@@ -174,30 +172,30 @@ exports[`ActivitiesTimelineView matches snapshot 1`] = `
                         d="M12.9226 1.20577L16.8453 8L12.9226 14.7942H5.07735L1.1547 8L5.07735 1.20577L12.9226 1.20577Z"
                         fill="#ffffff"
                         stroke="#F45858"
-                        stroke-width="2"
+                        stroke-width="1.5"
                       />
                     </svg>
                     <svg
                       class=""
                       fill="none"
                       height="16"
-                      style="top: 3px; left: -3px; z-index: 1;"
+                      style="top: -2px; left: 4px; z-index: 2;"
                       viewBox="0 0 18 16"
                       width="18"
                       xmlns="http://www.w3.org/2000/svg"
                     >
                       <path
                         d="M12.9226 1.20577L16.8453 8L12.9226 14.7942H5.07735L1.1547 8L5.07735 1.20577L12.9226 1.20577Z"
-                        fill="#86DD29"
+                        fill="#ffffff"
                         stroke="#86DD29"
-                        stroke-width="2"
+                        stroke-width="1.5"
                       />
                     </svg>
                     <svg
                       class=""
                       fill="none"
                       height="16"
-                      style="top: 6px; left: -6px; z-index: 2;"
+                      style="top: -4px; left: 8px; z-index: 1;"
                       viewBox="0 0 18 16"
                       width="18"
                       xmlns="http://www.w3.org/2000/svg"
@@ -206,7 +204,7 @@ exports[`ActivitiesTimelineView matches snapshot 1`] = `
                         d="M12.9226 1.20577L16.8453 8L12.9226 14.7942H5.07735L1.1547 8L5.07735 1.20577L12.9226 1.20577Z"
                         fill="#ffffff"
                         stroke="#F45858"
-                        stroke-width="2"
+                        stroke-width="1.5"
                       />
                     </svg>
                   </div>
@@ -214,7 +212,7 @@ exports[`ActivitiesTimelineView matches snapshot 1`] = `
               </span>
               <p
                 class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StyledProps---font-size-xsmall--1f9b"
-                style="--text-line-clamp: 2; width: 70px;"
+                style="--text-line-clamp: 1; width: 50px;"
               >
                 3 Events
               </p>

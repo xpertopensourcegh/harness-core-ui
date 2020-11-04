@@ -1,6 +1,7 @@
 import React from 'react'
 import { Container, Tabs, Tab } from '@wings-software/uikit'
 import cx from 'classnames'
+import { NoDataCard } from '@common/components/Page/NoDataCard'
 import i18n from './AnalysisDrillDownView.i18n'
 import MetricAnalysisView from './MetricAnalysisView/MetricAnalysisView'
 import LogAnalysisView from './LogAnalysisView/LogAnalysisView'
@@ -28,7 +29,18 @@ export function AnalysisDrillDownView(props: AnalysisDrillDownViewProps): JSX.El
     historyStartTime,
     asModal
   } = props
-  if (!startTime || !endTime) return null
+  if (!startTime || !endTime) {
+    return (
+      <Container height={200}>
+        <NoDataCard
+          icon="warning-sign"
+          iconSize={30}
+          message={i18n.noDataText}
+          // className={css.errorAndNoData}
+        />
+      </Container>
+    )
+  }
   return (
     <Container className={cx(css.main, className)}>
       <Tabs id="AnalysisTabs" renderAllTabPanels={true}>

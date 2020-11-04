@@ -24,9 +24,9 @@ const TIME_UNITS = [
   { unit: 'hours', step: 2, format: 'h:mm A' },
   { unit: 'hours', step: 4, format: 'h:mm A' },
   { unit: 'hours', step: 12, format: 'h:mm A' },
-  { unit: 'days', step: 1, format: 'MMM D' },
-  { unit: 'days', step: 2, format: 'MMM D' },
-  { unit: 'weeks', step: 1, format: 'MMM D' },
+  { unit: 'days', step: 1, format: 'MMM D, h:mm A' },
+  { unit: 'days', step: 2, format: 'MMM D, h:mm A' },
+  { unit: 'weeks', step: 1, format: 'MMM D, h:mm A' },
   { unit: 'months', step: 1, format: 'MMM' },
   { unit: 'months', step: 4, format: 'MMM' },
   { unit: 'years', step: 1, format: 'YYYY' }

@@ -1,31 +1,55 @@
 import React from 'react'
 import moment from 'moment'
-import { Container, Text } from '@wings-software/uikit'
-import { PopoverInteractionKind, Position, Tooltip } from '@blueprintjs/core'
+import { IconName, Layout, Popover, Text } from '@wings-software/uikit'
+import { PopoverInteractionKind, Position } from '@blueprintjs/core'
 import type { EventData } from './ActivitiesTimelineView'
+import css from './TimelineTooltip.module.scss'
+
+function verificationResultToIcon(verificationResult: EventData['verificationResult']): IconName | undefined {
+  switch (verificationResult) {
+    case 'VERIFICATION_PASSED':
+      return 'deployment-success-legacy'
+    case 'VERIFICATION_FAILED':
+    case 'ERROR':
+      return 'deployment-failed-legacy'
+    case 'IN_PROGRESS':
+    case 'NOT_STARTED':
+      return 'deployment-inprogress-legacy'
+    default:
+      return undefined
+  }
+}
 
 export default function TimelineTooltip({ items, children }: { items: Array<EventData>; children: JSX.Element }) {
-  let dateLabel = moment(items[0].startTime).format('MMM D, h:mm:ss a')
+  let dateLabel = moment(items[0].startTime).format('MMM D, h:mm a')
   if (items.length > 1) {
-    dateLabel = `${dateLabel} - ${moment(items[items.length - 1].startTime).format('MMM D, h:mm:ss a')}`
+    dateLabel = `${dateLabel} - ${moment(items[items.length - 1].startTime).format('MMM D, h:mm a')}`
   }
   return (
-    <Tooltip
+    <Popover
       lazy={true}
       position={Position.TOP}
       interactionKind={PopoverInteractionKind.HOVER}
       content={
-        <Container>
-          <Text font={{ size: 'small' }}>{dateLabel}</Text>
-          {items.map((item, i) => (
-            <Text font={{ size: 'xsmall' }} key={i}>
-              {`${item.name} - status: ${item.verificationResult}`}
-            </Text>
-          ))}
-        </Container>
+        <Layout.Vertical className={css.main}>
+          <Text className={css.timestamp}>{dateLabel}</Text>
+          {items.map((item, i) => {
+            const { verificationResult, name } = item || {}
+            return name && verificationResult ? (
+              <Text
+                className={css.activityName}
+                key={i}
+                rightIcon={verificationResultToIcon(verificationResult)}
+                rightIconProps={{ size: 10 }}
+              >
+                {`${name} - status:`}
+              </Text>
+            ) : null
+          })}
+        </Layout.Vertical>
       }
     >
       {children}
-    </Tooltip>
+    </Popover>
   )
 }

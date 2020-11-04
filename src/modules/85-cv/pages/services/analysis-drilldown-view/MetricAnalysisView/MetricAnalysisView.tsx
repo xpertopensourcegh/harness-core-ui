@@ -175,7 +175,7 @@ export default function MetricAnalysisView(props: MetricAnalysisViewProps): JSX.
             })
           }}
         />
-        <TimelineBar startDate={finalStartTime} endDate={endTime} className={css.timeline} columnWidth={65} />
+        <TimelineBar startDate={finalStartTime} endDate={endTime} className={css.timeline} columnWidth={70} />
       </Container>
       {(loadingAllMetricData || loadingAnomalousData) && (
         <Container className={css.errorOrLoading} margin="medium">

@@ -8,6 +8,8 @@ declare const styles: {
   readonly serviceBody: string
   readonly rangeSelector: string
   readonly serviceHeatMap: string
+  readonly serviceActivityTimeline: string
+  readonly timelineBarStyle: string
   readonly analysisView: string
   readonly categoryRiskCard: string
   readonly heatmapTooltip: string

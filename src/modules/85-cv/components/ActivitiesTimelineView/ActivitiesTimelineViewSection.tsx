@@ -1,18 +1,26 @@
 import React, { useEffect, useState } from 'react'
-import { useGet } from 'restful-react'
+import { Container } from '@wings-software/uikit'
+import { NoDataCard } from '@common/components/Page/NoDataCard'
+import { RestResponseListActivityDashboardDTO, useListActivitiesForDashboard } from 'services/cv'
 import { useRouteParams } from 'framework/exports'
-import ActivitiesTimelineView, { EventData } from './ActivitiesTimelineView'
+import ActivitiesTimelineView, { ActivitiesTimelineViewProps, EventData } from './ActivitiesTimelineView'
+import i18n from './ActivitiesTimelineView.i18n'
+import css from './ActivitiesTimelineView.module.scss'
 
 export interface ActivitesTimelineViewSectionProps {
   startTime: number
   endTime: number
-  environmentIdentifier: string
+  environmentIdentifier?: string
+  timelineViewProps?: ActivitiesTimelineViewProps['timelineViewProps']
+  className?: string
 }
 
 export default function ActivitesTimelineViewSection({
   startTime,
   endTime,
-  environmentIdentifier
+  environmentIdentifier,
+  timelineViewProps,
+  className
 }: ActivitesTimelineViewSectionProps) {
   const [deployments, setDeployments] = useState<Array<EventData>>()
   const [configChanges, setConfigChanges] = useState<Array<EventData>>()
@@ -22,32 +30,31 @@ export default function ActivitesTimelineViewSection({
     params: { accountId, projectIdentifier, orgIdentifier }
   } = useRouteParams()
 
-  const { refetch: getActivities } = useGet('/cv/api/activity/list', {
+  const { data, refetch: getActivities, loading, error } = useListActivitiesForDashboard({
     lazy: true,
-    resolve: res => {
+    resolve: (res: RestResponseListActivityDashboardDTO) => {
       if (res) {
         const deploymentsData: Array<EventData> = []
         const configChangesData: Array<EventData> = []
         const infrastructureChangesData: Array<EventData> = []
         const otherChangesData: Array<EventData> = []
-        res?.resource?.forEach((activity: any) => {
+        res?.resource?.forEach(activity => {
+          const { activityName, activityStartTime, verificationStatus, activityType } = activity || {}
+          if (!activityName || !activityStartTime || !verificationStatus || !activityType) return
           const eventData = {
-            startTime: activity.activityStartTime as number,
-            name: activity.activityName as string,
-            verificationResult: 'PASSED' as EventData['verificationResult'] // TODO - add in-progress
+            startTime: activityStartTime,
+            name: activityName,
+            verificationResult: verificationStatus
           }
-          switch (activity.activityType) {
-            case 'DEPLOYMENTS':
+          switch (activityType) {
+            case 'DEPLOYMENT':
               deploymentsData.push(eventData)
               break
-            case 'CONFIG_CHANGES':
+            case 'CUSTOM':
               configChangesData.push(eventData)
               break
             case 'INFRASTRUCTURE':
               infrastructureChangesData.push(eventData)
-              break
-            case 'OTHER_CHANGES':
-              otherChangesData.push(eventData)
               break
           }
           setDeployments(deploymentsData)
@@ -65,24 +72,59 @@ export default function ActivitesTimelineViewSection({
       getActivities({
         queryParams: {
           accountId,
-          orgIdentifier,
-          projectIdentifier,
+          orgIdentifier: orgIdentifier as string,
+          projectIdentifier: projectIdentifier as string,
           environmentIdentifier,
           startTime: startTime,
           endTime: endTime
         }
       })
     }
-  }, [startTime, endTime])
+  }, [startTime, endTime, environmentIdentifier, getActivities])
+
+  if (error?.message) {
+    return (
+      <Container height={200}>
+        <NoDataCard
+          icon="error"
+          iconSize={30}
+          buttonText={i18n.retry}
+          message={error.message}
+          onClick={() => getActivities()}
+          className={css.errorAndNoData}
+        />
+      </Container>
+    )
+  }
+
+  if (!startTime || !endTime || (!loading && !data?.resource?.length)) {
+    return (
+      <Container height={200}>
+        <NoDataCard
+          icon="warning-sign"
+          iconSize={30}
+          buttonText={i18n.retry}
+          message={i18n.noDataText}
+          onClick={() => getActivities()}
+          className={css.errorAndNoData}
+        />
+      </Container>
+    )
+  }
 
   return (
     <ActivitiesTimelineView
       startTime={startTime}
       endTime={endTime}
+      className={className}
       deployments={deployments}
       configChanges={configChanges}
       infrastructureChanges={infrastructureChanges}
       otherChanges={otherChanges}
+      timelineViewProps={{
+        ...timelineViewProps,
+        loading
+      }}
     />
   )
 }

@@ -17,6 +17,11 @@
         bottom: 0;
       }
     }
+
+    .loading {
+      height: 2px !important;
+      top: 5px;
+    }
   }
   .timelineViewBar {
     margin-top: var(--spacing-medium);
