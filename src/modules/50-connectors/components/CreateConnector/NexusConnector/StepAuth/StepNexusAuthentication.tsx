@@ -31,7 +31,7 @@ import {
   getSecretFieldsByType,
   SecretFieldByType
 } from '@connectors/pages/connectors/Forms/KubeFormHelper'
-import type { SecretInfo } from '@secrets/components/SecretInput/SecretTextInput'
+import type { SecretInfo } from '@secrets/components/SecretTextInput/SecretTextInput'
 import UsernamePassword from '../../../ConnectorFormFields/UsernamePassword'
 
 import i18n from '../CreateNexusConnector.i18n'

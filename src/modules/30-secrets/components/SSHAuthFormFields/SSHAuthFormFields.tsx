@@ -7,8 +7,7 @@ import { useParams } from 'react-router-dom'
 import { omit } from 'lodash-es'
 
 import SecretReference from '@secrets/components/SecretReference/SecretReference'
-import { FormikSecretTextInput } from '@secrets/components/SecretInput/SecretTextInput'
-import { getIdentifierFromName } from '@common/utils/StringUtils'
+import SecretInput from '@secrets/components/SecretInput/SecretInput'
 import type { SSHConfigFormData } from '@secrets/modals/CreateSSHCredModal/views/StepAuthentication'
 import type { SecretResponseWrapper, ResponsePageSecretResponseWrapper } from 'services/cd-ng'
 import { Scope } from '@common/interfaces/SecretsInterface'
@@ -80,7 +79,7 @@ const getIconForScope = (scope: Scope): IconName => {
 }
 
 const SSHAuthFormFields: React.FC<SSHAuthFormFieldsProps> = props => {
-  const { formik, secretName, editing, showCreateSecretModal } = props
+  const { formik, showCreateSecretModal } = props
   const { accountId, orgIdentifier, projectIdentifier } = useParams()
 
   return (
@@ -191,53 +190,17 @@ const SSHAuthFormFields: React.FC<SSHAuthFormFieldsProps> = props => {
                   )
                 }}
               />
-              <FormikSecretTextInput
-                fieldName="encryptedPassphraseText"
-                label={i18n.labelPassphrase}
-                secretFieldName="encryptedPassphraseSecret"
-                accountId={accountId}
-                orgIdentifier={orgIdentifier}
-                projectIdentifier={projectIdentifier}
-                defaultSecretName={getIdentifierFromName(secretName + '_passphrase')}
-                defaultSecretId={getIdentifierFromName(secretName + '_passphrase')}
-                isEditMode={editing && !!formik.values['encryptedPassphraseSecret']}
-                onClickCreateSecret={() => showCreateSecretModal('SecretText')}
-                onEditSecret={secret => showCreateSecretModal('SecretText', { secret })}
-              />
+              <SecretInput name={'encryptedPassphrase'} label={i18n.labelPassphrase} />
             </>
           ) : null}
           {formik.values.credentialType === 'KeyPath' ? (
             <>
               <FormInput.Text name="keyPath" label={i18n.labelKeyFilePath} />
-              <FormikSecretTextInput
-                fieldName="encryptedPassphraseText"
-                label={i18n.labelPassphrase}
-                secretFieldName="encryptedPassphraseSecret"
-                accountId={accountId}
-                orgIdentifier={orgIdentifier}
-                projectIdentifier={projectIdentifier}
-                defaultSecretName={getIdentifierFromName(secretName + '_passphrase')}
-                defaultSecretId={getIdentifierFromName(secretName + '_passphrase')}
-                isEditMode={editing && !!formik.values['encryptedPassphraseSecret']}
-                onClickCreateSecret={() => showCreateSecretModal('SecretText')}
-                onEditSecret={secret => showCreateSecretModal('SecretText', { secret })}
-              />
+              <SecretInput name={'encryptedPassphrase'} label={i18n.labelPassphrase} />
             </>
           ) : null}
           {formik.values.credentialType === 'Password' ? (
-            <FormikSecretTextInput
-              fieldName="passwordText"
-              label={i18n.labelPassword}
-              secretFieldName="passwordSecret"
-              accountId={accountId}
-              orgIdentifier={orgIdentifier}
-              projectIdentifier={projectIdentifier}
-              defaultSecretName={getIdentifierFromName(secretName + '_password')}
-              defaultSecretId={getIdentifierFromName(secretName + '_password')}
-              isEditMode={editing && !!formik.values['passwordSecret']}
-              onClickCreateSecret={() => showCreateSecretModal('SecretText')}
-              onEditSecret={secret => showCreateSecretModal('SecretText', { secret })}
-            />
+            <SecretInput name={'password'} label={i18n.labelPassword} />
           ) : null}
           <FormInput.Text name="port" label={i18n.labelSSHPort} />
         </>
@@ -257,19 +220,7 @@ const SSHAuthFormFields: React.FC<SSHAuthFormFieldsProps> = props => {
             <FormInput.Text name="keyPath" label={i18n.labelKeyTab} />
           ) : null}
           {formik.values.tgtGenerationMethod === 'Password' ? (
-            <FormikSecretTextInput
-              fieldName="passwordText"
-              label={i18n.labelPassword}
-              secretFieldName="passwordSecret"
-              accountId={accountId}
-              orgIdentifier={orgIdentifier}
-              projectIdentifier={projectIdentifier}
-              defaultSecretName={getIdentifierFromName(secretName + '_password')}
-              defaultSecretId={getIdentifierFromName(secretName + '_password')}
-              isEditMode={editing && !!formik.values['passwordSecret']}
-              onClickCreateSecret={() => showCreateSecretModal('SecretText')}
-              onEditSecret={secret => showCreateSecretModal('SecretText', { secret })}
-            />
+            <SecretInput name={'password'} label={i18n.labelPassword} />
           ) : null}
         </>
       ) : null}

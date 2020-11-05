@@ -46,7 +46,7 @@ describe('CreateUpdateSecret', () => {
 
     await act(async () => {
       fireEvent.change(container.querySelector("textarea[name='description']")!, { target: { value: 'new desc' } })
-      const submitBtn = await findByText(container, 'Submit')
+      const submitBtn = await findByText(container, 'Save')
       fireEvent.click(submitBtn)
     })
 

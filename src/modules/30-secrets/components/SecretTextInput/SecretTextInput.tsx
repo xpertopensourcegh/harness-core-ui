@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { get, isPlainObject } from 'lodash-es'
 import { Position, Classes, FormGroup, Intent, IFormGroupProps } from '@blueprintjs/core'
-import { Layout, Text, Button, Color, Icon, Popover, FormInput } from '@wings-software/uikit'
+import { Layout, Text, Button, Color, Icon, Popover, FormInput, Container } from '@wings-software/uikit'
 import { connect, FormikContext } from 'formik'
 import cx from 'classnames'
 import { FormikCreateInlineSecret } from '@secrets/components/CreateInlineSecret/CreateInlineSecret'
@@ -113,30 +113,32 @@ const SecretTextField: React.FC<FormikSecretTextInput> = props => {
             >
               {i18n.createSecretText}
             </Text>
-            <SecretReference
-              accountIdentifier={props.accountId}
-              projectIdentifier={props.projectIdentifier}
-              orgIdentifier={props.orgIdentifier}
-              onSelect={secret => {
-                setShowCreateInlineSecret(false)
-                props.onChange?.({ value: secret.name as string, isReference: true })
-                setIsReference(true)
-                setSecretRefrence({
-                  name: secret?.name as string,
-                  identifier: secret?.identifier as string,
-                  secretManager: (secret?.spec as SecretTextSpecDTO).secretManagerIdentifier as string
-                })
-                props.formik?.setFieldValue(props.secretFieldName, {
-                  secretName: secret?.name,
-                  scope: secret?.scope,
-                  secretId: secret?.identifier,
-                  secretManager: {
-                    value: (secret?.spec as SecretTextSpecDTO).secretManagerIdentifier,
-                    label: (secret?.spec as SecretTextSpecDTO).secretManagerIdentifier
-                  }
-                })
-              }}
-            />
+            <Container padding={'large'}>
+              <SecretReference
+                accountIdentifier={props.accountId}
+                projectIdentifier={props.projectIdentifier}
+                orgIdentifier={props.orgIdentifier}
+                onSelect={secret => {
+                  setShowCreateInlineSecret(false)
+                  props.onChange?.({ value: secret.name as string, isReference: true })
+                  setIsReference(true)
+                  setSecretRefrence({
+                    name: secret?.name as string,
+                    identifier: secret?.identifier as string,
+                    secretManager: (secret?.spec as SecretTextSpecDTO).secretManagerIdentifier as string
+                  })
+                  props.formik?.setFieldValue(props.secretFieldName, {
+                    secretName: secret?.name,
+                    scope: secret?.scope,
+                    secretId: secret?.identifier,
+                    secretManager: {
+                      value: (secret?.spec as SecretTextSpecDTO).secretManagerIdentifier,
+                      label: (secret?.spec as SecretTextSpecDTO).secretManagerIdentifier
+                    }
+                  })
+                }}
+              />
+            </Container>
           </>
         </Popover>
       </Layout.Horizontal>

@@ -22,11 +22,10 @@ describe('SSHAuthUtils', () => {
         description: 'desc',
         spec: { secretManagerIdentifier: 'vault1' }
       },
-      encryptedPassphraseSecret: {
-        secretId: 'text1',
-        secretName: 'text1',
-        secretManager: { label: 'vault1', value: 'vault1' },
-        scope: 'account'
+      encryptedPassphrase: {
+        identifier: 'text1',
+        name: 'text1',
+        referenceString: 'account.text1'
       }
     }
     const SSHDto = {
@@ -59,13 +58,11 @@ describe('SSHAuthUtils', () => {
       userName: 'asd',
       keyPath: 'asd',
       port: 22,
-      encryptedPassphraseSecret: {
-        secretName: 'text1',
-        scope: 'account',
-        secretId: 'text1',
-        secretManager: { value: 'vault1', label: 'vault1' }
-      },
-      encryptedPassphraseText: { value: 'text1', isReference: true }
+      encryptedPassphrase: {
+        identifier: 'text1',
+        name: 'text1',
+        referenceString: 'account.text1'
+      }
     }
 
     const SSHDto2 = {
@@ -98,13 +95,11 @@ describe('SSHAuthUtils', () => {
       tgtGenerationMethod: 'None',
       userName: 'asd',
       port: 22,
-      passwordSecret: {
-        secretName: 'text1',
-        scope: 'account',
-        secretId: 'text1',
-        secretManager: { value: 'vault1', label: 'vault1' }
-      },
-      passwordText: { value: 'text1', isReference: true }
+      password: {
+        identifier: 'text1',
+        name: 'text1',
+        referenceString: 'account.text1'
+      }
     }
 
     const SSHDto3 = {
@@ -136,13 +131,11 @@ describe('SSHAuthUtils', () => {
       principal: 'asd',
       realm: 'asd',
       port: 22,
-      passwordSecret: {
-        secretName: 'text1',
-        scope: 'account',
-        secretId: 'text1',
-        secretManager: { value: 'vault1', label: 'vault1' }
-      },
-      passwordText: { value: 'text1', isReference: true }
+      password: {
+        identifier: 'text1',
+        name: 'text1',
+        referenceString: 'account.text1'
+      }
     }
 
     const SSHDto1 = {
@@ -226,35 +219,30 @@ describe('SSHAuthUtils', () => {
 
 describe('SSHAuthUtils > buildAuthConfig', () => {
   test('build config for ssh key', async () => {
-    const config = await buildAuthConfig(
-      {
-        authScheme: 'SSH',
-        credentialType: 'KeyReference',
-        tgtGenerationMethod: 'None',
-        userName: 'asd',
-        principal: '',
-        realm: '',
-        keyPath: '',
-        port: 22,
-        key: {
-          type: 'SecretFile',
-          name: 'nfile1',
-          identifier: 'nfile1',
-          tags: {},
-          description: 'desc',
-          spec: { secretManagerIdentifier: 'vault1' } as any,
-          scope: Scope.ACCOUNT
-        },
-        encryptedPassphraseText: { value: 'text1', isReference: true },
-        encryptedPassphraseSecret: {
-          secretName: 'text1',
-          scope: Scope.ACCOUNT,
-          secretId: 'text1',
-          secretManager: { value: 'vault1', label: 'vault1' }
-        }
+    const config = await buildAuthConfig({
+      authScheme: 'SSH',
+      credentialType: 'KeyReference',
+      tgtGenerationMethod: 'None',
+      userName: 'asd',
+      principal: '',
+      realm: '',
+      keyPath: '',
+      port: 22,
+      key: {
+        type: 'SecretFile',
+        name: 'nfile1',
+        identifier: 'nfile1',
+        tags: {},
+        description: 'desc',
+        spec: { secretManagerIdentifier: 'vault1' } as any,
+        scope: Scope.ACCOUNT
       },
-      { accountId: 'accountId' }
-    )
+      encryptedPassphrase: {
+        name: 'text1',
+        identifier: 'text1',
+        referenceString: 'account.text1'
+      }
+    })
 
     expect(config).toEqual({
       credentialType: 'KeyReference',
@@ -263,19 +251,16 @@ describe('SSHAuthUtils > buildAuthConfig', () => {
   })
 
   test('build config for kerberos', async () => {
-    const config = await buildAuthConfig(
-      {
-        authScheme: 'Kerberos',
-        credentialType: 'KeyReference',
-        tgtGenerationMethod: 'KeyTabFilePath',
-        userName: 'asd',
-        principal: 'asd',
-        realm: 'asd',
-        keyPath: 'asd',
-        port: 22
-      },
-      { accountId: 'accountId' }
-    )
+    const config = await buildAuthConfig({
+      authScheme: 'Kerberos',
+      credentialType: 'KeyReference',
+      tgtGenerationMethod: 'KeyTabFilePath',
+      userName: 'asd',
+      principal: 'asd',
+      realm: 'asd',
+      keyPath: 'asd',
+      port: 22
+    })
     expect(config).toEqual({
       principal: 'asd',
       realm: 'asd',

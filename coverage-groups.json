@@ -1,45 +1,26 @@
 {
   "groups": {
+    "Framework": [
+      "src/framework/**"
+    ],
+    "Secrets": [
+      "src/modules/30-secrets/**"
+    ],
+    "Projects & Orgs": [
+      "src/modules/40-projects-orgs/**"
+    ],
     "CD": ["src/modules/75-cd/**"],
     "Pipeline": ["src/modules/70-pipeline/**"],
-    "Secrets": [
-      "src/modules/dx/components/SecretReference/**",
-      "src/modules/dx/components/CreateUpdateSecret/**",
-      "src/modules/dx/components/secrets/**",
-      "src/modules/10-common/components/CreateInlineSecret/**",
-      "src/modules/dx/modals/CreateSecretModal/**",
-      "src/modules/dx/modals/CreateSSHCredModal/**",
-      "src/modules/dx/pages/secrets/**",
-      "src/modules/dx/pages/secretDetails/**",
-      "src/modules/dx/common/CreateSecretOverlay/**"
-    ],
-    "PL": [
-      "src/framework/**",
-      "src/modules/dx/components/SecretReference/**",
-      "src/modules/dx/components/CreateUpdateSecret/**",
-      "src/modules/10-common/components/CreateInlineSecret/**",
-      "src/modules/dx/modals/CreateSecretModal/**",
-      "src/modules/dx/modals/CreateSSHCredModal/**",
-      "src/modules/dx/pages/secrets/**",
-      "src/modules/dx/pages/secretDetails/**",
-      "src/modules/10-common/pages/organizations/**",
-      "src/modules/10-common/pages/ProjectsPage/**",
-      "src/modules/10-common/modals/ProjectModal/**",
-      "src/modules/10-common/modals/OrganizationModal/**",
-      "src/modules/10-common/components/OrganizationCard/**"
-    ],
-    "Connectors": [
-      "src/modules/50-connectors/**",
-      "src/modules/10-common/components/YAMLBuilder/**",
-      "!src/modules/50-connectors/components/CreateConnector/AppDynamicsConnector/**",
-      "!src/modules/50-connectors/components/CreateConnector/SplunkConnector/**"
-    ],
-    "GitSync": ["src/modules/60-gitsync/**"],
     "CV": [
       "src/modules/85-cv/**",
       "src/modules/50-connectors/components/CreateConnector/AppDynamicsConnector/**",
       "src/modules/50-connectors/components/CreateConnector/SplunkConnector/**"
     ],
+    "Connectors": [
+      "src/modules/50-connectors/**",
+      "src/modules/10-common/components/YAMLBuilder/**"
+    ],
+    "GitSync": ["src/modules/60-gitsync/**"],
     "CI": ["src/modules/80-ci/**"],
     "CF": ["src/modules/cf/**"],
     "SHARED": ["src/modules/10-common/**", "src/navigation/**"]

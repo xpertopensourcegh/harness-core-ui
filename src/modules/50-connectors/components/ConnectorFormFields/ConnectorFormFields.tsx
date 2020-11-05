@@ -6,7 +6,7 @@ import {
   getLabelForEncryptedSecret,
   generateDefaultSecretConfig
 } from '@connectors/pages/connectors/utils/ConnectorHelper'
-import { FormikSecretTextInput } from '@secrets/components/SecretInput/SecretTextInput'
+import { FormikSecretTextInput } from '@secrets/components/SecretTextInput/SecretTextInput'
 import { AuthTypeFields } from '@connectors/pages/connectors/Forms/KubeFormHelper'
 import type { SecretDTOV2, ConnectorConfigDTO } from 'services/cd-ng'
 import UsernamePassword from './UsernamePassword'

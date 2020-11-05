@@ -6,6 +6,8 @@ export default {
   labelSecretsManager: 'Secrets Manager*',
   labelSecretDescription: 'Description',
   labelSecretTags: 'Tags',
+  btnSave: 'Save',
+  btnSaving: 'Saving',
   messageSelectSM: 'Please select a Secret Manager',
   valueEncrypted: 'Encrypted',
   placeholderSecretValue: 'Add your secret value',

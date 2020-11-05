@@ -12,7 +12,6 @@ import {
   SecretDTOV2,
   SecretRequestWrapper,
   SecretResponseWrapper,
-  SecretTextSpecDTO,
   SSHConfigDTO,
   SSHKeyPathCredentialDTO,
   SSHKeyReferenceCredentialDTO,
@@ -23,15 +22,14 @@ import {
   ResponseSecretResponseWrapper
 } from 'services/cd-ng'
 import type { DetailsForm } from '@secrets/modals/CreateSSHCredModal/views/StepDetails'
-import type { InlineSecret } from '@secrets/components/CreateInlineSecret/CreateInlineSecret'
-import { Scope } from '@common/interfaces/SecretsInterface'
 import { buildAuthConfig, getSSHDTOFromFormData } from '@secrets/utils/SSHAuthUtils'
 import { useToaster } from '@common/exports'
 import VerifyConnection from '@secrets/modals/CreateSSHCredModal/views/VerifyConnection'
 import useCreateUpdateSecretModal from '@secrets/modals/CreateSecretModal/useCreateUpdateSecretModal'
-import type { SecretRef } from '@secrets/components/SecretReference/SecretReference'
-import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
 import ConnectorStats from '@common/components/ConnectorStats/ConnectorStats'
+import type { SecretReference } from '@secrets/components/CreateOrSelectSecret/CreateOrSelectSecret'
+import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
+import type { SecretRef } from '@secrets/components/SecretReference/SecretReference'
 
 import css from './EditSSHSecret.module.scss'
 
@@ -57,8 +55,8 @@ const EditSSHSecret: React.FC<EditSSHSecretProps> = props => {
     queryParams: { accountIdentifier: accountId }
   })
   const [keySecret, setKeySecret] = useState<SecretRef>()
-  const [passwordSecret, setPasswordSecret] = useState<InlineSecret>()
-  const [encryptedPassphraseSecret, setEncryptedPassphraseSecret] = useState<InlineSecret>()
+  const [passwordSecret, setPasswordSecret] = useState<SecretReference>()
+  const [encryptedPassphraseSecret, setEncryptedPassphraseSecret] = useState<SecretReference>()
 
   const getSecrets = async (): Promise<void> => {
     let password, encryptedPassphrase
@@ -95,7 +93,7 @@ const EditSSHSecret: React.FC<EditSSHSecretProps> = props => {
     } else if (authScheme === 'Kerberos') {
       const kerberosConfig = secretSpec.auth.spec as KerberosConfigDTO
       if (kerberosConfig.tgtGenerationMethod === 'Password') {
-        password = kerberosConfig.password
+        password = kerberosConfig.spec?.password
       }
     }
 
@@ -106,16 +104,10 @@ const EditSSHSecret: React.FC<EditSSHSecretProps> = props => {
         queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier },
         mock: props.mockPassword
       })
-      const secretManagerIdentifier = (data.data?.secret.spec as SecretTextSpecDTO)?.secretManagerIdentifier
       setPasswordSecret({
-        secretId,
-        secretName: data.data?.secret.name || '',
-        secretManager: {
-          label: secretManagerIdentifier,
-          value: secretManagerIdentifier
-        },
-        scope: Scope.ACCOUNT
-      })
+        ...data.data?.secret,
+        referenceString: password
+      } as SecretReference)
     }
 
     if (encryptedPassphrase) {
@@ -125,16 +117,10 @@ const EditSSHSecret: React.FC<EditSSHSecretProps> = props => {
         queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier },
         mock: props.mockPassphrase
       })
-      const secretManagerIdentifier = (data.data?.secret.spec as SecretTextSpecDTO)?.secretManagerIdentifier
       setEncryptedPassphraseSecret({
-        secretId,
-        secretName: data.data?.secret.name || '',
-        secretManager: {
-          label: secretManagerIdentifier,
-          value: secretManagerIdentifier
-        },
-        scope: Scope.ACCOUNT
-      })
+        ...data.data?.secret,
+        referenceString: encryptedPassphrase
+      } as SecretReference)
     }
   }
 
@@ -146,7 +132,7 @@ const EditSSHSecret: React.FC<EditSSHSecretProps> = props => {
     setSaving(true)
     try {
       // this will create secrets if needed
-      const authConfig = await buildAuthConfig(formData, { accountId, orgIdentifier, projectIdentifier })
+      const authConfig = await buildAuthConfig(formData)
 
       // build final data to submit
       const dataToSubmit: SecretRequestWrapper = {
@@ -198,8 +184,8 @@ const EditSSHSecret: React.FC<EditSSHSecretProps> = props => {
                 (((secret.spec as SSHKeySpecDTO)?.auth.spec as SSHConfigDTO)?.spec as SSHKeyPathCredentialDTO)?.keyPath,
               port: (secret.spec as SSHKeySpecDTO)?.port || 22,
               key: keySecret,
-              passwordSecret,
-              encryptedPassphraseSecret
+              password: passwordSecret,
+              encryptedPassphrase: encryptedPassphraseSecret
             }}
             enableReinitialize={true}
             validate={formData => {

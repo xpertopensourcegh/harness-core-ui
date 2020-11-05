@@ -213,7 +213,7 @@ const CreateUpdateSecret: React.FC<CreateUpdateSecretProps> = props => {
               <Button
                 intent="primary"
                 type="submit"
-                text={loading ? 'Saving' : 'Submit'}
+                text={loading ? i18n.btnSaving : i18n.btnSave}
                 margin={{ top: 'large' }}
                 disabled={loading || !typeOfSelectedSecretManager}
               />

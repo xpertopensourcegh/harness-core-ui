@@ -27,10 +27,10 @@ import {
 } from 'services/cd-ng'
 import CreateSecretOverlay from '@secrets/components/CreateSecretOverlay/CreateSecretOverlay'
 import { DelegateInClusterType } from '@connectors/pages/connectors/Forms/KubeFormHelper'
-import { FormikSecretTextInput } from '@secrets/components/SecretInput/SecretTextInput'
+import { FormikSecretTextInput } from '@secrets/components/SecretTextInput/SecretTextInput'
 import { DelegateTypes } from '@connectors/pages/connectors/Forms/KubeFormInterfaces'
 import { useGetDelegateTags } from 'services/portal'
-import type { SecretInfo } from '@secrets/components/SecretInput/SecretTextInput'
+import type { SecretInfo } from '@secrets/components/SecretTextInput/SecretTextInput'
 import i18n from '../CreateAWSConnector.i18n'
 
 import css from './StepAWSAuthentication.module.scss'

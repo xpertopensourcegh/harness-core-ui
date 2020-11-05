@@ -107,7 +107,7 @@ export function EntityReference<T>(props: EntityReferenceProps<T>): JSX.Element 
   }, [fetchData])
 
   return (
-    <Container padding="large" className={cx(css.container, className)}>
+    <Container className={cx(css.container, className)}>
       <Layout.Vertical spacing="medium">
         <Layout.Horizontal spacing="small">
           <Button

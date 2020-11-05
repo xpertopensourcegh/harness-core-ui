@@ -13,7 +13,7 @@ import {
   ModalErrorHandlerBinding
 } from '@wings-software/uikit'
 import * as Yup from 'yup'
-import { FormikSecretTextInput } from '@secrets/components/SecretInput/SecretTextInput'
+import { FormikSecretTextInput } from '@secrets/components/SecretTextInput/SecretTextInput'
 import { getIdentifierFromName } from '@common/utils/StringUtils'
 import { GCP_AUTH_TYPE, buildGcpPayload } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import { usePostSecret, SecretDTOV2 } from 'services/cd-ng'
@@ -22,7 +22,7 @@ import type { ConnectorConfigDTO, ConnectorRequestBody } from 'services/cd-ng'
 import { useCreateConnector, useUpdateConnector } from 'services/cd-ng'
 import { useGetDelegateTags } from 'services/portal'
 import CreateSecretOverlay from '@secrets/components/CreateSecretOverlay/CreateSecretOverlay'
-import type { SecretInfo } from '@secrets/components/SecretInput/SecretTextInput'
+import type { SecretInfo } from '@secrets/components/SecretTextInput/SecretTextInput'
 import i18n from '../CreateGcpConnector.i18n'
 import css from '../CreateGcpConnector.module.scss'
 

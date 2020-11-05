@@ -22,9 +22,8 @@ import {
   ResponsePageSecretResponseWrapper
 } from 'services/cd-ng'
 import type { KerberosConfigDTO, SSHConfigDTO, SSHKeySpecDTO } from 'services/cd-ng'
-import type { SecretInfo } from '@secrets/components/SecretInput/SecretTextInput'
 import CreateSecretOverlay from '@secrets/components/CreateSecretOverlay/CreateSecretOverlay'
-import type { InlineSecret } from '@secrets/components/CreateInlineSecret/CreateInlineSecret'
+import type { SecretReference } from '@secrets/components/CreateOrSelectSecret/CreateOrSelectSecret'
 import type { SecretRef } from '@secrets/components/SecretReference/SecretReference'
 import SSHAuthFormFields from '@secrets/components/SSHAuthFormFields/SSHAuthFormFields'
 import { buildAuthConfig } from '@secrets/utils/SSHAuthUtils'
@@ -43,10 +42,8 @@ export interface SSHConfigFormData {
   principal: string
   realm: string
   keyPath: string
-  encryptedPassphraseText?: SecretInfo
-  encryptedPassphraseSecret?: InlineSecret
-  passwordText?: SecretInfo
-  passwordSecret?: InlineSecret
+  encryptedPassphrase?: SecretReference
+  password?: SecretReference
 }
 
 interface StepAuthenticationProps {
@@ -99,8 +96,7 @@ const StepAuthentication: React.FC<StepProps<SSHCredSharedObj> & StepAuthenticat
   const handleSubmit = async (formData: SSHConfigFormData): Promise<void> => {
     setSaving(true)
     try {
-      // this will create secrets if needed
-      const authConfig = await buildAuthConfig(formData, { accountId, orgIdentifier, projectIdentifier })
+      const authConfig = buildAuthConfig(formData)
       // build final data to submit
       const dataToSubmit: SecretRequestWrapper = {
         secret: {

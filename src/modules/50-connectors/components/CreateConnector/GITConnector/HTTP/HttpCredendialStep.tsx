@@ -31,7 +31,7 @@ import {
   SecretFieldByType
 } from '@connectors/pages/connectors/Forms/KubeFormHelper'
 import { AuthTypes, getLabelForAuthType } from '@connectors/pages/connectors/utils/ConnectorHelper'
-import type { SecretInfo } from '@secrets/components/SecretInput/SecretTextInput'
+import type { SecretInfo } from '@secrets/components/SecretTextInput/SecretTextInput'
 import UsernamePassword from '../../../ConnectorFormFields/UsernamePassword'
 import i18n from './HttpCredentialStep.i18n'
 import css from './HttpCredentialStep.module.scss'
