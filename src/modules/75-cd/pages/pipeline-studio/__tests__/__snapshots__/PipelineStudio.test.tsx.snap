@@ -175,9 +175,7 @@ exports[`Test Pipeline Studio should render default pipeline studio 1`] = `
             <div
               class="notificationContainer"
             >
-              <div
-                class="btnGroup"
-              >
+              <div>
                 <span
                   class="bp3-popover-wrapper"
                 >
@@ -493,9 +491,7 @@ exports[`Test Pipeline Studio should render edit pipeline studio 1`] = `
             <div
               class="notificationContainer"
             >
-              <div
-                class="btnGroup"
-              >
+              <div>
                 <span
                   class="bp3-popover-wrapper"
                 >

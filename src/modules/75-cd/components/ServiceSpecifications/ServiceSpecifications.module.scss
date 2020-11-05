@@ -101,4 +101,17 @@
   &.noPadTop {
     padding-top: 0px;
   }
+  .disabled {
+    -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+    filter: grayscale(100%);
+    cursor: not-allowed !important;
+  }
+
+  .serviceSpecType {
+    display: flex;
+    flex-grow: 1;
+    .btnContainer {
+      flex-grow: 0.53;
+    }
+  }
 }

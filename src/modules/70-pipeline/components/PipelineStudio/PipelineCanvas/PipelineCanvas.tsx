@@ -304,11 +304,10 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
             </div>
             <div className={css.notificationContainer}>
               {!isYaml && (
-                <div className={css.btnGroup}>
+                <div>
                   <Button
                     minimal={!(splitViewType === SplitViewTypes.Notifications)}
                     text={i18n.notifications}
-                    intent={splitViewType === SplitViewTypes.Notifications ? 'primary' : 'none'}
                     tooltip={i18n.notifications}
                     icon="yaml-builder-notifications"
                     iconProps={{ color: 'var(--dark-500)' }}

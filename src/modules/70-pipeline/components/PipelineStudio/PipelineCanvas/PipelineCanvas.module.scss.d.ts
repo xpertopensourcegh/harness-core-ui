@@ -6,8 +6,6 @@ declare const styles: {
   readonly topButtons: string
   readonly selected: string
   readonly savePublishBtn: string
-  readonly secondaryBar: string
-  readonly btnGroup: string
   readonly canvas: string
   readonly canvasStageView: string
   readonly tagRender: string

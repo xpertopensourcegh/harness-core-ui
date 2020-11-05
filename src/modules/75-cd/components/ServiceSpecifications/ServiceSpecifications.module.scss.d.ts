@@ -14,5 +14,8 @@ declare const styles: {
   readonly overideCheckbox: string
   readonly serviceSection: string
   readonly noPadTop: string
+  readonly disabled: string
+  readonly serviceSpecType: string
+  readonly btnContainer: string
 }
 export default styles

@@ -40,22 +40,6 @@
     }
   }
 
-  .secondary-bar {
-    border: 1px solid var(--pipeline-light-grey);
-    border-left-width: 0;
-    display: grid;
-    grid-template-columns: 70px 1fr 260px;
-    align-items: center;
-
-    .btn-group {
-      button {
-        color: var(--dark-500);
-        font-weight: 500;
-        margin-left: var(--spacing-large);
-      }
-    }
-  }
-
   .canvas {
     background-image: var(--pipeline-canvas-image);
     height: 100%;

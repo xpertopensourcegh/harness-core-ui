@@ -139,8 +139,6 @@ describe('Test Pipeline Studio', () => {
     await waitFor(() => getByText(container.querySelector('.pipelineNameContainer') as HTMLElement, 'test-p1'))
     const notificationsBtn = getByText(container, 'Notifications')
     fireEvent.click(notificationsBtn)
-    const isPrimary = notificationsBtn.parentElement?.getAttribute('class')?.indexOf('primary')
-    expect(isPrimary && isPrimary > -1).toBeTruthy()
     const varBtn = getByTitle('Input Variables')
     fireEvent.click(varBtn)
     expect(getByText(document.body, 'Pipeline Variables')).toBeDefined()

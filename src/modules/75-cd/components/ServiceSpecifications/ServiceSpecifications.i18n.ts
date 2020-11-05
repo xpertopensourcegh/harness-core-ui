@@ -30,7 +30,7 @@ export default {
   propagateFromLabel: 'Propagate From:',
   or: 'or',
   deployDifferentLabel: 'Deploy different service',
-  stageDetailLabel: 'Stage Details',
+  serviceDetailLabel: 'Service Details',
   deploymentDetailsLabel: 'Deployment Details',
   artifactDetails: 'Artifact Details'
 }

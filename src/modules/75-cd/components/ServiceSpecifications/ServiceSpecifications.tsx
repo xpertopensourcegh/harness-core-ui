@@ -45,38 +45,46 @@ const setupMode = {
   DIFFERENT: 'DIFFRENT'
 }
 
-const supportedDeploymentTypes: { name: string; icon: IconName }[] = [
+const supportedDeploymentTypes: { name: string; icon: IconName; enabled: boolean }[] = [
   {
     name: i18n.deploymentTypes.kubernetes,
-    icon: 'service-kubernetes'
+    icon: 'service-kubernetes',
+    enabled: true
   },
   {
     name: i18n.deploymentTypes.amazonEcs,
-    icon: 'service-ecs'
+    icon: 'service-ecs',
+    enabled: false
   },
   {
     name: i18n.deploymentTypes.amazonAmi,
-    icon: 'main-service-ami'
+    icon: 'main-service-ami',
+    enabled: false
   },
   {
     name: i18n.deploymentTypes.awsCodeDeploy,
-    icon: 'app-aws-code-deploy'
+    icon: 'app-aws-code-deploy',
+    enabled: false
   },
   {
     name: i18n.deploymentTypes.winrm,
-    icon: 'command-winrm'
+    icon: 'command-winrm',
+    enabled: false
   },
   {
     name: i18n.deploymentTypes.awsLambda,
-    icon: 'app-aws-lambda'
+    icon: 'app-aws-lambda',
+    enabled: false
   },
   {
     name: i18n.deploymentTypes.pcf,
-    icon: 'service-pivotal'
+    icon: 'service-pivotal',
+    enabled: false
   },
   {
     name: i18n.deploymentTypes.ssh,
-    icon: 'secret-ssh'
+    icon: 'secret-ssh',
+    enabled: false
   }
 ]
 
@@ -306,7 +314,7 @@ export default function ServiceSpecifications(): JSX.Element {
       {stageIndex > 0 && (
         <div className={css.serviceSection}>
           <Layout.Vertical flex={true} className={css.specTabs}>
-            {i18n.stageDetailLabel}
+            {i18n.serviceDetailLabel}
           </Layout.Vertical>
           <Layout.Vertical spacing="medium" style={{ paddingBottom: 'var(--spacing-large)' }}>
             <Layout.Horizontal spacing="medium" flex={true} style={{ alignItems: 'center', justifyContent: 'end' }}>
@@ -385,7 +393,7 @@ export default function ServiceSpecifications(): JSX.Element {
                 return (
                   <div className={cx(css.serviceSection, css.noPadTop)}>
                     <Layout.Vertical flex={true} className={css.specTabs}>
-                      {i18n.stageDetailLabel}
+                      {i18n.serviceDetailLabel}
                     </Layout.Vertical>
                     <FormikForm>
                       <Layout.Horizontal spacing="medium">
@@ -452,22 +460,24 @@ export default function ServiceSpecifications(): JSX.Element {
             </Layout.Vertical>
             <div>
               <Layout.Horizontal flex={true}>
-                <div>
+                <div className={css.serviceSpecType}>
+                  <div className={css.btnContainer}>
+                    <Button
+                      minimal
+                      text={i18n.serviceSpecificationLabel}
+                      onClick={() => setSelectedSpec(specificationTypes.SPECIFICATION)}
+                      className={cx({
+                        [css.selected]: specSelected === specificationTypes.SPECIFICATION,
+                        [css.nopadleft]: true
+                      })}
+                    />
+                  </div>
+
                   <Button
                     minimal
                     disabled={stageIndex === 0}
                     text={i18n.stageOverrideLabel}
                     onClick={() => setSelectedSpec(specificationTypes.OVERRIDES)}
-                    className={cx({
-                      [css.selected]: specSelected === specificationTypes.OVERRIDES,
-                      [css.nopadleft]: true
-                    })}
-                  />
-                  <Button
-                    minimal
-                    text={i18n.serviceSpecificationLabel}
-                    onClick={() => setSelectedSpec(specificationTypes.SPECIFICATION)}
-                    className={cx({ [css.selected]: specSelected === specificationTypes.SPECIFICATION })}
                   />
                 </div>
               </Layout.Horizontal>
@@ -475,12 +485,14 @@ export default function ServiceSpecifications(): JSX.Element {
                 <Layout.Vertical spacing="medium" style={{ display: 'inline-block', marginTop: '12px' }}>
                   <Text style={{ fontSize: 16, color: 'var(--grey-400)' }}>{i18n.deploymentTypeLabel}</Text>
 
-                  {supportedDeploymentTypes.map((type: { name: string; icon: IconName }) => (
+                  {supportedDeploymentTypes.map((type: { name: string; icon: IconName; enabled: boolean }) => (
                     <Card
+                      disabled={!type.enabled}
                       key={type.name}
                       interactive={true}
                       selected={type.name === i18n.deploymentTypes.kubernetes ? true : false}
                       style={{ width: 90, padding: 'var(--spacing-small) 0', marginRight: 'var(--spacing-small)' }}
+                      className={cx({ [css.disabled]: !type.enabled })}
                     >
                       <CardBody.Icon icon={type.icon as IconName} iconSize={26}>
                         <Text font={{ align: 'center' }} style={{ fontSize: 14 }}>
