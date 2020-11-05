@@ -26,6 +26,13 @@ const RangeOptions = [
 ]
 const DEFAULT_RANGE = RangeOptions[1]
 const FIVE_MINUTES_IN_MILLISECONDS = 1000 * 60 * 5
+const TimelineViewProps = {
+  labelsWidth: 210,
+  timelineBarProps: {
+    columnWidth: 65,
+    className: styles.timelineBarStyle
+  }
+}
 
 const getRangeDates = (val: number, endTime?: number) => {
   const currTime =
@@ -147,13 +154,7 @@ export default function CVServicesPage(): JSX.Element {
                 endTime={heatMapAndTimeSeriesInput.endTime}
                 environmentIdentifier={selectedService?.environmentIdentifier}
                 className={styles.serviceActivityTimeline}
-                timelineViewProps={{
-                  labelsWidth: 210,
-                  timelineBarProps: {
-                    columnWidth: 65,
-                    className: styles.timelineBarStyle
-                  }
-                }}
+                timelineViewProps={TimelineViewProps}
               />
               {isTimeRangeMoreThan4Hours ? (
                 <ServiceHeatMap {...heatMapAndTimeSeriesInput} />

@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, fireEvent, act } from '@testing-library/react'
+import { render, fireEvent, act, waitFor } from '@testing-library/react'
 import ActivitiesTimelineView, { MockedActivitiesTimelineView, ActivitiesFlagBorder } from '../ActivitiesTimelineView'
 
 jest.mock('moment', () => {
@@ -70,5 +70,77 @@ describe('ActivitiesTimelineView', () => {
   test('ActivitiesFlagBorder matches snapshot', () => {
     const { container } = render(<ActivitiesFlagBorder />)
     expect(container).toMatchSnapshot()
+  })
+
+  test('Ensure correct icons are rendered when each event type stacking is done', async () => {
+    const { container } = render(
+      <ActivitiesTimelineView
+        startTime={1602590400000}
+        endTime={1602604800000}
+        canSelect
+        deployments={[
+          { startTime: 1602592200000, name: 'DB Integration 1001', verificationResult: 'VERIFICATION_PASSED' },
+          { startTime: 1602592200000, name: 'DB Integration 1001', verificationResult: 'VERIFICATION_FAILED' },
+          { startTime: 1602592200000, name: 'DB Integration 1001', verificationResult: 'NOT_STARTED' },
+          { startTime: 1602592200000, name: 'DB Integration 1001', verificationResult: 'VERIFICATION_FAILED' }
+        ]}
+      />
+    )
+
+    await waitFor(() => expect(container.querySelector('[class*="main"]')).not.toBeNull())
+    expect(container.querySelector('.eventBatch')).not.toBeNull()
+    const svgPaths = container.querySelector('.eventBatch')?.querySelectorAll('path') || []
+    expect(svgPaths.length).toBe(3)
+    expect(svgPaths[0]?.getAttribute('stroke')).toEqual('var(--blue-500)')
+    expect(svgPaths[1]?.getAttribute('stroke')).toEqual('#F45858')
+    expect(svgPaths[2]?.getAttribute('stroke')).toEqual('#86DD29')
+  })
+
+  test('Ensure correct icons are rendered when two event types stacking is done', async () => {
+    const { container } = render(
+      <ActivitiesTimelineView
+        startTime={1602590400000}
+        endTime={1602604800000}
+        canSelect
+        deployments={[
+          { startTime: 1602592200000, name: 'DB Integration 1001', verificationResult: 'VERIFICATION_PASSED' },
+          { startTime: 1602592200000, name: 'DB Integration 1001', verificationResult: 'VERIFICATION_FAILED' },
+          { startTime: 1602592200000, name: 'DB Integration 1001', verificationResult: 'VERIFICATION_PASSED' },
+          { startTime: 1602592200000, name: 'DB Integration 1001', verificationResult: 'VERIFICATION_FAILED' }
+        ]}
+      />
+    )
+
+    await waitFor(() => expect(container.querySelector('[class*="main"]')).not.toBeNull())
+    expect(container.querySelector('.eventBatch')).not.toBeNull()
+    const svgPaths = container.querySelector('.eventBatch')?.querySelectorAll('path') || []
+    expect(svgPaths.length).toBe(3)
+    expect(svgPaths[0]?.getAttribute('stroke')).toEqual('#F45858')
+    expect(svgPaths[1]?.getAttribute('stroke')).toEqual('#F45858')
+    expect(svgPaths[2]?.getAttribute('stroke')).toEqual('#86DD29')
+  })
+
+  test('Ensure correct icons are rendered when only 1 event types stacking is done', async () => {
+    const { container } = render(
+      <ActivitiesTimelineView
+        startTime={1602590400000}
+        endTime={1602604800000}
+        canSelect
+        deployments={[
+          { startTime: 1602592200000, name: 'DB Integration 1001', verificationResult: 'VERIFICATION_PASSED' },
+          { startTime: 1602592200000, name: 'DB Integration 1001', verificationResult: 'VERIFICATION_PASSED' },
+          { startTime: 1602592200000, name: 'DB Integration 1001', verificationResult: 'VERIFICATION_PASSED' },
+          { startTime: 1602592200000, name: 'DB Integration 1001', verificationResult: 'VERIFICATION_PASSED' }
+        ]}
+      />
+    )
+
+    await waitFor(() => expect(container.querySelector('[class*="main"]')).not.toBeNull())
+    expect(container.querySelector('.eventBatch')).not.toBeNull()
+    const svgPaths = container.querySelector('.eventBatch')?.querySelectorAll('path') || []
+    expect(svgPaths.length).toBe(3)
+    expect(svgPaths[0]?.getAttribute('stroke')).toEqual('#86DD29')
+    expect(svgPaths[1]?.getAttribute('stroke')).toEqual('#86DD29')
+    expect(svgPaths[2]?.getAttribute('stroke')).toEqual('#86DD29')
   })
 })

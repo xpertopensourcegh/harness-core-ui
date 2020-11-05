@@ -6,6 +6,7 @@ import ActivityTimelineViewSection from '../ActivitiesTimelineViewSection'
 import i18n from '../ActivitiesTimelineView.i18n'
 
 const mockRefetch = jest.fn()
+
 jest.mock('react-router', () => ({
   useHistory: jest.fn().mockReturnValue([]),
   useLocation: jest.fn().mockReturnValue({})

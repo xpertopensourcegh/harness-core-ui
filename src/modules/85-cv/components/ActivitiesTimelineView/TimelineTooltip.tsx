@@ -5,7 +5,7 @@ import { PopoverInteractionKind, Position } from '@blueprintjs/core'
 import type { EventData } from './ActivitiesTimelineView'
 import css from './TimelineTooltip.module.scss'
 
-function verificationResultToIcon(verificationResult: EventData['verificationResult']): IconName | undefined {
+export function verificationResultToIcon(verificationResult: EventData['verificationResult']): IconName | undefined {
   switch (verificationResult) {
     case 'VERIFICATION_PASSED':
       return 'deployment-success-legacy'
@@ -20,7 +20,7 @@ function verificationResultToIcon(verificationResult: EventData['verificationRes
   }
 }
 
-export default function TimelineTooltip({ items, children }: { items: Array<EventData>; children: JSX.Element }) {
+export function TimelineTooltip({ items, children }: { items: Array<EventData>; children: JSX.Element }) {
   let dateLabel = moment(items[0].startTime).format('MMM D, h:mm a')
   if (items.length > 1) {
     dateLabel = `${dateLabel} - ${moment(items[items.length - 1].startTime).format('MMM D, h:mm a')}`

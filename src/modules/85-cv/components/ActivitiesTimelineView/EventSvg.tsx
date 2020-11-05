@@ -20,7 +20,7 @@ export default function EventSvg({
   if (selected) {
     pathProps.fill = 'var(--blue-500)'
     pathProps.stroke = 'var(--blue-500)'
-  } else if (verificationResult === 'IN_PROGRESS') {
+  } else if (verificationResult === 'IN_PROGRESS' || verificationResult === 'NOT_STARTED') {
     pathProps.fill = '#ffffff'
     pathProps.stroke = 'var(--blue-500)'
   } else if (verificationResult === 'VERIFICATION_PASSED') {

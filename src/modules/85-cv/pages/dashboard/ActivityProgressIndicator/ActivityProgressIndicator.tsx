@@ -32,7 +32,7 @@ export default function ActivityProgressIndicator(props: ActivityProgressIndicat
   useEffect(() => {
     if (isValidProgressValue) {
       const timeoutRefNumber = setTimeout(() => {
-        setProgressValue(progress! / 100)
+        setProgressValue(progress || 0)
         clearTimeout(timeoutRefNumber)
       }, 250)
     }

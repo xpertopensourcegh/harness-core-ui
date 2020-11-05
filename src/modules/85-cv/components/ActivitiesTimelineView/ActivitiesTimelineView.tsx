@@ -4,7 +4,7 @@ import cx from 'classnames'
 import TimelineView, { TimelineViewProps } from '@common/components/TimelineView/TimelineView'
 import type { ActivityDashboardDTO } from 'services/cv'
 import { PredefinedLabels } from './TimelineViewLabel'
-import TimelineTooltip from './TimelineTooltip'
+import { TimelineTooltip } from './TimelineTooltip'
 import ActivitiesTimelineHeader from './ActivitiesTimelineHeader'
 import EventSvg from './EventSvg'
 import styles from './ActivitiesTimelineView.module.scss'
@@ -36,8 +36,6 @@ function generateEventsToPlot(items: EventData[]): EventData[] {
   const failedEvents = []
   const passedEvents = []
   const inProgressEvents = []
-  const percentages = [0, 33, 66, 100]
-  let [failedItemsToRender, passedItemsToRender, inProgressItemsToRender] = [0, 0, 0]
 
   for (const item of items) {
     if (item.verificationResult === 'ERROR' || item.verificationResult === 'VERIFICATION_FAILED') {
@@ -49,24 +47,30 @@ function generateEventsToPlot(items: EventData[]): EventData[] {
     }
   }
 
-  for (let percentageIndex = 0; percentageIndex < percentages.length; percentageIndex++) {
-    if (Math.floor(failedEvents.length / items.length) * 100 >= percentages[percentageIndex]) {
-      failedItemsToRender = percentageIndex
-    }
-    if (Math.floor(inProgressEvents.length / items.length) * 100 >= percentages[percentageIndex]) {
-      inProgressItemsToRender = percentageIndex
-    }
-
-    if (Math.floor(passedEvents.length / items.length) * 100 >= percentages[percentageIndex]) {
-      passedItemsToRender = percentageIndex
-    }
+  if (failedEvents.length && passedEvents.length && inProgressEvents.length) {
+    return [...inProgressEvents.slice(0, 1), ...failedEvents.slice(0, 1), ...passedEvents.slice(0, 1)]
   }
 
-  return [
-    ...inProgressEvents.slice(0, inProgressItemsToRender),
-    ...failedEvents.slice(0, failedItemsToRender),
-    ...passedEvents.slice(0, passedItemsToRender)
-  ]
+  const typesWithEvents = []
+  if (inProgressEvents.length) {
+    typesWithEvents.push(inProgressEvents)
+  }
+  if (failedEvents.length) {
+    typesWithEvents.push(failedEvents)
+  }
+  if (passedEvents.length) {
+    typesWithEvents.push(passedEvents)
+  }
+
+  if (typesWithEvents.length === 1) {
+    return typesWithEvents[0]
+  }
+
+  if (typesWithEvents[0].length >= typesWithEvents[1].length) {
+    return [...typesWithEvents[0].slice(0, 2), ...typesWithEvents[1].slice(0, 1)]
+  }
+
+  return [...typesWithEvents[0].slice(0, 1), ...typesWithEvents[1]?.slice(0, 2)]
 }
 
 export default function ActivitiesTimelineView({
@@ -86,10 +90,7 @@ export default function ActivitiesTimelineView({
   const zoomIn = (items: Array<EventData>) => {
     let zoomStartTime = items[0].startTime
     let zoomEndTime = items[items.length - 1].startTime
-    let diff = zoomEndTime - zoomStartTime
-    if (diff === 0) {
-      diff = 1000 * 60 * 5
-    }
+    const diff = zoomEndTime - zoomStartTime || 1000 * 60 * 5
     zoomStartTime = Math.max(zoomStartTime - Math.floor(diff / 2), startTime)
     zoomEndTime = Math.min(zoomEndTime + Math.floor(diff / 2), endTime)
     setZoomRange({

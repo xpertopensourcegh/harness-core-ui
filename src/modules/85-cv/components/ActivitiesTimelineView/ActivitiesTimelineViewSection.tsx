@@ -80,7 +80,7 @@ export default function ActivitesTimelineViewSection({
         }
       })
     }
-  }, [startTime, endTime, environmentIdentifier, getActivities])
+  }, [startTime, endTime, environmentIdentifier])
 
   if (error?.message) {
     return (

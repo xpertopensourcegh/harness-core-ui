@@ -1,6 +1,6 @@
 .progressBar {
   border-radius: 3px;
-  background-color: var(--grey-200);
+  background-color: var(--grey-200) !important;
   height: 4px !important;
   [class~='bp3-progress-meter'] {
     background-color: var(--grey-300);
