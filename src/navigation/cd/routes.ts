@@ -31,7 +31,7 @@ export const routeCDDeployments: Route<{ orgIdentifier: string; projectIdentifie
   pageId: 'cd-deployments',
   url: ({ orgIdentifier, projectIdentifier }) =>
     routeURL(routeCDDeployments, `/cd/deployments/orgs/${orgIdentifier}/projects/${projectIdentifier}`),
-  component: React.lazy(() => import('@cd/pages/deployments/CDDeploymentsPage'))
+  component: React.lazy(() => import('@cd/pages/deployments-list/DeploymentsList'))
 }
 
 export const routeCDPipelines: Route<{ orgIdentifier: string; projectIdentifier: string }> = {

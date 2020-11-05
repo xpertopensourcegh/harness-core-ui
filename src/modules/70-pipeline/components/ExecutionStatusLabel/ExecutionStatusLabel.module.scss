@@ -25,7 +25,8 @@
   &.queued,
   &.skipped,
   &.expired,
-  &.notStarted {
+  &.suspended,
+  &.notstarted {
     --execution-status-color: var(--grey-350);
   }
 

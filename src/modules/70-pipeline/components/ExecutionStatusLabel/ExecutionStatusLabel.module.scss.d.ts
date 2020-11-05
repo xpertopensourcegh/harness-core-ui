@@ -16,6 +16,7 @@ declare const styles: {
   readonly queued: string
   readonly skipped: string
   readonly expired: string
-  readonly notStarted: string
+  readonly suspended: string
+  readonly notstarted: string
 }
 export default styles

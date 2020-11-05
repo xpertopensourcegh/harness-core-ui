@@ -1,0 +1,52 @@
+.wrapper {
+  overflow: hidden;
+  padding: var(--spacing-xsmall) 100px var(--spacing-xsmall) 40px !important;
+  position: relative;
+  display: inline-block !important;
+
+  .container {
+    position: relative;
+
+    .graph {
+      justify-content: flex-start !important;
+      position: relative;
+      z-index: 1;
+      white-space: nowrap !important;
+      padding: 7px 2px 4px 7px;
+      scroll-behavior: smooth;
+
+      overflow-x: hidden;
+      overflow-x: scroll;
+      scrollbar-width: none; /* Firefox */
+      -ms-overflow-style: none; /* Internet Explorer 10+ */
+      &::-webkit-scrollbar {
+        /* WebKit */
+        width: 0;
+        height: 0;
+      }
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .disabled {
+      pointer-events: none;
+      opacity: 0.5;
+    }
+
+    .btnLeft,
+    .btnRight {
+      position: absolute;
+      top: -2px;
+    }
+
+    .btnLeft {
+      left: -30px;
+    }
+
+    .btnRight {
+      right: -30px;
+    }
+  }
+}

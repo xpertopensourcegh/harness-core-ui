@@ -17,7 +17,6 @@ import ExecutionGraph from './components/PipelineStudio/ExecutionGraph/Execution
 import type { PipelineStagesProps } from './components/PipelineStages/PipelineStages'
 import ExecutionStageDiagram from './components/ExecutionStageDiagram/ExecutionStageDiagram'
 import type { ExecutionStageDiagramProps } from './components/ExecutionStageDiagram/ExecutionStageDiagram'
-import type { RenderStageButtonInfo } from './components/ExecutionStageGraph/ExecutionStageGraph'
 
 export { AbstractStepFactory } from './components/AbstractSteps/AbstractStepFactory'
 export { Step, StepViewType } from './components/AbstractSteps/Step'
@@ -38,8 +37,7 @@ export {
   ExecutionPipelineNode,
   ExecutionPipelineItem,
   ExecutionPipelineItemStatus,
-  ExecutionPipelineNodeType,
-  RenderStageButtonInfo
+  ExecutionPipelineNodeType
 }
 export { PipelineContext, PipelineProvider } from './components/PipelineStudio/PipelineContext/PipelineContext'
 export {
@@ -53,6 +51,4 @@ export { isCustomGeneratedString } from './components/PipelineStudio/ExecutionGr
 export { useExecutionLayoutContext, ExecutionLayoutState } from './components/ExecutionLayout/ExecutionLayoutContext'
 export { PipelineStage } from './components/PipelineStages/PipelineStage'
 export { PipelineStages } from './components/PipelineStages/PipelineStages'
-export { ExecutionStatusLabel } from './components/ExecutionStatusLabel/ExecutionStatusLabel'
-export type { ExecutionStageGraphProps } from './components/ExecutionStageGraph/ExecutionStageGraph'
-export { ExecutionStageGraph } from './components/ExecutionStageGraph/ExecutionStageGraph'
+export { default as ExecutionStatusLabel } from './components/ExecutionStatusLabel/ExecutionStatusLabel'

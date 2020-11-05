@@ -13,7 +13,7 @@ import { useGetPipelineSummary } from 'services/cd-ng'
 import i18n from './PipelineDetails.i18n'
 import css from './PipelineDetails.module.scss'
 
-const PipelineDetails: React.FC = ({ children }): JSX.Element => {
+export default function PipelineDetails({ children }: React.PropsWithChildren<{}>): React.ReactElement {
   const { orgIdentifier, projectIdentifier, pipelineIdentifier, accountId } = useParams<{
     projectIdentifier: string
     orgIdentifier: string
@@ -79,5 +79,3 @@ const PipelineDetails: React.FC = ({ children }): JSX.Element => {
     </>
   )
 }
-
-export default PipelineDetails

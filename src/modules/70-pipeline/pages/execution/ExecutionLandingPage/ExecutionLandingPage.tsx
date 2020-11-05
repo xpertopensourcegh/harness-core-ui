@@ -7,22 +7,21 @@ import qs from 'qs'
 import { routePipelineDeploymentList } from 'navigation/cd/routes'
 import { useGetPipelineExecutionDetail } from 'services/cd-ng'
 import { Duration } from '@common/components/Duration/Duration'
-import type { ExecutionStatus } from '@common/exports'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { String } from 'framework/exports'
 
-import { ExecutionStatusLabel } from '../../../components/ExecutionStatusLabel/ExecutionStatusLabel'
-import ExecutionContext from '../ExecutionContext/ExecutionContext'
+import ExecutionStatusLabel from '@pipeline/components/ExecutionStatusLabel/ExecutionStatusLabel'
+import { isExecutionComplete } from '@pipeline/utils/statusHelpers'
+import ExecutionActions from '@pipeline/components/ExecutionActions/ExecutionActions'
 
+import ExecutionContext from '../ExecutionContext/ExecutionContext'
 import {
   getPipelineStagesMap,
-  isExecutionComplete,
   ExecutionPathParams,
   getRunningStageForPipeline,
   getRunningStep
 } from '../ExecutionUtils'
 
-import ExecutionActions from './ExecutionActions/ExecutionActions'
 import ExecutionMetadata from './ExecutionMetadata/ExecutionMetadata'
 import ExecutionTabs from './ExecutionTabs/ExecutionTabs'
 import RightBar from './RightBar/RightBar'
@@ -133,17 +132,18 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<{}>)
               </div>
               <div className={css.statusBar}>
                 {pipelineExecution.executionStatus && (
-                  <ExecutionStatusLabel
-                    className={css.statusLabel}
-                    status={pipelineExecution.executionStatus as ExecutionStatus}
-                  />
+                  <ExecutionStatusLabel className={css.statusLabel} status={pipelineExecution.executionStatus} />
                 )}
                 <Duration
                   startTime={pipelineExecution.startedAt}
                   endTime={pipelineExecution.endedAt}
                   durationText={' '}
                 />
-                <ExecutionActions executionStatus={pipelineExecution.executionStatus} refetch={refetch} />
+                <ExecutionActions
+                  executionStatus={pipelineExecution.executionStatus}
+                  refetch={refetch}
+                  params={{ orgIdentifier, pipelineIdentifier, projectIdentifier, accountId, executionIdentifier }}
+                />
               </div>
             </div>
             <div className={css.headerBottomRow}>

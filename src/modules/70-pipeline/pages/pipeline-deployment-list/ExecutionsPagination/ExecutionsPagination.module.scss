@@ -1,0 +1,12 @@
+.pagination {
+  position: sticky;
+  bottom: 0;
+  z-index: 1;
+  background: var(--grey-100);
+  padding: var(--spacing-medium) var(--spacing-xxlarge) 0;
+
+  & > div {
+    border-top: 1px solid var(--grey-300);
+    padding: var(--spacing-small) 0 !important;
+  }
+}

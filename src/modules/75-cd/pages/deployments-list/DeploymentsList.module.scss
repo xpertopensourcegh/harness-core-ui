@@ -1,0 +1,23 @@
+.main {
+  max-height: 100vh;
+
+  $header-height: 80px;
+
+  .header {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: $header-height;
+    background: var(--white);
+    border-bottom: 1px solid var(--grey-200);
+    padding: var(--spacing-medium) var(--spacing-xxlarge);
+
+    h2 {
+      margin: 0;
+    }
+  }
+
+  .content {
+    height: calc(100vh - #{$header-height});
+  }
+}

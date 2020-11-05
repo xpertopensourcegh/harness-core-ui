@@ -2,9 +2,9 @@ import React from 'react'
 import { useLocation, useHistory } from 'react-router-dom'
 import qs from 'qs'
 
-import { useExecutionContext } from '../../ExecutionContext/ExecutionContext'
-import { isExecutionNotStarted } from '../../ExecutionUtils'
-import ExecutionLayout from '../../../../components/ExecutionLayout/ExecutionLayout'
+import { isExecutionNotStarted } from '@pipeline/utils/statusHelpers'
+import ExecutionLayout from '@pipeline/components/ExecutionLayout/ExecutionLayout'
+import { useExecutionContext } from '@pipeline/pages/execution/ExecutionContext/ExecutionContext'
 
 import ExecutionGraph from './ExecutionGraph/ExecutionGraph'
 import ExecutionStageDetails from './ExecutionStageDetails/ExecutionStageDetails'

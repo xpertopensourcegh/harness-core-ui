@@ -1,9 +1,37 @@
 ---
 global:
   harness: Harness # Name of the company
+  deploymentText: Deployment
+  deploymentsText: Deployments
+  executionText: Execution
+  executionsText: Executions
+  buildText: Build
+  buildsText: Builds
   execution:
     breadcrumbTitle: Deployments
     pipelineIdentifierText: '(Execution ID: {{planExecutionId}})' # Text for Pipeline Identifier
+    triggerType: # text for trigger types
+      MANUAL: Manually
+      WEBHOOK: Webhook
+  executionStatus:
+    Failed: FAILED
+    Success: SUCCESS
+    Aborted: ABORTED
+    Error: ERROR
+    Paused: PAUSED
+    Pausing: PAUSING
+    Waiting: WAITING
+    Aborting: ABORTING
+    Running: RUNNING
+    Queued: QUEUED
+    Skipped: SKIPPED
+    Starting: STARTING
+    Rejected: REJECTED
+    Expired: EXPIRED
+    Suspended: SUSPENDED
+    NotStarted: NOT STARTED
+  executionList:
+    servicesDeployedText: 'Services Deployed ({{size}})'
 pipeline-execution-ci:
   execution:
     pipelineIdentifierText: '(Build ID: {{planExecutionId}})' # Text for Pipeline Identifier

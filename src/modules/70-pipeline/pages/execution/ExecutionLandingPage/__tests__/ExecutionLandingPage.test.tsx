@@ -10,7 +10,7 @@ import {
 } from 'navigation/cd/routes'
 import { useGetPipelineExecutionDetail } from 'services/cd-ng'
 
-import type { ExecutionStatus } from '../../ExecutionUtils'
+import type { ExecutionStatus } from '@pipeline/utils/statusHelpers'
 import { getRunningStageForPipeline } from '../../ExecutionUtils'
 import ExecutionLandingPage, { POLL_INTERVAL } from '../ExecutionLandingPage'
 import i18nTabs from '../ExecutionTabs/ExecutionTabs.i18n'
