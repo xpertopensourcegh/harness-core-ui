@@ -138,7 +138,8 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
             routePipelineStudio.url({ projectIdentifier, orgIdentifier, pipelineIdentifier: newPipelineId })
           )
         }
-        location.reload()
+        // note: without setTimeout does not redirect properly after save
+        setTimeout(() => location.reload(), 250)
       } else {
         fetchPipeline(true, true)
       }

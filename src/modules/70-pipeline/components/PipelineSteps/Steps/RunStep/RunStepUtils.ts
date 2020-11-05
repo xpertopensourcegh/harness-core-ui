@@ -19,10 +19,10 @@ export function convertToUIModel(data: RunStepData): RunStepDataUI {
       image: data.spec.image,
       connectorRef: data.spec.connectorRef,
       environment: environment,
-      command: data.spec.command,
+      command: data.spec.command?.join('\r\n'),
       output: data.spec.output,
       limitMemory: data.spec?.resources?.limit?.memory, //?.match(/\d+/g)?.join(''),
-      limitMemoryUnits: data.spec?.resources?.limit?.memory, //?.match(/[A-Za-z]+$/)?.join('') || LimitMemoryUnits.Mi,
+      limitMemoryUnits: 'Mi', //?.match(/[A-Za-z]+$/)?.join('') || LimitMemoryUnits.Mi,
       limitCPU: data.spec?.resources?.limit?.cpu
     }
   }
@@ -48,16 +48,15 @@ export function convertFromUIModel(data: RunStepDataUI): RunStepData {
     type: data.type,
     spec: {
       image: data.spec.image,
-      ...(!isEmpty(connectorRef) && { connectorRef }),
+      ...(connectorRef && { connectorRef }),
       ...(!isEmpty(environment) && { environment }),
-      ...(!isEmpty(data.spec.command) && { command: data.spec.command }),
-      ...(!isEmpty(data.spec.output) && { output: data.spec.output }),
-
-      ...((!isEmpty(data.spec.limitMemory) || !isEmpty(data.spec.limitCPU)) && {
+      ...(!isEmpty(data.spec.command) && { command: data.spec.command.split(/\r?\n/g).filter((c: string) => !!c) }),
+      ...(!isEmpty(data.spec.output) && { output: data.spec.output.filter((c: string) => !!c) }),
+      ...((data.spec.limitMemory || data.spec.limitCPU) && {
         resources: {
           limit: {
-            ...(!isEmpty(data.spec.limitMemory) && { memory: parseInt(data.spec.limitMemory, 10) }),
-            ...(!isEmpty(data.spec.limitCPU) && { cpu: parseInt(data.spec.limitCPU, 10) })
+            ...(data.spec.limitMemory && { memory: parseInt(data.spec.limitMemory, 10) }),
+            ...(data.spec.limitCPU && { cpu: parseInt(data.spec.limitCPU, 10) })
           }
         }
       })

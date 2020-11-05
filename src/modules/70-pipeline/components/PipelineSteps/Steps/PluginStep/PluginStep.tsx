@@ -59,22 +59,26 @@ export interface PluginStepWidgetProps {
 
 // TODO: Fix types
 function getInitialValuesInCorrectFormat(initialValues: any): any {
-  if (initialValues.spec?.resources) {
-    return {
-      identifier: initialValues.identifier,
-      name: initialValues.name,
-      spec: {
-        connectorRef: initialValues.spec?.connectorRef,
-        image: initialValues.spec?.image,
-        settings: initialValues.spec?.settings,
-        limitMemory: initialValues.spec?.resources?.limit?.memory?.match(/\d+/g)?.join(''),
-        limitMemoryUnits:
-          initialValues.spec?.resources?.limit?.memory?.match(/[A-Za-z]+$/)?.join('') || LimitMemoryUnits.Mi,
-        limitCPU: initialValues.spec?.resources?.limit?.cpu
-      }
+  const settings = Object.keys(initialValues.spec.settings || {}).map(key => ({
+    key: key,
+    value: initialValues.spec.settings![key]
+  }))
+
+  if (settings.length === 0) {
+    settings.push({ key: '', value: '' })
+  }
+
+  return {
+    identifier: initialValues.identifier,
+    name: initialValues.name,
+    spec: {
+      connectorRef: initialValues.spec?.connectorRef,
+      image: initialValues.spec?.image,
+      settings,
+      limitMemory: initialValues.spec?.resources?.limit?.memory, // ?.match(/\d+/g)?.join('')
+      limitMemoryUnits: LimitMemoryUnits.Mi,
+      limitCPU: initialValues.spec?.resources?.limit?.cpu
     }
-  } else {
-    return { ...initialValues }
   }
 }
 
@@ -126,7 +130,10 @@ const PluginStepWidget: React.FC<PluginStepWidgetProps> = ({ initialValues, onUp
       scope: scope
     }
   } else {
-    values.spec.connectorRef = initialValues.spec.connectorRef
+    // do not apply if we are loading connectors (this will keep "Loading" as placeholder in a input field)
+    if (!loading) {
+      values.spec.connectorRef = initialValues.spec.connectorRef
+    }
   }
 
   const handleCancelClick = (): void => {
@@ -143,29 +150,42 @@ const PluginStepWidget: React.FC<PluginStepWidgetProps> = ({ initialValues, onUp
         {i18n.title}
       </Text>
       <Formik
-        initialValues={getInitialValuesInCorrectFormat(initialValues)}
+        enableReinitialize={true}
+        initialValues={values}
         validationSchema={validationSchema}
         onSubmit={_values => {
+          const settings: { [key: string]: string } = {}
+          _values.spec.settings.forEach((pair: { key: string; value: string }) => {
+            // skip empty
+            if (pair.key) {
+              settings[pair.key] = pair.value
+            }
+          })
+
           // TODO: Use appropriate interface
           const schemaValues: any = {
             identifier: _values.identifier,
             name: _values.name,
             spec: {
-              connectorRef: _values.spec.connectorRef,
-              image: _values.spec.image,
-              settings: _values.spec.settings,
-              resources: {
-                limit: {
-                  memory: '',
-                  cpu: _values.spec.limitCPU
+              ...((_values.spec.connectorRef?.value || _values.spec.connectorRef) && {
+                connectorRef: _values.spec.connectorRef?.value || _values.spec.connectorRef
+              }),
+              ...(_values.spec.image && { image: _values.spec.image }),
+              ...(!isEmpty(settings) && { settings }),
+              ...((_values.spec.limitMemory || _values.spec.limitCPU) && {
+                resources: {
+                  limit: {
+                    ...(_values.spec.limitMemory && { memory: parseInt(_values.spec.limitMemory, 10) }),
+                    ...(_values.spec.limitCPU && { cpu: parseInt(_values.spec.limitCPU, 10) })
+                  }
                 }
-              }
+              })
             }
           }
 
-          if (_values.spec.limitMemory && _values.spec.limitMemoryUnits) {
-            schemaValues.spec.resources.limit.memory = _values.spec.limitMemory + _values.spec.limitMemoryUnits
-          }
+          // if (_values.spec.limitMemory && _values.spec.limitMemoryUnits) {
+          //   schemaValues.spec.resources.limit.memory = _values.spec.limitMemory + _values.spec.limitMemoryUnits
+          // }
 
           onUpdate?.(schemaValues)
         }}
@@ -177,6 +197,7 @@ const PluginStepWidget: React.FC<PluginStepWidgetProps> = ({ initialValues, onUp
               <Text margin={{ bottom: 'xsmall' }}>{i18n.connectorLabel}</Text>
               <div className={cx(css.fieldsGroup, css.withoutSpacing)}>
                 <FormMultiTypeConnectorField
+                  type={'' as any}
                   name="spec.connectorRef"
                   label=""
                   placeholder={loading ? i18n.loading : i18n.connectorPlaceholder}
@@ -229,27 +250,11 @@ const PluginStepWidget: React.FC<PluginStepWidgetProps> = ({ initialValues, onUp
                   <>
                     {formValues.spec.settings.map((_settings: string, index: number) => (
                       <div className={css.fieldsGroup} key={index}>
-                        <FormInput.MultiTextInput
-                          label=""
+                        <FormInput.Text
                           name={`spec.settings[${index}].key`}
                           placeholder={i18n.settingsKeyPlaceholder}
                           style={{ flexGrow: 1 }}
                         />
-                        {getMultiTypeFromValue(formValues.spec.settings[index].key) === MultiTypeInputType.RUNTIME && (
-                          <ConfigureOptions
-                            value={formValues.spec.settings[index].key as string}
-                            type={
-                              <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-                                <Text>{i18n.settingsKeyPlaceholder}</Text>
-                              </Layout.Horizontal>
-                            }
-                            variableName={`spec.settings[${index}].key`}
-                            showRequiredField={false}
-                            showDefaultField={false}
-                            showAdvanced={true}
-                            onChange={value => setFieldValue(`spec.settings[${index}].key`, value)}
-                          />
-                        )}
                         <FormInput.MultiTextInput
                           label=""
                           name={`spec.settings[${index}].value`}
@@ -365,9 +370,6 @@ export class PluginStep extends PipelineStep<any /*PluginStepData*/> {
 
   protected defaultValues: any /*PluginStepData*/ = {
     identifier: '',
-    spec: {
-      settings: [{ key: '', value: '' }],
-      limitMemoryUnits: LimitMemoryUnits.Mi
-    }
+    spec: {}
   }
 }

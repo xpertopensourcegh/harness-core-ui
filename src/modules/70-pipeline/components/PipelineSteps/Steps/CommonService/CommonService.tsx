@@ -186,6 +186,7 @@ const CommonServiceWidget: React.FC<CommonServiceWidgetProps> = ({ initialValues
               <Text margin={{ bottom: 'xsmall' }}>{i18n.connectorLabel}</Text>
               <div className={cx(css.fieldsGroup, css.withoutSpacing)}>
                 <FormMultiTypeConnectorField
+                  type={'' as any}
                   name="spec.connectorRef"
                   label=""
                   placeholder={loading ? i18n.loading : i18n.connectorPlaceholder}

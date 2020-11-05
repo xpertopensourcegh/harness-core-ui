@@ -49,7 +49,7 @@ export const putPipelinePromiseCI = (
     PutPipelineQueryParams,
     NgPipelineRequestBody,
     PutPipelinePathParams
-  >('PUT', getConfig('ng/api'), `/pipelines/${pipelineIdentifier}`, props, signal)
+  >('PUT', getConfig('ci'), `/pipelines/${pipelineIdentifier}`, props, signal)
 
 export const getPipelinePromiseCI = (
   {

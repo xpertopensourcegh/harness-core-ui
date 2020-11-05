@@ -80,9 +80,8 @@ const validationSchema = yup.object().shape({
   spec: yup
     .object()
     .shape({
-      connectorRef: yup.mixed().required(),
       image: yup.string().trim().required(),
-      command: yup.array().compact().required(),
+      command: yup.string().trim().required(),
       limitCPU: yup.number().min(0),
       limitMemory: yup.number().min(0)
     })
@@ -178,6 +177,7 @@ const RunStepWidget: React.FC<RunStepWidgetProps> = ({ initialValues, onUpdate }
               <Text margin={{ bottom: 'xsmall' }}>{i18n.connectorLabel}</Text>
               <div className={cx(css.fieldsGroup, css.withoutSpacing)}>
                 <FormMultiTypeConnectorField
+                  type={'' as any}
                   name="spec.connectorRef"
                   label=""
                   placeholder={loading ? i18n.loading : i18n.connectorPlaceholder}
@@ -224,23 +224,7 @@ const RunStepWidget: React.FC<RunStepWidgetProps> = ({ initialValues, onUpdate }
                 )}
               </div>
               <Text margin={{ top: 'medium', bottom: 'xsmall' }}>{i18n.commandsLabel}</Text>
-              <FormInput.TagInput
-                name="spec.command"
-                label=""
-                items={[]}
-                labelFor={name => name as string}
-                itemFromNewTag={newTag => newTag}
-                tagInputProps={{
-                  className: '',
-                  noInputBorder: true,
-                  openOnKeyDown: false,
-                  showAddTagButton: false,
-                  fill: true,
-                  showNewlyCreatedItemsInList: false,
-                  allowNewTag: true,
-                  placeholder: ''
-                }}
-              />
+              <FormInput.TextArea name="spec.command" />
             </div>
             <div className={css.fieldsSection}>
               <Text className={css.optionalConfiguration} font={{ weight: 'semi-bold' }} margin={{ bottom: 'small' }}>
@@ -302,25 +286,6 @@ const RunStepWidget: React.FC<RunStepWidgetProps> = ({ initialValues, onUpdate }
                   </>
                 )}
               />
-              <Text margin={{ bottom: 'xsmall' }}>{i18n.workingDirectoryLabel}</Text>
-              <div className={cx(css.fieldsGroup, css.withoutSpacing)}>
-                <FormInput.MultiTextInput name="spec.workingDir" label="" style={{ flexGrow: 1 }} />
-                {getMultiTypeFromValue(formValues.spec.workingDir) === MultiTypeInputType.RUNTIME && (
-                  <ConfigureOptions
-                    value={formValues.spec.workingDir as string}
-                    type={
-                      <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-                        <Text>{i18n.workingDirectoryLabel}</Text>
-                      </Layout.Horizontal>
-                    }
-                    variableName="spec.workingDir"
-                    showRequiredField={false}
-                    showDefaultField={false}
-                    showAdvanced={true}
-                    onChange={value => setFieldValue('spec.workingDir', value)}
-                  />
-                )}
-              </div>
               <Text margin={{ top: 'medium' }}>
                 {i18n.setContainerResources}
                 <Button icon="question" minimal tooltip={i18n.setContainerResourcesTooltip} />
