@@ -74,16 +74,7 @@ export default function ExecutionCard(props: ExecutionCardProps): React.ReactEle
               </div>
             ) : null}
           </div>
-          <div>
-            <MiniExecutionGraph
-              stages={pipelineExecution?.stageExecutionSummaryElements}
-              renderStageButton={() => ({
-                key: Math.random().toString(24).slice(4),
-                color: 'green500',
-                icon: 'lock'
-              })}
-            />
-          </div>
+          <MiniExecutionGraph pipelineExecution={pipelineExecution} />
           <div className={css.actions}>
             <ExecutionStatusLabel status={pipelineExecution.executionStatus} />
             <ExecutionActions

@@ -1,12 +1,18 @@
 /* eslint-disable */
 // this is an auto-generated file
 declare const styles: {
-  readonly wrapper: string
-  readonly container: string
+  readonly main: string
+  readonly graphWrapper: string
   readonly graph: string
-  readonly hidden: string
-  readonly disabled: string
-  readonly btnLeft: string
-  readonly btnRight: string
+  readonly stage: string
+  readonly parallel: string
+  readonly parallelNodes: string
+  readonly icon: string
+  readonly moreStages: string
+  readonly extraCount: string
+  readonly showDetails: string
+  readonly stepCounts: string
+  readonly stepCount: string
+  readonly errorMsg: string
 }
 export default styles

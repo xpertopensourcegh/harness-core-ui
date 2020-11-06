@@ -1,155 +1,125 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import React from 'react'
+import { IconName, Icon } from '@wings-software/uikit'
 import cx from 'classnames'
-import { Container, Button, Layout, Text, Color, IconName, ButtonProps } from '@wings-software/uikit'
-import { ExecutionStageButton } from './ExecutionStageButton'
+
+import type { PipelineExecutionSummaryDTO } from 'services/cd-ng'
+import type { ExecutionStatus } from '@pipeline/utils/statusHelpers'
+import { isExecutionRunning, isExecutionCompletedWithBadState } from '@pipeline/utils/statusHelpers'
+
 import css from './MiniExecutionGraph.module.scss'
 
-export interface RenderStageButtonInfo {
-  key: string
-  icon: IconName
-  color: Color
-  parallel?: boolean
-  tooltip?: ButtonProps['tooltip']
+// TODO: Update icon map with correct icons
+const IconMap: Record<ExecutionStatus, IconName> = {
+  Success: 'tick-circle',
+  Running: 'dot',
+  Error: 'error',
+  Failed: 'error',
+  Expired: 'error',
+  Aborted: 'error',
+  Suspended: 'error',
+  Queued: 'spinner',
+  NotStarted: 'spinner',
+  Paused: 'spinner',
+  Waiting: 'spinner'
 }
 
-export interface MiniExecutionGraphProps<T> {
-  stages?: T[]
-  stageStatusCounts?: {
-    success?: number
-    running?: number
-    failed?: number
+export interface StageNodeProps extends React.HTMLAttributes<HTMLDivElement> {
+  stage: any
+}
+
+export function StageNode({ stage, ...rest }: StageNodeProps): React.ReactElement {
+  return (
+    <div {...rest} className={css.stage} data-status={stage.executionStatus?.toLowerCase()}>
+      <Icon name={IconMap[stage.executionStatus as ExecutionStatus]} size={13} className={css.icon} />
+    </div>
+  )
+}
+
+export interface ParallelNodeProps {
+  stages: any[]
+}
+
+const STEP_DETAILS_LIMIT = 4
+
+export function ParallelStageNode(_props: ParallelNodeProps): React.ReactElement {
+  const [showDetails, setShowDetails] = React.useState(false)
+  const status: ExecutionStatus = 'Running' // TODO: find the status as per priority defined by product
+  const detailSteps: ExecutionStatus[] = ['Running', 'Success', 'Success', 'Success', 'Failed']
+
+  function handleMouseEnter(): void {
+    setShowDetails(true)
   }
-  renderStageButton: (stage: T) => RenderStageButtonInfo
-  errorMsg?: string
-  className?: string
-}
 
-export default function MiniExecutionGraph<T>(props: MiniExecutionGraphProps<T>): JSX.Element {
-  const { className, stageStatusCounts, errorMsg, stages, renderStageButton } = props
-  const elementRef = useRef<HTMLSpanElement>(null)
-  const [hideLeftButton, setHideLeftButton] = useState(true)
-  const [hideRightButton, setHideRightButton] = useState(true)
-  const getContainerDOM = useCallback(
-    (): Element | null | undefined => elementRef?.current?.closest?.(`.${css.graph}`),
-    [elementRef]
-  )
-  const toggleButtons = useCallback(() => {
-    setTimeout(() => {
-      const container = getContainerDOM()
-
-      if (container) {
-        setHideLeftButton(!container.scrollLeft)
-        setHideRightButton(
-          container.scrollWidth <= container.clientWidth ||
-            container.scrollLeft + container.clientWidth >= container.scrollWidth
-        )
-      }
-    }, 500)
-  }, [getContainerDOM])
-  const onLeftRightBtnClick = useCallback(
-    (isFromRightButton: boolean) => {
-      const container = getContainerDOM()
-      if (container) {
-        container.scrollLeft += isFromRightButton ? container.scrollWidth : -container.scrollWidth
-      }
-      toggleButtons()
-    },
-    [getContainerDOM, toggleButtons]
-  )
-  const totalStages =
-    Number(stageStatusCounts?.success || 0) +
-    Number(stageStatusCounts?.running || 0) +
-    Number(stageStatusCounts?.failed || 0)
-
-  useEffect(() => {
-    const container = getContainerDOM()
-
-    container?.addEventListener?.('scroll', toggleButtons)
-
-    toggleButtons()
-    addEventListener('resize', toggleButtons)
-
-    return () => {
-      removeEventListener('resize', toggleButtons)
-      container?.removeEventListener?.('scroll', toggleButtons)
-    }
-  }, [toggleButtons, getContainerDOM])
+  function handleMouseLeave(): void {
+    setShowDetails(false)
+  }
 
   return (
-    <Container className={cx(css.wrapper, className)}>
-      <Container className={cx(css.container)}>
-        <Button
-          minimal
-          icon="circle-arrow-left"
-          onClick={() => onLeftRightBtnClick(false)}
-          className={cx(css.btnLeft, hideLeftButton && css.hidden)}
-          iconProps={{ size: 12 }}
-          style={{ color: 'var(--grey-350)' }}
-        />
-        <Container className={css.graph}>
-          {stages?.map(stage => {
-            const { parallel, icon, color, tooltip, key } = renderStageButton(stage)
-            return <ExecutionStageButton key={key} parallel={parallel} icon={icon} color={color} tooltip={tooltip} />
+    <div className={cx(css.parallel, { [css.showDetails]: showDetails })} onMouseLeave={handleMouseLeave}>
+      <div className={css.moreStages}>
+        {detailSteps.slice(0, STEP_DETAILS_LIMIT - 1).map((stepStatus, i) => (
+          <StageNode key={i} stage={{ executionStatus: stepStatus }} />
+        ))}
+        {detailSteps.length > STEP_DETAILS_LIMIT ? (
+          <div className={css.extraCount}>+ {detailSteps.length - STEP_DETAILS_LIMIT}</div>
+        ) : null}
+      </div>
+      <div className={css.parallelNodes} />
+      <StageNode stage={{ executionStatus: status }} onMouseEnter={handleMouseEnter} />
+    </div>
+  )
+}
+
+export interface MiniExecutionGraphProps {
+  pipelineExecution: PipelineExecutionSummaryDTO
+}
+
+export default function MiniExecutionGraph(props: MiniExecutionGraphProps): React.ReactElement {
+  const {
+    stageExecutionSummaryElements,
+    successfulStagesCount,
+    runningStagesCount,
+    failedStagesCount,
+    executionStatus,
+    errorMsg
+  } = props.pipelineExecution
+
+  return (
+    <div className={css.main}>
+      <div className={css.graphWrapper}>
+        <div className={css.graph}>
+          {(stageExecutionSummaryElements || []).map(({ stage, parallel }, i) => {
+            if (parallel && Array.isArray(parallel.stageExecutions)) {
+              return <ParallelStageNode key={i} stages={parallel.stageExecutions} />
+            }
+
+            if (stage) {
+              return <StageNode key={stage.stageIdentifier} stage={stage} />
+            }
+
+            return null
           })}
-          {/* <ExecutionStageButton icon="tick-circle" color="green500" tooltip="Stage1: Complete" />
-          <ExecutionStageButton icon="tick-circle" color="green500" tooltip="Stage2: Complete" />
-          <ExecutionStageButton
-            icon="tick-circle"
-            color="green500"
-            tooltip="Stage3: 10 parallel stages: Complete"
-            parallel
-          />
-          <ExecutionStageButton icon="tick-circle" color="green500" tooltip="Stage4: Complete" />
-          <ExecutionStageButton icon="warning-sign" color="red500" tooltip="Stage5: Failed" />
-          <ExecutionStageButton icon="tick-circle" color="red500" parallel tooltip="Stage6: Failed" />
-          <ExecutionStageButton icon="tick-circle" color="red500" tooltip="Stage7: Failed" />
-          <ExecutionStageButton icon="spinner" color="blue500" parallel tooltip="Stage8: Running" />
-          <ExecutionStageButton icon="pending" color="grey300" parallel />
-          <ExecutionStageButton icon="pending" color="grey300" />
-          <ExecutionStageButton icon="pending" color="grey300" />
-          <ExecutionStageButton icon="pending" color="grey300" />
-          <ExecutionStageButton icon="pending" color="grey300" />
-          <ExecutionStageButton icon="pending" color="grey300" />
-          <ExecutionStageButton icon="pending" color="grey300" parallel />
-          <ExecutionStageButton icon="pending" color="grey300" />
-          <ExecutionStageButton icon="pending" color="grey300" />
-          <ExecutionStageButton icon="pending" color="grey300" /> */}
-          <span className={css.hidden} ref={elementRef}></span>
-        </Container>
-        <Button
-          minimal
-          icon="circle-arrow-right"
-          onClick={() => onLeftRightBtnClick(true)}
-          className={cx(css.btnRight, hideRightButton && css.hidden)}
-          iconProps={{ size: 12 }}
-          style={{ color: 'var(--grey-350)' }}
-        />
-      </Container>
-      <Layout.Horizontal spacing="medium" margin={{ top: 'medium' }}>
-        {(stageStatusCounts?.success && (
-          <Text icon="tick-circle" iconProps={{ color: 'green500', size: 10 }} font="small">
-            {`${stageStatusCounts.success}/${totalStages}`}
-          </Text>
-        )) ||
-          null}
-        {(stageStatusCounts?.failed && (
-          <Text icon="tick-circle" iconProps={{ color: 'red500', size: 10 }} font="small">
-            {`${stageStatusCounts.failed}/${totalStages}`}
-          </Text>
-        )) ||
-          null}
-        {(stageStatusCounts?.running && (
-          <Text icon="spinner" iconProps={{ color: 'blue500', size: 10 }} font="small">
-            {`${stageStatusCounts.running}/${totalStages}`}
-          </Text>
-        )) ||
-          null}
-        {errorMsg && (
-          <Text font="small" color={Color.RED_500}>
-            {errorMsg}
-          </Text>
-        )}
-      </Layout.Horizontal>
-    </Container>
+        </div>
+      </div>
+      <div className={css.stepCounts}>
+        <div className={css.stepCount} data-status="success">
+          <Icon name={IconMap.Success} size={10} />
+          {successfulStagesCount}
+        </div>
+        {isExecutionRunning(executionStatus) ? (
+          <div className={css.stepCount} data-status="running">
+            <Icon name={IconMap.Running} size={10} />
+            {runningStagesCount}
+          </div>
+        ) : isExecutionCompletedWithBadState(executionStatus) ? (
+          <div className={css.stepCount} data-status="failed">
+            <Icon name={IconMap.Failed} size={10} /> {failedStagesCount}
+          </div>
+        ) : null}
+        {isExecutionCompletedWithBadState(executionStatus) && errorMsg ? (
+          <div className={cx(css.stepCount, css.errorMsg)}>{errorMsg}</div>
+        ) : null}
+      </div>
+    </div>
   )
 }

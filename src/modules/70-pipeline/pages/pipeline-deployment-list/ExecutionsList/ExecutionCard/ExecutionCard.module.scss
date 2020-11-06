@@ -31,7 +31,7 @@
   .content,
   .footer {
     display: grid;
-    grid-template-columns: minmax(420px, 1fr) 1fr 230px;
+    grid-template-columns: minmax(300px, 1fr) 1fr 230px;
     padding-bottom: var(--spacing-medium);
     column-gap: var(--spacing-xxxlarge);
   }

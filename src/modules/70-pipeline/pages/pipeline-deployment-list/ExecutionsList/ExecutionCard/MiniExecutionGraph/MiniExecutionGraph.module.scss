@@ -1,52 +1,227 @@
-.wrapper {
+.main {
   overflow: hidden;
-  padding: var(--spacing-xsmall) 100px var(--spacing-xsmall) 40px !important;
-  position: relative;
-  display: inline-block !important;
+  $node-height: 25px;
+  $node-width: 40px;
+  min-height: 150px;
+  margin-top: var(--spacing-large);
 
-  .container {
+  .graphWrapper {
+    width: 100%;
+    height: calc(2 * var(--spacing-small) + #{$node-height});
+    padding: var(--spacing-small);
+    overflow: visible;
+    z-index: 2;
+  }
+
+  .graph {
+    display: flex;
+    column-gap: var(--spacing-large);
+  }
+
+  & .stage,
+  & .parallel {
+    --stage-color: var(--grey-300);
+    --stage-bg: var(--grey-100);
+    --icon-color: var(--grey-400);
+
+    &[data-status='failed'],
+    &[data-status='aborted'],
+    &[data-status='error'],
+    &[data-status='rejected'] {
+      --stage-color: var(--red-500);
+      --stage-bg: linear-gradient(147.14deg, #ff8800 6.95%, #e63535 93.05%);
+      --icon-color: var(--white);
+    }
+
+    &[data-status='success'] {
+      --stage-color: var(--green-500);
+    }
+
+    &[data-status='running'],
+    &[data-status='starting'],
+    &[data-status='aborting'],
+    &[data-status='waiting'],
+    &[data-status='pausing'],
+    &[data-status='paused'] {
+      --stage-bg: linear-gradient(147.14deg, #73dfe7 6.95%, #0063f7 93.05%);
+      --icon-color: var(--white);
+      border: none;
+    }
+
+    &[data-status='queued'],
+    &[data-status='skipped'],
+    &[data-status='expired'],
+    &[data-status='suspended'],
+    &[data-status='notstarted'] {
+      --stage-color: var(--grey-300);
+    }
+  }
+
+  & .stage,
+  & .parallel > .parallelNodes::before,
+  & .parallel > .parallelNodes::after {
+    width: $node-width;
+    height: $node-height;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid var(--stage-color);
+    border-radius: 3px;
+    background: var(--stage-bg);
+    cursor: pointer;
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
     position: relative;
+  }
 
-    .graph {
-      justify-content: flex-start !important;
-      position: relative;
-      z-index: 1;
-      white-space: nowrap !important;
-      padding: 7px 2px 4px 7px;
-      scroll-behavior: smooth;
+  & .icon {
+    color: var(--icon-color);
+  }
 
-      overflow-x: hidden;
-      overflow-x: scroll;
-      scrollbar-width: none; /* Firefox */
-      -ms-overflow-style: none; /* Internet Explorer 10+ */
-      &::-webkit-scrollbar {
-        /* WebKit */
-        width: 0;
-        height: 0;
-      }
-    }
+  .graph > .stage:not(:first-child)::before,
+  .graph > .parallel:not(:first-child)::before {
+    content: '';
+    display: block;
+    width: var(--spacing-large);
+    height: 1px;
+    background-color: var(--stage-color);
+    position: absolute;
+    right: 100%;
+    top: $node-height / 2;
+  }
 
-    .hidden {
-      display: none !important;
-    }
+  & .parallel {
+    width: 40px;
+    height: 130px;
+    display: flex;
+    align-items: flex-start;
+    position: relative;
+  }
 
-    .disabled {
-      pointer-events: none;
-      opacity: 0.5;
-    }
+  & .parallel > .moreStages,
+  & .parallel > .parallelNodes {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
 
-    .btnLeft,
-    .btnRight {
+  & .parallel > .moreStages {
+    width: 100%;
+    height: 100%;
+  }
+
+  & .parallel > .parallelNodes {
+    width: 100%;
+    opacity: 1;
+    transition: opacity 0.2s ease-in-out;
+
+    &::before,
+    &::after {
+      content: '';
+      display: block;
       position: absolute;
-      top: -2px;
+      background: var(--grey-100);
+      transition: transform 0.2s ease-in-out;
     }
 
-    .btnLeft {
-      left: -30px;
+    &::before {
+      transform: translate(6px, -6px);
     }
 
-    .btnRight {
-      right: -30px;
+    &::after {
+      transform: translate(2px, -3px);
     }
+  }
+
+  & .parallel > .moreStages {
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+
+    & > .stage,
+    & > .extraCount {
+      position: absolute;
+      top: 0;
+      left: 0;
+      transition: transform 0.3s ease-in-out;
+      transform-origin: top center;
+      cursor: pointer;
+    }
+
+    & > .stage {
+      transform: translate(0, 0) scale(1);
+    }
+
+    & > .extraCount {
+      background: #f3f3fa;
+      border: 0.5px solid #9293ab;
+      font-size: var(--font-size-small);
+      box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
+      border-radius: 3px;
+      padding: 0 3px;
+      white-space: nowrap;
+      transform: translate(33%, 0);
+    }
+  }
+
+  & .parallel.showDetails > .parallelNodes {
+    opacity: 0;
+
+    &::before,
+    &::after {
+      transform: translate(0, 0);
+    }
+  }
+
+  & .parallel.showDetails > .moreStages {
+    opacity: 1;
+
+    & > .stage:nth-child(1) {
+      transform: translate(0, 32px) scale(0.92);
+    }
+
+    & > .stage:nth-child(2) {
+      transform: translate(0, 62px) scale(0.81);
+    }
+
+    & > .stage:nth-child(3) {
+      transform: translate(0, 90px) scale(0.72);
+    }
+
+    & > .extraCount {
+      transform: translate(33%, 116px);
+    }
+  }
+
+  .stepCounts {
+    display: flex;
+    column-gap: var(--spacing-small);
+    z-index: 1;
+    margin-top: var(--spacing-small);
+  }
+
+  .stepCount {
+    display: inline-flex;
+    align-items: center;
+    padding: 0 var(--spacing-small);
+    font-size: var(--font-size-small);
+    line-height: 1.5;
+    border: 0.4px solid #d9dae6;
+    border-radius: 4px;
+
+    & > :global(.bp3-icon) {
+      margin-right: var(--spacing-xsmall);
+    }
+
+    &[data-status='success'] > :global(.bp3-icon) {
+      color: var(--green-500);
+    }
+
+    &[data-status='failed'] > :global(.bp3-icon) {
+      color: var(--red-500);
+    }
+  }
+
+  .errorMsg {
+    color: var(--red-500);
+    white-space: nowrap;
   }
 }
