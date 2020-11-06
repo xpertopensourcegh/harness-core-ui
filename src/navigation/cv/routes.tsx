@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route, ModuleName, SidebarIdentifier, routeURL } from 'framework/exports'
+import { Route, ModuleName, SidebarIdentifier, routeURL, PageLayout } from 'framework/exports'
 
 import i18n from './routes.i18n'
 
@@ -286,6 +286,36 @@ export const routeCVAdminGovernance: Route<{ projectIdentifier: string; orgIdent
   url: ({ projectIdentifier, orgIdentifier }) =>
     routeURL(routeCVMainDashBoardPage, `/cv/admin/governance/org/${orgIdentifier}/projects/${projectIdentifier}`),
   component: React.lazy(() => import('@cv/pages/admin/governance/CVGovernancePage'))
+}
+
+export const routeCVAdminSetup: Route<{ projectIdentifier: string; orgIdentifier: string }> = {
+  module: ModuleName.CV,
+  layout: PageLayout.NoMenuLayout,
+  sidebarId: SidebarIdentifier.CONTINUOUS_VERIFICATION,
+  path: '/cv/org/:orgIdentifier/projects/:projectIdentifier/admin/setup',
+  title: i18n.adminSettings,
+  pageId: 'cv-admin-setup',
+  url: ({ projectIdentifier, orgIdentifier }) =>
+    routeURL(routeCVMainDashBoardPage, `/cv/org/${orgIdentifier}/projects/${projectIdentifier}/admin/setup`),
+  component: React.lazy(() => import('@cv/pages/admin/setup/CVSetupPage'))
+}
+
+export const routeCVAdminSetupMonitoringSource: Route<{
+  projectIdentifier: string
+  orgIdentifier: string
+  type: string
+}> = {
+  module: ModuleName.CV,
+  sidebarId: SidebarIdentifier.CONTINUOUS_VERIFICATION,
+  path: '/cv/org/:orgIdentifier/projects/:projectIdentifier/admin/setup/monitoring-source',
+  title: i18n.adminSettings,
+  pageId: 'cv-admin-setup-monitoring-source',
+  url: ({ projectIdentifier, orgIdentifier, type }) =>
+    routeURL(
+      routeCVMainDashBoardPage,
+      `/cv/org/${orgIdentifier}/projects/${projectIdentifier}/admin/setup/monitoring-source?type=${type}`
+    ),
+  component: React.lazy(() => import('@cv/pages/monitoring-source/MonitoringSource'))
 }
 
 export const routeCVAdminResources: Route<{ projectIdentifier: string; orgIdentifier: string }> = {

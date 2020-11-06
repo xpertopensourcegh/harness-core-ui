@@ -27,6 +27,7 @@ allowpaths:
   - /activity/deployment-activity-verifications-popover-summary/{deploymentTag}
   - /activity/recent-activity-verifications
   - /activity/list
+  - /setup/status
 operationIdOverrides:
   /appdynamics/applications.get: getAppDynamicsApplications
   /appdynamics/metric-data.post: getAppDynamicsMetricData
@@ -43,3 +44,4 @@ operationIdOverrides:
   /activity/recent-deployment-activity-verifications.get: getRecentDeploymentActivityVerifications
   /activity/deployment-activity-verifications/{deploymentTag}.get: getVerificationInstances
   /activity/deployment-activity-verifications-popover-summary/{deploymentTag}.get: getVerificationsPopoverSummary
+  /setup/status: getCVSetupStatus

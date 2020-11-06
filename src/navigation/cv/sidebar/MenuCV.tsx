@@ -14,6 +14,7 @@ import {
   routeCVAdminGeneralSettings,
   routeCVAdminGovernance,
   routeCVAdminResources,
+  routeCVAdminSetup,
   routeCVAdminAccessControl,
   routeCVMetricPackConfigureThresholdPage
 } from '../routes'
@@ -66,9 +67,19 @@ const ProjectNavLinks: React.FC = () => {
         selected={
           isRouteActive(routeCVAdminGeneralSettings) ||
           isRouteActive(routeCVAdminGovernance) ||
-          isRouteActive(routeCVAdminResources)
+          isRouteActive(routeCVAdminResources) ||
+          isRouteActive(routeCVAdminSetup)
         }
       >
+        <AdminSelectorLink
+          href={routeCVAdminSetup.url({
+            projectIdentifier,
+            orgIdentifier
+          })}
+          label={i18n.adminSideNavLinks.setup}
+          iconName="resources-icon"
+          selected={isRouteActive(routeCVAdminSetup)}
+        />
         <AdminSelectorLink
           href={routeCVAdminResources.url({
             projectIdentifier,

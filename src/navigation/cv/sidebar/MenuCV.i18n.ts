@@ -9,6 +9,7 @@ export default {
     metricPacks: 'Metric Packs'
   },
   adminSideNavLinks: {
+    setup: 'Setup',
     resources: 'Resources',
     governance: 'Governance',
     generalSettings: 'General Settings',
