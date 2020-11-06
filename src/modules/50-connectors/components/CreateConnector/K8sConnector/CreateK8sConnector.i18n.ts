@@ -7,7 +7,7 @@ export default {
   DELEGATE_OUT_CLUSTER_INFO:
     'In this method, a harness delegate will use the cluster master URL and credentials to connect to your cluster.',
   STEP_ONE: {
-    NAME: 'CONNECTOR DETAILS',
+    NAME: 'Overview',
     saveAndContinue: 'CONTINUE'
   },
   STEP_TWO: {

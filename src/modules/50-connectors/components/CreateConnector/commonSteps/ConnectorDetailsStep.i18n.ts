@@ -1,13 +1,16 @@
 export default {
-  saveAndContinue: 'CONTINUE',
+  saveAndContinue: 'Save And Continue',
   validateError: 'Duplicate identifier',
-  connectorName: 'Give your Kubernetes Connector a name',
+  connectorName: 'Name',
   description: 'Description',
   tags: 'Tags',
+  addDescription: '+ Description',
+  addTags: '+ Tags',
+  remove: 'remove',
   identifier: 'Identifier',
   validIdRegex: 'Identifier can only contain alphanumerics, _ and $',
   validation: {
-    name: 'Name is a required field',
+    name: 'Connector name is a required field',
     identifier: 'Identifier is required'
   }
 }

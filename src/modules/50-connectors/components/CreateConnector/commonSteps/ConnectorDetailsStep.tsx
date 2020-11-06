@@ -5,9 +5,11 @@ import {
   Formik,
   StepProps,
   FormInput,
-  FormikForm as Form,
+  Text,
   ModalErrorHandlerBinding,
-  ModalErrorHandler
+  ModalErrorHandler,
+  FormikForm,
+  Container
 } from '@wings-software/uikit'
 import { useParams } from 'react-router'
 import * as Yup from 'yup'
@@ -19,7 +21,7 @@ import {
   validateTheIdentifierIsUniquePromise,
   Failure
 } from 'services/cd-ng'
-import { getHeadingByType, getConnectorTextByType } from '../../../pages/connectors/utils/ConnectorHelper'
+import { getHeadingByType } from '../../../pages/connectors/utils/ConnectorHelper'
 import i18n from './ConnectorDetailsStep.i18n'
 import css from './ConnectorDetailsStep.module.scss'
 
@@ -36,6 +38,8 @@ const ConnectorDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDe
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
   const mounted = useRef(false)
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
+  const [isDescriptionOpen, setIsDescriptionOpen] = useState(false)
+  const [isTagsOpen, setIsTagsOpen] = useState(false)
   const [loading, setLoading] = useState(false)
 
   const handleSubmit = async (formData: ConnectorConfigDTO): Promise<void> => {
@@ -74,55 +78,101 @@ const ConnectorDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDe
     <Layout.Vertical spacing="xxlarge" className={css.firstep}>
       <div className={css.heading}>{getHeadingByType(props.type)}</div>
       <ModalErrorHandler bind={setModalErrorHandler} />
-      <Formik
-        initialValues={{
-          name: '',
-          description: '',
-          identifier: '',
-          tags: [],
-          ...prevStepData,
-          ...props.formData
-        }}
-        validationSchema={Yup.object().shape({
-          name: Yup.string().trim().required(i18n.validation.name),
-          identifier: Yup.string().when('name', {
-            is: val => val?.length,
-            then: Yup.string()
-              .trim()
-              .required(i18n.validation.identifier)
-              .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, i18n.validIdRegex)
-              .notOneOf(StringUtils.illegalIdentifiers)
-          })
-        })}
-        onSubmit={formData => {
-          handleSubmit(formData)
-        }}
-      >
-        {() => (
-          <Form>
-            <div className={css.connectorForm}>
-              <FormInput.InputWithIdentifier inputLabel={`Give your ${getConnectorTextByType(props.type)} a name `} />
-              <FormInput.TextArea className={css.description} label={i18n.description} name="description" />
-              <FormInput.TagInput
-                label={i18n.tags}
-                name="tags"
-                labelFor={name => (typeof name === 'string' ? name : '')}
-                itemFromNewTag={newTag => newTag}
-                items={[]}
-                className={css.tags}
-                tagInputProps={{
-                  noInputBorder: true,
-                  openOnKeyDown: false,
-                  showAddTagButton: true,
-                  showClearAllButton: true,
-                  allowNewTag: true
-                }}
-              />
-            </div>
-            <Button type="submit" text={i18n.saveAndContinue} className={css.saveBtn} disabled={loading} />
-          </Form>
-        )}
-      </Formik>
+
+      <div>
+        <Formik
+          initialValues={{
+            name: '',
+            description: '',
+            identifier: '',
+            tags: [],
+            ...prevStepData,
+            ...props.formData
+          }}
+          validationSchema={Yup.object().shape({
+            name: Yup.string().trim().required(i18n.validation.name),
+            identifier: Yup.string().when('name', {
+              is: val => val?.length,
+              then: Yup.string()
+                .trim()
+                .required(i18n.validation.identifier)
+                .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, i18n.validIdRegex)
+                .notOneOf(StringUtils.illegalIdentifiers)
+            })
+          })}
+          onSubmit={formData => {
+            handleSubmit(formData)
+          }}
+        >
+          {() => (
+            <FormikForm>
+              <Container className={css.connectorForm}>
+                <div className={css.connectorFormNameWarpper}>
+                  <div className={css.connectorFormNameElm}>
+                    <FormInput.InputWithIdentifier inputLabel={i18n.connectorName} />
+                  </div>
+
+                  <Layout.Vertical margin="small" padding={{ left: 'large', top: 'small' }} spacing="xsmall">
+                    {isDescriptionOpen ? null : (
+                      <Text className="link" onClick={() => setIsDescriptionOpen(true)}>
+                        {i18n.addDescription}
+                      </Text>
+                    )}
+                    {isTagsOpen ? null : (
+                      <Text className="link" onClick={() => setIsTagsOpen(true)}>
+                        {i18n.addTags}
+                      </Text>
+                    )}
+                  </Layout.Vertical>
+                </div>
+
+                <div className={css.connectorFormElm}>
+                  {isDescriptionOpen ? (
+                    <>
+                      <Container className={css.headerRow}>
+                        <Text inline>{i18n.description}</Text>
+                        <Text inline className="link" onClick={() => setIsDescriptionOpen(false)}>
+                          {i18n.remove}
+                        </Text>
+                      </Container>
+
+                      <FormInput.TextArea className={css.description} name="description" />
+                    </>
+                  ) : null}
+                </div>
+                <div className={css.connectorFormElm}>
+                  {isTagsOpen ? (
+                    <>
+                      <Container className={css.headerRow}>
+                        <Text inline>{i18n.tags}</Text>
+                        <Text inline className="link" onClick={() => setIsTagsOpen(false)}>
+                          {i18n.remove}
+                        </Text>
+                      </Container>
+                      <FormInput.TagInput
+                        name="tags"
+                        labelFor={name => (typeof name === 'string' ? name : '')}
+                        itemFromNewTag={newTag => newTag}
+                        items={[]}
+                        className={css.tags}
+                        tagInputProps={{
+                          noInputBorder: true,
+                          openOnKeyDown: false,
+                          showAddTagButton: true,
+                          showClearAllButton: true,
+                          allowNewTag: true
+                        }}
+                      />
+                    </>
+                  ) : null}
+                </div>
+              </Container>
+
+              <Button type="submit" text={i18n.saveAndContinue} className={css.saveBtn} disabled={loading} />
+            </FormikForm>
+          )}
+        </Formik>
+      </div>
     </Layout.Vertical>
   )
 }

@@ -1,5 +1,5 @@
 export default {
-  k8sClusterDetails: 'Kubernetes Connector Details',
+  k8sClusterDetails: 'Kubernetes Cluster Overview',
   gitConnectorDetails: 'GIT Connector Details',
   secretManagerDetails: 'Secret Manager Details',
   dockerConnectorDetails: 'Docker Connector Details',

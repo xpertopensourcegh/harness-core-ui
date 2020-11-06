@@ -6,14 +6,14 @@ import { MemoryRouter } from 'react-router'
 
 import CreateDockerConnector from '../CreateDockerConnector'
 
-describe('Create Secret Manager Wizard', () => {
+describe('Create Docker connector Wizard', () => {
   test('should render form', () => {
     const { container, getByText } = render(
       <MemoryRouter>
         <CreateDockerConnector hideLightModal={noop} handleSubmit={noop} />
       </MemoryRouter>
     )
-    expect(getByText('Give your Docker Connector a name')).toBeDefined()
+    expect(getByText('Name')).toBeDefined()
     // match step 1
     expect(container).toMatchSnapshot()
 
