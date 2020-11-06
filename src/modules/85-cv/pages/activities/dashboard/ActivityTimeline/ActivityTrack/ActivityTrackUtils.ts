@@ -33,17 +33,17 @@ export function computeTimelineHeight(
   startTime: number,
   endTime: number
 ): { timelineHeight: number; timeDiffScale: string; totalTimeDifference: number } {
-  const totalDaysDifference = moment(startTime).diff(moment(endTime), 'days')
+  const totalDaysDifference = (startTime - endTime) / (60 * 1000 * 60 * 24)
   let timeDiffScale = 'days'
   let totalTimeDifference = totalDaysDifference
   if (totalDaysDifference < 1) {
-    totalTimeDifference = moment(startTime).diff(moment(endTime), 'hours')
+    totalTimeDifference = (startTime - endTime) / (60 * 1000 * 60)
     timeDiffScale = 'hours'
   }
   return {
     timelineHeight: totalTimeDifference * TIMELINE_INCREMENT_HEIGHT,
     timeDiffScale,
-    totalTimeDifference: totalDaysDifference * (timeDiffScale === 'days' ? 1000 * 60 * 60 * 24 : 1000 * 60 * 60)
+    totalTimeDifference: startTime - endTime
   }
 }
 

@@ -7,20 +7,24 @@ export type ScrubberLaneActivity = {
   positionTop: number // position from top of the scrubber lane value
 }
 
-export function getMonthIncrements(startTime: number, endTime: number): string[] {
+export function getMonthIncrements(startTime: number, endTime: number): number[] {
   let currTime = startTime
   const months = []
   do {
-    const currTimeMoment = moment(currTime)
-    months.push(currTimeMoment.format('MMM'))
-    currTime = currTimeMoment.subtract(1, 'month').valueOf()
+    months.push(currTime)
+    currTime = moment(currTime).subtract(1, 'month').valueOf()
   } while (currTime >= endTime)
 
-  if (months[months.length - 1] !== moment(endTime).format('MMM')) {
-    months.push(moment(endTime).format('MMM'))
+  if (moment(months[months.length - 1]).format('MMM') !== moment(endTime).format('MMM')) {
+    months.push(endTime)
   }
 
   return months
+}
+
+export function getScrubberLaneDataHeight(startTime: number, endTime: number, scrubberLaneElementHeight: number) {
+  const endOfMonthTime = moment(startTime).endOf('month').valueOf()
+  return scrubberLaneElementHeight * ((startTime - endTime) / (endOfMonthTime - endTime))
 }
 
 export function positionScrubberPoints(
@@ -30,21 +34,21 @@ export function positionScrubberPoints(
   scrubberLaneHeight: number,
   minItemsDistance: number
 ): ScrubberLaneActivity[] {
-  const timelineStartTimeMoment = moment(timelineStartTime)
-  const totalTimeDifference = timelineStartTimeMoment.diff(timelineEndTime)
+  if (!activities?.length) return []
+
+  const totalTimeDifference = timelineStartTime - timelineEndTime
   const laneActivities: ScrubberLaneActivity[] = [
     {
       riskScores: [activities[0].riskScore],
       overallRiskScore: activities[0].riskScore,
-      positionTop: (scrubberLaneHeight * timelineStartTimeMoment.diff(activities[0].startTime)) / totalTimeDifference
+      positionTop: (scrubberLaneHeight * (timelineStartTime - activities[0].startTime)) / totalTimeDifference
     }
   ]
 
   let currentBucketIndex = 0
-  for (const activity of activities.slice(1, activities.length - 1)) {
+  for (const activity of activities.slice(1, activities.length)) {
     const { positionTop: currentBucketPosition, riskScores } = laneActivities[currentBucketIndex]
-    const positionTop = (scrubberLaneHeight * timelineStartTimeMoment.diff(activity.startTime)) / totalTimeDifference
-
+    const positionTop = (scrubberLaneHeight * (timelineStartTime - activity.startTime)) / totalTimeDifference
     if (Math.abs(positionTop - minItemsDistance) <= currentBucketPosition) {
       riskScores.push(activity.riskScore)
       laneActivities[currentBucketIndex].overallRiskScore =

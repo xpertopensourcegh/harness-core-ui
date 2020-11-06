@@ -3,7 +3,7 @@ import { Container } from '@wings-software/uikit'
 import cx from 'classnames'
 import Draggable from 'react-draggable'
 import { getColorStyle } from '@common/components/HeatMap/ColorUtils'
-import { positionScrubberPoints } from './ActivityTimelineScrubberUtils'
+import { getScrubberLaneDataHeight, positionScrubberPoints } from './ActivityTimelineScrubberUtils'
 import type { Activity } from '../ActivityTrack/ActivityTrackUtils'
 import css from './ActivityTimelineScrubber.module.scss'
 
@@ -13,6 +13,7 @@ export interface ActivityTimelineScrubberProps {
   scrubberData: Activity[][]
   scrubberLaneRef?: (ref: HTMLDivElement) => void
   scrubberRef?: (ref: React.Component) => void
+  timelineContainerRef: HTMLDivElement | null
   onScrubberPositionChange?: (updatedPosition: { x: number; y: number }) => void
 }
 
@@ -22,7 +23,7 @@ interface ScrubberProps {
   onScrubberPositionChange?: (updatedPosition: { x: number; y: number }) => void
 }
 
-const TOP_OFFSET = 30
+const TOP_OFFSET = 25
 
 function Scrubber(props: ScrubberProps): JSX.Element {
   const { laneHeight, scrubberRef: scrubberRefFunc, onScrubberPositionChange } = props
@@ -49,18 +50,21 @@ function Scrubber(props: ScrubberProps): JSX.Element {
 }
 
 export function ActivityTimelineScrubber(props: ActivityTimelineScrubberProps): JSX.Element {
-  const { timelineStartTime, scrubberData, scrubberLaneRef, onScrubberPositionChange, scrubberRef } = props
+  const {
+    timelineStartTime,
+    timelineEndTime,
+    scrubberData,
+    scrubberLaneRef,
+    onScrubberPositionChange,
+    scrubberRef,
+    timelineContainerRef
+  } = props
   const [laneHeight, setlaneHeight] = useState<number | undefined>()
   const laneRef = useRef<HTMLDivElement>(null)
 
   useLayoutEffect(() => {
-    const pageHeader = document.querySelector('[class*="PageHeader"]')
-    let contentHeight = window.innerHeight
-    if (pageHeader) {
-      contentHeight -= pageHeader.getBoundingClientRect().height
-    }
-    setlaneHeight(contentHeight)
-  }, [])
+    setlaneHeight(timelineContainerRef?.getBoundingClientRect().height || 0)
+  }, [timelineContainerRef])
 
   useEffect(() => {
     if (laneRef?.current && scrubberLaneRef) {
@@ -71,19 +75,12 @@ export function ActivityTimelineScrubber(props: ActivityTimelineScrubberProps): 
   const plottedActivities = useMemo(() => {
     if (!laneHeight || !scrubberData || !scrubberData.length) return []
 
-    let dataSetEndTime = Infinity
-    for (const laneData of scrubberData) {
-      if (laneData[laneData.length - 1].startTime < dataSetEndTime) {
-        dataSetEndTime = laneData[laneData.length - 1].startTime
-      }
-    }
-
     return scrubberData.map((scrubberLaneData, index) => {
       const positionedLaneActivites = positionScrubberPoints(
         timelineStartTime,
-        dataSetEndTime,
+        timelineEndTime,
         scrubberLaneData,
-        laneHeight - TOP_OFFSET,
+        getScrubberLaneDataHeight(timelineStartTime, timelineEndTime, laneHeight - TOP_OFFSET),
         5
       )
       return (
@@ -93,14 +90,17 @@ export function ActivityTimelineScrubber(props: ActivityTimelineScrubberProps): 
               height={4}
               width={4}
               key={activity.positionTop}
-              className={cx(css.activity, getColorStyle(activity.overallRiskScore, 0, 100))}
+              className={cx(
+                css.activity,
+                activity.overallRiskScore > -1 ? getColorStyle(activity.overallRiskScore, 0, 100) : css.noRiskScore
+              )}
               style={{ position: 'absolute', top: activity.positionTop }}
             />
           ))}
         </Container>
       )
     })
-  }, [scrubberData, laneHeight, timelineStartTime])
+  }, [scrubberData, laneHeight, timelineStartTime, timelineEndTime])
 
   return (
     <div className={css.scrubberLaneContainer} ref={scrubberLaneRef} style={{ height: laneHeight }}>

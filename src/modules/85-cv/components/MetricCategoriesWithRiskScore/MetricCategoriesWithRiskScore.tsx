@@ -45,7 +45,7 @@ export function MetricCategoriesWithRiskScore(props: CategoriesWithRiskScoreProp
   return (
     <Container className={className}>
       <Container className={css.main}>
-        {categoriesAndRiskScore.map(riskScoreMapping => {
+        {categoriesAndRiskScore?.map(riskScoreMapping => {
           const { category, risk = -1 } = riskScoreMapping
           return !category ? undefined : (
             <Container key={category} className={classnames(css.infoContainer, infoContainerClassName)}>

@@ -2,6 +2,10 @@
   cursor: grabbing !important;
 }
 
+.noRiskScore {
+  background-color: var(--grey-350) !important;
+}
+
 .scrubber {
   width: 80% !important;
   position: absolute;

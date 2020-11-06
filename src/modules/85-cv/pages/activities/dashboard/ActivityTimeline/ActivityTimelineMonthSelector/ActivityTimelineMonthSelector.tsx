@@ -7,18 +7,13 @@ import css from './ActivityTimelineMonthSelector.module.scss'
 export interface ActivityTimelineMonthSelector {
   timelineStartTime: number
   timelineEndTime: number
-  onChangeMonth?: (monthStartTime: number, monthEndTime: number, monthName: string) => void
+  onChangeMonth?: (monthStartTime: number, monthEndTime: number) => void
 }
 
-function generateNewStartAndEndTimes(
-  month: string,
-  timelineStartTime: number,
-  timelineEndTime: number
-): [number, number] {
+function generateNewStartAndEndTimes(month: number, timelineEndTime: number): [number, number] {
   const currMonthMoment = moment(month)
-  let updatedStartTime = currMonthMoment.startOf('month').valueOf()
-  let updatedEndTime = currMonthMoment.endOf('month').valueOf()
-  if (updatedEndTime > timelineStartTime) updatedEndTime = timelineStartTime
+  let updatedStartTime = currMonthMoment.endOf('month').valueOf()
+  const updatedEndTime = currMonthMoment.startOf('month').valueOf()
   if (updatedStartTime > timelineEndTime) updatedStartTime = timelineEndTime
   return [updatedStartTime, updatedEndTime]
 }
@@ -26,7 +21,7 @@ function generateNewStartAndEndTimes(
 export function ActivityTimelineMonthSelector(props: ActivityTimelineMonthSelector): JSX.Element {
   const { timelineStartTime, timelineEndTime, onChangeMonth } = props
   const months = getMonthIncrements(timelineStartTime, timelineEndTime)
-  const [currMonth, setCurrentMonth] = useState<string>(months[0])
+  const [currMonth, setCurrentMonth] = useState<number>(months[0])
 
   return (
     <Layout.Vertical width={55} className={css.main}>
@@ -37,16 +32,12 @@ export function ActivityTimelineMonthSelector(props: ActivityTimelineMonthSelect
           className={css.intervalContent}
           onClick={() => {
             setCurrentMonth(month)
-            const [updatdEndTime, updatedStartTime] = generateNewStartAndEndTimes(
-              month,
-              timelineStartTime,
-              timelineEndTime
-            )
-            onChangeMonth?.(updatdEndTime, updatedStartTime, month)
+            const [updatdEndTime, updatedStartTime] = generateNewStartAndEndTimes(month, timelineEndTime)
+            onChangeMonth?.(updatdEndTime, updatedStartTime)
           }}
         >
           <Text className={css.monthLabel} font={{ size: 'small' }} color={Color.BLACK}>
-            {month}
+            {moment(month).format('MMM')}
           </Text>
           <Container background={month === currMonth ? Color.BLUE_600 : Color.GREY_200} width={5} />
         </Container>
