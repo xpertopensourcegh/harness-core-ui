@@ -80,6 +80,7 @@ const validationSchema = yup.object().shape({
   spec: yup
     .object()
     .shape({
+      connectorRef: yup.mixed().required(),
       image: yup.string().trim().required(),
       command: yup.string().trim().required(),
       limitCPU: yup.number().min(0),

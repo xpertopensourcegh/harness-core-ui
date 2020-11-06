@@ -365,8 +365,7 @@ export class PluginStep extends PipelineStep<any /*PluginStepData*/> {
 
   protected type = StepType.Plugin
   protected stepName = i18n.title
-  // TODO: Replace with correct icon
-  protected stepIcon: IconName = 'git-clone-step'
+  protected stepIcon: IconName = 'plugin'
 
   protected defaultValues: any /*PluginStepData*/ = {
     identifier: '',

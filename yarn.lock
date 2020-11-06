@@ -1449,14 +1449,17 @@
   resolved "https://npm.pkg.github.com/download/@wings-software/swagger-ts/1.55003.0/c4c669ccf39e0ed33b3ec58374bc3bd9555a73d2ef302a69af9fdb3c543374fa#1c2b233d2e01d871fad5bce771be5a52f4938354"
   integrity sha512-akXp2CIQq0Nu8GrC4i5XJdr5aBx9YyepjSESGOi6IaL+MQGlIqEpA91lG92/UZ2NNHRK43pacJbZZ33VDcZpkQ==
 
-"@wings-software/uikit@1.1.69":
-  version "1.1.69"
-  resolved "https://npm.pkg.github.com/download/@wings-software/uikit/1.1.69/2903a648ba4602ec6151e8826d69009ff00c2f460cffabc9dcfe4dfe799756ae#1da75ed945ad61404aa8c60965cc4f5d6a67240d"
-  integrity sha512-tDOYTjlLIvra8uHV99PI5n242ugVR3ZcVH/YqvBQzzAwd90jLptkO4ov7zJOTxBRxuU/wiHb85UY6kt07KTAcg==
+"@wings-software/uikit@1.1.72":
+  version "1.1.72"
+  resolved "https://npm.pkg.github.com/download/@wings-software/uikit/1.1.72/18ba136d172d113c54ee97e326402e303a88ee02354666af6e324cc6daaf3502#77111a2502593450590886ee1218b068ebc6ade8"
+  integrity sha512-zHLN/IJlouSpkfCyTY2nGdlTvaMPghOKdrTz49/xxIdc/Z3+IZ2b6L7xdjVGd/6e+N65OHHfdaD5e88NchJ2Tg==
   dependencies:
     "@types/lodash.get" "^4.4.6"
     lodash.get "^4.4.2"
     react-contenteditable "^3.3.5"
+    xterm "^4.9.0"
+    xterm-addon-search "^0.7.0"
+    xterm-addon-web-links "^0.4.0"
 
 "@wings-software/xhr-async@^2.0.7":
   version "2.0.7"
@@ -10772,6 +10775,21 @@ xtend@^4.0.0, xtend@~4.0.1:
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/xtend/-/xtend-4.0.2.tgz#bb72779f5fa465186b1f438f674fa347fdb5db54"
   integrity sha512-LKYU1iAXJXUgAXn9URjiu+MWhyUXHsvfp7mcuYm9dSUKK0/CjtrUwFAxD82/mCWbtLsGjFIad0wIsod4zrTAEQ==
+
+xterm-addon-search@^0.7.0:
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/xterm-addon-search/-/xterm-addon-search-0.7.0.tgz#c929d3e5cbb335e82bff72f158ea82936d9cd4ef"
+  integrity sha512-6060evmJJ+tZcjnx33FXaeEHLpuXEa7l9UzUsYfMlCKbu88AbE+5LJocTKCHYd71cwCwb9pjmv/G1o9Rf9Zbcg==
+
+xterm-addon-web-links@^0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/xterm-addon-web-links/-/xterm-addon-web-links-0.4.0.tgz#265cbf8221b9b315d0a748e1323bee331cd5da03"
+  integrity sha512-xv8GeiINmx0zENO9hf5k+5bnkaE8mRzF+OBAr9WeFq2eLaQSudioQSiT34M1ofKbzcdjSsKiZm19Rw3i4eXamg==
+
+xterm@^4.9.0:
+  version "4.9.0"
+  resolved "https://registry.yarnpkg.com/xterm/-/xterm-4.9.0.tgz#7a4c097a433d565339b5533b468bbc60c6c87969"
+  integrity sha512-wGfqufmioctKr8VkbRuZbVDfjlXWGZZ1PWHy1yqqpGT3Nm6yaJx8lxDbSEBANtgaiVPTcKSp97sxOy5IlpqYfw==
 
 "y18n@^3.2.1 || ^4.0.0", y18n@^4.0.0:
   version "4.0.0"
