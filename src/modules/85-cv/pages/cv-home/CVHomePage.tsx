@@ -1,45 +1,18 @@
 import React from 'react'
-import { useHistory } from 'react-router-dom'
-import { ModuleName } from 'framework/exports'
-import { routeCVDataSources, routeCVMainDashBoardPage } from 'navigation/cv/routes'
-import type { Project } from 'services/cd-ng'
-import { ModuleLandingView } from '@projects-orgs/components/ModuleLandingView/ModuleLandingView'
+import { Color, Layout, Text } from '@wings-software/uikit'
+import { Page } from '@common/exports'
 import i18n from './CVHomePage.i18n'
 
-export default function CVDashboardPage(): JSX.Element {
-  const history = useHistory()
+const CVHomePage: React.FC = () => {
   return (
-    <ModuleLandingView
-      module={ModuleName.CV}
-      icon="nav-cv"
-      heading={i18n.welcomeToCVText}
-      subHeading={i18n.verifyYourDeploymentsSubtitleText}
-      description={i18n.addCVToExistingProject}
-      onProjectCreated={(project: Project) => {
-        history.push({
-          pathname: routeCVDataSources.url({
-            projectIdentifier: project.identifier || '',
-            orgIdentifier: project.orgIdentifier || ''
-          }),
-          search: '?onBoarding=true'
-        })
-      }}
-      onCardClick={(project: Project) => {
-        history.push(
-          routeCVMainDashBoardPage.url({
-            orgIdentifier: project.orgIdentifier,
-            projectIdentifier: project.identifier
-          })
-        )
-      }}
-      onRowClick={(project: Project) => {
-        history.push(
-          routeCVMainDashBoardPage.url({
-            orgIdentifier: project.orgIdentifier,
-            projectIdentifier: project.identifier
-          })
-        )
-      }}
-    />
+    <Page.Body>
+      <Layout.Vertical padding="large">
+        <Text color={Color.BLACK} font={{ size: 'large', weight: 'bold' }}>
+          {i18n.dashboard}
+        </Text>
+      </Layout.Vertical>
+    </Page.Body>
   )
 }
+
+export default CVHomePage

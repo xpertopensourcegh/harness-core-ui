@@ -1,46 +1,17 @@
 import React from 'react'
-import { useHistory } from 'react-router-dom'
-import { ModuleName } from 'framework/exports'
-import type { Project } from 'services/cd-ng'
-import { routeCDDashboard } from 'navigation/cd/routes'
-import { ModuleLandingView } from '@projects-orgs/components/ModuleLandingView/ModuleLandingView'
+import { Color, Layout, Text } from '@wings-software/uikit'
+import { Page } from '@common/exports'
 import i18n from './CDHomePage.i18n'
 
 const CDHomePage: React.FC = () => {
-  const history = useHistory()
-
   return (
-    <ModuleLandingView
-      module={ModuleName.CD}
-      icon="nav-cd"
-      heading={i18n.welcomeToCD}
-      subHeading={i18n.deployYourService}
-      description={i18n.addCdToExistingProject}
-      onProjectCreated={(project: Project) => {
-        history.push(
-          routeCDDashboard.url({
-            orgIdentifier: project.orgIdentifier as string,
-            projectIdentifier: project.identifier as string
-          })
-        )
-      }}
-      onCardClick={(project: Project) => {
-        history.push(
-          routeCDDashboard.url({
-            orgIdentifier: project.orgIdentifier as string,
-            projectIdentifier: project.identifier as string
-          })
-        )
-      }}
-      onRowClick={(project: Project) => {
-        history.push(
-          routeCDDashboard.url({
-            orgIdentifier: project.orgIdentifier as string,
-            projectIdentifier: project.identifier as string
-          })
-        )
-      }}
-    />
+    <Page.Body>
+      <Layout.Vertical padding="large">
+        <Text color={Color.BLACK} font={{ size: 'large', weight: 'bold' }}>
+          {i18n.dashboard}
+        </Text>
+      </Layout.Vertical>
+    </Page.Body>
   )
 }
 
