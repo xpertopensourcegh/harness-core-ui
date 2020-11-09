@@ -20,20 +20,11 @@ import {
   useUpdateConnector,
   ConnectorConfigDTO,
   ConnectorRequestBody,
-  usePostSecret,
-  SecretDTOV2,
   ConnectorInfoDTO,
   Connector
 } from 'services/cd-ng'
-import CreateSecretOverlay from '@secrets/components/CreateSecretOverlay/CreateSecretOverlay'
-import {
-  AuthTypeFields,
-  getSecretFieldsByType,
-  SecretFieldByType
-} from '@connectors/pages/connectors/Forms/KubeFormHelper'
-import type { SecretInfo } from '@secrets/components/SecretTextInput/SecretTextInput'
-import UsernamePassword from '../../../ConnectorFormFields/UsernamePassword'
 
+import SecretInput from '@secrets/components/SecretInput/SecretInput'
 import i18n from '../CreateArtifactoryConnector.i18n'
 
 interface StepArtifactoryAuthenticationProps extends ConnectorInfoDTO {
@@ -51,16 +42,12 @@ const StepArtifactoryAuthentication: React.FC<
   const { prevStepData, nextStep } = props
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
   const { showSuccess } = useToaster()
-  const [showCreateSecretModal, setShowCreateSecretModal] = useState<boolean>(false)
-  const [editSecretData, setEditSecretData] = useState<SecretDTOV2>()
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
   const { mutate: createConnector } = useCreateConnector({ queryParams: { accountIdentifier: accountId } })
   const { mutate: updateConnector } = useUpdateConnector({ queryParams: { accountIdentifier: accountId } })
-  const { mutate: createSecret } = usePostSecret({ queryParams: { accountIdentifier: accountId } })
-  const [loadSecret, setLoadSecret] = useState(false)
   const [loadConnector, setLoadConnector] = useState(false)
 
-  const handleCreate = async (data: ConnectorRequestBody, stepData: ConnectorConfigDTO) => {
+  const handleCreate = async (data: ConnectorRequestBody, stepData: ConnectorConfigDTO): Promise<void> => {
     try {
       modalErrorHandler?.hide()
       setLoadConnector(true)
@@ -75,7 +62,7 @@ const StepArtifactoryAuthentication: React.FC<
     }
   }
 
-  const handleUpdate = async (data: ConnectorRequestBody, stepData: ConnectorConfigDTO) => {
+  const handleUpdate = async (data: ConnectorRequestBody, stepData: ConnectorConfigDTO): Promise<void> => {
     try {
       modalErrorHandler?.hide()
       setLoadConnector(true)
@@ -89,131 +76,62 @@ const StepArtifactoryAuthentication: React.FC<
     }
   }
 
-  const createSecretCallback = async (stepData: ConnectorConfigDTO, data: ConnectorRequestBody) => {
-    let res
-    try {
-      modalErrorHandler?.hide()
-      setLoadSecret(true)
-      res = await createSecret({
-        secret: {
-          type: 'SecretText',
-          orgIdentifier: orgIdentifier,
-          projectIdentifier: projectIdentifier,
-          identifier: stepData.passwordRefSecret?.secretId,
-          name: stepData.passwordRefSecret?.secretName,
-          tags: {},
-          spec: {
-            value: stepData.passwordRef.value,
-            valueType: 'Inline',
-            secretManagerIdentifier: stepData.passwordRefSecret?.secretManager?.value as string
-          }
-        } as SecretDTOV2
-      })
-
-      setLoadSecret(false)
-    } catch (e) {
-      setLoadSecret(false)
-      modalErrorHandler?.showDanger(e?.data?.message || e?.message)
-    }
-
-    if (res && res.status === 'SUCCESS' && res.data) {
-      if (prevStepData?.isEditMode) {
-        handleUpdate(data, stepData)
-      } else {
-        handleCreate(data, stepData)
-      }
-    }
-  }
-
   return (
-    <>
-      <Layout.Vertical height={'inherit'}>
-        <Text font="medium" margin={{ top: 'small' }} color={Color.BLACK}>
-          {i18n.STEP_TWO.Heading}
-        </Text>
-        <Formik
-          initialValues={{
-            username: '',
-            passwordRef: undefined,
-            artifactoryServerUrl: '',
-            ...prevStepData
-          }}
-          validationSchema={Yup.object().shape({
-            artifactoryServerUrl: Yup.string().trim().required(i18n.STEP_TWO.validation.artifactoryServerURL)
-          })}
-          onSubmit={stepData => {
-            const connectorData = {
-              ...prevStepData,
-              ...stepData,
-              projectIdentifier: projectIdentifier,
-              orgIdentifier: orgIdentifier
-            }
-            const data = buildArtifactoryPayload(connectorData)
-            const passwordFields = getSecretFieldsByType('UsernamePassword') || []
-            const nonReferencedFields = passwordFields
-              .map((item: SecretFieldByType) => {
-                if (!((connectorData.passwordRef as unknown) as SecretInfo)?.isReference) {
-                  return item
-                }
-              })
-              .filter(item => {
-                if (item !== undefined) {
-                  return item
-                }
-              })
-            if (prevStepData?.isEditMode) {
-              handleUpdate(data as Connector, stepData)
-            } else {
-              if (nonReferencedFields.length && stepData.passwordRef) {
-                createSecretCallback(stepData, data as Connector)
-              } else {
-                handleCreate(data as Connector, stepData)
-              }
-            }
-          }}
-        >
-          {formikProps => (
-            <Form>
-              <ModalErrorHandler bind={setModalErrorHandler} />
+    <Layout.Vertical height={'inherit'}>
+      <Text font="medium" margin={{ top: 'small' }} color={Color.BLACK}>
+        {i18n.STEP_TWO.Heading}
+      </Text>
+      <Formik
+        initialValues={{
+          username: '',
+          passwordRef: undefined,
+          artifactoryServerUrl: '',
+          ...prevStepData
+        }}
+        validationSchema={Yup.object().shape({
+          artifactoryServerUrl: Yup.string().trim().required(i18n.STEP_TWO.validation.artifactoryServerURL)
+        })}
+        onSubmit={stepData => {
+          const connectorData = {
+            ...prevStepData,
+            ...stepData,
+            projectIdentifier: projectIdentifier,
+            orgIdentifier: orgIdentifier
+          }
+          const data = buildArtifactoryPayload(connectorData)
 
-              <Layout.Vertical padding={{ top: 'large', bottom: 'large' }} width={'64%'} style={{ minHeight: '440px' }}>
-                <FormInput.Text name="artifactoryServerUrl" label={i18n.STEP_TWO.ArtifactoryServerURL} />
-                <UsernamePassword
-                  formik={formikProps}
-                  name={prevStepData?.identifier}
-                  isEditMode={prevStepData?.isEditMode}
-                  accountId={accountId}
-                  orgIdentifier={orgIdentifier}
-                  projectIdentifier={projectIdentifier}
-                  passwordField={AuthTypeFields.passwordRef}
-                  onClickCreateSecret={() => setShowCreateSecretModal(true)}
-                  onEditSecret={val => {
-                    setShowCreateSecretModal(true)
-                    setEditSecretData(val)
-                  }}
-                  isOptional={true}
-                />
-              </Layout.Vertical>
-              <Layout.Horizontal padding={{ top: 'small' }} spacing="medium">
-                <Button
-                  onClick={() => props.previousStep?.({ ...prevStepData } as StepArtifactoryAuthenticationProps)}
-                  text={i18n.STEP_TWO.BACK}
-                />
-                <Button
-                  type="submit"
-                  text={i18n.STEP_TWO.SAVE_CREDENTIALS_AND_CONTINUE}
-                  font="small"
-                  disabled={loadSecret || loadConnector}
-                />
-              </Layout.Horizontal>
-            </Form>
-          )}
-        </Formik>
-      </Layout.Vertical>
-      {showCreateSecretModal ? (
-        <CreateSecretOverlay editSecretData={editSecretData} setShowCreateSecretModal={setShowCreateSecretModal} />
-      ) : null}
-    </>
+          if (prevStepData?.isEditMode) {
+            handleUpdate(data as Connector, stepData)
+          } else {
+            handleCreate(data as Connector, stepData)
+          }
+        }}
+      >
+        {() => (
+          <Form>
+            <ModalErrorHandler bind={setModalErrorHandler} />
+
+            <Layout.Vertical padding={{ top: 'large', bottom: 'large' }} width={'64%'} style={{ minHeight: '440px' }}>
+              <FormInput.Text name="artifactoryServerUrl" label={i18n.STEP_TWO.ArtifactoryServerURL} />
+              <FormInput.Text name="userName" label={i18n.STEP_TWO.Username} />
+              <SecretInput name={'password'} label={i18n.STEP_TWO.Password} />
+            </Layout.Vertical>
+            <Layout.Horizontal padding={{ top: 'small' }} spacing="medium">
+              <Button
+                onClick={() => props.previousStep?.({ ...prevStepData } as StepArtifactoryAuthenticationProps)}
+                text={i18n.STEP_TWO.BACK}
+              />
+              <Button
+                type="submit"
+                text={i18n.STEP_TWO.SAVE_CREDENTIALS_AND_CONTINUE}
+                font="small"
+                disabled={loadConnector}
+              />
+            </Layout.Horizontal>
+          </Form>
+        )}
+      </Formik>
+    </Layout.Vertical>
   )
 }
 

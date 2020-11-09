@@ -2,7 +2,7 @@ import React from 'react'
 import { noop } from 'lodash-es'
 import { render, fireEvent } from '@testing-library/react'
 import { act } from 'react-dom/test-utils'
-import { MemoryRouter } from 'react-router'
+import { TestWrapper } from '@common/utils/testUtils'
 
 import type { ResponseBoolean } from 'services/cd-ng'
 import CreateGcpConnector from '../CreateGcpConnector'
@@ -16,19 +16,19 @@ const mockResponse: ResponseBoolean = {
 
 describe('Create GCP connector Wizard', () => {
   test('should render form', async () => {
-    const dom = render(
-      <MemoryRouter>
+    const { container } = render(
+      <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
         <CreateGcpConnector hideLightModal={noop} onConnectorCreated={noop} mock={mockResponse} />
-      </MemoryRouter>
+      </TestWrapper>
     )
 
     // fill step 1
     await act(async () => {
-      fireEvent.change(dom.container.querySelector('input[name="name"]')!, {
+      fireEvent.change(container.querySelector('input[name="name"]')!, {
         target: { value: 'dummy name' }
       })
     })
     // match step 1
-    expect(dom.container).toMatchSnapshot()
+    expect(container).toMatchSnapshot()
   })
 })

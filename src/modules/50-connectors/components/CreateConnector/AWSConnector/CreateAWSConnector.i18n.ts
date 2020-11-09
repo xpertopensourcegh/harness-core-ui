@@ -18,6 +18,8 @@ export default {
       assumeSTSRole: 'Assume STS Role',
       roleARN: 'Role ARN',
       externalId: 'External Id (Optional)',
+      accessKey: 'Access Key',
+      secretKey: 'Secret Key',
       validation: {
         delegateSelector: 'Delegate Tag is required',
         secretKeyRef: 'Secret key is required',

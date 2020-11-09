@@ -10,10 +10,12 @@ export default {
     BACK: 'BACK',
     NexusServerURL: 'Nexus URL *',
     NexusVersion: 'Version *',
+    Username: 'Username',
+    Password: 'Password',
     validation: {
       nexusServerURL: 'Nexus URL is required',
       nexusVersion: 'Version is required',
-      passwordRef: 'Password is required'
+      password: 'Password is required'
     }
   },
   STEP_THREE: {

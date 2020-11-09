@@ -9,9 +9,11 @@ export default {
     SAVE_CREDENTIALS_AND_CONTINUE: 'SAVE CREDENTIALS AND CONTINUE',
     BACK: 'BACK',
     ArtifactoryServerURL: 'Artifactory URL *',
+    Username: 'Username',
+    Password: 'Password',
     validation: {
       artifactoryServerURL: 'Artifactory URL is required',
-      passwordRef: 'Password is required'
+      password: 'Password is required'
     }
   },
   STEP_THREE: {

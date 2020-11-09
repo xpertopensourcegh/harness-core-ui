@@ -2,10 +2,11 @@ import React from 'react'
 import { noop } from 'lodash-es'
 import { render, fireEvent, queryByText } from '@testing-library/react'
 import { act } from 'react-dom/test-utils'
-import { MemoryRouter } from 'react-router'
+import { TestWrapper } from '@common/utils/testUtils'
 
 import type { ResponseBoolean } from 'services/cd-ng'
 import CreateArtifactoryConnector from '../CreateArtifactoryConnector'
+import i18n from '../CreateArtifactoryConnector.i18n'
 
 const mockResponse: ResponseBoolean = {
   status: 'SUCCESS',
@@ -17,9 +18,9 @@ const mockResponse: ResponseBoolean = {
 describe('Create Artifactory connector Wizard', () => {
   test('should render form', async () => {
     const { container, getByText } = render(
-      <MemoryRouter>
+      <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
         <CreateArtifactoryConnector hideLightModal={noop} onConnectorCreated={noop} mock={mockResponse} />
-      </MemoryRouter>
+      </TestWrapper>
     )
 
     // match step 1
@@ -36,14 +37,10 @@ describe('Create Artifactory connector Wizard', () => {
       fireEvent.click(container.querySelector('button[type="submit"]')!)
     })
 
-    // match step 2
-    expect(container).toMatchSnapshot()
-    expect(queryByText(container, 'VALUE WILL BE SAVED TO SECRET MANAGER')).toBeDefined()
-    // trying to create coonector with step 2 data
-    await act(async () => {
-      fireEvent.click(container.querySelector('button[type="submit"]')!)
-    })
-    expect(queryByText(container, 'Artifactory URL is required')).toBeDefined()
+    // step 2
+    expect(queryByText(container, i18n.STEP_TWO.ArtifactoryServerURL)).toBeDefined()
+    fireEvent.click(getByText(i18n.STEP_TWO.SAVE_CREDENTIALS_AND_CONTINUE)) // trying to create coonector with step 2 data
+
     await act(async () => {
       fireEvent.change(container.querySelector('input[name="artifactoryServerUrl"]')!, {
         target: { value: 'dummy artifactoryServerUrl' }
@@ -52,7 +49,7 @@ describe('Create Artifactory connector Wizard', () => {
     expect(container).toMatchSnapshot()
     const backBtn = getByText('BACK')
     fireEvent.click(backBtn)
-    // Coonector name should be retained
-    expect(queryByText(container, 'dummy_name')).toBeDefined()
+    // Coonector name should be retained in step 1
+    expect(queryByText(container, 'dummy name')).toBeDefined()
   })
 })

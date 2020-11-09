@@ -2,9 +2,9 @@ import React from 'react'
 import { noop } from 'lodash-es'
 import { render, fireEvent } from '@testing-library/react'
 import { act } from 'react-dom/test-utils'
-import { MemoryRouter } from 'react-router'
 
 import type { ResponseBoolean } from 'services/cd-ng'
+import { TestWrapper } from '@common/utils/testUtils'
 import CreateAWSConnector from '../CreateAWSConnector'
 
 const mockResponse: ResponseBoolean = {
@@ -17,9 +17,9 @@ const mockResponse: ResponseBoolean = {
 describe('Create AWS connector Wizard', () => {
   test('should render form', async () => {
     const { container } = render(
-      <MemoryRouter>
+      <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
         <CreateAWSConnector hideLightModal={noop} onConnectorCreated={noop} mock={mockResponse} />
-      </MemoryRouter>
+      </TestWrapper>
     )
 
     // fill step 1

@@ -18,7 +18,7 @@ export default {
     DELEGATE_SELECTION_LABEL: 'Select Delegate',
     VALIDATION: {
       delegateSelector: 'Delegate Tag is required',
-      passwordRef: 'Secret key is required'
+      password: 'Secret key is required'
     }
   },
   STEP_THREE: {

@@ -9,10 +9,12 @@ export default {
     SAVE_CREDENTIALS_AND_CONTINUE: 'SAVE CREDENTIALS AND CONTINUE',
     BACK: 'BACK',
     DockerRegistryURL: 'Docker Registry URL',
+    Username: 'Username',
+    Password: 'Password',
     validation: {
       dockerUrl: 'Docker Registry URL is required',
       username: 'Username is required',
-      passwordRef: 'Password is required'
+      password: 'Password is required'
     }
   },
   STEP_THREE: {

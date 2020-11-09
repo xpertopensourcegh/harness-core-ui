@@ -2,6 +2,7 @@
 
 exports[`Create GCP connector Wizard should render form 1`] = `
 <div>
+   
   <div
     class="StepWizard---main--SGVz StepWizard---navBar--2KYu"
   >
@@ -193,5 +194,6 @@ exports[`Create GCP connector Wizard should render form 1`] = `
       </div>
     </div>
   </div>
+   
 </div>
 `;

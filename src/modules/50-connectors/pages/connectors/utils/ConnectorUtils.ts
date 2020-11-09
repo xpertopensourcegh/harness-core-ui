@@ -148,10 +148,7 @@ export const buildAWSPayload = (formData: FormData) => {
               }
             : {
                 accessKey: formData.accessKey,
-                secretKeyRef: getScopedSecretString(
-                  formData.secretKeyRefSecret?.scope,
-                  formData.secretKeyRefSecret?.secretId
-                )
+                secretKeyRef: formData.secretKeyRef.referenceString
               },
         crossAccountAccess: formData.crossAccountAccess
           ? {
@@ -177,12 +174,15 @@ export const buildDockerPayload = (formData: FormData) => {
     spec: {
       dockerRegistryUrl: formData.dockerRegistryUrl,
       auth:
-        !formData.username && !formData.passwordRef
-          ? null
-          : {
+        formData.username && formData.password
+          ? {
               type: 'UsernamePassword',
-              spec: userPasswrdAuthField(formData)
+              spec: {
+                username: formData.username,
+                passwordRef: formData.password.referenceString
+              }
             }
+          : null
     }
   }
   return { connector: savedData }
@@ -215,7 +215,7 @@ export const buildGcpPayload = (formData: FormData) => {
       ? {
           type: 'ManualConfig',
           spec: {
-            secretKeyRef: getScopedSecretString(formData.passwordRefSecret?.scope, formData.passwordRefSecret?.secretId)
+            secretKeyRef: formData.password.referenceString
           }
         }
       : {
@@ -234,7 +234,7 @@ export const getSpecByConnectType = (type: string, formData: FormData) => {
     referenceField = { sshKeyRef: formData?.sshKeyRef }
   } else {
     referenceField = {
-      passwordRef: getScopedSecretString(formData.passwordRefSecret?.scope, formData.passwordRefSecret?.secretId)
+      passwordRef: formData.password.referenceString
     }
   }
   return {
@@ -308,14 +308,18 @@ export const buildNexusPayload = (formData: FormData) => {
       nexusServerUrl: formData?.nexusServerUrl,
       version: formData?.nexusVersion,
       auth:
-        !formData.username && !formData.passwordRef
-          ? null
-          : {
+        formData.userName && formData.password
+          ? {
               type: 'UsernamePassword',
-              spec: userPasswrdAuthField(formData)
+              spec: {
+                username: formData.userName,
+                passwordRef: formData.password.referenceString
+              }
             }
+          : null
     }
   }
+
   return { connector: savedData }
 }
 
@@ -326,12 +330,15 @@ export const buildArtifactoryPayload = (formData: FormData) => {
     spec: {
       artifactoryServerUrl: formData?.artifactoryServerUrl,
       auth:
-        !formData.username && !formData.passwordRef
-          ? null
-          : {
+        formData.userName && formData.password
+          ? {
               type: 'UsernamePassword',
-              spec: userPasswrdAuthField(formData)
+              spec: {
+                username: formData.userName,
+                passwordRef: formData.password.referenceString
+              }
             }
+          : null
     }
   }
   return { connector: savedData }
