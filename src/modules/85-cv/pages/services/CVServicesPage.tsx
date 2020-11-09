@@ -95,7 +95,6 @@ export default function CVServicesPage(): JSX.Element {
   })
 
   const isTimeRangeMoreThan4Hours = moment(endTime).diff(startTime, 'minutes') > 4 * 60
-
   return (
     <>
       <Page.Header title="Services" toolbar={<Container></Container>} />
