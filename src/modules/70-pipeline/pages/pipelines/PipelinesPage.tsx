@@ -3,9 +3,11 @@ import { Button, Layout, TextInput, Text, Popover } from '@wings-software/uikit'
 import { useHistory, useParams } from 'react-router-dom'
 import { Menu, Position, MenuItem } from '@blueprintjs/core'
 import { Page } from '@common/exports'
-import { routeCDPipelineStudio, routePipelineDetail } from 'navigation/cd/routes'
+import { routeCDDashboard, routeCDPipelineStudio, routePipelineDetail } from 'navigation/cd/routes'
 import { ResponsePageNGPipelineSummaryResponse, useGetPipelineList } from 'services/cd-ng'
 import type { UseGetMockData } from '@common/utils/testUtils'
+import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
+import { useAppStoreReader, useStrings } from 'framework/exports'
 import i18n from './PipelinesPage.i18n'
 import { PipelineGridView } from './views/PipelineGridView'
 import { PipelineListView } from './views/PipelineListView'
@@ -27,6 +29,10 @@ const CDPipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
     orgIdentifier: string
     accountId: string
   }>()
+
+  const { projects } = useAppStoreReader()
+  const project = projects.find(({ identifier }) => identifier === projectIdentifier)
+  const { getString } = useStrings()
 
   const goToPipelineDetail = React.useCallback(
     (/* istanbul ignore next */ pipelineIdentifier = '-1') => {
@@ -82,7 +88,16 @@ const CDPipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
   return (
     <>
       <Page.Header
-        title={i18n.pipelines.toUpperCase()}
+        title={
+          <Layout.Vertical spacing="xsmall">
+            <Breadcrumbs
+              links={[
+                { url: routeCDDashboard.url({ orgIdentifier, projectIdentifier }), label: project?.name as string },
+                { url: '#', label: getString('pipelines') }
+              ]}
+            />
+          </Layout.Vertical>
+        }
         toolbar={
           <Layout.Horizontal spacing="small" style={{ alignItems: 'center' }}>
             <TextInput

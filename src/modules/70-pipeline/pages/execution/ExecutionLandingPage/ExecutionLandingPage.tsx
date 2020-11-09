@@ -1,19 +1,20 @@
 import React from 'react'
-import { useParams, useLocation, Link } from 'react-router-dom'
+import { useParams, useLocation } from 'react-router-dom'
 import { Button, Icon, Tag } from '@wings-software/uikit'
 import cx from 'classnames'
 import qs from 'qs'
 
-import { routePipelineDeploymentList } from 'navigation/cd/routes'
+import { routePipelineDeploymentList, routeCDDashboard, routeCDPipelines } from 'navigation/cd/routes'
 import { useGetPipelineExecutionDetail } from 'services/cd-ng'
 import { Duration } from '@common/components/Duration/Duration'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
-import { String } from 'framework/exports'
+import { String, useAppStoreReader, useStrings } from 'framework/exports'
 
 import ExecutionStatusLabel from '@pipeline/components/ExecutionStatusLabel/ExecutionStatusLabel'
 import { isExecutionComplete } from '@pipeline/utils/statusHelpers'
 import ExecutionActions from '@pipeline/components/ExecutionActions/ExecutionActions'
 
+import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import ExecutionContext from '../ExecutionContext/ExecutionContext'
 import {
   getPipelineStagesMap,
@@ -51,6 +52,9 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<{}>)
     }
   })
 
+  const { projects } = useAppStoreReader()
+  const project = projects.find(({ identifier }) => identifier === projectIdentifier)
+  const { getString } = useStrings()
   const pipelineStagesMap = React.useMemo(() => {
     return getPipelineStagesMap(data || {})
   }, [data])
@@ -114,11 +118,17 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<{}>)
       <main className={css.main}>
         <div className={css.lhs}>
           <header className={cx(css.header, { [css.showDetails]: showDetail })}>
-            <div className={css.breadcrumbs}>
-              <Link to={routePipelineDeploymentList.url({ orgIdentifier, projectIdentifier, pipelineIdentifier })}>
-                <String stringID="execution.breadcrumbTitle" />
-              </Link>
-            </div>
+            <Breadcrumbs
+              links={[
+                { url: routeCDDashboard.url({ orgIdentifier, projectIdentifier }), label: project?.name as string },
+                { url: routeCDPipelines.url({ orgIdentifier, projectIdentifier }), label: getString('pipelines') },
+                {
+                  url: routePipelineDeploymentList.url({ orgIdentifier, projectIdentifier, pipelineIdentifier }),
+                  label: getString('executionText')
+                },
+                { url: '#', label: pipelineExecution.pipelineName || '' }
+              ]}
+            />
             <div className={css.headerTopRow}>
               <div className={css.titleContainer}>
                 <div className={css.title}>{pipelineExecution.pipelineName}</div>

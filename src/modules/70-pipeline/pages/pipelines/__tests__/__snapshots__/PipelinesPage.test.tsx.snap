@@ -6,12 +6,34 @@ exports[`CD Pipeline Page List render card view 1`] = `
   <div
     class="Layout---horizontal--3rmQ StyledProps---main--1Wws container standard StyledProps---flex--2Jz8 StyledProps---padding-left-large--28UT StyledProps---padding-right-large--2vF9"
   >
-    <h2
-      class="StyledProps---font--2ipy StyledProps---font-h2--3Vpc StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey800--2G2G"
-      level="2"
+    <div
+      class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
     >
-      PIPELINES
-    </h2>
+      <div
+        class="breadcrumbs"
+      >
+        <div>
+          <a
+            class="breadcrumb"
+            href="/account/null/cd/dashboard/orgs/testOrg/projects/test"
+          >
+            test
+          </a>
+          <span
+            class="separator"
+          >
+            /
+          </span>
+        </div>
+        <div>
+          <span
+            class="lastBreadcrumb"
+          >
+            Pipelines
+          </span>
+        </div>
+      </div>
+    </div>
     <div
       class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
       style="align-items: center;"
@@ -988,12 +1010,34 @@ exports[`CD Pipeline Page List render empty list card view 1`] = `
   <div
     class="Layout---horizontal--3rmQ StyledProps---main--1Wws container standard StyledProps---flex--2Jz8 StyledProps---padding-left-large--28UT StyledProps---padding-right-large--2vF9"
   >
-    <h2
-      class="StyledProps---font--2ipy StyledProps---font-h2--3Vpc StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey800--2G2G"
-      level="2"
+    <div
+      class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
     >
-      PIPELINES
-    </h2>
+      <div
+        class="breadcrumbs"
+      >
+        <div>
+          <a
+            class="breadcrumb"
+            href="/account/null/cd/dashboard/orgs/testOrg/projects/test"
+          >
+            test
+          </a>
+          <span
+            class="separator"
+          >
+            /
+          </span>
+        </div>
+        <div>
+          <span
+            class="lastBreadcrumb"
+          >
+            Pipelines
+          </span>
+        </div>
+      </div>
+    </div>
     <div
       class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
       style="align-items: center;"
@@ -1222,12 +1266,34 @@ exports[`CD Pipeline Page List render list view 1`] = `
   <div
     class="Layout---horizontal--3rmQ StyledProps---main--1Wws container standard StyledProps---flex--2Jz8 StyledProps---padding-left-large--28UT StyledProps---padding-right-large--2vF9"
   >
-    <h2
-      class="StyledProps---font--2ipy StyledProps---font-h2--3Vpc StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey800--2G2G"
-      level="2"
+    <div
+      class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
     >
-      PIPELINES
-    </h2>
+      <div
+        class="breadcrumbs"
+      >
+        <div>
+          <a
+            class="breadcrumb"
+            href="/account/null/cd/dashboard/orgs/testOrg/projects/test"
+          >
+            test
+          </a>
+          <span
+            class="separator"
+          >
+            /
+          </span>
+        </div>
+        <div>
+          <span
+            class="lastBreadcrumb"
+          >
+            Pipelines
+          </span>
+        </div>
+      </div>
+    </div>
     <div
       class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
       style="align-items: center;"

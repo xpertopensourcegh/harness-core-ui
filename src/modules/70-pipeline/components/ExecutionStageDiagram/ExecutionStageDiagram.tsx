@@ -1,6 +1,6 @@
 import React from 'react'
 import classNames from 'classnames'
-import { noop } from 'lodash-es'
+import { debounce, noop } from 'lodash-es'
 import type { NodeModelListener } from '@projectstorm/react-diagrams-core'
 import type { BaseModelListener } from '@projectstorm/react-canvas-core'
 import { Button, Layout } from '@wings-software/uikit'
@@ -116,6 +116,18 @@ export default function ExecutionStageDiagram<T>(props: ExecutionStageDiagramPro
     }
   }
 
+  //setup the diagram engine
+  const engine = React.useMemo(() => Diagram.createEngine({}), [])
+
+  //setup the diagram model
+  const model = React.useMemo(() => new ExecutionStageDiagramModel(), [])
+  model.setDefaultNodeStyle(nodeStyle)
+  model.setGridStyle(gridStyle)
+
+  React.useEffect(() => {
+    model.clearAllNodesAndLinks()
+  }, [selectedStage?.value, model])
+
   const nodeListeners: NodeModelListener = {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     [Diagram.Event.ClickNode]: (event: any) => {
@@ -144,26 +156,32 @@ export default function ExecutionStageDiagram<T>(props: ExecutionStageDiagramPro
   const layerListeners: BaseModelListener = {
     [Diagram.Event.StepGroupCollapsed]: (event: any) => updateGroupStage(event)
   }
-  //setup the diagram engine
-  const engine = React.useMemo(() => Diagram.createEngine({}), [])
-
-  //setup the diagram model
-  const model = React.useMemo(() => new ExecutionStageDiagramModel(), [])
-  model.setDefaultNodeStyle(nodeStyle)
-  model.setGridStyle(gridStyle)
 
   React.useEffect(() => {
     setAutoPosition(true)
   }, [data.identifier])
-  //update
-  model.addUpdateGraph<T>(
-    data,
-    { nodeListeners: nodeListeners, linkListeners: {}, layerListeners },
-    selectedIdentifier,
-    diagramContainerHeight,
-    showStartEndNode,
-    groupStage
-  )
+
+  const debounceUpdateGraph = React.useRef(
+    debounce<ExecutionStageDiagramModel['addUpdateGraph']>(
+      (dataTemp, listeners, selectedIdentifierTemp, height, startNode, group) => {
+        //update
+        model.addUpdateGraph(dataTemp, listeners, selectedIdentifierTemp, height, startNode, group)
+        engine.repaintCanvas()
+      },
+      100
+    )
+  ).current
+
+  React.useEffect(() => {
+    debounceUpdateGraph<T>(
+      data,
+      { nodeListeners: nodeListeners, linkListeners: {}, layerListeners },
+      selectedIdentifier,
+      diagramContainerHeight,
+      showStartEndNode,
+      groupStage
+    )
+  }, [selectedIdentifier, data, diagramContainerHeight, showStartEndNode, groupStage])
 
   //Load model into engine
   engine.setModel(model)
@@ -171,12 +189,12 @@ export default function ExecutionStageDiagram<T>(props: ExecutionStageDiagramPro
   autoPosition && focusRunningNode(engine, data)
   return (
     <div className={classNames(css.main, { [css.whiteBackground]: isWhiteBackground }, className)}>
-      <Diagram.CanvasWidget engine={engine} className={css.canvas} />
+      <Diagram.CanvasWidget key={selectedStage?.value} engine={engine} className={css.canvas} />
       {showStageSelection && selectedStage && selectedStage?.value?.length > 0 && (
         <Layout.Horizontal spacing="xxlarge" className={css.stageSelection}>
           <StageSelection
             itemRenderer={(item, { handleClick, modifiers: { disabled } }) => (
-              <div>
+              <div key={item.value}>
                 <Button
                   icon={item.icon?.name}
                   text={item.label}

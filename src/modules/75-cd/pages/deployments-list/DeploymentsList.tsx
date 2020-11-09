@@ -1,24 +1,19 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
 
-import { useGetProject } from 'services/cd-ng'
-import { useStrings } from 'framework/exports'
+import { useAppStoreReader, useStrings } from 'framework/exports'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import PipelineDeploymentList from '@pipeline/pages/pipeline-deployment-list/PipelineDeploymentList'
 
+import { routeCDDashboard } from 'navigation/cd/routes'
 import css from './DeploymentsList.module.scss'
 
 export default function DeploymentsList(): React.ReactElement {
-  const { projectIdentifier, accountId, orgIdentifier } = useParams()
+  const { projectIdentifier, orgIdentifier } = useParams()
   const { getString } = useStrings()
 
-  const { data } = useGetProject({
-    identifier: projectIdentifier,
-    queryParams: {
-      orgIdentifier,
-      accountIdentifier: accountId
-    }
-  })
+  const { projects } = useAppStoreReader()
+  const project = projects.find(({ identifier }) => identifier === projectIdentifier)
 
   return (
     <div className={css.main}>
@@ -26,8 +21,8 @@ export default function DeploymentsList(): React.ReactElement {
         <Breadcrumbs
           links={[
             {
-              label: data?.data?.name || 'Project',
-              url: '/'
+              label: project?.name || '',
+              url: routeCDDashboard.url({ orgIdentifier, projectIdentifier })
             },
             {
               label: getString('deploymentsText'),

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Layout, Icon, Color, Text } from '@wings-software/uikit'
+import { Container, Layout, Icon, Color } from '@wings-software/uikit'
 import { NavLink, useParams } from 'react-router-dom'
 import { Page } from '@common/exports'
 import {
@@ -7,9 +7,12 @@ import {
   routeInputSetList,
   routeTriggersPage,
   routeCDPipelineStudio,
-  routeCDPipelines
+  routeCDPipelines,
+  routeCDDashboard
 } from 'navigation/cd/routes'
 import { useGetPipelineSummary } from 'services/cd-ng'
+import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
+import { useAppStoreReader, useStrings } from 'framework/exports'
 import i18n from './PipelineDetails.i18n'
 import css from './PipelineDetails.module.scss'
 
@@ -20,22 +23,26 @@ export default function PipelineDetails({ children }: React.PropsWithChildren<{}
     accountId: string
     pipelineIdentifier: string
   }>()
-  const { data: pipeline, loading } = useGetPipelineSummary({
+  const { data: pipeline } = useGetPipelineSummary({
     pipelineIdentifier,
     queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
   })
+  const { projects } = useAppStoreReader()
+  const project = projects.find(({ identifier }) => identifier === projectIdentifier)
+  const { getString } = useStrings()
+
   return (
     <>
       <Page.Header
         title={
           <Layout.Vertical spacing="xsmall">
-            <span>
-              <NavLink className={css.link} to={routeCDPipelines.url({ orgIdentifier, projectIdentifier })}>
-                {i18n.title}
-              </NavLink>
-              &nbsp;/
-            </span>
-            {!loading && <Text>{pipeline?.data?.name}</Text>}
+            <Breadcrumbs
+              links={[
+                { url: routeCDDashboard.url({ orgIdentifier, projectIdentifier }), label: project?.name as string },
+                { url: routeCDPipelines.url({ orgIdentifier, projectIdentifier }), label: getString('pipelines') },
+                { url: '#', label: pipeline?.data?.name || '' }
+              ]}
+            />
           </Layout.Vertical>
         }
         toolbar={

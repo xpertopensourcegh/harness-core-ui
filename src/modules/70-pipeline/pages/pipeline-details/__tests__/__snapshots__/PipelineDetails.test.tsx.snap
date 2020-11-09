@@ -9,20 +9,43 @@ exports[`Pipeline Details tests render snapshot view 1`] = `
     <div
       class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
     >
-      <span>
-        <a
-          class="link"
-          href="/account/null/cd/pipelines/orgs/testOrg/projects/test"
-        >
-          Pipeline
-        </a>
-         /
-      </span>
-      <p
-        class="StyledProps---font--2ipy StyledProps---main--1Wws"
+      <div
+        class="breadcrumbs"
       >
-        testsdfsdf
-      </p>
+        <div>
+          <a
+            class="breadcrumb"
+            href="/account/null/cd/dashboard/orgs/testOrg/projects/test"
+          >
+            test
+          </a>
+          <span
+            class="separator"
+          >
+            /
+          </span>
+        </div>
+        <div>
+          <a
+            class="breadcrumb"
+            href="/account/null/cd/pipelines/orgs/testOrg/projects/test"
+          >
+            Pipelines
+          </a>
+          <span
+            class="separator"
+          >
+            /
+          </span>
+        </div>
+        <div>
+          <span
+            class="lastBreadcrumb"
+          >
+            testsdfsdf
+          </span>
+        </div>
+      </div>
     </div>
     <div
       class="StyledProps---font--2ipy StyledProps---main--1Wws"

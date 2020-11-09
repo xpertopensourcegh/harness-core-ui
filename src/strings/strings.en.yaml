@@ -5,6 +5,7 @@ global:
   deploymentsText: Deployments
   executionText: Execution
   executionsText: Executions
+  pipelines: Pipelines
   buildText: Build
   buildsText: Builds
   execution:

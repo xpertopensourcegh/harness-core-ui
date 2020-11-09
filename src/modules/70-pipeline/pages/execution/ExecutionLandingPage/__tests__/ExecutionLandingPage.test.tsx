@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, fireEvent, act } from '@testing-library/react'
+import { render, fireEvent, act, findByText as findByTextContainer } from '@testing-library/react'
 
 import { TestWrapper, prependAccountPath, NotFound } from '@common/utils/testUtils'
 import {
@@ -67,7 +67,7 @@ describe('<ExecutionLandingPage /> tests', () => {
       loading: true,
       data: null
     }))
-    const { findByText, getByTestId } = render(
+    const { container, getByTestId } = render(
       <TestWrapper path={prependAccountPath(routeCDPipelineExecution.path)} pathParams={pathParams}>
         <ExecutionLandingPage>
           <div data-testid="children">Execution Landing Page</div>
@@ -75,7 +75,7 @@ describe('<ExecutionLandingPage /> tests', () => {
       </TestWrapper>
     )
 
-    const tabElem = await findByText(tab)
+    const tabElem = await findByTextContainer(container.querySelector('.tabs') as HTMLElement, tab)
 
     fireEvent.click(tabElem.closest('a')!)
     expect(getByTestId('location').innerHTML.endsWith(url)).toBe(true)
