@@ -33,7 +33,45 @@ global:
     NotStarted: NOT STARTED
   executionList:
     servicesDeployedText: 'Services Deployed ({{size}})'
+  save: 'Save'
+  cancel: 'Cancel'
 pipeline-execution-ci:
   execution:
     pipelineIdentifierText: '(Build ID: {{planExecutionId}})' # Text for Pipeline Identifier
 pipeline-execution-cd: {}
+pipeline:
+  steps:
+    gcr:
+      title: 'GCR Step'
+      loading: 'Loading...'
+      optionalConfiguration: 'OPTIONAL CONFIGURATIONS'
+      settings: 'Settings'
+      addSetting: '+ Add Setting'
+      setContainerResources: 'Set container Resources'
+      setContainerResourcesTooltip: 'Information'
+      stepNameLabel: 'Step Name'
+      descriptionLabel: 'Description'
+      dockerfileLabel: 'Dockerfile'
+      connectorLabel: 'Connector'
+      connectorPlaceholder: 'Select'
+      registryLabel: 'Registry'
+      repoLabel: 'Repository'
+      tagsLabel: 'Tags'
+      contextLabel: 'Context'
+      argsLabel: 'Arguments'
+      cacheFromLabel: 'Cache From'
+      labelsLabel: 'Labels'
+      labelsKeyPlaceholder: 'Key'
+      labelsValuePlaceholder: 'Value'
+      addLabel: '+ Label'
+      targetLabel: 'Target'
+      autoTagLabel: 'Auto-Tag'
+      autoTagSuffixLabel: 'Auto-Tag Suffix'
+      limitMemoryLabel: 'Limit Memory'
+      limitMemoryPlaceholder: '512'
+      limitCPULabel: 'Limit CPU'
+      limitCPUPlaceholder: '1'
+      limitMemoryUnitMiLabel: 'Mi'
+      limitMemoryUnitGiLabel: 'Gi'
+      limitMemoryExample: 'Ex: 512 MiB, 1 GiB'
+      limitCPUExample: 'Ex: 1'

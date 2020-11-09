@@ -58,6 +58,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
             if (node) {
               node.name = item.name
               node.identifier = item.identifier
+              if (item.description) node.description = item.description
               node.spec = { ...item.spec }
               updatePipeline(pipeline)
             }

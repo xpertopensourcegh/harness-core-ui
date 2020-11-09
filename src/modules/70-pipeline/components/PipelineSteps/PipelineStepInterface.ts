@@ -11,5 +11,6 @@ export enum StepType {
   Plugin = 'plugin',
   Run = 'run',
   SaveCache = 'Save_Cache',
-  RestoreCache = 'Restore_Cache'
+  RestoreCache = 'Restore_Cache',
+  GCR = 'GCR'
 }

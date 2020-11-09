@@ -10,6 +10,7 @@ import { KubernetesInfraSpec } from './Steps/KubernetesInfraSpec/KubernetesInfra
 import { RedisService } from './Steps/RedisService/RedisService'
 import { RunStep } from './Steps/RunStep/RunStep'
 import { PluginStep } from './Steps/PluginStep/PluginStep'
+import { GCRStep } from './Steps/GCRStep/GCRStep'
 
 class PipelineStepFactory extends AbstractStepFactory {
   protected type = 'pipeline-factory'
@@ -29,6 +30,7 @@ factory.registerStep(new SaveCache())
 factory.registerStep(new RestoreCache())
 factory.registerStep(new RunStep())
 factory.registerStep(new PluginStep())
+factory.registerStep(new GCRStep())
 // build services
 factory.registerStep(new RedisService())
 

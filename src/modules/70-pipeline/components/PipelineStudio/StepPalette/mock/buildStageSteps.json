@@ -62,6 +62,10 @@
             "name": "Save Cache"
           },
           {
+            "type": "GCR",
+            "name": "GCR"
+          },
+          {
             "type": "Placeholder",
             "name": "Git Clone"
           }
