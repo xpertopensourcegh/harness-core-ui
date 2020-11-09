@@ -1,4 +1,5 @@
 import React from 'react'
+import type { IconName } from '@wings-software/uikit'
 import type { ExecutionNode, ExecutionGraph } from 'services/cd-ng'
 import { useExecutionContext } from '../../../ExecutionContext/ExecutionContext'
 
@@ -24,13 +25,20 @@ export interface ExecutionStageDetailsProps {
 
 export enum StepTypes {
   SERVICE = 'SERVICE',
-  GENERIC_SECTION = 'GENERIC_SECTION',
-  ENVIRONMENT = 'ENVIRONMENT',
-  ARTIFACT_FORK_STEP = 'ARTIFACT_FORK_STEP',
-  MANIFEST_STEP = 'MANIFEST_STEP',
   INFRASTRUCTURE = 'INFRASTRUCTURE',
-  ARTIFACT_STEP = 'ARTIFACT_STEP',
-  K8S_ROLLING = 'K8S_ROLLING'
+  GENERIC_SECTION = 'GENERIC_SECTION',
+  K8S_ROLLING = 'K8S_ROLLING',
+  FORK = 'FORK',
+  HTTP = 'HTTP'
+}
+
+const IconsMap: { [key in StepTypes]: IconName } = {
+  SERVICE: 'main-services',
+  GENERIC_SECTION: 'step-group',
+  K8S_ROLLING: 'service-kubernetes',
+  INFRASTRUCTURE: 'search-infra-prov',
+  FORK: 'fork',
+  HTTP: 'command-http'
 }
 
 const processNodeData = (
@@ -44,7 +52,7 @@ const processNodeData = (
     items.push({
       item: {
         name: nodeData?.name || /* istanbul ignore next */ '',
-        icon: 'edit',
+        icon: IconsMap[nodeData?.stepType as StepTypes] || 'cross',
         identifier: item,
         status: nodeData?.status as any,
         type: ExecutionPipelineNodeType.NORMAL,
@@ -54,16 +62,30 @@ const processNodeData = (
     const nextIds = nodeAdjacencyListMap?.[item].nextIds || /* istanbul ignore next */ []
     nextIds.forEach(id => {
       const nodeDataNext = nodeMap?.[id]
-      items.push({
-        item: {
-          name: nodeDataNext?.name || /* istanbul ignore next */ '',
-          icon: 'edit',
-          identifier: id,
-          status: nodeDataNext?.status as any,
-          type: ExecutionPipelineNodeType.NORMAL,
-          data: nodeDataNext
-        }
-      })
+      if (nodeDataNext?.stepType === StepTypes.FORK) {
+        items.push({
+          parallel: processNodeData(
+            nodeAdjacencyListMap?.[id].children || /* istanbul ignore next */ [],
+            nodeMap,
+            nodeAdjacencyListMap
+          )
+        })
+      } else {
+        items.push({
+          item: {
+            name: nodeDataNext?.name || /* istanbul ignore next */ '',
+            icon: IconsMap[nodeData?.stepType as StepTypes] || 'cross',
+            identifier: id,
+            status: nodeDataNext?.status as any,
+            type: ExecutionPipelineNodeType.NORMAL,
+            data: nodeDataNext
+          }
+        })
+      }
+      const nextLevels = nodeAdjacencyListMap?.[id].nextIds
+      if (nextLevels) {
+        items.push(...processNodeData(nextLevels, nodeMap, nodeAdjacencyListMap))
+      }
     })
   })
   return items
@@ -89,7 +111,7 @@ const processExecutionData = (graph?: ExecutionGraph): Array<ExecutionPipelineNo
               data: nodeData,
               status: nodeData.status as any,
               isOpen: true,
-              icon: 'edit',
+              icon: IconsMap[nodeData?.stepType as StepTypes] || 'cross',
               items: processNodeData(
                 nodeAdjacencyListMap[nodeId].children || /* istanbul ignore next */ [],
                 graph?.nodeMap,
@@ -97,11 +119,19 @@ const processExecutionData = (graph?: ExecutionGraph): Array<ExecutionPipelineNo
               )
             }
           })
+        } else if (nodeData.stepType === StepTypes.FORK) {
+          items.push({
+            parallel: processNodeData(
+              nodeAdjacencyListMap[nodeId].children || /* istanbul ignore next */ [],
+              graph?.nodeMap,
+              graph?.nodeAdjacencyListMap
+            )
+          })
         } else {
           items.push({
             item: {
               name: nodeData.name || /* istanbul ignore next */ '',
-              icon: 'edit',
+              icon: IconsMap[nodeData?.stepType as StepTypes] || 'cross',
               showInLabel: nodeData.stepType === StepTypes.SERVICE || nodeData.stepType === StepTypes.INFRASTRUCTURE,
               identifier: nodeId,
               status: nodeData.status as any,
