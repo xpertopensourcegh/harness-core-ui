@@ -41,10 +41,10 @@ export interface ParallelNodeProps {
 
 const STEP_DETAILS_LIMIT = 4
 
-export function ParallelStageNode(_props: ParallelNodeProps): React.ReactElement {
+export function ParallelStageNode(props: ParallelNodeProps): React.ReactElement {
   const [showDetails, setShowDetails] = React.useState(false)
-  const status: ExecutionStatus = 'Running' // TODO: find the status as per priority defined by product
-  const detailSteps: ExecutionStatus[] = ['Running', 'Success', 'Success', 'Success', 'Failed']
+  const sortedStages = props.stages.slice(0)
+  const detailSteps: ExecutionStatus[] = sortedStages.map(({ stage }) => stage.executionStatus)
 
   function handleMouseEnter(): void {
     setShowDetails(true)
@@ -57,15 +57,15 @@ export function ParallelStageNode(_props: ParallelNodeProps): React.ReactElement
   return (
     <div className={cx(css.parallel, { [css.showDetails]: showDetails })} onMouseLeave={handleMouseLeave}>
       <div className={css.moreStages}>
-        {detailSteps.slice(0, STEP_DETAILS_LIMIT - 1).map((stepStatus, i) => (
+        {detailSteps.slice(1, STEP_DETAILS_LIMIT).map((stepStatus, i) => (
           <StageNode key={i} stage={{ executionStatus: stepStatus }} />
         ))}
         {detailSteps.length > STEP_DETAILS_LIMIT ? (
           <div className={css.extraCount}>+ {detailSteps.length - STEP_DETAILS_LIMIT}</div>
         ) : null}
       </div>
-      <div className={css.parallelNodes} />
-      <StageNode stage={{ executionStatus: status }} onMouseEnter={handleMouseEnter} />
+      <div className={css.parallelNodes} data-stages={Math.min(detailSteps.length - 1, 2)} />
+      <StageNode stage={{ executionStatus: sortedStages[0]?.stage?.executionStatus }} onMouseEnter={handleMouseEnter} />
     </div>
   )
 }
@@ -81,6 +81,7 @@ export default function MiniExecutionGraph(props: MiniExecutionGraphProps): Reac
     runningStagesCount,
     failedStagesCount,
     executionStatus,
+    totalStagesCount,
     errorMsg
   } = props.pipelineExecution
 
@@ -104,7 +105,7 @@ export default function MiniExecutionGraph(props: MiniExecutionGraphProps): Reac
       <div className={css.stepCounts}>
         <div className={css.stepCount} data-status="success">
           <Icon name={IconMap.Success} size={10} />
-          {successfulStagesCount}
+          {successfulStagesCount} / {totalStagesCount}
         </div>
         {isExecutionRunning(executionStatus) ? (
           <div className={css.stepCount} data-status="running">

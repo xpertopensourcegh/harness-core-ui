@@ -1,20 +1,21 @@
 import React from 'react'
 import moment from 'moment'
 
+import type { ExecutionNode } from 'services/cd-ng'
 import { DurationI18n, timeDelta } from '@common/exports'
-import { useExecutionContext } from '../../../ExecutionContext/ExecutionContext'
 
 import css from './ExecutionStepDetails.module.scss'
 
 const DATE_FORMAT = 'MM/DD/YYYY hh:mm:ss a'
 
-export default function ExecutionStepDetailsTab(): React.ReactElement {
-  const { pipelineExecutionDetail } = useExecutionContext()
+export interface ExecutionStepDetailsTabProps {
+  step: ExecutionNode
+}
 
-  const delta = timeDelta(
-    pipelineExecutionDetail?.pipelineExecution?.startedAt || 0,
-    pipelineExecutionDetail?.pipelineExecution?.startedAt || 0
-  )
+export default function ExecutionStepDetailsTab(props: ExecutionStepDetailsTabProps): React.ReactElement {
+  const { step } = props
+
+  const delta = timeDelta(step?.startTs || 0, step?.endTs || 0)
 
   return (
     <div className={css.detailsTab}>
@@ -22,11 +23,11 @@ export default function ExecutionStepDetailsTab(): React.ReactElement {
         <tbody>
           <tr>
             <th>Started at:</th>
-            <td>{moment(pipelineExecutionDetail?.pipelineExecution?.startedAt).format(DATE_FORMAT)}</td>
+            <td>{moment(step?.startTs).format(DATE_FORMAT)}</td>
           </tr>
           <tr>
             <th>Ended at:</th>
-            <td>{moment(pipelineExecutionDetail?.pipelineExecution?.endedAt).format(DATE_FORMAT)}</td>
+            <td>{moment(step?.endTs).format(DATE_FORMAT)}</td>
           </tr>
           <tr>
             <th>Duration:</th>

@@ -132,6 +132,11 @@
     }
   }
 
+  // do not show 2nd card when only 1 extra step
+  & .parallel > .parallelNodes[data-stages='1']::before {
+    opacity: 0;
+  }
+
   & .parallel > .moreStages {
     opacity: 0;
     transition: opacity 0.3s ease-in-out;

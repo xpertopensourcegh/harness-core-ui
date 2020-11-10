@@ -30,6 +30,8 @@ jest.mock('services/cd-ng', () => ({
   }))
 }))
 
+jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => () => <div>YAMLBuilder</div>)
+
 jest.useFakeTimers()
 
 describe('<ExecutionLandingPage /> tests', () => {

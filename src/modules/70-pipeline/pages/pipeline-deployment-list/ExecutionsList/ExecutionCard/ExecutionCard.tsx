@@ -79,6 +79,7 @@ export default function ExecutionCard(props: ExecutionCardProps): React.ReactEle
             <ExecutionStatusLabel status={pipelineExecution.executionStatus} />
             <ExecutionActions
               executionStatus={pipelineExecution.executionStatus}
+              inputSetYAML={pipelineExecution.inputSetYaml}
               params={{
                 accountId,
                 orgIdentifier,

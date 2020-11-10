@@ -1,5 +1,11 @@
 import React from 'react'
 
-export default function ExecutionStepOutputTab(): React.ReactElement {
+import type { ExecutionNode } from 'services/cd-ng'
+
+export interface ExecutionStepOutputTabProps {
+  step: ExecutionNode
+}
+
+export default function ExecutionStepOutputTab(_props: ExecutionStepOutputTabProps): React.ReactElement {
   return <div>ExecutionStepOutputTab</div>
 }

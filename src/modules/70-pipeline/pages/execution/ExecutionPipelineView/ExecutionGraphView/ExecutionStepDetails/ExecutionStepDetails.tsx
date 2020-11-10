@@ -25,9 +25,9 @@ export default function ExecutionStepDetails(props: ExecutionStepDetailsProps): 
         <ExecutionLayout.Toggle />
       </div>
       <Tabs id="step-details" className={css.tabs} renderActiveTabPanelOnly>
-        <Tabs.Tab id="details" title="Details" panel={<ExecutionStepDetailsTab />} />
-        <Tabs.Tab id="input" title="Input" panel={<ExecutionStepInputTab />} />
-        <Tabs.Tab id="output" title="Output" panel={<ExecutionStepOutputTab />} />
+        <Tabs.Tab id="details" title="Details" panel={<ExecutionStepDetailsTab step={step} />} />
+        <Tabs.Tab id="input" title="Input" panel={<ExecutionStepInputTab step={step} />} />
+        <Tabs.Tab id="output" title="Output" panel={<ExecutionStepOutputTab step={step} />} />
       </Tabs>
     </div>
   )

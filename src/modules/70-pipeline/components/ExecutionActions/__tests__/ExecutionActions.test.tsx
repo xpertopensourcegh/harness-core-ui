@@ -14,6 +14,8 @@ jest.mock('services/cd-ng', () => ({
   }))
 }))
 
+jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => () => <div>YAMLBuilder</div>)
+
 const pathParams = {
   accountId: 'TEST_ACCOUNT_ID',
   orgIdentifier: 'TEST_ORG',

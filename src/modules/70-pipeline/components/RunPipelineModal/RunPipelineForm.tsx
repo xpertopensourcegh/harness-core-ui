@@ -4,7 +4,7 @@ import { Button, Checkbox, Formik, FormikForm, Layout, Popover, Text } from '@wi
 import { useHistory, useParams } from 'react-router-dom'
 import cx from 'classnames'
 import { parse, stringify } from 'yaml'
-import { noop, pick } from 'lodash-es'
+import { noop, pick, merge } from 'lodash-es'
 import * as Yup from 'yup'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import {
@@ -31,6 +31,7 @@ import css from './RunPipelineModal.module.scss'
 export interface RunPipelineFormProps {
   pipelineIdentifier: string
   inputSetSelected?: InputSetSelectorProps['value']
+  inputSetYAML?: string
   onClose: () => void
 }
 
@@ -47,7 +48,12 @@ const yamlBuilderReadOnlyModeProps: YamlBuilderProps = {
   showSnippetSection: false
 }
 
-export const RunPipelineForm: React.FC<RunPipelineFormProps> = ({ pipelineIdentifier, onClose, inputSetSelected }) => {
+export const RunPipelineForm: React.FC<RunPipelineFormProps> = ({
+  pipelineIdentifier,
+  onClose,
+  inputSetSelected,
+  inputSetYAML
+}) => {
   const { projectIdentifier, orgIdentifier, accountId } = useParams<{
     projectIdentifier: string
     orgIdentifier: string
@@ -61,10 +67,14 @@ export const RunPipelineForm: React.FC<RunPipelineFormProps> = ({ pipelineIdenti
     queryParams: { accountIdentifier: accountId, orgIdentifier, pipelineIdentifier, projectIdentifier }
   })
 
-  const [currentPipeline, setCurrentPipeline] = React.useState<{ pipeline?: NgPipeline } | undefined>()
+  const [currentPipeline, setCurrentPipeline] = React.useState<{ pipeline?: NgPipeline } | undefined>(
+    inputSetYAML ? parse(inputSetYAML) : undefined
+  )
 
   React.useEffect(() => {
-    setCurrentPipeline(parse(template?.data?.inputSetTemplateYaml || '') as { pipeline: NgPipeline })
+    setCurrentPipeline(
+      merge(parse(template?.data?.inputSetTemplateYaml || ''), currentPipeline || {}) as { pipeline: NgPipeline }
+    )
   }, [template?.data?.inputSetTemplateYaml])
 
   const { showError, showSuccess, showWarning } = useToaster()
@@ -108,7 +118,7 @@ export const RunPipelineForm: React.FC<RunPipelineFormProps> = ({ pipelineIdenti
             history.push(
               routeCDPipelineExecutionPipline.url({
                 orgIdentifier,
-                pipelineIdentifier: pipelineIdentifier,
+                pipelineIdentifier,
                 projectIdentifier,
                 executionIdentifier: response.data?.planExecution?.uuid || ''
               })
@@ -179,7 +189,8 @@ export const RunPipelineForm: React.FC<RunPipelineFormProps> = ({ pipelineIdenti
     accountId,
     projectIdentifier,
     orgIdentifier,
-    pipelineIdentifier
+    pipelineIdentifier,
+    mergeInputSet
   ])
 
   if (loadingPipeline || loadingTemplate || createInputSetLoading || loadingUpdate) {

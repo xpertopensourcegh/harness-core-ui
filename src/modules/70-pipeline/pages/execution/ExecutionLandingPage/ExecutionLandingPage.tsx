@@ -151,6 +151,7 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<{}>)
                 />
                 <ExecutionActions
                   executionStatus={pipelineExecution.executionStatus}
+                  inputSetYAML={pipelineExecution.inputSetYaml}
                   refetch={refetch}
                   params={{ orgIdentifier, pipelineIdentifier, projectIdentifier, accountId, executionIdentifier }}
                 />

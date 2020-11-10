@@ -10,7 +10,7 @@ global:
   buildsText: Builds
   execution:
     breadcrumbTitle: Deployments
-    pipelineIdentifierText: '(Execution ID: {{planExecutionId}})' # Text for Pipeline Identifier
+    pipelineIdentifierText: '(Execution ID: {{deploymentId}})' # Text for Pipeline Identifier
     triggerType: # text for trigger types
       MANUAL: Manually
       WEBHOOK: Webhook
@@ -42,7 +42,7 @@ global:
   recentlyUsed: 'Recently Used'
 pipeline-execution-ci:
   execution:
-    pipelineIdentifierText: '(Build ID: {{planExecutionId}})' # Text for Pipeline Identifier
+    pipelineIdentifierText: '(Build ID: {{deploymentId}})' # Text for Pipeline Identifier
 pipeline-execution-cd: {}
 pipeline-triggers:
   aboutTriggers: 'Triggers are used to automate the execution of pipelines based on some event like new artifact/manifest, or run on a schedule or an external webhook.'
