@@ -89,7 +89,7 @@ export default function ServiceHeatMap(props: ServiceHeatMapProps): JSX.Element 
         orgIdentifier: orgIdentifier as string,
         startTimeMs: startTime,
         endTimeMs: endTime
-      } as any
+      }
     })
   }, [projectIdentifier, startTime, endTime, serviceIdentifier, environmentIdentifier])
 
