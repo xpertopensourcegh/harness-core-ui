@@ -10,12 +10,18 @@ import { AUTH_ROUTE_PATH_PREFIX, NestedRoute, Route, useAppStoreReader } from 'f
 import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmationDialog'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import { PipelineContext, savePipeline } from '../PipelineContext/PipelineContext'
+// import { DrawerTypes } from '../PipelineContext/PipelineActions'
 import i18n from './PipelineCanvas.i18n'
 import CreatePipelines from '../CreateModal/PipelineCreate'
 import { DefaultNewPipelineId, SplitViewTypes } from '../PipelineContext/PipelineActions'
 import { RightDrawer } from '../RightDrawer/RightDrawer'
 import { useToaster } from '../../../../10-common/components/Toaster/useToaster'
 import { NavigationCheck } from '../../../../10-common/components/NavigationCheck/NavigationCheck'
+// import AddDrawer, { DrawerContext } from '@common/components/AddDrawer/AddDrawer'
+// import { getStageFromPipeline } from '../StageBuilder/StageBuilderUtil'
+// import { addStepOrGroup, generateRandomString } from '../ExecutionGraph/ExecutionGraphUtil'
+
+// import { getAddDrawerMap, getCategoryItems } from './PipelineCanvasUtils'
 import css from './PipelineCanvas.module.scss'
 
 export interface PipelineCanvasProps {
@@ -71,9 +77,12 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
     isBEPipelineUpdated,
     pipelineView: {
       splitViewData: { type: splitViewType }
+      // splitViewData: { type: splitViewType, selectedStageId }
     },
+    // pipelineView: { drawerData, isDrawerOpened },
     pipelineView
   } = state
+  // const { stage: selectedStage } = getStageFromPipeline(pipeline, selectedStageId || '')
 
   const { showError } = useToaster()
   const { accountId, projectIdentifier, orgIdentifier, pipelineIdentifier } = useParams<{
@@ -82,6 +91,33 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
     pipelineIdentifier: string
     accountId: string
   }>()
+  // todo: test before enabling
+  // const addDrawerMap =
+  //   isDrawerOpened && stageType && selectedStage
+  //     ? getAddDrawerMap(getCategoryItems(stageType, selectedStage), stageType)
+  //     : null
+
+  // const onStepSelect = (item: StepData) => {
+  //   const paletteData = drawerData?.data.paletteData
+  //   if (paletteData?.entity) {
+  //     const { stage: pipelineStage } = getStageFromPipeline(pipeline, selectedStageId)
+  //     addStepOrGroup(
+  //       paletteData.entity,
+  //       pipelineStage?.stage.spec.execution,
+  //       {
+  //         step: {
+  //           type: item.type,
+  //           name: item.name,
+  //           identifier: generateRandomString(item.name)
+  //         }
+  //       },
+  //       paletteData.isParallelNodeClicked,
+  //       paletteData.isRollback
+  //     )
+  //     updatePipeline(pipeline)
+  //   }
+  //   updatePipelineView({ ...pipelineView, isDrawerOpened: false, drawerData: { type: DrawerTypes.AddStep } })
+  // }
 
   // TODO: temporary
   const moduleName = useLocation().pathname.indexOf('/ci/') !== -1 ? 'ci' : 'cd'
@@ -214,7 +250,6 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
       ? routePipelineDetail.url({ projectIdentifier, orgIdentifier, pipelineIdentifier })
       : routePipelineList.url({ orgIdentifier, projectIdentifier })
   }
-
   return (
     <div
       className={cx(Classes.POPOVER_DISMISS, css.content)}
@@ -328,6 +363,25 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
       </div>
       {children}
       <RightDrawer />
+      {/* todo: Requires more testing before merge */}
+      {/* {isDrawerOpened && drawerData.data && stageType && addDrawerMap ? (
+        <>
+        <AddDrawer
+          addDrawerMap={addDrawerMap}
+          drawerContext={DrawerContext.STUDIO}
+          onSelect={onStepSelect}
+          onClose={() =>
+            updatePipelineView({
+              ...pipelineView,
+              isDrawerOpened: false,
+              drawerData: { type: DrawerTypes.AddStep }
+            })
+          }
+        />
+        // not tested RightBar yet but won't exist in AddDrawer
+          <RightBar/>
+        </>
+      ) : null} */}
     </div>
   )
 }

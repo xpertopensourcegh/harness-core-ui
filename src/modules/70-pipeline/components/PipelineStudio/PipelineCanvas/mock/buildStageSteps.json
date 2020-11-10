@@ -1,0 +1,75 @@
+{
+  "status": "SUCCESS",
+  "data": {
+    "name": "Library",
+    "stepsData": [],
+    "stepCategories": [
+      {
+        "name": "Issue tracking",
+        "stepsData": [
+          {
+            "type": "Placeholder",
+            "name": "JIRA"
+          },
+          {
+            "type": "Placeholder",
+            "name": "ServiceNow"
+          }
+        ],
+        "stepCategories": []
+      },
+      {
+        "name": "Flow cart",
+        "stepsData": [
+          {
+            "type": "Placeholder",
+            "name": "Approval Step"
+          }
+        ],
+        "stepCategories": []
+      },
+      {
+        "name": "Utility",
+        "stepsData": [
+          {
+            "type": "Placeholder",
+            "name": "HTTP"
+          },
+          {
+            "type": "Placeholder",
+            "name": "Email"
+          }
+        ],
+        "stepCategories": []
+      },
+      {
+        "name": "Build",
+        "stepsData": [
+          {
+            "type": "run",
+            "name": "Run"
+          },
+          {
+            "type": "plugin",
+            "name": "Plugin"
+          },
+          {
+            "type": "Restore_Cache",
+            "name": "Restore Cache"
+          },
+          {
+            "type": "Save_Cache",
+            "name": "Save Cache"
+          },
+          {
+            "type": "Placeholder",
+            "name": "Git Clone"
+          }
+        ],
+        "stepCategories": []
+      }
+    ]
+  },
+  "metaData": null,
+  "correlationId": "963c18d3-3805-4239-8dba-af0fdbd78036"
+}

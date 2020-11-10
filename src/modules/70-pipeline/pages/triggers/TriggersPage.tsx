@@ -1,75 +1,57 @@
 import React, { useState } from 'react'
-import { Button, Layout, TextInput, useModalHook, Container, Heading } from '@wings-software/uikit'
-import { useParams } from 'react-router-dom'
-import { Page } from '@common/exports'
-import { useGetInputSetsListForPipeline } from 'services/cd-ng'
-import { triggerTypesMap } from './TriggersHelper'
-import BeginWizardDrawer from './BeginWizardDrawer'
-import i18n from './TriggersPage.i18n'
-import css from './TriggersPage.module.scss'
+import TriggersList from './Views/TriggersList/TriggersList'
+// import TriggersWizard from './Views/TriggersWizard/TriggersWizard'
+// import i18n from './TriggersPage.i18n'
+// import css from './TriggersPage.module.scss'
 
+// const getWizardMap = (triggerData: { triggerType: string; source: string } | undefined) => {
+//   if (!triggerData) return undefined
+//   const { triggerType = '', source = '' } = triggerData || {}
+//   return {
+//     triggerConfiguration: {
+//       id: i18n.triggerConfigurationLabel,
+//       tabTitleComponent: i18n.triggerConfigurationLabel,
+//       body: (
+//         <>
+//           <h2>Trigger Type: {triggerType}</h2>
+//           <h2>Source: {source}</h2>
+//         </>
+//       )
+//     },
+//     conditions: {
+//       id: i18n.conditionsLabel,
+//       tabTitle: i18n.conditionsLabel,
+//       body: <h2>body</h2>
+//     },
+//     pipelineInput: { id: i18n.pipelineInputLabel, tabTitle: i18n.pipelineInputLabel, body: <h2>body</h2> }
+//   }
+// }
+
+interface TriggerDataInterface {
+  triggerType: string
+  source: string
+  // all else optional
+}
 const TriggersPage: React.FC = (): JSX.Element => {
-  const { projectIdentifier, orgIdentifier, accountId, pipelineIdentifier } = useParams<{
-    projectIdentifier: string
-    orgIdentifier: string
-    accountId: string
-    pipelineIdentifier: string
-  }>()
-  const [searchParam, setSearchParam] = useState('')
-  const [page] = useState(0)
-  // temporary until api ready for triggers
-  const { data: inputSet, refetch, error } = useGetInputSetsListForPipeline({
-    queryParams: {
-      accountIdentifier: accountId,
-      orgIdentifier,
-      projectIdentifier,
-      pipelineIdentifier,
-      pageIndex: page,
-      pageSize: 10,
-      searchTerm: searchParam
-    }
-  })
+  const [isTriggerWizardOpen, setTriggerWizard] = useState(false)
+  // const [triggerData, setTriggerData] = useState<TriggerDataInterface | undefined>(undefined)
 
-  const [openModal, hideModal] = useModalHook(() => (
-    <BeginWizardDrawer categoryItemsMap={triggerTypesMap} onItemClick={() => null} onHide={hideModal} />
-  ))
+  const onTriggerClick = (_val: TriggerDataInterface) => {
+    // const { triggerType, source } = val
+    // setTriggerData({ triggerType, source })
+    setTriggerWizard(true)
+  }
 
   return (
     <>
-      <Page.Header
-        title={<Button text={i18n.newTrigger} intent="primary" onClick={openModal}></Button>}
-        toolbar={
-          <Layout.Horizontal spacing="small">
-            <TextInput
-              leftIcon="search"
-              placeholder={i18n.search}
-              className={css.search}
-              value={searchParam}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                setSearchParam(e.target.value.trim())
-              }}
-            />
-          </Layout.Horizontal>
-        }
-      ></Page.Header>
-      <Page.Body
-        error={error?.message}
-        retryOnError={() => refetch()}
-        noData={{
-          when: () => !inputSet?.data?.content?.length,
-          icon: 'yaml-builder-input-sets',
-          message: i18n.aboutTriggers,
-          buttonText: i18n.addNewTrigger,
-          onClick: openModal
+      <TriggersList isTriggerWizardOpen={isTriggerWizardOpen} onTriggerClick={onTriggerClick} />
+      {/* <TriggersWizard
+        isTriggerWizardOpen={isTriggerWizardOpen}
+        wizardMap={getWizardMap(triggerData)}
+        onHide={() => {
+          setTriggerWizard(false)
         }}
-      >
-        <Container
-          style={{ borderTop: '1px solid var(--grey-300)', maxWidth: 900, margin: '0 auto' }}
-          padding={{ bottom: 'small' }}
-        >
-          <Heading level={2}>TBD</Heading>
-        </Container>
-      </Page.Body>
+      /> */}
     </>
   )
 }

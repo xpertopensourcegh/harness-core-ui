@@ -35,10 +35,30 @@ global:
     servicesDeployedText: 'Services Deployed ({{size}})'
   save: 'Save'
   cancel: 'Cancel'
+  search: 'Search'
+  showAll: 'Show All'
+  categories: 'Categories'
+  noSearchResultsFoundPeriod: 'No results found.'
+  recentlyUsed: 'Recently Used'
 pipeline-execution-ci:
   execution:
     pipelineIdentifierText: '(Build ID: {{planExecutionId}})' # Text for Pipeline Identifier
 pipeline-execution-cd: {}
+pipeline-triggers:
+  aboutTriggers: 'Triggers are used to automate the execution of pipelines based on some event like new artifact/manifest, or run on a schedule or an external webhook.'
+  addNewTrigger: 'Add New Trigger'
+  newTrigger: '+ New Trigger'
+  onWebhookLabel: 'On Webhook Event'
+  onNewArtifactLabel: 'On New artifact'
+  onScheduleLabel: 'On Schedule'
+  triggerConfigurationLabel: 'Trigger Configuration'
+  conditionsLabel: 'Conditions'
+  pipelineInputLabel: 'Pipeline Input'
+repo-provider:
+  bitbucketLabel: 'BitBucket'
+  customLabel: 'Custom'
+  githubLabel: 'GitHub'
+  gitlabLabel: 'GitLab'
 pipeline:
   steps:
     gcr:
