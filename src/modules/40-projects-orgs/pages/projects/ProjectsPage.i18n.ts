@@ -9,6 +9,7 @@ export default {
   tabAllProjects: 'All Projects',
   tabOrgs: 'Organisations:',
   orgLabel: 'All',
+  moduleSuccess: 'Module Added Successfully',
   newProjectWizard: {
     back: 'Back',
     saveAndClose: 'Save and Close',
@@ -73,7 +74,8 @@ export default {
       moduleci: 'CI',
       modulece: 'CE',
       modulecf: 'CF',
-      time: '15 min setup'
+      time: '15 min setup',
+      starttrial: 'Start a Trial'
     },
     Collaborators: {
       name: 'Invite Collaborators',

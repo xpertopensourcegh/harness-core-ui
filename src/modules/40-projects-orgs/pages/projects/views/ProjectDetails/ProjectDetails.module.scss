@@ -1,0 +1,36 @@
+.cardTags {
+  background-color: var(--grey-200) !important;
+  color: var(--grey-400) !important;
+  max-width: 200px;
+  margin-right: var(--spacing-xsmall);
+  margin-top: var(--spacing-xsmall);
+}
+
+.wrap {
+  overflow: hidden;
+}
+
+.title {
+  max-width: 500px;
+}
+
+.header {
+  background-color: var(--blue-200) !important;
+}
+
+.enabledModules {
+  min-height: calc(50vh - 72px);
+}
+
+.pageHeight {
+  max-height: calc(100vh - 144px) !important;
+  background-color: var(--grey-100) !important;
+}
+
+.activityCard {
+  width: 250px;
+  height: 500px;
+  overflow: auto;
+  box-shadow: 1px 1px 15px 3px rgba(0, 0, 0, 0.1);
+  padding: 30px 20px 30px 40px;
+}

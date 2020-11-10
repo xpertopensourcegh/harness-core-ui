@@ -9,7 +9,6 @@ import ProjectGridView from '../views/ProjectGridView/ProjectGridView'
 import { projectPageMock } from './ProjectPageMock'
 import { defaultAppStoreValues } from './DefaultAppStoreData'
 
-const onCardClick = jest.fn()
 describe('Project Grid', () => {
   test('render', async () => {
     const { container } = render(
@@ -18,14 +17,14 @@ describe('Project Grid', () => {
         pathParams={{ accountId: 'testAcc' }}
         defaultAppStoreValues={defaultAppStoreValues}
       >
-        <ProjectGridView mockData={projectPageMock as UseGetMockData<ResponsePageProject>} onCardClick={onCardClick} />
+        <ProjectGridView mockData={projectPageMock as UseGetMockData<ResponsePageProject>} />
       </TestWrapper>
     )
     expect(container).toMatchSnapshot()
-    const card = container.getElementsByClassName('bp3-card')[0]
+    const card = container.getElementsByClassName('colorBar')[0]
     await act(async () => {
       fireEvent.click(card)
     })
-    expect(onCardClick).toHaveBeenCalled()
+    expect(container).toMatchSnapshot()
   })
 })

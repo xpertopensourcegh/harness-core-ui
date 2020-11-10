@@ -1,0 +1,32 @@
+.alignCenter {
+  align-items: center;
+  width: 180px !important;
+  border-left: 2px solid var(--grey-300);
+  &:hover {
+    cursor: pointer;
+    background: var(--grey-200) !important;
+  }
+}
+
+.circle {
+  height: 30px;
+  width: 30px !important;
+  border-radius: 50%;
+  position: relative;
+  left: -15px;
+  text-align: center;
+}
+
+.connector {
+  border-left: 2px solid var(--grey-300);
+  height: 30px;
+}
+
+.icon {
+  position: relative;
+  top: 6px;
+}
+
+.popover {
+  background: var(--blue-900);
+}

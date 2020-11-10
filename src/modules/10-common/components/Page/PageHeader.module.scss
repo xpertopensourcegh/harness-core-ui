@@ -26,4 +26,12 @@
       --page-header-height: 96px;
     }
   }
+
+  &.xlarge {
+    height: 144px;
+
+    & + div[class*='PageBody'] {
+      --page-header-height: 144px;
+    }
+  }
 }

@@ -3,7 +3,7 @@ import ReactTimeago from 'react-timeago'
 import { Text, Layout, Color, Icon, Button, Popover } from '@wings-software/uikit'
 import type { CellProps, Renderer, Column } from 'react-table'
 import { Classes, Position } from '@blueprintjs/core'
-import { useParams } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 import { Project, useGetProjectList, ResponsePageProject, useDeleteProject } from 'services/cd-ng'
 import Table from '@common/components/Table/Table'
 
@@ -14,6 +14,7 @@ import type { UseGetMockData } from '@common/utils/testUtils'
 import { useToaster } from '@common/components/Toaster/useToaster'
 import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmationDialog'
 import ContextMenu from '@projects-orgs/components/Menu/ContextMenu'
+import { routeProjectDetails } from 'navigation/projects/routes'
 import i18n from './ProjectListView.i18n'
 import css from './ProjectListView.module.scss'
 
@@ -167,13 +168,12 @@ const ProjectListView: React.FC<ProjectListViewProps> = props => {
     orgFilterId,
     module,
     reloadPage,
-    onRowClick,
     openProjectModal,
     deselectModule
   } = props
   const { accountId } = useParams()
   const [page, setPage] = useState(0)
-
+  const history = useHistory()
   const { data, loading, refetch } = useGetProjectList({
     queryParams: {
       accountIdentifier: accountId,
@@ -276,7 +276,11 @@ const ProjectListView: React.FC<ProjectListViewProps> = props => {
         className={css.table}
         columns={columns}
         data={data?.data?.content || []}
-        onRowClick={onRowClick}
+        onRowClick={project => {
+          history.push(
+            routeProjectDetails.url({ projectIdentifier: project.identifier, orgIdentifier: project.orgIdentifier })
+          )
+        }}
         pagination={{
           itemCount: data?.data?.totalItems || 0,
           pageSize: data?.data?.pageSize || 10,

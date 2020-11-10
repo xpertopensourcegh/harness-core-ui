@@ -1,3 +1,4 @@
 export default {
-  project: 'Projects'
+  project: 'Projects',
+  projectDetails: 'Project Details'
 }

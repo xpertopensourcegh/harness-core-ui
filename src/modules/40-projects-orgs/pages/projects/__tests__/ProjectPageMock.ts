@@ -72,7 +72,7 @@ export const projectPageMock = {
           identifier: 'Drone_Data_Supplier',
           name: 'Drone Data Supplier',
           color: '#e67a00',
-          modules: ['CD, CV, CI'],
+          modules: ['CD', 'CV', 'CI', 'CE', 'CF'],
           description: 'Drone',
           owners: ['testAcc'],
           tags: ['prod', 'master'],

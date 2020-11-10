@@ -88,8 +88,7 @@ const ProjectGridView: React.FC<ProjectGridViewProps> = props => {
       <Container height="90%">
         <Layout.Masonry
           center
-          gutter={25}
-          width={900}
+          gutter={50}
           className={css.centerContainer}
           items={data?.data?.content || []}
           renderItem={(project: Project) => (

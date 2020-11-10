@@ -89,8 +89,13 @@ const ContextMenu: React.FC<ContextMenuProps> = props => {
       ) : null}
       <Menu.Item icon="edit" text={i18n.edit} onClick={handleEdit} />
       <Menu.Item icon="new-person" text={i18n.invite} onClick={handleCollaborate} />
-      <Menu.Divider />
-      <Menu.Item icon="trash" text={i18n.delete} onClick={handleDelete} />
+
+      {openDialog ? (
+        <>
+          <Menu.Divider />
+          <Menu.Item icon="trash" text={i18n.delete} onClick={handleDelete} />
+        </>
+      ) : null}
     </Menu>
   )
 }

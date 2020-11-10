@@ -7,7 +7,7 @@ export interface PageHeaderProps {
   title: React.ReactNode
   toolbar?: React.ReactNode
   content?: React.ReactNode
-  size?: 'standard' | 'medium' | 'large'
+  size?: 'standard' | 'medium' | 'large' | 'xlarge'
   className?: string
 }
 

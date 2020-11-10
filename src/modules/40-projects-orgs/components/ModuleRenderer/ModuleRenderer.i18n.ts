@@ -1,3 +1,3 @@
 export default {
-  start: 'Get Started'
+  start: 'No modules enabled'
 }
