@@ -49,7 +49,8 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<{}>)
       projectIdentifier,
       accountIdentifier: accountId,
       stageIdentifier: (queryParams.stage as string) || autoSelectedStageId
-    }
+    },
+    debounce: 500
   })
 
   const { projects } = useAppStoreReader()
@@ -84,7 +85,12 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<{}>)
       return
     }
 
-    if (!data || !data.data) return
+    // if no data is found, reset the stage and step
+    if (!data || !data.data) {
+      setAutoSelectedStageId('')
+      setAutoSelectedStepId('')
+      return
+    }
 
     const runningStage = getRunningStageForPipeline(
       data.data.pipelineExecution?.stageExecutionSummaryElements || [],

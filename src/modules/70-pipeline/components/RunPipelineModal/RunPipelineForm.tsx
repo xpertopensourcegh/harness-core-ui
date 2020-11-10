@@ -123,13 +123,14 @@ export const RunPipelineForm: React.FC<RunPipelineFormProps> = ({
                 executionIdentifier: response.data?.planExecution?.uuid || ''
               })
             )
+            onClose()
           }
         }
       } catch (error) {
         showWarning(error?.data?.message || i18n.runPipelineFailed)
       }
     },
-    [runPipeline, showWarning, showSuccess, pipelineIdentifier, history, orgIdentifier, projectIdentifier]
+    [runPipeline, showWarning, showSuccess, pipelineIdentifier, history, orgIdentifier, projectIdentifier, onClose]
   )
 
   const [selectedInputSets, setSelectedInputSets] = React.useState<InputSetSelectorProps['value']>(inputSetSelected)
