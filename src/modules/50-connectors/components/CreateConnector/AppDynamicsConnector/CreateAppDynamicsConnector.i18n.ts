@@ -9,5 +9,13 @@ export default {
   close: 'Close',
   back: 'Back',
   connectAndSave: 'Connect and Save',
-  verifyConnection: 'Verify connection'
+  verifyConnection: 'Verify connection',
+  Username: 'Username',
+  Password: 'Password',
+  errorUpdate: 'Unable to update connector',
+  errorCreate: 'Unable to create connector',
+  accountName: 'Account Name',
+  Url: 'Url',
+  showSuccessCreated: (name: string) => `Connector '${name}' created successfully`,
+  showSuccessUpdated: (name: string) => `Connector '${name}' updated successfully`
 }

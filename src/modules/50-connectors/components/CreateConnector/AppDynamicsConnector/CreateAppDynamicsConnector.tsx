@@ -11,27 +11,22 @@ import {
 } from '@wings-software/uikit'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
+import { useToaster } from '@common/exports'
 import ConnectorDetailsStep from '@connectors/components/CreateConnector/commonSteps/ConnectorDetailsStep'
 import VerifyOutOfClusterDelegate from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 import {
   useCreateConnector,
-  usePostSecret,
   ConnectorConfigDTO,
   ConnectorRequestBody,
-  SecretDTOV2,
-  Connector
+  Connector,
+  useUpdateConnector,
+  ResponseBoolean
 } from 'services/cd-ng'
-import {
-  AuthTypeFields,
-  getSecretFieldsByType,
-  SecretFieldByType
-} from '@connectors/pages/connectors/Forms/KubeFormHelper'
+
 import { Connectors } from '@connectors/constants'
-import CreateSecretOverlay from '@secrets/components/CreateSecretOverlay/CreateSecretOverlay'
-import { AuthTypes } from '@connectors/pages/connectors/Forms/KubeFormInterfaces'
-import UsernamePassword from '../../ConnectorFormFields/UsernamePassword'
+
+import SecretInput from '@secrets/components/SecretInput/SecretInput'
 import i18n from './CreateAppDynamicsConnector.i18n'
-import { getScopingStringFromSecretRef } from '../CreateConnectorUtils'
 import styles from './CreateAppDynamicsConnector.module.scss'
 
 interface CreateAppDynamicsConnectorProps {
@@ -40,6 +35,7 @@ interface CreateAppDynamicsConnectorProps {
   projectIdentifier: string
   hideLightModal: () => void
   onConnectorCreated?: (data: ConnectorRequestBody) => void | Promise<void>
+  mockIdentifierValidate?: ResponseBoolean
 }
 
 export interface ConnectionConfigProps {
@@ -51,14 +47,19 @@ export interface ConnectionConfigProps {
   name: string
   previousStep?: () => void
   nextStep?: () => void
-  onSecretCreated: (data: ConnectorConfigDTO) => Promise<void>
+  handleCreate: (data: ConnectorConfigDTO) => Promise<void>
+  handleUpdate: (data: ConnectorConfigDTO) => Promise<void>
+  isEditMode: boolean
 }
 
 export default function CreateAppDynamicsConnector(props: CreateAppDynamicsConnectorProps): JSX.Element {
   const [formData, setFormData] = useState<ConnectorConfigDTO | undefined>({})
   const { mutate: createConnector } = useCreateConnector({ queryParams: { accountIdentifier: props.accountId } })
+  const { mutate: updateConnector } = useUpdateConnector({ queryParams: { accountIdentifier: props.accountId } })
   const [connectorResponse, setConnectorResponse] = useState<Connector | undefined>()
-  const secretCreatedCallback = async (data: ConnectorConfigDTO): Promise<void> => {
+  const [isEditMode, setIsEditMode] = useState<boolean>(false)
+  const { showSuccess } = useToaster()
+  const handleCreate = async (data: ConnectorConfigDTO): Promise<void> => {
     const res = await createConnector({
       connector: {
         name: data.name,
@@ -69,16 +70,42 @@ export default function CreateAppDynamicsConnector(props: CreateAppDynamicsConne
         spec: {
           username: data.username,
           accountname: data.accountName,
-          passwordRef: `${getScopingStringFromSecretRef(data) ?? ''}${data.passwordRefSecret.secretId}`,
+          passwordRef: data.password.referenceString,
           controllerUrl: data.url,
           accountId: props.accountId
         }
       }
     })
     if (res && res.status === 'SUCCESS') {
+      showSuccess(i18n.showSuccessCreated(data?.name || ''))
       setConnectorResponse(res.data)
     } else {
-      throw new Error('Unable to create connector')
+      throw new Error(i18n.errorCreate)
+    }
+  }
+
+  const handleUpdate = async (data: ConnectorConfigDTO): Promise<void> => {
+    const res = await updateConnector({
+      connector: {
+        name: data.name,
+        identifier: data.identifier,
+        type: 'AppDynamics',
+        projectIdentifier: props.projectIdentifier,
+        orgIdentifier: props.orgIdentifier,
+        spec: {
+          username: data.username,
+          accountname: data.accountName,
+          passwordRef: data.password.referenceString,
+          controllerUrl: data.url,
+          accountId: props.accountId
+        }
+      }
+    })
+    if (res && res.status === 'SUCCESS') {
+      showSuccess(i18n.showSuccessUpdated(data?.name || ''))
+      setConnectorResponse(res.data)
+    } else {
+      throw new Error(i18n.errorCreate)
     }
   }
 
@@ -90,6 +117,7 @@ export default function CreateAppDynamicsConnector(props: CreateAppDynamicsConne
           name={i18n.wizardStepName.connectorDetails}
           setFormData={setFormData}
           formData={formData}
+          mock={props.mockIdentifierValidate}
         />
         <ConnectionConfigStep
           accountId={props.accountId}
@@ -98,7 +126,9 @@ export default function CreateAppDynamicsConnector(props: CreateAppDynamicsConne
           name={i18n.wizardStepName.credentials}
           setFormData={setFormData}
           formData={formData}
-          onSecretCreated={secretCreatedCallback}
+          handleCreate={handleCreate}
+          handleUpdate={handleUpdate}
+          isEditMode={isEditMode}
         />
         <VerifyOutOfClusterDelegate
           name={i18n.verifyConnection}
@@ -108,6 +138,7 @@ export default function CreateAppDynamicsConnector(props: CreateAppDynamicsConne
           renderInModal
           isLastStep
           type={Connectors.APP_DYNAMICS}
+          setIsEditMode={() => setIsEditMode(true)}
         />
       </StepWizard>
     </>
@@ -115,95 +146,59 @@ export default function CreateAppDynamicsConnector(props: CreateAppDynamicsConne
 }
 
 function ConnectionConfigStep(props: ConnectionConfigProps): JSX.Element {
-  const { mutate: createSecret } = usePostSecret({ queryParams: { accountIdentifier: props.accountId } })
-  const [showCreateSecretModal, setShowCreateSecretModal] = useState<boolean>(false)
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
-  const [editSecretData, setEditSecretData] = useState<SecretDTOV2>()
-  const isEdit = Boolean(props.formData?.passwordField)
-
-  const handleFormSubmission = async (values: ConnectorConfigDTO, passwordField: SecretFieldByType): Promise<void> => {
-    try {
-      modalErrorHandler?.hide()
-      if (!values[passwordField.passwordField]?.isReference) {
-        await createSecret({
-          secret: {
-            type: 'SecretText',
-            orgIdentifier: props.orgIdentifier,
-            projectIdentifier: props.projectIdentifier,
-            identifier: values[passwordField.secretField]?.secretId,
-            name: values[passwordField.secretField]?.secretName,
-            tags: {},
-            spec: {
-              value: values[passwordField.passwordField]?.value,
-              valueType: 'Inline',
-              secretManagerIdentifier: values[passwordField.secretField]?.secretManager?.value as string
-            }
-          } as SecretDTOV2
-        })
+  const handleFormSubmission = async (formData: ConnectorConfigDTO) => {
+    modalErrorHandler?.hide()
+    if (props.isEditMode) {
+      try {
+        await props.handleUpdate(formData)
+        props.nextStep?.()
+      } catch (error) {
+        modalErrorHandler?.showDanger(error?.data?.message)
       }
-      const update = { ...props.formData, ...values }
-      await props.onSecretCreated(update)
-      props.nextStep?.()
-    } catch (error) {
-      modalErrorHandler?.showDanger(error?.data?.message)
+    } else {
+      try {
+        await props.handleCreate(formData)
+        props.nextStep?.()
+      } catch (error) {
+        modalErrorHandler?.showDanger(error?.data?.message)
+      }
     }
   }
-
   return (
     <Formik
       initialValues={{
         url: props.formData?.url || '',
         accountName: props.formData?.accountname || '',
         username: props.formData?.username || '',
-        passwordRef: props.formData?.passwordRef || '',
-        passwordRefSecret: { secretId: '', secretName: '', secretManager: { value: '' } }
+        password: props.formData?.password || '',
+        ...props.formData
       }}
       validationSchema={Yup.object().shape({
         url: Yup.string().trim().required(),
         accountName: Yup.string().trim().required(),
         username: Yup.string().trim().required(),
-        passwordRef: Yup.string().trim().required()
+        password: Yup.string().trim().required()
       })}
-      onSubmit={() => undefined}
+      onSubmit={formData => {
+        props.setFormData(formData)
+        handleFormSubmission(formData)
+      }}
     >
-      {formikProps => (
+      {() => (
         <FormikForm className={styles.connectionForm}>
           <ModalErrorHandler bind={setModalErrorHandler} />
           <Layout.Vertical spacing="large" className={styles.appDContainer}>
             <Text font="medium">{i18n.connectionDetailsHeader}</Text>
-            <FormInput.Text label="Url" name="url" />
-            <FormInput.Text label="Account Name" name="accountName" />
-            <UsernamePassword
-              accountId={props.accountId}
-              isEditMode={isEdit}
-              orgIdentifier={props.orgIdentifier as string}
-              projectIdentifier={props.projectIdentifier as string}
-              passwordField={AuthTypeFields.passwordRef}
-              name={props.formData?.name}
-              onEditSecret={val => {
-                setEditSecretData(val)
-                setShowCreateSecretModal(true)
-              }}
-              onClickCreateSecret={() => setShowCreateSecretModal(true)}
-            />
+            <FormInput.Text label={i18n.Url} name="url" />
+            <FormInput.Text label={i18n.accountName} name="accountName" />
+            <FormInput.Text name="username" label={i18n.Username} />
+            <SecretInput name="password" label={i18n.Password} />
           </Layout.Vertical>
           <Layout.Horizontal spacing="large">
             <Button onClick={() => props.previousStep?.()} text={i18n.back} />
-            <Button
-              onClick={async () => {
-                formikProps.submitForm()
-                const passwordField = getSecretFieldsByType(AuthTypes.USER_PASSWORD)?.[0]
-                if (formikProps.isValid && passwordField) {
-                  await handleFormSubmission(formikProps.values, passwordField)
-                }
-              }}
-              style={{ color: 'var(--blue-500)', borderColor: 'var(--blue-500)' }}
-              text={i18n.connectAndSave}
-            />
+            <Button type="submit" text={i18n.connectAndSave} />
           </Layout.Horizontal>
-          {showCreateSecretModal ? (
-            <CreateSecretOverlay editSecretData={editSecretData} setShowCreateSecretModal={setShowCreateSecretModal} />
-          ) : null}
         </FormikForm>
       )}
     </Formik>
