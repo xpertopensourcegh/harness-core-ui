@@ -1,0 +1,92 @@
+.connectorForm {
+  .connectorFormNameWarpper {
+    display: flex;
+    width: 90%;
+
+    .connectorFormNameElm {
+      width: 70%;
+    }
+  }
+
+  .connectorFormElm {
+    width: 63%;
+    margin-bottom: var(--spacing-large);
+
+    .headerRow {
+      display: flex;
+      justify-content: space-between;
+      color: var(--grey-400);
+      font-size: var(--font-size-small);
+      margin-bottom: 7px;
+    }
+    .description {
+      textarea {
+        max-height: 205px;
+        min-height: 100px;
+        min-width: 375px;
+      }
+    }
+    .tags {
+      height: 50px;
+      :global {
+        .bp3-form-content {
+          > div > div > div > div > {
+            button {
+              display: none;
+            }
+            div span {
+              height: 22px;
+              border-radius: 6px;
+              padding: 2px 3px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+.triangle {
+  width: 0;
+  height: 0;
+  border-top: 30px solid var(--blue-500);
+  border-left: 30px solid transparent;
+  float: right;
+}
+.card {
+  border: 2px solid var(--blue-500);
+  padding: 0;
+  width: 80px;
+  height: 80px;
+}
+.cardIcon {
+  position: relative;
+  top: 20px;
+}
+.cardProductSelected {
+  border: 2px solid var(--blue-500);
+}
+.cardIconSelected {
+  left: 14px;
+}
+.tick {
+  position: relative;
+  bottom: 32px;
+  right: 13px;
+}
+
+.cardProduct {
+  padding: 0;
+}
+.labelProduct {
+  padding: var(--spacing-xlarge);
+}
+.tickProduct {
+  position: relative;
+  bottom: 30px;
+  right: 16px;
+}
+.connectorReference {
+  [class*='MultiTypeInput---FIXED'] {
+    display: none;
+  }
+}

@@ -303,17 +303,17 @@ export const routeCVAdminSetup: Route<{ projectIdentifier: string; orgIdentifier
 export const routeCVAdminSetupMonitoringSource: Route<{
   projectIdentifier: string
   orgIdentifier: string
-  type: string
+  monitoringSource: string
 }> = {
   module: ModuleName.CV,
   sidebarId: SidebarIdentifier.CONTINUOUS_VERIFICATION,
-  path: '/cv/org/:orgIdentifier/projects/:projectIdentifier/admin/setup/monitoring-source',
+  path: '/cv/org/:orgIdentifier/projects/:projectIdentifier/admin/setup/monitoring-source/:monitoringSource',
   title: i18n.adminSettings,
   pageId: 'cv-admin-setup-monitoring-source',
-  url: ({ projectIdentifier, orgIdentifier, type }) =>
+  url: ({ projectIdentifier, orgIdentifier, monitoringSource }) =>
     routeURL(
       routeCVMainDashBoardPage,
-      `/cv/org/${orgIdentifier}/projects/${projectIdentifier}/admin/setup/monitoring-source?type=${type}`
+      `/cv/org/${orgIdentifier}/projects/${projectIdentifier}/admin/setup/monitoring-source/${monitoringSource}`
     ),
   component: React.lazy(() => import('@cv/pages/monitoring-source/MonitoringSource'))
 }

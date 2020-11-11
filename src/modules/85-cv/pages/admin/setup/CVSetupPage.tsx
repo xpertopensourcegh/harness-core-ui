@@ -103,8 +103,9 @@ interface MonitoringSourceContentProps {
   setDataSource: (val: string) => void
   setVerificationJob: (val: string) => void
   monitoringSource: string
+  setMonitoringSourceType: (val: string) => void
 }
-const MonitoringSourceContent: React.FC<MonitoringSourceContentProps> = () => {
+const MonitoringSourceContent: React.FC<MonitoringSourceContentProps> = props => {
   return (
     <Layout.Horizontal>
       <Container height="100vh" width="70%">
@@ -117,7 +118,11 @@ const MonitoringSourceContent: React.FC<MonitoringSourceContentProps> = () => {
             {MonitoringSources.map((item, index) => {
               return (
                 <div className={css.cardWrapper} key={`${index}${item}`}>
-                  <Card interactive={true} className={css.cardCss}>
+                  <Card
+                    interactive={true}
+                    className={css.cardCss}
+                    onClick={() => props.setMonitoringSourceType(item.type)}
+                  >
                     <CardBody.Icon icon={item.icon as IconName} iconSize={40} />
                   </Card>
                   <div className={css.cardLabel}>{item.label}</div>
@@ -150,7 +155,7 @@ const CVSetupPage: React.FC<CVSetupPageProps> = props => {
   const [verificationJob, setVerificationJob] = useState<string>(Status.NOT_VISITED)
   const [activeStep, setActiveStep] = useState<string>(STEP.ACTIVITY_SOURCE)
   // const [activitySourceType, setActivitySourceType] = useState()
-  // const [monitoringSourceType, setMonitoringSourceType] = useState()
+  const [monitoringSourceType, setMonitoringSourceType] = useState('')
   const history = useHistory()
 
   const { accountId, orgIdentifier, projectIdentifier } = useParams()
@@ -275,17 +280,19 @@ const CVSetupPage: React.FC<CVSetupPageProps> = props => {
               <Button text="Previous" icon="chevron-left" onClick={() => alert('Hello World')} />
               <Button
                 intent="primary"
-                text="Next"
+                text={i18n.NEXT}
                 rightIcon="chevron-right"
-                onClick={() =>
-                  history.push(
-                    routeCVAdminSetupMonitoringSource.url({
-                      orgIdentifier: orgIdentifier,
-                      projectIdentifier: projectIdentifier,
-                      type: 'AppDynamics'
-                    })
-                  )
-                }
+                onClick={() => {
+                  if (monitoringSource === Status.ACTIVE) {
+                    history.push(
+                      routeCVAdminSetupMonitoringSource.url({
+                        orgIdentifier: orgIdentifier,
+                        projectIdentifier: projectIdentifier,
+                        monitoringSource: monitoringSourceType
+                      })
+                    )
+                  }
+                }}
               />
             </Layout.Horizontal>
           </Layout.Vertical>
@@ -304,7 +311,7 @@ const CVSetupPage: React.FC<CVSetupPageProps> = props => {
                 setActivitySource={setActivitySource}
                 setDataSource={setDataSource}
                 setVerificationJob={setVerificationJob}
-                // setMonitoringSourceType={setMonitoringSourceType}
+                setMonitoringSourceType={setMonitoringSourceType}
               />
             ) : activeStep === STEP.VERIFICATION_JOBS ? (
               <VerificatiionContent />

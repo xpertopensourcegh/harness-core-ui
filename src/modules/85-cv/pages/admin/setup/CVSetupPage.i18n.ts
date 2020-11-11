@@ -28,5 +28,6 @@ export default {
     heading: 'VERIFICATION JOBS',
     info:
       'Verification jobs score the risk of changes coming in from activity sources using data from verification data sources.'
-  }
+  },
+  NEXT: 'Next'
 }
