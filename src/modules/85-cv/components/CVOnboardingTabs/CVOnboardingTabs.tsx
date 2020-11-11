@@ -1,10 +1,8 @@
 import React, { useState } from 'react'
 import { Tabs, Tab, Icon, IconName } from '@wings-software/uikit'
-
 import ContentEditable from 'react-contenteditable'
 import cx from 'classnames'
-
-import css from './CVTabs.module.scss'
+import css from './CVOnboardingTabs.module.scss'
 
 interface CVTabProps {
   name: string

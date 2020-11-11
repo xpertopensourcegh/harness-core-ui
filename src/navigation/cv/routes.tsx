@@ -1,6 +1,5 @@
 import React from 'react'
 import { Route, ModuleName, SidebarIdentifier, routeURL, PageLayout } from 'framework/exports'
-
 import i18n from './routes.i18n'
 
 /* ------------------------------------------ Dashboard page routes ------------------------------------------ */
@@ -188,6 +187,28 @@ export const routeCVDataSourcesEntityPage: Route<{
   component: React.lazy(() => {
     return import('@cv/pages/onboarding/list-entity-select/DataSourceListEntityPage')
   }),
+  module: ModuleName.CV
+}
+
+export const routeActivitySourceSetup: Route<{
+  orgIdentifier: string
+  projectIdentifier: string
+  activitySource: string
+}> = {
+  sidebarId: SidebarIdentifier.CONTINUOUS_VERIFICATION,
+  path: '/cv/orgs/:orgIdentifier/projects/:projectIdentifier/onboarding/activity-source-setup/:activitySource',
+  title: i18n.activitySourceSetup,
+  layout: PageLayout.NoMenuLayout,
+  pageId: 'cv-onboarding/activity-source-setup/:activitySource',
+  authenticated: true,
+  url: ({ activitySource, projectIdentifier, orgIdentifier }) =>
+    routeURL(
+      routeCVDataSourcesEntityPage,
+      activitySource && projectIdentifier && orgIdentifier
+        ? `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/onboarding/activity-source-setup/${activitySource}`
+        : routeCVHome.path
+    ),
+  component: React.lazy(() => import('@cv/pages/onboarding/activity-source-setup/ActivitySourceSetup')),
   module: ModuleName.CV
 }
 

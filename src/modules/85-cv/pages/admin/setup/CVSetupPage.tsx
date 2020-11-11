@@ -5,7 +5,7 @@ import { useParams, useHistory } from 'react-router-dom'
 import { useGetCVSetupStatus, RestResponseCVSetupStatus } from 'services/cv'
 import { PageError } from '@common/components/Page/PageError'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
-import { routeCVAdminSetupMonitoringSource } from 'navigation/cv/routes'
+import { routeActivitySourceSetup, routeCVAdminSetupMonitoringSource } from 'navigation/cv/routes'
 import type { UseGetMockData } from '@common/utils/testUtils'
 import i18n from './CVSetupPage.i18n'
 import css from './CVSetupPage.module.scss'
@@ -32,7 +32,9 @@ const ActivitySources = [
   {
     type: 'K8sCluster',
     icon: 'service-kubernetes',
-    label: 'Kubernetes'
+    label: 'Kubernetes',
+    routeName: 'kubernetes',
+    routeUrl: routeActivitySourceSetup.url
   }
 ]
 
@@ -58,6 +60,8 @@ interface ActivitySourceContentProps {
 }
 
 const ActivitySourceContent: React.FC<ActivitySourceContentProps> = props => {
+  const history = useHistory()
+  const { projectIdentifier, orgIdentifier } = useParams()
   return (
     <Container>
       <Container height="calc(100vh - 100px)">
@@ -69,7 +73,13 @@ const ActivitySourceContent: React.FC<ActivitySourceContentProps> = props => {
           <div className={css.items}>
             {ActivitySources.map((item, index) => {
               return (
-                <div className={css.cardWrapper} key={`${index}${item}`}>
+                <div
+                  className={css.cardWrapper}
+                  key={`${index}${item}`}
+                  onClick={() =>
+                    history.push(item.routeUrl({ activitySource: item.routeName, projectIdentifier, orgIdentifier }))
+                  }
+                >
                   <Card interactive={true} className={css.cardCss}>
                     <CardBody.Icon icon={item.icon as IconName} iconSize={40} />
                   </Card>

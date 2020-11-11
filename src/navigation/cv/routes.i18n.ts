@@ -4,5 +4,6 @@ export default {
   services: 'Services',
   activities: 'Activities',
   activityTypes: 'Activity Types',
-  adminSettings: 'Admin Settings'
+  adminSettings: 'Admin Settings',
+  activitySourceSetup: 'Activity Source Setup'
 }

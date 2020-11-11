@@ -16,3 +16,7 @@ export const DataSourceRoutePaths = {
   APP_DYNAMICS: 'app-dynamics',
   SPLUNK: 'splunk'
 }
+
+export const ActivitySourceSetupRoutePaths = {
+  KUBERNETES: 'kubernetes'
+}

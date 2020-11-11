@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 import { Container } from '@wings-software/uikit'
 
-import CVTabs from '@cv/components/CVTab/CVTabs'
+import CVTabs from '@cv/components/CVOnboardingTabs/CVOnboardingTabs'
 import useCVTabsHook from '@cv/hooks/CVTabsHook/useCVTabsHook'
 import SelectProduct from '../SelectProduct/SelectProduct'
 import i18n from './AppDMonitoringSource.i18n'

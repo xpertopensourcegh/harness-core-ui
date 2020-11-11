@@ -8,6 +8,9 @@
   [class='bp3-tab-list'] {
     padding: 0 var(--spacing-large);
   }
+  [class~='bp3-tab'] {
+    margin-top: var(--spacing-small) !important;
+  }
   .nameEditIcon {
     margin-left: var(--spacing-xsmall);
     margin-bottom: 2px;

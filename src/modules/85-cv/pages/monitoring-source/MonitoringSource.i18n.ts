@@ -1,3 +1,3 @@
 export default {
-  breadCrumb: 'Setup/Monitoring Sources'
+  breadCrumb: 'Monitoring Sources'
 }
