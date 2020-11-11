@@ -76,9 +76,11 @@
 
 .cardProduct {
   padding: 0;
+  width: 140px;
 }
 .labelProduct {
   padding: var(--spacing-xlarge);
+  text-align: center;
 }
 .tickProduct {
   position: relative;
@@ -89,4 +91,7 @@
   [class*='MultiTypeInput---FIXED'] {
     display: none;
   }
+}
+[class*='EntityReference-module_container'] {
+  padding: var(--spacing-large) var(--spacing-small) !important;
 }

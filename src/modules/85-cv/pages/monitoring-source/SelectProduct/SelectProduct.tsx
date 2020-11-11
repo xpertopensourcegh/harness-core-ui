@@ -18,9 +18,9 @@ import {
 } from '@wings-software/uikit'
 
 import * as Yup from 'yup'
-import { useParams } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 import { StringUtils } from '@common/exports'
-
+import { routeCVAdminSetup } from 'navigation/cv/routes'
 import type { ConnectorInfoDTO } from 'services/cd-ng'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import useCreateConnectorModal from '@connectors/modals/ConnectorModal/useCreateConnectorModal'
@@ -73,6 +73,7 @@ const getInfoSchemaByType = (type: string): MonitoringSourceInfo => {
 }
 
 const SelectProduct: React.FC<SelectProductProps> = props => {
+  const history = useHistory()
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
   const [isDescriptionOpen, setIsDescriptionOpen] = useState(false)
   const [isTagsOpen, setIsTagsOpen] = useState(false)
@@ -84,6 +85,7 @@ const SelectProduct: React.FC<SelectProductProps> = props => {
   useEffect(() => {
     setMonitoringSource(getInfoSchemaByType(props.type))
   }, [props.type])
+
   return (
     <Container>
       <Formik
@@ -223,6 +225,7 @@ const SelectProduct: React.FC<SelectProductProps> = props => {
                   {monitoringSource?.products.map((item, index) => {
                     return (
                       <Card
+                        selected={selectedProduct === item.value}
                         key={`${index}${item}`}
                         interactive={true}
                         className={cx(css.cardProduct, { [css.cardProductSelected]: selectedProduct === item.value })}
@@ -236,7 +239,7 @@ const SelectProduct: React.FC<SelectProductProps> = props => {
 
                         <CardBody.Icon
                           icon={monitoringSource?.icon as IconName}
-                          iconSize={20}
+                          iconSize={30}
                           className={cx(css.cardIcon, { [css.cardIconSelected]: selectedProduct === item.value })}
                         />
                         <div className={css.labelProduct}>{item.label}</div>
@@ -247,7 +250,20 @@ const SelectProduct: React.FC<SelectProductProps> = props => {
               </Layout.Vertical>
             </Layout.Vertical>
             <Layout.Horizontal>
-              <Button text={i18n.NEXT} type="submit" margin="large" rightIcon="chevron-right" />
+              <Button
+                text={i18n.PREVIOUS}
+                margin="large"
+                icon="chevron-left"
+                onClick={() =>
+                  history.push(
+                    routeCVAdminSetup.url({
+                      projectIdentifier,
+                      orgIdentifier
+                    })
+                  )
+                }
+              />
+              <Button text={i18n.NEXT} intent="primary" type="submit" margin="large" rightIcon="chevron-right" />
             </Layout.Horizontal>
           </FormikForm>
         )}

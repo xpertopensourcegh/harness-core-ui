@@ -306,6 +306,7 @@ export const routeCVAdminSetupMonitoringSource: Route<{
   monitoringSource: string
 }> = {
   module: ModuleName.CV,
+  layout: PageLayout.NoMenuLayout,
   sidebarId: SidebarIdentifier.CONTINUOUS_VERIFICATION,
   path: '/cv/org/:orgIdentifier/projects/:projectIdentifier/admin/setup/monitoring-source/:monitoringSource',
   title: i18n.adminSettings,

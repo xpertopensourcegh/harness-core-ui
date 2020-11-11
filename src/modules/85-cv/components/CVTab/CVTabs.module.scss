@@ -1,0 +1,18 @@
+.editable {
+  border: 1px solid var(--grey-300);
+  border-radius: 2px;
+  padding: 2px;
+  cursor: auto;
+}
+.tabWrapper {
+  [class='bp3-tab-list'] {
+    padding: 0 var(--spacing-large);
+  }
+  .nameEditIcon {
+    margin-left: var(--spacing-xsmall);
+    margin-bottom: 2px;
+  }
+  .nameTypeIcon {
+    margin-right: var(--spacing-xsmall);
+  }
+}

@@ -13,6 +13,7 @@ export default {
   name: 'Name your monitoring source',
   selectConnector: 'Select connector',
   NEXT: 'Next',
+  PREVIOUS: 'Previous',
   AppD: {
     iconLabel: 'AppDynamics',
     connectToMonitoringSource: 'Connect to your AppDynamics monitoring source',

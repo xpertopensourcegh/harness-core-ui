@@ -103,6 +103,7 @@ interface MonitoringSourceContentProps {
   setDataSource: (val: string) => void
   setVerificationJob: (val: string) => void
   monitoringSource: string
+  monitoringSourceType: string
   setMonitoringSourceType: (val: string) => void
 }
 const MonitoringSourceContent: React.FC<MonitoringSourceContentProps> = props => {
@@ -120,7 +121,7 @@ const MonitoringSourceContent: React.FC<MonitoringSourceContentProps> = props =>
                 <div className={css.cardWrapper} key={`${index}${item}`}>
                   <Card
                     interactive={true}
-                    className={css.cardCss}
+                    className={cx(css.cardCss, { [css.cardSelected]: props.monitoringSourceType === item.type })}
                     onClick={() => props.setMonitoringSourceType(item.type)}
                   >
                     <CardBody.Icon icon={item.icon as IconName} iconSize={40} />
@@ -312,6 +313,7 @@ const CVSetupPage: React.FC<CVSetupPageProps> = props => {
                 setDataSource={setDataSource}
                 setVerificationJob={setVerificationJob}
                 setMonitoringSourceType={setMonitoringSourceType}
+                monitoringSourceType={monitoringSourceType}
               />
             ) : activeStep === STEP.VERIFICATION_JOBS ? (
               <VerificatiionContent />
