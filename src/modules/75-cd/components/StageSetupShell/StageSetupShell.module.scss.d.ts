@@ -7,5 +7,6 @@ declare const styles: {
   readonly tab: string
   readonly footer: string
   readonly stageDropDown: string
+  readonly bp3Button: string
 }
 export default styles

@@ -105,15 +105,16 @@ export default function StageSetupShell(): JSX.Element {
                   itemRenderer={(item, { modifiers: { disabled }, handleClick }) => (
                     <div>
                       <Button
-                        className={css.stageDropDown}
                         icon={MapStepTypeToIcon[item.type]}
                         text={item.label}
                         disabled={disabled}
                         minimal
                         onClick={e => handleClick(e as React.MouseEvent<HTMLElement, MouseEvent>)}
+                        className={css.stageDropDown}
                       />
                     </div>
                   )}
+                  className={css.stageDropDown}
                   items={selectOptions}
                   onItemSelect={handleStageChange}
                   filterable={false}

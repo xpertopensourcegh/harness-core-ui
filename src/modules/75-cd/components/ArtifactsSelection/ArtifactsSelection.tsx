@@ -11,7 +11,8 @@ import {
   CardSelect,
   Formik,
   FormInput,
-  FormikForm as Form
+  FormikForm as Form,
+  CardBody
 } from '@wings-software/uikit'
 import { useParams } from 'react-router-dom'
 import * as Yup from 'yup'
@@ -258,7 +259,15 @@ export default function ArtifactsSelection({
                 className={css.optionsViewGrid}
                 data={[{ type: 'DOCKER' }]}
                 renderItem={(item: OrganizationCreationType) => (
-                  <Container>{item.type === 'DOCKER' && <Icon name="service-dockerhub" size={35} />}</Container>
+                  <Container>
+                    {item.type === 'DOCKER' && (
+                      <CardBody.Icon icon={'service-dockerhub'} iconSize={26}>
+                        <Text font={{ align: 'center' }} style={{ fontSize: 14 }}>
+                          {i18n.dockerIconLabel}
+                        </Text>
+                      </CardBody.Icon>
+                    )}
+                  </Container>
                 )}
               />
             </Layout.Horizontal>

@@ -15,7 +15,8 @@ import {
   FormInput,
   IconName,
   Select,
-  SelectOption
+  SelectOption,
+  Radio
 } from '@wings-software/uikit'
 
 import cx from 'classnames'
@@ -207,7 +208,7 @@ export default function ServiceSpecifications(): JSX.Element {
 
   const selectPropagatedStep = (item: SelectOption): void => {
     if (item && item.value) {
-      const stageServiceData = stage?.['stage']['spec']['service'] || null
+      const stageServiceData = stage?.['stage']?.['spec']['service'] || null
       if (stageServiceData) {
         stageServiceData.useFromStage.stage = item.value
         updatePipeline(pipeline)
@@ -317,29 +318,35 @@ export default function ServiceSpecifications(): JSX.Element {
             {i18n.serviceDetailLabel}
           </Layout.Vertical>
           <Layout.Vertical spacing="medium" style={{ paddingBottom: 'var(--spacing-large)' }}>
-            <Layout.Horizontal spacing="medium" flex={true} style={{ alignItems: 'center', justifyContent: 'end' }}>
-              <Text style={{ color: 'var(--grey-600)' }}>Service</Text>
-              <section
-                className={cx(css.serviceStageSelection, setupModeType === setupMode.PROPAGATE && css.activeMode)}
-                onClick={() => setSetupMode(setupMode.PROPAGATE)}
-              >
-                {i18n.propagateFromLabel}
-                <Select
-                  className={css.propagatedropdown}
-                  items={previousStageList}
-                  value={selectedPropagatedState}
-                  onChange={(item: SelectOption) => selectPropagatedStep(item)}
-                />
-              </section>
-              <section>{i18n.or}</section>
-              <section
-                className={cx(css.serviceStageSelection, setupModeType === setupMode.DIFFERENT && css.activeMode)}
-                onClick={() => {
-                  initWithServiceDefination()
-                }}
-              >
-                {i18n.deployDifferentLabel}
-              </section>
+            <Layout.Horizontal
+              spacing="medium"
+              className={css.serviceStageContainer}
+              style={{ alignItems: 'center', justifyContent: 'end' }}
+            >
+              <div className={css.stageSelection}>
+                <section className={cx(css.serviceStageSelection)}>
+                  <Radio
+                    checked={setupModeType === setupMode.PROPAGATE}
+                    onChange={() => setSetupMode(setupMode.PROPAGATE)}
+                  />
+                  <Text style={{ fontSize: 14, color: 'var(-grey-300)' }}> {i18n.propagateFromLabel}</Text>
+                </section>
+
+                <section className={cx(css.serviceStageSelection)}>
+                  <Radio checked={setupModeType === setupMode.DIFFERENT} onClick={() => initWithServiceDefination()} />
+                  <Text style={{ fontSize: 14, color: 'var(-grey-300)' }}> {i18n.deployDifferentLabel}</Text>
+                </section>
+              </div>
+              <div>
+                {setupModeType === setupMode.PROPAGATE && (
+                  <Select
+                    className={css.propagatedropdown}
+                    items={previousStageList}
+                    value={selectedPropagatedState}
+                    onChange={(item: SelectOption) => selectPropagatedStep(item)}
+                  />
+                )}
+              </div>
             </Layout.Horizontal>
           </Layout.Vertical>
         </div>
@@ -403,13 +410,17 @@ export default function ServiceSpecifications(): JSX.Element {
                           inputGroupProps={{ placeholder: i18n.serviceNamePlaceholderText, className: css.name }}
                         />
                         <div className={css.addDataLinks}>
-                          <Button
-                            minimal
-                            text={i18n.addDescription}
-                            icon="plus"
-                            onClick={() => setDescriptionVisible(true)}
-                          />
-                          <Button minimal text={i18n.addTags} icon="plus" onClick={() => setTagsVisible(true)} />
+                          {!isDescriptionVisible && (
+                            <Button
+                              minimal
+                              text={i18n.addDescription}
+                              icon="plus"
+                              onClick={() => setDescriptionVisible(true)}
+                            />
+                          )}
+                          {!isTagsVisible && (
+                            <Button minimal text={i18n.addTags} icon="plus" onClick={() => setTagsVisible(true)} />
+                          )}
                         </div>
                       </Layout.Horizontal>
 
@@ -458,10 +469,10 @@ export default function ServiceSpecifications(): JSX.Element {
             <Layout.Vertical flex={true} className={css.specTabs}>
               {i18n.serviceSpecificationLabel}
             </Layout.Vertical>
-            <div>
-              <Layout.Horizontal flex={true}>
+            <div className={css.artifactType}>
+              <div>
                 <div className={css.serviceSpecType}>
-                  <div className={css.btnContainer}>
+                  <div>
                     <Button
                       minimal
                       text={i18n.serviceSpecificationLabel}
@@ -472,15 +483,16 @@ export default function ServiceSpecifications(): JSX.Element {
                       })}
                     />
                   </div>
-
-                  <Button
-                    minimal
-                    disabled={stageIndex === 0}
-                    text={i18n.stageOverrideLabel}
-                    onClick={() => setSelectedSpec(specificationTypes.OVERRIDES)}
-                  />
+                  <div className={css.stageOverridesTab}>
+                    <Button
+                      minimal
+                      disabled={stageIndex === 0}
+                      text={i18n.stageOverrideLabel}
+                      onClick={() => setSelectedSpec(specificationTypes.OVERRIDES)}
+                    />
+                  </div>
                 </div>
-              </Layout.Horizontal>
+              </div>
               {specSelected === specificationTypes.SPECIFICATION && (
                 <Layout.Vertical spacing="medium" style={{ display: 'inline-block', marginTop: '12px' }}>
                   <Text style={{ fontSize: 16, color: 'var(--grey-400)' }}>{i18n.deploymentTypeLabel}</Text>
@@ -503,9 +515,9 @@ export default function ServiceSpecifications(): JSX.Element {
                   ))}
                 </Layout.Vertical>
               )}
-              <>
+              <div className={css.artifactType}>
                 {(isConfigVisible || stageIndex === 0 || setupModeType === setupMode.DIFFERENT) && (
-                  <Layout.Vertical spacing="small">
+                  <div>
                     <Tabs id="serviceSpecifications" onChange={handleTabChange}>
                       <Tab
                         id={i18n.artifacts}
@@ -540,9 +552,9 @@ export default function ServiceSpecifications(): JSX.Element {
                       />
                     </Tabs>
                     {setupModeType === setupMode.DIFFERENT && <OverrideSets selectedTab={selectedTab} />}
-                  </Layout.Vertical>
+                  </div>
                 )}
-              </>
+              </div>
             </div>
           </div>
         </>

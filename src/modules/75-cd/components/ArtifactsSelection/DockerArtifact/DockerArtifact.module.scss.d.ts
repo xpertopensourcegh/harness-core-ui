@@ -8,5 +8,7 @@ declare const styles: {
   readonly saveBtn: string
   readonly addNewArtifact: string
   readonly sidecarAddBtn: string
+  readonly artifactSelect: string
+  readonly bp3Button: string
 }
 export default styles

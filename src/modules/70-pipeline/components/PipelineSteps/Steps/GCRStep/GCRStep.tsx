@@ -495,7 +495,7 @@ export class GCRStep extends PipelineStep<any /*GCRStepData*/> {
   protected type = StepType.GCR
   // TODO: Add i18n support
   protected stepName = 'GCR'
-  protected stepIcon: IconName = 'gcr'
+  protected stepIcon: IconName = 'gcr' as IconName
 
   protected defaultValues: any /*GCRStepData*/ = {
     identifier: '',

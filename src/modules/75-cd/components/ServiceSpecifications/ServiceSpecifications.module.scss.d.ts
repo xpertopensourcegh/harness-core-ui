@@ -3,8 +3,9 @@
 declare const styles: {
   readonly serviceOverrides: string
   readonly nopadleft: string
+  readonly serviceStageContainer: string
   readonly serviceStageSelection: string
-  readonly activeMode: string
+  readonly stageSelection: string
   readonly propagatedropdown: string
   readonly name: string
   readonly addDataLinks: string
@@ -12,10 +13,11 @@ declare const styles: {
   readonly specTabs: string
   readonly selected: string
   readonly overideCheckbox: string
+  readonly artifactType: string
   readonly serviceSection: string
   readonly noPadTop: string
   readonly disabled: string
   readonly serviceSpecType: string
-  readonly btnContainer: string
+  readonly stageOverridesTab: string
 }
 export default styles

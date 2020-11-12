@@ -27,7 +27,7 @@ export default {
   validation: {
     serviceName: 'Service name is required field'
   },
-  propagateFromLabel: 'Propagate From:',
+  propagateFromLabel: 'Propagate from existing service',
   or: 'or',
   deployDifferentLabel: 'Deploy different service',
   serviceDetailLabel: 'Service Details',

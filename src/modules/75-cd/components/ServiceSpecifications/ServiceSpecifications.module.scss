@@ -1,22 +1,30 @@
 .serviceOverrides {
-  // width: 1024px !important;
   margin: 0 auto !important;
   .nopadleft {
     padding-left: 0 !important;
   }
-  .serviceStageSelection {
-    padding: var(--spacing-small);
-    box-shadow: 0px 1px 4px 1px var(--grey-200);
-    border-radius: 8px;
-    cursor: pointer;
-    width: 400px;
+  .serviceStageContainer {
+    display: grid;
+    grid-template-columns: 1fr;
+    width: fit-content;
+    .serviceStageSelection {
+      padding: var(--spacing-small);
+      margin-right: var(--spacing-xlarge);
+      p,
+      label {
+        display: inline-block;
+      }
+    }
+
+    .stageSelection {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
   }
-  .activeMode {
-    border: 1px solid var(--blue-500);
-    background-color: var(--blue-100);
-  }
+
   .propagatedropdown {
     margin-top: var(--spacing-small);
+    width: 200px;
   }
   .name {
     width: 300px;
@@ -64,7 +72,8 @@
   .removeLink {
     color: var(--blue-500);
     cursor: pointer;
-    position: absolute;
+    position: relative;
+    top: 16px;
     left: 350px;
   }
   .specTabs {
@@ -90,6 +99,13 @@
     font-weight: bold !important;
     font-size: 16px !important;
   }
+  .artifactType {
+    display: grid;
+    justify-content: space-around;
+    & > div {
+      width: 1024px;
+    }
+  }
 }
 
 .serviceSection {
@@ -108,10 +124,16 @@
   }
 
   .serviceSpecType {
-    display: flex;
-    flex-grow: 1;
-    .btnContainer {
-      flex-grow: 0.53;
+    display: grid;
+    width: 1024px;
+    grid-template-columns: 1fr 1fr;
+    justify-content: space-between;
+    .stageOverridesTab {
+      justify-content: end;
+      display: grid;
+    }
+    button {
+      width: fit-content;
     }
   }
 }

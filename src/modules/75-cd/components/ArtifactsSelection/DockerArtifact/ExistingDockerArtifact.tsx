@@ -39,7 +39,7 @@ function ExampleStep({
 
   return (
     <Layout.Vertical spacing="xxlarge" className={css.firstep} data-id={name}>
-      <div className={css.heading}>Specify Artifact Server</div>
+      <div className={css.heading}>{i18n.specifyArtifactServer}</div>
       <Formik
         initialValues={{ connectorId: undefined, imagePath: '' }}
         validationSchema={context === 1 ? primarySchema : sidecarSchema}
@@ -63,7 +63,7 @@ function ExampleStep({
                 accountIdentifier={accountId}
                 projectIdentifier={projectIdentifier}
                 orgIdentifier={orgIdentifier}
-                width={400}
+                width={408}
                 isNewConnectorLabelVisible={false}
                 type={'DockerRegistry'}
               />
