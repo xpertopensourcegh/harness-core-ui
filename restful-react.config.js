@@ -26,6 +26,16 @@ module.exports = {
     },
     customGenerator: arg => customGenerator(arg, "getConfig('ng/api')")
   },
+  notifications: {
+    output: 'src/services/notifications/index.tsx',
+    url: 'http://localhost:9005/api/swagger.json',
+    transformer: 'scripts/swagger-transform.js',
+    customImport: `import { getConfig, getUsingFetch, mutateUsingFetch, GetUsingFetchProps, MutateUsingFetchProps } from "../config";`,
+    customProps: {
+      base: `{getConfig("notifications/api")}`
+    },
+    customGenerator: arg => customGenerator(arg, "getConfig('notifications/api')")
+  },
   ci: {
     output: 'src/services/ci/index.tsx',
     file: 'src/services/ci/swagger.json',

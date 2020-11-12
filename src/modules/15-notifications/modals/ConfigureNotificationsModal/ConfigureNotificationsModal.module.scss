@@ -1,0 +1,30 @@
+.dialog {
+  padding: 60px;
+  min-width: 900px;
+  position: relative;
+  border-left: none !important;
+
+  .crossIcon {
+    position: absolute;
+    right: var(--spacing-large);
+    top: var(--spacing-large);
+  }
+
+  .body {
+    max-width: 600px;
+  }
+
+  .title {
+    color: var(--black) !important;
+    font-size: 24px !important;
+    font-weight: bold !important;
+  }
+
+  .green {
+    color: var(--green-500);
+  }
+
+  .red {
+    color: var(--red-500);
+  }
+}

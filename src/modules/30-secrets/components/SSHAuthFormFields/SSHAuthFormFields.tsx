@@ -175,16 +175,18 @@ const SSHAuthFormFields: React.FC<SSHAuthFormFieldsProps> = props => {
                         >
                           {i18n.btnCreateSecretFile}
                         </Text>
-                        <SecretReference
-                          accountIdentifier={accountId}
-                          orgIdentifier={orgIdentifier}
-                          projectIdentifier={projectIdentifier}
-                          type="SecretFile"
-                          onSelect={file => {
-                            formik.setFieldValue('key', file)
-                          }}
-                          mock={props.mockSecretReference}
-                        />
+                        <Container padding="medium">
+                          <SecretReference
+                            accountIdentifier={accountId}
+                            orgIdentifier={orgIdentifier}
+                            projectIdentifier={projectIdentifier}
+                            type="SecretFile"
+                            onSelect={file => {
+                              formik.setFieldValue('key', file)
+                            }}
+                            mock={props.mockSecretReference}
+                          />
+                        </Container>
                       </Container>
                     </Popover>
                   )

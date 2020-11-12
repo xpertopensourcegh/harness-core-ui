@@ -23,8 +23,8 @@ export const routeProjects: Route = {
   sidebarId: SidebarIdentifier.PROJECTS,
   path: '/projects',
   title: i18n.project,
-  layout: NoMenuLayout,
   pageId: 'projects',
+  layout: NoMenuLayout,
   url: () => routeURL(routeProjects, '/projects'),
   component: React.lazy(() => import('@projects-orgs/pages/projects/ProjectsPage'))
 }

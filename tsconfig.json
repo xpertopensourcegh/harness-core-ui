@@ -23,6 +23,7 @@
     "noUnusedParameters": true,
     "paths": {
       "@common/*": ["modules/10-common/*"],
+      "@notifications/*": ["modules/15-notifications/*"],
       "@rbac/*": ["modules/20-rbac/*"],
       "@secrets/*": ["modules/30-secrets/*"],
       "@projects-orgs/*": ["modules/40-projects-orgs/*"],
