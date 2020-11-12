@@ -7,7 +7,7 @@ import { cloneDeep } from 'lodash-es'
 import { PipelineContext, getStageFromPipeline } from '@pipeline/exports'
 import { EditStageView } from '../CDPipelineStages/stages/DeployStage/EditStageView/EditStageView'
 
-export default function StageSpecifications(): JSX.Element {
+export default function DeployStageSpecifications(): JSX.Element {
   const {
     state: {
       pipeline,

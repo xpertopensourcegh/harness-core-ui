@@ -9,11 +9,11 @@ import {
 } from '@pipeline/components/PipelineStudio/CommonUtils/CommonUtils'
 import { PipelineContext, getStageFromPipeline, ExecutionGraph } from '@pipeline/exports'
 import type { StageElementWrapper } from 'services/cd-ng'
-import InfraSpecifications from '../InfraSpecifications/InfraSpecifications'
-import ServiceSpecifications from '../ServiceSpecifications/ServiceSpecifications'
-import StageSpecifications from '../StageSpecifications/StageSpecifications'
-import i18n from './StageSetupShell.i18n'
-import css from './StageSetupShell.module.scss'
+import DeployInfraSpecifications from '../DeployInfraSpecifications/DeployInfraSpecifications'
+import DeployServiceSpecifications from '../DeployServiceSpecifications/DeployServiceSpecifications'
+import DeployStageSpecifications from '../DeployStageSpecifications/DeployStageSpecifications'
+import i18n from './DeployStageSetupShell.i18n'
+import css from './DeployStageSetupShell.module.scss'
 
 const StageSelection = Select.ofType<StageSelectOption>()
 
@@ -25,8 +25,8 @@ export const MapStepTypeToIcon: { [key: string]: HarnessIconName } = {
   Custom: 'pipeline-custom'
 }
 
-export default function StageSetupShell(): JSX.Element {
-  // export default function StageSetupShell({ stageData }: { stageData: { name: string } }): JSX.Element {
+export default function DeployStageSetupShell(): JSX.Element {
+  // export default function DeployStageSetupShell({ stageData }: { stageData: { name: string } }): JSX.Element {
 
   const stageNames: string[] = [i18n.serviceLabel, i18n.infraLabel, i18n.executionLabel]
   const [selectedTabId, setSelectedTabId] = React.useState<string>(i18n.serviceLabel)
@@ -98,7 +98,7 @@ export default function StageSetupShell(): JSX.Element {
         <Tabs id="stageSetupShell" onChange={handleTabChange} selectedTabId={selectedTabId}>
           <Tab
             id={i18n.defaultId}
-            panel={<StageSpecifications />}
+            panel={<DeployStageSpecifications />}
             title={
               <span className={css.tab}>
                 <StageSelection
@@ -133,7 +133,7 @@ export default function StageSetupShell(): JSX.Element {
                 {i18n.serviceLabel}
               </span>
             }
-            panel={<ServiceSpecifications />}
+            panel={<DeployServiceSpecifications />}
           />
           <Tab
             id={i18n.infraLabel}
@@ -143,7 +143,7 @@ export default function StageSetupShell(): JSX.Element {
                 {i18n.infraLabel}
               </span>
             }
-            panel={<InfraSpecifications />}
+            panel={<DeployInfraSpecifications />}
           />
           <Tab
             id={i18n.executionLabel}

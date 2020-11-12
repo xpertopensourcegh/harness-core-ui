@@ -1,8 +1,11 @@
 /* eslint-disable */
 // this is an auto-generated file
 declare const styles: {
-  readonly execution: string
   readonly setupShell: string
-  readonly floatingToolbar: string
+  readonly tabsContainer: string
+  readonly tabExecution: string
+  readonly tab: string
+  readonly footer: string
+  readonly stageDropDown: string
 }
 export default styles

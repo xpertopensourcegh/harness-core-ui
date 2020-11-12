@@ -2,7 +2,7 @@ import React from 'react'
 import { PipelineStage } from '@pipeline/exports'
 import type { StageElementWrapper } from 'services/cd-ng'
 import { EditStageView } from '@cd/components/CDPipelineStages/stages/DeployStage/EditStageView/EditStageView'
-import StageSetupShell from '../../../StageSetupShell/StageSetupShell'
+import DeployStageSetupShell from '../../../DeployStageSetupShell/DeployStageSetupShell'
 
 interface DeployStageProps {
   data?: StageElementWrapper
@@ -15,6 +15,6 @@ export class DeployStage extends PipelineStage<DeployStageProps> {
     if (minimal) {
       return <EditStageView {...stageProps} />
     }
-    return <StageSetupShell />
+    return <DeployStageSetupShell />
   }
 }

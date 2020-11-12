@@ -8,10 +8,10 @@ import { loggerFor, ModuleName } from 'framework/exports'
 
 import { StepWidget, StepViewType, PipelineContext, getStageFromPipeline } from '@pipeline/exports'
 import type { K8SDirectInfrastructure } from 'services/cd-ng'
-import i18n from './InfraSpecifications.i18n'
+import i18n from './DeployInfraSpecifications.i18n'
 import factory from '../../../70-pipeline/components/PipelineSteps/PipelineStepFactory'
 import { StepType } from '../../../70-pipeline/components/PipelineSteps/PipelineStepInterface'
-import css from './InfraSpecifications.module.scss'
+import css from './DeployInfraSpecifications.module.scss'
 
 const logger = loggerFor(ModuleName.CD)
 
@@ -28,7 +28,7 @@ interface InfraDetail {
   identifier?: string
 }
 
-export default function InfraSpecifications(): JSX.Element {
+export default function DeployInfraSpecifications(): JSX.Element {
   const [isDescriptionVisible, setDescriptionVisible] = React.useState(false)
   const [isTagsVisible, setTagsVisible] = React.useState(false)
   const [initialValues, setInitialValues] = React.useState<{}>()

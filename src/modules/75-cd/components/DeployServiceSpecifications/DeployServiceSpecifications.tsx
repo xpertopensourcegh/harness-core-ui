@@ -30,9 +30,9 @@ import { loggerFor, ModuleName } from 'framework/exports'
 import ArtifactsSelection from '../ArtifactsSelection/ArtifactsSelection'
 import ManifestSelection from '../ManifestSelection/ManifestSelection'
 import WorkflowVariables from '../WorkflowVariablesSelection/WorkflowVariables'
-import i18n from './ServiceSpecifications.i18n'
+import i18n from './DeployServiceSpecifications.i18n'
 import OverrideSets from '../OverrideSets/OverrideSets'
-import css from './ServiceSpecifications.module.scss'
+import css from './DeployServiceSpecifications.module.scss'
 
 const logger = loggerFor(ModuleName.CD)
 
@@ -89,7 +89,7 @@ const supportedDeploymentTypes: { name: string; icon: IconName; enabled: boolean
   }
 ]
 
-export default function ServiceSpecifications(): JSX.Element {
+export default function DeployServiceSpecifications(): JSX.Element {
   const [isDescriptionVisible, setDescriptionVisible] = React.useState(false)
   const [selectedTab, setSelectedTab] = React.useState(i18n.artifacts)
   const [isTagsVisible, setTagsVisible] = React.useState(false)
