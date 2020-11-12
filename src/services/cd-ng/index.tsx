@@ -655,12 +655,8 @@ export interface ArtifactSpecWrapper {
 }
 
 export interface CodeBase {
-  type: 'GitHub'
-  spec: CodeBaseSpec
-}
-
-export interface CodeBaseSpec {
-  [key: string]: any
+  connectorRef: string
+  repositoryName: string
 }
 
 export type DeploymentStage = StageType & {

@@ -80,7 +80,7 @@ const GCRStepWidget: React.FC<GCRStepWidgetProps> = ({ initialValues, onUpdate }
   } = React.useContext(PipelineContext)
 
   const { getString: getGlobalString } = useStrings()
-  const { getString } = useStrings('pipeline')
+  const { getString } = useStrings('pipeline-steps')
 
   const { accountId, projectIdentifier, orgIdentifier } = useParams<{
     projectIdentifier: string
@@ -141,7 +141,7 @@ const GCRStepWidget: React.FC<GCRStepWidgetProps> = ({ initialValues, onUpdate }
   return (
     <>
       <Text className={stepCss.boldLabel} font={{ size: 'medium' }}>
-        <String namespace="pipeline" stringID="steps.gcr.title" />
+        <String namespace="pipeline-steps" stringID="gcr.title" />
       </Text>
       <Formik
         enableReinitialize={true}
@@ -176,15 +176,15 @@ const GCRStepWidget: React.FC<GCRStepWidgetProps> = ({ initialValues, onUpdate }
               <FormInput.InputWithIdentifier
                 inputName="name"
                 idName="identifier"
-                inputLabel={getString('steps.gcr.stepNameLabel')}
+                inputLabel={getString('gcr.stepNameLabel')}
               />
-              <FormInput.TextArea name="description" label={getString('steps.gcr.descriptionLabel')} />
-              <Text margin={{ top: 'medium', bottom: 'xsmall' }}>{getString('steps.gcr.connectorLabel')}</Text>
+              <FormInput.TextArea name="description" label={getString('gcr.descriptionLabel')} />
+              <Text margin={{ top: 'medium', bottom: 'xsmall' }}>{getString('gcr.connectorLabel')}</Text>
               <div className={cx(css.fieldsGroup, css.withoutSpacing)}>
                 <FormMultiTypeConnectorField
                   name="spec.connectorRef"
                   label=""
-                  placeholder={loading ? getString('steps.gcr.loading') : getString('steps.gcr.connectorPlaceholder')}
+                  placeholder={loading ? getString('gcr.loading') : getString('gcr.connectorPlaceholder')}
                   disabled={loading}
                   accountIdentifier={accountId}
                   projectIdentifier={projectIdentifier}
@@ -195,7 +195,7 @@ const GCRStepWidget: React.FC<GCRStepWidgetProps> = ({ initialValues, onUpdate }
                     value={formValues?.spec.connectorRef as string}
                     type={
                       <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-                        <Text>{getString('steps.gcr.connectorLabel')}</Text>
+                        <Text>{getString('gcr.connectorLabel')}</Text>
                       </Layout.Horizontal>
                     }
                     variableName="spec.connectorRef"
@@ -209,7 +209,7 @@ const GCRStepWidget: React.FC<GCRStepWidgetProps> = ({ initialValues, onUpdate }
                 )}
               </div>
               <Text margin={{ top: 'medium', bottom: 'xsmall' }}>
-                <String namespace="pipeline" stringID="steps.gcr.registryLabel" />
+                <String namespace="pipeline-steps" stringID="gcr.registryLabel" />
               </Text>
               <div className={cx(css.fieldsGroup, css.withoutSpacing)}>
                 <FormInput.MultiTextInput name="spec.registry" label="" style={{ flexGrow: 1 }} />
@@ -219,7 +219,7 @@ const GCRStepWidget: React.FC<GCRStepWidgetProps> = ({ initialValues, onUpdate }
                     type={
                       <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
                         <Text>
-                          <String namespace="pipeline" stringID="steps.gcr.registryLabel" />
+                          <String namespace="pipeline-steps" stringID="gcr.registryLabel" />
                         </Text>
                       </Layout.Horizontal>
                     }
@@ -232,7 +232,7 @@ const GCRStepWidget: React.FC<GCRStepWidgetProps> = ({ initialValues, onUpdate }
                 )}
               </div>
               <Text margin={{ top: 'medium', bottom: 'xsmall' }}>
-                <String namespace="pipeline" stringID="steps.gcr.repoLabel" />
+                <String namespace="pipeline-steps" stringID="gcr.repoLabel" />
               </Text>
               <div className={cx(css.fieldsGroup, css.withoutSpacing, css.bottomSpacing)}>
                 <FormInput.MultiTextInput name="spec.repo" label="" style={{ flexGrow: 1 }} />
@@ -242,7 +242,7 @@ const GCRStepWidget: React.FC<GCRStepWidgetProps> = ({ initialValues, onUpdate }
                     type={
                       <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
                         <Text>
-                          <String namespace="pipeline" stringID="steps.gcr.repoLabel" />
+                          <String namespace="pipeline-steps" stringID="gcr.repoLabel" />
                         </Text>
                       </Layout.Horizontal>
                     }
@@ -256,7 +256,7 @@ const GCRStepWidget: React.FC<GCRStepWidgetProps> = ({ initialValues, onUpdate }
               </div>
               <FormInput.TagInput
                 name="spec.tags"
-                label={getString('steps.gcr.tagsLabel')}
+                label={getString('gcr.tagsLabel')}
                 items={[]}
                 labelFor={name => name as string}
                 itemFromNewTag={newTag => newTag}
@@ -272,7 +272,7 @@ const GCRStepWidget: React.FC<GCRStepWidgetProps> = ({ initialValues, onUpdate }
                 }}
               />
               <Text margin={{ bottom: 'xsmall' }}>
-                <String namespace="pipeline" stringID="steps.gcr.labelsLabel" />
+                <String namespace="pipeline-steps" stringID="gcr.labelsLabel" />
               </Text>
               <FieldArray
                 name="spec.labels"
@@ -282,13 +282,13 @@ const GCRStepWidget: React.FC<GCRStepWidgetProps> = ({ initialValues, onUpdate }
                       <div className={css.fieldsGroup} key={index}>
                         <FormInput.Text
                           name={`spec.labels[${index}].key`}
-                          placeholder={getString('steps.gcr.labelsKeyPlaceholder')}
+                          placeholder={getString('gcr.labelsKeyPlaceholder')}
                           style={{ flexGrow: 1 }}
                         />
                         <FormInput.MultiTextInput
                           label=""
                           name={`spec.labels[${index}].value`}
-                          placeholder={getString('steps.gcr.labelsValuePlaceholder')}
+                          placeholder={getString('gcr.labelsValuePlaceholder')}
                           style={{ flexGrow: 1 }}
                         />
                         {getMultiTypeFromValue(formValues.spec.labels[index].value) === MultiTypeInputType.RUNTIME && (
@@ -297,7 +297,7 @@ const GCRStepWidget: React.FC<GCRStepWidgetProps> = ({ initialValues, onUpdate }
                             type={
                               <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
                                 <Text>
-                                  <String namespace="pipeline" stringID="steps.gcr.labelsValuePlaceholder" />
+                                  <String namespace="pipeline-steps" stringID="gcr.labelsValuePlaceholder" />
                                 </Text>
                               </Layout.Horizontal>
                             }
@@ -323,7 +323,7 @@ const GCRStepWidget: React.FC<GCRStepWidgetProps> = ({ initialValues, onUpdate }
                     <Button
                       intent="primary"
                       minimal
-                      text={getString('steps.gcr.addLabel')}
+                      text={getString('gcr.addLabel')}
                       onClick={() => push({ key: '', value: '' })}
                     />
                   </>
@@ -332,10 +332,10 @@ const GCRStepWidget: React.FC<GCRStepWidgetProps> = ({ initialValues, onUpdate }
             </div>
             <div className={css.fieldsSection}>
               <Text className={css.optionalConfiguration} font={{ weight: 'semi-bold' }} margin={{ bottom: 'medium' }}>
-                <String namespace="pipeline" stringID="steps.gcr.optionalConfiguration" />
+                <String namespace="pipeline-steps" stringID="gcr.optionalConfiguration" />
               </Text>
               <Text margin={{ bottom: 'xsmall' }}>
-                <String namespace="pipeline" stringID="steps.gcr.dockerfileLabel" />
+                <String namespace="pipeline-steps" stringID="gcr.dockerfileLabel" />
               </Text>
               <div className={cx(css.fieldsGroup, css.withoutSpacing)}>
                 <FormInput.MultiTextInput name="spec.dockerfile" label="" style={{ flexGrow: 1 }} />
@@ -345,7 +345,7 @@ const GCRStepWidget: React.FC<GCRStepWidgetProps> = ({ initialValues, onUpdate }
                     type={
                       <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
                         <Text>
-                          <String namespace="pipeline" stringID="steps.gcr.dockerfileLabel" />
+                          <String namespace="pipeline-steps" stringID="gcr.dockerfileLabel" />
                         </Text>
                       </Layout.Horizontal>
                     }
@@ -358,7 +358,7 @@ const GCRStepWidget: React.FC<GCRStepWidgetProps> = ({ initialValues, onUpdate }
                 )}
               </div>
               <Text margin={{ top: 'medium', bottom: 'xsmall' }}>
-                <String namespace="pipeline" stringID="steps.gcr.contextLabel" />
+                <String namespace="pipeline-steps" stringID="gcr.contextLabel" />
               </Text>
               <div className={cx(css.fieldsGroup, css.withoutSpacing, css.bottomSpacing)}>
                 <FormInput.MultiTextInput name="spec.context" label="" style={{ flexGrow: 1 }} />
@@ -368,7 +368,7 @@ const GCRStepWidget: React.FC<GCRStepWidgetProps> = ({ initialValues, onUpdate }
                     type={
                       <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
                         <Text>
-                          <String namespace="pipeline" stringID="steps.gcr.contextLabel" />
+                          <String namespace="pipeline-steps" stringID="gcr.contextLabel" />
                         </Text>
                       </Layout.Horizontal>
                     }
@@ -382,7 +382,7 @@ const GCRStepWidget: React.FC<GCRStepWidgetProps> = ({ initialValues, onUpdate }
               </div>
               <FormInput.TagInput
                 name="spec.args"
-                label={getString('steps.gcr.argsLabel')}
+                label={getString('gcr.argsLabel')}
                 items={[]}
                 labelFor={name => name as string}
                 itemFromNewTag={newTag => newTag}
@@ -399,7 +399,7 @@ const GCRStepWidget: React.FC<GCRStepWidgetProps> = ({ initialValues, onUpdate }
               />
               <FormInput.TagInput
                 name="spec.cache_from"
-                label={getString('steps.gcr.cacheFromLabel')}
+                label={getString('gcr.cacheFromLabel')}
                 items={[]}
                 labelFor={name => name as string}
                 itemFromNewTag={newTag => newTag}
@@ -415,7 +415,7 @@ const GCRStepWidget: React.FC<GCRStepWidgetProps> = ({ initialValues, onUpdate }
                 }}
               />
               <Text margin={{ top: 'medium', bottom: 'xsmall' }}>
-                <String namespace="pipeline" stringID="steps.gcr.targetLabel" />
+                <String namespace="pipeline-steps" stringID="gcr.targetLabel" />
               </Text>
               <div className={cx(css.fieldsGroup, css.withoutSpacing, css.bottomSpacing)}>
                 <FormInput.MultiTextInput name="spec.target" label="" style={{ flexGrow: 1 }} />
@@ -425,7 +425,7 @@ const GCRStepWidget: React.FC<GCRStepWidgetProps> = ({ initialValues, onUpdate }
                     type={
                       <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
                         <Text>
-                          <String namespace="pipeline" stringID="steps.gcr.targetLabel" />
+                          <String namespace="pipeline-steps" stringID="gcr.targetLabel" />
                         </Text>
                       </Layout.Horizontal>
                     }
@@ -439,11 +439,11 @@ const GCRStepWidget: React.FC<GCRStepWidgetProps> = ({ initialValues, onUpdate }
               </div>
               <FormInput.CheckBox
                 name="spec.auto_tag"
-                label={getString('steps.gcr.autoTagLabel')}
+                label={getString('gcr.autoTagLabel')}
                 margin={{ left: 'xxlarge' }}
               />
               <Text margin={{ top: 'medium', bottom: 'xsmall' }}>
-                <String namespace="pipeline" stringID="steps.gcr.autoTagSuffixLabel" />
+                <String namespace="pipeline-steps" stringID="gcr.autoTagSuffixLabel" />
               </Text>
               <div className={cx(css.fieldsGroup, css.withoutSpacing)}>
                 <FormInput.MultiTextInput name="spec.auto_tag_suffix" label="" style={{ flexGrow: 1 }} />
@@ -453,7 +453,7 @@ const GCRStepWidget: React.FC<GCRStepWidgetProps> = ({ initialValues, onUpdate }
                     type={
                       <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
                         <Text>
-                          <String namespace="pipeline" stringID="steps.gcr.autoTagSuffixLabel" />
+                          <String namespace="pipeline-steps" stringID="gcr.autoTagSuffixLabel" />
                         </Text>
                       </Layout.Horizontal>
                     }

@@ -5,6 +5,6 @@ declare const styles: {
   readonly labelBold: string
   readonly grid: string
   readonly stageCreate: string
-  readonly btnSetup: string
+  readonly configureCodebase: string
 }
 export default styles

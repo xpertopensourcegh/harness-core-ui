@@ -1,6 +1,11 @@
-.collapseDiv div {
-  border-top: none;
-  padding: 0;
+.collapseDiv {
+  margin-top: calc(var(--spacing-large) / -1);
+  margin-bottom: var(--spacing-medium);
+
+  div {
+    border-top: none;
+    padding: 0;
+  }
 }
 
 .label-bold label {
@@ -24,9 +29,11 @@
 }
 
 .stage-create {
-  width: 350px;
+  width: 430px;
 }
 
-.btn-setup {
+.configureCodebase {
+  border-top: 1px solid rgba(#000, 0.1);
   padding-top: var(--spacing-medium);
+  margin-top: var(--spacing-medium);
 }
