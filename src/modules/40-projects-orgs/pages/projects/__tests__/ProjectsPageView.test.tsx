@@ -66,7 +66,7 @@ describe('Project Page List', () => {
     await waitFor(() => getAllByText?.('PROJECTS'))
   })
 
-  test('render', async () => {
+  test('Create Project and Close', async () => {
     expect(container).toMatchSnapshot()
     await act(async () => {
       const newProject = getAllByText?.('New Project')[0]
@@ -80,7 +80,7 @@ describe('Project Page List', () => {
       expect(form).not.toBeTruthy()
     })
   }),
-    test('render', async () => {
+    test('Whole Modal Test', async () => {
       expect(container).toMatchSnapshot()
       await act(async () => {
         const newProject = getAllByText?.('New Project')[0]
@@ -108,7 +108,7 @@ describe('Project Page List', () => {
         expect(form).not.toBeTruthy()
       })
     }),
-    test('Modal Test', async () => {
+    test('Invite Collaborators', async () => {
       const menu = container?.querySelectorAll("[icon='more']")[1]
       fireEvent.click(menu!)
       const popover = findPopoverContainer()

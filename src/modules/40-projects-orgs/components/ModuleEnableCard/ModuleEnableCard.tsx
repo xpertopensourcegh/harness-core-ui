@@ -1,6 +1,5 @@
 import React from 'react'
 import { Card, Color, Icon, Layout, Text } from '@wings-software/uikit'
-import cx from 'classnames'
 import { useHistory, useParams } from 'react-router-dom'
 import i18n from '@projects-orgs/pages/projects/ProjectsPage.i18n'
 import { getModuleDescription, getModuleIcon, getModulePurpose } from '@projects-orgs/utils/utils'
@@ -30,8 +29,8 @@ const ModuleEnableCard: React.FC<ModuleEnableCardProps> = ({ data, module }) => 
       orgIdentifier: ''
     }
   })
-  const onSelect = async (): Promise<boolean> => {
-    data?.modules?.push(module as Required<Project>['modules'][number])
+  const onSelect = async (): Promise<void> => {
+    data.modules?.push(module as Required<Project>['modules'][number])
     try {
       await updateProject(data, {
         pathParams: {
@@ -75,16 +74,14 @@ const ModuleEnableCard: React.FC<ModuleEnableCardProps> = ({ data, module }) => 
         )
       }
       showSuccess(i18n.moduleSuccess)
-      return true
     } catch (e) {
       /* istanbul ignore next */
       showError(e.data.message)
-      return false
     }
   }
 
   return (
-    <Card elevation={0} className={cx(css.card, css.pointer)} onClick={onSelect}>
+    <Card elevation={0} className={css.card} onClick={onSelect}>
       <Layout.Horizontal spacing="small">
         <Icon name={getModuleIcon(module)} size={30} />
         <div>

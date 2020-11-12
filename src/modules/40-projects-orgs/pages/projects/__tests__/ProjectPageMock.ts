@@ -105,15 +105,36 @@ export const projectMockData = {
     status: 'SUCCESS',
     data: {
       accountIdentifier: 'testAcc',
-      orgIdentifier: 'Cisco_Meraki',
-      identifier: 'Portal',
-      name: 'Portal',
-      color: '#ff8800',
+      orgIdentifier: 'testOrg',
+      identifier: 'test',
+      name: 'test',
+      color: '#e6b800',
       modules: [],
-      description: 'Online users',
+      description: 'test',
+      tags: ['tag1', 'tag2'],
       owners: ['testAcc'],
-      tags: ['prod', 'ui', 'customer'],
-      lastModifiedAt: 1599715155888
+      lastModifiedAt: 1599715118275
+    },
+    metaData: undefined,
+    correlationId: '88124a30-e021-4890-8466-c2345e1d42d6'
+  },
+  loading: false
+}
+
+export const projectMockDataWithModules = {
+  data: {
+    status: 'SUCCESS',
+    data: {
+      accountIdentifier: 'testAcc',
+      orgIdentifier: 'testOrg',
+      identifier: 'test',
+      name: 'test',
+      color: '#e6b800',
+      modules: ['CD', 'CV', 'CI', 'CE', 'CF'],
+      description: 'test',
+      tags: ['tag1', 'tag2'],
+      owners: ['testAcc'],
+      lastModifiedAt: 1599715118275
     },
     metaData: undefined,
     correlationId: '88124a30-e021-4890-8466-c2345e1d42d6'
