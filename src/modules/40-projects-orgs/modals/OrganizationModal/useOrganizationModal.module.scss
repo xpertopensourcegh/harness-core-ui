@@ -1,5 +1,22 @@
-.modal {
-  [class*='bp3-dialog-header'] button {
-    z-index: 2;
+.stepClass {
+  padding: 0px !important ;
+}
+
+.dialog {
+  border-radius: 11px;
+  position: relative;
+  padding-bottom: 0;
+  &.create {
+    border-left: none !important;
+    width: 1100px;
   }
+  &.edit {
+    width: 900px;
+  }
+}
+
+.crossIcon {
+  position: absolute;
+  right: var(--spacing-large);
+  top: var(--spacing-large);
 }

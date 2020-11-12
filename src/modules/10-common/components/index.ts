@@ -7,7 +7,6 @@ import EditableText from './EditableText/EditableText'
 import EntityReference from './EntityReference/EntityReference'
 import HeatMap from './HeatMap/HeatMap'
 import { NavigationCheck } from './NavigationCheck/NavigationCheck'
-import OrgSelector from './OrgSelector/OrgSelector'
 import { PageSpinner } from './Page/PageSpinner'
 import { Page } from './Page/Page'
 import { ProjectSelector } from './ProjectSelector/ProjectSelector'
@@ -31,7 +30,6 @@ export {
   EntityReference,
   HeatMap,
   NavigationCheck,
-  OrgSelector,
   Page,
   PageSpinner,
   ProjectSelector,

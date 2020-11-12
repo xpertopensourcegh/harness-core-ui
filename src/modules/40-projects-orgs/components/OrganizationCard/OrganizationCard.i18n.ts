@@ -3,6 +3,9 @@ export default {
     name: 'Organization Name',
     description: 'Description'
   },
+  numberOfProjects: '-',
+  projects: 'projects',
+  orgMembers: 'Org Members',
   edit: 'Edit',
   clone: 'Clone',
   delete: 'Delete',

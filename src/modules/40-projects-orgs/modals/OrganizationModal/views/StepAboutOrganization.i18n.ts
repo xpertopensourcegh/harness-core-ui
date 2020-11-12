@@ -1,5 +1,6 @@
 export default {
   aboutTitle: 'ABOUT THE ORGANIZATION',
+  editTitle: 'EDIT ORGANIZATION',
   form: {
     name: 'Name*',
     id: 'ID',
@@ -10,7 +11,8 @@ export default {
     addTag: 'Add Tags',
     preview: 'Preview your organization card',
     back: 'Back',
-    save: 'Save and Close',
+    saveAndClose: 'Save and Close',
+    saveAndContinue: 'Save and Continue',
     addCollaborators: 'ADD COLLABORATORS',
     closePreview: 'Close Preview',
     errorColor: 'required',

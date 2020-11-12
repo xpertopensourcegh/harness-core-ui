@@ -1,11 +1,12 @@
-import { Classes, Dialog, IDialogProps } from '@blueprintjs/core'
-import { useModalHook } from '@wings-software/uikit'
+import { Classes, Dialog } from '@blueprintjs/core'
+import { Button, StepWizard, useModalHook } from '@wings-software/uikit'
 import React, { useState, useCallback } from 'react'
 import cx from 'classnames'
 import type { Organization } from 'services/cd-ng'
-import { OptionsView } from './OptionsView/OptionsView'
-import { NewView } from './NewView/NewView'
-// import { CloneView } from './CloneView/CloneView'
+import i18n from './useOrganizationModal.i18n'
+import StepAboutOrganization from './views/StepAboutOrganization'
+import EditOrganization from './views/EditOrganization'
+import { StepCollaborators } from './views/StepCollaborators'
 import css from './useOrganizationModal.module.scss'
 
 export interface UseOrganizationModalArgs {
@@ -14,64 +15,63 @@ export interface UseOrganizationModalArgs {
 
 export interface UseOrganizationModalResult {
   openOrganizationModal: (org?: Organization) => void
-  close: () => void
+  closeOrganizationModal: () => void
 }
 
-const ModalView = { OPTIONS: 1, NEW: 2, CLONE: 3, EDIT: 4 }
+const Views = { CREATE: 1, EDIT: 2 }
 
-const ModalProps: IDialogProps = {
-  isOpen: true,
-  usePortal: true,
-  autoFocus: true,
-  canEscapeKeyClose: false,
-  canOutsideClickClose: false,
-  enforceFocus: true,
-  title: '',
-  style: { width: 1000, height: 520, borderLeft: 'none', paddingBottom: 0, position: 'relative' }
-}
-
-export const useOrganizationModal: (args: UseOrganizationModalArgs) => UseOrganizationModalResult = args => {
-  const [view, setView] = useState(ModalView.OPTIONS)
+export const useOrganizationModal = ({ onSuccess }: UseOrganizationModalArgs): UseOrganizationModalResult => {
+  const [view, setView] = useState(Views.CREATE)
   const [orgData, setOrgData] = useState<Organization>()
   const [openModal, hideModal] = useModalHook(
     () => (
       <Dialog
+        isOpen={true}
         onClose={() => {
-          setView(ModalView.OPTIONS)
+          setView(Views.CREATE)
           hideModal()
         }}
-        {...ModalProps}
-        className={cx(css.modal, view !== ModalView.OPTIONS ? Classes.DIALOG : Classes.DARK)}
+        className={cx(css.dialog, Classes.DIALOG, {
+          [css.create]: view === Views.CREATE,
+          [css.edit]: view === Views.EDIT
+        })}
       >
-        {view === ModalView.OPTIONS && (
-          <OptionsView
-            onSelectOption={value => {
-              setView(value === 'NEW' ? ModalView.NEW : ModalView.CLONE)
-            }}
-          />
-        )}
-        {(view === ModalView.NEW || view === ModalView.EDIT) && (
-          <NewView
-            backToSelections={() => setView(ModalView.OPTIONS)}
-            edit={view === ModalView.EDIT}
-            data={orgData}
+        {view === Views.CREATE ? (
+          <StepWizard<Organization> stepClassName={css.stepClass}>
+            <StepAboutOrganization name={i18n.aboutTitle} onSuccess={onSuccess} />
+            <StepCollaborators name={i18n.collaboratorsTitle} />
+          </StepWizard>
+        ) : null}
+        {view === Views.EDIT ? (
+          <EditOrganization
+            name={i18n.aboutTitle}
             onSuccess={() => {
               hideModal()
-              args?.onSuccess()
+              onSuccess()
             }}
+            identifier={orgData?.identifier}
           />
-        )}
-        {/* {view === ModalView.CLONE && <CloneView />} */}
+        ) : null}
+        <Button
+          minimal
+          icon="cross"
+          iconProps={{ size: 18 }}
+          onClick={() => {
+            setView(Views.CREATE)
+            hideModal()
+          }}
+          className={css.crossIcon}
+        />
       </Dialog>
     ),
-    [args, view, orgData]
+    [view, orgData]
   )
   const open = useCallback(
     (_org?: Organization) => {
       if (_org) {
         setOrgData(_org)
-        setView(ModalView.EDIT)
-      }
+        setView(Views.EDIT)
+      } else setView(Views.CREATE)
       openModal()
     },
     [openModal]
@@ -81,6 +81,6 @@ export const useOrganizationModal: (args: UseOrganizationModalArgs) => UseOrgani
     openOrganizationModal: (org?: Organization) => {
       open(org)
     },
-    close: hideModal
+    closeOrganizationModal: hideModal
   }
 }

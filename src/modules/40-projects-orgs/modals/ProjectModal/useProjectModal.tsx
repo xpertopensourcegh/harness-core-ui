@@ -8,14 +8,12 @@ import i18n from '@projects-orgs/pages/projects/ProjectsPage.i18n'
 import { Views } from './Constants'
 import Collaborators from './views/Collaborators'
 import PurposeList from './views/PurposeList'
-
-import StepProject from './views/StepAboutProject'
+import StepAboutProject from './views/StepAboutProject'
 import EditProject from './views/EditProject'
 import css from './useProjectModal.module.scss'
 
 export interface UseProjectModalProps {
   onSuccess: (project: Project | undefined) => void
-  onNewProjectCreated?: (project: Project) => void
 }
 
 export interface UseProjectModalReturn {
@@ -23,7 +21,7 @@ export interface UseProjectModalReturn {
   closeProjectModal: () => void
 }
 
-export const useProjectModal = ({ onSuccess, onNewProjectCreated }: UseProjectModalProps): UseProjectModalReturn => {
+export const useProjectModal = ({ onSuccess }: UseProjectModalProps): UseProjectModalReturn => {
   const [view, setView] = useState(Views.CREATE)
   const [projectData, setProjectData] = useState<Project>()
 
@@ -31,8 +29,6 @@ export const useProjectModal = ({ onSuccess, onNewProjectCreated }: UseProjectMo
     if (!wizardData || isEmpty(wizardData.modules)) {
       setView(Views.PURPOSE)
       setProjectData(wizardData)
-    } else {
-      onNewProjectCreated?.(wizardData)
     }
     onSuccess(wizardData)
   }
@@ -52,7 +48,7 @@ export const useProjectModal = ({ onSuccess, onNewProjectCreated }: UseProjectMo
       >
         {view === Views.CREATE ? (
           <StepWizard<Project> onCompleteWizard={wizardCompleteHandler} stepClassName={css.stepClass}>
-            <StepProject
+            <StepAboutProject
               name={i18n.newProjectWizard.aboutProject.name}
               modules={projectData?.modules}
               onSuccess={onSuccess}

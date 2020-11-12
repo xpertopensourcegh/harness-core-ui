@@ -9,11 +9,11 @@ export const orgMockData = {
         {
           accountIdentifier: 'testAcc',
           identifier: 'testOrg',
-          name: 'test org',
-          color: '#e6b800',
-          description: 'test',
+          name: 'Org Name',
+          color: '#004fc4',
+          description: 'Description',
           tags: ['tag1', 'tag2'],
-          lastModifiedAt: 1599715118275
+          lastModifiedAt: 1602148957762
         },
         {
           accountIdentifier: 'testAcc',
@@ -30,6 +30,43 @@ export const orgMockData = {
     },
     metaData: undefined,
     correlationId: '370210dc-a345-42fa-b3cf-69bd64eb5073'
+  },
+  loading: false
+}
+
+export const getOrgMockData = {
+  data: {
+    status: 'SUCCESS',
+    data: {
+      accountIdentifier: 'testAcc',
+      identifier: 'testOrg',
+      name: 'Org Name',
+      color: '#004fc4',
+      description: 'Description',
+      tags: ['tag1', 'tag2'],
+      lastModifiedAt: 1602148957762
+    },
+    metaData: undefined,
+    correlationId: '9f77f74d-c4ab-44a2-bfea-b4545c6a4a39'
+  }
+}
+
+export const createOrgMockData = {
+  mutate: async () => {
+    return {
+      status: 'SUCCESS',
+      data: {
+        accountIdentifier: 'testAcc',
+        identifier: 'testOrg',
+        name: 'Org Name',
+        color: '#004fc4',
+        description: 'Description',
+        tags: ['tag1', 'tag2'],
+        lastModifiedAt: 1602148957762
+      },
+      metaData: undefined,
+      correlationId: '375d39b4-3552-42a2-a4e3-e6b9b7e51d44'
+    }
   },
   loading: false
 }

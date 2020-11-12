@@ -28,3 +28,16 @@ export const routeProjects: Route = {
   url: () => routeURL(routeProjects, '/projects'),
   component: React.lazy(() => import('@projects-orgs/pages/projects/ProjectsPage'))
 }
+
+export const routeOrgProjects: Route<{
+  orgIdentifier: string
+}> = {
+  module: ModuleName.COMMON,
+  sidebarId: SidebarIdentifier.PROJECTS,
+  path: '/projects/org/:orgIdentifier',
+  title: 'orgProjects',
+  layout: NoMenuLayout,
+  pageId: 'orgProjects',
+  url: ({ orgIdentifier }) => routeURL(routeOrgProjects, `/projects/org/${orgIdentifier}`),
+  component: React.lazy(() => import('@projects-orgs/pages/projects/ProjectsPage'))
+}

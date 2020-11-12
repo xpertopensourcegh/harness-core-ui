@@ -26,7 +26,6 @@ interface ProjectListViewProps {
   orgFilterId?: string
   module?: Required<Project>['modules'][number]
   reloadPage?: ((value: React.SetStateAction<boolean>) => void) | undefined
-  onRowClick?: ((data: Project) => void) | undefined
   openProjectModal?: (project?: Project | undefined) => void
   deselectModule?: boolean
 }

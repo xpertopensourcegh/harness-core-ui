@@ -148,14 +148,14 @@ export const routeOrgGitSync: Route<{ orgIdentifier: string }> = {
   nestedRoutes: [routeOrgGitSyncActivities, routeOrgGitSyncEntities, routeOrgGitSyncErrors, routeOrgGitSyncRepos]
 }
 
-export const routeOrgProjects: Route<{ orgIdentifier: string }> = {
+export const routeOrgDetails: Route<{ orgIdentifier: string }> = {
   module: ModuleName.COMMON,
   sidebarId: SidebarIdentifier.ACCOUNT,
-  path: '/organizations/:orgIdentifier/projects',
+  path: '/organizations/:orgIdentifier',
   title: i18n.project,
-  pageId: 'orgProjects',
-  url: ({ orgIdentifier }) => routeURL(routeOrgProjects, `/organizations/${orgIdentifier}/projects`),
-  component: React.lazy(() => import('@projects-orgs/pages/projects/OrgsProjectsPage'))
+  pageId: 'orgDetails',
+  url: ({ orgIdentifier }) => routeURL(routeOrgDetails, `/organizations/${orgIdentifier}`),
+  component: React.lazy(() => import('@projects-orgs/pages/organizations/OrganizationDetails/OrganizationDetailsPage'))
 }
 
 export const routeOrganizations: Route = {

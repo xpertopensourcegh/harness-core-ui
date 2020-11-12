@@ -191,7 +191,7 @@ exports[`Project Page List Create Project and Close 1`] = `
     class="StyledProps---font--2ipy StyledProps---main--1Wws pageBody pageContainer"
   >
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws"
+      class="StyledProps---font--2ipy StyledProps---main--1Wws pageBody"
       style="height: 90%;"
     >
       <div
@@ -200,7 +200,7 @@ exports[`Project Page List Create Project and Close 1`] = `
       >
         <div
           class="StyledProps---font--2ipy StyledProps---main--1Wws uikit-masonry-layout--item-0"
-          style="margin-bottom: 50px; position: absolute; left: 0px; top: 0px;"
+          style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
         >
           <div
             class="bp3-card bp3-elevation-0 Card---card--2BXa projectCard"
@@ -529,7 +529,7 @@ exports[`Project Page List Create Project and Close 1`] = `
         </div>
         <div
           class="StyledProps---font--2ipy StyledProps---main--1Wws uikit-masonry-layout--item-0"
-          style="margin-bottom: 50px; position: absolute; left: 0px; top: 0px;"
+          style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
         >
           <div
             class="bp3-card bp3-elevation-0 Card---card--2BXa projectCard"
@@ -1027,7 +1027,7 @@ exports[`Project Page List Create Project and Close 1`] = `
         </div>
         <div
           class="StyledProps---font--2ipy StyledProps---main--1Wws uikit-masonry-layout--item-0"
-          style="margin-bottom: 50px; position: absolute; left: 0px; top: 0px;"
+          style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
         >
           <div
             class="bp3-card bp3-elevation-0 Card---card--2BXa projectCard"
@@ -1367,7 +1367,7 @@ exports[`Project Page List Create Project and Close 1`] = `
         </div>
         <div
           class="StyledProps---font--2ipy StyledProps---main--1Wws uikit-masonry-layout--item-0"
-          style="margin-bottom: 50px; position: absolute; left: 0px; top: 0px;"
+          style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
         >
           <div
             class="bp3-card bp3-elevation-0 Card---card--2BXa projectCard"
@@ -1675,7 +1675,7 @@ exports[`Project Page List Create Project and Close 1`] = `
         </div>
         <div
           class="StyledProps---font--2ipy StyledProps---main--1Wws uikit-masonry-layout--item-0"
-          style="margin-bottom: 50px; position: absolute; left: 0px; top: 0px;"
+          style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
         >
           <div
             class="bp3-card bp3-elevation-0 Card---card--2BXa projectCard"
@@ -2019,7 +2019,7 @@ exports[`Project Page List Create Project and Close 1`] = `
         </div>
         <div
           class="StyledProps---font--2ipy StyledProps---main--1Wws uikit-masonry-layout--item-0"
-          style="margin-bottom: 50px; position: absolute; left: 0px; top: 0px;"
+          style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
         >
           <div
             class="bp3-card bp3-elevation-0 Card---card--2BXa projectCard"
@@ -2746,7 +2746,7 @@ exports[`Project Page List Create Project and Close 1`] = `
         </div>
         <div
           class="StyledProps---font--2ipy StyledProps---main--1Wws uikit-masonry-layout--item-0"
-          style="margin-bottom: 50px; position: absolute; left: 0px; top: 0px;"
+          style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
         >
           <div
             class="bp3-card bp3-elevation-0 Card---card--2BXa projectCard"
@@ -3273,7 +3273,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
     class="StyledProps---font--2ipy StyledProps---main--1Wws pageBody pageContainer"
   >
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws"
+      class="StyledProps---font--2ipy StyledProps---main--1Wws pageBody"
       style="height: 90%;"
     >
       <div
@@ -3282,7 +3282,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
       >
         <div
           class="StyledProps---font--2ipy StyledProps---main--1Wws uikit-masonry-layout--item-0"
-          style="margin-bottom: 50px; position: absolute; left: 0px; top: 0px;"
+          style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
         >
           <div
             class="bp3-card bp3-elevation-0 Card---card--2BXa projectCard"
@@ -3611,7 +3611,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
         </div>
         <div
           class="StyledProps---font--2ipy StyledProps---main--1Wws uikit-masonry-layout--item-0"
-          style="margin-bottom: 50px; position: absolute; left: 0px; top: 0px;"
+          style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
         >
           <div
             class="bp3-card bp3-elevation-0 Card---card--2BXa projectCard"
@@ -4109,7 +4109,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
         </div>
         <div
           class="StyledProps---font--2ipy StyledProps---main--1Wws uikit-masonry-layout--item-0"
-          style="margin-bottom: 50px; position: absolute; left: 0px; top: 0px;"
+          style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
         >
           <div
             class="bp3-card bp3-elevation-0 Card---card--2BXa projectCard"
@@ -4449,7 +4449,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
         </div>
         <div
           class="StyledProps---font--2ipy StyledProps---main--1Wws uikit-masonry-layout--item-0"
-          style="margin-bottom: 50px; position: absolute; left: 0px; top: 0px;"
+          style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
         >
           <div
             class="bp3-card bp3-elevation-0 Card---card--2BXa projectCard"
@@ -4757,7 +4757,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
         </div>
         <div
           class="StyledProps---font--2ipy StyledProps---main--1Wws uikit-masonry-layout--item-0"
-          style="margin-bottom: 50px; position: absolute; left: 0px; top: 0px;"
+          style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
         >
           <div
             class="bp3-card bp3-elevation-0 Card---card--2BXa projectCard"
@@ -5101,7 +5101,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
         </div>
         <div
           class="StyledProps---font--2ipy StyledProps---main--1Wws uikit-masonry-layout--item-0"
-          style="margin-bottom: 50px; position: absolute; left: 0px; top: 0px;"
+          style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
         >
           <div
             class="bp3-card bp3-elevation-0 Card---card--2BXa projectCard"
@@ -5828,7 +5828,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
         </div>
         <div
           class="StyledProps---font--2ipy StyledProps---main--1Wws uikit-masonry-layout--item-0"
-          style="margin-bottom: 50px; position: absolute; left: 0px; top: 0px;"
+          style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
         >
           <div
             class="bp3-card bp3-elevation-0 Card---card--2BXa projectCard"
@@ -6355,7 +6355,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
     class="StyledProps---font--2ipy StyledProps---main--1Wws pageBody pageContainer"
   >
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws"
+      class="StyledProps---font--2ipy StyledProps---main--1Wws pageBody"
       style="height: 90%;"
     >
       <div
@@ -6364,7 +6364,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
       >
         <div
           class="StyledProps---font--2ipy StyledProps---main--1Wws uikit-masonry-layout--item-0"
-          style="margin-bottom: 50px; position: absolute; left: 0px; top: 0px;"
+          style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
         >
           <div
             class="bp3-card bp3-elevation-0 Card---card--2BXa projectCard"
@@ -6693,7 +6693,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
         </div>
         <div
           class="StyledProps---font--2ipy StyledProps---main--1Wws uikit-masonry-layout--item-0"
-          style="margin-bottom: 50px; position: absolute; left: 0px; top: 0px;"
+          style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
         >
           <div
             class="bp3-card bp3-elevation-0 Card---card--2BXa projectCard"
@@ -7191,7 +7191,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
         </div>
         <div
           class="StyledProps---font--2ipy StyledProps---main--1Wws uikit-masonry-layout--item-0"
-          style="margin-bottom: 50px; position: absolute; left: 0px; top: 0px;"
+          style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
         >
           <div
             class="bp3-card bp3-elevation-0 Card---card--2BXa projectCard"
@@ -7531,7 +7531,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
         </div>
         <div
           class="StyledProps---font--2ipy StyledProps---main--1Wws uikit-masonry-layout--item-0"
-          style="margin-bottom: 50px; position: absolute; left: 0px; top: 0px;"
+          style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
         >
           <div
             class="bp3-card bp3-elevation-0 Card---card--2BXa projectCard"
@@ -7839,7 +7839,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
         </div>
         <div
           class="StyledProps---font--2ipy StyledProps---main--1Wws uikit-masonry-layout--item-0"
-          style="margin-bottom: 50px; position: absolute; left: 0px; top: 0px;"
+          style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
         >
           <div
             class="bp3-card bp3-elevation-0 Card---card--2BXa projectCard"
@@ -8183,7 +8183,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
         </div>
         <div
           class="StyledProps---font--2ipy StyledProps---main--1Wws uikit-masonry-layout--item-0"
-          style="margin-bottom: 50px; position: absolute; left: 0px; top: 0px;"
+          style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
         >
           <div
             class="bp3-card bp3-elevation-0 Card---card--2BXa projectCard"
@@ -8910,7 +8910,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
         </div>
         <div
           class="StyledProps---font--2ipy StyledProps---main--1Wws uikit-masonry-layout--item-0"
-          style="margin-bottom: 50px; position: absolute; left: 0px; top: 0px;"
+          style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
         >
           <div
             class="bp3-card bp3-elevation-0 Card---card--2BXa projectCard"
@@ -9437,7 +9437,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
     class="StyledProps---font--2ipy StyledProps---main--1Wws pageBody pageContainer"
   >
     <div
-      class="StyledProps---font--2ipy StyledProps---main--1Wws"
+      class="StyledProps---font--2ipy StyledProps---main--1Wws pageBody"
       style="height: 90%;"
     >
       <div
@@ -9446,7 +9446,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
       >
         <div
           class="StyledProps---font--2ipy StyledProps---main--1Wws uikit-masonry-layout--item-0"
-          style="margin-bottom: 50px; position: absolute; left: 0px; top: 0px;"
+          style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
         >
           <div
             class="bp3-card bp3-elevation-0 Card---card--2BXa projectCard"
@@ -9775,7 +9775,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
         </div>
         <div
           class="StyledProps---font--2ipy StyledProps---main--1Wws uikit-masonry-layout--item-0"
-          style="margin-bottom: 50px; position: absolute; left: 0px; top: 0px;"
+          style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
         >
           <div
             class="bp3-card bp3-elevation-0 Card---card--2BXa projectCard"
@@ -10273,7 +10273,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
         </div>
         <div
           class="StyledProps---font--2ipy StyledProps---main--1Wws uikit-masonry-layout--item-0"
-          style="margin-bottom: 50px; position: absolute; left: 0px; top: 0px;"
+          style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
         >
           <div
             class="bp3-card bp3-elevation-0 Card---card--2BXa projectCard"
@@ -10613,7 +10613,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
         </div>
         <div
           class="StyledProps---font--2ipy StyledProps---main--1Wws uikit-masonry-layout--item-0"
-          style="margin-bottom: 50px; position: absolute; left: 0px; top: 0px;"
+          style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
         >
           <div
             class="bp3-card bp3-elevation-0 Card---card--2BXa projectCard"
@@ -10921,7 +10921,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
         </div>
         <div
           class="StyledProps---font--2ipy StyledProps---main--1Wws uikit-masonry-layout--item-0"
-          style="margin-bottom: 50px; position: absolute; left: 0px; top: 0px;"
+          style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
         >
           <div
             class="bp3-card bp3-elevation-0 Card---card--2BXa projectCard"
@@ -11265,7 +11265,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
         </div>
         <div
           class="StyledProps---font--2ipy StyledProps---main--1Wws uikit-masonry-layout--item-0"
-          style="margin-bottom: 50px; position: absolute; left: 0px; top: 0px;"
+          style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
         >
           <div
             class="bp3-card bp3-elevation-0 Card---card--2BXa projectCard"
@@ -11992,7 +11992,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
         </div>
         <div
           class="StyledProps---font--2ipy StyledProps---main--1Wws uikit-masonry-layout--item-0"
-          style="margin-bottom: 50px; position: absolute; left: 0px; top: 0px;"
+          style="margin-bottom: 25px; position: absolute; left: 0px; top: 0px;"
         >
           <div
             class="bp3-card bp3-elevation-0 Card---card--2BXa projectCard"

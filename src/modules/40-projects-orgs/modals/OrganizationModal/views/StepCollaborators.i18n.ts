@@ -1,4 +1,4 @@
 export default {
-  title: 'COLLABORATORS',
+  title: 'INVITE MEMBERS',
   back: 'Back'
 }

@@ -33,10 +33,10 @@
 
 .headerLayout {
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
 }
 
 .search {
   width: 300px;
-  margin-right: 25px;
+  margin-right: var(--spacing-xlarge);
 }

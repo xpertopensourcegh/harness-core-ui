@@ -9,9 +9,6 @@ import ProjectsListPage from '../ProjectsPage'
 import { createMockData, OrgMockData, projectMockData, projectPageMock } from './ProjectPageMock'
 import { defaultAppStoreValues } from './DefaultAppStoreData'
 
-const onNewProjectCreated = jest.fn()
-const onCardClick = jest.fn()
-const onRowClick = jest.fn()
 const getProjectList = jest.fn()
 const deleteProject = jest.fn()
 const getProject = jest.fn()
@@ -53,12 +50,7 @@ describe('Project Page List', () => {
         pathParams={{ accountId: 'testAcc' }}
         defaultAppStoreValues={defaultAppStoreValues}
       >
-        <ProjectsListPage
-          orgMockData={orgMockData as UseGetMockData<ResponsePageOrganization>}
-          onNewProjectCreated={onNewProjectCreated}
-          onCardClick={onCardClick}
-          onRowClick={onRowClick}
-        />
+        <ProjectsListPage orgMockData={orgMockData as UseGetMockData<ResponsePageOrganization>} />
       </TestWrapper>
     )
     container = renderObj.container

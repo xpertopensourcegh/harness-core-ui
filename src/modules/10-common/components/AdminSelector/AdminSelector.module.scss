@@ -67,7 +67,7 @@
     align-items: center;
     justify-content: center;
     color: var(--blue-500) !important;
-    border-radius: 5px;
+    border-radius: var(--spacing-xsmall);
 
     svg path {
       stroke: currentColor;

@@ -9,8 +9,8 @@
 }
 
 .circle {
-  height: 30px;
-  width: 30px !important;
+  height: var(--spacing-xxlarge);
+  width: var(--spacing-xxlarge) !important;
   border-radius: 50%;
   position: relative;
   left: -15px;
@@ -19,7 +19,7 @@
 
 .connector {
   border-left: 2px solid var(--grey-300);
-  height: 30px;
+  height: var(--spacing-xxlarge);
 }
 
 .icon {

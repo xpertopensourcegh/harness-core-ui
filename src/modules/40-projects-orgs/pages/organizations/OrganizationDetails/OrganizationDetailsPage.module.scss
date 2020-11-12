@@ -1,0 +1,27 @@
+.cardTags {
+  background-color: var(--grey-200) !important;
+  color: var(--grey-400) !important;
+  max-width: 200px;
+  margin-right: var(--spacing-xsmall);
+  margin-top: var(--spacing-xsmall);
+}
+
+.title {
+  max-width: 300px !important;
+}
+
+.wrap {
+  overflow: hidden;
+}
+
+.header {
+  background-color: var(--blue-200) !important;
+}
+
+.enabledModules {
+  min-height: calc(50vh - 72px);
+}
+
+.pageHeight {
+  max-height: calc(100vh - 144px) !important;
+}

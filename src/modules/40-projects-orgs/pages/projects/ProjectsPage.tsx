@@ -5,7 +5,6 @@ import { Button, Text, Layout, TextInput, SelectOption } from '@wings-software/u
 import { Select } from '@blueprintjs/select'
 import { Menu } from '@blueprintjs/core'
 import { ResponsePageOrganization, useGetOrganizationList } from 'services/cd-ng'
-import type { ModuleName } from 'framework/exports'
 
 import type { Project } from 'services/cd-ng'
 import { Page } from '@common/components/Page/Page'
@@ -23,34 +22,22 @@ const allOrgsSelectOption: SelectOption = {
   value: i18n.orgLabel.toUpperCase()
 }
 interface ProjectListProps {
-  /** when the page is being shown inside continuous verification, value will be set to CV */
-  module?: ModuleName
-  onNewProjectCreated?(data: Project): void
-  onCardClick?: ((project: Project) => void) | undefined
-  onRowClick?: ((data: Project) => void) | undefined
   orgMockData?: UseGetMockData<ResponsePageOrganization>
 }
 const CustomSelect = Select.ofType<SelectOption>()
 
-const ProjectsListPage: React.FC<ProjectListProps> = ({
-  module,
-  onNewProjectCreated,
-  onCardClick,
-  onRowClick,
-  orgMockData
-}) => {
+const ProjectsListPage: React.FC<ProjectListProps> = ({ orgMockData }) => {
   const [orgFilter, setOrgFilter] = useState<SelectOption>(allOrgsSelectOption)
-  const { accountId } = useParams()
+  const { accountId, orgIdentifier } = useParams()
   const [view, setView] = useState(Views.GRID)
-  const [searchParam, setSearchParam] = useState<string | undefined>()
+  const [searchParam, setSearchParam] = useState<string>()
   const [reloadProjectPage, setReloadProjectPage] = useState(false)
   const projectCreateSuccessHandler = (): void => {
     setReloadProjectPage(true)
   }
 
   const { openProjectModal } = useProjectModal({
-    onSuccess: projectCreateSuccessHandler,
-    onNewProjectCreated
+    onSuccess: projectCreateSuccessHandler
   })
 
   const showEditProject = (project: Project): void => {
@@ -85,11 +72,7 @@ const ProjectsListPage: React.FC<ProjectListProps> = ({
       <Page.Header title={i18n.projects.toUpperCase()} />
       <Layout.Horizontal className={css.header}>
         <Layout.Horizontal width="55%">
-          <Button
-            text="New Project"
-            icon="plus"
-            onClick={() => openProjectModal(module ? ({ modules: [module] } as Project) : undefined)}
-          />
+          <Button text="New Project" icon="plus" onClick={() => openProjectModal()} />
         </Layout.Horizontal>
 
         <Layout.Horizontal spacing="small" width="45%" className={css.headerLayout}>
@@ -102,25 +85,29 @@ const ProjectsListPage: React.FC<ProjectListProps> = ({
               setSearchParam(e.target.value.trim())
             }}
           />
-          <Text>{i18n.tabOrgs}</Text>
-          <CustomSelect
-            items={organisations}
-            filterable={false}
-            itemRenderer={(item, { handleClick }) => (
-              <div>
-                <Menu.Item
-                  text={item.label}
-                  onClick={(e: React.MouseEvent<HTMLElement, MouseEvent>) => handleClick(e)}
-                />
-              </div>
-            )}
-            onItemSelect={item => {
-              setOrgFilter(item as SelectOption)
-            }}
-            popoverProps={{ minimal: true, popoverClassName: css.customselect }}
-          >
-            <Button inline minimal rightIcon="chevron-down" text={orgFilter.label} className={css.orgSelect} />
-          </CustomSelect>
+          {!orgIdentifier ? (
+            <>
+              <Text>{i18n.tabOrgs}</Text>
+              <CustomSelect
+                items={organisations}
+                filterable={false}
+                itemRenderer={(item, { handleClick }) => (
+                  <div>
+                    <Menu.Item
+                      text={item.label}
+                      onClick={(e: React.MouseEvent<HTMLElement, MouseEvent>) => handleClick(e)}
+                    />
+                  </div>
+                )}
+                onItemSelect={item => {
+                  setOrgFilter(item as SelectOption)
+                }}
+                popoverProps={{ minimal: true, popoverClassName: css.customselect }}
+              >
+                <Button inline minimal rightIcon="chevron-down" text={orgFilter.label} className={css.orgSelect} />
+              </CustomSelect>
+            </>
+          ) : null}
 
           <Layout.Horizontal inline>
             <Button
@@ -147,24 +134,20 @@ const ProjectsListPage: React.FC<ProjectListProps> = ({
         <ProjectsGridView
           showEditProject={showEditProject}
           collaborators={showCollaborators}
-          orgFilterId={orgFilter.value as string}
+          orgFilterId={orgIdentifier || (orgFilter.value as string)}
           searchParameter={searchParam}
-          module={module as Required<Project>['modules'][number]}
           reloadPage={reloadProjectPage ? setReloadProjectPage : undefined}
           openProjectModal={openProjectModal}
-          onCardClick={onCardClick}
         />
       ) : null}
       {view === Views.LIST ? (
         <ProjectsListView
           showEditProject={showEditProject}
           collaborators={showCollaborators}
-          orgFilterId={orgFilter.value as string}
+          orgFilterId={orgIdentifier || (orgFilter.value as string)}
           searchParameter={searchParam}
-          module={module as Required<Project>['modules'][number]}
           reloadPage={reloadProjectPage ? setReloadProjectPage : undefined}
           openProjectModal={openProjectModal}
-          onRowClick={onRowClick}
         />
       ) : null}
     </>

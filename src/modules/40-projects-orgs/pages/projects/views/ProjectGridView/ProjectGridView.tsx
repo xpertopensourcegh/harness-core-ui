@@ -17,7 +17,6 @@ interface ProjectGridViewProps {
   orgFilterId?: string
   module?: Required<Project>['modules'][number]
   reloadPage?: ((value: React.SetStateAction<boolean>) => void) | undefined
-  onCardClick?: ((project: Project) => void) | undefined
   openProjectModal?: (project?: Project | undefined) => void
   deselectModule?: boolean
   className?: string
@@ -33,7 +32,6 @@ const ProjectGridView: React.FC<ProjectGridViewProps> = props => {
     orgFilterId,
     module,
     reloadPage,
-    onCardClick,
     openProjectModal,
     deselectModule,
     className,
@@ -85,10 +83,10 @@ const ProjectGridView: React.FC<ProjectGridViewProps> = props => {
       }
       className={className || cx(css.pageContainer, { [css.moduleContainer]: module ? true : false })}
     >
-      <Container height="90%">
+      <Container height="90%" className={css.pageBody}>
         <Layout.Masonry
           center
-          gutter={50}
+          gutter={25}
           className={css.centerContainer}
           items={data?.data?.content || []}
           renderItem={(project: Project) => (
@@ -97,9 +95,6 @@ const ProjectGridView: React.FC<ProjectGridViewProps> = props => {
               reloadProjects={refetch}
               editProject={showEditProject}
               collaborators={collaborators}
-              onClick={() => {
-                onCardClick?.(project)
-              }}
             />
           )}
           keyOf={(project: Project) => project.identifier}

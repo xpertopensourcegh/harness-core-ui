@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 
-import { Button, Layout } from '@wings-software/uikit'
+import { Button, Layout, TextInput } from '@wings-software/uikit'
 import { Page } from '@common/exports'
-import { routeOrgProjects } from 'navigation/accounts/routes'
+import { routeOrgDetails } from 'navigation/accounts/routes'
 import { ResponsePageOrganization, useGetOrganizationList } from 'services/cd-ng'
 import type { Organization } from 'services/cd-ng'
 
@@ -11,6 +11,7 @@ import type { UseGetMockData } from '@common/utils/testUtils'
 import { useOrganizationModal } from '@projects-orgs/modals/OrganizationModal/useOrganizationModal'
 import { OrganizationCard } from '@projects-orgs/components/OrganizationCard/OrganizationCard'
 import i18n from './OrganizationsPage.i18n'
+import css from './OrganizationsPage.module.scss'
 
 interface OrganizationsPageData {
   orgMockData?: UseGetMockData<ResponsePageOrganization>
@@ -18,10 +19,12 @@ interface OrganizationsPageData {
 
 const OrganizationsPage: React.FC<OrganizationsPageData> = ({ orgMockData }) => {
   const { accountId } = useParams()
+  const [searchParam, setSearchParam] = useState<string>()
   const history = useHistory()
   const { loading, data: organizations, refetch, error } = useGetOrganizationList({
-    queryParams: { accountIdentifier: accountId },
-    mock: orgMockData
+    queryParams: { accountIdentifier: accountId, searchTerm: searchParam },
+    mock: orgMockData,
+    debounce: 300
   })
   const { openOrganizationModal } = useOrganizationModal({
     onSuccess: () => refetch()
@@ -29,11 +32,23 @@ const OrganizationsPage: React.FC<OrganizationsPageData> = ({ orgMockData }) => 
 
   return (
     <>
+      <Page.Header title={i18n.organizations} />
       <Page.Header
-        title={i18n.organizations}
-        toolbar={
-          <Layout.Horizontal spacing="xsmall">
+        title={
+          <Layout.Horizontal padding="small">
             <Button text={i18n.newOrganization} onClick={() => openOrganizationModal()} />
+          </Layout.Horizontal>
+        }
+        toolbar={
+          <Layout.Horizontal padding={{ right: 'large' }}>
+            <TextInput
+              leftIcon="search"
+              placeholder="Search by project, tags, members"
+              value={searchParam}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                setSearchParam(e.target.value.trim())
+              }}
+            />
           </Layout.Horizontal>
         }
       />
@@ -48,6 +63,7 @@ const OrganizationsPage: React.FC<OrganizationsPageData> = ({ orgMockData }) => 
           buttonText: i18n.newOrganizationButtonText,
           onClick: () => openOrganizationModal()
         }}
+        className={css.orgPage}
       >
         <Layout.Masonry
           center
@@ -58,7 +74,7 @@ const OrganizationsPage: React.FC<OrganizationsPageData> = ({ orgMockData }) => 
               data={org}
               editOrg={() => openOrganizationModal(org)}
               reloadOrgs={() => refetch()}
-              onClick={() => history.push(routeOrgProjects.url({ orgIdentifier: org.identifier as string }))}
+              onClick={() => history.push(routeOrgDetails.url({ orgIdentifier: org.identifier as string }))}
             />
           )}
           keyOf={(org: Organization) => org?.identifier as string}

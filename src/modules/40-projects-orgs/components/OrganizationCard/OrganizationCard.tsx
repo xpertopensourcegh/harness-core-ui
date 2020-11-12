@@ -2,7 +2,6 @@ import { Card, Color, Container, Icon, Layout, Tag, Text, CardBody } from '@wing
 import React from 'react'
 import { useParams } from 'react-router-dom'
 import { Menu, Classes } from '@blueprintjs/core'
-
 import { useDeleteOrganization } from 'services/cd-ng'
 import type { Organization } from 'services/cd-ng'
 import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmationDialog'
@@ -16,14 +15,13 @@ interface OrganizationCardProps {
   data: Organization
   width?: number
   isPreview?: boolean
-  className?: string
   reloadOrgs?: () => void
   editOrg?: () => void
   onClick?: () => void
 }
 
 export const OrganizationCard: React.FC<OrganizationCardProps> = props => {
-  const { data, width = 250, isPreview, className, onClick, editOrg, reloadOrgs } = props
+  const { data, isPreview, onClick, editOrg, reloadOrgs } = props
   const { accountId } = useParams()
   const { organisationsMap } = useAppStoreReader()
   const updateAppStore = useAppStoreWriter()
@@ -62,48 +60,54 @@ export const OrganizationCard: React.FC<OrganizationCardProps> = props => {
   }
 
   return (
-    <Card elevation={2} interactive={!isPreview} className={className} onClick={onClick}>
-      {!isPreview ? (
-        <CardBody.Menu
-          menuContent={
-            <Menu>
-              <Menu.Item icon="edit" text={i18n.edit} onClick={handleEdit} />
-              <Menu.Item icon="trash" text={i18n.delete} onClick={handleDelete} />
-            </Menu>
-          }
-          menuPopoverProps={{
-            className: Classes.DARK
-          }}
-        />
-      ) : null}
-      <Container width={width} className={css.overflow}>
-        <div className={css.colorBar} style={{ backgroundColor: data?.color || 'var(--blue-500)' }} />
-        <Layout.Vertical spacing="small" padding={{ right: isPreview ? 'large' : undefined }}>
-          <Text font="medium" color={Color.BLACK}>
+    <Card elevation={2} interactive={!isPreview} className={css.card} onClick={onClick}>
+      <Container className={css.overflow}>
+        {!isPreview ? (
+          <CardBody.Menu
+            menuContent={
+              <Menu>
+                <Menu.Item icon="edit" text={i18n.edit} onClick={handleEdit} />
+                <Menu.Item icon="trash" text={i18n.delete} onClick={handleDelete} />
+              </Menu>
+            }
+            menuPopoverProps={{
+              className: Classes.DARK
+            }}
+            className={css.cardMenu}
+          />
+        ) : null}
+        <Layout.Vertical className={css.title} padding={{ right: isPreview ? 'large' : undefined }}>
+          <Text font="medium" color={Color.BLACK} lineClamp={1}>
             {data?.name || i18n.placeholder.name}
           </Text>
-          {data?.description ? (
-            <Text color={Color.GREY_350} lineClamp={5}>
-              {data.description}
-            </Text>
-          ) : isPreview ? (
-            <Text color={Color.GREY_350} lineClamp={5}>
-              {i18n.placeholder.description}
-            </Text>
-          ) : null}
-          <Layout.Horizontal padding={{ top: 'xxxlarge' }}>
-            <Layout.Horizontal width={'80%'} className={css.wrap}>
-              {data?.tags?.length
-                ? data?.tags.map((tag: string) => (
-                    <Tag minimal key={tag} className={css.cardTags}>
-                      {tag}
-                    </Tag>
-                  ))
-                : null}
-            </Layout.Horizontal>
-            <Layout.Horizontal width={'20%'} className={css.user}>
-              <Icon size={24} name="user" />
-            </Layout.Horizontal>
+          <Layout.Horizontal className={css.description}>
+            {data?.description ? (
+              <Text color={Color.GREY_350} lineClamp={2}>
+                {data.description}
+              </Text>
+            ) : null}
+          </Layout.Horizontal>
+          <Layout.Horizontal spacing="xsmall" className={css.tags}>
+            {data?.tags?.length
+              ? data?.tags.map((tag: string) => (
+                  <Tag minimal key={tag} className={css.cardTags}>
+                    {tag}
+                  </Tag>
+                ))
+              : null}
+          </Layout.Horizontal>
+          <Layout.Horizontal padding={{ top: 'xlarge' }}>
+            <Layout.Vertical spacing="small">
+              <Layout.Horizontal spacing="small" flex={{ align: 'center-center' }}>
+                <Icon name="nav-project" size={25}></Icon>
+                <Text font="medium">{i18n.numberOfProjects}</Text>
+              </Layout.Horizontal>
+              <Text font="xsmall">{i18n.projects.toUpperCase()}</Text>
+            </Layout.Vertical>
+            <Layout.Vertical padding={{ left: 'huge' }} spacing="small" flex={{ align: 'center-center' }}>
+              <Icon name="main-user-groups" size={25} />
+              <Text font="xsmall">{i18n.orgMembers.toUpperCase()}</Text>
+            </Layout.Vertical>
           </Layout.Horizontal>
         </Layout.Vertical>
       </Container>

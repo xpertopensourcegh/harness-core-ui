@@ -1,7 +1,7 @@
 /* eslint-disable */
 // this is an auto-generated file
 declare const styles: {
-  readonly pageContainer: string
-  readonly cdContainer: string
+  readonly card: string
+  readonly title: string
 }
 export default styles

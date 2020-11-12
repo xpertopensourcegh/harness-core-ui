@@ -10,6 +10,10 @@
   height: calc(100vh - 128px);
 }
 
+.pageBody {
+  padding: var(--spacing-large) 100px !important;
+}
+
 .moduleContainer {
   height: calc(100vh - 192px) !important ;
 }

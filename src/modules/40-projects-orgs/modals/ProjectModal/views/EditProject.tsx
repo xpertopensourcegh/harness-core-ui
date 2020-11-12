@@ -15,7 +15,7 @@ import type { Project } from 'services/cd-ng'
 import { usePutProject } from 'services/cd-ng'
 import type { UseGetMockData, UseMutateMockData } from '@common/utils/testUtils'
 import { useToaster } from '@common/components/Toaster/useToaster'
-import ProjectForm from './ProjectFrom'
+import ProjectForm from './ProjectForm'
 
 interface EditModalData {
   orgmockData?: UseGetMockData<ResponsePageOrganization>

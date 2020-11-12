@@ -25,7 +25,6 @@ export interface ProjectCardProps {
   reloadProjects?: () => Promise<unknown>
   editProject?: (project: Project) => void
   collaborators?: (project: Project) => void
-  onClick?: ((e: React.MouseEvent<HTMLDivElement, MouseEvent>) => void) | undefined
 }
 
 const ProjectCard: React.FC<ProjectCardProps> = props => {
