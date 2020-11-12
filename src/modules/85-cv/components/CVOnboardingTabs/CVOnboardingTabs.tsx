@@ -24,7 +24,7 @@ const getIconByType = (type: string) => {
   }
 }
 
-const CVTabs: React.FC<CVTabProps> = props => {
+const CVOnboardingTabs: React.FC<CVTabProps> = props => {
   const [editable, setEditable] = useState(false)
 
   return (
@@ -94,4 +94,4 @@ const CVTabs: React.FC<CVTabProps> = props => {
   )
 }
 
-export default CVTabs
+export default CVOnboardingTabs

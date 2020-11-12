@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 import { Container } from '@wings-software/uikit'
 
-import CVTabs from '@cv/components/CVOnboardingTabs/CVOnboardingTabs'
+import CVOnboardingTabs from '@cv/components/CVOnboardingTabs/CVOnboardingTabs'
 import useCVTabsHook from '@cv/hooks/CVTabsHook/useCVTabsHook'
 import SelectProduct from '../SelectProduct/SelectProduct'
 import i18n from './AppDMonitoringSource.i18n'
@@ -13,7 +13,7 @@ const AppDMonitoringSource = () => {
 
   return (
     <Container>
-      <CVTabs
+      <CVOnboardingTabs
         type={'AppDynamics'}
         name={data.name || 'Default Name'}
         setName={val => {

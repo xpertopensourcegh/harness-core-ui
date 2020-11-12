@@ -8,6 +8,7 @@ declare const styles: {
   readonly headerRow: string
   readonly description: string
   readonly tags: string
+  readonly monitoringCard: string
   readonly triangle: string
   readonly card: string
   readonly cardIcon: string

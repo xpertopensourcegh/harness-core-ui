@@ -1,0 +1,41 @@
+.selectionCard {
+  padding: 0;
+  width: 80px;
+  height: 80px;
+
+  .cardIcon {
+    position: relative;
+    top: 20px;
+  }
+
+  .triangle {
+    width: 0;
+    height: 0;
+    border-top: 30px solid var(--blue-500);
+    border-left: 30px solid transparent;
+    float: right;
+  }
+
+  .tick {
+    position: relative;
+    bottom: 30px;
+    right: 16px;
+  }
+
+  .selectedCard {
+    border: 2px solid var(--blue-500);
+  }
+  .cardIconSelected {
+    left: 14px;
+  }
+
+  .cardLabel {
+    padding: var(--spacing-xlarge);
+    text-align: center;
+  }
+}
+
+.largeCard {
+  width: 130px;
+  height: 140px;
+}

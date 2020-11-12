@@ -1,6 +1,7 @@
 import React from 'react'
 import { Container } from '@wings-software/uikit'
 import { waitFor, render } from '@testing-library/react'
+import { TestWrapper } from '@common/utils/testUtils'
 import * as framework from 'framework/route/RouteMounter'
 import { ActivitySourceSetupRoutePaths } from 'navigation/cv/routePaths'
 import ActivitySourceSetup from '../ActivitySourceSetup'
@@ -8,7 +9,7 @@ import ActivitySourceSetup from '../ActivitySourceSetup'
 jest.mock('../kubernetes/KubernetesActivitySource', () => () => <Container className="kubeActivitySource" />)
 
 describe('Unit tests for activity source setup', () => {
-  test('Ensure kube componet is rendered when activity source is kube', async () => {
+  test('Ensure kube component is rendered when activity source is kube', async () => {
     const mockRouteParams = jest.spyOn(framework, 'useRouteParams')
     mockRouteParams.mockReturnValue({
       params: {
@@ -20,11 +21,15 @@ describe('Unit tests for activity source setup', () => {
       query: {}
     })
 
-    const { container } = render(<ActivitySourceSetup />)
+    const { container } = render(
+      <TestWrapper>
+        <ActivitySourceSetup />
+      </TestWrapper>
+    )
     await waitFor(() => expect(container.querySelector('[class*="kubeActivitySource"]')).not.toBeNull())
   })
 
-  test('Ensure kube componet is rendered when activity source is kube', async () => {
+  test('Ensure no component is rendered when activity source is empty', async () => {
     const mockRouteParams = jest.spyOn(framework, 'useRouteParams')
     mockRouteParams.mockReturnValue({
       params: {
@@ -36,7 +41,11 @@ describe('Unit tests for activity source setup', () => {
       query: {}
     })
 
-    const { container } = render(<ActivitySourceSetup />)
+    const { container } = render(
+      <TestWrapper>
+        <ActivitySourceSetup />
+      </TestWrapper>
+    )
     await waitFor(() => expect(container.querySelector('[class*="kubeActivitySource"]')).toBeNull())
     expect(container.children.length).toBe(1)
   })

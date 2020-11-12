@@ -1,3 +1,1 @@
-export default {
-  breadCrumbLabel: 'Activity Source'
-}
+export default {}
