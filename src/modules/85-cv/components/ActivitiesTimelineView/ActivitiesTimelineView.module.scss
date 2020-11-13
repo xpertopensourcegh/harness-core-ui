@@ -48,7 +48,7 @@
 }
 
 .timelineHeader {
-  height: 15px;
+  height: 20px;
   display: flex;
   .headerSideContent {
     width: 215px;
@@ -58,6 +58,8 @@
     display: flex;
     .headerPrimaryMsg {
       flex-basis: 100%;
+      text-align: center;
+      line-height: 20px;
     }
     .headerSecondaryMsg {
       position: relative;
@@ -67,7 +69,7 @@
         position: absolute;
         height: 0;
         width: 1px;
-        z-index: 1;
+        z-index: 10;
       }
     }
   }

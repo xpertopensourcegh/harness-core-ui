@@ -1,36 +1,37 @@
 import React, { useState } from 'react'
 import { Container, Color, Icon, Text, Collapse, IconName } from '@wings-software/uikit'
 import moment from 'moment'
+import type { VerificationResult } from 'services/cv'
 import styles from './DeploymentGroupList.module.scss'
 
 export interface DeploymentItemProps {
   name: string
   environment: string
   startedOn: number
-  status: 'NOT_STARTED' | 'PASSED' | 'ERROR' | 'SUCCESS' | 'IN_PROGRESS'
+  status: VerificationResult['status']
   onClick(): void
   selected: boolean
 }
 
-const mapItemColor = (status: DeploymentItemProps['status']): Color => {
+const mapItemColor = (status: VerificationResult['status']): Color => {
   switch (status) {
-    case 'NOT_STARTED':
-      return Color.GREY_300
     case 'IN_PROGRESS':
-      return Color.BLUE_400
-    case 'SUCCESS':
-    case 'PASSED':
+      return Color.BLUE_500
+    case 'VERIFICATION_PASSED':
       return Color.GREEN_500
-    default:
+    case 'VERIFICATION_FAILED':
+    case 'ERROR':
       return Color.RED_500
+    default:
+      return Color.GREY_300
   }
 }
 
 const mapItemIcon = (status: DeploymentItemProps['status']): IconName => {
   switch (status) {
-    case 'SUCCESS':
-    case 'PASSED':
+    case 'VERIFICATION_PASSED':
       return 'small-tick'
+    case 'VERIFICATION_FAILED':
     case 'ERROR':
       return 'issue'
     default:

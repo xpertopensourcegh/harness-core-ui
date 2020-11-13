@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ClusterChart matches snapshot 1`] = `
+<div>
+  <div
+    class="StyledProps---font--2ipy StyledProps---main--1Wws"
+    style="padding: 0px 10%;"
+  >
+    <div />
+  </div>
+</div>
+`;

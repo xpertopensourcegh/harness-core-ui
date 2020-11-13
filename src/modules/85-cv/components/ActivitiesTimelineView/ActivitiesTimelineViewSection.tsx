@@ -12,6 +12,7 @@ export interface ActivitesTimelineViewSectionProps {
   endTime: number
   environmentIdentifier?: string
   timelineViewProps?: ActivitiesTimelineViewProps['timelineViewProps']
+  selectedActivityId?: string
   className?: string
 }
 
@@ -20,12 +21,14 @@ export default function ActivitesTimelineViewSection({
   endTime,
   environmentIdentifier,
   timelineViewProps,
+  selectedActivityId,
   className
 }: ActivitesTimelineViewSectionProps) {
   const [deployments, setDeployments] = useState<Array<EventData>>()
   const [configChanges, setConfigChanges] = useState<Array<EventData>>()
   const [infrastructureChanges, setInfrastructureChanges] = useState<Array<EventData>>()
   const [otherChanges, setOtherChanges] = useState<Array<EventData>>()
+  const [preselectedActivity, setPreselectedActivity] = useState<EventData>()
   const {
     params: { accountId, projectIdentifier, orgIdentifier }
   } = useRouteParams()
@@ -41,7 +44,7 @@ export default function ActivitesTimelineViewSection({
         res?.resource?.forEach(activity => {
           const { activityName, activityStartTime, verificationStatus, activityType } = activity || {}
           if (!activityName || !activityStartTime || !verificationStatus || !activityType) return
-          const eventData = {
+          const eventData: EventData = {
             startTime: activityStartTime,
             name: activityName,
             verificationResult: verificationStatus
@@ -57,11 +60,17 @@ export default function ActivitesTimelineViewSection({
               infrastructureChangesData.push(eventData)
               break
           }
-          setDeployments(deploymentsData)
-          setConfigChanges(configChangesData)
-          setInfrastructureChanges(infrastructureChangesData)
-          setOtherChanges(otherChangesData)
+          if (selectedActivityId === activity.activityId) {
+            eventData.headerLabels = {
+              primary: `2 ${i18n.hours} ${i18n.beforeChange}`
+            }
+            setPreselectedActivity(eventData)
+          }
         })
+        setDeployments(deploymentsData)
+        setConfigChanges(configChangesData)
+        setInfrastructureChanges(infrastructureChangesData)
+        setOtherChanges(otherChangesData)
       }
       return res
     }
@@ -116,6 +125,7 @@ export default function ActivitesTimelineViewSection({
     <ActivitiesTimelineView
       startTime={startTime}
       endTime={endTime}
+      preselectedEvent={preselectedActivity}
       className={className}
       deployments={deployments}
       configChanges={configChanges}

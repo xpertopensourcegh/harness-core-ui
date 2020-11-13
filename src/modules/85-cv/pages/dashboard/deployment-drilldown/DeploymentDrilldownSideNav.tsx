@@ -8,7 +8,7 @@ export interface DeploymentDrilldownSideNavProps {
   preProductionInstances?: Array<any>
   postDeploymentInstances?: Array<any>
   productionDeployment?: Array<any>
-  selectedInstance: any
+  selectedInstance?: any
   onSelect: (instance: any, phase: InstancePhase) => void
 }
 

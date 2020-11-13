@@ -1,9 +1,10 @@
 import { Container } from '@wings-software/uikit'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import type { SeriesColumnOptions } from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
 import Highcharts from 'highcharts'
 import cx from 'classnames'
+import { useGet } from 'restful-react'
 import { useRouteParams } from 'framework/exports'
 import { RestResponseSortedSetLogDataByTag, useGetTagCount } from 'services/cv'
 import getLogViewcolumnChartConfig from './LogViewColumnChartConfig'
@@ -18,6 +19,21 @@ interface LogAnalysisFrequencyChartProps {
   startTime: number
   endTime: number
   className?: string
+}
+
+interface ActivityLogAnalysisFrequencyChartProps {
+  activityId: string
+  projectIdentifier: string
+  orgIdentifier: string
+  startTime: number
+  endTime: number
+  className?: string
+}
+
+interface LogAnalysisFrequencyViewProps {
+  data?: any
+  startTime: number
+  endTime: number
 }
 
 const FIVE_MINUTES_IN_MILLISECONDS = 1000 * 60 * 5
@@ -91,15 +107,9 @@ export default function LogAnalysisFrequencyChart(props: LogAnalysisFrequencyCha
     params: { accountId, orgIdentifier, projectIdentifier }
   } = useRouteParams()
   const { environmentIdentifier, serviceIdentifier, categoryName, startTime, endTime, className } = props
-  const { refetch } = useGetTagCount({
-    lazy: true,
-    resolve(response) {
-      const { categories, columnChartData } = generatePointsForLogChart(response, startTime, endTime)
-      setColumnChartOptions(getLogViewcolumnChartConfig(columnChartData, categories, startTime, endTime))
-      return response
-    }
+  const { data, refetch } = useGetTagCount({
+    lazy: true
   })
-  const [columnChartOptions, setColumnChartOptions] = useState<Highcharts.Options | undefined>()
 
   useEffect(() => {
     refetch({
@@ -117,7 +127,40 @@ export default function LogAnalysisFrequencyChart(props: LogAnalysisFrequencyCha
   }, [startTime, endTime, categoryName, serviceIdentifier, environmentIdentifier])
   return (
     <Container className={cx(css.main, className)}>
-      <HighchartsReact highcharts={Highcharts} options={columnChartOptions} />
+      <LogAnalysisFrequencyView data={data} startTime={startTime} endTime={endTime} />
     </Container>
   )
+}
+
+export function ActivityLogAnalysisFrequencyChart({
+  activityId,
+  projectIdentifier,
+  orgIdentifier,
+  startTime,
+  endTime
+}: ActivityLogAnalysisFrequencyChartProps) {
+  const {
+    params: { accountId }
+  } = useRouteParams()
+  const { data } = useGet(`/cv/api/log-dashboard/${activityId}/log-count-by-tags`, {
+    queryParams: {
+      accountId,
+      projectIdentifier,
+      orgIdentifier,
+      startTime,
+      endTime
+    }
+  })
+  return <LogAnalysisFrequencyView data={data} startTime={startTime} endTime={endTime} />
+}
+
+function LogAnalysisFrequencyView({ data, startTime, endTime }: LogAnalysisFrequencyViewProps) {
+  const columnChartOptions: Highcharts.Options | undefined = useMemo(() => {
+    if (data) {
+      const { categories, columnChartData } = generatePointsForLogChart(data, startTime, endTime)
+      return getLogViewcolumnChartConfig(columnChartData, categories, startTime, endTime)
+    }
+  }, [data])
+
+  return <HighchartsReact highcharts={Highcharts} options={columnChartOptions} />
 }

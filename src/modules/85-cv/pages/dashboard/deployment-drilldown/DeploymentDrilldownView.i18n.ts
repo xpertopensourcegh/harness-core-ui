@@ -14,5 +14,13 @@ export default {
   duration: 'Duration',
   baselineTest: 'Baseline test',
   currentTest: 'Current test',
-  testsRan: 'Tests ran'
+  testsRan: 'Tests ran',
+  timeline: 'Timeline',
+  metrics: 'Metrics',
+  logs: 'Logs',
+  status: {
+    inProgress: 'in progress',
+    passed: 'passed',
+    failed: 'failed'
+  }
 }

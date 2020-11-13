@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { Container, Text, Icon, Color } from '@wings-software/uikit'
 import type { FontProps } from '@wings-software/uikit/dist/styled-props/font/FontProps'
 import HighchartsReact from 'highcharts-react-official'
 import Highcharts from 'highcharts'
 import classnames from 'classnames'
 import moment from 'moment'
+import merge from 'lodash-es/merge'
 import styles from './TimeseriesRow.module.scss'
 
 export interface SeriesConfig {
@@ -16,7 +17,8 @@ export interface TimeseriesRowProps {
   transactionName: React.ReactNode
   metricName?: React.ReactNode
   seriesData: Array<SeriesConfig>
-  chartHeight?: number
+  chartOptions?: Highcharts.Options
+  hideShowMore?: boolean // temporary - this will likely become click callback
   className?: string
 }
 
@@ -29,8 +31,15 @@ export default function TimeseriesRow({
   metricName,
   seriesData,
   className,
-  chartHeight
+  chartOptions,
+  hideShowMore
 }: TimeseriesRowProps) {
+  const rows = useMemo(() => {
+    return seriesData.map(data => ({
+      name: data.name,
+      options: chartOptions ? merge(chartsConfig(data.series), chartOptions) : chartsConfig(data.series)
+    }))
+  }, [seriesData, chartOptions])
   return (
     <Container className={classnames(styles.timeseriesRow, className)}>
       <Container className={styles.labels}>
@@ -47,14 +56,14 @@ export default function TimeseriesRow({
         </div>
       </Container>
       <Container className={styles.charts}>
-        {seriesData.map((data, index) => (
+        {rows.map((data, index) => (
           <React.Fragment key={index}>
             {data.name && <Text>{data.name}</Text>}
             <Container className={styles.chartRow}>
               <Container className={styles.chartContainer}>
-                <HighchartsReact highcharts={Highcharts} options={chartsConfig(data.series, chartHeight)} />
+                <HighchartsReact highcharts={Highcharts} options={data.options} />
               </Container>
-              <Icon name="main-more" className={styles.verticalMoreIcon} color={Color.GREY_350} />
+              {!hideShowMore && <Icon name="main-more" className={styles.verticalMoreIcon} color={Color.GREY_350} />}
             </Container>
           </React.Fragment>
         ))}
@@ -63,11 +72,11 @@ export default function TimeseriesRow({
   )
 }
 
-export function chartsConfig(series: Highcharts.SeriesLineOptions[], chartHeight?: number): Highcharts.Options {
+export function chartsConfig(series: Highcharts.SeriesLineOptions[]): Highcharts.Options {
   return {
     chart: {
       backgroundColor: 'transparent',
-      height: chartHeight || 40,
+      height: 40,
       type: 'line',
       spacing: [5, 2, 5, 2]
     },

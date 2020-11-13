@@ -36,6 +36,11 @@
         display: flex;
         align-items: center;
         justify-content: space-between;
+        margin-bottom: var(--spacing-xsmall);
+        > div {
+          display: flex;
+          align-items: center;
+        }
       }
       .panel {
         box-shadow: 0px 1px 2px 1px var(--grey-300);
@@ -61,23 +66,22 @@
   display: flex;
   flex-direction: column;
   min-height: 0;
-  background-color: var(--white);
-  padding: var(--spacing-medium);
   margin-top: var(--spacing-xsmall);
-  border-radius: 2px;
-  box-shadow: 0 0 1px 0px var(--grey-400);
+  .timelineBar {
+    border-top: 1px solid var(--grey-200);
+    padding-top: var(--spacing-small);
+    margin-left: 210px;
+  }
+}
+
+.noDataCard {
+  margin: var(--spacing-large) !important;
 }
 
 .showMore {
   margin-left: 200px !important;
   min-height: var(--spacing-small);
   text-align: center;
-}
-
-.timelineBar {
-  border-top: 1px solid var(--grey-200);
-  padding-top: var(--spacing-small);
-  margin-left: 210px;
 }
 
 .logsTab {
@@ -98,4 +102,60 @@
 
 .progressBar {
   margin-bottom: var(--spacing-small);
+}
+
+.panel {
+  box-shadow: 0px 1px 2px 1px var(--grey-300);
+  border-radius: 2px;
+  padding: var(--spacing-medium) !important;
+  margin-bottom: var(--spacing-large) !important;
+  background-color: var(--white) !important;
+  min-height: 70px;
+}
+
+.postDeploymentView {
+  :global {
+    .bp3-tab-list {
+      width: 200px;
+      .bp3-tab {
+        margin-top: var(--spacing-xsmall);
+      }
+    }
+    .bp3-tab-panel {
+      margin-top: 0;
+    }
+  }
+  .postDeploymentMetrics {
+    .filtersAndStatusBar {
+      display: flex;
+      .timelineBar {
+        flex: 1;
+        margin-top: var(--spacing-xsmall);
+      }
+    }
+    .seriesRow {
+      margin-bottom: 1px;
+    }
+  }
+  .frequencyChart {
+    .frequencyChartContent {
+      height: 80px;
+      display: flex;
+      > p {
+        flex-basis: 180px;
+      }
+      > div {
+        flex: 1;
+      }
+    }
+  }
+}
+
+.verificationStatusCard {
+  padding: var(--spacing-xsmall) var(--spacing-large) !important;
+  border-radius: 8px;
+  font-weight: bold !important;
+  font-size: var(--font-size-xsmall) !important;
+  text-transform: uppercase;
+  margin: 0 var(--spacing-large) !important;
 }

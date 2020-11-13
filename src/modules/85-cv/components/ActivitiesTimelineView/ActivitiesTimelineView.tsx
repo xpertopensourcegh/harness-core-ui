@@ -13,6 +13,10 @@ export interface EventData {
   startTime: number
   name: string
   verificationResult: ActivityDashboardDTO['verificationStatus']
+  headerLabels?: {
+    primary?: string
+    secondary?: string
+  }
   [x: string]: any
 }
 
@@ -20,6 +24,7 @@ export interface ActivitiesTimelineViewProps {
   startTime: number
   endTime: number
   canSelect?: boolean
+  preselectedEvent?: EventData
   deployments?: Array<EventData>
   configChanges?: Array<EventData>
   infrastructureChanges?: Array<EventData>
@@ -29,6 +34,8 @@ export interface ActivitiesTimelineViewProps {
 }
 
 const MAX_STACKED_EVENTS = 3
+const BATCH_BREAKPOINT = 70
+const HORIZONTAL_STACK_OFFSET = 4
 
 function generateEventsToPlot(items: EventData[]): EventData[] {
   if (!items?.length) return []
@@ -77,6 +84,7 @@ export default function ActivitiesTimelineView({
   startTime,
   endTime,
   canSelect,
+  preselectedEvent,
   deployments = [],
   configChanges = [],
   infrastructureChanges = [],
@@ -105,9 +113,13 @@ export default function ActivitiesTimelineView({
     return (
       <Container className={styles.eventItem}>
         <TimelineTooltip items={[item]}>
-          <EventSvg selected={item === selectedEvent} item={item} onSelect={canSelect ? setSelectedEvent : undefined} />
+          <EventSvg
+            selected={item === selectedEvent || item === preselectedEvent}
+            item={item}
+            onSelect={canSelect ? setSelectedEvent : undefined}
+          />
         </TimelineTooltip>
-        <Text font={{ size: 'xsmall' }} lineClamp={1} width={50}>
+        <Text font={{ size: 'xsmall' }} lineClamp={1} width={BATCH_BREAKPOINT}>
           {item.name}
         </Text>
       </Container>
@@ -115,17 +127,31 @@ export default function ActivitiesTimelineView({
   }
   const renderBatch = (items: Array<EventData>) => {
     const itemsToRender = generateEventsToPlot(items)
+    const aditionalStyles: any = {}
+    const selectedEventIndex = itemsToRender.findIndex(i => i === selectedEvent || i === preselectedEvent)
+    if (selectedEventIndex >= 0) {
+      const start = itemsToRender[0].startTime
+      const end = itemsToRender[itemsToRender.length - 1].startTime
+      if (end - start > 0) {
+        const x = itemsToRender[selectedEventIndex].startTime
+        const percentagePart = ((x - start) * 100) / (end - start)
+        const absolutePart = selectedEventIndex * HORIZONTAL_STACK_OFFSET
+        aditionalStyles.width = 0
+        aditionalStyles.marginLeft = `calc(${percentagePart}% - ${absolutePart}px)`
+      }
+    }
     return (
-      <Container className={styles.eventBatch}>
+      <Container className={styles.eventBatch} style={aditionalStyles}>
         <TimelineTooltip items={items}>
           <Container onClick={() => zoomIn(items)} className={styles.itemsGroup}>
             {itemsToRender.map((item: EventData, index: number) =>
               index + 1 > MAX_STACKED_EVENTS ? null : (
                 <EventSvg
                   key={index}
+                  selected={item === selectedEvent || item === preselectedEvent}
                   style={{
                     top: -index * 2,
-                    left: index * 4,
+                    left: index * HORIZONTAL_STACK_OFFSET,
                     zIndex: MAX_STACKED_EVENTS - index
                   }}
                   item={item}
@@ -134,7 +160,8 @@ export default function ActivitiesTimelineView({
             )}
           </Container>
         </TimelineTooltip>
-        <Text font={{ size: 'xsmall' }} lineClamp={1} width={50}>{`${items.length} Events`}</Text>
+        {/* Currently, since we're re-positioning items to align with blue flag, text can overflow with other items */}
+        {/* <Text font={{ size: 'xsmall' }} lineClamp={1} width={BATCH_BREAKPOINT}>{`${items.length} Events`}</Text> */}
       </Container>
     )
   }
@@ -152,7 +179,9 @@ export default function ActivitiesTimelineView({
           onClick={zoomOut}
         ></Button>
       )}
-      {canSelect && <ActivitiesTimelineHeader selectedItem={selectedEvent} />}
+      {(canSelect || preselectedEvent) && (
+        <ActivitiesTimelineHeader selectedItem={selectedEvent || (zoomRange ? undefined : preselectedEvent)} />
+      )}
       <TimelineView
         {...selectedRange}
         labelsWidth={215}
@@ -175,7 +204,7 @@ export default function ActivitiesTimelineView({
           }
         ]}
         renderItem={renderItem}
-        minItemsDistance={70}
+        minItemsDistance={BATCH_BREAKPOINT}
         renderBatch={renderBatch}
         {...timelineViewProps}
       />

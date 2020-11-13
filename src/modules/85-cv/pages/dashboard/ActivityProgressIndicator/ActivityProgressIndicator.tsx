@@ -21,6 +21,7 @@ export default function ActivityProgressIndicator(props: ActivityProgressIndicat
     progressPercentage: progress,
     total,
     progress: progressCount,
+    passed,
     failed,
     remainingTimeMs,
     startTime,
@@ -47,13 +48,12 @@ export default function ActivityProgressIndicator(props: ActivityProgressIndicat
     )
   }
 
-  const passedVerifications = `${progressCount}/${total}`
   const minutesRemaining = Math.floor((remainingTimeMs ?? 0) / 1000 / 60)
   const duration = Math.floor((durationMs ?? 0) / 1000 / 60)
 
-  let progressDescription = `${passedVerifications} ${i18n.verificationsInProgress} (${minutesRemaining} ${i18n.minutesRemaining})`
+  let progressDescription = `${progressCount} ${i18n.verificationsInProgress} (${minutesRemaining} ${i18n.minutesRemaining})`
   if (progress === 100) {
-    progressDescription = `${passedVerifications} ${i18n.verifications} ${i18n.passedVerification}`
+    progressDescription = `${passed}/${total} ${i18n.verifications} ${i18n.passedVerification}`
   }
 
   return (

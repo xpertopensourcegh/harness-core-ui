@@ -206,7 +206,7 @@ describe('Unit tests for RecentActivityChanges', () => {
     // in progress with time remaining
     const { container, getByText } = render(<RecentActivityChanges />)
     await waitFor(() => expect(container.querySelector('[class*="activityList"]')).not.toBeNull())
-    expect(getByText(`${i18n.verificationProgressText.inProgress} (10 ${i18n.verificationProgressText.remainingTime})`))
+    expect(getByText(`${i18n.verificationProgressText.inProgress} (0 ${i18n.verificationProgressText.remainingTime})`))
     const progressMeter = container.querySelector(`[class*="${Classes.PROGRESS_METER}"]`)
     expect(progressMeter?.getAttribute('style')).toEqual('width: 43%;')
     expect(progressMeter?.getAttribute('class')).toContain('heatmapColor6')

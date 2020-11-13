@@ -34,6 +34,7 @@ export default function getLogViewcolumnChartConfig(
   return {
     chart: {
       renderTo: 'chart',
+      marginBottom: 5,
       style: {
         fontFamily: 'var(--font-family)'
       }

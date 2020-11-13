@@ -2,7 +2,6 @@ import React from 'react'
 import { render, waitFor } from '@testing-library/react'
 import { Classes } from '@blueprintjs/core'
 import type { DeploymentVerificationJobInstanceSummary } from 'services/cv'
-import { InstancePhase } from '@cv/pages/dashboard/deployment-drilldown/DeploymentDrilldownSideNav'
 import i18n from '@cv/pages/dashboard/deployment-drilldown/DeploymentDrilldownView.i18n'
 import { DeploymentProgressAndNodes, DeploymentProgressAndNodesProps } from '../DeploymentProgressAndNodes'
 
@@ -22,8 +21,7 @@ const BaselineDeploymentMockData: DeploymentProgressAndNodesProps = {
     startTime: 1602600600000,
     status: 'SUCCESS' as DeploymentVerificationJobInstanceSummary['status'],
     verificationJobInstanceId: 'VS4Ck5okSMeGKiHDKls25w'
-  },
-  instancePhase: InstancePhase.PRE_PRODUCTION
+  }
 }
 
 const CanaryDeploymentMockData: DeploymentProgressAndNodesProps = {
@@ -127,8 +125,7 @@ const CanaryDeploymentMockData: DeploymentProgressAndNodesProps = {
     startTime: 1602599760000,
     status: 'ERROR',
     verificationJobInstanceId: 'kuFEp5yRRDaGgK0i5fiGdg'
-  },
-  instancePhase: InstancePhase.PRODUCTION
+  }
 }
 
 describe('Deployment progress and nodes unit tests', () => {

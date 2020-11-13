@@ -1,0 +1,196 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DeploymentDrilldownSideNav renders correctly and fires onSelect callback 1`] = `
+<div>
+  <div
+    class="StyledProps---font--2ipy StyledProps---main--1Wws sideNav"
+  >
+    <div
+      class="Collapse---main--34Is main"
+    >
+      <div
+        class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---main--2ZKU Collapse---header--3aq4"
+      >
+        <div
+          class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---leftSection--YiEo"
+        >
+          <span
+            class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+          >
+            <svg
+              height="10"
+              viewBox="0 0 14 9"
+              width="10"
+            >
+              <path
+                d="M14 1.1c0-.6-.5-1.1-1.2-1.1H1.2C.5 0 0 .5 0 1.1c0 .3.1.5.3.7l5.8 6.8c.2.2.5.4.9.4s.7-.2.9-.4l5.8-6.8c.2-.2.3-.4.3-.7z"
+                fill="#4d5969"
+              />
+            </svg>
+          </span>
+          <p
+            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---margin-left-small--3XL_ StyledProps---font-weight-bold--22XZ"
+          >
+            Pre Production Tests
+          </p>
+        </div>
+        <div
+          class="StyledProps---font--2ipy StyledProps---main--1Wws"
+        />
+      </div>
+      <div
+        class="Collapse---collapse--2EmT"
+      >
+        <div
+          class="bp3-collapse"
+          style="height: auto; overflow-y: visible; transition: none;"
+        >
+          <div
+            aria-hidden="false"
+            class="bp3-collapse-body"
+            style="transform: translateY(0); transition: none;"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      class="Collapse---main--34Is main"
+    >
+      <div
+        class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---main--2ZKU Collapse---header--3aq4"
+      >
+        <div
+          class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---leftSection--YiEo"
+        >
+          <span
+            class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+          >
+            <svg
+              height="10"
+              viewBox="0 0 14 9"
+              width="10"
+            >
+              <path
+                d="M14 1.1c0-.6-.5-1.1-1.2-1.1H1.2C.5 0 0 .5 0 1.1c0 .3.1.5.3.7l5.8 6.8c.2.2.5.4.9.4s.7-.2.9-.4l5.8-6.8c.2-.2.3-.4.3-.7z"
+                fill="#4d5969"
+              />
+            </svg>
+          </span>
+          <p
+            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---margin-left-small--3XL_ StyledProps---font-weight-bold--22XZ"
+          >
+            Production Deployment
+          </p>
+        </div>
+        <div
+          class="StyledProps---font--2ipy StyledProps---main--1Wws"
+        />
+      </div>
+      <div
+        class="Collapse---collapse--2EmT"
+      >
+        <div
+          class="bp3-collapse"
+          style="height: auto; overflow-y: visible; transition: none;"
+        >
+          <div
+            aria-hidden="false"
+            class="bp3-collapse-body"
+            style="transform: translateY(0); transition: none;"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      class="Collapse---main--34Is main"
+    >
+      <div
+        class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---main--2ZKU Collapse---header--3aq4"
+      >
+        <div
+          class="StyledProps---font--2ipy StyledProps---main--1Wws CollapseHeader---leftSection--YiEo"
+        >
+          <span
+            class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+          >
+            <svg
+              height="10"
+              viewBox="0 0 14 9"
+              width="10"
+            >
+              <path
+                d="M14 1.1c0-.6-.5-1.1-1.2-1.1H1.2C.5 0 0 .5 0 1.1c0 .3.1.5.3.7l5.8 6.8c.2.2.5.4.9.4s.7-.2.9-.4l5.8-6.8c.2-.2.3-.4.3-.7z"
+                fill="#4d5969"
+              />
+            </svg>
+          </span>
+          <p
+            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---margin-left-small--3XL_ StyledProps---font-weight-bold--22XZ"
+          >
+            Post Deployment
+          </p>
+        </div>
+        <div
+          class="StyledProps---font--2ipy StyledProps---main--1Wws"
+        />
+      </div>
+      <div
+        class="Collapse---collapse--2EmT"
+      >
+        <div
+          class="bp3-collapse"
+          style="height: auto; overflow-y: visible; transition: none;"
+        >
+          <div
+            aria-hidden="false"
+            class="bp3-collapse-body"
+            style="transform: translateY(0); transition: none;"
+          >
+            <div
+              class="StyledProps---font--2ipy StyledProps---main--1Wws item StyledProps---padding-small--3f0A"
+            >
+              <div
+                class="StyledProps---font--2ipy StyledProps---main--1Wws itemHeader"
+              >
+                <p
+                  class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                  style="width: 130px;"
+                />
+                <span
+                  class="bp3-icon bp3-icon-small-tick StyledProps---main--1Wws StyledProps---margin-left-medium--2jOL StyledProps---background-green500--33le StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                  icon="small-tick"
+                >
+                  <svg
+                    data-icon="small-tick"
+                    height="12"
+                    viewBox="0 0 16 16"
+                    width="12"
+                  >
+                    <desc>
+                      small-tick
+                    </desc>
+                    <path
+                      d="M12 5c-.28 0-.53.11-.71.29L7 9.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l5-5A1.003 1.003 0 0012 5z"
+                      fill-rule="evenodd"
+                    />
+                  </svg>
+                </span>
+              </div>
+              <p
+                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey300--fEYT StyledProps---font-size-xsmall--1f9b"
+              >
+                Environment: undefined
+              </p>
+              <p
+                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey300--fEYT StyledProps---font-size-xsmall--1f9b"
+              >
+                Started on: XX:YY
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

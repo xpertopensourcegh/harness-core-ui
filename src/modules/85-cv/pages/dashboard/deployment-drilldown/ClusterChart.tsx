@@ -8,7 +8,7 @@ export interface ClusterChartProps {
   data: LogAnalysisClusterChartDTO[]
 }
 
-const mapRisk = (risk: number): Highcharts.PointOptionsObject => {
+export const mapRisk = (risk: number): Highcharts.PointOptionsObject => {
   if (risk > 1) {
     risk = risk / 100
   }
@@ -61,7 +61,7 @@ export default function ClusterChart({ data }: ClusterChartProps) {
   )
 }
 
-const chartOptions = (series: Highcharts.SeriesScatterOptions[]) => {
+export const chartOptions = (series: Highcharts.SeriesScatterOptions[]) => {
   return {
     chart: {
       renderTo: 'chart',

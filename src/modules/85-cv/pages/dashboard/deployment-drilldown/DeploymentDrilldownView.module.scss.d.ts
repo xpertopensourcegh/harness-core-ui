@@ -12,11 +12,19 @@ declare const styles: {
   readonly filters: string
   readonly timeseriesList: string
   readonly metricsTab: string
-  readonly showMore: string
   readonly timelineBar: string
+  readonly noDataCard: string
+  readonly showMore: string
   readonly logsTab: string
   readonly tableContent: string
   readonly logAnalysisRow: string
   readonly progressBar: string
+  readonly postDeploymentView: string
+  readonly postDeploymentMetrics: string
+  readonly filtersAndStatusBar: string
+  readonly seriesRow: string
+  readonly frequencyChart: string
+  readonly frequencyChartContent: string
+  readonly verificationStatusCard: string
 }
 export default styles

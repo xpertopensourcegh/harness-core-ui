@@ -54,7 +54,7 @@ export default function VerificationItem({
 
   return (
     <li className={css.dataRow} onClick={onClick}>
-      <ActivityType buildName={tag!} serviceName={serviceName!} iconProps={{ name: 'nav-cd' }} />
+      <ActivityType buildName={tag!} serviceName={serviceName!} iconProps={{ name: 'cd-main' }} />
       <ItemTooltip
         {...tooltipProps}
         phase="PRE_PROD"
@@ -135,7 +135,7 @@ function ItemTooltip(props: {
                       </Text>
                     </Container>
                   </Container>
-                  <RiskScoreTile riskScore={50} isSmall />
+                  <RiskScoreTile riskScore={item.riskScore || 0} isSmall />
                 </Container>
               ))}
             </>

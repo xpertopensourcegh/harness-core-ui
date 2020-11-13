@@ -4,7 +4,7 @@ import {
   DeploymentProgressAndNodes,
   DeploymentProgressAndNodesProps
 } from '@cv/components/DeploymentProgressAndNodes/DeploymentProgressAndNodes'
-import { InstancePhase } from '@cv/pages/dashboard/deployment-drilldown/DeploymentDrilldownSideNav'
+// import { InstancePhase } from '@cv/pages/dashboard/deployment-drilldown/DeploymentDrilldownSideNav'
 import type { Activity } from '../../ActivityTimeline/ActivityTrack/ActivityTrackUtils'
 import css from './DeploymentSummaryCardView.module.scss'
 
@@ -113,8 +113,8 @@ const DeploymentMockData: DeploymentProgressAndNodesProps = {
     startTime: 1602599760000,
     status: 'ERROR',
     verificationJobInstanceId: 'kuFEp5yRRDaGgK0i5fiGdg'
-  },
-  instancePhase: InstancePhase.PRODUCTION
+  }
+  // instancePhase: InstancePhase.PRODUCTION
 }
 
 export function DeploymentSummaryCardView(props: DeploymentSummaryCardViewProps): JSX.Element {

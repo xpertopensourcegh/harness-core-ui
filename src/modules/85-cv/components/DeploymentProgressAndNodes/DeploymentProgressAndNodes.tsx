@@ -5,7 +5,6 @@ import cx from 'classnames'
 import type { DeploymentVerificationJobInstanceSummary } from 'services/cv'
 import TestsSummaryView from '@cv/pages/dashboard/deployment-drilldown/TestsSummaryView'
 import BlueGreenVerificationChart, { NodeData } from '@cv/pages/services/BlueGreenVerificationChart'
-import type { InstancePhase } from '@cv/pages/dashboard/deployment-drilldown/DeploymentDrilldownSideNav'
 import CVProgressBar from '../CVProgressBar/CVProgressBar'
 import i18n from './DeploymentProgressAndNodes.i18n'
 import css from './DeploymentProgressAndNodes.module.scss'
@@ -13,15 +12,14 @@ import css from './DeploymentProgressAndNodes.module.scss'
 export interface DeploymentProgressAndNodesProps {
   deploymentSummary?: DeploymentVerificationJobInstanceSummary
   onSelectNode?: (node: NodeData) => void
-  instancePhase?: InstancePhase
   className?: string
 }
 
 export function DeploymentProgressAndNodes(props: DeploymentProgressAndNodesProps): JSX.Element {
-  const { deploymentSummary, onSelectNode, instancePhase, className } = props
+  const { deploymentSummary, onSelectNode, className } = props
   const [selectedNode, setSelectedNode] = useState<NodeData | undefined>()
   const deploymentNodesData = useMemo(() => {
-    if (!!instancePhase && deploymentSummary?.additionalInfo?.type === 'CANARY') {
+    if (deploymentSummary?.additionalInfo?.type === 'CANARY') {
       const {
         primary: before = [],
         canary: after = [],
@@ -57,7 +55,7 @@ export function DeploymentProgressAndNodes(props: DeploymentProgressAndNodesProp
       <CVProgressBar value={deploymentSummary?.progressPercentage ?? 0} status={deploymentSummary?.status} />
       {deploymentSummary && (
         <>
-          <Text font={{ size: 'small' }} data-name={i18n.startedOnText}>
+          <Text font={{ size: 'small' }} data-name={i18n.startedOnText} margin={{ top: 'xsmall', bottom: 'xsmall' }}>
             {i18n.startedOnText}: {moment(deploymentSummary.startTime).format('MMM D, YYYY h:mm A')}
           </Text>
           <Text font={{ size: 'small' }} data-name={i18n.durationText}>

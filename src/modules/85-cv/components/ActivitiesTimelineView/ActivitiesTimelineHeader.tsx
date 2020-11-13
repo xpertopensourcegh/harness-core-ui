@@ -26,7 +26,9 @@ export default function ActivitiesTimelineHeader({ selectedItem }: ActivitiesTim
             {}
           }
           className={styles.headerPrimaryMsg}
-        />
+        >
+          {positionData?.dx && selectedItem?.headerLabels?.primary}
+        </Container>
         <Container
           style={
             (selectedItem && {
@@ -69,8 +71,14 @@ function usePositionData(selectedItem?: EventData) {
 
   useEffect(() => {
     recalculatePositionData()
-    window.addEventListener('resize', recalculatePositionData)
-    return () => window.removeEventListener('resize', recalculatePositionData)
+    if (selectedItem) {
+      window.addEventListener('resize', recalculatePositionData)
+      const interval = setInterval(recalculatePositionData, 300)
+      return () => {
+        window.removeEventListener('resize', recalculatePositionData)
+        clearInterval(interval)
+      }
+    }
   }, [selectedItem])
 
   return { barRef, positionData }

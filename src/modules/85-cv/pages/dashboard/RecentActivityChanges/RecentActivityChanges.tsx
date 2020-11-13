@@ -187,7 +187,9 @@ function ActivityVerificationProgressWithRisk(props: ActivityVerificationProgres
       status === 'VERIFICATION_PASSED' ? i18n.verificationProgressText.passed : i18n.verificationProgressText.failed
     } (${i18n.verificationProgressText.riskScore}: ${overallRisk})`
   } else if (progressPercentage < 100) {
-    progressStatus = `${i18n.verificationProgressText.inProgress} (${remainingTime} ${i18n.verificationProgressText.remainingTime})`
+    progressStatus = `${i18n.verificationProgressText.inProgress} (${
+      remainingTime ? Math.floor(remainingTime / (1000 * 60)) : ''
+    } ${i18n.verificationProgressText.remainingTime})`
   }
   return (
     <Container className={css.verificationProgress}>
@@ -281,6 +283,7 @@ export default function ActivityChanges(): JSX.Element {
             onClick={() =>
               history.push(
                 routeCVActivityChangesPage.url({
+                  activityId: recentActivity.activityId as string,
                   projectIdentifier: projectIdentifier as string,
                   orgIdentifier: orgIdentifier as string
                 })

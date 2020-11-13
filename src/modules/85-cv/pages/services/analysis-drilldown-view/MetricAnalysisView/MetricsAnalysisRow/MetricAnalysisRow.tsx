@@ -91,7 +91,11 @@ export default function MetricAnalysisRow(props: MetricAnalysisRowProps): JSX.El
         transactionName={transactionName}
         metricName={metricName}
         seriesData={timeseriesOptions}
-        chartHeight={ROW_HEIGHT}
+        chartOptions={{
+          chart: {
+            height: ROW_HEIGHT
+          }
+        }}
       />
     </Container>
   )

@@ -2,6 +2,7 @@ import React, { useState, useMemo } from 'react'
 import { Container, Pagination, Link } from '@wings-software/uikit'
 import * as Moment from 'moment'
 import { extendMoment } from 'moment-range'
+import classnames from 'classnames'
 import { TimelineBar } from '@common/components/TimelineView/TimelineBar'
 import type { RestResponseTransactionMetricInfoSummaryPageDTO, HostData, TimeRange } from 'services/cv'
 import { getColorValue } from '@common/components/HeatMap/ColorUtils'
@@ -38,12 +39,12 @@ export default function DeploymentMetricsTab({
   isLoading
 }: DeploymentMetricsTabProps) {
   return (
-    <div className={styles.metricsTab}>
+    <div className={classnames(styles.metricsTab, styles.panel)}>
       <MetricAnalysisFilter
         onChangeFilter={val => onAnomalousMetricsOnly(val === MetricAnalysisFilterType.ANOMALOUS)}
       />
       {data?.resource?.pageResponse?.content?.length === 0 && !isLoading && (
-        <NoDataCard message={i18n.nothingToDisplay} icon="warning-sign" />
+        <NoDataCard className={styles.noDataCard} message={i18n.nothingToDisplay} icon="warning-sign" />
       )}
       <Container className={styles.timeseriesList}>
         {data?.resource?.pageResponse?.content?.map(value => (

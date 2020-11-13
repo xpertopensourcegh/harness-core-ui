@@ -134,12 +134,6 @@ exports[`ActivitiesTimelineView matches snapshot 1`] = `
                   </div>
                 </span>
               </span>
-              <p
-                class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StyledProps---font-size-xsmall--1f9b"
-                style="--text-line-clamp: 1; width: 50px;"
-              >
-                2 Events
-              </p>
             </div>
           </div>
           <div
@@ -210,12 +204,6 @@ exports[`ActivitiesTimelineView matches snapshot 1`] = `
                   </div>
                 </span>
               </span>
-              <p
-                class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StyledProps---font-size-xsmall--1f9b"
-                style="--text-line-clamp: 1; width: 50px;"
-              >
-                3 Events
-              </p>
             </div>
           </div>
         </div>
