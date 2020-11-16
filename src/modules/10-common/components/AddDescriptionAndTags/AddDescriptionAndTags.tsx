@@ -11,7 +11,7 @@ export interface DescriptionAndTagsInputProps {
   className?: string
 }
 
-export interface NameResourceWithDescriptionAndTagsProps {
+export interface AddDescriptionAndTagsWithIdentifier {
   identifierProps: Omit<InputWithIdentifierProps, 'formik'>
 }
 
@@ -55,9 +55,9 @@ export function AddDescriptionAndTags(props: DescriptionAndTagsInputProps): JSX.
   return (
     <Container className={cx(css.main, className)}>
       <Container className={css.connectorFormNameWarpper}>
-        <Container className={cx(css.connectorFormNameElm)}>{formComponent}</Container>
+        <Container className={css.connectorFormNameElm}>{formComponent}</Container>
         {(!isDescriptionOpen || !isTagsOpen) && (
-          <Layout.Vertical margin="small" padding={{ left: 'large', top: 'small' }} spacing="xsmall">
+          <Layout.Vertical spacing="xsmall" style={{ justifyContent: 'center', marginLeft: 'var(--spacing-large)' }}>
             <AddFieldOption
               label={i18n.addDescriptionLabel}
               onClick={() => setIsDescriptionOpen(true)}
@@ -97,7 +97,7 @@ export function AddDescriptionAndTags(props: DescriptionAndTagsInputProps): JSX.
   )
 }
 
-export function DescriptionAndTagsWithIdentifier(props: NameResourceWithDescriptionAndTagsProps): JSX.Element {
+export function AddDescriptionAndTagsWithIdentifier(props: AddDescriptionAndTagsWithIdentifier): JSX.Element {
   const { identifierProps } = props
   return <AddDescriptionAndTags formComponent={<FormInput.InputWithIdentifier {...identifierProps} />} />
 }

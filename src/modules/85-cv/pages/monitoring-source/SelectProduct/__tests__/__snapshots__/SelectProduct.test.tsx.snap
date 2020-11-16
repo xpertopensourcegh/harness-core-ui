@@ -160,7 +160,8 @@ exports[`SelectProduct render for AppD monitoring source 1`] = `
                   </div>
                 </div>
                 <div
-                  class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---margin-small--1ZqR StyledProps---padding-left-large--28UT StyledProps---padding-top-small--1-XA"
+                  class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
+                  style="justify-content: center;"
                 >
                   <p
                     class="StyledProps---font--2ipy StyledProps---main--1Wws fieldToggleLabel StyledProps---color--8PuS StyledProps---color-blue500--3HtV"
@@ -448,10 +449,10 @@ exports[`SelectProduct render for AppD monitoring source 1`] = `
             </div>
           </div>
           <div
-            class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+            class="Layout---horizontal--3rmQ StyledProps---main--1Wws main"
           >
             <button
-              class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---margin-large--2nWj"
+              class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
               type="button"
             >
               <span
@@ -480,7 +481,8 @@ exports[`SelectProduct render for AppD monitoring source 1`] = `
               </span>
             </button>
             <button
-              class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi StyledProps---margin-large--2nWj"
+              class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+              form="onBoardingForm"
               type="submit"
             >
               <span

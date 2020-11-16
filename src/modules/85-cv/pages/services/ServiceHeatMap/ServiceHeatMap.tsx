@@ -80,6 +80,7 @@ export default function ServiceHeatMap(props: ServiceHeatMapProps): JSX.Element 
   })
 
   useEffect(() => {
+    if (!startTime || !endTime) return
     getHeatmap({
       queryParams: {
         accountId: accountId,

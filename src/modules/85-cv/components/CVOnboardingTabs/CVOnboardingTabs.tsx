@@ -5,23 +5,14 @@ import cx from 'classnames'
 import css from './CVOnboardingTabs.module.scss'
 
 interface CVTabProps {
-  name: string
+  defaultEntityName: string
   setName: (val: string) => void
-  type: string
+  iconName: IconName
   tabProps: any[]
   onNext: (prevTab?: number, newTab?: number) => void
   onPrevious: (prevTab?: number, newTab?: number) => void
   currentTab: number
   maxEnabledTab: number
-}
-
-const getIconByType = (type: string) => {
-  switch (type) {
-    case 'AppDynamics':
-      return 'service-appdynamics'
-    default:
-      return '' as IconName
-  }
 }
 
 const CVOnboardingTabs: React.FC<CVTabProps> = props => {
@@ -48,9 +39,9 @@ const CVOnboardingTabs: React.FC<CVTabProps> = props => {
           id={0}
           title={
             <div>
-              <Icon name={getIconByType(props.type)} size={16} className={css.nameTypeIcon} />
+              <Icon name={props.iconName} size={16} className={css.nameTypeIcon} />
               <ContentEditable
-                html={props.name}
+                html={props.defaultEntityName}
                 disabled={!editable}
                 className={cx({ [css.editable]: editable })}
                 tagName="span"

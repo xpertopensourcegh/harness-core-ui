@@ -7,14 +7,19 @@ type CVTabsHookReturnType = {
   setMaxEnabledTab: (val: number) => void
   onNext: (prevTab?: number, newTab?: number) => void
   onPrevious: (prevTab?: number, newTab?: number) => void
+  currentData?: any
+  setCurrentData: (data?: any) => void
 }
 
 export default function useCVTabsHook(): CVTabsHookReturnType {
   const [currentTab, setCurrentTab] = useState<number>(1)
+  const [currentData, setCurrentData] = useState<any>()
   const [maxEnabledTab, setMaxEnabledTab] = useState<number>(1)
 
   return {
     currentTab,
+    currentData,
+    setCurrentData,
     setCurrentTab,
     maxEnabledTab,
     setMaxEnabledTab,

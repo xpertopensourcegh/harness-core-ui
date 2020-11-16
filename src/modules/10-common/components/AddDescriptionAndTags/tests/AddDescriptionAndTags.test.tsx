@@ -1,14 +1,14 @@
 import React from 'react'
 import { fireEvent, render, waitFor } from '@testing-library/react'
 import { Formik, FormikForm } from '@wings-software/uikit'
-import { DescriptionAndTagsWithIdentifier } from '../AddDescriptionAndTags'
+import { AddDescriptionAndTagsWithIdentifier } from '../AddDescriptionAndTags'
 import i18n from '../AddDescriptionAndTags.i18n'
 
 function WrapperComponent(): JSX.Element {
   return (
     <Formik initialValues={{}} onSubmit={() => undefined}>
       <FormikForm>
-        <DescriptionAndTagsWithIdentifier identifierProps={{ inputLabel: 'name' }} />
+        <AddDescriptionAndTagsWithIdentifier identifierProps={{ inputLabel: 'name' }} />
       </FormikForm>
     </Formik>
   )

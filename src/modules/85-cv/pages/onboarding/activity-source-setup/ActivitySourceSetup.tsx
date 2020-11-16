@@ -6,6 +6,7 @@ import { ActivitySourceSetupRoutePaths } from 'navigation/cv/routePaths'
 import KubernetesActivitySource from './kubernetes/KubernetesActivitySource'
 import { OnBoardingPageHeader } from '../OnBoardingPageHeader/OnBoardingPageHeader'
 import i18n from './ActivitySourceSetup.i18n'
+import css from './ActivitySourceSetup.module.scss'
 
 function activitySourceTypeToComponent(activitySource: string): JSX.Element {
   switch (activitySource) {
@@ -21,7 +22,7 @@ export default function ActivitySourceSetup(): JSX.Element {
     params: { activitySource, projectIdentifier, orgIdentifier }
   } = useRouteParams()
   return (
-    <Container>
+    <Container className={css.main}>
       <OnBoardingPageHeader
         breadCrumbs={[
           {

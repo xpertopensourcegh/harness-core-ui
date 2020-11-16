@@ -7,7 +7,7 @@ import i18n from './routes.i18n'
 export const routeCVMainDashBoardPage: Route<{ projectIdentifier: string; orgIdentifier: string }> = {
   sidebarId: SidebarIdentifier.CONTINUOUS_VERIFICATION,
   path: '/cv/dashboard/org/:orgIdentifier/project/:projectIdentifier',
-  title: i18n.services,
+  title: i18n.dashboard,
   pageId: '/cv/dashboard',
   authenticated: true,
   url: ({ projectIdentifier, orgIdentifier }) =>

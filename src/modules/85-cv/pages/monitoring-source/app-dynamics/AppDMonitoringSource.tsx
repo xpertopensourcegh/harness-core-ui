@@ -14,8 +14,8 @@ const AppDMonitoringSource = () => {
   return (
     <Container>
       <CVOnboardingTabs
-        type={'AppDynamics'}
-        name={data.name || 'Default Name'}
+        iconName="service-appdynamics"
+        defaultEntityName={data.name || 'Default Name'}
         setName={val => {
           setData({ ...data, name: val })
         }}

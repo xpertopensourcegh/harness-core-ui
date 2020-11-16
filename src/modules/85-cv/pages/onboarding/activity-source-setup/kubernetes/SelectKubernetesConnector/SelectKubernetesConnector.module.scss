@@ -1,0 +1,36 @@
+.main {
+  width: 50% !important;
+  max-width: 400px;
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  transform: translateX(-50%);
+
+  .heading {
+    margin-bottom: var(--spacing-large);
+  }
+
+  .infraSpecification {
+    font-weight: 500;
+    padding: var(--spacing-xsmall) 0;
+    margin-bottom: var(--spacing-xsmall);
+    border-bottom: 1px solid var(--grey-200);
+  }
+
+  .connectorOptionHeading {
+    margin-bottom: var(--spacing-large);
+  }
+}
+
+.connectorSelection {
+  .category {
+    margin-bottom: var(--spacing-small);
+  }
+}
+
+.productSelectionCard {
+  [class*='cardLabel'] {
+    padding: var(--spacing-large) 0 !important;
+    font-size: var(--font-size-small) !important;
+  }
+}

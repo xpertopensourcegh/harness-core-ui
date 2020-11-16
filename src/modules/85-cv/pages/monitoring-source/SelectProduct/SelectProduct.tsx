@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react'
-import { Layout, Text, Container, FormikForm, Formik, IconName, Color, Link, Button } from '@wings-software/uikit'
+import { Layout, Text, Container, FormikForm, Formik, IconName, Color, Link } from '@wings-software/uikit'
 import * as Yup from 'yup'
 import { useParams, useHistory } from 'react-router-dom'
 import { StringUtils } from '@common/exports'
 import { routeCVAdminSetup } from 'navigation/cv/routes'
 import type { ConnectorInfoDTO } from 'services/cd-ng'
+import { SubmitAndPreviousButtons } from '@cv/pages/onboarding/SubmitAndPreviousButtons/SubmitAndPreviousButtons'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
-import { DescriptionAndTagsWithIdentifier } from '@common/components/AddDescriptionAndTags/AddDescriptionAndTags'
+import { AddDescriptionAndTagsWithIdentifier } from '@common/components/AddDescriptionAndTags/AddDescriptionAndTags'
 import { CVSelectionCard } from '@cv/components/CVSelectionCard/CVSelectionCard'
 import useCreateConnectorModal from '@connectors/modals/ConnectorModal/useCreateConnectorModal'
 import i18n from './SelectProduct.i18n'
@@ -112,7 +113,7 @@ const SelectProduct: React.FC<SelectProductProps> = props => {
                 cardLabel={monitoringSource?.iconLabel}
                 renderLabelOutsideCard={true}
               />
-              <DescriptionAndTagsWithIdentifier identifierProps={{ inputLabel: i18n.name }} />
+              <AddDescriptionAndTagsWithIdentifier identifierProps={{ inputLabel: i18n.name }} />
               <Layout.Vertical spacing="small" margin={{ bottom: 'large' }}>
                 <Text>{monitoringSource?.connectToMonitoringSource}</Text>
                 <Text color={Color.GREY_350}>{monitoringSource?.firstTimeText}</Text>
@@ -159,22 +160,16 @@ const SelectProduct: React.FC<SelectProductProps> = props => {
                 </Layout.Horizontal>
               </Layout.Vertical>
             </Layout.Vertical>
-            <Layout.Horizontal>
-              <Button
-                text={i18n.PREVIOUS}
-                margin="large"
-                icon="chevron-left"
-                onClick={() =>
-                  history.push(
-                    routeCVAdminSetup.url({
-                      projectIdentifier,
-                      orgIdentifier
-                    })
-                  )
-                }
-              />
-              <Button text={i18n.NEXT} intent="primary" type="submit" margin="large" rightIcon="chevron-right" />
-            </Layout.Horizontal>
+            <SubmitAndPreviousButtons
+              onPreviousClick={() =>
+                history.push(
+                  routeCVAdminSetup.url({
+                    projectIdentifier,
+                    orgIdentifier
+                  })
+                )
+              }
+            />
           </FormikForm>
         )}
       </Formik>
