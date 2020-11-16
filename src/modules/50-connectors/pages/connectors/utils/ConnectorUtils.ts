@@ -399,6 +399,18 @@ export const getConnectorDisplayName = (type: string) => {
       return 'AWS'
     case Connectors.NEXUS:
       return 'Nexus'
+    case Connectors.LOCAL:
+      return 'Local Secret Manager'
+    case Connectors.VAULT:
+      return 'Vault'
+    case Connectors.GCP_KMS:
+      return 'GCP KMS'
+    case Connectors.SECRET_MANAGER:
+      return 'Custom Secret Manager'
+    case Connectors.AZUREVAULT:
+      return 'Azure Vault'
+    case Connectors.AWSSM:
+      return 'AWS Secret Manager'
     default:
       return ''
   }

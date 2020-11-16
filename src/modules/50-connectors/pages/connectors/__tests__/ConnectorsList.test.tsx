@@ -2,7 +2,7 @@ import React from 'react'
 import { render, waitFor, queryByText } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import ConnectorsPage from '../ConnectorsPage'
-import { ManualK8s, InlineK8s, GitHttp, Docker, ActiveDocker, Vault } from './mockData'
+import { ManualK8s, InlineK8s, GitHttp, Docker, ActiveDocker, Vault, catalogueData } from './mockData'
 
 jest.mock('react-timeago', () => () => 'dummy date')
 
@@ -13,6 +13,10 @@ describe('Connectors List', () => {
         <ConnectorsPage
           mockData={{
             data: ManualK8s as any,
+            loading: false
+          }}
+          catalogueMockData={{
+            data: catalogueData as any,
             loading: false
           }}
         />
@@ -32,6 +36,10 @@ describe('Connectors List', () => {
             data: InlineK8s as any,
             loading: false
           }}
+          catalogueMockData={{
+            data: catalogueData as any,
+            loading: false
+          }}
         />
       </TestWrapper>
     )
@@ -49,6 +57,10 @@ describe('Connectors List', () => {
             data: GitHttp as any,
             loading: false
           }}
+          catalogueMockData={{
+            data: catalogueData as any,
+            loading: false
+          }}
         />
       </TestWrapper>
     )
@@ -64,6 +76,10 @@ describe('Connectors List', () => {
         <ConnectorsPage
           mockData={{
             data: Docker as any,
+            loading: false
+          }}
+          catalogueMockData={{
+            data: catalogueData as any,
             loading: false
           }}
         />
@@ -84,6 +100,10 @@ describe('Connectors List', () => {
             data: ActiveDocker as any,
             loading: false
           }}
+          catalogueMockData={{
+            data: catalogueData as any,
+            loading: false
+          }}
         />
       </TestWrapper>
     )
@@ -98,6 +118,10 @@ describe('Connectors List', () => {
         <ConnectorsPage
           mockData={{
             data: Vault as any,
+            loading: false
+          }}
+          catalogueMockData={{
+            data: catalogueData as any,
             loading: false
           }}
         />

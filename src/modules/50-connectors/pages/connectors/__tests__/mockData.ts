@@ -361,3 +361,32 @@ export const Artifactory = {
     total: 1
   }
 }
+
+export const catalogueData = {
+  status: 'SUCCESS',
+  data: {
+    catalogue: [
+      { category: 'CLOUD_PROVIDER', connectors: ['Gcp', 'Aws', 'K8sCluster'] },
+      {
+        category: 'SECRET_MANAGER',
+        connectors: [
+          'Cyberark',
+          'GcpKms',
+          'CustomSecretManager',
+          'Vault',
+          'Azurevault',
+          'Awssecretsmanager',
+          'Local',
+          'AwsKms'
+        ]
+      },
+      { category: 'CONNECTOR', connectors: [] },
+      { category: 'ARTIFACTORY', connectors: ['DockerRegistry', 'Nexus', 'Artifactory'] },
+      { category: 'CODE_REPO', connectors: ['Git'] },
+      { category: 'MONITORING', connectors: ['AppDynamics', 'Splunk'] },
+      { category: 'TICKETING', connectors: ['Jira'] }
+    ]
+  },
+  metaData: null,
+  correlationId: '0fe40db0-e383-4593-b7dc-c40b4b3f56d6'
+}

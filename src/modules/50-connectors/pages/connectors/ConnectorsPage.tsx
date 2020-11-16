@@ -1,53 +1,41 @@
 import React, { useState } from 'react'
-import { Layout, Button, TextInput, Icon, Popover, IconName, Text, Color } from '@wings-software/uikit'
-import { useParams, useHistory } from 'react-router-dom'
-import { IDialogProps, Position, Menu } from '@blueprintjs/core'
-import { useGetConnectorList, ResponsePageConnectorResponse, ConnectorInfoDTO } from 'services/cd-ng'
-import { Connectors, ConnectorInfoText } from '@connectors/constants'
+import { Layout, Button, TextInput, useModalHook } from '@wings-software/uikit'
+import { useParams } from 'react-router-dom'
+import {
+  useGetConnectorList,
+  ResponsePageConnectorResponse,
+  useGetConnectorCatalogue,
+  ConnectorCatalogueItem,
+  ResponseConnectorCatalogueResponse
+} from 'services/cd-ng'
 import { PageSpinner } from 'modules/10-common/components/Page/PageSpinner'
 import type { UseGetMockData } from 'modules/10-common/utils/testUtils'
-import useCreateConnectorModal from '@connectors/modals/ConnectorModal/useCreateConnectorModal'
-import { routeCreateConnectorFromYaml } from 'navigation/accounts/routes'
 import { PageError } from 'modules/10-common/components/Page/PageError'
 import { Page } from 'modules/10-common/exports'
+import { AddDrawer } from '@common/components'
+import {
+  AddDrawerMapInterface,
+  DrawerContext,
+  CategoryInterface,
+  ItemInterface
+} from '@common/components/AddDrawer/AddDrawer'
+import useCreateConnectorModal from '@connectors/modals/ConnectorModal/useCreateConnectorModal'
+import { Connectors } from '@connectors/constants'
 import ConnectorsListView from './views/ConnectorsListView'
 import i18n from '../../components/CreateConnectorWizard/CreateConnectorWizard.i18n'
+import { ConnectorCatalogueNames } from './ConnectorsPage.i18n'
+import { getIconByType, getConnectorDisplayName } from './utils/ConnectorUtils'
 import css from './ConnectorsPage.module.scss'
 
 interface ConnectorsListProps {
   mockData?: UseGetMockData<ResponsePageConnectorResponse>
+  catalogueMockData?: UseGetMockData<ResponseConnectorCatalogueResponse>
 }
 
-// const enum View {
-//   GRID,
-//   LIST
-// }
-interface OptionInterface {
-  label: string
-  value: ConnectorInfoDTO['type']
-  icon: IconName
-  onClick?: () => void
-  modalProps?: IDialogProps
-}
-
-const getMenuItem: React.FC<OptionInterface> = item => {
-  return (
-    <Layout.Horizontal flex={{ distribution: 'space-between' }}>
-      <Text font={{ weight: 'bold' }} margin="xsmall" color={Color.GREY_800} className={css.dropdownLabel}>
-        {item.label}
-      </Text>
-      <Icon name={item.icon} size={24} margin={{ right: 'small' }} />
-    </Layout.Horizontal>
-  )
-}
-
-const ConnectorsPage: React.FC<ConnectorsListProps> = ({ mockData }) => {
+const ConnectorsPage: React.FC<ConnectorsListProps> = ({ mockData, catalogueMockData }) => {
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
-  // const [view, setView] = useState(View.LIST)
   const [searchTerm, setSearchTerm] = useState('')
   const [page, setPage] = useState(0)
-  const history = useHistory()
-
   const { loading, data, refetch: reloadConnectorList, error } = useGetConnectorList({
     queryParams: {
       pageIndex: page,
@@ -61,65 +49,73 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ mockData }) => {
     debounce: 300
   })
 
+  const computeDrawerMap = (catalogueData: ResponseConnectorCatalogueResponse | null): AddDrawerMapInterface => {
+    return Object.assign(
+      {},
+      {
+        drawerLabel: 'Connectors',
+        categories:
+          catalogueData?.data?.catalogue
+            ?.filter(item => item.category !== 'CONNECTOR')
+            .map((item: ConnectorCatalogueItem) => {
+              const obj: CategoryInterface = {
+                categoryLabel: ConnectorCatalogueNames.get(item['category']) || '',
+                items:
+                  item.connectors?.map(entry => {
+                    const name = entry.valueOf() || ''
+                    return {
+                      itemLabel: getConnectorDisplayName(entry) || name,
+                      iconName: getIconByType(entry),
+                      value: name
+                    }
+                  }) || []
+              }
+              return obj
+            }) || []
+      }
+    )
+  }
+
+  const { data: catalogueData, loading: loadingCatalogue } = useGetConnectorCatalogue({
+    queryParams: { accountIdentifier: accountId },
+    mock: catalogueMockData
+  })
+
   const { openConnectorModal } = useCreateConnectorModal({
     onSuccess: () => {
       reloadConnectorList()
     }
   })
 
-  const getDropdownItems = (items: OptionInterface[]): JSX.Element[] => {
-    const renderList = items.map((item, index) => {
-      return (
-        <Menu.Item
-          onClick={() => {
-            openConnectorModal(item?.value, item?.modalProps)
-          }}
-          key={`${item}${index}`}
-          text={getMenuItem(item)}
-        />
-      )
-    })
-    renderList.push(
-      <Menu.Item
-        key={`yaml-builder`}
-        text={getMenuItem({ label: ConnectorInfoText.YAML, value: Connectors.YAML, icon: 'main-code-yaml' })}
-        onClick={() => {
-          history.push(routeCreateConnectorFromYaml.url())
-        }}
+  const [openDrawer, hideDrawer] = useModalHook(() => {
+    const onSelect = (val: ItemInterface) => {
+      if (val?.value) {
+        openConnectorModal(Connectors[val?.value?.toUpperCase()], undefined)
+        hideDrawer()
+      }
+    }
+
+    return loadingCatalogue ? null : (
+      <AddDrawer
+        addDrawerMap={computeDrawerMap(catalogueData)}
+        onSelect={onSelect}
+        onClose={hideDrawer}
+        drawerContext={DrawerContext.PAGE}
       />
     )
-    return renderList
-  }
-
-  const items: OptionInterface[] = [
-    {
-      label: ConnectorInfoText.KUBERNETES_CLUSTER,
-      value: Connectors.KUBERNETES_CLUSTER,
-      icon: 'service-kubernetes'
-    },
-    { label: ConnectorInfoText.GIT, value: Connectors.GIT, icon: 'service-github' },
-    {
-      label: ConnectorInfoText.VAULT,
-      value: Connectors.VAULT,
-      icon: 'lock'
-    },
-    { label: ConnectorInfoText.APP_DYNAMICS, value: Connectors.APP_DYNAMICS, icon: 'service-appdynamics' },
-    { label: ConnectorInfoText.SPLUNK, value: Connectors.SPLUNK, icon: 'service-splunk' },
-    { label: ConnectorInfoText.DOCKER, value: Connectors.DOCKER, icon: 'service-dockerhub' },
-    { label: ConnectorInfoText.AWS, value: Connectors.AWS, icon: 'service-aws' },
-    { label: ConnectorInfoText.NEXUS, value: Connectors.NEXUS, icon: 'service-nexus' },
-    { label: ConnectorInfoText.ARTIFACTORY, value: Connectors.ARTIFACTORY, icon: 'service-artifactory' },
-    { label: ConnectorInfoText.GCP, value: Connectors.GCP, icon: 'service-gcp' }
-  ]
+  }, [loadingCatalogue])
 
   return (
     <Layout.Vertical height={'calc(100vh - 64px'} className={css.listPage}>
       <Layout.Horizontal className={css.header}>
         <Layout.Horizontal inline width="55%">
-          <Popover minimal position={Position.BOTTOM_RIGHT}>
-            <Button intent="primary" text={i18n.NEW_CONNECTOR} icon="plus" rightIcon="chevron-down" />
-            <Menu className={css.selectConnector}>{getDropdownItems(items)}</Menu>
-          </Popover>
+          <Button
+            intent="primary"
+            text={i18n.NEW_CONNECTOR}
+            icon="plus"
+            rightIcon="chevron-down"
+            onClick={openDrawer}
+          />
         </Layout.Horizontal>
         <Layout.Horizontal width="45%" className={css.view}>
           <TextInput
@@ -130,23 +126,6 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ mockData }) => {
               setSearchTerm(e.target.value.trim())
             }}
           />
-          {/* <Button
-              minimal
-              icon="grid-view"
-              intent={view === View.GRID ? 'primary' : 'none'}
-              onClick={() => {
-                setView(View.GRID)
-              }}
-            /> */}
-          {/* Enable once grid view is also supported:
-           <Button
-            minimal
-            icon="list"
-            intent={view === View.LIST ? 'primary' : 'none'}
-            onClick={() => {
-              setView(View.LIST)
-            }}
-          /> */}
         </Layout.Horizontal>
       </Layout.Horizontal>
       <Page.Body className={css.listBody}>

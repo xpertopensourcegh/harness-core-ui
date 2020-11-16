@@ -2,10 +2,8 @@
 
 import React from 'react'
 import { Get, GetProps, useGet, UseGetProps } from 'restful-react'
+
 import { getConfig } from '../config'
-
-export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>
-
 export interface WeeklyRange {
   endDay?: string
   endTime?: string
@@ -16581,7 +16579,7 @@ export type GetDelegatesProps = Omit<
 
 export const GetDelegates = (props: GetDelegatesProps) => (
   <Get<RestResponsePageResponseDelegate, unknown, GetDelegatesQueryParams, void>
-    path={`/setup/delegates`}
+    path="/setup/delegates"
     base={window.apiUrl || getConfig('api')}
     {...props}
   />
@@ -16609,7 +16607,7 @@ export type GetDelegatesStatusProps = Omit<
 
 export const GetDelegatesStatus = (props: GetDelegatesStatusProps) => (
   <Get<RestResponseDelegateStatus, unknown, GetDelegatesStatusQueryParams, void>
-    path={`/setup/delegates/status`}
+    path="/setup/delegates/status"
     base={window.apiUrl || getConfig('api')}
     {...props}
   />
@@ -16637,7 +16635,7 @@ export type GetDelegatesDownloadUrlProps = Omit<
 
 export const GetDelegatesDownloadUrl = (props: GetDelegatesDownloadUrlProps) => (
   <Get<RestResponseMapStringString, unknown, GetDelegatesDownloadUrlQueryParams, void>
-    path={`/setup/delegates/downloadUrl`}
+    path="/setup/delegates/downloadUrl"
     base={window.apiUrl || getConfig('api')}
     {...props}
   />
@@ -16669,7 +16667,7 @@ export type GetDelegateProfilesProps = Omit<
 
 export const GetDelegateProfiles = (props: GetDelegateProfilesProps) => (
   <Get<RestResponsePageResponseDelegateProfile, unknown, GetDelegateProfilesQueryParams, void>
-    path={`/delegate-profiles`}
+    path="/delegate-profiles"
     base={window.apiUrl || getConfig('api')}
     {...props}
   />
@@ -16697,7 +16695,7 @@ export type GetKubernetesDelegateNamesProps = Omit<
 
 export const GetKubernetesDelegateNames = (props: GetKubernetesDelegateNamesProps) => (
   <Get<RestResponseListString, unknown, GetKubernetesDelegateNamesQueryParams, void>
-    path={`/setup/delegates/kubernetes-delegates`}
+    path="/setup/delegates/kubernetes-delegates"
     base={window.apiUrl || getConfig('api')}
     {...props}
   />
@@ -16717,11 +16715,7 @@ export const useGetKubernetesDelegateNames = (props: UseGetKubernetesDelegateNam
 export type GetUserProps = Omit<GetProps<RestResponseUser, unknown, void, void>, 'path'>
 
 export const GetUser = (props: GetUserProps) => (
-  <Get<RestResponseUser, unknown, void, void>
-    path={`/users/user`}
-    base={window.apiUrl || getConfig('api')}
-    {...props}
-  />
+  <Get<RestResponseUser, unknown, void, void> path="/users/user" base={window.apiUrl || getConfig('api')} {...props} />
 )
 
 export type UseGetUserProps = Omit<UseGetProps<RestResponseUser, unknown, void, void>, 'path'>
@@ -16740,7 +16734,7 @@ export type GetDelegateTagsProps = Omit<
 
 export const GetDelegateTags = (props: GetDelegateTagsProps) => (
   <Get<RestResponseSetString, unknown, GetDelegateTagsQueryParams, void>
-    path={`/setup/delegates/delegate-tags`}
+    path="/setup/delegates/delegate-tags"
     base={window.apiUrl || getConfig('api')}
     {...props}
   />

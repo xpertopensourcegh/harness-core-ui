@@ -71,11 +71,12 @@ export interface ItemInterface {
   visible?: boolean
   disabled?: boolean
   // may need for onSelect
-  categoryLabel?: string
+  categoryValue?: string
 }
 
-interface CategoryInterface {
+export interface CategoryInterface {
   categoryLabel: string
+  categoryValue?: string
   items?: ItemInterface[]
   categories?: CategoryInterface[]
   iconName?: IconName

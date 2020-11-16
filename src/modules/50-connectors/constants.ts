@@ -23,7 +23,11 @@ export const Connectors: ConnectorType = {
   AWS: 'Aws',
   SECRET_MANAGER: 'CustomSecretManager',
   NEXUS: 'Nexus',
-  ARTIFACTORY: 'Artifactory'
+  ARTIFACTORY: 'Artifactory',
+  CYBERARK: 'Cyberark',
+  AZUREVAULT: 'Azurevault',
+  AWSKMS: 'AwsKms',
+  AWSSM: 'Awssecretsmanager'
 }
 
 export const ConnectorInfoText = {
