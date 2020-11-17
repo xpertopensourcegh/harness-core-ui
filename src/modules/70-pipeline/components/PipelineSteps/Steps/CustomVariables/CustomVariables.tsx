@@ -82,6 +82,8 @@ const CustomVariableEditable: React.FC<CustomVariableEditableProps> = ({
 }): JSX.Element => {
   const [selectedVariable, setSelectedVariable] = React.useState<Variable>(getDefaultVariable())
   const [inputVariables, setInputVariables] = React.useState<Variable[]>(initialValues.variables)
+  // use formInputVariables for rendering form in order to prevent rerenred on input change
+  const [formInputVariables, setFormInputVariables] = React.useState<Variable[]>(initialValues.variables)
   const { accountId, projectIdentifier, orgIdentifier } = useParams<{
     projectIdentifier: string
     orgIdentifier: string
@@ -90,6 +92,10 @@ const CustomVariableEditable: React.FC<CustomVariableEditableProps> = ({
   React.useEffect(() => {
     setInputVariables(initialValues.variables)
   }, [initialValues.variables])
+
+  React.useEffect(() => {
+    setFormInputVariables(cloneDeep(initialValues.variables))
+  }, [])
 
   const [showModal, hideModal] = useModalHook(() => {
     return (
@@ -107,6 +113,7 @@ const CustomVariableEditable: React.FC<CustomVariableEditableProps> = ({
               inputVariables.splice(index, 1, data)
             }
             setInputVariables(cloneDeep(inputVariables))
+            setFormInputVariables(cloneDeep(inputVariables))
             onUpdate?.({ variables: inputVariables })
             closeModal()
           }}
@@ -163,7 +170,7 @@ const CustomVariableEditable: React.FC<CustomVariableEditableProps> = ({
           <span>{i18n.variablesTableHeaders.value}</span>
         </section>
       )}
-      {inputVariables.map?.((variable, index) => (
+      {formInputVariables.map?.((variable, index) => (
         <div key={variable.name} className={css.variableListTable}>
           <Text>{stepViewType === StepViewType.StageVariable ? variable.name : `$pipeline.${variable.name}`}</Text>
 
@@ -216,7 +223,7 @@ const CustomVariableEditable: React.FC<CustomVariableEditableProps> = ({
             {variable.type !== VariableTypes.Secret && (
               <MultiTextInput
                 width={270}
-                value={variable.value}
+                textProps={{ value: variable.value }}
                 mentionsInfo={{
                   data: done =>
                     done([
@@ -262,6 +269,7 @@ const CustomVariableEditable: React.FC<CustomVariableEditableProps> = ({
                   tooltip={i18n.removeThisVariable}
                   onClick={() => {
                     inputVariables.splice(index, 1)
+                    formInputVariables.splice(index, 1)
                     onUpdate?.({ variables: inputVariables })
                   }}
                 />

@@ -2,7 +2,13 @@ import React from 'react'
 import { cloneDeep } from 'lodash-es'
 import { Text, Card, Color } from '@wings-software/uikit'
 import { Tree, ITreeNode } from '@blueprintjs/core'
-import type { StageElement, StageElementWrapper, DeploymentStage, NGVariable as Variable } from 'services/cd-ng'
+import type {
+  StageElement,
+  StageElementWrapper,
+  DeploymentStage,
+  NGVariable as Variable,
+  NgPipeline
+} from 'services/cd-ng'
 import { RightBar } from '../RightBar/RightBar'
 import i18n from './PipelineVariables.i18n'
 import { PipelineContext } from '../PipelineContext/PipelineContext'
@@ -21,7 +27,12 @@ function forEachNode(nodes: ITreeNode[], callback: (node: ITreeNode) => void): v
   }
 }
 
-function renderForStage(stage: StageElement, factory: AbstractStepFactory): JSX.Element {
+function renderForStage(
+  stage: StageElement,
+  factory: AbstractStepFactory,
+  pipeline: NgPipeline,
+  updatePipeline: (pipeline: NgPipeline) => Promise<void>
+): JSX.Element {
   return (
     <Card className={css.variableCard} key={stage.identifier}>
       <Text color={Color.BLACK}>{i18n.stage}</Text>
@@ -51,9 +62,13 @@ function renderForStage(stage: StageElement, factory: AbstractStepFactory): JSX.
       {stage.spec && (
         <StepWidget
           factory={factory}
-          initialValues={{ variables: (stage.spec as DeploymentStage).variables || [] }}
+          initialValues={{ variables: (stage.spec as DeploymentStage | any).customVariables || [] }}
           type={'Custom_Variable'}
           stepViewType={StepViewType.InputVariable}
+          onUpdate={({ variables }: { variables: Variable[] }) => {
+            ;(stage.spec as any).customVariables = variables
+            updatePipeline(pipeline)
+          }}
         />
       )}
     </Card>
@@ -78,10 +93,10 @@ export const PipelineVariables: React.FC = (): JSX.Element => {
     pipeline.stages.forEach(data => {
       if (data.parallel && data.parallel.length > 0) {
         data.parallel.forEach((nodeP: StageElementWrapper) => {
-          nodeP.stage && stagesCards.push(renderForStage(nodeP.stage, stepsFactory))
+          nodeP.stage && stagesCards.push(renderForStage(nodeP.stage, stepsFactory, pipeline, updatePipeline))
         })
       } /* istanbul ignore else */ else if (data.stage) {
-        stagesCards.push(renderForStage(data.stage, stepsFactory))
+        stagesCards.push(renderForStage(data.stage, stepsFactory, pipeline, updatePipeline))
       }
     })
   }
