@@ -42,7 +42,7 @@ const CIBuildsPage: React.FC = () => {
       projectIdentifier,
       page: (page ? page : 0) as number,
       // TODO: to consider, should we allow user to sort
-      sort: ['buildNumber', 'desc']
+      sort: ('triggerTime,desc' as unknown) as string[]
     }
   })
 
@@ -114,23 +114,21 @@ const CIBuildsPage: React.FC = () => {
   )
 
   // BUILDS FOOTER
-  const buildsFooter =
-    (buildsData && buildsData.totalItems) ||
-    (0 > 0 && (
-      <Pagination
-        pageSize={buildsData?.pageSize || 0}
-        pageIndex={buildsData?.pageIndex}
-        pageCount={buildsData?.totalPages || 0}
-        itemCount={buildsData?.totalItems || 0}
-        pageCountClamp={5}
-        gotoPage={pageNumber => {
-          navigateToPage(pageNumber)
-        }}
-        nextPage={pageNumber => {
-          navigateToPage(pageNumber)
-        }}
-      />
-    ))
+  const buildsFooter = buildsData && !!buildsData.totalItems && (
+    <Pagination
+      pageSize={buildsData?.pageSize || 0}
+      pageIndex={buildsData?.pageIndex}
+      pageCount={buildsData?.totalPages || 0}
+      itemCount={buildsData?.totalItems || 0}
+      pageCountClamp={5}
+      gotoPage={pageNumber => {
+        navigateToPage(pageNumber)
+      }}
+      nextPage={pageNumber => {
+        navigateToPage(pageNumber)
+      }}
+    />
+  )
 
   // body content
   const builds = buildsData?.content?.map((item, key) => (
