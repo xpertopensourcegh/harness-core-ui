@@ -217,24 +217,24 @@ export default function BuildStageSpecifications(): JSX.Element {
                 <div className={cx(css.section, css.noPadTop)}>
                   <Layout.Vertical flex={true} className={css.specTabs}>
                     <Text font={{ size: 'medium', weight: 'semi-bold' }}>
-                      {getString('build.specifications.stageDetails')}
+                      {getString('build.stageSpecifications.stageDetails')}
                     </Text>
                   </Layout.Vertical>
                   <FormikForm>
                     <Layout.Horizontal spacing="medium">
                       <FormInput.InputWithIdentifier
                         inputName="name"
-                        inputLabel={getString('build.specifications.stageNameLabel')}
+                        inputLabel={getString('build.stageSpecifications.stageNameLabel')}
                         inputGroupProps={{
                           className: css.fields,
-                          placeholder: getString('build.specifications.stageNamePlaceholder')
+                          placeholder: getString('build.stageSpecifications.stageNamePlaceholder')
                         }}
                       />
                       <div className={css.addDataLinks}>
                         {!isDescriptionVisible && !formValues.description && (
                           <Button
                             minimal
-                            text={getString('build.specifications.addDescription')}
+                            text={getString('build.stageSpecifications.addDescription')}
                             icon="plus"
                             onClick={() => setDescriptionVisible(true)}
                           />
@@ -242,7 +242,7 @@ export default function BuildStageSpecifications(): JSX.Element {
                         {!isTagsVisible && !formValues.tags && (
                           <Button
                             minimal
-                            text={getString('build.specifications.addTags')}
+                            text={getString('build.stageSpecifications.addTags')}
                             icon="plus"
                             onClick={() => setTagsVisible(true)}
                           />
@@ -259,11 +259,11 @@ export default function BuildStageSpecifications(): JSX.Element {
                           }}
                           className={css.removeLink}
                         >
-                          {getString('build.specifications.removeLabel')}
+                          {getString('build.stageSpecifications.removeLabel')}
                         </span>
                         <FormInput.TextArea
                           name="description"
-                          label={getString('build.specifications.descriptionLabel')}
+                          label={getString('build.stageSpecifications.descriptionLabel')}
                         />
                       </div>
                     )}
@@ -277,11 +277,11 @@ export default function BuildStageSpecifications(): JSX.Element {
                           }}
                           className={css.removeLink}
                         >
-                          {getString('build.specifications.removeLabel')}
+                          {getString('build.stageSpecifications.removeLabel')}
                         </span>
                         <FormInput.TagInput
-                          name={getString('build.specifications.addTags')}
-                          label={getString('build.specifications.tagsLabel')}
+                          name={getString('build.stageSpecifications.addTags')}
+                          label={getString('build.stageSpecifications.tagsLabel')}
                           items={[]}
                           labelFor={name => name as string}
                           itemFromNewTag={newTag => newTag}
@@ -303,7 +303,7 @@ export default function BuildStageSpecifications(): JSX.Element {
 
                     <Switch
                       checked={formValues.skipGitClone}
-                      label={getString('build.specifications.skipGitCloneLabel')}
+                      label={getString('build.stageSpecifications.skipGitCloneLabel')}
                       onChange={e => setFieldValue('skipGitClone', e.currentTarget.checked)}
                     />
                   </FormikForm>
@@ -312,11 +312,11 @@ export default function BuildStageSpecifications(): JSX.Element {
                 <div className={css.section}>
                   <Layout.Vertical flex={true} className={css.specTabs}>
                     <Text font={{ size: 'medium', weight: 'semi-bold' }}>
-                      {getString('build.specifications.workspaceAndSharedPaths')}
+                      {getString('build.stageSpecifications.workspaceAndSharedPaths')}
                     </Text>
                   </Layout.Vertical>
                   <FormikForm className={css.fields}>
-                    <Text margin={{ bottom: 'xsmall' }}>{getString('build.specifications.workspace')}</Text>
+                    <Text margin={{ bottom: 'xsmall' }}>{getString('build.stageSpecifications.workspace')}</Text>
                     <div className={cx(css.fieldsGroup, css.withoutSpacing)}>
                       <FormInput.MultiTextInput label="" name={'workspace'} style={{ flexGrow: 1 }} />
                       {getMultiTypeFromValue(formValues.workspace) === MultiTypeInputType.RUNTIME && (
@@ -324,7 +324,7 @@ export default function BuildStageSpecifications(): JSX.Element {
                           value={formValues.workspace as string}
                           type={
                             <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-                              <Text>{getString('build.specifications.workspace')}</Text>
+                              <Text>{getString('build.stageSpecifications.workspace')}</Text>
                             </Layout.Horizontal>
                           }
                           variableName={'workspace'}
@@ -337,7 +337,7 @@ export default function BuildStageSpecifications(): JSX.Element {
                     </div>
 
                     <Text margin={{ top: 'medium', bottom: 'xsmall' }}>
-                      {getString('build.specifications.sharedPaths')}
+                      {getString('build.stageSpecifications.sharedPaths')}
                     </Text>
                     <FieldArray
                       name="sharedPaths"
@@ -355,7 +355,7 @@ export default function BuildStageSpecifications(): JSX.Element {
                                   value={formValues.sharedPaths[index] as string}
                                   type={
                                     <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-                                      <Text>{getString('build.specifications.sharedPaths')}</Text>
+                                      <Text>{getString('build.stageSpecifications.sharedPaths')}</Text>
                                     </Layout.Horizontal>
                                   }
                                   variableName={`sharedPaths[${index}]`}
@@ -379,7 +379,7 @@ export default function BuildStageSpecifications(): JSX.Element {
                           <Button
                             intent="primary"
                             minimal
-                            text={getString('build.specifications.addSharedPath')}
+                            text={getString('build.stageSpecifications.addSharedPath')}
                             onClick={() => push('')}
                           />
                         </div>
@@ -390,7 +390,7 @@ export default function BuildStageSpecifications(): JSX.Element {
                 <div className={css.section}>
                   <Layout.Vertical flex={true} className={css.specTabs}>
                     <Text font={{ size: 'medium', weight: 'semi-bold' }}>
-                      {getString('build.specifications.variablesDetails')}
+                      {getString('build.stageSpecifications.variablesDetails')}
                     </Text>
                   </Layout.Vertical>
                   <FormikForm>
@@ -402,11 +402,11 @@ export default function BuildStageSpecifications(): JSX.Element {
                             <>
                               <div className={css.variablesGrid}>
                                 <Text className={css.variableTitle} font={{ size: 'small', weight: 'semi-bold' }}>
-                                  {getString('build.specifications.variablesCell')}
+                                  {getString('build.stageSpecifications.variablesCell')}
                                   <Icon name="pipeline-variables" margin={{ left: 'small' }} />
                                 </Text>
                                 <Text className={css.variableTitle} font={{ size: 'small', weight: 'semi-bold' }}>
-                                  {getString('build.specifications.valueCell')}
+                                  {getString('build.stageSpecifications.valueCell')}
                                 </Text>
                               </div>
                               <div className={css.box}>
@@ -500,13 +500,13 @@ export default function BuildStageSpecifications(): JSX.Element {
                             className={css.addVariable}
                             intent="primary"
                             minimal
-                            text={getString('build.specifications.addVariable')}
+                            text={getString('build.stageSpecifications.addVariable')}
                             onClick={() => openDialog()}
                           />
                           {isDialogOpen && (
                             <Dialog
                               isOpen={true}
-                              title={getString('build.specifications.addCustomVariableDialogTitle')}
+                              title={getString('build.stageSpecifications.addCustomVariableDialogTitle')}
                               onClose={closeDialog}
                             >
                               <Formik
@@ -543,23 +543,23 @@ export default function BuildStageSpecifications(): JSX.Element {
                                       <FormikForm>
                                         <FormInput.Text
                                           name="name"
-                                          label={getString('build.specifications.variableNameLabel')}
-                                          placeholder={getString('build.specifications.variableNamePlaceholder')}
+                                          label={getString('build.stageSpecifications.variableNameLabel')}
+                                          placeholder={getString('build.stageSpecifications.variableNamePlaceholder')}
                                         />
                                         <FormInput.Select
                                           name="type"
                                           items={[
                                             {
-                                              label: getString('build.specifications.textType'),
+                                              label: getString('build.stageSpecifications.textType'),
                                               value: VariableTypes.Text
                                             },
                                             {
-                                              label: getString('build.specifications.secretType'),
+                                              label: getString('build.stageSpecifications.secretType'),
                                               value: VariableTypes.Secret
                                             }
                                           ]}
-                                          label={getString('build.specifications.variableTypeLabel')}
-                                          placeholder={getString('build.specifications.variableTypePlaceholder')}
+                                          label={getString('build.stageSpecifications.variableTypeLabel')}
+                                          placeholder={getString('build.stageSpecifications.variableTypePlaceholder')}
                                         />
                                       </FormikForm>
                                     </div>

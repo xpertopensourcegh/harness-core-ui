@@ -80,7 +80,7 @@ pipeline-stages:
       repositoryUrlWrongUrlError: 'Please enter valid URL'
       repositoryUrlRequiredError: 'Repository URL is required'
       setupStage: 'Setup Stage'
-    specifications:
+    stageSpecifications:
       stageDetails: 'Stage Details'
       stageNameLabel: 'Stage Name'
       stageNamePlaceholder: 'Enter your stage name'
@@ -106,6 +106,15 @@ pipeline-stages:
       variableNamePlaceholder: 'Variable Name'
       variableTypeLabel: 'Type'
       variableTypePlaceholder: 'Type'
+    infraSpecifications:
+      whereToRun: Where do you want the builds to run?
+      propagate: 'Propagate from an existing stage'
+      newConfiguration: 'New Configuration'
+      newConfigurationConnectorLabel: 'Select a Kubernetes Cluster'
+      propagateConnectorLabel: 'Kubernetes Cluster'
+      connectorPlaceholder: 'Select'
+      loading: 'Loading...'
+      namespace: 'Namespace'
 pipeline-steps:
   gcr:
     title: 'GCR Step'
