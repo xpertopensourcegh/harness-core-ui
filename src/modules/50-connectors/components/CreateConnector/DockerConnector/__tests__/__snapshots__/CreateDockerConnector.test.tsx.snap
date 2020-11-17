@@ -57,6 +57,7 @@ exports[`Create Docker Connector  Wizard should render form 1`] = `
     <div
       class="StepWizard---stepDetails--Uaxx"
     >
+       
       <div
         class="Layout---vertical--3Szv Layout---layout-spacing-xxlarge--zgL2 StyledProps---main--1Wws firstep"
       >
@@ -250,6 +251,7 @@ exports[`Create Docker Connector  Wizard should render form 2`] = `
     <div
       class="StepWizard---stepDetails--Uaxx"
     >
+       
       <div
         class="Layout---vertical--3Szv Layout---layout-spacing-xxlarge--zgL2 StyledProps---main--1Wws firstep"
       >

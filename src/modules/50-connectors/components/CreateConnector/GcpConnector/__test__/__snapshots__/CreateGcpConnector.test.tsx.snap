@@ -58,6 +58,7 @@ exports[`Create GCP connector Wizard should render form 1`] = `
     <div
       class="StepWizard---stepDetails--Uaxx"
     >
+       
       <div
         class="Layout---vertical--3Szv Layout---layout-spacing-xxlarge--zgL2 StyledProps---main--1Wws firstep"
       >

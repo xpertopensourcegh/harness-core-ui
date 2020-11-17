@@ -18,7 +18,7 @@ const StageSelection = Select.ofType<StageSelectOption>()
 
 export const MapStepTypeToIcon: { [key: string]: HarnessIconName } = {
   Deployment: 'pipeline-deploy',
-  ci: 'pipeline-build',
+  ci: 'pipeline-build-select',
   Approval: 'pipeline-approval',
   Pipeline: 'pipeline',
   Custom: 'pipeline-custom'
@@ -90,7 +90,7 @@ export default function BuildStageSetupShell(): JSX.Element {
   const selectOptions = getSelectStageOptionsFromPipeline(pipeline)
 
   return (
-    <section className={css.setupShell} ref={layoutRef}>
+    <section className={css.setupShell} ref={layoutRef} key={selectedStageId}>
       <Layout.Horizontal
         spacing="small"
         className={cx(css.tabsContainer, { [css.tabExecution]: selectedTabId === i18n.executionLabel })}
@@ -100,13 +100,15 @@ export default function BuildStageSetupShell(): JSX.Element {
             id={i18n.defaultId}
             panel={<BuildStageSpecifications />}
             title={
-              <span className={css.tab}>
+              <div className={css.tab}>
                 <StageSelection
+                  className={css.stageDropdown}
                   itemRenderer={(item, { modifiers: { disabled }, handleClick }) => (
                     <div>
                       <Button
-                        className={css.stageDropDown}
+                        className={css.stageDropdownOptions}
                         icon={MapStepTypeToIcon[item.type]}
+                        iconProps={{ size: 30 }}
                         text={item.label}
                         disabled={disabled}
                         minimal
@@ -119,9 +121,18 @@ export default function BuildStageSetupShell(): JSX.Element {
                   filterable={false}
                   popoverProps={{ minimal: true }}
                 >
-                  <Button icon={MapStepTypeToIcon[stageData?.type]} text={stageData?.name} rightIcon="caret-down" />
+                  <Button className={css.stageDropdownButton} minimal>
+                    <Icon name={MapStepTypeToIcon[stageData?.type]} size={30} margin={{ right: 'small' }} />
+                    {stageData?.name}
+                    <Icon
+                      className={css.stageDropdownButtonCaret}
+                      name="pipeline-stage-selection-caret"
+                      size={19}
+                      margin={{ left: 'medium', right: 0 }}
+                    />
+                  </Button>
                 </StageSelection>
-              </span>
+              </div>
             }
           />
           <Tab

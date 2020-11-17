@@ -58,6 +58,7 @@ exports[`Create AppD connector Wizard should render form 1`] = `
     <div
       class="StepWizard---stepDetails--Uaxx"
     >
+       
       <div
         class="Layout---vertical--3Szv Layout---layout-spacing-xxlarge--zgL2 StyledProps---main--1Wws firstep"
       >
@@ -267,6 +268,7 @@ exports[`Create AppD connector Wizard should render form 2`] = `
     <div
       class="StepWizard---stepDetails--Uaxx"
     >
+       
       <form
         class="FormikForm---main--1N87 connectionForm"
       >
@@ -523,6 +525,7 @@ exports[`Create AppD connector Wizard should render form 3`] = `
     <div
       class="StepWizard---stepDetails--Uaxx"
     >
+       
       <form
         class="FormikForm---main--1N87 connectionForm"
       >

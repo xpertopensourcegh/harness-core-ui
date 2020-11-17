@@ -58,6 +58,7 @@ exports[`Create Secret Manager Wizard should render form 1`] = `
     <div
       class="StepWizard---stepDetails--Uaxx"
     >
+       
       <div
         class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---padding-small--3f0A"
         style="width: 350px; height: 500px;"
@@ -262,6 +263,7 @@ exports[`Create Secret Manager Wizard should render form 2`] = `
     <div
       class="StepWizard---stepDetails--Uaxx"
     >
+       
       <div
         class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---padding-small--3f0A"
         style="min-height: 500px; width: 350px;"

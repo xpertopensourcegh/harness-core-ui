@@ -90,7 +90,7 @@ export default function DeployStageSetupShell(): JSX.Element {
   const selectOptions = getSelectStageOptionsFromPipeline(pipeline)
 
   return (
-    <section className={css.setupShell} ref={layoutRef}>
+    <section className={css.setupShell} ref={layoutRef} key={selectedStageId}>
       <Layout.Horizontal
         spacing="small"
         className={cx(css.tabsContainer, { [css.tabExecution]: selectedTabId === i18n.executionLabel })}
