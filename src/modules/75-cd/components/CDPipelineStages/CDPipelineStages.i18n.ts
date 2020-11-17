@@ -1,6 +1,6 @@
 export default {
   deploy: 'Deploy',
-  build: 'Build',
+  build: 'CI',
   pipeline: 'Pipeline',
   approval: 'Approval',
   custom: 'Custom'
