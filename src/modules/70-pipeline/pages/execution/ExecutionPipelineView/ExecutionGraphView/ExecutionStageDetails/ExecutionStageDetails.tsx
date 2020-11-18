@@ -1,5 +1,6 @@
 import React from 'react'
 import type { IconName } from '@wings-software/uikit'
+import { isEmpty } from 'lodash-es'
 import type { ExecutionNode, ExecutionGraph } from 'services/cd-ng'
 import { useExecutionContext } from '../../../ExecutionContext/ExecutionContext'
 
@@ -149,7 +150,7 @@ const processExecutionData = (graph?: ExecutionGraph): Array<ExecutionPipelineNo
 }
 
 export default function ExecutionStageDetails(props: ExecutionStageDetailsProps): React.ReactElement {
-  const { pipelineExecutionDetail, pipelineStagesMap, queryParams } = useExecutionContext()
+  const { pipelineExecutionDetail, pipelineStagesMap, queryParams, loading } = useExecutionContext()
   const { layout, setLayout } = useExecutionLayoutContext()
 
   const stagesOptions: StageOptions[] = [...pipelineStagesMap].map(item => ({
@@ -162,7 +163,7 @@ export default function ExecutionStageDetails(props: ExecutionStageDetailsProps)
 
   const data: ExecutionPipeline<ExecutionNode> = {
     items: processExecutionData(pipelineExecutionDetail?.stageGraph),
-    identifier: props.selectedStep,
+    identifier: props.selectedStage,
     status: stage?.executionStatus as any
   }
 
@@ -175,32 +176,35 @@ export default function ExecutionStageDetails(props: ExecutionStageDetailsProps)
 
   return (
     <div className={css.main}>
-      <ExecutionStageDiagram
-        key={props.selectedStage}
-        selectedIdentifier={props.selectedStep}
-        itemClickHandler={e => props.onStepSelect(e.stage.identifier)}
-        data={data}
-        isWhiteBackground
-        nodeStyle={{
-          width: 64,
-          height: 64
-        }}
-        gridStyle={{
-          startX: 50,
-          startY: 150
-        }}
-        showStageSelection={true}
-        selectedStage={{
-          label: stage?.stageName || /* istanbul ignore next */ '',
-          value: stage?.stageIdentifier || /* istanbul ignore next */ '',
-          icon: { name: 'pipeline-deploy' }
-        }}
-        stageSelectionOptions={stagesOptions}
-        onChangeStageSelection={(item: StageOptions) => {
-          props.onStageSelect(item.value as string)
-        }}
-        canvasBtnsClass={css.canvasBtns}
-      />
+      {!isEmpty(props.selectedStage) && data.items?.length > 0 && (
+        <ExecutionStageDiagram
+          selectedIdentifier={props.selectedStep}
+          itemClickHandler={e => props.onStepSelect(e.stage.identifier)}
+          data={data}
+          showEndNode={stage?.executionStatus !== 'Running'}
+          isWhiteBackground
+          nodeStyle={{
+            width: 64,
+            height: 64
+          }}
+          loading={loading}
+          gridStyle={{
+            startX: 50,
+            startY: 150
+          }}
+          showStageSelection={true}
+          selectedStage={{
+            label: stage?.stageName || /* istanbul ignore next */ '',
+            value: stage?.stageIdentifier || /* istanbul ignore next */ '',
+            icon: { name: 'pipeline-deploy' }
+          }}
+          stageSelectionOptions={stagesOptions}
+          onChangeStageSelection={(item: StageOptions) => {
+            props.onStageSelect(item.value as string)
+          }}
+          canvasBtnsClass={css.canvasBtns}
+        />
+      )}
     </div>
   )
 }

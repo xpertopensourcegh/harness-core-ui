@@ -5,16 +5,18 @@ import type { PipelineExecutionDetail, StageExecutionSummaryDTO } from 'services
 export interface ExecutionContextParams {
   pipelineExecutionDetail: PipelineExecutionDetail | null
   pipelineStagesMap: Map<string, StageExecutionSummaryDTO>
-  autoSelectedStageId: string
-  autoSelectedStepId: string
+  selectedStageId: string
+  selectedStepId: string
+  loading: boolean
   queryParams: Record<string, any>
 }
 
 const ExecutionConext = createContext<ExecutionContextParams>({
   pipelineExecutionDetail: null,
   pipelineStagesMap: new Map(),
-  autoSelectedStageId: '',
-  autoSelectedStepId: '',
+  selectedStageId: '',
+  selectedStepId: '',
+  loading: false,
   queryParams: {}
 })
 

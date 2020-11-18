@@ -4,7 +4,7 @@ import type { BasePositionModelOptions, DeserializeEvent } from '@projectstorm/r
 import type { IconName } from '@wings-software/uikit'
 import type { IconProps } from '@wings-software/uikit/dist/icons/Icon'
 import { DefaultPortModel } from '../port/DefaultPortModel'
-import { DiagramType, PortName } from '../Constants'
+import { DiagramType } from '../Constants'
 import i18n from '../Diagram.i18n'
 import type { DefaultLinkModel } from '../link/DefaultLinkModel'
 
@@ -63,12 +63,6 @@ export class DefaultNodeModel<G extends DefaultNodeModelGenerics = DefaultNodeMo
     })
     this.portsOut = []
     this.portsIn = []
-    this.addPort(
-      new DefaultPortModel({
-        in: false,
-        name: PortName.Out
-      })
-    )
   }
 
   doClone(lookupTable: {}, clone: any): void {

@@ -86,7 +86,6 @@ export const createEngine = (options: CanvasEngineOptions = {}): DiagramEngine =
   engine.getNodeFactories().registerFactory(new GroupNodeFactory())
   engine.getNodeFactories().registerFactory(new DiamondNodeFactory())
   engine.getNodeFactories().registerFactory(new NodeStartFactory())
-
   // register the default interaction behaviors
   engine.getStateMachine().pushState(new DefaultDiagramState())
   return engine

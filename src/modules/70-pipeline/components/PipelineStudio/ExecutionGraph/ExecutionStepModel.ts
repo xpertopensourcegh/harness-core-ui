@@ -251,13 +251,15 @@ export class ExecutionStepModel extends DiagramModel {
           startX += this.gap
           emptyNodeEnd.setPosition(startX, startY)
 
-          this.connectMultipleParentsToNode(
-            emptyNodeEnd,
-            prevNodesAr,
-            false,
-            isStepGroupNode ? 4 : 0,
-            isStepGroupNode ? 'var(--pipeline-grey-border)' : 'var(--diagram-link)'
-          )
+          prevNodesAr.forEach((prevNode: DefaultNodeModel) => {
+            this.connectedParentToNode(
+              emptyNodeEnd,
+              prevNode,
+              true,
+              isStepGroupNode ? 4 : 0,
+              isStepGroupNode ? 'var(--pipeline-grey-border)' : 'var(--diagram-link)'
+            )
+          })
           prevNodes = [emptyNodeEnd]
           startX = startX - this.gap / 2 - 20
         }

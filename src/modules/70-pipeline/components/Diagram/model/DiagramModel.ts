@@ -85,30 +85,22 @@ export class DiagramModel<G extends DiagramModelGenerics = DiagramModelGenerics>
   }
 
   clearAllNodesAndLinks(): void {
-    const nodes = this.getActiveNodeLayer().getNodes()
-    for (const key in nodes) {
-      const node = nodes[key]
-      this.removeNode(node)
+    this.clearAllLinks()
+
+    const nodeLayers = this.getNodeLayers()
+    for (const key in nodeLayers) {
+      const nodeLayer = nodeLayers[key]
+      const nodes = nodeLayer.getNodes()
+      for (const nodeKey in nodes) {
+        this.removeNode(nodes[nodeKey])
+      }
     }
 
-    const linkLayers = this.getLinkLayers()
-    for (const layerKey in linkLayers) {
-      const linkLayer = linkLayers[layerKey]
-      const links = linkLayer.getLinks()
-      for (const key in links) {
-        const link = links[key]
-        this.removeLink(link)
-      }
-    }
     this.stepGroupLayers.forEach(layer => {
-      const groupNodes = layer.getNodes()
-      for (const key in groupNodes) {
-        const node = groupNodes[key]
-        this.removeNode(node)
-      }
       layer.clearListeners()
       layer.remove()
     })
+    this.stepGroupLayers = []
   }
 
   addLayer(layer: LayerModel): void {
@@ -164,6 +156,8 @@ export class DiagramModel<G extends DiagramModelGenerics = DiagramModelGenerics>
         const link = new DefaultLinkModel({ allowAdd, strokeDasharray, color, midXAngle: highestMidX })
         link.setSourcePort(parentPort)
         link.setTargetPort(inPort)
+        inPort.reportPosition()
+        parentPort.reportPosition()
         this.addLink(link)
       }
     }

@@ -1,5 +1,5 @@
 import React from 'react'
-
+import { isEmpty } from 'lodash-es'
 import { useExecutionLayoutContext, ExecutionStageDiagram } from '@pipeline/exports'
 import { ExecutionPipeline, ExecutionPipelineNode, ExecutionPipelineNodeType } from '@pipeline/exports'
 import type { CDStageExecutionSummaryDTO, StageExecutionSummaryDTO } from 'services/cd-ng'
@@ -46,20 +46,22 @@ export default function ExecutionGraph(props: ExecutionGraphProps): React.ReactE
   }
   return (
     <div className={css.main}>
-      <ExecutionStageDiagram
-        selectedIdentifier={props.selectedStage}
-        itemClickHandler={e => props.onSelectedStage(e.stage.identifier)}
-        diagramContainerHeight={primaryPaneSize}
-        data={data}
-        nodeStyle={{
-          width: 114,
-          height: 50
-        }}
-        gridStyle={{
-          startX: 50,
-          startY: 50
-        }}
-      />
+      {!isEmpty(pipelineExecutionDetail?.pipelineExecution?.pipelineIdentifier) && data.items?.length > 0 && (
+        <ExecutionStageDiagram
+          selectedIdentifier={props.selectedStage}
+          itemClickHandler={e => props.onSelectedStage(e.stage.identifier)}
+          diagramContainerHeight={primaryPaneSize}
+          data={data}
+          nodeStyle={{
+            width: 114,
+            height: 50
+          }}
+          gridStyle={{
+            startX: 50,
+            startY: 50
+          }}
+        />
+      )}
     </div>
   )
 }

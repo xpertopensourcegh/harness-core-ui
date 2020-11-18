@@ -61,9 +61,13 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
     selectedStageId?: string,
     diagramContainerHeight?: number,
     prevNodes?: Diagram.DefaultNodeModel[],
+    showEndNode?: boolean,
     groupStage?: Map<string, GroupState<T>>
   ): { startX: number; startY: number; prevNodes?: Diagram.DefaultNodeModel[] } {
     const { nodeStyle } = this
+    if (!node) {
+      return { startX, startY, prevNodes: [] }
+    }
     if (node.item && !node.parallel) {
       const { item: stage } = node
       const { type } = stage
@@ -179,9 +183,9 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
           let newY = startY
           /* istanbul ignore else */ if (!isEmpty(prevNodes)) {
             const emptyNodeStart =
-              this.getNodeFromId(`${EmptyNodeSeparator}-${EmptyNodeSeparator}${parallel[0].item?.identifier}`) ||
+              this.getNodeFromId(`${EmptyNodeSeparator}-${EmptyNodeSeparator}${parallel[0].item?.identifier}-Start`) ||
               new Diagram.EmptyNodeModel({
-                id: `${EmptyNodeSeparator}-${EmptyNodeSeparator}${parallel[0].item?.identifier}`,
+                id: `${EmptyNodeSeparator}-${EmptyNodeSeparator}${parallel[0].item?.identifier}-Start`,
                 name: 'Empty'
               })
             this.addNode(emptyNodeStart)
@@ -210,6 +214,7 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
               selectedStageId,
               diagramContainerHeight,
               prevNodes,
+              showEndNode,
               groupStage
             )
             startX = resp.startX
@@ -220,9 +225,9 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
           })
           /* istanbul ignore else */ if (!isEmpty(prevNodesAr)) {
             const emptyNodeEnd =
-              this.getNodeFromId(`${EmptyNodeSeparator}${parallel[0].item?.identifier}${EmptyNodeSeparator}`) ||
+              this.getNodeFromId(`${EmptyNodeSeparator}${parallel[0].item?.identifier}${EmptyNodeSeparator}-End`) ||
               new Diagram.EmptyNodeModel({
-                id: `${EmptyNodeSeparator}${parallel[0].item?.identifier}${EmptyNodeSeparator}`,
+                id: `${EmptyNodeSeparator}${parallel[0].item?.identifier}${EmptyNodeSeparator}-End`,
                 name: 'Empty'
               })
             this.addNode(emptyNodeEnd)
@@ -252,6 +257,7 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
           selectedStageId,
           diagramContainerHeight,
           prevNodes,
+          showEndNode,
           groupStage
         )
       }
@@ -294,6 +300,7 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
               selectedStageId,
               diagramContainerHeight,
               prevNodes,
+              showEndNode,
               groupStage
             )
             startX = resp.startX
@@ -306,18 +313,19 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
         /* istanbul ignore else */ if (prevNodes && prevNodes.length > 0) {
           startX = startX + this.gap
           stepGroupLayer.endNode.setPosition(startX, startY)
-          prevNodes.forEach((prevNode: Diagram.DefaultNodeModel) => {
-            this.connectedParentToNode(
-              stepGroupLayer.endNode,
-              prevNode,
-              false,
-              0,
-              getArrowsColor(
-                node.group?.status || /* istanbul ignore next */ ExecutionPipelineItemStatus.NOT_STARTED,
-                true
+          showEndNode &&
+            prevNodes.forEach((prevNode: Diagram.DefaultNodeModel) => {
+              this.connectedParentToNode(
+                stepGroupLayer.endNode,
+                prevNode,
+                false,
+                0,
+                getArrowsColor(
+                  node.group?.status || /* istanbul ignore next */ ExecutionPipelineItemStatus.NOT_STARTED,
+                  true
+                )
               )
-            )
-          })
+            })
           prevNodes = [stepGroupLayer.endNode]
           startX = startX - this.gap / 2 - 20
         }
@@ -362,6 +370,7 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
     selectedStageId?: string,
     diagramContainerHeight?: number,
     showStartEndNode?: boolean,
+    showEndNode?: boolean,
     groupStage?: Map<string, GroupState<T>>
   ): void {
     const { gap } = this
@@ -395,6 +404,7 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
         selectedStageId,
         diagramContainerHeight,
         prevNodes,
+        showEndNode,
         groupStage
       )
       startX = resp.startX
@@ -404,7 +414,7 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
       }
     })
 
-    /* istanbul ignore else */ if (showStartEndNode) {
+    /* istanbul ignore else */ if (showStartEndNode && showEndNode) {
       // Stop Node
       const stopNode =
         this.getNodeFromId('stop-node') || new Diagram.NodeStartModel({ id: 'stop-node', icon: 'stop', isStart: false })
@@ -442,7 +452,6 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
         node.registerListener(listeners.nodeListeners)
       }
     })
-
     // Lock the graph back
     this.setLocked(true)
   }

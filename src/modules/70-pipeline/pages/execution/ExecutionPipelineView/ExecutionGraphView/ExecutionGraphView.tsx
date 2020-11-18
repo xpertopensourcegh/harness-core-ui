@@ -21,8 +21,8 @@ export default function ExecutionGraphView(): React.ReactElement {
   const {
     pipelineExecutionDetail,
     pipelineStagesMap,
-    autoSelectedStageId,
-    autoSelectedStepId,
+    selectedStageId,
+    selectedStepId,
     queryParams
   } = useExecutionContext()
 
@@ -35,7 +35,7 @@ export default function ExecutionGraphView(): React.ReactElement {
 
     const params = {
       ...queryParams,
-      stage: (queryParams.stage as string) || autoSelectedStageId,
+      stage: selectedStageId,
       step
     }
 
@@ -60,17 +60,14 @@ export default function ExecutionGraphView(): React.ReactElement {
 
   return (
     <ExecutionLayout className={css.main}>
-      <ExecutionGraph
-        onSelectedStage={handleStageSelection}
-        selectedStage={(queryParams.stage as string) || autoSelectedStageId}
-      />
+      <ExecutionGraph onSelectedStage={handleStageSelection} selectedStage={selectedStageId} />
       <ExecutionStageDetails
         onStepSelect={handleStepSelection}
         onStageSelect={handleStageSelection}
-        selectedStage={(queryParams.stage as string) || autoSelectedStageId}
-        selectedStep={(queryParams.step as string) || autoSelectedStepId}
+        selectedStage={selectedStageId}
+        selectedStep={selectedStepId}
       />
-      <ExecutionStepDetails selectedStep={(queryParams.step as string) || autoSelectedStepId} />
+      <ExecutionStepDetails selectedStep={selectedStepId} />
     </ExecutionLayout>
   )
 }

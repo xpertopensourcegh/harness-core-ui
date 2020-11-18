@@ -3,11 +3,11 @@ import { render, fireEvent } from '@testing-library/react'
 import { TestWrapper, NotFound } from '@common/utils/testUtils'
 import type { ExecutionNode } from 'services/cd-ng'
 
-import type { ExecutionPipelineNode } from '../../../../../components/ExecutionStageDiagram/ExecutionPipelineModel'
-import type { ExecutionStageDiagramProps } from '../../../../../components/ExecutionStageDiagram/ExecutionStageDiagram'
-import ExecutionContext from '../../../ExecutionContext/ExecutionContext'
-import type { ExecutionContextParams } from '../../../ExecutionContext/ExecutionContext'
-import { getPipelineStagesMap } from '../../../ExecutionUtils'
+import type { ExecutionPipelineNode } from '@pipeline/components/ExecutionStageDiagram/ExecutionPipelineModel'
+import type { ExecutionStageDiagramProps } from '@pipeline/components/ExecutionStageDiagram/ExecutionStageDiagram'
+import ExecutionContext from '@pipeline/pages/execution/ExecutionContext/ExecutionContext'
+import type { ExecutionContextParams } from '@pipeline/pages/execution/ExecutionContext/ExecutionContext'
+import { getPipelineStagesMap } from '@pipeline/pages/execution/ExecutionUtils'
 import mock from './mock.json'
 import ExecutionGraphView from '../ExecutionGraphView'
 
@@ -44,7 +44,7 @@ function renderNode(
   return <div data-item="empty" />
 }
 
-jest.mock('../../../../../components/ExecutionStageDiagram/ExecutionStageDiagram', () => {
+jest.mock('@pipeline/components/ExecutionStageDiagram/ExecutionStageDiagram', () => {
   return function ExecutionStageDiagramMock(props: ExecutionStageDiagramProps<ExecutionNode>) {
     const { data, itemClickHandler } = props
 
@@ -55,8 +55,9 @@ jest.mock('../../../../../components/ExecutionStageDiagram/ExecutionStageDiagram
 const contextValue: ExecutionContextParams = {
   pipelineExecutionDetail: mock.data as any,
   pipelineStagesMap: getPipelineStagesMap(mock as any),
-  autoSelectedStageId: '',
-  autoSelectedStepId: '',
+  selectedStageId: 'qaStage',
+  selectedStepId: '',
+  loading: false,
   queryParams: {}
 }
 
@@ -121,7 +122,7 @@ describe('<ExecutionGrapView /> tests', () => {
 
     fireEvent.click(step)
 
-    expect(getByTestId('location').innerHTML).toBe('/?stage=&amp;step=X_IGbTkaSMulKGh43U_xJw')
+    expect(getByTestId('location').innerHTML).toBe('/?stage=qaStage&amp;step=X_IGbTkaSMulKGh43U_xJw')
   })
 
   test('step selection does not works for "NotStarted" status', async () => {
@@ -144,7 +145,13 @@ describe('<ExecutionGrapView /> tests', () => {
   test('step details are shown when step is selected', async () => {
     const { container } = render(
       <TestWrapper>
-        <ExecutionContext.Provider value={{ ...contextValue, queryParams: { step: 'X_IGbTkaSMulKGh43U_xJw' } }}>
+        <ExecutionContext.Provider
+          value={{
+            ...contextValue,
+            queryParams: { step: 'X_IGbTkaSMulKGh43U_xJw' },
+            selectedStepId: 'X_IGbTkaSMulKGh43U_xJw'
+          }}
+        >
           <ExecutionGraphView />
           <NotFound />
         </ExecutionContext.Provider>

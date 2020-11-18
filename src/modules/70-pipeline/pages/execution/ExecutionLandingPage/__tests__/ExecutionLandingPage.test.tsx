@@ -11,11 +11,11 @@ import {
 import { useGetPipelineExecutionDetail } from 'services/cd-ng'
 
 import type { ExecutionStatus } from '@pipeline/utils/statusHelpers'
-import { getRunningStageForPipeline } from '../../ExecutionUtils'
+import { useExecutionContext } from '@pipeline/pages/execution/ExecutionContext/ExecutionContext'
+import { getRunningStageForPipeline } from '@pipeline/pages/execution/ExecutionUtils'
 import ExecutionLandingPage, { POLL_INTERVAL } from '../ExecutionLandingPage'
 import i18nTabs from '../ExecutionTabs/ExecutionTabs.i18n'
 import mockData from './mock.json'
-import { useExecutionContext } from '../../ExecutionContext/ExecutionContext'
 
 jest.mock('services/cd-ng', () => ({
   useGetPipelineExecutionDetail: jest.fn(() => ({
@@ -161,17 +161,17 @@ describe('<ExecutionLandingPage /> tests', () => {
   test('auto stage selection works', () => {
     ;(useGetPipelineExecutionDetail as jest.Mock).mockImplementation(() => ({
       refetch: jest.fn(),
-      loading: false,
+      loading: true,
       data: mockData
     }))
 
     function Child(): React.ReactElement {
-      const { autoSelectedStageId, autoSelectedStepId } = useExecutionContext()
+      const { selectedStageId, selectedStepId } = useExecutionContext()
 
       return (
         <React.Fragment>
-          <div data-testid="autoSelectedStageId">{autoSelectedStageId}</div>
-          <div data-testid="autoSelectedStepId">{autoSelectedStepId}</div>
+          <div data-testid="autoSelectedStageId">{selectedStageId}</div>
+          <div data-testid="autoSelectedStepId">{selectedStepId}</div>
         </React.Fragment>
       )
     }
@@ -189,6 +189,8 @@ describe('<ExecutionLandingPage /> tests', () => {
       mockData.data.pipelineExecution.executionStatus as ExecutionStatus
     )
 
+    jest.runOnlyPendingTimers()
+
     expect(getByTestId('autoSelectedStageId').innerHTML).toBe(stage)
     expect(getByTestId('autoSelectedStepId').innerHTML).toBe('')
   })
@@ -201,12 +203,12 @@ describe('<ExecutionLandingPage /> tests', () => {
     }))
 
     function Child(): React.ReactElement {
-      const { autoSelectedStageId, autoSelectedStepId } = useExecutionContext()
+      const { selectedStageId, selectedStepId } = useExecutionContext()
 
       return (
         <React.Fragment>
-          <div data-testid="autoSelectedStageId">{autoSelectedStageId}</div>
-          <div data-testid="autoSelectedStepId">{autoSelectedStepId}</div>
+          <div data-testid="autoSelectedStageId">{selectedStageId}</div>
+          <div data-testid="autoSelectedStepId">{selectedStepId}</div>
         </React.Fragment>
       )
     }

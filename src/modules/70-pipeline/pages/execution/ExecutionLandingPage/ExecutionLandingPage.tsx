@@ -38,8 +38,15 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<{}>)
   const { orgIdentifier, projectIdentifier, executionIdentifier, accountId, pipelineIdentifier } = useParams<
     ExecutionPathParams
   >()
+
+  /* These are used when auto updating selected stage/step when a pipeline is running */
   const [autoSelectedStageId, setAutoSelectedStageId] = React.useState('')
   const [autoSelectedStepId, setAutoSelectedStepId] = React.useState('')
+
+  /* These are updated only when new data is fetched successfully */
+  const [selectedStageId, setSelectedStageId] = React.useState('')
+  const [selectedStepId, setSelectedStepId] = React.useState('')
+
   const queryParams = React.useMemo(() => qs.parse(location.search, { ignoreQueryPrefix: true }), [location.search])
 
   const { data, refetch, loading } = useGetPipelineExecutionDetail({
@@ -60,6 +67,11 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<{}>)
     return getPipelineStagesMap(data || {})
   }, [data])
 
+  function toggleDetails(): void {
+    setShowDetails(status => !status)
+  }
+
+  // setup polling
   React.useEffect(() => {
     if (!loading && data && !isExecutionComplete(data.data?.pipelineExecution?.executionStatus)) {
       const timerId = window.setTimeout(() => {
@@ -71,10 +83,6 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<{}>)
       }
     }
   }, [data, refetch, loading])
-
-  function toggleDetails(): void {
-    setShowDetails(status => !status)
-  }
 
   // show the current running stage and steps automatically
   React.useEffect(() => {
@@ -108,6 +116,14 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<{}>)
     }
   }, [queryParams, data])
 
+  // update stage/step selection
+  React.useEffect(() => {
+    if (loading) {
+      setSelectedStageId((queryParams.stage as string) || autoSelectedStageId)
+    }
+    setSelectedStepId((queryParams.step as string) || autoSelectedStepId)
+  }, [loading, queryParams, autoSelectedStageId, autoSelectedStepId])
+
   const { pipelineExecution = {} } = data?.data || {}
 
   return (
@@ -115,8 +131,9 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<{}>)
       value={{
         pipelineExecutionDetail: data?.data || null,
         pipelineStagesMap,
-        autoSelectedStageId,
-        autoSelectedStepId,
+        selectedStageId,
+        selectedStepId,
+        loading,
         queryParams
       }}
     >

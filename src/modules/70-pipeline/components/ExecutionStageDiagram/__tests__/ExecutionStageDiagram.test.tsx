@@ -148,8 +148,7 @@ describe('Test Execution StageDiagram', () => {
 })
 
 describe('Test Execution StageDiagram - Action/Events', () => {
-  // eslint-disable-next-line jest/no-disabled-tests
-  test.skip('Test Mouse Events on Nodes and Canvas', () => {
+  test('Test Mouse Events on Nodes and Canvas', () => {
     const { container } = render(
       <ExecutionStageDiagram
         {...getProps()}
