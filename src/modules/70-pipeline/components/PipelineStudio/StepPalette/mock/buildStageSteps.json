@@ -66,8 +66,8 @@
             "name": "GCR"
           },
           {
-            "type": "Placeholder",
-            "name": "Git Clone"
+            "type": "dockerHub",
+            "name": "DockerHub"
           }
         ],
         "stepCategories": []

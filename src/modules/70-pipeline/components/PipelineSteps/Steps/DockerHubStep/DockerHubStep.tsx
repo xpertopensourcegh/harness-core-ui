@@ -1,0 +1,635 @@
+import React from 'react'
+import {
+  Text,
+  Formik,
+  FormInput,
+  Button,
+  getMultiTypeFromValue,
+  IconName,
+  MultiTypeInputType,
+  Layout,
+  FormikForm
+} from '@wings-software/uikit'
+import { isEmpty, isObjectLike, isPlainObject } from 'lodash-es'
+import { FieldArray } from 'formik'
+import * as yup from 'yup'
+import cx from 'classnames'
+import { useParams } from 'react-router-dom'
+import { String, useStrings } from 'framework/exports'
+import { ConfigureOptions, PipelineContext, StepViewType } from '@pipeline/exports'
+import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
+import {
+  getIdentifierFromValue,
+  getScopeFromDTO,
+  getScopeFromValue
+} from '@common/components/EntityReference/EntityReference'
+import { Scope } from '@common/interfaces/SecretsInterface'
+import { DrawerTypes } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
+import { ConnectorInfoDTO, useGetConnector } from 'services/cd-ng'
+import { StepType } from '../../PipelineStepInterface'
+import { PipelineStep } from '../../PipelineStep'
+import css from './DockerHubStep.module.scss'
+import stepCss from '../Steps.module.scss'
+
+export enum LimitMemoryUnits {
+  Mi = 'Mi',
+  Gi = 'Gi'
+}
+
+const removeEmptyKeys = (object: { [key: string]: any }): { [key: string]: any } => {
+  Object.keys(object).forEach(key => {
+    if ((isObjectLike(object[key]) && isEmpty(object[key])) || !object[key]) {
+      delete object[key]
+      return
+    }
+
+    if (isPlainObject(object[key])) {
+      removeEmptyKeys(object[key])
+    }
+  })
+
+  return object
+}
+
+const validationSchema = yup.object().shape({
+  identifier: yup.string().trim().required(),
+  name: yup.string(),
+  description: yup.string(),
+  spec: yup
+    .object()
+    .shape({
+      connectorRef: yup.mixed().required(),
+      repo: yup.string().trim().required(),
+      tags: yup.array().compact().required(),
+      dockerfile: yup.string(),
+      context: yup.string(),
+      labels: yup.array(),
+      buildArgs: yup.array(),
+      target: yup.string().trim(),
+      pull: yup.string(),
+      limitCPU: yup
+        .number()
+        .transform((v, o) => (o === '' ? null : v))
+        .nullable(true)
+        .min(0),
+      limitMemory: yup
+        .number()
+        .transform((v, o) => (o === '' ? null : v))
+        .nullable(true)
+        .min(0),
+      timeout: yup.string()
+    })
+    .required()
+})
+
+export interface DockerHubStepWidgetProps {
+  initialValues: any //DockerHubStepData
+  onUpdate?: (data: any) => void //DockerHubStepData
+  stepViewType?: StepViewType
+}
+
+const DockerHubStepWidget: React.FC<DockerHubStepWidgetProps> = ({ initialValues, onUpdate }): JSX.Element => {
+  const {
+    state: { pipelineView },
+    updatePipelineView
+  } = React.useContext(PipelineContext)
+
+  const { getString: getGlobalString } = useStrings()
+  const { getString } = useStrings('pipeline-steps')
+
+  const { accountId, projectIdentifier, orgIdentifier } = useParams<{
+    projectIdentifier: string
+    orgIdentifier: string
+    accountId: string
+  }>()
+
+  const connectorId = getIdentifierFromValue((initialValues.spec.connectorRef as string) || '')
+  const initialScope = getScopeFromValue((initialValues.spec.connectorRef as string) || '')
+
+  const { data: connector, loading, refetch } = useGetConnector({
+    identifier: connectorId,
+    queryParams: {
+      accountIdentifier: accountId,
+      orgIdentifier: initialScope === Scope.ORG || initialScope === Scope.PROJECT ? orgIdentifier : undefined,
+      projectIdentifier: initialScope === Scope.PROJECT ? projectIdentifier : undefined
+    },
+    lazy: true,
+    debounce: 300
+  })
+
+  React.useEffect(() => {
+    if (
+      !isEmpty(initialValues.spec.connectorRef) &&
+      getMultiTypeFromValue(initialValues.spec.connectorRef || '') === MultiTypeInputType.FIXED
+    ) {
+      refetch()
+    }
+  }, [initialValues.spec.connectorRef])
+
+  const pullOptions = [
+    { label: getString('dockerHub.pullIfNotExistsLabel'), value: 'ifNotExists' },
+    { label: getString('dockerHub.pullNeverLabel'), value: 'never' },
+    { label: getString('dockerHub.pullAlwaysLabel'), value: 'always' }
+  ]
+
+  // Fix typings
+  function getInitialValuesInCorrectFormat(): any {
+    const labels = Object.keys(initialValues.spec.labels || {}).map(key => ({
+      key: key,
+      value: initialValues.spec.labels![key]
+    }))
+
+    if (labels.length === 0) {
+      labels.push({ key: '', value: '' })
+    }
+
+    const buildArgs = Object.keys(initialValues.spec.buildArgs || {}).map(key => ({
+      key: key,
+      value: initialValues.spec.buildArgs![key]
+    }))
+
+    if (buildArgs.length === 0) {
+      buildArgs.push({ key: '', value: '' })
+    }
+
+    const pull = pullOptions.find(({ value }) => value === initialValues.spec.pull)
+    const limitMemory = initialValues.spec?.resources?.limit?.memory
+    const limitCPU = initialValues.spec?.resources?.limit?.cpu
+
+    return removeEmptyKeys({
+      ...initialValues,
+      spec: {
+        ...initialValues.spec,
+        limitMemoryUnits: LimitMemoryUnits.Mi,
+        labels,
+        buildArgs,
+        pull,
+        limitMemory,
+        limitCPU
+      }
+    })
+  }
+
+  const values = getInitialValuesInCorrectFormat()
+
+  if (
+    connector?.data?.connector &&
+    getMultiTypeFromValue(initialValues.spec.connectorRef || '') === MultiTypeInputType.FIXED
+  ) {
+    const scope = getScopeFromDTO<ConnectorInfoDTO>(connector?.data?.connector)
+    values.spec.connectorRef = {
+      label: connector?.data?.connector.name || '',
+      value: `${scope !== Scope.PROJECT ? `${scope}.` : ''}${connector?.data?.connector.identifier}`,
+      scope: scope
+    }
+  } else {
+    // do not apply if we are loading connectors (this will keep "Loading" as placeholder in a input field)
+    if (!loading) {
+      values.spec.connectorRef = initialValues.spec.connectorRef
+    }
+  }
+
+  const handleCancelClick = (): void => {
+    updatePipelineView({
+      ...pipelineView,
+      isDrawerOpened: false,
+      drawerData: { type: DrawerTypes.StepConfig }
+    })
+  }
+
+  return (
+    <>
+      <Text className={stepCss.boldLabel} font={{ size: 'medium' }}>
+        <String namespace="pipeline-steps" stringID="dockerHub.title" />
+      </Text>
+      <Formik
+        enableReinitialize={true}
+        initialValues={values}
+        validationSchema={validationSchema}
+        onSubmit={_values => {
+          const labels: { [key: string]: string } = {}
+          _values.spec.labels.forEach((pair: { key: string; value: string }) => {
+            // Skip empty
+            if (pair.key && pair.value) {
+              labels[pair.key] = pair.value
+            }
+          })
+
+          const buildArgs: { [key: string]: string } = {}
+          _values.spec.buildArgs.forEach((pair: { key: string; value: string }) => {
+            // Skip empty
+            if (pair.key && pair.value) {
+              buildArgs[pair.key] = pair.value
+            }
+          })
+
+          const resources: { limit?: { memory?: number; cpu?: number } } = {}
+
+          if (_values.spec.limitMemory || _values.spec.limitCPU) {
+            resources.limit = {}
+
+            if (_values.spec.limitMemory) {
+              resources.limit.memory = parseInt(_values.spec.limitMemory, 10)
+            }
+
+            if (_values.spec.limitCPU) {
+              resources.limit.cpu = parseInt(_values.spec.limitCPU, 10)
+            }
+          }
+
+          delete _values.spec.labels
+          delete _values.spec.buildArgs
+          delete _values.spec.limitMemory
+          delete _values.spec.limitMemoryUnits
+          delete _values.spec.limitCPU
+
+          const schemaValues = {
+            identifier: _values.identifier,
+            name: _values.name,
+            description: _values.description,
+            spec: {
+              ..._values.spec,
+              connectorRef: _values.spec.connectorRef?.value || _values.spec.connectorRef,
+              pull: _values.spec.pull?.value || _values.spec.pull,
+              labels,
+              buildArgs,
+              resources
+            }
+          }
+
+          onUpdate?.(removeEmptyKeys(schemaValues))
+        }}
+      >
+        {({ values: formValues, setFieldValue, handleSubmit }) => (
+          <FormikForm>
+            <div className={css.fieldsSection}>
+              <FormInput.InputWithIdentifier
+                inputName="name"
+                idName="identifier"
+                inputLabel={getString('dockerHub.stepNameLabel')}
+              />
+              <FormInput.TextArea name="description" label={getString('dockerHub.descriptionLabel')} />
+              <Text margin={{ top: 'medium', bottom: 'xsmall' }}>{getString('dockerHub.connectorLabel')}</Text>
+              <div className={cx(css.fieldsGroup, css.withoutSpacing)}>
+                <FormMultiTypeConnectorField
+                  name="spec.connectorRef"
+                  label=""
+                  placeholder={loading ? getString('dockerHub.loading') : getString('dockerHub.connectorPlaceholder')}
+                  disabled={loading}
+                  accountIdentifier={accountId}
+                  projectIdentifier={projectIdentifier}
+                  orgIdentifier={orgIdentifier}
+                />
+                {getMultiTypeFromValue(formValues?.spec.connectorRef) === MultiTypeInputType.RUNTIME && (
+                  <ConfigureOptions
+                    value={formValues?.spec.connectorRef as string}
+                    type={
+                      <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
+                        <Text>{getString('dockerHub.connectorLabel')}</Text>
+                      </Layout.Horizontal>
+                    }
+                    variableName="spec.connectorRef"
+                    showRequiredField={false}
+                    showDefaultField={false}
+                    showAdvanced={true}
+                    onChange={value => {
+                      setFieldValue('spec.connectorRef', value)
+                    }}
+                  />
+                )}
+              </div>
+              <Text margin={{ top: 'medium', bottom: 'xsmall' }}>
+                <String namespace="pipeline-steps" stringID="dockerHub.repoLabel" />
+              </Text>
+              <div className={cx(css.fieldsGroup, css.withoutSpacing, css.bottomSpacing)}>
+                <FormInput.MultiTextInput name="spec.repo" label="" style={{ flexGrow: 1 }} />
+                {getMultiTypeFromValue(formValues.spec.repo) === MultiTypeInputType.RUNTIME && (
+                  <ConfigureOptions
+                    value={formValues.spec.repo as string}
+                    type={
+                      <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
+                        <Text>
+                          <String namespace="pipeline-steps" stringID="dockerHub.repoLabel" />
+                        </Text>
+                      </Layout.Horizontal>
+                    }
+                    variableName="spec.repo"
+                    showRequiredField={false}
+                    showDefaultField={false}
+                    showAdvanced={true}
+                    onChange={value => setFieldValue('spec.repo', value)}
+                  />
+                )}
+              </div>
+              <FormInput.TagInput
+                name="spec.tags"
+                label={getString('dockerHub.tagsLabel')}
+                items={[]}
+                labelFor={name => name as string}
+                itemFromNewTag={newTag => newTag}
+                tagInputProps={{
+                  className: '',
+                  noInputBorder: true,
+                  openOnKeyDown: false,
+                  showAddTagButton: false,
+                  fill: true,
+                  showNewlyCreatedItemsInList: false,
+                  allowNewTag: true,
+                  placeholder: ''
+                }}
+              />
+            </div>
+            <div className={css.fieldsSection}>
+              <Text className={css.optionalConfiguration} font={{ weight: 'semi-bold' }} margin={{ bottom: 'medium' }}>
+                <String namespace="pipeline-steps" stringID="dockerHub.optionalConfiguration" />
+              </Text>
+              <Text margin={{ top: 'medium', bottom: 'xsmall' }}>
+                <String namespace="pipeline-steps" stringID="dockerHub.dockerfileLabel" />
+              </Text>
+              <div className={cx(css.fieldsGroup, css.withoutSpacing)}>
+                <FormInput.MultiTextInput name="spec.dockerfile" label="" style={{ flexGrow: 1 }} />
+                {getMultiTypeFromValue(formValues.spec.dockerfile) === MultiTypeInputType.RUNTIME && (
+                  <ConfigureOptions
+                    value={formValues.spec.dockerfile as string}
+                    type={
+                      <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
+                        <Text>
+                          <String namespace="pipeline-steps" stringID="dockerHub.dockerfileLabel" />
+                        </Text>
+                      </Layout.Horizontal>
+                    }
+                    variableName="spec.dockerfile"
+                    showRequiredField={false}
+                    showDefaultField={false}
+                    showAdvanced={true}
+                    onChange={value => setFieldValue('spec.dockerfile', value)}
+                  />
+                )}
+              </div>
+              <Text margin={{ top: 'medium', bottom: 'xsmall' }}>
+                <String namespace="pipeline-steps" stringID="dockerHub.contextLabel" />
+              </Text>
+              <div className={cx(css.fieldsGroup, css.withoutSpacing)}>
+                <FormInput.MultiTextInput name="spec.context" label="" style={{ flexGrow: 1 }} />
+                {getMultiTypeFromValue(formValues.spec.context) === MultiTypeInputType.RUNTIME && (
+                  <ConfigureOptions
+                    value={formValues.spec.context as string}
+                    type={
+                      <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
+                        <Text>
+                          <String namespace="pipeline-steps" stringID="dockerHub.contextLabel" />
+                        </Text>
+                      </Layout.Horizontal>
+                    }
+                    variableName="spec.context"
+                    showRequiredField={false}
+                    showDefaultField={false}
+                    showAdvanced={true}
+                    onChange={value => setFieldValue('spec.context', value)}
+                  />
+                )}
+              </div>
+              <Text margin={{ top: 'medium', bottom: 'xsmall' }}>
+                <String namespace="pipeline-steps" stringID="dockerHub.labelsLabel" />
+              </Text>
+              <FieldArray
+                name="spec.labels"
+                render={({ push, remove }) => (
+                  <div>
+                    {formValues.spec.labels.map((_label: string, index: number) => (
+                      <div className={css.fieldsGroup} key={index}>
+                        <FormInput.Text
+                          name={`spec.labels[${index}].key`}
+                          placeholder={getString('dockerHub.labelsKeyPlaceholder')}
+                          style={{ flexGrow: 1 }}
+                        />
+                        <FormInput.MultiTextInput
+                          label=""
+                          name={`spec.labels[${index}].value`}
+                          placeholder={getString('dockerHub.labelsValuePlaceholder')}
+                          style={{ flexGrow: 1 }}
+                        />
+                        {getMultiTypeFromValue(formValues.spec.labels[index].value) === MultiTypeInputType.RUNTIME && (
+                          <ConfigureOptions
+                            value={formValues.spec.labels[index].value as string}
+                            type={
+                              <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
+                                <Text>
+                                  <String namespace="pipeline-steps" stringID="dockerHub.labelsValuePlaceholder" />
+                                </Text>
+                              </Layout.Horizontal>
+                            }
+                            variableName={`spec.labels[${index}].value`}
+                            showRequiredField={false}
+                            showDefaultField={false}
+                            showAdvanced={true}
+                            onChange={value => setFieldValue(`spec.labels[${index}].value`, value)}
+                          />
+                        )}
+
+                        {formValues.spec.labels.length > 1 && (
+                          <Button
+                            intent="primary"
+                            icon="ban-circle"
+                            iconProps={{ size: 20 }}
+                            minimal
+                            onClick={() => remove(index)}
+                          />
+                        )}
+                      </div>
+                    ))}
+                    <Button
+                      intent="primary"
+                      minimal
+                      text={getString('dockerHub.addLabel')}
+                      onClick={() => push({ key: '', value: '' })}
+                    />
+                  </div>
+                )}
+              />
+              <Text margin={{ top: 'medium', bottom: 'xsmall' }}>
+                <String namespace="pipeline-steps" stringID="dockerHub.buildArgsLabel" />
+              </Text>
+              <FieldArray
+                name="spec.buildArgs"
+                render={({ push, remove }) => (
+                  <div>
+                    {formValues.spec.buildArgs.map((_buildArg: string, index: number) => (
+                      <div className={css.fieldsGroup} key={index}>
+                        <FormInput.Text
+                          name={`spec.buildArgs[${index}].key`}
+                          placeholder={getString('dockerHub.buildArgsKeyPlaceholder')}
+                          style={{ flexGrow: 1 }}
+                        />
+                        <FormInput.MultiTextInput
+                          label=""
+                          name={`spec.buildArgs[${index}].value`}
+                          placeholder={getString('dockerHub.buildArgsValuePlaceholder')}
+                          style={{ flexGrow: 1 }}
+                        />
+                        {getMultiTypeFromValue(formValues.spec.buildArgs[index].value) ===
+                          MultiTypeInputType.RUNTIME && (
+                          <ConfigureOptions
+                            value={formValues.spec.buildArgs[index].value as string}
+                            type={
+                              <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
+                                <Text>
+                                  <String namespace="pipeline-steps" stringID="dockerHub.buildArgsValuePlaceholder" />
+                                </Text>
+                              </Layout.Horizontal>
+                            }
+                            variableName={`spec.buildArgs[${index}].value`}
+                            showRequiredField={false}
+                            showDefaultField={false}
+                            showAdvanced={true}
+                            onChange={value => setFieldValue(`spec.buildArgs[${index}].value`, value)}
+                          />
+                        )}
+
+                        {formValues.spec.buildArgs.length > 1 && (
+                          <Button
+                            intent="primary"
+                            icon="ban-circle"
+                            iconProps={{ size: 20 }}
+                            minimal
+                            onClick={() => remove(index)}
+                          />
+                        )}
+                      </div>
+                    ))}
+                    <Button
+                      intent="primary"
+                      minimal
+                      text={getString('dockerHub.addBuildArg')}
+                      onClick={() => push({ key: '', value: '' })}
+                    />
+                  </div>
+                )}
+              />
+              <Text margin={{ top: 'medium', bottom: 'xsmall' }}>
+                <String namespace="pipeline-steps" stringID="dockerHub.targetLabel" />
+              </Text>
+              <div className={cx(css.fieldsGroup, css.withoutSpacing)}>
+                <FormInput.MultiTextInput name="spec.target" label="" style={{ flexGrow: 1 }} />
+                {getMultiTypeFromValue(formValues.spec.target) === MultiTypeInputType.RUNTIME && (
+                  <ConfigureOptions
+                    value={formValues.spec.target as string}
+                    type={
+                      <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
+                        <Text>
+                          <String namespace="pipeline-steps" stringID="dockerHub.targetLabel" />
+                        </Text>
+                      </Layout.Horizontal>
+                    }
+                    variableName="spec.target"
+                    showRequiredField={false}
+                    showDefaultField={false}
+                    showAdvanced={true}
+                    onChange={value => setFieldValue('spec.target', value)}
+                  />
+                )}
+              </div>
+              <div style={{ marginBottom: 'var(--spacing-medium)' }} />
+              <FormInput.MultiTypeInput
+                name="spec.pull"
+                label={getString('dockerHub.pullLabel')}
+                selectItems={pullOptions}
+              />
+              <div>
+                <Text>
+                  {getString('dockerHub.setContainerResources')}
+                  <Button icon="question" minimal tooltip={getString('dockerHub.setContainerResourcesTooltip')} />
+                </Text>
+                <div className={cx(css.fieldsGroup, css.withoutSpacing)}>
+                  <div>
+                    <FormInput.Text
+                      name="spec.limitMemory"
+                      inputGroup={{ type: 'number', min: 0 }}
+                      label={getString('dockerHub.limitMemoryLabel')}
+                      placeholder={getString('dockerHub.limitMemoryPlaceholder')}
+                    />
+                    <Text font="xsmall" margin={{ top: 'small' }}>
+                      {getString('dockerHub.limitMemoryExample')}
+                    </Text>
+                  </div>
+                  <FormInput.Select
+                    name="spec.limitMemoryUnits"
+                    items={[
+                      { label: getString('dockerHub.limitMemoryUnitMiLabel'), value: LimitMemoryUnits.Mi },
+                      { label: getString('dockerHub.limitMemoryUnitGiLabel'), value: LimitMemoryUnits.Gi }
+                    ]}
+                  />
+                  <div>
+                    <FormInput.Text
+                      name="spec.limitCPU"
+                      inputGroup={{ type: 'number', min: 0 }}
+                      label={getString('dockerHub.limitCPULabel')}
+                      placeholder={getString('dockerHub.limitCPUPlaceholder')}
+                    />
+                    <Text font="xsmall" margin={{ top: 'small' }}>
+                      {getString('dockerHub.limitCPUExample')}
+                    </Text>
+                  </div>
+                </div>
+              </div>
+              <Text margin={{ top: 'medium', bottom: 'xsmall' }}>
+                <String namespace="pipeline-steps" stringID="dockerHub.timeoutLabel" />
+              </Text>
+              <div className={cx(css.fieldsGroup, css.withoutSpacing)}>
+                <FormInput.MultiTextInput name="spec.timeout" label="" style={{ flexGrow: 1 }} />
+                {getMultiTypeFromValue(formValues.spec.timeout) === MultiTypeInputType.RUNTIME && (
+                  <ConfigureOptions
+                    value={formValues.spec.timeout as string}
+                    type={
+                      <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
+                        <Text>
+                          <String namespace="pipeline-steps" stringID="dockerHub.timeoutLabel" />
+                        </Text>
+                      </Layout.Horizontal>
+                    }
+                    variableName="spec.timeout"
+                    showRequiredField={false}
+                    showDefaultField={false}
+                    showAdvanced={true}
+                    onChange={value => setFieldValue('spec.timeout', value)}
+                  />
+                )}
+              </div>
+              <div style={{ marginBottom: 'var(--spacing-medium)' }} />
+            </div>
+            <div className={css.buttonsWrapper}>
+              <Button
+                onClick={() => handleSubmit()}
+                intent="primary"
+                type="submit"
+                text={getGlobalString('save')}
+                margin={{ right: 'xxlarge' }}
+              />
+              <Button text={getGlobalString('cancel')} minimal onClick={handleCancelClick} />
+            </div>
+          </FormikForm>
+        )}
+      </Formik>
+    </>
+  )
+}
+
+export class DockerHubStep extends PipelineStep<any /*DockerHubStepData*/> {
+  renderStep(
+    initialValues: any, //DockerHubStepData
+    onUpdate?: (data: any) => void, //DockerHubStepData
+    stepViewType?: StepViewType
+  ): JSX.Element {
+    return <DockerHubStepWidget initialValues={initialValues} onUpdate={onUpdate} stepViewType={stepViewType} />
+  }
+
+  protected type = StepType.DockerHub
+  // TODO: Add i18n support
+  protected stepName = 'DockerHub'
+  protected stepIcon: IconName = 'docker-hub' as IconName
+
+  protected defaultValues: any /*DockerHubStepData*/ = {
+    identifier: '',
+    spec: {}
+  }
+}

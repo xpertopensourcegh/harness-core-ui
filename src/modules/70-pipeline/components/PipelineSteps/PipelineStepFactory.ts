@@ -11,6 +11,7 @@ import { RedisService } from './Steps/RedisService/RedisService'
 import { RunStep } from './Steps/RunStep/RunStep'
 import { PluginStep } from './Steps/PluginStep/PluginStep'
 import { GCRStep } from './Steps/GCRStep/GCRStep'
+import { DockerHubStep } from './Steps/DockerHubStep/DockerHubStep'
 
 class PipelineStepFactory extends AbstractStepFactory {
   protected type = 'pipeline-factory'
@@ -31,6 +32,7 @@ factory.registerStep(new RestoreCache())
 factory.registerStep(new RunStep())
 factory.registerStep(new PluginStep())
 factory.registerStep(new GCRStep())
+factory.registerStep(new DockerHubStep())
 // build services
 factory.registerStep(new RedisService())
 

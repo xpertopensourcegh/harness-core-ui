@@ -83,8 +83,16 @@ const validationSchema = yup.object().shape({
     .shape({
       connectorRef: yup.mixed().required(),
       image: yup.string().trim().required(),
-      limitCPU: yup.number().min(1),
-      limitMemory: yup.number().min(1)
+      limitCPU: yup
+        .number()
+        .transform((v, o) => (o === '' ? null : v))
+        .nullable(true)
+        .min(0),
+      limitMemory: yup
+        .number()
+        .transform((v, o) => (o === '' ? null : v))
+        .nullable(true)
+        .min(0)
     })
     .required()
 })
@@ -336,6 +344,7 @@ const CommonServiceWidget: React.FC<CommonServiceWidgetProps> = ({ initialValues
                   <div>
                     <FormInput.Text
                       name="spec.limitMemory"
+                      inputGroup={{ type: 'number', min: 0 }}
                       label={i18n.limitMemoryLabel}
                       placeholder={i18n.limitMemoryPlaceholder}
                     />
@@ -353,6 +362,7 @@ const CommonServiceWidget: React.FC<CommonServiceWidgetProps> = ({ initialValues
                   <div>
                     <FormInput.Text
                       name="spec.limitCPU"
+                      inputGroup={{ type: 'number', min: 0 }}
                       label={i18n.limitCPULabel}
                       placeholder={i18n.limitCPUPlaceholder}
                     />

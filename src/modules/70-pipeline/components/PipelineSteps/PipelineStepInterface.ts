@@ -12,5 +12,6 @@ export enum StepType {
   Run = 'run',
   SaveCache = 'Save_Cache',
   RestoreCache = 'Restore_Cache',
-  GCR = 'GCR'
+  GCR = 'GCR',
+  DockerHub = 'dockerHub'
 }
