@@ -10,7 +10,7 @@ const InvalidTimestampMockApiData: RestResponseCategoryRisksDTO = {
     startTimeEpoch: 0,
     endTimeEpoch: 0,
     categoryRisks: [
-      { category: 'RESOURCES', risk: 0 },
+      { category: 'INFRASTRUCTURE', risk: 0 },
       { category: 'PERFORMANCE', risk: 0 },
       { category: 'ERRORS', risk: -1 }
     ]

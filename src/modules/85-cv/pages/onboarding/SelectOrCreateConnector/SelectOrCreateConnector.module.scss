@@ -1,0 +1,10 @@
+.main {
+  .connectorReference {
+    [class*='MultiTypeInput---FIXED'] {
+      display: none;
+    }
+  }
+  .monitoringCard {
+    margin-bottom: var(--spacing-large) !important;
+  }
+}

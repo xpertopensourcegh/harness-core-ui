@@ -28,6 +28,8 @@ allowpaths:
   - /activity/recent-activity-verifications
   - /activity/list
   - /setup/status
+  - /kubernetes/namespaces
+  - /kubernetes/workloads
 operationIdOverrides:
   /appdynamics/applications.get: getAppDynamicsApplications
   /appdynamics/metric-data.post: getAppDynamicsMetricData

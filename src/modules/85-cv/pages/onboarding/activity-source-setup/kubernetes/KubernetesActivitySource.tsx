@@ -8,6 +8,8 @@ import useCVTabsHook from '@cv/hooks/CVTabsHook/useCVTabsHook'
 import i18n from './KubernetesActivitySource.i18n'
 import { SelectKubernetesConnector } from './SelectKubernetesConnector/SelectKubernetesConnector'
 import { SubmitAndPreviousButtons } from '../../SubmitAndPreviousButtons/SubmitAndPreviousButtons'
+import { SelectActivitySource } from './SelectActivitySource/SelectActivitySource'
+import { SelectKubernetesNamespaces } from './SelectKubernetesNamespaces/SelectKubernetesNamespaces'
 
 export default function KubernetesActivitySource(): JSX.Element {
   const { onNext, currentData, setCurrentData, ...tabInfo } = useCVTabsHook()
@@ -27,13 +29,39 @@ export default function KubernetesActivitySource(): JSX.Element {
         tabProps={[
           {
             id: 1,
-            title: i18n.tabNames.selectKubernestesConnector,
-            component: <SelectKubernetesConnector />
+            title: i18n.tabNames.selectActivitySource,
+            component: (
+              <SelectKubernetesConnector
+                onSubmit={data => {
+                  setCurrentData({ ...currentData, ...data })
+                  onNext()
+                }}
+              />
+            )
           },
           {
             id: 2,
+            title: i18n.tabNames.selectKubernestesConnector,
+            component: (
+              <SelectActivitySource
+                onSubmit={data => {
+                  setCurrentData({ ...currentData, ...data })
+                  onNext()
+                }}
+              />
+            )
+          },
+          {
+            id: 3,
             title: i18n.tabNames.selectKubernetesNamespaces,
-            component: <Container />
+            component: (
+              <SelectKubernetesNamespaces
+                onSubmit={data => {
+                  setCurrentData({ ...currentData, ...data })
+                  onNext()
+                }}
+              />
+            )
           }
         ]}
       />

@@ -1,0 +1,12 @@
+.main {
+  width: 50% !important;
+  max-width: 500px;
+  position: absolute;
+  top: 22%;
+  left: 52%;
+  transform: translateX(-50%);
+
+  .monitoringCard {
+    margin-bottom: var(--spacing-large) !important;
+  }
+}

@@ -1,17 +1,16 @@
-import React, { useState, useEffect } from 'react'
-import { Layout, Text, Container, FormikForm, Formik, IconName, Color, Link } from '@wings-software/uikit'
+import React, { useState } from 'react'
+import { Layout, Text, Container, FormikForm, Formik } from '@wings-software/uikit'
 import * as Yup from 'yup'
 import { useParams, useHistory } from 'react-router-dom'
 import { StringUtils } from '@common/exports'
 import { routeCVAdminSetup } from 'navigation/cv/routes'
-import type { ConnectorInfoDTO } from 'services/cd-ng'
+import {
+  SelectOrCreateConnector,
+  SelectOrCreateConnectorProps
+} from '@cv/pages/onboarding/SelectOrCreateConnector/SelectOrCreateConnector'
 import { SubmitAndPreviousButtons } from '@cv/pages/onboarding/SubmitAndPreviousButtons/SubmitAndPreviousButtons'
-import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
-import { AddDescriptionAndTagsWithIdentifier } from '@common/components/AddDescriptionAndTags/AddDescriptionAndTags'
 import { CVSelectionCard } from '@cv/components/CVSelectionCard/CVSelectionCard'
-import useCreateConnectorModal from '@connectors/modals/ConnectorModal/useCreateConnectorModal'
 import i18n from './SelectProduct.i18n'
-import css from './SelectProduct.module.scss'
 
 interface SelectProductProps {
   type: string
@@ -23,13 +22,7 @@ interface ProductOption {
   label: string
 }
 
-interface MonitoringSourceInfo {
-  icon: string
-  iconLabel: string
-  connectToMonitoringSource: string
-  firstTimeText: string
-  connector: ConnectorInfoDTO['type']
-  createConnector: string
+interface MonitoringSourceInfo extends SelectOrCreateConnectorProps {
   selectProduct: string
   products: ProductOption[]
 }
@@ -38,12 +31,12 @@ const getInfoSchemaByType = (type: string): MonitoringSourceInfo => {
   switch (type) {
     case 'AppDynamics':
       return {
-        icon: 'service-appdynamics',
+        iconName: 'service-appdynamics',
         iconLabel: 'AppDynamics',
-        connectToMonitoringSource: i18n.AppD.connectToMonitoringSource,
-        firstTimeText: i18n.AppD.firstTimeText,
-        connector: 'AppDynamics',
-        createConnector: i18n.AppD.createConnector,
+        connectToMonitoringSourceText: i18n.AppD.connectToMonitoringSource,
+        firstTimeSetupText: i18n.AppD.firstTimeText,
+        connectorType: 'AppDynamics',
+        createConnectorText: i18n.AppD.createConnector,
         selectProduct: i18n.AppD.selectProduct,
 
         products: [
@@ -60,15 +53,9 @@ const getInfoSchemaByType = (type: string): MonitoringSourceInfo => {
 
 const SelectProduct: React.FC<SelectProductProps> = props => {
   const history = useHistory()
-  const { accountId, projectIdentifier, orgIdentifier } = useParams()
+  const { projectIdentifier, orgIdentifier } = useParams()
   const [selectedProduct, setSelectedProduct] = useState<string>()
-  const [monitoringSource, setMonitoringSource] = useState<MonitoringSourceInfo | undefined>()
-
-  const { openConnectorModal } = useCreateConnectorModal({})
-
-  useEffect(() => {
-    setMonitoringSource(getInfoSchemaByType(props.type))
-  }, [props.type])
+  const monitoringSource = getInfoSchemaByType(props.type)
 
   return (
     <Container>
@@ -99,46 +86,15 @@ const SelectProduct: React.FC<SelectProductProps> = props => {
       >
         {() => (
           <FormikForm>
-            <Layout.Vertical width={'40%'} style={{ margin: 'auto' }}>
-              <Text font={{ size: 'medium' }} margin={{ top: 'large', bottom: 'large' }}>
-                {i18n.heading}
-              </Text>
-              <CVSelectionCard
-                isSelected={true}
-                className={css.monitoringCard}
-                iconProps={{
-                  name: monitoringSource?.icon as IconName,
-                  size: 40
-                }}
-                cardLabel={monitoringSource?.iconLabel}
-                renderLabelOutsideCard={true}
+            <Layout.Vertical width="40%" style={{ margin: 'auto' }}>
+              <SelectOrCreateConnector
+                iconName={monitoringSource.iconName}
+                iconLabel={monitoringSource.iconLabel}
+                connectorType={monitoringSource.connectorType}
+                createConnectorText={monitoringSource.createConnectorText}
+                firstTimeSetupText={monitoringSource.firstTimeSetupText}
+                connectToMonitoringSourceText={monitoringSource.connectToMonitoringSourceText}
               />
-              <AddDescriptionAndTagsWithIdentifier identifierProps={{ inputLabel: i18n.name }} />
-              <Layout.Vertical spacing="small" margin={{ bottom: 'large' }}>
-                <Text>{monitoringSource?.connectToMonitoringSource}</Text>
-                <Text color={Color.GREY_350}>{monitoringSource?.firstTimeText}</Text>
-                <Layout.Horizontal spacing="medium">
-                  <FormMultiTypeConnectorField
-                    name="connectorRef"
-                    label=""
-                    placeholder={i18n.selectConnector}
-                    accountIdentifier={accountId}
-                    projectIdentifier={projectIdentifier}
-                    orgIdentifier={orgIdentifier}
-                    width={300}
-                    isNewConnectorLabelVisible={false}
-                    type={monitoringSource?.connector}
-                    className={css.connectorReference}
-                  />
-                  <Link
-                    withoutHref
-                    onClick={() => openConnectorModal(monitoringSource?.connector || ('' as ConnectorInfoDTO['type']))}
-                    height={'30px'}
-                  >
-                    {monitoringSource?.createConnector}
-                  </Link>
-                </Layout.Horizontal>
-              </Layout.Vertical>
               <Layout.Vertical spacing="large">
                 <Text>{monitoringSource?.selectProduct}</Text>
                 <Layout.Horizontal spacing="medium">
@@ -150,7 +106,7 @@ const SelectProduct: React.FC<SelectProductProps> = props => {
                         isLarge
                         cardLabel={item.label}
                         iconProps={{
-                          name: monitoringSource?.icon as IconName,
+                          name: monitoringSource.iconName,
                           size: 30
                         }}
                         onCardSelect={isSelected => setSelectedProduct(isSelected ? item.value : undefined)}

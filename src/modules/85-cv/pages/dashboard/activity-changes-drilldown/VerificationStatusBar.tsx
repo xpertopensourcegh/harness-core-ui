@@ -90,25 +90,3 @@ function mapStatus(status: VerificationResult['status'], remainingTimeMs?: numbe
       return i18n.notStarted
   }
 }
-
-export function VerificationStatusBarMocked() {
-  return (
-    <VerificationStatusBar
-      status="IN_PROGRESS"
-      startTime={123}
-      remainingTimeMs={6000}
-      cumulativeRisk={26}
-      scoresBeforeChanges={[
-        { category: 'PERFORMANCE', risk: 30 },
-        { category: 'ERRORS', risk: 25 },
-        { category: 'RESOURCES', risk: 76 }
-      ]}
-      scoresAfterChanges={[
-        { category: 'PERFORMANCE', risk: 30 },
-        { category: 'ERRORS', risk: 25 },
-        { category: 'RESOURCES', risk: 76 }
-      ]}
-      dropDownContent={<Container height={200} background={Color.GREY_200} />}
-    />
-  )
-}

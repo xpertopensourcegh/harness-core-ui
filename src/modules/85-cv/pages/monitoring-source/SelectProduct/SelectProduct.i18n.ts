@@ -9,11 +9,6 @@ export default {
   remove: 'remove',
   description: 'description',
   tags: 'Tags',
-  heading: 'Monitoring Source Type',
-  name: 'Name your monitoring source',
-  selectConnector: 'Select connector',
-  NEXT: 'Next',
-  PREVIOUS: 'Previous',
   AppD: {
     iconLabel: 'AppDynamics',
     connectToMonitoringSource: 'Connect to your AppDynamics monitoring source',

@@ -20,14 +20,14 @@ const ROW_HEIGHT = 60
 
 function riskScoreToColor(riskScore: string): string {
   switch (riskScore) {
-    case 'NO_ANALYSIS':
-      return 'var(--grey-350)'
-    case 'LOW_RISK':
-      return 'var(--green-500)'
+    case 'HIGH_RISK':
+      return 'var(--red-500)'
     case 'MEDIUM_RISK':
       return 'var(--orange-500)'
+    case 'LOW_RISK':
+      return 'var(--green-500)'
     default:
-      return 'var(--red-500)'
+      return 'var(--grey-350)'
   }
 }
 
