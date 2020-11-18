@@ -18,14 +18,13 @@ const CVRenderer: React.FC<CVRendererProps> = ({ data, isPreview }) => {
       border={{ top: true, color: Color.GREY_250 }}
       padding={{ top: 'medium', bottom: 'medium' }}
       onClick={() => {
-        !isPreview
-          ? history.push(
-              routeCVMainDashBoardPage.url({
-                orgIdentifier: data.orgIdentifier,
-                projectIdentifier: data.identifier
-              })
-            )
-          : undefined
+        !isPreview &&
+          history.push(
+            routeCVMainDashBoardPage.url({
+              orgIdentifier: data.orgIdentifier,
+              projectIdentifier: data.identifier
+            })
+          )
       }}
       className={css.moduleContainer}
     >

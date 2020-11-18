@@ -75,7 +75,8 @@ export default {
       modulece: 'CE',
       modulecf: 'CF',
       time: '15 min setup',
-      starttrial: 'Start a Trial'
+      starttrial: 'Start a Trial',
+      enable: 'Enable'
     },
     Collaborators: {
       name: 'Invite Collaborators',

@@ -2099,18 +2099,23 @@ exports[`Project Details render with no modules and invite collaborators 1`] = `
                 Deploy your services with blazingly fast pipelines.
               </p>
               <div
-                class="Layout---horizontal--3rmQ Layout---layout-spacing-large--3HvX StyledProps---main--1Wws"
+                class="Layout---horizontal--3rmQ Layout---layout-spacing-xxlarge--zgL2 StyledProps---main--1Wws"
               >
                 <p
                   class="StyledProps---font--2ipy StyledProps---main--1Wws time StyledProps---font-small--1qQz"
                 >
                   15 min setup
                 </p>
-                <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws trial StyledProps---font-small--1qQz StyledProps---color--8PuS StyledProps---color-blue600--3aH7"
+                <button
+                  class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws enable StyledProps---font-size-small--3cA6 StyledProps---font-weight-semi-bold--QRXr"
+                  type="button"
                 >
-                  Start a Trial
-                </p>
+                  <span
+                    class="bp3-button-text"
+                  >
+                    Enable
+                  </span>
+                </button>
               </div>
             </div>
             <div
@@ -2173,18 +2178,23 @@ exports[`Project Details render with no modules and invite collaborators 1`] = `
                 Deploy in peace, verify activities that take place in system. Identify risk early.
               </p>
               <div
-                class="Layout---horizontal--3rmQ Layout---layout-spacing-large--3HvX StyledProps---main--1Wws"
+                class="Layout---horizontal--3rmQ Layout---layout-spacing-xxlarge--zgL2 StyledProps---main--1Wws"
               >
                 <p
                   class="StyledProps---font--2ipy StyledProps---main--1Wws time StyledProps---font-small--1qQz"
                 >
                   15 min setup
                 </p>
-                <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws trial StyledProps---font-small--1qQz StyledProps---color--8PuS StyledProps---color-blue600--3aH7"
+                <button
+                  class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws enable StyledProps---font-size-small--3cA6 StyledProps---font-weight-semi-bold--QRXr"
+                  type="button"
                 >
-                  Start a Trial
-                </p>
+                  <span
+                    class="bp3-button-text"
+                  >
+                    Enable
+                  </span>
+                </button>
               </div>
             </div>
             <div
@@ -2247,18 +2257,23 @@ exports[`Project Details render with no modules and invite collaborators 1`] = `
                 Commit, build, and test your code at a whole new level.
               </p>
               <div
-                class="Layout---horizontal--3rmQ Layout---layout-spacing-large--3HvX StyledProps---main--1Wws"
+                class="Layout---horizontal--3rmQ Layout---layout-spacing-xxlarge--zgL2 StyledProps---main--1Wws"
               >
                 <p
                   class="StyledProps---font--2ipy StyledProps---main--1Wws time StyledProps---font-small--1qQz"
                 >
                   15 min setup
                 </p>
-                <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws trial StyledProps---font-small--1qQz StyledProps---color--8PuS StyledProps---color-blue600--3aH7"
+                <button
+                  class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws enable StyledProps---font-size-small--3cA6 StyledProps---font-weight-semi-bold--QRXr"
+                  type="button"
                 >
-                  Start a Trial
-                </p>
+                  <span
+                    class="bp3-button-text"
+                  >
+                    Enable
+                  </span>
+                </button>
               </div>
             </div>
             <div
@@ -2321,18 +2336,23 @@ exports[`Project Details render with no modules and invite collaborators 1`] = `
                 Spot and quickly debug inefficiencies and optimize them to reduce costs.
               </p>
               <div
-                class="Layout---horizontal--3rmQ Layout---layout-spacing-large--3HvX StyledProps---main--1Wws"
+                class="Layout---horizontal--3rmQ Layout---layout-spacing-xxlarge--zgL2 StyledProps---main--1Wws"
               >
                 <p
                   class="StyledProps---font--2ipy StyledProps---main--1Wws time StyledProps---font-small--1qQz"
                 >
                   15 min setup
                 </p>
-                <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws trial StyledProps---font-small--1qQz StyledProps---color--8PuS StyledProps---color-blue600--3aH7"
+                <button
+                  class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws enable StyledProps---font-size-small--3cA6 StyledProps---font-weight-semi-bold--QRXr"
+                  type="button"
                 >
-                  Start a Trial
-                </p>
+                  <span
+                    class="bp3-button-text"
+                  >
+                    Enable
+                  </span>
+                </button>
               </div>
             </div>
             <div
@@ -2395,18 +2415,23 @@ exports[`Project Details render with no modules and invite collaborators 1`] = `
                 Decouple release from deployment and rollout features safely and quickly.
               </p>
               <div
-                class="Layout---horizontal--3rmQ Layout---layout-spacing-large--3HvX StyledProps---main--1Wws"
+                class="Layout---horizontal--3rmQ Layout---layout-spacing-xxlarge--zgL2 StyledProps---main--1Wws"
               >
                 <p
                   class="StyledProps---font--2ipy StyledProps---main--1Wws time StyledProps---font-small--1qQz"
                 >
                   15 min setup
                 </p>
-                <p
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws trial StyledProps---font-small--1qQz StyledProps---color--8PuS StyledProps---color-blue600--3aH7"
+                <button
+                  class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws enable StyledProps---font-size-small--3cA6 StyledProps---font-weight-semi-bold--QRXr"
+                  type="button"
                 >
-                  Start a Trial
-                </p>
+                  <span
+                    class="bp3-button-text"
+                  >
+                    Enable
+                  </span>
+                </button>
               </div>
             </div>
           </div>

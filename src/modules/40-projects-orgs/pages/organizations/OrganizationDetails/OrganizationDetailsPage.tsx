@@ -5,7 +5,7 @@ import { Page } from '@common/exports'
 import { routeOrganizations } from 'navigation/accounts/routes'
 import { useGetOrganization } from 'services/cd-ng'
 import OrgNavCardRenderer from '@projects-orgs/components/OrgNavCardRenderer/OrgNavCardRenderer'
-import { routeOrgProjects } from 'navigation/projects/routes'
+import { routeProjects } from 'navigation/projects/routes'
 import i18n from './OrganizationDetailsPage.i18n'
 import css from './OrganizationDetailsPage.module.scss'
 
@@ -53,7 +53,7 @@ const OrganizationDetailsPage: React.FC = () => {
               <Icon name="nav-project-selected" size={30}></Icon>
               <Text font="medium">{i18n.numberOfProjects}</Text>
             </Layout.Horizontal>
-            <Link to={routeOrgProjects.url({ orgIdentifier })}>
+            <Link to={`${routeProjects.url()}?orgId=${orgIdentifier}`}>
               <Text>{i18n.viewProjects}</Text>
             </Link>
           </Layout.Vertical>

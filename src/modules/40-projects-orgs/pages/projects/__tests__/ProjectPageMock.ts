@@ -1,3 +1,5 @@
+import type { Project } from 'services/cd-ng'
+
 export const projectPageMock = {
   data: {
     status: 'SUCCESS',
@@ -180,4 +182,16 @@ export const createMockData = {
     }
   },
   loading: false
+}
+
+export const projectWithModules: Project = {
+  accountIdentifier: 'testAcc',
+  orgIdentifier: 'testOrg',
+  identifier: 'test',
+  name: 'test',
+  color: '#e6b800',
+  modules: ['CD', 'CV', 'CI', 'CE', 'CF'],
+  description: 'test',
+  tags: ['tag1', 'tag2'],
+  owners: ['testAcc']
 }

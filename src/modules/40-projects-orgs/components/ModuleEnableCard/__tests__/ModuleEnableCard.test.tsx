@@ -19,6 +19,7 @@ const data: Project = {
   lastModifiedAt: 1599715118275
 }
 const addModule = jest.fn()
+const refetch = jest.fn()
 jest.mock('services/cd-ng', () => ({
   usePutProject: jest.fn().mockImplementation(args => {
     addModule(args)
@@ -28,21 +29,21 @@ jest.mock('services/cd-ng', () => ({
 
 const moduleList: ModuleName[] = [ModuleName.CD, ModuleName.CV, ModuleName.CE, ModuleName.CF, ModuleName.CI]
 
-describe('Project Details', () => {
-  test('render', async () => {
+describe('Module Enable Card', () => {
+  test('render and Enable', async () => {
     moduleList.map(value => {
       addModule.mockReset()
-      const { container } = render(
+      const { container, getAllByText } = render(
         <TestWrapper
           path="/account/:accountId/org/:orgIdentifier/project/:projectIdentifier"
           pathParams={{ accountId: 'testAcc', orgIdentifier: 'Cisco_Meraki', projectIdentifier: 'Portal' }}
         >
-          <ModuleEnableCard data={data} module={value} />
+          <ModuleEnableCard data={data} module={value} refetchProject={refetch} />
         </TestWrapper>
       )
       expect(container).toMatchSnapshot()
-      const card = container.getElementsByClassName('bp3-card')[0]
-      fireEvent.click(card)
+      const enable = getAllByText('Enable')[0]
+      fireEvent.click(enable)
       expect(addModule).toBeCalled()
     })
   })

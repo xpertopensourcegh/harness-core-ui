@@ -28,12 +28,12 @@ const ProjectDetails: React.FC = () => {
       orgIdentifier: orgIdentifier
     }
   })
-  const projectCreateSuccessHandler = (): void => {
+  const refetchProject = (): void => {
     refetch()
   }
 
   const { openProjectModal } = useProjectModal({
-    onSuccess: projectCreateSuccessHandler
+    onSuccess: refetchProject
   })
 
   const showEditProject = (project: Project): void => {
@@ -118,31 +118,26 @@ const ProjectDetails: React.FC = () => {
         <Layout.Horizontal>
           <div>
             <Container padding="xxlarge" className={css.enabledModules}>
-              {data?.data?.modules?.length ? (
-                <Layout.Vertical padding="small" spacing="large">
-                  <Text font={{ size: 'medium', weight: 'semi-bold' }} color={Color.BLACK}>
-                    {i18n.modulesEnabled}
-                  </Text>
-                  {data.data.modules.map(module => (
+              <Layout.Vertical padding="small" spacing="large">
+                <Text font={{ size: 'medium', weight: 'semi-bold' }} color={Color.BLACK}>
+                  {i18n.modulesEnabled}
+                </Text>
+                {data?.data?.modules?.length ? (
+                  data.data.modules.map(module => (
                     <ModuleListCard
                       module={module as ModuleName}
                       key={module}
                       projectIdentifier={data.data?.identifier || ''}
                       orgIdentifier={data.data?.identifier || ''}
                     />
-                  ))}
-                </Layout.Vertical>
-              ) : (
-                <Layout.Vertical padding="small" spacing="large">
-                  <Text font={{ size: 'medium', weight: 'semi-bold' }} color={Color.BLACK}>
-                    {i18n.modulesEnabled}
-                  </Text>
+                  ))
+                ) : (
                   <Layout.Vertical padding="huge" flex={{ align: 'center-center' }} spacing="huge">
                     <Icon name="nav-project" size={70} />
                     <Text font="medium">{i18n.noModules}</Text>
                   </Layout.Vertical>
-                </Layout.Vertical>
-              )}
+                )}
+              </Layout.Vertical>
             </Container>
             <Container padding="xxlarge">
               {data?.data?.modules?.length === 5 ? null : (
@@ -152,7 +147,12 @@ const ProjectDetails: React.FC = () => {
                   </Text>
                   <Layout.Horizontal spacing="small" padding={{ top: 'large' }}>
                     {getEnableModules(data?.data?.modules || []).map(module => (
-                      <ModuleEnableCard key={module} data={data?.data as Project} module={module as ModuleName} />
+                      <ModuleEnableCard
+                        key={module}
+                        data={data?.data as Project}
+                        module={module as ModuleName}
+                        refetchProject={refetchProject}
+                      />
                     ))}
                   </Layout.Horizontal>
                 </>

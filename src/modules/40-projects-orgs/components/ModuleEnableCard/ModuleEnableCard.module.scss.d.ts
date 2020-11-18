@@ -4,6 +4,6 @@ declare const styles: {
   readonly card: string
   readonly description: string
   readonly time: string
-  readonly trial: string
+  readonly enable: string
 }
 export default styles

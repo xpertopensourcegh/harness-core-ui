@@ -18,14 +18,13 @@ const CIRenderer: React.FC<CIRendererProps> = ({ data, isPreview }) => {
       padding={{ top: 'medium', bottom: 'medium' }}
       className={css.moduleContainer}
       onClick={() => {
-        !isPreview
-          ? history.push(
-              routeCIDashboard.url({
-                orgIdentifier: data.orgIdentifier,
-                projectIdentifier: data.identifier
-              })
-            )
-          : undefined
+        !isPreview &&
+          history.push(
+            routeCIDashboard.url({
+              orgIdentifier: data.orgIdentifier,
+              projectIdentifier: data.identifier
+            })
+          )
       }}
     >
       <Layout.Horizontal>

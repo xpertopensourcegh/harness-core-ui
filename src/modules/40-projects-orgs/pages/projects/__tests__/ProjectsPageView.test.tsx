@@ -40,6 +40,18 @@ jest.mock('services/cd-ng', () => ({
   useGetRoles: () => jest.fn()
 }))
 
+jest.mock('framework/exports', () => ({
+  ...(jest.requireActual('framework/exports') as object),
+  useRouteParams: () => ({
+    params: {
+      accountId: 'testAcc'
+    },
+    query: {
+      orgId: 'testOrg'
+    }
+  })
+}))
+
 describe('Project Page List', () => {
   let container: HTMLElement | undefined
   let getAllByText: RenderResult['getAllByText'] | undefined

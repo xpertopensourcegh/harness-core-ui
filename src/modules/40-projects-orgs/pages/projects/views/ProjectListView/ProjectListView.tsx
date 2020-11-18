@@ -4,13 +4,12 @@ import { Text, Layout, Color, Icon, Button, Popover } from '@wings-software/uiki
 import type { CellProps, Renderer, Column } from 'react-table'
 import { Classes, Position } from '@blueprintjs/core'
 import { useHistory, useParams } from 'react-router-dom'
-import { Project, useGetProjectList, ResponsePageProject, useDeleteProject } from 'services/cd-ng'
+import { Project, useGetProjectList, useDeleteProject } from 'services/cd-ng'
 import Table from '@common/components/Table/Table'
 
 import TagsPopover from '@common/components/TagsPopover/TagsPopover'
 import { useAppStoreReader, useAppStoreWriter } from 'framework/exports'
 import { Page } from '@common/components/Page/Page'
-import type { UseGetMockData } from '@common/utils/testUtils'
 import { useToaster } from '@common/components/Toaster/useToaster'
 import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmationDialog'
 import ContextMenu from '@projects-orgs/components/Menu/ContextMenu'
@@ -19,7 +18,6 @@ import i18n from './ProjectListView.i18n'
 import css from './ProjectListView.module.scss'
 
 interface ProjectListViewProps {
-  mockData?: UseGetMockData<ResponsePageProject>
   showEditProject?: (project: Project) => void
   collaborators?: (project: Project) => void
   searchParameter?: string
@@ -160,7 +158,6 @@ const RenderColumnMenu: Renderer<CellProps<Project>> = ({ row, column }) => {
 
 const ProjectListView: React.FC<ProjectListViewProps> = props => {
   const {
-    mockData,
     showEditProject,
     collaborators,
     searchParameter,
@@ -183,7 +180,6 @@ const ProjectListView: React.FC<ProjectListViewProps> = props => {
       pageIndex: page,
       pageSize: 10
     },
-    mock: mockData,
     debounce: 300
   })
 

@@ -18,14 +18,13 @@ const CDRenderer: React.FC<CDRendererProps> = ({ data, isPreview }) => {
       padding={{ top: 'medium', bottom: 'medium' }}
       className={css.moduleContainer}
       onClick={() => {
-        !isPreview
-          ? history.push(
-              routeCDDashboard.url({
-                orgIdentifier: data.orgIdentifier,
-                projectIdentifier: data.identifier
-              })
-            )
-          : undefined
+        !isPreview &&
+          history.push(
+            routeCDDashboard.url({
+              orgIdentifier: data.orgIdentifier,
+              projectIdentifier: data.identifier
+            })
+          )
       }}
     >
       <Layout.Horizontal>

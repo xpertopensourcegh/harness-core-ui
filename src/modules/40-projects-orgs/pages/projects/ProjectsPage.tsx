@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { Button, Text, Layout, TextInput, SelectOption } from '@wings-software/uikit'
 
 import { Select } from '@blueprintjs/select'
@@ -11,6 +11,8 @@ import { Page } from '@common/components/Page/Page'
 import type { UseGetMockData } from '@common/utils/testUtils'
 import { useProjectModal } from '@projects-orgs/modals/ProjectModal/useProjectModal'
 import { useCollaboratorModal } from '@projects-orgs/modals/ProjectModal/useCollaboratorModal'
+import { routeProjects } from 'navigation/projects/routes'
+import { useRouteParams } from 'framework/exports'
 import i18n from './ProjectsPage.i18n'
 import { Views } from './Constants'
 import ProjectsListView from './views/ProjectListView/ProjectListView'
@@ -27,15 +29,18 @@ interface ProjectListProps {
 const CustomSelect = Select.ofType<SelectOption>()
 
 const ProjectsListPage: React.FC<ProjectListProps> = ({ orgMockData }) => {
-  const [orgFilter, setOrgFilter] = useState<SelectOption>(allOrgsSelectOption)
-  const { accountId, orgIdentifier } = useParams()
+  const {
+    params: { accountId },
+    query: { orgId }
+  } = useRouteParams()
   const [view, setView] = useState(Views.GRID)
   const [searchParam, setSearchParam] = useState<string>()
   const [reloadProjectPage, setReloadProjectPage] = useState(false)
   const projectCreateSuccessHandler = (): void => {
     setReloadProjectPage(true)
   }
-
+  const history = useHistory()
+  let orgFilter = allOrgsSelectOption
   const { openProjectModal } = useProjectModal({
     onSuccess: projectCreateSuccessHandler
   })
@@ -60,9 +65,15 @@ const ProjectsListPage: React.FC<ProjectListProps> = ({ orgMockData }) => {
   const organisations: SelectOption[] = [
     allOrgsSelectOption,
     ...(orgsData?.data?.content?.map(org => {
+      org.identifier === orgId
+        ? (orgFilter = {
+            label: org.name,
+            value: org.identifier
+          })
+        : null
       return {
-        label: org.name || '',
-        value: org.identifier || ''
+        label: org.name,
+        value: org.identifier
       }
     }) || [])
   ]
@@ -85,29 +96,26 @@ const ProjectsListPage: React.FC<ProjectListProps> = ({ orgMockData }) => {
               setSearchParam(e.target.value.trim())
             }}
           />
-          {!orgIdentifier ? (
-            <>
-              <Text>{i18n.tabOrgs}</Text>
-              <CustomSelect
-                items={organisations}
-                filterable={false}
-                itemRenderer={(item, { handleClick }) => (
-                  <div>
-                    <Menu.Item
-                      text={item.label}
-                      onClick={(e: React.MouseEvent<HTMLElement, MouseEvent>) => handleClick(e)}
-                    />
-                  </div>
-                )}
-                onItemSelect={item => {
-                  setOrgFilter(item as SelectOption)
-                }}
-                popoverProps={{ minimal: true, popoverClassName: css.customselect }}
-              >
-                <Button inline minimal rightIcon="chevron-down" text={orgFilter.label} className={css.orgSelect} />
-              </CustomSelect>
-            </>
-          ) : null}
+          <Text>{i18n.tabOrgs}</Text>
+          <CustomSelect
+            items={organisations}
+            filterable={false}
+            itemRenderer={(item, { handleClick }) => (
+              <div>
+                <Menu.Item text={item.label} onClick={handleClick} />
+              </div>
+            )}
+            onItemSelect={item => {
+              orgFilter = item
+              history.push({
+                pathname: routeProjects.url(),
+                search: `?orgId=${orgId}`
+              })
+            }}
+            popoverProps={{ minimal: true, popoverClassName: css.customselect }}
+          >
+            <Button inline minimal rightIcon="chevron-down" text={orgFilter.label} className={css.orgSelect} />
+          </CustomSelect>
 
           <Layout.Horizontal inline>
             <Button
@@ -134,7 +142,7 @@ const ProjectsListPage: React.FC<ProjectListProps> = ({ orgMockData }) => {
         <ProjectsGridView
           showEditProject={showEditProject}
           collaborators={showCollaborators}
-          orgFilterId={orgIdentifier || (orgFilter.value as string)}
+          orgFilterId={orgFilter.value.toString()}
           searchParameter={searchParam}
           reloadPage={reloadProjectPage ? setReloadProjectPage : undefined}
           openProjectModal={openProjectModal}
@@ -144,7 +152,7 @@ const ProjectsListPage: React.FC<ProjectListProps> = ({ orgMockData }) => {
         <ProjectsListView
           showEditProject={showEditProject}
           collaborators={showCollaborators}
-          orgFilterId={orgIdentifier || (orgFilter.value as string)}
+          orgFilterId={orgFilter.value.toString()}
           searchParameter={searchParam}
           reloadPage={reloadProjectPage ? setReloadProjectPage : undefined}
           openProjectModal={openProjectModal}
