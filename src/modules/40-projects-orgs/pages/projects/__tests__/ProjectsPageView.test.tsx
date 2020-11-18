@@ -67,7 +67,6 @@ describe('Project Page List', () => {
     )
     container = renderObj.container
     getAllByText = renderObj.getAllByText
-    await waitFor(() => getAllByText?.('PROJECTS'))
   })
 
   test('Create Project and Close', async () => {
@@ -86,31 +85,29 @@ describe('Project Page List', () => {
   }),
     test('Whole Modal Test', async () => {
       expect(container).toMatchSnapshot()
-      await act(async () => {
-        const newProject = getAllByText?.('New Project')[0]
-        expect(newProject).toBeDefined()
-        fireEvent.click(newProject!)
-        await waitFor(() => getByText(document.body, 'ABOUT THE PROJECT'))
-        let form = findDialogContainer()
-        expect(form).toBeTruthy()
-        fireEvent.change(form?.querySelector('input[name="name"]')!, {
-          target: { value: 'dummy name' }
-        })
-        fireEvent.change(form?.querySelector('input[name="orgIdentifier"]')!, {
-          target: { value: 'testOrg' }
-        })
-        fireEvent.click(form?.querySelector('button[type="submit"]')!)
-        await waitFor(() => getByText(document.body, 'INVITE COLLABORATORS'))
-        fireEvent.click(getByText(document.body, 'Back')!)
-        await waitFor(() => getByText(document.body, 'EDIT PROJECT'))
-        fireEvent.click(form?.querySelector('button[type="submit"]')!)
-        await waitFor(() => getByText(document.body, 'INVITE COLLABORATORS'))
-        fireEvent.click(queryByText(document.body, 'Save and Continue')!)
-        await waitFor(() => getByText(document.body, 'Which Harness module would you like to start with?'))
-        fireEvent.click(form?.querySelector('[icon="cross"]')!)
-        form = findDialogContainer()
-        expect(form).not.toBeTruthy()
+      const newProject = getAllByText?.('New Project')[0]
+      expect(newProject).toBeDefined()
+      fireEvent.click(newProject!)
+      await waitFor(() => getByText(document.body, 'ABOUT THE PROJECT'))
+      let form = findDialogContainer()
+      expect(form).toBeTruthy()
+      fireEvent.change(form?.querySelector('input[name="name"]')!, {
+        target: { value: 'dummy name' }
       })
+      fireEvent.change(form?.querySelector('input[name="orgIdentifier"]')!, {
+        target: { value: 'testOrg' }
+      })
+      fireEvent.click(form?.querySelector('button[type="submit"]')!)
+      await waitFor(() => getByText(document.body, 'INVITE COLLABORATORS'))
+      fireEvent.click(getByText(document.body, 'Back')!)
+      await waitFor(() => getByText(document.body, 'EDIT PROJECT'))
+      fireEvent.click(form?.querySelector('button[type="submit"]')!)
+      await waitFor(() => getByText(document.body, 'INVITE COLLABORATORS'))
+      fireEvent.click(queryByText(document.body, 'Save and Continue')!)
+      await waitFor(() => getByText(document.body, 'Which Harness modules would you like to enable for this project?'))
+      fireEvent.click(form?.querySelector('[icon="cross"]')!)
+      form = findDialogContainer()
+      expect(form).not.toBeTruthy()
     }),
     test('Invite Collaborators', async () => {
       const menu = container?.querySelectorAll("[icon='more']")[1]

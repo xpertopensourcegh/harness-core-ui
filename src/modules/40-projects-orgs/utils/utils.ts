@@ -1,7 +1,7 @@
 import type { IconName } from '@wings-software/uikit'
 import { ModuleName } from 'framework/exports'
 import type { Project } from 'services/cd-ng'
-import i18n from './utils.i18n'
+import i18n from '@projects-orgs/pages/projects/ProjectsPage.i18n'
 
 const allModules: Required<Project>['modules'] = ['CD', 'CV', 'CI', 'CE', 'CF']
 
@@ -40,15 +40,15 @@ export const getModulePurpose = (module: ModuleName): string => {
 export const getModuleDescription = (module: ModuleName): string => {
   switch (module) {
     case ModuleName.CD:
-      return i18n.descriptionCD
+      return i18n.newProjectWizard.purposeList.descriptionCD
     case ModuleName.CV:
-      return i18n.descriptionCV
+      return i18n.newProjectWizard.purposeList.descriptionCV
     case ModuleName.CI:
-      return i18n.descriptionCI
+      return i18n.newProjectWizard.purposeList.descriptionCI
     case ModuleName.CE:
-      return i18n.descriptionCE
+      return i18n.newProjectWizard.purposeList.descriptionCE
     case ModuleName.CF:
-      return i18n.descriptionCF
+      return i18n.newProjectWizard.purposeList.descriptionCF
   }
   return ''
 }

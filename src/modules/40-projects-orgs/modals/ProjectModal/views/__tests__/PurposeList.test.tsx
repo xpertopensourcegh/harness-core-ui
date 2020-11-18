@@ -1,8 +1,8 @@
 import React from 'react'
 
-import { render, queryByText, fireEvent } from '@testing-library/react'
-import type { Project, ResponseProject } from 'services/cd-ng'
-import { TestWrapper, UseMutateMockData } from '@common/utils/testUtils'
+import { render, queryByText, fireEvent, act } from '@testing-library/react'
+import type { Project } from 'services/cd-ng'
+import { TestWrapper } from '@common/utils/testUtils'
 import i18n from '@projects-orgs/pages/projects/ProjectsPage.i18n'
 import PurposeList from '../PurposeList'
 
@@ -18,92 +18,49 @@ const project: Project = {
   owners: ['testAcc']
 }
 
-const mockData: UseMutateMockData<ResponseProject> = {
-  mutate: async () => {
-    return {
-      status: 'SUCCESS',
-      data: {
-        accountIdentifier: 'testAcc',
-        orgIdentifier: 'testOrg',
-        identifier: 'test',
-        name: 'test',
-        color: '#e6b800',
-        modules: ['CD'],
-        description: 'test',
-        tags: ['tag1', 'tag2'],
-        owners: ['testAcc'],
-        lastModifiedAt: 1602660684194
-      },
-      metaData: undefined,
-      correlationId: '375d39b4-3552-42a2-a4e3-e6b9b7e51d44'
-    }
-  },
-  loading: false
-}
+const addModule = jest.fn()
+jest.mock('services/cd-ng', () => ({
+  usePutProject: jest.fn().mockImplementation(() => ({ mutate: addModule }))
+}))
 
 describe('PurposeList test', () => {
   test('initializes ok ', async () => {
-    const { container } = render(
+    const { container, getAllByText } = render(
       <TestWrapper path="/account/:accountId" pathParams={{ accountId: 'testAcc' }}>
-        <PurposeList data={project} mock={mockData} />
+        <PurposeList data={project} />
       </TestWrapper>
     )
     expect(queryByText(container, i18n.newProjectWizard.purposeList.name)).toBeDefined()
     expect(container).toMatchSnapshot()
-    fireEvent.click(container.querySelector('button[type="button"]')!)
-    expect(queryByText(container, i18n.newProjectWizard.purposeList.startcd)).toBeDefined()
-  }),
-    test('Start CV initializes ok ', async () => {
-      const { container } = render(
-        <TestWrapper path="/account/:accountId" pathParams={{ accountId: 'testAcc' }}>
-          <PurposeList data={project} mock={mockData} />
-        </TestWrapper>
-      )
-      expect(queryByText(container, i18n.newProjectWizard.purposeList.name)).toBeDefined()
-      const cv = container.getElementsByClassName('bp3-card')[1]
-      fireEvent.click(cv)
-      expect(container).toMatchSnapshot()
-      fireEvent.click(container.querySelector('button[type="button"]')!)
-      expect(queryByText(container, i18n.newProjectWizard.purposeList.startcv)).toBeDefined()
+    await act(async () => {
+      const enablecd = getAllByText('Enable')[0]
+      fireEvent.click(enablecd)
     })
-
-  test('Start CI initializes ok ', async () => {
-    const { container } = render(
-      <TestWrapper path="/account/:accountId" pathParams={{ accountId: 'testAcc' }}>
-        <PurposeList data={project} mock={mockData} />
-      </TestWrapper>
-    )
-    expect(queryByText(container, i18n.newProjectWizard.purposeList.name)).toBeDefined()
-    const ci = container.getElementsByClassName('bp3-card')[2]
-    fireEvent.click(ci)
+    expect(addModule).toBeCalled()
+    addModule.mockReset()
+    await act(async () => {
+      const enablecv = getAllByText('Enable')[0]
+      fireEvent.click(enablecv)
+    })
+    expect(addModule).toBeCalled()
+    addModule.mockReset()
+    await act(async () => {
+      const enableci = getAllByText('Enable')[0]
+      fireEvent.click(enableci)
+    })
+    expect(addModule).toBeCalled()
+    addModule.mockReset()
+    await act(async () => {
+      const enablece = getAllByText('Enable')[0]
+      fireEvent.click(enablece)
+    })
+    expect(addModule).toBeCalled()
+    addModule.mockReset()
+    await act(async () => {
+      const enablecf = getAllByText('Enable')[0]
+      fireEvent.click(enablecf)
+    })
+    expect(addModule).toBeCalled()
     expect(container).toMatchSnapshot()
-    fireEvent.click(container.querySelector('button[type="button"]')!)
-    expect(queryByText(container, i18n.newProjectWizard.purposeList.startci)).toBeDefined()
-  }),
-    test('Start CE initializes ok ', async () => {
-      const { container } = render(
-        <TestWrapper path="/account/:accountId" pathParams={{ accountId: 'testAcc' }}>
-          <PurposeList data={project} mock={mockData} />
-        </TestWrapper>
-      )
-      expect(queryByText(container, i18n.newProjectWizard.purposeList.name)).toBeDefined()
-      const ce = container.getElementsByClassName('bp3-card')[3]
-      fireEvent.click(ce)
-      expect(container).toMatchSnapshot()
-      fireEvent.click(container.querySelector('button[type="button"]')!)
-      expect(queryByText(container, i18n.newProjectWizard.purposeList.startce)).toBeDefined()
-    }),
-    test('Start CF initializes ok ', async () => {
-      const { container } = render(
-        <TestWrapper path="/account/:accountId" pathParams={{ accountId: 'testAcc' }}>
-          <PurposeList data={project} mock={mockData} />
-        </TestWrapper>
-      )
-      expect(queryByText(container, i18n.newProjectWizard.purposeList.name)).toBeDefined()
-      const cf = container.getElementsByClassName('bp3-card')[4]
-      fireEvent.click(cf)
-      expect(container).toMatchSnapshot()
-      fireEvent.click(container.querySelector('button[type="button"]')!)
-      expect(queryByText(container, i18n.newProjectWizard.purposeList.startcf)).toBeDefined()
-    })
+  })
 })

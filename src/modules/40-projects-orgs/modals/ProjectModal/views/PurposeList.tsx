@@ -1,236 +1,163 @@
 import React, { useState } from 'react'
 
-import { CardSelect, Text, Layout, Icon, IconName, Container, Button } from '@wings-software/uikit'
+import { Text, Layout, Icon, IconName, Container, Button, Card, Color } from '@wings-software/uikit'
 
-import { useHistory, useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { routeCDPipelineStudio } from 'navigation/cd/routes'
-import type { Project, ResponseProject } from 'services/cd-ng'
+import type { Project } from 'services/cd-ng'
 import { usePutProject } from 'services/cd-ng'
-import { routeCVDataSources } from 'navigation/cv/routes'
-import type { UseMutateMockData } from '@common/utils/testUtils'
 import i18n from '@projects-orgs/pages/projects/ProjectsPage.i18n'
+import { useToaster } from '@common/exports'
+import { ModuleName } from 'framework/exports'
 import css from './Purpose.module.scss'
 
 interface ProjectModalData {
   data: Project
-  mock?: UseMutateMockData<ResponseProject>
 }
 
 interface PurposeType {
   title: string
   icon: IconName
   Description: string
-  start: string
-  text: string
-  button: string
   module: Required<Project>['modules'][number]
-}
-
-interface ModuleProps {
-  onSubmit: () => Promise<boolean>
 }
 
 const options: PurposeType[] = [
   {
-    title: i18n.newProjectWizard.purposeList.cd,
+    title: i18n.newProjectWizard.purposeList.delivery,
     icon: 'cd-main',
-    Description: i18n.newProjectWizard.purposeList.cdDescription,
-    start: i18n.newProjectWizard.purposeList.startcd,
-    text: i18n.newProjectWizard.purposeList.textcd,
-    button: i18n.newProjectWizard.purposeList.buttoncd,
-    module: 'CD'
+    Description: i18n.newProjectWizard.purposeList.descriptionCD,
+    module: ModuleName.CD
   },
   {
-    title: i18n.newProjectWizard.purposeList.cv,
+    title: i18n.newProjectWizard.purposeList.verification,
     icon: 'cv-main',
-    Description: i18n.newProjectWizard.purposeList.cvDescription,
-    start: i18n.newProjectWizard.purposeList.startcv,
-    text: i18n.newProjectWizard.purposeList.textcv,
-    button: i18n.newProjectWizard.purposeList.buttoncv,
-    module: 'CV'
+    Description: i18n.newProjectWizard.purposeList.descriptionCV,
+    module: ModuleName.CV
   },
   {
-    title: i18n.newProjectWizard.purposeList.ci,
+    title: i18n.newProjectWizard.purposeList.integration,
     icon: 'ci-main',
-    Description: i18n.newProjectWizard.purposeList.cdDescription,
-    start: i18n.newProjectWizard.purposeList.startci,
-    text: i18n.newProjectWizard.purposeList.textci,
-    button: i18n.newProjectWizard.purposeList.buttonci,
-    module: 'CI'
+    Description: i18n.newProjectWizard.purposeList.descriptionCI,
+    module: ModuleName.CI
   },
   {
-    title: i18n.newProjectWizard.purposeList.ce,
+    title: i18n.newProjectWizard.purposeList.efficiency,
     icon: 'ce-main',
-    Description: i18n.newProjectWizard.purposeList.cdDescription,
-    start: i18n.newProjectWizard.purposeList.startce,
-    text: i18n.newProjectWizard.purposeList.textce,
-    button: i18n.newProjectWizard.purposeList.buttonce,
-    module: 'CE'
+    Description: i18n.newProjectWizard.purposeList.descriptionCE,
+    module: ModuleName.CE
   },
   {
-    title: i18n.newProjectWizard.purposeList.cf,
+    title: i18n.newProjectWizard.purposeList.features,
     icon: 'cf-main',
-    Description: i18n.newProjectWizard.purposeList.cdDescription,
-    start: i18n.newProjectWizard.purposeList.startcf,
-    text: i18n.newProjectWizard.purposeList.textcf,
-    button: i18n.newProjectWizard.purposeList.buttoncf,
-    module: 'CF'
+    Description: i18n.newProjectWizard.purposeList.descriptionCF,
+    module: ModuleName.CF
   }
 ]
 
-const ContinuousDeployement: React.FC<ModuleProps & ProjectModalData> = ({ onSubmit, data }) => {
-  const history = useHistory()
-
-  return (
-    <Container width="40%">
-      <Layout.Vertical className={css.started}>
-        <Text font="large" className={css.textPadding}>
-          {i18n.newProjectWizard.purposeList.startcd}
-        </Text>
-        <Text font="small" className={css.text}>
-          {i18n.newProjectWizard.purposeList.textcd}
-        </Text>
-        <Button
-          intent="primary"
-          className={css.button}
-          text={i18n.newProjectWizard.purposeList.buttoncd}
-          onClick={() => {
-            onSubmit()
-            history.push(
-              routeCDPipelineStudio.url({
-                orgIdentifier: data.orgIdentifier as string,
-                projectIdentifier: data.identifier as string,
-                pipelineIdentifier: -1
-              })
-            )
-          }}
-        />
-      </Layout.Vertical>
-    </Container>
-  )
-}
-
-const ContinuousVerification: React.FC<ModuleProps & ProjectModalData> = ({ onSubmit, data }) => {
-  const history = useHistory()
-
-  return (
-    <Container width="40%">
-      <Layout.Vertical className={css.started}>
-        <Text font="large" className={css.textPadding}>
-          {i18n.newProjectWizard.purposeList.startcv}
-        </Text>
-        <Text font="small" className={css.text}>
-          {i18n.newProjectWizard.purposeList.textcv}
-        </Text>
-        <Button
-          intent="primary"
-          className={css.button}
-          text={i18n.newProjectWizard.purposeList.buttoncv}
-          onClick={() => {
-            onSubmit()
-            history.push({
-              pathname: routeCVDataSources.url({
-                projectIdentifier: data.identifier,
-                orgIdentifier: data.orgIdentifier
-              }),
-              search: '?onBoarding=true'
-            })
-          }}
-        />
-      </Layout.Vertical>
-    </Container>
-  )
-}
-
-const ContinuousIntegration: React.FC<ModuleProps> = ({ onSubmit }) => {
-  return (
-    <Container width="40%">
-      <Layout.Vertical className={css.started}>
-        <Text font="large" className={css.textPadding}>
-          {i18n.newProjectWizard.purposeList.startci}
-        </Text>
-        <Text font="small" className={css.text}>
-          {i18n.newProjectWizard.purposeList.textci}
-        </Text>
-        <Button
-          intent="primary"
-          className={css.button}
-          text={i18n.newProjectWizard.purposeList.buttonci}
-          onClick={() => {
-            onSubmit()
-          }}
-        />
-      </Layout.Vertical>
-    </Container>
-  )
-}
-
-const ContinuousEfficiency: React.FC<ModuleProps> = ({ onSubmit }) => {
-  return (
-    <Container width="40%">
-      <Layout.Vertical className={css.started}>
-        <Text font="large" className={css.textPadding}>
-          {i18n.newProjectWizard.purposeList.startce}
-        </Text>
-        <Text font="small" className={css.text}>
-          {i18n.newProjectWizard.purposeList.textce}
-        </Text>
-        <Button
-          intent="primary"
-          className={css.button}
-          text={i18n.newProjectWizard.purposeList.buttonce}
-          onClick={() => {
-            onSubmit()
-          }}
-        />
-      </Layout.Vertical>
-    </Container>
-  )
-}
-
-const ContinuousFeatures: React.FC<ModuleProps> = ({ onSubmit }) => {
-  return (
-    <Container width="40%">
-      <Layout.Vertical className={css.started}>
-        <Text font="large" className={css.textPadding}>
-          {i18n.newProjectWizard.purposeList.startcf}
-        </Text>
-        <Text font="small" className={css.text}>
-          {i18n.newProjectWizard.purposeList.textcf}
-        </Text>
-        <Button
-          intent="primary"
-          className={css.button}
-          text={i18n.newProjectWizard.purposeList.buttoncf}
-          onClick={() => {
-            onSubmit()
-          }}
-        />
-      </Layout.Vertical>
-    </Container>
-  )
+const getModuleLinks = (
+  module: Required<Project>['modules'][number],
+  orgIdentifier: string,
+  projectIdentifier: string
+): React.ReactElement => {
+  switch (module) {
+    case ModuleName.CD:
+      return (
+        <Layout.Vertical key={module} spacing="large" padding={{ bottom: 'xxxlarge' }}>
+          <Text font={{ size: 'medium', weight: 'semi-bold' }}>{i18n.newProjectWizard.purposeList.cd}</Text>
+          <Link
+            to={routeCDPipelineStudio.url({
+              orgIdentifier,
+              projectIdentifier,
+              pipelineIdentifier: -1
+            })}
+          >
+            {i18n.newProjectWizard.purposeList.linkcd}
+          </Link>
+        </Layout.Vertical>
+      )
+    case ModuleName.CV:
+      return (
+        <Layout.Vertical key={module} spacing="large" padding={{ bottom: 'xxxlarge' }}>
+          <Text font={{ size: 'medium', weight: 'semi-bold' }}>{i18n.newProjectWizard.purposeList.cv}</Text>
+          <Link
+            to={routeCDPipelineStudio.url({
+              orgIdentifier,
+              projectIdentifier,
+              pipelineIdentifier: -1
+            })}
+          >
+            {i18n.newProjectWizard.purposeList.linkcv}
+          </Link>
+        </Layout.Vertical>
+      )
+    case ModuleName.CI:
+      return (
+        <Layout.Vertical key={module} spacing="large" padding={{ bottom: 'xxxlarge' }}>
+          <Text font={{ size: 'medium', weight: 'semi-bold' }}>{i18n.newProjectWizard.purposeList.ci}</Text>
+          <Link
+            to={routeCDPipelineStudio.url({
+              orgIdentifier,
+              projectIdentifier,
+              pipelineIdentifier: -1
+            })}
+          >
+            {i18n.newProjectWizard.purposeList.linkci}
+          </Link>
+        </Layout.Vertical>
+      )
+    case ModuleName.CE:
+      return (
+        <Layout.Vertical key={module} spacing="large" padding={{ bottom: 'xxxlarge' }}>
+          <Text font={{ size: 'medium', weight: 'semi-bold' }}>{i18n.newProjectWizard.purposeList.ce}</Text>
+          <Link
+            to={routeCDPipelineStudio.url({
+              orgIdentifier,
+              projectIdentifier,
+              pipelineIdentifier: -1
+            })}
+          >
+            {i18n.newProjectWizard.purposeList.linkce}
+          </Link>
+        </Layout.Vertical>
+      )
+    case ModuleName.CF:
+      return (
+        <Layout.Vertical key={module} spacing="large" padding={{ bottom: 'xxxlarge' }}>
+          <Text font={{ size: 'medium', weight: 'semi-bold' }}>{i18n.newProjectWizard.purposeList.cf}</Text>
+          <Link
+            to={routeCDPipelineStudio.url({
+              orgIdentifier,
+              projectIdentifier,
+              pipelineIdentifier: -1
+            })}
+          >
+            {i18n.newProjectWizard.purposeList.linkcf}
+          </Link>
+        </Layout.Vertical>
+      )
+    default:
+      /* istanbul ignore next */
+      return <></>
+  }
 }
 
 const PurposeList: React.FC<ProjectModalData> = props => {
-  const { data: projectData, mock } = props
+  const { data: projectData } = props
   const { accountId } = useParams()
-  const [selected, setSelected] = useState<PurposeType>(options[0])
+  const [selected, setSelected] = useState<Required<Project>['modules']>([])
+  const { showSuccess, showError } = useToaster()
   const { mutate: updateProject } = usePutProject({
     identifier: '',
     queryParams: {
       accountIdentifier: accountId,
       orgIdentifier: ''
-    },
-    mock: mock
-  })
-
-  const onSuccess = async (): Promise<boolean> => {
-    const dataToSubmit: Project = {
-      ...(projectData as Project),
-      modules: [selected.module]
     }
+  })
+  const onSuccess = async (module: Required<Project>['modules'][number]): Promise<void> => {
+    projectData.modules?.push(module)
+    const dataToSubmit: Project = projectData
     ;(dataToSubmit as Project)['owners'] = [accountId]
-
     try {
       await updateProject(dataToSubmit, {
         pathParams: {
@@ -241,54 +168,77 @@ const PurposeList: React.FC<ProjectModalData> = props => {
           orgIdentifier: projectData.orgIdentifier
         }
       })
-      return true
+      showSuccess(i18n.moduleSuccess)
+      const newSelected = [...selected, module]
+      setSelected(newSelected)
     } catch (e) {
       /* istanbul ignore next */
-      return false
+      showError(e.data.message)
     }
   }
-
   return (
-    <Layout.Horizontal>
-      <Container width="60%">
-        <Layout.Vertical spacing="large" className={css.modalPage}>
-          <Text font="medium">{i18n.newProjectWizard.purposeList.name}</Text>
+    <Layout.Vertical spacing="large" className={css.modalPage}>
+      <Text font={{ size: 'medium', weight: 'semi-bold' }} color={Color.BLACK}>
+        {i18n.newProjectWizard.purposeList.name}
+      </Text>
+      <Layout.Horizontal padding={{ top: 'large' }}>
+        <Container width="65%">
           <div className={css.border}>
-            <CardSelect<PurposeType>
-              selected={selected}
-              onChange={value => {
-                setSelected(value)
-              }}
-              className={css.radioSelect}
-              data={options}
-              renderItem={item => (
-                <>
-                  <Layout.Horizontal>
-                    <Icon name={item.icon} size={30} />
-                    <Layout.Vertical>
-                      <Text font="small">{i18n.newProjectWizard.purposeList.continuous}</Text>
-                      <Text font={{ size: 'medium' }} padding={{ bottom: 'xxlarge' }}>
-                        {item.title}
-                      </Text>
-                    </Layout.Vertical>
-                  </Layout.Horizontal>
+            {options.map(option => (
+              <Card key={option.title} className={css.card}>
+                <Layout.Horizontal spacing="small">
+                  <Icon name={option.icon} size={30} />
+                  <div>
+                    <Text font="small">{i18n.newProjectWizard.purposeList.continuous}</Text>
+                    <Text font={{ size: 'medium' }} padding={{ bottom: 'xxlarge' }} color={Color.BLACK}>
+                      {option.title}
+                    </Text>
+                  </div>
+                </Layout.Horizontal>
 
-                  <Text font="small" padding={{ bottom: 'xxlarge' }} width={150}>
-                    {item.Description}
+                <Text font="small" padding={{ bottom: 'xxlarge' }} className={css.description}>
+                  {option.Description}
+                </Text>
+                <Layout.Horizontal spacing="large">
+                  <Text font="small" className={css.time}>
+                    {i18n.newProjectWizard.purposeList.time}
                   </Text>
-                  <Text font="small">{i18n.newProjectWizard.purposeList.time}</Text>
-                </>
-              )}
-            ></CardSelect>
+                  {selected.includes(option.module) ? (
+                    <Button
+                      font={{ size: 'small', weight: 'semi-bold' }}
+                      className={css.enabled}
+                      icon="tick"
+                      iconProps={{ size: 10, padding: 'xsmall' }}
+                    >
+                      {i18n.newProjectWizard.purposeList.enabled}
+                    </Button>
+                  ) : (
+                    <Button
+                      font={{ size: 'small', weight: 'semi-bold' }}
+                      className={css.enable}
+                      onClick={() => {
+                        onSuccess(option.module)
+                      }}
+                    >
+                      {i18n.newProjectWizard.purposeList.enable}
+                    </Button>
+                  )}
+                </Layout.Horizontal>
+              </Card>
+            ))}
           </div>
-        </Layout.Vertical>
-      </Container>
-      {selected.module === 'CD' ? <ContinuousDeployement onSubmit={onSuccess} data={projectData} /> : null}
-      {selected.module === 'CV' ? <ContinuousVerification onSubmit={onSuccess} data={projectData} /> : null}
-      {selected.module === 'CI' ? <ContinuousIntegration onSubmit={onSuccess} /> : null}
-      {selected.module === 'CE' ? <ContinuousEfficiency onSubmit={onSuccess} /> : null}
-      {selected.module === 'CF' ? <ContinuousFeatures onSubmit={onSuccess} /> : null}
-    </Layout.Horizontal>
+        </Container>
+        <Container width="35%" padding={{ left: 'huge', top: 'medium' }}>
+          {selected.length === 0 ? (
+            <Text font={{ size: 'medium', weight: 'semi-bold' }}>
+              {i18n.newProjectWizard.purposeList.selectAModule}
+            </Text>
+          ) : (
+            selected.map(module => getModuleLinks(module, projectData.orgIdentifier, projectData.identifier))
+          )}
+        </Container>
+      </Layout.Horizontal>
+    </Layout.Vertical>
   )
 }
 

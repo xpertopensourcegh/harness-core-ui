@@ -35,6 +35,7 @@ jest.mock('services/cd-ng', () => ({
     return { ...getOrgMockData, refetch: jest.fn(), error: null, loading: false }
   })
 }))
+jest.useFakeTimers()
 
 describe('Org Page List', () => {
   let container: HTMLElement | undefined
@@ -51,22 +52,22 @@ describe('Org Page List', () => {
     )
     container = renderObj.container
     getAllByText = renderObj.getAllByText
-    await waitFor(() => getAllByText?.('ORGANIZATIONS'))
   })
 
   test('Create New Org', async () => {
     expect(container).toMatchSnapshot()
-
+    const newOrg = getAllByText?.('+ New Organization')[0]
     await act(async () => {
-      const newOrg = getAllByText?.('+ New Organization')[0]
       if (newOrg) fireEvent.click(newOrg)
       await waitFor(() => findAllByText(document.body, 'ABOUT THE ORGANIZATION'))
-      let form = findDialogContainer()
-      expect(form).toBeTruthy()
-      await waitFor(() => fireEvent.click(form?.querySelector('[icon="cross"]')!))
-      form = findDialogContainer()
-      expect(form).not.toBeTruthy()
     })
+    let form = findDialogContainer()
+    expect(form).toBeTruthy()
+    await act(async () => {
+      fireEvent.click(form?.querySelector('[icon="cross"]')!)
+    })
+    form = findDialogContainer()
+    expect(form).not.toBeTruthy()
   }),
     test('Delete Organization From Menu', async () => {
       deleteOrganization.mockReset()
@@ -77,12 +78,14 @@ describe('Org Page List', () => {
       await act(async () => {
         fireEvent.click(deleteMenu!)
         await waitFor(() => getByText(document.body, 'Delete Organization'))
-        const form = findDialogContainer()
-        expect(form).toBeTruthy()
-        const deleteBtn = queryByText(form as HTMLElement, 'Delete')
-        fireEvent.click(deleteBtn!)
-        expect(deleteOrganization).toBeCalled()
       })
+      const form = findDialogContainer()
+      expect(form).toBeTruthy()
+      const deleteBtn = queryByText(form as HTMLElement, 'Delete')
+      await act(async () => {
+        fireEvent.click(deleteBtn!)
+      })
+      expect(deleteOrganization).toBeCalled()
     }),
     test('Edit Organization', async () => {
       const menu = container?.querySelectorAll("[icon='more']")[1]
@@ -92,10 +95,12 @@ describe('Org Page List', () => {
       await act(async () => {
         fireEvent.click(edit)
         await waitFor(() => getByText(document.body, 'EDIT ORGANIZATION'))
-        const form = findDialogContainer()
-        expect(form).toBeTruthy()
-        fireEvent.click(form?.querySelector('button[type="submit"]')!)
-        expect(editOrg).toHaveBeenCalled()
       })
+      const form = findDialogContainer()
+      expect(form).toBeTruthy()
+      await act(async () => {
+        fireEvent.click(form?.querySelector('button[type="submit"]')!)
+      })
+      expect(editOrg).toHaveBeenCalled()
     })
 })
