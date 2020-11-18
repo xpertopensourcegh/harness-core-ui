@@ -43,7 +43,7 @@ const LOADING_SKELETON_DATA: ActivityVerificationResultDTO[] = [
     serviceIdentifier: 'Manager',
     preActivityRisks: [
       {
-        category: MetricCategoryNames.RESOURCES as CategoryRisk['category'],
+        category: MetricCategoryNames.INFRASTRUCTURE as CategoryRisk['category'],
         risk: 55
       },
       {
@@ -60,7 +60,7 @@ const LOADING_SKELETON_DATA: ActivityVerificationResultDTO[] = [
     status: 'IN_PROGRESS',
     postActivityRisks: [
       {
-        category: MetricCategoryNames.RESOURCES as CategoryRisk['category'],
+        category: MetricCategoryNames.INFRASTRUCTURE as CategoryRisk['category'],
         risk: 55
       },
       {
@@ -79,7 +79,7 @@ const LOADING_SKELETON_DATA: ActivityVerificationResultDTO[] = [
     serviceIdentifier: 'Delegate',
     preActivityRisks: [
       {
-        category: MetricCategoryNames.RESOURCES as CategoryRisk['category'],
+        category: MetricCategoryNames.INFRASTRUCTURE as CategoryRisk['category'],
         risk: 55
       },
       {
@@ -96,7 +96,7 @@ const LOADING_SKELETON_DATA: ActivityVerificationResultDTO[] = [
     status: 'IN_PROGRESS',
     postActivityRisks: [
       {
-        category: MetricCategoryNames.RESOURCES as CategoryRisk['category'],
+        category: MetricCategoryNames.INFRASTRUCTURE as CategoryRisk['category'],
         risk: 55
       },
       {
@@ -115,7 +115,7 @@ const LOADING_SKELETON_DATA: ActivityVerificationResultDTO[] = [
     serviceIdentifier: 'MongoDB',
     preActivityRisks: [
       {
-        category: MetricCategoryNames.RESOURCES as CategoryRisk['category'],
+        category: MetricCategoryNames.INFRASTRUCTURE as CategoryRisk['category'],
         risk: 55
       },
       {
@@ -132,7 +132,7 @@ const LOADING_SKELETON_DATA: ActivityVerificationResultDTO[] = [
     status: 'IN_PROGRESS',
     postActivityRisks: [
       {
-        category: MetricCategoryNames.RESOURCES as CategoryRisk['category'],
+        category: MetricCategoryNames.INFRASTRUCTURE as CategoryRisk['category'],
         risk: 55
       },
       {
@@ -157,7 +157,7 @@ const EmptyCategoryRiskArray = [
     risk: -1
   },
   {
-    category: MetricCategoryNames.RESOURCES as CategoryRisk['category'],
+    category: MetricCategoryNames.INFRASTRUCTURE as CategoryRisk['category'],
     risk: -1
   }
 ]

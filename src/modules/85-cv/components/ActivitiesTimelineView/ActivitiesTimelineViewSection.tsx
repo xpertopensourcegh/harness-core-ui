@@ -99,7 +99,18 @@ export default function ActivitesTimelineViewSection({
           iconSize={30}
           buttonText={i18n.retry}
           message={error.message}
-          onClick={() => getActivities()}
+          onClick={() =>
+            getActivities({
+              queryParams: {
+                accountId,
+                orgIdentifier: orgIdentifier as string,
+                projectIdentifier: projectIdentifier as string,
+                environmentIdentifier,
+                startTime: startTime,
+                endTime: endTime
+              }
+            })
+          }
           className={css.errorAndNoData}
         />
       </Container>
@@ -114,7 +125,18 @@ export default function ActivitesTimelineViewSection({
           iconSize={30}
           buttonText={i18n.retry}
           message={i18n.noDataText}
-          onClick={() => getActivities()}
+          onClick={() =>
+            getActivities({
+              queryParams: {
+                accountId,
+                orgIdentifier: orgIdentifier as string,
+                projectIdentifier: projectIdentifier as string,
+                environmentIdentifier,
+                startTime: startTime,
+                endTime: endTime
+              }
+            })
+          }
           className={css.errorAndNoData}
         />
       </Container>

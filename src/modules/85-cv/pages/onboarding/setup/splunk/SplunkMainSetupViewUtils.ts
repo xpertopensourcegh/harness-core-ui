@@ -100,7 +100,7 @@ export function createDefaultSplunkDSConfig(
     serviceIdentifier: '',
     envIdentifier: '',
     serviceInstanceIdentifier: '',
-    eventType: i18n.splunkEntityTypeOptions.quality,
+    eventType: i18n.splunkEntityTypeOptions.errors,
     type: 'SPLUNK',
     projectIdentifier,
     orgIdentifier,

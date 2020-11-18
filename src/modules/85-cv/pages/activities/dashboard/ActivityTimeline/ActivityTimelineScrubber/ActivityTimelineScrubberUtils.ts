@@ -22,6 +22,7 @@ export function getMonthIncrements(startTime: number, endTime: number): number[]
   return months
 }
 
+// use this when infinite scrolling is implemented
 export function getScrubberLaneDataHeight(startTime: number, endTime: number, scrubberLaneElementHeight: number) {
   const endOfMonthTime = moment(startTime).endOf('month').valueOf()
   return scrubberLaneElementHeight * ((startTime - endTime) / (endOfMonthTime - endTime))

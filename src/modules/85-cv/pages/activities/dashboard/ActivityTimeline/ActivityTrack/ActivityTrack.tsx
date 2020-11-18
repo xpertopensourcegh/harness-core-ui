@@ -14,6 +14,7 @@ export interface ActivityTrackProps {
   activities: Activity[]
   startTime: number
   endTime: number
+  timelineContainerRef?: HTMLDivElement | null
 }
 
 interface ActivityCardProps {
@@ -21,6 +22,7 @@ interface ActivityCardProps {
   activityBucket: ActivityBucket
   onActivityClick: ActivityTrackProps['onActivityClick']
   selectedActivityId?: string
+  timelineContainerRef?: HTMLDivElement | null
 }
 
 const TRACK_WIDTH = 140
@@ -83,7 +85,7 @@ function ActivityCard(props: ActivityCardProps): JSX.Element {
 }
 
 function ActivityCardWrapper(props: ActivityCardProps): JSX.Element {
-  const { cardContent, activityBucket, onActivityClick } = props
+  const { cardContent, activityBucket, onActivityClick, timelineContainerRef } = props
   const [isVisible, setVisible] = useState(false)
   const [selectedActivityId, setSelected] = useState<string | undefined>()
   const cardRef = useRef<HTMLDivElement>(null)
@@ -104,12 +106,11 @@ function ActivityCardWrapper(props: ActivityCardProps): JSX.Element {
   }, [eventEmitHandler, selectedActivityId])
 
   useEffect(() => {
-    const pageBodyElement = document.querySelector('[class*="PageBody-module_pageBody"]')
-    if (!cardRef || !cardRef?.current || !pageBodyElement) return
+    if (!cardRef || !cardRef?.current || !timelineContainerRef) return
     const cardRefElement = cardRef.current
     const intersectionObserver = new IntersectionObserver(arr => setVisible(arr[0].isIntersecting), {
       rootMargin: `500px 0px 500px 0px`,
-      root: pageBodyElement,
+      root: timelineContainerRef,
       threshold: 0.5
     })
     intersectionObserver.observe(cardRefElement)
@@ -117,7 +118,7 @@ function ActivityCardWrapper(props: ActivityCardProps): JSX.Element {
       intersectionObserver.unobserve(cardRefElement)
       intersectionObserver.disconnect()
     }
-  }, [cardRef])
+  }, [cardRef, timelineContainerRef])
 
   return (
     <div ref={cardRef} className={css.activityCard} style={{ height: ACTIVITY_CARD_HEIGHT, top: activityBucket.top }}>
@@ -148,7 +149,16 @@ function ActivityCardWrapper(props: ActivityCardProps): JSX.Element {
 }
 
 export function ActivityTrack(props: ActivityTrackProps): JSX.Element {
-  const { trackIcon: iconProps, trackName, activities, cardContent, startTime, endTime, onActivityClick } = props
+  const {
+    trackIcon: iconProps,
+    trackName,
+    activities,
+    cardContent,
+    startTime,
+    endTime,
+    onActivityClick,
+    timelineContainerRef
+  } = props
   const { activityBuckets, timelineHeight } = useMemo(() => placeActivitiesOnTrack(startTime, endTime, activities), [
     startTime,
     endTime,
@@ -177,6 +187,7 @@ export function ActivityTrack(props: ActivityTrackProps): JSX.Element {
       {activityBuckets.map((intervalBucket, index) => (
         <ActivityCardWrapper
           key={index}
+          timelineContainerRef={timelineContainerRef}
           activityBucket={intervalBucket}
           cardContent={cardContent}
           onActivityClick={onActivityClick}

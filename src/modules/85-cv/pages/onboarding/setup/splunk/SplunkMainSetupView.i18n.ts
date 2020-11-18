@@ -48,8 +48,8 @@ export default {
   },
   viewInSplunkLinkText: 'View in Splunk',
   splunkEntityTypeOptions: {
-    quality: 'Quality',
-    resources: 'Resources',
+    errors: 'Errors',
+    infrastructure: 'Infrastructure',
     performance: 'Performance'
   },
   defaultQueryName: 'My Error Query'

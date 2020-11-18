@@ -15,7 +15,7 @@ export interface CategoriesWithRiskScoreProps {
 
 export const MetricCategoryNames = {
   ERRORS: i18n.categoryRiskLabels.errors,
-  RESOURCES: i18n.categoryRiskLabels.resource,
+  INFRASTRUCTURE: i18n.categoryRiskLabels.infrastructure,
   PERFORMANCE: i18n.categoryRiskLabels.performance
 }
 
@@ -24,9 +24,9 @@ function getAbbreviatedMetricCategories(category: string): string {
     case MetricCategoryNames.ERRORS:
     case i18n.categoryRiskLabels.errors:
       return i18n.categoryRiskAbbreviatedLabels.errors
-    case MetricCategoryNames.RESOURCES:
-    case i18n.categoryRiskLabels.resource:
-      return i18n.categoryRiskAbbreviatedLabels.resource
+    case MetricCategoryNames.INFRASTRUCTURE:
+    case i18n.categoryRiskLabels.infrastructure:
+      return i18n.categoryRiskAbbreviatedLabels.infrastructure
     case MetricCategoryNames.PERFORMANCE:
     case i18n.categoryRiskLabels.performance:
       return i18n.categoryRiskAbbreviatedLabels.performance

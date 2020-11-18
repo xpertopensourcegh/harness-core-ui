@@ -24,7 +24,7 @@ export const PredefinedLabels = {
     <TimelineViewLabel
       labelName="Deployments"
       iconProps={{
-        name: 'nav-cd',
+        name: 'cd-main',
         size: 20
       }}
     />

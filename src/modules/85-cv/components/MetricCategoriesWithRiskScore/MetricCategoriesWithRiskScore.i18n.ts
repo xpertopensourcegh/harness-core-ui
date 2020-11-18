@@ -1,12 +1,12 @@
 export default {
   categoryRiskAbbreviatedLabels: {
     performance: 'Perf',
-    resource: 'Res',
+    infrastructure: 'Infra',
     errors: 'Err'
   },
   categoryRiskLabels: {
     performance: 'Performance',
-    resource: 'Resources',
+    infrastructure: 'Infrastructure',
     errors: 'Errors'
   }
 }

@@ -15,7 +15,7 @@ const MockData = [
     serviceIdentifier: 'Manager',
     preActivityRisks: [
       {
-        category: MetricCategoryNames.RESOURCES,
+        category: MetricCategoryNames.INFRASTRUCTURE,
         risk: 55
       },
       {
@@ -34,7 +34,7 @@ const MockData = [
     remainingTimeMs: 10,
     postActivityRisks: [
       {
-        category: MetricCategoryNames.RESOURCES,
+        category: MetricCategoryNames.INFRASTRUCTURE,
         risk: 55
       },
       {

@@ -137,7 +137,16 @@ export default function ActivityDashboardPage(): JSX.Element {
     params: { orgIdentifier, projectIdentifier, accountId }
   } = useRouteParams()
   const timelineEndTime = moment(timelineStartTime).startOf('month').valueOf()
-  const [timelineData, setTimelineData] = useState<ActivityTrackProps[]>([])
+  // const [timelineData, setTimelineData] = useState<ActivityTrackProps[]>(
+  //   generateMockData(
+  //     timelineStartTime,
+  //     moment(timelineStartTime).startOf('month').valueOf(),
+  //     generateActivityTracks(timelineStartTime, moment(timelineStartTime).startOf('month').valueOf())
+  //   )
+  // )
+  const [timelineData, setTimelineData] = useState<ActivityTrackProps[]>(
+    generateActivityTracks(timelineStartTime, moment(timelineStartTime).startOf('month').valueOf())
+  )
   const { loading, error, refetch: refetchActivities } = useListActivitiesForDashboard({
     queryParams: {
       accountId,
@@ -193,15 +202,6 @@ export default function ActivityDashboardPage(): JSX.Element {
       return response
     }
   })
-
-  // const timelineEndTime = moment(timelineStartTime).subtract(1, 'month').valueOf()
-  // const [timelineData, setTimelineData] = useState<ActivityTrackProps[]>(
-  //   generateMockData(
-  //     timelineStartTime,
-  //     moment(timelineStartTime).startOf('month').valueOf(),
-  //     generateActivityTracks(timelineStartTime, moment(timelineStartTime).startOf('month').valueOf())
-  //   )
-  // )
 
   return (
     <>

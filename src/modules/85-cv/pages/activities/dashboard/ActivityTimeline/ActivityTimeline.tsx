@@ -71,6 +71,7 @@ export function ActivityTimeline(props: ActivityTimelineViewProps): JSX.Element 
           {activityTracks.map(activityTrackProps => (
             <ActivityTrack
               {...activityTrackProps}
+              timelineContainerRef={containerRef?.current}
               key={activityTrackProps.trackName}
               onActivityClick={activity => setSelectedActivity(activity)}
             />
