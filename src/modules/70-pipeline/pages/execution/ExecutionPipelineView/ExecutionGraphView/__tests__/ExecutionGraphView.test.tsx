@@ -34,7 +34,10 @@ function renderNode(
         data-item={item.identifier}
         data-status={item.status}
         key={item.identifier}
-        onClick={e => itemClickHandler?.({ ...e, stage: item } as any)}
+        onClick={e => {
+          e.stopPropagation()
+          itemClickHandler?.({ ...e, stage: item } as any)
+        }}
       >
         {item?.name}
       </div>

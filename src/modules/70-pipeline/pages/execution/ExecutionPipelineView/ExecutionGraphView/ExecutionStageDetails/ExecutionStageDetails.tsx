@@ -1,7 +1,9 @@
 import React from 'react'
 import type { IconName } from '@wings-software/uikit'
 import { isEmpty } from 'lodash-es'
+import { useParams } from 'react-router-dom'
 import type { ExecutionNode, ExecutionGraph } from 'services/cd-ng'
+import type { ExecutionPathParams } from '@pipeline/pages/execution/ExecutionUtils'
 import { useExecutionContext } from '../../../ExecutionContext/ExecutionContext'
 
 import {
@@ -18,7 +20,7 @@ import {
 import css from './ExecutionStageDetails.module.scss'
 
 export interface ExecutionStageDetailsProps {
-  onStepSelect(step: string): void
+  onStepSelect(step?: string): void
   onStageSelect(step: string): void
   selectedStep: string
   selectedStage: string
@@ -159,11 +161,12 @@ export default function ExecutionStageDetails(props: ExecutionStageDetailsProps)
     icon: { name: 'pipeline-deploy' },
     disabled: item[1].executionStatus === 'NotStarted'
   }))
+  const { executionIdentifier } = useParams<ExecutionPathParams>()
   const stage = pipelineStagesMap.get(props.selectedStage)
 
   const data: ExecutionPipeline<ExecutionNode> = {
     items: processExecutionData(pipelineExecutionDetail?.stageGraph),
-    identifier: props.selectedStage,
+    identifier: `${executionIdentifier}-${props.selectedStage}`,
     status: stage?.executionStatus as any
   }
 
@@ -171,11 +174,18 @@ export default function ExecutionStageDetails(props: ExecutionStageDetailsProps)
   React.useEffect(() => {
     if (queryParams.step && layout === ExecutionLayoutState.NONE) {
       setLayout(ExecutionLayoutState.RIGHT)
+    } else if (!queryParams.step && layout !== ExecutionLayoutState.NONE) {
+      setLayout(ExecutionLayoutState.NONE)
     }
   }, [queryParams, layout, setLayout])
 
   return (
-    <div className={css.main}>
+    <div
+      className={css.main}
+      onClick={() => {
+        props.onStepSelect()
+      }}
+    >
       {!isEmpty(props.selectedStage) && data.items?.length > 0 && (
         <ExecutionStageDiagram
           selectedIdentifier={props.selectedStep}

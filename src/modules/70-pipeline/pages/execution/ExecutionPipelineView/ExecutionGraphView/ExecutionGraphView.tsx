@@ -26,20 +26,29 @@ export default function ExecutionGraphView(): React.ReactElement {
     queryParams
   } = useExecutionContext()
 
-  function handleStepSelection(step: string): void {
-    const selectedStep = pipelineExecutionDetail?.stageGraph?.nodeMap?.[step]
+  function handleStepSelection(step?: string): void {
+    if (!step) {
+      const params = {
+        ...queryParams,
+        step: []
+      }
 
-    if (isExecutionNotStarted(selectedStep?.status)) {
-      return
+      history.push(`${location.pathname}?${qs.stringify(params)}`)
+    } else {
+      const selectedStep = pipelineExecutionDetail?.stageGraph?.nodeMap?.[step]
+
+      if (isExecutionNotStarted(selectedStep?.status)) {
+        return
+      }
+
+      const params = {
+        ...queryParams,
+        stage: selectedStageId,
+        step
+      }
+
+      history.push(`${location.pathname}?${qs.stringify(params)}`)
     }
-
-    const params = {
-      ...queryParams,
-      stage: selectedStageId,
-      step
-    }
-
-    history.push(`${location.pathname}?${qs.stringify(params)}`)
   }
 
   function handleStageSelection(stage: string): void {
