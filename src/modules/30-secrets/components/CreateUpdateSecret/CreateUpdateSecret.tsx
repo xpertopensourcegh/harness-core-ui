@@ -157,6 +157,8 @@ const CreateUpdateSecret: React.FC<CreateUpdateSecretProps> = props => {
           valueType: 'Inline',
           type: type || 'SecretText',
           secretManagerIdentifier: defaultSecretManagerId || '',
+          orgIdentifier,
+          projectIdentifier,
           ...pick(secret, ['name', 'identifier', 'description', 'tags']),
           ...pick(secret?.spec, ['valueType', 'secretManagerIdentifier'])
         }}

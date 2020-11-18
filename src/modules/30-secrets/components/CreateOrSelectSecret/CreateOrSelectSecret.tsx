@@ -38,7 +38,7 @@ const CreateOrSelectSecret: React.FC<CreateOrSelectSecretProps> = ({
   connectorsListMockData,
   secretsListMockData
 }) => {
-  const { accountId } = useParams()
+  const { accountId, orgIdentifier, projectIdentifier } = useParams()
   return (
     <>
       <Tabs id={'CreateOrSelect'}>
@@ -71,6 +71,8 @@ const CreateOrSelectSecret: React.FC<CreateOrSelectSecretProps> = ({
                 })
               }}
               accountIdentifier={accountId}
+              orgIdentifier={orgIdentifier}
+              projectIdentifier={projectIdentifier}
               mock={secretsListMockData}
             />
           }
