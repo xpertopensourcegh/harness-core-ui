@@ -20,7 +20,7 @@ import {
   ItemInterface
 } from '@common/components/AddDrawer/AddDrawer'
 import useCreateConnectorModal from '@connectors/modals/ConnectorModal/useCreateConnectorModal'
-import { Connectors } from '@connectors/constants'
+import type { ConnectorInfoDTO } from 'services/cd-ng'
 import ConnectorsListView from './views/ConnectorsListView'
 import i18n from '../../components/CreateConnectorWizard/CreateConnectorWizard.i18n'
 import { ConnectorCatalogueNames } from './ConnectorsPage.i18n'
@@ -89,10 +89,8 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ mockData, catalogueMock
 
   const [openDrawer, hideDrawer] = useModalHook(() => {
     const onSelect = (val: ItemInterface) => {
-      if (val?.value) {
-        openConnectorModal(Connectors[val?.value?.toUpperCase()], undefined)
-        hideDrawer()
-      }
+      openConnectorModal(val?.value as ConnectorInfoDTO['type'], undefined)
+      hideDrawer()
     }
 
     return loadingCatalogue ? null : (
