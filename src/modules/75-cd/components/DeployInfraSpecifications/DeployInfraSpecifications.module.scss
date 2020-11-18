@@ -1,6 +1,4 @@
 .serviceOverrides {
-  max-width: 1024px;
-  margin: 0 auto !important;
   :global {
     .bp3-tab-panel {
       margin: 0;
@@ -37,8 +35,6 @@
     left: 350px;
   }
   .specTabs {
-    border-bottom: 1px solid var(--grey-200);
-    margin-top: var(--spacing-xxlarge) !important;
     button[class*='minimal'] {
       border-radius: 0 !important;
       font-size: 16px;
@@ -57,5 +53,32 @@
     color: var(--grey-900);
     font-weight: bold !important;
     font-size: var(--font-size-medium) !important;
+  }
+  .stepContainer {
+    display: grid;
+    justify-content: center;
+    width: 1024px;
+  }
+  .serviceSection {
+    display: grid;
+    grid-template-columns: 350px 1fr;
+    padding: 32px 32px 32px 32px;
+    border-bottom: 1px solid var(--grey-200);
+
+    &.noPadTop {
+      padding-top: 0px;
+    }
+    .serviceCards {
+      display: grid;
+      grid-auto-flow: column;
+      .bp3-card {
+        display: inline-block;
+      }
+      .disabled {
+        -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+        filter: grayscale(100%);
+        cursor: not-allowed !important;
+      }
+    }
   }
 }

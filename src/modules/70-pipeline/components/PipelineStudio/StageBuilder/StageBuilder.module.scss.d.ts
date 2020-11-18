@@ -9,6 +9,7 @@ declare const styles: {
   readonly splitButtons: string
   readonly stageDecrease: string
   readonly stageIncrease: string
+  readonly resizers: string
   readonly separator: string
 }
 export default styles

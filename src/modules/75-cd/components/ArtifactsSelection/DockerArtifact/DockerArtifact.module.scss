@@ -30,17 +30,33 @@
     bottom: 0;
   }
   .addNewArtifact {
-    position: absolute;
-    right: 0;
-    top: var(--spacing-xlarge);
-    right: 60px;
+    width: 200px;
+    position: relative;
+    top: 20px;
   }
-  .sidecarAddBtn {
-    top: 96px;
-  }
+
   .artifactSelect {
     button.bp3-button {
       width: 380px;
+    }
+  }
+  .imagePathContainer {
+    display: grid;
+    grid-template-columns: 410px 20px;
+    div.configureOptions {
+      position: relative;
+      top: 22px;
+    }
+  }
+  .connectorContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    .bp3-popover-target > button {
+      width: 28px !important;
+    }
+    div.configureOptions {
+      height: fit-content;
+      line-height: 72px;
     }
   }
 }

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon, Layout } from '@wings-software/uikit'
+import { Layout, Button } from '@wings-software/uikit'
 import cx from 'classnames'
 import { debounce } from 'lodash-es'
 import type { NodeModelListener, LinkModelListener } from '@projectstorm/react-diagrams-core'
@@ -455,23 +455,28 @@ const StageBuilder: React.FC<{}> = (): JSX.Element => {
               }}
             >
               <div className={css.splitButtons}>
-                <Icon
-                  name="up"
-                  size={15}
-                  className={css.stageDecrease}
-                  onClick={() => {
-                    setSplitPaneSize(MinimumSplitPaneSize)
-                  }}
-                />
-                <span className={css.separator} />
-                <Icon
-                  name="down"
-                  size={15}
-                  className={css.stageIncrease}
-                  onClick={() => {
-                    setSplitPaneSize(prev => prev + 100)
-                  }}
-                />
+                <div className={css.resizers}>
+                  <Button
+                    icon="up"
+                    minimal
+                    small
+                    iconProps={{ size: 12 }}
+                    onClick={() => {
+                      setSplitPaneSize(MinimumSplitPaneSize)
+                    }}
+                    id="stageIncrease"
+                  />
+                  <Button
+                    icon="down"
+                    minimal
+                    small
+                    id="stageDecrease"
+                    iconProps={{ size: 12 }}
+                    onClick={() => {
+                      setSplitPaneSize(prev => prev + 100)
+                    }}
+                  />
+                </div>
               </div>
               {type === SplitViewTypes.StageView && renderPipelineStage({ stageType, minimal: false })}
               {type === SplitViewTypes.Notifications && <PipelineNotifications />}

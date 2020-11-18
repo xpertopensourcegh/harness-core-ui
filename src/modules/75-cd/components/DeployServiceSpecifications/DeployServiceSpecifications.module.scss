@@ -111,11 +111,12 @@
 .serviceSection {
   display: grid;
   grid-template-columns: 350px 1fr;
-  padding: 32px 32px 32px 32px;
+  padding: var(--spacing-medium) var(--spacing-large) var(--spacing-medium) var(--spacing-large);
   border-bottom: 1px solid var(--grey-200);
 
-  &.noPadTop {
+  &.noPadVertical {
     padding-top: 0px;
+    padding-bottom: 0;
   }
   .disabled {
     -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */

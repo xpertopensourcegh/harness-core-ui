@@ -386,7 +386,7 @@ export default function DeployServiceSpecifications(): JSX.Element {
                   serviceObj['name'] = value.serviceName
                   serviceObj['description'] = value.description
                   // serviceObj['tags'] = value.tags
-                  updatePipeline(pipeline)
+                  //updatePipeline(pipeline)
                 }
               }}
               onSubmit={values => {
@@ -398,7 +398,7 @@ export default function DeployServiceSpecifications(): JSX.Element {
             >
               {() => {
                 return (
-                  <div className={cx(css.serviceSection, css.noPadTop)}>
+                  <div className={cx(css.serviceSection, css.noPadVertical)}>
                     <Layout.Vertical flex={true} className={css.specTabs}>
                       {i18n.serviceDetailLabel}
                     </Layout.Vertical>

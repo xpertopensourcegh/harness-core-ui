@@ -285,7 +285,7 @@ export default function ArtifactsSelection({
         )}
         {view === ModalView.NEW && (
           <CreateDockerConnector
-            handleSubmit={(data: { connectorId: { value: string }; imagePath: string }) => {
+            handleSubmit={(data: { connectorId: undefined | { value: string }; imagePath: string }) => {
               addArtifact(data)
             }}
             hideLightModal={hideConnectorModal}

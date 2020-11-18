@@ -32,39 +32,39 @@ const getProps = (
 
 describe('Test ConfigureOptions', () => {
   test('should render configure options', async () => {
-    const { getByText } = render(
+    const { container } = render(
       <ModalProvider>
         <ConfigureOptions {...getProps('${input}', 'test', 'var-test')} />
       </ModalProvider>
     )
-    const btn = getByText('configure options')
-    fireEvent.click(btn)
+    const btn = container.querySelector('#configureOptions')
+    fireEvent.click(btn as Element)
     const dialog = findDialogContainer() as HTMLElement
     await waitFor(() => getByTextBody(dialog, 'var-test'))
     expect(dialog).toMatchSnapshot()
   })
 
   test('test invalid expression error', async () => {
-    const { getByText } = render(
+    const { container } = render(
       <ModalProvider>
         <ConfigureOptions {...getProps('', 'test', 'var-test')} />
       </ModalProvider>
     )
-    const btn = getByText('configure options')
-    fireEvent.click(btn)
+    const btn = container.querySelector('#configureOptions')
+    fireEvent.click(btn as Element)
     await waitFor(() => getByTextBody(document.body, 'Not a valid input Expression'))
     expect(getByTextBody(document.body, 'Not a valid input Expression')).toBeTruthy()
   })
 
   test('test regex expression', async () => {
     onChange.mockReset()
-    const { getByText } = render(
+    const { container } = render(
       <ModalProvider>
         <ConfigureOptions {...getProps('${input}.regex(^a$)', 'test', 'var-test')} />
       </ModalProvider>
     )
-    const btn = getByText('configure options')
-    fireEvent.click(btn)
+    const btn = container.querySelector('#configureOptions')
+    fireEvent.click(btn as Element)
     const dialog = findDialogContainer() as HTMLElement
     await waitFor(() => getByTextBody(dialog, 'var-test'))
     expect(dialog).toMatchSnapshot()
@@ -76,7 +76,7 @@ describe('Test ConfigureOptions', () => {
 
   test('test allowed values', async () => {
     onChange.mockReset()
-    const { getByText } = render(
+    const { container } = render(
       <ModalProvider>
         <ConfigureOptions
           {...getProps('${input}.allowedValues(abc,xyz)', 'test', 'var-test')}
@@ -84,8 +84,8 @@ describe('Test ConfigureOptions', () => {
         />
       </ModalProvider>
     )
-    const btn = getByText('configure options')
-    fireEvent.click(btn)
+    const btn = container.querySelector('#configureOptions')
+    fireEvent.click(btn as Element)
     const dialog = findDialogContainer() as HTMLElement
     await waitFor(() => getByTextBody(dialog, 'var-test'))
     expect(dialog).toMatchSnapshot()
@@ -97,7 +97,7 @@ describe('Test ConfigureOptions', () => {
 
   test('test allowed advanced values', async () => {
     onChange.mockReset()
-    const { getByText } = render(
+    const { container } = render(
       <ModalProvider>
         <ConfigureOptions
           {...getProps(
@@ -110,8 +110,8 @@ describe('Test ConfigureOptions', () => {
         />
       </ModalProvider>
     )
-    const btn = getByText('configure options')
-    fireEvent.click(btn)
+    const btn = container.querySelector('#configureOptions')
+    fireEvent.click(btn as Element)
     const dialog = findDialogContainer() as HTMLElement
     await waitFor(() => getByTextBody(dialog, 'var-test'))
     expect(dialog).toMatchSnapshot()
@@ -127,13 +127,13 @@ describe('Test ConfigureOptions', () => {
 
   test('test dialog open and close', async () => {
     onChange.mockReset()
-    const { getByText } = render(
+    const { container } = render(
       <ModalProvider>
         <ConfigureOptions {...getProps('${input}', 'test', 'var-test')} />
       </ModalProvider>
     )
-    const btn = getByText('configure options')
-    fireEvent.click(btn)
+    const btn = container.querySelector('#configureOptions')
+    fireEvent.click(btn as Element)
     const dialog = findDialogContainer() as HTMLElement
     await waitFor(() => getByTextBody(dialog, 'var-test'))
     const closeBtn = dialog.querySelector('[icon="small-cross"]')
@@ -144,13 +144,13 @@ describe('Test ConfigureOptions', () => {
 
   test('test dialog open and cancel btn', async () => {
     onChange.mockReset()
-    const { getByText } = render(
+    const { container } = render(
       <ModalProvider>
         <ConfigureOptions {...getProps('${input}', 'test', 'var-test')} fetchValues={undefined} />
       </ModalProvider>
     )
-    const btn = getByText('configure options')
-    fireEvent.click(btn)
+    const btn = container.querySelector('#configureOptions')
+    fireEvent.click(btn as Element)
     const dialog = findDialogContainer() as HTMLElement
     await waitFor(() => getByTextBody(dialog, 'var-test'))
     onChange.mockReset()

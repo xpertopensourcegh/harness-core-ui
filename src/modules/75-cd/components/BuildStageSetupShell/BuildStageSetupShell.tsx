@@ -112,6 +112,7 @@ export default function BuildStageSetupShell(): JSX.Element {
                         text={item.label}
                         disabled={disabled}
                         minimal
+                        noStyling
                         onClick={e => handleClick(e as React.MouseEvent<HTMLElement, MouseEvent>)}
                       />
                     </div>

@@ -1,11 +1,12 @@
-import { StepWizard } from '@wings-software/uikit'
+import { StepWizard, getMultiTypeFromValue, Icon, Text } from '@wings-software/uikit'
 import React from 'react'
-import { Layout, Button, Formik, FormInput, FormikForm as Form } from '@wings-software/uikit'
+import { Layout, Button, Formik, FormInput, FormikForm as Form, MultiTypeInputType } from '@wings-software/uikit'
 import { useParams } from 'react-router-dom'
 import * as Yup from 'yup'
-import cx from 'classnames'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import { StringUtils } from '@common/exports'
+import { ConfigureOptions } from '@pipeline/exports'
+import { getIconByType } from '@connectors/exports'
 import i18n from '../ArtifactsSelection.i18n'
 import css from './DockerArtifact.module.scss'
 
@@ -41,13 +42,13 @@ function ExampleStep({
     <Layout.Vertical spacing="xxlarge" className={css.firstep} data-id={name}>
       <div className={css.heading}>{i18n.specifyArtifactServer}</div>
       <Formik
-        initialValues={{ connectorId: undefined, imagePath: '' }}
+        initialValues={{ connectorId: undefined, imagePath: '', identifier: '' }}
         validationSchema={context === 1 ? primarySchema : sidecarSchema}
         onSubmit={formData => {
           handleSubmit(formData)
         }}
       >
-        {() => (
+        {formik => (
           <Form>
             <div className={css.connectorForm}>
               {context === 2 && (
@@ -56,31 +57,77 @@ function ExampleStep({
                   inputGroupProps={{ placeholder: i18n.existingDocker.sidecarIdPlaceholder }}
                 />
               )}
-              <FormMultiTypeConnectorField
-                name="connectorId"
-                label={i18n.existingDocker.connectorLabel}
-                placeholder={i18n.existingDocker.connectorPlaceholder}
-                accountIdentifier={accountId}
-                projectIdentifier={projectIdentifier}
-                orgIdentifier={orgIdentifier}
-                width={408}
-                isNewConnectorLabelVisible={false}
-                type={'DockerRegistry'}
-              />
-              <FormInput.MultiTextInput
-                label={i18n.existingDocker.imageName}
-                name="imagePath"
-                placeholder={i18n.existingDocker.imageNamePlaceholder}
-              />
+              <div className={css.connectorContainer}>
+                <FormMultiTypeConnectorField
+                  name="connectorId"
+                  label={i18n.existingDocker.connectorLabel}
+                  placeholder={i18n.existingDocker.connectorPlaceholder}
+                  accountIdentifier={accountId}
+                  projectIdentifier={projectIdentifier}
+                  orgIdentifier={orgIdentifier}
+                  width={410}
+                  isNewConnectorLabelVisible={false}
+                  type={'DockerRegistry'}
+                />
+                {getMultiTypeFromValue(formik.values.connectorId) === MultiTypeInputType.RUNTIME ? (
+                  <div className={css.configureOptions}>
+                    <ConfigureOptions
+                      value={(formik.values.connectorId as unknown) as string}
+                      type={
+                        <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
+                          <Icon name={getIconByType('K8sCluster')}></Icon>
+                          <Text>{i18n.kubernetesConnector}</Text>
+                        </Layout.Horizontal>
+                      }
+                      variableName="dockerConnector"
+                      showRequiredField={false}
+                      showDefaultField={false}
+                      showAdvanced={true}
+                      onChange={value => {
+                        formik.setFieldValue('imagePath', value)
+                      }}
+                    />
+                  </div>
+                ) : (
+                  <Button
+                    intent="primary"
+                    minimal
+                    text={i18n.existingDocker.addnewConnector}
+                    icon="plus"
+                    onClick={() => handleViewChange()}
+                    className={css.addNewArtifact}
+                  />
+                )}
+              </div>
+              <div className={css.imagePathContainer}>
+                <FormInput.MultiTextInput
+                  label={i18n.existingDocker.imageName}
+                  name="imagePath"
+                  placeholder={i18n.existingDocker.imageNamePlaceholder}
+                />
+                {getMultiTypeFromValue(formik.values.imagePath) === MultiTypeInputType.RUNTIME && (
+                  <div className={css.configureOptions}>
+                    <ConfigureOptions
+                      value={formik.values.imagePath as string}
+                      type={
+                        <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
+                          <Icon name={getIconByType('K8sCluster')}></Icon>
+                          <Text>{i18n.kubernetesConnector}</Text>
+                        </Layout.Horizontal>
+                      }
+                      variableName="dockerConnector"
+                      showRequiredField={false}
+                      showDefaultField={false}
+                      showAdvanced={true}
+                      onChange={value => {
+                        formik.setFieldValue('imagePath', value)
+                      }}
+                    />
+                  </div>
+                )}
+              </div>
             </div>
-            <Button
-              intent="primary"
-              minimal
-              text={i18n.existingDocker.addnewConnector}
-              icon="plus"
-              onClick={() => handleViewChange()}
-              className={cx(css.addNewArtifact, context === 2 && css.sidecarAddBtn)}
-            />
+
             <Button intent="primary" type="submit" text={i18n.existingDocker.save} className={css.saveBtn} />
           </Form>
         )}

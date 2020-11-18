@@ -7,8 +7,11 @@ declare const styles: {
   readonly connectorForm: string
   readonly saveBtn: string
   readonly addNewArtifact: string
-  readonly sidecarAddBtn: string
   readonly artifactSelect: string
   readonly bp3Button: string
+  readonly imagePathContainer: string
+  readonly configureOptions: string
+  readonly connectorContainer: string
+  readonly bp3PopoverTarget: string
 }
 export default styles

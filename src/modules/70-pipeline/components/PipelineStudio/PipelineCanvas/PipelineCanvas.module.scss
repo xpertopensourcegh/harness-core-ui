@@ -68,7 +68,7 @@
 }
 
 .breadcrumbsMenu {
-  padding: 8px 12px;
+  padding: 8px 12px 0px 12px;
 }
 .pipelineStudioTitleContainer {
   text-align: center;
@@ -166,14 +166,12 @@
 
 .pipelineNameContainer {
   display: flex;
-  margin: 10px 0;
+  margin-top: 10px;
   .pipelineName {
     display: inline-flex;
     font-size: var(--font-size-medium) !important;
   }
   button {
     display: inline-flex;
-
-    vertical-align: bottom;
   }
 }

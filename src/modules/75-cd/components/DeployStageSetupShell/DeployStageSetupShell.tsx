@@ -40,6 +40,7 @@ export default function DeployStageSetupShell(): JSX.Element {
       },
       pipelineView
     },
+    updatePipeline,
     updatePipelineView
   } = React.useContext(PipelineContext)
 
@@ -79,6 +80,7 @@ export default function DeployStageSetupShell(): JSX.Element {
       }
     })
   }
+
   React.useEffect(() => {
     if (layoutRef.current) {
       const parent = layoutRef.current.parentElement
@@ -162,7 +164,8 @@ export default function DeployStageSetupShell(): JSX.Element {
           text={i18n.previous}
           icon="chevron-left"
           disabled={selectedTabId === i18n.defaultId}
-          onClick={() =>
+          onClick={() => {
+            updatePipeline(pipeline)
             setSelectedTabId(
               selectedTabId === i18n.executionLabel
                 ? i18n.infraLabel
@@ -170,7 +173,7 @@ export default function DeployStageSetupShell(): JSX.Element {
                 ? i18n.serviceLabel
                 : i18n.defaultId
             )
-          }
+          }}
         />
 
         <Button
@@ -178,6 +181,7 @@ export default function DeployStageSetupShell(): JSX.Element {
           intent="primary"
           rightIcon="chevron-right"
           onClick={() => {
+            updatePipeline(pipeline)
             if (selectedTabId === i18n.executionLabel) {
               updatePipelineView({ ...pipelineView, isSplitViewOpen: false, splitViewData: {} })
             } else {

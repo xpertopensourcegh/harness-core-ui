@@ -1,5 +1,5 @@
 import React from 'react'
-import { findAllByText, fireEvent, getByText, queryByText, render, RenderResult, waitFor } from '@testing-library/react'
+import { fireEvent, getByText, queryByText, render, RenderResult, waitFor, findAllByText } from '@testing-library/react'
 
 import { act } from 'react-dom/test-utils'
 import { findDialogContainer, findPopoverContainer, TestWrapper } from '@common/utils/testUtils'

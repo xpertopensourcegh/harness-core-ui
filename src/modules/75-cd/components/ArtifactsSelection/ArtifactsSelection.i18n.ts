@@ -6,6 +6,7 @@ export default {
   modalHeading: 'Select your artifact server ',
   modalSubHeading: 'Start by selecting your artifact server.',
   specifyArtifactServer: 'Specify the Artifact Server',
+  kubernetesConnector: 'Kubernetes Connector',
   dockerIconLabel: 'Docker',
   existingDocker: {
     connectorLabel: 'Docker artifact server',

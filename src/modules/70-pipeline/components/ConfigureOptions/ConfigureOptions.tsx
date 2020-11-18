@@ -227,12 +227,6 @@ export function ConfigureOptions(props: ConfigureOptionsProps): JSX.Element {
   )
 
   return (
-    <Button
-      style={{ color: 'var(--grey-400)' }}
-      minimal
-      text={i18n.configureOptions}
-      rightIcon="cog"
-      onClick={showModal}
-    />
+    <Button style={{ color: 'var(--grey-400)' }} minimal rightIcon="cog" id="configureOptions" onClick={showModal} />
   )
 }

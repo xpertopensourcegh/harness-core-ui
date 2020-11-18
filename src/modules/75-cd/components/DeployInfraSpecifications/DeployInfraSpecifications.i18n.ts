@@ -8,10 +8,16 @@ export default {
   addTags: 'tags',
   tagsLabel: 'Tags',
   removeLabel: 'remove',
+  infraDetailsLabel: 'Infrastructure Details',
   infraSpecificationLabel: 'Infrastructure Specification',
   stageOverrideLabel: 'Stage Overrides',
   deploymentTypeLabel: 'Direct Connection',
-  deploymentType: 'Kubernetes',
+  deploymentTypes: {
+    kubernetes: 'Kubernetes',
+    gk8engine: 'Gooogle Kubernetes Engine',
+    azurek8s: 'Azure Kubernetes Service',
+    ek8s: 'Elastic Kubernetes Service'
+  },
   validation: {
     infraName: 'Environment name is required field'
   },
