@@ -579,25 +579,6 @@ exports[`CVSetupPage render when Activity source is already configured 1`] = `
               </div>
             </div>
           </div>
-          <div
-            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---background-white--3wQv StyledProps---padding-large--26zZ"
-            style="width: 30%; height: 100vh;"
-          >
-            <div
-              class="progressContainer"
-            >
-              <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---font-weight-bold--22XZ StyledProps---color--8PuS StyledProps---color-black--2kJn StyledProps---padding-small--3f0A"
-              >
-                Your Progress
-              </p>
-              <p
-                class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---padding-small--3f0A"
-              >
-                Content to be dispalyed
-              </p>
-            </div>
-          </div>
         </div>
       </div>
     </div>

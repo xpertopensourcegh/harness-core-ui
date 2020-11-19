@@ -1,0 +1,168 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ProgressStatus render initial state with services and env 1`] = `
+<div>
+  <div
+    class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---background-white--3wQv StyledProps---padding-large--26zZ"
+    style="width: 20%; height: 100vh;"
+  >
+    <div
+      class="progressContainer"
+    >
+      <p
+        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---font-weight-bold--22XZ StyledProps---color--8PuS StyledProps---color-black--2kJn StyledProps---padding-small--3f0A"
+      >
+        Your Progress
+      </p>
+      <div
+        class="Layout---vertical--3Szv Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws StyledProps---margin-top-large--1oBg"
+      >
+        <div
+          class="Layout---horizontal--3rmQ Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+        >
+          <span
+            class="bp3-icon bp3-icon-tick-circle StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-green500--2_VK"
+            icon="tick-circle"
+          >
+            <svg
+              data-icon="tick-circle"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+            >
+              <desc>
+                tick-circle
+              </desc>
+              <path
+                d="M8 16c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm4-11c-.28 0-.53.11-.71.29L7 9.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l5-5A1.003 1.003 0 0012 5z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+          <p
+            class="StyledProps---font--2ipy StyledProps---main--1Wws"
+          >
+            You have 2 services and 2 environments.
+          </p>
+        </div>
+        <div
+          class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
+        >
+          <p
+            class="StyledProps---font--2ipy StyledProps---main--1Wws"
+          >
+            Map the above services to a monitoring source.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`ProgressStatus render with some services in activity and monitoring 1`] = `
+<div>
+  <div
+    class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---background-white--3wQv StyledProps---padding-large--26zZ"
+    style="width: 20%; height: 100vh;"
+  >
+    <div
+      class="progressContainer"
+    >
+      <p
+        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-medium--aOY7 StyledProps---font-weight-bold--22XZ StyledProps---color--8PuS StyledProps---color-black--2kJn StyledProps---padding-small--3f0A"
+      >
+        Your Progress
+      </p>
+      <div
+        class="Layout---vertical--3Szv Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws StyledProps---margin-top-large--1oBg"
+      >
+        <div
+          class="Layout---horizontal--3rmQ Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+        >
+          <span
+            class="bp3-icon bp3-icon-tick-circle StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-green500--2_VK"
+            icon="tick-circle"
+          >
+            <svg
+              data-icon="tick-circle"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+            >
+              <desc>
+                tick-circle
+              </desc>
+              <path
+                d="M8 16c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm4-11c-.28 0-.53.11-.71.29L7 9.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l5-5A1.003 1.003 0 0012 5z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+          <p
+            class="StyledProps---font--2ipy StyledProps---main--1Wws"
+          >
+            You have 2 services and 2 environments.
+          </p>
+        </div>
+        <div
+          class="Layout---horizontal--3rmQ Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+        >
+          <span
+            class="bp3-icon bp3-icon-tick-circle StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-green500--2_VK"
+            icon="tick-circle"
+          >
+            <svg
+              data-icon="tick-circle"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+            >
+              <desc>
+                tick-circle
+              </desc>
+              <path
+                d="M8 16c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm4-11c-.28 0-.53.11-.71.29L7 9.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l5-5A1.003 1.003 0 0012 5z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+          <p
+            class="StyledProps---font--2ipy StyledProps---main--1Wws"
+          >
+            1 services are used in activity sources
+          </p>
+        </div>
+        <div
+          class="Layout---horizontal--3rmQ Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+        >
+          <span
+            class="bp3-icon bp3-icon-tick-circle StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-green500--2_VK"
+            icon="tick-circle"
+          >
+            <svg
+              data-icon="tick-circle"
+              height="16"
+              viewBox="0 0 16 16"
+              width="16"
+            >
+              <desc>
+                tick-circle
+              </desc>
+              <path
+                d="M8 16c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm4-11c-.28 0-.53.11-.71.29L7 9.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l5-5A1.003 1.003 0 0012 5z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+          <p
+            class="StyledProps---font--2ipy StyledProps---main--1Wws"
+          >
+            2 services are used in monitoring sources
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

@@ -7,6 +7,7 @@ import { PageError } from '@common/components/Page/PageError'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { routeActivitySourceSetup, routeCVAdminSetupMonitoringSource } from 'navigation/cv/routes'
 import type { UseGetMockData } from '@common/utils/testUtils'
+import ProgressStatus from './ProgressStatus/ProgressStatus'
 import i18n from './CVSetupPage.i18n'
 import css from './CVSetupPage.module.scss'
 
@@ -108,6 +109,7 @@ const ActivitySourceContent: React.FC<ActivitySourceContentProps> = props => {
   )
 }
 interface MonitoringSourceContentProps {
+  statusData: RestResponseCVSetupStatus | null
   setActiveStep: (val: string) => void
   setActivitySource: (val: string) => void
   setDataSource: (val: string) => void
@@ -141,15 +143,6 @@ const MonitoringSourceContent: React.FC<MonitoringSourceContentProps> = props =>
               )
             })}
           </div>
-        </div>
-      </Container>
-      <Container height="100vh" width="30%" background={Color.WHITE} padding="large">
-        <div className={css.progressContainer}>
-          <Text font={{ size: 'medium', weight: 'bold' }} color={Color.BLACK} padding="small">
-            {i18n.monitoringSource.Progress.heading}
-          </Text>
-          {/* Todo: Integrate progress api here to show content */}
-          <Text padding="small">Content to be dispalyed</Text>
         </div>
       </Container>
     </Layout.Horizontal>
@@ -307,7 +300,10 @@ const CVSetupPage: React.FC<CVSetupPageProps> = props => {
               />
             </Layout.Horizontal>
           </Layout.Vertical>
-          <Container background={Color.GREY_200} width="70%">
+          <Container
+            background={Color.GREY_200}
+            width={data?.resource?.totalNumberOfEnvironments && data?.resource?.totalNumberOfServices ? '50%' : '70%'}
+          >
             {activeStep === STEP.ACTIVITY_SOURCE ? (
               <ActivitySourceContent
                 setActiveStep={setActiveStep}
@@ -317,6 +313,7 @@ const CVSetupPage: React.FC<CVSetupPageProps> = props => {
               />
             ) : activeStep === STEP.MONITORING_SOURCE ? (
               <MonitoringSourceContent
+                statusData={data}
                 monitoringSource={monitoringSource}
                 setActiveStep={setActiveStep}
                 setActivitySource={setActivitySource}
@@ -329,6 +326,15 @@ const CVSetupPage: React.FC<CVSetupPageProps> = props => {
               <VerificatiionContent />
             ) : null}
           </Container>
+          {data?.resource?.totalNumberOfEnvironments && data?.resource?.totalNumberOfServices ? (
+            <ProgressStatus
+              numberOfServicesUsedInActivitySources={data?.resource?.numberOfServicesUsedInActivitySources}
+              numberOfServicesUsedInMonitoringSources={data?.resource?.numberOfServicesUsedInMonitoringSources}
+              totalNumberOfEnvironments={data?.resource?.totalNumberOfEnvironments}
+              totalNumberOfServices={data?.resource?.totalNumberOfServices}
+              servicesUndergoingHealthVerification={data?.resource?.servicesUndergoingHealthVerification}
+            />
+          ) : null}
         </Layout.Horizontal>
       )}
     </Container>

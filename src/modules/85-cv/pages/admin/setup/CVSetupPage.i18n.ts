@@ -19,9 +19,6 @@ export default {
       heading: 'Select your Monitoring Source ',
       info:
         'Monitoring sources provide the metrics and log data that CV uses to score the risk of your deployment and infrastructure'
-    },
-    Progress: {
-      heading: 'Your Progress'
     }
   },
   verificationJob: {
