@@ -27,8 +27,8 @@ jobs:
               -X POST "${{ github.event.comment.issue_url }}/comments"
             exit 1
           fi
-          echo "::set-env name=BRANCH::$BRANCH"
-          echo "::set-env name=DOCKER_TAG::$DOCKER_TAG"
+          echo "BRANCH=$BRANCH" >> $GITHUB_ENV
+          echo "DOCKER_TAG=$DOCKER_TAG" >> $GITHUB_ENV
       - name: Checkout
         uses: actions/checkout@v2
         with:
