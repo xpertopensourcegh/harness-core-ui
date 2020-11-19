@@ -5,7 +5,9 @@ import { Container } from '@wings-software/uikit'
 import CVOnboardingTabs from '@cv/components/CVOnboardingTabs/CVOnboardingTabs'
 import useCVTabsHook from '@cv/hooks/CVTabsHook/useCVTabsHook'
 import SelectProduct from '../SelectProduct/SelectProduct'
+import SelectApplications from './SelectApplications/SelectApplications'
 import i18n from './AppDMonitoringSource.i18n'
+import MapApplications from './MapApplications/MapApplications'
 
 const AppDMonitoringSource = () => {
   const [data, setData] = useState({ name: '' })
@@ -41,7 +43,20 @@ const AppDMonitoringSource = () => {
           {
             id: 2,
             title: i18n.selectApplication,
-            component: <div>{/* TODO */}</div>
+            component: (
+              <SelectApplications
+                stepData={data}
+                onCompleteStep={stepData => {
+                  setData({ ...data, ...stepData })
+                  onNext()
+                }}
+              />
+            )
+          },
+          {
+            id: 3,
+            title: i18n.mapApplications,
+            component: <MapApplications />
           }
         ]}
       />

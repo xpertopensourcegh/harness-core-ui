@@ -1,0 +1,20 @@
+.main {
+  display: flex;
+  .mainPanel {
+    flex: 1;
+    padding: 20px;
+    .table {
+      margin-left: 250px;
+      min-height: 300px;
+      .selectEnvironmentCell {
+        display: flex;
+        align-items: center;
+      }
+    }
+  }
+  .infoPanel {
+    border-left: 1px solid var(--grey-200);
+    width: 300px;
+    padding: 20px;
+  }
+}

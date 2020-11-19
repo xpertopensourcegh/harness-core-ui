@@ -107,6 +107,18 @@ exports[`AppDMonitoringSOurce render initial state 1`] = `
           >
             Select Application
           </div>
+          <div
+            aria-controls="bp3-tab-panel_monitoring-sources_3"
+            aria-disabled="true"
+            aria-expanded="false"
+            aria-selected="false"
+            class="bp3-tab"
+            data-tab-id="3"
+            id="bp3-tab-title_monitoring-sources_3"
+            role="tab"
+          >
+            Map Applications to Harness Services
+          </div>
         </div>
         <div
           aria-hidden="false"

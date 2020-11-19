@@ -214,3 +214,13 @@ connectors:
       serviceAccount: 'Service Account Token'
       OIDC: 'OpenID Connect'
       clientKeyCertificate: 'Client Key Certificate'
+cv:
+  monitoringSources:
+    appD:
+      newEnvironment: New Environment
+      envType: Environment Type
+      envDescription: An Environment is the representation of your production or non-production infrastructure.
+      appDApplications: APPDYNAMICS APLICATIONS
+      harnessEnv: HARNESS ENVIRONMENT
+      mapDashboards: Map Dashboards to Harness Services
+      mapDashboardsMsg: Define the Stackdriverdashboards you want to monitor. For example, here is a Workspace prod-setup. Harness will extract the widgets, metrics and queries within each dashboard. The metrics within the dashboard will create a service within Harness.
