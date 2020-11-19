@@ -17,7 +17,6 @@ export default {
     CONNECTOR_NAME_LABEL: 'Give your Kubernetes Connector a name',
     CONNECTOR_NAME_PLACEHOLDER: 'My Kubernetes Connector 1',
     MASTER_URL_LABEL: 'Master URL',
-    MASTER_URL_PLACEHOLDER: '/url',
     HOW_TO_PROCEED: 'How would you like to proceed?'
   },
   STEP_INTERMEDIATE: {

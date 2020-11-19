@@ -5,7 +5,7 @@ export default {
   dockerConnectorDetails: 'Docker Connector Details',
   gcpConnectorDetails: 'GCP Connector Details',
   LABEL: {
-    k8sCluster: 'Kubernetes Connector',
+    k8sCluster: 'Kubernetes Cluster',
     gcpConnector: 'GCP Connector',
     gitConnector: 'GIT Connector',
     secretManager: 'Secret Manager',

@@ -26,15 +26,7 @@ export const ConnectorWizard: React.FC<CreateConnectorWizardProps> = props => {
   const { type, accountId, orgIdentifier, projectIdentifier, hideLightModal, ...rest } = props
   switch (type) {
     case Connectors.KUBERNETES_CLUSTER:
-      return (
-        <CreateK8sConnector
-          accountId={props.accountId}
-          orgIdentifier={props.orgIdentifier}
-          projectIdentifier={props.projectIdentifier}
-          onSuccess={props.onSuccess}
-          hideLightModal={props.hideLightModal}
-        />
-      )
+      return <CreateK8sConnector onConnectorCreated={props.onSuccess} hideLightModal={props.hideLightModal} />
     case Connectors.GIT:
       return (
         <CreateGITConnector

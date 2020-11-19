@@ -30,68 +30,42 @@ export const getScopedSecretString = (scope: string, identifier: string) => {
   }
 }
 
-export const userPasswrdAuthField = (formData: FormData) => {
-  return {
-    username: formData.username,
-    passwordRef: getScopedSecretString(formData.passwordRefSecret?.scope, formData.passwordRefSecret?.secretId)
-  }
-}
-
-export const serviceAccAuthField = (formData: FormData) => {
-  return {
-    serviceAccountTokenRef: getScopedSecretString(
-      formData.serviceAccountTokenRefSecret?.scope,
-      formData.serviceAccountTokenRefSecret?.secretId
-    )
-  }
-}
-
-export const oidcAuthField = (formData: FormData) => {
-  return {
-    oidcIssuerUrl: formData.oidcIssuerUrl,
-    oidcUsername: formData.oidcUsername,
-    oidcPasswordRef: getScopedSecretString(
-      formData.oidcPasswordRefSecret?.scope,
-      formData.oidcPasswordRefSecret?.secretId
-    ),
-    oidcClientIdRef: getScopedSecretString(
-      formData.oidcClientIdRefSecret?.scope,
-      formData.oidcClientIdRefSecret?.secretId
-    ),
-    oidcSecretRef: getScopedSecretString(formData.oidcSecretRefSecret?.scope, formData.oidcSecretRefSecret?.secretId),
-    oidcScopes: formData.oidcScopes
-  }
-}
-
-export const clientKeyCertField = (formData: FormData) => {
-  return {
-    clientCertRef: getScopedSecretString(formData.clientCertRefSecret?.scope, formData.clientCertRefSecret?.secretId),
-    clientKeyRef: getScopedSecretString(formData.clientKeyRefSecret?.scope, formData.clientKeyRefSecret?.secretId),
-    clientKeyPassphraseRef: getScopedSecretString(
-      formData.clientKeyPassphraseRefSecret?.scope,
-      formData.clientKeyPassphraseRefSecret?.secretId
-    ),
-    caCertRef: getScopedSecretString(formData.caCertRefSecret?.scope, formData.caCertRefSecret?.secretId),
-    clientKeyAlgo: formData.clientKeyAlgo
-  }
-}
-
 const buildAuthTypePayload = (formData: FormData) => {
   const { authType = '' } = formData
 
   switch (authType) {
     case AuthTypes.USER_PASSWORD:
-      return userPasswrdAuthField(formData)
+      return {
+        username: formData.username,
+        passwordRef: formData.password.referenceString
+      }
     case AuthTypes.SERVICE_ACCOUNT:
-      return serviceAccAuthField(formData)
+      return {
+        serviceAccountTokenRef: formData.serviceAccountToken.referenceString
+      }
     case AuthTypes.OIDC:
-      return oidcAuthField(formData)
+      return {
+        oidcUsername: formData.oidcUsername,
+        oidcPasswordRef: formData.oidcPassword.referenceString,
+        oidcClientIdRef: formData.oidcCleintId.referenceString,
+        oidcSecretRef: formData.oidcCleintSecret.referenceString,
+        oidcScopes: formData.oidcCleintSecret.oidcScopes
+      }
+
     case AuthTypes.CLIENT_KEY_CERT:
-      return clientKeyCertField(formData)
+      return {
+        clientKeyRef: formData.clientKey.referenceString,
+        clientCertRef: formData.clientKeyCertificate.referenceString,
+        clientKeyPassphraseRef: formData.clientKeyPassphrase.referenceString,
+        caCertRef: formData.clientKeyCACertificate.referenceString,
+        clientKeyAlgo: formData.clientKeyAlgorithm
+      }
     default:
-      return []
+      return {}
   }
 }
+
+// clientKey clientKeyPassphrase clientKeyCertificate
 
 export const getSpecForDelegateType = (formData: FormData) => {
   const type = formData?.delegateType

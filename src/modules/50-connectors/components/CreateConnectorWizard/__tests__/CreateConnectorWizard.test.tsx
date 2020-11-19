@@ -1,11 +1,9 @@
 import React from 'react'
-import { MemoryRouter } from 'react-router'
 
-import { render, queryByText } from '@testing-library/react'
+import { render } from '@testing-library/react'
 import type { ConnectorInfoDTO } from 'services/cd-ng'
+import { TestWrapper } from '@common/utils/testUtils'
 import { CreateConnectorWizard } from '../CreateConnectorWizard'
-
-import i18n from '../CreateConnectorWizard.i18n'
 
 const props = {
   accountId: 'accountId',
@@ -16,15 +14,13 @@ const props = {
   onSuccess: jest.fn()
 }
 
-describe('Delegate Step Wizard', () => {
-  test('should render Delegate Setup Wizard', () => {
+describe('Create connector Wizard', () => {
+  test('should open CreateConnectorWizard', () => {
     const { container } = render(
-      <MemoryRouter>
+      <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
         <CreateConnectorWizard {...props} />
-      </MemoryRouter>
+      </TestWrapper>
     )
-    expect(queryByText(container, i18n.DELEGATE_IN_CLUSTER)).toBeDefined()
-    expect(queryByText(container, i18n.DELEGATE_OUT_CLUSTER)).toBeDefined()
     expect(container).toMatchSnapshot()
   })
 })

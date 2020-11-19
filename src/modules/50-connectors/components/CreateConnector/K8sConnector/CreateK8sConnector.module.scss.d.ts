@@ -3,29 +3,14 @@
 declare const styles: {
   readonly secondStep: string
   readonly headingStepTwo: string
-  readonly customCss: string
-  readonly selectedText: string
-  readonly selectedCard: string
-  readonly recommended: string
+  readonly clusterWrapper: string
+  readonly cardRow: string
+  readonly card: string
   readonly textInfo: string
-  readonly delegateWrapper: string
-  readonly incluster: string
-  readonly howToProceed: string
-  readonly radioOption: string
-  readonly label: string
-  readonly selectDelegate: string
-  readonly selectDelegateText: string
-  readonly itemName: string
-  readonly tickWrp: string
-  readonly tickIcon: string
-  readonly itemInfo: string
-  readonly intermediateStep: string
-  readonly formWrapper: string
-  readonly formFields: string
-  readonly headingIntermediate: string
-  readonly credWrapper: string
-  readonly lockIcon: string
-  readonly selectAuth: string
-  readonly credForm: string
+  readonly selectedCard: string
+  readonly authHeaderRow: string
+  readonly authTitle: string
+  readonly formRow: string
+  readonly saveButton: string
 }
 export default styles

@@ -1,3 +1,4 @@
+import type { IconName } from '@wings-software/uikit'
 import { Connectors } from '@connectors/constants'
 import { StringUtils } from '@common/exports'
 import { getKubValidationSchema, AuthTypeFields } from '../Forms/KubeFormHelper'
@@ -70,7 +71,7 @@ export const getHeadingByType = (type: string) => {
   }
 }
 
-export const getConnectorTextByType = (type: string) => {
+export const getConnectorTitleTextByType = (type: string): string => {
   switch (type) {
     case Connectors.KUBERNETES_CLUSTER:
       return i18n.LABEL.k8sCluster
@@ -95,7 +96,36 @@ export const getConnectorTextByType = (type: string) => {
     case Connectors.GCP:
       return i18n.LABEL.gcpConnector
     default:
-      return null
+      return ''
+  }
+}
+
+export const getConnectorIconByType = (type: string): IconName => {
+  switch (type) {
+    case Connectors.KUBERNETES_CLUSTER:
+      return 'app-kubernetes'
+    case Connectors.GIT:
+      return 'service-github'
+    case Connectors.VAULT:
+    case Connectors.GCP_KMS:
+    case Connectors.LOCAL:
+      return 'lock'
+    case Connectors.APP_DYNAMICS:
+      return 'service-appdynamics'
+    case Connectors.SPLUNK:
+      return 'service-splunk'
+    case Connectors.DOCKER:
+      return 'service-dockerhub'
+    case Connectors.AWS:
+      return 'service-aws'
+    case Connectors.NEXUS:
+      return 'service-nexus'
+    case Connectors.ARTIFACTORY:
+      return 'service-artifactory'
+    case Connectors.GCP:
+      return 'service-gcp'
+    default:
+      return 'placeholder'
   }
 }
 
