@@ -18,7 +18,7 @@ interface MetricAnalysisRowProps {
 
 const ROW_HEIGHT = 60
 
-function riskScoreToColor(riskScore: string): string {
+export function riskScoreToColor(riskScore: string): string {
   switch (riskScore) {
     case 'HIGH_RISK':
       return 'var(--red-500)'

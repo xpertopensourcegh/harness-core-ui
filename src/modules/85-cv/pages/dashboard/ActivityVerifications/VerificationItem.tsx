@@ -148,12 +148,12 @@ function ItemTooltip(props: {
   )
 }
 
-function mapTooltipItemStatus(status: VerificationResult['status'], remainingTimeMs?: number) {
+export function mapTooltipItemStatus(status: VerificationResult['status'], remainingTimeMs?: number) {
   switch (status) {
     case 'ERROR':
       return i18n.verificationTooltip.statusError
     case 'IN_PROGRESS':
-      return Math.floor(remainingTimeMs! / 1000) + i18n.verificationTooltip.minRemaining
+      return Math.floor(remainingTimeMs! / 60000) + i18n.verificationTooltip.minRemaining
     case 'NOT_STARTED':
       return i18n.verificationTooltip.statusNotStarted
     case 'VERIFICATION_FAILED':

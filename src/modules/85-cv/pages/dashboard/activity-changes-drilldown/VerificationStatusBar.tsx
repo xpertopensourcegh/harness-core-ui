@@ -77,7 +77,7 @@ export default function VerificationStatusBar({
   )
 }
 
-function mapStatus(status: VerificationResult['status'], remainingTimeMs?: number): string {
+export function mapStatus(status: VerificationResult['status'], remainingTimeMs?: number): string {
   switch (status) {
     case 'IN_PROGRESS':
       return `${i18n.inProgress} (${Math.floor(remainingTimeMs! / (1000 * 60))} ${i18n.minutesRemaining})`

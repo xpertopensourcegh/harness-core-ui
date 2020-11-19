@@ -9,6 +9,7 @@ import { useRouteParams } from 'framework/exports'
 import { TimelineBar } from '@common/components/TimelineView/TimelineBar'
 import CVPagination from '@cv/components/CVPagination/CVPagination'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
+import { riskScoreToColor } from '@cv/pages/services/analysis-drilldown-view/MetricAnalysisView/MetricsAnalysisRow/MetricAnalysisRow'
 import VerificationStatusBar from '../activity-changes-drilldown/VerificationStatusBar'
 import { TabIdentifier } from './VerificationInstanceView'
 import {
@@ -133,7 +134,7 @@ export default function VerificationInstacePostDeploymentView({
   )
 }
 
-function mapMetricsData(res: any, startTime: number, endTime: number, activityStartTime: number) {
+export function mapMetricsData(res: any, startTime: number, endTime: number, activityStartTime: number) {
   return res?.resource?.content.map((item: any) => ({
     transactionName: item.groupName,
     metricName: item.metricName,
@@ -146,7 +147,9 @@ function mapMetricsData(res: any, startTime: number, endTime: number, activitySt
             data: item.metricDataList.map((val: any) => ({
               x: val.timestamp,
               y: val.value
-            }))
+            })),
+            zoneAxis: 'x',
+            zones: getSeriesZones(item.metricDataList)
           }
         ]
       }
@@ -170,6 +173,27 @@ function mapMetricsData(res: any, startTime: number, endTime: number, activitySt
     },
     hideShowMore: true
   }))
+}
+
+export function getSeriesZones(items: any[], mapColor = riskScoreToColor) {
+  const zones = []
+  for (let i = 0; i < items.length; i++) {
+    const prevRisk = i > 0 ? items[i - 1].risk : undefined
+    const prevTimestamp = prevRisk && items[i - 1].timestamp
+    if (items[i].risk !== prevRisk && !!prevRisk) {
+      zones.push({
+        value: prevTimestamp,
+        color: mapColor(prevRisk)
+      })
+    }
+    if (i === items.length - 1) {
+      zones.push({
+        value: items[i].timestamp,
+        color: mapColor(items[i].risk)
+      })
+    }
+  }
+  return zones
 }
 
 function MetricsTab({

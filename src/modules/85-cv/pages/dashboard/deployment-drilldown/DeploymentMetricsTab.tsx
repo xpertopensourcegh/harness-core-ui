@@ -1,6 +1,5 @@
 import React, { useState, useMemo } from 'react'
 import { Container, Pagination, Link } from '@wings-software/uikit'
-import * as Moment from 'moment'
 import { extendMoment } from 'moment-range'
 import classnames from 'classnames'
 import { TimelineBar } from '@common/components/TimelineView/TimelineBar'
@@ -15,7 +14,7 @@ import TimeseriesRow, { SeriesConfig } from '../../../components/TimeseriesRow/T
 import i18n from './DeploymentDrilldownView.i18n'
 import styles from './DeploymentDrilldownView.module.scss'
 
-const moment = extendMoment(Moment)
+const moment = extendMoment(require('moment')) // eslint-disable-line
 
 export interface DeploymentMetricsTabProps {
   data: RestResponseTransactionMetricInfoSummaryPageDTO | null
@@ -52,7 +51,6 @@ export default function DeploymentMetricsTab({
             key={(value.transactionMetric?.transactionName as string) + value.transactionMetric?.metricName}
             transactionName={value.transactionMetric?.transactionName}
             metricName={value.transactionMetric?.metricName}
-            riskScore={value.transactionMetric?.score}
             nodes={value.nodes}
             timeRange={data?.resource?.deploymentTimeRange}
           />
@@ -80,7 +78,7 @@ export default function DeploymentMetricsTab({
 
 const DEFAULT_ROW_SIZE = 3
 
-function TransactionRow({ transactionName, metricName, riskScore, nodes = [], timeRange }: TransactionRowProps) {
+function TransactionRow({ transactionName, metricName, nodes = [], timeRange }: TransactionRowProps) {
   const [showMax, setShowMax] = useState<number>(DEFAULT_ROW_SIZE)
   const range = moment.range(moment(timeRange?.startTime), moment(timeRange?.endTime))
   const mapSeriesData = (items: number[]) => {
@@ -103,7 +101,7 @@ function TransactionRow({ transactionName, metricName, riskScore, nodes = [], ti
               {
                 name: 'testData',
                 type: 'line',
-                color: getColorValue(riskScore!),
+                color: getColorValue(node.score!),
                 data: mapSeriesData(node.testData ?? [])
               },
               {

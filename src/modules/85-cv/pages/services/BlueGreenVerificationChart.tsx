@@ -43,7 +43,7 @@ export default function BlueGreenVerificationChart({
   selectedNode,
   onSelectNode
 }: BlueGreenVerificationChartProps) {
-  const renderSeries = (data: Array<NodeData>) =>
+  const renderSeries = (data: Array<NodeData>, canSelectNodes: boolean) =>
     data.map(
       (cell, i) =>
         i < MAX_SERIE_LENGTH && (
@@ -65,7 +65,7 @@ export default function BlueGreenVerificationChart({
             <Container
               className={classnames({ [styles.nodeSelected]: cell === selectedNode })}
               background={cell === selectedNode ? Color.BLUE_500 : mapColor(cell.riskScore)}
-              onClick={() => onSelectNode?.(cell === selectedNode ? undefined : cell)}
+              onClick={canSelectNodes ? () => onSelectNode?.(cell === selectedNode ? undefined : cell) : undefined}
             />
           </Tooltip>
         )
@@ -75,7 +75,7 @@ export default function BlueGreenVerificationChart({
     <Container className={styles.chart}>
       <div className={styles.boxWrap}>
         <Text>PRIMARY</Text>
-        <div className={styles.box}>{renderSeries(before)}</div>
+        <div className={styles.box}>{renderSeries(before, false)}</div>
         {!!percentageBefore && <Text font={{ size: 'small' }}>{`${percentageBefore}% Traffic`}</Text>}
       </div>
       <div className={styles.separator}>{/* <Text>Verification Triggered</Text> */}</div>
@@ -83,7 +83,7 @@ export default function BlueGreenVerificationChart({
         <Text>CANARY</Text>
         <div className={styles.boxGroup}>
           <div className={styles.boxWrap}>
-            <div className={styles.box}>{renderSeries(after)}</div>
+            <div className={styles.box}>{renderSeries(after, true)}</div>
             {!!percentageAfter && <Text font={{ size: 'small' }}>{`${percentageAfter}% Traffic`}</Text>}
           </div>
         </div>

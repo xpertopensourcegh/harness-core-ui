@@ -160,8 +160,9 @@ export default function ActivitiesTimelineView({
             )}
           </Container>
         </TimelineTooltip>
-        {/* Currently, since we're re-positioning items to align with blue flag, text can overflow with other items */}
-        {/* <Text font={{ size: 'xsmall' }} lineClamp={1} width={BATCH_BREAKPOINT}>{`${items.length} Events`}</Text> */}
+        {!selectedEventIndex && (
+          <Text font={{ size: 'xsmall' }} lineClamp={1} width={BATCH_BREAKPOINT}>{`${items.length} Events`}</Text>
+        )}
       </Container>
     )
   }
