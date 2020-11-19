@@ -27,6 +27,7 @@
     "services:cdng": "restful-react import --config restful-react.config.js cd-ng",
     "services:notifications": "restful-react import --config restful-react.config.js notifications",
     "services:cf": "restful-react import --config restful-react.config.js cf",
+    "postservices:portal": "prettier --write src/services/portal/index.tsx",
     "postservices:cdng": "prettier --write src/services/cd-ng/index.tsx",
     "postservices:notifications": "prettier --write src/services/notifications/index.tsx",
     "services:ci": "restful-react import --config restful-react.config.js ci",

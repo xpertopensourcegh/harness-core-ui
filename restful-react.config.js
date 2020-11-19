@@ -13,7 +13,7 @@ module.exports = {
     transformer: 'scripts/swagger-transform.js',
     customImport: `import { getConfig } from "../config";`,
     customProps: {
-      base: `{window.apiUrl || getConfig("api")}`
+      base: `{getConfig("api")}`
     }
   },
   'cd-ng': {
