@@ -4,16 +4,16 @@ import { Color } from '@wings-software/uikit'
 import { ExecutionStageGraph, RenderStageButtonInfo } from '@ci/components/ExecutionStageGraph/ExecutionStageGraph'
 import { ExecutionPipeline, ExecutionPipelineItemStatus, ExecutionPipelineNode } from '@pipeline/exports'
 import { getStagesStatusesCounter } from '@ci/pages/build/utils/api2ui'
-import type { GraphVertex } from 'services/ci'
+import type { ItemData } from '@ci/pages/build/context/BuildPageContext'
 
 interface CIExecutionStageGraphProps {
-  pipeline: ExecutionPipeline<GraphVertex>
+  pipeline: ExecutionPipeline<ItemData>
 }
 
 export const CIExecutionStageGraph: React.FC<CIExecutionStageGraphProps> = props => {
   const { pipeline } = props
 
-  const renderStageButton = useCallback((node: ExecutionPipelineNode<GraphVertex>): RenderStageButtonInfo => {
+  const renderStageButton = useCallback((node: ExecutionPipelineNode<ItemData>): RenderStageButtonInfo => {
     const parallel = !!node.parallel
     const checkStatus = (_status: ExecutionPipelineItemStatus): boolean =>
       !parallel ? node?.item?.status === _status : !!node?.parallel?.find(pNode => pNode.item?.status === _status)

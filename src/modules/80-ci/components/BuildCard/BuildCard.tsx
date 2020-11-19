@@ -7,7 +7,8 @@ import { ExecutionStatus, status2Message } from '@ci/components/common/status'
 import { getShortCommitId } from '@ci/services/CIUtils'
 import { useToaster } from '@common/exports'
 import type { ExecutionPipeline } from '@pipeline/exports'
-import type { CIBuildCommit, GraphVertex } from 'services/ci'
+import type { CIBuildCommit } from 'services/ci'
+import type { ItemData } from '@ci/pages/build/context/BuildPageContext'
 import { CIExecutionStageGraph } from '../CIExecutionStageGraph/CIExecutionStageGraph'
 import Status from '../Status/Status'
 import { formatElapsedTime } from '../common/time'
@@ -45,7 +46,7 @@ export interface BuildCardProps {
   PRTargetBranch?: string
   PRState?: string
 
-  pipeline: ExecutionPipeline<GraphVertex>
+  pipeline: ExecutionPipeline<ItemData>
 
   onClick?: (id: number) => void
 }

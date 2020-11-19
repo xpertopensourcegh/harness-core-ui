@@ -1,10 +1,8 @@
 import React from 'react'
-import moment from 'moment'
 import { Button, Color, Select, Text } from '@wings-software/uikit'
 import { ExecutionStageDiagram } from '@pipeline/exports'
 import LogViewContainer from '@ci/components/LogViewContainer/LogViewContainer'
 import { RoundButtonGroup } from '@ci/components/RoundButtonGroup/RoundButtonGroup'
-import { formatElapsedTime } from '@ci/components/common/time'
 import BuildPipelineGraphLayout, {
   BuildPipelineGraphLayoutType
 } from './BuildPipelineGraphLayout/BuildPipelineGraphLayout'
@@ -14,8 +12,9 @@ import {
   getSelectOptionsFromExecutionPipeline,
   getStepsPipelineFromExecutionPipeline
 } from './BuildPipelineGraphUtils'
+import StepDetails from './step-details/StepDetails'
+import ServiceDetails from './service-details/ServiceDetails'
 import i18n from './BuildPipelineGraph.i18n'
-import css from './BuildPipelineGraph.module.scss'
 
 const PipelineGraph: React.FC = () => {
   const {
@@ -90,7 +89,7 @@ const PipelineGraph: React.FC = () => {
   // Step title
   const stepTitle = selectedStep && (
     <Text color={Color.GREY_500}>
-      {i18n.step} {selectedStep?.name}
+      {selectedStep?.data?.service ? i18n.dependency : i18n.step} {selectedStep?.name}
     </Text>
   )
 
@@ -98,28 +97,13 @@ const PipelineGraph: React.FC = () => {
   const stepTabs = [
     {
       title: <Text>{i18n.stepTabDetails}</Text>,
-      content: selectedStep && (
-        <table className={css.stepDetailsTable}>
-          <tr>
-            <td>{i18n.startedAt}</td>
-            <td>
-              {selectedStep?.data?.startTs ? moment(selectedStep?.data?.startTs).format('M/D/YYYY h:mm:ss a') : '-'}
-            </td>
-          </tr>
-          <tr>
-            <td>{i18n.endedAt}</td>
-            <td>{selectedStep?.data?.endTs ? moment(selectedStep?.data?.endTs).format('M/D/YYYY h:mm:ss a') : '-'}</td>
-          </tr>
-          <tr>
-            <td>{i18n.duration}</td>
-            <td>
-              {selectedStep?.data?.startTs && selectedStep?.data?.endTs
-                ? formatElapsedTime(selectedStep?.data?.endTs / 1000 - selectedStep?.data?.startTs / 1000, true)
-                : '-'}
-            </td>
-          </tr>
-        </table>
-      )
+      content:
+        selectedStep &&
+        (selectedStep.data?.service ? (
+          <ServiceDetails service={selectedStep.data?.service} />
+        ) : (
+          <StepDetails step={selectedStep.data?.step} />
+        ))
     },
     {
       title: <Text>{i18n.stepTabInput}</Text>,

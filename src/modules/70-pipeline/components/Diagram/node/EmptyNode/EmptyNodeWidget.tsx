@@ -11,13 +11,14 @@ export interface EmptyNodeWidgetProps {
 }
 
 export const EmptyNodeWidget: React.FC<EmptyNodeWidgetProps> = (props): JSX.Element => {
+  const options = props.node.getOptions()
   const generatePort = (port: DefaultPortModel): JSX.Element => {
     return <DefaultPortLabel engine={props.engine} port={port} key={port.getID()} />
   }
   return (
     <div className={css.emptyNode}>
-      <div>{props.node.getInPorts().map(port => generatePort(port))}</div>
-      <div>{props.node.getOutPorts().map(port => generatePort(port))}</div>
+      {options.showPorts && <div>{props.node.getInPorts().map(port => generatePort(port))}</div>}
+      {options.showPorts && <div>{props.node.getOutPorts().map(port => generatePort(port))}</div>}
     </div>
   )
 }

@@ -115,7 +115,6 @@ export const BuildPageContextProvider: React.FC = props => {
   const selectedStageOption = stagesSelectOptions.find(item => item.value === state.selectedStageIdentifier)
   const executionSteps = getStepsPipelineFromExecutionPipeline(buildData?.stagePipeline, state.selectedStageIdentifier)
   const stepItems = getFlattenItemsFromPipeline(executionSteps)
-  const selectedStepName = stepItems.find(item => item.identifier === state.selectedStepIdentifier)?.name
   const selectedStepStatus = stepItems.find(item => item.identifier === state.selectedStepIdentifier)?.status
   const isStepRunning =
     selectedStepStatus === ExecutionPipelineItemStatus.RUNNING ||
@@ -128,8 +127,8 @@ export const BuildPageContextProvider: React.FC = props => {
     projectIdentifier,
     buildIdentifier,
     selectedStageOption?.label || '',
-    selectedStepName || '',
-    !!logsToken && isStepRunning && !!selectedStageOption && !!selectedStepName
+    state.selectedStepIdentifier || '',
+    !!logsToken && isStepRunning && !!selectedStageOption && !!state.selectedStepIdentifier
   )
 
   useEffect(() => {
@@ -137,7 +136,7 @@ export const BuildPageContextProvider: React.FC = props => {
     !!logsToken &&
       !isStepRunning &&
       selectedStageOption &&
-      selectedStepName &&
+      state.selectedStepIdentifier &&
       getLogsFromBlob(
         logsToken,
         accountId,
@@ -145,7 +144,7 @@ export const BuildPageContextProvider: React.FC = props => {
         projectIdentifier,
         buildIdentifier,
         selectedStageOption?.label || '',
-        selectedStepName || '',
+        state.selectedStepIdentifier || '',
         setLogs
       )
   }, [logsToken, state.selectedStepIdentifier])

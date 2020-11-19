@@ -10,7 +10,6 @@ import {
   ExecutionPipelineNodeType
 } from './ExecutionPipelineModel'
 import { getNodeStyles, getStatusProps, getArrowsColor, GroupState } from './ExecutionStageDiagramUtils'
-
 import * as Diagram from '../Diagram'
 import css from './ExecutionStageDiagram.module.scss'
 
@@ -62,7 +61,8 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
     diagramContainerHeight?: number,
     prevNodes?: Diagram.DefaultNodeModel[],
     showEndNode?: boolean,
-    groupStage?: Map<string, GroupState<T>>
+    groupStage?: Map<string, GroupState<T>>,
+    hideLines = false
   ): { startX: number; startY: number; prevNodes?: Diagram.DefaultNodeModel[] } {
     const { nodeStyle } = this
     if (!node) {
@@ -71,7 +71,7 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
     if (node.item && !node.parallel) {
       const { item: stage } = node
       const { type } = stage
-      startX += this.gap
+      startX += hideLines ? this.gap / 2 : this.gap
       const isSelected = selectedStageId === stage.identifier
       const statusProps = getStatusProps(stage.status)
       let nodeRender = this.getNodeFromId(stage.identifier)
@@ -109,7 +109,8 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
                 identifier: stage.identifier,
                 id: stage.identifier,
                 name: stage.name,
-                ...commonOption
+                ...commonOption,
+                showPorts: !hideLines
               })
 
         this.addNode(nodeRender)
@@ -128,7 +129,7 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
             prevNode,
             false,
             0,
-            getArrowsColor(stage.status)
+            getArrowsColor(stage.status, undefined, hideLines)
           )
         })
       }
@@ -186,7 +187,8 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
               this.getNodeFromId(`${EmptyNodeSeparator}-${EmptyNodeSeparator}${parallel[0].item?.identifier}-Start`) ||
               new Diagram.EmptyNodeModel({
                 id: `${EmptyNodeSeparator}-${EmptyNodeSeparator}${parallel[0].item?.identifier}-Start`,
-                name: 'Empty'
+                name: 'Empty',
+                showPorts: !hideLines
               })
             this.addNode(emptyNodeStart)
             newX += this.gap
@@ -198,7 +200,9 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
                 false,
                 0,
                 getArrowsColor(
-                  parallel[0].item?.status || /* istanbul ignore next */ ExecutionPipelineItemStatus.NOT_STARTED
+                  parallel[0].item?.status || /* istanbul ignore next */ ExecutionPipelineItemStatus.NOT_STARTED,
+                  undefined,
+                  hideLines
                 )
               )
             })
@@ -215,7 +219,8 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
               diagramContainerHeight,
               prevNodes,
               showEndNode,
-              groupStage
+              groupStage,
+              hideLines
             )
             startX = resp.startX
             newY = resp.startY + this.gap / 2 + (nodeStyle.height - 64)
@@ -228,7 +233,8 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
               this.getNodeFromId(`${EmptyNodeSeparator}${parallel[0].item?.identifier}${EmptyNodeSeparator}-End`) ||
               new Diagram.EmptyNodeModel({
                 id: `${EmptyNodeSeparator}${parallel[0].item?.identifier}${EmptyNodeSeparator}-End`,
-                name: 'Empty'
+                name: 'Empty',
+                showPorts: !hideLines
               })
             this.addNode(emptyNodeEnd)
             startX += this.gap
@@ -241,7 +247,8 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
                 0,
                 getArrowsColor(
                   parallel[0].item?.status || /* istanbul ignore next */ ExecutionPipelineItemStatus.NOT_STARTED,
-                  true
+                  true,
+                  hideLines
                 )
               )
             })
@@ -301,7 +308,8 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
               diagramContainerHeight,
               prevNodes,
               showEndNode,
-              groupStage
+              groupStage,
+              node.group?.showLines === false
             )
             startX = resp.startX
             startY = resp.startY
@@ -311,7 +319,7 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
           })
         }
         /* istanbul ignore else */ if (prevNodes && prevNodes.length > 0) {
-          startX = startX + this.gap
+          startX = startX + (node.group?.showLines === false ? this.gap / 2 : this.gap)
           stepGroupLayer.endNode.setPosition(startX, startY)
           showEndNode &&
             prevNodes.forEach((prevNode: Diagram.DefaultNodeModel) => {
@@ -322,7 +330,8 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
                 0,
                 getArrowsColor(
                   node.group?.status || /* istanbul ignore next */ ExecutionPipelineItemStatus.NOT_STARTED,
-                  true
+                  true,
+                  node.group?.showLines === false
                 )
               )
             })
@@ -367,7 +376,7 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
   addUpdateGraph<T>(
     pipeline: ExecutionPipeline<T>,
     listeners: Listeners,
-    selectedStageId?: string,
+    selectedId?: string,
     diagramContainerHeight?: number,
     showStartEndNode?: boolean,
     showEndNode?: boolean,
@@ -401,7 +410,7 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
         node,
         startX,
         startY,
-        selectedStageId,
+        selectedId,
         diagramContainerHeight,
         prevNodes,
         showEndNode,

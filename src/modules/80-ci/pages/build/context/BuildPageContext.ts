@@ -3,10 +3,16 @@ import type { GetDataError } from 'restful-react'
 import type { ResponseCIBuildResponseDTO, GraphVertex } from 'services/ci'
 import type { ExecutionPipeline } from '@pipeline/exports'
 import { BuildPipelineGraphLayoutType } from '../sections/pipeline-graph/BuildPipelineGraphLayout/BuildPipelineGraphLayout'
+import type { ServiceDependency } from '../utils/api2ui'
+
+export interface ItemData {
+  step?: GraphVertex
+  service?: ServiceDependency
+}
 
 export interface BuildData {
   response: ResponseCIBuildResponseDTO | null
-  stagePipeline: ExecutionPipeline<GraphVertex>
+  stagePipeline: ExecutionPipeline<ItemData>
   defaultSelectedStageIdentifier: string
   defaultSelectedStepIdentifier: string
   globalErrorMessage: string | null

@@ -6,5 +6,6 @@ export default {
   startedAt: 'Started at:',
   endedAt: 'Ended at:',
   duration: 'Duration:',
-  step: 'STEP:'
+  step: 'Step:',
+  dependency: 'Dependency:'
 }

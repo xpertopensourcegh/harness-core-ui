@@ -53,8 +53,10 @@ export const getNodeStyles = (isSelected: boolean, status: ExecutionPipelineItem
   return style
 }
 
-export const getArrowsColor = (status: ExecutionPipelineItemStatus, isParallel = false): string => {
-  if (status === ExecutionPipelineItemStatus.NOT_STARTED) {
+export const getArrowsColor = (status: ExecutionPipelineItemStatus, isParallel = false, hideLines = false): string => {
+  if (hideLines) {
+    return 'var(--pipeline-transparent-border)'
+  } else if (status === ExecutionPipelineItemStatus.NOT_STARTED) {
     return 'var(--execution-pipeline-color-arrow-not-started)'
   } else if (isParallel && status === ExecutionPipelineItemStatus.RUNNING) {
     return 'var(--execution-pipeline-color-arrow-not-started)'

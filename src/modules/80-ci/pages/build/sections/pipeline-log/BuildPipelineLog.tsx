@@ -44,8 +44,8 @@ const PipelineLog: React.FC = () => {
   const steps = stepItems.map((item, key) => {
     const isSelected = item.name === selectedStep
     const time =
-      item?.data?.startTs && item?.data?.endTs
-        ? formatElapsedTime(item?.data?.endTs / 1000 - item?.data?.startTs / 1000, true)
+      item?.data?.step?.startTs && item?.data?.step.endTs
+        ? formatElapsedTime(item?.data?.step?.endTs / 1000 - item?.data?.step?.startTs / 1000, true)
         : ''
     return (
       <BuildStep

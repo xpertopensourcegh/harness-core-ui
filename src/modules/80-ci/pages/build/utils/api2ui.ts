@@ -8,6 +8,10 @@ import {
   ExecutionPipelineItemStatus,
   ExecutionPipelineNodeType
 } from '@pipeline/exports'
+import type { ExecutionPipelineGroupInfo } from '@pipeline/components/ExecutionStageDiagram/ExecutionPipelineModel'
+import { STATIC_SERVICE_GROUP_NAME } from '@pipeline/components/PipelineStudio/ExecutionGraph/ExecutionGraphUtil'
+import type { ItemData } from '../context/BuildPageContext'
+import i18n from './api2ui.i18n'
 
 // TODO: random icons used; replace them with right one
 export enum MapStageTypeIconName {
@@ -16,7 +20,20 @@ export enum MapStageTypeIconName {
   RUN = 'run-step',
   GIT_CLONE = 'git-clone-step',
   SAVE_CACHE = 'save-cache-step',
-  RESTORE_CACHE = 'restore-cache-step'
+  RESTORE_CACHE = 'restore-cache-step',
+  REDIS = 'service-redis',
+  MONGO = 'service-mongodb'
+}
+
+export interface ServiceDependency {
+  identifier: string
+  name: string | null
+  image: string
+  status: string
+  startTime: string
+  endTime: string | null
+  errorMessage: string | null
+  errorReason: string | null
 }
 
 export interface StatusCounter {
@@ -28,7 +45,7 @@ export interface StatusCounter {
 /**
  * Count success/running/failed stages
  */
-export const getStagesStatusesCounter = (nodes: ExecutionPipelineNode<GraphVertex>[]): StatusCounter => {
+export const getStagesStatusesCounter = (nodes: ExecutionPipelineNode<ItemData>[]): StatusCounter => {
   let statusCounter = {
     success: 0,
     running: 0,
@@ -44,7 +61,7 @@ export const getStagesStatusesCounter = (nodes: ExecutionPipelineNode<GraphVerte
   return statusCounter
 }
 
-const countStagesStatuses = (nodes: ExecutionPipelineNode<GraphVertex>[], counter: StatusCounter): StatusCounter => {
+const countStagesStatuses = (nodes: ExecutionPipelineNode<ItemData>[], counter: StatusCounter): StatusCounter => {
   const retCounter = { ...counter }
   nodes.forEach(node => {
     const statusType = getGeneralStatusType(node.item?.status)
@@ -111,15 +128,15 @@ export function getFirstItemIdFromExecutionPipeline<T>(pipeline: ExecutionPipeli
  * Return empty ExecutionPipeline
  */
 
-export function getEmptyExecutionPipeline(): ExecutionPipeline<GraphVertex> {
+export function getEmptyExecutionPipeline(): ExecutionPipeline<ItemData> {
   return { items: [], identifier: '' }
 }
 
 /**
  * Create ExecutionPipeline from Graph model (API2UI model)
  */
-export function graph2ExecutionPipeline(graph: OrchestrationGraphDTO | undefined): ExecutionPipeline<GraphVertex> {
-  const pipeline: ExecutionPipeline<GraphVertex> = {
+export function graph2ExecutionPipeline(graph: OrchestrationGraphDTO | undefined): ExecutionPipeline<ItemData> {
+  const pipeline: ExecutionPipeline<ItemData> = {
     items: [],
     identifier: ''
   }
@@ -145,21 +162,21 @@ export function graph2ExecutionPipeline(graph: OrchestrationGraphDTO | undefined
     stagesRootEdgeList?.edges?.forEach((stageEdgeId: string) => {
       const vertex = graphVertexMap[stageEdgeId]
 
-      const stageItem: ExecutionPipelineItem<GraphVertex> = {
+      const stageItem: ExecutionPipelineItem<ItemData> = {
         identifier: vertex.uuid as string,
         name: vertex.name as string,
         type: ExecutionPipelineNodeType.NORMAL,
         status: ExecutionPipelineItemStatus[vertex.status as keyof typeof ExecutionPipelineItemStatus],
         icon: stageType2IconName(vertex.stepType as string),
-        data: vertex
+        data: { step: vertex }
       }
 
       // add stage node
-      const stageNode: ExecutionPipelineNode<GraphVertex> = { item: stageItem }
+      const stageNode: ExecutionPipelineNode<ItemData> = { item: stageItem }
       pipeline.items.push(stageNode)
 
       // add steps pipeline
-      const stepsPipeline: ExecutionPipeline<GraphVertex> = {
+      const stepsPipeline: ExecutionPipeline<ItemData> = {
         items: [],
         identifier: ''
       }
@@ -170,11 +187,17 @@ export function graph2ExecutionPipeline(graph: OrchestrationGraphDTO | undefined
       let next = graphVertexMap[nextId]
 
       while (next) {
-        //TODO: do not add LITE_ENGINE_TASK - solution for demo
-        if (next.stepType !== 'LITE_ENGINE_TASK') {
+        if (next.stepType === 'LITE_ENGINE_TASK') {
+          // NOTE: LITE_ENGINE_TASK contains information about dependencies
+          const serviceDependencyList: ServiceDependency[] = (next.outcomes as any)?.find(
+            (item: any) => !!item.serviceDependencyList
+          )?.serviceDependencyList
+
+          addDependencies(serviceDependencyList, stepsPipeline)
+        } else {
           //parallel steps
           if (next.stepType === 'FORK') {
-            const parallelStepsNode: ExecutionPipelineNode<GraphVertex> = {
+            const parallelStepsNode: ExecutionPipelineNode<ItemData> = {
               parallel: []
             }
             stepsPipeline.items.push(parallelStepsNode)
@@ -183,7 +206,7 @@ export function graph2ExecutionPipeline(graph: OrchestrationGraphDTO | undefined
             const nextIds = adjacencyMap[next.uuid as string]?.edges as string[]
             nextIds.forEach(parallelId => {
               const parallelVertex = graphVertexMap[parallelId]
-              addStepToArray(parallelVertex, parallelStepsNode.parallel as ExecutionPipelineNode<GraphVertex>[])
+              addStepToArray(parallelVertex, parallelStepsNode.parallel as ExecutionPipelineNode<ItemData>[])
             })
           } else {
             addStepToArray(next, stepsPipeline.items)
@@ -204,16 +227,54 @@ export function graph2ExecutionPipeline(graph: OrchestrationGraphDTO | undefined
   return pipeline
 }
 
-function addStepToArray(vertex: GraphVertex, arr: ExecutionPipelineNode<GraphVertex>[]): void {
-  const stepItem: ExecutionPipelineItem<GraphVertex> = {
+function addStepToArray(vertex: GraphVertex, arr: ExecutionPipelineNode<ItemData>[]): void {
+  const stepItem: ExecutionPipelineItem<ItemData> = {
     identifier: vertex.uuid as string,
     name: vertex.name as string,
     type: ExecutionPipelineNodeType.NORMAL,
     status: ExecutionPipelineItemStatus[vertex.status as keyof typeof ExecutionPipelineItemStatus],
     icon: stageType2IconName(vertex.stepType as string),
-    data: vertex
+    data: { step: vertex }
   }
+
   // add step node
-  const stepNode: ExecutionPipelineNode<GraphVertex> = { item: stepItem }
+  const stepNode: ExecutionPipelineNode<ItemData> = { item: stepItem }
   arr.push(stepNode)
+}
+
+function addServiceToArray(service: ServiceDependency, arr: ExecutionPipelineNode<ItemData>[]): void {
+  const stepItem: ExecutionPipelineItem<ItemData> = {
+    identifier: service.identifier as string,
+    name: service.name as string,
+    type: ExecutionPipelineNodeType.NORMAL,
+    status: ExecutionPipelineItemStatus[service.status as keyof typeof ExecutionPipelineItemStatus],
+    icon: 'custom-service',
+    data: { service: service }
+  }
+
+  // add step node
+  const stepNode: ExecutionPipelineNode<ItemData> = { item: stepItem }
+  arr.push(stepNode)
+}
+
+function addDependencies(dependencies: ServiceDependency[], stepsPipeline: ExecutionPipeline<ItemData>) {
+  if (dependencies && dependencies.length > 0) {
+    const items: ExecutionPipelineNode<ItemData>[] = []
+
+    dependencies.forEach(_service => addServiceToArray(_service, items))
+
+    const dependenciesGroup: ExecutionPipelineGroupInfo<ItemData> = {
+      identifier: STATIC_SERVICE_GROUP_NAME,
+      name: i18n.dependencies,
+      status: '' as ExecutionPipelineItemStatus,
+      data: {},
+      icon: 'step-group',
+      showLines: false,
+      isOpen: true,
+      items: [{ parallel: items }]
+    }
+
+    // dependency goes at the begining
+    stepsPipeline.items.unshift({ group: dependenciesGroup })
+  }
 }

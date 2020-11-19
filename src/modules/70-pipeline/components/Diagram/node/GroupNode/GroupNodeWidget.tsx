@@ -61,8 +61,8 @@ export const GroupNodeWidget = (props: GroupNodeProps): JSX.Element => {
           {options.icons[0] && <Icon size={28} name={options.icons[0]} {...options.iconPropsAr?.[0]} />}
           {options.icons[1] && <Icon size={28} name={options.icons[1]} {...options.iconPropsAr?.[1]} />}
         </div>
-        <div>{props.node.getInPorts().map(port => generatePort(port, props))}</div>
-        <div>{props.node.getOutPorts().map(port => generatePort(port, props))}</div>
+        {options.showPorts && <div>{props.node.getInPorts().map(port => generatePort(port, props))}</div>}
+        {options.showPorts && <div>{props.node.getOutPorts().map(port => generatePort(port, props))}</div>}
       </div>
       <Text
         font={{ size: 'normal', align: 'center' }}

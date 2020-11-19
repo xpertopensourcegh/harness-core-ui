@@ -17,23 +17,24 @@ export function getStepsPipelineFromExecutionPipeline<T>(
   )
 }
 
-export function getFlattenItemsFromPipeline<T>(pipeline: ExecutionPipeline<T>) {
-  const steps: ExecutionPipelineItem<T>[] = []
-
-  pipeline.items.forEach(node => {
+function addItemsArray<T>(nodes: ExecutionPipelineNode<T>[], steps: ExecutionPipelineItem<T>[]) {
+  nodes.forEach(node => {
     if (node.parallel) {
-      node.parallel.forEach(pNode => {
-        if (pNode.item) {
-          steps.push(pNode.item)
-        }
-      })
+      addItemsArray(node.parallel, steps)
+    }
+    if (node.group) {
+      addItemsArray(node.group.items, steps)
     } else {
       if (node.item) {
         steps.push(node.item)
       }
     }
   })
+}
 
+export function getFlattenItemsFromPipeline<T>(pipeline: ExecutionPipeline<T>) {
+  const steps: ExecutionPipelineItem<T>[] = []
+  addItemsArray(pipeline.items, steps)
   return steps
 }
 
