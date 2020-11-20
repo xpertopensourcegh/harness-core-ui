@@ -18,6 +18,7 @@ export interface CVSelectionCardGroupProps {
   cards: Omit<CVSelectionCardProps[], 'onCardSelect'>
   defaultSelectedCardIndex?: number
   className?: string
+  onCardSelect?: (isSelected: boolean, selectedCardIndex: number) => void
 }
 
 export function CVSelectionCard(props: CVSelectionCardProps): JSX.Element {
@@ -62,7 +63,7 @@ export function CVSelectionCard(props: CVSelectionCardProps): JSX.Element {
 }
 
 export function CVSelectionCardGroup(props: CVSelectionCardGroupProps): JSX.Element {
-  const { cards, defaultSelectedCardIndex, className } = props
+  const { cards, defaultSelectedCardIndex, className, onCardSelect } = props
   const [selectedCardIndex, setSelectedCardIndex] = useState(defaultSelectedCardIndex || -1)
   return (
     <Container className={className}>
@@ -73,7 +74,7 @@ export function CVSelectionCardGroup(props: CVSelectionCardGroupProps): JSX.Elem
           isSelected={index === selectedCardIndex}
           onCardSelect={isSelected => {
             setSelectedCardIndex(isSelected ? index : -1)
-            cardProps.onCardSelect?.(isSelected)
+            onCardSelect?.(isSelected, index)
           }}
         />
       ))}

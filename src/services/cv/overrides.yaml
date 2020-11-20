@@ -30,6 +30,8 @@ allowpaths:
   - /setup/status
   - /kubernetes/namespaces
   - /kubernetes/workloads
+  - /kubernetes/source
+  - /kubernetes/sources
 operationIdOverrides:
   /appdynamics/applications.get: getAppDynamicsApplications
   /appdynamics/metric-data.post: getAppDynamicsMetricData

@@ -1,10 +1,20 @@
 export default {
-  firstTimeSetupText: 'First time? You can setup a new connector to Kubernetes. It takes 2 minutes.',
-  kubernetesConnectionText: 'Specify your Kubernetes Connector',
-  createConnectorText: '+ New Kubernetes Connector',
-  iconLabel: 'Kubernetes',
-  selectConnectorHeading: 'Select your connector',
-  fieldValidations: {
-    name: 'Connector Name is required.'
+  selectActivitySource: 'Select your Activity Source',
+  connectorOptionHeading: 'Select the best method for Harness to reach your Kubernetes Cluster',
+  infraSpecification: 'Infrastructure Specification',
+  fieldLabels: {
+    nameActivitySource: 'Name your Activity Source',
+    infraType: 'Type of Infrastructure'
+  },
+  productSelectionCategory: {
+    directConnection: 'DIRECT CONNECTION'
+  },
+  productName: {
+    kubernetes: 'Kubernetes'
+  },
+  validationStrings: {
+    nameActivitySource: 'Activity Source name is required.',
+    infraType: 'Infrastructure Type is required.',
+    connectorType: 'Kubernetes Connector Type is required.'
   }
 }

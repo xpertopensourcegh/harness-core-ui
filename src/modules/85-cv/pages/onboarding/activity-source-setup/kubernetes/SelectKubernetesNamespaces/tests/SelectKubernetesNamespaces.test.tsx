@@ -1,8 +1,6 @@
 import React from 'react'
 import type { UseGetReturn } from 'restful-react'
 import { fireEvent, render, waitFor } from '@testing-library/react'
-import { Container } from '@wings-software/uikit'
-import { SubmitAndPreviousButtons } from '@cv/pages/onboarding/SubmitAndPreviousButtons/SubmitAndPreviousButtons'
 import * as cvService from 'services/cv'
 import * as framework from 'framework/route/RouteMounter'
 import { SelectKubernetesNamespaces } from '../SelectKubernetesNamespaces'
@@ -28,7 +26,9 @@ describe('Unit tests for SelectKubernetesNamespaces', () => {
     } as UseGetReturn<any, unknown, any, unknown>)
 
     const onSubmitMockFunc = jest.fn()
-    const { container } = render(<SelectKubernetesNamespaces onSubmit={onSubmitMockFunc} />)
+    const { container } = render(
+      <SelectKubernetesNamespaces onSubmit={onSubmitMockFunc} onPrevious={() => undefined} />
+    )
     await waitFor(() => expect(container.querySelector('[class*="loadingErrorNoData"]')).not.toBeNull())
     expect(container.querySelector('[class*="spinner"]')).not.toBeNull()
   })
@@ -42,7 +42,9 @@ describe('Unit tests for SelectKubernetesNamespaces', () => {
     } as UseGetReturn<any, unknown, any, unknown>)
 
     const onSubmitMockFunc = jest.fn()
-    const { container, getByText } = render(<SelectKubernetesNamespaces onSubmit={onSubmitMockFunc} />)
+    const { container, getByText } = render(
+      <SelectKubernetesNamespaces onSubmit={onSubmitMockFunc} onPrevious={() => undefined} />
+    )
     await waitFor(() => expect(container.querySelector('[class*="loadingErrorNoData"]')).not.toBeNull())
     expect(getByText('some execption')).not.toBeNull()
 
@@ -59,7 +61,9 @@ describe('Unit tests for SelectKubernetesNamespaces', () => {
     } as UseGetReturn<any, unknown, any, unknown>)
 
     const onSubmitMockFunc = jest.fn()
-    const { container, getByText } = render(<SelectKubernetesNamespaces onSubmit={onSubmitMockFunc} />)
+    const { container, getByText } = render(
+      <SelectKubernetesNamespaces onSubmit={onSubmitMockFunc} onPrevious={() => undefined} />
+    )
     await waitFor(() => expect(container.querySelector('[class*="loadingErrorNoData"]')).not.toBeNull())
     expect(getByText(i18n.noDataMessage)).not.toBeNull()
 
@@ -72,16 +76,13 @@ describe('Unit tests for SelectKubernetesNamespaces', () => {
     const refetchMock = jest.fn()
     const mockData = ['kubenamespace1', 'kubenamespace2', 'kubenamespace3', 'kubenamespace4', 'kubenamespace5']
     useGetNamespaces.mockReturnValue({
-      data: { resource: mockData },
+      data: { resource: { content: mockData, pageIndex: 0, totalItems: mockData.length, totalPages: 1, pageSize: 8 } },
       refetch: refetchMock as unknown
     } as UseGetReturn<any, unknown, any, unknown>)
 
     const onSubmitMockFunc = jest.fn()
     const { container, getByText } = render(
-      <Container>
-        <SelectKubernetesNamespaces onSubmit={onSubmitMockFunc} />
-        <SubmitAndPreviousButtons />
-      </Container>
+      <SelectKubernetesNamespaces onSubmit={onSubmitMockFunc} onPrevious={() => undefined} />
     )
 
     await waitFor(() => expect(container.querySelector('[class*="main"]')).not.toBeNull())
@@ -98,15 +99,15 @@ describe('Unit tests for SelectKubernetesNamespaces', () => {
       expect(getByText(namespace)).not.toBeNull()
     }
 
-    const inputs = container.querySelectorAll('div[role="row"]')
+    const inputs = container.querySelectorAll('[class*="clickable"]')
     if (!inputs) {
       throw Error('inputs were not rendered.')
     }
 
-    expect(inputs.length).toBe(mockData.length + 1)
-    fireEvent.click(inputs[1])
+    expect(inputs.length).toBe(mockData.length)
+    fireEvent.click(inputs[0])
     await waitFor(() => {
-      expect(container.querySelectorAll('input')[0].getAttribute('checked')).toBe('')
+      expect(container.querySelectorAll('input[type="checkbox"]')[0].getAttribute('checked')).toBe('')
     })
 
     expect(container.querySelector('[data-name="validation"]')).toBeNull()

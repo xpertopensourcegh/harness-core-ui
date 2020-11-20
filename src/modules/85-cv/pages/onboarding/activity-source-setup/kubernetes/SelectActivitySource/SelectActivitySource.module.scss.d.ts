@@ -2,6 +2,11 @@
 // this is an auto-generated file
 declare const styles: {
   readonly main: string
-  readonly monitoringCard: string
+  readonly heading: string
+  readonly infraSpecification: string
+  readonly connectorOptionHeading: string
+  readonly connectorSelection: string
+  readonly category: string
+  readonly productSelectionCard: string
 }
 export default styles

@@ -2,7 +2,9 @@ import React from 'react'
 import { Container, Link, Text, Layout, Color, IconName } from '@wings-software/uikit'
 import { useRouteParams } from 'framework/exports'
 import type { ConnectorInfoDTO } from 'services/cd-ng'
-import useCreateConnectorModal from '@connectors/modals/ConnectorModal/useCreateConnectorModal'
+import useCreateConnectorModal, {
+  UseCreateConnectorModalProps
+} from '@connectors/modals/ConnectorModal/useCreateConnectorModal'
 import { AddDescriptionAndTagsWithIdentifier } from '@common/components/AddDescriptionAndTags/AddDescriptionAndTags'
 import { CVSelectionCard } from '@cv/components/CVSelectionCard/CVSelectionCard'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
@@ -14,6 +16,7 @@ export interface ConnectorSelectionProps {
   createConnectorText: string
   connectToMonitoringSourceText: string
   firstTimeSetupText: string
+  onSuccess?: UseCreateConnectorModalProps['onSuccess']
 }
 
 export interface SelectOrCreateConnectorProps extends ConnectorSelectionProps {
@@ -28,11 +31,11 @@ export const SelectOrCreateConnectorFieldNames = {
 }
 
 export function ConnectorSelection(props: ConnectorSelectionProps): JSX.Element {
-  const { connectToMonitoringSourceText, firstTimeSetupText, connectorType, createConnectorText } = props
+  const { connectToMonitoringSourceText, firstTimeSetupText, connectorType, createConnectorText, onSuccess } = props
   const {
     params: { accountId, projectIdentifier, orgIdentifier }
   } = useRouteParams()
-  const { openConnectorModal } = useCreateConnectorModal({})
+  const { openConnectorModal } = useCreateConnectorModal({ onSuccess })
 
   return (
     <Layout.Vertical spacing="xsmall">

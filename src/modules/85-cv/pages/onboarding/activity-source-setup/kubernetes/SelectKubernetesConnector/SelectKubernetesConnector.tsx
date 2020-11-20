@@ -1,99 +1,65 @@
 import React from 'react'
-import { Color, Container, Formik, FormikForm, FormInput, Heading, Text } from '@wings-software/uikit'
+import { Formik, FormikForm, Container, Text } from '@wings-software/uikit'
 import { object as yupObject, string as yupString } from 'yup'
-import { CVSelectionCardGroupProps, CVSelectionCardGroup } from '@cv/components/CVSelectionCard/CVSelectionCard'
-import { AddDescriptionAndTagsWithIdentifier } from '@common/components/AddDescriptionAndTags/AddDescriptionAndTags'
-import { InfrastructureTypeOptions } from '../../ActivitySourceSetupConstants'
+import {
+  ConnectorSelection,
+  SelectOrCreateConnectorFieldNames
+} from '@cv/pages/onboarding/SelectOrCreateConnector/SelectOrCreateConnector'
+import { SubmitAndPreviousButtons } from '@cv/pages/onboarding/SubmitAndPreviousButtons/SubmitAndPreviousButtons'
+import { CVSelectionCard } from '@cv/components/CVSelectionCard/CVSelectionCard'
 import i18n from './SelectKubernetesConnector.i18n'
 import css from './SelectKubernetesConnector.module.scss'
 
-export interface SelectKubernetesConnectorProps {
-  initialValues?: any
-  onSubmit?: (data: any) => void
+interface SelectKubernetesConnector {
+  onSubmit: (data: any) => void
+  onPrevious: () => void
+  data?: any
 }
-
-interface ActivitySourceConnectorSelectionProps {
-  connectorSelections: Array<{ category: string; products: CVSelectionCardGroupProps }>
-}
-
-export const KubernetesActivitySourceFieldNames = {
-  ACTIVITY_SOURCE_NAME: 'name',
-  INFRA_TYPE: 'infrastructureType'
-}
-
-const ProductSelections: ActivitySourceConnectorSelectionProps['connectorSelections'] = [
-  {
-    category: i18n.productSelectionCategory.directConnection,
-    products: {
-      cards: [
-        {
-          iconProps: {
-            name: 'service-kubernetes',
-            size: 25
-          },
-          cardLabel: i18n.productName.kubernetes,
-          className: css.productSelectionCard
-        }
-      ]
-    }
-  }
-]
 
 const ValidationSchema = yupObject().shape({
-  [KubernetesActivitySourceFieldNames.ACTIVITY_SOURCE_NAME]: yupString()
-    .trim()
-    .required(i18n.validationStrings.nameActivitySource),
-  [KubernetesActivitySourceFieldNames.INFRA_TYPE]: yupString().trim().required(i18n.validationStrings.infraType)
+  [SelectOrCreateConnectorFieldNames.CONNECTOR_REF]: yupString().trim().required('Connector Reference is required.')
 })
 
-function ActivitySourceConnectorSelection(props: ActivitySourceConnectorSelectionProps): JSX.Element {
-  const { connectorSelections: productSelections } = props
+export function SelectKubernetesConnector(props: SelectKubernetesConnector): JSX.Element {
+  const { onPrevious, onSubmit, data } = props
   return (
-    <Container className={css.connectorSelection}>
-      {productSelections.map(({ category, products }) => {
-        return (
-          <Container key={category}>
-            <Text className={css.category}>{category}</Text>
-            <CVSelectionCardGroup {...products} />
-          </Container>
-        )
-      })}
-    </Container>
-  )
-}
-
-export function SelectKubernetesConnector(props: SelectKubernetesConnectorProps): JSX.Element {
-  const { onSubmit, initialValues } = props
-  return (
-    <Container className={css.main}>
-      <Heading level="3" color={Color.BLACK} font={{ size: 'medium' }} className={css.heading}>
-        {i18n.selectActivitySource}
-      </Heading>
-      <Formik
-        initialValues={initialValues || {}}
-        onSubmit={values => onSubmit?.(values)}
-        validationSchema={ValidationSchema}
-      >
+    <Formik
+      initialValues={data || { connectorRef: undefined }}
+      validationSchema={ValidationSchema}
+      onSubmit={values => onSubmit({ ...values })}
+    >
+      {formikProps => (
         <FormikForm id="onBoardingForm">
-          <Container>
-            <AddDescriptionAndTagsWithIdentifier
-              identifierProps={{ inputLabel: i18n.fieldLabels.nameActivitySource }}
-            />
-            <FormInput.Select
-              items={InfrastructureTypeOptions}
-              label={i18n.fieldLabels.infraType}
-              name={KubernetesActivitySourceFieldNames.INFRA_TYPE}
-            />
-            <Text color={Color.BLACK} className={css.infraSpecification}>
-              {i18n.infraSpecification}
+          <Container className={css.main}>
+            <Text font={{ size: 'medium' }} margin={{ top: 'large', bottom: 'large' }}>
+              {i18n.selectConnectorHeading}
             </Text>
-            <Text color={Color.BLACK} className={css.connectorOptionHeading}>
-              {i18n.connectorOptionHeading}
-            </Text>
-            <ActivitySourceConnectorSelection connectorSelections={ProductSelections} />
+            <CVSelectionCard
+              isSelected={true}
+              className={css.monitoringCard}
+              iconProps={{
+                name: 'service-kubernetes',
+                size: 40
+              }}
+              cardLabel={i18n.iconLabel}
+              renderLabelOutsideCard={true}
+            />
+            <ConnectorSelection
+              connectorType="K8sCluster"
+              createConnectorText={i18n.createConnectorText}
+              firstTimeSetupText={i18n.firstTimeSetupText}
+              connectToMonitoringSourceText={i18n.kubernetesConnectionText}
+              onSuccess={connectorInfo => {
+                formikProps.setFieldValue(
+                  SelectOrCreateConnectorFieldNames.CONNECTOR_REF,
+                  connectorInfo?.connector?.identifier
+                )
+              }}
+            />
           </Container>
+          <SubmitAndPreviousButtons onPreviousClick={onPrevious} />
         </FormikForm>
-      </Formik>
-    </Container>
+      )}
+    </Formik>
   )
 }

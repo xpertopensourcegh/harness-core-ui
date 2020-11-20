@@ -1,21 +1,9 @@
 import React from 'react'
 import { fireEvent, render, waitFor } from '@testing-library/react'
-import { Container, FormInput } from '@wings-software/uikit'
-import { InputTypes, setFieldValue } from '@common/utils/JestFormHelper'
+import { Classes } from '@blueprintjs/core'
 import * as framework from 'framework/route/RouteMounter'
-import { SubmitAndPreviousButtons } from '@cv/pages/onboarding/SubmitAndPreviousButtons/SubmitAndPreviousButtons'
 import { SelectActivitySource } from '../SelectActivitySource'
-
-jest.mock('@cv/pages/onboarding/SelectOrCreateConnector/SelectOrCreateConnector', () => ({
-  ...(jest.requireActual('@cv/pages/onboarding/SelectOrCreateConnector/SelectOrCreateConnector') as object),
-  ConnectorSelection: function MockComponent() {
-    return <FormInput.Text name="connectorRef" />
-  }
-}))
-
-jest.mock('react-router-dom', () => ({
-  useHistory: jest.fn().mockReturnValue([])
-}))
+import i18n from '../SelectActivitySource.i18n'
 
 describe('Unit tests for SelectActivitySource', () => {
   beforeEach(() => {
@@ -30,24 +18,18 @@ describe('Unit tests for SelectActivitySource', () => {
       query: {}
     })
   })
-  test('Ensure validation works', async () => {
-    const onSubmitMockFunc = jest.fn()
-    const { container } = render(
-      <Container>
-        <SelectActivitySource onSubmit={onSubmitMockFunc} />
-        <SubmitAndPreviousButtons />
-      </Container>
-    )
+  test('Ensure required fields are validated', async () => {
+    const { container, getByText } = render(<SelectActivitySource />)
+    await waitFor(() => expect(container.querySelector('[class*="main"]')))
+    expect(getByText(i18n.productSelectionCategory.directConnection)).not.toBeNull()
 
-    await waitFor(() => expect(container.querySelector('[class*="main"]')).not.toBeNull())
     const submitButton = container.querySelector('button[type="submit"]')
-    if (!submitButton) {
-      throw Error('Submit button was not rendered.')
-    }
+    if (!submitButton) throw Error('Submit button was not rendered.')
 
-    setFieldValue({ container, type: InputTypes.TEXTFIELD, fieldId: 'connectorRef', value: 'blah' })
     fireEvent.click(submitButton)
-
-    await waitFor(() => expect(onSubmitMockFunc).toHaveBeenCalledWith({ connectorRef: 'blah' }))
+    await waitFor(() => expect(container.querySelector(`[class*="${Classes.FORM_HELPER_TEXT}"]`)).not.toBeNull())
+    for (const validationString of Object.values(i18n.validationStrings)) {
+      expect(getByText(validationString)).not.toBeNull()
+    }
   })
 })

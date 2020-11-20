@@ -1,24 +1,27 @@
-import React from 'react'
-import { Color, Container, Formik, FormikForm, Heading, Text } from '@wings-software/uikit'
+import React, { useState } from 'react'
+import { Color, Container, ExpandingSearchInput, Formik, FormikForm, Heading, Text } from '@wings-software/uikit'
 import type { CellProps } from 'react-table'
-import type { FormikProps } from 'formik'
 import { useRouteParams } from 'framework/exports'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
 import { PageError } from '@common/components/Page/PageError'
+import { SubmitAndPreviousButtons } from '@cv/pages/onboarding/SubmitAndPreviousButtons/SubmitAndPreviousButtons'
 import { useGetNamespaces } from 'services/cv'
 import { PageSpinner, Table } from '@common/components'
 import i18n from './SelectKubernetesNamespaces.i18n'
 import css from './SelectKubernetesNamespaces.module.scss'
 
 interface SelectKubernetesNamespacesProps {
-  onSubmit: (data: string[]) => void
+  onSubmit: (data: any) => void
+  onPrevious: () => void
+  data?: any
 }
 
-interface CheckedNamespaceProps {
-  tableProps: CellProps<object>
-  selectedNamespaces: Set<string>
-  setFieldValue: (fieldName: string, value: Set<string>) => void
+interface TableHeaderWithSearchProps {
+  filteredNamespace?: string
+  onFilter: (filterValue: string) => void
 }
+
+type TableData = { selected: boolean; namespace: string }
 
 export const SelectKubernetesNamespaceFieldNames = {
   SELECTED_NAME_SPACES: 'selectedNamespaces'
@@ -32,9 +35,20 @@ function validate(values: { selectedNamespaces: Set<string> }): { [key: string]:
   return errors
 }
 
-function NamespaceValue(tableProps: CellProps<object>): JSX.Element {
-  const { original } = tableProps?.row || { original: '' }
-  const namespace = (original as unknown) as string
+function generateTableData(apiData: string[], selectedNamespaces?: string[]): TableData[] {
+  const tableData = []
+  for (const namespace of apiData) {
+    tableData.push({
+      selected: Boolean(selectedNamespaces?.find(selectedNamespace => selectedNamespace === namespace)),
+      namespace
+    })
+  }
+
+  return tableData
+}
+
+function NamespaceValue(tableProps: CellProps<TableData>): JSX.Element {
+  const namespace = tableProps.value
   return (
     <Text
       icon="service-kubernetes"
@@ -46,38 +60,41 @@ function NamespaceValue(tableProps: CellProps<object>): JSX.Element {
   )
 }
 
-function CheckedNamespace(props: CheckedNamespaceProps): JSX.Element {
-  const { tableProps, selectedNamespaces, setFieldValue } = props
-  const { original } = tableProps?.row || { original: '' }
-  const namespace = (original as unknown) as string
-  const selectedNamespace = selectedNamespaces.has(namespace)
+function TableHeaderWithSearch(props: TableHeaderWithSearchProps): JSX.Element {
+  const { filteredNamespace, onFilter } = props
   return (
-    <input
-      type="checkbox"
-      checked={selectedNamespace}
-      onClick={e => {
-        if (selectedNamespace && !e.currentTarget.checked) {
-          selectedNamespaces.delete(namespace)
-        } else if (!selectedNamespace && e.currentTarget.checked) {
-          selectedNamespaces.add(namespace)
-        }
-        setFieldValue(SelectKubernetesNamespaceFieldNames.SELECTED_NAME_SPACES, new Set(selectedNamespaces))
-      }}
-    />
+    <Container flex>
+      <Text color={Color.BLACK}>{i18n.tableColumnName.kubernetesNamespace}</Text>{' '}
+      <ExpandingSearchInput
+        throttle={300}
+        defaultValue={filteredNamespace}
+        onChange={namespaceSubstring => onFilter(namespaceSubstring)}
+      />
+    </Container>
   )
 }
 
 export function SelectKubernetesNamespaces(props: SelectKubernetesNamespacesProps): JSX.Element {
-  const { onSubmit } = props
+  const { onSubmit, onPrevious, data: propsData } = props
   const {
     params: { accountId, projectIdentifier, orgIdentifier }
   } = useRouteParams()
+  const [{ pageOffset, filteredNamespace }, setFilterAndPageOffset] = useState<{
+    pageOffset: number
+    filteredNamespace?: string
+  }>({
+    pageOffset: 0,
+    filteredNamespace: undefined
+  })
   const { loading, error, data, refetch: refetchNamespaces } = useGetNamespaces({
     queryParams: {
       projectIdentifier: projectIdentifier as string,
       orgIdentifier: orgIdentifier as string,
       accountId,
-      connnectorIdentifier: '1342'
+      connectorIdentifier: propsData?.connectorRef?.value || '',
+      pageSize: 8,
+      filter: filteredNamespace,
+      offset: pageOffset
     }
   })
 
@@ -97,9 +114,9 @@ export function SelectKubernetesNamespaces(props: SelectKubernetesNamespacesProp
     )
   }
 
-  const nameSpaces = data?.resource
+  const { content, pageIndex = 0, totalItems = 0, totalPages = 0, pageSize = 0 } = data?.resource || {}
 
-  if (!nameSpaces?.length) {
+  if (!content?.length) {
     return (
       <Container className={css.loadingErrorNoData}>
         <NoDataCard
@@ -112,48 +129,71 @@ export function SelectKubernetesNamespaces(props: SelectKubernetesNamespacesProp
     )
   }
 
+  const nameSpaces = generateTableData(content, propsData?.selectedNamespaces)
+
   return (
-    <Container className={css.main}>
-      <Heading level="3" color={Color.BLACK}>
-        {i18n.headingText}
-      </Heading>
-      <Formik
-        initialValues={{ selectedNamespaces: new Set<string>() }}
-        onSubmit={values => onSubmit(Array.from(values.selectedNamespaces.keys()))}
-        validate={validate}
-      >
-        {(formikProps: FormikProps<{ selectedNamespaces: Set<string> }>) => {
-          const { selectedNamespaces } = formikProps.values
-          return (
-            <FormikForm id="onBoardingForm">
-              <Table
+    <Formik
+      initialValues={{ ...propsData, selectedNamespaces: new Set<string>() }}
+      onSubmit={values => onSubmit({ ...values, selectedNamespaces: Array.from(values.selectedNamespaces.keys()) })}
+      validate={validate}
+    >
+      {formikProps => {
+        const { selectedNamespaces } = formikProps.values
+        return (
+          <FormikForm>
+            <Container className={css.main}>
+              <Heading level="3" color={Color.BLACK}>
+                {i18n.headingText}
+              </Heading>
+              <Table<TableData>
                 className={css.table}
                 columns={[
                   {
-                    accessor: 'entityName',
+                    accessor: 'selected',
                     width: '5%',
                     Cell: function CheckColumn(tableProps) {
+                      const namespace = tableProps.row.original?.namespace
+                      const isChecked = selectedNamespaces.has(namespace)
                       return (
-                        <CheckedNamespace
-                          tableProps={tableProps}
-                          selectedNamespaces={selectedNamespaces}
-                          setFieldValue={formikProps.setFieldValue}
+                        <input
+                          type="checkbox"
+                          checked={isChecked}
+                          onChange={e => {
+                            if (isChecked && !e.currentTarget.checked) {
+                              selectedNamespaces.delete(namespace)
+                            } else if (!isChecked && e.currentTarget.checked) {
+                              selectedNamespaces.add(namespace)
+                            }
+                            formikProps.setFieldValue(
+                              SelectKubernetesNamespaceFieldNames.SELECTED_NAME_SPACES,
+                              new Set(selectedNamespaces)
+                            )
+                          }}
                         />
                       )
                     },
                     disableSortBy: true
                   },
                   {
-                    Header: i18n.tableColumnName.kubernetesNamespace,
-                    accessor: 'repositoryName',
-                    width: '85%',
+                    Header: function TableHeaderWrapper() {
+                      return (
+                        <TableHeaderWithSearch
+                          filteredNamespace={filteredNamespace}
+                          onFilter={namespaceSubstring =>
+                            setFilterAndPageOffset({ pageOffset: 0, filteredNamespace: namespaceSubstring })
+                          }
+                        />
+                      )
+                    },
+                    accessor: 'namespace',
+                    width: '95%',
                     Cell: NamespaceValue,
                     disableSortBy: true
                   }
                 ]}
-                data={(nameSpaces as unknown) as object[]}
+                data={nameSpaces}
                 onRowClick={rowData => {
-                  const namespace = (rowData as unknown) as string
+                  const { namespace } = rowData
                   if (selectedNamespaces.has(namespace)) selectedNamespaces.delete(namespace)
                   else selectedNamespaces.add(namespace)
                   formikProps.setFieldValue(
@@ -163,11 +203,11 @@ export function SelectKubernetesNamespaces(props: SelectKubernetesNamespacesProp
                 }}
                 sortable={true}
                 pagination={{
-                  itemCount: nameSpaces.length,
-                  pageSize: nameSpaces.length,
-                  pageCount: 1,
-                  pageIndex: 0,
-                  gotoPage: () => undefined
+                  pageSize: pageSize || 0,
+                  pageIndex: pageIndex,
+                  pageCount: totalPages,
+                  itemCount: totalItems,
+                  gotoPage: newPageIndex => setFilterAndPageOffset({ pageOffset: newPageIndex, filteredNamespace })
                 }}
               />
               {formikProps.errors.selectedNamespaces ? (
@@ -175,10 +215,11 @@ export function SelectKubernetesNamespaces(props: SelectKubernetesNamespacesProp
                   {formikProps.errors.selectedNamespaces}
                 </Text>
               ) : null}
-            </FormikForm>
-          )
-        }}
-      </Formik>
-    </Container>
+            </Container>
+            <SubmitAndPreviousButtons onPreviousClick={onPrevious} />
+          </FormikForm>
+        )
+      }}
+    </Formik>
   )
 }

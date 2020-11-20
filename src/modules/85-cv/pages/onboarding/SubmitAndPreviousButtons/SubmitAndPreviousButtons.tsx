@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, ButtonProps, Layout } from '@wings-software/uikit'
+import { Button, Layout } from '@wings-software/uikit'
 import i18n from './SubmitAndPreviousButtons.i18n'
 import css from './SubmitAndPreviousButtons.module.scss'
 
@@ -10,14 +10,6 @@ export interface SubmitAndPreviousButtonProps {
 
 export function SubmitAndPreviousButtons(props: SubmitAndPreviousButtonProps): JSX.Element {
   const { onNextClick, onPreviousClick } = props
-  const submitButtonProps = {
-    form: 'onBoardingForm',
-    text: i18n.nextLabel,
-    intent: 'primary',
-    type: 'submit',
-    rightIcon: 'chevron-right',
-    onClick: () => onNextClick?.()
-  } as ButtonProps
   return (
     <Layout.Horizontal className={css.main}>
       <Button
@@ -26,7 +18,13 @@ export function SubmitAndPreviousButtons(props: SubmitAndPreviousButtonProps): J
         icon="chevron-left"
         onClick={() => onPreviousClick?.()}
       />
-      <Button {...submitButtonProps} />
+      <Button
+        text={i18n.nextLabel}
+        intent="primary"
+        type="submit"
+        rightIcon="chevron-right"
+        onClick={() => onNextClick?.()}
+      />
     </Layout.Horizontal>
   )
 }

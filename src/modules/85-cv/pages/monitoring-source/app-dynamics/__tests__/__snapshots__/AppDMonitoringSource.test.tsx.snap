@@ -610,7 +610,6 @@ exports[`AppDMonitoringSOurce render initial state 1`] = `
                     </button>
                     <button
                       class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
-                      form="onBoardingForm"
                       type="submit"
                     >
                       <span

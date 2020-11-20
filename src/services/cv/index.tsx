@@ -442,6 +442,14 @@ export interface RestResponseActivityVerificationResultDTO {
   responseMessages?: ResponseMessage[]
 }
 
+export interface RestResponseDeploymentVerificationJobInstanceSummary {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: DeploymentVerificationJobInstanceSummary
+  responseMessages?: ResponseMessage[]
+}
+
 export interface RestResponseString {
   metaData?: {
     [key: string]: { [key: string]: any }
@@ -465,6 +473,34 @@ export interface RestResponseListString {
     [key: string]: { [key: string]: any }
   }
   resource?: string[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface Page {
+  totalPages?: number
+  totalItems?: number
+  pageItemCount?: number
+  pageSize?: number
+  content?: { [key: string]: any }[]
+  pageIndex?: number
+  empty?: boolean
+}
+
+export interface PageString {
+  totalPages?: number
+  totalItems?: number
+  pageItemCount?: number
+  pageSize?: number
+  content?: string[]
+  pageIndex?: number
+  empty?: boolean
+}
+
+export interface RestResponsePageString {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: PageString
   responseMessages?: ResponseMessage[]
 }
 
@@ -627,6 +663,14 @@ export interface ResultSummary {
   testClusterSummaries?: ClusterSummary[]
 }
 
+export interface RestResponseListLogAnalysisCluster {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: LogAnalysisCluster[]
+  responseMessages?: ResponseMessage[]
+}
+
 export interface LogClusterDTO {
   verificationTaskId?: string
   epochMinute?: number
@@ -641,14 +685,6 @@ export interface RestResponseListLogClusterDTO {
     [key: string]: { [key: string]: any }
   }
   resource?: LogClusterDTO[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface RestResponseListLogAnalysisCluster {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: LogAnalysisCluster[]
   responseMessages?: ResponseMessage[]
 }
 
@@ -901,8 +937,8 @@ export interface CVConfig {
   monitoringSourceIdentifier: string
   monitoringSourceName: string
   analysisOrchestrationIteration?: number
-  firstTimeDataCollectionTimeRange?: TimeRange
   type?: 'APP_DYNAMICS' | 'SPLUNK'
+  firstTimeDataCollectionTimeRange?: TimeRange
 }
 
 export interface RestResponseCVConfig {
@@ -940,6 +976,27 @@ export interface RestResponseCVSetupStatus {
     [key: string]: { [key: string]: any }
   }
   resource?: CVSetupStatus
+  responseMessages?: ResponseMessage[]
+}
+
+export interface MonitoringSource {
+  monitoringSourceIdentifier?: string
+  monitoringSourceName?: string
+  type?: 'APP_DYNAMICS' | 'SPLUNK'
+  importStatus?: MonitoringSourceImportStatus
+  numberOfServices?: number
+  importedAt?: number
+}
+
+export interface MonitoringSourceImportStatus {
+  [key: string]: any
+}
+
+export interface RestResponseListMonitoringSource {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: MonitoringSource[]
   responseMessages?: ResponseMessage[]
 }
 
@@ -1004,27 +1061,6 @@ export interface ServiceResponseDTO {
     [key: string]: string
   }
   version?: number
-}
-
-export interface MonitoringSource {
-  monitoringSourceIdentifier?: string
-  monitoringSourceName?: string
-  type?: 'APP_DYNAMICS' | 'SPLUNK'
-  importStatus?: MonitoringSourceImportStatus
-  numberOfServices?: number
-  importedAt?: number
-}
-
-export interface MonitoringSourceImportStatus {
-  [key: string]: any
-}
-
-export interface RestResponseListMonitoringSource {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: MonitoringSource[]
-  responseMessages?: ResponseMessage[]
 }
 
 export interface TimeSeriesDataCollectionRecord {
@@ -1095,6 +1131,14 @@ export interface LogRecordDTO {
   log?: string
 }
 
+export interface RestResponseListTimeSeriesThreshold {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: TimeSeriesThreshold[]
+  responseMessages?: ResponseMessage[]
+}
+
 export interface MetricDefinitionDTO {
   name?: string
   type?: 'INFRA' | 'RESP_TIME' | 'THROUGHPUT' | 'ERROR' | 'APDEX'
@@ -1132,14 +1176,6 @@ export interface TimeSeriesThresholdDTO {
   metricGroupName?: string
   action?: 'IGNORE' | 'FAIL'
   criteria?: TimeSeriesThresholdCriteria
-}
-
-export interface RestResponseListTimeSeriesThreshold {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: TimeSeriesThreshold[]
-  responseMessages?: ResponseMessage[]
 }
 
 export interface OnboardingResponseDTO {
@@ -1195,6 +1231,13 @@ export interface AwsCredentialSpec {
   [key: string]: any
 }
 
+export type AzureContainerRegistryConnectorDTO = ConnectorConfigDTO & {
+  subscriptionId: string
+  resourceGroupName: string
+  azureRegistryName: string
+  azureRegistryLoginServer: string
+}
+
 export interface ConnectorConfigDTO {
   [key: string]: any
 }
@@ -1243,8 +1286,8 @@ export interface DataCollectionRequest {
   connectorInfoDTO?: ConnectorInfoDTO
   tracingId?: string
   type?: 'SPLUNK_SAVED_SEARCHES'
-  baseUrl?: string
   connectorConfigDTO?: ConnectorConfigDTO
+  baseUrl?: string
   dslEnvVariables?: {
     [key: string]: { [key: string]: any }
   }
@@ -1597,16 +1640,6 @@ export interface LogData {
   tag?: 'KNOWN' | 'UNEXPECTED' | 'UNKNOWN'
 }
 
-export interface Page {
-  totalPages?: number
-  totalItems?: number
-  pageItemCount?: number
-  pageSize?: number
-  content?: { [key: string]: any }[]
-  pageIndex?: number
-  empty?: boolean
-}
-
 export interface PageAnalyzedLogDataDTO {
   totalPages?: number
   totalItems?: number
@@ -1672,23 +1705,6 @@ export interface TimeSeriesMetricDataDTO {
   metricDataList?: MetricData[]
 }
 
-export interface LogAnalysisClusterChartDTO {
-  label?: number
-  text?: string
-  hostName?: string
-  risk?: number
-  x?: number
-  y?: number
-}
-
-export interface RestResponseListLogAnalysisClusterChartDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: LogAnalysisClusterChartDTO[]
-  responseMessages?: ResponseMessage[]
-}
-
 export interface LogAnalysisClusterDTO {
   message?: string
   label?: number
@@ -1715,6 +1731,23 @@ export interface RestResponsePageLogAnalysisClusterDTO {
     [key: string]: { [key: string]: any }
   }
   resource?: PageLogAnalysisClusterDTO
+  responseMessages?: ResponseMessage[]
+}
+
+export interface LogAnalysisClusterChartDTO {
+  label?: number
+  text?: string
+  hostName?: string
+  risk?: number
+  x?: number
+  y?: number
+}
+
+export interface RestResponseListLogAnalysisClusterChartDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: LogAnalysisClusterChartDTO[]
   responseMessages?: ResponseMessage[]
 }
 
@@ -3270,16 +3303,19 @@ export interface GetNamespacesQueryParams {
   accountId: string
   orgIdentifier: string
   projectIdentifier: string
-  connnectorIdentifier: string
+  connectorIdentifier: string
+  offset: number
+  pageSize: number
+  filter?: string
 }
 
-export type GetNamespacesProps = Omit<GetProps<RestResponseListString, unknown, GetNamespacesQueryParams, void>, 'path'>
+export type GetNamespacesProps = Omit<GetProps<RestResponsePageString, unknown, GetNamespacesQueryParams, void>, 'path'>
 
 /**
  * gets a list of kubernetes namespaces
  */
 export const GetNamespaces = (props: GetNamespacesProps) => (
-  <Get<RestResponseListString, unknown, GetNamespacesQueryParams, void>
+  <Get<RestResponsePageString, unknown, GetNamespacesQueryParams, void>
     path="/kubernetes/namespaces"
     base={getConfig('cv/api')}
     {...props}
@@ -3287,7 +3323,7 @@ export const GetNamespaces = (props: GetNamespacesProps) => (
 )
 
 export type UseGetNamespacesProps = Omit<
-  UseGetProps<RestResponseListString, unknown, GetNamespacesQueryParams, void>,
+  UseGetProps<RestResponsePageString, unknown, GetNamespacesQueryParams, void>,
   'path'
 >
 
@@ -3295,7 +3331,7 @@ export type UseGetNamespacesProps = Omit<
  * gets a list of kubernetes namespaces
  */
 export const useGetNamespaces = (props: UseGetNamespacesProps) =>
-  useGet<RestResponseListString, unknown, GetNamespacesQueryParams, void>(`/kubernetes/namespaces`, {
+  useGet<RestResponsePageString, unknown, GetNamespacesQueryParams, void>(`/kubernetes/namespaces`, {
     base: getConfig('cv/api'),
     ...props
   })
@@ -3304,17 +3340,20 @@ export interface GetWorkloadsQueryParams {
   accountId: string
   orgIdentifier: string
   projectIdentifier: string
-  connnectorIdentifier: string
+  connectorIdentifier: string
   namespace: string
+  offset: number
+  pageSize: number
+  filter?: string
 }
 
-export type GetWorkloadsProps = Omit<GetProps<RestResponseListString, unknown, GetWorkloadsQueryParams, void>, 'path'>
+export type GetWorkloadsProps = Omit<GetProps<RestResponsePageString, unknown, GetWorkloadsQueryParams, void>, 'path'>
 
 /**
  * gets a list of kubernetes workloads
  */
 export const GetWorkloads = (props: GetWorkloadsProps) => (
-  <Get<RestResponseListString, unknown, GetWorkloadsQueryParams, void>
+  <Get<RestResponsePageString, unknown, GetWorkloadsQueryParams, void>
     path="/kubernetes/workloads"
     base={getConfig('cv/api')}
     {...props}
@@ -3322,7 +3361,7 @@ export const GetWorkloads = (props: GetWorkloadsProps) => (
 )
 
 export type UseGetWorkloadsProps = Omit<
-  UseGetProps<RestResponseListString, unknown, GetWorkloadsQueryParams, void>,
+  UseGetProps<RestResponsePageString, unknown, GetWorkloadsQueryParams, void>,
   'path'
 >
 
@@ -3330,7 +3369,95 @@ export type UseGetWorkloadsProps = Omit<
  * gets a list of kubernetes workloads
  */
 export const useGetWorkloads = (props: UseGetWorkloadsProps) =>
-  useGet<RestResponseListString, unknown, GetWorkloadsQueryParams, void>(`/kubernetes/workloads`, {
+  useGet<RestResponsePageString, unknown, GetWorkloadsQueryParams, void>(`/kubernetes/workloads`, {
     base: getConfig('cv/api'),
     ...props
   })
+
+export interface RegisterKubernetesSourceQueryParams {
+  accountId: string
+  orgIdentifier: string
+  projectIdentifier: string
+}
+
+export type RegisterKubernetesSourceProps = Omit<
+  MutateProps<RestResponseString, unknown, RegisterKubernetesSourceQueryParams, KubernetesActivitySourceDTO, void>,
+  'path' | 'verb'
+>
+
+/**
+ * register a kubernetes event source
+ */
+export const RegisterKubernetesSource = (props: RegisterKubernetesSourceProps) => (
+  <Mutate<RestResponseString, unknown, RegisterKubernetesSourceQueryParams, KubernetesActivitySourceDTO, void>
+    verb="POST"
+    path="/kubernetes/source"
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseRegisterKubernetesSourceProps = Omit<
+  UseMutateProps<RestResponseString, unknown, RegisterKubernetesSourceQueryParams, KubernetesActivitySourceDTO, void>,
+  'path' | 'verb'
+>
+
+/**
+ * register a kubernetes event source
+ */
+export const useRegisterKubernetesSource = (props: UseRegisterKubernetesSourceProps) =>
+  useMutate<RestResponseString, unknown, RegisterKubernetesSourceQueryParams, KubernetesActivitySourceDTO, void>(
+    'POST',
+    `/kubernetes/source`,
+    { base: getConfig('cv/api'), ...props }
+  )
+
+export interface RegisterKubernetesSourcesQueryParams {
+  accountId: string
+  orgIdentifier: string
+  projectIdentifier: string
+}
+
+export type RegisterKubernetesSourcesProps = Omit<
+  MutateProps<
+    RestResponseListString,
+    unknown,
+    RegisterKubernetesSourcesQueryParams,
+    KubernetesActivitySourceDTO[],
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * register a list of kubernetes event sources
+ */
+export const RegisterKubernetesSources = (props: RegisterKubernetesSourcesProps) => (
+  <Mutate<RestResponseListString, unknown, RegisterKubernetesSourcesQueryParams, KubernetesActivitySourceDTO[], void>
+    verb="POST"
+    path="/kubernetes/sources"
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseRegisterKubernetesSourcesProps = Omit<
+  UseMutateProps<
+    RestResponseListString,
+    unknown,
+    RegisterKubernetesSourcesQueryParams,
+    KubernetesActivitySourceDTO[],
+    void
+  >,
+  'path' | 'verb'
+>
+
+/**
+ * register a list of kubernetes event sources
+ */
+export const useRegisterKubernetesSources = (props: UseRegisterKubernetesSourcesProps) =>
+  useMutate<RestResponseListString, unknown, RegisterKubernetesSourcesQueryParams, KubernetesActivitySourceDTO[], void>(
+    'POST',
+    `/kubernetes/sources`,
+    { base: getConfig('cv/api'), ...props }
+  )
