@@ -54,20 +54,40 @@
             "name": "Plugin"
           },
           {
-            "type": "Restore_Cache",
-            "name": "Restore Cache"
+            "type": "buildAndPushGCR",
+            "name": "Build and Upload to GCR"
           },
           {
-            "type": "Save_Cache",
-            "name": "Save Cache"
+            "type": "buildAndPushECR",
+            "name": "Build and Upload to ECR"
           },
           {
-            "type": "GCR",
-            "name": "GCR"
+            "type": "saveCacheGCS",
+            "name": "Save Cache to GCS"
           },
           {
-            "type": "dockerHub",
-            "name": "DockerHub"
+            "type": "restoreCacheGCS",
+            "name": "Restore Cache From GCS"
+          },
+          {
+            "type": "saveCacheS3",
+            "name": "Save Cache to S3"
+          },
+          {
+            "type": "restoreCacheS3",
+            "name": "Restore Cache From S3"
+          },
+          {
+            "type": "buildAndPushDockerHub",
+            "name": "Build and Upload to DockerHub"
+          },
+          {
+            "type": "uploadToGCS",
+            "name": "Upload to GCS"
+          },
+          {
+            "type": "uploadToS3",
+            "name": "Upload to S3"
           }
         ],
         "stepCategories": []

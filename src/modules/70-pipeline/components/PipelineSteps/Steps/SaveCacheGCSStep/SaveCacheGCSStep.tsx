@@ -11,7 +11,6 @@ import {
   FormikForm
 } from '@wings-software/uikit'
 import { isEmpty } from 'lodash-es'
-import { FieldArray } from 'formik'
 import * as yup from 'yup'
 import cx from 'classnames'
 import { useParams } from 'react-router-dom'
@@ -29,7 +28,7 @@ import { ConnectorInfoDTO, useGetConnector } from 'services/cd-ng'
 import { StepType } from '../../PipelineStepInterface'
 import { PipelineStep } from '../../PipelineStep'
 import { removeEmptyKeys } from '../StepsUtils'
-import css from './DockerHubStep.module.scss'
+import css from './SaveCacheGCSStep.module.scss'
 import stepCss from '../Steps.module.scss'
 
 export enum LimitMemoryUnits {
@@ -45,14 +44,10 @@ const validationSchema = yup.object().shape({
     .object()
     .shape({
       connectorRef: yup.mixed().required(),
-      repo: yup.string().trim().required(),
-      tags: yup.array().compact().required(),
-      dockerfile: yup.string(),
-      context: yup.string(),
-      labels: yup.array(),
-      buildArgs: yup.array(),
+      key: yup.string().trim().required(),
+      bucket: yup.string().trim().required(),
+      sourcePath: yup.array().compact().required(),
       target: yup.string(),
-      pull: yup.string(),
       limitCPU: yup
         .number()
         .transform((v, o) => (o === '' ? null : v))
@@ -68,13 +63,13 @@ const validationSchema = yup.object().shape({
     .required()
 })
 
-export interface DockerHubStepWidgetProps {
-  initialValues: any //DockerHubStepData
-  onUpdate?: (data: any) => void //DockerHubStepData
+export interface SaveCacheGCSStepWidgetProps {
+  initialValues: any //SaveCacheGCSStepData
+  onUpdate?: (data: any) => void //SaveCacheGCSStepData
   stepViewType?: StepViewType
 }
 
-const DockerHubStepWidget: React.FC<DockerHubStepWidgetProps> = ({ initialValues, onUpdate }): JSX.Element => {
+const SaveCacheGCSStepWidget: React.FC<SaveCacheGCSStepWidgetProps> = ({ initialValues, onUpdate }): JSX.Element => {
   const {
     state: { pipelineView },
     updatePipelineView
@@ -112,33 +107,7 @@ const DockerHubStepWidget: React.FC<DockerHubStepWidgetProps> = ({ initialValues
     }
   }, [initialValues.spec.connectorRef])
 
-  const pullOptions = [
-    { label: getString('pipelineSteps.pullIfNotExistsLabel'), value: 'ifNotExists' },
-    { label: getString('pipelineSteps.pullNeverLabel'), value: 'never' },
-    { label: getString('pipelineSteps.pullAlwaysLabel'), value: 'always' }
-  ]
-
-  // Fix typings
   function getInitialValuesInCorrectFormat(): any {
-    const labels = Object.keys(initialValues.spec.labels || {}).map(key => ({
-      key: key,
-      value: initialValues.spec.labels![key]
-    }))
-
-    if (labels.length === 0) {
-      labels.push({ key: '', value: '' })
-    }
-
-    const buildArgs = Object.keys(initialValues.spec.buildArgs || {}).map(key => ({
-      key: key,
-      value: initialValues.spec.buildArgs![key]
-    }))
-
-    if (buildArgs.length === 0) {
-      buildArgs.push({ key: '', value: '' })
-    }
-
-    const pull = pullOptions.find(({ value }) => value === initialValues.spec.pull)
     const limitMemory = initialValues.spec?.resources?.limit?.memory
     const limitCPU = initialValues.spec?.resources?.limit?.cpu
 
@@ -146,11 +115,8 @@ const DockerHubStepWidget: React.FC<DockerHubStepWidgetProps> = ({ initialValues
       ...initialValues,
       spec: {
         ...initialValues.spec,
-        limitMemoryUnits: LimitMemoryUnits.Mi,
-        labels,
-        buildArgs,
-        pull,
         limitMemory,
+        limitMemoryUnits: LimitMemoryUnits.Mi,
         limitCPU
       }
     })
@@ -186,29 +152,13 @@ const DockerHubStepWidget: React.FC<DockerHubStepWidgetProps> = ({ initialValues
   return (
     <>
       <Text className={stepCss.boldLabel} font={{ size: 'medium' }}>
-        {getPipelineStepsString('dockerHub.title')}
+        {getPipelineStepsString('saveCacheGCS.title')}
       </Text>
       <Formik
         enableReinitialize={true}
         initialValues={values}
         validationSchema={validationSchema}
         onSubmit={_values => {
-          const labels: { [key: string]: string } = {}
-          _values.spec.labels.forEach((pair: { key: string; value: string }) => {
-            // Skip empty
-            if (pair.key && pair.value) {
-              labels[pair.key] = pair.value
-            }
-          })
-
-          const buildArgs: { [key: string]: string } = {}
-          _values.spec.buildArgs.forEach((pair: { key: string; value: string }) => {
-            // Skip empty
-            if (pair.key && pair.value) {
-              buildArgs[pair.key] = pair.value
-            }
-          })
-
           const resources: { limit?: { memory?: number; cpu?: number } } = {}
 
           if (_values.spec.limitMemory || _values.spec.limitCPU) {
@@ -223,8 +173,6 @@ const DockerHubStepWidget: React.FC<DockerHubStepWidgetProps> = ({ initialValues
             }
           }
 
-          delete _values.spec.labels
-          delete _values.spec.buildArgs
           delete _values.spec.limitMemory
           delete _values.spec.limitMemoryUnits
           delete _values.spec.limitCPU
@@ -236,9 +184,6 @@ const DockerHubStepWidget: React.FC<DockerHubStepWidgetProps> = ({ initialValues
             spec: {
               ..._values.spec,
               connectorRef: _values.spec.connectorRef?.value || _values.spec.connectorRef,
-              pull: _values.spec.pull?.value || _values.spec.pull,
-              labels,
-              buildArgs,
               resources
             }
           }
@@ -255,9 +200,12 @@ const DockerHubStepWidget: React.FC<DockerHubStepWidgetProps> = ({ initialValues
                 inputLabel={getString('pipelineSteps.stepNameLabel')}
               />
               <FormInput.TextArea name="description" label={getString('pipelineSteps.descriptionLabel')} />
-              <Text margin={{ top: 'medium', bottom: 'xsmall' }}>{getString('pipelineSteps.connectorLabel')}</Text>
+              <Text margin={{ top: 'medium', bottom: 'xsmall' }}>
+                {getPipelineStepsString('saveCacheGCS.connectorLabel')}
+              </Text>
               <div className={cx(css.fieldsGroup, css.withoutSpacing)}>
                 <FormMultiTypeConnectorField
+                  type="Gcp"
                   name="spec.connectorRef"
                   label=""
                   placeholder={loading ? getString('loading') : getString('pipelineSteps.connectorPlaceholder')}
@@ -271,7 +219,7 @@ const DockerHubStepWidget: React.FC<DockerHubStepWidgetProps> = ({ initialValues
                     value={formValues?.spec.connectorRef as string}
                     type={
                       <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-                        <Text>{getString('pipelineSteps.connectorLabel')}</Text>
+                        <Text>{getPipelineStepsString('saveCacheGCS.connectorLabel')}</Text>
                       </Layout.Horizontal>
                     }
                     variableName="spec.connectorRef"
@@ -284,28 +232,47 @@ const DockerHubStepWidget: React.FC<DockerHubStepWidgetProps> = ({ initialValues
                   />
                 )}
               </div>
-              <Text margin={{ top: 'medium', bottom: 'xsmall' }}>{getString('pipelineSteps.repoLabel')}</Text>
+              <Text margin={{ top: 'medium', bottom: 'xsmall' }}>{getString('pipelineSteps.keyLabel')}</Text>
               <div className={cx(css.fieldsGroup, css.withoutSpacing, css.bottomSpacing)}>
-                <FormInput.MultiTextInput name="spec.repo" label="" style={{ flexGrow: 1 }} />
-                {getMultiTypeFromValue(formValues.spec.repo) === MultiTypeInputType.RUNTIME && (
+                <FormInput.MultiTextInput name="spec.key" label="" style={{ flexGrow: 1 }} />
+                {getMultiTypeFromValue(formValues.spec.key) === MultiTypeInputType.RUNTIME && (
                   <ConfigureOptions
-                    value={formValues.spec.repo as string}
+                    value={formValues.spec.key as string}
                     type={
                       <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-                        <Text>{getString('pipelineSteps.repoLabel')}</Text>
+                        <Text>{getString('pipelineSteps.keyLabel')}</Text>
                       </Layout.Horizontal>
                     }
-                    variableName="spec.repo"
+                    variableName="spec.key"
                     showRequiredField={false}
                     showDefaultField={false}
                     showAdvanced={true}
-                    onChange={value => setFieldValue('spec.repo', value)}
+                    onChange={value => setFieldValue('spec.key', value)}
+                  />
+                )}
+              </div>
+              <Text margin={{ top: 'medium', bottom: 'xsmall' }}>{getString('pipelineSteps.bucketLabel')}</Text>
+              <div className={cx(css.fieldsGroup, css.withoutSpacing, css.bottomSpacing)}>
+                <FormInput.MultiTextInput name="spec.bucket" label="" style={{ flexGrow: 1 }} />
+                {getMultiTypeFromValue(formValues.spec.bucket) === MultiTypeInputType.RUNTIME && (
+                  <ConfigureOptions
+                    value={formValues.spec.bucket as string}
+                    type={
+                      <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
+                        <Text>{getString('pipelineSteps.bucketLabel')}</Text>
+                      </Layout.Horizontal>
+                    }
+                    variableName="spec.bucket"
+                    showRequiredField={false}
+                    showDefaultField={false}
+                    showAdvanced={true}
+                    onChange={value => setFieldValue('spec.bucket', value)}
                   />
                 )}
               </div>
               <FormInput.TagInput
-                name="spec.tags"
-                label={getString('pipelineSteps.tagsLabel')}
+                name="spec.sourcePath"
+                label={getString('pipelineSteps.sourcePathLabel')}
                 items={[]}
                 labelFor={name => name as string}
                 itemFromNewTag={newTag => newTag}
@@ -325,155 +292,8 @@ const DockerHubStepWidget: React.FC<DockerHubStepWidgetProps> = ({ initialValues
               <Text className={css.optionalConfiguration} font={{ weight: 'semi-bold' }} margin={{ bottom: 'medium' }}>
                 {getString('pipelineSteps.optionalConfiguration')}
               </Text>
-              <Text margin={{ top: 'medium', bottom: 'xsmall' }}>{getString('pipelineSteps.dockerfileLabel')}</Text>
-              <div className={cx(css.fieldsGroup, css.withoutSpacing)}>
-                <FormInput.MultiTextInput name="spec.dockerfile" label="" style={{ flexGrow: 1 }} />
-                {getMultiTypeFromValue(formValues.spec.dockerfile) === MultiTypeInputType.RUNTIME && (
-                  <ConfigureOptions
-                    value={formValues.spec.dockerfile as string}
-                    type={
-                      <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-                        <Text>{getString('pipelineSteps.dockerfileLabel')}</Text>
-                      </Layout.Horizontal>
-                    }
-                    variableName="spec.dockerfile"
-                    showRequiredField={false}
-                    showDefaultField={false}
-                    showAdvanced={true}
-                    onChange={value => setFieldValue('spec.dockerfile', value)}
-                  />
-                )}
-              </div>
-              <Text margin={{ top: 'medium', bottom: 'xsmall' }}>{getString('pipelineSteps.contextLabel')}</Text>
-              <div className={cx(css.fieldsGroup, css.withoutSpacing)}>
-                <FormInput.MultiTextInput name="spec.context" label="" style={{ flexGrow: 1 }} />
-                {getMultiTypeFromValue(formValues.spec.context) === MultiTypeInputType.RUNTIME && (
-                  <ConfigureOptions
-                    value={formValues.spec.context as string}
-                    type={
-                      <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-                        <Text>{getString('pipelineSteps.contextLabel')}</Text>
-                      </Layout.Horizontal>
-                    }
-                    variableName="spec.context"
-                    showRequiredField={false}
-                    showDefaultField={false}
-                    showAdvanced={true}
-                    onChange={value => setFieldValue('spec.context', value)}
-                  />
-                )}
-              </div>
-              <Text margin={{ top: 'medium', bottom: 'xsmall' }}>{getString('pipelineSteps.labelsLabel')}</Text>
-              <FieldArray
-                name="spec.labels"
-                render={({ push, remove }) => (
-                  <div>
-                    {formValues.spec.labels.map((_label: string, index: number) => (
-                      <div className={css.fieldsGroup} key={index}>
-                        <FormInput.Text
-                          name={`spec.labels[${index}].key`}
-                          placeholder={getString('pipelineSteps.keyPlaceholder')}
-                          style={{ flexGrow: 1 }}
-                        />
-                        <FormInput.MultiTextInput
-                          label=""
-                          name={`spec.labels[${index}].value`}
-                          placeholder={getString('pipelineSteps.valuePlaceholder')}
-                          style={{ flexGrow: 1 }}
-                        />
-                        {getMultiTypeFromValue(formValues.spec.labels[index].value) === MultiTypeInputType.RUNTIME && (
-                          <ConfigureOptions
-                            value={formValues.spec.labels[index].value as string}
-                            type={
-                              <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-                                <Text>{getString('pipelineSteps.valuePlaceholder')}</Text>
-                              </Layout.Horizontal>
-                            }
-                            variableName={`spec.labels[${index}].value`}
-                            showRequiredField={false}
-                            showDefaultField={false}
-                            showAdvanced={true}
-                            onChange={value => setFieldValue(`spec.labels[${index}].value`, value)}
-                          />
-                        )}
-
-                        {formValues.spec.labels.length > 1 && (
-                          <Button
-                            intent="primary"
-                            icon="ban-circle"
-                            iconProps={{ size: 20 }}
-                            minimal
-                            onClick={() => remove(index)}
-                          />
-                        )}
-                      </div>
-                    ))}
-                    <Button
-                      intent="primary"
-                      minimal
-                      text={getString('pipelineSteps.addLabel')}
-                      onClick={() => push({ key: '', value: '' })}
-                    />
-                  </div>
-                )}
-              />
-              <Text margin={{ top: 'medium', bottom: 'xsmall' }}>{getString('pipelineSteps.buildArgsLabel')}</Text>
-              <FieldArray
-                name="spec.buildArgs"
-                render={({ push, remove }) => (
-                  <div>
-                    {formValues.spec.buildArgs.map((_buildArg: string, index: number) => (
-                      <div className={css.fieldsGroup} key={index}>
-                        <FormInput.Text
-                          name={`spec.buildArgs[${index}].key`}
-                          placeholder={getString('pipelineSteps.keyPlaceholder')}
-                          style={{ flexGrow: 1 }}
-                        />
-                        <FormInput.MultiTextInput
-                          label=""
-                          name={`spec.buildArgs[${index}].value`}
-                          placeholder={getString('pipelineSteps.valuePlaceholder')}
-                          style={{ flexGrow: 1 }}
-                        />
-                        {getMultiTypeFromValue(formValues.spec.buildArgs[index].value) ===
-                          MultiTypeInputType.RUNTIME && (
-                          <ConfigureOptions
-                            value={formValues.spec.buildArgs[index].value as string}
-                            type={
-                              <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-                                <Text>{getString('pipelineSteps.valuePlaceholder')}</Text>
-                              </Layout.Horizontal>
-                            }
-                            variableName={`spec.buildArgs[${index}].value`}
-                            showRequiredField={false}
-                            showDefaultField={false}
-                            showAdvanced={true}
-                            onChange={value => setFieldValue(`spec.buildArgs[${index}].value`, value)}
-                          />
-                        )}
-
-                        {formValues.spec.buildArgs.length > 1 && (
-                          <Button
-                            intent="primary"
-                            icon="ban-circle"
-                            iconProps={{ size: 20 }}
-                            minimal
-                            onClick={() => remove(index)}
-                          />
-                        )}
-                      </div>
-                    ))}
-                    <Button
-                      intent="primary"
-                      minimal
-                      text={getString('pipelineSteps.addBuildArg')}
-                      onClick={() => push({ key: '', value: '' })}
-                    />
-                  </div>
-                )}
-              />
-              <Text margin={{ top: 'medium', bottom: 'xsmall' }}>{getString('pipelineSteps.targetLabel')}</Text>
-              <div className={cx(css.fieldsGroup, css.withoutSpacing)}>
+              <Text margin={{ bottom: 'xsmall' }}>{getString('pipelineSteps.targetLabel')}</Text>
+              <div className={cx(css.fieldsGroup, css.withoutSpacing, css.bottomSpacing)}>
                 <FormInput.MultiTextInput name="spec.target" label="" style={{ flexGrow: 1 }} />
                 {getMultiTypeFromValue(formValues.spec.target) === MultiTypeInputType.RUNTIME && (
                   <ConfigureOptions
@@ -488,26 +308,6 @@ const DockerHubStepWidget: React.FC<DockerHubStepWidgetProps> = ({ initialValues
                     showDefaultField={false}
                     showAdvanced={true}
                     onChange={value => setFieldValue('spec.target', value)}
-                  />
-                )}
-              </div>
-              <div style={{ marginBottom: 'var(--spacing-medium)' }} />
-              <Text margin={{ top: 'medium', bottom: 'xsmall' }}>{getString('pipelineSteps.pullLabel')}</Text>
-              <div className={cx(css.fieldsGroup, css.withoutSpacing, css.bottomSpacing)}>
-                <FormInput.MultiTypeInput name="spec.pull" label="" selectItems={pullOptions} style={{ flexGrow: 1 }} />
-                {getMultiTypeFromValue(formValues.spec.pull) === MultiTypeInputType.RUNTIME && (
-                  <ConfigureOptions
-                    value={formValues.spec.pull as string}
-                    type={
-                      <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-                        <Text>{getString('pipelineSteps.pullLabel')}</Text>
-                      </Layout.Horizontal>
-                    }
-                    variableName="spec.pull"
-                    showRequiredField={false}
-                    showDefaultField={false}
-                    showAdvanced={true}
-                    onChange={value => setFieldValue('spec.pull', value)}
                   />
                 )}
               </div>
@@ -586,21 +386,21 @@ const DockerHubStepWidget: React.FC<DockerHubStepWidgetProps> = ({ initialValues
   )
 }
 
-export class DockerHubStep extends PipelineStep<any /*DockerHubStepData*/> {
+export class SaveCacheGCSStep extends PipelineStep<any /*SaveCacheGCSStepData*/> {
   renderStep(
-    initialValues: any, //DockerHubStepData
-    onUpdate?: (data: any) => void, //DockerHubStepData
+    initialValues: any, //SaveCacheGCSStepData
+    onUpdate?: (data: any) => void, //SaveCacheGCSStepData
     stepViewType?: StepViewType
   ): JSX.Element {
-    return <DockerHubStepWidget initialValues={initialValues} onUpdate={onUpdate} stepViewType={stepViewType} />
+    return <SaveCacheGCSStepWidget initialValues={initialValues} onUpdate={onUpdate} stepViewType={stepViewType} />
   }
 
-  protected type = StepType.DockerHub
+  protected type = StepType.SaveCacheGCS
   // TODO: Add i18n support
-  protected stepName = 'Build and Upload to DockerHub'
-  protected stepIcon: IconName = 'docker-hub-step'
+  protected stepName = 'Save Cache to GCS'
+  protected stepIcon: IconName = 'save-cache-step'
 
-  protected defaultValues: any /*DockerHubStepData*/ = {
+  protected defaultValues: any /*SaveCacheGCSStepData*/ = {
     identifier: '',
     spec: {}
   }

@@ -15,7 +15,7 @@ import { FieldArray } from 'formik'
 import * as yup from 'yup'
 import cx from 'classnames'
 import { useParams } from 'react-router-dom'
-import { String, useStrings } from 'framework/exports'
+import { useStrings } from 'framework/exports'
 import { ConfigureOptions, PipelineContext, StepViewType } from '@pipeline/exports'
 import { FormMultiTypeConnectorField } from '@connectors/components/ConnectorReferenceField/FormMultiTypeConnectorField'
 import {
@@ -28,33 +28,19 @@ import { DrawerTypes } from '@pipeline/components/PipelineStudio/PipelineContext
 import { ConnectorInfoDTO, useGetConnector } from 'services/cd-ng'
 import { StepType } from '../../PipelineStepInterface'
 import { PipelineStep } from '../../PipelineStep'
+import { removeEmptyKeys } from '../StepsUtils'
 import css from './GCRStep.module.scss'
 import stepCss from '../Steps.module.scss'
 
-// Fix typings
-function getInitialValuesInCorrectFormat(initialValues: any): any {
-  const labels = Object.keys(initialValues.spec.labels || {}).map(key => ({
-    key: key,
-    value: initialValues.spec.labels![key]
-  }))
-
-  if (labels.length === 0) {
-    labels.push({ key: '', value: '' })
-  }
-
-  return {
-    ...initialValues,
-    spec: {
-      ...initialValues.spec,
-      labels
-    }
-  }
+export enum LimitMemoryUnits {
+  Mi = 'Mi',
+  Gi = 'Gi'
 }
 
 const validationSchema = yup.object().shape({
   identifier: yup.string().trim().required(),
-  name: yup.string().trim().required(),
-  description: yup.string().trim().required(),
+  name: yup.string(),
+  description: yup.string(),
   spec: yup
     .object()
     .shape({
@@ -62,7 +48,23 @@ const validationSchema = yup.object().shape({
       registry: yup.string().trim().required(),
       repo: yup.string().trim().required(),
       tags: yup.array().compact().required(),
-      labels: yup.array().compact().required()
+      dockerfile: yup.string(),
+      context: yup.string(),
+      labels: yup.array(),
+      buildArgs: yup.array(),
+      target: yup.string(),
+      pull: yup.string(),
+      limitCPU: yup
+        .number()
+        .transform((v, o) => (o === '' ? null : v))
+        .nullable(true)
+        .min(0),
+      limitMemory: yup
+        .number()
+        .transform((v, o) => (o === '' ? null : v))
+        .nullable(true)
+        .min(0),
+      timeout: yup.string()
     })
     .required()
 })
@@ -79,8 +81,8 @@ const GCRStepWidget: React.FC<GCRStepWidgetProps> = ({ initialValues, onUpdate }
     updatePipelineView
   } = React.useContext(PipelineContext)
 
-  const { getString: getGlobalString } = useStrings()
-  const { getString } = useStrings('pipeline-steps')
+  const { getString } = useStrings()
+  const { getString: getPipelineStepsString } = useStrings('pipeline-steps')
 
   const { accountId, projectIdentifier, orgIdentifier } = useParams<{
     projectIdentifier: string
@@ -111,7 +113,51 @@ const GCRStepWidget: React.FC<GCRStepWidgetProps> = ({ initialValues, onUpdate }
     }
   }, [initialValues.spec.connectorRef])
 
-  const values = getInitialValuesInCorrectFormat(initialValues)
+  const pullOptions = [
+    { label: getString('pipelineSteps.pullIfNotExistsLabel'), value: 'ifNotExists' },
+    { label: getString('pipelineSteps.pullNeverLabel'), value: 'never' },
+    { label: getString('pipelineSteps.pullAlwaysLabel'), value: 'always' }
+  ]
+
+  // Fix typings
+  function getInitialValuesInCorrectFormat(): any {
+    const labels = Object.keys(initialValues.spec.labels || {}).map(key => ({
+      key: key,
+      value: initialValues.spec.labels![key]
+    }))
+
+    if (labels.length === 0) {
+      labels.push({ key: '', value: '' })
+    }
+
+    const buildArgs = Object.keys(initialValues.spec.buildArgs || {}).map(key => ({
+      key: key,
+      value: initialValues.spec.buildArgs![key]
+    }))
+
+    if (buildArgs.length === 0) {
+      buildArgs.push({ key: '', value: '' })
+    }
+
+    const pull = pullOptions.find(({ value }) => value === initialValues.spec.pull)
+    const limitMemory = initialValues.spec?.resources?.limit?.memory
+    const limitCPU = initialValues.spec?.resources?.limit?.cpu
+
+    return removeEmptyKeys({
+      ...initialValues,
+      spec: {
+        ...initialValues.spec,
+        limitMemoryUnits: LimitMemoryUnits.Mi,
+        labels,
+        buildArgs,
+        pull,
+        limitMemory,
+        limitCPU
+      }
+    })
+  }
+
+  const values = getInitialValuesInCorrectFormat()
 
   if (
     connector?.data?.connector &&
@@ -141,7 +187,7 @@ const GCRStepWidget: React.FC<GCRStepWidgetProps> = ({ initialValues, onUpdate }
   return (
     <>
       <Text className={stepCss.boldLabel} font={{ size: 'medium' }}>
-        <String namespace="pipeline-steps" stringID="gcr.title" />
+        {getPipelineStepsString('gcr.title')}
       </Text>
       <Formik
         enableReinitialize={true}
@@ -150,11 +196,39 @@ const GCRStepWidget: React.FC<GCRStepWidgetProps> = ({ initialValues, onUpdate }
         onSubmit={_values => {
           const labels: { [key: string]: string } = {}
           _values.spec.labels.forEach((pair: { key: string; value: string }) => {
-            // skip empty
-            if (pair.key) {
+            // Skip empty
+            if (pair.key && pair.value) {
               labels[pair.key] = pair.value
             }
           })
+
+          const buildArgs: { [key: string]: string } = {}
+          _values.spec.buildArgs.forEach((pair: { key: string; value: string }) => {
+            // Skip empty
+            if (pair.key && pair.value) {
+              buildArgs[pair.key] = pair.value
+            }
+          })
+
+          const resources: { limit?: { memory?: number; cpu?: number } } = {}
+
+          if (_values.spec.limitMemory || _values.spec.limitCPU) {
+            resources.limit = {}
+
+            if (_values.spec.limitMemory) {
+              resources.limit.memory = parseInt(_values.spec.limitMemory, 10)
+            }
+
+            if (_values.spec.limitCPU) {
+              resources.limit.cpu = parseInt(_values.spec.limitCPU, 10)
+            }
+          }
+
+          delete _values.spec.labels
+          delete _values.spec.buildArgs
+          delete _values.spec.limitMemory
+          delete _values.spec.limitMemoryUnits
+          delete _values.spec.limitCPU
 
           const schemaValues = {
             identifier: _values.identifier,
@@ -163,11 +237,14 @@ const GCRStepWidget: React.FC<GCRStepWidgetProps> = ({ initialValues, onUpdate }
             spec: {
               ..._values.spec,
               connectorRef: _values.spec.connectorRef?.value || _values.spec.connectorRef,
-              labels
+              pull: _values.spec.pull?.value || _values.spec.pull,
+              labels,
+              buildArgs,
+              resources
             }
           }
 
-          onUpdate?.(schemaValues)
+          onUpdate?.(removeEmptyKeys(schemaValues))
         }}
       >
         {({ values: formValues, setFieldValue, handleSubmit }) => (
@@ -176,15 +253,16 @@ const GCRStepWidget: React.FC<GCRStepWidgetProps> = ({ initialValues, onUpdate }
               <FormInput.InputWithIdentifier
                 inputName="name"
                 idName="identifier"
-                inputLabel={getString('gcr.stepNameLabel')}
+                inputLabel={getString('pipelineSteps.stepNameLabel')}
               />
-              <FormInput.TextArea name="description" label={getString('gcr.descriptionLabel')} />
-              <Text margin={{ top: 'medium', bottom: 'xsmall' }}>{getString('gcr.connectorLabel')}</Text>
+              <FormInput.TextArea name="description" label={getString('pipelineSteps.descriptionLabel')} />
+              <Text margin={{ top: 'medium', bottom: 'xsmall' }}>{getString('pipelineSteps.connectorLabel')}</Text>
               <div className={cx(css.fieldsGroup, css.withoutSpacing)}>
                 <FormMultiTypeConnectorField
+                  type="Gcp"
                   name="spec.connectorRef"
                   label=""
-                  placeholder={loading ? getString('gcr.loading') : getString('gcr.connectorPlaceholder')}
+                  placeholder={loading ? getString('loading') : getString('pipelineSteps.connectorPlaceholder')}
                   disabled={loading}
                   accountIdentifier={accountId}
                   projectIdentifier={projectIdentifier}
@@ -195,7 +273,7 @@ const GCRStepWidget: React.FC<GCRStepWidgetProps> = ({ initialValues, onUpdate }
                     value={formValues?.spec.connectorRef as string}
                     type={
                       <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-                        <Text>{getString('gcr.connectorLabel')}</Text>
+                        <Text>{getString('pipelineSteps.connectorLabel')}</Text>
                       </Layout.Horizontal>
                     }
                     variableName="spec.connectorRef"
@@ -208,9 +286,7 @@ const GCRStepWidget: React.FC<GCRStepWidgetProps> = ({ initialValues, onUpdate }
                   />
                 )}
               </div>
-              <Text margin={{ top: 'medium', bottom: 'xsmall' }}>
-                <String namespace="pipeline-steps" stringID="gcr.registryLabel" />
-              </Text>
+              <Text margin={{ top: 'medium', bottom: 'xsmall' }}>{getString('pipelineSteps.registryLabel')}</Text>
               <div className={cx(css.fieldsGroup, css.withoutSpacing)}>
                 <FormInput.MultiTextInput name="spec.registry" label="" style={{ flexGrow: 1 }} />
                 {getMultiTypeFromValue(formValues.spec.registry) === MultiTypeInputType.RUNTIME && (
@@ -218,9 +294,7 @@ const GCRStepWidget: React.FC<GCRStepWidgetProps> = ({ initialValues, onUpdate }
                     value={formValues.spec.registry as string}
                     type={
                       <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-                        <Text>
-                          <String namespace="pipeline-steps" stringID="gcr.registryLabel" />
-                        </Text>
+                        <Text>{getString('pipelineSteps.registryLabel')}</Text>
                       </Layout.Horizontal>
                     }
                     variableName="spec.registry"
@@ -231,9 +305,7 @@ const GCRStepWidget: React.FC<GCRStepWidgetProps> = ({ initialValues, onUpdate }
                   />
                 )}
               </div>
-              <Text margin={{ top: 'medium', bottom: 'xsmall' }}>
-                <String namespace="pipeline-steps" stringID="gcr.repoLabel" />
-              </Text>
+              <Text margin={{ top: 'medium', bottom: 'xsmall' }}>{getString('pipelineSteps.repoLabel')}</Text>
               <div className={cx(css.fieldsGroup, css.withoutSpacing, css.bottomSpacing)}>
                 <FormInput.MultiTextInput name="spec.repo" label="" style={{ flexGrow: 1 }} />
                 {getMultiTypeFromValue(formValues.spec.repo) === MultiTypeInputType.RUNTIME && (
@@ -241,9 +313,7 @@ const GCRStepWidget: React.FC<GCRStepWidgetProps> = ({ initialValues, onUpdate }
                     value={formValues.spec.repo as string}
                     type={
                       <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-                        <Text>
-                          <String namespace="pipeline-steps" stringID="gcr.repoLabel" />
-                        </Text>
+                        <Text>{getString('pipelineSteps.repoLabel')}</Text>
                       </Layout.Horizontal>
                     }
                     variableName="spec.repo"
@@ -256,7 +326,7 @@ const GCRStepWidget: React.FC<GCRStepWidgetProps> = ({ initialValues, onUpdate }
               </div>
               <FormInput.TagInput
                 name="spec.tags"
-                label={getString('gcr.tagsLabel')}
+                label={getString('pipelineSteps.tagsLabel')}
                 items={[]}
                 labelFor={name => name as string}
                 itemFromNewTag={newTag => newTag}
@@ -271,24 +341,65 @@ const GCRStepWidget: React.FC<GCRStepWidgetProps> = ({ initialValues, onUpdate }
                   placeholder: ''
                 }}
               />
-              <Text margin={{ bottom: 'xsmall' }}>
-                <String namespace="pipeline-steps" stringID="gcr.labelsLabel" />
+            </div>
+            <div className={css.fieldsSection}>
+              <Text className={css.optionalConfiguration} font={{ weight: 'semi-bold' }} margin={{ bottom: 'medium' }}>
+                {getString('pipelineSteps.optionalConfiguration')}
               </Text>
+              <Text margin={{ bottom: 'xsmall' }}>{getString('pipelineSteps.dockerfileLabel')}</Text>
+              <div className={cx(css.fieldsGroup, css.withoutSpacing)}>
+                <FormInput.MultiTextInput name="spec.dockerfile" label="" style={{ flexGrow: 1 }} />
+                {getMultiTypeFromValue(formValues.spec.dockerfile) === MultiTypeInputType.RUNTIME && (
+                  <ConfigureOptions
+                    value={formValues.spec.dockerfile as string}
+                    type={
+                      <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
+                        <Text>{getString('pipelineSteps.dockerfileLabel')}</Text>
+                      </Layout.Horizontal>
+                    }
+                    variableName="spec.dockerfile"
+                    showRequiredField={false}
+                    showDefaultField={false}
+                    showAdvanced={true}
+                    onChange={value => setFieldValue('spec.dockerfile', value)}
+                  />
+                )}
+              </div>
+              <Text margin={{ top: 'medium', bottom: 'xsmall' }}>{getString('pipelineSteps.contextLabel')}</Text>
+              <div className={cx(css.fieldsGroup, css.withoutSpacing, css.bottomSpacing)}>
+                <FormInput.MultiTextInput name="spec.context" label="" style={{ flexGrow: 1 }} />
+                {getMultiTypeFromValue(formValues.spec.context) === MultiTypeInputType.RUNTIME && (
+                  <ConfigureOptions
+                    value={formValues.spec.context as string}
+                    type={
+                      <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
+                        <Text>{getString('pipelineSteps.contextLabel')}</Text>
+                      </Layout.Horizontal>
+                    }
+                    variableName="spec.context"
+                    showRequiredField={false}
+                    showDefaultField={false}
+                    showAdvanced={true}
+                    onChange={value => setFieldValue('spec.context', value)}
+                  />
+                )}
+              </div>
+              <Text margin={{ bottom: 'xsmall' }}>{getString('pipelineSteps.labelsLabel')}</Text>
               <FieldArray
                 name="spec.labels"
                 render={({ push, remove }) => (
-                  <>
+                  <div>
                     {formValues.spec.labels.map((_labels: string, index: number) => (
                       <div className={css.fieldsGroup} key={index}>
                         <FormInput.Text
                           name={`spec.labels[${index}].key`}
-                          placeholder={getString('gcr.labelsKeyPlaceholder')}
+                          placeholder={getString('pipelineSteps.keyPlaceholder')}
                           style={{ flexGrow: 1 }}
                         />
                         <FormInput.MultiTextInput
                           label=""
                           name={`spec.labels[${index}].value`}
-                          placeholder={getString('gcr.labelsValuePlaceholder')}
+                          placeholder={getString('pipelineSteps.valuePlaceholder')}
                           style={{ flexGrow: 1 }}
                         />
                         {getMultiTypeFromValue(formValues.spec.labels[index].value) === MultiTypeInputType.RUNTIME && (
@@ -296,9 +407,7 @@ const GCRStepWidget: React.FC<GCRStepWidgetProps> = ({ initialValues, onUpdate }
                             value={formValues.spec.labels[index].value as string}
                             type={
                               <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-                                <Text>
-                                  <String namespace="pipeline-steps" stringID="gcr.labelsValuePlaceholder" />
-                                </Text>
+                                <Text>{getString('pipelineSteps.valuePlaceholder')}</Text>
                               </Layout.Horizontal>
                             }
                             variableName={`spec.labels[${index}].value`}
@@ -323,100 +432,68 @@ const GCRStepWidget: React.FC<GCRStepWidgetProps> = ({ initialValues, onUpdate }
                     <Button
                       intent="primary"
                       minimal
-                      text={getString('gcr.addLabel')}
+                      text={getString('pipelineSteps.addLabel')}
                       onClick={() => push({ key: '', value: '' })}
                     />
-                  </>
+                  </div>
                 )}
               />
-            </div>
-            <div className={css.fieldsSection}>
-              <Text className={css.optionalConfiguration} font={{ weight: 'semi-bold' }} margin={{ bottom: 'medium' }}>
-                <String namespace="pipeline-steps" stringID="gcr.optionalConfiguration" />
-              </Text>
-              <Text margin={{ bottom: 'xsmall' }}>
-                <String namespace="pipeline-steps" stringID="gcr.dockerfileLabel" />
-              </Text>
-              <div className={cx(css.fieldsGroup, css.withoutSpacing)}>
-                <FormInput.MultiTextInput name="spec.dockerfile" label="" style={{ flexGrow: 1 }} />
-                {getMultiTypeFromValue(formValues.spec.dockerfile) === MultiTypeInputType.RUNTIME && (
-                  <ConfigureOptions
-                    value={formValues.spec.dockerfile as string}
-                    type={
-                      <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-                        <Text>
-                          <String namespace="pipeline-steps" stringID="gcr.dockerfileLabel" />
-                        </Text>
-                      </Layout.Horizontal>
-                    }
-                    variableName="spec.dockerfile"
-                    showRequiredField={false}
-                    showDefaultField={false}
-                    showAdvanced={true}
-                    onChange={value => setFieldValue('spec.dockerfile', value)}
-                  />
+              <Text margin={{ top: 'medium', bottom: 'xsmall' }}>{getString('pipelineSteps.buildArgsLabel')}</Text>
+              <FieldArray
+                name="spec.buildArgs"
+                render={({ push, remove }) => (
+                  <div>
+                    {formValues.spec.buildArgs.map((_buildArg: string, index: number) => (
+                      <div className={css.fieldsGroup} key={index}>
+                        <FormInput.Text
+                          name={`spec.buildArgs[${index}].key`}
+                          placeholder={getString('pipelineSteps.keyPlaceholder')}
+                          style={{ flexGrow: 1 }}
+                        />
+                        <FormInput.MultiTextInput
+                          label=""
+                          name={`spec.buildArgs[${index}].value`}
+                          placeholder={getString('pipelineSteps.valuePlaceholder')}
+                          style={{ flexGrow: 1 }}
+                        />
+                        {getMultiTypeFromValue(formValues.spec.buildArgs[index].value) ===
+                          MultiTypeInputType.RUNTIME && (
+                          <ConfigureOptions
+                            value={formValues.spec.buildArgs[index].value as string}
+                            type={
+                              <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
+                                <Text>{getString('pipelineSteps.valuePlaceholder')}</Text>
+                              </Layout.Horizontal>
+                            }
+                            variableName={`spec.buildArgs[${index}].value`}
+                            showRequiredField={false}
+                            showDefaultField={false}
+                            showAdvanced={true}
+                            onChange={value => setFieldValue(`spec.buildArgs[${index}].value`, value)}
+                          />
+                        )}
+
+                        {formValues.spec.buildArgs.length > 1 && (
+                          <Button
+                            intent="primary"
+                            icon="ban-circle"
+                            iconProps={{ size: 20 }}
+                            minimal
+                            onClick={() => remove(index)}
+                          />
+                        )}
+                      </div>
+                    ))}
+                    <Button
+                      intent="primary"
+                      minimal
+                      text={getString('pipelineSteps.addBuildArg')}
+                      onClick={() => push({ key: '', value: '' })}
+                    />
+                  </div>
                 )}
-              </div>
-              <Text margin={{ top: 'medium', bottom: 'xsmall' }}>
-                <String namespace="pipeline-steps" stringID="gcr.contextLabel" />
-              </Text>
-              <div className={cx(css.fieldsGroup, css.withoutSpacing, css.bottomSpacing)}>
-                <FormInput.MultiTextInput name="spec.context" label="" style={{ flexGrow: 1 }} />
-                {getMultiTypeFromValue(formValues.spec.context) === MultiTypeInputType.RUNTIME && (
-                  <ConfigureOptions
-                    value={formValues.spec.context as string}
-                    type={
-                      <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-                        <Text>
-                          <String namespace="pipeline-steps" stringID="gcr.contextLabel" />
-                        </Text>
-                      </Layout.Horizontal>
-                    }
-                    variableName="spec.context"
-                    showRequiredField={false}
-                    showDefaultField={false}
-                    showAdvanced={true}
-                    onChange={value => setFieldValue('spec.context', value)}
-                  />
-                )}
-              </div>
-              <FormInput.TagInput
-                name="spec.args"
-                label={getString('gcr.argsLabel')}
-                items={[]}
-                labelFor={name => name as string}
-                itemFromNewTag={newTag => newTag}
-                tagInputProps={{
-                  className: '',
-                  noInputBorder: true,
-                  openOnKeyDown: false,
-                  showAddTagButton: false,
-                  fill: true,
-                  showNewlyCreatedItemsInList: false,
-                  allowNewTag: true,
-                  placeholder: ''
-                }}
               />
-              <FormInput.TagInput
-                name="spec.cache_from"
-                label={getString('gcr.cacheFromLabel')}
-                items={[]}
-                labelFor={name => name as string}
-                itemFromNewTag={newTag => newTag}
-                tagInputProps={{
-                  className: '',
-                  noInputBorder: true,
-                  openOnKeyDown: false,
-                  showAddTagButton: false,
-                  fill: true,
-                  showNewlyCreatedItemsInList: false,
-                  allowNewTag: true,
-                  placeholder: ''
-                }}
-              />
-              <Text margin={{ top: 'medium', bottom: 'xsmall' }}>
-                <String namespace="pipeline-steps" stringID="gcr.targetLabel" />
-              </Text>
+              <Text margin={{ top: 'medium', bottom: 'xsmall' }}>{getString('pipelineSteps.targetLabel')}</Text>
               <div className={cx(css.fieldsGroup, css.withoutSpacing, css.bottomSpacing)}>
                 <FormInput.MultiTextInput name="spec.target" label="" style={{ flexGrow: 1 }} />
                 {getMultiTypeFromValue(formValues.spec.target) === MultiTypeInputType.RUNTIME && (
@@ -424,9 +501,7 @@ const GCRStepWidget: React.FC<GCRStepWidgetProps> = ({ initialValues, onUpdate }
                     value={formValues.spec.target as string}
                     type={
                       <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-                        <Text>
-                          <String namespace="pipeline-steps" stringID="gcr.targetLabel" />
-                        </Text>
+                        <Text>{getString('pipelineSteps.targetLabel')}</Text>
                       </Layout.Horizontal>
                     }
                     variableName="spec.target"
@@ -437,44 +512,93 @@ const GCRStepWidget: React.FC<GCRStepWidgetProps> = ({ initialValues, onUpdate }
                   />
                 )}
               </div>
-              <FormInput.CheckBox
-                name="spec.auto_tag"
-                label={getString('gcr.autoTagLabel')}
-                margin={{ left: 'xxlarge' }}
-              />
-              <Text margin={{ top: 'medium', bottom: 'xsmall' }}>
-                <String namespace="pipeline-steps" stringID="gcr.autoTagSuffixLabel" />
-              </Text>
-              <div className={cx(css.fieldsGroup, css.withoutSpacing)}>
-                <FormInput.MultiTextInput name="spec.auto_tag_suffix" label="" style={{ flexGrow: 1 }} />
-                {getMultiTypeFromValue(formValues.spec.auto_tag_suffix) === MultiTypeInputType.RUNTIME && (
+              <div style={{ marginBottom: 'var(--spacing-medium)' }} />
+              <Text margin={{ top: 'medium', bottom: 'xsmall' }}>{getString('pipelineSteps.pullLabel')}</Text>
+              <div className={cx(css.fieldsGroup, css.withoutSpacing, css.bottomSpacing)}>
+                <FormInput.MultiTypeInput name="spec.pull" label="" selectItems={pullOptions} style={{ flexGrow: 1 }} />
+                {getMultiTypeFromValue(formValues.spec.pull) === MultiTypeInputType.RUNTIME && (
                   <ConfigureOptions
-                    value={formValues.spec.auto_tag_suffix as string}
+                    value={formValues.spec.pull as string}
                     type={
                       <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-                        <Text>
-                          <String namespace="pipeline-steps" stringID="gcr.autoTagSuffixLabel" />
-                        </Text>
+                        <Text>{getString('pipelineSteps.pullLabel')}</Text>
                       </Layout.Horizontal>
                     }
-                    variableName="spec.auto_tag_suffix"
+                    variableName="spec.pull"
                     showRequiredField={false}
                     showDefaultField={false}
                     showAdvanced={true}
-                    onChange={value => setFieldValue('spec.auto_tag_suffix', value)}
+                    onChange={value => setFieldValue('spec.pull', value)}
                   />
                 )}
               </div>
+              <div>
+                <Text>
+                  {getString('pipelineSteps.setContainerResources')}
+                  <Button icon="question" minimal tooltip={getString('pipelineSteps.setContainerResourcesTooltip')} />
+                </Text>
+                <div className={cx(css.fieldsGroup, css.withoutSpacing)}>
+                  <div>
+                    <FormInput.Text
+                      name="spec.limitMemory"
+                      inputGroup={{ type: 'number', min: 0 }}
+                      label={getString('pipelineSteps.limitMemoryLabel')}
+                      placeholder={getString('pipelineSteps.limitMemoryPlaceholder')}
+                    />
+                    <Text font="xsmall" margin={{ top: 'small' }}>
+                      {getString('pipelineSteps.limitMemoryExample')}
+                    </Text>
+                  </div>
+                  <FormInput.Select
+                    name="spec.limitMemoryUnits"
+                    items={[
+                      { label: getString('pipelineSteps.limitMemoryUnitMiLabel'), value: LimitMemoryUnits.Mi },
+                      { label: getString('pipelineSteps.limitMemoryUnitGiLabel'), value: LimitMemoryUnits.Gi }
+                    ]}
+                  />
+                  <div>
+                    <FormInput.Text
+                      name="spec.limitCPU"
+                      inputGroup={{ type: 'number', min: 0 }}
+                      label={getString('pipelineSteps.limitCPULabel')}
+                      placeholder={getString('pipelineSteps.limitCPUPlaceholder')}
+                    />
+                    <Text font="xsmall" margin={{ top: 'small' }}>
+                      {getString('pipelineSteps.limitCPUExample')}
+                    </Text>
+                  </div>
+                </div>
+              </div>
+              <Text margin={{ top: 'medium', bottom: 'xsmall' }}>{getString('pipelineSteps.timeoutLabel')}</Text>
+              <div className={cx(css.fieldsGroup, css.withoutSpacing)}>
+                <FormInput.MultiTextInput name="spec.timeout" label="" style={{ flexGrow: 1 }} />
+                {getMultiTypeFromValue(formValues.spec.timeout) === MultiTypeInputType.RUNTIME && (
+                  <ConfigureOptions
+                    value={formValues.spec.timeout as string}
+                    type={
+                      <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
+                        <Text>{getString('pipelineSteps.timeoutLabel')}</Text>
+                      </Layout.Horizontal>
+                    }
+                    variableName="spec.timeout"
+                    showRequiredField={false}
+                    showDefaultField={false}
+                    showAdvanced={true}
+                    onChange={value => setFieldValue('spec.timeout', value)}
+                  />
+                )}
+              </div>
+              <div style={{ marginBottom: 'var(--spacing-medium)' }} />
             </div>
             <div className={css.buttonsWrapper}>
               <Button
                 onClick={() => handleSubmit()}
                 intent="primary"
                 type="submit"
-                text={getGlobalString('save')}
+                text={getString('save')}
                 margin={{ right: 'xxlarge' }}
               />
-              <Button text={getGlobalString('cancel')} minimal onClick={handleCancelClick} />
+              <Button text={getString('cancel')} minimal onClick={handleCancelClick} />
             </div>
           </FormikForm>
         )}
@@ -494,8 +618,8 @@ export class GCRStep extends PipelineStep<any /*GCRStepData*/> {
 
   protected type = StepType.GCR
   // TODO: Add i18n support
-  protected stepName = 'GCR'
-  protected stepIcon: IconName = 'gcr' as IconName
+  protected stepName = 'Build and Upload to GCR'
+  protected stepIcon: IconName = 'gcr-step'
 
   protected defaultValues: any /*GCRStepData*/ = {
     identifier: '',

@@ -88,7 +88,7 @@ export class HttpStep extends PipelineStep<HttpStepData> {
 
   protected type = StepType.HTTP
   protected stepName = i18n.httpStep
-  protected stepIcon: IconName = 'command-http'
+  protected stepIcon: IconName = 'http-step'
 
   protected defaultValues: HttpStepData = {
     identifier: '',

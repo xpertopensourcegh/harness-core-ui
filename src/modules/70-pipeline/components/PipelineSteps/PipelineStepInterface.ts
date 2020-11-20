@@ -10,8 +10,13 @@ export enum StepType {
   Redis = 'service',
   Plugin = 'plugin',
   Run = 'run',
-  SaveCache = 'Save_Cache',
-  RestoreCache = 'Restore_Cache',
-  GCR = 'GCR',
-  DockerHub = 'dockerHub'
+  GCR = 'buildAndPushGCR',
+  ECR = 'buildAndPushECR',
+  SaveCacheGCS = 'saveCacheGCS',
+  RestoreCacheGCS = 'restoreCacheGCS',
+  SaveCacheS3 = 'saveCacheS3',
+  RestoreCacheS3 = 'restoreCacheS3',
+  DockerHub = 'buildAndPushDockerHub',
+  GCS = 'uploadToGCS',
+  S3 = 'uploadToS3'
 }

@@ -29,7 +29,7 @@ import { ConnectorInfoDTO, useGetConnector } from 'services/cd-ng'
 import { StepType } from '../../PipelineStepInterface'
 import { PipelineStep } from '../../PipelineStep'
 import { removeEmptyKeys } from '../StepsUtils'
-import css from './DockerHubStep.module.scss'
+import css from './ECRStep.module.scss'
 import stepCss from '../Steps.module.scss'
 
 export enum LimitMemoryUnits {
@@ -45,6 +45,7 @@ const validationSchema = yup.object().shape({
     .object()
     .shape({
       connectorRef: yup.mixed().required(),
+      registry: yup.string().trim().required(),
       repo: yup.string().trim().required(),
       tags: yup.array().compact().required(),
       dockerfile: yup.string(),
@@ -68,13 +69,13 @@ const validationSchema = yup.object().shape({
     .required()
 })
 
-export interface DockerHubStepWidgetProps {
-  initialValues: any //DockerHubStepData
-  onUpdate?: (data: any) => void //DockerHubStepData
+export interface ECRStepWidgetProps {
+  initialValues: any //ECRStepData
+  onUpdate?: (data: any) => void //ECRStepData
   stepViewType?: StepViewType
 }
 
-const DockerHubStepWidget: React.FC<DockerHubStepWidgetProps> = ({ initialValues, onUpdate }): JSX.Element => {
+const ECRStepWidget: React.FC<ECRStepWidgetProps> = ({ initialValues, onUpdate }): JSX.Element => {
   const {
     state: { pipelineView },
     updatePipelineView
@@ -186,7 +187,7 @@ const DockerHubStepWidget: React.FC<DockerHubStepWidgetProps> = ({ initialValues
   return (
     <>
       <Text className={stepCss.boldLabel} font={{ size: 'medium' }}>
-        {getPipelineStepsString('dockerHub.title')}
+        {getPipelineStepsString('ecr.title')}
       </Text>
       <Formik
         enableReinitialize={true}
@@ -258,6 +259,7 @@ const DockerHubStepWidget: React.FC<DockerHubStepWidgetProps> = ({ initialValues
               <Text margin={{ top: 'medium', bottom: 'xsmall' }}>{getString('pipelineSteps.connectorLabel')}</Text>
               <div className={cx(css.fieldsGroup, css.withoutSpacing)}>
                 <FormMultiTypeConnectorField
+                  type="Aws"
                   name="spec.connectorRef"
                   label=""
                   placeholder={loading ? getString('loading') : getString('pipelineSteps.connectorPlaceholder')}
@@ -281,6 +283,25 @@ const DockerHubStepWidget: React.FC<DockerHubStepWidgetProps> = ({ initialValues
                     onChange={value => {
                       setFieldValue('spec.connectorRef', value)
                     }}
+                  />
+                )}
+              </div>
+              <Text margin={{ top: 'medium', bottom: 'xsmall' }}>{getString('pipelineSteps.registryLabel')}</Text>
+              <div className={cx(css.fieldsGroup, css.withoutSpacing)}>
+                <FormInput.MultiTextInput name="spec.registry" label="" style={{ flexGrow: 1 }} />
+                {getMultiTypeFromValue(formValues.spec.registry) === MultiTypeInputType.RUNTIME && (
+                  <ConfigureOptions
+                    value={formValues.spec.registry as string}
+                    type={
+                      <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
+                        <Text>{getString('pipelineSteps.registryLabel')}</Text>
+                      </Layout.Horizontal>
+                    }
+                    variableName="spec.registry"
+                    showRequiredField={false}
+                    showDefaultField={false}
+                    showAdvanced={true}
+                    onChange={value => setFieldValue('spec.registry', value)}
                   />
                 )}
               </div>
@@ -325,7 +346,7 @@ const DockerHubStepWidget: React.FC<DockerHubStepWidgetProps> = ({ initialValues
               <Text className={css.optionalConfiguration} font={{ weight: 'semi-bold' }} margin={{ bottom: 'medium' }}>
                 {getString('pipelineSteps.optionalConfiguration')}
               </Text>
-              <Text margin={{ top: 'medium', bottom: 'xsmall' }}>{getString('pipelineSteps.dockerfileLabel')}</Text>
+              <Text margin={{ bottom: 'xsmall' }}>{getString('pipelineSteps.dockerfileLabel')}</Text>
               <div className={cx(css.fieldsGroup, css.withoutSpacing)}>
                 <FormInput.MultiTextInput name="spec.dockerfile" label="" style={{ flexGrow: 1 }} />
                 {getMultiTypeFromValue(formValues.spec.dockerfile) === MultiTypeInputType.RUNTIME && (
@@ -345,7 +366,7 @@ const DockerHubStepWidget: React.FC<DockerHubStepWidgetProps> = ({ initialValues
                 )}
               </div>
               <Text margin={{ top: 'medium', bottom: 'xsmall' }}>{getString('pipelineSteps.contextLabel')}</Text>
-              <div className={cx(css.fieldsGroup, css.withoutSpacing)}>
+              <div className={cx(css.fieldsGroup, css.withoutSpacing, css.bottomSpacing)}>
                 <FormInput.MultiTextInput name="spec.context" label="" style={{ flexGrow: 1 }} />
                 {getMultiTypeFromValue(formValues.spec.context) === MultiTypeInputType.RUNTIME && (
                   <ConfigureOptions
@@ -363,12 +384,12 @@ const DockerHubStepWidget: React.FC<DockerHubStepWidgetProps> = ({ initialValues
                   />
                 )}
               </div>
-              <Text margin={{ top: 'medium', bottom: 'xsmall' }}>{getString('pipelineSteps.labelsLabel')}</Text>
+              <Text margin={{ bottom: 'xsmall' }}>{getString('pipelineSteps.labelsLabel')}</Text>
               <FieldArray
                 name="spec.labels"
                 render={({ push, remove }) => (
                   <div>
-                    {formValues.spec.labels.map((_label: string, index: number) => (
+                    {formValues.spec.labels.map((_labels: string, index: number) => (
                       <div className={css.fieldsGroup} key={index}>
                         <FormInput.Text
                           name={`spec.labels[${index}].key`}
@@ -473,7 +494,7 @@ const DockerHubStepWidget: React.FC<DockerHubStepWidgetProps> = ({ initialValues
                 )}
               />
               <Text margin={{ top: 'medium', bottom: 'xsmall' }}>{getString('pipelineSteps.targetLabel')}</Text>
-              <div className={cx(css.fieldsGroup, css.withoutSpacing)}>
+              <div className={cx(css.fieldsGroup, css.withoutSpacing, css.bottomSpacing)}>
                 <FormInput.MultiTextInput name="spec.target" label="" style={{ flexGrow: 1 }} />
                 {getMultiTypeFromValue(formValues.spec.target) === MultiTypeInputType.RUNTIME && (
                   <ConfigureOptions
@@ -586,21 +607,21 @@ const DockerHubStepWidget: React.FC<DockerHubStepWidgetProps> = ({ initialValues
   )
 }
 
-export class DockerHubStep extends PipelineStep<any /*DockerHubStepData*/> {
+export class ECRStep extends PipelineStep<any /*ECRStepData*/> {
   renderStep(
-    initialValues: any, //DockerHubStepData
-    onUpdate?: (data: any) => void, //DockerHubStepData
+    initialValues: any, //ECRStepData
+    onUpdate?: (data: any) => void, //ECRStepData
     stepViewType?: StepViewType
   ): JSX.Element {
-    return <DockerHubStepWidget initialValues={initialValues} onUpdate={onUpdate} stepViewType={stepViewType} />
+    return <ECRStepWidget initialValues={initialValues} onUpdate={onUpdate} stepViewType={stepViewType} />
   }
 
-  protected type = StepType.DockerHub
+  protected type = StepType.ECR
   // TODO: Add i18n support
-  protected stepName = 'Build and Upload to DockerHub'
-  protected stepIcon: IconName = 'docker-hub-step'
+  protected stepName = 'Build and Upload to ECR'
+  protected stepIcon: IconName = 'ecr-step'
 
-  protected defaultValues: any /*DockerHubStepData*/ = {
+  protected defaultValues: any /*ECRStepData*/ = {
     identifier: '',
     spec: {}
   }
