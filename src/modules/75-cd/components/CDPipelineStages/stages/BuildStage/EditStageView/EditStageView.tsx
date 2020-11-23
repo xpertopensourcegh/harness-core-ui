@@ -4,7 +4,7 @@ import * as Yup from 'yup'
 import type { IconName } from '@blueprintjs/core'
 import { isEmpty } from 'lodash-es'
 import { useParams } from 'react-router-dom'
-import type { StageElementWrapper } from 'services/cd-ng'
+import type { CodeBase, StageElementWrapper } from 'services/cd-ng'
 import { ConnectorInfoDTO, useGetConnector } from 'services/cd-ng'
 import { PipelineContext } from '@pipeline/exports'
 import { useStrings } from 'framework/exports'
@@ -35,6 +35,11 @@ interface Values {
   repositoryName?: string
 }
 
+interface CodeBase2 {
+  connectorRef: string
+  repositoryName: string
+}
+
 export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChange }): JSX.Element => {
   const { getString } = useStrings('pipeline-stages')
 
@@ -45,6 +50,8 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
     },
     updatePipeline
   } = React.useContext(PipelineContext)
+
+  const ciCodebase2: CodeBase2 | undefined = (ciCodebase as unknown) as CodeBase2 | undefined
 
   const { accountId, projectIdentifier, orgIdentifier } = useParams<{
     projectIdentifier: string
@@ -59,10 +66,10 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
 
   if (data?.stage.description) initialValues.description = data?.stage.description
   if (data?.stage.spec?.skipGitClone) initialValues.skipGitClone = data?.stage.spec?.skipGitClone
-  if (ciCodebase?.repositoryName) initialValues.repositoryName = ciCodebase?.repositoryName
+  if (ciCodebase2?.repositoryName) initialValues.repositoryName = ciCodebase2?.repositoryName
 
-  const connectorId = getIdentifierFromValue((ciCodebase?.connectorRef as string) || '')
-  const initialScope = getScopeFromValue((ciCodebase?.connectorRef as string) || '')
+  const connectorId = getIdentifierFromValue((ciCodebase2?.connectorRef as string) || '')
+  const initialScope = getScopeFromValue((ciCodebase2?.connectorRef as string) || '')
 
   const { data: connector, loading, refetch } = useGetConnector({
     identifier: connectorId,
@@ -85,16 +92,16 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
   }
 
   React.useEffect(() => {
-    if (!isEmpty(ciCodebase?.connectorRef)) {
+    if (!isEmpty(ciCodebase2?.connectorRef)) {
       refetch()
     }
-  }, [ciCodebase?.connectorRef])
+  }, [ciCodebase2?.connectorRef])
 
   const validationSchema = () =>
     Yup.lazy((values: Values): any =>
       Yup.object().shape({
         name: Yup.string().required(getString('build.create.stageNameRequiredError')),
-        ...(!ciCodebase &&
+        ...(!ciCodebase2 &&
           !values.skipGitClone && {
             connectorRef: Yup.mixed().required(getString('build.create.connectorRequiredError')),
             repositoryName: Yup.string()
@@ -117,10 +124,10 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
     if (data) {
       // TODO: Add Codebase verification
       if (!values.skipGitClone && values.connectorRef && values.repositoryName) {
-        pipeline.ciCodebase = {
+        pipeline.ciCodebase = ({
           connectorRef: values.connectorRef.value,
           repositoryName: values.repositoryName
-        }
+        } as unknown) as CodeBase
         updatePipeline(pipeline)
       }
 
