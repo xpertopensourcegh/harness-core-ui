@@ -1,4 +1,6 @@
 export default {
+  harness: 'HARNESS',
+  infrastructureProvider: 'INFRASTRUCTURE PROVIDER',
   activitySource: {
     heading: 'ACTIVITY SOURCE',
     info: 'Activity sources provide the details of deployment and infrastructure change',

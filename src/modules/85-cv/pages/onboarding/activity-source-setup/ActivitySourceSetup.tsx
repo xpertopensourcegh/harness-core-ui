@@ -5,6 +5,7 @@ import { routeActivitySourceSetup } from 'navigation/cv/routes'
 import { ActivitySourceSetupRoutePaths } from 'navigation/cv/routePaths'
 import KubernetesActivitySource from './kubernetes/KubernetesActivitySource'
 import { OnBoardingPageHeader } from '../OnBoardingPageHeader/OnBoardingPageHeader'
+import HarnessCDActivitySource from './harness-cd/HarnessCDActivitySource'
 import i18n from './ActivitySourceSetup.i18n'
 import css from './ActivitySourceSetup.module.scss'
 
@@ -12,6 +13,8 @@ function activitySourceTypeToComponent(activitySource: string): JSX.Element {
   switch (activitySource) {
     case ActivitySourceSetupRoutePaths.KUBERNETES:
       return <KubernetesActivitySource />
+    case ActivitySourceSetupRoutePaths.HARNESS_CD:
+      return <HarnessCDActivitySource />
     default:
       return <Container />
   }

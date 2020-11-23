@@ -29,6 +29,16 @@ const Status = {
   NOT_VISITED: 'NOT_VISITED'
 }
 
+const ActivitySourcesHarness = [
+  {
+    type: 'HarnessCD_1.0',
+    icon: 'cd-main',
+    label: 'Harness CD 1.0',
+    routeName: 'harness-cd',
+    routeUrl: routeActivitySourceSetup.url
+  }
+]
+
 const ActivitySources = [
   {
     type: 'K8sCluster',
@@ -71,24 +81,54 @@ const ActivitySourceContent: React.FC<ActivitySourceContentProps> = props => {
             {i18n.activitySource.content.heading.start}
           </Text>
           <Text>{i18n.activitySource.content.info}</Text>
-          <div className={css.items}>
-            {ActivitySources.map((item, index) => {
-              return (
-                <div
-                  className={css.cardWrapper}
-                  key={`${index}${item}`}
-                  onClick={() =>
-                    history.push(item.routeUrl({ activitySource: item.routeName, projectIdentifier, orgIdentifier }))
-                  }
-                >
-                  <Card interactive={true} className={css.cardCss}>
-                    <CardBody.Icon icon={item.icon as IconName} iconSize={40} />
-                  </Card>
-                  <div className={css.cardLabel}>{item.label}</div>
-                </div>
-              )
-            })}
-          </div>
+          <Layout.Horizontal margin={{ top: 'xxlarge' }}>
+            <Layout.Vertical margin={{ right: 'xxlarge' }}>
+              <Text>{i18n.harness} </Text>
+              <div className={css.items}>
+                {ActivitySourcesHarness.map((item, index) => {
+                  return (
+                    <div
+                      className={css.cardWrapper}
+                      key={`${index}${item}`}
+                      onClick={() =>
+                        history.push(
+                          item.routeUrl({ activitySource: item.routeName, projectIdentifier, orgIdentifier })
+                        )
+                      }
+                    >
+                      <Card interactive={true} className={css.cardCss}>
+                        <CardBody.Icon icon={item.icon as IconName} iconSize={40} />
+                      </Card>
+                      <div className={css.cardLabel}>{item.label}</div>
+                    </div>
+                  )
+                })}
+              </div>
+            </Layout.Vertical>
+            <Layout.Vertical>
+              <Text>{i18n.infrastructureProvider} </Text>
+              <div className={css.items}>
+                {ActivitySources.map((item, index) => {
+                  return (
+                    <div
+                      className={css.cardWrapper}
+                      key={`${index}${item}`}
+                      onClick={() =>
+                        history.push(
+                          item.routeUrl({ activitySource: item.routeName, projectIdentifier, orgIdentifier })
+                        )
+                      }
+                    >
+                      <Card interactive={true} className={css.cardCss}>
+                        <CardBody.Icon icon={item.icon as IconName} iconSize={40} />
+                      </Card>
+                      <div className={css.cardLabel}>{item.label}</div>
+                    </div>
+                  )
+                })}
+              </div>
+            </Layout.Vertical>
+          </Layout.Horizontal>
         </div>
       </Container>
       <Layout.Horizontal style={{ float: 'right' }} padding="small">

@@ -1,0 +1,17 @@
+{
+  "status": "SUCCESS",
+  "data": {
+    "accountId": "accountId",
+    "orgIdentifier": "OrgOneTwo",
+    "projectIdentifier": "hello",
+    "identifier": "ndbhjdh",
+    "name": "ndbhjdh",
+    "description": null,
+    "type": "Production",
+    "deleted": false,
+    "tags": {},
+    "version": 0
+  },
+  "metaData": null,
+  "correlationId": "52fca57b-efb7-4cea-8636-c67f8e2e286c"
+}

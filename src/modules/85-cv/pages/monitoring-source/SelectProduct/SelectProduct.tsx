@@ -98,7 +98,7 @@ const SelectProduct: React.FC<SelectProductProps> = props => {
               <Layout.Vertical spacing="large">
                 <Text>{monitoringSource?.selectProduct}</Text>
                 <Layout.Horizontal spacing="medium">
-                  {monitoringSource?.products.map((item, index) => {
+                  {monitoringSource?.products?.map((item, index) => {
                     return (
                       <CVSelectionCard
                         isSelected={selectedProduct === item.value}

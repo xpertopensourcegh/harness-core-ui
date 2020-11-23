@@ -41,7 +41,7 @@
   .items {
     display: flex;
     flex-wrap: wrap;
-    padding: var(--spacing-large);
+    padding: var(--spacing-large) 0;
   }
   .cardWrapper {
     margin: 0 var(--spacing-small) var(--spacing-small) 0;

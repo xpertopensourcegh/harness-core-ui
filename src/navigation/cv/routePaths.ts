@@ -18,5 +18,6 @@ export const DataSourceRoutePaths = {
 }
 
 export const ActivitySourceSetupRoutePaths = {
-  KUBERNETES: 'kubernetes'
+  KUBERNETES: 'kubernetes',
+  HARNESS_CD: 'harness-cd'
 }
