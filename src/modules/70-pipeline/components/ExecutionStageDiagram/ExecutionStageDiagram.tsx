@@ -104,19 +104,17 @@ export default function ExecutionStageDiagram<T>(props: ExecutionStageDiagramPro
 
   React.useEffect(() => {
     const stageData = getGroupsFromData(data)
-    if (stageData.size !== groupStage?.size) {
-      setGroupStage(stageData)
-    }
-  }, [data, groupStage?.size])
+    setGroupStage(stageData)
+  }, [data])
 
   const updateGroupStage = (event: Diagram.DefaultNodeEvent): void => {
     const group = groupStage?.get(event.entity.getIdentifier())
-    if (group) {
+    if (group && groupStage) {
       groupStage?.set(event.entity.getIdentifier(), {
         ...group,
         collapsed: !group.collapsed
       })
-      setGroupStage(groupStage)
+      setGroupStage(new Map([...groupStage]))
     }
   }
 
@@ -135,7 +133,7 @@ export default function ExecutionStageDiagram<T>(props: ExecutionStageDiagramPro
         setAutoPosition(false)
       }
       const group = groupStage?.get(event.entity.getIdentifier())
-      if (group) {
+      if (group && group.collapsed) {
         updateGroupStage(event)
       } else {
         const stage = getStageFromDiagramEvent(event, data)

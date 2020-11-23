@@ -270,8 +270,8 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
       }
       return { startX, startY, prevNodes }
     } /* istanbul ignore else */ else if (node.group) {
-      /* istanbul ignore else */ if (node.group.isOpen) {
-        this.clearAllLinksForNode(node.group.identifier)
+      /* istanbul ignore else */ if (!groupStage?.get(node.group.identifier)?.collapsed) {
+        this.clearAllLinksForNodeAndNode(node.group.identifier)
         const stepGroupLayer =
           this.getGroupLayer(node.group.identifier) ||
           new Diagram.StepGroupNodeLayerModel({
@@ -390,7 +390,7 @@ export class ExecutionStageDiagramModel extends Diagram.DiagramModel {
     }
     // Unlock Graph
     this.setLocked(false)
-
+    this.clearAllListeners()
     let prevNodes: Diagram.DefaultNodeModel[] = []
 
     /* istanbul ignore else */ if (showStartEndNode) {

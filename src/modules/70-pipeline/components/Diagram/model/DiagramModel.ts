@@ -45,7 +45,7 @@ export class DiagramModel<G extends DiagramModelGenerics = DiagramModelGenerics>
     this.stepGroupLayers = []
   }
 
-  clearAllLinksForNode(id: string): void {
+  clearAllLinksForNodeAndNode(id: string): void {
     const node = this.getNodeFromId(id)
     if (node) {
       const ports = node.getPorts()
@@ -57,6 +57,7 @@ export class DiagramModel<G extends DiagramModelGenerics = DiagramModelGenerics>
           this.removeLink(link)
         }
       }
+      this.removeNode(node)
     }
   }
 
@@ -64,10 +65,16 @@ export class DiagramModel<G extends DiagramModelGenerics = DiagramModelGenerics>
     const layer = this.getGroupLayer(id)
     if (layer) {
       const groupNodes = layer.getNodes()
+      this.clearAllLinksForNodeAndNode(layer.startNode.getID())
+      this.clearAllLinksForNodeAndNode(layer.endNode.getID())
       for (const key in groupNodes) {
         const node = groupNodes[key]
-        this.clearAllLinksForNode(node.getID())
+        this.clearAllLinksForNodeAndNode(node.getID())
       }
+      this.stepGroupLayers.splice(
+        this.stepGroupLayers.findIndex(item => item.getID() === id),
+        1
+      )
       layer.remove()
     }
   }
@@ -84,6 +91,28 @@ export class DiagramModel<G extends DiagramModelGenerics = DiagramModelGenerics>
     }
   }
 
+  clearAllListeners(): void {
+    const nodeLayers = this.getNodeLayers()
+    for (const key in nodeLayers) {
+      const nodeLayer = nodeLayers[key]
+      nodeLayer.clearListeners()
+      const nodes = nodeLayer.getNodes()
+      for (const nodeKey in nodes) {
+        nodes[nodeKey].clearListeners()
+      }
+    }
+
+    const linkLayers = this.getLinkLayers()
+    for (const layerKey in linkLayers) {
+      const linkLayer = linkLayers[layerKey]
+      linkLayer.clearListeners()
+      const links = linkLayer.getLinks()
+      for (const key in links) {
+        const link = links[key]
+        link.clearListeners()
+      }
+    }
+  }
   clearAllNodesAndLinks(): void {
     this.clearAllLinks()
 
