@@ -197,7 +197,7 @@ export const ConnectorReferenceField: React.FC<ConnectorReferenceFieldProps> = p
           label
         })}
         createNewHandler={() => {
-          openConnectorModal(type)
+          openConnectorModal(true, type, undefined)
         }}
         editRenderer={getEditRenderer(selected)}
         selectedRenderer={getSelectedRenderer(selected)}

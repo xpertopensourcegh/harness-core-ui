@@ -15,23 +15,23 @@ import type { SnippetInterface } from 'modules/10-common/interfaces/SnippetInter
 import { YAMLService } from '@common/services'
 import TestConnection from '@connectors/components/TestConnection/TestConnection'
 import type { YamlBuilderHandlerBinding, YamlBuilderProps } from 'modules/10-common/interfaces/YAMLBuilderProps'
-import ConnectorForm from '@connectors/components/ConnectorForm/ConnectorForm'
+import useCreateConnectorModal from '@connectors/modals/ConnectorModal/useCreateConnectorModal'
 import type { ConnectorConnectivityDetails } from 'services/cd-ng'
 import SavedConnectorDetails, {
   RenderDetailsSection,
   getActivityDetails
 } from './views/savedDetailsView/SavedConnectorDetails'
-import i18n from './ConfigureConnector.i18n'
-import css from './ConfigureConnector.module.scss'
+import i18n from './ConnectorView.i18n'
+import css from './ConnectorView.module.scss'
 
-export interface ConfigureConnectorProps {
-  type: string
+export interface ConnectorViewProps {
+  type: ConnectorInfoDTO['type']
   response: ConnectorResponse
   updateConnector: (data: ConnectorRequestBody) => Promise<unknown>
   refetchConnector: () => Promise<any>
 }
 
-interface ConfigureConnectorState {
+interface ConnectorViewState {
   enableEdit: boolean
   setEnableEdit: (val: boolean) => void
   connector: ConnectorInfoDTO
@@ -49,7 +49,7 @@ const SelectedView = {
   YAML: 'YAML'
 }
 
-const ConfigureConnector: React.FC<ConfigureConnectorProps> = props => {
+const ConnectorView: React.FC<ConnectorViewProps> = props => {
   const [enableEdit, setEnableEdit] = useState(false)
   const [lastTested, setLastTested] = useState<number>(props.response?.status?.lastTestedAt || 0)
   const [lastConnected, setLastConnected] = useState<number>(props.response?.status?.lastTestedAt || 0)
@@ -64,7 +64,7 @@ const ConfigureConnector: React.FC<ConfigureConnectorProps> = props => {
   const [yamlHandler, setYamlHandler] = React.useState<YamlBuilderHandlerBinding | undefined>()
   const [isValidYAML] = React.useState<boolean>(true)
 
-  const state: ConfigureConnectorState = {
+  const state: ConnectorViewState = {
     enableEdit,
     setEnableEdit,
     connector,
@@ -160,6 +160,15 @@ const ConfigureConnector: React.FC<ConfigureConnectorProps> = props => {
     width: 900
   }
 
+  const { openConnectorModal } = useCreateConnectorModal({
+    onSuccess: () => {
+      state.setEnableEdit(false)
+    },
+    onClose: () => {
+      state.setEnableEdit(false)
+    }
+  })
+
   useEffect(() => {
     fetchSnippets(connector?.type)
   })
@@ -206,22 +215,17 @@ const ConfigureConnector: React.FC<ConfigureConnectorProps> = props => {
             className={css.editButton}
             text={i18n.EDIT_DETAILS}
             icon="edit"
-            onClick={() => state.setEnableEdit(true)}
+            onClick={() => {
+              state.setEnableEdit(true)
+              selectedView === SelectedView.VISUAL ? openConnectorModal(false, props.type, connector) : undefined
+            }}
           />
         )}
       </Container>
 
       <Layout.Horizontal>
         {enableEdit ? (
-          selectedView === SelectedView.VISUAL ? (
-            <ConnectorForm
-              type={props.type}
-              connector={connector}
-              setConnector={setConnector}
-              setConnectorForYaml={setConnectorForYaml}
-              onSubmit={onSubmit}
-            />
-          ) : (
+          selectedView === SelectedView.VISUAL ? null : (
             <div className={css.editor}>
               <YamlBuilder {...Object.assign(yamlBuilderReadOnlyModeProps, { height: 550 })} />
               <Button
@@ -270,4 +274,4 @@ const ConfigureConnector: React.FC<ConfigureConnectorProps> = props => {
   )
 }
 
-export default ConfigureConnector
+export default ConnectorView

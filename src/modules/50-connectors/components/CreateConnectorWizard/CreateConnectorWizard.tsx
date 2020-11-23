@@ -18,6 +18,8 @@ interface CreateConnectorWizardProps {
   projectIdentifier: string
   orgIdentifier: string
   type: ConnectorInfoDTO['type']
+  isCreate: boolean
+  connectorInfo?: ConnectorInfoDTO | void
   hideLightModal: () => void
   onSuccess: (data?: ConnectorRequestBody) => void | Promise<void>
 }
@@ -26,7 +28,14 @@ export const ConnectorWizard: React.FC<CreateConnectorWizardProps> = props => {
   const { type, accountId, orgIdentifier, projectIdentifier, hideLightModal, ...rest } = props
   switch (type) {
     case Connectors.KUBERNETES_CLUSTER:
-      return <CreateK8sConnector onConnectorCreated={props.onSuccess} hideLightModal={props.hideLightModal} />
+      return (
+        <CreateK8sConnector
+          onConnectorCreated={props.onSuccess}
+          hideLightModal={props.hideLightModal}
+          isCreate={props.isCreate}
+          connectorInfo={props.connectorInfo}
+        />
+      )
     case Connectors.GIT:
       return (
         <CreateGITConnector

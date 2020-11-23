@@ -1,7 +1,5 @@
 import React from 'react'
 import { Formik, FormikForm } from '@wings-software/uikit'
-import KubCluster from '@connectors/pages/connectors/Forms/KubCluster'
-import type { ConnectorInfoDTO } from 'services/cd-ng'
 import css from './KubernetesActivitySourceForm.module.scss'
 
 export default function KubernetesActivitySourceForm(): JSX.Element {
@@ -10,13 +8,14 @@ export default function KubernetesActivitySourceForm(): JSX.Element {
       {() => (
         <FormikForm className={css.main}>
           {/* Temporary accountid - replace with real one */}
-          <KubCluster
+          {/* Inline forms are now replaced with createWizards  */}
+          {/* <KubCluster
             enableCreate={true}
             connector={{} as ConnectorInfoDTO}
             onSubmit={() => undefined}
             setConnector={() => undefined}
             setConnectorForYaml={() => undefined}
-          />
+          /> */}
         </FormikForm>
       )}
     </Formik>

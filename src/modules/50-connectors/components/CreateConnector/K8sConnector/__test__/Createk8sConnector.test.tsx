@@ -18,7 +18,7 @@ describe('Create k8 connector Wizard', () => {
   test('should form for authtype username', async () => {
     const { container } = render(
       <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
-        <CreateK8sConnector hideLightModal={noop} onConnectorCreated={noop} mock={mockResponse} />
+        <CreateK8sConnector hideLightModal={noop} onConnectorCreated={noop} isCreate={true} mock={mockResponse} />
       </TestWrapper>
     )
     // fill step 1

@@ -2,6 +2,7 @@
 
 exports[`Connector Details Page Rendring connector deatils: view text 1`] = `
 <div>
+   
   <div
     class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---padding-top-large--i39X StyledProps---padding-left-huge--2Znx StyledProps---padding-bottom-large--1zGv StyledProps---padding-right-huge--eVaX"
   >
@@ -110,5 +111,6 @@ exports[`Connector Details Page Rendring connector deatils: view text 1`] = `
       </div>
     </div>
   </div>
+   
 </div>
 `;

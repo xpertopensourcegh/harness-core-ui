@@ -18,19 +18,18 @@ import * as Yup from 'yup'
 import { Formik, Form, FormikProps } from 'formik'
 import { ConnectorInfoDTO, ConnectorRequestBody, useCreateConnector, useUpdateConnector } from 'services/cd-ng'
 import SecretInput from '@secrets/components/SecretInput/SecretInput'
-import { buildKubPayload } from '@connectors/pages/connectors/utils/ConnectorUtils'
+import { buildKubPayload, DelegateTypes, AuthTypes } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import { useToaster } from '@common/components/Toaster/useToaster'
 import { useStrings } from 'framework/exports'
-import { DelegateTypes, AuthTypes } from '../../../../pages/connectors/Forms/KubeFormInterfaces'
 import css from '../CreateK8sConnector.module.scss'
 
 interface Stepk8ClusterDetailsProps extends ConnectorInfoDTO {
   name: string
-  isEditMode?: boolean
 }
 
 interface K8ClusterDetailsProps {
   onConnectorCreated?: (data?: ConnectorRequestBody) => void | Promise<void>
+  isEditMode?: boolean
 }
 
 interface DelegateCardInterface {
@@ -265,7 +264,7 @@ const Stepk8ClusterDetails: React.FC<StepProps<Stepk8ClusterDetailsProps> & K8Cl
               ...buildKubPayload(connectorData)
             }
 
-            if (props.prevStepData?.isEditMode) {
+            if (props.isEditMode) {
               handleUpdate(data)
             } else {
               handleCreate(data)

@@ -10,7 +10,7 @@ import { useGetConnector, ConnectorResponse, useUpdateConnector } from 'services
 import ActivityHistory from '@connectors/components/activityHistory/ActivityHistory/ActivityHistory'
 
 import ReferencedBy from './ReferencedBy/ReferencedBy'
-import ConfigureConnector from './ConfigureConnector'
+import ConnectorView from './ConnectorView'
 import i18n from './ConnectorDetailsPage.i18n'
 import css from './ConnectorDetailsPage.module.scss'
 
@@ -77,9 +77,9 @@ const ConnectorDetailsPage: React.FC = () => {
       />
       <Page.Body>
         {activeCategory === 0 ? (
-          !loading && data ? (
-            <ConfigureConnector
-              type={data.data?.connector?.type || ''}
+          !loading && data?.data?.connector?.type ? (
+            <ConnectorView
+              type={data.data.connector.type}
               updateConnector={updateConnector}
               response={data.data || ({} as ConnectorResponse)}
               refetchConnector={refetch}

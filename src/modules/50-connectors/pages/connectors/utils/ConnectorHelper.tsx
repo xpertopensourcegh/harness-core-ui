@@ -1,7 +1,6 @@
 import type { IconName } from '@wings-software/uikit'
 import { Connectors } from '@connectors/constants'
 import { StringUtils } from '@common/exports'
-import { getKubValidationSchema, AuthTypeFields } from '../Forms/KubeFormHelper'
 import i18n from './ConnectorHelper.i18n'
 
 export const AuthTypes = {
@@ -9,17 +8,6 @@ export const AuthTypes = {
   USER_PASSWORD: 'UsernamePassword',
   SERVICE_ACCOUNT: 'ServiceAccount',
   OIDC: 'OpenIdConnect'
-}
-
-export const getValidationSchemaByType = (type: string) => {
-  if (!type) return null
-  switch (type) {
-    case Connectors.KUBERNETES_CLUSTER:
-      return getKubValidationSchema()
-
-    default:
-      return null
-  }
 }
 
 export const getKubInitialValues = () => {
@@ -126,58 +114,6 @@ export const getConnectorIconByType = (type: string): IconName => {
       return 'service-gcp'
     default:
       return 'placeholder'
-  }
-}
-
-export const getLabelForEncryptedSecret = (field: string) => {
-  switch (field) {
-    case AuthTypeFields.passwordRef:
-      return 'Password'
-    case AuthTypeFields.serviceAccountTokenRef:
-      return 'Service Account Token'
-    case AuthTypeFields.oidcPasswordRef:
-      return 'Password'
-    case AuthTypeFields.oidcClientIdRef:
-      return 'Client ID'
-    case AuthTypeFields.oidcSecretRef:
-      return 'Client Secret (Optional)'
-    case AuthTypeFields.clientKeyRef:
-      return 'Client Key'
-    case AuthTypeFields.clientKeyPassphraseRef:
-      return 'Client Key Passphrase'
-    case AuthTypeFields.clientCertRef:
-      return 'Client Certificate'
-    case AuthTypeFields.clientKeyAlgo:
-      return 'Client Key Algorithm (Optional)'
-    case AuthTypeFields.caCertRef:
-      return 'CA Certificate (Optional)'
-    default:
-      return ''
-  }
-}
-
-export const getSecretFieldValue = (field: string) => {
-  switch (field) {
-    case AuthTypeFields.passwordRef:
-      return 'passwordRefSecret'
-    case AuthTypeFields.serviceAccountTokenRef:
-      return 'serviceAccountTokenRefSecret'
-    case AuthTypeFields.oidcClientIdRef:
-      return 'oidcClientIdRefSecret'
-    case AuthTypeFields.oidcPasswordRef:
-      return 'oidcPasswordRefSecret'
-    case AuthTypeFields.oidcSecretRef:
-      return 'oidcSecretRefSecret'
-    case AuthTypeFields.clientKeyRef:
-      return 'clientKeyRefSecret'
-    case AuthTypeFields.clientKeyPassphraseRef:
-      return 'clientKeyPassphraseRefSecret'
-    case AuthTypeFields.clientCertRef:
-      return 'clientCertRefSecret'
-    case AuthTypeFields.caCertRef:
-      return 'caCertRefSecret'
-    default:
-      return ''
   }
 }
 

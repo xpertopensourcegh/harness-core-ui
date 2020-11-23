@@ -88,8 +88,8 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ mockData, catalogueMock
   })
 
   const [openDrawer, hideDrawer] = useModalHook(() => {
-    const onSelect = (val: ItemInterface) => {
-      openConnectorModal(val?.value as ConnectorInfoDTO['type'], undefined)
+    const onSelect = (val: ItemInterface): void => {
+      openConnectorModal(true, val?.value as ConnectorInfoDTO['type'], undefined)
       hideDrawer()
     }
 

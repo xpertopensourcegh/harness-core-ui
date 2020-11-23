@@ -4,7 +4,6 @@ import { Connectors, ConnectorInfoText, EntityTypes } from '@connectors/constant
 import type { ConnectorInfoDTO } from 'services/cd-ng'
 import type { FormData } from '@connectors/interfaces/ConnectorInterface'
 import { Scope } from '@common/interfaces/SecretsInterface'
-import { AuthTypes, DelegateTypes } from '../Forms/KubeFormInterfaces'
 
 export const getScopeFromString = (value: string) => {
   return value?.indexOf('.') < 0 ? Scope.PROJECT : value?.split('.')[0]
@@ -17,6 +16,22 @@ export const getSecretIdFromString = (value: string) => {
 export const GCP_AUTH_TYPE = {
   DELEGATE: 'delegate',
   ENCRYPTED_KEY: 'encryptedKey'
+}
+
+export const AuthTypes = {
+  CLIENT_KEY_CERT: 'ClientKeyCert',
+  USER_PASSWORD: 'UsernamePassword',
+  SERVICE_ACCOUNT: 'ServiceAccount',
+  OIDC: 'OpenIdConnect'
+}
+export const DelegateTypes = {
+  DELEGATE_IN_CLUSTER: 'InheritFromDelegate',
+  DELEGATE_OUT_CLUSTER: 'ManualConfig'
+}
+
+export const DelegateInClusterType = {
+  useExistingDelegate: 'useExistingDelegate',
+  addNewDelegate: 'addnewDelegate'
 }
 
 export const getScopedSecretString = (scope: string, identifier: string) => {

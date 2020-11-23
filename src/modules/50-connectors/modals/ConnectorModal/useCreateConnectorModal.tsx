@@ -9,15 +9,23 @@ import css from '../../components/CreateConnectorWizard/CreateConnectorWizard.mo
 
 export interface UseCreateConnectorModalProps {
   onSuccess?: (data?: ConnectorRequestBody) => void
+  onClose?: () => void
 }
 
 export interface UseCreateConnectorModalReturn {
-  openConnectorModal: (type: ConnectorInfoDTO['type'], modalProps?: IDialogProps) => void
+  openConnectorModal: (
+    isCreate: boolean,
+    type: ConnectorInfoDTO['type'],
+    connectorInfo: ConnectorInfoDTO | void,
+    modalProps?: IDialogProps
+  ) => void
   hideConnectorModal: () => void
 }
 
 const useCreateConnectorModal = (props: UseCreateConnectorModalProps): UseCreateConnectorModalReturn => {
-  const [type, setType] = useState<ConnectorInfoDTO['type']>(Connectors.KUBERNETES_CLUSTER)
+  const [isCreate, setIsCreate] = useState(true)
+  const [type, setType] = useState(Connectors.KUBERNETES_CLUSTER)
+  const [connectorInfo, setConnectorInfo] = useState<ConnectorInfoDTO | void>()
   const [modalProps, setModalProps] = useState<IDialogProps>({
     isOpen: true,
     style: {
@@ -43,6 +51,8 @@ const useCreateConnectorModal = (props: UseCreateConnectorModalProps): UseCreate
           orgIdentifier={orgIdentifier}
           projectIdentifier={projectIdentifier}
           type={type}
+          isCreate={isCreate}
+          connectorInfo={connectorInfo}
           onSuccess={handleSuccess}
           hideLightModal={hideModal}
         />
@@ -51,18 +61,26 @@ const useCreateConnectorModal = (props: UseCreateConnectorModalProps): UseCreate
           icon="cross"
           iconProps={{ size: 18 }}
           onClick={() => {
+            props.onClose?.()
             hideModal()
           }}
           className={css.crossIcon}
         />
       </Dialog>
     ),
-    [type]
+    [type, isCreate]
   )
 
   return {
-    openConnectorModal: (_type: ConnectorInfoDTO['type'], _modalProps?: IDialogProps | undefined) => {
-      setType(_type)
+    openConnectorModal: (
+      isCreating: boolean,
+      connectorType: ConnectorInfoDTO['type'],
+      connectorDetails: ConnectorInfoDTO | void,
+      _modalProps?: IDialogProps | undefined
+    ) => {
+      setConnectorInfo(connectorDetails)
+      setIsCreate(isCreating)
+      setType(connectorType)
       setModalProps(_modalProps || modalProps)
       showModal()
     },

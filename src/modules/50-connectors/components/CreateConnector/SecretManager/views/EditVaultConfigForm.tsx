@@ -4,17 +4,25 @@ import { Button, Formik, FormikForm, FormInput } from '@wings-software/uikit'
 import { useParams } from 'react-router-dom'
 import { pick } from 'lodash-es'
 
-import type { VaultConnectorDTO, ConnectorInfoDTO } from 'services/cd-ng'
+import type { VaultConnectorDTO, ConnectorInfoDTO, ConnectorRequestBody } from 'services/cd-ng'
 import i18n from '../CreateSecretManager.i18n'
 import VaultConnectorFormFields, { vaultConnectorFormFieldsValidationSchema } from './VaultConnectorFormFields'
 import type { VaultConfigFormData } from './VaultConfigForm'
-import type { ConnectorFormProps } from '../../../ConnectorForm/ConnectorForm'
 
 interface EditVaultConfigFormData extends VaultConfigFormData {
   name: string
   identifier: string
   description?: string
   tags?: string[]
+}
+interface ConnectorFormProps {
+  type: string
+  connector: ConnectorInfoDTO
+  setConnector: (val: ConnectorInfoDTO) => void
+  setConnectorForYaml: (val: ConnectorInfoDTO) => void
+  enableCreate?: boolean
+  enableEdit?: boolean
+  onSubmit: (data: ConnectorRequestBody) => void
 }
 
 const validationSchema = Yup.object().shape(vaultConnectorFormFieldsValidationSchema)

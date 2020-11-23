@@ -14,7 +14,11 @@ import {
 } from '@wings-software/uikit'
 import cx from 'classnames'
 import * as Yup from 'yup'
-import { buildAWSPayload } from '@connectors/pages/connectors/utils/ConnectorUtils'
+import {
+  buildAWSPayload,
+  DelegateTypes,
+  DelegateInClusterType
+} from '@connectors/pages/connectors/utils/ConnectorUtils'
 import { useToaster } from '@common/exports'
 import {
   useCreateConnector,
@@ -23,8 +27,6 @@ import {
   ConnectorRequestBody,
   ConnectorInfoDTO
 } from 'services/cd-ng'
-import { DelegateInClusterType } from '@connectors/pages/connectors/Forms/KubeFormHelper'
-import { DelegateTypes } from '@connectors/pages/connectors/Forms/KubeFormInterfaces'
 import { useGetDelegateTags } from 'services/portal'
 import SecretInput from '@secrets/components/SecretInput/SecretInput'
 import i18n from '../CreateAWSConnector.i18n'

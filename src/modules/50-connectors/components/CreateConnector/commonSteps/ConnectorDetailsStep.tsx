@@ -13,6 +13,7 @@ import {
 } from '@wings-software/uikit'
 import { useParams } from 'react-router'
 import * as Yup from 'yup'
+import { pick } from 'lodash-es'
 import { StringUtils } from '@common/exports'
 import {
   ConnectorConfigDTO,
@@ -30,6 +31,8 @@ interface ConnectorDetailsStepProps extends StepProps<ConnectorInfoDTO> {
   name: string
   setFormData?: (formData: ConnectorConfigDTO) => void
   formData?: ConnectorConfigDTO
+  isEditMode?: boolean
+  connectorInfo?: ConnectorInfoDTO | void
   mock?: ResponseBoolean
 }
 
@@ -59,7 +62,7 @@ const ConnectorDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDe
       setLoading(false)
 
       if ('SUCCESS' === response.status) {
-        if (response.data) {
+        if (response.data || (props.connectorInfo && props.connectorInfo?.identifier === formData.identifier)) {
           props.setFormData?.(formData)
           nextStep?.({ ...prevStepData, ...formData })
         } else {
@@ -74,6 +77,19 @@ const ConnectorDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDe
     }
   }
 
+  const getInitialValues = () => {
+    if (props.isEditMode) {
+      return { ...pick(props.connectorInfo, ['name', 'identifier', 'description', 'tags']) }
+    } else {
+      return {
+        name: '',
+        description: '',
+        identifier: '',
+        tags: []
+      }
+    }
+  }
+
   return (
     <Layout.Vertical spacing="xxlarge" className={css.firstep}>
       <div className={css.heading}>{getHeadingByType(props.type)}</div>
@@ -82,10 +98,7 @@ const ConnectorDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDe
       <div>
         <Formik
           initialValues={{
-            name: '',
-            description: '',
-            identifier: '',
-            tags: [],
+            ...getInitialValues(),
             ...prevStepData,
             ...props.formData
           }}

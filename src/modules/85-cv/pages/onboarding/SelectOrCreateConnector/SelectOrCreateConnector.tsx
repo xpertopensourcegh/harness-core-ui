@@ -58,7 +58,7 @@ export function ConnectorSelection(props: ConnectorSelectionProps): JSX.Element 
         />
         <Link
           withoutHref
-          onClick={() => openConnectorModal(connectorType || ('' as ConnectorInfoDTO['type']))}
+          onClick={() => openConnectorModal(true, connectorType || ('' as ConnectorInfoDTO['type']), undefined)}
           height="30px"
         >
           {createConnectorText}
