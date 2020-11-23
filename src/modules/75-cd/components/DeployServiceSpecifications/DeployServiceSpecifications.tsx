@@ -256,9 +256,9 @@ export default function DeployServiceSpecifications(): JSX.Element {
   }, [stageIndex])
 
   React.useEffect(() => {
-    const useFromStage = stage?.stage.spec.service?.useFromStage
-    const stageOverrides = stage?.stage.spec.service?.stageOverrides
-    const serviceDefinition = stage?.stage.spec.service?.serviceDefinition
+    const useFromStage = stage?.stage?.spec.service?.useFromStage
+    const stageOverrides = stage?.stage?.spec.service?.stageOverrides
+    const serviceDefinition = stage?.stage?.spec.service?.serviceDefinition
 
     if (useFromStage) {
       setSetupMode(setupMode.PROPAGATE)

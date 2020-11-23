@@ -12,5 +12,9 @@ declare const styles: {
   readonly disabled: string
   readonly stageDetails: string
   readonly stageOverridesTab: string
+  readonly inputContainer: string
+  readonly sideDescription: string
+  readonly removeLink: string
+  readonly dialogView: string
 }
 export default styles

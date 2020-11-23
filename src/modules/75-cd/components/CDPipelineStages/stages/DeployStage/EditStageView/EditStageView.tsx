@@ -5,7 +5,6 @@ import {
   Formik,
   FormikForm,
   FormInput,
-  Collapse,
   Button,
   CardBody,
   Card,
@@ -18,17 +17,9 @@ import cx from 'classnames'
 import * as Yup from 'yup'
 import type { IconName } from '@blueprintjs/core'
 import type { StageElementWrapper } from 'services/cd-ng'
+import { useStrings } from 'framework/exports'
 import i18n from './EditStageView.i18n'
 import css from './EditStageView.module.scss'
-
-const collapseProps = {
-  collapsedIcon: 'small-plus' as IconName,
-  expandedIcon: 'small-minus' as IconName,
-  isOpen: false,
-  isRemovable: false,
-  className: 'collapse',
-  heading: i18n.description
-}
 
 const newStageData = [
   {
@@ -65,10 +56,16 @@ export interface EditStageView {
 }
 
 export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, context, onChange }): JSX.Element => {
+  const [isDescriptionVisible, toggleDescription] = React.useState(!!data?.stage?.description)
+  const removeDescription = (values: any) => {
+    onChange?.({ ...values, description: '' })
+    toggleDescription(false)
+  }
+  const { getString } = useStrings()
   return (
     <div className={css.stageSection}>
-      <Layout.Vertical className={css.tabHeading}>{i18n.stageDetails}</Layout.Vertical>
-      <div className={cx(css.stageCreate, css.stageDetails)}>
+      {context && <Layout.Vertical className={css.tabHeading}>{i18n.stageDetails}</Layout.Vertical>}
+      <div className={cx({ [css.stageCreate]: true, [css.stageDetails]: !!context })}>
         {!context && (
           <Text icon="pipeline-deploy" iconProps={{ size: 16 }}>
             {i18n.aboutYourStage}
@@ -101,15 +98,33 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, context
             {formikProps => {
               return (
                 <FormikForm>
-                  <FormInput.InputWithIdentifier inputLabel={i18n.stageName} />
-                  <div className={css.collapseDiv}>
-                    <Collapse
-                      {...collapseProps}
-                      isOpen={(formikProps.values.description && formikProps.values.description?.length > 0) || false}
-                    >
-                      <FormInput.TextArea name="description" />
-                    </Collapse>
+                  <div className={cx({ [css.inputContainer]: true, [css.sideDescription]: !!context })}>
+                    <FormInput.InputWithIdentifier inputLabel={i18n.stageName} />
+
+                    {!isDescriptionVisible && (
+                      <Button
+                        minimal
+                        text={getString('pipelineSteps.descriptionLabel')}
+                        icon="plus"
+                        onClick={() => toggleDescription(true)}
+                      />
+                    )}
                   </div>
+                  {isDescriptionVisible && (
+                    <div>
+                      <span
+                        onClick={() => removeDescription(formikProps.values)}
+                        className={cx({ [css.removeLink]: true, [css.dialogView]: !context })}
+                      >
+                        {i18n.removeLabel}
+                      </span>
+                      <FormInput.TextArea
+                        name="description"
+                        label={getString('pipelineSteps.descriptionLabel')}
+                        style={{ width: context ? 440 : 320 }}
+                      />
+                    </div>
+                  )}
                   <div className={css.labelBold}>
                     <Label>{i18n.whatToDeploy}</Label>
                   </div>

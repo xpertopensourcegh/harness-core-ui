@@ -11,5 +11,6 @@ export default {
   otherWorkloads: 'Other Workloads',
   setupStage: 'Setup Stage',
   stageName: 'Stage Name',
-  stageDetails: 'Stage Details'
+  stageDetails: 'Stage Details',
+  removeLabel: 'remove'
 }
