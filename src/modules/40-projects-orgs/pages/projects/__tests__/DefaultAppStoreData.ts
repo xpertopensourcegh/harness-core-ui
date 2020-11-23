@@ -9,8 +9,7 @@ export const project: Project = {
   color: '#e6b800',
   modules: ['CD', 'CV'],
   description: 'test',
-  tags: ['tag1', 'tag2'],
-  owners: ['testAcc']
+  tags: { tag1: '', tag2: 'tag3' }
 }
 export const defaultAppStoreValues: AppStore = {
   user: {},
@@ -21,76 +20,76 @@ export const defaultAppStoreValues: AppStore = {
       identifier: 'test',
       name: 'test',
       color: '#e6b800',
-      modules: ['CD', 'CV'],
+      modules: ['CD'],
       description: 'test',
-      tags: ['tag1', 'tag2'],
-      owners: ['testAcc']
+      tags: { tag1: '', tag2: 'tag3' },
+      lastModifiedAt: 1599715118275
     },
     {
       accountIdentifier: 'testAcc',
-      orgIdentifier: 'testOrg',
+      orgIdentifier: 'Cisco_Meraki',
       identifier: 'Online_Banking',
       name: 'Online Banking',
       color: '#1c1c28',
       modules: ['CD', 'CV'],
       description: 'UI for the Payment',
-      owners: ['testAcc'],
-      tags: ['UI', 'Production']
+      tags: { tag1: '', tag2: 'tag3' },
+      lastModifiedAt: 1599715118275
     },
     {
       accountIdentifier: 'testAcc',
-      orgIdentifier: 'testOrg',
+      orgIdentifier: 'Cisco_Meraki',
       identifier: 'Portal',
       name: 'Portal',
       color: '#ff8800',
       modules: ['CV'],
       description: 'Online users',
-      owners: ['testAcc'],
-      tags: ['prod', 'ui', 'customer']
+      tags: { tag1: '', tag2: 'tag3' },
+      lastModifiedAt: 1599715155888
     },
     {
       accountIdentifier: 'testAcc',
-      orgIdentifier: 'testOrg',
+      orgIdentifier: 'Cisco_Prime',
       identifier: 'Project_1',
       name: 'Project 1',
       color: '#e6b800',
       modules: [],
       description: '',
-      owners: ['testAcc'],
-      tags: []
+      tags: {},
+      lastModifiedAt: 1599740365287
     },
     {
       accountIdentifier: 'testAcc',
-      orgIdentifier: 'testOrg',
+      orgIdentifier: 'Cisco_Prime',
       identifier: 'Project_Demo',
       name: 'Project Demo',
       color: '#004fc4',
       modules: [],
       description: 'Demo project',
-      owners: ['testAcc'],
-      tags: ['demo', 'temporary']
+      tags: { tag1: '', tag2: 'tag3' },
+      lastModifiedAt: 1599730109213
     },
     {
       accountIdentifier: 'testAcc',
-      orgIdentifier: 'testOrg',
+      orgIdentifier: 'Harness',
       identifier: 'Drone_Data_Supplier',
       name: 'Drone Data Supplier',
       color: '#e67a00',
-      modules: ['CD'],
+      modules: ['CD', 'CV', 'CI', 'CE', 'CF'],
       description: 'Drone',
-      owners: ['testAcc'],
-      tags: ['prod', 'master']
+      tags: { tag1: '', tag2: 'tag3' },
+      lastModifiedAt: 1599715251972
     },
     {
       accountIdentifier: 'testAcc',
-      orgIdentifier: 'testOrg',
+      orgIdentifier: 'Harness',
       identifier: 'Swagger',
       name: 'Swagger',
       color: '#e6b800',
-      modules: [],
+      modules: ['CI'],
       description: 'Swagger 2.0',
-      owners: ['testAcc'],
-      tags: ['ui', 'backend']
+      tags: { tag1: '', tag2: 'tag3' },
+      lastModifiedAt: 1599715290787
     }
   ],
   organisationsMap: new Map([

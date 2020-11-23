@@ -44,7 +44,7 @@ const RenderColumnProject: Renderer<CellProps<Project>> = ({ row }) => {
           <Text color={Color.BLACK} lineClamp={1} className={css.project}>
             {data.name}
           </Text>
-          {data.tags?.length ? <TagsPopover tags={data.tags} /> : null}
+          {data.tags ? <TagsPopover tags={data.tags} /> : null}
         </Layout.Horizontal>
         {data.description ? (
           <Text color={Color.GREY_400} lineClamp={1} className={css.project}>
@@ -221,14 +221,14 @@ const ProjectListView: React.FC<ProjectListViewProps> = props => {
       },
       {
         Header: i18n.admin.toUpperCase(),
-        accessor: 'owners',
+        accessor: 'accountIdentifier',
         width: '10%',
         Cell: RenderColumnAdmin,
         disableSortBy: true
       },
       {
         Header: i18n.collaborators.toUpperCase(),
-        accessor: 'accountIdentifier',
+        accessor: 'identifier',
         width: '10%',
         Cell: RenderColumnAdmin,
         disableSortBy: true
@@ -273,7 +273,10 @@ const ProjectListView: React.FC<ProjectListViewProps> = props => {
         data={data?.data?.content || []}
         onRowClick={project => {
           history.push(
-            routeProjectDetails.url({ projectIdentifier: project.identifier, orgIdentifier: project.orgIdentifier })
+            routeProjectDetails.url({
+              projectIdentifier: project.identifier,
+              orgIdentifier: project.orgIdentifier || ''
+            })
           )
         }}
         pagination={{

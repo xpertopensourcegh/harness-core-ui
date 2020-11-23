@@ -83,13 +83,13 @@ const ProjectsListPage: React.FC<ProjectListProps> = ({ orgMockData }) => {
       <Page.Header title={i18n.projects.toUpperCase()} />
       <Layout.Horizontal className={css.header}>
         <Layout.Horizontal width="55%">
-          <Button text="New Project" icon="plus" onClick={() => openProjectModal()} />
+          <Button text={i18n.newProject} icon="plus" onClick={() => openProjectModal()} />
         </Layout.Horizontal>
 
         <Layout.Horizontal spacing="small" width="45%" className={css.headerLayout}>
           <TextInput
             leftIcon="search"
-            placeholder="Search by project, tags, members"
+            placeholder={i18n.search}
             className={css.search}
             value={searchParam}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {

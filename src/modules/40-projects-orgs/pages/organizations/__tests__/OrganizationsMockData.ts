@@ -10,18 +10,16 @@ export const orgMockData = {
           accountIdentifier: 'testAcc',
           identifier: 'testOrg',
           name: 'Org Name',
-          color: '#004fc4',
           description: 'Description',
-          tags: ['tag1', 'tag2'],
+          tags: { tag1: '', tag2: 'tag3' },
           lastModifiedAt: 1602148957762
         },
         {
           accountIdentifier: 'testAcc',
           identifier: 'testOrg2',
           name: 'test org 2',
-          color: '#e6b800',
           description: '',
-          tags: [],
+          tags: {},
           lastModifiedAt: 1599715118275
         }
       ],
@@ -41,9 +39,8 @@ export const getOrgMockData = {
       accountIdentifier: 'testAcc',
       identifier: 'testOrg',
       name: 'Org Name',
-      color: '#004fc4',
       description: 'Description',
-      tags: ['tag1', 'tag2'],
+      tags: { tag1: '', tag2: 'tag3' },
       lastModifiedAt: 1602148957762
     },
     metaData: undefined,
@@ -61,7 +58,7 @@ export const createOrgMockData = {
         name: 'Org Name',
         color: '#004fc4',
         description: 'Description',
-        tags: ['tag1', 'tag2'],
+        tags: { tag1: '', tag2: 'tag3' },
         lastModifiedAt: 1602148957762
       },
       metaData: undefined,

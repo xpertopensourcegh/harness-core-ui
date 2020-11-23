@@ -14,8 +14,7 @@ const data: Project = {
   color: '#e6b800',
   modules: [],
   description: 'test',
-  tags: ['tag1', 'tag2'],
-  owners: ['testAcc'],
+  tags: { tag1: '', tag2: 'tag3' },
   lastModifiedAt: 1599715118275
 }
 const addModule = jest.fn()

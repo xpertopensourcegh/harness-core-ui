@@ -21,7 +21,7 @@ const CDRenderer: React.FC<CDRendererProps> = ({ data, isPreview }) => {
         !isPreview &&
           history.push(
             routeCDDashboard.url({
-              orgIdentifier: data.orgIdentifier,
+              orgIdentifier: data.orgIdentifier || '',
               projectIdentifier: data.identifier
             })
           )

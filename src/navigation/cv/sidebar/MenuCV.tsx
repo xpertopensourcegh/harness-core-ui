@@ -142,7 +142,7 @@ export const MenuCV: React.FC = () => {
                 history.push(
                   routeCVMainDashBoardPage.url({
                     projectIdentifier: project.identifier,
-                    orgIdentifier: project.orgIdentifier
+                    orgIdentifier: project.orgIdentifier || ''
                   })
                 )
               }}

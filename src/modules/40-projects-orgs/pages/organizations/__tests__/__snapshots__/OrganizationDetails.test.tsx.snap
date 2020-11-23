@@ -58,7 +58,7 @@ exports[`Organization Details Render 1`] = `
             <span
               class="bp3-text-overflow-ellipsis bp3-fill"
             >
-              tag2
+              tag2:tag3
             </span>
           </span>
         </span>

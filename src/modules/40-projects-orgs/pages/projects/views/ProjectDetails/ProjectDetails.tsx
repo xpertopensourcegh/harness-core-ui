@@ -65,13 +65,16 @@ const ProjectDetails: React.FC = () => {
             <Text font="small" lineClamp={2}>
               {data?.data?.description}
             </Text>
-            {data?.data?.tags?.length ? (
+            {data?.data?.tags ? (
               <Layout.Horizontal padding={{ top: 'small' }} className={css.wrap}>
-                {data.data.tags.map((tag: string) => (
-                  <Tag className={css.cardTags} key={tag}>
-                    {tag}
-                  </Tag>
-                ))}
+                {Object.keys(data.data.tags).map(key => {
+                  const value = data?.data?.tags?.[key]
+                  return (
+                    <Tag className={css.cardTags} key={key}>
+                      {value ? `${key}:${value}` : key}
+                    </Tag>
+                  )
+                })}
               </Layout.Horizontal>
             ) : null}
           </Layout.Vertical>

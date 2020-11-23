@@ -18,8 +18,7 @@ const project: Project = {
   color: '#e6b800',
   modules: ['CD'],
   description: 'test',
-  tags: ['tag1', 'tag2'],
-  owners: ['testAcc']
+  tags: { tag1: '', tag2: 'tag3' }
 }
 
 const projectMockData: UseGetMockData<ResponseProject> = {
@@ -33,8 +32,7 @@ const projectMockData: UseGetMockData<ResponseProject> = {
       color: '#0063F7',
       modules: ['CD', 'CV'],
       description: 'refetch returns new data',
-      owners: ['testAcc'],
-      tags: [],
+      tags: {},
       lastModifiedAt: 1602158268618
     },
     metaData: undefined,
@@ -49,9 +47,8 @@ const editOrgMockData: UseGetMockData<ResponseOrganization> = {
       accountIdentifier: 'testAcc',
       identifier: 'testOrg',
       name: 'Org Name',
-      color: '#004fc4',
       description: 'Description',
-      tags: ['tag1', 'tag2'],
+      tags: { tag1: '', tag2: 'tag3' },
       lastModifiedAt: 1602148957762
     },
     metaData: undefined,
@@ -71,8 +68,7 @@ const createMockData: UseMutateMockData<ResponseProject> = {
         color: '#0063F7',
         modules: [],
         description: '',
-        owners: ['testAcc'],
-        tags: [],
+        tags: {},
         lastModifiedAt: 1602660684194
       },
       metaData: undefined,
@@ -94,8 +90,7 @@ const editMockData: UseMutateMockData<ResponseProject> = {
         color: '#e6b800',
         modules: ['CD'],
         description: 'test',
-        tags: ['tag1', 'tag2'],
-        owners: ['testAcc'],
+        tags: { tag1: '', tag2: 'tag3' },
         lastModifiedAt: 1602660684194
       },
       metaData: undefined,

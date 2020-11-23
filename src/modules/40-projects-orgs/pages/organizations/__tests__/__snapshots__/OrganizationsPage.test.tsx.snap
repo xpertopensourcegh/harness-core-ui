@@ -152,7 +152,7 @@ exports[`Org Page List Create New Org 1`] = `
                   class="Tag---main--1vng"
                 >
                   <span
-                    class="bp3-tag bp3-minimal cardTags"
+                    class="bp3-tag cardTags"
                   >
                     <span
                       class="bp3-text-overflow-ellipsis bp3-fill"
@@ -165,12 +165,12 @@ exports[`Org Page List Create New Org 1`] = `
                   class="Tag---main--1vng"
                 >
                   <span
-                    class="bp3-tag bp3-minimal cardTags"
+                    class="bp3-tag cardTags"
                   >
                     <span
                       class="bp3-text-overflow-ellipsis bp3-fill"
                     >
-                      tag2
+                      tag2:tag3
                     </span>
                   </span>
                 </span>

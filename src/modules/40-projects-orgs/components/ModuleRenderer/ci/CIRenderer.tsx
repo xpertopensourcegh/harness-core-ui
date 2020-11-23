@@ -21,7 +21,7 @@ const CIRenderer: React.FC<CIRendererProps> = ({ data, isPreview }) => {
         !isPreview &&
           history.push(
             routeCIDashboard.url({
-              orgIdentifier: data.orgIdentifier,
+              orgIdentifier: data.orgIdentifier || '',
               projectIdentifier: data.identifier
             })
           )

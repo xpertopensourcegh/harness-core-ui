@@ -59,7 +59,7 @@ exports[`Project Details render with modules and edit menu 1`] = `
             <span
               class="bp3-text-overflow-ellipsis bp3-fill"
             >
-              tag2
+              tag2:tag3
             </span>
           </span>
         </span>
@@ -1896,7 +1896,7 @@ exports[`Project Details render with no modules and invite collaborators 1`] = `
             <span
               class="bp3-text-overflow-ellipsis bp3-fill"
             >
-              tag2
+              tag2:tag3
             </span>
           </span>
         </span>

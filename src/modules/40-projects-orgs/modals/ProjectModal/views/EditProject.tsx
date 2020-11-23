@@ -103,7 +103,6 @@ const EditProject: React.FC<StepProps<Project> & EditModalData> = props => {
       'tags'
     ])
     ;(dataToSubmit as Project)['accountIdentifier'] = accountId
-    ;(dataToSubmit as Project)['owners'] = [accountId]
     try {
       await updateProject(dataToSubmit as Project, {
         pathParams: { identifier: values.identifier },

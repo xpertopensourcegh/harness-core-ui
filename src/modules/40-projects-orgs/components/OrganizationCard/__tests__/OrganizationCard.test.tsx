@@ -8,10 +8,10 @@ const organization: Organization = {
   accountIdentifier: 'dummy',
   identifier: 'orgId',
   name: 'Name',
-  color: '#e6b800',
   description: 'Organization Description ',
-  tags: ['tag1', 'tag2']
+  tags: { tag1: '', tag2: 'tag3' }
 }
+
 describe('Organization Card test', () => {
   test('initializes ok ', async () => {
     const { container } = render(

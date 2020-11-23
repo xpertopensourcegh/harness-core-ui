@@ -10,17 +10,15 @@ export const orgMockData = {
           accountIdentifier: 'testAcc',
           identifier: 'testOrg',
           name: 'Org Name',
-          color: '#004fc4',
           description: 'Description',
-          tags: ['tag1', 'tag2']
+          tags: { tag1: '', tag2: 'tag3' }
         },
         {
           accountIdentifier: 'testAcc',
           identifier: 'default',
           name: 'default',
-          color: '#004fc4',
           description: 'default',
-          tags: ['tag1', 'tag2']
+          tags: { tag1: '', tag2: 'tag3' }
         }
       ],
       pageIndex: 0,

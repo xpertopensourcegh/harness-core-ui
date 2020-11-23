@@ -63,7 +63,7 @@ describe('Project Card Functionality Test', () => {
     expect(
       getByTestId('location').innerHTML.endsWith(
         routeCDDashboard.url({
-          orgIdentifier: projectWithModules.orgIdentifier,
+          orgIdentifier: projectWithModules.orgIdentifier || '',
           projectIdentifier: projectWithModules.identifier
         })
       )
@@ -76,7 +76,7 @@ describe('Project Card Functionality Test', () => {
       expect(
         getByTestId('location').innerHTML.endsWith(
           routeCVMainDashBoardPage.url({
-            orgIdentifier: projectWithModules.orgIdentifier,
+            orgIdentifier: projectWithModules.orgIdentifier || '',
             projectIdentifier: projectWithModules.identifier
           })
         )
@@ -89,7 +89,7 @@ describe('Project Card Functionality Test', () => {
       expect(
         getByTestId('location').innerHTML.endsWith(
           routeCIDashboard.url({
-            orgIdentifier: projectWithModules.orgIdentifier,
+            orgIdentifier: projectWithModules.orgIdentifier || '',
             projectIdentifier: projectWithModules.identifier
           })
         )
@@ -103,7 +103,7 @@ describe('Project Card Functionality Test', () => {
       expect(
         getByTestId('location').innerHTML.endsWith(
           routeCFDashboard.url({
-            orgIdentifier: projectWithModules.orgIdentifier,
+            orgIdentifier: projectWithModules.orgIdentifier || '',
             projectIdentifier: projectWithModules.identifier
           })
         )

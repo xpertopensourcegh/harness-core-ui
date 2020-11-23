@@ -380,6 +380,9 @@ exports[`About Project test create project  1`] = `
                     class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6 StyledProps---font-weight-bold--22XZ"
                   />
                   <div
+                    class="Layout---horizontal--3rmQ StyledProps---main--1Wws wrap StyledProps---padding-top-small--1-XA"
+                  />
+                  <div
                     class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---padding-top-medium--29t2"
                   >
                     <div
@@ -990,28 +993,16 @@ exports[`About Project test create project  2`] = `
                             class="bp3-form-content"
                           >
                             <div
-                              class="bp3-popover-wrapper TagInput---tagInput--1eAz bp3-fill"
+                              class="bp3-input bp3-tag-input"
                             >
                               <div
-                                class="bp3-popover-target"
+                                class="bp3-tag-input-values"
                               >
-                                <div
-                                  class=""
-                                >
-                                  <div
-                                    class="bp3-input bp3-tag-input bp3-fill bp3-multi-select"
-                                  >
-                                    <div
-                                      class="bp3-tag-input-values"
-                                    >
-                                      <input
-                                        class="bp3-input-ghost bp3-multi-select-tag-input-input"
-                                        placeholder="Add Tags"
-                                        value=""
-                                      />
-                                    </div>
-                                  </div>
-                                </div>
+                                <input
+                                  class="bp3-input-ghost"
+                                  data-mentions="kv-tag-input-tags}"
+                                  value=""
+                                />
                               </div>
                             </div>
                           </div>
@@ -1069,6 +1060,9 @@ exports[`About Project test create project  2`] = `
                   >
                      This is new description
                   </p>
+                  <div
+                    class="Layout---horizontal--3rmQ StyledProps---main--1Wws wrap StyledProps---padding-top-small--1-XA"
+                  />
                   <div
                     class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---padding-top-medium--29t2"
                   >
@@ -1706,6 +1700,9 @@ exports[`About Project test edit project  1`] = `
                   >
                     refetch returns new data
                   </p>
+                  <div
+                    class="Layout---horizontal--3rmQ StyledProps---main--1Wws wrap StyledProps---padding-top-small--1-XA"
+                  />
                   <div
                     class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---padding-top-medium--29t2"
                   >
@@ -2497,6 +2494,9 @@ exports[`About Project test edit project  2`] = `
                   >
                     refetch returns new data
                   </p>
+                  <div
+                    class="Layout---horizontal--3rmQ StyledProps---main--1Wws wrap StyledProps---padding-top-small--1-XA"
+                  />
                   <div
                     class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---padding-top-medium--29t2"
                   >

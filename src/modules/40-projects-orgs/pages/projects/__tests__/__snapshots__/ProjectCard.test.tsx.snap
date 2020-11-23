@@ -98,7 +98,7 @@ exports[`Project Card Functionality Test Click on CD 1`] = `
               <span
                 class="bp3-text-overflow-ellipsis bp3-fill"
               >
-                tag2
+                tag2:tag3
               </span>
             </span>
           </span>
@@ -829,7 +829,7 @@ exports[`Project Card Functionality Test Click on CF 1`] = `
               <span
                 class="bp3-text-overflow-ellipsis bp3-fill"
               >
-                tag2
+                tag2:tag3
               </span>
             </span>
           </span>
@@ -1520,7 +1520,7 @@ exports[`Project Card test Preview is ok 1`] = `
               <span
                 class="bp3-text-overflow-ellipsis bp3-fill"
               >
-                tag2
+                tag2:tag3
               </span>
             </span>
           </span>
@@ -2251,7 +2251,7 @@ exports[`Project Card test initializes ok  1`] = `
               <span
                 class="bp3-text-overflow-ellipsis bp3-fill"
               >
-                tag2
+                tag2:tag3
               </span>
             </span>
           </span>

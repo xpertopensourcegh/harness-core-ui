@@ -3,6 +3,7 @@ export default {
   loading: 'Loading...',
   addProject: '+ Add Project',
   newProject: 'New Project',
+  search: 'Search by project, tags, members',
   aboutProject: 'A Harness project allows you to logically group pipelines, corresponding environments and services.',
   tabMyProjects: 'My Projects',
   tabRecent: 'Recent',

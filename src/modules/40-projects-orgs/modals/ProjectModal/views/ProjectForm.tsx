@@ -70,7 +70,7 @@ const ProjectForm: React.FC<StepProps<Project> & ProjectModalData> = props => {
         orgIdentifier: initialOrgIdentifier,
         modules: initialModules,
         description: '',
-        tags: [],
+        tags: {},
         ...projectData
       }}
       validationSchema={Yup.object().shape({
@@ -128,17 +128,7 @@ const ProjectForm: React.FC<StepProps<Project> & ProjectModalData> = props => {
                   </div>
                   <div className={css.collapseDiv}>
                     <Collapse isOpen={formikProps.values.tags?.length ? true : false} {...tagCollapseProps}>
-                      <FormInput.TagInput
-                        name="tags"
-                        items={[]}
-                        labelFor={/* istanbul ignore next */ name => name as string}
-                        itemFromNewTag={/* istanbul ignore next */ newTag => newTag}
-                        tagInputProps={{
-                          showClearAllButton: true,
-                          allowNewTag: true,
-                          placeholder: i18n.newProjectWizard.aboutProject.addTags
-                        }}
-                      />
+                      <FormInput.KVTagInput name="tags" />
                     </Collapse>
                   </div>
                 </Container>

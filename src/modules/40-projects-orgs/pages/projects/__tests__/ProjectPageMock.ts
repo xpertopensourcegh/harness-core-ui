@@ -16,8 +16,7 @@ export const projectPageMock = {
           color: '#e6b800',
           modules: ['CD'],
           description: 'test',
-          tags: ['tag1', 'tag2'],
-          owners: ['testAcc'],
+          tags: { tag1: '', tag2: 'tag3' },
           lastModifiedAt: 1599715118275
         },
         {
@@ -28,8 +27,7 @@ export const projectPageMock = {
           color: '#1c1c28',
           modules: ['CD', 'CV'],
           description: 'UI for the Payment',
-          owners: ['testAcc'],
-          tags: ['UI', 'Production'],
+          tags: { tag1: '', tag2: 'tag3' },
           lastModifiedAt: 1599715118275
         },
         {
@@ -40,8 +38,7 @@ export const projectPageMock = {
           color: '#ff8800',
           modules: ['CV'],
           description: 'Online users',
-          owners: ['testAcc'],
-          tags: ['prod', 'ui', 'customer'],
+          tags: { tag1: '', tag2: 'tag3' },
           lastModifiedAt: 1599715155888
         },
         {
@@ -52,8 +49,7 @@ export const projectPageMock = {
           color: '#e6b800',
           modules: [],
           description: '',
-          owners: ['testAcc'],
-          tags: [],
+          tags: {},
           lastModifiedAt: 1599740365287
         },
         {
@@ -64,8 +60,7 @@ export const projectPageMock = {
           color: '#004fc4',
           modules: [],
           description: 'Demo project',
-          owners: ['testAcc'],
-          tags: ['demo', 'temporary'],
+          tags: { tag1: '', tag2: 'tag3' },
           lastModifiedAt: 1599730109213
         },
         {
@@ -76,8 +71,7 @@ export const projectPageMock = {
           color: '#e67a00',
           modules: ['CD', 'CV', 'CI', 'CE', 'CF'],
           description: 'Drone',
-          owners: ['testAcc'],
-          tags: ['prod', 'master'],
+          tags: { tag1: '', tag2: 'tag3' },
           lastModifiedAt: 1599715251972
         },
         {
@@ -88,8 +82,7 @@ export const projectPageMock = {
           color: '#e6b800',
           modules: ['CI'],
           description: 'Swagger 2.0',
-          owners: ['testAcc'],
-          tags: ['ui', 'backend'],
+          tags: { tag1: '', tag2: 'tag3' },
           lastModifiedAt: 1599715290787
         }
       ],
@@ -113,8 +106,7 @@ export const projectMockData = {
       color: '#e6b800',
       modules: [],
       description: 'test',
-      tags: ['tag1', 'tag2'],
-      owners: ['testAcc'],
+      tags: { tag1: '', tag2: 'tag3' },
       lastModifiedAt: 1599715118275
     },
     metaData: undefined,
@@ -134,8 +126,7 @@ export const projectMockDataWithModules = {
       color: '#e6b800',
       modules: ['CD', 'CV', 'CI', 'CE', 'CF'],
       description: 'test',
-      tags: ['tag1', 'tag2'],
-      owners: ['testAcc'],
+      tags: { tag1: '', tag2: 'tag3' },
       lastModifiedAt: 1599715118275
     },
     metaData: undefined,
@@ -153,7 +144,7 @@ export const OrgMockData = {
       name: 'Org Name',
       color: '#004fc4',
       description: 'Description',
-      tags: ['tag1', 'tag2'],
+      tags: { tag1: '', tag2: 'tag3' },
       lastModifiedAt: 1602148957762
     },
     metaData: undefined,
@@ -173,8 +164,7 @@ export const createMockData = {
         color: '#0063F7',
         modules: [],
         description: '',
-        owners: ['testAcc'],
-        tags: [],
+        tags: {},
         lastModifiedAt: 1602660684194
       },
       metaData: undefined,
@@ -192,6 +182,5 @@ export const projectWithModules: Project = {
   color: '#e6b800',
   modules: ['CD', 'CV', 'CI', 'CE', 'CF'],
   description: 'test',
-  tags: ['tag1', 'tag2'],
-  owners: ['testAcc']
+  tags: { tag1: '', tag2: 'tag3' }
 }

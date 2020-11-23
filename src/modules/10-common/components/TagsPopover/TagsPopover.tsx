@@ -6,7 +6,7 @@ import i18n from './TagsPopover.i18n'
 import css from './TagsPopover.module.scss'
 
 interface ListTagsProps {
-  tags: string[]
+  tags: { [key: string]: string }
 }
 const TagsPopover: React.FC<ListTagsProps> = props => {
   const { tags } = props
@@ -19,11 +19,14 @@ const TagsPopover: React.FC<ListTagsProps> = props => {
       <Container padding="small">
         <Text font={{ size: 'small', weight: 'bold' }}>{i18n.tags}</Text>
         <Container className={css.tagsPopover}>
-          {tags?.map(tag => (
-            <Tag key={tag} className={css.tag}>
-              {tag}
-            </Tag>
-          ))}
+          {Object.keys(tags).map(key => {
+            const value = tags[key]
+            return (
+              <Tag className={css.tag} key={key}>
+                {value ? `${key}:${value}` : key}
+              </Tag>
+            )
+          })}
         </Container>
       </Container>
     </Popover>

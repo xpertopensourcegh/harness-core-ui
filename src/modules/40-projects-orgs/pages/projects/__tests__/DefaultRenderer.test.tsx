@@ -11,8 +11,7 @@ const project = {
   color: '#e6b800',
   modules: [],
   description: 'test',
-  tags: ['tag1', 'tag2'],
-  owners: ['testAcc']
+  tags: { tag1: '', tag2: 'tag3' }
 }
 
 describe('Default Renderer test', () => {

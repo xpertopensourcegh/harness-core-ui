@@ -15,7 +15,7 @@ import {
 import Table from '@common/components/Table/Table'
 import { useConfirmationDialog } from '@common/exports'
 import { useToaster } from '@common/components/Toaster/useToaster'
-import TagsPopover from '@common/components/TagsPopover/TagsPopover'
+// import TagsPopover from '@common/components/TagsPopover/TagsPopover'
 import { StepIndex, STEP } from '@connectors/common/VerifyOutOfClusterDelegate/VerifyOutOfClusterDelegate'
 import { getStepOneForExistingDelegate } from '@connectors/common/VerifyExistingDelegate/VerifyExistingDelegate'
 import { useGetDelegatesStatus, RestResponseDelegateStatus, DelegateInner } from 'services/portal'
@@ -45,7 +45,7 @@ const RenderColumnConnector: Renderer<CellProps<ConnectorResponse>> = ({ row }) 
           <div className={css.name} title={data.connector?.name}>
             {data.connector?.name}
           </div>
-          {data.connector?.tags?.length ? <TagsPopover tags={data.connector?.tags} /> : null}
+          {/* {data.connector?.tags?.length ? <TagsPopover tags={data.connector?.tags} /> : null} */}
         </Layout.Horizontal>
         <div className={css.identifier} title={data.connector?.identifier}>
           {data.connector?.identifier}

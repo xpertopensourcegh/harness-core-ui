@@ -157,7 +157,6 @@ const PurposeList: React.FC<ProjectModalData> = props => {
   const onSuccess = async (module: Required<Project>['modules'][number]): Promise<void> => {
     projectData.modules?.push(module)
     const dataToSubmit: Project = projectData
-    ;(dataToSubmit as Project)['owners'] = [accountId]
     try {
       await updateProject(dataToSubmit, {
         pathParams: {
@@ -234,7 +233,7 @@ const PurposeList: React.FC<ProjectModalData> = props => {
               {i18n.newProjectWizard.purposeList.selectAModule}
             </Text>
           ) : (
-            selected.map(module => getModuleLinks(module, projectData.orgIdentifier, projectData.identifier))
+            selected.map(module => getModuleLinks(module, projectData.orgIdentifier || '', projectData.identifier))
           )}
         </Container>
       </Layout.Horizontal>

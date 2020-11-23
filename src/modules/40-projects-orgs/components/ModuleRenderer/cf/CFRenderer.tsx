@@ -20,7 +20,7 @@ const CFRenderer: React.FC<CFRendererProps> = ({ data, isPreview }) => {
         !isPreview &&
           history.push(
             routeCFDashboard.url({
-              orgIdentifier: data.orgIdentifier,
+              orgIdentifier: data.orgIdentifier || '',
               projectIdentifier: data.identifier
             })
           )

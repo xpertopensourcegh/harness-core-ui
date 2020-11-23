@@ -87,7 +87,7 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
         <Container
           onClick={() => {
             history.push(
-              routeProjectDetails.url({ projectIdentifier: data.identifier, orgIdentifier: data.orgIdentifier })
+              routeProjectDetails.url({ projectIdentifier: data.identifier, orgIdentifier: data.orgIdentifier || '' })
             )
           }}
         >
@@ -109,13 +109,16 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
               {data.description}
             </Text>
           ) : null}
-          {data.tags?.length ? (
+          {data.tags ? (
             <Layout.Horizontal padding={{ top: 'small' }} className={css.wrap}>
-              {data.tags.map((tag: string) => (
-                <Tag className={css.cardTags} key={tag}>
-                  {tag}
-                </Tag>
-              ))}
+              {Object.keys(data.tags).map(key => {
+                const value = data.tags?.[key]
+                return (
+                  <Tag className={css.cardTags} key={key}>
+                    {value ? `${key}:${value}` : key}
+                  </Tag>
+                )
+              })}
             </Layout.Horizontal>
           ) : null}
           <Layout.Horizontal padding={{ top: 'medium' }}>

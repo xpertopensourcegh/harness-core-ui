@@ -88,12 +88,15 @@ export const OrganizationCard: React.FC<OrganizationCardProps> = props => {
             ) : null}
           </Layout.Horizontal>
           <Layout.Horizontal spacing="xsmall" className={css.tags}>
-            {data?.tags?.length
-              ? data?.tags.map((tag: string) => (
-                  <Tag minimal key={tag} className={css.cardTags}>
-                    {tag}
-                  </Tag>
-                ))
+            {data.tags
+              ? Object.keys(data.tags).map(key => {
+                  const value = data.tags?.[key]
+                  return (
+                    <Tag className={css.cardTags} key={key}>
+                      {value ? `${key}:${value}` : key}
+                    </Tag>
+                  )
+                })
               : null}
           </Layout.Horizontal>
           <Layout.Horizontal padding={{ top: 'xlarge' }}>

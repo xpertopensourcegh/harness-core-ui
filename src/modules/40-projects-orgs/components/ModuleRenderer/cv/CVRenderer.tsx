@@ -21,7 +21,7 @@ const CVRenderer: React.FC<CVRendererProps> = ({ data, isPreview }) => {
         !isPreview &&
           history.push(
             routeCVMainDashBoardPage.url({
-              orgIdentifier: data.orgIdentifier,
+              orgIdentifier: data.orgIdentifier || '',
               projectIdentifier: data.identifier
             })
           )

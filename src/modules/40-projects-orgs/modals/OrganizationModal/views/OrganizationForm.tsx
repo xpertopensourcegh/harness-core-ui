@@ -55,7 +55,7 @@ const OrganizationForm: React.FC<OrganizationFormData> = ({
         identifier: '',
         name: '',
         description: '',
-        tags: [],
+        tags: {},
         ...data
       }}
       validationSchema={Yup.object().shape({
@@ -89,18 +89,7 @@ const OrganizationForm: React.FC<OrganizationFormData> = ({
                 </div>
                 <div className={css.collapseDiv}>
                   <Collapse isOpen={formikProps.values.tags?.length ? true : false} {...tagCollapseProps}>
-                    <FormInput.TagInput
-                      name="tags"
-                      items={[]}
-                      className={css.desc}
-                      labelFor={name => name as string}
-                      itemFromNewTag={newTag => newTag}
-                      tagInputProps={{
-                        showClearAllButton: true,
-                        allowNewTag: true,
-                        placeholder: i18n.form.addTag
-                      }}
-                    />
+                    <FormInput.KVTagInput name="tags" className={css.desc} />
                   </Collapse>
                 </div>
               </Container>

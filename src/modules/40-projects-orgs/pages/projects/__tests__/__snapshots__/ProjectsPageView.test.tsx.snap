@@ -297,7 +297,7 @@ exports[`Project Page List Create Project and Close 1`] = `
                       <span
                         class="bp3-text-overflow-ellipsis bp3-fill"
                       >
-                        tag2
+                        tag2:tag3
                       </span>
                     </span>
                   </span>
@@ -611,7 +611,7 @@ exports[`Project Page List Create Project and Close 1`] = `
                       <span
                         class="bp3-text-overflow-ellipsis bp3-fill"
                       >
-                        UI
+                        tag1
                       </span>
                     </span>
                   </span>
@@ -624,7 +624,7 @@ exports[`Project Page List Create Project and Close 1`] = `
                       <span
                         class="bp3-text-overflow-ellipsis bp3-fill"
                       >
-                        Production
+                        tag2:tag3
                       </span>
                     </span>
                   </span>
@@ -1109,7 +1109,7 @@ exports[`Project Page List Create Project and Close 1`] = `
                       <span
                         class="bp3-text-overflow-ellipsis bp3-fill"
                       >
-                        prod
+                        tag1
                       </span>
                     </span>
                   </span>
@@ -1122,20 +1122,7 @@ exports[`Project Page List Create Project and Close 1`] = `
                       <span
                         class="bp3-text-overflow-ellipsis bp3-fill"
                       >
-                        ui
-                      </span>
-                    </span>
-                  </span>
-                  <span
-                    class="Tag---main--1vng"
-                  >
-                    <span
-                      class="bp3-tag cardTags"
-                    >
-                      <span
-                        class="bp3-text-overflow-ellipsis bp3-fill"
-                      >
-                        customer
+                        tag2:tag3
                       </span>
                     </span>
                   </span>
@@ -1430,6 +1417,9 @@ exports[`Project Page List Create Project and Close 1`] = `
                 </p>
                 <p
                   class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6 StyledProps---font-weight-bold--22XZ"
+                />
+                <div
+                  class="Layout---horizontal--3rmQ StyledProps---main--1Wws wrap StyledProps---padding-top-small--1-XA"
                 />
                 <div
                   class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---padding-top-medium--29t2"
@@ -1757,7 +1747,7 @@ exports[`Project Page List Create Project and Close 1`] = `
                       <span
                         class="bp3-text-overflow-ellipsis bp3-fill"
                       >
-                        demo
+                        tag1
                       </span>
                     </span>
                   </span>
@@ -1770,7 +1760,7 @@ exports[`Project Page List Create Project and Close 1`] = `
                       <span
                         class="bp3-text-overflow-ellipsis bp3-fill"
                       >
-                        temporary
+                        tag2:tag3
                       </span>
                     </span>
                   </span>
@@ -2101,7 +2091,7 @@ exports[`Project Page List Create Project and Close 1`] = `
                       <span
                         class="bp3-text-overflow-ellipsis bp3-fill"
                       >
-                        prod
+                        tag1
                       </span>
                     </span>
                   </span>
@@ -2114,7 +2104,7 @@ exports[`Project Page List Create Project and Close 1`] = `
                       <span
                         class="bp3-text-overflow-ellipsis bp3-fill"
                       >
-                        master
+                        tag2:tag3
                       </span>
                     </span>
                   </span>
@@ -2828,7 +2818,7 @@ exports[`Project Page List Create Project and Close 1`] = `
                       <span
                         class="bp3-text-overflow-ellipsis bp3-fill"
                       >
-                        ui
+                        tag1
                       </span>
                     </span>
                   </span>
@@ -2841,7 +2831,7 @@ exports[`Project Page List Create Project and Close 1`] = `
                       <span
                         class="bp3-text-overflow-ellipsis bp3-fill"
                       >
-                        backend
+                        tag2:tag3
                       </span>
                     </span>
                   </span>
@@ -3379,7 +3369,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                       <span
                         class="bp3-text-overflow-ellipsis bp3-fill"
                       >
-                        tag2
+                        tag2:tag3
                       </span>
                     </span>
                   </span>
@@ -3693,7 +3683,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                       <span
                         class="bp3-text-overflow-ellipsis bp3-fill"
                       >
-                        UI
+                        tag1
                       </span>
                     </span>
                   </span>
@@ -3706,7 +3696,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                       <span
                         class="bp3-text-overflow-ellipsis bp3-fill"
                       >
-                        Production
+                        tag2:tag3
                       </span>
                     </span>
                   </span>
@@ -4191,7 +4181,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                       <span
                         class="bp3-text-overflow-ellipsis bp3-fill"
                       >
-                        prod
+                        tag1
                       </span>
                     </span>
                   </span>
@@ -4204,20 +4194,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                       <span
                         class="bp3-text-overflow-ellipsis bp3-fill"
                       >
-                        ui
-                      </span>
-                    </span>
-                  </span>
-                  <span
-                    class="Tag---main--1vng"
-                  >
-                    <span
-                      class="bp3-tag cardTags"
-                    >
-                      <span
-                        class="bp3-text-overflow-ellipsis bp3-fill"
-                      >
-                        customer
+                        tag2:tag3
                       </span>
                     </span>
                   </span>
@@ -4512,6 +4489,9 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                 </p>
                 <p
                   class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6 StyledProps---font-weight-bold--22XZ"
+                />
+                <div
+                  class="Layout---horizontal--3rmQ StyledProps---main--1Wws wrap StyledProps---padding-top-small--1-XA"
                 />
                 <div
                   class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---padding-top-medium--29t2"
@@ -4839,7 +4819,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                       <span
                         class="bp3-text-overflow-ellipsis bp3-fill"
                       >
-                        demo
+                        tag1
                       </span>
                     </span>
                   </span>
@@ -4852,7 +4832,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                       <span
                         class="bp3-text-overflow-ellipsis bp3-fill"
                       >
-                        temporary
+                        tag2:tag3
                       </span>
                     </span>
                   </span>
@@ -5183,7 +5163,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                       <span
                         class="bp3-text-overflow-ellipsis bp3-fill"
                       >
-                        prod
+                        tag1
                       </span>
                     </span>
                   </span>
@@ -5196,7 +5176,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                       <span
                         class="bp3-text-overflow-ellipsis bp3-fill"
                       >
-                        master
+                        tag2:tag3
                       </span>
                     </span>
                   </span>
@@ -5910,7 +5890,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                       <span
                         class="bp3-text-overflow-ellipsis bp3-fill"
                       >
-                        ui
+                        tag1
                       </span>
                     </span>
                   </span>
@@ -5923,7 +5903,7 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
                       <span
                         class="bp3-text-overflow-ellipsis bp3-fill"
                       >
-                        backend
+                        tag2:tag3
                       </span>
                     </span>
                   </span>
@@ -6461,7 +6441,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                       <span
                         class="bp3-text-overflow-ellipsis bp3-fill"
                       >
-                        tag2
+                        tag2:tag3
                       </span>
                     </span>
                   </span>
@@ -6775,7 +6755,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                       <span
                         class="bp3-text-overflow-ellipsis bp3-fill"
                       >
-                        UI
+                        tag1
                       </span>
                     </span>
                   </span>
@@ -6788,7 +6768,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                       <span
                         class="bp3-text-overflow-ellipsis bp3-fill"
                       >
-                        Production
+                        tag2:tag3
                       </span>
                     </span>
                   </span>
@@ -7273,7 +7253,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                       <span
                         class="bp3-text-overflow-ellipsis bp3-fill"
                       >
-                        prod
+                        tag1
                       </span>
                     </span>
                   </span>
@@ -7286,20 +7266,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                       <span
                         class="bp3-text-overflow-ellipsis bp3-fill"
                       >
-                        ui
-                      </span>
-                    </span>
-                  </span>
-                  <span
-                    class="Tag---main--1vng"
-                  >
-                    <span
-                      class="bp3-tag cardTags"
-                    >
-                      <span
-                        class="bp3-text-overflow-ellipsis bp3-fill"
-                      >
-                        customer
+                        tag2:tag3
                       </span>
                     </span>
                   </span>
@@ -7594,6 +7561,9 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                 </p>
                 <p
                   class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6 StyledProps---font-weight-bold--22XZ"
+                />
+                <div
+                  class="Layout---horizontal--3rmQ StyledProps---main--1Wws wrap StyledProps---padding-top-small--1-XA"
                 />
                 <div
                   class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---padding-top-medium--29t2"
@@ -7921,7 +7891,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                       <span
                         class="bp3-text-overflow-ellipsis bp3-fill"
                       >
-                        demo
+                        tag1
                       </span>
                     </span>
                   </span>
@@ -7934,7 +7904,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                       <span
                         class="bp3-text-overflow-ellipsis bp3-fill"
                       >
-                        temporary
+                        tag2:tag3
                       </span>
                     </span>
                   </span>
@@ -8265,7 +8235,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                       <span
                         class="bp3-text-overflow-ellipsis bp3-fill"
                       >
-                        prod
+                        tag1
                       </span>
                     </span>
                   </span>
@@ -8278,7 +8248,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                       <span
                         class="bp3-text-overflow-ellipsis bp3-fill"
                       >
-                        master
+                        tag2:tag3
                       </span>
                     </span>
                   </span>
@@ -8992,7 +8962,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                       <span
                         class="bp3-text-overflow-ellipsis bp3-fill"
                       >
-                        ui
+                        tag1
                       </span>
                     </span>
                   </span>
@@ -9005,7 +8975,7 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
                       <span
                         class="bp3-text-overflow-ellipsis bp3-fill"
                       >
-                        backend
+                        tag2:tag3
                       </span>
                     </span>
                   </span>
@@ -9543,7 +9513,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
                       <span
                         class="bp3-text-overflow-ellipsis bp3-fill"
                       >
-                        tag2
+                        tag2:tag3
                       </span>
                     </span>
                   </span>
@@ -9857,7 +9827,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
                       <span
                         class="bp3-text-overflow-ellipsis bp3-fill"
                       >
-                        UI
+                        tag1
                       </span>
                     </span>
                   </span>
@@ -9870,7 +9840,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
                       <span
                         class="bp3-text-overflow-ellipsis bp3-fill"
                       >
-                        Production
+                        tag2:tag3
                       </span>
                     </span>
                   </span>
@@ -10355,7 +10325,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
                       <span
                         class="bp3-text-overflow-ellipsis bp3-fill"
                       >
-                        prod
+                        tag1
                       </span>
                     </span>
                   </span>
@@ -10368,20 +10338,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
                       <span
                         class="bp3-text-overflow-ellipsis bp3-fill"
                       >
-                        ui
-                      </span>
-                    </span>
-                  </span>
-                  <span
-                    class="Tag---main--1vng"
-                  >
-                    <span
-                      class="bp3-tag cardTags"
-                    >
-                      <span
-                        class="bp3-text-overflow-ellipsis bp3-fill"
-                      >
-                        customer
+                        tag2:tag3
                       </span>
                     </span>
                   </span>
@@ -10676,6 +10633,9 @@ exports[`Project Page List Whole Modal Test 1`] = `
                 </p>
                 <p
                   class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-size-small--3cA6 StyledProps---font-weight-bold--22XZ"
+                />
+                <div
+                  class="Layout---horizontal--3rmQ StyledProps---main--1Wws wrap StyledProps---padding-top-small--1-XA"
                 />
                 <div
                   class="Layout---horizontal--3rmQ StyledProps---main--1Wws StyledProps---padding-top-medium--29t2"
@@ -11003,7 +10963,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
                       <span
                         class="bp3-text-overflow-ellipsis bp3-fill"
                       >
-                        demo
+                        tag1
                       </span>
                     </span>
                   </span>
@@ -11016,7 +10976,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
                       <span
                         class="bp3-text-overflow-ellipsis bp3-fill"
                       >
-                        temporary
+                        tag2:tag3
                       </span>
                     </span>
                   </span>
@@ -11347,7 +11307,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
                       <span
                         class="bp3-text-overflow-ellipsis bp3-fill"
                       >
-                        prod
+                        tag1
                       </span>
                     </span>
                   </span>
@@ -11360,7 +11320,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
                       <span
                         class="bp3-text-overflow-ellipsis bp3-fill"
                       >
-                        master
+                        tag2:tag3
                       </span>
                     </span>
                   </span>
@@ -12074,7 +12034,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
                       <span
                         class="bp3-text-overflow-ellipsis bp3-fill"
                       >
-                        ui
+                        tag1
                       </span>
                     </span>
                   </span>
@@ -12087,7 +12047,7 @@ exports[`Project Page List Whole Modal Test 1`] = `
                       <span
                         class="bp3-text-overflow-ellipsis bp3-fill"
                       >
-                        backend
+                        tag2:tag3
                       </span>
                     </span>
                   </span>
