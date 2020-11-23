@@ -101,16 +101,18 @@
 .stageDropDownTab {
   display: grid;
   grid-template-columns: 1fr 1fr;
-}
-.stageDropDown {
-  text-align: left;
-  display: block !important;
-  width: 100%;
-  button.bp3-button {
-    border: none !important;
-  }
+  padding-left: var(--spacing-medium);
+  .stageDropDown {
+    text-align: left;
+    display: block !important;
+    width: 100%;
+    padding: var(--spacing-xsmall) 0 0 var(--spacing-small);
+    button.bp3-button {
+      border: none !important;
+    }
 
-  span:first-child {
-    margin-right: var(--spacing-small);
+    span:first-child {
+      margin-right: var(--spacing-small);
+    }
   }
 }

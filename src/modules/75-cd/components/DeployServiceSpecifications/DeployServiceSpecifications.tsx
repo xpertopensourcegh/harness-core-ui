@@ -136,7 +136,7 @@ export default function DeployServiceSpecifications(): JSX.Element {
       }
 
       !isEmpty(stage.stage?.spec?.service?.tags) && setTagsVisible(true)
-      stage.stage?.spec?.service?.description.length && setDescriptionVisible(true)
+      stage.stage?.spec?.service?.description?.length && setDescriptionVisible(true)
       if (
         !stage.stage.spec.service?.serviceDefinition &&
         setupModeType === setupMode.DIFFERENT &&
