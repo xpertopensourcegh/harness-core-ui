@@ -19,6 +19,7 @@ import {
   Radio
 } from '@wings-software/uikit'
 
+import isEmpty from 'lodash/isEmpty'
 import cx from 'classnames'
 import {
   PipelineContext,
@@ -134,6 +135,8 @@ export default function DeployServiceSpecifications(): JSX.Element {
         stage.stage.spec = {}
       }
 
+      !isEmpty(stage.stage?.spec?.service?.tags) && setTagsVisible(true)
+      stage.stage?.spec?.service?.description.length && setDescriptionVisible(true)
       if (
         !stage.stage.spec.service?.serviceDefinition &&
         setupModeType === setupMode.DIFFERENT &&
@@ -199,7 +202,8 @@ export default function DeployServiceSpecifications(): JSX.Element {
     const serviceName = pipelineData?.name || ''
     const identifier = pipelineData?.identifier || ''
     const description = pipelineData?.description || ''
-    return { serviceName: serviceName, description: description, tags: null, identifier }
+    const tags = pipelineData?.tags || null
+    return { serviceName, description, tags, identifier }
   }
 
   const handleTabChange = (data: string): void => {
@@ -314,7 +318,7 @@ export default function DeployServiceSpecifications(): JSX.Element {
     <Layout.Vertical className={css.serviceOverrides}>
       {stageIndex > 0 && (
         <div className={css.serviceSection}>
-          <Layout.Vertical flex={true} className={css.specTabs}>
+          <Layout.Vertical flex={true} className={cx(css.specTabs, css.tabHeading)}>
             {i18n.serviceDetailLabel}
           </Layout.Vertical>
           <Layout.Vertical spacing="medium" style={{ paddingBottom: 'var(--spacing-large)' }}>
@@ -352,7 +356,7 @@ export default function DeployServiceSpecifications(): JSX.Element {
         </div>
       )}
       {stageIndex > 0 && setupModeType === setupMode.PROPAGATE && (
-        <Layout.Horizontal flex={true} className={css.specTabs}>
+        <Layout.Horizontal flex={true} className={cx(css.specTabs, css.tabHeading)}>
           <Button minimal text={i18n.stageOverrideLabel} className={css.selected} />
         </Layout.Horizontal>
       )}
@@ -385,8 +389,7 @@ export default function DeployServiceSpecifications(): JSX.Element {
                   serviceObj['identifier'] = value.identifier
                   serviceObj['name'] = value.serviceName
                   serviceObj['description'] = value.description
-                  // serviceObj['tags'] = value.tags
-                  //updatePipeline(pipeline)
+                  serviceObj['tags'] = value.tags
                 }
               }}
               onSubmit={values => {
@@ -399,7 +402,7 @@ export default function DeployServiceSpecifications(): JSX.Element {
               {() => {
                 return (
                   <div className={cx(css.serviceSection, css.noPadVertical)}>
-                    <Layout.Vertical flex={true} className={css.specTabs}>
+                    <Layout.Vertical flex={true} className={cx(css.specTabs, css.tabHeading)}>
                       {i18n.serviceDetailLabel}
                     </Layout.Vertical>
                     <FormikForm>
@@ -437,26 +440,7 @@ export default function DeployServiceSpecifications(): JSX.Element {
                           <span onClick={() => setTagsVisible(false)} className={css.removeLink}>
                             {i18n.removeLabel}
                           </span>
-                          <FormInput.TagInput
-                            name={i18n.addTags}
-                            label={i18n.tagsLabel}
-                            items={[]}
-                            style={{ width: 400 }}
-                            labelFor={name => name as string}
-                            itemFromNewTag={newTag => newTag}
-                            tagInputProps={{
-                              noInputBorder: true,
-                              openOnKeyDown: false,
-                              showAddTagButton: true,
-                              showClearAllButton: true,
-                              allowNewTag: true,
-                              getTagProps: (value, _index, _selectedItems, createdItems) => {
-                                return createdItems.includes(value)
-                                  ? { intent: 'danger', minimal: true }
-                                  : { intent: 'none', minimal: true }
-                              }
-                            }}
-                          />
+                          <FormInput.KVTagInput name={i18n.addTags} label={i18n.tagsLabel} style={{ width: 400 }} />
                         </div>
                       )}
                     </FormikForm>
@@ -466,7 +450,7 @@ export default function DeployServiceSpecifications(): JSX.Element {
             </Formik>
           </Layout.Vertical>
           <div className={css.serviceSection}>
-            <Layout.Vertical flex={true} className={css.specTabs}>
+            <Layout.Vertical flex={true} className={cx(css.specTabs, css.tabHeading)}>
               {i18n.serviceSpecificationLabel}
             </Layout.Vertical>
             <div className={css.artifactType}>

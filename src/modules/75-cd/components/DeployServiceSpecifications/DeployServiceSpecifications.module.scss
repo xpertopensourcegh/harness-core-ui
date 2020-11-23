@@ -101,7 +101,7 @@
   }
   .artifactType {
     display: grid;
-    justify-content: space-around;
+
     & > div {
       width: 1024px;
     }
@@ -113,7 +113,10 @@
   grid-template-columns: 350px 1fr;
   padding: var(--spacing-medium) var(--spacing-large) var(--spacing-medium) var(--spacing-large);
   border-bottom: 1px solid var(--grey-200);
-
+  .tabHeading {
+    font-weight: 500;
+    font-size: var(--font-size-medium);
+  }
   &.noPadVertical {
     padding-top: 0px;
     padding-bottom: 0;

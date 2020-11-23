@@ -30,3 +30,37 @@
 .btn-setup {
   padding-top: var(--spacing-medium);
 }
+
+.stageSection {
+  display: grid;
+  grid-template-columns: 350px 1fr;
+  padding: 0px var(--spacing-medium);
+  border-bottom: 1px solid var(--grey-200);
+  .tabHeading {
+    font-weight: 500;
+    font-size: var(--font-size-medium);
+  }
+  &.noPadVertical {
+    padding-top: 0px;
+    padding-bottom: 0;
+  }
+  .disabled {
+    -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+    filter: grayscale(100%);
+    cursor: not-allowed !important;
+  }
+
+  .stageDetails {
+    display: grid;
+    width: 1024px;
+    grid-template-columns: 1fr 1fr;
+    justify-content: space-between;
+    .stageOverridesTab {
+      justify-content: end;
+      display: grid;
+    }
+    button {
+      width: fit-content;
+    }
+  }
+}

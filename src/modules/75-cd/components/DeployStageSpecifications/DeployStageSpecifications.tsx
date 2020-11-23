@@ -22,10 +22,14 @@ export default function DeployStageSpecifications(): JSX.Element {
 
   const { stage } = getStageFromPipeline(pipeline, selectedStageId || '')
   const cloneOriginalData = cloneDeep(stage)
-
+  React.useEffect(() => {
+    return () => {
+      updatePipeline(pipeline)
+    }
+  }, [])
   return (
     <Layout.Vertical>
-      <Layout.Vertical spacing="large" style={{ alignItems: 'center' }}>
+      <Layout.Vertical spacing="large">
         <EditStageView
           data={cloneOriginalData}
           context={'setup'}
@@ -35,8 +39,10 @@ export default function DeployStageSpecifications(): JSX.Element {
               _stageObj.name = values?.name
               _stageObj.identifier = values?.identifier
               _stageObj.description = values?.description
-              updatePipelineView({ ...pipelineView, splitViewData: { selectedStageId: values?.identifier } })
-              updatePipeline(pipeline)
+              updatePipelineView({
+                ...pipelineView,
+                splitViewData: { ...pipelineView.splitViewData, selectedStageId: values?.identifier }
+              })
             }
           }}
         />

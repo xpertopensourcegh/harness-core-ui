@@ -233,6 +233,7 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
       pipeline.name = data.name
       pipeline.description = data.description
       pipeline.identifier = data.identifier
+      pipeline.tags = data.tags
 
       updatePipeline(pipeline)
       hideModal()

@@ -4,7 +4,7 @@ export default {
   modalTitle: 'Create Override Set',
   overrideSetError: 'Override Set cannot be empty',
   overrideSetNamePrefix: 'Override Set:',
-  overrideSetPlaceholder: 'Production',
+  overrideSetPlaceholder: 'Enter set name',
   tabs: {
     artifacts: 'Artifacts',
     manifests: 'Manifests',

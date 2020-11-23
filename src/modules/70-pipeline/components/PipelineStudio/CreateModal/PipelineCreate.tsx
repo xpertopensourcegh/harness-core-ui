@@ -12,6 +12,7 @@ import {
   Carousel
 } from '@wings-software/uikit'
 import * as Yup from 'yup'
+import isEmpty from 'lodash-es/isEmpty'
 import { loggerFor, ModuleName } from 'framework/exports'
 import type { NgPipeline } from 'services/cd-ng'
 import i18n from './PipelineCreate.i18n'
@@ -41,7 +42,7 @@ const tagCollapseProps = Object.assign({}, collapseProps, { heading: i18n.tags }
 
 export default function CreatePipelines({
   afterSave,
-  initialValues = { identifier: '', name: '', description: '' },
+  initialValues = { identifier: '', name: '', description: '', tags: {} },
   closeModal
 }: PipelineCreateProps): JSX.Element {
   const identifier = initialValues?.identifier
@@ -85,21 +86,8 @@ export default function CreatePipelines({
                     </Collapse>
                   </div>
                   <div className={css.collapseDiv}>
-                    <Collapse {...tagCollapseProps}>
-                      <FormInput.TagInput
-                        name="tags"
-                        items={['pipeline', 'canary']}
-                        labelFor={name => (typeof name === 'string' ? name : '')}
-                        itemFromNewTag={newTag => newTag}
-                        tagInputProps={{
-                          noInputBorder: true,
-                          openOnKeyDown: false,
-                          showAddTagButton: true,
-                          showClearAllButton: true,
-                          allowNewTag: true,
-                          placeholder: i18n.enterTags
-                        }}
-                      />
+                    <Collapse {...tagCollapseProps} isOpen={!isEmpty(values?.tags)}>
+                      <FormInput.KVTagInput name="tags" />
                     </Collapse>
                   </div>
                 </div>

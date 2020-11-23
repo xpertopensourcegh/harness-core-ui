@@ -167,7 +167,7 @@ export default function DeployInfraSpecifications(): JSX.Element {
     <Layout.Vertical className={css.serviceOverrides}>
       <Layout.Vertical spacing="large">
         <div className={cx(css.serviceSection, css.noPadTop)}>
-          <Layout.Vertical className={css.specTabs}>{i18n.infraDetailsLabel}</Layout.Vertical>
+          <Layout.Vertical className={cx(css.specTabs, css.tabHeading)}>{i18n.infraDetailsLabel}</Layout.Vertical>
           <Formik
             initialValues={getInitialValues()}
             enableReinitialize={true}
@@ -250,19 +250,8 @@ export default function DeployInfraSpecifications(): JSX.Element {
         </div>
       </Layout.Vertical>
       <div className={css.serviceSection}>
-        {/* <Layout.Horizontal flex={true} className={css.specTabs}>
-          <Button minimal text={i18n.infraSpecificationLabel} className={css.selected} />
-        </Layout.Horizontal> */}
-        <Layout.Vertical className={css.specTabs}>{i18n.infraSpecificationLabel}</Layout.Vertical>
+        <Layout.Vertical className={cx(css.specTabs, css.tabHeading)}>{i18n.infraSpecificationLabel}</Layout.Vertical>
         <div>
-          {/* <Text style={{ fontSize: 16, color: 'var(--grey-400)' }}>{i18n.deploymentTypeLabel}</Text> */}
-          {/* <Card interactive={true} selected style={{ width: 120 }}>
-          <CardBody.Icon icon="service-kubernetes" iconSize={34}>
-            <Text font={{ align: 'center' }} style={{ fontSize: 14 }}>
-              {i18n.deploymentType}
-            </Text>
-          </CardBody.Icon>
-        </Card> */}
           <div className={css.stepContainer}>
             <div className={css.serviceCards}>
               {supportedDeploymentTypes.map((type: { name: string; icon: IconName; enabled: boolean }) => (
@@ -293,10 +282,6 @@ export default function DeployInfraSpecifications(): JSX.Element {
           </div>
         </div>
       </div>
-
-      {/* <Layout.Horizontal flex={true}>
-        <Text style={{ margin: '25px 0 15px 0', color: 'black', fontSize: 16 }}> {i18n.infraSpecHelpText}</Text>
-      </Layout.Horizontal> */}
     </Layout.Vertical>
   )
 }

@@ -10,6 +10,7 @@ declare const styles: {
   readonly overideCheckbox: string
   readonly stepContainer: string
   readonly serviceSection: string
+  readonly tabHeading: string
   readonly noPadTop: string
   readonly serviceCards: string
   readonly bp3Card: string

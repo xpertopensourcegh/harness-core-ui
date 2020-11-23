@@ -10,5 +10,6 @@ declare const styles: {
   readonly stageDropdownButtonCaret: string
   readonly stageDropdownButton: string
   readonly stageDropdownOptions: string
+  readonly bp3Button: string
 }
 export default styles

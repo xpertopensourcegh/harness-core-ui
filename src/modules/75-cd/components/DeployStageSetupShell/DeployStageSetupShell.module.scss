@@ -6,6 +6,37 @@
   background: var(--white);
   .tabsContainer {
     background: white;
+
+    .stageDropdownButton {
+      margin-left: calc(var(--spacing-large) / -1) !important;
+      margin-right: calc(var(--spacing-large) / -1) !important;
+
+      :global {
+        .bp3-button-text {
+          display: flex;
+          align-items: center;
+        }
+      }
+    }
+
+    .stageDropdownOptions {
+      text-align: left;
+      display: flex !important;
+      width: 100%;
+      justify-content: start;
+      span:first-child {
+        margin-right: var(--spacing-small);
+      }
+    }
+
+    .stageDropdownButtonCaret {
+      margin-right: 0 !important;
+      display: inline-block;
+      svg {
+        color: transparent !important;
+      }
+    }
+
     &.tab-execution {
       :global(.bp3-tab-panel) {
         background-image: var(--pipeline-canvas-image);
@@ -67,11 +98,14 @@
     box-shadow: 4px 0px 2px 0 rgba(0, 0, 0, 0.13);
   }
 }
+.stageDropDownTab {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
 .stageDropDown {
   text-align: left;
   display: block !important;
   width: 100%;
-
   button.bp3-button {
     border: none !important;
   }

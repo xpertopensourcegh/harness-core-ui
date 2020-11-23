@@ -98,9 +98,13 @@
 
 .stageDropdownOptions {
   text-align: left;
-  display: flex !important;
+  display: block !important;
   width: 100%;
-  justify-content: start;
+
+  button.bp3-button {
+    border: none !important;
+  }
+
   span:first-child {
     margin-right: var(--spacing-small);
   }

@@ -106,14 +106,12 @@ export default function BuildStageSetupShell(): JSX.Element {
                   itemRenderer={(item, { modifiers: { disabled }, handleClick }) => (
                     <div>
                       <Button
-                        className={css.stageDropdownOptions}
                         icon={MapStepTypeToIcon[item.type]}
-                        iconProps={{ size: 30 }}
                         text={item.label}
                         disabled={disabled}
                         minimal
-                        noStyling
                         onClick={e => handleClick(e as React.MouseEvent<HTMLElement, MouseEvent>)}
+                        className={css.stageDropdownOptions}
                       />
                     </div>
                   )}

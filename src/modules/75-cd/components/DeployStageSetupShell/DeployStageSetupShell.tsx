@@ -19,7 +19,7 @@ const StageSelection = Select.ofType<StageSelectOption>()
 
 export const MapStepTypeToIcon: { [key: string]: HarnessIconName } = {
   Deployment: 'pipeline-deploy',
-  ci: 'pipeline-build',
+  ci: 'pipeline-build-select',
   Approval: 'pipeline-approval',
   Pipeline: 'pipeline',
   Custom: 'pipeline-custom'
@@ -66,6 +66,7 @@ export default function DeployStageSetupShell(): JSX.Element {
     selectedStage: StageSelectOption,
     event?: React.SyntheticEvent<HTMLElement, Event> | undefined
   ) => {
+    event?.preventDefault()
     event?.stopPropagation()
     const value = selectedStage.value.toString()
     const { stage } = getStageFromPipeline(pipeline, value)
@@ -102,17 +103,27 @@ export default function DeployStageSetupShell(): JSX.Element {
             id={i18n.defaultId}
             panel={<DeployStageSpecifications />}
             title={
-              <span className={css.tab}>
+              <span className={cx(css.tab, css.stageDropDownTab)} onClick={e => e.stopPropagation()}>
+                <Button
+                  className={css.stageDropdownButton}
+                  minimal
+                  onClick={() => {
+                    handleTabChange('default')
+                  }}
+                >
+                  <Icon name={MapStepTypeToIcon[stageData?.type]} size={20} margin={{ left: 'small' }} />
+                  {stageData?.name}
+                </Button>
                 <StageSelection
                   itemRenderer={(item, { modifiers: { disabled }, handleClick }) => (
-                    <div>
+                    <div key={item.value as string}>
                       <Button
                         icon={MapStepTypeToIcon[item.type]}
                         text={item.label}
                         disabled={disabled}
                         minimal
-                        onClick={e => handleClick(e as React.MouseEvent<HTMLElement, MouseEvent>)}
                         className={css.stageDropDown}
+                        onClick={e => handleClick(e as React.MouseEvent<HTMLElement, MouseEvent>)}
                       />
                     </div>
                   )}
@@ -122,7 +133,12 @@ export default function DeployStageSetupShell(): JSX.Element {
                   filterable={false}
                   popoverProps={{ minimal: true }}
                 >
-                  <Button icon={MapStepTypeToIcon[stageData?.type]} text={stageData?.name} rightIcon="caret-down" />
+                  <Icon
+                    className={css.stageDropdownButtonCaret}
+                    name="pipeline-stage-selection-caret"
+                    size={19}
+                    margin={{ left: 'medium', right: 0 }}
+                  />
                 </StageSelection>
               </span>
             }

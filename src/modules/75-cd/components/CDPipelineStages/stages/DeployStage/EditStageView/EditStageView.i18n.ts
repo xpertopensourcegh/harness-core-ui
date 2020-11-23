@@ -10,5 +10,6 @@ export default {
   functions: 'Functions',
   otherWorkloads: 'Other Workloads',
   setupStage: 'Setup Stage',
-  stageName: 'Stage Name'
+  stageName: 'Stage Name',
+  stageDetails: 'Stage Details'
 }

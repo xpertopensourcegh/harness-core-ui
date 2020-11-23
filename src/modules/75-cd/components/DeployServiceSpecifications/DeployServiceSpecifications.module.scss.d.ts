@@ -15,6 +15,7 @@ declare const styles: {
   readonly overideCheckbox: string
   readonly artifactType: string
   readonly serviceSection: string
+  readonly tabHeading: string
   readonly noPadVertical: string
   readonly disabled: string
   readonly serviceSpecType: string
