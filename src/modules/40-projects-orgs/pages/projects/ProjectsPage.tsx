@@ -109,7 +109,7 @@ const ProjectsListPage: React.FC<ProjectListProps> = ({ orgMockData }) => {
               orgFilter = item
               history.push({
                 pathname: routeProjects.url(),
-                search: `?orgId=${orgId}`
+                search: `?orgId=${orgFilter.value.toString()}`
               })
             }}
             popoverProps={{ minimal: true, popoverClassName: css.customselect }}

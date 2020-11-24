@@ -1,6 +1,7 @@
 import React from 'react'
 import { act, fireEvent, getByText, render, waitFor } from '@testing-library/react'
 import { findDialogContainer, findPopoverContainer, TestWrapper } from '@common/utils/testUtils'
+import { routeProjects } from 'navigation/projects/routes'
 import ProjectDetails from '../views/ProjectDetails/ProjectDetails'
 import { createMockData, OrgMockData, projectMockData, projectMockDataWithModules } from './ProjectPageMock'
 
@@ -84,5 +85,19 @@ describe('Project Details', () => {
         form = findDialogContainer()
         expect(form).not.toBeTruthy()
       })
+    }),
+    test('Manage Organizations', async () => {
+      const { container, getByTestId } = render(
+        <TestWrapper
+          path="/account/:accountId/org/:orgIdentifier/project/:projectIdentifier"
+          pathParams={{ accountId: 'testAcc', orgIdentifier: 'Cisco_Meraki', projectIdentifier: 'Portal' }}
+        >
+          <ProjectDetails />
+        </TestWrapper>
+      )
+      const back = getByText(container, 'Manage Projects /')
+      fireEvent.click(back)
+      await waitFor(() => getByTestId('location'))
+      expect(getByTestId('location').innerHTML.endsWith(routeProjects.url())).toBeTruthy()
     })
 })
