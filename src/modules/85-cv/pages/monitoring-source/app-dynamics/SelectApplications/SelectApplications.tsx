@@ -22,9 +22,9 @@ interface AppEntry {
   environment?: string
 }
 
-export default function SelectApplications({ stepData, onCompleteStep }: SelectApplicationsProps) {
+export default function SelectApplications({ stepData, onCompleteStep }: SelectApplicationsProps): React.ReactElement {
   const history = useHistory()
-  const { getString } = useStrings('cv')
+  const { getString } = useStrings()
   const {
     params: { accountId, projectIdentifier, orgIdentifier }
   } = useRouteParams()
@@ -126,14 +126,14 @@ export default function SelectApplications({ stepData, onCompleteStep }: SelectA
               }
             },
             {
-              Header: getString('monitoringSources.appD.appDApplications'),
+              Header: getString('cv.monitoringSources.appD.appDApplications'),
               accessor: 'name',
               disableSortBy: true,
               width: '45%',
               Cell: ApplicationNameCell
             },
             {
-              Header: getString('monitoringSources.appD.harnessEnv'),
+              Header: getString('cv.monitoringSources.appD.harnessEnv'),
               accessor: 'environment',
               disableSortBy: true,
               width: '45%',
@@ -176,18 +176,18 @@ export default function SelectApplications({ stepData, onCompleteStep }: SelectA
       </Container>
       <Container className={styles.infoPanel}>
         <Text icon="info" font={{ weight: 'bold' }} margin={{ bottom: 'small' }}>
-          {getString('monitoringSources.appD.mapDashboards')}
+          {getString('cv.monitoringSources.appD.mapDashboards')}
         </Text>
-        <Text>{getString('monitoringSources.appD.mapDashboardsMsg')}</Text>
+        <Text>{getString('cv.monitoringSources.appD.mapDashboardsMsg')}</Text>
       </Container>
     </Container>
   )
 }
 
-function CheckApplicationCell({ value, onSelect }: any) {
+function CheckApplicationCell({ value, onSelect }: any): React.ReactElement {
   return <input type="checkbox" checked={value} onChange={e => onSelect(e.target.checked)} />
 }
 
-function ApplicationNameCell({ value }: any) {
+function ApplicationNameCell({ value }: any): React.ReactElement {
   return <Text icon="service-appdynamics">{value}</Text>
 }

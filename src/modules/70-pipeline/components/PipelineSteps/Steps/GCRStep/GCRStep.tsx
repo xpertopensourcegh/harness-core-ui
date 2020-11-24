@@ -82,7 +82,6 @@ const GCRStepWidget: React.FC<GCRStepWidgetProps> = ({ initialValues, onUpdate }
   } = React.useContext(PipelineContext)
 
   const { getString } = useStrings()
-  const { getString: getPipelineStepsString } = useStrings('pipeline-steps')
 
   const { accountId, projectIdentifier, orgIdentifier } = useParams<{
     projectIdentifier: string
@@ -187,7 +186,7 @@ const GCRStepWidget: React.FC<GCRStepWidgetProps> = ({ initialValues, onUpdate }
   return (
     <>
       <Text className={stepCss.boldLabel} font={{ size: 'medium' }}>
-        {getPipelineStepsString('gcr.title')}
+        {getString('pipelineSteps.gcr.title')}
       </Text>
       <Formik
         enableReinitialize={true}
@@ -255,7 +254,7 @@ const GCRStepWidget: React.FC<GCRStepWidgetProps> = ({ initialValues, onUpdate }
                 idName="identifier"
                 inputLabel={getString('pipelineSteps.stepNameLabel')}
               />
-              <FormInput.TextArea name="description" label={getString('pipelineSteps.descriptionLabel')} />
+              <FormInput.TextArea name="description" label={getString('description')} />
               <Text margin={{ top: 'medium', bottom: 'xsmall' }}>{getString('pipelineSteps.connectorLabel')}</Text>
               <div className={cx(css.fieldsGroup, css.withoutSpacing)}>
                 <FormMultiTypeConnectorField

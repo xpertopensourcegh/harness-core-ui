@@ -10,7 +10,7 @@ import SelectEnvironment from './SelectEnvironment/SelectEnvironment'
 import SelectServices from './SelectServices/SelectServices'
 
 const HarnessCDActivitySource: React.FC = () => {
-  const { getString } = useStrings('cv')
+  const { getString } = useStrings()
   const { onNext, currentData, setCurrentData, onPrevious, ...tabInfo } = useCVTabsHook<any>()
 
   return (
@@ -25,7 +25,7 @@ const HarnessCDActivitySource: React.FC = () => {
         tabProps={[
           {
             id: 1,
-            title: getString('activitySources.harnessCD.selectActivitySource'),
+            title: getString('cv.activitySources.harnessCD.selectActivitySource'),
             component: (
               <HarnessCDActivitySourceDetails
                 initialValues={currentData}
@@ -38,7 +38,7 @@ const HarnessCDActivitySource: React.FC = () => {
           },
           {
             id: 2,
-            title: getString('activitySources.harnessCD.selectApplication'),
+            title: getString('cv.activitySources.harnessCD.selectApplication'),
             component: (
               <SelectApplication
                 stepData={currentData}
@@ -54,7 +54,7 @@ const HarnessCDActivitySource: React.FC = () => {
           },
           {
             id: 3,
-            title: getString('activitySources.harnessCD.selectEnvironment'),
+            title: getString('cv.activitySources.harnessCD.selectEnvironment'),
             component: (
               <SelectEnvironment
                 initialValues={currentData}
@@ -70,7 +70,7 @@ const HarnessCDActivitySource: React.FC = () => {
           },
           {
             id: 4,
-            title: getString('activitySources.harnessCD.selectService'),
+            title: getString('cv.activitySources.harnessCD.selectService'),
             component: (
               <SelectServices
                 initialValues={currentData}

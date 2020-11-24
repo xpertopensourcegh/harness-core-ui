@@ -39,17 +39,17 @@ describe('SelectEnvironment', () => {
           <StringsContext.Provider
             value={{
               global: {
-                retry: 'Retry'
-              },
-              cv: {
-                activitySources: {
-                  harnessCD: {
-                    harnessApps: 'harnessApps',
-                    environment: {
-                      noData: 'Nodata',
-                      infoText: 'infoText',
-                      harnessEnv: 'harnessEnv',
-                      env: 'env'
+                retry: 'Retry',
+                cv: {
+                  activitySources: {
+                    harnessCD: {
+                      harnessApps: 'harnessApps',
+                      environment: {
+                        noData: 'Nodata',
+                        infoText: 'infoText',
+                        harnessEnv: 'harnessEnv',
+                        env: 'env'
+                      }
                     }
                   }
                 }

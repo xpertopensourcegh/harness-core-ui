@@ -79,7 +79,6 @@ const RestoreCacheS3StepWidget: React.FC<RestoreCacheS3StepWidgetProps> = ({
   } = React.useContext(PipelineContext)
 
   const { getString } = useStrings()
-  const { getString: getPipelineStepsString } = useStrings('pipeline-steps')
 
   const { accountId, projectIdentifier, orgIdentifier } = useParams<{
     projectIdentifier: string
@@ -155,7 +154,7 @@ const RestoreCacheS3StepWidget: React.FC<RestoreCacheS3StepWidgetProps> = ({
   return (
     <>
       <Text className={stepCss.boldLabel} font={{ size: 'medium' }}>
-        {getPipelineStepsString('restoreCacheS3.title')}
+        {getString('pipelineSteps.restoreCacheS3.title')}
       </Text>
       <Formik
         enableReinitialize={true}
@@ -202,10 +201,8 @@ const RestoreCacheS3StepWidget: React.FC<RestoreCacheS3StepWidgetProps> = ({
                 idName="identifier"
                 inputLabel={getString('pipelineSteps.stepNameLabel')}
               />
-              <FormInput.TextArea name="description" label={getString('pipelineSteps.descriptionLabel')} />
-              <Text margin={{ top: 'medium', bottom: 'xsmall' }}>
-                {getPipelineStepsString('restoreCacheS3.connectorLabel')}
-              </Text>
+              <FormInput.TextArea name="description" label={getString('description')} />
+              <Text margin={{ top: 'medium', bottom: 'xsmall' }}>{getString('pipelineSteps.awsConnectorLabel')}</Text>
               <div className={cx(css.fieldsGroup, css.withoutSpacing)}>
                 <FormMultiTypeConnectorField
                   type="Aws"
@@ -222,7 +219,7 @@ const RestoreCacheS3StepWidget: React.FC<RestoreCacheS3StepWidgetProps> = ({
                     value={formValues?.spec.connectorRef as string}
                     type={
                       <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-                        <Text>{getPipelineStepsString('restoreCacheS3.connectorLabel')}</Text>
+                        <Text>{getString('pipelineSteps.awsConnectorLabel')}</Text>
                       </Layout.Horizontal>
                     }
                     variableName="spec.connectorRef"
@@ -235,7 +232,7 @@ const RestoreCacheS3StepWidget: React.FC<RestoreCacheS3StepWidgetProps> = ({
                   />
                 )}
               </div>
-              <Text margin={{ top: 'medium', bottom: 'xsmall' }}>{getString('pipelineSteps.keyLabel')}</Text>
+              <Text margin={{ top: 'medium', bottom: 'xsmall' }}>{getString('pipelineSteps.keyPlaceholder')}</Text>
               <div className={cx(css.fieldsGroup, css.withoutSpacing, css.bottomSpacing)}>
                 <FormInput.MultiTextInput name="spec.key" label="" style={{ flexGrow: 1 }} />
                 {getMultiTypeFromValue(formValues.spec.key) === MultiTypeInputType.RUNTIME && (
@@ -243,7 +240,7 @@ const RestoreCacheS3StepWidget: React.FC<RestoreCacheS3StepWidgetProps> = ({
                     value={formValues.spec.key as string}
                     type={
                       <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-                        <Text>{getString('pipelineSteps.keyLabel')}</Text>
+                        <Text>{getString('pipelineSteps.keyPlaceholder')}</Text>
                       </Layout.Horizontal>
                     }
                     variableName="spec.key"

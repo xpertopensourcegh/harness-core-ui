@@ -104,7 +104,7 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, context
                     {!isDescriptionVisible && (
                       <Button
                         minimal
-                        text={getString('pipelineSteps.descriptionLabel')}
+                        text={getString('description')}
                         icon="plus"
                         onClick={() => toggleDescription(true)}
                       />
@@ -120,7 +120,7 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, context
                       </span>
                       <FormInput.TextArea
                         name="description"
-                        label={getString('pipelineSteps.descriptionLabel')}
+                        label={getString('description')}
                         style={{ width: context ? 440 : 320 }}
                       />
                     </div>

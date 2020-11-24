@@ -76,7 +76,6 @@ const SaveCacheGCSStepWidget: React.FC<SaveCacheGCSStepWidgetProps> = ({ initial
   } = React.useContext(PipelineContext)
 
   const { getString } = useStrings()
-  const { getString: getPipelineStepsString } = useStrings('pipeline-steps')
 
   const { accountId, projectIdentifier, orgIdentifier } = useParams<{
     projectIdentifier: string
@@ -152,7 +151,7 @@ const SaveCacheGCSStepWidget: React.FC<SaveCacheGCSStepWidgetProps> = ({ initial
   return (
     <>
       <Text className={stepCss.boldLabel} font={{ size: 'medium' }}>
-        {getPipelineStepsString('saveCacheGCS.title')}
+        {getString('pipelineSteps.saveCacheGCS.title')}
       </Text>
       <Formik
         enableReinitialize={true}
@@ -199,10 +198,8 @@ const SaveCacheGCSStepWidget: React.FC<SaveCacheGCSStepWidgetProps> = ({ initial
                 idName="identifier"
                 inputLabel={getString('pipelineSteps.stepNameLabel')}
               />
-              <FormInput.TextArea name="description" label={getString('pipelineSteps.descriptionLabel')} />
-              <Text margin={{ top: 'medium', bottom: 'xsmall' }}>
-                {getPipelineStepsString('saveCacheGCS.connectorLabel')}
-              </Text>
+              <FormInput.TextArea name="description" label={getString('description')} />
+              <Text margin={{ top: 'medium', bottom: 'xsmall' }}>{getString('pipelineSteps.gcpConnectorLabel')}</Text>
               <div className={cx(css.fieldsGroup, css.withoutSpacing)}>
                 <FormMultiTypeConnectorField
                   type="Gcp"
@@ -219,7 +216,7 @@ const SaveCacheGCSStepWidget: React.FC<SaveCacheGCSStepWidgetProps> = ({ initial
                     value={formValues?.spec.connectorRef as string}
                     type={
                       <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-                        <Text>{getPipelineStepsString('saveCacheGCS.connectorLabel')}</Text>
+                        <Text>{getString('pipelineSteps.gcpConnectorLabel')}</Text>
                       </Layout.Horizontal>
                     }
                     variableName="spec.connectorRef"
@@ -232,7 +229,7 @@ const SaveCacheGCSStepWidget: React.FC<SaveCacheGCSStepWidgetProps> = ({ initial
                   />
                 )}
               </div>
-              <Text margin={{ top: 'medium', bottom: 'xsmall' }}>{getString('pipelineSteps.keyLabel')}</Text>
+              <Text margin={{ top: 'medium', bottom: 'xsmall' }}>{getString('pipelineSteps.keyPlaceholder')}</Text>
               <div className={cx(css.fieldsGroup, css.withoutSpacing, css.bottomSpacing)}>
                 <FormInput.MultiTextInput name="spec.key" label="" style={{ flexGrow: 1 }} />
                 {getMultiTypeFromValue(formValues.spec.key) === MultiTypeInputType.RUNTIME && (
@@ -240,7 +237,7 @@ const SaveCacheGCSStepWidget: React.FC<SaveCacheGCSStepWidgetProps> = ({ initial
                     value={formValues.spec.key as string}
                     type={
                       <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-                        <Text>{getString('pipelineSteps.keyLabel')}</Text>
+                        <Text>{getString('pipelineSteps.keyPlaceholder')}</Text>
                       </Layout.Horizontal>
                     }
                     variableName="spec.key"

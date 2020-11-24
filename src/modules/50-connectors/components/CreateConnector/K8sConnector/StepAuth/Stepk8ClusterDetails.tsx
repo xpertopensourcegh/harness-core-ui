@@ -67,22 +67,22 @@ interface AuthOptionInterface {
 }
 
 const RenderK8AuthForm: React.FC<FormikProps<KubeFormInterface>> = props => {
-  const { getString } = useStrings('connectors')
+  const { getString } = useStrings()
   switch (props.values.authType) {
     case AuthTypes.USER_PASSWORD:
       return (
         <>
-          <FormInput.Text name="username" label={getString('k8.username')} />
-          <SecretInput name={'password'} label={getString('k8.password')} />
+          <FormInput.Text name="username" label={getString('connectors.k8.username')} />
+          <SecretInput name={'password'} label={getString('connectors.k8.password')} />
         </>
       )
     case AuthTypes.SERVICE_ACCOUNT:
       return (
         <>
-          <SecretInput name={'serviceAccountToken'} label={getString('k8.serviceAccountToken')} />
+          <SecretInput name={'serviceAccountToken'} label={getString('connectors.k8.serviceAccountToken')} />
           <FormInput.CheckBox
             name="skipNamespace"
-            label={getString('k8.skipDefaultValidation')}
+            label={getString('connectors.k8.skipDefaultValidation')}
             padding={{ left: 'xxlarge' }}
           />
         </>
@@ -91,17 +91,17 @@ const RenderK8AuthForm: React.FC<FormikProps<KubeFormInterface>> = props => {
       return (
         <>
           <Container className={css.formRow}>
-            <FormInput.Text name="oidcUsername" label={getString('k8.OIDCUsername')} />
-            <SecretInput name={'oidcPassword'} label={getString('k8.OIDCPassword')} />
+            <FormInput.Text name="oidcUsername" label={getString('connectors.k8.OIDCUsername')} />
+            <SecretInput name={'oidcPassword'} label={getString('connectors.k8.OIDCPassword')} />
           </Container>
           <Container className={css.formRow}>
-            <SecretInput name={'oidcCleintId'} label={getString('k8.OIDCClientId')} />
-            <SecretInput name={'oidcCleintSecret'} label={getString('k8.OIDCSecret')} />
+            <SecretInput name={'oidcCleintId'} label={getString('connectors.k8.OIDCClientId')} />
+            <SecretInput name={'oidcCleintSecret'} label={getString('connectors.k8.OIDCSecret')} />
           </Container>
-          <FormInput.Text name="oidcScopes" label={getString('k8.OIDCScopes')} />
+          <FormInput.Text name="oidcScopes" label={getString('connectors.k8.OIDCScopes')} />
           <FormInput.CheckBox
             name="skipNamespace"
-            label={getString('k8.skipDefaultValidation')}
+            label={getString('connectors.k8.skipDefaultValidation')}
             padding={{ left: 'xxlarge' }}
           />
         </>
@@ -110,17 +110,17 @@ const RenderK8AuthForm: React.FC<FormikProps<KubeFormInterface>> = props => {
       return (
         <>
           <Container className={css.formRow}>
-            <SecretInput name={'clientKey'} label={getString('k8.clientKey')} />
-            <SecretInput name={'clientKeyPassphrase'} label={getString('k8.clientKeyPassphrase')} />
+            <SecretInput name={'clientKey'} label={getString('connectors.k8.clientKey')} />
+            <SecretInput name={'clientKeyPassphrase'} label={getString('connectors.k8.clientKeyPassphrase')} />
           </Container>
           <Container className={css.formRow}>
-            <SecretInput name={'clientKeyCertificate'} label={getString('k8.clientCertificate')} />
-            <FormInput.Text name="clientKeyAlgorithm" label={getString('k8.clientKeyAlgorithm')} />
+            <SecretInput name={'clientKeyCertificate'} label={getString('connectors.k8.clientCertificate')} />
+            <FormInput.Text name="clientKeyAlgorithm" label={getString('connectors.k8.clientKeyAlgorithm')} />
           </Container>
-          <FormInput.Text name="clientKeyCACertificate" label={getString('k8.clientKeyCACertificate')} />
+          <FormInput.Text name="clientKeyCACertificate" label={getString('connectors.k8.clientKeyCACertificate')} />
           <FormInput.CheckBox
             name="skipNamespace"
-            label={getString('k8.skipDefaultValidation')}
+            label={getString('connectors.k8.skipDefaultValidation')}
             padding={{ left: 'xxlarge' }}
           />
         </>
@@ -137,34 +137,34 @@ const Stepk8ClusterDetails: React.FC<StepProps<Stepk8ClusterDetailsProps> & K8Cl
   const { mutate: createConnector } = useCreateConnector({ queryParams: { accountIdentifier: accountId } })
   const { mutate: updateConnector } = useUpdateConnector({ queryParams: { accountIdentifier: accountId } })
   const [loadConnector, setLoadConnector] = useState(false)
-  const { getString } = useStrings('connectors')
+  const { getString } = useStrings()
 
   const DelegateCards: DelegateCardInterface[] = [
     {
       type: DelegateTypes.DELEGATE_OUT_CLUSTER,
-      info: getString('delegateOutClusterInfo')
+      info: getString('connectors.delegateOutClusterInfo')
     },
     {
       type: DelegateTypes.DELEGATE_IN_CLUSTER,
-      info: getString('delegateInClusterInfo')
+      info: getString('connectors.delegateInClusterInfo')
     }
   ]
 
   const authOptions: Array<AuthOptionInterface> = [
     {
-      label: getString('k8.authLabels.usernamePassword'),
+      label: getString('connectors.k8.authLabels.usernamePassword'),
       value: AuthTypes.USER_PASSWORD
     },
     {
-      label: getString('k8.authLabels.serviceAccount'),
+      label: getString('serviceAccount'),
       value: AuthTypes.SERVICE_ACCOUNT
     },
     {
-      label: getString('k8.authLabels.OIDC'),
+      label: getString('connectors.k8.authLabels.OIDC'),
       value: AuthTypes.OIDC
     },
     {
-      label: getString('k8.authLabels.clientKeyCertificate'),
+      label: getString('connectors.k8.authLabels.clientKeyCertificate'),
       value: AuthTypes.CLIENT_KEY_CERT
     }
   ]
@@ -222,7 +222,7 @@ const Stepk8ClusterDetails: React.FC<StepProps<Stepk8ClusterDetailsProps> & K8Cl
   return (
     <Layout.Vertical height={'inherit'} spacing="medium" className={css.secondStep}>
       <Text font="medium" margin={{ top: 'small' }} color={Color.BLACK}>
-        {getString('k8.stepTwoName')}
+        {getString('connectors.k8.stepTwoName')}
       </Text>
       <Formik
         initialValues={{
@@ -241,14 +241,14 @@ const Stepk8ClusterDetails: React.FC<StepProps<Stepk8ClusterDetailsProps> & K8Cl
           clientKeyPassphrase: null
         }}
         validationSchema={Yup.object().shape({
-          masterUrl: Yup.string().trim().required(getString('k8.validation.masterUrl')),
+          masterUrl: Yup.string().trim().required(getString('connectors.k8.validation.masterUrl')),
           username: Yup.string().when('authType', {
             is: val => val === AuthTypes.USER_PASSWORD,
-            then: Yup.string().required(getString('k8.validation.username'))
+            then: Yup.string().required(getString('connectors.k8.validation.username'))
           }),
           oidcUsername: Yup.string().when('authType', {
             is: val => val === AuthTypes.OIDC,
-            then: Yup.string().required(getString('k8.validation.oidcUsername'))
+            then: Yup.string().required(getString('connectors.k8.validation.oidcUsername'))
           })
         })}
         onSubmit={formData => {
@@ -302,14 +302,14 @@ const Stepk8ClusterDetails: React.FC<StepProps<Stepk8ClusterDetailsProps> & K8Cl
               {DelegateTypes.DELEGATE_OUT_CLUSTER === formikProps.values.delegateType ? (
                 <>
                   <FormInput.Text
-                    label={getString('k8.masterUrlLabel')}
-                    placeholder={getString('k8.placeholder.masterUrl')}
+                    label={getString('connectors.k8.masterUrlLabel')}
+                    placeholder={getString('connectors.k8.placeholder.masterUrl')}
                     name="masterUrl"
                   />
 
                   <Container className={css.authHeaderRow}>
                     <Text className={css.authTitle} inline>
-                      {getString('k8.authTitle')}
+                      {getString('connectors.k8.authTitle')}
                     </Text>
                     <FormInput.Select name="authType" items={authOptions} disabled={false} />
                   </Container>

@@ -79,8 +79,7 @@ const RenderColumnApplication: Renderer<CellProps<TableData>> = ({ row }) => {
 }
 
 const SelectEnvironment: React.FC<SelectEnvironmentProps> = props => {
-  const { getString: getGlobalString } = useStrings()
-  const { getString } = useStrings('cv')
+  const { getString } = useStrings()
   const [tableData, setTableData] = useState<Array<TableData>>()
   const [environmentOptions, setEnvironmentOptions] = useState<any>([])
   const { accountId, orgIdentifier, projectIdentifier } = useParams()
@@ -169,8 +168,8 @@ const SelectEnvironment: React.FC<SelectEnvironmentProps> = props => {
       <Container className={css.loadingErrorNoData}>
         <NoDataCard
           icon="warning-sign"
-          message={getString('activitySources.harnessCD.environment.noData')}
-          buttonText={getGlobalString('retry')}
+          message={getString('cv.activitySources.harnessCD.environment.noData')}
+          buttonText={getString('retry')}
           onClick={() => refetch()}
         />
       </Container>
@@ -192,13 +191,13 @@ const SelectEnvironment: React.FC<SelectEnvironmentProps> = props => {
             <FormikForm>
               <Container width={'60%'} style={{ margin: 'auto' }} padding={{ top: 'xxxlarge' }}>
                 <Text margin={{ top: 'large', bottom: 'large' }}>
-                  {getString('activitySources.harnessCD.environment.infoText')}
+                  {getString('cv.activitySources.harnessCD.environment.infoText')}
                 </Text>
 
                 <Table<TableData>
                   columns={[
                     {
-                      Header: getString('activitySources.harnessCD.environment.harnessEnv'),
+                      Header: getString('cv.activitySources.harnessCD.environment.harnessEnv'),
                       accessor: 'name',
 
                       width: '33%',
@@ -214,7 +213,7 @@ const SelectEnvironment: React.FC<SelectEnvironmentProps> = props => {
                       disableSortBy: true
                     },
                     {
-                      Header: getString('activitySources.harnessCD.harnessApps'),
+                      Header: getString('cv.activitySources.harnessCD.harnessApps'),
                       accessor: 'appName',
 
                       width: '33%',
@@ -223,7 +222,7 @@ const SelectEnvironment: React.FC<SelectEnvironmentProps> = props => {
                       disableSortBy: true
                     },
                     {
-                      Header: getString('activitySources.harnessCD.environment.env'),
+                      Header: getString('cv.activitySources.harnessCD.environment.env'),
                       accessor: 'environment',
 
                       width: '33%',

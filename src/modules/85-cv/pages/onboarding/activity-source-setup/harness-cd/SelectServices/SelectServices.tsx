@@ -68,8 +68,7 @@ const RenderColumnAddEnvironment: Renderer<CellProps<Application>> = ({ row }) =
   return <Container>{data.appId}</Container>
 }
 const SelectServices: React.FC<SelectServicesProps> = props => {
-  const { getString: getGlobalString } = useStrings()
-  const { getString } = useStrings('cv')
+  const { getString } = useStrings()
   const [tableData, setTableData] = useState<Array<TableData>>()
   const { accountId } = useParams()
   const { data, loading, error, refetch } = useList({
@@ -121,8 +120,8 @@ const SelectServices: React.FC<SelectServicesProps> = props => {
       <Container className={css.loadingErrorNoData}>
         <NoDataCard
           icon="warning-sign"
-          message={getString('activitySources.harnessCD.service.noData')}
-          buttonText={getGlobalString('retry')}
+          message={getString('cv.activitySources.harnessCD.service.noData')}
+          buttonText={getString('retry')}
           onClick={() => refetch()}
         />
       </Container>
@@ -145,13 +144,13 @@ const SelectServices: React.FC<SelectServicesProps> = props => {
               <Container width={'60%'} style={{ margin: 'auto' }} padding={{ top: 'xxxlarge' }}>
                 <Text margin={{ top: 'large', bottom: 'large' }}>
                   {' '}
-                  {getString('activitySources.harnessCD.service.infoText')}
+                  {getString('cv.activitySources.harnessCD.service.infoText')}
                 </Text>
 
                 <Table<TableData>
                   columns={[
                     {
-                      Header: getString('activitySources.harnessCD.service.harnessServices'),
+                      Header: getString('cv.activitySources.harnessCD.service.harnessServices'),
                       accessor: 'name',
 
                       width: '33%',
@@ -167,7 +166,7 @@ const SelectServices: React.FC<SelectServicesProps> = props => {
                       disableSortBy: true
                     },
                     {
-                      Header: getString('activitySources.harnessCD.harnessApps'),
+                      Header: getString('cv.activitySources.harnessCD.harnessApps'),
                       accessor: 'appName',
 
                       width: '33%',
@@ -176,7 +175,7 @@ const SelectServices: React.FC<SelectServicesProps> = props => {
                       disableSortBy: true
                     },
                     {
-                      Header: getString('activitySources.harnessCD.service.services'),
+                      Header: getString('cv.activitySources.harnessCD.service.services'),
                       accessor: 'uuid',
 
                       width: '33%',

@@ -15,8 +15,7 @@ export interface HarnessCDActivitySourceDetailsProps {
 }
 
 const HarnessCDActivitySourceDetails: React.FC<HarnessCDActivitySourceDetailsProps> = props => {
-  const { getString: globalGetString } = useStrings()
-  const { getString } = useStrings('cv')
+  const { getString } = useStrings()
   const { initialValues } = props
   const history = useHistory()
   const { projectIdentifier, orgIdentifier } = useParams()
@@ -25,13 +24,13 @@ const HarnessCDActivitySourceDetails: React.FC<HarnessCDActivitySourceDetailsPro
       <Formik
         initialValues={initialValues || {}}
         validationSchema={Yup.object().shape({
-          name: Yup.string().trim().required(globalGetString('validation.name')),
+          name: Yup.string().trim().required(getString('validation.name')),
           identifier: Yup.string().when('name', {
             is: val => val?.length,
             then: Yup.string()
               .trim()
-              .required(globalGetString('validation.identifier'))
-              .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, globalGetString('validation.validIdRegex'))
+              .required(getString('validation.identifier'))
+              .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, getString('validation.validIdRegex'))
               .notOneOf(StringUtils.illegalIdentifiers)
           })
         })}
@@ -43,8 +42,8 @@ const HarnessCDActivitySourceDetails: React.FC<HarnessCDActivitySourceDetailsPro
           return (
             <FormikForm>
               <ActivitySourceDetails
-                heading={getString('activitySources.harnessCD.select')}
-                iconLabel={getString('activitySources.harnessCD.iconLabel')}
+                heading={getString('cv.activitySources.harnessCD.select')}
+                iconLabel={getString('cv.activitySources.harnessCD.iconLabel')}
                 iconName={'cd-main'}
               />
               <SubmitAndPreviousButtons

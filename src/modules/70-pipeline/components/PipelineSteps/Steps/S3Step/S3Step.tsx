@@ -78,7 +78,6 @@ const S3StepWidget: React.FC<S3StepWidgetProps> = ({ initialValues, onUpdate }):
   } = React.useContext(PipelineContext)
 
   const { getString } = useStrings()
-  const { getString: getPipelineStepsString } = useStrings('pipeline-steps')
 
   const { accountId, projectIdentifier, orgIdentifier } = useParams<{
     projectIdentifier: string
@@ -162,7 +161,7 @@ const S3StepWidget: React.FC<S3StepWidgetProps> = ({ initialValues, onUpdate }):
   return (
     <>
       <Text className={stepCss.boldLabel} font={{ size: 'medium' }}>
-        {getPipelineStepsString('s3.title')}
+        {getString('pipelineSteps.s3.title')}
       </Text>
       <Formik
         enableReinitialize={true}
@@ -210,7 +209,7 @@ const S3StepWidget: React.FC<S3StepWidgetProps> = ({ initialValues, onUpdate }):
                 idName="identifier"
                 inputLabel={getString('pipelineSteps.stepNameLabel')}
               />
-              <FormInput.TextArea name="description" label={getString('pipelineSteps.descriptionLabel')} />
+              <FormInput.TextArea name="description" label={getString('description')} />
               <Text margin={{ top: 'medium', bottom: 'xsmall' }}>{getString('pipelineSteps.connectorLabel')}</Text>
               <div className={cx(css.fieldsGroup, css.withoutSpacing)}>
                 <FormMultiTypeConnectorField

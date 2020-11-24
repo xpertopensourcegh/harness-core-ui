@@ -32,8 +32,7 @@ export default function TriggersList(props: TriggersListPropsInterface): JSX.Ele
   const [searchParam, setSearchParam] = useState('')
   //
   const [page] = useState(0)
-  const { getString: getGlobalString } = useStrings()
-  const { getString: getTriggersString } = useStrings('pipeline-triggers')
+  const { getString } = useStrings()
 
   // temporary until api ready for triggers
   const { refetch, error } = useGetInputSetsListForPipeline({
@@ -69,11 +68,11 @@ export default function TriggersList(props: TriggersListPropsInterface): JSX.Ele
   return !isTriggerWizardOpen ? (
     <>
       <Page.Header
-        title={<Button text={getTriggersString('newTrigger')} intent="primary" onClick={openDrawer}></Button>}
+        title={<Button text={getString('pipeline-triggers.newTrigger')} intent="primary" onClick={openDrawer}></Button>}
         toolbar={
           <TextInput
             leftIcon="search"
-            placeholder={getGlobalString('search')}
+            placeholder={getString('search')}
             className={css.search}
             value={searchParam}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
@@ -88,8 +87,8 @@ export default function TriggersList(props: TriggersListPropsInterface): JSX.Ele
         noData={{
           when: () => !isTriggerWizardOpen,
           icon: 'yaml-builder-input-sets',
-          message: getTriggersString('aboutTriggers'),
-          buttonText: getTriggersString('addNewTrigger'),
+          message: getString('pipeline-triggers.aboutTriggers'),
+          buttonText: getString('pipeline-triggers.addNewTrigger'),
           onClick: openDrawer
         }}
       >

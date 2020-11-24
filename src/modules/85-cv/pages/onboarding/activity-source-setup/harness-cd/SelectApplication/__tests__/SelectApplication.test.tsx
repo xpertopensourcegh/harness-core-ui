@@ -12,15 +12,17 @@ describe('SelectApplication', () => {
       <MemoryRouter>
         <StringsContext.Provider
           value={{
-            cv: {
-              activitySources: {
-                harnessCD: {
-                  harnessApps: 'harnessApps',
-                  application: {
-                    noData: 'Nodata',
-                    infoTextOne: 'infoTextOne',
-                    infoTextTwo: 'infoTextTwo',
-                    servicesToBeImported: 'servicesToBeImported'
+            global: {
+              cv: {
+                activitySources: {
+                  harnessCD: {
+                    harnessApps: 'harnessApps',
+                    application: {
+                      noData: 'Nodata',
+                      infoTextOne: 'infoTextOne',
+                      infoTextTwo: 'infoTextTwo',
+                      servicesToBeImported: 'servicesToBeImported'
+                    }
                   }
                 }
               }

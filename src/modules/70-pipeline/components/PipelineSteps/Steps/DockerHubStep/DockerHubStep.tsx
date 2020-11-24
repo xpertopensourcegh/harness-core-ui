@@ -81,7 +81,6 @@ const DockerHubStepWidget: React.FC<DockerHubStepWidgetProps> = ({ initialValues
   } = React.useContext(PipelineContext)
 
   const { getString } = useStrings()
-  const { getString: getPipelineStepsString } = useStrings('pipeline-steps')
 
   const { accountId, projectIdentifier, orgIdentifier } = useParams<{
     projectIdentifier: string
@@ -186,7 +185,7 @@ const DockerHubStepWidget: React.FC<DockerHubStepWidgetProps> = ({ initialValues
   return (
     <>
       <Text className={stepCss.boldLabel} font={{ size: 'medium' }}>
-        {getPipelineStepsString('dockerHub.title')}
+        {getString('pipelineSteps.dockerHub.title')}
       </Text>
       <Formik
         enableReinitialize={true}
@@ -254,7 +253,7 @@ const DockerHubStepWidget: React.FC<DockerHubStepWidgetProps> = ({ initialValues
                 idName="identifier"
                 inputLabel={getString('pipelineSteps.stepNameLabel')}
               />
-              <FormInput.TextArea name="description" label={getString('pipelineSteps.descriptionLabel')} />
+              <FormInput.TextArea name="description" label={getString('description')} />
               <Text margin={{ top: 'medium', bottom: 'xsmall' }}>{getString('pipelineSteps.connectorLabel')}</Text>
               <div className={cx(css.fieldsGroup, css.withoutSpacing)}>
                 <FormMultiTypeConnectorField

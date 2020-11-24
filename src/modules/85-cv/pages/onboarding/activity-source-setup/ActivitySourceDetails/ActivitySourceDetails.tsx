@@ -13,7 +13,7 @@ interface ActivitySourceDetailsProps {
 }
 
 const ActivitySourceDetails: React.FC<ActivitySourceDetailsProps> = props => {
-  const { getString } = useStrings('cv')
+  const { getString } = useStrings()
   return (
     <Container className={css.mainDetails}>
       <Text font={{ size: 'medium' }} margin={{ top: 'large', bottom: 'large' }}>
@@ -29,7 +29,7 @@ const ActivitySourceDetails: React.FC<ActivitySourceDetailsProps> = props => {
         cardLabel={props.iconLabel}
         renderLabelOutsideCard={true}
       />
-      <AddDescriptionAndTagsWithIdentifier identifierProps={{ inputLabel: getString('activitySources.name') }} />
+      <AddDescriptionAndTagsWithIdentifier identifierProps={{ inputLabel: getString('cv.activitySources.name') }} />
     </Container>
   )
 }

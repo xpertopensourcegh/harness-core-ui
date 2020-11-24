@@ -17,7 +17,7 @@ interface CreateK8sConnectorProps {
 }
 
 const CreateK8sConnector: React.FC<CreateK8sConnectorProps> = props => {
-  const { getString } = useStrings('connectors')
+  const { getString } = useStrings()
   return (
     <StepWizard
       icon={getConnectorIconByType('K8sCluster')}
@@ -26,18 +26,18 @@ const CreateK8sConnector: React.FC<CreateK8sConnectorProps> = props => {
     >
       <ConnectorDetailsStep
         type="K8sCluster"
-        name={getString('stepOneName')}
+        name={getString('connectors.stepOneName')}
         isEditMode={!props.isCreate}
         connectorInfo={props.connectorInfo}
         mock={props.mock}
       />
       <Stepk8ClusterDetails
-        name={getString('k8.stepTwoName')}
+        name={getString('connectors.k8.stepTwoName')}
         onConnectorCreated={props.onConnectorCreated}
         isEditMode={!props.isCreate}
       />
       <VerifyOutOfClusterDelegate
-        name={getString('stepThreeName')}
+        name={getString('connectors.stepThreeName')}
         renderInModal={true}
         onSuccess={props.onConnectorCreated}
         isLastStep={true}

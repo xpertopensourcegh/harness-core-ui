@@ -17,12 +17,50 @@ global:
   manifestsText: Manifest
   na: N/A
   todo: TODO - implement this
+  add: Add
+  select: Select
+  save: Save
+  cancel: Cancel
+  loading: Loading...
+  retry: Retry
+  search: Search
+  showAll: Show All
+  categories: Categories
+  noSearchResultsFoundPeriod: No results found.
+  description: Description
+  recentlyUsed: Recently Used
+  stageDetails: Stage Details
+  stageNameLabel: Stage Name
+  tagsLabel: Tags
+  keyLabel: Key
+  valueLabel: Value
+  typeLabel: Type
+  variableLabel: 'Variable'
+  variableNameLabel: Variable Name
+  skipGitCloneLabel: Skip Git Clone
+  allowedValues: 'Allowed values'
+  serviceAccount: Service Account
+  saveAndContinue: 'Save and Continue'
   execution:
-    breadcrumbTitle: Deployments
     pipelineIdentifierText: '(Execution ID: {{deploymentId}})' # Text for Pipeline Identifier
     triggerType: # text for trigger types
       MANUAL: Manually
       WEBHOOK: Webhook
+  pipeline-triggers:
+    aboutTriggers: Triggers are used to automate the execution of pipelines based on some event like new artifact/manifest, or run on a schedule or an external webhook.
+    addNewTrigger: Add New Trigger
+    newTrigger: + New Trigger
+    onWebhookLabel: 'On Webhook Event'
+    onNewArtifactLabel: 'On New artifact'
+    onScheduleLabel: 'On Schedule'
+    triggerConfigurationLabel: 'Trigger Configuration'
+    conditionsLabel: 'Conditions'
+    pipelineInputLabel: 'Pipeline Input'
+  repo-provider:
+    bitbucketLabel: BitBucket
+    customLabel: Custom
+    githubLabel: GitHub
+    gitlabLabel: GitLab
   executionStatus:
     Failed: FAILED
     Success: SUCCESS
@@ -43,10 +81,8 @@ global:
   executionList:
     servicesDeployedText: 'Services Deployed ({{size}})'
   pipelineSteps:
-    stepNameLabel: 'Step Name'
-    descriptionLabel: 'Description'
+    stepNameLabel: Step Name
     connectorLabel: 'Container Registry'
-    connectorPlaceholder: 'Select'
     registryLabel: 'Registry'
     cacheFromLabel: 'Cache From'
     autoTagLabel: 'Auto-Tag'
@@ -54,7 +90,6 @@ global:
     settings: 'Settings'
     addSetting: '+ Add Setting'
     repoLabel: 'Repository'
-    tagsLabel: 'Tags'
     dockerfileLabel: 'Dockerfile'
     endpointLabel: 'Endpoint URL'
     contextLabel: 'Context'
@@ -62,10 +97,8 @@ global:
     addLabel: '+ Label'
     regionLabel: 'Region'
     buildArgsLabel: 'Build Arguments'
-    keyPlaceholder: 'Key'
-    valuePlaceholder: 'Value'
+
     addBuildArg: '+ Build Argument'
-    keyLabel: 'Key'
     bucketLabel: 'Bucket'
     targetLabel: 'Target'
     sourcePathLabel: 'Source Path'
@@ -75,7 +108,7 @@ global:
     pullNeverLabel: 'Never'
     pullAlwaysLabel: 'Always'
     setContainerResources: 'Set container Resources'
-    setContainerResourcesTooltip: 'Resources limits allow setting maximum values for the resources the container is allowed to use at runtime'
+    setContainerResourcesTooltip: Resources limits allow setting maximum values for the resources the container is allowed to use at runtime
     limitMemoryLabel: 'Limit Memory'
     limitMemoryPlaceholder: '512'
     limitCPULabel: 'Limit CPU'
@@ -86,211 +119,159 @@ global:
     limitMemoryExample: 'Ex: 512 MiB, 1 GiB'
     limitCPUExample: 'Ex: 1'
     timeoutLabel: 'Timeout'
-  add: 'Add'
-  save: 'Save'
-  cancel: 'Cancel'
-  loading: 'Loading...'
-  retry: 'Retry'
-  search: 'Search'
-  showAll: 'Show All'
-  categories: 'Categories'
-  noSearchResultsFoundPeriod: 'No results found.'
-  recentlyUsed: 'Recently Used'
+    awsConnectorLabel: Amazon Web Services Connector
+    gcpConnectorLabel: Google Cloud Platform Connector
+    gcr:
+      title: 'Build and Upload to GCR'
+    ecr:
+      title: 'Build and Upload to ECR'
+    saveCacheGCS:
+      title: 'Save Cache to GCS'
+    restoreCacheGCS:
+      title: 'Restore Cache From GCS'
+    saveCacheS3:
+      title: 'Save Cache to S3'
+    restoreCacheS3:
+      title: 'Restore Cache From S3'
+    dockerHub:
+      title: 'Build and Upload to DockerHub'
+    gcs:
+      title: 'Upload to GCS'
+    s3:
+      title: 'Upload to S3'
+    build:
+      create:
+        aboutYourStage: 'About Your Stage'
+        stageNameRequiredError: 'Stage Name is required'
+        skipGitCloneHelperText: 'Text: how it matters?'
+        skipGitCloneHelperTextDetails: 'Details'
+        configureCodebase: 'Configure Codebase'
+        configureCodebaseHelperText: 'Help text to tell the user this is only for the first time.'
+        connectorLabel: 'Connector'
+        connectorRequiredError: 'Connector is required'
+        repositoryUrlLabel: 'Repository URL'
+        repositoryUrlWrongUrlError: 'Please enter valid URL'
+        repositoryUrlRequiredError: 'Repository URL is required'
+        setupStage: 'Setup Stage'
+      stageSpecifications:
+        stageNamePlaceholder: 'Enter your stage name'
+        addDescription: 'description'
+        addTags: 'tags'
+        removeLabel: 'remove'
+        workspaceAndSharedPaths: 'Workspace and shared paths'
+        workspace: 'Workspace'
+        sharedPaths: 'Shared Paths'
+        addSharedPath: '+ Path'
+        variablesDetails: 'Variables'
+        variablesCell: 'VARIABLES'
+        valueCell: 'VALUE'
+        addVariable: '+ Add Variable'
+        addCustomVariableDialogTitle: 'Add Custom Variable'
+        textType: 'Text'
+        secretType: 'Secret'
+      infraSpecifications:
+        whereToRun: Where do you want the builds to run?
+        propagate: 'Propagate from an existing stage'
+        newConfiguration: 'New Configuration'
+        newConfigurationConnectorLabel: 'Select a Kubernetes Cluster'
+        propagateConnectorLabel: 'Kubernetes Cluster'
+        namespace: 'Namespace'
   validation:
     name: 'Name is a required field'
     identifier: 'Identifier is required'
     validIdRegex: 'Identifier can only contain alphanumerics, _ and $'
+  connectors:
+    delegateOutClusterInfo: 'Manually enter master url and credentials'
+    delegateInClusterInfo: 'Specify cluster details and credentials in harness-delegate.yaml files on your Harness Delegates'
+    stepOneName: 'Overview'
+    stepThreeName: 'VERIFY CONNECTION'
+    k8:
+      stepTwoName: 'Cluster Details'
+      masterUrlLabel: 'Master URL'
+      authTitle: 'Authentication'
+      username: 'Username'
+      password: 'Password'
+      serviceAccountToken: 'Service Account Token'
+      skipDefaultValidation: 'Skip default namespace validation'
+      OIDCUsername: 'OIDC Username'
+      OIDCPassword: 'OIDC Password'
+      OIDCClientId: 'OIDC Client ID'
+      OIDCSecret: 'OIDC Secret'
+      OIDCScopes: 'OIDC Scopes (Optional)'
+      clientKey: 'Client Key'
+      clientKeyPassphrase: 'Client Key passphrase'
+      clientCertificate: 'Client Certificate'
+      clientKeyAlgorithm: 'Client Key Algorithm (optional)'
+      clientKeyCACertificate: 'CA Certificate (optional)'
+      placeholder:
+        masterUrl: '/url'
+      validation:
+        masterUrl: 'Master URL is required'
+        username: 'Username is required'
+        oidcUsername: 'OIDC username is required'
+      authLabels:
+        usernamePassword: 'Username and Password'
+        OIDC: 'OpenID Connect'
+        clientKeyCertificate: 'Client Key Certificate'
+  cv:
+    monitoringSources:
+      appD:
+        newEnvironment: New Environment
+        envType: Environment Type
+        envDescription: An Environment is the representation of your production or non-production infrastructure.
+        appDApplications: APPDYNAMICS APLICATIONS
+        harnessEnv: HARNESS ENVIRONMENT
+        mapDashboards: Map Dashboards to Harness Services
+        mapDashboardsMsg: Define the Stackdriverdashboards you want to monitor. For example, here is a Workspace prod-setup. Harness will extract the widgets, metrics and queries within each dashboard. The metrics within the dashboard will create a service within Harness.
+    activitySources:
+      name: 'Name your activity source'
+      harnessCD:
+        defaultName: 'My Harness CD'
+        select: 'Select your activity source'
+        selectActivitySource: 'Select Activity Source'
+        selectApplication: 'Select Applications'
+        selectEnvironment: 'Select Environments'
+        selectService: 'Review Services'
+        iconLabel: 'Harness CD 1.0'
+        harnessApps: 'HARNESS CD 1.0 APPLICATION'
+        application:
+          noData: 'No applications were found'
+          infoTextOne: 'Harness CV can verify change activities by automatically sourcing them from your Harness Continuous Deployment applications.'
+          infoTextTwo: 'Select which applications and services you’d like to import over to your current project.'
+          servicesToBeImported: 'HARNESS SERVICES (TO BE IMPORTED)'
+        environment:
+          noData: 'No environments were found'
+          infoText: 'Select the CD 1.0 environments that you would be interested in. This ensures that all the activities about your services are indentified to belong to selected environments only.'
+          harnessEnv: 'HARNESS CD 1.0 ENVIRONMENTS'
+          env: 'ENVIRONMENTS'
+        service:
+          noData: 'No services were found'
+          infoText: 'The following services will get added to the list of services tracked by Harness Continous Verification. To enable verification on the services, continue to the next step where you map a verification data source to your servcies.'
+          harnessServices: 'HARNESS CD 1.0 SERVICES'
+          services: 'HARNESS CV 2.0 SERVICES'
+        validation:
+          selectedApplication: 'Select atleast one application'
+  configureOptions:
+    configureOptions: 'configure options'
+    defaultValue: 'Default value'
+    requiredDuringExecution: 'Required during execution'
+    validation: 'Validation'
+    none: 'None'
+    regex: 'Regex'
+    advanced: 'advanced'
+    returnToBasic: 'return to basic'
+    jexlLabel: 'Values (JEXL Expression)'
+    jexlPlaceholder: 'Expression'
+    values: 'Values'
+    enterTags: 'Enter values'
+    validationErrors:
+      regExIsRequired: 'Regex value is required'
+      regExNotValid: 'Regex value is not valid'
+      jexlExpressionRequired: 'JEXL Expression is required'
+      minOneAllowedValue: 'Minimum one allowed value'
+    notValidExpression: 'Not a valid input Expression'
+    advancedHelp: 'With the advanced option, <br> you can type in JEXL expressions to return a list of values. <br> <a target="_blank">More information</a> <br> E.g. ${env.type} == “prod” ? aws1, aws2 : aws3, aws4'
 pipeline-execution-ci:
   execution:
     pipelineIdentifierText: '(Build ID: {{deploymentId}})' # Text for Pipeline Identifier
 pipeline-execution-cd: {}
-pipeline-triggers:
-  aboutTriggers: 'Triggers are used to automate the execution of pipelines based on some event like new artifact/manifest, or run on a schedule or an external webhook.'
-  addNewTrigger: 'Add New Trigger'
-  newTrigger: '+ New Trigger'
-  onWebhookLabel: 'On Webhook Event'
-  onNewArtifactLabel: 'On New artifact'
-  onScheduleLabel: 'On Schedule'
-  triggerConfigurationLabel: 'Trigger Configuration'
-  conditionsLabel: 'Conditions'
-  pipelineInputLabel: 'Pipeline Input'
-repo-provider:
-  bitbucketLabel: 'BitBucket'
-  customLabel: 'Custom'
-  githubLabel: 'GitHub'
-  gitlabLabel: 'GitLab'
-pipeline-stages:
-  build:
-    create:
-      description: 'Description'
-      aboutYourStage: 'About Your Stage'
-      stageNameLabel: 'Stage Name'
-      stageNameRequiredError: 'Stage Name is required'
-      skipGitCloneLabel: 'Skip Git Clone'
-      skipGitCloneHelperText: 'Text: how it matters?'
-      skipGitCloneHelperTextDetails: 'Details'
-      configureCodebase: 'Configure Codebase'
-      configureCodebaseHelperText: 'Help text to tell the user this is only for the first time.'
-      connectorLabel: 'Connector'
-      connectorPlaceholder: 'Select'
-      connectorRequiredError: 'Connector is required'
-      loading: 'Loading...'
-      repositoryUrlLabel: 'Repository URL'
-      repositoryUrlWrongUrlError: 'Please enter valid URL'
-      repositoryUrlRequiredError: 'Repository URL is required'
-      setupStage: 'Setup Stage'
-    stageSpecifications:
-      stageDetails: 'Stage Details'
-      stageNameLabel: 'Stage Name'
-      stageNamePlaceholder: 'Enter your stage name'
-      descriptionLabel: 'Description'
-      addDescription: 'description'
-      tagsLabel: 'Tags'
-      addTags: 'tags'
-      removeLabel: 'remove'
-      skipGitCloneLabel: 'Skip Git Clone'
-      workspaceAndSharedPaths: 'Workspace and shared paths'
-      workspace: 'Workspace'
-      sharedPaths: 'Shared Paths'
-      sharedPathPlaceholder: 'Value'
-      addSharedPath: '+ Path'
-      variablesDetails: 'Variables'
-      variablesCell: 'VARIABLES'
-      valueCell: 'VALUE'
-      addVariable: '+ Add Variable'
-      addCustomVariableDialogTitle: 'Add Custom Variable'
-      textType: 'Text'
-      secretType: 'Secret'
-      variableNameLabel: 'Variable Name'
-      variableNamePlaceholder: 'Variable Name'
-      variableTypeLabel: 'Type'
-      variableTypePlaceholder: 'Type'
-    infraSpecifications:
-      whereToRun: Where do you want the builds to run?
-      propagate: 'Propagate from an existing stage'
-      newConfiguration: 'New Configuration'
-      newConfigurationConnectorLabel: 'Select a Kubernetes Cluster'
-      propagateConnectorLabel: 'Kubernetes Cluster'
-      connectorPlaceholder: 'Select'
-      loading: 'Loading...'
-      namespace: 'Namespace'
-pipeline-steps:
-  gcr:
-    title: 'Build and Upload to GCR'
-  ecr:
-    title: 'Build and Upload to ECR'
-  saveCacheGCS:
-    title: 'Save Cache to GCS'
-    connectorLabel: 'Google Cloud Platform Connector'
-  restoreCacheGCS:
-    title: 'Restore Cache From GCS'
-    connectorLabel: 'Google Cloud Platform Connector'
-  saveCacheS3:
-    title: 'Save Cache to S3'
-    connectorLabel: 'Amazon Web Services Connector'
-  restoreCacheS3:
-    title: 'Restore Cache From S3'
-    connectorLabel: 'Amazon Web Services Connector'
-  dockerHub:
-    title: 'Build and Upload to DockerHub'
-  gcs:
-    title: 'Upload to GCS'
-  s3:
-    title: 'Upload to S3'
-connectors:
-  saveAndContinue: 'Save and Continue'
-  delegateOutClusterInfo: 'Manually enter master url and credentials'
-  delegateInClusterInfo: 'Specify cluster details and credentials in harness-delegate.yaml files on your Harness Delegates'
-  stepOneName: 'Overview'
-  stepThreeName: 'VERIFY CONNECTION'
-  k8:
-    stepTwoName: 'Cluster Details'
-    masterUrlLabel: 'Master URL'
-    authTitle: 'Authentication'
-    username: 'Username'
-    password: 'Password'
-    serviceAccountToken: 'Service Account Token'
-    skipDefaultValidation: 'Skip default namespace validation'
-    OIDCUsername: 'OIDC Username'
-    OIDCPassword: 'OIDC Password'
-    OIDCClientId: 'OIDC Client ID'
-    OIDCSecret: 'OIDC Secret'
-    OIDCScopes: 'OIDC Scopes (Optional)'
-    clientKey: 'Client Key'
-    clientKeyPassphrase: 'Client Key passphrase'
-    clientCertificate: 'Client Certificate'
-    clientKeyAlgorithm: 'Client Key Algorithm (optional)'
-    clientKeyCACertificate: 'CA Certificate (optional)'
-    placeholder:
-      masterUrl: '/url'
-    validation:
-      masterUrl: 'Master URL is required'
-      username: 'Username is required'
-      oidcUsername: 'OIDC username is required'
-    authLabels:
-      usernamePassword: 'Username and Password'
-      serviceAccount: 'Service Account Token'
-      OIDC: 'OpenID Connect'
-      clientKeyCertificate: 'Client Key Certificate'
-configureOptions:
-  configureOptions: 'configure options'
-  variable: 'Variable'
-  type: 'Type'
-  defaultValue: 'Default value'
-  requiredDuringExecution: 'Required during execution'
-  validation: 'Validation'
-  none: 'None'
-  allowedValues: 'Allowed values'
-  regex: 'Regex'
-  allowedValuesHelp: 'Allowed values'
-  advanced: 'advanced'
-  returnToBasic: 'return to basic'
-  jexlLabel: 'Values (JEXL Expression)'
-  jexlPlaceholder: 'Expression'
-  values: 'Values'
-  enterTags: 'Enter values'
-  validationErrors:
-    regExIsRequired: 'Regex value is required'
-    regExNotValid: 'Regex value is not valid'
-    jexlExpressionRequired: 'JEXL Expression is required'
-    minOneAllowedValue: 'Minimum one allowed value'
-  notValidExpression: 'Not a valid input Expression'
-  advancedHelp: 'With the advanced option, <br> you can type in JEXL expressions to return a list of values. <br> <a target="_blank">More information</a> <br> E.g. ${env.type} == “prod” ? aws1, aws2 : aws3, aws4'
-cv:
-  monitoringSources:
-    appD:
-      newEnvironment: New Environment
-      envType: Environment Type
-      envDescription: An Environment is the representation of your production or non-production infrastructure.
-      appDApplications: APPDYNAMICS APLICATIONS
-      harnessEnv: HARNESS ENVIRONMENT
-      mapDashboards: Map Dashboards to Harness Services
-      mapDashboardsMsg: Define the Stackdriverdashboards you want to monitor. For example, here is a Workspace prod-setup. Harness will extract the widgets, metrics and queries within each dashboard. The metrics within the dashboard will create a service within Harness.
-  activitySources:
-    name: 'Name your activity source'
-    harnessCD:
-      defaultName: 'My Harness CD'
-      select: 'Select your activity source'
-      selectActivitySource: 'Select Activity Source'
-      selectApplication: 'Select Applications'
-      selectEnvironment: 'Select Environments'
-      selectService: 'Review Services'
-      iconLabel: 'Harness CD 1.0'
-      harnessApps: 'HARNESS CD 1.0 APPLICATION'
-      application:
-        noData: 'No applications were found'
-        infoTextOne: 'Harness CV can verify change activities by automatically sourcing them from your Harness Continuous Deployment applications.'
-        infoTextTwo: 'Select which applications and services you’d like to import over to your current project.'
-        servicesToBeImported: 'HARNESS SERVICES (TO BE IMPORTED)'
-      environment:
-        noData: 'No environments were found'
-        infoText: 'Select the CD 1.0 environments that you would be interested in. This ensures that all the activities about your services are indentified to belong to selected environments only.'
-        harnessEnv: 'HARNESS CD 1.0 ENVIRONMENTS'
-        env: 'ENVIRONMENTS'
-      service:
-        noData: 'No services were found'
-        infoText: 'The following services will get added to the list of services tracked by Harness Continous Verification. To enable verification on the services, continue to the next step where you map a verification data source to your servcies.'
-        harnessServices: 'HARNESS CD 1.0 SERVICES'
-        services: 'HARNESS CV 2.0 SERVICES'
-      validation:
-        selectedApplication: 'Select atleast one application'

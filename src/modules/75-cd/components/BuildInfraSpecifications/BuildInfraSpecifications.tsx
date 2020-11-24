@@ -53,7 +53,7 @@ enum Modes {
 }
 
 export default function BuildInfraSpecifications(): JSX.Element {
-  const { getString } = useStrings('pipeline-stages')
+  const { getString } = useStrings()
 
   const { accountId, projectIdentifier, orgIdentifier } = useParams<{
     projectIdentifier: string
@@ -188,7 +188,7 @@ export default function BuildInfraSpecifications(): JSX.Element {
                 <div className={cx(css.section, css.noPadTop)}>
                   <Layout.Vertical flex={true} className={css.specTabs}>
                     <Text font={{ size: 'medium', weight: 'semi-bold' }} width={220}>
-                      {getString('build.infraSpecifications.whereToRun')}
+                      {getString('pipelineSteps.build.infraSpecifications.whereToRun')}
                     </Text>
                   </Layout.Vertical>
                   <FormikForm>
@@ -200,13 +200,13 @@ export default function BuildInfraSpecifications(): JSX.Element {
                           onClick={() => setCurrentMode(Modes.Propagate)}
                         >
                           <Text className={css.cardTitle} font="normal" color="black" margin={{ bottom: 'large' }}>
-                            {getString('build.infraSpecifications.propagate')}
+                            {getString('pipelineSteps.build.infraSpecifications.propagate')}
                           </Text>
                           <FormInput.Select name="useFromStage" items={otherBuildStagesWithInfraConfigurationOptions} />
                           {propagatedStage?.stage?.spec?.infrastructure?.spec?.connectorRef && (
                             <>
                               <Text font="small" margin={{ top: 'large', bottom: 'xsmall' }}>
-                                {getString('build.infraSpecifications.propagateConnectorLabel')}
+                                {getString('pipelineSteps.build.infraSpecifications.propagateConnectorLabel')}
                               </Text>
                               <Text font="normal" color="black" margin={{ bottom: 'medium' }}>
                                 {propagatedStage?.stage?.spec?.infrastructure?.spec?.connectorRef}
@@ -216,7 +216,7 @@ export default function BuildInfraSpecifications(): JSX.Element {
                           {propagatedStage?.stage?.spec?.infrastructure?.spec?.namespace && (
                             <>
                               <Text font="small" margin={{ bottom: 'xsmall' }}>
-                                {getString('build.infraSpecifications.namespace')}
+                                {getString('pipelineSteps.build.infraSpecifications.namespace')}
                               </Text>
                               <Text font="normal" color="black">
                                 {propagatedStage?.stage?.spec?.infrastructure?.spec?.namespace}
@@ -247,10 +247,10 @@ export default function BuildInfraSpecifications(): JSX.Element {
                           }}
                         >
                           <Text className={css.cardTitle} font="normal" color="black" margin={{ bottom: 'large' }}>
-                            {getString('build.infraSpecifications.newConfiguration')}
+                            {getString('pipelineSteps.build.infraSpecifications.newConfiguration')}
                           </Text>
                           <Text font="small" margin={{ bottom: 'xsmall' }}>
-                            {getString('build.infraSpecifications.newConfigurationConnectorLabel')}
+                            {getString('pipelineSteps.build.infraSpecifications.newConfigurationConnectorLabel')}
                           </Text>
                           <ConnectorReferenceField
                             width={300}
@@ -259,8 +259,8 @@ export default function BuildInfraSpecifications(): JSX.Element {
                             label={''}
                             placeholder={
                               loading
-                                ? getString('build.infraSpecifications.loading')
-                                : getString('build.infraSpecifications.connectorPlaceholder')
+                                ? getString('pipelineSteps.build.infraSpecifications.loading')
+                                : getString('pipelineSteps.build.infraSpecifications.connectorPlaceholder')
                             }
                             disabled={loading}
                             accountIdentifier={accountId}
@@ -275,7 +275,7 @@ export default function BuildInfraSpecifications(): JSX.Element {
                             }}
                           />
                           <Text font="small" margin={{ bottom: 'xsmall' }}>
-                            {getString('build.infraSpecifications.namespace')}
+                            {getString('pipelineSteps.build.infraSpecifications.namespace')}
                           </Text>
                           <div className={cx(css.fieldsGroup, css.withoutSpacing)}>
                             <FormInput.MultiTextInput label="" name={'namespace'} style={{ width: 300 }} />
@@ -284,7 +284,7 @@ export default function BuildInfraSpecifications(): JSX.Element {
                                 value={formValues.namespace as string}
                                 type={
                                   <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-                                    <Text>{getString('build.infraSpecifications.namespace')}</Text>
+                                    <Text>{getString('pipelineSteps.build.infraSpecifications.namespace')}</Text>
                                   </Layout.Horizontal>
                                 }
                                 variableName={'namespace'}
@@ -303,12 +303,8 @@ export default function BuildInfraSpecifications(): JSX.Element {
                           width={300}
                           name="connectorRef"
                           selected={formValues.connectorRef as ConnectorReferenceFieldProps['selected']}
-                          label={getString('build.infraSpecifications.newConfigurationConnectorLabel')}
-                          placeholder={
-                            loading
-                              ? getString('build.infraSpecifications.loading')
-                              : getString('build.infraSpecifications.connectorPlaceholder')
-                          }
+                          label={getString('pipelineSteps.build.infraSpecifications.newConfigurationConnectorLabel')}
+                          placeholder={loading ? getString('loading') : getString('select')}
                           disabled={loading}
                           accountIdentifier={accountId}
                           projectIdentifier={projectIdentifier}
@@ -321,7 +317,9 @@ export default function BuildInfraSpecifications(): JSX.Element {
                             })
                           }}
                         />
-                        <Text margin={{ bottom: 'xsmall' }}>{getString('build.infraSpecifications.namespace')}</Text>
+                        <Text margin={{ bottom: 'xsmall' }}>
+                          {getString('pipelineSteps.build.infraSpecifications.namespace')}
+                        </Text>
                         <div className={cx(css.fieldsGroup, css.withoutSpacing)}>
                           <FormInput.MultiTextInput label="" name={'namespace'} style={{ width: 300 }} />
                           {getMultiTypeFromValue(formValues.namespace) === MultiTypeInputType.RUNTIME && (
@@ -329,7 +327,7 @@ export default function BuildInfraSpecifications(): JSX.Element {
                               value={formValues.namespace as string}
                               type={
                                 <Layout.Horizontal spacing="medium" style={{ alignItems: 'center' }}>
-                                  <Text>{getString('build.infraSpecifications.namespace')}</Text>
+                                  <Text>{getString('pipelineSteps.build.infraSpecifications.namespace')}</Text>
                                 </Layout.Horizontal>
                               }
                               variableName={'namespace'}

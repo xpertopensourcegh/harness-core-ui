@@ -45,8 +45,7 @@ const RenderColumnServicesCount: Renderer<CellProps<TableData>> = ({ row }) => {
   return <Container className={css.serviceCol}>{data.application.services?.length}</Container>
 }
 const SelectApplication: React.FC<HarnessCDActivitySourceDetailsProps> = props => {
-  const { getString: getGlobalString } = useStrings()
-  const { getString } = useStrings('cv')
+  const { getString } = useStrings()
   const { accountId } = useParams()
   const { data, loading, error, refetch } = useList({ queryParams: { accountId }, mock: props.mockData })
 
@@ -71,8 +70,8 @@ const SelectApplication: React.FC<HarnessCDActivitySourceDetailsProps> = props =
       <Container className={css.loadingErrorNoData}>
         <NoDataCard
           icon="warning-sign"
-          message={getString('activitySources.harnessCD.application.noData')}
-          buttonText={getGlobalString('retry')}
+          message={getString('cv.activitySources.harnessCD.application.noData')}
+          buttonText={getString('retry')}
           onClick={() => refetch()}
         />
       </Container>
@@ -84,8 +83,8 @@ const SelectApplication: React.FC<HarnessCDActivitySourceDetailsProps> = props =
   return (
     <Container>
       <Layout.Vertical spacing="small">
-        <Text margin={{ left: 'large' }}>{getString('activitySources.harnessCD.application.infoTextOne')}</Text>
-        <Text margin={{ left: 'large' }}>{getString('activitySources.harnessCD.application.infoTextTwo')}</Text>
+        <Text margin={{ left: 'large' }}>{getString('cv.activitySources.harnessCD.application.infoTextOne')}</Text>
+        <Text margin={{ left: 'large' }}>{getString('cv.activitySources.harnessCD.application.infoTextTwo')}</Text>
       </Layout.Vertical>
       <Formik
         initialValues={{
@@ -104,7 +103,7 @@ const SelectApplication: React.FC<HarnessCDActivitySourceDetailsProps> = props =
                 <Table<TableData>
                   columns={[
                     {
-                      Header: getString('activitySources.harnessCD.harnessApps') || '',
+                      Header: getString('cv.activitySources.harnessCD.harnessApps') || '',
                       accessor: 'selected',
 
                       width: '50%',
@@ -147,7 +146,7 @@ const SelectApplication: React.FC<HarnessCDActivitySourceDetailsProps> = props =
                     {
                       Header: (
                         <div className={css.serviceColHeader}>
-                          {getString('activitySources.harnessCD.application.servicesToBeImported')}
+                          {getString('cv.activitySources.harnessCD.application.servicesToBeImported')}
                         </div>
                       ),
                       id: 'services',
