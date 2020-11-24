@@ -8,6 +8,11 @@ global:
   pipelines: Pipelines
   buildText: Build
   buildsText: Builds
+  primaryArtifactText: Primary Artifact
+  sidecarsText: Sidecars
+  manifestsText: Manifest
+  na: N/A
+  todo: TODO - implement this
   execution:
     breadcrumbTitle: Deployments
     pipelineIdentifierText: '(Execution ID: {{deploymentId}})' # Text for Pipeline Identifier

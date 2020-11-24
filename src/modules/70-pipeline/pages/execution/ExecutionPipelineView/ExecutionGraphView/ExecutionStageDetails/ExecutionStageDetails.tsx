@@ -3,20 +3,20 @@ import type { IconName } from '@wings-software/uikit'
 import { isEmpty } from 'lodash-es'
 import { useParams } from 'react-router-dom'
 import type { ExecutionNode, ExecutionGraph } from 'services/cd-ng'
-import type { ExecutionPathParams } from '@pipeline/pages/execution/ExecutionUtils'
-import { useExecutionContext } from '../../../ExecutionContext/ExecutionContext'
-
+import type { ExecutionPathParams } from '@pipeline/utils/executionUtils'
+import { useExecutionContext } from '@pipeline/pages/execution/ExecutionContext/ExecutionContext'
 import {
   ExecutionLayoutState,
   useExecutionLayoutContext
-} from '../../../../../components/ExecutionLayout/ExecutionLayoutContext'
-import ExecutionStageDiagram from '../../../../../components/ExecutionStageDiagram/ExecutionStageDiagram'
+} from '@pipeline/components/ExecutionLayout/ExecutionLayoutContext'
+import ExecutionStageDiagram from '@pipeline/components/ExecutionStageDiagram/ExecutionStageDiagram'
 import {
   ExecutionPipelineNode,
   ExecutionPipelineNodeType,
   ExecutionPipeline,
   StageOptions
-} from '../../../../../components/ExecutionStageDiagram/ExecutionPipelineModel'
+} from '@pipeline/components/ExecutionStageDiagram/ExecutionPipelineModel'
+
 import css from './ExecutionStageDetails.module.scss'
 
 export interface ExecutionStageDetailsProps {

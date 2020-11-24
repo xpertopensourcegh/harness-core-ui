@@ -17,6 +17,8 @@ declare const styles: {
   readonly actions: string
   readonly servicesDeployed: string
   readonly servicesList: string
+  readonly serviceName: string
+  readonly servicesDeployedHoverCard: string
   readonly buildInfo: string
   readonly infoToggle: string
 }

@@ -116,7 +116,32 @@
   column-gap: var(--spacing-large);
 
   & .servicesList {
+    display: flex;
     flex: 1 1 auto;
+  }
+
+  & .serviceName {
+    color: var(--blue-500);
+    cursor: pointer;
+  }
+
+  & > :global(.bp3-popover-wrapper:not(:last-child))::after {
+    content: ',';
+  }
+}
+
+.servicesDeployedHoverCard {
+  font-size: var(--font-size-small);
+  padding: var(--spacing-medium);
+  line-height: var(--sfont-size-medium);
+
+  & .title {
+    color: var(--grey-400);
+    margin-bottom: var(--spacing-xsmall);
+
+    &:not(:first-child) {
+      margin-top: var(--spacing-medium);
+    }
   }
 }
 

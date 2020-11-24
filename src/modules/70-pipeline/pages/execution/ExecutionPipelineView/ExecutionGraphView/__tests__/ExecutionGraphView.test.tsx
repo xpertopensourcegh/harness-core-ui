@@ -7,7 +7,7 @@ import type { ExecutionPipelineNode } from '@pipeline/components/ExecutionStageD
 import type { ExecutionStageDiagramProps } from '@pipeline/components/ExecutionStageDiagram/ExecutionStageDiagram'
 import ExecutionContext from '@pipeline/pages/execution/ExecutionContext/ExecutionContext'
 import type { ExecutionContextParams } from '@pipeline/pages/execution/ExecutionContext/ExecutionContext'
-import { getPipelineStagesMap } from '@pipeline/pages/execution/ExecutionUtils'
+import { getPipelineStagesMap } from '@pipeline/utils/executionUtils'
 import mock from './mock.json'
 import ExecutionGraphView from '../ExecutionGraphView'
 

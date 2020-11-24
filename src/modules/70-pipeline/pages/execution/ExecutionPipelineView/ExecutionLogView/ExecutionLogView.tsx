@@ -6,11 +6,11 @@ import { MenuItem } from '@blueprintjs/core'
 
 import { Container, Icon, Text, Color, Button } from '@wings-software/uikit'
 import { Select } from '@blueprintjs/select'
-import type { StageOptions } from 'modules/70-pipeline/components/ExecutionStageDiagram/ExecutionPipelineModel'
+import type { StageOptions } from '@pipeline/components/ExecutionStageDiagram/ExecutionPipelineModel'
 
 import { routeCDPipelineExecutionPipline } from 'navigation/cd/routes'
 import type { ExecutionGraph } from 'services/cd-ng'
-import type { ExecutionPathParams } from '../../ExecutionUtils'
+import type { ExecutionPathParams } from '@pipeline/utils/executionUtils'
 import { useExecutionContext } from '../../ExecutionContext/ExecutionContext'
 
 import css from './ExecutionLogView.module.scss'

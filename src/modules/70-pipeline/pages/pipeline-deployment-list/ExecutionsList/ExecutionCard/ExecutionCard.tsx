@@ -10,7 +10,6 @@ import { UserLabel, Duration, TimeAgo } from '@common/exports'
 import ExecutionStatusLabel from '@pipeline/components/ExecutionStatusLabel/ExecutionStatusLabel'
 import ExecutionActions from '@pipeline/components/ExecutionActions/ExecutionActions'
 import { String } from 'framework/exports'
-
 import { routeCDPipelineExecutionPipline } from 'navigation/cd/routes'
 // import { ExecutionServiceTooltip } from './ExecutionServiceTooltip'
 // import ExecutionActionButtons from './ExecutionActionButtons/ExecutionActionButtons'

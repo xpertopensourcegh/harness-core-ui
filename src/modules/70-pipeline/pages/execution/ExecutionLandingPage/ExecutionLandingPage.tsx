@@ -9,20 +9,18 @@ import { useGetPipelineExecutionDetail } from 'services/cd-ng'
 import { Duration } from '@common/components/Duration/Duration'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { String, useAppStoreReader, useStrings } from 'framework/exports'
-
+import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import ExecutionStatusLabel from '@pipeline/components/ExecutionStatusLabel/ExecutionStatusLabel'
 import { isExecutionComplete } from '@pipeline/utils/statusHelpers'
 import ExecutionActions from '@pipeline/components/ExecutionActions/ExecutionActions'
-
-import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
-import ExecutionContext from '../ExecutionContext/ExecutionContext'
 import {
   getPipelineStagesMap,
   ExecutionPathParams,
   getRunningStageForPipeline,
   getRunningStep
-} from '../ExecutionUtils'
+} from '@pipeline/utils/executionUtils'
 
+import ExecutionContext from '../ExecutionContext/ExecutionContext'
 import ExecutionMetadata from './ExecutionMetadata/ExecutionMetadata'
 import ExecutionTabs from './ExecutionTabs/ExecutionTabs'
 import RightBar from './RightBar/RightBar'

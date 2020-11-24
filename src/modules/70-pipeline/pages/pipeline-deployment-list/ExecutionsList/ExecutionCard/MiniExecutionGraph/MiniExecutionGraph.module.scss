@@ -2,7 +2,6 @@
   overflow: hidden;
   $node-height: 25px;
   $node-width: 40px;
-  min-height: 150px;
   margin-top: var(--spacing-large);
 
   .graphWrapper {
@@ -91,7 +90,7 @@
 
   & .parallel {
     width: 40px;
-    height: 130px;
+    height: $node-height;
     display: flex;
     align-items: flex-start;
     position: relative;

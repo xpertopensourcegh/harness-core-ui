@@ -1,8 +1,10 @@
 import React from 'react'
 import { Button } from '@wings-software/uikit'
+import { Popover, Position } from '@blueprintjs/core'
 
 import type { PipelineExecutionSummaryDTO } from 'services/cd-ng'
 import { String } from 'framework/exports'
+import { getPipelineStagesMap } from '@pipeline/utils/executionUtils'
 
 import css from '../ExecutionCard.module.scss'
 
@@ -16,6 +18,19 @@ export default function ServicesDeployed(props: ServicesDeployedProps): React.Re
   const [showMore, setShowMore] = React.useState(false)
   const length = serviceIdentifiers.length
 
+  const servicesMap = React.useMemo(() => {
+    const stagesMap = getPipelineStagesMap({ data: { pipelineExecution } })
+    const map = new Map()
+
+    stagesMap.forEach(stage => {
+      if (stage.serviceInfo && stage.serviceInfo.identifier) {
+        map.set(stage.serviceInfo.identifier, stage.serviceInfo)
+      }
+    })
+
+    return map
+  }, [pipelineExecution])
+
   const items = showMore && length > 2 ? serviceIdentifiers : serviceIdentifiers.slice(0, 2)
 
   function toggle(): void {
@@ -27,7 +42,33 @@ export default function ServicesDeployed(props: ServicesDeployedProps): React.Re
       <String stringID="executionList.servicesDeployedText" vars={{ size: length }} />
       <div className={css.servicesList}>
         {items.map(identifier => {
-          return <span key={identifier}>{identifier}</span>
+          const service = servicesMap.get(identifier)
+
+          if (!service) return null
+
+          return (
+            <Popover
+              key={identifier}
+              wrapperTagName="div"
+              targetTagName="div"
+              interactionKind="hover"
+              position={Position.BOTTOM_RIGHT}
+            >
+              <div className={css.serviceName}>{service.displayName}</div>
+              <div className={css.servicesDeployedHoverCard}>
+                <String tagName="div" className={css.title} stringID="primaryArtifactText" />
+                {service?.artifact ? (
+                  <div>{JSON.stringify(service?.artifact)}</div>
+                ) : (
+                  <String tagName="div" stringID="na" />
+                )}
+                <String tagName="div" className={css.title} stringID="sidecarsText" />
+                <String tagName="div" stringID="todo" />
+                <String tagName="div" className={css.title} stringID="manifestsText" />
+                <String tagName="div" stringID="todo" />
+              </div>
+            </Popover>
+          )
         })}
       </div>
       {length > 2 ? (

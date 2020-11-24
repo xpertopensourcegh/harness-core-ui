@@ -9,7 +9,7 @@ import {
   routeCDPipelineExecutionInputs,
   routeCDPipelineExecutionArtifacts
 } from 'navigation/cd/routes'
-import type { ExecutionPathParams } from '../../ExecutionUtils'
+import type { ExecutionPathParams } from '@pipeline/utils/executionUtils'
 
 import i18n from './ExecutionTabs.i18n'
 

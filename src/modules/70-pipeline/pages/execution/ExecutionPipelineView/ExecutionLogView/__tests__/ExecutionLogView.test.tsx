@@ -1,10 +1,10 @@
 import React from 'react'
 import { render, fireEvent } from '@testing-library/react'
 import { TestWrapper, NotFound } from '@common/utils/testUtils'
+import { getPipelineStagesMap } from '@pipeline/utils/executionUtils'
 import ExecutionContext from '../../../ExecutionContext/ExecutionContext'
 import ExecutionLogView from '../ExecutionLogView'
 import type { ExecutionContextParams } from '../../../ExecutionContext/ExecutionContext'
-import { getPipelineStagesMap } from '../../../ExecutionUtils'
 import mock from '../../ExecutionGraphView/__tests__/mock.json'
 
 const contextValue: ExecutionContextParams = {

@@ -29,24 +29,29 @@ export function useStrings(namespace = 'global'): UseStringsReturn {
   }
 }
 
-export interface StringProps extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement> {
+export interface StringProps extends React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement> {
   namespace: string
   stringID: string
   vars?: Record<string, any>
   useRichText?: boolean
+  tagName: keyof JSX.IntrinsicElements
 }
 
 export function String(props: StringProps): React.ReactElement | null {
-  const { namespace, stringID, vars, useRichText, ...rest } = props
+  const { namespace, stringID, vars, useRichText, tagName: Tag, ...rest } = props
   const { getString } = useStrings(namespace)
 
   try {
     const text = getString(stringID, vars)
 
-    return useRichText ? <span {...rest} dangerouslySetInnerHTML={{ __html: text }} /> : <span {...rest}>{text}</span>
+    return useRichText ? (
+      <Tag {...(rest as any)} dangerouslySetInnerHTML={{ __html: text }} />
+    ) : (
+      <Tag {...(rest as any)}>{text}</Tag>
+    )
   } catch (e) {
     if (process.env.NODE_ENV !== 'production') {
-      return <span style={{ color: 'var(--red-500)' }}>{e.message}</span>
+      return <Tag style={{ color: 'var(--red-500)' }}>{e.message}</Tag>
     }
 
     return null
@@ -54,5 +59,6 @@ export function String(props: StringProps): React.ReactElement | null {
 }
 
 String.defaultProps = {
-  namespace: 'global'
+  namespace: 'global',
+  tagName: 'span'
 }
