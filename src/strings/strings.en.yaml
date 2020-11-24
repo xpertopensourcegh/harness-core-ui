@@ -214,6 +214,17 @@ global:
         OIDC: 'OpenID Connect'
         clientKeyCertificate: 'Client Key Certificate'
   cv:
+    onboarding:
+      progress:
+        heading: 'Your Progress'
+        mapServices: 'Map the above {{serviceLabel}} to a monitoring source.'
+        serviceEnvCount: 'You have {{serviceCount}} {{serviceLabel}} and {{envCount}} {{environmentLabel}}.'
+        servicesUsedInActivitySources: '{{serviceCount}} service is used in activity sources.'
+        multiServicesUsedInActivitySources: '{{serviceCount}} services are used in activity sources.'
+        serviceUsedInMonitoringSources: '{{serviceCount}} service is used in monitoring sources.'
+        multiServiceUsedInMonitoringSources: '{{serviceCount}} services are used in monitoring sources.'
+        servicesUndergoingHealthVerification: '{{serviceCount}} service has ongoing health verification.'
+        multipleServicesUndergoingHealthVerification: '{{serviceCount}} services have ongoing health verifications.'
     monitoringSources:
       appD:
         newEnvironment: New Environment

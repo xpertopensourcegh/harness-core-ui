@@ -1,6 +1,7 @@
 import React from 'react'
 import { Container, Text, Layout, Icon, Color } from '@wings-software/uikit'
-import i18n from './ProgressStatus.i18n'
+import { String, useStrings } from 'framework/exports'
+import { pluralize } from '@common/utils/StringUtils'
 import css from '../CVSetupPage.module.scss'
 
 interface ProgressStatusProps {
@@ -12,38 +13,77 @@ interface ProgressStatusProps {
 }
 
 const ProgressStatus: React.FC<ProgressStatusProps> = props => {
+  const { getString } = useStrings()
   return (
     <Container height="100vh" background={Color.WHITE} padding="large" width={'20%'}>
       <div className={css.progressContainer}>
         <Text font={{ size: 'medium', weight: 'bold' }} color={Color.BLACK} padding="small">
-          {i18n.heading}
+          {getString('cv.onboarding.progress.heading')}
         </Text>
         <Layout.Vertical margin={{ top: 'large' }} spacing="medium">
           <Layout.Horizontal spacing="medium">
             <Icon name="tick-circle" size={16} color={Color.GREEN_500} />
-            <Text>{i18n.serviceEnvCount(props.totalNumberOfServices || 0, props.totalNumberOfEnvironments || 0)}</Text>
+            <String
+              stringID="cv.onboarding.progress.serviceEnvCount"
+              vars={{
+                serviceCount: props.totalNumberOfServices,
+                envCount: props.totalNumberOfEnvironments,
+                serviceLabel: `service${pluralize(props.totalNumberOfServices || 0)}`,
+                environmentLabel: `environment${pluralize(props.totalNumberOfEnvironments || 0)}`
+              }}
+            />
           </Layout.Horizontal>
           {props.totalNumberOfServices && !props.numberOfServicesUsedInMonitoringSources ? (
-            <Layout.Horizontal>
-              <Text>{i18n.mapServices}</Text>
-            </Layout.Horizontal>
+            <String
+              stringID="cv.onboarding.progress.mapServices"
+              vars={{
+                serviceLabel: `service${pluralize(props.totalNumberOfServices || 0)}`
+              }}
+            />
           ) : null}
           {props.numberOfServicesUsedInActivitySources ? (
             <Layout.Horizontal spacing="medium">
               <Icon name="tick-circle" size={16} color={Color.GREEN_500} />
-              <Text>{i18n.servicesUsedInActivitySources(props.numberOfServicesUsedInActivitySources)}</Text>
+              <String
+                stringID={
+                  props.numberOfServicesUsedInActivitySources > 1
+                    ? 'cv.onboarding.progress.multiServicesUsedInActivitySources'
+                    : 'cv.onboarding.progress.servicesUsedInActivitySources'
+                }
+                vars={{
+                  serviceCount: props.numberOfServicesUsedInActivitySources
+                }}
+              />
             </Layout.Horizontal>
           ) : null}
           {props.numberOfServicesUsedInMonitoringSources ? (
             <Layout.Horizontal spacing="medium">
               <Icon name="tick-circle" size={16} color={Color.GREEN_500} />
-              <Text>{i18n.serviceUsedInMonitoringSources(props.numberOfServicesUsedInMonitoringSources)}</Text>
+              <String
+                stringID={
+                  props.numberOfServicesUsedInMonitoringSources > 1
+                    ? 'cv.onboarding.progress.multiServiceUsedInMonitoringSources'
+                    : 'cv.onboarding.progress.serviceUsedInMonitoringSources'
+                }
+                vars={{
+                  serviceCount: props.numberOfServicesUsedInMonitoringSources
+                }}
+              />
             </Layout.Horizontal>
           ) : null}
           {props.servicesUndergoingHealthVerification ? (
             <Layout.Horizontal spacing="medium">
               <Icon name="cv-main" size={18} />
-              <Text>{i18n.servicesUndergoingHealthVerification(props.servicesUndergoingHealthVerification)}</Text>
+              <String
+                stringID={
+                  props.servicesUndergoingHealthVerification > 1
+                    ? 'cv.onboarding.progress.multipleServicesUndergoingHealthVerification'
+                    : 'cv.onboarding.progress.servicesUndergoingHealthVerification'
+                }
+                vars={{
+                  serviceCount: props.servicesUndergoingHealthVerification
+                }}
+              />
             </Layout.Horizontal>
           ) : null}
         </Layout.Vertical>
