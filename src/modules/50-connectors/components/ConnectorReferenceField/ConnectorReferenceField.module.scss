@@ -14,8 +14,19 @@
   align-items: center;
   display: flex;
   align-content: center;
+
+  &.red-status {
+    color: var(--red-500) !important;
+  }
+  &.green-status {
+    color: var(--green-500) !important;
+  }
 }
 
 .tag {
   text-transform: uppercase;
+}
+
+.right-status {
+  display: flex;
 }

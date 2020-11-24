@@ -124,7 +124,9 @@ export default function BuildInfraSpecifications(): JSX.Element {
           connectorRef: {
             label: connector?.data?.connector.name || '',
             value: `${scope !== Scope.PROJECT ? `${scope}.` : ''}${connector?.data?.connector.identifier}`,
-            scope: scope
+            scope: scope,
+            live: connector?.data?.status?.status === 'SUCCESS',
+            connector: connector?.data?.connector
           },
           namespace: stage?.stage?.spec?.infrastructure?.spec?.namespace
         }

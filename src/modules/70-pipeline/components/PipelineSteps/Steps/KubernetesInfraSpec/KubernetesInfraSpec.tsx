@@ -88,7 +88,9 @@ const KubernetesInfraSpecEditable: React.FC<KubernetesInfraSpecEditableProps> = 
     values.connectorRef = {
       label: connector?.data?.connector.name || '',
       value: `${scope !== Scope.PROJECT ? `${scope}.` : ''}${connector?.data?.connector.identifier}`,
-      scope: scope
+      scope: scope,
+      live: connector?.data?.status?.status === 'SUCCESS',
+      connector: connector?.data?.connector
     }
   } else {
     values.connectorRef = initialValues.connectorRef
@@ -249,7 +251,9 @@ const KubernetesInfraSpecInputForm: React.FC<KubernetesInfraSpecEditableProps> =
     connectorSelected = {
       label: connector?.data?.connector.name || '',
       value: `${scope !== Scope.PROJECT ? `${scope}.` : ''}${connector?.data?.connector.identifier}`,
-      scope: scope
+      scope: scope,
+      live: connector?.data?.status?.status === 'SUCCESS',
+      connector: connector?.data?.connector
     }
   }
   return (

@@ -369,19 +369,42 @@ exports[`Render Forms - Snapshot Testing render Edit Input Set Form view 1`] = `
                                       >
                                         tesa1
                                       </p>
-                                      <span
-                                        class="Tag---main--1vng"
+                                      <div
+                                        class="rightStatus"
                                       >
                                         <span
-                                          class="bp3-tag bp3-minimal tag"
+                                          class="bp3-icon bp3-icon-full-circle StyledProps---main--1Wws status redStatus"
+                                          icon="full-circle"
+                                        >
+                                          <svg
+                                            data-icon="full-circle"
+                                            height="6"
+                                            viewBox="0 0 16 16"
+                                            width="6"
+                                          >
+                                            <desc>
+                                              full-circle
+                                            </desc>
+                                            <path
+                                              d="M8 0a8 8 0 100 16A8 8 0 108 0z"
+                                              fill-rule="evenodd"
+                                            />
+                                          </svg>
+                                        </span>
+                                        <span
+                                          class="Tag---main--1vng"
                                         >
                                           <span
-                                            class="bp3-text-overflow-ellipsis bp3-fill"
+                                            class="bp3-tag bp3-minimal tag"
                                           >
-                                            org
+                                            <span
+                                              class="bp3-text-overflow-ellipsis bp3-fill"
+                                            >
+                                              org
+                                            </span>
                                           </span>
                                         </span>
-                                      </span>
+                                      </div>
                                     </div>
                                   </span>
                                   <span

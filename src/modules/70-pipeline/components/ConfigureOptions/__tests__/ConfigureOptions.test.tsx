@@ -2,6 +2,8 @@ import React from 'react'
 import { render, fireEvent, waitFor, getByText as getByTextBody } from '@testing-library/react'
 import { ModalProvider } from '@wings-software/uikit'
 import { findDialogContainer } from '@common/utils/testUtils'
+import { StringsContext } from 'framework/exports'
+import strings from 'strings/strings.en.yaml'
 import { ConfigureOptions, ConfigureOptionsProps } from '../ConfigureOptions'
 
 const onChange = jest.fn()
@@ -33,9 +35,11 @@ const getProps = (
 describe('Test ConfigureOptions', () => {
   test('should render configure options', async () => {
     const { container } = render(
-      <ModalProvider>
-        <ConfigureOptions {...getProps('${input}', 'test', 'var-test')} />
-      </ModalProvider>
+      <StringsContext.Provider value={strings}>
+        <ModalProvider>
+          <ConfigureOptions {...getProps('${input}', 'test', 'var-test')} />
+        </ModalProvider>
+      </StringsContext.Provider>
     )
     const btn = container.querySelector('#configureOptions')
     fireEvent.click(btn as Element)
@@ -46,9 +50,11 @@ describe('Test ConfigureOptions', () => {
 
   test('test invalid expression error', async () => {
     const { container } = render(
-      <ModalProvider>
-        <ConfigureOptions {...getProps('', 'test', 'var-test')} />
-      </ModalProvider>
+      <StringsContext.Provider value={strings}>
+        <ModalProvider>
+          <ConfigureOptions {...getProps('', 'test', 'var-test')} />
+        </ModalProvider>
+      </StringsContext.Provider>
     )
     const btn = container.querySelector('#configureOptions')
     fireEvent.click(btn as Element)
@@ -59,9 +65,11 @@ describe('Test ConfigureOptions', () => {
   test('test regex expression', async () => {
     onChange.mockReset()
     const { container } = render(
-      <ModalProvider>
-        <ConfigureOptions {...getProps('${input}.regex(^a$)', 'test', 'var-test')} />
-      </ModalProvider>
+      <StringsContext.Provider value={strings}>
+        <ModalProvider>
+          <ConfigureOptions {...getProps('${input}.regex(^a$)', 'test', 'var-test')} />
+        </ModalProvider>
+      </StringsContext.Provider>
     )
     const btn = container.querySelector('#configureOptions')
     fireEvent.click(btn as Element)
@@ -77,12 +85,14 @@ describe('Test ConfigureOptions', () => {
   test('test allowed values', async () => {
     onChange.mockReset()
     const { container } = render(
-      <ModalProvider>
-        <ConfigureOptions
-          {...getProps('${input}.allowedValues(abc,xyz)', 'test', 'var-test')}
-          showRequiredField={true}
-        />
-      </ModalProvider>
+      <StringsContext.Provider value={strings}>
+        <ModalProvider>
+          <ConfigureOptions
+            {...getProps('${input}.allowedValues(abc,xyz)', 'test', 'var-test')}
+            showRequiredField={true}
+          />
+        </ModalProvider>
+      </StringsContext.Provider>
     )
     const btn = container.querySelector('#configureOptions')
     fireEvent.click(btn as Element)
@@ -98,17 +108,19 @@ describe('Test ConfigureOptions', () => {
   test('test allowed advanced values', async () => {
     onChange.mockReset()
     const { container } = render(
-      <ModalProvider>
-        <ConfigureOptions
-          {...getProps(
-            '${input}.allowedValues(jexl(${env.type} == “prod” ? aws1, aws2 : aws3, aws4))',
-            'test',
-            'var-test'
-          )}
-          type={<div>Var Test</div>}
-          showDefaultField={false}
-        />
-      </ModalProvider>
+      <StringsContext.Provider value={strings}>
+        <ModalProvider>
+          <ConfigureOptions
+            {...getProps(
+              '${input}.allowedValues(jexl(${env.type} == “prod” ? aws1, aws2 : aws3, aws4))',
+              'test',
+              'var-test'
+            )}
+            type={<div>Var Test</div>}
+            showDefaultField={false}
+          />
+        </ModalProvider>
+      </StringsContext.Provider>
     )
     const btn = container.querySelector('#configureOptions')
     fireEvent.click(btn as Element)
@@ -128,9 +140,11 @@ describe('Test ConfigureOptions', () => {
   test('test dialog open and close', async () => {
     onChange.mockReset()
     const { container } = render(
-      <ModalProvider>
-        <ConfigureOptions {...getProps('${input}', 'test', 'var-test')} />
-      </ModalProvider>
+      <StringsContext.Provider value={strings}>
+        <ModalProvider>
+          <ConfigureOptions {...getProps('${input}', 'test', 'var-test')} />
+        </ModalProvider>
+      </StringsContext.Provider>
     )
     const btn = container.querySelector('#configureOptions')
     fireEvent.click(btn as Element)
@@ -145,9 +159,11 @@ describe('Test ConfigureOptions', () => {
   test('test dialog open and cancel btn', async () => {
     onChange.mockReset()
     const { container } = render(
-      <ModalProvider>
-        <ConfigureOptions {...getProps('${input}', 'test', 'var-test')} fetchValues={undefined} />
-      </ModalProvider>
+      <StringsContext.Provider value={strings}>
+        <ModalProvider>
+          <ConfigureOptions {...getProps('${input}', 'test', 'var-test')} fetchValues={undefined} />
+        </ModalProvider>
+      </StringsContext.Provider>
     )
     const btn = container.querySelector('#configureOptions')
     fireEvent.click(btn as Element)

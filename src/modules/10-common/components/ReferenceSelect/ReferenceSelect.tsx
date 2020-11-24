@@ -14,19 +14,21 @@ import { Scope } from '@common/interfaces/SecretsInterface'
 import { EntityReferenceProps, EntityReference } from '../EntityReference/EntityReference'
 import css from './ReferenceSelect.module.scss'
 
-interface MinimalObject {
+export interface MinimalObject {
   identifier?: string
   name?: string
+}
+
+export interface Item {
+  label: string
+  value: string
+  scope: Scope
 }
 
 export interface ReferenceSelectProps<T extends MinimalObject> extends Omit<EntityReferenceProps<T>, 'onSelect'> {
   name: string
   placeholder: string
-  selected?: {
-    label: string
-    value: string
-    scope: Scope
-  }
+  selected?: Item
   createNewLabel?: string
   createNewHandler?: () => void
   selectedRenderer?: JSX.Element

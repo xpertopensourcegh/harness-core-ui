@@ -1,6 +1,7 @@
 import React from 'react'
 import { FormGroup, IFormGroupProps } from '@blueprintjs/core'
 import { Layout, Icon, Color, Button, Tag, Text } from '@wings-software/uikit'
+import cx from 'classnames'
 import {
   Failure,
   ConnectorInfoDTO,
@@ -10,9 +11,11 @@ import {
 } from 'services/cd-ng'
 import { EntityReferenceResponse, getScopeFromValue } from '@common/components/EntityReference/EntityReference'
 import { getIconByType } from '@connectors/exports'
-import useCreateConnectorModal from '@connectors/modals/ConnectorModal/useCreateConnectorModal'
+import useCreateConnectorModal, {
+  UseCreateConnectorModalReturn
+} from '@connectors/modals/ConnectorModal/useCreateConnectorModal'
 import { Scope } from '@common/interfaces/SecretsInterface'
-import i18n from './ConnectorReferenceField.i18n'
+import { String, useStrings } from 'framework/exports'
 import { ReferenceSelect, ReferenceSelectProps } from '../../../10-common/components/ReferenceSelect/ReferenceSelect'
 import css from './ConnectorReferenceField.module.scss'
 
@@ -26,6 +29,8 @@ export interface ConnectorReferenceFieldProps extends Omit<IFormGroupProps, 'lab
     label: string
     value: string
     scope: Scope
+    live: boolean
+    connector: ConnectorInfoDTO
   }
   onChange?: (connector: ConnectorReferenceDTO, scope: Scope) => void
   orgIdentifier?: string
@@ -37,11 +42,17 @@ export interface ConnectorReferenceFieldProps extends Omit<IFormGroupProps, 'lab
 interface ConnectorReferenceDTO extends ConnectorInfoDTO {
   status: ConnectorResponse['status']
 }
-export function getEditRenderer(selected: ConnectorReferenceFieldProps['selected']): JSX.Element {
+export function getEditRenderer(
+  selected: ConnectorReferenceFieldProps['selected'],
+  openConnectorModal: UseCreateConnectorModalReturn['openConnectorModal'],
+  type: ConnectorInfoDTO['type']
+): JSX.Element {
   return (
     <Layout.Horizontal spacing="small" style={{ justifyContent: 'space-between', width: '100%' }}>
       <div>
-        <Text font={{ size: 'small' }}>{i18n.thisConnectorIsSavedAs}</Text>
+        <Text font={{ size: 'small' }}>
+          <String stringID="thisConnectorIsSavedAs" />
+        </Text>
         <Text font={{ weight: 'bold' }}>{selected?.value}</Text>
       </div>
       <Button
@@ -49,6 +60,7 @@ export function getEditRenderer(selected: ConnectorReferenceFieldProps['selected
         icon="edit"
         onClick={e => {
           e.stopPropagation()
+          openConnectorModal(false, type, selected?.connector)
         }}
         style={{
           color: 'var(--blue-450)'
@@ -61,12 +73,27 @@ export function getSelectedRenderer(selected: ConnectorReferenceFieldProps['sele
   return (
     <Layout.Horizontal spacing="small" style={{ justifyContent: 'space-between', width: '100%' }}>
       <Text>{selected?.label}</Text>
-      <Tag minimal className={css.tag}>
-        {getScopeFromValue(selected?.value || '')}
-      </Tag>
+      <div className={css.rightStatus}>
+        <Icon
+          className={cx(css.status, { [css.redStatus]: !selected?.live }, { [css.greenStatus]: selected?.live })}
+          name="full-circle"
+          size={6}
+          style={{ paddingRight: 'var(--spacing-xsmall)' }}
+        />
+        <Tag minimal className={css.tag}>
+          {getScopeFromValue(selected?.value || '')}
+        </Tag>
+      </div>
     </Layout.Horizontal>
   )
 }
+
+interface GetReferenceFieldMethodProps extends ConnectorReferenceFieldProps {
+  getString(key: string, vars?: Record<string, any>): string
+  openConnectorModal: UseCreateConnectorModalReturn['openConnectorModal']
+  type: ConnectorInfoDTO['type']
+}
+
 export function getReferenceFieldProps({
   defaultScope,
   accountIdentifier,
@@ -76,15 +103,17 @@ export function getReferenceFieldProps({
   name,
   width,
   selected,
-  placeholder
-}: ConnectorReferenceFieldProps): Omit<ReferenceSelectProps<ConnectorReferenceDTO>, 'onChange'> {
+  placeholder,
+  getString,
+  openConnectorModal
+}: GetReferenceFieldMethodProps): Omit<ReferenceSelectProps<ConnectorReferenceDTO>, 'onChange'> {
   return {
     name,
     width,
     selected,
     placeholder,
     defaultScope,
-    createNewLabel: i18n.newConnector,
+    createNewLabel: getString('newConnector'),
     recordClassName: css.listItem,
     fetchRecords: (scope, search = '', done) => {
       getConnectorListPromise({
@@ -118,7 +147,7 @@ export function getReferenceFieldProps({
     },
     projectIdentifier,
     orgIdentifier,
-    noRecordsText: i18n.noSecretsFound,
+    noRecordsText: getString('noSecretsFound'),
     recordRender: function renderItem(item) {
       return (
         <Layout.Horizontal spacing="small" style={{ justifyContent: 'space-between' }}>
@@ -138,6 +167,7 @@ export function getReferenceFieldProps({
               className={css.editBtn}
               onClick={e => {
                 e.stopPropagation()
+                openConnectorModal(false, type, item.record)
               }}
               style={{
                 color: 'var(--blue-450)'
@@ -178,6 +208,8 @@ export const ConnectorReferenceField: React.FC<ConnectorReferenceFieldProps> = p
     }
   })
 
+  const { getString } = useStrings()
+
   return (
     <FormGroup {...rest} label={label}>
       <ReferenceSelect<ConnectorReferenceDTO>
@@ -194,12 +226,14 @@ export const ConnectorReferenceField: React.FC<ConnectorReferenceFieldProps> = p
           selected,
           width,
           placeholder,
-          label
+          label,
+          getString,
+          openConnectorModal
         })}
         createNewHandler={() => {
           openConnectorModal(true, type, undefined)
         }}
-        editRenderer={getEditRenderer(selected)}
+        editRenderer={getEditRenderer(selected, openConnectorModal, type)}
         selectedRenderer={getSelectedRenderer(selected)}
       />
     </FormGroup>

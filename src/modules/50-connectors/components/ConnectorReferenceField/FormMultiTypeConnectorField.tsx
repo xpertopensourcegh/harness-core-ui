@@ -6,6 +6,7 @@ import { get } from 'lodash-es'
 import useCreateConnectorModal from '@connectors/modals/ConnectorModal/useCreateConnectorModal'
 import type { ConnectorConfigDTO, ConnectorInfoDTO, ConnectorResponse } from 'services/cd-ng'
 import { Scope } from '@common/interfaces/SecretsInterface'
+import { useStrings } from 'framework/exports'
 import { getScopeFromDTO } from '../../../10-common/components/EntityReference/EntityReference'
 import {
   ConnectorReferenceFieldProps,
@@ -53,6 +54,7 @@ export const MultiTypeConnectorField: React.FC<MultiTypeConnectorFieldProps> = p
   } = restProps
 
   const selected = get(formik?.values, name, '')
+  const { getString } = useStrings()
   const { openConnectorModal } = useCreateConnectorModal({
     onSuccess: (data?: ConnectorConfigDTO) => {
       if (data) {
@@ -81,13 +83,15 @@ export const MultiTypeConnectorField: React.FC<MultiTypeConnectorFieldProps> = p
             selected,
             width,
             placeholder,
-            label
+            label,
+            getString,
+            openConnectorModal
           }),
           isNewConnectorLabelVisible: isNewConnectorLabelVisible,
           createNewHandler: () => {
             openConnectorModal(true, type, undefined)
           },
-          editRenderer: getEditRenderer(selected),
+          editRenderer: getEditRenderer(selected, openConnectorModal, type),
           selectedRenderer: getSelectedRenderer(selected)
         }}
         onChange={(val, valueType) => {

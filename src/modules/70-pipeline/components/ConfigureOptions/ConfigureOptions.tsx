@@ -1,9 +1,18 @@
 import React from 'react'
-import { Button, useModalHook, Formik, Text, FormInput, SelectOption, MultiSelectOption } from '@wings-software/uikit'
+import {
+  Button,
+  useModalHook,
+  Formik,
+  Text,
+  FormInput,
+  SelectOption,
+  MultiSelectOption,
+  Layout
+} from '@wings-software/uikit'
 import { Dialog, Classes, FormGroup, Position } from '@blueprintjs/core'
 import * as Yup from 'yup'
 import cx from 'classnames'
-import i18n from './ConfigureOptions.i18n'
+import { String, useStrings } from 'framework/exports'
 import { useToaster } from '../../../10-common/components/Toaster/useToaster'
 import css from './ConfigureOptions.module.scss'
 
@@ -49,10 +58,10 @@ export function ConfigureOptions(props: ConfigureOptionsProps): JSX.Element {
   const [input, setInput] = React.useState(value)
   const { showError } = useToaster()
   const [options, setOptions] = React.useState<SelectOption[] | MultiSelectOption[]>([])
-
+  const { getString } = useStrings('configureOptions')
   const [showModal, hideModal] = useModalHook(() => {
     if (!RegExInputExpression.test(input)) {
-      showError(i18n.notValidExpression)
+      showError(getString('notValidExpression'))
       return null
     }
     const response = input.match(RegExInputExpression)
@@ -86,13 +95,45 @@ export function ConfigureOptions(props: ConfigureOptionsProps): JSX.Element {
     return (
       <Dialog
         isOpen={true}
-        title={i18n.configureOptions}
+        title={getString('configureOptions')}
         className={cx(css.dialog, Classes.DIALOG)}
         onClose={() => closeModal()}
       >
         <Formik
           initialValues={inputValues}
-          validationSchema={Yup.object()}
+          validationSchema={Yup.object().shape({
+            validation: Yup.string().required(),
+            regExValues: Yup.string()
+              .when('validation', {
+                is: Validation.Regex,
+                then: Yup.string().required(getString('validationErrors.regExIsRequired'))
+              })
+              .when('validation', {
+                is: Validation.Regex,
+                then: Yup.string().test(
+                  'is-valid-regex',
+                  getString('validationErrors.regExNotValid'),
+                  (val: string) => {
+                    let isValid = true
+                    try {
+                      val?.length > 0 && new RegExp(val)
+                    } catch (_e) {
+                      isValid = false
+                    }
+                    return isValid
+                  }
+                )
+              }),
+            isAdvanced: Yup.boolean(),
+            advancedValue: Yup.string().when(['validation', 'isAdvanced'], {
+              is: (validation: Validation, isAdv: boolean) => validation === Validation.AllowedValues && isAdv,
+              then: Yup.string().required(getString('validationErrors.jexlExpressionRequired'))
+            }),
+            allowedValues: Yup.array(Yup.string()).when(['validation', 'isAdvanced'], {
+              is: (validation: Validation, isAdv: boolean) => validation === Validation.AllowedValues && !isAdv,
+              then: Yup.array(Yup.string()).min(1, getString('validationErrors.minOneAllowedValue'))
+            })
+          })}
           onSubmit={data => {
             let inputStr = RuntimeInputExpression
             if (
@@ -117,29 +158,33 @@ export function ConfigureOptions(props: ConfigureOptionsProps): JSX.Element {
           {({ submitForm, values, setFieldValue }) => (
             <>
               <div className={Classes.DIALOG_BODY}>
-                <FormGroup className={css.label} label={i18n.variable} inline>
+                <FormGroup className={css.label} label={getString('variable')} inline>
                   <Text>{variableName}</Text>
                 </FormGroup>
-                <FormGroup className={css.label} label={i18n.type} inline>
+                <FormGroup className={css.label} label={getString('type')} inline>
                   {typeof type === 'string' ? <Text>{type}</Text> : type}
                 </FormGroup>
                 {showDefaultField &&
                   (fetchValues ? (
-                    <FormInput.Select items={options} label={i18n.defaultValue} name="defaultValue" />
+                    <FormInput.Select items={options} label={getString('defaultValue')} name="defaultValue" />
                   ) : (
-                    <FormInput.Text label={i18n.defaultValue} name="defaultValue" />
+                    <FormInput.Text label={getString('defaultValue')} name="defaultValue" />
                   ))}
                 {showRequiredField && (
-                  <FormInput.CheckBox className={css.checkbox} label={i18n.requiredDuringExecution} name="isRequired" />
+                  <FormInput.CheckBox
+                    className={css.checkbox}
+                    label={getString('requiredDuringExecution')}
+                    name="isRequired"
+                  />
                 )}
                 <div className={css.split}>
                   <FormInput.RadioGroup
                     name="validation"
-                    label={i18n.validation}
+                    label={getString('validation')}
                     items={[
-                      { label: i18n.none, value: Validation.None },
-                      { label: i18n.allowedValues, value: Validation.AllowedValues },
-                      { label: i18n.regex, value: Validation.Regex }
+                      { label: getString('none'), value: Validation.None },
+                      { label: getString('allowedValues'), value: Validation.AllowedValues },
+                      { label: getString('regex'), value: Validation.Regex }
                     ]}
                   />
                   {values.validation !== Validation.None && <div className={css.line} />}
@@ -150,9 +195,13 @@ export function ConfigureOptions(props: ConfigureOptionsProps): JSX.Element {
                           <Button
                             minimal
                             intent="primary"
-                            tooltip={i18n.advancedHelp}
+                            tooltip={
+                              <Layout.Horizontal padding="medium">
+                                <String stringID="advancedHelp" namespace="configureOptions" useRichText={true} />
+                              </Layout.Horizontal>
+                            }
                             tooltipProps={{ position: Position.RIGHT }}
-                            text={values.isAdvanced ? i18n.returnToBasic : i18n.advanced}
+                            text={values.isAdvanced ? getString('returnToBasic') : getString('advanced')}
                             onClick={() => {
                               setFieldValue('isAdvanced', !values.isAdvanced)
                             }}
@@ -163,15 +212,15 @@ export function ConfigureOptions(props: ConfigureOptionsProps): JSX.Element {
                         <FormInput.TextArea
                           name="advancedValue"
                           className={css.secondColumn}
-                          label={i18n.jexlLabel}
-                          placeholder={i18n.jexlPlaceholder}
+                          label={getString('jexlLabel')}
+                          placeholder={getString('jexlPlaceholder')}
                         />
                       ) : (
                         <>
                           {!fetchValues ? (
                             <FormInput.TagInput
                               className={css.secondColumn}
-                              label={i18n.allowedValuesHelp}
+                              label={getString('allowedValuesHelp')}
                               name="allowedValues"
                               items={[]}
                               labelFor={name => (typeof name === 'string' ? name : '')}
@@ -182,7 +231,7 @@ export function ConfigureOptions(props: ConfigureOptionsProps): JSX.Element {
                                 showAddTagButton: false,
                                 showClearAllButton: true,
                                 allowNewTag: true,
-                                placeholder: i18n.enterTags,
+                                placeholder: getString('enterTags'),
                                 getTagProps: () => ({ intent: 'primary', minimal: true })
                               }}
                             />
@@ -190,7 +239,7 @@ export function ConfigureOptions(props: ConfigureOptionsProps): JSX.Element {
                             <FormInput.MultiSelect
                               className={css.secondColumn}
                               items={options}
-                              label={i18n.values}
+                              label={getString('values')}
                               name="allowedValues"
                             />
                           )}
@@ -199,13 +248,13 @@ export function ConfigureOptions(props: ConfigureOptionsProps): JSX.Element {
                     </div>
                   )}
                   {values.validation === Validation.Regex && (
-                    <FormInput.TextArea className={css.secondColumn} label={i18n.regex} name="regExValues" />
+                    <FormInput.TextArea className={css.secondColumn} label={getString('regex')} name="regExValues" />
                   )}
                 </div>
               </div>
               <div className={Classes.DIALOG_FOOTER}>
-                <Button intent="primary" text={i18n.submit} onClick={submitForm} /> &nbsp; &nbsp;
-                <Button text={i18n.cancel} onClick={() => closeModal()} />
+                <Button intent="primary" text={<String stringID="submit" />} onClick={submitForm} /> &nbsp; &nbsp;
+                <Button text={<String stringID="cancel" />} onClick={() => closeModal()} />
               </div>
             </>
           )}

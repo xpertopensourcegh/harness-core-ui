@@ -87,7 +87,9 @@ export const EditStageView: React.FC<EditStageView> = ({ data, onSubmit, onChang
     initialValues.connectorRef = {
       label: connector?.data?.connector.name || '',
       value: `${scope !== Scope.PROJECT ? `${scope}.` : ''}${connector?.data?.connector.identifier}`,
-      scope: scope
+      scope: scope,
+      live: connector?.data?.status?.status === 'SUCCESS',
+      connector: connector?.data?.connector
     }
   }
 
