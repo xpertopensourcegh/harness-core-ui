@@ -18,6 +18,9 @@ import { TimeAgo } from './TimeAgo/TimeAgo'
 import TimelineView from './TimelineView/TimelineView'
 import { useToaster } from './Toaster/useToaster'
 import { UserLabel } from './UserLabel/UserLabel'
+import { FormMultiTypeTextAreaField, MultiTypeTextArea } from './MultiTypeTextArea/MultiTypeTextArea'
+import { FormMultiTypeCheckboxField, MultiTypeCheckbox } from './MultiTypeCheckbox/MultiTypeCheckbox'
+import { FormMultiTypeRadioGroupField, MultiTypeRadioGroup } from './MultiTypeRadioGroup/MultiTypeRadioGroup'
 // import Wizard from './Wizard/Wizard'
 
 export {
@@ -40,6 +43,12 @@ export {
   TimeAgo,
   TimelineView,
   useToaster,
+  MultiTypeTextArea,
+  MultiTypeRadioGroup,
+  FormMultiTypeTextAreaField,
+  FormMultiTypeCheckboxField,
+  FormMultiTypeRadioGroupField,
+  MultiTypeCheckbox,
   UserLabel
   // Wizard
 }

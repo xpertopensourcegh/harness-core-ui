@@ -1,0 +1,11 @@
+.input {
+  width: 100%;
+  background-color: var(--grey-100) !important;
+  height: 36px;
+  padding-top: var(--spacing-small) !important;
+  padding-left: var(--spacing-xxxlarge) !important;
+
+  ~ :global(span .bp3-popover-target > button::before) {
+    background-color: var(--grey-100) !important;
+  }
+}

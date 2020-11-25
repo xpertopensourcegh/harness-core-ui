@@ -18,6 +18,7 @@ import { MultiTypeReferenceInput } from '../../../10-common/components/Reference
 
 export interface MultiTypeConnectorFieldProps extends Omit<ConnectorReferenceFieldProps, 'onChange'> {
   onChange?: ExpressionAndRuntimeTypeProps['onChange']
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   formik?: any // TODO: Remove this but not sure why FormikContext<any> was not working
   isNewConnectorLabelVisible?: boolean
 }
