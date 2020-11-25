@@ -2,5 +2,8 @@
   "typescript.tsdk": "./node_modules/typescript/lib",
   "eslint.enable": true,
   "editor.formatOnSave": true,
-  "editor.defaultFormatter": "esbenp.prettier-vscode"
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "eslint.options": {
+    "rulePaths": ["./scripts/eslint-rules"]
+  }
 }

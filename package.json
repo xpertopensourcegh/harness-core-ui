@@ -17,7 +17,7 @@
   "scripts": {
     "test": "jest src --silent",
     "test:watch": "jest --watch",
-    "lint": "eslint --ext .ts --ext .tsx src",
+    "lint": "eslint  --rulesdir ./scripts/eslint-rules --ext .ts --ext .tsx src",
     "typecheck": "tsc",
     "clean": "rm -rf dist",
     "dev": "NODE_ENV=development webpack-dev-server --progress",
@@ -168,7 +168,7 @@
   },
   "lint-staged": {
     "*.{ts,tsx}": [
-      "eslint",
+      "eslint --rulesdir ./scripts/eslint-rules",
       "sh scripts/typecheck-staged.sh",
       "prettier --check"
     ],

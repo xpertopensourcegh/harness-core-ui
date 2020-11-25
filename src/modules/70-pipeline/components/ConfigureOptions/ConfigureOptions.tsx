@@ -13,7 +13,7 @@ import { Dialog, Classes, FormGroup, Position } from '@blueprintjs/core'
 import * as Yup from 'yup'
 import cx from 'classnames'
 import { String, useStrings } from 'framework/exports'
-import { useToaster } from '../../../10-common/components/Toaster/useToaster'
+import { useToaster } from '@common/components/Toaster/useToaster'
 import css from './ConfigureOptions.module.scss'
 
 export interface ConfigureOptionsProps {
@@ -201,7 +201,7 @@ export function ConfigureOptions(props: ConfigureOptionsProps): JSX.Element {
                             intent="primary"
                             tooltip={
                               <Layout.Horizontal padding="medium">
-                                <String stringID="advancedHelp" namespace="configureOptions" useRichText={true} />
+                                <String stringID="configureOptions.advancedHelp" useRichText={true} />
                               </Layout.Horizontal>
                             }
                             tooltipProps={{ position: Position.RIGHT }}

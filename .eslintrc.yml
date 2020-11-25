@@ -35,6 +35,9 @@ settings:
     typescript:
       alwaysTryTypes: true
 rules:
+  # custom rules
+  string-exists-in-yaml: 2
+
   # built-in
   no-console: 2
   semi: 0
