@@ -1,0 +1,24 @@
+.main {
+  display: flex;
+  align-items: center;
+  width: 200px !important;
+  &:hover {
+    cursor: pointer;
+    .itemLabel {
+      background-color: var(--blue-825);
+      color: var(--white) !important;
+    }
+  }
+
+  .itemLabel {
+    margin: 0 var(--spacing-small);
+    text-overflow: ellipsis;
+    white-space: nowrap !important;
+    padding: var(--spacing-small);
+  }
+}
+
+.selected .itemLabel {
+  background-color: var(--blue-825);
+  color: var(--white) !important;
+}

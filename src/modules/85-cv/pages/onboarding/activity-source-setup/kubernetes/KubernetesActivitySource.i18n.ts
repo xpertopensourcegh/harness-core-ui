@@ -4,6 +4,7 @@ export default {
   tabNames: {
     selectActivitySource: 'Select your Activity Source',
     selectKubernestesConnector: 'Select Kubernetes Connector',
-    selectKubernetesNamespaces: 'Select Kubernetes Namespace(s)'
+    selectKubernetesNamespaces: 'Select Kubernetes Namespace(s)',
+    mapWorkloadsToServices: 'Map Workloads to Services'
   }
 }

@@ -1,15 +1,32 @@
 .editable {
-  border: 1px solid var(--grey-300);
   border-radius: 2px;
   padding: 2px;
   cursor: auto;
 }
 .tabWrapper {
-  [class='bp3-tab-list'] {
-    padding: 0 var(--spacing-large);
+  flex: 1;
+  [class~='bp3-tab-list'] {
+    border-bottom: none;
+    box-shadow: 5px 1px 10px var(--grey-300);
+  }
+  [class~='bp3-tabs'] {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
   }
   [class~='bp3-tab'] {
     margin-top: var(--spacing-small) !important;
+    &[data-tab-id='0'] {
+      background-color: var(--grey-100) !important;
+      margin-bottom: 0;
+      padding: 10px 23px;
+      border-right: 1px solid var(--grey-300);
+      margin-top: 0 !important;
+      border-bottom: 0;
+    }
+  }
+  [class~='bp3-tab-panel'] {
+    flex: 1;
   }
   .nameEditIcon {
     margin-left: var(--spacing-xsmall);

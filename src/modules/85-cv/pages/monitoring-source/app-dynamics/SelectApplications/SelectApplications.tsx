@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Container, Button, Layout, Text, Icon } from '@wings-software/uikit'
+import { Container, Button, Layout, Text, Icon, SelectOption } from '@wings-software/uikit'
 import { useHistory } from 'react-router-dom'
 import Table from '@common/components/Table/Table'
 import { routeCVAdminSetup } from 'navigation/cv/routes'
@@ -19,7 +19,7 @@ interface AppEntry {
   id: number
   name: string
   selected: boolean
-  environment?: string
+  environment?: SelectOption
 }
 
 export default function SelectApplications({ stepData, onCompleteStep }: SelectApplicationsProps): React.ReactElement {
@@ -68,7 +68,7 @@ export default function SelectApplications({ stepData, onCompleteStep }: SelectA
           id: app.id!,
           name: app.name!,
           selected: !!apps[String(app.id)],
-          environment: apps[String(app.id)]?.environment ?? ''
+          environment: { label: apps[String(app.id)]?.environment ?? '', value: apps[String(app.id)]?.environment }
         }))
       )
     }
@@ -142,7 +142,7 @@ export default function SelectApplications({ stepData, onCompleteStep }: SelectA
                   <Container className={styles.selectEnvironmentCell}>
                     <Icon name="harness" margin={{ right: 'small' }} />
                     <EnvironmentSelect
-                      value={value}
+                      item={value}
                       options={environmentOptions}
                       onSelect={val => onUpdateData(row.index, { environment: val })}
                       onNewCreated={(val: any) => {

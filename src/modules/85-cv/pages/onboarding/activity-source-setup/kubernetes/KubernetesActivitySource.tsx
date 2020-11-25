@@ -5,10 +5,16 @@ import i18n from './KubernetesActivitySource.i18n'
 import { SelectActivitySource } from './SelectActivitySource/SelectActivitySource'
 import { SelectKubernetesConnector } from './SelectKubernetesConnector/SelectKubernetesConnector'
 import { SelectKubernetesNamespaces } from './SelectKubernetesNamespaces/SelectKubernetesNamespaces'
+import { MapWorkloadsToServices } from './MapWorkloadsToServices/MapWorkloadsToServices'
 
 export default function KubernetesActivitySource(): JSX.Element {
   const { onNext, currentData, setCurrentData, ...tabInfo } = useCVTabsHook<any>()
-
+  const tabComponents = [
+    SelectActivitySource,
+    SelectKubernetesConnector,
+    SelectKubernetesNamespaces,
+    MapWorkloadsToServices
+  ]
   return (
     <CVOnboardingTabs
       iconName="service-kubernetes"
@@ -16,49 +22,18 @@ export default function KubernetesActivitySource(): JSX.Element {
       {...tabInfo}
       onNext={onNext}
       setName={val => setCurrentData({ ...currentData, name: val })}
-      tabProps={[
-        {
-          id: 1,
-          title: i18n.tabNames.selectActivitySource,
-          component: (
-            <SelectActivitySource
-              data={currentData}
-              onSubmit={data => {
-                setCurrentData({ ...currentData, ...data })
-                onNext()
-              }}
-            />
-          )
-        },
-        {
-          id: 2,
-          title: i18n.tabNames.selectKubernestesConnector,
-          component: (
-            <SelectKubernetesConnector
-              data={currentData}
-              onSubmit={data => {
-                setCurrentData({ ...currentData, ...data })
-                onNext()
-              }}
-              onPrevious={tabInfo.onPrevious}
-            />
-          )
-        },
-        {
-          id: 3,
-          title: i18n.tabNames.selectKubernetesNamespaces,
-          component: (
-            <SelectKubernetesNamespaces
-              data={currentData}
-              onSubmit={data => {
-                setCurrentData({ ...currentData, ...data })
-                onNext()
-              }}
-              onPrevious={tabInfo.onPrevious}
-            />
-          )
-        }
-      ]}
+      tabProps={Object.values(i18n.tabNames).map((tabName, index) => ({
+        id: index + 1,
+        title: tabName,
+        component: React.createElement(tabComponents[index], {
+          data: currentData,
+          onSubmit: data => {
+            setCurrentData({ ...currentData, ...data })
+            onNext()
+          },
+          onPrevious: tabInfo.onPrevious
+        })
+      }))}
     />
   )
 }

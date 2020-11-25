@@ -27,6 +27,17 @@ jest.mock('../SelectKubernetesNamespaces/SelectKubernetesNamespaces', () => ({
   }
 }))
 
+jest.mock('../MapWorkloadsToServices/MapWorkloadsToServices', () => ({
+  ...(jest.requireActual('../MapWorkloadsToServices/MapWorkloadsToServices') as object),
+  MapWorkloadsToServices: function MapWorkloadsToServices(props: any) {
+    return (
+      <Container className="MapWorkloadsToServices" onClick={() => props.onSubmit()}>
+        <button id="MapWorkloadsToServices" onClick={() => props.onPrevious()} />
+      </Container>
+    )
+  }
+}))
+
 jest.mock('react-router-dom', () => ({
   useHistory: jest.fn().mockReturnValue([])
 }))
@@ -64,5 +75,12 @@ describe('Unit tests for KubernetesActivitySource', () => {
     const previousButtonNamespace = container.querySelector('#SelectKubernetesNamespacesPrevious')
     if (!previousButtonNamespace) throw Error('Previous button was not rendered namespace.')
     fireEvent.click(previousButtonNamespace)
+
+    const workloadRef = container.querySelector('.MapWorkloadsToServices')
+    if (!workloadRef) throw Error('Tabs were not rendered')
+
+    const previousButtonWorkload = container.querySelector('#MapWorkloadsToServices')
+    if (!previousButtonWorkload) throw Error('Previous button was not rendered workload.')
+    fireEvent.click(previousButtonWorkload)
   })
 })

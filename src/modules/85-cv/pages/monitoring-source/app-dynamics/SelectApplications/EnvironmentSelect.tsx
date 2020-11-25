@@ -6,26 +6,28 @@ import * as Yup from 'yup'
 import { CVSelectionCard } from '@cv/components/CVSelectionCard/CVSelectionCard'
 import { AddDescriptionAndTagsWithIdentifier } from '@common/components/AddDescriptionAndTags/AddDescriptionAndTags'
 import { useRouteParams } from 'framework/exports'
-import { useCreateEnvironment } from 'services/cd-ng'
+import { EnvironmentResponseDTO, useCreateEnvironment } from 'services/cd-ng'
 import { useStrings } from 'framework/exports'
 import { EnvironmentTypes } from '../../utils'
 
 interface EnvironmentSelectProps {
-  value?: string
+  item?: SelectOption
   options: Array<SelectOption>
-  onSelect(value: string): void
-  onNewCreated(value: object): void
+  onSelect(value: SelectOption): void
+  className?: string
+  onNewCreated(value: EnvironmentResponseDTO): void
 }
 
 const ADD_NEW_VALUE = '@@add_new'
 
 export default function EnvironmentSelect({
-  value,
+  item,
   options,
   onSelect,
-  onNewCreated
-}: EnvironmentSelectProps): React.ReactElement {
-  const { getString } = useStrings()
+  onNewCreated,
+  className
+}: EnvironmentSelectProps) {
+  const { getString } = useStrings('cv')
   const {
     params: { accountId, projectIdentifier, orgIdentifier }
   } = useRouteParams()
@@ -40,7 +42,6 @@ export default function EnvironmentSelect({
     ],
     [options]
   )
-  const item = useMemo(() => selectOptions.find(o => o.value === value), [selectOptions, value])
 
   const onSubmit = async (values: any): Promise<void> => {
     if (loading) {
@@ -128,13 +129,14 @@ export default function EnvironmentSelect({
     if (val.value === ADD_NEW_VALUE) {
       openModal()
     } else {
-      onSelect(val.value as string)
+      onSelect(val)
     }
   }
 
   return (
     <Select
       value={item}
+      className={className}
       items={selectOptions}
       inputProps={{ placeholder: 'select or create an environment' }}
       onChange={onSelectChange}

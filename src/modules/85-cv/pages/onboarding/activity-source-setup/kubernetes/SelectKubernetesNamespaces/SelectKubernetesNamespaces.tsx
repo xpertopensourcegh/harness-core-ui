@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
-import { Color, Container, ExpandingSearchInput, Formik, FormikForm, Heading, Text } from '@wings-software/uikit'
+import { Color, Container, Heading, Text } from '@wings-software/uikit'
 import type { CellProps } from 'react-table'
 import { useRouteParams } from 'framework/exports'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
 import { PageError } from '@common/components/Page/PageError'
+import { TableColumnWithFilter } from '@cv/components/TableColumnWithFilter/TableColumnWithFilter'
 import { SubmitAndPreviousButtons } from '@cv/pages/onboarding/SubmitAndPreviousButtons/SubmitAndPreviousButtons'
 import { useGetNamespaces } from 'services/cv'
 import { PageSpinner, Table } from '@common/components'
@@ -16,30 +17,21 @@ interface SelectKubernetesNamespacesProps {
   data?: any
 }
 
-interface TableHeaderWithSearchProps {
-  filteredNamespace?: string
-  onFilter: (filterValue: string) => void
-}
-
 type TableData = { selected: boolean; namespace: string }
 
 export const SelectKubernetesNamespaceFieldNames = {
   SELECTED_NAME_SPACES: 'selectedNamespaces'
 }
 
-function validate(values: { selectedNamespaces: Set<string> }): { [key: string]: string } {
-  const errors = { [SelectKubernetesNamespaceFieldNames.SELECTED_NAME_SPACES]: '' }
-  if (!values.selectedNamespaces?.size) {
-    errors[SelectKubernetesNamespaceFieldNames.SELECTED_NAME_SPACES] = i18n.validationText.namespace
-  }
-  return errors
+function validate(selectedNamespaces: Set<string>): boolean {
+  return selectedNamespaces?.size > 0
 }
 
-function generateTableData(apiData: string[], selectedNamespaces?: string[]): TableData[] {
+function generateTableData(apiData: string[], selectedNamespaces?: Set<string>): TableData[] {
   const tableData = []
   for (const namespace of apiData) {
     tableData.push({
-      selected: Boolean(selectedNamespaces?.find(selectedNamespace => selectedNamespace === namespace)),
+      selected: Boolean(selectedNamespaces?.has(namespace)),
       namespace
     })
   }
@@ -60,25 +52,13 @@ function NamespaceValue(tableProps: CellProps<TableData>): JSX.Element {
   )
 }
 
-function TableHeaderWithSearch(props: TableHeaderWithSearchProps): JSX.Element {
-  const { filteredNamespace, onFilter } = props
-  return (
-    <Container flex>
-      <Text color={Color.BLACK}>{i18n.tableColumnName.kubernetesNamespace}</Text>{' '}
-      <ExpandingSearchInput
-        throttle={300}
-        defaultValue={filteredNamespace}
-        onChange={namespaceSubstring => onFilter(namespaceSubstring)}
-      />
-    </Container>
-  )
-}
-
 export function SelectKubernetesNamespaces(props: SelectKubernetesNamespacesProps): JSX.Element {
   const { onSubmit, onPrevious, data: propsData } = props
   const {
     params: { accountId, projectIdentifier, orgIdentifier }
   } = useRouteParams()
+  const [selectedNamespaces, setSelectedNamespaces] = useState(new Set<string>(propsData?.selectedNamespaces || []))
+  const [isValid, setIsValid] = useState(true)
   const [{ pageOffset, filteredNamespace }, setFilterAndPageOffset] = useState<{
     pageOffset: number
     filteredNamespace?: string
@@ -129,97 +109,91 @@ export function SelectKubernetesNamespaces(props: SelectKubernetesNamespacesProp
     )
   }
 
-  const nameSpaces = generateTableData(content, propsData?.selectedNamespaces)
+  const nameSpaces = generateTableData(content, selectedNamespaces)
 
   return (
-    <Formik
-      initialValues={{ ...propsData, selectedNamespaces: new Set<string>() }}
-      onSubmit={values => onSubmit({ ...values, selectedNamespaces: Array.from(values.selectedNamespaces.keys()) })}
-      validate={validate}
-    >
-      {formikProps => {
-        const { selectedNamespaces } = formikProps.values
-        return (
-          <FormikForm>
-            <Container className={css.main}>
-              <Heading level="3" color={Color.BLACK}>
-                {i18n.headingText}
-              </Heading>
-              <Table<TableData>
-                className={css.table}
-                columns={[
-                  {
-                    accessor: 'selected',
-                    width: '5%',
-                    Cell: function CheckColumn(tableProps) {
-                      const namespace = tableProps.row.original?.namespace
-                      const isChecked = selectedNamespaces.has(namespace)
-                      return (
-                        <input
-                          type="checkbox"
-                          checked={isChecked}
-                          onChange={e => {
-                            if (isChecked && !e.currentTarget.checked) {
-                              selectedNamespaces.delete(namespace)
-                            } else if (!isChecked && e.currentTarget.checked) {
-                              selectedNamespaces.add(namespace)
-                            }
-                            formikProps.setFieldValue(
-                              SelectKubernetesNamespaceFieldNames.SELECTED_NAME_SPACES,
-                              new Set(selectedNamespaces)
-                            )
-                          }}
-                        />
-                      )
-                    },
-                    disableSortBy: true
-                  },
-                  {
-                    Header: function TableHeaderWrapper() {
-                      return (
-                        <TableHeaderWithSearch
-                          filteredNamespace={filteredNamespace}
-                          onFilter={namespaceSubstring =>
-                            setFilterAndPageOffset({ pageOffset: 0, filteredNamespace: namespaceSubstring })
-                          }
-                        />
-                      )
-                    },
-                    accessor: 'namespace',
-                    width: '95%',
-                    Cell: NamespaceValue,
-                    disableSortBy: true
-                  }
-                ]}
-                data={nameSpaces}
-                onRowClick={rowData => {
-                  const { namespace } = rowData
-                  if (selectedNamespaces.has(namespace)) selectedNamespaces.delete(namespace)
-                  else selectedNamespaces.add(namespace)
-                  formikProps.setFieldValue(
-                    SelectKubernetesNamespaceFieldNames.SELECTED_NAME_SPACES,
-                    new Set(selectedNamespaces)
-                  )
-                }}
-                sortable={true}
-                pagination={{
-                  pageSize: pageSize || 0,
-                  pageIndex: pageIndex,
-                  pageCount: totalPages,
-                  itemCount: totalItems,
-                  gotoPage: newPageIndex => setFilterAndPageOffset({ pageOffset: newPageIndex, filteredNamespace })
-                }}
-              />
-              {formikProps.errors.selectedNamespaces ? (
-                <Text data-name="validation" intent="danger">
-                  {formikProps.errors.selectedNamespaces}
-                </Text>
-              ) : null}
-            </Container>
-            <SubmitAndPreviousButtons onPreviousClick={onPrevious} />
-          </FormikForm>
-        )
-      }}
-    </Formik>
+    <Container>
+      <Container className={css.main}>
+        <Heading level="3" color={Color.BLACK}>
+          {i18n.headingText}
+        </Heading>
+        <Table<TableData>
+          className={css.table}
+          columns={[
+            {
+              accessor: 'selected',
+              width: '5%',
+              Cell: function CheckColumn(tableProps: CellProps<TableData>) {
+                const namespace = tableProps.row.original?.namespace
+                const isChecked = selectedNamespaces.has(namespace)
+                return (
+                  <input
+                    type="checkbox"
+                    checked={isChecked}
+                    onChange={e => {
+                      if (isChecked && !e.currentTarget.checked) {
+                        selectedNamespaces.delete(namespace)
+                      } else if (!isChecked && e.currentTarget.checked) {
+                        selectedNamespaces.add(namespace)
+                      }
+                      setSelectedNamespaces(new Set(selectedNamespaces))
+                    }}
+                  />
+                )
+              },
+              disableSortBy: true
+            },
+            {
+              Header: function TableHeaderWrapper() {
+                return (
+                  <TableColumnWithFilter
+                    appliedFilter={filteredNamespace}
+                    onFilter={namespaceSubstring =>
+                      setFilterAndPageOffset({ pageOffset: 0, filteredNamespace: namespaceSubstring })
+                    }
+                    columnName={i18n.tableColumnName.kubernetesNamespace}
+                  />
+                )
+              },
+              accessor: 'namespace',
+              width: '95%',
+              Cell: NamespaceValue,
+              disableSortBy: true
+            }
+          ]}
+          data={nameSpaces}
+          onRowClick={rowData => {
+            const { namespace } = rowData
+            if (selectedNamespaces.has(namespace)) selectedNamespaces.delete(namespace)
+            else selectedNamespaces.add(namespace)
+            setSelectedNamespaces(new Set(selectedNamespaces))
+          }}
+          sortable={true}
+          pagination={{
+            pageSize: pageSize || 0,
+            pageIndex: pageIndex,
+            pageCount: totalPages,
+            itemCount: totalItems,
+            gotoPage: newPageIndex => setFilterAndPageOffset({ pageOffset: newPageIndex, filteredNamespace })
+          }}
+        />
+        {!isValid ? (
+          <Text data-name="validation" intent="danger">
+            {i18n.validationText.namespace}
+          </Text>
+        ) : null}
+      </Container>
+      <SubmitAndPreviousButtons
+        onPreviousClick={onPrevious}
+        onNextClick={() => {
+          if (!validate(selectedNamespaces)) setIsValid(false)
+          else
+            onSubmit({
+              ...propsData,
+              [SelectKubernetesNamespaceFieldNames.SELECTED_NAME_SPACES]: Array.from(selectedNamespaces.values())
+            })
+        }}
+      />
+    </Container>
   )
 }

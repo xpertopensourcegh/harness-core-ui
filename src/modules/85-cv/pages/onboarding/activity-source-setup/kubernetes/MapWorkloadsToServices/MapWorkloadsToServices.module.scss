@@ -1,0 +1,37 @@
+.main {
+  display: flex;
+  .namespaceNav {
+    margin: 0 var(--spacing-large);
+    .namespace {
+      margin-bottom: var(--spacing-small);
+    }
+  }
+
+  .workloadMapping {
+    flex-basis: 75%;
+    margin: 0 auto;
+    position: relative;
+    top: 40px;
+
+    .mapWorkloadHeading {
+      margin-bottom: var(--spacing-xlarge);
+    }
+
+    .noWorkloads {
+      margin-top: 0 !important;
+      position: relative;
+      top: 60px;
+    }
+
+    .workloadTable {
+      [role='cell']:not(:last-of-type),
+      [role='columnheader']:not(:last-of-type) {
+        margin-right: var(--spacing-medium);
+      }
+
+      .selectWidth {
+        width: 95%;
+      }
+    }
+  }
+}

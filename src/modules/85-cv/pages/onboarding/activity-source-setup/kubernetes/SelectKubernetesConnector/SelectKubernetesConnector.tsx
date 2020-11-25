@@ -10,7 +10,7 @@ import { CVSelectionCard } from '@cv/components/CVSelectionCard/CVSelectionCard'
 import i18n from './SelectKubernetesConnector.i18n'
 import css from './SelectKubernetesConnector.module.scss'
 
-interface SelectKubernetesConnector {
+interface SelectKubernetesConnectorProps {
   onSubmit: (data: any) => void
   onPrevious: () => void
   data?: any
@@ -20,7 +20,7 @@ const ValidationSchema = yupObject().shape({
   [SelectOrCreateConnectorFieldNames.CONNECTOR_REF]: yupString().trim().required('Connector Reference is required.')
 })
 
-export function SelectKubernetesConnector(props: SelectKubernetesConnector): JSX.Element {
+export function SelectKubernetesConnector(props: SelectKubernetesConnectorProps): JSX.Element {
   const { onPrevious, onSubmit, data } = props
   return (
     <Formik

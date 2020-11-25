@@ -21,7 +21,6 @@ const CVOnboardingTabs: React.FC<CVTabProps> = props => {
   return (
     <div className={css.tabWrapper}>
       <Tabs
-        className={css.tabWrapper}
         id="monitoring-sources"
         selectedTabId={props.currentTab}
         defaultSelectedTabId={1}

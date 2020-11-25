@@ -109,7 +109,5 @@ describe('Unit tests for SelectKubernetesNamespaces', () => {
     await waitFor(() => {
       expect(container.querySelectorAll('input[type="checkbox"]')[0].getAttribute('checked')).toBe('')
     })
-
-    expect(container.querySelector('[data-name="validation"]')).toBeNull()
   })
 })

@@ -262,6 +262,13 @@ global:
           services: 'HARNESS CV 2.0 SERVICES'
         validation:
           selectedApplication: 'Select atleast one application'
+      kubernetes:
+        mapWorkloadsToServices: Map Kubernetes Workloads to Harness Services and Environments
+        noWorkloads: 'No workloads found.'
+        workloadToServiceTableColumns:
+          workload: 'Kubernetes Workload'
+          mapToService: 'Map to Harness Service'
+          mapToEnvironment: 'Map to Harness Environment'
   configureOptions:
     configureOptions: 'configure options'
     defaultValue: 'Default value'

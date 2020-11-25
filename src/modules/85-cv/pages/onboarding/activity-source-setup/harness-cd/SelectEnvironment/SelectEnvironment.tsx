@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Container, Formik, FormikForm, Text, Layout, Icon, Color } from '@wings-software/uikit'
+import { Container, Formik, FormikForm, Text, Layout, Icon, Color, SelectOption } from '@wings-software/uikit'
 import type { CellProps, Renderer } from 'react-table'
 import { useParams } from 'react-router-dom'
 import type { FormikProps } from 'formik'
@@ -46,7 +46,7 @@ interface TableData {
   appName: string
   appId: string
   selected: boolean
-  environment?: string
+  environment?: SelectOption
 }
 
 const RenderColumnHarnessEnvironment: React.FC<RenderColumnApplicationsProps> = props => {
@@ -231,7 +231,7 @@ const SelectEnvironment: React.FC<SelectEnvironmentProps> = props => {
                           <Layout.Horizontal>
                             <Icon name="harness" margin={{ right: 'small', top: 'small' }} size={20} />
                             <EnvironmentSelect
-                              value={value}
+                              item={value}
                               options={environmentOptions}
                               onSelect={val => onUpdateData(row.index, { environment: val })}
                               onNewCreated={(val: EnvironmentResponseDTO) => {
