@@ -55,33 +55,40 @@ export const useFormSubmit = (props?: UseFormSubmitProps) => {
   const history = useHistory()
   const { showError } = useToaster()
   const { mutate, error, loading } = useSaveVerificationJob({ queryParams: { accountId } })
+
+  const saveVerificationJob = async (payload: VerificationJobDTO) => {
+    try {
+      await mutate(payload as VerificationJobDTO)
+      if (props?.onSuccess) {
+        props.onSuccess()
+      } else {
+        history.push(
+          routeCVActivities.url({
+            orgIdentifier: orgIdentifier as string,
+            projectIdentifier: projectIdentifier as string
+          })
+        )
+      }
+    } catch (e) {
+      showError(e.message)
+    }
+  }
+
   const onSubmit = (values: any) => {
     const payload = {
       identifier: values.identifier,
       jobName: values.jobName,
-      serviceIdentifier: values.service && values.service.value,
-      envIdentifier: values.environment && values.environment.value,
+      serviceIdentifier: values.service?.value || values.service,
+      envIdentifier: values.environment?.value || values.environment,
       projectIdentifier: projectIdentifier as string,
       orgIdentifier: orgIdentifier as string,
       dataSources: values.dataSource && values.dataSource.map((ds: SelectOption) => ds.value),
-      sensitivity: values.sensitivity && values.sensitivity.value,
-      duration: values.duration && values.duration.value,
+      sensitivity: values.sensitivity?.value || values.sensitivity,
+      duration: values.duration?.value || values.duration,
       type: mapType(activityType as string)
     }
-    mutate(payload as VerificationJobDTO)
-      .catch(e => showError(e.message))
-      .then(() => {
-        if (props?.onSuccess) {
-          props.onSuccess()
-        } else {
-          history.push(
-            routeCVActivities.url({
-              orgIdentifier: orgIdentifier as string,
-              projectIdentifier: projectIdentifier as string
-            })
-          )
-        }
-      })
+
+    saveVerificationJob(payload as VerificationJobDTO)
   }
   return { onSubmit, error, loading }
 }
