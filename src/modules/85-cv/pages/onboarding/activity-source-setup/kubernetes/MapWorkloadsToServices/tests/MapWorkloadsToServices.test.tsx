@@ -1,6 +1,6 @@
 import React from 'react'
 import { fireEvent, render, waitFor } from '@testing-library/react'
-import type { UseGetReturn } from 'restful-react'
+import type { UseGetReturn, UseMutateReturn } from 'restful-react'
 import { Classes } from '@blueprintjs/core'
 import * as cvService from 'services/cv'
 import * as cdService from 'services/cd-ng'
@@ -201,5 +201,105 @@ describe('Unit tests for MapWorkloadsToServices', () => {
     fireEvent.click(getByText('namespace2'))
     await waitFor(() => expect(container.querySelector('input[value="service_2"]')).not.toBeNull())
     expect(container.querySelector('input[value="env_2"]')).not.toBeNull()
+  })
+
+  test('Ensure that when  clicking on new env, the modal is displayed', async () => {
+    const refetchMock = jest.fn()
+    const useGetWorkloadSpy = jest.spyOn(cvService, 'useGetWorkloads')
+    useGetWorkloadSpy.mockReturnValue({
+      data: { resource: { content: ['workload1', 'workload2'] } },
+      refetch: refetchMock as unknown
+    } as UseGetReturn<any, unknown, any, unknown>)
+
+    const createEnvMock = jest.fn()
+    const useCreateEnvironmentSpy = jest.spyOn(cdService, 'useCreateEnvironment')
+    useCreateEnvironmentSpy.mockReturnValue({
+      mutate: createEnvMock.mockReturnValue({
+        status: 'SUCCESS',
+        data: {
+          name: 'solo-dolo-5',
+          identifier: 'solo-dolo-5'
+        }
+      }) as unknown
+    } as UseMutateReturn<any, any, any, any, any>)
+
+    const { container } = render(
+      <TestWrapper>
+        <MapWorkloadsToServices
+          onSubmit={jest.fn()}
+          onPrevious={jest.fn()}
+          data={{
+            selectedNamespaces: ['namespace1', 'namespace2'],
+            selectedWorkloads: new Map([
+              [
+                'namespace1',
+                new Map([
+                  [
+                    'workload1',
+                    {
+                      environmentIdentifier: { label: 'env_1', value: 'env_1' },
+                      serviceIdentifier: { label: 'service_1', value: 'service_1' },
+                      selected: true,
+                      workload: 'workload1'
+                    }
+                  ]
+                ])
+              ],
+              [
+                'namespace2',
+                new Map([
+                  [
+                    'workload2',
+                    {
+                      environmentIdentifier: { label: 'env_2', value: 'env_2' },
+                      serviceIdentifier: { label: 'service_2', value: 'service_2' },
+                      selected: true,
+                      workload: 'workload2'
+                    }
+                  ]
+                ])
+              ]
+            ]),
+            connectorRef: { value: 'kubeConnector2' }
+          }}
+        />
+      </TestWrapper>
+    )
+
+    await waitFor(() => expect(container.querySelector('[class*="workloadTable"]')).not.toBeNull())
+    const envDropdown = container.querySelectorAll('[data-icon="caret-down"]')
+    if (!envDropdown[1]) {
+      throw new Error('env was not found.')
+    }
+
+    fireEvent.click(envDropdown[1])
+    await waitFor(() => expect(document.body.querySelector(`[class*="bp3-menu"]`)).not.toBeNull())
+
+    const menu = document.body.querySelector(`[class*="bp3-menu"]`)
+    if (!menu) {
+      throw new Error('brp3 menu not rendered.')
+    }
+
+    fireEvent.click(menu.children[0])
+    await waitFor(() => expect(document.body.querySelector('[class*="bp3-dialog-container"]')).not.toBeNull())
+
+    const input = document.body.querySelector('input[name="name"]')
+    if (!input) {
+      throw Error('Modal was not rendered.')
+    }
+
+    fireEvent.change(input, { target: { value: 'solo-dolo-5' } })
+    await waitFor(() => expect(document.body.querySelector('input[value="solo-dolo-5"]')).not.toBeNull())
+
+    const submitButton = document.body.querySelector('[class*="bp3-dialog-container"] button[type="submit"]')
+    if (!submitButton) {
+      throw new Error('submit button was not rendered.')
+    }
+
+    fireEvent.click(submitButton)
+    await waitFor(() => expect(createEnvMock).toHaveBeenCalledTimes(1))
+    fireEvent.click(document.body)
+    await waitFor(() => expect(document.body.querySelector('[class*="bp3-dialog-container"]')).toBeNull())
+    await waitFor(() => expect(container.querySelector('input[value="solo-dolo-5"]')).not.toBeNull())
   })
 })

@@ -263,12 +263,24 @@ global:
         validation:
           selectedApplication: 'Select atleast one application'
       kubernetes:
+        tabNames:
+          - 'Select your Activity Source'
+          - 'Select Kubernetes Connector'
+          - 'Select Kubernetes Namespace(s)'
+          - 'Map Workloads to Services'
+          - 'Review'
         mapWorkloadsToServices: Map Kubernetes Workloads to Harness Services and Environments
         noWorkloads: 'No workloads found.'
         workloadToServiceTableColumns:
           workload: 'Kubernetes Workload'
           mapToService: 'Map to Harness Service'
           mapToEnvironment: 'Map to Harness Environment'
+        reviewPage:
+          heading: '{{namespaceCount}} Namespaces, {{workloadCount}} Workloads will be sourced into Harness CV'
+          reviewTableColumns:
+            namespace: 'KUBERNETES NAMESPACE'
+            workload: 'KUBERNETES WORKLOAD'
+            service: 'HARNESS SERVICE'
   configureOptions:
     configureOptions: 'configure options'
     defaultValue: 'Default value'

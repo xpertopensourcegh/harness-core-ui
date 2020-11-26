@@ -1,6 +1,7 @@
 import React from 'react'
 import { fireEvent, render, waitFor } from '@testing-library/react'
 import { Container } from '@wings-software/uikit'
+import { TestWrapper } from '@common/utils/testUtils'
 import * as framework from 'framework/route/RouteMounter'
 import KubernetesActivitySource from '../KubernetesActivitySource'
 
@@ -38,8 +39,15 @@ jest.mock('../MapWorkloadsToServices/MapWorkloadsToServices', () => ({
   }
 }))
 
-jest.mock('react-router-dom', () => ({
-  useHistory: jest.fn().mockReturnValue([])
+jest.mock('../ReviewKubernetesActivitySource/ReviewKubernetesActivitySource', () => ({
+  ...(jest.requireActual('../ReviewKubernetesActivitySource/ReviewKubernetesActivitySource') as object),
+  ReviewKubernetesActivitySource: function ReviewKubernetesActivitySource(props: any) {
+    return (
+      <Container className="ReviewKubernetesActivitySource" onClick={() => props.onSubmit()}>
+        <button id="ReviewKubernetesActivitySource" onClick={() => props.onPrevious()} />
+      </Container>
+    )
+  }
 }))
 
 describe('Unit tests for KubernetesActivitySource', () => {
@@ -54,7 +62,11 @@ describe('Unit tests for KubernetesActivitySource', () => {
       },
       query: {}
     })
-    const { container } = render(<KubernetesActivitySource />)
+    const { container } = render(
+      <TestWrapper>
+        <KubernetesActivitySource />
+      </TestWrapper>
+    )
     await waitFor(() => expect(container.querySelector('[class*="SelectActivitySource"]')))
 
     const sourceRef = container.querySelector('.SelectActivitySource')
@@ -82,5 +94,12 @@ describe('Unit tests for KubernetesActivitySource', () => {
     const previousButtonWorkload = container.querySelector('#MapWorkloadsToServices')
     if (!previousButtonWorkload) throw Error('Previous button was not rendered workload.')
     fireEvent.click(previousButtonWorkload)
+
+    const reviewRef = container.querySelector('.ReviewKubernetesActivitySource')
+    if (!reviewRef) throw Error('Tabs were not rendered')
+
+    const previousButtonReview = container.querySelector('#ReviewKubernetesActivitySource')
+    if (!previousButtonReview) throw Error('Previous button was not rendered review.')
+    fireEvent.click(previousButtonReview)
   })
 })
