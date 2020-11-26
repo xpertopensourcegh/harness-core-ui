@@ -14,15 +14,8 @@ import {
 import { useParams } from 'react-router-dom'
 import * as Yup from 'yup'
 
-import {
-  SecretRequestWrapper,
-  usePostSecret,
-  SecretDTOV2,
-  SSHAuthDTO,
-  ResponsePageSecretResponseWrapper
-} from 'services/cd-ng'
+import { SecretRequestWrapper, usePostSecret, SSHAuthDTO, ResponsePageSecretResponseWrapper } from 'services/cd-ng'
 import type { KerberosConfigDTO, SSHConfigDTO, SSHKeySpecDTO } from 'services/cd-ng'
-import CreateSecretOverlay from '@secrets/components/CreateSecretOverlay/CreateSecretOverlay'
 import type { SecretReference } from '@secrets/components/CreateOrSelectSecret/CreateOrSelectSecret'
 import type { SecretRef } from '@secrets/components/SecretReference/SecretReference'
 import SSHAuthFormFields from '@secrets/components/SSHAuthFormFields/SSHAuthFormFields'
@@ -85,10 +78,7 @@ const StepAuthentication: React.FC<StepProps<SSHCredSharedObj> & StepAuthenticat
   mockSecretReference
 }) => {
   const { accountId, orgIdentifier, projectIdentifier } = useParams()
-  const [showCreateSecretTextModal, setShowCreateSecretTextModal] = useState(false)
-  const [showCreateSecretFileModal, setShowCreateSecretFileModal] = useState(false)
   const [saving, setSaving] = useState(false)
-  const [editSecretData, setEditSecretData] = useState<SecretDTOV2>()
   const { showSuccess } = useToaster()
   const { mutate: createSecret } = usePostSecret({ queryParams: { accountIdentifier: accountId } })
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding>()
@@ -160,15 +150,6 @@ const StepAuthentication: React.FC<StepProps<SSHCredSharedObj> & StepAuthenticat
                 <SSHAuthFormFields
                   formik={formik}
                   secretName={prevStepData?.detailsData?.name}
-                  showCreateSecretModal={(type, data) => {
-                    if (data) {
-                      setEditSecretData(data.secret)
-                    } else {
-                      setEditSecretData(undefined)
-                    }
-                    if (type === 'SecretText') setShowCreateSecretTextModal(true)
-                    if (type === 'SecretFile') setShowCreateSecretFileModal(true)
-                  }}
                   mockSecretReference={mockSecretReference}
                 />
                 <Layout.Horizontal spacing="small">
@@ -179,20 +160,6 @@ const StepAuthentication: React.FC<StepProps<SSHCredSharedObj> & StepAuthenticat
             )
           }}
         </Formik>
-        {showCreateSecretTextModal ? (
-          <CreateSecretOverlay
-            setShowCreateSecretModal={setShowCreateSecretTextModal}
-            type="SecretText"
-            editSecretData={editSecretData}
-          />
-        ) : null}
-        {showCreateSecretFileModal ? (
-          <CreateSecretOverlay
-            setShowCreateSecretModal={setShowCreateSecretFileModal}
-            type="SecretFile"
-            editSecretData={editSecretData}
-          />
-        ) : null}
       </Container>
     </>
   )

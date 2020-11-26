@@ -25,7 +25,6 @@ import type { DetailsForm } from '@secrets/modals/CreateSSHCredModal/views/StepD
 import { buildAuthConfig, getSSHDTOFromFormData } from '@secrets/utils/SSHAuthUtils'
 import { useToaster } from '@common/exports'
 import VerifyConnection from '@secrets/modals/CreateSSHCredModal/views/VerifyConnection'
-import useCreateUpdateSecretModal from '@secrets/modals/CreateSecretModal/useCreateUpdateSecretModal'
 import ConnectorStats from '@common/components/ConnectorStats/ConnectorStats'
 import type { SecretReference } from '@secrets/components/CreateOrSelectSecret/CreateOrSelectSecret'
 import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
@@ -47,7 +46,6 @@ const EditSSHSecret: React.FC<EditSSHSecretProps> = props => {
     onChange
   } = props
   const { accountId, orgIdentifier, projectIdentifier } = useParams()
-  const { openCreateSecretModal } = useCreateUpdateSecretModal({})
   const [saving, setSaving] = useState(false)
   const { showSuccess, showError } = useToaster()
   const { mutate: updateSecret } = usePutSecret({
@@ -199,12 +197,7 @@ const EditSSHSecret: React.FC<EditSSHSecretProps> = props => {
               return (
                 <FormikForm>
                   <SSHDetailsFormFields editing={true} />
-                  <SSHAuthFormFields
-                    formik={formik}
-                    secretName={formik.values?.name}
-                    editing={true}
-                    showCreateSecretModal={openCreateSecretModal}
-                  />
+                  <SSHAuthFormFields formik={formik} secretName={formik.values?.name} editing={true} />
                   <Button intent="primary" type="submit" text="Save" disabled={saving} />
                 </FormikForm>
               )

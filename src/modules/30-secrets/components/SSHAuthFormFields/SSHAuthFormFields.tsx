@@ -1,28 +1,21 @@
 import React from 'react'
-import { Container, FormInput, Layout, Button, Text, Color, SelectOption, IconName, Icon } from '@wings-software/uikit'
-import { IOptionProps, Popover, PopoverPosition, MenuItem, Classes } from '@blueprintjs/core'
+import { FormInput, Layout, Button, Text, SelectOption } from '@wings-software/uikit'
+import { IOptionProps, MenuItem } from '@blueprintjs/core'
 import { Select } from '@blueprintjs/select'
 import type { FormikProps } from 'formik'
-import { useParams } from 'react-router-dom'
-import { omit } from 'lodash-es'
 
-import SecretReference from '@secrets/components/SecretReference/SecretReference'
 import SecretInput from '@secrets/components/SecretInput/SecretInput'
 import type { SSHConfigFormData } from '@secrets/modals/CreateSSHCredModal/views/StepAuthentication'
-import type { SecretResponseWrapper, ResponsePageSecretResponseWrapper } from 'services/cd-ng'
-import { Scope } from '@common/interfaces/SecretsInterface'
+import type { ResponsePageSecretResponseWrapper } from 'services/cd-ng'
 
 import i18n from './SSHAuthFormFields.i18n'
-import css from './SSHAuthFormFields.module.scss'
 
 const CustomSelect = Select.ofType<SelectOption>()
-type SecretType = SecretResponseWrapper['secret']['type']
 
 interface SSHAuthFormFieldsProps {
   formik: FormikProps<SSHConfigFormData>
   secretName?: string
   editing?: boolean
-  showCreateSecretModal: (type: SecretType, data?: SecretResponseWrapper) => void
   mockSecretReference?: ResponsePageSecretResponseWrapper
 }
 
@@ -67,20 +60,8 @@ const tgtGenerationMethodOptions: IOptionProps[] = [
   }
 ]
 
-const getIconForScope = (scope: Scope): IconName => {
-  switch (scope) {
-    case Scope.ACCOUNT:
-      return 'placeholder'
-    case Scope.ORG:
-      return 'placeholder'
-    case Scope.PROJECT:
-      return 'nav-project'
-  }
-}
-
 const SSHAuthFormFields: React.FC<SSHAuthFormFieldsProps> = props => {
-  const { formik, showCreateSecretModal } = props
-  const { accountId, orgIdentifier, projectIdentifier } = useParams()
+  const { formik } = props
 
   return (
     <>
@@ -122,76 +103,7 @@ const SSHAuthFormFields: React.FC<SSHAuthFormFieldsProps> = props => {
           <FormInput.Text name="userName" label={i18n.labelUsername} />
           {formik.values.credentialType === 'KeyReference' ? (
             <>
-              <FormInput.CustomRender
-                name="key"
-                className={css.customSelect}
-                label={i18n.labelFile}
-                render={() => {
-                  return (
-                    <Popover position={PopoverPosition.BOTTOM_LEFT} minimal>
-                      <Button
-                        rightIcon="chevron-down"
-                        height={38}
-                        text={
-                          formik.values.key?.name ? (
-                            <Layout.Horizontal spacing="xsmall">
-                              <Text>{formik.values.key.name}</Text>
-                              <Icon name={getIconForScope(formik.values.key.scope)} />
-                            </Layout.Horizontal>
-                          ) : (
-                            i18n.labelSelectFile
-                          )
-                        }
-                      />
-                      <Container>
-                        {formik.values.key ? (
-                          <Layout.Horizontal
-                            padding="medium"
-                            border={{ bottom: true }}
-                            flex={{ distribution: 'space-between' }}
-                          >
-                            <Layout.Vertical>
-                              <Text font={{ size: 'small' }}>{i18n.labelSavedSecret}</Text>
-                              <Text>{formik.values.key.name}</Text>
-                            </Layout.Vertical>
-                            <Button
-                              icon="edit"
-                              className={Classes.POPOVER_DISMISS}
-                              onClick={() =>
-                                showCreateSecretModal('SecretFile', {
-                                  secret: omit(formik.values.key, 'scope')
-                                })
-                              }
-                            />
-                          </Layout.Horizontal>
-                        ) : null}
-                        <Text
-                          style={{ cursor: 'pointer' }}
-                          padding="large"
-                          border={{ bottom: true }}
-                          color={Color.DARK_600}
-                          onClick={() => showCreateSecretModal('SecretFile')}
-                          className={Classes.POPOVER_DISMISS}
-                        >
-                          {i18n.btnCreateSecretFile}
-                        </Text>
-                        <Container padding="medium">
-                          <SecretReference
-                            accountIdentifier={accountId}
-                            orgIdentifier={orgIdentifier}
-                            projectIdentifier={projectIdentifier}
-                            type="SecretFile"
-                            onSelect={file => {
-                              formik.setFieldValue('key', file)
-                            }}
-                            mock={props.mockSecretReference}
-                          />
-                        </Container>
-                      </Container>
-                    </Popover>
-                  )
-                }}
-              />
+              <SecretInput name="key" label={i18n.labelFile} type="SecretFile" />
               <SecretInput name={'encryptedPassphrase'} label={i18n.labelPassphrase} />
             </>
           ) : null}
