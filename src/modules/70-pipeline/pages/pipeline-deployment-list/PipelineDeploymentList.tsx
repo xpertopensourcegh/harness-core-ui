@@ -1,42 +1,28 @@
 import React from 'react'
 import { useParams, useLocation } from 'react-router-dom'
-import { useModalHook } from '@wings-software/uikit'
-import { Dialog } from '@blueprintjs/core'
 import qs from 'qs'
 
 import { useGetListOfExecutions } from 'services/cd-ng'
-import { runPipelineDialogProps } from '@pipeline/components/RunPipelineModal/RunPipelineModal'
-import { RunPipelineForm } from '@pipeline/components/RunPipelineModal/RunPipelineForm'
+import { useStrings } from 'framework/exports'
 import { Page } from '@common/exports'
 
 import ExecutionsFilter from './ExecutionsFilter/ExecutionsFilter'
 import ExecutionsList from './ExecutionsList/ExecutionsList'
 import ExecutionsPagination from './ExecutionsPagination/ExecutionsPagination'
-import i18n from './PipelineDeploymentList.i18n'
 import css from './PipelineDeploymentList.module.scss'
 
 const pollingIntervalInMilliseconds = 5_000
 
-export default function PipelineDeploymentList(): React.ReactElement {
+export interface PipelineDeploymentListProps {
+  onRunPipeline(): void
+}
+
+export default function PipelineDeploymentList(props: PipelineDeploymentListProps): React.ReactElement {
   const { pipelineIdentifier, orgIdentifier, projectIdentifier, accountId } = useParams()
   const location = useLocation()
   const query = qs.parse(location.search, { ignoreQueryPrefix: true })
   const page = parseInt((query.page as string) || '1', 10)
-  const [isRunPipelineOpen, setRunPipelineOpen] = React.useState(true)
-
-  const [openModel, hideModel] = useModalHook(
-    () => (
-      <Dialog isOpen={isRunPipelineOpen} {...runPipelineDialogProps}>
-        <RunPipelineForm pipelineIdentifier={pipelineIdentifier} onClose={closeModel} />
-      </Dialog>
-    ),
-    [pipelineIdentifier]
-  )
-
-  const closeModel = React.useCallback(() => {
-    setRunPipelineOpen(false)
-    hideModel()
-  }, [hideModel])
+  const { getString } = useStrings()
 
   const { loading, data: pipelineExecutionSummary, error, refetch } = useGetListOfExecutions({
     queryParams: {
@@ -77,12 +63,12 @@ export default function PipelineDeploymentList(): React.ReactElement {
       noData={{
         when: () => !pipelineExecutionSummary?.data?.content?.length,
         icon: 'cd-hover',
-        message: i18n.noDeployment,
-        buttonText: i18n.runPipeline,
-        onClick: openModel
+        message: getString('noDeploymentText'),
+        buttonText: getString('runPipelineText'),
+        onClick: props.onRunPipeline
       }}
     >
-      <ExecutionsFilter />
+      <ExecutionsFilter onRunPipeline={props.onRunPipeline} />
       <ExecutionsList pipelineExecutionSummary={pipelineExecutionSummary} />
       <ExecutionsPagination pipelineExecutionSummary={pipelineExecutionSummary} />
     </Page.Body>

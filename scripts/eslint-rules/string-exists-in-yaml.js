@@ -6,14 +6,15 @@ const _ = require('lodash')
 const { node } = require('webpack')
 
 const stringsFile = 'src/strings/strings.en.yaml'
-const content = fs.readFileSync(path.resolve(process.cwd(), stringsFile), 'utf-8')
-const { global: globalNamespace, ...otherNamespaces } = yaml.parse(content)
 
 module.exports = {
   meta: {
     type: 'problem'
   },
   create(context) {
+    const content = fs.readFileSync(path.resolve(process.cwd(), stringsFile), 'utf-8')
+    const { global: globalNamespace, ...otherNamespaces } = yaml.parse(content)
+
     function getLiteralValue(node) {
       if (node.value.type === 'Literal') {
         return node.value.value

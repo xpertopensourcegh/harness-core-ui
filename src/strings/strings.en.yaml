@@ -5,7 +5,9 @@ global:
   deploymentsText: Deployments
   executionText: Execution
   executionsText: Executions
+  runPipelineText: Run Pipeline
   noSecretsFound: 'No Connectors Found'
+  noDeploymentText: Your account does not have any deployments yet. Click the button below to run a pipeline.
   newConnector: 'New Connector'
   thisConnectorIsSavedAs: 'This Connector is saved as'
   pipelines: Pipelines

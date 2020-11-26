@@ -5,4 +5,8 @@
   padding: var(--spacing-medium) var(--spacing-xxlarge);
   display: flex;
   background: var(--grey-100) !important;
+
+  .runText {
+    margin-left: var(--spacing-small);
+  }
 }

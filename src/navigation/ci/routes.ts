@@ -97,7 +97,7 @@ export const routePipelineDeploymentList: NestedRoute<{
       routePipelineDeploymentList,
       `/ci/pipelines/orgs/${orgIdentifier}/projects/${projectIdentifier}/pipelines/${pipelineIdentifier}/executions`
     ),
-  component: React.lazy(() => import('@pipeline/pages/pipeline-deployment-list/PipelineDeploymentList')),
+  component: React.lazy(() => import('@ci/pages/pipeline-deployment-list/CIPipelineDeploymentList')),
   isDefault: true
 }
 

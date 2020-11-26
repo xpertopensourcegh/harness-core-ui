@@ -33,7 +33,7 @@ export default function DeploymentsList(): React.ReactElement {
         <h2>Deployments</h2>
       </div>
       <div className={css.content}>
-        <PipelineDeploymentList />
+        <PipelineDeploymentList onRunPipeline={() => alert('TODO: implement this feature')} />
       </div>
     </div>
   )

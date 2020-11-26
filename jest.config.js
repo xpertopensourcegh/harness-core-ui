@@ -13,6 +13,7 @@ module.exports = {
   collectCoverageFrom: [
     'src/**/*.{ts,tsx}',
     '!src/**/*.test.{ts,tsx}',
+    '!src/navigation/*/routes.ts',
     '!src/**/__tests__/**',
     '!src/services/**',
     '!src/**/YamlBuilder.tsx',
