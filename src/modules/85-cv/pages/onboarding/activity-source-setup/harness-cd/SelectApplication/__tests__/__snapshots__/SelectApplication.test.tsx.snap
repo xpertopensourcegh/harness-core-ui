@@ -2,6 +2,7 @@
 
 exports[`SelectApplication render 1`] = `
 <div>
+   
   <div
     class="StyledProps---font--2ipy StyledProps---main--1Wws"
   >
@@ -11,12 +12,12 @@ exports[`SelectApplication render 1`] = `
       <p
         class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---margin-left-large--2eY9"
       >
-        infoTextOne
+        Harness CV can verify change activities by automatically sourcing them from your Harness Continuous Deployment applications.
       </p>
       <p
         class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---margin-left-large--2eY9"
       >
-        infoTextTwo
+        Select which applications and services you’d like to import over to your current project.
       </p>
     </div>
     <div
@@ -43,7 +44,7 @@ exports[`SelectApplication render 1`] = `
                   role="columnheader"
                   style="width: 50%;"
                 >
-                  harnessApps
+                  HARNESS CD 1.0 APPLICATION
                 </div>
                 <div
                   class="cell"
@@ -54,7 +55,7 @@ exports[`SelectApplication render 1`] = `
                   <div
                     class="serviceColHeader"
                   >
-                    servicesToBeImported
+                    HARNESS SERVICES (TO BE IMPORTED)
                   </div>
                 </div>
               </div>
@@ -71,6 +72,8 @@ exports[`SelectApplication render 1`] = `
                     class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
                   >
                     <input
+                      checked=""
+                      style="cursor: pointer;"
                       type="checkbox"
                     />
                     <span
@@ -140,6 +143,7 @@ exports[`SelectApplication render 1`] = `
                     class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
                   >
                     <input
+                      style="cursor: pointer;"
                       type="checkbox"
                     />
                     <span
@@ -209,6 +213,7 @@ exports[`SelectApplication render 1`] = `
                     class="Layout---horizontal--3rmQ Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
                   >
                     <input
+                      style="cursor: pointer;"
                       type="checkbox"
                     />
                     <span
@@ -349,5 +354,6 @@ exports[`SelectApplication render 1`] = `
       </form>
     </div>
   </div>
+   
 </div>
 `;

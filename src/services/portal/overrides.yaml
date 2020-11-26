@@ -7,6 +7,8 @@ allowpaths:
   - '/users/user.get'
   - '/setup/delegates/delegate-tags.get'
   - '/apps'
+  - '/services'
+  - '/environments'
 operationIdOverrides:
   /setup/delegates.get: getDelegates
   /setup/delegates/status.get: getDelegatesStatus
@@ -15,4 +17,6 @@ operationIdOverrides:
   /setup/delegates/kubernetes-delegates.get: getKubernetesDelegateNames
   /users/user.get: getUser
   /setup/delegates/delegate-tags.get: getDelegateTags
-  /apps: getApplications
+  /apps.get: getListApplications
+  /services.get: getListServices
+  /environments.get: getListEnvironments

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Container, Formik, FormikForm, Text, Layout, Icon, Color } from '@wings-software/uikit'
+import { Container, Formik, FormikForm, Text, Layout, Icon, Color, SelectOption } from '@wings-software/uikit'
 import type { CellProps, Renderer } from 'react-table'
 import { useParams } from 'react-router-dom'
 import type { FormikProps } from 'formik'
@@ -7,97 +7,110 @@ import Table from '@common/components/Table/Table'
 
 import { SubmitAndPreviousButtons } from '@cv/pages/onboarding/SubmitAndPreviousButtons/SubmitAndPreviousButtons'
 
-import { useList, Application, Service } from 'services/portal'
+import { RestResponsePageResponseApplication, Service, useGetListServices } from 'services/portal'
 import { PageSpinner } from '@common/components'
 import { PageError } from '@common/components/Page/PageError'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
 import { useStrings } from 'framework/exports'
+import ServiceSelectOrCreate from '@cv/components/ServiceSelectOrCreate/ServiceSelectOrCreate'
+import { useGetServiceListForProject, ResponsePageServiceResponseDTO, ServiceResponseDTO } from 'services/cd-ng'
+import type { UseGetMockData } from '@common/utils/testUtils'
 import css from '../SelectApplication/SelectApplication.module.scss'
 
 export interface SelectServicesProps {
   initialValues?: any
   onSubmit?: (data: any) => void
   onPrevious: () => void
+  mockData?: UseGetMockData<RestResponsePageResponseApplication>
+  mockGetServices?: UseGetMockData<ResponsePageServiceResponseDTO>
 }
 
-interface RenderColumnHarnessServicesProps {
-  tableProps: CellProps<object>
-  selectedServices: Set<TableData>
-  setFieldValue: (fieldName: string, value: Set<TableData>) => void
+export interface Options {
+  name: string
+  value: string
 }
 
 interface TableData {
   name: string
-  uuid: string
+  id: string
   appName: string
   appId: string
+  selected: boolean
+  service?: SelectOption
 }
 
-const RenderColumnHarnessServices: React.FC<RenderColumnHarnessServicesProps> = props => {
-  const data: TableData = props.tableProps?.row?.original as TableData
-
-  const isApplicationSelected = props.selectedServices.has(data as TableData)
-
-  return (
-    <Layout.Horizontal spacing="small">
-      <input
-        type="checkbox"
-        checked={isApplicationSelected}
-        onClick={e => {
-          if (!e.currentTarget.checked) {
-            props.selectedServices?.delete(data)
-          } else {
-            props.selectedServices?.add(data)
-          }
-          props.setFieldValue('selectedServices', new Set(props.selectedServices))
-        }}
-      />
-      <Icon name="cd-main" />
-      <Text color={Color.BLACK}>{data.name}</Text>
-    </Layout.Horizontal>
-  )
-}
 const RenderColumnApplication: Renderer<CellProps<TableData>> = ({ row }) => {
   const data = row.original
   return <Text>{data.appName}</Text>
 }
 
-const RenderColumnAddEnvironment: Renderer<CellProps<Application>> = ({ row }) => {
-  const data = row.original
-  // Temp
-  return <Container>{data.appId}</Container>
-}
 const SelectServices: React.FC<SelectServicesProps> = props => {
   const { getString } = useStrings()
   const [tableData, setTableData] = useState<Array<TableData>>()
-  const { accountId } = useParams()
-  const { data, loading, error, refetch } = useList({
+  const [serviceOptions, setServiceOptions] = useState<any>([])
+  const { accountId, orgIdentifier, projectIdentifier } = useParams()
+  const { data, loading, error, refetch } = useGetListServices({
     lazy: true
+    // mock: props.mockData
+  })
+
+  const { data: serviceResponse } = useGetServiceListForProject({
+    queryParams: {
+      accountId,
+      orgIdentifier: orgIdentifier as string,
+      projectIdentifier: projectIdentifier as string
+    },
+    mock: props.mockGetServices
   })
 
   useEffect(() => {
-    const appIds = props.initialValues.selectedApplications?.map((item: Application) => item.uuid)
-    refetch({ queryParams: { appIds, accountId } })
+    if (serviceResponse?.data?.content?.length) {
+      setServiceOptions(
+        serviceResponse?.data?.content?.map(service => ({
+          label: service.name,
+          value: service.identifier
+        }))
+      )
+    }
+  }, [serviceResponse])
+
+  useEffect(() => {
+    const appIds = Object.keys(props.initialValues.applications)
+    refetch({ queryParams: { appId: appIds }, queryParamStringifyOptions: { arrayFormat: 'repeat' } })
   }, [props.initialValues.selectedApplications])
 
   useEffect(() => {
     if ((data?.resource as any)?.response) {
-      const formatData = (data?.resource as any)?.response?.map((item: Application) => {
-        const appName = item.name
-
-        return item?.services?.map((services: Service) => {
-          return {
-            name: services.name,
-            uuid: services.uuid,
-            appName: appName,
-            appId: item.appId
-          }
-        })
+      const services = props.initialValues.services ?? {}
+      const formatData = (data?.resource as any)?.response?.map((item: Service) => {
+        return {
+          name: item.name,
+          id: item.uuid,
+          appName: props.initialValues.applications[String(item.appId)].name,
+          appId: item.appId,
+          selected: !!services[String(item.uuid)],
+          service: services[String(item.uuid)]?.service ?? ''
+        }
       })
 
-      setTableData(formatData.flat())
+      setTableData(formatData)
     }
   }, [(data?.resource as any)?.response])
+
+  const onUpdateData = (index: number, value: object) => {
+    setTableData(old =>
+      old?.map((row, i) => {
+        if (index === i) {
+          return {
+            ...row,
+            ...value
+          }
+        } else {
+          return row
+        }
+      })
+    )
+  }
 
   if (loading) {
     return (
@@ -110,7 +123,7 @@ const SelectServices: React.FC<SelectServicesProps> = props => {
   if (error?.message) {
     return (
       <Container className={css.loadingErrorNoData}>
-        <PageError message={error?.message} onClick={() => refetch()} />
+        <PageError message={error.message} onClick={() => refetch()} />
       </Container>
     )
   }
@@ -127,18 +140,32 @@ const SelectServices: React.FC<SelectServicesProps> = props => {
       </Container>
     )
   }
-
+  const onNext = () => {
+    const services = tableData.reduce((acc: any, curr) => {
+      if (curr.selected && curr.service) {
+        acc[curr.id] = {
+          id: curr.id,
+          name: curr.name,
+          appId: curr.appId,
+          appName: curr.appName,
+          service: curr.service
+        }
+      }
+      return acc
+    }, {})
+    if (Object.keys(services).length) {
+      props.onSubmit?.({ services })
+    }
+  }
   return (
     <Container>
       <Formik
-        initialValues={{ selectedServices: new Set<TableData>() }}
-        onSubmit={values => {
-          props.onSubmit?.({ selectedServices: Array.from(values.selectedServices.keys()) })
+        initialValues={{ selectedServices: props.initialValues.selectedServices || [] }}
+        onSubmit={() => {
+          onNext()
         }}
       >
-        {(formik: FormikProps<{ selectedServices: Set<TableData> }>) => {
-          const { selectedServices } = formik.values
-
+        {(formik: FormikProps<{ selectedServices: Array<TableData> }>) => {
           return (
             <FormikForm>
               <Container width={'60%'} style={{ margin: 'auto' }} padding={{ top: 'xxxlarge' }}>
@@ -154,13 +181,22 @@ const SelectServices: React.FC<SelectServicesProps> = props => {
                       accessor: 'name',
 
                       width: '33%',
-                      Cell: function RenderApplications(tableProps: CellProps<object>) {
+                      Cell: function RenderApplications(tableProps) {
+                        const rowData: TableData = tableProps?.row?.original as TableData
+
                         return (
-                          <RenderColumnHarnessServices
-                            tableProps={tableProps}
-                            selectedServices={selectedServices}
-                            setFieldValue={formik.setFieldValue}
-                          />
+                          <Layout.Horizontal spacing="small">
+                            <input
+                              style={{ cursor: 'pointer' }}
+                              type="checkbox"
+                              checked={rowData.selected}
+                              onChange={e => {
+                                onUpdateData(tableProps.row.index, { selected: e.target.checked })
+                              }}
+                            />
+                            <Icon name="cd-main" />
+                            <Text color={Color.BLACK}>{rowData.name}</Text>
+                          </Layout.Horizontal>
                         )
                       },
                       disableSortBy: true
@@ -176,10 +212,25 @@ const SelectServices: React.FC<SelectServicesProps> = props => {
                     },
                     {
                       Header: getString('cv.activitySources.harnessCD.service.services'),
-                      accessor: 'uuid',
+                      accessor: 'service',
 
                       width: '33%',
-                      Cell: RenderColumnAddEnvironment,
+                      Cell: function ServiceCell({ row, value }) {
+                        return (
+                          <Layout.Horizontal>
+                            <Icon name="harness" margin={{ right: 'small', top: 'small' }} size={20} />
+                            <ServiceSelectOrCreate
+                              item={value}
+                              options={serviceOptions}
+                              onSelect={val => onUpdateData(row.index, { service: val })}
+                              onNewCreated={(val: ServiceResponseDTO) => {
+                                setServiceOptions([{ label: val.name, value: val.identifier }, ...serviceOptions])
+                                onUpdateData(row.index, { service: { label: val.name, value: val.identifier } })
+                              }}
+                            />
+                          </Layout.Horizontal>
+                        )
+                      },
 
                       disableSortBy: true
                     }
@@ -198,7 +249,6 @@ const SelectServices: React.FC<SelectServicesProps> = props => {
                 onPreviousClick={props.onPrevious}
                 onNextClick={() => {
                   formik.submitForm()
-                  // Todo oncomplete oboarding integration
                 }}
               />
             </FormikForm>

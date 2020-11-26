@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Container, Formik, FormikForm, Text, Layout, Icon, Color } from '@wings-software/uikit'
 import type { CellProps, Renderer } from 'react-table'
 import { useParams } from 'react-router-dom'
@@ -7,7 +7,7 @@ import Table from '@common/components/Table/Table'
 
 import { SubmitAndPreviousButtons } from '@cv/pages/onboarding/SubmitAndPreviousButtons/SubmitAndPreviousButtons'
 
-import { useList, Application, RestResponsePageResponseApplication } from 'services/portal'
+import { useGetListApplications, Application, RestResponsePageResponseApplication } from 'services/portal'
 import { PageSpinner } from '@common/components'
 import { PageError } from '@common/components/Page/PageError'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
@@ -22,32 +22,68 @@ export interface HarnessCDActivitySourceDetailsProps {
   mockData?: UseGetMockData<RestResponsePageResponseApplication>
 }
 interface TableData {
+  id: string
+  name: string
+  serviceCount: number
   selected: boolean
-  application: Application
-}
-
-function generateTableData(apiData: Application[], selectedApplications?: Application[]): TableData[] {
-  const tableData = []
-  for (const application of apiData) {
-    tableData.push({
-      selected: Boolean(
-        selectedApplications?.find(selectedApplication => selectedApplication.uuid === application.uuid)
-      ),
-
-      application
-    })
-  }
-  return tableData
 }
 
 const RenderColumnServicesCount: Renderer<CellProps<TableData>> = ({ row }) => {
   const data = row.original
-  return <Container className={css.serviceCol}>{data.application.services?.length}</Container>
+  return <Container className={css.serviceCol}>{data.serviceCount}</Container>
 }
 const SelectApplication: React.FC<HarnessCDActivitySourceDetailsProps> = props => {
   const { getString } = useStrings()
   const { accountId } = useParams()
-  const { data, loading, error, refetch } = useList({ queryParams: { accountId }, mock: props.mockData })
+  const [disable, setDisable] = useState<boolean>(true)
+  const [tableData, setTableData] = useState<Array<TableData>>()
+  const { data, loading, error, refetch } = useGetListApplications({
+    queryParams: { accountId },
+    mock: props.mockData
+  })
+
+  const onUpdateData = (index: number, value: object) => {
+    setTableData(old =>
+      old?.map((row, i) => {
+        if (index === i) {
+          return {
+            ...row,
+            ...value
+          }
+        } else {
+          return row
+        }
+      })
+    )
+  }
+  useEffect(() => {
+    if ((data?.resource as any)?.response) {
+      const apps = props.stepData.applications ?? {}
+
+      const formatData = (data?.resource as any)?.response?.map((item: Application) => {
+        return {
+          name: item.name,
+          id: item.uuid,
+
+          selected: !!apps[String(item.uuid)],
+          serviceCount: item.services?.length
+        }
+      })
+
+      setTableData(formatData)
+    }
+  }, [(data?.resource as any)?.response])
+
+  useEffect(() => {
+    let visited = false
+    tableData?.forEach(item => {
+      if (!visited && item.selected) {
+        visited = true
+        setDisable(false)
+      }
+    })
+    if (!visited) setDisable(true)
+  }, [tableData])
 
   if (loading) {
     return (
@@ -65,7 +101,7 @@ const SelectApplication: React.FC<HarnessCDActivitySourceDetailsProps> = props =
     )
   }
 
-  if (!(data?.resource as any)?.response?.length) {
+  if (!tableData?.length) {
     return (
       <Container className={css.loadingErrorNoData}>
         <NoDataCard
@@ -78,7 +114,21 @@ const SelectApplication: React.FC<HarnessCDActivitySourceDetailsProps> = props =
     )
   }
 
-  const applicationData = generateTableData((data?.resource as any)?.response, props.stepData?.selectedApplications)
+  const onNext = () => {
+    const applications = tableData.reduce((acc: any, curr) => {
+      if (curr.selected) {
+        acc[curr.id] = {
+          id: curr.id,
+          name: curr.name,
+          serviceCount: curr.serviceCount
+        }
+      }
+      return acc
+    }, {})
+    if (Object.keys(applications).length) {
+      props.onSubmit?.({ applications })
+    }
+  }
 
   return (
     <Container>
@@ -88,15 +138,11 @@ const SelectApplication: React.FC<HarnessCDActivitySourceDetailsProps> = props =
       </Layout.Vertical>
       <Formik
         initialValues={{
-          selectedApplications: props.stepData.selectedApplications || []
+          selectedApplications: props.stepData.applications || []
         }}
-        onSubmit={values => {
-          props.onSubmit?.({ ...values, selectedApplications: values.selectedApplications })
-        }}
+        onSubmit={onNext}
       >
         {(formik: FormikProps<{ selectedApplications: Array<Application> }>) => {
-          const { selectedApplications } = formik.values
-
           return (
             <FormikForm>
               <Container width={'60%'} style={{ margin: 'auto' }} padding={{ top: 'xxxlarge' }}>
@@ -108,35 +154,20 @@ const SelectApplication: React.FC<HarnessCDActivitySourceDetailsProps> = props =
 
                       width: '50%',
                       Cell: function RenderApplications(tableProps) {
-                        const selectedApps = selectedApplications
-                        const application = tableProps.row.original?.application
-
-                        const app =
-                          selectedApps?.find(selectedApplication => selectedApplication.uuid === application.uuid) ||
-                          application
-
-                        const isChecked = Boolean(
-                          selectedApps?.find(selectedApplication => selectedApplication.uuid === application.uuid)
-                        )
+                        const rowData: TableData = tableProps.row?.original as TableData
 
                         return (
                           <Layout.Horizontal spacing="small">
                             <input
+                              style={{ cursor: 'pointer' }}
                               type="checkbox"
-                              defaultChecked={isChecked}
-                              checked={isChecked}
+                              checked={rowData.selected}
                               onChange={e => {
-                                if (app && isChecked && !e.currentTarget.checked) {
-                                  const index = selectedApps.indexOf(app)
-                                  selectedApps.splice(index, 1)
-                                } else if (app && !isChecked && e.currentTarget.checked) {
-                                  selectedApps.push(app)
-                                }
-                                formik.setFieldValue('selectedApplications', selectedApps)
+                                onUpdateData(tableProps.row.index, { selected: e.target.checked })
                               }}
                             />
                             <Icon name="cd-main" />
-                            <Text color={Color.BLACK}>{application.name}</Text>
+                            <Text color={Color.BLACK}>{rowData.name}</Text>
                           </Layout.Horizontal>
                         )
                       },
@@ -149,7 +180,7 @@ const SelectApplication: React.FC<HarnessCDActivitySourceDetailsProps> = props =
                           {getString('cv.activitySources.harnessCD.application.servicesToBeImported')}
                         </div>
                       ),
-                      id: 'services',
+                      id: 'serviceCount',
 
                       width: '50%',
                       Cell: RenderColumnServicesCount,
@@ -157,7 +188,7 @@ const SelectApplication: React.FC<HarnessCDActivitySourceDetailsProps> = props =
                       disableSortBy: true
                     }
                   ]}
-                  data={applicationData || []}
+                  data={tableData}
                   pagination={{
                     itemCount: (data?.resource as any)?.total || 0,
                     pageSize: (data?.resource as any)?.pageSize || 10,
@@ -168,6 +199,7 @@ const SelectApplication: React.FC<HarnessCDActivitySourceDetailsProps> = props =
                 />
               </Container>
               <SubmitAndPreviousButtons
+                nextButtonProps={{ disabled: disable }}
                 onPreviousClick={props.onPrevious}
                 onNextClick={() => {
                   formik.submitForm()

@@ -2,7 +2,7 @@ import React from 'react'
 import { render } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 
-import { StringsContext } from 'framework/strings/String'
+import { TestWrapper } from '@common/utils/testUtils'
 import SelectApplication from '../SelectApplication'
 import mockData from './mockData.json'
 
@@ -10,34 +10,16 @@ describe('SelectApplication', () => {
   test('render', async () => {
     const { container, getByText } = render(
       <MemoryRouter>
-        <StringsContext.Provider
-          value={{
-            global: {
-              cv: {
-                activitySources: {
-                  harnessCD: {
-                    harnessApps: 'harnessApps',
-                    application: {
-                      noData: 'Nodata',
-                      infoTextOne: 'infoTextOne',
-                      infoTextTwo: 'infoTextTwo',
-                      servicesToBeImported: 'servicesToBeImported'
-                    }
-                  }
-                }
-              }
-            }
-          }}
-        >
+        <TestWrapper>
           <SelectApplication
             onPrevious={jest.fn()}
             mockData={{ data: mockData as any, loading: false }}
-            stepData={{}}
+            stepData={{ applications: { appId: { name: 'appName' } } }}
           />
-        </StringsContext.Provider>
+        </TestWrapper>
       </MemoryRouter>
     )
-    expect(getByText('servicesToBeImported')).toBeDefined()
+    expect(getByText('HARNESS CD 1.0 APPLICATION')).toBeDefined()
     expect(container).toMatchSnapshot()
   })
 })

@@ -225,6 +225,8 @@ global:
         multiServiceUsedInMonitoringSources: '{{serviceCount}} services are used in monitoring sources.'
         servicesUndergoingHealthVerification: '{{serviceCount}} service has ongoing health verification.'
         multipleServicesUndergoingHealthVerification: '{{serviceCount}} services have ongoing health verifications.'
+    newService: New Service
+    selectCreateService: select or create an service
     monitoringSources:
       appD:
         newEnvironment: New Environment

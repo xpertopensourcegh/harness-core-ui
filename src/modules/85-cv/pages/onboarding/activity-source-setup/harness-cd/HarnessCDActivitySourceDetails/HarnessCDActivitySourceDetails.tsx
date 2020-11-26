@@ -20,7 +20,7 @@ const HarnessCDActivitySourceDetails: React.FC<HarnessCDActivitySourceDetailsPro
   const history = useHistory()
   const { projectIdentifier, orgIdentifier } = useParams()
   return (
-    <Container>
+    <Container style={{ position: 'relative', top: 80 }}>
       <Formik
         initialValues={initialValues || {}}
         validationSchema={Yup.object().shape({

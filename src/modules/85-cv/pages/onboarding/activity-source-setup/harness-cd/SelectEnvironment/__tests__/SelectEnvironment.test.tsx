@@ -1,10 +1,9 @@
 import React from 'react'
 import { render } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
-import { ModalProvider } from '@wings-software/uikit'
-import { StringsContext } from 'framework/strings/String'
+import { TestWrapper } from '@common/utils/testUtils'
 import SelectEnvironment from '../SelectEnvironment'
-import mockData from '../../SelectApplication/__tests__/mockData.json'
+import mockEnv from './mockEnv-CD1.json'
 
 import mockEnvironments from '../__tests__/mockEnvironments.json'
 
@@ -26,45 +25,21 @@ jest.mock('services/cd-ng', () => ({
 }))
 
 jest.mock('services/portal', () => ({
-  useList: () => {
-    return { data: mockData, refetch: jest.fn() }
+  useGetListEnvironments: () => {
+    return { data: mockEnv, refetch: jest.fn() }
   }
 }))
 
 describe('SelectEnvironment', () => {
   test('render', async () => {
     const { container, getByText } = render(
-      <ModalProvider>
-        <MemoryRouter>
-          <StringsContext.Provider
-            value={{
-              global: {
-                retry: 'Retry',
-                cv: {
-                  activitySources: {
-                    harnessCD: {
-                      harnessApps: 'harnessApps',
-                      environment: {
-                        noData: 'Nodata',
-                        infoText: 'infoText',
-                        harnessEnv: 'harnessEnv',
-                        env: 'env'
-                      }
-                    }
-                  }
-                }
-              }
-            }}
-          >
-            <SelectEnvironment
-              initialValues={{ selectedApplications: [mockData.resource.response] }}
-              onPrevious={jest.fn()}
-            />
-          </StringsContext.Provider>
-        </MemoryRouter>
-      </ModalProvider>
+      <MemoryRouter>
+        <TestWrapper>
+          <SelectEnvironment initialValues={{ applications: { appId: { name: 'appName' } } }} onPrevious={jest.fn()} />
+        </TestWrapper>
+      </MemoryRouter>
     )
-    expect(getByText('env')).toBeDefined()
+    expect(getByText('ENVIRONMENTS')).toBeDefined()
     expect(container).toMatchSnapshot()
   })
 })

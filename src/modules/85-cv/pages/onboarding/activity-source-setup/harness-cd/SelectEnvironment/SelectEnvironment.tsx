@@ -7,26 +7,20 @@ import Table from '@common/components/Table/Table'
 
 import { SubmitAndPreviousButtons } from '@cv/pages/onboarding/SubmitAndPreviousButtons/SubmitAndPreviousButtons'
 
-import { useList, Application, Environment, RestResponsePageResponseApplication } from 'services/portal'
+import { Environment, useGetListEnvironments } from 'services/portal'
 import { PageSpinner } from '@common/components'
 import { PageError } from '@common/components/Page/PageError'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
 import { useStrings } from 'framework/exports'
 import EnvironmentSelect from '@cv/pages/monitoring-source/app-dynamics/SelectApplications/EnvironmentSelect'
-import {
-  useGetEnvironmentListForProject,
-  EnvironmentResponseDTO,
-  ResponsePageEnvironmentResponseDTO
-} from 'services/cd-ng'
-import type { UseGetMockData } from '@common/utils/testUtils'
+import { useGetEnvironmentListForProject, EnvironmentResponseDTO } from 'services/cd-ng'
+
 import css from '../SelectApplication/SelectApplication.module.scss'
 
 export interface SelectEnvironmentProps {
   initialValues?: any
   onSubmit?: (data: any) => void
   onPrevious: () => void
-  mockData?: UseGetMockData<RestResponsePageResponseApplication>
-  mockGetEnvironments?: UseGetMockData<ResponsePageEnvironmentResponseDTO>
 }
 
 export interface Options {
@@ -34,45 +28,15 @@ export interface Options {
   value: string
 }
 
-interface RenderColumnApplicationsProps {
-  tableProps: CellProps<object>
-  selectedEnvironments: Set<TableData>
-  setFieldValue: (fieldName: string, value: Set<TableData>) => void
-}
-
 interface TableData {
   name: string
-  uuid: string
+  id: string
   appName: string
   appId: string
   selected: boolean
   environment?: SelectOption
 }
 
-const RenderColumnHarnessEnvironment: React.FC<RenderColumnApplicationsProps> = props => {
-  const data: TableData = props.tableProps?.row?.original as TableData
-
-  const isApplicationSelected = props.selectedEnvironments.has(data as TableData)
-
-  return (
-    <Layout.Horizontal spacing="small">
-      <input
-        type="checkbox"
-        checked={isApplicationSelected}
-        onClick={e => {
-          if (!e.currentTarget.checked) {
-            props.selectedEnvironments?.delete(data)
-          } else {
-            props.selectedEnvironments?.add(data)
-          }
-          props.setFieldValue('selectedEnvironments', new Set(props.selectedEnvironments))
-        }}
-      />
-      <Icon name="cd-main" />
-      <Text color={Color.BLACK}>{data.name}</Text>
-    </Layout.Horizontal>
-  )
-}
 const RenderColumnApplication: Renderer<CellProps<TableData>> = ({ row }) => {
   const data = row.original
   return <Text>{data.appName}</Text>
@@ -83,9 +47,8 @@ const SelectEnvironment: React.FC<SelectEnvironmentProps> = props => {
   const [tableData, setTableData] = useState<Array<TableData>>()
   const [environmentOptions, setEnvironmentOptions] = useState<any>([])
   const { accountId, orgIdentifier, projectIdentifier } = useParams()
-  const { data, loading, error, refetch } = useList({
-    lazy: true,
-    mock: props.mockData
+  const { data, loading, error, refetch: refetchEnvironments } = useGetListEnvironments({
+    lazy: true
   })
 
   const { data: environmentsResponse } = useGetEnvironmentListForProject({
@@ -93,8 +56,7 @@ const SelectEnvironment: React.FC<SelectEnvironmentProps> = props => {
       accountId,
       orgIdentifier: orgIdentifier as string,
       projectIdentifier: projectIdentifier as string
-    },
-    mock: props.mockGetEnvironments
+    }
   })
 
   useEffect(() => {
@@ -102,33 +64,37 @@ const SelectEnvironment: React.FC<SelectEnvironmentProps> = props => {
       setEnvironmentOptions(
         environmentsResponse?.data?.content?.map(env => ({
           label: env.name,
-          value: env.name
+          value: env.identifier
         }))
       )
     }
   }, [environmentsResponse])
 
   useEffect(() => {
-    const appIds = props.initialValues.selectedApplications?.map((item: Application) => item.uuid)
-    refetch({ queryParams: { accountId, appIds } })
+    const appIds = Object.keys(props.initialValues.applications || {})
+
+    refetchEnvironments({
+      queryParams: { appId: appIds },
+      queryParamStringifyOptions: { arrayFormat: 'repeat' }
+    })
   }, [props.initialValues.selectedApplications])
 
   useEffect(() => {
     if ((data?.resource as any)?.response) {
-      const formatData = (data?.resource as any)?.response?.map((item: Application) => {
-        const appName = item.name
+      const env = props.initialValues.environments ?? {}
 
-        return item?.environments?.map((envItem: Environment) => {
-          return {
-            name: envItem.name,
-            uuid: envItem.uuid,
-            appName: appName,
-            appId: item.appId
-          }
-        })
+      const formatData = (data?.resource as any)?.response?.map((item: Environment) => {
+        return {
+          name: item.name,
+          id: item.uuid,
+          appName: props.initialValues.applications[String(item.appId)].name,
+          appId: item.appId,
+          selected: !!env[String(item.uuid)],
+          environment: env[String(item.uuid)]?.environment ?? {}
+        }
       })
 
-      setTableData(formatData.flat())
+      setTableData(formatData)
     }
   }, [(data?.resource as any)?.response])
 
@@ -158,7 +124,7 @@ const SelectEnvironment: React.FC<SelectEnvironmentProps> = props => {
   if (error?.message) {
     return (
       <Container className={css.loadingErrorNoData}>
-        <PageError message={error.message} onClick={() => refetch()} />
+        <PageError message={error.message} onClick={() => refetchEnvironments()} />
       </Container>
     )
   }
@@ -170,23 +136,37 @@ const SelectEnvironment: React.FC<SelectEnvironmentProps> = props => {
           icon="warning-sign"
           message={getString('cv.activitySources.harnessCD.environment.noData')}
           buttonText={getString('retry')}
-          onClick={() => refetch()}
+          onClick={() => refetchEnvironments()}
         />
       </Container>
     )
   }
 
+  const onNext = () => {
+    const environments = tableData.reduce((acc: any, curr) => {
+      if (curr.selected && curr.environment) {
+        acc[curr.id] = {
+          id: curr.id,
+          name: curr.name,
+          appId: curr.appId,
+          appName: curr.appName,
+          environment: curr.environment
+        }
+      }
+      return acc
+    }, {})
+    if (Object.keys(environments).length) {
+      props.onSubmit?.({ environments })
+    }
+  }
+
   return (
     <Container>
       <Formik
-        initialValues={{ selectedEnvironments: new Set<TableData>() }}
-        onSubmit={values => {
-          props.onSubmit?.({ selectedEnvironments: Array.from(values.selectedEnvironments.keys()) })
-        }}
+        initialValues={{ selectedEnvironments: props.initialValues.selectedEnvironments || [] }}
+        onSubmit={onNext}
       >
-        {(formik: FormikProps<{ selectedEnvironments: Set<TableData> }>) => {
-          const { selectedEnvironments } = formik.values
-
+        {(formik: FormikProps<{ selectedEnvironments: Array<TableData> }>) => {
           return (
             <FormikForm>
               <Container width={'60%'} style={{ margin: 'auto' }} padding={{ top: 'xxxlarge' }}>
@@ -201,13 +181,22 @@ const SelectEnvironment: React.FC<SelectEnvironmentProps> = props => {
                       accessor: 'name',
 
                       width: '33%',
-                      Cell: function RenderApplications(tableProps: CellProps<object>) {
+                      Cell: function RenderApplications(tableProps) {
+                        const rowData: TableData = tableProps?.row?.original as TableData
+
                         return (
-                          <RenderColumnHarnessEnvironment
-                            tableProps={tableProps}
-                            selectedEnvironments={selectedEnvironments}
-                            setFieldValue={formik.setFieldValue}
-                          />
+                          <Layout.Horizontal spacing="small">
+                            <input
+                              style={{ cursor: 'pointer' }}
+                              type="checkbox"
+                              checked={rowData.selected}
+                              onChange={e => {
+                                onUpdateData(tableProps.row.index, { selected: e.target.checked })
+                              }}
+                            />
+                            <Icon name="cd-main" />
+                            <Text color={Color.BLACK}>{rowData.name}</Text>
+                          </Layout.Horizontal>
                         )
                       },
                       disableSortBy: true
@@ -235,8 +224,11 @@ const SelectEnvironment: React.FC<SelectEnvironmentProps> = props => {
                               options={environmentOptions}
                               onSelect={val => onUpdateData(row.index, { environment: val })}
                               onNewCreated={(val: EnvironmentResponseDTO) => {
-                                setEnvironmentOptions([{ label: val.name, value: val.name }, ...environmentOptions])
-                                onUpdateData(row.index, { environment: val.name })
+                                setEnvironmentOptions([
+                                  { label: val.name, value: val.identifier },
+                                  ...environmentOptions
+                                ])
+                                onUpdateData(row.index, { environment: { label: val.name, value: val.identifier } })
                               }}
                             />
                           </Layout.Horizontal>

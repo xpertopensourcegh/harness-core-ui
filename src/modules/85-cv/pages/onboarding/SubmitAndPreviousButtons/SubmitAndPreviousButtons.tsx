@@ -1,11 +1,12 @@
 import React from 'react'
-import { Button, Layout } from '@wings-software/uikit'
+import { Button, Layout, ButtonProps } from '@wings-software/uikit'
 import i18n from './SubmitAndPreviousButtons.i18n'
 import css from './SubmitAndPreviousButtons.module.scss'
 
 export interface SubmitAndPreviousButtonProps {
   onNextClick?: () => void
   onPreviousClick?: () => void
+  nextButtonProps?: ButtonProps
 }
 
 export function SubmitAndPreviousButtons(props: SubmitAndPreviousButtonProps): JSX.Element {
@@ -19,6 +20,7 @@ export function SubmitAndPreviousButtons(props: SubmitAndPreviousButtonProps): J
         onClick={() => onPreviousClick?.()}
       />
       <Button
+        {...props.nextButtonProps}
         text={i18n.nextLabel}
         intent="primary"
         type="submit"
