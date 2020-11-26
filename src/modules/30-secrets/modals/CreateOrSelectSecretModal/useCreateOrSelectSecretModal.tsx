@@ -4,11 +4,20 @@ import { Dialog } from '@blueprintjs/core'
 
 import CreateOrSelectSecret from '@secrets/components/CreateOrSelectSecret/CreateOrSelectSecret'
 import type { SecretReference } from '@secrets/components/CreateOrSelectSecret/CreateOrSelectSecret'
+import type {
+  SecretResponseWrapper,
+  ResponsePageConnectorResponse,
+  ResponsePageSecretResponseWrapper
+} from 'services/cd-ng'
+import type { UseGetMockData } from '@common/utils/testUtils'
 
 import css from './useCreateOrSelectSecretModal.module.scss'
 
 export interface UseCreateOrSelectSecretModalProps {
+  type?: SecretResponseWrapper['secret']['type']
   onSuccess?: (secret: SecretReference) => void
+  connectorsListMockData?: UseGetMockData<ResponsePageConnectorResponse>
+  secretsListMockData?: ResponsePageSecretResponseWrapper
 }
 
 export interface UseCreateOrSelectSecretModalReturn {
@@ -27,7 +36,9 @@ const useCreateOrSelectSecretModal = (props: UseCreateOrSelectSecretModalProps):
         className={css.dialog}
       >
         <CreateOrSelectSecret
+          {...props}
           onSuccess={secret => {
+            /* istanbul ignore next */
             props.onSuccess?.(secret)
             hideModal()
           }}
