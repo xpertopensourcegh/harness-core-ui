@@ -27,8 +27,6 @@ import { useToaster } from '@common/exports'
 import VerifyConnection from '@secrets/modals/CreateSSHCredModal/views/VerifyConnection'
 import ConnectorStats from '@common/components/ConnectorStats/ConnectorStats'
 import type { SecretReference } from '@secrets/components/CreateOrSelectSecret/CreateOrSelectSecret'
-import { getScopeFromDTO } from '@common/components/EntityReference/EntityReference'
-import type { SecretRef } from '@secrets/components/SecretReference/SecretReference'
 
 import css from './EditSSHSecret.module.scss'
 
@@ -52,7 +50,7 @@ const EditSSHSecret: React.FC<EditSSHSecretProps> = props => {
     identifier: secret.identifier,
     queryParams: { accountIdentifier: accountId }
   })
-  const [keySecret, setKeySecret] = useState<SecretRef>()
+  const [keySecret, setKeySecret] = useState<SecretReference>()
   const [passwordSecret, setPasswordSecret] = useState<SecretReference>()
   const [encryptedPassphraseSecret, setEncryptedPassphraseSecret] = useState<SecretReference>()
 
@@ -82,9 +80,8 @@ const EditSSHSecret: React.FC<EditSSHSecretProps> = props => {
           const keySecretData = data.data?.secret
           if (keySecretData) {
             setKeySecret({
-              scope: getScopeFromDTO(keySecretData),
               ...data.data?.secret
-            } as SecretRef)
+            } as SecretReference)
           }
         }
       }

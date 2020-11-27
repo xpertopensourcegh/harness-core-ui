@@ -55,7 +55,7 @@ export const getSSHDTOFromFormData = (formData: DetailsForm & SSHConfigFormData)
                     : formData.credentialType === 'KeyReference'
                     ? ({
                         userName: formData.userName,
-                        key: getReference(formData.key?.scope, formData.key?.identifier),
+                        key: formData.key?.referenceString,
                         encryptedPassphrase: formData.encryptedPassphrase?.referenceString
                       } as SSHKeyReferenceCredentialDTO)
                     : ({
@@ -112,13 +112,13 @@ function buildSSHCredentials(data: SSHConfigFormData): SSHCredentialType {
       if (data.encryptedPassphrase) {
         return {
           userName: data.userName,
-          key: getReference(data.key?.scope, data.key?.identifier),
+          key: data.key?.referenceString,
           encryptedPassphrase: data.encryptedPassphrase.referenceString
         } as SSHKeyReferenceCredentialDTO
       }
       return {
         userName: data.userName,
-        key: getReference(data.key?.scope, data.key?.identifier)
+        key: data.key?.referenceString
       } as SSHKeyReferenceCredentialDTO
     case 'KeyPath':
       if (data.encryptedPassphrase) {

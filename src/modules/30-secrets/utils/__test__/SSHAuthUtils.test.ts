@@ -14,13 +14,9 @@ describe('SSHAuthUtils', () => {
       userName: 'asd',
       port: 22,
       key: {
-        scope: 'account',
-        type: 'SecretFile',
         name: 'nfile1',
         identifier: 'nfile1',
-        tags: {},
-        description: 'desc',
-        spec: { secretManagerIdentifier: 'vault1' }
+        referenceString: 'account.nfile1'
       },
       encryptedPassphrase: {
         identifier: 'text1',
@@ -229,13 +225,9 @@ describe('SSHAuthUtils > buildAuthConfig', () => {
       keyPath: '',
       port: 22,
       key: {
-        type: 'SecretFile',
         name: 'nfile1',
         identifier: 'nfile1',
-        tags: {},
-        description: 'desc',
-        spec: { secretManagerIdentifier: 'vault1' } as any,
-        scope: Scope.ACCOUNT
+        referenceString: 'account.nfile1'
       },
       encryptedPassphrase: {
         name: 'text1',

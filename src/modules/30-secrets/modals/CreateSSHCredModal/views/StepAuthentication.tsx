@@ -17,7 +17,6 @@ import * as Yup from 'yup'
 import { SecretRequestWrapper, usePostSecret, SSHAuthDTO, ResponsePageSecretResponseWrapper } from 'services/cd-ng'
 import type { KerberosConfigDTO, SSHConfigDTO, SSHKeySpecDTO } from 'services/cd-ng'
 import type { SecretReference } from '@secrets/components/CreateOrSelectSecret/CreateOrSelectSecret'
-import type { SecretRef } from '@secrets/components/SecretReference/SecretReference'
 import SSHAuthFormFields from '@secrets/components/SSHAuthFormFields/SSHAuthFormFields'
 import { buildAuthConfig } from '@secrets/utils/SSHAuthUtils'
 import { useToaster } from '@common/exports'
@@ -31,7 +30,7 @@ export interface SSHConfigFormData {
   tgtGenerationMethod: KerberosConfigDTO['tgtGenerationMethod'] | 'None'
   userName: string
   port: number
-  key?: SecretRef
+  key?: SecretReference
   principal: string
   realm: string
   keyPath: string
