@@ -171,7 +171,7 @@ const GcpAuthentication: React.FC<StepGcpAuthenticationProps & StepProps<StepCon
               />
               {formikProps.values.authType === GCP_AUTH_TYPE.DELEGATE ? <RenderDelegateInclusterForm /> : null}
               {formikProps.values.authType === GCP_AUTH_TYPE.ENCRYPTED_KEY ? (
-                <SecretInput name={'password'} label={i18n.STEP_TWO.ENCRYPTED_KEY} />
+                <SecretInput name={'password'} label={i18n.STEP_TWO.ENCRYPTED_KEY} type={'SecretFile'} />
               ) : null}
             </Layout.Vertical>
 
