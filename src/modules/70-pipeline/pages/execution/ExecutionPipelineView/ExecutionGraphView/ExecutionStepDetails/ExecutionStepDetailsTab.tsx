@@ -23,19 +23,23 @@ export default function ExecutionStepDetailsTab(props: ExecutionStepDetailsTabPr
         <tbody>
           <tr>
             <th>Started at:</th>
-            <td>{moment(step?.startTs).format(DATE_FORMAT)}</td>
+            <td>{step?.startTs ? moment(step?.startTs).format(DATE_FORMAT) : '-'}</td>
           </tr>
           <tr>
             <th>Ended at:</th>
-            <td>{moment(step?.endTs).format(DATE_FORMAT)}</td>
+            <td>{step?.endTs ? moment(step?.endTs).format(DATE_FORMAT) : '-'}</td>
           </tr>
           <tr>
             <th>Duration:</th>
-            <td>{DurationI18n.humanizeDuration(delta.w, delta.d, delta.h, delta.m, delta.s)}</td>
+            <td>
+              {step?.startTs && step?.endTs
+                ? DurationI18n.humanizeDuration(delta.w, delta.d, delta.h, delta.m, delta.s)
+                : '-'}
+            </td>
           </tr>
           <tr>
             <th>Delegate:</th>
-            <td>asd</td>
+            <td>TODO: No data from server</td>
           </tr>
         </tbody>
       </table>

@@ -590,7 +590,7 @@ exports[`<ExecutionGrapView /> tests step details are shown when step is selecte
                                 Delegate:
                               </th>
                               <td>
-                                asd
+                                TODO: No data from server
                               </td>
                             </tr>
                           </tbody>
