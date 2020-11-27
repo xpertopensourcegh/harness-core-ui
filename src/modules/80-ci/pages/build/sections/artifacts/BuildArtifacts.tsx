@@ -1,11 +1,16 @@
 import React from 'react'
-import { Text } from '@wings-software/uikit'
+import ArtifactsComponent from '@ci/components/ArtifactsComponent/ArtifactsComponent'
+import css from './BuildArtifacts.module.scss'
 
 const BuildArtifacts: React.FC = () => {
   return (
-    <>
-      <Text>Artifacts placeholder</Text>
-    </>
+    <div className={css.main}>
+      <div className={css.wrapper}>
+        <div className={css.artifactsHolder}>
+          <ArtifactsComponent className={css.artifacts} />
+        </div>
+      </div>
+    </div>
   )
 }
 

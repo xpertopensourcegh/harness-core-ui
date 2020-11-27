@@ -1,0 +1,35 @@
+.main {
+  flex-grow: 1;
+  position: relative;
+
+  .wrapper {
+    position: absolute;
+    left: 0px;
+    right: 0px;
+    top: 0px;
+    bottom: 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: var(--grey-100);
+
+    .artifactsHolder {
+      display: flex;
+      flex-direction: column;
+      justify-self: center;
+      width: 940px;
+      margin: var(--spacing-large);
+      background: #ffffff;
+      box-shadow: 0px 0px 1px rgba(40, 41, 61, 0.08), 0px 0.5px 2px rgba(96, 97, 112, 0.16);
+      border-radius: 8px;
+      padding: var(--spacing-xlarge);
+      overflow: hidden;
+
+      .artifacts {
+        display: flex;
+        flex-direction: column;
+        overflow: scroll;
+      }
+    }
+  }
+}
