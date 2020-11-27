@@ -17,6 +17,7 @@ global:
   primaryArtifactText: Primary Artifact
   sidecarsText: Sidecars
   manifestsText: Manifest
+  errorSummaryText: Error Summary
   na: N/A
   todo: TODO - implement this
   add: Add

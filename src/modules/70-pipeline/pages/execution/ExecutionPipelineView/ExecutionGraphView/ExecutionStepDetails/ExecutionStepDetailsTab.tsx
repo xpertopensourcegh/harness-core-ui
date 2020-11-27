@@ -2,6 +2,7 @@ import React from 'react'
 import moment from 'moment'
 
 import type { ExecutionNode } from 'services/cd-ng'
+import { String } from 'framework/exports'
 import { DurationI18n, timeDelta } from '@common/exports'
 
 import css from './ExecutionStepDetails.module.scss'
@@ -19,6 +20,12 @@ export default function ExecutionStepDetailsTab(props: ExecutionStepDetailsTabPr
 
   return (
     <div className={css.detailsTab}>
+      {step?.failureInfo ? (
+        <div className={css.errorMsg}>
+          <String className={css.title} stringID="errorSummaryText" tagName="div" />
+          <p>{step?.failureInfo.errorMessage}</p>
+        </div>
+      ) : null}
       <table className={css.detailsTable}>
         <tbody>
           <tr>

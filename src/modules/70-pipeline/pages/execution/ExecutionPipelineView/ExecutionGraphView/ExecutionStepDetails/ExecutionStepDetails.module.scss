@@ -72,6 +72,22 @@
   flex-direction: column;
   height: 100%;
 
+  .errorMsg {
+    background-color: rgba(255, 242, 242, 0.5);
+    padding: var(--spacing-small) var(--spacing-large);
+
+    .title {
+      font-size: var(--font-size-normal);
+      color: var(--red-500);
+      font-weight: 500;
+      margin-bottom: var(--spacing-small);
+    }
+
+    p {
+      font-size: var(--font-size-small);
+    }
+  }
+
   .detailsTable {
     border-collapse: collapse;
     margin: var(--spacing-large) var(--spacing-xsmall);

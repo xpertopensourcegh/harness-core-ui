@@ -111,6 +111,10 @@ export function getRunningStep(graph: ExecutionGraph, nodeId?: string): string |
   const node = nodeMap[currentNodeId]
   const nodeAdjacencyList = nodeAdjacencyListMap[currentNodeId]
 
+  if (!node || !nodeAdjacencyList) {
+    return null
+  }
+
   if (Array.isArray(nodeAdjacencyList.children) && nodeAdjacencyList.children.length > 0) {
     const n = nodeAdjacencyList.children.length
 

@@ -7,6 +7,7 @@ declare const styles: {
   readonly more: string
   readonly tabs: string
   readonly detailsTab: string
+  readonly errorMsg: string
   readonly detailsTable: string
 }
 export default styles
