@@ -161,7 +161,9 @@ const ConnectorView: React.FC<ConnectorViewProps> = props => {
   }
 
   const { openConnectorModal } = useCreateConnectorModal({
-    onSuccess: () => {
+    onSuccess: data => {
+      setConnector(data?.connector as ConnectorInfoDTO)
+      setConnectorForYaml(data?.connector as ConnectorInfoDTO)
       state.setEnableEdit(false)
     },
     onClose: () => {

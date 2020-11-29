@@ -84,6 +84,9 @@ const ConnectorsPage: React.FC<ConnectorsListProps> = ({ mockData, catalogueMock
   const { openConnectorModal } = useCreateConnectorModal({
     onSuccess: () => {
       reloadConnectorList()
+    },
+    onClose: () => {
+      reloadConnectorList()
     }
   })
 

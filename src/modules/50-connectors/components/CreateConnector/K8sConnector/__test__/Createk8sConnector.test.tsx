@@ -4,15 +4,20 @@ import { render, fireEvent, queryByText } from '@testing-library/react'
 import { act } from 'react-dom/test-utils'
 import { TestWrapper } from '@common/utils/testUtils'
 
-import type { ResponseBoolean } from 'services/cd-ng'
+import type { ConnectorInfoDTO } from 'services/cd-ng'
 import CreateK8sConnector from '../CreateK8sConnector'
+import { mockResponse, mockSecret, usernamePassword, serviceAccount, oidcMock, clientKeyMock } from './k8Mocks'
 
-const mockResponse: ResponseBoolean = {
-  status: 'SUCCESS',
-  data: true,
-  metaData: {},
-  correlationId: ''
-}
+jest.mock('services/portal', () => ({
+  useGetDelegateTags: jest.fn().mockImplementation(() => ({ mutate: jest.fn() }))
+}))
+
+jest.mock('services/cd-ng', () => ({
+  validateTheIdentifierIsUniquePromise: jest.fn().mockImplementation(() => Promise.resolve(mockResponse)),
+  useCreateConnector: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
+  useUpdateConnector: jest.fn().mockImplementation(() => ({ mutate: jest.fn() })),
+  getSecretV2Promise: jest.fn().mockImplementation(() => Promise.resolve(mockSecret))
+}))
 
 describe('Create k8 connector Wizard', () => {
   test('should form for authtype username', async () => {
@@ -39,4 +44,89 @@ describe('Create k8 connector Wizard', () => {
     })
     expect(container).toMatchSnapshot()
   })
+
+  test('should form for edit authtype username', async () => {
+    const { container } = render(
+      <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
+        <CreateK8sConnector
+          hideLightModal={noop}
+          onConnectorCreated={noop}
+          isCreate={false}
+          connectorInfo={usernamePassword as ConnectorInfoDTO}
+          mock={mockResponse}
+        />
+      </TestWrapper>
+    )
+
+    expect(container).toMatchSnapshot()
+    await act(async () => {
+      fireEvent.click(container.querySelector('button[type="submit"]')!)
+    })
+    // step 2
+    expect(queryByText(container, 'Manually enter master url and credentials')).toBeDefined()
+    expect(container).toMatchSnapshot()
+  })
+
+  test('should form for edit authtype serviceAccount', async () => {
+    const { container } = render(
+      <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
+        <CreateK8sConnector
+          hideLightModal={noop}
+          onConnectorCreated={noop}
+          isCreate={false}
+          connectorInfo={serviceAccount as ConnectorInfoDTO}
+          mock={mockResponse}
+        />
+      </TestWrapper>
+    )
+
+    await act(async () => {
+      fireEvent.click(container.querySelector('button[type="submit"]')!)
+    })
+    // step 2
+    expect(queryByText(container, 'Manually enter master url and credentials')).toBeDefined()
+    expect(container).toMatchSnapshot()
+  })
+
+  test('should form for edit authtype OIDC', async () => {
+    const { container } = render(
+      <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
+        <CreateK8sConnector
+          hideLightModal={noop}
+          onConnectorCreated={noop}
+          isCreate={false}
+          connectorInfo={oidcMock as ConnectorInfoDTO}
+          mock={mockResponse}
+        />
+      </TestWrapper>
+    )
+
+    await act(async () => {
+      fireEvent.click(container.querySelector('button[type="submit"]')!)
+    })
+    // step 2
+    expect(queryByText(container, 'Manually enter master url and credentials')).toBeDefined()
+    expect(container).toMatchSnapshot()
+  })
+})
+
+test('should form for edit authtype clientKey', async () => {
+  const { container } = render(
+    <TestWrapper path="/account/:accountId/resources/connectors" pathParams={{ accountId: 'dummy' }}>
+      <CreateK8sConnector
+        hideLightModal={noop}
+        onConnectorCreated={noop}
+        isCreate={false}
+        connectorInfo={clientKeyMock as ConnectorInfoDTO}
+        mock={mockResponse}
+      />
+    </TestWrapper>
+  )
+
+  await act(async () => {
+    fireEvent.click(container.querySelector('button[type="submit"]')!)
+  })
+  // step 2
+  expect(queryByText(container, 'Manually enter master url and credentials')).toBeDefined()
+  expect(container).toMatchSnapshot()
 })

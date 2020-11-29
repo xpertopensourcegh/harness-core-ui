@@ -53,7 +53,11 @@ const useCreateConnectorModal = (props: UseCreateConnectorModalProps): UseCreate
           type={type}
           isCreate={isCreate}
           connectorInfo={connectorInfo}
-          onSuccess={handleSuccess}
+          onSuccess={data => {
+            handleSuccess(data)
+            props.onClose?.()
+            hideModal()
+          }}
           hideLightModal={hideModal}
         />
         <Button
@@ -68,7 +72,7 @@ const useCreateConnectorModal = (props: UseCreateConnectorModalProps): UseCreate
         />
       </Dialog>
     ),
-    [type, isCreate]
+    [type, isCreate, connectorInfo]
   )
 
   return {

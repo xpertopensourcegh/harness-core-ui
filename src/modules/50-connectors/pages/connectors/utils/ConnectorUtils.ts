@@ -1,7 +1,7 @@
 import { pick } from 'lodash-es'
 import type { IconName } from '@wings-software/uikit'
 import { Connectors, ConnectorInfoText, EntityTypes } from '@connectors/constants'
-import type { ConnectorInfoDTO } from 'services/cd-ng'
+import { ConnectorInfoDTO, getSecretV2Promise, GetSecretV2QueryParams } from 'services/cd-ng'
 import type { FormData } from '@connectors/interfaces/ConnectorInterface'
 import { Scope } from '@common/interfaces/SecretsInterface'
 
@@ -34,6 +34,12 @@ export const DelegateInClusterType = {
   addNewDelegate: 'addnewDelegate'
 }
 
+export interface SecretReferenceInterface {
+  identifier: string
+  name: string
+  referenceString: string
+}
+
 export const getScopedSecretString = (scope: string, identifier: string) => {
   switch (scope) {
     case Scope.PROJECT:
@@ -64,7 +70,7 @@ const buildAuthTypePayload = (formData: FormData) => {
         oidcPasswordRef: formData.oidcPassword.referenceString,
         oidcClientIdRef: formData.oidcCleintId.referenceString,
         oidcSecretRef: formData.oidcCleintSecret.referenceString,
-        oidcScopes: formData.oidcCleintSecret.oidcScopes
+        oidcScopes: formData.oidcScopes
       }
 
     case AuthTypes.CLIENT_KEY_CERT:
@@ -73,14 +79,12 @@ const buildAuthTypePayload = (formData: FormData) => {
         clientCertRef: formData.clientKeyCertificate.referenceString,
         clientKeyPassphraseRef: formData.clientKeyPassphrase.referenceString,
         caCertRef: formData.clientKeyCACertificate.referenceString,
-        clientKeyAlgo: formData.clientKeyAlgorithm
+        clientKeyAlgo: formData.clientKeyAlgo
       }
     default:
       return {}
   }
 }
-
-// clientKey clientKeyPassphrase clientKeyCertificate
 
 export const getSpecForDelegateType = (formData: FormData) => {
   const type = formData?.delegateType
@@ -116,6 +120,76 @@ export const buildKubPayload = (formData: FormData) => {
     }
   }
   return { connector: savedData }
+}
+
+export const setSecretField = async (
+  secretString: string,
+  scopeQueryParams: GetSecretV2QueryParams
+): Promise<SecretReferenceInterface | null> => {
+  if (!secretString) {
+    return null
+  } else {
+    const secretScope = getScopeFromString(secretString)
+
+    switch (secretScope) {
+      case Scope.ACCOUNT:
+        delete scopeQueryParams.orgIdentifier
+        delete scopeQueryParams.projectIdentifier
+        break
+      case Scope.ORG:
+        delete scopeQueryParams.projectIdentifier
+    }
+
+    const response = await getSecretV2Promise({
+      identifier: secretString.indexOf('.') < 0 ? secretString : secretString.split('.')[1],
+      queryParams: scopeQueryParams
+    })
+
+    return {
+      identifier: secretString.split('.')[1],
+      name: response.data?.secret.name || secretString.split('.')[1],
+      referenceString: secretString
+    }
+  }
+}
+
+export const getAuthFormFields = async (connectorInfo: ConnectorInfoDTO, accountId: string): Promise<FormData> => {
+  const scopeQueryParams: GetSecretV2QueryParams = {
+    accountIdentifier: accountId,
+    projectIdentifier: connectorInfo.projectIdentifier,
+    orgIdentifier: connectorInfo.orgIdentifier
+  }
+  const authdata = connectorInfo.spec.credential?.spec?.auth?.spec
+  return {
+    username: authdata.username,
+    password: await setSecretField(authdata.passwordRef, scopeQueryParams),
+    serviceAccountToken: await setSecretField(authdata.serviceAccountTokenRef, scopeQueryParams),
+    oidcUsername: authdata.oidcUsername,
+    oidcPassword: await setSecretField(authdata.oidcPasswordRef, scopeQueryParams),
+    oidcCleintId: await setSecretField(authdata.oidcClientIdRef, scopeQueryParams),
+    oidcCleintSecret: await setSecretField(authdata.oidcSecretRef, scopeQueryParams),
+    oidcScopes: authdata.oidcScopes,
+    clientKey: await setSecretField(authdata.clientKeyRef, scopeQueryParams),
+    clientKeyCertificate: await setSecretField(authdata.clientCertRef, scopeQueryParams),
+    clientKeyPassphrase: await setSecretField(authdata.clientKeyPassphraseRef, scopeQueryParams),
+    clientKeyCACertificate: await setSecretField(authdata.caCertRef, scopeQueryParams),
+    clientKeyAlgo: authdata.clientKeyAlgo
+  }
+}
+
+export const setupKubFormData = async (connectorInfo: ConnectorInfoDTO, accountId: string): Promise<FormData> => {
+  const authData = await getAuthFormFields(connectorInfo, accountId)
+
+  const formData = {
+    delegateType: connectorInfo.spec.credential.type,
+    delegateName: connectorInfo.spec.credential?.spec?.delegateName || '',
+    masterUrl: connectorInfo.spec.credential?.spec?.masterUrl || '',
+    authType: connectorInfo.spec.credential?.spec?.auth?.type || '',
+    skipDefaultValidation: false,
+    ...authData
+  }
+
+  return formData
 }
 
 export const buildAWSPayload = (formData: FormData) => {

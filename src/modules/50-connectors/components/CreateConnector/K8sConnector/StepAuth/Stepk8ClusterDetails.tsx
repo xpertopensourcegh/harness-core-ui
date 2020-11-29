@@ -12,13 +12,25 @@ import {
   ModalErrorHandler
 } from '@wings-software/uikit'
 import { useParams } from 'react-router-dom'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import cx from 'classnames'
 import * as Yup from 'yup'
 import { Formik, Form, FormikProps } from 'formik'
-import { ConnectorInfoDTO, ConnectorRequestBody, useCreateConnector, useUpdateConnector } from 'services/cd-ng'
+import {
+  ConnectorInfoDTO,
+  ConnectorRequestBody,
+  useCreateConnector,
+  useUpdateConnector,
+  ConnectorConfigDTO
+} from 'services/cd-ng'
 import SecretInput from '@secrets/components/SecretInput/SecretInput'
-import { buildKubPayload, DelegateTypes, AuthTypes } from '@connectors/pages/connectors/utils/ConnectorUtils'
+import {
+  buildKubPayload,
+  DelegateTypes,
+  AuthTypes,
+  setupKubFormData,
+  SecretReferenceInterface
+} from '@connectors/pages/connectors/utils/ConnectorUtils'
 import { useToaster } from '@common/components/Toaster/useToaster'
 import { useStrings } from 'framework/exports'
 import css from '../CreateK8sConnector.module.scss'
@@ -28,8 +40,9 @@ interface Stepk8ClusterDetailsProps extends ConnectorInfoDTO {
 }
 
 interface K8ClusterDetailsProps {
-  onConnectorCreated?: (data?: ConnectorRequestBody) => void | Promise<void>
-  isEditMode?: boolean
+  onConnectorCreated: (data?: ConnectorRequestBody) => void | Promise<void>
+  isEditMode: boolean
+  connectorInfo: ConnectorInfoDTO | void
 }
 
 interface DelegateCardInterface {
@@ -37,28 +50,23 @@ interface DelegateCardInterface {
   info: string
 }
 
-interface SecretReferenceInterface {
-  identifier: string
-  name: string
-  referenceString: string
-}
-
 interface KubeFormInterface {
-  delegateType?: string
-  authType?: string
-  username?: string
-  password?: SecretReferenceInterface | null
-  serviceAccountToken?: SecretReferenceInterface | null
-  oidcUsername?: string
-  oidcPassword?: SecretReferenceInterface | null
-  oidcCleintId?: SecretReferenceInterface | null
-  oidcCleintSecret?: SecretReferenceInterface | null
-  oidcScopes?: string
-  clientKey?: SecretReferenceInterface | null
-  clientKeyPassphrase?: SecretReferenceInterface | null
-  clientKeyCertificate?: SecretReferenceInterface | null
-  clientKeyAlgorithm?: string
-  clientKeyCACertificate?: string
+  delegateType: string
+  authType: string
+  username: string
+  password: SecretReferenceInterface | null
+  serviceAccountToken: SecretReferenceInterface | null
+  oidcUsername: string
+  oidcPassword: SecretReferenceInterface | null
+  oidcCleintId: SecretReferenceInterface | null
+  oidcCleintSecret: SecretReferenceInterface | null
+  oidcScopes: string
+  clientKey: SecretReferenceInterface | null
+  clientKeyPassphrase: SecretReferenceInterface | null
+  clientKeyCertificate: SecretReferenceInterface | null
+  clientKeyAlgo: string
+  clientKeyCACertificate: SecretReferenceInterface | null
+  skipDefaultValidation: boolean
 }
 
 interface AuthOptionInterface {
@@ -77,16 +85,7 @@ const RenderK8AuthForm: React.FC<FormikProps<KubeFormInterface>> = props => {
         </>
       )
     case AuthTypes.SERVICE_ACCOUNT:
-      return (
-        <>
-          <SecretInput name={'serviceAccountToken'} label={getString('connectors.k8.serviceAccountToken')} />
-          <FormInput.CheckBox
-            name="skipNamespace"
-            label={getString('connectors.k8.skipDefaultValidation')}
-            padding={{ left: 'xxlarge' }}
-          />
-        </>
-      )
+      return <SecretInput name={'serviceAccountToken'} label={getString('connectors.k8.serviceAccountToken')} />
     case AuthTypes.OIDC:
       return (
         <>
@@ -99,11 +98,6 @@ const RenderK8AuthForm: React.FC<FormikProps<KubeFormInterface>> = props => {
             <SecretInput name={'oidcCleintSecret'} label={getString('connectors.k8.OIDCSecret')} />
           </Container>
           <FormInput.Text name="oidcScopes" label={getString('connectors.k8.OIDCScopes')} />
-          <FormInput.CheckBox
-            name="skipNamespace"
-            label={getString('connectors.k8.skipDefaultValidation')}
-            padding={{ left: 'xxlarge' }}
-          />
         </>
       )
     case AuthTypes.CLIENT_KEY_CERT:
@@ -115,14 +109,9 @@ const RenderK8AuthForm: React.FC<FormikProps<KubeFormInterface>> = props => {
           </Container>
           <Container className={css.formRow}>
             <SecretInput name={'clientKeyCertificate'} label={getString('connectors.k8.clientCertificate')} />
-            <FormInput.Text name="clientKeyAlgorithm" label={getString('connectors.k8.clientKeyAlgorithm')} />
+            <FormInput.Text name="clientKeyAlgo" label={getString('connectors.k8.clientKeyAlgorithm')} />
           </Container>
-          <FormInput.Text name="clientKeyCACertificate" label={getString('connectors.k8.clientKeyCACertificate')} />
-          <FormInput.CheckBox
-            name="skipNamespace"
-            label={getString('connectors.k8.skipDefaultValidation')}
-            padding={{ left: 'xxlarge' }}
-          />
+          <SecretInput name={'clientKeyCACertificate'} label={getString('connectors.k8.clientKeyCACertificate')} />
         </>
       )
     default:
@@ -169,27 +158,54 @@ const Stepk8ClusterDetails: React.FC<StepProps<Stepk8ClusterDetailsProps> & K8Cl
     }
   ]
 
-  const handleCreate = async (data: ConnectorRequestBody): Promise<void> => {
+  const defaultInitialFormData: KubeFormInterface = {
+    delegateType: DelegateTypes.DELEGATE_OUT_CLUSTER,
+    authType: AuthTypes.USER_PASSWORD,
+    username: '',
+    password: null,
+    serviceAccountToken: null,
+    oidcUsername: '',
+    oidcPassword: null,
+    oidcCleintId: null,
+    oidcCleintSecret: null,
+    oidcScopes: '',
+    clientKey: null,
+    clientKeyCertificate: null,
+    clientKeyPassphrase: null,
+    clientKeyAlgo: '',
+    clientKeyCACertificate: null,
+    skipDefaultValidation: false
+  }
+
+  const handleCreate = async (data: ConnectorRequestBody, stepData: ConnectorConfigDTO): Promise<void> => {
     try {
       modalErrorHandler?.hide()
       setLoadConnector(true)
-      await createConnector(data)
+      const response = await createConnector(data)
       setLoadConnector(false)
       showSuccess(`Connector '${props.prevStepData?.name}' created successfully`)
-      props.nextStep?.()
+      if (stepData.skipDefaultValidation) {
+        props.onConnectorCreated(response.data)
+      } else {
+        props.nextStep?.({ ...props.prevStepData, ...stepData } as Stepk8ClusterDetailsProps)
+      }
     } catch (e) {
       modalErrorHandler?.showDanger(e.data?.message || e.message)
     }
   }
 
-  const handleUpdate = async (data: ConnectorRequestBody): Promise<void> => {
+  const handleUpdate = async (data: ConnectorRequestBody, stepData: ConnectorConfigDTO): Promise<void> => {
     try {
       modalErrorHandler?.hide()
       setLoadConnector(true)
-      await updateConnector(data)
+      const response = await updateConnector(data)
       setLoadConnector(false)
       showSuccess(`Connector '${props.prevStepData?.name}' updated successfully`)
-      props.nextStep?.()
+      if (stepData.skipDefaultValidation) {
+        props.onConnectorCreated(response.data)
+      } else {
+        props.nextStep?.({ ...props.prevStepData, ...stepData } as Stepk8ClusterDetailsProps)
+      }
     } catch (error) {
       setLoadConnector(false)
       modalErrorHandler?.showDanger(error.data?.message || error.message)
@@ -219,26 +235,29 @@ const Stepk8ClusterDetails: React.FC<StepProps<Stepk8ClusterDetailsProps> & K8Cl
     }
   }
 
-  return (
+  const [initialValues, setInitialValues] = useState(defaultInitialFormData)
+  const [loadingConnectorSecrets, setLoadingConnectorSecrets] = useState(true && props.isEditMode)
+
+  useEffect(() => {
+    if (loadingConnectorSecrets) {
+      if (props.isEditMode && props.connectorInfo) {
+        setupKubFormData(props.connectorInfo, accountId).then(data => {
+          setInitialValues(data as KubeFormInterface)
+          setLoadingConnectorSecrets(false)
+        })
+      }
+    }
+  }, [loadingConnectorSecrets])
+
+  return loadingConnectorSecrets ? null : (
     <Layout.Vertical height={'inherit'} spacing="medium" className={css.secondStep}>
       <Text font="medium" margin={{ top: 'small' }} color={Color.BLACK}>
         {getString('connectors.k8.stepTwoName')}
       </Text>
       <Formik
         initialValues={{
-          delegateType: DelegateTypes.DELEGATE_OUT_CLUSTER,
-          authType: AuthTypes.USER_PASSWORD,
-          username: '',
-          password: null,
-          serviceAccountToken: null,
-          oidcUsername: '',
-          oidcPassword: null,
-          oidcCleintId: null,
-          oidcCleintSecret: null,
-          oidcScopes: '',
-          clientKey: null,
-          clientKeyCertificate: null,
-          clientKeyPassphrase: null
+          ...initialValues,
+          ...props.prevStepData
         }}
         validationSchema={Yup.object().shape({
           masterUrl: Yup.string().trim().required(getString('connectors.k8.validation.masterUrl')),
@@ -251,7 +270,7 @@ const Stepk8ClusterDetails: React.FC<StepProps<Stepk8ClusterDetailsProps> & K8Cl
             then: Yup.string().required(getString('connectors.k8.validation.oidcUsername'))
           })
         })}
-        onSubmit={formData => {
+        onSubmit={(formData: KubeFormInterface) => {
           if (validate(formData)) {
             const connectorData = {
               ...props.prevStepData,
@@ -265,9 +284,9 @@ const Stepk8ClusterDetails: React.FC<StepProps<Stepk8ClusterDetailsProps> & K8Cl
             }
 
             if (props.isEditMode) {
-              handleUpdate(data)
+              handleUpdate(data, formData)
             } else {
-              handleCreate(data)
+              handleCreate(data, formData)
             }
           }
         }}
@@ -315,6 +334,11 @@ const Stepk8ClusterDetails: React.FC<StepProps<Stepk8ClusterDetailsProps> & K8Cl
                   </Container>
 
                   <RenderK8AuthForm {...formikProps} />
+                  <FormInput.CheckBox
+                    name="skipDefaultValidation"
+                    label={getString('connectors.k8.skipDefaultValidation')}
+                    padding={{ left: 'xxlarge' }}
+                  />
                 </>
               ) : null}
             </Container>

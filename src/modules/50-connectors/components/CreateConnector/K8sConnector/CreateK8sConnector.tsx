@@ -10,7 +10,7 @@ import Stepk8ClusterDetails from './StepAuth/Stepk8ClusterDetails'
 
 interface CreateK8sConnectorProps {
   hideLightModal: () => void
-  onConnectorCreated?: (data?: ConnectorRequestBody) => void | Promise<void>
+  onConnectorCreated: (data?: ConnectorRequestBody) => void | Promise<void>
   mock?: ResponseBoolean
   isCreate: boolean
   connectorInfo?: ConnectorInfoDTO | void
@@ -35,6 +35,7 @@ const CreateK8sConnector: React.FC<CreateK8sConnectorProps> = props => {
         name={getString('connectors.k8.stepTwoName')}
         onConnectorCreated={props.onConnectorCreated}
         isEditMode={!props.isCreate}
+        connectorInfo={props.connectorInfo}
       />
       <VerifyOutOfClusterDelegate
         name={getString('connectors.stepThreeName')}

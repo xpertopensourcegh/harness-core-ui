@@ -64,7 +64,7 @@ const ConnectorDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDe
       if ('SUCCESS' === response.status) {
         if (response.data || (props.connectorInfo && props.connectorInfo?.identifier === formData.identifier)) {
           props.setFormData?.(formData)
-          nextStep?.({ ...prevStepData, ...formData })
+          nextStep?.({ ...props.connectorInfo, ...prevStepData, ...formData })
         } else {
           modalErrorHandler?.showDanger(i18n.validateError)
         }
@@ -122,7 +122,10 @@ const ConnectorDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDe
               <Container className={css.connectorForm}>
                 <div className={css.connectorFormNameWarpper}>
                   <div className={css.connectorFormNameElm}>
-                    <FormInput.InputWithIdentifier inputLabel={i18n.connectorName} />
+                    <FormInput.InputWithIdentifier
+                      inputLabel={i18n.connectorName}
+                      isIdentifierEditable={!props.isEditMode}
+                    />
                   </div>
 
                   <Layout.Vertical margin="small" padding={{ left: 'large', top: 'small' }} spacing="xsmall">
