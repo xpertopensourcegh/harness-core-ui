@@ -2,8 +2,6 @@
 // this is an auto-generated file
 declare const styles: {
   readonly main: string
-  readonly container: string
-  readonly header: string
-  readonly nav: string
+  readonly search: string
 }
 export default styles

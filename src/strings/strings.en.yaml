@@ -226,6 +226,30 @@ global:
         OIDC: 'OpenID Connect'
         clientKeyCertificate: 'Client Key Certificate'
   cv:
+    continuous: 'CONTINUOUS'
+    verification: 'VERIFICATION'
+    navLinks:
+      dataSource: 'Data Sources'
+      activities: 'Activities'
+      dashboard: 'Dashboard'
+      services: 'Services'
+      metricPacks: 'Metric Packs'
+      adminSideNavLinks:
+        setup: 'Setup'
+        resources: 'Resources'
+        governance: 'Governance'
+        generalSettings: 'General Settings'
+        accessControl: 'Access Control'
+        activitySources: 'Activity Sources'
+    admin:
+      activitySources:
+        searchBoxPlaceholder: 'Search by name, environment, or service'
+        noDataMessage: 'No Activity Sources onboarded'
+        addActivitySource: 'Onboard Activity Source(s)'
+        tableColumnNames:
+          services: 'Number of Services'
+          environments: 'Number of Environments'
+          createdOn: 'Created On'
     onboarding:
       progress:
         heading: 'Your Progress'

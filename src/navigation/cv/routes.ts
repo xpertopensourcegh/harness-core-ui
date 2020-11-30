@@ -213,6 +213,30 @@ export const routeActivitySourceSetup: Route<{
   module: ModuleName.CV
 }
 
+export const routeActivitySourceEditSetup: Route<{
+  orgIdentifier: string
+  projectIdentifier: string
+  activitySource: string
+  activitySourceId: string
+}> = {
+  sidebarId: SidebarIdentifier.CONTINUOUS_VERIFICATION,
+  path:
+    '/cv/orgs/:orgIdentifier/projects/:projectIdentifier/onboarding/activity-source-setup/:activitySource/activity-sourceId/:activitySourceId',
+  title: i18n.activitySourceSetup,
+  layout: PageLayout.NoMenuLayout,
+  pageId: 'cv-onboarding/activity-source-setup/:activitySource/activity-sourceId/:activitySourceId',
+  authenticated: true,
+  url: ({ activitySource, projectIdentifier, orgIdentifier, activitySourceId }) =>
+    routeURL(
+      routeCVDataSourcesEntityPage,
+      activitySource && projectIdentifier && orgIdentifier
+        ? `/cv/orgs/${orgIdentifier}/projects/${projectIdentifier}/onboarding/activity-source-setup/${activitySource}/activity-sourceId/${activitySourceId}`
+        : routeCVHome.path
+    ),
+  component: React.lazy(() => import('@cv/pages/onboarding/activity-source-setup/ActivitySourceSetup')),
+  module: ModuleName.CV
+}
+
 /* ------------------------------------------ Global Metric page routes ------------------------------------------ */
 
 export const routeCVMetricPackConfigureThresholdPage: Route<{
@@ -361,4 +385,15 @@ export const routeCVAdminAccessControl: Route<{ projectIdentifier: string; orgId
   url: ({ projectIdentifier, orgIdentifier }) =>
     routeURL(routeCVMainDashBoardPage, `/cv/admin/access-control/org/${orgIdentifier}/projects/${projectIdentifier}`),
   component: React.lazy(() => import('@cv/pages/admin/access-control/CVAccessControlPage'))
+}
+
+export const routeCVAdminActivitySources: Route<{ projectIdentifier: string; orgIdentifier: string }> = {
+  module: ModuleName.CV,
+  sidebarId: SidebarIdentifier.CONTINUOUS_VERIFICATION,
+  path: '/cv/admin/activity-sources/org/:orgIdentifier/projects/:projectIdentifier',
+  title: i18n.adminSettings,
+  pageId: 'cv-admin-activity-sources',
+  url: ({ projectIdentifier, orgIdentifier }) =>
+    routeURL(routeCVMainDashBoardPage, `/cv/admin/activity-sources/org/${orgIdentifier}/projects/${projectIdentifier}`),
+  component: React.lazy(() => import('@cv/pages/admin/activity-sources/CVActivitySourcesPage'))
 }

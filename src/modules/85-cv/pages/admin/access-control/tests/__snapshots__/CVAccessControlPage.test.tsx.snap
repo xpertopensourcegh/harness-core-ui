@@ -1,0 +1,112 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Unit tests for CVAccessControlPage Ensure page renders 1`] = `
+<div>
+  <div
+    class="Layout---horizontal--3rmQ StyledProps---main--1Wws container standard StyledProps---flex--2Jz8 StyledProps---padding-left-large--28UT StyledProps---padding-right-large--2vF9"
+  >
+    <h2
+      class="StyledProps---font--2ipy StyledProps---font-h2--3Vpc StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey800--2G2G"
+      level="2"
+    >
+      ACCESS CONTROL
+    </h2>
+    <div
+      class="StyledProps---font--2ipy StyledProps---main--1Wws"
+    >
+      <button
+        class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+        type="button"
+      >
+        <span
+          class="bp3-button-text"
+        >
+          + New Item
+        </span>
+      </button>
+    </div>
+  </div>
+  <div
+    class="StyledProps---font--2ipy StyledProps---main--1Wws pageBody"
+  >
+    <div
+      class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---flex--2Jz8 StyledProps---flex-align-center-center--2AmX"
+      style="width: 100%; height: 100%;"
+    >
+      <div
+        class="Layout---vertical--3Szv Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+        style="align-items: center; margin-top: -48px; width: 470px;"
+      >
+        <span
+          class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey400--3csv"
+        >
+          <svg
+            height="48"
+            viewBox="0 0 27 27"
+            width="48"
+          >
+            <filter
+              id="nav-dashboard_svg__a"
+            >
+              <fecolormatrix
+                in="SourceGraphic"
+                values="0 0 0 0 0.453512 0 0 0 0 0.490089 0 0 0 0 0.533316 0 0 0 1.000000 0"
+              />
+            </filter>
+            <filter
+              id="nav-dashboard_svg__b"
+            >
+              <fecolormatrix
+                in="SourceGraphic"
+                values="0 0 0 0 0.453512 0 0 0 0 0.490089 0 0 0 0 0.533316 0 0 0 1.000000 0"
+              />
+            </filter>
+            <g
+              fill="none"
+              fill-rule="evenodd"
+              filter="url(#nav-dashboard_svg__a)"
+              transform="translate(-100 -231)"
+            >
+              <g
+                filter="url(#nav-dashboard_svg__b)"
+                transform="translate(100 231)"
+              >
+                <rect
+                  height="26"
+                  opacity="0.5"
+                  rx="5"
+                  stroke="#cdcaca"
+                  width="26"
+                  x="0.5"
+                  y="0.5"
+                />
+                <path
+                  d="M13.656 8H19v4h-5.344zm0 12v-6.656H19V20zM7 20v-4h5.344v4zm0-5.344V8h5.344v6.656z"
+                  fill="#747d88"
+                  fill-rule="nonzero"
+                />
+              </g>
+            </g>
+          </svg>
+        </span>
+        <h2
+          class="StyledProps---font--2ipy StyledProps---font-h2--3Vpc StyledProps---main--1Wws StyledProps---font-align-center--22lb StyledProps---color--8PuS StyledProps---color-grey500--3lFR"
+          level="2"
+        >
+          No data found. Click the button below to create a new item.
+        </h2>
+        <button
+          class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+          type="button"
+        >
+          <span
+            class="bp3-button-text"
+          >
+            + New Item
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;

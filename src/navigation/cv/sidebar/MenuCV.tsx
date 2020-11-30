@@ -1,10 +1,9 @@
 import { Container, Layout, Button, Icon } from '@wings-software/uikit'
 import React, { useCallback } from 'react'
 import { useHistory } from 'react-router-dom'
-import { Sidebar, isRouteActive, useRouteParams, ModuleName } from 'framework/exports'
+import { Sidebar, isRouteActive, useRouteParams, ModuleName, useStrings } from 'framework/exports'
 import { AdminSelector, AdminSelectorLink } from '@common/components/AdminSelector/AdminSelector'
 import { ProjectSelector } from '@common/components/ProjectSelector/ProjectSelector'
-import i18n from './MenuCV.i18n'
 import {
   routeCVDataSources,
   routeCVActivities,
@@ -16,7 +15,8 @@ import {
   routeCVAdminResources,
   routeCVAdminSetup,
   routeCVAdminAccessControl,
-  routeCVMetricPackConfigureThresholdPage
+  routeCVMetricPackConfigureThresholdPage,
+  routeCVAdminActivitySources
 } from '../routes'
 import css from './MenuCV.module.scss'
 
@@ -26,6 +26,7 @@ const ProjectNavLinks: React.FC = () => {
     orgIdentifier: string
     projectIdentifier: string
   }
+  const { getString } = useStrings()
 
   if (!orgIdentifier || !projectIdentifier) {
     return null
@@ -35,31 +36,31 @@ const ProjectNavLinks: React.FC = () => {
     <>
       <Sidebar.Link
         href={routeCVMainDashBoardPage.url({ projectIdentifier, orgIdentifier })}
-        label={i18n.cvSideNavLinks.dashboard}
+        label={getString('cv.navLinks.dashboard')}
         icon="dashboard"
         selected={isRouteActive(routeCVMainDashBoardPage)}
       />
       <Sidebar.Link
         href={routeCVDataSources.url({ projectIdentifier, orgIdentifier })}
-        label={i18n.cvSideNavLinks.dataSource}
+        label={getString('cv.navLinks.dataSource')}
         icon="main-help"
         selected={isRouteActive(routeCVDataSources)}
       />
       <Sidebar.Link
         href={routeCVActivities.url({ projectIdentifier, orgIdentifier })}
-        label={i18n.cvSideNavLinks.activites}
+        label={getString('cv.navLinks.activities')}
         icon="main-depricate"
         selected={isRouteActive(routeCVActivities) || isRouteActive(routeCVActivityDetails)}
       />
       <Sidebar.Link
         href={routeCVServices.url({ projectIdentifier, orgIdentifier })}
-        label={i18n.cvSideNavLinks.services}
+        label={getString('cv.navLinks.services')}
         icon="service"
         selected={isRouteActive(routeCVServices)}
       />
       <Sidebar.Link
         href={routeCVMetricPackConfigureThresholdPage.url({ projectIdentifier, orgIdentifier })}
-        label={i18n.cvSideNavLinks.metricPacks}
+        label={getString('cv.navLinks.metricPacks')}
         icon="wrench"
         selected={isRouteActive(routeCVMetricPackConfigureThresholdPage)}
       />
@@ -76,7 +77,7 @@ const ProjectNavLinks: React.FC = () => {
             projectIdentifier,
             orgIdentifier
           })}
-          label={i18n.adminSideNavLinks.setup}
+          label={getString('cv.navLinks.adminSideNavLinks.setup')}
           iconName="resources-icon"
           selected={isRouteActive(routeCVAdminSetup)}
         />
@@ -85,7 +86,7 @@ const ProjectNavLinks: React.FC = () => {
             projectIdentifier,
             orgIdentifier
           })}
-          label={i18n.adminSideNavLinks.resources}
+          label={getString('cv.navLinks.adminSideNavLinks.resources')}
           iconName="main-scope"
           selected={isRouteActive(routeCVAdminResources)}
         />
@@ -94,7 +95,7 @@ const ProjectNavLinks: React.FC = () => {
             projectIdentifier,
             orgIdentifier
           })}
-          label={i18n.adminSideNavLinks.governance}
+          label={getString('cv.navLinks.adminSideNavLinks.governance')}
           iconName="shield"
           selected={isRouteActive(routeCVAdminGovernance)}
         />
@@ -103,15 +104,21 @@ const ProjectNavLinks: React.FC = () => {
             projectIdentifier,
             orgIdentifier
           })}
-          label={i18n.adminSideNavLinks.generalSettings}
+          label={getString('cv.navLinks.adminSideNavLinks.generalSettings')}
           iconName="settings"
           selected={isRouteActive(routeCVAdminGeneralSettings)}
         />
         <AdminSelectorLink
           href={routeCVAdminAccessControl.url({ projectIdentifier, orgIdentifier })}
-          label={i18n.adminSideNavLinks.accessControl}
+          label={getString('cv.navLinks.adminSideNavLinks.accessControl')}
           iconName="user"
           selected={isRouteActive(routeCVAdminAccessControl)}
+        />
+        <AdminSelectorLink
+          href={routeCVAdminActivitySources.url({ projectIdentifier, orgIdentifier })}
+          label={getString('cv.navLinks.adminSideNavLinks.activitySources')}
+          iconName="user"
+          selected={isRouteActive(routeCVAdminActivitySources)}
         />
       </AdminSelector>
     </>
@@ -120,6 +127,7 @@ const ProjectNavLinks: React.FC = () => {
 
 export const MenuCV: React.FC = () => {
   const history = useHistory()
+  const { getString } = useStrings()
   const toggleSummary = useCallback(() => {
     alert('TBD')
   }, [])
@@ -127,7 +135,7 @@ export const MenuCV: React.FC = () => {
   return (
     <Layout.Vertical spacing="medium">
       <Container className={css.topBar}>
-        <Sidebar.Title upperText={i18n.continuous} lowerText={i18n.verification.toLocaleUpperCase()} />
+        <Sidebar.Title upperText={getString('cv.continuous')} lowerText={getString('cv.verification')} />
         <Button noStyling className={css.btnToggleSummary} onClick={toggleSummary}>
           <Icon name="dashboard-selected" size={32} />
         </Button>
