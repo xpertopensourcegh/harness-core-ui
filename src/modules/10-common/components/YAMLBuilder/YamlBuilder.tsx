@@ -61,12 +61,12 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
     width,
     fileName,
     entityType,
+    entitySubType,
     existingJSON,
     isReadOnlyMode,
     showSnippetSection = true,
     invocationMap,
     bind,
-    snippets,
     showIconMenu = false,
     onSnippetSearch,
     onExpressionTrigger
@@ -289,7 +289,7 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
           <SnippetSection
             showIconMenu={showIconMenu}
             entityType={entityType}
-            snippets={snippets}
+            entitySubType={entitySubType}
             onSnippetSearch={onSnippetSearch}
             height={height ?? DEFAULT_EDITOR_HEIGHT}
           />

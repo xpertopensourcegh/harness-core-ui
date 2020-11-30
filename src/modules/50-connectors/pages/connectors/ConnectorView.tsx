@@ -5,14 +5,8 @@ import cx from 'classnames'
 import { useToaster } from 'modules/10-common/exports'
 import type { ConnectorInfoDTO, ConnectorRequestBody, ConnectorResponse } from 'services/cd-ng'
 import YamlBuilder from 'modules/10-common/components/YAMLBuilder/YamlBuilder'
-import {
-  addIconInfoToSnippets,
-  pickIconForEntity,
-  getValidationErrorMessagesForToaster
-} from 'modules/10-common/components/YAMLBuilder/YAMLBuilderUtils'
+import { getValidationErrorMessagesForToaster } from 'modules/10-common/components/YAMLBuilder/YAMLBuilderUtils'
 import { YamlEntity } from 'modules/10-common/constants/YamlConstants'
-import type { SnippetInterface } from 'modules/10-common/interfaces/SnippetInterface'
-import { YAMLService } from '@common/services'
 import TestConnection from '@connectors/components/TestConnection/TestConnection'
 import type { YamlBuilderHandlerBinding, YamlBuilderProps } from 'modules/10-common/interfaces/YAMLBuilderProps'
 import useCreateConnectorModal from '@connectors/modals/ConnectorModal/useCreateConnectorModal'
@@ -54,8 +48,6 @@ const ConnectorView: React.FC<ConnectorViewProps> = props => {
   const [lastTested, setLastTested] = useState<number>(props.response?.status?.lastTestedAt || 0)
   const [lastConnected, setLastConnected] = useState<number>(props.response?.status?.lastTestedAt || 0)
   const [selectedView, setSelectedView] = useState(SelectedView.VISUAL)
-
-  const [snippets, setSnippets] = useState<SnippetInterface[]>()
   const [connector, setConnector] = useState<ConnectorInfoDTO>(props.response?.connector || ({} as ConnectorInfoDTO))
   const [connectorForYaml, setConnectorForYaml] = useState<ConnectorInfoDTO>(
     props.response?.connector || ({} as ConnectorInfoDTO)
@@ -139,23 +131,10 @@ const ConnectorView: React.FC<ConnectorViewProps> = props => {
     }
   }
 
-  const fetchSnippets = (connectorType: string, query?: string): void => {
-    const { error, response: snippetsList } =
-      YAMLService.fetchSnippets(YamlEntity.CONNECTOR, connectorType, query) || {}
-    if (error) {
-      showError(error)
-      return
-    }
-    addIconInfoToSnippets(pickIconForEntity(connectorType), snippetsList)
-    setSnippets(snippetsList)
-  }
-
   const yamlBuilderReadOnlyModeProps: YamlBuilderProps = {
     fileName: `${connectorForYaml?.identifier ?? 'Connector'}.yaml`,
     entityType: YamlEntity.CONNECTOR,
     existingJSON: { connector: connectorForYaml },
-    snippets: snippets,
-    onSnippetSearch: fetchSnippets,
     bind: setYamlHandler,
     width: 900
   }
@@ -169,10 +148,6 @@ const ConnectorView: React.FC<ConnectorViewProps> = props => {
     onClose: () => {
       state.setEnableEdit(false)
     }
-  })
-
-  useEffect(() => {
-    fetchSnippets(connector?.type)
   })
 
   useEffect(() => {
@@ -229,7 +204,10 @@ const ConnectorView: React.FC<ConnectorViewProps> = props => {
         {enableEdit ? (
           selectedView === SelectedView.VISUAL ? null : (
             <div className={css.editor}>
-              <YamlBuilder {...Object.assign(yamlBuilderReadOnlyModeProps, { height: 550 })} />
+              <YamlBuilder
+                {...Object.assign(yamlBuilderReadOnlyModeProps, { height: 550 })}
+                entitySubType={props.type}
+              />
               <Button
                 intent="primary"
                 text={i18n.submit}

@@ -18,7 +18,9 @@ module.exports = {
     '!src/services/**',
     '!src/**/YamlBuilder.tsx',
     '!src/**/*mock*.{ts,tsx}',
-    '!src/**/*Mock*.{ts,tsx}'
+    '!src/**/*Mock*.{ts,tsx}',
+    '!src/**/CreateConnectorFromYamlPage.tsx',
+    '!src/**/PipelineYamlView.tsx'
   ],
   coverageReporters: ['lcov', 'json-summary'],
   transform: {

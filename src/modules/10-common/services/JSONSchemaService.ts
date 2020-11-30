@@ -1,5 +1,4 @@
 import { YamlEntity } from '@common/constants/YamlConstants'
-import { getRefUrlPrefix } from '@common/utils/SchemaUtils'
 import secretsSchema from './mocks/secrets-schema.json'
 import connectorSchema from './mocks/connector-schema.json'
 import pipelineSchema from './mocks/pipeline-schema.json'
@@ -12,46 +11,17 @@ const apiUrlMap = new Map<YamlEntity, string>()
 apiUrlMap.set(YamlEntity.PIPELINE, getApiUrlTemplate(YamlEntity.PIPELINE.toLowerCase()))
 apiUrlMap.set(YamlEntity.CONNECTOR, getApiUrlTemplate(YamlEntity.CONNECTOR.toLowerCase()))
 
-export const getBaseSchema = (entity: string, apiUrl: string): Record<string, any> => {
-  if (!apiUrl) {
-    return {}
-  }
-  const entityWrapper = {
-    [entity]: {
-      $ref: getRefUrlPrefix(window.location) + apiUrl
-    }
-  }
-
-  return {
-    validate: true,
-    enableSchemaRequest: true,
-    hover: true,
-    completion: true,
-    schemas: [
-      {
-        fileMatch: ['*'],
-        schema: {
-          additionalProperties: false,
-          properties: entityWrapper
-        }
-      }
-    ]
-  }
-}
-
 export function fetchEntitySchemas(entityType: string): Record<string, any> | undefined {
   switch (entityType) {
     case YamlEntity.SECRET:
       return secretsSchema
     //TODO @vardan enable later on
     // case YamlEntity.PIPELINE:
-    //   return getBaseSchema(YamlEntity.PIPELINE.toLowerCase(), apiUrlMap.get(YamlEntity.PIPELINE) || '')
     // TODO: mock schema containg ci related elements (service and run step for demo)
     case YamlEntity.PIPELINE:
       return pipelineSchema
     case YamlEntity.CONNECTOR:
       return connectorSchema
-    //return getBaseSchema(YamlEntity.CONNECTOR.toLowerCase(), apiUrlMap.get(YamlEntity.CONNECTOR) || '')
     default:
       return {}
   }

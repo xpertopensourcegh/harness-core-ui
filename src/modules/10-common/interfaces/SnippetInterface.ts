@@ -1,4 +1,6 @@
 import type { IconName } from '@wings-software/uikit'
+import type { ResponseYamlSnippets, ResponseString } from 'services/cd-ng'
+import type { UseGetMockData } from 'modules/10-common/utils/testUtils'
 import type { YamlEntity } from '../constants/YamlConstants'
 
 export interface SnippetInterface {
@@ -11,9 +13,11 @@ export interface SnippetInterface {
 
 export interface SnippetSectionProps {
   entityType: YamlEntity
+  entitySubType?: string
   showIconMenu?: boolean
-  snippets?: SnippetInterface[]
   onSnippetSearch?: (query: string) => void
   height?: React.CSSProperties['height']
   width?: React.CSSProperties['width']
+  mockMetaData?: UseGetMockData<ResponseYamlSnippets>
+  mockSnippetData?: UseGetMockData<ResponseString>
 }

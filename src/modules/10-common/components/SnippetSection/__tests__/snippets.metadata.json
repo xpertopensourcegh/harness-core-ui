@@ -1,0 +1,51 @@
+{
+  "status": "SUCCESS",
+  "data": {
+    "data": {
+      "yamlSnippets": [
+        {
+          "name": "K8s Cluster with Service Account",
+          "description": "K8s Cluster with Service Account",
+          "version": "0.1",
+          "identifier": "k8s-cluster-with-service-account-0-1",
+          "tags": ["k8s", "connector"],
+          "iconTag": "k8s"
+        },
+        {
+          "name": "K8s Cluster with Username and Password",
+          "description": "K8s Cluster with Username and Password",
+          "version": "0.1",
+          "identifier": "k8s-cluster-with-username-and-password-0-1",
+          "tags": ["k8s", "connector"],
+          "iconTag": "k8s"
+        },
+        {
+          "name": "K8s Cluster with Client Key Cert",
+          "description": "K8s Cluster with Client Key Cert",
+          "version": "0.1",
+          "identifier": "k8s-cluster-with-client-key-cert-0-1",
+          "tags": ["k8s", "connector"],
+          "iconTag": "k8s"
+        },
+        {
+          "name": "K8s Inherit from Delegate",
+          "description": "K8s Inherit from Delegate",
+          "version": "0.1",
+          "identifier": "k8s-inherit-from-delegate-0-1",
+          "tags": ["k8s", "connector"],
+          "iconTag": "k8s"
+        },
+        {
+          "name": "K8s Cluster with Open Id Connect",
+          "description": "K8s Cluster with Open Id Connect",
+          "version": "0.1",
+          "identifier": "k8s-cluster-with-open-id-connect-0-1",
+          "tags": ["k8s", "connector"],
+          "iconTag": "k8s"
+        }
+      ]
+    },
+    "metaData": null
+  },
+  "loading": false
+}

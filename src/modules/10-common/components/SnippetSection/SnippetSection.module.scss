@@ -35,3 +35,14 @@
   list-style: none;
   margin: 0;
 }
+
+.noSnippets {
+  font-size: var(--font-size-medium);
+}
+
+.fillSpace {
+  display: flex;
+  align-items: center;
+  width: -webkit-fill-available;
+  justify-content: center;
+}

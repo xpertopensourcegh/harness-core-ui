@@ -6,5 +6,7 @@ declare const styles: {
   readonly snippetIcon: string
   readonly snippets: string
   readonly ulStyle: string
+  readonly noSnippets: string
+  readonly fillSpace: string
 }
 export default styles

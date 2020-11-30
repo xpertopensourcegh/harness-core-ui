@@ -1,5 +1,4 @@
 import type { CompletionItemKind } from 'vscode-languageserver-types'
-import type { SnippetInterface } from './SnippetInterface'
 import type { YamlEntity } from '../constants/YamlConstants'
 
 export interface YamlBuilderHandlerBinding {
@@ -15,11 +14,11 @@ export interface YamlBuilderProps {
   fileName: string
   existingJSON?: Record<string, any>
   entityType: YamlEntity
+  entitySubType?: string
   bind?: (dynamicPopoverHandler: YamlBuilderHandlerBinding) => void
   invocationMap?: Map<RegExp, InvocationMapFunction>
   isReadOnlyMode?: boolean
   showSnippetSection?: boolean
-  snippets?: SnippetInterface[]
   showIconMenu?: boolean
   onSnippetSearch?: (queryString: string) => void
   onExpressionTrigger?: (yamlPath: string, currentExpression: string) => Promise<CompletionItemInterface[]>

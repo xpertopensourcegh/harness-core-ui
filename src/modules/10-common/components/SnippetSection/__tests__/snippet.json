@@ -1,0 +1,6 @@
+{
+  "status": "SUCCESS",
+  "data": "connector:\n  # Connector typ to access kubernetes cluster\n  # Name of the connector Required\n  name: \"My k8s Cluster\"\n  # Non-changeable identifier of the connector, can not contain spaces or special chars. REQUIRED\n  identifier: \"my_k8s_cluster\"\n  type: K8sCluster\n  spec:\n    credential:\n      # Options are ManualConfig and InheritFromDelegate\n      type: ManualConfig\n      spec:\n        masterUrl: \"k8s master url\"\n        auth:\n          type: ServiceAccount\n          spec:\n            # Service account token for the service accoun. | Required\n            serviceAcccountTokenRef: \"secretRef:service_account_token\"",
+  "metaData": null,
+  "loading": false
+}

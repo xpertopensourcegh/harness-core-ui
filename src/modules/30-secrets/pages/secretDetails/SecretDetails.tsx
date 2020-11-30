@@ -23,11 +23,8 @@ import {
   routeResourcesSecretsListing
 } from 'navigation/accounts/routes'
 import YamlBuilder from '@common/components/YAMLBuilder/YamlBuilder'
-import { addIconInfoToSnippets } from '@common/components/YAMLBuilder/YAMLBuilderUtils'
 import type { YamlBuilderHandlerBinding } from '@common/interfaces/YAMLBuilderProps'
 import { YamlEntity } from '@common/constants/YamlConstants'
-import { YAMLService } from '@common/services'
-import type { SnippetInterface } from '@common/interfaces/SnippetInterface'
 import { useToaster } from '@common/exports'
 import CreateUpdateSecret from '@secrets/components/CreateUpdateSecret/CreateUpdateSecret'
 import { routeSecretDetails } from 'navigation/accounts/routes'
@@ -74,7 +71,6 @@ const SecretDetails: React.FC<SecretDetailsProps> = props => {
   const { edit } = parseQueryString(queryParams)
   const [mode, setMode] = useState<Mode>(Mode.VISUAL)
   const [fieldsRemovedFromYaml, setFieldsRemovedFromYaml] = useState(['draft', 'createdAt', 'updatedAt'])
-  const [snippets, setSnippets] = useState<SnippetInterface[]>()
   const [yamlHandler, setYamlHandler] = React.useState<YamlBuilderHandlerBinding | undefined>()
   const { loading, data, refetch, error } = useGetSecretV2({
     identifier: secretId,
@@ -108,21 +104,6 @@ const SecretDetails: React.FC<SecretDetailsProps> = props => {
       }
     }
   }
-
-  const fetchSnippets = (query?: string): void => {
-    const { error: apiError, response: snippetsList } = YAMLService.fetchSnippets(YamlEntity.SECRET, query) || {}
-
-    if (apiError) {
-      showError(apiError)
-      return
-    }
-    addIconInfoToSnippets('command-shell-script', snippetsList)
-    setSnippets(snippetsList)
-  }
-
-  React.useEffect(() => {
-    fetchSnippets()
-  })
 
   useEffect(() => {
     setSecretData(data?.data)
@@ -247,7 +228,6 @@ const SecretDetails: React.FC<SecretDetailsProps> = props => {
                 // existingJson={}
                 // fieldRemovedFromYaml={[]}
                 existingJSON={omit(secretData, fieldsRemovedFromYaml)}
-                snippets={snippets}
                 bind={setYamlHandler}
               />
               <Button intent="primary" text="Save" onClick={handleSaveYaml} margin={{ top: 'large' }} />
