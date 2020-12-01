@@ -13,14 +13,16 @@ module.exports = {
   collectCoverageFrom: [
     'src/**/*.{ts,tsx}',
     '!src/**/*.test.{ts,tsx}',
-    '!src/navigation/*/routes.ts',
     '!src/**/__tests__/**',
     '!src/services/**',
     '!src/**/YamlBuilder.tsx',
     '!src/**/*mock*.{ts,tsx}',
     '!src/**/*Mock*.{ts,tsx}',
     '!src/**/CreateConnectorFromYamlPage.tsx',
-    '!src/**/PipelineYamlView.tsx'
+    '!src/**/CreateSecretFromYamlPage.tsx',
+    '!src/**/PipelineYamlView.tsx',
+    '!src/**/RouteDestinations.tsx',
+    '!src/modules/10-common/RouteDefinitions.ts'
   ],
   coverageReporters: ['lcov', 'json-summary'],
   transform: {

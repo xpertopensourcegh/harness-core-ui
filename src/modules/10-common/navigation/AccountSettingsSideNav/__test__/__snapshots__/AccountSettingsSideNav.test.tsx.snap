@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Resources Page render 1`] = `
+<div>
+  <div
+    class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws"
+  >
+    <a
+      class="link"
+      href="/account/dummy/admin"
+    >
+      <p
+        class="StyledProps---font--2ipy StyledProps---main--1Wws text"
+      >
+        Overview
+      </p>
+    </a>
+    <a
+      aria-current="page"
+      class="link selected"
+      href="/account/dummy/admin/resources"
+    >
+      <p
+        class="StyledProps---font--2ipy StyledProps---main--1Wws text"
+      >
+        Resources
+      </p>
+    </a>
+    <a
+      class="link"
+      href="/account/dummy/admin/governance"
+    >
+      <p
+        class="StyledProps---font--2ipy StyledProps---main--1Wws text"
+      >
+        Governance
+      </p>
+    </a>
+    <a
+      class="link"
+      href="/account/dummy/admin/git-sync"
+    >
+      <p
+        class="StyledProps---font--2ipy StyledProps---main--1Wws text"
+      >
+        Git Sync
+      </p>
+    </a>
+    <a
+      class="link"
+      href="/account/dummy/admin/organizations"
+    >
+      <p
+        class="StyledProps---font--2ipy StyledProps---main--1Wws text"
+      >
+        Organisations
+      </p>
+    </a>
+  </div>
+</div>
+`;

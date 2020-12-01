@@ -8,7 +8,7 @@ import i18n from './ResourcesPage.i18n'
 import css from './ResourcesPage.module.scss'
 
 const ResourcesPage: React.FC = ({ children }) => {
-  const { accountId } = useParams()
+  const { accountId, orgIdentifier } = useParams()
   return (
     <>
       <Page.Header
@@ -19,7 +19,11 @@ const ResourcesPage: React.FC = ({ children }) => {
               <NavLink
                 className={css.tags}
                 activeClassName={css.activeTag}
-                to={routes.toResourcesConnectors({ accountId })}
+                to={
+                  orgIdentifier
+                    ? routes.toOrgResourcesConnectors({ accountId, orgIdentifier })
+                    : routes.toResourcesConnectors({ accountId })
+                }
               >
                 {i18n.connectors}
               </NavLink>
@@ -27,7 +31,11 @@ const ResourcesPage: React.FC = ({ children }) => {
               <NavLink
                 className={css.tags}
                 activeClassName={css.activeTag}
-                to={routes.toResourcesSecretsListing({ accountId })}
+                to={
+                  orgIdentifier
+                    ? routes.toOrgResourcesSecretsListing({ accountId, orgIdentifier })
+                    : routes.toResourcesSecretsListing({ accountId })
+                }
               >
                 {i18n.secrets}
               </NavLink>

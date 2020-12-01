@@ -17,45 +17,50 @@ const CV_HOME = `/cv/home`
 const routes = {
   toAdmin: withAccountId(() => '/admin'),
   toSettings: withAccountId(() => '/settings'),
-  toResources: withAccountId(() => '/resources'),
+  toResources: withAccountId(() => '/admin/resources'),
+  // account resources
+  toResourcesConnectors: withAccountId(() => '/admin/resources/connectors'),
+  toResourcesConnectorDetails: withAccountId(
+    ({ connectorId }: ConnectorPathProps) => `/admin/resources/connectors/${connectorId}`
+  ),
+  toResourcesSecretsListing: withAccountId(() => '/admin/resources/secrets'),
+  toResourcesSecretDetails: withAccountId(({ secretId }: SecretsPathProps) => `/admin/resources/secrets/${secretId}`),
+  // org resources
+  toOrgResources: withAccountId(({ orgIdentifier }: OrgPathProps) => `/admin/organizations/${orgIdentifier}/resources`),
   toOrgResourcesConnectors: withAccountId(
-    ({ orgIdentifier }: OrgPathProps) => `/resources/org/${orgIdentifier}/connectors`
+    ({ orgIdentifier }: OrgPathProps) => `/admin/organizations/${orgIdentifier}/resources/connectors`
   ),
   toOrgResourcesConnectorDetails: withAccountId(
     ({ orgIdentifier, connectorId }: OrgPathProps & ConnectorPathProps) =>
-      `/resources/org/${orgIdentifier}/connectors/${connectorId}`
+      `/admin/organizations/${orgIdentifier}/resources/connectors/${connectorId}`
   ),
   toOrgResourcesSecretsListing: withAccountId(
-    ({ orgIdentifier }: OrgPathProps) => `/resources/org/${orgIdentifier}/secrets`
+    ({ orgIdentifier }: OrgPathProps) => `/admin/organizations/${orgIdentifier}/resources/secrets`
   ),
   toOrgResourcesSecretDetails: withAccountId(
     ({ orgIdentifier, secretId }: OrgPathProps & SecretsPathProps) =>
-      `/resources/org/${orgIdentifier}/secrets/${secretId}`
+      `/admin/organizations/${orgIdentifier}/resources/secrets/${secretId}`
   ),
-  toOrgResources: withAccountId(({ orgIdentifier }: OrgPathProps) => `/resources/org/${orgIdentifier}`),
-  toGitSyncRepos: withAccountId(() => '/git-sync/repos'),
-  toGitSyncActivities: withAccountId(() => '/git-sync/activities'),
-  toGitSyncEntities: withAccountId(() => '/git-sync/entities'),
-  toGitSyncErrors: withAccountId(() => '/git-sync/errors'),
-  toGitSync: withAccountId(() => '/git-sync'),
-  toOrgGitSyncRepos: withAccountId(({ orgIdentifier }: OrgPathProps) => `/git-sync/org/${orgIdentifier}/repos`),
+  // git sync
+  toGitSyncRepos: withAccountId(() => '/admin/git-sync/repos'),
+  toGitSyncActivities: withAccountId(() => '/admin/git-sync/activities'),
+  toGitSyncEntities: withAccountId(() => '/admin/git-sync/entities'),
+  toGitSyncErrors: withAccountId(() => '/admin/git-sync/errors'),
+  toGitSync: withAccountId(() => '/admin/git-sync'),
+  toOrgGitSyncRepos: withAccountId(({ orgIdentifier }: OrgPathProps) => `/admin/git-sync/org/${orgIdentifier}/repos`),
   toOrgGitSyncActivities: withAccountId(
-    ({ orgIdentifier }: OrgPathProps) => `/git-sync/org/${orgIdentifier}/activities`
+    ({ orgIdentifier }: OrgPathProps) => `/admin/git-sync/org/${orgIdentifier}/activities`
   ),
-  toOrgGitSyncEntities: withAccountId(({ orgIdentifier }: OrgPathProps) => `/git-sync/org/${orgIdentifier}/entities`),
-  toOrgGitSyncErrors: withAccountId(({ orgIdentifier }: OrgPathProps) => `/git-sync/org/${orgIdentifier}/errors`),
-  toOrgGitSync: withAccountId(({ orgIdentifier }: OrgPathProps) => `/git-sync/org/${orgIdentifier}`),
-  toOrgProjects: withAccountId(({ orgIdentifier }: OrgPathProps) => `/organizations/${orgIdentifier}/projects`),
-  toOrganizations: withAccountId(() => `/organizations`),
-  toOrganizationDetails: withAccountId(({ orgIdentifier }: OrgPathProps) => `/organizations/${orgIdentifier}`),
-  toGovernance: withAccountId(() => '/governance'),
-  toOrgGovernance: withAccountId(({ orgIdentifier }: OrgPathProps) => `/governance/org/${orgIdentifier}`),
-  toResourcesConnectors: withAccountId(() => '/resources/connectors'),
-  toResourcesConnectorDetails: withAccountId(
-    ({ connectorId }: ConnectorPathProps) => `/resources/connectors/${connectorId}`
+  toOrgGitSyncEntities: withAccountId(
+    ({ orgIdentifier }: OrgPathProps) => `/admin/git-sync/org/${orgIdentifier}/entities`
   ),
-  toResourcesSecretsListing: withAccountId(() => '/resources/secrets'),
-  toResourcesSecretDetails: withAccountId(({ secretId }: SecretsPathProps) => `/resources/secrets/${secretId}`),
+  toOrgGitSyncErrors: withAccountId(({ orgIdentifier }: OrgPathProps) => `/admin/git-sync/org/${orgIdentifier}/errors`),
+  toOrgGitSync: withAccountId(({ orgIdentifier }: OrgPathProps) => `/admin/git-sync/org/${orgIdentifier}`),
+  toOrgProjects: withAccountId(({ orgIdentifier }: OrgPathProps) => `/admin/organizations/${orgIdentifier}/projects`),
+  toOrganizations: withAccountId(() => `/admin/organizations`),
+  toOrganizationDetails: withAccountId(({ orgIdentifier }: OrgPathProps) => `/admin/organizations/${orgIdentifier}`),
+  toGovernance: withAccountId(() => '/admin/governance'),
+  toOrgGovernance: withAccountId(({ orgIdentifier }: OrgPathProps) => `/admin/governance/org/${orgIdentifier}`),
   toCreateConnectorFromYaml: withAccountId(() => '/create-connector-from-yaml'),
   toCreateSecretFromYaml: withAccountId(() => '/create-secret-from-yaml'),
 
