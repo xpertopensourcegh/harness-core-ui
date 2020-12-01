@@ -1,9 +1,10 @@
 import React from 'react'
 import { render, RenderResult, waitFor, fireEvent, getByText, queryByText } from '@testing-library/react'
 import { act } from 'react-dom/test-utils'
-import { prependAccountPath, TestWrapper, findDialogContainer, findPopoverContainer } from '@common/utils/testUtils'
-import { routeInputSetList } from 'navigation/cd/routes'
+import { TestWrapper, findDialogContainer, findPopoverContainer } from '@common/utils/testUtils'
+import routes from '@common/RouteDefinitions'
 import { defaultAppStoreValues } from '@projects-orgs/pages/projects/__tests__/DefaultAppStoreData'
+import { accountPathProps, pipelinePathProps } from '@common/utils/routeUtils'
 import InputSetList from '../InputSetList'
 import {
   TemplateResponse,
@@ -45,11 +46,13 @@ jest.mock('services/cd-ng', () => ({
   useDeleteInputSetForPipeline: jest.fn().mockImplementation(() => ({ mutate: deleteInputSet }))
 }))
 
+const TEST_PATH = routes.toCDInputSetList({ ...accountPathProps, ...pipelinePathProps })
+
 describe('Input Set List tests', () => {
   test('render Input Set List view', async () => {
     const { getAllByText, container } = render(
       <TestWrapper
-        path={prependAccountPath(routeInputSetList.path)}
+        path={TEST_PATH}
         pathParams={{
           accountId: 'testAcc',
           orgIdentifier: 'testOrg',
@@ -73,7 +76,7 @@ describe('Input Set List - Actions tests', () => {
   beforeEach(async () => {
     const renderObj = render(
       <TestWrapper
-        path={prependAccountPath(routeInputSetList.path)}
+        path={TEST_PATH}
         pathParams={{
           accountId: 'testAcc',
           orgIdentifier: 'testOrg',

@@ -2,7 +2,6 @@
 
 exports[`Git Sync - EntitiesPreview render Git Sync EntitiesPreview wrapper 1`] = `
 <div>
-   
   <div
     class="StyledProps---font--2ipy StyledProps---main--1Wws productListing StyledProps---padding-small--3f0A"
   >
@@ -124,6 +123,5 @@ exports[`Git Sync - EntitiesPreview render Git Sync EntitiesPreview wrapper 1`] 
       </div>
     </div>
   </div>
-   
 </div>
 `;

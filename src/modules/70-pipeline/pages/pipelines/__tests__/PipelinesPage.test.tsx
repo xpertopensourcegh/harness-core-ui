@@ -7,16 +7,11 @@ import {
   getByText,
   getAllByText as getAllByTextLib
 } from '@testing-library/react'
-import {
-  prependAccountPath,
-  TestWrapper,
-  UseGetMockData,
-  findDialogContainer,
-  findPopoverContainer
-} from '@common/utils/testUtils'
+import { TestWrapper, UseGetMockData, findDialogContainer, findPopoverContainer } from '@common/utils/testUtils'
 import type { ResponsePageNGPipelineSummaryResponse } from 'services/cd-ng'
 import { defaultAppStoreValues } from '@projects-orgs/pages/projects/__tests__/DefaultAppStoreData'
-import { routeCDPipelines, routeCDPipelineStudio, routePipelineDetail } from 'navigation/cd/routes'
+import routes from '@common/RouteDefinitions'
+import { projectPathProps, accountPathProps } from '@common/utils/routeUtils'
 import CDPipelinesPage from '../PipelinesPage'
 import mocks, { EmptyResponse } from './PipelineMocks'
 import i18n from '../PipelinesPage.i18n'
@@ -49,14 +44,12 @@ jest.mock('@pipeline/components/RunPipelineModal/RunPipelineModal', () => ({
   RunPipelineModal: ({ children }: { children: JSX.Element }) => <div onClick={onRunPipelineClick}>{children}</div>
 }))
 
+const TEST_PATH = routes.toCDPipelines({ ...accountPathProps, ...projectPathProps })
+
 describe('CD Pipeline Page List', () => {
   test('render card view', async () => {
     const { container, getByTestId } = render(
-      <TestWrapper
-        path={prependAccountPath(routeCDPipelines.path)}
-        pathParams={params}
-        defaultAppStoreValues={defaultAppStoreValues}
-      >
+      <TestWrapper path={TEST_PATH} pathParams={params} defaultAppStoreValues={defaultAppStoreValues}>
         <CDPipelinesPage mockData={mocks as UseGetMockData<ResponsePageNGPipelineSummaryResponse>} />
       </TestWrapper>
     )
@@ -66,11 +59,7 @@ describe('CD Pipeline Page List', () => {
 
   test('render empty list card view', async () => {
     const { container, getByTestId } = render(
-      <TestWrapper
-        path={prependAccountPath(routeCDPipelines.path)}
-        pathParams={params}
-        defaultAppStoreValues={defaultAppStoreValues}
-      >
+      <TestWrapper path={TEST_PATH} pathParams={params} defaultAppStoreValues={defaultAppStoreValues}>
         <CDPipelinesPage mockData={EmptyResponse as UseGetMockData<ResponsePageNGPipelineSummaryResponse>} />
       </TestWrapper>
     )
@@ -80,17 +69,13 @@ describe('CD Pipeline Page List', () => {
     fireEvent.click(addButton!)
     await waitFor(() => getByTestId('location'))
     expect(
-      getByTestId('location').innerHTML.endsWith(routeCDPipelineStudio.url({ ...params, pipelineIdentifier: '-1' }))
+      getByTestId('location').innerHTML.endsWith(routes.toCDPipelineStudio({ ...params, pipelineIdentifier: '-1' }))
     ).toBeTruthy()
   })
 
   test('render list view', async () => {
     const { container, getByTestId, getAllByText } = render(
-      <TestWrapper
-        path={prependAccountPath(routeCDPipelines.path)}
-        pathParams={params}
-        defaultAppStoreValues={defaultAppStoreValues}
-      >
+      <TestWrapper path={TEST_PATH} pathParams={params} defaultAppStoreValues={defaultAppStoreValues}>
         <CDPipelinesPage mockData={mocks as UseGetMockData<ResponsePageNGPipelineSummaryResponse>} />
       </TestWrapper>
     )
@@ -105,11 +90,7 @@ describe('CD Pipeline Page List', () => {
   test('test run pipeline on card view', async () => {
     onRunPipelineClick.mockReset()
     const { getByTestId, getAllByTestId } = render(
-      <TestWrapper
-        path={prependAccountPath(routeCDPipelines.path)}
-        pathParams={params}
-        defaultAppStoreValues={defaultAppStoreValues}
-      >
+      <TestWrapper path={TEST_PATH} pathParams={params} defaultAppStoreValues={defaultAppStoreValues}>
         <CDPipelinesPage mockData={mocks as UseGetMockData<ResponsePageNGPipelineSummaryResponse>} />
       </TestWrapper>
     )
@@ -120,27 +101,19 @@ describe('CD Pipeline Page List', () => {
 
   test('test Pipeline click on card view', async () => {
     const { getByTestId } = render(
-      <TestWrapper
-        path={prependAccountPath(routeCDPipelines.path)}
-        pathParams={params}
-        defaultAppStoreValues={defaultAppStoreValues}
-      >
+      <TestWrapper path={TEST_PATH} pathParams={params} defaultAppStoreValues={defaultAppStoreValues}>
         <CDPipelinesPage mockData={mocks as UseGetMockData<ResponsePageNGPipelineSummaryResponse>} />
       </TestWrapper>
     )
     await waitFor(() => getByTestId(params.pipelineIdentifier))
     fireEvent.click(getByTestId('pipeline1')!)
     await waitFor(() => getByTestId('location'))
-    expect(getByTestId('location').innerHTML.endsWith(routePipelineDetail.url(params))).toBeTruthy()
+    expect(getByTestId('location').innerHTML.endsWith(routes.toCDPipelineDetail(params))).toBeTruthy()
   })
 
   test('test Add Pipeline on card view', async () => {
     const { getByTestId, getAllByTestId } = render(
-      <TestWrapper
-        path={prependAccountPath(routeCDPipelines.path)}
-        pathParams={params}
-        defaultAppStoreValues={defaultAppStoreValues}
-      >
+      <TestWrapper path={TEST_PATH} pathParams={params} defaultAppStoreValues={defaultAppStoreValues}>
         <CDPipelinesPage mockData={mocks as UseGetMockData<ResponsePageNGPipelineSummaryResponse>} />
       </TestWrapper>
     )
@@ -148,16 +121,12 @@ describe('CD Pipeline Page List', () => {
     fireEvent.click(getAllByTestId('add-pipeline')[0]!)
     await waitFor(() => getByTestId('location'))
     expect(
-      getByTestId('location').innerHTML.endsWith(routeCDPipelineStudio.url({ ...params, pipelineIdentifier: '-1' }))
+      getByTestId('location').innerHTML.endsWith(routes.toCDPipelineStudio({ ...params, pipelineIdentifier: '-1' }))
     ).toBeTruthy()
   })
   test('Search Pipeline', async () => {
     const { getByTestId, container } = render(
-      <TestWrapper
-        path={prependAccountPath(routeCDPipelines.path)}
-        pathParams={params}
-        defaultAppStoreValues={defaultAppStoreValues}
-      >
+      <TestWrapper path={TEST_PATH} pathParams={params} defaultAppStoreValues={defaultAppStoreValues}>
         <CDPipelinesPage />
       </TestWrapper>
     )
@@ -184,11 +153,7 @@ describe('Pipeline List View Test cases', () => {
 
   beforeEach(async () => {
     const { getByTestId, container } = render(
-      <TestWrapper
-        path={prependAccountPath(routeCDPipelines.path)}
-        pathParams={params}
-        defaultAppStoreValues={defaultAppStoreValues}
-      >
+      <TestWrapper path={TEST_PATH} pathParams={params} defaultAppStoreValues={defaultAppStoreValues}>
         <CDPipelinesPage />
       </TestWrapper>
     )
@@ -204,7 +169,7 @@ describe('Pipeline List View Test cases', () => {
     const row = listView.querySelectorAll("[role='row']")[1]
     fireEvent.click(row)
     await waitFor(() => getByTestIdTop?.('location'))
-    expect(getByTestIdTop?.('location').innerHTML.endsWith(routePipelineDetail.url(params))).toBeTruthy()
+    expect(getByTestIdTop?.('location').innerHTML.endsWith(routes.toCDPipelineDetail(params))).toBeTruthy()
   })
 
   test('should be able to open menu and run pipeline', async () => {
@@ -228,7 +193,7 @@ describe('Pipeline List View Test cases', () => {
     const gotoStudioBtn = getByText(menuContent as HTMLElement, 'Pipeline Studio')
     fireEvent.click(gotoStudioBtn)
     await waitFor(() => getByTestIdTop?.('location'))
-    expect(getByTestIdTop?.('location').innerHTML.endsWith(routeCDPipelineStudio.url({ ...params }))).toBeTruthy()
+    expect(getByTestIdTop?.('location').innerHTML.endsWith(routes.toCDPipelineStudio({ ...params }))).toBeTruthy()
   })
 
   test('should be able to open menu and delete pipeline ', async () => {
@@ -255,11 +220,7 @@ describe('Pipeline Card View Test Cases', () => {
 
   beforeEach(async () => {
     const { getByTestId, container } = render(
-      <TestWrapper
-        path={prependAccountPath(routeCDPipelines.path)}
-        pathParams={params}
-        defaultAppStoreValues={defaultAppStoreValues}
-      >
+      <TestWrapper path={TEST_PATH} pathParams={params} defaultAppStoreValues={defaultAppStoreValues}>
         <CDPipelinesPage />
       </TestWrapper>
     )
@@ -273,7 +234,7 @@ describe('Pipeline Card View Test Cases', () => {
     const cardName = getAllByTextLib(cardView, 'Stages')[0]
     fireEvent.click(cardName)
     await waitFor(() => getByTestIdTop?.('location'))
-    expect(getByTestIdTop?.('location').innerHTML.endsWith(routePipelineDetail.url(params))).toBeTruthy()
+    expect(getByTestIdTop?.('location').innerHTML.endsWith(routes.toCDPipelineDetail(params))).toBeTruthy()
   })
 
   test('should be able to open menu and run pipeline', async () => {
@@ -297,7 +258,7 @@ describe('Pipeline Card View Test Cases', () => {
     const gotoStudioBtn = getByText(menuContent as HTMLElement, 'Pipeline Studio')
     fireEvent.click(gotoStudioBtn)
     await waitFor(() => getByTestIdTop?.('location'))
-    expect(getByTestIdTop?.('location').innerHTML.endsWith(routeCDPipelineStudio.url({ ...params }))).toBeTruthy()
+    expect(getByTestIdTop?.('location').innerHTML.endsWith(routes.toCDPipelineStudio({ ...params }))).toBeTruthy()
   })
 
   test('should be able to open menu and delete pipeline ', async () => {

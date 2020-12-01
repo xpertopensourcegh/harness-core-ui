@@ -2,27 +2,32 @@ import React from 'react'
 import { Container } from '@wings-software/uikit'
 import { waitFor, render } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
-import * as framework from 'framework/route/RouteMounter'
-import { ActivitySourceSetupRoutePaths } from 'navigation/cv/routePaths'
+import routes from '@common/RouteDefinitions'
+import { ActivitySourceSetupRoutePaths } from '@cv/utils/routeUtils'
+import { accountPathProps, projectPathProps } from '@common/utils/routeUtils'
 import ActivitySourceSetup from '../ActivitySourceSetup'
 
 jest.mock('../kubernetes/KubernetesActivitySource', () => () => <Container className="kubeActivitySource" />)
 
+const TEST_PATH = routes.toCVActivitySourceSetup({
+  ...accountPathProps,
+  ...projectPathProps,
+  activitySource: ':activitySource'
+})
+
+const pathParams = {
+  accountId: 'loading',
+  projectIdentifier: '1234_project',
+  orgIdentifier: '1234_ORG'
+}
+
 describe('Unit tests for activity source setup', () => {
   test('Ensure kube component is rendered when activity source is kube', async () => {
-    const mockRouteParams = jest.spyOn(framework, 'useRouteParams')
-    mockRouteParams.mockReturnValue({
-      params: {
-        accountId: 'loading',
-        projectIdentifier: '1234_project',
-        orgIdentifier: '1234_ORG',
-        activitySource: ActivitySourceSetupRoutePaths.KUBERNETES
-      },
-      query: {}
-    })
-
     const { container } = render(
-      <TestWrapper>
+      <TestWrapper
+        path={TEST_PATH}
+        pathParams={{ ...pathParams, activitySource: ActivitySourceSetupRoutePaths.KUBERNETES }}
+      >
         <ActivitySourceSetup />
       </TestWrapper>
     )
@@ -30,19 +35,8 @@ describe('Unit tests for activity source setup', () => {
   })
 
   test('Ensure no component is rendered when activity source is empty', async () => {
-    const mockRouteParams = jest.spyOn(framework, 'useRouteParams')
-    mockRouteParams.mockReturnValue({
-      params: {
-        accountId: 'loading',
-        projectIdentifier: '1234_project',
-        orgIdentifier: '1234_ORG',
-        activitySource: ''
-      },
-      query: {}
-    })
-
     const { container } = render(
-      <TestWrapper>
+      <TestWrapper path={TEST_PATH} pathParams={{ ...pathParams, activitySource: ':activitySource' }}>
         <ActivitySourceSetup />
       </TestWrapper>
     )

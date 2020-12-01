@@ -1,7 +1,8 @@
 import React from 'react'
 import { render, waitFor } from '@testing-library/react'
-import { prependAccountPath, TestWrapper } from '@common/utils/testUtils'
-import { routePipelineDeploymentList } from 'navigation/cd/routes'
+import { TestWrapper } from '@common/utils/testUtils'
+import { accountPathProps, pipelinePathProps } from '@common/utils/routeUtils'
+import routes from '@common/RouteDefinitions'
 import { defaultAppStoreValues } from '@projects-orgs/pages/projects/__tests__/DefaultAppStoreData'
 
 import PipelineDeploymentList from '../PipelineDeploymentList'
@@ -28,7 +29,7 @@ describe('Test Pipeline Deployment list', () => {
   test('should render deployment list', async () => {
     const { container, getByText } = render(
       <TestWrapper
-        path={prependAccountPath(routePipelineDeploymentList.path)}
+        path={routes.toCDPipelineDeploymentList({ ...accountPathProps, ...pipelinePathProps })}
         pathParams={{
           accountId: 'testAcc',
           orgIdentifier: 'testOrg',

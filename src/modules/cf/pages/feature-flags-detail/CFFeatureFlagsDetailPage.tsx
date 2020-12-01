@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react'
 import { Layout, Container, SelectOption } from '@wings-software/uikit'
 import { useHistory } from 'react-router-dom'
 import { Spinner } from '@blueprintjs/core'
+import { useParams } from 'react-router-dom'
+
+import routes from '@common/RouteDefinitions'
 import { useToaster } from '@common/exports'
 import { useGetFeatureFlag } from 'services/cf'
-import { useRouteParams } from 'framework/exports'
 import { useEnvironments } from '@cf/hooks/environment'
-import { routeCFFeatureFlagsDetail } from 'navigation/cf/routes'
 import FlagActivation from '../../components/FlagActivation/FlagActivation'
 import FlagActivationDetails from '../../components/FlagActivation/FlagActivationDetails'
 import css from './CFFeatureFlagsDetailPage.module.scss'
@@ -15,9 +16,7 @@ const CFFeatureFlagsDetailPage: React.FC = () => {
   const history = useHistory()
   const { showError } = useToaster()
 
-  const {
-    params: { orgIdentifier, projectIdentifier, featureFlagIdentifier, environmentIdentifier }
-  } = useRouteParams()
+  const { orgIdentifier, projectIdentifier, featureFlagIdentifier, environmentIdentifier, accountId } = useParams()
 
   const { data: environments, error: errorEnvs, loading: envsLoading } = useEnvironments(projectIdentifier as string)
   const [environmentOption, setEnvironmentOption] = useState<SelectOption | null>(null)
@@ -30,7 +29,7 @@ const CFFeatureFlagsDetailPage: React.FC = () => {
       }
       setEnvironmentOption(environments?.length > 0 ? environments[index] : null)
     }
-  }, [environments.length, envsLoading, environmentIdentifier])
+  }, [environments?.length, envsLoading, environmentIdentifier])
 
   const { data: singleFlag, loading: loadingFlag, error: errorFlag, refetch } = useGetFeatureFlag({
     lazy: true,
@@ -49,11 +48,12 @@ const CFFeatureFlagsDetailPage: React.FC = () => {
 
   const onEnvChange = (item: SelectOption) => {
     history.push(
-      routeCFFeatureFlagsDetail.url({
+      routes.toCFFeatureFlagsDetail({
         orgIdentifier: orgIdentifier as string,
         projectIdentifier: projectIdentifier as string,
         environmentIdentifier: item.value as string,
-        featureFlagIdentifier: featureFlagIdentifier as string
+        featureFlagIdentifier: featureFlagIdentifier as string,
+        accountId
       })
     )
   }

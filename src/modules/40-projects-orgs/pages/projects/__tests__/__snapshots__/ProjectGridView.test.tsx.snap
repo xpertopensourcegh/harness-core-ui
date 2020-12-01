@@ -2,7 +2,6 @@
 
 exports[`Project Grid render 1`] = `
 <div>
-   
   <div
     class="StyledProps---font--2ipy StyledProps---main--1Wws pageBody pageContainer"
   >
@@ -2884,13 +2883,11 @@ exports[`Project Grid render 1`] = `
       style="height: 10%;"
     />
   </div>
-   
 </div>
 `;
 
 exports[`Project Grid render 2`] = `
 <div>
-   
   <div>
     <h1>
       Not Found
@@ -2898,9 +2895,8 @@ exports[`Project Grid render 2`] = `
     <div
       data-testid="location"
     >
-      /account/null/org/testOrg/project/test
+      /account/testAcc/org/testOrg/project/test
     </div>
   </div>
-   
 </div>
 `;

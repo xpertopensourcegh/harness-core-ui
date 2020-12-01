@@ -1,7 +1,8 @@
 import React, { useMemo } from 'react'
 import { Container } from '@wings-software/uikit'
-import { useRouteParams } from 'framework/exports'
-import { ActivityDetailsActivityType, ActivityDetailsActivitySource } from 'navigation/cv/routePaths'
+import { useParams } from 'react-router-dom'
+
+import { ActivityDetailsActivityType, ActivityDetailsActivitySource } from '@cv/utils/routeUtils'
 import { Page } from '@common/exports'
 import i18n from './ActivitySetupPage.i18n'
 import BlueGreenVerificationJobForm from './VerificationJobForms/BlueGreenVerificationJobForm/BlueGreenVerificationJobForm'
@@ -12,9 +13,7 @@ import KubernetesActivitySourceForm from './ActivitySourceForms/KubernetesActivi
 import css from './ActivitySetupPage.module.scss'
 
 export default function ActivitySetupPage(): JSX.Element {
-  const {
-    params: { activityType }
-  } = useRouteParams()
+  const { activityType } = useParams()
   const { desiredForm, title } = useMemo(() => {
     switch (activityType) {
       case ActivityDetailsActivityType.BG:

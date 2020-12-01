@@ -15,13 +15,14 @@ import { FieldArray, FormikProps, Formik } from 'formik'
 import type { MetricPack, DSConfig } from '@wings-software/swagger-ts/definitions'
 import type { IDBPDatabase } from 'idb'
 import type { IconProps } from '@wings-software/uikit/dist/icons/Icon'
+import { useParams } from 'react-router-dom'
 import { AppDynamicsService } from '@cv/services'
 import { CustomizeMetricPackDrawer } from '@cv/components/CustomizeMetricPackDrawer/CustomizeMetricPackDrawer'
 import { useMetricPackHook, fetchMetricPacks } from '@cv/hooks/ConfigureMetricPackHook/ConfigureMetricPackHook'
 import DataSourceConfigPanel from '@cv/components/DataSourceConfigPanel/DataSourceConfigPanel'
-import { useRouteParams } from 'framework/exports'
 import OnBoardingConfigSetupHeader from '@cv/components/OnBoardingConfigSetupHeader/OnBoardingConfigSetupHeader'
 import { CVObjectStoreNames } from '@cv/hooks/IndexedDBHook/IndexedDBHook'
+import { useQueryParams } from '@common/hooks'
 import {
   DSConfigTableData,
   transformAppDynamicsApplications,
@@ -314,10 +315,8 @@ function AppDynamicsDataSourceForm(props: AppDynamicsDataSourceFormProps): JSX.E
   } = props
   const productName = pageData?.products?.[0]
   const [applicationsToAdd, setApplicationsToAdd] = useState<SelectOption[]>([{ label: i18n.loadingText, value: '' }])
-  const {
-    params: { accountId },
-    query: { dataSourceId: routeDataSourceId = '' }
-  } = useRouteParams()
+  const { accountId } = useParams()
+  const { dataSourceId: routeDataSourceId = '' } = useQueryParams()
   const dataSourceId = pageData.dataSourceId || (routeDataSourceId as string)
 
   useEffect(() => {
@@ -427,10 +426,8 @@ export default function AppDynamicsMainSetupView(props: AppDynamicsMainSetupView
   const [appDApplications, setAppDApplications] = useState<Map<string, SelectOption>>(new Map())
   const [metricPackMap, setMetricPackMap] = useState<Map<string, MetricPack>>(new Map())
   const { configs, serviceOptions, envOptions, locationContext, indexedDB } = props
-  const {
-    params: { accountId, projectIdentifier: routeProjectId, orgIdentifier: routeOrgId },
-    query: { dataSourceId: routeDataSourceId }
-  } = useRouteParams()
+  const { accountId, projectIdentifier: routeProjectId, orgIdentifier: routeOrgId } = useParams()
+  const { dataSourceId: routeDataSourceId } = useQueryParams()
   const dataSourceId = (routeDataSourceId as string) || locationContext.dataSourceId
   const projectId = routeProjectId as string
   const orgId = routeOrgId as string

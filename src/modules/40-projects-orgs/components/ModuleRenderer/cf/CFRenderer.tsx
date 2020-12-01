@@ -2,7 +2,7 @@ import React from 'react'
 import { Text, Color, Container, Layout, Icon } from '@wings-software/uikit'
 import { useHistory } from 'react-router-dom'
 import type { Project } from 'services/cd-ng'
-import { routeCFDashboard } from 'navigation/cf/routes'
+import routes from '@common/RouteDefinitions'
 import css from '../ModuleRenderer.module.scss'
 
 interface CFRendererProps {
@@ -19,9 +19,10 @@ const CFRenderer: React.FC<CFRendererProps> = ({ data, isPreview }) => {
       onClick={() => {
         !isPreview &&
           history.push(
-            routeCFDashboard.url({
+            routes.toCFDashboard({
               orgIdentifier: data.orgIdentifier || '',
-              projectIdentifier: data.identifier
+              projectIdentifier: data.identifier,
+              accountId: data.accountIdentifier || ''
             })
           )
       }}

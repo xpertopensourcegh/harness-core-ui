@@ -1,10 +1,10 @@
 import React from 'react'
 import { Container, Text, HarnessIcons, Color, Icon, Button } from '@wings-software/uikit'
-import { useHistory, useLocation } from 'react-router-dom'
+import { useHistory, useLocation, useParams } from 'react-router-dom'
+import { useQueryParams } from '@common/hooks'
 import { Page } from '@common/exports'
-import { routeCVOnBoardingSetup, routeCVDataSourcesEntityPage } from 'navigation/cv/routes'
-import { DataSourceRoutePaths } from 'navigation/cv/routePaths'
-import { useRouteParams } from 'framework/exports'
+import { DataSourceRoutePaths } from '@cv/utils/routeUtils'
+import routes from '@common/RouteDefinitions'
 import i18n from './SplunkInputType.i18n'
 import css from './SplunkInputType.module.scss'
 
@@ -12,10 +12,8 @@ export default function SplunkInputType(): JSX.Element {
   const HarnessLogo = HarnessIcons['harness-logo-black']
   const SplunkLogo = HarnessIcons['service-splunk-with-name']
   const history = useHistory()
-  const {
-    query,
-    params: { projectIdentifier: routeProjectId, orgIdentifier: routeOrgId }
-  } = useRouteParams()
+  const { projectIdentifier: routeProjectId, orgIdentifier: routeOrgId, accountId } = useParams()
+  const query = useQueryParams<Record<string, string>>()
   const { state: locationContext = {} } = useLocation()
   const projectId: string = (routeProjectId as string) || ''
   const orgId: string = (routeOrgId as string) || ''
@@ -38,10 +36,11 @@ export default function SplunkInputType(): JSX.Element {
             icon="plus"
             onClick={() =>
               history.push({
-                pathname: routeCVOnBoardingSetup.url({
+                pathname: routes.toCVOnBoardingSetup({
                   dataSourceType: DataSourceRoutePaths.SPLUNK,
                   projectIdentifier: projectId,
-                  orgIdentifier: orgId
+                  orgIdentifier: orgId,
+                  accountId
                 }),
                 search: `?dataSourceId=${query.dataSourceId}`,
                 state: locationContext
@@ -54,10 +53,11 @@ export default function SplunkInputType(): JSX.Element {
             intent="primary"
             onClick={() =>
               history.push({
-                pathname: routeCVDataSourcesEntityPage.url({
+                pathname: routes.toCVDataSourcesEntityPage({
                   dataSourceType: DataSourceRoutePaths.SPLUNK,
                   projectIdentifier: projectId,
-                  orgIdentifier: orgId
+                  orgIdentifier: orgId,
+                  accountId
                 }),
                 search: `?dataSourceId=${query.dataSourceId}`,
                 state: locationContext

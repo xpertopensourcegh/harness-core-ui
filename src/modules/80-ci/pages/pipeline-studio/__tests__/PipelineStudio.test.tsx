@@ -1,9 +1,11 @@
 import React from 'react'
 import { render, getByText, waitFor, fireEvent } from '@testing-library/react'
-import { findDialogContainer, prependAccountPath, TestWrapper } from '@common/utils/testUtils'
+import { findDialogContainer, TestWrapper } from '@common/utils/testUtils'
 import { defaultAppStoreValues } from '@projects-orgs/pages/projects/__tests__/DefaultAppStoreData'
 import { DefaultNewPipelineId } from '@pipeline/components/PipelineStudio/PipelineContext/PipelineActions'
-import { routeCIPipelineStudio } from 'navigation/ci/routes'
+import routes from '@common/RouteDefinitions'
+import { accountPathProps, pipelinePathProps } from '@common/utils/routeUtils'
+
 import CIPipelineStudio from '../CIPipelineStudio'
 import { PipelineResponse } from './PipelineStudioMocks'
 
@@ -33,11 +35,13 @@ jest.mock('@pipeline/components/RunPipelineModal/RunPipelineForm', () => ({
   )
 }))
 
+const TEST_PATH = routes.toCIPipelineStudio({ ...accountPathProps, ...pipelinePathProps })
+
 describe('Test Pipeline Studio', () => {
   test('should render default pipeline studio', async () => {
     const { container } = render(
       <TestWrapper
-        path={prependAccountPath(routeCIPipelineStudio.path)}
+        path={TEST_PATH}
         pathParams={{
           accountId: 'testAcc',
           orgIdentifier: 'testOrg',
@@ -55,7 +59,7 @@ describe('Test Pipeline Studio', () => {
   test('should render edit pipeline studio', async () => {
     const { container } = render(
       <TestWrapper
-        path={prependAccountPath(routeCIPipelineStudio.path)}
+        path={TEST_PATH}
         pathParams={{
           accountId: 'testAcc',
           orgIdentifier: 'testOrg',
@@ -73,7 +77,7 @@ describe('Test Pipeline Studio', () => {
   test('should render edit pipeline studio, run pipeline line, save Pipeline and close studio', async () => {
     const { getByTitle, container } = render(
       <TestWrapper
-        path={prependAccountPath(routeCIPipelineStudio.path)}
+        path={TEST_PATH}
         pathParams={{
           accountId: 'testAcc',
           orgIdentifier: 'testOrg',
@@ -99,7 +103,7 @@ describe('Test Pipeline Studio', () => {
   test('should render new pipeline studio, run pipeline line, save Pipeline and close studio', async () => {
     render(
       <TestWrapper
-        path={prependAccountPath(routeCIPipelineStudio.path)}
+        path={TEST_PATH}
         pathParams={{
           accountId: 'testAcc',
           orgIdentifier: 'testOrg',
@@ -124,7 +128,7 @@ describe('Test Pipeline Studio', () => {
   test('should render and test Trigger, Notifications, Templates and Variables Sections', async () => {
     const { container, getByTitle } = render(
       <TestWrapper
-        path={prependAccountPath(routeCIPipelineStudio.path)}
+        path={TEST_PATH}
         pathParams={{
           accountId: 'testAcc',
           orgIdentifier: 'testOrg',

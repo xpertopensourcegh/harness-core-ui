@@ -9,3 +9,5 @@ webpack.config.js @wings-software/ui-platform
 jest.config.js @wings-software/ui-platform
 coverage-groups.json @wings-software/ui-platform
 dockerfile @wings-software/ui-platform
+src/modules/10-common/navigation/ @wings-software/ui-platform
+src/modules/10-common/RouteDefinitions.ts @wings-software/ui-platform

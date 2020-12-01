@@ -5,7 +5,7 @@ import { pick } from 'lodash-es'
 import { Organization, useGetOrganization } from 'services/cd-ng'
 import { usePutOrganization } from 'services/cd-ng'
 import { useToaster } from '@common/components/Toaster/useToaster'
-import { useAppStoreReader, useAppStoreWriter } from 'framework/exports'
+import { useAppStore } from 'framework/exports'
 import i18n from './StepAboutOrganization.i18n'
 import OrganizationForm from './OrganizationForm'
 
@@ -43,8 +43,7 @@ const EditOrganization: React.FC<StepProps<Organization> & EditModalData> = prop
     }
   }, [error, loading])
 
-  const { organisationsMap } = useAppStoreReader()
-  const updateAppStore = useAppStoreWriter()
+  const { organisationsMap, updateAppStore } = useAppStore()
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding>()
 
   const onComplete = async (values: Organization): Promise<void> => {

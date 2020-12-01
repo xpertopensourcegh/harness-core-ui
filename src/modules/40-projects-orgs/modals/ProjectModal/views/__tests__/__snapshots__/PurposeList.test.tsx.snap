@@ -2,7 +2,6 @@
 
 exports[`PurposeList test initializes ok  1`] = `
 <div>
-   
   <div
     class="Layout---vertical--3Szv Layout---layout-spacing-large--3HvX StyledProps---main--1Wws modalPage"
   >
@@ -430,13 +429,11 @@ exports[`PurposeList test initializes ok  1`] = `
       </div>
     </div>
   </div>
-   
 </div>
 `;
 
 exports[`PurposeList test initializes ok  2`] = `
 <div>
-   
   <div
     class="Layout---vertical--3Szv Layout---layout-spacing-large--3HvX StyledProps---main--1Wws modalPage"
   >
@@ -960,7 +957,7 @@ exports[`PurposeList test initializes ok  2`] = `
             Continuous Delivery
           </p>
           <a
-            href="/account/null/cd/pipeline-studio/orgs/testOrg/projects/test/pipelines/-1/"
+            href="/account/testAcc/cd/pipeline-studio/orgs/testOrg/projects/test/pipelines/-1/"
           >
             Create New pipeline
           </a>
@@ -974,7 +971,7 @@ exports[`PurposeList test initializes ok  2`] = `
             Continuous Verification
           </p>
           <a
-            href="/account/null/cd/pipeline-studio/orgs/testOrg/projects/test/pipelines/-1/"
+            href="/account/testAcc/cd/pipeline-studio/orgs/testOrg/projects/test/pipelines/-1/"
           >
             Add New Data Sources
           </a>
@@ -988,7 +985,7 @@ exports[`PurposeList test initializes ok  2`] = `
             Continuous Integration
           </p>
           <a
-            href="/account/null/cd/pipeline-studio/orgs/testOrg/projects/test/pipelines/-1/"
+            href="/account/testAcc/cd/pipeline-studio/orgs/testOrg/projects/test/pipelines/-1/"
           >
             TBD
           </a>
@@ -1002,7 +999,7 @@ exports[`PurposeList test initializes ok  2`] = `
             Continuous Efficiency
           </p>
           <a
-            href="/account/null/cd/pipeline-studio/orgs/testOrg/projects/test/pipelines/-1/"
+            href="/account/testAcc/cd/pipeline-studio/orgs/testOrg/projects/test/pipelines/-1/"
           >
             TBD
           </a>
@@ -1016,7 +1013,7 @@ exports[`PurposeList test initializes ok  2`] = `
             Continuous Features
           </p>
           <a
-            href="/account/null/cd/pipeline-studio/orgs/testOrg/projects/test/pipelines/-1/"
+            href="/account/testAcc/cd/pipeline-studio/orgs/testOrg/projects/test/pipelines/-1/"
           >
             TBD
           </a>
@@ -1024,6 +1021,5 @@ exports[`PurposeList test initializes ok  2`] = `
       </div>
     </div>
   </div>
-   
 </div>
 `;

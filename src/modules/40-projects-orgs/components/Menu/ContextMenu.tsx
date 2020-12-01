@@ -3,8 +3,7 @@ import { useHistory } from 'react-router-dom'
 import { Menu } from '@blueprintjs/core'
 import { Layout, Color, Text, Icon } from '@wings-software/uikit'
 import type { Project } from 'services/cd-ng'
-import { routeCDDashboard } from 'navigation/cd/routes'
-import { routeCVDataSources } from 'navigation/cv/routes'
+import routes from '@common/RouteDefinitions'
 import { ModuleName } from 'framework/exports'
 import i18n from './ContextMenu.i18n'
 
@@ -45,9 +44,10 @@ const ContextMenu: React.FC<ContextMenuProps> = props => {
     event.stopPropagation()
     setMenuOpen?.(false)
     history.push(
-      routeCDDashboard.url({
+      routes.toCDDashboard({
         orgIdentifier: project?.orgIdentifier as string,
-        projectIdentifier: project?.identifier as string
+        projectIdentifier: project?.identifier as string,
+        accountId: project?.accountIdentifier as string
       })
     )
   }
@@ -56,9 +56,10 @@ const ContextMenu: React.FC<ContextMenuProps> = props => {
     event.stopPropagation()
     setMenuOpen?.(false)
     history.push(
-      routeCVDataSources.url({
+      routes.toCVDataSources({
         projectIdentifier: project.identifier || '',
-        orgIdentifier: project.orgIdentifier || ''
+        orgIdentifier: project.orgIdentifier || '',
+        accountId: project?.accountIdentifier as string
       })
     )
   }

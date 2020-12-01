@@ -1,13 +1,13 @@
 import { Container, Layout } from '@wings-software/uikit'
 import React from 'react'
 import { NavLink, useParams } from 'react-router-dom'
-import { routeCIAdminResourcesConnectors, routeCIAdminResourcesSecretsListing } from 'navigation/ci/routes'
+import routes from '@common/RouteDefinitions'
 import { Page } from '@common/exports'
 import i18n from './CIResourcesPage.i18n'
 import css from './CIResourcesPage.module.scss'
 
 const CIResourcesPage: React.FC = ({ children }) => {
-  const { orgIdentifier, projectIdentifier } = useParams()
+  const { orgIdentifier, projectIdentifier, accountId } = useParams()
   return (
     <>
       <Page.Header
@@ -18,7 +18,7 @@ const CIResourcesPage: React.FC = ({ children }) => {
               <NavLink
                 className={css.tags}
                 activeClassName={css.activeTag}
-                to={routeCIAdminResourcesConnectors.url({ orgIdentifier, projectIdentifier })}
+                to={routes.toCIAdminResourcesConnectors({ orgIdentifier, projectIdentifier, accountId })}
               >
                 {i18n.connectors}
               </NavLink>
@@ -26,7 +26,7 @@ const CIResourcesPage: React.FC = ({ children }) => {
               <NavLink
                 className={css.tags}
                 activeClassName={css.activeTag}
-                to={routeCIAdminResourcesSecretsListing.url({ orgIdentifier, projectIdentifier })}
+                to={routes.toCIAdminResourcesSecretsListing({ orgIdentifier, projectIdentifier, accountId })}
               >
                 {i18n.secrets}
               </NavLink>

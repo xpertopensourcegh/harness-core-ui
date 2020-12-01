@@ -4,7 +4,7 @@ import { Menu, MenuItem, Dialog } from '@blueprintjs/core'
 import { Link } from 'react-router-dom'
 
 import { useHandleInterrupt } from 'services/cd-ng'
-import { routeCDPipelineStudio } from 'navigation/cd/routes'
+import routes from '@common/RouteDefinitions'
 import { useToaster } from '@common/exports'
 import type { ExecutionStatus } from '@pipeline/utils/statusHelpers'
 import { isExecutionComplete, isExecutionInProgress, isExecutionPaused } from '@pipeline/utils/statusHelpers'
@@ -117,7 +117,7 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
         <Menu>
           <Link
             className="bp3-menu-item"
-            to={routeCDPipelineStudio.url({ orgIdentifier, projectIdentifier, pipelineIdentifier })}
+            to={routes.toCDPipelineStudio({ orgIdentifier, projectIdentifier, pipelineIdentifier, accountId })}
           >
             Edit Pipeline
           </Link>

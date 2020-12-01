@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react'
 import type { SelectOption } from '@wings-software/uikit'
 import { Container } from '@wings-software/uikit'
 import type { DSConfig } from '@wings-software/swagger-ts/definitions'
+import { useParams } from 'react-router-dom'
 import xhr from '@wings-software/xhr-async'
 import { cloneDeep } from 'lodash-es'
+import { useQueryParams } from '@common/hooks'
 import { CVNextGenCVConfigService } from '@cv/services'
 import { RouteVerificationTypeToVerificationType } from '@cv/constants'
 import { Page } from '@common/exports'
-import { useRouteParams } from 'framework/exports'
 import useOnBoardingPageDataHook from '@cv/hooks/OnBoardingPageDataHook/OnBoardingPageDataHook'
 import {
   useGetServiceListForProject,
@@ -81,10 +82,8 @@ function transformIncomingDSConfigs(savedConfig: DSConfig[], verificationProvide
 }
 
 export default function DataSourceSetupPage(): JSX.Element {
-  const {
-    params: { accountId, dataSourceType, projectIdentifier: routeProjectId, orgIdentifier: routeOrgId },
-    query: { dataSourceId: routeDataSourceId = '' }
-  } = useRouteParams()
+  const { accountId, dataSourceType, projectIdentifier: routeProjectId, orgIdentifier: routeOrgId } = useParams()
+  const { dataSourceId: routeDataSourceId = '' } = useQueryParams()
   const { pageData, dbInstance, isInitializingDB } = useOnBoardingPageDataHook<PageContextData>(
     routeDataSourceId as string
   )

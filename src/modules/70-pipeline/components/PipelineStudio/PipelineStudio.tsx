@@ -1,6 +1,7 @@
 import React from 'react'
 import cx from 'classnames'
-import type { NestedRoute, Route } from 'framework/exports'
+import type { PipelinePathProps, ProjectPathProps, PathFn } from '@common/interfaces/RouteInterfaces'
+
 import { PipelineCanvas } from './PipelineCanvas/PipelineCanvas'
 import { RightBar } from './RightBar/RightBar'
 import css from './PipelineStudio.module.scss'
@@ -9,34 +10,12 @@ export interface PipelineStudioProps {
   className?: string
   title?: string
   onClose?: () => void
-  routePipelineStudio: Route<{
-    orgIdentifier: string
-    projectIdentifier: string
-    pipelineIdentifier: string | number
-  }>
-  routePipelineStudioUI: NestedRoute<{
-    orgIdentifier: string
-    projectIdentifier: string
-    pipelineIdentifier: string | number
-  }>
-  routePipelineStudioYaml: NestedRoute<{
-    orgIdentifier: string
-    projectIdentifier: string
-    pipelineIdentifier: string | number
-  }>
-  routePipelineDetail: Route<{
-    orgIdentifier: string
-    projectIdentifier: string
-    pipelineIdentifier: string
-  }>
-  routePipelineList: Route<{
-    orgIdentifier: string
-    projectIdentifier: string
-  }>
-  routePipelineProject: Route<{
-    orgIdentifier: string
-    projectIdentifier: string
-  }>
+  routePipelineStudio: PathFn<PipelinePathProps>
+  routePipelineStudioUI: PathFn<PipelinePathProps>
+  routePipelineStudioYaml: PathFn<PipelinePathProps>
+  routePipelineDetail: PathFn<PipelinePathProps>
+  routePipelineList: PathFn<ProjectPathProps>
+  routePipelineProject: PathFn<ProjectPathProps>
 }
 
 export const PipelineStudio: React.FC<PipelineStudioProps> = ({
@@ -52,12 +31,12 @@ export const PipelineStudio: React.FC<PipelineStudioProps> = ({
   return (
     <div className={cx(css.container, className)}>
       <PipelineCanvas
-        routePipelineStudio={routePipelineStudio}
-        routePipelineStudioUI={routePipelineStudioUI}
-        routePipelineStudioYaml={routePipelineStudioYaml}
-        routePipelineDetail={routePipelineDetail}
-        routePipelineList={routePipelineList}
-        routePipelineProject={routePipelineProject}
+        toPipelineStudio={routePipelineStudio}
+        toPipelineStudioUI={routePipelineStudioUI}
+        toPipelineStudioYaml={routePipelineStudioYaml}
+        toPipelineDetail={routePipelineDetail}
+        toPipelineList={routePipelineList}
+        toPipelineProject={routePipelineProject}
       >
         {children}
       </PipelineCanvas>

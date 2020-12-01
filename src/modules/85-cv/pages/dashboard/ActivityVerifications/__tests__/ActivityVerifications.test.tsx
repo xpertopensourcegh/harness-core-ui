@@ -1,24 +1,18 @@
 import React from 'react'
 import { render, fireEvent } from '@testing-library/react'
-import { useHistory } from 'react-router-dom'
+import { TestWrapper, NotFound, TestWrapperProps } from '@common/utils/testUtils'
+import routes from '@common/RouteDefinitions'
+import { accountPathProps, projectPathProps } from '@common/utils/routeUtils'
 import ActivityVerifications from '../ActivityVerifications'
 
-jest.mock('framework/exports', () => ({
-  ...(jest.requireActual('framework/exports') as any),
-  useRouteParams: () => ({
-    params: {
-      accountId: 'testAccountId',
-      projectIdentifier: 'testProject',
-      orgIdentifier: 'testOrg'
-    }
-  })
-}))
-
-jest.mock('react-router-dom', () => ({
-  useHistory: jest.fn().mockReturnValue({
-    push: jest.fn()
-  })
-}))
+const testWrapperProps: TestWrapperProps = {
+  path: routes.toCVMainDashBoardPage({ ...accountPathProps, ...projectPathProps }),
+  pathParams: {
+    accountId: 'testAccountId',
+    projectIdentifier: 'testProject',
+    orgIdentifier: 'testOrg'
+  }
+}
 
 jest.mock('services/cv', () => ({
   useGetRecentDeploymentActivityVerifications: () => ({
@@ -47,18 +41,24 @@ jest.mock('../VerificationItem', () => {
 
 describe('ActivityVerifications', () => {
   test('ActivityVerifications', () => {
-    const { container } = render(<ActivityVerifications />)
+    const { container } = render(
+      <TestWrapper {...testWrapperProps}>
+        <ActivityVerifications />
+      </TestWrapper>
+    )
     expect(container.querySelectorAll('.test-verification-item').length).toEqual(2)
   })
 
   test('onClick triggers navigation', () => {
-    const callback = jest.fn()
-    ;(useHistory as any).mockReturnValue({
-      push: callback
-    })
-    const { container } = render(<ActivityVerifications />)
+    const { container, getByTestId } = render(
+      <TestWrapper {...testWrapperProps}>
+        <ActivityVerifications />
+        <NotFound />
+      </TestWrapper>
+    )
     fireEvent.click(container.querySelector('.triger-navigation')!)
-    const expectedUrlPart = '/cv/dashboard/deployment/tag1/service/service1/org/testOrg/project/testProject'
-    expect(callback.mock.calls[0][0].indexOf(expectedUrlPart)).toBeGreaterThan(-1)
+    const expectedUrlPart =
+      '/account/testAccountId/cv/dashboard/deployment/tag1/service/service1/org/testOrg/project/testProject'
+    expect(getByTestId('location').innerHTML).toBe(expectedUrlPart)
   })
 })

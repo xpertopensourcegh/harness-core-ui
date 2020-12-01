@@ -2,7 +2,6 @@
 
 exports[`Test Pipeline Deployment list should render deployment list 1`] = `
 <div>
-   
   <div
     class="StyledProps---font--2ipy StyledProps---main--1Wws pageBody main"
   >
@@ -97,7 +96,7 @@ exports[`Test Pipeline Deployment list should render deployment list 1`] = `
             <div>
               <a
                 class="title"
-                href="/account/null/cd/pipelines/orgs/testOrg/projects/test/pipelines/testp1/executions/TyNGXVdmRWi5vrOJopUKOg/pipeline"
+                href="/account/testAcc/cd/pipelines/orgs/testOrg/projects/test/pipelines/testp1/executions/TyNGXVdmRWi5vrOJopUKOg/pipeline"
               >
                 <span
                   class="pipelineName"
@@ -414,6 +413,5 @@ exports[`Test Pipeline Deployment list should render deployment list 1`] = `
       </div>
     </div>
   </div>
-   
 </div>
 `;

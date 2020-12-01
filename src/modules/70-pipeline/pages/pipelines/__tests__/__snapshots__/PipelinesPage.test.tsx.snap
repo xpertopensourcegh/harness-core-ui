@@ -2,7 +2,6 @@
 
 exports[`CD Pipeline Page List render card view 1`] = `
 <div>
-   
   <div
     class="Layout---horizontal--3rmQ StyledProps---main--1Wws container standard StyledProps---flex--2Jz8 StyledProps---padding-left-large--28UT StyledProps---padding-right-large--2vF9"
   >
@@ -15,7 +14,7 @@ exports[`CD Pipeline Page List render card view 1`] = `
         <div>
           <a
             class="breadcrumb"
-            href="/account/null/cd/dashboard/orgs/testOrg/projects/test"
+            href="/account/testAcc/cd/dashboard/orgs/testOrg/projects/test"
           >
             test
           </a>
@@ -1000,13 +999,11 @@ exports[`CD Pipeline Page List render card view 1`] = `
       </div>
     </div>
   </div>
-   
 </div>
 `;
 
 exports[`CD Pipeline Page List render empty list card view 1`] = `
 <div>
-   
   <div
     class="Layout---horizontal--3rmQ StyledProps---main--1Wws container standard StyledProps---flex--2Jz8 StyledProps---padding-left-large--28UT StyledProps---padding-right-large--2vF9"
   >
@@ -1019,7 +1016,7 @@ exports[`CD Pipeline Page List render empty list card view 1`] = `
         <div>
           <a
             class="breadcrumb"
-            href="/account/null/cd/dashboard/orgs/testOrg/projects/test"
+            href="/account/testAcc/cd/dashboard/orgs/testOrg/projects/test"
           >
             test
           </a>
@@ -1256,13 +1253,11 @@ exports[`CD Pipeline Page List render empty list card view 1`] = `
       </div>
     </div>
   </div>
-   
 </div>
 `;
 
 exports[`CD Pipeline Page List render list view 1`] = `
 <div>
-   
   <div
     class="Layout---horizontal--3rmQ StyledProps---main--1Wws container standard StyledProps---flex--2Jz8 StyledProps---padding-left-large--28UT StyledProps---padding-right-large--2vF9"
   >
@@ -1275,7 +1270,7 @@ exports[`CD Pipeline Page List render list view 1`] = `
         <div>
           <a
             class="breadcrumb"
-            href="/account/null/cd/dashboard/orgs/testOrg/projects/test"
+            href="/account/testAcc/cd/dashboard/orgs/testOrg/projects/test"
           >
             test
           </a>
@@ -2262,6 +2257,5 @@ exports[`CD Pipeline Page List render list view 1`] = `
       </div>
     </div>
   </div>
-   
 </div>
 `;

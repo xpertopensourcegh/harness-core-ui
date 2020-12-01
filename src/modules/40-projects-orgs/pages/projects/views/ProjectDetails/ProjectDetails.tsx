@@ -3,7 +3,7 @@ import { Button, Color, Container, Icon, Layout, Popover, Tag, Text } from '@win
 import { Link, useParams } from 'react-router-dom'
 import { Card, Classes, Position } from '@blueprintjs/core'
 import { Page } from '@common/exports'
-import { routeProjects } from 'navigation/projects/routes'
+import routes from '@common/RouteDefinitions'
 import { Project, useGetProject } from 'services/cd-ng'
 import type { ModuleName } from 'framework/exports'
 import ModuleListCard from '@projects-orgs/components/ModuleListCard/ModuleListCard'
@@ -53,7 +53,7 @@ const ProjectDetails: React.FC = () => {
         title={
           <Layout.Vertical spacing="small" padding="medium" className={css.title}>
             <Layout.Horizontal>
-              <Link to={routeProjects.url()}>
+              <Link to={routes.toProjects({ accountId })}>
                 <Text font="small" color={Color.BLUE_600}>
                   {i18n.manage}
                 </Text>
@@ -131,7 +131,8 @@ const ProjectDetails: React.FC = () => {
                       module={module as ModuleName}
                       key={module}
                       projectIdentifier={data.data?.identifier || ''}
-                      orgIdentifier={data.data?.identifier || ''}
+                      orgIdentifier={data.data?.orgIdentifier || ''}
+                      accountId={data.data?.accountIdentifier || ''}
                     />
                   ))
                 ) : (

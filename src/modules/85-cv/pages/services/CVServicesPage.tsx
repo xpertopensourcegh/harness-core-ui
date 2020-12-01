@@ -1,11 +1,10 @@
 import React, { useState } from 'react'
 import { Container, Text, Select, Color, SelectOption, SelectProps } from '@wings-software/uikit'
 import moment from 'moment'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 import { Page } from '@common/exports'
 import ActivitesTimelineViewSection from '@cv/components/ActivitiesTimelineView/ActivitiesTimelineViewSection'
-import { useRouteParams } from 'framework/exports'
-import { routeCVDataSources } from 'navigation/cv/routes'
+import routes from '@common/RouteDefinitions'
 import { RestResponseCategoryRisksDTO, useGetCategoryRiskMap } from 'services/cv'
 import ServiceSelector from './ServiceSelector/ServiceSelector'
 import i18n from './CVServicesPage.i18n'
@@ -47,9 +46,7 @@ const getRangeDates = (val: number, endTime?: number) => {
 }
 
 export default function CVServicesPage(): JSX.Element {
-  const {
-    params: { accountId, projectIdentifier, orgIdentifier }
-  } = useRouteParams()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams()
   const [serviceIsEmpty, setIsServiceEmpty] = useState<boolean>(false)
   const [{ selectedValue, startTime, endTime }, setRange] = useState<{
     selectedValue: number
@@ -106,9 +103,10 @@ export default function CVServicesPage(): JSX.Element {
           buttonText: i18n.noDataText.goBackToDataSourcePage,
           onClick: () => {
             history.push({
-              pathname: routeCVDataSources.url({
+              pathname: routes.toCVDataSources({
                 projectIdentifier: projectIdentifier as string,
-                orgIdentifier: orgIdentifier as string
+                orgIdentifier: orgIdentifier as string,
+                accountId
               })
             })
           },

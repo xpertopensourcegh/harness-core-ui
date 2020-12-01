@@ -2,7 +2,6 @@
 
 exports[`Create k8 connector Wizard should form for authtype username 1`] = `
 <div>
-   
   <div
     class="StepWizard---main--SGVz StepWizard---navBar--2KYu"
   >
@@ -374,13 +373,11 @@ exports[`Create k8 connector Wizard should form for authtype username 1`] = `
       </div>
     </div>
   </div>
-   
 </div>
 `;
 
 exports[`Create k8 connector Wizard should form for edit authtype OIDC 1`] = `
 <div>
-   
   <div
     class="StepWizard---main--SGVz StepWizard---navBar--2KYu"
   >
@@ -885,13 +882,11 @@ exports[`Create k8 connector Wizard should form for edit authtype OIDC 1`] = `
       </div>
     </div>
   </div>
-   
 </div>
 `;
 
 exports[`Create k8 connector Wizard should form for edit authtype serviceAccount 1`] = `
 <div>
-   
   <div
     class="StepWizard---main--SGVz StepWizard---navBar--2KYu"
   >
@@ -1234,13 +1229,11 @@ exports[`Create k8 connector Wizard should form for edit authtype serviceAccount
       </div>
     </div>
   </div>
-   
 </div>
 `;
 
 exports[`Create k8 connector Wizard should form for edit authtype username 1`] = `
 <div>
-   
   <div
     class="StepWizard---main--SGVz StepWizard---navBar--2KYu"
   >
@@ -1446,13 +1439,11 @@ exports[`Create k8 connector Wizard should form for edit authtype username 1`] =
       </div>
     </div>
   </div>
-   
 </div>
 `;
 
 exports[`Create k8 connector Wizard should form for edit authtype username 2`] = `
 <div>
-   
   <div
     class="StepWizard---main--SGVz StepWizard---navBar--2KYu"
   >
@@ -1824,13 +1815,11 @@ exports[`Create k8 connector Wizard should form for edit authtype username 2`] =
       </div>
     </div>
   </div>
-   
 </div>
 `;
 
 exports[`should form for edit authtype clientKey 1`] = `
 <div>
-   
   <div
     class="StepWizard---main--SGVz StepWizard---navBar--2KYu"
   >
@@ -2354,6 +2343,5 @@ exports[`should form for edit authtype clientKey 1`] = `
       </div>
     </div>
   </div>
-   
 </div>
 `;

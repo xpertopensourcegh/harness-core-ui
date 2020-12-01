@@ -4,12 +4,13 @@ import { Button, Icon, Tag } from '@wings-software/uikit'
 import cx from 'classnames'
 import qs from 'qs'
 
-import { routePipelineDeploymentList, routeCDDashboard, routeCDPipelines } from 'navigation/cd/routes'
+import routes from '@common/RouteDefinitions'
 import { useGetPipelineExecutionDetail } from 'services/cd-ng'
 import { Duration } from '@common/components/Duration/Duration'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
-import { String, useAppStoreReader, useStrings } from 'framework/exports'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
+import { String, useAppStore, useStrings } from 'framework/exports'
+
 import ExecutionStatusLabel from '@pipeline/components/ExecutionStatusLabel/ExecutionStatusLabel'
 import { isExecutionComplete } from '@pipeline/utils/statusHelpers'
 import ExecutionActions from '@pipeline/components/ExecutionActions/ExecutionActions'
@@ -58,7 +59,7 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<{}>)
     debounce: 500
   })
 
-  const { projects } = useAppStoreReader()
+  const { projects } = useAppStore()
   const project = projects.find(({ identifier }) => identifier === projectIdentifier)
   const { getString } = useStrings()
   const pipelineStagesMap = React.useMemo(() => {
@@ -141,10 +142,21 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<{}>)
           <header className={cx(css.header, { [css.showDetails]: showDetail })}>
             <Breadcrumbs
               links={[
-                { url: routeCDDashboard.url({ orgIdentifier, projectIdentifier }), label: project?.name as string },
-                { url: routeCDPipelines.url({ orgIdentifier, projectIdentifier }), label: getString('pipelines') },
                 {
-                  url: routePipelineDeploymentList.url({ orgIdentifier, projectIdentifier, pipelineIdentifier }),
+                  url: routes.toCDDashboard({ orgIdentifier, projectIdentifier, accountId }),
+                  label: project?.name as string
+                },
+                {
+                  url: routes.toCDPipelines({ orgIdentifier, projectIdentifier, accountId }),
+                  label: getString('pipelines')
+                },
+                {
+                  url: routes.toCDPipelineDeploymentList({
+                    orgIdentifier,
+                    projectIdentifier,
+                    pipelineIdentifier,
+                    accountId
+                  }),
                   label: getString('executionText')
                 },
                 { url: '#', label: pipelineExecution.pipelineName || '' }

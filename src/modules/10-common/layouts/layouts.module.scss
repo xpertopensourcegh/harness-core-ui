@@ -1,0 +1,12 @@
+.children {
+  flex: 1 1 auto;
+
+  &[data-layout='empty'] {
+    height: 100vh;
+  }
+}
+
+.main {
+  display: flex;
+  height: 100%;
+}

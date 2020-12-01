@@ -3,7 +3,7 @@ import { useParams, useHistory } from 'react-router-dom'
 
 import { Button, Layout, TextInput } from '@wings-software/uikit'
 import { Page } from '@common/exports'
-import { routeOrgDetails } from 'navigation/accounts/routes'
+import routes from '@common/RouteDefinitions'
 import { ResponsePageOrganization, useGetOrganizationList } from 'services/cd-ng'
 import type { Organization } from 'services/cd-ng'
 
@@ -74,7 +74,14 @@ const OrganizationsPage: React.FC<OrganizationsPageData> = ({ orgMockData }) => 
               data={org}
               editOrg={() => openOrganizationModal(org)}
               reloadOrgs={() => refetch()}
-              onClick={() => history.push(routeOrgDetails.url({ orgIdentifier: org.identifier as string }))}
+              onClick={() =>
+                history.push(
+                  routes.toOrganizationDetails({
+                    orgIdentifier: org.identifier as string,
+                    accountId: org.accountIdentifier || ''
+                  })
+                )
+              }
             />
           )}
           keyOf={(org: Organization) => org?.identifier as string}

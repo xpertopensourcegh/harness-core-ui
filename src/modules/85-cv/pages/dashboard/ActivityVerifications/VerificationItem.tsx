@@ -2,13 +2,13 @@ import React from 'react'
 import { Container, Text, Color } from '@wings-software/uikit'
 import { PopoverInteractionKind, Position, Tooltip, Spinner } from '@blueprintjs/core'
 import moment from 'moment'
+import { useParams } from 'react-router-dom'
 import {
   useGetVerificationsPopoverSummary,
   DeploymentActivityVerificationResultDTO,
   DeploymentPopoverSummary,
   VerificationResult
 } from 'services/cv'
-import { useRouteParams } from 'framework/exports'
 import CVProgressBar from '@cv/components/CVProgressBar/CVProgressBar'
 import ActivityType from '../ActivityType/ActivityType'
 import ActivityProgressIndicator from '../ActivityProgressIndicator/ActivityProgressIndicator'
@@ -22,17 +22,15 @@ export default function VerificationItem({
 }: {
   item: DeploymentActivityVerificationResultDTO
   onClick?(): void
-}) {
+}): React.ReactElement {
   const { serviceName, tag } = item
-  const {
-    params: { accountId, projectIdentifier, orgIdentifier }
-  } = useRouteParams()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams()
   const { data: tooltipData, loading, refetch: loadPopoverSummary } = useGetVerificationsPopoverSummary({
     deploymentTag: encodeURIComponent(tag as string),
     lazy: true
   })
 
-  const onOpeningTooltip = () => {
+  const onOpeningTooltip = (): void => {
     if (!tooltipData && !loading) {
       loadPopoverSummary({
         queryParams: {
@@ -80,7 +78,7 @@ function ItemTooltip(props: {
   contentData?: DeploymentPopoverSummary
   phase: 'PRE_PROD' | 'PROD' | 'POST_DEPLOY'
   children: JSX.Element
-}) {
+}): React.ReactElement {
   const label =
     (props.phase === 'PRE_PROD' && i18n.verificationTooltip.preProdVerifications) ||
     (props.phase === 'PROD' && i18n.verificationTooltip.prodVerifications) ||

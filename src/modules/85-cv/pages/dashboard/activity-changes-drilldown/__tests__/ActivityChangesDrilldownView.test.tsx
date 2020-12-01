@@ -1,14 +1,9 @@
 import React from 'react'
 import { render, fireEvent } from '@testing-library/react'
+import { TestWrapper } from '@common/utils/testUtils'
 import ActivityChangesDrilldownView from '../ActivityChangesDrilldownView'
 import DeploymentDrilldownViewHeader from '../../deployment-drilldown/DeploymentDrilldownViewHeader'
 import VerificationInstancePostDeploymentView from '../../deployment-drilldown/VerificationInstancePostDeploymentView'
-
-jest.mock('framework/exports', () => ({
-  useRouteParams: () => ({
-    params: { activityId: '112233' }
-  })
-}))
 
 jest.mock('../../deployment-drilldown/DeploymentDrilldownViewHeader', () => {
   return jest.fn().mockImplementation(() => <div />)
@@ -35,7 +30,11 @@ jest.mock('../../deployment-drilldown/VerificationInstancePostDeploymentView', (
 
 describe('ActivityChangesDrilldownView', () => {
   test('activity is set and props are passed correctly', () => {
-    const { container } = render(<ActivityChangesDrilldownView />)
+    const { container } = render(
+      <TestWrapper path="/:activityId" pathParams={{ activityId: '112233' }}>
+        <ActivityChangesDrilldownView />
+      </TestWrapper>
+    )
     fireEvent.click(container.querySelector('.trigger-activity-set')!)
     const headersProps = (DeploymentDrilldownViewHeader as any).mock.calls[1][0]
     const viewProps = (VerificationInstancePostDeploymentView as any).mock.calls[1][0]

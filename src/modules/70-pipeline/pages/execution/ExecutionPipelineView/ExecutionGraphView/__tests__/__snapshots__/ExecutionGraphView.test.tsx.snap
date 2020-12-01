@@ -2,7 +2,6 @@
 
 exports[`<ExecutionGrapView /> tests renders excution graphs 1`] = `
 <div>
-   
   <div
     class="main main"
     id="execution-layout-test"
@@ -169,13 +168,11 @@ exports[`<ExecutionGrapView /> tests renders excution graphs 1`] = `
       /
     </div>
   </div>
-   
 </div>
 `;
 
 exports[`<ExecutionGrapView /> tests step details are shown when step is selected 1`] = `
 <div>
-   
   <div
     class="main main"
     id="execution-layout-test"
@@ -619,6 +616,5 @@ exports[`<ExecutionGrapView /> tests step details are shown when step is selecte
       /
     </div>
   </div>
-   
 </div>
 `;

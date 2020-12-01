@@ -1,10 +1,10 @@
 import React, { useState, useCallback } from 'react'
 import { Container, Color, Button, useModalHook } from '@wings-software/uikit'
 import { useHistory } from 'react-router-dom'
-import { useRouteParams } from 'framework/exports'
+import { useParams } from 'react-router-dom'
+import routes from '@common/RouteDefinitions'
+import { ActivityDetailsActivityType, ActivityDetailsActivitySource } from '@cv/utils/routeUtils'
 import { Page } from '@common/exports'
-import { routeCVActivityDetails } from 'navigation/cv/routes'
-import { ActivityDetailsActivityType, ActivityDetailsActivitySource } from 'navigation/cv/routePaths'
 import {
   ActivitySelectionModal,
   ActivityType,
@@ -33,9 +33,7 @@ const VerificationActivitySourceTileSelectionToRoute = {
 function NoActivities(): JSX.Element {
   const [selectedActivityType, setActivityType] = useState<ActivityType | undefined>()
   const history = useHistory()
-  const {
-    params: { projectIdentifier, orgIdentifier }
-  } = useRouteParams()
+  const { projectIdentifier, orgIdentifier, accountId } = useParams()
   const onActivityTypeOptionClickCallback = useCallback(
     (activityName: string) => {
       let routePath
@@ -47,15 +45,16 @@ function NoActivities(): JSX.Element {
 
       if (routePath) {
         history.push(
-          routeCVActivityDetails.url({
+          routes.toCVActivityDetails({
             activityType: routePath,
             projectIdentifier: projectIdentifier as string,
-            orgIdentifier: orgIdentifier as string
+            orgIdentifier: orgIdentifier as string,
+            accountId
           })
         )
       }
     },
-    [history, selectedActivityType, orgIdentifier, projectIdentifier]
+    [history, selectedActivityType, orgIdentifier, projectIdentifier, accountId]
   )
   const [openModal, hideModal] = useModalHook(() => {
     return selectedActivityType ? (

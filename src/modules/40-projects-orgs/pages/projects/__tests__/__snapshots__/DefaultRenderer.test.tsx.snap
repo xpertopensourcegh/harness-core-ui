@@ -2,7 +2,6 @@
 
 exports[`Default Renderer test initializes ok  1`] = `
 <div>
-   
   <div
     class="Layout---vertical--3Szv StyledProps---main--1Wws started StyledProps---padding-top-medium--29t2 StyledProps---padding-left-xlarge--3m2O StyledProps---padding-right-xlarge--xu-3 StyledProps---padding-bottom-large--1zGv StyledProps---border--uz_- StyledProps---border-top--3_3E StyledProps---border-bottom--6lR5"
   >
@@ -191,6 +190,5 @@ exports[`Default Renderer test initializes ok  1`] = `
       </span>
     </div>
   </div>
-   
 </div>
 `;

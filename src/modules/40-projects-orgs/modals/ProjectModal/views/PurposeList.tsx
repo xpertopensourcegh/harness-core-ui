@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { Text, Layout, Icon, IconName, Container, Button, Card, Color } from '@wings-software/uikit'
 
 import { Link, useParams } from 'react-router-dom'
-import { routeCDPipelineStudio } from 'navigation/cd/routes'
+import routes from '@common/RouteDefinitions'
 import type { Project } from 'services/cd-ng'
 import { usePutProject } from 'services/cd-ng'
 import i18n from '@projects-orgs/pages/projects/ProjectsPage.i18n'
@@ -58,7 +58,8 @@ const options: PurposeType[] = [
 const getModuleLinks = (
   module: Required<Project>['modules'][number],
   orgIdentifier: string,
-  projectIdentifier: string
+  projectIdentifier: string,
+  accountId: string
 ): React.ReactElement => {
   switch (module) {
     case ModuleName.CD:
@@ -66,10 +67,11 @@ const getModuleLinks = (
         <Layout.Vertical key={module} spacing="large" padding={{ bottom: 'xxxlarge' }}>
           <Text font={{ size: 'medium', weight: 'semi-bold' }}>{i18n.newProjectWizard.purposeList.cd}</Text>
           <Link
-            to={routeCDPipelineStudio.url({
+            to={routes.toCDPipelineStudio({
               orgIdentifier,
               projectIdentifier,
-              pipelineIdentifier: -1
+              pipelineIdentifier: '-1',
+              accountId
             })}
           >
             {i18n.newProjectWizard.purposeList.linkcd}
@@ -81,10 +83,11 @@ const getModuleLinks = (
         <Layout.Vertical key={module} spacing="large" padding={{ bottom: 'xxxlarge' }}>
           <Text font={{ size: 'medium', weight: 'semi-bold' }}>{i18n.newProjectWizard.purposeList.cv}</Text>
           <Link
-            to={routeCDPipelineStudio.url({
+            to={routes.toCDPipelineStudio({
               orgIdentifier,
               projectIdentifier,
-              pipelineIdentifier: -1
+              pipelineIdentifier: '-1',
+              accountId
             })}
           >
             {i18n.newProjectWizard.purposeList.linkcv}
@@ -96,10 +99,11 @@ const getModuleLinks = (
         <Layout.Vertical key={module} spacing="large" padding={{ bottom: 'xxxlarge' }}>
           <Text font={{ size: 'medium', weight: 'semi-bold' }}>{i18n.newProjectWizard.purposeList.ci}</Text>
           <Link
-            to={routeCDPipelineStudio.url({
+            to={routes.toCDPipelineStudio({
               orgIdentifier,
               projectIdentifier,
-              pipelineIdentifier: -1
+              pipelineIdentifier: '-1',
+              accountId
             })}
           >
             {i18n.newProjectWizard.purposeList.linkci}
@@ -111,10 +115,11 @@ const getModuleLinks = (
         <Layout.Vertical key={module} spacing="large" padding={{ bottom: 'xxxlarge' }}>
           <Text font={{ size: 'medium', weight: 'semi-bold' }}>{i18n.newProjectWizard.purposeList.ce}</Text>
           <Link
-            to={routeCDPipelineStudio.url({
+            to={routes.toCDPipelineStudio({
               orgIdentifier,
               projectIdentifier,
-              pipelineIdentifier: -1
+              pipelineIdentifier: '-1',
+              accountId
             })}
           >
             {i18n.newProjectWizard.purposeList.linkce}
@@ -126,10 +131,11 @@ const getModuleLinks = (
         <Layout.Vertical key={module} spacing="large" padding={{ bottom: 'xxxlarge' }}>
           <Text font={{ size: 'medium', weight: 'semi-bold' }}>{i18n.newProjectWizard.purposeList.cf}</Text>
           <Link
-            to={routeCDPipelineStudio.url({
+            to={routes.toCDPipelineStudio({
               orgIdentifier,
               projectIdentifier,
-              pipelineIdentifier: -1
+              pipelineIdentifier: '-1',
+              accountId
             })}
           >
             {i18n.newProjectWizard.purposeList.linkcf}
@@ -233,7 +239,14 @@ const PurposeList: React.FC<ProjectModalData> = props => {
               {i18n.newProjectWizard.purposeList.selectAModule}
             </Text>
           ) : (
-            selected.map(module => getModuleLinks(module, projectData.orgIdentifier || '', projectData.identifier))
+            selected.map(module =>
+              getModuleLinks(
+                module,
+                projectData.orgIdentifier || '',
+                projectData.identifier,
+                projectData.accountIdentifier || ''
+              )
+            )
           )}
         </Container>
       </Layout.Horizontal>

@@ -1,15 +1,14 @@
 import React from 'react'
 import { fireEvent, render, waitFor } from '@testing-library/react'
 import type { UseGetReturn } from 'restful-react'
-import { Container, ModalProvider } from '@wings-software/uikit'
+import { Container } from '@wings-software/uikit'
 import { Classes } from '@blueprintjs/core'
-import * as framework from 'framework/route/RouteMounter'
 import * as cvService from 'services/cv'
+import { TestWrapper } from '@common/utils/testUtils'
+import routes from '@common/RouteDefinitions'
+import { accountPathProps, projectPathProps } from '@common/utils/routeUtils'
 import ServiceHeatMap from '../ServiceHeatMap'
 
-jest.mock('react-router-dom', () => ({
-  useHistory: jest.fn().mockReturnValue([])
-}))
 jest.mock('../../analysis-drilldown-view/MetricAnalysisView/MetricAnalysisView', () => () => (
   <Container className="metricAnalysisView" />
 ))
@@ -33,23 +32,21 @@ describe('Unit tests for Service Heatmap componnt', () => {
   test('Ensure no data state is rendered when no data is provided', async () => {
     const useGetHeatmapSpy = jest.spyOn(cvService, 'useGetHeatmap')
     const refetchMock = jest.fn()
-    const mockRouteParams = jest.spyOn(framework, 'useRouteParams')
-    mockRouteParams.mockReturnValue({
-      params: {
-        accountId: 'loading',
-        projectIdentifier: '1234_project',
-        orgIdentifier: '1234_ORG'
-      },
-      query: {}
-    })
     useGetHeatmapSpy.mockReturnValue({
       response: {},
       refetch: refetchMock as unknown
     } as UseGetReturn<any, unknown, any, unknown>)
     const { container, getByText } = render(
-      <ModalProvider>
+      <TestWrapper
+        path={routes.toCVServices({ ...accountPathProps, ...projectPathProps })}
+        pathParams={{
+          accountId: 'loading',
+          projectIdentifier: '1234_project',
+          orgIdentifier: '1234_ORG'
+        }}
+      >
         <ServiceHeatMap startTime={1604451600000} endTime={1604471400000} />
-      </ModalProvider>
+      </TestWrapper>
     )
     await waitFor(() => expect(container.querySelector('[class*="main"]')).not.toBeNull())
     const mockHeatMap = container.querySelector('[class*="heatmap-common"]')

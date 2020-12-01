@@ -5,12 +5,20 @@ import { renderHook } from '@testing-library/react-hooks'
 
 import strings from 'strings/strings.en.yaml'
 
-import { StringsContext, String, useStrings } from '../String'
+import { String, useStrings } from '../String'
+import { AppStoreContext as StringsContext, AppStoreContextProps } from '../../AppStore/AppStoreContext'
 
+const value: AppStoreContextProps = {
+  projects: [],
+  organisationsMap: new Map(),
+  user: {},
+  strings,
+  updateAppStore: jest.fn()
+}
 describe('String tests', () => {
   test('renders strings with simple id', () => {
     const { container } = render(
-      <StringsContext.Provider value={strings}>
+      <StringsContext.Provider value={value}>
         <String stringID="harness" />
       </StringsContext.Provider>
     )
@@ -26,7 +34,7 @@ describe('String tests', () => {
 
   test('renders error when key not found', () => {
     const { container } = render(
-      <StringsContext.Provider value={strings}>
+      <StringsContext.Provider value={value}>
         <String stringID="harnes" />
       </StringsContext.Provider>
     )
@@ -44,8 +52,11 @@ describe('String tests', () => {
     const { container } = render(
       <StringsContext.Provider
         value={{
-          global: { a: { b: 'Test Value 1' } },
-          namespace: { a: { b: 'Test Value 2' } }
+          ...value,
+          strings: {
+            global: { a: { b: 'Test Value 1' } },
+            namespace: { a: { b: 'Test Value 2' } }
+          }
         }}
       >
         <String stringID="a.b" />
@@ -65,8 +76,11 @@ describe('String tests', () => {
     const { container } = render(
       <StringsContext.Provider
         value={{
-          global: { a: { b: 'Test Value 1' } },
-          namespace: { a: { b: 'Test Value 2' } }
+          ...value,
+          strings: {
+            global: { a: { b: 'Test Value 1' } },
+            namespace: { a: { b: 'Test Value 2' } }
+          }
         }}
       >
         <String stringID="a.b" namespace="namespace" />
@@ -86,7 +100,10 @@ describe('String tests', () => {
     const { container } = render(
       <StringsContext.Provider
         value={{
-          global: { a: { b: 'Test Value 1' } }
+          ...value,
+          strings: {
+            global: { a: { b: 'Test Value 1' } }
+          }
         }}
       >
         <String stringID="a.b" namespace="namespace" />
@@ -106,8 +123,8 @@ describe('String tests', () => {
 describe('useString tests', () => {
   describe('getString', () => {
     test('works with simple id', () => {
-      const wrapper = ({ children }: React.PropsWithChildren<{}>) => (
-        <StringsContext.Provider value={strings}>{children}</StringsContext.Provider>
+      const wrapper = ({ children }: React.PropsWithChildren<{}>): React.ReactElement => (
+        <StringsContext.Provider value={value}>{children}</StringsContext.Provider>
       )
       const { result } = renderHook(() => useStrings(), { wrapper })
 
@@ -115,8 +132,10 @@ describe('useString tests', () => {
     })
 
     test('works with nested values', () => {
-      const wrapper = ({ children }: React.PropsWithChildren<{}>) => (
-        <StringsContext.Provider value={{ global: { a: { b: 'Test Value' } } }}>{children}</StringsContext.Provider>
+      const wrapper = ({ children }: React.PropsWithChildren<{}>): React.ReactElement => (
+        <StringsContext.Provider value={{ ...value, strings: { global: { a: { b: 'Test Value' } } } }}>
+          {children}
+        </StringsContext.Provider>
       )
       const { result } = renderHook(() => useStrings(), { wrapper })
 
@@ -124,11 +143,14 @@ describe('useString tests', () => {
     })
 
     test('works with overrides ', () => {
-      const wrapper = ({ children }: React.PropsWithChildren<{}>) => (
+      const wrapper = ({ children }: React.PropsWithChildren<{}>): React.ReactElement => (
         <StringsContext.Provider
           value={{
-            global: { a: { b: 'Test Value 1' } },
-            namespace: { a: { b: 'Test Value 2' } }
+            ...value,
+            strings: {
+              global: { a: { b: 'Test Value 1' } },
+              namespace: { a: { b: 'Test Value 2' } }
+            }
           }}
         >
           {children}
@@ -140,8 +162,10 @@ describe('useString tests', () => {
     })
 
     test('works with global fallback', () => {
-      const wrapper = ({ children }: React.PropsWithChildren<{}>) => (
-        <StringsContext.Provider value={{ global: { a: { b: 'Test Value' } } }}>{children}</StringsContext.Provider>
+      const wrapper = ({ children }: React.PropsWithChildren<{}>): React.ReactElement => (
+        <StringsContext.Provider value={{ ...value, strings: { global: { a: { b: 'Test Value' } } } }}>
+          {children}
+        </StringsContext.Provider>
       )
       const { result } = renderHook(() => useStrings('namespace'), { wrapper })
 
@@ -149,8 +173,8 @@ describe('useString tests', () => {
     })
 
     test('throws when key not found', () => {
-      const wrapper = ({ children }: React.PropsWithChildren<{}>) => (
-        <StringsContext.Provider value={strings}>{children}</StringsContext.Provider>
+      const wrapper = ({ children }: React.PropsWithChildren<{}>): React.ReactElement => (
+        <StringsContext.Provider value={value}>{children}</StringsContext.Provider>
       )
       const { result } = renderHook(() => useStrings(), { wrapper })
 

@@ -2,10 +2,7 @@ import React from 'react'
 import { fireEvent, render, RenderResult, waitFor } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
 import ProjectCard from '@projects-orgs/components/ProjectCard/ProjectCard'
-import { routeCVMainDashBoardPage } from 'navigation/cv/routes'
-import { routeCDDashboard } from 'navigation/cd/routes'
-import { routeCIDashboard } from 'navigation/ci/routes'
-import { routeCFDashboard } from 'navigation/cf/routes'
+import routes from '@common/RouteDefinitions'
 import { defaultAppStoreValues, project } from './DefaultAppStoreData'
 import { projectWithModules } from './ProjectPageMock'
 
@@ -58,12 +55,13 @@ describe('Project Card Functionality Test', () => {
   test('Click on CD', async () => {
     expect(container).toMatchSnapshot()
     const cdrow = queryByText('DEPLOYMENTS IN LAST 7 DAYS')
-    await fireEvent.click(cdrow!)
+    fireEvent.click(cdrow!)
     await waitFor(() => getByTestId('location'))
     expect(
       getByTestId('location').innerHTML.endsWith(
-        routeCDDashboard.url({
-          orgIdentifier: projectWithModules.orgIdentifier || '',
+        routes.toCDDashboard({
+          accountId: 'testAcc',
+          orgIdentifier: projectWithModules.orgIdentifier!,
           projectIdentifier: projectWithModules.identifier
         })
       )
@@ -71,12 +69,13 @@ describe('Project Card Functionality Test', () => {
   }),
     test('Click on CV', async () => {
       const cvrow = queryByText('VERIFICATIONS IN LAST 7 DAYS')
-      await fireEvent.click(cvrow!)
+      fireEvent.click(cvrow!)
       await waitFor(() => getByTestId('location'))
       expect(
         getByTestId('location').innerHTML.endsWith(
-          routeCVMainDashBoardPage.url({
-            orgIdentifier: projectWithModules.orgIdentifier || '',
+          routes.toCVMainDashBoardPage({
+            accountId: 'testAcc',
+            orgIdentifier: projectWithModules.orgIdentifier,
             projectIdentifier: projectWithModules.identifier
           })
         )
@@ -84,12 +83,13 @@ describe('Project Card Functionality Test', () => {
     }),
     test('Click on CI', async () => {
       const cirow = queryByText('BUILDS IN LAST 7 DAYS')
-      await fireEvent.click(cirow!)
+      fireEvent.click(cirow!)
       await waitFor(() => getByTestId('location'))
       expect(
         getByTestId('location').innerHTML.endsWith(
-          routeCIDashboard.url({
-            orgIdentifier: projectWithModules.orgIdentifier || '',
+          routes.toCIDashboard({
+            accountId: 'testAcc',
+            orgIdentifier: projectWithModules.orgIdentifier!,
             projectIdentifier: projectWithModules.identifier
           })
         )
@@ -98,12 +98,13 @@ describe('Project Card Functionality Test', () => {
     test('Click on CF', async () => {
       expect(container).toMatchSnapshot()
       const cfrow = queryByText('TBD')
-      await fireEvent.click(cfrow!)
+      fireEvent.click(cfrow!)
       await waitFor(() => getByTestId('location'))
       expect(
         getByTestId('location').innerHTML.endsWith(
-          routeCFDashboard.url({
-            orgIdentifier: projectWithModules.orgIdentifier || '',
+          routes.toCFDashboard({
+            accountId: 'testAcc',
+            orgIdentifier: projectWithModules.orgIdentifier!,
             projectIdentifier: projectWithModules.identifier
           })
         )

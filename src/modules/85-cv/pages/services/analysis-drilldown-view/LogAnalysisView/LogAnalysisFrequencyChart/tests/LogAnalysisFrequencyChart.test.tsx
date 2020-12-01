@@ -3,8 +3,19 @@ import { render, waitFor } from '@testing-library/react'
 import type { UseGetReturn } from 'restful-react'
 import { MetricPackCategoryLabels } from '@cv/pages/services/CVServicePageUtils'
 import * as cvService from 'services/cv'
-import * as framework from 'framework/route/RouteMounter'
+import { TestWrapper, TestWrapperProps } from '@common/utils/testUtils'
+import routes from '@common/RouteDefinitions'
+import { accountPathProps, projectPathProps } from '@common/utils/routeUtils'
 import LogAnalysisFrequencyChart from '../LogAnalysisFrequencyChart'
+
+const testWrapperProps: TestWrapperProps = {
+  path: routes.toCVMainDashBoardPage({ ...accountPathProps, ...projectPathProps }),
+  pathParams: {
+    accountId: '1234_accountId',
+    projectIdentifier: '1234_project',
+    orgIdentifier: '1234_ORG'
+  }
+}
 
 const MockData = {
   metaData: {},
@@ -388,18 +399,6 @@ const MockData = {
 }
 
 describe('LogAnalysisFrequencyChart unit tests', () => {
-  beforeEach(() => {
-    jest.clearAllMocks()
-    const mockRouteParams = jest.spyOn(framework, 'useRouteParams')
-    mockRouteParams.mockReturnValue({
-      params: {
-        accountId: '1234_accountId',
-        projectIdentifier: '1234_project',
-        orgIdentifier: '1234_ORG'
-      },
-      query: {}
-    })
-  })
   test('Ensure that when api returns data it is rendered', async () => {
     const useGetCountSpy = jest.spyOn(cvService, 'useGetTagCount')
     const refetchMock = jest.fn()
@@ -411,11 +410,13 @@ describe('LogAnalysisFrequencyChart unit tests', () => {
     >)
 
     const { container } = render(
-      <LogAnalysisFrequencyChart
-        startTime={1606656600000}
-        endTime={1606676400000}
-        categoryName={MetricPackCategoryLabels.PERFORMANCE}
-      />
+      <TestWrapper {...testWrapperProps}>
+        <LogAnalysisFrequencyChart
+          startTime={1606656600000}
+          endTime={1606676400000}
+          categoryName={MetricPackCategoryLabels.PERFORMANCE}
+        />
+      </TestWrapper>
     )
 
     await waitFor(() => expect(container.querySelector('[class*="main"]')).not.toBeNull())

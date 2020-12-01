@@ -7,8 +7,8 @@ import gauge from 'highcharts/modules/solid-gauge'
 import cx from 'classnames'
 import { isNumber } from 'lodash-es'
 import moment from 'moment'
+import { useParams } from 'react-router-dom'
 import { RiskScoreTile } from '@cv/components/RiskScoreTile/RiskScoreTile'
-import { useRouteParams } from 'framework/exports'
 import { CategoryRisk, RestResponseCategoryRisksDTO, useGetCategoryRiskMap } from 'services/cv'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
 import { getColorStyle } from '@common/components/HeatMap/ColorUtils'
@@ -123,9 +123,7 @@ export function OverallRiskScoreCard(props: OverallRiskScoreCard): JSX.Element {
 
 export function CategoryRiskCardsWithApi(props: CategoryRiskCardsWithApiProps): JSX.Element {
   const { environmentIdentifier, serviceIdentifier, className } = props
-  const {
-    params: { orgIdentifier = '', projectIdentifier = '', accountId }
-  } = useRouteParams()
+  const { orgIdentifier = '', projectIdentifier = '', accountId } = useParams()
   const { data, error, loading } = useGetCategoryRiskMap({
     queryParams: {
       orgIdentifier: orgIdentifier as string,

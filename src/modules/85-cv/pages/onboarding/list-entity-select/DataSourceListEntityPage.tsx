@@ -2,16 +2,18 @@ import React, { useState, useEffect, useCallback, useMemo } from 'react'
 import { useHistory } from 'react-router'
 import { Container, Heading, Color, Button, Text, SelectOption } from '@wings-software/uikit'
 import xhr from '@wings-software/xhr-async'
-import { routeCVOnBoardingSetup, routeCVDataSourcesProductPage, routeCVDataSources } from 'navigation/cv/routes'
+import { useParams } from 'react-router-dom'
+import routes from '@common/RouteDefinitions'
+import { useQueryParams } from '@common/hooks'
 import { AppDynamicsService, CVNextGenCVConfigService } from '@cv/services'
 import { transformQueriesFromSplunk } from '@cv/pages/onboarding/setup/splunk/SplunkMainSetupViewUtils'
 import { transformAppDynamicsApplications } from '@cv/pages/onboarding/setup/appdynamics/AppDynamicsOnboardingUtils'
 import DataSourceSelectEntityTable from '@cv/components/DataSourceSelectEntityTable/DataSourceSelectEntityTable'
-import { useRouteParams } from 'framework/exports'
 import { Page } from '@common/exports'
 import type { ServiceResponse } from '@common/services/ServiceResponse'
 import { CVObjectStoreNames, CVIndexedDBPrimaryKeys } from '@cv/hooks/IndexedDBHook/IndexedDBHook'
 import useOnBoardingPageDataHook from '@cv/hooks/OnBoardingPageDataHook/OnBoardingPageDataHook'
+import type { ProjectPathProps, AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import i18n from './SelectListEntityPage.i18n'
 import css from './DataSourceListEntityPage.module.scss'
 
@@ -47,10 +49,10 @@ function createNextPageData(pageData: any): PageContextData {
 }
 
 export default function DataSourceListEntitySelect(): JSX.Element {
-  const {
-    params: { accountId, dataSourceType = '', projectIdentifier: routeProjectId, orgIdentifier: routeOrgId },
-    query: { dataSourceId: routeDataSourceId }
-  } = useRouteParams()
+  const { accountId, dataSourceType = '', projectIdentifier: routeProjectId, orgIdentifier: routeOrgId } = useParams<
+    ProjectPathProps & AccountPathProps & { dataSourceType?: string }
+  >()
+  const { dataSourceId: routeDataSourceId } = useQueryParams()
   const { pageData, dbInstance } = useOnBoardingPageDataHook<PageContextData>(routeDataSourceId as string)
   const [{ pageError, noEntities }, setErrorOrNoData] = useState<{ pageError?: string; noEntities?: boolean }>({})
   const [loading, setLoading] = useState(true)
@@ -68,10 +70,11 @@ export default function DataSourceListEntitySelect(): JSX.Element {
     () => (selectedEntities: SelectOption[]) => {
       const newPageData = { ...createNextPageData(pageData), selectedEntities }
       history.push({
-        pathname: routeCVOnBoardingSetup.url({
+        pathname: routes.toCVOnBoardingSetup({
           dataSourceType: dataSourceType as string,
           projectIdentifier: projectId,
-          orgIdentifier: orgId
+          orgIdentifier: orgId,
+          accountId
         }),
         search: `?dataSourceId=${dataSourceId}`,
         state: newPageData
@@ -82,7 +85,7 @@ export default function DataSourceListEntitySelect(): JSX.Element {
         entityOptions
       })
     },
-    [pageData, dataSourceId, history, dataSourceType, entityOptions, dbInstance?.put, projectId, orgId]
+    [pageData, dataSourceId, history, dataSourceType, entityOptions, dbInstance?.put, projectId, orgId, accountId]
   )
   const verificationTypeI18N = useMemo(
     () => (dataSourceType === 'app-dynamics' || dataSourceType === 'splunk' ? i18n[dataSourceType] : undefined),
@@ -134,7 +137,8 @@ export default function DataSourceListEntitySelect(): JSX.Element {
           when: () => Boolean(noEntities),
           icon: 'warning-sign',
           ...i18n.noDataContent,
-          onClick: () => history.replace(routeCVDataSources.url({ projectIdentifier: projectId, orgIdentifier: orgId }))
+          onClick: () =>
+            history.replace(routes.toCVDataSources({ projectIdentifier: projectId, orgIdentifier: orgId, accountId }))
         }}
       >
         <Container className={css.main}>
@@ -161,10 +165,11 @@ export default function DataSourceListEntitySelect(): JSX.Element {
               className={css.backButton}
               onClick={() =>
                 history.replace({
-                  pathname: routeCVDataSourcesProductPage.url({
+                  pathname: routes.toCVDataSourcesProductPage({
                     dataSourceType: dataSourceType as string,
                     projectIdentifier: projectId,
-                    orgIdentifier: orgId
+                    orgIdentifier: orgId,
+                    accountId
                   }),
                   state: { ...pageData }
                 })

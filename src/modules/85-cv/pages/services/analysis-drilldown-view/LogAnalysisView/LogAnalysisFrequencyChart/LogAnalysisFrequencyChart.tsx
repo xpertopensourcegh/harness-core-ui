@@ -5,7 +5,7 @@ import HighchartsReact from 'highcharts-react-official'
 import Highcharts from 'highcharts'
 import cx from 'classnames'
 import { useGet } from 'restful-react'
-import { useRouteParams } from 'framework/exports'
+import { useParams } from 'react-router-dom'
 import { RestResponseSortedSetLogDataByTag, useGetTagCount } from 'services/cv'
 import getLogViewcolumnChartConfig from './LogViewColumnChartConfig'
 import { categoryNameToCategoryType } from '../../../CVServicePageUtils'
@@ -103,9 +103,7 @@ function generatePointsForLogChart(data: RestResponseSortedSetLogDataByTag, star
 }
 
 export default function LogAnalysisFrequencyChart(props: LogAnalysisFrequencyChartProps): JSX.Element {
-  const {
-    params: { accountId, orgIdentifier, projectIdentifier }
-  } = useRouteParams()
+  const { accountId, orgIdentifier, projectIdentifier } = useParams()
   const { environmentIdentifier, serviceIdentifier, categoryName, startTime, endTime, className } = props
   const { data, refetch } = useGetTagCount({
     lazy: true
@@ -138,10 +136,8 @@ export function ActivityLogAnalysisFrequencyChart({
   orgIdentifier,
   startTime,
   endTime
-}: ActivityLogAnalysisFrequencyChartProps) {
-  const {
-    params: { accountId }
-  } = useRouteParams()
+}: ActivityLogAnalysisFrequencyChartProps): React.ReactElement {
+  const { accountId } = useParams()
   const { data } = useGet(`/cv/api/log-dashboard/${activityId}/log-count-by-tags`, {
     queryParams: {
       accountId,
@@ -154,7 +150,7 @@ export function ActivityLogAnalysisFrequencyChart({
   return <LogAnalysisFrequencyView data={data} startTime={startTime} endTime={endTime} />
 }
 
-function LogAnalysisFrequencyView({ data, startTime, endTime }: LogAnalysisFrequencyViewProps) {
+function LogAnalysisFrequencyView({ data, startTime, endTime }: LogAnalysisFrequencyViewProps): React.ReactElement {
   const columnChartOptions: Highcharts.Options | undefined = useMemo(() => {
     if (data) {
       const { categories, columnChartData } = generatePointsForLogChart(data, startTime, endTime)

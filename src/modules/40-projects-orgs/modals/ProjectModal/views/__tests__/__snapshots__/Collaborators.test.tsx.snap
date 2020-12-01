@@ -2,7 +2,6 @@
 
 exports[`Collaborators test Render Collaborators  1`] = `
 <div>
-   
   <div
     class="OverlaySpinner---overlaySpinner--3Bs3"
   >
@@ -721,6 +720,5 @@ exports[`Collaborators test Render Collaborators  1`] = `
       </div>
     </form>
   </div>
-   
 </div>
 `;

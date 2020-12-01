@@ -2,7 +2,6 @@
 
 exports[`Project Page List Create Project and Close 1`] = `
 <div>
-   
   <div
     class="Layout---horizontal--3rmQ StyledProps---main--1Wws container standard StyledProps---flex--2Jz8 StyledProps---padding-left-large--28UT StyledProps---padding-right-large--2vF9"
   >
@@ -3068,13 +3067,11 @@ exports[`Project Page List Create Project and Close 1`] = `
       style="height: 10%;"
     />
   </div>
-   
 </div>
 `;
 
 exports[`Project Page List Toggle between grid and list view 1`] = `
 <div>
-   
   <div
     class="Layout---horizontal--3rmQ StyledProps---main--1Wws container standard StyledProps---flex--2Jz8 StyledProps---padding-left-large--28UT StyledProps---padding-right-large--2vF9"
   >
@@ -6140,13 +6137,11 @@ exports[`Project Page List Toggle between grid and list view 1`] = `
       style="height: 10%;"
     />
   </div>
-   
 </div>
 `;
 
 exports[`Project Page List Toggle between grid and list view 2`] = `
 <div>
-   
   <div
     class="Layout---horizontal--3rmQ StyledProps---main--1Wws container standard StyledProps---flex--2Jz8 StyledProps---padding-left-large--28UT StyledProps---padding-right-large--2vF9"
   >
@@ -9212,13 +9207,11 @@ exports[`Project Page List Toggle between grid and list view 2`] = `
       style="height: 10%;"
     />
   </div>
-   
 </div>
 `;
 
 exports[`Project Page List Whole Modal Test 1`] = `
 <div>
-   
   <div
     class="Layout---horizontal--3rmQ StyledProps---main--1Wws container standard StyledProps---flex--2Jz8 StyledProps---padding-left-large--28UT StyledProps---padding-right-large--2vF9"
   >
@@ -12284,6 +12277,5 @@ exports[`Project Page List Whole Modal Test 1`] = `
       style="height: 10%;"
     />
   </div>
-   
 </div>
 `;

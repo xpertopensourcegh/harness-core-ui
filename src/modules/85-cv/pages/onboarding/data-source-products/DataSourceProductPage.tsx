@@ -2,18 +2,14 @@ import React, { useState, useCallback, useMemo, useEffect } from 'react'
 import { Container, Button, Text } from '@wings-software/uikit'
 import { useHistory } from 'react-router-dom'
 import xhr from '@wings-software/xhr-async'
+import { useParams } from 'react-router-dom'
+import { useQueryParams } from '@common/hooks'
 import CVProductCard, { TypeCard } from '@cv/components/CVProductCard/CVProductCard'
-import {
-  routeCVDataSourcesEntityPage,
-  routeCVOnBoardingSetup,
-  routeCVDataSources,
-  routeCVSplunkInputTypePage
-} from 'navigation/cv/routes'
 import { Page } from '@common/exports'
 import { CVNextGenCVConfigService } from '@cv/services'
-import { useRouteParams } from 'framework/exports'
-import { DataSourceRoutePaths } from 'navigation/cv/routePaths'
+import routes from '@common/RouteDefinitions'
 import { CVObjectStoreNames } from '@cv/hooks/IndexedDBHook/IndexedDBHook'
+import { DataSourceRoutePaths } from '@cv/utils/routeUtils'
 import useOnBoardingPageDataHook from '@cv/hooks/OnBoardingPageDataHook/OnBoardingPageDataHook'
 import i18n from './DataSourceProductPage.i18n'
 import css from './DataSourceProductPage.module.scss'
@@ -41,12 +37,27 @@ const ProductOptions: { [datasourceType: string]: Array<{ item: TypeCard }> } = 
   ]
 }
 
-function getLinkForCreationFlow(dataSource: string, projectIdentifier: string, orgId: string): string {
+function getLinkForCreationFlow(
+  dataSource: string,
+  projectIdentifier: string,
+  orgId: string,
+  accountId: string
+): string {
   switch (dataSource) {
     case DataSourceRoutePaths.SPLUNK:
-      return routeCVSplunkInputTypePage.url({ dataSourceType: dataSource, orgIdentifier: orgId, projectIdentifier })
+      return routes.toCVSplunkInputTypePage({
+        dataSourceType: dataSource,
+        orgIdentifier: orgId,
+        projectIdentifier,
+        accountId
+      })
     default:
-      return routeCVDataSourcesEntityPage.url({ dataSourceType: dataSource, orgIdentifier: orgId, projectIdentifier })
+      return routes.toCVDataSourcesEntityPage({
+        dataSourceType: dataSource,
+        orgIdentifier: orgId,
+        projectIdentifier,
+        accountId
+      })
   }
 }
 
@@ -77,14 +88,13 @@ function getProductDetails(
 
 export default function AppDynamicsProductPage(): JSX.Element {
   const {
-    params: {
-      accountId,
-      dataSourceType: routeDataSourceType = '',
-      projectIdentifier: routeProjectId,
-      orgIdentifier: routeOrgId
-    },
-    query: { dataSourceId: routeDataSourceId = '' }
-  } = useRouteParams()
+    accountId,
+    dataSourceType: routeDataSourceType = '',
+    projectIdentifier: routeProjectId,
+    orgIdentifier: routeOrgId
+  } = useParams()
+
+  const { dataSourceId: routeDataSourceId = '' } = useQueryParams()
   const { pageData = {}, isInitializingDB, dbInstance } = useOnBoardingPageDataHook<PageContextData>(
     (routeDataSourceId as string) || ''
   )
@@ -129,8 +139,8 @@ export default function AppDynamicsProductPage(): JSX.Element {
   const urlParams = useMemo(
     () => ({
       pathname: pageData.isEdit
-        ? routeCVOnBoardingSetup.url({ dataSourceType, projectIdentifier: projectId, orgIdentifier: orgId })
-        : getLinkForCreationFlow(dataSourceType, projectId, orgId),
+        ? routes.toCVOnBoardingSetup({ dataSourceType, projectIdentifier: projectId, orgIdentifier: orgId, accountId })
+        : getLinkForCreationFlow(dataSourceType, projectId, orgId, accountId),
       search: `?dataSourceId=${dataSourceId}`,
       state: { products: selectedProducts, isEdit: pageData.isEdit, dataSourceId }
     }),
@@ -149,8 +159,8 @@ export default function AppDynamicsProductPage(): JSX.Element {
     },
     [selectedProducts]
   )
-  const routeToDataSourcePage = () =>
-    history.replace(routeCVDataSources.url({ projectIdentifier: projectId, orgIdentifier: orgId }))
+  const routeToDataSourcePage = (): void =>
+    history.replace(routes.toCVDataSources({ projectIdentifier: projectId, orgIdentifier: orgId, accountId }))
   return (
     <>
       <Page.Header title={i18n.pageTitle} />

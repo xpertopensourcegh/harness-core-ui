@@ -2,7 +2,6 @@
 
 exports[`Project List render 1`] = `
 <div>
-   
   <div
     class="StyledProps---font--2ipy StyledProps---main--1Wws pageBody pageContainer"
   >
@@ -1655,6 +1654,5 @@ exports[`Project List render 1`] = `
       </div>
     </div>
   </div>
-   
 </div>
 `;

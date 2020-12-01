@@ -2,7 +2,6 @@
 
 exports[`DeploymentDrilldownView renders correctly and gets data 1`] = `
 <div>
-   
   <div
     class="StyledProps---font--2ipy StyledProps---main--1Wws pageBody main"
   >
@@ -10,7 +9,7 @@ exports[`DeploymentDrilldownView renders correctly and gets data 1`] = `
       class="StyledProps---font--2ipy StyledProps---main--1Wws header StyledProps---padding-small--3f0A"
     >
       <a
-        href="/account/null/cv/dashboard/org/org1/project/project1"
+        href="/account/undefined/cv/dashboard/org/org1/project/project1"
       >
         Dashboard /
       </a>
@@ -609,6 +608,5 @@ exports[`DeploymentDrilldownView renders correctly and gets data 1`] = `
       </div>
     </div>
   </div>
-   
 </div>
 `;

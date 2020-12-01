@@ -1,8 +1,8 @@
 import React from 'react'
 import { render, waitFor, getByText as getByTextBody, fireEvent, RenderResult } from '@testing-library/react'
-import { prependAccountPath, TestWrapper } from '@common/utils/testUtils'
+import { TestWrapper } from '@common/utils/testUtils'
 import { defaultAppStoreValues } from '@projects-orgs/pages/projects/__tests__/DefaultAppStoreData'
-import { routeCDPipelineStudio } from 'navigation/cd/routes'
+import routes from '@common/RouteDefinitions'
 import CDPipelineStudio from '@cd/pages/pipeline-studio/CDPipelineStudio'
 import StageBuilder from '@pipeline/components/PipelineStudio/StageBuilder/StageBuilder'
 import {
@@ -11,6 +11,7 @@ import {
   ExecutionResponse,
   YamlResponse
 } from '@pipeline/components/PipelineStudio/__tests__/PipelineStudioMocks'
+import { accountPathProps, pipelinePathProps } from '@common/utils/routeUtils'
 jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
   <div>{children}</div>
 ))
@@ -44,13 +45,15 @@ jest.mock('resize-observer-polyfill', () => {
   return ResizeObserver
 })
 
+const TEST_PATH = routes.toCDPipelineStudio({ ...accountPathProps, ...pipelinePathProps })
+
 describe('Stage Builder Test', () => {
   let stageBuilder: HTMLElement
   let getByTextContainer: RenderResult['getByText']
   beforeEach(async () => {
     const { container, getByText } = render(
       <TestWrapper
-        path={prependAccountPath(routeCDPipelineStudio.path)}
+        path={TEST_PATH}
         pathParams={{
           accountId: 'testAcc',
           orgIdentifier: 'testOrg',

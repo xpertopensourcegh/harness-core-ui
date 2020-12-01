@@ -2,7 +2,6 @@
 
 exports[`Project Details render 1`] = `
 <div>
-   
   <div
     class="bp3-card bp3-elevation-0 Card---card--2BXa card"
   >
@@ -228,7 +227,7 @@ exports[`Project Details render 1`] = `
           class="Layout---vertical--3Szv Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
         >
           <a
-            href="/account/null/cd/pipeline-studio/orgs/Cisco_Meraki/projects/Portal/pipelines/-1/"
+            href="/account/testAcc/cd/pipeline-studio/orgs/Cisco_Meraki/projects/Portal/pipelines/-1/"
           >
             Create New Pipeline
           </a>
@@ -242,13 +241,11 @@ exports[`Project Details render 1`] = `
       </div>
     </div>
   </div>
-   
 </div>
 `;
 
 exports[`Project Details render 2`] = `
 <div>
-   
   <div
     class="bp3-card bp3-elevation-0 Card---card--2BXa card"
   >
@@ -489,13 +486,11 @@ exports[`Project Details render 2`] = `
       </div>
     </div>
   </div>
-   
 </div>
 `;
 
 exports[`Project Details render 3`] = `
 <div>
-   
   <div
     class="bp3-card bp3-elevation-0 Card---card--2BXa card"
   >
@@ -736,13 +731,11 @@ exports[`Project Details render 3`] = `
       </div>
     </div>
   </div>
-   
 </div>
 `;
 
 exports[`Project Details render 4`] = `
 <div>
-   
   <div
     class="bp3-card bp3-elevation-0 Card---card--2BXa card"
   >
@@ -983,13 +976,11 @@ exports[`Project Details render 4`] = `
       </div>
     </div>
   </div>
-   
 </div>
 `;
 
 exports[`Project Details render 5`] = `
 <div>
-   
   <div
     class="bp3-card bp3-elevation-0 Card---card--2BXa card"
   >
@@ -1230,6 +1221,5 @@ exports[`Project Details render 5`] = `
       </div>
     </div>
   </div>
-   
 </div>
 `;

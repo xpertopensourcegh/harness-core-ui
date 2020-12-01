@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { Container, Button, Layout, Text, Icon, SelectOption } from '@wings-software/uikit'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 import Table from '@common/components/Table/Table'
-import { routeCVAdminSetup } from 'navigation/cv/routes'
-import { useRouteParams } from 'framework/exports'
+import routes from '@common/RouteDefinitions'
 import { AppDynamicsApplication, useGetAppDynamicsApplications } from 'services/cv'
 import { useGetEnvironmentListForProject } from 'services/cd-ng'
 import { useStrings } from 'framework/exports'
@@ -25,9 +24,7 @@ interface AppEntry {
 export default function SelectApplications({ stepData, onCompleteStep }: SelectApplicationsProps): React.ReactElement {
   const history = useHistory()
   const { getString } = useStrings()
-  const {
-    params: { accountId, projectIdentifier, orgIdentifier }
-  } = useRouteParams()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams()
   const { data } = useGetAppDynamicsApplications({
     queryParams: {
       accountId,
@@ -164,9 +161,10 @@ export default function SelectApplications({ stepData, onCompleteStep }: SelectA
             icon="chevron-left"
             onClick={() =>
               history.push(
-                routeCVAdminSetup.url({
+                routes.toCVAdminSetup({
                   projectIdentifier: projectIdentifier as string,
-                  orgIdentifier: orgIdentifier as string
+                  orgIdentifier: orgIdentifier as string,
+                  accountId
                 })
               )
             }

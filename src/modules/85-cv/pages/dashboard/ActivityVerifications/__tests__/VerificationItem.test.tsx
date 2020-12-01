@@ -1,26 +1,28 @@
 import React from 'react'
 import { render } from '@testing-library/react'
+import { TestWrapper } from '@common/utils/testUtils'
+import routes from '@common/RouteDefinitions'
+import { accountPathProps, projectPathProps } from '@common/utils/routeUtils'
 import VerificationItem, { mapTooltipItemStatus } from '../VerificationItem'
-
-jest.mock('framework/exports', () => ({
-  useRouteParams: () => ({
-    params: {
-      accountId: 'testAccountId',
-      projectIdentifier: 'testProject',
-      orgIdentifier: 'testOrg'
-    }
-  })
-}))
 
 describe('VerificationItem', () => {
   test('VerificationItem', () => {
     const { container, getByText } = render(
-      <VerificationItem
-        item={{
-          tag: 'tag1',
-          serviceName: 'service1'
+      <TestWrapper
+        path={routes.toCVMainDashBoardPage({ ...accountPathProps, ...projectPathProps })}
+        pathParams={{
+          accountId: 'testAccountId',
+          projectIdentifier: 'testProject',
+          orgIdentifier: 'testOrg'
         }}
-      />
+      >
+        <VerificationItem
+          item={{
+            tag: 'tag1',
+            serviceName: 'service1'
+          }}
+        />
+      </TestWrapper>
     )
     expect(container).toMatchSnapshot()
     expect(getByText('tag1')).toBeDefined()

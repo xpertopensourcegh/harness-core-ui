@@ -1,25 +1,26 @@
 import React from 'react'
 import { fireEvent, render, waitFor } from '@testing-library/react'
 import { Classes } from '@blueprintjs/core'
-import * as framework from 'framework/route/RouteMounter'
-import { SelectActivitySource } from '../SelectActivitySource'
+import { TestWrapper } from '@common/utils/testUtils'
+import routes from '@common/RouteDefinitions'
+import { accountPathProps, projectPathProps } from '@common/utils/routeUtils'
 import i18n from '../SelectActivitySource.i18n'
+import { SelectActivitySource } from '../SelectActivitySource'
 
 describe('Unit tests for SelectActivitySource', () => {
-  beforeEach(() => {
-    jest.clearAllMocks()
-    const mockRouteParams = jest.spyOn(framework, 'useRouteParams')
-    mockRouteParams.mockReturnValue({
-      params: {
-        accountId: 'loading',
-        projectIdentifier: '1234_project',
-        orgIdentifier: '1234_ORG'
-      },
-      query: {}
-    })
-  })
   test('Ensure required fields are validated', async () => {
-    const { container, getByText } = render(<SelectActivitySource />)
+    const { container, getByText } = render(
+      <TestWrapper
+        path={routes.toCVMainDashBoardPage({ ...accountPathProps, ...projectPathProps })}
+        pathParams={{
+          accountId: 'loading',
+          projectIdentifier: '1234_project',
+          orgIdentifier: '1234_ORG'
+        }}
+      >
+        <SelectActivitySource />
+      </TestWrapper>
+    )
     await waitFor(() => expect(container.querySelector('[class*="main"]')))
     expect(getByText(i18n.productSelectionCategory.directConnection)).not.toBeNull()
 

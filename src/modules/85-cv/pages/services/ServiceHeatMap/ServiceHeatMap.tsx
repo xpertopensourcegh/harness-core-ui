@@ -1,8 +1,8 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import { Color, Container, OverlaySpinner, Text, TextProps } from '@wings-software/uikit'
 import moment from 'moment'
+import { useParams } from 'react-router-dom'
 import HeatMap, { CellStatusValues, SerieConfig } from '@common/components/HeatMap/HeatMap'
-import { useRouteParams } from 'framework/exports'
 import { HeatMapDTO, useGetHeatmap } from 'services/cv'
 import { RiskScoreTile } from '@cv/components/RiskScoreTile/RiskScoreTile'
 import useAnalysisDrillDownView from '../analysis-drilldown-view/useAnalysisDrillDownView'
@@ -60,9 +60,7 @@ export default function ServiceHeatMap(props: ServiceHeatMapProps): JSX.Element 
   const { serviceIdentifier, environmentIdentifier, startTime, endTime } = props
   const { openDrillDown } = useAnalysisDrillDownView()
   const [heatmapData, setHeatmapData] = useState<SerieConfig[]>([])
-  const {
-    params: { accountId, projectIdentifier, orgIdentifier }
-  } = useRouteParams()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams()
 
   const { loading: loadingHeatmap, refetch: getHeatmap } = useGetHeatmap({
     lazy: true,

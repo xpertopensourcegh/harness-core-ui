@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react'
 import { Color, Container, Heading, Text } from '@wings-software/uikit'
+import { useParams } from 'react-router-dom'
 import type { CellProps } from 'react-table'
 import { Table, useToaster } from '@common/components'
 import { SubmitAndPreviousButtons } from '@cv/pages/onboarding/SubmitAndPreviousButtons/SubmitAndPreviousButtons'
-import { String, useRouteParams, useStrings } from 'framework/exports'
+import { String, useStrings } from 'framework/exports'
+import type { ProjectPathProps, AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { KubernetesActivitySourceDTO, useRegisterKubernetesSource } from 'services/cv'
 import css from './ReviewKubernetesActivitySource.module.scss'
 
@@ -68,14 +70,12 @@ function TableColumn(props: CellProps<TableData>): JSX.Element {
 
 export function ReviewKubernetesActivitySource(props: ReviewKubernetesActivitySourceProps): JSX.Element {
   const { onSubmit, onPrevious, data } = props
-  const { params } = useRouteParams()
+  const params = useParams<ProjectPathProps & AccountPathProps>()
   const { getString } = useStrings()
   const { showError } = useToaster()
   const { mutate, error } = useRegisterKubernetesSource({
     queryParams: {
-      ...params,
-      projectIdentifier: params.projectIdentifier as string,
-      orgIdentifier: params.orgIdentifier as string
+      ...params
     }
   })
   const tableData = transformIncomingData(data)

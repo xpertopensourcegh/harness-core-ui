@@ -3,7 +3,7 @@ import { Layout, Text, Container, FormikForm, Formik } from '@wings-software/uik
 import * as Yup from 'yup'
 import { useParams, useHistory } from 'react-router-dom'
 import { StringUtils } from '@common/exports'
-import { routeCVAdminSetup } from 'navigation/cv/routes'
+import routes from '@common/RouteDefinitions'
 import {
   SelectOrCreateConnector,
   SelectOrCreateConnectorProps
@@ -53,7 +53,7 @@ const getInfoSchemaByType = (type: string): MonitoringSourceInfo => {
 
 const SelectProduct: React.FC<SelectProductProps> = props => {
   const history = useHistory()
-  const { projectIdentifier, orgIdentifier } = useParams()
+  const { projectIdentifier, orgIdentifier, accountId } = useParams()
   const [selectedProduct, setSelectedProduct] = useState<string>()
   const monitoringSource = getInfoSchemaByType(props.type)
 
@@ -119,9 +119,10 @@ const SelectProduct: React.FC<SelectProductProps> = props => {
             <SubmitAndPreviousButtons
               onPreviousClick={() =>
                 history.push(
-                  routeCVAdminSetup.url({
+                  routes.toCVAdminSetup({
                     projectIdentifier,
-                    orgIdentifier
+                    orgIdentifier,
+                    accountId
                   })
                 )
               }

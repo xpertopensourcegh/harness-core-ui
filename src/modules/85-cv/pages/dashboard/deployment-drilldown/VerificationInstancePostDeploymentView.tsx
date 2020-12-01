@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react'
 import { useGet } from 'restful-react'
 import { Container, Tabs, Tab, Text } from '@wings-software/uikit'
 import classnames from 'classnames'
+import { useParams } from 'react-router-dom'
 import CVProgressBar from '@cv/components/CVProgressBar/CVProgressBar'
 import { ActivitiesFlagBorder } from '@cv/components/ActivitiesTimelineView/ActivitiesTimelineView'
 import ActivitiesTimelineViewSection from '@cv/components/ActivitiesTimelineView/ActivitiesTimelineViewSection'
-import { useRouteParams } from 'framework/exports'
 import { TimelineBar } from '@common/components/TimelineView/TimelineBar'
 import CVPagination from '@cv/components/CVPagination/CVPagination'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
@@ -51,12 +51,10 @@ export default function VerificationInstacePostDeploymentView({
   durationMs,
   environmentIdentifier,
   onActivityLoaded
-}: VerificationInstacePostDeploymentViewProps) {
+}: VerificationInstacePostDeploymentViewProps): React.ReactElement {
   const rangeStartTime = activityStartTime - 2 * 60 * 60000
   const rangeEndTime = activityStartTime + durationMs
-  const {
-    params: { accountId }
-  } = useRouteParams()
+  const { accountId } = useParams()
   const { data: activityWithRisks } = useGet(`/cv/api/activity/${selectedActivityId}/activity-risks`, {
     queryParams: {
       accountId
@@ -203,9 +201,7 @@ function MetricsTab({
   endTime,
   selectedActivityStartTime
 }: MetricsTabProps) {
-  const {
-    params: { accountId, projectIdentifier, orgIdentifier }
-  } = useRouteParams()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams()
   const [metricsData, setMetricsData] = useState<Array<TimeseriesRowProps>>()
   const [anomalousOnly, setAnomalousOnly] = useState(true)
   const { data, refetch, loading } = useGet(`/cv/api/timeseries-dashboard/${activityId}/metrics`, {
@@ -264,9 +260,7 @@ function MetricsTab({
 }
 
 function LogsTab({ activityId, environmentIdentifier, startTime, endTime }: LogsTabProps) {
-  const {
-    params: { accountId, projectIdentifier, orgIdentifier }
-  } = useRouteParams()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams()
   const [logsData, setLogsData] = useState()
   const { data, refetch, loading } = useGet(`/cv/api/log-dashboard/${activityId}/logs`, {
     queryParams: {

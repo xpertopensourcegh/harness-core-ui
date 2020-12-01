@@ -1,6 +1,6 @@
 import React, { useMemo, CSSProperties } from 'react'
 import { FormInput, SelectOption, MultiTypeInputType } from '@wings-software/uikit'
-import { useRouteParams } from 'framework/exports'
+import { useParams } from 'react-router-dom'
 import {
   useGetServiceListForProject,
   useGetEnvironmentListForProject,
@@ -49,9 +49,7 @@ export function VerificationSensitivity(props: BaseFieldProps): JSX.Element {
 }
 
 export function ServiceName(props: BaseFieldProps): JSX.Element {
-  const {
-    params: { accountId, projectIdentifier, orgIdentifier }
-  } = useRouteParams()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams()
   const { data: serviceOptions } = useGetServiceListForProject({
     queryParams: { accountId, projectIdentifier: projectIdentifier as string, orgIdentifier: orgIdentifier as string },
     resolve: serviceList =>
@@ -102,9 +100,7 @@ export function Duration(props: BaseFieldProps): JSX.Element {
 }
 
 export function EnvironmentName(props: BaseFieldProps): JSX.Element {
-  const {
-    params: { accountId, projectIdentifier, orgIdentifier }
-  } = useRouteParams()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams()
   const { data: environmentOptions } = useGetEnvironmentListForProject({
     queryParams: { accountId, projectIdentifier: projectIdentifier as string, orgIdentifier: orgIdentifier as string },
     resolve: envList =>

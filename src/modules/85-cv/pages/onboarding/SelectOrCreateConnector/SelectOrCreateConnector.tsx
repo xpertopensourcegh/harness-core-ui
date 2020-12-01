@@ -1,6 +1,6 @@
 import React from 'react'
 import { Container, Link, Text, Layout, Color, IconName } from '@wings-software/uikit'
-import { useRouteParams } from 'framework/exports'
+import { useParams } from 'react-router-dom'
 import type { ConnectorInfoDTO } from 'services/cd-ng'
 import useCreateConnectorModal, {
   UseCreateConnectorModalProps
@@ -32,9 +32,7 @@ export const SelectOrCreateConnectorFieldNames = {
 
 export function ConnectorSelection(props: ConnectorSelectionProps): JSX.Element {
   const { connectToMonitoringSourceText, firstTimeSetupText, connectorType, createConnectorText, onSuccess } = props
-  const {
-    params: { accountId, projectIdentifier, orgIdentifier }
-  } = useRouteParams()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams()
   const { openConnectorModal } = useCreateConnectorModal({ onSuccess })
 
   return (

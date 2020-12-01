@@ -1,7 +1,11 @@
 ---
 global:
   harness: Harness # Name of the company
+  featureFlagsText: Feature Flags
+  projectsText: Projects
   deploymentText: Deployment
+  cloudCostsText: Cloud Costs
+  changeVerificationText: Change Verifications
   deploymentsText: Deployments
   executionText: Execution
   executionsText: Executions

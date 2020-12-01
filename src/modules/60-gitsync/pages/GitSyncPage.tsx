@@ -2,21 +2,12 @@ import React from 'react'
 import { Layout, Container } from '@wings-software/uikit'
 import { NavLink, useParams } from 'react-router-dom'
 import { Page } from '@common/exports'
-import {
-  routeGitSyncRepos,
-  routeGitSyncActivities,
-  routeGitSyncEntities,
-  routeGitSyncErrors,
-  routeOrgGitSyncRepos,
-  routeOrgGitSyncActivities,
-  routeOrgGitSyncEntities,
-  routeOrgGitSyncErrors
-} from 'navigation/accounts/routes'
+import routes from '@common/RouteDefinitions'
 import i18n from './GitSyncPage.i18n'
 import css from './GitSyncPage.module.scss'
 
 const GitSyncPage: React.FC = ({ children }) => {
-  const { orgIdentifier } = useParams()
+  const { orgIdentifier, accountId } = useParams()
   return (
     <>
       <Page.Header
@@ -27,7 +18,11 @@ const GitSyncPage: React.FC = ({ children }) => {
               <NavLink
                 className={css.tags}
                 activeClassName={css.activeTag}
-                to={orgIdentifier ? routeOrgGitSyncRepos.url({ orgIdentifier }) : routeGitSyncRepos.url()}
+                to={
+                  orgIdentifier
+                    ? routes.toOrgGitSyncRepos({ orgIdentifier, accountId })
+                    : routes.toGitSyncRepos({ accountId })
+                }
               >
                 {i18n.repos}
               </NavLink>
@@ -35,7 +30,11 @@ const GitSyncPage: React.FC = ({ children }) => {
               <NavLink
                 className={css.tags}
                 activeClassName={css.activeTag}
-                to={orgIdentifier ? routeOrgGitSyncActivities.url({ orgIdentifier }) : routeGitSyncActivities.url()}
+                to={
+                  orgIdentifier
+                    ? routes.toOrgGitSyncActivities({ orgIdentifier, accountId })
+                    : routes.toGitSyncActivities({ accountId })
+                }
               >
                 {i18n.activities}
               </NavLink>
@@ -43,7 +42,11 @@ const GitSyncPage: React.FC = ({ children }) => {
               <NavLink
                 className={css.tags}
                 activeClassName={css.activeTag}
-                to={orgIdentifier ? routeOrgGitSyncEntities.url({ orgIdentifier }) : routeGitSyncEntities.url()}
+                to={
+                  orgIdentifier
+                    ? routes.toOrgGitSyncEntities({ orgIdentifier, accountId })
+                    : routes.toGitSyncEntities({ accountId })
+                }
               >
                 {i18n.entities}
               </NavLink>
@@ -51,7 +54,11 @@ const GitSyncPage: React.FC = ({ children }) => {
               <NavLink
                 className={css.tags}
                 activeClassName={css.activeTag}
-                to={orgIdentifier ? routeOrgGitSyncErrors.url({ orgIdentifier }) : routeGitSyncErrors.url()}
+                to={
+                  orgIdentifier
+                    ? routes.toOrgGitSyncErrors({ orgIdentifier, accountId })
+                    : routes.toGitSyncErrors({ accountId })
+                }
               >
                 {i18n.errors}
               </NavLink>

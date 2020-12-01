@@ -2,7 +2,6 @@
 
 exports[`Connectors Page Test render k8s manual config  connector row 1`] = `
 <div>
-   
   <div
     class="Layout---vertical--3Szv StyledProps---main--1Wws listPage"
   >
@@ -440,6 +439,5 @@ exports[`Connectors Page Test render k8s manual config  connector row 1`] = `
       </div>
     </div>
   </div>
-   
 </div>
 `;

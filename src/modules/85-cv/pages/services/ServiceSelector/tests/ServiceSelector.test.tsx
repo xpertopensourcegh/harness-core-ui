@@ -1,22 +1,22 @@
 import React from 'react'
 import { fireEvent, render, waitFor } from '@testing-library/react'
 import type { UseGetReturn } from 'restful-react'
-import * as framework from 'framework/route/RouteMounter'
 import * as cvService from 'services/cv'
+import { TestWrapper } from '@common/utils/testUtils'
+import routes from '@common/RouteDefinitions'
+import { accountPathProps, projectPathProps } from '@common/utils/routeUtils'
 import ServiceSelector from '../ServiceSelector'
+
+const pathParams = {
+  accountId: 'loading',
+  projectIdentifier: '1234_project',
+  orgIdentifier: '1234_ORG'
+}
+const TEST_PATH = routes.toCVServices({ ...accountPathProps, ...projectPathProps })
 
 describe('Unit tests for service selector', () => {
   beforeEach(() => {
     jest.clearAllMocks()
-    const mockRouteParams = jest.spyOn(framework, 'useRouteParams')
-    mockRouteParams.mockReturnValue({
-      params: {
-        accountId: 'loading',
-        projectIdentifier: '1234_project',
-        orgIdentifier: '1234_ORG'
-      },
-      query: {}
-    })
   })
   test('Ensure that when no data state is rendered when no data is provided', async () => {
     const useGetEnvServiceRiskSpy = jest.spyOn(cvService, 'useGetEnvServiceRisks')
@@ -28,7 +28,11 @@ describe('Unit tests for service selector', () => {
     } as UseGetReturn<any, unknown, any, unknown>)
 
     const isEmptyListMock = jest.fn()
-    const { container } = render(<ServiceSelector isEmptyList={isEmptyListMock} />)
+    const { container } = render(
+      <TestWrapper path={TEST_PATH} pathParams={pathParams}>
+        <ServiceSelector isEmptyList={isEmptyListMock} />
+      </TestWrapper>
+    )
     await waitFor(() => expect(container.querySelector('[class*="main"]')).not.toBeNull())
     const mainContainer = container.querySelector('[class*="main"]')
     expect(mainContainer?.children.length).toBe(1)
@@ -52,7 +56,11 @@ describe('Unit tests for service selector', () => {
     } as UseGetReturn<any, unknown, any, unknown>)
 
     const onSelectMock = jest.fn()
-    const { container } = render(<ServiceSelector onSelect={onSelectMock} />)
+    const { container } = render(
+      <TestWrapper path={TEST_PATH} pathParams={pathParams}>
+        <ServiceSelector onSelect={onSelectMock} />
+      </TestWrapper>
+    )
     await waitFor(() => expect(container.querySelector('[class*="main"]')).not.toBeNull())
 
     expect(container.querySelectorAll('[class*="entityRow"]').length).toBe(3)

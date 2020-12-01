@@ -2,7 +2,6 @@
 
 exports[`AppDMonitoringSOurce render initial state 1`] = `
 <div>
-   
   <div
     class="StyledProps---font--2ipy StyledProps---main--1Wws"
   >
@@ -646,6 +645,5 @@ exports[`AppDMonitoringSOurce render initial state 1`] = `
       </div>
     </div>
   </div>
-   
 </div>
 `;

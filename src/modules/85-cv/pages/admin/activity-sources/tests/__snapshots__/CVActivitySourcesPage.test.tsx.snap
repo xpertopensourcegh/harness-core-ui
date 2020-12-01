@@ -2,7 +2,6 @@
 
 exports[`CVActivitySourcesPage unit tests Ensure when api returns data it is rendered correctly 1`] = `
 <div>
-   
   <div
     class="Layout---horizontal--3rmQ StyledProps---main--1Wws container standard StyledProps---flex--2Jz8 StyledProps---padding-left-large--28UT StyledProps---padding-right-large--2vF9"
   >
@@ -12,7 +11,7 @@ exports[`CVActivitySourcesPage unit tests Ensure when api returns data it is ren
       <div>
         <a
           class="breadcrumb"
-          href="/account/null/cv/dashboard/org/1234_org/project/1234_project"
+          href="/account/1234_accountId/cv/dashboard/org/1234_org/project/1234_project"
         />
         <span
           class="separator"
@@ -355,6 +354,5 @@ exports[`CVActivitySourcesPage unit tests Ensure when api returns data it is ren
       </div>
     </div>
   </div>
-   
 </div>
 `;

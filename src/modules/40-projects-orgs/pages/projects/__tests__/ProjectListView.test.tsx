@@ -5,7 +5,7 @@ import { act } from 'react-dom/test-utils'
 import { findDialogContainer, TestWrapper } from '@common/utils/testUtils'
 
 import ProjectListView from '@projects-orgs/pages/projects/views/ProjectListView/ProjectListView'
-import { routeProjectDetails } from 'navigation/projects/routes'
+import routes from '@common/RouteDefinitions'
 import { projectPageMock } from './ProjectPageMock'
 import { defaultAppStoreValues } from './DefaultAppStoreData'
 
@@ -102,9 +102,10 @@ describe('Project List', () => {
       await waitFor(() => getByTestId('location'))
       expect(
         getByTestId('location').innerHTML.endsWith(
-          routeProjectDetails.url({
+          routes.toProjectDetails({
             orgIdentifier: 'testOrg',
-            projectIdentifier: 'test'
+            projectIdentifier: 'test',
+            accountId: 'testAcc'
           })
         )
       ).toBeTruthy()

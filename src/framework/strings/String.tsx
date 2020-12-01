@@ -1,11 +1,8 @@
-import React, { createContext, useContext } from 'react'
+import React from 'react'
 import { render } from 'mustache'
 import { get } from 'lodash-es'
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type StringsMap = Record<string, Record<string, any>>
-
-export const StringsContext = createContext<StringsMap>({})
+import { useAppStore } from 'framework/AppStore/AppStoreContext'
 
 export interface UseStringsReturn {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -13,7 +10,7 @@ export interface UseStringsReturn {
 }
 
 export function useStrings(namespace = 'global'): UseStringsReturn {
-  const strings = useContext(StringsContext)
+  const { strings } = useAppStore()
 
   return {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

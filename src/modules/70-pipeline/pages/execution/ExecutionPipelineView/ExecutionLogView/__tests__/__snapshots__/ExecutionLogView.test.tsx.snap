@@ -2,7 +2,6 @@
 
 exports[`<ExecutionLogView /> tests snapshot test 1`] = `
 <div>
-   
   <div
     class="StyledProps---font--2ipy StyledProps---main--1Wws logsContainer"
   >
@@ -688,6 +687,5 @@ exports[`<ExecutionLogView /> tests snapshot test 1`] = `
       /
     </div>
   </div>
-   
 </div>
 `;

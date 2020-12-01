@@ -2,17 +2,12 @@ import React from 'react'
 import { NavLink, useParams } from 'react-router-dom'
 import { Container, Layout } from '@wings-software/uikit'
 import { Page } from '@common/exports'
-import {
-  routeOrgResourcesConnectors,
-  routeOrgResourcesSecretsListing,
-  routeResourcesConnectors,
-  routeResourcesSecretsListing
-} from 'navigation/accounts/routes'
+import routes from '@common/RouteDefinitions'
 import i18n from './ResourcesPage.i18n'
 import css from './ResourcesPage.module.scss'
 
 const ResourcesPage: React.FC = ({ children }) => {
-  const { orgIdentifier } = useParams()
+  const { orgIdentifier, accountId, projectIdentifier } = useParams()
   return (
     <>
       <Page.Header
@@ -23,7 +18,7 @@ const ResourcesPage: React.FC = ({ children }) => {
               <NavLink
                 className={css.tags}
                 activeClassName={css.activeTag}
-                to={orgIdentifier ? routeOrgResourcesConnectors.url({ orgIdentifier }) : routeResourcesConnectors.url()}
+                to={routes.toCIAdminResourcesConnectors({ accountId, orgIdentifier, projectIdentifier })}
               >
                 {i18n.connectors}
               </NavLink>
@@ -31,11 +26,7 @@ const ResourcesPage: React.FC = ({ children }) => {
               <NavLink
                 className={css.tags}
                 activeClassName={css.activeTag}
-                to={
-                  orgIdentifier
-                    ? routeOrgResourcesSecretsListing.url({ orgIdentifier })
-                    : routeResourcesSecretsListing.url()
-                }
+                to={routes.toCIAdminResourcesSecretsListing({ accountId, orgIdentifier, projectIdentifier })}
               >
                 {i18n.secrets}
               </NavLink>

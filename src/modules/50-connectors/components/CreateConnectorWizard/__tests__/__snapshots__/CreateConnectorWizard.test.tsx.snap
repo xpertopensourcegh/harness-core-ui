@@ -2,7 +2,6 @@
 
 exports[`Create connector Wizard should open CreateConnectorWizard 1`] = `
 <div>
-   
   <div
     class="createConnectorWizard"
   >
@@ -229,6 +228,5 @@ exports[`Create connector Wizard should open CreateConnectorWizard 1`] = `
       </div>
     </div>
   </div>
-   
 </div>
 `;

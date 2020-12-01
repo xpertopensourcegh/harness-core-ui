@@ -2,7 +2,6 @@
 
 exports[`Organization Card test initializes ok  1`] = `
 <div>
-   
   <div
     class="bp3-card bp3-interactive bp3-elevation-2 Card---card--2BXa card"
     tabindex="0"
@@ -161,6 +160,5 @@ exports[`Organization Card test initializes ok  1`] = `
       </div>
     </div>
   </div>
-   
 </div>
 `;

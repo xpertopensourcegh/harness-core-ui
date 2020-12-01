@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import type { StepProps, SelectOption, ModalErrorHandlerBinding } from '@wings-software/uikit'
 import { pick } from 'lodash-es'
 import i18n from '@projects-orgs/pages/projects/ProjectsPage.i18n'
-import { useAppStoreReader, useAppStoreWriter } from 'framework/exports'
+import { useAppStore } from 'framework/exports'
 import { useGetOrganizationList, ResponsePageOrganization, ResponseProject } from 'services/cd-ng'
 import type { Project } from 'services/cd-ng'
 import { usePostProject } from 'services/cd-ng'
@@ -36,8 +36,7 @@ const CreateProject: React.FC<StepProps<Project> & CreateModalData> = props => {
     },
     mock: orgMockData
   })
-  const { projects } = useAppStoreReader()
-  const updateAppStore = useAppStoreWriter()
+  const { projects, updateAppStore } = useAppStore()
 
   const organisations: SelectOption[] =
     orgData?.data?.content?.map(org => {

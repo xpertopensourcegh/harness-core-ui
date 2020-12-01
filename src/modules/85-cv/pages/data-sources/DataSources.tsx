@@ -11,16 +11,17 @@ import {
   Button
 } from '@wings-software/uikit'
 import type { Cell } from 'react-table'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import type { IDBPDatabase } from 'idb'
 import { Dialog } from '@blueprintjs/core'
 import { useHistory } from 'react-router-dom'
 import type * as H from 'history'
 import { Page, useConfirmationDialog } from '@common/exports'
 import CVProductCard from '@cv/components/CVProductCard/CVProductCard'
-import { routeCVDataSourcesProductPage, routeCVDataSources } from 'navigation/cv/routes'
+import routes from '@common/RouteDefinitions'
 import { CVProviders, VerificationTypeToRouteVerificationType } from '@cv/constants'
-import { loggerFor, ModuleName, useRouteParams } from 'framework/exports'
+import { useQueryParams } from '@common/hooks'
+import { loggerFor, ModuleName } from 'framework/exports'
 import { useIndexedDBHook, CVObjectStoreNames, CVIndexedDBPrimaryKeys } from '@cv/hooks/IndexedDBHook/IndexedDBHook'
 import { CreateConnectorWizard } from '@connectors/components/CreateConnectorWizard/CreateConnectorWizard'
 import { useDeleteConnector, useGetConnectorList, ConnectorConfigDTO, ConnectorInfoDTO } from 'services/cd-ng'
@@ -169,14 +170,16 @@ function moveToDataSourceProductPage(
   projectId: string,
   orgId: string,
   dataSourceId: string,
-  type: string
+  type: string,
+  accountId: string
 ): { dataSourceId: string; isEdit: boolean } {
   const contextualData = { dataSourceId, isEdit: false }
   history.push({
-    pathname: routeCVDataSourcesProductPage.url({
+    pathname: routes.toCVDataSourcesProductPage({
       dataSourceType: VerificationTypeToRouteVerificationType[mapType(type)],
       projectIdentifier: projectId,
-      orgIdentifier: orgId
+      orgIdentifier: orgId,
+      accountId
     }),
     search: `?dataSourceId=${dataSourceId}`,
     state: contextualData
@@ -205,7 +208,7 @@ function Providers(props: ProvidersProps): JSX.Element {
                 [CVIndexedDBPrimaryKeys.DATASOURCE_ID]: identifier,
                 isEdit: false
               })
-              moveToDataSourceProductPage(history, projectId, orgId, identifier, type)
+              moveToDataSourceProductPage(history, projectId, orgId, identifier, type, accountId)
             } else {
               logger.error('No identifier or type present on connector creation!', conn)
             }
@@ -276,10 +279,11 @@ function CVConnectorListTable(props: CVConnectorListTableProps): JSX.Element {
           const { row } = cell
           const originalData = row.original as DataSourceTableRow
           const toObj = {
-            pathname: routeCVDataSourcesProductPage.url({
+            pathname: routes.toCVDataSourcesProductPage({
               dataSourceType: originalData.dataSourceRoute,
               projectIdentifier: projectId,
-              orgIdentifier: orgId
+              orgIdentifier: orgId,
+              accountId
             }),
             search: `?dataSourceId=${originalData.identifier}`,
             state: { dataSourceId: originalData.identifier, isEdit: true }
@@ -355,10 +359,9 @@ function CVConnectorListTable(props: CVConnectorListTableProps): JSX.Element {
 
 function RenderContent(props: RenderContentProps): JSX.Element {
   const { existingDataSources, dbInstance, fetchConnectors } = props
-  const {
-    params: { projectIdentifier: projectId, orgIdentifier: orgId, accountId },
-    query: { onBoarding: isOnboardingFlow = false }
-  } = useRouteParams()
+  const { projectIdentifier: projectId, orgIdentifier: orgId, accountId } = useParams()
+  const { onBoarding: isOnboardingFlow = false } = useQueryParams()
+
   const [isNewDataSourceView, setToggleView] = useState(!isOnboardingFlow)
   const history = useHistory()
 
@@ -373,9 +376,10 @@ function RenderContent(props: RenderContentProps): JSX.Element {
             onClick={() => {
               if (isNewDataSourceView) {
                 history.push({
-                  pathname: routeCVDataSources.url({
+                  pathname: routes.toCVDataSources({
                     projectIdentifier: projectId as string,
-                    orgIdentifier: orgId as string
+                    orgIdentifier: orgId as string,
+                    accountId
                   }),
                   search: `?onBoarding=true`
                 })
@@ -410,9 +414,7 @@ function RenderContent(props: RenderContentProps): JSX.Element {
 
 const DataSources: FunctionComponent<{}> = _ => {
   const [existingDataSources, setDataSources] = useState(new Map())
-  const {
-    params: { accountId, projectIdentifier, orgIdentifier }
-  } = useRouteParams()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams()
   const { isInitializingDB, dbInstance } = useIndexedDBHook()
   const { data: secretManagersApiResponse, loading, error, refetch } = useGetConnectorList({
     queryParams: {

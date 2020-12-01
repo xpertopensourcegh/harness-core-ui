@@ -2,7 +2,6 @@
 
 exports[`Context Menu test invite collaborators  1`] = `
 <div>
-   
   <ul
     class="bp3-menu"
     style="min-width: unset;"
@@ -204,13 +203,11 @@ exports[`Context Menu test invite collaborators  1`] = `
       </a>
     </li>
   </ul>
-   
 </div>
 `;
 
 exports[`Context Menu test invite collaborators  2`] = `
 <div>
-   
   <div>
     <h1>
       Not Found
@@ -218,16 +215,14 @@ exports[`Context Menu test invite collaborators  2`] = `
     <div
       data-testid="location"
     >
-      /account/null/cv/datasources/org/testOrg/project/test
+      /account/testAcc/cv/datasources/org/testOrg/project/test
     </div>
   </div>
-   
 </div>
 `;
 
 exports[`Context Menu test invite collaborators  3`] = `
 <div>
-   
   <ul
     class="bp3-menu"
     style="min-width: unset;"
@@ -429,13 +424,11 @@ exports[`Context Menu test invite collaborators  3`] = `
       </a>
     </li>
   </ul>
-   
 </div>
 `;
 
 exports[`Context Menu test invite collaborators  4`] = `
 <div>
-   
   <div>
     <h1>
       Not Found
@@ -443,9 +436,8 @@ exports[`Context Menu test invite collaborators  4`] = `
     <div
       data-testid="location"
     >
-      /account/null/cd/dashboard/orgs/testOrg/projects/test
+      /account/testAcc/cd/dashboard/orgs/testOrg/projects/test
     </div>
   </div>
-   
 </div>
 `;

@@ -1,11 +1,11 @@
 import React, { useMemo } from 'react'
 import { Formik } from 'formik'
 import { Container, Text, Select, SelectOption, useModalHook, FormikForm, Layout, Button } from '@wings-software/uikit'
+import { useParams } from 'react-router-dom'
 import { Dialog } from '@blueprintjs/core'
 import * as Yup from 'yup'
 import { CVSelectionCard } from '@cv/components/CVSelectionCard/CVSelectionCard'
 import { AddDescriptionAndTagsWithIdentifier } from '@common/components/AddDescriptionAndTags/AddDescriptionAndTags'
-import { useRouteParams } from 'framework/exports'
 import { EnvironmentResponseDTO, useCreateEnvironment } from 'services/cd-ng'
 import { useStrings } from 'framework/exports'
 import { EnvironmentTypes } from '../../utils'
@@ -28,9 +28,7 @@ export default function EnvironmentSelect({
   className
 }: EnvironmentSelectProps) {
   const { getString } = useStrings('cv')
-  const {
-    params: { accountId, projectIdentifier, orgIdentifier }
-  } = useRouteParams()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams()
   const { mutate: createEnvironment, loading } = useCreateEnvironment({ queryParams: { accountId } })
   const selectOptions = useMemo(
     () => [

@@ -1,23 +1,20 @@
 import React from 'react'
 import { render, waitFor, queryByText } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
-import * as framework from 'framework/route/RouteMounter'
+import routes from '@common/RouteDefinitions'
+import { accountPathProps, projectPathProps } from '@common/utils/routeUtils'
 import AppDMonitoringSOurce from '../AppDMonitoringSource'
 
 describe('AppDMonitoringSOurce', () => {
   test('render initial state', async () => {
-    const mockRouteParams = jest.spyOn(framework, 'useRouteParams')
-    mockRouteParams.mockReturnValue({
-      params: {
-        accountId: 'loading',
-        projectIdentifier: '1234_project',
-        orgIdentifier: '1234_ORG'
-      },
-      query: {}
-    })
     const { container, getByText } = render(
       <TestWrapper
-        pathParams={{ accountId: 'dummy', orgIdentifier: 'dummyOrgId', projectIdentifier: 'dummyProjectId' }}
+        path={routes.toCVMainDashBoardPage({ ...accountPathProps, ...projectPathProps })}
+        pathParams={{
+          accountId: 'loading',
+          projectIdentifier: '1234_project',
+          orgIdentifier: '1234_ORG'
+        }}
       >
         <AppDMonitoringSOurce />
       </TestWrapper>

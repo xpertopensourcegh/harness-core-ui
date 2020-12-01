@@ -8,12 +8,12 @@ import { Project, useGetProjectList, useDeleteProject } from 'services/cd-ng'
 import Table from '@common/components/Table/Table'
 
 import TagsPopover from '@common/components/TagsPopover/TagsPopover'
-import { useAppStoreReader, useAppStoreWriter } from 'framework/exports'
+import { useAppStore } from 'framework/exports'
 import { Page } from '@common/components/Page/Page'
 import { useToaster } from '@common/components/Toaster/useToaster'
 import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmationDialog'
 import ContextMenu from '@projects-orgs/components/Menu/ContextMenu'
-import { routeProjectDetails } from 'navigation/projects/routes'
+import routes from '@common/RouteDefinitions'
 import i18n from './ProjectListView.i18n'
 import css from './ProjectListView.module.scss'
 
@@ -57,7 +57,7 @@ const RenderColumnProject: Renderer<CellProps<Project>> = ({ row }) => {
 }
 const RenderColumnOrganisation: Renderer<CellProps<Project>> = ({ row }) => {
   const data = row.original
-  const { organisationsMap } = useAppStoreReader()
+  const { organisationsMap } = useAppStore()
   return (
     <Text color={Color.BLACK} lineClamp={1} className={css.org}>
       {organisationsMap.get(data.orgIdentifier || /* istanbul ignore next */ '')?.name}
@@ -97,8 +97,7 @@ const RenderColumnMenu: Renderer<CellProps<Project>> = ({ row, column }) => {
   })
   const { showSuccess, showError } = useToaster()
 
-  const { projects } = useAppStoreReader()
-  const updateAppStore = useAppStoreWriter()
+  const { projects, updateAppStore } = useAppStore()
   const onDeleted = (): void => {
     const index = projects.findIndex(p => p.identifier === data.identifier)
     projects.splice(index, 1)
@@ -273,9 +272,10 @@ const ProjectListView: React.FC<ProjectListViewProps> = props => {
         data={data?.data?.content || []}
         onRowClick={project => {
           history.push(
-            routeProjectDetails.url({
+            routes.toProjectDetails({
               projectIdentifier: project.identifier,
-              orgIdentifier: project.orgIdentifier || ''
+              orgIdentifier: project.orgIdentifier || '',
+              accountId: project.accountIdentifier || ''
             })
           )
         }}

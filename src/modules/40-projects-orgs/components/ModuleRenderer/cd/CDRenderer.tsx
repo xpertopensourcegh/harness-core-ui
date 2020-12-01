@@ -1,7 +1,7 @@
 import React from 'react'
 import { Text, Color, Container, Layout, Icon, SparkChart } from '@wings-software/uikit'
 import { useHistory } from 'react-router-dom'
-import { routeCDDashboard } from 'navigation/cd/routes'
+import routes from '@common/RouteDefinitions'
 import type { Project } from 'services/cd-ng'
 import i18n from './CDRenderer.i18n'
 import css from '../ModuleRenderer.module.scss'
@@ -20,9 +20,10 @@ const CDRenderer: React.FC<CDRendererProps> = ({ data, isPreview }) => {
       onClick={() => {
         !isPreview &&
           history.push(
-            routeCDDashboard.url({
+            routes.toCDDashboard({
               orgIdentifier: data.orgIdentifier || '',
-              projectIdentifier: data.identifier
+              projectIdentifier: data.identifier,
+              accountId: data.accountIdentifier || ''
             })
           )
       }}

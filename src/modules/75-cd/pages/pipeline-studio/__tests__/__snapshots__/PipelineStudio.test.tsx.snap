@@ -2,7 +2,6 @@
 
 exports[`Test Pipeline Studio should render default pipeline studio 1`] = `
 <div>
-   
   <div
     class="container container"
   >
@@ -22,7 +21,7 @@ exports[`Test Pipeline Studio should render default pipeline studio 1`] = `
               <div>
                 <a
                   class="breadcrumb"
-                  href="/account/null/cd/deployments/orgs/testOrg/projects/test"
+                  href="/account/testAcc/cd/deployments/orgs/testOrg/projects/test"
                 >
                   test
                 </a>
@@ -35,7 +34,7 @@ exports[`Test Pipeline Studio should render default pipeline studio 1`] = `
               <div>
                 <a
                   class="breadcrumb"
-                  href="/account/null/cd/pipelines/orgs/testOrg/projects/test"
+                  href="/account/testAcc/cd/pipelines/orgs/testOrg/projects/test"
                 >
                   Pipelines
                 </a>
@@ -110,13 +109,13 @@ exports[`Test Pipeline Studio should render default pipeline studio 1`] = `
             </div>
             <a
               class="topButtons"
-              href="/account/null/cd/pipeline-studio/orgs/testOrg/projects/test/pipelines/-1/ui/"
+              href="/account/testAcc/cd/pipeline-studio/orgs/testOrg/projects/test/pipelines/-1/ui/"
             >
               VISUAL
             </a>
             <a
               class="topButtons"
-              href="/account/null/cd/pipeline-studio/orgs/testOrg/projects/test/pipelines/-1/yaml/"
+              href="/account/testAcc/cd/pipeline-studio/orgs/testOrg/projects/test/pipelines/-1/yaml/"
             >
               YAML
             </a>
@@ -324,13 +323,11 @@ exports[`Test Pipeline Studio should render default pipeline studio 1`] = `
       <div />
     </div>
   </div>
-   
 </div>
 `;
 
 exports[`Test Pipeline Studio should render edit pipeline studio 1`] = `
 <div>
-   
   <div
     class="container container"
   >
@@ -350,7 +347,7 @@ exports[`Test Pipeline Studio should render edit pipeline studio 1`] = `
               <div>
                 <a
                   class="breadcrumb"
-                  href="/account/null/cd/deployments/orgs/testOrg/projects/test"
+                  href="/account/testAcc/cd/deployments/orgs/testOrg/projects/test"
                 >
                   test
                 </a>
@@ -363,7 +360,7 @@ exports[`Test Pipeline Studio should render edit pipeline studio 1`] = `
               <div>
                 <a
                   class="breadcrumb"
-                  href="/account/null/cd/pipelines/orgs/testOrg/projects/test/pipelines/editPipeline"
+                  href="/account/testAcc/cd/pipelines/orgs/testOrg/projects/test/pipelines/editPipeline"
                 >
                   Pipelines
                 </a>
@@ -440,13 +437,13 @@ exports[`Test Pipeline Studio should render edit pipeline studio 1`] = `
             </div>
             <a
               class="topButtons"
-              href="/account/null/cd/pipeline-studio/orgs/testOrg/projects/test/pipelines/editPipeline/ui/"
+              href="/account/testAcc/cd/pipeline-studio/orgs/testOrg/projects/test/pipelines/editPipeline/ui/"
             >
               VISUAL
             </a>
             <a
               class="topButtons"
-              href="/account/null/cd/pipeline-studio/orgs/testOrg/projects/test/pipelines/editPipeline/yaml/"
+              href="/account/testAcc/cd/pipeline-studio/orgs/testOrg/projects/test/pipelines/editPipeline/yaml/"
             >
               YAML
             </a>
@@ -640,6 +637,5 @@ exports[`Test Pipeline Studio should render edit pipeline studio 1`] = `
       <div />
     </div>
   </div>
-   
 </div>
 `;

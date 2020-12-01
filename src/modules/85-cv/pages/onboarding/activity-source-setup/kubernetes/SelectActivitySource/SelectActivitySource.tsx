@@ -1,10 +1,9 @@
 import React from 'react'
 import { Color, Container, Formik, FormikForm, FormInput, Heading, Text } from '@wings-software/uikit'
 import { object as yupObject, string as yupString } from 'yup'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
+import routes from '@common/RouteDefinitions'
 import { SubmitAndPreviousButtons } from '@cv/pages/onboarding/SubmitAndPreviousButtons/SubmitAndPreviousButtons'
-import { routeCVAdminSetup } from 'navigation/cv/routes'
-import { useRouteParams } from 'framework/exports'
 import { CVSelectionCard, CVSelectionCardProps } from '@cv/components/CVSelectionCard/CVSelectionCard'
 import { AddDescriptionAndTagsWithIdentifier } from '@common/components/AddDescriptionAndTags/AddDescriptionAndTags'
 import { InfrastructureTypeOptions } from '../../ActivitySourceSetupConstants'
@@ -81,9 +80,7 @@ function ActivitySourceConnectorSelection(props: ActivitySourceConnectorSelectio
 export function SelectActivitySource(props: SelectActivitySourceProps): JSX.Element {
   const { onSubmit, data } = props
   const history = useHistory()
-  const {
-    params: { projectIdentifier, orgIdentifier }
-  } = useRouteParams()
+  const { projectIdentifier, orgIdentifier, accountId } = useParams()
   return (
     <Formik initialValues={data || {}} onSubmit={values => onSubmit?.(values)} validationSchema={ValidationSchema}>
       <FormikForm>
@@ -116,9 +113,10 @@ export function SelectActivitySource(props: SelectActivitySourceProps): JSX.Elem
         <SubmitAndPreviousButtons
           onPreviousClick={() =>
             history.push(
-              routeCVAdminSetup.url({
+              routes.toCVAdminSetup({
                 projectIdentifier: projectIdentifier as string,
-                orgIdentifier: orgIdentifier as string
+                orgIdentifier: orgIdentifier as string,
+                accountId
               })
             )
           }

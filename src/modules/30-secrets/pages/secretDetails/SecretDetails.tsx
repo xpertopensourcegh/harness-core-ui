@@ -16,18 +16,12 @@ import {
 import { PageSpinner } from '@common/components/Page/PageSpinner'
 import { PageError } from '@common/components/Page/PageError'
 import { PageHeader } from '@common/components/Page/PageHeader'
-import {
-  routeOrgResourcesConnectors,
-  routeResourcesConnectors,
-  routeOrgResourcesSecretsListing,
-  routeResourcesSecretsListing
-} from 'navigation/accounts/routes'
 import YamlBuilder from '@common/components/YAMLBuilder/YamlBuilder'
 import type { YamlBuilderHandlerBinding } from '@common/interfaces/YAMLBuilderProps'
 import { YamlEntity } from '@common/constants/YamlConstants'
 import { useToaster } from '@common/exports'
 import CreateUpdateSecret from '@secrets/components/CreateUpdateSecret/CreateUpdateSecret'
-import { routeSecretDetails } from 'navigation/accounts/routes'
+import routes from '@common/RouteDefinitions'
 
 import type { UseGetMockData } from '@common/utils/testUtils'
 import EditSSHSecret from './views/EditSSHSecret'
@@ -43,6 +37,7 @@ enum Mode {
 
 interface OptionalIdentifiers {
   orgIdentifier?: string
+  accountId: string
 }
 
 interface SecretDetailsProps {
@@ -53,14 +48,14 @@ interface SecretDetailsProps {
   mockPassphrase?: ResponseSecretResponseWrapper
 }
 
-const getConnectorsUrl = ({ orgIdentifier }: OptionalIdentifiers): string => {
-  if (orgIdentifier) return routeOrgResourcesConnectors.url({ orgIdentifier })
-  return routeResourcesConnectors.url()
+const getConnectorsUrl = ({ orgIdentifier, accountId }: OptionalIdentifiers): string => {
+  if (orgIdentifier) return routes.toOrgResourcesConnectors({ orgIdentifier, accountId })
+  return routes.toResourcesConnectors({ accountId })
 }
 
-const getSecretsUrl = ({ orgIdentifier }: OptionalIdentifiers): string => {
-  if (orgIdentifier) return routeOrgResourcesSecretsListing.url({ orgIdentifier })
-  return routeResourcesSecretsListing.url()
+const getSecretsUrl = ({ orgIdentifier, accountId }: OptionalIdentifiers): string => {
+  if (orgIdentifier) return routes.toOrgResourcesSecretsListing({ orgIdentifier, accountId })
+  return routes.toResourcesSecretsListing({ accountId })
 }
 
 const SecretDetails: React.FC<SecretDetailsProps> = props => {
@@ -98,7 +93,7 @@ const SecretDetails: React.FC<SecretDetailsProps> = props => {
       try {
         await updateSecretYaml(yamlData as any)
         showSuccess(i18n.updateSuccess)
-        history.push(routeSecretDetails.url({ secretId }))
+        history.push(routes.toResourcesSecretDetails({ secretId, accountId }))
       } catch (err) {
         showError(err.data.message)
       }
@@ -152,8 +147,8 @@ const SecretDetails: React.FC<SecretDetailsProps> = props => {
         title={
           <Layout.Vertical>
             <div>
-              <Link to={getConnectorsUrl({ orgIdentifier })}>{i18n.linkResources}</Link> /{' '}
-              <Link to={getSecretsUrl({ orgIdentifier })}>{i18n.linkSecrets}</Link>
+              <Link to={getConnectorsUrl({ orgIdentifier, accountId })}>{i18n.linkResources}</Link> /{' '}
+              <Link to={getSecretsUrl({ orgIdentifier, accountId })}>{i18n.linkSecrets}</Link>
             </div>
             <Text font={{ size: 'medium' }} color={Color.BLACK}>
               {data?.data?.secret.name || 'Secret Details'}
@@ -212,7 +207,7 @@ const SecretDetails: React.FC<SecretDetailsProps> = props => {
                     secret={secretData}
                     onChange={secret => setSecretData({ secret, ...pick(secretData, ['createdAt', 'updatedAt']) })}
                     onSuccess={() => {
-                      history.push(routeSecretDetails.url({ secretId }))
+                      history.push(routes.toResourcesSecretDetails({ secretId, accountId }))
                     }}
                     connectorListMockData={props.connectorListMockData}
                   />

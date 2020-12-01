@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { Container, Button, Text } from '@wings-software/uikit'
+import { useParams } from 'react-router-dom'
 import { useGetVerificationInstances, DeploymentVerificationJobInstanceSummary } from 'services/cv'
 import { Page } from '@common/exports'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
-import { useRouteParams } from 'framework/exports'
 import { useToaster } from '@common/exports'
 import DeploymentDrilldownViewHeader from './DeploymentDrilldownViewHeader'
 import DeploymentDrilldownSideNav, { InstancePhase } from './DeploymentDrilldownSideNav'
@@ -13,9 +13,7 @@ import VerificationStatusCard from './VerificationStatusCard'
 import styles from './DeploymentDrilldownView.module.scss'
 
 export default function DeploymentDrilldownView(): JSX.Element {
-  const {
-    params: { accountId, projectIdentifier, orgIdentifier, deploymentTag, serviceIdentifier }
-  } = useRouteParams()
+  const { accountId, projectIdentifier, orgIdentifier, deploymentTag, serviceIdentifier } = useParams()
   const { showError } = useToaster()
   const [anomalousMetricsOnly, setAnomalousMetricsOnly] = useState<boolean>(true)
   const [selectedTab, setSelectedTab] = useState<TabIdentifier>(TabIdentifier.METRICS_TAB)

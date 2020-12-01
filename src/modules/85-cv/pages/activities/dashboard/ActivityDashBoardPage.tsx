@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { CircularPercentageChart, Color, Container, Text } from '@wings-software/uikit'
 import moment from 'moment'
+import { useParams } from 'react-router-dom'
 import { Page } from '@common/exports'
 import { RestResponseListActivityDashboardDTO, useListActivitiesForDashboard } from 'services/cv'
-import { useRouteParams } from 'framework/exports'
 import i18n from './ActivityDashboardPage.i18n'
 import { ActivityTimeline } from './ActivityTimeline/ActivityTimeline'
 import type { Activity } from './ActivityTimeline/ActivityTrack/ActivityTrackUtils'
@@ -133,9 +133,7 @@ function renderSummaryCardContent(data: Activity): JSX.Element {
 }
 
 export default function ActivityDashboardPage(): JSX.Element {
-  const {
-    params: { orgIdentifier, projectIdentifier, accountId }
-  } = useRouteParams()
+  const { orgIdentifier, projectIdentifier, accountId } = useParams()
   const timelineEndTime = moment(timelineStartTime).startOf('month').valueOf()
   // const [timelineData, setTimelineData] = useState<ActivityTrackProps[]>(
   //   generateMockData(

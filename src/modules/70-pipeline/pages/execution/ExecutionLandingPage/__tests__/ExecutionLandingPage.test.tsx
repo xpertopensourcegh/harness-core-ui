@@ -1,13 +1,9 @@
 import React from 'react'
 import { render, fireEvent, act, findByText as findByTextContainer } from '@testing-library/react'
 
-import { TestWrapper, prependAccountPath, NotFound } from '@common/utils/testUtils'
-import {
-  routeCDPipelineExecution,
-  routeCDPipelineExecutionPipline,
-  routeCDPipelineExecutionInputs,
-  routeCDPipelineExecutionArtifacts
-} from 'navigation/cd/routes'
+import { TestWrapper, NotFound } from '@common/utils/testUtils'
+import routes from '@common/RouteDefinitions'
+import { accountPathProps, executionPathProps } from '@common/utils/routeUtils'
 import { useGetPipelineExecutionDetail } from 'services/cd-ng'
 
 import type { ExecutionStatus } from '@pipeline/utils/statusHelpers'
@@ -34,6 +30,9 @@ jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => () => <div>YAMLBui
 
 jest.useFakeTimers()
 
+const TEST_EXECUTION_PATH = routes.toCDExecution({ ...accountPathProps, ...executionPathProps })
+const TEST_EXECUTION_PIPELINE_PATH = routes.toCDExecutionPiplineView({ ...accountPathProps, ...executionPathProps })
+
 describe('<ExecutionLandingPage /> tests', () => {
   const pathParams = {
     accountId: 'TEST_ACCOUNT_ID',
@@ -50,7 +49,7 @@ describe('<ExecutionLandingPage /> tests', () => {
       data: null
     }))
     const { container } = render(
-      <TestWrapper path={prependAccountPath(routeCDPipelineExecution.path)} pathParams={pathParams}>
+      <TestWrapper path={TEST_EXECUTION_PATH} pathParams={pathParams}>
         <ExecutionLandingPage>
           <div data-testid="children">Execution Landing Page</div>
         </ExecutionLandingPage>
@@ -60,9 +59,9 @@ describe('<ExecutionLandingPage /> tests', () => {
   })
 
   test.each<[string, string]>([
-    [i18nTabs.piplines, routeCDPipelineExecutionPipline.url(pathParams)],
-    [i18nTabs.inputs, routeCDPipelineExecutionInputs.url(pathParams)],
-    [i18nTabs.artifacts, routeCDPipelineExecutionArtifacts.url(pathParams)]
+    [i18nTabs.piplines, routes.toCDExecutionPiplineView(pathParams)],
+    [i18nTabs.inputs, routes.toCDExecutionInputsView(pathParams)],
+    [i18nTabs.artifacts, routes.toCDExecutionArtifactsView(pathParams)]
   ])('Navigation to "%s" Tabs work', async (tab, url) => {
     ;(useGetPipelineExecutionDetail as jest.Mock).mockImplementation(() => ({
       refetch: jest.fn(),
@@ -70,7 +69,7 @@ describe('<ExecutionLandingPage /> tests', () => {
       data: null
     }))
     const { container, getByTestId } = render(
-      <TestWrapper path={prependAccountPath(routeCDPipelineExecution.path)} pathParams={pathParams}>
+      <TestWrapper path={TEST_EXECUTION_PATH} pathParams={pathParams}>
         <ExecutionLandingPage>
           <div data-testid="children">Execution Landing Page</div>
         </ExecutionLandingPage>
@@ -84,8 +83,8 @@ describe('<ExecutionLandingPage /> tests', () => {
   })
 
   test.each<[string, string]>([
-    [i18nTabs.graphView, routeCDPipelineExecutionPipline.url(pathParams) + '?view=graph'],
-    [i18nTabs.logView, routeCDPipelineExecutionPipline.url(pathParams) + '?view=log']
+    [i18nTabs.graphView, routes.toCDExecutionPiplineView(pathParams) + '?view=graph'],
+    [i18nTabs.logView, routes.toCDExecutionPiplineView(pathParams) + '?view=log']
   ])('Navigation to "%s" Tabs work', async (tab, url) => {
     ;(useGetPipelineExecutionDetail as jest.Mock).mockImplementation(() => ({
       refetch: jest.fn(),
@@ -93,7 +92,7 @@ describe('<ExecutionLandingPage /> tests', () => {
       data: null
     }))
     const { findByText, getByTestId } = render(
-      <TestWrapper path={prependAccountPath(routeCDPipelineExecutionPipline.path)} pathParams={pathParams}>
+      <TestWrapper path={TEST_EXECUTION_PIPELINE_PATH} pathParams={pathParams}>
         <ExecutionLandingPage>
           <NotFound />
         </ExecutionLandingPage>
@@ -120,7 +119,7 @@ describe('<ExecutionLandingPage /> tests', () => {
     }))
 
     render(
-      <TestWrapper path={prependAccountPath(routeCDPipelineExecution.path)} pathParams={pathParams}>
+      <TestWrapper path={TEST_EXECUTION_PATH} pathParams={pathParams}>
         <ExecutionLandingPage>
           <div data-testid="children">Execution Landing Page</div>
         </ExecutionLandingPage>
@@ -142,7 +141,7 @@ describe('<ExecutionLandingPage /> tests', () => {
     }))
 
     const { container, findByTestId } = render(
-      <TestWrapper path={prependAccountPath(routeCDPipelineExecutionPipline.path)} pathParams={pathParams}>
+      <TestWrapper path={TEST_EXECUTION_PIPELINE_PATH} pathParams={pathParams}>
         <ExecutionLandingPage>
           <NotFound />
         </ExecutionLandingPage>
@@ -177,7 +176,7 @@ describe('<ExecutionLandingPage /> tests', () => {
     }
 
     const { getByTestId } = render(
-      <TestWrapper path={prependAccountPath(routeCDPipelineExecutionPipline.path)} pathParams={pathParams}>
+      <TestWrapper path={TEST_EXECUTION_PIPELINE_PATH} pathParams={pathParams}>
         <ExecutionLandingPage>
           <Child />
         </ExecutionLandingPage>
@@ -214,11 +213,7 @@ describe('<ExecutionLandingPage /> tests', () => {
     }
 
     const { getByTestId } = render(
-      <TestWrapper
-        path={prependAccountPath(routeCDPipelineExecutionPipline.path)}
-        queryParams={{ stage: 'qaStage' }}
-        pathParams={pathParams}
-      >
+      <TestWrapper path={TEST_EXECUTION_PIPELINE_PATH} queryParams={{ stage: 'qaStage' }} pathParams={pathParams}>
         <ExecutionLandingPage>
           <Child />
         </ExecutionLandingPage>

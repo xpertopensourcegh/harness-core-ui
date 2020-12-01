@@ -2,7 +2,6 @@
 
 exports[`SelectProduct render for AppD monitoring source 1`] = `
 <div>
-   
   <div
     class="StyledProps---font--2ipy StyledProps---main--1Wws"
   >
@@ -518,6 +517,5 @@ exports[`SelectProduct render for AppD monitoring source 1`] = `
       </form>
     </div>
   </div>
-   
 </div>
 `;

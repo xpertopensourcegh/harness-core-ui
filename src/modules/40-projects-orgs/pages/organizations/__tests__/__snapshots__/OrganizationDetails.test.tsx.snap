@@ -2,7 +2,6 @@
 
 exports[`Organization Details Render 1`] = `
 <div>
-   
   <div
     class="Layout---horizontal--3rmQ StyledProps---main--1Wws container xlarge header StyledProps---flex--2Jz8 StyledProps---padding-left-large--28UT StyledProps---padding-right-large--2vF9"
   >
@@ -13,7 +12,7 @@ exports[`Organization Details Render 1`] = `
         class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
       >
         <a
-          href="/account/null/organizations"
+          href="/account/testAcc/organizations"
         >
           <p
             class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-small--1qQz StyledProps---color--8PuS StyledProps---color-blue600--3aH7"
@@ -91,7 +90,7 @@ exports[`Organization Details Render 1`] = `
         </p>
       </div>
       <a
-        href="/account/null/projects?orgId=testOrg"
+        href="/account/testAcc/projects?orgId=testOrg"
       >
         <p
           class="StyledProps---font--2ipy StyledProps---main--1Wws"
@@ -299,6 +298,5 @@ exports[`Organization Details Render 1`] = `
       </div>
     </div>
   </div>
-   
 </div>
 `;

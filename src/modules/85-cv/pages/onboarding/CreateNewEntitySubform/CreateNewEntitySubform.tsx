@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 import { Formik } from 'formik'
 import { FormInput, SelectWithSubviewContext, Layout, Button, FormikForm, Text } from '@wings-software/uikit'
 import * as Yup from 'yup'
-import { useRouteParams } from 'framework/exports'
+import { useParams } from 'react-router-dom'
 import { useCreateService, useCreateEnvironment, EnvironmentRequestDTO, ServiceRequestDTO, Error } from 'services/cd-ng'
 import i18n from './CreateNewEntitySeubform.i18n'
 
@@ -21,9 +21,7 @@ const ENVIRONMENT_TYPE_OPTIONS = [
 ]
 
 export default function CreateNewEntitySubform({ entityType }: { entityType: 'service' | 'environment' }): JSX.Element {
-  const {
-    params: { accountId, projectIdentifier: routeProjectIdentifier, orgIdentifier: routeOrgIdentifier }
-  } = useRouteParams()
+  const { accountId, projectIdentifier: routeProjectIdentifier, orgIdentifier: routeOrgIdentifier } = useParams()
   const { toggleSubview } = useContext(SelectWithSubviewContext)
   const projectIdentifier = routeProjectIdentifier as string
   const orgIdentifier = routeOrgIdentifier as string

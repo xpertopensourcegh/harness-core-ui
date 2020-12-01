@@ -2,7 +2,8 @@ import React from 'react'
 import { fireEvent, render, waitFor } from '@testing-library/react'
 import { Container } from '@wings-software/uikit'
 import { TestWrapper } from '@common/utils/testUtils'
-import * as framework from 'framework/route/RouteMounter'
+import routes from '@common/RouteDefinitions'
+import { accountPathProps, projectPathProps } from '@common/utils/routeUtils'
 import KubernetesActivitySource from '../KubernetesActivitySource'
 
 jest.mock('../SelectActivitySource/SelectActivitySource', () => ({
@@ -52,18 +53,20 @@ jest.mock('../ReviewKubernetesActivitySource/ReviewKubernetesActivitySource', ()
 
 describe('Unit tests for KubernetesActivitySource', () => {
   test('Ensure all tabs are rendered, and tabs can be selected on demand', async () => {
-    const mockRouteParams = jest.spyOn(framework, 'useRouteParams')
-    mockRouteParams.mockReturnValue({
-      params: {
-        accountId: 'loading',
-        projectIdentifier: '1234_project',
-        orgIdentifier: '1234_ORG',
-        activitySource: ''
-      },
-      query: {}
-    })
     const { container } = render(
-      <TestWrapper>
+      <TestWrapper
+        path={routes.toCVActivitySourceSetup({
+          ...accountPathProps,
+          ...projectPathProps,
+          activitySource: ':activitySource'
+        })}
+        pathParams={{
+          accountId: 'loading',
+          projectIdentifier: '1234_project',
+          orgIdentifier: '1234_ORG',
+          activitySource: '123'
+        }}
+      >
         <KubernetesActivitySource />
       </TestWrapper>
     )

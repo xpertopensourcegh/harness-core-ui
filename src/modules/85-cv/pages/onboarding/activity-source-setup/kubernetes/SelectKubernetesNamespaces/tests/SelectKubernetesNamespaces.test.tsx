@@ -2,23 +2,22 @@ import React from 'react'
 import type { UseGetReturn } from 'restful-react'
 import { fireEvent, render, waitFor } from '@testing-library/react'
 import * as cvService from 'services/cv'
-import * as framework from 'framework/route/RouteMounter'
+import { TestWrapperProps, TestWrapper } from '@common/utils/testUtils'
+import { accountPathProps, projectPathProps } from '@common/utils/routeUtils'
+import routes from '@common/RouteDefinitions'
 import { SelectKubernetesNamespaces } from '../SelectKubernetesNamespaces'
 import i18n from '../SelectKubernetesNamespaces.i18n'
 
+const testWrapperProps: TestWrapperProps = {
+  path: routes.toCVMainDashBoardPage({ ...accountPathProps, ...projectPathProps }),
+  pathParams: {
+    accountId: 'loading',
+    projectIdentifier: '1234_project',
+    orgIdentifier: '1234_ORG'
+  }
+}
+
 describe('Unit tests for SelectKubernetesNamespaces', () => {
-  beforeEach(() => {
-    jest.clearAllMocks()
-    const mockRouteParams = jest.spyOn(framework, 'useRouteParams')
-    mockRouteParams.mockReturnValue({
-      params: {
-        accountId: 'loading',
-        projectIdentifier: '1234_project',
-        orgIdentifier: '1234_ORG'
-      },
-      query: {}
-    })
-  })
   test('Ensure loading state is rendered, when api is loading', async () => {
     const useGetNamespaces = jest.spyOn(cvService, 'useGetNamespaces')
     useGetNamespaces.mockReturnValue({
@@ -27,7 +26,9 @@ describe('Unit tests for SelectKubernetesNamespaces', () => {
 
     const onSubmitMockFunc = jest.fn()
     const { container } = render(
-      <SelectKubernetesNamespaces onSubmit={onSubmitMockFunc} onPrevious={() => undefined} />
+      <TestWrapper {...testWrapperProps}>
+        <SelectKubernetesNamespaces onSubmit={onSubmitMockFunc} onPrevious={() => undefined} />
+      </TestWrapper>
     )
     await waitFor(() => expect(container.querySelector('[class*="loadingErrorNoData"]')).not.toBeNull())
     expect(container.querySelector('[class*="spinner"]')).not.toBeNull()
@@ -43,7 +44,9 @@ describe('Unit tests for SelectKubernetesNamespaces', () => {
 
     const onSubmitMockFunc = jest.fn()
     const { container, getByText } = render(
-      <SelectKubernetesNamespaces onSubmit={onSubmitMockFunc} onPrevious={() => undefined} />
+      <TestWrapper {...testWrapperProps}>
+        <SelectKubernetesNamespaces onSubmit={onSubmitMockFunc} onPrevious={() => undefined} />
+      </TestWrapper>
     )
     await waitFor(() => expect(container.querySelector('[class*="loadingErrorNoData"]')).not.toBeNull())
     expect(getByText('some execption')).not.toBeNull()
@@ -62,13 +65,15 @@ describe('Unit tests for SelectKubernetesNamespaces', () => {
 
     const onSubmitMockFunc = jest.fn()
     const { container, getByText } = render(
-      <SelectKubernetesNamespaces onSubmit={onSubmitMockFunc} onPrevious={() => undefined} />
+      <TestWrapper {...testWrapperProps}>
+        <SelectKubernetesNamespaces onSubmit={onSubmitMockFunc} onPrevious={() => undefined} />
+      </TestWrapper>
     )
     await waitFor(() => expect(container.querySelector('[class*="loadingErrorNoData"]')).not.toBeNull())
     expect(getByText(i18n.noDataMessage)).not.toBeNull()
 
     fireEvent.click(getByText(i18n.retry))
-    await waitFor(() => expect(useGetNamespaces).toHaveBeenCalledTimes(1))
+    await waitFor(() => expect(useGetNamespaces).toHaveBeenCalledTimes(3))
   })
 
   test('Ensure that when data is returned, it is rendered', async () => {
@@ -82,7 +87,9 @@ describe('Unit tests for SelectKubernetesNamespaces', () => {
 
     const onSubmitMockFunc = jest.fn()
     const { container, getByText } = render(
-      <SelectKubernetesNamespaces onSubmit={onSubmitMockFunc} onPrevious={() => undefined} />
+      <TestWrapper {...testWrapperProps}>
+        <SelectKubernetesNamespaces onSubmit={onSubmitMockFunc} onPrevious={() => undefined} />
+      </TestWrapper>
     )
 
     await waitFor(() => expect(container.querySelector('[class*="main"]')).not.toBeNull())

@@ -6,7 +6,7 @@ import type { Column, Renderer, CellProps } from 'react-table'
 import { Text, Color, Layout, Icon, Button, Popover } from '@wings-software/uikit'
 
 import Table from '@common/components/Table/Table'
-import { routeSecretDetails } from 'navigation/accounts/routes'
+import routes from '@common/RouteDefinitions'
 import { useToaster, useConfirmationDialog } from '@common/exports'
 import { SecretResponseWrapper, useDeleteSecretV2 } from 'services/cd-ng'
 import type { PageSecretResponseWrapper, SecretTextSpecDTO } from 'services/cd-ng'
@@ -133,7 +133,7 @@ const RenderColumnAction: Renderer<CellProps<SecretResponseWrapper>> = ({ row, c
   }
 
   const handleEdit = (): void => {
-    history.push(routeSecretDetails.url({ secretId: data.identifier }))
+    history.push(routes.toResourcesSecretDetails({ secretId: data.identifier, accountId }))
   }
 
   return (

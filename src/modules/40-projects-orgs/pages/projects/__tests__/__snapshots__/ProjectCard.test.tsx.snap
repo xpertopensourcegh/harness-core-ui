@@ -2,7 +2,6 @@
 
 exports[`Project Card Functionality Test Click on CD 1`] = `
 <div>
-   
   <div
     class="bp3-card bp3-elevation-0 Card---card--2BXa projectCard"
   >
@@ -727,13 +726,11 @@ exports[`Project Card Functionality Test Click on CD 1`] = `
       </div>
     </div>
   </div>
-   
 </div>
 `;
 
 exports[`Project Card Functionality Test Click on CF 1`] = `
 <div>
-   
   <div
     class="bp3-card bp3-elevation-0 Card---card--2BXa projectCard"
   >
@@ -1458,13 +1455,11 @@ exports[`Project Card Functionality Test Click on CF 1`] = `
       </div>
     </div>
   </div>
-   
 </div>
 `;
 
 exports[`Project Card test Preview is ok 1`] = `
 <div>
-   
   <div
     class="bp3-card bp3-elevation-0 Card---card--2BXa projectCard"
   >
@@ -2149,13 +2144,11 @@ exports[`Project Card test Preview is ok 1`] = `
       </div>
     </div>
   </div>
-   
 </div>
 `;
 
 exports[`Project Card test initializes ok  1`] = `
 <div>
-   
   <div
     class="bp3-card bp3-elevation-0 Card---card--2BXa projectCard"
   >
@@ -2651,6 +2644,5 @@ exports[`Project Card test initializes ok  1`] = `
       </div>
     </div>
   </div>
-   
 </div>
 `;

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { Container, Tabs, Tab } from '@wings-software/uikit'
+import { useParams } from 'react-router-dom'
 import {
   useGetDeploymentTimeSeries,
   useGetDeploymentLogAnalyses,
@@ -7,7 +8,6 @@ import {
   DeploymentVerificationJobInstanceSummary
 } from 'services/cv'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
-import { useRouteParams } from 'framework/exports'
 import { useToaster } from '@common/exports'
 import { DeploymentProgressAndNodes } from '@cv/components/DeploymentProgressAndNodes/DeploymentProgressAndNodes'
 import type { NodeData } from '../../services/BlueGreenVerificationChart'
@@ -35,13 +35,11 @@ export default function VerificationInstanceView({
   onTabChange,
   anomalousMetricsOnly,
   onAnomalousMetricsOnly
-}: VerificationInstanceViewProps) {
+}: VerificationInstanceViewProps): React.ReactElement {
   const prevProps = useRef<any>({})
   const [selectedNode, setSelectedNode] = useState<NodeData | undefined>()
 
-  const {
-    params: { accountId }
-  } = useRouteParams()
+  const { accountId } = useParams()
   const { showError } = useToaster()
 
   const {

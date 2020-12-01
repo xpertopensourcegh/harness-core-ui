@@ -1,9 +1,8 @@
 import React from 'react'
 import { Container, Text, Color, Button } from '@wings-software/uikit'
-import { useHistory } from 'react-router-dom'
-import { routeCVDeploymentPage } from 'navigation/cv/routes'
+import { useHistory, useParams } from 'react-router-dom'
+import routes from '@common/RouteDefinitions'
 import { useGetRecentDeploymentActivityVerifications } from 'services/cv'
-import { useRouteParams } from 'framework/exports'
 import i18n from './ActivityVerifications.i18n'
 import VerificationItem from './VerificationItem'
 import css from './ActivityVerifications.module.scss'
@@ -21,9 +20,7 @@ const RECENT_VERIFICATIONS_COLUMN_NAMES = Object.values(i18n.activityVerificatio
 
 export default function ActivityVerifications(): JSX.Element {
   const history = useHistory()
-  const {
-    params: { accountId, projectIdentifier, orgIdentifier }
-  } = useRouteParams()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams()
   const { data } = useGetRecentDeploymentActivityVerifications({
     queryParams: {
       accountId: accountId as string,
@@ -50,11 +47,12 @@ export default function ActivityVerifications(): JSX.Element {
               item={item}
               onClick={() =>
                 history.push(
-                  routeCVDeploymentPage.url({
+                  routes.toCVDeploymentPage({
                     projectIdentifier: projectIdentifier as string,
                     orgIdentifier: orgIdentifier as string,
                     deploymentTag: encodeURIComponent(tag!),
-                    serviceIdentifier: encodeURIComponent(serviceName!)
+                    serviceIdentifier: encodeURIComponent(serviceName!),
+                    accountId
                   })
                 )
               }

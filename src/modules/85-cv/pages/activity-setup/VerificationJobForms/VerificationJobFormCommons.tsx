@@ -2,10 +2,10 @@ import React from 'react'
 import { Button, Container, SelectOption } from '@wings-software/uikit'
 import { connect } from 'formik'
 import { useHistory } from 'react-router-dom'
-import { useRouteParams } from 'framework/exports'
+import { useParams } from 'react-router-dom'
 import { useToaster } from '@common/exports'
 import { useSaveVerificationJob, VerificationJobDTO } from 'services/cv'
-import { routeCVActivities } from 'navigation/cv/routes'
+import routes from '@common/RouteDefinitions'
 
 export const FormControlButtons = connect(({ formik }) => (
   <Container
@@ -49,9 +49,7 @@ export interface UseFormSubmitProps {
 }
 
 export const useFormSubmit = (props?: UseFormSubmitProps) => {
-  const {
-    params: { accountId, activityType, orgIdentifier, projectIdentifier }
-  } = useRouteParams()
+  const { accountId, activityType, orgIdentifier, projectIdentifier } = useParams()
   const history = useHistory()
   const { showError } = useToaster()
   const { mutate, error, loading } = useSaveVerificationJob({ queryParams: { accountId } })
@@ -63,9 +61,10 @@ export const useFormSubmit = (props?: UseFormSubmitProps) => {
         props.onSuccess()
       } else {
         history.push(
-          routeCVActivities.url({
+          routes.toCVActivities({
             orgIdentifier: orgIdentifier as string,
-            projectIdentifier: projectIdentifier as string
+            projectIdentifier: projectIdentifier as string,
+            accountId
           })
         )
       }

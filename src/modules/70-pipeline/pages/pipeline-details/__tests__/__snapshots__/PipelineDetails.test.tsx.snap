@@ -2,7 +2,6 @@
 
 exports[`Pipeline Details tests render snapshot view 1`] = `
 <div>
-   
   <div
     class="Layout---horizontal--3rmQ StyledProps---main--1Wws container standard StyledProps---flex--2Jz8 StyledProps---padding-left-large--28UT StyledProps---padding-right-large--2vF9"
   >
@@ -15,7 +14,7 @@ exports[`Pipeline Details tests render snapshot view 1`] = `
         <div>
           <a
             class="breadcrumb"
-            href="/account/null/cd/dashboard/orgs/testOrg/projects/test"
+            href="/account/testAcc/cd/dashboard/orgs/testOrg/projects/test"
           >
             test
           </a>
@@ -28,7 +27,7 @@ exports[`Pipeline Details tests render snapshot view 1`] = `
         <div>
           <a
             class="breadcrumb"
-            href="/account/null/cd/pipelines/orgs/testOrg/projects/test"
+            href="/account/testAcc/cd/pipelines/orgs/testOrg/projects/test"
           >
             Pipelines
           </a>
@@ -55,25 +54,25 @@ exports[`Pipeline Details tests render snapshot view 1`] = `
       >
         <a
           class="tags"
-          href="/account/null/cd/pipelines/orgs/testOrg/projects/test/pipelines/pipeline/executions"
+          href="/account/testAcc/cd/pipelines/orgs/testOrg/projects/test/pipelines/pipeline/executions"
         >
           Executions
         </a>
         <a
           class="tags"
-          href="/account/null/cd/pipelines/orgs/testOrg/projects/test/pipelines/pipeline/input-sets"
+          href="/account/testAcc/cd/pipelines/orgs/testOrg/projects/test/pipelines/pipeline/input-sets"
         >
           Input Sets
         </a>
         <a
           class="tags"
-          href="/account/null/cd/pipelines/orgs/testOrg/projects/test/pipelines/pipeline/triggers"
+          href="/account/testAcc/cd/pipelines/orgs/testOrg/projects/test/pipelines/pipeline/triggers"
         >
           Triggers
         </a>
         <a
           class="tags"
-          href="/account/null/cd/pipeline-studio/orgs/testOrg/projects/test/pipelines/pipeline/"
+          href="/account/testAcc/cd/pipeline-studio/orgs/testOrg/projects/test/pipelines/pipeline/"
         >
           <span
             class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-blue600--3aH7"
@@ -103,6 +102,5 @@ exports[`Pipeline Details tests render snapshot view 1`] = `
   <div
     class="StyledProps---font--2ipy StyledProps---main--1Wws pageBody"
   />
-   
 </div>
 `;

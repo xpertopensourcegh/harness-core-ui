@@ -33,6 +33,7 @@
       "@cd/*": ["modules/75-cd/*"],
       "@ci/*": ["modules/80-ci/*"],
       "@cv/*": ["modules/85-cv/*"],
+      "@ce/*": ["modules/90-ce/*"],
       "@cf/*": ["modules/cf/*"],
       "@ci-enterprise/*": ["modules/ci-enterprise/*"],
       "@dx/*": ["modules/dx/*"]

@@ -3,7 +3,7 @@ import { Tabs, Tab, OverlaySpinner } from '@wings-software/uikit'
 import { FieldArray } from 'formik'
 import { Formik, FormikForm, FormInput, Button } from '@wings-software/uikit'
 import * as Yup from 'yup'
-import { useRouteParams } from 'framework/exports'
+import { useParams } from 'react-router-dom'
 import { saveMerics, getMerics } from './ConfigureThresholdService'
 import { mapCriteriaToRequest, mapCriteriaSignToForm } from './ConfigureThresholdUtils'
 import css from './ConfigureThreshold.module.scss'
@@ -91,9 +91,7 @@ const ConfigureThreshold: FunctionComponent<any> = (props: ConfigureThresholdPro
   const [metricOptions, setMetricOptions] = useState(dummyMetricOptions)
   const [metricPackIdentifier, setMetricPackIdentifier] = useState('')
   const [inProgress, setInProgress] = useState(false)
-  const {
-    params: { projectIdentifier, accountId }
-  } = useRouteParams()
+  const { projectIdentifier, accountId } = useParams()
 
   useEffect(() => {
     const { metricPack, dataSourceType, hints } = props
@@ -111,7 +109,7 @@ const ConfigureThreshold: FunctionComponent<any> = (props: ConfigureThresholdPro
     }
   }, [])
 
-  async function fetchExistingMetrics(dataSourceType: any, metricpackName: string) {
+  async function fetchExistingMetrics(dataSourceType: any, metricpackName: string): Promise<void> {
     setInProgress(true)
     const queryParams = `&dataSourceType=${dataSourceType}&projectIdentifier=${projectIdentifier}&metricPackIdentifier=${metricpackName}`
     const { response }: any = await getMerics(accountId, queryParams)
@@ -149,17 +147,17 @@ const ConfigureThreshold: FunctionComponent<any> = (props: ConfigureThresholdPro
     setInProgress(false)
   }
 
-  function addFailMetric(formikProps: any) {
+  function addFailMetric(formikProps: any): void {
     const iValues = { ...failInitialValues }
     formikProps.setFieldValue('metrics.failMetrics', [...formikProps.values.metrics.failMetrics, { ...iValues }])
   }
 
-  function addIgnoreMetric(formikProps: any) {
+  function addIgnoreMetric(formikProps: any): void {
     const iValues = { ...ignoreInitialValues }
     formikProps.setFieldValue('metrics.ignoreMetrics', [...formikProps.values.metrics.ignoreMetrics, { ...iValues }])
   }
 
-  async function saveMetrics(values: any) {
+  async function saveMetrics(values: any): Promise<void> {
     setInProgress(true)
     const payload = mapValuestoPayload(values.metrics.failMetrics, values.metrics.ignoreMetrics)
     const queryParams = `&dataSourceType=${props.dataSourceType}&projectIdentifier=${projectIdentifier}`
@@ -203,7 +201,7 @@ const ConfigureThreshold: FunctionComponent<any> = (props: ConfigureThresholdPro
     return [...fails, ...ignores]
   }
 
-  function setOccurrence(formikProps: any, index: any) {
+  function setOccurrence(formikProps: any, index: any): boolean {
     const isFailImmediately = formikProps.values.metrics.failMetrics[index].action === 'fail-immediately'
     if (isFailImmediately) {
       formikProps.values.metrics.failMetrics[index].occurrenceCount = 1

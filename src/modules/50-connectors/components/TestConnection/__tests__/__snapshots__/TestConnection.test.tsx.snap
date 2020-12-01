@@ -2,7 +2,6 @@
 
 exports[`Test Connection render test connection 1`] = `
 <div>
-   
   <div
     class="Layout---vertical--3Szv StyledProps---main--1Wws"
   >
@@ -17,13 +16,11 @@ exports[`Test Connection render test connection 1`] = `
       </span>
     </button>
   </div>
-   
 </div>
 `;
 
 exports[`Test Connection render test connection verify existing delegate  1`] = `
 <div>
-   
   <div
     class="Layout---vertical--3Szv StyledProps---main--1Wws"
   >
@@ -38,13 +35,11 @@ exports[`Test Connection render test connection verify existing delegate  1`] = 
       </span>
     </button>
   </div>
-   
 </div>
 `;
 
 exports[`Test Connection render test connection verify existing delegate  2`] = `
 <div>
-   
   <div
     class="Layout---vertical--3Szv StyledProps---main--1Wws"
   >
@@ -186,13 +181,11 @@ exports[`Test Connection render test connection verify existing delegate  2`] = 
       </div>
     </div>
   </div>
-   
 </div>
 `;
 
 exports[`Test Connection render test connection verify out of cluster  1`] = `
 <div>
-   
   <div
     class="Layout---vertical--3Szv StyledProps---main--1Wws"
   >
@@ -207,13 +200,11 @@ exports[`Test Connection render test connection verify out of cluster  1`] = `
       </span>
     </button>
   </div>
-   
 </div>
 `;
 
 exports[`Test Connection render test connection verify out of cluster  2`] = `
 <div>
-   
   <div
     class="Layout---vertical--3Szv StyledProps---main--1Wws"
   >
@@ -360,6 +351,5 @@ exports[`Test Connection render test connection verify out of cluster  2`] = `
       </div>
     </div>
   </div>
-   
 </div>
 `;

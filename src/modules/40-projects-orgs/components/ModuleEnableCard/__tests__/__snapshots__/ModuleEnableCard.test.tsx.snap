@@ -2,7 +2,6 @@
 
 exports[`Module Enable Card render and Enable 1`] = `
 <div>
-   
   <div
     class="bp3-card bp3-elevation-0 Card---card--2BXa card"
   >
@@ -82,13 +81,11 @@ exports[`Module Enable Card render and Enable 1`] = `
       </button>
     </div>
   </div>
-   
 </div>
 `;
 
 exports[`Module Enable Card render and Enable 2`] = `
 <div>
-   
   <div
     class="bp3-card bp3-elevation-0 Card---card--2BXa card"
   >
@@ -168,13 +165,11 @@ exports[`Module Enable Card render and Enable 2`] = `
       </button>
     </div>
   </div>
-   
 </div>
 `;
 
 exports[`Module Enable Card render and Enable 3`] = `
 <div>
-   
   <div
     class="bp3-card bp3-elevation-0 Card---card--2BXa card"
   >
@@ -254,13 +249,11 @@ exports[`Module Enable Card render and Enable 3`] = `
       </button>
     </div>
   </div>
-   
 </div>
 `;
 
 exports[`Module Enable Card render and Enable 4`] = `
 <div>
-   
   <div
     class="bp3-card bp3-elevation-0 Card---card--2BXa card"
   >
@@ -340,13 +333,11 @@ exports[`Module Enable Card render and Enable 4`] = `
       </button>
     </div>
   </div>
-   
 </div>
 `;
 
 exports[`Module Enable Card render and Enable 5`] = `
 <div>
-   
   <div
     class="bp3-card bp3-elevation-0 Card---card--2BXa card"
   >
@@ -426,6 +417,5 @@ exports[`Module Enable Card render and Enable 5`] = `
       </button>
     </div>
   </div>
-   
 </div>
 `;

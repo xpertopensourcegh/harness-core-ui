@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import type { StepProps, SelectOption, ModalErrorHandlerBinding } from '@wings-software/uikit'
-import { useAppStoreReader, useAppStoreWriter } from 'framework/exports'
+import { useAppStore } from 'framework/exports'
 import i18n from '@projects-orgs/pages/projects/ProjectsPage.i18n'
 import {
   ResponseOrganization,
@@ -82,8 +82,7 @@ const EditProject: React.FC<StepProps<Project> & EditModalData> = props => {
     }
   }, [error, loading])
 
-  const { projects } = useAppStoreReader()
-  const updateAppStore = useAppStoreWriter()
+  const { projects, updateAppStore } = useAppStore()
 
   const organisations: SelectOption[] = [
     {

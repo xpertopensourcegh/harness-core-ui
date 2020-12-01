@@ -321,7 +321,7 @@ export class CustomVariables extends Step<VariableList> {
   }
 
   protected async getSecrets(): Promise<SecretDTOV2[] | undefined> {
-    // TODO: Class based component can't use useRouteParams() hook to get accountId
+    // TODO: Class based component can't use useParams() hook to get accountId
     // Get it from localStorage for now
     const accountId = localStorage.acctId
 

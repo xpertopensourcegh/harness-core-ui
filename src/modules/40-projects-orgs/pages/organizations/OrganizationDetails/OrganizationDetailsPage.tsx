@@ -2,10 +2,9 @@ import React from 'react'
 import { Color, Icon, Layout, Tag, Text } from '@wings-software/uikit'
 import { Link, useParams } from 'react-router-dom'
 import { Page } from '@common/exports'
-import { routeOrganizations } from 'navigation/accounts/routes'
+import routes from '@common/RouteDefinitions'
 import { useGetOrganization } from 'services/cd-ng'
 import OrgNavCardRenderer from '@projects-orgs/components/OrgNavCardRenderer/OrgNavCardRenderer'
-import { routeProjects } from 'navigation/projects/routes'
 import i18n from './OrganizationDetailsPage.i18n'
 import css from './OrganizationDetailsPage.module.scss'
 
@@ -24,7 +23,7 @@ const OrganizationDetailsPage: React.FC = () => {
         title={
           <Layout.Vertical spacing="small" padding="medium" className={css.title}>
             <Layout.Horizontal>
-              <Link to={routeOrganizations.url()}>
+              <Link to={routes.toOrganizations({ accountId })}>
                 <Text font="small" color={Color.BLUE_600}>
                   {i18n.manage}
                 </Text>
@@ -56,7 +55,7 @@ const OrganizationDetailsPage: React.FC = () => {
               <Icon name="nav-project-selected" size={30}></Icon>
               <Text font="medium">{i18n.numberOfProjects}</Text>
             </Layout.Horizontal>
-            <Link to={`${routeProjects.url()}?orgId=${orgIdentifier}`}>
+            <Link to={`${routes.toProjects({ accountId })}?orgId=${orgIdentifier}`}>
               <Text>{i18n.viewProjects}</Text>
             </Link>
           </Layout.Vertical>

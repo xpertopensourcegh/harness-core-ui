@@ -16,11 +16,11 @@ import {
 import { Drawer, Menu, Spinner, Position } from '@blueprintjs/core'
 import type { CellProps, Renderer, Column, Cell } from 'react-table'
 import moment from 'moment'
-import { routeCFFeatureFlagsDetail } from 'navigation/cf/routes'
+import { useParams } from 'react-router-dom'
+import routes from '@common/RouteDefinitions'
 import { useToaster, useConfirmationDialog } from '@common/exports'
 import Table from '@common/components/Table/Table'
 import { useGetAllFeatures, Feature, useDeleteFeatureFlag } from 'services/cf'
-import { useRouteParams } from 'framework/exports'
 import { Page } from '@common/exports'
 import { FlagTypeVariations } from '../../components/CreateFlagDialog/FlagDialogUtils'
 import FlagDrawerFilter from '../../components/FlagFilterDrawer/FlagFilterDrawer'
@@ -160,9 +160,7 @@ const RenderColumnEdit: React.FC<ColumnMenuProps> = ({ cell: { row, column }, en
 
   const [menuOpen, setMenuOpen] = useState(false)
 
-  const {
-    params: { projectIdentifier, orgIdentifier }
-  } = useRouteParams()
+  const { projectIdentifier, orgIdentifier, accountId } = useParams()
 
   const history = useHistory()
 
@@ -196,11 +194,12 @@ const RenderColumnEdit: React.FC<ColumnMenuProps> = ({ cell: { row, column }, en
 
   const onDetailPage = (): void => {
     history.push(
-      routeCFFeatureFlagsDetail.url({
+      routes.toCFFeatureFlagsDetail({
         orgIdentifier: orgIdentifier as string,
         projectIdentifier: projectIdentifier as string,
         environmentIdentifier: environment as string,
-        featureFlagIdentifier: data.identifier
+        featureFlagIdentifier: data.identifier,
+        accountId
       })
     )
   }
@@ -257,9 +256,7 @@ const CFFeatureFlagsPage: React.FC = () => {
 
   const { showError } = useToaster()
 
-  const {
-    params: { projectIdentifier }
-  } = useRouteParams()
+  const { projectIdentifier } = useParams()
 
   const { data: environments, loading: envsLoading, error: envsError } = useEnvironments(projectIdentifier as string)
 

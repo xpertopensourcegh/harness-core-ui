@@ -3,7 +3,7 @@ import { Container, Formik, FormikForm } from '@wings-software/uikit'
 import * as Yup from 'yup'
 
 import { useHistory, useParams } from 'react-router-dom'
-import { routeCVAdminSetup } from 'navigation/cv/routes'
+import routes from '@common/RouteDefinitions'
 import { StringUtils } from '@common/exports'
 import { SubmitAndPreviousButtons } from '@cv/pages/onboarding/SubmitAndPreviousButtons/SubmitAndPreviousButtons'
 import { useStrings } from 'framework/exports'
@@ -18,7 +18,7 @@ const HarnessCDActivitySourceDetails: React.FC<HarnessCDActivitySourceDetailsPro
   const { getString } = useStrings()
   const { initialValues } = props
   const history = useHistory()
-  const { projectIdentifier, orgIdentifier } = useParams()
+  const { projectIdentifier, orgIdentifier, accountId } = useParams()
   return (
     <Container style={{ position: 'relative', top: 80 }}>
       <Formik
@@ -49,9 +49,10 @@ const HarnessCDActivitySourceDetails: React.FC<HarnessCDActivitySourceDetailsPro
               <SubmitAndPreviousButtons
                 onPreviousClick={() =>
                   history.push(
-                    routeCVAdminSetup.url({
+                    routes.toCVAdminSetup({
                       projectIdentifier: projectIdentifier as string,
-                      orgIdentifier: orgIdentifier as string
+                      orgIdentifier: orgIdentifier as string,
+                      accountId
                     })
                   )
                 }

@@ -24,15 +24,16 @@ import xhr from '@wings-software/xhr-async'
 import cx from 'classnames'
 import type { DSConfig } from '@wings-software/swagger-ts/definitions'
 import type { IDBPDatabase } from 'idb'
+import { useParams } from 'react-router-dom'
 import { ThirdPartyCallLogModal } from '@cv/components/ThirdPartyCallLogs/ThirdPartyCallLogs'
 import JsonSelectorFormInput from '@cv/components/JsonSelector/JsonSelectorFormInput'
 import DataSourceConfigPanel from '@cv/components/DataSourceConfigPanel/DataSourceConfigPanel'
 import { CVNextGenCVConfigService } from '@cv/services'
-import { useRouteParams } from 'framework/exports'
 import OnBoardingConfigSetupHeader from '@cv/components/OnBoardingConfigSetupHeader/OnBoardingConfigSetupHeader'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
 import { CVObjectStoreNames } from '@cv/hooks/IndexedDBHook/IndexedDBHook'
 import { useToaster } from '@common/exports'
+import { useQueryParams } from '@common/hooks'
 import CreateNewEntitySubform from '../../CreateNewEntitySubform/CreateNewEntitySubform'
 import { SplunkDSConfig, createDefaultSplunkDSConfig } from './SplunkMainSetupViewUtils'
 import { transformQueriesFromSplunk, SplunkColumnChartOptions, transformToSaveConfig } from './SplunkMainSetupViewUtils'
@@ -326,7 +327,7 @@ function SplunkConfig(props: SplunkConfigProps): JSX.Element {
     loading: Boolean(dsConfig.query?.length)
   })
   const [thirdPartyGUID, setThirdPartyGUID] = useState<string | undefined>()
-  const { params } = useRouteParams()
+  const { accountId, orgIdentifier, projectIdentifier } = useParams()
   const areFirstThreeFilledOut = dsConfig.envIdentifier && dsConfig.serviceIdentifier && dsConfig.queryName
 
   useEffect(() => {
@@ -335,17 +336,17 @@ function SplunkConfig(props: SplunkConfigProps): JSX.Element {
       const guid = `${Utils.randomId()}-${dataSourceId}-${new Date().getTime().toString()}`
       setThirdPartyGUID(guid)
       debouncedValidateConfig(
-        params.accountId,
+        accountId,
         dataSourceId,
         dsConfig.query,
         guid,
-        params.orgIdentifier as string,
-        params.projectIdentifier as string,
+        orgIdentifier as string,
+        projectIdentifier as string,
         setValidationResult
       )
     }
     return () => xhr.abort(XHR_VALIDATION_GROUP)
-  }, [dsConfig.query, dataSourceId, params.accountId, params.orgIdentifier, params.projectIdentifier])
+  }, [dsConfig.query, dataSourceId, accountId, orgIdentifier, projectIdentifier])
 
   useEffect(() => {
     formikProps.setFieldValue(`dsConfigs[${index}].isValid`, validationResult?.error ? false : true)
@@ -443,10 +444,8 @@ function SplunkPageHeading(props: SplunkPageHeadingProps): JSX.Element {
 function SplunkDataSourceForm(props: SplunkDataSourceFormProps): JSX.Element {
   const { dsConfigs, serviceOptions, envOptions, splunkQueryOptions, pageData, orgId, dbInstance, projectId } = props
   const productName = pageData?.products?.[0]
-  const {
-    params: { accountId },
-    query: { dataSourceId: routeDataSourceId = '' }
-  } = useRouteParams()
+  const { accountId } = useParams()
+  const { dataSourceId: routeDataSourceId = '' } = useQueryParams()
   const dataSourceId = pageData.dataSourceId || (routeDataSourceId as string)
   return (
     <Formik
@@ -530,9 +529,7 @@ function SplunkDataSourceForm(props: SplunkDataSourceFormProps): JSX.Element {
 export default function SplunkOnboarding(props: SplunkOnBoardingProps): JSX.Element {
   const { configs, serviceOptions, locationContext, indexedDB, envOptions } = props
   const [splunkQueryOptions, setSplunkQueryOptions] = useState<SelectOption[]>([{ label: i18n.loadingText, value: '' }])
-  const {
-    params: { accountId, projectIdentifier: routeProjectId, orgIdentifier: routeOrgId }
-  } = useRouteParams()
+  const { accountId, projectIdentifier: routeProjectId, orgIdentifier: routeOrgId } = useParams()
   const toaster = useToaster()
   const projectId = routeProjectId as string
   const orgId = routeOrgId as string

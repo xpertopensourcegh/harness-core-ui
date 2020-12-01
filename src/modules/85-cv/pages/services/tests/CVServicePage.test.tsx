@@ -3,8 +3,10 @@ import { fireEvent, render, waitFor } from '@testing-library/react'
 import { Container } from '@wings-software/uikit'
 import { Classes } from '@blueprintjs/core'
 import type { UseGetReturn } from 'restful-react'
+import { TestWrapper } from '@common/utils/testUtils'
 import * as cvService from 'services/cv'
-import * as framework from 'framework/route/RouteMounter'
+import routes from '@common/RouteDefinitions'
+import { accountPathProps, projectPathProps } from '@common/utils/routeUtils'
 import CVServicesPage from '../CVServicesPage'
 
 jest.mock('@cv/components/ActivitiesTimelineView/ActivitiesTimelineViewSection', () => () => (
@@ -12,18 +14,16 @@ jest.mock('@cv/components/ActivitiesTimelineView/ActivitiesTimelineViewSection',
 ))
 jest.mock('../ServiceHeatMap/ServiceHeatMap', () => () => <Container className="service-heatmap" />)
 
+const TEST_PATH = routes.toCVServices({ ...accountPathProps, ...projectPathProps })
+const pathParams = {
+  accountId: 'loading',
+  projectIdentifier: '1234_project',
+  orgIdentifier: '1234_ORG'
+}
+
 describe('Unit tests for CV service page', () => {
   beforeEach(() => {
     jest.clearAllMocks()
-    const mockRouteParams = jest.spyOn(framework, 'useRouteParams')
-    mockRouteParams.mockReturnValue({
-      params: {
-        accountId: 'loading',
-        projectIdentifier: '1234_project',
-        orgIdentifier: '1234_ORG'
-      },
-      query: {}
-    })
   })
   test('Ensure no data is rendered when there are no services', async () => {
     const useGetEnvServiceRiskSpy = jest.spyOn(cvService, 'useGetEnvServiceRisks')
@@ -39,7 +39,11 @@ describe('Unit tests for CV service page', () => {
       refetch: jest.fn() as unknown
     } as UseGetReturn<any, unknown, any, unknown>)
 
-    const { container, getByText } = render(<CVServicesPage />)
+    const { container, getByText } = render(
+      <TestWrapper path={TEST_PATH} pathParams={pathParams}>
+        <CVServicesPage />
+      </TestWrapper>
+    )
     await waitFor(() => expect(container.querySelector('[class*="servicesPage"]')).not.toBeNull())
     expect(getByText('No analysis!')).not.toBeNull()
   })
@@ -60,7 +64,11 @@ describe('Unit tests for CV service page', () => {
       refetch: refetchMock as unknown
     } as UseGetReturn<any, unknown, any, unknown>)
 
-    const { container, getByText } = render(<CVServicesPage />)
+    const { container, getByText } = render(
+      <TestWrapper path={TEST_PATH} pathParams={pathParams}>
+        <CVServicesPage />
+      </TestWrapper>
+    )
     await waitFor(() => expect(container.querySelector('[class*="servicesPage"]')).toBeNull())
     expect(getByText('mock error')).not.toBeNull()
     const retryButton = getByText('Retry')
@@ -91,7 +99,11 @@ describe('Unit tests for CV service page', () => {
       refetch: jest.fn() as unknown
     } as UseGetReturn<any, unknown, any, unknown>)
 
-    const { container, getByText } = render(<CVServicesPage />)
+    const { container, getByText } = render(
+      <TestWrapper path={TEST_PATH} pathParams={pathParams}>
+        <CVServicesPage />
+      </TestWrapper>
+    )
     await waitFor(() => expect(container.querySelector('[class*="servicesPage"]')).not.toBeNull())
 
     const envOption = getByText('Environment: Prod')
@@ -135,7 +147,11 @@ describe('Unit tests for CV service page', () => {
       refetch: jest.fn() as unknown
     } as UseGetReturn<any, unknown, any, unknown>)
 
-    const { container, getByText, getAllByText } = render(<CVServicesPage />)
+    const { container, getByText, getAllByText } = render(
+      <TestWrapper path={TEST_PATH} pathParams={pathParams}>
+        <CVServicesPage />
+      </TestWrapper>
+    )
     await waitFor(() => expect(container.querySelector('[class*="servicesPage"]')).not.toBeNull())
     expect(getAllByText('100').length).toBe(2)
 

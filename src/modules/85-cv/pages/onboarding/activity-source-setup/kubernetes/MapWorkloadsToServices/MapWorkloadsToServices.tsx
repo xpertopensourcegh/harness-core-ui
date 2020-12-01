@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Color, Container, Heading, Select, SelectOption, Text } from '@wings-software/uikit'
 import type { CellProps } from 'react-table'
+import { useParams } from 'react-router-dom'
 import { Classes } from '@blueprintjs/core'
 import cx from 'classnames'
 import { useGetWorkloads } from 'services/cv'
@@ -17,7 +18,8 @@ import {
 import { Table } from '@common/components'
 import { NavItem } from '@cv/pages/onboarding/SetupPageLeftNav/NavItem/NavItem'
 import { SubmitAndPreviousButtons } from '@cv/pages/onboarding/SubmitAndPreviousButtons/SubmitAndPreviousButtons'
-import { useRouteParams, useStrings } from 'framework/exports'
+import { useStrings } from 'framework/exports'
+import type { ProjectPathProps, AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { SelectKubernetesNamespaceFieldNames } from '../SelectKubernetesNamespaces/SelectKubernetesNamespaces'
 import css from './MapWorkloadsToServices.module.scss'
 
@@ -123,7 +125,7 @@ function initializeTableData(selectedWorkloads: Map<string, TableData>, workload
 function WorkloadsToServicesTable(props: WorkloadsToServicesTableProps): JSX.Element {
   const { onClickWorkload, selectedNamespace, selectedWorkloads, connectorIdentifier } = props
   const { getString } = useStrings()
-  const { params: queryParams } = useRouteParams()
+  const queryParams = useParams<ProjectPathProps & AccountPathProps>()
   const { data: sOptions } = useGetServiceListForProject({ queryParams })
   const [tableData, setTableData] = useState<TableData[]>([])
   const [{ pageOffset, filteredWorkload }, setFilterAndPageOffset] = useState<{

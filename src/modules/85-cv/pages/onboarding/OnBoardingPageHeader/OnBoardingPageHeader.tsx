@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { Color, Container, Tag } from '@wings-software/uikit'
 import cx from 'classnames'
-import { useRouteParams } from 'framework/exports'
+import { useParams } from 'react-router-dom'
 import { Breadcrumb, Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
-import { routeCVAdminSetup } from 'navigation/cv/routes'
+import routes from '@common/RouteDefinitions'
 import i18n from './OnBoardingPageHeader.i18n'
 import css from './OnBoardingPageHeader.module.scss'
 
@@ -13,9 +13,7 @@ export interface OnBoardingPageHeader {
 
 export function OnBoardingPageHeader(props: OnBoardingPageHeader): JSX.Element {
   const { breadCrumbs } = props
-  const {
-    params: { projectIdentifier, orgIdentifier }
-  } = useRouteParams()
+  const { projectIdentifier, orgIdentifier, accountId } = useParams()
   const [selectedView, setSelectedView] = useState(i18n.visualAndYamlLabels.visual)
   return (
     <Container className={css.main}>
@@ -34,9 +32,10 @@ export function OnBoardingPageHeader(props: OnBoardingPageHeader): JSX.Element {
         <Breadcrumbs
           links={[
             {
-              url: routeCVAdminSetup.url({
+              url: routes.toCVAdminSetup({
                 orgIdentifier: orgIdentifier as string,
-                projectIdentifier: projectIdentifier as string
+                projectIdentifier: projectIdentifier as string,
+                accountId
               }),
               label: i18n.breadCrumbSetupLabel
             },

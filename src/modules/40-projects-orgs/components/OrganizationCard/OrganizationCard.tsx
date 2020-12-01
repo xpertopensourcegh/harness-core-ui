@@ -6,7 +6,7 @@ import { useDeleteOrganization } from 'services/cd-ng'
 import type { Organization } from 'services/cd-ng'
 import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmationDialog'
 
-import { useAppStoreReader, useAppStoreWriter } from 'framework/exports'
+import { useAppStore } from 'framework/exports'
 import { useToaster } from '@common/exports'
 import i18n from './OrganizationCard.i18n'
 import css from './OrganizationCard.module.scss'
@@ -23,8 +23,7 @@ interface OrganizationCardProps {
 export const OrganizationCard: React.FC<OrganizationCardProps> = props => {
   const { data, isPreview, onClick, editOrg, reloadOrgs } = props
   const { accountId } = useParams()
-  const { organisationsMap } = useAppStoreReader()
-  const updateAppStore = useAppStoreWriter()
+  const { organisationsMap, updateAppStore } = useAppStore()
   const { showSuccess, showError } = useToaster()
 
   const { mutate: deleteOrg } = useDeleteOrganization({ queryParams: { accountIdentifier: accountId } })

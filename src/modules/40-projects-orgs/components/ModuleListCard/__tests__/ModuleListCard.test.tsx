@@ -14,7 +14,7 @@ describe('Project Details', () => {
           path="/account/:accountId/org/:orgIdentifier/project/:projectIdentifier"
           pathParams={{ accountId: 'testAcc', orgIdentifier: 'Cisco_Meraki', projectIdentifier: 'Portal' }}
         >
-          <ModuleListCard projectIdentifier="Portal" orgIdentifier="Cisco_Meraki" module={value} />
+          <ModuleListCard projectIdentifier="Portal" orgIdentifier="Cisco_Meraki" module={value} accountId="testAcc" />
         </TestWrapper>
       )
       expect(container).toMatchSnapshot()

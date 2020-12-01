@@ -7,9 +7,8 @@ import { ModalProvider } from '@wings-software/uikit'
 import qs from 'qs'
 
 import strings from 'strings/strings.en.yaml'
-import { AppStoreProvider, useAppStoreWriter } from 'framework/hooks/useAppStore'
-import type { AppStore } from 'framework/types/AppStore'
-import { AUTH_ROUTE_PATH_PREFIX, StringsContext } from 'framework/exports'
+import { AppStoreContext, AppStoreContextProps } from 'framework/AppStore/AppStoreContext'
+import { withAccountId, accountPathProps } from '@common/utils/routeUtils'
 
 export type UseGetMockData<TData, TError = undefined, TQueryParams = undefined, TPathParams = undefined> = Required<
   UseGetProps<TData, TError, TQueryParams, TPathParams>
@@ -28,23 +27,15 @@ export type UseGetReturnData<TData, TError = undefined, TQueryParams = undefined
 export const findDialogContainer = (): HTMLElement | null => document.querySelector('.bp3-dialog')
 export const findPopoverContainer = (): HTMLElement | null => document.querySelector('.bp3-popover-content')
 
-interface TestWrapperProps {
+export interface TestWrapperProps {
   path?: string
   pathParams?: Record<string, string | number>
-  queryParams?: Record<string, any>
-  defaultAppStoreValues?: Partial<AppStore>
+  queryParams?: Record<string, unknown>
+  defaultAppStoreValues?: Partial<AppStoreContextProps>
+  strings?: Record<string, unknown[]>
 }
 
-export const prependAccountPath = (path: string): string => AUTH_ROUTE_PATH_PREFIX + path
-
-const AppStoreInitializer: React.FC<{ defaultAppStoreValues: TestWrapperProps['defaultAppStoreValues'] }> = ({
-  children,
-  defaultAppStoreValues
-}) => {
-  const updateAppStore = useAppStoreWriter()
-  updateAppStore(defaultAppStoreValues || {})
-  return <> {children} </>
-}
+export const prependAccountPath = (path: string): string => withAccountId(() => path)(accountPathProps)
 
 export const NotFound = (): JSX.Element => {
   const location = useLocation()
@@ -67,25 +58,30 @@ export const TestWrapper: React.FC<TestWrapperProps> = props => {
   const history = createMemoryHistory({ initialEntries: [routePath] })
 
   return (
-    <AppStoreProvider>
-      <StringsContext.Provider value={strings}>
-        <AppStoreInitializer defaultAppStoreValues={defaultAppStoreValues}>
-          <Router history={history}>
-            <ModalProvider>
-              <RestfulProvider base="/">
-                <Switch>
-                  <Route exact path={path}>
-                    {props.children}
-                  </Route>
-                  <Route>
-                    <NotFound />
-                  </Route>
-                </Switch>
-              </RestfulProvider>
-            </ModalProvider>
-          </Router>
-        </AppStoreInitializer>
-      </StringsContext.Provider>
-    </AppStoreProvider>
+    <AppStoreContext.Provider
+      value={{
+        strings,
+        projects: [],
+        organisationsMap: new Map(),
+        updateAppStore: jest.fn(),
+        user: {},
+        ...defaultAppStoreValues
+      }}
+    >
+      <Router history={history}>
+        <ModalProvider>
+          <RestfulProvider base="/">
+            <Switch>
+              <Route exact path={path}>
+                {props.children}
+              </Route>
+              <Route>
+                <NotFound />
+              </Route>
+            </Switch>
+          </RestfulProvider>
+        </ModalProvider>
+      </Router>
+    </AppStoreContext.Provider>
   )
 }

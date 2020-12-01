@@ -10,7 +10,7 @@ import { PageHeader } from '@common/components/Page/PageHeader'
 import type { YamlBuilderHandlerBinding } from '@common/interfaces/YAMLBuilderProps'
 import { usePostSecretViaYaml } from 'services/cd-ng'
 import { useToaster } from '@common/exports'
-import { routeSecretDetails } from 'navigation/accounts/routes'
+import routes from '@common/RouteDefinitions'
 
 const CreateSecretFromYamlPage: React.FC = () => {
   const { accountId } = useParams()
@@ -35,7 +35,7 @@ const CreateSecretFromYamlPage: React.FC = () => {
       try {
         await createSecret(yamlData as any)
         showSuccess('Secret created successfully')
-        history.push(routeSecretDetails.url({ secretId: jsonData['identifier'] }))
+        history.push(routes.toResourcesSecretDetails({ secretId: jsonData['identifier'], accountId }))
       } catch (err) {
         showError(err.data?.message || err.message)
       }

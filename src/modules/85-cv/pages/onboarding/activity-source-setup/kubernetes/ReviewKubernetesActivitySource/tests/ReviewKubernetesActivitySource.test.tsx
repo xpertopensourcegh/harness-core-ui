@@ -1,24 +1,22 @@
 import React from 'react'
 import { fireEvent, render, waitFor } from '@testing-library/react'
 import type { UseMutateReturn } from 'restful-react'
-import * as routeMounter from 'framework/route/RouteMounter'
-import { TestWrapper } from '@common/utils/testUtils'
+import { TestWrapper, TestWrapperProps } from '@common/utils/testUtils'
+import routes from '@common/RouteDefinitions'
 import * as cvService from 'services/cv'
+import { accountPathProps, projectPathProps } from '@common/utils/routeUtils'
 import { ReviewKubernetesActivitySource } from '../ReviewKubernetesActivitySource'
 
+const testWrapperProps: TestWrapperProps = {
+  path: routes.toCVActivitySourceSetup({ ...accountPathProps, ...projectPathProps }),
+  pathParams: {
+    accountId: 'loading',
+    projectIdentifier: '1234_project',
+    orgIdentifier: '1234_ORG'
+  }
+}
+
 describe('Unit tests for ReviewKubernetesActivitySource', () => {
-  beforeEach(() => {
-    jest.clearAllMocks()
-    const mockRouteParams = jest.spyOn(routeMounter, 'useRouteParams')
-    mockRouteParams.mockReturnValue({
-      params: {
-        accountId: 'loading',
-        projectIdentifier: '1234_project',
-        orgIdentifier: '1234_ORG'
-      },
-      query: {}
-    })
-  })
   test('Ensure data is displayed and api payload is correct', async () => {
     const onPreviousMock = jest.fn()
     const onSubmitMock = jest.fn()
@@ -29,7 +27,7 @@ describe('Unit tests for ReviewKubernetesActivitySource', () => {
     } as UseMutateReturn<any, any, any, any, any>)
 
     const { container } = render(
-      <TestWrapper>
+      <TestWrapper {...testWrapperProps}>
         <ReviewKubernetesActivitySource
           data={{
             selectedNamespaces: ['namespace1', 'namespace2'],

@@ -1,8 +1,9 @@
 import React from 'react'
 import { render, waitFor, fireEvent, createEvent, act } from '@testing-library/react'
-import { findDialogContainer, prependAccountPath, TestWrapper } from '@common/utils/testUtils'
+import { findDialogContainer, TestWrapper } from '@common/utils/testUtils'
 import { defaultAppStoreValues } from '@projects-orgs/pages/projects/__tests__/DefaultAppStoreData'
-import { routeInputSetList } from 'navigation/cd/routes'
+import routes from '@common/RouteDefinitions'
+import { accountPathProps, pipelinePathProps } from '@common/utils/routeUtils'
 import type { YamlBuilderHandlerBinding, YamlBuilderProps } from '@common/interfaces/YAMLBuilderProps'
 import { InputFormType, InputSetForm } from '../InputSetForm'
 import {
@@ -57,11 +58,13 @@ jest.mock('services/cd-ng', () => ({
   useGetConnector: jest.fn(() => ConnectorResponse)
 }))
 
+const TEST_INPUT_SET_PATH = routes.toCDInputSetList({ ...accountPathProps, ...pipelinePathProps })
+
 describe('Render Forms - Snapshot Testing', () => {
   test('render Input Set Form view', async () => {
     const { getAllByText, getByText } = render(
       <TestWrapper
-        path={prependAccountPath(routeInputSetList.path)}
+        path={TEST_INPUT_SET_PATH}
         pathParams={{
           accountId: 'testAcc',
           orgIdentifier: 'testOrg',
@@ -90,7 +93,7 @@ describe('Render Forms - Snapshot Testing', () => {
   test('render Overlay Input Set Form view', async () => {
     const { getAllByText } = render(
       <TestWrapper
-        path={prependAccountPath(routeInputSetList.path)}
+        path={TEST_INPUT_SET_PATH}
         pathParams={{
           accountId: 'testAcc',
           orgIdentifier: 'testOrg',
@@ -117,7 +120,7 @@ describe('Render Forms - Snapshot Testing', () => {
   test('render Edit Input Set Form view', async () => {
     const { getAllByText, getByText } = render(
       <TestWrapper
-        path={prependAccountPath(routeInputSetList.path)}
+        path={TEST_INPUT_SET_PATH}
         pathParams={{
           accountId: 'testAcc',
           orgIdentifier: 'testOrg',
@@ -142,7 +145,7 @@ describe('Render Forms - Snapshot Testing', () => {
   test('render Edit Overlay Input Set Form view', async () => {
     const { getAllByText, getByText } = render(
       <TestWrapper
-        path={prependAccountPath(routeInputSetList.path)}
+        path={TEST_INPUT_SET_PATH}
         pathParams={{
           accountId: 'testAcc',
           orgIdentifier: 'testOrg',
@@ -167,7 +170,7 @@ describe('Render Forms - Snapshot Testing', () => {
   test('render Edit Overlay Input Set Form and test drag drop', async () => {
     const { getByTestId } = render(
       <TestWrapper
-        path={prependAccountPath(routeInputSetList.path)}
+        path={TEST_INPUT_SET_PATH}
         pathParams={{
           accountId: 'testAcc',
           orgIdentifier: 'testOrg',

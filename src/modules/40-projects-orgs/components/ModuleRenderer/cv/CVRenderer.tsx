@@ -2,7 +2,7 @@ import React from 'react'
 import { Text, Color, Container, Layout, Icon, SparkChart } from '@wings-software/uikit'
 import { useHistory } from 'react-router-dom'
 import type { Project } from 'services/cd-ng'
-import { routeCVMainDashBoardPage } from 'navigation/cv/routes'
+import routes from '@common/RouteDefinitions'
 import i18n from './CVRenderer.i18n'
 import css from '../ModuleRenderer.module.scss'
 
@@ -20,9 +20,10 @@ const CVRenderer: React.FC<CVRendererProps> = ({ data, isPreview }) => {
       onClick={() => {
         !isPreview &&
           history.push(
-            routeCVMainDashBoardPage.url({
-              orgIdentifier: data.orgIdentifier || '',
-              projectIdentifier: data.identifier
+            routes.toCVMainDashBoardPage({
+              orgIdentifier: data.orgIdentifier,
+              projectIdentifier: data.identifier,
+              accountId: data.accountIdentifier || ''
             })
           )
       }}

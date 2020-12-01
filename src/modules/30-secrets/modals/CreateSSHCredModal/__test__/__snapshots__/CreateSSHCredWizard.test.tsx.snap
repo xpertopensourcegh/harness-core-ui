@@ -2,7 +2,6 @@
 
 exports[`Create Secret Manager Wizard should render form 1`] = `
 <div>
-   
   <div
     class="StepWizard---main--SGVz StepWizard---navBar--2KYu"
   >
@@ -187,13 +186,11 @@ exports[`Create Secret Manager Wizard should render form 1`] = `
       </div>
     </div>
   </div>
-   
 </div>
 `;
 
 exports[`Create Secret Manager Wizard should render form 2`] = `
 <div>
-   
   <div
     class="StepWizard---main--SGVz StepWizard---navBar--2KYu"
   >
@@ -586,6 +583,5 @@ exports[`Create Secret Manager Wizard should render form 2`] = `
       </div>
     </div>
   </div>
-   
 </div>
 `;

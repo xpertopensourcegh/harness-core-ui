@@ -4,7 +4,7 @@ import { Divider } from '@blueprintjs/core'
 import { Container, Button, Icon, Layout, Select, Pagination, Heading, Text, Card, Link } from '@wings-software/uikit'
 import { useHistory, useLocation, useParams } from 'react-router-dom'
 import { parse as parseQueryString } from 'query-string'
-import { routeCIBuild, routeCIBuilds } from 'navigation/ci/routes'
+import routes from '@common/RouteDefinitions'
 import { ExtendedPageHeader } from '@ci/components/ExtendedPage/ExtendedPageHeader'
 import { BuildCard } from '@ci/components/BuildCard/BuildCard'
 import ExtendedPageBody from '@ci/components/ExtendedPage/ExtendedPageBody'
@@ -66,11 +66,11 @@ const CIBuildsPage: React.FC = () => {
   })
 
   const navigateToPage = (gotoPage: number): void => {
-    history.push(routeCIBuilds.url({ orgIdentifier, projectIdentifier }) + `?page=${gotoPage}`)
+    history.push(routes.toCIBuilds({ orgIdentifier, projectIdentifier, accountId }) + `?page=${gotoPage}`)
   }
 
   const navigateToBuild = (buildIdentifier: string): void => {
-    history.push(routeCIBuild.url({ orgIdentifier, projectIdentifier, buildIdentifier }))
+    history.push(routes.toCIBuild({ orgIdentifier, projectIdentifier, buildIdentifier, accountId }))
   }
 
   if (error) {

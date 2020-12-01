@@ -1,30 +1,28 @@
-import React, { useState, useMemo, useEffect } from 'react'
+import React from 'react'
 import ReactDOM from 'react-dom'
-import { HashRouter, Route as ReactRoute, Switch, Redirect } from 'react-router-dom'
+import { HashRouter, Route } from 'react-router-dom'
 import { RestfulProvider } from 'restful-react'
 import { FocusStyleManager } from '@blueprintjs/core'
-import type { Route } from 'framework/exports'
-import { LayoutManager } from 'framework/layout/LayoutManager'
-import { routeRegistry } from 'framework/registry'
+import { ModalProvider } from '@wings-software/uikit'
 import SessionToken from 'framework/utils/SessionToken'
-import { routePath } from 'framework/utils/framework-utils'
 import languageLoader from 'strings/languageLoader'
 import type { LangLocale } from 'strings/languageLoader'
-import { RouteMounter } from '../route/RouteMounter'
-import { AppStoreProvider } from '../hooks/useAppStore'
-import { StringsContext } from '../strings/String'
+import { AppStoreProvider } from 'framework/AppStore/AppStoreContext'
+import RouteDestinations from 'modules/RouteDestinations'
+import AppErrorBoundary from 'framework/utils/AppErrorBoundary/AppErrorBoundary'
+
 import '@common/services'
 import './App.scss'
 
 FocusStyleManager.onlyShowFocusOnTabs()
 
 interface AppProps {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   strings: Record<string, any>
 }
 
 function App(props: AppProps): React.ReactElement {
   const token = SessionToken.getToken()
-  const [activeRoute, setActiveRoute] = useState<Route>()
   const getRequestOptions = React.useCallback((): Partial<RequestInit> => {
     const headers: RequestInit['headers'] = {}
 
@@ -34,44 +32,18 @@ function App(props: AppProps): React.ReactElement {
 
     return { headers }
   }, [token])
-  const sortedRoutes = useMemo(
-    () =>
-      Object.values(routeRegistry)
-        .filter(route => !!route.sidebarId) // mount non-nested routes only
-        .sort((a, b) => (a.path.length > b.path.length ? -1 : a.path.length < b.path.length ? 1 : a > b ? -1 : 1)),
-    []
-  )
 
   return (
-    <AppStoreProvider>
-      <StringsContext.Provider value={props.strings}>
-        <RestfulProvider base="/" requestOptions={getRequestOptions}>
-          <HashRouter>
-            <LayoutManager route={activeRoute}>
-              <Switch>
-                <ReactRoute exact path="/" component={RedirectRoot} />
-                {sortedRoutes.map(route => (
-                  <ReactRoute path={routePath(route)} key={route.path}>
-                    <RouteMounter route={route} onEnter={setActiveRoute} />
-                  </ReactRoute>
-                ))}
-              </Switch>
-            </LayoutManager>
-          </HashRouter>
-        </RestfulProvider>
-      </StringsContext.Provider>
-    </AppStoreProvider>
+    <RestfulProvider base="/" requestOptions={getRequestOptions}>
+      <AppStoreProvider strings={props.strings}>
+        <ModalProvider>
+          <AppErrorBoundary>
+            <RouteDestinations />
+          </AppErrorBoundary>
+        </ModalProvider>
+      </AppStoreProvider>
+    </RestfulProvider>
   )
-}
-
-const RedirectRoot: React.FC = () => {
-  const accountId = SessionToken.accountId()
-
-  useEffect(() => {
-    return () => window.location.reload()
-  }, [accountId])
-
-  return <Redirect exact from="/" to={`/account/${accountId}/dashboard`} />
 }
 
 ;(async () => {
@@ -79,5 +51,12 @@ const RedirectRoot: React.FC = () => {
 
   const strings = await languageLoader(lang)
 
-  ReactDOM.render(<App strings={strings} />, document.getElementById('react-root'))
+  ReactDOM.render(
+    <HashRouter>
+      <Route path={['/account/:accountId', '/*']}>
+        <App strings={strings} />
+      </Route>
+    </HashRouter>,
+    document.getElementById('react-root')
+  )
 })()

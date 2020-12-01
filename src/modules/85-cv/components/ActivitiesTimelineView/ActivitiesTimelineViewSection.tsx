@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { Container } from '@wings-software/uikit'
+import { useParams } from 'react-router-dom'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
 import { RestResponseListActivityDashboardDTO, useListActivitiesForDashboard } from 'services/cv'
-import { useRouteParams } from 'framework/exports'
 import ActivitiesTimelineView, { ActivitiesTimelineViewProps, EventData } from './ActivitiesTimelineView'
 import i18n from './ActivitiesTimelineView.i18n'
 import css from './ActivitiesTimelineView.module.scss'
@@ -23,15 +23,13 @@ export default function ActivitesTimelineViewSection({
   timelineViewProps,
   selectedActivityId,
   className
-}: ActivitesTimelineViewSectionProps) {
+}: ActivitesTimelineViewSectionProps): React.ReactElement {
   const [deployments, setDeployments] = useState<Array<EventData>>()
   const [configChanges, setConfigChanges] = useState<Array<EventData>>()
   const [infrastructureChanges, setInfrastructureChanges] = useState<Array<EventData>>()
   const [otherChanges, setOtherChanges] = useState<Array<EventData>>()
   const [preselectedActivity, setPreselectedActivity] = useState<EventData>()
-  const {
-    params: { accountId, projectIdentifier, orgIdentifier }
-  } = useRouteParams()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams()
 
   const { data, refetch: getActivities, loading, error } = useListActivitiesForDashboard({
     lazy: true,

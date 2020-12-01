@@ -1,22 +1,19 @@
 import React from 'react'
 import { render } from '@testing-library/react'
 import { renderHook } from '@testing-library/react-hooks'
+import { TestWrapperProps, TestWrapper } from '@common/utils/testUtils'
+import routes from '@common/RouteDefinitions'
+import { accountPathProps, projectPathProps } from '@common/utils/routeUtils'
 import { FormControlButtons, basicValidation, useFormSubmit } from '../VerificationJobFormCommons'
 
-jest.mock('framework/exports', () => ({
-  ...(jest.requireActual('framework/exports') as object),
-  useRouteParams: () => ({
-    params: {
-      accountId: 'testAcc',
-      projectIdentifier: 'projectId',
-      orgIdentifier: 'orgId'
-    }
-  })
-}))
-
-jest.mock('react-router', () => ({
-  useHistory: jest.fn().mockReturnValue([])
-}))
+const testWrapperProps: TestWrapperProps = {
+  path: routes.toCVActivityDashboard({ ...accountPathProps, ...projectPathProps }),
+  pathParams: {
+    accountId: 'testAcc',
+    projectIdentifier: 'projectId',
+    orgIdentifier: 'orgId'
+  }
+}
 
 const callSaveVerification = jest.fn()
 jest.mock('services/cv', () => ({
@@ -27,7 +24,7 @@ jest.mock('services/cv', () => ({
 
 describe('VerificationJobFormCommons', () => {
   test('check api is called', async () => {
-    const { result } = renderHook(() => useFormSubmit())
+    const { result } = renderHook(() => useFormSubmit(), { wrapper: TestWrapper })
 
     result.current.onSubmit({
       identifier: 'id',
@@ -43,7 +40,11 @@ describe('VerificationJobFormCommons', () => {
   })
 
   test('formControllerBtn render', async () => {
-    const { container, getByText } = render(<FormControlButtons />)
+    const { container, getByText } = render(
+      <TestWrapper {...testWrapperProps}>
+        <FormControlButtons />
+      </TestWrapper>
+    )
     expect(getByText('Save')).toBeDefined()
 
     expect(container).toMatchSnapshot()

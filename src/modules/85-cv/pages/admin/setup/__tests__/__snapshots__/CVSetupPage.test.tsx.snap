@@ -2,7 +2,6 @@
 
 exports[`CVSetupPage render initial state 1`] = `
 <div>
-   
   <div
     class="StyledProps---font--2ipy StyledProps---main--1Wws"
   >
@@ -357,13 +356,11 @@ exports[`CVSetupPage render initial state 1`] = `
       </div>
     </div>
   </div>
-   
 </div>
 `;
 
 exports[`CVSetupPage render when Activity source is already configured 1`] = `
 <div>
-   
   <div
     class="StyledProps---font--2ipy StyledProps---main--1Wws"
   >
@@ -664,6 +661,5 @@ exports[`CVSetupPage render when Activity source is already configured 1`] = `
       </div>
     </div>
   </div>
-   
 </div>
 `;

@@ -1,8 +1,8 @@
 import React from 'react'
 import { Container, Icon, Text } from '@wings-software/uikit'
 import { Link } from 'react-router-dom'
-import { useRouteParams } from 'framework/exports'
-import { routeCVMainDashBoardPage } from 'navigation/cv/routes'
+import { useParams } from 'react-router-dom'
+import routes from '@common/RouteDefinitions'
 import i18n from './DeploymentDrilldownView.i18n'
 import styles from './DeploymentDrilldownView.module.scss'
 
@@ -12,16 +12,15 @@ export interface DeploymentDrilldownViewHeaderProps {
   service?: string
 }
 
-export default function DeploymentDrilldownViewHeader(props: DeploymentDrilldownViewHeaderProps) {
-  const {
-    params: { projectIdentifier, orgIdentifier }
-  } = useRouteParams()
+export default function DeploymentDrilldownViewHeader(props: DeploymentDrilldownViewHeaderProps): React.ReactElement {
+  const { projectIdentifier, orgIdentifier, accountId } = useParams()
   return (
     <Container className={styles.header} padding="small">
       <Link
-        to={routeCVMainDashBoardPage.url({
+        to={routes.toCVMainDashBoardPage({
           projectIdentifier: projectIdentifier as string,
-          orgIdentifier: orgIdentifier as string
+          orgIdentifier: orgIdentifier as string,
+          accountId
         })}
       >{`${i18n.dashboard} /`}</Link>
       <Container className={styles.headerWrap}>

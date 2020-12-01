@@ -10,7 +10,8 @@ import { UserLabel, Duration, TimeAgo } from '@common/exports'
 import ExecutionStatusLabel from '@pipeline/components/ExecutionStatusLabel/ExecutionStatusLabel'
 import ExecutionActions from '@pipeline/components/ExecutionActions/ExecutionActions'
 import { String } from 'framework/exports'
-import { routeCDPipelineExecutionPipline } from 'navigation/cd/routes'
+
+import routes from '@common/RouteDefinitions'
 // import { ExecutionServiceTooltip } from './ExecutionServiceTooltip'
 // import ExecutionActionButtons from './ExecutionActionButtons/ExecutionActionButtons'
 // import ExecutionCardMenu from './ExecutionCardMenu/ExecutionCardMenu'
@@ -46,11 +47,12 @@ export default function ExecutionCard(props: ExecutionCardProps): React.ReactEle
           <div>
             <Link
               className={css.title}
-              to={routeCDPipelineExecutionPipline.url({
+              to={routes.toCDExecutionPiplineView({
                 orgIdentifier,
                 pipelineIdentifier: pipelineExecution?.pipelineIdentifier || '',
                 executionIdentifier: pipelineExecution?.planExecutionId || '',
-                projectIdentifier
+                projectIdentifier,
+                accountId
               })}
             >
               <span className={css.pipelineName}>{pipelineExecution?.pipelineName}</span>

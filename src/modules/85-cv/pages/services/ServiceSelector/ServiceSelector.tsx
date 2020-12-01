@@ -1,9 +1,9 @@
 import React, { useState, ChangeEvent, useMemo } from 'react'
 import { Container, Text, Color } from '@wings-software/uikit'
 import cx from 'classnames'
+import { useParams } from 'react-router-dom'
 import { RiskScoreTile } from '@cv/components/RiskScoreTile/RiskScoreTile'
 import { EnvServiceRiskDTO, RestResponseListEnvServiceRiskDTO, useGetEnvServiceRisks } from 'services/cv'
-import { useRouteParams } from 'framework/exports'
 import i18n from './ServiceSelector.i18n'
 import css from './ServiceSelector.module.scss'
 
@@ -81,9 +81,7 @@ function ServiceRow(props: RowProps): JSX.Element {
 
 export default function ServiceSelector(props: ServiceSelectorProps): JSX.Element {
   const { onSelect, className, isEmptyList } = props
-  const {
-    params: { accountId, projectIdentifier, orgIdentifier }
-  } = useRouteParams()
+  const { accountId, projectIdentifier, orgIdentifier } = useParams()
 
   const { refetch: refetchServices, data } = useGetEnvServiceRisks({
     queryParams: {

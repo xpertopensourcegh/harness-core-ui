@@ -1,9 +1,9 @@
 import React from 'react'
 import { render, fireEvent, act, findByText as findByTextGlobal } from '@testing-library/react'
-import { routePipelineDeploymentList } from 'navigation/cd/routes'
-import { prependAccountPath, TestWrapper } from '@common/utils/testUtils'
+import routes from '@common/RouteDefinitions'
+import { TestWrapper } from '@common/utils/testUtils'
 import { defaultAppStoreValues } from '@projects-orgs/pages/projects/__tests__/DefaultAppStoreData'
-
+import { accountPathProps, pipelinePathProps } from '@common/utils/routeUtils'
 import CIPipelineDeploymentList from '../CIPipelineDeploymentList'
 
 jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
@@ -30,7 +30,7 @@ describe('<CIPipelineDeploymentList /> tests', () => {
   test('snapshot test', () => {
     const { container } = render(
       <TestWrapper
-        path={prependAccountPath(routePipelineDeploymentList.path)}
+        path={routes.toCIPipelineDeploymentList({ ...accountPathProps, ...pipelinePathProps })}
         pathParams={{
           accountId: 'testAcc',
           orgIdentifier: 'testOrg',
@@ -48,7 +48,7 @@ describe('<CIPipelineDeploymentList /> tests', () => {
   test('opens run pipelie modal', async () => {
     const { findByText } = render(
       <TestWrapper
-        path={prependAccountPath(routePipelineDeploymentList.path)}
+        path={routes.toCIPipelineDeploymentList({ ...accountPathProps, ...pipelinePathProps })}
         pathParams={{
           accountId: 'testAcc',
           orgIdentifier: 'testOrg',

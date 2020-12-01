@@ -2,7 +2,6 @@
 
 exports[`SelectEnvironment render 1`] = `
 <div>
-   
   <div
     class="StyledProps---font--2ipy StyledProps---main--1Wws"
   >
@@ -275,6 +274,5 @@ exports[`SelectEnvironment render 1`] = `
       </form>
     </div>
   </div>
-   
 </div>
 `;

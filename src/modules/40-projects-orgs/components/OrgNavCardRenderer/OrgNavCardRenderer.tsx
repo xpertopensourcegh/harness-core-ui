@@ -2,7 +2,7 @@ import React from 'react'
 import { Color, Icon, IconName, Layout, Text } from '@wings-software/uikit'
 import { Card } from '@wings-software/uikit'
 import { useHistory, useParams } from 'react-router-dom'
-import { routeOrgGitSync, routeOrgGovernance, routeOrgResources } from 'navigation/accounts/routes'
+import routes from '@common/RouteDefinitions'
 import i18n from '@projects-orgs/pages/organizations/OrganizationDetails/OrganizationDetailsPage.i18n'
 import css from './OrgNavCardRenderer.module.scss'
 
@@ -10,7 +10,7 @@ interface OrgNavCardProps {
   icon: IconName
   title: string
   description: string
-  route: (orgIdentifier: string) => string
+  route: (orgIdentifier: string, accountId: string) => string
 }
 
 const options: OrgNavCardProps[] = [
@@ -18,30 +18,30 @@ const options: OrgNavCardProps[] = [
     icon: 'resources-icon',
     title: i18n.accessContolTitle,
     description: i18n.accessContolDescription,
-    route: orgIdentifier => routeOrgResources.url({ orgIdentifier })
+    route: (orgIdentifier, accountId) => routes.toOrgResources({ orgIdentifier, accountId })
   },
   {
     icon: 'resources-icon',
     title: i18n.governanceTitle,
     description: i18n.governanceDescription,
-    route: orgIdentifier => routeOrgGovernance.url({ orgIdentifier })
+    route: (orgIdentifier, accountId) => routes.toOrgGovernance({ orgIdentifier, accountId })
   },
   {
     icon: 'resources-icon',
     title: i18n.resourcesTitle,
     description: i18n.resourcesDescription,
-    route: orgIdentifier => routeOrgResources.url({ orgIdentifier })
+    route: (orgIdentifier, accountId) => routes.toOrgResources({ orgIdentifier, accountId })
   },
   {
     icon: 'resources-icon',
     title: i18n.gitSyncTitle,
     description: i18n.gitSyncDescription,
-    route: orgIdentifier => routeOrgGitSync.url({ orgIdentifier })
+    route: (orgIdentifier, accountId) => routes.toOrgGitSync({ orgIdentifier, accountId })
   }
 ]
 
 const OrgNavCardRenderer: React.FC = () => {
-  const { orgIdentifier } = useParams()
+  const { orgIdentifier, accountId } = useParams()
   const history = useHistory()
   return (
     <Layout.Horizontal spacing="medium" padding="huge">
@@ -50,7 +50,7 @@ const OrgNavCardRenderer: React.FC = () => {
           key={option.title}
           className={css.card}
           onClick={() => {
-            history.push(option.route(orgIdentifier))
+            history.push(option.route(orgIdentifier, accountId))
           }}
         >
           <Layout.Vertical>

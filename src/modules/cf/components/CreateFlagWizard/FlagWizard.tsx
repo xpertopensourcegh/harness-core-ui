@@ -1,9 +1,8 @@
 import React, { useState } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 import { StepWizard, SelectOption, ModalErrorHandlerBinding } from '@wings-software/uikit'
 import { useCreateFeatureFlag, FeatureFlagRequestRequestBody } from 'services/cf'
-import { useRouteParams } from 'framework/exports'
-import { routeCFFeatureFlagsDetail } from 'navigation/cf/routes'
+import routes from '@common/RouteDefinitions'
 import { useToaster } from '@common/exports'
 import FlagElemAbout from './FlagElemAbout'
 import FlagElemBoolean from './FlagElemBoolean'
@@ -32,9 +31,7 @@ const FlagWizard: React.FC<FlagWizardProps> = props => {
 
   const { showError } = useToaster()
 
-  const {
-    params: { projectIdentifier, orgIdentifier, environmentIdentifier }
-  } = useRouteParams()
+  const { projectIdentifier, orgIdentifier, environmentIdentifier, accountId } = useParams()
 
   const history = useHistory()
 
@@ -66,11 +63,12 @@ const FlagWizard: React.FC<FlagWizardProps> = props => {
         await createFeatureFlag(formData)
         hideModal()
         history.push(
-          routeCFFeatureFlagsDetail.url({
+          routes.toCFFeatureFlagsDetail({
             orgIdentifier: orgIdentifier as string,
             projectIdentifier: projectIdentifier as string,
             featureFlagIdentifier: formData.identifier,
-            environmentIdentifier: (environmentIdentifier ?? 'production') as string
+            environmentIdentifier: (environmentIdentifier ?? 'production') as string,
+            accountId
           })
         )
       } else {

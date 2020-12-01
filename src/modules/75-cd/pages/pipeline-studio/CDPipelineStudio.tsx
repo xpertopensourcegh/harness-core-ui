@@ -7,14 +7,7 @@ import factory from '@pipeline/components/PipelineSteps/PipelineStepFactory'
 import { PipelineProvider, PipelineStudio } from '@pipeline/exports'
 import { RunPipelineForm } from '@pipeline/components/RunPipelineModal/RunPipelineForm'
 import { runPipelineDialogProps } from '@pipeline/components/RunPipelineModal/RunPipelineModal'
-import {
-  routeCDPipelineStudioYaml,
-  routeCDPipelineStudio,
-  routeCDPipelineStudioUI,
-  routeCDDeployments,
-  routeCDPipelines,
-  routePipelineDetail
-} from 'navigation/cd/routes'
+import routes from '@common/RouteDefinitions'
 import css from './CDPipelineStudio.module.scss'
 
 const CDPipelineStudio: React.FC = ({ children }): JSX.Element => {
@@ -55,12 +48,12 @@ const CDPipelineStudio: React.FC = ({ children }): JSX.Element => {
     >
       <PipelineStudio
         className={css.container}
-        routePipelineStudio={routeCDPipelineStudio}
-        routePipelineStudioUI={routeCDPipelineStudioUI}
-        routePipelineStudioYaml={routeCDPipelineStudioYaml}
-        routePipelineProject={routeCDDeployments}
-        routePipelineDetail={routePipelineDetail}
-        routePipelineList={routeCDPipelines}
+        routePipelineStudio={routes.toCDPipelineStudio}
+        routePipelineStudioUI={routes.toCDPipelineStudioUI}
+        routePipelineStudioYaml={routes.toCDPipelineStudioYaml}
+        routePipelineProject={routes.toCDDeployments}
+        routePipelineDetail={routes.toCDPipelineDetail}
+        routePipelineList={routes.toCDPipelines}
       >
         {children}
       </PipelineStudio>

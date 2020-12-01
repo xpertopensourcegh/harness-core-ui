@@ -1,25 +1,23 @@
 import React from 'react'
 import { fireEvent, render, waitFor } from '@testing-library/react'
 import type { UseGetReturn } from 'restful-react'
-import { TestWrapper } from '@common/utils/testUtils'
+import { TestWrapper, TestWrapperProps } from '@common/utils/testUtils'
 import * as cvService from 'services/cv'
-import * as framework from 'framework/route/RouteMounter'
+import routes from '@common/RouteDefinitions'
+import { accountPathProps, projectPathProps } from '@common/utils/routeUtils'
 import CVActivitySourcesPage from '../CVActivitySourcesPage'
 
-describe('CVActivitySourcesPage unit tests', () => {
-  beforeEach(() => {
-    jest.clearAllMocks()
-    const mockRouteParams = jest.spyOn(framework, 'useRouteParams')
-    mockRouteParams.mockReturnValue({
-      params: {
-        accountId: '1234_accountId',
-        projectIdentifier: '1234_project',
-        orgIdentifier: '1234_org'
-      },
-      query: {}
-    })
-  })
+const testWrapperProps: TestWrapperProps = {
+  path: routes.toCVActivitySourceSetup({ ...accountPathProps, ...projectPathProps, activitySource: ':activitySource' }),
+  pathParams: {
+    accountId: '1234_accountId',
+    projectIdentifier: '1234_project',
+    orgIdentifier: '1234_org',
+    activitySource: '1234_activity'
+  }
+}
 
+describe('CVActivitySourcesPage unit tests', () => {
   test('Ensure when api returns data it is rendered correctly', async () => {
     const useListKubernetesSourcesSpy = jest.spyOn(cvService, 'useListKubernetesSources')
     useListKubernetesSourcesSpy.mockReturnValue({
@@ -59,7 +57,7 @@ describe('CVActivitySourcesPage unit tests', () => {
     } as UseGetReturn<any, unknown, any, unknown>)
 
     const { container } = render(
-      <TestWrapper>
+      <TestWrapper {...testWrapperProps}>
         <CVActivitySourcesPage />
       </TestWrapper>
     )
@@ -81,7 +79,7 @@ describe('CVActivitySourcesPage unit tests', () => {
     } as UseGetReturn<any, unknown, any, unknown>)
 
     const { container, getByText } = render(
-      <TestWrapper>
+      <TestWrapper {...testWrapperProps}>
         <CVActivitySourcesPage />
       </TestWrapper>
     )
@@ -103,7 +101,7 @@ describe('CVActivitySourcesPage unit tests', () => {
     } as UseGetReturn<any, unknown, any, unknown>)
 
     const { getByText } = render(
-      <TestWrapper>
+      <TestWrapper {...testWrapperProps}>
         <CVActivitySourcesPage />
       </TestWrapper>
     )

@@ -7,14 +7,7 @@ import factory from '@pipeline/components/PipelineSteps/PipelineStepFactory'
 import { DefaultNewPipelineId, PipelineProvider, PipelineStudio } from '@pipeline/exports'
 import { RunPipelineForm } from '@pipeline/components/RunPipelineModal/RunPipelineForm'
 import { runPipelineDialogProps } from '@pipeline/components/RunPipelineModal/RunPipelineModal'
-import {
-  routeCIPipelines,
-  routePipelineDeploymentList,
-  routeCIPipelineStudioYaml,
-  routeCIPipelineStudio,
-  routeCIPipelineStudioUI,
-  routeCIBuilds
-} from 'navigation/ci/routes'
+import routes from '@common/RouteDefinitions'
 import css from './CIPipelineStudio.module.scss'
 
 const CIPipelineStudio: React.FC = ({ children }): JSX.Element => {
@@ -59,27 +52,29 @@ const CIPipelineStudio: React.FC = ({ children }): JSX.Element => {
         onClose={() => {
           if (pipelineIdentifier !== DefaultNewPipelineId) {
             history.push(
-              routePipelineDeploymentList.url({
+              routes.toCIPipelineDeploymentList({
                 projectIdentifier,
                 orgIdentifier,
-                pipelineIdentifier
+                pipelineIdentifier,
+                accountId
               })
             )
           } else {
             history.push(
-              routeCIPipelines.url({
+              routes.toCIPipelines({
                 projectIdentifier,
-                orgIdentifier
+                orgIdentifier,
+                accountId
               })
             )
           }
         }}
-        routePipelineStudio={routeCIPipelineStudio}
-        routePipelineStudioUI={routeCIPipelineStudioUI}
-        routePipelineStudioYaml={routeCIPipelineStudioYaml}
-        routePipelineDetail={routeCIPipelineStudio}
-        routePipelineProject={routeCIBuilds}
-        routePipelineList={routeCIPipelines}
+        routePipelineStudio={routes.toCIPipelineStudio}
+        routePipelineStudioUI={routes.toCIPipelineStudioUI}
+        routePipelineStudioYaml={routes.toCIPipelineStudioYaml}
+        routePipelineDetail={routes.toCIPipelineStudio}
+        routePipelineProject={routes.toCIBuilds}
+        routePipelineList={routes.toCIPipelines}
       >
         {children}
       </PipelineStudio>

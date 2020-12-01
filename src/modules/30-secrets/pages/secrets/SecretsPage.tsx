@@ -3,7 +3,7 @@ import { useParams, useHistory } from 'react-router-dom'
 import { Layout, Popover, Button, Icon, TextInput, Container } from '@wings-software/uikit'
 import { Menu, Position } from '@blueprintjs/core'
 import { useListSecretsV2, ResponsePageSecretResponseWrapper } from 'services/cd-ng'
-import { routeCreateSecretFromYaml } from 'navigation/accounts/routes'
+import routes from '@common/RouteDefinitions'
 import useCreateUpdateSecretModal from '@secrets/modals/CreateSecretModal/useCreateUpdateSecretModal'
 import useCreateSSHCredModal from '@secrets/modals/CreateSSHCredModal/useCreateSSHCredModal'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
@@ -73,7 +73,7 @@ const SecretsPage: React.FC<SecretsPageProps> = ({ mock }) => {
             <Menu.Item
               text={i18n.newSecret.yaml}
               onClick={() => {
-                history.push(routeCreateSecretFromYaml.url())
+                history.push(routes.toCreateSecretFromYaml({ accountId }))
               }}
             />
           </Menu>

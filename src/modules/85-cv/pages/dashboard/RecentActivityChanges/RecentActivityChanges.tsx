@@ -4,7 +4,8 @@ import { useHistory } from 'react-router-dom'
 import { Classes } from '@blueprintjs/core'
 import cx from 'classnames'
 import { isNumber } from 'lodash-es'
-import { routeCVActivityChangesPage, routeCVDataSources } from 'navigation/cv/routes'
+import { useParams } from 'react-router-dom'
+import routes from '@common/RouteDefinitions'
 import {
   MetricCategoryNames,
   MetricCategoriesWithRiskScore
@@ -12,7 +13,6 @@ import {
 import { NoDataCard } from '@common/components/Page/NoDataCard'
 import CVProgressBar from '@cv/components/CVProgressBar/CVProgressBar'
 import { useGetRecentActivityVerificationResults, ActivityVerificationResultDTO, CategoryRisk } from 'services/cv'
-import { useRouteParams } from 'framework/exports'
 import i18n from './RecentActivityChanges.i18n'
 import ActivityType from '../ActivityType/ActivityType'
 import css from './RecentActivityChanges.module.scss'
@@ -208,9 +208,7 @@ function ActivityVerificationProgressWithRisk(props: ActivityVerificationProgres
 
 export default function ActivityChanges(): JSX.Element {
   const history = useHistory()
-  const {
-    params: { projectIdentifier, orgIdentifier, accountId }
-  } = useRouteParams()
+  const { projectIdentifier, orgIdentifier, accountId } = useParams()
   const { loading, error, data, refetch: refetchActivities } = useGetRecentActivityVerificationResults({
     queryParams: {
       accountId,
@@ -248,9 +246,10 @@ export default function ActivityChanges(): JSX.Element {
           buttonText={i18n.noActivitiesButtonText}
           onClick={() =>
             history.push(
-              routeCVDataSources.url({
+              routes.toCVDataSources({
                 projectIdentifier: projectIdentifier as string,
-                orgIdentifier: orgIdentifier as string
+                orgIdentifier: orgIdentifier as string,
+                accountId
               })
             )
           }
@@ -282,10 +281,11 @@ export default function ActivityChanges(): JSX.Element {
             className={cx(css.dataRow, loading ? Classes.SKELETON : undefined)}
             onClick={() =>
               history.push(
-                routeCVActivityChangesPage.url({
+                routes.toCVActivityChangesPage({
                   activityId: recentActivity.activityId as string,
                   projectIdentifier: projectIdentifier as string,
-                  orgIdentifier: orgIdentifier as string
+                  orgIdentifier: orgIdentifier as string,
+                  accountId
                 })
               )
             }

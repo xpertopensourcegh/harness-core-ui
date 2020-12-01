@@ -5,7 +5,7 @@ import { useParams, useHistory } from 'react-router-dom'
 import { useGetCVSetupStatus, RestResponseCVSetupStatus } from 'services/cv'
 import { PageError } from '@common/components/Page/PageError'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
-import { routeActivitySourceSetup, routeCVAdminSetupMonitoringSource } from 'navigation/cv/routes'
+import routes from '@common/RouteDefinitions'
 import type { UseGetMockData } from '@common/utils/testUtils'
 import ProgressStatus from './ProgressStatus/ProgressStatus'
 import i18n from './CVSetupPage.i18n'
@@ -35,7 +35,7 @@ const ActivitySourcesHarness = [
     icon: 'cd-main',
     label: 'Harness CD 1.0',
     routeName: 'harness-cd',
-    routeUrl: routeActivitySourceSetup.url
+    routeUrl: routes.toCVActivitySourceSetup
   }
 ]
 
@@ -45,7 +45,7 @@ const ActivitySources = [
     icon: 'service-kubernetes',
     label: 'Kubernetes',
     routeName: 'kubernetes',
-    routeUrl: routeActivitySourceSetup.url
+    routeUrl: routes.toCVActivitySourceSetup
   }
 ]
 
@@ -72,7 +72,7 @@ interface ActivitySourceContentProps {
 
 const ActivitySourceContent: React.FC<ActivitySourceContentProps> = props => {
   const history = useHistory()
-  const { projectIdentifier, orgIdentifier } = useParams()
+  const { projectIdentifier, orgIdentifier, accountId } = useParams()
   return (
     <Container>
       <Container height="calc(100vh - 100px)">
@@ -92,7 +92,7 @@ const ActivitySourceContent: React.FC<ActivitySourceContentProps> = props => {
                       key={`${index}${item}`}
                       onClick={() =>
                         history.push(
-                          item.routeUrl({ activitySource: item.routeName, projectIdentifier, orgIdentifier })
+                          item.routeUrl({ activitySource: item.routeName, projectIdentifier, orgIdentifier, accountId })
                         )
                       }
                     >
@@ -115,7 +115,7 @@ const ActivitySourceContent: React.FC<ActivitySourceContentProps> = props => {
                       key={`${index}${item}`}
                       onClick={() =>
                         history.push(
-                          item.routeUrl({ activitySource: item.routeName, projectIdentifier, orgIdentifier })
+                          item.routeUrl({ activitySource: item.routeName, projectIdentifier, orgIdentifier, accountId })
                         )
                       }
                     >
@@ -329,10 +329,11 @@ const CVSetupPage: React.FC<CVSetupPageProps> = props => {
                 onClick={() => {
                   if (monitoringSource === Status.ACTIVE) {
                     history.push(
-                      routeCVAdminSetupMonitoringSource.url({
+                      routes.toCVAdminSetupMonitoringSource({
                         orgIdentifier: orgIdentifier,
                         projectIdentifier: projectIdentifier,
-                        monitoringSource: monitoringSourceType
+                        monitoringSource: monitoringSourceType,
+                        accountId
                       })
                     )
                   }

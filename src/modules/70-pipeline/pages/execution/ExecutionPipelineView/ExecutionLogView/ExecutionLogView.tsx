@@ -7,8 +7,8 @@ import { MenuItem } from '@blueprintjs/core'
 import { Container, Icon, Text, Color, Button } from '@wings-software/uikit'
 import { Select } from '@blueprintjs/select'
 import type { StageOptions } from '@pipeline/components/ExecutionStageDiagram/ExecutionPipelineModel'
+import routes from '@common/RouteDefinitions'
 
-import { routeCDPipelineExecutionPipline } from 'navigation/cd/routes'
 import type { ExecutionGraph } from 'services/cd-ng'
 import type { ExecutionPathParams } from '@pipeline/utils/executionUtils'
 import { useExecutionContext } from '../../ExecutionContext/ExecutionContext'
@@ -147,12 +147,13 @@ export default function ExecutionLogView(): React.ReactElement {
             const { value } = item
             setStageId(value)
 
-            const { orgIdentifier, executionIdentifier, pipelineIdentifier, projectIdentifier } = params
-            const logUrl = routeCDPipelineExecutionPipline.url({
+            const { orgIdentifier, executionIdentifier, pipelineIdentifier, projectIdentifier, accountId } = params
+            const logUrl = routes.toCDExecutionPiplineView({
               orgIdentifier,
               executionIdentifier,
               pipelineIdentifier,
-              projectIdentifier
+              projectIdentifier,
+              accountId
             })
 
             history.push(`${logUrl}?view=log&stage=${value}`)

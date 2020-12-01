@@ -1,0 +1,43 @@
+.main {
+  width: 180px;
+  padding-left: var(--spacing-small);
+  padding-top: var(--spacing-small);
+  background: #07182b;
+  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.04), 0px 4px 8px rgba(0, 0, 0, 0.32);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  .titleContainer {
+    margin-left: var(--spacing-small);
+    margin-bottom: var(--spacing-medium);
+    opacity: 0.9;
+
+    .title {
+      font-size: 18px !important;
+      letter-spacing: 1px;
+    }
+  }
+}
+
+.link {
+  display: block;
+  padding: var(--spacing-small);
+  border-radius: 5px 0 0 5px;
+
+  &:hover {
+    text-decoration: none;
+  }
+
+  &.selected {
+    background-color: #00ade4;
+
+    .text {
+      color: var(--white) !important;
+    }
+  }
+
+  .text {
+    color: var(--grey-400) !important;
+  }
+}

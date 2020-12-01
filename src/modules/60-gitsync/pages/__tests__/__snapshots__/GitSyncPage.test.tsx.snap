@@ -2,7 +2,6 @@
 
 exports[`GitSync Page render GitSync container 1`] = `
 <div>
-   
   <div
     class="Layout---horizontal--3rmQ StyledProps---main--1Wws container standard StyledProps---flex--2Jz8 StyledProps---padding-left-large--28UT StyledProps---padding-right-large--2vF9"
   >
@@ -20,25 +19,25 @@ exports[`GitSync Page render GitSync container 1`] = `
       >
         <a
           class="tags"
-          href="/account/null/git-sync/repos"
+          href="/account/dummy/git-sync/repos"
         >
           Repos
         </a>
         <a
           class="tags"
-          href="/account/null/git-sync/activities"
+          href="/account/dummy/git-sync/activities"
         >
           Activities
         </a>
         <a
           class="tags"
-          href="/account/null/git-sync/entities"
+          href="/account/dummy/git-sync/entities"
         >
           Entities
         </a>
         <a
           class="tags"
-          href="/account/null/git-sync/errors"
+          href="/account/dummy/git-sync/errors"
         >
           Errors
         </a>
@@ -48,6 +47,5 @@ exports[`GitSync Page render GitSync container 1`] = `
   <div
     class="StyledProps---font--2ipy StyledProps---main--1Wws pageBody"
   />
-   
 </div>
 `;

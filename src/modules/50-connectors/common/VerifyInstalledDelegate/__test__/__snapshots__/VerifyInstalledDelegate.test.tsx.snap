@@ -2,7 +2,6 @@
 
 exports[`VerifyInstalledDelegate render VerifyInstalledDelegate 1`] = `
 <div>
-   
   <div
     class="Layout---vertical--3Szv StyledProps---main--1Wws verifyWrapper"
   >
@@ -315,6 +314,5 @@ exports[`VerifyInstalledDelegate render VerifyInstalledDelegate 1`] = `
       </div>
     </section>
   </div>
-   
 </div>
 `;

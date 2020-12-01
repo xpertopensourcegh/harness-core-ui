@@ -3,7 +3,7 @@ import { Card, Color, Container, Icon, Layout, SparkChart, Text } from '@wings-s
 import { Link } from 'react-router-dom'
 import { getModuleIcon, getModulePurpose } from '@projects-orgs/utils/utils'
 import { ModuleName } from 'framework/exports'
-import { routeCDPipelineStudio } from 'navigation/cd/routes'
+import routes from '@common/RouteDefinitions'
 import i18n from './ModuleListCard.i18n'
 import css from './ModuleListCard.module.scss'
 
@@ -11,18 +11,25 @@ interface ModuleListCardProps {
   module: ModuleName
   orgIdentifier: string
   projectIdentifier: string
+  accountId: string
 }
 
-const getModuleLinks = (module: ModuleName, orgIdentifier: string, projectIdentifier: string): React.ReactElement => {
+const getModuleLinks = (
+  module: ModuleName,
+  orgIdentifier: string,
+  projectIdentifier: string,
+  accountId: string
+): React.ReactElement => {
   switch (module) {
     case ModuleName.CD:
       return (
         <Layout.Vertical spacing="medium">
           <Link
-            to={routeCDPipelineStudio.url({
+            to={routes.toCDPipelineStudio({
+              accountId,
               orgIdentifier,
               projectIdentifier,
-              pipelineIdentifier: -1
+              pipelineIdentifier: '-1'
             })}
           >
             {i18n.newPipeLine}
@@ -62,7 +69,7 @@ const getModuleLinks = (module: ModuleName, orgIdentifier: string, projectIdenti
       return <></>
   }
 }
-const ModuleListCard: React.FC<ModuleListCardProps> = ({ module, projectIdentifier, orgIdentifier }) => {
+const ModuleListCard: React.FC<ModuleListCardProps> = ({ module, projectIdentifier, orgIdentifier, accountId }) => {
   return (
     <>
       <Card className={css.card}>
@@ -98,7 +105,7 @@ const ModuleListCard: React.FC<ModuleListCardProps> = ({ module, projectIdentifi
             </Layout.Vertical>
           </Container>
           <Container width="30%" flex={{ align: 'center-center' }}>
-            {getModuleLinks(module, orgIdentifier, projectIdentifier)}
+            {getModuleLinks(module, orgIdentifier, projectIdentifier, accountId)}
           </Container>
         </Layout.Horizontal>
       </Card>

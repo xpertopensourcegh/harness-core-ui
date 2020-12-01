@@ -4,9 +4,19 @@ import type { UseGetReturn, UseMutateReturn } from 'restful-react'
 import { Classes } from '@blueprintjs/core'
 import * as cvService from 'services/cv'
 import * as cdService from 'services/cd-ng'
-import * as routeMounter from 'framework/route/RouteMounter'
-import { TestWrapper } from '@common/utils/testUtils'
+import { TestWrapper, TestWrapperProps } from '@common/utils/testUtils'
+import { accountPathProps, projectPathProps } from '@common/utils/routeUtils'
+import routes from '@common/RouteDefinitions'
 import { MapWorkloadsToServices } from '../MapWorkloadsToServices'
+
+const testWrapperProps: TestWrapperProps = {
+  path: routes.toCVActivitySourceSetup({ ...accountPathProps, ...projectPathProps }),
+  pathParams: {
+    accountId: 'loading',
+    projectIdentifier: '1234_project',
+    orgIdentifier: '1234_ORG'
+  }
+}
 
 describe('Unit tests for MapWorkloadsToServices', () => {
   beforeEach(() => {
@@ -42,15 +52,6 @@ describe('Unit tests for MapWorkloadsToServices', () => {
         ]
       }
     } as UseGetReturn<any, any, any, any>)
-    const mockRouteParams = jest.spyOn(routeMounter, 'useRouteParams')
-    mockRouteParams.mockReturnValue({
-      params: {
-        accountId: 'loading',
-        projectIdentifier: '1234_project',
-        orgIdentifier: '1234_ORG'
-      },
-      query: {}
-    })
   })
 
   test('Ensure that table renders in loading state', async () => {
@@ -59,7 +60,7 @@ describe('Unit tests for MapWorkloadsToServices', () => {
       loading: true
     } as UseGetReturn<any, unknown, any, unknown>)
     const { container } = render(
-      <TestWrapper>
+      <TestWrapper {...testWrapperProps}>
         <MapWorkloadsToServices
           onSubmit={jest.fn()}
           onPrevious={jest.fn()}
@@ -81,7 +82,7 @@ describe('Unit tests for MapWorkloadsToServices', () => {
     } as UseGetReturn<any, unknown, any, unknown>)
 
     const { container } = render(
-      <TestWrapper>
+      <TestWrapper {...testWrapperProps}>
         <MapWorkloadsToServices
           onSubmit={jest.fn()}
           onPrevious={jest.fn()}
@@ -111,7 +112,7 @@ describe('Unit tests for MapWorkloadsToServices', () => {
     } as UseGetReturn<any, unknown, any, unknown>)
 
     const { container } = render(
-      <TestWrapper>
+      <TestWrapper {...testWrapperProps}>
         <MapWorkloadsToServices
           onSubmit={jest.fn()}
           onPrevious={jest.fn()}
@@ -139,7 +140,7 @@ describe('Unit tests for MapWorkloadsToServices', () => {
     } as UseGetReturn<any, unknown, any, unknown>)
 
     const { container, getByText } = render(
-      <TestWrapper>
+      <TestWrapper {...testWrapperProps}>
         <MapWorkloadsToServices
           onSubmit={jest.fn()}
           onPrevious={jest.fn()}
@@ -224,7 +225,7 @@ describe('Unit tests for MapWorkloadsToServices', () => {
     } as UseMutateReturn<any, any, any, any, any>)
 
     const { container } = render(
-      <TestWrapper>
+      <TestWrapper {...testWrapperProps}>
         <MapWorkloadsToServices
           onSubmit={jest.fn()}
           onPrevious={jest.fn()}

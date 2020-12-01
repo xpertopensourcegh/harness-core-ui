@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Color, Container, Heading, Text } from '@wings-software/uikit'
 import type { CellProps } from 'react-table'
-import { useRouteParams } from 'framework/exports'
+import { useParams } from 'react-router-dom'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
 import { PageError } from '@common/components/Page/PageError'
 import { TableColumnWithFilter } from '@cv/components/TableColumnWithFilter/TableColumnWithFilter'
@@ -54,11 +54,9 @@ function NamespaceValue(tableProps: CellProps<TableData>): JSX.Element {
 
 export function SelectKubernetesNamespaces(props: SelectKubernetesNamespacesProps): JSX.Element {
   const { onSubmit, onPrevious, data: propsData } = props
-  const {
-    params: { accountId, projectIdentifier, orgIdentifier }
-  } = useRouteParams()
   const [selectedNamespaces, setSelectedNamespaces] = useState(new Set<string>(propsData?.selectedNamespaces || []))
   const [isValid, setIsValid] = useState(true)
+  const { accountId, projectIdentifier, orgIdentifier } = useParams()
   const [{ pageOffset, filteredNamespace }, setFilterAndPageOffset] = useState<{
     pageOffset: number
     filteredNamespace?: string

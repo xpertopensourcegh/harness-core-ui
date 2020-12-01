@@ -3,11 +3,11 @@ import { Button, Layout, TextInput, Text, Popover } from '@wings-software/uikit'
 import { useHistory, useParams } from 'react-router-dom'
 import { Menu, Position, MenuItem } from '@blueprintjs/core'
 import { Page } from '@common/exports'
-import { routeCDDashboard, routeCDPipelineStudio, routePipelineDetail } from 'navigation/cd/routes'
+import routes from '@common/RouteDefinitions'
 import { ResponsePageNGPipelineSummaryResponse, useGetPipelineList } from 'services/cd-ng'
 import type { UseGetMockData } from '@common/utils/testUtils'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
-import { useAppStoreReader, useStrings } from 'framework/exports'
+import { useAppStore, useStrings } from 'framework/exports'
 import i18n from './PipelinesPage.i18n'
 import { PipelineGridView } from './views/PipelineGridView'
 import { PipelineListView } from './views/PipelineListView'
@@ -30,34 +30,36 @@ const CDPipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
     accountId: string
   }>()
 
-  const { projects } = useAppStoreReader()
+  const { projects } = useAppStore()
   const project = projects.find(({ identifier }) => identifier === projectIdentifier)
   const { getString } = useStrings()
 
   const goToPipelineDetail = React.useCallback(
     (/* istanbul ignore next */ pipelineIdentifier = '-1') => {
       history.push(
-        routePipelineDetail.url({
+        routes.toCDPipelineDetail({
           projectIdentifier,
           orgIdentifier,
-          pipelineIdentifier
+          pipelineIdentifier,
+          accountId
         })
       )
     },
-    [projectIdentifier, orgIdentifier, history]
+    [projectIdentifier, orgIdentifier, history, accountId]
   )
 
   const goToPipeline = React.useCallback(
     (pipelineIdentifier = '-1') => {
       history.push(
-        routeCDPipelineStudio.url({
+        routes.toCDPipelineStudio({
           projectIdentifier,
           orgIdentifier,
-          pipelineIdentifier
+          pipelineIdentifier,
+          accountId
         })
       )
     },
-    [projectIdentifier, orgIdentifier, history]
+    [projectIdentifier, orgIdentifier, history, accountId]
   )
   const [page, setPage] = React.useState(0)
   const [view, setView] = React.useState<Views>(Views.GRID)
@@ -92,7 +94,10 @@ const CDPipelinesPage: React.FC<CDPipelinesPageProps> = ({ mockData }) => {
           <Layout.Vertical spacing="xsmall">
             <Breadcrumbs
               links={[
-                { url: routeCDDashboard.url({ orgIdentifier, projectIdentifier }), label: project?.name as string },
+                {
+                  url: routes.toCDDashboard({ orgIdentifier, projectIdentifier, accountId }),
+                  label: project?.name as string
+                },
                 { url: '#', label: getString('pipelines') }
               ]}
             />

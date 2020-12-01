@@ -1,8 +1,8 @@
 import React from 'react'
 import { Container, Table } from '@wings-software/uikit'
+import { useParams } from 'react-router-dom'
 import { useGetVerificationJobs } from 'services/cv'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
-import { useRouteParams } from 'framework/exports'
 import i18n from './ActivitiesPage.i18n'
 import styles from './ActivitiesPage.module.scss'
 
@@ -29,10 +29,8 @@ const columns = [
   }
 ]
 
-export default function ActivitiesListView() {
-  const {
-    params: { accountId, orgIdentifier, projectIdentifier }
-  } = useRouteParams()
+export default function ActivitiesListView(): React.ReactElement {
+  const { accountId, orgIdentifier, projectIdentifier } = useParams()
   const { data } = useGetVerificationJobs({
     queryParams: {
       accountId,

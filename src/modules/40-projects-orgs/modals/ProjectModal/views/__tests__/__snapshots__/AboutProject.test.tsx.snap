@@ -2,7 +2,6 @@
 
 exports[`About Project test create project  1`] = `
 <div>
-   
   <div
     class="OverlaySpinner---overlaySpinner--3Bs3"
   >
@@ -628,13 +627,11 @@ exports[`About Project test create project  1`] = `
       </div>
     </form>
   </div>
-   
 </div>
 `;
 
 exports[`About Project test create project  2`] = `
 <div>
-   
   <div
     class="OverlaySpinner---overlaySpinner--3Bs3"
   >
@@ -1309,13 +1306,11 @@ exports[`About Project test create project  2`] = `
       </div>
     </form>
   </div>
-   
 </div>
 `;
 
 exports[`About Project test edit project  1`] = `
 <div>
-   
   <div
     class="OverlaySpinner---overlaySpinner--3Bs3"
   >
@@ -2103,13 +2098,11 @@ exports[`About Project test edit project  1`] = `
       </div>
     </form>
   </div>
-   
 </div>
 `;
 
 exports[`About Project test edit project  2`] = `
 <div>
-   
   <div
     class="OverlaySpinner---overlaySpinner--3Bs3"
   >
@@ -2897,6 +2890,5 @@ exports[`About Project test edit project  2`] = `
       </div>
     </form>
   </div>
-   
 </div>
 `;

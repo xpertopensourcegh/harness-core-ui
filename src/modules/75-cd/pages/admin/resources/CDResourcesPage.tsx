@@ -1,13 +1,13 @@
 import { Container, Layout } from '@wings-software/uikit'
 import React from 'react'
 import { NavLink, useParams } from 'react-router-dom'
-import { routeCDResourcesConnectors, routeCDResourcesSecretsListing } from 'navigation/cd/routes'
+import routes from '@common/RouteDefinitions'
 import { Page } from '@common/exports'
 import i18n from './CDResourcesPage.i18n'
 import css from './CDResourcesPage.module.scss'
 
 const CDResourcesPage: React.FC = ({ children }) => {
-  const { orgIdentifier, projectIdentifier } = useParams()
+  const { orgIdentifier, projectIdentifier, accountId } = useParams()
   return (
     <>
       <Page.Header
@@ -18,7 +18,7 @@ const CDResourcesPage: React.FC = ({ children }) => {
               <NavLink
                 className={css.tags}
                 activeClassName={css.activeTag}
-                to={routeCDResourcesConnectors.url({ orgIdentifier, projectIdentifier })}
+                to={routes.toCDResourcesConnectors({ orgIdentifier, projectIdentifier, accountId })}
               >
                 {i18n.connectors}
               </NavLink>
@@ -26,7 +26,7 @@ const CDResourcesPage: React.FC = ({ children }) => {
               <NavLink
                 className={css.tags}
                 activeClassName={css.activeTag}
-                to={routeCDResourcesSecretsListing.url({ orgIdentifier, projectIdentifier })}
+                to={routes.toCDResourcesSecretsListing({ orgIdentifier, projectIdentifier, accountId })}
               >
                 {i18n.secrets}
               </NavLink>

@@ -1,7 +1,7 @@
 import React from 'react'
 import { act, fireEvent, getByText, render, waitFor } from '@testing-library/react'
 import { findDialogContainer, findPopoverContainer, TestWrapper } from '@common/utils/testUtils'
-import { routeProjects } from 'navigation/projects/routes'
+import routes from '@common/RouteDefinitions'
 import ProjectDetails from '../views/ProjectDetails/ProjectDetails'
 import { createMockData, OrgMockData, projectMockData, projectMockDataWithModules } from './ProjectPageMock'
 
@@ -98,6 +98,6 @@ describe('Project Details', () => {
       const back = getByText(container, 'Manage Projects /')
       fireEvent.click(back)
       await waitFor(() => getByTestId('location'))
-      expect(getByTestId('location').innerHTML.endsWith(routeProjects.url())).toBeTruthy()
+      expect(getByTestId('location').innerHTML.endsWith(routes.toProjects({ accountId: 'testAcc' }))).toBeTruthy()
     })
 })

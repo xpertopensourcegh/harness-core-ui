@@ -325,7 +325,6 @@ exports[`Git Sync - repo tab render Git Sync repo List  1`] = `
 
 exports[`Git Sync - repo tab rendering landing view 1`] = `
 <div>
-   
   <div
     class="StyledProps---font--2ipy StyledProps---main--1Wws bodyContainer StyledProps---padding-top-large--i39X StyledProps---padding-right-xxxlarge--1Uke StyledProps---padding-bottom-large--1zGv StyledProps---padding-left-xxxlarge--37cM"
   >
@@ -396,13 +395,11 @@ exports[`Git Sync - repo tab rendering landing view 1`] = `
       </span>
     </div>
   </div>
-   
 </div>
 `;
 
 exports[`Git Sync - repo tab rendering landing view 2`] = `
 <div>
-   
   <div
     class="StyledProps---font--2ipy StyledProps---main--1Wws bodyContainer StyledProps---padding-top-large--i39X StyledProps---padding-right-xxxlarge--1Uke StyledProps---padding-bottom-large--1zGv StyledProps---padding-left-xxxlarge--37cM"
   >
@@ -638,6 +635,5 @@ exports[`Git Sync - repo tab rendering landing view 2`] = `
       </div>
     </section>
   </div>
-   
 </div>
 `;

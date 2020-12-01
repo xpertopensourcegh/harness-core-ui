@@ -1,29 +1,23 @@
 import React from 'react'
 import { render, waitFor } from '@testing-library/react'
 import * as restfulReact from 'restful-react'
-import * as framework from 'framework/route/RouteMounter'
+import { TestWrapper, TestWrapperProps } from '@common/utils/testUtils'
+import { accountPathProps, projectPathProps } from '@common/utils/routeUtils'
+import routes from '@common/RouteDefinitions'
 import ActivityTimelineViewSection from '../ActivitiesTimelineViewSection'
 import i18n from '../ActivitiesTimelineView.i18n'
 
 const mockRefetch = jest.fn()
-
-jest.mock('react-router', () => ({
-  useHistory: jest.fn().mockReturnValue([]),
-  useLocation: jest.fn().mockReturnValue({})
-}))
+const testWrapperProps: TestWrapperProps = {
+  path: routes.toCVActivityChangesPage({ ...accountPathProps, ...projectPathProps }),
+  pathParams: {
+    accountId: '1234_accountId',
+    projectIdentifier: '1234_project',
+    orgIdentifier: '1234_ORG'
+  }
+}
 
 describe('Unit tests for ActivityTimelineViewSection', () => {
-  beforeAll(() => {
-    const mockRouteParams = jest.spyOn(framework, 'useRouteParams')
-    mockRouteParams.mockReturnValue({
-      params: {
-        accountId: '1234_accountId',
-        projectIdentifier: '1234_project',
-        orgIdentifier: '1234_ORG'
-      },
-      query: {}
-    })
-  })
   beforeEach(() => {
     jest.clearAllMocks()
     mockRefetch.mockClear()
@@ -40,7 +34,11 @@ describe('Unit tests for ActivityTimelineViewSection', () => {
       >
     })
 
-    const { container, getByText } = render(<ActivityTimelineViewSection startTime={0} endTime={0} />)
+    const { container, getByText } = render(
+      <TestWrapper {...testWrapperProps}>
+        <ActivityTimelineViewSection startTime={0} endTime={0} />
+      </TestWrapper>
+    )
     await waitFor(() => expect(container.querySelector('[class*="main"]')).not.toBeNull())
 
     expect(container.querySelector('[class*="errorAndNoData"]')).not.toBeNull()
@@ -64,7 +62,11 @@ describe('Unit tests for ActivityTimelineViewSection', () => {
         unknown
       >
     })
-    const { getByText } = render(<ActivityTimelineViewSection startTime={-1} endTime={-1} />)
+    const { getByText } = render(
+      <TestWrapper {...testWrapperProps}>
+        <ActivityTimelineViewSection startTime={-1} endTime={-1} />
+      </TestWrapper>
+    )
     await waitFor(() => expect(getByText(i18n.noDataText)).not.toBeNull())
   })
 
@@ -78,7 +80,11 @@ describe('Unit tests for ActivityTimelineViewSection', () => {
         unknown
       >
     })
-    const { getByText } = render(<ActivityTimelineViewSection startTime={-1} endTime={-1} />)
+    const { getByText } = render(
+      <TestWrapper {...testWrapperProps}>
+        <ActivityTimelineViewSection startTime={-1} endTime={-1} />
+      </TestWrapper>
+    )
     await waitFor(() => expect(getByText(i18n.noDataText)).not.toBeNull())
   })
 })

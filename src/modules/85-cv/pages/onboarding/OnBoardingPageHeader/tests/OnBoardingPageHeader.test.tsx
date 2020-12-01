@@ -1,15 +1,9 @@
 import React from 'react'
 import { fireEvent, render, waitFor } from '@testing-library/react'
-import { Container } from '@wings-software/uikit'
-import * as framework from 'framework/route/RouteMounter'
+import { TestWrapper } from '@common/utils/testUtils'
+import routes from '@common/RouteDefinitions'
+import { accountPathProps, projectPathProps } from '@common/utils/routeUtils'
 import { OnBoardingPageHeader } from '../OnBoardingPageHeader'
-
-jest.mock('react-router-dom', () => ({
-  useHistory: jest.fn().mockReturnValue([]),
-  Link(props: any) {
-    return <Container>{props.children}</Container>
-  }
-}))
 
 describe('Unit tests for onboardingPageWrapper', () => {
   test('Ensure page renders content properly', async () => {
@@ -17,16 +11,19 @@ describe('Unit tests for onboardingPageWrapper', () => {
       { url: 'someRandoUrl', label: 'Activity' },
       { url: 'someOtherRandomURL', label: 'Activity 5' }
     ]
-    const mockRouteParams = jest.spyOn(framework, 'useRouteParams')
-    mockRouteParams.mockReturnValue({
-      params: {
-        accountId: 'loading',
-        projectIdentifier: '1234_project',
-        orgIdentifier: '1234_ORG'
-      },
-      query: {}
-    })
-    const { container, getByText } = render(<OnBoardingPageHeader breadCrumbs={urlArray} />)
+
+    const { container, getByText } = render(
+      <TestWrapper
+        path={routes.toCVOnBoardingSetup({ ...accountPathProps, ...projectPathProps })}
+        pathParams={{
+          accountId: 'loading',
+          projectIdentifier: '1234_project',
+          orgIdentifier: '1234_ORG'
+        }}
+      >
+        <OnBoardingPageHeader breadCrumbs={urlArray} />
+      </TestWrapper>
+    )
 
     await waitFor(() => expect(container.querySelector('[class*="main"]')).not.toBeNull())
     expect(getByText(urlArray[0].label)).not.toBeNull()

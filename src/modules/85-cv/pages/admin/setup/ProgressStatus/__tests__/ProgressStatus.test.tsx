@@ -1,26 +1,12 @@
 import React from 'react'
 import { render } from '@testing-library/react'
-import { StringsContext } from 'framework/strings/String'
+import { TestWrapper } from '@common/utils/testUtils'
 import ProgressStatus from '../ProgressStatus'
 
 describe('ProgressStatus', () => {
   test('render initial state with services and env', async () => {
     const { container, getByText } = render(
-      <StringsContext.Provider
-        value={{
-          global: {
-            cv: {
-              onboarding: {
-                progress: {
-                  heading: 'Your Progress',
-                  mapServices: 'Map the above services to a monitoring source.',
-                  serviceEnvCount: 'You have 2 services and 2 environments.'
-                }
-              }
-            }
-          }
-        }}
-      >
+      <TestWrapper>
         <ProgressStatus
           numberOfServicesUsedInActivitySources={0}
           numberOfServicesUsedInMonitoringSources={0}
@@ -28,7 +14,7 @@ describe('ProgressStatus', () => {
           totalNumberOfServices={2}
           servicesUndergoingHealthVerification={0}
         />
-      </StringsContext.Provider>
+      </TestWrapper>
     )
 
     expect(getByText('You have 2 services and 2 environments.')).toBeDefined()
@@ -37,23 +23,7 @@ describe('ProgressStatus', () => {
   })
   test('render with some services in activity and monitoring', async () => {
     const { container, getByText } = render(
-      <StringsContext.Provider
-        value={{
-          global: {
-            cv: {
-              onboarding: {
-                progress: {
-                  heading: 'Your Progress',
-                  mapServices: 'Map the above services to a monitoring source.',
-                  serviceEnvCount: 'You have 2 services and 2 environments.',
-                  servicesUsedInActivitySources: '1 service is used in activity sources',
-                  multiServiceUsedInMonitoringSources: '2 services are used in monitoring sources'
-                }
-              }
-            }
-          }
-        }}
-      >
+      <TestWrapper>
         <ProgressStatus
           numberOfServicesUsedInActivitySources={1}
           numberOfServicesUsedInMonitoringSources={2}
@@ -61,10 +31,10 @@ describe('ProgressStatus', () => {
           totalNumberOfServices={2}
           servicesUndergoingHealthVerification={0}
         />
-      </StringsContext.Provider>
+      </TestWrapper>
     )
 
-    expect(getByText('2 services are used in monitoring sources')).toBeDefined()
+    expect(getByText('2 services are used in monitoring sources.')).toBeDefined()
 
     expect(container).toMatchSnapshot()
   })

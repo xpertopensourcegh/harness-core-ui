@@ -2,7 +2,6 @@
 
 exports[`Connectors List render active docker connector row 1`] = `
 <div>
-   
   <div
     class="Layout---vertical--3Szv StyledProps---main--1Wws listPage"
   >
@@ -415,13 +414,11 @@ exports[`Connectors List render active docker connector row 1`] = `
       </div>
     </div>
   </div>
-   
 </div>
 `;
 
 exports[`Connectors List render docker connector row 1`] = `
 <div>
-   
   <div
     class="Layout---vertical--3Szv StyledProps---main--1Wws listPage"
   >
@@ -853,13 +850,11 @@ exports[`Connectors List render docker connector row 1`] = `
       </div>
     </div>
   </div>
-   
 </div>
 `;
 
 exports[`Connectors List render git http connector row 1`] = `
 <div>
-   
   <div
     class="Layout---vertical--3Szv StyledProps---main--1Wws listPage"
   >
@@ -1286,13 +1281,11 @@ exports[`Connectors List render git http connector row 1`] = `
       </div>
     </div>
   </div>
-   
 </div>
 `;
 
 exports[`Connectors List render inline k8s connector row 1`] = `
 <div>
-   
   <div
     class="Layout---vertical--3Szv StyledProps---main--1Wws listPage"
   >
@@ -1725,13 +1718,11 @@ exports[`Connectors List render inline k8s connector row 1`] = `
       </div>
     </div>
   </div>
-   
 </div>
 `;
 
 exports[`Connectors List render k8s manual config  connector row 1`] = `
 <div>
-   
   <div
     class="Layout---vertical--3Szv StyledProps---main--1Wws listPage"
   >
@@ -2169,13 +2160,11 @@ exports[`Connectors List render k8s manual config  connector row 1`] = `
       </div>
     </div>
   </div>
-   
 </div>
 `;
 
 exports[`Connectors List render vault secret manager row 1`] = `
 <div>
-   
   <div
     class="Layout---vertical--3Szv StyledProps---main--1Wws listPage"
   >
@@ -2588,6 +2577,5 @@ exports[`Connectors List render vault secret manager row 1`] = `
       </div>
     </div>
   </div>
-   
 </div>
 `;

@@ -1,8 +1,8 @@
 import React from 'react'
 import { Container } from '@wings-software/uikit'
-import { useRouteParams } from 'framework/exports'
-import { routeActivitySourceSetup } from 'navigation/cv/routes'
-import { ActivitySourceSetupRoutePaths } from 'navigation/cv/routePaths'
+import { useParams } from 'react-router-dom'
+import routes from '@common/RouteDefinitions'
+import { ActivitySourceSetupRoutePaths } from '@cv/utils/routeUtils'
 import KubernetesActivitySource from './kubernetes/KubernetesActivitySource'
 import { OnBoardingPageHeader } from '../OnBoardingPageHeader/OnBoardingPageHeader'
 import HarnessCDActivitySource from './harness-cd/HarnessCDActivitySource'
@@ -21,18 +21,17 @@ function activitySourceTypeToComponent(activitySource: string): JSX.Element {
 }
 
 export default function ActivitySourceSetup(): JSX.Element {
-  const {
-    params: { activitySource, projectIdentifier, orgIdentifier }
-  } = useRouteParams()
+  const { activitySource, projectIdentifier, orgIdentifier, accountId } = useParams()
   return (
     <Container className={css.main}>
       <OnBoardingPageHeader
         breadCrumbs={[
           {
-            url: routeActivitySourceSetup.url({
+            url: routes.toCVActivitySourceSetup({
               projectIdentifier: projectIdentifier as string,
               orgIdentifier: orgIdentifier as string,
-              activitySource: activitySource as string
+              activitySource: activitySource as string,
+              accountId
             }),
             label: i18n.breadCrumbLabel
           }

@@ -5,18 +5,20 @@ import { Button, Text, useModalHook, Tag } from '@wings-software/uikit'
 import { useHistory, useParams, NavLink, matchPath, useLocation } from 'react-router-dom'
 import { parse } from 'yaml'
 import type { NgPipeline, Failure } from 'services/cd-ng'
+import { useAppStore } from 'framework/exports'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
-import { AUTH_ROUTE_PATH_PREFIX, NestedRoute, Route, useAppStoreReader } from 'framework/exports'
+import { useToaster } from '@common/components/Toaster/useToaster'
+import { NavigationCheck } from '@common/components/NavigationCheck/NavigationCheck'
 import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmationDialog'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
+import type { PipelinePathProps, ProjectPathProps, PathFn } from '@common/interfaces/RouteInterfaces'
+import { accountPathProps, pipelinePathProps } from '@common/utils/routeUtils'
+
 import { PipelineContext, savePipeline } from '../PipelineContext/PipelineContext'
-// import { DrawerTypes } from '../PipelineContext/PipelineActions'
 import i18n from './PipelineCanvas.i18n'
 import CreatePipelines from '../CreateModal/PipelineCreate'
 import { DefaultNewPipelineId, SplitViewTypes } from '../PipelineContext/PipelineActions'
 import { RightDrawer } from '../RightDrawer/RightDrawer'
-import { useToaster } from '../../../../10-common/components/Toaster/useToaster'
-import { NavigationCheck } from '../../../../10-common/components/NavigationCheck/NavigationCheck'
 // import AddDrawer, { DrawerContext } from '@common/components/AddDrawer/AddDrawer'
 // import { getStageFromPipeline } from '../StageBuilder/StageBuilderUtil'
 // import { addStepOrGroup, generateRandomString } from '../ExecutionGraph/ExecutionGraphUtil'
@@ -25,44 +27,22 @@ import { NavigationCheck } from '../../../../10-common/components/NavigationChec
 import css from './PipelineCanvas.module.scss'
 
 export interface PipelineCanvasProps {
-  routePipelineStudio: Route<{
-    orgIdentifier: string
-    projectIdentifier: string
-    pipelineIdentifier: string | number
-  }>
-  routePipelineStudioUI: NestedRoute<{
-    orgIdentifier: string
-    projectIdentifier: string
-    pipelineIdentifier: string | number
-  }>
-  routePipelineStudioYaml: NestedRoute<{
-    orgIdentifier: string
-    projectIdentifier: string
-    pipelineIdentifier: string | number
-  }>
-  routePipelineDetail: Route<{
-    orgIdentifier: string
-    projectIdentifier: string
-    pipelineIdentifier: string
-  }>
-  routePipelineList: Route<{
-    orgIdentifier: string
-    projectIdentifier: string
-  }>
-  routePipelineProject: Route<{
-    orgIdentifier: string
-    projectIdentifier: string
-  }>
+  toPipelineStudio: PathFn<PipelinePathProps>
+  toPipelineStudioUI: PathFn<PipelinePathProps>
+  toPipelineStudioYaml: PathFn<PipelinePathProps>
+  toPipelineDetail: PathFn<PipelinePathProps>
+  toPipelineList: PathFn<ProjectPathProps>
+  toPipelineProject: PathFn<ProjectPathProps>
 }
 
 export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
   children,
-  routePipelineStudio,
-  routePipelineStudioUI,
-  routePipelineStudioYaml,
-  routePipelineDetail,
-  routePipelineList,
-  routePipelineProject
+  toPipelineDetail,
+  toPipelineList,
+  toPipelineProject,
+  toPipelineStudio,
+  toPipelineStudioUI,
+  toPipelineStudioYaml
 }): JSX.Element => {
   const { state, updatePipeline, deletePipelineCache, updatePipelineView, fetchPipeline } = React.useContext(
     PipelineContext
@@ -167,11 +147,11 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
         await deletePipelineCache()
         if (isYaml) {
           history.replace(
-            routePipelineStudioYaml.url({ projectIdentifier, orgIdentifier, pipelineIdentifier: newPipelineId })
+            toPipelineStudioYaml({ projectIdentifier, orgIdentifier, pipelineIdentifier: newPipelineId, accountId })
           )
         } else {
           history.replace(
-            routePipelineStudio.url({ projectIdentifier, orgIdentifier, pipelineIdentifier: newPipelineId })
+            toPipelineStudio({ projectIdentifier, orgIdentifier, pipelineIdentifier: newPipelineId, accountId })
           )
         }
         // note: without setTimeout does not redirect properly after save
@@ -186,8 +166,8 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
     deletePipelineCache,
     accountId,
     history,
-    routePipelineStudioYaml,
-    routePipelineStudio,
+    toPipelineStudioYaml,
+    toPipelineStudio,
     projectIdentifier,
     orgIdentifier,
     pipeline,
@@ -195,10 +175,11 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
     showError,
     pipelineIdentifier,
     isYaml,
-    yamlHandler
+    yamlHandler,
+    moduleName
   ])
 
-  const { projects } = useAppStoreReader()
+  const { projects } = useAppStore()
   const project = projects.find(({ identifier }) => identifier === projectIdentifier)
 
   const [showModal, hideModal] = useModalHook(
@@ -245,11 +226,11 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
     return <PageSpinner />
   }
 
-  const getPipelineRoute = () => {
+  const getPipelineRoute = (): string => {
     const isPipelineSaved = pipeline.identifier !== DefaultNewPipelineId
     return isPipelineSaved
-      ? routePipelineDetail.url({ projectIdentifier, orgIdentifier, pipelineIdentifier })
-      : routePipelineList.url({ orgIdentifier, projectIdentifier })
+      ? toPipelineDetail({ projectIdentifier, orgIdentifier, pipelineIdentifier, accountId })
+      : toPipelineList({ orgIdentifier, projectIdentifier, accountId })
   }
   return (
     <div
@@ -262,15 +243,15 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
         when={isUpdated}
         shouldBlockNavigation={nextLocation => {
           const matchUI = matchPath(nextLocation.pathname, {
-            path: AUTH_ROUTE_PATH_PREFIX + routePipelineStudioUI.path,
+            path: toPipelineStudioUI({ ...accountPathProps, ...pipelinePathProps }),
             exact: true
           })
           const matchYaml = matchPath(nextLocation.pathname, {
-            path: AUTH_ROUTE_PATH_PREFIX + routePipelineStudioYaml.path,
+            path: toPipelineStudioYaml({ ...accountPathProps, ...pipelinePathProps }),
             exact: true
           })
           const matchDefault = matchPath(nextLocation.pathname, {
-            path: AUTH_ROUTE_PATH_PREFIX + routePipelineStudio.path,
+            path: toPipelineStudio({ ...accountPathProps, ...pipelinePathProps }),
             exact: true
           })
           return !(matchUI?.isExact || matchYaml?.isExact || matchDefault?.isExact)
@@ -285,7 +266,10 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
           <div className={css.breadcrumbsMenu}>
             <Breadcrumbs
               links={[
-                { url: routePipelineProject.url({ orgIdentifier, projectIdentifier }), label: project?.name as string },
+                {
+                  url: toPipelineProject({ orgIdentifier, projectIdentifier, accountId }),
+                  label: project?.name as string
+                },
                 { url: getPipelineRoute(), label: i18n.pipelineListLabel },
                 { url: '#', label: pipeline?.name }
               ]}
@@ -307,14 +291,14 @@ export const PipelineCanvas: React.FC<PipelineCanvasProps> = ({
             <NavLink
               className={css.topButtons}
               activeClassName={css.selected}
-              to={routePipelineStudioUI.url({ orgIdentifier, projectIdentifier, pipelineIdentifier })}
+              to={toPipelineStudioUI({ orgIdentifier, projectIdentifier, pipelineIdentifier, accountId })}
             >
               {i18n.visual}
             </NavLink>
             <NavLink
               className={css.topButtons}
               activeClassName={css.selected}
-              to={routePipelineStudioYaml.url({ orgIdentifier, projectIdentifier, pipelineIdentifier })}
+              to={toPipelineStudioYaml({ orgIdentifier, projectIdentifier, pipelineIdentifier, accountId })}
             >
               {i18n.yaml}
             </NavLink>

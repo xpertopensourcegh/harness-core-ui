@@ -1,18 +1,18 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
 
-import { useAppStoreReader, useStrings } from 'framework/exports'
+import { useAppStore, useStrings } from 'framework/exports'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
 import PipelineDeploymentList from '@pipeline/pages/pipeline-deployment-list/PipelineDeploymentList'
 
-import { routeCDDashboard } from 'navigation/cd/routes'
+import routes from '@common/RouteDefinitions'
 import css from './DeploymentsList.module.scss'
 
 export default function DeploymentsList(): React.ReactElement {
-  const { projectIdentifier, orgIdentifier } = useParams()
+  const { projectIdentifier, orgIdentifier, accountId } = useParams()
   const { getString } = useStrings()
 
-  const { projects } = useAppStoreReader()
+  const { projects } = useAppStore()
   const project = projects.find(({ identifier }) => identifier === projectIdentifier)
 
   return (
@@ -22,7 +22,7 @@ export default function DeploymentsList(): React.ReactElement {
           links={[
             {
               label: project?.name || '',
-              url: routeCDDashboard.url({ orgIdentifier, projectIdentifier })
+              url: routes.toCDDashboard({ orgIdentifier, projectIdentifier, accountId })
             },
             {
               label: getString('deploymentsText'),

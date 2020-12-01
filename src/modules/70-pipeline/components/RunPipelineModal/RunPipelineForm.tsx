@@ -21,7 +21,7 @@ import { useToaster } from '@common/exports'
 import YAMLBuilder from '@common/components/YAMLBuilder/YamlBuilder'
 import type { YamlBuilderHandlerBinding, YamlBuilderProps } from '@common/interfaces/YAMLBuilderProps'
 import { YamlEntity } from '@common/constants/YamlConstants'
-import { routeCDPipelineExecutionPipline } from 'navigation/cd/routes'
+import routes from '@common/RouteDefinitions'
 import { PipelineInputSetForm } from '@pipeline/components/PipelineInputSetForm/PipelineInputSetForm'
 import { BasicInputSetForm, InputFormType, InputSetDTO } from '../InputSetForm/InputSetForm'
 import i18n from './RunPipelineModal.i18n'
@@ -116,11 +116,12 @@ export const RunPipelineForm: React.FC<RunPipelineFormProps> = ({
           if (!response.data?.errorResponse) {
             showSuccess(i18n.pipelineRunSuccessFully)
             history.push(
-              routeCDPipelineExecutionPipline.url({
+              routes.toCDExecutionPiplineView({
                 orgIdentifier,
                 pipelineIdentifier,
                 projectIdentifier,
-                executionIdentifier: response.data?.planExecution?.uuid || ''
+                executionIdentifier: response.data?.planExecution?.uuid || '',
+                accountId
               })
             )
             onClose()
@@ -130,7 +131,17 @@ export const RunPipelineForm: React.FC<RunPipelineFormProps> = ({
         showWarning(error?.data?.message || i18n.runPipelineFailed)
       }
     },
-    [runPipeline, showWarning, showSuccess, pipelineIdentifier, history, orgIdentifier, projectIdentifier, onClose]
+    [
+      runPipeline,
+      showWarning,
+      showSuccess,
+      pipelineIdentifier,
+      history,
+      orgIdentifier,
+      projectIdentifier,
+      onClose,
+      accountId
+    ]
   )
 
   const [selectedInputSets, setSelectedInputSets] = React.useState<InputSetSelectorProps['value']>(inputSetSelected)

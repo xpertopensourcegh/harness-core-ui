@@ -6,7 +6,7 @@ exports[`<ExecutionActions /> tests snapshot tests "Aborted" status: Menu 1`] = 
 >
   <a
     class="bp3-menu-item"
-    href="/account/null/cd/pipeline-studio/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/"
+    href="/account/TEST_ACCOUNT_ID/cd/pipeline-studio/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/"
   >
     Edit Pipeline
   </a>
@@ -83,7 +83,6 @@ exports[`<ExecutionActions /> tests snapshot tests "Aborted" status: Menu 1`] = 
 
 exports[`<ExecutionActions /> tests snapshot tests "Aborted" status: container 1`] = `
 <div>
-   
   <div
     class="main"
   >
@@ -144,7 +143,6 @@ exports[`<ExecutionActions /> tests snapshot tests "Aborted" status: container 1
       </span>
     </span>
   </div>
-   
 </div>
 `;
 
@@ -154,7 +152,7 @@ exports[`<ExecutionActions /> tests snapshot tests "Error" status: Menu 1`] = `
 >
   <a
     class="bp3-menu-item"
-    href="/account/null/cd/pipeline-studio/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/"
+    href="/account/TEST_ACCOUNT_ID/cd/pipeline-studio/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/"
   >
     Edit Pipeline
   </a>
@@ -231,7 +229,6 @@ exports[`<ExecutionActions /> tests snapshot tests "Error" status: Menu 1`] = `
 
 exports[`<ExecutionActions /> tests snapshot tests "Error" status: container 1`] = `
 <div>
-   
   <div
     class="main"
   >
@@ -292,7 +289,6 @@ exports[`<ExecutionActions /> tests snapshot tests "Error" status: container 1`]
       </span>
     </span>
   </div>
-   
 </div>
 `;
 
@@ -302,7 +298,7 @@ exports[`<ExecutionActions /> tests snapshot tests "Expired" status: Menu 1`] = 
 >
   <a
     class="bp3-menu-item"
-    href="/account/null/cd/pipeline-studio/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/"
+    href="/account/TEST_ACCOUNT_ID/cd/pipeline-studio/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/"
   >
     Edit Pipeline
   </a>
@@ -379,7 +375,6 @@ exports[`<ExecutionActions /> tests snapshot tests "Expired" status: Menu 1`] = 
 
 exports[`<ExecutionActions /> tests snapshot tests "Expired" status: container 1`] = `
 <div>
-   
   <div
     class="main"
   >
@@ -440,7 +435,6 @@ exports[`<ExecutionActions /> tests snapshot tests "Expired" status: container 1
       </span>
     </span>
   </div>
-   
 </div>
 `;
 
@@ -450,7 +444,7 @@ exports[`<ExecutionActions /> tests snapshot tests "Failed" status: Menu 1`] = `
 >
   <a
     class="bp3-menu-item"
-    href="/account/null/cd/pipeline-studio/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/"
+    href="/account/TEST_ACCOUNT_ID/cd/pipeline-studio/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/"
   >
     Edit Pipeline
   </a>
@@ -527,7 +521,6 @@ exports[`<ExecutionActions /> tests snapshot tests "Failed" status: Menu 1`] = `
 
 exports[`<ExecutionActions /> tests snapshot tests "Failed" status: container 1`] = `
 <div>
-   
   <div
     class="main"
   >
@@ -588,7 +581,6 @@ exports[`<ExecutionActions /> tests snapshot tests "Failed" status: container 1`
       </span>
     </span>
   </div>
-   
 </div>
 `;
 
@@ -598,7 +590,7 @@ exports[`<ExecutionActions /> tests snapshot tests "NotStarted" status: Menu 1`]
 >
   <a
     class="bp3-menu-item"
-    href="/account/null/cd/pipeline-studio/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/"
+    href="/account/TEST_ACCOUNT_ID/cd/pipeline-studio/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/"
   >
     Edit Pipeline
   </a>
@@ -674,7 +666,6 @@ exports[`<ExecutionActions /> tests snapshot tests "NotStarted" status: Menu 1`]
 
 exports[`<ExecutionActions /> tests snapshot tests "NotStarted" status: container 1`] = `
 <div>
-   
   <div
     class="main"
   >
@@ -759,7 +750,6 @@ exports[`<ExecutionActions /> tests snapshot tests "NotStarted" status: containe
       </span>
     </span>
   </div>
-   
 </div>
 `;
 
@@ -769,7 +759,7 @@ exports[`<ExecutionActions /> tests snapshot tests "Paused" status: Menu 1`] = `
 >
   <a
     class="bp3-menu-item"
-    href="/account/null/cd/pipeline-studio/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/"
+    href="/account/TEST_ACCOUNT_ID/cd/pipeline-studio/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/"
   >
     Edit Pipeline
   </a>
@@ -845,7 +835,6 @@ exports[`<ExecutionActions /> tests snapshot tests "Paused" status: Menu 1`] = `
 
 exports[`<ExecutionActions /> tests snapshot tests "Paused" status: container 1`] = `
 <div>
-   
   <div
     class="main"
   >
@@ -930,7 +919,6 @@ exports[`<ExecutionActions /> tests snapshot tests "Paused" status: container 1`
       </span>
     </span>
   </div>
-   
 </div>
 `;
 
@@ -940,7 +928,7 @@ exports[`<ExecutionActions /> tests snapshot tests "Queued" status: Menu 1`] = `
 >
   <a
     class="bp3-menu-item"
-    href="/account/null/cd/pipeline-studio/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/"
+    href="/account/TEST_ACCOUNT_ID/cd/pipeline-studio/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/"
   >
     Edit Pipeline
   </a>
@@ -1016,7 +1004,6 @@ exports[`<ExecutionActions /> tests snapshot tests "Queued" status: Menu 1`] = `
 
 exports[`<ExecutionActions /> tests snapshot tests "Queued" status: container 1`] = `
 <div>
-   
   <div
     class="main"
   >
@@ -1101,7 +1088,6 @@ exports[`<ExecutionActions /> tests snapshot tests "Queued" status: container 1`
       </span>
     </span>
   </div>
-   
 </div>
 `;
 
@@ -1111,7 +1097,7 @@ exports[`<ExecutionActions /> tests snapshot tests "Running" status: Menu 1`] = 
 >
   <a
     class="bp3-menu-item"
-    href="/account/null/cd/pipeline-studio/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/"
+    href="/account/TEST_ACCOUNT_ID/cd/pipeline-studio/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/"
   >
     Edit Pipeline
   </a>
@@ -1187,7 +1173,6 @@ exports[`<ExecutionActions /> tests snapshot tests "Running" status: Menu 1`] = 
 
 exports[`<ExecutionActions /> tests snapshot tests "Running" status: container 1`] = `
 <div>
-   
   <div
     class="main"
   >
@@ -1272,7 +1257,6 @@ exports[`<ExecutionActions /> tests snapshot tests "Running" status: container 1
       </span>
     </span>
   </div>
-   
 </div>
 `;
 
@@ -1282,7 +1266,7 @@ exports[`<ExecutionActions /> tests snapshot tests "Success" status: Menu 1`] = 
 >
   <a
     class="bp3-menu-item"
-    href="/account/null/cd/pipeline-studio/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/"
+    href="/account/TEST_ACCOUNT_ID/cd/pipeline-studio/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/"
   >
     Edit Pipeline
   </a>
@@ -1359,7 +1343,6 @@ exports[`<ExecutionActions /> tests snapshot tests "Success" status: Menu 1`] = 
 
 exports[`<ExecutionActions /> tests snapshot tests "Success" status: container 1`] = `
 <div>
-   
   <div
     class="main"
   >
@@ -1420,7 +1403,6 @@ exports[`<ExecutionActions /> tests snapshot tests "Success" status: container 1
       </span>
     </span>
   </div>
-   
 </div>
 `;
 
@@ -1430,7 +1412,7 @@ exports[`<ExecutionActions /> tests snapshot tests "Suspended" status: Menu 1`] 
 >
   <a
     class="bp3-menu-item"
-    href="/account/null/cd/pipeline-studio/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/"
+    href="/account/TEST_ACCOUNT_ID/cd/pipeline-studio/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/"
   >
     Edit Pipeline
   </a>
@@ -1507,7 +1489,6 @@ exports[`<ExecutionActions /> tests snapshot tests "Suspended" status: Menu 1`] 
 
 exports[`<ExecutionActions /> tests snapshot tests "Suspended" status: container 1`] = `
 <div>
-   
   <div
     class="main"
   >
@@ -1568,7 +1549,6 @@ exports[`<ExecutionActions /> tests snapshot tests "Suspended" status: container
       </span>
     </span>
   </div>
-   
 </div>
 `;
 
@@ -1578,7 +1558,7 @@ exports[`<ExecutionActions /> tests snapshot tests "Waiting" status: Menu 1`] = 
 >
   <a
     class="bp3-menu-item"
-    href="/account/null/cd/pipeline-studio/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/"
+    href="/account/TEST_ACCOUNT_ID/cd/pipeline-studio/orgs/TEST_ORG/projects/TEST_PROJECT/pipelines/TEST_PIPELINE/"
   >
     Edit Pipeline
   </a>
@@ -1654,7 +1634,6 @@ exports[`<ExecutionActions /> tests snapshot tests "Waiting" status: Menu 1`] = 
 
 exports[`<ExecutionActions /> tests snapshot tests "Waiting" status: container 1`] = `
 <div>
-   
   <div
     class="main"
   >
@@ -1739,6 +1718,5 @@ exports[`<ExecutionActions /> tests snapshot tests "Waiting" status: container 1
       </span>
     </span>
   </div>
-   
 </div>
 `;

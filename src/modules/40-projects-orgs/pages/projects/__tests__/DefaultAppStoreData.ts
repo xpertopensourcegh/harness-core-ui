@@ -1,4 +1,4 @@
-import type { AppStore } from 'framework/exports'
+import type { AppStoreContextProps } from 'framework/AppStore/AppStoreContext'
 import type { Project } from 'services/cd-ng'
 
 export const project: Project = {
@@ -11,7 +11,7 @@ export const project: Project = {
   description: 'test',
   tags: { tag1: '', tag2: 'tag3' }
 }
-export const defaultAppStoreValues: AppStore = {
+export const defaultAppStoreValues: Pick<AppStoreContextProps, 'user' | 'projects' | 'organisationsMap'> = {
   user: {},
   projects: [
     {

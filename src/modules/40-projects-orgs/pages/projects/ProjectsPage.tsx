@@ -4,15 +4,16 @@ import { Button, Text, Layout, TextInput, SelectOption } from '@wings-software/u
 
 import { Select } from '@blueprintjs/select'
 import { Menu } from '@blueprintjs/core'
-import { ResponsePageOrganization, useGetOrganizationList } from 'services/cd-ng'
+import { useParams } from 'react-router-dom'
 
+import { ResponsePageOrganization, useGetOrganizationList } from 'services/cd-ng'
 import type { Project } from 'services/cd-ng'
 import { Page } from '@common/components/Page/Page'
+import { useQueryParams } from '@common/hooks'
 import type { UseGetMockData } from '@common/utils/testUtils'
 import { useProjectModal } from '@projects-orgs/modals/ProjectModal/useProjectModal'
 import { useCollaboratorModal } from '@projects-orgs/modals/ProjectModal/useCollaboratorModal'
-import { routeProjects } from 'navigation/projects/routes'
-import { useRouteParams } from 'framework/exports'
+import routes from '@common/RouteDefinitions'
 import i18n from './ProjectsPage.i18n'
 import { Views } from './Constants'
 import ProjectsListView from './views/ProjectListView/ProjectListView'
@@ -29,10 +30,8 @@ interface ProjectListProps {
 const CustomSelect = Select.ofType<SelectOption>()
 
 const ProjectsListPage: React.FC<ProjectListProps> = ({ orgMockData }) => {
-  const {
-    params: { accountId },
-    query: { orgId }
-  } = useRouteParams()
+  const { accountId } = useParams()
+  const { orgId } = useQueryParams()
   const [view, setView] = useState(Views.GRID)
   const [searchParam, setSearchParam] = useState<string>()
   const [reloadProjectPage, setReloadProjectPage] = useState(false)
@@ -108,7 +107,7 @@ const ProjectsListPage: React.FC<ProjectListProps> = ({ orgMockData }) => {
             onItemSelect={item => {
               orgFilter = item
               history.push({
-                pathname: routeProjects.url(),
+                pathname: routes.toProjects({ accountId }),
                 search: `?orgId=${orgFilter.value.toString()}`
               })
             }}

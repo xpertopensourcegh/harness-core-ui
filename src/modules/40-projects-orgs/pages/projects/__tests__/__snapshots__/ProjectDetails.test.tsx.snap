@@ -2,7 +2,6 @@
 
 exports[`Project Details render with modules and edit menu 1`] = `
 <div>
-   
   <div
     class="Layout---horizontal--3rmQ StyledProps---main--1Wws container xlarge header StyledProps---flex--2Jz8 StyledProps---padding-left-large--28UT StyledProps---padding-right-large--2vF9"
   >
@@ -13,7 +12,7 @@ exports[`Project Details render with modules and edit menu 1`] = `
         class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
       >
         <a
-          href="/account/null/projects"
+          href="/account/testAcc/projects"
         >
           <p
             class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-small--1qQz StyledProps---color--8PuS StyledProps---color-blue600--3aH7"
@@ -391,7 +390,7 @@ exports[`Project Details render with modules and edit menu 1`] = `
                     class="Layout---vertical--3Szv Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
                   >
                     <a
-                      href="/account/null/cd/pipeline-studio/orgs/test/projects/test/pipelines/-1/"
+                      href="/account/testAcc/cd/pipeline-studio/orgs/testOrg/projects/test/pipelines/-1/"
                     >
                       Create New Pipeline
                     </a>
@@ -1833,13 +1832,11 @@ exports[`Project Details render with modules and edit menu 1`] = `
       </div>
     </div>
   </div>
-   
 </div>
 `;
 
 exports[`Project Details render with no modules and invite collaborators 1`] = `
 <div>
-   
   <div
     class="Layout---horizontal--3rmQ StyledProps---main--1Wws container xlarge header StyledProps---flex--2Jz8 StyledProps---padding-left-large--28UT StyledProps---padding-right-large--2vF9"
   >
@@ -1850,7 +1847,7 @@ exports[`Project Details render with no modules and invite collaborators 1`] = `
         class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
       >
         <a
-          href="/account/null/projects"
+          href="/account/testAcc/projects"
         >
           <p
             class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-small--1qQz StyledProps---color--8PuS StyledProps---color-blue600--3aH7"
@@ -2899,6 +2896,5 @@ exports[`Project Details render with no modules and invite collaborators 1`] = `
       </div>
     </div>
   </div>
-   
 </div>
 `;

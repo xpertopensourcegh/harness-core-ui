@@ -2,7 +2,6 @@
 
 exports[`BuildInfraSpecifications snapshot test initializes ok 1`] = `
 <div>
-   
   <div
     class="Layout---vertical--3Szv StyledProps---main--1Wws"
   >
@@ -160,6 +159,5 @@ exports[`BuildInfraSpecifications snapshot test initializes ok 1`] = `
       </div>
     </div>
   </div>
-   
 </div>
 `;

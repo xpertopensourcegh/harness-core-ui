@@ -1,13 +1,14 @@
 import React, { useState } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 import type { CellProps } from 'react-table'
 import { Color, Container, Icon, Text, TextInput } from '@wings-software/uikit'
 import { KubernetesActivitySourceDTO, useListKubernetesSources } from 'services/cv'
 import { Page } from '@common/exports'
 import { Table } from '@common/components'
 import { Breadcrumbs } from '@common/components/Breadcrumbs/Breadcrumbs'
-import { useAppStoreReader, useRouteParams, useStrings } from 'framework/exports'
-import { routeActivitySourceEditSetup, routeCVAdminSetup, routeCVMainDashBoardPage } from 'navigation/cv/routes'
+import { useAppStore, useStrings } from 'framework/exports'
+import routes from '@common/RouteDefinitions'
+import type { ProjectPathProps, AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import css from './CVActivitySourcesPage.module.scss'
 
 type TableData = {
@@ -59,17 +60,17 @@ function TypeTableCell(tableProps: CellProps<TableData>): JSX.Element {
 
 export default function CVActivitySourcesPage(): JSX.Element {
   const { getString } = useStrings()
-  const { params } = useRouteParams()
+  const params = useParams<ProjectPathProps & AccountPathProps>()
   const history = useHistory()
-  const { projects } = useAppStoreReader()
+  const { projects } = useAppStore()
   const project = projects.find(({ identifier }) => identifier === params.projectIdentifier)
 
   const [filter, setFilter] = useState<string | undefined>()
   const { data, loading, error, refetch: refetchSources } = useListKubernetesSources({
     queryParams: {
       accountId: params.accountId,
-      projectIdentifier: params.projectIdentifier as string,
-      orgIdentifier: params.orgIdentifier as string
+      projectIdentifier: params.projectIdentifier,
+      orgIdentifier: params.orgIdentifier
     }
   })
 
@@ -82,9 +83,10 @@ export default function CVActivitySourcesPage(): JSX.Element {
           <Breadcrumbs
             links={[
               {
-                url: routeCVMainDashBoardPage.url({
-                  orgIdentifier: params.orgIdentifier as string,
-                  projectIdentifier: params.projectIdentifier as string
+                url: routes.toCVMainDashBoardPage({
+                  orgIdentifier: params.orgIdentifier,
+                  projectIdentifier: params.projectIdentifier,
+                  accountId: params.accountId
                 }),
                 label: project?.name as string
               },
@@ -113,9 +115,10 @@ export default function CVActivitySourcesPage(): JSX.Element {
           message: getString('cv.admin.activitySources.noDataMessage'),
           onClick: () =>
             history.push(
-              routeCVAdminSetup.url({
-                projectIdentifier: params.projectIdentifer as string,
-                orgIdentifier: params.orgIdentifier as string
+              routes.toCVAdminSetup({
+                projectIdentifier: params.projectIdentifier,
+                orgIdentifier: params.orgIdentifier,
+                accountId: params.accountId
               })
             )
         }}
@@ -125,11 +128,12 @@ export default function CVActivitySourcesPage(): JSX.Element {
             data={tableData}
             onRowClick={(rowData: TableData) =>
               history.push(
-                routeActivitySourceEditSetup.url({
-                  projectIdentifier: params.projectIdentifier as string,
-                  orgIdentifier: params.orgIdentifier as string,
+                routes.toCVActivitySourceEditSetup({
+                  projectIdentifier: params.projectIdentifier,
+                  orgIdentifier: params.orgIdentifier,
                   activitySource: rowData.type,
-                  activitySourceId: rowData.uuid
+                  activitySourceId: rowData.uuid,
+                  accountId: params.accountId
                 })
               )
             }

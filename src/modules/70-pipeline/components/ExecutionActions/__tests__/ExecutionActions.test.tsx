@@ -1,10 +1,11 @@
 import React from 'react'
 import { render, fireEvent, findByText, act } from '@testing-library/react'
 
-import { TestWrapper, prependAccountPath } from '@common/utils/testUtils'
-import { routeCDPipelineExecutionPipline } from 'navigation/cd/routes'
+import { TestWrapper } from '@common/utils/testUtils'
+import routes from '@common/RouteDefinitions'
 import type { ExecutionStatus } from '@pipeline/utils/statusHelpers'
 import { useHandleInterrupt } from 'services/cd-ng'
+import { accountPathProps, executionPathProps } from '@common/utils/routeUtils'
 
 import ExecutionActions from '../ExecutionActions'
 
@@ -15,6 +16,11 @@ jest.mock('services/cd-ng', () => ({
 }))
 
 jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => () => <div>YAMLBuilder</div>)
+
+const TEST_PATH = routes.toCDExecutionPiplineView({
+  ...accountPathProps,
+  ...executionPathProps
+})
 
 const pathParams = {
   accountId: 'TEST_ACCOUNT_ID',
@@ -39,7 +45,7 @@ describe('<ExecutionActions /> tests', () => {
     ['Waiting']
   ])('snapshot tests "%s" status', async executionStatus => {
     const { container } = render(
-      <TestWrapper path={routeCDPipelineExecutionPipline.path} pathParams={pathParams}>
+      <TestWrapper path={TEST_PATH} pathParams={pathParams}>
         <ExecutionActions params={pathParams} executionStatus={executionStatus} refetch={jest.fn()} />
       </TestWrapper>
     )
@@ -67,7 +73,7 @@ describe('<ExecutionActions /> tests', () => {
       data: null
     }))
     const { container } = render(
-      <TestWrapper path={prependAccountPath(routeCDPipelineExecutionPipline.path)} pathParams={pathParams}>
+      <TestWrapper path={TEST_PATH} pathParams={pathParams}>
         <ExecutionActions params={pathParams} executionStatus={executionStatus} refetch={jest.fn()} />
       </TestWrapper>
     )

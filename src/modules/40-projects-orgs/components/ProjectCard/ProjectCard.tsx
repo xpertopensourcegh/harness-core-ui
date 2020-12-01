@@ -3,9 +3,8 @@ import cx from 'classnames'
 import { Card, Text, Tag, Layout, Icon, CardBody, Container, Color } from '@wings-software/uikit'
 import { Classes } from '@blueprintjs/core'
 import { useHistory, useParams } from 'react-router-dom'
-import { ModuleName, useAppStoreWriter } from 'framework/exports'
+import { ModuleName, useAppStore } from 'framework/exports'
 import { Project, useDeleteProject } from 'services/cd-ng'
-import { useAppStoreReader } from 'framework/exports'
 import DefaultRenderer from '@projects-orgs/components/ModuleRenderer/DefaultRenderer'
 import CVRenderer from '@projects-orgs/components/ModuleRenderer/cv/CVRenderer'
 import CIRenderer from '@projects-orgs/components/ModuleRenderer/ci/CIRenderer'
@@ -13,7 +12,7 @@ import CDRenderer from '@projects-orgs/components/ModuleRenderer/cd/CDRenderer'
 import { useToaster } from '@common/components/Toaster/useToaster'
 import { useConfirmationDialog } from '@common/modals/ConfirmDialog/useConfirmationDialog'
 import ContextMenu from '@projects-orgs/components/Menu/ContextMenu'
-import { routeProjectDetails } from 'navigation/projects/routes'
+import routes from '@common/RouteDefinitions'
 import CFRenderer from '@projects-orgs/components/ModuleRenderer/cf/CFRenderer'
 import i18n from './ProjectCard.i18n'
 import css from './ProjectCard.module.scss'
@@ -29,15 +28,13 @@ export interface ProjectCardProps {
 
 const ProjectCard: React.FC<ProjectCardProps> = props => {
   const { data, isPreview, reloadProjects, editProject, collaborators } = props
-  const { organisationsMap } = useAppStoreReader()
+  const { organisationsMap, projects, updateAppStore } = useAppStore()
   const { accountId } = useParams()
   const { mutate: deleteProject } = useDeleteProject({
     queryParams: { accountIdentifier: accountId, orgIdentifier: data.orgIdentifier || /* istanbul ignore next */ '' }
   })
   const { showSuccess, showError } = useToaster()
   const history = useHistory()
-  const { projects } = useAppStoreReader()
-  const updateAppStore = useAppStoreWriter()
   const onDeleted = (): void => {
     const index = projects.findIndex(p => p.identifier === data.identifier)
     projects.splice(index, 1)
@@ -87,7 +84,11 @@ const ProjectCard: React.FC<ProjectCardProps> = props => {
         <Container
           onClick={() => {
             history.push(
-              routeProjectDetails.url({ projectIdentifier: data.identifier, orgIdentifier: data.orgIdentifier || '' })
+              routes.toProjectDetails({
+                projectIdentifier: data.identifier,
+                orgIdentifier: data.orgIdentifier || '',
+                accountId: data.accountIdentifier || ''
+              })
             )
           }}
         >

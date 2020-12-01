@@ -2,7 +2,6 @@
 
 exports[`ConfigureNotifications Email 1`] = `
 <div>
-   
   <div
     class="body"
   >
@@ -127,13 +126,11 @@ exports[`ConfigureNotifications Email 1`] = `
       </form>
     </div>
   </div>
-   
 </div>
 `;
 
 exports[`ConfigureNotifications PagerDuty 1`] = `
 <div>
-   
   <div
     class="body"
   >
@@ -289,13 +286,11 @@ exports[`ConfigureNotifications PagerDuty 1`] = `
       </form>
     </div>
   </div>
-   
 </div>
 `;
 
 exports[`ConfigureNotifications Slack 1`] = `
 <div>
-   
   <div
     class="body"
   >
@@ -464,6 +459,5 @@ exports[`ConfigureNotifications Slack 1`] = `
       </form>
     </div>
   </div>
-   
 </div>
 `;

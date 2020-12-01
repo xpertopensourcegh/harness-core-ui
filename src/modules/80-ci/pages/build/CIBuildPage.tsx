@@ -2,12 +2,11 @@ import React, { useState } from 'react'
 import { first } from 'lodash-es'
 import { Container, Button, Icon, Intent, Switch } from '@wings-software/uikit'
 import { Tabs as BPTabs } from '@blueprintjs/core'
-import { Link, useParams, useHistory } from 'react-router-dom'
+import { Link, useParams, useHistory, matchPath, useLocation } from 'react-router-dom'
 import moment from 'moment'
 import { Tabs, Tab } from '@ci/components/Tabs/Tabs'
 import { ExtendedPageHeader } from '@ci/components/ExtendedPage/ExtendedPageHeader'
 import { TitledInfo } from '@ci/components/TitledInfo/TitledInfo'
-import { isRouteActive } from 'framework/exports'
 import Status from '@ci/components/Status/Status'
 import { ExecutionStatus, status2Message } from '@ci/components/common/status'
 import ElapsedTime from '@ci/components/ElapsedTime/ElapsedTime'
@@ -15,14 +14,9 @@ import ExtendedPage from '@ci/components/ExtendedPage/ExtendedPage'
 import ExtendedPageBody from '@ci/components/ExtendedPage/ExtendedPageBody'
 import { getShortCommitId } from '@ci/services/CIUtils'
 import { PageSpinner } from '@common/components/Page/PageSpinner'
-import {
-  routeCIBuildPipelineGraph,
-  routeCIBuildPipelineLog,
-  routeCIBuildInputs,
-  routeCIBuildCommits,
-  routeCIBuildTests,
-  routeCIBuildArtifacts
-} from 'navigation/ci/routes'
+import routes from '@common/RouteDefinitions'
+import { accountPathProps, buildPathProps } from '@common/utils/routeUtils'
+
 import { BuildPageContextProvider } from './context/BuildPageContextProvider'
 import { BuildPageContext } from './context/BuildPageContext'
 import i18n from './CIBuildPage.i18n'
@@ -38,10 +32,12 @@ export interface BuildPageUrlParams {
 
 const CIBuildPage: React.FC = props => {
   const { children } = props
-  const { orgIdentifier, projectIdentifier, buildIdentifier } = useParams<BuildPageUrlParams>()
+  const { orgIdentifier, projectIdentifier, buildIdentifier, accountId } = useParams<BuildPageUrlParams>()
   const [detailsVisible, setDetailsVisible] = useState<boolean>(false)
   const [errorVisible, setErrorVisible] = useState<boolean>(false)
   const history = useHistory()
+  const location = useLocation()
+
   const {
     buildData,
     state: { globalErrorMessage }
@@ -49,20 +45,36 @@ const CIBuildPage: React.FC = props => {
 
   const buildResponse = buildData?.response
 
-  let selectedTabId = ''
-  if (isRouteActive(routeCIBuildPipelineGraph)) selectedTabId = 'ciPipelineTab'
-  else if (isRouteActive(routeCIBuildPipelineLog)) selectedTabId = 'ciPipelineTab'
-  else if (isRouteActive(routeCIBuildInputs)) selectedTabId = 'ciInputsTab'
-  else if (isRouteActive(routeCIBuildCommits)) selectedTabId = 'ciCommitsTab'
-  else if (isRouteActive(routeCIBuildTests)) selectedTabId = 'ciTestsTab'
-  else if (isRouteActive(routeCIBuildArtifacts)) selectedTabId = 'ciArtifactsTab'
+  function isRouteActive(path: string): boolean {
+    return !!matchPath(location.pathname, { path, strict: true })
+  }
 
-  const pipelineGraphUrl = routeCIBuildPipelineGraph.url({ orgIdentifier, projectIdentifier, buildIdentifier })
-  const pipelineLogUrl = routeCIBuildPipelineLog.url({ orgIdentifier, projectIdentifier, buildIdentifier })
-  const inputsUrl = routeCIBuildInputs.url({ orgIdentifier, projectIdentifier, buildIdentifier })
-  const commitsUrl = routeCIBuildCommits.url({ orgIdentifier, projectIdentifier, buildIdentifier })
-  const testsUrl = routeCIBuildTests.url({ orgIdentifier, projectIdentifier, buildIdentifier })
-  const artifactsUrl = routeCIBuildArtifacts.url({ orgIdentifier, projectIdentifier, buildIdentifier })
+  let selectedTabId = ''
+  if (isRouteActive(routes.toCIBuildPipelineGraph({ ...accountPathProps, ...buildPathProps }))) {
+    selectedTabId = 'ciPipelineTab'
+  } else if (isRouteActive(routes.toCIBuildPipelineLog({ ...accountPathProps, ...buildPathProps }))) {
+    selectedTabId = 'ciPipelineTab'
+  } else if (isRouteActive(routes.toCIBuildInputs({ ...accountPathProps, ...buildPathProps }))) {
+    selectedTabId = 'ciInputsTab'
+  } else if (isRouteActive(routes.toCIBuildCommits({ ...accountPathProps, ...buildPathProps }))) {
+    selectedTabId = 'ciCommitsTab'
+  } else if (isRouteActive(routes.toCIBuildTests({ ...accountPathProps, ...buildPathProps }))) {
+    selectedTabId = 'ciTestsTab'
+  } else if (isRouteActive(routes.toCIBuildArtifacts({ ...accountPathProps, ...buildPathProps }))) {
+    selectedTabId = 'ciArtifactsTab'
+  }
+
+  const pipelineGraphUrl = routes.toCIBuildPipelineGraph({
+    orgIdentifier,
+    projectIdentifier,
+    buildIdentifier,
+    accountId
+  })
+  const pipelineLogUrl = routes.toCIBuildPipelineLog({ orgIdentifier, projectIdentifier, buildIdentifier, accountId })
+  const inputsUrl = routes.toCIBuildInputs({ orgIdentifier, projectIdentifier, buildIdentifier, accountId })
+  const commitsUrl = routes.toCIBuildCommits({ orgIdentifier, projectIdentifier, buildIdentifier, accountId })
+  const testsUrl = routes.toCIBuildTests({ orgIdentifier, projectIdentifier, buildIdentifier, accountId })
+  const artifactsUrl = routes.toCIBuildArtifacts({ orgIdentifier, projectIdentifier, buildIdentifier, accountId })
 
   const executionStatus = buildResponse?.data?.graph?.status
 
@@ -182,12 +194,15 @@ const CIBuildPage: React.FC = props => {
                 }
               />
               <BPTabs.Expander />
-              {(isRouteActive(routeCIBuildPipelineGraph) || isRouteActive(routeCIBuildPipelineLog)) && (
+              {(isRouteActive(routes.toCIBuildPipelineGraph({ ...accountPathProps, ...buildPathProps })) ||
+                isRouteActive(routes.toCIBuildPipelineLog({ ...accountPathProps, ...buildPathProps }))) && (
                 <Container className={css.extendedTabContent}>
                   <Switch
                     label={i18n.consoleView}
                     className="bp3-align-right"
-                    defaultChecked={isRouteActive(routeCIBuildPipelineLog)}
+                    defaultChecked={isRouteActive(
+                      routes.toCIBuildPipelineLog({ ...accountPathProps, ...buildPathProps })
+                    )}
                     onChange={e => {
                       const checked: boolean = (e.target as HTMLInputElement).checked
                       if (checked) history.push(pipelineLogUrl)
