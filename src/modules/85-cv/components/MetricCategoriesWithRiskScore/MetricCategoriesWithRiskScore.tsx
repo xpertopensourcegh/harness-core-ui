@@ -35,6 +35,21 @@ function getAbbreviatedMetricCategories(category: string): string {
   }
 }
 
+function sortCategories(categoryRiskScores?: CategoryRisk[]): void {
+  if (!categoryRiskScores) {
+    return
+  }
+  categoryRiskScores.sort((a, b) => {
+    if (a?.category === MetricCategoryNames.PERFORMANCE) {
+      return -1
+    }
+    if (a?.category === MetricCategoryNames.ERRORS) {
+      return b?.category === MetricCategoryNames.PERFORMANCE ? 1 : -1
+    }
+    return 1
+  })
+}
+
 export function MetricCategoriesWithRiskScore(props: CategoriesWithRiskScoreProps): JSX.Element {
   const {
     categoriesWithRiskScores: categoriesAndRiskScore = [],
@@ -42,6 +57,7 @@ export function MetricCategoriesWithRiskScore(props: CategoriesWithRiskScoreProp
     infoContainerClassName,
     riskScoreTileProps
   } = props
+  sortCategories(categoriesAndRiskScore)
   return (
     <Container className={className}>
       <Container className={css.main}>

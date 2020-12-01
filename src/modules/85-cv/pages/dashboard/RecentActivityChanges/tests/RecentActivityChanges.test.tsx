@@ -184,12 +184,12 @@ describe('Unit tests for RecentActivityChanges', () => {
 
     const riskScores = container.querySelectorAll('[class*="riskScore"]')
     expect(riskScores.length).toBe(6)
-    expect(riskScores[0].innerHTML).toEqual('55')
+    expect(riskScores[0].innerHTML).toEqual('30')
     expect(riskScores[1].innerHTML).toEqual('25')
-    expect(riskScores[2].innerHTML).toEqual('30')
-    expect(riskScores[3].innerHTML).toEqual('55')
+    expect(riskScores[2].innerHTML).toEqual('55')
+    expect(riskScores[3].innerHTML).toEqual('15')
     expect(riskScores[4].innerHTML).toEqual('25')
-    expect(riskScores[5].innerHTML).toEqual('15')
+    expect(riskScores[5].innerHTML).toEqual('55')
   })
 
   test('Ensure right status messaging is displayed on top of progress bar for in progress with time remaining', async () => {
