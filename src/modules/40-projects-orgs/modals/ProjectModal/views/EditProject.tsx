@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import type { StepProps, SelectOption, ModalErrorHandlerBinding } from '@wings-software/uikit'
-import { pick } from 'lodash-es'
 import { useAppStoreReader, useAppStoreWriter } from 'framework/exports'
 import i18n from '@projects-orgs/pages/projects/ProjectsPage.i18n'
 import {
@@ -94,17 +93,8 @@ const EditProject: React.FC<StepProps<Project> & EditModalData> = props => {
   ]
 
   const onComplete = async (values: Project): Promise<void> => {
-    const dataToSubmit: Project = pick<Project, keyof Project>(values, [
-      'name',
-      'orgIdentifier',
-      'color',
-      'description',
-      'identifier',
-      'tags'
-    ])
-    ;(dataToSubmit as Project)['accountIdentifier'] = accountId
     try {
-      await updateProject(dataToSubmit as Project, {
+      await updateProject(values, {
         pathParams: { identifier: values.identifier },
         queryParams: {
           accountIdentifier: accountId,
