@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import { Container, Button, Text } from '@wings-software/uikit'
 import { useParams } from 'react-router-dom'
 import { useGetVerificationInstances, DeploymentVerificationJobInstanceSummary } from 'services/cv'
@@ -36,11 +36,19 @@ export default function DeploymentDrilldownView(): JSX.Element {
     }
   })
 
-  const {
-    preProductionDeploymentVerificationJobInstanceSummaries: preProduction,
-    postDeploymentVerificationJobInstanceSummaries: postDeployment,
-    productionDeploymentVerificationJobInstanceSummaries: productionDeployment
-  } = activityVerifications?.resource?.deploymentResultSummary || {}
+  const [preProduction, postDeployment, productionDeployment] = useMemo(() => {
+    const {
+      preProductionDeploymentVerificationJobInstanceSummaries: preProdVerifications,
+      postDeploymentVerificationJobInstanceSummaries: postDeployVerifications,
+      productionDeploymentVerificationJobInstanceSummaries: prodDeployVerifications
+    } = activityVerifications?.resource?.deploymentResultSummary || {}
+    const sortByTime = (a: DeploymentVerificationJobInstanceSummary, b: DeploymentVerificationJobInstanceSummary) =>
+      a.startTime! - b.startTime!
+    preProdVerifications?.length && preProdVerifications.sort(sortByTime)
+    postDeployVerifications?.length && postDeployVerifications.sort(sortByTime)
+    prodDeployVerifications?.length && prodDeployVerifications.sort(sortByTime)
+    return [preProdVerifications, postDeployVerifications, prodDeployVerifications]
+  }, [activityVerifications?.resource?.deploymentResultSummary])
 
   useEffect(() => {
     if (activityVerifications?.resource) {

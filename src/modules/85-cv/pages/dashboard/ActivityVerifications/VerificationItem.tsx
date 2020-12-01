@@ -133,7 +133,7 @@ function ItemTooltip(props: {
                       </Text>
                     </Container>
                   </Container>
-                  <RiskScoreTile riskScore={item.riskScore || 0} isSmall />
+                  <RiskScoreTile riskScore={roundRiskScore(item.riskScore || 0)} isSmall />
                 </Container>
               ))}
             </>
@@ -144,6 +144,10 @@ function ItemTooltip(props: {
       {props.children}
     </Tooltip>
   )
+}
+
+export function roundRiskScore(score: number) {
+  return Math.round(score * 100) / 100
 }
 
 export function mapTooltipItemStatus(status: VerificationResult['status'], remainingTimeMs?: number) {

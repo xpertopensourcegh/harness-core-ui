@@ -22,24 +22,24 @@ export default function ActivityProgressIndicator(props: ActivityProgressIndicat
     total,
     progress: progressCount,
     passed,
-    failed,
     remainingTimeMs,
     startTime,
     durationMs,
     aggregatedStatus
   } = props.data || {}
-  const [progressValue, setProgressValue] = useState(0)
-  const isValidProgressValue = props.data && progress !== undefined && progress !== null && progress > -1
+  const notStarted = !props.data || aggregatedStatus === 'NOT_STARTED'
+  const isInProgress = props.data && aggregatedStatus === 'IN_PROGRESS'
+  const [progressValue, setProgressValue] = useState(isInProgress ? 0 : 100)
   useEffect(() => {
-    if (isValidProgressValue) {
+    if (isInProgress) {
       const timeoutRefNumber = setTimeout(() => {
-        setProgressValue(progress || 0)
+        setProgressValue(Math.min(100, Math.max(0, progress!)))
         clearTimeout(timeoutRefNumber)
       }, 250)
     }
-  }, [isValidProgressValue])
+  }, [props.data])
 
-  if (!isValidProgressValue) {
+  if (notStarted) {
     return (
       <Container className={cx(props.className, css.notStarted)}>
         <Text font={XSMALL_FONT_SIZE}>{i18n.verificationNotStarted}</Text>
@@ -51,18 +51,19 @@ export default function ActivityProgressIndicator(props: ActivityProgressIndicat
   const minutesRemaining = Math.floor((remainingTimeMs ?? 0) / 1000 / 60)
   const duration = Math.floor((durationMs ?? 0) / 1000 / 60)
 
-  let progressDescription = `${progressCount} ${i18n.verificationsInProgress} (${minutesRemaining} ${i18n.minutesRemaining})`
-  if (progress === 100) {
+  let progressDescription: string
+
+  if (isInProgress) {
+    progressDescription = `${i18n.inProgress} (${minutesRemaining} ${i18n.minutesRemaining})`
+    if (progressCount! > 1) {
+      progressDescription = `${progressCount}/${total} ${i18n.verifications} ${progressDescription}`
+    }
+  } else {
     progressDescription = `${passed}/${total} ${i18n.verifications} ${i18n.passedVerification}`
   }
 
   return (
     <Container className={props.className}>
-      {!!failed && (
-        <Text color={progress === 100 ? undefined : Color.BLACK} font={XSMALL_FONT_SIZE}>
-          {`${failed} ${i18n.failed}`}
-        </Text>
-      )}
       <Text color={progress === 100 ? undefined : Color.BLACK} font={XSMALL_FONT_SIZE}>
         {progressDescription}
       </Text>
