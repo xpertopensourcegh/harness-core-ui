@@ -3,5 +3,9 @@
 declare const styles: {
   readonly main: string
   readonly runText: string
+  readonly lhs: string
+  readonly rhs: string
+  readonly filterGroup: string
+  readonly label: string
 }
 export default styles

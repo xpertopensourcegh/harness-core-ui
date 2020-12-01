@@ -2,11 +2,36 @@
   position: sticky;
   top: 0;
   z-index: 3;
-  padding: var(--spacing-medium) var(--spacing-xxlarge);
+  padding: var(--spacing-large) var(--spacing-xxlarge);
   display: flex;
   background: var(--grey-100) !important;
+  justify-content: space-between;
+  align-items: center;
 
   .runText {
     margin-left: var(--spacing-small);
+  }
+
+  .lhs {
+    display: flex;
+    padding-top: var(--spacing-large);
+    column-gap: var(--spacing-medium);
+  }
+
+  .rhs {
+    padding-top: var(--spacing-large);
+    display: flex;
+  }
+
+  .filterGroup {
+    position: relative;
+
+    .label {
+      position: absolute;
+      bottom: calc(100% + 2px);
+      left: 0;
+      font-size: var(--font-size-small);
+      color: var(--grey-500);
+    }
   }
 }

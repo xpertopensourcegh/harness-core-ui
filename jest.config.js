@@ -22,7 +22,8 @@ module.exports = {
     '!src/**/CreateSecretFromYamlPage.tsx',
     '!src/**/PipelineYamlView.tsx',
     '!src/**/RouteDestinations.tsx',
-    '!src/modules/10-common/RouteDefinitions.ts'
+    '!src/modules/10-common/RouteDefinitions.ts',
+    '!src/modules/10-common/utils/testUtils.tsx'
   ],
   coverageReporters: ['lcov', 'json-summary'],
   transform: {

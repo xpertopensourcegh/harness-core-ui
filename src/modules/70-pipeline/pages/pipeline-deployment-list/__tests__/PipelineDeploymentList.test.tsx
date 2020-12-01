@@ -1,7 +1,7 @@
 import React from 'react'
 import { render, waitFor } from '@testing-library/react'
 import { TestWrapper } from '@common/utils/testUtils'
-import { accountPathProps, pipelinePathProps } from '@common/utils/routeUtils'
+import { accountPathProps, pipelinePathProps, projectPathProps } from '@common/utils/routeUtils'
 import routes from '@common/RouteDefinitions'
 import { defaultAppStoreValues } from '@projects-orgs/pages/projects/__tests__/DefaultAppStoreData'
 
@@ -14,7 +14,8 @@ jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { c
 
 jest.mock('services/cd-ng', () => ({
   useGetListOfExecutions: jest.fn(() => data),
-  useHandleInterrupt: jest.fn(() => ({}))
+  useHandleInterrupt: jest.fn(() => ({})),
+  useGetPipelineList: jest.fn(() => ({}))
 }))
 
 describe('Test Pipeline Deployment list', () => {
@@ -42,6 +43,28 @@ describe('Test Pipeline Deployment list', () => {
       </TestWrapper>
     )
     await waitFor(() => getByText('test-p1'))
+    expect(container).toMatchSnapshot()
+  })
+
+  test('should render deployment list with pipeline filter', async () => {
+    const { container, getByText } = render(
+      <TestWrapper
+        path={routes.toCDDeployments({ ...accountPathProps, ...projectPathProps })}
+        pathParams={{
+          accountId: 'testAcc',
+          orgIdentifier: 'testOrg',
+          projectIdentifier: 'testProject'
+        }}
+        defaultAppStoreValues={defaultAppStoreValues}
+      >
+        <PipelineDeploymentList onRunPipeline={jest.fn()} />
+      </TestWrapper>
+    )
+    await waitFor(() => getByText('test-p1'))
+
+    expect(getByText('Pipelines', { selector: '.label' })).toBeDefined()
+    expect(getByText('All', { selector: '.bp3-button.main > .bp3-button-text' })).toBeDefined()
+
     expect(container).toMatchSnapshot()
   })
 })

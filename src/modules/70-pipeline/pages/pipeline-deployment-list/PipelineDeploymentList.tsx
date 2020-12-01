@@ -1,10 +1,11 @@
 import React from 'react'
-import { useParams, useLocation } from 'react-router-dom'
-import qs from 'qs'
+import { useParams } from 'react-router-dom'
 
 import { useGetListOfExecutions } from 'services/cd-ng'
 import { useStrings } from 'framework/exports'
 import { Page } from '@common/exports'
+import { useQueryParams } from '@common/hooks'
+import type { AccountPathProps, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 
 import ExecutionsFilter from './ExecutionsFilter/ExecutionsFilter'
 import ExecutionsList from './ExecutionsList/ExecutionsList'
@@ -18,18 +19,20 @@ export interface PipelineDeploymentListProps {
 }
 
 export default function PipelineDeploymentList(props: PipelineDeploymentListProps): React.ReactElement {
-  const { pipelineIdentifier, orgIdentifier, projectIdentifier, accountId } = useParams()
-  const location = useLocation()
-  const query = qs.parse(location.search, { ignoreQueryPrefix: true })
-  const page = parseInt((query.page as string) || '1', 10)
+  const { pipelineIdentifier, orgIdentifier, projectIdentifier, accountId } = useParams<
+    AccountPathProps & ProjectPathProps & { pipelineIdentifier?: string }
+  >()
+  const query = useQueryParams<{ page?: string }>()
+  const page = parseInt(query.page || '1', 10)
   const { getString } = useStrings()
+  const [selectedPipelineIdentifier, setPipelineIdentifier] = React.useState(pipelineIdentifier)
 
   const { loading, data: pipelineExecutionSummary, error, refetch } = useGetListOfExecutions({
     queryParams: {
       accountIdentifier: accountId,
       projectIdentifier,
       orgIdentifier,
-      pipelineIdentifiers: [pipelineIdentifier as string],
+      pipelineIdentifiers: selectedPipelineIdentifier ? [selectedPipelineIdentifier] : undefined,
       page: page - 1
     },
     queryParamStringifyOptions: {
@@ -68,7 +71,11 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
         onClick: props.onRunPipeline
       }}
     >
-      <ExecutionsFilter onRunPipeline={props.onRunPipeline} />
+      <ExecutionsFilter
+        onRunPipeline={props.onRunPipeline}
+        selectedPipeline={selectedPipelineIdentifier}
+        setPipelineIdentifier={setPipelineIdentifier}
+      />
       <ExecutionsList pipelineExecutionSummary={pipelineExecutionSummary} />
       <ExecutionsPagination pipelineExecutionSummary={pipelineExecutionSummary} />
     </Page.Body>
