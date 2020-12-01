@@ -12,8 +12,9 @@ import { routeCDPipelineExecutionPipline } from 'navigation/cd/routes'
 import type { ExecutionGraph } from 'services/cd-ng'
 import type { ExecutionPathParams } from '@pipeline/utils/executionUtils'
 import { useExecutionContext } from '../../ExecutionContext/ExecutionContext'
-
+import LogsContent from './LogsContent'
 import css from './ExecutionLogView.module.scss'
+import 'xterm/css/xterm.css'
 
 const statusIcon: {
   [key: string]: string
@@ -234,6 +235,8 @@ export default function ExecutionLogView(): React.ReactElement {
     return (
       <Container className={css.logsContainer}>
         <TreeNode node={stageIds[0]} isRootNode={true} level={0} />
+
+        <LogsContent />
       </Container>
     )
   }

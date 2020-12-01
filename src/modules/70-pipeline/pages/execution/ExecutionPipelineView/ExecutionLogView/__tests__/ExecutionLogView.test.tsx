@@ -15,6 +15,7 @@ const contextValue: ExecutionContextParams = {
   queryParams: {},
   loading: false
 }
+
 describe('<ExecutionLogView /> tests', () => {
   test('snapshot test', () => {
     const { container } = render(

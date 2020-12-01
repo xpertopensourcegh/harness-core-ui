@@ -1,0 +1,47 @@
+.headerContainer {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  background: var(--black) !important;
+  padding: var(--spacing-small) !important;
+  border: 1px solid var(--grey-200);
+}
+
+.searchInput {
+  width: 200px;
+  display: flex;
+  justify-content: flex-end;
+  :global {
+    input[type='search'] {
+      border: 0;
+    }
+  }
+}
+
+.subHeader {
+  padding: var(--spacing-xsmall) !important;
+}
+
+.logsHeader {
+  display: flex;
+}
+
+.headerContent {
+  display: flex;
+  width: 200px;
+  justify-content: space-between;
+}
+.headerContent * {
+  color: var(--grey-350) !important;
+}
+
+.headerActions {
+  display: flex;
+  width: 260px;
+
+  justify-content: space-between;
+}
+
+.headerActions * {
+  color: var(--grey-350) !important;
+}

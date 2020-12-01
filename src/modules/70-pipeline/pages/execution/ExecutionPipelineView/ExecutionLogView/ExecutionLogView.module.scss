@@ -1,12 +1,24 @@
 .logsContainer {
   display: grid;
-  grid-template-columns: 290px;
+  grid-template-columns: 290px 1fr;
+  height: 100vh;
+}
+
+.stepsContainer {
   height: 100%;
   overflow: auto;
 }
 
 .rNode {
   border: 1px solid var(--grey-200);
+}
+
+.logContent {
+  height: 100%;
+}
+
+.logViewer {
+  height: 100%;
 }
 
 .node {
