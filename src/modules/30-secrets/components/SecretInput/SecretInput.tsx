@@ -29,16 +29,19 @@ interface FormikSecretInput extends SecretInputProps {
 
 const SecretInput: React.FC<FormikSecretInput> = props => {
   const { formik, label, name, onSuccess, type, connectorsListMockData, secretsListMockData } = props
-  const { openCreateOrSelectSecretModal } = useCreateOrSelectSecretModal({
-    type,
-    onSuccess: secret => {
-      formik.setFieldValue(name, secret)
-      /* istanbul ignore next */
-      onSuccess?.(secret)
+  const { openCreateOrSelectSecretModal } = useCreateOrSelectSecretModal(
+    {
+      type,
+      onSuccess: secret => {
+        formik.setFieldValue(name, secret)
+        /* istanbul ignore next */
+        onSuccess?.(secret)
+      },
+      connectorsListMockData,
+      secretsListMockData
     },
-    connectorsListMockData,
-    secretsListMockData
-  })
+    [name, onSuccess]
+  )
   return (
     <div className={'bp3-form-group'}>
       {label ? <label className={'bp3-label'}>{label}</label> : null}

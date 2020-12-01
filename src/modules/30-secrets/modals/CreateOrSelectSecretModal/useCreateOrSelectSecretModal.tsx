@@ -25,7 +25,10 @@ export interface UseCreateOrSelectSecretModalReturn {
   closeCreateOrSelectSecretModal: () => void
 }
 
-const useCreateOrSelectSecretModal = (props: UseCreateOrSelectSecretModalProps): UseCreateOrSelectSecretModalReturn => {
+const useCreateOrSelectSecretModal = (
+  props: UseCreateOrSelectSecretModalProps,
+  inputs?: any[]
+): UseCreateOrSelectSecretModalReturn => {
   const [showModal, hideModal] = useModalHook(
     () => (
       <Dialog
@@ -46,7 +49,7 @@ const useCreateOrSelectSecretModal = (props: UseCreateOrSelectSecretModalProps):
         <Button minimal icon="cross" iconProps={{ size: 18 }} onClick={hideModal} className={css.crossIcon} />
       </Dialog>
     ),
-    []
+    inputs || []
   )
 
   return {
