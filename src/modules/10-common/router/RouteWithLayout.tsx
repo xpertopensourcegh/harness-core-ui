@@ -2,6 +2,7 @@ import React from 'react'
 import { Route as RouterRoute } from 'react-router-dom'
 import type { RouteProps as RouterRouteprops } from 'react-router-dom'
 
+import { ModalProvider } from '@wings-software/uikit'
 import { DefaultLayout } from '@common/layouts'
 
 export interface RouteWithLayoutProps extends RouterRouteprops {
@@ -13,7 +14,9 @@ export function RouteWithLayout(props: React.PropsWithChildren<RouteWithLayoutPr
 
   return (
     <RouterRoute {...rest}>
-      <Layout>{children}</Layout>
+      <ModalProvider>
+        <Layout>{children}</Layout>
+      </ModalProvider>
     </RouterRoute>
   )
 }

@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom'
 import { HashRouter, Route } from 'react-router-dom'
 import { RestfulProvider } from 'restful-react'
 import { FocusStyleManager } from '@blueprintjs/core'
-import { ModalProvider } from '@wings-software/uikit'
 import SessionToken from 'framework/utils/SessionToken'
 import languageLoader from 'strings/languageLoader'
 import type { LangLocale } from 'strings/languageLoader'
@@ -36,11 +35,9 @@ function App(props: AppProps): React.ReactElement {
   return (
     <RestfulProvider base="/" requestOptions={getRequestOptions}>
       <AppStoreProvider strings={props.strings}>
-        <ModalProvider>
-          <AppErrorBoundary>
-            <RouteDestinations />
-          </AppErrorBoundary>
-        </ModalProvider>
+        <AppErrorBoundary>
+          <RouteDestinations />
+        </AppErrorBoundary>
       </AppStoreProvider>
     </RestfulProvider>
   )
