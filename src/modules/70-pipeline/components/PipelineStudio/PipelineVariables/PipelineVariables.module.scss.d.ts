@@ -5,7 +5,7 @@ declare const styles: {
   readonly variablesContainer: string
   readonly header: string
   readonly content: string
-  readonly treeContainer: string
+  readonly stagesTree: string
   readonly variableList: string
   readonly variableListHeader: string
   readonly variableCard: string

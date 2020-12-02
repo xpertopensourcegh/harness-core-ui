@@ -8,6 +8,7 @@ export default {
   pipelineVariables: 'Pipeline Variables',
   customVariables: 'Custom Variables',
   service: 'Service',
+  dependencies: 'Dependencies',
   infrastructure: 'Infrastructure',
   execution: 'Execution',
   stages: 'Stages'

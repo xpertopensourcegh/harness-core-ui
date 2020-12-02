@@ -1,7 +1,6 @@
 import React from 'react'
-import { cloneDeep } from 'lodash-es'
 import { Text, Card, Color } from '@wings-software/uikit'
-import { Tree, ITreeNode } from '@blueprintjs/core'
+import type { ITreeNode } from '@blueprintjs/core'
 import type {
   StageElement,
   StageElementWrapper,
@@ -16,16 +15,8 @@ import { getPipelineTree } from '../PipelineUtils'
 import { StepWidget } from '../../AbstractSteps/StepWidget'
 import { StepViewType } from '../../AbstractSteps/Step'
 import type { AbstractStepFactory } from '../../AbstractSteps/AbstractStepFactory'
+import StagesTree, { stagesTreeNodeClasses } from '../../StagesThree/StagesTree'
 import css from './PipelineVariables.module.scss'
-
-function forEachNode(nodes: ITreeNode[], callback: (node: ITreeNode) => void): void {
-  for (const node of nodes) {
-    callback(node)
-    if (node.childNodes) {
-      forEachNode(node.childNodes, callback)
-    }
-  }
-}
 
 function renderForStage(
   stage: StageElement,
@@ -83,9 +74,10 @@ export const PipelineVariables: React.FC = (): JSX.Element => {
   } = React.useContext(PipelineContext)
 
   const [nodes, updateNodes] = React.useState<ITreeNode[]>([])
+  const [selectedTreeNodeId, setSelectedTreeNodeId] = React.useState<string>('Pipeline_Variables')
 
   React.useEffect(() => {
-    updateNodes(getPipelineTree(pipeline))
+    updateNodes(getPipelineTree(pipeline, stagesTreeNodeClasses))
   }, [pipeline])
 
   const stagesCards: JSX.Element[] = []
@@ -108,28 +100,12 @@ export const PipelineVariables: React.FC = (): JSX.Element => {
           <Text font={{ size: 'medium' }}>{i18n.variables}</Text>
         </div>
         <div className={css.content}>
-          <div className={css.treeContainer}>
-            <Tree
-              contents={nodes}
-              onNodeClick={node => {
-                forEachNode(nodes, n => (n.isSelected = false))
-                if (node.hasCaret) {
-                  node.isExpanded = !node.isExpanded
-                } else {
-                  node.isSelected = true
-                }
-                updateNodes(cloneDeep(nodes))
-              }}
-              onNodeCollapse={node => {
-                node.isExpanded = false
-                updateNodes(cloneDeep(nodes))
-              }}
-              onNodeExpand={node => {
-                node.isExpanded = true
-                updateNodes(cloneDeep(nodes))
-              }}
-            />
-          </div>
+          <StagesTree
+            className={css.stagesTree}
+            contents={nodes}
+            selectedId={selectedTreeNodeId}
+            selectionChange={id => setSelectedTreeNodeId(id)}
+          />
           <div className={css.variableList}>
             <div className={css.variableListHeader}>
               <Text font={{ size: 'small' }}>{i18n.variables}</Text>

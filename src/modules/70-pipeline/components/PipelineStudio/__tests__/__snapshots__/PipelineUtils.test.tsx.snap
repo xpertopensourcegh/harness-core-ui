@@ -9,7 +9,7 @@ exports[`Test Pipeline Utils should test getPipelineTree 1`] = `
       class="bp3-tree-node-list bp3-tree-root"
     >
       <li
-        class="bp3-tree-node bp3-tree-node-selected"
+        class="bp3-tree-node"
       >
         <div
           class="bp3-tree-node-content bp3-tree-node-content-0"
@@ -21,7 +21,8 @@ exports[`Test Pipeline Utils should test getPipelineTree 1`] = `
             class="bp3-tree-node-label"
           >
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey800--2G2G"
+              style="font-weight: 500;"
             >
               Pipeline Variables
             </p>
@@ -50,7 +51,8 @@ exports[`Test Pipeline Utils should test getPipelineTree 1`] = `
             class="bp3-tree-node-label"
           >
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey800--2G2G"
+              style="font-weight: 500;"
             >
               Custom Variables
             </p>
@@ -95,7 +97,8 @@ exports[`Test Pipeline Utils should test getPipelineTree 1`] = `
             class="bp3-tree-node-label"
           >
             <p
-              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
+              class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey500--3lFR StyledProps---font-size-normal--3yZj"
+              style="font-weight: 500;"
             >
               Stages
             </p>
@@ -142,8 +145,8 @@ exports[`Test Pipeline Utils should test getPipelineTree 1`] = `
                     class="bp3-tree-node-label"
                   >
                     <p
-                      class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
-                      style="--text-line-clamp: 1;"
+                      class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey800--2G2G"
+                      style="font-weight: 600; --text-line-clamp: 1;"
                     >
                       asd
                     </p>
@@ -188,8 +191,8 @@ exports[`Test Pipeline Utils should test getPipelineTree 1`] = `
                     class="bp3-tree-node-label"
                   >
                     <p
-                      class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
-                      style="--text-line-clamp: 1;"
+                      class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey800--2G2G"
+                      style="font-weight: 600; --text-line-clamp: 1;"
                     >
                       test1
                     </p>
@@ -234,8 +237,8 @@ exports[`Test Pipeline Utils should test getPipelineTree 1`] = `
                     class="bp3-tree-node-label"
                   >
                     <p
-                      class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn"
-                      style="--text-line-clamp: 1;"
+                      class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey800--2G2G"
+                      style="font-weight: 600; --text-line-clamp: 1;"
                     >
                       test2
                     </p>

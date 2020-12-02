@@ -1,5 +1,4 @@
 .pipeline-variables {
-  --tree-selected-color: #72c9ff;
   --variable-column1: 300px;
   --variable-column2: 100px;
   --variable-column3: 1fr;
@@ -22,24 +21,12 @@
 
     .content {
       display: grid;
-      grid-template-columns: 225px 1fr;
+      grid-template-columns: 300px 1fr;
       height: calc(100vh - 75px);
 
-      .tree-container {
-        padding: var(--spacing-small);
-        :global(.bp3-tree-node-caret-none) {
-          min-width: 8px;
-        }
-
-        :global(.bp3-tree-node-content:hover) {
-          border-radius: 19px;
-          background-color: var(--tree-selected-color);
-        }
-
-        :global(.bp3-tree-node.bp3-tree-node-selected > .bp3-tree-node-content) {
-          background-color: var(--tree-selected-color);
-          border-radius: 19px;
-        }
+      .stages-tree {
+        margin-top: var(--spacing-large);
+        margin-right: var(--spacing-large);
       }
 
       .variable-list {
