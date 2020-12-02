@@ -56,6 +56,7 @@ export interface ServiceSpecType {
 export interface DependencyData {
   identifier: string
   name?: string
+  description?: string
   spec: DependencyInfo
 }
 
@@ -63,6 +64,7 @@ export interface DependencyData {
 export interface DependencyDataUI {
   identifier: string
   name?: string
+  description?: string
   spec: DependencyInfoUI
 }
 
@@ -77,7 +79,8 @@ export enum LimitMemoryUnits {
 
 const validationSchema = yup.object().shape({
   identifier: yup.string().trim().required(),
-  name: yup.string().trim().required(),
+  name: yup.string(),
+  description: yup.string(),
   spec: yup
     .object()
     .shape({
@@ -103,7 +106,7 @@ interface DependencyWidgetProps {
   stepViewType?: StepViewType
 }
 
-const DependencyWidget: React.FC<DependencyWidgetProps> = ({ initialValues, onUpdate }): JSX.Element => {
+export const DependencyWidget: React.FC<DependencyWidgetProps> = ({ initialValues, onUpdate }): JSX.Element => {
   const { getString } = useStrings()
 
   const {
@@ -193,6 +196,7 @@ const DependencyWidget: React.FC<DependencyWidgetProps> = ({ initialValues, onUp
                 idName="identifier"
                 inputLabel={getString('dependencyNameLabel')}
               />
+              <FormInput.TextArea name="description" label={getString('description')} />
               <Text margin={{ bottom: 'xsmall' }}>{getString('pipelineSteps.connectorLabel')}</Text>
               <div className={cx(css.fieldsGroup, css.withoutSpacing)}>
                 <FormMultiTypeConnectorField

@@ -39,7 +39,6 @@ export enum LimitMemoryUnits {
 const validationSchema = yup.object().shape({
   identifier: yup.string().trim().required(),
   name: yup.string(),
-  description: yup.string(),
   spec: yup
     .object()
     .shape({
@@ -68,7 +67,7 @@ export interface RestoreCacheGCSStepWidgetProps {
   stepViewType?: StepViewType
 }
 
-const RestoreCacheGCSStepWidget: React.FC<RestoreCacheGCSStepWidgetProps> = ({
+export const RestoreCacheGCSStepWidget: React.FC<RestoreCacheGCSStepWidgetProps> = ({
   initialValues,
   onUpdate
 }): JSX.Element => {
@@ -181,7 +180,6 @@ const RestoreCacheGCSStepWidget: React.FC<RestoreCacheGCSStepWidgetProps> = ({
           const schemaValues = {
             identifier: _values.identifier,
             name: _values.name,
-            description: _values.description,
             spec: {
               ..._values.spec,
               connectorRef: _values.spec.connectorRef?.value || _values.spec.connectorRef,
@@ -200,7 +198,6 @@ const RestoreCacheGCSStepWidget: React.FC<RestoreCacheGCSStepWidgetProps> = ({
                 idName="identifier"
                 inputLabel={getString('pipelineSteps.stepNameLabel')}
               />
-              <FormInput.TextArea name="description" label={getString('description')} />
               <Text margin={{ top: 'medium', bottom: 'xsmall' }}>{getString('pipelineSteps.gcpConnectorLabel')}</Text>
               <div className={cx(css.fieldsGroup, css.withoutSpacing)}>
                 <FormMultiTypeConnectorField

@@ -10,6 +10,7 @@ export default {
   setContainerResourcesTooltip: 'Information',
 
   stepNameLabel: 'Step Name',
+  descriptionLabel: 'Description',
   connectorLabel: 'Connector',
   connectorPlaceholder: 'Select',
   imageLabel: 'Image',

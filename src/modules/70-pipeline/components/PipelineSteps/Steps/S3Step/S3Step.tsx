@@ -39,7 +39,6 @@ export enum LimitMemoryUnits {
 const validationSchema = yup.object().shape({
   identifier: yup.string().trim().required(),
   name: yup.string(),
-  description: yup.string(),
   spec: yup
     .object()
     .shape({
@@ -71,7 +70,7 @@ export interface S3StepWidgetProps {
   stepViewType?: StepViewType
 }
 
-const S3StepWidget: React.FC<S3StepWidgetProps> = ({ initialValues, onUpdate }): JSX.Element => {
+export const S3StepWidget: React.FC<S3StepWidgetProps> = ({ initialValues, onUpdate }): JSX.Element => {
   const {
     state: { pipelineView },
     updatePipelineView
@@ -189,7 +188,6 @@ const S3StepWidget: React.FC<S3StepWidgetProps> = ({ initialValues, onUpdate }):
           const schemaValues = {
             identifier: _values.identifier,
             name: _values.name,
-            description: _values.description,
             spec: {
               ..._values.spec,
               connectorRef: _values.spec.connectorRef?.value || _values.spec.connectorRef,
@@ -209,7 +207,6 @@ const S3StepWidget: React.FC<S3StepWidgetProps> = ({ initialValues, onUpdate }):
                 idName="identifier"
                 inputLabel={getString('pipelineSteps.stepNameLabel')}
               />
-              <FormInput.TextArea name="description" label={getString('description')} />
               <Text margin={{ top: 'medium', bottom: 'xsmall' }}>{getString('pipelineSteps.connectorLabel')}</Text>
               <div className={cx(css.fieldsGroup, css.withoutSpacing)}>
                 <FormMultiTypeConnectorField

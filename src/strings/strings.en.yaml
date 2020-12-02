@@ -123,6 +123,9 @@ global:
     pullIfNotExistsLabel: 'If not exists'
     pullNeverLabel: 'Never'
     pullAlwaysLabel: 'Always'
+    sourcePathsLabel: 'Source Paths'
+    addSourcePath: '+ Add Source Path'
+    pomFileLabel: 'POM File'
     setContainerResources: 'Set container Resources'
     setContainerResourcesTooltip: Resources limits allow setting maximum values for the resources the container is allowed to use at runtime
     limitMemoryLabel: 'Limit Memory'
@@ -155,6 +158,8 @@ global:
       title: 'Upload to GCS'
     s3:
       title: 'Upload to S3'
+    jFrogArtifactory:
+      title: 'Upload Artifacts to JFrog Artifactory'
     build:
       create:
         aboutYourStage: 'About Your Stage'

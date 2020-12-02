@@ -54,6 +54,7 @@ export interface RunStepData {
   identifier: string
   type: string
   name?: string
+  description?: string
   spec: RunServiceSpec
 }
 
@@ -62,6 +63,7 @@ export interface RunStepDataUI {
   identifier: string
   type: string
   name?: string
+  description?: string
   spec: RunStepSpecUI
 }
 
@@ -76,7 +78,8 @@ export enum LimitMemoryUnits {
 
 const validationSchema = yup.object().shape({
   identifier: yup.string().trim().required(),
-  name: yup.string().trim().required(),
+  name: yup.string(),
+  description: yup.string(),
   spec: yup
     .object()
     .shape({
@@ -95,7 +98,7 @@ export interface RunStepWidgetProps {
   stepViewType?: StepViewType
 }
 
-const RunStepWidget: React.FC<RunStepWidgetProps> = ({ initialValues, onUpdate }): JSX.Element => {
+export const RunStepWidget: React.FC<RunStepWidgetProps> = ({ initialValues, onUpdate }): JSX.Element => {
   const {
     state: { pipelineView },
     updatePipelineView
@@ -175,6 +178,7 @@ const RunStepWidget: React.FC<RunStepWidgetProps> = ({ initialValues, onUpdate }
           <FormikForm>
             <div className={css.fieldsSection}>
               <FormInput.InputWithIdentifier inputName="name" idName="identifier" inputLabel={i18n.stepNameLabel} />
+              <FormInput.TextArea name="description" label={i18n.descriptionLabel} />
               <Text margin={{ bottom: 'xsmall' }}>{i18n.connectorLabel}</Text>
               <div className={cx(css.fieldsGroup, css.withoutSpacing)}>
                 <FormMultiTypeConnectorField

@@ -40,7 +40,6 @@ export enum LimitMemoryUnits {
 const validationSchema = yup.object().shape({
   identifier: yup.string().trim().required(),
   name: yup.string(),
-  description: yup.string(),
   spec: yup
     .object()
     .shape({
@@ -74,7 +73,7 @@ export interface DockerHubStepWidgetProps {
   stepViewType?: StepViewType
 }
 
-const DockerHubStepWidget: React.FC<DockerHubStepWidgetProps> = ({ initialValues, onUpdate }): JSX.Element => {
+export const DockerHubStepWidget: React.FC<DockerHubStepWidgetProps> = ({ initialValues, onUpdate }): JSX.Element => {
   const {
     state: { pipelineView },
     updatePipelineView
@@ -231,7 +230,6 @@ const DockerHubStepWidget: React.FC<DockerHubStepWidgetProps> = ({ initialValues
           const schemaValues = {
             identifier: _values.identifier,
             name: _values.name,
-            description: _values.description,
             spec: {
               ..._values.spec,
               connectorRef: _values.spec.connectorRef?.value || _values.spec.connectorRef,
@@ -253,7 +251,6 @@ const DockerHubStepWidget: React.FC<DockerHubStepWidgetProps> = ({ initialValues
                 idName="identifier"
                 inputLabel={getString('pipelineSteps.stepNameLabel')}
               />
-              <FormInput.TextArea name="description" label={getString('description')} />
               <Text margin={{ top: 'medium', bottom: 'xsmall' }}>{getString('pipelineSteps.connectorLabel')}</Text>
               <div className={cx(css.fieldsGroup, css.withoutSpacing)}>
                 <FormMultiTypeConnectorField

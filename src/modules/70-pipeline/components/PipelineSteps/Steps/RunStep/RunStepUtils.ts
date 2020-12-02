@@ -14,6 +14,7 @@ export function convertToUIModel(data: RunStepData): RunStepDataUI {
   return {
     identifier: data.identifier,
     name: data.name,
+    description: data.description,
     type: data.type,
     spec: {
       image: data.spec.image,
@@ -44,7 +45,8 @@ export function convertFromUIModel(data: RunStepDataUI): RunStepData {
 
   const schemaValues: RunStepData = {
     identifier: data.identifier,
-    name: data.name,
+    ...(data.name && { name: data.name }),
+    ...(data.description && { description: data.description }),
     type: data.type,
     spec: {
       image: data.spec.image,

@@ -16,6 +16,7 @@ import { RestoreCacheS3Step } from './Steps/RestoreCacheS3Step/RestoreCacheS3Ste
 import { DockerHubStep } from './Steps/DockerHubStep/DockerHubStep'
 import { GCSStep } from './Steps/GCSStep/GCSStep'
 import { S3Step } from './Steps/S3Step/S3Step'
+import { JFrogArtifactoryStep } from './Steps/JFrogArtifactoryStep/JFrogArtifactoryStep'
 import { Dependency } from './Steps/Dependency/Dependency'
 
 class PipelineStepFactory extends AbstractStepFactory {
@@ -43,6 +44,7 @@ factory.registerStep(new RestoreCacheS3Step())
 factory.registerStep(new DockerHubStep())
 factory.registerStep(new GCSStep())
 factory.registerStep(new S3Step())
+factory.registerStep(new JFrogArtifactoryStep())
 factory.registerStep(new Dependency())
 
 export default factory

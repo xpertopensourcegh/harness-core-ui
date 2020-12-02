@@ -10,6 +10,7 @@ export function convertToUIModel(data: DependencyData): DependencyDataUI {
   return {
     identifier: data.identifier,
     name: data.name,
+    description: data.description,
     spec: {
       image: data.spec.image,
       connectorRef: data.spec.connectorRef,
@@ -39,7 +40,8 @@ export function convertFromUIModel(data: DependencyDataUI): DependencyData {
 
   const schemaValues: DependencyData = {
     identifier: data.identifier,
-    name: data.name,
+    ...(data.name && { name: data.name }),
+    ...(data.description && { description: data.description }),
     spec: {
       image: data.spec.image,
       ...(connectorRef && { connectorRef }),

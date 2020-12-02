@@ -38,7 +38,8 @@ export enum LimitMemoryUnits {
 
 const validationSchema = yup.object().shape({
   identifier: yup.string().trim().required(),
-  name: yup.string().trim().required(),
+  name: yup.string(),
+  description: yup.string(),
   spec: yup
     .object()
     .shape({
@@ -71,6 +72,7 @@ function getInitialValuesInCorrectFormat(initialValues: any): any {
   return {
     identifier: initialValues.identifier,
     name: initialValues.name,
+    description: initialValues.description,
     spec: {
       connectorRef: initialValues.spec?.connectorRef,
       image: initialValues.spec?.image,
@@ -82,7 +84,7 @@ function getInitialValuesInCorrectFormat(initialValues: any): any {
   }
 }
 
-const PluginStepWidget: React.FC<PluginStepWidgetProps> = ({ initialValues, onUpdate }): JSX.Element => {
+export const PluginStepWidget: React.FC<PluginStepWidgetProps> = ({ initialValues, onUpdate }): JSX.Element => {
   const {
     state: { pipelineView },
     updatePipelineView
@@ -165,7 +167,8 @@ const PluginStepWidget: React.FC<PluginStepWidgetProps> = ({ initialValues, onUp
           // TODO: Use appropriate interface
           const schemaValues: any = {
             identifier: _values.identifier,
-            name: _values.name,
+            ...(_values.name && { name: _values.name }),
+            ...(_values.description && { description: _values.description }),
             spec: {
               ...((_values.spec.connectorRef?.value || _values.spec.connectorRef) && {
                 connectorRef: _values.spec.connectorRef?.value || _values.spec.connectorRef
@@ -194,6 +197,7 @@ const PluginStepWidget: React.FC<PluginStepWidgetProps> = ({ initialValues, onUp
           <FormikForm>
             <div className={css.fieldsSection}>
               <FormInput.InputWithIdentifier inputName="name" idName="identifier" inputLabel={i18n.stepNameLabel} />
+              <FormInput.TextArea name="description" label={i18n.descriptionLabel} />
               <Text margin={{ bottom: 'xsmall' }}>{i18n.connectorLabel}</Text>
               <div className={cx(css.fieldsGroup, css.withoutSpacing)}>
                 <FormMultiTypeConnectorField

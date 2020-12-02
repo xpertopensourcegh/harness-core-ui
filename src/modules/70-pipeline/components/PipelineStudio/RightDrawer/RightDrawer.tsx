@@ -116,6 +116,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
               addService(pipelineStage?.stage.spec.dependencies, {
                 identifier: item.identifier,
                 name: item.name,
+                ...(item.description && { description: item.description }),
                 type: StepType.Dependency,
                 spec: item.spec
               })
@@ -129,6 +130,7 @@ export const RightDrawer: React.FC = (): JSX.Element => {
               if (node) {
                 node.name = item.name
                 node.identifier = item.identifier
+                node.description = item.description
                 node.spec = item.spec
                 updatePipeline(pipeline)
               }

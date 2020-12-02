@@ -18,5 +18,6 @@ export enum StepType {
   RestoreCacheS3 = 'restoreCacheS3',
   DockerHub = 'buildAndPushDockerHub',
   GCS = 'uploadToGCS',
-  S3 = 'uploadToS3'
+  S3 = 'uploadToS3',
+  JFrogArtifactory = 'uploadToArtifactory'
 }

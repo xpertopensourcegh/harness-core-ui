@@ -1,0 +1,1070 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ECRStep snapshot test Widget should render properly 1`] = `
+<div>
+  <p
+    class="StyledProps---font--2ipy StyledProps---main--1Wws boldLabel StyledProps---font-size-medium--aOY7"
+  >
+    Build and Upload to ECR
+  </p>
+  <div
+    class="OverlaySpinner---overlaySpinner--3Bs3"
+  >
+    <form
+      class="FormikForm---main--1N87"
+    >
+      <div>
+        <div
+          class="fieldsSection"
+        >
+          <div
+            class="InputWithIdentifier---txtNameContainer--20iZ"
+          >
+            <div
+              class="Layout---horizontal--3rmQ StyledProps---main--1Wws InputWithIdentifier---txtIdContainer--2Ozd"
+            >
+              <p
+                class="StyledProps---font--2ipy StyledProps---main--1Wws"
+              >
+                ID
+                :
+              </p>
+              <span
+                class="InputWithIdentifier---idInput--w8_T"
+                contenteditable="true"
+              />
+              <span
+                class="bp3-icon bp3-icon-edit StyledProps---main--1Wws"
+                icon="edit"
+                style="vertical-align: middle;"
+              >
+                <svg
+                  data-icon="edit"
+                  height="12"
+                  viewBox="0 0 16 16"
+                  width="12"
+                >
+                  <desc>
+                    edit
+                  </desc>
+                  <path
+                    d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+            </div>
+            <div
+              class="bp3-form-group"
+              data-id="name-0"
+            >
+              <label
+                class="bp3-label"
+                for="name"
+              >
+                Step Name
+                 
+                <span
+                  class="bp3-text-muted"
+                />
+              </label>
+              <div
+                class="bp3-form-content"
+              >
+                <div
+                  class="bp3-input-group"
+                >
+                  <input
+                    autocomplete="off"
+                    class="bp3-input"
+                    name="name"
+                    type="text"
+                    value=""
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <p
+            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---margin-top-medium--1XOJ StyledProps---margin-bottom-xsmall--N8Iq"
+          >
+            Container Registry
+          </p>
+          <div
+            class="fieldsGroup withoutSpacing"
+          >
+            <div
+              class="bp3-form-group"
+              data-id="undefined-1"
+            >
+              
+              <div
+                class="bp3-form-content"
+              >
+                <div
+                  class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+                  style="width: 400px;"
+                >
+                  <span
+                    class="bp3-popover-wrapper"
+                  >
+                    <span
+                      class="bp3-popover-target"
+                    >
+                      <button
+                        class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws container"
+                        style="width: 372px;"
+                        type="button"
+                      >
+                        <span
+                          class="bp3-button-text"
+                        >
+                          <span
+                            class="placeholder"
+                          >
+                            Select
+                          </span>
+                        </span>
+                        <span
+                          class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws"
+                          icon="caret-down"
+                        >
+                          <svg
+                            data-icon="caret-down"
+                            height="16"
+                            viewBox="0 0 16 16"
+                            width="16"
+                          >
+                            <desc>
+                              caret-down
+                            </desc>
+                            <path
+                              d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </span>
+                      </button>
+                    </span>
+                  </span>
+                  <span
+                    class="bp3-popover-wrapper"
+                  >
+                    <span
+                      class="bp3-popover-target"
+                    >
+                      <button
+                        class="MultiTypeInput---btn--1c9a MultiTypeInput---FIXED--18gu"
+                      >
+                        <span
+                          class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                        >
+                          <svg
+                            height="12"
+                            viewBox="0 0 9 9"
+                            width="12"
+                          >
+                            <path
+                              d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
+                              fill="#009dff"
+                            />
+                          </svg>
+                        </span>
+                      </button>
+                    </span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p
+            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---margin-top-medium--1XOJ StyledProps---margin-bottom-xsmall--N8Iq"
+          >
+            Registry
+          </p>
+          <div
+            class="fieldsGroup withoutSpacing"
+          >
+            <div
+              class="bp3-form-group"
+              data-id="undefined-2"
+              style="flex-grow: 1;"
+            >
+              
+              <div
+                class="bp3-form-content"
+              >
+                <div
+                  class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+                >
+                  <div
+                    class="bp3-input-group MultiTypeInput---input--36mQ"
+                  >
+                    <input
+                      class="bp3-input"
+                      type="text"
+                      value=""
+                    />
+                  </div>
+                  <span
+                    class="bp3-popover-wrapper"
+                  >
+                    <span
+                      class="bp3-popover-target"
+                    >
+                      <button
+                        class="MultiTypeInput---btn--1c9a MultiTypeInput---FIXED--18gu"
+                      >
+                        <span
+                          class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                        >
+                          <svg
+                            height="12"
+                            viewBox="0 0 9 9"
+                            width="12"
+                          >
+                            <path
+                              d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
+                              fill="#009dff"
+                            />
+                          </svg>
+                        </span>
+                      </button>
+                    </span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p
+            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---margin-top-medium--1XOJ StyledProps---margin-bottom-xsmall--N8Iq"
+          >
+            Repository
+          </p>
+          <div
+            class="fieldsGroup withoutSpacing bottomSpacing"
+          >
+            <div
+              class="bp3-form-group"
+              data-id="undefined-3"
+              style="flex-grow: 1;"
+            >
+              
+              <div
+                class="bp3-form-content"
+              >
+                <div
+                  class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+                >
+                  <div
+                    class="bp3-input-group MultiTypeInput---input--36mQ"
+                  >
+                    <input
+                      class="bp3-input"
+                      type="text"
+                      value=""
+                    />
+                  </div>
+                  <span
+                    class="bp3-popover-wrapper"
+                  >
+                    <span
+                      class="bp3-popover-target"
+                    >
+                      <button
+                        class="MultiTypeInput---btn--1c9a MultiTypeInput---FIXED--18gu"
+                      >
+                        <span
+                          class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                        >
+                          <svg
+                            height="12"
+                            viewBox="0 0 9 9"
+                            width="12"
+                          >
+                            <path
+                              d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
+                              fill="#009dff"
+                            />
+                          </svg>
+                        </span>
+                      </button>
+                    </span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="bp3-form-group"
+            data-id="spec.tags-4"
+          >
+            <label
+              class="bp3-label"
+              for="spec.tags"
+            >
+              Tags
+               
+              <span
+                class="bp3-text-muted"
+              />
+            </label>
+            <div
+              class="bp3-form-content"
+            >
+              <div
+                class="bp3-popover-wrapper bp3-fill"
+              >
+                <div
+                  class="bp3-popover-target"
+                >
+                  <div
+                    class=""
+                  >
+                    <div
+                      class="bp3-input bp3-tag-input bp3-fill bp3-multi-select TagInput---input--2yQS"
+                    >
+                      <div
+                        class="bp3-tag-input-values"
+                      >
+                        <input
+                          class="bp3-input-ghost bp3-multi-select-tag-input-input"
+                          placeholder=""
+                          value=""
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="fieldsSection"
+        >
+          <p
+            class="StyledProps---font--2ipy StyledProps---main--1Wws optionalConfiguration StyledProps---font-weight-semi-bold--QRXr StyledProps---margin-bottom-medium--1zkE"
+          >
+            OPTIONAL CONFIGURATIONS
+          </p>
+          <p
+            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---margin-bottom-xsmall--N8Iq"
+          >
+            Dockerfile
+          </p>
+          <div
+            class="fieldsGroup withoutSpacing"
+          >
+            <div
+              class="bp3-form-group"
+              data-id="undefined-5"
+              style="flex-grow: 1;"
+            >
+              
+              <div
+                class="bp3-form-content"
+              >
+                <div
+                  class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+                >
+                  <div
+                    class="bp3-input-group MultiTypeInput---input--36mQ"
+                  >
+                    <input
+                      class="bp3-input"
+                      type="text"
+                      value=""
+                    />
+                  </div>
+                  <span
+                    class="bp3-popover-wrapper"
+                  >
+                    <span
+                      class="bp3-popover-target"
+                    >
+                      <button
+                        class="MultiTypeInput---btn--1c9a MultiTypeInput---FIXED--18gu"
+                      >
+                        <span
+                          class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                        >
+                          <svg
+                            height="12"
+                            viewBox="0 0 9 9"
+                            width="12"
+                          >
+                            <path
+                              d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
+                              fill="#009dff"
+                            />
+                          </svg>
+                        </span>
+                      </button>
+                    </span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p
+            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---margin-top-medium--1XOJ StyledProps---margin-bottom-xsmall--N8Iq"
+          >
+            Context
+          </p>
+          <div
+            class="fieldsGroup withoutSpacing bottomSpacing"
+          >
+            <div
+              class="bp3-form-group"
+              data-id="undefined-6"
+              style="flex-grow: 1;"
+            >
+              
+              <div
+                class="bp3-form-content"
+              >
+                <div
+                  class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+                >
+                  <div
+                    class="bp3-input-group MultiTypeInput---input--36mQ"
+                  >
+                    <input
+                      class="bp3-input"
+                      type="text"
+                      value=""
+                    />
+                  </div>
+                  <span
+                    class="bp3-popover-wrapper"
+                  >
+                    <span
+                      class="bp3-popover-target"
+                    >
+                      <button
+                        class="MultiTypeInput---btn--1c9a MultiTypeInput---FIXED--18gu"
+                      >
+                        <span
+                          class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                        >
+                          <svg
+                            height="12"
+                            viewBox="0 0 9 9"
+                            width="12"
+                          >
+                            <path
+                              d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
+                              fill="#009dff"
+                            />
+                          </svg>
+                        </span>
+                      </button>
+                    </span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p
+            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---margin-bottom-xsmall--N8Iq"
+          >
+            Labels
+          </p>
+          <div>
+            <div
+              class="fieldsGroup"
+            >
+              <div
+                class="bp3-form-group"
+                data-id="spec.labels[0].key-7"
+                style="flex-grow: 1;"
+              >
+                <div
+                  class="bp3-form-content"
+                >
+                  <div
+                    class="bp3-input-group"
+                  >
+                    <input
+                      autocomplete="off"
+                      class="bp3-input"
+                      name="spec.labels[0].key"
+                      placeholder="Key"
+                      type="text"
+                      value=""
+                    />
+                  </div>
+                </div>
+              </div>
+              <div
+                class="bp3-form-group"
+                data-id="undefined-8"
+                style="flex-grow: 1;"
+              >
+                
+                <div
+                  class="bp3-form-content"
+                >
+                  <div
+                    class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+                  >
+                    <div
+                      class="bp3-input-group MultiTypeInput---input--36mQ"
+                    >
+                      <input
+                        class="bp3-input"
+                        placeholder="Value"
+                        type="text"
+                        value=""
+                      />
+                    </div>
+                    <span
+                      class="bp3-popover-wrapper"
+                    >
+                      <span
+                        class="bp3-popover-target"
+                      >
+                        <button
+                          class="MultiTypeInput---btn--1c9a MultiTypeInput---FIXED--18gu"
+                        >
+                          <span
+                            class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                          >
+                            <svg
+                              height="12"
+                              viewBox="0 0 9 9"
+                              width="12"
+                            >
+                              <path
+                                d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
+                                fill="#009dff"
+                              />
+                            </svg>
+                          </span>
+                        </button>
+                      </span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button
+              class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+              type="button"
+            >
+              <span
+                class="bp3-button-text"
+              >
+                + Label
+              </span>
+            </button>
+          </div>
+          <p
+            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---margin-top-medium--1XOJ StyledProps---margin-bottom-xsmall--N8Iq"
+          >
+            Build Arguments
+          </p>
+          <div>
+            <div
+              class="fieldsGroup"
+            >
+              <div
+                class="bp3-form-group"
+                data-id="spec.buildArgs[0].key-9"
+                style="flex-grow: 1;"
+              >
+                <div
+                  class="bp3-form-content"
+                >
+                  <div
+                    class="bp3-input-group"
+                  >
+                    <input
+                      autocomplete="off"
+                      class="bp3-input"
+                      name="spec.buildArgs[0].key"
+                      placeholder="Key"
+                      type="text"
+                      value=""
+                    />
+                  </div>
+                </div>
+              </div>
+              <div
+                class="bp3-form-group"
+                data-id="undefined-10"
+                style="flex-grow: 1;"
+              >
+                
+                <div
+                  class="bp3-form-content"
+                >
+                  <div
+                    class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+                  >
+                    <div
+                      class="bp3-input-group MultiTypeInput---input--36mQ"
+                    >
+                      <input
+                        class="bp3-input"
+                        placeholder="Value"
+                        type="text"
+                        value=""
+                      />
+                    </div>
+                    <span
+                      class="bp3-popover-wrapper"
+                    >
+                      <span
+                        class="bp3-popover-target"
+                      >
+                        <button
+                          class="MultiTypeInput---btn--1c9a MultiTypeInput---FIXED--18gu"
+                        >
+                          <span
+                            class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                          >
+                            <svg
+                              height="12"
+                              viewBox="0 0 9 9"
+                              width="12"
+                            >
+                              <path
+                                d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
+                                fill="#009dff"
+                              />
+                            </svg>
+                          </span>
+                        </button>
+                      </span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button
+              class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+              type="button"
+            >
+              <span
+                class="bp3-button-text"
+              >
+                + Build Argument
+              </span>
+            </button>
+          </div>
+          <p
+            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---margin-top-medium--1XOJ StyledProps---margin-bottom-xsmall--N8Iq"
+          >
+            Target
+          </p>
+          <div
+            class="fieldsGroup withoutSpacing bottomSpacing"
+          >
+            <div
+              class="bp3-form-group"
+              data-id="undefined-11"
+              style="flex-grow: 1;"
+            >
+              
+              <div
+                class="bp3-form-content"
+              >
+                <div
+                  class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+                >
+                  <div
+                    class="bp3-input-group MultiTypeInput---input--36mQ"
+                  >
+                    <input
+                      class="bp3-input"
+                      type="text"
+                      value=""
+                    />
+                  </div>
+                  <span
+                    class="bp3-popover-wrapper"
+                  >
+                    <span
+                      class="bp3-popover-target"
+                    >
+                      <button
+                        class="MultiTypeInput---btn--1c9a MultiTypeInput---FIXED--18gu"
+                      >
+                        <span
+                          class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                        >
+                          <svg
+                            height="12"
+                            viewBox="0 0 9 9"
+                            width="12"
+                          >
+                            <path
+                              d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
+                              fill="#009dff"
+                            />
+                          </svg>
+                        </span>
+                      </button>
+                    </span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div />
+          <p
+            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---margin-top-medium--1XOJ StyledProps---margin-bottom-xsmall--N8Iq"
+          >
+            Image Pull Policy
+          </p>
+          <div
+            class="fieldsGroup withoutSpacing bottomSpacing"
+          >
+            <div
+              class="bp3-form-group"
+              data-id="spec.pull-12"
+              style="flex-grow: 1;"
+            >
+              
+              <div
+                class="bp3-form-content"
+              >
+                <div
+                  class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+                >
+                  <div
+                    class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+                  >
+                    <div
+                      class="bp3-popover-target"
+                    >
+                      <div
+                        class="bp3-input-group"
+                      >
+                        <input
+                          autocomplete="off"
+                          class="bp3-input"
+                          name="spec.pull"
+                          placeholder="Search..."
+                          style="padding-right: 0px;"
+                          type="text"
+                          value=""
+                        />
+                        <span
+                          class="bp3-input-action"
+                        >
+                          <span
+                            class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                            icon="caret-down"
+                          >
+                            <svg
+                              data-icon="caret-down"
+                              height="14"
+                              viewBox="0 0 16 16"
+                              width="14"
+                            >
+                              <desc>
+                                caret-down
+                              </desc>
+                              <path
+                                d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                fill-rule="evenodd"
+                              />
+                            </svg>
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <span
+                    class="bp3-popover-wrapper"
+                  >
+                    <span
+                      class="bp3-popover-target"
+                    >
+                      <button
+                        class="MultiTypeInput---btn--1c9a MultiTypeInput---FIXED--18gu"
+                      >
+                        <span
+                          class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                        >
+                          <svg
+                            height="12"
+                            viewBox="0 0 9 9"
+                            width="12"
+                          >
+                            <path
+                              d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
+                              fill="#009dff"
+                            />
+                          </svg>
+                        </span>
+                      </button>
+                    </span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <p
+              class="StyledProps---font--2ipy StyledProps---main--1Wws"
+            >
+              Set container Resources
+              <span
+                class="bp3-popover-wrapper"
+              >
+                <span
+                  class="bp3-popover-target"
+                >
+                  <button
+                    class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+                    tabindex="0"
+                    type="button"
+                  >
+                    <span
+                      class="bp3-icon StyledProps---main--1Wws"
+                    >
+                      <svg
+                        height="16"
+                        viewBox="0 0 14 14"
+                        width="16"
+                      >
+                        <path
+                          d="M7 .1C3.2.1.1 3.2.1 7s3.1 6.9 6.9 6.9 6.9-3.1 6.9-6.9S10.8.1 7 .1zm0 1.2c3.2 0 5.7 2.6 5.7 5.7s-2.6 5.7-5.7 5.7S1.3 10.2 1.3 7 3.8 1.3 7 1.3zm0 2.3c-1.3 0-2.3 1-2.3 2.3h1.1c0-.6.5-1.1 1.1-1.1S8 5.3 8 5.9c0 .4-.3.8-.7 1h-.1c-.4.2-.8.6-.8 1.1v.7h1.1V8l.2-.1c.9-.3 1.5-1.1 1.5-2.1.1-1.2-.9-2.2-2.2-2.2zm-.6 5.7v1.1h1.1V9.3H6.4z"
+                          fill="#9AA5B5"
+                        />
+                      </svg>
+                    </span>
+                  </button>
+                </span>
+              </span>
+            </p>
+            <div
+              class="fieldsGroup withoutSpacing"
+            >
+              <div>
+                <div
+                  class="bp3-form-group"
+                  data-id="spec.limitMemory-13"
+                >
+                  <label
+                    class="bp3-label"
+                    for="spec.limitMemory"
+                  >
+                    Limit Memory
+                     
+                    <span
+                      class="bp3-text-muted"
+                    />
+                  </label>
+                  <div
+                    class="bp3-form-content"
+                  >
+                    <div
+                      class="bp3-input-group"
+                    >
+                      <input
+                        autocomplete="off"
+                        class="bp3-input"
+                        min="0"
+                        name="spec.limitMemory"
+                        placeholder="512"
+                        type="number"
+                        value=""
+                      />
+                    </div>
+                  </div>
+                </div>
+                <p
+                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-xsmall--1PyC StyledProps---margin-top-small--1_l5"
+                >
+                  Ex: 512 MiB, 1 GiB
+                </p>
+              </div>
+              <div
+                class="bp3-form-group"
+                data-id="spec.limitMemoryUnits-14"
+              >
+                <div
+                  class="bp3-form-content"
+                >
+                  <div
+                    class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+                  >
+                    <div
+                      class="bp3-popover-target"
+                    >
+                      <div
+                        class="bp3-input-group"
+                      >
+                        <input
+                          autocomplete="off"
+                          class="bp3-input"
+                          name="spec.limitMemoryUnits"
+                          placeholder="Search..."
+                          style="padding-right: 0px;"
+                          type="text"
+                          value="Mi"
+                        />
+                        <span
+                          class="bp3-input-action"
+                        >
+                          <span
+                            class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                            icon="caret-down"
+                          >
+                            <svg
+                              data-icon="caret-down"
+                              height="14"
+                              viewBox="0 0 16 16"
+                              width="14"
+                            >
+                              <desc>
+                                caret-down
+                              </desc>
+                              <path
+                                d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                fill-rule="evenodd"
+                              />
+                            </svg>
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <div
+                  class="bp3-form-group"
+                  data-id="spec.limitCPU-15"
+                >
+                  <label
+                    class="bp3-label"
+                    for="spec.limitCPU"
+                  >
+                    Limit CPU
+                     
+                    <span
+                      class="bp3-text-muted"
+                    />
+                  </label>
+                  <div
+                    class="bp3-form-content"
+                  >
+                    <div
+                      class="bp3-input-group"
+                    >
+                      <input
+                        autocomplete="off"
+                        class="bp3-input"
+                        min="0"
+                        name="spec.limitCPU"
+                        placeholder="1"
+                        type="number"
+                        value=""
+                      />
+                    </div>
+                  </div>
+                </div>
+                <p
+                  class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-xsmall--1PyC StyledProps---margin-top-small--1_l5"
+                >
+                  Ex: 1
+                </p>
+              </div>
+            </div>
+          </div>
+          <p
+            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---margin-top-medium--1XOJ StyledProps---margin-bottom-xsmall--N8Iq"
+          >
+            Timeout
+          </p>
+          <div
+            class="fieldsGroup withoutSpacing"
+          >
+            <div
+              class="bp3-form-group"
+              data-id="undefined-16"
+              style="flex-grow: 1;"
+            >
+              
+              <div
+                class="bp3-form-content"
+              >
+                <div
+                  class="Layout---horizontal--3rmQ StyledProps---main--1Wws MultiTypeInput---main--AfQw"
+                >
+                  <div
+                    class="bp3-input-group MultiTypeInput---input--36mQ"
+                  >
+                    <input
+                      class="bp3-input"
+                      type="text"
+                      value=""
+                    />
+                  </div>
+                  <span
+                    class="bp3-popover-wrapper"
+                  >
+                    <span
+                      class="bp3-popover-target"
+                    >
+                      <button
+                        class="MultiTypeInput---btn--1c9a MultiTypeInput---FIXED--18gu"
+                      >
+                        <span
+                          class="bp3-icon StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-white--3AwB"
+                        >
+                          <svg
+                            height="12"
+                            viewBox="0 0 9 9"
+                            width="12"
+                          >
+                            <path
+                              d="M5.61 7.55c.62-.7.3-1.42.18-2.35a.32.32 0 01.1-.29l1.43-1.42a.76.76 0 01.28-.15c.39-.1 1 0 1.28-.29a.34.34 0 000-.51L6.46.12a.33.33 0 00-.52 0c-.28.29-.2.9-.28 1.3a.53.53 0 01-.13.23L4.09 3.12a.29.29 0 01-.28.09c-.89-.11-1.6-.49-2.27.11-.29.26-.29.43 0 .7l1.31 1.34.15.16-.15.15-2.7 2.69a.36.36 0 000 .54.36.36 0 00.54-.05l2.63-2.68.17-.17.17.16c.45.46.9.91 1.36 1.36.21.21.42.22.59.03z"
+                              fill="#009dff"
+                            />
+                          </svg>
+                        </span>
+                      </button>
+                    </span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div />
+        </div>
+        <div
+          class="buttonsWrapper"
+        >
+          <button
+            class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi StyledProps---margin-right-xxlarge--S_1-"
+            type="submit"
+          >
+            <span
+              class="bp3-button-text"
+            >
+              Save
+            </span>
+          </button>
+          <button
+            class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
+            type="button"
+          >
+            <span
+              class="bp3-button-text"
+            >
+              Cancel
+            </span>
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+`;
