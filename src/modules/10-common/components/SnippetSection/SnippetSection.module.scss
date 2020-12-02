@@ -46,3 +46,10 @@
   width: -webkit-fill-available;
   justify-content: center;
 }
+
+.active {
+  background: var(--blue-300);
+  &:hover {
+    background-color: var(--blue-300);
+  }
+}

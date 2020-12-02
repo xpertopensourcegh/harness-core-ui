@@ -1,72 +1,66 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Icon, IconName } from '@wings-software/uikit'
 import cx from 'classnames'
-import { Spinner } from '@blueprintjs/core'
 
-import { YamlEntity } from '@common/constants/YamlConstants'
-import { useGetYamlSnippetMetadata, YamlSnippetMetaData } from 'services/cd-ng'
-import type { GetYamlSnippetMetadataQueryParams } from 'services/cd-ng'
+import type { YamlSnippetMetaData } from 'services/cd-ng'
+import type { YamlEntity } from '@common/constants/YamlConstants'
 import { getIconNameForTag } from '@common/utils/SnippetUtils'
 import SnippetDetails from './SnippetDetails'
-import type { SnippetSectionProps } from '../../interfaces/SnippetInterface'
 
 import css from './SnippetSection.module.scss'
 
-const getSnippetTags = (entityType?: YamlEntity, entitySubType?: string): GetYamlSnippetMetadataQueryParams['tags'] => {
-  const tags: GetYamlSnippetMetadataQueryParams['tags'] = []
-  switch (entityType) {
-    case YamlEntity.CONNECTOR:
-      tags.push('connector')
-      switch (entitySubType) {
-        case 'K8sCluster':
-          tags.push('k8s')
-          break
-        case 'DockerRegistry':
-          tags.push('docker')
-          break
-      }
-      break
-    default:
-  }
-  return tags
+export interface SnippetSectionProps {
+  entityType: YamlEntity
+  showIconMenu?: boolean
+  height?: React.CSSProperties['height']
+  width?: React.CSSProperties['width']
+  snippets?: YamlSnippetMetaData[]
+  onSnippetCopy?: (identifier: string) => void
+  snippetYaml?: string
 }
 
 const SnippetSection: React.FC<SnippetSectionProps> = props => {
-  const { showIconMenu, entityType, entitySubType, onSnippetSearch, height, mockMetaData, mockSnippetData } = props
-  const { data: snippetData, loading } = useGetYamlSnippetMetadata({
-    queryParams: {
-      tags: getSnippetTags(entityType, entitySubType)
-    },
-    queryParamStringifyOptions: {
-      arrayFormat: 'repeat'
-    },
-    requestOptions: { headers: { accept: 'application/json' } },
-    mock: mockMetaData
-  })
-
+  const { showIconMenu, entityType, height, snippets, onSnippetCopy, snippetYaml } = props
   const [selectedIcon, setSelectedIcon] = useState<string | undefined>('')
+  const [snippetList, setSnippetList] = useState<YamlSnippetMetaData[]>()
+
+  useEffect(() => {
+    setSnippetList(snippets)
+  }, [snippets])
 
   const onIconClick = (event: React.MouseEvent<Element, MouseEvent>, icon?: string): void => {
     event.preventDefault()
-    setSelectedIcon(icon)
-    alert('TBD')
+    if (selectedIcon === icon) {
+      setSelectedIcon('')
+      setSnippetList(snippets)
+    } else {
+      setSelectedIcon(icon)
+      const snippetsClone = snippets
+      setSnippetList(snippetsClone?.filter(snippet => getIconNameForTag(snippet.iconTag || '') === icon))
+    }
   }
 
-  const getIconCategories = (snippets?: YamlSnippetMetaData[]): IconName[] | null => {
-    if (!snippets) {
+  const getIconCategories = (_snippetList?: YamlSnippetMetaData[]): IconName[] | null => {
+    if (!_snippetList) {
       return null
     }
-    return [...new Set(snippets.map(snippet => getIconNameForTag(snippet?.iconTag || '')))]
+    return [...new Set(_snippetList.map(snippet => getIconNameForTag(snippet?.iconTag || '')))]
   }
 
-  const getIconList = (snippets?: YamlSnippetMetaData[]): React.ReactElement | null => {
-    if (!snippets) {
+  const getIconList = (): React.ReactElement | null => {
+    const _snippetList = snippets
+    if (!_snippetList) {
       return null
     }
     return (
       <React.Fragment>
-        {getIconCategories(snippets)?.map(icon => (
-          <div className={css.snippetIcon} key={icon} onClick={event => onIconClick(event, icon)} title={icon}>
+        {getIconCategories(_snippetList)?.map(icon => (
+          <div
+            className={cx(css.snippetIcon, { [css.active]: icon === selectedIcon })}
+            key={icon}
+            onClick={event => onIconClick(event, icon)}
+            title={icon}
+          >
             <Icon name={icon as IconName} size={25} />
           </div>
         ))}
@@ -74,24 +68,18 @@ const SnippetSection: React.FC<SnippetSectionProps> = props => {
     )
   }
 
-  const snippets = snippetData?.data?.yamlSnippets || []
-
   return (
     <div className={css.main}>
-      {showIconMenu ? <div className={css.snippetIcons}>{getIconList(snippets)}</div> : null}
-      {loading ? (
-        <div className={css.fillSpace}>
-          <Spinner size={25} />
-        </div>
-      ) : snippetData?.data?.yamlSnippets ? (
+      {showIconMenu ? <div className={css.snippetIcons}>{getIconList()}</div> : null}
+      {snippetList ? (
         <div className={css.snippets}>
           <SnippetDetails
             entityType={entityType}
             selectedIcon={selectedIcon}
-            snippets={snippets}
-            onSnippetSearch={onSnippetSearch}
+            snippets={snippetList}
             height={height}
-            mockSnippetData={mockSnippetData}
+            onSnippetCopy={onSnippetCopy}
+            snippetYaml={snippetYaml}
           />
         </div>
       ) : (

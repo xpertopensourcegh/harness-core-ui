@@ -1,3 +1,5 @@
+import type { ConnectorInfoDTO, SecretDTOV2 } from 'services/cd-ng'
+
 export enum YamlEntity {
   CONNECTOR = 'CONNECTOR',
   PIPELINE = 'PIPELINE',
@@ -10,3 +12,5 @@ export enum YamlEntity {
   TRIGGER = 'TRIGGER',
   SECRET_MANAGER = 'SECRET_MANAGER'
 }
+
+export type YamlSubEntity = ConnectorInfoDTO['type'] | SecretDTOV2['type']

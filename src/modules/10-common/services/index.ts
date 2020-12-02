@@ -1,7 +1,6 @@
 import xhr from '@wings-software/xhr-async'
 import AppStorage from 'framework/utils/AppStorage'
 import * as JSONSchemaService from './JSONSchemaService'
-import * as YAMLService from './YAMLService'
 
 // TODO: Limit access to AppStorage by providing a better mechanism to get the token
 // AppStorage should not be exposed as it's a legacy
@@ -31,4 +30,4 @@ xhr.before(({ headers }) => {
 })
 /////////////////////////////////////////////////////////////////
 
-export { JSONSchemaService, YAMLService }
+export { JSONSchemaService }

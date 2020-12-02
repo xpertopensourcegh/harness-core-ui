@@ -4,6 +4,8 @@ import type { ConnectorResponse, Connector } from 'services/cd-ng'
 import { TestWrapper } from '@common/utils/testUtils'
 import ConnectorView from '../ConnectorView'
 import { GitHttp } from './mockData'
+import * as mockMetaData from './snippets.metadata.json'
+import * as mockSnippetData from './snippet.json'
 
 jest.mock('modules/10-common/components/YAMLBuilder/YamlBuilder', jest.fn())
 
@@ -16,6 +18,8 @@ describe('Connector Details Page', () => {
           response={GitHttp.data.content as ConnectorResponse}
           updateConnector={(data: Connector) => new Promise(resolve => resolve(data))}
           refetchConnector={() => new Promise(resolve => resolve())}
+          mockMetaData={mockMetaData as any}
+          mockSnippetData={mockSnippetData as any}
         ></ConnectorView>
       </TestWrapper>
     )

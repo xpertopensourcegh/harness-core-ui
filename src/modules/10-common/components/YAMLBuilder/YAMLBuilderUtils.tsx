@@ -1,5 +1,4 @@
 import type { IconName } from '@wings-software/uikit'
-import type { SnippetInterface } from '@common/interfaces/SnippetInterface'
 import type { Diagnostic } from 'vscode-languageserver-types'
 import { parse } from 'yaml'
 import { Connectors } from '@connectors/constants'
@@ -155,21 +154,6 @@ const getYAMLPathToValidationErrorMap = (
   return yamlPathToValidationErrorMap
 }
 
-/**
- * Add icon info to sippets
- * @param iconName
- * @param snippetsList
- */
-const addIconInfoToSnippets = (iconName: IconName, snippetsList?: SnippetInterface[]): void => {
-  if (!snippetsList) {
-    return
-  }
-  const snippetsClone = snippetsList.slice()
-  snippetsClone.forEach(snippet => {
-    snippet['iconName'] = iconName
-  })
-}
-
 const pickIconForEntity = (entity: string): IconName => {
   switch (entity) {
     case Connectors.KUBERNETES_CLUSTER:
@@ -210,7 +194,6 @@ export {
   getYAMLFromEditor,
   getMetaDataForKeyboardEventProcessing,
   getYAMLPathToValidationErrorMap,
-  addIconInfoToSnippets,
   pickIconForEntity,
   getValidationErrorMessagesForToaster
 }

@@ -3,14 +3,22 @@ import { Button, Layout, Container } from '@wings-software/uikit'
 import { parse } from 'yaml'
 import cx from 'classnames'
 import { useToaster } from 'modules/10-common/exports'
-import type { ConnectorInfoDTO, ConnectorRequestBody, ConnectorResponse } from 'services/cd-ng'
+import {
+  ConnectorInfoDTO,
+  ConnectorRequestBody,
+  ConnectorResponse,
+  useGetYamlSnippetMetadata,
+  useGetYamlSnippet
+} from 'services/cd-ng'
 import YamlBuilder from 'modules/10-common/components/YAMLBuilder/YamlBuilder'
 import { getValidationErrorMessagesForToaster } from 'modules/10-common/components/YAMLBuilder/YAMLBuilderUtils'
 import { YamlEntity } from 'modules/10-common/constants/YamlConstants'
 import TestConnection from '@connectors/components/TestConnection/TestConnection'
 import type { YamlBuilderHandlerBinding, YamlBuilderProps } from 'modules/10-common/interfaces/YAMLBuilderProps'
 import useCreateConnectorModal from '@connectors/modals/ConnectorModal/useCreateConnectorModal'
-import type { ConnectorConnectivityDetails } from 'services/cd-ng'
+import type { ConnectorConnectivityDetails, ResponseYamlSnippets, ResponseString } from 'services/cd-ng'
+import type { UseGetMockData } from 'modules/10-common/utils/testUtils'
+import { getSnippetTags } from '@common/utils/SnippetUtils'
 import SavedConnectorDetails, {
   RenderDetailsSection,
   getActivityDetails
@@ -23,6 +31,8 @@ export interface ConnectorViewProps {
   response: ConnectorResponse
   updateConnector: (data: ConnectorRequestBody) => Promise<unknown>
   refetchConnector: () => Promise<any>
+  mockMetaData?: UseGetMockData<ResponseYamlSnippets>
+  mockSnippetData?: UseGetMockData<ResponseString>
 }
 
 interface ConnectorViewState {
@@ -55,6 +65,7 @@ const ConnectorView: React.FC<ConnectorViewProps> = props => {
   const [status, setStatus] = useState<ConnectorConnectivityDetails['status']>(props.response?.status?.status)
   const [yamlHandler, setYamlHandler] = React.useState<YamlBuilderHandlerBinding | undefined>()
   const [isValidYAML] = React.useState<boolean>(true)
+  const [snippetYaml, setSnippetYaml] = React.useState<string>()
 
   const state: ConnectorViewState = {
     enableEdit,
@@ -166,27 +177,59 @@ const ConnectorView: React.FC<ConnectorViewProps> = props => {
   //   setIsValidYAML(enableBtn)
   // }, [enableEdit])
 
+  const { data: snippet, refetch, loading } = useGetYamlSnippet({
+    identifier: '',
+    requestOptions: { headers: { accept: 'application/json' } },
+    lazy: true,
+    mock: props.mockSnippetData
+  })
+
+  useEffect(() => {
+    setSnippetYaml(snippet?.data)
+  }, [loading])
+
+  const onSnippetCopy = (_identifier: string): void => {
+    refetch({
+      pathParams: {
+        identifier: _identifier
+      }
+    })
+  }
+
+  const { data: snippetMetaData } = useGetYamlSnippetMetadata({
+    queryParams: {
+      tags: getSnippetTags(YamlEntity.CONNECTOR, props.type)
+    },
+    queryParamStringifyOptions: {
+      arrayFormat: 'repeat'
+    },
+    requestOptions: { headers: { accept: 'application/json' } },
+    mock: props.mockMetaData
+  })
+
   return (
     <Layout.Vertical padding={{ top: 'large', left: 'huge', bottom: 'large', right: 'huge' }}>
       <Container className={css.buttonContainer}>
-        <div className={css.optionBtns}>
-          <div
-            className={cx(
-              css.item,
-              { [css.selected]: selectedView === SelectedView.VISUAL },
-              { [css.disabled]: !isValidYAML }
-            )}
-            onClick={() => handleModeSwitch(SelectedView.VISUAL)}
-          >
-            {i18n.VISUAL}
+        {state.enableEdit ? null : (
+          <div className={css.optionBtns}>
+            <div
+              className={cx(
+                css.item,
+                { [css.selected]: selectedView === SelectedView.VISUAL },
+                { [css.disabled]: !isValidYAML }
+              )}
+              onClick={() => handleModeSwitch(SelectedView.VISUAL)}
+            >
+              {i18n.VISUAL}
+            </div>
+            <div
+              className={cx(css.item, { [css.selected]: selectedView === SelectedView.YAML })}
+              onClick={() => handleModeSwitch(SelectedView.YAML)}
+            >
+              {i18n.YAML}
+            </div>
           </div>
-          <div
-            className={cx(css.item, { [css.selected]: selectedView === SelectedView.YAML })}
-            onClick={() => handleModeSwitch(SelectedView.YAML)}
-          >
-            {i18n.YAML}
-          </div>
-        </div>
+        )}
         {state.enableEdit ? null : (
           <Button
             className={css.editButton}
@@ -206,7 +249,9 @@ const ConnectorView: React.FC<ConnectorViewProps> = props => {
             <div className={css.editor}>
               <YamlBuilder
                 {...Object.assign(yamlBuilderReadOnlyModeProps, { height: 550 })}
-                entitySubType={props.type}
+                snippets={snippetMetaData?.data?.yamlSnippets}
+                onSnippetCopy={onSnippetCopy}
+                snippetYaml={snippetYaml}
               />
               <Button
                 intent="primary"

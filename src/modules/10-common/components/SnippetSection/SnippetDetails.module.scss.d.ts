@@ -8,5 +8,7 @@ declare const styles: {
   readonly searchBar: string
   readonly searchIcon: string
   readonly closeIcon: string
+  readonly noSnippets: string
+  readonly fillSpace: string
 }
 export default styles

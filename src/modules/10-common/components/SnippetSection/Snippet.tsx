@@ -6,15 +6,19 @@ import copy from 'copy-to-clipboard'
 import type { MouseEvent } from 'react'
 
 import { Icon, IconName } from '@wings-software/uikit'
-import { YamlSnippetMetaData, useGetYamlSnippet, ResponseString } from 'services/cd-ng'
-import type { UseGetMockData } from 'modules/10-common/utils/testUtils'
 import { getIconNameForTag } from '@common/utils/SnippetUtils'
+import type { YamlSnippetMetaData } from 'services/cd-ng'
 import i18n from './Snippet.i18n'
 
 import css from './Snippet.module.scss'
 
-const Snippet: React.FC<YamlSnippetMetaData & { mockData?: UseGetMockData<ResponseString> }> = props => {
-  const { name, description, version, identifier = '', iconTag, mockData } = props
+type SnippetInterface = YamlSnippetMetaData & {
+  onSnippetCopy?: (identifier: string) => void
+  snippetYaml?: string
+}
+
+const Snippet: React.FC<SnippetInterface> = props => {
+  const { name, description, version, identifier, iconTag, onSnippetCopy, snippetYaml } = props
   const [tooltipLabel, setTooltipLabel] = useState(i18n.copyToClipboard)
 
   const onCopy = (): void => {
@@ -23,22 +27,15 @@ const Snippet: React.FC<YamlSnippetMetaData & { mockData?: UseGetMockData<Respon
 
   const copyToClipboard = (event: MouseEvent): void => {
     event.preventDefault()
-    refetch()
+    if (identifier) {
+      onSnippetCopy?.(identifier)
+    }
   }
 
-  const { data: snippet, refetch, loading } = useGetYamlSnippet({
-    identifier,
-    requestOptions: { headers: { accept: 'application/json' } },
-    lazy: true,
-    mock: mockData
-  })
-
   useEffect(() => {
-    if (snippet?.data) {
-      copy(snippet.data)
-    }
+    copy(snippetYaml as string)
     onCopy()
-  }, [loading])
+  }, [snippetYaml])
 
   const getPopoverContent = (): JSX.Element => {
     return <span className={css.tooltipLabel}>{tooltipLabel}</span>

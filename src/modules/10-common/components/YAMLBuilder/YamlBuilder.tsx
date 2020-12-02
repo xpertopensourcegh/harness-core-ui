@@ -61,15 +61,16 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
     width,
     fileName,
     entityType,
-    entitySubType,
     existingJSON,
     isReadOnlyMode,
     showSnippetSection = true,
     invocationMap,
     bind,
     showIconMenu = false,
-    onSnippetSearch,
-    onExpressionTrigger
+    onExpressionTrigger,
+    snippets,
+    onSnippetCopy,
+    snippetYaml
   } = props
   const [currentYaml, setCurrentYaml] = useState<string | undefined>('')
   const [yamlValidationErrors, setYamlValidationErrors] = useState<Map<string, string[]> | undefined>()
@@ -289,9 +290,10 @@ const YAMLBuilder: React.FC<YamlBuilderProps> = props => {
           <SnippetSection
             showIconMenu={showIconMenu}
             entityType={entityType}
-            entitySubType={entitySubType}
-            onSnippetSearch={onSnippetSearch}
             height={height ?? DEFAULT_EDITOR_HEIGHT}
+            snippets={snippets}
+            onSnippetCopy={onSnippetCopy}
+            snippetYaml={snippetYaml}
           />
         ) : null}
       </Layout.Horizontal>

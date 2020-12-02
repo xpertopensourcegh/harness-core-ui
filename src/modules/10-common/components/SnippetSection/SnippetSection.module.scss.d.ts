@@ -8,5 +8,6 @@ declare const styles: {
   readonly ulStyle: string
   readonly noSnippets: string
   readonly fillSpace: string
+  readonly active: string
 }
 export default styles
