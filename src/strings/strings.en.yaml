@@ -45,6 +45,7 @@ global:
   variableLabel: 'Variable'
   variableNameLabel: Variable Name
   imageLabel: Image
+  encryptedKeyLabel: Encrypted Key
   environment: 'Environment'
   addEnvironment: '+ Add Environment'
   entryPointsLabel: 'Entry Points'
@@ -197,10 +198,11 @@ global:
     identifier: 'Identifier is required'
     validIdRegex: 'Identifier can only contain alphanumerics, _ and $'
   connectors:
-    delegateOutClusterInfo: 'Manually enter master url and credentials'
+    delegateOutClusterInfo1: 'Specify credentials here'
+    delegateOutClusterInfo2: 'Manually enter master url and credentials'
     delegateInClusterInfo: 'Specify cluster details and credentials in harness-delegate.yaml files on your Harness Delegates'
     stepOneName: 'Overview'
-    stepThreeName: 'VERIFY CONNECTION'
+    stepThreeName: 'Test Connection'
     k8:
       stepTwoName: 'Cluster Details'
       masterUrlLabel: 'Master URL'
@@ -229,6 +231,8 @@ global:
         usernamePassword: 'Username and Password'
         OIDC: 'OpenID Connect'
         clientKeyCertificate: 'Client Key Certificate'
+    GCP:
+      stepTwoName: 'Google Cloud Provider Details'
   cv:
     continuous: 'CONTINUOUS'
     verification: 'VERIFICATION'

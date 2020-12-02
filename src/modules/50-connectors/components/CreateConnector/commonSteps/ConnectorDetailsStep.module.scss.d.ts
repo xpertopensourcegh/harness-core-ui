@@ -4,7 +4,7 @@ declare const styles: {
   readonly firstep: string
   readonly heading: string
   readonly connectorForm: string
-  readonly connectorFormNameWarpper: string
+  readonly connectorFormNameWrapper: string
   readonly connectorFormNameElm: string
   readonly connectorFormElm: string
   readonly headerRow: string

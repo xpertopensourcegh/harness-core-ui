@@ -120,7 +120,7 @@ const ConnectorDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDe
           {() => (
             <FormikForm>
               <Container className={css.connectorForm}>
-                <div className={css.connectorFormNameWarpper}>
+                <div className={css.connectorFormNameWrapper}>
                   <div className={css.connectorFormNameElm}>
                     <FormInput.InputWithIdentifier
                       inputLabel={i18n.connectorName}

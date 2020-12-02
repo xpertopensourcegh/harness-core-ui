@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Create GCP connector Wizard should render form 1`] = `
+exports[`Create GCP connector Wizard Should render form 1`] = `
 <div>
   <div
     class="StepWizard---main--SGVz StepWizard---navBar--2KYu"
@@ -8,6 +8,87 @@ exports[`Create GCP connector Wizard should render form 1`] = `
     <div
       class="StepWizard---navBarList--2ILN"
     >
+      <span
+        class="StepWizard---header--2qTm"
+      >
+        <span
+          class="bp3-icon StyledProps---main--1Wws"
+        >
+          <svg
+            height="37"
+            viewBox="0 0 14 12"
+            width="37"
+          >
+            <mask
+              height="8.5"
+              id="service-gcp_svg__a"
+              maskUnits="userSpaceOnUse"
+              width="9.1"
+              x="0"
+              y="0"
+            >
+              <path
+                d="M0 0h9.1v8.5H0z"
+                fill="#fff"
+              />
+            </mask>
+            <path
+              d="M4.5 11L2 6.5 4.5 2h5L12 6.5 9.5 11z"
+              fill="#cac9c2"
+            />
+            <path
+              d="M7 7.8C5.9 7.8 5.1 7 5.1 6S5.9 4.1 7 4.1c1 0 1.9.9 1.9 1.9S8 7.8 7 7.8"
+              fill="#fff"
+            />
+            <path
+              d="M10.8.5c-.1-.3-.5-.5-.8-.5H4c-.3 0-.7.2-.9.5L1.4 3.4c0 .2 0 .4.1.5l1.2 2 2.1-3.6h6.8c.2 0 .3.1.5.2z"
+              fill="#5072aa"
+            />
+            <path
+              d="M1.4 3.3v.1c0 .2 0 .4.1.5l1.2 2 .6-1.1z"
+              fill="#4d6796"
+            />
+            <path
+              d="M4.1 1.5c-.2 0-.4-.2-.4-.4s.2-.4.4-.4.4.2.4.4c0 .3-.2.4-.4.4M10.2 1.2c0 .2-.2.3-.3.3s-.4-.1-.4-.3.2-.3.3-.3.4.1.4.3"
+              fill="#fff"
+            />
+            <path
+              d="M13.9 5.5l-1.8-3c-.2-.1-.3-.2-.5-.2H9.1L11.2 6l-3.3 5.7-.3.3H10c.3 0 .7-.2.8-.5l3-5c.2-.3.2-.7.1-1"
+              fill="#cc4232"
+            />
+            <path
+              d="M12.2 2.7l-.1-.1c-.2-.1-.3-.2-.5-.2H9.1l.6 1.1z"
+              fill="#b23f33"
+            />
+            <path
+              d="M9.8 11.1c-.2 0-.4-.2-.4-.4s.2-.4.4-.4.4.2.4.4-.2.4-.4.4M12.7 6.3c-.2 0-.4-.2-.4-.4s.2-.4.4-.4.4.2.4.4c0 .3-.2.4-.4.4"
+              fill="#fff"
+            />
+            <path
+              d="M4.9 6.1L1.5.5C1.4.4 1.4.2 1.4 0L.1 2.1c-.1.3-.1.7 0 .9l3 5c.2.3.6.5.9.5h3.6c.1-.1.3-.2.3-.3l1.2-2.1z"
+              fill="#ecb02a"
+              mask="url(#service-gcp_svg__a)"
+              transform="translate(0 3.421)"
+            />
+            <path
+              d="M7.4 11.9h.2c.1-.1.3-.2.3-.3l1.2-2.1H7.8z"
+              fill="#c79732"
+            />
+            <g
+              fill="#fff"
+            >
+              <path
+                d="M4.1 11.1c-.2 0-.4-.2-.4-.4s.2-.4.4-.4.4.2.4.4-.2.4-.4.4M1.2 6.3C1 6.3.9 6.2.9 6s.2-.4.4-.4.4.2.4.4c-.1.2-.3.3-.5.3"
+              />
+            </g>
+          </svg>
+        </span>
+      </span>
+      <span
+        class="StepWizard---title--y0Q7 StepWizard---header--2qTm"
+      >
+        GCP Connector
+      </span>
       <div
         class="StepWizard---navStep--2trN StepWizard---activeStep--9-9V"
       >
@@ -20,7 +101,7 @@ exports[`Create GCP connector Wizard should render form 1`] = `
           class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          CONNECTOR DETAILS
+          Overview
         </p>
       </div>
       <div
@@ -35,7 +116,7 @@ exports[`Create GCP connector Wizard should render form 1`] = `
           class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          AUTHENTICATION
+          Google Cloud Provider Details
         </p>
       </div>
       <div
@@ -50,7 +131,7 @@ exports[`Create GCP connector Wizard should render form 1`] = `
           class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          VERIFY CONNECTION
+          Test Connection
         </p>
       </div>
     </div>
@@ -78,7 +159,7 @@ exports[`Create GCP connector Wizard should render form 1`] = `
                   class="StyledProps---font--2ipy StyledProps---main--1Wws connectorForm"
                 >
                   <div
-                    class="connectorFormNameWarpper"
+                    class="connectorFormNameWrapper"
                   >
                     <div
                       class="connectorFormNameElm"
@@ -197,7 +278,7 @@ exports[`Create GCP connector Wizard should render form 1`] = `
 </div>
 `;
 
-exports[`Create GCP connector Wizard should render form 2`] = `
+exports[`Create GCP connector Wizard Should render form 2`] = `
 <div>
   <div
     class="StepWizard---main--SGVz StepWizard---navBar--2KYu"
@@ -205,6 +286,87 @@ exports[`Create GCP connector Wizard should render form 2`] = `
     <div
       class="StepWizard---navBarList--2ILN"
     >
+      <span
+        class="StepWizard---header--2qTm"
+      >
+        <span
+          class="bp3-icon StyledProps---main--1Wws"
+        >
+          <svg
+            height="37"
+            viewBox="0 0 14 12"
+            width="37"
+          >
+            <mask
+              height="8.5"
+              id="service-gcp_svg__a"
+              maskUnits="userSpaceOnUse"
+              width="9.1"
+              x="0"
+              y="0"
+            >
+              <path
+                d="M0 0h9.1v8.5H0z"
+                fill="#fff"
+              />
+            </mask>
+            <path
+              d="M4.5 11L2 6.5 4.5 2h5L12 6.5 9.5 11z"
+              fill="#cac9c2"
+            />
+            <path
+              d="M7 7.8C5.9 7.8 5.1 7 5.1 6S5.9 4.1 7 4.1c1 0 1.9.9 1.9 1.9S8 7.8 7 7.8"
+              fill="#fff"
+            />
+            <path
+              d="M10.8.5c-.1-.3-.5-.5-.8-.5H4c-.3 0-.7.2-.9.5L1.4 3.4c0 .2 0 .4.1.5l1.2 2 2.1-3.6h6.8c.2 0 .3.1.5.2z"
+              fill="#5072aa"
+            />
+            <path
+              d="M1.4 3.3v.1c0 .2 0 .4.1.5l1.2 2 .6-1.1z"
+              fill="#4d6796"
+            />
+            <path
+              d="M4.1 1.5c-.2 0-.4-.2-.4-.4s.2-.4.4-.4.4.2.4.4c0 .3-.2.4-.4.4M10.2 1.2c0 .2-.2.3-.3.3s-.4-.1-.4-.3.2-.3.3-.3.4.1.4.3"
+              fill="#fff"
+            />
+            <path
+              d="M13.9 5.5l-1.8-3c-.2-.1-.3-.2-.5-.2H9.1L11.2 6l-3.3 5.7-.3.3H10c.3 0 .7-.2.8-.5l3-5c.2-.3.2-.7.1-1"
+              fill="#cc4232"
+            />
+            <path
+              d="M12.2 2.7l-.1-.1c-.2-.1-.3-.2-.5-.2H9.1l.6 1.1z"
+              fill="#b23f33"
+            />
+            <path
+              d="M9.8 11.1c-.2 0-.4-.2-.4-.4s.2-.4.4-.4.4.2.4.4-.2.4-.4.4M12.7 6.3c-.2 0-.4-.2-.4-.4s.2-.4.4-.4.4.2.4.4c0 .3-.2.4-.4.4"
+              fill="#fff"
+            />
+            <path
+              d="M4.9 6.1L1.5.5C1.4.4 1.4.2 1.4 0L.1 2.1c-.1.3-.1.7 0 .9l3 5c.2.3.6.5.9.5h3.6c.1-.1.3-.2.3-.3l1.2-2.1z"
+              fill="#ecb02a"
+              mask="url(#service-gcp_svg__a)"
+              transform="translate(0 3.421)"
+            />
+            <path
+              d="M7.4 11.9h.2c.1-.1.3-.2.3-.3l1.2-2.1H7.8z"
+              fill="#c79732"
+            />
+            <g
+              fill="#fff"
+            >
+              <path
+                d="M4.1 11.1c-.2 0-.4-.2-.4-.4s.2-.4.4-.4.4.2.4.4-.2.4-.4.4M1.2 6.3C1 6.3.9 6.2.9 6s.2-.4.4-.4.4.2.4.4c-.1.2-.3.3-.5.3"
+              />
+            </g>
+          </svg>
+        </span>
+      </span>
+      <span
+        class="StepWizard---title--y0Q7 StepWizard---header--2qTm"
+      >
+        GCP Connector
+      </span>
       <div
         class="StepWizard---navStep--2trN StepWizard---completedStep--3BLy"
       >
@@ -231,7 +393,7 @@ exports[`Create GCP connector Wizard should render form 2`] = `
           class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          CONNECTOR DETAILS
+          Overview
         </p>
       </div>
       <div
@@ -246,7 +408,7 @@ exports[`Create GCP connector Wizard should render form 2`] = `
           class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          AUTHENTICATION
+          Google Cloud Provider Details
         </p>
       </div>
       <div
@@ -261,7 +423,7 @@ exports[`Create GCP connector Wizard should render form 2`] = `
           class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          VERIFY CONNECTION
+          Test Connection
         </p>
       </div>
     </div>
@@ -270,13 +432,13 @@ exports[`Create GCP connector Wizard should render form 2`] = `
     >
        
       <div
-        class="Layout---vertical--3Szv StyledProps---main--1Wws"
+        class="Layout---vertical--3Szv Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws secondStep"
         style="height: inherit;"
       >
         <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-medium--2b-0 StyledProps---margin-top-small--1_l5 StyledProps---margin-left-small--3XL_ StyledProps---color--8PuS"
+          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-medium--2b-0 StyledProps---margin-top-small--1_l5 StyledProps---color--8PuS StyledProps---color-black--2kJn"
         >
-          Authentication
+          Cluster Details
         </p>
         <div
           class="OverlaySpinner---overlaySpinner--3Bs3"
@@ -286,305 +448,68 @@ exports[`Create GCP connector Wizard should render form 2`] = `
           >
             <div>
               <div
-                class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---padding-top-large--i39X StyledProps---padding-bottom-large--1zGv"
-                style="min-height: 440px; width: 64%;"
+                class="StyledProps---font--2ipy StyledProps---main--1Wws clusterWrapper"
               >
                 <div
-                  class="bp3-form-group bp3-inline"
-                  data-id="authType-0"
+                  class="cardRow"
                 >
                   <div
-                    class="bp3-form-content"
-                  >
-                    <div>
-                      <label
-                        class="bp3-control bp3-radio bp3-inline Radio---radio--3bxG"
-                      >
-                        <input
-                          checked=""
-                          name="authType"
-                          type="radio"
-                          value="delegate"
-                        />
-                        <span
-                          class="bp3-control-indicator"
-                        />
-                        Use delegate
-                      </label>
-                      <label
-                        class="bp3-control bp3-radio bp3-inline Radio---radio--3bxG"
-                      >
-                        <input
-                          name="authType"
-                          type="radio"
-                          value="encryptedKey"
-                        />
-                        <span
-                          class="bp3-control-indicator"
-                        />
-                        Use encrypted key
-                      </label>
-                    </div>
-                  </div>
-                </div>
-                <div
-                  class="incluster"
-                >
-                  <p
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws howToProceed"
-                  >
-                    How would you like to proceed?
-                  </p>
-                  <div
-                    class="radioOption"
-                  >
-                    <input
-                      checked=""
-                      type="radio"
-                    />
-                    <span
-                      class="label"
-                    >
-                      Use an existing Delegate
-                    </span>
-                  </div>
-                  <div
-                    class="bp3-form-group selectDelegate"
+                    class="bp3-card bp3-interactive bp3-elevation-0 Card---card--2BXa Card---selected--279c"
+                    data-index="0"
+                    tabindex="0"
                   >
                     <div
-                      class="bp3-form-content"
+                      class="StyledProps---font--2ipy StyledProps---main--1Wws card selectedCard"
                     >
-                      <div
-                        class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+                      <span
+                        class="StyledProps---font--2ipy StyledProps---main--1Wws textInfo StyledProps---inline--1f52"
                       >
-                        <div
-                          class="bp3-popover-target"
+                        Specify credentials here
+                      </span>
+                      <span
+                        class="bp3-icon StyledProps---main--1Wws StyledProps---margin-small--1ZqR"
+                      >
+                        <svg
+                          height="16"
+                          viewBox="0 0 14 14"
+                          width="16"
                         >
-                          <div
-                            class="bp3-input-group"
-                          >
-                            <input
-                              autocomplete="off"
-                              class="bp3-input"
-                              name="delegateSelector"
-                              placeholder="Search..."
-                              style="padding-right: 0px;"
-                              type="text"
-                              value=""
-                            />
-                            <span
-                              class="bp3-input-action"
-                            >
-                              <span
-                                class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
-                                icon="caret-down"
-                              >
-                                <svg
-                                  data-icon="caret-down"
-                                  height="14"
-                                  viewBox="0 0 16 16"
-                                  width="14"
-                                >
-                                  <desc>
-                                    caret-down
-                                  </desc>
-                                  <path
-                                    d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
-                                    fill-rule="evenodd"
-                                  />
-                                </svg>
-                              </span>
-                            </span>
-                          </div>
-                        </div>
-                      </div>
+                          <path
+                            d="M4 0h6c2.2 0 4 1.8 4 4v6c0 2.2-1.8 4-4 4H4c-2.2 0-4-1.8-4-4V4c0-2.2 1.8-4 4-4z"
+                            fill="#38d168"
+                          />
+                          <path
+                            d="M5.8 9.5l4.4-4.1-.9-1-3.6 3.2-1.2-1.2-1.1 1.1 2.1 2.1.1.1z"
+                            fill="#fff"
+                          />
+                        </svg>
+                      </span>
                     </div>
                   </div>
                   <div
-                    class="radioOption"
+                    class="bp3-card bp3-interactive bp3-elevation-0 Card---card--2BXa"
+                    data-index="1"
+                    tabindex="0"
                   >
-                    <input
-                      disabled=""
-                      type="radio"
-                    />
-                    <span
-                      class="label"
+                    <div
+                      class="StyledProps---font--2ipy StyledProps---main--1Wws card"
                     >
-                      Add a new Delegate
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <div
-                class="Layout---horizontal--3rmQ Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws StyledProps---padding-top-small--1-XA"
-              >
-                <button
-                  class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
-                  type="button"
-                >
-                  <span
-                    class="bp3-button-text"
-                  >
-                    BACK
-                  </span>
-                </button>
-                <button
-                  class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---font-small--1qQz"
-                  type="submit"
-                >
-                  <span
-                    class="bp3-button-text"
-                  >
-                    SAVE CREDENTIALS AND CONTINUE
-                  </span>
-                </button>
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-`;
-
-exports[`Create GCP connector Wizard should render form 3`] = `
-<div>
-  <div
-    class="StepWizard---main--SGVz StepWizard---navBar--2KYu"
-  >
-    <div
-      class="StepWizard---navBarList--2ILN"
-    >
-      <div
-        class="StepWizard---navStep--2trN StepWizard---completedStep--3BLy"
-      >
-        <span
-          class="bp3-icon bp3-icon-small-tick StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-green500--2_VK"
-          icon="small-tick"
-        >
-          <svg
-            data-icon="small-tick"
-            height="22"
-            viewBox="0 0 20 20"
-            width="22"
-          >
-            <desc>
-              small-tick
-            </desc>
-            <path
-              d="M15 5c-.28 0-.53.11-.71.29L8 11.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l7-7A1.003 1.003 0 0015 5z"
-              fill-rule="evenodd"
-            />
-          </svg>
-        </span>
-        <p
-          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
-          style="--text-line-clamp: 2; width: 240px;"
-        >
-          CONNECTOR DETAILS
-        </p>
-      </div>
-      <div
-        class="StepWizard---navStep--2trN StepWizard---activeStep--9-9V"
-      >
-        <span
-          class="StepWizard---number--1LKy"
-        >
-          2
-        </span>
-        <p
-          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
-          style="--text-line-clamp: 2; width: 240px;"
-        >
-          AUTHENTICATION
-        </p>
-      </div>
-      <div
-        class="StepWizard---navStep--2trN"
-      >
-        <span
-          class="StepWizard---number--1LKy"
-        >
-          3
-        </span>
-        <p
-          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
-          style="--text-line-clamp: 2; width: 240px;"
-        >
-          VERIFY CONNECTION
-        </p>
-      </div>
-    </div>
-    <div
-      class="StepWizard---stepDetails--Uaxx"
-    >
-       
-      <div
-        class="Layout---vertical--3Szv StyledProps---main--1Wws"
-        style="height: inherit;"
-      >
-        <p
-          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-medium--2b-0 StyledProps---margin-top-small--1_l5 StyledProps---margin-left-small--3XL_ StyledProps---color--8PuS"
-        >
-          Authentication
-        </p>
-        <div
-          class="OverlaySpinner---overlaySpinner--3Bs3"
-        >
-          <form
-            class="FormikForm---main--1N87"
-          >
-            <div>
-              <div
-                class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---padding-top-large--i39X StyledProps---padding-bottom-large--1zGv"
-                style="min-height: 440px; width: 64%;"
-              >
-                <div
-                  class="bp3-form-group bp3-inline"
-                  data-id="authType-0"
-                >
-                  <div
-                    class="bp3-form-content"
-                  >
-                    <div>
-                      <label
-                        class="bp3-control bp3-radio bp3-inline Radio---radio--3bxG"
+                      <span
+                        class="StyledProps---font--2ipy StyledProps---main--1Wws textInfo StyledProps---inline--1f52"
                       >
-                        <input
-                          checked=""
-                          name="authType"
-                          type="radio"
-                          value="delegate"
-                        />
-                        <span
-                          class="bp3-control-indicator"
-                        />
-                        Use delegate
-                      </label>
-                      <label
-                        class="bp3-control bp3-radio bp3-inline Radio---radio--3bxG"
-                      >
-                        <input
-                          name="authType"
-                          type="radio"
-                          value="encryptedKey"
-                        />
-                        <span
-                          class="bp3-control-indicator"
-                        />
-                        Use encrypted key
-                      </label>
+                        Specify cluster details and credentials in harness-delegate.yaml files on your Harness Delegates
+                      </span>
                     </div>
                   </div>
                 </div>
                 <div
                   class="bp3-form-group"
+                  data-id="null-0"
                 >
                   <label
                     class="bp3-label"
                   >
-                    Encrypte Key
+                    Encrypted Key
                   </label>
                   <button
                     class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws inputButton"
@@ -626,31 +551,39 @@ exports[`Create GCP connector Wizard should render form 3`] = `
                     </span>
                   </button>
                 </div>
+                <div
+                  class="bp3-form-group"
+                  data-id="skipDefaultValidation-1"
+                >
+                  <div
+                    class="bp3-form-content"
+                  >
+                    <label
+                      class="bp3-control bp3-checkbox StyledProps---font--2ipy Checkbox---checkbox--2kFy StyledProps---main--1Wws StyledProps---padding-left-xxlarge--1LeG StyledProps---inline--1f52"
+                    >
+                      <input
+                        checked=""
+                        name="skipDefaultValidation"
+                        type="checkbox"
+                      />
+                      <span
+                        class="bp3-control-indicator"
+                      />
+                      Skip default namespace validation
+                    </label>
+                  </div>
+                </div>
               </div>
-              <div
-                class="Layout---horizontal--3rmQ Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws StyledProps---padding-top-small--1-XA"
+              <button
+                class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws saveButton StyledProps---intent-primary--2Xgi"
+                type="submit"
               >
-                <button
-                  class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws"
-                  type="button"
+                <span
+                  class="bp3-button-text"
                 >
-                  <span
-                    class="bp3-button-text"
-                  >
-                    BACK
-                  </span>
-                </button>
-                <button
-                  class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---font-small--1qQz"
-                  type="submit"
-                >
-                  <span
-                    class="bp3-button-text"
-                  >
-                    SAVE CREDENTIALS AND CONTINUE
-                  </span>
-                </button>
-              </div>
+                  Save and Continue
+                </span>
+              </button>
             </div>
           </form>
         </div>
@@ -660,7 +593,7 @@ exports[`Create GCP connector Wizard should render form 3`] = `
 </div>
 `;
 
-exports[`Create GCP connector Wizard should render form 4`] = `
+exports[`Create GCP connector Wizard Should render form for edit authtype encryptedKey 1`] = `
 <div>
   <div
     class="StepWizard---main--SGVz StepWizard---navBar--2KYu"
@@ -668,6 +601,87 @@ exports[`Create GCP connector Wizard should render form 4`] = `
     <div
       class="StepWizard---navBarList--2ILN"
     >
+      <span
+        class="StepWizard---header--2qTm"
+      >
+        <span
+          class="bp3-icon StyledProps---main--1Wws"
+        >
+          <svg
+            height="37"
+            viewBox="0 0 14 12"
+            width="37"
+          >
+            <mask
+              height="8.5"
+              id="service-gcp_svg__a"
+              maskUnits="userSpaceOnUse"
+              width="9.1"
+              x="0"
+              y="0"
+            >
+              <path
+                d="M0 0h9.1v8.5H0z"
+                fill="#fff"
+              />
+            </mask>
+            <path
+              d="M4.5 11L2 6.5 4.5 2h5L12 6.5 9.5 11z"
+              fill="#cac9c2"
+            />
+            <path
+              d="M7 7.8C5.9 7.8 5.1 7 5.1 6S5.9 4.1 7 4.1c1 0 1.9.9 1.9 1.9S8 7.8 7 7.8"
+              fill="#fff"
+            />
+            <path
+              d="M10.8.5c-.1-.3-.5-.5-.8-.5H4c-.3 0-.7.2-.9.5L1.4 3.4c0 .2 0 .4.1.5l1.2 2 2.1-3.6h6.8c.2 0 .3.1.5.2z"
+              fill="#5072aa"
+            />
+            <path
+              d="M1.4 3.3v.1c0 .2 0 .4.1.5l1.2 2 .6-1.1z"
+              fill="#4d6796"
+            />
+            <path
+              d="M4.1 1.5c-.2 0-.4-.2-.4-.4s.2-.4.4-.4.4.2.4.4c0 .3-.2.4-.4.4M10.2 1.2c0 .2-.2.3-.3.3s-.4-.1-.4-.3.2-.3.3-.3.4.1.4.3"
+              fill="#fff"
+            />
+            <path
+              d="M13.9 5.5l-1.8-3c-.2-.1-.3-.2-.5-.2H9.1L11.2 6l-3.3 5.7-.3.3H10c.3 0 .7-.2.8-.5l3-5c.2-.3.2-.7.1-1"
+              fill="#cc4232"
+            />
+            <path
+              d="M12.2 2.7l-.1-.1c-.2-.1-.3-.2-.5-.2H9.1l.6 1.1z"
+              fill="#b23f33"
+            />
+            <path
+              d="M9.8 11.1c-.2 0-.4-.2-.4-.4s.2-.4.4-.4.4.2.4.4-.2.4-.4.4M12.7 6.3c-.2 0-.4-.2-.4-.4s.2-.4.4-.4.4.2.4.4c0 .3-.2.4-.4.4"
+              fill="#fff"
+            />
+            <path
+              d="M4.9 6.1L1.5.5C1.4.4 1.4.2 1.4 0L.1 2.1c-.1.3-.1.7 0 .9l3 5c.2.3.6.5.9.5h3.6c.1-.1.3-.2.3-.3l1.2-2.1z"
+              fill="#ecb02a"
+              mask="url(#service-gcp_svg__a)"
+              transform="translate(0 3.421)"
+            />
+            <path
+              d="M7.4 11.9h.2c.1-.1.3-.2.3-.3l1.2-2.1H7.8z"
+              fill="#c79732"
+            />
+            <g
+              fill="#fff"
+            >
+              <path
+                d="M4.1 11.1c-.2 0-.4-.2-.4-.4s.2-.4.4-.4.4.2.4.4-.2.4-.4.4M1.2 6.3C1 6.3.9 6.2.9 6s.2-.4.4-.4.4.2.4.4c-.1.2-.3.3-.5.3"
+              />
+            </g>
+          </svg>
+        </span>
+      </span>
+      <span
+        class="StepWizard---title--y0Q7 StepWizard---header--2qTm"
+      >
+        GCP Connector
+      </span>
       <div
         class="StepWizard---navStep--2trN StepWizard---activeStep--9-9V"
       >
@@ -680,7 +694,7 @@ exports[`Create GCP connector Wizard should render form 4`] = `
           class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          CONNECTOR DETAILS
+          Overview
         </p>
       </div>
       <div
@@ -695,7 +709,7 @@ exports[`Create GCP connector Wizard should render form 4`] = `
           class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          AUTHENTICATION
+          Google Cloud Provider Details
         </p>
       </div>
       <div
@@ -710,7 +724,7 @@ exports[`Create GCP connector Wizard should render form 4`] = `
           class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          VERIFY CONNECTION
+          Test Connection
         </p>
       </div>
     </div>
@@ -738,7 +752,7 @@ exports[`Create GCP connector Wizard should render form 4`] = `
                   class="StyledProps---font--2ipy StyledProps---main--1Wws connectorForm"
                 >
                   <div
-                    class="connectorFormNameWarpper"
+                    class="connectorFormNameWrapper"
                   >
                     <div
                       class="connectorFormNameElm"
@@ -757,29 +771,10 @@ exports[`Create GCP connector Wizard should render form 4`] = `
                           </p>
                           <span
                             class="InputWithIdentifier---idInput--w8_T"
-                            contenteditable="true"
+                            contenteditable="false"
+                            disabled=""
                           >
-                            dummy_name
-                          </span>
-                          <span
-                            class="bp3-icon bp3-icon-edit StyledProps---main--1Wws"
-                            icon="edit"
-                            style="vertical-align: middle;"
-                          >
-                            <svg
-                              data-icon="edit"
-                              height="12"
-                              viewBox="0 0 16 16"
-                              width="12"
-                            >
-                              <desc>
-                                edit
-                              </desc>
-                              <path
-                                d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
-                                fill-rule="evenodd"
-                              />
-                            </svg>
+                            devConnector
                           </span>
                         </div>
                         <div
@@ -849,6 +844,321 @@ exports[`Create GCP connector Wizard should render form 4`] = `
               </div>
             </form>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Create GCP connector Wizard Should render form for edit authtype encryptedKey 2`] = `
+<div>
+  <div
+    class="StepWizard---main--SGVz StepWizard---navBar--2KYu"
+  >
+    <div
+      class="StepWizard---navBarList--2ILN"
+    >
+      <span
+        class="StepWizard---header--2qTm"
+      >
+        <span
+          class="bp3-icon StyledProps---main--1Wws"
+        >
+          <svg
+            height="37"
+            viewBox="0 0 14 12"
+            width="37"
+          >
+            <mask
+              height="8.5"
+              id="service-gcp_svg__a"
+              maskUnits="userSpaceOnUse"
+              width="9.1"
+              x="0"
+              y="0"
+            >
+              <path
+                d="M0 0h9.1v8.5H0z"
+                fill="#fff"
+              />
+            </mask>
+            <path
+              d="M4.5 11L2 6.5 4.5 2h5L12 6.5 9.5 11z"
+              fill="#cac9c2"
+            />
+            <path
+              d="M7 7.8C5.9 7.8 5.1 7 5.1 6S5.9 4.1 7 4.1c1 0 1.9.9 1.9 1.9S8 7.8 7 7.8"
+              fill="#fff"
+            />
+            <path
+              d="M10.8.5c-.1-.3-.5-.5-.8-.5H4c-.3 0-.7.2-.9.5L1.4 3.4c0 .2 0 .4.1.5l1.2 2 2.1-3.6h6.8c.2 0 .3.1.5.2z"
+              fill="#5072aa"
+            />
+            <path
+              d="M1.4 3.3v.1c0 .2 0 .4.1.5l1.2 2 .6-1.1z"
+              fill="#4d6796"
+            />
+            <path
+              d="M4.1 1.5c-.2 0-.4-.2-.4-.4s.2-.4.4-.4.4.2.4.4c0 .3-.2.4-.4.4M10.2 1.2c0 .2-.2.3-.3.3s-.4-.1-.4-.3.2-.3.3-.3.4.1.4.3"
+              fill="#fff"
+            />
+            <path
+              d="M13.9 5.5l-1.8-3c-.2-.1-.3-.2-.5-.2H9.1L11.2 6l-3.3 5.7-.3.3H10c.3 0 .7-.2.8-.5l3-5c.2-.3.2-.7.1-1"
+              fill="#cc4232"
+            />
+            <path
+              d="M12.2 2.7l-.1-.1c-.2-.1-.3-.2-.5-.2H9.1l.6 1.1z"
+              fill="#b23f33"
+            />
+            <path
+              d="M9.8 11.1c-.2 0-.4-.2-.4-.4s.2-.4.4-.4.4.2.4.4-.2.4-.4.4M12.7 6.3c-.2 0-.4-.2-.4-.4s.2-.4.4-.4.4.2.4.4c0 .3-.2.4-.4.4"
+              fill="#fff"
+            />
+            <path
+              d="M4.9 6.1L1.5.5C1.4.4 1.4.2 1.4 0L.1 2.1c-.1.3-.1.7 0 .9l3 5c.2.3.6.5.9.5h3.6c.1-.1.3-.2.3-.3l1.2-2.1z"
+              fill="#ecb02a"
+              mask="url(#service-gcp_svg__a)"
+              transform="translate(0 3.421)"
+            />
+            <path
+              d="M7.4 11.9h.2c.1-.1.3-.2.3-.3l1.2-2.1H7.8z"
+              fill="#c79732"
+            />
+            <g
+              fill="#fff"
+            >
+              <path
+                d="M4.1 11.1c-.2 0-.4-.2-.4-.4s.2-.4.4-.4.4.2.4.4-.2.4-.4.4M1.2 6.3C1 6.3.9 6.2.9 6s.2-.4.4-.4.4.2.4.4c-.1.2-.3.3-.5.3"
+              />
+            </g>
+          </svg>
+        </span>
+      </span>
+      <span
+        class="StepWizard---title--y0Q7 StepWizard---header--2qTm"
+      >
+        GCP Connector
+      </span>
+      <div
+        class="StepWizard---navStep--2trN StepWizard---completedStep--3BLy"
+      >
+        <span
+          class="bp3-icon bp3-icon-small-tick StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-green500--2_VK"
+          icon="small-tick"
+        >
+          <svg
+            data-icon="small-tick"
+            height="22"
+            viewBox="0 0 20 20"
+            width="22"
+          >
+            <desc>
+              small-tick
+            </desc>
+            <path
+              d="M15 5c-.28 0-.53.11-.71.29L8 11.59l-2.29-2.3a1.003 1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l7-7A1.003 1.003 0 0015 5z"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </span>
+        <p
+          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          Overview
+        </p>
+      </div>
+      <div
+        class="StepWizard---navStep--2trN StepWizard---activeStep--9-9V"
+      >
+        <span
+          class="StepWizard---number--1LKy"
+        >
+          2
+        </span>
+        <p
+          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          Google Cloud Provider Details
+        </p>
+      </div>
+      <div
+        class="StepWizard---navStep--2trN"
+      >
+        <span
+          class="StepWizard---number--1LKy"
+        >
+          3
+        </span>
+        <p
+          class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
+          style="--text-line-clamp: 2; width: 240px;"
+        >
+          Test Connection
+        </p>
+      </div>
+    </div>
+    <div
+      class="StepWizard---stepDetails--Uaxx"
+    >
+       
+      <div
+        class="Layout---vertical--3Szv Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws secondStep"
+        style="height: inherit;"
+      >
+        <p
+          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---font-medium--2b-0 StyledProps---margin-top-small--1_l5 StyledProps---color--8PuS StyledProps---color-black--2kJn"
+        >
+          Cluster Details
+        </p>
+        <div
+          class="OverlaySpinner---overlaySpinner--3Bs3"
+        >
+          <form
+            class="FormikForm---main--1N87"
+          >
+            <div>
+              <div
+                class="StyledProps---font--2ipy StyledProps---main--1Wws clusterWrapper"
+              >
+                <div
+                  class="cardRow"
+                >
+                  <div
+                    class="bp3-card bp3-interactive bp3-elevation-0 Card---card--2BXa Card---selected--279c"
+                    data-index="0"
+                    tabindex="0"
+                  >
+                    <div
+                      class="StyledProps---font--2ipy StyledProps---main--1Wws card selectedCard"
+                    >
+                      <span
+                        class="StyledProps---font--2ipy StyledProps---main--1Wws textInfo StyledProps---inline--1f52"
+                      >
+                        Specify credentials here
+                      </span>
+                      <span
+                        class="bp3-icon StyledProps---main--1Wws StyledProps---margin-small--1ZqR"
+                      >
+                        <svg
+                          height="16"
+                          viewBox="0 0 14 14"
+                          width="16"
+                        >
+                          <path
+                            d="M4 0h6c2.2 0 4 1.8 4 4v6c0 2.2-1.8 4-4 4H4c-2.2 0-4-1.8-4-4V4c0-2.2 1.8-4 4-4z"
+                            fill="#38d168"
+                          />
+                          <path
+                            d="M5.8 9.5l4.4-4.1-.9-1-3.6 3.2-1.2-1.2-1.1 1.1 2.1 2.1.1.1z"
+                            fill="#fff"
+                          />
+                        </svg>
+                      </span>
+                    </div>
+                  </div>
+                  <div
+                    class="bp3-card bp3-interactive bp3-elevation-0 Card---card--2BXa"
+                    data-index="1"
+                    tabindex="0"
+                  >
+                    <div
+                      class="StyledProps---font--2ipy StyledProps---main--1Wws card"
+                    >
+                      <span
+                        class="StyledProps---font--2ipy StyledProps---main--1Wws textInfo StyledProps---inline--1f52"
+                      >
+                        Specify cluster details and credentials in harness-delegate.yaml files on your Harness Delegates
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="bp3-form-group"
+                  data-id="null-0"
+                >
+                  <label
+                    class="bp3-label"
+                  >
+                    Encrypted Key
+                  </label>
+                  <button
+                    class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws inputButton"
+                    type="button"
+                  >
+                    <span
+                      class="bp3-button-text"
+                    >
+                      <div
+                        class="Layout---horizontal--3rmQ Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
+                        style="align-items: center; width: 100%;"
+                      >
+                        <span
+                          class="bp3-icon StyledProps---main--1Wws"
+                          style="height: 12px;"
+                        >
+                          <svg
+                            height="24"
+                            width="24"
+                          >
+                            <g
+                              fill="none"
+                              stroke="#1C1C28"
+                              stroke-width="0.5"
+                            >
+                              <path
+                                d="M5.444 1A4.45 4.45 0 001 5.444c0 2.459 1.994 4.46 4.444 4.46 1.939 0 3.613-1.542 4.202-2.995a.393.393 0 01.23-.223.39.39 0 01.322.015l1.032.507.757-.72a.402.402 0 01.552-.007l.543.493.547-.556a.404.404 0 01.572-.005l.527.516.528-.53a.406.406 0 01.571-.002l.522.522.524-.523a.406.406 0 01.571 0l.522.522.523-.522a.414.414 0 01.315-.118.41.41 0 01.294.16l.277.369c.116-.153.234-.311.312-.396a.412.412 0 01.3-.134c.693 0 .927-.37.927-1.465 0-1.018-.636-1.381-1.23-1.381H9.638a.408.408 0 01-.35-.202A4.448 4.448 0 005.444 1h0z"
+                              />
+                              <path
+                                d="M3.828 3.99c.403 0 .769.163 1.034.428a1.458 1.458 0 010 2.067 1.458 1.458 0 01-2.067 0 1.458 1.458 0 010-2.067c.265-.265.63-.428 1.033-.428z"
+                              />
+                            </g>
+                          </svg>
+                        </span>
+                        <span>
+                          s15656
+                        </span>
+                      </div>
+                    </span>
+                  </button>
+                </div>
+                <div
+                  class="bp3-form-group"
+                  data-id="skipDefaultValidation-1"
+                >
+                  <div
+                    class="bp3-form-content"
+                  >
+                    <label
+                      class="bp3-control bp3-checkbox StyledProps---font--2ipy Checkbox---checkbox--2kFy StyledProps---main--1Wws StyledProps---padding-left-xxlarge--1LeG StyledProps---inline--1f52"
+                    >
+                      <input
+                        checked=""
+                        name="skipDefaultValidation"
+                        type="checkbox"
+                      />
+                      <span
+                        class="bp3-control-indicator"
+                      />
+                      Skip default namespace validation
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <button
+                class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws saveButton StyledProps---intent-primary--2Xgi"
+                type="submit"
+              >
+                <span
+                  class="bp3-button-text"
+                >
+                  Save and Continue
+                </span>
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </div>

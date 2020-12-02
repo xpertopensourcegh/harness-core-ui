@@ -16,6 +16,7 @@ import React, { useState, useEffect } from 'react'
 import cx from 'classnames'
 import * as Yup from 'yup'
 import { Formik, Form, FormikProps } from 'formik'
+import { PageSpinner } from '@common/components/Page/PageSpinner'
 import {
   ConnectorInfoDTO,
   ConnectorRequestBody,
@@ -27,12 +28,13 @@ import SecretInput from '@secrets/components/SecretInput/SecretInput'
 import {
   buildKubPayload,
   DelegateTypes,
-  AuthTypes,
   setupKubFormData,
-  SecretReferenceInterface
+  SecretReferenceInterface,
+  DelegateCardInterface
 } from '@connectors/pages/connectors/utils/ConnectorUtils'
 import { useToaster } from '@common/components/Toaster/useToaster'
 import { useStrings } from 'framework/exports'
+import { AuthTypes } from '@connectors/pages/connectors/utils/ConnectorHelper'
 import css from '../CreateK8sConnector.module.scss'
 
 interface Stepk8ClusterDetailsProps extends ConnectorInfoDTO {
@@ -43,11 +45,6 @@ interface K8ClusterDetailsProps {
   onConnectorCreated: (data?: ConnectorRequestBody) => void | Promise<void>
   isEditMode: boolean
   connectorInfo: ConnectorInfoDTO | void
-}
-
-interface DelegateCardInterface {
-  type: string
-  info: string
 }
 
 interface KubeFormInterface {
@@ -131,7 +128,7 @@ const Stepk8ClusterDetails: React.FC<StepProps<Stepk8ClusterDetailsProps> & K8Cl
   const DelegateCards: DelegateCardInterface[] = [
     {
       type: DelegateTypes.DELEGATE_OUT_CLUSTER,
-      info: getString('connectors.delegateOutClusterInfo')
+      info: getString('connectors.delegateOutClusterInfo2')
     },
     {
       type: DelegateTypes.DELEGATE_IN_CLUSTER,
@@ -249,7 +246,9 @@ const Stepk8ClusterDetails: React.FC<StepProps<Stepk8ClusterDetailsProps> & K8Cl
     }
   }, [loadingConnectorSecrets])
 
-  return loadingConnectorSecrets ? null : (
+  return loadingConnectorSecrets ? (
+    <PageSpinner />
+  ) : (
     <Layout.Vertical height={'inherit'} spacing="medium" className={css.secondStep}>
       <Text font="medium" margin={{ top: 'small' }} color={Color.BLACK}>
         {getString('connectors.k8.stepTwoName')}

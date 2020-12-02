@@ -78,7 +78,7 @@ exports[`Create Docker Connector  Wizard should render form 1`] = `
                   class="StyledProps---font--2ipy StyledProps---main--1Wws connectorForm"
                 >
                   <div
-                    class="connectorFormNameWarpper"
+                    class="connectorFormNameWrapper"
                   >
                     <div
                       class="connectorFormNameElm"
@@ -272,7 +272,7 @@ exports[`Create Docker Connector  Wizard should render form 2`] = `
                   class="StyledProps---font--2ipy StyledProps---main--1Wws connectorForm"
                 >
                   <div
-                    class="connectorFormNameWarpper"
+                    class="connectorFormNameWrapper"
                   >
                     <div
                       class="connectorFormNameElm"

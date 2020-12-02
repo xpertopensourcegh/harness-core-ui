@@ -49,7 +49,7 @@ const ConnectorDetailsPage: React.FC = () => {
             {i18n.Connectors}
           </Link>
         </Layout.Horizontal>
-        <span className={css.kubHeading}>{data?.data?.connector?.name}</span>
+        <span className={css.heading}>{data?.data?.connector?.name}</span>
       </Layout.Vertical>
     )
   }

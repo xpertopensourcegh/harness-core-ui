@@ -86,7 +86,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard 1`] = `
             class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
             style="--text-line-clamp: 2; width: 240px;"
           >
-            VERIFY CONNECTION
+            Test Connection
           </p>
         </div>
       </div>
@@ -114,7 +114,7 @@ exports[`Create connector Wizard should open CreateConnectorWizard 1`] = `
                     class="StyledProps---font--2ipy StyledProps---main--1Wws connectorForm"
                   >
                     <div
-                      class="connectorFormNameWarpper"
+                      class="connectorFormNameWrapper"
                     >
                       <div
                         class="connectorFormNameElm"

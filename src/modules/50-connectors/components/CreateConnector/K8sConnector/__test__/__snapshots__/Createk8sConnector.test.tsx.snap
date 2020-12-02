@@ -97,7 +97,7 @@ exports[`Create k8 connector Wizard should form for authtype username 1`] = `
           class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          VERIFY CONNECTION
+          Test Connection
         </p>
       </div>
     </div>
@@ -473,7 +473,7 @@ exports[`Create k8 connector Wizard should form for edit authtype OIDC 1`] = `
           class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          VERIFY CONNECTION
+          Test Connection
         </p>
       </div>
     </div>
@@ -857,6 +857,7 @@ exports[`Create k8 connector Wizard should form for edit authtype OIDC 1`] = `
                   class="bp3-control bp3-checkbox StyledProps---font--2ipy Checkbox---checkbox--2kFy StyledProps---main--1Wws StyledProps---padding-left-xxlarge--1LeG StyledProps---inline--1f52"
                 >
                   <input
+                    checked=""
                     name="skipDefaultValidation"
                     type="checkbox"
                   />
@@ -982,7 +983,7 @@ exports[`Create k8 connector Wizard should form for edit authtype serviceAccount
           class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          VERIFY CONNECTION
+          Test Connection
         </p>
       </div>
     </div>
@@ -1204,6 +1205,7 @@ exports[`Create k8 connector Wizard should form for edit authtype serviceAccount
                   class="bp3-control bp3-checkbox StyledProps---font--2ipy Checkbox---checkbox--2kFy StyledProps---main--1Wws StyledProps---padding-left-xxlarge--1LeG StyledProps---inline--1f52"
                 >
                   <input
+                    checked=""
                     name="skipDefaultValidation"
                     type="checkbox"
                   />
@@ -1315,7 +1317,7 @@ exports[`Create k8 connector Wizard should form for edit authtype username 1`] =
           class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          VERIFY CONNECTION
+          Test Connection
         </p>
       </div>
     </div>
@@ -1343,7 +1345,7 @@ exports[`Create k8 connector Wizard should form for edit authtype username 1`] =
                   class="StyledProps---font--2ipy StyledProps---main--1Wws connectorForm"
                 >
                   <div
-                    class="connectorFormNameWarpper"
+                    class="connectorFormNameWrapper"
                   >
                     <div
                       class="connectorFormNameElm"
@@ -1539,7 +1541,7 @@ exports[`Create k8 connector Wizard should form for edit authtype username 2`] =
           class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          VERIFY CONNECTION
+          Test Connection
         </p>
       </div>
     </div>
@@ -1790,6 +1792,7 @@ exports[`Create k8 connector Wizard should form for edit authtype username 2`] =
                   class="bp3-control bp3-checkbox StyledProps---font--2ipy Checkbox---checkbox--2kFy StyledProps---main--1Wws StyledProps---padding-left-xxlarge--1LeG StyledProps---inline--1f52"
                 >
                   <input
+                    checked=""
                     name="skipDefaultValidation"
                     type="checkbox"
                   />
@@ -1915,7 +1918,7 @@ exports[`should form for edit authtype clientKey 1`] = `
           class="StyledProps---font--2ipy Text---lineclamp--qeDh StyledProps---main--1Wws StepWizard---stepName--2M52"
           style="--text-line-clamp: 2; width: 240px;"
         >
-          VERIFY CONNECTION
+          Test Connection
         </p>
       </div>
     </div>
@@ -2318,6 +2321,7 @@ exports[`should form for edit authtype clientKey 1`] = `
                   class="bp3-control bp3-checkbox StyledProps---font--2ipy Checkbox---checkbox--2kFy StyledProps---main--1Wws StyledProps---padding-left-xxlarge--1LeG StyledProps---inline--1f52"
                 >
                   <input
+                    checked=""
                     name="skipDefaultValidation"
                     type="checkbox"
                   />

@@ -20,12 +20,12 @@ const CreateK8sConnector: React.FC<CreateK8sConnectorProps> = props => {
   const { getString } = useStrings()
   return (
     <StepWizard
-      icon={getConnectorIconByType('K8sCluster')}
+      icon={getConnectorIconByType(Connectors.KUBERNETES_CLUSTER)}
       iconProps={{ size: 37 }}
-      title={getConnectorTitleTextByType('K8sCluster')}
+      title={getConnectorTitleTextByType(Connectors.KUBERNETES_CLUSTER)}
     >
       <ConnectorDetailsStep
-        type="K8sCluster"
+        type={Connectors.KUBERNETES_CLUSTER}
         name={getString('connectors.stepOneName')}
         isEditMode={!props.isCreate}
         connectorInfo={props.connectorInfo}
@@ -42,7 +42,7 @@ const CreateK8sConnector: React.FC<CreateK8sConnectorProps> = props => {
         renderInModal={true}
         onSuccess={props.onConnectorCreated}
         isLastStep={true}
-        type={Connectors.K8sCluster}
+        type={Connectors.KUBERNETES_CLUSTER}
         hideLightModal={props.hideLightModal}
       />
     </StepWizard>

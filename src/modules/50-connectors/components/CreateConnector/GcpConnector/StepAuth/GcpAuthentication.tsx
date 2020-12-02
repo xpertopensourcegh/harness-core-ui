@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router'
 import {
   Layout,
@@ -9,24 +9,34 @@ import {
   ModalErrorHandler,
   FormikForm as Form,
   StepProps,
-  SelectOption,
-  ModalErrorHandlerBinding
+  ModalErrorHandlerBinding,
+  Container,
+  CardSelect,
+  Color,
+  Icon
 } from '@wings-software/uikit'
-import * as Yup from 'yup'
-import { GCP_AUTH_TYPE, buildGcpPayload } from '@connectors/pages/connectors/utils/ConnectorUtils'
+import cx from 'classnames'
+import { PageSpinner } from '@common/components/Page/PageSpinner'
+import {
+  buildGcpPayload,
+  DelegateTypes,
+  DelegateCardInterface,
+  SecretReferenceInterface,
+  setupGCPFormData
+} from '@connectors/pages/connectors/utils/ConnectorUtils'
 import { useToaster } from '@common/exports'
-import type { ConnectorConfigDTO, ConnectorRequestBody } from 'services/cd-ng'
+import type { ConnectorConfigDTO, ConnectorRequestBody, ConnectorInfoDTO } from 'services/cd-ng'
 import { useCreateConnector, useUpdateConnector } from 'services/cd-ng'
-import { useGetDelegateTags } from 'services/portal'
+
 import SecretInput from '@secrets/components/SecretInput/SecretInput'
-import i18n from '../CreateGcpConnector.i18n'
+import { useStrings } from 'framework/exports'
 import css from '../CreateGcpConnector.module.scss'
 
-interface StepGcpAuthenticationProps {
+interface GcpAuthenticationProps {
   name: string
   isEditMode: boolean
-  onConnectorCreated?: (data?: ConnectorConfigDTO) => void | Promise<void>
-  secretName?: string
+  onConnectorCreated: (data?: ConnectorConfigDTO) => void | Promise<void>
+  connectorInfo: ConnectorInfoDTO | void
 }
 
 interface StepConfigureProps {
@@ -34,27 +44,69 @@ interface StepConfigureProps {
   onSuccess?: () => void
 }
 
-const GcpAuthentication: React.FC<StepGcpAuthenticationProps & StepProps<StepConfigureProps>> = props => {
-  const { prevStepData, isEditMode = false, nextStep } = props
+interface GCPFormInterface {
+  delegateType: string
+  password: SecretReferenceInterface | null
+  skipDefaultValidation: boolean
+}
+const GcpAuthentication: React.FC<StepProps<StepConfigureProps> & GcpAuthenticationProps> = props => {
+  const { prevStepData, nextStep } = props
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
   const { showSuccess } = useToaster()
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
   const { mutate: createConnector } = useCreateConnector({ queryParams: { accountIdentifier: accountId } })
   const { mutate: updateConnector } = useUpdateConnector({ queryParams: { accountIdentifier: accountId } })
   const [loadConnector, setLoadConnector] = useState(false)
-  const { data: delegateTagsResponse } = useGetDelegateTags({ queryParams: { accountId } })
-  const [authType, setAuthType] = useState(GCP_AUTH_TYPE.DELEGATE)
-  const [useExisting] = useState(true)
+  const { getString } = useStrings()
+
+  const defaultInitialFormData: GCPFormInterface = {
+    delegateType: DelegateTypes.DELEGATE_OUT_CLUSTER,
+    password: null,
+    skipDefaultValidation: true
+  }
+
+  const validate = (formData: GCPFormInterface): boolean => {
+    return !!formData.password?.referenceString
+  }
+
+  const [initialValues, setInitialValues] = useState(defaultInitialFormData)
+  const [loadingConnectorSecrets, setLoadingConnectorSecrets] = useState(true && props.isEditMode)
+
+  const DelegateCards: DelegateCardInterface[] = [
+    {
+      type: DelegateTypes.DELEGATE_OUT_CLUSTER,
+      info: getString('connectors.delegateOutClusterInfo1')
+    },
+    {
+      type: DelegateTypes.DELEGATE_IN_CLUSTER,
+      info: getString('connectors.delegateInClusterInfo')
+    }
+  ]
+
+  useEffect(() => {
+    if (loadingConnectorSecrets) {
+      if (props.isEditMode && props.connectorInfo) {
+        setupGCPFormData(props.connectorInfo, accountId).then(data => {
+          setInitialValues(data as GCPFormInterface)
+          setLoadingConnectorSecrets(false)
+        })
+      }
+    }
+  }, [loadingConnectorSecrets])
 
   const handleCreate = async (data: ConnectorRequestBody, stepData: ConnectorConfigDTO): Promise<void> => {
     try {
       modalErrorHandler?.hide()
       setLoadConnector(true)
-      await createConnector(data)
+      const response = await createConnector(data)
       setLoadConnector(false)
       props.onConnectorCreated?.()
       showSuccess(`Connector '${data.connector?.name}' created successfully`)
-      nextStep?.({ ...prevStepData, ...stepData })
+      if (stepData.skipDefaultValidation) {
+        props.onConnectorCreated(response.data)
+      } else {
+        nextStep?.({ ...prevStepData, ...stepData })
+      }
     } catch (e) {
       setLoadConnector(false)
       modalErrorHandler?.showDanger(e.data?.message || e.message)
@@ -65,129 +117,96 @@ const GcpAuthentication: React.FC<StepGcpAuthenticationProps & StepProps<StepCon
     try {
       modalErrorHandler?.hide()
       setLoadConnector(true)
-      await updateConnector(data)
+      const response = await updateConnector(data)
       setLoadConnector(false)
       showSuccess(`Connector '${data.connector?.name}' updated successfully`)
-      nextStep?.({ ...prevStepData, ...stepData })
+      if (stepData.skipDefaultValidation) {
+        props.onConnectorCreated(response.data)
+      } else {
+        nextStep?.({ ...prevStepData, ...stepData })
+      }
     } catch (error) {
       setLoadConnector(false)
       modalErrorHandler?.showDanger(error.data?.message || error.message)
     }
   }
 
-  const formatDelegateList = (listData: Array<string>): SelectOption[] => {
-    return listData?.map(item => {
-      return { label: item || '', value: item || '' }
-    })
-  }
-
-  const selectExistingDelegate = (disabled: boolean) => {
-    const delegateListFiltered = delegateTagsResponse?.resource?.length
-      ? formatDelegateList(delegateTagsResponse?.resource)
-      : [{ label: '', value: '' }]
-    return (
-      <>
-        <FormInput.Select
-          name="delegateSelector"
-          disabled={disabled}
-          className={css.selectDelegate}
-          items={delegateListFiltered}
-        />
-      </>
-    )
-  }
-
-  const RenderDelegateInclusterForm: React.FC = () => {
-    return (
-      <div className={css.incluster}>
-        <Text className={css.howToProceed}>{i18n.STEP_TWO.HOW_TO_PROCEED}</Text>
-        <div className={css.radioOption}>
-          <input type="radio" defaultChecked={useExisting} />
-          <span className={css.label}>Use an existing Delegate</span>
-        </div>
-        {selectExistingDelegate(!useExisting)}
-        <div className={css.radioOption}>
-          <input type="radio" defaultChecked={!useExisting} disabled />
-          <span className={css.label}>Add a new Delegate</span>
-        </div>
-      </div>
-    )
-  }
-
-  return (
-    <Layout.Vertical height={'inherit'}>
-      <Text font="medium" margin={{ top: 'small', left: 'small' }} color="var(--grey-800)">
-        {i18n.STEP_TWO.Heading}
+  return loadingConnectorSecrets ? (
+    <PageSpinner />
+  ) : (
+    <Layout.Vertical height={'inherit'} spacing="medium" className={css.secondStep}>
+      <Text font="medium" margin={{ top: 'small' }} color={Color.BLACK}>
+        {getString('connectors.k8.stepTwoName')}
       </Text>
       <Formik
         initialValues={{
-          authType: GCP_AUTH_TYPE.DELEGATE,
-          password: undefined,
-          ...prevStepData
+          ...initialValues,
+          ...props.prevStepData
         }}
-        validationSchema={Yup.object().shape({
-          delegateSelector: Yup.string().when('authType', {
-            is: GCP_AUTH_TYPE.DELEGATE,
-            then: Yup.string().trim().required(i18n.STEP_TWO.VALIDATION.delegateSelector)
-          }),
-          password: Yup.string().when('credential', {
-            is: GCP_AUTH_TYPE.ENCRYPTED_KEY,
-            then: Yup.string().trim().required(i18n.STEP_TWO.VALIDATION.password)
-          })
-        })}
-        onSubmit={stepData => {
-          const connectorData = {
-            ...prevStepData,
-            ...stepData,
-            projectIdentifier: projectIdentifier,
-            orgIdentifier: orgIdentifier
-          }
-          const data = buildGcpPayload(connectorData)
+        onSubmit={formData => {
+          if (validate(formData)) {
+            const connectorData = {
+              ...prevStepData,
+              ...formData,
+              projectIdentifier: projectIdentifier,
+              orgIdentifier: orgIdentifier
+            }
+            const data = buildGcpPayload(connectorData)
 
-          if (isEditMode) {
-            handleUpdate(data, stepData)
-          } else {
-            handleCreate(data, stepData)
+            if (props.isEditMode) {
+              handleUpdate(data, formData)
+            } else {
+              handleCreate(data, formData)
+            }
           }
         }}
       >
         {formikProps => (
           <Form>
-            <ModalErrorHandler bind={setModalErrorHandler} />
-
-            <Layout.Vertical padding={{ top: 'large', bottom: 'large' }} width={'64%'} style={{ minHeight: '440px' }}>
-              <FormInput.RadioGroup
-                style={{ fontSize: 'normal' }}
-                inline
-                name="authType"
-                items={[
-                  { label: i18n.STEP_TWO.AUTH_TYPE.DELEGATE_LABEL, value: GCP_AUTH_TYPE.DELEGATE },
-                  { label: i18n.STEP_TWO.AUTH_TYPE.ENCRYPTED_KEY_LABEL, value: GCP_AUTH_TYPE.ENCRYPTED_KEY }
-                ]}
-                radioGroup={{ inline: true }}
-                onChange={event => {
-                  setAuthType((event.target as HTMLInputElement).value)
+            <Container className={css.clusterWrapper}>
+              <ModalErrorHandler bind={setModalErrorHandler} style={{ marginBottom: 'var(--spacing-medium)' }} />
+              <CardSelect
+                onChange={(item: DelegateCardInterface) => {
+                  formikProps?.setFieldValue('delegateType', item.type)
                 }}
+                data={DelegateCards}
+                className={css.cardRow}
+                renderItem={(item: DelegateCardInterface) => {
+                  return (
+                    <Container
+                      className={cx(css.card, { [css.selectedCard]: item.type === formikProps.values.delegateType })}
+                    >
+                      <Text inline className={css.textInfo}>
+                        {item.info}
+                      </Text>
+                      {item.type === formikProps.values.delegateType ? (
+                        <Icon margin="small" name="deployment-success-new" size={16} />
+                      ) : null}
+                    </Container>
+                  )
+                }}
+                selected={DelegateCards[DelegateCards.findIndex(card => card.type === formikProps.values.delegateType)]}
               />
-              {formikProps.values.authType === GCP_AUTH_TYPE.DELEGATE ? <RenderDelegateInclusterForm /> : null}
-              {formikProps.values.authType === GCP_AUTH_TYPE.ENCRYPTED_KEY ? (
-                <SecretInput name={'password'} label={i18n.STEP_TWO.ENCRYPTED_KEY} type={'SecretFile'} />
-              ) : null}
-            </Layout.Vertical>
 
-            <Layout.Horizontal padding={{ top: 'small' }} spacing="medium">
-              <Button onClick={() => props.previousStep?.({ ...prevStepData })} text={i18n.STEP_TWO.BACK} />
-              <Button
-                type="submit"
-                text={
-                  authType === GCP_AUTH_TYPE.DELEGATE && !useExisting
-                    ? i18n.STEP_TWO.CONTINUE
-                    : i18n.STEP_TWO.SAVE_CREDENTIALS_AND_CONTINUE
-                }
-                font="small"
-                disabled={loadConnector}
-              />
-            </Layout.Horizontal>
+              {DelegateTypes.DELEGATE_OUT_CLUSTER === formikProps.values.delegateType ? (
+                <>
+                  <SecretInput name={'password'} label={getString('encryptedKeyLabel')} type={'SecretFile'} />
+
+                  <FormInput.CheckBox
+                    name="skipDefaultValidation"
+                    label={getString('connectors.k8.skipDefaultValidation')}
+                    padding={{ left: 'xxlarge' }}
+                  />
+                </>
+              ) : null}
+            </Container>
+            <Button
+              type="submit"
+              intent="primary"
+              text={getString('saveAndContinue')}
+              className={css.saveButton}
+              disabled={DelegateTypes.DELEGATE_OUT_CLUSTER !== formikProps.values.delegateType || loadConnector}
+            />
           </Form>
         )}
       </Formik>

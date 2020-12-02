@@ -54,9 +54,9 @@ const useCreateConnectorModal = (props: UseCreateConnectorModalProps): UseCreate
           isCreate={isCreate}
           connectorInfo={connectorInfo}
           onSuccess={data => {
-            handleSuccess(data)
             props.onClose?.()
             hideModal()
+            handleSuccess(data)
           }}
           hideLightModal={hideModal}
         />

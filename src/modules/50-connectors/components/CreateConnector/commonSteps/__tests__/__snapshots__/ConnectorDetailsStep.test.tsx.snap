@@ -22,7 +22,7 @@ exports[`Connector details step render for GIT connector 1`] = `
               class="StyledProps---font--2ipy StyledProps---main--1Wws connectorForm"
             >
               <div
-                class="connectorFormNameWarpper"
+                class="connectorFormNameWrapper"
               >
                 <div
                   class="connectorFormNameElm"
@@ -158,7 +158,7 @@ exports[`Connector details step render for create kubernetes connector step one 
               class="StyledProps---font--2ipy StyledProps---main--1Wws connectorForm"
             >
               <div
-                class="connectorFormNameWarpper"
+                class="connectorFormNameWrapper"
               >
                 <div
                   class="connectorFormNameElm"
@@ -294,7 +294,7 @@ exports[`Connector details step render for create kubernetes connector step one 
               class="StyledProps---font--2ipy StyledProps---main--1Wws connectorForm"
             >
               <div
-                class="connectorFormNameWarpper"
+                class="connectorFormNameWrapper"
               >
                 <div
                   class="connectorFormNameElm"

@@ -79,7 +79,14 @@ export const ConnectorWizard: React.FC<CreateConnectorWizardProps> = props => {
     case Connectors.ARTIFACTORY:
       return <CreateArtifactoryConnector onConnectorCreated={props.onSuccess} hideLightModal={hideLightModal} />
     case Connectors.GCP:
-      return <CreateGcpConnector onConnectorCreated={props.onSuccess} hideLightModal={hideLightModal} />
+      return (
+        <CreateGcpConnector
+          onConnectorCreated={props.onSuccess}
+          hideLightModal={hideLightModal}
+          isCreate={props.isCreate}
+          connectorInfo={props.connectorInfo}
+        />
+      )
     default:
       return null
   }

@@ -4,6 +4,7 @@ import { Connectors, ConnectorInfoText, EntityTypes } from '@connectors/constant
 import { ConnectorInfoDTO, getSecretV2Promise, GetSecretV2QueryParams } from 'services/cd-ng'
 import type { FormData } from '@connectors/interfaces/ConnectorInterface'
 import { Scope } from '@common/interfaces/SecretsInterface'
+import { AuthTypes } from './ConnectorHelper'
 
 export const getScopeFromString = (value: string) => {
   return value?.indexOf('.') < 0 ? Scope.PROJECT : value?.split('.')[0]
@@ -13,17 +14,16 @@ export const getSecretIdFromString = (value: string) => {
   return value?.indexOf('.') < 0 ? value : value?.split('.')[1]
 }
 
+export interface DelegateCardInterface {
+  type: string
+  info: string
+}
+
 export const GCP_AUTH_TYPE = {
   DELEGATE: 'delegate',
   ENCRYPTED_KEY: 'encryptedKey'
 }
 
-export const AuthTypes = {
-  CLIENT_KEY_CERT: 'ClientKeyCert',
-  USER_PASSWORD: 'UsernamePassword',
-  SERVICE_ACCOUNT: 'ServiceAccount',
-  OIDC: 'OpenIdConnect'
-}
 export const DelegateTypes = {
   DELEGATE_IN_CLUSTER: 'InheritFromDelegate',
   DELEGATE_OUT_CLUSTER: 'ManualConfig'
@@ -78,7 +78,7 @@ const buildAuthTypePayload = (formData: FormData) => {
         clientKeyRef: formData.clientKey.referenceString,
         clientCertRef: formData.clientKeyCertificate.referenceString,
         clientKeyPassphraseRef: formData.clientKeyPassphrase.referenceString,
-        caCertRef: formData.clientKeyCACertificate.referenceString,
+        caCertRef: formData.clientKeyCACertificate?.referenceString, // optional
         clientKeyAlgo: formData.clientKeyAlgo
       }
     default:
@@ -153,7 +153,7 @@ export const setSecretField = async (
   }
 }
 
-export const getAuthFormFields = async (connectorInfo: ConnectorInfoDTO, accountId: string): Promise<FormData> => {
+export const getK8AuthFormFields = async (connectorInfo: ConnectorInfoDTO, accountId: string): Promise<FormData> => {
   const scopeQueryParams: GetSecretV2QueryParams = {
     accountIdentifier: accountId,
     projectIdentifier: connectorInfo.projectIdentifier,
@@ -178,15 +178,32 @@ export const getAuthFormFields = async (connectorInfo: ConnectorInfoDTO, account
 }
 
 export const setupKubFormData = async (connectorInfo: ConnectorInfoDTO, accountId: string): Promise<FormData> => {
-  const authData = await getAuthFormFields(connectorInfo, accountId)
+  const authData = await getK8AuthFormFields(connectorInfo, accountId)
 
   const formData = {
     delegateType: connectorInfo.spec.credential.type,
     delegateName: connectorInfo.spec.credential?.spec?.delegateName || '',
     masterUrl: connectorInfo.spec.credential?.spec?.masterUrl || '',
     authType: connectorInfo.spec.credential?.spec?.auth?.type || '',
-    skipDefaultValidation: false,
+    skipDefaultValidation: true,
     ...authData
+  }
+
+  return formData
+}
+
+export const setupGCPFormData = async (connectorInfo: ConnectorInfoDTO, accountId: string): Promise<FormData> => {
+  const scopeQueryParams: GetSecretV2QueryParams = {
+    accountIdentifier: accountId,
+    projectIdentifier: connectorInfo.projectIdentifier,
+    orgIdentifier: connectorInfo.orgIdentifier
+  }
+
+  const formData = {
+    delegateType: connectorInfo.spec.credential.type,
+    delegateName: connectorInfo.spec.credential?.spec?.delegateName || '',
+    password: await setSecretField(connectorInfo.spec.credential?.spec?.secretKeyRef, scopeQueryParams),
+    skipDefaultValidation: true
   }
 
   return formData
@@ -269,24 +286,19 @@ export const buildGcpPayload = (formData: FormData) => {
     tags: formData.tags,
     type: Connectors.GCP,
     spec: {
-      credential: {}
+      credential: {
+        type: formData?.delegateType,
+        spec:
+          formData?.delegateType === DelegateTypes.DELEGATE_IN_CLUSTER
+            ? {
+                delegateSelector: formData.delegateName
+              }
+            : {
+                secretKeyRef: formData.password.referenceString
+              }
+      }
     }
   }
-
-  savedData.spec.credential =
-    formData.authType === GCP_AUTH_TYPE.ENCRYPTED_KEY
-      ? {
-          type: 'ManualConfig',
-          spec: {
-            secretKeyRef: formData.password.referenceString
-          }
-        }
-      : {
-          type: 'InheritFromDelegate',
-          spec: {
-            delegateSelector: formData.delegateName
-          }
-        }
 
   return { connector: savedData }
 }

@@ -4,6 +4,6 @@ declare const styles: {
   readonly tags: string
   readonly activeTag: string
   readonly breadCrumb: string
-  readonly kubHeading: string
+  readonly heading: string
 }
 export default styles
