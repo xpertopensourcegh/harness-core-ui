@@ -75,95 +75,102 @@ exports[`Create Secret Manager Wizard should render form 1`] = `
           >
             <div>
               <div
-                class="InputWithIdentifier---txtNameContainer--20iZ"
+                class="StyledProps---font--2ipy StyledProps---main--1Wws formData"
               >
                 <div
-                  class="Layout---horizontal--3rmQ StyledProps---main--1Wws InputWithIdentifier---txtIdContainer--2Ozd"
+                  class="StyledProps---font--2ipy StyledProps---main--1Wws main"
                 >
-                  <p
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws"
-                  >
-                    ID
-                    :
-                  </p>
-                  <span
-                    class="InputWithIdentifier---idInput--w8_T"
-                    contenteditable="true"
-                  />
-                  <span
-                    class="bp3-icon bp3-icon-edit StyledProps---main--1Wws"
-                    icon="edit"
-                    style="vertical-align: middle;"
-                  >
-                    <svg
-                      data-icon="edit"
-                      height="12"
-                      viewBox="0 0 16 16"
-                      width="12"
-                    >
-                      <desc>
-                        edit
-                      </desc>
-                      <path
-                        d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
-                        fill-rule="evenodd"
-                      />
-                    </svg>
-                  </span>
-                </div>
-                <div
-                  class="bp3-form-group"
-                  data-id="name-0"
-                >
-                  <label
-                    class="bp3-label"
-                    for="name"
-                  >
-                    Give your SSH Credential a name
-                     
-                    <span
-                      class="bp3-text-muted"
-                    />
-                  </label>
                   <div
-                    class="bp3-form-content"
+                    class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormNameWarpper"
                   >
                     <div
-                      class="bp3-input-group"
+                      class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormNameElm"
                     >
-                      <input
-                        autocomplete="off"
-                        class="bp3-input"
-                        name="name"
-                        type="text"
-                        value=""
-                      />
+                      <div
+                        class="InputWithIdentifier---txtNameContainer--20iZ"
+                      >
+                        <div
+                          class="Layout---horizontal--3rmQ StyledProps---main--1Wws InputWithIdentifier---txtIdContainer--2Ozd"
+                        >
+                          <p
+                            class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                          >
+                            ID
+                            :
+                          </p>
+                          <span
+                            class="InputWithIdentifier---idInput--w8_T"
+                            contenteditable="true"
+                          />
+                          <span
+                            class="bp3-icon bp3-icon-edit StyledProps---main--1Wws"
+                            icon="edit"
+                            style="vertical-align: middle;"
+                          >
+                            <svg
+                              data-icon="edit"
+                              height="12"
+                              viewBox="0 0 16 16"
+                              width="12"
+                            >
+                              <desc>
+                                edit
+                              </desc>
+                              <path
+                                d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                                fill-rule="evenodd"
+                              />
+                            </svg>
+                          </span>
+                        </div>
+                        <div
+                          class="bp3-form-group"
+                          data-id="name-0"
+                        >
+                          <label
+                            class="bp3-label"
+                            for="name"
+                          >
+                            Name
+                             
+                            <span
+                              class="bp3-text-muted"
+                            />
+                          </label>
+                          <div
+                            class="bp3-form-content"
+                          >
+                            <div
+                              class="bp3-input-group"
+                            >
+                              <input
+                                autocomplete="off"
+                                class="bp3-input"
+                                name="name"
+                                type="text"
+                                value=""
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
+                      style="justify-content: center;"
+                    >
+                      <p
+                        class="StyledProps---font--2ipy StyledProps---main--1Wws fieldToggleLabel StyledProps---color--8PuS StyledProps---color-blue500--3HtV"
+                      >
+                        + Description
+                      </p>
+                      <p
+                        class="StyledProps---font--2ipy StyledProps---main--1Wws fieldToggleLabel StyledProps---color--8PuS StyledProps---color-blue500--3HtV"
+                      >
+                        + Tags
+                      </p>
                     </div>
                   </div>
-                </div>
-              </div>
-              <div
-                class="bp3-form-group"
-                data-id="description-1"
-              >
-                <label
-                  class="bp3-label"
-                  for="description"
-                >
-                  Description
-                   
-                  <span
-                    class="bp3-text-muted"
-                  />
-                </label>
-                <div
-                  class="bp3-form-content"
-                >
-                  <textarea
-                    autocomplete="off"
-                    class="bp3-input bp3-fill"
-                    name="description"
-                  />
                 </div>
               </div>
               <div

@@ -3,15 +3,20 @@ import { Button, Text, Color, StepProps, FormikForm, Formik, Container, Layout }
 import * as Yup from 'yup'
 import type { SecretDTOV2 } from 'services/cd-ng'
 
-import { illegalIdentifiers } from '@common/utils/StringUtils'
-
-import SSHDetailsFormFields from '@secrets/components/SSHDetailsFormFields/SSHDetailsFormFields'
+import { AddDescriptionAndKVTagsWithIdentifier } from '@common/components/AddDescriptionAndTags/AddDescriptionAndTags'
+import { StringUtils } from '@common/exports'
 import type { SSHCredSharedObj } from '../CreateSSHCredWizard'
 import i18n from '../CreateSSHCredModal.i18n'
+import css from './StepDetails.module.scss'
 
 export type DetailsForm = Pick<SecretDTOV2, 'name' | 'identifier' | 'description' | 'tags'>
 
-const StepSSHDetails: React.FC<StepProps<SSHCredSharedObj>> = ({ prevStepData, nextStep }) => {
+const StepSSHDetails: React.FC<StepProps<SSHCredSharedObj> & SSHCredSharedObj> = ({
+  prevStepData,
+  nextStep,
+  detailsData,
+  authData
+}) => {
   return (
     <Container padding="small" width={350} height={500}>
       <Text margin={{ bottom: 'xlarge' }} font={{ size: 'medium' }} color={Color.BLACK}>
@@ -19,28 +24,35 @@ const StepSSHDetails: React.FC<StepProps<SSHCredSharedObj>> = ({ prevStepData, n
       </Text>
       <Formik<DetailsForm>
         onSubmit={values => {
-          nextStep?.({ ...prevStepData, detailsData: values })
+          nextStep?.({ ...prevStepData, detailsData: values, authData })
         }}
         validationSchema={Yup.object().shape({
           name: Yup.string().trim().required(i18n.validName),
-          identifier: Yup.string()
-            .trim()
-            .required(i18n.validId)
-            .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, i18n.validIdRegex)
-            .notOneOf(illegalIdentifiers)
+          identifier: Yup.string().when('name', {
+            is: val => val?.length,
+            then: Yup.string()
+              .trim()
+              .required(i18n.validId)
+              .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, i18n.validIdRegex)
+              .notOneOf(StringUtils.illegalIdentifiers)
+          })
         })}
         initialValues={{
           name: '',
           identifier: '',
           description: '',
           tags: {},
-          ...prevStepData?.detailsData
+          ...(prevStepData ? prevStepData.detailsData : detailsData)
         }}
       >
         {() => {
           return (
             <FormikForm>
-              <SSHDetailsFormFields />
+              <Container className={css.formData}>
+                <AddDescriptionAndKVTagsWithIdentifier
+                  identifierProps={{ inputName: 'name', isIdentifierEditable: detailsData ? false : true }}
+                />
+              </Container>
               <Layout.Horizontal>
                 <Button type="submit" text={i18n.btnContinue} />
               </Layout.Horizontal>

@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import { useParams, Link, useLocation, useHistory } from 'react-router-dom'
-import { parse as parseQueryString } from 'query-string'
+import { useParams, Link, useHistory } from 'react-router-dom'
 import { parse } from 'yaml'
 import cx from 'classnames'
-import { omit, without, pick } from 'lodash-es'
+import { omit, pick, without } from 'lodash-es'
 import { Layout, Text, Color, Container, Button } from '@wings-software/uikit'
 
 import {
@@ -20,11 +19,11 @@ import YamlBuilder from '@common/components/YAMLBuilder/YamlBuilder'
 import type { YamlBuilderHandlerBinding } from '@common/interfaces/YAMLBuilderProps'
 import { YamlEntity } from '@common/constants/YamlConstants'
 import { useToaster } from '@common/exports'
-import CreateUpdateSecret from '@secrets/components/CreateUpdateSecret/CreateUpdateSecret'
 import routes from '@common/RouteDefinitions'
 
 import type { UseGetMockData } from '@common/utils/testUtils'
-import EditSSHSecret from './views/EditSSHSecret'
+import useCreateSSHCredModal from '@secrets/modals/CreateSSHCredModal/useCreateSSHCredModal'
+import CreateUpdateSecret from '@secrets/components/CreateUpdateSecret/CreateUpdateSecret'
 import ViewSecretDetails from './views/ViewSecretDetails'
 
 import i18n from './SecretDetails.i18n'
@@ -60,10 +59,9 @@ const getSecretsUrl = ({ orgIdentifier, accountId }: OptionalIdentifiers): strin
 
 const SecretDetails: React.FC<SecretDetailsProps> = props => {
   const { accountId, projectIdentifier, orgIdentifier, secretId } = useParams()
-  const { search: queryParams, pathname } = useLocation()
   const { showSuccess, showError } = useToaster()
   const history = useHistory()
-  const { edit } = parseQueryString(queryParams)
+  const [edit, setEdit] = useState<boolean>()
   const [mode, setMode] = useState<Mode>(Mode.VISUAL)
   const [fieldsRemovedFromYaml, setFieldsRemovedFromYaml] = useState(['draft', 'createdAt', 'updatedAt'])
   const [yamlHandler, setYamlHandler] = React.useState<YamlBuilderHandlerBinding | undefined>()
@@ -79,7 +77,7 @@ const SecretDetails: React.FC<SecretDetailsProps> = props => {
   })
 
   const [secretData, setSecretData] = useState(data?.data)
-
+  const { openCreateSSHCredModal } = useCreateSSHCredModal({ onSuccess: refetch })
   const handleSaveYaml = async (): Promise<void> => {
     const yamlData = yamlHandler?.getLatestYaml()
     let jsonData
@@ -94,6 +92,7 @@ const SecretDetails: React.FC<SecretDetailsProps> = props => {
         await updateSecretYaml(yamlData as any)
         showSuccess(i18n.updateSuccess)
         history.push(routes.toResourcesSecretDetails({ secretId, accountId }))
+        setEdit(false)
       } catch (err) {
         showError(err.data.message)
       }
@@ -180,27 +179,18 @@ const SecretDetails: React.FC<SecretDetailsProps> = props => {
               text={i18n.buttonEdit}
               icon="edit"
               onClick={() => {
-                history.push({
-                  pathname,
-                  search: '?edit=true'
-                })
+                secretData.secret.type === 'SSHKey' && mode === Mode.VISUAL
+                  ? openCreateSSHCredModal(data?.data?.secret)
+                  : setEdit(true)
               }}
             />
           )}
         </Layout.Horizontal>
+
         {edit ? (
           // EDIT in VISUAL mode
           mode === Mode.VISUAL ? (
             <Container>
-              {secretData.secret.type === 'SSHKey' ? (
-                <EditSSHSecret
-                  secret={secretData}
-                  onChange={secret => setSecretData({ secret, ...pick(secretData, ['createdAt', 'updatedAt']) })}
-                  mockPassword={props.mockPassword}
-                  mockPassphrase={props.mockPassphrase}
-                  mockKey={props.mockKey}
-                />
-              ) : null}
               {secretData.secret.type === 'SecretFile' || secretData.secret.type === 'SecretText' ? (
                 <Container width="400px">
                   <CreateUpdateSecret
@@ -208,6 +198,7 @@ const SecretDetails: React.FC<SecretDetailsProps> = props => {
                     onChange={secret => setSecretData({ secret, ...pick(secretData, ['createdAt', 'updatedAt']) })}
                     onSuccess={() => {
                       history.push(routes.toResourcesSecretDetails({ secretId, accountId }))
+                      setEdit(false)
                     }}
                     connectorListMockData={props.connectorListMockData}
                   />

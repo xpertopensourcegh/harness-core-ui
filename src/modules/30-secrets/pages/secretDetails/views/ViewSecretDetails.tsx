@@ -20,7 +20,7 @@ import sshi18n from '@secrets/components/SSHAuthFormFields/SSHAuthFormFields.i18
 import VerifyConnection from '@secrets/modals/CreateSSHCredModal/views/VerifyConnection'
 import ConnectorStats from '@common/components/ConnectorStats/ConnectorStats'
 import i18n from '../SecretDetails.i18n'
-import css from './EditSSHSecret.module.scss'
+import css from './ViewSecretDetails.module.scss'
 
 interface ViewSecretDetailsProps {
   secret: SecretResponseWrapper

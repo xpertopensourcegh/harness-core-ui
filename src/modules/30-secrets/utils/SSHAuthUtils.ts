@@ -2,7 +2,7 @@ import { pick } from 'lodash-es'
 import { Scope } from '@common/interfaces/SecretsInterface'
 import type { SSHConfigFormData } from '@secrets/modals/CreateSSHCredModal/views/StepAuthentication'
 import type { DetailsForm } from '@secrets/modals/CreateSSHCredModal/views/StepDetails'
-import type {
+import {
   KerberosConfigDTO,
   TGTPasswordSpecDTO,
   TGTKeyTabFilePathSpecDTO,
@@ -12,9 +12,10 @@ import type {
   SSHKeyReferenceCredentialDTO,
   SSHPasswordCredentialDTO,
   SSHKeySpecDTO,
-  SSHAuthDTO
+  SSHAuthDTO,
+  getSecretV2Promise
 } from 'services/cd-ng'
-
+import type { SecretReference } from '@secrets/components/CreateOrSelectSecret/CreateOrSelectSecret'
 import i18n from './SSHAuthUtils.i18n'
 
 type SSHCredentialType = SSHKeyPathCredentialDTO | SSHKeyReferenceCredentialDTO | SSHPasswordCredentialDTO
@@ -22,8 +23,7 @@ type SSHCredentialType = SSHKeyPathCredentialDTO | SSHKeyReferenceCredentialDTO 
 export const getSSHDTOFromFormData = (formData: DetailsForm & SSHConfigFormData): SecretDTOV2 => {
   return {
     type: 'SSHKey',
-    ...pick(formData, ['name', 'description', 'identifier']),
-    tags: {},
+    ...pick(formData, ['name', 'description', 'identifier', 'tags']),
     spec: {
       port: formData.port,
       auth: {
@@ -180,5 +180,82 @@ export function buildAuthConfig(data: SSHConfigFormData): SSHConfigDTO | Kerbero
       } as SSHConfigDTO
     case 'Kerberos':
       return buildKerberosConfig(data)
+  }
+}
+
+export const getSecretReferencesforSSH = async (
+  secret: SecretDTOV2,
+  accountId: string,
+  orgIdentifier?: string,
+  projectIdentifier?: string
+): Promise<{
+  keySecret?: SecretReference
+  passwordSecret?: SecretReference
+  encryptedPassphraseSecret?: SecretReference
+}> => {
+  let keySecret, passwordSecret, encryptedPassphraseSecret
+  let password, encryptedPassphrase
+  const secretSpec = secret.spec as SSHKeySpecDTO
+  const authScheme = secretSpec.auth.type
+  if (authScheme === 'SSH') {
+    const sshConfig = secretSpec.auth.spec as SSHConfigDTO
+    const credentialType = sshConfig.credentialType
+    if (credentialType === 'Password') {
+      const passwordSpec = sshConfig.spec as SSHPasswordCredentialDTO
+      password = passwordSpec.password
+    } else if (credentialType === 'KeyPath') {
+      const keyPathSpec = sshConfig.spec as SSHKeyPathCredentialDTO
+      encryptedPassphrase = keyPathSpec.encryptedPassphrase
+    } else if (credentialType === 'KeyReference') {
+      const keyRefSpec = sshConfig.spec as SSHKeyReferenceCredentialDTO
+      encryptedPassphrase = keyRefSpec.encryptedPassphrase
+      if (keyRefSpec.key) {
+        const data = await getSecretV2Promise({
+          identifier: keyRefSpec.key.indexOf('.') < 0 ? keyRefSpec.key : keyRefSpec.key.split('.')[1],
+          queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
+        })
+        const keySecretData = data.data?.secret
+        if (keySecretData) {
+          keySecret = {
+            ...data.data?.secret,
+            referenceString: keyRefSpec.key
+          } as SecretReference
+        }
+      }
+    }
+  } else if (authScheme === 'Kerberos') {
+    const kerberosConfig = secretSpec.auth.spec as KerberosConfigDTO
+    if (kerberosConfig.tgtGenerationMethod === 'Password') {
+      password = kerberosConfig.spec?.password
+    }
+  }
+
+  if (password) {
+    const secretId = password.indexOf('.') < 0 ? password : password.split('.')[1]
+    const data = await getSecretV2Promise({
+      identifier: secretId,
+      queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
+    })
+    passwordSecret = {
+      ...data.data?.secret,
+      referenceString: password
+    } as SecretReference
+  }
+
+  if (encryptedPassphrase) {
+    const secretId = encryptedPassphrase.indexOf('.') < 0 ? encryptedPassphrase : encryptedPassphrase.split('.')[1]
+    const data = await getSecretV2Promise({
+      identifier: secretId,
+      queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
+    })
+    encryptedPassphraseSecret = {
+      ...data.data?.secret,
+      referenceString: encryptedPassphrase
+    } as SecretReference
+  }
+  return {
+    keySecret,
+    passwordSecret,
+    encryptedPassphraseSecret
   }
 }

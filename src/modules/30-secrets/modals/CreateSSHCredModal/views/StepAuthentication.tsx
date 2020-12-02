@@ -14,7 +14,13 @@ import {
 import { useParams } from 'react-router-dom'
 import * as Yup from 'yup'
 
-import { SecretRequestWrapper, usePostSecret, SSHAuthDTO, ResponsePageSecretResponseWrapper } from 'services/cd-ng'
+import {
+  SecretRequestWrapper,
+  usePostSecret,
+  SSHAuthDTO,
+  ResponsePageSecretResponseWrapper,
+  usePutSecret
+} from 'services/cd-ng'
 import type { KerberosConfigDTO, SSHConfigDTO, SSHKeySpecDTO } from 'services/cd-ng'
 import type { SecretReference } from '@secrets/components/CreateOrSelectSecret/CreateOrSelectSecret'
 import SSHAuthFormFields from '@secrets/components/SSHAuthFormFields/SSHAuthFormFields'
@@ -69,7 +75,7 @@ const validationSchema = Yup.object().shape({
   })
 })
 
-const StepAuthentication: React.FC<StepProps<SSHCredSharedObj> & StepAuthenticationProps> = ({
+const StepAuthentication: React.FC<StepProps<SSHCredSharedObj> & StepAuthenticationProps & SSHCredSharedObj> = ({
   prevStepData,
   nextStep,
   previousStep,
@@ -80,6 +86,12 @@ const StepAuthentication: React.FC<StepProps<SSHCredSharedObj> & StepAuthenticat
   const [saving, setSaving] = useState(false)
   const { showSuccess } = useToaster()
   const { mutate: createSecret } = usePostSecret({ queryParams: { accountIdentifier: accountId } })
+  const { mutate: editSecret } = usePutSecret({
+    identifier: prevStepData?.detailsData?.identifier || '',
+    queryParams: { accountIdentifier: accountId }
+  })
+
+  const isEdit = prevStepData?.authData ? true : false
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding>()
 
   const handleSubmit = async (formData: SSHConfigFormData): Promise<void> => {
@@ -93,7 +105,7 @@ const StepAuthentication: React.FC<StepProps<SSHCredSharedObj> & StepAuthenticat
           name: prevStepData?.detailsData?.name as string,
           identifier: prevStepData?.detailsData?.identifier as string,
           description: prevStepData?.detailsData?.description,
-          tags: {},
+          tags: prevStepData?.detailsData?.tags,
           projectIdentifier,
           orgIdentifier,
           spec: {
@@ -105,9 +117,8 @@ const StepAuthentication: React.FC<StepProps<SSHCredSharedObj> & StepAuthenticat
           } as SSHKeySpecDTO
         }
       }
-
       // finally create the connector
-      await createSecret(dataToSubmit)
+      isEdit ? await editSecret(dataToSubmit) : await createSecret(dataToSubmit)
       setSaving(false)
       showSuccess(i18n.messageSuccess)
       onSuccess?.()

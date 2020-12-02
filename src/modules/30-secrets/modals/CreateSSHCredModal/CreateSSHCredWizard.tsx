@@ -22,10 +22,10 @@ export interface SSHCredSharedObj {
   authData?: SSHConfigFormData
 }
 
-const CreateSSHCredWizard: React.FC<CreateSSHCredWizardProps> = props => {
+const CreateSSHCredWizard: React.FC<CreateSSHCredWizardProps & SSHCredSharedObj> = props => {
   return (
     <StepWizard<SSHCredSharedObj>>
-      <StepSSHDetails name={i18n.titleDetails.toUpperCase()} />
+      <StepSSHDetails name={i18n.titleDetails.toUpperCase()} {...props} />
       <StepAuthentication
         name={i18n.stepTitleAuth.toUpperCase()}
         onSuccess={props.onSuccess}

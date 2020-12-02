@@ -97,7 +97,51 @@ export function AddDescriptionAndTags(props: DescriptionAndTagsInputProps): JSX.
   )
 }
 
+export function AddDescriptionAndKVTags(props: DescriptionAndTagsInputProps): JSX.Element {
+  const { formComponent, className } = props
+  const [isDescriptionOpen, setIsDescriptionOpen] = useState(false)
+  const [isTagsOpen, setIsTagsOpen] = useState(false)
+  return (
+    <Container className={cx(css.main, className)}>
+      <Container className={css.connectorFormNameWarpper}>
+        <Container className={css.connectorFormNameElm}>{formComponent}</Container>
+        {(!isDescriptionOpen || !isTagsOpen) && (
+          <Layout.Vertical spacing="xsmall" style={{ justifyContent: 'center', marginLeft: 'var(--spacing-large)' }}>
+            <AddFieldOption
+              label={i18n.addDescriptionLabel}
+              onClick={() => setIsDescriptionOpen(true)}
+              isOpen={!isDescriptionOpen}
+            />
+            <AddFieldOption label={i18n.addTagsLabel} onClick={() => setIsTagsOpen(true)} isOpen={!isTagsOpen} />
+          </Layout.Vertical>
+        )}
+      </Container>
+      {isDescriptionOpen && (
+        <FormInput.TextArea
+          className={css.expandedDescription}
+          name="description"
+          label={
+            <FieldLabelWithHideOption onHide={() => setIsDescriptionOpen(false)} fieldLabel={i18n.descriptionLabel} />
+          }
+        />
+      )}
+      {isTagsOpen && (
+        <FormInput.KVTagInput
+          name="tags"
+          label={<FieldLabelWithHideOption onHide={() => setIsTagsOpen(false)} fieldLabel={i18n.tagsLabel} />}
+          className="expandedTags"
+        />
+      )}
+    </Container>
+  )
+}
+
 export function AddDescriptionAndTagsWithIdentifier(props: AddDescriptionAndTagsWithIdentifier): JSX.Element {
   const { identifierProps } = props
   return <AddDescriptionAndTags formComponent={<FormInput.InputWithIdentifier {...identifierProps} />} />
+}
+
+export function AddDescriptionAndKVTagsWithIdentifier(props: AddDescriptionAndTagsWithIdentifier): JSX.Element {
+  const { identifierProps } = props
+  return <AddDescriptionAndKVTags formComponent={<FormInput.InputWithIdentifier {...identifierProps} />} />
 }

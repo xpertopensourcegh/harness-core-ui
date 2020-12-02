@@ -50,12 +50,5 @@ describe('Secret Details', () => {
       </TestWrapper>
     )
     expect(container).toMatchSnapshot('view ssh')
-
-    await act(async () => {
-      const $editButton = await findByText(container, 'Edit Details')
-      fireEvent.click($editButton)
-    })
-
-    expect(container).toMatchSnapshot('edit ssh')
   })
 })
