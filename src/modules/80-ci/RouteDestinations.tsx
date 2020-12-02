@@ -8,10 +8,16 @@ import {
   projectPathProps,
   pipelinePathProps,
   connectorPathProps,
-  secretPathProps
+  secretPathProps,
+  buildPathProps
 } from '@common/utils/routeUtils'
 import routes from '@common/RouteDefinitions'
-import type { AccountPathProps, PipelinePathProps, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import type {
+  AccountPathProps,
+  BuildPathProps,
+  PipelinePathProps,
+  ProjectPathProps
+} from '@common/interfaces/RouteInterfaces'
 
 import CIHomePage from '@ci/pages/home/CIHomePage'
 import CIDashboardPage from '@ci/pages/dashboard/CIDashboardPage'
@@ -28,6 +34,13 @@ import ConnectorDetailsPage from '@connectors/pages/connectors/ConnectorDetailsP
 import SecretDetails from '@secrets/pages/secretDetails/SecretDetails'
 import ResourcesPage from '@ci/pages/Resources/ResourcesPage'
 import CIPipelineDeploymentList from '@ci/pages/pipeline-deployment-list/CIPipelineDeploymentList'
+import CIBuildPageWithProvider from '@ci/pages/build/CIBuildPage'
+import PipelineGraph from '@ci/pages/build/sections/pipeline-graph/BuildPipelineGraph'
+import PipelineLog from '@ci/pages/build/sections/pipeline-log/BuildPipelineLog'
+import BuildInputs from '@ci/pages/build/sections/inputs/BuildInputs'
+import BuildTests from '@ci/pages/build/sections/tests/BuildTests'
+import BuildCommits from '@ci/pages/build/sections/commits/BuildCommits'
+import BuildArtifacts from '@ci/pages/build/sections/artifacts/BuildArtifacts'
 
 const RedirectToCIHome = (): React.ReactElement => {
   const params = useParams<AccountPathProps>()
@@ -45,6 +58,20 @@ const RedirectToStudioUI = (): React.ReactElement => {
   const params = useParams<PipelinePathProps & AccountPathProps>()
 
   return <Redirect to={routes.toCIPipelineStudioUI(params)} />
+}
+
+const RedirectToBuildPipelineGraph = (): React.ReactElement => {
+  const params = useParams<AccountPathProps & ProjectPathProps & BuildPathProps>()
+
+  return <Redirect to={routes.toCIBuildPipelineGraph(params)} />
+}
+
+const BuildSubroute = ({ path, component }: { path: string; component: React.ReactElement }): React.ReactElement => {
+  return (
+    <RouteWithLayout path={path} exact>
+      <CIBuildPageWithProvider>{component}</CIBuildPageWithProvider>
+    </RouteWithLayout>
+  )
 }
 
 export default (
@@ -66,6 +93,35 @@ export default (
         <RouteWithLayout path={routes.toCIBuilds({ ...accountPathProps, ...projectPathProps })} exact>
           <CIBuildList />
         </RouteWithLayout>
+
+        <Route path={routes.toCIBuild({ ...accountPathProps, ...projectPathProps, ...buildPathProps })} exact>
+          <RedirectToBuildPipelineGraph />
+        </Route>
+
+        <BuildSubroute
+          path={routes.toCIBuildPipelineGraph({ ...accountPathProps, ...projectPathProps, ...buildPathProps })}
+          component={<PipelineGraph />}
+        />
+        <BuildSubroute
+          path={routes.toCIBuildPipelineLog({ ...accountPathProps, ...projectPathProps, ...buildPathProps })}
+          component={<PipelineLog />}
+        />
+        <BuildSubroute
+          path={routes.toCIBuildArtifacts({ ...accountPathProps, ...projectPathProps, ...buildPathProps })}
+          component={<BuildArtifacts />}
+        />
+        <BuildSubroute
+          path={routes.toCIBuildTests({ ...accountPathProps, ...projectPathProps, ...buildPathProps })}
+          component={<BuildTests />}
+        />
+        <BuildSubroute
+          path={routes.toCIBuildInputs({ ...accountPathProps, ...projectPathProps, ...buildPathProps })}
+          component={<BuildInputs />}
+        />
+        <BuildSubroute
+          path={routes.toCIBuildCommits({ ...accountPathProps, ...projectPathProps, ...buildPathProps })}
+          component={<BuildCommits />}
+        />
 
         <RouteWithLayout
           exact
