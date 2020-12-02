@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ExtendedPageHeader snapshot test should render properly 1`] = `
+<div>
+  <div
+    class="Layout---vertical--3Szv Layout---layout-spacing-small--2ZKb StyledProps---main--1Wws container StyledProps---padding-top-medium--29t2"
+  >
+    <div
+      class="Layout---horizontal--3rmQ Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws row"
+    >
+      <h1
+        class="StyledProps---font--2ipy StyledProps---font-h1--1R-x StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey800--2G2G"
+        level="1"
+      >
+        title
+      </h1>
+      <div />
+    </div>
+    <div
+      class="Layout---horizontal--3rmQ Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws row"
+    >
+      <div />
+    </div>
+  </div>
+</div>
+`;

@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`OptionsRoundButtonGroup snapshot test should render properly 1`] = `
+<div>
+  <div
+    class="StyledProps---font--2ipy StyledProps---main--1Wws btnGroup"
+  >
+    <button
+      class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+      type="button"
+      value="test"
+    />
+  </div>
+</div>
+`;
+
+exports[`RoundButtonGroup snapshot test should render properly 1`] = `
+<div>
+  <div
+    class="StyledProps---font--2ipy StyledProps---main--1Wws btnGroup"
+  >
+    <button
+      class="bp3-button"
+      type="button"
+    >
+      <span
+        class="bp3-button-text"
+      >
+        a
+      </span>
+    </button>
+  </div>
+</div>
+`;

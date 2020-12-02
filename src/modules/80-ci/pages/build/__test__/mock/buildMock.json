@@ -1,0 +1,35 @@
+{
+  "status": "SUCCESS",
+  "data": {
+    "id": 3,
+    "startTime": 1601974348538,
+    "endTime": 0,
+    "pipeline": {
+      "id": "springboot",
+      "name": "Integration Pipeline"
+    },
+    "triggerType": "webhook",
+    "event": "branch",
+    "author": {
+      "id": "username",
+      "avatar": "https://avatars..."
+    },
+    "branch": {
+      "name": "main",
+      "link": "https://github.com/username/springboot",
+      "commits": [
+        {
+          "id": "1cc43cccc4ab506745b7de71c52daca238d2af15",
+          "link": "https://github.com/username/springboot/commit/1cc43cccc4ab506745b7de71c52daca238d2af15",
+          "message": "Update README.md",
+          "ownerName": "Harsh Jain",
+          "ownerId": "username",
+          "ownerEmail": "harsh.jain@harness.io"
+        }
+      ]
+    },
+    "graph": {}
+  },
+  "metaData": null,
+  "correlationId": null
+}

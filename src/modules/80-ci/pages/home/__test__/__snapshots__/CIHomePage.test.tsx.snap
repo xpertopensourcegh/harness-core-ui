@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CIHomePage snapshot test should render properly 1`] = `
+<div>
+  <div
+    class="StyledProps---font--2ipy StyledProps---main--1Wws pageBody"
+  >
+    <div
+      class="Layout---vertical--3Szv StyledProps---main--1Wws StyledProps---padding-large--26zZ"
+    >
+      <p
+        class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-black--2kJn StyledProps---font-size-large--3wvf StyledProps---font-weight-bold--22XZ"
+      >
+        Dashboard
+      </p>
+    </div>
+  </div>
+</div>
+`;

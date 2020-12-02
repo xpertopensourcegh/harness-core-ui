@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TitledInfo snapshot test should render properly 1`] = `
+<div>
+  <div
+    class="container"
+  >
+    <p
+      class="StyledProps---font--2ipy StyledProps---main--1Wws"
+    >
+      title1
+    </p>
+    <p
+      class="StyledProps---font--2ipy StyledProps---main--1Wws"
+      style="max-width: 165px;"
+    >
+      value1
+    </p>
+  </div>
+</div>
+`;

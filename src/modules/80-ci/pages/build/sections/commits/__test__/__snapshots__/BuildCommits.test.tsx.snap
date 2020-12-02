@@ -1,0 +1,101 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BuildCommits snapshot test should render properly 1`] = `
+<div>
+  <div
+    class="wrapper"
+  >
+    <div
+      class="stack"
+    >
+      <div
+        class="stackHeader"
+      >
+        <span
+          class="bp3-icon bp3-icon-git-commit StyledProps---main--1Wws stackHeaderIcon StyledProps---margin-right-medium--1Ojn"
+          icon="git-commit"
+        >
+          <svg
+            data-icon="git-commit"
+            height="20"
+            viewBox="0 0 20 20"
+            width="20"
+          >
+            <desc>
+              git-commit
+            </desc>
+            <path
+              d="M19 9h-4.1a5 5 0 00-9.8 0H1c-.55 0-1 .45-1 1s.45 1 1 1h4.1a5 5 0 009.8 0H19c.55 0 1-.45 1-1s-.45-1-1-1zm-9 4c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3z"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </span>
+        <p
+          class="StyledProps---font--2ipy StyledProps---main--1Wws stackHeaderText StyledProps---font-small--1qQz"
+        >
+          Commits on
+           
+          Nov 28, 2020
+        </p>
+      </div>
+      <div
+        class="bp3-card bp3-elevation-0 Card---card--2BXa commit"
+      >
+        <div>
+          <p
+            class="StyledProps---font--2ipy StyledProps---main--1Wws commitTitle StyledProps---font-small--1qQz"
+          >
+            message...
+          </p>
+        </div>
+        <div
+          class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---flex--2Jz8"
+        >
+          <img
+            alt="user"
+            class="avatar"
+            src="test-file-stub"
+          />
+          <p
+            class="StyledProps---font--2ipy StyledProps---main--1Wws committed StyledProps---font-xsmall--1PyC StyledProps---margin-right-xlarge--dUdp"
+          >
+            userid
+             
+            committed
+             
+            1 day ago
+          </p>
+          <button
+            class="hash"
+          >
+            <p
+              class="StyledProps---font--2ipy StyledProps---main--1Wws hashText StyledProps---font-size-xsmall--1f9b StyledProps---font-weight-semi-bold--QRXr StyledProps---padding-top-xsmall--XieJ StyledProps---padding-right-small--2ldZ StyledProps---padding-bottom-xsmall--iU1g StyledProps---padding-left-small--ODrE StyledProps---margin-right-small--Uojv"
+            >
+              abc
+            </p>
+            <span
+              class="bp3-icon bp3-icon-clipboard StyledProps---main--1Wws hashIcon StyledProps---margin-right-small--Uojv"
+              icon="clipboard"
+            >
+              <svg
+                data-icon="clipboard"
+                height="14"
+                viewBox="0 0 16 16"
+                width="14"
+              >
+                <desc>
+                  clipboard
+                </desc>
+                <path
+                  d="M11 2c0-.55-.45-1-1-1h.22C9.88.4 9.24 0 8.5 0S7.12.4 6.78 1H7c-.55 0-1 .45-1 1v1h5V2zm2 0h-1v2H5V2H4c-.55 0-1 .45-1 1v12c0 .55.45 1 1 1h9c.55 0 1-.45 1-1V3c0-.55-.45-1-1-1z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

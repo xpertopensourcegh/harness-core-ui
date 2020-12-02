@@ -1,0 +1,60 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ResourcesPage snapshot test should render properly 1`] = `
+<div>
+  <div
+    class="Layout---horizontal--3rmQ StyledProps---main--1Wws container standard StyledProps---flex--2Jz8 StyledProps---padding-left-large--28UT StyledProps---padding-right-large--2vF9"
+  >
+    <h2
+      class="StyledProps---font--2ipy StyledProps---font-h2--3Vpc StyledProps---main--1Wws StyledProps---color--8PuS StyledProps---color-grey800--2G2G"
+      level="2"
+    >
+      RESOURCES
+    </h2>
+    <div
+      class="StyledProps---font--2ipy StyledProps---main--1Wws"
+    >
+      <div
+        class="Layout---horizontal--3rmQ Layout---layout-spacing-medium--3-Y8 StyledProps---main--1Wws"
+      >
+        <a
+          class="tags"
+          href="/account/dummy/ci/admin/resources/orgs/dummy/projects/undefined/connectors"
+        >
+          Connectors
+        </a>
+        <a
+          class="tags"
+          href="/account/dummy/ci/admin/resources/orgs/dummy/projects/undefined/secrets"
+        >
+          Secrets
+        </a>
+        <a
+          aria-current="page"
+          class="tags active"
+          href="/account/dummy/orgs/dummy/test#TBD"
+        >
+          Delegates
+        </a>
+        <a
+          aria-current="page"
+          class="tags active"
+          href="/account/dummy/orgs/dummy/test#TBD"
+        >
+          Templates
+        </a>
+        <a
+          aria-current="page"
+          class="tags active"
+          href="/account/dummy/orgs/dummy/test#TBD"
+        >
+          File Store
+        </a>
+      </div>
+    </div>
+  </div>
+  <div
+    class="StyledProps---font--2ipy StyledProps---main--1Wws pageBody"
+  />
+</div>
+`;

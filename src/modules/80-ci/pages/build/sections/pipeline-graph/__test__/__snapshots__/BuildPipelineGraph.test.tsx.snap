@@ -1,0 +1,373 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BuildPipelineGraph snapshot test should render properly 1`] = `
+<div>
+  <div
+    class="StyledProps---font--2ipy StyledProps---main--1Wws main"
+  >
+    <div
+      class="SplitPane  horizontal "
+      style="display: flex; flex: 1; height: 100%; position: absolute; outline: none; overflow: hidden; user-select: text; bottom: 0px; flex-direction: column; min-height: 100%; top: 0px; width: 100%;"
+    >
+      <div
+        class="Pane horizontal Pane1  "
+        style="flex: 0 0 auto; position: relative; outline: none; height: 250px; display: flex;"
+      >
+        <div
+          class="Pane  canvas"
+          style="flex: 1; position: relative; outline: none;"
+        >
+          <div />
+        </div>
+      </div>
+      <span
+        class="Resizer horizontal "
+        role="presentation"
+      />
+      <div
+        class="Pane horizontal Pane2  "
+        style="flex: 1; position: relative; outline: none;"
+      >
+        <div
+          class="SplitPane  horizontal "
+          style="display: flex; flex: 1; height: 100%; position: absolute; outline: none; overflow: hidden; user-select: text; bottom: 0px; flex-direction: column; min-height: 100%; top: 0px; width: 100%;"
+        >
+          <div
+            class="Pane horizontal Pane1  "
+            style="flex: 0 0 auto; position: relative; outline: none; height: 50%; display: flex;"
+          >
+            <div
+              class="Pane  bottomPane"
+              style="flex: 1; position: relative; outline: none;"
+            >
+              <div
+                class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                style="position: relative; flex-grow: 1;"
+              >
+                <div
+                  class="StyledProps---font--2ipy StyledProps---main--1Wws canvas"
+                >
+                  <div
+                    class="StyledProps---font--2ipy StyledProps---main--1Wws stageSelect"
+                  >
+                    <div
+                      class="bp3-popover-wrapper Select---main--1QpB bp3-fill"
+                    >
+                      <div
+                        class="bp3-popover-target"
+                      >
+                        <div
+                          class="bp3-input-group"
+                        >
+                          <input
+                            autocomplete="off"
+                            class="bp3-input"
+                            placeholder="Search..."
+                            style="padding-right: 0px;"
+                            type="text"
+                            value=""
+                          />
+                          <span
+                            class="bp3-input-action"
+                          >
+                            <span
+                              class="bp3-icon bp3-icon-caret-down StyledProps---main--1Wws StyledProps---padding-small--3f0A"
+                              icon="caret-down"
+                            >
+                              <svg
+                                data-icon="caret-down"
+                                height="14"
+                                viewBox="0 0 16 16"
+                                width="14"
+                              >
+                                <desc>
+                                  caret-down
+                                </desc>
+                                <path
+                                  d="M12 6.5c0-.28-.22-.5-.5-.5h-7a.495.495 0 00-.37.83l3.5 4c.09.1.22.17.37.17s.28-.07.37-.17l3.5-4c.08-.09.13-.2.13-.33z"
+                                  fill-rule="evenodd"
+                                />
+                              </svg>
+                            </span>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div />
+                </div>
+              </div>
+            </div>
+          </div>
+          <span
+            class="Resizer horizontal "
+            role="presentation"
+          />
+          <div
+            class="Pane horizontal Pane2  "
+            style="flex: 1; position: relative; outline: none;"
+          >
+            <div
+              class="Layout---vertical--3Szv StyledProps---main--1Wws detailsContainer"
+            >
+              <div
+                class="Layout---horizontal--3rmQ StyledProps---main--1Wws stepsToolbar"
+              >
+                <div
+                  class="bp3-tabs Tabs---main--3Ew7"
+                >
+                  <div
+                    class="bp3-tab-list"
+                    role="tablist"
+                  >
+                    <div
+                      class="bp3-tab-indicator-wrapper"
+                      style="height: 0px; transform: translateX(0px) translateY(0px); width: 0px;"
+                    >
+                      <div
+                        class="bp3-tab-indicator"
+                      />
+                    </div>
+                    <div
+                      aria-controls="bp3-tab-panel_ciStepTabs_ciStepTab_0"
+                      aria-disabled="false"
+                      aria-expanded="true"
+                      aria-selected="true"
+                      class="bp3-tab"
+                      data-tab-id="ciStepTab_0"
+                      id="bp3-tab-title_ciStepTabs_ciStepTab_0"
+                      role="tab"
+                      tabindex="0"
+                    >
+                      <p
+                        class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                      >
+                        Details
+                      </p>
+                    </div>
+                    <div
+                      aria-controls="bp3-tab-panel_ciStepTabs_ciStepTab_1"
+                      aria-disabled="false"
+                      aria-expanded="false"
+                      aria-selected="false"
+                      class="bp3-tab"
+                      data-tab-id="ciStepTab_1"
+                      id="bp3-tab-title_ciStepTabs_ciStepTab_1"
+                      role="tab"
+                      tabindex="0"
+                    >
+                      <p
+                        class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                      >
+                        Input
+                      </p>
+                    </div>
+                    <div
+                      aria-controls="bp3-tab-panel_ciStepTabs_ciStepTab_2"
+                      aria-disabled="false"
+                      aria-expanded="false"
+                      aria-selected="false"
+                      class="bp3-tab"
+                      data-tab-id="ciStepTab_2"
+                      id="bp3-tab-title_ciStepTabs_ciStepTab_2"
+                      role="tab"
+                      tabindex="0"
+                    >
+                      <p
+                        class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                      >
+                        Output
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="StyledProps---font--2ipy StyledProps---main--1Wws rowsRightToolbarContainer"
+                >
+                  <div
+                    class="StyledProps---font--2ipy StyledProps---main--1Wws btnGroup"
+                  >
+                    <button
+                      class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+                      type="button"
+                    >
+                      <span
+                        class="bp3-icon StyledProps---main--1Wws"
+                      >
+                        <svg
+                          height="16"
+                          viewBox="0 0 4.233 4.233"
+                          width="16"
+                        >
+                          <g
+                            transform="translate(0 .423) scale(.21167)"
+                          >
+                            <rect
+                              fill="#f2f2f2"
+                              height="15"
+                              rx="0.5"
+                              stroke="#9ea9b4"
+                              width="19"
+                              x="0.5"
+                              y="0.5"
+                            />
+                            <path
+                              d="M12 1h7v14h-7z"
+                              fill="#9ea9b4"
+                            />
+                          </g>
+                        </svg>
+                      </span>
+                    </button>
+                    <button
+                      class="bp3-button bp3-active StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+                      type="button"
+                    >
+                      <span
+                        class="bp3-icon StyledProps---main--1Wws"
+                      >
+                        <svg
+                          height="16"
+                          viewBox="0 0 4.233 4.233"
+                          width="16"
+                        >
+                          <g
+                            fill="none"
+                            transform="matrix(.21166 0 0 .21166 0 .423)"
+                          >
+                            <rect
+                              fill="#f2f2f2"
+                              height="15"
+                              rx="0.5"
+                              stroke="#9ea9b4"
+                              width="19"
+                              x="0.5"
+                              y="0.5"
+                            />
+                            <path
+                              d="M1 10h18v5H1z"
+                              fill="#9ea9b4"
+                            />
+                          </g>
+                        </svg>
+                      </span>
+                    </button>
+                    <button
+                      class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+                      type="button"
+                    >
+                      <span
+                        class="bp3-icon StyledProps---main--1Wws"
+                      >
+                        <svg
+                          height="16"
+                          viewBox="0 0 4.233 4.233"
+                          width="16"
+                        >
+                          <g
+                            fill="none"
+                            transform="translate(0 .403) scale(.20982)"
+                          >
+                            <rect
+                              fill="#000"
+                              fill-opacity="0.05"
+                              height="16.333"
+                              rx="1"
+                              width="20.176"
+                            />
+                            <rect
+                              height="15.333"
+                              rx="0.5"
+                              stroke="#66798b"
+                              stroke-opacity="0.6"
+                              width="19.176"
+                              x="0.5"
+                              y="0.5"
+                            />
+                            <path
+                              d="M9.303 3a1 1 0 011-1h7a1 1 0 011 1v9a1 1 0 01-1 1h-7a1 1 0 01-1-1zM14.303 14.5a.5.5 0 01.5-.5h3a.5.5 0 110 1h-3a.5.5 0 01-.5-.5z"
+                              fill="#9ea9b4"
+                            />
+                          </g>
+                        </svg>
+                      </span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="Layout---horizontal--3rmQ StyledProps---main--1Wws stepsDetailsAndLogs"
+              >
+                <div
+                  class="StyledProps---font--2ipy StyledProps---main--1Wws console"
+                >
+                  <div
+                    class="consoleHeader"
+                  >
+                    <span>
+                      Step Logs
+                    </span>
+                    <span
+                      class="hederButtons"
+                    >
+                      <span
+                        class="bp3-icon StyledProps---main--1Wws"
+                      >
+                        <svg
+                          height="16"
+                          viewBox="0 0 14 14"
+                          width="16"
+                        >
+                          <path
+                            d="M13.7 12.2l-3.5-3.5c.6-.9 1-2 1-3.2 0-3-2.5-5.5-5.6-5.5S0 2.5 0 5.6s2.5 5.6 5.6 5.6c1.2 0 2.2-.4 3.2-1l3.5 3.5c.2.2.5.3.7.3.6 0 1.1-.5 1.1-1.1-.1-.2-.2-.5-.4-.7zM5.6 9.8c-2.3 0-4.2-1.9-4.2-4.2s1.9-4.2 4.2-4.2 4.2 1.9 4.2 4.2-1.9 4.2-4.2 4.2z"
+                            fill="#4d5969"
+                          />
+                        </svg>
+                      </span>
+                      <button
+                        class="bp3-button bp3-minimal StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+                        type="button"
+                      >
+                        <span
+                          class="bp3-button-text"
+                        >
+                          <span
+                            class="bp3-icon bp3-icon-download StyledProps---main--1Wws"
+                            icon="download"
+                          >
+                            <svg
+                              data-icon="download"
+                              height="16"
+                              viewBox="0 0 16 16"
+                              width="16"
+                            >
+                              <desc>
+                                download
+                              </desc>
+                              <path
+                                d="M7.99-.01c-4.42 0-8 3.58-8 8s3.58 8 8 8 8-3.58 8-8-3.58-8-8-8zM11.7 9.7l-3 3c-.18.18-.43.29-.71.29s-.53-.11-.71-.29l-3-3A1.003 1.003 0 015.7 8.28l1.29 1.29V3.99c0-.55.45-1 1-1s1 .45 1 1v5.59l1.29-1.29a1.003 1.003 0 011.71.71c0 .27-.11.52-.29.7z"
+                                fill-rule="evenodd"
+                              />
+                            </svg>
+                          </span>
+                        </span>
+                      </button>
+                    </span>
+                  </div>
+                  <div
+                    class="StyledProps---font--2ipy StyledProps---main--1Wws consoleBody"
+                  >
+                    <div
+                      class="LogViewer---logViewer--svCZ"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

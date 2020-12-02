@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tabs snapshot test should render properly 1`] = `
+<div>
+  <div
+    class="bp3-tabs main"
+  >
+    <div
+      class="bp3-tab-list"
+      role="tablist"
+    >
+      <div
+        class="bp3-tab-indicator-wrapper"
+        style="height: 0px; transform: translateX(0px) translateY(0px); width: 0px;"
+      >
+        <div
+          class="bp3-tab-indicator"
+        />
+      </div>
+      <div
+        aria-controls="bp3-tab-panel_tabs_tab1"
+        aria-disabled="false"
+        aria-expanded="true"
+        aria-selected="true"
+        class="bp3-tab"
+        data-tab-id="tab1"
+        id="bp3-tab-title_tabs_tab1"
+        role="tab"
+        tabindex="0"
+      >
+        Tab1
+      </div>
+    </div>
+  </div>
+</div>
+`;
