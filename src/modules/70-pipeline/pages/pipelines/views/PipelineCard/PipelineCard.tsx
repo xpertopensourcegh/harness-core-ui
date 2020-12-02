@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom'
 import { NGPipelineSummaryResponse, useSoftDeletePipeline } from 'services/cd-ng'
 import { useConfirmationDialog, useToaster } from '@common/exports'
 import { RunPipelineModal } from '@pipeline/components/RunPipelineModal/RunPipelineModal'
+import type { ProjectPathProps, AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import i18n from '../../PipelinesPage.i18n'
 import css from '../../PipelinesPage.module.scss'
 
@@ -23,11 +24,7 @@ interface ContextMenuProps {
 
 const ContextMenu: React.FC<ContextMenuProps> = ({ pipeline, goToPipelineStudio, refetchPipeline }): JSX.Element => {
   const { showSuccess, showError } = useToaster()
-  const { projectIdentifier, orgIdentifier, accountId } = useParams<{
-    projectIdentifier: string
-    orgIdentifier: string
-    accountId: string
-  }>()
+  const { projectIdentifier, orgIdentifier, accountId } = useParams<ProjectPathProps & AccountPathProps>()
   const { mutate: deletePipeline } = useSoftDeletePipeline({
     queryParams: { accountIdentifier: accountId, orgIdentifier, projectIdentifier }
   })

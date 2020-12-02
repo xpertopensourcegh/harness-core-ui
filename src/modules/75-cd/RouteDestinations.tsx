@@ -59,6 +59,12 @@ const RedirectToResourcesHome = (): React.ReactElement => {
   return <Redirect to={routes.toCDResourcesConnectors(params)} />
 }
 
+const RedirectToPipelineDetailHome = (): React.ReactElement => {
+  const params = useParams<PipelinePathProps & AccountPathProps>()
+
+  return <Redirect to={routes.toCDPipelineDeploymentList(params)} />
+}
+
 const RedirectToStudioUI = (): React.ReactElement => {
   const params = useParams<PipelinePathProps & AccountPathProps>()
 
@@ -121,7 +127,9 @@ export default (
           ...pipelinePathProps
         })}
       >
-        <CDPipelineDeploymentList />
+        <PipelineDetails>
+          <CDPipelineDeploymentList />
+        </PipelineDetails>
       </RouteWithLayout>
       <Route exact path={routes.toCDResources({ ...accountPathProps, ...projectPathProps })}>
         <RedirectToResourcesHome />
@@ -157,10 +165,14 @@ export default (
         <SecretDetails />
       </RouteWithLayout>
       <RouteWithLayout exact path={routes.toCDInputSetList({ ...accountPathProps, ...pipelinePathProps })}>
-        <InputSetList />
+        <PipelineDetails>
+          <InputSetList />
+        </PipelineDetails>
       </RouteWithLayout>
       <RouteWithLayout exact path={routes.toCDTriggersPage({ ...accountPathProps, ...pipelinePathProps })}>
-        <TriggersPage />
+        <PipelineDetails>
+          <TriggersPage />
+        </PipelineDetails>
       </RouteWithLayout>
       <Route exact path={routes.toCDExecution({ ...accountPathProps, ...executionPathProps })}>
         <RedirectToExecutionPipeline />
@@ -181,7 +193,7 @@ export default (
         </ExecutionLandingPage>
       </RouteWithLayout>
       <RouteWithLayout exact path={routes.toCDPipelineDetail({ ...accountPathProps, ...pipelinePathProps })}>
-        <PipelineDetails />
+        <RedirectToPipelineDetailHome />
       </RouteWithLayout>
       <RouteWithLayout exact path={routes.toCDTemplateLibrary({ ...accountPathProps, ...projectPathProps })}>
         <CDTemplateLibraryPage />

@@ -1,7 +1,11 @@
+import React from 'react'
+import { useParams } from 'react-router-dom'
 import { Dialog, IDialogProps } from '@blueprintjs/core'
 import { useModalHook } from '@wings-software/uikit'
-import React from 'react'
+
 import type { InputSetSelectorProps } from '@pipeline/components/InputSetSelector/InputSetSelector'
+import type { AccountPathProps, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+
 import { RunPipelineForm } from './RunPipelineForm'
 
 export interface RunPipelineModalProps {
@@ -26,31 +30,28 @@ export const RunPipelineModal: React.FC<RunPipelineModalProps> = ({
   pipelineIdentifier,
   className = ''
 }): JSX.Element => {
-  const [isOpen, setIsOpen] = React.useState(true)
-
+  const { projectIdentifier, orgIdentifier, accountId } = useParams<ProjectPathProps & AccountPathProps>()
   const [openModel, hideModel] = useModalHook(
     () => (
-      <Dialog isOpen={isOpen} {...runPipelineDialogProps}>
+      <Dialog isOpen={true} {...runPipelineDialogProps}>
         <RunPipelineForm
           pipelineIdentifier={pipelineIdentifier}
+          orgIdentifier={orgIdentifier}
+          projectIdentifier={projectIdentifier}
+          accountId={accountId}
           inputSetSelected={inputSetSelected}
-          onClose={closeModel}
+          onClose={hideModel}
         />
       </Dialog>
     ),
-    [inputSetSelected, pipelineIdentifier]
+    [inputSetSelected, pipelineIdentifier, projectIdentifier, accountId, projectIdentifier]
   )
 
-  const closeModel = React.useCallback(() => {
-    setIsOpen(false)
-    hideModel()
-  }, [hideModel])
   return (
     <span
       className={className}
       onClick={e => {
         e.stopPropagation()
-        setIsOpen(true)
         openModel()
       }}
     >

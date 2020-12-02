@@ -44,10 +44,13 @@ export default function ExecutionActions(props: ExecutionActionsProps): React.Re
           inputSetYAML={inputSetYAML}
           pipelineIdentifier={pipelineIdentifier}
           onClose={hideRerunPipelineModal}
+          accountId={accountId}
+          projectIdentifier={projectIdentifier}
+          orgIdentifier={orgIdentifier}
         />
       </Dialog>
     ),
-    [pipelineIdentifier, inputSetYAML]
+    [pipelineIdentifier, inputSetYAML, accountId, projectIdentifier, orgIdentifier]
   )
 
   const canPause = isExecutionInProgress(executionStatus) && !isExecutionPaused(executionStatus)

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Classes } from '@blueprintjs/core'
 import { Button, Checkbox, Formik, FormikForm, Layout, Popover, Text } from '@wings-software/uikit'
-import { useHistory, useParams } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import cx from 'classnames'
 import { parse, stringify } from 'yaml'
 import { noop, pick, merge } from 'lodash-es'
@@ -23,13 +23,13 @@ import type { YamlBuilderHandlerBinding, YamlBuilderProps } from '@common/interf
 import { YamlEntity } from '@common/constants/YamlConstants'
 import routes from '@common/RouteDefinitions'
 import { PipelineInputSetForm } from '@pipeline/components/PipelineInputSetForm/PipelineInputSetForm'
+import type { PipelinePathProps, AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { BasicInputSetForm, InputFormType, InputSetDTO } from '../InputSetForm/InputSetForm'
 import i18n from './RunPipelineModal.i18n'
 import { InputSetSelector, InputSetSelectorProps } from '../InputSetSelector/InputSetSelector'
 import css from './RunPipelineModal.module.scss'
 
-export interface RunPipelineFormProps {
-  pipelineIdentifier: string
+export interface RunPipelineFormProps extends PipelinePathProps, AccountPathProps {
   inputSetSelected?: InputSetSelectorProps['value']
   inputSetYAML?: string
   onClose: () => void
@@ -48,18 +48,15 @@ const yamlBuilderReadOnlyModeProps: YamlBuilderProps = {
   showSnippetSection: false
 }
 
-export const RunPipelineForm: React.FC<RunPipelineFormProps> = ({
+export function RunPipelineForm({
   pipelineIdentifier,
+  accountId,
+  orgIdentifier,
+  projectIdentifier,
   onClose,
   inputSetSelected,
   inputSetYAML
-}) => {
-  const { projectIdentifier, orgIdentifier, accountId } = useParams<{
-    projectIdentifier: string
-    orgIdentifier: string
-    accountId: string
-  }>()
-
+}: RunPipelineFormProps): React.ReactElement {
   const [selectedView, setSelectedView] = React.useState<SelectedView>(SelectedView.VISUAL)
   const [yamlHandler, setYamlHandler] = React.useState<YamlBuilderHandlerBinding | undefined>()
   const [skipPreFlightCheck, setSkipPreFlightCheck] = React.useState<boolean>(false)

@@ -22,10 +22,16 @@ const CDPipelineStudio: React.FC = ({ children }): JSX.Element => {
   const [openModel, hideModel] = useModalHook(
     () => (
       <Dialog isOpen={isRunPipelineOpen} {...runPipelineDialogProps}>
-        <RunPipelineForm pipelineIdentifier={pipelineIdentifier} onClose={closeModel} />
+        <RunPipelineForm
+          pipelineIdentifier={pipelineIdentifier}
+          onClose={closeModel}
+          projectIdentifier={projectIdentifier}
+          accountId={accountId}
+          orgIdentifier={orgIdentifier}
+        />
       </Dialog>
     ),
-    [pipelineIdentifier]
+    [pipelineIdentifier, projectIdentifier, accountId, orgIdentifier]
   )
 
   const closeModel = React.useCallback(() => {
