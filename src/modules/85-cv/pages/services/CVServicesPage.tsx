@@ -117,7 +117,6 @@ export default function CVServicesPage(): JSX.Element {
       >
         <Container className={styles.servicesPage} background={Color.GREY_100}>
           <ServiceSelector
-            className={styles.fixedServices}
             isEmptyList={isEmpty => setIsServiceEmpty(isEmpty)}
             onSelect={(environmentIdentifier?: string, serviceIdentifier?: string) => {
               setSelectedService({ environmentIdentifier, serviceIdentifier })

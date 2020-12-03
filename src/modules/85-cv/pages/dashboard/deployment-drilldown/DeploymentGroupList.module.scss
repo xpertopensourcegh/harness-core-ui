@@ -1,6 +1,8 @@
 .main {
-  border-top: none;
-  width: 250px;
+  border-top: none !important;
+  width: 250px !important;
+  border-bottom: none !important;
+  background-color: var(--white);
 }
 
 .item {

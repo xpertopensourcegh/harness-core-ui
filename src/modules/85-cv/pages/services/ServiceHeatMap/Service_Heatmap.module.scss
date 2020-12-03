@@ -1,7 +1,7 @@
 .main {
   .serviceHeatMap {
-    background-color: var(--white);
-    padding: var(--spacing-small);
+    background-color: var(--white) !important;
+    padding: var(--spacing-small) !important;
     border-radius: 3px;
     box-shadow: 0px 0px 1px rgba(40, 41, 61, 0.04), 0px 2px 4px rgba(96, 97, 112, 0.16);
   }
@@ -14,7 +14,7 @@
     align-items: center;
     justify-content: center;
     > p:first-child {
-      margin-right: var(--spacing-small);
+      margin-right: var(--spacing-small) !important;
     }
   }
 }

@@ -9,6 +9,7 @@ import { isNumber } from 'lodash-es'
 import moment from 'moment'
 import { useParams } from 'react-router-dom'
 import { RiskScoreTile } from '@cv/components/RiskScoreTile/RiskScoreTile'
+import { MetricCategoryNames } from '@cv/components/MetricCategoriesWithRiskScore/MetricCategoriesWithRiskScore'
 import { CategoryRisk, RestResponseCategoryRisksDTO, useGetCategoryRiskMap } from 'services/cv'
 import { NoDataCard } from '@common/components/Page/NoDataCard'
 import { getColorStyle } from '@common/components/HeatMap/ColorUtils'
@@ -62,11 +63,13 @@ function transformCategoryRiskResponse(
   const { categoryRisks } = data.resource
   return categoryRisks
     .sort((categoryA, categoryB) => {
-      if (!categoryA) return categoryB ? -1 : 0
-      if (!categoryB) return 1
-      if (!isNumber(categoryA.risk)) return -1
-      if (!isNumber(categoryB.risk)) return 1
-      return categoryB.risk - categoryA.risk
+      if (categoryA?.category === MetricCategoryNames.PERFORMANCE) {
+        return -1
+      }
+      if (categoryA?.category === MetricCategoryNames.ERRORS) {
+        return categoryB?.category === MetricCategoryNames.PERFORMANCE ? 1 : -1
+      }
+      return 1
     })
     .map(sortedCategoryName => ({
       categoryName: sortedCategoryName.category,
