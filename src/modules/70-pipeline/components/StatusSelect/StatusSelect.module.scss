@@ -1,0 +1,11 @@
+.main {
+  min-width: 100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--white) !important;
+
+  & :global(.bp3-icon) {
+    color: var(--blue-500);
+  }
+}

@@ -33,7 +33,6 @@ const pathParams = {
 describe('<ExecutionActions /> tests', () => {
   test.each<[ExecutionStatus]>([
     ['Aborted'],
-    ['Error'],
     ['Expired'],
     ['Failed'],
     ['NotStarted'],

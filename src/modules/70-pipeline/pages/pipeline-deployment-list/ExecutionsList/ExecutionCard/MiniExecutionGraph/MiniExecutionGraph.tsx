@@ -12,7 +12,6 @@ import css from './MiniExecutionGraph.module.scss'
 const IconMap: Record<ExecutionStatus, IconName> = {
   Success: 'tick-circle',
   Running: 'dot',
-  Error: 'error',
   Failed: 'error',
   Expired: 'error',
   Aborted: 'error',

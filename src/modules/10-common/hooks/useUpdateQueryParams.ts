@@ -16,7 +16,7 @@ export function useUpdateQueryParams<T = {}>(): UseUpdateQueryParamsReturn<T> {
 
   return {
     updateQueryParams(values: T, options?: IStringifyOptions, replaceHistory?: boolean): void {
-      const path = `${pathname}?${qs.stringify({ queryParams, ...values }, options)}`
+      const path = `${pathname}?${qs.stringify({ ...queryParams, ...values }, options)}`
       replaceHistory ? replace(path) : push(path)
     },
     replaceQueryParams(values: T, options?: IStringifyOptions, replaceHistory?: boolean): void {

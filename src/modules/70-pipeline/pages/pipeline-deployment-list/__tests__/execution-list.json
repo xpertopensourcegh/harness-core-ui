@@ -1,0 +1,65 @@
+{
+  "data": {
+    "status": "SUCCESS",
+    "data": {
+      "totalPages": 1,
+      "totalItems": 1,
+      "pageItemCount": 1,
+      "pageSize": 10,
+      "content": [
+        {
+          "pipelineIdentifier": "testp1",
+          "pipelineName": "test-p1",
+          "deploymentId": "DeploymentIdPlaceHolder",
+          "planExecutionId": "TyNGXVdmRWi5vrOJopUKOg",
+          "executionStatus": "Failed",
+          "startedAt": 1603645554243,
+          "endedAt": 1603645556832,
+          "tags": null,
+          "stageExecutionSummaryElements": [
+            {
+              "stage": {
+                "planExecutionId": "TyNGXVdmRWi5vrOJopUKOg",
+                "stageIdentifier": "stage1",
+                "serviceInfo": null,
+                "stageName": "stage1",
+                "serviceDefinitionType": null,
+                "executionStatus": "NotStarted",
+                "startedAt": null,
+                "endedAt": null,
+                "serviceIdentifier": null,
+                "envIdentifier": "prod1",
+                "errorInfo": null
+              }
+            }
+          ],
+          "errorMsg": null,
+          "stageIdentifiers": ["stage1"],
+          "serviceIdentifiers": [],
+          "envIdentifiers": ["prod1"],
+          "serviceDefinitionTypes": [],
+          "stageTypes": [{ "type": "Deployment" }],
+          "errorInfo": {
+            "message": "There was a critical error due to Current value is not in allowed values list while evaluating expression ${${expression}}"
+          },
+          "triggerInfo": {
+            "triggeredBy": {
+              "uuid": "lv0euRhKRCyiXWzS7pOg6g",
+              "name": "Admin",
+              "email": "admin@harness.io"
+            },
+            "triggerType": "MANUAL"
+          },
+          "successfulStagesCount": 0,
+          "runningStagesCount": 0,
+          "failedStagesCount": 0
+        }
+      ],
+      "pageIndex": 0,
+      "empty": false
+    },
+    "metaData": null,
+    "correlationId": "b49cec93-aed7-4e1f-805d-0bfc520cb97c"
+  },
+  "loading": false
+}

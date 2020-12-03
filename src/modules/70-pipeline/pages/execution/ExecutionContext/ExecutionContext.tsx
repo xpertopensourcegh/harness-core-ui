@@ -1,6 +1,7 @@
 import { createContext, useContext } from 'react'
 
 import type { PipelineExecutionDetail, StageExecutionSummaryDTO } from 'services/cd-ng'
+import type { ExecutionPageQueryParams } from '@pipeline/utils/types'
 
 export interface ExecutionContextParams {
   pipelineExecutionDetail: PipelineExecutionDetail | null
@@ -8,7 +9,7 @@ export interface ExecutionContextParams {
   selectedStageId: string
   selectedStepId: string
   loading: boolean
-  queryParams: Record<string, any>
+  queryParams: ExecutionPageQueryParams
 }
 
 const ExecutionConext = createContext<ExecutionContextParams>({

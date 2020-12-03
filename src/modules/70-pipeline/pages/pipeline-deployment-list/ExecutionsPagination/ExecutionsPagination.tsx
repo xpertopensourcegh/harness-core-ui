@@ -1,19 +1,23 @@
 import React from 'react'
 import { Pagination } from '@wings-software/uikit'
 import type { ResponsePagePipelineExecutionSummaryDTO } from 'services/cd-ng'
+import { useUpdateQueryParams } from '@common/hooks'
+
 import css from './ExecutionsPagination.module.scss'
 
 export interface ExecutionPaginationProps {
   pipelineExecutionSummary: ResponsePagePipelineExecutionSummaryDTO | null
 }
 
-function gotoPage(): void {
-  //
-}
-
 export default function ExecutionPagination({
   pipelineExecutionSummary
 }: ExecutionPaginationProps): React.ReactElement {
+  const { updateQueryParams } = useUpdateQueryParams<{ page: number }>()
+
+  function gotoPage(index: number): void {
+    updateQueryParams({ page: index + 1 })
+  }
+
   return (
     <div className={css.pagination}>
       <Pagination

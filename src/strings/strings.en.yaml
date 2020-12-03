@@ -15,6 +15,7 @@ global:
   newConnector: 'New Connector'
   thisConnectorIsSavedAs: 'This Connector is saved as'
   pipelines: Pipelines
+  status: Status
   submit: 'Submit'
   buildText: Build
   buildsText: Builds
@@ -23,6 +24,7 @@ global:
   manifestsText: Manifest
   errorSummaryText: Error Summary
   na: N/A
+  all: All
   todo: TODO - implement this
   add: Add
   delete: Delete

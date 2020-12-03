@@ -2,8 +2,10 @@ import React from 'react'
 import { useParams } from 'react-router-dom'
 import { Select as BPSelect, ItemRenderer, ItemListRenderer } from '@blueprintjs/select'
 import { Button, Menu, Spinner } from '@blueprintjs/core'
+
 import { useGetPipelineList, NGPipelineSummaryResponse } from 'services/cd-ng'
 import type { AccountPathProps, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
+import { String } from 'framework/exports'
 
 import css from './PipelineSelect.module.scss'
 
@@ -15,7 +17,7 @@ export interface PipelineSelectProps {
 const Select = BPSelect.ofType<NGPipelineSummaryResponse>()
 
 const itemRenderer: ItemRenderer<NGPipelineSummaryResponse> = (item, props) => (
-  <Menu.Item text={item.name} active={props.modifiers.active} onClick={props.handleClick} />
+  <Menu.Item key={item.identifier} text={item.name} active={props.modifiers.active} onClick={props.handleClick} />
 )
 
 export default function PipelineSelect(props: PipelineSelectProps): React.ReactElement {
@@ -69,8 +71,8 @@ export default function PipelineSelect(props: PipelineSelectProps): React.ReactE
       onQueryChange={setQuery}
       itemListRenderer={itemListRender}
     >
-      <Button className={css.main} rightIcon="chevron-down">
-        {selectedValue ? selectedValue?.name : 'All'}
+      <Button className={css.main} rightIcon="chevron-down" data-testid="pipeline-select">
+        {selectedValue ? selectedValue?.name : <String stringID="all" />}
       </Button>
     </Select>
   )

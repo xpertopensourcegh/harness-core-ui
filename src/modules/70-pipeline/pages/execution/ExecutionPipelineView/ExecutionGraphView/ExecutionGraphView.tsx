@@ -1,10 +1,10 @@
 import React from 'react'
-import { useLocation, useHistory } from 'react-router-dom'
-import qs from 'qs'
 
 import { isExecutionNotStarted } from '@pipeline/utils/statusHelpers'
 import ExecutionLayout from '@pipeline/components/ExecutionLayout/ExecutionLayout'
 import { useExecutionContext } from '@pipeline/pages/execution/ExecutionContext/ExecutionContext'
+import { useUpdateQueryParams } from '@common/hooks'
+import type { ExecutionPageQueryParams } from '@pipeline/utils/types'
 
 import ExecutionGraph from './ExecutionGraph/ExecutionGraph'
 import ExecutionStageDetails from './ExecutionStageDetails/ExecutionStageDetails'
@@ -16,8 +16,7 @@ export const PANEL_RESIZE_DELTA = 50
 export const MIN_PANEL_SIZE = 200
 
 export default function ExecutionGraphView(): React.ReactElement {
-  const location = useLocation()
-  const history = useHistory()
+  const { replaceQueryParams } = useUpdateQueryParams<ExecutionPageQueryParams>()
   const {
     pipelineExecutionDetail,
     pipelineStagesMap,
@@ -29,11 +28,12 @@ export default function ExecutionGraphView(): React.ReactElement {
   function handleStepSelection(step?: string): void {
     if (!step) {
       const params = {
-        ...queryParams,
-        step: []
+        ...queryParams
       }
 
-      history.push(`${location.pathname}?${qs.stringify(params)}`)
+      delete params.step
+
+      replaceQueryParams(params)
     } else {
       const selectedStep = pipelineExecutionDetail?.stageGraph?.nodeMap?.[step]
 
@@ -47,7 +47,7 @@ export default function ExecutionGraphView(): React.ReactElement {
         step
       }
 
-      history.push(`${location.pathname}?${qs.stringify(params)}`)
+      replaceQueryParams(params)
     }
   }
 
@@ -60,11 +60,12 @@ export default function ExecutionGraphView(): React.ReactElement {
 
     const params = {
       ...queryParams,
-      stage,
-      step: [] // empty array will remove the key
+      stage
     }
 
-    history.push(`${location.pathname}?${qs.stringify(params)}`)
+    delete params.step
+
+    replaceQueryParams(params)
   }
 
   return (

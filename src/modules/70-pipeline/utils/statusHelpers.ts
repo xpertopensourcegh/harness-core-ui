@@ -1,6 +1,19 @@
 import type { PipelineExecutionSummaryDTO } from 'services/cd-ng'
 
-export type ExecutionStatus = Required<PipelineExecutionSummaryDTO>['executionStatus'] | 'Error'
+export type ExecutionStatus = Required<PipelineExecutionSummaryDTO>['executionStatus']
+
+export const EXECUTION_STATUS: readonly ExecutionStatus[] = [
+  'Aborted',
+  'Expired',
+  'Failed',
+  'NotStarted',
+  'Paused',
+  'Queued',
+  'Running',
+  'Success',
+  'Suspended',
+  'Waiting'
+]
 
 export function isExecutionRunning(status?: ExecutionStatus): boolean {
   return status === 'Running'
@@ -42,10 +55,6 @@ export function isExecutionSuspended(status?: ExecutionStatus): boolean {
   return status === 'Suspended'
 }
 
-export function isExecutionError(status?: ExecutionStatus): boolean {
-  return status === 'Error'
-}
-
 export function isExecutionComplete(status?: ExecutionStatus): boolean {
   return isExecutionSuccess(status) || isExecutionCompletedWithBadState(status)
 }
@@ -55,8 +64,7 @@ export function isExecutionCompletedWithBadState(status?: ExecutionStatus): bool
     isExecutionAborted(status) ||
     isExecutionExpired(status) ||
     isExecutionFailed(status) ||
-    isExecutionSuspended(status) ||
-    isExecutionError(status)
+    isExecutionSuspended(status)
   )
 }
 

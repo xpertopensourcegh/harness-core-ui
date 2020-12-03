@@ -7,5 +7,7 @@ declare const styles: {
   readonly rhs: string
   readonly filterGroup: string
   readonly label: string
+  readonly search: string
+  readonly btnGroup: string
 }
 export default styles

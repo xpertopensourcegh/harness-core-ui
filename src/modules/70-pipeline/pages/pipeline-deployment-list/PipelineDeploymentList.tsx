@@ -7,7 +7,7 @@ import { Page } from '@common/exports'
 import { useQueryParams } from '@common/hooks'
 import type { AccountPathProps, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 
-import ExecutionsFilter from './ExecutionsFilter/ExecutionsFilter'
+import ExecutionsFilter, { FilterQueryParams } from './ExecutionsFilter/ExecutionsFilter'
 import ExecutionsList from './ExecutionsList/ExecutionsList'
 import ExecutionsPagination from './ExecutionsPagination/ExecutionsPagination'
 import css from './PipelineDeploymentList.module.scss'
@@ -22,23 +22,29 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
   const { pipelineIdentifier, orgIdentifier, projectIdentifier, accountId } = useParams<
     AccountPathProps & ProjectPathProps & { pipelineIdentifier?: string }
   >()
-  const query = useQueryParams<{ page?: string }>()
-  const page = parseInt(query.page || '1', 10)
+  const queryParams = useQueryParams<{ page?: string } & FilterQueryParams>()
+  const page = parseInt(queryParams.page || '1', 10)
   const { getString } = useStrings()
-  const [selectedPipelineIdentifier, setPipelineIdentifier] = React.useState(pipelineIdentifier)
 
   const { loading, data: pipelineExecutionSummary, error, refetch } = useGetListOfExecutions({
     queryParams: {
       accountIdentifier: accountId,
       projectIdentifier,
       orgIdentifier,
-      pipelineIdentifiers: selectedPipelineIdentifier ? [selectedPipelineIdentifier] : undefined,
-      page: page - 1
+      pipelineIdentifiers: pipelineIdentifier
+        ? [pipelineIdentifier]
+        : queryParams.pipeline
+        ? [queryParams.pipeline]
+        : undefined,
+      page: page - 1,
+      searchTerm: queryParams.query,
+      executionStatuses: queryParams.status ? [queryParams.status] : undefined
     },
     queryParamStringifyOptions: {
       arrayFormat: 'repeat'
     }
   })
+  const hasFilters: boolean = !!queryParams.query || !!queryParams.pipeline || !!queryParams.status
 
   // Polling logic:
   //  - At any moment of time, only one polling is done
@@ -55,7 +61,8 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
     return () => {
       window.clearTimeout(timeoutId)
     }
-  }, [page, refetch, loading])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [page, loading])
 
   return (
     <Page.Body
@@ -64,21 +71,16 @@ export default function PipelineDeploymentList(props: PipelineDeploymentListProp
       error={error?.message}
       retryOnError={() => refetch?.()}
       noData={{
-        when: () => !pipelineExecutionSummary?.data?.content?.length,
+        when: () => !hasFilters && !loading && !pipelineExecutionSummary?.data?.content?.length,
         icon: 'cd-hover',
         message: getString('noDeploymentText'),
         buttonText: getString('runPipelineText'),
         onClick: props.onRunPipeline
       }}
     >
-      <ExecutionsFilter
-        onRunPipeline={props.onRunPipeline}
-        selectedPipeline={selectedPipelineIdentifier}
-        setPipelineIdentifier={setPipelineIdentifier}
-      />
-      <ExecutionsList pipelineExecutionSummary={pipelineExecutionSummary} />
+      <ExecutionsFilter onRunPipeline={props.onRunPipeline} />
+      <ExecutionsList hasFilters={hasFilters} pipelineExecutionSummary={pipelineExecutionSummary} />
       <ExecutionsPagination pipelineExecutionSummary={pipelineExecutionSummary} />
     </Page.Body>
   )
-  // }
 }

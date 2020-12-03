@@ -1,22 +1,49 @@
 import React from 'react'
-import { render, waitFor } from '@testing-library/react'
-import { TestWrapper } from '@common/utils/testUtils'
-import { accountPathProps, pipelinePathProps, projectPathProps } from '@common/utils/routeUtils'
+import { render, waitFor, queryByAttribute, fireEvent, findByText } from '@testing-library/react'
+import { useLocation } from 'react-router-dom'
+import { TestWrapper, TestWrapperProps } from '@common/utils/testUtils'
+import { accountPathProps, pipelinePathProps } from '@common/utils/routeUtils'
 import routes from '@common/RouteDefinitions'
 import { defaultAppStoreValues } from '@projects-orgs/pages/projects/__tests__/DefaultAppStoreData'
+import { useGetListOfExecutions } from 'services/cd-ng'
 
 import PipelineDeploymentList from '../PipelineDeploymentList'
-import data from './pipeline-list.json'
+import data from './execution-list.json'
+import pipelines from './pipeline-list.json'
 
 jest.mock('@common/components/YAMLBuilder/YamlBuilder', () => ({ children }: { children: JSX.Element }) => (
   <div>{children}</div>
 ))
 
+const refetch = jest.fn()
+
 jest.mock('services/cd-ng', () => ({
-  useGetListOfExecutions: jest.fn(() => data),
+  useGetListOfExecutions: jest.fn(() => ({ ...data, refetch })),
   useHandleInterrupt: jest.fn(() => ({})),
-  useGetPipelineList: jest.fn(() => ({}))
+  useGetPipelineList: jest.fn(() => ({ ...pipelines, refetch: jest.fn() }))
 }))
+
+function ComponentWrapper(): React.ReactElement {
+  const location = useLocation()
+  return (
+    <React.Fragment>
+      <PipelineDeploymentList onRunPipeline={jest.fn()} />
+      <div data-testid="location">{`${location.pathname}${location.search}`}</div>
+    </React.Fragment>
+  )
+}
+
+const testWrapperProps: TestWrapperProps = {
+  path: routes.toCDDeployments({ ...accountPathProps, ...pipelinePathProps }),
+  pathParams: {
+    accountId: 'testAcc',
+    orgIdentifier: 'testOrg',
+    projectIdentifier: 'testProject'
+  },
+  defaultAppStoreValues
+}
+
+jest.useFakeTimers()
 
 describe('Test Pipeline Deployment list', () => {
   beforeAll(() => {
@@ -24,6 +51,10 @@ describe('Test Pipeline Deployment list', () => {
   })
   afterAll(() => {
     jest.spyOn(global.Date, 'now').mockReset()
+  })
+
+  afterEach(() => {
+    ;(useGetListOfExecutions as jest.Mock).mockClear()
   })
 
   // eslint-disable-next-line jest/no-disabled-tests
@@ -34,8 +65,8 @@ describe('Test Pipeline Deployment list', () => {
         pathParams={{
           accountId: 'testAcc',
           orgIdentifier: 'testOrg',
-          projectIdentifier: 'test',
-          pipelineIdentifier: 'pipeline'
+          projectIdentifier: 'testProject',
+          pipelineIdentifier: 'testPipeline'
         }}
         defaultAppStoreValues={defaultAppStoreValues}
       >
@@ -43,28 +74,219 @@ describe('Test Pipeline Deployment list', () => {
       </TestWrapper>
     )
     await waitFor(() => getByText('test-p1'))
+    expect(() => getByText('Pipelines', { selector: '.label' })).toThrowError()
     expect(container).toMatchSnapshot()
   })
 
   test('should render deployment list with pipeline filter', async () => {
     const { container, getByText } = render(
-      <TestWrapper
-        path={routes.toCDDeployments({ ...accountPathProps, ...projectPathProps })}
-        pathParams={{
-          accountId: 'testAcc',
-          orgIdentifier: 'testOrg',
-          projectIdentifier: 'testProject'
-        }}
-        defaultAppStoreValues={defaultAppStoreValues}
-      >
+      <TestWrapper {...testWrapperProps}>
         <PipelineDeploymentList onRunPipeline={jest.fn()} />
       </TestWrapper>
     )
     await waitFor(() => getByText('test-p1'))
 
     expect(getByText('Pipelines', { selector: '.label' })).toBeDefined()
-    expect(getByText('All', { selector: '.bp3-button.main > .bp3-button-text' })).toBeDefined()
-
     expect(container).toMatchSnapshot()
+  })
+
+  test('search works', () => {
+    const { container, getByTestId } = render(
+      <TestWrapper {...testWrapperProps}>
+        <ComponentWrapper />
+      </TestWrapper>
+    )
+
+    const search = queryByAttribute('type', container, 'search')!
+
+    fireEvent.change(search, { target: { value: 'my search term' } })
+    jest.runOnlyPendingTimers()
+
+    expect(getByTestId('location')).toMatchInlineSnapshot(`
+      <div
+        data-testid="location"
+      >
+        /account/testAcc/cd/deployments/orgs/testOrg/projects/testProject?query=my%20search%20term
+      </div>
+    `)
+
+    expect(useGetListOfExecutions).toHaveBeenLastCalledWith({
+      queryParamStringifyOptions: { arrayFormat: 'repeat' },
+      queryParams: {
+        accountIdentifier: 'testAcc',
+        executionStatuses: undefined,
+        orgIdentifier: 'testOrg',
+        page: 0,
+        pipelineIdentifiers: undefined,
+        projectIdentifier: 'testProject',
+        searchTerm: 'my search term'
+      }
+    })
+
+    const clear = queryByAttribute('data-icon', container, 'small-cross')!.closest('button')!
+    fireEvent.click(clear)
+
+    jest.runOnlyPendingTimers()
+
+    expect(getByTestId('location')).toMatchInlineSnapshot(`
+      <div
+        data-testid="location"
+      >
+        /account/testAcc/cd/deployments/orgs/testOrg/projects/testProject?query=
+      </div>
+    `)
+
+    expect(useGetListOfExecutions).toHaveBeenLastCalledWith({
+      queryParamStringifyOptions: { arrayFormat: 'repeat' },
+      queryParams: {
+        accountIdentifier: 'testAcc',
+        executionStatuses: undefined,
+        orgIdentifier: 'testOrg',
+        page: 0,
+        pipelineIdentifiers: undefined,
+        projectIdentifier: 'testProject',
+        searchTerm: ''
+      }
+    })
+  })
+
+  test('Status selection works', async () => {
+    const { getByTestId } = render(
+      <TestWrapper {...testWrapperProps}>
+        <ComponentWrapper />
+      </TestWrapper>
+    )
+
+    const select = getByTestId('status-select')!
+
+    fireEvent.click(select)
+
+    await waitFor(() => queryByAttribute('class', document.body, 'bp3-popover-content'))
+    const option1 = await findByText(document.body, 'Failed', { selector: '.bp3-fill' })
+
+    fireEvent.click(option1)
+
+    jest.runOnlyPendingTimers()
+
+    expect(getByTestId('location')).toMatchInlineSnapshot(`
+      <div
+        data-testid="location"
+      >
+        /account/testAcc/cd/deployments/orgs/testOrg/projects/testProject?status=Failed
+      </div>
+    `)
+
+    expect(useGetListOfExecutions).toHaveBeenLastCalledWith({
+      queryParamStringifyOptions: { arrayFormat: 'repeat' },
+      queryParams: {
+        accountIdentifier: 'testAcc',
+        executionStatuses: ['Failed'],
+        orgIdentifier: 'testOrg',
+        page: 0,
+        pipelineIdentifiers: undefined,
+        projectIdentifier: 'testProject',
+        searchTerm: undefined
+      }
+    })
+
+    fireEvent.click(select)
+
+    await waitFor(() => queryByAttribute('class', document.body, 'bp3-popover-content'))
+    const option2 = await findByText(document.body, 'Clear Selection', { selector: '.bp3-fill' })
+
+    fireEvent.click(option2)
+
+    jest.runOnlyPendingTimers()
+
+    expect(getByTestId('location')).toMatchInlineSnapshot(`
+      <div
+        data-testid="location"
+      >
+        /account/testAcc/cd/deployments/orgs/testOrg/projects/testProject?status=
+      </div>
+    `)
+
+    expect(useGetListOfExecutions).toHaveBeenLastCalledWith({
+      queryParamStringifyOptions: { arrayFormat: 'repeat' },
+      queryParams: {
+        accountIdentifier: 'testAcc',
+        executionStatuses: undefined,
+        orgIdentifier: 'testOrg',
+        page: 0,
+        pipelineIdentifiers: undefined,
+        projectIdentifier: 'testProject',
+        searchTerm: undefined
+      }
+    })
+  })
+
+  test('Pipeline selection works', async () => {
+    const { getByTestId } = render(
+      <TestWrapper {...testWrapperProps}>
+        <ComponentWrapper />
+      </TestWrapper>
+    )
+
+    const select = getByTestId('pipeline-select')!
+
+    fireEvent.click(select)
+
+    await waitFor(() => queryByAttribute('class', document.body, 'bp3-popover-content'))
+    const option1 = await findByText(document.body, 'test345', { selector: '.bp3-fill' })
+
+    fireEvent.click(option1)
+
+    jest.runOnlyPendingTimers()
+
+    expect(getByTestId('location')).toMatchInlineSnapshot(`
+      <div
+        data-testid="location"
+      >
+        /account/testAcc/cd/deployments/orgs/testOrg/projects/testProject?pipeline=test345
+      </div>
+    `)
+
+    expect(useGetListOfExecutions).toHaveBeenLastCalledWith({
+      queryParamStringifyOptions: { arrayFormat: 'repeat' },
+      queryParams: {
+        accountIdentifier: 'testAcc',
+        executionStatuses: undefined,
+        orgIdentifier: 'testOrg',
+        page: 0,
+        pipelineIdentifiers: ['test345'],
+        projectIdentifier: 'testProject',
+        searchTerm: undefined
+      }
+    })
+
+    fireEvent.click(select)
+
+    await waitFor(() => queryByAttribute('class', document.body, 'bp3-popover-content'))
+    const option2 = await findByText(document.body, 'Clear Selection', { selector: '.bp3-fill' })
+
+    fireEvent.click(option2)
+
+    jest.runOnlyPendingTimers()
+
+    expect(getByTestId('location')).toMatchInlineSnapshot(`
+      <div
+        data-testid="location"
+      >
+        /account/testAcc/cd/deployments/orgs/testOrg/projects/testProject?pipeline=
+      </div>
+    `)
+
+    expect(useGetListOfExecutions).toHaveBeenLastCalledWith({
+      queryParamStringifyOptions: { arrayFormat: 'repeat' },
+      queryParams: {
+        accountIdentifier: 'testAcc',
+        executionStatuses: undefined,
+        orgIdentifier: 'testOrg',
+        page: 0,
+        pipelineIdentifiers: undefined,
+        projectIdentifier: 'testProject',
+        searchTerm: undefined
+      }
+    })
   })
 })

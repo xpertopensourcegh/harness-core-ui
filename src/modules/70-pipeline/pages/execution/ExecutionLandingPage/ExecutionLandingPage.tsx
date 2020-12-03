@@ -1,8 +1,7 @@
 import React from 'react'
-import { useParams, useLocation } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { Button, Icon, Tag } from '@wings-software/uikit'
 import cx from 'classnames'
-import qs from 'qs'
 
 import routes from '@common/RouteDefinitions'
 import { useGetPipelineExecutionDetail } from 'services/cd-ng'
@@ -20,6 +19,8 @@ import {
   getRunningStageForPipeline,
   getRunningStep
 } from '@pipeline/utils/executionUtils'
+import { useQueryParams } from '@common/hooks'
+import type { ExecutionPageQueryParams } from '@pipeline/utils/types'
 
 import ExecutionContext from '../ExecutionContext/ExecutionContext'
 import ExecutionMetadata from './ExecutionMetadata/ExecutionMetadata'
@@ -31,8 +32,6 @@ import css from './ExecutionLandingPage.module.scss'
 export const POLL_INTERVAL = 5 /* sec */ * 1000 /* ms */
 
 export default function ExecutionLandingPage(props: React.PropsWithChildren<{}>): React.ReactElement {
-  const location = useLocation()
-
   const [showDetail, setShowDetails] = React.useState(false)
   const { orgIdentifier, projectIdentifier, executionIdentifier, accountId, pipelineIdentifier } = useParams<
     ExecutionPathParams
@@ -45,8 +44,7 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<{}>)
   /* These are updated only when new data is fetched successfully */
   const [selectedStageId, setSelectedStageId] = React.useState('')
   const [selectedStepId, setSelectedStepId] = React.useState('')
-
-  const queryParams = React.useMemo(() => qs.parse(location.search, { ignoreQueryPrefix: true }), [location.search])
+  const queryParams = useQueryParams<ExecutionPageQueryParams>()
 
   const { data, refetch, loading } = useGetPipelineExecutionDetail({
     planExecutionId: executionIdentifier,
@@ -54,7 +52,7 @@ export default function ExecutionLandingPage(props: React.PropsWithChildren<{}>)
       orgIdentifier,
       projectIdentifier,
       accountIdentifier: accountId,
-      stageIdentifier: (queryParams.stage as string) || autoSelectedStageId
+      stageIdentifier: queryParams.stage || autoSelectedStageId
     },
     debounce: 500
   })

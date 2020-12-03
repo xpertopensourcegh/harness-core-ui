@@ -14,12 +14,14 @@
 
   .lhs {
     display: flex;
+    align-items: center;
     padding-top: var(--spacing-large);
     column-gap: var(--spacing-medium);
   }
 
   .rhs {
     padding-top: var(--spacing-large);
+    align-items: center;
     display: flex;
   }
 
@@ -32,6 +34,22 @@
       left: 0;
       font-size: var(--font-size-small);
       color: var(--grey-500);
+    }
+  }
+
+  .search {
+    :global(.bp3-icon) {
+      color: var(--blue-500);
+    }
+
+    input[type='search'] {
+      border-color: transparent;
+    }
+  }
+
+  .btnGroup {
+    :global(.bp3-button) {
+      width: 50px;
     }
   }
 }

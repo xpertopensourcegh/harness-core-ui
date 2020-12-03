@@ -44,10 +44,132 @@ exports[`Test Pipeline Deployment list should render deployment list 1`] = `
             </span>
           </span>
         </button>
+        <div
+          class="filterGroup btnGroup"
+        >
+          <span
+            class="label"
+          >
+            Deployments
+          </span>
+          <div
+            class="StyledProps---font--2ipy StyledProps---main--1Wws ButtonGroup---btnGroup--1Q84"
+          >
+            <button
+              class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+              type="button"
+            >
+              <span
+                class="bp3-button-text"
+              >
+                <span>
+                  All
+                </span>
+              </span>
+            </button>
+            <button
+              class="bp3-button bp3-disabled StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+              disabled=""
+              tabindex="-1"
+              type="button"
+            >
+              <span
+                class="bp3-button-text"
+              >
+                My
+              </span>
+            </button>
+          </div>
+        </div>
+        <div
+          class="filterGroup"
+        >
+          <span
+            class="label"
+          >
+            Status
+          </span>
+          <div
+            class="bp3-popover-wrapper"
+          >
+            <div
+              class="bp3-popover-target"
+            >
+              <div
+                class=""
+              >
+                <button
+                  class="bp3-button main"
+                  data-testid="status-select"
+                  type="button"
+                >
+                  <span
+                    class="bp3-button-text"
+                  >
+                    <span>
+                      All
+                    </span>
+                  </span>
+                  <span
+                    class="bp3-icon bp3-icon-chevron-down"
+                    icon="chevron-down"
+                  >
+                    <svg
+                      data-icon="chevron-down"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      width="16"
+                    >
+                      <desc>
+                        chevron-down
+                      </desc>
+                      <path
+                        d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <div
         class="rhs"
-      />
+      >
+        <div
+          class="bp3-input-group ui-search-box ExpandingSearchInput---main--5Kcg search"
+          data-name=""
+        >
+          <span
+            class="bp3-icon bp3-icon-search StyledProps---main--1Wws ExpandingSearchInput---icon--vX6_"
+            icon="search"
+          >
+            <svg
+              data-icon="search"
+              height="14"
+              viewBox="0 0 16 16"
+              width="14"
+            >
+              <desc>
+                search
+              </desc>
+              <path
+                d="M15.55 13.43l-2.67-2.68a6.94 6.94 0 001.11-3.76c0-3.87-3.13-7-7-7s-7 3.13-7 7 3.13 7 7 7c1.39 0 2.68-.42 3.76-1.11l2.68 2.67a1.498 1.498 0 102.12-2.12zm-8.56-1.44c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+          <input
+            class="bp3-input "
+            dir="auto"
+            placeholder="Search"
+            type="search"
+            value=""
+          />
+        </div>
+      </div>
     </div>
     <div
       class="main"
@@ -103,7 +225,7 @@ exports[`Test Pipeline Deployment list should render deployment list 1`] = `
             <div>
               <a
                 class="title"
-                href="/account/testAcc/cd/pipelines/orgs/testOrg/projects/test/pipelines/testp1/executions/TyNGXVdmRWi5vrOJopUKOg/pipeline"
+                href="/account/testAcc/cd/pipelines/orgs/testOrg/projects/testProject/pipelines/testp1/executions/TyNGXVdmRWi5vrOJopUKOg/pipeline"
               >
                 <span
                   class="pipelineName"
@@ -468,6 +590,96 @@ exports[`Test Pipeline Deployment list should render deployment list with pipeli
           </span>
         </button>
         <div
+          class="filterGroup btnGroup"
+        >
+          <span
+            class="label"
+          >
+            Deployments
+          </span>
+          <div
+            class="StyledProps---font--2ipy StyledProps---main--1Wws ButtonGroup---btnGroup--1Q84"
+          >
+            <button
+              class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+              type="button"
+            >
+              <span
+                class="bp3-button-text"
+              >
+                <span>
+                  All
+                </span>
+              </span>
+            </button>
+            <button
+              class="bp3-button bp3-disabled StyledProps---font--2ipy Button---button--4ZD5 Button---iconOnly--_pvt StyledProps---main--1Wws"
+              disabled=""
+              tabindex="-1"
+              type="button"
+            >
+              <span
+                class="bp3-button-text"
+              >
+                My
+              </span>
+            </button>
+          </div>
+        </div>
+        <div
+          class="filterGroup"
+        >
+          <span
+            class="label"
+          >
+            Status
+          </span>
+          <div
+            class="bp3-popover-wrapper"
+          >
+            <div
+              class="bp3-popover-target"
+            >
+              <div
+                class=""
+              >
+                <button
+                  class="bp3-button main"
+                  data-testid="status-select"
+                  type="button"
+                >
+                  <span
+                    class="bp3-button-text"
+                  >
+                    <span>
+                      All
+                    </span>
+                  </span>
+                  <span
+                    class="bp3-icon bp3-icon-chevron-down"
+                    icon="chevron-down"
+                  >
+                    <svg
+                      data-icon="chevron-down"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      width="16"
+                    >
+                      <desc>
+                        chevron-down
+                      </desc>
+                      <path
+                        d="M12 5c-.28 0-.53.11-.71.29L8 8.59l-3.29-3.3a1.003 1.003 0 00-1.42 1.42l4 4c.18.18.43.29.71.29s.53-.11.71-.29l4-4A1.003 1.003 0 0012 5z"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
           class="filterGroup"
         >
           <span
@@ -486,12 +698,15 @@ exports[`Test Pipeline Deployment list should render deployment list with pipeli
               >
                 <button
                   class="bp3-button main"
+                  data-testid="pipeline-select"
                   type="button"
                 >
                   <span
                     class="bp3-button-text"
                   >
-                    All
+                    <span>
+                      All
+                    </span>
                   </span>
                   <span
                     class="bp3-icon bp3-icon-chevron-down"
@@ -520,7 +735,39 @@ exports[`Test Pipeline Deployment list should render deployment list with pipeli
       </div>
       <div
         class="rhs"
-      />
+      >
+        <div
+          class="bp3-input-group ui-search-box ExpandingSearchInput---main--5Kcg search"
+          data-name=""
+        >
+          <span
+            class="bp3-icon bp3-icon-search StyledProps---main--1Wws ExpandingSearchInput---icon--vX6_"
+            icon="search"
+          >
+            <svg
+              data-icon="search"
+              height="14"
+              viewBox="0 0 16 16"
+              width="14"
+            >
+              <desc>
+                search
+              </desc>
+              <path
+                d="M15.55 13.43l-2.67-2.68a6.94 6.94 0 001.11-3.76c0-3.87-3.13-7-7-7s-7 3.13-7 7 3.13 7 7 7c1.39 0 2.68-.42 3.76-1.11l2.68 2.67a1.498 1.498 0 102.12-2.12zm-8.56-1.44c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+          <input
+            class="bp3-input "
+            dir="auto"
+            placeholder="Search"
+            type="search"
+            value=""
+          />
+        </div>
+      </div>
     </div>
     <div
       class="main"
