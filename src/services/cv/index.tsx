@@ -546,7 +546,7 @@ export interface KubernetesActivityDTO {
   tags?: string[]
   message?: string
   activitySourceConfigId?: string
-  json?: string
+  eventDetails?: string
   type?: 'DEPLOYMENT' | 'INFRASTRUCTURE' | 'CUSTOM'
 }
 
@@ -609,6 +609,23 @@ export interface RestResponseLearningEngineTask {
   responseMessages?: ResponseMessage[]
 }
 
+export interface LogClusterDTO {
+  verificationTaskId?: string
+  epochMinute?: number
+  host?: string
+  log?: string
+  clusterLabel?: string
+  clusterCount?: number
+}
+
+export interface RestResponseListLogClusterDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: LogClusterDTO[]
+  responseMessages?: ResponseMessage[]
+}
+
 export interface Frequency {
   count?: number
   timestamp?: number
@@ -636,23 +653,6 @@ export interface RestResponseListLogAnalysisCluster {
     [key: string]: { [key: string]: any }
   }
   resource?: LogAnalysisCluster[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface LogClusterDTO {
-  verificationTaskId?: string
-  epochMinute?: number
-  host?: string
-  log?: string
-  clusterLabel?: string
-  clusterCount?: number
-}
-
-export interface RestResponseListLogClusterDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: LogClusterDTO[]
   responseMessages?: ResponseMessage[]
 }
 
@@ -900,6 +900,29 @@ export interface RestResponseCD10MappingsDTO {
   responseMessages?: ResponseMessage[]
 }
 
+export interface AppDynamicsApplication {
+  name?: string
+  id?: number
+}
+
+export interface PageAppDynamicsApplication {
+  totalPages?: number
+  totalItems?: number
+  pageItemCount?: number
+  pageSize?: number
+  content?: AppDynamicsApplication[]
+  pageIndex?: number
+  empty?: boolean
+}
+
+export interface RestResponsePageAppDynamicsApplication {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: PageAppDynamicsApplication
+  responseMessages?: ResponseMessage[]
+}
+
 export interface AppdynamicsMetricValueValidationResponse {
   metricName?: string
   apiResponseStatus?: 'SUCCESS' | 'NO_DATA' | 'FAILED'
@@ -961,29 +984,26 @@ export interface TimeSeriesThresholdCriteria {
   criteria?: string
 }
 
-export interface AppDynamicsApplication {
-  name?: string
-  id?: number
-}
-
-export interface RestResponseListAppDynamicsApplication {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: AppDynamicsApplication[]
-  responseMessages?: ResponseMessage[]
-}
-
 export interface AppDynamicsTier {
   id?: number
   name?: string
 }
 
-export interface RestResponseSetAppDynamicsTier {
+export interface PageAppDynamicsTier {
+  totalPages?: number
+  totalItems?: number
+  pageItemCount?: number
+  pageSize?: number
+  content?: AppDynamicsTier[]
+  pageIndex?: number
+  empty?: boolean
+}
+
+export interface RestResponsePageAppDynamicsTier {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
-  resource?: AppDynamicsTier[]
+  resource?: PageAppDynamicsTier
   responseMessages?: ResponseMessage[]
 }
 
@@ -1014,15 +1034,15 @@ export interface CVConfig {
   monitoringSourceIdentifier: string
   monitoringSourceName: string
   analysisOrchestrationIteration?: number
-  type?: 'APP_DYNAMICS' | 'SPLUNK'
   firstTimeDataCollectionTimeRange?: TimeRange
+  type?: 'APP_DYNAMICS' | 'SPLUNK'
 }
 
-export interface RestResponseCVConfig {
+export interface RestResponseListCVConfig {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
-  resource?: CVConfig
+  resource?: CVConfig[]
   responseMessages?: ResponseMessage[]
 }
 
@@ -1031,11 +1051,11 @@ export interface TimeRange {
   endTime?: number
 }
 
-export interface RestResponseListCVConfig {
+export interface RestResponseCVConfig {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
-  resource?: CVConfig[]
+  resource?: CVConfig
   responseMessages?: ResponseMessage[]
 }
 
@@ -1053,6 +1073,27 @@ export interface RestResponseCVSetupStatus {
     [key: string]: { [key: string]: any }
   }
   resource?: CVSetupStatus
+  responseMessages?: ResponseMessage[]
+}
+
+export interface MonitoringSource {
+  monitoringSourceIdentifier?: string
+  monitoringSourceName?: string
+  type?: 'APP_DYNAMICS' | 'SPLUNK'
+  importStatus?: MonitoringSourceImportStatus
+  numberOfServices?: number
+  importedAt?: number
+}
+
+export interface MonitoringSourceImportStatus {
+  [key: string]: any
+}
+
+export interface RestResponseListMonitoringSource {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: MonitoringSource[]
   responseMessages?: ResponseMessage[]
 }
 
@@ -1098,27 +1139,6 @@ export interface ServiceResponseDTO {
   version?: number
 }
 
-export interface MonitoringSource {
-  monitoringSourceIdentifier?: string
-  monitoringSourceName?: string
-  type?: 'APP_DYNAMICS' | 'SPLUNK'
-  importStatus?: MonitoringSourceImportStatus
-  numberOfServices?: number
-  importedAt?: number
-}
-
-export interface MonitoringSourceImportStatus {
-  [key: string]: any
-}
-
-export interface RestResponseListMonitoringSource {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: MonitoringSource[]
-  responseMessages?: ResponseMessage[]
-}
-
 export interface DSConfig {
   identifier?: string
   accountId?: string
@@ -1160,6 +1180,13 @@ export interface TimeSeriesDataRecordMetricValue {
   timeSeriesValues?: TimeSeriesDataRecordGroupValue[]
 }
 
+export interface DataCollectionTaskResult {
+  dataCollectionTaskId?: string
+  status?: 'FAILED' | 'QUEUED' | 'RUNNING' | 'WAITING' | 'EXPIRED' | 'SUCCESS'
+  exception?: string
+  stacktrace?: string
+}
+
 export interface DataCollectionInfo {
   dataCollectionDsl?: string
   collectHostData?: boolean
@@ -1184,13 +1211,6 @@ export interface RestResponseOptionalDataCollectionTaskDTO {
   }
   resource?: DataCollectionTaskDTO
   responseMessages?: ResponseMessage[]
-}
-
-export interface DataCollectionTaskResult {
-  dataCollectionTaskId?: string
-  status?: 'FAILED' | 'QUEUED' | 'RUNNING' | 'WAITING' | 'EXPIRED' | 'SUCCESS'
-  exception?: string
-  stacktrace?: string
 }
 
 export interface HostRecordDTO {
@@ -1494,19 +1514,6 @@ export type VaultConnectorDTO = ConnectorConfigDTO & {
   readOnly?: boolean
 }
 
-export interface RestResponseListSplunkSavedSearch {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: SplunkSavedSearch[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface SplunkSavedSearch {
-  title?: string
-  searchQuery?: string
-}
-
 export interface Bar {
   timestamp?: number
   count?: number
@@ -1548,6 +1555,19 @@ export interface SplunkValidationResponse {
   samples?: SplunkSampleResponse
   errorMessage?: string
   queryDurationMillis?: number
+}
+
+export interface RestResponseListSplunkSavedSearch {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: SplunkSavedSearch[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface SplunkSavedSearch {
+  title?: string
+  searchQuery?: string
 }
 
 export interface MetricData {
@@ -1614,41 +1634,6 @@ export interface RestResponseListAnomalyDTO {
   responseMessages?: ResponseMessage[]
 }
 
-export interface CategoryRisksDTO {
-  startTimeEpoch?: number
-  endTimeEpoch?: number
-  categoryRisks?: CategoryRisk[]
-}
-
-export interface RestResponseCategoryRisksDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: CategoryRisksDTO
-  responseMessages?: ResponseMessage[]
-}
-
-export interface EnvServiceRiskDTO {
-  orgIdentifier?: string
-  projectIdentifier?: string
-  envIdentifier?: string
-  risk?: number
-  serviceRisks?: ServiceRisk[]
-}
-
-export interface RestResponseListEnvServiceRiskDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: EnvServiceRiskDTO[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface ServiceRisk {
-  serviceIdentifier?: string
-  risk?: number
-}
-
 export interface HeatMapDTO {
   startTime?: number
   endTime?: number
@@ -1695,6 +1680,41 @@ export interface ServiceSummary {
   serviceIdentifier?: string
   risk?: number
   analysisRisks?: AnalysisRisk[]
+}
+
+export interface CategoryRisksDTO {
+  startTimeEpoch?: number
+  endTimeEpoch?: number
+  categoryRisks?: CategoryRisk[]
+}
+
+export interface RestResponseCategoryRisksDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: CategoryRisksDTO
+  responseMessages?: ResponseMessage[]
+}
+
+export interface EnvServiceRiskDTO {
+  orgIdentifier?: string
+  projectIdentifier?: string
+  envIdentifier?: string
+  risk?: number
+  serviceRisks?: ServiceRisk[]
+}
+
+export interface RestResponseListEnvServiceRiskDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: EnvServiceRiskDTO[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface ServiceRisk {
+  serviceIdentifier?: string
+  risk?: number
 }
 
 export interface AnalyzedLogDataDTO {
@@ -1865,14 +1885,6 @@ export interface TransactionMetricInfoSummaryPageDTO {
   deploymentTimeRange?: TimeRange
 }
 
-export interface RestResponseVerificationJobDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: VerificationJobDTO
-  responseMessages?: ResponseMessage[]
-}
-
 export interface VerificationJobDTO {
   identifier?: string
   jobName?: string
@@ -1883,6 +1895,14 @@ export interface VerificationJobDTO {
   dataSources?: ('APP_DYNAMICS' | 'SPLUNK')[]
   duration?: string
   type?: 'TEST' | 'CANARY' | 'BLUE_GREEN' | 'HEALTH'
+}
+
+export interface RestResponseVerificationJobDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: VerificationJobDTO
+  responseMessages?: ResponseMessage[]
 }
 
 export interface RestResponseListVerificationJobDTO {
@@ -1908,10 +1928,13 @@ export interface GetAppDynamicsApplicationsQueryParams {
   connectorIdentifier: string
   orgIdentifier: string
   projectIdentifier: string
+  offset: number
+  pageSize: number
+  filter?: string
 }
 
 export type GetAppDynamicsApplicationsProps = Omit<
-  GetProps<RestResponseListAppDynamicsApplication, unknown, GetAppDynamicsApplicationsQueryParams, void>,
+  GetProps<RestResponsePageAppDynamicsApplication, unknown, GetAppDynamicsApplicationsQueryParams, void>,
   'path'
 >
 
@@ -1919,7 +1942,7 @@ export type GetAppDynamicsApplicationsProps = Omit<
  * get all appdynamics applications
  */
 export const GetAppDynamicsApplications = (props: GetAppDynamicsApplicationsProps) => (
-  <Get<RestResponseListAppDynamicsApplication, unknown, GetAppDynamicsApplicationsQueryParams, void>
+  <Get<RestResponsePageAppDynamicsApplication, unknown, GetAppDynamicsApplicationsQueryParams, void>
     path="/appdynamics/applications"
     base={getConfig('cv/api')}
     {...props}
@@ -1927,7 +1950,7 @@ export const GetAppDynamicsApplications = (props: GetAppDynamicsApplicationsProp
 )
 
 export type UseGetAppDynamicsApplicationsProps = Omit<
-  UseGetProps<RestResponseListAppDynamicsApplication, unknown, GetAppDynamicsApplicationsQueryParams, void>,
+  UseGetProps<RestResponsePageAppDynamicsApplication, unknown, GetAppDynamicsApplicationsQueryParams, void>,
   'path'
 >
 
@@ -1935,7 +1958,7 @@ export type UseGetAppDynamicsApplicationsProps = Omit<
  * get all appdynamics applications
  */
 export const useGetAppDynamicsApplications = (props: UseGetAppDynamicsApplicationsProps) =>
-  useGet<RestResponseListAppDynamicsApplication, unknown, GetAppDynamicsApplicationsQueryParams, void>(
+  useGet<RestResponsePageAppDynamicsApplication, unknown, GetAppDynamicsApplicationsQueryParams, void>(
     `/appdynamics/applications`,
     { base: getConfig('cv/api'), ...props }
   )
@@ -2008,10 +2031,13 @@ export interface GetAppDynamicsTiersQueryParams {
   orgIdentifier: string
   projectIdentifier: string
   appDynamicsAppId: number
+  offset: number
+  pageSize: number
+  filter?: string
 }
 
 export type GetAppDynamicsTiersProps = Omit<
-  GetProps<RestResponseSetAppDynamicsTier, unknown, GetAppDynamicsTiersQueryParams, void>,
+  GetProps<RestResponsePageAppDynamicsTier, unknown, GetAppDynamicsTiersQueryParams, void>,
   'path'
 >
 
@@ -2019,7 +2045,7 @@ export type GetAppDynamicsTiersProps = Omit<
  * get all appdynamics tiers for an application
  */
 export const GetAppDynamicsTiers = (props: GetAppDynamicsTiersProps) => (
-  <Get<RestResponseSetAppDynamicsTier, unknown, GetAppDynamicsTiersQueryParams, void>
+  <Get<RestResponsePageAppDynamicsTier, unknown, GetAppDynamicsTiersQueryParams, void>
     path="/appdynamics/tiers"
     base={getConfig('cv/api')}
     {...props}
@@ -2027,7 +2053,7 @@ export const GetAppDynamicsTiers = (props: GetAppDynamicsTiersProps) => (
 )
 
 export type UseGetAppDynamicsTiersProps = Omit<
-  UseGetProps<RestResponseSetAppDynamicsTier, unknown, GetAppDynamicsTiersQueryParams, void>,
+  UseGetProps<RestResponsePageAppDynamicsTier, unknown, GetAppDynamicsTiersQueryParams, void>,
   'path'
 >
 
@@ -2035,7 +2061,7 @@ export type UseGetAppDynamicsTiersProps = Omit<
  * get all appdynamics tiers for an application
  */
 export const useGetAppDynamicsTiers = (props: UseGetAppDynamicsTiersProps) =>
-  useGet<RestResponseSetAppDynamicsTier, unknown, GetAppDynamicsTiersQueryParams, void>(`/appdynamics/tiers`, {
+  useGet<RestResponsePageAppDynamicsTier, unknown, GetAppDynamicsTiersQueryParams, void>(`/appdynamics/tiers`, {
     base: getConfig('cv/api'),
     ...props
   })
@@ -2072,6 +2098,41 @@ export type UseGetDataSourceConfigsProps = Omit<
  */
 export const useGetDataSourceConfigs = (props: UseGetDataSourceConfigsProps) =>
   useGet<RestResponseListDSConfig, unknown, GetDataSourceConfigsQueryParams, void>(`/ds-config`, {
+    base: getConfig('cv/api'),
+    ...props
+  })
+
+export interface SaveDataSourceCVConfigsQueryParams {
+  accountId?: string
+}
+
+export type SaveDataSourceCVConfigsProps = Omit<
+  MutateProps<void, void, SaveDataSourceCVConfigsQueryParams, DSConfig[], void>,
+  'path' | 'verb'
+>
+
+/**
+ * saves a list of data source config
+ */
+export const SaveDataSourceCVConfigs = (props: SaveDataSourceCVConfigsProps) => (
+  <Mutate<void, void, SaveDataSourceCVConfigsQueryParams, DSConfig[], void>
+    verb="POST"
+    path="/ds-config"
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseSaveDataSourceCVConfigsProps = Omit<
+  UseMutateProps<void, void, SaveDataSourceCVConfigsQueryParams, DSConfig[], void>,
+  'path' | 'verb'
+>
+
+/**
+ * saves a list of data source config
+ */
+export const useSaveDataSourceCVConfigs = (props: UseSaveDataSourceCVConfigsProps) =>
+  useMutate<void, void, SaveDataSourceCVConfigsQueryParams, DSConfig[], void>('POST', `/ds-config`, {
     base: getConfig('cv/api'),
     ...props
   })

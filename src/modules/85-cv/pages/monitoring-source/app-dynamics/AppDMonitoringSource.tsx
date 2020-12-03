@@ -1,17 +1,17 @@
 import React, { useState } from 'react'
-
 import { Container } from '@wings-software/uikit'
-
 import CVOnboardingTabs from '@cv/components/CVOnboardingTabs/CVOnboardingTabs'
 import useCVTabsHook from '@cv/hooks/CVTabsHook/useCVTabsHook'
+import { useStrings } from 'framework/exports'
 import SelectProduct from '../SelectProduct/SelectProduct'
 import SelectApplications from './SelectApplications/SelectApplications'
-import i18n from './AppDMonitoringSource.i18n'
 import MapApplications from './MapApplications/MapApplications'
+import ReviewTiersAndApps from './ReviewTiersAndApps/ReviewTiersAndApps'
 
 const AppDMonitoringSource = () => {
-  const [data, setData] = useState({ name: '' })
+  const [data, setData] = useState<any>({ name: '' })
   const { onNext, onPrevious, currentTab, maxEnabledTab } = useCVTabsHook()
+  const { getString } = useStrings()
 
   return (
     <Container>
@@ -28,7 +28,7 @@ const AppDMonitoringSource = () => {
         tabProps={[
           {
             id: 1,
-            title: i18n.selectProduct,
+            title: getString('selectProduct'),
             component: (
               <SelectProduct
                 stepData={data}
@@ -42,10 +42,13 @@ const AppDMonitoringSource = () => {
           },
           {
             id: 2,
-            title: i18n.selectApplication,
+            title: getString('selectApplication'),
             component: (
               <SelectApplications
-                stepData={data}
+                stepData={{
+                  connectorIdentifier: data?.connectorRef?.value,
+                  applications: data?.applications
+                }}
                 onCompleteStep={stepData => {
                   setData({ ...data, ...stepData })
                   onNext()
@@ -55,8 +58,36 @@ const AppDMonitoringSource = () => {
           },
           {
             id: 3,
-            title: i18n.mapApplications,
-            component: <MapApplications />
+            title: getString('mapApplications'),
+            component: (
+              <MapApplications
+                stepData={{
+                  sourceName: data?.name,
+                  connectorIdentifier: data?.connectorRef?.value,
+                  productName: data?.product,
+                  applications: data?.applications,
+                  tiers: data?.tiers,
+                  metricPacks: data?.metricPacks
+                }}
+                onCompleteStep={stepData => {
+                  setData({ ...data, ...stepData })
+                  onNext()
+                }}
+              />
+            )
+          },
+          {
+            id: 4,
+            title: getString('review'),
+            component: (
+              <ReviewTiersAndApps
+                stepData={data}
+                onCompleteStep={stepData => {
+                  setData({ ...data, ...stepData })
+                  onNext()
+                }}
+              />
+            )
           }
         ]}
       />

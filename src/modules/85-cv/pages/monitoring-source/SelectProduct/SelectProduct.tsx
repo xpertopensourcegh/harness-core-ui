@@ -40,7 +40,7 @@ const getInfoSchemaByType = (type: string): MonitoringSourceInfo => {
         selectProduct: i18n.AppD.selectProduct,
 
         products: [
-          { value: 'Application_Monitoring', label: i18n.AppD.product.applicationMonitoring },
+          { value: 'Application Monitoring', label: i18n.AppD.product.applicationMonitoring },
           { value: 'Business_Performance_Monitoring', label: i18n.AppD.product.businessMonitoring },
           { value: 'Machine_Monitoring', label: i18n.AppD.product.machineMonitoring },
           { value: 'End_User_Moniorting', label: i18n.AppD.product.endUserMonitoring }
@@ -58,7 +58,7 @@ const SelectProduct: React.FC<SelectProductProps> = props => {
   const monitoringSource = getInfoSchemaByType(props.type)
 
   return (
-    <Container>
+    <Container padding="small">
       <Formik
         initialValues={{
           name: '',
@@ -76,12 +76,14 @@ const SelectProduct: React.FC<SelectProductProps> = props => {
               .required(i18n.validation.identifier)
               .matches(/^(?![0-9])[0-9a-zA-Z_$]*$/, i18n.validation.validIdRegex)
               .notOneOf(StringUtils.illegalIdentifiers)
-          })
+          }),
+          connectorRef: Yup.object().required()
         })}
         onSubmit={formData => {
           const stepData = { ...formData, product: selectedProduct }
-          // Temp. replace in second pr for integration
-          props.onCompleteStep(stepData as {})
+          if (selectedProduct) {
+            props.onCompleteStep(stepData as {})
+          }
         }}
       >
         {() => (

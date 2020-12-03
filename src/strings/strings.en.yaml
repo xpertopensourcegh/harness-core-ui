@@ -60,6 +60,11 @@ global:
   allowedValues: 'Allowed values'
   serviceAccount: Service Account
   saveAndContinue: 'Save and Continue'
+  metricPacks: 'Metric Packs'
+  review: 'review'
+  selectProduct: 'Select Product'
+  selectApplication: 'Select Application'
+  mapApplications: 'Map Applications to Harness Services'
   execution:
     pipelineIdentifierText: '(Execution ID: {{deploymentId}})' # Text for Pipeline Identifier
     triggerType: # text for trigger types
@@ -249,7 +254,6 @@ global:
       activities: 'Activities'
       dashboard: 'Dashboard'
       services: 'Services'
-      metricPacks: 'Metric Packs'
       adminSideNavLinks:
         setup: 'Setup'
         resources: 'Resources'
@@ -288,9 +292,31 @@ global:
         envType: Environment Type
         envDescription: An Environment is the representation of your production or non-production infrastructure.
         appDApplications: APPDYNAMICS APLICATIONS
+        appDTier: APPDYNAMICS TIER
         harnessEnv: HARNESS ENVIRONMENT
-        mapDashboards: Map Dashboards to Harness Services
-        mapDashboardsMsg: Define the Stackdriverdashboards you want to monitor. For example, here is a Workspace prod-setup. Harness will extract the widgets, metrics and queries within each dashboard. The metrics within the dashboard will create a service within Harness.
+        validationMsg: Services should be mapped uniquely to application services
+        mapApplicationsToEnv: Map the AppDynamics Application to a Harness Environment
+        mapTiersToServices: Map AppDynamics Application Tiers to Harness Services
+        noTiersMsg: No tiers were found for selected application
+        mapsTo: maps to
+        metricPackValidation: METRIC PACK VALIDATION
+        mappingToHarnessService: MAPPING TO HARNESS SERVICE
+        mapToHarnessEnvironment: MAP TO HARNESS ENVIRONMENT
+        harnessServices: HARNESS SERVICES
+        status: STATUS
+        validation: VALIDATION
+        tiersMappedToServices: tiers mapped to services
+        errorsFound: errors found
+        verificationsInProgress: verifications in progress
+        noData: no data
+        validationsPassed: validations passed
+        validationsFailed: validations failed
+        infoPanel:
+          mapDashboards: Map Dashboards to Harness Services
+          mapDashboardsMsg: Define the Stackdriverdashboards you want to monitor. For example, here is a Workspace prod-setup. Harness will extract the widgets, metrics and queries within each dashboard. The metrics within the dashboard will create a service within Harness.
+          applications: Applications
+          applicationsDesc: Define the Stackdriverdashboards you want to monitor. For example, here is a Workspace “prod-setup.” Harness will extract the widgets, metrics and queries within each dashboard. The metrics within the dashboard will create a service within Harness.
+          tiers: Tiers
     activitySources:
       name: 'Name your activity source'
       harnessCD:

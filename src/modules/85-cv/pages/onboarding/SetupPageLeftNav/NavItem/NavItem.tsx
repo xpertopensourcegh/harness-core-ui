@@ -12,6 +12,7 @@ export interface NavItemProps {
   isSelected?: boolean
   isHeaderItem?: boolean
   onClick?: (label: string) => void
+  height?: string | number | undefined
 }
 
 function statusToIconProps(status: NavItemProps['status']): IconProps {
@@ -40,10 +41,10 @@ function statusToIconProps(status: NavItemProps['status']): IconProps {
 }
 
 export function NavItem(props: NavItemProps): JSX.Element {
-  const { leftLogo, label, status, className, onClick, isSelected } = props
+  const { leftLogo, label, status, className, onClick, isSelected, height } = props
   return (
     <Container
-      height={30}
+      height={height}
       className={cx(css.main, isSelected ? css.selected : undefined, className)}
       onClick={() => onClick?.(label)}
     >

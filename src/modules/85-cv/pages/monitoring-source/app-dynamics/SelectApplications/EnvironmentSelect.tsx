@@ -14,6 +14,7 @@ interface EnvironmentSelectProps {
   item?: SelectOption
   options: Array<SelectOption>
   onSelect(value: SelectOption): void
+  disabled?: boolean
   className?: string
   onNewCreated(value: EnvironmentResponseDTO): void
 }
@@ -24,6 +25,7 @@ export default function EnvironmentSelect({
   item,
   options,
   onSelect,
+  disabled,
   onNewCreated,
   className
 }: EnvironmentSelectProps) {
@@ -135,6 +137,7 @@ export default function EnvironmentSelect({
     <Select
       value={item}
       className={className}
+      disabled={disabled}
       items={selectOptions}
       inputProps={{ placeholder: 'select or create an environment' }}
       onChange={onSelectChange}

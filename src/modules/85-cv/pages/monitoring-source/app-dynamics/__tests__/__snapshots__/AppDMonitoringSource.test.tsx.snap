@@ -118,6 +118,18 @@ exports[`AppDMonitoringSOurce render initial state 1`] = `
           >
             Map Applications to Harness Services
           </div>
+          <div
+            aria-controls="bp3-tab-panel_monitoring-sources_4"
+            aria-disabled="true"
+            aria-expanded="false"
+            aria-selected="false"
+            class="bp3-tab"
+            data-tab-id="4"
+            id="bp3-tab-title_monitoring-sources_4"
+            role="tab"
+          >
+            review
+          </div>
         </div>
         <div
           aria-hidden="false"
@@ -127,7 +139,7 @@ exports[`AppDMonitoringSOurce render initial state 1`] = `
           role="tabpanel"
         >
           <div
-            class="StyledProps---font--2ipy StyledProps---main--1Wws"
+            class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---padding-small--3f0A"
           >
             <div
               class="OverlaySpinner---overlaySpinner--3Bs3"

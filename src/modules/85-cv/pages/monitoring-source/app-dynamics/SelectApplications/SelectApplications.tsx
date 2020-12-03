@@ -1,12 +1,15 @@
-import React, { useState, useEffect } from 'react'
-import { Container, Button, Layout, Text, Icon, SelectOption } from '@wings-software/uikit'
-import { useHistory, useParams } from 'react-router-dom'
+import React, { useState, useMemo } from 'react'
+import { Container, Color, Text, Icon, SelectOption } from '@wings-software/uikit'
+import { useParams } from 'react-router-dom'
 import Table from '@common/components/Table/Table'
-import routes from '@common/RouteDefinitions'
-import { AppDynamicsApplication, useGetAppDynamicsApplications } from 'services/cv'
-import { useGetEnvironmentListForProject } from 'services/cd-ng'
 import { useStrings } from 'framework/exports'
+import { useGetAppDynamicsApplications } from 'services/cv'
+import { useGetEnvironmentListForProject, ResponsePageEnvironmentResponseDTO } from 'services/cd-ng'
+import { SubmitAndPreviousButtons } from '@cv/pages/onboarding/SubmitAndPreviousButtons/SubmitAndPreviousButtons'
+import { TableColumnWithFilter } from '@cv/components/TableColumnWithFilter/TableColumnWithFilter'
+import { PageSpinner } from '@common/components/Page/PageSpinner'
 import EnvironmentSelect from './EnvironmentSelect'
+import type { ApplicationRecord } from '../AppDOnboardingUtils'
 import styles from './SelectApplications.module.scss'
 
 interface SelectApplicationsProps {
@@ -14,89 +17,87 @@ interface SelectApplicationsProps {
   onCompleteStep: (data: object) => void
 }
 
-interface AppEntry {
-  id: number
-  name: string
-  selected: boolean
-  environment?: SelectOption
+interface InternalState {
+  [id: string]: ApplicationRecord
 }
 
-export default function SelectApplications({ stepData, onCompleteStep }: SelectApplicationsProps): React.ReactElement {
-  const history = useHistory()
+interface CellProps {
+  appId: number
+  appData: ApplicationRecord
+  onUpdate?(tierId: number, data: Partial<ApplicationRecord> | null): void
+  options?: Array<SelectOption>
+  onUpdateOptions?(options: Array<SelectOption>): void
+}
+
+const PAGE_SIZE = 7
+
+export function updateApplication(
+  updater: (params: (val: InternalState) => InternalState) => void,
+  appId: number,
+  update: object | null
+) {
+  updater?.(old => {
+    const newState = { ...old }
+    if (update === null) {
+      delete newState[appId]
+    } else {
+      newState[appId] = {
+        ...old[appId],
+        ...update
+      }
+    }
+    return newState
+  })
+}
+
+export default function SelectApplications({ stepData, onCompleteStep }: SelectApplicationsProps) {
   const { getString } = useStrings()
+  const [state, setState] = useState<InternalState>(stepData?.applications || {})
+  const [environmentOptions, setEnvironmentOptions] = useState<Array<SelectOption>>([])
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
-  const { data } = useGetAppDynamicsApplications({
+  const [pageIndex, setPageIndex] = useState(0)
+  const [textFilter, setTextFilter] = useState('')
+
+  const { data, loading } = useGetAppDynamicsApplications({
     queryParams: {
       accountId,
-      connectorIdentifier: 'AppdUiTest',
+      connectorIdentifier: stepData?.connectorIdentifier,
       orgIdentifier: orgIdentifier as string,
-      projectIdentifier: projectIdentifier as string
+      projectIdentifier: projectIdentifier as string,
+      offset: pageIndex,
+      pageSize: PAGE_SIZE,
+      filter: textFilter
     }
   })
 
-  const { data: environmentsResponse } = useGetEnvironmentListForProject({
+  useGetEnvironmentListForProject({
     queryParams: {
       accountId,
       orgIdentifier: orgIdentifier as string,
       projectIdentifier: projectIdentifier as string
+    },
+    resolve: (res: ResponsePageEnvironmentResponseDTO) => {
+      if (res?.data?.content?.length) {
+        setEnvironmentOptions(
+          res?.data?.content?.map(env => ({
+            label: env.name as string,
+            value: env.name as string
+          }))
+        )
+      }
+      return res
     }
   })
 
-  const [environmentOptions, setEnvironmentOptions] = useState<any>([])
-
-  const [tableData, setTableData] = useState<Array<AppEntry>>([])
-
-  useEffect(() => {
-    if (environmentsResponse?.data?.content?.length) {
-      setEnvironmentOptions(
-        environmentsResponse?.data?.content?.map(env => ({
-          label: env.name,
-          value: env.name
-        }))
-      )
-    }
-  }, [environmentsResponse])
-
-  useEffect(() => {
-    if (data?.resource?.length) {
-      const apps = stepData?.applications ?? {}
-      setTableData(
-        data.resource?.map((app: AppDynamicsApplication) => ({
-          id: app.id!,
-          name: app.name!,
-          selected: !!apps[String(app.id)],
-          environment: { label: apps[String(app.id)]?.environment ?? '', value: apps[String(app.id)]?.environment }
-        }))
-      )
-    }
-  }, [data, stepData])
-
-  const onUpdateData = (index: number, value: object) => {
-    setTableData(old =>
-      old.map((row, i) => {
-        if (index === i) {
-          return {
-            ...row,
-            ...value
-          }
-        } else {
-          return row
-        }
-      })
-    )
-  }
+  const onAppUpdate = (appId: number, update: Partial<ApplicationRecord>) => updateApplication(setState, appId, update)
 
   const onNext = () => {
-    const applications = tableData.reduce((acc: any, curr) => {
-      if (curr.selected && curr.environment) {
-        acc[curr.id] = {
-          id: curr.id,
-          name: curr.name,
-          environment: curr.environment
-        }
+    const applications = { ...state }
+    for (const appId of Object.keys(applications)) {
+      if (!applications[appId].environment) {
+        delete applications[appId]
       }
-      return acc
-    }, {})
+    }
     if (Object.keys(applications).length) {
       onCompleteStep({ applications })
     }
@@ -105,87 +106,138 @@ export default function SelectApplications({ stepData, onCompleteStep }: SelectA
   return (
     <Container className={styles.main}>
       <Container className={styles.mainPanel}>
+        {loading && <PageSpinner />}
         <Table
           className={styles.table}
           columns={[
             {
+              id: '1',
               Header: '',
-              accessor: 'selected',
               disableSortBy: true,
               width: '40px',
-              Cell: function CheckApplicationCellWrapper({ row, value }: any) {
+              Cell: function SelectApplicationCellWrapper({ row }: any) {
                 return (
-                  <CheckApplicationCell
-                    value={value}
-                    onSelect={(selected: boolean) => onUpdateData(row.index, { selected })}
+                  <SelectApplicationCell
+                    appId={row.original.id}
+                    appData={state[row.original.id]}
+                    onUpdate={(appId: number, update: ApplicationRecord) => {
+                      onAppUpdate(
+                        appId,
+                        update
+                          ? {
+                              ...update,
+                              name: row.original.name
+                            }
+                          : update
+                      )
+                    }}
                   />
                 )
               }
             },
             {
-              Header: getString('cv.monitoringSources.appD.appDApplications'),
-              accessor: 'name',
+              id: '2',
+              Header: (
+                <Text font={{ size: 'small', weight: 'bold' }} color={Color.BLACK}>
+                  {getString('cv.monitoringSources.appD.appDApplications')}
+                </Text>
+              ),
               disableSortBy: true,
               width: '45%',
-              Cell: ApplicationNameCell
+              Cell: function ApplicationNameWrapper({ row }: any) {
+                return <Text icon="service-appdynamics">{row.original.name}</Text>
+              }
             },
             {
-              Header: getString('cv.monitoringSources.appD.harnessEnv'),
-              accessor: 'environment',
+              id: '3',
+              Header: (
+                <TableColumnWithFilter
+                  className={styles.columnHeaderWithFilter}
+                  onFilter={val => {
+                    setPageIndex(0)
+                    setTextFilter(val)
+                  }}
+                  columnName={getString('cv.monitoringSources.appD.harnessEnv')}
+                />
+              ),
               disableSortBy: true,
               width: '45%',
-              Cell: function EnvironmentCell({ row, value }: any) {
+              Cell: function EnvironmentCellWrapper({ row }: any) {
                 return (
-                  <Container className={styles.selectEnvironmentCell}>
-                    <Icon name="harness" margin={{ right: 'small' }} />
-                    <EnvironmentSelect
-                      item={value}
-                      options={environmentOptions}
-                      onSelect={val => onUpdateData(row.index, { environment: val })}
-                      onNewCreated={(val: any) => {
-                        setEnvironmentOptions([{ label: val.name, value: val.name }, ...environmentOptions])
-                        onUpdateData(row.index, { environment: val.name })
-                      }}
-                    />
-                  </Container>
+                  <EnvironmentCell
+                    appId={row.original.id}
+                    appData={state[row.original.id]}
+                    onUpdate={onAppUpdate}
+                    options={environmentOptions}
+                    onUpdateOptions={setEnvironmentOptions}
+                  />
                 )
               }
             }
           ]}
-          data={tableData}
+          data={data?.resource?.content ?? []}
+          pagination={{
+            itemCount: data?.resource?.totalItems || 0,
+            pageSize: data?.resource?.pageSize || PAGE_SIZE,
+            pageCount: data?.resource?.totalPages || 0,
+            pageIndex: data?.resource?.pageIndex || 0,
+            gotoPage: (page: number) => setPageIndex(page)
+          }}
         />
-        <Layout.Horizontal>
-          <Button
-            text="Previous"
-            margin="large"
-            icon="chevron-left"
-            onClick={() =>
-              history.push(
-                routes.toCVAdminSetup({
-                  projectIdentifier: projectIdentifier as string,
-                  orgIdentifier: orgIdentifier as string,
-                  accountId
-                })
-              )
-            }
-          />
-          <Button text="Next" intent="primary" margin="large" rightIcon="chevron-right" onClick={onNext} />
-        </Layout.Horizontal>
+        <SubmitAndPreviousButtons onNextClick={onNext} />
       </Container>
       <Container className={styles.infoPanel}>
-        <Text icon="info" font={{ weight: 'bold' }} margin={{ bottom: 'small' }}>
-          {getString('cv.monitoringSources.appD.mapDashboards')}
-        </Text>
-        <Text>{getString('cv.monitoringSources.appD.mapDashboardsMsg')}</Text>
+        <Container className={styles.infoPanelItem}>
+          <Text icon="info" font={{ weight: 'bold' }} margin={{ bottom: 'small' }}>
+            {getString('cv.monitoringSources.appD.infoPanel.mapDashboards')}
+          </Text>
+          <Text>{getString('cv.monitoringSources.appD.infoPanel.mapDashboardsMsg')}</Text>
+        </Container>
       </Container>
     </Container>
   )
 }
 
-function CheckApplicationCell({ value, onSelect }: any): React.ReactElement {
-  return <input type="checkbox" checked={value} onChange={e => onSelect(e.target.checked)} />
+function SelectApplicationCell({ appId, appData, onUpdate }: CellProps) {
+  return (
+    <input
+      type="checkbox"
+      checked={!!appData}
+      onChange={e => {
+        const isChecked = e.target.checked
+        onUpdate?.(
+          appId,
+          isChecked
+            ? {
+                id: appId
+              }
+            : null
+        )
+      }}
+    />
+  )
 }
 
-function ApplicationNameCell({ value }: any): React.ReactElement {
-  return <Text icon="service-appdynamics">{value}</Text>
+function EnvironmentCell({ appId, appData, onUpdate, options = [], onUpdateOptions }: CellProps) {
+  const item = useMemo(() => options?.find((opt: SelectOption) => opt.value === appData?.environment), [
+    options,
+    appData
+  ])
+  return (
+    <Container className={styles.selectEnvironmentCell}>
+      <Icon name="harness" margin={{ right: 'small' }} />
+      <EnvironmentSelect
+        item={item}
+        disabled={!appData}
+        options={options}
+        onSelect={opt => {
+          onUpdate?.(appId, { environment: opt.value as string })
+        }}
+        onNewCreated={opt => {
+          onUpdateOptions?.([{ label: opt.name!, value: opt.name! }, ...options])
+          onUpdate?.(appId, { environment: opt.name })
+        }}
+      />
+    </Container>
+  )
 }

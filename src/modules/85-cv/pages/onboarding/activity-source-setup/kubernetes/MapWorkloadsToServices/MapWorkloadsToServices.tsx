@@ -346,6 +346,7 @@ export function MapWorkloadsToServices(props: MapWorkloadsToServicesProps): JSX.
               key={namespace}
               isSelected={selectedNamespace === namespace}
               className={css.namespace}
+              height={30}
               onClick={setSelectedNamespace}
             />
           )

@@ -2,11 +2,11 @@
 // this is an auto-generated file
 declare const styles: {
   readonly main: string
-  readonly mainPanel: string
-  readonly table: string
-  readonly selectEnvironmentCell: string
+  readonly content: string
+  readonly mappingDetails: string
+  readonly metricPacks: string
+  readonly columnHeaderWithFilter: string
   readonly infoPanel: string
   readonly infoPanelItem: string
-  readonly columnHeaderWithFilter: string
 }
 export default styles

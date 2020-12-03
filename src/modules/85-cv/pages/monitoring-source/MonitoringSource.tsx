@@ -1,6 +1,6 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import { Page } from '@common/exports'
+import { Container } from '@wings-software/uikit'
 import routes from '@common/RouteDefinitions'
 import i18n from './MonitoringSource.i18n'
 import AppDMonitoringSource from './app-dynamics/AppDMonitoringSource'
@@ -32,7 +32,9 @@ const MonitoringSource = (): JSX.Element => {
           }
         ]}
       />
-      <Page.Body>{getContentByType(monitoringSource)}</Page.Body>
+      <Container style={{ maxHeight: 'calc(100% - 80px)', overflow: 'auto' }}>
+        {getContentByType(monitoringSource)}
+      </Container>
     </>
   )
 }

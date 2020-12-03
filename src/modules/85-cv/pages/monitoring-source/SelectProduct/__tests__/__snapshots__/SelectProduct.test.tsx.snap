@@ -3,7 +3,7 @@
 exports[`SelectProduct render for AppD monitoring source 1`] = `
 <div>
   <div
-    class="StyledProps---font--2ipy StyledProps---main--1Wws"
+    class="StyledProps---font--2ipy StyledProps---main--1Wws StyledProps---padding-small--3f0A"
   >
     <div
       class="OverlaySpinner---overlaySpinner--3Bs3"

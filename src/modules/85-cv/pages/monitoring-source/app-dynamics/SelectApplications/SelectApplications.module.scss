@@ -2,10 +2,9 @@
   display: flex;
   .mainPanel {
     flex: 1;
-    padding: 20px;
+    padding: var(--spacing-large);
     .table {
-      margin-left: 250px;
-      min-height: 300px;
+      margin-left: 300px;
       .selectEnvironmentCell {
         display: flex;
         align-items: center;
@@ -15,6 +14,25 @@
   .infoPanel {
     border-left: 1px solid var(--grey-200);
     width: 300px;
-    padding: 20px;
+    padding: var(--spacing-large) !important;
+    .infoPanelItem {
+      p:first-child {
+        margin-bottom: var(--spacing-small);
+        border-bottom: 1px solid var(--grey-200);
+        padding-bottom: var(--spacing-small);
+        font-weight: bold;
+      }
+      p:nth-child(2) {
+        padding-left: var(--spacing-large);
+        margin-bottom: var(--spacing-large);
+      }
+    }
+  }
+  .columnHeaderWithFilter {
+    height: 35px;
+    p {
+      font-size: var(--font-size-small) !important;
+      font-weight: bold !important;
+    }
   }
 }

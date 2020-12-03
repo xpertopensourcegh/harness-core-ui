@@ -119,8 +119,8 @@ export default function DataSourceListEntitySelect(): JSX.Element {
         return
       } else if (error?.message) {
         setErrorOrNoData({ pageError: error.message })
-      } else if (response?.resource?.length) {
-        setEntityOptions(entityTransformFunc(response.resource))
+      } else if (response?.resource?.content?.length) {
+        setEntityOptions(entityTransformFunc(response.resource.content))
       } else {
         setErrorOrNoData({ noEntities: true })
       }
