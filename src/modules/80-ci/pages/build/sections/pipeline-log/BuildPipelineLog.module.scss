@@ -1,6 +1,13 @@
 .main {
   flex-grow: 1;
   position: relative;
+
+  :global {
+    div[class*='LogViewer'] {
+      background: var(--gray-900);
+      padding: var(--spacing-small);
+    }
+  }
 }
 
 .wrapper {
@@ -27,21 +34,5 @@
   }
   ::-webkit-scrollbar-thumb {
     background: var(--grey-600);
-  }
-}
-
-:global {
-  .Collapse---main--34Is {
-    border: none;
-    background: #00162a;
-  }
-
-  div[class*='LogViewer'] {
-    background: var(--black);
-    padding: var(--spacing-small);
-  }
-  .StyledProps---font--2ipy,
-  .StyledProps---main--1Wws {
-    background: #00162a;
   }
 }
