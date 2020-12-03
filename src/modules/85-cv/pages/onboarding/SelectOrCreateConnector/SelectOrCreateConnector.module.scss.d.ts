@@ -4,5 +4,6 @@ declare const styles: {
   readonly main: string
   readonly connectorReference: string
   readonly monitoringCard: string
+  readonly loadingText: string
 }
 export default styles

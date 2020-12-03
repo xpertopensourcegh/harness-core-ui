@@ -472,34 +472,6 @@ export interface RestResponseActivityStatusDTO {
   responseMessages?: ResponseMessage[]
 }
 
-export interface Page {
-  totalPages?: number
-  totalItems?: number
-  pageItemCount?: number
-  pageSize?: number
-  content?: { [key: string]: any }[]
-  pageIndex?: number
-  empty?: boolean
-}
-
-export interface PageString {
-  totalPages?: number
-  totalItems?: number
-  pageItemCount?: number
-  pageSize?: number
-  content?: string[]
-  pageIndex?: number
-  empty?: boolean
-}
-
-export interface RestResponsePageString {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: PageString
-  responseMessages?: ResponseMessage[]
-}
-
 export interface KubernetesActivitySourceConfig {
   serviceIdentifier: string
   envIdentifier: string
@@ -512,6 +484,8 @@ export interface KubernetesActivitySourceDTO {
   identifier: string
   name: string
   connectorIdentifier: string
+  createdAt?: number
+  lastUpdatedAt?: number
   activitySourceConfigs: KubernetesActivitySourceConfig[]
 }
 
@@ -523,11 +497,31 @@ export interface RestResponseKubernetesActivitySourceDTO {
   responseMessages?: ResponseMessage[]
 }
 
-export interface RestResponseListKubernetesActivitySourceDTO {
+export interface Page {
+  totalPages?: number
+  totalItems?: number
+  pageItemCount?: number
+  pageSize?: number
+  content?: { [key: string]: any }[]
+  pageIndex?: number
+  empty?: boolean
+}
+
+export interface PageKubernetesActivitySourceDTO {
+  totalPages?: number
+  totalItems?: number
+  pageItemCount?: number
+  pageSize?: number
+  content?: KubernetesActivitySourceDTO[]
+  pageIndex?: number
+  empty?: boolean
+}
+
+export interface RestResponsePageKubernetesActivitySourceDTO {
   metaData?: {
     [key: string]: { [key: string]: any }
   }
-  resource?: KubernetesActivitySourceDTO[]
+  resource?: PageKubernetesActivitySourceDTO
   responseMessages?: ResponseMessage[]
 }
 
@@ -554,6 +548,24 @@ export interface KubernetesActivityDTO {
   activitySourceConfigId?: string
   json?: string
   type?: 'DEPLOYMENT' | 'INFRASTRUCTURE' | 'CUSTOM'
+}
+
+export interface PageString {
+  totalPages?: number
+  totalItems?: number
+  pageItemCount?: number
+  pageSize?: number
+  content?: string[]
+  pageIndex?: number
+  empty?: boolean
+}
+
+export interface RestResponsePageString {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: PageString
+  responseMessages?: ResponseMessage[]
 }
 
 export interface LearningEngineTask {
@@ -597,12 +609,6 @@ export interface RestResponseLearningEngineTask {
   responseMessages?: ResponseMessage[]
 }
 
-export interface AnalysisResult {
-  label?: number
-  tag?: 'KNOWN' | 'UNEXPECTED' | 'UNKNOWN'
-  count?: number
-}
-
 export interface Frequency {
   count?: number
   timestamp?: number
@@ -625,16 +631,12 @@ export interface LogAnalysisCluster {
   evicted?: boolean
 }
 
-export interface LogAnalysisDTO {
-  verificationTaskId?: string
-  analysisStartTime?: number
-  analysisEndTime?: number
-  accountId?: string
-  analysisSummaryMessage?: string
-  score?: number
-  analysisMinute?: number
-  logClusters?: LogAnalysisCluster[]
-  logAnalysisResults?: AnalysisResult[]
+export interface RestResponseListLogAnalysisCluster {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: LogAnalysisCluster[]
+  responseMessages?: ResponseMessage[]
 }
 
 export interface LogClusterDTO {
@@ -654,12 +656,22 @@ export interface RestResponseListLogClusterDTO {
   responseMessages?: ResponseMessage[]
 }
 
-export interface RestResponseListLogAnalysisCluster {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: LogAnalysisCluster[]
-  responseMessages?: ResponseMessage[]
+export interface AnalysisResult {
+  label?: number
+  tag?: 'KNOWN' | 'UNEXPECTED' | 'UNKNOWN'
+  count?: number
+}
+
+export interface LogAnalysisDTO {
+  verificationTaskId?: string
+  analysisStartTime?: number
+  analysisEndTime?: number
+  accountId?: string
+  analysisSummaryMessage?: string
+  score?: number
+  analysisMinute?: number
+  logClusters?: LogAnalysisCluster[]
+  logAnalysisResults?: AnalysisResult[]
 }
 
 export interface RestResponseVoid {
@@ -858,6 +870,36 @@ export interface TransactionMetricHostData {
   hostData?: HostData[]
 }
 
+export interface CD10EnvMappingDTO {
+  appId?: string
+  envId?: string
+  envIdentifier?: string
+  type?: 'ENV_MAPPING' | 'SERVICE_MAPPING'
+}
+
+export interface CD10MappingsDTO {
+  accountId?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  envMappings?: CD10EnvMappingDTO[]
+  serviceMappings?: CD10ServiceMappingDTO[]
+}
+
+export interface CD10ServiceMappingDTO {
+  appId?: string
+  serviceId?: string
+  serviceIdentifier?: string
+  type?: 'ENV_MAPPING' | 'SERVICE_MAPPING'
+}
+
+export interface RestResponseCD10MappingsDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: CD10MappingsDTO
+  responseMessages?: ResponseMessage[]
+}
+
 export interface AppdynamicsMetricValueValidationResponse {
   metricName?: string
   apiResponseStatus?: 'SUCCESS' | 'NO_DATA' | 'FAILED'
@@ -1014,27 +1056,6 @@ export interface RestResponseCVSetupStatus {
   responseMessages?: ResponseMessage[]
 }
 
-export interface DSConfig {
-  identifier?: string
-  accountId?: string
-  orgIdentifier?: string
-  projectIdentifier?: string
-  productName?: string
-  connectorIdentifier?: string
-  envIdentifier?: string
-  monitoringSourceIdentifier?: string
-  monitoringSourceName?: string
-  type?: 'APP_DYNAMICS' | 'SPLUNK'
-}
-
-export interface RestResponseListDSConfig {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: DSConfig[]
-  responseMessages?: ResponseMessage[]
-}
-
 export interface EnvToServicesDTO {
   environment?: EnvironmentResponseDTO
   services?: ServiceResponseDTO[]
@@ -1098,6 +1119,27 @@ export interface RestResponseListMonitoringSource {
   responseMessages?: ResponseMessage[]
 }
 
+export interface DSConfig {
+  identifier?: string
+  accountId?: string
+  orgIdentifier?: string
+  projectIdentifier?: string
+  productName?: string
+  connectorIdentifier?: string
+  envIdentifier?: string
+  monitoringSourceIdentifier?: string
+  monitoringSourceName?: string
+  type?: 'APP_DYNAMICS' | 'SPLUNK'
+}
+
+export interface RestResponseListDSConfig {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: DSConfig[]
+  responseMessages?: ResponseMessage[]
+}
+
 export interface TimeSeriesDataCollectionRecord {
   accountId?: string
   cvConfigId?: string
@@ -1110,6 +1152,7 @@ export interface TimeSeriesDataCollectionRecord {
 export interface TimeSeriesDataRecordGroupValue {
   groupName?: string
   value?: number
+  percent?: number
 }
 
 export interface TimeSeriesDataRecordMetricValue {
@@ -1571,6 +1614,41 @@ export interface RestResponseListAnomalyDTO {
   responseMessages?: ResponseMessage[]
 }
 
+export interface CategoryRisksDTO {
+  startTimeEpoch?: number
+  endTimeEpoch?: number
+  categoryRisks?: CategoryRisk[]
+}
+
+export interface RestResponseCategoryRisksDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: CategoryRisksDTO
+  responseMessages?: ResponseMessage[]
+}
+
+export interface EnvServiceRiskDTO {
+  orgIdentifier?: string
+  projectIdentifier?: string
+  envIdentifier?: string
+  risk?: number
+  serviceRisks?: ServiceRisk[]
+}
+
+export interface RestResponseListEnvServiceRiskDTO {
+  metaData?: {
+    [key: string]: { [key: string]: any }
+  }
+  resource?: EnvServiceRiskDTO[]
+  responseMessages?: ResponseMessage[]
+}
+
+export interface ServiceRisk {
+  serviceIdentifier?: string
+  risk?: number
+}
+
 export interface HeatMapDTO {
   startTime?: number
   endTime?: number
@@ -1617,41 +1695,6 @@ export interface ServiceSummary {
   serviceIdentifier?: string
   risk?: number
   analysisRisks?: AnalysisRisk[]
-}
-
-export interface CategoryRisksDTO {
-  startTimeEpoch?: number
-  endTimeEpoch?: number
-  categoryRisks?: CategoryRisk[]
-}
-
-export interface RestResponseCategoryRisksDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: CategoryRisksDTO
-  responseMessages?: ResponseMessage[]
-}
-
-export interface EnvServiceRiskDTO {
-  orgIdentifier?: string
-  projectIdentifier?: string
-  envIdentifier?: string
-  risk?: number
-  serviceRisks?: ServiceRisk[]
-}
-
-export interface RestResponseListEnvServiceRiskDTO {
-  metaData?: {
-    [key: string]: { [key: string]: any }
-  }
-  resource?: EnvServiceRiskDTO[]
-  responseMessages?: ResponseMessage[]
-}
-
-export interface ServiceRisk {
-  serviceIdentifier?: string
-  risk?: number
 }
 
 export interface AnalyzedLogDataDTO {
@@ -1734,6 +1777,7 @@ export interface TimeSeriesMetricDataDTO {
   orgIdentifier?: string
   environmentIdentifier?: string
   serviceIdentifier?: string
+  metricType?: 'INFRA' | 'RESP_TIME' | 'THROUGHPUT' | 'ERROR' | 'APDEX'
   category?: 'PERFORMANCE' | 'ERRORS' | 'INFRASTRUCTURE'
   groupName?: string
   metricName?: string
@@ -3334,6 +3378,43 @@ export const useGetCVSetupStatus = (props: UseGetCVSetupStatusProps) =>
     ...props
   })
 
+export interface DeleteKubernetesSourceQueryParams {
+  accountId: string
+  orgIdentifier: string
+  projectIdentifier: string
+}
+
+export type DeleteKubernetesSourceProps = Omit<
+  MutateProps<RestResponseBoolean, unknown, DeleteKubernetesSourceQueryParams, string, void>,
+  'path' | 'verb'
+>
+
+/**
+ * deletes a kubernetes event source
+ */
+export const DeleteKubernetesSource = (props: DeleteKubernetesSourceProps) => (
+  <Mutate<RestResponseBoolean, unknown, DeleteKubernetesSourceQueryParams, string, void>
+    verb="DELETE"
+    path="/kubernetes"
+    base={getConfig('cv/api')}
+    {...props}
+  />
+)
+
+export type UseDeleteKubernetesSourceProps = Omit<
+  UseMutateProps<RestResponseBoolean, unknown, DeleteKubernetesSourceQueryParams, string, void>,
+  'path' | 'verb'
+>
+
+/**
+ * deletes a kubernetes event source
+ */
+export const useDeleteKubernetesSource = (props: UseDeleteKubernetesSourceProps) =>
+  useMutate<RestResponseBoolean, unknown, DeleteKubernetesSourceQueryParams, string, void>('DELETE', `/kubernetes`, {
+    base: getConfig('cv/api'),
+    ...props
+  })
+
 export interface GetNamespacesQueryParams {
   accountId: string
   orgIdentifier: string
@@ -3484,53 +3565,17 @@ export const useRegisterKubernetesSource = (props: UseRegisterKubernetesSourcePr
     { base: getConfig('cv/api'), ...props }
   )
 
-export interface DeleteKubernetesSourceQueryParams {
-  accountId: string
-  orgIdentifier: string
-  projectIdentifier: string
-  identifier: string
-}
-
-export type DeleteKubernetesSourceProps = Omit<
-  MutateProps<RestResponseBoolean, unknown, DeleteKubernetesSourceQueryParams, void, void>,
-  'path' | 'verb'
->
-
-/**
- * deletes a kubernetes event source
- */
-export const DeleteKubernetesSource = (props: DeleteKubernetesSourceProps) => (
-  <Mutate<RestResponseBoolean, unknown, DeleteKubernetesSourceQueryParams, void, void>
-    verb="DELETE"
-    path="/kubernetes/source"
-    base={getConfig('cv/api')}
-    {...props}
-  />
-)
-
-export type UseDeleteKubernetesSourceProps = Omit<
-  UseMutateProps<RestResponseBoolean, unknown, DeleteKubernetesSourceQueryParams, void, void>,
-  'path' | 'verb'
->
-
-/**
- * deletes a kubernetes event source
- */
-export const useDeleteKubernetesSource = (props: UseDeleteKubernetesSourceProps) =>
-  useMutate<RestResponseBoolean, unknown, DeleteKubernetesSourceQueryParams, void, void>(
-    'DELETE',
-    `/kubernetes/source`,
-    { base: getConfig('cv/api'), ...props }
-  )
-
 export interface ListKubernetesSourcesQueryParams {
   accountId: string
   orgIdentifier: string
   projectIdentifier: string
+  offset: number
+  pageSize: number
+  filter?: string
 }
 
 export type ListKubernetesSourcesProps = Omit<
-  GetProps<RestResponseListKubernetesActivitySourceDTO, unknown, ListKubernetesSourcesQueryParams, void>,
+  GetProps<RestResponsePageKubernetesActivitySourceDTO, unknown, ListKubernetesSourcesQueryParams, void>,
   'path'
 >
 
@@ -3538,7 +3583,7 @@ export type ListKubernetesSourcesProps = Omit<
  * lists all kubernetes event sources
  */
 export const ListKubernetesSources = (props: ListKubernetesSourcesProps) => (
-  <Get<RestResponseListKubernetesActivitySourceDTO, unknown, ListKubernetesSourcesQueryParams, void>
+  <Get<RestResponsePageKubernetesActivitySourceDTO, unknown, ListKubernetesSourcesQueryParams, void>
     path="/kubernetes/sources"
     base={getConfig('cv/api')}
     {...props}
@@ -3546,7 +3591,7 @@ export const ListKubernetesSources = (props: ListKubernetesSourcesProps) => (
 )
 
 export type UseListKubernetesSourcesProps = Omit<
-  UseGetProps<RestResponseListKubernetesActivitySourceDTO, unknown, ListKubernetesSourcesQueryParams, void>,
+  UseGetProps<RestResponsePageKubernetesActivitySourceDTO, unknown, ListKubernetesSourcesQueryParams, void>,
   'path'
 >
 
@@ -3554,7 +3599,7 @@ export type UseListKubernetesSourcesProps = Omit<
  * lists all kubernetes event sources
  */
 export const useListKubernetesSources = (props: UseListKubernetesSourcesProps) =>
-  useGet<RestResponseListKubernetesActivitySourceDTO, unknown, ListKubernetesSourcesQueryParams, void>(
+  useGet<RestResponsePageKubernetesActivitySourceDTO, unknown, ListKubernetesSourcesQueryParams, void>(
     `/kubernetes/sources`,
     { base: getConfig('cv/api'), ...props }
   )

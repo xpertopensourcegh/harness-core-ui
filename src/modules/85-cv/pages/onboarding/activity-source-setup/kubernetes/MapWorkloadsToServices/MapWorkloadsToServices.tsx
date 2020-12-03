@@ -20,27 +20,20 @@ import { NavItem } from '@cv/pages/onboarding/SetupPageLeftNav/NavItem/NavItem'
 import { SubmitAndPreviousButtons } from '@cv/pages/onboarding/SubmitAndPreviousButtons/SubmitAndPreviousButtons'
 import { useStrings } from 'framework/exports'
 import type { ProjectPathProps, AccountPathProps } from '@common/interfaces/RouteInterfaces'
-import { SelectKubernetesNamespaceFieldNames } from '../SelectKubernetesNamespaces/SelectKubernetesNamespaces'
+import type { WorkloadInfo, KubernetesActivitySourceInfo, NamespaceToWorkload } from '../KubernetesActivitySourceUtils'
 import css from './MapWorkloadsToServices.module.scss'
 
 export interface MapWorkloadsToServicesProps {
-  data?: any
-  onSubmit: (data: any) => void
+  data: KubernetesActivitySourceInfo
+  onSubmit: (data: KubernetesActivitySourceInfo) => void
   onPrevious: () => void
 }
 
 interface WorkloadsToServicesTableProps {
-  selectedWorkloads: Map<string, TableData>
+  selectedWorkloads: Map<string, WorkloadInfo>
   selectedNamespace: string
   connectorIdentifier: string
-  onClickWorkload: (selectedWorkload: TableData) => void
-}
-
-type TableData = {
-  serviceIdentifier?: SelectOption
-  environmentIdentifier?: SelectOption
-  workload: string
-  selected: boolean
+  onClickWorkload: (selectedWorkload: WorkloadInfo) => void
 }
 
 const TOTAL_ITEMS_PER_PAGE = 7
@@ -53,7 +46,7 @@ function generateOptions(response?: EnvironmentResponseDTO[] | ServiceResponseDT
     : []
 }
 
-function updateTableRow(tableData: TableData[], fieldName: string, value: any, rowIndex: number): TableData[] {
+function updateTableRow(tableData: WorkloadInfo[], fieldName: string, value: any, rowIndex: number): WorkloadInfo[] {
   const updatedTableData = [...tableData]
   updatedTableData[rowIndex] = {
     ...tableData[rowIndex],
@@ -63,8 +56,8 @@ function updateTableRow(tableData: TableData[], fieldName: string, value: any, r
 }
 
 function removeWorkloadsWithoutAllColumnsSelected(
-  selectedWorkloads: Map<string, Map<string, TableData>>
-): Map<string, Map<string, TableData>> {
+  selectedWorkloads: Map<string, Map<string, WorkloadInfo>>
+): Map<string, Map<string, WorkloadInfo>> {
   for (const namespace of selectedWorkloads) {
     const [, tableData] = namespace
     for (const tableRow of tableData) {
@@ -93,7 +86,7 @@ function generateUpdatedServiceOptions(
   return updatedServiceOptions
 }
 
-function removeSelectedOptions(selectedWorkloads: Map<string, TableData>, generatedOptions: SelectOption[]): void {
+function removeSelectedOptions(selectedWorkloads: Map<string, WorkloadInfo>, generatedOptions: SelectOption[]): void {
   for (const selectedWorkload of selectedWorkloads) {
     const [, tableRow] = selectedWorkload
     const selectedServiceIndex = generatedOptions.findIndex(
@@ -105,11 +98,11 @@ function removeSelectedOptions(selectedWorkloads: Map<string, TableData>, genera
   }
 }
 
-function initializeTableData(selectedWorkloads: Map<string, TableData>, workloads?: string[]): TableData[] {
+function initializeTableData(selectedWorkloads: Map<string, WorkloadInfo>, workloads?: string[]): WorkloadInfo[] {
   if (!workloads?.length) {
     return []
   }
-  const tableData: TableData[] = []
+  const tableData: WorkloadInfo[] = []
   for (const workload of workloads) {
     const existingWorkload = selectedWorkloads.get(workload)
     if (existingWorkload) {
@@ -122,12 +115,36 @@ function initializeTableData(selectedWorkloads: Map<string, TableData>, workload
   return tableData
 }
 
+function initializeSelectedWorkloads(
+  selectedWorkloads: NamespaceToWorkload,
+  selectedNamespaces: string[]
+): NamespaceToWorkload {
+  if (!selectedWorkloads?.size) {
+    return new Map(selectedNamespaces?.map((selectedNamespace: string) => [selectedNamespace, new Map()]))
+  }
+
+  const namespaces = Array.from(selectedWorkloads.keys())
+  for (const selectedNamespace of namespaces) {
+    if (!selectedNamespaces.find(n => n === selectedNamespace)) {
+      selectedWorkloads.delete(selectedNamespace)
+    }
+  }
+
+  for (const namespace of selectedNamespaces) {
+    if (!selectedWorkloads.has(namespace)) {
+      selectedWorkloads.set(namespace, new Map())
+    }
+  }
+
+  return new Map(selectedWorkloads)
+}
+
 function WorkloadsToServicesTable(props: WorkloadsToServicesTableProps): JSX.Element {
   const { onClickWorkload, selectedNamespace, selectedWorkloads, connectorIdentifier } = props
   const { getString } = useStrings()
   const queryParams = useParams<ProjectPathProps & AccountPathProps>()
   const { data: sOptions } = useGetServiceListForProject({ queryParams })
-  const [tableData, setTableData] = useState<TableData[]>([])
+  const [tableData, setTableData] = useState<WorkloadInfo[]>([])
   const [{ pageOffset, filteredWorkload }, setFilterAndPageOffset] = useState<{
     pageOffset: number
     filteredWorkload?: string
@@ -156,7 +173,7 @@ function WorkloadsToServicesTable(props: WorkloadsToServicesTableProps): JSX.Ele
 
   useEffect(() => {
     if (loading) {
-      const loadingItems = Array<TableData>(TOTAL_ITEMS_PER_PAGE).fill(
+      const loadingItems = Array<WorkloadInfo>(TOTAL_ITEMS_PER_PAGE).fill(
         { selected: false, workload: getString('loading') },
         0,
         TOTAL_ITEMS_PER_PAGE
@@ -196,7 +213,7 @@ function WorkloadsToServicesTable(props: WorkloadsToServicesTableProps): JSX.Ele
   }
 
   return (
-    <Table<TableData>
+    <Table<WorkloadInfo>
       className={css.workloadTable}
       data={tableData}
       pagination={{
@@ -211,7 +228,7 @@ function WorkloadsToServicesTable(props: WorkloadsToServicesTableProps): JSX.Ele
           accessor: 'selected',
           width: '5%',
           disableSortBy: true,
-          Cell: function CheckColumn(tableProps: CellProps<TableData>) {
+          Cell: function CheckColumn(tableProps: CellProps<WorkloadInfo>) {
             return loading ? (
               <Container height={16} width={16} className={Classes.SKELETON} />
             ) : (
@@ -231,7 +248,7 @@ function WorkloadsToServicesTable(props: WorkloadsToServicesTableProps): JSX.Ele
           accessor: 'workload',
           width: '20%',
           disableSortBy: true,
-          Cell: function Workload(tableProps: CellProps<TableData>) {
+          Cell: function Workload(tableProps: CellProps<WorkloadInfo>) {
             return (
               <Text
                 color={Color.BLACK}
@@ -253,7 +270,7 @@ function WorkloadsToServicesTable(props: WorkloadsToServicesTableProps): JSX.Ele
           accessor: 'serviceIdentifier',
           width: '30%',
           disableSortBy: true,
-          Cell: function ServiceIdentifier(tableProps: CellProps<TableData>) {
+          Cell: function ServiceIdentifier(tableProps: CellProps<WorkloadInfo>) {
             return (
               <Select
                 value={tableProps.value}
@@ -280,7 +297,7 @@ function WorkloadsToServicesTable(props: WorkloadsToServicesTableProps): JSX.Ele
           accessor: 'environmentIdentifier',
           width: '35%',
           disableSortBy: true,
-          Cell: function EnvironmentIdentifier(tableProps: CellProps<TableData>) {
+          Cell: function EnvironmentIdentifier(tableProps: CellProps<WorkloadInfo>) {
             return (
               <EnvironmentSelect
                 options={environmentOptions || []}
@@ -313,10 +330,7 @@ function WorkloadsToServicesTable(props: WorkloadsToServicesTableProps): JSX.Ele
 export function MapWorkloadsToServices(props: MapWorkloadsToServicesProps): JSX.Element {
   const { data, onSubmit, onPrevious } = props
   const [selectedWorkloads, setSelectedWorkloads] = useState(
-    new Map<string, Map<string, TableData>>(
-      data.selectedWorkloads ||
-        data.selectedNamespaces?.map((selectedNamespace: string) => [selectedNamespace, new Map()])
-    )
+    initializeSelectedWorkloads(data.selectedWorkloads, data.selectedNamespaces)
   )
   const [selectedNamespace, setSelectedNamespace] = useState<string>(data.selectedNamespaces[0])
 
@@ -324,7 +338,7 @@ export function MapWorkloadsToServices(props: MapWorkloadsToServicesProps): JSX.
   return (
     <Container className={css.main}>
       <Container className={css.namespaceNav}>
-        {data[SelectKubernetesNamespaceFieldNames.SELECTED_NAME_SPACES]?.map((namespace: string) => {
+        {data.selectedNamespaces?.map((namespace: string) => {
           return (
             <NavItem
               label={namespace}
@@ -342,8 +356,8 @@ export function MapWorkloadsToServices(props: MapWorkloadsToServicesProps): JSX.
           {getString('cv.activitySources.kubernetes.mapWorkloadsToServices')}
         </Heading>
         <WorkloadsToServicesTable
-          connectorIdentifier={data.connectorRef.value}
-          selectedWorkloads={selectedWorkloads.get(selectedNamespace) as Map<string, TableData>}
+          connectorIdentifier={(data.connectorRef?.value as string) || ''}
+          selectedWorkloads={selectedWorkloads.get(selectedNamespace) as Map<string, WorkloadInfo>}
           selectedNamespace={selectedNamespace}
           onClickWorkload={workloadInfo => {
             const workloads = selectedWorkloads.get(selectedNamespace || '')
@@ -358,9 +372,9 @@ export function MapWorkloadsToServices(props: MapWorkloadsToServicesProps): JSX.
       </Container>
       <SubmitAndPreviousButtons
         onPreviousClick={onPrevious}
-        onNextClick={() =>
+        onNextClick={() => {
           onSubmit({ ...data, selectedWorkloads: removeWorkloadsWithoutAllColumnsSelected(selectedWorkloads) })
-        }
+        }}
       />
     </Container>
   )

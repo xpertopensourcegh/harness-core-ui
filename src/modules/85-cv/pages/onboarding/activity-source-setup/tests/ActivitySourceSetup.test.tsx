@@ -7,7 +7,11 @@ import { ActivitySourceSetupRoutePaths } from '@cv/utils/routeUtils'
 import { accountPathProps, projectPathProps } from '@common/utils/routeUtils'
 import ActivitySourceSetup from '../ActivitySourceSetup'
 
-jest.mock('../kubernetes/KubernetesActivitySource', () => () => <Container className="kubeActivitySource" />)
+jest.mock('../kubernetes/KubernetesActivitySource', () => ({
+  KubernetesActivitySource: function S() {
+    return <Container className="kubeActivitySource" />
+  }
+}))
 
 const TEST_PATH = routes.toCVActivitySourceSetup({
   ...accountPathProps,

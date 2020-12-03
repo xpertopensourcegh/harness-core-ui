@@ -8,6 +8,16 @@ import { TestWrapper, TestWrapperProps } from '@common/utils/testUtils'
 import { accountPathProps, projectPathProps } from '@common/utils/routeUtils'
 import routes from '@common/RouteDefinitions'
 import { MapWorkloadsToServices } from '../MapWorkloadsToServices'
+import type { KubernetesActivitySourceInfo } from '../../KubernetesActivitySourceUtils'
+
+const MockData: KubernetesActivitySourceInfo = {
+  identifier: 'kubeActivity',
+  name: 'kubeActivity',
+  selectedNamespaces: ['namespace1', 'namespace2'],
+  connectorRef: { value: 'kubeConnector2', label: 'kubeConnector2' },
+  selectedWorkloads: new Map(),
+  connectorType: 'Kubernetes'
+}
 
 const testWrapperProps: TestWrapperProps = {
   path: routes.toCVActivitySourceSetup({ ...accountPathProps, ...projectPathProps }),
@@ -61,11 +71,7 @@ describe('Unit tests for MapWorkloadsToServices', () => {
     } as UseGetReturn<any, unknown, any, unknown>)
     const { container } = render(
       <TestWrapper {...testWrapperProps}>
-        <MapWorkloadsToServices
-          onSubmit={jest.fn()}
-          onPrevious={jest.fn()}
-          data={{ selectedNamespaces: ['namespace1', 'namespace2'], connectorRef: { value: 'kubeConnector2' } }}
-        />
+        <MapWorkloadsToServices onSubmit={jest.fn()} onPrevious={jest.fn()} data={MockData} />
       </TestWrapper>
     )
 
@@ -83,11 +89,7 @@ describe('Unit tests for MapWorkloadsToServices', () => {
 
     const { container } = render(
       <TestWrapper {...testWrapperProps}>
-        <MapWorkloadsToServices
-          onSubmit={jest.fn()}
-          onPrevious={jest.fn()}
-          data={{ selectedNamespaces: ['namespace1', 'namespace2'], connectorRef: { value: 'kubeConnector2' } }}
-        />
+        <MapWorkloadsToServices onSubmit={jest.fn()} onPrevious={jest.fn()} data={MockData} />
       </TestWrapper>
     )
 
@@ -113,11 +115,7 @@ describe('Unit tests for MapWorkloadsToServices', () => {
 
     const { container } = render(
       <TestWrapper {...testWrapperProps}>
-        <MapWorkloadsToServices
-          onSubmit={jest.fn()}
-          onPrevious={jest.fn()}
-          data={{ selectedNamespaces: ['namespace1', 'namespace2'], connectorRef: { value: 'kubeConnector2' } }}
-        />
+        <MapWorkloadsToServices onSubmit={jest.fn()} onPrevious={jest.fn()} data={MockData} />
       </TestWrapper>
     )
 
@@ -145,7 +143,7 @@ describe('Unit tests for MapWorkloadsToServices', () => {
           onSubmit={jest.fn()}
           onPrevious={jest.fn()}
           data={{
-            selectedNamespaces: ['namespace1', 'namespace2'],
+            ...MockData,
             selectedWorkloads: new Map([
               [
                 'namespace1',
@@ -175,8 +173,7 @@ describe('Unit tests for MapWorkloadsToServices', () => {
                   ]
                 ])
               ]
-            ]),
-            connectorRef: { value: 'kubeConnector2' }
+            ])
           }}
         />
       </TestWrapper>
@@ -230,7 +227,7 @@ describe('Unit tests for MapWorkloadsToServices', () => {
           onSubmit={jest.fn()}
           onPrevious={jest.fn()}
           data={{
-            selectedNamespaces: ['namespace1', 'namespace2'],
+            ...MockData,
             selectedWorkloads: new Map([
               [
                 'namespace1',
@@ -260,8 +257,7 @@ describe('Unit tests for MapWorkloadsToServices', () => {
                   ]
                 ])
               ]
-            ]),
-            connectorRef: { value: 'kubeConnector2' }
+            ])
           }}
         />
       </TestWrapper>

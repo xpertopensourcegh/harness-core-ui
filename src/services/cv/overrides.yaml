@@ -28,6 +28,7 @@ allowpaths:
   - /activity/recent-activity-verifications
   - /activity/list
   - /setup/status
+  - /kubernetes/{identifier}
   - /kubernetes/namespaces
   - /kubernetes/workloads
   - /kubernetes/source

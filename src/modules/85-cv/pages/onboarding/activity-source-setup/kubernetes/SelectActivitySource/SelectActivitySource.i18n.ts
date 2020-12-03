@@ -14,7 +14,6 @@ export default {
   },
   validationStrings: {
     nameActivitySource: 'Activity Source name is required.',
-    infraType: 'Infrastructure Type is required.',
     connectorType: 'Kubernetes Connector Type is required.'
   }
 }

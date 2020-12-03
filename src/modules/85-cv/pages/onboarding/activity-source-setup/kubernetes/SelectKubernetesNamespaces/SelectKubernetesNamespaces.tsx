@@ -9,19 +9,16 @@ import { SubmitAndPreviousButtons } from '@cv/pages/onboarding/SubmitAndPrevious
 import { useGetNamespaces } from 'services/cv'
 import { PageSpinner, Table } from '@common/components'
 import i18n from './SelectKubernetesNamespaces.i18n'
+import type { KubernetesActivitySourceInfo } from '../KubernetesActivitySourceUtils'
 import css from './SelectKubernetesNamespaces.module.scss'
 
 interface SelectKubernetesNamespacesProps {
-  onSubmit: (data: any) => void
+  onSubmit: (data: KubernetesActivitySourceInfo) => void
   onPrevious: () => void
-  data?: any
+  data?: KubernetesActivitySourceInfo
 }
 
 type TableData = { selected: boolean; namespace: string }
-
-export const SelectKubernetesNamespaceFieldNames = {
-  SELECTED_NAME_SPACES: 'selectedNamespaces'
-}
 
 function validate(selectedNamespaces: Set<string>): boolean {
   return selectedNamespaces?.size > 0
@@ -69,7 +66,7 @@ export function SelectKubernetesNamespaces(props: SelectKubernetesNamespacesProp
       projectIdentifier: projectIdentifier as string,
       orgIdentifier: orgIdentifier as string,
       accountId,
-      connectorIdentifier: propsData?.connectorRef?.value || '',
+      connectorIdentifier: (propsData?.connectorRef?.value as string) || '',
       pageSize: 8,
       filter: filteredNamespace,
       offset: pageOffset
@@ -188,8 +185,8 @@ export function SelectKubernetesNamespaces(props: SelectKubernetesNamespacesProp
           else
             onSubmit({
               ...propsData,
-              [SelectKubernetesNamespaceFieldNames.SELECTED_NAME_SPACES]: Array.from(selectedNamespaces.values())
-            })
+              selectedNamespaces: Array.from(selectedNamespaces.values())
+            } as KubernetesActivitySourceInfo)
         }}
       />
     </Container>

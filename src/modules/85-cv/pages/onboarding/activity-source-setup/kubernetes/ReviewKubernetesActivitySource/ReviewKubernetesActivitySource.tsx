@@ -1,18 +1,21 @@
 import React, { useEffect } from 'react'
 import { Color, Container, Heading, Text } from '@wings-software/uikit'
 import { useParams } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import type { CellProps } from 'react-table'
 import { Table, useToaster } from '@common/components'
+import routes from '@common/RouteDefinitions'
 import { SubmitAndPreviousButtons } from '@cv/pages/onboarding/SubmitAndPreviousButtons/SubmitAndPreviousButtons'
 import { String, useStrings } from 'framework/exports'
 import type { ProjectPathProps, AccountPathProps } from '@common/interfaces/RouteInterfaces'
 import { KubernetesActivitySourceDTO, useRegisterKubernetesSource } from 'services/cv'
+import type { KubernetesActivitySourceInfo } from '../KubernetesActivitySourceUtils'
 import css from './ReviewKubernetesActivitySource.module.scss'
 
 interface ReviewKubernetesActivitySourceProps {
-  onSubmit: (data: any) => void
+  onSubmit: (data: KubernetesActivitySourceInfo) => void
   onPrevious: () => void
-  data?: any
+  data: KubernetesActivitySourceInfo
 }
 
 type TableData = {
@@ -43,12 +46,15 @@ function transformIncomingData(data: any): TableData[] {
   return tableData
 }
 
-function transformToSavePayload(data: any, tableData: TableData[]): KubernetesActivitySourceDTO {
+function transformToSavePayload(
+  data: KubernetesActivitySourceInfo,
+  tableData: TableData[]
+): KubernetesActivitySourceDTO {
   const activitySourceDTO: KubernetesActivitySourceDTO = {
     uuid: data.uuid,
     identifier: data.identifier,
     name: data.name,
-    connectorIdentifier: data.connectorRef.value,
+    connectorIdentifier: data.connectorRef?.value as string,
     activitySourceConfigs: []
   }
 
@@ -69,8 +75,9 @@ function TableColumn(props: CellProps<TableData>): JSX.Element {
 }
 
 export function ReviewKubernetesActivitySource(props: ReviewKubernetesActivitySourceProps): JSX.Element {
-  const { onSubmit, onPrevious, data } = props
+  const { onPrevious, data } = props
   const params = useParams<ProjectPathProps & AccountPathProps>()
+  const history = useHistory()
   const { getString } = useStrings()
   const { showError } = useToaster()
   const { mutate, error } = useRegisterKubernetesSource({
@@ -120,9 +127,9 @@ export function ReviewKubernetesActivitySource(props: ReviewKubernetesActivitySo
       />
       <SubmitAndPreviousButtons
         onPreviousClick={onPrevious}
-        onNextClick={() => {
-          mutate(transformToSavePayload(data, tableData))
-          onSubmit(data)
+        onNextClick={async () => {
+          await mutate(transformToSavePayload(data, tableData))
+          history.push(routes.toCVAdminSetup(params))
         }}
       />
     </Container>

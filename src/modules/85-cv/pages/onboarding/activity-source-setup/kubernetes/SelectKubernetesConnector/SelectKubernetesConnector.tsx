@@ -1,6 +1,6 @@
 import React from 'react'
 import { Formik, FormikForm, Container, Text } from '@wings-software/uikit'
-import { object as yupObject, string as yupString } from 'yup'
+import { object as yupObject } from 'yup'
 import {
   ConnectorSelection,
   SelectOrCreateConnectorFieldNames
@@ -8,23 +8,25 @@ import {
 import { SubmitAndPreviousButtons } from '@cv/pages/onboarding/SubmitAndPreviousButtons/SubmitAndPreviousButtons'
 import { CVSelectionCard } from '@cv/components/CVSelectionCard/CVSelectionCard'
 import i18n from './SelectKubernetesConnector.i18n'
+import type { KubernetesActivitySourceInfo } from '../KubernetesActivitySourceUtils'
+import { buildKubernetesActivitySourceInfo } from '../KubernetesActivitySourceUtils'
 import css from './SelectKubernetesConnector.module.scss'
 
 interface SelectKubernetesConnectorProps {
-  onSubmit: (data: any) => void
+  onSubmit: (data: KubernetesActivitySourceInfo) => void
   onPrevious: () => void
-  data?: any
+  data?: KubernetesActivitySourceInfo
 }
 
 const ValidationSchema = yupObject().shape({
-  [SelectOrCreateConnectorFieldNames.CONNECTOR_REF]: yupString().trim().required('Connector Reference is required.')
+  [SelectOrCreateConnectorFieldNames.CONNECTOR_REF]: yupObject().required('Connector Reference is required.')
 })
 
 export function SelectKubernetesConnector(props: SelectKubernetesConnectorProps): JSX.Element {
   const { onPrevious, onSubmit, data } = props
   return (
     <Formik
-      initialValues={data || { connectorRef: undefined }}
+      initialValues={data || buildKubernetesActivitySourceInfo()}
       validationSchema={ValidationSchema}
       onSubmit={values => onSubmit({ ...values })}
     >
@@ -46,14 +48,15 @@ export function SelectKubernetesConnector(props: SelectKubernetesConnectorProps)
             />
             <ConnectorSelection
               connectorType="K8sCluster"
+              value={formikProps.values.connectorRef}
               createConnectorText={i18n.createConnectorText}
               firstTimeSetupText={i18n.firstTimeSetupText}
               connectToMonitoringSourceText={i18n.kubernetesConnectionText}
               onSuccess={connectorInfo => {
-                formikProps.setFieldValue(
-                  SelectOrCreateConnectorFieldNames.CONNECTOR_REF,
-                  connectorInfo?.connector?.identifier
-                )
+                formikProps.setFieldValue(SelectOrCreateConnectorFieldNames.CONNECTOR_REF, {
+                  label: connectorInfo?.connector?.name,
+                  value: connectorInfo?.connector?.identifier
+                })
               }}
             />
           </Container>

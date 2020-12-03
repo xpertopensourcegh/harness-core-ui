@@ -1,10 +1,12 @@
 import React from 'react'
 import { fireEvent, render, waitFor } from '@testing-library/react'
+import type { UseGetReturn } from 'restful-react'
 import { Container } from '@wings-software/uikit'
+import * as cvService from 'services/cv'
 import { TestWrapper } from '@common/utils/testUtils'
 import routes from '@common/RouteDefinitions'
 import { accountPathProps, projectPathProps } from '@common/utils/routeUtils'
-import KubernetesActivitySource from '../KubernetesActivitySource'
+import { KubernetesActivitySource, transformApiData } from '../KubernetesActivitySource'
 
 jest.mock('../SelectActivitySource/SelectActivitySource', () => ({
   ...(jest.requireActual('../SelectActivitySource/SelectActivitySource') as object),
@@ -51,6 +53,60 @@ jest.mock('../ReviewKubernetesActivitySource/ReviewKubernetesActivitySource', ()
   }
 }))
 
+const CurrentDate = Date.now()
+const MockData = {
+  uuid: '1234_uuid',
+  identifier: '1234_identifier',
+  name: 'kubernetes_activity_source',
+  connectorIdentifier: '1234_conn_iden',
+  createdAt: CurrentDate,
+  lastUpdatedAt: CurrentDate,
+  activitySourceConfigs: [
+    {
+      serviceIdentifier: '1234_serviceIden',
+      envIdentifier: '1234_envIden',
+      namespace: '1234_namespace',
+      workloadName: '1234_workload'
+    },
+    {
+      serviceIdentifier: '5678_serviceIden',
+      envIdentifier: '5678_envIden',
+      namespace: '1234_namespace',
+      workloadName: '5678_workload'
+    },
+    {
+      serviceIdentifier: '91011_serviceIden',
+      envIdentifier: '91011_envIden',
+      namespace: '5678_namespace',
+      workloadName: '91011_workload'
+    },
+    {
+      serviceIdentifier: '',
+      envIdentifier: '5678_envIden',
+      namespace: '1234_namespace',
+      workloadName: '5678_workload'
+    },
+    {
+      serviceIdentifier: '5678_serviceIden',
+      envIdentifier: '',
+      namespace: '1234_namespace',
+      workloadName: '5678_workload'
+    },
+    {
+      serviceIdentifier: '5678_serviceIden',
+      envIdentifier: '5678_envIden',
+      namespace: '',
+      workloadName: '5678_workload'
+    },
+    {
+      serviceIdentifier: '5678_serviceIden',
+      envIdentifier: '5678_envIden',
+      namespace: '1234_namespace',
+      workloadName: ''
+    }
+  ]
+}
+
 describe('Unit tests for KubernetesActivitySource', () => {
   test('Ensure all tabs are rendered, and tabs can be selected on demand', async () => {
     const { container } = render(
@@ -61,7 +117,7 @@ describe('Unit tests for KubernetesActivitySource', () => {
           activitySource: ':activitySource'
         })}
         pathParams={{
-          accountId: 'loading',
+          accountId: '1234_account',
           projectIdentifier: '1234_project',
           orgIdentifier: '1234_ORG',
           activitySource: '123'
@@ -104,5 +160,144 @@ describe('Unit tests for KubernetesActivitySource', () => {
     const previousButtonReview = container.querySelector('#ReviewKubernetesActivitySource')
     if (!previousButtonReview) throw Error('Previous button was not rendered review.')
     fireEvent.click(previousButtonReview)
+  })
+
+  test('Ensure that api is called when id is in params', async () => {
+    const useGetKubernetesSourceSpy = jest.spyOn(cvService, 'useGetKubernetesSource')
+    const refetchMock = jest.fn()
+    useGetKubernetesSourceSpy.mockReturnValue({
+      data: { resource: { content: MockData } },
+      refetch: refetchMock as unknown
+    } as UseGetReturn<any, unknown, any, unknown>)
+
+    const { container } = render(
+      <TestWrapper
+        path={routes.toCVActivitySourceEditSetup({
+          ...accountPathProps,
+          ...projectPathProps,
+          activitySource: ':activitySource',
+          activitySourceId: ':activitySourceId'
+        })}
+        pathParams={{
+          accountId: '1234_account',
+          projectIdentifier: '1234_project',
+          orgIdentifier: '1234_ORG',
+          activitySource: '1234_activitySource',
+          activitySourceId: '1234_sourceId'
+        }}
+      >
+        <KubernetesActivitySource />
+      </TestWrapper>
+    )
+    await waitFor(() => expect(container.querySelector('[class*="SelectActivitySource"]')))
+    await waitFor(() => expect(refetchMock).toHaveBeenCalledTimes(1))
+  })
+
+  test('Ensure tranformfunction works correctly', async () => {
+    expect(
+      transformApiData({
+        uuid: '1234_uuid',
+        identifier: '1234_identifier',
+        name: 'kubernetes_activity_source',
+        connectorIdentifier: '1234_conn_iden',
+        createdAt: CurrentDate,
+        lastUpdatedAt: CurrentDate,
+        activitySourceConfigs: [
+          {
+            serviceIdentifier: '1234_serviceIden',
+            envIdentifier: '1234_envIden',
+            namespace: '1234_namespace',
+            workloadName: '1234_workload'
+          },
+          {
+            serviceIdentifier: '5678_serviceIden',
+            envIdentifier: '5678_envIden',
+            namespace: '1234_namespace',
+            workloadName: '5678_workload'
+          },
+          {
+            serviceIdentifier: '91011_serviceIden',
+            envIdentifier: '91011_envIden',
+            namespace: '5678_namespace',
+            workloadName: '91011_workload'
+          },
+          {
+            serviceIdentifier: '',
+            envIdentifier: '5678_envIden',
+            namespace: '1234_namespace',
+            workloadName: '5678_workload'
+          },
+          {
+            serviceIdentifier: '5678_serviceIden',
+            envIdentifier: '',
+            namespace: '1234_namespace',
+            workloadName: '5678_workload'
+          },
+          {
+            serviceIdentifier: '5678_serviceIden',
+            envIdentifier: '5678_envIden',
+            namespace: '',
+            workloadName: '5678_workload'
+          },
+          {
+            serviceIdentifier: '5678_serviceIden',
+            envIdentifier: '5678_envIden',
+            namespace: '1234_namespace',
+            workloadName: ''
+          }
+        ]
+      })
+    ).toEqual({
+      uuid: '1234_uuid',
+      identifier: '1234_identifier',
+      name: 'kubernetes_activity_source',
+      connectorIdentifier: '1234_conn_iden',
+      connectorRef: {
+        label: '1234_conn_iden',
+        value: '1234_conn_iden'
+      },
+      connectorType: 'Kubernetes',
+      createdAt: CurrentDate,
+      selectedNamespaces: ['1234_namespace', '5678_namespace'],
+      selectedWorkloads: new Map([
+        [
+          '1234_namespace',
+          new Map([
+            [
+              '1234_workload',
+              {
+                selected: true,
+                environmentIdentifier: { label: '1234_envIden', value: '1234_envIden' },
+                serviceIdentifier: { label: '1234_serviceIden', value: '1234_serviceIden' },
+                workload: '1234_workload'
+              }
+            ],
+            [
+              '5678_workload',
+              {
+                selected: true,
+                environmentIdentifier: { label: '5678_envIden', value: '5678_envIden' },
+                serviceIdentifier: { label: '5678_serviceIden', value: '5678_serviceIden' },
+                workload: '5678_workload'
+              }
+            ]
+          ])
+        ],
+        [
+          '5678_namespace',
+          new Map([
+            [
+              '91011_workload',
+              {
+                selected: true,
+                environmentIdentifier: { label: '91011_envIden', value: '91011_envIden' },
+                serviceIdentifier: { label: '91011_serviceIden', value: '91011_serviceIden' },
+                workload: '91011_workload'
+              }
+            ]
+          ])
+        ]
+      ])
+    })
   })
 })

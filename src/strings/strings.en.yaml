@@ -25,6 +25,7 @@ global:
   na: N/A
   todo: TODO - implement this
   add: Add
+  delete: Delete
   select: Select
   save: Save
   cancel: Cancel
@@ -256,13 +257,16 @@ global:
         activitySources: 'Activity Sources'
     admin:
       activitySources:
-        searchBoxPlaceholder: 'Search by name, environment, or service'
+        searchBoxPlaceholder: 'Search by Activity Source name'
         noDataMessage: 'No Activity Sources onboarded'
-        addActivitySource: 'Onboard Activity Source(s)'
+        addActivitySource: '+ Add Activity Source(s)'
+        dialogDeleteContent: 'Are you sure you want to delete Activity Source: '
+        dialogDeleteTitle: 'Delete Activity Source'
         tableColumnNames:
           services: 'Number of Services'
           environments: 'Number of Environments'
-          createdOn: 'Created On'
+          createdOn: 'Created on'
+          lastUpdatedOn: 'Last Updated on'
     onboarding:
       progress:
         heading: 'Your Progress'

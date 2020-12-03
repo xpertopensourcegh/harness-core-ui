@@ -6,13 +6,14 @@ import routes from '@common/RouteDefinitions'
 import { SubmitAndPreviousButtons } from '@cv/pages/onboarding/SubmitAndPreviousButtons/SubmitAndPreviousButtons'
 import { CVSelectionCard, CVSelectionCardProps } from '@cv/components/CVSelectionCard/CVSelectionCard'
 import { AddDescriptionAndTagsWithIdentifier } from '@common/components/AddDescriptionAndTags/AddDescriptionAndTags'
-import { InfrastructureTypeOptions } from '../../ActivitySourceSetupConstants'
 import i18n from './SelectActivitySource.i18n'
+import type { KubernetesActivitySourceInfo } from '../KubernetesActivitySourceUtils'
+import { buildKubernetesActivitySourceInfo } from '../KubernetesActivitySourceUtils'
 import css from './SelectActivitySource.module.scss'
 
 export interface SelectActivitySourceProps {
-  data?: any
-  onSubmit?: (data: any) => void
+  data?: KubernetesActivitySourceInfo
+  onSubmit?: (data: KubernetesActivitySourceInfo) => void
 }
 
 interface ActivitySourceConnectorSelectionProps {
@@ -22,7 +23,6 @@ interface ActivitySourceConnectorSelectionProps {
 
 export const KubernetesActivitySourceFieldNames = {
   ACTIVITY_SOURCE_NAME: 'name',
-  INFRASTRUCTURE_TYPE: 'infrastructureType',
   CONNECTOR_TYPE: 'connectorType'
 }
 
@@ -44,9 +44,6 @@ const ValidationSchema = yupObject().shape({
   [KubernetesActivitySourceFieldNames.ACTIVITY_SOURCE_NAME]: yupString()
     .trim()
     .required(i18n.validationStrings.nameActivitySource),
-  [KubernetesActivitySourceFieldNames.INFRASTRUCTURE_TYPE]: yupString()
-    .trim()
-    .required(i18n.validationStrings.infraType),
   [KubernetesActivitySourceFieldNames.CONNECTOR_TYPE]: yupString().trim().required(i18n.validationStrings.connectorType)
 })
 
@@ -82,18 +79,18 @@ export function SelectActivitySource(props: SelectActivitySourceProps): JSX.Elem
   const history = useHistory()
   const { projectIdentifier, orgIdentifier, accountId } = useParams()
   return (
-    <Formik initialValues={data || {}} onSubmit={values => onSubmit?.(values)} validationSchema={ValidationSchema}>
+    <Formik
+      initialValues={data || buildKubernetesActivitySourceInfo()}
+      onSubmit={values => onSubmit?.(values)}
+      validationSchema={ValidationSchema}
+      enableReinitialize={true}
+    >
       <FormikForm>
         <Container className={css.main}>
           <Heading level="3" color={Color.BLACK} font={{ size: 'medium' }} className={css.heading}>
             {i18n.selectActivitySource}
           </Heading>
           <AddDescriptionAndTagsWithIdentifier identifierProps={{ inputLabel: i18n.fieldLabels.nameActivitySource }} />
-          <FormInput.Select
-            items={InfrastructureTypeOptions}
-            label={i18n.fieldLabels.infraType}
-            name={KubernetesActivitySourceFieldNames.INFRASTRUCTURE_TYPE}
-          />
           <Text color={Color.BLACK} className={css.infraSpecification}>
             {i18n.infraSpecification}
           </Text>

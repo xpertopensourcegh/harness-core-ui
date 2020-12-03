@@ -10,7 +10,7 @@ import { ReviewKubernetesActivitySource } from '../ReviewKubernetesActivitySourc
 const testWrapperProps: TestWrapperProps = {
   path: routes.toCVActivitySourceSetup({ ...accountPathProps, ...projectPathProps }),
   pathParams: {
-    accountId: 'loading',
+    accountId: '1234_accountId',
     projectIdentifier: '1234_project',
     orgIdentifier: '1234_ORG'
   }
@@ -22,6 +22,7 @@ describe('Unit tests for ReviewKubernetesActivitySource', () => {
     const onSubmitMock = jest.fn()
     const postPayloadMock = jest.fn()
     const useRegisterKubernetesSourceSpy = jest.spyOn(cvService, 'useRegisterKubernetesSource')
+    const routeCVAdminSetupSpy = jest.spyOn(routes, 'toCVAdminSetup')
     useRegisterKubernetesSourceSpy.mockReturnValue({
       mutate: postPayloadMock as unknown
     } as UseMutateReturn<any, any, any, any, any>)
@@ -30,6 +31,7 @@ describe('Unit tests for ReviewKubernetesActivitySource', () => {
       <TestWrapper {...testWrapperProps}>
         <ReviewKubernetesActivitySource
           data={{
+            connectorType: 'Kubernetes',
             selectedNamespaces: ['namespace1', 'namespace2'],
             selectedWorkloads: new Map([
               [
@@ -61,7 +63,7 @@ describe('Unit tests for ReviewKubernetesActivitySource', () => {
                 ])
               ]
             ]),
-            connectorRef: { value: 'kubeConnector2' },
+            connectorRef: { value: 'kubeConnector2', label: 'kubeConnector2' },
             name: 'solo-dolo',
             identifier: 'solo-dolo-iden'
           }}
@@ -96,7 +98,7 @@ describe('Unit tests for ReviewKubernetesActivitySource', () => {
     await waitFor(() => expect(onPreviousMock).toHaveBeenCalledTimes(1))
 
     fireEvent.click(buttons[1])
-    await waitFor(() => expect(onSubmitMock).toHaveBeenCalledTimes(1))
+    await waitFor(() => expect(routeCVAdminSetupSpy).toHaveBeenCalledTimes(1))
 
     expect(postPayloadMock).toHaveBeenCalledWith({
       activitySourceConfigs: [

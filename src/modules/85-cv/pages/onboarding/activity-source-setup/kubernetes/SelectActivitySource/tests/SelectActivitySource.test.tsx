@@ -24,6 +24,15 @@ describe('Unit tests for SelectActivitySource', () => {
     await waitFor(() => expect(container.querySelector('[class*="main"]')))
     expect(getByText(i18n.productSelectionCategory.directConnection)).not.toBeNull()
 
+    const kubernetesDirectConnection = container.querySelector('[class*="bp3-card"]')
+    if (!kubernetesDirectConnection) {
+      throw Error('Direct connection option was not renderd.')
+    }
+
+    expect(container.querySelector('[class*="cardIconSelected"]')).not.toBeNull()
+    fireEvent.click(kubernetesDirectConnection)
+    await waitFor(() => expect(container.querySelector('[class*="cardIconSelected"]')).toBeNull())
+
     const submitButton = container.querySelector('button[type="submit"]')
     if (!submitButton) throw Error('Submit button was not rendered.')
 

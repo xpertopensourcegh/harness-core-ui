@@ -1,6 +1,6 @@
 import React from 'react'
 import { fireEvent, render, waitFor } from '@testing-library/react'
-import type { UseGetReturn } from 'restful-react'
+import type { UseGetReturn, UseMutateReturn } from 'restful-react'
 import { TestWrapper, TestWrapperProps } from '@common/utils/testUtils'
 import * as cvService from 'services/cv'
 import routes from '@common/RouteDefinitions'
@@ -16,43 +16,55 @@ const testWrapperProps: TestWrapperProps = {
     activitySource: '1234_activity'
   }
 }
+const MockData = {
+  resource: {
+    content: [
+      {
+        identifier: '1234_uuid',
+        name: 'kube_activitySource',
+        createdAt: 1606846078440,
+        lastUpdatedAt: 1606846078440,
+        activitySourceConfigs: [
+          {
+            serviceIdentifier: '1234_ser',
+            envIdentifier: '1234_env'
+          },
+          {
+            serviceIdentifier: '5678_ser',
+            envIdentifier: '1234_env'
+          },
+          {
+            serviceIdentifier: '91011_ser',
+            envIdentifier: '5678_env'
+          }
+        ]
+      },
+      {
+        identifier: '5678_uuid',
+        name: 'cd_1.0_source',
+        createdAt: 1606932419572,
+        lastUpdatedAt: 1606932419572,
+        activitySourceConfigs: [
+          {
+            envIdentifier: '1234_env',
+            serviceIdentifier: '5678_ser'
+          }
+        ]
+      }
+    ],
+    totalItems: 2,
+    totalPages: 1,
+    pageSize: 10,
+    pageIndex: 0
+  }
+}
 
 describe('CVActivitySourcesPage unit tests', () => {
   test('Ensure when api returns data it is rendered correctly', async () => {
     const useListKubernetesSourcesSpy = jest.spyOn(cvService, 'useListKubernetesSources')
+    const routeActivitySourceEditSetupSpy = jest.spyOn(routes, 'toCVActivitySourceEditSetup')
     useListKubernetesSourcesSpy.mockReturnValue({
-      data: {
-        resource: [
-          {
-            uuid: '1234_uuid',
-            name: 'kube_activitySource',
-            activitySourceConfigs: [
-              {
-                serviceIdentifier: '1234_ser',
-                envIdentifier: '1234_env'
-              },
-              {
-                serviceIdentifier: '5678_ser',
-                envIdentifier: '1234_env'
-              },
-              {
-                serviceIdentifier: '91011_ser',
-                envIdentifier: '5678_env'
-              }
-            ]
-          },
-          {
-            uuid: '5678_uuid',
-            name: 'cd_1.0_source',
-            activitySourceConfigs: [
-              {
-                envIdentifier: '1234_env',
-                serviceIdentifier: '5678_ser'
-              }
-            ]
-          }
-        ]
-      },
+      data: MockData,
       refetch: jest.fn() as unknown
     } as UseGetReturn<any, unknown, any, unknown>)
 
@@ -68,6 +80,51 @@ describe('CVActivitySourcesPage unit tests', () => {
     expect(container).toMatchSnapshot()
 
     fireEvent.click(tableRows[1])
+    await waitFor(() => expect(routeActivitySourceEditSetupSpy).toHaveBeenCalledTimes(1))
+  })
+
+  test('Ensure row is deleted and get api is called after deletion', async () => {
+    const useListKubernetesSourcesSpy = jest.spyOn(cvService, 'useListKubernetesSources')
+    useListKubernetesSourcesSpy.mockReturnValue({
+      data: MockData,
+      refetch: jest.fn() as unknown
+    } as UseGetReturn<any, unknown, any, unknown>)
+
+    const mockMutateFn = jest.fn().mockReturnValue(Promise.resolve()) as unknown
+    const useDeleteKubernetesSourceSpy = jest.spyOn(cvService, 'useDeleteKubernetesSource')
+    useDeleteKubernetesSourceSpy.mockReturnValue({ mutate: mockMutateFn } as UseMutateReturn<any, any, any, any, any>)
+
+    const { container } = render(
+      <TestWrapper>
+        <CVActivitySourcesPage />
+      </TestWrapper>
+    )
+
+    await waitFor(() => expect(container.querySelector('[class*="main"]')).not.toBeNull())
+    const tableRows = container.querySelectorAll('[role="row"]')
+    expect(tableRows.length).toBe(3)
+
+    const threeDotMenu = tableRows[1].querySelector('[class*="more"]')
+    if (!threeDotMenu) {
+      throw Error('No 3 dot menu')
+    }
+
+    fireEvent.click(threeDotMenu)
+    await waitFor(() => expect(document.body.querySelector('[class*="bp3-menu-item"]')).not.toBeNull())
+
+    const deleteOption = document.body.querySelector('[class*="bp3-menu-item"]')
+    if (!deleteOption) {
+      throw Error('Delete option was not rendered')
+    }
+    fireEvent.click(deleteOption)
+    await waitFor(() => expect(document.body.querySelector('[class*="bp3-dialog"]')).not.toBeNull())
+
+    const confirmModalButtons = document.body.querySelectorAll('[class*="bp3-dialog"] button')
+    expect(confirmModalButtons.length).toBe(3)
+    fireEvent.click(confirmModalButtons[1])
+
+    await waitFor(() => expect(mockMutateFn).toHaveBeenCalledTimes(1))
+    await waitFor(() => expect(useListKubernetesSourcesSpy).toHaveBeenCalledTimes(2))
   })
 
   test('Ensure refetch is called on click of retry for api error', async () => {
@@ -94,10 +151,30 @@ describe('CVActivitySourcesPage unit tests', () => {
     await waitFor(() => expect(refetchMock).toHaveBeenCalledTimes(1))
   })
 
+  test('Ensure that when you click on oadd activity resource, you are navigated to correct page', async () => {
+    const useListKubernetesSourcesSpy = jest.spyOn(cvService, 'useListKubernetesSources')
+    const routeCVAdminSetupSpy = jest.spyOn(routes, 'toCVAdminSetup')
+
+    useListKubernetesSourcesSpy.mockReturnValue({
+      data: MockData,
+      refetch: jest.fn() as unknown
+    } as UseGetReturn<any, unknown, any, unknown>)
+
+    const { container, getByText } = render(
+      <TestWrapper>
+        <CVActivitySourcesPage />
+      </TestWrapper>
+    )
+
+    await waitFor(() => expect(container.querySelector('[class*="main"]')).not.toBeNull())
+    fireEvent.click(getByText('+ Add Activity Source(s)'))
+    await waitFor(() => expect(routeCVAdminSetupSpy).toHaveBeenCalledTimes(1))
+  })
+
   test('Ensure that no data card is displayed when api returns no data', async () => {
     const useListKubernetesSourcesSpy = jest.spyOn(cvService, 'useListKubernetesSources')
     useListKubernetesSourcesSpy.mockReturnValue({
-      data: { resource: [] }
+      data: { resource: { content: [] } }
     } as UseGetReturn<any, unknown, any, unknown>)
 
     const { getByText } = render(
@@ -107,7 +184,7 @@ describe('CVActivitySourcesPage unit tests', () => {
     )
 
     await waitFor(() => expect(getByText('No Activity Sources onboarded')).not.toBeNull())
-    const retryButton = getByText('Onboard Activity Source(s)')
+    const retryButton = getByText('+ Add Activity Source(s)')
     if (!retryButton) {
       throw new Error('Retry button is missing.')
     }

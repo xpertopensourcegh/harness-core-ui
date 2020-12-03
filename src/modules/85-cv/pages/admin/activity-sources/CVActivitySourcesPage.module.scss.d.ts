@@ -3,5 +3,6 @@
 declare const styles: {
   readonly main: string
   readonly search: string
+  readonly more: string
 }
 export default styles

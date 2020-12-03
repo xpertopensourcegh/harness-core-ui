@@ -1,7 +1,9 @@
-import React from 'react'
-import { Container, Link, Text, Layout, Color, IconName } from '@wings-software/uikit'
+import React, { useEffect } from 'react'
+import { Container, Link, Text, Layout, Color, IconName, TextInput, SelectOption } from '@wings-software/uikit'
 import { useParams } from 'react-router-dom'
-import type { ConnectorInfoDTO } from 'services/cd-ng'
+import { useToaster } from '@common/exports'
+import { useStrings } from 'framework/exports'
+import { ConnectorInfoDTO, useGetConnector } from 'services/cd-ng'
 import useCreateConnectorModal, {
   UseCreateConnectorModalProps
 } from '@connectors/modals/ConnectorModal/useCreateConnectorModal'
@@ -13,6 +15,7 @@ import css from './SelectOrCreateConnector.module.scss'
 
 export interface ConnectorSelectionProps {
   connectorType: ConnectorInfoDTO['type']
+  value?: SelectOption
   createConnectorText: string
   connectToMonitoringSourceText: string
   firstTimeSetupText: string
@@ -31,9 +34,39 @@ export const SelectOrCreateConnectorFieldNames = {
 }
 
 export function ConnectorSelection(props: ConnectorSelectionProps): JSX.Element {
-  const { connectToMonitoringSourceText, firstTimeSetupText, connectorType, createConnectorText, onSuccess } = props
+  const {
+    connectToMonitoringSourceText,
+    firstTimeSetupText,
+    connectorType,
+    createConnectorText,
+    onSuccess,
+    value
+  } = props
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
   const { openConnectorModal } = useCreateConnectorModal({ onSuccess })
+  const { getString } = useStrings()
+  const { showError } = useToaster()
+  const { data, loading, error, refetch: fetchConnector } = useGetConnector({
+    identifier: (value?.value as string) || '',
+    queryParams: {
+      projectIdentifier: projectIdentifier as string,
+      orgIdentifier: orgIdentifier as string,
+      accountIdentifier: accountId
+    },
+    lazy: true
+  })
+
+  if (error?.message) showError(error.message, 5000)
+  useEffect(() => {
+    if (data?.data?.connector?.name) {
+      onSuccess?.({ connector: data.data.connector })
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data])
+  useEffect(() => {
+    if (value) fetchConnector()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <Layout.Vertical spacing="xsmall">
@@ -42,18 +75,22 @@ export function ConnectorSelection(props: ConnectorSelectionProps): JSX.Element 
         {firstTimeSetupText}
       </Text>
       <Layout.Horizontal spacing="medium">
-        <FormMultiTypeConnectorField
-          name={SelectOrCreateConnectorFieldNames.CONNECTOR_REF}
-          label=""
-          placeholder={i18n.selectConnector}
-          accountIdentifier={accountId}
-          projectIdentifier={projectIdentifier as string}
-          orgIdentifier={orgIdentifier as string}
-          width={300}
-          isNewConnectorLabelVisible={false}
-          type={connectorType}
-          className={css.connectorReference}
-        />
+        {loading ? (
+          <TextInput value={getString('loading')} className={css.loadingText} />
+        ) : (
+          <FormMultiTypeConnectorField
+            name={SelectOrCreateConnectorFieldNames.CONNECTOR_REF}
+            label=""
+            placeholder={i18n.selectConnector}
+            accountIdentifier={accountId}
+            projectIdentifier={projectIdentifier as string}
+            orgIdentifier={orgIdentifier as string}
+            width={300}
+            isNewConnectorLabelVisible={false}
+            type={connectorType}
+            className={css.connectorReference}
+          />
+        )}
         <Link
           withoutHref
           onClick={() => openConnectorModal(true, connectorType || ('' as ConnectorInfoDTO['type']), undefined)}
