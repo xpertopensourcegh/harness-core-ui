@@ -254,6 +254,7 @@ export const DockerHubStepWidget: React.FC<DockerHubStepWidgetProps> = ({ initia
               <Text margin={{ top: 'medium', bottom: 'xsmall' }}>{getString('pipelineSteps.connectorLabel')}</Text>
               <div className={cx(css.fieldsGroup, css.withoutSpacing)}>
                 <FormMultiTypeConnectorField
+                  type="DockerRegistry"
                   name="spec.connectorRef"
                   label=""
                   placeholder={loading ? getString('loading') : getString('select')}
