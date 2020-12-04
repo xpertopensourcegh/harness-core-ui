@@ -15,8 +15,8 @@ export interface Logs {
   logLine: string
 }
 
-const apiEndpoint = '/log-service/blob'
-const streamEndpoint = '/log-service/stream'
+const apiEndpoint = '/gateway/log-service/blob'
+const streamEndpoint = '/gateway/log-service/stream'
 
 /**
  * Get Logs from blob
@@ -52,9 +52,9 @@ export async function getLogsFromBlob(
 
         const parsedData = data.map((item: LogResponse) => {
           return {
-            logLevel: item?.level.toUpperCase(),
-            createdAt: item.time,
-            logLine: item?.out.replace(`\n`, '')
+            logLevel: item?.level?.toUpperCase(),
+            createdAt: item?.time,
+            logLine: item?.out?.replace(`\n`, '')
           }
         })
         setLogs(parsedData)
