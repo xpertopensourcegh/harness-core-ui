@@ -1,0 +1,20 @@
+.draggingHandle {
+  cursor: grabbing !important;
+}
+
+.handleWrapper {
+  border-radius: 4px;
+  z-index: 1;
+  cursor: grab;
+}
+.handle {
+  width: 0;
+  height: 0;
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+
+  border-top: 15px solid var(--grey-300);
+}
+.score {
+  text-align: center;
+}

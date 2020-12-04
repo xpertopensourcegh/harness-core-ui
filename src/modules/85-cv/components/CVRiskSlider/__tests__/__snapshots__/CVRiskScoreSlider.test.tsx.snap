@@ -1,0 +1,70 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CVRiskScoreSlider render 1`] = `
+<div>
+  <div
+    class="Layout---vertical--3Szv StyledProps---main--1Wws"
+    style="width: 340px;"
+  >
+    <div
+      class="StyledProps---font--2ipy StyledProps---main--1Wws handleWrapper react-draggable"
+      style="transform: translate(0px,0px);"
+    >
+      <p
+        class="StyledProps---font--2ipy StyledProps---main--1Wws score StyledProps---font-size-small--3cA6"
+        style="width: 30px;"
+      >
+        0
+      </p>
+      <div
+        class="StyledProps---font--2ipy StyledProps---main--1Wws handle"
+      />
+    </div>
+    <div
+      class="Layout---horizontal--3rmQ Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
+      style="width: 340px;"
+    >
+      <div
+        class="heatmapColor1"
+        style="width: 34px; height: 10px;"
+      />
+      <div
+        class="heatmapColor2"
+        style="width: 34px; height: 10px;"
+      />
+      <div
+        class="heatmapColor3"
+        style="width: 34px; height: 10px;"
+      />
+      <div
+        class="heatmapColor4"
+        style="width: 34px; height: 10px;"
+      />
+      <div
+        class="heatmapColor5"
+        style="width: 34px; height: 10px;"
+      />
+      <div
+        class="heatmapColor6"
+        style="width: 34px; height: 10px;"
+      />
+      <div
+        class="heatmapColor7"
+        style="width: 34px; height: 10px;"
+      />
+      <div
+        class="heatmapColor8"
+        style="width: 34px; height: 10px;"
+      />
+      <div
+        class="heatmapColor9"
+        style="width: 34px; height: 10px;"
+      />
+      <div
+        class="heatmapColor10"
+        style="width: 34px; height: 10px;"
+      />
+    </div>
+  </div>
+</div>
+`;
