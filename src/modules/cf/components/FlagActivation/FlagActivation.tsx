@@ -17,7 +17,7 @@ import {
   FormikForm as Form
 } from '@wings-software/uikit'
 import { Dialog } from '@blueprintjs/core'
-import { Feature, FeatureState, usePatchFeatureFlag, ServingRule, Clause, Serve } from 'services/cf'
+import { Feature, FeatureState, usePatchFeatureFlag, ServingRule, Clause, Serve, VariationMap } from 'services/cf'
 import FlagElemTest from '../../components/CreateFlagWizard/FlagElemTest'
 import TabTargeting from '../EditFlagTabs/TabTargeting'
 import TabActivity from '../EditFlagTabs/TabActivity'
@@ -41,6 +41,24 @@ interface Values {
   offVariation: string
   defaultServe: Serve
   customRules: ServingRule[]
+  variationMap: VariationMap[]
+}
+
+const fromVariationMapToObj = (variationMap: VariationMap[]) =>
+  variationMap.reduce((acc: any, vm: VariationMap) => {
+    if (acc[vm.variation]) {
+      acc[vm.variation].targets = acc[vm.variation].targets.concat(vm.targets || [])
+      acc[vm.variation].targetSegments = acc[vm.variation].targetSegments.concat(vm.targetSegments || [])
+    } else {
+      acc[vm.variation] = { targets: vm.targets, targetSegments: vm.targetSegments }
+    }
+    return acc
+  }, {})
+
+const getDiff = <A, B>(initial: A[], updated: B[], eqFn: (a: A, b: B) => boolean = isEqual) => {
+  const newData = updated.filter(b => !initial.find(a => eqFn(a, b)))
+  const remData = initial.filter(a => !updated.find(b => eqFn(a, b)))
+  return [newData, remData]
 }
 
 export enum envActivation {
@@ -90,7 +108,8 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
       : flagData?.defaultOnVariation,
     offVariation: flagData?.envProperties?.offVariation as string,
     defaultServe: flagData?.envProperties?.defaultServe as Serve,
-    customRules: flagData?.envProperties?.rules ?? []
+    customRules: flagData?.envProperties?.rules ?? [],
+    variationMap: flagData?.envProperties?.variationMap ?? []
   }
 
   const onSaveChanges = (values: Values): void => {
@@ -105,7 +124,6 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
         patch.feature.addInstruction(patch.creators.updateDefaultServeByVariation(values.onVariation as string))
       }
     }
-
     if (!isEqual(values.defaultServe, initialValues.defaultServe)) {
       patch.feature.addInstruction(
         patch.creators.updateDefaultServeByBucket(
@@ -158,6 +176,25 @@ const FlagActivation: React.FC<FlagActivationProps> = props => {
               patch.feature.addInstruction(patch.creators.updateClause(initial.ruleId, c.id, toClauseData(updated)))
             )
         })
+    }
+
+    if (!isEqual(values.variationMap, initialValues.variationMap)) {
+      const initial = fromVariationMapToObj(initialValues.variationMap)
+      const updated = fromVariationMapToObj(values.variationMap)
+
+      const variations = Array.from(new Set(Object.keys(initial).concat(Object.keys(updated))))
+      variations.forEach((variation: string) => {
+        const [added, removed] = getDiff<string, string>(
+          initial[variation]?.targets || [],
+          updated[variation]?.targets || []
+        )
+        if (added.length > 0) {
+          patch.feature.addInstruction(patch.creators.addTargetsToVariationTargetMap(variation, added))
+        }
+        if (removed.length > 0) {
+          patch.feature.addInstruction(patch.creators.removeTargetsToVariationTargetMap(variation, removed))
+        }
+      })
     }
 
     patch.feature

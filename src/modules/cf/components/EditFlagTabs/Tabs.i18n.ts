@@ -5,6 +5,13 @@ export default {
     serveVartiation: 'Serve variation to Target',
     onRequest: 'On Request, check for condition and serve variation'
   },
+  serveVariation: {
+    serve: 'Serve',
+    toTarget: 'to Target',
+    add: 'Add',
+    percentageRollout: 'a percentage rollout'
+  },
+  if: 'if',
   save: 'Save',
   saveChange: 'Save Changes',
   cancel: 'Cancel',
