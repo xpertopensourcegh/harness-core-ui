@@ -86,9 +86,14 @@ exports[`Collaborators test Render Collaborators  1`] = `
                 </p>
               </div>
               <div
-                class="Layout---horizontal--3rmQ StyledProps---main--1Wws toEnd"
+                class="Layout---horizontal--3rmQ Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws toEnd StyledProps---flex--2Jz8 StyledProps---flex-align-center-center--2AmX"
                 style="width: 50%;"
               >
+                <p
+                  class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                >
+                  Role :
+                </p>
                 <span
                   class="bp3-popover-wrapper"
                 >

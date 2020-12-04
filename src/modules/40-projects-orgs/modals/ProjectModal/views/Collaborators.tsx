@@ -14,7 +14,8 @@ import {
   MultiSelectOption,
   Icon,
   ModalErrorHandlerBinding,
-  ModalErrorHandler
+  ModalErrorHandler,
+  Avatar
 } from '@wings-software/uikit'
 import { Select } from '@blueprintjs/select'
 import cx from 'classnames'
@@ -37,6 +38,7 @@ import {
 } from 'services/cd-ng'
 import i18n from '@projects-orgs/pages/projects/ProjectsPage.i18n'
 import type { UseGetMockData } from '@common/utils/testUtils'
+import { useStrings } from 'framework/exports'
 import { InviteType } from '../Constants'
 
 import css from './Steps.module.scss'
@@ -241,11 +243,12 @@ const Collaborators: React.FC<StepProps<Project> & CollaboratorModalData> = prop
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding>()
   const projectIdentifier = identifier ? identifier : prevStepData?.identifier
   const organisationIdentifier = orgIdentifier ? orgIdentifier : prevStepData?.orgIdentifier
-
+  const { getString } = useStrings()
   const initialValues: CollaboratorsData = { collaborators: [] }
   const { data: userData } = useGetUsers({
     queryParams: { accountIdentifier: accountId, searchString: search === '' ? undefined : search },
-    mock: userMockData
+    mock: userMockData,
+    debounce: 300
   })
 
   const { data: inviteData, loading: inviteLoading, refetch: reloadInvites } = useGetInvites({
@@ -314,6 +317,7 @@ const Collaborators: React.FC<StepProps<Project> & CollaboratorModalData> = prop
       modalErrorHandler?.show(e.data)
     }
   }
+
   return (
     <Formik<CollaboratorsData>
       initialValues={initialValues}
@@ -354,7 +358,13 @@ const Collaborators: React.FC<StepProps<Project> & CollaboratorModalData> = prop
                   <Layout.Horizontal width="50%">
                     <Text>{i18n.newProjectWizard.Collaborators.inviteCollab}</Text>
                   </Layout.Horizontal>
-                  <Layout.Horizontal width="50%" className={css.toEnd}>
+                  <Layout.Horizontal
+                    width="50%"
+                    spacing="xsmall"
+                    flex={{ align: 'center-center' }}
+                    className={css.toEnd}
+                  >
+                    <Text>{getString('collaborators.roleLabel')}</Text>
                     <CustomSelect
                       items={roles}
                       filterable={false}
@@ -362,6 +372,7 @@ const Collaborators: React.FC<StepProps<Project> & CollaboratorModalData> = prop
                         <div>
                           <Menu.Item
                             text={item.label}
+                            key={item.label}
                             onClick={(e: React.MouseEvent<HTMLElement, MouseEvent>) => handleClick(e)}
                           />
                         </div>
@@ -381,10 +392,30 @@ const Collaborators: React.FC<StepProps<Project> & CollaboratorModalData> = prop
                     items={users}
                     multiSelectProps={{
                       allowCreatingNewItems: true,
-                      createNewItemFromQuery: (query: string) => {
+                      onQueryChange: (query: string) => {
                         setSearch(query)
-                        return { label: query, value: query }
-                      }
+                      },
+                      // eslint-disable-next-line react/display-name
+                      tagRenderer: item => (
+                        <Layout.Horizontal key={item.label.toString()} spacing="small">
+                          <Avatar email={item.value.toString()} size="xsmall" />
+                          <Text>{item.label}</Text>
+                        </Layout.Horizontal>
+                      ),
+                      // eslint-disable-next-line react/display-name
+                      itemRender: (item, { handleClick }) => (
+                        <div>
+                          <Menu.Item
+                            text={
+                              <Layout.Horizontal spacing="small">
+                                <Avatar email={item.value.toString()} size="normal" />
+                                <Text>{item.label}</Text>
+                              </Layout.Horizontal>
+                            }
+                            onClick={handleClick}
+                          />
+                        </div>
+                      )
                     }}
                     className={css.input}
                   />

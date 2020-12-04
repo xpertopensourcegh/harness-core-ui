@@ -72,6 +72,8 @@ global:
     accessControl: 'Access Control'
     gitSync: 'Git Sync'
     templateLibrary: 'Template Library'
+  collaborators:
+    roleLabel: 'Role :'
   execution:
     pipelineIdentifierText: '(Execution ID: {{deploymentId}})' # Text for Pipeline Identifier
     triggerType: # text for trigger types
