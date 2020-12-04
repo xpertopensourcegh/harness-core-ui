@@ -54,7 +54,7 @@ export function AddDescriptionAndTags(props: DescriptionAndTagsInputProps): JSX.
   const [isTagsOpen, setIsTagsOpen] = useState(false)
   return (
     <Container className={cx(css.main, className)}>
-      <Container className={css.connectorFormNameWarpper}>
+      <Container className={css.connectorFormNameWrapper}>
         <Container className={css.connectorFormNameElm}>{formComponent}</Container>
         {(!isDescriptionOpen || !isTagsOpen) && (
           <Layout.Vertical spacing="xsmall" style={{ justifyContent: 'center', marginLeft: 'var(--spacing-large)' }}>
@@ -103,7 +103,7 @@ export function AddDescriptionAndKVTags(props: DescriptionAndTagsInputProps): JS
   const [isTagsOpen, setIsTagsOpen] = useState(false)
   return (
     <Container className={cx(css.main, className)}>
-      <Container className={css.connectorFormNameWarpper}>
+      <Container className={css.connectorFormNameWrapper}>
         <Container className={css.connectorFormNameElm}>{formComponent}</Container>
         {(!isDescriptionOpen || !isTagsOpen) && (
           <Layout.Vertical spacing="xsmall" style={{ justifyContent: 'center', marginLeft: 'var(--spacing-large)' }}>
@@ -116,22 +116,25 @@ export function AddDescriptionAndKVTags(props: DescriptionAndTagsInputProps): JS
           </Layout.Vertical>
         )}
       </Container>
-      {isDescriptionOpen && (
-        <FormInput.TextArea
-          className={css.expandedDescription}
-          name="description"
-          label={
-            <FieldLabelWithHideOption onHide={() => setIsDescriptionOpen(false)} fieldLabel={i18n.descriptionLabel} />
-          }
-        />
-      )}
-      {isTagsOpen && (
-        <FormInput.KVTagInput
-          name="tags"
-          label={<FieldLabelWithHideOption onHide={() => setIsTagsOpen(false)} fieldLabel={i18n.tagsLabel} />}
-          className="expandedTags"
-        />
-      )}
+
+      <Container className={css.connectorFormElm}>
+        {isDescriptionOpen && (
+          <FormInput.TextArea
+            className={css.expandedDescription}
+            name="description"
+            label={
+              <FieldLabelWithHideOption onHide={() => setIsDescriptionOpen(false)} fieldLabel={i18n.descriptionLabel} />
+            }
+          />
+        )}
+        {isTagsOpen && (
+          <FormInput.KVTagInput
+            name="tags"
+            label={<FieldLabelWithHideOption onHide={() => setIsTagsOpen(false)} fieldLabel={i18n.tagsLabel} />}
+            className="expandedTags"
+          />
+        )}
+      </Container>
     </Container>
   )
 }

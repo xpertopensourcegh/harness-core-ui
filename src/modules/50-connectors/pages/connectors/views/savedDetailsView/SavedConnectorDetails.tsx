@@ -5,6 +5,7 @@ import { Connectors } from '@connectors/constants'
 import type { ConnectorInfoDTO, VaultConnectorDTO } from 'services/cd-ng'
 import { StringUtils } from 'modules/10-common/exports'
 import { DelegateTypes } from '@connectors/pages/connectors/utils/ConnectorUtils'
+import type { TagsInterface } from '@common/interfaces/ConnectorsInterface'
 import { getLabelForAuthType } from '../../utils/ConnectorHelper'
 import i18n from './SavedConnectorDetails.i18n'
 import css from './SavedConnectorDetails.module.scss'
@@ -15,7 +16,7 @@ interface SavedConnectorDetailsProps {
 
 interface ActivityDetailsRowInterface {
   label: string
-  value: string | string[] | number | null | undefined
+  value: string | TagsInterface | number | null | undefined
   iconData?: {
     text: string
     icon: IconName
@@ -375,10 +376,11 @@ const getSchema = (props: SavedConnectorDetailsProps): Array<ActivityDetailsRowI
   ]
 }
 
-const renderTags = (value: string[]) => {
+const renderTags = (value: TagsInterface) => {
+  const tagKeys = Object.keys(value)
   return (
     <Layout.Horizontal spacing="small">
-      {value.map((tag, index) => {
+      {tagKeys.map((tag, index) => {
         return (
           <Tag minimal={true} key={tag + index}>
             {tag}
@@ -441,7 +443,7 @@ export const RenderDetailsSection: React.FC<RenderDetailsSectionProps> = props =
         {props.title}
       </Text>
       {props.data.map((item, index) => {
-        if (item.value && (item.label === i18n.tags ? (item.value as Array<string>).length : true)) {
+        if (item.value && (item.label === i18n.tags ? Object.keys(item.value as TagsInterface).length : true)) {
           return (
             <Layout.Vertical
               className={css.detailsSectionRowWrapper}

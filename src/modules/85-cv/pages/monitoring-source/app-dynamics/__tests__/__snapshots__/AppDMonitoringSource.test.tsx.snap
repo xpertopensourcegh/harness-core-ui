@@ -223,7 +223,7 @@ exports[`AppDMonitoringSOurce render initial state 1`] = `
                         class="StyledProps---font--2ipy StyledProps---main--1Wws main"
                       >
                         <div
-                          class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormNameWarpper"
+                          class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormNameWrapper"
                         >
                           <div
                             class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormNameElm"

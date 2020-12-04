@@ -16,7 +16,7 @@ export const getKubInitialValues = () => {
     name: 'NAME',
     description: '',
     identifier: '',
-    tags: [],
+    tags: {},
     delegateMode: '',
     credentialType: '',
     credential: {

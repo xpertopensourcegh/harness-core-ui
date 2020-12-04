@@ -4,8 +4,6 @@ import {
   Button,
   Formik,
   StepProps,
-  FormInput,
-  Text,
   ModalErrorHandlerBinding,
   ModalErrorHandler,
   FormikForm,
@@ -22,9 +20,12 @@ import {
   validateTheIdentifierIsUniquePromise,
   Failure
 } from 'services/cd-ng'
+import { AddDescriptionAndKVTagsWithIdentifier } from '@common/components/AddDescriptionAndTags/AddDescriptionAndTags'
+import { String } from 'framework/exports'
 import { getHeadingByType } from '../../../pages/connectors/utils/ConnectorHelper'
 import i18n from './ConnectorDetailsStep.i18n'
 import css from './ConnectorDetailsStep.module.scss'
+export type DetailsForm = Pick<ConnectorInfoDTO, 'name' | 'identifier' | 'description' | 'tags'>
 
 interface ConnectorDetailsStepProps extends StepProps<ConnectorInfoDTO> {
   type: ConnectorInfoDTO['type']
@@ -41,39 +42,42 @@ const ConnectorDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDe
   const { accountId, projectIdentifier, orgIdentifier } = useParams()
   const mounted = useRef(false)
   const [modalErrorHandler, setModalErrorHandler] = useState<ModalErrorHandlerBinding | undefined>()
-  const [isDescriptionOpen, setIsDescriptionOpen] = useState(false)
-  const [isTagsOpen, setIsTagsOpen] = useState(false)
-  const [loading, setLoading] = useState(false)
+  const [, setLoading] = useState(false)
 
   const handleSubmit = async (formData: ConnectorConfigDTO): Promise<void> => {
     mounted.current = true
-    setLoading(true)
+    if (props.isEditMode) {
+      //In edit mode validateTheIdentifierIsUnique API not required
+      props.setFormData?.(formData)
+      nextStep?.({ ...props.connectorInfo, ...prevStepData, ...formData })
+    } else {
+      setLoading(true)
+      try {
+        const response = await validateTheIdentifierIsUniquePromise({
+          queryParams: {
+            identifier: formData.identifier,
+            accountIdentifier: accountId,
+            orgIdentifier: orgIdentifier,
+            projectIdentifier: projectIdentifier
+          },
+          mock: props.mock
+        })
+        setLoading(false)
 
-    try {
-      const response = await validateTheIdentifierIsUniquePromise({
-        queryParams: {
-          identifier: formData.identifier,
-          accountIdentifier: accountId,
-          orgIdentifier: orgIdentifier,
-          projectIdentifier: projectIdentifier
-        },
-        mock: props.mock
-      })
-      setLoading(false)
-
-      if ('SUCCESS' === response.status) {
-        if (response.data || (props.connectorInfo && props.connectorInfo?.identifier === formData.identifier)) {
-          props.setFormData?.(formData)
-          nextStep?.({ ...props.connectorInfo, ...prevStepData, ...formData })
+        if ('SUCCESS' === response.status) {
+          if (response.data) {
+            props.setFormData?.(formData)
+            nextStep?.({ ...props.connectorInfo, ...prevStepData, ...formData })
+          } else {
+            modalErrorHandler?.showDanger(i18n.validateError)
+          }
         } else {
-          modalErrorHandler?.showDanger(i18n.validateError)
+          throw response as Failure
         }
-      } else {
-        throw response as Failure
+      } catch (error) {
+        setLoading(false)
+        modalErrorHandler?.showDanger(error.message)
       }
-    } catch (error) {
-      setLoading(false)
-      modalErrorHandler?.showDanger(error.message)
     }
   }
 
@@ -85,7 +89,7 @@ const ConnectorDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDe
         name: '',
         description: '',
         identifier: '',
-        tags: []
+        tags: {}
       }
     }
   }
@@ -95,12 +99,10 @@ const ConnectorDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDe
       <div className={css.heading}>{getHeadingByType(props.type)}</div>
       <ModalErrorHandler bind={setModalErrorHandler} />
 
-      <div>
-        <Formik
-          initialValues={{
-            ...getInitialValues(),
-            ...prevStepData,
-            ...props.formData
+      <Container padding="small" className={css.connectorForm}>
+        <Formik<DetailsForm>
+          onSubmit={formData => {
+            handleSubmit(formData)
           }}
           validationSchema={Yup.object().shape({
             name: Yup.string().trim().required(i18n.validation.name),
@@ -113,82 +115,30 @@ const ConnectorDetailsStep: React.FC<StepProps<ConnectorConfigDTO> & ConnectorDe
                 .notOneOf(StringUtils.illegalIdentifiers)
             })
           })}
-          onSubmit={formData => {
-            handleSubmit(formData)
+          initialValues={{
+            ...(getInitialValues() as DetailsForm),
+            ...prevStepData,
+            ...props.formData
           }}
         >
-          {() => (
-            <FormikForm>
-              <Container className={css.connectorForm}>
-                <div className={css.connectorFormNameWrapper}>
-                  <div className={css.connectorFormNameElm}>
-                    <FormInput.InputWithIdentifier
-                      inputLabel={i18n.connectorName}
-                      isIdentifierEditable={!props.isEditMode}
-                    />
-                  </div>
-
-                  <Layout.Vertical margin="small" padding={{ left: 'large', top: 'small' }} spacing="xsmall">
-                    {isDescriptionOpen ? null : (
-                      <Text className="link" onClick={() => setIsDescriptionOpen(true)}>
-                        {i18n.addDescription}
-                      </Text>
-                    )}
-                    {isTagsOpen ? null : (
-                      <Text className="link" onClick={() => setIsTagsOpen(true)}>
-                        {i18n.addTags}
-                      </Text>
-                    )}
-                  </Layout.Vertical>
-                </div>
-
-                <div className={css.connectorFormElm}>
-                  {isDescriptionOpen ? (
-                    <>
-                      <Container className={css.headerRow}>
-                        <Text inline>{i18n.description}</Text>
-                        <Text inline className="link" onClick={() => setIsDescriptionOpen(false)}>
-                          {i18n.remove}
-                        </Text>
-                      </Container>
-
-                      <FormInput.TextArea className={css.description} name="description" />
-                    </>
-                  ) : null}
-                </div>
-                <div className={css.connectorFormElm}>
-                  {isTagsOpen ? (
-                    <>
-                      <Container className={css.headerRow}>
-                        <Text inline>{i18n.tags}</Text>
-                        <Text inline className="link" onClick={() => setIsTagsOpen(false)}>
-                          {i18n.remove}
-                        </Text>
-                      </Container>
-                      <FormInput.TagInput
-                        name="tags"
-                        labelFor={name => (typeof name === 'string' ? name : '')}
-                        itemFromNewTag={newTag => newTag}
-                        items={[]}
-                        className={css.tags}
-                        tagInputProps={{
-                          noInputBorder: true,
-                          openOnKeyDown: false,
-                          showAddTagButton: true,
-                          showClearAllButton: true,
-                          allowNewTag: true
-                        }}
-                      />
-                    </>
-                  ) : null}
-                </div>
-              </Container>
-
-              <Button type="submit" text={i18n.saveAndContinue} className={css.saveBtn} disabled={loading} />
-            </FormikForm>
-          )}
+          {() => {
+            return (
+              <FormikForm>
+                <Container style={{ minHeight: 460 }}>
+                  <AddDescriptionAndKVTagsWithIdentifier
+                    identifierProps={{ inputName: 'name', isIdentifierEditable: !props.isEditMode }}
+                  />
+                </Container>
+                <Layout.Horizontal>
+                  <Button type="submit" intent="primary">
+                    <String stringID="saveAndContinue" />
+                  </Button>
+                </Layout.Horizontal>
+              </FormikForm>
+            )
+          }}
         </Formik>
-      </div>
+      </Container>
     </Layout.Vertical>
   )
 }

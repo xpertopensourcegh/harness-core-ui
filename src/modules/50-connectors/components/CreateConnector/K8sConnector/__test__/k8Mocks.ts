@@ -6,7 +6,7 @@ export const usernamePassword = {
   description: 'k8 descriptipn',
   orgIdentifier: '',
   projectIdentifier: '',
-  tags: ['k8'],
+  tags: { k8: '' },
   type: 'K8sCluster',
   spec: {
     credential: {
@@ -25,7 +25,7 @@ export const serviceAccount = {
   description: 'k8 descriptipn',
   orgIdentifier: '',
   projectIdentifier: '',
-  tags: ['k8'],
+  tags: { k8: '' },
   type: 'K8sCluster',
   spec: {
     credential: {
@@ -44,7 +44,7 @@ export const oidcMock = {
   description: 'k8 descriptipn',
   orgIdentifier: '',
   projectIdentifier: '',
-  tags: ['k8'],
+  tags: { k8: '' },
   type: 'K8sCluster',
   spec: {
     credential: {
@@ -73,7 +73,7 @@ export const clientKeyMock = {
   description: 'k8 descriptipn',
   orgIdentifier: '',
   projectIdentifier: '',
-  tags: ['k8'],
+  tags: { k8: '' },
   type: 'K8sCluster',
   spec: {
     credential: {

@@ -9,52 +9,6 @@
 
   .connectorForm {
     min-height: 440px;
-
-    .connectorFormNameWrapper {
-      display: flex;
-      width: 90%;
-
-      .connectorFormNameElm {
-        width: 60%;
-      }
-    }
-
-    .connectorFormElm {
-      width: 54%;
-      margin-bottom: 20px;
-
-      .headerRow {
-        display: flex;
-        justify-content: space-between;
-        color: var(--grey-400);
-        font-size: var(--font-size-small);
-        margin-bottom: 7px;
-      }
-      .description {
-        textarea {
-          max-height: 205px;
-          min-height: 100px;
-          min-width: 375px;
-        }
-      }
-      .tags {
-        height: 50px;
-        :global {
-          .bp3-form-content {
-            > div > div > div > div > {
-              button {
-                display: none;
-              }
-              div span {
-                height: 22px;
-                border-radius: 6px;
-                padding: 2px 3px;
-              }
-            }
-          }
-        }
-      }
-    }
   }
 
   :global {

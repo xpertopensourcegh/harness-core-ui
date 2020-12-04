@@ -91,7 +91,7 @@ describe('Create GCP connector Wizard', () => {
             type: 'ManualConfig'
           }
         },
-        tags: [],
+        tags: {},
         type: 'Gcp'
       }
     })

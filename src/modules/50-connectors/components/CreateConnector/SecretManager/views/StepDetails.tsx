@@ -16,6 +16,8 @@ import * as Yup from 'yup'
 
 import { StringUtils } from '@common/exports'
 import { ConnectorInfoDTO, validateTheIdentifierIsUniquePromise } from 'services/cd-ng'
+import type { TagsInterface } from '@common/interfaces/ConnectorsInterface'
+import { AddDescriptionAndKVTagsWithIdentifier } from '@common/components/AddDescriptionAndTags/AddDescriptionAndTags'
 import type { SecretManagerWizardData } from '../CreateSecretManager'
 
 import i18n from '../CreateSecretManager.i18n'
@@ -24,7 +26,7 @@ export interface DetailsData {
   name: string
   identifier: string
   description?: string
-  tags?: string[]
+  tags?: TagsInterface
   encryptionType: ConnectorInfoDTO['type']
 }
 
@@ -36,6 +38,7 @@ const encryptionTypeOptions: SelectOption[] = [
 ]
 
 interface ConnectorDetailsStepProps extends StepProps<SecretManagerWizardData> {
+  isEditMode?: boolean
   mock?: any
 }
 
@@ -73,7 +76,7 @@ const ConnectorDetailsStep: React.FC<ConnectorDetailsStepProps> = props => {
       <Text font={{ size: 'medium' }} padding={{ bottom: 'large', top: 'small' }}>
         {i18n.titleDetails}
       </Text>
-      <Container width="64%">
+      <Container>
         <ModalErrorHandler bind={setModalErrorHandler} style={{ marginBottom: 'var(--spacing-large)' }} />
         <Formik<DetailsData>
           initialValues={{
@@ -81,7 +84,7 @@ const ConnectorDetailsStep: React.FC<ConnectorDetailsStepProps> = props => {
             encryptionType: 'Vault',
             description: '',
             identifier: '',
-            tags: [],
+            tags: {},
             ...prevStepData?.detailsData
           }}
           validationSchema={Yup.object().shape({
@@ -102,23 +105,17 @@ const ConnectorDetailsStep: React.FC<ConnectorDetailsStepProps> = props => {
         >
           {() => (
             <Form>
-              <FormInput.InputWithIdentifier inputLabel={i18n.labelName} />
-              <FormInput.Select name="encryptionType" label={i18n.labelEncType} items={encryptionTypeOptions} />
-              <FormInput.TextArea label={i18n.labelDescription} name="description" />
-              <FormInput.TagInput
-                label={i18n.labelTags}
-                name="tags"
-                labelFor={name => (typeof name === 'string' ? name : '')}
-                itemFromNewTag={newTag => newTag}
-                items={[]}
-                tagInputProps={{
-                  noInputBorder: true,
-                  openOnKeyDown: false,
-                  showAddTagButton: true,
-                  showClearAllButton: true,
-                  allowNewTag: true
-                }}
+              <FormInput.Select
+                style={{ width: 450 }}
+                name="encryptionType"
+                label={i18n.labelEncType}
+                items={encryptionTypeOptions}
               />
+              <Container style={{ minHeight: 400 }}>
+                <AddDescriptionAndKVTagsWithIdentifier
+                  identifierProps={{ inputName: 'name', isIdentifierEditable: !props.isEditMode }}
+                />
+              </Container>
               <Button type="submit" text={i18n.buttonNext} disabled={loading} />
             </Form>
           )}

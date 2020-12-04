@@ -147,7 +147,9 @@ exports[`Create GCP connector Wizard Should render form 1`] = `
         >
           GCP Connector Details
         </div>
-        <div>
+        <div
+          class="StyledProps---font--2ipy StyledProps---main--1Wws connectorForm StyledProps---padding-small--3f0A"
+        >
           <div
             class="OverlaySpinner---overlaySpinner--3Bs3"
           >
@@ -156,118 +158,127 @@ exports[`Create GCP connector Wizard Should render form 1`] = `
             >
               <div>
                 <div
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws connectorForm"
+                  class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                  style="min-height: 460px;"
                 >
                   <div
-                    class="connectorFormNameWrapper"
+                    class="StyledProps---font--2ipy StyledProps---main--1Wws main"
                   >
                     <div
-                      class="connectorFormNameElm"
+                      class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormNameWrapper"
                     >
                       <div
-                        class="InputWithIdentifier---txtNameContainer--20iZ"
+                        class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormNameElm"
                       >
                         <div
-                          class="Layout---horizontal--3rmQ StyledProps---main--1Wws InputWithIdentifier---txtIdContainer--2Ozd"
+                          class="InputWithIdentifier---txtNameContainer--20iZ"
                         >
-                          <p
-                            class="StyledProps---font--2ipy StyledProps---main--1Wws"
-                          >
-                            ID
-                            :
-                          </p>
-                          <span
-                            class="InputWithIdentifier---idInput--w8_T"
-                            contenteditable="true"
-                          >
-                            dummy_name
-                            
-                          </span>
-                          <span
-                            class="bp3-icon bp3-icon-edit StyledProps---main--1Wws"
-                            icon="edit"
-                            style="vertical-align: middle;"
-                          >
-                            <svg
-                              data-icon="edit"
-                              height="12"
-                              viewBox="0 0 16 16"
-                              width="12"
-                            >
-                              <desc>
-                                edit
-                              </desc>
-                              <path
-                                d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
-                                fill-rule="evenodd"
-                              />
-                            </svg>
-                          </span>
-                        </div>
-                        <div
-                          class="bp3-form-group"
-                          data-id="name-0"
-                        >
-                          <label
-                            class="bp3-label"
-                            for="name"
-                          >
-                            Name
-                             
-                            <span
-                              class="bp3-text-muted"
-                            />
-                          </label>
                           <div
-                            class="bp3-form-content"
+                            class="Layout---horizontal--3rmQ StyledProps---main--1Wws InputWithIdentifier---txtIdContainer--2Ozd"
                           >
-                            <div
-                              class="bp3-input-group"
+                            <p
+                              class="StyledProps---font--2ipy StyledProps---main--1Wws"
                             >
-                              <input
-                                autocomplete="off"
-                                class="bp3-input"
-                                name="name"
-                                type="text"
-                                value="dummy name"
+                              ID
+                              :
+                            </p>
+                            <span
+                              class="InputWithIdentifier---idInput--w8_T"
+                              contenteditable="true"
+                            >
+                              dummy_name
+                              
+                            </span>
+                            <span
+                              class="bp3-icon bp3-icon-edit StyledProps---main--1Wws"
+                              icon="edit"
+                              style="vertical-align: middle;"
+                            >
+                              <svg
+                                data-icon="edit"
+                                height="12"
+                                viewBox="0 0 16 16"
+                                width="12"
+                              >
+                                <desc>
+                                  edit
+                                </desc>
+                                <path
+                                  d="M3.25 10.26l2.47 2.47 6.69-6.69-2.46-2.48-6.7 6.7zM.99 14.99l3.86-1.39-2.46-2.44-1.4 3.83zm12.25-14c-.48 0-.92.2-1.24.51l-1.44 1.44 2.47 2.47 1.44-1.44c.32-.32.51-.75.51-1.24.01-.95-.77-1.74-1.74-1.74z"
+                                  fill-rule="evenodd"
+                                />
+                              </svg>
+                            </span>
+                          </div>
+                          <div
+                            class="bp3-form-group"
+                            data-id="name-0"
+                          >
+                            <label
+                              class="bp3-label"
+                              for="name"
+                            >
+                              Name
+                               
+                              <span
+                                class="bp3-text-muted"
                               />
+                            </label>
+                            <div
+                              class="bp3-form-content"
+                            >
+                              <div
+                                class="bp3-input-group"
+                              >
+                                <input
+                                  autocomplete="off"
+                                  class="bp3-input"
+                                  name="name"
+                                  type="text"
+                                  value="dummy name"
+                                />
+                              </div>
                             </div>
                           </div>
                         </div>
                       </div>
+                      <div
+                        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
+                        style="justify-content: center;"
+                      >
+                        <p
+                          class="StyledProps---font--2ipy StyledProps---main--1Wws fieldToggleLabel StyledProps---color--8PuS StyledProps---color-blue500--3HtV"
+                        >
+                          + Description
+                        </p>
+                        <p
+                          class="StyledProps---font--2ipy StyledProps---main--1Wws fieldToggleLabel StyledProps---color--8PuS StyledProps---color-blue500--3HtV"
+                        >
+                          + Tags
+                        </p>
+                      </div>
                     </div>
                     <div
-                      class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---margin-small--1ZqR StyledProps---padding-left-large--28UT StyledProps---padding-top-small--1-XA"
-                    >
-                      <p
-                        class="StyledProps---font--2ipy StyledProps---main--1Wws link"
-                      >
-                        + Description
-                      </p>
-                      <p
-                        class="StyledProps---font--2ipy StyledProps---main--1Wws link"
-                      >
-                        + Tags
-                      </p>
-                    </div>
+                      class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormElm"
+                    />
                   </div>
-                  <div
-                    class="connectorFormElm"
-                  />
-                  <div
-                    class="connectorFormElm"
-                  />
                 </div>
-                <button
-                  class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws saveBtn"
-                  type="submit"
+                <div
+                  class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
                 >
-                  <span
-                    class="bp3-button-text"
+                  <button
+                    class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+                    type="submit"
                   >
-                    Save And Continue
-                  </span>
-                </button>
+                    <span
+                      class="bp3-button-text"
+                    >
+                      <span>
+                        Save and Continue
+                      </span>
+                    </span>
+                  </button>
+                </div>
               </div>
             </form>
           </div>
@@ -740,7 +751,9 @@ exports[`Create GCP connector Wizard Should render form for edit authtype encryp
         >
           GCP Connector Details
         </div>
-        <div>
+        <div
+          class="StyledProps---font--2ipy StyledProps---main--1Wws connectorForm StyledProps---padding-small--3f0A"
+        >
           <div
             class="OverlaySpinner---overlaySpinner--3Bs3"
           >
@@ -749,98 +762,107 @@ exports[`Create GCP connector Wizard Should render form for edit authtype encryp
             >
               <div>
                 <div
-                  class="StyledProps---font--2ipy StyledProps---main--1Wws connectorForm"
+                  class="StyledProps---font--2ipy StyledProps---main--1Wws"
+                  style="min-height: 460px;"
                 >
                   <div
-                    class="connectorFormNameWrapper"
+                    class="StyledProps---font--2ipy StyledProps---main--1Wws main"
                   >
                     <div
-                      class="connectorFormNameElm"
+                      class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormNameWrapper"
                     >
                       <div
-                        class="InputWithIdentifier---txtNameContainer--20iZ"
+                        class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormNameElm"
                       >
                         <div
-                          class="Layout---horizontal--3rmQ StyledProps---main--1Wws InputWithIdentifier---txtIdContainer--2Ozd"
+                          class="InputWithIdentifier---txtNameContainer--20iZ"
                         >
-                          <p
-                            class="StyledProps---font--2ipy StyledProps---main--1Wws"
-                          >
-                            ID
-                            :
-                          </p>
-                          <span
-                            class="InputWithIdentifier---idInput--w8_T"
-                            contenteditable="false"
-                            disabled=""
-                          >
-                            devConnector
-                          </span>
-                        </div>
-                        <div
-                          class="bp3-form-group"
-                          data-id="name-0"
-                        >
-                          <label
-                            class="bp3-label"
-                            for="name"
-                          >
-                            Name
-                             
-                            <span
-                              class="bp3-text-muted"
-                            />
-                          </label>
                           <div
-                            class="bp3-form-content"
+                            class="Layout---horizontal--3rmQ StyledProps---main--1Wws InputWithIdentifier---txtIdContainer--2Ozd"
                           >
-                            <div
-                              class="bp3-input-group"
+                            <p
+                              class="StyledProps---font--2ipy StyledProps---main--1Wws"
                             >
-                              <input
-                                autocomplete="off"
-                                class="bp3-input"
-                                name="name"
-                                type="text"
-                                value="dummy name"
+                              ID
+                              :
+                            </p>
+                            <span
+                              class="InputWithIdentifier---idInput--w8_T"
+                              contenteditable="false"
+                              disabled=""
+                            >
+                              devConnector
+                            </span>
+                          </div>
+                          <div
+                            class="bp3-form-group"
+                            data-id="name-0"
+                          >
+                            <label
+                              class="bp3-label"
+                              for="name"
+                            >
+                              Name
+                               
+                              <span
+                                class="bp3-text-muted"
                               />
+                            </label>
+                            <div
+                              class="bp3-form-content"
+                            >
+                              <div
+                                class="bp3-input-group"
+                              >
+                                <input
+                                  autocomplete="off"
+                                  class="bp3-input"
+                                  name="name"
+                                  type="text"
+                                  value="dummy name"
+                                />
+                              </div>
                             </div>
                           </div>
                         </div>
                       </div>
+                      <div
+                        class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws"
+                        style="justify-content: center;"
+                      >
+                        <p
+                          class="StyledProps---font--2ipy StyledProps---main--1Wws fieldToggleLabel StyledProps---color--8PuS StyledProps---color-blue500--3HtV"
+                        >
+                          + Description
+                        </p>
+                        <p
+                          class="StyledProps---font--2ipy StyledProps---main--1Wws fieldToggleLabel StyledProps---color--8PuS StyledProps---color-blue500--3HtV"
+                        >
+                          + Tags
+                        </p>
+                      </div>
                     </div>
                     <div
-                      class="Layout---vertical--3Szv Layout---layout-spacing-xsmall--C3jb StyledProps---main--1Wws StyledProps---margin-small--1ZqR StyledProps---padding-left-large--28UT StyledProps---padding-top-small--1-XA"
-                    >
-                      <p
-                        class="StyledProps---font--2ipy StyledProps---main--1Wws link"
-                      >
-                        + Description
-                      </p>
-                      <p
-                        class="StyledProps---font--2ipy StyledProps---main--1Wws link"
-                      >
-                        + Tags
-                      </p>
-                    </div>
+                      class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormElm"
+                    />
                   </div>
-                  <div
-                    class="connectorFormElm"
-                  />
-                  <div
-                    class="connectorFormElm"
-                  />
                 </div>
-                <button
-                  class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws saveBtn"
-                  type="submit"
+                <div
+                  class="Layout---horizontal--3rmQ StyledProps---main--1Wws"
                 >
-                  <span
-                    class="bp3-button-text"
+                  <button
+                    class="bp3-button StyledProps---font--2ipy Button---button--4ZD5 StyledProps---main--1Wws StyledProps---intent-primary--2Xgi"
+                    type="submit"
                   >
-                    Save And Continue
-                  </span>
-                </button>
+                    <span
+                      class="bp3-button-text"
+                    >
+                      <span>
+                        Save and Continue
+                      </span>
+                    </span>
+                  </button>
+                </div>
               </div>
             </form>
           </div>

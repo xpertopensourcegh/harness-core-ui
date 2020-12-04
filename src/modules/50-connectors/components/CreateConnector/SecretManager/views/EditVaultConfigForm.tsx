@@ -3,7 +3,7 @@ import * as Yup from 'yup'
 import { Button, Formik, FormikForm, FormInput } from '@wings-software/uikit'
 import { useParams } from 'react-router-dom'
 import { pick } from 'lodash-es'
-
+import type { TagsInterface } from '@common/interfaces/ConnectorsInterface'
 import type { VaultConnectorDTO, ConnectorInfoDTO, ConnectorRequestBody } from 'services/cd-ng'
 import i18n from '../CreateSecretManager.i18n'
 import VaultConnectorFormFields, { vaultConnectorFormFieldsValidationSchema } from './VaultConnectorFormFields'
@@ -13,7 +13,7 @@ interface EditVaultConfigFormData extends VaultConfigFormData {
   name: string
   identifier: string
   description?: string
-  tags?: string[]
+  tags?: TagsInterface
 }
 interface ConnectorFormProps {
   type: string

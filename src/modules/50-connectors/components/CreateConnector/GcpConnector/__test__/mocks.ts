@@ -6,7 +6,7 @@ export const encryptedKeyMock = {
   description: 'devConnector description',
   orgIdentifier: '',
   projectIdentifier: '',
-  tags: [],
+  tags: {},
   type: 'Gcp',
   spec: { credential: { type: 'ManualConfig', spec: { secretKeyRef: 'account.s15656' } } }
 }

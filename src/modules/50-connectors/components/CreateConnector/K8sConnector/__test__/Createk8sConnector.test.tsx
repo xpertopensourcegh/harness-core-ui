@@ -114,7 +114,7 @@ describe('Create k8 connector Wizard', () => {
             type: 'ManualConfig'
           }
         },
-        tags: ['k8'],
+        tags: { k8: '' },
         type: 'K8sCluster'
       }
     })

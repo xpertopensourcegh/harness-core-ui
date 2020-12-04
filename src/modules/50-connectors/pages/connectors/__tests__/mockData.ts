@@ -10,7 +10,7 @@ export const ManualK8s = {
           identifier: 'k8sId',
           name: 'K8sName',
           type: 'K8sCluster',
-          tags: [],
+          tags: {},
           spec: {
             credential: {
               type: 'ManualConfig',
@@ -55,7 +55,7 @@ export const InlineK8s = {
           identifier: 'k8sId',
           name: 'K8sName',
           type: 'K8sCluster',
-          tags: ['tag1'],
+          tags: { tag1: '' },
           spec: {
             credential: {
               type: 'InheritFromDelegate',
@@ -93,7 +93,7 @@ export const GitHttp = {
           identifier: 'GitHttpId',
           name: 'GitHttpName',
           type: 'Git',
-          tags: ['tag1'],
+          tags: { tag1: '' },
           spec: {
             branchName: 'branch',
             connectionType: 'REPO',
@@ -133,7 +133,7 @@ export const Docker = {
           identifier: 'DockerId',
           name: 'DockerName',
           type: '"DockerRegistry"',
-          tags: ['tag1'],
+          tags: { tag1: '' },
           spec: {
             dockerRegistryUrl: 'docker Registry url',
             auth: {
@@ -172,7 +172,7 @@ export const ActiveDocker = {
           identifier: 'DockerId',
           name: 'DockerName',
           type: '"DockerRegistry"',
-          tags: ['tag1'],
+          tags: { tag1: '' },
           spec: {
             dockerRegistryUrl: 'docker Registry url',
             auth: {
@@ -212,7 +212,7 @@ export const Vault = {
           identifier: 'VaultId',
           name: 'VaultName',
           type: '"Vault"',
-          tags: ['tag1'],
+          tags: { tag1: '' },
           spec: {
             default: false
           }
@@ -244,7 +244,7 @@ export const GCP = {
           name: 'GCP for demo',
           identifier: 'GCP_for_demo',
           description: 'Details',
-          tags: ['GCP', 'demo'],
+          tags: { GCP: '', demo: '' },
           type: 'Gcp',
           spec: { credential: { type: 'ManualConfig', spec: { secretKeyRef: 'account.GCP' } } }
         },
@@ -272,7 +272,7 @@ export const AWS = {
           name: 'AWS demo',
           identifier: 'AWS_demo',
           description: 'connector description',
-          tags: ['demo', 'test'],
+          tags: { demo: '', test: '' },
           type: 'Aws',
           spec: {
             credential: {
@@ -306,7 +306,7 @@ export const Nexus = {
           name: 'Nexus one',
           identifier: 'Nexus_one',
           description: 'testing nexus connector',
-          tags: [],
+          tags: {},
           type: 'Nexus',
           spec: {
             nexusServerUrl: 'https://nexus2.harness.io',
@@ -338,7 +338,7 @@ export const Artifactory = {
           name: 'Artifacory One',
           identifier: 'Artifacory_One',
           description: '',
-          tags: [],
+          tags: {},
           type: 'Artifactory',
           spec: {
             artifactoryServerUrl: 'https://test-repo.blackducksoftware.com/artifactory/',

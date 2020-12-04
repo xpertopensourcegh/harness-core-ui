@@ -10,7 +10,6 @@ const dummyConnectorInfo = {
   name: 'sm14',
   identifier: 'sm14',
   description: 'asd',
-  tags: [],
   type: Connectors.Vault,
   spec: {
     vaultUrl: 'http://localhost:8200',

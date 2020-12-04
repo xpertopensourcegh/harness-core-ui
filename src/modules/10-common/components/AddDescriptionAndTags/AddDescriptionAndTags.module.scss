@@ -1,10 +1,10 @@
 .main {
-  .connectorFormNameWarpper {
+  .connectorFormNameWrapper {
     display: flex;
-    justify-content: space-between;
+    width: 90%;
 
     .connectorFormNameElm {
-      width: 100%;
+      width: 60%;
     }
   }
 
@@ -12,16 +12,19 @@
     cursor: pointer;
   }
 
-  .headerRow {
-    display: flex;
-    justify-content: space-between;
-    color: var(--grey-400);
-    font-size: var(--font-size-small);
-    margin-bottom: 7px;
-  }
-  .expandedDescription textarea {
-    max-height: 500px;
-    min-height: 100px;
-    resize: vertical;
+  .connectorFormElm {
+    width: 54%;
+    .headerRow {
+      display: flex;
+      justify-content: space-between;
+      color: var(--grey-400);
+      font-size: var(--font-size-small);
+      margin-bottom: 7px;
+    }
+    .expandedDescription textarea {
+      max-height: 500px;
+      min-height: 100px;
+      resize: vertical;
+    }
   }
 }

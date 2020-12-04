@@ -60,7 +60,7 @@ export const ConnectorResponse: UseGetReturnData<ResponseConnectorResponse> = {
         identifier: 'tesa1',
         description: '',
         orgIdentifier: 'Harness11',
-        tags: [],
+        tags: {},
         type: 'K8sCluster',
         spec: {
           credential: {

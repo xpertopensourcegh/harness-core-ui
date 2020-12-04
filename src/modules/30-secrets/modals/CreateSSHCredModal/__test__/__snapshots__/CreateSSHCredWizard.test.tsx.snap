@@ -81,7 +81,7 @@ exports[`Create Secret Manager Wizard should render form 1`] = `
                   class="StyledProps---font--2ipy StyledProps---main--1Wws main"
                 >
                   <div
-                    class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormNameWarpper"
+                    class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormNameWrapper"
                   >
                     <div
                       class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormNameElm"
@@ -171,6 +171,9 @@ exports[`Create Secret Manager Wizard should render form 1`] = `
                       </p>
                     </div>
                   </div>
+                  <div
+                    class="StyledProps---font--2ipy StyledProps---main--1Wws connectorFormElm"
+                  />
                 </div>
               </div>
               <div
