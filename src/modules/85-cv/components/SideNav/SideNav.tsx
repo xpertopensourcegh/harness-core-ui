@@ -8,10 +8,12 @@ import { ProjectSelector } from '@common/navigation/ProjectSelector/ProjectSelec
 import type { AccountPathProps, ProjectPathProps } from '@common/interfaces/RouteInterfaces'
 import { SidebarLink } from '@common/navigation/SideNav/SideNav'
 import { AdminSelector, AdminSelectorLink } from '@common/navigation/AdminSelector/AdminSelector'
+import { useStrings } from 'framework/exports'
 
 export default function CISideNav(): React.ReactElement {
   const { accountId, projectIdentifier, orgIdentifier } = useParams<AccountPathProps & Partial<ProjectPathProps>>()
   const routeMatch = useRouteMatch()
+  const { getString } = useStrings()
   const history = useHistory()
 
   return (
@@ -51,7 +53,7 @@ export default function CISideNav(): React.ReactElement {
           />
           <AdminSelector path={routes.toCVAdmin({ accountId })}>
             <AdminSelectorLink
-              label="Resources"
+              label={getString('adminSideNavLinks.resources')}
               iconName="main-scope"
               to={routes.toCVAdminResources({
                 projectIdentifier,
@@ -59,11 +61,26 @@ export default function CISideNav(): React.ReactElement {
                 accountId
               })}
             />
-            <AdminSelectorLink label="Template Library" iconName="grid" to="" disabled />
-            <AdminSelectorLink label="Git Sync" iconName="git-repo" to="" disabled />
-            <AdminSelectorLink label="Governance" iconName="shield" to="" disabled />
-            <AdminSelectorLink label="Access Control" iconName="user" to="" disabled />
-            <AdminSelectorLink label="General Settings" iconName="settings" to="" disabled />
+            <AdminSelectorLink label={getString('adminSideNavLinks.templateLibrary')} iconName="grid" to="" disabled />
+            <AdminSelectorLink label={getString('adminSideNavLinks.gitSync')} iconName="git-repo" to="" disabled />
+            <AdminSelectorLink label={getString('adminSideNavLinks.governance')} iconName="shield" to="" disabled />
+            <AdminSelectorLink label={getString('adminSideNavLinks.accessControl')} iconName="user" to="" disabled />
+            <AdminSelectorLink
+              label={getString('adminSideNavLinks.generalSettings')}
+              iconName="settings"
+              to=""
+              disabled
+            />
+            <AdminSelectorLink
+              label={getString('cv.navLinks.adminSideNavLinks.setup')}
+              iconName="square"
+              to={routes.toCVAdminSetup({ projectIdentifier, orgIdentifier, accountId })}
+            />
+            <AdminSelectorLink
+              label={getString('cv.navLinks.adminSideNavLinks.activitySources')}
+              iconName="square"
+              to={routes.toCVAdminActivitySources({ projectIdentifier, orgIdentifier, accountId })}
+            />
           </AdminSelector>
         </React.Fragment>
       ) : null}

@@ -49,7 +49,6 @@ const RedirectToCVHome = (): React.ReactElement => {
 
 const RedirectToResourcesHome = (): React.ReactElement => {
   const params = useParams<AccountPathProps & ProjectPathProps>()
-
   return <Redirect to={routes.toCVAdminResourcesConnectors(params)} />
 }
 
@@ -143,7 +142,6 @@ export default (
         >
           <ActivitySourceSetup />
         </RouteWithLayout>
-        <RouteWithLayout></RouteWithLayout>
         <RouteWithLayout
           exact
           path={routes.toCVMetricPackConfigureThresholdPage({ ...accountPathProps, ...projectPathProps })}

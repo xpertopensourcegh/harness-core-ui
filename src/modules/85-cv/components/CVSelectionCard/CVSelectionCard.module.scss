@@ -30,7 +30,7 @@
   }
 
   .cardLabel {
-    padding: var(--spacing-xlarge);
+    padding: var(--spacing-xlarge) !important;
     text-align: center;
   }
 }

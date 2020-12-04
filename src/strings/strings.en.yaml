@@ -65,6 +65,13 @@ global:
   selectProduct: 'Select Product'
   selectApplication: 'Select Application'
   mapApplications: 'Map Applications to Harness Services'
+  adminSideNavLinks:
+    resources: 'Resources'
+    governance: 'Governance'
+    generalSettings: 'General Settings'
+    accessControl: 'Access Control'
+    gitSync: 'Git Sync'
+    templateLibrary: 'Template Library'
   execution:
     pipelineIdentifierText: '(Execution ID: {{deploymentId}})' # Text for Pipeline Identifier
     triggerType: # text for trigger types
@@ -256,10 +263,6 @@ global:
       services: 'Services'
       adminSideNavLinks:
         setup: 'Setup'
-        resources: 'Resources'
-        governance: 'Governance'
-        generalSettings: 'General Settings'
-        accessControl: 'Access Control'
         activitySources: 'Activity Sources'
     admin:
       activitySources:

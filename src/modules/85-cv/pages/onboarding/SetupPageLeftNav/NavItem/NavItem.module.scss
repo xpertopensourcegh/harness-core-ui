@@ -5,20 +5,20 @@
   &:hover {
     cursor: pointer;
     .itemLabel {
-      background-color: var(--blue-825);
+      background-color: var(--blue-825) !important;
       color: var(--white) !important;
     }
   }
 
   .itemLabel {
-    margin: 0 var(--spacing-small);
+    margin: 0 var(--spacing-small) !important;
     text-overflow: ellipsis;
     white-space: nowrap !important;
-    padding: var(--spacing-small);
+    padding: var(--spacing-small) !important;
   }
 }
 
 .selected .itemLabel {
-  background-color: var(--blue-825);
+  background-color: var(--blue-825) !important;
   color: var(--white) !important;
 }

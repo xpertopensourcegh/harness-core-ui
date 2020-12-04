@@ -1,9 +1,9 @@
 .main {
   display: flex;
   .namespaceNav {
-    margin: 0 var(--spacing-large);
+    margin: 0 var(--spacing-large) !important;
     .namespace {
-      margin-bottom: var(--spacing-small);
+      margin-bottom: var(--spacing-small) !important;
     }
   }
 
@@ -14,7 +14,7 @@
     top: 40px;
 
     .mapWorkloadHeading {
-      margin-bottom: var(--spacing-xlarge);
+      margin-bottom: var(--spacing-xlarge) !important;
     }
 
     .noWorkloads {
@@ -26,7 +26,7 @@
     .workloadTable {
       [role='cell']:not(:last-of-type),
       [role='columnheader']:not(:last-of-type) {
-        margin-right: var(--spacing-medium);
+        margin-right: var(--spacing-medium) !important;
       }
 
       .selectWidth {

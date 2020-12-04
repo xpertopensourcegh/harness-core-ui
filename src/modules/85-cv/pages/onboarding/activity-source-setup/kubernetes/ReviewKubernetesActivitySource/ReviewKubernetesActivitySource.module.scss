@@ -3,7 +3,7 @@
   height: calc(100vh - 150px) !important;
   overflow-y: scroll;
   .heading {
-    margin-left: calc(var(--spacing-xxxlarge) + var(--spacing-xsmall));
+    margin-left: calc(var(--spacing-xxxlarge) + var(--spacing-xsmall)) !important;
   }
   .reviewTable {
     margin: 0 auto;
